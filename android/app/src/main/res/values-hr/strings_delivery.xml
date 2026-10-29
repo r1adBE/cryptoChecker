@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">Da alarmi stignu</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">U redu</string>
+    <string name="delivery_state_warn">Provjeri ovo</string>
+    <string name="delivery_state_info">Napomena</string>
+    <string name="delivery_allowed">Dopušteno</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">Obavijesti</string>
+    <string name="delivery_notifications_off">Isključeno – alarmi neće stizati</string>
+    <string name="delivery_notifications_not_asked">Još nije dopušteno</string>
+    <string name="delivery_channel">Kanal alarma</string>
+    <string name="delivery_channel_high">Visoka važnost – pojavljuje se na zaslonu</string>
+    <string name="delivery_channel_low">Niska važnost – alarmi se samo tiho pojavljuju na popisu</string>
+    <string name="delivery_channel_off">Isključeno – alarmi neće stizati</string>
+    <string name="delivery_exact_on">Uključeno – otprilike svakih 15 minuta</string>
+    <string name="delivery_exact_off">Isključeno – Android provjerava neredovito</string>
+    <string name="delivery_battery">Optimizacija baterije</string>
+    <string name="delivery_battery_unrestricted">Bez ograničenja</string>
+    <string name="delivery_battery_optimized">Optimizirano – Android može odgađati provjere. Aplikacija ne traži iznimku; to možeš promijeniti u postavkama baterije za aplikaciju.</string>
+    <string name="delivery_background">Upotreba u pozadini</string>
+    <string name="delivery_background_restricted">Ograničeno – Android zaustavlja provjere u pozadini</string>
+    <string name="delivery_dnd">Ne uznemiravaj</string>
+    <string name="delivery_dnd_on">Uključeno – alarmi mogu stizati bez zvuka</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">Aktivno do %1$s – alarmi na čekanju čekaju do tada</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – alarmi na čekanju čekaju u tom razdoblju</string>
+    <string name="delivery_last_check">Posljednja provjera u pozadini</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – prije više od 6 sati</string>
+    <string name="delivery_last_check_never">Još nijedna</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">Dopusti</string>
+    <string name="delivery_action_change">Promijeni</string>
+    <string name="delivery_action_show">Prikaži</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">Natpisi i zvuk</string>
+    <string name="delivery_alert_off">Natpisi isključeni – alarmi se pojavljuju samo u Centru obavijesti</string>
+    <string name="delivery_sound_off">Zvuk isključen – alarmi stižu tiho</string>
+    <string name="delivery_time_sensitive">Vremenski osjetljive obavijesti</string>
+    <string name="delivery_time_sensitive_off">Isključeno – Fokus može zadržati alarme</string>
+    <string name="delivery_background_refresh">Osvježavanje u pozadini</string>
+    <string name="delivery_low_power">Način rada niske potrošnje</string>
+    <string name="delivery_swipe_away">Aplikacija zatvorena povlačenjem?</string>
+    <string name="delivery_swipe_away_note">Ako aplikaciju odgurneš u prebacivaču aplikacija, iOS zaustavlja provjere u pozadini dok je ponovno ne otvoriš.</string>
+    <string name="delivery_live_activity">Aktivnost uživo</string>
+    <string name="delivery_live_activity_note">Prikazuje cijenu na zaključanom zaslonu, ali se ažurira samo kada aplikacija provjerava – ne čini da se alarmi češće provjeravaju.</string>
+
+    <string name="alarm_first_check">Provjeri stižu li alarmi</string>
+
+    <string name="oem_battery_title">Proizvođačeva ušteda baterije</string>
+    <string name="oem_battery_xiaomi">Xiaomi može potpuno zaustaviti aplikaciju – tada alarmi ne stižu. Uključi „Automatsko pokretanje“ i za uštedu baterije postavi „Bez ograničenja“.</string>
+    <string name="oem_battery_samsung">Samsung može aplikaciju staviti u duboko mirovanje – tada alarmi ne stižu. Pod Baterija › Ograničenja upotrebe u pozadini dodaj je u „Aplikacije koje nikad ne miruju“.</string>
+    <string name="oem_battery_huawei">Huawei/Honor može zaustaviti aplikaciju – tada alarmi ne stižu. Pod Baterija › Pokretanje aplikacija odaberi „Upravljaj ručno“ i dopusti sve opcije.</string>
+    <string name="oem_battery_oneplus">OnePlus može zaustaviti aplikaciju – tada alarmi ne stižu. Dopusti „Automatsko pokretanje“ i, pod Upotreba baterije, aktivnost u pozadini.</string>
+    <string name="oem_battery_oppo">Oppo/Realme može zaustaviti aplikaciju – tada alarmi ne stižu. Dopusti „Automatsko pokretanje“ i, pod Upotreba baterije, aktivnost u pozadini.</string>
+    <string name="oem_battery_vivo">Vivo može zaustaviti aplikaciju – tada alarmi ne stižu. Dopusti „Automatsko pokretanje“ i, pod Baterija, visoku potrošnju energije u pozadini.</string>
+    <string name="alarm_reliability_stale">Posljednja provjera %1$s – alarmi mogu kasniti</string>
+    <string name="alarm_reliability_never">Alarmi uključeni – još nema provjere u pozadini</string>
+    <string name="alarm_reliability_notifications_off">Obavijesti isključene – alarmi neće stizati</string>
+    <string name="alarm_reliability_battery">Ušteda baterije može zaustaviti provjere alarma</string>
+    <string name="alarm_reliability_background_refresh">Osvježavanje u pozadini isključeno – alarmi možda neće stići</string>
+</resources>

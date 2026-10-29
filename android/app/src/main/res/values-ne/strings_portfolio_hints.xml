@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">पोर्टफोलियो अलर्टहरू रोकिएका छन्: %1$s को हालको मूल्य छैन</string>
+    <string name="portfolio_alarms_paused_price_generic">पोर्टफोलियो अलर्टहरू रोकिएका छन्: हरेक कोइनको हालको मूल्य छैन</string>
+    <string name="portfolio_alarms_paused_addresses">पोर्टफोलियो अलर्टहरू रोकिएका छन्: हेरिएका ठेगानाहरूको ब्यालेन्स अझै लोड भएको छैन</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">पोर्टफोलियो अलर्टहरू रोकिएका छन्: %1$s का टोकन ब्यालेन्स आंशिक रूपमा पुराना छन्</string>
+    <string name="portfolio_alarms_paused_tokens_generic">पोर्टफोलियो अलर्टहरू रोकिएका छन्: हेरिएका ठेगानाहरूका टोकन ब्यालेन्स आंशिक रूपमा पुराना छन्</string>
+    <string name="portfolio_alarms_paused_unverified">पोर्टफोलियो अलर्टहरू रोकिएका छन्: %1$s को मूल्य प्रमाणित छैन</string>
+    <string name="portfolio_alarms_paused_unverified_generic">पोर्टफोलियो अलर्टहरू रोकिएका छन्: केही कोइनको मूल्य प्रमाणित छैन</string>
+    <string name="portfolio_alarms_address_failing">पोर्टफोलियो अलर्टहरूले %1$s बिना जाँच गर्छन्: 24 घण्टाभन्दा बढी समयदेखि ब्यालेन्स लोड भएको छैन</string>
+    <string name="portfolio_alarms_address_failing_generic">पोर्टफोलियो अलर्टहरूले 24 घण्टाभन्दा बढी समयदेखि ब्यालेन्स लोड नभएका ठेगानाहरू बिना जाँच गर्छन्</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">टोकन आंशिक रूपमा पुराना</string>
+    <string name="portfolio_address_restore_failed">ठेगाना पुनर्स्थापना गर्न सकिएन – आवश्यक भए फेरि थप्नुहोस्</string>
+    <string name="portfolio_address_remove_failed">ठेगाना हटाउन सकिएन – कृपया फेरि प्रयास गर्नुहोस्</string>
+</resources>

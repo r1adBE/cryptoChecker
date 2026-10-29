@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">Altcoins vs. Bitcoin</string>
+    <string name="neutral_btc_indicators_title">Indicadors de Bitcoin</string>
+    <string name="neutral_halving_last">Últim halving: %1$s</string>
+    <string name="neutral_halving_next">Pròxim halving previst cap a %1$s (estimat segons el calendari – l\'altura de bloc no està disponible ara mateix).</string>
+    <string name="neutral_indicators_disclaimer">Només valors mesurats, sense valoració. No és una previsió ni un assessorament d\'inversió.</string>
+    <string name="neutral_onchain_missing">Les dades on-chain (Coin Metrics) no estan disponibles ara mateix.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">Fins a quin punt el preu és per sota del seu màxim històric anterior.</string>
+    <string name="neutral_explain_change_30d">Preu d\'avui comparat amb el de fa 30 dies.</string>
+    <string name="neutral_explain_hashrate">Hashrate mitjà de 30 dies comparat amb la mitjana de 60 dies.</string>
+    <string name="neutral_explain_ma200w">Mitjana dels últims 200 tancaments setmanals.</string>
+    <string name="neutral_explain_mayer">Preu dividit per la mitjana de 200 dies.</string>
+    <string name="neutral_explain_mvrv">Valor de mercat dividit pel valor realitzat (on-chain).</string>
+    <string name="neutral_explain_pi_gap">Mitjana de 111 dies comparada amb el doble de la mitjana de 350 dies.</string>
+    <string name="neutral_explain_puell">Ingressos diaris dels miners dividits per la seva mitjana de 365 dies.</string>
+    <string name="neutral_explain_rsi_daily">Índex de força relativa dels últims 14 dies, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">Índex de força relativa de les últimes 14 setmanes, 0–100.</string>
+    <string name="neutral_explain_sma50_200">Mitjana de 50 dies comparada amb la mitjana de 200 dies.</string>
+    <string name="neutral_explain_vs_btc">Variació del preu comparada amb Bitcoin en 90 dies.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">L\'app només mostra el recompte i no l\'etiqueta com a temporada. El valor sol canviar en dies, no en hores.</string>
+    <string name="neutral_info_btc_how">Cada valor ve amb una frase sobre què mesura i on se situa dins de la seva pròpia història des del 2016. L\'app no valora els valors ni en dedueix cap fase de mercat; els límits de les alarmes de mercat són només els que configures tu. Els patrons del passat no s\'han de repetir necessàriament.</string>
+    <string name="neutral_info_btc_what">Indicadors habituals de Bitcoin com a valors mesurats simples: Mayer Multiple, mitjana de 200 setmanes, caiguda des del màxim històric, variació en 30 dies, distància del Pi Cycle i els valors on-chain MVRV, Puell Multiple i hashrate.</string>
+    <string name="neutral_info_coin_how">Cada valor ve amb una frase sobre què mesura, sense valoració. Per a monedes amb un historial de preus curt falten alguns valors. Aquí no s\'inclouen dades on-chain.</string>
+    <string name="neutral_info_coin_what">Els mateixos indicadors simples per a una moneda que triïs, només a partir de dades de preu: Mayer Multiple, mitjana de 200 setmanes, caiguda des del màxim històric, variació en 30 dies, tendència 50/200 dies, RSI i força respecte a Bitcoin en 90 dies.</string>
+    <string name="neutral_info_halving_how">El pròxim halving es calcula a partir de l\'altura de bloc actual i del temps mitjà de bloc del període de dificultat actual (mempool.space); sense aquestes dades, segons el calendari (últim halving més uns quatre anys). El gràfic mostra l\'evolució del preu dels cicles anteriors des del seu halving – història, no una previsió.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">Tendència 50/200 dies</string>
+    <string name="ind_drawdown">Caiguda des del màxim històric</string>
+    <string name="ind_missing">no hi ha prou dades</string>
+    <string name="ind_rsi_daily">RSI (diari)</string>
+    <string name="ind_rsi_weekly">RSI (setmanal)</string>
+    <string name="ind_vs_btc">Força vs. Bitcoin (90 dies)</string>
+    <string name="neutral_ind_change_30d">Variació 30 dies</string>
+    <string name="neutral_ind_hashrate">Hashrate 30/60 dies</string>
+    <string name="neutral_ind_ma200w">Mitjana de 200 setmanes</string>
+    <string name="neutral_ind_pi_gap">Distància del Pi Cycle</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">Alt vol dir que la majoria de les grans altcoins han superat Bitcoin en 90 dies; baix vol dir que Bitcoin ha superat la majoria.</string>
+    <string name="ind_read_ath_distance">Petit vol dir que el preu és a prop del rècord; gran vol dir que n\'és molt per sota.</string>
+    <string name="ind_read_change_30d">Positiu vol dir més alt que fa 30 dies; negatiu, més baix.</string>
+    <string name="ind_read_funding">Alt vol dir que molts traders aposten amb palanquejament per preus a l\'alça; negatiu vol dir que molts aposten per preus a la baixa.</string>
+    <string name="ind_read_hashrate_30_60">Positiu vol dir que la potència de càlcul creix; negatiu vol dir que els miners s\'estan desconnectant.</string>
+    <string name="ind_read_leverage">Molts longs vol dir que molts aposten per preus a l\'alça amb diners prestats; molts shorts vol dir que molts aposten per preus a la baixa.</string>
+    <string name="ind_read_ma200w">Un preu molt per sobre vol dir una pujada llarga; un preu a prop vol dir un retrocés profund.</string>
+    <string name="ind_read_mayer">Alt vol dir que el preu és molt per sobre de la mitjana de 200 dies; baix vol dir que n\'és per sota.</string>
+    <string name="ind_read_mvrv">Alt vol dir que el preu és molt per sobre del que els tenidors van pagar de mitjana; baix vol dir a prop o per sota.</string>
+    <string name="ind_read_pi_cycle_gap">A prop de zero vol dir que les dues mitjanes gairebé es toquen; molt negatiu vol dir que són molt allunyades.</string>
+    <string name="ind_read_puell">Alt vol dir que els miners guanyen molt més del que és habitual; baix, molt menys.</string>
+    <string name="ind_read_rsi_daily">Per sobre de 70 vol dir guanys forts els últims dies; per sota de 30, pèrdues fortes.</string>
+    <string name="ind_read_rsi_weekly">Per sobre de 70 vol dir guanys forts les últimes setmanes; per sota de 30, pèrdues fortes.</string>
+    <string name="ind_read_sma50_vs_200">Positiu vol dir que la mitjana a curt termini és per sobre de la de llarg termini; negatiu, per sota.</string>
+    <string name="ind_read_vs_btc">Positiu vol dir que ho ha fet millor que Bitcoin; negatiu, pitjor.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">Mateix preu durant 30 dies: %1$s</string>
+    <string name="ind_context_note">Els valors passats i els càlculs de «mateix preu» són aritmètica, no una previsió.</string>
+    <string name="ind_context_percentile">Des del %1$s, més baix el %2$s dels dies</string>
+</resources>

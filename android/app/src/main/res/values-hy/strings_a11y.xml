@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">Ահազանգը գործարկվեց</string>
+    <string name="a11y_collapsed">Ծալված է</string>
+    <string name="a11y_converted">մոտ %1$s</string>
+    <string name="a11y_expanded">Բացված է</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">բացվում է դիտարկիչում</string>
+    <string name="a11y_favorite">Ընտրյալ</string>
+    <string name="a11y_in_watchlist">Արդեն դիտացանկում է</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_exchange_unreachable">%1$s-ը հասանելի չէ</string>
+    <string name="a11y_move_down">Տեղափոխել ներքև</string>
+    <string name="a11y_move_up">Տեղափոխել վերև</string>
+    <string name="a11y_note">նշում՝ %1$s</string>
+    <string name="a11y_price">գինը՝ %1$s</string>
+    <string name="a11y_price_notification_off">Գնի ծանուցումն անջատված է</string>
+    <string name="a11y_price_notification_on">Գնի ծանուցումը միացված է</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">Գինը հնացած է</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s, %2$s-ում</string>
+    <string name="a11y_stale">հնացած է, վերջին թարմացումը՝ %1$s</string>
+    <string name="a11y_warning">Զգուշացում</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">%1$s 24 ժամում</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">24-ժամյա փոփոխությունը հասանելի չէ</string>
+    <string name="a11y_change_down">նվազում՝ %1$s</string>
+    <string name="a11y_change_flat">անփոփոխ</string>
+    <string name="a11y_change_since_last">%1$s վերջին թարմացումից ի վեր</string>
+    <string name="a11y_change_since_last_none">Վերջին թարմացումից ի վեր փոփոխությունը հասանելի չէ</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">%1$s այսօր</string>
+    <string name="a11y_change_today_none">Այսօրվա փոփոխությունը հասանելի չէ</string>
+    <string name="a11y_change_today_zone">%1$s կեսգիշերից ի վեր (%2$s)</string>
+    <string name="a11y_change_today_zone_none">Կեսգիշերից ի վեր փոփոխությունը (%1$s) հասանելի չէ</string>
+    <string name="a11y_change_up">աճ՝ %1$s</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Գրաֆիկ %1$s՝ %2$s-ից մինչև %3$s, %4$s։ Առավելագույնը՝ %5$s, նվազագույնը՝ %6$s։</string>
+    <string name="a11y_chart_empty">Գրաֆիկ՝ տվյալներ չկան</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Ցիկլ %1$s՝ %2$s հալվինգից ի վեր, օր %3$d։</string>
+    <string name="a11y_cycle_bottom">Հատակ՝ %1$s, օր %2$d։</string>
+    <string name="a11y_cycle_double_bottom">Կրկնակի հատակ՝ %1$s, օր %2$d։</string>
+    <string name="a11y_cycle_double_top">Կրկնակի գագաթ՝ %1$s, օր %2$d։</string>
+    <string name="a11y_cycle_top">Գագաթ՝ %1$s, օր %2$d։</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">Սանդղակ %1$s-ից մինչև %2$s՝ %3$d 100-ից</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, միջինում՝ %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s։ %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">նվազում է՝ %1$d</item>
+        <item quantity="other">նվազում են՝ %1$d</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="one">%1$d զույգը 24-ժամյա արժեք չունի</item>
+        <item quantity="other">%1$d զույգ 24-ժամյա արժեք չունի</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d զույգը այսօրվա արժեք չունի</item>
+        <item quantity="other">%1$d զույգ այսօրվա արժեք չունի</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d զույգ աճում է</item>
+        <item quantity="other">%1$d զույգ աճում է</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="one">վերջին թարմացումը՝ %1$d օր առաջ</item>
+        <item quantity="other">վերջին թարմացումը՝ %1$d օր առաջ</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="one">վերջին թարմացումը՝ %1$d ժամ առաջ</item>
+        <item quantity="other">վերջին թարմացումը՝ %1$d ժամ առաջ</item>
+    </plurals>
+    <string name="a11y_updated_just_now">վերջին թարմացումը՝ հենց նոր</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="one">վերջին թարմացումը՝ %1$d րոպե առաջ</item>
+        <item quantity="other">վերջին թարմացումը՝ %1$d րոպե առաջ</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">գումարը թաքցված է</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_entry">%1$s %2$s, այսօրվա արժեքը՝ %3$s</string>
+    <string name="a11y_portfolio_entry_in">Մուտքային</string>
+    <string name="a11y_portfolio_entry_no_value">արժեքը հասանելի չէ</string>
+    <string name="a11y_portfolio_entry_note">նշում %1$s</string>
+    <string name="a11y_portfolio_entry_out">Ելքային</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, պորտֆելի %3$s-ը</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, պորտֆելի %2$s-ը, %3$s</string>
+    <string name="a11y_portfolio_positions">Ամենամեծ դիրքերը՝ %1$s</string>
+    <string name="a11y_portfolio_show_amounts">Ցույց տալ գումարները</string>
+    <string name="a11y_compare_chart">Համեմատություն տոկոսներով, %1$s՝ %2$s</string>
+    <string name="a11y_compare_from_high">%1$s 30-օրյա առավելագույնից</string>
+    <string name="a11y_price_overlay">Գնի ծածկույթ՝ %1$s</string>
+</resources>

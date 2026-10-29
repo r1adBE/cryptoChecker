@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
+    <string name="portfolio_cutoff_export_action">مقررہ تاریخ کا ایکسپورٹ…</string>
+    <string name="portfolio_tax_worksheet_action">ورک شیٹ…</string>
+    <string name="portfolio_export_address_unobserved">اس تاریخ کو پتہ زیرِ نگرانی نہیں تھا – شامل نہیں</string>
+    <string name="portfolio_export_button">CSV ایکسپورٹ کریں</string>
+    <string name="portfolio_export_col_amount">مقدار</string>
+    <string name="portfolio_export_col_coin">کوائن</string>
+    <string name="portfolio_export_col_note">نوٹ</string>
+    <string name="portfolio_export_col_price">قیمت USDT</string>
+    <string name="portfolio_export_col_rate">شرح USDT→%1$s</string>
+    <string name="portfolio_export_col_value">مالیت USDT</string>
+    <string name="portfolio_export_col_value_cur">مالیت %1$s</string>
+    <!-- Inhalt der CSV-Datei -->
+    <string name="portfolio_export_comment"># مقررہ تاریخ %1$s، کرنسی %2$s، %3$s کی شرح تبادلہ</string>
+    <string name="portfolio_export_currency">کرنسی: %1$s</string>
+    <string name="portfolio_export_date">مقررہ تاریخ</string>
+    <string name="portfolio_export_done">ایکسپورٹ محفوظ ہو گیا</string>
+    <string name="portfolio_export_estv_note">دولت ٹیکس کے لیے جہاں درج ہوں وہاں ESTV قیمت فہرست %1$s کی سرکاری سال کے آخر کی قدریں لاگو ہوتی ہیں: %2$s</string>
+    <string name="portfolio_export_failed">ایکسپورٹ ناکام</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">ایکسپورٹ ناکام: فائل لکھی نہیں جا سکی – محفوظ کرنے کی جگہ موجود نہیں یا قابلِ تحریر نہیں</string>
+    <string name="portfolio_export_failed_prices">ایکسپورٹ ناکام: قیمتیں لوڈ نہیں ہو سکیں – کوئی کنکشن نہیں یا ایکسچینج جواب نہیں دے رہا</string>
+    <string name="portfolio_export_from_address">پتے سے – قیمتِ خرید نہیں</string>
+    <string name="portfolio_export_hint">منتخب دن کے اختتام پر ہولڈنگز، USDT میں روزانہ بندش (UTC) پر جانچی گئی اور اس دن کی ECB حوالہ جاتی شرح سے تبدیل۔ کرنسی “تبدیل کریں” سے بدلیں۔</string>
+    <string name="portfolio_export_incomplete">نامکمل</string>
+    <string name="portfolio_export_no_fx">شرح تبادلہ نہیں</string>
+    <string name="portfolio_export_no_price">قیمت نہیں</string>
+    <string name="portfolio_export_running">تاریخی قیمتیں حاصل کی جا رہی ہیں…</string>
+    <string name="portfolio_export_title">مقررہ تاریخ کا ایکسپورٹ</string>
+    <string name="portfolio_export_today_hint">آج ابھی ختم نہیں ہوا: روزانہ بندش کے بجائے موجودہ قیمت استعمال ہوتی ہے۔</string>
+    <string name="portfolio_export_total">کل</string>
+    <string name="portfolio_export_unchecked">غیر جانچا (مماثل قیمت نہیں)</string>
+
+    <!-- Steuer-Export (Arbeitspapier) -->
+    <string name="tax_export_adjustment">superficial loss (ACB میں شامل)</string>
+    <string name="tax_export_at_wallet_note">آسٹریا: فی کوائن اور والیٹ (ایکسچینج) متحرک اوسط – ٹرانسفرز لاگت ساتھ لے جاتے ہیں – انعامات حصول کی لاگت 0 پر – 1 مارچ 2021 سے ہولڈنگز فیس کے بغیر (قابلِ کٹوتی نہیں) – لینڈنگ سود وصولی کی مالیت پر (27.5 فیصد پر آمدنی)۔</string>
+    <string name="tax_export_avg_cost_rates">تاریخِ خرید کی شرحوں پر لاگت (اوسط)</string>
+    <string name="tax_export_ch_wealth_not_calculated">دولت ٹیکس کا حساب نہیں کیا گیا – ESTV قیمت فہرست: %1$s</string>
+    <string name="tax_export_col_acquired">حاصل کیا</string>
+    <string name="tax_export_col_adjustment">ناقابلِ قبول نقصان %1$s</string>
+    <string name="tax_export_col_cost">لاگت %1$s</string>
+    <string name="tax_export_col_date">تاریخ</string>
+    <string name="tax_export_col_days">رکھنے کے دن</string>
+    <string name="tax_export_col_gain">نفع %1$s</string>
+    <string name="tax_export_col_gross">فیس سے پہلے قیمت %1$s</string>
+    <string name="tax_export_col_long_term">&gt; 1 سال رکھا</string>
+    <string name="tax_export_col_portfolio_value">پورٹ فولیو کی مالیت %1$s</string>
+    <string name="tax_export_col_proceeds">آمدنی %1$s</string>
+    <string name="tax_export_col_sold">فروخت کیا</string>
+    <string name="tax_export_cost_incomplete">حصول کی کل لاگت نامکمل</string>
+    <string name="tax_export_cost_missing">قیمتِ خرید موجود نہیں</string>
+    <string name="tax_export_fee_consumed">فیس پوری وصولی کو ختم کر دیتی ہے</string>
+    <string name="tax_export_fee_leg">دوسرے کوائن میں فیس</string>
+    <string name="tax_export_fee_row">فیس</string>
+    <string name="tax_export_fee_value_missing">دوسرے کوائن کی فیس کی کوئی مالیت نہیں</string>
+    <string name="tax_export_gains">حاصل شدہ تصرفات (CSV)</string>
+    <string name="tax_export_gains_title">حاصل شدہ تصرفات %1$s</string>
+    <string name="tax_export_gift">تحفہ</string>
+    <string name="tax_export_holdings_cutoff">%1$s کو ہولڈنگز (CSV)</string>
+    <string name="tax_export_holdings_title">%1$s کو ہولڈنگز</string>
+    <string name="tax_export_income">آمدنی (CSV)</string>
+    <string name="tax_export_income_title">آمدنی %1$s</string>
+    <string name="tax_export_info_template">ٹیمپلیٹ: %1$s · طریقہ: %2$s · ٹیکس سال: %3$s · کرنسی: %4$s · Crypto Checker %5$s</string>
+    <string name="tax_export_lost_fee_cost">ادا شدہ لاٹ کے بغیر نیٹ ورک فیس کی لاگت</string>
+    <string name="tax_export_match_pool">Section 104 pool</string>
+    <string name="tax_export_match_same_day">ایک ہی دن (HMRC)</string>
+    <string name="tax_export_match_thirty_day">30 دن کا اصول (HMRC)</string>
+    <string name="tax_export_method_change_warning">طریقہ یا ٹیمپلیٹ بدلنے سے پچھلے سال بھی دوبارہ حساب ہوتے ہیں – جو پہلے جمع کرایا گیا ہے اس سے موازنہ کریں۔</string>
+    <string name="tax_export_method_overridden">ٹیمپلیٹ %1$s حساب کرتا ہے – %2$s نہیں</string>
+    <string name="tax_export_new_holding">1 مارچ 2021 سے حاصل</string>
+    <string name="tax_export_no">نہیں</string>
+    <string name="tax_export_old_holding">1 مارچ 2021 سے پہلے حاصل</string>
+    <string name="tax_export_oversold">درج شدہ سے زیادہ فروخت</string>
+    <string name="tax_export_payment">کرپٹو سے ادائیگی</string>
+    <string name="tax_export_period">%1$s – %2$s</string>
+    <string name="tax_export_proceeds_missing">قیمتِ فروخت موجود نہیں</string>
+    <string name="tax_export_proceeds_without_cost">قیمتِ خرید کے بغیر آمدنی</string>
+    <string name="tax_export_realized_differs">ٹیکس CSV ‘حاصل شدہ’ سے مختلف ہو سکتی ہے (ملک کے ٹیکس قواعد)۔</string>
+    <string name="tax_export_rule">&gt; 1 سال: تاریخِ خرید + 1 کیلنڈر سال کے بعد فروخت۔ تاریخیں مقامی وقت میں۔ شرحیں: لین دین کے دن کی ECB روزانہ شرح؛ نہ ہو تو 7 دن پہلے تک کی آخری شرح۔</string>
+    <string name="tax_export_rules_date">قواعد بمطابق: %1$s</string>
+    <string name="tax_export_rules_stale">قواعد %1$s کے ہیں – %2$s کے لیے شرحیں اور چھوٹ بدل چکی ہو سکتی ہیں۔ قدریں چیک کریں۔</string>
+    <string name="tax_export_spouse_gift">شریکِ حیات/پارٹنر کو – نہ نفع، نہ نقصان</string>
+    <string name="tax_export_summary">سالانہ خلاصہ %1$s (CSV)</string>
+    <string name="tax_export_swap">سواپ</string>
+    <string name="tax_export_tax_year">ٹیکس سال</string>
+    <string name="tax_export_transfer_fee_info">USDT/نقد میں ٹرانسفر فیس – نقصان نہیں، لاگت کی بنیاد میں نہیں، صرف معلومات</string>
+    <string name="tax_export_unassigned_fee">فیس تفویض نہیں – لاگت کی بنیاد نامعلوم</string>
+    <string name="tax_export_usdt_usd_note">USDT، USDT/USD روزانہ بندش پر تبدیل؛ بندش نہ ہو تو 1 USD (ہر قطار میں نشان زد)</string>
+    <string name="tax_export_value_estimated">مالیت تخمینی (روزانہ بندش)</string>
+    <string name="tax_export_value_missing">وصولی کی مالیت موجود نہیں</string>
+    <string name="tax_export_wallet">والیٹ: %1$s</string>
+    <string name="tax_export_wallet_unspecified">متعین نہیں</string>
+    <string name="tax_export_withdrawal_fee">نکلوائی کی فیس</string>
+    <string name="tax_export_withdrawal_fee_info">USDT/نقد میں نکلوائی کی فیس – نقصان نہیں، صرف معلومات</string>
+    <string name="tax_export_workpaper_disclaimer">ٹیکس ورک شیٹ – ٹیکس ریٹرن نہیں اور ٹیکس کا مشورہ نہیں</string>
+    <string name="tax_export_workpaper_title">ورک شیٹ</string>
+    <string name="tax_export_year_local_zone">تاریخیں مقامی وقت میں (%1$s)</string>
+    <string name="tax_export_yes">ہاں</string>
+
+    <!-- Steuer-Export: Zeilen und Spalten -->
+    <string name="tax_line_at_interest">لینڈنگ سود (وصولی کی مالیت)</string>
+    <string name="tax_line_at_old_long">1 مارچ 2021 سے پہلے حاصل – &gt; 1 سال رکھا: عموماً قابلِ ٹیکس نہیں – چیک کریں</string>
+    <string name="tax_line_at_rate">خصوصی شرح 27.5 فیصد: خالص، 1 مارچ 2021 سے حاصل اور 1 مارچ 2022 سے فروخت + سود</string>
+    <string name="tax_line_au_discounted">نقصانات اور 50 فیصد رعایت کے بعد خالص سرمایہ جاتی نفع</string>
+    <string name="tax_line_ca_taxable">قابلِ ٹیکس سرمایہ جاتی نفع (شمولیت کی شرح 1/2)</string>
+    <string name="tax_line_ch_income">انعامات درج – ان کے برتاؤ کے لیے ESTV ورکنگ پیپر دیکھیں</string>
+    <string name="tax_line_ch_private">نجی اثاثوں پر سرمایہ جاتی نفع: حساب نہیں کیا گیا – درجہ بندی کے لیے ESTV دیکھیں</string>
+    <string name="tax_line_ch_wealth">دولت ٹیکس: حساب نہیں کیا گیا – ہولڈنگز CSV میں 31 دسمبر کو ایکسچینج قیمت × USD/CHF استعمال ہوتا ہے – سرکاری ٹیکس قدریں: ESTV قیمت فہرست</string>
+    <string name="tax_line_de_long">&gt; 1 سال رکھا: § 23 EStG کے تحت عموماً قابلِ ٹیکس نہیں – چیک کریں</string>
+    <string name="tax_line_denied_loss">ناقابلِ قبول نقصانات (superficial loss)</string>
+    <string name="tax_line_fr_outflow">فروخت کے بغیر اخراج (نکلوائیاں) – حصول کی کل لاگت متناسب طور پر کم</string>
+    <string name="tax_line_fr_rate">مقررہ شرح 12.8 فیصد جمع سماجی کٹوتیاں (یا اختیار پر سلیب)</string>
+    <string name="tax_line_fr_threshold">سال میں €305 تک تصرفات: عموماً مستثنیٰ (قیمتِ فروخت کا مجموعہ) – چیک کریں</string>
+    <string name="tax_line_gains">نفع</string>
+    <string name="tax_line_income">آمدنی (وصولی کی مالیت پر انعامات)</string>
+    <string name="tax_line_jp_misc">متفرق آمدنی (雑所得): خالص نفع + آمدنی</string>
+    <string name="tax_line_long_net">خالص – &gt; 1 سال رکھا</string>
+    <string name="tax_line_losses">نقصانات</string>
+    <string name="tax_line_net">خالص نفع/نقصان</string>
+    <string name="tax_line_new_net">خالص – 1 مارچ 2021 سے حاصل، 1 مارچ 2022 سے فروخت</string>
+    <string name="tax_line_old_long_net">خالص – 1 مارچ 2021 سے پہلے حاصل – &gt; 1 سال رکھا</string>
+    <string name="tax_line_old_short_net">خالص – قیاسی لین دین (سابقہ قانون): 1 مارچ 2021 سے پہلے حاصل اور ≤ 1 سال رکھا، یا 1 مارچ 2022 سے پہلے فروخت</string>
+    <string name="tax_line_proceeds">آمدنی</string>
+    <string name="tax_line_short_net">خالص – ≤ 1 سال رکھا</string>
+    <string name="tax_line_transfer_fees">ٹرانسفر فیسیں (اپنے والیٹس)</string>
+    <string name="tax_line_uk_after_exempt">مستثنیٰ رقم سے زائد خالص نفع (صرف کرپٹو)</string>
+    <string name="tax_line_uk_exempt">سالانہ مستثنیٰ رقم – تمام تصرفات پر مجموعی طور پر لاگو، یہاں پوری لاگو کی گئی</string>
+    <string name="tax_line_us_terms">قلیل مدتی (≤ 1 سال): عام شرحیں – طویل مدتی (&gt; 1 سال): سرمایہ جاتی نفع کی شرحیں</string>
+    <string name="tax_line_withdrawal_fees">نکلوائی کی فیسیں</string>
+
+    <!-- Steuer Deutschland -->
+    <string name="tax_de_below">حد سے نیچے</string>
+    <string name="tax_de_col_item">مد</string>
+    <string name="tax_de_disclaimer">صرف رہنمائی کے لیے – ٹیکس ریٹرن نہیں اور ٹیکس کا مشورہ نہیں۔</string>
+    <string name="tax_de_explain_below">%1$s تک: حد سے نیچے (رہنمائی کے لیے)۔</string>
+    <string name="tax_de_explain_loss">خالص نقصان: ان فروخت پر کوئی ٹیکس نہیں۔ § 23 EStG کے تحت نقصانات صرف نجی فروخت کے نفع سے منہا ہو سکتے ہیں – اسی سال میں یا پچھلے سال کی طرف واپس لے جا کر اور آئندہ برسوں میں آگے لے جا کر (§ 23 para. 3 اور § 10d EStG)۔ نقصان کی تشخیص کے لیے اسے اپنے ٹیکس ریٹرن میں ظاہر کریں۔</string>
+    <string name="tax_de_explain_reached">%1$s سے پوری رقم شمار ہوتی ہے (استثنا کی حد – الاؤنس نہیں)۔</string>
+    <string name="tax_de_explain_unknown">جانچا نہیں جا سکتا: شرح تبادلہ / قیمتِ خرید یا رکھنے کی مدت موجود نہیں۔</string>
+    <string name="tax_de_income_limit">خدمات کے لیے استثنا کی حد (§ 22 No. 3 EStG)</string>
+    <string name="tax_de_limit_scope">حدیں سال کی تمام نجی فروخت یا خدمات پر مجموعی طور پر لاگو ہوتی ہیں – ایپ سے باہر والی بھی۔</string>
+    <string name="tax_de_loading">حساب ہو رہا ہے…</string>
+    <string name="tax_de_long_gains">نفع – &gt; 1 سال رکھا</string>
+    <string name="tax_de_long_losses">نقصانات – &gt; 1 سال رکھا</string>
+    <string name="tax_de_loss">خالص نقصان – صرف نجی فروخت کے نفع سے منہا ہو سکتا ہے (§ 23 EStG)</string>
+    <string name="tax_de_private_limit">نجی فروخت کے لیے استثنا کی حد (§ 23 EStG)</string>
+    <string name="tax_de_reached">حد پوری ہو گئی – عموماً پوری رقم شمار ہوتی ہے – چیک کریں</string>
+    <string name="tax_de_short_gains">نفع – ≤ 1 سال رکھا</string>
+    <string name="tax_de_short_losses">نقصانات – ≤ 1 سال رکھا</string>
+    <string name="tax_de_unclassified">رکھنے کی مدت نامعلوم</string>
+    <string name="tax_de_unknown">جانچا نہیں جا سکتا</string>
+
+    <!-- Steuer-Vorlagen je Land -->
+    <string name="tax_template_at">آسٹریا</string>
+    <string name="tax_template_au">آسٹریلیا</string>
+    <string name="tax_template_beta">بیٹا</string>
+    <string name="tax_template_beta_note">بیٹا: ملکی قواعد آسان کیے گئے، ٹیکس ریٹرن جمع کرانے سے پہلے چیک کریں</string>
+    <string name="tax_template_ca">کینیڈا</string>
+    <string name="tax_template_ch">سوئٹزرلینڈ</string>
+    <string name="tax_template_confirm_text">بیٹا، آسان قواعد، دوسرے پلیٹ فارمز کے لین دین شامل نہیں – ٹیکس ریٹرن جمع کرانے سے پہلے چیک کریں۔</string>
+    <string name="tax_template_confirm_title">ٹیکس ٹیمپلیٹ (بیٹا)</string>
+    <string name="tax_template_current">ٹیمپلیٹ: %1$s · طریقہ: %2$s · کرنسی: %3$s</string>
+    <string name="tax_template_de">جرمنی</string>
+    <string name="tax_template_fr">فرانس</string>
+    <string name="tax_template_hint">صرف رہنمائی کے لیے: ٹیکس ورک شیٹ کا طریقہ، ٹیکس سال اور خلاصہ طے کرتا ہے۔ پورٹ فولیو کارڈ غیر جانبدار رہتا ہے – تحائف اور ٹرانسفر فیسیں ورک شیٹ سے مختلف ہو سکتی ہیں۔</string>
+    <string name="tax_template_jp">جاپان</string>
+    <string name="tax_template_neutral">غیر جانبدار (تمام ممالک)</string>
+    <string name="tax_template_suggestion">آپ کے علاقے کے لیے تجویز: %1$s</string>
+    <string name="tax_template_title">ٹیکس ٹیمپلیٹ</string>
+    <string name="tax_template_uk">برطانیہ</string>
+    <string name="tax_template_us">امریکہ</string>
+    <string name="tax_template_use">%1$s استعمال کریں</string>
+
+    <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
+    <string name="tax_method_at">پرانی/نئی ہولڈنگز – متحرک اوسط</string>
+    <string name="tax_method_ca_acb">ACB اوسط لاگت (superficial loss)</string>
+    <string name="tax_method_fr_pta">حصول کی کل قیمت (art. 150 VH bis)</string>
+    <string name="tax_method_jp_total">کل اوسط (総平均法)</string>
+    <string name="tax_method_uk_pool">Section 104 pool (ایک ہی دن / 30 دن)</string>
+    <string name="tax_note_at">فی کوائن اور والیٹ متحرک اوسط – والیٹس کے پار نہیں (KryptowährungsVO § 2)۔ انعامات حصول کی لاگت 0 پر نئی ہولڈنگز میں آتے ہیں (BMF: اسٹیکنگ / ایئر ڈراپس) – آمدنی کی فائل انہیں وصولی کی مالیت پر دکھاتی ہے۔ 1 مارچ 2021 سے حاصل ہولڈنگز پر فیس قابلِ کٹوتی نہیں (§ 27a(4) no. 2، § 20(2) EStG): فیس کے بغیر لاگت اور آمدنی۔ لینڈنگ سود (CSV امپورٹ یا نوٹ سے قسم) وصولی پر 27.5 فیصد پر آمدنی ہے اور یہی مالیت حصول کی لاگت کے طور پر رہتی ہے۔</string>
+    <string name="tax_note_at_staking">پہلے سے موجود کوائنز کے ساتھ اسٹیکنگ اور ایئر ڈراپس: وصولی کی مالیت ٹیکس کے لیے اہم نہیں – قانون کے مطابق حصول کی لاگت 0 ہے (§ 27b Abs. 2 EStG؛ BMF “Kryptowährungen”)۔ ٹیکس صرف فروخت پر لاگو ہوتا ہے۔</string>
+    <string name="tax_note_fr">کرپٹو میں ادا کی گئی فروخت اور فیسیں تصرفات ہیں – سواپس مؤخر ہیں۔ فروخت پر کرپٹو فیس فیس سے پہلے کی قیمت میں شمار ہوتی ہے – ورنہ یہ اپنی مالیت پر الگ تصرف ہے۔ پورٹ فولیو کی مالیت روزانہ بندش سے – بندش موجود نہ ہو تو لاگت خالی رہتی ہے۔</string>
+    <string name="tax_note_network_fee">کرپٹو میں ادا کی گئی نیٹ ورک فیس (اپنے والیٹ میں ٹرانسفر، نکلوائی) مارکیٹ ویلیو پر فیس کوائنز کا تصرف ہے – نفع یا نقصان صرف ان کوائنز پر، پوری فیس کا نقصان نہیں (%1$s)۔ درج قیمت نہ ہو تو: اسی دن کی روزانہ بندش (UTC)؛ بندش نہ ہو تو آمدنی خالی رہتی ہے۔</string>
+    <string name="tax_note_specific_id">مخصوص شناخت معاون نہیں – FIFO استعمال ہوتا ہے۔</string>
+    <string name="tax_note_spouse_gift">“شریکِ حیات / سول پارٹنر کو” نشان زد تحفہ نہ نفع ہے نہ نقصان: آمدنی = آپ کی لاگت کی بنیاد، جو آپ کا شریک سنبھال لیتا ہے (%1$s)۔</string>
+    <string name="tax_note_stable_swap">کرپٹو بیچ کر اسٹیبل کوائن (USDT/USDC/DAI …) لینا اور اسے رکھنا یہاں کرپٹو سے کرپٹو ہے اور اس پر ٹیکس نہیں – اسے اسٹیبل کوائن میں سواپ کے طور پر درج کریں۔ صرف یورو کے عوض فروخت پر ٹیکس ہے – “فروخت” یورو کے عوض فروخت شمار ہوتی ہے۔</string>
+    <string name="tax_note_transfer_fee">اپنے والیٹس کے درمیان ٹرانسفر پر USDT یا نقد فیس پر بھی یہی لاگو ہے: یہ لاگت کی بنیاد میں شامل نہیں ہوتی اور صرف معلومات کے طور پر درج ہوتی ہے۔</string>
+    <string name="tax_note_uk">HMRC کے مطابق مماثلت: ایک ہی دن → اگلے 30 دن → Section 104 pool۔</string>
+    <string name="tax_note_us_transition">1 جنوری 2025 کی منتقلی (Rev. Proc. 2024-28 safe harbor): اگر پچھلے برسوں میں تمام والیٹس میں FIFO استعمال ہوا ہو تو 31 دسمبر 2024 تک باقی لاٹس ان والیٹس میں جاتے ہیں جن میں کوائنز ہیں – سب سے پرانے کوائنز والے والیٹ کو سب سے پرانی لاگت کی بنیاد ملتی ہے۔ یہ تقسیم ایپ کا ایک اصول ہے – اسے اپنے ریکارڈ سے ملا کر دیکھیں۔</string>
+    <string name="tax_note_us_wallet">ٹیکس سال 2025 سے IRS فی والیٹ یا ایکسچینج لاگت کی بنیاد مانگتا ہے (Rev. Proc. 2024-28): ایکسپورٹ 2025 سے فی والیٹ FIFO استعمال کرتا ہے – پچھلے برسوں کے لیے تمام والیٹس میں FIFO، یا اگر آپ کا لاگت کا طریقہ یہی ہو تو فی والیٹ FIFO۔</string>
+    <string name="tax_note_withdrawal_fee">USDT یا نقد میں نکلوائی کی فیس نقصان نہیں: نقد فیس قابلِ کٹوتی لاگت نہیں، USDT فیس بغیر نفع کے برابر قدر پر تصرف ہے – اسے صرف معلومات کے طور پر درج کیا جاتا ہے (%1$s)۔</string>
+    <string name="tax_summary_at_interest_income">شمار ہوتا ہے: وصولی پر 27.5 فیصد کی خصوصی شرح پر آمدنی (§ 27b(2) no. 1 EStG / BMF) – کوائنز یہی مالیت حصول کی لاگت کے طور پر رکھتے ہیں</string>
+    <string name="tax_summary_at_reward_info">صرف معلومات کے لیے – کسی مجموعے کا حصہ نہیں: انعامات حصول کی لاگت 0 پر نئی ہولڈنگز میں آتے ہیں اور صرف فروخت پر ٹیکس ہوتا ہے (نفع میں پہلے سے شامل) – § 27b para. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">1 جنوری–28 فروری 2022: 27.5 فیصد کا اختیار ممکن</string>
+    <string name="tax_summary_at_withdrawal_fee">نکلوائی کی فیس – نئی ہولڈنگز سے منہا نہیں (خصوصی شرح پر اخراجات قابلِ کٹوتی نہیں، § 20(2) EStG)</string>
+    <string name="tax_summary_ch_fifo_info">صرف معلومات کے لیے – ایپ کا FIFO حساب – درجہ بندی نہیں – ESTV دیکھیں</string>
+    <string name="tax_summary_ch_year_end_value">ہولڈنگز CSV میں 31 دسمبر کی مالیت = ایکسچینج قیمت × USD/CHF – ESTV ٹیکس قدریں نہیں</string>
+    <string name="tax_summary_de_withdrawal_fee">نکلوائی کی فیس – § 23 کے تحت منہا نہیں، چیک کریں کہ آمدنی سے متعلق اخراجات کے طور پر قابلِ کٹوتی ہے یا نہیں</string>
+    <string name="tax_summary_not_calculated_estv">حساب نہیں کیا گیا – ESTV قیمت فہرست: %1$s</string>
+    <string name="tax_summary_orientation">رہنمائی</string>
+    <string name="tax_summary_orientation_block">صرف رہنمائی کے لیے – ٹیکس کا مشورہ نہیں – تشخیص نہیں</string>
+    <string name="tax_summary_orientation_item">رہنمائی: %1$s</string>
+    <string name="tax_summary_title">سالانہ خلاصہ %1$s %2$s</string>
+    <string name="tax_summary_transfer_fee_info">USDT/نقد میں ٹرانسفر فیسیں – نقصان نہیں اور لاگت کی بنیاد میں نہیں، صرف معلومات</string>
+    <string name="tax_summary_withdrawal_fee_info">USDT/نقد میں نکلوائی کی فیسیں – نقصان شمار نہیں، صرف معلومات</string>
+
+    <string name="tax_line_at_old_speculation_limit">قیاسی لین دین (سابقہ قانون، ≤ 1 سال رکھا): استثنا کی حد (§ 31 (3) EStG پرانا ورژن)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">1 مارچ 2022 سے پہلے کا لینڈنگ سود (وصولی کی مالیت)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">1 مارچ 2022 سے پہلے کا سود: پرانا قانون (انکم ٹیکس کی شرح)، 27.5 فیصد نہیں</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">1 مارچ 2022 سے پہلے – کسی ماہر سے چیک کرائیں</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">سود – وصولی پر قابلِ ٹیکس</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">اسٹیکنگ – صرف معلومات کے لیے (حصول کی لاگت 0، فروخت پر ٹیکس)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">کل سود (قابلِ ٹیکس)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">کل اسٹیکنگ (معلومات)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">خالص سرمایہ جاتی نقصان (آگے منتقل)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">اختیار کے بغیر: 1 جنوری–28 فروری 2022 کی فروخت شامل</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">1 مارچ 2022 سے پہلے اسٹیکنگ: حصول کی لاگت 0 مقرر – کسی ماہر سے چیک کرائیں</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">30 دن کا اصول ابھی ان اعداد کو بدل سکتا ہے (%1$s تک خریداریاں)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">رپورٹنگ حد (£50,000؛ 2020/21–2022/23: £49,200) سے زائد فیس سے پہلے کی آمدنی: اگر Self Assessment کے لیے رجسٹرڈ ہوں تو HMRC کو رپورٹ کریں، قابلِ ٹیکس نفع نہ ہو تب بھی</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">دولت کی مالیت 31 دسمبر %1$s (رہنمائی)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">ESTV قیمت فہرست (ictax.admin.ch) معتبر ہے۔ فہرست میں نہ ہونے والے کوائنز کے لیے عموماً ایکسچینج کی بندش کی قیمت لاگو ہوتی ہے۔ دولت ٹیکس کا حساب نہیں کیا گیا۔</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – ہولڈنگ %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">حساب نہیں کیا گیا</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">زیرِ نگرانی پتے پڑھے نہیں جا سکے – ان کے بیلنس اس فائل میں موجود نہیں</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">زیرِ نگرانی پتوں کے لاٹس ان کی تاریخِ خرید سے شمار ہوتے ہیں؛ اگر پتے کا آج کا بیلنس کم ہو تو انہیں کم کیا جاتا ہے۔</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">زیرِ نگرانی پتے کل مالیت میں شمار ہوتے ہیں لیکن ان کی کوئی حصول کی لاگت نہیں – اس لیے نفع شاید بہت زیادہ ہے۔ لاگت کو خریداری کے طور پر درج کریں۔</string>
+    <string name="tax_summary_fr_rewards_income">یہ رقم فرض کرتی ہے کہ انعامات پر وصولی کے وقت آمدنی کے طور پر ٹیکس لگا (وصولی کی مالیت حصول کی لاگت میں) – ورنہ حصول کی لاگت 0 محتاط تشریح ہوتی۔</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">درج قیمت کے بغیر مارکیٹ ویلیوز (فیسیں، تحائف/ادائیگیاں، سواپس، انعامات، نیٹ ورک فیسیں، پورٹ فولیو کی مالیت) لین دین کے دن کی روزانہ بندش (UTC) پر</string>
+</resources>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">CSV ያስመጡ</string>
+    <string name="portfolio_csv_import_all_transfer">ሁሉም ወደ ራስ ቦርሳ</string>
+    <string name="portfolio_csv_import_all_withdrawal">ሁሉም ከፖርትፎሊዮው ይወጣሉ</string>
+    <string name="portfolio_csv_import_choice_proposed">የተጠቆመ፦ ከ%1$s ጋር ይዛመዳል</string>
+    <string name="portfolio_csv_import_choice_transfer">ወደ ራስ ቦርሳ (ዝውውር)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">ከፖርትፎሊዮው ይወጣል (ማውጣት)</string>
+    <string name="portfolio_csv_import_choose_each">ለእያንዳንዱ ማውጣት የት እንደሄደ ይምረጡ።</string>
+    <string name="portfolio_csv_import_columns">የታወቁ ዓምዶች፦ %1$s</string>
+    <string name="portfolio_csv_import_confirm">ያስመጡ (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">ቀን/ወር</string>
+    <string name="portfolio_csv_import_date_month_first">ወር/ቀን</string>
+    <string name="portfolio_csv_import_date_order">አሻሚ ቀኖች (ለምሳሌ 03/04/2024) የሚነበቡት እንደ፦</string>
+    <string name="portfolio_csv_import_decimal">አሻሚ ቁጥሮች (ለምሳሌ %1$s) የሚነበቡት እንደ፦</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d ግብይት መጥቷል</item>
+        <item quantity="other">%d ግብይቶች መጥተዋል</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d አስቀድሞ መጥቷል (ተዘሏል)</item>
+        <item quantity="other">%d አስቀድመው መጥተዋል (ተዘለዋል)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">ቅርጸት፦ %1$s</string>
+    <string name="portfolio_csv_import_line">መስመር %1$d፦ %2$s</string>
+    <string name="portfolio_csv_import_loading">ፋይሉንና ዕለታዊ ተመኖችን በማንበብ ላይ…</string>
+    <string name="portfolio_csv_import_progress">መስመር %1$s ከ%2$s</string>
+    <string name="portfolio_csv_import_saving">ግብይቶችን በማስቀመጥ ላይ…</string>
+    <string name="portfolio_csv_import_missing_fx">ለመስመሮች %1$s ዕለታዊ ተመን የለም – ያለ ዋጋ/ክፍያ መጥተዋል።</string>
+    <string name="portfolio_csv_import_missing_price">ለመስመሮች %1$s በፋይሉ ውስጥ ዋጋ የለም – ያለ ዋጋ መጥተዋል።</string>
+    <string name="portfolio_csv_import_more">+ %1$d ተጨማሪ</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d አዲስ ግብይት</item>
+        <item quantity="other">%d አዲስ ግብይቶች</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d ረድፍ ተዘሏል</item>
+        <item quantity="other">%d ረድፎች ተዘለዋል</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">ከስቴብልኮይኖች (USDT፣ USDC …) ጋር የተደረጉ ግብይቶች እንደ ስዋፕ ይመዘገባሉ – ስቴብልኮይኑ በይዞታዎችዎ ውስጥ ይታያል።</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">ብዙ ተዛማጆች ሊሆኑ ይችላሉ – ትክክለኛውን ይምረጡ ወይም ምንም።</string>
+    <string name="portfolio_csv_import_transfer_fee">የአውታረ መረብ ክፍያ፦ %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">እንደ አንድ ዝውውር ይመዝግቡ</string>
+    <string name="portfolio_csv_import_transfer_stored">ከቀደመ ማስመጣት የመጣ ተጓዳኝ</string>
+    <string name="portfolio_csv_import_transfers_hint">የአንድ ሳንቲም ማውጣትና ተዛማጅ ገቢው አንድ ዝውውር ይሆናሉ፦ የግዢ ዋጋና የይዞታ ጊዜ ይተላለፋሉ፣ ልዩነቱ እንደ የአውታረ መረብ ክፍያ ይቆጠራል።</string>
+    <string name="portfolio_csv_import_transfers_title">በመለያዎችዎ መካከል ያሉ ዝውውሮች</string>
+    <string name="portfolio_csv_import_unreadable">የሚደገፉ ግብይቶች አልተገኙም። የሚደገፉት፦ የRelai፣ Swissquote፣ Kraken፣ Binance፣ Coinbase እና Bitpanda CSV ወጪ ፋይሎች።</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
+    <string name="portfolio_csv_import_too_large">ፋይሉ ለማስመጣት በጣም ትልቅ ነው (ቢበዛ 16 MB እና %1$s ረድፎች)። አጭር ጊዜዎችን ይላኩና አንዱን ከሌላው በኋላ ያስመጡ።</string>
+    <string name="portfolio_csv_import_failed">ማስመጣቱ አልተሳካም – ምንም አልተቀመጠም። እባክዎ እንደገና ይሞክሩ።</string>
+    <string name="portfolio_csv_import_locked">ማስመጣት አይቻልም፦ የተቀመጠው ውሂብ አሁን ሊነበብ አይችልም። መተግበሪያውን እንደገና ያስጀምሩ።</string>
+    <string name="portfolio_csv_import_withdrawals_title">ማውጣቶች – ሳንቲሞቹ የት ሄዱ?</string>
+    <string name="portfolio_csv_import_zone">የሰዓት ሰቅ የሌላቸው ጊዜያት የሚነበቡት እንደ፦ %1$s</string>
+    <string name="portfolio_csv_import_zone_device">መሣሪያ (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">የማይነበብ ቀን</string>
+    <string name="portfolio_csv_skip_bad_number">የማይነበብ ቁጥር</string>
+    <string name="portfolio_csv_skip_fee_exceeds">ክፍያ ≥ የተቀበለው መጠን</string>
+    <string name="portfolio_csv_skip_internal_move">በራስዎ መለያዎች መካከል የተደረገ እንቅስቃሴ – የሚመዘገብ ነገር የለም</string>
+    <string name="portfolio_csv_skip_missing">መስክ ጎድሏል</string>
+    <string name="portfolio_csv_skip_ambiguous">በአንድ ሰከንድ ውስጥ የተደረጉ ሊለዩ የማይችሉ ብዙ ግብይቶች – በእጅ ያስገቧቸው</string>
+    <string name="portfolio_csv_skip_not_crypto">ክሪፕቶ አይደለም</string>
+    <string name="portfolio_csv_skip_possible_duplicate">ምናልባት አስቀድሞ መጥቷል (ተመሳሳይ የሚጠጋ ግብይት) – በእጅ ይፈትሹ</string>
+    <string name="portfolio_csv_skip_two_fees">በተለያዩ አሃዶች ሁለት ክፍያዎች – ስዋፑን በእጅ ያስገቡ</string>
+    <string name="portfolio_csv_skip_unsupported">የማይደገፍ ዓይነት</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">ይቀልብሱ</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">የዚህ ማስመጣት %d ግብይት ይሰረዝ? በእጅ የገቡ ግቤቶችና ሌሎች ማስመጣቶች ይቆያሉ።</item>
+        <item quantity="other">የዚህ ማስመጣት %d ግብይቶች ይሰረዙ? በእጅ የገቡ ግቤቶችና ሌሎች ማስመጣቶች ይቆያሉ።</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">ማስመጣቱ ይቀልበስ?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">%d የመጣ ግብይት ተወግዷል</item>
+        <item quantity="other">%d የመጡ ግብይቶች ተወግደዋል</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d ግብይት</item>
+        <item quantity="other">%d ግብይቶች</item>
+    </plurals>
+    <string name="portfolio_imports_empty">ምንም ማስመጣት የለም</string>
+    <string name="portfolio_imports_title">ማስመጣቶች</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">ተመሳሳይ የግብይት መታወቂያ ከተለየ መጠን ጋር – በእጅ ይፈትሹ</string>
+    <string name="portfolio_csv_skip_staking_unpaired">ተጓዳኝ ግቤት የሌለው የስቴኪንግ ግቤት – ይዞታዎችን ይፈትሹ</string>
+    <string name="portfolio_csv_skip_amount_too_small">መጠኑ በጣም ትንሽ ነው – ሲቀመጥ ወደ 0 ይጠጋጋል</string>
+    <string name="portfolio_csv_skip_invalid_swap">ትክክለኛ ሳንቲም ወይም የተቀበለው መጠን የሌለው ስዋፕ</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">ፋይሉን እንደገና በማንበብ ላይ …</string>
+</resources>

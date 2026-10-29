@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">പശ്ചാത്തലം</string>
+    <string name="widget_configure_hint">പശ്ചാത്തലവും അതാര്യതയും തിരഞ്ഞെടുക്കുക. നിറം ആപ്പിനെ പിന്തുടരുന്നു. വിജറ്റ് നിങ്ങളുടെ മുഴുവൻ വാച്ച്‌ലിസ്റ്റും കാണിക്കുന്നു; ആപ്പ് തുറക്കാൻ ഒരു വരിയിൽ ടാപ്പ് ചെയ്യുക.</string>
+    <string name="widget_configure_title">വിജറ്റ് സജ്ജമാക്കുക</string>
+    <string name="widget_description">നിങ്ങളുടെ വാച്ച്‌ലിസ്റ്റിലെ ഒരു ജോഡിയുടെ വില കാണിക്കുന്നു.</string>
+    <string name="widget_empty">വാച്ച്‌ലിസ്റ്റിൽ ഇതുവരെ ജോഡികളൊന്നുമില്ല.</string>
+    <string name="widget_group_hint">ഈ ഗ്രൂപ്പിലെ ജോഡികൾ മാത്രം കാണിക്കുക.</string>
+    <string name="widget_kind_single">ഒറ്റ കോയിൻ</string>
+    <string name="widget_opacity">പശ്ചാത്തല അതാര്യത: %1$s</string>
+    <string name="widget_pulse_description">മാർക്കറ്റിൽ ഇപ്പോൾ ശ്രദ്ധേയമായത്: തലക്കെട്ട്, ചെറിയ സംഗ്രഹം, Bitcoin, Ethereum, Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">പഴയത്</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">പഴയത് · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">കാൻഡിലുകൾ</string>
+    <string name="widget_chart_line">ലൈൻ</string>
+    <string name="widget_chart_range">ചാർട്ട് പരിധി</string>
+    <string name="widget_chart_type">ചാർട്ട് തരം</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 വർഷം</string>
+    <string name="widget_range_24h">24 മ.</string>
+    <string name="widget_range_30d">30 ദിവസം</string>
+    <string name="widget_range_7d">7 ദിവസം</string>
+    <string name="widget_range_short_1y">1 വർഷം</string>
+    <string name="widget_range_short_24h">24h</string>
+    <string name="widget_range_short_30d">30ദി</string>
+    <string name="widget_range_short_7d">7ദി</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">%1$s പ്രകാരം</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">ചരിത്രം ഉടൻ വരുന്നു</string>
+    <string name="widget_portfolio_description">നിങ്ങളുടെ പോർട്ട്ഫോളിയോയുടെ ആകെ മൂല്യവും ഇന്നത്തെ മാറ്റവും</string>
+    <string name="widget_portfolio_entries">കോയിനുകൾക്ക് താഴെയുള്ള ബുക്കിംഗുകൾ</string>
+    <string name="widget_portfolio_entries_both">രണ്ടും</string>
+    <string name="widget_portfolio_entries_buys">വാങ്ങലുകൾ</string>
+    <string name="widget_portfolio_entries_hint">കോയിനുകൾക്ക് താഴെ ഇടമുണ്ടെങ്കിൽ മാത്രം കാണിക്കും. വാങ്ങലുകളിൽ നിക്ഷേപങ്ങളും, വിൽപ്പനകളിൽ പിൻവലിക്കലുകളും ഉൾപ്പെടുന്നു; «രണ്ടും» എങ്കിൽ വരികൾ കൂട്ടിയാൽ ഹോൾഡിംഗ് ലഭിക്കും.</string>
+    <string name="widget_portfolio_entries_off">ഓഫ്</string>
+    <string name="widget_portfolio_entries_sells">വിൽപ്പനകൾ</string>
+    <string name="widget_portfolio_display">പ്രദർശനം</string>
+    <string name="widget_portfolio_display_conversion">പരിവർത്തനം മാത്രം</string>
+    <string name="widget_portfolio_display_conversion_usdt">പരിവർത്തനം + USDT</string>
+    <string name="widget_portfolio_display_hint">പരിവർത്തന കറൻസി ഒരു USD സ്റ്റേബിൾകോയിൻ (ഉദാ. USDC) ആണെങ്കിൽ USDT വരി മറയ്ക്കും.</string>
+    <string name="widget_portfolio_display_usdt">USDT മാത്രം</string>
+    <string name="widget_portfolio_empty">പോർട്ട്ഫോളിയോ ടാബിൽ വാങ്ങലുകൾ ചേർക്കുക</string>
+    <string name="widget_portfolio_list_hint">നിങ്ങളുടെ പൊസിഷനുകൾ ഇവിടെ കാണിക്കാൻ ആപ്പ് തുറക്കുക.</string>
+    <string name="widget_portfolio_locked_hint">ലോക്ക് ചെയ്തു – ആപ്പിൽ അൺലോക്ക് ചെയ്യുക</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="one">%1$d കോയിൻ ഇല്ലാതെ</item>
+        <item quantity="other">%1$d കോയിനുകൾ ഇല്ലാതെ</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ %1$d കൂടി</item>
+        <item quantity="other">+ %1$d കൂടി</item>
+    </plurals>
+    <string name="widget_portfolio_name">പോർട്ട്ഫോളിയോ</string>
+    <string name="widget_portfolio_off_hint">%1$s-ൽ ഇത് ഓണാക്കുക.</string>
+    <string name="widget_portfolio_off_short">പോർട്ട്ഫോളിയോ ഓഫ്</string>
+    <string name="widget_portfolio_off_title">പോർട്ട്ഫോളിയോ ഓഫാണ്</string>
+    <string name="widget_portfolio_partly_stale">ചില വിലകൾ പഴയതാണ്</string>
+    <string name="widget_portfolio_period">കാലയളവ്</string>
+    <string name="widget_portfolio_period_without">%2$s ഇല്ലാതെ %1$s</string>
+    <string name="widget_portfolio_range_48h">48 മ.</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: പോർട്ട്ഫോളിയോ തുറക്കുക</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="widget_portfolio_today_without">%1$s ഇല്ലാതെ ഇന്ന്</string>
+    <string name="widget_portfolio_view">കാഴ്ച</string>
+    <string name="widget_portfolio_view_chart">ചാർട്ട്</string>
+    <string name="widget_portfolio_view_list">ലിസ്റ്റ്</string>
+    <string name="widget_portfolio_view_overview">അവലോകനം</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">ഒരു ജോഡി തിരഞ്ഞെടുക്കുക</string>
+    <string name="single_widget_description">ഒരു കോയിൻ വിലയും മാറ്റവും 24 മണിക്കൂർ ചാർട്ടും സഹിതം വലുതായി കാണിക്കുന്നു.</string>
+    <string name="single_widget_label">Crypto Checker – ഒറ്റ കോയിൻ</string>
+    <string name="single_widget_title">ഒറ്റ കോയിൻ വിജറ്റ് സജ്ജമാക്കുക</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">ചേർക്കുക</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">%1$s വിജറ്റ് ചേർക്കുക</string>
+    <string name="widgets_manual_text">നിങ്ങളുടെ ഹോം സ്ക്രീനിന് ആപ്പിൽ നിന്ന് വിജറ്റുകൾ ചേർക്കാനാകില്ല. ഹോം സ്ക്രീനിലെ ഒരു ശൂന്യ സ്ഥലത്ത് അമർത്തിപ്പിടിച്ച്, “വിജറ്റുകൾ” തിരഞ്ഞെടുത്ത് “Crypto Checker” കണ്ടെത്തുക.</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">വിജറ്റ് സ്വയം ചേർക്കുക</string>
+    <string name="widgets_sheet_title">ഒരു വിജറ്റ് ചേർക്കുക</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">ആപ്പുകൾക്ക് സ്വയം വിജറ്റുകൾ ചേർക്കാൻ iOS അനുവദിക്കുന്നില്ല. ഇതിന് ഒരു നിമിഷം മതി:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">ലഭ്യമായ വിജറ്റുകൾ</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">ആപ്പുകൾ ഇളകാൻ തുടങ്ങുന്നതുവരെ ഹോം സ്ക്രീനിലെ ഒരു ശൂന്യ സ്ഥലത്ത് അമർത്തിപ്പിടിക്കുക.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">മുകളിലുള്ള “എഡിറ്റ് ചെയ്യുക” › “വിജറ്റ് ചേർക്കുക” ടാപ്പ് ചെയ്യുക (പഴയ iOS പതിപ്പുകളിൽ “+”).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">“Crypto Checker” തിരയുക, ഒരു വിജറ്റ് തിരഞ്ഞെടുത്ത് “വിജറ്റ് ചേർക്കുക” ടാപ്പ് ചെയ്യുക.</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">പുതുക്കുക – %1$d സെ. കഴിഞ്ഞ് വീണ്ടും സാധ്യമാകും</string>
+    <string name="settings_watch">വാച്ച്</string>
+    <string name="settings_watch_hint">Wear OS-ലെ വാച്ച് ആപ്പിനുള്ള കോയിനുകൾ (%1$d വരെ, USDT-ക്കെതിരായ വില). ഈ ലിസ്റ്റ് മാത്രമാണ് Google Play സേവനങ്ങൾ വഴി വാച്ചിലേക്ക് പോകുന്നത്; വാച്ച് സ്വയം വിലകൾ ലഭ്യമാക്കുന്നു.</string>
+    <string name="settings_watch_mode_phone">ഫോണിലേതുപോലെ (പ്രിയപ്പെട്ടവ ★)</string>
+    <string name="settings_watch_mode_own">സ്വന്തം ലിസ്റ്റ്</string>
+    <string name="settings_watch_own_title">സ്വന്തം ലിസ്റ്റ്: %2$d-ൽ %1$d</string>
+    <string name="settings_watch_none">ഇതുവരെ പ്രിയപ്പെട്ടവയൊന്നുമില്ല</string>
+
+    <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
+    <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">“ലിസ്റ്റ്”-ൽ USDT വരിയില്ല</string>
+    <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
+    <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">“അവലോകനം” പകരം 30 ദിവസം കാണിക്കുന്നു</string>
+</resources>

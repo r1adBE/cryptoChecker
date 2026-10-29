@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s katika %2$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">Kufunga</string>
+    <string name="sheet_chart_converted_current">%1$s, imebadilishwa (kiwango cha sasa)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, imebadilishwa kwa viwango vya kila siku</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">Hakuna data ya bei kwa jozi hii</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">Kufungua</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">Leo</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">Kiasi %1$s</string>
+    <string name="sheet_more">Zaidi</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Ask</string>
+    <string name="ticker_bid">Bid</string>
+    <string name="explain_bid_ask">Bid ni bei ya juu zaidi wanayotoa wanunuzi sasa hivi, ask ni bei ya chini zaidi watakayokubali wauzaji.</string>
+    <string name="ticker_high">Juu</string>
+    <string name="ticker_low">Chini</string>
+    <string name="ticker_timestamp">Muda</string>
+    <string name="ticker_vol_base">Kiasi (kwa sarafu)</string>
+    <string name="ticker_vol_quote">Kiasi (kwa sarafu ya bei)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (saa za eneo za kifaa)</string>
+    <string name="change_basis_local">Tangu 00:00 saa za hapa</string>
+    <string name="change_basis_rolling">Saa 24 zilizopita</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">Tangu sasisho la mwisho</string>
+    <string name="change_basis_utc_zone">Tangu 00:00 %1$s</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">Mabadiliko kutoka mishumaa ya %1$s</string>
+    <string name="change_short_since_last">sasisho la mwisho</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">leo</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">leo %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="exchange_data_empty_error">Hakuna data iliyopokelewa kutoka kwa jukwaa.</string>
+    <string name="market_data_summary">Mtaji wa soko, ada za gas, data ya uchumi, uchambuzi wa sarafu</string>
+    <string name="market_data_tab_futures">Futures</string>
+    <string name="market_data_title">Data ya soko</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">Kiasi kinachozunguka</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">Mtaji wa soko</string>
+    <string name="spot_max_supply">Kiasi cha juu kabisa</string>
+    <string name="spot_no_data">Hakuna data ya spot kwa sarafu hii</string>
+    <string name="spot_source_updated">Chanzo: %1$s · hadi %2$s</string>
+    <string name="spot_supply_of_max">%1$s ya kiasi cha juu kabisa inazunguka</string>
+    <string name="spot_total_supply">Jumla ya kiasi</string>
+    <string name="spot_vol_mcap">Kiasi/Mtaji wa soko</string>
+    <string name="spot_volume_24h">Kiasi (24h)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">Marejeleo: %1$s</string>
+    <string name="futures_funding">Kiwango cha funding</string>
+    <string name="futures_funding_interval_unknown">kipindi hakijulikani</string>
+    <string name="futures_funding_per8h_equiv">= %1$s kwa kila saa 8 (kama kwenye kengele)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">kwa saa</string>
+    <string name="futures_funding_per_hours">kwa kila %1$d h</string>
+    <string name="futures_next_funding">inayofuata baada ya %1$d h %2$d min</string>
+    <string name="futures_no_data">Hakuna data ya futures kwa sarafu hii</string>
+    <string name="futures_open_interest">Open interest</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">Marejeleo kutoka %1$s – funding na open interest hutofautiana kwa kila jukwaa; kwenye %2$s zinaweza kutofautiana.</string>
+    <string name="futures_reference_spot">Marejeleo kutoka %1$s (perpetual ya USDT ya sarafu hii)</string>
+    <string name="futures_source">Chanzo: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">Wafanyabiashara wengi wanaweka dau kwenye bei kupanda au kushuka kwa pesa za mkopo. Ada kati ya nafasi za long na short. Chanya sana inamaanisha wengi wanaweka dau kwenye bei kupanda.</string>
+    <string name="explain_open_interest">Futures ni dau kuhusu bei, mara nyingi kwa pesa za mkopo. Thamani ya nafasi zote za futures zilizo wazi. Ikipanda, pesa nyingi zaidi zinaweka dau kwenye mwenendo huo.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Maelezo</string>
+    <string name="explain_spot_fdv">Thamani kamili iliyopunguzwa (FDV): bei × kiasi cha juu kabisa (au jumla ya kiasi ikiwa hakuna kikomo).</string>
+    <string name="explain_spot_market_cap">Bei × kiasi kinachozunguka. Kibonye kinaonyesha mabadiliko yake katika saa 24.</string>
+    <string name="explain_spot_source">Takwimu za majukwaa yote kwa dola za Marekani, kutoka CoinGecko.</string>
+    <string name="explain_spot_supply">Kinachozunguka: sarafu zilizo sokoni sasa. Jumla: sarafu zote zilizoundwa ukiondoa zilizochomwa. Juu kabisa: idadi kubwa zaidi inayoweza kuwepo.</string>
+    <string name="explain_spot_volume">Thamani iliyouzwa katika saa 24. Kiasi/Mtaji wa soko: kiasi ukilinganisha na mtaji wa soko — juu inamaanisha biashara hai sana.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · kiwango %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">Pengo kubwa kati ya bei ya kununua na kuuza (%1$s)</string>
+
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">Historia kwa %1$s, imebadilishwa kuwa %2$s kwa kiwango cha leo</string>
+    <string name="converted_unsure">Ubadilishaji hauna uhakika</string>
+</resources>

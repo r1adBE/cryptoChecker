@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">ብጁ</string>
+    <string name="settings_group_general">አጠቃላይ</string>
+    <string name="settings_group_more">ተጨማሪ</string>
+    <string name="settings_minutes">%1$d ደቂቃ</string>
+    <string name="settings_row_about">ስለ መተግበሪያው</string>
+    <string name="settings_row_alarms">ማንቂያዎች</string>
+    <string name="settings_row_currency">ምንዛሪ</string>
+    <string name="settings_row_dated_futures">ቀን ያላቸው ፊውቸርስ</string>
+    <string name="settings_row_updates">የዋጋ ዝማኔዎች</string>
+    <string name="settings_row_watchlist">የክትትል ዝርዝር</string>
+    <string name="settings_search_hint">ቅንብሮችን ይፈልጉ</string>
+    <string name="settings_seconds">%1$d ሰ</string>
+    <string name="settings_section_about">ስለ</string>
+    <string name="settings_section_appearance">መልክ</string>
+    <string name="settings_section_developer">ገንቢ</string>
+    <string name="settings_section_language">ቋንቋ</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">በርቷል</string>
+    <string name="settings_title">ቅንብሮች</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">ማንቂያ እንደገና ከመቀስቀሱ በፊት ያለ የእረፍት ጊዜ</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">የማንቂያ ምልክት</string>
+    <string name="settings_alarm_signal_open_system">በሲስተም ቅንብሮች ውስጥ ያስተካክሉ</string>
+    <string name="settings_alarm_signal_system_hint">የስልክዎን የማሳወቂያ ቅንብሮች ይከተላል።</string>
+    <string name="settings_alarm_sound">የማንቂያ ድምፅ</string>
+    <string name="settings_alarm_sound_custom">ብጁ ድምፅ</string>
+    <string name="settings_alarm_sound_default">ነባሪ ድምፅ</string>
+    <string name="settings_alarm_sound_error">ድምፁን መጠቀም አልተቻለም።</string>
+    <string name="settings_alarm_sound_file">የራስዎ የድምፅ ፋይል…</string>
+    <string name="settings_alarm_sound_reset">ነባሪ ድምፅ ይጠቀሙ</string>
+    <string name="settings_alarm_sound_system">የሲስተም ድምፅ ይምረጡ…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">በመተግበሪያ አዶ ላይ ቁጥር</string>
+    <string name="settings_app_badge_hint">ክፍት የማንቂያ ማሳወቂያዎችን ይቆጥራል። ቁጥር ወይም ነጥብ መታየቱ በመነሻ ማያ ገጹ ይወሰናል (ለምሳሌ Samsung፦ «Show with number»)።</string>
+    <string name="settings_exact_checks">በሰዓቱ ይፈትሹ</string>
+    <string name="settings_exact_checks_grant">ማንቂያዎችን &amp; አስታዋሾችን ይፍቀዱ</string>
+    <string name="settings_exact_checks_hint">መሣሪያው ሥራ ፈት ቢሆንም Android በግምት በየ15 ደቂቃው ይፈትሻል። ትንሽ ተጨማሪ ባትሪ ይጠቀማል።</string>
+    <string name="settings_exact_checks_nothing">ንቁ ጥንዶች የሉም – የሚፈተሽ ነገር የለም።</string>
+    <string name="settings_exact_checks_permission_missing">ፈቃድ ጎድሏል – መሣሪያው ሲያርፍ Android መደበኛ ባልሆነ ሁኔታ ይፈትሻል፣ አንዳንዴ ከሰዓታት በኋላ ብቻ።</string>
+    <string name="settings_notification_change">በዋጋ ለውጥ ላይ ብቻ ያሳውቁ</string>
+    <string name="settings_notification_change_always">ሁልጊዜ</string>
+    <string name="settings_percent_invalid">ከ0 እስከ 100 ያለ እሴት ያስገቡ።</string>
+    <string name="settings_notification_change_hint">የዋጋ ማሳወቂያ የሚታየው ዋጋው ከመጨረሻው ማሳወቂያ ወዲህ ቢያንስ በዚህ መጠን ከተንቀሳቀሰ በኋላ ብቻ ነው። ውሂብ ሲጎድል ምንም አይታይም። ማንቂያዎች አይነኩም።</string>
+    <string name="settings_ongoing_notifications">አንሸራትቶ ማስወገድ አይቻልም</string>
+    <string name="settings_ongoing_notifications_hint">የዋጋ ማሳወቂያዎችን ተሰክተው ያቆያቸዋል።</string>
+    <string name="settings_price_notifications">የዋጋ ማሳወቂያዎች</string>
+    <string name="settings_price_notifications_hint">የነቁ ጥንዶችን የአሁን ዋጋ በሁኔታ አሞሌው ውስጥ ያሳዩ።</string>
+    <string name="settings_price_pairs">ጥንዶች</string>
+    <string name="settings_price_pairs_all_off">ሁሉም ጠፍተዋል</string>
+    <string name="settings_price_pairs_all_on">ሁሉም በርተዋል</string>
+    <string name="settings_price_pairs_count">%1$d ከ%2$d</string>
+    <string name="settings_price_pairs_empty">እስካሁን በክትትል ዝርዝሩ ውስጥ ምንም ጥንድ የለም።</string>
+    <string name="settings_price_pairs_hint">በማሳወቂያ አሞሌው ውስጥ ዋጋቸውን የሚያሳዩ ጥንዶችን ይምረጡ።</string>
+    <string name="settings_quiet_hours">የጸጥታ ሰዓታት</string>
+    <string name="settings_quiet_hours_from">ከ</string>
+    <string name="settings_quiet_hours_hint">በ%1$s እና በ%2$s መካከል፣ ማንቂያዎች የጸጥታ ሰዓታት እስኪያበቁ ይጠብቃሉ፣ ከዚያም በድምፅ ይጮኻሉ። ሌሎች ማሳወቂያዎች ያለ ንግግር በጸጥታ ይደርሳሉ።</string>
+    <string name="settings_quiet_hours_to">እስከ</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">ክፍተት</string>
+    <string name="settings_background_updates">የበስተጀርባ ዝማኔዎች</string>
+    <string name="settings_battery_hint">የተገደበ ማለት Android የበስተጀርባ ዝማኔዎችን በሰዓታት ሊያዘገይ ይችላል ማለት ነው።</string>
+    <string name="settings_battery_ok">የባትሪ አጠቃቀም፦ ያልተገደበ</string>
+    <string name="settings_battery_restricted">የባትሪ አጠቃቀም፦ የተገደበ</string>
+    <string name="settings_check_runs_empty">እስካሁን ምንም ፍተሻ አልተመዘገበም።</string>
+    <string name="settings_check_runs_honest_android">መቼ እንደሚፈተሽ Android ይወስናል – እዚህ በእውነት መቼ እንደተከናወነ ያያሉ።</string>
+    <string name="settings_check_runs_honest_ios">መቼ እንደሚፈተሽ iOS ይወስናል – እዚህ በእውነት መቼ እንደተከናወነ ያያሉ።</string>
+    <string name="settings_check_runs_title">የቅርብ ጊዜ ፍተሻዎች</string>
+    <string name="settings_http_log">የHTTP ምዝግብን ያሳዩ</string>
+    <string name="settings_http_log_hint">ወደ ልውውጦቹ የተላኩ ጥያቄዎችን በ«ጥንድ ያክሉ» ገጽ ታች ላይ ያሳያል – ለችግር መፍቻ።</string>
+    <string name="settings_live_service">በተደጋጋሚ ያዘምኑ</string>
+    <string name="settings_live_websocket">ቀጥታ ዋጋዎች</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">ጎልቶ የሚታይ፦ ያሳውቁ</string>
+    <string name="settings_activity_alerts_hint">በአንድ ጥንድ ቢበዛ በሰዓት አንድ ጊዜ፦ ያልተለመዱ የዋጋ እንቅስቃሴዎች፣ ድንገተኛ የመጠን ጭማሪዎችና የፊውቸርስ ጽንፎች (ውሂብ ከBinance)።</string>
+    <string name="settings_activity_sensitivity">ትብነት</string>
+    <string name="settings_activity_sensitivity_hint">አንድ ሳንቲም ምን ያህል በቀላሉ እንደ ያልተለመደ እንደሚቆጠር – ለክትትል ዝርዝር ካርዱና ለገበያ ማንቂያዎች ተመሳሳይ ነው። በ«ያነሰ»፣ ካርዱ 3ቱን በጣም ጠንካራዎች ብቻ ያሳያል።</string>
+    <string name="settings_watchlist_activity_card">ጎልቶ የሚታይ፦ በዝርዝሩ ውስጥ ያሳዩ</string>
+    <string name="settings_watchlist_activity_card_hint">ከቡድኖቹ አጠገብ የ⚡ ምልክቱን ያሳያል፦ አሁን የሆነ ነገር እየተከሰተባቸው ያሉ ጥንዶችን ብቻ ለማየት ይንኩት። ለእሱ ማሳወቂያዎች በገበያ ማንቂያዎች ስር ይዘጋጃሉ።</string>
+    <string name="settings_watchlist_names">ስሞችን ያሳዩ</string>
+    <string name="settings_watchlist_names_hint">ከጥንዱ ስር ያለ ስም፣ ለምሳሌ Bitcoin ወይም NVIDIA። ከአርማ ዝርዝሮቹ ጋር ይመጣል፣ ለሁሉም ሳንቲሞች አንድ ጊዜ ይጫናል።</string>
+    <string name="settings_watchlist_sparkline">በክትትል ዝርዝር ውስጥ ትንሽ ገበታ</string>
+    <string name="settings_watchlist_sparkline_hint">ከዋጋው አጠገብ የ24 ሰዓት አዝማሚያ</string>
+    <string name="settings_watchlist_value_names">ስሞች</string>
+    <string name="settings_watchlist_value_price_only">ዋጋ ብቻ</string>
+    <string name="settings_watchlist_value_sparkline">ትንሽ ገበታ</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Alpha ቶከኖችን ጨምሮ (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Alpha ቶከኖች፦ ከBinance Alpha ዝርዝር የመጡ ቀደምት፣ በአብዛኛው ትንንሽ ፕሮጀክቶች – ብዙውን ጊዜ ብዙም የማይገበያዩና በጣም ተለዋዋጭ።</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">የቶከኖች አካል ነው። «TradFi ብቻ» ሲመረጥ አይገኝም፤ አስቀድመው በክትትል ዝርዝርዎ ውስጥ ያሉ Alpha ቶከኖች ይቆያሉ።</string>
+    <string name="settings_asset_scope_both">ቶከኖችና TradFi</string>
+    <string name="settings_asset_scope_both_hint">ሁሉም ነገር – ክሪፕቶና TradFi</string>
+    <string name="settings_asset_scope_hint">ጥንዶችን ሲያክሉ ምርጫውና ፍለጋው የትኞቹን ጥንዶች እንደሚያሳዩ ያዘጋጃል። አስቀድመው በክትትል ዝርዝርዎ ውስጥ ያሉ ጥንዶች ሁልጊዜ ይቆያሉ።</string>
+    <string name="settings_asset_scope_title">ቶከኖች &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">ቶከኖች ብቻ</string>
+    <string name="settings_asset_scope_tokens_hint">ክሪፕቶ፦ ስፖትና perpetuals</string>
+    <string name="settings_asset_scope_tradfi">TradFi ብቻ</string>
+    <string name="settings_asset_scope_tradfi_hint">በአክሲዮኖች፣ በሸቀጦች፣ በFX ላይ ያሉ ፊውቸርስ – ኮንትራቶች ናቸው እንጂ ቶከኖች አይደሉም</string>
+    <string name="settings_rolling_futures">የሩብ ዓመት &amp; ሌሎች ቀን ያላቸው ፊውቸርስን ጨምሮ</string>
+    <string name="settings_rolling_futures_hint">ጠፍቶ ሲሆን፦ ከልውውጡ ዝርዝር የጎደሉ ቀን ያላቸው ፊውቸርስ አንድ በአንድ ከመፈተሽ ይልቅ ከእንግዲህ እንደማይገበያዩ ምልክት ይደረግባቸዋል። በእያንዳንዱ ማደስ ጊዜ ይቆጥባል።</string>
+    <string name="settings_rolling_futures_qtly">የሩብ ዓመት &amp; ሌሎች ቀን ያላቸው ፊውቸርስን ጨምሮ (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">የቶከኖች አካል ነው። «TradFi ብቻ» ሲመረጥ አይገኝም፤ አስቀድመው በክትትል ዝርዝርዎ ውስጥ ላሉ ቀን ያላቸው ፊውቸርስ አሁንም ይተገበራል።</string>
+    <string name="settings_tradfi_futures">አክሲዮኖች፣ ሸቀጦችና FX (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">ጥንድ ሲመርጡ በአክሲዮኖች፣ በወርቅና በሌሎች ሸቀጦች፣ በምንዛሪዎችና ከIPO በፊት ባሉ ኩባንያዎች ላይ ያሉ ፊውቸርስንም ያሳያል። እነዚህ ኮንትራቶች ናቸው እንጂ ቶከኖች አይደሉም።</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">የአክሰንት ቀለም</string>
+    <string name="settings_accent_hint">ለመተግበሪያው፣ ለዊጀቶችና ለመተግበሪያ አዶው ቀለም። አንዳንድ የመነሻ ማያ ገጾች አዶው ሲቀየር ያስወግዱታል – ያኔ እንደገና ያክሉት።</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">የሳንቲም አርማዎች</string>
+    <string name="settings_coin_logos_app">በመተግበሪያው ውስጥ</string>
+    <string name="settings_coin_logos_app_hint">የክትትል ዝርዝር፣ የተከፈተ ጥንድና የገበያ ካርዶች</string>
+    <string name="settings_coin_logos_footer">አርማዎች ከCoinGecko ይመጣሉ፤ CoinGecko ለማይዘረዝራቸው ሳንቲሞች (ለምሳሌ ወርቅ፣ ብር፣ አክሲዮኖች) ከBinance። መተግበሪያው ሁሉንም አርማዎች በአንድ ጊዜ ጭኖ በዚህ መሣሪያ ላይ ያስቀምጣቸዋል፤ ስለዚህ የትኞቹን ሳንቲሞች እንደሚከታተሉ የትኛውም አቅራቢ ሊያውቅ አይችልም። አርማ የሌላቸው ሳንቲሞች የመጀመሪያ ፊደሎቻቸውን ያሳያሉ። ተወዳጆች በአርማው ላይ ትንሽ ኮከብ ያገኛሉ። መቀያየሪያ በጠፋበት ቦታ አርማም የመጀመሪያ ፊደልም አይታይም፤ ሁሉም መቀያየሪያዎች ሲጠፉ ምንም አይጫንም።</string>
+    <string name="settings_coin_logos_portfolio">በፖርትፎሊዮው ውስጥ</string>
+    <string name="settings_coin_logos_portfolio_hint">ቦታዎች፣ የሳንቲም ዝርዝሮችና ግንዛቤዎች</string>
+    <string name="settings_coin_logos_value_app">መተግበሪያ</string>
+    <string name="settings_coin_logos_widgets">በዊጀቶች ውስጥ</string>
+    <string name="settings_coin_logos_widgets_hint">የክትትል ዝርዝርና የነጠላ ሳንቲም ዊጀቶች</string>
+    <string name="settings_high_contrast">ከፍተኛ ንፅፅር</string>
+    <string name="settings_high_contrast_hint">ጠንካራ የዋጋ ቀለሞችና ጠቆር ያለ ሁለተኛ ጽሑፍ። ሲስተሙ ተጨማሪ ንፅፅር ሲጠይቅም ይበራል።</string>
+    <string name="settings_language_choose">ቋንቋ ይምረጡ</string>
+    <string name="settings_language_system">የሲስተም ቋንቋ</string>
+    <string name="settings_price_colors">የዋጋ ቀለሞች</string>
+    <string name="settings_price_colors_hint">ሰማያዊ / ብርቱካናማ በሁሉም የቀለም ዕይታ ችግሮች (ቀይ-አረንጓዴ እና ሰማያዊ-ቢጫ) በቀላሉ ይለያሉ። አቅጣጫው ሁልጊዜ በ+ / − ጭምር ይታያል።</string>
+    <string name="settings_theme_mode">ብሩህ / ጨለማ</string>
+    <string name="settings_widgets">ዊጀቶች</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">የ%1$s ለውጥ &amp; የገበታ የሰዓት ሰቅ</string>
+    <string name="settings_change_basis_hint_1">የተመረጠው የሰዓት ሰቅ የመቶኛ ለውጡ ከመቼ ጀምሮ እንደሚቆጠር (የክትትል ዝርዝር፣ የምት መስመር፣ የተከፈተ ጥንድ፣ ዊጀቶች) እና በገበታዎቹ ውስጥ የሚታዩትን ሰዓቶች ያዘጋጃል።</string>
+    <string name="settings_change_basis_hint_2">«%1$s» ከትክክል 24 ሰዓት በፊት ከነበረው ዋጋ ጋር ያነጻጽራል። «00:00» በዚያ የሰዓት ሰቅ እኩለ ሌሊት ላይ ከነበረው የመክፈቻ ዋጋ ጋር ያነጻጽራል።</string>
+    <string name="settings_change_basis_hint_3">ማንቂያዎች አይነኩም።</string>
+    <string name="settings_change_basis_hint_since_last">«%1$s» ከቀዳሚው ዝማኔ ዋጋ ጋር ያነጻጽራል። በቀጥታ ዋጋዎች ወደ 0%% ተጠግቶ ይቆያል።</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">የልወጣ ምንዛሪ</string>
+    <string name="settings_conversion_currency_hint">ለፖርትፎሊዮው፣ በምንዛሪዎ ላሉ ማንቂያዎች፣ ለክሪፕቶ ገበያ ካርዱና ለፖርትፎሊዮ ዊጀቱም ጥቅም ላይ ይውላል።</string>
+    <string name="settings_cost_method">የወጪ ዘዴ</string>
+    <string name="settings_cost_method_average">አማካይ ወጪ</string>
+    <string name="settings_cost_method_average_hint">ሽያጮች በተንቀሳቃሽ አማካይ የግዢ ዋጋ ይገመገማሉ።</string>
+    <string name="settings_cost_method_fifo">FIFO (ነባሪ)</string>
+    <string name="settings_cost_method_fifo_hint">በሁሉም ልውውጦችና ቦርሳዎች ላይ በጣም ያረጁ ሳንቲሞች መጀመሪያ ይሸጣሉ።</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO በእያንዳንዱ ቦርሳ/ልውውጥ</string>
+    <string name="settings_cost_method_fifo_wallet_hint">በእያንዳንዱ ልውውጥ ወይም ቦርሳ ውስጥ በጣም ያረጁ ሳንቲሞች መጀመሪያ፤ ዝውውሮች ሎቶችን ከግዢ ቀናቸው ጋር ያንቀሳቅሳሉ።</string>
+    <string name="settings_portfolio_lock">የፖርትፎሊዮ መቆለፊያ</string>
+    <string name="settings_portfolio_lock_footer">መቆለፊያው በማያ ገጹ ላይ የሚታየውን ይደብቃል። ውሂብዎ በዚህ መሣሪያ ላይ ተቀምጦ በመሣሪያው ምስጠራ ይጠበቃል። ምትኬዎችን በይለፍ ቃል መጠበቅ ይችላሉ።</string>
+    <string name="settings_portfolio_lock_hint">ፖርትፎሊዮውን ብቻ ይደብቃል፦ በጣት አሻራ፣ በፊት ወይም በመሣሪያ PIN ይክፈቱ። ከበስተጀርባ ከአንድ ደቂቃ በላይ ከቆየ በኋላ እንደገና ይቆለፋል። የክትትል ዝርዝር፣ ማንቂያዎችና ሌሎች ዊጀቶች ክፍት ሆነው ይቆያሉ።</string>
+    <string name="settings_portfolio_lock_no_device_lock">ያለ የመሣሪያ PIN ወይም የይለፍ ኮድ መቆለፊያው ምንም አይደብቅም – የማያ ገጽ መቆለፊያ ያዘጋጁ።</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">ፖርትፎሊዮ በሲስተም ምትኬ ውስጥ</string>
+    <string name="settings_portfolio_system_backup_hint">ጠፍቶ ሲሆን፦ ግብይቶችዎ ከመሣሪያው የሲስተም ምትኬና ከስልክ-ወደ-ስልክ ዝውውሮች ውጪ ይቆያሉ። ወደ አዲስ ስልክ ለማዛወር የመተግበሪያውን የራሱን ምትኬ በይለፍ ቃል ይጠቀሙ።</string>
+    <string name="settings_portfolio_system_backup_unavailable">Android 9 ወይም ከዚያ በኋላ ያስፈልገዋል – የቆዩ ስሪቶች ፖርትፎሊዮውን ሳይመሰጥሩ በGoogle ምትኬ ውስጥ ያስቀምጣሉ።</string>
+    <string name="settings_portfolio_tab">የፖርትፎሊዮ ትርን ያሳዩ</string>
+    <string name="settings_portfolio_value_locked">በርቷል፣ ከመቆለፊያ ጋር</string>
+    <string name="settings_show_converted">የተለወጡ ዋጋዎች</string>
+    <string name="settings_show_converted_hint">በክትትል ዝርዝሩ ውስጥ ያሉ ዋጋዎችን በ%1$sም ያሳያል</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">የUSDT ዲፔግን ሪፖርት ያድርጉ</string>
+    <string name="settings_depeg_alarm_hint">USDT ከ1 USD በገደቡ መጠን ሲርቅ አንድ ጊዜ ያሳውቃል (Kraken USDT/USD፣ Coinbase USDT/USD፣ Binance USDC/USDT)።</string>
+    <string name="settings_depeg_threshold">የዲፔግ ገደብ</string>
+    <string name="settings_fng_above">Fear &amp; Greed፦ ከ… በላይ ሲሆን ያሳውቁ</string>
+    <string name="settings_fng_below">Fear &amp; Greed፦ ከ… በታች ሲሆን ያሳውቁ</string>
+    <string name="settings_gas_alert_hint">መደበኛው ክፍያ ከገደቡ በታች ሲወርድ አንድ ጊዜ ያሳውቃል። በዋጋ ዝማኔዎች ወቅት፣ ቢበዛ በየ10 ደቂቃው ይፈተሻል።</string>
+    <string name="settings_gas_btc_below">የBitcoin ክፍያ ከ… በታች (sat/vB)</string>
+    <string name="settings_gas_eth_below">የEthereum gas ከ… በታች (gwei)</string>
+    <string name="settings_ind_ath_within">ከምንጊዜም ከፍተኛው ያለ ውድቀት ቢበዛ</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple ከ… በላይ</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple ከ… በታች</string>
+    <string name="settings_ind_mvrv_above">MVRV ከ… በላይ</string>
+    <string name="settings_ind_mvrv_below">MVRV ከ… በታች</string>
+    <string name="settings_indicator_alerts_hint">የBitcoin አመላካቾች፣ በቀን ሁለት ጊዜ ይፈተሻሉ። ገደቦቹን እርስዎ ይመርጣሉ – መተግበሪያው እሴቶቹን አይገመግምም።</string>
+    <string name="settings_macro_notifications">የኢኮኖሚ ቀን መቁጠሪያ</string>
+    <string name="settings_macro_notifications_hint">አስፈላጊ የአሜሪካ ኢኮኖሚ ውሂብ ባላቸው ቀናት (የዋጋ ግሽበት፣ የሥራ ሪፖርት፣ የፌድ ውሳኔ) በ08:00። የቀን መቁጠሪያው ከመተግበሪያው ድረ ገጽ ይመጣል፣ በቀን አንድ ጊዜ ይጫናል።</string>
+    <string name="settings_market_alerts">የገበያ ማንቂያዎች</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d ንቁ</item>
+        <item quantity="other">%1$d ንቁ</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">የንግግር ፍጥነት፦ %1$.1f×</string>
+    <string name="settings_tts">የድምፅ ውፅዓት</string>
+    <string name="settings_tts_alarms_only">ማንቂያዎች ብቻ</string>
+    <string name="settings_tts_alarms_only_hint">ጠፍቶ ሲሆን፦ «ዋጋውን በድምፅ ያንብቡ» ምልክት የተደረገበት ጥንድ እያንዳንዱ ዝማኔ ጮክ ብሎ ይነበባል።</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">ዋጋዎችንና ማንቂያዎችን ጮክ ብሎ ያነባል። መሣሪያው በጸጥታ ወይም በንዝረት ሁነታ ላይ ሲሆን ጸጥ ይላል።</string>
+    <string name="settings_tts_test">ድምፁን ይሞክሩ</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">መተግበሪያውን ዳግም ያስጀምሩ</string>
+    <string name="settings_reset_app_action">ሁሉንም ይሰርዙ</string>
+    <string name="settings_reset_app_confirm">የክትትል ዝርዝርን፣ ማንቂያዎችን፣ ፖርትፎሊዮን፣ ቅንብሮችንና ሁሉንም የተቀመጠ ውሂብ ከተጫነበት ጊዜ እንደነበረው ይሰርዛል። ይህ ሊቀለበስ አይችልም። ጠቃሚ ምክር፦ መጀመሪያ ምትኬ ያድርጉ። የመሣሪያ ምትኬዎች (Google ምትኬ ወይም iCloud/የኮምፒውተር ምትኬ) ቀጣዩ ምትኬ እስኪካሄድ ድረስ የቀድሞውን ውሂብ ይይዛሉ።</string>
+    <string name="settings_reset_app_title">መተግበሪያው ዳግም ይጀመር?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">ምንዛሪ ይፈልጉ</string>
+    <string name="language_search">ቋንቋ ይፈልጉ</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">ጨለማ</string>
+    <string name="theme_light">ብሩህ</string>
+    <string name="theme_system">ሲስተም</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">ሰማያዊ</string>
+    <string name="accent_green">አረንጓዴ</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs አረንጓዴ</string>
+    <string name="accent_orange">ብርቱካናማ</string>
+    <string name="accent_red">ቀይ</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">በቻይና፣ በጃፓን፣ በኮሪያና በታይዋን የተለመደ</string>
+    <string name="price_colors_swap">ቀለሞችን ይቀያይሩ (ጭማሪ ↔ ቅናሽ)</string>
+    <string name="price_style_calm">የተረጋጋ</string>
+    <string name="price_style_calm_color_vision">የተረጋጋ · የቀለም ዕይታ ችግር</string>
+    <string name="price_style_color_vision">የቀለም ዕይታ ችግር</string>
+    <string name="price_style_fresh">አዲስ</string>
+    <string name="price_style_traditional">ባህላዊ</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">የልውውጥ ግንኙነቶች ከእውነተኛ ምላሾች ጋር ለመጨረሻ ጊዜ የተፈተሹት፦ %1$s</string>
+    <string name="about_license">ዋጋዎች በቀጥታ ከልውውጦቹ ይመጣሉ፤ መለያ የለም፣ ክትትልም የለም።</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">ፈቃዶች</string>
+    <string name="about_privacy_policy">የግላዊነት መመሪያ</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">ልውውጥ ይጠይቁ</string>
+    <string name="about_source_code">የምንጭ ኮድ በGitHub ላይ</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker በr1AD የተሠራ ገለልተኛ ፕሮጀክት ነው፦ ያለ መለያ፣ ማስታወቂያ ወይም ክትትል የተረጋጋ የዋጋ አጠቃላይ እይታ። ጥያቄዎችና ምኞቶች፦ %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker ክፍት ምንጭ ነው (MIT License)።</string>
+    <string name="licenses_font_title">Rubik የፊደል ቅርጽ</string>
+    <string name="licenses_icons_bundled_text">ከመተግበሪያው ጋር የተካተተ፦ በChristopher Downer እና አስተዋጽዖ አበርካቾች የተሠሩ ከ«Cryptocurrency Icons» የመጡ አዶዎች (github.com/spothq/cryptocurrency-icons)፣ በCC0 1.0 Universal ስር የተለቀቁ። የCoinGecko ወይም የBinance አርማዎች እስኪጫኑ ድረስ ይታያሉ። ስሞችና አርማዎች የየፕሮጀክቶቻቸው የንግድ ምልክቶች ሆነው ይቆያሉ።</string>
+    <string name="licenses_icons_title">ተተኪ የሳንቲም አዶዎች</string>
+    <string name="licenses_libraries_intro">መተግበሪያው እነዚህን ቤተ-መጻሕፍት በApache License 2.0 ስር ይጠቀማል፦</string>
+    <string name="licenses_libraries_title">የAndroid ቤተ-መጻሕፍት</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">የገንቢ አማራጮችን ለመክፈት %d ተጨማሪ መንካት</item>
+        <item quantity="other">የገንቢ አማራጮችን ለመክፈት %d ተጨማሪ መንካቶች</item>
+    </plurals>
+    <string name="developer_unlocked">የገንቢ አማራጮች ተከፍተዋል</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">ንዝረት የiPhone ቅንብሮችን (Sounds &amp; Haptics) ይከተላል።</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">አዳዲስ ማንቂያዎችንና የገበያ ማንቂያዎችን ይቆጥራል፤ መተግበሪያውን ሲከፍቱ ወደ 0 ይመለሳል።</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">የእርስዎ ውሂብ</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">በዚህ መሣሪያ ላይ</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">የክትትል ዝርዝርዎ፣ ማንቂያዎችዎና ፖርትፎሊዮዎ በዚህ መሣሪያ ላይ ተመስጥረው ይቀመጣሉ፤ መለያ የለም፣ የራሳችን አገልጋይ የለም።</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">ግንኙነቶች</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">ዋጋዎች በቀጥታ ከጥንዶችዎ ልውውጦች ይመጣሉ፤ በተጨማሪም የምንዛሪ ተመኖች፣ የሳንቲም ዝርዝሮችና አርማዎች እንዲሁም በGitHub ላይ ያለው የውሂብ መስታወት፤ እነሱ የአይፒ አድራሻዎን ያያሉ፣ ይዞታዎችዎን በፍጹም አያዩም (የሚከታተሉ አድራሻዎች ወደ የየአውታረ መረቡ አቅራቢ ይሄዳሉ)።</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">ምትኬ</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">እርስዎ ከፈጠሩ ብቻ። በይለፍ ቃል ከሆነ ይመሰጠራል (Argon2id + AES-256-GCM)፤ ያለ ይለፍ ቃል ሊነበብ ይችላል።</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">መሣሪያ መቀየር</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">ቁልፉ በአሮጌው መሣሪያ ላይ ይቆያል – መጀመሪያ የምትኬ ፋይል ይፍጠሩ።</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">የምርመራ መረጃ ያጋሩ</string>
+    <string name="diagnostics_share_hint">ለድጋፍ የሚሆን የጽሑፍ ፋይል፦ ስሪት፣ መሣሪያ፣ የማንቂያ ቅንብሮች፣ የቅርብ ጊዜ ፍተሻዎችና የማንቂያ ምዝግብ – ያለ ፖርትፎሊዮ፣ መጠኖች፣ አድራሻዎች ወይም ማስታወሻዎች። መጀመሪያ እርስዎ ያዩታል፤ ምንም በራስ-ሰር አይላክም።</string>
+    <string name="diagnostics_preview_title">የምርመራ መረጃ ቅድመ እይታ</string>
+    <string name="diagnostics_action_share">ያጋሩ</string>
+    <string name="settings_price_overlay">የዋጋ ተደራቢ</string>
+    <string name="settings_price_overlay_hint">የቋሚ የዋጋ ማሳወቂያውን ጥንዶች ከሌሎች መተግበሪያዎች በላይ እንደ ትንሽ ተንሳፋፊ ምልክት ያሳያል። መተግበሪያውን ለመክፈት ይንኩ፣ ለመዝጋት ታች ወዳለው × ይጎትቱ።</string>
+    <string name="settings_price_overlay_needs">ከ«%1$s» ጋር ብቻ ይሰራል።</string>
+    <string name="settings_price_overlay_grant">ከሌሎች መተግበሪያዎች በላይ ማሳየትን ይፍቀዱ</string>
+    <string name="price_overlay_close">ተደራቢውን ይዝጉ</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">ለአድራሻዎች የራስ አገልጋይ</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">ለBitcoin ብቻ፦ የራስዎ ከEsplora ወይም ከmempool ጋር ተኳሃኝ የሆነ አገልጋይ (ለምሳሌ https://node.example/api፣ እንደ Let\'s Encrypt ያለ በይፋ የሚታመን ሰርተፊኬት ያስፈልጋል)። ከተዘጋጀ፣ የBitcoin አድራሻዎችና የxpub ቁልፎች የሚጠየቁት እዚያ ብቻ ነው – አገልጋይዎ ሊደረስበት ባይችልም እንኳ በይፋዊ ኖዶች በፍጹም አይጠየቁም። ሌሎች አውታረ መረቦች ይፋዊ ኖዶችን መጠቀማቸውን ይቀጥላሉ። ባዶ = ይፋዊ ኖዶች።</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">የBitcoin አገልጋይ (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">ይሞክሩ</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">በመሞከር ላይ…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">አገልጋዩ ምላሽ ይሰጣል – ብሎክ %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">ትክክለኛ ምላሽ የለም – አድራሻውንና ሰርተፊኬቱን ይፈትሹ</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">ጥቅም ላይ ያለ፦ %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">አልተዘጋጀም – ይፋዊ ኖዶች ጥቅም ላይ ይውላሉ</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">የሚፈቀዱት https:// አድራሻዎች ብቻ ናቸው</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">በአድራሻው ውስጥ የተጠቃሚ ስም ወይም የይለፍ ቃል መኖር የለበትም</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">በአድራሻው ውስጥ ? ወይም # ክፍል መኖር የለበትም</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">ትክክለኛ የአገልጋይ አድራሻ አይደለም</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">ወደ ይፋዊ ኖዶች ይቀየር?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">ያኔ የBitcoin አድራሻዎችዎና የxpub ቁልፎችዎ በይፋዊ ኖዶች ይጠየቃሉ፦ %1$s። እነዚህን አድራሻዎች ከአይፒ አድራሻዎ ጋር አብረው ያያሉ።</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">ይፋዊ ኖዶችን ይጠቀሙ</string>
+</resources>

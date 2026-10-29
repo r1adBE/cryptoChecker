@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
+    <string name="portfolio_cutoff_export_action">Útflutningur á viðmiðunardegi…</string>
+    <string name="portfolio_tax_worksheet_action">Vinnublað…</string>
+    <string name="portfolio_export_address_unobserved">vistfang ekki vaktað á þessum degi – ekki tekið með</string>
+    <string name="portfolio_export_button">Flytja út CSV</string>
+    <string name="portfolio_export_col_amount">Magn</string>
+    <string name="portfolio_export_col_coin">Mynt</string>
+    <string name="portfolio_export_col_note">Athugasemd</string>
+    <string name="portfolio_export_col_price">Verð USDT</string>
+    <string name="portfolio_export_col_rate">Gengi USDT→%1$s</string>
+    <string name="portfolio_export_col_value">Virði USDT</string>
+    <string name="portfolio_export_col_value_cur">Virði %1$s</string>
+    <!-- Inhalt der CSV-Datei -->
+    <string name="portfolio_export_comment"># Viðmiðunardagur %1$s, gjaldmiðill %2$s, gengi frá %3$s</string>
+    <string name="portfolio_export_currency">Gjaldmiðill: %1$s</string>
+    <string name="portfolio_export_date">Viðmiðunardagur</string>
+    <string name="portfolio_export_done">Útflutningur vistaður</string>
+    <string name="portfolio_export_estv_note">Fyrir eignarskatt gilda opinber árslokagildi af verðlista ESTV %1$s þar sem þau eru skráð: %2$s</string>
+    <string name="portfolio_export_failed">Útflutningur mistókst</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">Útflutningur mistókst: ekki var hægt að skrifa skrána – vistunarstaðurinn er horfinn eða ekki skrifanlegur</string>
+    <string name="portfolio_export_failed_prices">Útflutningur mistókst: ekki var hægt að hlaða verðum – engin tenging eða kauphöllin svarar ekki</string>
+    <string name="portfolio_export_from_address">frá vistfangi – ekkert kaupverð</string>
+    <string name="portfolio_export_hint">Eign í lok valins dags, metin á dagslokaverði (UTC) í USDT og umreiknuð með viðmiðunargengi Seðlabanka Evrópu þann dag. Breyttu gjaldmiðlinum með „Umreikna í“.</string>
+    <string name="portfolio_export_incomplete">ófullkomið</string>
+    <string name="portfolio_export_no_fx">ekkert gengi</string>
+    <string name="portfolio_export_no_price">ekkert verð</string>
+    <string name="portfolio_export_running">Sækir söguleg verð…</string>
+    <string name="portfolio_export_title">Útflutningur á viðmiðunardegi</string>
+    <string name="portfolio_export_today_hint">Dagurinn í dag er ekki liðinn: núverandi verð er notað í stað dagslokaverðs.</string>
+    <string name="portfolio_export_total">Samtals</string>
+    <string name="portfolio_export_unchecked">óstaðfest (ekkert samsvarandi verð)</string>
+
+    <!-- Steuer-Export (Arbeitspapier) -->
+    <string name="tax_export_adjustment">superficial loss (bætt við ACB)</string>
+    <string name="tax_export_at_wallet_note">Austurríki: hlaupandi meðaltal á mynt og veski (kauphöll) – millifærslur flytja kostnaðinn með – umbun á kostnaðarverði 0 – eign frá 1. mars 2021 án gjalda (ekki frádráttarbær) – útlánavextir á virði við móttöku (tekjur á 27,5 prósentum).</string>
+    <string name="tax_export_avg_cost_rates">kostnaður á gengi kaupdags (meðaltal)</string>
+    <string name="tax_export_ch_wealth_not_calculated">Eignarskattur ekki reiknaður – verðlisti ESTV: %1$s</string>
+    <string name="tax_export_col_acquired">Eignast</string>
+    <string name="tax_export_col_adjustment">Ófrádráttarbært tap %1$s</string>
+    <string name="tax_export_col_cost">Kostnaður %1$s</string>
+    <string name="tax_export_col_date">Dagsetning</string>
+    <string name="tax_export_col_days">Dagar í eigu</string>
+    <string name="tax_export_col_gain">Hagnaður %1$s</string>
+    <string name="tax_export_col_gross">Verð fyrir gjöld %1$s</string>
+    <string name="tax_export_col_long_term">í eigu &gt; 1 ár</string>
+    <string name="tax_export_col_portfolio_value">Virði eignasafns %1$s</string>
+    <string name="tax_export_col_proceeds">Söluandvirði %1$s</string>
+    <string name="tax_export_col_sold">Selt</string>
+    <string name="tax_export_cost_incomplete">heildarkaupkostnaður ófullkominn</string>
+    <string name="tax_export_cost_missing">kaupverð vantar</string>
+    <string name="tax_export_fee_consumed">Gjald étur upp alla móttökuna</string>
+    <string name="tax_export_fee_leg">gjald í annarri mynt</string>
+    <string name="tax_export_fee_row">Gjald</string>
+    <string name="tax_export_fee_value_missing">gjald í annarri mynt hefur ekkert virði</string>
+    <string name="tax_export_gains">Innleystar ráðstafanir (CSV)</string>
+    <string name="tax_export_gains_title">Innleystar ráðstafanir %1$s</string>
+    <string name="tax_export_gift">Gjöf</string>
+    <string name="tax_export_holdings_cutoff">Eign þann %1$s (CSV)</string>
+    <string name="tax_export_holdings_title">Eign þann %1$s</string>
+    <string name="tax_export_income">Tekjur (CSV)</string>
+    <string name="tax_export_income_title">Tekjur %1$s</string>
+    <string name="tax_export_info_template">Sniðmát: %1$s · Aðferð: %2$s · Skattár: %3$s · Gjaldmiðill: %4$s · Crypto Checker %5$s</string>
+    <string name="tax_export_lost_fee_cost">kostnaður netgjalds án greiddrar lotu</string>
+    <string name="tax_export_match_pool">Section 104 pool</string>
+    <string name="tax_export_match_same_day">sami dagur (HMRC)</string>
+    <string name="tax_export_match_thirty_day">30 daga regla (HMRC)</string>
+    <string name="tax_export_method_change_warning">Breyting á aðferð eða sniðmáti endurreiknar líka fyrri ár – berðu saman við það sem þegar hefur verið skilað.</string>
+    <string name="tax_export_method_overridden">Sniðmátið reiknar %1$s – ekki %2$s</string>
+    <string name="tax_export_new_holding">eignast frá 1. mars 2021</string>
+    <string name="tax_export_no">nei</string>
+    <string name="tax_export_old_holding">eignast fyrir 1. mars 2021</string>
+    <string name="tax_export_oversold">selt meira en skráð er</string>
+    <string name="tax_export_payment">Greiðsla með rafmynt</string>
+    <string name="tax_export_period">%1$s – %2$s</string>
+    <string name="tax_export_proceeds_missing">söluverð vantar</string>
+    <string name="tax_export_proceeds_without_cost">Söluandvirði án kaupverðs</string>
+    <string name="tax_export_realized_differs">Skatta-CSV getur vikið frá ‘innleyst’ (skattareglur landsins).</string>
+    <string name="tax_export_rule">&gt; 1 ár: selt eftir kaupdag + 1 almanaksár. Dagsetningar að staðartíma. Gengi: dagsgengi Seðlabanka Evrópu á færsludegi; ef það er ekkert, síðasta gengi allt að 7 dögum fyrr.</string>
+    <string name="tax_export_rules_date">Reglur miðað við: %1$s</string>
+    <string name="tax_export_rules_stale">Reglurnar eru frá %1$s – fyrir %2$s gætu skatthlutföll og frádrættir hafa breyst. Athugaðu gildin.</string>
+    <string name="tax_export_spouse_gift">til maka/sambúðaraðila – hvorki hagnaður né tap</string>
+    <string name="tax_export_summary">Ársyfirlit %1$s (CSV)</string>
+    <string name="tax_export_swap">skipti</string>
+    <string name="tax_export_tax_year">Skattár</string>
+    <string name="tax_export_transfer_fee_info">Millifærslugjald í USDT/reiðufé – ekki tap, ekki í kostnaðarverði, aðeins til upplýsingar</string>
+    <string name="tax_export_unassigned_fee">gjaldi ekki úthlutað – kostnaðarverð óþekkt</string>
+    <string name="tax_export_usdt_usd_note">USDT umreiknað á dagslokaverði USDT/USD; 1 USD þar sem ekkert lokaverð er (merkt í hverri línu)</string>
+    <string name="tax_export_value_estimated">Virði áætlað (dagslokaverð)</string>
+    <string name="tax_export_value_missing">virði við móttöku vantar</string>
+    <string name="tax_export_wallet">Veski: %1$s</string>
+    <string name="tax_export_wallet_unspecified">ekki tilgreint</string>
+    <string name="tax_export_withdrawal_fee">Úttektargjald</string>
+    <string name="tax_export_withdrawal_fee_info">Úttektargjald í USDT/reiðufé – ekki tap, aðeins til upplýsingar</string>
+    <string name="tax_export_workpaper_disclaimer">Skattavinnublað – ekki skattframtal og ekki skattaráðgjöf</string>
+    <string name="tax_export_workpaper_title">Vinnublað</string>
+    <string name="tax_export_year_local_zone">Dagsetningar að staðartíma (%1$s)</string>
+    <string name="tax_export_yes">já</string>
+
+    <!-- Steuer-Export: Zeilen und Spalten -->
+    <string name="tax_line_at_interest">Útlánavextir (virði við móttöku)</string>
+    <string name="tax_line_at_old_long">Eignast fyrir 1. mars 2021 – í eigu &gt; 1 ár: venjulega ekki skattskylt – athugaðu</string>
+    <string name="tax_line_at_rate">Sérstakt hlutfall 27,5 prósent: nettó eignast frá 1. mars 2021 og selt frá 1. mars 2022 + vextir</string>
+    <string name="tax_line_au_discounted">Nettó söluhagnaður eftir tap og 50 prósenta afslátt</string>
+    <string name="tax_line_ca_taxable">Skattskyldur söluhagnaður (inntökuhlutfall 1/2)</string>
+    <string name="tax_line_ch_income">Umbun skráð – sjá vinnuskjal ESTV um meðferð hennar</string>
+    <string name="tax_line_ch_private">Söluhagnaður af einkaeignum: ekki reiknaður – sjá ESTV um flokkun</string>
+    <string name="tax_line_ch_wealth">Eignarskattur: ekki reiknaður – eignar-CSV notar verð kauphallar × USD/CHF 31. des. – opinber skattgildi: verðlisti ESTV</string>
+    <string name="tax_line_de_long">Í eigu &gt; 1 ár: venjulega ekki skattskylt samkvæmt § 23 EStG – athugaðu</string>
+    <string name="tax_line_denied_loss">Ófrádráttarbært tap (superficial loss)</string>
+    <string name="tax_line_fr_outflow">Útflæði án sölu (úttektir) – heildarkaupkostnaður lækkaður hlutfallslega</string>
+    <string name="tax_line_fr_rate">Fast hlutfall 12,8 prósent auk félagsgjalda (eða skattþrep að vali)</string>
+    <string name="tax_line_fr_threshold">Ráðstafanir allt að 305 € á ári: almennt undanþegnar (samtala söluverða) – athugaðu</string>
+    <string name="tax_line_gains">Hagnaður</string>
+    <string name="tax_line_income">Tekjur (umbun á virði við móttöku)</string>
+    <string name="tax_line_jp_misc">Ýmsar tekjur (雑所得): nettóhagnaður + tekjur</string>
+    <string name="tax_line_long_net">Nettó – í eigu &gt; 1 ár</string>
+    <string name="tax_line_losses">Tap</string>
+    <string name="tax_line_net">Nettóhagnaður/-tap</string>
+    <string name="tax_line_new_net">Nettó – eignast frá 1. mars 2021, selt frá 1. mars 2022</string>
+    <string name="tax_line_old_long_net">Nettó – eignast fyrir 1. mars 2021 – í eigu &gt; 1 ár</string>
+    <string name="tax_line_old_short_net">Nettó – spákaupmennskuviðskipti (eldri lög): eignast fyrir 1. mars 2021 og í eigu ≤ 1 ár, eða selt fyrir 1. mars 2022</string>
+    <string name="tax_line_proceeds">Söluandvirði</string>
+    <string name="tax_line_short_net">Nettó – í eigu ≤ 1 ár</string>
+    <string name="tax_line_transfer_fees">Millifærslugjöld (eigin veski)</string>
+    <string name="tax_line_uk_after_exempt">Nettóhagnaður umfram undanþegna upphæð (aðeins rafmyntir)</string>
+    <string name="tax_line_uk_exempt">Árleg undanþegin upphæð – gildir fyrir allar ráðstafanir saman, hér beitt að fullu</string>
+    <string name="tax_line_us_terms">Skammtíma (≤ 1 ár): venjuleg skatthlutföll – langtíma (&gt; 1 ár): skatthlutföll söluhagnaðar</string>
+    <string name="tax_line_withdrawal_fees">Úttektargjöld</string>
+
+    <!-- Steuer Deutschland -->
+    <string name="tax_de_below">undir mörkunum</string>
+    <string name="tax_de_col_item">Liður</string>
+    <string name="tax_de_disclaimer">Aðeins til viðmiðunar – ekki skattframtal og ekki skattaráðgjöf.</string>
+    <string name="tax_de_explain_below">Allt að %1$s: undir mörkunum (til viðmiðunar).</string>
+    <string name="tax_de_explain_loss">Nettótap: enginn skattur af þessari sölu. Tap samkvæmt § 23 EStG jafnast aðeins á móti hagnaði af einkasölu – á sama ári eða með flutningi til fyrra árs og yfirfærslu til síðari ára (§ 23 mgr. 3 og § 10d EStG). Gefðu tapið upp í skattframtalinu svo það verði ákvarðað.</string>
+    <string name="tax_de_explain_reached">Frá %1$s telst öll upphæðin (undanþágumörk – ekki frítekjumark).</string>
+    <string name="tax_de_explain_unknown">Ekki hægt að athuga: gengi / kaupverð eða eignarhaldstíma vantar.</string>
+    <string name="tax_de_income_limit">Undanþágumörk fyrir þjónustu (§ 22 nr. 3 EStG)</string>
+    <string name="tax_de_limit_scope">Mörkin gilda fyrir alla einkasölu eða þjónustu ársins saman – líka utan forritsins.</string>
+    <string name="tax_de_loading">Reiknar…</string>
+    <string name="tax_de_long_gains">Hagnaður – í eigu &gt; 1 ár</string>
+    <string name="tax_de_long_losses">Tap – í eigu &gt; 1 ár</string>
+    <string name="tax_de_loss">nettótap – aðeins hægt að jafna á móti hagnaði af einkasölu (§ 23 EStG)</string>
+    <string name="tax_de_private_limit">Undanþágumörk fyrir einkasölu (§ 23 EStG)</string>
+    <string name="tax_de_reached">mörkum náð – venjulega telst öll upphæðin – athugaðu</string>
+    <string name="tax_de_short_gains">Hagnaður – í eigu ≤ 1 ár</string>
+    <string name="tax_de_short_losses">Tap – í eigu ≤ 1 ár</string>
+    <string name="tax_de_unclassified">Eignarhaldstími óþekktur</string>
+    <string name="tax_de_unknown">ekki hægt að athuga</string>
+
+    <!-- Steuer-Vorlagen je Land -->
+    <string name="tax_template_at">Austurríki</string>
+    <string name="tax_template_au">Ástralía</string>
+    <string name="tax_template_beta">Beta</string>
+    <string name="tax_template_beta_note">Beta: einfaldaðar reglur landsins, athugaðu áður en þú skilar skattframtali</string>
+    <string name="tax_template_ca">Kanada</string>
+    <string name="tax_template_ch">Sviss</string>
+    <string name="tax_template_confirm_text">Beta, einfaldaðar reglur, færslur frá öðrum vettvöngum vantar – athugaðu áður en þú skilar skattframtali.</string>
+    <string name="tax_template_confirm_title">Skattasniðmát (beta)</string>
+    <string name="tax_template_current">Sniðmát: %1$s · Aðferð: %2$s · Gjaldmiðill: %3$s</string>
+    <string name="tax_template_de">Þýskaland</string>
+    <string name="tax_template_fr">Frakkland</string>
+    <string name="tax_template_hint">Aðeins til viðmiðunar: ákveður aðferð, skattár og yfirlit skattavinnublaðsins. Eignasafnsspjaldið helst hlutlaust – gjafir og millifærslugjöld geta vikið frá vinnublaðinu.</string>
+    <string name="tax_template_jp">Japan</string>
+    <string name="tax_template_neutral">Hlutlaust (öll lönd)</string>
+    <string name="tax_template_suggestion">Tillaga fyrir þitt svæði: %1$s</string>
+    <string name="tax_template_title">Skattasniðmát</string>
+    <string name="tax_template_uk">Bretland</string>
+    <string name="tax_template_us">Bandaríkin</string>
+    <string name="tax_template_use">Nota %1$s</string>
+
+    <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
+    <string name="tax_method_at">Gömul/ný eign – hlaupandi meðaltal</string>
+    <string name="tax_method_ca_acb">ACB meðalkostnaður (superficial loss)</string>
+    <string name="tax_method_fr_pta">Heildarkaupverð (art. 150 VH bis)</string>
+    <string name="tax_method_jp_total">Heildarmeðaltal (総平均法)</string>
+    <string name="tax_method_uk_pool">Section 104 pool (sami dagur / 30 dagar)</string>
+    <string name="tax_note_at">Hlaupandi meðaltal á mynt og veski – ekki þvert á veski (KryptowährungsVO § 2). Umbun fer inn í nýja eign á kostnaðarverði 0 (BMF: staking / airdrop) – tekjuskráin sýnir hana á virði við móttöku. Gjöld eru ekki frádráttarbær fyrir eign sem fengin er frá 1. mars 2021 (§ 27a(4) nr. 2, § 20(2) EStG): kostnaður og söluandvirði án gjalda. Útlánavextir (tegund úr CSV-innflutningi eða athugasemd) eru tekjur við móttöku á 27,5 prósentum og halda því virði sem kaupkostnaði.</string>
+    <string name="tax_note_at_staking">Staking með myntum sem þú átt þegar og airdrop: virði við móttöku skiptir ekki máli fyrir skatt – lögum samkvæmt er kaupkostnaðurinn 0 (§ 27b Abs. 2 EStG; BMF „Kryptowährungen“). Skattur fellur aðeins til þegar þú selur.</string>
+    <string name="tax_note_fr">Sala og gjöld greidd í rafmynt eru ráðstafanir – skiptum er frestað. Rafmyntargjald við sölu telst í verðinu fyrir gjöld – annars er það sérstök ráðstöfun á eigin virði. Virði eignasafns út frá dagslokaverðum – vanti lokaverð verður kostnaðurinn auður.</string>
+    <string name="tax_note_network_fee">Netgjald greitt í rafmynt (millifærsla í eigið veski, úttekt) er ráðstöfun gjaldmyntanna á markaðsvirði – hagnaður eða tap aðeins af þeim myntum, ekki tap alls gjaldsins (%1$s). Án skráðs verðs: dagslokaverð (UTC) sama dags; án lokaverðs verður söluandvirðið autt.</string>
+    <string name="tax_note_specific_id">Sértæk auðkenning er ekki studd – FIFO er notað.</string>
+    <string name="tax_note_spouse_gift">Gjöf merkt „til maka / sambúðaraðila“ er hvorki hagnaður né tap: söluandvirði = kostnaðarverð þitt, sem makinn tekur við (%1$s).</string>
+    <string name="tax_note_stable_swap">Sala á rafmynt fyrir stöðugleikamynt (USDT/USDC/DAI …) sem þú heldur er hér rafmynt-í-rafmynt og ekki skattlögð – skráðu hana sem skipti yfir í stöðugleikamyntina. Aðeins sala fyrir evrur er skattlögð – „Selja“ telst sala fyrir evrur.</string>
+    <string name="tax_note_transfer_fee">Það sama gildir um USDT- eða reiðufjárgjald við millifærslu milli eigin veskja: því er ekki bætt við kostnaðarverðið og það er aðeins skráð til upplýsingar.</string>
+    <string name="tax_note_uk">Pörun samkvæmt HMRC: sami dagur → næstu 30 dagar → Section 104 pool.</string>
+    <string name="tax_note_us_transition">Umskipti 1. jan. 2025 (Rev. Proc. 2024-28 safe harbor): ef fyrri ár notuðu FIFO þvert á öll veski fara eftirstandandi lotur 31. des. 2024 til veskjanna sem geyma myntirnar – veskið með elstu myntirnar fær elsta kostnaðarverðið. Þessi skipting er regla forritsins – berðu hana saman við eigin gögn.</string>
+    <string name="tax_note_us_wallet">Frá skattárinu 2025 krefst IRS kostnaðarverðs eftir veski eða kauphöll (Rev. Proc. 2024-28): útflutningurinn notar FIFO eftir veski frá 2025 – fyrir fyrri ár FIFO þvert á öll veski, eða FIFO eftir veski ef það er kostnaðaraðferðin þín.</string>
+    <string name="tax_note_withdrawal_fee">Úttektargjald í USDT eða reiðufé er ekki tap: reiðufjárgjald er ekki frádráttarbær kostnaður, USDT-gjald er ráðstöfun á nafnvirði án hagnaðar – það er aðeins skráð til upplýsingar (%1$s).</string>
+    <string name="tax_summary_at_interest_income">telst: tekjur við móttöku á sérstöku hlutfalli 27,5 prósent (§ 27b(2) nr. 1 EStG / BMF) – myntirnar halda þessu virði sem kaupkostnaði</string>
+    <string name="tax_summary_at_reward_info">aðeins til upplýsingar – ekki hluti af neinni samtölu: umbun fer inn í nýja eign á kaupkostnaði 0 og er aðeins skattlögð við sölu (þegar í hagnaðinum) – § 27b mgr. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">1. jan.–28. feb. 2022: valkostur um 27,5 prósent mögulegur</string>
+    <string name="tax_summary_at_withdrawal_fee">Úttektargjald – ekki jafnað á móti nýrri eign (útgjöld ekki frádráttarbær á sérstöku hlutfalli, § 20(2) EStG)</string>
+    <string name="tax_summary_ch_fifo_info">aðeins til upplýsingar – FIFO-útreikningur forritsins – ekki flokkað – sjá ESTV</string>
+    <string name="tax_summary_ch_year_end_value">virði 31. des. í eignar-CSV = verð kauphallar × USD/CHF – ekki skattgildi ESTV</string>
+    <string name="tax_summary_de_withdrawal_fee">Úttektargjald – ekki jafnað samkvæmt § 23, athugaðu hvort það sé frádráttarbært sem kostnaður við öflun tekna</string>
+    <string name="tax_summary_not_calculated_estv">ekki reiknað – verðlisti ESTV: %1$s</string>
+    <string name="tax_summary_orientation">Viðmiðun</string>
+    <string name="tax_summary_orientation_block">Aðeins til viðmiðunar – ekki skattaráðgjöf – ekki álagning</string>
+    <string name="tax_summary_orientation_item">Viðmiðun: %1$s</string>
+    <string name="tax_summary_title">Ársyfirlit %1$s %2$s</string>
+    <string name="tax_summary_transfer_fee_info">Millifærslugjöld í USDT/reiðufé – ekki tap og ekki í kostnaðarverði, aðeins til upplýsingar</string>
+    <string name="tax_summary_withdrawal_fee_info">Úttektargjöld í USDT/reiðufé – ekki talin sem tap, aðeins til upplýsingar</string>
+
+    <string name="tax_line_at_old_speculation_limit">Spákaupmennskuviðskipti (eldri lög, í eigu ≤ 1 ár): undanþágumörk (§ 31 (3) EStG eldri útgáfa)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">Útlánavextir fyrir 1. mars 2022 (virði við móttöku)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">Vextir fyrir 1. mars 2022: eldri lög (tekjuskattshlutfall), ekki 27,5 prósent</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">fyrir 1. mars 2022 – athugaðu hjá fagaðila</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">Vextir – skattskyldir við móttöku</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">Staking – aðeins til upplýsingar (kaupkostnaður 0, skattlagt við sölu)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">Vextir samtals (skattskyldir)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">Staking samtals (upplýsingar)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">Nettó söluhagnaðartap (yfirfært)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">án valkosts: inniheldur sölu 1. jan.–28. feb. 2022</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">Staking fyrir 1. mars 2022: kaupkostnaður settur á 0 – athugaðu hjá fagaðila</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">30 daga reglan getur enn breytt þessum tölum (kaup til %1$s)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Söluandvirði fyrir gjöld yfir tilkynningarmörkum (£50,000; 2020/21–2022/23: £49,200): tilkynntu til HMRC ef þú ert með skráningu í Self Assessment, jafnvel án skattskylds hagnaðar</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">Eignarvirði 31. des. %1$s (viðmiðun)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">Verðlisti ESTV (ictax.admin.ch) er bindandi. Fyrir myntir sem eru ekki á listanum gildir almennt lokaverð kauphallarinnar. Eignarskattur ekki reiknaður.</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – eign %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">ekki reiknað</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">Ekki tókst að lesa vöktuð vistföng – stöður þeirra vantar í þessa skrá</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">Lotur vaktaðra vistfanga teljast frá kaupdegi sínum; ef staða vistfangsins í dag er lægri eru þær lækkaðar.</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">Vöktuð vistföng teljast með í heildarvirði en hafa engan kaupkostnað – hagnaðurinn er því líklega of hár. Skráðu kostnaðinn sem kaup.</string>
+    <string name="tax_summary_fr_rewards_income">Upphæðin gerir ráð fyrir að umbun hafi verið skattlögð sem tekjur við móttöku (virði við móttöku í kaupkostnaði) – annars væri kaupkostnaður 0 varfærnari túlkun.</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">Markaðsvirði án skráðs verðs (gjöld, gjafir/greiðslur, skipti, umbun, netgjöld, virði eignasafns) á dagslokaverði (UTC) færsludagsins</string>
+</resources>

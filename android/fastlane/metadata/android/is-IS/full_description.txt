@@ -1,0 +1,41 @@
+Crypto Checker athugar verð á þinni kauphöll og lætur vita þegar markinu er náð við athugun. Með forritið lokað ákveður Android hvenær viðvaranir eru athugaðar – í mesta lagi á 15 mínútna fresti, oft aðeins eftir margar klukkustundir. Stutt stökk á milli geta farið fram hjá; forritið segir frá því. Verð þinnar kauphallar, ekki meðaltal – ókeypis, enginn aðgangur.
+
+HVAÐ GERIR ÞAÐ ÖÐRUVÍSI
+• Þín kauphöll, ekki meðaltal: hver lína sýnir síðasta verð parsins á valinni kauphöll – Binance, Coinbase, Kraken, OKX, Bybit og margar fleiri.
+• Viðvörun sem lætur vita einu sinni: „Láttu mig vita þegar BTC fer yfir 100.000 USDT.“ Hún hringir þegar athugun sýnir markið rofið, ekki við hverja uppfærslu – „Einu sinni“ slekkur síðan á henni, „Í hvert skipti“ virkjar hana aftur þegar verðið snýr til baka.
+• „Hvað hreyfist með?“: þáttalisti fyrir eina mynt – heildarmarkaður, velta, sveiflur, fjármögnun og opnar stöður, fjarlægð að hámarki eða lágmarki, Fear & Greed. Sýnir hvað hreyfist á sama tíma – hvorki orsök, fréttir né fjárfestingarráðgjöf.
+• Enginn aðgangur, engar auglýsingar, engin rakning. Forritarinn fær engin gögn þín.
+
+HEIÐARLEGT UM GÖGNIN
+• „Sparneytið“ er sjálfgefið: verð endurnýjast þegar forritið er opnað og reglulega í bakgrunni. „Í beinni meðan opið“ bætir við verði í beinni fyrir Binance, Bybit, OKX, Coinbase og Kraken meðan vaktlistinn er opinn.
+• %-breyting og gröf koma fyrst frá kauphöll parsins sjálfs; án kerta þar notar forritið Binance eða Coinbase og segir frá því.
+• Fear & Greed, yfirráð og on-chain gildi frá alternative.me, CoinGecko og Coin Metrics.
+• Upphæðir fara aðeins af tækinu með útflutningi þínum eða kerfisafriti Android. Fyrir verð fara aðeins auðkenni paranna til kauphallar þeirra; auk þess gengi (Frankfurter), markaðsgögn og merki (CoinGecko, Binance), gagnaspeglar (GitHub). Ef þú vaktar vistföng eða xpub sjá opinberir blockchain-hnútar vistföngin (fyrir xpub þau útleiddu) og IP-töluna.
+
+VAKTLISTI
+• 56 markaðir á 45 kauphöllum: spot og framvirkir samningar, DEX-tókar í gegnum DexScreener, að vali hlutabréf, gull og gjaldeyrir (TradFi)
+• Önnur lína „≈ virði“ í einum af 31 gjaldmiðli (EUR, CHF, USD …), umreiknað á gengi
+• Smágraf og %-breyting á 24 klst. eða frá 00:00 í þínu tímabelti
+• Hópar, uppáhöld, drag & drop og athugasemd á mynt
+• Línur merkja „úrelt“ eða „ekki næst í kauphöll“
+
+VIÐVARANIR
+• Verð yfir eða undir marki, eða hækkun eða lækkun um prósentu – líka í þínum gjaldmiðli, t.d. 60.000 EUR á USDT-pari
+• Hreyfing um x % innan tímaglugga, veltustökk
+• Hljóð (líka þín eigin hljóðskrá), titringur og upplestur að vali
+• Kyrrðartími og „Prufuviðvörun“: heyrðu fyrir fram hvernig viðvörun berst; viðvörunaskrá: hvenær athugað, hvaða verð, af hverju ekkert fór af stað
+
+MARKAÐUR
+• Eftirtektarvert: óvenjulegar verð- og veltuhreyfingar á vaktlistanum, að vali sem tilkynning
+• Rafmyntapúls, Fear & Greed, Bitcoin-vísar, fjármögnun og opnar stöður – sem mæld gildi
+• Netgjöld fyrir Ethereum, Bitcoin og fleiri, með gasviðvörun
+
+MEIRA
+• Græjur: vaktlisti, heildarvirði eignasafns, stök mynt með grafi
+• Eignasafn að vali (í Stillingum): kaup, sala, skipti, millifærslur, umbun, innlagnir og úttektir; FIFO (sjálfgefið) eða meðaltal (Ø); vistföng aðeins til lestrar án endurheimtarorða fyrir BTC (þ.m.t. xpub), ETH og EVM-net, SOL, TRX, XRP, LTC, ADA og TON; CSV-innflutningur frá Relai, Swissquote, Bitpanda, Kraken, Binance og Coinbase; ársyfirlit sem CSV; eigin lás. Bitpanda og Swissquote: ekkert eigið verð, aðeins CSV.
+• Læsilegt fyrir alla: grænt/rautt eða blátt/appelsínugult, formerki og ör í stað litar eingöngu; TalkBack les hverja línu sem eina setningu
+• Öryggisafrit og endurheimt í skrá – líka milli Android og iPhone
+• Ljós og dökk stilling, 5 áherslulitir, 75 tungumál
+• Opinn hugbúnaður (MIT) – kóðinn er opinn á GitHub
+
+Athugið: Crypto Checker sýnir verð og eignasafn sem þú slærð inn. Það er hvorki kauphöll né veski, stundar ekki viðskipti og veitir ekki fjárfestingarráðgjöf.

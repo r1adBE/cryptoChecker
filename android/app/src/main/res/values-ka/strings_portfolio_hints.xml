@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">პორტფელის განგაშები შეჩერებულია: %1$s-ის მიმდინარე ფასი არ არის</string>
+    <string name="portfolio_alarms_paused_price_generic">პორტფელის განგაშები შეჩერებულია: ყველა მონეტას არ აქვს მიმდინარე ფასი</string>
+    <string name="portfolio_alarms_paused_addresses">პორტფელის განგაშები შეჩერებულია: დაკვირვებადი მისამართების ნაშთები ჯერ არ ჩატვირთულა</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">პორტფელის განგაშები შეჩერებულია: %1$s-ის ტოკენების ნაშთები ნაწილობრივ მოძველებულია</string>
+    <string name="portfolio_alarms_paused_tokens_generic">პორტფელის განგაშები შეჩერებულია: დაკვირვებადი მისამართების ტოკენების ნაშთები ნაწილობრივ მოძველებულია</string>
+    <string name="portfolio_alarms_paused_unverified">პორტფელის განგაშები შეჩერებულია: %1$s-ის ფასი გადაუმოწმებელია</string>
+    <string name="portfolio_alarms_paused_unverified_generic">პორტფელის განგაშები შეჩერებულია: ზოგი მონეტის ფასი გადაუმოწმებელია</string>
+    <string name="portfolio_alarms_address_failing">პორტფელის განგაშები მოწმდება %1$s-ის გარეშე: ნაშთი 24 საათზე მეტია არ ჩატვირთულა</string>
+    <string name="portfolio_alarms_address_failing_generic">პორტფელის განგაშები მოწმდება იმ მისამართების გარეშე, რომელთა ნაშთიც 24 საათზე მეტია არ ჩატვირთულა</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">ტოკენები ნაწილობრივ მოძველებულია</string>
+    <string name="portfolio_address_restore_failed">მისამართის აღდგენა ვერ მოხერხდა – საჭიროების შემთხვევაში ხელახლა დაამატე</string>
+    <string name="portfolio_address_remove_failed">მისამართის წაშლა ვერ მოხერხდა – კიდევ სცადე</string>
+</resources>

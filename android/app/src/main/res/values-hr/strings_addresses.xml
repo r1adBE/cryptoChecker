@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">Dodaj adresu</string>
+    <string name="portfolio_address_count">Uračunaj</string>
+    <string name="portfolio_address_error">Ažuriranje nije uspjelo</string>
+    <string name="portfolio_address_hint">Javna adresa (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) ili xpub</string>
+    <string name="portfolio_address_label">Oznaka (neobavezno)</string>
+    <string name="portfolio_address_not_since_buy">S adrese · nije u „Od kupnje“: %1$s</string>
+    <string name="portfolio_address_overlap">I u tvojim vlastitim transakcijama: %1$s – zbrajaju se oboje. Iste kriptovalute? Odaberi „Samo prikaži“.</string>
+    <string name="portfolio_address_overlap_ask">%1$s već bilježiš vlastitim transakcijama. Dodati stanje ove adrese portfelju ili ga samo prikazati?</string>
+    <string name="portfolio_address_overlap_auto">„%1$s“ se sada samo prikazuje, ne uračunava – %2$s se pojavljuju i u tvojim transakcijama.</string>
+    <string name="portfolio_address_overlap_title">Iste kriptovalute kao u tvojim transakcijama?</string>
+    <string name="portfolio_address_overlap_tx">Isti iznos kao tvoja vlastita uplata/prijenos (%1$s) – vjerojatno uračunato dvaput.</string>
+    <string name="portfolio_address_period_observed">Praćene adrese računaju se od prvog uočenog stanja; kasnije promjene su priljevi/odljevi, a ne dobit.</string>
+    <string name="portfolio_address_privacy">Na %1$s šalje se samo javna adresa – nikada ključevi ni seed fraze. Pružatelj je vidi zajedno s tvojom IP adresom. Provjerava se najviše svakih 10 minuta.</string>
+    <string name="portfolio_address_remove">Ukloni adresu</string>
+    <string name="portfolio_address_show_only">Samo prikaži, ne dodaji u portfelj</string>
+    <string name="portfolio_address_show_only_short">Samo prikaži</string>
+    <string name="portfolio_address_tokens">Uračunaj tokene</string>
+    <string name="portfolio_address_xpub_privacy">Xpub otkriva sve adrese ovog novčanika. One se izvode na tvojem uređaju; na %1$s šalju se samo pojedinačne adrese – barem 40 upita pri prvom skeniranju, kasnije manje. Privatni ključevi (xprv) nikada se ne prihvaćaju.</string>
+    <string name="portfolio_address_xpub_gap">Pretraživanje se zaustavlja nakon %1$d neiskorištenih adresa zaredom (standard BIP44 koji koristi većina novčanika). Iskorištena adresa iza tog razmaka ne uračunava se – dodaj je zasebno.</string>
+    <string name="portfolio_address_xpub_used">Adrese u upotrebi: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">Previše iskorištenih adresa za ažuriranje</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">Vrlo mnogo adresa – nove uplate na stare, prazne adrese možda neće biti otkrivene</string>
+    <string name="portfolio_addresses_title">Adrese</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Bitcoin Cash adrese ne mogu se pratiti: ne postoji besplatna javna usluga bez API ključa čiji uvjeti to dopuštaju.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) ugašen je 2024. – stanja su sada na BNB Smart Chainu (0x…)</string>
+    <string name="address_checksum">Kontrolni zbroj nije točan – provjeri ima li pogrešaka u upisu</string>
+    <string name="address_doge_unsupported">Dogecoin adrese ne mogu se pratiti: ne postoji besplatna javna usluga bez API ključa čiji uvjeti to dopuštaju.</string>
+    <string name="address_duplicate">Ova je adresa već dodana</string>
+    <string name="address_ens">ENS nazivi nisu podržani – unesi 0x adresu</string>
+    <string name="address_invalid">Nije valjana adresa podržane mreže</string>
+    <string name="address_limit">Najviše 20 adresa</string>
+    <string name="address_secret">Ovo izgleda kao privatni ključ ili seed fraza – nikada je nigdje ne unosi. Samo javne adrese.</string>
+    <string name="address_testnet">Testnet adrese nisu podržane</string>
+    <string name="address_unsupported">Ova vrsta adrese nije podržana</string>
+    <string name="address_wrong_chain">Adresa pripada drugoj mreži</string>
+    <string name="address_xpub_multisig">Multisig ključevi (Ypub/Zpub) nisu podržani</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot račun (BIP86): iz ovog ključa izvode se bc1p… adrese, za primanje i ostatak.</string>
+    <string name="portfolio_address_taproot_hint">Taproot novčanik? Umjesto toga zalijepi deskriptor tr(…) iz svojeg novčanika – običan xpub pretražuje se samo kao Legacy i SegWit adrese.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">Vlastiti poslužitelj nije dostupan</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">Tko god upravlja s %1$s vidi sve dohvaćene adrese ovog novčanika i može ih povezati međusobno i s tvojom IP adresom.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">Da to izbjegneš, unesi vlastiti poslužitelj pod Postavke › Portfelj › Vlastiti poslužitelj za adrese.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d nepoznat token (ne uračunava se)</item>
+        <item quantity="few">+%1$d nepoznata tokena (ne uračunavaju se)</item>
+        <item quantity="other">+%1$d nepoznatih tokena (ne uračunavaju se)</item>
+    </plurals>
+</resources>

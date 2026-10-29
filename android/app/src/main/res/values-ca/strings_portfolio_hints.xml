@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">Alarmes de la cartera en pausa: no hi ha preu actual per a %1$s</string>
+    <string name="portfolio_alarms_paused_price_generic">Alarmes de la cartera en pausa: no totes les monedes tenen un preu actual</string>
+    <string name="portfolio_alarms_paused_addresses">Alarmes de la cartera en pausa: els saldos de les adreces seguides encara no s\'han carregat</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Alarmes de la cartera en pausa: saldos de tokens de %1$s parcialment desactualitzats</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Alarmes de la cartera en pausa: saldos de tokens de les adreces seguides parcialment desactualitzats</string>
+    <string name="portfolio_alarms_paused_unverified">Alarmes de la cartera en pausa: preu no verificat per a %1$s</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Alarmes de la cartera en pausa: preu d\'algunes monedes no verificat</string>
+    <string name="portfolio_alarms_address_failing">Les alarmes de la cartera es comproven sense %1$s: el saldo fa més de 24 hores que no es carrega</string>
+    <string name="portfolio_alarms_address_failing_generic">Les alarmes de la cartera es comproven sense les adreces el saldo de les quals fa més de 24 hores que no es carrega</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">tokens parcialment desactualitzats</string>
+    <string name="portfolio_address_restore_failed">No s\'ha pogut restaurar l\'adreça – torna-la a afegir si cal</string>
+    <string name="portfolio_address_remove_failed">No s\'ha pogut eliminar l\'adreça – torna-ho a provar</string>
+</resources>

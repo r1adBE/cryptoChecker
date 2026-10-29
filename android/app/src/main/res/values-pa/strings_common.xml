@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">ਪਿੱਛੇ</string>
+    <string name="action_cancel">ਰੱਦ ਕਰੋ</string>
+    <string name="action_clear">ਸਾਫ਼ ਕਰੋ</string>
+    <string name="action_close">ਬੰਦ ਕਰੋ</string>
+    <string name="action_keep">ਰੱਖੋ</string>
+    <string name="action_delete">ਮਿਟਾਓ</string>
+    <string name="action_edit">ਸੋਧੋ</string>
+    <string name="action_more">ਹੋਰ ਵਿਕਲਪ</string>
+    <string name="action_refresh">ਤਾਜ਼ਾ ਕਰੋ</string>
+    <string name="action_retry">ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ</string>
+    <string name="action_save">ਸੰਭਾਲੋ</string>
+    <string name="action_sort">ਕ੍ਰਮਬੱਧ ਕਰੋ</string>
+    <string name="action_sort_done">ਹੋ ਗਿਆ</string>
+    <string name="action_undo">ਵਾਪਸ ਕਰੋ</string>
+    <string name="action_view">ਦੇਖੋ</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">ਬਾਜ਼ਾਰ</string>
+    <string name="tab_portfolio">ਪੋਰਟਫੋਲੀਓ</string>
+    <string name="tab_settings">ਸੈਟਿੰਗਾਂ</string>
+    <string name="tab_watchlist">ਵਾਚਲਿਸਟ</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">ਗੜਬੜ: %1$s</string>
+    <string name="error_exchange_unreachable">ਐਕਸਚੇਂਜ ਤੱਕ ਹੁਣੇ ਪਹੁੰਚ ਨਹੀਂ – ਆਖਰੀ ਕੀਮਤਾਂ ਦਿਖਦੀਆਂ ਰਹਿਣਗੀਆਂ।</string>
+    <string name="error_exchange_unreachable_short">ਐਕਸਚੇਂਜ ਤੱਕ ਹੁਣੇ ਪਹੁੰਚ ਨਹੀਂ</string>
+    <string name="loading_hint">ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ…</string>
+    <string name="option_off">ਬੰਦ</string>
+    <string name="something_went_wrong">ਕੁਝ ਗਲਤ ਹੋ ਗਿਆ</string>
+    <string name="time_just_now">ਹੁਣੇ</string>
+    <string name="try_again">ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">ਕੋਈ ਕਨੈਕਸ਼ਨ ਨਹੀਂ</string>
+    <string name="offline_status_since">ਕੋਈ ਕਨੈਕਸ਼ਨ ਨਹੀਂ · %1$s ਮੁਤਾਬਕ</string>
+    <string name="status_live">ਲਾਈਵ</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">ਜੋੜਾ ਜੋੜੋ</string>
+    <string name="shortcut_alarms">ਸਾਰੇ ਅਲਰਟ</string>
+    <string name="shortcut_cycle">ਬਾਜ਼ਾਰ</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">ਵਾਚਲਿਸਟ ਵਿੱਚ ਜੋੜਾ ਜੋੜੋ</string>
+    <string name="shortcut_alarms_long">ਸਾਰੇ ਅਲਰਟ ਦਿਖਾਓ</string>
+    <string name="shortcut_cycle_long">ਬਾਜ਼ਾਰ ਦਾ ਸੰਖੇਪ ਖੋਲ੍ਹੋ</string>
+
+    <string name="log_box_title">ਲੌਗ</string>
+    <string name="label_value">%1$s: %2$s</string>
+</resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">ಯಾವುದೇ ಕಾಯಿನ್ ಆಯ್ಕೆಮಾಡಿಲ್ಲ</string>
+    <string name="watch_loading">ಲೋಡ್ ಆಗುತ್ತಿದೆ…</string>
+    <string name="watch_error">ಎಕ್ಸ್‌ಚೇಂಜ್‌ಗಳು ಲಭ್ಯವಿಲ್ಲ</string>
+    <string name="watch_updated">%1$s ರಂತೆ</string>
+    <string name="watch_refresh">ರಿಫ್ರೆಶ್ ಮಾಡಿ</string>
+    <string name="watch_choose">ಕಾಯಿನ್‌ಗಳನ್ನು ಆರಿಸಿ</string>
+    <string name="watch_choose_hint">ಕಾಯಿನ್‌ಗಳು: ಗರಿಷ್ಠ %1$d</string>
+    <string name="watch_complication_label">ಬೆಲೆ</string>
+    <string name="a11y_watch_row">%1$s %2$s, 24 ಗಂಟೆಗಳಲ್ಲಿ %3$s</string>
+    <string name="watch_mode_phone">ಪಟ್ಟಿ: ಫೋನ್‌ನಂತೆ</string>
+    <string name="watch_mode_own">ಪಟ್ಟಿ: ಸ್ವಂತ</string>
+    <string name="watch_phone_empty">ಫೋನ್‌ನಲ್ಲಿ ಮೆಚ್ಚಿನವುಗಳಿಲ್ಲ</string>
+    <string name="a11y_watch_outdated">ಬೆಲೆ ಹಳೆಯದು</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">%1$d ನಿಮಿಷದ ಹಿಂದೆ ಕೊನೆಯದಾಗಿ ಅಪ್‌ಡೇಟ್ ಆಗಿದೆ</item>
+        <item quantity="other">%1$d ನಿಮಿಷಗಳ ಹಿಂದೆ ಕೊನೆಯದಾಗಿ ಅಪ್‌ಡೇಟ್ ಆಗಿದೆ</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">%1$d ಗಂಟೆಯ ಹಿಂದೆ ಕೊನೆಯದಾಗಿ ಅಪ್‌ಡೇಟ್ ಆಗಿದೆ</item>
+        <item quantity="other">%1$d ಗಂಟೆಗಳ ಹಿಂದೆ ಕೊನೆಯದಾಗಿ ಅಪ್‌ಡೇಟ್ ಆಗಿದೆ</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">%1$d ದಿನದ ಹಿಂದೆ ಕೊನೆಯದಾಗಿ ಅಪ್‌ಡೇಟ್ ಆಗಿದೆ</item>
+        <item quantity="other">%1$d ದಿನಗಳ ಹಿಂದೆ ಕೊನೆಯದಾಗಿ ಅಪ್‌ಡೇಟ್ ಆಗಿದೆ</item>
+    </plurals>
+</resources>

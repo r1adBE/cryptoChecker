@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Engar myntir valdar</string>
+    <string name="watch_loading">Hleður…</string>
+    <string name="watch_error">Ekki næst í kauphallir</string>
+    <string name="watch_updated">Staða %1$s</string>
+    <string name="watch_refresh">Endurnýja</string>
+    <string name="watch_choose">Velja myntir</string>
+    <string name="watch_choose_hint">Myntir: hám. %1$d</string>
+    <string name="watch_complication_label">Verð</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s á 24 klukkustundum</string>
+    <string name="watch_mode_phone">Listi: eins og síminn</string>
+    <string name="watch_mode_own">Listi: eigin</string>
+    <string name="watch_phone_empty">Engin uppáhöld í símanum</string>
+    <string name="a11y_watch_outdated">Verð úrelt</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">síðast uppfært fyrir %1$d mínútu</item>
+        <item quantity="other">síðast uppfært fyrir %1$d mínútum</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">síðast uppfært fyrir %1$d klukkustund</item>
+        <item quantity="other">síðast uppfært fyrir %1$d klukkustundum</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">síðast uppfært fyrir %1$d degi</item>
+        <item quantity="other">síðast uppfært fyrir %1$d dögum</item>
+    </plurals>
+</resources>

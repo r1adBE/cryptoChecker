@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
+    <string name="portfolio_cutoff_export_action">የመቁረጫ ቀን ወጪ ፋይል…</string>
+    <string name="portfolio_tax_worksheet_action">የሥራ ሉህ…</string>
+    <string name="portfolio_export_address_unobserved">አድራሻው በዚህ ቀን አልታየም – አልተካተተም</string>
+    <string name="portfolio_export_button">CSV ይላኩ</string>
+    <string name="portfolio_export_col_amount">መጠን</string>
+    <string name="portfolio_export_col_coin">ሳንቲም</string>
+    <string name="portfolio_export_col_note">ማስታወሻ</string>
+    <string name="portfolio_export_col_price">ዋጋ USDT</string>
+    <string name="portfolio_export_col_rate">ተመን USDT→%1$s</string>
+    <string name="portfolio_export_col_value">እሴት USDT</string>
+    <string name="portfolio_export_col_value_cur">እሴት %1$s</string>
+    <!-- Inhalt der CSV-Datei -->
+    <string name="portfolio_export_comment"># የመቁረጫ ቀን %1$s፣ ምንዛሪ %2$s፣ የ%3$s የምንዛሪ ተመን</string>
+    <string name="portfolio_export_currency">ምንዛሪ፦ %1$s</string>
+    <string name="portfolio_export_date">የመቁረጫ ቀን</string>
+    <string name="portfolio_export_done">ወጪ ፋይሉ ተቀምጧል</string>
+    <string name="portfolio_export_estv_note">ለሀብት ግብር፣ በተዘረዘሩበት ቦታ የESTV የዋጋ ዝርዝር %1$s ይፋዊ የዓመት መጨረሻ እሴቶች ይተገበራሉ፦ %2$s</string>
+    <string name="portfolio_export_failed">መላኩ አልተሳካም</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">መላኩ አልተሳካም፦ ፋይሉ ሊጻፍ አልቻለም – የማከማቻ ቦታው የለም ወይም ሊጻፍበት አይችልም</string>
+    <string name="portfolio_export_failed_prices">መላኩ አልተሳካም፦ ዋጋዎች ሊጫኑ አልቻሉም – ግንኙነት የለም ወይም ልውውጡ ምላሽ እየሰጠ አይደለም</string>
+    <string name="portfolio_export_from_address">ከአድራሻ – የግዢ ዋጋ የለም</string>
+    <string name="portfolio_export_hint">በተመረጠው ቀን መጨረሻ ያሉ ይዞታዎች፣ በUSDT በዕለታዊ መዝጊያ (UTC) የተገመገሙ እና በዚያ ቀን የECB የማጣቀሻ ተመን የተለወጡ። ምንዛሪውን በ«ልወጣ ወደ» ይቀይሩ።</string>
+    <string name="portfolio_export_incomplete">ያልተሟላ</string>
+    <string name="portfolio_export_no_fx">የምንዛሪ ተመን የለም</string>
+    <string name="portfolio_export_no_price">ዋጋ የለም</string>
+    <string name="portfolio_export_running">ታሪካዊ ዋጋዎችን በማምጣት ላይ…</string>
+    <string name="portfolio_export_title">የመቁረጫ ቀን ወጪ ፋይል</string>
+    <string name="portfolio_export_today_hint">ዛሬ ገና አላለቀም፦ በዕለታዊ መዝጊያው ምትክ የአሁኑ ዋጋ ጥቅም ላይ ይውላል።</string>
+    <string name="portfolio_export_total">ጠቅላላ</string>
+    <string name="portfolio_export_unchecked">ያልተረጋገጠ (ተዛማጅ ዋጋ የለም)</string>
+
+    <!-- Steuer-Export (Arbeitspapier) -->
+    <string name="tax_export_adjustment">superficial loss (ወደ ACB የተጨመረ)</string>
+    <string name="tax_export_at_wallet_note">ኦስትሪያ፦ በእያንዳንዱ ሳንቲምና ቦርሳ (ልውውጥ) ተንቀሳቃሽ አማካይ – ዝውውሮች ወጪውን አብረው ይወስዳሉ – ሽልማቶች በ0 የማግኛ ወጪ – ከ1 ማርች 2021 ጀምሮ ያሉ ይዞታዎች ያለ ክፍያዎች (ተቀናሽ አይደሉም) – የብድር ወለድ በተቀበለበት ጊዜ ዋጋ (ገቢ በ27.5 መቶኛ)።</string>
+    <string name="tax_export_avg_cost_rates">ወጪ በግዢ ቀን ተመኖች (አማካይ)</string>
+    <string name="tax_export_ch_wealth_not_calculated">የሀብት ግብር አልተሰላም – የESTV የዋጋ ዝርዝር፦ %1$s</string>
+    <string name="tax_export_col_acquired">የተገኘበት</string>
+    <string name="tax_export_col_adjustment">የተከለከለ ኪሳራ %1$s</string>
+    <string name="tax_export_col_cost">ወጪ %1$s</string>
+    <string name="tax_export_col_date">ቀን</string>
+    <string name="tax_export_col_days">የተያዘባቸው ቀናት</string>
+    <string name="tax_export_col_gain">ትርፍ %1$s</string>
+    <string name="tax_export_col_gross">ከክፍያዎች በፊት ዋጋ %1$s</string>
+    <string name="tax_export_col_long_term">የተያዘ &gt; 1 ዓመት</string>
+    <string name="tax_export_col_portfolio_value">የፖርትፎሊዮ ዋጋ %1$s</string>
+    <string name="tax_export_col_proceeds">ገቢ %1$s</string>
+    <string name="tax_export_col_sold">የተሸጠበት</string>
+    <string name="tax_export_cost_incomplete">ጠቅላላ የማግኛ ወጪ ያልተሟላ</string>
+    <string name="tax_export_cost_missing">የግዢ ዋጋ ጎድሏል</string>
+    <string name="tax_export_fee_consumed">ክፍያው የተቀበለውን ሙሉ በሙሉ ይበላል</string>
+    <string name="tax_export_fee_leg">ክፍያ በሌላ ሳንቲም</string>
+    <string name="tax_export_fee_row">ክፍያ</string>
+    <string name="tax_export_fee_value_missing">በሌላ ሳንቲም ያለው ክፍያ ዋጋ የለውም</string>
+    <string name="tax_export_gains">የተረጋገጡ ሽያጮች (CSV)</string>
+    <string name="tax_export_gains_title">የተረጋገጡ ሽያጮች %1$s</string>
+    <string name="tax_export_gift">ስጦታ</string>
+    <string name="tax_export_holdings_cutoff">ይዞታዎች በ%1$s (CSV)</string>
+    <string name="tax_export_holdings_title">ይዞታዎች በ%1$s</string>
+    <string name="tax_export_income">ገቢ (CSV)</string>
+    <string name="tax_export_income_title">ገቢ %1$s</string>
+    <string name="tax_export_info_template">አብነት፦ %1$s · ዘዴ፦ %2$s · የግብር ዓመት፦ %3$s · ምንዛሪ፦ %4$s · Crypto Checker %5$s</string>
+    <string name="tax_export_lost_fee_cost">የተከፈለበት ሎት የሌለው የአውታረ መረብ ክፍያ ወጪ</string>
+    <string name="tax_export_match_pool">Section 104 pool</string>
+    <string name="tax_export_match_same_day">በዚያው ቀን (HMRC)</string>
+    <string name="tax_export_match_thirty_day">የ30 ቀን ደንብ (HMRC)</string>
+    <string name="tax_export_method_change_warning">ዘዴውን ወይም አብነቱን መቀየር ቀደምት ዓመታትንም እንደገና ያሰላል – አስቀድመው ካስገቡት ጋር ያነጻጽሩ።</string>
+    <string name="tax_export_method_overridden">አብነቱ %1$s ያሰላል – %2$s አይደለም</string>
+    <string name="tax_export_new_holding">ከ1 ማርች 2021 ጀምሮ የተገኘ</string>
+    <string name="tax_export_no">አይ</string>
+    <string name="tax_export_old_holding">ከ1 ማርች 2021 በፊት የተገኘ</string>
+    <string name="tax_export_oversold">ከተመዘገበው በላይ ተሽጧል</string>
+    <string name="tax_export_payment">በክሪፕቶ የተደረገ ክፍያ</string>
+    <string name="tax_export_period">%1$s – %2$s</string>
+    <string name="tax_export_proceeds_missing">የሽያጭ ዋጋ ጎድሏል</string>
+    <string name="tax_export_proceeds_without_cost">ያለ የግዢ ዋጋ ያለ ገቢ</string>
+    <string name="tax_export_realized_differs">የግብር CSV ከ«የተረጋገጠ» ሊለይ ይችላል (የሀገሪቱ የግብር ደንቦች)።</string>
+    <string name="tax_export_rule">&gt; 1 ዓመት፦ ከግዢ ቀን + 1 የቀን መቁጠሪያ ዓመት በኋላ የተሸጠ። ቀኖች በአካባቢ ሰዓት። ተመኖች፦ የግብይቱ ቀን የECB ዕለታዊ ተመን፤ ከሌለ እስከ 7 ቀናት በፊት ያለው የመጨረሻ ተመን።</string>
+    <string name="tax_export_rules_date">ደንቦቹ እስከ፦ %1$s</string>
+    <string name="tax_export_rules_stale">ደንቦቹ ከ%1$s ናቸው – ለ%2$s ተመኖችና ነፃ መጠኖች ተለውጠው ሊሆን ይችላል። እሴቶቹን ይፈትሹ።</string>
+    <string name="tax_export_spouse_gift">ለትዳር አጋር/አጋር – ትርፍም ኪሳራም የለም</string>
+    <string name="tax_export_summary">ዓመታዊ ማጠቃለያ %1$s (CSV)</string>
+    <string name="tax_export_swap">ስዋፕ</string>
+    <string name="tax_export_tax_year">የግብር ዓመት</string>
+    <string name="tax_export_transfer_fee_info">የዝውውር ክፍያ በUSDT/በጥሬ ገንዘብ – ኪሳራ አይደለም፣ በወጪ መሠረቱ ውስጥ የለም፣ ለመረጃ ብቻ</string>
+    <string name="tax_export_unassigned_fee">ክፍያው አልተመደበም – የወጪ መሠረቱ አይታወቅም</string>
+    <string name="tax_export_usdt_usd_note">USDT በUSDT/USD ዕለታዊ መዝጊያ ተለውጧል፤ መዝጊያ በሌለበት 1 USD (በእያንዳንዱ ረድፍ ምልክት ተደርጓል)</string>
+    <string name="tax_export_value_estimated">እሴቱ የተገመተ (ዕለታዊ መዝጊያ)</string>
+    <string name="tax_export_value_missing">ሲቀበሉ የነበረው እሴት ጎድሏል</string>
+    <string name="tax_export_wallet">ቦርሳ፦ %1$s</string>
+    <string name="tax_export_wallet_unspecified">አልተገለጸም</string>
+    <string name="tax_export_withdrawal_fee">የማውጣት ክፍያ</string>
+    <string name="tax_export_withdrawal_fee_info">የማውጣት ክፍያ በUSDT/በጥሬ ገንዘብ – ኪሳራ አይደለም፣ ለመረጃ ብቻ</string>
+    <string name="tax_export_workpaper_disclaimer">የግብር የሥራ ሉህ – የግብር ማስታወቂያ አይደለም፣ የግብር ምክርም አይደለም</string>
+    <string name="tax_export_workpaper_title">የሥራ ሉህ</string>
+    <string name="tax_export_year_local_zone">ቀኖች በአካባቢ ሰዓት (%1$s)</string>
+    <string name="tax_export_yes">አዎ</string>
+
+    <!-- Steuer-Export: Zeilen und Spalten -->
+    <string name="tax_line_at_interest">የብድር ወለድ (ሲቀበሉ የነበረው እሴት)</string>
+    <string name="tax_line_at_old_long">ከ1 ማርች 2021 በፊት የተገኘ – የተያዘ &gt; 1 ዓመት፦ ብዙውን ጊዜ ግብር አይከፈልበትም – ይፈትሹ</string>
+    <string name="tax_line_at_rate">ልዩ ተመን 27.5 መቶኛ፦ ከ1 ማርች 2021 ጀምሮ የተገኘና ከ1 ማርች 2022 ጀምሮ የተሸጠ የተጣራ + ወለድ</string>
+    <string name="tax_line_au_discounted">ከኪሳራዎችና ከ50 መቶኛ ቅናሽ በኋላ የተጣራ የካፒታል ትርፍ</string>
+    <string name="tax_line_ca_taxable">ግብር የሚከፈልበት የካፒታል ትርፍ (የማካተቻ ተመን 1/2)</string>
+    <string name="tax_line_ch_income">ሽልማቶች ተዘርዝረዋል – አያያዛቸውን በESTV የሥራ ወረቀት ውስጥ ይመልከቱ</string>
+    <string name="tax_line_ch_private">በግል ሀብት ላይ ያሉ የካፒታል ትርፎች፦ አልተሰሉም – ለምደባ ESTVን ይመልከቱ</string>
+    <string name="tax_line_ch_wealth">የሀብት ግብር፦ አልተሰላም – የይዞታዎች CSV የልውውጥ ዋጋ × USD/CHF በ31 ዲሴምበር ይጠቀማል – ይፋዊ የግብር እሴቶች፦ የESTV የዋጋ ዝርዝር</string>
+    <string name="tax_line_de_long">የተያዘ &gt; 1 ዓመት፦ በ§ 23 EStG መሠረት ብዙውን ጊዜ ግብር አይከፈልበትም – ይፈትሹ</string>
+    <string name="tax_line_denied_loss">የተከለከሉ ኪሳራዎች (superficial loss)</string>
+    <string name="tax_line_fr_outflow">ያለ ሽያጭ የወጡ (ማውጣቶች) – ጠቅላላ የማግኛ ወጪ በተመጣጣኝ ቀንሷል</string>
+    <string name="tax_line_fr_rate">ቋሚ ተመን 12.8 መቶኛ እና የማኅበራዊ መዋጮዎች (ወይም በምርጫ ደረጃ)</string>
+    <string name="tax_line_fr_threshold">በዓመት እስከ €305 የሚደርሱ ሽያጮች፦ በአጠቃላይ ነፃ (የሽያጭ ዋጋዎች ድምር) – ይፈትሹ</string>
+    <string name="tax_line_gains">ትርፎች</string>
+    <string name="tax_line_income">ገቢ (ሽልማቶች ሲቀበሉ በነበረው እሴት)</string>
+    <string name="tax_line_jp_misc">ልዩ ልዩ ገቢ (雑所得)፦ የተጣራ ትርፎች + ገቢ</string>
+    <string name="tax_line_long_net">የተጣራ – የተያዘ &gt; 1 ዓመት</string>
+    <string name="tax_line_losses">ኪሳራዎች</string>
+    <string name="tax_line_net">የተጣራ ትርፍ/ኪሳራ</string>
+    <string name="tax_line_new_net">የተጣራ – ከ1 ማርች 2021 ጀምሮ የተገኘ፣ ከ1 ማርች 2022 ጀምሮ የተሸጠ</string>
+    <string name="tax_line_old_long_net">የተጣራ – ከ1 ማርች 2021 በፊት የተገኘ – የተያዘ &gt; 1 ዓመት</string>
+    <string name="tax_line_old_short_net">የተጣራ – ግምታዊ ግብይቶች (የቀድሞ ሕግ)፦ ከ1 ማርች 2021 በፊት የተገኘና ≤ 1 ዓመት የተያዘ፣ ወይም ከ1 ማርች 2022 በፊት የተሸጠ</string>
+    <string name="tax_line_proceeds">ገቢ</string>
+    <string name="tax_line_short_net">የተጣራ – የተያዘ ≤ 1 ዓመት</string>
+    <string name="tax_line_transfer_fees">የዝውውር ክፍያዎች (የራስ ቦርሳዎች)</string>
+    <string name="tax_line_uk_after_exempt">ከነፃ መጠኑ በላይ ያሉ የተጣራ ትርፎች (ክሪፕቶ ብቻ)</string>
+    <string name="tax_line_uk_exempt">ዓመታዊ ነፃ መጠን – ለሁሉም ሽያጮች በአንድ ላይ ይተገበራል፣ እዚህ ሙሉ በሙሉ ተተግብሯል</string>
+    <string name="tax_line_us_terms">የአጭር ጊዜ (≤ 1 ዓመት)፦ መደበኛ ተመኖች – የረጅም ጊዜ (&gt; 1 ዓመት)፦ የካፒታል ትርፍ ተመኖች</string>
+    <string name="tax_line_withdrawal_fees">የማውጣት ክፍያዎች</string>
+
+    <!-- Steuer Deutschland -->
+    <string name="tax_de_below">ከገደቡ በታች</string>
+    <string name="tax_de_col_item">ንጥል</string>
+    <string name="tax_de_disclaimer">ለመመሪያ ብቻ – የግብር ማስታወቂያ አይደለም፣ የግብር ምክርም አይደለም።</string>
+    <string name="tax_de_explain_below">እስከ %1$s፦ ከገደቡ በታች (ለመመሪያ)።</string>
+    <string name="tax_de_explain_loss">የተጣራ ኪሳራ፦ በእነዚህ ሽያጮች ላይ ግብር የለም። በ§ 23 EStG መሠረት ያሉ ኪሳራዎች የሚካካሱት ከግል ሽያጮች በተገኙ ትርፎች ብቻ ነው – በዚያው ዓመት ወይም ወደ ቀዳሚው ዓመት በመመለስና ወደ ቀጣይ ዓመታት በማስተላለፍ (§ 23 para. 3 እና § 10d EStG)። እንዲገመገም ኪሳራውን በግብር ማስታወቂያዎ ውስጥ ያሳውቁ።</string>
+    <string name="tax_de_explain_reached">ከ%1$s ጀምሮ ሙሉው መጠን ይቆጠራል (የነፃ ገደብ ነው – ቅናሽ አይደለም)።</string>
+    <string name="tax_de_explain_unknown">ሊፈተሽ አይችልም፦ የምንዛሪ ተመኖች / የግዢ ዋጋዎች ወይም የይዞታ ጊዜያት ጎድለዋል።</string>
+    <string name="tax_de_income_limit">ለአገልግሎቶች የነፃ ገደብ (§ 22 No. 3 EStG)</string>
+    <string name="tax_de_limit_scope">ገደቦቹ ለዓመቱ ሁሉም የግል ሽያጮች ወይም አገልግሎቶች በአንድ ላይ ይተገበራሉ – ከመተግበሪያው ውጪ ያሉትንም ጨምሮ።</string>
+    <string name="tax_de_loading">በማስላት ላይ…</string>
+    <string name="tax_de_long_gains">ትርፎች – የተያዘ &gt; 1 ዓመት</string>
+    <string name="tax_de_long_losses">ኪሳራዎች – የተያዘ &gt; 1 ዓመት</string>
+    <string name="tax_de_loss">የተጣራ ኪሳራ – የሚካካሰው ከግል ሽያጮች በተገኙ ትርፎች ብቻ ነው (§ 23 EStG)</string>
+    <string name="tax_de_private_limit">ለግል ሽያጮች የነፃ ገደብ (§ 23 EStG)</string>
+    <string name="tax_de_reached">ገደቡ ደርሷል – ብዙውን ጊዜ ሙሉው መጠን ይቆጠራል – ይፈትሹ</string>
+    <string name="tax_de_short_gains">ትርፎች – የተያዘ ≤ 1 ዓመት</string>
+    <string name="tax_de_short_losses">ኪሳራዎች – የተያዘ ≤ 1 ዓመት</string>
+    <string name="tax_de_unclassified">የይዞታ ጊዜ አይታወቅም</string>
+    <string name="tax_de_unknown">ሊፈተሽ አይችልም</string>
+
+    <!-- Steuer-Vorlagen je Land -->
+    <string name="tax_template_at">ኦስትሪያ</string>
+    <string name="tax_template_au">አውስትራሊያ</string>
+    <string name="tax_template_beta">ቤታ</string>
+    <string name="tax_template_beta_note">ቤታ፦ የሀገር ደንቦች ቀለል ተደርገዋል፤ የግብር ማስታወቂያዎን ከማስገባትዎ በፊት ይፈትሹ</string>
+    <string name="tax_template_ca">ካናዳ</string>
+    <string name="tax_template_ch">ስዊዘርላንድ</string>
+    <string name="tax_template_confirm_text">ቤታ፣ ቀለል ያሉ ደንቦች፣ ከሌሎች መድረኮች የመጡ ግብይቶች የሉም – የግብር ማስታወቂያዎን ከማስገባትዎ በፊት ይፈትሹ።</string>
+    <string name="tax_template_confirm_title">የግብር አብነት (ቤታ)</string>
+    <string name="tax_template_current">አብነት፦ %1$s · ዘዴ፦ %2$s · ምንዛሪ፦ %3$s</string>
+    <string name="tax_template_de">ጀርመን</string>
+    <string name="tax_template_fr">ፈረንሳይ</string>
+    <string name="tax_template_hint">ለመመሪያ ብቻ፦ የግብር የሥራ ሉሁን ዘዴ፣ የግብር ዓመትና ማጠቃለያ ያዘጋጃል። የፖርትፎሊዮ ካርዱ ገለልተኛ ሆኖ ይቆያል – ስጦታዎችና የዝውውር ክፍያዎች ከሥራ ሉሁ ሊለዩ ይችላሉ።</string>
+    <string name="tax_template_jp">ጃፓን</string>
+    <string name="tax_template_neutral">ገለልተኛ (ሁሉም ሀገሮች)</string>
+    <string name="tax_template_suggestion">ለክልልዎ የቀረበ ጥቆማ፦ %1$s</string>
+    <string name="tax_template_title">የግብር አብነት</string>
+    <string name="tax_template_uk">ዩናይትድ ኪንግደም</string>
+    <string name="tax_template_us">አሜሪካ</string>
+    <string name="tax_template_use">%1$sን ይጠቀሙ</string>
+
+    <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
+    <string name="tax_method_at">የቀድሞ/አዲስ ይዞታዎች – ተንቀሳቃሽ አማካይ</string>
+    <string name="tax_method_ca_acb">የACB አማካይ ወጪ (superficial loss)</string>
+    <string name="tax_method_fr_pta">ጠቅላላ የማግኛ ዋጋ (art. 150 VH bis)</string>
+    <string name="tax_method_jp_total">ጠቅላላ አማካይ (総平均法)</string>
+    <string name="tax_method_uk_pool">Section 104 pool (በዚያው ቀን / 30 ቀናት)</string>
+    <string name="tax_note_at">በእያንዳንዱ ሳንቲምና ቦርሳ ተንቀሳቃሽ አማካይ – በቦርሳዎች መካከል አይደለም (KryptowährungsVO § 2)። ሽልማቶች በ0 የማግኛ ወጪ ወደ አዲስ ይዞታዎች ይገባሉ (BMF፦ staking / airdrops) – የገቢ ፋይሉ ሲቀበሉ በነበረው እሴት ይዘረዝራቸዋል። ከ1 ማርች 2021 ጀምሮ ለተገኙ ይዞታዎች ክፍያዎች ተቀናሽ አይደሉም (§ 27a(4) no. 2፣ § 20(2) EStG)፦ ወጪና ገቢ ያለ ክፍያዎች። የብድር ወለድ (ዓይነቱ ከCSV ማስመጣት ወይም ከማስታወሻ) ሲቀበሉ በ27.5 መቶኛ ገቢ ነው፤ ያንን እሴት እንደ የማግኛ ወጪ ይይዛል።</string>
+    <string name="tax_note_at_staking">አስቀድመው በያዟቸው ሳንቲሞች የሚደረግ ስቴኪንግና ኤርድሮፖች፦ ሲቀበሉ ያለው እሴት ለግብር አይቆጠርም – በሕግ የማግኛ ወጪው 0 ነው (§ 27b Abs. 2 EStG፤ BMF «Kryptowährungen»)። ግብር የሚተገበረው ሲሸጡ ብቻ ነው።</string>
+    <string name="tax_note_fr">በክሪፕቶ የተከፈሉ ሽያጮችና ክፍያዎች ሽያጮች ናቸው – ስዋፖች ይዘገያሉ። በሽያጭ ላይ ያለ የክሪፕቶ ክፍያ ከክፍያዎች በፊት ባለው ዋጋ ውስጥ ይቆጠራል – አለበለዚያ በእሴቱ የራሱ ሽያጭ ነው። የፖርትፎሊዮ ዋጋ ከዕለታዊ መዝጊያዎች – መዝጊያ ከጎደለ ወጪው ባዶ ይሆናል።</string>
+    <string name="tax_note_network_fee">በክሪፕቶ የተከፈለ የአውታረ መረብ ክፍያ (ወደ ራስ ቦርሳ ዝውውር፣ ማውጣት) የክፍያ ሳንቲሞቹ በገበያ ዋጋ መሸጥ ነው – ትርፍ ወይም ኪሳራ በእነዚያ ሳንቲሞች ላይ ብቻ ነው፣ የሙሉ ክፍያው ኪሳራ አይደለም (%1$s)። የተመዘገበ ዋጋ ከሌለ፦ የዚያው ቀን ዕለታዊ መዝጊያ (UTC)፤ መዝጊያ ከሌለ ገቢው ባዶ ይሆናል።</string>
+    <string name="tax_note_specific_id">የተለየ መለያ (specific identification) አይደገፍም – FIFO ጥቅም ላይ ይውላል።</string>
+    <string name="tax_note_spouse_gift">«ለትዳር አጋር / ለሲቪል አጋር» የሚል ምልክት የተደረገበት ስጦታ ትርፍም ኪሳራም አይደለም፦ ገቢ = የወጪ መሠረትዎ፣ አጋርዎም ይረከበዋል (%1$s)።</string>
+    <string name="tax_note_stable_swap">ክሪፕቶን ለሚያቆዩት ስቴብልኮይን (USDT/USDC/DAI …) መሸጥ እዚህ ክሪፕቶ-ወደ-ክሪፕቶ ነው፣ ግብር አይከፈልበትም – ወደ ስቴብልኮይኑ እንደ ስዋፕ ይመዝግቡት። ግብር የሚከፈለው በዩሮ የተደረገ ሽያጭ ብቻ ነው – «ሽያጭ» እንደ በዩሮ የተደረገ ሽያጭ ይቆጠራል።</string>
+    <string name="tax_note_transfer_fee">በራስዎ ቦርሳዎች መካከል በሚደረግ ዝውውር ላይ ላለ የUSDT ወይም የጥሬ ገንዘብ ክፍያም ተመሳሳይ ነው፦ ወደ ወጪ መሠረቱ አይጨመርም፣ ለመረጃ ብቻ ይዘረዘራል።</string>
+    <string name="tax_note_uk">በHMRC መሠረት ማዛመድ፦ በዚያው ቀን → ቀጣዮቹ 30 ቀናት → Section 104 pool።</string>
+    <string name="tax_note_us_transition">ሽግግር 1 ጃንዋሪ 2025 (Rev. Proc. 2024-28 safe harbor)፦ ቀደምት ዓመታት በሁሉም ቦርሳዎች ላይ FIFO ከተጠቀሙ፣ እስከ 31 ዲሴምበር 2024 ያሉ ቀሪ ሎቶች ሳንቲሞቹን ወደያዙት ቦርሳዎች ይሄዳሉ – በጣም ያረጁ ሳንቲሞች ያሉት ቦርሳ በጣም ያረጀውን የወጪ መሠረት ያገኛል። ይህ ድልድል የመተግበሪያ ደንብ ነው – ከራስዎ መዛግብት ጋር ይፈትሹት።</string>
+    <string name="tax_note_us_wallet">ከ2025 የግብር ዓመት ጀምሮ IRS የወጪ መሠረትን በእያንዳንዱ ቦርሳ ወይም ልውውጥ ይጠይቃል (Rev. Proc. 2024-28)፦ ወጪ ፋይሉ ከ2025 ጀምሮ በእያንዳንዱ ቦርሳ FIFO ይጠቀማል – ለቀደምት ዓመታት በሁሉም ቦርሳዎች ላይ FIFO፣ ወይም ያ የወጪ ዘዴዎ ከሆነ በእያንዳንዱ ቦርሳ FIFO።</string>
+    <string name="tax_note_withdrawal_fee">በUSDT ወይም በጥሬ ገንዘብ ያለ የማውጣት ክፍያ ኪሳራ አይደለም፦ የጥሬ ገንዘብ ክፍያ ተቀናሽ ወጪ አይደለም፣ የUSDT ክፍያ ያለ ትርፍ በእኩል ዋጋ የሚደረግ ሽያጭ ነው – ለመረጃ ብቻ ይዘረዘራል (%1$s)።</string>
+    <string name="tax_summary_at_interest_income">ይቆጠራል፦ ሲቀበሉ በ27.5 መቶኛ ልዩ ተመን ገቢ (§ 27b(2) no. 1 EStG / BMF) – ሳንቲሞቹ ይህንን እሴት እንደ የማግኛ ወጪ ይይዛሉ</string>
+    <string name="tax_summary_at_reward_info">ለመረጃ ብቻ – የየትኛውም ድምር አካል አይደለም፦ ሽልማቶች በ0 የማግኛ ወጪ ወደ አዲስ ይዞታዎች ይገባሉ፣ ግብር የሚከፈልባቸውም ሲሸጡ ብቻ ነው (አስቀድሞ በትርፎቹ ውስጥ) – § 27b para. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">1 ጃንዋሪ–28 ፌብሩዋሪ 2022፦ የ27.5 መቶኛ አማራጭ ይቻላል</string>
+    <string name="tax_summary_at_withdrawal_fee">የማውጣት ክፍያ – ከአዲስ ይዞታዎች ጋር አይካካስም (በልዩ ተመኑ ወጪዎች ተቀናሽ አይደሉም፣ § 20(2) EStG)</string>
+    <string name="tax_summary_ch_fifo_info">ለመረጃ ብቻ – የመተግበሪያው የFIFO ስሌት – ያልተመደበ – ESTVን ይመልከቱ</string>
+    <string name="tax_summary_ch_year_end_value">በይዞታዎች CSV ውስጥ በ31 ዲሴምበር ያለ እሴት = የልውውጥ ዋጋ × USD/CHF – የESTV የግብር እሴቶች አይደሉም</string>
+    <string name="tax_summary_de_withdrawal_fee">የማውጣት ክፍያ – በ§ 23 መሠረት አይካካስም፣ ከገቢ ጋር የተያያዘ ወጪ ሆኖ ተቀናሽ መሆኑን ይፈትሹ</string>
+    <string name="tax_summary_not_calculated_estv">አልተሰላም – የESTV የዋጋ ዝርዝር፦ %1$s</string>
+    <string name="tax_summary_orientation">መመሪያ</string>
+    <string name="tax_summary_orientation_block">ለመመሪያ ብቻ – የግብር ምክር አይደለም – ግምገማ አይደለም</string>
+    <string name="tax_summary_orientation_item">መመሪያ፦ %1$s</string>
+    <string name="tax_summary_title">ዓመታዊ ማጠቃለያ %1$s %2$s</string>
+    <string name="tax_summary_transfer_fee_info">የዝውውር ክፍያዎች በUSDT/በጥሬ ገንዘብ – ኪሳራ አይደሉም፣ በወጪ መሠረቱ ውስጥም የሉም፣ ለመረጃ ብቻ</string>
+    <string name="tax_summary_withdrawal_fee_info">የማውጣት ክፍያዎች በUSDT/በጥሬ ገንዘብ – እንደ ኪሳራ አይቆጠሩም፣ ለመረጃ ብቻ</string>
+
+    <string name="tax_line_at_old_speculation_limit">ግምታዊ ግብይቶች (የቀድሞ ሕግ፣ የተያዘ ≤ 1 ዓመት)፦ የነፃ ገደብ (§ 31 (3) EStG የቀድሞ ስሪት)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">ከ1 ማርች 2022 በፊት ያለ የብድር ወለድ (ሲቀበሉ የነበረው እሴት)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">ከ1 ማርች 2022 በፊት ያለ ወለድ፦ የቀድሞ ሕግ (የገቢ ግብር ተመን)፣ 27.5 መቶኛ አይደለም</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">ከ1 ማርች 2022 በፊት – ከባለሙያ ጋር ያረጋግጡ</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">ወለድ – ሲቀበሉ ግብር የሚከፈልበት</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">ስቴኪንግ – ለመረጃ ብቻ (የማግኛ ወጪ 0፣ ሲሸጥ ግብር ይከፈልበታል)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">ጠቅላላ ወለድ (ግብር የሚከፈልበት)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">ጠቅላላ ስቴኪንግ (መረጃ)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">የተጣራ የካፒታል ኪሳራ (የሚተላለፍ)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">ያለ አማራጭ፦ የ1 ጃንዋሪ–28 ፌብሩዋሪ 2022 ሽያጮችን ያካትታል</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">ከ1 ማርች 2022 በፊት ያለ ስቴኪንግ፦ የማግኛ ወጪ 0 ተደርጓል – ከባለሙያ ጋር ያረጋግጡ</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">የ30 ቀን ደንብ እነዚህን አሃዞች አሁንም ሊለውጥ ይችላል (እስከ %1$s ያሉ ግዢዎች)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">ከክፍያዎች በፊት ያለ ገቢ ከሪፖርት ገደቡ በላይ (£50,000፤ 2020/21–2022/23፦ £49,200)፦ ለSelf Assessment ከተመዘገቡ ግብር የሚከፈልበት ትርፍ ባይኖርም ለHMRC ያሳውቁ</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">የሀብት እሴት 31 ዲሴምበር %1$s (መመሪያ)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">የESTV የዋጋ ዝርዝር (ictax.admin.ch) ወሳኝ ነው። በዝርዝሩ ውስጥ ለሌሉ ሳንቲሞች በአጠቃላይ የልውውጡ የመዝጊያ ዋጋ ይተገበራል። የሀብት ግብር አልተሰላም።</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – ይዞታ %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">አልተሰላም</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">የሚከታተሉ አድራሻዎች ሊነበቡ አልቻሉም – ቀሪ ሂሳቦቻቸው ከዚህ ፋይል ጎድለዋል</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">የሚከታተሉ አድራሻዎች ሎቶች ከግዢ ቀናቸው ይቆጠራሉ፤ የአድራሻው የዛሬ ቀሪ ሂሳብ ያነሰ ከሆነ ይቀንሳሉ።</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">የሚከታተሉ አድራሻዎች ወደ ጠቅላላ ዋጋው ይቆጠራሉ፣ ግን የማግኛ ወጪ የላቸውም – ስለዚህ ትርፉ ምናልባት በጣም ከፍ ያለ ነው። ወጪውን እንደ ግዢ ይመዝግቡ።</string>
+    <string name="tax_summary_fr_rewards_income">መጠኑ ሽልማቶች ሲቀበሉ እንደ ገቢ ግብር እንደተከፈለባቸው ይገምታል (ሲቀበሉ ያለው እሴት በማግኛ ወጪው ውስጥ) – አለበለዚያ የ0 የማግኛ ወጪ ጥንቃቄ የተሞላበት ንባብ ይሆናል።</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">የተመዘገበ ዋጋ የሌላቸው የገበያ እሴቶች (ክፍያዎች፣ ስጦታዎች/ክፍያዎች፣ ስዋፖች፣ ሽልማቶች፣ የአውታረ መረብ ክፍያዎች፣ የፖርትፎሊዮ ዋጋ) በግብይቱ ቀን ዕለታዊ መዝጊያ (UTC)</string>
+</resources>

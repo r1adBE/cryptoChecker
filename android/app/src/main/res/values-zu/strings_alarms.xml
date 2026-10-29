@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">Setha i-alamu</string>
+    <string name="alarms_add">I-alamu entsha</string>
+    <string name="alarms_edit">Hlela i-alamu</string>
+    <string name="alarms_empty">Awekho ama-alamu aleli pheya okwamanje.</string>
+    <string name="alarms_empty_example">Isibonelo: Ngitshele uma i-BTC yenyuka ngaphezu kuka-%1$s.</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">Izaziso zivaliwe – ama-alamu awakwazi ukufika kuwe.</string>
+    <string name="alarms_notifications_turn_on">Vula</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">%1$d iyasebenza</item>
+        <item quantity="other">%1$d ayasebenza</item>
+    </plurals>
+    <string name="alarms_overview_empty">Awekho ama-alamu okwamanje. Vula ipheya bese wengeza eyodwa ngaphansi kwe-Ama-alamu.</string>
+    <string name="alarms_overview_title">Wonke ama-alamu</string>
+    <string name="alarms_title">Ama-alamu</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">Okuthuthukisiwe</string>
+    <string name="alarm_change_updates">Lungisa ukubuyekezwa kwentengo</string>
+    <string name="alarm_create">Dala i-alamu</string>
+    <string name="alarm_currency_label">Uhlobo lwemali</string>
+    <string name="alarm_delete_confirm">Le alamu izosuswa.</string>
+    <string name="alarm_delete_title">Susa i-alamu?</string>
+    <string name="alarm_field_percent">Iphesenti</string>
+    <string name="alarm_field_price">Intengo</string>
+    <string name="alarm_fires_now_above">Intengo isivele ingaphezu kuka-%1$s. Londoloza noma kunjalo?</string>
+    <string name="alarm_fires_now_below">Intengo isivele ingaphansi kuka-%1$s. Londoloza noma kunjalo?</string>
+    <string name="alarm_fires_now_change">Shintsha</string>
+    <string name="alarm_fires_now_save">Londoloza noma kunjalo</string>
+    <string name="alarm_fires_now_title">I-alamu ingakhala manje</string>
+    <string name="alarm_first_battery_hint">Ukwenza ibhethri lisebenze kahle kukhawulela i-app – ama-alamu angase afike sekwephuzile.</string>
+    <string name="alarm_first_title">I-alamu ilondoloziwe</string>
+    <string name="alarm_last_triggered">ekugcineni ngo-%1$s</string>
+    <string name="alarm_more_conditions">Eminye imibandela</string>
+    <string name="alarm_new_extreme">%1$s entsha</string>
+    <string name="alarm_once">Kanye</string>
+    <string name="alarm_option_repeating">Yazisa</string>
+    <string name="alarm_option_sound">Umsindo</string>
+    <string name="alarm_option_speak">Funda i-alamu ngokuzwakalayo</string>
+    <string name="alarm_option_vibrate">Ukudlidliza</string>
+    <string name="alarm_repeat_each">Njalo</string>
+    <string name="alarm_repeat_once">Kanye</string>
+    <string name="alarm_repeating">Njalo</string>
+    <string name="alarm_threshold_error_empty">Faka inani ukuze ulondoloze i-alamu.</string>
+    <string name="alarm_threshold_error_funding">I-funding kumele ibe yinombolo ephakathi kuka-−10 no-+10 wamaphesenti.</string>
+    <string name="alarm_threshold_error_invalid">Faka inombolo evumelekile enkulu kuno-0.</string>
+    <string name="alarm_threshold_error_oi">Ushintsho lwe-open interest: amaphesenti angu-1000 ubuningi.</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">ngehora elingu-%1$d</item>
+        <item quantity="other">emahoreni angu-%1$d</item>
+    </plurals>
+    <string name="alarm_window_label">Isikhathi esinqunyiwe</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">yeqa inani</string>
+    <string name="alarm_simple_below">yehlela ngaphansi kwenani</string>
+    <string name="alarm_simple_end">\</string>
+    <string name="alarm_simple_when">Uma i-%1$s</string>
+    <string name="alarm_template_a11y">Dala i-alamu: %1$s</string>
+    <string name="alarm_template_a11y_down">Dala i-alamu ku-minus %1$s wamaphesenti kusuka entengweni yamanje</string>
+    <string name="alarm_template_a11y_up">Dala i-alamu ku-plus %1$s wamaphesenti kusuka entengweni yamanje</string>
+    <string name="alarm_template_from_now">kusukela manje</string>
+    <string name="alarm_template_volume">Ivolumu ×%1$s</string>
+    <string name="alarm_templates_title">Ama-alamu asheshayo</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">Intengo engaphezulu</string>
+    <string name="alarm_condition_below">Intengo engaphansi</string>
+    <string name="alarm_condition_down_percent">Ukwehla</string>
+    <string name="alarm_condition_funding_above">I-funding engaphezulu</string>
+    <string name="alarm_condition_funding_below">I-funding engaphansi</string>
+    <string name="alarm_condition_move_percent">Ukunyakaza</string>
+    <string name="alarm_condition_near_high">Eduze nokuphezulu</string>
+    <string name="alarm_condition_near_low">Eduze nokuphansi</string>
+    <string name="alarm_condition_oi_down">I-open interest iyehla</string>
+    <string name="alarm_condition_oi_up">I-open interest iyenyuka</string>
+    <string name="alarm_condition_up_percent">Ukwenyuka</string>
+    <string name="alarm_condition_volume_spike">Ivolumu yeqa ngokuzumayo</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">Ngitshele uma i-%1$s yenyuka ngaphezu kuka-%2$s.</string>
+    <string name="alarm_sentence_below">Ngitshele uma i-%1$s yehla ngaphansi kuka-%2$s.</string>
+    <string name="alarm_sentence_down_percent">Ngitshele uma i-%1$s yehla ngo-%2$s ngaphansi kwentengo ngesikhathi ilondolozwa (noma ku-alamu yokugcina).</string>
+    <string name="alarm_sentence_funding_above">Ngitshele uma i-funding ye-%1$s yenyuka ngaphezu kuka-%2$s.</string>
+    <string name="alarm_sentence_funding_below">Ngitshele uma i-funding ye-%1$s yehla ngaphansi kuka-%2$s.</string>
+    <string name="alarm_sentence_incomplete">Faka inani ukuze ubone i-alamu njengomusho.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">Ngitshele uma i-%1$s inyakaza ngo-%2$s ngehora elingu-%3$d.</item>
+        <item quantity="other">Ngitshele uma i-%1$s inyakaza ngo-%2$s emahoreni angu-%3$d.</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">Ngitshele uma i-%1$s ingaphansi kwe-%3$s yayo ngo-%2$s ubuningi.</string>
+    <string name="alarm_sentence_near_low">Ngitshele uma i-%1$s ingaphezu kwe-%3$s yayo ngo-%2$s ubuningi.</string>
+    <string name="alarm_sentence_new_extreme">Ngitshele uma i-%1$s ibeka i-%2$s entsha.</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">Ngitshele uma i-open interest ye-%1$s yehla ngo-%2$s ngehora elingu-%3$d.</item>
+        <item quantity="other">Ngitshele uma i-open interest ye-%1$s yehla ngo-%2$s emahoreni angu-%3$d.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">Ngitshele uma i-open interest ye-%1$s yenyuka ngo-%2$s ngehora elingu-%3$d.</item>
+        <item quantity="other">Ngitshele uma i-open interest ye-%1$s yenyuka ngo-%2$s emahoreni angu-%3$d.</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">Ngitshele uma i-%1$s yenyuka ngo-%2$s ngaphezu kwentengo ngesikhathi ilondolozwa (noma ku-alamu yokugcina).</string>
+    <string name="alarm_sentence_volume">Ngitshele uma i-%1$s ihwebelana izikhathi ezingu-%2$s× zevolumu yayo evamile.</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">okuphezulu kwezinsuku ezingu-30</string>
+    <string name="alarm_near_extreme_high_365">okuphezulu konyaka o-1</string>
+    <string name="alarm_near_extreme_high_90">okuphezulu kwezinsuku ezingu-90</string>
+    <string name="alarm_near_extreme_low_30">okuphansi kwezinsuku ezingu-30</string>
+    <string name="alarm_near_extreme_low_365">okuphansi konyaka o-1</string>
+    <string name="alarm_near_extreme_low_90">okuphansi kwezinsuku ezingu-90</string>
+    <string name="alarm_near_field_distance">Ibanga</string>
+    <string name="alarm_near_hint">Iyazisa futhi uma kubekwa okuphezulu noma okuphansi okusha. Kusekelwe kuma-candle ansuku zonke, kuvuselelwa njalo emahoreni angu-6.</string>
+    <string name="alarm_near_new_only">Okuphezulu noma okuphansi okusha kuphela</string>
+    <string name="alarm_near_notification_high">I-%1$s ingu-%2$s ngaphansi kwe-%3$s yayo (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">I-%1$s ingu-%2$s ngaphezu kwe-%3$s yayo (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">%1$s entsha ye-%2$s: %3$s (ngaphambilini %4$s)</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">usuku olu-%1$d</item>
+        <item quantity="other">izinsuku ezingu-%1$d</item>
+    </plurals>
+    <string name="alarm_near_window_label">Isikhathi</string>
+    <string name="alarm_near_window_year">unyaka o-1</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">Izinga le-funding emahoreni angu-8. Izinkontileka ezinesikhathi esehlukile ziyaguqulwa (1 h × 8, 4 h × 2); ikhadi le-futures libonisa inani eliguquliwe. Uma isikhathi singaziwa, i-alamu ayihloli. Inegethivu isho ukuthi ama-short akhokhela ama-long. I-± ishintsha uphawu.</string>
+    <string name="alarm_funding_sign_a11y">Shintsha uphawu</string>
+    <string name="alarm_oi_hint">Iqhathanisa i-open interest nenani eligcinwe lawo mahora adlule. I-alamu entsha ibika kuphela uma i-app isiqoqe idatha isikhathi esingako; kuhlolwa kungadluli kanye emizuzwini engu-5.</string>
+    <string name="alarm_volume_factor_label">Ivolumu yehora eledlule uma iqhathaniswa nevamile</string>
+    <string name="alarm_volume_hint">Idatha yevolumu ivela ku-Binance — amapheya angabhalwanga lapho awakhali neze.</string>
+    <string name="alarm_volume_zero_hours_hint">Amahora angenakuhweba abalwa njengevolumu engu-zero, ngakho kumapheya angahwebelani kakhulu ihora elivamile lingabukeka lingajwayelekile.</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">I-alamu iyasebenza</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">I-alamu ilondoloziwe: %1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">Izaziso zivaliwe</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">Ngaphandle kwe-“%1$s”, i-Android ihlola ngokungahlelekile uma idivayisi iphumule – ngezikhathi emva kwamahora. Nayo, cishe ngemizuzu engu-15.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Uma i-app ivaliwe, i-iOS ivamise ukuhlola kamuva kunemizuzu engu-15, kwesinye isikhathi kuphela uma uvula i-app futhi. Ukweqa okufushane kungaphuthelwa.</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">Ama-alamu ahlolwa nini</string>
+    <string name="alarm_timing_where">Shintsha ukuthi izintengo zibuyekezwa kangakanani ku-%1$s.</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">Kuthule (isaziso kuphela)</string>
+    <string name="alarm_signal_sound">Umsindo kuphela</string>
+    <string name="alarm_signal_sound_vibrate">Umsindo nokudlidliza</string>
+    <string name="alarm_signal_system">Isistimu</string>
+    <string name="alarm_signal_vibrate">Ukudlidliza kuphela</string>
+    <string name="alarm_test">Hlola i-alamu</string>
+    <string name="alarm_test_action">Hlola</string>
+    <string name="alarm_test_denied">Izaziso zivaliwe ku-Crypto Checker.</string>
+    <string name="alarm_test_hint">Ithumela i-alamu yesampula ngezilungiselelo zakho zomsindo, ukudlidliza nokukhuluma.</string>
+    <string name="alarm_test_open_settings">Vula izilungiselelo</string>
+    <string name="alarm_test_quiet">Amahora athule avuliwe manje: ama-alamu angempela ayolinda aze aphele bese ekhala ngomsindo.</string>
+    <string name="alarm_test_text">Le yindlela i-alamu ebukeka nezwakala ngayo.</string>
+    <string name="alarm_test_title">Isivivinyo: i-alamu ye-Crypto Checker</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">Umsindo uvuliwe</string>
+    <string name="alarm_a11y_speak_on">Ukukhuluma kuvuliwe</string>
+    <string name="alarm_unchecked_no_candles">Akukwazanga ukuhlolwa (ayikho idatha ye-candle)</string>
+    <string name="alarm_unchecked_no_rate">Akukwazanga ukuhlolwa (alikho izinga lokushintshisana)</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">Izaziso zivaliwe – le alamu ngeke ifike kuwe</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">Ayikho i-alamu – i-liquidity iphansi</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">Ilinde intengo yamanje</string>
+    <string name="alarm_enter_amount">Faka inani</string>
+    <string name="alarm_editor_more">Okuningi</string>
+    <string name="alarm_editor_more_summary">Ama-alamu asheshayo, eminye imibandela, umsindo nezwi</string>
+    <string name="alarm_reliability_storage_no_key">Ama-alamu amisiwe ngemuva – uhlu lokubuka alulondolozwanga</string>
+    <string name="alarms_limit_reached">Ipheya lingaba nama-alamu angu-%1$s ubuningi.</string>
+    <string name="alarms_reference_rate_hint">Amazinga ereferensi e-ECB abekwa kanye ngosuku kuphela – awekho ama-alamu awo.</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">Ukwehla kumele kube ngaphansi kwamaphesenti angu-100.</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">Umkhawulo awuvumelekile – sicela uwulungise</string>
+
+    <string name="alarm_last_checked">Kuhlolwe ekugcineni %1$s</string>
+</resources>

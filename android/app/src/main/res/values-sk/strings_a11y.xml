@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">Alarm sa spustil</string>
+    <string name="a11y_collapsed">Zbalené</string>
+    <string name="a11y_converted">približne %1$s</string>
+    <string name="a11y_expanded">Rozbalené</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">otvorí sa v prehliadači</string>
+    <string name="a11y_favorite">Obľúbené</string>
+    <string name="a11y_in_watchlist">Už je v zozname</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_exchange_unreachable">%1$s je nedostupná</string>
+    <string name="a11y_move_down">Posunúť nadol</string>
+    <string name="a11y_move_up">Posunúť nahor</string>
+    <string name="a11y_note">poznámka: %1$s</string>
+    <string name="a11y_price">kurz %1$s</string>
+    <string name="a11y_price_notification_off">Upozornenie na kurz vypnuté</string>
+    <string name="a11y_price_notification_on">Upozornenie na kurz zapnuté</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">Kurz je zastaraný</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s na %2$s</string>
+    <string name="a11y_stale">zastarané, posledná aktualizácia %1$s</string>
+    <string name="a11y_warning">Varovanie</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">%1$s za 24 hodín</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">Zmena za 24 hodín nie je k dispozícii</string>
+    <string name="a11y_change_down">pokles o %1$s</string>
+    <string name="a11y_change_flat">bez zmeny</string>
+    <string name="a11y_change_since_last">%1$s od poslednej aktualizácie</string>
+    <string name="a11y_change_since_last_none">Zmena od poslednej aktualizácie nie je k dispozícii</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">%1$s dnes</string>
+    <string name="a11y_change_today_none">Dnešná zmena nie je k dispozícii</string>
+    <string name="a11y_change_today_zone">%1$s od polnoci %2$s</string>
+    <string name="a11y_change_today_zone_none">Zmena od polnoci %1$s nie je k dispozícii</string>
+    <string name="a11y_change_up">rast o %1$s</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Graf %1$s: z %2$s na %3$s, %4$s. Maximum %5$s, minimum %6$s.</string>
+    <string name="a11y_chart_empty">Graf: žiadne údaje</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Cyklus %1$s: %2$s od halvingu, deň %3$d.</string>
+    <string name="a11y_cycle_bottom">Dno %1$s v deň %2$d.</string>
+    <string name="a11y_cycle_double_bottom">Dvojité dno %1$s v deň %2$d.</string>
+    <string name="a11y_cycle_double_top">Dvojitý vrchol %1$s v deň %2$d.</string>
+    <string name="a11y_cycle_top">Vrchol %1$s v deň %2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">Stupnica od %1$s do %2$s: %3$d zo 100</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, priemerne %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d klesá</item>
+        <item quantity="few">%1$d klesajú</item>
+        <item quantity="many">%1$d klesá</item>
+        <item quantity="other">%1$d klesá</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="one">%1$d pár bez 24-hodinovej hodnoty</item>
+        <item quantity="few">%1$d páry bez 24-hodinovej hodnoty</item>
+        <item quantity="many">%1$d páru bez 24-hodinovej hodnoty</item>
+        <item quantity="other">%1$d párov bez 24-hodinovej hodnoty</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d pár bez dnešnej hodnoty</item>
+        <item quantity="few">%1$d páry bez dnešnej hodnoty</item>
+        <item quantity="many">%1$d páru bez dnešnej hodnoty</item>
+        <item quantity="other">%1$d párov bez dnešnej hodnoty</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d pár rastie</item>
+        <item quantity="few">%1$d páry rastú</item>
+        <item quantity="many">%1$d páru rastie</item>
+        <item quantity="other">%1$d párov rastie</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="one">naposledy aktualizované pred %1$d dňom</item>
+        <item quantity="few">naposledy aktualizované pred %1$d dňami</item>
+        <item quantity="many">naposledy aktualizované pred %1$d dňa</item>
+        <item quantity="other">naposledy aktualizované pred %1$d dňami</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="one">naposledy aktualizované pred %1$d hodinou</item>
+        <item quantity="few">naposledy aktualizované pred %1$d hodinami</item>
+        <item quantity="many">naposledy aktualizované pred %1$d hodiny</item>
+        <item quantity="other">naposledy aktualizované pred %1$d hodinami</item>
+    </plurals>
+    <string name="a11y_updated_just_now">naposledy aktualizované práve teraz</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="one">naposledy aktualizované pred %1$d minútou</item>
+        <item quantity="few">naposledy aktualizované pred %1$d minútami</item>
+        <item quantity="many">naposledy aktualizované pred %1$d minúty</item>
+        <item quantity="other">naposledy aktualizované pred %1$d minútami</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">suma skrytá</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_entry">%1$s %2$s, dnes v hodnote %3$s</string>
+    <string name="a11y_portfolio_entry_in">Príjem</string>
+    <string name="a11y_portfolio_entry_no_value">hodnota nie je k dispozícii</string>
+    <string name="a11y_portfolio_entry_note">poznámka %1$s</string>
+    <string name="a11y_portfolio_entry_out">Výdaj</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, %3$s portfólia</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, %2$s portfólia, %3$s</string>
+    <string name="a11y_portfolio_positions">Najväčšie pozície: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">Zobraziť sumy</string>
+    <string name="a11y_compare_chart">Porovnanie v percentách, %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">%1$s od 30-dňového maxima</string>
+    <string name="a11y_price_overlay">Prekrytie kurzu: %1$s</string>
+</resources>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Enrere</string>
+    <string name="action_cancel">Cancel·la</string>
+    <string name="action_clear">Buida</string>
+    <string name="action_close">Tanca</string>
+    <string name="action_keep">Conserva</string>
+    <string name="action_delete">Suprimeix</string>
+    <string name="action_edit">Edita</string>
+    <string name="action_more">Més opcions</string>
+    <string name="action_refresh">Actualitza</string>
+    <string name="action_retry">Torna-ho a provar</string>
+    <string name="action_save">Desa</string>
+    <string name="action_sort">Ordena</string>
+    <string name="action_sort_done">Fet</string>
+    <string name="action_undo">Desfés</string>
+    <string name="action_view">Mostra</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Mercat</string>
+    <string name="tab_portfolio">Cartera</string>
+    <string name="tab_settings">Configuració</string>
+    <string name="tab_watchlist">Llista</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">No ha funcionat: %1$s</string>
+    <string name="error_exchange_unreachable">L\'exchange no és accessible ara mateix – els últims preus continuen visibles.</string>
+    <string name="error_exchange_unreachable_short">L\'exchange no és accessible ara mateix</string>
+    <string name="loading_hint">S\'està carregant…</string>
+    <string name="option_off">Desactivat</string>
+    <string name="something_went_wrong">Alguna cosa ha anat malament</string>
+    <string name="time_just_now">ara mateix</string>
+    <string name="try_again">Torna-ho a provar</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Sense connexió</string>
+    <string name="offline_status_since">Sense connexió · a les %1$s</string>
+    <string name="status_live">En directe</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Afegeix un parell</string>
+    <string name="shortcut_alarms">Totes les alarmes</string>
+    <string name="shortcut_cycle">Mercat</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Afegeix un parell nou</string>
+    <string name="shortcut_alarms_long">Mostra totes les alarmes</string>
+    <string name="shortcut_cycle_long">Obre la visió del mercat</string>
+
+    <string name="log_box_title">Registre</string>
+    <string name="label_value">%1$s: %2$s</string>
+</resources>

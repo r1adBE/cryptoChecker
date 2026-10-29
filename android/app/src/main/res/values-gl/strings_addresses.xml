@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">Engadir enderezo</string>
+    <string name="portfolio_address_count">Contar</string>
+    <string name="portfolio_address_error">Fallou a actualización</string>
+    <string name="portfolio_address_hint">Enderezo público (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) ou xpub</string>
+    <string name="portfolio_address_label">Etiqueta (opcional)</string>
+    <string name="portfolio_address_not_since_buy">Do enderezo · non incluído en «Desde a compra»: %1$s</string>
+    <string name="portfolio_address_overlap">Tamén nas túas transaccións: %1$s – súmanse as dúas. Son as mesmas moedas? Escolle «Só mostrar».</string>
+    <string name="portfolio_address_overlap_ask">Xa rexistras %1$s coas túas transaccións. Queres sumar o saldo deste enderezo á carteira ou só mostralo?</string>
+    <string name="portfolio_address_overlap_auto">«%1$s» agora só se mostra, non se conta – %2$s tamén aparecen nas túas transaccións.</string>
+    <string name="portfolio_address_overlap_title">As mesmas moedas que as túas transaccións?</string>
+    <string name="portfolio_address_overlap_tx">A mesma cantidade que o teu depósito/transferencia (%1$s) – probablemente contado dúas veces.</string>
+    <string name="portfolio_address_period_observed">Os enderezos seguidos contan desde o primeiro saldo observado; os cambios posteriores son entradas/saídas, non ganancias.</string>
+    <string name="portfolio_address_privacy">Só se envía o enderezo público a %1$s – nunca claves nin frases de recuperación. O provedor veo xunto co teu enderezo IP. Compróbase como moito cada 10 minutos.</string>
+    <string name="portfolio_address_remove">Eliminar enderezo</string>
+    <string name="portfolio_address_show_only">Só mostrar, non sumar á carteira</string>
+    <string name="portfolio_address_show_only_short">Só mostrar</string>
+    <string name="portfolio_address_tokens">Contar tokens</string>
+    <string name="portfolio_address_xpub_privacy">Unha xpub revela todos os enderezos deste moedeiro. Derívanse no teu dispositivo; a %1$s só se envían enderezos individuais – polo menos 40 solicitudes na primeira exploración, despois menos. As claves privadas (xprv) nunca se aceptan.</string>
+    <string name="portfolio_address_xpub_gap">A busca detense despois de %1$d enderezos seguidos sen uso (o estándar BIP44 que usan a maioría dos moedeiros). Un enderezo usado máis alá dese oco non se conta – engádeo por separado.</string>
+    <string name="portfolio_address_xpub_used">Enderezos en uso: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">Demasiados enderezos usados para actualizar</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">Moitísimos enderezos – pode que non se detecten pagamentos novos a enderezos antigos e baleiros</string>
+    <string name="portfolio_addresses_title">Enderezos</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Os enderezos de Bitcoin Cash non se poden seguir: non hai ningún servizo público gratuíto sen clave API cuxas condicións o permitan.</string>
+    <string name="address_bep2_shutdown">A BNB Beacon Chain (BEP-2) pechou en 2024 – agora os saldos están na BNB Smart Chain (0x…)</string>
+    <string name="address_checksum">Suma de verificación incorrecta – comproba se hai erros de escritura</string>
+    <string name="address_doge_unsupported">Os enderezos de Dogecoin non se poden seguir: non hai ningún servizo público gratuíto sen clave API cuxas condicións o permitan.</string>
+    <string name="address_duplicate">Este enderezo xa está engadido</string>
+    <string name="address_ens">Os nomes ENS non son compatibles – introduce o enderezo 0x</string>
+    <string name="address_invalid">Non é un enderezo válido dunha rede compatible</string>
+    <string name="address_limit">Como máximo 20 enderezos</string>
+    <string name="address_secret">Isto parece unha clave privada ou unha frase de recuperación – non a introduzas nunca en ningures. Só enderezos públicos.</string>
+    <string name="address_testnet">Os enderezos de testnet non son compatibles</string>
+    <string name="address_unsupported">Este tipo de enderezo non é compatible</string>
+    <string name="address_wrong_chain">O enderezo pertence a outra rede</string>
+    <string name="address_xpub_multisig">As claves multisig (Ypub/Zpub) non son compatibles</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Conta Taproot (BIP86): desta clave derívanse enderezos bc1p…, para recibir e para o cambio.</string>
+    <string name="portfolio_address_taproot_hint">Moedeiro Taproot? Pega no seu lugar o descritor tr(…) do teu moedeiro – unha xpub simple só se busca como enderezos Legacy e SegWit.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">Servidor propio non accesible</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">Quen xestiona %1$s ve todos os enderezos consultados deste moedeiro e pode vinculalos entre si e co teu enderezo IP.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">Para evitalo, introduce o teu propio servidor en Configuración › Carteira › Servidor propio para enderezos.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d token descoñecido (non contado)</item>
+        <item quantity="other">+%1$d tokens descoñecidos (non contados)</item>
+    </plurals>
+</resources>

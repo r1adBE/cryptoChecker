@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">Entrades sense cost d\'adquisició: %1$d</string>
+    <string name="cost_gaps_card_text">Afegeix el cost d\'adquisició perquè els guanys i els impostos siguin complets.</string>
+    <string name="cost_gaps_sheet_title">Entrades sense cost d\'adquisició</string>
+    <string name="cost_gaps_sheet_intro">Aquestes entrades no tenen cost d\'adquisició. El suggeriment és el tancament diari de la data – el pots ajustar a l\'entrada.</string>
+    <string name="cost_gaps_empty">Totes les entrades tenen cost d\'adquisició.</string>
+    <string name="cost_gap_enter">Introdueix el cost d\'adquisició</string>
+    <string name="cost_gap_leave_unknown">Deixa-ho com a desconegut</string>
+    <string name="cost_gap_left_unknown">Deixat com a desconegut</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">Suggeriment: tancament diari %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">No hi ha cap tancament diari verificat per a aquesta data</string>
+    <string name="cost_gap_suggestion_loading">S\'està carregant el tancament diari …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">Cost d\'adquisició = valor en rebre-ho (ingrés)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">Cost d\'adquisició = 0 (recompensa sense entrada, Àustria)</string>
+    <string name="cost_gap_apply">Aplica</string>
+    <string name="address_lots_action">Cost d\'adquisició del saldo de l\'adreça</string>
+    <string name="address_lots_title">Cost d\'adquisició del saldo de l\'adreça</string>
+    <string name="address_lots_intro">Introdueix la data de compra, la quantitat i el cost d\'adquisició del saldo d\'aquesta adreça. Els lots compten com a compres en aquesta adreça; la part no coberta es queda sense cost d\'adquisició.</string>
+    <string name="address_lots_add">Afegeix un lot</string>
+    <string name="address_lots_new">Lot nou</string>
+    <string name="address_lots_edit">Lot</string>
+    <string name="address_lots_date">Data de compra</string>
+    <string name="address_lots_amount">Quantitat</string>
+    <string name="address_lots_mode_total">Total</string>
+    <string name="address_lots_mode_price">Per moneda</string>
+    <string name="address_lots_price">Preu per moneda (USDT)</string>
+    <string name="address_lots_total">Cost d\'adquisició total (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%1$s de %2$s amb cost d\'adquisició</string>
+    <string name="address_lots_unlotted">%1$s sense cost d\'adquisició</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">Els lots superen el saldo en %1$s – es consumeixen primer els més antics.</string>
+    <string name="address_lots_not_loaded">El saldo encara no s\'ha carregat – els lots comptaran tan bon punt es carregui.</string>
+    <string name="address_lots_invalid">Introdueix la quantitat i el cost d\'adquisició</string>
+</resources>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Siar</string>
+    <string name="action_cancel">Cealaigh</string>
+    <string name="action_clear">Glan</string>
+    <string name="action_close">Dún</string>
+    <string name="action_keep">Coinnigh</string>
+    <string name="action_delete">Scrios</string>
+    <string name="action_edit">Cuir in eagar</string>
+    <string name="action_more">Tuilleadh roghanna</string>
+    <string name="action_refresh">Athnuaigh</string>
+    <string name="action_retry">Bain triail eile as</string>
+    <string name="action_save">Sábháil</string>
+    <string name="action_sort">Sórtáil</string>
+    <string name="action_sort_done">Déanta</string>
+    <string name="action_undo">Aisiompaigh</string>
+    <string name="action_view">Féach</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Margadh</string>
+    <string name="tab_portfolio">Punann</string>
+    <string name="tab_settings">Socruithe</string>
+    <string name="tab_watchlist">Liosta faire</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Earráid: %1$s</string>
+    <string name="error_exchange_unreachable">Ní féidir an malartán a bhaint amach anois – fanann na praghsanna deireanacha le feiceáil.</string>
+    <string name="error_exchange_unreachable_short">Ní féidir an malartán a bhaint amach anois</string>
+    <string name="loading_hint">Á lódáil…</string>
+    <string name="option_off">Múchta</string>
+    <string name="something_went_wrong">Chuaigh rud éigin amú</string>
+    <string name="time_just_now">díreach anois</string>
+    <string name="try_again">Bain triail eile as</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Gan cheangal</string>
+    <string name="offline_status_since">Gan cheangal · staid %1$s</string>
+    <string name="status_live">Beo</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Cuir péire leis</string>
+    <string name="shortcut_alarms">Gach foláireamh</string>
+    <string name="shortcut_cycle">Margadh</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Cuir péire nua leis</string>
+    <string name="shortcut_alarms_long">Taispeáin gach foláireamh</string>
+    <string name="shortcut_cycle_long">Forbhreathnú margaidh</string>
+
+    <string name="log_box_title">Logáil</string>
+    <string name="label_value">%1$s: %2$s</string>
+</resources>

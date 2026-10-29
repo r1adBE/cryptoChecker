@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">ఈ పరికరంలో స్క్రీన్ లాక్ సెటప్ చేయలేదు. ముందుగా సిస్టమ్ సెట్టింగ్‌లలో ఒకదాన్ని సెటప్ చేయండి.</string>
+    <string name="app_lock_unlock">అన్‌లాక్ చేయి</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">పోర్ట్‌ఫోలియోను క్లియర్ చేయి</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="one">%d లావాదేవీని తొలగించాలా? పర్యవేక్షిస్తున్న అడ్రస్‌లు అలాగే ఉంటాయి. దీన్ని వెంటనే రద్దు చేయవచ్చు.</item>
+        <item quantity="other">మొత్తం %d లావాదేవీలను తొలగించాలా? పర్యవేక్షిస్తున్న అడ్రస్‌లు అలాగే ఉంటాయి. దీన్ని వెంటనే రద్దు చేయవచ్చు.</item>
+    </plurals>
+    <string name="portfolio_empty_action">మీ మొదటి కొనుగోలును జోడించండి</string>
+    <string name="portfolio_empty_address">వాలెట్ అడ్రస్‌ను గమనించడం మాత్రమే</string>
+    <string name="portfolio_empty_csv">ఎక్స్ఛేంజ్‌లో కొన్నారా? దాని ఫైల్‌ను ఇంపోర్ట్ చేయండి</string>
+    <string name="portfolio_empty_example_plain">ఉదాహరణ: 1 మార్చిన %1$s BTC కొనుగోలు చేశారు. ఈరోజు దాని విలువ ఎంత, మీరు లాభంలో ఉన్నారా నష్టంలో ఉన్నారా అని యాప్ చూపుతుంది – ఈ పరికరంలో మాత్రమే నిల్వ చేయబడుతుంది.</string>
+    <string name="portfolio_empty_title">ఇంకా లావాదేవీలు లేవు</string>
+    <string name="portfolio_enable_ask_text">మీ లావాదేవీ సేవ్ అయింది. పోర్ట్‌ఫోలియో ట్యాబ్ మీ హోల్డింగ్‌లను, వాటి విలువను చూపుతుంది.</string>
+    <string name="portfolio_enable_ask_title">పోర్ట్‌ఫోలియో ట్యాబ్‌ను ఆన్ చేయాలా?</string>
+    <string name="portfolio_enable_later_hint">లావాదేవీ సేవ్ అయింది. సెట్టింగ్‌లు › పోర్ట్‌ఫోలియోలో పోర్ట్‌ఫోలియో ట్యాబ్‌ను ఆన్ చేయవచ్చు.</string>
+    <string name="portfolio_enabled_banner">పోర్ట్‌ఫోలియో ఆన్ అయింది – పోర్ట్‌ఫోలియో ట్యాబ్‌లో చూడవచ్చు.</string>
+    <string name="portfolio_lock_reason">పోర్ట్‌ఫోలియోను అన్‌లాక్ చేయండి</string>
+    <string name="portfolio_locked_text">మీ హోల్డింగ్‌లు, విలువలను చూడటానికి అన్‌లాక్ చేయండి.</string>
+    <string name="portfolio_locked_title">పోర్ట్‌ఫోలియో లాక్ అయి ఉంది</string>
+    <string name="portfolio_setting_hint">ఐచ్ఛికం: కొనుగోళ్లు, అమ్మకాలను నమోదు చేసి, విలువ, లాభం/నష్టాన్ని ప్రత్యేక ట్యాబ్‌లో చూడండి.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">పాతది · %1$s నాటికి</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="one">సిస్టమ్ బ్యాకప్ నుండి %d ఎంట్రీ చెల్లదు, పునరుద్ధరించబడలేదు.</item>
+        <item quantity="other">సిస్టమ్ బ్యాకప్ నుండి %d ఎంట్రీలు చెల్లవు, పునరుద్ధరించబడలేదు.</item>
+    </plurals>
+    <string name="portfolio_title">పోర్ట్‌ఫోలియో</string>
+    <string name="portfolio_unassigned_fee">కేటాయించని ఫీజు – కొనుగోలు వ్యయం తెలియదు: %1$s</string>
+    <string name="portfolio_updated">%1$s నాటి ధరలు</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">ఇతరం</string>
+    <string name="portfolio_allocation_title">కేటాయింపు</string>
+    <string name="portfolio_card_details">వివరాలు</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: ఇంకా అందుబాటులో లేదు</string>
+    <string name="portfolio_card_hints_count">గమనికలు (%1$d)</string>
+    <string name="portfolio_card_today">ఈరోజు</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">మొత్తం</string>
+    <string name="portfolio_hide_amounts">మొత్తాలను దాచు</string>
+    <string name="portfolio_hide_amounts_hint">పోర్ట్‌ఫోలియోలో, పోర్ట్‌ఫోలియో విడ్జెట్‌లో మొత్తాలు, విలువలను ••• గా చూపుతుంది – శాతాలు కనిపిస్తూనే ఉంటాయి.</string>
+    <string name="portfolio_invested">కొనుగోలు వ్యయం</string>
+    <string name="portfolio_total_no_fx">%1$sకు మారకపు రేటు లేదు – మొత్తాలు USDTలో</string>
+    <string name="portfolio_total_value">మొత్తం విలువ</string>
+    <string name="portfolio_value">విలువ</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">సగటు %1$s · ఇప్పుడు %2$s</string>
+    <string name="portfolio_avg_only">సగటు %1$s</string>
+    <string name="portfolio_avg_open_lots">ఉంచుకున్న కాయిన్‌ల సగటు వ్యయం</string>
+    <string name="portfolio_avg_partial">కొనుగోలు ధర ఉన్న %1$s సగటు</string>
+    <string name="portfolio_avg_price">సగటు కొనుగోలు ధర</string>
+    <string name="portfolio_avg_price_hint">సగటు కొనుగోలు ధర: పరిమాణం ఆధారంగా అన్ని కొనుగోళ్ల సగటు. అమ్మకాలు ఈ సగటుతో విలువ కట్టబడతాయి.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">మూసివేసిన పొజిషన్ (%1$d)</item>
+        <item quantity="other">మూసివేసిన పొజిషన్‌లు (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: అమ్మకాలు మీ పాత కాయిన్‌లను ముందుగా ఉపయోగిస్తాయి. సగటు = మిగిలిన కొనుగోలు వ్యయం ÷ కొనుగోలు ధర ఉన్న పరిమాణం.</string>
+    <string name="portfolio_holdings">హోల్డింగ్‌లు</string>
+    <string name="portfolio_lost_fee_cost">చెల్లించిన లాట్ లేని నెట్‌వర్క్ ఫీజు వ్యయం: %1$s</string>
+    <string name="portfolio_open_lots">ఓపెన్ కొనుగోలు లాట్‌లు (%1$d)</string>
+    <string name="portfolio_open_lots_avg">కొనుగోలు ధరతో (సగటు)</string>
+    <string name="portfolio_open_lots_no_cost">కొనుగోలు ధర లేకుండా</string>
+    <string name="portfolio_open_lots_without_price">కొనుగోలు ధర లేదు</string>
+    <string name="portfolio_realized">సాధించిన లాభం/నష్టం</string>
+    <string name="portfolio_unrealized">ఓపెన్ లాభం/నష్టం</string>
+    <string name="portfolio_unrealized_without_unpriced">కొనుగోలు ధర లేని %1$s లేకుండా</string>
+    <string name="portfolio_withdrawn_gain">విత్‌డ్రా చేసింది: %1$s (విత్‌డ్రా వరకు విలువ మార్పు)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">దీనికి మార్చు</string>
+    <string name="portfolio_convert_to_value">దీనికి మార్చు: %1$s</string>
+    <string name="portfolio_current_missing">%1$sకు ప్రస్తుత ధర లేదు</string>
+    <string name="portfolio_current_price">ప్రస్తుత ధర</string>
+    <string name="portfolio_price_missing">ధర లేదు</string>
+    <string name="portfolio_price_missing_hint">కొన్ని కొనుగోళ్లకు ధర లేదు. లాభం/నష్టం చూడటానికి కొనుగోలు ధరను జోడించండి.</string>
+    <string name="portfolio_price_source">ధరలు: Binance · మార్కెట్ ధర వద్ద USDT</string>
+    <string name="portfolio_price_source_routes">ధరలు: %1$s, లేకపోతే Binance · మార్కెట్ ధర వద్ద USDT</string>
+    <string name="portfolio_price_unavailable">ధర ప్రస్తుతం అందుబాటులో లేదు</string>
+    <string name="portfolio_price_unchecked">ధర తనిఖీ చేయబడలేదు</string>
+    <string name="portfolio_price_via_base">≈ %1$s ధర (bridged/wrapped)</string>
+    <string name="portfolio_usdt_as_usd">USDT దాని USD మార్కెట్ ధర వద్ద మార్చబడింది</string>
+    <string name="portfolio_usdt_assumed">USDT డాలర్ రేటు లేదు – 1 అమెరికన్ డాలర్‌గా లెక్కించబడింది</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">పోర్ట్‌ఫోలియోకు జోడించు</string>
+    <string name="portfolio_add_tx">లావాదేవీని జోడించు</string>
+    <string name="portfolio_buy">కొనుగోలు</string>
+    <string name="portfolio_coin">కాయిన్</string>
+    <string name="portfolio_coin_invalid">కాయిన్ సింబల్‌ను నమోదు చేయండి</string>
+    <string name="portfolio_coin_search">సింబల్ కోసం వెతకండి, ఉదా. BTC</string>
+    <string name="portfolio_discard_confirm">విస్మరించు</string>
+    <string name="portfolio_discard_keep">ఎడిట్ కొనసాగించు</string>
+    <string name="portfolio_discard_title">మార్పులను విస్మరించాలా?</string>
+    <string name="portfolio_edit_tx">లావాదేవీని ఎడిట్ చేయి</string>
+    <string name="portfolio_invalid">0 కంటే పెద్ద చెల్లుబాటు అయ్యే సంఖ్యను నమోదు చేయండి.</string>
+    <string name="portfolio_oversold">అమ్మకాలు హోల్డింగ్‌లను మించాయి – దయచేసి లావాదేవీలను తనిఖీ చేయండి.</string>
+    <string name="portfolio_sell">అమ్మకం</string>
+    <string name="portfolio_sell_exceeds">మీ హోల్డింగ్‌ల కంటే ఎక్కువ (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">మొత్తం, ఫీజు కలిపి మీ హోల్డింగ్‌ల కంటే ఎక్కువ (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">%2$sలోని మీ హోల్డింగ్‌ల కంటే ఎక్కువ (%1$s)</string>
+    <string name="portfolio_transactions">లావాదేవీలు</string>
+    <string name="portfolio_tx_acquired_date">అసలు కొనుగోలు తేదీ (ఐచ్ఛికం)</string>
+    <string name="portfolio_tx_acquired_date_hint">పన్ను ఎక్స్‌పోర్ట్‌లో హోల్డింగ్ వ్యవధి కోసం</string>
+    <string name="portfolio_tx_amount">పరిమాణం</string>
+    <string name="portfolio_tx_coin_fee">కాయిన్‌లో ఫీజు (ఐచ్ఛికం)</string>
+    <string name="portfolio_tx_date">తేదీ</string>
+    <string name="portfolio_tx_delete_confirm">ఈ లావాదేవీ పోర్ట్‌ఫోలియో నుండి తీసివేయబడుతుంది.</string>
+    <string name="portfolio_tx_delete_title">లావాదేవీని తొలగించాలా?</string>
+    <string name="portfolio_tx_deposit">డిపాజిట్</string>
+    <string name="portfolio_tx_entry_currency">నమోదు కరెన్సీ</string>
+    <string name="portfolio_tx_explain_deposit">ట్రేడ్ లేని హోల్డింగ్‌లు, ఉదా. మునుపటి కాయిన్‌లు</string>
+    <string name="portfolio_tx_explain_gift">కాయిన్‌లు విత్‌డ్రా లాగా మీ హోల్డింగ్‌ల నుండి వెళ్లిపోతాయి – బహుమతులపై పన్ను విధించే దేశాల్లో మాత్రమే (UK, CA, AU) మార్కెట్ విలువ వద్ద విక్రయంగా లెక్కిస్తారు</string>
+    <string name="portfolio_tx_explain_payment">వస్తువులు లేదా సేవల కోసం చెల్లించబడింది – అమ్మకం లాగా మార్కెట్ విలువ వద్ద బదలాయింపు, డబ్బు అందలేదు</string>
+    <string name="portfolio_tx_explain_reward">కొనుగోలు వ్యయం = అందుకున్నప్పటి మార్కెట్ విలువ</string>
+    <string name="portfolio_tx_explain_swap">ఒక కాయిన్‌కు మరొకటి: ఇచ్చిన కాయిన్‌ను అమ్మి, అందుకున్న కాయిన్‌ను కొంటుంది</string>
+    <string name="portfolio_tx_explain_transfer">లాభం లేదు – కొనుగోలు వ్యయం కాయిన్‌లతో పాటు వెళ్తుంది</string>
+    <string name="portfolio_tx_explain_withdrawal">హోల్డింగ్‌లు పోర్ట్‌ఫోలియో నుండి వెళ్లిపోతాయి – అమ్మకం కాదు, లాభం లేదు</string>
+    <string name="portfolio_tx_fee_consumes_amount">ఫీజు అందుకున్న మొత్తమంత పెద్దది – ఏమీ మిగలదు.</string>
+    <string name="portfolio_tx_fees_toggle">ఫీజులు</string>
+    <string name="portfolio_tx_fiat_converted">≈ %2$s రేటు వద్ద %1$s</string>
+    <string name="portfolio_tx_fiat_loading">మారకపు రేటు లోడ్ అవుతోంది…</string>
+    <string name="portfolio_tx_fiat_no_fx">ఈ రోజుకు మారకపు రేటు లేదు – మొత్తాన్ని USDTలో నమోదు చేయండి.</string>
+    <string name="portfolio_tx_gift">బహుమతి</string>
+    <string name="portfolio_tx_gift_price_hint">USDTలో. ఖాళీ = ఆ రోజు ముగింపు ధర (అంచనా).</string>
+    <string name="portfolio_tx_gift_spouse">జీవిత భాగస్వామికి / సివిల్ పార్ట్‌నర్‌కు</string>
+    <string name="portfolio_tx_gift_spouse_hint">UK, కెనడా: లాభం లేదు, నష్టం లేదు – మీ భాగస్వామి మీ కొనుగోలు వ్యయాన్ని స్వీకరిస్తారు. ఇతర దేశాలు దీన్ని పట్టించుకోవు.</string>
+    <string name="portfolio_tx_market_value">ఒక్కో కాయిన్ మార్కెట్ విలువ</string>
+    <string name="portfolio_tx_more_buy">ఫీజు, ఎక్స్ఛేంజ్, గమనిక</string>
+    <string name="portfolio_tx_network_fee">కాయిన్‌లో నెట్‌వర్క్ ఫీజు (ఐచ్ఛికం)</string>
+    <string name="portfolio_tx_note">గమనిక (ఐచ్ఛికం)</string>
+    <string name="portfolio_tx_payment">దీనితో చెల్లించారు</string>
+    <string name="portfolio_tx_price">ఒక్కో కాయిన్ ధర</string>
+    <string name="portfolio_tx_price_hint">USDTలో. తెలియకపోతే ఖాళీగా వదిలేయండి.</string>
+    <string name="portfolio_tx_price_historic">%1$s తనిఖీ చేసిన రోజువారీ ముగింపు ధర – అవసరమైతే సర్దుబాటు చేయండి</string>
+    <string name="portfolio_tx_price_invalid">చెల్లుబాటు అయ్యే సంఖ్యను (0 లేదా అంతకంటే ఎక్కువ) నమోదు చేయండి లేదా ఫీల్డ్‌ను ఖాళీగా వదిలేయండి.</string>
+    <string name="portfolio_tx_price_past_hint">కొనుగోలు రోజు ధరను నమోదు చేయండి – తెలియకపోతే ఖాళీగా వదిలేయండి</string>
+    <string name="portfolio_tx_price_receipt_hint">USDTలో. ఖాళీ = కొనుగోలు వ్యయం లేని హోల్డింగ్‌లు.</string>
+    <string name="portfolio_tx_price_zero">ఇంపోర్ట్ చేసిన లావాదేవీలకు ధర 0 సాధ్యం కాదు – మార్కెట్ ధర కోసం ఖాళీగా వదిలేయండి</string>
+    <string name="portfolio_tx_removed">లావాదేవీ తొలగించబడింది</string>
+    <string name="portfolio_tx_reward">రివార్డ్</string>
+    <string name="portfolio_tx_save_failed">లావాదేవీని సేవ్ చేయలేకపోయాం. మీ నమోదులు ఇంకా ఇక్కడే ఉన్నాయి – దయచేసి మళ్లీ ప్రయత్నించండి.</string>
+    <string name="portfolio_tx_swap">స్వాప్</string>
+    <string name="portfolio_tx_swap_fee_received">%1$sలో ఫీజు: అందుకున్న మొత్తాన్ని తగ్గిస్తుంది, ధర అవసరం లేదు.</string>
+    <string name="portfolio_tx_swap_from">%1$s నుండి స్వాప్</string>
+    <string name="portfolio_tx_swap_given_amount">ఇచ్చిన పరిమాణం</string>
+    <string name="portfolio_tx_swap_given_coin">ఇచ్చిన కాయిన్</string>
+    <string name="portfolio_tx_swap_received_amount">అందుకున్న పరిమాణం</string>
+    <string name="portfolio_tx_swap_received_coin">అందుకున్న కాయిన్</string>
+    <string name="portfolio_tx_swap_same_coin">ఇచ్చిన దాని కంటే వేరే కాయిన్‌ను ఎంచుకోండి</string>
+    <string name="portfolio_tx_swap_to">%1$sకు స్వాప్</string>
+    <string name="portfolio_tx_swap_value">స్వాప్ విలువ (ఐచ్ఛికం)</string>
+    <string name="portfolio_tx_swap_value_hint">మొత్తం విలువ. ఖాళీ = తెలియదు – లాభం అసంపూర్ణంగా ఉంటుంది (స్వాప్‌లో USDT ఉంటే ఆటోమేటిక్).</string>
+    <string name="portfolio_tx_third_fee_amount">ఫీజు మొత్తం</string>
+    <string name="portfolio_tx_third_fee_coin">ఫీజు కాయిన్</string>
+    <string name="portfolio_tx_third_fee_incomplete">ధర లేకుండా ఫీజు కొనుగోలు వ్యయం, ఆదాయంలో చేరదు; పన్ను ఎక్స్‌పోర్ట్ అలాంటి అమ్మకాలను గుర్తిస్తుంది.</string>
+    <string name="portfolio_tx_third_fee_price">ఒక్కో ఫీజు కాయిన్ ధర (ఐచ్ఛికం)</string>
+    <string name="portfolio_tx_third_fee_toggle">వేరే కాయిన్‌లో ఫీజు</string>
+    <string name="portfolio_tx_total">మొత్తం: %1$s</string>
+    <string name="portfolio_tx_transfer">బదిలీ</string>
+    <string name="portfolio_tx_transfer_from">నుండి (ఐచ్ఛికం)</string>
+    <string name="portfolio_tx_transfer_to">కు (ఐచ్ఛికం)</string>
+    <string name="portfolio_tx_transfer_to_hint">ఎక్స్ఛేంజ్ లేదా వాలెట్ – ఇకపై అక్కడ విలువ కట్టబడుతుంది.</string>
+    <string name="portfolio_tx_type_select">రకం: %1$s</string>
+    <string name="portfolio_tx_value_received">అందుకున్నప్పుడు ఒక్కో కాయిన్ విలువ (ఐచ్ఛికం)</string>
+    <string name="portfolio_tx_withdrawal">విత్‌డ్రా</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">బహుమతిగా ఇచ్చారా లేదా దీనితో చెల్లించారా? దాన్ని “బహుమతి” లేదా “దీనితో చెల్లించారు”గా నమోదు చేయండి – దేశాన్ని బట్టి, పన్ను పరంగా అది అమ్మకంగా లెక్కించబడుతుంది.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">ఐచ్ఛికం: USDTలో మార్కెట్ విలువ, చరిత్ర కోసం మాత్రమే ఉపయోగించబడుతుంది (ఖాళీ = ఆ రోజు ధర). కాయిన్‌లు ఎల్లప్పుడూ వాటి కొనుగోలు వ్యయం వద్దే వెళ్లిపోతాయి.</string>
+    <string name="portfolio_wallet_did_you_mean">మీ ఉద్దేశం %1$sనా? వేరే స్పెల్లింగ్ ప్రత్యేక వాలెట్‌గా లెక్కించబడుతుంది.</string>
+    <string name="portfolio_wallet_shortfall">%1$sలోని హోల్డింగ్‌లు సరిపోవు – బదిలీ ఏదైనా మిస్ అయిందా?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">గరిష్ఠం %1$s</string>
+    <string name="portfolio_compare">పోల్చు</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">%1$s, USDTని శాతంలో పోల్చు</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">శాతంలో పోలిక, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">కరెన్సీ ప్రభావం: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">ధర డేటా ఆగస్టు 2017 వరకు మాత్రమే వెనక్కి వెళ్తుంది — చరిత్ర అక్కడి నుండి ప్రారంభమవుతుంది.</string>
+    <string name="portfolio_history_chip_since_first">అన్నీ</string>
+    <string name="portfolio_history_collapse">విలువ చరిత్రను దాచు</string>
+    <string name="portfolio_history_converted">ఈరోజు రేటుతో మార్చబడింది</string>
+    <string name="portfolio_history_expand">విలువ చరిత్రను చూపు</string>
+    <string name="portfolio_history_gain_a11y">విలువ %1$s. లాభం/నష్టం, %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">లాభం/నష్టం</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">%1$sలో విలువ</string>
+    <string name="portfolio_history_incl_fx">మారకపు రేటుతో సహా</string>
+    <string name="portfolio_history_incl_withdrawn">విత్‌డ్రా చేసిన కాయిన్‌ల విలువ మార్పుతో సహా</string>
+    <string name="portfolio_history_includes_trades">ఈ వ్యవధిలోని కొనుగోళ్లు, అమ్మకాలతో సహా</string>
+    <string name="portfolio_history_loading">విలువ చరిత్ర లోడ్ అవుతోంది</string>
+    <string name="portfolio_history_period_1y">1 సంవత్సరం</string>
+    <string name="portfolio_history_period_30d">30 రోజులు</string>
+    <string name="portfolio_history_period_7d">7 రోజులు</string>
+    <string name="portfolio_history_period_since_first">మొదటి కొనుగోలు నుండి</string>
+    <string name="portfolio_history_pnl_needs_prices">లాభం/నష్టం కోసం కొనుగోలు ధరలు లేవు – లావాదేవీలలో వాటిని జోడించండి.</string>
+    <string name="portfolio_history_pnl_without">%1$s లేకుండా లాభం/నష్టం (ధర లేదు)</string>
+    <string name="portfolio_history_range_1y">1 సం</string>
+    <string name="portfolio_history_range_30d">30 రో</string>
+    <string name="portfolio_history_range_7d">7 రో</string>
+    <string name="portfolio_history_range_a11y">%1$s చరిత్రను చూపు</string>
+    <string name="portfolio_history_range_since_first">మొదటి కొనుగోలు నుండి</string>
+    <string name="portfolio_history_scaled">%1$s చరిత్ర: ఎక్స్ఛేంజ్ ధరకు స్కేల్ చేసిన Binance చరిత్ర</string>
+    <string name="portfolio_history_title">విలువ చరిత్ర</string>
+    <string name="portfolio_history_today">ఈరోజు</string>
+    <string name="portfolio_history_too_short">మీ మొదటి పూర్తి రోజు తర్వాత చరిత్ర ప్రారంభమవుతుంది.</string>
+    <string name="portfolio_history_unavailable">ప్రస్తుతం చరిత్ర అందుబాటులో లేదు.</string>
+    <string name="portfolio_history_utc_days">UTCలో రోజులు (రోజువారీ క్యాండిల్‌లు)</string>
+    <string name="portfolio_history_without_matching">%1$s లేకుండా (సరిపోలే రోజువారీ ధరలు లేవు)</string>
+    <string name="portfolio_period_rewards">రివార్డ్‌లు +%1$s (లాభంలో కాదు)</string>
+    <string name="portfolio_period_scaled">%1$sకు 7 రో/1 సం: ఎక్స్ఛేంజ్ ధరకు స్కేల్ చేసిన Binance చరిత్ర</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">అలర్ట్</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">మొత్తం (%1$s)</string>
+    <string name="portfolio_alarm_hint">ప్రతి రిఫ్రెష్ తర్వాత తనిఖీ చేయబడుతుంది. అలర్ట్‌ల లాగే, మార్క్ దాటినప్పుడు ట్రిగ్గర్ అవుతుంది, విలువ వెనక్కి వచ్చిన తర్వాతే మళ్లీ ట్రిగ్గర్ అవుతుంది.</string>
+    <string name="portfolio_alarm_kind_above">పోర్ట్‌ఫోలియో మొత్తం కంటే పైన</string>
+    <string name="portfolio_alarm_kind_below">పోర్ట్‌ఫోలియో మొత్తం కంటే కింద</string>
+    <string name="portfolio_alarm_kind_down">పోర్ట్‌ఫోలియో తగ్గుతుంది</string>
+    <string name="portfolio_alarm_kind_up">పోర్ట్‌ఫోలియో పెరుగుతుంది</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">పోర్ట్‌ఫోలియో %1$s పైన</string>
+    <string name="portfolio_alarm_sentence_below">పోర్ట్‌ఫోలియో %1$s కింద</string>
+    <string name="portfolio_alarm_sentence_down">పోర్ట్‌ఫోలియో %1$s తగ్గింది (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">పోర్ట్‌ఫోలియో %1$s పెరిగింది (%2$s)</string>
+    <string name="portfolio_alarm_title">పోర్ట్‌ఫోలియో విలువ అలర్ట్</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">ఎక్స్ఛేంజ్ (ఐచ్ఛికం)</string>
+    <string name="ledger_exchange_failed">%1$s: ప్రస్తుతం %2$s నుండి ధర లేదు – Binanceతో విలువ కట్టబడింది.</string>
+    <string name="ledger_exchange_hint">కాయిన్ ఈ ఎక్స్ఛేంజ్ ధర వద్ద విలువ కట్టబడుతుంది (లేకపోతే Binance). చరిత్ర, 7 రో, 1 సం దానికి స్కేల్ చేసిన Binance రోజువారీ ధరలను ఉపయోగిస్తాయి.</string>
+    <string name="ledger_exchange_mixed">%1$s: అనేక ఎక్స్ఛేంజ్‌లు నమోదు చేయబడ్డాయి – Binanceతో విలువ కట్టబడింది. కాయిన్‌లను తరలించారా? ఆ తరలింపును “బదిలీ”గా నమోదు చేయండి.</string>
+    <string name="ledger_exchange_none">ఏదీ కాదు (Binance)</string>
+    <string name="ledger_fee">ఫీజు (ఐచ్ఛికం)</string>
+    <string name="ledger_fee_coin">కాయిన్</string>
+    <string name="ledger_fee_hint">USDTలో అయితే కొనుగోలు వ్యయాన్ని పెంచుతుంది (అమ్మకం: ఆదాయాన్ని తగ్గిస్తుంది); కాయిన్‌లో అయితే పరిమాణాన్ని తగ్గిస్తుంది.</string>
+    <string name="ledger_fee_line">ఫీజు %1$s</string>
+    <string name="ledger_fifo_cost_note">కొనుగోలు నుండి: ఫీజులతో సహా FIFO వ్యయం (పాత కాయిన్‌లు ముందుగా అమ్మబడతాయి).</string>
+    <string name="ledger_gain_info">ఈరోజు, 7 రో, 1 సం: ఆ వ్యవధిలో విలువ మార్పు – కొనుగోళ్లు, అమ్మకాలు లాభంగా లెక్కించబడవు. కొనుగోలు నుండి: ప్రస్తుత విలువ మైనస్ మీరు ఇంకా ఉంచుకున్న కాయిన్‌ల కొనుగోలు వ్యయం (ఫీజులతో సహా సగటు వ్యయం).</string>
+    <string name="ledger_gain_info_a11y">లాభం, నష్టం ఎలా లెక్కించబడతాయి</string>
+    <string name="ledger_gain_info_fifo">ఈరోజు, 7 రో, 1 సం: ఆ వ్యవధిలో విలువ మార్పు – కొనుగోళ్లు, అమ్మకాలు లాభంగా లెక్కించబడవు. కొనుగోలు నుండి: ప్రస్తుత విలువ మైనస్ మీరు ఇంకా ఉంచుకున్న కాయిన్‌ల కొనుగోలు వ్యయం (ఫీజులతో సహా FIFO).</string>
+    <string name="ledger_gain_title">లాభం/నష్టం</string>
+    <string name="ledger_more_toggle">ఫీజు, ఎక్స్ఛేంజ్</string>
+    <string name="ledger_partial_cost">“కొనుగోలు నుండి” కొనుగోలు ధర ఉన్న భాగాన్ని మాత్రమే లెక్కిస్తుంది – కొనుగోలు ధర లేని %1$s లేకుండా.</string>
+    <string name="ledger_period_without">ఈరోజు / 7 రో / 1 సం, %1$s లేకుండా – సరిపోలే ప్రారంభ ధర లేదు.</string>
+    <string name="ledger_since_purchase_currency">కొనుగోలు నుండి (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">కొనుగోలు నుండి లాభం/నష్టం, ఇంకా అమ్మలేదు</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="one">కొనుగోలు ధర లేని %1$d కాయిన్ లేకుండా (%2$s) – అది లెక్కలోకి రావడానికి ధరను జోడించండి.</item>
+        <item quantity="other">కొనుగోలు ధర లేని %1$d కాయిన్‌లు లేకుండా (%2$s) – అవి లెక్కలోకి రావడానికి ధరలను జోడించండి.</item>
+    </plurals>
+
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">USDT పతనం – మార్కెట్ %1$s USD వద్ద</string>
+    <string name="portfolio_usdt_via_usdc">USDT డాలర్ రేటు USDC/USDT ద్వారా – USDC పడిపోతే, ఈ విలువ తప్పు</string>
+    <string name="portfolio_amount_bridged_stable">≈ %1$sతో సహా (bridged)</string>
+
+    <string name="portfolio_tx_interest">వడ్డీ (లెండింగ్)</string>
+    <string name="portfolio_tx_interest_hint">అందుకున్నప్పుడు ఆదాయంగా లెక్కించబడుతుంది (ఆస్ట్రియా). స్టేకింగ్ రివార్డ్‌లు, ఎయిర్‌డ్రాప్‌లకు దీన్ని ఉపయోగించవద్దు.</string>
+    <string name="app_lock_no_screen_lock">పోర్ట్‌ఫోలియోను తెరవడానికి స్క్రీన్ లాక్‌ను సెటప్ చేయండి.</string>
+    <string name="app_lock_turn_off_action">పోర్ట్‌ఫోలియో లాక్‌ను ఆఫ్ చేయి</string>
+    <string name="app_lock_turn_off_confirm_title">పోర్ట్‌ఫోలియో లాక్‌ను ఆఫ్ చేయాలా?</string>
+    <string name="app_lock_turn_off_confirm_message">స్క్రీన్ లాక్ లేకుండా పోర్ట్‌ఫోలియోను అన్‌లాక్ చేయలేరు. ఆఫ్ చేస్తే, యాప్ అడగకుండానే మీ పోర్ట్‌ఫోలియోను మళ్లీ చూపుతుంది. స్క్రీన్ లాక్ సెటప్ అయిన తర్వాత, సెట్టింగ్‌లలో లాక్‌ను మళ్లీ ఆన్ చేయవచ్చు.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">%1$sలో “కొనుగోలు నుండి”, కొనుగోలు వ్యయం: కొనుగోలు రోజు మారకపు రేటు వద్ద వ్యయం, ఈరోజు రేటు వద్ద విలువ.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">కొనుగోలు రోజుకు మారకపు రేటు లేదు (“కొనుగోలు నుండి”, కొనుగోలు వ్యయంలో లేదు): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">USDT డాలర్ రేటు లేని కొనుగోలు రోజుల వ్యయం ఒక్కో USDTకి 1 అమెరికన్ డాలర్‌గా లెక్కించబడింది.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">%1$s నాటికి – ఎక్స్ఛేంజ్ అందుబాటులో లేదు</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">రోజువారీ ధరలు: %1$s (Binanceకు బదులుగా)</string>
+
+    <string name="portfolio_footer_short">పని సహాయం, పన్ను లేదా పెట్టుబడి సలహా కాదు. గోప్యత: సెట్టింగ్‌లు › యాప్ గురించి › గోప్యతా విధానం.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">%1$s యొక్క అన్ని లావాదేవీలను తొలగించాలా?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">%d లావాదేవీ తీసివేయబడుతుంది. దీన్ని వెంటనే రద్దు చేయవచ్చు.</item>
+        <item quantity="other">%d లావాదేవీలు తీసివేయబడతాయి. దీన్ని వెంటనే రద్దు చేయవచ్చు.</item>
+    </plurals>
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">%1$sలో చెల్లించిన ఫీజులు ఇతర లావాదేవీల నుండి కూడా తీసివేయబడతాయి: %2$d.</string>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s పోర్ట్‌ఫోలియో నుండి తీసివేయబడింది (%2$d లావాదేవీ)</item>
+        <item quantity="other">%1$s పోర్ట్‌ఫోలియో నుండి తీసివేయబడింది (%2$d లావాదేవీలు)</item>
+    </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">%d లావాదేవీ తీసివేయబడింది</item>
+        <item quantity="other">%d లావాదేవీలు తీసివేయబడ్డాయి</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">ఇది %d లాట్‌ను కూడా తీసివేస్తుంది.</item>
+        <item quantity="other">ఇది %d లాట్‌లను కూడా తీసివేస్తుంది.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">ఇది %d లాట్‌ను, బ్యాలెన్స్ చరిత్రను కూడా తీసివేస్తుంది.</item>
+        <item quantity="other">ఇది %d లాట్‌లను, బ్యాలెన్స్ చరిత్రను కూడా తీసివేస్తుంది.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">ఇది బ్యాలెన్స్ చరిత్రను కూడా తీసివేస్తుంది.</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">సేవ్ చేయలేకపోయాం – దయచేసి మళ్లీ ప్రయత్నించండి</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">పరిమితి చెల్లదు – తొలగించి మళ్లీ సృష్టించండి</string>
+</resources>

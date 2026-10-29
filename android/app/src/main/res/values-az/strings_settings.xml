@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">Fərdi</string>
+    <string name="settings_group_general">Ümumi</string>
+    <string name="settings_group_more">Daha çox</string>
+    <string name="settings_minutes">%1$d dəq</string>
+    <string name="settings_row_about">Tətbiq haqqında</string>
+    <string name="settings_row_alarms">Alarmlar</string>
+    <string name="settings_row_currency">Valyuta</string>
+    <string name="settings_row_dated_futures">Müddətli fyuçerslər</string>
+    <string name="settings_row_updates">Qiymət yeniləmələri</string>
+    <string name="settings_row_watchlist">İzləmə siyahısı</string>
+    <string name="settings_search_hint">Ayarlarda axtar</string>
+    <string name="settings_seconds">%1$d san</string>
+    <string name="settings_section_about">Haqqında</string>
+    <string name="settings_section_appearance">Görünüş</string>
+    <string name="settings_section_developer">Tərtibatçı</string>
+    <string name="settings_section_language">Dil</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">Aktiv</string>
+    <string name="settings_title">Ayarlar</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">Alarm yenidən işə düşməzdən əvvəl fasilə</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Alarm siqnalı</string>
+    <string name="settings_alarm_signal_open_system">Sistem ayarlarında tənzimlə</string>
+    <string name="settings_alarm_signal_system_hint">Telefonunun bildiriş ayarlarına uyğunlaşır.</string>
+    <string name="settings_alarm_sound">Alarm səsi</string>
+    <string name="settings_alarm_sound_custom">Fərdi səs</string>
+    <string name="settings_alarm_sound_default">Standart səs</string>
+    <string name="settings_alarm_sound_error">Səsdən istifadə etmək mümkün olmadı.</string>
+    <string name="settings_alarm_sound_file">Öz audio faylın…</string>
+    <string name="settings_alarm_sound_reset">Standart səsdən istifadə et</string>
+    <string name="settings_alarm_sound_system">Sistem səsini seç…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Tətbiq ikonunda rəqəm</string>
+    <string name="settings_app_badge_hint">Açıq alarm bildirişlərini sayır. Rəqəmin, yoxsa nöqtənin görünməsi əsas ekrandan asılıdır (məs. Samsung: «Rəqəmlə göstər»).</string>
+    <string name="settings_exact_checks">Dəqiq vaxtda yoxla</string>
+    <string name="settings_exact_checks_grant">Siqnallara &amp; xatırlatmalara icazə ver</string>
+    <string name="settings_exact_checks_hint">Android cihaz boş dayananda belə təxminən hər 15 dəqiqədən bir yoxlayır. Bir az çox batareya sərf edir.</string>
+    <string name="settings_exact_checks_nothing">Aktiv cüt yoxdur – yoxlanılacaq bir şey yoxdur.</string>
+    <string name="settings_exact_checks_permission_missing">İcazə yoxdur – cihaz boş dayananda Android qeyri-müntəzəm yoxlayır, bəzən yalnız saatlar sonra.</string>
+    <string name="settings_notification_change">Yalnız qiymət dəyişəndə bildir</string>
+    <string name="settings_notification_change_always">Həmişə</string>
+    <string name="settings_percent_invalid">0-dan 100-ə qədər dəyər daxil et.</string>
+    <string name="settings_notification_change_hint">Qiymət bildirişi yalnız qiymət sonuncudan bəri ən azı bu qədər dəyişdikdə görünür. Məlumat olmadıqca heç nə göstərilmir. Alarmlara təsir etmir.</string>
+    <string name="settings_ongoing_notifications">Sürüşdürərək silinmir</string>
+    <string name="settings_ongoing_notifications_hint">Qiymət bildirişlərini sabitlənmiş saxlayır.</string>
+    <string name="settings_price_notifications">Qiymət bildirişləri</string>
+    <string name="settings_price_notifications_hint">Aktiv cütlərin cari qiymətini status panelində göstər.</string>
+    <string name="settings_price_pairs">Cütlər</string>
+    <string name="settings_price_pairs_all_off">Hamısı söndürülüb</string>
+    <string name="settings_price_pairs_all_on">Hamısı aktivdir</string>
+    <string name="settings_price_pairs_count">%1$d / %2$d</string>
+    <string name="settings_price_pairs_empty">İzləmə siyahısında hələ cüt yoxdur.</string>
+    <string name="settings_price_pairs_hint">Hansı cütlərin qiymətini bildiriş panelində göstərəcəyini seç.</string>
+    <string name="settings_quiet_hours">Sakit saatlar</string>
+    <string name="settings_quiet_hours_from">Başlanğıc</string>
+    <string name="settings_quiet_hours_hint">%1$s ilə %2$s arasında alarmlar sakit saatlar bitənə qədər gözləyir, sonra səslə işə düşür. Digər bildirişlər səssiz, nitqsiz çatır.</string>
+    <string name="settings_quiet_hours_to">Son</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">İnterval</string>
+    <string name="settings_background_updates">Arxa fon yeniləmələri</string>
+    <string name="settings_battery_hint">Məhdudlaşdırılıb o deməkdir ki, Android arxa fon yeniləmələrini saatlarla gecikdirə bilər.</string>
+    <string name="settings_battery_ok">Batareya istifadəsi: məhdudiyyətsiz</string>
+    <string name="settings_battery_restricted">Batareya istifadəsi: məhdudlaşdırılıb</string>
+    <string name="settings_check_runs_empty">Hələ yoxlama qeydə alınmayıb.</string>
+    <string name="settings_check_runs_honest_android">Nə vaxt yoxlamağa Android qərar verir – burada bunun həqiqətən nə vaxt baş verdiyini görürsən.</string>
+    <string name="settings_check_runs_honest_ios">Nə vaxt yoxlamağa iOS qərar verir – burada bunun həqiqətən nə vaxt baş verdiyini görürsən.</string>
+    <string name="settings_check_runs_title">Son yoxlamalar</string>
+    <string name="settings_http_log">HTTP jurnalını göstər</string>
+    <string name="settings_http_log_hint">Birjalara sorğuları «Cüt əlavə et» səhifəsinin aşağısında göstərir – problemlərin həlli üçün.</string>
+    <string name="settings_live_service">Tez-tez yenilə</string>
+    <string name="settings_live_websocket">Canlı qiymətlər</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">Diqqətəlayiq: bildir</string>
+    <string name="settings_activity_alerts_hint">Hər cüt üçün saatda ən çoxu bir dəfə: qeyri-adi qiymət hərəkətləri, həcm sıçrayışları və fyuçers ekstremumları (Binance məlumatları).</string>
+    <string name="settings_activity_sensitivity">Həssaslıq</string>
+    <string name="settings_activity_sensitivity_hint">Koinin nə qədər asan qeyri-adi sayıldığı – izləmə siyahısı kartı və bazar alarmları üçün eynidir. «Az» seçildikdə kart yalnız ən güclü 3-ü göstərir.</string>
+    <string name="settings_watchlist_activity_card">Diqqətəlayiq: siyahıda göstər</string>
+    <string name="settings_watchlist_activity_card_hint">Qrupların yanında ⚡ nişanını göstərir: hazırda nəsə baş verən cütləri görmək üçün ona toxun. Onun bildirişləri Bazar alarmları bölməsində qurulur.</string>
+    <string name="settings_watchlist_names">Adları göstər</string>
+    <string name="settings_watchlist_names_hint">Cütün altında ad, məs. Bitcoin və ya NVIDIA. Loqo siyahıları ilə gəlir, bütün koinlər üçün bir dəfə yüklənir.</string>
+    <string name="settings_watchlist_sparkline">İzləmə siyahısında mini qrafik</string>
+    <string name="settings_watchlist_sparkline_hint">Qiymətin yanında 24 saatlıq trend</string>
+    <string name="settings_watchlist_value_names">Adlar</string>
+    <string name="settings_watchlist_value_price_only">Yalnız qiymət</string>
+    <string name="settings_watchlist_value_sparkline">Mini qrafik</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Alpha tokenlər daxil (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Alpha tokenlər: Binance Alpha siyahısından erkən, əsasən kiçik layihələr – çox vaxt az alınıb-satılır və çox volatildir.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">Tokenlərə aiddir. «Yalnız TradFi» seçildikdə əlçatan deyil; izləmə siyahındakı Alpha tokenlər qalır.</string>
+    <string name="settings_asset_scope_both">Tokenlər və TradFi</string>
+    <string name="settings_asset_scope_both_hint">Hər şey – kripto və TradFi</string>
+    <string name="settings_asset_scope_hint">Cüt əlavə edərkən seçim və axtarışın hansı cütləri göstərdiyini müəyyən edir. İzləmə siyahındakı cütlər həmişə qalır.</string>
+    <string name="settings_asset_scope_title">Tokenlər &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">Yalnız tokenlər</string>
+    <string name="settings_asset_scope_tokens_hint">Kripto: spot və perpetual-lar</string>
+    <string name="settings_asset_scope_tradfi">Yalnız TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">Səhmlər, əmtəələr, FX üzrə fyuçerslər – müqavilələr, token deyil</string>
+    <string name="settings_rolling_futures">Rüblük &amp; digər müddətli fyuçerslər daxil</string>
+    <string name="settings_rolling_futures_hint">Söndürülüb: birja siyahısında olmayan müddətli fyuçerslər tək-tək yoxlanmaq əvəzinə artıq alınıb-satılmayan kimi qeyd olunur. Hər yeniləmədə vaxta qənaət edir.</string>
+    <string name="settings_rolling_futures_qtly">Rüblük &amp; digər müddətli fyuçerslər daxil (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">Tokenlərə aiddir. «Yalnız TradFi» seçildikdə əlçatan deyil; izləmə siyahındakı müddətli fyuçerslərə hələ də tətbiq olunur.</string>
+    <string name="settings_tradfi_futures">Səhmlər, əmtəələr və FX (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Cüt seçərkən səhmlər, qızıl və digər əmtəələr, valyutalar və pre-IPO şirkətləri üzrə fyuçersləri də göstərir. Bunlar müqavilələrdir, token deyil.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">Vurğu rəngi</string>
+    <string name="settings_accent_hint">Tətbiq, vidcetlər və tətbiq ikonu üçün rəng. Bəzi əsas ekranlar ikon dəyişəndə onu silir – onda yenidən əlavə et.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Koin loqoları</string>
+    <string name="settings_coin_logos_app">Tətbiqdə</string>
+    <string name="settings_coin_logos_app_hint">İzləmə siyahısı, açılmış cüt və bazar kartları</string>
+    <string name="settings_coin_logos_footer">Loqolar CoinGecko-dan, CoinGecko-nun siyahısında olmayan koinlər üçün isə (məs. qızıl, gümüş, səhmlər) Binance-dən gəlir. Tətbiq bütün loqoları birdən yükləyir və bu cihazda saxlayır, buna görə heç bir provayder hansı koinləri izlədiyini bilə bilmir. Loqosu olmayan koinlər baş hərflərini göstərir. Seçilmişlər loqoda kiçik ulduz alır. Açarın söndürüldüyü yerdə nə loqo, nə baş hərflər görünür; bütün açarlar söndürüldükdə heç nə yüklənmir.</string>
+    <string name="settings_coin_logos_portfolio">Portfeldə</string>
+    <string name="settings_coin_logos_portfolio_hint">Mövqelər, koin təfərrüatı və təhlil</string>
+    <string name="settings_coin_logos_value_app">Tətbiq</string>
+    <string name="settings_coin_logos_widgets">Vidcetlərdə</string>
+    <string name="settings_coin_logos_widgets_hint">İzləmə siyahısı və tək koin vidcetləri</string>
+    <string name="settings_high_contrast">Yüksək kontrast</string>
+    <string name="settings_high_contrast_hint">Daha güclü qiymət rəngləri və daha tünd ikinci dərəcəli mətn. Sistem daha çox kontrast istədikdə də aktiv olur.</string>
+    <string name="settings_language_choose">Dili seç</string>
+    <string name="settings_language_system">Sistem dili</string>
+    <string name="settings_price_colors">Qiymət rəngləri</string>
+    <string name="settings_price_colors_hint">Mavi / narıncı istənilən rəng görmə pozuntusunda (qırmızı-yaşıl və mavi-sarı) asanlıqla fərqlənir. İstiqamət həmişə + / − ilə də göstərilir.</string>
+    <string name="settings_theme_mode">Açıq / Tünd</string>
+    <string name="settings_widgets">Vidcetlər</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">%1$s dəyişiklik &amp; qrafik saat qurşağı</string>
+    <string name="settings_change_basis_hint_1">Seçilmiş saat qurşağı faiz dəyişikliyinin nə vaxtdan hesablandığını (izləmə siyahısı, nəbz xətti, açılmış cüt, vidcetlər) və qrafiklərdə göstərilən vaxtları müəyyən edir.</string>
+    <string name="settings_change_basis_hint_2">«%1$s» düz 24 saat əvvəlki qiymətlə müqayisə edir. «00:00» həmin saat qurşağında gecə yarısındakı açılış qiyməti ilə müqayisə edir.</string>
+    <string name="settings_change_basis_hint_3">Alarmlara təsir etmir.</string>
+    <string name="settings_change_basis_hint_since_last">«%1$s» əvvəlki yeniləmənin qiyməti ilə müqayisə edir. Canlı qiymətlərdə 0%%-ə yaxın qalır.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">Çevirmə valyutası</string>
+    <string name="settings_conversion_currency_hint">Həmçinin portfel, öz valyutanda alarmlar, kripto bazarı kartı və portfel vidceti üçün istifadə olunur.</string>
+    <string name="settings_cost_method">Xərc metodu</string>
+    <string name="settings_cost_method_average">Orta xərc</string>
+    <string name="settings_cost_method_average_hint">Satışlar sürüşkən orta alış qiyməti ilə qiymətləndirilir.</string>
+    <string name="settings_cost_method_fifo">FIFO (standart)</string>
+    <string name="settings_cost_method_fifo_hint">Əvvəlcə ən köhnə koinlər satılır, bütün birjalar və pulqabıları üzrə.</string>
+    <string name="settings_cost_method_fifo_wallet">Pulqabı/birja üzrə FIFO</string>
+    <string name="settings_cost_method_fifo_wallet_hint">Hər birja və ya pulqabı daxilində əvvəlcə ən köhnə koinlər; köçürmələr lotları alış tarixi ilə birlikdə köçürür.</string>
+    <string name="settings_portfolio_lock">Portfel kilidi</string>
+    <string name="settings_portfolio_lock_footer">Kilid ekranda göstəriləni gizlədir. Məlumatların bu cihazda saxlanılır və cihaz şifrələməsi ilə qorunur. Ehtiyat nüsxələri parolla qoruya bilərsən.</string>
+    <string name="settings_portfolio_lock_hint">Yalnız portfeli gizlədir: barmaq izi, üz və ya cihaz PIN-i ilə kilidi aç. Arxa fonda bir dəqiqədən çox qaldıqdan sonra yenidən kilidlənir. İzləmə siyahısı, alarmlar və digər vidcetlər açıq qalır.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Cihaz PIN-i və ya parol kodu olmadan kilid heç nəyi gizlətmir – ekran kilidi qur.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Portfel sistem ehtiyat nüsxəsində</string>
+    <string name="settings_portfolio_system_backup_hint">Söndürülüb: əməliyyatların cihazın sistem ehtiyat nüsxəsinə və telefondan telefona köçürmələrə daxil edilmir. Onları yeni telefona köçürmək üçün tətbiqin öz parollu ehtiyat nüsxəsindən istifadə et.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Android 9 və ya daha yenisi tələb olunur – köhnə versiyalar portfeli Google ehtiyat nüsxəsində şifrələnmədən saxlayardı.</string>
+    <string name="settings_portfolio_tab">Portfel bölməsini göstər</string>
+    <string name="settings_portfolio_value_locked">Aktiv, kilidlə</string>
+    <string name="settings_show_converted">Çevrilmiş qiymətlər</string>
+    <string name="settings_show_converted_hint">İzləmə siyahısında qiymətləri %1$s ilə də göstərir</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">USDT depeg-i barədə bildir</string>
+    <string name="settings_depeg_alarm_hint">USDT 1 USD-dən hədd qədər kənara çıxanda bir dəfə xəbər verir (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_threshold">Depeg həddi</string>
+    <string name="settings_fng_above">Fear &amp; Greed: bu həddən yuxarı bildir</string>
+    <string name="settings_fng_below">Fear &amp; Greed: bu həddən aşağı bildir</string>
+    <string name="settings_gas_alert_hint">Normal komissiya limitdən aşağı düşəndə bir dəfə xəbər verir. Qiymət yeniləmələri zamanı, ən çoxu 10 dəqiqədən bir yoxlanılır.</string>
+    <string name="settings_gas_btc_below">Bitcoin komissiyası aşağı (sat/vB)</string>
+    <string name="settings_gas_eth_below">Ethereum gas aşağı (gwei)</string>
+    <string name="settings_ind_ath_within">Tarixi maksimumdan düşüş ən çoxu</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple yuxarı</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple aşağı</string>
+    <string name="settings_ind_mvrv_above">MVRV yuxarı</string>
+    <string name="settings_ind_mvrv_below">MVRV aşağı</string>
+    <string name="settings_indicator_alerts_hint">Bitcoin göstəriciləri, gündə iki dəfə yoxlanılır. Limitləri sən seçirsən – tətbiq dəyərləri qiymətləndirmir.</string>
+    <string name="settings_macro_notifications">İqtisadi təqvim</string>
+    <string name="settings_macro_notifications_hint">ABŞ-ın mühüm iqtisadi məlumatları olan günlərdə saat 08:00-da (inflyasiya, məşğulluq hesabatı, FED qərarı). Təqvim tətbiqin veb-saytından gəlir, gündə bir dəfə yüklənir.</string>
+    <string name="settings_market_alerts">Bazar alarmları</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d aktiv</item>
+        <item quantity="other">%1$d aktiv</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">Nitq sürəti: %1$.1f×</string>
+    <string name="settings_tts">Səsli oxuma</string>
+    <string name="settings_tts_alarms_only">Yalnız alarmlar</string>
+    <string name="settings_tts_alarms_only_hint">Söndürülüb: «Qiyməti səsləndir» ilə işarələnmiş cütün hər yeniləməsi səsli oxunur.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">Qiymətləri və alarmları səsli oxuyur. Cihaz səssiz və ya vibrasiya rejimində olanda susur.</string>
+    <string name="settings_tts_test">Səsi sına</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">Tətbiqi sıfırla</string>
+    <string name="settings_reset_app_action">Hər şeyi sil</string>
+    <string name="settings_reset_app_confirm">İzləmə siyahısını, alarmları, portfeli, ayarları və bütün saxlanılmış məlumatları quraşdırmadan sonrakı kimi silir. Bunu geri qaytarmaq olmaz. İpucu: əvvəlcə ehtiyat nüsxə yarat. Cihaz ehtiyat nüsxələri (Google ehtiyat nüsxəsi və ya iCloud/kompüter ehtiyat nüsxəsi) əvvəlki məlumatları növbəti ehtiyat nüsxəyə qədər saxlayır.</string>
+    <string name="settings_reset_app_title">Tətbiq sıfırlansın?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">Valyuta axtar</string>
+    <string name="language_search">Dil axtar</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">Tünd</string>
+    <string name="theme_light">Açıq</string>
+    <string name="theme_system">Sistem</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">Mavi</string>
+    <string name="accent_green">Yaşıl</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs yaşılı</string>
+    <string name="accent_orange">Narıncı</string>
+    <string name="accent_red">Qırmızı</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">Çin, Yaponiya, Koreya və Tayvanda geniş yayılıb</string>
+    <string name="price_colors_swap">Rəngləri dəyiş (artım ↔ düşüş)</string>
+    <string name="price_style_calm">Sakit</string>
+    <string name="price_style_calm_color_vision">Sakit · Rəng görmə pozuntusu</string>
+    <string name="price_style_color_vision">Rəng görmə pozuntusu</string>
+    <string name="price_style_fresh">Təzə</string>
+    <string name="price_style_traditional">Ənənəvi</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">Birja bağlantıları son dəfə real cavablarla yoxlanılıb: %1$s</string>
+    <string name="about_license">Qiymətlər birbaşa birjalardan gəlir; hesab yoxdur, izləmə yoxdur.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">Lisenziyalar</string>
+    <string name="about_privacy_policy">Məxfilik siyasəti</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">Birja istə</string>
+    <string name="about_source_code">GitHub-da mənbə kodu</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker r1AD-ın müstəqil layihəsidir: hesab, reklam və izləmə olmadan sakit qiymət icmalı. Suallar və istəklər: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker açıq mənbəlidir (MIT lisenziyası).</string>
+    <string name="licenses_font_title">Rubik şrifti</string>
+    <string name="licenses_icons_bundled_text">Tətbiqlə birlikdə: Christopher Downer və iştirakçıların «Cryptocurrency Icons» ikonları (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal ilə yayımlanıb. CoinGecko və ya Binance loqoları yüklənənə qədər göstərilir. Adlar və loqolar öz layihələrinin ticarət nişanları olaraq qalır.</string>
+    <string name="licenses_icons_title">Ehtiyat koin ikonları</string>
+    <string name="licenses_libraries_intro">Tətbiq bu kitabxanalardan Apache License 2.0 ilə istifadə edir:</string>
+    <string name="licenses_libraries_title">Android kitabxanaları</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">Tərtibatçı seçimlərini açmaq üçün daha %d toxunuş</item>
+        <item quantity="other">Tərtibatçı seçimlərini açmaq üçün daha %d toxunuş</item>
+    </plurals>
+    <string name="developer_unlocked">Tərtibatçı seçimləri açıldı</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Vibrasiya iPhone ayarlarına uyğunlaşır (Səslər &amp; haptika).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Yeni alarmları və bazar alarmlarını sayır; tətbiqi açanda 0-a qayıdır.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Məlumatların</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">Bu cihazda</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">İzləmə siyahın, alarmların və portfelin bu cihazda şifrələnmiş saxlanılır; hesab yoxdur, öz serverimiz yoxdur.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Bağlantılar</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Qiymətlər birbaşa cütlərinin birjalarından gəlir, həmçinin məzənnələr, koin siyahıları və loqolar və GitHub-dakı məlumat güzgüsü; onlar IP ünvanını görür, aktivlərini heç vaxt (izlənən ünvanlar müvafiq şəbəkənin provayderinə gedir).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Ehtiyat nüsxə</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Yalnız sən yaratsan. Parolla şifrələnir (Argon2id + AES-256-GCM); parolsuz oxuna bilir.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Cihaz dəyişmə</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">Açar köhnə cihazda qalır – əvvəlcə ehtiyat fayl yarat.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Diaqnostikanı paylaş</string>
+    <string name="diagnostics_share_hint">Dəstək üçün mətn faylı: versiya, cihaz, alarm ayarları, son yoxlamalar və alarm jurnalı – portfel, məbləğlər, ünvanlar və qeydlər olmadan. Əvvəlcə onu sən görürsən; heç nə avtomatik göndərilmir.</string>
+    <string name="diagnostics_preview_title">Diaqnostikaya önbaxış</string>
+    <string name="diagnostics_action_share">Paylaş</string>
+    <string name="settings_price_overlay">Qiymət örtüyü</string>
+    <string name="settings_price_overlay_hint">Daimi qiymət bildirişinin cütlərini digər tətbiqlərin üzərində kiçik üzən nişan kimi göstərir. Tətbiqi açmaq üçün toxun, bağlamaq üçün aşağıdakı ×-a sürüşdür.</string>
+    <string name="settings_price_overlay_needs">Yalnız «%1$s» ilə birlikdə işləyir.</string>
+    <string name="settings_price_overlay_grant">Digər tətbiqlərin üzərində göstərməyə icazə ver</string>
+    <string name="price_overlay_close">Örtüyü bağla</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">Ünvanlar üçün öz server</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Yalnız Bitcoin: öz Esplora və ya mempool uyğun serverin (məs. https://node.example/api, Let\'s Encrypt kimi ictimai etibarlı sertifikat tələb olunur). Qurulubsa, Bitcoin ünvanları və xpub açarları yalnız orada sorğulanır – heç vaxt açıq qovşaqlarda, hətta serverin əlçatan olmadıqda belə. Digər şəbəkələr açıq qovşaqlardan istifadə etməyə davam edir. Boş = açıq qovşaqlar.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Bitcoin serveri (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">Sına</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">Sınanır…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">Server cavab verir – blok %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">Etibarlı cavab yoxdur – ünvanı və sertifikatı yoxla</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">İstifadədədir: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">Qurulmayıb – açıq qovşaqlardan istifadə olunur</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">Yalnız https:// ünvanlarına icazə verilir</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">Ünvanda istifadəçi adı və ya parol olmamalıdır</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">Ünvanda ? və ya # hissəsi olmamalıdır</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">Etibarlı server ünvanı deyil</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">Açıq qovşaqlara keçilsin?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">Onda Bitcoin ünvanların və xpub açarların açıq qovşaqlarda sorğulanacaq: %1$s. Onlar bu ünvanları IP ünvanınla birlikdə görür.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">Açıq qovşaqlardan istifadə et</string>
+</resources>

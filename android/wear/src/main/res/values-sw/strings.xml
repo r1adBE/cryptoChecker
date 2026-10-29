@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Hakuna sarafu zilizochaguliwa</string>
+    <string name="watch_loading">Inapakia…</string>
+    <string name="watch_error">Majukwaa hayapatikani</string>
+    <string name="watch_updated">Hadi %1$s</string>
+    <string name="watch_refresh">Onyesha upya</string>
+    <string name="watch_choose">Chagua sarafu</string>
+    <string name="watch_choose_hint">Sarafu: hadi %1$d</string>
+    <string name="watch_complication_label">Bei</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s katika saa 24</string>
+    <string name="watch_mode_phone">Orodha: kama simu</string>
+    <string name="watch_mode_own">Orodha: yako mwenyewe</string>
+    <string name="watch_phone_empty">Hakuna vipendwa kwenye simu</string>
+    <string name="a11y_watch_outdated">Bei imepitwa na wakati</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">ilisasishwa mara ya mwisho dakika %1$d iliyopita</item>
+        <item quantity="other">ilisasishwa mara ya mwisho dakika %1$d zilizopita</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">ilisasishwa mara ya mwisho saa %1$d iliyopita</item>
+        <item quantity="other">ilisasishwa mara ya mwisho saa %1$d zilizopita</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">ilisasishwa mara ya mwisho siku %1$d iliyopita</item>
+        <item quantity="other">ilisasishwa mara ya mwisho siku %1$d zilizopita</item>
+    </plurals>
+</resources>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">ይመለሱ</string>
+    <string name="action_cancel">ይቅር</string>
+    <string name="action_clear">ያጽዱ</string>
+    <string name="action_close">ይዝጉ</string>
+    <string name="action_keep">ያቆዩ</string>
+    <string name="action_delete">ይሰርዙ</string>
+    <string name="action_edit">ያርትዑ</string>
+    <string name="action_more">ተጨማሪ አማራጮች</string>
+    <string name="action_refresh">ያድሱ</string>
+    <string name="action_retry">እንደገና ይሞክሩ</string>
+    <string name="action_save">ያስቀምጡ</string>
+    <string name="action_sort">ይደርድሩ</string>
+    <string name="action_sort_done">ተከናውኗል</string>
+    <string name="action_undo">ይቀልብሱ</string>
+    <string name="action_view">ይመልከቱ</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">ገበያ</string>
+    <string name="tab_portfolio">ፖርትፎሊዮ</string>
+    <string name="tab_settings">ቅንብሮች</string>
+    <string name="tab_watchlist">የክትትል ዝርዝር</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">ስህተት፦ %1$s</string>
+    <string name="error_exchange_unreachable">ልውውጡ አሁን ሊደረስበት አልቻለም – የመጨረሻዎቹ ዋጋዎች እንደሚታዩ ይቆያሉ።</string>
+    <string name="error_exchange_unreachable_short">ልውውጡ አሁን ሊደረስበት አልቻለም</string>
+    <string name="loading_hint">በመጫን ላይ…</string>
+    <string name="option_off">ጠፍቷል</string>
+    <string name="something_went_wrong">የሆነ ችግር ተፈጥሯል</string>
+    <string name="time_just_now">አሁን</string>
+    <string name="try_again">እንደገና ይሞክሩ</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">ግንኙነት የለም</string>
+    <string name="offline_status_since">ግንኙነት የለም · እስከ %1$s</string>
+    <string name="status_live">ቀጥታ</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">ጥንድ ያክሉ</string>
+    <string name="shortcut_alarms">ሁሉም ማንቂያዎች</string>
+    <string name="shortcut_cycle">ገበያ</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">ጥንድ ወደ ክትትል ዝርዝር ያክሉ</string>
+    <string name="shortcut_alarms_long">ሁሉንም ማንቂያዎች ያሳዩ</string>
+    <string name="shortcut_cycle_long">የገበያ አጠቃላይ እይታ ይክፈቱ</string>
+
+    <string name="log_box_title">ምዝግብ</string>
+    <string name="label_value">%1$s፦ %2$s</string>
+</resources>

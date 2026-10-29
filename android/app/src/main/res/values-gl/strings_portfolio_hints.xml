@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">Alarmas da carteira en pausa: non hai prezo actual para %1$s</string>
+    <string name="portfolio_alarms_paused_price_generic">Alarmas da carteira en pausa: non todas as moedas teñen un prezo actual</string>
+    <string name="portfolio_alarms_paused_addresses">Alarmas da carteira en pausa: os saldos dos enderezos seguidos aínda non se cargaron</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Alarmas da carteira en pausa: saldos de tokens de %1$s parcialmente desactualizados</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Alarmas da carteira en pausa: saldos de tokens dos enderezos seguidos parcialmente desactualizados</string>
+    <string name="portfolio_alarms_paused_unverified">Alarmas da carteira en pausa: prezo sen verificar para %1$s</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Alarmas da carteira en pausa: prezo dalgunhas moedas sen verificar</string>
+    <string name="portfolio_alarms_address_failing">As alarmas da carteira compróbanse sen %1$s: o saldo leva máis de 24 horas sen cargarse</string>
+    <string name="portfolio_alarms_address_failing_generic">As alarmas da carteira compróbanse sen os enderezos cuxo saldo leva máis de 24 horas sen cargarse</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">tokens parcialmente desactualizados</string>
+    <string name="portfolio_address_restore_failed">Non se puido restaurar o enderezo – volve engadilo se fai falta</string>
+    <string name="portfolio_address_remove_failed">Non se puido eliminar o enderezo – téntao de novo</string>
+</resources>

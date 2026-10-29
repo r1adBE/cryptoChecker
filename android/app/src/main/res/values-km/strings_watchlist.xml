@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">ទាន់សម័យ · %1$s</string>
+    <string name="watchlist_empty_title">មិនទាន់មានគូនៅឡើយទេ</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="other">%1$d ក្នុងចំណោម %2$d គ្មានតម្លៃ</item>
+    </plurals>
+    <string name="watchlist_last_run">ដំណើរការចុងក្រោយ %1$s</string>
+    <string name="watchlist_live_a11y">តម្លៃផ្ទាល់បានបើក</string>
+    <string name="watchlist_offline_since">គ្មានការតភ្ជាប់ · គិតត្រឹម %1$s</string>
+    <string name="watchlist_pull_to_refresh">ទាញចុះក្រោមដើម្បីផ្ទុកឡើងវិញ</string>
+    <string name="watchlist_refresh_report">ការផ្ទុកឡើងវិញចុងក្រោយ</string>
+    <string name="watchlist_refresh_report_empty">មិនទាន់មានការបែងចែកលម្អិតទេ – មិនទាន់មានការផ្ទុកឡើងវិញពេញលេញនៅឡើយ។ ចុចផ្ទុកឡើងវិញ ហើយរង់ចាំរហូតដល់រង្វង់ឈប់។</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="other">%1$d ក្នុងចំណោម %2$d ហួសសម័យ</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">គូទាំងអស់នៅទីនេះត្រូវបានបិទ</string>
+    <string name="watchlist_status_exchange_prices">តម្លៃពីផ្សារប្តូររបស់អ្នក · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">តម្លៃផ្សារប្តូរ · %1$s</string>
+    <string name="watchlist_status_group_empty">គ្មានគូនៅក្នុងក្រុមនេះទេ</string>
+    <string name="watchlist_status_none_traded">គ្មានគូដែលកំពុងជួញដូរនៅទីនេះទេ</string>
+    <string name="watchlist_updated">បានធ្វើបច្ចុប្បន្នភាព៖ %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">មធ្យម %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="other">ចុះ %1$d</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="other">%1$d គ្មានតម្លៃ 24 ម៉ោង</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="other">%1$d គ្មានតម្លៃថ្ងៃនេះ</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="other">ឡើង %1$d</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · បានបិទ</string>
+    <string name="watchlist_row_outdated">%1$s · ហួសសម័យ</string>
+    <string name="watchlist_row_outdated_age">ហួសសម័យ · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">តម្លៃមិនប្រែប្រួលតាំងពី %1$s</string>
+    <string name="watchlist_row_unreachable">%1$s · មិនអាចភ្ជាប់ទៅ %2$s បានទេ</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">លោតទៅចុងបញ្ចប់</string>
+    <string name="watchlist_jump_start">លោតទៅខាងលើ</string>
+    <string name="watchlist_search_close">បិទការស្វែងរក</string>
+    <string name="watchlist_search_empty">រកមិនឃើញសម្រាប់ «%1$s»</string>
+    <string name="watchlist_search_hint">ស្វែងរកគូ ឈ្មោះ ឬផ្សារប្តូរ</string>
+    <string name="watchlist_search_open">ស្វែងរក</string>
+    <string name="watchlist_sort_ascending">ឡើង</string>
+    <string name="watchlist_sort_descending">ចុះ</string>
+    <string name="watchlist_sort_hint">ចុចសង្កត់ ហើយអូសគូមួយ ឬប្រើដងចាប់។ ចំណូលចិត្តនៅតែនៅខាងលើ។</string>
+    <string name="watchlist_sort_name">ឈ្មោះ</string>
+    <string name="watchlist_sort_own">លំដាប់ផ្ទាល់ខ្លួន</string>
+    <string name="watchlist_sort_price">តម្លៃ</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">សម្អាតបញ្ជីតាមដាន</string>
+    <string name="watchlist_clear_confirm">ដកគូទាំងអស់ចេញពីបញ្ជីតាមដានមែនទេ? ការដាស់តឿនរបស់វានឹងត្រូវដកចេញជាមួយ។</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="other">បានបិទ %1$d</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">ដកចេញ</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="other">ដកគូ %1$d ដែលលែងជួញដូរនៅលើផ្សារប្តូររបស់វាចេញមែនទេ? ការដាស់តឿនរបស់វានឹងត្រូវដកចេញជាមួយ។</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">ដកគូដែលលែងជួញដូរចេញ (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">ដកគូដែលលែងជួញដូរចេញ</string>
+    <string name="watchlist_removed">បានដក %1$s ចេញ</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="other">បានដកគូ %1$d ចេញ</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="other">បានដកគូលែងជួញដូរ %1$d ចេញ</item>
+    </plurals>
+    <string name="watchlist_select">ជ្រើសរើស</string>
+    <string name="watchlist_select_all">ជ្រើសរើសទាំងអស់</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="other">បានជ្រើសរើស %1$d</item>
+    </plurals>
+    <string name="watchlist_show_all">បង្ហាញទាំងអស់</string>
+    <string name="watchlist_show_only_disabled">បង្ហាញតែដែលបានបិទ</string>
+    <string name="watchlist_show_only_stale">បង្ហាញតែដែលហួសសម័យ</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="other">ការដាស់តឿន (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">មិនទាន់មានចំណូលចិត្តទេ។ អូសគូមួយទៅស្តាំ ឬបើកគូ ហើយចុច «ចំណូលចិត្ត»។</string>
+    <string name="watchlist_group_empty_hint">ចុចសង្កត់លើក្រុមមួយ ដើម្បីជ្រើសរើសគូរបស់វា។</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">ក្រុមរបស់អ្នកនឹងបង្ហាញនៅទីនេះ</string>
+    <string name="watchlist_notification">ការជូនដំណឹងតម្លៃ</string>
+    <string name="watchlist_tts">អានតម្លៃ</string>
+    <string name="watchlist_tts_speech_on">ការបញ្ចេញសំឡេងបានបើក។ អ្នកអាចផ្លាស់ប្តូរវានៅក្នុង ការកំណត់ › ការដាស់តឿន › ការបញ្ចេញសំឡេង។</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">បន្ថែមជាវិដជិត</string>
+    <string name="watch_action_alarm">ការដាស់តឿន</string>
+    <string name="watch_action_favorite">ចំណូលចិត្ត</string>
+    <string name="watch_action_why">អ្វីកំពុងផ្លាស់ទីជាមួយវា?</string>
+    <string name="watch_action_why_short">អ្វីផ្លាស់ទីជាមួយវា?</string>
+    <string name="watch_change_mark">សម្គាល់</string>
+    <string name="watch_disable">បិទ</string>
+    <string name="watch_disable_hint">គ្មានសំណើ គ្មានការជូនដំណឹង</string>
+    <string name="watch_disabled">បានបិទ</string>
+    <string name="watch_disabled_banner">បានបិទ %1$s</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">ការដាស់តឿននៅដដែល – សូមពិនិត្យកម្រិតរបស់វា</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">កែសម្រួលគូ</string>
+    <string name="watch_enable">បើក</string>
+    <string name="watch_enable_hint">តម្លៃ និងការជូនដំណឹងបន្តវិញ</string>
+    <string name="watch_enabled_banner">បានបើក %1$s</string>
+    <string name="watch_error_offline">គ្មានការតភ្ជាប់</string>
+    <string name="watch_gesture_hint_short">ចុច៖ ការដាស់តឿន និង «អ្វីកំពុងផ្លាស់ទីជាមួយវា?» · ចុចសង្កត់ដើម្បីជ្រើសរើស · អូសទៅឆ្វេងដើម្បីលុប · អូសទៅស្តាំសម្រាប់ចំណូលចិត្ត</string>
+    <string name="watch_hint_tap_why">ចុចលើកាក់មួយសម្រាប់ការដាស់តឿន និង «អ្វីកំពុងផ្លាស់ទីជាមួយវា?»</string>
+    <string name="watch_not_traded">លែងជួញដូរនៅលើផ្សារប្តូរនេះទៀតហើយ</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">មិននៅក្នុងបញ្ជីតាមដាន</string>
+    <string name="watch_price_mid">តម្លៃកណ្ដាល (បើមិនដូច្នោះទេ mark)</string>
+    <string name="watch_row_source_both">ការប្រែប្រួល &amp; គំនូសតាង៖ %1$s</string>
+    <string name="watch_row_source_change">ការប្រែប្រួល៖ %1$s</string>
+    <string name="watch_row_source_chart">គំនូសតាង៖ %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s ឥឡូវនៅក្នុងបញ្ជីតាមដានរបស់អ្នក</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s ឥឡូវនៅក្នុងបញ្ជីតាមដានរបស់អ្នក</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">បន្ថែមទៅចំណូលចិត្ត</string>
+    <string name="favorite_added">បានបន្ថែម %1$s ទៅចំណូលចិត្ត</string>
+    <string name="favorite_remove">ដកចេញពីចំណូលចិត្ត</string>
+    <string name="favorite_removed">បានដក %1$s ចេញពីចំណូលចិត្ត</string>
+    <string name="hint_favorites_list">គន្លឹះ៖ អូសជួរមួយទៅស្តាំ ដើម្បីធ្វើឱ្យវាជាចំណូលចិត្ត – ចំណូលចិត្តនៅតែនៅខាងលើ។</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">ក្រុមថ្មី</string>
+    <string name="group_all">ទាំងអស់</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">ថូខឹន Alpha</string>
+    <string name="group_delete">លុបក្រុម</string>
+    <string name="group_delete_confirm">គូនៅតែនៅក្នុងបញ្ជីតាមដានរបស់អ្នក។</string>
+    <string name="group_done">រួចរាល់</string>
+    <string name="group_edit_title">កែសម្រួលក្រុម</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">ចំណូលចិត្ត</string>
+    <string name="group_in_other">ក្នុង %1$s</string>
+    <string name="group_name">ឈ្មោះក្រុម</string>
+    <string name="group_new">ក្រុមថ្មី…</string>
+    <string name="group_next">បន្ទាប់</string>
+    <string name="group_none">គ្មានក្រុម</string>
+    <string name="group_rename">ប្តូរឈ្មោះ</string>
+    <string name="group_search_hint">ស្វែងរកគូ ឈ្មោះ ឬផ្សារប្តូរ</string>
+    <string name="group_target">ក្នុងក្រុម</string>
+    <string name="group_title">ក្រុម</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">ថូខឹន</string>
+    <string name="group_value">ក្រុម៖ %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">បន្ថែមកំណត់ចំណាំ</string>
+    <string name="note_edit">កែសម្រួលកំណត់ចំណាំ</string>
+    <string name="note_hint">ឧ. ចូលនៅ 0.42 គោលដៅ 0.60</string>
+    <string name="note_remove">ដកចេញ</string>
+    <string name="note_title">កំណត់ចំណាំ</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">អូសដើម្បីរៀបលំដាប់ឡើងវិញ</string>
+    <string name="sort_move_bottom">ផ្លាស់ទីទៅខាងក្រោមបំផុត</string>
+    <string name="sort_move_down">ផ្លាស់ទីចុះក្រោម</string>
+    <string name="sort_move_top">ផ្លាស់ទីទៅខាងលើបំផុត</string>
+    <string name="sort_move_up">ផ្លាស់ទីឡើងលើ</string>
+
+    <string name="watchlist_first_alarm_title">កំណត់ការដាស់តឿនដំបូងរបស់អ្នក</string>
+    <string name="watchlist_first_alarm_text">ទទួលការជូនដំណឹងនៅពេលតម្លៃដល់កម្រិតរបស់អ្នក – ពេលកម្មវិធីបិទ Android ពិនិត្យមិនទៀងទាត់។</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">mark price (គ្មានតម្លៃកណ្ដាល)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">តម្លៃប្រចាំម៉ោង</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">កំណត់ការដាស់តឿនដំបូងរបស់អ្នក – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">ផ្ទុកឡើងវិញ (%1$d)</string>
+
+    <!-- Zeile der Merkliste: Börse pausiert (zu viele Anfragen / Zeitüberschreitungen) bis zu einer Uhrzeit, ersetzt die Zeitzeile, z. B. «Binance · pausiert bis 19:45» -->
+    <string name="watchlist_row_exchange_paused">%1$s · បានផ្អាករហូតដល់ %2$s</string>
+
+    <string name="watchlist_refresh_just_done">ទើបធ្វើបច្ចុប្បន្នភាព · %1$d វិនាទីមុន</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">ការជួញដូរចុងក្រោយ %1$s</string>
+
+    <string name="change_candle_source_hint">គណនាពីទៀន %1$s – ផ្សារប្តូរខ្លួនឯងមិនផ្តល់តម្លៃនេះទេ។</string>
+    <string name="change_candle_source_action">បង្ហាញប្រភពនៃការប្រែប្រួល</string>
+
+    <string name="watchlist_sort_by_coin">តម្រៀបតាមកាក់</string>
+    <string name="watchlist_sort_by_exchange">តម្រៀបតាមផ្សារប្តូរ</string>
+    <string name="watchlist_limit_reached">បញ្ជីតាមដានរបស់អ្នកអាចមានគូយ៉ាងច្រើន %1$s។</string>
+    <string name="watch_price_reference">អត្រាយោង ប្រចាំថ្ងៃ</string>
+    <string name="watch_price_daily">ប្រចាំថ្ងៃ</string>
+    <string name="watchlist_compare">ប្រៀបធៀប</string>
+    <string name="watchlist_compare_hint">ជ្រើសរើសគូពី 2 ដល់ 4 ដើម្បីប្រៀបធៀប។</string>
+    <string name="compare_title">ការប្រៀបធៀប</string>
+    <string name="compare_basis">បន្ទាត់បង្ហាញការប្រែប្រួលជាភាគរយតាំងពីដើមរយៈពេល។</string>
+    <string name="compare_from_high">ធៀបនឹងកម្រិតខ្ពស់ 30 ថ្ងៃ</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="other">គូ %1$d មិនត្រូវបានស្ដារទេ – បញ្ជីតាមដានពេញ</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">បញ្ជីតាមដាន និងការដាស់តឿនរបស់វាមិនកំពុងត្រូវបានរក្សាទុកនៅពេលនេះទេ។ ការផ្លាស់ប្តូរនេះ និងការផ្លាស់ប្តូរបន្ទាប់ទៀតនឹងបាត់បង់នៅពេលកម្មវិធីបិទ។ ផ្លាស់ប្តូរដដែលឬ?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">ផ្លាស់ប្តូរដដែល</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="other">គូ %1$d</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="other">គូ %2$d ក្នុងចំណោម %1$d</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="other">នៅសល់ %1$d កន្លែង</item>
+    </plurals>
+    <string name="watchlist_footer_full">បញ្ជីតាមដានពេញហើយ</string>
+</resources>

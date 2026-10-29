@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">ផ្ទាល់ខ្លួន</string>
+    <string name="settings_group_general">ទូទៅ</string>
+    <string name="settings_group_more">បន្ថែម</string>
+    <string name="settings_minutes">%1$d នាទី</string>
+    <string name="settings_row_about">អំពីកម្មវិធី</string>
+    <string name="settings_row_alarms">ការដាស់តឿន</string>
+    <string name="settings_row_currency">រូបិយប័ណ្ណ</string>
+    <string name="settings_row_dated_futures">Futures មានកាលកំណត់</string>
+    <string name="settings_row_updates">ការធ្វើបច្ចុប្បន្នភាពតម្លៃ</string>
+    <string name="settings_row_watchlist">បញ្ជីតាមដាន</string>
+    <string name="settings_search_hint">ស្វែងរកការកំណត់</string>
+    <string name="settings_seconds">%1$d វិនាទី</string>
+    <string name="settings_section_about">អំពី</string>
+    <string name="settings_section_appearance">រូបរាង</string>
+    <string name="settings_section_developer">អ្នកអភិវឌ្ឍន៍</string>
+    <string name="settings_section_language">ភាសា</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">បើក</string>
+    <string name="settings_title">ការកំណត់</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">ពេលស្ងាត់មុនពេលការដាស់តឿនកើតឡើងម្តងទៀត</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">សញ្ញាការដាស់តឿន</string>
+    <string name="settings_alarm_signal_open_system">កែតម្រូវក្នុងការកំណត់ប្រព័ន្ធ</string>
+    <string name="settings_alarm_signal_system_hint">អនុវត្តតាមការកំណត់ការជូនដំណឹងនៃទូរសព្ទរបស់អ្នក។</string>
+    <string name="settings_alarm_sound">សំឡេងការដាស់តឿន</string>
+    <string name="settings_alarm_sound_custom">សំឡេងផ្ទាល់ខ្លួន</string>
+    <string name="settings_alarm_sound_default">សំឡេងលំនាំដើម</string>
+    <string name="settings_alarm_sound_error">មិនអាចប្រើសំឡេងនេះបានទេ។</string>
+    <string name="settings_alarm_sound_file">ឯកសារសំឡេងផ្ទាល់ខ្លួនរបស់អ្នក…</string>
+    <string name="settings_alarm_sound_reset">ប្រើសំឡេងលំនាំដើម</string>
+    <string name="settings_alarm_sound_system">ជ្រើសរើសសំឡេងប្រព័ន្ធ…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">លេខនៅលើរូបតំណាងកម្មវិធី</string>
+    <string name="settings_app_badge_hint">រាប់ការជូនដំណឹងការដាស់តឿនដែលបើក។ ថាតើលេខ ឬចំណុចបង្ហាញឡើង គឺអាស្រ័យលើអេក្រង់ដើម (ឧ. Samsung៖ «បង្ហាញជាមួយលេខ»)។</string>
+    <string name="settings_exact_checks">ពិនិត្យទាន់ពេល</string>
+    <string name="settings_exact_checks_grant">អនុញ្ញាតម៉ោងរោទ៍ &amp; ការរំលឹក</string>
+    <string name="settings_exact_checks_hint">Android ពិនិត្យប្រហែលរៀងរាល់ 15 នាទីម្តង សូម្បីតែពេលឧបករណ៍ទំនេរ។ ប្រើថ្មច្រើនជាងបន្តិច។</string>
+    <string name="settings_exact_checks_nothing">គ្មានគូសកម្ម – គ្មានអ្វីត្រូវពិនិត្យទេ។</string>
+    <string name="settings_exact_checks_permission_missing">ខ្វះការអនុញ្ញាត – ពេលឧបករណ៍សម្រាក Android ពិនិត្យមិនទៀងទាត់ ពេលខ្លះតែក្រោយច្រើនម៉ោង។</string>
+    <string name="settings_notification_change">ជូនដំណឹងតែពេលតម្លៃប្រែប្រួល</string>
+    <string name="settings_notification_change_always">ជានិច្ច</string>
+    <string name="settings_percent_invalid">បញ្ចូលតម្លៃពី 0 ដល់ 100។</string>
+    <string name="settings_notification_change_hint">ការជូនដំណឹងតម្លៃបង្ហាញតែនៅពេលតម្លៃបានផ្លាស់ទីយ៉ាងហោចណាស់ប៉ុណ្ណេះតាំងពីការជូនដំណឹងចុងក្រោយ។ គ្មានអ្វីបង្ហាញខណៈពេលខ្វះទិន្នន័យទេ។ ការដាស់តឿនមិនរងផលប៉ះពាល់ទេ។</string>
+    <string name="settings_ongoing_notifications">មិនអាចអូសចោលបាន</string>
+    <string name="settings_ongoing_notifications_hint">រក្សាការជូនដំណឹងតម្លៃឱ្យខ្ទាស់។</string>
+    <string name="settings_price_notifications">ការជូនដំណឹងតម្លៃ</string>
+    <string name="settings_price_notifications_hint">បង្ហាញតម្លៃបច្ចុប្បន្ននៃគូដែលបានបើកនៅក្នុងរបារស្ថានភាព។</string>
+    <string name="settings_price_pairs">គូ</string>
+    <string name="settings_price_pairs_all_off">បិទទាំងអស់</string>
+    <string name="settings_price_pairs_all_on">បើកទាំងអស់</string>
+    <string name="settings_price_pairs_count">%1$d ក្នុងចំណោម %2$d</string>
+    <string name="settings_price_pairs_empty">មិនទាន់មានគូនៅក្នុងបញ្ជីតាមដានទេ។</string>
+    <string name="settings_price_pairs_hint">ជ្រើសរើសគូណាដែលបង្ហាញតម្លៃរបស់វានៅក្នុងរបារជូនដំណឹង។</string>
+    <string name="settings_quiet_hours">ម៉ោងស្ងាត់</string>
+    <string name="settings_quiet_hours_from">ពី</string>
+    <string name="settings_quiet_hours_hint">ចន្លោះ %1$s និង %2$s ការដាស់តឿនរង់ចាំរហូតដល់ម៉ោងស្ងាត់បញ្ចប់ ហើយបន្ទាប់មកបន្លឺសំឡេង។ ការជូនដំណឹងផ្សេងទៀតមកដល់ដោយស្ងាត់ ដោយគ្មានការនិយាយ។</string>
+    <string name="settings_quiet_hours_to">ដល់</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">ចន្លោះពេល</string>
+    <string name="settings_background_updates">ការធ្វើបច្ចុប្បន្នភាពនៅផ្ទៃខាងក្រោយ</string>
+    <string name="settings_battery_hint">បានរឹតត្បិតមានន័យថា Android អាចពន្យារការធ្វើបច្ចុប្បន្នភាពនៅផ្ទៃខាងក្រោយច្រើនម៉ោង។</string>
+    <string name="settings_battery_ok">ការប្រើថ្ម៖ គ្មានការរឹតត្បិត</string>
+    <string name="settings_battery_restricted">ការប្រើថ្ម៖ បានរឹតត្បិត</string>
+    <string name="settings_check_runs_empty">មិនទាន់មានការពិនិត្យដែលបានកត់ត្រាទេ។</string>
+    <string name="settings_check_runs_honest_android">Android សម្រេចថាពេលណាត្រូវពិនិត្យ – នៅទីនេះអ្នកឃើញពេលដែលវាពិតជាបានកើតឡើង។</string>
+    <string name="settings_check_runs_honest_ios">iOS សម្រេចថាពេលណាត្រូវពិនិត្យ – នៅទីនេះអ្នកឃើញពេលដែលវាពិតជាបានកើតឡើង។</string>
+    <string name="settings_check_runs_title">ការពិនិត្យថ្មីៗ</string>
+    <string name="settings_http_log">បង្ហាញកំណត់ហេតុ HTTP</string>
+    <string name="settings_http_log_hint">បង្ហាញសំណើទៅផ្សារប្តូរនៅខាងក្រោមទំព័រ «បន្ថែមគូ» – សម្រាប់ដោះស្រាយបញ្ហា។</string>
+    <string name="settings_live_service">ធ្វើបច្ចុប្បន្នភាពញឹកញាប់</string>
+    <string name="settings_live_websocket">តម្លៃផ្ទាល់</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">គួរកត់សម្គាល់៖ ជូនដំណឹង</string>
+    <string name="settings_activity_alerts_hint">យ៉ាងច្រើនម្តងក្នុងមួយម៉ោងក្នុងមួយគូ៖ ចលនាតម្លៃមិនធម្មតា បរិមាណកើនខ្លាំង និងកម្រិតខ្លាំងនៃ Futures (ទិន្នន័យពី Binance)។</string>
+    <string name="settings_activity_sensitivity">ភាពរសើប</string>
+    <string name="settings_activity_sensitivity_hint">តើកាក់ត្រូវបានរាប់ថាមិនធម្មតាងាយប៉ុណ្ណា – ដូចគ្នាសម្រាប់កាតបញ្ជីតាមដាន និងការដាស់តឿនទីផ្សារ។ ជាមួយ «តិច» កាតបង្ហាញតែ 3 ដែលខ្លាំងបំផុត។</string>
+    <string name="settings_watchlist_activity_card">គួរកត់សម្គាល់៖ បង្ហាញក្នុងបញ្ជី</string>
+    <string name="settings_watchlist_activity_card_hint">បង្ហាញស្លាក ⚡ នៅក្បែរក្រុម៖ ចុចវា ដើម្បីមើលតែគូដែលមានអ្វីកំពុងកើតឡើងនៅពេលនេះ។ ការជូនដំណឹងសម្រាប់វាត្រូវបានកំណត់នៅក្រោម ការដាស់តឿនទីផ្សារ។</string>
+    <string name="settings_watchlist_names">បង្ហាញឈ្មោះ</string>
+    <string name="settings_watchlist_names_hint">ឈ្មោះនៅក្រោមគូ ឧ. Bitcoin ឬ NVIDIA។ មកជាមួយបញ្ជីរូបសញ្ញា ផ្ទុកម្តងសម្រាប់កាក់ទាំងអស់។</string>
+    <string name="settings_watchlist_sparkline">គំនូសតាងតូចក្នុងបញ្ជីតាមដាន</string>
+    <string name="settings_watchlist_sparkline_hint">និន្នាការ 24 ម៉ោងនៅក្បែរតម្លៃ</string>
+    <string name="settings_watchlist_value_names">ឈ្មោះ</string>
+    <string name="settings_watchlist_value_price_only">តែតម្លៃ</string>
+    <string name="settings_watchlist_value_sparkline">គំនូសតាងតូច</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">រួមទាំងថូខឹន Alpha (α)</string>
+    <string name="settings_asset_scope_alpha_hint">ថូខឹន Alpha៖ គម្រោងដំបូង ភាគច្រើនតូចៗពីបញ្ជី Binance Alpha – ច្រើនតែជួញដូរតិច និងប្រែប្រួលខ្លាំង។</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">ជាផ្នែកនៃ ថូខឹន។ មិនអាចប្រើបានខណៈពេលជ្រើស «តែ TradFi»។ ថូខឹន Alpha ដែលមានក្នុងបញ្ជីតាមដានរបស់អ្នករួចហើយនៅដដែល។</string>
+    <string name="settings_asset_scope_both">ថូខឹន និង TradFi</string>
+    <string name="settings_asset_scope_both_hint">ទាំងអស់ – គ្រីបតូ និង TradFi</string>
+    <string name="settings_asset_scope_hint">កំណត់ថាគូណាខ្លះដែលការជ្រើសរើស និងការស្វែងរកបង្ហាញ នៅពេលអ្នកបន្ថែមគូ។ គូដែលមាននៅក្នុងបញ្ជីតាមដានរបស់អ្នករួចហើយនៅដដែលជានិច្ច។</string>
+    <string name="settings_asset_scope_title">ថូខឹន &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">តែថូខឹន</string>
+    <string name="settings_asset_scope_tokens_hint">គ្រីបតូ៖ Spot និង perpetual</string>
+    <string name="settings_asset_scope_tradfi">តែ TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">Futures លើភាគហ៊ុន ទំនិញ FX – កិច្ចសន្យា មិនមែនថូខឹនទេ</string>
+    <string name="settings_rolling_futures">រួមទាំង Futures ប្រចាំត្រីមាស &amp; Futures មានកាលកំណត់ផ្សេងទៀត</string>
+    <string name="settings_rolling_futures_hint">បិទ៖ Futures មានកាលកំណត់ដែលខ្វះពីបញ្ជីផ្សារប្តូរ ត្រូវបានសម្គាល់ថាលែងជួញដូរ ជំនួសឱ្យការពិនិត្យម្តងមួយៗ។ សន្សំពេលនៅរាល់ការផ្ទុកឡើងវិញ។</string>
+    <string name="settings_rolling_futures_qtly">រួមទាំង Futures ប្រចាំត្រីមាស &amp; Futures មានកាលកំណត់ផ្សេងទៀត (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">ជាផ្នែកនៃ ថូខឹន។ មិនអាចប្រើបានខណៈពេលជ្រើស «តែ TradFi»។ នៅតែអនុវត្តចំពោះ Futures មានកាលកំណត់ដែលមាននៅក្នុងបញ្ជីតាមដានរបស់អ្នករួចហើយ។</string>
+    <string name="settings_tradfi_futures">ភាគហ៊ុន ទំនិញ និង FX (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">ក៏បង្ហាញ Futures លើភាគហ៊ុន មាស និងទំនិញផ្សេងទៀត រូបិយប័ណ្ណ និងក្រុមហ៊ុនមុន IPO នៅពេលអ្នកជ្រើសរើសគូ។ ទាំងនេះជាកិច្ចសន្យា មិនមែនថូខឹនទេ។</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">ពណ៌សង្កត់</string>
+    <string name="settings_accent_hint">ពណ៌សម្រាប់កម្មវិធី វិដជិត និងរូបតំណាងកម្មវិធី។ អេក្រង់ដើមខ្លះដករូបតំណាងចេញនៅពេលវាផ្លាស់ប្តូរ – សូមបន្ថែមវាម្តងទៀតពេលនោះ។</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">រូបសញ្ញាកាក់</string>
+    <string name="settings_coin_logos_app">ក្នុងកម្មវិធី</string>
+    <string name="settings_coin_logos_app_hint">បញ្ជីតាមដាន គូដែលបានបើក និងកាតទីផ្សារ</string>
+    <string name="settings_coin_logos_footer">រូបសញ្ញាមកពី CoinGecko និងពី Binance សម្រាប់កាក់ដែល CoinGecko មិនមាន (ឧ. មាស ប្រាក់ ភាគហ៊ុន)។ កម្មវិធីផ្ទុករូបសញ្ញាទាំងអស់ក្នុងពេលតែមួយ ហើយរក្សាទុកវានៅលើឧបករណ៍នេះ ដូច្នេះគ្មានអ្នកផ្តល់សេវាណាដឹងថាអ្នកតាមដានកាក់ណាទេ។ កាក់ដែលគ្មានរូបសញ្ញាបង្ហាញអក្សរកាត់របស់វា។ ចំណូលចិត្តទទួលបានផ្កាយតូចមួយនៅលើរូបសញ្ញា។ កន្លែងដែលកុងតាក់បិទ មិនបង្ហាញរូបសញ្ញា ឬអក្សរកាត់ទេ។ ពេលកុងតាក់ទាំងអស់បិទ គ្មានអ្វីត្រូវបានផ្ទុកទេ។</string>
+    <string name="settings_coin_logos_portfolio">ក្នុងផលប័ត្រ</string>
+    <string name="settings_coin_logos_portfolio_hint">ការកាន់កាប់ ព័ត៌មានលម្អិតកាក់ និងការយល់ដឹង</string>
+    <string name="settings_coin_logos_value_app">កម្មវិធី</string>
+    <string name="settings_coin_logos_widgets">ក្នុងវិដជិត</string>
+    <string name="settings_coin_logos_widgets_hint">វិដជិតបញ្ជីតាមដាន និងវិដជិតកាក់តែមួយ</string>
+    <string name="settings_high_contrast">កម្រិតពន្លឺផ្ទុយខ្ពស់</string>
+    <string name="settings_high_contrast_hint">ពណ៌តម្លៃខ្លាំងជាង និងអត្ថបទបន្ទាប់បន្សំងងឹតជាង។ ក៏បើកដែរ នៅពេលប្រព័ន្ធស្នើសុំកម្រិតពន្លឺផ្ទុយកាន់តែច្រើន។</string>
+    <string name="settings_language_choose">ជ្រើសរើសភាសា</string>
+    <string name="settings_language_system">ភាសាប្រព័ន្ធ</string>
+    <string name="settings_price_colors">ពណ៌តម្លៃ</string>
+    <string name="settings_price_colors_hint">ខៀវ / ទឹកក្រូច ងាយបែងចែកសម្រាប់គ្រប់ប្រភេទនៃភាពខ្វះខាតការមើលពណ៌ (ក្រហម-បៃតង និងខៀវ-លឿង)។ ទិសដៅក៏តែងតែបង្ហាញជាមួយ + / − ផងដែរ។</string>
+    <string name="settings_theme_mode">ភ្លឺ / ងងឹត</string>
+    <string name="settings_widgets">វិដជិត</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">ការប្រែប្រួល %1$s &amp; ល្វែងម៉ោងគំនូសតាង</string>
+    <string name="settings_change_basis_hint_1">ល្វែងម៉ោងដែលបានជ្រើសកំណត់ពីពេលណាដែលការប្រែប្រួលភាគរយត្រូវបានរាប់ (បញ្ជីតាមដាន បន្ទាត់ជីពចរ គូដែលបានបើក វិដជិត) និងពេលវេលាដែលបង្ហាញក្នុងគំនូសតាង។</string>
+    <string name="settings_change_basis_hint_2">«%1$s» ប្រៀបធៀបជាមួយតម្លៃពិតប្រាកដ 24 ម៉ោងមុន។ «00:00» ប្រៀបធៀបជាមួយតម្លៃបើកនៅពាក់កណ្ដាលអធ្រាត្រក្នុងល្វែងម៉ោងនោះ។</string>
+    <string name="settings_change_basis_hint_3">ការដាស់តឿនមិនរងផលប៉ះពាល់ទេ។</string>
+    <string name="settings_change_basis_hint_since_last">«%1$s» ប្រៀបធៀបជាមួយតម្លៃនៃការធ្វើបច្ចុប្បន្នភាពមុន។ ជាមួយតម្លៃផ្ទាល់ វានៅជិត 0%%។</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">រូបិយប័ណ្ណបម្លែង</string>
+    <string name="settings_conversion_currency_hint">ក៏ប្រើសម្រាប់ផលប័ត្រ ការដាស់តឿនជារូបិយប័ណ្ណរបស់អ្នក កាតទីផ្សារគ្រីបតូ និងវិដជិតផលប័ត្រផងដែរ។</string>
+    <string name="settings_cost_method">វិធីសាស្ត្រតម្លៃដើម</string>
+    <string name="settings_cost_method_average">តម្លៃដើមមធ្យម</string>
+    <string name="settings_cost_method_average_hint">ការលក់ត្រូវបានវាយតម្លៃតាមតម្លៃទិញមធ្យមផ្លាស់ទី។</string>
+    <string name="settings_cost_method_fifo">FIFO (លំនាំដើម)</string>
+    <string name="settings_cost_method_fifo_hint">កាក់ចាស់បំផុតត្រូវបានលក់មុន នៅគ្រប់ផ្សារប្តូរ និងកាបូប។</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO តាមកាបូប/ផ្សារប្តូរ</string>
+    <string name="settings_cost_method_fifo_wallet_hint">កាក់ចាស់បំផុតមុនក្នុងផ្សារប្តូរ ឬកាបូបនីមួយៗ។ ការផ្ទេរផ្លាស់ទីឡូតិ៍ជាមួយកាលបរិច្ឆេទទិញរបស់វា។</string>
+    <string name="settings_portfolio_lock">ការចាក់សោផលប័ត្រ</string>
+    <string name="settings_portfolio_lock_footer">ការចាក់សោលាក់អ្វីដែលបង្ហាញលើអេក្រង់។ ទិន្នន័យរបស់អ្នកត្រូវបានរក្សាទុកនៅលើឧបករណ៍នេះ ហើយត្រូវបានការពារដោយការអ៊ិនគ្រីបឧបករណ៍។ អ្នកអាចការពារការបម្រុងទុកដោយពាក្យសម្ងាត់។</string>
+    <string name="settings_portfolio_lock_hint">លាក់តែផលប័ត្រប៉ុណ្ណោះ៖ ដោះសោដោយស្នាមម្រាមដៃ មុខ ឬ PIN ឧបករណ៍។ ចាក់សោម្តងទៀតបន្ទាប់ពីនៅផ្ទៃខាងក្រោយលើសមួយនាទី។ បញ្ជីតាមដាន ការដាស់តឿន និងវិដជិតផ្សេងទៀតនៅតែបើក។</string>
+    <string name="settings_portfolio_lock_no_device_lock">បើគ្មាន PIN ឬលេខកូដឧបករណ៍ទេ ការចាក់សោមិនលាក់អ្វីទាំងអស់ – សូមរៀបចំការចាក់សោអេក្រង់។</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">ផលប័ត្រក្នុងការបម្រុងទុកប្រព័ន្ធ</string>
+    <string name="settings_portfolio_system_backup_hint">បិទ៖ ប្រតិបត្តិការរបស់អ្នកនៅក្រៅការបម្រុងទុកប្រព័ន្ធរបស់ឧបករណ៍ និងការផ្ទេរពីទូរសព្ទទៅទូរសព្ទ។ ដើម្បីផ្លាស់ទីវាទៅទូរសព្ទថ្មី សូមប្រើការបម្រុងទុករបស់កម្មវិធីផ្ទាល់ជាមួយពាក្យសម្ងាត់។</string>
+    <string name="settings_portfolio_system_backup_unavailable">ត្រូវការ Android 9 ឬថ្មីជាង – កំណែចាស់ៗនឹងរក្សាទុកផលប័ត្រដោយមិនអ៊ិនគ្រីបក្នុងការបម្រុងទុក Google។</string>
+    <string name="settings_portfolio_tab">បង្ហាញផ្ទាំង ផលប័ត្រ</string>
+    <string name="settings_portfolio_value_locked">បើក ជាមួយការចាក់សោ</string>
+    <string name="settings_show_converted">តម្លៃដែលបានបម្លែង</string>
+    <string name="settings_show_converted_hint">បង្ហាញតម្លៃនៅក្នុងបញ្ជីតាមដានជា %1$s ផងដែរ</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">រាយការណ៍ USDT depeg</string>
+    <string name="settings_depeg_alarm_hint">ជូនដំណឹងម្តង នៅពេល USDT រសាត់ចេញពី 1 USD តាមកម្រិត (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT)។</string>
+    <string name="settings_depeg_threshold">កម្រិត depeg</string>
+    <string name="settings_fng_above">Fear &amp; Greed៖ ជូនដំណឹងនៅពេលលើស</string>
+    <string name="settings_fng_below">Fear &amp; Greed៖ ជូនដំណឹងនៅពេលក្រោម</string>
+    <string name="settings_gas_alert_hint">ជូនដំណឹងម្តង នៅពេលកម្រៃធម្មតាធ្លាក់ក្រោមដែនកំណត់។ ពិនិត្យក្នុងអំឡុងការធ្វើបច្ចុប្បន្នភាពតម្លៃ យ៉ាងច្រើនរៀងរាល់ 10 នាទីម្តង។</string>
+    <string name="settings_gas_btc_below">កម្រៃ Bitcoin ក្រោម (sat/vB)</string>
+    <string name="settings_gas_eth_below">Ethereum gas ក្រោម (gwei)</string>
+    <string name="settings_ind_ath_within">ការធ្លាក់ពីកម្រិតខ្ពស់បំផុតគ្រប់ពេលយ៉ាងច្រើន</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple លើស</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple ក្រោម</string>
+    <string name="settings_ind_mvrv_above">MVRV លើស</string>
+    <string name="settings_ind_mvrv_below">MVRV ក្រោម</string>
+    <string name="settings_indicator_alerts_hint">សូចនាករ Bitcoin ពិនិត្យពីរដងក្នុងមួយថ្ងៃ។ អ្នកជ្រើសរើសដែនកំណត់ – កម្មវិធីមិនវាយតម្លៃតម្លៃទាំងនេះទេ។</string>
+    <string name="settings_macro_notifications">ប្រតិទិនសេដ្ឋកិច្ច</string>
+    <string name="settings_macro_notifications_hint">នៅម៉ោង 08:00 នៅថ្ងៃដែលមានទិន្នន័យសេដ្ឋកិច្ចសំខាន់ៗរបស់សហរដ្ឋអាមេរិក (អតិផរណា របាយការណ៍ការងារ ការសម្រេចរបស់ Fed)។ ប្រតិទិនមកពីគេហទំព័ររបស់កម្មវិធី ផ្ទុកម្តងក្នុងមួយថ្ងៃ។</string>
+    <string name="settings_market_alerts">ការដាស់តឿនទីផ្សារ</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="other">%1$d សកម្ម</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">ល្បឿននិយាយ៖ %1$.1f×</string>
+    <string name="settings_tts">ការបញ្ចេញសំឡេង</string>
+    <string name="settings_tts_alarms_only">តែការដាស់តឿន</string>
+    <string name="settings_tts_alarms_only_hint">បិទ៖ រាល់ការធ្វើបច្ចុប្បន្នភាពនៃគូដែលបានសម្គាល់ «អានតម្លៃ» ត្រូវបានអានឮៗ។</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">អានតម្លៃ និងការដាស់តឿនឮៗ។ នៅស្ងៀមខណៈពេលឧបករណ៍ស្ថិតក្នុងរបៀបស្ងាត់ ឬញ័រ។</string>
+    <string name="settings_tts_test">សាកល្បងសំឡេង</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">កំណត់កម្មវិធីឡើងវិញ</string>
+    <string name="settings_reset_app_action">លុបអ្វីៗទាំងអស់</string>
+    <string name="settings_reset_app_confirm">លុបបញ្ជីតាមដាន ការដាស់តឿន ផលប័ត្រ ការកំណត់ និងទិន្នន័យដែលបានរក្សាទុកទាំងអស់ ដូចបន្ទាប់ពីដំឡើង។ វាមិនអាចមិនធ្វើវិញបានទេ។ គន្លឹះ៖ សូមបម្រុងទុកជាមុនសិន។ ការបម្រុងទុកឧបករណ៍ (ការបម្រុងទុក Google ឬការបម្រុងទុក iCloud/កុំព្យូទ័រ) រក្សាទិន្នន័យមុនរហូតដល់ការបម្រុងទុកបន្ទាប់ដំណើរការ។</string>
+    <string name="settings_reset_app_title">កំណត់កម្មវិធីឡើងវិញមែនទេ?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">ស្វែងរករូបិយប័ណ្ណ</string>
+    <string name="language_search">ស្វែងរកភាសា</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">ងងឹត</string>
+    <string name="theme_light">ភ្លឺ</string>
+    <string name="theme_system">ប្រព័ន្ធ</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">ខៀវ</string>
+    <string name="accent_green">បៃតង</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">បៃតង Marrs</string>
+    <string name="accent_orange">ទឹកក្រូច</string>
+    <string name="accent_red">ក្រហម</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">ពេញនិយមនៅចិន ជប៉ុន កូរ៉េ និងតៃវ៉ាន់</string>
+    <string name="price_colors_swap">ប្តូរពណ៌ (ឡើង ↔ ចុះ)</string>
+    <string name="price_style_calm">ស្ងប់</string>
+    <string name="price_style_calm_color_vision">ស្ងប់ · ភាពខ្វះខាតការមើលពណ៌</string>
+    <string name="price_style_color_vision">ភាពខ្វះខាតការមើលពណ៌</string>
+    <string name="price_style_fresh">ស្រស់</string>
+    <string name="price_style_traditional">ប្រពៃណី</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">ការតភ្ជាប់ផ្សារប្តូរត្រូវបានពិនិត្យចុងក្រោយទល់នឹងការឆ្លើយតបពិត៖ %1$s</string>
+    <string name="about_license">តម្លៃមកផ្ទាល់ពីផ្សារប្តូរ។ គ្មានគណនី និងគ្មានការតាមដាន។</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">អាជ្ញាប័ណ្ណ</string>
+    <string name="about_privacy_policy">គោលការណ៍ឯកជនភាព</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">ស្នើសុំផ្សារប្តូរ</string>
+    <string name="about_source_code">កូដប្រភពនៅលើ GitHub</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker គឺជាគម្រោងឯករាជ្យដោយ r1AD៖ ទិដ្ឋភាពតម្លៃស្ងប់ស្ងាត់ ដោយគ្មានគណនី ការផ្សាយពាណិជ្ជកម្ម ឬការតាមដាន។ សំណួរ និងសំណូមពរ៖ %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker គឺជាកូដបើកចំហ (MIT License)។</string>
+    <string name="licenses_font_title">ពុម្ពអក្សរ Rubik</string>
+    <string name="licenses_icons_bundled_text">ភ្ជាប់មកជាមួយកម្មវិធី៖ រូបតំណាងពី «Cryptocurrency Icons» ដោយ Christopher Downer និងអ្នករួមចំណែក (github.com/spothq/cryptocurrency-icons) ចេញផ្សាយក្រោម CC0 1.0 Universal។ វាត្រូវបានបង្ហាញរហូតដល់រូបសញ្ញា CoinGecko ឬ Binance ត្រូវបានផ្ទុក។ ឈ្មោះ និងរូបសញ្ញានៅតែជាពាណិជ្ជសញ្ញារបស់គម្រោងរបស់វា។</string>
+    <string name="licenses_icons_title">រូបតំណាងកាក់បម្រុង</string>
+    <string name="licenses_libraries_intro">កម្មវិធីប្រើបណ្ណាល័យទាំងនេះក្រោម Apache License 2.0៖</string>
+    <string name="licenses_libraries_title">បណ្ណាល័យ Android</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="other">ចុច %d ដងទៀត ដើម្បីដោះសោជម្រើសអ្នកអភិវឌ្ឍន៍</item>
+    </plurals>
+    <string name="developer_unlocked">ជម្រើសអ្នកអភិវឌ្ឍន៍ត្រូវបានដោះសោ</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">ការញ័រអនុវត្តតាមការកំណត់ iPhone (Sounds &amp; Haptics)។</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">រាប់ការដាស់តឿនថ្មី និងការដាស់តឿនទីផ្សារ។ ត្រឡប់ទៅ 0 វិញនៅពេលអ្នកបើកកម្មវិធី។</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">ទិន្នន័យរបស់អ្នក</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">នៅលើឧបករណ៍នេះ</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">បញ្ជីតាមដាន ការដាស់តឿន និងផលប័ត្ររបស់អ្នកត្រូវបានរក្សាទុកដោយអ៊ិនគ្រីបនៅលើឧបករណ៍នេះ។ គ្មានគណនី គ្មានម៉ាស៊ីនមេផ្ទាល់ខ្លួនរបស់យើងទេ។</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">ការតភ្ជាប់</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">តម្លៃមកផ្ទាល់ពីផ្សារប្តូរនៃគូរបស់អ្នក បូកនឹងអត្រាប្តូរប្រាក់ បញ្ជីកាក់ និងរូបសញ្ញា និងកញ្ចក់ទិន្នន័យនៅលើ GitHub។ ពួកគេឃើញអាសយដ្ឋាន IP របស់អ្នក មិនដែលឃើញការកាន់កាប់របស់អ្នកទេ (អាសយដ្ឋានដែលតាមដានទៅកាន់អ្នកផ្តល់សេវានៃបណ្ដាញនីមួយៗ)។</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">ការបម្រុងទុក</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">តែនៅពេលអ្នកបង្កើតវាប៉ុណ្ណោះ។ ជាមួយពាក្យសម្ងាត់ វាត្រូវបានអ៊ិនគ្រីប (Argon2id + AES-256-GCM)។ បើគ្មាន វាអាចអានបាន។</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">ការប្តូរឧបករណ៍</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">សោនៅលើឧបករណ៍ចាស់ – សូមបង្កើតឯកសារបម្រុងទុកជាមុនសិន។</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">ចែករំលែកការវិនិច្ឆ័យ</string>
+    <string name="diagnostics_share_hint">ឯកសារអត្ថបទសម្រាប់ជំនួយ៖ កំណែ ឧបករណ៍ ការកំណត់ការដាស់តឿន ការពិនិត្យថ្មីៗ និងកំណត់ហេតុការដាស់តឿន – ដោយគ្មានផលប័ត្រ ចំនួន អាសយដ្ឋាន ឬកំណត់ចំណាំ។ អ្នកឃើញវាមុន។ គ្មានអ្វីត្រូវបានផ្ញើដោយស្វ័យប្រវត្តិទេ។</string>
+    <string name="diagnostics_preview_title">មើលការវិនិច្ឆ័យជាមុន</string>
+    <string name="diagnostics_action_share">ចែករំលែក</string>
+    <string name="settings_price_overlay">តម្លៃត្រួតលើ</string>
+    <string name="settings_price_overlay_hint">បង្ហាញគូនៃការជូនដំណឹងតម្លៃអចិន្ត្រៃយ៍ជាស្លាកអណ្ដែតតូចមួយលើកម្មវិធីផ្សេងទៀត។ ចុចដើម្បីបើកកម្មវិធី អូសទៅ × នៅខាងក្រោមដើម្បីបិទ។</string>
+    <string name="settings_price_overlay_needs">ដំណើរការតែជាមួយ «%1$s» ប៉ុណ្ណោះ។</string>
+    <string name="settings_price_overlay_grant">អនុញ្ញាតបង្ហាញលើកម្មវិធីផ្សេងទៀត</string>
+    <string name="price_overlay_close">បិទការត្រួតលើ</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">ម៉ាស៊ីនមេផ្ទាល់ខ្លួនសម្រាប់អាសយដ្ឋាន</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">សម្រាប់តែ Bitcoin៖ ម៉ាស៊ីនមេផ្ទាល់ខ្លួនរបស់អ្នកដែលត្រូវគ្នានឹង Esplora ឬ mempool (ឧ. https://node.example/api ត្រូវការវិញ្ញាបនបត្រដែលទុកចិត្តជាសាធារណៈ ដូចជា Let\'s Encrypt)។ ប្រសិនបើបានកំណត់ អាសយដ្ឋាន Bitcoin និងសោ xpub ត្រូវបានសួរតែនៅទីនោះប៉ុណ្ណោះ – មិនដែលនៅ node សាធារណៈទេ សូម្បីតែនៅពេលម៉ាស៊ីនមេរបស់អ្នកមិនអាចភ្ជាប់បាន។ បណ្ដាញផ្សេងទៀតបន្តប្រើ node សាធារណៈ។ ទទេ = node សាធារណៈ។</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">ម៉ាស៊ីនមេ Bitcoin (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">សាកល្បង</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">កំពុងសាកល្បង…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">ម៉ាស៊ីនមេឆ្លើយតប – ប្លុក %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">គ្មានចម្លើយត្រឹមត្រូវ – សូមពិនិត្យអាសយដ្ឋាន និងវិញ្ញាបនបត្រ</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">កំពុងប្រើ៖ %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">មិនបានកំណត់ – ប្រើ node សាធារណៈ</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">អនុញ្ញាតតែអាសយដ្ឋាន https:// ប៉ុណ្ណោះ</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">គ្មានឈ្មោះអ្នកប្រើ ឬពាក្យសម្ងាត់នៅក្នុងអាសយដ្ឋាន</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">គ្មានផ្នែក ? ឬ # នៅក្នុងអាសយដ្ឋាន</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">មិនមែនជាអាសយដ្ឋានម៉ាស៊ីនមេត្រឹមត្រូវទេ</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">ប្តូរទៅ node សាធារណៈមែនទេ?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">អាសយដ្ឋាន Bitcoin និងសោ xpub របស់អ្នកនឹងត្រូវបានសួរនៅ node សាធារណៈ៖ %1$s។ ពួកគេឃើញអាសយដ្ឋានទាំងនេះរួមជាមួយអាសយដ្ឋាន IP របស់អ្នក។</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">ប្រើ node សាធារណៈ</string>
+</resources>

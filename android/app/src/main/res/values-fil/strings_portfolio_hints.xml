@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">Naka-pause ang mga alerto ng portfolio: walang kasalukuyang presyo para sa %1$s</string>
+    <string name="portfolio_alarms_paused_price_generic">Naka-pause ang mga alerto ng portfolio: hindi lahat ng coin ay may kasalukuyang presyo</string>
+    <string name="portfolio_alarms_paused_addresses">Naka-pause ang mga alerto ng portfolio: hindi pa naglo-load ang mga balanse ng mga binabantayang address</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Naka-pause ang mga alerto ng portfolio: bahagyang luma na ang mga balanse ng token ng %1$s</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Naka-pause ang mga alerto ng portfolio: bahagyang luma na ang mga balanse ng token ng mga binabantayang address</string>
+    <string name="portfolio_alarms_paused_unverified">Naka-pause ang mga alerto ng portfolio: hindi beripikado ang presyo para sa %1$s</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Naka-pause ang mga alerto ng portfolio: hindi beripikado ang presyo ng ilang coin</string>
+    <string name="portfolio_alarms_address_failing">Sinusuri ang mga alerto ng portfolio nang wala ang %1$s: hindi naglo-load ang balanse nang mahigit 24 na oras</string>
+    <string name="portfolio_alarms_address_failing_generic">Sinusuri ang mga alerto ng portfolio nang wala ang mga address na hindi naglo-load ang balanse nang mahigit 24 na oras</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">bahagyang luma na ang mga token</string>
+    <string name="portfolio_address_restore_failed">Hindi ma-restore ang address – idagdag ulit kung kailangan</string>
+    <string name="portfolio_address_remove_failed">Hindi maalis ang address – pakisubukan ulit</string>
+</resources>

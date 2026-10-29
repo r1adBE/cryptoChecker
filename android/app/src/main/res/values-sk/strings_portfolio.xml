@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">V tomto zariadení nie je nastavený zámok obrazovky. Najprv ho nastav v systémových nastaveniach.</string>
+    <string name="app_lock_unlock">Odomknúť</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">Vyprázdniť portfólio</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="one">Odstrániť %d transakciu? Sledované adresy zostanú. Hneď potom to môžeš vrátiť späť.</item>
+        <item quantity="few">Odstrániť všetky %d transakcie? Sledované adresy zostanú. Hneď potom to môžeš vrátiť späť.</item>
+        <item quantity="many">Odstrániť všetkých %d transakcie? Sledované adresy zostanú. Hneď potom to môžeš vrátiť späť.</item>
+        <item quantity="other">Odstrániť všetkých %d transakcií? Sledované adresy zostanú. Hneď potom to môžeš vrátiť späť.</item>
+    </plurals>
+    <string name="portfolio_empty_action">Zadať prvý nákup</string>
+    <string name="portfolio_empty_address">Iba sledovať adresu peňaženky</string>
+    <string name="portfolio_empty_csv">Kúpené na burze? Importuj jej súbor</string>
+    <string name="portfolio_empty_example_plain">Príklad: %1$s BTC kúpené 1. marca. Aplikácia potom ukáže, akú hodnotu to má dnes a či ide o plus alebo mínus – uložené iba v tomto zariadení.</string>
+    <string name="portfolio_empty_title">Zatiaľ žiadne transakcie</string>
+    <string name="portfolio_enable_ask_text">Tvoja transakcia je uložená. Karta Portfólio zobrazuje tvoju držbu a jej hodnotu.</string>
+    <string name="portfolio_enable_ask_title">Zapnúť kartu Portfólio?</string>
+    <string name="portfolio_enable_later_hint">Transakcia uložená. Kartu Portfólio zapneš v Nastavenia › Portfólio.</string>
+    <string name="portfolio_enabled_banner">Portfólio zapnuté – nájdeš ho na karte „Portfólio“.</string>
+    <string name="portfolio_lock_reason">Odomknúť portfólio</string>
+    <string name="portfolio_locked_text">Po odomknutí uvidíš držbu a hodnoty.</string>
+    <string name="portfolio_locked_title">Portfólio je zamknuté</string>
+    <string name="portfolio_setting_hint">Voliteľné: zaznamenávaj nákupy a predaje a sleduj hodnotu a zisk/stratu na samostatnej karte.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">Zastarané · stav %1$s</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="one">%d záznam zo systémovej zálohy bol neplatný a neobnovil sa.</item>
+        <item quantity="few">%d záznamy zo systémovej zálohy boli neplatné a neobnovili sa.</item>
+        <item quantity="many">%d záznamu zo systémovej zálohy bolo neplatných a neobnovili sa.</item>
+        <item quantity="other">%d záznamov zo systémovej zálohy bolo neplatných a neobnovili sa.</item>
+    </plurals>
+    <string name="portfolio_title">Portfólio</string>
+    <string name="portfolio_unassigned_fee">Poplatok nepriradený – obstarávacia cena neznáma: %1$s</string>
+    <string name="portfolio_updated">Kurzy z %1$s</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">Ostatné</string>
+    <string name="portfolio_allocation_title">Rozloženie</string>
+    <string name="portfolio_card_details">Podrobnosti</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: zatiaľ nie je k dispozícii</string>
+    <string name="portfolio_card_hints_count">Poznámky (%1$d)</string>
+    <string name="portfolio_card_today">Dnes</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">Celkom</string>
+    <string name="portfolio_hide_amounts">Skryť sumy</string>
+    <string name="portfolio_hide_amounts_hint">Zobrazí sumy a hodnoty v portfóliu a v miniaplikácii portfólia ako ••• – percentá zostávajú viditeľné.</string>
+    <string name="portfolio_invested">Obstarávacia cena</string>
+    <string name="portfolio_total_no_fx">Chýba devízový kurz pre %1$s – sumy v USDT</string>
+    <string name="portfolio_total_value">Celková hodnota</string>
+    <string name="portfolio_value">Hodnota</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">Priem. %1$s · teraz %2$s</string>
+    <string name="portfolio_avg_only">Priem. %1$s</string>
+    <string name="portfolio_avg_open_lots">Priem. obstarávacia cena držaných coinov</string>
+    <string name="portfolio_avg_partial">Priem. z %1$s s nákupnou cenou</string>
+    <string name="portfolio_avg_price">Priem. nákupná cena</string>
+    <string name="portfolio_avg_price_hint">Priem. nákupná cena: priemer všetkých nákupov vážený množstvom. Predaje sa oceňujú týmto priemerom.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Uzavretá pozícia (%1$d)</item>
+        <item quantity="few">Uzavreté pozície (%1$d)</item>
+        <item quantity="many">Uzavreté pozície (%1$d)</item>
+        <item quantity="other">Uzavreté pozície (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: predaje použijú najprv tvoje najstaršie coiny. Priem. = zostávajúca obstarávacia cena ÷ množstvo s nákupnou cenou.</string>
+    <string name="portfolio_holdings">Držba</string>
+    <string name="portfolio_lost_fee_cost">Obstarávacia cena sieťového poplatku bez zaplatenej položky: %1$s</string>
+    <string name="portfolio_open_lots">Otvorené nákupné položky (%1$d)</string>
+    <string name="portfolio_open_lots_avg">S nákupnou cenou (priem.)</string>
+    <string name="portfolio_open_lots_no_cost">Bez nákupnej ceny</string>
+    <string name="portfolio_open_lots_without_price">bez nákupnej ceny</string>
+    <string name="portfolio_realized">Realizovaný zisk/strata</string>
+    <string name="portfolio_unrealized">Otvorený zisk/strata</string>
+    <string name="portfolio_unrealized_without_unpriced">bez %1$s bez nákupnej ceny</string>
+    <string name="portfolio_withdrawn_gain">Vyúčtované: %1$s (zmena hodnoty do výberu)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">Prepočítať na</string>
+    <string name="portfolio_convert_to_value">Prepočítať na: %1$s</string>
+    <string name="portfolio_current_missing">Chýba aktuálny kurz pre %1$s</string>
+    <string name="portfolio_current_price">Aktuálny kurz</string>
+    <string name="portfolio_price_missing">Chýba cena</string>
+    <string name="portfolio_price_missing_hint">Pri niektorých nákupoch chýba cena. Doplň nákupnú cenu a uvidíš zisk/stratu.</string>
+    <string name="portfolio_price_source">Kurzy: Binance · USDT za trhovú cenu</string>
+    <string name="portfolio_price_source_routes">Kurzy: %1$s, inak Binance · USDT za trhovú cenu</string>
+    <string name="portfolio_price_unavailable">Kurz momentálne nie je k dispozícii</string>
+    <string name="portfolio_price_unchecked">Kurz neoverený</string>
+    <string name="portfolio_price_via_base">≈ kurz %1$s (premostené/zabalené)</string>
+    <string name="portfolio_usdt_as_usd">USDT prepočítané podľa jeho trhovej ceny v USD</string>
+    <string name="portfolio_usdt_assumed">Chýba dolárový kurz USDT – počítané ako 1 americký dolár</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">Pridať do portfólia</string>
+    <string name="portfolio_add_tx">Pridať transakciu</string>
+    <string name="portfolio_buy">Nákup</string>
+    <string name="portfolio_coin">Coin</string>
+    <string name="portfolio_coin_invalid">Zadaj symbol coinu</string>
+    <string name="portfolio_coin_search">Hľadaj symbol, napr. BTC</string>
+    <string name="portfolio_discard_confirm">Zahodiť</string>
+    <string name="portfolio_discard_keep">Pokračovať v úpravách</string>
+    <string name="portfolio_discard_title">Zahodiť zmeny?</string>
+    <string name="portfolio_edit_tx">Upraviť transakciu</string>
+    <string name="portfolio_invalid">Zadaj platné číslo väčšie ako 0.</string>
+    <string name="portfolio_oversold">Predaje prevyšujú držbu – skontroluj transakcie.</string>
+    <string name="portfolio_sell">Predaj</string>
+    <string name="portfolio_sell_exceeds">Viac ako tvoja držba (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">Množstvo s poplatkom je viac ako tvoja držba (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">Viac ako tvoja držba v %2$s (%1$s)</string>
+    <string name="portfolio_transactions">Transakcie</string>
+    <string name="portfolio_tx_acquired_date">Pôvodný dátum nákupu (voliteľné)</string>
+    <string name="portfolio_tx_acquired_date_hint">Pre dobu držby v daňovom exporte</string>
+    <string name="portfolio_tx_amount">Množstvo</string>
+    <string name="portfolio_tx_coin_fee">Poplatok v coine (voliteľné)</string>
+    <string name="portfolio_tx_date">Dátum</string>
+    <string name="portfolio_tx_delete_confirm">Táto transakcia sa odstráni z portfólia.</string>
+    <string name="portfolio_tx_delete_title">Odstrániť transakciu?</string>
+    <string name="portfolio_tx_deposit">Vklad</string>
+    <string name="portfolio_tx_entry_currency">Zadávať v</string>
+    <string name="portfolio_tx_explain_deposit">Držba bez obchodu, napr. coiny zo skôr</string>
+    <string name="portfolio_tx_explain_gift">Coiny opúšťajú držbu ako pri výbere – scudzenie za trhovú hodnotu iba tam, kde krajina takto zdaňuje dary (UK, CA, AU)</string>
+    <string name="portfolio_tx_explain_payment">Zaplatené za tovar alebo služby – scudzenie za trhovú hodnotu ako pri predaji, bez prijatých peňazí</string>
+    <string name="portfolio_tx_explain_reward">Obstarávacia cena = trhová hodnota pri prijatí</string>
+    <string name="portfolio_tx_explain_swap">Coin za coin: predaj odovzdaného a nákup prijatého coinu</string>
+    <string name="portfolio_tx_explain_transfer">Bez zisku – obstarávacia cena sa presúva s coinmi</string>
+    <string name="portfolio_tx_explain_withdrawal">Držba opúšťa portfólio – bez predaja, bez zisku</string>
+    <string name="portfolio_tx_fee_consumes_amount">Poplatok je rovnako veľký ako prijaté množstvo – nič by nezostalo.</string>
+    <string name="portfolio_tx_fees_toggle">Poplatky</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s pri kurze z %2$s</string>
+    <string name="portfolio_tx_fiat_loading">Načítava sa devízový kurz…</string>
+    <string name="portfolio_tx_fiat_no_fx">Pre tento deň chýba devízový kurz – zadaj sumu v USDT.</string>
+    <string name="portfolio_tx_gift">Darované</string>
+    <string name="portfolio_tx_gift_price_hint">V USDT. Prázdne = záverečný kurz toho dňa (odhad).</string>
+    <string name="portfolio_tx_gift_spouse">Manželskému / životnému partnerovi</string>
+    <string name="portfolio_tx_gift_spouse_hint">UK a Kanada: bez zisku a bez straty – partner preberá tvoju obstarávaciu cenu. Ostatné krajiny to ignorujú.</string>
+    <string name="portfolio_tx_market_value">Trhová hodnota za coin</string>
+    <string name="portfolio_tx_more_buy">Poplatok, burza, poznámka</string>
+    <string name="portfolio_tx_network_fee">Sieťový poplatok v coine (voliteľné)</string>
+    <string name="portfolio_tx_note">Poznámka (voliteľné)</string>
+    <string name="portfolio_tx_payment">Zaplatené týmto</string>
+    <string name="portfolio_tx_price">Cena za coin</string>
+    <string name="portfolio_tx_price_hint">V USDT. Nechaj prázdne, ak nie je známa.</string>
+    <string name="portfolio_tx_price_historic">Overený záverečný kurz z %1$s – v prípade potreby uprav</string>
+    <string name="portfolio_tx_price_invalid">Zadaj platné číslo (0 alebo viac) alebo nechaj pole prázdne.</string>
+    <string name="portfolio_tx_price_past_hint">Zadaj kurz v deň nákupu – nechaj prázdne, ak nie je známy</string>
+    <string name="portfolio_tx_price_receipt_hint">V USDT. Prázdne = držba bez obstarávacej ceny.</string>
+    <string name="portfolio_tx_price_zero">Cena 0 nie je možná pri importovaných transakciách – nechaj prázdne pre trhový kurz</string>
+    <string name="portfolio_tx_removed">Transakcia odstránená</string>
+    <string name="portfolio_tx_reward">Odmena</string>
+    <string name="portfolio_tx_save_failed">Transakciu sa nepodarilo uložiť. Tvoje zadania zostávajú – skús to znova.</string>
+    <string name="portfolio_tx_swap">Výmena</string>
+    <string name="portfolio_tx_swap_fee_received">Poplatok v %1$s: znižuje prijaté množstvo, cena nie je potrebná.</string>
+    <string name="portfolio_tx_swap_from">Výmena z %1$s</string>
+    <string name="portfolio_tx_swap_given_amount">Odovzdané množstvo</string>
+    <string name="portfolio_tx_swap_given_coin">Odovzdaný coin</string>
+    <string name="portfolio_tx_swap_received_amount">Prijaté množstvo</string>
+    <string name="portfolio_tx_swap_received_coin">Prijatý coin</string>
+    <string name="portfolio_tx_swap_same_coin">Vyber iný coin ako odovzdaný</string>
+    <string name="portfolio_tx_swap_to">Výmena na %1$s</string>
+    <string name="portfolio_tx_swap_value">Hodnota výmeny (voliteľné)</string>
+    <string name="portfolio_tx_swap_value_hint">Celková hodnota. Prázdne = neznáme – zisk zostane neúplný (s USDT vo výmene automaticky).</string>
+    <string name="portfolio_tx_third_fee_amount">Množstvo poplatku</string>
+    <string name="portfolio_tx_third_fee_coin">Coin poplatku</string>
+    <string name="portfolio_tx_third_fee_incomplete">Bez ceny sa poplatok nezapočíta do obstarávacej ceny ani výnosu; daňový export takéto predaje označí.</string>
+    <string name="portfolio_tx_third_fee_price">Cena za coin poplatku (voliteľné)</string>
+    <string name="portfolio_tx_third_fee_toggle">Poplatok v inom coine</string>
+    <string name="portfolio_tx_total">Celkom: %1$s</string>
+    <string name="portfolio_tx_transfer">Presun</string>
+    <string name="portfolio_tx_transfer_from">Z (voliteľné)</string>
+    <string name="portfolio_tx_transfer_to">Do (voliteľné)</string>
+    <string name="portfolio_tx_transfer_to_hint">Burza alebo peňaženka – odteraz sa oceňuje tam.</string>
+    <string name="portfolio_tx_type_select">Typ: %1$s</string>
+    <string name="portfolio_tx_value_received">Hodnota za coin pri prijatí (voliteľné)</string>
+    <string name="portfolio_tx_withdrawal">Výber</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">Darované alebo zaplatené týmto? Zaznamenaj to ako „Darované“ alebo „Zaplatené týmto“ – podľa krajiny sa to daňovo počíta ako predaj.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">Voliteľné: trhová hodnota v USDT, iba pre výpočet priebehu (prázdne = denný kurz). Coiny vždy odchádzajú za obstarávaciu cenu.</string>
+    <string name="portfolio_wallet_did_you_mean">Nemá to byť %1$s? Iný zápis sa počíta ako samostatná peňaženka.</string>
+    <string name="portfolio_wallet_shortfall">Držba v %1$s nestačí – chýba presun?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">Maximum %1$s</string>
+    <string name="portfolio_compare">Porovnanie</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">Porovnať %1$s a USDT v percentách</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">Porovnanie v percentách, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">Menový efekt: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">Údaje o kurzoch siahajú len do augusta 2017 — priebeh začína tam.</string>
+    <string name="portfolio_history_chip_since_first">Všetko</string>
+    <string name="portfolio_history_collapse">Skryť priebeh hodnoty</string>
+    <string name="portfolio_history_converted">Prepočítané dnešným kurzom</string>
+    <string name="portfolio_history_expand">Zobraziť priebeh hodnoty</string>
+    <string name="portfolio_history_gain_a11y">Hodnota %1$s. Zisk/strata, %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">Zisk/strata</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">Hodnota v %1$s</string>
+    <string name="portfolio_history_incl_fx">Vrát. devízového kurzu</string>
+    <string name="portfolio_history_incl_withdrawn">Zahŕňa zmenu hodnoty vyúčtovaných coinov</string>
+    <string name="portfolio_history_includes_trades">Zahŕňa nákupy a predaje v tomto období</string>
+    <string name="portfolio_history_loading">Načítava sa priebeh hodnoty</string>
+    <string name="portfolio_history_period_1y">1 rok</string>
+    <string name="portfolio_history_period_30d">30 dní</string>
+    <string name="portfolio_history_period_7d">7 dní</string>
+    <string name="portfolio_history_period_since_first">od prvého nákupu</string>
+    <string name="portfolio_history_pnl_needs_prices">Pre zisk/stratu chýbajú nákupné ceny – doplň ich v transakciách.</string>
+    <string name="portfolio_history_pnl_without">Zisk/strata bez %1$s (chýba cena)</string>
+    <string name="portfolio_history_range_1y">1 R</string>
+    <string name="portfolio_history_range_30d">30 D</string>
+    <string name="portfolio_history_range_7d">7 D</string>
+    <string name="portfolio_history_range_a11y">Zobraziť priebeh za %1$s</string>
+    <string name="portfolio_history_range_since_first">Od 1. nákupu</string>
+    <string name="portfolio_history_scaled">Priebeh pre %1$s: priebeh Binance prispôsobený kurzu burzy</string>
+    <string name="portfolio_history_title">Priebeh hodnoty</string>
+    <string name="portfolio_history_today">Dnes</string>
+    <string name="portfolio_history_too_short">Priebeh začína po tvojom prvom celom dni.</string>
+    <string name="portfolio_history_unavailable">Priebeh momentálne nie je k dispozícii.</string>
+    <string name="portfolio_history_utc_days">Dni v UTC (denné sviečky)</string>
+    <string name="portfolio_history_without_matching">Bez %1$s (žiadne zodpovedajúce denné kurzy)</string>
+    <string name="portfolio_period_rewards">Odmeny +%1$s (nie v zisku)</string>
+    <string name="portfolio_period_scaled">7 D/1 R pre %1$s: priebeh Binance prispôsobený kurzu burzy</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">Alarm</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">Suma (%1$s)</string>
+    <string name="portfolio_alarm_hint">Kontroluje sa po každej aktualizácii. Ako pri alarmoch: ozve sa pri prekročení hranice a znova až vtedy, keď sa hodnota vráti.</string>
+    <string name="portfolio_alarm_kind_above">Portfólio nad sumou</string>
+    <string name="portfolio_alarm_kind_below">Portfólio pod sumou</string>
+    <string name="portfolio_alarm_kind_down">Portfólio klesá</string>
+    <string name="portfolio_alarm_kind_up">Portfólio rastie</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">Portfólio nad %1$s</string>
+    <string name="portfolio_alarm_sentence_below">Portfólio pod %1$s</string>
+    <string name="portfolio_alarm_sentence_down">Portfólio klesne o %1$s (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">Portfólio stúpne o %1$s (%2$s)</string>
+    <string name="portfolio_alarm_title">Alarm hodnoty portfólia</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">Burza (voliteľné)</string>
+    <string name="ledger_exchange_failed">%1$s: momentálne žiadny kurz z %2$s – ocenené cez Binance.</string>
+    <string name="ledger_exchange_hint">Coin sa oceňuje kurzom tejto burzy (inak Binance). Priebeh, 7 D a 1 R používajú denné kurzy Binance prispôsobené tomuto kurzu.</string>
+    <string name="ledger_exchange_mixed">%1$s: zadaných viac búrz – ocenené cez Binance. Presunuté coiny? Zaznamenaj presun ako „Presun“.</string>
+    <string name="ledger_exchange_none">Žiadna (Binance)</string>
+    <string name="ledger_fee">Poplatok (voliteľné)</string>
+    <string name="ledger_fee_coin">Coin</string>
+    <string name="ledger_fee_hint">V USDT zvyšuje obstarávaciu cenu (predaj: znižuje výnos); v coine znižuje množstvo.</string>
+    <string name="ledger_fee_line">Poplatok %1$s</string>
+    <string name="ledger_fifo_cost_note">Od nákupu: obstarávacia cena podľa FIFO vrát. poplatkov (najstaršie coiny predané ako prvé).</string>
+    <string name="ledger_gain_info">Dnes, 7 D, 1 R: zmena hodnoty za obdobie – nákupy a predaje sa nepočítajú ako zisk. Od nákupu: aktuálna hodnota mínus obstarávacia cena (priemerné náklady vrát. poplatkov) coinov, ktoré ešte držíš.</string>
+    <string name="ledger_gain_info_a11y">Ako sa počíta zisk a strata</string>
+    <string name="ledger_gain_info_fifo">Dnes, 7 D, 1 R: zmena hodnoty za obdobie – nákupy a predaje sa nepočítajú ako zisk. Od nákupu: aktuálna hodnota mínus obstarávacia cena (FIFO vrát. poplatkov) coinov, ktoré ešte držíš.</string>
+    <string name="ledger_gain_title">Zisk/strata</string>
+    <string name="ledger_more_toggle">Poplatok a burza</string>
+    <string name="ledger_partial_cost">„Od nákupu“ počíta iba časť s nákupnou cenou – bez %1$s bez nákupnej ceny.</string>
+    <string name="ledger_period_without">Dnes / 7 D / 1 R bez %1$s – chýba zodpovedajúci počiatočný kurz.</string>
+    <string name="ledger_since_purchase_currency">Od nákupu (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">Zisk/strata od nákupu, zatiaľ nepredané</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="one">Bez %1$d coinu bez nákupnej ceny (%2$s) – doplň cenu, aby sa započítal.</item>
+        <item quantity="few">Bez %1$d coinov bez nákupnej ceny (%2$s) – doplň ceny, aby sa započítali.</item>
+        <item quantity="many">Bez %1$d coinu bez nákupnej ceny (%2$s) – doplň ceny, aby sa započítali.</item>
+        <item quantity="other">Bez %1$d coinov bez nákupnej ceny (%2$s) – doplň ceny, aby sa započítali.</item>
+    </plurals>
+
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">Prepad USDT – trh na %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">Dolárový kurz USDT cez USDC/USDT – ak USDC klesne, táto hodnota nie je správna</string>
+    <string name="portfolio_amount_bridged_stable">≈ vrát. %1$s (premostené)</string>
+
+    <string name="portfolio_tx_interest">Úrok (požičiavanie)</string>
+    <string name="portfolio_tx_interest_hint">Pri prijatí sa počíta ako príjem (Rakúsko). Pre odmeny zo stakingu a airdropy nechaj vypnuté.</string>
+    <string name="app_lock_no_screen_lock">Nastav zámok obrazovky, aby sa dalo otvoriť portfólio.</string>
+    <string name="app_lock_turn_off_action">Vypnúť zámok portfólia</string>
+    <string name="app_lock_turn_off_confirm_title">Vypnúť zámok portfólia?</string>
+    <string name="app_lock_turn_off_confirm_message">Bez zámku obrazovky sa portfólio nedá odomknúť. Po vypnutí aplikácia znova zobrazí tvoje portfólio bez overenia. Keď nastavíš zámok obrazovky, môžeš zámok v nastaveniach znova zapnúť.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">„Od nákupu“ a obstarávacia cena v %1$s: náklady podľa devízového kurzu v deň nákupu, hodnota podľa dnešného kurzu.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">Chýba devízový kurz pre deň nákupu (chýba v „Od nákupu“ a v obstarávacej cene): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">Náklady v dňoch nákupu bez dolárového kurzu USDT sú počítané ako 1 americký dolár za USDT.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">Stav %1$s – burza je nedostupná</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">Denné kurzy: %1$s (namiesto Binance)</string>
+
+    <string name="portfolio_footer_short">Pracovná pomôcka, nie daňové ani investičné poradenstvo. Ochrana súkromia: Nastavenia › O aplikácii › Zásady ochrany súkromia.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">Odstrániť všetky transakcie %1$s?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">%d transakcia sa odstráni. Hneď potom to môžeš vrátiť späť.</item>
+        <item quantity="few">%d transakcie sa odstránia. Hneď potom to môžeš vrátiť späť.</item>
+        <item quantity="many">%d transakcie sa odstráni. Hneď potom to môžeš vrátiť späť.</item>
+        <item quantity="other">%d transakcií sa odstráni. Hneď potom to môžeš vrátiť späť.</item>
+    </plurals>
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">Poplatky zaplatené v %1$s sa odstránia aj z iných transakcií: %2$d.</string>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s odstránený z portfólia (%2$d transakcia)</item>
+        <item quantity="few">%1$s odstránený z portfólia (%2$d transakcie)</item>
+        <item quantity="many">%1$s odstránený z portfólia (%2$d transakcie)</item>
+        <item quantity="other">%1$s odstránený z portfólia (%2$d transakcií)</item>
+    </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">%d transakcia odstránená</item>
+        <item quantity="few">%d transakcie odstránené</item>
+        <item quantity="many">%d transakcie odstránenej</item>
+        <item quantity="other">%d transakcií odstránených</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">Tým sa odstráni aj %d položka.</item>
+        <item quantity="few">Tým sa odstránia aj %d položky.</item>
+        <item quantity="many">Tým sa odstráni aj %d položky.</item>
+        <item quantity="other">Tým sa odstráni aj %d položiek.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">Tým sa odstráni aj %d položka a história zostatkov.</item>
+        <item quantity="few">Tým sa odstránia aj %d položky a história zostatkov.</item>
+        <item quantity="many">Tým sa odstráni aj %d položky a história zostatkov.</item>
+        <item quantity="other">Tým sa odstráni aj %d položiek a história zostatkov.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">Tým sa odstráni aj história zostatkov.</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">Nepodarilo sa uložiť – skús to znova</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">Neplatná hranica – odstráň a vytvor znova</string>
+</resources>

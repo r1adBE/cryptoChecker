@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">Socraigh foláireamh</string>
+    <string name="alarms_add">Foláireamh nua</string>
+    <string name="alarms_edit">Cuir an foláireamh in eagar</string>
+    <string name="alarms_empty">Gan foláireamh don phéire seo fós.</string>
+    <string name="alarms_empty_example">Mar shampla: Inis dom nuair a ardaíonn BTC os cionn %1$s.</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">Tá fógraí múchta – ní féidir le foláirimh teacht chugat.</string>
+    <string name="alarms_notifications_turn_on">Cas air</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">%1$d gníomhach</item>
+        <item quantity="two">%1$d gníomhach</item>
+        <item quantity="few">%1$d gníomhach</item>
+        <item quantity="many">%1$d gníomhach</item>
+        <item quantity="other">%1$d gníomhach</item>
+    </plurals>
+    <string name="alarms_overview_empty">Gan foláireamh fós. Oscail péire agus cuir ceann leis faoi Foláirimh.</string>
+    <string name="alarms_overview_title">Gach foláireamh</string>
+    <string name="alarms_title">Foláirimh</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">Ardleibhéal</string>
+    <string name="alarm_change_updates">Coigeartaigh nuashonruithe praghais</string>
+    <string name="alarm_create">Cruthaigh foláireamh</string>
+    <string name="alarm_currency_label">Airgeadra</string>
+    <string name="alarm_delete_confirm">Bainfear an foláireamh seo.</string>
+    <string name="alarm_delete_title">An bhfuil an foláireamh le scriosadh?</string>
+    <string name="alarm_field_percent">Céatadán</string>
+    <string name="alarm_field_price">Praghas</string>
+    <string name="alarm_fires_now_above">Tá an praghas os cionn %1$s cheana. Sábháil mar sin féin?</string>
+    <string name="alarm_fires_now_below">Tá an praghas faoi %1$s cheana. Sábháil mar sin féin?</string>
+    <string name="alarm_fires_now_change">Athraigh</string>
+    <string name="alarm_fires_now_save">Sábháil mar sin féin</string>
+    <string name="alarm_fires_now_title">Spreagfaí an foláireamh láithreach</string>
+    <string name="alarm_first_battery_hint">Cuireann barrfheabhsú ceallraí srian ar an aip – d’fhéadfadh foláirimh teacht go déanach.</string>
+    <string name="alarm_first_title">Foláireamh sábháilte</string>
+    <string name="alarm_last_triggered">an uair dheireanach ag %1$s</string>
+    <string name="alarm_more_conditions">Tuilleadh coinníollacha</string>
+    <string name="alarm_new_extreme">%1$s nua</string>
+    <string name="alarm_once">Uair amháin</string>
+    <string name="alarm_option_repeating">Cuir in iúl</string>
+    <string name="alarm_option_sound">Fuaim</string>
+    <string name="alarm_option_speak">Léigh an foláireamh os ard</string>
+    <string name="alarm_option_vibrate">Creathadh</string>
+    <string name="alarm_repeat_each">Gach uair</string>
+    <string name="alarm_repeat_once">Uair amháin</string>
+    <string name="alarm_repeating">Gach uair</string>
+    <string name="alarm_threshold_error_empty">Cuir luach isteach chun an foláireamh a shábháil.</string>
+    <string name="alarm_threshold_error_funding">Caithfidh an maoiniú a bheith ina uimhir idir −10 agus +10 faoin gcéad.</string>
+    <string name="alarm_threshold_error_invalid">Cuir isteach uimhir bhailí níos mó ná 0.</string>
+    <string name="alarm_threshold_error_oi">Athrú ar ús oscailte: 1000 faoin gcéad ar a mhéad.</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">laistigh de %1$d u</item>
+        <item quantity="two">laistigh de %1$d u</item>
+        <item quantity="few">laistigh de %1$d u</item>
+        <item quantity="many">laistigh de %1$d u</item>
+        <item quantity="other">laistigh de %1$d u</item>
+    </plurals>
+    <string name="alarm_window_label">Fuinneog ama</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">os cionn</string>
+    <string name="alarm_simple_below">faoi</string>
+    <string name="alarm_simple_end">\</string>
+    <string name="alarm_simple_when">Nuair a théann %1$s</string>
+    <string name="alarm_template_a11y">Cruthaigh foláireamh: %1$s</string>
+    <string name="alarm_template_a11y_down">Cruthaigh foláireamh ag lúide %1$s faoin gcéad ón bpraghas reatha</string>
+    <string name="alarm_template_a11y_up">Cruthaigh foláireamh ag móide %1$s faoin gcéad ón bpraghas reatha</string>
+    <string name="alarm_template_from_now">ó anois</string>
+    <string name="alarm_template_volume">Toirt ×%1$s</string>
+    <string name="alarm_templates_title">Foláirimh thapa</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">Praghas os cionn</string>
+    <string name="alarm_condition_below">Praghas faoi</string>
+    <string name="alarm_condition_down_percent">Titeann faoi</string>
+    <string name="alarm_condition_funding_above">Maoiniú os cionn</string>
+    <string name="alarm_condition_funding_below">Maoiniú faoi</string>
+    <string name="alarm_condition_move_percent">Bogann faoi</string>
+    <string name="alarm_condition_near_high">Gar don bhuaic</string>
+    <string name="alarm_condition_near_low">Gar don íosmhéid</string>
+    <string name="alarm_condition_oi_down">Ús oscailte ag titim</string>
+    <string name="alarm_condition_oi_up">Ús oscailte ag ardú</string>
+    <string name="alarm_condition_up_percent">Ardaíonn faoi</string>
+    <string name="alarm_condition_volume_spike">Spíce toirte</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">Inis dom nuair a ardaíonn %1$s os cionn %2$s.</string>
+    <string name="alarm_sentence_below">Inis dom nuair a thiteann %1$s faoi %2$s.</string>
+    <string name="alarm_sentence_down_percent">Inis dom nuair a thiteann %1$s %2$s faoin bpraghas ag am sábhála (nó ag an bhfoláireamh deireanach).</string>
+    <string name="alarm_sentence_funding_above">Inis dom nuair a ardaíonn maoiniú %1$s os cionn %2$s.</string>
+    <string name="alarm_sentence_funding_below">Inis dom nuair a thiteann maoiniú %1$s faoi %2$s.</string>
+    <string name="alarm_sentence_incomplete">Cuir luach isteach chun an foláireamh a fheiceáil mar abairt.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">Inis dom nuair a bhogann %1$s faoi %2$s laistigh de %3$d uair an chloig.</item>
+        <item quantity="two">Inis dom nuair a bhogann %1$s faoi %2$s laistigh de %3$d uair an chloig.</item>
+        <item quantity="few">Inis dom nuair a bhogann %1$s faoi %2$s laistigh de %3$d huaire an chloig.</item>
+        <item quantity="many">Inis dom nuair a bhogann %1$s faoi %2$s laistigh de %3$d n-uaire an chloig.</item>
+        <item quantity="other">Inis dom nuair a bhogann %1$s faoi %2$s laistigh de %3$d uair an chloig.</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">Inis dom nuair atá %1$s %2$s ar a mhéad faoin tagarmharc: %3$s.</string>
+    <string name="alarm_sentence_near_low">Inis dom nuair atá %1$s %2$s ar a mhéad os cionn an tagarmhairc: %3$s.</string>
+    <string name="alarm_sentence_new_extreme">Inis dom nuair a shroicheann %1$s %2$s nua.</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">Inis dom nuair a thiteann ús oscailte %1$s faoi %2$s laistigh de %3$d uair an chloig.</item>
+        <item quantity="two">Inis dom nuair a thiteann ús oscailte %1$s faoi %2$s laistigh de %3$d uair an chloig.</item>
+        <item quantity="few">Inis dom nuair a thiteann ús oscailte %1$s faoi %2$s laistigh de %3$d huaire an chloig.</item>
+        <item quantity="many">Inis dom nuair a thiteann ús oscailte %1$s faoi %2$s laistigh de %3$d n-uaire an chloig.</item>
+        <item quantity="other">Inis dom nuair a thiteann ús oscailte %1$s faoi %2$s laistigh de %3$d uair an chloig.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">Inis dom nuair a ardaíonn ús oscailte %1$s faoi %2$s laistigh de %3$d uair an chloig.</item>
+        <item quantity="two">Inis dom nuair a ardaíonn ús oscailte %1$s faoi %2$s laistigh de %3$d uair an chloig.</item>
+        <item quantity="few">Inis dom nuair a ardaíonn ús oscailte %1$s faoi %2$s laistigh de %3$d huaire an chloig.</item>
+        <item quantity="many">Inis dom nuair a ardaíonn ús oscailte %1$s faoi %2$s laistigh de %3$d n-uaire an chloig.</item>
+        <item quantity="other">Inis dom nuair a ardaíonn ús oscailte %1$s faoi %2$s laistigh de %3$d uair an chloig.</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">Inis dom nuair a ardaíonn %1$s %2$s os cionn an phraghais ag am sábhála (nó ag an bhfoláireamh deireanach).</string>
+    <string name="alarm_sentence_volume">Inis dom nuair a thrádáiltear %1$s ag %2$s× a ghnáth-thoirte.</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">buaic 30 lá</string>
+    <string name="alarm_near_extreme_high_365">buaic bliana</string>
+    <string name="alarm_near_extreme_high_90">buaic 90 lá</string>
+    <string name="alarm_near_extreme_low_30">íosmhéid 30 lá</string>
+    <string name="alarm_near_extreme_low_365">íosmhéid bliana</string>
+    <string name="alarm_near_extreme_low_90">íosmhéid 90 lá</string>
+    <string name="alarm_near_field_distance">Fad</string>
+    <string name="alarm_near_hint">Cuireann sé in iúl freisin nuair a shroichtear buaic nó íosmhéid nua. Bunaithe ar choinnle laethúla, athnuaite gach 6 uair an chloig.</string>
+    <string name="alarm_near_new_only">Buaiceanna nó íosmhéideanna nua amháin</string>
+    <string name="alarm_near_notification_high">Tá %1$s %2$s faoin tagarmharc: %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">Tá %1$s %2$s os cionn an tagarmhairc: %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">%1$s nua do %2$s: %3$s (roimhe seo %4$s)</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d lá</item>
+        <item quantity="two">%1$d lá</item>
+        <item quantity="few">%1$d lá</item>
+        <item quantity="many">%1$d lá</item>
+        <item quantity="other">%1$d lá</item>
+    </plurals>
+    <string name="alarm_near_window_label">Tréimhse</string>
+    <string name="alarm_near_window_year">1 bhliain</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">Ráta maoinithe in aghaidh 8 uair an chloig. Tiontaítear conarthaí le heatramh eile (1 u × 8, 4 u × 2); taispeánann cárta na dtodhchaíochtaí an luach tiontaithe. Mura bhfuil an t-eatramh ar eolas, ní sheiceálann an foláireamh. Ciallaíonn diúltach go n-íocann na gearrshuíomhanna leis na fadsuíomhanna. Athraíonn ± an comhartha.</string>
+    <string name="alarm_funding_sign_a11y">Athraigh an comhartha</string>
+    <string name="alarm_oi_hint">Cuireann sé an t-ús oscailte i gcomparáid leis an luach a stóráladh an méid sin uaireanta ó shin. Ní chuireann foláireamh nua in iúl go dtí go mbeidh sonraí bailithe ag an aip ar feadh an achair sin; seiceáiltear uair sna 5 nóiméad ar a mhéad.</string>
+    <string name="alarm_volume_factor_label">Toirt na huaire deireanaí i gcomparáid leis an ngnáth</string>
+    <string name="alarm_volume_hint">Is ó Binance a thagann sonraí toirte — ní spreagtar riamh péirí nach bhfuil liostaithe ansin.</string>
+    <string name="alarm_volume_zero_hours_hint">Comhairtear uaireanta gan trádáil mar thoirt nialasach, mar sin ar phéirí ar beag a dtrádáil d’fhéadfadh gnáthuair cuma neamhghnách a bheith uirthi.</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">Foláireamh gníomhach</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">Foláireamh sábháilte: %1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">Fógraí múchta</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">Gan “%1$s”, seiceálann Android go mírialta fad atá an gléas ina scíth – uaireanta tar éis uaireanta fada. Leis, thart ar gach 15 nóiméad.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Agus an aip dúnta, is minic a sheiceálann iOS níos déanaí ná 15 nóiméad, uaireanta nuair a osclaíonn tú an aip arís. D’fhéadfaí spící gearra a chailleadh.</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">Cathain a sheiceáiltear foláirimh</string>
+    <string name="alarm_timing_where">Athraigh cé chomh minic a nuashonraítear praghsanna in %1$s.</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">Ciúin (fógra amháin)</string>
+    <string name="alarm_signal_sound">Fuaim amháin</string>
+    <string name="alarm_signal_sound_vibrate">Fuaim agus creathadh</string>
+    <string name="alarm_signal_system">Córas</string>
+    <string name="alarm_signal_vibrate">Creathadh amháin</string>
+    <string name="alarm_test">Foláireamh tástála</string>
+    <string name="alarm_test_action">Tástáil</string>
+    <string name="alarm_test_denied">Tá fógraí múchta do Crypto Checker.</string>
+    <string name="alarm_test_hint">Seolann sé foláireamh samplach le do shocruithe fuaime, creathaidh agus cainte.</string>
+    <string name="alarm_test_open_settings">Oscail na socruithe</string>
+    <string name="alarm_test_quiet">Tá uaireanta ciúnais ar siúl anois: d’fhanfadh fíorfholáirimh go deireadh na n-uaireanta agus ansin bhuailfidís le fuaim.</string>
+    <string name="alarm_test_text">Seo an chuma agus an fhuaim atá ar fholáireamh.</string>
+    <string name="alarm_test_title">Tástáil: foláireamh Crypto Checker</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">Fuaim ar siúl</string>
+    <string name="alarm_a11y_speak_on">Caint ar siúl</string>
+    <string name="alarm_unchecked_no_candles">Níorbh fhéidir seiceáil (gan sonraí coinnle)</string>
+    <string name="alarm_unchecked_no_rate">Níorbh fhéidir seiceáil (gan ráta malairte)</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">Fógraí múchta – ní thiocfaidh an foláireamh seo chugat</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">Gan foláireamh – leachtacht íseal</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">Ag fanacht le praghas reatha</string>
+    <string name="alarm_enter_amount">Cuir luach isteach</string>
+    <string name="alarm_editor_more">Tuilleadh</string>
+    <string name="alarm_editor_more_summary">Foláirimh thapa, coinníollacha eile, fuaim agus guth</string>
+    <string name="alarm_reliability_storage_no_key">Foláirimh sa chúlra ar sos – liosta faire gan sábháil</string>
+    <string name="alarms_limit_reached">Is féidir %1$s foláireamh ar a mhéad a bheith ag péire.</string>
+    <string name="alarms_reference_rate_hint">Ní shocraítear rátaí tagartha an BCE ach uair sa lá – níl foláirimh ann dóibh.</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">Caithfidh titim a bheith níos lú ná 100 faoin gcéad.</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">Tairseach neamhbhailí – coigeartaigh í</string>
+
+    <string name="alarm_last_checked">Seiceáilte go deireanach %1$s</string>
+</resources>

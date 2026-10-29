@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">CSV امپورٹ کریں</string>
+    <string name="portfolio_csv_import_all_transfer">سب اپنے والیٹ میں</string>
+    <string name="portfolio_csv_import_all_withdrawal">سب پورٹ فولیو سے نکل جاتے ہیں</string>
+    <string name="portfolio_csv_import_choice_proposed">تجویز: %1$s سے مماثل</string>
+    <string name="portfolio_csv_import_choice_transfer">اپنے والیٹ میں (ٹرانسفر)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">پورٹ فولیو سے نکل جاتا ہے (نکلوائی)</string>
+    <string name="portfolio_csv_import_choose_each">ہر نکلوائی کے لیے منتخب کریں کہ وہ کہاں گئی۔</string>
+    <string name="portfolio_csv_import_columns">پہچانے گئے کالم: %1$s</string>
+    <string name="portfolio_csv_import_confirm">امپورٹ کریں (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">دن/مہینہ</string>
+    <string name="portfolio_csv_import_date_month_first">مہینہ/دن</string>
+    <string name="portfolio_csv_import_date_order">مبہم تاریخیں (مثلاً 03/04/2024) اس طرح پڑھی جائیں:</string>
+    <string name="portfolio_csv_import_decimal">مبہم اعداد (مثلاً %1$s) اس طرح پڑھے جائیں:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d لین دین امپورٹ ہوا</item>
+        <item quantity="other">%d لین دین امپورٹ ہوئے</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d پہلے سے امپورٹ شدہ (چھوڑ دیا گیا)</item>
+        <item quantity="other">%d پہلے سے امپورٹ شدہ (چھوڑ دیے گئے)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">فارمیٹ: %1$s</string>
+    <string name="portfolio_csv_import_line">سطر %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">فائل اور روزانہ شرحیں پڑھی جا رہی ہیں…</string>
+    <string name="portfolio_csv_import_progress">%2$s میں سے سطر %1$s</string>
+    <string name="portfolio_csv_import_saving">لین دین محفوظ ہو رہے ہیں…</string>
+    <string name="portfolio_csv_import_missing_fx">سطروں %1$s کے لیے روزانہ شرح نہیں – قیمت/فیس کے بغیر امپورٹ ہوا۔</string>
+    <string name="portfolio_csv_import_missing_price">فائل میں سطروں %1$s کی قیمت نہیں – قیمت کے بغیر امپورٹ ہوا۔</string>
+    <string name="portfolio_csv_import_more">+ %1$d مزید</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d نیا لین دین</item>
+        <item quantity="other">%d نئے لین دین</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d قطار چھوڑ دی گئی</item>
+        <item quantity="other">%d قطاریں چھوڑ دی گئیں</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">اسٹیبل کوائنز (USDT، USDC …) کے مقابل ٹریڈز سواپ کے طور پر درج ہوتی ہیں – اسٹیبل کوائن آپ کی ہولڈنگز میں نظر آتا ہے۔</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">کئی مماثلتیں ممکن – درست والی منتخب کریں یا کوئی نہیں۔</string>
+    <string name="portfolio_csv_import_transfer_fee">نیٹ ورک فیس: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">ایک ٹرانسفر کے طور پر درج کریں</string>
+    <string name="portfolio_csv_import_transfer_stored">پچھلے امپورٹ کا مقابل اندراج</string>
+    <string name="portfolio_csv_import_transfers_hint">ایک ہی کوائن کی نکلوائی اور اس سے مماثل ڈپازٹ ایک ٹرانسفر بن جاتے ہیں: قیمتِ خرید اور ہولڈنگ کی مدت برقرار رہتی ہے، فرق نیٹ ورک فیس شمار ہوتا ہے۔</string>
+    <string name="portfolio_csv_import_transfers_title">آپ کے اکاؤنٹس کے درمیان ٹرانسفرز</string>
+    <string name="portfolio_csv_import_unreadable">کوئی معاون لین دین نہیں ملا۔ معاون: Relai، Swissquote، Kraken، Binance، Coinbase اور Bitpanda کے CSV ایکسپورٹس۔</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
+    <string name="portfolio_csv_import_too_large">فائل امپورٹ کے لیے بہت بڑی ہے (زیادہ سے زیادہ 16 MB اور %1$s قطاریں)۔ کم مدت کے ایکسپورٹ بنا کر ایک ایک کر کے امپورٹ کریں۔</string>
+    <string name="portfolio_csv_import_failed">امپورٹ کام نہیں کیا – کچھ بھی محفوظ نہیں ہوا۔ براہ کرم دوبارہ کوشش کریں۔</string>
+    <string name="portfolio_csv_import_locked">امپورٹ ممکن نہیں: محفوظ ڈیٹا ابھی پڑھا نہیں جا سکتا۔ ایپ دوبارہ شروع کریں۔</string>
+    <string name="portfolio_csv_import_withdrawals_title">نکلوائیاں – کوائنز کہاں گئے؟</string>
+    <string name="portfolio_csv_import_zone">ٹائم زون کے بغیر اوقات اس طرح پڑھے جائیں: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">آلہ (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">تاریخ پڑھی نہیں جا سکی</string>
+    <string name="portfolio_csv_skip_bad_number">عدد پڑھا نہیں جا سکا</string>
+    <string name="portfolio_csv_skip_fee_exceeds">فیس ≥ وصول شدہ رقم</string>
+    <string name="portfolio_csv_skip_internal_move">آپ کے اپنے اکاؤنٹس کے درمیان منتقلی – درج کرنے کو کچھ نہیں</string>
+    <string name="portfolio_csv_skip_missing">خانہ موجود نہیں</string>
+    <string name="portfolio_csv_skip_ambiguous">ایک ہی سیکنڈ میں کئی ٹریڈز جو الگ نہیں کی جا سکتیں – دستی طور پر درج کریں</string>
+    <string name="portfolio_csv_skip_not_crypto">کرپٹو نہیں</string>
+    <string name="portfolio_csv_skip_possible_duplicate">شاید پہلے سے امپورٹ شدہ (تقریباً وہی ٹریڈ) – دستی طور پر چیک کریں</string>
+    <string name="portfolio_csv_skip_two_fees">مختلف اکائیوں میں دو فیسیں – سواپ دستی طور پر درج کریں</string>
+    <string name="portfolio_csv_skip_unsupported">غیر معاون قسم</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">کالعدم کریں</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">اس امپورٹ کا %d لین دین حذف کریں؟ دستی اندراجات اور دیگر امپورٹس باقی رہیں گے۔</item>
+        <item quantity="other">اس امپورٹ کے %d لین دین حذف کریں؟ دستی اندراجات اور دیگر امپورٹس باقی رہیں گے۔</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">امپورٹ کالعدم کریں؟</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">%d امپورٹ شدہ لین دین ہٹا دیا گیا</item>
+        <item quantity="other">%d امپورٹ شدہ لین دین ہٹا دیے گئے</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d لین دین</item>
+        <item quantity="other">%d لین دین</item>
+    </plurals>
+    <string name="portfolio_imports_empty">کوئی امپورٹ نہیں</string>
+    <string name="portfolio_imports_title">امپورٹس</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">وہی ٹرانزیکشن ID مختلف رقم کے ساتھ – دستی طور پر چیک کریں</string>
+    <string name="portfolio_csv_skip_staking_unpaired">مقابل اندراج کے بغیر اسٹیکنگ اندراج – ہولڈنگز چیک کریں</string>
+    <string name="portfolio_csv_skip_amount_too_small">رقم بہت کم – محفوظ کرتے وقت 0 بن جاتی ہے</string>
+    <string name="portfolio_csv_skip_invalid_swap">درست کوائن یا وصول شدہ رقم کے بغیر سواپ</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">فائل دوبارہ پڑھی جا رہی ہے …</string>
+</resources>

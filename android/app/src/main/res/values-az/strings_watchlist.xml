@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">Aktual · %1$s</string>
+    <string name="watchlist_empty_title">Hələ cüt yoxdur</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%2$d cütdən %1$d qiymətsiz</item>
+        <item quantity="other">%2$d cütdən %1$d qiymətsiz</item>
+    </plurals>
+    <string name="watchlist_last_run">Son icra %1$s</string>
+    <string name="watchlist_live_a11y">Canlı qiymətlər aktivdir</string>
+    <string name="watchlist_offline_since">Bağlantı yoxdur · vəziyyət: %1$s</string>
+    <string name="watchlist_pull_to_refresh">Yeniləmək üçün aşağı çək</string>
+    <string name="watchlist_refresh_report">Son yeniləmə</string>
+    <string name="watchlist_refresh_report_empty">Hələ təfərrüat yoxdur – indiyədək tam yeniləmə olmayıb. Yeniləməyə toxun və dairə dayanana qədər gözlə.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%2$d cütdən %1$d köhnəlib</item>
+        <item quantity="other">%2$d cütdən %1$d köhnəlib</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">Buradakı bütün cütlər deaktivdir</string>
+    <string name="watchlist_status_exchange_prices">Birjalarından qiymətlər · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">Birja qiymətləri · %1$s</string>
+    <string name="watchlist_status_group_empty">Bu qrupda cüt yoxdur</string>
+    <string name="watchlist_status_none_traded">Burada alınıb-satılan cüt yoxdur</string>
+    <string name="watchlist_updated">Yeniləndi: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">orta %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d düşür</item>
+        <item quantity="other">%1$d düşür</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d 24 saatlıq dəyərsiz</item>
+        <item quantity="other">%1$d 24 saatlıq dəyərsiz</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d bugünkü dəyərsiz</item>
+        <item quantity="other">%1$d bugünkü dəyərsiz</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d yüksəlir</item>
+        <item quantity="other">%1$d yüksəlir</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · deaktivdir</string>
+    <string name="watchlist_row_outdated">%1$s · köhnəlib</string>
+    <string name="watchlist_row_outdated_age">köhnəlib · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">Qiymət %1$s-dən bəri dəyişməyib</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s əlçatan deyil</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">Sona keç</string>
+    <string name="watchlist_jump_start">Əvvələ keç</string>
+    <string name="watchlist_search_close">Axtarışı bağla</string>
+    <string name="watchlist_search_empty">«%1$s» üçün uyğunluq yoxdur</string>
+    <string name="watchlist_search_hint">Cüt, ad və ya birja axtar</string>
+    <string name="watchlist_search_open">Axtar</string>
+    <string name="watchlist_sort_ascending">artan</string>
+    <string name="watchlist_sort_descending">azalan</string>
+    <string name="watchlist_sort_hint">Cütü basıb saxla və sürüşdür və ya tutacaqdan istifadə et. Seçilmişlər yuxarıda qalır.</string>
+    <string name="watchlist_sort_name">Ad</string>
+    <string name="watchlist_sort_own">Öz sıran</string>
+    <string name="watchlist_sort_price">Qiymət</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">İzləmə siyahısını təmizlə</string>
+    <string name="watchlist_clear_confirm">Bütün cütlər izləmə siyahısından silinsin? Onların alarmları da silinəcək.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d deaktiv</item>
+        <item quantity="other">%1$d deaktiv</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">Sil</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Öz birjasında artıq alınıb-satılmayan %1$d cüt silinsin? Onun alarmları da silinəcək.</item>
+        <item quantity="other">Öz birjalarında artıq alınıb-satılmayan %1$d cüt silinsin? Onların alarmları da silinəcək.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">Alınıb-satılmayan cütləri sil (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Alınıb-satılmayan cütləri sil</string>
+    <string name="watchlist_removed">%1$s silindi</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d cüt silindi</item>
+        <item quantity="other">%1$d cüt silindi</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">%1$d alınıb-satılmayan cüt silindi</item>
+        <item quantity="other">%1$d alınıb-satılmayan cüt silindi</item>
+    </plurals>
+    <string name="watchlist_select">Seç</string>
+    <string name="watchlist_select_all">Hamısını seç</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d seçilib</item>
+        <item quantity="other">%1$d seçilib</item>
+    </plurals>
+    <string name="watchlist_show_all">Hamısını göstər</string>
+    <string name="watchlist_show_only_disabled">Yalnız deaktivləri göstər</string>
+    <string name="watchlist_show_only_stale">Yalnız köhnəlmişləri göstər</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Alarm (%1$d)</item>
+        <item quantity="other">Alarmlar (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">Hələ seçilmiş yoxdur. Cütü sağa sürüşdür və ya cütü açıb «Seçilmiş» düyməsinə toxun.</string>
+    <string name="watchlist_group_empty_hint">Cütlərini seçmək üçün qrupa uzun bas.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">Qrupların burada görünəcək</string>
+    <string name="watchlist_notification">Qiymət bildirişi</string>
+    <string name="watchlist_tts">Qiyməti səsləndir</string>
+    <string name="watchlist_tts_speech_on">Səsli oxuma aktivdir. Onu Ayarlar › Alarmlar › Səsli oxuma bölməsində dəyişə bilərsən.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">Vidcet kimi əlavə et</string>
+    <string name="watch_action_alarm">Alarm</string>
+    <string name="watch_action_favorite">Seçilmiş</string>
+    <string name="watch_action_why">Onunla birlikdə nə hərəkət edir?</string>
+    <string name="watch_action_why_short">Onunla nə hərəkət edir?</string>
+    <string name="watch_change_mark">Mark</string>
+    <string name="watch_disable">Deaktiv et</string>
+    <string name="watch_disable_hint">Sorğu yoxdur, bildiriş yoxdur</string>
+    <string name="watch_disabled">Deaktivdir</string>
+    <string name="watch_disabled_banner">%1$s deaktiv edildi</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">Alarmlar qalır – onların hədlərini yoxla</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">Cütü redaktə et</string>
+    <string name="watch_enable">Aktiv et</string>
+    <string name="watch_enable_hint">Qiymətlər və bildirişlər bərpa olunur</string>
+    <string name="watch_enabled_banner">%1$s aktiv edildi</string>
+    <string name="watch_error_offline">Bağlantı yoxdur</string>
+    <string name="watch_gesture_hint_short">Toxun: alarm və «Onunla birlikdə nə hərəkət edir?» · seçmək üçün uzun bas · silmək üçün sola sürüşdür · seçilmiş üçün sağa sürüşdür</string>
+    <string name="watch_hint_tap_why">Alarmlar və «Onunla birlikdə nə hərəkət edir?» üçün koinə toxun</string>
+    <string name="watch_not_traded">Bu birjada artıq alınıb-satılmır</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">İzləmə siyahısında deyil</string>
+    <string name="watch_price_mid">orta qiymət (əks halda mark)</string>
+    <string name="watch_row_source_both">Dəyişiklik &amp; qrafik: %1$s</string>
+    <string name="watch_row_source_change">Dəyişiklik: %1$s</string>
+    <string name="watch_row_source_chart">Qrafik: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s indi izləmə siyahındadır</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s indi izləmə siyahındadır</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">Seçilmişlərə əlavə et</string>
+    <string name="favorite_added">%1$s seçilmişlərə əlavə edildi</string>
+    <string name="favorite_remove">Seçilmişlərdən çıxar</string>
+    <string name="favorite_removed">%1$s seçilmişlərdən çıxarıldı</string>
+    <string name="hint_favorites_list">İpucu: sətiri seçilmiş etmək üçün sağa sürüşdür – seçilmişlər yuxarıda qalır.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">Yeni qrup</string>
+    <string name="group_all">Hamısı</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Alpha tokenlər</string>
+    <string name="group_delete">Qrupu sil</string>
+    <string name="group_delete_confirm">Cütlər izləmə siyahında qalır.</string>
+    <string name="group_done">Hazırdır</string>
+    <string name="group_edit_title">Qrupu redaktə et</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">Seçilmişlər</string>
+    <string name="group_in_other">%1$s qrupunda</string>
+    <string name="group_name">Qrupun adı</string>
+    <string name="group_new">Yeni qrup…</string>
+    <string name="group_next">Növbəti</string>
+    <string name="group_none">Qrupsuz</string>
+    <string name="group_rename">Adını dəyiş</string>
+    <string name="group_search_hint">Cüt, ad və ya birja axtar</string>
+    <string name="group_target">Qrupda</string>
+    <string name="group_title">Qrup</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">Tokenlər</string>
+    <string name="group_value">Qrup: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">Qeyd əlavə et</string>
+    <string name="note_edit">Qeydi redaktə et</string>
+    <string name="note_hint">məs. giriş 0.42, hədəf 0.60</string>
+    <string name="note_remove">Sil</string>
+    <string name="note_title">Qeyd</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">Sıranı dəyişmək üçün sürüşdür</string>
+    <string name="sort_move_bottom">Ən aşağı köçür</string>
+    <string name="sort_move_down">Aşağı köçür</string>
+    <string name="sort_move_top">Ən yuxarı köçür</string>
+    <string name="sort_move_up">Yuxarı köçür</string>
+
+    <string name="watchlist_first_alarm_title">İlk alarmını qur</string>
+    <string name="watchlist_first_alarm_text">Qiymət sənin həddinə çatanda bildiriş al – tətbiq bağlı olanda Android qeyri-müntəzəm yoxlayır.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">mark price (orta qiymət yoxdur)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">saatlıq qiymət</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">İlk alarmını qur – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Yenilə (%1$d)</string>
+
+    <!-- Zeile der Merkliste: Börse pausiert (zu viele Anfragen / Zeitüberschreitungen) bis zu einer Uhrzeit, ersetzt die Zeitzeile, z. B. «Binance · pausiert bis 19:45» -->
+    <string name="watchlist_row_exchange_paused">%1$s · %2$s-dək dayandırılıb</string>
+
+    <string name="watchlist_refresh_just_done">İndicə yeniləndi · %1$d san əvvəl</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">son əqd %1$s</string>
+
+    <string name="change_candle_source_hint">%1$s şamlarından hesablanıb – birja özü bu dəyəri vermir.</string>
+    <string name="change_candle_source_action">Dəyişikliyin mənbəyini göstər</string>
+
+    <string name="watchlist_sort_by_coin">Koinə görə sırala</string>
+    <string name="watchlist_sort_by_exchange">Birjaya görə sırala</string>
+    <string name="watchlist_limit_reached">İzləmə siyahında ən çoxu %1$s cüt ola bilər.</string>
+    <string name="watch_price_reference">istinad məzənnəsi, günlük</string>
+    <string name="watch_price_daily">günlük</string>
+    <string name="watchlist_compare">Müqayisə et</string>
+    <string name="watchlist_compare_hint">Müqayisə üçün 2-dən 4-ə qədər cüt seç.</string>
+    <string name="compare_title">Müqayisə</string>
+    <string name="compare_basis">Xətlər dövrün əvvəlindən bəri faizlə dəyişikliyi göstərir.</string>
+    <string name="compare_from_high">30G maksimumla müqayisədə</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">%1$d cüt bərpa edilmədi – izləmə siyahısı doludur</item>
+        <item quantity="other">%1$d cüt bərpa edilmədi – izləmə siyahısı doludur</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">İzləmə siyahısı və onun alarmları hazırda yadda saxlanılmır. Bu və sonrakı bütün dəyişikliklər tətbiq bağlananda itəcək. Yenə də dəyişdirilsin?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">Yenə də dəyiş</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">%1$d cüt</item>
+        <item quantity="other">%1$d cüt</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">%2$d / %1$d cüt</item>
+        <item quantity="other">%2$d / %1$d cüt</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">%1$d yer qaldı</item>
+        <item quantity="other">%1$d yer qaldı</item>
+    </plurals>
+    <string name="watchlist_footer_full">İzləmə siyahısı doludur</string>
+</resources>

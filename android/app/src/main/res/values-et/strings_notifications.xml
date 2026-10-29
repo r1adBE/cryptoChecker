@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">Silmapaistev: %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — nüüd %2$s</string>
+    <string name="notification_alarm_title">Hoiatus: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">Ava börs</string>
+    <string name="notification_depeg_text">Rakenduse väärtused arvutatakse selle turuhinnaga.</string>
+    <string name="notification_depeg_title">USDT %1$s USD juures (%2$s)</string>
+    <string name="notification_fng_above">Indeks tõusis üle %1$d – selle mõõdiku järgi on turu meeleolu ahne.</string>
+    <string name="notification_fng_below">Indeks langes alla %1$d – selle mõõdiku järgi on turu meeleolu hirmunud.</string>
+    <string name="notification_fng_title">Meeleoluindeks (Fear &amp; Greed): %1$d</string>
+    <string name="notification_gas_btc_text">Alla sinu piiri %1$s sat/vB · Ülekanne ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoini tasu: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">Alla sinu piiri %1$s gwei · Ülekanne ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Ethereumi gaas: %1$s gwei</string>
+    <string name="notification_indicator_above">Üle sinu piiri %1$s – mõõdetud väärtus, mitte soovitus.</string>
+    <string name="notification_indicator_below">Alla sinu piiri %1$s – mõõdetud väärtus, mitte soovitus.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">Täna majandusandmed</string>
+    <string name="notification_permission_preprompt_continue">Jätka</string>
+    <string name="notification_permission_preprompt_later">Hiljem</string>
+    <string name="notification_permission_preprompt_text">Et hoiatused ja hinnamärguanded sinuni jõuaksid, vajab rakendus luba märguannete saatmiseks. Rakendus kasutab neid ainult sinu hoiatuste ja hinnamärguannete jaoks.</string>
+    <string name="notification_permission_preprompt_title">Kas lubada märguanded?</string>
+    <string name="notification_portfolio_alarm_locked">Sinu hoiatus käivitus – üksikasjade nägemiseks ava rakendus.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – nüüd %2$s</string>
+    <string name="notification_portfolio_alarm_title">Portfelli väärtus</string>
+    <string name="notification_price_change">%1$s, alates %2$s (%3$s tagasi)</string>
+    <string name="notification_price_change_no_age">%1$s, alates %2$s</string>
+    <string name="notification_price_first">Selle paari esimene hinnamärguanne</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+veel %1$d hind</item>
+        <item quantity="other">+veel %1$d hinda</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">Hindade uuendamine…</string>
+    <string name="notification_volume_spike_text">Maht %1$s× tavalisest viimase tunni jooksul</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">Hoiatused</string>
+    <string name="channel_alarms_description">Märguanne, kui hoiatus käivitub.</string>
+    <string name="channel_alarms_quiet">Hoiatused (vaikne aeg)</string>
+    <string name="channel_alarms_quiet_description">Hääletud hoiatused vaiksel ajal.</string>
+    <string name="channel_alarms_silent">Hoiatused (hääletu)</string>
+    <string name="channel_alarms_sound">Hoiatused (ainult heli)</string>
+    <string name="channel_alarms_sound_vibrate">Hoiatused (heli ja vibreerimine)</string>
+    <string name="channel_alarms_vibrate">Hoiatused (ainult vibreerimine)</string>
+    <string name="channel_prices">Hinnamärguanded</string>
+    <string name="channel_prices_description">Hääletu hinnamärguanne paari praeguse hinnaga.</string>
+    <string name="channel_service">Hindade uuendamine</string>
+    <string name="channel_service_description">Märguanne hindade uuendamise ajal.</string>
+    <string name="neutral_channel_market">Turuhoiatused</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, gaasitasud, „Silmapaistev“ ja majandusandmete kuupäevad</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">Hoiatus. %1$s, %2$s %3$s %4$s, nüüd %5$s</string>
+    <string name="tts_direction_down">on langenud</string>
+    <string name="tts_direction_funding_above">kõrge rahastamismääraga</string>
+    <string name="tts_direction_funding_below">madala rahastamismääraga</string>
+    <string name="tts_direction_move">liigub tugevalt</string>
+    <string name="tts_direction_near_high">on tipu lähedal</string>
+    <string name="tts_direction_near_low">on põhja lähedal</string>
+    <string name="tts_direction_oi_down">langevate avatud positsioonidega</string>
+    <string name="tts_direction_oi_up">kasvavate avatud positsioonidega</string>
+    <string name="tts_direction_up">on tõusnud</string>
+    <string name="tts_direction_volume_spike">mahu hüppega</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+
+    <!-- Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+    <string name="notification_alarm_action_snooze">1 h hiljem</string>
+    <string name="notification_alarm_action_edit">Kohanda</string>
+</resources>

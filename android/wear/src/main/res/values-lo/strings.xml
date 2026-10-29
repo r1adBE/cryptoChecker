@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">ຍັງບໍ່ໄດ້ເລືອກຫຼຽນ</string>
+    <string name="watch_loading">ກຳລັງໂຫຼດ…</string>
+    <string name="watch_error">ເຊື່ອມຕໍ່ກະດານແລກປ່ຽນບໍ່ໄດ້</string>
+    <string name="watch_updated">ຂໍ້ມູນເມື່ອ %1$s</string>
+    <string name="watch_refresh">ໂຫຼດຄືນໃໝ່</string>
+    <string name="watch_choose">ເລືອກຫຼຽນ</string>
+    <string name="watch_choose_hint">ຫຼຽນ: ສູງສຸດ %1$d</string>
+    <string name="watch_complication_label">ລາຄາ</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s ໃນ 24 ຊົ່ວໂມງ</string>
+    <string name="watch_mode_phone">ລາຍການ: ຄືກັບໂທລະສັບ</string>
+    <string name="watch_mode_own">ລາຍການ: ຂອງຕົນເອງ</string>
+    <string name="watch_phone_empty">ບໍ່ມີລາຍການທີ່ມັກໃນໂທລະສັບ</string>
+    <string name="a11y_watch_outdated">ລາຄາບໍ່ເປັນປັດຈຸບັນ</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="other">ອັບເດດຫຼ້າສຸດເມື່ອ %1$d ນາທີກ່ອນ</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="other">ອັບເດດຫຼ້າສຸດເມື່ອ %1$d ຊົ່ວໂມງກ່ອນ</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="other">ອັບເດດຫຼ້າສຸດເມື່ອ %1$d ມື້ກ່ອນ</item>
+    </plurals>
+</resources>

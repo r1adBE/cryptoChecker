@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">হালনাগাদ · %1$s</string>
+    <string name="watchlist_empty_title">এখনো কোনো পেয়ার নেই</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%2$dটির মধ্যে %1$dটি দাম ছাড়া</item>
+        <item quantity="other">%2$dটির মধ্যে %1$dটি দাম ছাড়া</item>
+    </plurals>
+    <string name="watchlist_last_run">শেষ চলেছে %1$s</string>
+    <string name="watchlist_live_a11y">লাইভ দাম চালু</string>
+    <string name="watchlist_offline_since">সংযোগ নেই · %1$s অনুযায়ী</string>
+    <string name="watchlist_pull_to_refresh">রিফ্রেশ করতে নিচে টানুন</string>
+    <string name="watchlist_refresh_report">শেষ রিফ্রেশ</string>
+    <string name="watchlist_refresh_report_empty">এখনো কোনো বিবরণ নেই – এখন পর্যন্ত কোনো পূর্ণ রিফ্রেশ হয়নি। রিফ্রেশে ট্যাপ করে বৃত্তটি থামা পর্যন্ত অপেক্ষা করুন।</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%2$dটির মধ্যে %1$dটি পুরোনো</item>
+        <item quantity="other">%2$dটির মধ্যে %1$dটি পুরোনো</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">এখানে সব পেয়ার নিষ্ক্রিয়</string>
+    <string name="watchlist_status_exchange_prices">আপনার এক্সচেঞ্জের দাম · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">এক্সচেঞ্জের দাম · %1$s</string>
+    <string name="watchlist_status_group_empty">এই গ্রুপে কোনো পেয়ার নেই</string>
+    <string name="watchlist_status_none_traded">এখানে লেনদেন হওয়া কোনো পেয়ার নেই</string>
+    <string name="watchlist_updated">আপডেট: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">গড় %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$dটি কমেছে</item>
+        <item quantity="other">%1$dটি কমেছে</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$dটি 24 ঘণ্টার মান ছাড়া</item>
+        <item quantity="other">%1$dটি 24 ঘণ্টার মান ছাড়া</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$dটি আজকের মান ছাড়া</item>
+        <item quantity="other">%1$dটি আজকের মান ছাড়া</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$dটি বেড়েছে</item>
+        <item quantity="other">%1$dটি বেড়েছে</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · নিষ্ক্রিয়</string>
+    <string name="watchlist_row_outdated">%1$s · পুরোনো</string>
+    <string name="watchlist_row_outdated_age">পুরোনো · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">%1$s থেকে দাম অপরিবর্তিত</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s-এ পৌঁছানো যাচ্ছে না</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">শেষে যান</string>
+    <string name="watchlist_jump_start">শুরুতে যান</string>
+    <string name="watchlist_search_close">খোঁজ বন্ধ করুন</string>
+    <string name="watchlist_search_empty">“%1$s”-এর কোনো মিল নেই</string>
+    <string name="watchlist_search_hint">পেয়ার, নাম বা এক্সচেঞ্জ খুঁজুন</string>
+    <string name="watchlist_search_open">খুঁজুন</string>
+    <string name="watchlist_sort_ascending">ঊর্ধ্বক্রমে</string>
+    <string name="watchlist_sort_descending">অধঃক্রমে</string>
+    <string name="watchlist_sort_hint">একটি পেয়ার ধরে টেনে আনুন, বা হ্যান্ডেল ব্যবহার করুন। প্রিয়গুলো উপরে থাকে।</string>
+    <string name="watchlist_sort_name">নাম</string>
+    <string name="watchlist_sort_own">নিজস্ব ক্রম</string>
+    <string name="watchlist_sort_price">দাম</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">ওয়াচলিস্ট খালি করুন</string>
+    <string name="watchlist_clear_confirm">ওয়াচলিস্ট থেকে সব পেয়ার সরাবেন? তাদের অ্যালার্টও সরে যাবে।</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$dটি নিষ্ক্রিয়</item>
+        <item quantity="other">%1$dটি নিষ্ক্রিয়</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">সরান</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">এক্সচেঞ্জে আর লেনদেন হয় না এমন %1$dটি পেয়ার সরাবেন? এর অ্যালার্টও সরে যাবে।</item>
+        <item quantity="other">এক্সচেঞ্জে আর লেনদেন হয় না এমন %1$dটি পেয়ার সরাবেন? এদের অ্যালার্টও সরে যাবে।</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">লেনদেনহীন পেয়ার সরান (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">লেনদেনহীন পেয়ার সরান</string>
+    <string name="watchlist_removed">%1$s সরানো হয়েছে</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$dটি পেয়ার সরানো হয়েছে</item>
+        <item quantity="other">%1$dটি পেয়ার সরানো হয়েছে</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">%1$dটি লেনদেনহীন পেয়ার সরানো হয়েছে</item>
+        <item quantity="other">%1$dটি লেনদেনহীন পেয়ার সরানো হয়েছে</item>
+    </plurals>
+    <string name="watchlist_select">বেছে নিন</string>
+    <string name="watchlist_select_all">সব বেছে নিন</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$dটি বেছে নেওয়া হয়েছে</item>
+        <item quantity="other">%1$dটি বেছে নেওয়া হয়েছে</item>
+    </plurals>
+    <string name="watchlist_show_all">সব দেখান</string>
+    <string name="watchlist_show_only_disabled">শুধু নিষ্ক্রিয়গুলো দেখান</string>
+    <string name="watchlist_show_only_stale">শুধু পুরোনোগুলো দেখান</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">অ্যালার্ট (%1$d)</item>
+        <item quantity="other">অ্যালার্ট (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">এখনো কোনো প্রিয় নেই। একটি পেয়ার ডানে সোয়াইপ করুন, বা পেয়ারটি খুলে “প্রিয়”-তে ট্যাপ করুন।</string>
+    <string name="watchlist_group_empty_hint">একটি গ্রুপের পেয়ার বেছে নিতে গ্রুপটি দীর্ঘক্ষণ চেপে ধরুন।</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">আপনার গ্রুপগুলো এখানে দেখা যাবে</string>
+    <string name="watchlist_notification">দামের নোটিফিকেশন</string>
+    <string name="watchlist_tts">দাম পড়ে শোনান</string>
+    <string name="watchlist_tts_speech_on">কণ্ঠে পড়ে শোনানো চালু আছে। সেটিংস › অ্যালার্ট › কণ্ঠে পড়ে শোনানো-তে এটি বদলানো যায়।</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">উইজেট হিসেবে যোগ করুন</string>
+    <string name="watch_action_alarm">অ্যালার্ট</string>
+    <string name="watch_action_favorite">প্রিয়</string>
+    <string name="watch_action_why">এর সঙ্গে আর কী নড়ছে?</string>
+    <string name="watch_action_why_short">সঙ্গে কী নড়ছে?</string>
+    <string name="watch_change_mark">মার্ক</string>
+    <string name="watch_disable">নিষ্ক্রিয় করুন</string>
+    <string name="watch_disable_hint">কোনো অনুরোধ নয়, কোনো নোটিফিকেশন নয়</string>
+    <string name="watch_disabled">নিষ্ক্রিয়</string>
+    <string name="watch_disabled_banner">%1$s নিষ্ক্রিয় করা হয়েছে</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">অ্যালার্ট থেকে যায় – তাদের সীমা যাচাই করুন</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">পেয়ার সম্পাদনা</string>
+    <string name="watch_enable">সক্রিয় করুন</string>
+    <string name="watch_enable_hint">দাম ও নোটিফিকেশন আবার শুরু হবে</string>
+    <string name="watch_enabled_banner">%1$s সক্রিয় করা হয়েছে</string>
+    <string name="watch_error_offline">সংযোগ নেই</string>
+    <string name="watch_gesture_hint_short">ট্যাপ: অ্যালার্ট ও “এর সঙ্গে আর কী নড়ছে?” · বেছে নিতে দীর্ঘক্ষণ চাপুন · মুছতে বাঁয়ে সোয়াইপ · প্রিয়র জন্য ডানে সোয়াইপ</string>
+    <string name="watch_hint_tap_why">অ্যালার্ট ও “এর সঙ্গে আর কী নড়ছে?”-এর জন্য একটি কয়েনে ট্যাপ করুন</string>
+    <string name="watch_not_traded">এই এক্সচেঞ্জে আর লেনদেন হয় না</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">ওয়াচলিস্টে নেই</string>
+    <string name="watch_price_mid">মধ্য দাম (নইলে মার্ক)</string>
+    <string name="watch_row_source_both">পরিবর্তন ও চার্ট: %1$s</string>
+    <string name="watch_row_source_change">পরিবর্তন: %1$s</string>
+    <string name="watch_row_source_chart">চার্ট: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s এখন আপনার ওয়াচলিস্টে</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s এখন আপনার ওয়াচলিস্টে</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">প্রিয়তে যোগ করুন</string>
+    <string name="favorite_added">%1$s প্রিয়তে যোগ হয়েছে</string>
+    <string name="favorite_remove">প্রিয় থেকে সরান</string>
+    <string name="favorite_removed">%1$s প্রিয় থেকে সরানো হয়েছে</string>
+    <string name="hint_favorites_list">টিপ: একটি সারি ডানে সোয়াইপ করে প্রিয় করুন – প্রিয়গুলো উপরে থাকে।</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">নতুন গ্রুপ</string>
+    <string name="group_all">সব</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Alpha টোকেন</string>
+    <string name="group_delete">গ্রুপ মুছুন</string>
+    <string name="group_delete_confirm">পেয়ারগুলো আপনার ওয়াচলিস্টে থেকে যাবে।</string>
+    <string name="group_done">সম্পন্ন</string>
+    <string name="group_edit_title">গ্রুপ সম্পাদনা</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">প্রিয়</string>
+    <string name="group_in_other">%1$s-এ</string>
+    <string name="group_name">গ্রুপের নাম</string>
+    <string name="group_new">নতুন গ্রুপ…</string>
+    <string name="group_next">পরবর্তী</string>
+    <string name="group_none">কোনো গ্রুপ নেই</string>
+    <string name="group_rename">নাম বদলান</string>
+    <string name="group_search_hint">পেয়ার, নাম বা এক্সচেঞ্জ খুঁজুন</string>
+    <string name="group_target">গ্রুপে</string>
+    <string name="group_title">গ্রুপ</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">টোকেন</string>
+    <string name="group_value">গ্রুপ: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">নোট যোগ করুন</string>
+    <string name="note_edit">নোট সম্পাদনা</string>
+    <string name="note_hint">যেমন 0.42-এ এন্ট্রি, লক্ষ্য 0.60</string>
+    <string name="note_remove">সরান</string>
+    <string name="note_title">নোট</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">ক্রম বদলাতে টানুন</string>
+    <string name="sort_move_bottom">একেবারে নিচে সরান</string>
+    <string name="sort_move_down">নিচে সরান</string>
+    <string name="sort_move_top">একেবারে উপরে সরান</string>
+    <string name="sort_move_up">উপরে সরান</string>
+
+    <string name="watchlist_first_alarm_title">আপনার প্রথম অ্যালার্ট সেট করুন</string>
+    <string name="watchlist_first_alarm_text">দাম আপনার নির্ধারিত মাত্রায় পৌঁছালে জানুন – অ্যাপ বন্ধ থাকলে Android অনিয়মিতভাবে যাচাই করে।</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">মার্ক প্রাইস (মধ্য দাম নেই)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">ঘণ্টাভিত্তিক দাম</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">আপনার প্রথম অ্যালার্ট সেট করুন – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">রিফ্রেশ (%1$d)</string>
+
+    <!-- Zeile der Merkliste: Börse pausiert (zu viele Anfragen / Zeitüberschreitungen) bis zu einer Uhrzeit, ersetzt die Zeitzeile, z. B. «Binance · pausiert bis 19:45» -->
+    <string name="watchlist_row_exchange_paused">%1$s · %2$s পর্যন্ত বিরত</string>
+
+    <string name="watchlist_refresh_just_done">এইমাত্র আপডেট · %1$d সে. আগে</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">শেষ ট্রেড %1$s</string>
+
+    <string name="change_candle_source_hint">%1$s ক্যান্ডেল থেকে হিসাব করা – এক্সচেঞ্জ নিজে এই মান দেয় না।</string>
+    <string name="change_candle_source_action">পরিবর্তনের উৎস দেখান</string>
+
+    <string name="watchlist_sort_by_coin">কয়েন অনুযায়ী সাজান</string>
+    <string name="watchlist_sort_by_exchange">এক্সচেঞ্জ অনুযায়ী সাজান</string>
+    <string name="watchlist_limit_reached">আপনার ওয়াচলিস্টে সর্বোচ্চ %1$sটি পেয়ার থাকতে পারে।</string>
+    <string name="watch_price_reference">রেফারেন্স রেট, দৈনিক</string>
+    <string name="watch_price_daily">দৈনিক</string>
+    <string name="watchlist_compare">তুলনা করুন</string>
+    <string name="watchlist_compare_hint">তুলনা করতে 2 থেকে 4টি পেয়ার বেছে নিন।</string>
+    <string name="compare_title">তুলনা</string>
+    <string name="compare_basis">রেখাগুলো সময়কালের শুরু থেকে শতাংশে পরিবর্তন দেখায়।</string>
+    <string name="compare_from_high">বনাম 30 দিনের সর্বোচ্চ</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">%1$dটি পেয়ার পুনরুদ্ধার হয়নি – ওয়াচলিস্ট পূর্ণ</item>
+        <item quantity="other">%1$dটি পেয়ার পুনরুদ্ধার হয়নি – ওয়াচলিস্ট পূর্ণ</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">ওয়াচলিস্ট ও এর অ্যালার্ট এই মুহূর্তে সংরক্ষিত হচ্ছে না। অ্যাপ বন্ধ হলে এটি ও পরবর্তী সব পরিবর্তন হারিয়ে যাবে। তবুও বদলাবেন?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">তবুও বদলান</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">%1$dটি পেয়ার</item>
+        <item quantity="other">%1$dটি পেয়ার</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">%1$dটি পেয়ারের মধ্যে %2$dটি</item>
+        <item quantity="other">%1$dটি পেয়ারের মধ্যে %2$dটি</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">আর %1$dটি জায়গা বাকি</item>
+        <item quantity="other">আর %1$dটি জায়গা বাকি</item>
+    </plurals>
+    <string name="watchlist_footer_full">ওয়াচলিস্ট পূর্ণ</string>
+</resources>

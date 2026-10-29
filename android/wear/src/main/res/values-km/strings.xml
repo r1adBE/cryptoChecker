@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">មិនទាន់ជ្រើសរើសកាក់ទេ</string>
+    <string name="watch_loading">កំពុងផ្ទុក…</string>
+    <string name="watch_error">មិនអាចភ្ជាប់ទៅផ្សារប្តូរបានទេ</string>
+    <string name="watch_updated">គិតត្រឹម %1$s</string>
+    <string name="watch_refresh">ផ្ទុកឡើងវិញ</string>
+    <string name="watch_choose">ជ្រើសរើសកាក់</string>
+    <string name="watch_choose_hint">កាក់៖ អតិបរមា %1$d</string>
+    <string name="watch_complication_label">តម្លៃ</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s ក្នុងរយៈពេល 24 ម៉ោង</string>
+    <string name="watch_mode_phone">បញ្ជី៖ ដូចទូរសព្ទ</string>
+    <string name="watch_mode_own">បញ្ជី៖ ផ្ទាល់ខ្លួន</string>
+    <string name="watch_phone_empty">គ្មានចំណូលចិត្តនៅលើទូរសព្ទទេ</string>
+    <string name="a11y_watch_outdated">តម្លៃហួសសម័យ</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="other">ធ្វើបច្ចុប្បន្នភាពចុងក្រោយ %1$d នាទីមុន</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="other">ធ្វើបច្ចុប្បន្នភាពចុងក្រោយ %1$d ម៉ោងមុន</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="other">ធ្វើបច្ចុប្បន្នភាពចុងក្រោយ %1$d ថ្ងៃមុន</item>
+    </plurals>
+</resources>

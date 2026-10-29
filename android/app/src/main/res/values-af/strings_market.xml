@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="one">%d min gelede</item>
+        <item quantity="other">%d min gelede</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">vandag %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed, Bitcoin-maatstawwe, dominansie, halvering</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">Meer markdata</string>
+    <string name="market_phase_trend_failed">Prysdata nie beskikbaar nie</string>
+    <string name="market_plain_direction_down_clear">Die totale waarde van alle kripto-geldeenhede is duidelik laer as 24 uur gelede (%1$s).</string>
+    <string name="market_plain_direction_down_slight">Die totale waarde van alle kripto-geldeenhede is effens laer as 24 uur gelede (%1$s).</string>
+    <string name="market_plain_direction_flat">Die totale waarde van alle kripto-geldeenhede het in 24 uur skaars verander (%1$s).</string>
+    <string name="market_plain_direction_up_clear">Die totale waarde van alle kripto-geldeenhede is duidelik hoër as 24 uur gelede (%1$s).</string>
+    <string name="market_plain_direction_up_slight">Die totale waarde van alle kripto-geldeenhede is effens hoër as 24 uur gelede (%1$s).</string>
+    <string name="market_plain_footnote">Beskryf die laaste 24 uur – geen voorspelling nie, geen beleggingsadvies nie.</string>
+    <string name="market_plain_mood_extreme_fear">Beleggers is nou baie bang: die stemmingsindeks (Fear &amp; Greed) staan op %1$d uit 100.</string>
+    <string name="market_plain_mood_extreme_greed">Beleggers is nou baie gierig: die stemmingsindeks (Fear &amp; Greed) staan op %1$d uit 100.</string>
+    <string name="market_plain_mood_fear">Beleggers is eerder bang: die stemmingsindeks (Fear &amp; Greed) staan op %1$d uit 100.</string>
+    <string name="market_plain_mood_greed">Beleggers is eerder gierig: die stemmingsindeks (Fear &amp; Greed) staan op %1$d uit 100.</string>
+    <string name="market_plain_mood_neutral">Beleggerstemming is gebalanseerd: die stemmingsindeks (Fear &amp; Greed) staan op %1$d uit 100.</string>
+    <string name="market_plain_standout_above_btc">%1$s val op: %2$s in 24 uur, ver bo Bitcoin (%3$s).</string>
+    <string name="market_plain_standout_against_btc">%1$s val op: %2$s in 24 uur, terwyl Bitcoin die ander kant toe gegaan het (%3$s).</string>
+    <string name="market_plain_standout_below_btc">%1$s val op: %2$s in 24 uur, ver onder Bitcoin (%3$s).</string>
+    <string name="market_plain_standout_futures_down">%1$s val op: buitengewoon baie futures-handelaars wed op dalende pryse.</string>
+    <string name="market_plain_standout_futures_up">%1$s val op: buitengewoon baie futures-handelaars wed op stygende pryse.</string>
+    <string name="market_plain_standout_quiet">Geen enkele munt val nou op nie.</string>
+    <string name="market_plain_standout_volume">%1$s val op: ongeveer %2$s keer soveel handel as gewoonlik.</string>
+    <string name="market_plain_title">Kortliks</string>
+    <string name="market_section_collapse">Versteek %1$s</string>
+    <string name="market_section_context">Sentiment &amp; siklus</string>
+    <string name="market_section_data">Markdata</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">Wys %1$s</string>
+    <string name="market_section_now">Nou</string>
+    <string name="market_source">Data: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="exchange_unavailable_error">Beurs nie beskikbaar nie</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">Inligting: %1$s</string>
+    <string name="market_info_alt_season_source">Daaglikse pryse: Binance · ongeveer elke 3 uur herbereken</string>
+    <string name="market_info_alt_season_what">Tel hoeveel van ongeveer 20 groot altcoins (bv. Ethereum, Solana, XRP) die afgelope 90 dae beter as Bitcoin gevaar het. Die waarde is hul aandeel van 0 tot 100.</string>
+    <string name="market_info_coin_source">Pryse: Binance of Bybit · ongeveer elke 15 minute herlaai</string>
+    <string name="market_info_dominance_how">As dominansie styg, vaar Bitcoin beter as die res van die mark; as dit daal, kry ander munte meer gewig. Stablecoins tel ook: as hul waarde groei, daal die Bitcoin-aandeel selfs al bly die Bitcoin-prys dieselfde.</string>
+    <string name="market_info_dominance_source">Bron: CoinGecko · ongeveer elke 30 minute herlaai</string>
+    <string name="market_info_dominance_what">Die aandeel van Bitcoin in die totale waarde van alle kripto-geldeenhede (markkapitalisasie). Daaronder is die aandeel van Ethereum.</string>
+    <string name="market_info_fear_greed_how">Onder 25 beteken uiterste vrees, bo 75 uiterste gierigheid, rondom 50 neutraal. Uitgevou wys die kaart die waardes van gister, \'n week gelede en \'n maand gelede. Nie \'n koop- of verkoopsein nie.</string>
+    <string name="market_info_fear_greed_source">Bron: alternative.me · een keer per dag \'n nuwe waarde</string>
+    <string name="market_info_fear_greed_what">\'n Sentimentindeks vir die kriptomark van 0 tot 100. alternative.me bereken dit uit verskeie insette, insluitend prysskommelings, handelsvolume, sosiale media en Bitcoin-dominansie.</string>
+    <string name="market_info_gas_how">Hoër waardes beteken die netwerk is besig en oordragte kos meer. Stadig, normaal en vinnig is fooie vir \'n latere of vinniger bevestiging. Uitgevou wys die kaart die benaderde koste van \'n eenvoudige oordrag.</string>
+    <string name="market_info_gas_source">Openbare RPC-nodusse, mempool.space · elke minuut herlaai</string>
+    <string name="market_info_gas_what">Wat \'n transaksie tans op elke netwerk kos. Op Ethereum en soortgelyke netwerke in gwei (een miljardste van \'n ETH per eenheid gas), op Bitcoin in sat/vB (satoshi\'s per virtuele greep van die transaksie).</string>
+    <string name="market_info_halving_source">Datum: uit blokhoogte en gemiddelde bloktyd (mempool.space), andersins volgens kalender · prysgeskiedenis: Coin Metrics, Binance, elke 12 uur herlaai</string>
+    <string name="market_info_halving_what">By die halvering word die beloning wat mynwerkers vir \'n nuwe Bitcoin-blok ontvang, gehalveer. Dit gebeur elke 210,000 blokke, ongeveer elke vier jaar. Daarna word slegs half soveel nuwe bitcoins per dag geskep.</string>
+    <string name="market_info_how">Hoe om dit te lees</string>
+    <string name="market_info_macro_how">Die nota verskyn net wanneer so \'n datum vandag of môre is. Rondom die vrystelling skommel pryse dikwels meer as gewoonlik. Die app wys net die datum, nie die syfers self nie.</string>
+    <string name="market_info_macro_source">Kalender van die app-webwerf · een keer per dag gelaai</string>
+    <string name="market_info_macro_what">Datums van belangrike Amerikaanse ekonomiese data: inflasie (CPI, PCE), produsentepryse (PPI), die werksverslag en rentekoersbesluite van die Amerikaanse Federale Reserwe. Sulke syfers beweeg dikwels ook kriptopryse.</string>
+    <string name="market_info_no_advice">Nie beleggingsadvies nie.</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · pryse elke uur, on-chain-waardes elke 12 uur herlaai</string>
+    <string name="market_info_pulse_how">Die opskrif noem die rigting; vou die kaart uit vir besonderhede. \'n Breë beweging beteken die meeste groot munte beweeg dieselfde kant toe. \'n Optimistiese hefboomstemming beteken baie handelaars wed met hefboom op stygende pryse, gemeet aan die befondsingskoers van Bitcoin-futures. \'n Momentopname, nie \'n voorspelling nie.</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · ongeveer elke 5 minute herlaai</string>
+    <string name="market_info_pulse_what">\'n Kort opsomming van die mark oor die laaste 24 uur: hoe Bitcoin, Ethereum en Solana beweeg, hoeveel van die grootste munte styg of daal, hoeveel Bitcoin nou verhandel word en wat die hefboomstemming is (gemeet aan die befondsingskoers van Bitcoin-futures).</string>
+    <string name="market_info_totals_how">Regs is die verandering in totale waarde oor 24 uur. Hoë volume beteken baie word verhandel – dit sê nie in watter rigting nie. Waar moontlik in die omskakelingsgeldeenheid gewys, andersins in Amerikaanse dollar.</string>
+    <string name="market_info_totals_source">Alle munte · CoinGecko · ongeveer elke 30 minute herlaai</string>
+    <string name="market_info_totals_what">Die totale waarde van alle kripto-geldeenhede (markkapitalisasie: prys maal sirkulerende aanbod, opgetel oor alle munte) en die handelsvolume van die laaste 24 uur.</string>
+    <string name="market_info_unusual_how">Elke munt wys sy mees opvallende waarneming, met die 24-uur-verandering regs. \'n Volume van 2× beteken twee keer die gewone omset. Opvallend beteken nóg goed nóg sleg.</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · ongeveer elke 10 minute herlaai</string>
+    <string name="market_info_unusual_what">Tot vyf munte uit die ongeveer 30 grootste (sonder stablecoins) wat vandag ongewoon optree: baie sterker of swakker as Bitcoin, teen die markrigting, met buitengewoon hoë handelsvolume of met \'n opvallende befondsingskoers.</string>
+    <string name="market_info_what">Wat is dit?</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">Markkapitalisasie</string>
+    <string name="market_cap_source">Alle munte · CoinGecko</string>
+    <string name="market_cap_title">Kriptomark</string>
+    <string name="market_volume_label">Volume 24h</string>
+
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">Besonderhede</string>
+    <string name="pulse_disclaimer">Geen voorspelling nie · Geen beleggingsadvies nie</string>
+    <string name="pulse_less">Wys minder</string>
+    <string name="pulse_now_title">Kriptopols</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">Verandering oor 24 uur</string>
+    <string name="pulse_section_factors">Faktore</string>
+    <string name="pulse_section_market">Mark vandag</string>
+    <string name="pulse_unavailable">Markdata tans nie beskikbaar nie</string>
+    <string name="pulse_updated">Soos op %1$s</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">Kalm mark</string>
+    <string name="pulse_headline_down">Breë swakheid</string>
+    <string name="pulse_headline_mixed">Gemengde prentjie</string>
+    <string name="pulse_headline_up">Breë sterkte</string>
+    <string name="pulse_lead_alts_stronger">Altcoins is sterker as Bitcoin.</string>
+    <string name="pulse_lead_broad_down">Die mark daal breed.</string>
+    <string name="pulse_lead_broad_up">Die mark styg breed.</string>
+    <string name="pulse_lead_btc_leads">Bitcoin styg die meeste.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin is sterker as die altcoins.</string>
+    <string name="pulse_lead_calm">Die mark beweeg skaars.</string>
+    <string name="pulse_lead_drift_down">Die mark sak stadig laer.</string>
+    <string name="pulse_lead_drift_up">Die mark kruip stadig hoër.</string>
+    <string name="pulse_lead_mixed">Die groot munte beweeg uitmekaar.</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">Hefboomstemming optimisties.</string>
+    <string name="pulse_detail_fund_negative">Hefboomstemming pessimisties.</string>
+    <string name="pulse_detail_fund_neutral">Hefboomstemming neutraal.</string>
+    <string name="pulse_detail_vol_above">Volume %1$s bo normaal.</string>
+    <string name="pulse_detail_vol_above_fund_high">Volume %1$s bo normaal, hefboomstemming optimisties.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Volume %1$s bo normaal, hefboomstemming pessimisties.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Volume %1$s bo normaal, hefboomstemming neutraal.</string>
+    <string name="pulse_detail_vol_below">Volume %1$s onder normaal.</string>
+    <string name="pulse_detail_vol_below_fund_high">Volume %1$s onder normaal, hefboomstemming optimisties.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Volume %1$s onder normaal, hefboomstemming pessimisties.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Volume %1$s onder normaal, hefboomstemming neutraal.</string>
+    <string name="pulse_detail_vol_normal">Volume normaal.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Volume normaal, hefboomstemming optimisties.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Volume normaal, hefboomstemming pessimisties.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Volume normaal, hefboomstemming neutraal.</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">Top %1$d: die grootste munte volgens markwaarde, sonder stablecoins; verandering oor 24 uur (CoinGecko).</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_note_broad_down">Breë uitverkoping: die meeste van die grootste munte daal.</string>
+    <string name="pulse_breadth_note_broad_up">Breë beweging: die meeste van die grootste munte styg.</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin daal, maar die meeste ander groot munte hou stand.</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin styg, maar die meeste ander groot munte doen nie mee nie.</string>
+    <string name="pulse_breadth_spoken">Top %1$d: %2$d op, %3$d af</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">Altcoins en Bitcoin beweeg eenders</string>
+    <string name="pulse_alts_stronger">Altcoins sterker as Bitcoin</string>
+    <string name="pulse_alts_weaker">Bitcoin sterker as altcoins</string>
+    <string name="pulse_chip_funding_high">Hefboomstemming optimisties</string>
+    <string name="pulse_chip_funding_negative">Hefboomstemming pessimisties</string>
+
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">Wys prys en aksies</string>
+    <string name="unusual_fact_against">Beweeg teen die mark</string>
+    <string name="unusual_fact_funding_high">Befondsing hoog (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Befondsing negatief (%1$s)</string>
+    <string name="unusual_fact_stronger">Beweeg baie sterker as BTC</string>
+    <string name="unusual_fact_volume">Volume %1$s× gewoonlik</string>
+    <string name="unusual_fact_weaker">Beweeg baie swakker as BTC</string>
+    <string name="unusual_nothing">Niks opvallends vandag nie</string>
+    <string name="unusual_source">Ongeveer 30 grootste munte sonder stablecoins · Binance, CoinGecko</string>
+    <string name="unusual_title">Opvallend</string>
+
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">Opvallend</string>
+    <string name="activity_indicator">Opvallend</string>
+    <string name="activity_sensitivity_less">Minder</string>
+    <string name="activity_sensitivity_more">Meer</string>
+    <string name="activity_sensitivity_normal">Normaal</string>
+    <string name="activity_signal_funding_long">Befondsing %1$s — baie longs met hefboom</string>
+    <string name="activity_signal_funding_short">Befondsing %1$s — baie shorts</string>
+    <string name="activity_signal_open_interest">Oop belang %1$s binne %2$d min</string>
+    <string name="activity_signal_open_interest_no_time">Oop belang %1$s</string>
+    <string name="activity_signal_price_move">Ongewone beweging: %1$s in een uur (%2$s× normaal)</string>
+    <string name="activity_signal_volume">Volume %1$s× normaal in die laaste uur</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%1$d van %2$d groot altcoins klop Bitcoin oor 90 dae</item>
+        <item quantity="other">%1$d van %2$d groot altcoins klop Bitcoin oor 90 dae</item>
+    </plurals>
+    <string name="insights_chart_axis">Jare sedert halvering</string>
+    <string name="insights_chart_hint">Prys as \'n veelvoud van die prys op halveringsdag (logskaal). Vroeëre siklusse is \'n patroon, nie \'n voorspelling nie.</string>
+    <string name="insights_cycle_chart">Siklusse sedert die halvering</string>
+    <string name="insights_dominance_eth">ETH %1$s van die totale mark</string>
+    <string name="insights_dominance_title">Bitcoin-dominansie</string>
+    <string name="insights_fng_history">Gister %1$s · \'n week gelede %2$s · \'n maand gelede %3$s</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="insights_halving_title">Bitcoin-halvering</string>
+    <string name="insights_source_dominance">Bron: CoinGecko, Binance</string>
+    <string name="insights_source_fng">Bron: alternative.me</string>
+    <string name="insights_source_history">Bron: Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">Uiterste vrees</string>
+    <string name="fng_extreme_greed">Uiterste gierigheid</string>
+    <string name="fng_fear">Vrees</string>
+    <string name="fng_greed">Gierigheid</string>
+    <string name="fng_neutral">Neutraal</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">Data soos op %1$s · werk tans by…</string>
+    <string name="cycle_from_top">%1$s vanaf top</string>
+    <string name="cycle_marker_bottom">Bodem %1$s</string>
+    <string name="cycle_marker_double_bottom">Dubbele bodem %1$s</string>
+    <string name="cycle_marker_double_top">Dubbele top %1$s</string>
+    <string name="cycle_marker_high_so_far">Hoogtepunt tot dusver</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">Top %1$s</string>
+    <string name="cycle_since_halving">%1$s sedert halvering</string>
+    <string name="halving_estimate_text">Volgende halvering volgens berekening rondom %1$s: %2$s blokke oor teen \'n gemiddeld van %3$s min per blok (huidige moeilikheidstydperk). \'n Projeksie, nie \'n belofte nie – bloktyd wissel.</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">Alarm: %1$s</string>
+    <string name="gas_slow_fast">Stadig %1$s · Vinnig %2$s</string>
+    <string name="gas_source">Openbare RPC-nodusse en mempool.space · Koste van \'n eenvoudige oordrag, sonder die L1-aandeel op L2\'s</string>
+    <string name="gas_title">Netwerkfooie</string>
+    <string name="gas_transfer_cost">Oordrag ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">VSA-inflasiedata (CPI)</string>
+    <string name="macro_fomc">VSA Fed-rentekoersbesluit</string>
+    <string name="macro_hint_list">%1$s – markte skommel dikwels meer op dae soos dié.</string>
+    <string name="macro_hint_today">Vandag %1$s: %2$s – markte skommel dikwels meer op dae soos dié.</string>
+    <string name="macro_hint_today_list">Vandag: %1$s – markte skommel dikwels meer op dae soos dié.</string>
+    <string name="macro_hint_tomorrow">Môre %1$s: %2$s – markte skommel dikwels meer op dae soos dié.</string>
+    <string name="macro_hint_tomorrow_list">Môre: %1$s – markte skommel dikwels meer op dae soos dié.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Vandag %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Môre %1$s %2$s</string>
+    <string name="macro_nfp">VSA-werksverslag</string>
+    <string name="macro_pce">VSA-verbruikersbestedingspryse (PCE)</string>
+    <string name="macro_ppi">VSA-produsentepryse (PPI)</string>
+    <string name="macro_released_list">Vandag vrygestel: %1$s.</string>
+    <string name="macro_released_one">Vandag om %1$s vrygestel: %2$s.</string>
+    <string name="macro_title">Ekonomiese data</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">Munt</string>
+    <string name="coin_no_data">Geen prysdata vir hierdie munt op Binance of Bybit nie.</string>
+    <string name="coin_price_only">Slegs op prys gebaseer – on-chain-data (MVRV, Puell, hashrate) is slegs vir Bitcoin vrylik beskikbaar.</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">Slegs %1$d dag se prysgeskiedenis – sommige aanwysers ontbreek.</item>
+        <item quantity="other">Slegs %1$d dae se prysgeskiedenis – sommige aanwysers ontbreek.</item>
+    </plurals>
+    <string name="coin_title">Muntanalise</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">Data: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">Stygers en dalers 24 h</string>
+    <string name="movers_gainers">Stygers</string>
+    <string name="movers_losers">Dalers</string>
+    <string name="movers_no_gainers">Geen munt het in 24 h gestyg nie</string>
+    <string name="movers_no_losers">Geen munt het in 24 h gedaal nie</string>
+    <string name="movers_source">CoinGecko, 24 h, top 100 sonder stablecoins</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">Wys almal</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">Wys minder</string>
+</resources>

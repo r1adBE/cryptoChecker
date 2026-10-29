@@ -35,7 +35,7 @@ PONADTO
 • Portfel opcjonalnie (włączany w Ustawieniach): zakupy, sprzedaże, swapy, transfery, nagrody, wpłaty i wypłaty; FIFO (domyślnie) lub średnia (Ø); adresy tylko do odczytu, bez seeda, dla BTC (też xpub), ETH i sieci EVM, SOL, TRX, XRP, LTC, ADA i TON; import CSV z Relai, Swissquote, Bitpanda, Kraken, Binance i Coinbase; podsumowanie roczne w CSV; osobna blokada. Bitpanda i Swissquote: bez własnej ceny, tylko przez CSV.
 • Czytelna dla wszystkich: zielony/czerwony lub niebieski/pomarańczowy, znak i strzałka zamiast samego koloru; TalkBack czyta każdy wiersz jako jedno zdanie
 • Kopia zapasowa i przywracanie do pliku – także między Androidem a iPhone’em
-• Tryb jasny i ciemny, pięć kolorów akcentu, 33 języki
+• Tryb jasny i ciemny, pięć kolorów akcentu, 75 języków
 • Open source (MIT) – kod jest publiczny na GitHubie
 
 Uwaga: Crypto Checker wyświetla ceny i portfel inwestycyjny, który wprowadzasz samodzielnie. Nie jest giełdą ani portfelem, nie handluje i nie udziela porad inwestycyjnych.

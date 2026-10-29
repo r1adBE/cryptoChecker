@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">कुनै कोइन छानिएको छैन</string>
+    <string name="watch_loading">लोड हुँदैछ…</string>
+    <string name="watch_error">एक्सचेन्जहरूमा पुग्न सकिएन</string>
+    <string name="watch_updated">%1$s सम्मको</string>
+    <string name="watch_refresh">रिफ्रेस गर्नुहोस्</string>
+    <string name="watch_choose">कोइन छान्नुहोस्</string>
+    <string name="watch_choose_hint">कोइन: बढीमा %1$d</string>
+    <string name="watch_complication_label">मूल्य</string>
+    <string name="a11y_watch_row">%1$s %2$s, 24 घण्टामा %3$s</string>
+    <string name="watch_mode_phone">सूची: फोनजस्तै</string>
+    <string name="watch_mode_own">सूची: आफ्नै</string>
+    <string name="watch_phone_empty">फोनमा कुनै मनपर्ने छैन</string>
+    <string name="a11y_watch_outdated">मूल्य पुरानो भयो</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">%1$d मिनेटअघि अन्तिम पटक अपडेट गरिएको</item>
+        <item quantity="other">%1$d मिनेटअघि अन्तिम पटक अपडेट गरिएको</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">%1$d घण्टाअघि अन्तिम पटक अपडेट गरिएको</item>
+        <item quantity="other">%1$d घण्टाअघि अन्तिम पटक अपडेट गरिएको</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">%1$d दिनअघि अन्तिम पटक अपडेट गरिएको</item>
+        <item quantity="other">%1$d दिनअघि अन्तिम पटक अपडेट गरिएको</item>
+    </plurals>
+</resources>

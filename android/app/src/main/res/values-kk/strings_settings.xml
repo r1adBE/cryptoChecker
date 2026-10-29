@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">Өзіндік</string>
+    <string name="settings_group_general">Жалпы</string>
+    <string name="settings_group_more">Қосымша</string>
+    <string name="settings_minutes">%1$d мин</string>
+    <string name="settings_row_about">Қолданба туралы</string>
+    <string name="settings_row_alarms">Ескертулер</string>
+    <string name="settings_row_currency">Валюта</string>
+    <string name="settings_row_dated_futures">Мерзімді фьючерстер</string>
+    <string name="settings_row_updates">Бағам жаңартулары</string>
+    <string name="settings_row_watchlist">Бақылау тізімі</string>
+    <string name="settings_search_hint">Параметрлерді іздеу</string>
+    <string name="settings_seconds">%1$d с</string>
+    <string name="settings_section_about">Ақпарат</string>
+    <string name="settings_section_appearance">Сыртқы түрі</string>
+    <string name="settings_section_developer">Әзірлеуші</string>
+    <string name="settings_section_language">Тіл</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">Қосулы</string>
+    <string name="settings_title">Параметрлер</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">Ескерту қайта іске қосылғанға дейінгі тыныш уақыт</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Ескерту сигналы</string>
+    <string name="settings_alarm_signal_open_system">Жүйе параметрлерінде баптау</string>
+    <string name="settings_alarm_signal_system_hint">Телефоныңыздың хабарландыру параметрлеріне сәйкес.</string>
+    <string name="settings_alarm_sound">Ескерту дыбысы</string>
+    <string name="settings_alarm_sound_custom">Өзіндік дыбыс</string>
+    <string name="settings_alarm_sound_default">Әдепкі дыбыс</string>
+    <string name="settings_alarm_sound_error">Дыбысты пайдалану мүмкін болмады.</string>
+    <string name="settings_alarm_sound_file">Өз аудио файлыңыз…</string>
+    <string name="settings_alarm_sound_reset">Әдепкі дыбысты пайдалану</string>
+    <string name="settings_alarm_sound_system">Жүйелік дыбысты таңдау…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Қолданба белгішесіндегі сан</string>
+    <string name="settings_app_badge_hint">Ашық ескерту хабарландыруларын санайды. Сан немесе нүкте шығуы басты экранға байланысты (мысалы, Samsung: «Санмен көрсету»).</string>
+    <string name="settings_exact_checks">Уақытылы тексеру</string>
+    <string name="settings_exact_checks_grant">Оятқыштар мен еске салғыштарға рұқсат ету</string>
+    <string name="settings_exact_checks_hint">Android құрылғы бос тұрса да шамамен 15 минут сайын тексереді. Батареяны сәл көбірек жұмсайды.</string>
+    <string name="settings_exact_checks_nothing">Белсенді жұп жоқ – тексеретін ештеңе жоқ.</string>
+    <string name="settings_exact_checks_permission_missing">Рұқсат жоқ – құрылғы тыныштықта тұрғанда Android тұрақсыз тексереді, кейде бірнеше сағаттан кейін ғана.</string>
+    <string name="settings_notification_change">Тек бағам өзгергенде хабарлау</string>
+    <string name="settings_notification_change_always">Әрқашан</string>
+    <string name="settings_percent_invalid">0-ден 100-ге дейінгі мән енгізіңіз.</string>
+    <string name="settings_notification_change_hint">Бағам хабарландыруы бағам соңғысынан бері кемінде осынша өзгергенде ғана шығады. Деректер жоқ кезде ештеңе көрсетілмейді. Ескертулерге әсер етпейді.</string>
+    <string name="settings_ongoing_notifications">Сырғытып жабу мүмкін емес</string>
+    <string name="settings_ongoing_notifications_hint">Бағам хабарландыруларын бекітулі ұстайды.</string>
+    <string name="settings_price_notifications">Бағам хабарландырулары</string>
+    <string name="settings_price_notifications_hint">Қосылған жұптардың ағымдағы бағамын күй жолағында көрсету.</string>
+    <string name="settings_price_pairs">Жұптар</string>
+    <string name="settings_price_pairs_all_off">Барлығы өшірулі</string>
+    <string name="settings_price_pairs_all_on">Барлығы қосулы</string>
+    <string name="settings_price_pairs_count">%2$d ішінен %1$d</string>
+    <string name="settings_price_pairs_empty">Бақылау тізімінде әлі жұп жоқ.</string>
+    <string name="settings_price_pairs_hint">Хабарландыру жолағында қай жұптардың бағамы көрсетілетінін таңдаңыз.</string>
+    <string name="settings_quiet_hours">Тыныш сағаттар</string>
+    <string name="settings_quiet_hours_from">Бастап</string>
+    <string name="settings_quiet_hours_hint">%1$s мен %2$s аралығында ескертулер тыныш сағаттар біткенше күтіп, содан кейін дыбыспен келеді. Басқа хабарландырулар дыбыссыз, сөйлеусіз келеді.</string>
+    <string name="settings_quiet_hours_to">Дейін</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">Аралық</string>
+    <string name="settings_background_updates">Фондық жаңартулар</string>
+    <string name="settings_battery_hint">Шектелген болса, Android фондық жаңартуларды бірнеше сағатқа кешіктіруі мүмкін.</string>
+    <string name="settings_battery_ok">Батарея пайдалану: шектеусіз</string>
+    <string name="settings_battery_restricted">Батарея пайдалану: шектелген</string>
+    <string name="settings_check_runs_empty">Әзірге тексеру жазылмаған.</string>
+    <string name="settings_check_runs_honest_android">Қашан тексеруді Android шешеді – мұнда оның шынымен қашан болғанын көресіз.</string>
+    <string name="settings_check_runs_honest_ios">Қашан тексеруді iOS шешеді – мұнда оның шынымен қашан болғанын көресіз.</string>
+    <string name="settings_check_runs_title">Соңғы тексерулер</string>
+    <string name="settings_http_log">HTTP журналын көрсету</string>
+    <string name="settings_http_log_hint">Биржаларға жіберілген сұрауларды «Жұп қосу» бетінің төменгі жағында көрсетеді – ақауларды іздеу үшін.</string>
+    <string name="settings_live_service">Жиі жаңарту</string>
+    <string name="settings_live_websocket">Тікелей бағамдар</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">Назар аударарлық: хабарлау</string>
+    <string name="settings_activity_alerts_hint">Бір жұпқа сағатына ең көбі бір рет: әдеттен тыс баға қозғалыстары, көлем секірулері және фьючерс шектері (Binance деректері).</string>
+    <string name="settings_activity_sensitivity">Сезімталдық</string>
+    <string name="settings_activity_sensitivity_hint">Монетаның қаншалықты оңай әдеттен тыс саналатыны – бақылау тізімі картасы мен нарық ескертулері үшін бірдей. «Азырақ» таңдалса, карта тек ең күшті 3-еуін көрсетеді.</string>
+    <string name="settings_watchlist_activity_card">Назар аударарлық: тізімде көрсету</string>
+    <string name="settings_watchlist_activity_card_hint">Топтардың жанында ⚡ белгісін көрсетеді: дәл қазір бірдеңе болып жатқан жұптарды ғана көру үшін оны түртіңіз. Оның хабарландырулары Нарық ескертулері бөлімінде бапталады.</string>
+    <string name="settings_watchlist_names">Атауларды көрсету</string>
+    <string name="settings_watchlist_names_hint">Жұптың астындағы атау, мысалы Bitcoin немесе NVIDIA. Логотип тізімдерімен бірге келеді, барлық монета үшін бір рет жүктеледі.</string>
+    <string name="settings_watchlist_sparkline">Бақылау тізіміндегі шағын график</string>
+    <string name="settings_watchlist_sparkline_hint">Бағамның жанындағы 24 сағаттық тренд</string>
+    <string name="settings_watchlist_value_names">Атаулар</string>
+    <string name="settings_watchlist_value_price_only">Тек бағам</string>
+    <string name="settings_watchlist_value_sparkline">Шағын график</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Alpha токендерімен (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Alpha токендері: Binance Alpha тізіміндегі ерте, көбіне шағын жобалар – жиі саудасы аз және өте құбылмалы.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">Токендерге жатады. «Тек TradFi» таңдалғанда қолжетімсіз; бақылау тізіміңіздегі Alpha токендері қалады.</string>
+    <string name="settings_asset_scope_both">Токендер және TradFi</string>
+    <string name="settings_asset_scope_both_hint">Бәрі – крипто және TradFi</string>
+    <string name="settings_asset_scope_hint">Жұп қосқанда таңдау мен іздеу қай жұптарды көрсететінін анықтайды. Бақылау тізіміңіздегі жұптар әрқашан қалады.</string>
+    <string name="settings_asset_scope_title">Токендер &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">Тек токендер</string>
+    <string name="settings_asset_scope_tokens_hint">Крипто: спот және мәңгілік келісімшарттар</string>
+    <string name="settings_asset_scope_tradfi">Тек TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">Акцияларға, шикізатқа, валютаға фьючерстер – келісімшарттар, токендер емес</string>
+    <string name="settings_rolling_futures">Тоқсандық &amp; басқа мерзімді фьючерстерді қоса</string>
+    <string name="settings_rolling_futures_hint">Өшірулі: биржа тізімінде жоқ мерзімді фьючерстер бір-бірлеп тексерілудің орнына енді саудаланбайды деп белгіленеді. Әр жаңартуда уақыт үнемдейді.</string>
+    <string name="settings_rolling_futures_qtly">Тоқсандық &amp; басқа мерзімді фьючерстерді қоса (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">Токендерге жатады. «Тек TradFi» таңдалғанда қолжетімсіз; бақылау тізіміңіздегі мерзімді фьючерстерге бәрібір қолданылады.</string>
+    <string name="settings_tradfi_futures">Акциялар, шикізат және валюта (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Жұп таңдағанда акцияларға, алтын мен басқа шикізатқа, валюталарға және IPO-ға дейінгі компанияларға фьючерстерді де көрсетеді. Бұлар – келісімшарттар, токендер емес.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">Акцент түсі</string>
+    <string name="settings_accent_hint">Қолданба, виджеттер және қолданба белгішесі үшін түс. Кейбір басты экрандар белгіше өзгергенде оны алып тастайды – сонда оны қайта қосыңыз.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Монета логотиптері</string>
+    <string name="settings_coin_logos_app">Қолданбада</string>
+    <string name="settings_coin_logos_app_hint">Бақылау тізімі, ашылған жұп және нарық карталары</string>
+    <string name="settings_coin_logos_footer">Логотиптер CoinGecko-дан, ал CoinGecko тізімінде жоқ монеталар үшін (мысалы, алтын, күміс, акциялар) Binance-тен алынады. Қолданба барлық логотипті бірден жүктеп, осы құрылғыда сақтайды, сондықтан провайдерлердің ешқайсысы сіз қай монеталарды бақылайтыныңызды біле алмайды. Логотипі жоқ монеталар бас әріптерін көрсетеді. Таңдаулылардың логотипінде кішкене жұлдыз болады. Ауыстырғыш өшірулі жерде логотип те, бас әріптер де көрсетілмейді; барлық ауыстырғыш өшірулі болса, ештеңе жүктелмейді.</string>
+    <string name="settings_coin_logos_portfolio">Портфельде</string>
+    <string name="settings_coin_logos_portfolio_hint">Позициялар, монета мәліметтері және талдаулар</string>
+    <string name="settings_coin_logos_value_app">Қолданба</string>
+    <string name="settings_coin_logos_widgets">Виджеттерде</string>
+    <string name="settings_coin_logos_widgets_hint">Бақылау тізімі және бір монеталық виджеттер</string>
+    <string name="settings_high_contrast">Жоғары контраст</string>
+    <string name="settings_high_contrast_hint">Бағамның күштірек түстері және қараңғырақ қосалқы мәтін. Жүйе көбірек контраст сұрағанда да қосулы.</string>
+    <string name="settings_language_choose">Тілді таңдау</string>
+    <string name="settings_language_system">Жүйе тілі</string>
+    <string name="settings_price_colors">Бағам түстері</string>
+    <string name="settings_price_colors_hint">Көк / қызғылт сарыны түс қабылдаудың кез келген бұзылысында (қызыл-жасыл және көк-сары) оңай ажыратуға болады. Бағыт әрқашан + / − арқылы да көрсетіледі.</string>
+    <string name="settings_theme_mode">Жарық / Қараңғы</string>
+    <string name="settings_widgets">Виджеттер</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">%1$s өзгерісі &amp; график уақыт белдеуі</string>
+    <string name="settings_change_basis_hint_1">Таңдалған уақыт белдеуі пайыздық өзгерістің қашаннан бастап есептелетінін (бақылау тізімі, пульс жолы, ашылған жұп, виджеттер) және графиктерде көрсетілетін уақытты анықтайды.</string>
+    <string name="settings_change_basis_hint_2">«%1$s» дәл 24 сағат бұрынғы бағаммен салыстырады. «00:00» сол уақыт белдеуіндегі түн ортасындағы ашылу бағасымен салыстырады.</string>
+    <string name="settings_change_basis_hint_3">Ескертулерге әсер етпейді.</string>
+    <string name="settings_change_basis_hint_since_last">«%1$s» алдыңғы жаңартудағы бағаммен салыстырады. Тікелей бағамдармен ол 0%%-ға жақын болады.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">Айырбастау валютасы</string>
+    <string name="settings_conversion_currency_hint">Сондай-ақ портфель, валютаңыздағы ескертулер, крипто нарығы картасы және портфель виджеті үшін қолданылады.</string>
+    <string name="settings_cost_method">Құнды есептеу әдісі</string>
+    <string name="settings_cost_method_average">Орташа құн</string>
+    <string name="settings_cost_method_average_hint">Сатулар жылжымалы орташа сатып алу бағасымен бағаланады.</string>
+    <string name="settings_cost_method_fifo">FIFO (әдепкі)</string>
+    <string name="settings_cost_method_fifo_hint">Барлық биржа мен әмиян бойынша алдымен ең ескі монеталар сатылады.</string>
+    <string name="settings_cost_method_fifo_wallet">Әмиян/биржа бойынша FIFO</string>
+    <string name="settings_cost_method_fifo_wallet_hint">Әр биржа немесе әмиян ішінде алдымен ең ескі монеталар; аударымдар лоттарды сатып алу күнімен бірге ауыстырады.</string>
+    <string name="settings_portfolio_lock">Портфель құлпы</string>
+    <string name="settings_portfolio_lock_footer">Құлып экрандағыны жасырады. Деректеріңіз осы құрылғыда сақталады және құрылғы шифрлауымен қорғалған. Сақтық көшірмелерді құпиясөзбен қорғауға болады.</string>
+    <string name="settings_portfolio_lock_hint">Тек портфельді жасырады: саусақ ізімен, бетпен немесе құрылғы PIN кодымен ашылады. Фонда бір минуттан астам болғаннан кейін қайта құлыпталады. Бақылау тізімі, ескертулер және басқа виджеттер ашық қалады.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Құрылғы PIN коды немесе құпия кодсыз құлып ештеңені жасырмайды – экран құлпын орнатыңыз.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Портфель жүйелік сақтық көшірмеде</string>
+    <string name="settings_portfolio_system_backup_hint">Өшірулі: транзакцияларыңыз құрылғының жүйелік сақтық көшірмесіне және телефоннан телефонға тасымалдауға кірмейді. Оларды жаңа телефонға көшіру үшін қолданбаның құпиясөзі бар өз сақтық көшірмесін пайдаланыңыз.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Android 9 немесе одан жаңасы қажет – ескі нұсқалар портфельді Google сақтық көшірмесінде шифрсыз сақтар еді.</string>
+    <string name="settings_portfolio_tab">«Портфель» қойындысын көрсету</string>
+    <string name="settings_portfolio_value_locked">Қосулы, құлыппен</string>
+    <string name="settings_show_converted">Айырбасталған бағамдар</string>
+    <string name="settings_show_converted_hint">Бақылау тізіміндегі бағамдарды %1$s бойынша да көрсетеді</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">USDT депегі туралы хабарлау</string>
+    <string name="settings_depeg_alarm_hint">USDT 1 USD-ден шек мөлшеріне ауытқығанда бір рет хабарлайды (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_threshold">Депег шегі</string>
+    <string name="settings_fng_above">Fear &amp; Greed: жоғары болса хабарлау</string>
+    <string name="settings_fng_below">Fear &amp; Greed: төмен болса хабарлау</string>
+    <string name="settings_gas_alert_hint">Қалыпты комиссия шектен төмен түскенде бір рет хабарлайды. Бағам жаңартулары кезінде, ең жиі 10 минут сайын тексеріледі.</string>
+    <string name="settings_gas_btc_below">Bitcoin комиссиясы төмен (sat/vB)</string>
+    <string name="settings_gas_eth_below">Ethereum газы төмен (gwei)</string>
+    <string name="settings_ind_ath_within">Тарихи максимумнан құлдырау ең көбі</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple жоғары</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple төмен</string>
+    <string name="settings_ind_mvrv_above">MVRV жоғары</string>
+    <string name="settings_ind_mvrv_below">MVRV төмен</string>
+    <string name="settings_indicator_alerts_hint">Bitcoin индикаторлары, күніне екі рет тексеріледі. Шектерді сіз таңдайсыз – қолданба мәндерді бағаламайды.</string>
+    <string name="settings_macro_notifications">Экономикалық күнтізбе</string>
+    <string name="settings_macro_notifications_hint">АҚШ-тың маңызды экономикалық деректері (инфляция, жұмыспен қамту есебі, ФРЖ шешімі) бар күндері 08:00-де. Күнтізбе қолданба сайтынан алынады, күніне бір рет жүктеледі.</string>
+    <string name="settings_market_alerts">Нарық ескертулері</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d белсенді</item>
+        <item quantity="other">%1$d белсенді</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">Сөйлеу жылдамдығы: %1$.1f×</string>
+    <string name="settings_tts">Дауыстап оқу</string>
+    <string name="settings_tts_alarms_only">Тек ескертулер</string>
+    <string name="settings_tts_alarms_only_hint">Өшірулі: «Бағамды дауыстап оқу» белгіленген жұптың әр жаңартуы оқылады.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">Бағамдар мен ескертулерді дауыстап оқиды. Құрылғы дыбыссыз немесе діріл режимінде болса, үндемейді.</string>
+    <string name="settings_tts_test">Дауысты сынау</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">Қолданбаны қалпына келтіру</string>
+    <string name="settings_reset_app_action">Барлығын жою</string>
+    <string name="settings_reset_app_confirm">Бақылау тізімін, ескертулерді, портфельді, параметрлерді және барлық сақталған деректі орнатқаннан кейінгідей жояды. Мұны болдырмау мүмкін емес. Кеңес: алдымен сақтық көшірме жасаңыз. Құрылғының сақтық көшірмелері (Google сақтық көшірмесі немесе iCloud/компьютер сақтық көшірмесі) келесі көшірме жасалғанша бұрынғы деректерді сақтайды.</string>
+    <string name="settings_reset_app_title">Қолданбаны қалпына келтіру керек пе?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">Валютаны іздеу</string>
+    <string name="language_search">Тілді іздеу</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">Қараңғы</string>
+    <string name="theme_light">Жарық</string>
+    <string name="theme_system">Жүйелік</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">Көк</string>
+    <string name="accent_green">Жасыл</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">Қызғылт сары</string>
+    <string name="accent_red">Қызыл</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">Қытайда, Жапонияда, Кореяда және Тайваньда кең тараған</string>
+    <string name="price_colors_swap">Түстерді ауыстыру (өсу ↔ төмендеу)</string>
+    <string name="price_style_calm">Байсалды</string>
+    <string name="price_style_calm_color_vision">Байсалды · Түс қабылдау бұзылысы</string>
+    <string name="price_style_color_vision">Түс қабылдау бұзылысы</string>
+    <string name="price_style_fresh">Жарқын</string>
+    <string name="price_style_traditional">Дәстүрлі</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">Биржа қосылымдары нақты жауаптармен соңғы рет тексерілген: %1$s</string>
+    <string name="about_license">Бағамдар тікелей биржалардан келеді; тіркелгісіз және бақылаусыз.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">Лицензиялар</string>
+    <string name="about_privacy_policy">Құпиялылық саясаты</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">Биржа сұрау</string>
+    <string name="about_source_code">GitHub-тағы бастапқы код</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker – r1AD-тың тәуелсіз жобасы: тіркелгісіз, жарнамасыз және бақылаусыз байсалды бағам шолуы. Сұрақтар мен тілектер: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker – ашық бастапқы кодты (MIT License).</string>
+    <string name="licenses_font_title">Rubik қарпі</string>
+    <string name="licenses_icons_bundled_text">Қолданбамен бірге жеткізіледі: Christopher Downer және қатысушылардың «Cryptocurrency Icons» белгішелері (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal лицензиясымен жарияланған. Олар CoinGecko немесе Binance логотиптері жүктелгенше көрсетіледі. Атаулар мен логотиптер өз жобаларының сауда белгілері болып қалады.</string>
+    <string name="licenses_icons_title">Резервтік монета белгішелері</string>
+    <string name="licenses_libraries_intro">Қолданба Apache License 2.0 бойынша мына кітапханаларды пайдаланады:</string>
+    <string name="licenses_libraries_title">Android кітапханалары</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">Әзірлеуші опцияларын ашуға тағы %d түрту</item>
+        <item quantity="other">Әзірлеуші опцияларын ашуға тағы %d түрту</item>
+    </plurals>
+    <string name="developer_unlocked">Әзірлеуші опциялары ашылды</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Діріл iPhone параметрлеріне сәйкес (Дыбыстар &amp; Тактилді сигналдар).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Жаңа ескертулер мен нарық ескертулерін санайды; қолданбаны ашқанда 0-ге қайтады.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Деректеріңіз</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">Осы құрылғыда</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Бақылау тізімі, ескертулер және портфель осы құрылғыда шифрланып сақталады; тіркелгі жоқ, өз серверіміз жоқ.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Қосылымдар</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Бағамдар тікелей жұптарыңыздың биржаларынан, сондай-ақ айырбас бағамдары, монета тізімдері мен логотиптер және GitHub-тағы деректер айнасынан келеді; олар IP мекенжайыңызды көреді, ешқашан активтеріңізді емес (бақыланатын мекенжайлар тиісті желінің провайдеріне жіберіледі).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Сақтық көшірме</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Тек өзіңіз жасасаңыз. Құпиясөзбен шифрланады (Argon2id + AES-256-GCM); құпиясөзсіз оқуға болады.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Құрылғыны ауыстыру</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">Кілт ескі құрылғыда қалады – алдымен сақтық көшірме файлын жасаңыз.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Диагностиканы бөлісу</string>
+    <string name="diagnostics_share_hint">Қолдау қызметіне арналған мәтіндік файл: нұсқа, құрылғы, ескерту параметрлері, соңғы тексерулер және ескерту журналы – портфельсіз, сомаларсыз, мекенжайларсыз және ескертпелерсіз. Алдымен оны өзіңіз көресіз; ештеңе автоматты түрде жіберілмейді.</string>
+    <string name="diagnostics_preview_title">Диагностиканы алдын ала қарау</string>
+    <string name="diagnostics_action_share">Бөлісу</string>
+    <string name="settings_price_overlay">Бағам қабаты</string>
+    <string name="settings_price_overlay_hint">Тұрақты бағам хабарландыруындағы жұптарды басқа қолданбалардың үстінде шағын қалқымалы белгі ретінде көрсетеді. Қолданбаны ашу үшін түртіңіз, жабу үшін төмендегі × белгісіне сүйреңіз.</string>
+    <string name="settings_price_overlay_needs">Тек «%1$s» функциясымен бірге жұмыс істейді.</string>
+    <string name="settings_price_overlay_grant">Басқа қолданбалардың үстінен көрсетуге рұқсат ету</string>
+    <string name="price_overlay_close">Қабатты жабу</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">Мекенжайларға арналған жеке сервер</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Тек Bitcoin: өз Esplora- немесе mempool-үйлесімді серверіңіз (мысалы, https://node.example/api, Let\'s Encrypt сияқты жалпыға сенімді сертификат қажет). Орнатылса, Bitcoin мекенжайлары мен xpub кілттері тек сонда сұралады – ешқашан ашық түйіндерде емес, тіпті серверіңіз қолжетімсіз болса да. Басқа желілер ашық түйіндерді пайдалана береді. Бос = ашық түйіндер.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Bitcoin сервері (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">Сынау</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">Сыналуда…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">Сервер жауап береді – блок %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">Жарамды жауап жоқ – мекенжай мен сертификатты тексеріңіз</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">Пайдаланылуда: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">Орнатылмаған – ашық түйіндер пайдаланылады</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">Тек https:// мекенжайларына рұқсат етіледі</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">Мекенжайда пайдаланушы аты немесе құпиясөз болмауы керек</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">Мекенжайда ? немесе # бөлігі болмауы керек</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">Жарамды сервер мекенжайы емес</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">Ашық түйіндерге ауысу керек пе?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">Сонда Bitcoin мекенжайларыңыз бен xpub кілттеріңіз ашық түйіндерде сұралады: %1$s. Олар бұл мекенжайларды IP мекенжайыңызбен бірге көреді.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">Ашық түйіндерді пайдалану</string>
+</resources>

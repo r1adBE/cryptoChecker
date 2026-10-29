@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">Leta CSV</string>
+    <string name="portfolio_csv_import_all_transfer">Zote kwenda wallet yako</string>
+    <string name="portfolio_csv_import_all_withdrawal">Zote zinatoka kwenye jalada</string>
+    <string name="portfolio_csv_import_choice_proposed">Pendekezo: inalingana na %1$s</string>
+    <string name="portfolio_csv_import_choice_transfer">Kwenda wallet yako (uhamisho)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Inatoka kwenye jalada (utoaji)</string>
+    <string name="portfolio_csv_import_choose_each">Chagua kwa kila utoaji ulikokwenda.</string>
+    <string name="portfolio_csv_import_columns">Safu zilizotambuliwa: %1$s</string>
+    <string name="portfolio_csv_import_confirm">Leta (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">Siku/Mwezi</string>
+    <string name="portfolio_csv_import_date_month_first">Mwezi/Siku</string>
+    <string name="portfolio_csv_import_date_order">Tarehe zenye utata (k.m. 03/04/2024) zisomwe kama:</string>
+    <string name="portfolio_csv_import_decimal">Namba zenye utata (k.m. %1$s) zisomwe kama:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">Muamala %d umeletwa</item>
+        <item quantity="other">Miamala %d imeletwa</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d tayari imeletwa (imerukwa)</item>
+        <item quantity="other">%d tayari zimeletwa (zimerukwa)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">Muundo: %1$s</string>
+    <string name="portfolio_csv_import_line">Mstari %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">Inasoma faili na viwango vya kila siku…</string>
+    <string name="portfolio_csv_import_progress">Mstari %1$s kati ya %2$s</string>
+    <string name="portfolio_csv_import_saving">Inahifadhi miamala…</string>
+    <string name="portfolio_csv_import_missing_fx">Hakuna kiwango cha siku kwa mistari %1$s – imeletwa bila bei/ada.</string>
+    <string name="portfolio_csv_import_missing_price">Hakuna bei kwenye faili kwa mistari %1$s – imeletwa bila bei.</string>
+    <string name="portfolio_csv_import_more">+ %1$d zaidi</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">Muamala %d mpya</item>
+        <item quantity="other">Miamala %d mipya</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">Safu %d imerukwa</item>
+        <item quantity="other">Safu %d zimerukwa</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">Biashara dhidi ya stablecoin (USDT, USDC …) zinarekodiwa kama swap – stablecoin inaonekana kwenye mali zako.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Ulinganifu kadhaa unawezekana – chagua sahihi au hakuna.</string>
+    <string name="portfolio_csv_import_transfer_fee">Ada ya mtandao: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">Rekodi kama uhamisho mmoja</string>
+    <string name="portfolio_csv_import_transfer_stored">Upande mwingine kutoka uletaji wa awali</string>
+    <string name="portfolio_csv_import_transfers_hint">Utoaji na amana inayolingana ya sarafu ile ile vinakuwa uhamisho mmoja: bei ya ununuzi na muda wa kumiliki vinaendelea, tofauti inahesabiwa kama ada ya mtandao.</string>
+    <string name="portfolio_csv_import_transfers_title">Uhamisho kati ya akaunti zako</string>
+    <string name="portfolio_csv_import_unreadable">Hakuna miamala inayotumika iliyopatikana. Zinazotumika: faili za CSV zilizohamishwa kutoka Relai, Swissquote, Kraken, Binance, Coinbase na Bitpanda.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
+    <string name="portfolio_csv_import_too_large">Faili ni kubwa mno kuletwa (MB 16 zaidi na safu %1$s). Hamisha vipindi vifupi zaidi na uvilete kimoja baada ya kingine.</string>
+    <string name="portfolio_csv_import_failed">Uletaji haukufanikiwa – hakuna kilichohifadhiwa. Tafadhali jaribu tena.</string>
+    <string name="portfolio_csv_import_locked">Kuleta hakuwezekani: data iliyohifadhiwa haiwezi kusomwa sasa hivi. Anzisha upya programu.</string>
+    <string name="portfolio_csv_import_withdrawals_title">Utoaji – sarafu zilikwenda wapi?</string>
+    <string name="portfolio_csv_import_zone">Nyakati bila saa za eneo zisomwe kama: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">Kifaa (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">tarehe isiyosomeka</string>
+    <string name="portfolio_csv_skip_bad_number">namba isiyosomeka</string>
+    <string name="portfolio_csv_skip_fee_exceeds">ada ≥ kiasi kilichopokelewa</string>
+    <string name="portfolio_csv_skip_internal_move">uhamisho kati ya akaunti zako mwenyewe – hakuna cha kurekodi</string>
+    <string name="portfolio_csv_skip_missing">sehemu inakosekana</string>
+    <string name="portfolio_csv_skip_ambiguous">biashara kadhaa katika sekunde moja ambazo haziwezi kutofautishwa – ziweke kwa mkono</string>
+    <string name="portfolio_csv_skip_not_crypto">si crypto</string>
+    <string name="portfolio_csv_skip_possible_duplicate">huenda tayari imeletwa (biashara karibu sawa) – angalia kwa mkono</string>
+    <string name="portfolio_csv_skip_two_fees">ada mbili katika vipimo tofauti – weka swap kwa mkono</string>
+    <string name="portfolio_csv_skip_unsupported">aina isiyotumika</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">Tendua</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">Ufute muamala %d wa uletaji huu? Maingizo ya mkono na uletaji mwingine vinabaki.</item>
+        <item quantity="other">Ufute miamala %d ya uletaji huu? Maingizo ya mkono na uletaji mwingine vinabaki.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">Utendue uletaji?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">Muamala %d ulioletwa umeondolewa</item>
+        <item quantity="other">Miamala %d iliyoletwa imeondolewa</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">muamala %d</item>
+        <item quantity="other">miamala %d</item>
+    </plurals>
+    <string name="portfolio_imports_empty">Hakuna uletaji</string>
+    <string name="portfolio_imports_title">Uletaji</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">kitambulisho sawa cha muamala chenye kiasi tofauti – angalia kwa mkono</string>
+    <string name="portfolio_csv_skip_staking_unpaired">ingizo la staking bila ingizo pinzani – angalia mali</string>
+    <string name="portfolio_csv_skip_amount_too_small">kiasi ni kidogo mno – kinakuwa 0 kikihifadhiwa</string>
+    <string name="portfolio_csv_skip_invalid_swap">swap bila sarafu halali au kiasi kilichopokelewa</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">Inasoma faili tena …</string>
+</resources>

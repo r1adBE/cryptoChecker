@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="other">%d မိနစ်က</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">ယနေ့ %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed၊ Bitcoin ညွှန်ကိန်းများ၊ လွှမ်းမိုးမှု၊ halving</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">နောက်ထပ် ဈေးကွက်ဒေတာ</string>
+    <string name="market_phase_trend_failed">ဈေးနှုန်း ဒေတာ မရရှိနိုင်ပါ</string>
+    <string name="market_plain_direction_down_clear">crypto အားလုံး၏ စုစုပေါင်းတန်ဖိုးသည် 24 နာရီ အရင်ကထက် သိသိသာသာ နိမ့်သည် (%1$s)။</string>
+    <string name="market_plain_direction_down_slight">crypto အားလုံး၏ စုစုပေါင်းတန်ဖိုးသည် 24 နာရီ အရင်ကထက် အနည်းငယ် နိမ့်သည် (%1$s)။</string>
+    <string name="market_plain_direction_flat">crypto အားလုံး၏ စုစုပေါင်းတန်ဖိုးသည် 24 နာရီအတွင်း မပြောင်းလဲသလောက်ပင် (%1$s)။</string>
+    <string name="market_plain_direction_up_clear">crypto အားလုံး၏ စုစုပေါင်းတန်ဖိုးသည် 24 နာရီ အရင်ကထက် သိသိသာသာ မြင့်သည် (%1$s)။</string>
+    <string name="market_plain_direction_up_slight">crypto အားလုံး၏ စုစုပေါင်းတန်ဖိုးသည် 24 နာရီ အရင်ကထက် အနည်းငယ် မြင့်သည် (%1$s)။</string>
+    <string name="market_plain_footnote">နောက်ဆုံး 24 နာရီကို ဖော်ပြသည် – ခန့်မှန်းချက် မဟုတ်၊ ရင်းနှီးမြှုပ်နှံမှု အကြံဉာဏ် မဟုတ်ပါ။</string>
+    <string name="market_plain_mood_extreme_fear">ရင်းနှီးမြှုပ်နှံသူများ ယခု အလွန်ကြောက်ရွံ့နေကြသည်- စိတ်ခံစားမှု ညွှန်းကိန်း (Fear &amp; Greed) သည် 100 တွင် %1$d ဖြစ်သည်။</string>
+    <string name="market_plain_mood_extreme_greed">ရင်းနှီးမြှုပ်နှံသူများ ယခု အလွန်လောဘကြီးနေကြသည်- စိတ်ခံစားမှု ညွှန်းကိန်း (Fear &amp; Greed) သည် 100 တွင် %1$d ဖြစ်သည်။</string>
+    <string name="market_plain_mood_fear">ရင်းနှီးမြှုပ်နှံသူများ အတော်အတန် ကြောက်ရွံ့နေကြသည်- စိတ်ခံစားမှု ညွှန်းကိန်း (Fear &amp; Greed) သည် 100 တွင် %1$d ဖြစ်သည်။</string>
+    <string name="market_plain_mood_greed">ရင်းနှီးမြှုပ်နှံသူများ အတော်အတန် လောဘကြီးနေကြသည်- စိတ်ခံစားမှု ညွှန်းကိန်း (Fear &amp; Greed) သည် 100 တွင် %1$d ဖြစ်သည်။</string>
+    <string name="market_plain_mood_neutral">ရင်းနှီးမြှုပ်နှံသူများ၏ စိတ်ခံစားမှု မျှတသည်- စိတ်ခံစားမှု ညွှန်းကိန်း (Fear &amp; Greed) သည် 100 တွင် %1$d ဖြစ်သည်။</string>
+    <string name="market_plain_standout_above_btc">%1$s ထင်ရှားသည်- 24 နာရီအတွင်း %2$s၊ Bitcoin (%3$s) ထက် အများကြီး မြင့်သည်။</string>
+    <string name="market_plain_standout_against_btc">%1$s ထင်ရှားသည်- 24 နာရီအတွင်း %2$s၊ Bitcoin က ဆန့်ကျင်ဘက်သို့ သွားခဲ့သည် (%3$s)။</string>
+    <string name="market_plain_standout_below_btc">%1$s ထင်ရှားသည်- 24 နာရီအတွင်း %2$s၊ Bitcoin (%3$s) ထက် အများကြီး နိမ့်သည်။</string>
+    <string name="market_plain_standout_futures_down">%1$s ထင်ရှားသည်- ပုံမှန်ထက် များပြားသော Futures ကုန်သည်များက ဈေးကျမည်ဟု လောင်းနေကြသည်။</string>
+    <string name="market_plain_standout_futures_up">%1$s ထင်ရှားသည်- ပုံမှန်ထက် များပြားသော Futures ကုန်သည်များက ဈေးတက်မည်ဟု လောင်းနေကြသည်။</string>
+    <string name="market_plain_standout_quiet">ယခု ထင်ရှားသော ဒင်္ဂါး တစ်ခုမှ မရှိပါ။</string>
+    <string name="market_plain_standout_volume">%1$s ထင်ရှားသည်- ပုံမှန်ထက် %2$s ဆခန့် အရောင်းအဝယ် ဖြစ်နေသည်။</string>
+    <string name="market_plain_title">အကျဉ်းချုပ်</string>
+    <string name="market_section_collapse">%1$s ဖျောက်ရန်</string>
+    <string name="market_section_context">စိတ်ခံစားမှု &amp; စက်ဝန်း</string>
+    <string name="market_section_data">ဈေးကွက်ဒေတာ</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">%1$s ပြရန်</string>
+    <string name="market_section_now">ယခု</string>
+    <string name="market_source">ဒေတာ: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="exchange_unavailable_error">လဲလှယ်ရေးဌာန မရရှိနိုင်ပါ</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">အချက်အလက်: %1$s</string>
+    <string name="market_info_alt_season_source">နေ့စဉ်ဈေးနှုန်းများ: Binance · 3 နာရီခန့် တစ်ကြိမ် ပြန်တွက်သည်</string>
+    <string name="market_info_alt_season_what">ကြီးမားသော altcoin 20 ခန့် (ဥပမာ Ethereum, Solana, XRP) အနက် မည်မျှသည် နောက်ဆုံး ရက် 90 အတွင်း Bitcoin ထက် ပိုကောင်းခဲ့သည်ကို ရေတွက်သည်။ တန်ဖိုးသည် ၎င်းတို့၏ အချိုး 0 မှ 100 ဖြစ်သည်။</string>
+    <string name="market_info_coin_source">ဈေးနှုန်းများ: Binance သို့မဟုတ် Bybit · မိနစ် 15 ခန့် တစ်ကြိမ် ပြန်ဖွင့်သည်</string>
+    <string name="market_info_dominance_how">လွှမ်းမိုးမှု မြင့်တက်လျှင် Bitcoin သည် ကျန်ဈေးကွက်ထက် ပိုကောင်းနေသည်၊ ကျဆင်းလျှင် အခြားဒင်္ဂါးများ အလေးချိန် ပိုရလာသည်။ Stablecoin များလည်း ပါဝင်သည်- ၎င်းတို့၏ တန်ဖိုး တိုးလာလျှင် Bitcoin ဈေးနှုန်း မပြောင်းသော်လည်း Bitcoin အချိုး ကျဆင်းသည်။</string>
+    <string name="market_info_dominance_source">ရင်းမြစ်: CoinGecko · မိနစ် 30 ခန့် တစ်ကြိမ် ပြန်ဖွင့်သည်</string>
+    <string name="market_info_dominance_what">crypto အားလုံး၏ စုစုပေါင်းတန်ဖိုး (ဈေးကွက်အရင်းအနှီး) တွင် Bitcoin ၏ အချိုး။ ၎င်းအောက်တွင် Ethereum ၏ အချိုး ရှိသည်။</string>
+    <string name="market_info_fear_greed_how">25 အောက်ဆိုလျှင် အလွန်ကြောက်ရွံ့မှု၊ 75 အထက်ဆိုလျှင် အလွန်လောဘ၊ 50 ဝန်းကျင်ဆိုလျှင် ကြားနေ။ ဖြန့်ထားလျှင် ကတ်သည် မနေ့က၊ တစ်ပတ်အရင်နှင့် တစ်လအရင်က တန်ဖိုးများကို ပြသည်။ ဝယ်ရန် သို့မဟုတ် ရောင်းရန် အချက်ပြ မဟုတ်ပါ။</string>
+    <string name="market_info_fear_greed_source">ရင်းမြစ်: alternative.me · တစ်ရက်လျှင် တန်ဖိုးအသစ် တစ်ကြိမ်</string>
+    <string name="market_info_fear_greed_what">crypto ဈေးကွက်အတွက် 0 မှ 100 အထိ စိတ်ခံစားမှု ညွှန်းကိန်း။ alternative.me က ဈေးနှုန်းအတက်အကျ၊ အရောင်းအဝယ် ပမာဏ၊ ဆိုရှယ်မီဒီယာနှင့် Bitcoin လွှမ်းမိုးမှု အပါအဝင် အချက်အလက်များစွာမှ တွက်ချက်သည်။</string>
+    <string name="market_info_gas_how">တန်ဖိုး မြင့်လျှင် ကွန်ရက် အလုပ်များနေပြီး လွှဲပြောင်းမှုများ ပိုကုန်ကျသည်။ နှေး၊ ပုံမှန်နှင့် မြန် ဆိုသည်မှာ နောက်ကျသော သို့မဟုတ် ပိုမြန်သော အတည်ပြုချက်အတွက် အခကြေးငွေများ ဖြစ်သည်။ ဖြန့်ထားလျှင် ကတ်သည် ရိုးရိုး လွှဲပြောင်းမှုတစ်ခု၏ ခန့်မှန်း ကုန်ကျစရိတ်ကို ပြသည်။</string>
+    <string name="market_info_gas_source">အများသုံး RPC node များ၊ mempool.space · မိနစ်တိုင်း ပြန်ဖွင့်သည်</string>
+    <string name="market_info_gas_what">ကွန်ရက်တစ်ခုစီတွင် ငွေပေးငွေယူတစ်ခု ယခု ကုန်ကျသည့်ငွေ။ Ethereum နှင့် ဆင်တူ ကွန်ရက်များတွင် gwei (gas ယူနစ်တစ်ခုလျှင် ETH ၏ ဘီလီယံပုံတစ်ပုံ)၊ Bitcoin တွင် sat/vB (ငွေပေးငွေယူ၏ virtual byte တစ်ခုလျှင် satoshi)။</string>
+    <string name="market_info_halving_source">ရက်စွဲ: block height နှင့် ပျမ်းမျှ block time (mempool.space) မှ၊ မဟုတ်လျှင် ပြက္ခဒိန်အတိုင်း · ဈေးနှုန်းသမိုင်း: Coin Metrics, Binance၊ 12 နာရီတစ်ကြိမ် ပြန်ဖွင့်သည်</string>
+    <string name="market_info_halving_what">halving တွင် Bitcoin block အသစ်အတွက် မိုင်းနာများ ရရှိသော ဆုလာဘ်ကို တစ်ဝက် လျှော့ချသည်။ ၎င်းသည် block 210,000 တိုင်း၊ လေးနှစ်ခန့်တစ်ကြိမ် ဖြစ်ပေါ်သည်။ ထို့နောက် တစ်ရက်လျှင် bitcoin အသစ် တစ်ဝက်သာ ထွက်ရှိသည်။</string>
+    <string name="market_info_how">ဖတ်ပုံ</string>
+    <string name="market_info_macro_how">ထိုရက်စွဲသည် ယနေ့ သို့မဟုတ် မနက်ဖြန် ဖြစ်မှသာ မှတ်ချက် ပေါ်သည်။ ထုတ်ပြန်ချိန်ဝန်းကျင်တွင် ဈေးနှုန်းများ ပုံမှန်ထက် ပိုအတက်အကျ ရှိလေ့ရှိသည်။ အက်ပ်သည် ရက်စွဲကိုသာ ပြပြီး ကိန်းဂဏန်းများကို မပြပါ။</string>
+    <string name="market_info_macro_source">အက်ပ် ဝက်ဘ်ဆိုက်မှ ပြက္ခဒိန် · တစ်ရက်လျှင် တစ်ကြိမ် ဖွင့်သည်</string>
+    <string name="market_info_macro_what">အရေးကြီးသော အမေရိကန် စီးပွားရေးဒေတာ ရက်စွဲများ- ငွေကြေးဖောင်းပွမှု (CPI, PCE)၊ ထုတ်လုပ်သူဈေးနှုန်း (PPI)၊ အလုပ်အကိုင် အစီရင်ခံစာနှင့် အမေရိကန် ဗဟိုဘဏ်၏ အတိုးနှုန်း ဆုံးဖြတ်ချက်များ။ ထိုကိန်းဂဏန်းများသည် crypto ဈေးနှုန်းများကိုလည်း မကြာခဏ လှုပ်ရှားစေသည်။</string>
+    <string name="market_info_no_advice">ရင်းနှီးမြှုပ်နှံမှု အကြံဉာဏ် မဟုတ်ပါ။</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · ဈေးနှုန်းများ နာရီတိုင်း၊ on-chain တန်ဖိုးများ 12 နာရီတစ်ကြိမ် ပြန်ဖွင့်သည်</string>
+    <string name="market_info_pulse_how">ခေါင်းစဉ်က ဦးတည်ချက်ကို ဖော်ပြသည်၊ အသေးစိတ်အတွက် ကတ်ကို ဖြန့်ပါ။ ကျယ်ပြန့်သော လှုပ်ရှားမှုဆိုသည်မှာ ကြီးမားသော ဒင်္ဂါးအများစု တစ်လမ်းတည်း သွားနေခြင်း ဖြစ်သည်။ အကောင်းမြင်သော leverage စိတ်ခံစားမှုဆိုသည်မှာ ကုန်သည်အများအပြားက leverage ဖြင့် ဈေးတက်မည်ဟု လောင်းနေခြင်းဖြစ်ပြီး Bitcoin Futures ၏ Funding နှုန်းဖြင့် တိုင်းတာသည်။ ခဏတာ ပုံရိပ်သာ ဖြစ်ပြီး ခန့်မှန်းချက် မဟုတ်ပါ။</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · မိနစ် 5 ခန့် တစ်ကြိမ် ပြန်ဖွင့်သည်</string>
+    <string name="market_info_pulse_what">နောက်ဆုံး 24 နာရီအတွင်း ဈေးကွက်၏ အကျဉ်းချုပ်- Bitcoin, Ethereum နှင့် Solana မည်သို့ လှုပ်ရှားနေသည်၊ အကြီးဆုံး ဒင်္ဂါးများ မည်မျှ တက်နေသည် သို့မဟုတ် ကျနေသည်၊ Bitcoin ကို ယခု မည်မျှ အရောင်းအဝယ် ဖြစ်နေသည်နှင့် leverage စိတ်ခံစားမှု မည်သို့ရှိသည် (Bitcoin Futures ၏ Funding နှုန်းဖြင့် တိုင်းတာသည်)။</string>
+    <string name="market_info_totals_how">ညာဘက်တွင် 24 နာရီအတွင်း စုစုပေါင်းတန်ဖိုး ပြောင်းလဲမှု ရှိသည်။ ပမာဏ မြင့်လျှင် အရောင်းအဝယ် များသည် – မည်သည့်ဘက်သို့ဆိုသည်ကို မပြောပါ။ ဖြစ်နိုင်လျှင် ပြောင်းလဲတွက်ချက်သော ငွေကြေးဖြင့်၊ မဟုတ်လျှင် US ဒေါ်လာဖြင့် ပြသည်။</string>
+    <string name="market_info_totals_source">ဒင်္ဂါးအားလုံး · CoinGecko · မိနစ် 30 ခန့် တစ်ကြိမ် ပြန်ဖွင့်သည်</string>
+    <string name="market_info_totals_what">crypto အားလုံး၏ စုစုပေါင်းတန်ဖိုး (ဈေးကွက်အရင်းအနှီး- ဈေးနှုန်း မြှောက် လည်ပတ်နေသော ပမာဏ၊ ဒင်္ဂါးအားလုံးကို ပေါင်းထားသည်) နှင့် နောက်ဆုံး 24 နာရီ၏ အရောင်းအဝယ် ပမာဏ။</string>
+    <string name="market_info_unusual_how">ဒင်္ဂါးတစ်ခုစီသည် ၎င်း၏ အထင်ရှားဆုံး တွေ့ရှိချက်ကို ညာဘက်ရှိ 24 နာရီ ပြောင်းလဲမှုနှင့်အတူ ပြသည်။ ပမာဏ 2× ဆိုသည်မှာ ပုံမှန် အရောင်းအဝယ်၏ နှစ်ဆ ဖြစ်သည်။ ထင်ရှားသည်ဆိုသည်မှာ ကောင်းသည် သို့မဟုတ် ဆိုးသည်ဟု မဆိုလိုပါ။</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · မိနစ် 10 ခန့် တစ်ကြိမ် ပြန်ဖွင့်သည်</string>
+    <string name="market_info_unusual_what">အကြီးဆုံး 30 ခန့် (stablecoin မပါ) အနက် ယနေ့ ထူးခြားစွာ ပြုမူနေသော ဒင်္ဂါး ငါးခုအထိ- Bitcoin ထက် အများကြီး ပိုအားကောင်း သို့မဟုတ် ပိုအားနည်း၊ ဈေးကွက် ဦးတည်ချက်ကို ဆန့်ကျင်၊ ထူးခြားစွာ မြင့်သော အရောင်းအဝယ် ပမာဏ သို့မဟုတ် ထင်ရှားသော Funding နှုန်း ရှိသည်။</string>
+    <string name="market_info_what">ဤအရာက ဘာလဲ။</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">ဈေးကွက်အရင်းအနှီး</string>
+    <string name="market_cap_source">ဒင်္ဂါးအားလုံး · CoinGecko</string>
+    <string name="market_cap_title">crypto ဈေးကွက်</string>
+    <string name="market_volume_label">ပမာဏ 24 နာရီ</string>
+
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">အသေးစိတ်</string>
+    <string name="pulse_disclaimer">ခန့်မှန်းချက် မဟုတ် · ရင်းနှီးမြှုပ်နှံမှု အကြံဉာဏ် မဟုတ်</string>
+    <string name="pulse_less">နည်းနည်းသာ ပြရန်</string>
+    <string name="pulse_now_title">crypto သွေးခုန်နှုန်း</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">24 နာရီအတွင်း ပြောင်းလဲမှု</string>
+    <string name="pulse_section_factors">အချက်များ</string>
+    <string name="pulse_section_market">ယနေ့ ဈေးကွက်</string>
+    <string name="pulse_unavailable">ဈေးကွက်ဒေတာ ယခု မရရှိနိုင်ပါ</string>
+    <string name="pulse_updated">%1$s အထိ</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">ငြိမ်သက်သော ဈေးကွက်</string>
+    <string name="pulse_headline_down">ကျယ်ပြန့်သော အားနည်းမှု</string>
+    <string name="pulse_headline_mixed">ရောနှောသော ပုံရိပ်</string>
+    <string name="pulse_headline_up">ကျယ်ပြန့်သော အားကောင်းမှု</string>
+    <string name="pulse_lead_alts_stronger">Altcoin များသည် Bitcoin ထက် ပိုအားကောင်းသည်။</string>
+    <string name="pulse_lead_broad_down">ဈေးကွက် ကျယ်ကျယ်ပြန့်ပြန့် ကျဆင်းနေသည်။</string>
+    <string name="pulse_lead_broad_up">ဈေးကွက် ကျယ်ကျယ်ပြန့်ပြန့် မြင့်တက်နေသည်။</string>
+    <string name="pulse_lead_btc_leads">Bitcoin အတက်ဆုံး ဖြစ်နေသည်။</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin သည် altcoin များထက် ပိုအားကောင်းသည်။</string>
+    <string name="pulse_lead_calm">ဈေးကွက် မလှုပ်ရှားသလောက်ပင်။</string>
+    <string name="pulse_lead_drift_down">ဈေးကွက် တဖြည်းဖြည်း ကျဆင်းနေသည်။</string>
+    <string name="pulse_lead_drift_up">ဈေးကွက် တဖြည်းဖြည်း မြင့်တက်နေသည်။</string>
+    <string name="pulse_lead_mixed">ကြီးမားသော ဒင်္ဂါးများ မတူညီသော လမ်းကြောင်း သွားနေကြသည်။</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">leverage စိတ်ခံစားမှု အကောင်းမြင်။</string>
+    <string name="pulse_detail_fund_negative">leverage စိတ်ခံစားမှု အဆိုးမြင်။</string>
+    <string name="pulse_detail_fund_neutral">leverage စိတ်ခံစားမှု ကြားနေ။</string>
+    <string name="pulse_detail_vol_above">ပမာဏ ပုံမှန်ထက် %1$s မြင့်သည်။</string>
+    <string name="pulse_detail_vol_above_fund_high">ပမာဏ ပုံမှန်ထက် %1$s မြင့်သည်၊ leverage စိတ်ခံစားမှု အကောင်းမြင်။</string>
+    <string name="pulse_detail_vol_above_fund_negative">ပမာဏ ပုံမှန်ထက် %1$s မြင့်သည်၊ leverage စိတ်ခံစားမှု အဆိုးမြင်။</string>
+    <string name="pulse_detail_vol_above_fund_neutral">ပမာဏ ပုံမှန်ထက် %1$s မြင့်သည်၊ leverage စိတ်ခံစားမှု ကြားနေ။</string>
+    <string name="pulse_detail_vol_below">ပမာဏ ပုံမှန်ထက် %1$s နိမ့်သည်။</string>
+    <string name="pulse_detail_vol_below_fund_high">ပမာဏ ပုံမှန်ထက် %1$s နိမ့်သည်၊ leverage စိတ်ခံစားမှု အကောင်းမြင်။</string>
+    <string name="pulse_detail_vol_below_fund_negative">ပမာဏ ပုံမှန်ထက် %1$s နိမ့်သည်၊ leverage စိတ်ခံစားမှု အဆိုးမြင်။</string>
+    <string name="pulse_detail_vol_below_fund_neutral">ပမာဏ ပုံမှန်ထက် %1$s နိမ့်သည်၊ leverage စိတ်ခံစားမှု ကြားနေ။</string>
+    <string name="pulse_detail_vol_normal">ပမာဏ ပုံမှန်။</string>
+    <string name="pulse_detail_vol_normal_fund_high">ပမာဏ ပုံမှန်၊ leverage စိတ်ခံစားမှု အကောင်းမြင်။</string>
+    <string name="pulse_detail_vol_normal_fund_negative">ပမာဏ ပုံမှန်၊ leverage စိတ်ခံစားမှု အဆိုးမြင်။</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">ပမာဏ ပုံမှန်၊ leverage စိတ်ခံစားမှု ကြားနေ။</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">Top %1$d: ဈေးကွက်တန်ဖိုးအရ အကြီးဆုံး ဒင်္ဂါးများ၊ stablecoin မပါ၊ 24 နာရီအတွင်း ပြောင်းလဲမှု (CoinGecko)။</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_note_broad_down">ကျယ်ပြန့်သော ရောင်းထုတ်မှု- အကြီးဆုံး ဒင်္ဂါးအများစု ကျဆင်းနေသည်။</string>
+    <string name="pulse_breadth_note_broad_up">ကျယ်ပြန့်သော လှုပ်ရှားမှု- အကြီးဆုံး ဒင်္ဂါးအများစု မြင့်တက်နေသည်။</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin ကျဆင်းနေသော်လည်း အခြား ကြီးမားသော ဒင်္ဂါးအများစု ခံနိုင်ရည်ရှိနေသည်။</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin မြင့်တက်နေသော်လည်း အခြား ကြီးမားသော ဒင်္ဂါးအများစု လိုက်မတက်ပါ။</string>
+    <string name="pulse_breadth_spoken">Top %1$d: %2$d တက်၊ %3$d ကျ</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">Altcoin နှင့် Bitcoin တူညီစွာ လှုပ်ရှားသည်</string>
+    <string name="pulse_alts_stronger">Altcoin များ Bitcoin ထက် ပိုအားကောင်း</string>
+    <string name="pulse_alts_weaker">Bitcoin သည် altcoin များထက် ပိုအားကောင်း</string>
+    <string name="pulse_chip_funding_high">leverage စိတ်ခံစားမှု အကောင်းမြင်</string>
+    <string name="pulse_chip_funding_negative">leverage စိတ်ခံစားမှု အဆိုးမြင်</string>
+
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s။ %3$s။</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">ဈေးနှုန်းနှင့် လုပ်ဆောင်ချက်များ ပြရန်</string>
+    <string name="unusual_fact_against">ဈေးကွက်ကို ဆန့်ကျင်၍ လှုပ်ရှားသည်</string>
+    <string name="unusual_fact_funding_high">Funding မြင့် (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Funding အနုတ် (%1$s)</string>
+    <string name="unusual_fact_stronger">BTC ထက် အများကြီး ပိုအားကောင်းစွာ လှုပ်ရှားသည်</string>
+    <string name="unusual_fact_volume">ပမာဏ ပုံမှန်၏ %1$s×</string>
+    <string name="unusual_fact_weaker">BTC ထက် အများကြီး ပိုအားနည်းစွာ လှုပ်ရှားသည်</string>
+    <string name="unusual_nothing">ယနေ့ ထင်ရှားသည့်အရာ မရှိပါ</string>
+    <string name="unusual_source">stablecoin မပါ အကြီးဆုံး ဒင်္ဂါး 30 ခန့် · Binance, CoinGecko</string>
+    <string name="unusual_title">ထင်ရှားသည်</string>
+
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">ထင်ရှားသည်</string>
+    <string name="activity_indicator">ထင်ရှားသည်</string>
+    <string name="activity_sensitivity_less">နည်း</string>
+    <string name="activity_sensitivity_more">များ</string>
+    <string name="activity_sensitivity_normal">ပုံမှန်</string>
+    <string name="activity_signal_funding_long">Funding %1$s — leverage သုံး longs များ</string>
+    <string name="activity_signal_funding_short">Funding %1$s — shorts များ</string>
+    <string name="activity_signal_open_interest">%2$d မိနစ်အတွင်း Open interest %1$s</string>
+    <string name="activity_signal_open_interest_no_time">Open interest %1$s</string>
+    <string name="activity_signal_price_move">ထူးခြားသော လှုပ်ရှားမှု: တစ်နာရီအတွင်း %1$s (ပုံမှန်၏ %2$s×)</string>
+    <string name="activity_signal_volume">နောက်ဆုံးနာရီတွင် ပမာဏ ပုံမှန်၏ %1$s×</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="other">ကြီးမားသော altcoin %2$d ခုအနက် %1$d ခုသည် ရက် 90 အတွင်း Bitcoin ကို ကျော်တက်ခဲ့သည်</item>
+    </plurals>
+    <string name="insights_chart_axis">halving ကတည်းက နှစ်များ</string>
+    <string name="insights_chart_hint">ဈေးနှုန်းကို halving နေ့ ဈေးနှုန်း၏ ဆမြှောက်အဖြစ် (log စကေး)။ ယခင်စက်ဝန်းများသည် ပုံစံသာ ဖြစ်ပြီး ခန့်မှန်းချက် မဟုတ်ပါ။</string>
+    <string name="insights_cycle_chart">halving ကတည်းက စက်ဝန်းများ</string>
+    <string name="insights_dominance_eth">စုစုပေါင်း ဈေးကွက်၏ ETH %1$s</string>
+    <string name="insights_dominance_title">Bitcoin လွှမ်းမိုးမှု</string>
+    <string name="insights_fng_history">မနေ့က %1$s · တစ်ပတ်အရင် %2$s · တစ်လအရင် %3$s</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="insights_halving_title">Bitcoin halving</string>
+    <string name="insights_source_dominance">ရင်းမြစ်: CoinGecko, Binance</string>
+    <string name="insights_source_fng">ရင်းမြစ်: alternative.me</string>
+    <string name="insights_source_history">ရင်းမြစ်: Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">အလွန်ကြောက်ရွံ့မှု</string>
+    <string name="fng_extreme_greed">အလွန်လောဘ</string>
+    <string name="fng_fear">ကြောက်ရွံ့မှု</string>
+    <string name="fng_greed">လောဘ</string>
+    <string name="fng_neutral">ကြားနေ</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">%1$s အထိ ဒေတာ · အပ်ဒိတ်လုပ်နေသည်…</string>
+    <string name="cycle_from_top">ထိပ်မှ %1$s</string>
+    <string name="cycle_marker_bottom">အောက်ခြေ %1$s</string>
+    <string name="cycle_marker_double_bottom">နှစ်ထပ်အောက်ခြေ %1$s</string>
+    <string name="cycle_marker_double_top">နှစ်ထပ်ထိပ် %1$s</string>
+    <string name="cycle_marker_high_so_far">ယခုထိ အမြင့်ဆုံး</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">ထိပ် %1$s</string>
+    <string name="cycle_since_halving">halving ကတည်းက %1$s</string>
+    <string name="halving_estimate_text">တွက်ချက်မှုအရ နောက် halving သည် %1$s ဝန်းကျင်- block တစ်ခုလျှင် ပျမ်းမျှ %3$s မိနစ်ဖြင့် block %2$s ခု ကျန်သည် (လက်ရှိ difficulty ကာလ)။ ခန့်မှန်းတွက်ချက်မှုသာ ဖြစ်ပြီး ကတိ မဟုတ်ပါ – block time ကွဲပြားနိုင်သည်။</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">သတိပေးချက်: %1$s</string>
+    <string name="gas_slow_fast">နှေး %1$s · မြန် %2$s</string>
+    <string name="gas_source">အများသုံး RPC node များနှင့် mempool.space · ရိုးရိုး လွှဲပြောင်းမှု၏ ကုန်ကျစရိတ်၊ L2 များတွင် L1 အစိတ်အပိုင်း မပါ</string>
+    <string name="gas_title">ကွန်ရက်အခကြေးငွေများ</string>
+    <string name="gas_transfer_cost">လွှဲပြောင်းမှု ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">အမေရိကန် ငွေကြေးဖောင်းပွမှု ဒေတာ (CPI)</string>
+    <string name="macro_fomc">အမေရိကန် Fed အတိုးနှုန်း ဆုံးဖြတ်ချက်</string>
+    <string name="macro_hint_list">%1$s – ဤကဲ့သို့သော နေ့များတွင် ဈေးကွက်များ ပိုအတက်အကျ ရှိလေ့ရှိသည်။</string>
+    <string name="macro_hint_today">ယနေ့ %1$s: %2$s – ဤကဲ့သို့သော နေ့များတွင် ဈေးကွက်များ ပိုအတက်အကျ ရှိလေ့ရှိသည်။</string>
+    <string name="macro_hint_today_list">ယနေ့: %1$s – ဤကဲ့သို့သော နေ့များတွင် ဈေးကွက်များ ပိုအတက်အကျ ရှိလေ့ရှိသည်။</string>
+    <string name="macro_hint_tomorrow">မနက်ဖြန် %1$s: %2$s – ဤကဲ့သို့သော နေ့များတွင် ဈေးကွက်များ ပိုအတက်အကျ ရှိလေ့ရှိသည်။</string>
+    <string name="macro_hint_tomorrow_list">မနက်ဖြန်: %1$s – ဤကဲ့သို့သော နေ့များတွင် ဈေးကွက်များ ပိုအတက်အကျ ရှိလေ့ရှိသည်။</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">ယနေ့ %1$s %2$s</string>
+    <string name="macro_item_tomorrow">မနက်ဖြန် %1$s %2$s</string>
+    <string name="macro_nfp">အမေရိကန် အလုပ်အကိုင် အစီရင်ခံစာ</string>
+    <string name="macro_pce">အမေရိကန် စားသုံးသူ အသုံးစရိတ် ဈေးနှုန်း (PCE)</string>
+    <string name="macro_ppi">အမေရိကန် ထုတ်လုပ်သူ ဈေးနှုန်း (PPI)</string>
+    <string name="macro_released_list">ယနေ့ ထုတ်ပြန်ခဲ့သည်: %1$s။</string>
+    <string name="macro_released_one">ယနေ့ %1$s တွင် ထုတ်ပြန်ခဲ့သည်: %2$s။</string>
+    <string name="macro_title">စီးပွားရေး ဒေတာ</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">ဒင်္ဂါး</string>
+    <string name="coin_no_data">Binance သို့မဟုတ် Bybit တွင် ဤဒင်္ဂါးအတွက် ဈေးနှုန်း ဒေတာ မရှိပါ။</string>
+    <string name="coin_price_only">ဈေးနှုန်းကိုသာ အခြေခံသည် – on-chain ဒေတာ (MVRV, Puell, hashrate) ကို Bitcoin အတွက်သာ အခမဲ့ ရရှိနိုင်သည်။</string>
+    <plurals name="coin_short_history">
+        <item quantity="other">ဈေးနှုန်းသမိုင်း %1$d ရက်သာ ရှိသည် – ညွှန်ကိန်းအချို့ မပါပါ။</item>
+    </plurals>
+    <string name="coin_title">ဒင်္ဂါး ခွဲခြမ်းစိတ်ဖြာမှု</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">ဒေတာ: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">24 နာရီ အတက်ဆုံးနှင့် အကျဆုံးများ</string>
+    <string name="movers_gainers">အတက်ဆုံးများ</string>
+    <string name="movers_losers">အကျဆုံးများ</string>
+    <string name="movers_no_gainers">24 နာရီအတွင်း မည်သည့်ဒင်္ဂါးမှ မတက်ပါ</string>
+    <string name="movers_no_losers">24 နာရီအတွင်း မည်သည့်ဒင်္ဂါးမှ မကျပါ</string>
+    <string name="movers_source">CoinGecko၊ 24 နာရီ၊ stablecoin မပါ top 100</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">အားလုံး ပြရန်</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">နည်းနည်းသာ ပြရန်</string>
+</resources>

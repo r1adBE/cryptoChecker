@@ -3061,6 +3061,35 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   `localeFilters` (`ms`, `b+zh+Hant`, plus `zh-rTW`/`zh-rHK` for library texts), iOS language names. Store: Play `ms`,
   `zh-TW` and `zh-HK` (copy of zh-TW), App Store `ms` and `zh-Hant`, screenshot captions (TC fonts in `frame_screenshots.py`). Tests that count
   languages expect 33; `StringResources` also reads `values-b+…` folders.
+* Build 176: 41 more languages, 74 in total (owner decision). Folders `values-<code>` in app and wear; Cantonese
+  in `values-b+yue` (script Hant from likely subtags: matches yue, yue-HK and yue-Hant, never zh-HK, which stays on
+  `b+zh+Hant`); Filipino in `values-fil` only – since API 24 the resource matcher treats `tl` and `fil` as the same
+  language, minSdk is 26, so no `values-tl` copy; `localeFilters` has `tl` for the Filipino texts of the libraries.
+  Serbian is Cyrillic (`values-sr`; Latin script in `values-b+sr+Latn`, see below),
+  Bosnian, Uzbek and Azerbaijani Latin, Kazakh and Mongolian Cyrillic, Punjabi Gurmukhi, Urdu right to left
+  (already in `BidiText`/`WatchFormat`). Plural categories per CLDR in `check_strings.py` and `convert_strings.py`
+  (ca/lt/sk with `many`, hr/bs/sr one/few/other, sl one/two/few/other, lv zero/one/other, ga one/two/few/many/other,
+  km/lo/my/yue only `other`). iOS: `b+yue` → `yue-Hant`, all 74 codes in the catalogs, `CFBundleLocalizations` of
+  the four targets and `knownRegions`. Language picker (`AppLanguages`, `locales_config.xml`, iOS names) keeps the
+  regional order (Catalan, Galician, Basque after Spanish; South Slavic after Romanian; Indic after Hindi; Cantonese
+  after Traditional Chinese); `normalize` maps `tl` to `fil`. Store: Play only for the codes of its list
+  (36 new folders, none for bs, ga, uz, yue, zu), App Store only for its 13 new codes (`bn-BD ca gu-IN hr kn-IN
+  ml-IN mr-IN pa-IN sk sl-SI ta-IN te-IN ur-PK`). Store descriptions say 75 languages. Lithuanian uses «komisinis
+  mokestis» for every fee, «mokestis» only for tax. Texts shortened where tests limit them (shortcut long labels
+  ≤ 25, alarm timing hint ≤ 160, `ind_read_*` ≤ 160) or require the setting names verbatim (restore warnings).
+  `frame_screenshots.py`: Noto fonts per script (Ethiopic, Khmer, Lao, Myanmar, Sinhala, Indic, Armenian, Georgian,
+  Urdu Nastaliq), Urdu right to left, Cantonese with the TC fonts and CJK line breaks. Tests that count languages
+  expect 75; `StringResources` also reads three-letter codes (`fil`) and `b+yue`.
+* Build 176, Serbian Latin (75 languages): `values-b+sr+Latn` (app and wear) and iOS `sr-Latn` are generated from
+  `values-sr` / `sr` by `android/tools/sr_latn.py` (letter-by-letter transliteration, Љ/Њ/Џ as LJ/NJ/DŽ in capitals and
+  Lj/Nj/Dž otherwise; placeholders, markup, entities, URLs and Latin tokens unchanged; `--self-test`), and
+  `check_strings.py` runs it with `--check`, so the two scripts cannot drift; never edit the Latin files by hand.
+  Registered in `localeFilters`, `locales_config.xml`, `AppLanguages` («Srpski (latinica)» after «Српски»; `normalize`
+  keeps script Latn as `sr-Latn`), `convert_strings.py` (`b+sr+Latn` → `sr-Latn`), `CFBundleLocalizations` and the iOS
+  language names; no store listing (Play has only `sr`, the App Store no Serbian).
+* Build 176, watchlist footer: the four keys `watchlist_footer_count`, `watchlist_footer_of`, `watchlist_footer_remaining`
+  (plurals) and `watchlist_footer_full` in `strings_watchlist.xml` now also in the 41 new languages (end of the file as
+  in `values-de`; complex inflection as «Pairs: N» like the other texts), iOS via `convert_strings.py`.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

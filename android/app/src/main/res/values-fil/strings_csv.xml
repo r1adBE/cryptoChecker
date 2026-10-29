@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">Mag-import ng CSV</string>
+    <string name="portfolio_csv_import_all_transfer">Lahat sa sariling wallet</string>
+    <string name="portfolio_csv_import_all_withdrawal">Lahat ay lalabas sa portfolio</string>
+    <string name="portfolio_csv_import_choice_proposed">Mungkahi: tugma sa %1$s</string>
+    <string name="portfolio_csv_import_choice_transfer">Sa sariling wallet (transfer)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Lalabas sa portfolio (withdrawal)</string>
+    <string name="portfolio_csv_import_choose_each">Piliin para sa bawat withdrawal kung saan ito napunta.</string>
+    <string name="portfolio_csv_import_columns">Mga nakilalang column: %1$s</string>
+    <string name="portfolio_csv_import_confirm">I-import (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">Araw/Buwan</string>
+    <string name="portfolio_csv_import_date_month_first">Buwan/Araw</string>
+    <string name="portfolio_csv_import_date_order">Ang mga malabong petsa (hal. 03/04/2024) ay babasahin bilang:</string>
+    <string name="portfolio_csv_import_decimal">Ang mga malabong numero (hal. %1$s) ay babasahin bilang:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d transaksyon ang na-import</item>
+        <item quantity="other">%d transaksyon ang na-import</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d ang na-import na dati (nilaktawan)</item>
+        <item quantity="other">%d ang na-import na dati (nilaktawan)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">Format: %1$s</string>
+    <string name="portfolio_csv_import_line">Linya %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">Binabasa ang file at mga daily rate…</string>
+    <string name="portfolio_csv_import_progress">Linya %1$s sa %2$s</string>
+    <string name="portfolio_csv_import_saving">Sine-save ang mga transaksyon…</string>
+    <string name="portfolio_csv_import_missing_fx">Walang daily rate para sa mga linya %1$s – na-import nang walang presyo/fee.</string>
+    <string name="portfolio_csv_import_missing_price">Walang presyo sa file para sa mga linya %1$s – na-import nang walang presyo.</string>
+    <string name="portfolio_csv_import_more">+ %1$d pa</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d bagong transaksyon</item>
+        <item quantity="other">%d bagong transaksyon</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d row ang nilaktawan</item>
+        <item quantity="other">%d row ang nilaktawan</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">Ang mga trade laban sa stablecoin (USDT, USDC …) ay itinatala bilang swap – lalabas ang stablecoin sa mga hawak mo.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Maraming posibleng tugma – piliin ang tama o wala.</string>
+    <string name="portfolio_csv_import_transfer_fee">Network fee: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">Itala bilang isang transfer</string>
+    <string name="portfolio_csv_import_transfer_stored">Katapat mula sa naunang import</string>
+    <string name="portfolio_csv_import_transfers_hint">Nagiging isang transfer ang isang withdrawal at ang katugmang deposit ng parehong coin: dala ang presyo ng pagbili at tagal ng paghawak, ang diperensya ay binibilang na network fee.</string>
+    <string name="portfolio_csv_import_transfers_title">Mga transfer sa pagitan ng mga account mo</string>
+    <string name="portfolio_csv_import_unreadable">Walang nakitang suportadong transaksyon. Suportado: mga CSV export ng Relai, Swissquote, Kraken, Binance, Coinbase at Bitpanda.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
+    <string name="portfolio_csv_import_too_large">Masyadong malaki ang file para i-import (hanggang 16 MB at %1$s row). Mag-export ng mas maiikling panahon at i-import ang mga ito nang isa-isa.</string>
+    <string name="portfolio_csv_import_failed">Hindi gumana ang import – walang na-save. Pakisubukan ulit.</string>
+    <string name="portfolio_csv_import_locked">Hindi puwede ang import: hindi mabasa ang naka-save na data ngayon. I-restart ang app.</string>
+    <string name="portfolio_csv_import_withdrawals_title">Mga withdrawal – saan napunta ang mga coin?</string>
+    <string name="portfolio_csv_import_zone">Ang mga oras na walang time zone ay babasahin bilang: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">Device (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">hindi mabasang petsa</string>
+    <string name="portfolio_csv_skip_bad_number">hindi mabasang numero</string>
+    <string name="portfolio_csv_skip_fee_exceeds">fee ≥ halagang natanggap</string>
+    <string name="portfolio_csv_skip_internal_move">paglipat sa pagitan ng sarili mong mga account – walang itatala</string>
+    <string name="portfolio_csv_skip_missing">may kulang na field</string>
+    <string name="portfolio_csv_skip_ambiguous">maraming trade sa parehong segundo na hindi mapaghiwalay – ilagay ang mga ito nang mano-mano</string>
+    <string name="portfolio_csv_skip_not_crypto">hindi crypto</string>
+    <string name="portfolio_csv_skip_possible_duplicate">posibleng na-import na (halos parehong trade) – tingnan nang mano-mano</string>
+    <string name="portfolio_csv_skip_two_fees">dalawang fee sa magkaibang unit – ilagay ang swap nang mano-mano</string>
+    <string name="portfolio_csv_skip_unsupported">hindi suportadong uri</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">I-undo</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">I-delete ang %d transaksyon ng import na ito? Mananatili ang mga manual na entry at ibang import.</item>
+        <item quantity="other">I-delete ang %d transaksyon ng import na ito? Mananatili ang mga manual na entry at ibang import.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">I-undo ang import?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">%d na-import na transaksyon ang inalis</item>
+        <item quantity="other">%d na-import na transaksyon ang inalis</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d transaksyon</item>
+        <item quantity="other">%d transaksyon</item>
+    </plurals>
+    <string name="portfolio_imports_empty">Walang import</string>
+    <string name="portfolio_imports_title">Mga import</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">parehong transaction ID pero ibang halaga – tingnan nang mano-mano</string>
+    <string name="portfolio_csv_skip_staking_unpaired">staking entry na walang katapat na entry – tingnan ang mga hawak</string>
+    <string name="portfolio_csv_skip_amount_too_small">masyadong maliit ang halaga – nagiging 0 kapag na-save</string>
+    <string name="portfolio_csv_skip_invalid_swap">swap na walang valid na coin o halagang natanggap</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">Binabasa ulit ang file …</string>
+</resources>

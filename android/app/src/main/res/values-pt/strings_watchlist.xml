@@ -247,4 +247,20 @@
     <string name="watchlist_not_saved_confirm_message">A lista e os respetivos alarmes não estão a ser guardados neste momento. Esta e outras alterações perdem-se ao fechar a app. Queres alterar mesmo assim?</string>
     <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
     <string name="watchlist_not_saved_confirm_action">Alterar mesmo assim</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">%1$d par</item>
+        <item quantity="many">%1$d pares</item>
+        <item quantity="other">%1$d pares</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">%2$d de %1$d par</item>
+        <item quantity="many">%2$d de %1$d pares</item>
+        <item quantity="other">%2$d de %1$d pares</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">resta %1$d lugar</item>
+        <item quantity="many">restam %1$d lugares</item>
+        <item quantity="other">restam %1$d lugares</item>
+    </plurals>
+    <string name="watchlist_footer_full">Lista de acompanhamento cheia</string>
 </resources>

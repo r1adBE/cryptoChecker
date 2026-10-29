@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">Дохио ажилласан</string>
+    <string name="a11y_collapsed">Хураасан</string>
+    <string name="a11y_converted">ойролцоогоор %1$s</string>
+    <string name="a11y_expanded">Дэлгэсэн</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">хөтөч дээр нээгдэнэ</string>
+    <string name="a11y_favorite">Дуртай</string>
+    <string name="a11y_in_watchlist">Ажиглах жагсаалтад байгаа</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_exchange_unreachable">%1$s холбогдохгүй байна</string>
+    <string name="a11y_move_down">Доош зөөх</string>
+    <string name="a11y_move_up">Дээш зөөх</string>
+    <string name="a11y_note">тэмдэглэл: %1$s</string>
+    <string name="a11y_price">ханш %1$s</string>
+    <string name="a11y_price_notification_off">Ханшийн мэдэгдэл унтраалттай</string>
+    <string name="a11y_price_notification_on">Ханшийн мэдэгдэл асаалттай</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">Ханш хуучирсан</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s, %2$s бирж дээр</string>
+    <string name="a11y_stale">хуучирсан, сүүлд шинэчилсэн %1$s</string>
+    <string name="a11y_warning">Анхааруулга</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">24 цагт %1$s</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">24 цагийн өөрчлөлт алга</string>
+    <string name="a11y_change_down">%1$s буурсан</string>
+    <string name="a11y_change_flat">өөрчлөлтгүй</string>
+    <string name="a11y_change_since_last">сүүлийн шинэчлэлээс хойш %1$s</string>
+    <string name="a11y_change_since_last_none">Сүүлийн шинэчлэлээс хойших өөрчлөлт алга</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">өнөөдөр %1$s</string>
+    <string name="a11y_change_today_none">Өнөөдрийн өөрчлөлт алга</string>
+    <string name="a11y_change_today_zone">%2$s шөнө дундаас хойш %1$s</string>
+    <string name="a11y_change_today_zone_none">%1$s шөнө дундаас хойших өөрчлөлт алга</string>
+    <string name="a11y_change_up">%1$s өссөн</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">%1$s график: %2$s-аас %3$s хүртэл, %4$s. Хамгийн өндөр %5$s, хамгийн бага %6$s.</string>
+    <string name="a11y_chart_empty">График: өгөгдөл алга</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">%1$s мөчлөг: халвингаас хойш %2$s, %3$d дахь өдөр.</string>
+    <string name="a11y_cycle_bottom">Ёроол %1$s, %2$d дахь өдөр.</string>
+    <string name="a11y_cycle_double_bottom">Давхар ёроол %1$s, %2$d дахь өдөр.</string>
+    <string name="a11y_cycle_double_top">Давхар оргил %1$s, %2$d дахь өдөр.</string>
+    <string name="a11y_cycle_top">Оргил %1$s, %2$d дахь өдөр.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">%1$s-аас %2$s хүртэлх хэмжүүр: 100-аас %3$d</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, дунджаар %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d буурч байна</item>
+        <item quantity="other">%1$d буурч байна</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="one">%1$d хосын 24 цагийн утга алга</item>
+        <item quantity="other">%1$d хосын 24 цагийн утга алга</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d хосын өнөөдрийн утга алга</item>
+        <item quantity="other">%1$d хосын өнөөдрийн утга алга</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d хос өсөж байна</item>
+        <item quantity="other">%1$d хос өсөж байна</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="one">сүүлд %1$d хоногийн өмнө шинэчилсэн</item>
+        <item quantity="other">сүүлд %1$d хоногийн өмнө шинэчилсэн</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="one">сүүлд %1$d цагийн өмнө шинэчилсэн</item>
+        <item quantity="other">сүүлд %1$d цагийн өмнө шинэчилсэн</item>
+    </plurals>
+    <string name="a11y_updated_just_now">саяхан шинэчилсэн</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="one">сүүлд %1$d минутын өмнө шинэчилсэн</item>
+        <item quantity="other">сүүлд %1$d минутын өмнө шинэчилсэн</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">дүнг нуусан</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_entry">%1$s %2$s, өнөөдрийн үнэ цэнэ %3$s</string>
+    <string name="a11y_portfolio_entry_in">Орлого</string>
+    <string name="a11y_portfolio_entry_no_value">үнэ цэнэ алга</string>
+    <string name="a11y_portfolio_entry_note">тэмдэглэл %1$s</string>
+    <string name="a11y_portfolio_entry_out">Зарлага</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, багцын %3$s</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, багцын %2$s, %3$s</string>
+    <string name="a11y_portfolio_positions">Хамгийн том позицууд: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">Дүнг харуулах</string>
+    <string name="a11y_compare_chart">Хувиар харьцуулах, %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">30 хоногийн дээд түвшнээс %1$s</string>
+    <string name="a11y_price_overlay">Ханшийн давхарга: %1$s</string>
+</resources>

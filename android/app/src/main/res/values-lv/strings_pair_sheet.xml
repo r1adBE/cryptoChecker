@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s %2$s laikā</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">Slēgšana</string>
+    <string name="sheet_chart_converted_current">%1$s, pārrēķināts (pašreizējais kurss)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, pārrēķināts pēc dienas kursiem</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">Šim pārim nav cenu datu</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">Atvēršana</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">Šodien</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">Apj. %1$s</string>
+    <string name="sheet_more">Vairāk</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Pārdošana</string>
+    <string name="ticker_bid">Pirkšana</string>
+    <string name="explain_bid_ask">Pirkšanas cena ir augstākā cena, ko pircēji pašlaik piedāvā, pārdošanas cena – zemākā, ko pieņems pārdevēji.</string>
+    <string name="ticker_high">Augstākā</string>
+    <string name="ticker_low">Zemākā</string>
+    <string name="ticker_timestamp">Laiks</string>
+    <string name="ticker_vol_base">Apjoms (monētās)</string>
+    <string name="ticker_vol_quote">Apjoms (kotējuma valūtā)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (ierīces laika josla)</string>
+    <string name="change_basis_local">Kopš 00:00 vietējā laikā</string>
+    <string name="change_basis_rolling">Pēdējās 24 h</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">Kopš pēdējās atjaunināšanas</string>
+    <string name="change_basis_utc_zone">Kopš 00:00 %1$s</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">Izmaiņas pēc %1$s svecēm</string>
+    <string name="change_short_since_last">pēdējais stāvoklis</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">šodien</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">šodien %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="exchange_data_empty_error">No biržas netika saņemti dati.</string>
+    <string name="market_data_summary">Tirgus kapitalizācija, gāzes maksas, ekonomikas dati, monētas analīze</string>
+    <string name="market_data_tab_futures">Nākotnes līgumi</string>
+    <string name="market_data_title">Tirgus dati</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">Apgrozībā esošais daudzums</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">Tirgus kapitalizācija</string>
+    <string name="spot_max_supply">Maksimālais daudzums</string>
+    <string name="spot_no_data">Šai monētai nav spot datu</string>
+    <string name="spot_source_updated">Avots: %1$s · stāvoklis %2$s</string>
+    <string name="spot_supply_of_max">%1$s no maksimālā daudzuma apgrozībā</string>
+    <string name="spot_total_supply">Kopējais daudzums</string>
+    <string name="spot_vol_mcap">Apj./tirgus kap.</string>
+    <string name="spot_volume_24h">Apjoms (24 h)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">Atsauce: %1$s</string>
+    <string name="futures_funding">Finansējuma likme</string>
+    <string name="futures_funding_interval_unknown">intervāls nav zināms</string>
+    <string name="futures_funding_per8h_equiv">= %1$s par 8 h (kā brīdinājumos)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">stundā</string>
+    <string name="futures_funding_per_hours">par %1$d h</string>
+    <string name="futures_next_funding">nākamā pēc %1$d h %2$d min</string>
+    <string name="futures_no_data">Šai monētai nav nākotnes līgumu datu</string>
+    <string name="futures_open_interest">Atvērtās pozīcijas</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">Atsauce no %1$s – finansējums un atvērtās pozīcijas katrā biržā atšķiras; %2$s tās var būt citādas.</string>
+    <string name="futures_reference_spot">Atsauce no %1$s (monētas USDT beztermiņa līgums)</string>
+    <string name="futures_source">Avots: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">Daudzi tirgotāji ar aizņemtu naudu liek uz cenu kāpumu vai kritumu. Maksa starp garajām un īsajām pozīcijām. Stipri pozitīva nozīmē, ka daudzi liek uz cenu kāpumu.</string>
+    <string name="explain_open_interest">Nākotnes līgumi ir likmes uz cenu, bieži ar aizņemtu naudu. Visu atvērto nākotnes līgumu pozīciju vērtība. Ja tā aug, uz kustību liek vairāk naudas.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Skaidrojums</string>
+    <string name="explain_spot_fdv">Pilnībā atšķaidītā vērtība: cena × maksimālais daudzums (vai kopējais daudzums, ja ierobežojuma nav).</string>
+    <string name="explain_spot_market_cap">Cena × apgrozībā esošais daudzums. Plāksnīte rāda tās izmaiņas 24 stundās.</string>
+    <string name="explain_spot_source">Dati no visām biržām ASV dolāros, no CoinGecko.</string>
+    <string name="explain_spot_supply">Apgrozībā: monētas, kas tagad ir tirgū. Kopējais: visas radītās monētas, atskaitot sadedzinātās. Maksimālais: lielākais daudzums, kāds jebkad var pastāvēt.</string>
+    <string name="explain_spot_volume">24 stundās tirgotā vērtība. Apj./tirgus kap.: apjoms attiecībā pret tirgus kapitalizāciju — augsts nozīmē ļoti aktīvu tirdzniecību.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · kurss %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sat</string>
+
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">Liela atšķirība starp pirkšanas un pārdošanas cenu (%1$s)</string>
+
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">Vēsture %1$s, pārrēķināta uz %2$s pēc šodienas kursa</string>
+    <string name="converted_unsure">Pārrēķins nedrošs</string>
+</resources>

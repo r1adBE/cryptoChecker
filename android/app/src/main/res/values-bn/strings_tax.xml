@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
+    <string name="portfolio_cutoff_export_action">নির্দিষ্ট তারিখের এক্সপোর্ট…</string>
+    <string name="portfolio_tax_worksheet_action">ওয়ার্কশিট…</string>
+    <string name="portfolio_export_address_unobserved">এই তারিখে ঠিকানা নজরে ছিল না – অন্তর্ভুক্ত নয়</string>
+    <string name="portfolio_export_button">CSV এক্সপোর্ট</string>
+    <string name="portfolio_export_col_amount">পরিমাণ</string>
+    <string name="portfolio_export_col_coin">কয়েন</string>
+    <string name="portfolio_export_col_note">নোট</string>
+    <string name="portfolio_export_col_price">দাম USDT</string>
+    <string name="portfolio_export_col_rate">হার USDT→%1$s</string>
+    <string name="portfolio_export_col_value">মূল্য USDT</string>
+    <string name="portfolio_export_col_value_cur">মূল্য %1$s</string>
+    <!-- Inhalt der CSV-Datei -->
+    <string name="portfolio_export_comment"># নির্দিষ্ট তারিখ %1$s, মুদ্রা %2$s, %3$s-এর বিনিময় হার</string>
+    <string name="portfolio_export_currency">মুদ্রা: %1$s</string>
+    <string name="portfolio_export_date">নির্দিষ্ট তারিখ</string>
+    <string name="portfolio_export_done">এক্সপোর্ট সংরক্ষিত</string>
+    <string name="portfolio_export_estv_note">সম্পদ করের জন্য যেখানে তালিকাভুক্ত সেখানে ESTV মূল্য তালিকা %1$s-এর সরকারি বছর-শেষের মান প্রযোজ্য: %2$s</string>
+    <string name="portfolio_export_failed">এক্সপোর্ট ব্যর্থ</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">এক্সপোর্ট ব্যর্থ: ফাইলটি লেখা যায়নি – সংরক্ষণের স্থানটি আর নেই বা লেখার যোগ্য নয়</string>
+    <string name="portfolio_export_failed_prices">এক্সপোর্ট ব্যর্থ: দাম লোড করা যায়নি – সংযোগ নেই বা এক্সচেঞ্জ সাড়া দিচ্ছে না</string>
+    <string name="portfolio_export_from_address">ঠিকানা থেকে – কেনার দাম নেই</string>
+    <string name="portfolio_export_hint">বেছে নেওয়া দিনের শেষে হোল্ডিং, USDT-তে দৈনিক ক্লোজ (UTC)-এ মূল্যায়িত এবং সেদিনের ECB রেফারেন্স রেটে রূপান্তরিত। “রূপান্তর করুন” দিয়ে মুদ্রা বদলান।</string>
+    <string name="portfolio_export_incomplete">অসম্পূর্ণ</string>
+    <string name="portfolio_export_no_fx">বিনিময় হার নেই</string>
+    <string name="portfolio_export_no_price">দাম নেই</string>
+    <string name="portfolio_export_running">ঐতিহাসিক দাম আনা হচ্ছে…</string>
+    <string name="portfolio_export_title">নির্দিষ্ট তারিখের এক্সপোর্ট</string>
+    <string name="portfolio_export_today_hint">আজ এখনো শেষ হয়নি: দৈনিক ক্লোজের বদলে বর্তমান দাম ব্যবহৃত হয়।</string>
+    <string name="portfolio_export_total">মোট</string>
+    <string name="portfolio_export_unchecked">যাচাই হয়নি (মেলানো দাম নেই)</string>
+
+    <!-- Steuer-Export (Arbeitspapier) -->
+    <string name="tax_export_adjustment">superficial loss (ACB-তে যোগ করা)</string>
+    <string name="tax_export_at_wallet_note">অস্ট্রিয়া: প্রতি কয়েন ও ওয়ালেট (এক্সচেঞ্জ) অনুযায়ী চলমান গড় – ট্রান্সফারে খরচ সঙ্গে যায় – পুরস্কার অধিগ্রহণ খরচ 0-এ – 1 মার্চ 2021 থেকে হোল্ডিং ফি ছাড়া (বাদযোগ্য নয়) – লেন্ডিং সুদ প্রাপ্তির সময়ের মূল্যে (27.5 শতাংশে আয়)।</string>
+    <string name="tax_export_avg_cost_rates">কেনার তারিখের হারে খরচ (গড়)</string>
+    <string name="tax_export_ch_wealth_not_calculated">সম্পদ কর হিসাব করা হয়নি – ESTV মূল্য তালিকা: %1$s</string>
+    <string name="tax_export_col_acquired">অর্জিত</string>
+    <string name="tax_export_col_adjustment">অননুমোদিত ক্ষতি %1$s</string>
+    <string name="tax_export_col_cost">খরচ %1$s</string>
+    <string name="tax_export_col_date">তারিখ</string>
+    <string name="tax_export_col_days">ধরে রাখার দিন</string>
+    <string name="tax_export_col_gain">লাভ %1$s</string>
+    <string name="tax_export_col_gross">ফির আগে দাম %1$s</string>
+    <string name="tax_export_col_long_term">&gt; 1 বছর ধরে রাখা</string>
+    <string name="tax_export_col_portfolio_value">পোর্টফোলিওর মূল্য %1$s</string>
+    <string name="tax_export_col_proceeds">বিক্রয়লব্ধ অর্থ %1$s</string>
+    <string name="tax_export_col_sold">বিক্রীত</string>
+    <string name="tax_export_cost_incomplete">মোট অধিগ্রহণ খরচ অসম্পূর্ণ</string>
+    <string name="tax_export_cost_missing">কেনার দাম নেই</string>
+    <string name="tax_export_fee_consumed">ফি পুরো প্রাপ্তি খেয়ে ফেলে</string>
+    <string name="tax_export_fee_leg">অন্য কয়েনে ফি</string>
+    <string name="tax_export_fee_row">ফি</string>
+    <string name="tax_export_fee_value_missing">অন্য কয়েনের ফির কোনো মূল্য নেই</string>
+    <string name="tax_export_gains">বাস্তবায়িত হস্তান্তর (CSV)</string>
+    <string name="tax_export_gains_title">বাস্তবায়িত হস্তান্তর %1$s</string>
+    <string name="tax_export_gift">উপহার</string>
+    <string name="tax_export_holdings_cutoff">%1$s তারিখে হোল্ডিং (CSV)</string>
+    <string name="tax_export_holdings_title">%1$s তারিখে হোল্ডিং</string>
+    <string name="tax_export_income">আয় (CSV)</string>
+    <string name="tax_export_income_title">আয় %1$s</string>
+    <string name="tax_export_info_template">টেমপ্লেট: %1$s · পদ্ধতি: %2$s · কর বছর: %3$s · মুদ্রা: %4$s · Crypto Checker %5$s</string>
+    <string name="tax_export_lost_fee_cost">মূল্য পরিশোধিত লট ছাড়া নেটওয়ার্ক ফির খরচ</string>
+    <string name="tax_export_match_pool">Section 104 pool</string>
+    <string name="tax_export_match_same_day">একই দিন (HMRC)</string>
+    <string name="tax_export_match_thirty_day">30 দিনের নিয়ম (HMRC)</string>
+    <string name="tax_export_method_change_warning">পদ্ধতি বা টেমপ্লেট বদলালে আগের বছরগুলোও পুনরায় হিসাব হয় – যা আগে জমা দিয়েছেন তার সঙ্গে মিলিয়ে দেখুন।</string>
+    <string name="tax_export_method_overridden">টেমপ্লেট %1$s হিসাব করে – %2$s নয়</string>
+    <string name="tax_export_new_holding">1 মার্চ 2021 থেকে অর্জিত</string>
+    <string name="tax_export_no">না</string>
+    <string name="tax_export_old_holding">1 মার্চ 2021-এর আগে অর্জিত</string>
+    <string name="tax_export_oversold">লিখে রাখার চেয়ে বেশি বিক্রি</string>
+    <string name="tax_export_payment">ক্রিপ্টো দিয়ে পরিশোধ</string>
+    <string name="tax_export_period">%1$s – %2$s</string>
+    <string name="tax_export_proceeds_missing">বিক্রয়মূল্য নেই</string>
+    <string name="tax_export_proceeds_without_cost">কেনার দাম ছাড়া বিক্রয়লব্ধ অর্থ</string>
+    <string name="tax_export_realized_differs">ট্যাক্স CSV ‘বাস্তবায়িত’ থেকে আলাদা হতে পারে (দেশের কর নিয়ম)।</string>
+    <string name="tax_export_rule">&gt; 1 বছর: কেনার তারিখ + 1 ক্যালেন্ডার বছরের পর বিক্রি। তারিখ স্থানীয় সময়ে। হার: লেনদেনের দিনের ECB দৈনিক হার; না থাকলে 7 দিন আগে পর্যন্ত শেষ হার।</string>
+    <string name="tax_export_rules_date">নিয়ম অনুযায়ী: %1$s</string>
+    <string name="tax_export_rules_stale">নিয়মগুলো %1$s-এর – %2$s-এর জন্য হার ও ছাড় বদলে থাকতে পারে। মানগুলো যাচাই করুন।</string>
+    <string name="tax_export_spouse_gift">স্বামী/স্ত্রী/সঙ্গীকে – লাভও নয়, ক্ষতিও নয়</string>
+    <string name="tax_export_summary">বার্ষিক সারাংশ %1$s (CSV)</string>
+    <string name="tax_export_swap">সোয়াপ</string>
+    <string name="tax_export_tax_year">কর বছর</string>
+    <string name="tax_export_transfer_fee_info">USDT/নগদে ট্রান্সফার ফি – ক্ষতি নয়, ক্রয়মূল্যে নয়, শুধু তথ্য</string>
+    <string name="tax_export_unassigned_fee">ফি নির্ধারিত হয়নি – ক্রয়মূল্য অজানা</string>
+    <string name="tax_export_usdt_usd_note">USDT, USDT/USD দৈনিক ক্লোজে রূপান্তরিত; ক্লোজ না থাকলে 1 USD (প্রতি সারিতে চিহ্নিত)</string>
+    <string name="tax_export_value_estimated">মূল্য আনুমানিক (দৈনিক ক্লোজ)</string>
+    <string name="tax_export_value_missing">প্রাপ্তির সময়ের মূল্য নেই</string>
+    <string name="tax_export_wallet">ওয়ালেট: %1$s</string>
+    <string name="tax_export_wallet_unspecified">উল্লেখ নেই</string>
+    <string name="tax_export_withdrawal_fee">উত্তোলন ফি</string>
+    <string name="tax_export_withdrawal_fee_info">USDT/নগদে উত্তোলন ফি – ক্ষতি নয়, শুধু তথ্য</string>
+    <string name="tax_export_workpaper_disclaimer">কর ওয়ার্কশিট – কর রিটার্ন নয় এবং কর পরামর্শ নয়</string>
+    <string name="tax_export_workpaper_title">ওয়ার্কশিট</string>
+    <string name="tax_export_year_local_zone">স্থানীয় সময়ে তারিখ (%1$s)</string>
+    <string name="tax_export_yes">হ্যাঁ</string>
+
+    <!-- Steuer-Export: Zeilen und Spalten -->
+    <string name="tax_line_at_interest">লেন্ডিং সুদ (প্রাপ্তির সময়ের মূল্য)</string>
+    <string name="tax_line_at_old_long">1 মার্চ 2021-এর আগে অর্জিত – &gt; 1 বছর ধরে রাখা: সাধারণত করযোগ্য নয় – যাচাই করুন</string>
+    <string name="tax_line_at_rate">বিশেষ হার 27.5 শতাংশ: নিট, 1 মার্চ 2021 থেকে অর্জিত ও 1 মার্চ 2022 থেকে বিক্রীত + সুদ</string>
+    <string name="tax_line_au_discounted">ক্ষতি ও 50 শতাংশ ছাড়ের পর নিট মূলধনী লাভ</string>
+    <string name="tax_line_ca_taxable">করযোগ্য মূলধনী লাভ (অন্তর্ভুক্তির হার 1/2)</string>
+    <string name="tax_line_ch_income">পুরস্কার তালিকাভুক্ত – এর বিবেচনার জন্য ESTV ওয়ার্কিং পেপার দেখুন</string>
+    <string name="tax_line_ch_private">ব্যক্তিগত সম্পদে মূলধনী লাভ: হিসাব করা হয়নি – শ্রেণিবিভাগের জন্য ESTV দেখুন</string>
+    <string name="tax_line_ch_wealth">সম্পদ কর: হিসাব করা হয়নি – হোল্ডিং CSV 31 ডিসেম্বরে এক্সচেঞ্জের দাম × USD/CHF ব্যবহার করে – সরকারি কর মান: ESTV মূল্য তালিকা</string>
+    <string name="tax_line_de_long">&gt; 1 বছর ধরে রাখা: § 23 EStG অনুযায়ী সাধারণত করযোগ্য নয় – যাচাই করুন</string>
+    <string name="tax_line_denied_loss">অননুমোদিত ক্ষতি (superficial loss)</string>
+    <string name="tax_line_fr_outflow">বিক্রি ছাড়া নির্গমন (উত্তোলন) – মোট অধিগ্রহণ খরচ আনুপাতিকভাবে কমানো</string>
+    <string name="tax_line_fr_rate">ফ্ল্যাট রেট 12.8 শতাংশ যোগ সামাজিক অবদান (বা বিকল্পে স্কেল)</string>
+    <string name="tax_line_fr_threshold">বছরে €305 পর্যন্ত হস্তান্তর: সাধারণত অব্যাহতিপ্রাপ্ত (বিক্রয়মূল্যের মোট) – যাচাই করুন</string>
+    <string name="tax_line_gains">লাভ</string>
+    <string name="tax_line_income">আয় (প্রাপ্তির সময়ের মূল্যে পুরস্কার)</string>
+    <string name="tax_line_jp_misc">বিবিধ আয় (雑所得): নিট লাভ + আয়</string>
+    <string name="tax_line_long_net">নিট – &gt; 1 বছর ধরে রাখা</string>
+    <string name="tax_line_losses">ক্ষতি</string>
+    <string name="tax_line_net">নিট লাভ/ক্ষতি</string>
+    <string name="tax_line_new_net">নিট – 1 মার্চ 2021 থেকে অর্জিত, 1 মার্চ 2022 থেকে বিক্রীত</string>
+    <string name="tax_line_old_long_net">নিট – 1 মার্চ 2021-এর আগে অর্জিত – &gt; 1 বছর ধরে রাখা</string>
+    <string name="tax_line_old_short_net">নিট – ফাটকা লেনদেন (পূর্ববর্তী আইন): 1 মার্চ 2021-এর আগে অর্জিত ও ≤ 1 বছর ধরে রাখা, বা 1 মার্চ 2022-এর আগে বিক্রীত</string>
+    <string name="tax_line_proceeds">বিক্রয়লব্ধ অর্থ</string>
+    <string name="tax_line_short_net">নিট – ≤ 1 বছর ধরে রাখা</string>
+    <string name="tax_line_transfer_fees">ট্রান্সফার ফি (নিজের ওয়ালেট)</string>
+    <string name="tax_line_uk_after_exempt">অব্যাহতির পরিমাণের উপরে নিট লাভ (শুধু ক্রিপ্টো)</string>
+    <string name="tax_line_uk_exempt">বার্ষিক অব্যাহতির পরিমাণ – সব হস্তান্তরে একসঙ্গে প্রযোজ্য, এখানে পুরোটা প্রয়োগ করা হয়েছে</string>
+    <string name="tax_line_us_terms">স্বল্পমেয়াদি (≤ 1 বছর): সাধারণ হার – দীর্ঘমেয়াদি (&gt; 1 বছর): মূলধনী লাভের হার</string>
+    <string name="tax_line_withdrawal_fees">উত্তোলন ফি</string>
+
+    <!-- Steuer Deutschland -->
+    <string name="tax_de_below">সীমার নিচে</string>
+    <string name="tax_de_col_item">বিষয়</string>
+    <string name="tax_de_disclaimer">শুধু দিকনির্দেশনার জন্য – কর রিটার্ন নয় এবং কর পরামর্শ নয়।</string>
+    <string name="tax_de_explain_below">%1$s পর্যন্ত: সীমার নিচে (দিকনির্দেশনার জন্য)।</string>
+    <string name="tax_de_explain_loss">নিট ক্ষতি: এই বিক্রিগুলোতে কর নেই। § 23 EStG অনুযায়ী ক্ষতি শুধু ব্যক্তিগত বিক্রির লাভের সঙ্গে সমন্বয় করা যায় – একই বছরে বা আগের বছরে ফিরিয়ে নিয়ে ও পরের বছরগুলোতে এগিয়ে নিয়ে (§ 23 অনুচ্ছেদ 3 ও § 10d EStG)। ক্ষতি নির্ধারিত হওয়ার জন্য আপনার কর রিটার্নে তা ঘোষণা করুন।</string>
+    <string name="tax_de_explain_reached">%1$s থেকে পুরো অঙ্ক গণ্য হয় (অব্যাহতির সীমা – ভাতা নয়)।</string>
+    <string name="tax_de_explain_unknown">যাচাই করা যায় না: বিনিময় হার / কেনার দাম বা ধরে রাখার সময়কাল নেই।</string>
+    <string name="tax_de_income_limit">সেবার জন্য অব্যাহতির সীমা (§ 22 No. 3 EStG)</string>
+    <string name="tax_de_limit_scope">সীমা বছরের সব ব্যক্তিগত বিক্রি বা সেবার উপর একসঙ্গে প্রযোজ্য – অ্যাপের বাইরেরগুলোসহ।</string>
+    <string name="tax_de_loading">হিসাব হচ্ছে…</string>
+    <string name="tax_de_long_gains">লাভ – &gt; 1 বছর ধরে রাখা</string>
+    <string name="tax_de_long_losses">ক্ষতি – &gt; 1 বছর ধরে রাখা</string>
+    <string name="tax_de_loss">নিট ক্ষতি – শুধু ব্যক্তিগত বিক্রির লাভের সঙ্গে সমন্বয়যোগ্য (§ 23 EStG)</string>
+    <string name="tax_de_private_limit">ব্যক্তিগত বিক্রির জন্য অব্যাহতির সীমা (§ 23 EStG)</string>
+    <string name="tax_de_reached">সীমা পৌঁছেছে – সাধারণত পুরো অঙ্ক গণ্য হয় – যাচাই করুন</string>
+    <string name="tax_de_short_gains">লাভ – ≤ 1 বছর ধরে রাখা</string>
+    <string name="tax_de_short_losses">ক্ষতি – ≤ 1 বছর ধরে রাখা</string>
+    <string name="tax_de_unclassified">ধরে রাখার সময়কাল অজানা</string>
+    <string name="tax_de_unknown">যাচাই করা যায় না</string>
+
+    <!-- Steuer-Vorlagen je Land -->
+    <string name="tax_template_at">অস্ট্রিয়া</string>
+    <string name="tax_template_au">অস্ট্রেলিয়া</string>
+    <string name="tax_template_beta">বেটা</string>
+    <string name="tax_template_beta_note">বেটা: দেশের নিয়ম সরলীকৃত, কর রিটার্ন জমার আগে যাচাই করুন</string>
+    <string name="tax_template_ca">কানাডা</string>
+    <string name="tax_template_ch">সুইজারল্যান্ড</string>
+    <string name="tax_template_confirm_text">বেটা, সরলীকৃত নিয়ম, অন্য প্ল্যাটফর্মের লেনদেন নেই – কর রিটার্ন জমার আগে যাচাই করুন।</string>
+    <string name="tax_template_confirm_title">কর টেমপ্লেট (বেটা)</string>
+    <string name="tax_template_current">টেমপ্লেট: %1$s · পদ্ধতি: %2$s · মুদ্রা: %3$s</string>
+    <string name="tax_template_de">জার্মানি</string>
+    <string name="tax_template_fr">ফ্রান্স</string>
+    <string name="tax_template_hint">শুধু দিকনির্দেশনার জন্য: কর ওয়ার্কশিটের পদ্ধতি, কর বছর ও সারাংশ ঠিক করে। পোর্টফোলিও কার্ড নিরপেক্ষ থাকে – উপহার ও ট্রান্সফার ফি ওয়ার্কশিট থেকে আলাদা হতে পারে।</string>
+    <string name="tax_template_jp">জাপান</string>
+    <string name="tax_template_neutral">নিরপেক্ষ (সব দেশ)</string>
+    <string name="tax_template_suggestion">আপনার অঞ্চলের জন্য প্রস্তাব: %1$s</string>
+    <string name="tax_template_title">কর টেমপ্লেট</string>
+    <string name="tax_template_uk">যুক্তরাজ্য</string>
+    <string name="tax_template_us">যুক্তরাষ্ট্র</string>
+    <string name="tax_template_use">%1$s ব্যবহার করুন</string>
+
+    <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
+    <string name="tax_method_at">পুরোনো/নতুন হোল্ডিং – চলমান গড়</string>
+    <string name="tax_method_ca_acb">ACB গড় খরচ (superficial loss)</string>
+    <string name="tax_method_fr_pta">মোট অধিগ্রহণ মূল্য (art. 150 VH bis)</string>
+    <string name="tax_method_jp_total">মোট গড় (総平均法)</string>
+    <string name="tax_method_uk_pool">Section 104 pool (একই দিন / 30 দিন)</string>
+    <string name="tax_note_at">প্রতি কয়েন ও ওয়ালেট অনুযায়ী চলমান গড় – ওয়ালেট জুড়ে নয় (KryptowährungsVO § 2)। পুরস্কার অধিগ্রহণ খরচ 0-এ নতুন হোল্ডিংয়ে আসে (BMF: স্টেকিং / এয়ারড্রপ) – আয়ের ফাইল এগুলো প্রাপ্তির সময়ের মূল্যে দেখায়। 1 মার্চ 2021 থেকে অর্জিত হোল্ডিংয়ে ফি বাদযোগ্য নয় (§ 27a(4) no. 2, § 20(2) EStG): ফি ছাড়া খরচ ও বিক্রয়লব্ধ অর্থ। লেন্ডিং সুদ (CSV ইমপোর্ট বা নোট থেকে ধরন) প্রাপ্তির সময় 27.5 শতাংশে আয় এবং সেই মূল্যই অধিগ্রহণ খরচ হিসেবে থাকে।</string>
+    <string name="tax_note_at_staking">ইতিমধ্যে হাতে থাকা কয়েন দিয়ে স্টেকিং ও এয়ারড্রপ: প্রাপ্তির সময়ের মূল্য করের জন্য বিবেচ্য নয় – আইন অনুযায়ী অধিগ্রহণ খরচ 0 (§ 27b Abs. 2 EStG; BMF “Kryptowährungen”)। কর শুধু বিক্রির সময় প্রযোজ্য।</string>
+    <string name="tax_note_fr">ক্রিপ্টোতে পরিশোধিত বিক্রি ও ফি হস্তান্তর – সোয়াপ স্থগিত। বিক্রির উপর ক্রিপ্টো ফি ফির আগের দামে গণ্য হয় – নইলে এটি তার মূল্যে নিজস্ব হস্তান্তর। পোর্টফোলিওর মূল্য দৈনিক ক্লোজ থেকে – ক্লোজ না থাকলে খরচ খালি থাকে।</string>
+    <string name="tax_note_network_fee">ক্রিপ্টোতে পরিশোধিত নেটওয়ার্ক ফি (নিজের ওয়ালেটে ট্রান্সফার, উত্তোলন) হলো বাজারমূল্যে ফি-কয়েনের হস্তান্তর – লাভ বা ক্ষতি শুধু ওই কয়েনে, পুরো ফির ক্ষতি নয় (%1$s)। লেখা দাম না থাকলে: একই দিনের দৈনিক ক্লোজ (UTC); ক্লোজ না থাকলে বিক্রয়লব্ধ অর্থ খালি থাকে।</string>
+    <string name="tax_note_specific_id">নির্দিষ্ট শনাক্তকরণ সমর্থিত নয় – FIFO ব্যবহৃত হয়।</string>
+    <string name="tax_note_spouse_gift">“স্বামী/স্ত্রী বা সিভিল পার্টনারকে” চিহ্নিত উপহার লাভও নয়, ক্ষতিও নয়: বিক্রয়লব্ধ অর্থ = আপনার ক্রয়মূল্য, যা আপনার সঙ্গী গ্রহণ করেন (%1$s)।</string>
+    <string name="tax_note_stable_swap">ক্রিপ্টো বিক্রি করে স্টেবলকয়েন (USDT/USDC/DAI …) নিয়ে তা রেখে দিলে এখানে সেটি ক্রিপ্টো-থেকে-ক্রিপ্টো এবং করযোগ্য নয় – এটি স্টেবলকয়েনে সোয়াপ হিসেবে লিখুন। শুধু ইউরোর বিনিময়ে বিক্রি করযোগ্য – “বেচা” ইউরোর বিনিময়ে বিক্রি হিসেবে গণ্য।</string>
+    <string name="tax_note_transfer_fee">নিজের ওয়ালেটগুলোর মধ্যে ট্রান্সফারে USDT বা নগদ ফির ক্ষেত্রেও একই: এটি ক্রয়মূল্যে যোগ হয় না এবং শুধু তথ্য হিসেবে দেখানো হয়।</string>
+    <string name="tax_note_uk">HMRC অনুযায়ী মেলানো: একই দিন → পরের 30 দিন → Section 104 pool।</string>
+    <string name="tax_note_us_transition">1 জানুয়ারি 2025-এর রূপান্তর (Rev. Proc. 2024-28 safe harbor): আগের বছরগুলোতে সব ওয়ালেট জুড়ে FIFO ব্যবহৃত হলে, 31 ডিসেম্বর 2024 অনুযায়ী অবশিষ্ট লট কয়েন রাখা ওয়ালেটগুলোতে যায় – সবচেয়ে পুরোনো কয়েনের ওয়ালেট সবচেয়ে পুরোনো ক্রয়মূল্য পায়। এই বণ্টন অ্যাপের একটি নিয়ম – আপনার নিজের রেকর্ডের সঙ্গে মিলিয়ে দেখুন।</string>
+    <string name="tax_note_us_wallet">কর বছর 2025 থেকে IRS প্রতি ওয়ালেট বা এক্সচেঞ্জ অনুযায়ী ক্রয়মূল্য চায় (Rev. Proc. 2024-28): এক্সপোর্ট 2025 থেকে প্রতি ওয়ালেটে FIFO ব্যবহার করে – আগের বছরগুলোর জন্য সব ওয়ালেট জুড়ে FIFO, অথবা সেটি আপনার খরচ পদ্ধতি হলে প্রতি ওয়ালেটে FIFO।</string>
+    <string name="tax_note_withdrawal_fee">USDT বা নগদে উত্তোলন ফি ক্ষতি নয়: নগদ ফি বাদযোগ্য খরচ নয়, USDT ফি লাভ ছাড়া সমমূল্যে হস্তান্তর – এটি শুধু তথ্য হিসেবে দেখানো হয় (%1$s)।</string>
+    <string name="tax_summary_at_interest_income">গণ্য হয়: প্রাপ্তির সময় 27.5 শতাংশ বিশেষ হারে আয় (§ 27b(2) no. 1 EStG / BMF) – কয়েনগুলো এই মূল্যই অধিগ্রহণ খরচ হিসেবে রাখে</string>
+    <string name="tax_summary_at_reward_info">শুধু তথ্যের জন্য – কোনো মোটের অংশ নয়: পুরস্কার অধিগ্রহণ খরচ 0-এ নতুন হোল্ডিংয়ে আসে এবং শুধু বিক্রিতে কর হয় (লাভে ইতিমধ্যে আছে) – § 27b para. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">1 জানুয়ারি–28 ফেব্রুয়ারি 2022: 27.5 শতাংশের বিকল্প সম্ভব</string>
+    <string name="tax_summary_at_withdrawal_fee">উত্তোলন ফি – নতুন হোল্ডিংয়ের সঙ্গে সমন্বয় হয় না (বিশেষ হারে খরচ বাদযোগ্য নয়, § 20(2) EStG)</string>
+    <string name="tax_summary_ch_fifo_info">শুধু তথ্যের জন্য – অ্যাপের FIFO হিসাব – শ্রেণিবদ্ধ নয় – ESTV দেখুন</string>
+    <string name="tax_summary_ch_year_end_value">হোল্ডিং CSV-তে 31 ডিসেম্বরের মূল্য = এক্সচেঞ্জের দাম × USD/CHF – ESTV কর মান নয়</string>
+    <string name="tax_summary_de_withdrawal_fee">উত্তোলন ফি – § 23 অনুযায়ী সমন্বয় হয় না, আয়-সংক্রান্ত খরচ হিসেবে বাদযোগ্য কিনা যাচাই করুন</string>
+    <string name="tax_summary_not_calculated_estv">হিসাব করা হয়নি – ESTV মূল্য তালিকা: %1$s</string>
+    <string name="tax_summary_orientation">দিকনির্দেশনা</string>
+    <string name="tax_summary_orientation_block">শুধু দিকনির্দেশনার জন্য – কর পরামর্শ নয় – নির্ধারণ নয়</string>
+    <string name="tax_summary_orientation_item">দিকনির্দেশনা: %1$s</string>
+    <string name="tax_summary_title">বার্ষিক সারাংশ %1$s %2$s</string>
+    <string name="tax_summary_transfer_fee_info">USDT/নগদে ট্রান্সফার ফি – ক্ষতি নয় এবং ক্রয়মূল্যে নয়, শুধু তথ্য</string>
+    <string name="tax_summary_withdrawal_fee_info">USDT/নগদে উত্তোলন ফি – ক্ষতি হিসেবে গণ্য নয়, শুধু তথ্য</string>
+
+    <string name="tax_line_at_old_speculation_limit">ফাটকা লেনদেন (পূর্ববর্তী আইন, ≤ 1 বছর ধরে রাখা): অব্যাহতির সীমা (§ 31 (3) EStG পুরোনো সংস্করণ)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">1 মার্চ 2022-এর আগের লেন্ডিং সুদ (প্রাপ্তির সময়ের মূল্য)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">1 মার্চ 2022-এর আগের সুদ: পুরোনো আইন (আয়কর হার), 27.5 শতাংশ নয়</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">1 মার্চ 2022-এর আগে – একজন পেশাদারের সঙ্গে যাচাই করুন</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">সুদ – প্রাপ্তির সময় করযোগ্য</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">স্টেকিং – শুধু তথ্যের জন্য (অধিগ্রহণ খরচ 0, বিক্রিতে কর)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">মোট সুদ (করযোগ্য)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">মোট স্টেকিং (তথ্য)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">নিট মূলধনী ক্ষতি (এগিয়ে নেওয়া)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">বিকল্প ছাড়া: 1 জানুয়ারি–28 ফেব্রুয়ারি 2022-এর বিক্রি অন্তর্ভুক্ত</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">1 মার্চ 2022-এর আগে স্টেকিং: অধিগ্রহণ খরচ 0 ধরা হয়েছে – একজন পেশাদারের সঙ্গে যাচাই করুন</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">30 দিনের নিয়ম এখনো এই সংখ্যাগুলো বদলাতে পারে (%1$s পর্যন্ত কেনা)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">রিপোর্টিং সীমার (£50,000; 2020/21–2022/23: £49,200) উপরে ফির আগের বিক্রয়লব্ধ অর্থ: Self Assessment-এ নিবন্ধিত হলে করযোগ্য লাভ না থাকলেও HMRC-কে জানান</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">সম্পদ মূল্য 31 ডিসেম্বর %1$s (দিকনির্দেশনা)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">ESTV মূল্য তালিকা (ictax.admin.ch) চূড়ান্ত। তালিকায় না থাকা কয়েনের জন্য সাধারণত এক্সচেঞ্জের ক্লোজিং দাম প্রযোজ্য। সম্পদ কর হিসাব করা হয়নি।</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – হোল্ডিং %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">হিসাব করা হয়নি</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">নজরে রাখা ঠিকানা পড়া যায়নি – এই ফাইলে তাদের ব্যালেন্স নেই</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">নজরে রাখা ঠিকানার লট তাদের কেনার তারিখ থেকে গণ্য হয়; ঠিকানার আজকের ব্যালেন্স কম হলে সেগুলো কমানো হয়।</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">নজরে রাখা ঠিকানা মোট মূল্যে গণ্য হয় কিন্তু এদের কোনো অধিগ্রহণ খরচ নেই – তাই লাভ সম্ভবত বেশি দেখাচ্ছে। খরচটি কেনা হিসেবে লিখুন।</string>
+    <string name="tax_summary_fr_rewards_income">অঙ্কটি ধরে নেয় যে পুরস্কার প্রাপ্তির সময় আয় হিসেবে কর দেওয়া হয়েছে (প্রাপ্তির সময়ের মূল্য অধিগ্রহণ খরচে) – নইলে অধিগ্রহণ খরচ 0 হতো সতর্ক ব্যাখ্যা।</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">লেখা দাম ছাড়া বাজারমূল্য (ফি, উপহার/পরিশোধ, সোয়াপ, পুরস্কার, নেটওয়ার্ক ফি, পোর্টফোলিওর মূল্য) লেনদেনের দিনের দৈনিক ক্লোজে (UTC)</string>
+</resources>

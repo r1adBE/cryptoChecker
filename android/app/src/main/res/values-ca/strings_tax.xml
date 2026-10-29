@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
+    <string name="portfolio_cutoff_export_action">Exportació a data de tall…</string>
+    <string name="portfolio_tax_worksheet_action">Full de treball…</string>
+    <string name="portfolio_export_address_unobserved">adreça no observada en aquesta data – no inclosa</string>
+    <string name="portfolio_export_button">Exporta CSV</string>
+    <string name="portfolio_export_col_amount">Quantitat</string>
+    <string name="portfolio_export_col_coin">Moneda</string>
+    <string name="portfolio_export_col_note">Nota</string>
+    <string name="portfolio_export_col_price">Preu USDT</string>
+    <string name="portfolio_export_col_rate">Tipus USDT→%1$s</string>
+    <string name="portfolio_export_col_value">Valor USDT</string>
+    <string name="portfolio_export_col_value_cur">Valor %1$s</string>
+    <!-- Inhalt der CSV-Datei -->
+    <string name="portfolio_export_comment"># Data de tall %1$s, moneda %2$s, tipus de canvi del %3$s</string>
+    <string name="portfolio_export_currency">Moneda: %1$s</string>
+    <string name="portfolio_export_date">Data de tall</string>
+    <string name="portfolio_export_done">S\'ha desat l\'exportació</string>
+    <string name="portfolio_export_estv_note">Per a l\'impost sobre el patrimoni s\'apliquen els valors oficials de final d\'any de la llista de cotitzacions de l\'ESTV %1$s quan hi figuren: %2$s</string>
+    <string name="portfolio_export_failed">Ha fallat l\'exportació</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">Ha fallat l\'exportació: no s\'ha pogut escriure el fitxer – la ubicació ja no existeix o no s\'hi pot escriure</string>
+    <string name="portfolio_export_failed_prices">Ha fallat l\'exportació: no s\'han pogut carregar els preus – no hi ha connexió o l\'exchange no respon</string>
+    <string name="portfolio_export_from_address">de l\'adreça – sense preu de compra</string>
+    <string name="portfolio_export_hint">Tinences al final del dia triat, valorades al tancament diari (UTC) en USDT i convertides amb el tipus de referència del BCE d\'aquell dia. Canvia la moneda amb «Converteix a».</string>
+    <string name="portfolio_export_incomplete">incomplet</string>
+    <string name="portfolio_export_no_fx">sense tipus de canvi</string>
+    <string name="portfolio_export_no_price">sense preu</string>
+    <string name="portfolio_export_running">S\'estan obtenint els preus històrics…</string>
+    <string name="portfolio_export_title">Exportació a data de tall</string>
+    <string name="portfolio_export_today_hint">Avui encara no ha acabat: es fa servir el preu actual en lloc del tancament diari.</string>
+    <string name="portfolio_export_total">Total</string>
+    <string name="portfolio_export_unchecked">no verificat (cap preu coincident)</string>
+
+    <!-- Steuer-Export (Arbeitspapier) -->
+    <string name="tax_export_adjustment">superficial loss (afegida a l\'ACB)</string>
+    <string name="tax_export_at_wallet_note">Àustria: mitjana mòbil per moneda i moneder (exchange) – les transferències traslladen el cost – recompenses a cost d\'adquisició 0 – tinences des de l\'1 de març de 2021 sense comissions (no deduïbles) – interessos de préstec al valor en rebre\'ls (ingrés al 27,5 per cent).</string>
+    <string name="tax_export_avg_cost_rates">cost als tipus de la data de compra (mitjana)</string>
+    <string name="tax_export_ch_wealth_not_calculated">Impost sobre el patrimoni no calculat – llista de cotitzacions de l\'ESTV: %1$s</string>
+    <string name="tax_export_col_acquired">Adquirit</string>
+    <string name="tax_export_col_adjustment">Pèrdua no admesa %1$s</string>
+    <string name="tax_export_col_cost">Cost %1$s</string>
+    <string name="tax_export_col_date">Data</string>
+    <string name="tax_export_col_days">Dies de tinença</string>
+    <string name="tax_export_col_gain">Guany %1$s</string>
+    <string name="tax_export_col_gross">Preu abans de comissions %1$s</string>
+    <string name="tax_export_col_long_term">tinença &gt; 1 any</string>
+    <string name="tax_export_col_portfolio_value">Valor de la cartera %1$s</string>
+    <string name="tax_export_col_proceeds">Ingressos %1$s</string>
+    <string name="tax_export_col_sold">Venut</string>
+    <string name="tax_export_cost_incomplete">cost total d\'adquisició incomplet</string>
+    <string name="tax_export_cost_missing">falta el preu de compra</string>
+    <string name="tax_export_fee_consumed">La comissió consumeix tot l\'import rebut</string>
+    <string name="tax_export_fee_leg">comissió en una altra moneda</string>
+    <string name="tax_export_fee_row">Comissió</string>
+    <string name="tax_export_fee_value_missing">la comissió en una altra moneda no té valor</string>
+    <string name="tax_export_gains">Alienacions realitzades (CSV)</string>
+    <string name="tax_export_gains_title">Alienacions realitzades %1$s</string>
+    <string name="tax_export_gift">Donació</string>
+    <string name="tax_export_holdings_cutoff">Tinences a %1$s (CSV)</string>
+    <string name="tax_export_holdings_title">Tinences a %1$s</string>
+    <string name="tax_export_income">Ingressos (CSV)</string>
+    <string name="tax_export_income_title">Ingressos %1$s</string>
+    <string name="tax_export_info_template">Plantilla: %1$s · Mètode: %2$s · Exercici fiscal: %3$s · Moneda: %4$s · Crypto Checker %5$s</string>
+    <string name="tax_export_lost_fee_cost">cost de la comissió de xarxa sense lot pagat</string>
+    <string name="tax_export_match_pool">Section 104 pool</string>
+    <string name="tax_export_match_same_day">mateix dia (HMRC)</string>
+    <string name="tax_export_match_thirty_day">regla dels 30 dies (HMRC)</string>
+    <string name="tax_export_method_change_warning">Canviar el mètode o la plantilla també recalcula els anys anteriors – compara-ho amb el que ja has declarat.</string>
+    <string name="tax_export_method_overridden">La plantilla calcula %1$s – no %2$s</string>
+    <string name="tax_export_new_holding">adquirit des de l\'1 de març de 2021</string>
+    <string name="tax_export_no">no</string>
+    <string name="tax_export_old_holding">adquirit abans de l\'1 de març de 2021</string>
+    <string name="tax_export_oversold">venut més del que s\'ha registrat</string>
+    <string name="tax_export_payment">Pagament amb cripto</string>
+    <string name="tax_export_period">%1$s – %2$s</string>
+    <string name="tax_export_proceeds_missing">falta el preu de venda</string>
+    <string name="tax_export_proceeds_without_cost">Ingressos sense preu de compra</string>
+    <string name="tax_export_realized_differs">El CSV fiscal pot diferir de «realitzat» (normes fiscals del país).</string>
+    <string name="tax_export_rule">&gt; 1 any: venut després de la data de compra + 1 any natural. Dates en hora local. Tipus: tipus diari del BCE del dia de l\'operació; si no n\'hi ha, l\'últim tipus fins a 7 dies abans.</string>
+    <string name="tax_export_rules_date">Normes a data de: %1$s</string>
+    <string name="tax_export_rules_stale">Les normes són de %1$s – per a %2$s, els tipus i les desgravacions poden haver canviat. Revisa els valors.</string>
+    <string name="tax_export_spouse_gift">al cònjuge/parella – ni guany ni pèrdua</string>
+    <string name="tax_export_summary">Resum anual %1$s (CSV)</string>
+    <string name="tax_export_swap">intercanvi</string>
+    <string name="tax_export_tax_year">Exercici fiscal</string>
+    <string name="tax_export_transfer_fee_info">Comissió de transferència en USDT/efectiu – no és una pèrdua, no és al cost d\'adquisició, només informativa</string>
+    <string name="tax_export_unassigned_fee">comissió no assignada – cost d\'adquisició desconegut</string>
+    <string name="tax_export_usdt_usd_note">USDT convertit al tancament diari USDT/USD; 1 USD quan no hi ha tancament (marcat per fila)</string>
+    <string name="tax_export_value_estimated">Valor estimat (tancament diari)</string>
+    <string name="tax_export_value_missing">falta el valor en rebre-ho</string>
+    <string name="tax_export_wallet">Moneder: %1$s</string>
+    <string name="tax_export_wallet_unspecified">no especificat</string>
+    <string name="tax_export_withdrawal_fee">Comissió de retirada</string>
+    <string name="tax_export_withdrawal_fee_info">Comissió de retirada en USDT/efectiu – no és una pèrdua, només informativa</string>
+    <string name="tax_export_workpaper_disclaimer">Full de treball fiscal – no és una declaració ni un assessorament fiscal</string>
+    <string name="tax_export_workpaper_title">Full de treball</string>
+    <string name="tax_export_year_local_zone">Dates en hora local (%1$s)</string>
+    <string name="tax_export_yes">sí</string>
+
+    <!-- Steuer-Export: Zeilen und Spalten -->
+    <string name="tax_line_at_interest">Interessos de préstec (valor en rebre\'ls)</string>
+    <string name="tax_line_at_old_long">Adquirit abans de l\'1 de març de 2021 – tinença &gt; 1 any: normalment no tributa – comprova-ho</string>
+    <string name="tax_line_at_rate">Tipus especial del 27,5 per cent: net adquirit des de l\'1 de març de 2021 i venut des de l\'1 de març de 2022 + interessos</string>
+    <string name="tax_line_au_discounted">Guany de capital net després de pèrdues i descompte del 50 per cent</string>
+    <string name="tax_line_ca_taxable">Guany de capital imposable (taxa d\'inclusió 1/2)</string>
+    <string name="tax_line_ch_income">Recompenses llistades – consulta el document de treball de l\'ESTV per al seu tractament</string>
+    <string name="tax_line_ch_private">Guanys de capital sobre béns privats: no calculats – consulta l\'ESTV per a la classificació</string>
+    <string name="tax_line_ch_wealth">Impost sobre el patrimoni: no calculat – el CSV de tinences fa servir preu de l\'exchange × USD/CHF a 31 de desembre – valors fiscals oficials: llista de cotitzacions de l\'ESTV</string>
+    <string name="tax_line_de_long">Tinença &gt; 1 any: normalment no tributa segons el § 23 EStG – comprova-ho</string>
+    <string name="tax_line_denied_loss">Pèrdues no admeses (superficial loss)</string>
+    <string name="tax_line_fr_outflow">Sortides sense venda (retirades) – cost total d\'adquisició reduït proporcionalment</string>
+    <string name="tax_line_fr_rate">Tipus fix del 12,8 per cent més contribucions socials (o escala per opció)</string>
+    <string name="tax_line_fr_threshold">Alienacions fins a 305 € l\'any: generalment exemptes (total dels preus de venda) – comprova-ho</string>
+    <string name="tax_line_gains">Guanys</string>
+    <string name="tax_line_income">Ingressos (recompenses al valor en rebre-les)</string>
+    <string name="tax_line_jp_misc">Ingressos diversos (雑所得): guanys nets + ingressos</string>
+    <string name="tax_line_long_net">Net – tinença &gt; 1 any</string>
+    <string name="tax_line_losses">Pèrdues</string>
+    <string name="tax_line_net">Guanys/pèrdues nets</string>
+    <string name="tax_line_new_net">Net – adquirit des de l\'1 de març de 2021, venut des de l\'1 de març de 2022</string>
+    <string name="tax_line_old_long_net">Net – adquirit abans de l\'1 de març de 2021 – tinença &gt; 1 any</string>
+    <string name="tax_line_old_short_net">Net – operacions especulatives (llei anterior): adquirit abans de l\'1 de març de 2021 i tinença ≤ 1 any, o venut abans de l\'1 de març de 2022</string>
+    <string name="tax_line_proceeds">Ingressos</string>
+    <string name="tax_line_short_net">Net – tinença ≤ 1 any</string>
+    <string name="tax_line_transfer_fees">Comissions de transferència (moneders propis)</string>
+    <string name="tax_line_uk_after_exempt">Guanys nets per sobre de l\'import exempt (només cripto)</string>
+    <string name="tax_line_uk_exempt">Import exempt anual – s\'aplica a totes les alienacions conjuntament, aquí s\'aplica sencer</string>
+    <string name="tax_line_us_terms">Curt termini (≤ 1 any): tipus ordinaris – llarg termini (&gt; 1 any): tipus de guanys de capital</string>
+    <string name="tax_line_withdrawal_fees">Comissions de retirada</string>
+
+    <!-- Steuer Deutschland -->
+    <string name="tax_de_below">per sota del límit</string>
+    <string name="tax_de_col_item">Concepte</string>
+    <string name="tax_de_disclaimer">Només orientatiu – no és una declaració ni un assessorament fiscal.</string>
+    <string name="tax_de_explain_below">Fins a %1$s: per sota del límit (orientatiu).</string>
+    <string name="tax_de_explain_loss">Pèrdua neta: aquestes vendes no tributen. Les pèrdues segons el § 23 EStG només compensen guanys de vendes privades – el mateix any o per retroacció a l\'any anterior i trasllat a anys posteriors (§ 23 apt. 3 i § 10d EStG). Declara la pèrdua a la teva declaració perquè es determini.</string>
+    <string name="tax_de_explain_reached">A partir de %1$s compta tot l\'import (límit d\'exempció – no una desgravació).</string>
+    <string name="tax_de_explain_unknown">No es pot comprovar: falten tipus de canvi / preus de compra o períodes de tinença.</string>
+    <string name="tax_de_income_limit">Límit d\'exempció per a serveis (§ 22 núm. 3 EStG)</string>
+    <string name="tax_de_limit_scope">Els límits s\'apliquen a totes les vendes privades o serveis de l\'any conjuntament – també fora de l\'app.</string>
+    <string name="tax_de_loading">S\'està calculant…</string>
+    <string name="tax_de_long_gains">Guanys – tinença &gt; 1 any</string>
+    <string name="tax_de_long_losses">Pèrdues – tinença &gt; 1 any</string>
+    <string name="tax_de_loss">pèrdua neta – només compensable amb guanys de vendes privades (§ 23 EStG)</string>
+    <string name="tax_de_private_limit">Límit d\'exempció per a vendes privades (§ 23 EStG)</string>
+    <string name="tax_de_reached">límit assolit – normalment compta tot l\'import – comprova-ho</string>
+    <string name="tax_de_short_gains">Guanys – tinença ≤ 1 any</string>
+    <string name="tax_de_short_losses">Pèrdues – tinença ≤ 1 any</string>
+    <string name="tax_de_unclassified">Període de tinença desconegut</string>
+    <string name="tax_de_unknown">no es pot comprovar</string>
+
+    <!-- Steuer-Vorlagen je Land -->
+    <string name="tax_template_at">Àustria</string>
+    <string name="tax_template_au">Austràlia</string>
+    <string name="tax_template_beta">Beta</string>
+    <string name="tax_template_beta_note">Beta: normes del país simplificades, revisa-ho abans de presentar la declaració</string>
+    <string name="tax_template_ca">Canadà</string>
+    <string name="tax_template_ch">Suïssa</string>
+    <string name="tax_template_confirm_text">Beta, normes simplificades, falten les transaccions d\'altres plataformes – revisa-ho abans de presentar la declaració.</string>
+    <string name="tax_template_confirm_title">Plantilla fiscal (beta)</string>
+    <string name="tax_template_current">Plantilla: %1$s · Mètode: %2$s · Moneda: %3$s</string>
+    <string name="tax_template_de">Alemanya</string>
+    <string name="tax_template_fr">França</string>
+    <string name="tax_template_hint">Només orientatiu: defineix el mètode, l\'exercici fiscal i el resum del full de treball fiscal. La targeta de la cartera es manté neutral – les donacions i les comissions de transferència poden diferir del full de treball.</string>
+    <string name="tax_template_jp">Japó</string>
+    <string name="tax_template_neutral">Neutral (tots els països)</string>
+    <string name="tax_template_suggestion">Suggeriment per a la teva regió: %1$s</string>
+    <string name="tax_template_title">Plantilla fiscal</string>
+    <string name="tax_template_uk">Regne Unit</string>
+    <string name="tax_template_us">EUA</string>
+    <string name="tax_template_use">Fes servir %1$s</string>
+
+    <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
+    <string name="tax_method_at">Tinences antigues/noves – mitjana mòbil</string>
+    <string name="tax_method_ca_acb">Cost mitjà ACB (superficial loss)</string>
+    <string name="tax_method_fr_pta">Preu total d\'adquisició (art. 150 VH bis)</string>
+    <string name="tax_method_jp_total">Mitjana total (総平均法)</string>
+    <string name="tax_method_uk_pool">Section 104 pool (mateix dia / 30 dies)</string>
+    <string name="tax_note_at">Mitjana mòbil per moneda i moneder – no entre moneders (KryptowährungsVO § 2). Les recompenses entren a les tinences noves a cost d\'adquisició 0 (BMF: staking / airdrops) – el fitxer d\'ingressos les llista al valor en rebre-les. Les comissions no són deduïbles per a tinences adquirides des de l\'1 de març de 2021 (§ 27a(4) núm. 2, § 20(2) EStG): cost i ingressos sense comissions. Els interessos de préstec (tipus de la importació CSV o nota) són ingrés en rebre\'ls al 27,5 per cent i mantenen aquest valor com a cost d\'adquisició.</string>
+    <string name="tax_note_at_staking">Staking amb monedes que ja tens i airdrops: el valor en rebre-les no importa fiscalment – per llei el cost d\'adquisició és 0 (§ 27b Abs. 2 EStG; BMF «Kryptowährungen»). Només tributa quan vens.</string>
+    <string name="tax_note_fr">Les vendes i les comissions pagades en cripto són alienacions – els intercanvis es difereixen. Una comissió en cripto en una venda compta en el preu abans de comissions – si no, és una alienació pròpia al seu valor. Valor de la cartera a partir de tancaments diaris – si falta un tancament, el cost queda buit.</string>
+    <string name="tax_note_network_fee">Una comissió de xarxa pagada en cripto (transferència al teu propi moneder, retirada) és una alienació de les monedes de la comissió a valor de mercat – guany o pèrdua només sobre aquestes monedes, no una pèrdua de tota la comissió (%1$s). Sense preu registrat: tancament diari (UTC) del mateix dia; sense tancament, els ingressos queden buits.</string>
+    <string name="tax_note_specific_id">La identificació específica no és compatible – es fa servir FIFO.</string>
+    <string name="tax_note_spouse_gift">Una donació marcada «al cònjuge / parella de fet» no genera ni guany ni pèrdua: ingressos = el teu cost d\'adquisició, que la teva parella assumeix (%1$s).</string>
+    <string name="tax_note_stable_swap">Vendre cripto per una stablecoin (USDT/USDC/DAI …) que conserves és aquí cripto a cripto i no tributa – registra-ho com un intercanvi a la stablecoin. Només tributa una venda per euros – «Venda» compta com una venda per euros.</string>
+    <string name="tax_note_transfer_fee">El mateix s\'aplica a una comissió en USDT o efectiu en una transferència entre els teus propis moneders: no s\'afegeix al cost d\'adquisició i només es llista com a informació.</string>
+    <string name="tax_note_uk">Assignació segons HMRC: mateix dia → 30 dies següents → Section 104 pool.</string>
+    <string name="tax_note_us_transition">Transició 1 de gener de 2025 (Rev. Proc. 2024-28 safe harbor): si els anys anteriors es feia servir FIFO entre tots els moneders, els lots restants a 31 de desembre de 2024 van als moneders que tenen les monedes – el moneder amb les monedes més antigues rep el cost d\'adquisició més antic. Aquesta assignació és una regla de l\'app – comprova-la amb els teus propis registres.</string>
+    <string name="tax_note_us_wallet">A partir de l\'exercici 2025, l\'IRS exigeix el cost d\'adquisició per moneder o exchange (Rev. Proc. 2024-28): l\'exportació fa servir FIFO per moneder des del 2025 – per als anys anteriors, FIFO entre tots els moneders, o FIFO per moneder si aquest és el teu mètode de cost.</string>
+    <string name="tax_note_withdrawal_fee">Una comissió de retirada en USDT o efectiu no és una pèrdua: una comissió en efectiu no és un cost deduïble, una comissió en USDT és una alienació a la par sense guany – només es llista com a informació (%1$s).</string>
+    <string name="tax_summary_at_interest_income">compta: ingrés en rebre\'ls al tipus especial del 27,5 per cent (§ 27b(2) núm. 1 EStG / BMF) – les monedes mantenen aquest valor com a cost d\'adquisició</string>
+    <string name="tax_summary_at_reward_info">només informatiu – no forma part de cap total: les recompenses entren a les tinences noves a cost d\'adquisició 0 i només tributen en vendre-les (ja als guanys) – § 27b apt. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">1 de gener–28 de febrer de 2022: possible opció pel 27,5 per cent</string>
+    <string name="tax_summary_at_withdrawal_fee">Comissió de retirada – no compensada amb les tinences noves (despeses no deduïbles al tipus especial, § 20(2) EStG)</string>
+    <string name="tax_summary_ch_fifo_info">només informatiu – càlcul FIFO de l\'app – no classificat – consulta l\'ESTV</string>
+    <string name="tax_summary_ch_year_end_value">valor a 31 de desembre al CSV de tinences = preu de l\'exchange × USD/CHF – no els valors fiscals de l\'ESTV</string>
+    <string name="tax_summary_de_withdrawal_fee">Comissió de retirada – no compensada segons el § 23, comprova si és deduïble com a despesa relacionada amb els ingressos</string>
+    <string name="tax_summary_not_calculated_estv">no calculat – llista de cotitzacions de l\'ESTV: %1$s</string>
+    <string name="tax_summary_orientation">Orientació</string>
+    <string name="tax_summary_orientation_block">Només orientatiu – no és assessorament fiscal – no és una liquidació</string>
+    <string name="tax_summary_orientation_item">Orientació: %1$s</string>
+    <string name="tax_summary_title">Resum anual %1$s %2$s</string>
+    <string name="tax_summary_transfer_fee_info">Comissions de transferència en USDT/efectiu – no són una pèrdua ni formen part del cost d\'adquisició, només informatives</string>
+    <string name="tax_summary_withdrawal_fee_info">Comissions de retirada en USDT/efectiu – no es compten com a pèrdua, només informatives</string>
+
+    <string name="tax_line_at_old_speculation_limit">Operacions especulatives (llei anterior, tinença ≤ 1 any): límit d\'exempció (§ 31 (3) EStG versió antiga)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">Interessos de préstec abans de l\'1 de març de 2022 (valor en rebre\'ls)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">Interessos abans de l\'1 de març de 2022: llei anterior (tipus de l\'impost sobre la renda), no el 27,5 per cent</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">abans de l\'1 de març de 2022 – consulta-ho amb un professional</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">Interessos – tributen en rebre\'ls</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">Staking – només informatiu (cost d\'adquisició 0, tributa en vendre)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">Total d\'interessos (imposable)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">Total de staking (informació)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">Pèrdua de capital neta (trasllat)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">sense opció: inclou les vendes de l\'1 de gener al 28 de febrer de 2022</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">Staking abans de l\'1 de març de 2022: cost d\'adquisició fixat a 0 – consulta-ho amb un professional</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">La regla dels 30 dies encara pot canviar aquestes xifres (compres fins al %1$s)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Ingressos abans de comissions per sobre del límit de declaració (50.000 £; 2020/21–2022/23: 49.200 £): declara-ho a HMRC si et vas registrar a Self Assessment, fins i tot sense guany imposable</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">Valor patrimonial a 31 de desembre de %1$s (orientatiu)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">La llista de cotitzacions de l\'ESTV (ictax.admin.ch) és determinant. Per a les monedes que no hi figuren, s\'aplica generalment el preu de tancament de l\'exchange. Impost sobre el patrimoni no calculat.</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – tinença %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">no calculat</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">No s\'han pogut llegir les adreces seguides – els seus saldos falten en aquest fitxer</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">Els lots de les adreces seguides compten des de la data de compra; si el saldo actual de l\'adreça és inferior, es redueixen.</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">Les adreces seguides compten per al valor total però no tenen cost d\'adquisició – per tant, el guany probablement és massa alt. Registra el cost com una compra.</string>
+    <string name="tax_summary_fr_rewards_income">L\'import suposa que les recompenses van tributar com a ingrés en rebre-les (valor en rebre-les dins del cost d\'adquisició) – si no, un cost d\'adquisició 0 seria la lectura prudent.</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">Valors de mercat sense preu registrat (comissions, donacions/pagaments, intercanvis, recompenses, comissions de xarxa, valor de la cartera) al tancament diari (UTC) del dia de l\'operació</string>
+</resources>

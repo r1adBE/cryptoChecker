@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="backup_device_bound">មុនពេលប្តូរឧបករណ៍ សូមបង្កើតឯកសារបម្រុងទុក – ទិន្នន័យដែលបានអ៊ិនគ្រីបអាចបើកបានតែនៅលើឧបករណ៍នេះប៉ុណ្ណោះ។</string>
+    <string name="backup_encryption_pending">ការអ៊ិនគ្រីបមិនទាន់សកម្មនៅឡើយទេ – កម្មវិធីនឹងព្យាយាមម្តងទៀតនៅពេលចាប់ផ្ដើមលើកក្រោយ។</string>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">នាំចេញ</string>
+    <string name="backup_exported">បានរក្សាទុកការបម្រុងទុក។</string>
+    <string name="backup_failed">វាមិនដំណើរការទេ។ តើវាជាការបម្រុងទុករបស់ Crypto Checker មែនទេ?</string>
+    <string name="backup_hint">រក្សាទុកបញ្ជីតាមដានរបស់អ្នក រួមទាំងកំណត់ចំណាំ និងក្រុម ការដាស់តឿន ចំណូលចិត្ត ផលប័ត្រ និងការកំណត់ ជាឯកសារដែលអ្នករក្សាទុកដោយខ្លួនឯង – ឧ. សម្រាប់ទូរសព្ទថ្មី។</string>
+    <string name="backup_import">នាំចូល</string>
+    <string name="backup_title">បម្រុងទុក &amp; ស្ដារ</string>
+    <string name="backup_too_large">ឯកសារធំពេក ឬមិនមែនជាការបម្រុងទុកត្រឹមត្រូវ (ដែនកំណត់ 64 MB)។</string>
+    <string name="backup_export_too_large">ការបម្រុងទុកនឹងធំជាង 64 MB ហើយមិនអាចស្ដារបានទេ ដូច្នេះវាមិនត្រូវបានរក្សាទុកឡើយ។</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">ពាក្យសម្ងាត់</string>
+    <string name="backup_password_continue">បន្ត</string>
+    <string name="backup_password_hide">លាក់ពាក្យសម្ងាត់</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">យ៉ាងហោចណាស់ %1$d តួអក្សរ</string>
+    <string name="backup_password_mismatch">ពាក្យសម្ងាត់មិនដូចគ្នាទេ</string>
+    <string name="backup_password_prompt">សូមបញ្ចូលពាក្យសម្ងាត់សម្រាប់ការបម្រុងទុកនេះ។</string>
+    <string name="backup_password_repeat">បញ្ចូលពាក្យសម្ងាត់ម្តងទៀត</string>
+    <string name="backup_password_show">បង្ហាញពាក្យសម្ងាត់</string>
+    <string name="backup_password_title">ការបម្រុងទុកដែលការពារដោយពាក្យសម្ងាត់</string>
+    <string name="backup_password_too_weak">ងាយទាយពេក – ជៀសវាងប្រើតែលេខ តួអក្សរដដែលៗ ឬលំដាប់ទូទៅដូចជា «12345678» ឬ «password»។</string>
+    <string name="backup_password_warning">បើគ្មានពាក្យសម្ងាត់ទេ ការបម្រុងទុកមិនអាចស្ដារបានឡើយ។</string>
+    <string name="backup_password_wrong">ពាក្យសម្ងាត់ខុស ឬឯកសារខូច។ សូមព្យាយាមម្តងទៀត។</string>
+    <string name="backup_protect">ការពារដោយពាក្យសម្ងាត់</string>
+    <string name="backup_protect_hint">អ៊ិនគ្រីបឯកសារ (AES-256)។ ណែនាំនៅពេលវាមានទិន្នន័យផលប័ត្រ។</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">រក្សាទុកដោយគ្មានពាក្យសម្ងាត់</string>
+    <string name="backup_plain_confirm_text">ឯកសារមិនត្រូវបានអ៊ិនគ្រីបទេ។ អ្នកណាដែលទទួលបានវាអាចអាន៖</string>
+    <string name="backup_plain_confirm_title">រក្សាទុកដោយគ្មានពាក្យសម្ងាត់មែនទេ?</string>
+    <string name="backup_plain_contents_addresses">អាសយដ្ឋានកាបូប និងសោ xpub ដែលបានរក្សាទុក រួមទាំងប្រវត្តិសមតុល្យ និងតម្លៃដើម</string>
+    <string name="backup_plain_contents_base">បញ្ជីតាមដាន រួមទាំងកំណត់ចំណាំ និងក្រុម ការដាស់តឿន ចំណូលចិត្ត និងការកំណត់</string>
+    <string name="backup_plain_contents_portfolio">ផលប័ត្រ៖ ប្រតិបត្តិការ រួមទាំងចំនួន និងតម្លៃ</string>
+    <string name="backup_restore_app_lock_kept">ការចាក់សោផលប័ត្រនៅតែបើក – ការបម្រុងទុកដែលមិនបានអ៊ិនគ្រីបមិនអាចបិទវាបានទេ។</string>
+    <string name="backup_restore_confirm">ការនាំចូលនឹងជំនួសបញ្ជីតាមដានបច្ចុប្បន្នរបស់អ្នក (រួមទាំងកំណត់ចំណាំ និងក្រុម) ការដាស់តឿន ចំណូលចិត្ត ផលប័ត្រ និងការកំណត់ ដោយការបម្រុងទុក។</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="other">ធាតុ %d ក្នុងការបម្រុងទុក (ផលប័ត្រ ឬការដាស់តឿន) មិនត្រឹមត្រូវ ហើយនឹងមិនត្រូវបាននាំចូលទេ។</item>
+    </plurals>
+    <string name="backup_restore_newer_version">ការបម្រុងទុកនេះមកពីកំណែកម្មវិធីថ្មីជាង – សូមធ្វើបច្ចុប្បន្នភាពកម្មវិធីជាមុនសិន។ គ្មានអ្វីត្រូវបាននាំចូលទេ។</string>
+    <string name="backup_restore_unencrypted_warning">ការបម្រុងទុកនេះមិនត្រូវបានអ៊ិនគ្រីបទេ – សូមពិនិត្យថាវាមកពីអ្នក។ ការកំណត់នឹងត្រូវអនុវត្ត – លើកលែងតែការផ្លាស់ប្តូរដែលបន្ថយការការពារ (ការចាក់សោផលប័ត្រ ម៉ាស៊ីនមេផ្ទាល់ខ្លួនសម្រាប់អាសយដ្ឋាន លាក់ចំនួន ផលប័ត្រក្នុងការបម្រុងទុកប្រព័ន្ធ)។</string>
+    <string name="backup_restored">បានស្ដារ៖ %1$s, %2$s។</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="other">ការដាស់តឿន %1$d</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="other">គូ %1$d</item>
+    </plurals>
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen -->
+    <string name="backup_restore_over_limits">លើសដែនកំណត់ (%3$s គូ, %4$s ការដាស់តឿនក្នុងមួយគូ) នឹងមិនត្រូវបានស្ដារទេ៖ %1$s, %2$s។</string>
+    <string name="backup_restored_over_limits">លើសដែនកំណត់ (%3$s គូ, %4$s ការដាស់តឿនក្នុងមួយគូ) មិនបានស្ដារទេ៖ %1$s, %2$s។</string>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren -->
+    <string name="storage_recovery_message">ឧបករណ៍នេះលែងមានសោសម្រាប់ទិន្នន័យដែលបានអ៊ិនគ្រីបរបស់កម្មវិធីទៀតហើយ ដូច្នេះកម្មវិធីបានចាប់ផ្ដើមទទេ។ គ្មានអ្វីត្រូវបានលុបទេ។ ដើម្បីទទួលបានបញ្ជីតាមដាន និងផលប័ត្ររបស់អ្នកវិញ សូមនាំចូលឯកសារបម្រុងទុកនៅក្រោម «%1$s» ក្នុងការកំណត់។</string>
+    <string name="storage_recovery_title">មិនអាចដោះសោទិន្នន័យដែលបានរក្សាទុកបានទេ</string>
+
+    <!-- Sicherung mit Passwort (Argon2id, 64 MiB): zu wenig Arbeitsspeicher -->
+    <string name="backup_not_enough_memory">អង្គចងចាំទំនេរមិនគ្រប់គ្រាន់ ដើម្បីការពារ ឬបើកការបម្រុងទុកដោយពាក្យសម្ងាត់ទេ។ សូមបិទកម្មវិធីផ្សេងទៀត ហើយព្យាយាមម្តងទៀត។</string>
+
+    <!-- Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">ស្ដារការបម្រុងទុក</string>
+    <string name="storage_recovery_acknowledge">យល់ហើយ</string>
+    <string name="storage_recovery_restored_title">បានដោះសោទិន្នន័យដែលបានរក្សាទុកម្តងទៀត</string>
+    <string name="storage_recovery_restored_message">សោមុននៅលើឧបករណ៍នេះបានបើកទិន្នន័យដែលបានទុកដោយឡែកម្តងទៀត ដូច្នេះវាត្រឡប់មកវិញហើយ។ ទិន្នន័យដែលបានរក្សាទុកក្នុងពេលនេះត្រូវបានរក្សាទុកដោយមិនផ្លាស់ប្តូរនៅក្បែរវា។</string>
+    <string name="settings_reset_notice_title">ការកំណត់ត្រូវបានកំណត់ឡើងវិញ</string>
+    <string name="settings_reset_notice">មិនអាចអានការកំណត់របស់អ្នកបានទេ ហើយវាត្រូវបានកំណត់ទៅលំនាំដើមវិញ។ សូមពិនិត្យការចាក់សោផលប័ត្រ ចន្លោះពេលនៃការដាស់តឿន និងរូបិយប័ណ្ណ។</string>
+    <string name="backup_restore_interrupted_title">ការស្ដារត្រូវបានរំខាន</string>
+    <string name="backup_restore_interrupted_rolled_back">កម្មវិធីត្រូវបានបិទ ខណៈពេលកំពុងស្ដារការបម្រុងទុក។ ទិន្នន័យមុនរបស់អ្នកត្រូវបានដាក់ត្រឡប់វិញ។ គ្មានអ្វីពីការបម្រុងទុកត្រូវបានរក្សាទុកទេ។</string>
+    <string name="backup_restore_interrupted_incomplete">កម្មវិធីត្រូវបានបិទ ខណៈពេលកំពុងស្ដារការបម្រុងទុក ហើយទិន្នន័យមុនមិនអាចដាក់ត្រឡប់វិញបានពេញលេញទេ។ សូមពិនិត្យបញ្ជីតាមដាន និងផលប័ត្ររបស់អ្នក ឬស្ដារការបម្រុងទុកម្តងទៀតនៅក្រោម «%1$s» ក្នុងការកំណត់។</string>
+    <string name="backup_not_verified">មិនអាចផ្ទៀងផ្ទាត់ឯកសារបម្រុងទុកបន្ទាប់ពីរក្សាទុកបានទេ – វាអានត្រឡប់មកវិញខុសគ្នា។ សូមរក្សាទុកការបម្រុងទុកទៅឯកសារថ្មី។</string>
+
+    <!-- Hinweis (nur Android): Portfolio-Kopie aus der Systemsicherung auch beim zweiten Versuch unlesbar und gelöscht -->
+    <string name="system_backup_not_imported_title">ផលប័ត្រមិនត្រូវបានស្ដារពីការបម្រុងទុកប្រព័ន្ធទេ</string>
+    <!-- %1$s = Name des Bereichs «Sichern &amp; Wiederherstellen» in den Einstellungen -->
+    <string name="system_backup_not_imported_message">ច្បាប់ចម្លងផលប័ត្រពីការបម្រុងទុកប្រព័ន្ធ Android មិនអាចអានបានទេ សូម្បីតែនៅការព្យាយាមលើកទីពីរ ហើយត្រូវបានលុបចោល។ ប្រសិនបើអ្នកមានឯកសារបម្រុងទុក សូមស្ដារវានៅក្រោម «%1$s» ក្នុងការកំណត់។</string>
+
+    <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
+    <string name="portfolio_storage_kept_in_memory">មិនអាចអានទិន្នន័យដែលបានរក្សាទុកបាននៅពេលនេះទេ ដូច្នេះផលប័ត្រមិនត្រូវបានបង្ហាញ ហើយមិនអាចផ្លាស់ប្តូរបានទេ។ សូមចាប់ផ្ដើមកម្មវិធីឡើងវិញ។</string>
+    <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
+    <string name="watchlist_storage_kept_in_memory">មិនអាចអានទិន្នន័យដែលបានរក្សាទុកបាននៅពេលនេះទេ ដូច្នេះបញ្ជីតាមដានមិនត្រូវបានបង្ហាញ ហើយមិនអាចផ្លាស់ប្តូរបានទេ។ សូមចាប់ផ្ដើមកម្មវិធីឡើងវិញ។</string>
+    <string name="watchlist_storage_locked">មិនអាចផ្លាស់ប្តូរបញ្ជីតាមដានបានទេ៖ មិនអាចអានទិន្នន័យដែលបានរក្សាទុកបាននៅពេលនេះទេ។ សូមចាប់ផ្ដើមកម្មវិធីឡើងវិញ។</string>
+    <string name="alarm_save_storage_locked">មិនអាចរក្សាទុកការដាស់តឿនបានទេ៖ មិនអាចអានទិន្នន័យដែលបានរក្សាទុកបាននៅពេលនេះទេ។ សូមចាប់ផ្ដើមកម្មវិធីឡើងវិញ។</string>
+    <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
+    <string name="backup_storage_kept">មិនអាចបម្រុងទុកបានទេ៖ មិនអាចអានទិន្នន័យដែលបានរក្សាទុកបាននៅពេលនេះទេ។ សូមចាប់ផ្ដើមកម្មវិធីឡើងវិញ ហើយព្យាយាមម្តងទៀត។</string>
+    <string name="backup_restore_storage_in_memory">មិនអាចនាំចូលបាននៅពេលនេះទេ៖ កម្មវិធីមិនកំពុងរក្សាទុកទិន្នន័យទេនៅពេលនេះ (ការអ៊ិនគ្រីបមិនទាន់សកម្ម) ដូច្នេះការនាំចូលនឹងបាត់បង់នៅពេលចាប់ផ្ដើមឡើងវិញ។ សូមចាប់ផ្ដើមកម្មវិធីឡើងវិញ ហើយព្យាយាមម្តងទៀត។</string>
+    <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable) -->
+    <string name="backup_restore_journal_unavailable">មិនអាចនាំចូលបាននៅពេលនេះទេ៖ មិនអាចរក្សាទុកច្បាប់ចម្លងសុវត្ថិភាពនៃទិន្នន័យបច្ចុប្បន្នរបស់អ្នកបានទេ (សោមិនមាននៅពេលនេះ)។ គ្មានអ្វីត្រូវបានផ្លាស់ប្តូរទេ។ សូមព្យាយាមម្តងទៀតពេលក្រោយ ឬចាប់ផ្ដើមកម្មវិធីឡើងវិញ។</string>
+
+    <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
+    <string name="portfolio_storage_in_memory">ការអ៊ិនគ្រីបមិនទាន់សកម្មនៅឡើយទេ – ផលប័ត្រមិនកំពុងត្រូវបានរក្សាទុកទេ ការផ្លាស់ប្តូរនឹងបាត់បង់នៅពេលកម្មវិធីបិទ។ កម្មវិធីនឹងព្យាយាមម្តងទៀតនៅពេលចាប់ផ្ដើមលើកក្រោយ។</string>
+
+    <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
+    <string name="portfolio_storage_locked">មិនអាចអានទិន្នន័យដែលបានរក្សាទុកបាននៅពេលនេះទេ ដូច្នេះមិនអាចផ្លាស់ប្តូរបានទេ។ សូមចាប់ផ្ដើមកម្មវិធីឡើងវិញ។</string>
+    <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
+    <string name="watchlist_storage_in_memory">ឧបករណ៍នេះមិនផ្តល់សោនៅពេលនេះទេ – បញ្ជីតាមដានមិនកំពុងត្រូវបានរក្សាទុកទេ ការផ្លាស់ប្តូរនឹងបាត់បង់នៅពេលកម្មវិធីបិទ។ ការដាស់តឿនត្រូវបានផ្អាកនៅផ្ទៃខាងក្រោយ។ កម្មវិធីនឹងព្យាយាមម្តងទៀតនៅពេលចាប់ផ្ដើមលើកក្រោយ។</string>
+
+    <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
+    <string name="backup_restore_server_kept">«ម៉ាស៊ីនមេផ្ទាល់ខ្លួនសម្រាប់អាសយដ្ឋាន» មិនត្រូវបានអនុវត្តទេ – ការបម្រុងទុកដែលមិនបានអ៊ិនគ្រីបមិនអាចផ្លាស់ប្តូរវាបានទេ។</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
+    <string name="backup_restore_server_public">«ម៉ាស៊ីនមេផ្ទាល់ខ្លួនសម្រាប់អាសយដ្ឋាន» ត្រូវបានដកចេញដូចក្នុងការបម្រុងទុក – អាសយដ្ឋាន Bitcoin ត្រូវបានសួរនៅ node សាធារណៈម្តងទៀត។</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
+    <string name="backup_restore_server_changed">«ម៉ាស៊ីនមេផ្ទាល់ខ្លួនសម្រាប់អាសយដ្ឋាន» ត្រូវបានជំនួសដោយម៉ាស៊ីនមេពីការបម្រុងទុក។</string>
+</resources>

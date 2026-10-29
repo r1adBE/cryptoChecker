@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">ສັນຍານເຕືອນເຮັດວຽກແລ້ວ</string>
+    <string name="a11y_collapsed">ຫຍໍ້ແລ້ວ</string>
+    <string name="a11y_converted">ປະມານ %1$s</string>
+    <string name="a11y_expanded">ຂະຫຍາຍແລ້ວ</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">ເປີດໃນບຣາວເຊີ</string>
+    <string name="a11y_favorite">ລາຍການທີ່ມັກ</string>
+    <string name="a11y_in_watchlist">ມີຢູ່ໃນລາຍການຕິດຕາມແລ້ວ</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_exchange_unreachable">ເຊື່ອມຕໍ່ %1$s ບໍ່ໄດ້</string>
+    <string name="a11y_move_down">ຍ້າຍລົງ</string>
+    <string name="a11y_move_up">ຍ້າຍຂຶ້ນ</string>
+    <string name="a11y_note">ໝາຍເຫດ: %1$s</string>
+    <string name="a11y_price">ລາຄາ %1$s</string>
+    <string name="a11y_price_notification_off">ການແຈ້ງເຕືອນລາຄາປິດຢູ່</string>
+    <string name="a11y_price_notification_on">ການແຈ້ງເຕືອນລາຄາເປີດຢູ່</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">ລາຄາບໍ່ເປັນປັດຈຸບັນ</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s ໃນ %2$s</string>
+    <string name="a11y_stale">ບໍ່ເປັນປັດຈຸບັນ, ອັບເດດຫຼ້າສຸດ %1$s</string>
+    <string name="a11y_warning">ຄຳເຕືອນ</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">%1$s ໃນ 24 ຊົ່ວໂມງ</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">ບໍ່ມີຂໍ້ມູນການປ່ຽນແປງ 24 ຊົ່ວໂມງ</string>
+    <string name="a11y_change_down">ລົງ %1$s</string>
+    <string name="a11y_change_flat">ບໍ່ປ່ຽນແປງ</string>
+    <string name="a11y_change_since_last">%1$s ນັບແຕ່ການອັບເດດຫຼ້າສຸດ</string>
+    <string name="a11y_change_since_last_none">ບໍ່ມີຂໍ້ມູນການປ່ຽນແປງນັບແຕ່ການອັບເດດຫຼ້າສຸດ</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">%1$s ມື້ນີ້</string>
+    <string name="a11y_change_today_none">ບໍ່ມີຂໍ້ມູນການປ່ຽນແປງມື້ນີ້</string>
+    <string name="a11y_change_today_zone">%1$s ນັບແຕ່ທ່ຽງຄືນ %2$s</string>
+    <string name="a11y_change_today_zone_none">ບໍ່ມີຂໍ້ມູນການປ່ຽນແປງນັບແຕ່ທ່ຽງຄືນ %1$s</string>
+    <string name="a11y_change_up">ຂຶ້ນ %1$s</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">ແຜນພູມ %1$s: ຈາກ %2$s ຫາ %3$s, %4$s. ສູງສຸດ %5$s, ຕ່ຳສຸດ %6$s.</string>
+    <string name="a11y_chart_empty">ແຜນພູມ: ບໍ່ມີຂໍ້ມູນ</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">ຮອບວຽນ %1$s: %2$s ນັບແຕ່ halving, ມື້ທີ %3$d.</string>
+    <string name="a11y_cycle_bottom">ຈຸດຕ່ຳ %1$s ໃນມື້ທີ %2$d.</string>
+    <string name="a11y_cycle_double_bottom">ຈຸດຕ່ຳສອງເທື່ອ %1$s ໃນມື້ທີ %2$d.</string>
+    <string name="a11y_cycle_double_top">ຈຸດສູງສອງເທື່ອ %1$s ໃນມື້ທີ %2$d.</string>
+    <string name="a11y_cycle_top">ຈຸດສູງ %1$s ໃນມື້ທີ %2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">ມາດຕາສ່ວນຈາກ %1$s ຫາ %2$s: %3$d ຈາກ 100</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, ສະເລ່ຍ %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="other">%1$d ກຳລັງລົງ</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="other">%1$d ຄູ່ບໍ່ມີຄ່າ 24 ຊົ່ວໂມງ</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="other">%1$d ຄູ່ບໍ່ມີຄ່າສຳລັບມື້ນີ້</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="other">%1$d ຄູ່ກຳລັງຂຶ້ນ</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="other">ອັບເດດຫຼ້າສຸດເມື່ອ %1$d ມື້ກ່ອນ</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="other">ອັບເດດຫຼ້າສຸດເມື່ອ %1$d ຊົ່ວໂມງກ່ອນ</item>
+    </plurals>
+    <string name="a11y_updated_just_now">ຫາກໍ່ອັບເດດ</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="other">ອັບເດດຫຼ້າສຸດເມື່ອ %1$d ນາທີກ່ອນ</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">ຈຳນວນຖືກເຊື່ອງໄວ້</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_entry">%1$s %2$s, ມູນຄ່າ %3$s ມື້ນີ້</string>
+    <string name="a11y_portfolio_entry_in">ເຂົ້າ</string>
+    <string name="a11y_portfolio_entry_no_value">ບໍ່ມີຂໍ້ມູນມູນຄ່າ</string>
+    <string name="a11y_portfolio_entry_note">ໝາຍເຫດ %1$s</string>
+    <string name="a11y_portfolio_entry_out">ອອກ</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, %3$s ຂອງພອດໂຟລິໂອ</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, %2$s ຂອງພອດໂຟລິໂອ, %3$s</string>
+    <string name="a11y_portfolio_positions">ການຖືຄອງທີ່ໃຫຍ່ທີ່ສຸດ: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">ສະແດງຈຳນວນ</string>
+    <string name="a11y_compare_chart">ການປຽບທຽບເປັນເປີເຊັນ, %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">%1$s ຈາກຈຸດສູງສຸດ 30 ມື້</string>
+    <string name="a11y_price_overlay">ລາຄາຊ້ອນ: %1$s</string>
+</resources>

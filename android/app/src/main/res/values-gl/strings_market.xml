@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="one">hai %d min</item>
+        <item quantity="other">hai %d min</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">hoxe %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed, métricas de Bitcoin, dominancia, halving</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">Máis datos do mercado</string>
+    <string name="market_phase_trend_failed">Datos de prezo non dispoñibles</string>
+    <string name="market_plain_direction_down_clear">O valor total de todas as criptomoedas é claramente máis baixo ca hai 24 horas (%1$s).</string>
+    <string name="market_plain_direction_down_slight">O valor total de todas as criptomoedas é lixeiramente máis baixo ca hai 24 horas (%1$s).</string>
+    <string name="market_plain_direction_flat">O valor total de todas as criptomoedas apenas cambiou en 24 horas (%1$s).</string>
+    <string name="market_plain_direction_up_clear">O valor total de todas as criptomoedas é claramente máis alto ca hai 24 horas (%1$s).</string>
+    <string name="market_plain_direction_up_slight">O valor total de todas as criptomoedas é lixeiramente máis alto ca hai 24 horas (%1$s).</string>
+    <string name="market_plain_footnote">Describe as últimas 24 horas – non é unha previsión nin asesoramento de investimento.</string>
+    <string name="market_plain_mood_extreme_fear">Agora mesmo os investidores teñen moito medo: o índice de ánimo (Fear &amp; Greed) está en %1$d de 100.</string>
+    <string name="market_plain_mood_extreme_greed">Agora mesmo os investidores teñen moita cobiza: o índice de ánimo (Fear &amp; Greed) está en %1$d de 100.</string>
+    <string name="market_plain_mood_fear">Os investidores teñen máis ben medo: o índice de ánimo (Fear &amp; Greed) está en %1$d de 100.</string>
+    <string name="market_plain_mood_greed">Os investidores teñen máis ben cobiza: o índice de ánimo (Fear &amp; Greed) está en %1$d de 100.</string>
+    <string name="market_plain_mood_neutral">O ánimo dos investidores está equilibrado: o índice de ánimo (Fear &amp; Greed) está en %1$d de 100.</string>
+    <string name="market_plain_standout_above_btc">Destaca %1$s: %2$s en 24 horas, moi por riba de Bitcoin (%3$s).</string>
+    <string name="market_plain_standout_against_btc">Destaca %1$s: %2$s en 24 horas, mentres que Bitcoin foi no sentido contrario (%3$s).</string>
+    <string name="market_plain_standout_below_btc">Destaca %1$s: %2$s en 24 horas, moi por debaixo de Bitcoin (%3$s).</string>
+    <string name="market_plain_standout_futures_down">Destaca %1$s: un número pouco habitual de traders de futuros aposta por prezos á baixa.</string>
+    <string name="market_plain_standout_futures_up">Destaca %1$s: un número pouco habitual de traders de futuros aposta por prezos á alza.</string>
+    <string name="market_plain_standout_quiet">Agora mesmo non destaca ningunha moeda.</string>
+    <string name="market_plain_standout_volume">Destaca %1$s: unhas %2$s veces máis negociación do habitual.</string>
+    <string name="market_plain_title">En resumo</string>
+    <string name="market_section_collapse">Ocultar %1$s</string>
+    <string name="market_section_context">Sentimento e ciclo</string>
+    <string name="market_section_data">Datos do mercado</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">Mostrar %1$s</string>
+    <string name="market_section_now">Agora mesmo</string>
+    <string name="market_source">Datos: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="exchange_unavailable_error">Exchange non dispoñible</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">Información: %1$s</string>
+    <string name="market_info_alt_season_source">Prezos diarios: Binance · recalcúlase aproximadamente cada 3 horas</string>
+    <string name="market_info_alt_season_what">Conta cantas dunhas 20 grandes altcoins (p. ex. Ethereum, Solana, XRP) tiveron un rendemento mellor ca Bitcoin nos últimos 90 días. O valor é a súa proporción de 0 a 100.</string>
+    <string name="market_info_coin_source">Prezos: Binance ou Bybit · recárganse aproximadamente cada 15 minutos</string>
+    <string name="market_info_dominance_how">Se a dominancia sobe, a Bitcoin vaille mellor ca ao resto do mercado; se baixa, outras moedas gañan peso. As stablecoins tamén contan: se o seu valor medra, a proporción de Bitcoin baixa aínda que o prezo de Bitcoin se manteña igual.</string>
+    <string name="market_info_dominance_source">Fonte: CoinGecko · recárgase aproximadamente cada 30 minutos</string>
+    <string name="market_info_dominance_what">A proporción de Bitcoin no valor total de todas as criptomoedas (capitalización de mercado). Debaixo está a proporción de Ethereum.</string>
+    <string name="market_info_fear_greed_how">Por debaixo de 25 significa medo extremo, por riba de 75 cobiza extrema, arredor de 50 neutral. Despregada, a tarxeta mostra os valores de onte, de hai unha semana e de hai un mes. Non é un sinal de compra nin de venda.</string>
+    <string name="market_info_fear_greed_source">Fonte: alternative.me · un valor novo ao día</string>
+    <string name="market_info_fear_greed_what">Un índice de sentimento do mercado cripto de 0 a 100. alternative.me calcúlao a partir de varios datos, entre eles as oscilacións de prezo, o volume de negociación, as redes sociais e a dominancia de Bitcoin.</string>
+    <string name="market_info_gas_how">Os valores máis altos significan que a rede está ocupada e as transferencias custan máis. Lenta, normal e rápida son comisións para unha confirmación máis tardía ou máis rápida. Despregada, a tarxeta mostra o custo aproximado dunha transferencia simple.</string>
+    <string name="market_info_gas_source">Nodos RPC públicos, mempool.space · recárgase cada minuto</string>
+    <string name="market_info_gas_what">O que custa agora mesmo unha transacción en cada rede. En Ethereum e redes similares en gwei (unha milmillonésima de ETH por unidade de gas), en Bitcoin en sat/vB (satoshis por byte virtual da transacción).</string>
+    <string name="market_info_halving_source">Data: a partir da altura de bloque e do tempo medio de bloque (mempool.space), se non, segundo o calendario · historial de prezos: Coin Metrics, Binance, recárgase cada 12 horas</string>
+    <string name="market_info_halving_what">No halving, a recompensa que reciben os mineiros por un bloque novo de Bitcoin redúcese á metade. Isto ocorre cada 210.000 bloques, aproximadamente cada catro anos. Despois, cada día créanse só a metade de bitcoins novos.</string>
+    <string name="market_info_how">Como se le</string>
+    <string name="market_info_macro_how">O aviso só aparece cando esa data é hoxe ou mañá. Arredor da publicación, os prezos adoitan oscilar máis do normal. A app só mostra a data, non as cifras en si.</string>
+    <string name="market_info_macro_source">Calendario da web da app · cárgase unha vez ao día</string>
+    <string name="market_info_macro_what">Datas de datos económicos importantes dos EUA: inflación (CPI, PCE), prezos de produción (PPI), o informe de emprego e as decisións sobre tipos de xuro da Reserva Federal. Estas cifras adoitan mover tamén os prezos cripto.</string>
+    <string name="market_info_no_advice">Non é asesoramento de investimento.</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · prezos cada hora, valores on-chain recargados cada 12 horas</string>
+    <string name="market_info_pulse_how">O titular indica a dirección; desprega a tarxeta para ver os detalles. Un movemento amplo significa que a maioría das grandes moedas se moven na mesma dirección. Un ánimo de apancamento optimista significa que moitos traders apostan con apancamento por prezos á alza, medido pola taxa de financiamento dos futuros de Bitcoin. Unha instantánea, non unha previsión.</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · recárgase aproximadamente cada 5 minutos</string>
+    <string name="market_info_pulse_what">Un breve resumo do mercado das últimas 24 horas: como se moven Bitcoin, Ethereum e Solana, cantas das moedas máis grandes soben ou baixan, canto Bitcoin se está a negociar agora mesmo e cal é o ánimo de apancamento (medido pola taxa de financiamento dos futuros de Bitcoin).</string>
+    <string name="market_info_totals_how">Á dereita está a variación do valor total en 24 horas. Un volume alto significa que se negocia moito – non di en que dirección. Móstrase na moeda de conversión cando é posible; se non, en dólares estadounidenses.</string>
+    <string name="market_info_totals_source">Todas as moedas · CoinGecko · recárgase aproximadamente cada 30 minutos</string>
+    <string name="market_info_totals_what">O valor total de todas as criptomoedas (capitalización de mercado: prezo por oferta en circulación, sumado para todas as moedas) e o volume de negociación das últimas 24 horas.</string>
+    <string name="market_info_unusual_how">Cada moeda mostra a súa observación máis destacada, coa variación de 24 horas á dereita. Un volume de 2× significa o dobre do volume habitual. Destacado non significa nin bo nin malo.</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · recárgase aproximadamente cada 10 minutos</string>
+    <string name="market_info_unusual_what">Ata cinco moedas de entre as 30 máis grandes aproximadamente (sen stablecoins) que hoxe se comportan de forma pouco habitual: moito máis fortes ou febles ca Bitcoin, en contra da dirección do mercado, cun volume de negociación inusualmente alto ou cunha taxa de financiamento destacada.</string>
+    <string name="market_info_what">Que é isto?</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">Capitalización</string>
+    <string name="market_cap_source">Todas as moedas · CoinGecko</string>
+    <string name="market_cap_title">Mercado cripto</string>
+    <string name="market_volume_label">Volume 24 h</string>
+
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">Detalles</string>
+    <string name="pulse_disclaimer">Non é unha previsión · Non é asesoramento de investimento</string>
+    <string name="pulse_less">Mostrar menos</string>
+    <string name="pulse_now_title">Pulso cripto</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">Variación en 24 horas</string>
+    <string name="pulse_section_factors">Factores</string>
+    <string name="pulse_section_market">O mercado hoxe</string>
+    <string name="pulse_unavailable">Os datos do mercado non están dispoñibles agora mesmo</string>
+    <string name="pulse_updated">Ás %1$s</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">Mercado tranquilo</string>
+    <string name="pulse_headline_down">Debilidade xeneralizada</string>
+    <string name="pulse_headline_mixed">Panorama mixto</string>
+    <string name="pulse_headline_up">Forza xeneralizada</string>
+    <string name="pulse_lead_alts_stronger">As altcoins están máis fortes ca Bitcoin.</string>
+    <string name="pulse_lead_broad_down">O mercado baixa de forma xeneralizada.</string>
+    <string name="pulse_lead_broad_up">O mercado sobe de forma xeneralizada.</string>
+    <string name="pulse_lead_btc_leads">Bitcoin é o que máis sobe.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin está máis forte cas altcoins.</string>
+    <string name="pulse_lead_calm">O mercado apenas se move.</string>
+    <string name="pulse_lead_drift_down">O mercado baixa lixeiramente.</string>
+    <string name="pulse_lead_drift_up">O mercado sobe lixeiramente.</string>
+    <string name="pulse_lead_mixed">As grandes moedas móvense en direccións distintas.</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">Ánimo de apancamento optimista.</string>
+    <string name="pulse_detail_fund_negative">Ánimo de apancamento pesimista.</string>
+    <string name="pulse_detail_fund_neutral">Ánimo de apancamento neutral.</string>
+    <string name="pulse_detail_vol_above">Volume %1$s por riba do normal.</string>
+    <string name="pulse_detail_vol_above_fund_high">Volume %1$s por riba do normal, ánimo de apancamento optimista.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Volume %1$s por riba do normal, ánimo de apancamento pesimista.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Volume %1$s por riba do normal, ánimo de apancamento neutral.</string>
+    <string name="pulse_detail_vol_below">Volume %1$s por debaixo do normal.</string>
+    <string name="pulse_detail_vol_below_fund_high">Volume %1$s por debaixo do normal, ánimo de apancamento optimista.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Volume %1$s por debaixo do normal, ánimo de apancamento pesimista.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Volume %1$s por debaixo do normal, ánimo de apancamento neutral.</string>
+    <string name="pulse_detail_vol_normal">Volume normal.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Volume normal, ánimo de apancamento optimista.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Volume normal, ánimo de apancamento pesimista.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Volume normal, ánimo de apancamento neutral.</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">Top %1$d: as moedas máis grandes por valor de mercado, sen stablecoins; variación en 24 horas (CoinGecko).</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_note_broad_down">Venda xeneralizada: a maioría das moedas máis grandes baixan.</string>
+    <string name="pulse_breadth_note_broad_up">Movemento amplo: a maioría das moedas máis grandes soben.</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin baixa, pero a maioría das outras grandes moedas aguantan.</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin sobe, pero a maioría das outras grandes moedas non o seguen.</string>
+    <string name="pulse_breadth_spoken">Top %1$d: %2$d soben, %3$d baixan</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">As altcoins e Bitcoin móvense de xeito similar</string>
+    <string name="pulse_alts_stronger">Altcoins máis fortes ca Bitcoin</string>
+    <string name="pulse_alts_weaker">Bitcoin máis forte cas altcoins</string>
+    <string name="pulse_chip_funding_high">Ánimo de apancamento optimista</string>
+    <string name="pulse_chip_funding_negative">Ánimo de apancamento pesimista</string>
+
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">Mostrar prezo e accións</string>
+    <string name="unusual_fact_against">Móvese en contra do mercado</string>
+    <string name="unusual_fact_funding_high">Financiamento alto (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Financiamento negativo (%1$s)</string>
+    <string name="unusual_fact_stronger">Móvese con moita máis forza ca BTC</string>
+    <string name="unusual_fact_volume">Volume %1$s× o habitual</string>
+    <string name="unusual_fact_weaker">Móvese con moita menos forza ca BTC</string>
+    <string name="unusual_nothing">Hoxe non hai nada destacado</string>
+    <string name="unusual_source">Unhas 30 moedas máis grandes sen stablecoins · Binance, CoinGecko</string>
+    <string name="unusual_title">Destacado</string>
+
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">Destacado</string>
+    <string name="activity_indicator">Destacado</string>
+    <string name="activity_sensitivity_less">Menos</string>
+    <string name="activity_sensitivity_more">Máis</string>
+    <string name="activity_sensitivity_normal">Normal</string>
+    <string name="activity_signal_funding_long">Financiamento %1$s — moitos longs con apancamento</string>
+    <string name="activity_signal_funding_short">Financiamento %1$s — moitos shorts</string>
+    <string name="activity_signal_open_interest">Interese aberto %1$s en %2$d min</string>
+    <string name="activity_signal_open_interest_no_time">Interese aberto %1$s</string>
+    <string name="activity_signal_price_move">Movemento pouco habitual: %1$s nunha hora (%2$s× o normal)</string>
+    <string name="activity_signal_volume">Volume %1$s× o normal na última hora</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%1$d de %2$d grandes altcoins supera a Bitcoin en 90 días</item>
+        <item quantity="other">%1$d de %2$d grandes altcoins superan a Bitcoin en 90 días</item>
+    </plurals>
+    <string name="insights_chart_axis">Anos desde o halving</string>
+    <string name="insights_chart_hint">Prezo como múltiplo do prezo do día do halving (escala logarítmica). Os ciclos anteriores son un patrón, non unha previsión.</string>
+    <string name="insights_cycle_chart">Ciclos desde o halving</string>
+    <string name="insights_dominance_eth">ETH %1$s do mercado total</string>
+    <string name="insights_dominance_title">Dominancia de Bitcoin</string>
+    <string name="insights_fng_history">Onte %1$s · hai unha semana %2$s · hai un mes %3$s</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="insights_halving_title">Halving de Bitcoin</string>
+    <string name="insights_source_dominance">Fonte: CoinGecko, Binance</string>
+    <string name="insights_source_fng">Fonte: alternative.me</string>
+    <string name="insights_source_history">Fonte: Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">Medo extremo</string>
+    <string name="fng_extreme_greed">Cobiza extrema</string>
+    <string name="fng_fear">Medo</string>
+    <string name="fng_greed">Cobiza</string>
+    <string name="fng_neutral">Neutral</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">Datos ás %1$s · actualizando…</string>
+    <string name="cycle_from_top">%1$s desde o máximo</string>
+    <string name="cycle_marker_bottom">Mínimo %1$s</string>
+    <string name="cycle_marker_double_bottom">Dobre mínimo %1$s</string>
+    <string name="cycle_marker_double_top">Dobre máximo %1$s</string>
+    <string name="cycle_marker_high_so_far">Máximo ata agora</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">Máximo %1$s</string>
+    <string name="cycle_since_halving">%1$s desde o halving</string>
+    <string name="halving_estimate_text">Próximo halving segundo o cálculo arredor de %1$s: faltan %2$s bloques a unha media de %3$s min por bloque (período de dificultade actual). Unha proxección, non unha promesa – o tempo de bloque varía.</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">Alarma: %1$s</string>
+    <string name="gas_slow_fast">Lenta %1$s · Rápida %2$s</string>
+    <string name="gas_source">Nodos RPC públicos e mempool.space · Custo dunha transferencia simple, sen a parte de L1 nas L2</string>
+    <string name="gas_title">Comisións de rede</string>
+    <string name="gas_transfer_cost">Transferencia ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">Datos de inflación dos EUA (CPI)</string>
+    <string name="macro_fomc">Decisión de tipos da Fed</string>
+    <string name="macro_hint_list">%1$s – en días coma este os mercados adoitan oscilar máis.</string>
+    <string name="macro_hint_today">Hoxe %1$s: %2$s – en días coma este os mercados adoitan oscilar máis.</string>
+    <string name="macro_hint_today_list">Hoxe: %1$s – en días coma este os mercados adoitan oscilar máis.</string>
+    <string name="macro_hint_tomorrow">Mañá %1$s: %2$s – en días coma este os mercados adoitan oscilar máis.</string>
+    <string name="macro_hint_tomorrow_list">Mañá: %1$s – en días coma este os mercados adoitan oscilar máis.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Hoxe %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Mañá %1$s %2$s</string>
+    <string name="macro_nfp">Informe de emprego dos EUA</string>
+    <string name="macro_pce">Prezos do gasto en consumo dos EUA (PCE)</string>
+    <string name="macro_ppi">Prezos de produción dos EUA (PPI)</string>
+    <string name="macro_released_list">Publicado hoxe: %1$s.</string>
+    <string name="macro_released_one">Publicado hoxe ás %1$s: %2$s.</string>
+    <string name="macro_title">Datos económicos</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">Moeda</string>
+    <string name="coin_no_data">Non hai datos de prezo para esta moeda en Binance nin en Bybit.</string>
+    <string name="coin_price_only">Baseado só no prezo – os datos on-chain (MVRV, Puell, hashrate) só están dispoñibles de balde para Bitcoin.</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">Só %1$d día de historial de prezos – faltan algúns indicadores.</item>
+        <item quantity="other">Só %1$d días de historial de prezos – faltan algúns indicadores.</item>
+    </plurals>
+    <string name="coin_title">Análise da moeda</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">Datos: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">Soben e baixan 24 h</string>
+    <string name="movers_gainers">En alza</string>
+    <string name="movers_losers">En baixa</string>
+    <string name="movers_no_gainers">Ningunha moeda subiu en 24 h</string>
+    <string name="movers_no_losers">Ningunha moeda baixou en 24 h</string>
+    <string name="movers_source">CoinGecko, 24 h, top 100 sen stablecoins</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">Mostrar todo</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">Mostrar menos</string>
+</resources>

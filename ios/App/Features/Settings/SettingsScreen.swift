@@ -308,13 +308,19 @@ struct SettingsScreen: View {
 
     /// Wie `AppLanguages.ALL` der Android-Fassung.
     private static let settingsLanguageNames: [String: String] = [
-        "en": "English", "de": "Deutsch", "fr": "Français", "it": "Italiano", "es": "Español",
-        "pt": "Português (Portugal)", "pt-BR": "Português (Brasil)", "nl": "Nederlands", "pl": "Polski", "cs": "Čeština", "hu": "Magyar",
-        "ro": "Română", "sq": "Shqip", "el": "Ελληνικά", "tr": "Türkçe", "sv": "Svenska",
-        "da": "Dansk", "nb": "Norsk bokmål", "fi": "Suomi", "ru": "Русский", "uk": "Українська",
-        "ar": "العربية", "he": "עברית", "fa": "فارسی", "hi": "हिन्दी", "th": "ไทย",
-        "vi": "Tiếng Việt", "id": "Bahasa Indonesia", "ms": "Bahasa Melayu", "zh": "中文（简体）",
-        "zh-Hant": "中文（繁體）", "ja": "日本語", "ko": "한국어",
+        "en": "English", "de": "Deutsch", "fr": "Français", "it": "Italiano", "es": "Español", "ca": "Català",
+        "gl": "Galego", "eu": "Euskara", "pt": "Português (Portugal)", "pt-BR": "Português (Brasil)",
+        "nl": "Nederlands", "af": "Afrikaans", "ga": "Gaeilge", "pl": "Polski", "cs": "Čeština", "sk": "Slovenčina",
+        "hu": "Magyar", "ro": "Română", "sl": "Slovenščina", "hr": "Hrvatski", "bs": "Bosanski", "sr": "Српски",
+        "sr-Latn": "Srpski (latinica)", "mk": "Македонски", "bg": "Български", "sq": "Shqip", "el": "Ελληνικά",
+        "tr": "Türkçe", "az": "Azərbaycan dili", "sv": "Svenska", "da": "Dansk", "nb": "Norsk bokmål", "is": "Íslenska",
+        "fi": "Suomi", "et": "Eesti", "lv": "Latviešu", "lt": "Lietuvių", "ru": "Русский", "uk": "Українська",
+        "kk": "Қазақ тілі", "uz": "Oʻzbekcha", "mn": "Монгол", "ka": "ქართული", "hy": "Հայերեն", "ar": "العربية",
+        "he": "עברית", "am": "አማርኛ", "sw": "Kiswahili", "zu": "isiZulu", "fa": "فارسی", "ur": "اردو",
+        "hi": "हिन्दी", "mr": "मराठी", "ne": "नेपाली", "bn": "বাংলা", "pa": "ਪੰਜਾਬੀ", "gu": "ગુજરાતી",
+        "ta": "தமிழ்", "te": "తెలుగు", "kn": "ಕನ್ನಡ", "ml": "മലയാളം", "si": "සිංහල", "th": "ไทย", "lo": "ລາວ",
+        "km": "ខ្មែរ", "my": "မြန်မာ", "vi": "Tiếng Việt", "id": "Bahasa Indonesia", "ms": "Bahasa Melayu",
+        "fil": "Filipino", "zh": "中文（简体）", "zh-Hant": "中文（繁體）", "yue": "粵語", "ja": "日本語", "ko": "한국어",
     ]
 
     // MARK: Hilfen

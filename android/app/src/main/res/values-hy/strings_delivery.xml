@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">Համոզվիր, որ ահազանգերը հասնում են</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">Լավ է</string>
+    <string name="delivery_state_warn">Ստուգիր սա</string>
+    <string name="delivery_state_info">Նշում</string>
+    <string name="delivery_allowed">Թույլատրված է</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">Ծանուցումներ</string>
+    <string name="delivery_notifications_off">Անջատված – ահազանգերը չեն հասնի</string>
+    <string name="delivery_notifications_not_asked">Դեռ թույլատրված չէ</string>
+    <string name="delivery_channel">Ահազանգերի ալիք</string>
+    <string name="delivery_channel_high">Բարձր կարևորություն – հայտնվում է էկրանին</string>
+    <string name="delivery_channel_low">Ցածր կարևորություն – ահազանգերը միայն անձայն հայտնվում են ցանկում</string>
+    <string name="delivery_channel_off">Անջատված – ահազանգերը չեն հասնի</string>
+    <string name="delivery_exact_on">Միացված – մոտավորապես 15 րոպեն մեկ</string>
+    <string name="delivery_exact_off">Անջատված – Android-ը ստուգում է անկանոն</string>
+    <string name="delivery_battery">Մարտկոցի օպտիմալացում</string>
+    <string name="delivery_battery_unrestricted">Առանց սահմանափակման</string>
+    <string name="delivery_battery_optimized">Օպտիմալացված – Android-ը կարող է հետաձգել ստուգումները։ Հավելվածը բացառություն չի խնդրում. դա կարող ես փոխել հավելվածի մարտկոցի կարգավորումներում։</string>
+    <string name="delivery_background">Ֆոնային օգտագործում</string>
+    <string name="delivery_background_restricted">Սահմանափակված – Android-ը դադարեցնում է ֆոնային ստուգումները</string>
+    <string name="delivery_dnd">Չանհանգստացնել</string>
+    <string name="delivery_dnd_on">Միացված – ահազանգերը կարող են հասնել առանց ձայնի</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">Ակտիվ է մինչև %1$s – ժամկետը եկած ահազանգերը սպասում են մինչ այդ</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – ժամկետը եկած ահազանգերը այդ ընթացքում սպասում են</string>
+    <string name="delivery_last_check">Վերջին ֆոնային ստուգումը</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – ավելի քան 6 ժամ առաջ</string>
+    <string name="delivery_last_check_never">Դեռ չի եղել</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">Թույլատրել</string>
+    <string name="delivery_action_change">Փոխել</string>
+    <string name="delivery_action_show">Ցույց տալ</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">Ցուցանակներ և ձայն</string>
+    <string name="delivery_alert_off">Ցուցանակներն անջատված են – ահազանգերը հայտնվում են միայն Ծանուցումների կենտրոնում</string>
+    <string name="delivery_sound_off">Ձայնն անջատված է – ահազանգերը հասնում են անձայն</string>
+    <string name="delivery_time_sensitive">Ժամանակազգայուն ծանուցումներ</string>
+    <string name="delivery_time_sensitive_off">Անջատված – Կենտրոնացման ռեժիմը կարող է հետ պահել ահազանգերը</string>
+    <string name="delivery_background_refresh">Ֆոնային թարմացում</string>
+    <string name="delivery_low_power">Էներգախնայողության ռեժիմ</string>
+    <string name="delivery_swipe_away">Հավելվածը սահեցրե՞լ ես հեռացրել</string>
+    <string name="delivery_swipe_away_note">Եթե հավելվածը սահեցնելով փակես հավելվածների փոխարկիչում, iOS-ը դադարեցնում է ֆոնային ստուգումները, մինչև այն նորից բացես։</string>
+    <string name="delivery_live_activity">Live Activity</string>
+    <string name="delivery_live_activity_note">Ցույց է տալիս գինը կողպէկրանին, բայց թարմացվում է միայն երբ հավելվածը ստուգում է – դա ահազանգերի ստուգումն ավելի հաճախ չի դարձնում։</string>
+
+    <string name="alarm_first_check">Ստուգիր, որ ահազանգերը հասնում են</string>
+
+    <string name="oem_battery_title">Արտադրողի մարտկոցի խնայողություն</string>
+    <string name="oem_battery_xiaomi">Xiaomi-ն կարող է ամբողջովին կանգնեցնել հավելվածը – այդ դեպքում ահազանգեր չեն հասնի։ Միացրու «Ինքնագործարկում»-ը և Մարտկոցի խնայողությունը դիր «Առանց սահմանափակումների»։</string>
+    <string name="oem_battery_samsung">Samsung-ը կարող է հավելվածը տեղափոխել խորը քնի – այդ դեպքում ահազանգեր չեն հասնի։ Մարտկոց › Ֆոնային օգտագործման սահմանափակումներ բաժնում ավելացրու այն «Երբեք չքնող հավելվածներ»-ին։</string>
+    <string name="oem_battery_huawei">Huawei/Honor-ը կարող է կանգնեցնել հավելվածը – այդ դեպքում ահազանգեր չեն հասնի։ Մարտկոց › Հավելվածների գործարկում բաժնում ընտրիր «Կառավարել ձեռքով» և թույլատրիր բոլոր տարբերակները։</string>
+    <string name="oem_battery_oneplus">OnePlus-ը կարող է կանգնեցնել հավելվածը – այդ դեպքում ահազանգեր չեն հասնի։ Թույլատրիր «Ինքնագործարկում»-ը, իսկ Մարտկոցի օգտագործում բաժնում՝ ֆոնային ակտիվությունը։</string>
+    <string name="oem_battery_oppo">Oppo/Realme-ն կարող է կանգնեցնել հավելվածը – այդ դեպքում ահազանգեր չեն հասնի։ Թույլատրիր «Ինքնագործարկում»-ը, իսկ Մարտկոցի օգտագործում բաժնում՝ ֆոնային ակտիվությունը։</string>
+    <string name="oem_battery_vivo">Vivo-ն կարող է կանգնեցնել հավելվածը – այդ դեպքում ահազանգեր չեն հասնի։ Թույլատրիր «Ինքնագործարկում»-ը, իսկ Մարտկոց բաժնում՝ ֆոնային բարձր էներգասպառումը։</string>
+    <string name="alarm_reliability_stale">Վերջին ստուգումը՝ %1$s – ահազանգերը կարող են ուշանալ</string>
+    <string name="alarm_reliability_never">Ահազանգերը միացված են – ֆոնային ստուգում դեռ չի եղել</string>
+    <string name="alarm_reliability_notifications_off">Ծանուցումներն անջատված են – ահազանգերը չեն հասնի</string>
+    <string name="alarm_reliability_battery">Մարտկոցի խնայողությունը կարող է կանգնեցնել ահազանգերի ստուգումը</string>
+    <string name="alarm_reliability_background_refresh">Ֆոնային թարմացումն անջատված է – ահազանգերը կարող են չհասնել</string>
+</resources>

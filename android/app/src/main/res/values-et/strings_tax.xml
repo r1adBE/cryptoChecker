@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
+    <string name="portfolio_cutoff_export_action">Eksport kuupäeva seisuga…</string>
+    <string name="portfolio_tax_worksheet_action">Tööleht…</string>
+    <string name="portfolio_export_address_unobserved">aadressi sel päeval ei jälgitud – pole kaasatud</string>
+    <string name="portfolio_export_button">Ekspordi CSV</string>
+    <string name="portfolio_export_col_amount">Kogus</string>
+    <string name="portfolio_export_col_coin">Münt</string>
+    <string name="portfolio_export_col_note">Märkus</string>
+    <string name="portfolio_export_col_price">Hind USDT</string>
+    <string name="portfolio_export_col_rate">Kurss USDT→%1$s</string>
+    <string name="portfolio_export_col_value">Väärtus USDT</string>
+    <string name="portfolio_export_col_value_cur">Väärtus %1$s</string>
+    <!-- Inhalt der CSV-Datei -->
+    <string name="portfolio_export_comment"># Seisuga %1$s, valuuta %2$s, vahetuskurss kuupäevast %3$s</string>
+    <string name="portfolio_export_currency">Valuuta: %1$s</string>
+    <string name="portfolio_export_date">Seisu kuupäev</string>
+    <string name="portfolio_export_done">Eksport salvestatud</string>
+    <string name="portfolio_export_estv_note">Varamaksu puhul kehtivad ESTV hinnaloendi %1$s ametlikud aastalõpu väärtused, kui need on loetletud: %2$s</string>
+    <string name="portfolio_export_failed">Eksport ebaõnnestus</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">Eksport ebaõnnestus: faili ei saanud kirjutada – salvestuskoht on kadunud või kirjutuskaitstud</string>
+    <string name="portfolio_export_failed_prices">Eksport ebaõnnestus: hindu ei saanud laadida – ühendus puudub või börs ei vasta</string>
+    <string name="portfolio_export_from_address">aadressilt – ostuhinnata</string>
+    <string name="portfolio_export_hint">Varad valitud päeva lõpus, hinnatud päeva sulgemishinnaga (UTC) USDT-s ja teisendatud selle päeva EKP viitekursiga. Valuutat saad muuta valikuga „Teisenda valuutasse“.</string>
+    <string name="portfolio_export_incomplete">puudulik</string>
+    <string name="portfolio_export_no_fx">vahetuskurss puudub</string>
+    <string name="portfolio_export_no_price">hind puudub</string>
+    <string name="portfolio_export_running">Ajalooliste hindade laadimine…</string>
+    <string name="portfolio_export_title">Eksport kuupäeva seisuga</string>
+    <string name="portfolio_export_today_hint">Tänane päev pole veel lõppenud: päeva sulgemishinna asemel kasutatakse praegust hinda.</string>
+    <string name="portfolio_export_total">Kokku</string>
+    <string name="portfolio_export_unchecked">kontrollimata (sobiv hind puudub)</string>
+
+    <!-- Steuer-Export (Arbeitspapier) -->
+    <string name="tax_export_adjustment">näiline kahjum (superficial loss, lisatud ACB-le)</string>
+    <string name="tax_export_at_wallet_note">Austria: libisev keskmine mündi ja rahakoti (börsi) kaupa – ülekanded kannavad soetusmaksumuse kaasa – preemiad soetusmaksumusega 0 – varad alates 1.03.2021 ilma tasudeta (pole mahaarvatavad) – laenamise intress saamisaegse väärtusega (tulu 27,5-protsendilise määraga).</string>
+    <string name="tax_export_avg_cost_rates">soetusmaksumus ostukuupäevade kurssidega (keskmine)</string>
+    <string name="tax_export_ch_wealth_not_calculated">Varamaks arvutamata – ESTV hinnaloend: %1$s</string>
+    <string name="tax_export_col_acquired">Soetatud</string>
+    <string name="tax_export_col_adjustment">Mittelubatud kahjum %1$s</string>
+    <string name="tax_export_col_cost">Soetusmaksumus %1$s</string>
+    <string name="tax_export_col_date">Kuupäev</string>
+    <string name="tax_export_col_days">Hoitud päevi</string>
+    <string name="tax_export_col_gain">Kasum %1$s</string>
+    <string name="tax_export_col_gross">Hind enne tasusid %1$s</string>
+    <string name="tax_export_col_long_term">hoitud &gt; 1 aasta</string>
+    <string name="tax_export_col_portfolio_value">Portfelli väärtus %1$s</string>
+    <string name="tax_export_col_proceeds">Tulu %1$s</string>
+    <string name="tax_export_col_sold">Müüdud</string>
+    <string name="tax_export_cost_incomplete">soetusmaksumuse summa puudulik</string>
+    <string name="tax_export_cost_missing">ostuhind puudub</string>
+    <string name="tax_export_fee_consumed">Tasu kulutab kogu saadu</string>
+    <string name="tax_export_fee_leg">tasu teises mündis</string>
+    <string name="tax_export_fee_row">Tasu</string>
+    <string name="tax_export_fee_value_missing">teises mündis tasul puudub väärtus</string>
+    <string name="tax_export_gains">Realiseeritud võõrandamised (CSV)</string>
+    <string name="tax_export_gains_title">Realiseeritud võõrandamised %1$s</string>
+    <string name="tax_export_gift">Kingitus</string>
+    <string name="tax_export_holdings_cutoff">Varad seisuga %1$s (CSV)</string>
+    <string name="tax_export_holdings_title">Varad seisuga %1$s</string>
+    <string name="tax_export_income">Tulu (CSV)</string>
+    <string name="tax_export_income_title">Tulu %1$s</string>
+    <string name="tax_export_info_template">Mall: %1$s · Meetod: %2$s · Maksuaasta: %3$s · Valuuta: %4$s · Crypto Checker %5$s</string>
+    <string name="tax_export_lost_fee_cost">võrgutasu kulu ilma tasutud partiita</string>
+    <string name="tax_export_match_pool">Section 104 pool</string>
+    <string name="tax_export_match_same_day">sama päev (HMRC)</string>
+    <string name="tax_export_match_thirty_day">30 päeva reegel (HMRC)</string>
+    <string name="tax_export_method_change_warning">Meetodi või malli muutmine arvutab ümber ka varasemad aastad – võrdle sellega, mille juba deklareerisid.</string>
+    <string name="tax_export_method_overridden">Mall arvutab %1$s – mitte %2$s</string>
+    <string name="tax_export_new_holding">soetatud alates 1.03.2021</string>
+    <string name="tax_export_no">ei</string>
+    <string name="tax_export_old_holding">soetatud enne 1.03.2021</string>
+    <string name="tax_export_oversold">müüdud rohkem kui kirjendatud</string>
+    <string name="tax_export_payment">Makse krüptoga</string>
+    <string name="tax_export_period">%1$s – %2$s</string>
+    <string name="tax_export_proceeds_missing">müügihind puudub</string>
+    <string name="tax_export_proceeds_without_cost">Tulu ilma ostuhinnata</string>
+    <string name="tax_export_realized_differs">Maksu-CSV võib erineda väärtusest „realiseeritud“ (riigi maksureeglid).</string>
+    <string name="tax_export_rule">&gt; 1 aasta: müüdud pärast ostukuupäeva + 1 kalendriaasta. Kuupäevad kohaliku aja järgi. Kursid: tehingupäeva EKP päevakurss; kui seda pole, viimane kurss kuni 7 päeva varem.</string>
+    <string name="tax_export_rules_date">Reeglite seis: %1$s</string>
+    <string name="tax_export_rules_stale">Reeglid on kuupäevast %1$s – aasta %2$s määrad ja soodustused võivad olla muutunud. Kontrolli väärtusi.</string>
+    <string name="tax_export_spouse_gift">abikaasale/elukaaslasele – kasumit ega kahjumit pole</string>
+    <string name="tax_export_summary">Aastakokkuvõte %1$s (CSV)</string>
+    <string name="tax_export_swap">vahetus</string>
+    <string name="tax_export_tax_year">Maksuaasta</string>
+    <string name="tax_export_transfer_fee_info">Ülekandetasu USDT/sularahas – pole kahjum, pole soetusmaksumuses, ainult teave</string>
+    <string name="tax_export_unassigned_fee">tasu pole määratud – soetusmaksumus teadmata</string>
+    <string name="tax_export_usdt_usd_note">USDT teisendatud USDT/USD päeva sulgemishinnaga; kus seda pole, 1 USD (märgitud igal real)</string>
+    <string name="tax_export_value_estimated">Väärtus hinnanguline (päeva sulgemishind)</string>
+    <string name="tax_export_value_missing">saamisaegne väärtus puudub</string>
+    <string name="tax_export_wallet">Rahakott: %1$s</string>
+    <string name="tax_export_wallet_unspecified">määramata</string>
+    <string name="tax_export_withdrawal_fee">Väljamaksetasu</string>
+    <string name="tax_export_withdrawal_fee_info">Väljamaksetasu USDT/sularahas – pole kahjum, ainult teave</string>
+    <string name="tax_export_workpaper_disclaimer">Maksu tööleht – mitte maksudeklaratsioon ega maksunõuanne</string>
+    <string name="tax_export_workpaper_title">Tööleht</string>
+    <string name="tax_export_year_local_zone">Kuupäevad kohaliku aja järgi (%1$s)</string>
+    <string name="tax_export_yes">jah</string>
+
+    <!-- Steuer-Export: Zeilen und Spalten -->
+    <string name="tax_line_at_interest">Laenamise intress (saamisaegne väärtus)</string>
+    <string name="tax_line_at_old_long">Soetatud enne 1.03.2021 – hoitud &gt; 1 aasta: tavaliselt ei maksustata – kontrolli</string>
+    <string name="tax_line_at_rate">Erimäär 27,5 protsenti: neto soetatud alates 1.03.2021 ja müüdud alates 1.03.2022 + intress</string>
+    <string name="tax_line_au_discounted">Neto kapitalikasum pärast kahjumeid ja 50-protsendilist soodustust</string>
+    <string name="tax_line_ca_taxable">Maksustatav kapitalikasum (kaasamismäär 1/2)</string>
+    <string name="tax_line_ch_income">Preemiad loetletud – nende käsitlust vt ESTV töödokumendist</string>
+    <string name="tax_line_ch_private">Kapitalikasum erasvarast: arvutamata – liigitust vt ESTV</string>
+    <string name="tax_line_ch_wealth">Varamaks: arvutamata – varade CSV kasutab börsihinda × USD/CHF 31. detsembri seisuga – ametlikud maksuväärtused: ESTV hinnaloend</string>
+    <string name="tax_line_de_long">Hoitud &gt; 1 aasta: § 23 EStG järgi tavaliselt ei maksustata – kontrolli</string>
+    <string name="tax_line_denied_loss">Mittelubatud kahjumid (superficial loss)</string>
+    <string name="tax_line_fr_outflow">Väljavoolud ilma müügita (väljamaksed) – soetusmaksumuse summa proportsionaalselt vähendatud</string>
+    <string name="tax_line_fr_rate">Kindel määr 12,8 protsenti pluss sotsiaalmaksed (või astmeline skaala valiku korral)</string>
+    <string name="tax_line_fr_threshold">Võõrandamised kuni 305 € aastas: üldjuhul maksuvabad (müügihindade summa) – kontrolli</string>
+    <string name="tax_line_gains">Kasumid</string>
+    <string name="tax_line_income">Tulu (preemiad saamisaegse väärtusega)</string>
+    <string name="tax_line_jp_misc">Muu tulu (雑所得): neto kasum + tulu</string>
+    <string name="tax_line_long_net">Neto – hoitud &gt; 1 aasta</string>
+    <string name="tax_line_losses">Kahjumid</string>
+    <string name="tax_line_net">Neto kasum/kahjum</string>
+    <string name="tax_line_new_net">Neto – soetatud alates 1.03.2021, müüdud alates 1.03.2022</string>
+    <string name="tax_line_old_long_net">Neto – soetatud enne 1.03.2021 – hoitud &gt; 1 aasta</string>
+    <string name="tax_line_old_short_net">Neto – spekulatiivsed tehingud (varasem õigus): soetatud enne 1.03.2021 ja hoitud ≤ 1 aasta või müüdud enne 1.03.2022</string>
+    <string name="tax_line_proceeds">Tulud</string>
+    <string name="tax_line_short_net">Neto – hoitud ≤ 1 aasta</string>
+    <string name="tax_line_transfer_fees">Ülekandetasud (oma rahakotid)</string>
+    <string name="tax_line_uk_after_exempt">Neto kasum üle maksuvaba summa (ainult krüpto)</string>
+    <string name="tax_line_uk_exempt">Aastane maksuvaba summa (Annual Exempt Amount) – kehtib kõigile võõrandamistele kokku, siin täielikult rakendatud</string>
+    <string name="tax_line_us_terms">Lühiajaline (≤ 1 aasta): tavamäärad – pikaajaline (&gt; 1 aasta): kapitalikasumi määrad</string>
+    <string name="tax_line_withdrawal_fees">Väljamaksetasud</string>
+
+    <!-- Steuer Deutschland -->
+    <string name="tax_de_below">alla piiri</string>
+    <string name="tax_de_col_item">Kirje</string>
+    <string name="tax_de_disclaimer">Ainult orienteerumiseks – mitte maksudeklaratsioon ega maksunõuanne.</string>
+    <string name="tax_de_explain_below">Kuni %1$s: alla piiri (orienteerumiseks).</string>
+    <string name="tax_de_explain_loss">Neto kahjum: nendelt müükidelt maksu pole. § 23 EStG kohaseid kahjumeid saab tasaarvestada ainult eramüükide kasumiga – samal aastal või kandes eelmisse aastasse ja järgmistesse aastatesse (§ 23 Abs. 3 ja § 10d EStG). Märgi kahjum maksudeklaratsioonis, et see tuvastataks.</string>
+    <string name="tax_de_explain_reached">Alates %1$s läheb arvesse kogu summa (vabastuspiir – mitte maksuvaba summa).</string>
+    <string name="tax_de_explain_unknown">Pole kontrollitav: puuduvad vahetuskursid / ostuhinnad või hoidmisperioodid.</string>
+    <string name="tax_de_income_limit">Teenuste vabastuspiir (§ 22 Nr. 3 EStG)</string>
+    <string name="tax_de_limit_scope">Piirid kehtivad kõigile aasta eramüükidele või teenustele kokku – ka väljaspool rakendust.</string>
+    <string name="tax_de_loading">Arvutamine…</string>
+    <string name="tax_de_long_gains">Kasumid – hoitud &gt; 1 aasta</string>
+    <string name="tax_de_long_losses">Kahjumid – hoitud &gt; 1 aasta</string>
+    <string name="tax_de_loss">neto kahjum – tasaarvestatav ainult eramüükide kasumiga (§ 23 EStG)</string>
+    <string name="tax_de_private_limit">Eramüükide vabastuspiir (§ 23 EStG)</string>
+    <string name="tax_de_reached">piir saavutatud – tavaliselt läheb arvesse kogu summa – kontrolli</string>
+    <string name="tax_de_short_gains">Kasumid – hoitud ≤ 1 aasta</string>
+    <string name="tax_de_short_losses">Kahjumid – hoitud ≤ 1 aasta</string>
+    <string name="tax_de_unclassified">Hoidmisperiood teadmata</string>
+    <string name="tax_de_unknown">pole kontrollitav</string>
+
+    <!-- Steuer-Vorlagen je Land -->
+    <string name="tax_template_at">Austria</string>
+    <string name="tax_template_au">Austraalia</string>
+    <string name="tax_template_beta">Beeta</string>
+    <string name="tax_template_beta_note">Beeta: riigi reeglid lihtsustatud, kontrolli enne maksudeklaratsiooni esitamist</string>
+    <string name="tax_template_ca">Kanada</string>
+    <string name="tax_template_ch">Šveits</string>
+    <string name="tax_template_confirm_text">Beeta, lihtsustatud reeglid, teiste platvormide tehingud puuduvad – kontrolli enne maksudeklaratsiooni esitamist.</string>
+    <string name="tax_template_confirm_title">Maksumall (beeta)</string>
+    <string name="tax_template_current">Mall: %1$s · Meetod: %2$s · Valuuta: %3$s</string>
+    <string name="tax_template_de">Saksamaa</string>
+    <string name="tax_template_fr">Prantsusmaa</string>
+    <string name="tax_template_hint">Ainult orienteerumiseks: määrab maksu töölehe meetodi, maksuaasta ja kokkuvõtte. Portfelli kaart jääb neutraalseks – kingitused ja ülekandetasud võivad töölehest erineda.</string>
+    <string name="tax_template_jp">Jaapan</string>
+    <string name="tax_template_neutral">Neutraalne (kõik riigid)</string>
+    <string name="tax_template_suggestion">Soovitus sinu piirkonnale: %1$s</string>
+    <string name="tax_template_title">Maksumall</string>
+    <string name="tax_template_uk">Ühendkuningriik</string>
+    <string name="tax_template_us">USA</string>
+    <string name="tax_template_use">Kasuta malli %1$s</string>
+
+    <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
+    <string name="tax_method_at">Vanad/uued varad – libisev keskmine</string>
+    <string name="tax_method_ca_acb">ACB keskmine kulu (superficial loss)</string>
+    <string name="tax_method_fr_pta">Soetusmaksumuse kogusumma (art. 150 VH bis)</string>
+    <string name="tax_method_jp_total">Kogukeskmine (総平均法)</string>
+    <string name="tax_method_uk_pool">Section 104 pool (sama päev / 30 päeva)</string>
+    <string name="tax_note_at">Libisev keskmine mündi ja rahakoti kaupa – mitte üle kõigi rahakottide (KryptowährungsVO § 2). Preemiad lähevad uute varade hulka soetusmaksumusega 0 (BMF: staking / airdropid) – tulufail loetleb need saamisaegse väärtusega. Alates 1.03.2021 soetatud varade puhul pole tasud mahaarvatavad (§ 27a(4) Nr. 2, § 20(2) EStG): soetusmaksumus ja tulu ilma tasudeta. Laenamise intress (tüüp CSV-impordist või märkusest) on tulu saamise hetkel 27,5 protsendi määraga ja säilitab selle väärtuse soetusmaksumusena.</string>
+    <string name="tax_note_at_staking">Staking juba olemasolevate müntidega ja airdropid: saamisaegne väärtus pole maksustamisel oluline – seaduse järgi on soetusmaksumus 0 (§ 27b Abs. 2 EStG; BMF „Kryptowährungen“). Maks rakendub alles müümisel.</string>
+    <string name="tax_note_fr">Müügid ja krüptos makstud tasud on võõrandamised – vahetused lükatakse edasi. Krüptotasu müügil arvestatakse hinda enne tasusid – muidu on see eraldi võõrandamine oma väärtusega. Portfelli väärtus päeva sulgemishindadest – kui sulgemishind puudub, jääb soetusmaksumus tühjaks.</string>
+    <string name="tax_note_network_fee">Krüptos makstud võrgutasu (ülekanne oma rahakotti, väljamakse) on tasumüntide võõrandamine turuväärtusega – kasum või kahjum ainult nende müntide pealt, mitte kogu tasu kahjum (%1$s). Ilma kirjendatud hinnata: sama päeva sulgemishind (UTC); ilma sulgemishinnata jääb tulu tühjaks.</string>
+    <string name="tax_note_specific_id">Konkreetset identifitseerimist (specific identification) ei toetata – kasutatakse FIFO-t.</string>
+    <string name="tax_note_spouse_gift">„Abikaasale / elukaaslasele“ märgitud kingitus ei anna kasumit ega kahjumit: tulu = sinu soetusmaksumus, mille partner üle võtab (%1$s).</string>
+    <string name="tax_note_stable_swap">Krüpto müük stabiilse mündi (USDT/USDC/DAI …) vastu, mille alles jätad, on siin krüpto krüpto vastu ja seda ei maksustata – kirjenda see vahetusena stabiilseks mündiks. Maksustatakse alles müük euro vastu – „Müük“ loetakse müügiks euro vastu.</string>
+    <string name="tax_note_transfer_fee">Sama kehtib USDT- või sularahatasu kohta ülekandel oma rahakottide vahel: seda ei lisata soetusmaksumusele ja see on toodud ainult teabeks.</string>
+    <string name="tax_note_uk">Vastavusse viimine HMRC järgi: sama päev → järgmised 30 päeva → Section 104 pool.</string>
+    <string name="tax_note_us_transition">Üleminek 1.01.2025 (Rev. Proc. 2024-28 safe harbor): kui varasematel aastatel kasutati FIFO-t üle kõigi rahakottide, lähevad järelejäänud partiid 31.12.2024 seisuga rahakottidele, kus mündid on – vanimate müntidega rahakott saab vanima soetusmaksumuse. See jaotus on rakenduse reegel – kontrolli seda oma andmete põhjal.</string>
+    <string name="tax_note_us_wallet">Alates maksuaastast 2025 nõuab IRS soetusmaksumust rahakoti või börsi kaupa (Rev. Proc. 2024-28): eksport kasutab alates 2025. aastast FIFO-t rahakoti kaupa – varasematel aastatel FIFO-t üle kõigi rahakottide või FIFO-t rahakoti kaupa, kui see on sinu kulumeetod.</string>
+    <string name="tax_note_withdrawal_fee">Väljamaksetasu USDT-s või sularahas pole kahjum: sularahatasu pole mahaarvatav kulu, USDT-tasu on võõrandamine nimiväärtusega ilma kasumita – see on toodud ainult teabeks (%1$s).</string>
+    <string name="tax_summary_at_interest_income">läheb arvesse: tulu saamise hetkel 27,5-protsendilise erimääraga (§ 27b(2) Nr. 1 EStG / BMF) – mündid säilitavad selle väärtuse soetusmaksumusena</string>
+    <string name="tax_summary_at_reward_info">ainult teabeks – pole üheski summas: preemiad lähevad uute varade hulka soetusmaksumusega 0 ja maksustatakse alles müümisel (juba kasumis) – § 27b Abs. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">1.01.–28.02.2022: võimalik valida 27,5-protsendiline määr</string>
+    <string name="tax_summary_at_withdrawal_fee">Väljamaksetasu – uute varadega tasaarvestamata (erimäära korral kulud pole mahaarvatavad, § 20(2) EStG)</string>
+    <string name="tax_summary_ch_fifo_info">ainult teabeks – rakenduse FIFO-arvutus – liigitamata – vt ESTV</string>
+    <string name="tax_summary_ch_year_end_value">väärtus 31. detsembri seisuga varade CSV-s = börsihind × USD/CHF – mitte ESTV maksuväärtused</string>
+    <string name="tax_summary_de_withdrawal_fee">Väljamaksetasu – § 23 alusel tasaarvestamata, kontrolli, kas see on mahaarvatav tuluga seotud kuluna</string>
+    <string name="tax_summary_not_calculated_estv">arvutamata – ESTV hinnaloend: %1$s</string>
+    <string name="tax_summary_orientation">Orienteerumiseks</string>
+    <string name="tax_summary_orientation_block">Ainult orienteerumiseks – mitte maksunõuanne – mitte maksuotsus</string>
+    <string name="tax_summary_orientation_item">Orienteerumiseks: %1$s</string>
+    <string name="tax_summary_title">Aastakokkuvõte %1$s %2$s</string>
+    <string name="tax_summary_transfer_fee_info">Ülekandetasud USDT/sularahas – pole kahjum ega soetusmaksumuses, ainult teave</string>
+    <string name="tax_summary_withdrawal_fee_info">Väljamaksetasud USDT/sularahas – ei loeta kahjumiks, ainult teave</string>
+
+    <string name="tax_line_at_old_speculation_limit">Spekulatiivsed tehingud (varasem õigus, hoitud ≤ 1 aasta): vabastuspiir (§ 31 (3) EStG vana redaktsioon)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">Laenamise intress enne 1.03.2022 (saamisaegne väärtus)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">Intress enne 1.03.2022: varasem õigus (tulumaksumäär), mitte 27,5 protsenti</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">enne 1.03.2022 – kontrolli spetsialistiga</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">Intress – maksustatav saamise hetkel</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">Staking – ainult teabeks (soetusmaksumus 0, maksustatakse müümisel)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">Intress kokku (maksustatav)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">Staking kokku (teave)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">Neto kapitalikahjum (edasikantav)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">ilma valikuta: sh müügid 1.01.–28.02.2022</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">Staking enne 1.03.2022: soetusmaksumuseks seatud 0 – kontrolli spetsialistiga</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">30 päeva reegel võib neid arve veel muuta (ostud kuni %1$s)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Tulu enne tasusid ületab teatamispiiri (50 000 £; 2020/21–2022/23: 49 200 £): teata HMRC-le, kui oled Self Assessmenti registreeritud, isegi ilma maksustatava kasumita</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">Vara väärtus 31.12.%1$s (orienteerumiseks)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">Määrav on ESTV hinnaloend (ictax.admin.ch). Müntide puhul, mida loendis pole, kehtib üldjuhul börsi sulgemishind. Varamaks arvutamata.</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – vara %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">arvutamata</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">Jälgitavaid aadresse ei saanud lugeda – nende saldod selles failis puuduvad</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">Jälgitavate aadresside partiid lähevad arvesse nende ostukuupäevast; kui aadressi tänane saldo on väiksem, neid vähendatakse.</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">Jälgitavad aadressid lähevad koguväärtusesse, kuid neil puudub soetusmaksumus – seetõttu on kasum tõenäoliselt liiga suur. Kirjenda kulu ostuna.</string>
+    <string name="tax_summary_fr_rewards_income">Summa eeldab, et preemiad maksustati saamisel tuluna (saamisaegne väärtus soetusmaksumuses) – muidu oleks ettevaatlikum tõlgendus soetusmaksumus 0.</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">Turuväärtused ilma kirjendatud hinnata (tasud, kingitused/maksed, vahetused, preemiad, võrgutasud, portfelli väärtus) tehingupäeva sulgemishinnaga (UTC)</string>
+</resources>

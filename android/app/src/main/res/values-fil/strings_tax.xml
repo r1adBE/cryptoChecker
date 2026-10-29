@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
+    <string name="portfolio_cutoff_export_action">Export sa cutoff date…</string>
+    <string name="portfolio_tax_worksheet_action">Worksheet…</string>
+    <string name="portfolio_export_address_unobserved">hindi nabantayan ang address sa petsang ito – hindi kasama</string>
+    <string name="portfolio_export_button">I-export ang CSV</string>
+    <string name="portfolio_export_col_amount">Halaga</string>
+    <string name="portfolio_export_col_coin">Coin</string>
+    <string name="portfolio_export_col_note">Tala</string>
+    <string name="portfolio_export_col_price">Presyo USDT</string>
+    <string name="portfolio_export_col_rate">Rate USDT→%1$s</string>
+    <string name="portfolio_export_col_value">Value USDT</string>
+    <string name="portfolio_export_col_value_cur">Value %1$s</string>
+    <!-- Inhalt der CSV-Datei -->
+    <string name="portfolio_export_comment"># Cutoff date %1$s, currency %2$s, FX rate noong %3$s</string>
+    <string name="portfolio_export_currency">Currency: %1$s</string>
+    <string name="portfolio_export_date">Cutoff date</string>
+    <string name="portfolio_export_done">Na-save ang export</string>
+    <string name="portfolio_export_estv_note">Para sa wealth tax, nalalapat ang opisyal na year-end value ng ESTV price list %1$s kung nakalista: %2$s</string>
+    <string name="portfolio_export_failed">Pumalya ang export</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">Pumalya ang export: hindi maisulat ang file – wala na ang lokasyon ng storage o hindi ito masulatan</string>
+    <string name="portfolio_export_failed_prices">Pumalya ang export: hindi ma-load ang mga presyo – walang koneksyon o hindi tumutugon ang exchange</string>
+    <string name="portfolio_export_from_address">mula sa address – walang presyo ng pagbili</string>
+    <string name="portfolio_export_hint">Mga hawak sa katapusan ng napiling araw, pinahalagahan sa daily close (UTC) sa USDT at kino-convert gamit ang ECB reference rate ng araw na iyon. Palitan ang currency gamit ang “I-convert sa”.</string>
+    <string name="portfolio_export_incomplete">hindi kumpleto</string>
+    <string name="portfolio_export_no_fx">walang FX rate</string>
+    <string name="portfolio_export_no_price">walang presyo</string>
+    <string name="portfolio_export_running">Kinukuha ang mga makasaysayang presyo…</string>
+    <string name="portfolio_export_title">Export sa cutoff date</string>
+    <string name="portfolio_export_today_hint">Hindi pa tapos ang araw na ito: ang kasalukuyang presyo ang ginagamit sa halip na daily close.</string>
+    <string name="portfolio_export_total">Kabuuan</string>
+    <string name="portfolio_export_unchecked">hindi nasuri (walang katugmang presyo)</string>
+
+    <!-- Steuer-Export (Arbeitspapier) -->
+    <string name="tax_export_adjustment">superficial loss (idinagdag sa ACB)</string>
+    <string name="tax_export_at_wallet_note">Austria: moving average bawat coin at wallet (exchange) – dala ng mga transfer ang gastos – mga reward sa acquisition cost na 0 – mga hawak mula 1 Mar 2021 nang walang fee (hindi deductible) – lending interest sa value nang matanggap (kita sa 27.5 porsiyento).</string>
+    <string name="tax_export_avg_cost_rates">gastos sa mga rate ng petsa ng pagbili (average)</string>
+    <string name="tax_export_ch_wealth_not_calculated">Hindi kinalkula ang wealth tax – ESTV price list: %1$s</string>
+    <string name="tax_export_col_acquired">Nakuha</string>
+    <string name="tax_export_col_adjustment">Hindi pinayagang lugi %1$s</string>
+    <string name="tax_export_col_cost">Gastos %1$s</string>
+    <string name="tax_export_col_date">Petsa</string>
+    <string name="tax_export_col_days">Araw na hinawakan</string>
+    <string name="tax_export_col_gain">Tubo %1$s</string>
+    <string name="tax_export_col_gross">Presyo bago ang mga fee %1$s</string>
+    <string name="tax_export_col_long_term">hinawakan &gt; 1 taon</string>
+    <string name="tax_export_col_portfolio_value">Value ng portfolio %1$s</string>
+    <string name="tax_export_col_proceeds">Kinita %1$s</string>
+    <string name="tax_export_col_sold">Naibenta</string>
+    <string name="tax_export_cost_incomplete">hindi kumpleto ang kabuuang acquisition cost</string>
+    <string name="tax_export_cost_missing">walang presyo ng pagbili</string>
+    <string name="tax_export_fee_consumed">Inubos ng fee ang buong natanggap</string>
+    <string name="tax_export_fee_leg">fee sa ibang coin</string>
+    <string name="tax_export_fee_row">Fee</string>
+    <string name="tax_export_fee_value_missing">walang value ang fee sa ibang coin</string>
+    <string name="tax_export_gains">Mga realized na disposal (CSV)</string>
+    <string name="tax_export_gains_title">Mga realized na disposal %1$s</string>
+    <string name="tax_export_gift">Regalo</string>
+    <string name="tax_export_holdings_cutoff">Mga hawak noong %1$s (CSV)</string>
+    <string name="tax_export_holdings_title">Mga hawak noong %1$s</string>
+    <string name="tax_export_income">Kita (CSV)</string>
+    <string name="tax_export_income_title">Kita %1$s</string>
+    <string name="tax_export_info_template">Template: %1$s · Paraan: %2$s · Tax year: %3$s · Currency: %4$s · Crypto Checker %5$s</string>
+    <string name="tax_export_lost_fee_cost">gastos ng network fee na walang bayad na lot</string>
+    <string name="tax_export_match_pool">Section 104 pool</string>
+    <string name="tax_export_match_same_day">parehong araw (HMRC)</string>
+    <string name="tax_export_match_thirty_day">30-day rule (HMRC)</string>
+    <string name="tax_export_method_change_warning">Kapag pinalitan ang paraan o template, kinakalkula ulit pati ang mga naunang taon – ihambing sa naisampa mo na.</string>
+    <string name="tax_export_method_overridden">Kinakalkula ng template ang %1$s – hindi %2$s</string>
+    <string name="tax_export_new_holding">nakuha mula 1 Mar 2021</string>
+    <string name="tax_export_no">hindi</string>
+    <string name="tax_export_old_holding">nakuha bago ang 1 Mar 2021</string>
+    <string name="tax_export_oversold">mas marami ang naibenta kaysa naitala</string>
+    <string name="tax_export_payment">Bayad gamit ang crypto</string>
+    <string name="tax_export_period">%1$s – %2$s</string>
+    <string name="tax_export_proceeds_missing">walang presyo ng pagbenta</string>
+    <string name="tax_export_proceeds_without_cost">Kinita na walang presyo ng pagbili</string>
+    <string name="tax_export_realized_differs">Maaaring iba ang tax CSV sa ‘realized’ (mga patakaran sa buwis ng bansa).</string>
+    <string name="tax_export_rule">&gt; 1 taon: naibenta pagkatapos ng petsa ng pagbili + 1 taon sa kalendaryo. Mga petsa sa lokal na oras. Mga rate: ECB daily rate ng araw ng transaksyon; kung wala, ang huling rate hanggang 7 araw bago.</string>
+    <string name="tax_export_rules_date">Mga patakaran noong: %1$s</string>
+    <string name="tax_export_rules_stale">Ang mga patakaran ay mula %1$s – para sa %2$s, maaaring nagbago ang mga rate at allowance. Tingnan ang mga value.</string>
+    <string name="tax_export_spouse_gift">sa asawa/partner – walang tubo, walang lugi</string>
+    <string name="tax_export_summary">Taunang buod %1$s (CSV)</string>
+    <string name="tax_export_swap">swap</string>
+    <string name="tax_export_tax_year">Tax year</string>
+    <string name="tax_export_transfer_fee_info">Transfer fee sa USDT/cash – hindi lugi, wala sa cost basis, impormasyon lang</string>
+    <string name="tax_export_unassigned_fee">hindi naka-assign ang fee – hindi alam ang cost basis</string>
+    <string name="tax_export_usdt_usd_note">Kino-convert ang USDT sa daily close ng USDT/USD; 1 USD kung walang close (minarkahan bawat row)</string>
+    <string name="tax_export_value_estimated">Tinantiyang value (daily close)</string>
+    <string name="tax_export_value_missing">walang value nang matanggap</string>
+    <string name="tax_export_wallet">Wallet: %1$s</string>
+    <string name="tax_export_wallet_unspecified">hindi tinukoy</string>
+    <string name="tax_export_withdrawal_fee">Withdrawal fee</string>
+    <string name="tax_export_withdrawal_fee_info">Withdrawal fee sa USDT/cash – hindi lugi, impormasyon lang</string>
+    <string name="tax_export_workpaper_disclaimer">Tax worksheet – hindi tax return at hindi tax advice</string>
+    <string name="tax_export_workpaper_title">Worksheet</string>
+    <string name="tax_export_year_local_zone">Mga petsa sa lokal na oras (%1$s)</string>
+    <string name="tax_export_yes">oo</string>
+
+    <!-- Steuer-Export: Zeilen und Spalten -->
+    <string name="tax_line_at_interest">Lending interest (value nang matanggap)</string>
+    <string name="tax_line_at_old_long">Nakuha bago ang 1 Mar 2021 – hinawakan &gt; 1 taon: karaniwang hindi binubuwisan – tingnan</string>
+    <string name="tax_line_at_rate">Espesyal na rate na 27.5 porsiyento: net na nakuha mula 1 Mar 2021 at naibenta mula 1 Mar 2022 + interes</string>
+    <string name="tax_line_au_discounted">Net capital gain pagkatapos ng mga lugi at 50 porsiyentong discount</string>
+    <string name="tax_line_ca_taxable">Taxable capital gain (inclusion rate 1/2)</string>
+    <string name="tax_line_ch_income">Nakalista ang mga reward – tingnan ang ESTV working paper para sa pagtrato sa mga ito</string>
+    <string name="tax_line_ch_private">Capital gains sa pribadong ari-arian: hindi kinalkula – tingnan ang ESTV para sa klasipikasyon</string>
+    <string name="tax_line_ch_wealth">Wealth tax: hindi kinalkula – ginagamit ng holdings CSV ang presyo ng exchange × USD/CHF noong 31 Dis – opisyal na tax value: ESTV price list</string>
+    <string name="tax_line_de_long">Hinawakan &gt; 1 taon: karaniwang hindi binubuwisan sa ilalim ng § 23 EStG – tingnan</string>
+    <string name="tax_line_denied_loss">Mga hindi pinayagang lugi (superficial loss)</string>
+    <string name="tax_line_fr_outflow">Mga paglabas na walang pagbenta (withdrawal) – proporsyonal na binawasan ang kabuuang acquisition cost</string>
+    <string name="tax_line_fr_rate">Flat rate na 12.8 porsiyento at social contributions (o scale kung pipiliin)</string>
+    <string name="tax_line_fr_threshold">Mga disposal hanggang €305 kada taon: karaniwang exempt (kabuuan ng mga presyo ng pagbenta) – tingnan</string>
+    <string name="tax_line_gains">Mga tubo</string>
+    <string name="tax_line_income">Kita (mga reward sa value nang matanggap)</string>
+    <string name="tax_line_jp_misc">Miscellaneous income (雑所得): net na tubo + kita</string>
+    <string name="tax_line_long_net">Net – hinawakan &gt; 1 taon</string>
+    <string name="tax_line_losses">Mga lugi</string>
+    <string name="tax_line_net">Net na tubo/lugi</string>
+    <string name="tax_line_new_net">Net – nakuha mula 1 Mar 2021, naibenta mula 1 Mar 2022</string>
+    <string name="tax_line_old_long_net">Net – nakuha bago ang 1 Mar 2021 – hinawakan &gt; 1 taon</string>
+    <string name="tax_line_old_short_net">Net – mga speculative na transaksyon (dating batas): nakuha bago ang 1 Mar 2021 at hinawakan ≤ 1 taon, o naibenta bago ang 1 Mar 2022</string>
+    <string name="tax_line_proceeds">Kinita</string>
+    <string name="tax_line_short_net">Net – hinawakan ≤ 1 taon</string>
+    <string name="tax_line_transfer_fees">Mga transfer fee (sariling wallet)</string>
+    <string name="tax_line_uk_after_exempt">Net na tubo na lampas sa exempt amount (crypto lang)</string>
+    <string name="tax_line_uk_exempt">Annual exempt amount – nalalapat sa lahat ng disposal nang sabay, buong inilapat dito</string>
+    <string name="tax_line_us_terms">Short-term (≤ 1 taon): ordinary rates – long-term (&gt; 1 taon): capital gains rates</string>
+    <string name="tax_line_withdrawal_fees">Mga withdrawal fee</string>
+
+    <!-- Steuer Deutschland -->
+    <string name="tax_de_below">mas mababa sa limitasyon</string>
+    <string name="tax_de_col_item">Item</string>
+    <string name="tax_de_disclaimer">Para sa gabay lang – hindi tax return at hindi tax advice.</string>
+    <string name="tax_de_explain_below">Hanggang %1$s: mas mababa sa limitasyon (para sa gabay).</string>
+    <string name="tax_de_explain_loss">Net na lugi: walang buwis sa mga pagbentang ito. Ang mga lugi sa ilalim ng § 23 EStG ay pantapat lang sa mga tubo mula sa pribadong pagbenta – sa parehong taon o sa pamamagitan ng carryback sa nakaraang taon at carryforward sa mga susunod na taon (§ 23 para. 3 at § 10d EStG). Ideklara ang lugi sa tax return mo para ma-assess ito.</string>
+    <string name="tax_de_explain_reached">Mula %1$s, binibilang ang buong halaga (exemption limit – hindi allowance).</string>
+    <string name="tax_de_explain_unknown">Hindi masuri: kulang ang mga exchange rate / presyo ng pagbili o tagal ng paghawak.</string>
+    <string name="tax_de_income_limit">Exemption limit para sa mga serbisyo (§ 22 No. 3 EStG)</string>
+    <string name="tax_de_limit_scope">Nalalapat ang mga limitasyon sa lahat ng pribadong pagbenta o serbisyo ng taon nang sabay – kasama ang mga nasa labas ng app.</string>
+    <string name="tax_de_loading">Kinakalkula…</string>
+    <string name="tax_de_long_gains">Mga tubo – hinawakan &gt; 1 taon</string>
+    <string name="tax_de_long_losses">Mga lugi – hinawakan &gt; 1 taon</string>
+    <string name="tax_de_loss">net na lugi – maitatapat lang sa mga tubo mula sa pribadong pagbenta (§ 23 EStG)</string>
+    <string name="tax_de_private_limit">Exemption limit para sa pribadong pagbenta (§ 23 EStG)</string>
+    <string name="tax_de_reached">naabot ang limitasyon – karaniwang binibilang ang buong halaga – tingnan</string>
+    <string name="tax_de_short_gains">Mga tubo – hinawakan ≤ 1 taon</string>
+    <string name="tax_de_short_losses">Mga lugi – hinawakan ≤ 1 taon</string>
+    <string name="tax_de_unclassified">Hindi alam ang tagal ng paghawak</string>
+    <string name="tax_de_unknown">hindi masuri</string>
+
+    <!-- Steuer-Vorlagen je Land -->
+    <string name="tax_template_at">Austria</string>
+    <string name="tax_template_au">Australia</string>
+    <string name="tax_template_beta">Beta</string>
+    <string name="tax_template_beta_note">Beta: pinasimple ang mga patakaran ng bansa, tingnan bago isampa ang tax return mo</string>
+    <string name="tax_template_ca">Canada</string>
+    <string name="tax_template_ch">Switzerland</string>
+    <string name="tax_template_confirm_text">Beta, pinasimpleng mga patakaran, kulang ang mga transaksyon mula sa ibang platform – tingnan bago isampa ang tax return mo.</string>
+    <string name="tax_template_confirm_title">Tax template (beta)</string>
+    <string name="tax_template_current">Template: %1$s · Paraan: %2$s · Currency: %3$s</string>
+    <string name="tax_template_de">Germany</string>
+    <string name="tax_template_fr">France</string>
+    <string name="tax_template_hint">Para sa gabay lang: itinatakda ang paraan, tax year at buod ng tax worksheet. Nananatiling neutral ang Portfolio card – maaaring iba ang mga regalo at transfer fee sa worksheet.</string>
+    <string name="tax_template_jp">Japan</string>
+    <string name="tax_template_neutral">Neutral (lahat ng bansa)</string>
+    <string name="tax_template_suggestion">Mungkahi para sa rehiyon mo: %1$s</string>
+    <string name="tax_template_title">Tax template</string>
+    <string name="tax_template_uk">United Kingdom</string>
+    <string name="tax_template_us">USA</string>
+    <string name="tax_template_use">Gamitin ang %1$s</string>
+
+    <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
+    <string name="tax_method_at">Luma/bagong hawak – moving average</string>
+    <string name="tax_method_ca_acb">ACB average cost (superficial loss)</string>
+    <string name="tax_method_fr_pta">Kabuuang acquisition price (art. 150 VH bis)</string>
+    <string name="tax_method_jp_total">Total average (総平均法)</string>
+    <string name="tax_method_uk_pool">Section 104 pool (parehong araw / 30 araw)</string>
+    <string name="tax_note_at">Moving average bawat coin at wallet – hindi sa lahat ng wallet (KryptowährungsVO § 2). Pumapasok ang mga reward sa mga bagong hawak sa acquisition cost na 0 (BMF: staking / airdrops) – nakalista ang mga ito sa income file sa value nang matanggap. Hindi deductible ang mga fee para sa mga hawak na nakuha mula 1 Mar 2021 (§ 27a(4) no. 2, § 20(2) EStG): gastos at kinita nang walang fee. Ang lending interest (uri mula sa CSV import o tala) ay kita nang matanggap sa 27.5 porsiyento at pinapanatili ang value na iyon bilang acquisition cost.</string>
+    <string name="tax_note_at_staking">Staking gamit ang mga coin na hawak mo na at mga airdrop: hindi mahalaga sa buwis ang value nang matanggap – ayon sa batas, 0 ang acquisition cost (§ 27b Abs. 2 EStG; BMF “Kryptowährungen”). Nalalapat lang ang buwis kapag nagbenta ka.</string>
+    <string name="tax_note_fr">Ang mga pagbenta at mga fee na binayaran sa crypto ay mga disposal – ipinagpapaliban ang mga swap. Binibilang ang crypto fee sa isang pagbenta sa presyo bago ang mga fee – kung hindi, sarili itong disposal sa value nito. Value ng portfolio mula sa mga daily close – kapag walang close, walang laman ang gastos.</string>
+    <string name="tax_note_network_fee">Ang network fee na binayaran sa crypto (transfer sa sarili mong wallet, withdrawal) ay disposal ng mga fee coin sa market value – tubo o lugi lang sa mga coin na iyon, hindi lugi ng buong fee (%1$s). Kung walang naitalang presyo: daily close (UTC) ng parehong araw; kung walang close, walang laman ang kinita.</string>
+    <string name="tax_note_specific_id">Hindi suportado ang specific identification – FIFO ang ginagamit.</string>
+    <string name="tax_note_spouse_gift">Ang regalong minarkahang “sa asawa / civil partner” ay walang tubo at walang lugi: kinita = ang cost basis mo, na kinukuha ng partner mo (%1$s).</string>
+    <string name="tax_note_stable_swap">Ang pagbenta ng crypto kapalit ng stablecoin (USDT/USDC/DAI …) na itinatago mo ay crypto-sa-crypto rito at hindi binubuwisan – itala ito bilang swap papunta sa stablecoin. Ang pagbenta lang kapalit ng euro ang binubuwisan – ang “Magbenta” ay binibilang na pagbenta kapalit ng euro.</string>
+    <string name="tax_note_transfer_fee">Pareho rin sa USDT o cash fee sa transfer sa pagitan ng sarili mong mga wallet: hindi ito idinadagdag sa cost basis at nakalista bilang impormasyon lang.</string>
+    <string name="tax_note_uk">Matching ayon sa HMRC: parehong araw → susunod na 30 araw → Section 104 pool.</string>
+    <string name="tax_note_us_transition">Transisyon 1 Ene 2025 (Rev. Proc. 2024-28 safe harbor): kung FIFO sa lahat ng wallet ang ginamit sa mga naunang taon, mapupunta ang mga natitirang lot noong 31 Dis 2024 sa mga wallet na may hawak ng mga coin – ang wallet na may pinakalumang coin ang makakakuha ng pinakalumang cost basis. Patakaran ng app ang paglalaang ito – ihambing ito sa sarili mong mga talaan.</string>
+    <string name="tax_note_us_wallet">Mula tax year 2025, hinihingi ng IRS ang cost basis bawat wallet o exchange (Rev. Proc. 2024-28): gumagamit ang export ng FIFO bawat wallet mula 2025 – para sa mga naunang taon, FIFO sa lahat ng wallet, o FIFO bawat wallet kung iyon ang paraan mo ng gastos.</string>
+    <string name="tax_note_withdrawal_fee">Ang withdrawal fee sa USDT o cash ay hindi lugi: ang cash fee ay hindi deductible na gastos, ang USDT fee ay disposal sa par nang walang tubo – nakalista ito bilang impormasyon lang (%1$s).</string>
+    <string name="tax_summary_at_interest_income">binibilang: kita nang matanggap sa espesyal na rate na 27.5 porsiyento (§ 27b(2) no. 1 EStG / BMF) – pinapanatili ng mga coin ang value na ito bilang acquisition cost</string>
+    <string name="tax_summary_at_reward_info">impormasyon lang – hindi bahagi ng anumang kabuuan: pumapasok ang mga reward sa mga bagong hawak sa acquisition cost na 0 at binubuwisan lang kapag naibenta (kasama na sa mga tubo) – § 27b para. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">1 Ene–28 Peb 2022: posible ang opsyon para sa 27.5 porsiyento</string>
+    <string name="tax_summary_at_withdrawal_fee">Withdrawal fee – hindi itinatapat sa mga bagong hawak (hindi deductible ang mga gastos sa espesyal na rate, § 20(2) EStG)</string>
+    <string name="tax_summary_ch_fifo_info">impormasyon lang – ang FIFO na kalkulasyon ng app – hindi naklasipika – tingnan ang ESTV</string>
+    <string name="tax_summary_ch_year_end_value">value noong 31 Dis sa holdings CSV = presyo ng exchange × USD/CHF – hindi ang mga tax value ng ESTV</string>
+    <string name="tax_summary_de_withdrawal_fee">Withdrawal fee – hindi itinatapat sa ilalim ng § 23, tingnan kung deductible bilang income-related expense</string>
+    <string name="tax_summary_not_calculated_estv">hindi kinalkula – ESTV price list: %1$s</string>
+    <string name="tax_summary_orientation">Gabay</string>
+    <string name="tax_summary_orientation_block">Para sa gabay lang – hindi tax advice – hindi assessment</string>
+    <string name="tax_summary_orientation_item">Gabay: %1$s</string>
+    <string name="tax_summary_title">Taunang buod %1$s %2$s</string>
+    <string name="tax_summary_transfer_fee_info">Mga transfer fee sa USDT/cash – hindi lugi at wala sa cost basis, impormasyon lang</string>
+    <string name="tax_summary_withdrawal_fee_info">Mga withdrawal fee sa USDT/cash – hindi binibilang na lugi, impormasyon lang</string>
+
+    <string name="tax_line_at_old_speculation_limit">Mga speculative na transaksyon (dating batas, hinawakan ≤ 1 taon): exemption limit (§ 31 (3) EStG lumang bersyon)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">Lending interest bago ang 1 Mar 2022 (value nang matanggap)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">Interes bago ang 1 Mar 2022: lumang batas (income tax rate), hindi 27.5 porsiyento</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">bago ang 1 Mar 2022 – kumonsulta sa propesyonal</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">Interes – binubuwisan nang matanggap</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">Staking – impormasyon lang (acquisition cost 0, binubuwisan kapag naibenta)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">Kabuuang interes (binubuwisan)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">Kabuuang staking (impormasyon)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">Net capital loss (carry-forward)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">walang opsyon: kasama ang mga pagbenta ng 1 Ene–28 Peb 2022</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">Staking bago ang 1 Mar 2022: itinakda sa 0 ang acquisition cost – kumonsulta sa propesyonal</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">Maaari pang baguhin ng 30-day rule ang mga numerong ito (mga pagbili hanggang %1$s)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Kinita bago ang mga fee na lampas sa reporting limit (£50,000; 2020/21–2022/23: £49,200): iulat sa HMRC kung naka-register ka para sa Self Assessment, kahit walang taxable gain</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">Wealth value 31 Dis %1$s (gabay)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">Ang ESTV price list (ictax.admin.ch) ang may awtoridad. Para sa mga coin na wala sa listahan, karaniwang nalalapat ang closing price ng exchange. Hindi kinalkula ang wealth tax.</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – hawak %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">hindi kinalkula</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">Hindi mabasa ang mga binabantayang address – wala sa file na ito ang mga balanse nila</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">Binibilang ang mga lot ng mga binabantayang address mula sa petsa ng pagbili nila; kung mas mababa ngayon ang balanse ng address, binabawasan ang mga ito.</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">Binibilang ang mga binabantayang address sa kabuuang value pero walang acquisition cost – kaya malamang masyadong mataas ang tubo. Itala ang gastos bilang pagbili.</string>
+    <string name="tax_summary_fr_rewards_income">Ipinapalagay ng halaga na binuwisan ang mga reward bilang kita nang matanggap (value nang matanggap sa acquisition cost) – kung hindi, ang acquisition cost na 0 ang maingat na pagbasa.</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">Mga market value na walang naitalang presyo (mga fee, regalo/bayad, swap, reward, network fee, value ng portfolio) sa daily close (UTC) ng araw ng transaksyon</string>
+</resources>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">ஆல்ட்காயின்கள் vs. Bitcoin</string>
+    <string name="neutral_btc_indicators_title">Bitcoin குறிகாட்டிகள்</string>
+    <string name="neutral_halving_last">கடைசி ஹால்விங்: %1$s</string>
+    <string name="neutral_halving_next">அடுத்த ஹால்விங் சுமார் %1$s இல் எதிர்பார்க்கப்படுகிறது (நாட்காட்டியிலிருந்து மதிப்பிடப்பட்டது – பிளாக் உயரம் தற்போது கிடைக்கவில்லை).</string>
+    <string name="neutral_indicators_disclaimer">அளவிடப்பட்ட மதிப்புகள் மட்டும், மதிப்பீடு இல்லாமல். முன்கணிப்பு அல்ல, முதலீட்டு ஆலோசனையும் அல்ல.</string>
+    <string name="neutral_onchain_missing">ஆன்-செயின் தரவு (Coin Metrics) தற்போது கிடைக்கவில்லை.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">விலை அதன் முந்தைய எல்லா நேர உச்சத்தைவிட எவ்வளவு கீழே உள்ளது.</string>
+    <string name="neutral_explain_change_30d">இன்றைய விலை 30 நாட்களுக்கு முந்தையதுடன் ஒப்பிடும்போது.</string>
+    <string name="neutral_explain_hashrate">30 நாள் சராசரி ஹாஷ்ரேட் 60 நாள் சராசரியுடன் ஒப்பிடும்போது.</string>
+    <string name="neutral_explain_ma200w">கடைசி 200 வாராந்திர இறுதி விலைகளின் சராசரி.</string>
+    <string name="neutral_explain_mayer">விலையை 200 நாள் சராசரியால் வகுத்தது.</string>
+    <string name="neutral_explain_mvrv">சந்தை மதிப்பை உணரப்பட்ட மதிப்பால் வகுத்தது (ஆன்-செயின்).</string>
+    <string name="neutral_explain_pi_gap">111 நாள் சராசரி, 350 நாள் சராசரியின் இரு மடங்குடன் ஒப்பிடும்போது.</string>
+    <string name="neutral_explain_puell">தினசரி மைனர் வருவாயை அதன் 365 நாள் சராசரியால் வகுத்தது.</string>
+    <string name="neutral_explain_rsi_daily">கடைசி 14 நாட்களின் Relative Strength Index, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">கடைசி 14 வாரங்களின் Relative Strength Index, 0–100.</string>
+    <string name="neutral_explain_sma50_200">50 நாள் சராசரி 200 நாள் சராசரியுடன் ஒப்பிடும்போது.</string>
+    <string name="neutral_explain_vs_btc">90 நாட்களில் Bitcoin உடன் ஒப்பிடும்போது விலை மாற்றம்.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">ஆப் எண்ணிக்கையை மட்டுமே காட்டும், அதைப் பருவம் என்று குறிப்பிடாது. மதிப்பு பொதுவாக மணிநேரங்களில் அல்ல, நாட்களில் மாறும்.</string>
+    <string name="neutral_info_btc_how">ஒவ்வொரு மதிப்புக்கும் அது எதை அளவிடுகிறது, 2016 முதல் அதன் சொந்த வரலாற்றில் எங்கே உள்ளது என்பது பற்றி ஒரு வாக்கியம் உள்ளது. ஆப் மதிப்புகளை மதிப்பிடாது, சந்தைக் கட்டத்தையும் தருவிக்காது; சந்தை விழிப்பூட்டல்களுக்கான வரம்புகள் நீங்கள் அமைப்பவை மட்டுமே. கடந்தகால முறைகள் மீண்டும் நிகழ வேண்டியதில்லை.</string>
+    <string name="neutral_info_btc_what">பொதுவான Bitcoin குறிகாட்டிகள் சாதாரண அளவீட்டு மதிப்புகளாக: Mayer Multiple, 200 வார சராசரி, எல்லா நேர உச்சத்திலிருந்து வீழ்ச்சி, 30 நாள் மாற்றம், Pi Cycle இடைவெளி மற்றும் ஆன்-செயின் மதிப்புகள் MVRV, Puell Multiple, ஹாஷ்ரேட்.</string>
+    <string name="neutral_info_coin_how">ஒவ்வொரு மதிப்புக்கும் அது எதை அளவிடுகிறது என்பது பற்றி ஒரு வாக்கியம் உள்ளது, மதிப்பீடு இல்லாமல். குறுகிய விலை வரலாறு உள்ள காயின்களுக்குச் சில மதிப்புகள் இல்லை. ஆன்-செயின் தரவு இங்கே சேர்க்கப்படவில்லை.</string>
+    <string name="neutral_info_coin_what">நீங்கள் தேர்ந்தெடுக்கும் காயினுக்கான அதே சாதாரண குறிகாட்டிகள், விலைத் தரவிலிருந்து மட்டும்: Mayer Multiple, 200 வார சராசரி, எல்லா நேர உச்சத்திலிருந்து வீழ்ச்சி, 30 நாள் மாற்றம், 50/200 நாள் போக்கு, RSI மற்றும் 90 நாட்களில் Bitcoin க்கு எதிரான வலிமை.</string>
+    <string name="neutral_info_halving_how">அடுத்த ஹால்விங் தற்போதைய பிளாக் உயரம் மற்றும் தற்போதைய டிஃபிகல்டி காலத்தின் சராசரி பிளாக் நேரத்திலிருந்து (mempool.space) கணக்கிடப்படுகிறது; அந்தத் தரவு இல்லையெனில், நாட்காட்டியிலிருந்து (கடைசி ஹால்விங் மற்றும் சுமார் நான்கு ஆண்டுகள்). விளக்கப்படம் கடந்த சுழற்சிகளின் விலைப் பாதையை அவற்றின் ஹால்விங்கிலிருந்து காட்டுகிறது – வரலாறு, முன்கணிப்பு அல்ல.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">போக்கு 50/200 நாட்கள்</string>
+    <string name="ind_drawdown">எல்லா நேர உச்சத்திலிருந்து வீழ்ச்சி</string>
+    <string name="ind_missing">போதுமான தரவு இல்லை</string>
+    <string name="ind_rsi_daily">RSI (தினசரி)</string>
+    <string name="ind_rsi_weekly">RSI (வாராந்திர)</string>
+    <string name="ind_vs_btc">Bitcoin க்கு எதிரான வலிமை (90 நாட்கள்)</string>
+    <string name="neutral_ind_change_30d">30 நாள் மாற்றம்</string>
+    <string name="neutral_ind_hashrate">ஹாஷ்ரேட் 30/60 நாட்கள்</string>
+    <string name="neutral_ind_ma200w">200 வார சராசரி</string>
+    <string name="neutral_ind_pi_gap">Pi Cycle இடைவெளி</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">அதிகம் என்றால் பெரும்பாலான பெரிய ஆல்ட்காயின்கள் 90 நாட்களில் Bitcoin ஐ விஞ்சின, குறைவு என்றால் Bitcoin அவற்றில் பெரும்பாலானவற்றை விஞ்சியது.</string>
+    <string name="ind_read_ath_distance">சிறியது என்றால் விலை அதன் சாதனைக்கு அருகில், பெரியது என்றால் அதைவிட மிகக் கீழே.</string>
+    <string name="ind_read_change_30d">நேர்மறை என்றால் 30 நாட்களுக்கு முன்பைவிட அதிகம், எதிர்மறை என்றால் குறைவு.</string>
+    <string name="ind_read_funding">அதிகம் என்றால் பல டிரேடர்கள் லீவரேஜுடன் விலை ஏறும் என்று பந்தயம் கட்டுகின்றனர், எதிர்மறை என்றால் பலர் விலை இறங்கும் என்று பந்தயம் கட்டுகின்றனர்.</string>
+    <string name="ind_read_hashrate_30_60">நேர்மறை என்றால் கணினி சக்தி வளர்கிறது, எதிர்மறை என்றால் மைனர்கள் நிறுத்துகின்றனர்.</string>
+    <string name="ind_read_leverage">அதிக லாங்குகள் என்றால் பலர் கடன் பணத்துடன் விலை ஏறும் என்று பந்தயம் கட்டுகின்றனர், அதிக ஷார்ட்டுகள் என்றால் பலர் விலை இறங்கும் என்று பந்தயம் கட்டுகின்றனர்.</string>
+    <string name="ind_read_ma200w">விலை அதைவிட மிக மேலே என்றால் நீண்ட உயர்வு, அதற்கு அருகில் என்றால் ஆழமான பின்னடைவு.</string>
+    <string name="ind_read_mayer">அதிகம் என்றால் விலை அதன் 200 நாள் சராசரியைவிட மிக மேலே, குறைவு என்றால் அதற்குக் கீழே.</string>
+    <string name="ind_read_mvrv">அதிகம் என்றால் விலை வைத்திருப்பவர்கள் சராசரியாகச் செலுத்தியதைவிட மிக மேலே, குறைவு என்றால் அதற்கு அருகில் அல்லது கீழே.</string>
+    <string name="ind_read_pi_cycle_gap">பூஜ்ஜியத்துக்கு அருகில் என்றால் இரண்டு சராசரிகளும் கிட்டத்தட்டச் சந்திக்கின்றன, வலுவாக எதிர்மறை என்றால் அவை வெகு தொலைவில் உள்ளன.</string>
+    <string name="ind_read_puell">அதிகம் என்றால் மைனர்கள் வழக்கத்தைவிட மிக அதிகமாகச் சம்பாதிக்கின்றனர், குறைவு என்றால் மிகக் குறைவாக.</string>
+    <string name="ind_read_rsi_daily">70 க்கு மேல் என்றால் சமீப நாட்களில் வலுவான உயர்வுகள், 30 க்குக் கீழ் என்றால் வலுவான இழப்புகள்.</string>
+    <string name="ind_read_rsi_weekly">70 க்கு மேல் என்றால் சமீப வாரங்களில் வலுவான உயர்வுகள், 30 க்குக் கீழ் என்றால் வலுவான இழப்புகள்.</string>
+    <string name="ind_read_sma50_vs_200">நேர்மறை என்றால் குறுகியகாலச் சராசரி நீண்டகாலச் சராசரிக்கு மேலே, எதிர்மறை என்றால் கீழே.</string>
+    <string name="ind_read_vs_btc">நேர்மறை என்றால் Bitcoin ஐவிடச் சிறப்பாகச் செயல்பட்டது, எதிர்மறை என்றால் மோசமாக.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">30 நாட்களுக்கு அதே விலை: %1$s</string>
+    <string name="ind_context_note">கடந்தகால மதிப்புகளும் “அதே விலை” கணக்கீடுகளும் கணிதக் கணக்கீடுகள், முன்கணிப்பு அல்ல.</string>
+    <string name="ind_context_percentile">%1$s முதல் %2$s நாட்களில் குறைவாக இருந்தது</string>
+</resources>

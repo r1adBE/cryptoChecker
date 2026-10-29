@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">پورٹ فولیو الرٹس موقوف: %1$s کی موجودہ قیمت نہیں</string>
+    <string name="portfolio_alarms_paused_price_generic">پورٹ فولیو الرٹس موقوف: ہر کوائن کی موجودہ قیمت نہیں</string>
+    <string name="portfolio_alarms_paused_addresses">پورٹ فولیو الرٹس موقوف: زیرِ نگرانی پتوں کے بیلنس ابھی لوڈ نہیں ہوئے</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">پورٹ فولیو الرٹس موقوف: %1$s کے ٹوکن بیلنس جزوی طور پر پرانے</string>
+    <string name="portfolio_alarms_paused_tokens_generic">پورٹ فولیو الرٹس موقوف: زیرِ نگرانی پتوں کے ٹوکن بیلنس جزوی طور پر پرانے</string>
+    <string name="portfolio_alarms_paused_unverified">پورٹ فولیو الرٹس موقوف: %1$s کی قیمت غیر تصدیق شدہ</string>
+    <string name="portfolio_alarms_paused_unverified_generic">پورٹ فولیو الرٹس موقوف: کچھ کوائنز کی قیمت غیر تصدیق شدہ</string>
+    <string name="portfolio_alarms_address_failing">پورٹ فولیو الرٹس %1$s کے بغیر جانچتے ہیں: 24 گھنٹے سے زیادہ سے بیلنس لوڈ نہیں ہوا</string>
+    <string name="portfolio_alarms_address_failing_generic">پورٹ فولیو الرٹس ان پتوں کے بغیر جانچتے ہیں جن کا بیلنس 24 گھنٹے سے زیادہ سے لوڈ نہیں ہوا</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">ٹوکنز جزوی طور پر پرانے</string>
+    <string name="portfolio_address_restore_failed">پتہ بحال نہیں ہو سکا – ضرورت ہو تو دوبارہ شامل کریں</string>
+    <string name="portfolio_address_remove_failed">پتہ ہٹایا نہیں جا سکا – براہ کرم دوبارہ کوشش کریں</string>
+</resources>

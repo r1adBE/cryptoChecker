@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">തിരികെ</string>
+    <string name="action_cancel">റദ്ദാക്കുക</string>
+    <string name="action_clear">മായ്ക്കുക</string>
+    <string name="action_close">അടയ്ക്കുക</string>
+    <string name="action_keep">നിലനിർത്തുക</string>
+    <string name="action_delete">ഇല്ലാതാക്കുക</string>
+    <string name="action_edit">എഡിറ്റ് ചെയ്യുക</string>
+    <string name="action_more">കൂടുതൽ ഓപ്ഷനുകൾ</string>
+    <string name="action_refresh">പുതുക്കുക</string>
+    <string name="action_retry">വീണ്ടും ശ്രമിക്കുക</string>
+    <string name="action_save">സംരക്ഷിക്കുക</string>
+    <string name="action_sort">അടുക്കുക</string>
+    <string name="action_sort_done">പൂർത്തിയായി</string>
+    <string name="action_undo">പഴയപടിയാക്കുക</string>
+    <string name="action_view">കാണുക</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">മാർക്കറ്റ്</string>
+    <string name="tab_portfolio">പോർട്ട്ഫോളിയോ</string>
+    <string name="tab_settings">ക്രമീകരണം</string>
+    <string name="tab_watchlist">വാച്ച്‌ലിസ്റ്റ്</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">പിശക്: %1$s</string>
+    <string name="error_exchange_unreachable">എക്സ്ചേഞ്ചിൽ ഇപ്പോൾ എത്താനാകുന്നില്ല – അവസാന വിലകൾ കാണാവുന്ന നിലയിൽ തുടരും.</string>
+    <string name="error_exchange_unreachable_short">എക്സ്ചേഞ്ചിൽ ഇപ്പോൾ എത്താനാകുന്നില്ല</string>
+    <string name="loading_hint">ലോഡ് ചെയ്യുന്നു…</string>
+    <string name="option_off">ഓഫ്</string>
+    <string name="something_went_wrong">എന്തോ പിശക് സംഭവിച്ചു</string>
+    <string name="time_just_now">ഇപ്പോൾ തന്നെ</string>
+    <string name="try_again">വീണ്ടും ശ്രമിക്കുക</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">കണക്ഷനില്ല</string>
+    <string name="offline_status_since">കണക്ഷനില്ല · %1$s പ്രകാരം</string>
+    <string name="status_live">ലൈവ്</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">ജോഡി ചേർക്കുക</string>
+    <string name="shortcut_alarms">എല്ലാ അലേർട്ടുകളും</string>
+    <string name="shortcut_cycle">മാർക്കറ്റ്</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">പുതിയ ജോഡി ചേർക്കുക</string>
+    <string name="shortcut_alarms_long">അലേർട്ടുകൾ കാണിക്കുക</string>
+    <string name="shortcut_cycle_long">മാർക്കറ്റ് അവലോകനം</string>
+
+    <string name="log_box_title">ലോഗ്</string>
+    <string name="label_value">%1$s: %2$s</string>
+</resources>

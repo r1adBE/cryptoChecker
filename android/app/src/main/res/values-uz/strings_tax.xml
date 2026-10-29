@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
+    <string name="portfolio_cutoff_export_action">Belgilangan sanaga eksport…</string>
+    <string name="portfolio_tax_worksheet_action">Ish varagʻi…</string>
+    <string name="portfolio_export_address_unobserved">manzil bu sanada kuzatilmagan – kiritilmagan</string>
+    <string name="portfolio_export_button">CSV eksport</string>
+    <string name="portfolio_export_col_amount">Miqdor</string>
+    <string name="portfolio_export_col_coin">Tanga</string>
+    <string name="portfolio_export_col_note">Izoh</string>
+    <string name="portfolio_export_col_price">Narx USDT</string>
+    <string name="portfolio_export_col_rate">Kurs USDT→%1$s</string>
+    <string name="portfolio_export_col_value">Qiymat USDT</string>
+    <string name="portfolio_export_col_value_cur">Qiymat %1$s</string>
+    <!-- Inhalt der CSV-Datei -->
+    <string name="portfolio_export_comment"># Belgilangan sana %1$s, valyuta %2$s, %3$s valyuta kursi</string>
+    <string name="portfolio_export_currency">Valyuta: %1$s</string>
+    <string name="portfolio_export_date">Belgilangan sana</string>
+    <string name="portfolio_export_done">Eksport saqlandi</string>
+    <string name="portfolio_export_estv_note">Mol-mulk soligʻi uchun ESTV narxlar roʻyxatida %1$s boʻlsa, yil oxiridagi rasmiy qiymatlar qoʻllanadi: %2$s</string>
+    <string name="portfolio_export_failed">Eksport muvaffaqiyatsiz</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">Eksport muvaffaqiyatsiz: faylni yozib boʻlmadi – saqlash joyi yoʻq yoki yozib boʻlmaydi</string>
+    <string name="portfolio_export_failed_prices">Eksport muvaffaqiyatsiz: narxlarni yuklab boʻlmadi – aloqa yoʻq yoki birja javob bermayapti</string>
+    <string name="portfolio_export_from_address">manzildan – xarid narxi yoʻq</string>
+    <string name="portfolio_export_hint">Tanlangan kun oxiridagi aktivlar, USDT’dagi kunlik yopilish (UTC) narxida baholanib, oʻsha kungi YeMB maʼlumotnoma kursi bilan konvertatsiya qilingan. Valyutani «Konvertatsiya valyutasi» orqali oʻzgartiring.</string>
+    <string name="portfolio_export_incomplete">toʻliq emas</string>
+    <string name="portfolio_export_no_fx">valyuta kursi yoʻq</string>
+    <string name="portfolio_export_no_price">narx yoʻq</string>
+    <string name="portfolio_export_running">Tarixiy narxlar olinmoqda…</string>
+    <string name="portfolio_export_title">Belgilangan sanaga eksport</string>
+    <string name="portfolio_export_today_hint">Bugun hali tugamagan: kunlik yopilish oʻrniga joriy kurs ishlatiladi.</string>
+    <string name="portfolio_export_total">Jami</string>
+    <string name="portfolio_export_unchecked">tekshirilmagan (mos narx yoʻq)</string>
+
+    <!-- Steuer-Export (Arbeitspapier) -->
+    <string name="tax_export_adjustment">superficial loss (ACB’ga qoʻshildi)</string>
+    <string name="tax_export_at_wallet_note">Avstriya: har bir tanga va hamyon (birja) boʻyicha oʻzgaruvchan oʻrtacha – oʻtkazmalar tannarxni birga olib oʻtadi – mukofotlar 0 sotib olish qiymatida – 2021-yil 1-martdan aktivlar komissiyasiz (chegirilmaydi) – qarz foizi olingan paytdagi qiymatda (27.5 foiz daromad).</string>
+    <string name="tax_export_avg_cost_rates">xarid sanasi kurslaridagi tannarx (oʻrtacha)</string>
+    <string name="tax_export_ch_wealth_not_calculated">Mol-mulk soligʻi hisoblanmagan – ESTV narxlar roʻyxati: %1$s</string>
+    <string name="tax_export_col_acquired">Sotib olingan</string>
+    <string name="tax_export_col_adjustment">Hisobga olinmaydigan zarar %1$s</string>
+    <string name="tax_export_col_cost">Tannarx %1$s</string>
+    <string name="tax_export_col_date">Sana</string>
+    <string name="tax_export_col_days">Saqlangan kunlar</string>
+    <string name="tax_export_col_gain">Foyda %1$s</string>
+    <string name="tax_export_col_gross">Komissiyadan oldingi narx %1$s</string>
+    <string name="tax_export_col_long_term">&gt; 1 yil saqlangan</string>
+    <string name="tax_export_col_portfolio_value">Portfel qiymati %1$s</string>
+    <string name="tax_export_col_proceeds">Tushum %1$s</string>
+    <string name="tax_export_col_sold">Sotilgan</string>
+    <string name="tax_export_cost_incomplete">umumiy sotib olish qiymati toʻliq emas</string>
+    <string name="tax_export_cost_missing">xarid narxi yoʻq</string>
+    <string name="tax_export_fee_consumed">Komissiya butun tushumni yutib yuboradi</string>
+    <string name="tax_export_fee_leg">boshqa tangadagi komissiya</string>
+    <string name="tax_export_fee_row">Komissiya</string>
+    <string name="tax_export_fee_value_missing">boshqa tangadagi komissiyaning qiymati yoʻq</string>
+    <string name="tax_export_gains">Amalga oshgan begonalashtirishlar (CSV)</string>
+    <string name="tax_export_gains_title">Amalga oshgan begonalashtirishlar %1$s</string>
+    <string name="tax_export_gift">Sovgʻa</string>
+    <string name="tax_export_holdings_cutoff">%1$s holatiga aktivlar (CSV)</string>
+    <string name="tax_export_holdings_title">%1$s holatiga aktivlar</string>
+    <string name="tax_export_income">Daromad (CSV)</string>
+    <string name="tax_export_income_title">Daromad %1$s</string>
+    <string name="tax_export_info_template">Shablon: %1$s · Usul: %2$s · Soliq yili: %3$s · Valyuta: %4$s · Crypto Checker %5$s</string>
+    <string name="tax_export_lost_fee_cost">toʻlangan lotsiz tarmoq komissiyasi xarajati</string>
+    <string name="tax_export_match_pool">Section 104 pool</string>
+    <string name="tax_export_match_same_day">oʻsha kuni (HMRC)</string>
+    <string name="tax_export_match_thirty_day">30 kun qoidasi (HMRC)</string>
+    <string name="tax_export_method_change_warning">Usul yoki shablonni oʻzgartirish oldingi yillarni ham qayta hisoblaydi – avval topshirganingiz bilan solishtiring.</string>
+    <string name="tax_export_method_overridden">Shablon %1$s boʻyicha hisoblaydi – %2$s emas</string>
+    <string name="tax_export_new_holding">2021-yil 1-martdan sotib olingan</string>
+    <string name="tax_export_no">yoʻq</string>
+    <string name="tax_export_old_holding">2021-yil 1-martgacha sotib olingan</string>
+    <string name="tax_export_oversold">yozilganidan koʻp sotilgan</string>
+    <string name="tax_export_payment">Kripto bilan toʻlov</string>
+    <string name="tax_export_period">%1$s – %2$s</string>
+    <string name="tax_export_proceeds_missing">sotish narxi yoʻq</string>
+    <string name="tax_export_proceeds_without_cost">Xarid narxisiz tushum</string>
+    <string name="tax_export_realized_differs">Soliq CSV’si «amalga oshgan» qiymatdan farq qilishi mumkin (mamlakat soliq qoidalari).</string>
+    <string name="tax_export_rule">&gt; 1 yil: xarid sanasi + 1 kalendar yildan keyin sotilgan. Sanalar mahalliy vaqtda. Kurslar: tranzaksiya kunidagi YeMB kunlik kursi; u boʻlmasa, 7 kun oldingacha boʻlgan oxirgi kurs.</string>
+    <string name="tax_export_rules_date">Qoidalar sanasi: %1$s</string>
+    <string name="tax_export_rules_stale">Qoidalar %1$s sanasiga oid – %2$s uchun stavkalar va imtiyozlar oʻzgargan boʻlishi mumkin. Qiymatlarni tekshiring.</string>
+    <string name="tax_export_spouse_gift">turmush oʻrtogʻiga/sheringa – foyda ham, zarar ham yoʻq</string>
+    <string name="tax_export_summary">%1$s yillik xulosa (CSV)</string>
+    <string name="tax_export_swap">almashuv</string>
+    <string name="tax_export_tax_year">Soliq yili</string>
+    <string name="tax_export_transfer_fee_info">USDT/naqd oʻtkazma komissiyasi – zarar emas, tannarxga kirmaydi, faqat maʼlumot uchun</string>
+    <string name="tax_export_unassigned_fee">komissiya biriktirilmagan – tannarx nomaʼlum</string>
+    <string name="tax_export_usdt_usd_note">USDT USDT/USD kunlik yopilishi boʻyicha konvertatsiya qilindi; yopilish boʻlmasa 1 USD (har qatorda belgilangan)</string>
+    <string name="tax_export_value_estimated">Qiymat taxminiy (kunlik yopilish)</string>
+    <string name="tax_export_value_missing">olingan paytdagi qiymat yoʻq</string>
+    <string name="tax_export_wallet">Hamyon: %1$s</string>
+    <string name="tax_export_wallet_unspecified">koʻrsatilmagan</string>
+    <string name="tax_export_withdrawal_fee">Yechib olish komissiyasi</string>
+    <string name="tax_export_withdrawal_fee_info">USDT/naqd yechib olish komissiyasi – zarar emas, faqat maʼlumot uchun</string>
+    <string name="tax_export_workpaper_disclaimer">Soliq ish varagʻi – soliq deklaratsiyasi emas va soliq maslahati emas</string>
+    <string name="tax_export_workpaper_title">Ish varagʻi</string>
+    <string name="tax_export_year_local_zone">Sanalar mahalliy vaqtda (%1$s)</string>
+    <string name="tax_export_yes">ha</string>
+
+    <!-- Steuer-Export: Zeilen und Spalten -->
+    <string name="tax_line_at_interest">Qarz foizi (olingan paytdagi qiymat)</string>
+    <string name="tax_line_at_old_long">2021-yil 1-martgacha sotib olingan – &gt; 1 yil saqlangan: odatda soliqqa tortilmaydi – tekshiring</string>
+    <string name="tax_line_at_rate">Maxsus stavka 27.5 foiz: 2021-yil 1-martdan sotib olingan va 2022-yil 1-martdan sotilganlarning sof summasi + foiz</string>
+    <string name="tax_line_au_discounted">Zararlar va 50 foiz chegirmadan keyingi sof kapital foydasi</string>
+    <string name="tax_line_ca_taxable">Soliqqa tortiladigan kapital foydasi (kiritish stavkasi 1/2)</string>
+    <string name="tax_line_ch_income">Mukofotlar roʻyxatga olingan – ularni koʻrib chiqish uchun ESTV ish hujjatiga qarang</string>
+    <string name="tax_line_ch_private">Shaxsiy mulkdan kapital foydasi: hisoblanmagan – tasniflash uchun ESTV’ga qarang</string>
+    <string name="tax_line_ch_wealth">Mol-mulk soligʻi: hisoblanmagan – aktivlar CSV’si 31-dekabrdagi birja narxi × USD/CHF dan foydalanadi – rasmiy soliq qiymatlari: ESTV narxlar roʻyxati</string>
+    <string name="tax_line_de_long">&gt; 1 yil saqlangan: § 23 EStG boʻyicha odatda soliqqa tortilmaydi – tekshiring</string>
+    <string name="tax_line_denied_loss">Hisobga olinmaydigan zararlar (superficial loss)</string>
+    <string name="tax_line_fr_outflow">Sotuvsiz chiqimlar (yechib olishlar) – umumiy sotib olish qiymati mutanosib kamaytirildi</string>
+    <string name="tax_line_fr_rate">Yagona stavka 12.8 foiz va ijtimoiy badallar (yoki tanlovga koʻra shkala)</string>
+    <string name="tax_line_fr_threshold">Yiliga €305 gacha begonalashtirishlar: odatda ozod (sotish narxlari yigʻindisi) – tekshiring</string>
+    <string name="tax_line_gains">Foyda</string>
+    <string name="tax_line_income">Daromad (mukofotlar olingan paytdagi qiymatda)</string>
+    <string name="tax_line_jp_misc">Turli daromad (雑所得): sof foyda + daromad</string>
+    <string name="tax_line_long_net">Sof – &gt; 1 yil saqlangan</string>
+    <string name="tax_line_losses">Zararlar</string>
+    <string name="tax_line_net">Sof foyda/zarar</string>
+    <string name="tax_line_new_net">Sof – 2021-yil 1-martdan sotib olingan, 2022-yil 1-martdan sotilgan</string>
+    <string name="tax_line_old_long_net">Sof – 2021-yil 1-martgacha sotib olingan – &gt; 1 yil saqlangan</string>
+    <string name="tax_line_old_short_net">Sof – spekulyativ operatsiyalar (eski qonun): 2021-yil 1-martgacha sotib olinib, ≤ 1 yil saqlangan yoki 2022-yil 1-martgacha sotilgan</string>
+    <string name="tax_line_proceeds">Tushum</string>
+    <string name="tax_line_short_net">Sof – ≤ 1 yil saqlangan</string>
+    <string name="tax_line_transfer_fees">Oʻtkazma komissiyalari (oʻz hamyonlaringiz)</string>
+    <string name="tax_line_uk_after_exempt">Soliqdan ozod summadan ortiq sof foyda (faqat kripto)</string>
+    <string name="tax_line_uk_exempt">Yillik soliqdan ozod summa – barcha begonalashtirishlarga birga qoʻllanadi, bu yerda toʻliq qoʻllangan</string>
+    <string name="tax_line_us_terms">Qisqa muddatli (≤ 1 yil): oddiy stavkalar – uzoq muddatli (&gt; 1 yil): kapital foydasi stavkalari</string>
+    <string name="tax_line_withdrawal_fees">Yechib olish komissiyalari</string>
+
+    <!-- Steuer Deutschland -->
+    <string name="tax_de_below">chegaradan past</string>
+    <string name="tax_de_col_item">Modda</string>
+    <string name="tax_de_disclaimer">Faqat yoʻnalish uchun – soliq deklaratsiyasi emas va soliq maslahati emas.</string>
+    <string name="tax_de_explain_below">%1$s gacha: chegaradan past (yoʻnalish uchun).</string>
+    <string name="tax_de_explain_loss">Sof zarar: bu sotuvlarga soliq yoʻq. § 23 EStG boʻyicha zararlar faqat xususiy sotuvlardan olingan foydani qoplaydi – oʻsha yili yoki oldingi yilga qaytarish va keyingi yillarga oʻtkazish orqali (§ 23 para. 3 va § 10d EStG). Zarar baholanishi uchun uni soliq deklaratsiyangizda koʻrsating.</string>
+    <string name="tax_de_explain_reached">%1$s dan boshlab butun summa hisoblanadi (ozod qilish chegarasi – imtiyoz emas).</string>
+    <string name="tax_de_explain_unknown">Tekshirib boʻlmaydi: valyuta kurslari / xarid narxlari yoki saqlash muddatlari yoʻq.</string>
+    <string name="tax_de_income_limit">Xizmatlar uchun ozod qilish chegarasi (§ 22 No. 3 EStG)</string>
+    <string name="tax_de_limit_scope">Chegaralar yilning barcha xususiy sotuvlari yoki xizmatlariga birga qoʻllanadi – ilovadan tashqaridagilarini ham.</string>
+    <string name="tax_de_loading">Hisoblanmoqda…</string>
+    <string name="tax_de_long_gains">Foyda – &gt; 1 yil saqlangan</string>
+    <string name="tax_de_long_losses">Zararlar – &gt; 1 yil saqlangan</string>
+    <string name="tax_de_loss">sof zarar – faqat xususiy sotuvlardan olingan foyda bilan qoplanadi (§ 23 EStG)</string>
+    <string name="tax_de_private_limit">Xususiy sotuvlar uchun ozod qilish chegarasi (§ 23 EStG)</string>
+    <string name="tax_de_reached">chegaraga yetdi – odatda butun summa hisoblanadi – tekshiring</string>
+    <string name="tax_de_short_gains">Foyda – ≤ 1 yil saqlangan</string>
+    <string name="tax_de_short_losses">Zararlar – ≤ 1 yil saqlangan</string>
+    <string name="tax_de_unclassified">Saqlash muddati nomaʼlum</string>
+    <string name="tax_de_unknown">tekshirib boʻlmaydi</string>
+
+    <!-- Steuer-Vorlagen je Land -->
+    <string name="tax_template_at">Avstriya</string>
+    <string name="tax_template_au">Avstraliya</string>
+    <string name="tax_template_beta">Beta</string>
+    <string name="tax_template_beta_note">Beta: mamlakat qoidalari soddalashtirilgan, soliq deklaratsiyasini topshirishdan oldin tekshiring</string>
+    <string name="tax_template_ca">Kanada</string>
+    <string name="tax_template_ch">Shveytsariya</string>
+    <string name="tax_template_confirm_text">Beta, soddalashtirilgan qoidalar, boshqa platformalardagi tranzaksiyalar yoʻq – soliq deklaratsiyasini topshirishdan oldin tekshiring.</string>
+    <string name="tax_template_confirm_title">Soliq shabloni (beta)</string>
+    <string name="tax_template_current">Shablon: %1$s · Usul: %2$s · Valyuta: %3$s</string>
+    <string name="tax_template_de">Germaniya</string>
+    <string name="tax_template_fr">Fransiya</string>
+    <string name="tax_template_hint">Faqat yoʻnalish uchun: soliq ish varagʻining usuli, soliq yili va xulosasini belgilaydi. Portfel kartasi neytral qoladi – sovgʻalar va oʻtkazma komissiyalari ish varagʻidan farq qilishi mumkin.</string>
+    <string name="tax_template_jp">Yaponiya</string>
+    <string name="tax_template_neutral">Neytral (barcha mamlakatlar)</string>
+    <string name="tax_template_suggestion">Mintaqangiz uchun taklif: %1$s</string>
+    <string name="tax_template_title">Soliq shabloni</string>
+    <string name="tax_template_uk">Buyuk Britaniya</string>
+    <string name="tax_template_us">AQSH</string>
+    <string name="tax_template_use">%1$s dan foydalanish</string>
+
+    <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
+    <string name="tax_method_at">Eski/yangi aktivlar – oʻzgaruvchan oʻrtacha</string>
+    <string name="tax_method_ca_acb">ACB oʻrtacha tannarxi (superficial loss)</string>
+    <string name="tax_method_fr_pta">Umumiy sotib olish narxi (art. 150 VH bis)</string>
+    <string name="tax_method_jp_total">Umumiy oʻrtacha (総平均法)</string>
+    <string name="tax_method_uk_pool">Section 104 pool (oʻsha kun / 30 kun)</string>
+    <string name="tax_note_at">Har bir tanga va hamyon boʻyicha oʻzgaruvchan oʻrtacha – hamyonlar oraligʻida emas (KryptowährungsVO § 2). Mukofotlar yangi aktivlarga 0 sotib olish qiymatida kiradi (BMF: steyking / airdroplar) – daromad fayli ularni olingan paytdagi qiymatda koʻrsatadi. 2021-yil 1-martdan sotib olingan aktivlar uchun komissiyalar chegirilmaydi (§ 27a(4) no. 2, § 20(2) EStG): tannarx va tushum komissiyasiz. Qarz foizi (CSV importidagi tur yoki izoh) olingan paytda 27.5 foizda daromad hisoblanadi va shu qiymatni sotib olish qiymati sifatida saqlaydi.</string>
+    <string name="tax_note_at_staking">Mavjud tangalar bilan steyking va airdroplar: olingan paytdagi qiymat soliq uchun ahamiyatsiz – qonunga koʻra sotib olish qiymati 0 (§ 27b Abs. 2 EStG; BMF «Kryptowährungen»). Soliq faqat sotganda qoʻllanadi.</string>
+    <string name="tax_note_fr">Kripto bilan toʻlangan sotuvlar va komissiyalar – begonalashtirish; almashuvlar kechiktiriladi. Sotuvdagi kripto komissiyasi komissiyadan oldingi narxga kiradi – aks holda u oʻz qiymatida alohida begonalashtirish boʻladi. Portfel qiymati kunlik yopilishlardan – yopilish boʻlmasa, tannarx boʻsh qoladi.</string>
+    <string name="tax_note_network_fee">Kripto bilan toʻlangan tarmoq komissiyasi (oʻz hamyoningizga oʻtkazma, yechib olish) – komissiya tangalarining bozor qiymatida begonalashtirilishi – foyda yoki zarar faqat shu tangalar boʻyicha, butun komissiya zarari emas (%1$s). Yozilgan narx boʻlmasa: oʻsha kunning kunlik yopilishi (UTC); yopilish boʻlmasa, tushum boʻsh qoladi.</string>
+    <string name="tax_note_specific_id">Aniq identifikatsiya qoʻllab-quvvatlanmaydi – FIFO ishlatiladi.</string>
+    <string name="tax_note_spouse_gift">«Turmush oʻrtogʻiga / fuqarolik sherigiga» deb belgilangan sovgʻa foyda ham, zarar ham emas: tushum = sizning tannarxingiz, uni sherigingiz oladi (%1$s).</string>
+    <string name="tax_note_stable_swap">Kriptoni oʻzingiz saqlaydigan steyblkoinga (USDT/USDC/DAI …) sotish bu yerda kriptodan kriptoga hisoblanadi va soliqqa tortilmaydi – uni steyblkoinga almashuv sifatida yozing. Faqat yevroga sotish soliqqa tortiladi – «Sotish» yevroga sotish hisoblanadi.</string>
+    <string name="tax_note_transfer_fee">Oʻz hamyonlaringiz orasidagi oʻtkazmadagi USDT yoki naqd komissiyaga ham shu qoʻllanadi: u tannarxga qoʻshilmaydi va faqat maʼlumot sifatida koʻrsatiladi.</string>
+    <string name="tax_note_uk">HMRC boʻyicha moslashtirish: oʻsha kun → keyingi 30 kun → Section 104 pool.</string>
+    <string name="tax_note_us_transition">2025-yil 1-yanvardagi oʻtish davri (Rev. Proc. 2024-28 safe harbor): oldingi yillarda barcha hamyonlar boʻyicha FIFO ishlatilgan boʻlsa, 2024-yil 31-dekabrdagi qolgan lotlar tangalarni saqlayotgan hamyonlarga beriladi – eng eski tangalari bor hamyon eng eski tannarxni oladi. Bu taqsimot ilova qoidasi – uni oʻz yozuvlaringiz bilan tekshiring.</string>
+    <string name="tax_note_us_wallet">2025 soliq yilidan IRS har bir hamyon yoki birja boʻyicha tannarxni talab qiladi (Rev. Proc. 2024-28): eksport 2025-yildan har bir hamyon boʻyicha FIFO’dan foydalanadi – oldingi yillar uchun barcha hamyonlar boʻyicha FIFO yoki tannarx usulingiz shu boʻlsa, har bir hamyon boʻyicha FIFO.</string>
+    <string name="tax_note_withdrawal_fee">USDT yoki naqd yechib olish komissiyasi zarar emas: naqd komissiya chegiriladigan xarajat emas, USDT komissiyasi – foydasiz nominal qiymatda begonalashtirish – faqat maʼlumot sifatida koʻrsatiladi (%1$s).</string>
+    <string name="tax_summary_at_interest_income">hisoblanadi: olingan paytdagi daromad, 27.5 foiz maxsus stavkada (§ 27b(2) no. 1 EStG / BMF) – tangalar shu qiymatni sotib olish qiymati sifatida saqlaydi</string>
+    <string name="tax_summary_at_reward_info">faqat maʼlumot uchun – hech bir jamiga kirmaydi: mukofotlar yangi aktivlarga 0 sotib olish qiymatida kiradi va faqat sotishda soliqqa tortiladi (foydaga kiritilgan) – § 27b para. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">2022-yil 1-yanvar–28-fevral: 27.5 foizni tanlash mumkin</string>
+    <string name="tax_summary_at_withdrawal_fee">Yechib olish komissiyasi – yangi aktivlarga qarshi qoplanmaydi (maxsus stavkada xarajatlar chegirilmaydi, § 20(2) EStG)</string>
+    <string name="tax_summary_ch_fifo_info">faqat maʼlumot uchun – ilovaning FIFO hisobi – tasniflanmagan – ESTV’ga qarang</string>
+    <string name="tax_summary_ch_year_end_value">aktivlar CSV’sidagi 31-dekabr qiymati = birja narxi × USD/CHF – ESTV soliq qiymatlari emas</string>
+    <string name="tax_summary_de_withdrawal_fee">Yechib olish komissiyasi – § 23 boʻyicha qoplanmaydi, daromad bilan bogʻliq xarajat sifatida chegirilishini tekshiring</string>
+    <string name="tax_summary_not_calculated_estv">hisoblanmagan – ESTV narxlar roʻyxati: %1$s</string>
+    <string name="tax_summary_orientation">Yoʻnalish</string>
+    <string name="tax_summary_orientation_block">Faqat yoʻnalish uchun – soliq maslahati emas – baholash emas</string>
+    <string name="tax_summary_orientation_item">Yoʻnalish: %1$s</string>
+    <string name="tax_summary_title">%1$s %2$s yillik xulosa</string>
+    <string name="tax_summary_transfer_fee_info">USDT/naqd oʻtkazma komissiyalari – zarar emas va tannarxga kirmaydi, faqat maʼlumot uchun</string>
+    <string name="tax_summary_withdrawal_fee_info">USDT/naqd yechib olish komissiyalari – zarar hisoblanmaydi, faqat maʼlumot uchun</string>
+
+    <string name="tax_line_at_old_speculation_limit">Spekulyativ operatsiyalar (eski qonun, ≤ 1 yil saqlangan): ozod qilish chegarasi (§ 31 (3) EStG eski tahrir)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">2022-yil 1-martgacha boʻlgan qarz foizi (olingan paytdagi qiymat)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">2022-yil 1-martgacha boʻlgan foiz: eski qonun (daromad soligʻi stavkasi), 27.5 foiz emas</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">2022-yil 1-martgacha – mutaxassis bilan tekshiring</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">Foiz – olingan paytda soliqqa tortiladi</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">Steyking – faqat maʼlumot uchun (sotib olish qiymati 0, sotishda soliqqa tortiladi)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">Jami foiz (soliqqa tortiladi)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">Jami steyking (maʼlumot)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">Sof kapital zarari (keyingi yillarga oʻtkazish)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">tanlovsiz: 2022-yil 1-yanvar–28-fevraldagi sotuvlarni oʻz ichiga oladi</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">2022-yil 1-martgacha steyking: sotib olish qiymati 0 deb belgilandi – mutaxassis bilan tekshiring</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">30 kun qoidasi bu raqamlarni hali oʻzgartirishi mumkin (%1$s gacha xaridlar)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Hisobot chegarasidan ortiq komissiyadan oldingi tushum (£50,000; 2020/21–2022/23: £49,200): Self Assessment’da roʻyxatdan oʻtgan boʻlsangiz, soliqqa tortiladigan foyda boʻlmasa ham HMRC’ga xabar bering</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">31-dekabr %1$s holatiga mol-mulk qiymati (yoʻnalish)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">ESTV narxlar roʻyxati (ictax.admin.ch) hal qiluvchi hisoblanadi. Roʻyxatda yoʻq tangalar uchun odatda birjaning yopilish narxi qoʻllanadi. Mol-mulk soligʻi hisoblanmagan.</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – aktiv %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">hisoblanmagan</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">Kuzatilayotgan manzillarni oʻqib boʻlmadi – ularning balanslari bu faylda yoʻq</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">Kuzatilayotgan manzillar lotlari xarid sanasidan hisoblanadi; manzilning bugungi balansi kamroq boʻlsa, ular kamaytiriladi.</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">Kuzatilayotgan manzillar umumiy qiymatga kiradi, lekin sotib olish qiymati yoʻq – shuning uchun foyda ehtimol juda yuqori. Tannarxni xarid sifatida yozing.</string>
+    <string name="tax_summary_fr_rewards_income">Summa mukofotlar olingan paytda daromad sifatida soliqqa tortilgan deb taxmin qiladi (olingan paytdagi qiymat sotib olish qiymatida) – aks holda ehtiyotkor talqinda sotib olish qiymati 0 boʻlardi.</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">Yozilgan narxi yoʻq bozor qiymatlari (komissiyalar, sovgʻalar/toʻlovlar, almashuvlar, mukofotlar, tarmoq komissiyalari, portfel qiymati) tranzaksiya kunining kunlik yopilishi (UTC) boʻyicha</string>
+</resources>

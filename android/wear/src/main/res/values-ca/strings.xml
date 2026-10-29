@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">No hi ha cap moneda triada</string>
+    <string name="watch_loading">S\'està carregant…</string>
+    <string name="watch_error">Exchanges no accessibles</string>
+    <string name="watch_updated">A les %1$s</string>
+    <string name="watch_refresh">Actualitza</string>
+    <string name="watch_choose">Tria monedes</string>
+    <string name="watch_choose_hint">Monedes: màx. %1$d</string>
+    <string name="watch_complication_label">Preu</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s en 24 hores</string>
+    <string name="watch_mode_phone">Llista: com al mòbil</string>
+    <string name="watch_mode_own">Llista: pròpia</string>
+    <string name="watch_phone_empty">No hi ha preferits al mòbil</string>
+    <string name="a11y_watch_outdated">Preu desactualitzat</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">actualitzat per última vegada fa %1$d minut</item>
+        <item quantity="many">actualitzat per última vegada fa %1$d minuts</item>
+        <item quantity="other">actualitzat per última vegada fa %1$d minuts</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">actualitzat per última vegada fa %1$d hora</item>
+        <item quantity="many">actualitzat per última vegada fa %1$d hores</item>
+        <item quantity="other">actualitzat per última vegada fa %1$d hores</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">actualitzat per última vegada fa %1$d dia</item>
+        <item quantity="many">actualitzat per última vegada fa %1$d dies</item>
+        <item quantity="other">actualitzat per última vegada fa %1$d dies</item>
+    </plurals>
+</resources>

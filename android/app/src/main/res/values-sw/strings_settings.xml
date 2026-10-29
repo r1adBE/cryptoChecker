@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">Maalum</string>
+    <string name="settings_group_general">Jumla</string>
+    <string name="settings_group_more">Zaidi</string>
+    <string name="settings_minutes">dak %1$d</string>
+    <string name="settings_row_about">Kuhusu programu</string>
+    <string name="settings_row_alarms">Kengele</string>
+    <string name="settings_row_currency">Sarafu ya fedha</string>
+    <string name="settings_row_dated_futures">Futures zenye tarehe</string>
+    <string name="settings_row_updates">Masasisho ya bei</string>
+    <string name="settings_row_watchlist">Orodha ya ufuatiliaji</string>
+    <string name="settings_search_hint">Tafuta mipangilio</string>
+    <string name="settings_seconds">sek %1$d</string>
+    <string name="settings_section_about">Kuhusu</string>
+    <string name="settings_section_appearance">Mwonekano</string>
+    <string name="settings_section_developer">Msanidi</string>
+    <string name="settings_section_language">Lugha</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">Imewashwa</string>
+    <string name="settings_title">Mipangilio</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">Muda wa utulivu kabla kengele haijalia tena</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Ishara ya kengele</string>
+    <string name="settings_alarm_signal_open_system">Rekebisha kwenye mipangilio ya mfumo</string>
+    <string name="settings_alarm_signal_system_hint">Inafuata mipangilio ya arifa ya simu yako.</string>
+    <string name="settings_alarm_sound">Sauti ya kengele</string>
+    <string name="settings_alarm_sound_custom">Sauti maalum</string>
+    <string name="settings_alarm_sound_default">Sauti chaguomsingi</string>
+    <string name="settings_alarm_sound_error">Sauti haikuweza kutumika.</string>
+    <string name="settings_alarm_sound_file">Faili yako ya sauti…</string>
+    <string name="settings_alarm_sound_reset">Tumia sauti chaguomsingi</string>
+    <string name="settings_alarm_sound_system">Chagua sauti ya mfumo…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Namba kwenye aikoni ya programu</string>
+    <string name="settings_app_badge_hint">Inahesabu arifa za kengele zilizo wazi. Kama namba au nukta itaonekana inategemea skrini ya nyumbani (k.m. Samsung: “Show with number”).</string>
+    <string name="settings_exact_checks">Kagua kwa wakati</string>
+    <string name="settings_exact_checks_grant">Ruhusu kengele &amp; vikumbusho</string>
+    <string name="settings_exact_checks_hint">Android hukagua takriban kila dakika 15, hata kifaa kikiwa hakitumiki. Hutumia betri kidogo zaidi.</string>
+    <string name="settings_exact_checks_nothing">Hakuna jozi zinazotumika – hakuna cha kukagua.</string>
+    <string name="settings_exact_checks_permission_missing">Ruhusa haipo – kifaa kikiwa kimepumzika, Android hukagua bila mpangilio, wakati mwingine baada ya saa kadhaa tu.</string>
+    <string name="settings_notification_change">Arifu tu bei ikibadilika</string>
+    <string name="settings_notification_change_always">Kila mara</string>
+    <string name="settings_percent_invalid">Weka thamani kutoka 0 hadi 100.</string>
+    <string name="settings_notification_change_hint">Arifa ya bei inaonekana tu bei ikishasogea angalau kiasi hiki tangu ile ya mwisho. Hakuna kinachoonyeshwa wakati data inakosekana. Kengele haziathiriwi.</string>
+    <string name="settings_ongoing_notifications">Haziwezi kuondolewa kwa kutelezesha</string>
+    <string name="settings_ongoing_notifications_hint">Huweka arifa za bei zikiwa zimebanwa.</string>
+    <string name="settings_price_notifications">Arifa za bei</string>
+    <string name="settings_price_notifications_hint">Onyesha bei ya sasa ya jozi zilizowashwa kwenye upau wa hali.</string>
+    <string name="settings_price_pairs">Jozi</string>
+    <string name="settings_price_pairs_all_off">Zote zimezimwa</string>
+    <string name="settings_price_pairs_all_on">Zote zimewashwa</string>
+    <string name="settings_price_pairs_count">%1$d kati ya %2$d</string>
+    <string name="settings_price_pairs_empty">Bado hakuna jozi kwenye orodha ya ufuatiliaji.</string>
+    <string name="settings_price_pairs_hint">Chagua jozi zipi zinaonyesha bei yake kwenye upau wa arifa.</string>
+    <string name="settings_quiet_hours">Saa za utulivu</string>
+    <string name="settings_quiet_hours_from">Kuanzia</string>
+    <string name="settings_quiet_hours_hint">Kati ya %1$s na %2$s, kengele zinasubiri hadi saa za utulivu ziishe kisha zinalia kwa sauti. Arifa nyingine zinafika kimya, bila usomaji kwa sauti.</string>
+    <string name="settings_quiet_hours_to">Hadi</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">Kipindi</string>
+    <string name="settings_background_updates">Masasisho ya chinichini</string>
+    <string name="settings_battery_hint">Yamezuiliwa inamaanisha Android inaweza kuchelewesha masasisho ya chinichini kwa saa kadhaa.</string>
+    <string name="settings_battery_ok">Matumizi ya betri: bila vikwazo</string>
+    <string name="settings_battery_restricted">Matumizi ya betri: yamezuiliwa</string>
+    <string name="settings_check_runs_empty">Bado hakuna ukaguzi uliorekodiwa.</string>
+    <string name="settings_check_runs_honest_android">Android huamua wakati wa kukagua – hapa unaona ulifanyika lini hasa.</string>
+    <string name="settings_check_runs_honest_ios">iOS huamua wakati wa kukagua – hapa unaona ulifanyika lini hasa.</string>
+    <string name="settings_check_runs_title">Ukaguzi wa hivi karibuni</string>
+    <string name="settings_http_log">Onyesha kumbukumbu ya HTTP</string>
+    <string name="settings_http_log_hint">Inaonyesha maombi kwa majukwaa chini ya ukurasa wa “Ongeza jozi” – kwa kutatua matatizo.</string>
+    <string name="settings_live_service">Sasisha mara kwa mara</string>
+    <string name="settings_live_websocket">Bei za moja kwa moja</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">Zinazojitokeza: arifu</string>
+    <string name="settings_activity_alerts_hint">Mara moja kwa saa kwa kila jozi zaidi: mienendo isiyo ya kawaida ya bei, kiasi kinachoruka ghafla na hali kali za futures (data kutoka Binance).</string>
+    <string name="settings_activity_sensitivity">Usikivu</string>
+    <string name="settings_activity_sensitivity_hint">Jinsi sarafu inavyohesabiwa kwa urahisi kuwa isiyo ya kawaida – sawa kwa kadi ya orodha ya ufuatiliaji na kengele za soko. Kwa “Kidogo”, kadi inaonyesha 3 zenye nguvu zaidi pekee.</string>
+    <string name="settings_watchlist_activity_card">Zinazojitokeza: onyesha kwenye orodha</string>
+    <string name="settings_watchlist_activity_card_hint">Huonyesha kibonye ⚡ karibu na vikundi: kiguse ili kuona tu jozi ambazo kuna jambo linaloendelea sasa hivi. Arifa zake zinawekwa chini ya Kengele za soko.</string>
+    <string name="settings_watchlist_names">Onyesha majina</string>
+    <string name="settings_watchlist_names_hint">Jina chini ya jozi, k.m. Bitcoin au NVIDIA. Linakuja na orodha za nembo, zinazopakiwa mara moja kwa sarafu zote.</string>
+    <string name="settings_watchlist_sparkline">Chati ndogo kwenye orodha ya ufuatiliaji</string>
+    <string name="settings_watchlist_sparkline_hint">Mwelekeo wa saa 24 karibu na bei</string>
+    <string name="settings_watchlist_value_names">Majina</string>
+    <string name="settings_watchlist_value_price_only">Bei pekee</string>
+    <string name="settings_watchlist_value_sparkline">Chati ndogo</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Pamoja na tokeni za Alpha (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Tokeni za Alpha: miradi ya mapema, mingi midogo kutoka orodha ya Binance Alpha – mara nyingi huuzwa kidogo na hubadilika sana.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">Ni sehemu ya Tokeni. Haipatikani wakati “TradFi pekee” imechaguliwa; tokeni za Alpha ambazo tayari ziko kwenye orodha yako ya ufuatiliaji zinabaki.</string>
+    <string name="settings_asset_scope_both">Tokeni na TradFi</string>
+    <string name="settings_asset_scope_both_hint">Kila kitu – crypto na TradFi</string>
+    <string name="settings_asset_scope_hint">Huweka jozi zipi zinaonyeshwa na uchaguzi na utafutaji unapoongeza jozi. Jozi ambazo tayari ziko kwenye orodha yako ya ufuatiliaji zinabaki daima.</string>
+    <string name="settings_asset_scope_title">Tokeni &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">Tokeni pekee</string>
+    <string name="settings_asset_scope_tokens_hint">Crypto: spot na perpetuals</string>
+    <string name="settings_asset_scope_tradfi">TradFi pekee</string>
+    <string name="settings_asset_scope_tradfi_hint">Futures za hisa, bidhaa, FX – mikataba, si tokeni</string>
+    <string name="settings_rolling_futures">Pamoja na futures za robo mwaka &amp; nyingine zenye tarehe</string>
+    <string name="settings_rolling_futures_hint">Imezimwa: futures zenye tarehe zisizo kwenye orodha ya jukwaa zinawekwa alama kuwa haziuzwi tena badala ya kukaguliwa moja moja. Huokoa muda katika kila uonyeshaji upya.</string>
+    <string name="settings_rolling_futures_qtly">Pamoja na futures za robo mwaka &amp; nyingine zenye tarehe (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">Ni sehemu ya Tokeni. Haipatikani wakati “TradFi pekee” imechaguliwa; bado inahusu futures zenye tarehe ambazo tayari ziko kwenye orodha yako ya ufuatiliaji.</string>
+    <string name="settings_tradfi_futures">Hisa, bidhaa na FX (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Pia inaonyesha futures za hisa, dhahabu na bidhaa nyingine, sarafu za fedha na kampuni za kabla ya IPO unapochagua jozi. Hizi ni mikataba, si tokeni.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">Rangi kuu</string>
+    <string name="settings_accent_hint">Rangi ya programu, wijeti na aikoni ya programu. Baadhi ya skrini za nyumbani huondoa aikoni inapobadilika – iongeze tena basi.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Nembo za sarafu</string>
+    <string name="settings_coin_logos_app">Kwenye programu</string>
+    <string name="settings_coin_logos_app_hint">Orodha ya ufuatiliaji, jozi iliyofunguliwa na kadi za soko</string>
+    <string name="settings_coin_logos_footer">Nembo zinatoka CoinGecko, na Binance kwa sarafu ambazo CoinGecko haiorodheshi (k.m. dhahabu, fedha, hisa). Programu inapakia nembo zote kwa mara moja na kuzihifadhi kwenye kifaa hiki, kwa hiyo hakuna mtoa huduma anayeweza kujua unafuatilia sarafu zipi. Sarafu zisizo na nembo zinaonyesha herufi zake za mwanzo. Vipendwa vinapata nyota ndogo kwenye nembo. Pale swichi imezimwa, nembo wala herufi za mwanzo hazionekani; swichi zote zikizimwa, hakuna kinachopakiwa.</string>
+    <string name="settings_coin_logos_portfolio">Kwenye jalada</string>
+    <string name="settings_coin_logos_portfolio_hint">Nafasi, maelezo ya sarafu na maarifa</string>
+    <string name="settings_coin_logos_value_app">Programu</string>
+    <string name="settings_coin_logos_widgets">Kwenye wijeti</string>
+    <string name="settings_coin_logos_widgets_hint">Wijeti za orodha ya ufuatiliaji na sarafu moja</string>
+    <string name="settings_high_contrast">Utofautishaji wa juu</string>
+    <string name="settings_high_contrast_hint">Rangi za bei zenye nguvu zaidi na maandishi ya pili meusi zaidi. Pia huwashwa mfumo unapoomba utofautishaji zaidi.</string>
+    <string name="settings_language_choose">Chagua lugha</string>
+    <string name="settings_language_system">Lugha ya mfumo</string>
+    <string name="settings_price_colors">Rangi za bei</string>
+    <string name="settings_price_colors_hint">Bluu / machungwa ni rahisi kutofautisha kwa kila aina ya upungufu wa kuona rangi (nyekundu-kijani na bluu-njano). Mwelekeo daima unaonyeshwa pia kwa + / −.</string>
+    <string name="settings_theme_mode">Mwanga / Giza</string>
+    <string name="settings_widgets">Wijeti</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">Mabadiliko ya %1$s &amp; saa za eneo za chati</string>
+    <string name="settings_change_basis_hint_1">Saa za eneo zilizochaguliwa huweka kuanzia lini mabadiliko ya asilimia yanahesabiwa (orodha ya ufuatiliaji, mstari wa mapigo, jozi iliyofunguliwa, wijeti) na nyakati zinazoonyeshwa kwenye chati.</string>
+    <string name="settings_change_basis_hint_2">“%1$s” inalinganisha na bei ya saa 24 kamili zilizopita. “00:00” inalinganisha na bei ya kufungua saa sita usiku katika saa hizo za eneo.</string>
+    <string name="settings_change_basis_hint_3">Kengele haziathiriwi.</string>
+    <string name="settings_change_basis_hint_since_last">“%1$s” inalinganisha na bei ya sasisho lililotangulia. Kwa bei za moja kwa moja inabaki karibu na 0%%.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">Sarafu ya ubadilishaji</string>
+    <string name="settings_conversion_currency_hint">Pia inatumika kwa jalada, kengele kwa sarafu yako, kadi ya soko la crypto na wijeti ya jalada.</string>
+    <string name="settings_cost_method">Njia ya gharama</string>
+    <string name="settings_cost_method_average">Wastani wa gharama</string>
+    <string name="settings_cost_method_average_hint">Mauzo yanathaminiwa kwa wastani unaosonga wa bei ya ununuzi.</string>
+    <string name="settings_cost_method_fifo">FIFO (chaguomsingi)</string>
+    <string name="settings_cost_method_fifo_hint">Sarafu za zamani zaidi zinauzwa kwanza, kwenye majukwaa na wallet zote.</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO kwa kila wallet/jukwaa</string>
+    <string name="settings_cost_method_fifo_wallet_hint">Sarafu za zamani zaidi kwanza ndani ya kila jukwaa au wallet; uhamisho huhamisha mafungu pamoja na tarehe yake ya ununuzi.</string>
+    <string name="settings_portfolio_lock">Kufuli ya jalada</string>
+    <string name="settings_portfolio_lock_footer">Kufuli huficha kinachoonyeshwa kwenye skrini. Data yako imehifadhiwa kwenye kifaa hiki na inalindwa na usimbaji wa kifaa. Unaweza kulinda nakala rudufu kwa nenosiri.</string>
+    <string name="settings_portfolio_lock_hint">Huficha jalada pekee: fungua kwa alama ya kidole, uso au PIN ya kifaa. Hufungwa tena baada ya zaidi ya dakika moja chinichini. Orodha ya ufuatiliaji, kengele na wijeti nyingine zinabaki wazi.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Bila PIN au nambari ya siri ya kifaa kufuli haifichi chochote – weka kufuli ya skrini.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Jalada kwenye nakala rudufu ya mfumo</string>
+    <string name="settings_portfolio_system_backup_hint">Imezimwa: miamala yako haimo kwenye nakala rudufu ya mfumo wa kifaa wala uhamisho kutoka simu hadi simu. Ili kuihamishia kwenye simu mpya, tumia nakala rudufu ya programu yenyewe yenye nenosiri.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Inahitaji Android 9 au mpya zaidi – matoleo ya zamani yangehifadhi jalada bila kusimbwa kwenye nakala rudufu ya Google.</string>
+    <string name="settings_portfolio_tab">Onyesha kichupo cha Jalada</string>
+    <string name="settings_portfolio_value_locked">Imewashwa, ikiwa na kufuli</string>
+    <string name="settings_show_converted">Bei zilizobadilishwa</string>
+    <string name="settings_show_converted_hint">Huonyesha bei kwenye orodha ya ufuatiliaji pia kwa %1$s</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">Ripoti USDT kupoteza thamani yake ya 1 USD</string>
+    <string name="settings_depeg_alarm_hint">Inaarifu mara moja USDT inapoachana na USD 1 kwa kiwango kilichowekwa (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_threshold">Kiwango cha depeg</string>
+    <string name="settings_fng_above">Fear &amp; Greed: arifu ikiwa juu ya</string>
+    <string name="settings_fng_below">Fear &amp; Greed: arifu ikiwa chini ya</string>
+    <string name="settings_gas_alert_hint">Inaarifu mara moja ada ya kawaida inaposhuka chini ya kikomo. Hukaguliwa wakati wa masasisho ya bei, mara moja kila dakika 10 zaidi.</string>
+    <string name="settings_gas_btc_below">Ada ya Bitcoin chini ya (sat/vB)</string>
+    <string name="settings_gas_eth_below">Gas ya Ethereum chini ya (gwei)</string>
+    <string name="settings_ind_ath_within">Kushuka kutoka kilele cha wakati wote kisichozidi</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple juu ya</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple chini ya</string>
+    <string name="settings_ind_mvrv_above">MVRV juu ya</string>
+    <string name="settings_ind_mvrv_below">MVRV chini ya</string>
+    <string name="settings_indicator_alerts_hint">Viashiria vya Bitcoin, hukaguliwa mara mbili kwa siku. Wewe unachagua vikomo – programu haitathmini thamani.</string>
+    <string name="settings_macro_notifications">Kalenda ya uchumi</string>
+    <string name="settings_macro_notifications_hint">Saa 08:00 siku zenye data muhimu za uchumi wa Marekani (mfumuko wa bei, ripoti ya ajira, uamuzi wa Fed). Kalenda inatoka tovuti ya programu, hupakiwa mara moja kwa siku.</string>
+    <string name="settings_market_alerts">Kengele za soko</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d inatumika</item>
+        <item quantity="other">%1$d zinatumika</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">Kasi ya usomaji: %1$.1f×</string>
+    <string name="settings_tts">Usomaji kwa sauti</string>
+    <string name="settings_tts_alarms_only">Kengele pekee</string>
+    <string name="settings_tts_alarms_only_hint">Imezimwa: kila sasisho la jozi iliyowekewa alama “Soma bei kwa sauti” linasomwa kwa sauti.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">Husoma bei na kengele kwa sauti. Hukaa kimya kifaa kikiwa kwenye hali ya kimya au mtetemo.</string>
+    <string name="settings_tts_test">Jaribu sauti</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">Weka upya programu</string>
+    <string name="settings_reset_app_action">Futa kila kitu</string>
+    <string name="settings_reset_app_confirm">Inafuta orodha ya ufuatiliaji, kengele, jalada, mipangilio na data yote iliyohifadhiwa, kama baada ya kusakinisha. Hili haliwezi kutenduliwa. Kidokezo: unda nakala rudufu kwanza. Nakala rudufu za kifaa (nakala rudufu ya Google au nakala ya iCloud/kompyuta) huhifadhi data ya awali hadi nakala rudufu inayofuata ifanyike.</string>
+    <string name="settings_reset_app_title">Uweke upya programu?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">Tafuta sarafu ya fedha</string>
+    <string name="language_search">Tafuta lugha</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">Giza</string>
+    <string name="theme_light">Mwanga</string>
+    <string name="theme_system">Mfumo</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">Bluu</string>
+    <string name="accent_green">Kijani</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Kijani cha Marrs</string>
+    <string name="accent_orange">Machungwa</string>
+    <string name="accent_red">Nyekundu</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">Hutumika sana China, Japani, Korea na Taiwan</string>
+    <string name="price_colors_swap">Badilisha rangi (kupanda ↔ kushuka)</string>
+    <string name="price_style_calm">Tulivu</string>
+    <string name="price_style_calm_color_vision">Tulivu · Upungufu wa kuona rangi</string>
+    <string name="price_style_color_vision">Upungufu wa kuona rangi</string>
+    <string name="price_style_fresh">Mpya</string>
+    <string name="price_style_traditional">Ya kawaida</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">Miunganisho ya majukwaa ilikaguliwa mwisho dhidi ya majibu halisi: %1$s</string>
+    <string name="about_license">Bei zinatoka moja kwa moja kwa majukwaa; hakuna akaunti na hakuna kufuatiliwa.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">Leseni</string>
+    <string name="about_privacy_policy">Sera ya faragha</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">Omba jukwaa</string>
+    <string name="about_source_code">Msimbo chanzo kwenye GitHub</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker ni mradi huru wa r1AD: muhtasari tulivu wa bei bila akaunti, matangazo wala kufuatiliwa. Maswali na matakwa: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker ni programu huria (MIT License).</string>
+    <string name="licenses_font_title">Fonti ya Rubik</string>
+    <string name="licenses_icons_bundled_text">Imejumuishwa na programu: aikoni kutoka “Cryptocurrency Icons” za Christopher Downer na wachangiaji (github.com/spothq/cryptocurrency-icons), zilizotolewa chini ya CC0 1.0 Universal. Zinaonyeshwa hadi nembo za CoinGecko au Binance zipakiwe. Majina na nembo zinabaki kuwa alama za biashara za miradi yake.</string>
+    <string name="licenses_icons_title">Aikoni mbadala za sarafu</string>
+    <string name="licenses_libraries_intro">Programu inatumia maktaba hizi chini ya Apache License 2.0:</string>
+    <string name="licenses_libraries_title">Maktaba za Android</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">Gusa mara %d zaidi ili kufungua chaguo za msanidi</item>
+        <item quantity="other">Gusa mara %d zaidi ili kufungua chaguo za msanidi</item>
+    </plurals>
+    <string name="developer_unlocked">Chaguo za msanidi zimefunguliwa</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Mtetemo unafuata mipangilio ya iPhone (Sounds &amp; Haptics).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Inahesabu kengele mpya na kengele za soko; inarudi 0 unapofungua programu.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Data yako</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">Kwenye kifaa hiki</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Orodha yako ya ufuatiliaji, kengele na jalada vimehifadhiwa vikiwa vimesimbwa kwenye kifaa hiki; hakuna akaunti, hakuna seva yetu wenyewe.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Miunganisho</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Bei zinatoka moja kwa moja kwa majukwaa ya jozi zako, pamoja na viwango vya ubadilishaji, orodha za sarafu na nembo na kioo cha data kwenye GitHub; wanaona anwani yako ya IP, kamwe si mali zako (anwani zinazofuatiliwa zinaenda kwa mtoa huduma wa mtandao husika).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Nakala rudufu</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Ukiiunda tu. Ikiwa na nenosiri imesimbwa (Argon2id + AES-256-GCM); bila nenosiri inasomeka.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Kubadilisha kifaa</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">Ufunguo unabaki kwenye kifaa cha zamani – unda faili ya nakala rudufu kwanza.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Shiriki uchunguzi</string>
+    <string name="diagnostics_share_hint">Faili ya maandishi kwa msaada: toleo, kifaa, mipangilio ya kengele, ukaguzi wa hivi karibuni na kumbukumbu ya kengele – bila jalada, kiasi, anwani wala madokezo. Unaiona kwanza; hakuna kinachotumwa kiotomatiki.</string>
+    <string name="diagnostics_preview_title">Hakiki ya uchunguzi</string>
+    <string name="diagnostics_action_share">Shiriki</string>
+    <string name="settings_price_overlay">Bei juu ya programu nyingine</string>
+    <string name="settings_price_overlay_hint">Huonyesha jozi za arifa ya kudumu ya bei kama kibonye kidogo kinachoelea juu ya programu nyingine. Gusa ili kufungua programu, buruta hadi × chini ili kufunga.</string>
+    <string name="settings_price_overlay_needs">Inafanya kazi tu pamoja na «%1$s».</string>
+    <string name="settings_price_overlay_grant">Ruhusu kuonyesha juu ya programu nyingine</string>
+    <string name="price_overlay_close">Funga kibonye</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">Seva yako ya anwani</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Bitcoin pekee: seva yako mwenyewe inayooana na Esplora au mempool (k.m. https://node.example/api, cheti kinachoaminika hadharani kinahitajika, kama Let\'s Encrypt). Ikiwekwa, anwani za Bitcoin na funguo za xpub zinaulizwa hapo tu – kamwe kwenye nodi za umma, hata seva yako isipopatikana. Mitandao mingine inaendelea kutumia nodi za umma. Tupu = nodi za umma.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Seva ya Bitcoin (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">Jaribu</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">Inajaribu…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">Seva inajibu – block %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">Hakuna jibu halali – angalia anwani na cheti</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">Inatumika: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">Haijawekwa – nodi za umma zinatumika</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">Anwani za https:// pekee ndizo zinaruhusiwa</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">Hakuna jina la mtumiaji wala nenosiri kwenye anwani</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">Hakuna sehemu ya ? au # kwenye anwani</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">Si anwani halali ya seva</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">Ubadili kwenda nodi za umma?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">Anwani zako za Bitcoin na funguo za xpub basi zitaulizwa kwenye nodi za umma: %1$s. Zinaona anwani hizi pamoja na anwani yako ya IP.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">Tumia nodi za umma</string>
+</resources>

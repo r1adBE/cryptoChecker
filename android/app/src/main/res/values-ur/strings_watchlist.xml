@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">تازہ · %1$s</string>
+    <string name="watchlist_empty_title">ابھی کوئی جوڑا نہیں</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%2$d میں سے %1$d بغیر قیمت کے</item>
+        <item quantity="other">%2$d میں سے %1$d بغیر قیمت کے</item>
+    </plurals>
+    <string name="watchlist_last_run">آخری بار چلا %1$s</string>
+    <string name="watchlist_live_a11y">لائیو قیمتیں آن</string>
+    <string name="watchlist_offline_since">کوئی کنکشن نہیں · بمطابق %1$s</string>
+    <string name="watchlist_pull_to_refresh">ریفریش کے لیے نیچے کھینچیں</string>
+    <string name="watchlist_refresh_report">آخری ریفریش</string>
+    <string name="watchlist_refresh_report_empty">ابھی کوئی تفصیل نہیں – اب تک کوئی مکمل ریفریش نہیں ہوا۔ ریفریش پر ٹیپ کریں اور دائرہ رکنے تک انتظار کریں۔</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%2$d میں سے %1$d پرانا</item>
+        <item quantity="other">%2$d میں سے %1$d پرانے</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">یہاں تمام جوڑے غیر فعال ہیں</string>
+    <string name="watchlist_status_exchange_prices">آپ کے ایکسچینجز کی قیمتیں · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">ایکسچینج قیمتیں · %1$s</string>
+    <string name="watchlist_status_group_empty">اس گروپ میں کوئی جوڑا نہیں</string>
+    <string name="watchlist_status_none_traded">یہاں کوئی ٹریڈ ہونے والا جوڑا نہیں</string>
+    <string name="watchlist_updated">اپ ڈیٹ: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">اوسط %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d نیچے</item>
+        <item quantity="other">%1$d نیچے</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d بغیر 24 گھنٹے کی قدر کے</item>
+        <item quantity="other">%1$d بغیر 24 گھنٹے کی قدر کے</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d بغیر آج کی قدر کے</item>
+        <item quantity="other">%1$d بغیر آج کی قدر کے</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d اوپر</item>
+        <item quantity="other">%1$d اوپر</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · غیر فعال</string>
+    <string name="watchlist_row_outdated">%1$s · پرانا</string>
+    <string name="watchlist_row_outdated_age">پرانا · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">%1$s سے قیمت میں کوئی تبدیلی نہیں</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s تک رسائی نہیں</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">آخر پر جائیں</string>
+    <string name="watchlist_jump_start">شروع پر جائیں</string>
+    <string name="watchlist_search_close">تلاش بند کریں</string>
+    <string name="watchlist_search_empty">“%1$s” کے لیے کوئی مماثلت نہیں</string>
+    <string name="watchlist_search_hint">جوڑا، نام یا ایکسچینج تلاش کریں</string>
+    <string name="watchlist_search_open">تلاش کریں</string>
+    <string name="watchlist_sort_ascending">صعودی</string>
+    <string name="watchlist_sort_descending">نزولی</string>
+    <string name="watchlist_sort_hint">کسی جوڑے کو دبا کر گھسیٹیں، یا ہینڈل استعمال کریں۔ پسندیدہ اوپر رہتے ہیں۔</string>
+    <string name="watchlist_sort_name">نام</string>
+    <string name="watchlist_sort_own">اپنی ترتیب</string>
+    <string name="watchlist_sort_price">قیمت</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">واچ لسٹ خالی کریں</string>
+    <string name="watchlist_clear_confirm">واچ لسٹ سے تمام جوڑے ہٹائیں؟ ان کے الرٹس بھی ساتھ ہٹ جائیں گے۔</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d غیر فعال</item>
+        <item quantity="other">%1$d غیر فعال</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">ہٹائیں</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">%1$d جوڑا ہٹائیں جو اب اپنے ایکسچینج پر ٹریڈ نہیں ہوتا؟ اس کے الرٹس بھی ساتھ ہٹ جائیں گے۔</item>
+        <item quantity="other">%1$d جوڑے ہٹائیں جو اب اپنے ایکسچینج پر ٹریڈ نہیں ہوتے؟ ان کے الرٹس بھی ساتھ ہٹ جائیں گے۔</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">غیر ٹریڈ شدہ جوڑے ہٹائیں (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">غیر ٹریڈ شدہ جوڑے ہٹائیں</string>
+    <string name="watchlist_removed">%1$s ہٹا دیا گیا</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d جوڑا ہٹا دیا گیا</item>
+        <item quantity="other">%1$d جوڑے ہٹا دیے گئے</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">%1$d غیر ٹریڈ شدہ جوڑا ہٹا دیا گیا</item>
+        <item quantity="other">%1$d غیر ٹریڈ شدہ جوڑے ہٹا دیے گئے</item>
+    </plurals>
+    <string name="watchlist_select">منتخب کریں</string>
+    <string name="watchlist_select_all">سب منتخب کریں</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d منتخب</item>
+        <item quantity="other">%1$d منتخب</item>
+    </plurals>
+    <string name="watchlist_show_all">سب دکھائیں</string>
+    <string name="watchlist_show_only_disabled">صرف غیر فعال دکھائیں</string>
+    <string name="watchlist_show_only_stale">صرف پرانے دکھائیں</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">الرٹ (%1$d)</item>
+        <item quantity="other">الرٹس (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">ابھی کوئی پسندیدہ نہیں۔ کسی جوڑے کو دائیں سوائپ کریں، یا جوڑا کھول کر “پسندیدہ” پر ٹیپ کریں۔</string>
+    <string name="watchlist_group_empty_hint">گروپ کے جوڑے منتخب کرنے کے لیے گروپ کو دیر تک دبائیں۔</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">آپ کے گروپس یہاں نظر آئیں گے</string>
+    <string name="watchlist_notification">قیمت کی اطلاع</string>
+    <string name="watchlist_tts">قیمت بول کر سنائیں</string>
+    <string name="watchlist_tts_speech_on">بول کر سنانا آن ہے۔ اسے ترتیبات › الرٹس › بول کر سنانا میں بدلا جا سکتا ہے۔</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">ویجیٹ کے طور پر شامل کریں</string>
+    <string name="watch_action_alarm">الرٹ</string>
+    <string name="watch_action_favorite">پسندیدہ</string>
+    <string name="watch_action_why">اس کے ساتھ اور کیا حرکت کر رہا ہے؟</string>
+    <string name="watch_action_why_short">ساتھ کیا حرکت میں ہے؟</string>
+    <string name="watch_change_mark">مارک</string>
+    <string name="watch_disable">غیر فعال کریں</string>
+    <string name="watch_disable_hint">نہ درخواستیں، نہ اطلاعات</string>
+    <string name="watch_disabled">غیر فعال</string>
+    <string name="watch_disabled_banner">%1$s غیر فعال کر دیا گیا</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">الرٹس باقی رہتے ہیں – ان کی حدیں چیک کریں</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">جوڑے میں ترمیم</string>
+    <string name="watch_enable">فعال کریں</string>
+    <string name="watch_enable_hint">قیمتیں اور اطلاعات دوبارہ شروع ہوں گی</string>
+    <string name="watch_enabled_banner">%1$s فعال کر دیا گیا</string>
+    <string name="watch_error_offline">کوئی کنکشن نہیں</string>
+    <string name="watch_gesture_hint_short">ٹیپ: الرٹ اور “اس کے ساتھ اور کیا حرکت کر رہا ہے؟” · منتخب کرنے کے لیے دیر تک دبائیں · حذف کے لیے بائیں سوائپ · پسندیدہ کے لیے دائیں سوائپ</string>
+    <string name="watch_hint_tap_why">الرٹس اور “اس کے ساتھ اور کیا حرکت کر رہا ہے؟” کے لیے کسی کوائن پر ٹیپ کریں</string>
+    <string name="watch_not_traded">اس ایکسچینج پر اب ٹریڈ نہیں ہوتا</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">واچ لسٹ میں نہیں</string>
+    <string name="watch_price_mid">درمیانی قیمت (ورنہ مارک)</string>
+    <string name="watch_row_source_both">تبدیلی اور چارٹ: %1$s</string>
+    <string name="watch_row_source_change">تبدیلی: %1$s</string>
+    <string name="watch_row_source_chart">چارٹ: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s اب آپ کی واچ لسٹ میں ہے</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s اب آپ کی واچ لسٹ میں ہیں</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">پسندیدہ میں شامل کریں</string>
+    <string name="favorite_added">%1$s پسندیدہ میں شامل ہو گیا</string>
+    <string name="favorite_remove">پسندیدہ سے ہٹائیں</string>
+    <string name="favorite_removed">%1$s پسندیدہ سے ہٹا دیا گیا</string>
+    <string name="hint_favorites_list">مشورہ: کسی قطار کو پسندیدہ بنانے کے لیے دائیں سوائپ کریں – پسندیدہ اوپر رہتے ہیں۔</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">نیا گروپ</string>
+    <string name="group_all">سب</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Alpha ٹوکنز</string>
+    <string name="group_delete">گروپ حذف کریں</string>
+    <string name="group_delete_confirm">جوڑے آپ کی واچ لسٹ میں رہیں گے۔</string>
+    <string name="group_done">ہو گیا</string>
+    <string name="group_edit_title">گروپ میں ترمیم</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">پسندیدہ</string>
+    <string name="group_in_other">%1$s میں</string>
+    <string name="group_name">گروپ کا نام</string>
+    <string name="group_new">نیا گروپ…</string>
+    <string name="group_next">اگلا</string>
+    <string name="group_none">کوئی گروپ نہیں</string>
+    <string name="group_rename">نام بدلیں</string>
+    <string name="group_search_hint">جوڑا، نام یا ایکسچینج تلاش کریں</string>
+    <string name="group_target">گروپ میں</string>
+    <string name="group_title">گروپ</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">ٹوکنز</string>
+    <string name="group_value">گروپ: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">نوٹ شامل کریں</string>
+    <string name="note_edit">نوٹ میں ترمیم</string>
+    <string name="note_hint">مثلاً 0.42 پر داخلہ، ہدف 0.60</string>
+    <string name="note_remove">ہٹائیں</string>
+    <string name="note_title">نوٹ</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">ترتیب بدلنے کے لیے گھسیٹیں</string>
+    <string name="sort_move_bottom">سب سے نیچے لے جائیں</string>
+    <string name="sort_move_down">نیچے لے جائیں</string>
+    <string name="sort_move_top">سب سے اوپر لے جائیں</string>
+    <string name="sort_move_up">اوپر لے جائیں</string>
+
+    <string name="watchlist_first_alarm_title">اپنا پہلا الرٹ لگائیں</string>
+    <string name="watchlist_first_alarm_text">جب قیمت آپ کے نشان تک پہنچے تو اطلاع پائیں – ایپ بند ہو تو Android بے قاعدگی سے جانچتا ہے۔</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">مارک پرائس (درمیانی قیمت نہیں)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">گھنٹہ وار قیمت</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">اپنا پہلا الرٹ لگائیں – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">ریفریش (%1$d)</string>
+
+    <!-- Zeile der Merkliste: Börse pausiert (zu viele Anfragen / Zeitüberschreitungen) bis zu einer Uhrzeit, ersetzt die Zeitzeile, z. B. «Binance · pausiert bis 19:45» -->
+    <string name="watchlist_row_exchange_paused">%1$s · %2$s تک موقوف</string>
+
+    <string name="watchlist_refresh_just_done">ابھی اپ ڈیٹ ہوا · %1$d سیکنڈ پہلے</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">آخری ٹریڈ %1$s</string>
+
+    <string name="change_candle_source_hint">%1$s کینڈلز سے حساب – ایکسچینج خود یہ قدر فراہم نہیں کرتا۔</string>
+    <string name="change_candle_source_action">تبدیلی کا ماخذ دکھائیں</string>
+
+    <string name="watchlist_sort_by_coin">کوائن کے لحاظ سے ترتیب</string>
+    <string name="watchlist_sort_by_exchange">ایکسچینج کے لحاظ سے ترتیب</string>
+    <string name="watchlist_limit_reached">آپ کی واچ لسٹ میں زیادہ سے زیادہ %1$s جوڑے ہو سکتے ہیں۔</string>
+    <string name="watch_price_reference">حوالہ جاتی شرح، روزانہ</string>
+    <string name="watch_price_daily">روزانہ</string>
+    <string name="watchlist_compare">موازنہ کریں</string>
+    <string name="watchlist_compare_hint">موازنے کے لیے 2 سے 4 جوڑے منتخب کریں۔</string>
+    <string name="compare_title">موازنہ</string>
+    <string name="compare_basis">لکیریں مدت کے آغاز سے فیصد میں تبدیلی دکھاتی ہیں۔</string>
+    <string name="compare_from_high">بمقابلہ 30 دن کی بلند ترین</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">%1$d جوڑا بحال نہیں ہوا – واچ لسٹ بھری ہوئی ہے</item>
+        <item quantity="other">%1$d جوڑے بحال نہیں ہوئے – واچ لسٹ بھری ہوئی ہے</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">واچ لسٹ اور اس کے الرٹس ابھی محفوظ نہیں ہو رہے۔ ایپ بند ہونے پر یہ اور مزید تمام تبدیلیاں ضائع ہو جائیں گی۔ پھر بھی بدلیں؟</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">پھر بھی بدلیں</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">%1$d جوڑا</item>
+        <item quantity="other">%1$d جوڑے</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">%1$d جوڑے میں سے %2$d</item>
+        <item quantity="other">%1$d جوڑوں میں سے %2$d</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">%1$d جگہ باقی</item>
+        <item quantity="other">%1$d جگہ باقی</item>
+    </plurals>
+    <string name="watchlist_footer_full">واچ لسٹ بھر گئی</string>
+</resources>

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
+    <string name="portfolio_cutoff_export_action">Izvoz na presečni datum …</string>
+    <string name="portfolio_tax_worksheet_action">Delovni list …</string>
+    <string name="portfolio_export_address_unobserved">naslov na ta dan ni bil spremljan – ni vključen</string>
+    <string name="portfolio_export_button">Izvozi CSV</string>
+    <string name="portfolio_export_col_amount">Količina</string>
+    <string name="portfolio_export_col_coin">Kovanec</string>
+    <string name="portfolio_export_col_note">Opomba</string>
+    <string name="portfolio_export_col_price">Tečaj USDT</string>
+    <string name="portfolio_export_col_rate">Tečaj USDT→%1$s</string>
+    <string name="portfolio_export_col_value">Vrednost USDT</string>
+    <string name="portfolio_export_col_value_cur">Vrednost %1$s</string>
+    <!-- Inhalt der CSV-Datei -->
+    <string name="portfolio_export_comment"># Presečni datum %1$s, valuta %2$s, devizni tečaj z dne %3$s</string>
+    <string name="portfolio_export_currency">Valuta: %1$s</string>
+    <string name="portfolio_export_date">Presečni datum</string>
+    <string name="portfolio_export_done">Izvoz shranjen</string>
+    <string name="portfolio_export_estv_note">Za davek na premoženje veljajo uradne vrednosti ob koncu leta s tečajnice ESTV %1$s, kjer so navedene: %2$s</string>
+    <string name="portfolio_export_failed">Izvoz ni uspel</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">Izvoz ni uspel: datoteke ni bilo mogoče zapisati – mesto shranjevanja ne obstaja več ali ni zapisljivo</string>
+    <string name="portfolio_export_failed_prices">Izvoz ni uspel: tečajev ni bilo mogoče naložiti – ni povezave ali borza ne odgovarja</string>
+    <string name="portfolio_export_from_address">z naslova – brez nakupne cene</string>
+    <string name="portfolio_export_hint">Imetje ob koncu izbranega dne, vrednoteno po dnevnem zaključnem tečaju (UTC) v USDT in pretvorjeno z referenčnim tečajem ECB tistega dne. Valuto spremeniš z „Pretvori v“.</string>
+    <string name="portfolio_export_incomplete">nepopolno</string>
+    <string name="portfolio_export_no_fx">ni deviznega tečaja</string>
+    <string name="portfolio_export_no_price">ni tečaja</string>
+    <string name="portfolio_export_running">Pridobivanje zgodovinskih tečajev …</string>
+    <string name="portfolio_export_title">Izvoz na presečni datum</string>
+    <string name="portfolio_export_today_hint">Današnji dan še ni končan: namesto dnevnega zaključnega tečaja se uporabi trenutni tečaj.</string>
+    <string name="portfolio_export_total">Skupaj</string>
+    <string name="portfolio_export_unchecked">ni preverjeno (ni ustreznega tečaja)</string>
+
+    <!-- Steuer-Export (Arbeitspapier) -->
+    <string name="tax_export_adjustment">navidezna izguba (superficial loss) – prišteta k ACB</string>
+    <string name="tax_export_at_wallet_note">Avstrija: drseče povprečje po kovancu in denarnici (borzi) – prenosi nosijo nabavno vrednost s seboj – nagrade z nabavno vrednostjo 0 – imetje od 1. 3. 2021 brez provizij (niso odbitne) – obresti iz posojanja po vrednosti ob prejemu (dohodek po 27,5 odstotka).</string>
+    <string name="tax_export_avg_cost_rates">strošek po tečajih na dan nakupa (povprečje)</string>
+    <string name="tax_export_ch_wealth_not_calculated">Davek na premoženje ni izračunan – tečajnica ESTV: %1$s</string>
+    <string name="tax_export_col_acquired">Pridobljeno</string>
+    <string name="tax_export_col_adjustment">Neodbitna izguba %1$s</string>
+    <string name="tax_export_col_cost">Nabavna vrednost %1$s</string>
+    <string name="tax_export_col_date">Datum</string>
+    <string name="tax_export_col_days">Dnevi imetja</string>
+    <string name="tax_export_col_gain">Dobiček %1$s</string>
+    <string name="tax_export_col_gross">Cena pred provizijami %1$s</string>
+    <string name="tax_export_col_long_term">imetje &gt; 1 leto</string>
+    <string name="tax_export_col_portfolio_value">Vrednost portfelja %1$s</string>
+    <string name="tax_export_col_proceeds">Izkupiček %1$s</string>
+    <string name="tax_export_col_sold">Prodano</string>
+    <string name="tax_export_cost_incomplete">skupna nabavna vrednost nepopolna</string>
+    <string name="tax_export_cost_missing">manjka nakupna cena</string>
+    <string name="tax_export_fee_consumed">Provizija porabi celoten prejem</string>
+    <string name="tax_export_fee_leg">provizija v drugem kovancu</string>
+    <string name="tax_export_fee_row">Provizija</string>
+    <string name="tax_export_fee_value_missing">provizija v drugem kovancu nima vrednosti</string>
+    <string name="tax_export_gains">Realizirane odsvojitve (CSV)</string>
+    <string name="tax_export_gains_title">Realizirane odsvojitve %1$s</string>
+    <string name="tax_export_gift">Darilo</string>
+    <string name="tax_export_holdings_cutoff">Imetje na dan %1$s (CSV)</string>
+    <string name="tax_export_holdings_title">Imetje na dan %1$s</string>
+    <string name="tax_export_income">Dohodki (CSV)</string>
+    <string name="tax_export_income_title">Dohodki %1$s</string>
+    <string name="tax_export_info_template">Predloga: %1$s · Metoda: %2$s · Davčno leto: %3$s · Valuta: %4$s · Crypto Checker %5$s</string>
+    <string name="tax_export_lost_fee_cost">nabavna vrednost omrežnine brez plačane postavke</string>
+    <string name="tax_export_match_pool">Skupni sklad po Section 104 (Section 104 pool)</string>
+    <string name="tax_export_match_same_day">isti dan (HMRC)</string>
+    <string name="tax_export_match_thirty_day">pravilo 30 dni (HMRC)</string>
+    <string name="tax_export_method_change_warning">Sprememba metode ali predloge na novo izračuna tudi prejšnja leta – primerjaj z že oddano napovedjo.</string>
+    <string name="tax_export_method_overridden">Predloga računa %1$s – ne %2$s</string>
+    <string name="tax_export_new_holding">pridobljeno od 1. 3. 2021</string>
+    <string name="tax_export_no">ne</string>
+    <string name="tax_export_old_holding">pridobljeno pred 1. 3. 2021</string>
+    <string name="tax_export_oversold">prodano več, kot je zabeleženo</string>
+    <string name="tax_export_payment">Plačilo s kriptovaluto</string>
+    <string name="tax_export_period">%1$s – %2$s</string>
+    <string name="tax_export_proceeds_missing">manjka prodajna cena</string>
+    <string name="tax_export_proceeds_without_cost">Izkupiček brez nakupne cene</string>
+    <string name="tax_export_realized_differs">Davčni CSV se lahko razlikuje od „realiziranega“ (davčna pravila države).</string>
+    <string name="tax_export_rule">&gt; 1 leto: prodano po datumu nakupa + 1 koledarsko leto. Datumi po lokalnem času. Tečaji: dnevni tečaj ECB na dan transakcije; če ga ni, zadnji tečaj do 7 dni prej.</string>
+    <string name="tax_export_rules_date">Stanje pravil: %1$s</string>
+    <string name="tax_export_rules_stale">Pravila so iz %1$s – za %2$s so se stopnje in olajšave morda spremenile. Preveri vrednosti.</string>
+    <string name="tax_export_spouse_gift">zakoncu/partnerju – brez dobička, brez izgube</string>
+    <string name="tax_export_summary">Letni povzetek %1$s (CSV)</string>
+    <string name="tax_export_swap">zamenjava</string>
+    <string name="tax_export_tax_year">Davčno leto</string>
+    <string name="tax_export_transfer_fee_info">Provizija za prenos v USDT/gotovini – ni izguba, ni v nabavni vrednosti, samo informacija</string>
+    <string name="tax_export_unassigned_fee">provizija ni dodeljena – nabavna vrednost neznana</string>
+    <string name="tax_export_usdt_usd_note">USDT pretvorjen po dnevnem zaključnem tečaju USDT/USD; brez zaključnega tečaja 1 USD (označeno pri vsaki vrstici)</string>
+    <string name="tax_export_value_estimated">Vrednost ocenjena (dnevni zaključni tečaj)</string>
+    <string name="tax_export_value_missing">manjka vrednost ob prejemu</string>
+    <string name="tax_export_wallet">Denarnica: %1$s</string>
+    <string name="tax_export_wallet_unspecified">ni navedeno</string>
+    <string name="tax_export_withdrawal_fee">Provizija za dvig</string>
+    <string name="tax_export_withdrawal_fee_info">Provizija za dvig v USDT/gotovini – ni izguba, samo informacija</string>
+    <string name="tax_export_workpaper_disclaimer">Davčni delovni list – ni davčna napoved in ni davčni nasvet</string>
+    <string name="tax_export_workpaper_title">Delovni list</string>
+    <string name="tax_export_year_local_zone">Datumi po lokalnem času (%1$s)</string>
+    <string name="tax_export_yes">da</string>
+
+    <!-- Steuer-Export: Zeilen und Spalten -->
+    <string name="tax_line_at_interest">Obresti iz posojanja (vrednost ob prejemu)</string>
+    <string name="tax_line_at_old_long">Pridobljeno pred 1. 3. 2021 – imetje &gt; 1 leto: običajno ni obdavčljivo – preveri</string>
+    <string name="tax_line_at_rate">Posebna stopnja 27,5 odstotka: neto pridobljeno od 1. 3. 2021 in prodano od 1. 3. 2022 + obresti</string>
+    <string name="tax_line_au_discounted">Neto kapitalski dobiček po izgubah in 50-odstotnem popustu</string>
+    <string name="tax_line_ca_taxable">Obdavčljivi kapitalski dobiček (stopnja vključitve 1/2)</string>
+    <string name="tax_line_ch_income">Nagrade navedene – za obravnavo glej delovni dokument ESTV</string>
+    <string name="tax_line_ch_private">Kapitalski dobički v zasebnem premoženju: ni izračunano – za razvrstitev glej ESTV</string>
+    <string name="tax_line_ch_wealth">Davek na premoženje: ni izračunan – CSV imetja uporablja borzni tečaj × USD/CHF na 31. 12. – uradne davčne vrednosti: tečajnica ESTV</string>
+    <string name="tax_line_de_long">Imetje &gt; 1 leto: po § 23 EStG običajno ni obdavčljivo – preveri</string>
+    <string name="tax_line_denied_loss">Neodbitne izgube (navidezna izguba / superficial loss)</string>
+    <string name="tax_line_fr_outflow">Odlivi brez prodaje (dvigi) – skupna nabavna vrednost sorazmerno zmanjšana</string>
+    <string name="tax_line_fr_rate">Pavšalno 12,8 odstotka plus socialni prispevki (ali lestvica po izbiri)</string>
+    <string name="tax_line_fr_threshold">Odsvojitve do 305 € na leto: praviloma oproščene (vsota prodajnih cen) – preveri</string>
+    <string name="tax_line_gains">Dobički</string>
+    <string name="tax_line_income">Dohodki (nagrade po vrednosti ob prejemu)</string>
+    <string name="tax_line_jp_misc">Drugi dohodki (雑所得): neto dobički + dohodki</string>
+    <string name="tax_line_long_net">Neto – imetje &gt; 1 leto</string>
+    <string name="tax_line_losses">Izgube</string>
+    <string name="tax_line_net">Neto dobički/izgube</string>
+    <string name="tax_line_new_net">Neto – pridobljeno od 1. 3. 2021, prodano od 1. 3. 2022</string>
+    <string name="tax_line_old_long_net">Neto – pridobljeno pred 1. 3. 2021 – imetje &gt; 1 leto</string>
+    <string name="tax_line_old_short_net">Neto – špekulativni posli (prejšnja ureditev): pridobljeno pred 1. 3. 2021 in imetje ≤ 1 leto ali prodano pred 1. 3. 2022</string>
+    <string name="tax_line_proceeds">Izkupički</string>
+    <string name="tax_line_short_net">Neto – imetje ≤ 1 leto</string>
+    <string name="tax_line_transfer_fees">Provizije za prenose (lastne denarnice)</string>
+    <string name="tax_line_uk_after_exempt">Neto dobički nad oproščenim zneskom (samo kripto)</string>
+    <string name="tax_line_uk_exempt">Letni oproščeni znesek (Annual Exempt Amount) – velja za vse odsvojitve skupaj, tukaj v celoti upoštevan</string>
+    <string name="tax_line_us_terms">Kratkoročno (≤ 1 leto): redne stopnje – dolgoročno (&gt; 1 leto): stopnje za kapitalske dobičke</string>
+    <string name="tax_line_withdrawal_fees">Provizije za dvige</string>
+
+    <!-- Steuer Deutschland -->
+    <string name="tax_de_below">pod mejo</string>
+    <string name="tax_de_col_item">Postavka</string>
+    <string name="tax_de_disclaimer">Samo za orientacijo – ni davčna napoved in ni davčni nasvet.</string>
+    <string name="tax_de_explain_below">Do %1$s: pod mejo (za orientacijo).</string>
+    <string name="tax_de_explain_loss">Neto izguba: brez davka na te posle. Izgube po § 23 EStG je mogoče pobotati samo z dobički iz zasebnih poslov odsvojitve – v istem letu ali s prenosom v prejšnje leto oz. v naslednja leta (§ 23 odst. 3 in § 10d EStG). Izgubo navedi v davčni napovedi, da se ugotovi.</string>
+    <string name="tax_de_explain_reached">Od %1$s šteje celoten znesek (meja oprostitve – ni olajšava).</string>
+    <string name="tax_de_explain_unknown">Ni mogoče preveriti: manjkajo devizni tečaji / nakupne cene ali časi imetja.</string>
+    <string name="tax_de_income_limit">Meja oprostitve za storitve (§ 22 št. 3 EStG)</string>
+    <string name="tax_de_limit_scope">Meje veljajo za vse zasebne posle odsvojitve oz. storitve v letu skupaj – tudi zunaj aplikacije.</string>
+    <string name="tax_de_loading">Izračunavanje …</string>
+    <string name="tax_de_long_gains">Dobički – imetje &gt; 1 leto</string>
+    <string name="tax_de_long_losses">Izgube – imetje &gt; 1 leto</string>
+    <string name="tax_de_loss">neto izguba – pobotljiva samo z dobički iz zasebnih poslov odsvojitve (§ 23 EStG)</string>
+    <string name="tax_de_private_limit">Meja oprostitve za zasebne posle odsvojitve (§ 23 EStG)</string>
+    <string name="tax_de_reached">meja dosežena – običajno šteje celoten znesek – preveri</string>
+    <string name="tax_de_short_gains">Dobički – imetje ≤ 1 leto</string>
+    <string name="tax_de_short_losses">Izgube – imetje ≤ 1 leto</string>
+    <string name="tax_de_unclassified">Čas imetja neznan</string>
+    <string name="tax_de_unknown">ni mogoče preveriti</string>
+
+    <!-- Steuer-Vorlagen je Land -->
+    <string name="tax_template_at">Avstrija</string>
+    <string name="tax_template_au">Avstralija</string>
+    <string name="tax_template_beta">Beta</string>
+    <string name="tax_template_beta_note">Beta: pravila države poenostavljena, preveri pred oddajo davčne napovedi</string>
+    <string name="tax_template_ca">Kanada</string>
+    <string name="tax_template_ch">Švica</string>
+    <string name="tax_template_confirm_text">Beta, poenostavljena pravila, transakcije drugih platform manjkajo – preveri pred oddajo davčne napovedi.</string>
+    <string name="tax_template_confirm_title">Davčna predloga (beta)</string>
+    <string name="tax_template_current">Predloga: %1$s · Metoda: %2$s · Valuta: %3$s</string>
+    <string name="tax_template_de">Nemčija</string>
+    <string name="tax_template_fr">Francija</string>
+    <string name="tax_template_hint">Samo za orientacijo: določa metodo, davčno leto in povzetek davčnega delovnega lista. Kartica portfelja ostane nevtralna – darila in provizije za prenose se lahko razlikujejo od delovnega lista.</string>
+    <string name="tax_template_jp">Japonska</string>
+    <string name="tax_template_neutral">Nevtralno (vse države)</string>
+    <string name="tax_template_suggestion">Predlog za tvojo regijo: %1$s</string>
+    <string name="tax_template_title">Davčna predloga</string>
+    <string name="tax_template_uk">Združeno kraljestvo</string>
+    <string name="tax_template_us">ZDA</string>
+    <string name="tax_template_use">Uporabi %1$s</string>
+
+    <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
+    <string name="tax_method_at">Staro/novo imetje – drseče povprečje</string>
+    <string name="tax_method_ca_acb">Povprečni strošek ACB (superficial loss)</string>
+    <string name="tax_method_fr_pta">Skupna nabavna cena (art. 150 VH bis)</string>
+    <string name="tax_method_jp_total">Skupno povprečje (総平均法)</string>
+    <string name="tax_method_uk_pool">Section 104 pool (isti dan / 30 dni)</string>
+    <string name="tax_note_at">Drseče povprečje po kovancu in denarnici – ne prek vseh denarnic (KryptowährungsVO § 2). Nagrade vstopijo v novo imetje z nabavno vrednostjo 0 (BMF: staking / airdropi) – datoteka dohodkov jih navaja po vrednosti ob prejemu. Provizije za imetje, pridobljeno od 1. 3. 2021, niso odbitne (§ 27a odst. 4 št. 2, § 20 odst. 2 EStG): nabavna vrednost in izkupiček brez provizij. Obresti iz posojanja (vrsta iz uvoza CSV ali opombe) so ob prejemu dohodek po 27,5 odstotka in to vrednost obdržijo kot nabavno vrednost.</string>
+    <string name="tax_note_at_staking">Staking z že imetimi kovanci in airdropi: vrednost ob prejemu davčno ni pomembna – po zakonu je nabavna vrednost 0 (§ 27b odst. 2 EStG; BMF „Kryptowährungen“). Davek nastane šele ob prodaji.</string>
+    <string name="tax_note_fr">Prodaje in provizije, plačane v kripto, so odsvojitve – zamenjave so odložene. Kripto provizija pri prodaji šteje v ceno pred provizijami – sicer je lastna odsvojitev po svoji vrednosti. Vrednost portfelja iz dnevnih zaključnih tečajev – brez zaključnega tečaja ostane nabavna vrednost prazna.</string>
+    <string name="tax_note_network_fee">Omrežnina, plačana v kripto (prenos v lastno denarnico, dvig), je odsvojitev kovancev provizije po tržni vrednosti – dobiček ali izguba samo na teh kovancih, ne izguba celotne provizije (%1$s). Brez zabeležene cene: dnevni zaključni tečaj (UTC) istega dne; brez zaključnega tečaja ostane izkupiček prazen.</string>
+    <string name="tax_note_specific_id">Posamična identifikacija (specific identification) ni podprta – uporablja se FIFO.</string>
+    <string name="tax_note_spouse_gift">Darilo z oznako „Zakoncu / partnerju“ je brez dobička in brez izgube: izkupiček = tvoja nabavna vrednost, ki jo prevzame partner (%1$s).</string>
+    <string name="tax_note_stable_swap">Prodaja kripta za stablecoin (USDT/USDC/DAI …), ki ga obdržiš, je tukaj kripto za kripto in ni obdavčena – vnesi jo kot zamenjavo v stablecoin. Obdavčena je šele prodaja za evre – „Prodaja“ šteje kot prodaja za evre.</string>
+    <string name="tax_note_transfer_fee">Enako velja za provizijo v USDT ali gotovini pri prenosu med lastnimi denarnicami: ne prišteje se k nabavni vrednosti in je navedena samo kot informacija.</string>
+    <string name="tax_note_uk">Usklajevanje po HMRC: isti dan → naslednjih 30 dni → Section 104 pool.</string>
+    <string name="tax_note_us_transition">Prehod 1. 1. 2025 (Rev. Proc. 2024-28 safe harbor): če so prejšnja leta uporabljala FIFO prek vseh denarnic, preostale postavke na dan 31. 12. 2024 gredo denarnicam, v katerih so kovanci – denarnica z najstarejšimi kovanci dobi najstarejšo nabavno vrednost. Ta razporeditev je pravilo aplikacije – preveri jo s svojimi evidencami.</string>
+    <string name="tax_note_us_wallet">Od davčnega leta 2025 IRS zahteva nabavno vrednost po denarnici ali borzi (Rev. Proc. 2024-28): izvoz od leta 2025 uporablja FIFO po denarnici – za prejšnja leta FIFO prek vseh denarnic ali FIFO po denarnici, če je to tvoja metoda nabavne vrednosti.</string>
+    <string name="tax_note_withdrawal_fee">Provizija za dvig v USDT ali gotovini ni izguba: provizija v gotovini ni odbiten strošek, provizija v USDT je odsvojitev po nominalni vrednosti brez dobička – navedena je samo kot informacija (%1$s).</string>
+    <string name="tax_summary_at_interest_income">šteje: dohodek ob prejemu po posebni stopnji 27,5 odstotka (§ 27b odst. 2 št. 1 EStG / BMF) – kovanci obdržijo to vrednost kot nabavno vrednost</string>
+    <string name="tax_summary_at_reward_info">samo za informacijo – ni v nobeni vsoti: nagrade vstopijo v novo imetje z nabavno vrednostjo 0 in so obdavčene šele ob prodaji (že v dobičkih) – § 27b odst. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">1. 1.–28. 2. 2022: možna izbira 27,5 odstotka</string>
+    <string name="tax_summary_at_withdrawal_fee">Provizija za dvig – ni pobotana z novim imetjem (stroški pri posebni stopnji niso odbitni, § 20 odst. 2 EStG)</string>
+    <string name="tax_summary_ch_fifo_info">samo za informacijo – izračun FIFO aplikacije – ni razvrščeno – glej ESTV</string>
+    <string name="tax_summary_ch_year_end_value">vrednost na 31. 12. v CSV imetja = borzni tečaj × USD/CHF – ne davčne vrednosti ESTV</string>
+    <string name="tax_summary_de_withdrawal_fee">Provizija za dvig – ni pobotana po § 23, preveri, ali je odbitna kot strošek pridobivanja dohodka</string>
+    <string name="tax_summary_not_calculated_estv">ni izračunano – tečajnica ESTV: %1$s</string>
+    <string name="tax_summary_orientation">Orientacija</string>
+    <string name="tax_summary_orientation_block">Samo za orientacijo – ni davčni nasvet – ni odmera</string>
+    <string name="tax_summary_orientation_item">Orientacija: %1$s</string>
+    <string name="tax_summary_title">Letni povzetek %1$s %2$s</string>
+    <string name="tax_summary_transfer_fee_info">Provizije za prenose v USDT/gotovini – ni izguba in ni v nabavni vrednosti, samo informacija</string>
+    <string name="tax_summary_withdrawal_fee_info">Provizije za dvige v USDT/gotovini – niso štete kot izguba, samo informacija</string>
+
+    <string name="tax_line_at_old_speculation_limit">Špekulativni posli (prejšnja ureditev, imetje ≤ 1 leto): meja oprostitve (§ 31 odst. 3 EStG stara različica)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">Obresti iz posojanja pred 1. 3. 2022 (vrednost ob prejemu)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">Obresti pred 1. 3. 2022: prejšnja ureditev (dohodninska lestvica), ne 27,5 odstotka</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">pred 1. 3. 2022 – preveri s strokovnjakom</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">Obresti – obdavčljive ob prejemu</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">Staking – samo za informacijo (nabavna vrednost 0, obdavčeno ob prodaji)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">Skupaj obresti (obdavčljivo)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">Skupaj staking (informacija)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">Neto kapitalska izguba (prenos)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">brez izbire: vključuje prodaje od 1. 1. do 28. 2. 2022</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">Staking pred 1. 3. 2022: nabavna vrednost določena z 0 – preveri s strokovnjakom</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">Pravilo 30 dni lahko te številke še spremeni (nakupi do %1$s)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Izkupički pred provizijami nad mejo poročanja (£50,000; 2020/21–2022/23: £49,200): poročaj HMRC ob registraciji za Self Assessment, tudi brez obdavčljivega dobička</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">Vrednost premoženja 31. 12. %1$s (orientacija)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">Merodajna je tečajnica ESTV (ictax.admin.ch). Za kovance, ki niso na seznamu, praviloma velja zaključni tečaj borze. Davek na premoženje ni izračunan.</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – imetje %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">ni izračunano</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">Spremljanih naslovov ni bilo mogoče prebrati – njihova stanja v tej datoteki manjkajo</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">Postavke spremljanih naslovov štejejo od datuma nakupa; če je današnje stanje naslova nižje, se zmanjšajo.</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">Spremljani naslovi štejejo v skupno vrednost, a nimajo nabavne vrednosti – dobiček je zato verjetno previsok. Nabavno vrednost vnesi kot nakup.</string>
+    <string name="tax_summary_fr_rewards_income">Znesek predpostavlja, da so bile nagrade ob prejemu obdavčene kot dohodek (vrednost ob prejemu v nabavni ceni) – sicer bi bila nabavna cena 0 previdnejše branje.</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">Tržne vrednosti brez zabeležene cene (provizije, darila/plačila, zamenjave, nagrade, omrežnine, vrednost portfelja) po dnevnem zaključnem tečaju (UTC) na dan transakcije</string>
+</resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">కాయిన్‌లు ఏవీ ఎంచుకోలేదు</string>
+    <string name="watch_loading">లోడ్ అవుతోంది…</string>
+    <string name="watch_error">ఎక్స్ఛేంజ్‌లు అందుబాటులో లేవు</string>
+    <string name="watch_updated">%1$s నాటికి</string>
+    <string name="watch_refresh">రిఫ్రెష్ చేయి</string>
+    <string name="watch_choose">కాయిన్‌లను ఎంచుకో</string>
+    <string name="watch_choose_hint">కాయిన్‌లు: గరిష్ఠంగా %1$d</string>
+    <string name="watch_complication_label">ధర</string>
+    <string name="a11y_watch_row">%1$s %2$s, 24 గంటల్లో %3$s</string>
+    <string name="watch_mode_phone">జాబితా: ఫోన్‌లో లాగే</string>
+    <string name="watch_mode_own">జాబితా: సొంతం</string>
+    <string name="watch_phone_empty">ఫోన్‌లో ఇష్టమైనవి లేవు</string>
+    <string name="a11y_watch_outdated">ధర పాతది</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">%1$d నిమిషం క్రితం చివరిగా అప్‌డేట్ అయింది</item>
+        <item quantity="other">%1$d నిమిషాల క్రితం చివరిగా అప్‌డేట్ అయింది</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">%1$d గంట క్రితం చివరిగా అప్‌డేట్ అయింది</item>
+        <item quantity="other">%1$d గంటల క్రితం చివరిగా అప్‌డేట్ అయింది</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">%1$d రోజు క్రితం చివరిగా అప్‌డేట్ అయింది</item>
+        <item quantity="other">%1$d రోజుల క్రితం చివరిగా అప్‌డేట్ అయింది</item>
+    </plurals>
+</resources>

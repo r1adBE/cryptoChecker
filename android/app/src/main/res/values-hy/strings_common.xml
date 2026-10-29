@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Հետ</string>
+    <string name="action_cancel">Չեղարկել</string>
+    <string name="action_clear">Մաքրել</string>
+    <string name="action_close">Փակել</string>
+    <string name="action_keep">Պահել</string>
+    <string name="action_delete">Ջնջել</string>
+    <string name="action_edit">Խմբագրել</string>
+    <string name="action_more">Այլ ընտրանքներ</string>
+    <string name="action_refresh">Թարմացնել</string>
+    <string name="action_retry">Կրկին փորձել</string>
+    <string name="action_save">Պահպանել</string>
+    <string name="action_sort">Դասավորել</string>
+    <string name="action_sort_done">Պատրաստ է</string>
+    <string name="action_undo">Հետարկել</string>
+    <string name="action_view">Դիտել</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Շուկա</string>
+    <string name="tab_portfolio">Պորտֆել</string>
+    <string name="tab_settings">Կարգավորումներ</string>
+    <string name="tab_watchlist">Դիտացանկ</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Սխալ՝ %1$s</string>
+    <string name="error_exchange_unreachable">Բորսան հիմա հասանելի չէ – վերջին գները մնում են տեսանելի։</string>
+    <string name="error_exchange_unreachable_short">Բորսան հիմա հասանելի չէ</string>
+    <string name="loading_hint">Բեռնվում է…</string>
+    <string name="option_off">Անջատված</string>
+    <string name="something_went_wrong">Ինչ-որ բան սխալ գնաց</string>
+    <string name="time_just_now">հենց նոր</string>
+    <string name="try_again">Կրկին փորձել</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Կապ չկա</string>
+    <string name="offline_status_since">Կապ չկա · առ %1$s</string>
+    <string name="status_live">Live</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Ավելացնել զույգ</string>
+    <string name="shortcut_alarms">Բոլոր ահազանգերը</string>
+    <string name="shortcut_cycle">Շուկա</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Ավելացնել նոր զույգ</string>
+    <string name="shortcut_alarms_long">Ցույց տալ ահազանգերը</string>
+    <string name="shortcut_cycle_long">Բացել շուկայի ակնարկը</string>
+
+    <string name="log_box_title">Մատյան</string>
+    <string name="label_value">%1$s՝ %2$s</string>
+</resources>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">Алткоини наспроти Bitcoin</string>
+    <string name="neutral_btc_indicators_title">Bitcoin-индикатори</string>
+    <string name="neutral_halving_last">Последен халвинг: %1$s</string>
+    <string name="neutral_halving_next">Следниот халвинг се очекува околу %1$s (проценето според календарот – висината на блокот моментално не е достапна).</string>
+    <string name="neutral_indicators_disclaimer">Само измерени вредности, без оценка. Не е прогноза и не е инвестициски совет.</string>
+    <string name="neutral_onchain_missing">On-chain податоците (Coin Metrics) моментално не се достапни.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">Колку цената е под својот претходен историски максимум.</string>
+    <string name="neutral_explain_change_30d">Цената денес споредено со пред 30 дена.</string>
+    <string name="neutral_explain_hashrate">30-дневен просечен хашрејт споредено со 60-дневниот просек.</string>
+    <string name="neutral_explain_ma200w">Просек на последните 200 неделни затворања.</string>
+    <string name="neutral_explain_mayer">Цената поделена со 200-дневниот просек.</string>
+    <string name="neutral_explain_mvrv">Пазарната вредност поделена со реализираната вредност (on-chain).</string>
+    <string name="neutral_explain_pi_gap">111-дневен просек споредено со двојниот 350-дневен просек.</string>
+    <string name="neutral_explain_puell">Дневниот приход на рударите поделен со неговиот 365-дневен просек.</string>
+    <string name="neutral_explain_rsi_daily">Индекс на релативна сила за последните 14 дена, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">Индекс на релативна сила за последните 14 недели, 0–100.</string>
+    <string name="neutral_explain_sma50_200">50-дневен просек споредено со 200-дневниот просек.</string>
+    <string name="neutral_explain_vs_btc">Промена на цената споредено со Bitcoin за 90 дена.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">Апликацијата го прикажува само бројот и не го означува како сезона. Вредноста обично се менува во текот на денови, не часови.</string>
+    <string name="neutral_info_btc_how">Секоја вредност доаѓа со една реченица за тоа што мери и каде стои во сопствената историја од 2016. Апликацијата не ги оценува вредностите и не изведува пазарна фаза; граници за пазарни аларми се само оние што ти ги поставуваш. Минатите обрасци не мора да се повторат.</string>
+    <string name="neutral_info_btc_what">Вообичаени Bitcoin-индикатори како обични измерени вредности: Mayer Multiple, 200-неделен просек, пад од историскиот максимум, промена за 30 дена, Pi Cycle-јаз и on-chain вредностите MVRV, Puell Multiple и хашрејт.</string>
+    <string name="neutral_info_coin_how">Секоја вредност доаѓа со една реченица за тоа што мери, без оценка. За монети со кратка историја на цени некои вредности недостасуваат. On-chain податоци тука не се вклучени.</string>
+    <string name="neutral_info_coin_what">Истите обични индикатори за монета по твој избор, само од податоци за цената: Mayer Multiple, 200-неделен просек, пад од историскиот максимум, промена за 30 дена, 50/200-дневен тренд, RSI и сила наспроти Bitcoin за 90 дена.</string>
+    <string name="neutral_info_halving_how">Следниот халвинг се пресметува од тековната висина на блокот и просечното време на блок во тековниот период на тежина (mempool.space); без тие податоци, според календарот (последен халвинг плус околу четири години). Графиконот го прикажува движењето на цената во минатите циклуси од нивниот халвинг – историја, не прогноза.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">Тренд 50/200 дена</string>
+    <string name="ind_drawdown">Пад од историскиот максимум</string>
+    <string name="ind_missing">нема доволно податоци</string>
+    <string name="ind_rsi_daily">RSI (дневен)</string>
+    <string name="ind_rsi_weekly">RSI (неделен)</string>
+    <string name="ind_vs_btc">Сила наспроти Bitcoin (90 дена)</string>
+    <string name="neutral_ind_change_30d">Промена 30 дена</string>
+    <string name="neutral_ind_hashrate">Хашрејт 30/60 дена</string>
+    <string name="neutral_ind_ma200w">200-неделен просек</string>
+    <string name="neutral_ind_pi_gap">Pi Cycle-јаз</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">Високо значи дека повеќето големи алткоини го надминале Bitcoin за 90 дена, ниско значи дека Bitcoin ги надминал повеќето од нив.</string>
+    <string name="ind_read_ath_distance">Мало значи дека цената е близу рекордот, големо значи дека е далеку под него.</string>
+    <string name="ind_read_change_30d">Позитивно значи повисоко од пред 30 дена, негативно значи пониско.</string>
+    <string name="ind_read_funding">Високо значи дека многу трговци со левериџ облогуваат на раст на цените, негативно значи дека многумина облогуваат на пад.</string>
+    <string name="ind_read_hashrate_30_60">Позитивно значи дека пресметковната моќ расте, негативно значи дека рударите исклучуваат.</string>
+    <string name="ind_read_leverage">Многу лонгови значи дека многумина облогуваат на раст со позајмени пари, многу шортови значи дека многумина облогуваат на пад.</string>
+    <string name="ind_read_ma200w">Цена далеку над него значи долг раст, цена близу до него значи длабоко повлекување.</string>
+    <string name="ind_read_mayer">Високо значи дека цената е далеку над 200-дневниот просек, ниско значи дека е под него.</string>
+    <string name="ind_read_mvrv">Високо значи дека цената е далеку над она што имателите во просек го платиле, ниско значи близу или под тоа.</string>
+    <string name="ind_read_pi_cycle_gap">Близу нула значи дека двата просека речиси се среќаваат, силно негативно значи дека се далеку еден од друг.</string>
+    <string name="ind_read_puell">Високо значи дека рударите заработуваат многу повеќе од вообичаено, ниско значи многу помалку.</string>
+    <string name="ind_read_rsi_daily">Над 70 значи силни добивки во последните денови, под 30 значи силни загуби.</string>
+    <string name="ind_read_rsi_weekly">Над 70 значи силни добивки во последните недели, под 30 значи силни загуби.</string>
+    <string name="ind_read_sma50_vs_200">Позитивно значи дека краткорочниот просек е над долгорочниот, негативно значи под него.</string>
+    <string name="ind_read_vs_btc">Позитивно значи дека поминал подобро од Bitcoin, негативно значи полошо.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">Иста цена 30 дена: %1$s</string>
+    <string name="ind_context_note">Минатите вредности и пресметките „иста цена“ се аритметика, не прогноза.</string>
+    <string name="ind_context_percentile">Од %1$s пониско во %2$s од деновите</string>
+</resources>

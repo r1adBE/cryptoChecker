@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Nije odabrana nijedna kriptovaluta</string>
+    <string name="watch_loading">Učitavanje…</string>
+    <string name="watch_error">Burze nisu dostupne</string>
+    <string name="watch_updated">Stanje od %1$s</string>
+    <string name="watch_refresh">Osvježi</string>
+    <string name="watch_choose">Odaberi kriptovalute</string>
+    <string name="watch_choose_hint">Kriptovalute: najviše %1$d</string>
+    <string name="watch_complication_label">Cijena</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s u 24 sata</string>
+    <string name="watch_mode_phone">Popis: kao na mobitelu</string>
+    <string name="watch_mode_own">Popis: vlastiti</string>
+    <string name="watch_phone_empty">Nema favorita na mobitelu</string>
+    <string name="a11y_watch_outdated">Cijena zastarjela</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">posljednje ažuriranje prije %1$d minute</item>
+        <item quantity="few">posljednje ažuriranje prije %1$d minute</item>
+        <item quantity="other">posljednje ažuriranje prije %1$d minuta</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">posljednje ažuriranje prije %1$d sata</item>
+        <item quantity="few">posljednje ažuriranje prije %1$d sata</item>
+        <item quantity="other">posljednje ažuriranje prije %1$d sati</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">posljednje ažuriranje prije %1$d dana</item>
+        <item quantity="few">posljednje ažuriranje prije %1$d dana</item>
+        <item quantity="other">posljednje ažuriranje prije %1$d dana</item>
+    </plurals>
+</resources>

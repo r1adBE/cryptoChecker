@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">واپس</string>
+    <string name="action_cancel">منسوخ کریں</string>
+    <string name="action_clear">صاف کریں</string>
+    <string name="action_close">بند کریں</string>
+    <string name="action_keep">رکھیں</string>
+    <string name="action_delete">حذف کریں</string>
+    <string name="action_edit">ترمیم کریں</string>
+    <string name="action_more">مزید اختیارات</string>
+    <string name="action_refresh">ریفریش کریں</string>
+    <string name="action_retry">دوبارہ کوشش کریں</string>
+    <string name="action_save">محفوظ کریں</string>
+    <string name="action_sort">ترتیب دیں</string>
+    <string name="action_sort_done">ہو گیا</string>
+    <string name="action_undo">کالعدم کریں</string>
+    <string name="action_view">دیکھیں</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">مارکیٹ</string>
+    <string name="tab_portfolio">پورٹ فولیو</string>
+    <string name="tab_settings">ترتیبات</string>
+    <string name="tab_watchlist">واچ لسٹ</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">خرابی: %1$s</string>
+    <string name="error_exchange_unreachable">ایکسچینج تک ابھی رسائی نہیں – آخری قیمتیں نظر آتی رہیں گی۔</string>
+    <string name="error_exchange_unreachable_short">ایکسچینج تک ابھی رسائی نہیں</string>
+    <string name="loading_hint">لوڈ ہو رہا ہے…</string>
+    <string name="option_off">بند</string>
+    <string name="something_went_wrong">کچھ غلط ہو گیا</string>
+    <string name="time_just_now">ابھی ابھی</string>
+    <string name="try_again">دوبارہ کوشش کریں</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">کوئی کنکشن نہیں</string>
+    <string name="offline_status_since">کوئی کنکشن نہیں · بمطابق %1$s</string>
+    <string name="status_live">لائیو</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">جوڑا شامل کریں</string>
+    <string name="shortcut_alarms">تمام الرٹس</string>
+    <string name="shortcut_cycle">مارکیٹ</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">نیا جوڑا شامل کریں</string>
+    <string name="shortcut_alarms_long">تمام الرٹس دکھائیں</string>
+    <string name="shortcut_cycle_long">مارکیٹ کا جائزہ کھولیں</string>
+
+    <string name="log_box_title">لاگ</string>
+    <string name="label_value">%1$s: %2$s</string>
+</resources>

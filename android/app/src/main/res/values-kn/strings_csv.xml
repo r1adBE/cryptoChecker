@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">CSV ಆಮದು ಮಾಡಿ</string>
+    <string name="portfolio_csv_import_all_transfer">ಎಲ್ಲವೂ ಸ್ವಂತ ವ್ಯಾಲೆಟ್‌ಗೆ</string>
+    <string name="portfolio_csv_import_all_withdrawal">ಎಲ್ಲವೂ ಪೋರ್ಟ್‌ಫೋಲಿಯೊದಿಂದ ಹೊರಗೆ</string>
+    <string name="portfolio_csv_import_choice_proposed">ಸಲಹೆ: %1$s ಗೆ ಹೊಂದಿಕೆಯಾಗುತ್ತದೆ</string>
+    <string name="portfolio_csv_import_choice_transfer">ಸ್ವಂತ ವ್ಯಾಲೆಟ್‌ಗೆ (ವರ್ಗಾವಣೆ)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">ಪೋರ್ಟ್‌ಫೋಲಿಯೊದಿಂದ ಹೊರಗೆ (ಹಿಂಪಡೆಯುವಿಕೆ)</string>
+    <string name="portfolio_csv_import_choose_each">ಪ್ರತಿ ಹಿಂಪಡೆಯುವಿಕೆ ಎಲ್ಲಿಗೆ ಹೋಯಿತು ಎಂದು ಆರಿಸಿ.</string>
+    <string name="portfolio_csv_import_columns">ಗುರುತಿಸಲಾದ ಕಾಲಮ್‌ಗಳು: %1$s</string>
+    <string name="portfolio_csv_import_confirm">ಆಮದು ಮಾಡಿ (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">ದಿನ/ತಿಂಗಳು</string>
+    <string name="portfolio_csv_import_date_month_first">ತಿಂಗಳು/ದಿನ</string>
+    <string name="portfolio_csv_import_date_order">ಅಸ್ಪಷ್ಟ ದಿನಾಂಕಗಳನ್ನು (ಉದಾ. 03/04/2024) ಹೀಗೆ ಓದಲಾಗುತ್ತದೆ:</string>
+    <string name="portfolio_csv_import_decimal">ಅಸ್ಪಷ್ಟ ಸಂಖ್ಯೆಗಳನ್ನು (ಉದಾ. %1$s) ಹೀಗೆ ಓದಲಾಗುತ್ತದೆ:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d ವಹಿವಾಟು ಆಮದಾಗಿದೆ</item>
+        <item quantity="other">%d ವಹಿವಾಟುಗಳು ಆಮದಾಗಿವೆ</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d ಈಗಾಗಲೇ ಆಮದಾಗಿದೆ (ಸ್ಕಿಪ್ ಮಾಡಲಾಗಿದೆ)</item>
+        <item quantity="other">%d ಈಗಾಗಲೇ ಆಮದಾಗಿವೆ (ಸ್ಕಿಪ್ ಮಾಡಲಾಗಿದೆ)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">ಫಾರ್ಮ್ಯಾಟ್: %1$s</string>
+    <string name="portfolio_csv_import_line">ಸಾಲು %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">ಫೈಲ್ ಮತ್ತು ದೈನಂದಿನ ದರಗಳನ್ನು ಓದಲಾಗುತ್ತಿದೆ…</string>
+    <string name="portfolio_csv_import_progress">%2$s ರಲ್ಲಿ ಸಾಲು %1$s</string>
+    <string name="portfolio_csv_import_saving">ವಹಿವಾಟುಗಳನ್ನು ಉಳಿಸಲಾಗುತ್ತಿದೆ…</string>
+    <string name="portfolio_csv_import_missing_fx">ಸಾಲುಗಳು %1$s ಗೆ ದೈನಂದಿನ ದರವಿಲ್ಲ – ಬೆಲೆ/ಶುಲ್ಕವಿಲ್ಲದೆ ಆಮದು ಮಾಡಲಾಗಿದೆ.</string>
+    <string name="portfolio_csv_import_missing_price">ಸಾಲುಗಳು %1$s ಗೆ ಫೈಲ್‌ನಲ್ಲಿ ಬೆಲೆ ಇಲ್ಲ – ಬೆಲೆ ಇಲ್ಲದೆ ಆಮದು ಮಾಡಲಾಗಿದೆ.</string>
+    <string name="portfolio_csv_import_more">+ ಇನ್ನೂ %1$d</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d ಹೊಸ ವಹಿವಾಟು</item>
+        <item quantity="other">%d ಹೊಸ ವಹಿವಾಟುಗಳು</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d ಸಾಲು ಸ್ಕಿಪ್ ಮಾಡಲಾಗಿದೆ</item>
+        <item quantity="other">%d ಸಾಲುಗಳನ್ನು ಸ್ಕಿಪ್ ಮಾಡಲಾಗಿದೆ</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">ಸ್ಟೇಬಲ್‌ಕಾಯಿನ್‌ಗಳ (USDT, USDC …) ವಿರುದ್ಧದ ವಹಿವಾಟುಗಳನ್ನು ಸ್ವಾಪ್‌ಗಳಾಗಿ ದಾಖಲಿಸಲಾಗುತ್ತದೆ – ಸ್ಟೇಬಲ್‌ಕಾಯಿನ್ ನಿಮ್ಮ ಹೋಲ್ಡಿಂಗ್‌ಗಳಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">ಹಲವು ಹೊಂದಾಣಿಕೆಗಳು ಸಾಧ್ಯ – ಸರಿಯಾದದ್ದನ್ನು ಆರಿಸಿ ಅಥವಾ ಯಾವುದನ್ನೂ ಆರಿಸಬೇಡಿ.</string>
+    <string name="portfolio_csv_import_transfer_fee">ನೆಟ್‌ವರ್ಕ್ ಶುಲ್ಕ: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">ಒಂದೇ ವರ್ಗಾವಣೆಯಾಗಿ ದಾಖಲಿಸಿ</string>
+    <string name="portfolio_csv_import_transfer_stored">ಹಿಂದಿನ ಆಮದಿನಿಂದ ಪ್ರತಿ-ನಮೂದು</string>
+    <string name="portfolio_csv_import_transfers_hint">ಒಂದೇ ಕಾಯಿನ್‌ನ ಹಿಂಪಡೆಯುವಿಕೆ ಮತ್ತು ಅದಕ್ಕೆ ಹೊಂದುವ ಠೇವಣಿ ಒಂದೇ ವರ್ಗಾವಣೆಯಾಗುತ್ತವೆ: ಖರೀದಿ ಬೆಲೆ ಮತ್ತು ಹೋಲ್ಡಿಂಗ್ ಅವಧಿ ಮುಂದುವರಿಯುತ್ತವೆ, ವ್ಯತ್ಯಾಸವನ್ನು ನೆಟ್‌ವರ್ಕ್ ಶುಲ್ಕವೆಂದು ಎಣಿಸಲಾಗುತ್ತದೆ.</string>
+    <string name="portfolio_csv_import_transfers_title">ನಿಮ್ಮ ಖಾತೆಗಳ ನಡುವಿನ ವರ್ಗಾವಣೆಗಳು</string>
+    <string name="portfolio_csv_import_unreadable">ಬೆಂಬಲಿತ ವಹಿವಾಟುಗಳು ಕಂಡುಬಂದಿಲ್ಲ. ಬೆಂಬಲಿತ: Relai, Swissquote, Kraken, Binance, Coinbase ಮತ್ತು Bitpanda CSV ರಫ್ತುಗಳು.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
+    <string name="portfolio_csv_import_too_large">ಆಮದು ಮಾಡಲು ಫೈಲ್ ತುಂಬಾ ದೊಡ್ಡದಾಗಿದೆ (ಗರಿಷ್ಠ 16 MB ಮತ್ತು %1$s ಸಾಲುಗಳು). ಕಡಿಮೆ ಅವಧಿಗಳನ್ನು ರಫ್ತು ಮಾಡಿ ಒಂದರ ನಂತರ ಒಂದನ್ನು ಆಮದು ಮಾಡಿ.</string>
+    <string name="portfolio_csv_import_failed">ಆಮದು ಕೆಲಸ ಮಾಡಲಿಲ್ಲ – ಏನನ್ನೂ ಉಳಿಸಲಾಗಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
+    <string name="portfolio_csv_import_locked">ಆಮದು ಸಾಧ್ಯವಿಲ್ಲ: ಉಳಿಸಿದ ಡೇಟಾವನ್ನು ಸದ್ಯ ಓದಲು ಸಾಧ್ಯವಿಲ್ಲ. ಆ್ಯಪ್ ಅನ್ನು ಮರುಪ್ರಾರಂಭಿಸಿ.</string>
+    <string name="portfolio_csv_import_withdrawals_title">ಹಿಂಪಡೆಯುವಿಕೆಗಳು – ಕಾಯಿನ್‌ಗಳು ಎಲ್ಲಿಗೆ ಹೋದವು?</string>
+    <string name="portfolio_csv_import_zone">ಸಮಯ ವಲಯವಿಲ್ಲದ ಸಮಯಗಳನ್ನು ಹೀಗೆ ಓದಲಾಗುತ್ತದೆ: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">ಸಾಧನ (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">ಓದಲಾಗದ ದಿನಾಂಕ</string>
+    <string name="portfolio_csv_skip_bad_number">ಓದಲಾಗದ ಸಂಖ್ಯೆ</string>
+    <string name="portfolio_csv_skip_fee_exceeds">ಶುಲ್ಕ ≥ ಸ್ವೀಕರಿಸಿದ ಮೊತ್ತ</string>
+    <string name="portfolio_csv_skip_internal_move">ನಿಮ್ಮ ಸ್ವಂತ ಖಾತೆಗಳ ನಡುವಿನ ಚಲನೆ – ದಾಖಲಿಸಲು ಏನೂ ಇಲ್ಲ</string>
+    <string name="portfolio_csv_skip_missing">ಕ್ಷೇತ್ರ ಇಲ್ಲ</string>
+    <string name="portfolio_csv_skip_ambiguous">ಒಂದೇ ಸೆಕೆಂಡಿನಲ್ಲಿ ಪ್ರತ್ಯೇಕಿಸಲಾಗದ ಹಲವು ವಹಿವಾಟುಗಳು – ಅವುಗಳನ್ನು ಕೈಯಾರೆ ನಮೂದಿಸಿ</string>
+    <string name="portfolio_csv_skip_not_crypto">ಕ್ರಿಪ್ಟೋ ಅಲ್ಲ</string>
+    <string name="portfolio_csv_skip_possible_duplicate">ಈಗಾಗಲೇ ಆಮದಾಗಿರಬಹುದು (ಬಹುತೇಕ ಅದೇ ವಹಿವಾಟು) – ಕೈಯಾರೆ ಪರಿಶೀಲಿಸಿ</string>
+    <string name="portfolio_csv_skip_two_fees">ಬೇರೆ ಬೇರೆ ಘಟಕಗಳಲ್ಲಿ ಎರಡು ಶುಲ್ಕಗಳು – ಸ್ವಾಪ್ ಅನ್ನು ಕೈಯಾರೆ ನಮೂದಿಸಿ</string>
+    <string name="portfolio_csv_skip_unsupported">ಬೆಂಬಲವಿಲ್ಲದ ಪ್ರಕಾರ</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">ರದ್ದುಗೊಳಿಸಿ</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">ಈ ಆಮದಿನ %d ವಹಿವಾಟನ್ನು ಅಳಿಸಬೇಕೆ? ಕೈಯಾರೆ ಮಾಡಿದ ನಮೂದುಗಳು ಮತ್ತು ಇತರ ಆಮದುಗಳು ಹಾಗೆಯೇ ಉಳಿಯುತ್ತವೆ.</item>
+        <item quantity="other">ಈ ಆಮದಿನ %d ವಹಿವಾಟುಗಳನ್ನು ಅಳಿಸಬೇಕೆ? ಕೈಯಾರೆ ಮಾಡಿದ ನಮೂದುಗಳು ಮತ್ತು ಇತರ ಆಮದುಗಳು ಹಾಗೆಯೇ ಉಳಿಯುತ್ತವೆ.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">ಆಮದು ರದ್ದುಗೊಳಿಸಬೇಕೆ?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">ಆಮದು ಮಾಡಿದ %d ವಹಿವಾಟನ್ನು ತೆಗೆದುಹಾಕಲಾಗಿದೆ</item>
+        <item quantity="other">ಆಮದು ಮಾಡಿದ %d ವಹಿವಾಟುಗಳನ್ನು ತೆಗೆದುಹಾಕಲಾಗಿದೆ</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d ವಹಿವಾಟು</item>
+        <item quantity="other">%d ವಹಿವಾಟುಗಳು</item>
+    </plurals>
+    <string name="portfolio_imports_empty">ಆಮದುಗಳಿಲ್ಲ</string>
+    <string name="portfolio_imports_title">ಆಮದುಗಳು</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">ಅದೇ ವಹಿವಾಟು ID, ಬೇರೆ ಮೊತ್ತ – ಕೈಯಾರೆ ಪರಿಶೀಲಿಸಿ</string>
+    <string name="portfolio_csv_skip_staking_unpaired">ಪ್ರತಿ-ನಮೂದು ಇಲ್ಲದ ಸ್ಟೇಕಿಂಗ್ ನಮೂದು – ಹೋಲ್ಡಿಂಗ್‌ಗಳನ್ನು ಪರಿಶೀಲಿಸಿ</string>
+    <string name="portfolio_csv_skip_amount_too_small">ಮೊತ್ತ ತುಂಬಾ ಚಿಕ್ಕದು – ಉಳಿಸುವಾಗ 0 ಗೆ ಪೂರ್ಣಾಂಕಗೊಳ್ಳುತ್ತದೆ</string>
+    <string name="portfolio_csv_skip_invalid_swap">ಮಾನ್ಯ ಕಾಯಿನ್ ಅಥವಾ ಸ್ವೀಕರಿಸಿದ ಮೊತ್ತವಿಲ್ಲದ ಸ್ವಾಪ್</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">ಫೈಲ್ ಅನ್ನು ಮತ್ತೆ ಓದಲಾಗುತ್ತಿದೆ …</string>
+</resources>

@@ -221,4 +221,14 @@
     <string name="watchlist_not_saved_confirm_message">自選清單及其提醒目前不會被儲存。此次及之後的更改將在關閉應用程式後遺失。仍要更改嗎？</string>
     <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
     <string name="watchlist_not_saved_confirm_action">仍然更改</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="other">%1$d 個交易對</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="other">%1$d 個交易對中的 %2$d 個</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="other">尚餘 %1$d 個空位</item>
+    </plurals>
+    <string name="watchlist_footer_full">自選已滿</string>
 </resources>

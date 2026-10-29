@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">Po meri</string>
+    <string name="settings_group_general">Splošno</string>
+    <string name="settings_group_more">Več</string>
+    <string name="settings_minutes">%1$d min</string>
+    <string name="settings_row_about">O aplikaciji</string>
+    <string name="settings_row_alarms">Alarmi</string>
+    <string name="settings_row_currency">Valuta</string>
+    <string name="settings_row_dated_futures">Terminske futures</string>
+    <string name="settings_row_updates">Posodabljanje tečajev</string>
+    <string name="settings_row_watchlist">Seznam</string>
+    <string name="settings_search_hint">Išči po nastavitvah</string>
+    <string name="settings_seconds">%1$d s</string>
+    <string name="settings_section_about">O aplikaciji</string>
+    <string name="settings_section_appearance">Videz</string>
+    <string name="settings_section_developer">Razvijalec</string>
+    <string name="settings_section_language">Jezik</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">Vklopljeno</string>
+    <string name="settings_title">Nastavitve</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">Čas mirovanja, preden se alarm znova sproži</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Signal alarma</string>
+    <string name="settings_alarm_signal_open_system">Prilagodi v sistemskih nastavitvah</string>
+    <string name="settings_alarm_signal_system_hint">Sledi nastavitvam obvestil telefona.</string>
+    <string name="settings_alarm_sound">Zvok alarma</string>
+    <string name="settings_alarm_sound_custom">Lasten zvok</string>
+    <string name="settings_alarm_sound_default">Privzeti zvok</string>
+    <string name="settings_alarm_sound_error">Zvoka ni bilo mogoče uporabiti.</string>
+    <string name="settings_alarm_sound_file">Lastna zvočna datoteka …</string>
+    <string name="settings_alarm_sound_reset">Uporabi privzeti zvok</string>
+    <string name="settings_alarm_sound_system">Izberi sistemski zvok …</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Številka na ikoni aplikacije</string>
+    <string name="settings_app_badge_hint">Šteje odprta obvestila alarmov. Ali se prikaže številka ali pika, določa začetni zaslon (npr. Samsung: „S številko“).</string>
+    <string name="settings_exact_checks">Preverjaj točno</string>
+    <string name="settings_exact_checks_grant">Dovoli alarme in opomnike</string>
+    <string name="settings_exact_checks_hint">Android preverja približno vsakih 15 minut, tudi ko naprava miruje. Porabi malo več baterije.</string>
+    <string name="settings_exact_checks_nothing">Ni aktivnih parov – ni česa preverjati.</string>
+    <string name="settings_exact_checks_permission_missing">Manjka dovoljenje – med mirovanjem naprave Android preverja neredno, včasih šele po urah.</string>
+    <string name="settings_notification_change">Sporoči samo ob spremembi tečaja</string>
+    <string name="settings_notification_change_always">Vedno</string>
+    <string name="settings_percent_invalid">Vnesi vrednost od 0 do 100.</string>
+    <string name="settings_notification_change_hint">Obvestilo o tečaju se prikaže šele, ko se je tečaj od zadnjega premaknil vsaj za toliko. Ko podatki manjkajo, se nič ne prikaže. Na alarme to ne vpliva.</string>
+    <string name="settings_ongoing_notifications">Ni mogoče odriniti</string>
+    <string name="settings_ongoing_notifications_hint">Obvestila o tečajih ostanejo pripeta.</string>
+    <string name="settings_price_notifications">Obvestila o tečajih</string>
+    <string name="settings_price_notifications_hint">V vrstici stanja prikaže tečaj omogočenih parov.</string>
+    <string name="settings_price_pairs">Pari</string>
+    <string name="settings_price_pairs_all_off">Vsi izklopljeni</string>
+    <string name="settings_price_pairs_all_on">Vsi vklopljeni</string>
+    <string name="settings_price_pairs_count">%1$d od %2$d</string>
+    <string name="settings_price_pairs_empty">Na seznamu še ni parov.</string>
+    <string name="settings_price_pairs_hint">Izberi, za katere pare je tečaj prikazan v vrstici z obvestili.</string>
+    <string name="settings_quiet_hours">Nočni mir</string>
+    <string name="settings_quiet_hours_from">Od</string>
+    <string name="settings_quiet_hours_hint">Med %1$s in %2$s alarmi počakajo do konca nočnega miru in se nato oglasijo z zvokom. Druga obvestila pridejo tiho, brez govora.</string>
+    <string name="settings_quiet_hours_to">Do</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">Interval</string>
+    <string name="settings_background_updates">Posodabljanje v ozadju</string>
+    <string name="settings_battery_hint">Omejeno pomeni, da lahko Android posodobitve v ozadju zakasni za več ur.</string>
+    <string name="settings_battery_ok">Poraba baterije: neomejeno</string>
+    <string name="settings_battery_restricted">Poraba baterije: omejeno</string>
+    <string name="settings_check_runs_empty">Še ni zabeleženih preverjanj.</string>
+    <string name="settings_check_runs_honest_android">Android odloča, kdaj preveri – tukaj vidiš, kdaj se je to res zgodilo.</string>
+    <string name="settings_check_runs_honest_ios">iOS odloča, kdaj preveri – tukaj vidiš, kdaj se je to res zgodilo.</string>
+    <string name="settings_check_runs_title">Nedavna preverjanja</string>
+    <string name="settings_http_log">Prikaži dnevnik HTTP</string>
+    <string name="settings_http_log_hint">Na dnu strani „Dodaj par“ prikaže zahteve borzam – za odpravljanje težav.</string>
+    <string name="settings_live_service">Posodabljaj pogosto</string>
+    <string name="settings_live_websocket">Tečaji v živo</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">Opazno: sporoči</string>
+    <string name="settings_activity_alerts_hint">Največ enkrat na uro na par: nenavadna gibanja tečaja, skoki volumna in ekstremi futures (podatki z Binance).</string>
+    <string name="settings_activity_sensitivity">Občutljivost</string>
+    <string name="settings_activity_sensitivity_hint">Kako hitro kovanec velja za nenavadnega – enako za kartico na seznamu in tržna obvestila. Pri „Manj“ kartica prikaže samo 3 najmočnejše.</string>
+    <string name="settings_watchlist_activity_card">Opazno: prikaži na seznamu</string>
+    <string name="settings_watchlist_activity_card_hint">Prikaže čip ⚡ ob skupinah: tapni ga in vidiš samo pare, pri katerih se trenutno nekaj dogaja. Obvestila zanj nastaviš pod „Tržna obvestila“.</string>
+    <string name="settings_watchlist_names">Prikaži imena</string>
+    <string name="settings_watchlist_names_hint">Ime pod parom, npr. Bitcoin ali NVIDIA. Pride s seznami logotipov, naloženimi enkrat za vse kovance.</string>
+    <string name="settings_watchlist_sparkline">Mini graf na seznamu</string>
+    <string name="settings_watchlist_sparkline_hint">24-urni potek ob tečaju</string>
+    <string name="settings_watchlist_value_names">Imena</string>
+    <string name="settings_watchlist_value_price_only">Samo tečaj</string>
+    <string name="settings_watchlist_value_sparkline">Mini graf</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Vklj. žetone Alpha (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Žetoni Alpha: zgodnji, večinoma majhni projekti s seznama Binance Alpha – pogosto malo trgovani in zelo nestanovitni.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">Spada med žetone. Ni na voljo, ko je izbrano „Samo TradFi“; žetoni Alpha, ki so že na seznamu, ostanejo.</string>
+    <string name="settings_asset_scope_both">Žetoni in TradFi</string>
+    <string name="settings_asset_scope_both_hint">Vse – kripto in TradFi</string>
+    <string name="settings_asset_scope_hint">Določa, katere pare prikažeta izbira in iskanje pri dodajanju parov. Pari, ki so že na seznamu, vedno ostanejo.</string>
+    <string name="settings_asset_scope_title">Žetoni &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">Samo žetoni</string>
+    <string name="settings_asset_scope_tokens_hint">Kripto: spot in perpetuals</string>
+    <string name="settings_asset_scope_tradfi">Samo TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">Futures na delnice, surovine, devize – pogodbe, ne žetoni</string>
+    <string name="settings_rolling_futures">Vklj. četrtletne &amp; druge terminske futures</string>
+    <string name="settings_rolling_futures_hint">Izklopljeno: terminske futures, ki manjkajo na seznamu borze, se označijo kot „se ne trguje več“, namesto da bi se preverjali posamično. Prihrani čas pri vsaki osvežitvi.</string>
+    <string name="settings_rolling_futures_qtly">Vklj. četrtletne &amp; druge terminske futures (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">Spada med žetone. Ni na voljo, ko je izbrano „Samo TradFi“; še vedno velja za terminske futures, ki so že na seznamu.</string>
+    <string name="settings_tradfi_futures">Delnice, surovine in devize (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Pri izbiri para prikaže tudi futures na delnice, zlato in druge surovine, valute in podjetja pred borzno kotacijo. To so pogodbe, ne žetoni.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">Barva poudarka</string>
+    <string name="settings_accent_hint">Barva za aplikacijo, pripomočke in ikono aplikacije. Nekateri začetni zasloni ob menjavi ikono odstranijo – takrat jo dodaj znova.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Logotipi kovancev</string>
+    <string name="settings_coin_logos_app">V aplikaciji</string>
+    <string name="settings_coin_logos_app_hint">Seznam, odprt par in tržne kartice</string>
+    <string name="settings_coin_logos_footer">Logotipi so s CoinGecko, za kovance, ki jih CoinGecko ne navaja (npr. zlato, srebro, delnice), pa z Binance. Aplikacija naloži vse logotipe naenkrat in jih shrani v tej napravi, zato noben ponudnik ne izve, katere kovance spremljaš. Kovanci brez logotipa prikažejo začetnice. Priljubljeni dobijo majhno zvezdico na logotipu. Kjer je stikalo izklopljeno, se ne prikažejo ne logotipi ne začetnice; če so vsa izklopljena, se nič ne naloži.</string>
+    <string name="settings_coin_logos_portfolio">V portfelju</string>
+    <string name="settings_coin_logos_portfolio_hint">Pozicije, podrobnosti kovanca in analize</string>
+    <string name="settings_coin_logos_value_app">Aplikacija</string>
+    <string name="settings_coin_logos_widgets">V pripomočkih</string>
+    <string name="settings_coin_logos_widgets_hint">Pripomočki seznama in posameznega kovanca</string>
+    <string name="settings_high_contrast">Visok kontrast</string>
+    <string name="settings_high_contrast_hint">Močnejše barve tečajev in temnejše sekundarno besedilo. Vklopljeno tudi, ko sistem zahteva več kontrasta.</string>
+    <string name="settings_language_choose">Izberi jezik</string>
+    <string name="settings_language_system">Sistemski jezik</string>
+    <string name="settings_price_colors">Barve tečajev</string>
+    <string name="settings_price_colors_hint">Modro / oranžno je lahko razločiti pri vsaki motnji barvnega vida (rdeče-zeleni in modro-rumeni). Smer je vedno prikazana tudi z + / −.</string>
+    <string name="settings_theme_mode">Svetlo / temno</string>
+    <string name="settings_widgets">Pripomočki</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">Sprememba %1$s &amp; časovni pas grafa</string>
+    <string name="settings_change_basis_hint_1">Izbrani časovni pas določa, od kdaj šteje odstotna sprememba (seznam, vrstica utripa, odprt par, pripomočki) in čas, prikazan na grafih.</string>
+    <string name="settings_change_basis_hint_2">„%1$s“ primerja s tečajem točno pred 24 urami. „00:00“ primerja z otvoritvenim tečajem ob polnoči v tem časovnem pasu.</string>
+    <string name="settings_change_basis_hint_3">Na alarme to ne vpliva.</string>
+    <string name="settings_change_basis_hint_since_last">„%1$s“ primerja s tečajem prejšnje posodobitve. Pri tečajih v živo ostane blizu 0%%.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">Valuta za pretvorbo</string>
+    <string name="settings_conversion_currency_hint">Velja tudi za portfelj, alarme v tvoji valuti, kartico Kriptotrg in pripomoček portfelja.</string>
+    <string name="settings_cost_method">Metoda nabavne vrednosti</string>
+    <string name="settings_cost_method_average">Povprečni strošek</string>
+    <string name="settings_cost_method_average_hint">Prodaje se vrednotijo po drsečem povprečju nakupne cene.</string>
+    <string name="settings_cost_method_fifo">FIFO (privzeto)</string>
+    <string name="settings_cost_method_fifo_hint">Najstarejši kovanci se prodajo najprej, prek vseh borz in denarnic.</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO po denarnici/borzi</string>
+    <string name="settings_cost_method_fifo_wallet_hint">Najstarejši kovanci najprej znotraj vsake borze ali denarnice; prenosi premaknejo postavke z datumom nakupa.</string>
+    <string name="settings_portfolio_lock">Zaklep portfelja</string>
+    <string name="settings_portfolio_lock_footer">Zaklep skrije, kar je prikazano na zaslonu. Tvoji podatki so shranjeni v tej napravi in zaščiteni s šifriranjem naprave. Varnostne kopije lahko zaščitiš z geslom.</string>
+    <string name="settings_portfolio_lock_hint">Skrije samo portfelj: odkleni s prstnim odtisom, obrazom ali PIN-om naprave. Znova se zaklene po več kot minuti v ozadju. Seznam, alarmi in drugi pripomočki ostanejo odprti.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Brez PIN-a ali gesla naprave zaklep ne skrije ničesar – nastavi zaklepanje zaslona.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Portfelj v sistemski varnostni kopiji</string>
+    <string name="settings_portfolio_system_backup_hint">Izklopljeno: tvoje transakcije niso vključene v sistemsko varnostno kopijo naprave in v prenos s telefona na telefon. Za selitev na nov telefon uporabi varnostno kopijo aplikacije z geslom.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Potrebuje Android 9 ali novejši – starejše različice bi portfelj shranile nešifriran v varnostno kopijo Google.</string>
+    <string name="settings_portfolio_tab">Prikaži zavihek Portfelj</string>
+    <string name="settings_portfolio_value_locked">Vklopljeno, z zaklepom</string>
+    <string name="settings_show_converted">Pretvorjeni tečaji</string>
+    <string name="settings_show_converted_hint">Tečaje na seznamu prikaže tudi v %1$s</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">Sporoči depeg USDT</string>
+    <string name="settings_depeg_alarm_hint">Sporoči enkrat, ko USDT za mejo odstopi od 1 USD (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_threshold">Meja depega</string>
+    <string name="settings_fng_above">Fear &amp; Greed: sporoči nad</string>
+    <string name="settings_fng_below">Fear &amp; Greed: sporoči pod</string>
+    <string name="settings_gas_alert_hint">Sporoči enkrat, ko običajna provizija pade pod mejo. Preverja se ob posodabljanju tečajev, največ vsakih 10 minut.</string>
+    <string name="settings_gas_btc_below">Provizija Bitcoin pod (sat/vB)</string>
+    <string name="settings_gas_eth_below">Gas Ethereum pod (gwei)</string>
+    <string name="settings_ind_ath_within">Padec od vrha vseh časov največ</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple nad</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple pod</string>
+    <string name="settings_ind_mvrv_above">MVRV nad</string>
+    <string name="settings_ind_mvrv_below">MVRV pod</string>
+    <string name="settings_indicator_alerts_hint">Kazalniki Bitcoina, preverjeni dvakrat na dan. Meje določiš ti – aplikacija vrednosti ne ocenjuje.</string>
+    <string name="settings_macro_notifications">Gospodarski koledar</string>
+    <string name="settings_macro_notifications_hint">Ob 08:00 na dneve s pomembnimi ameriškimi gospodarskimi podatki (inflacija, poročilo o trgu dela, odločitev Fed). Koledar je s spletne strani aplikacije in se naloži enkrat na dan.</string>
+    <string name="settings_market_alerts">Tržna obvestila</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d aktivno</item>
+        <item quantity="two">%1$d aktivni</item>
+        <item quantity="few">%1$d aktivna</item>
+        <item quantity="other">%1$d aktivnih</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">Hitrost govora: %1$.1f×</string>
+    <string name="settings_tts">Govorni izhod</string>
+    <string name="settings_tts_alarms_only">Samo alarmi</string>
+    <string name="settings_tts_alarms_only_hint">Izklopljeno: vsaka posodobitev para z oznako „Preberi tečaj“ se prebere na glas.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">Na glas prebere tečaje in alarme. Molči, dokler je naprava v tihem načinu ali načinu vibriranja.</string>
+    <string name="settings_tts_test">Preizkusi glas</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">Ponastavi aplikacijo</string>
+    <string name="settings_reset_app_action">Izbriši vse</string>
+    <string name="settings_reset_app_confirm">Izbriše seznam, alarme, portfelj, nastavitve in vse shranjene podatke, kot po namestitvi. Tega ni mogoče razveljaviti. Nasvet: prej ustvari varnostno kopijo. Varnostne kopije naprave (varnostna kopija Google ali iCloud/računalnik) ohranijo prejšnje podatke do naslednjega varnostnega kopiranja.</string>
+    <string name="settings_reset_app_title">Ponastavim aplikacijo?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">Išči valuto</string>
+    <string name="language_search">Išči jezik</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">Temno</string>
+    <string name="theme_light">Svetlo</string>
+    <string name="theme_system">Sistem</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">Modra</string>
+    <string name="accent_green">Zelena</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">Oranžna</string>
+    <string name="accent_red">Rdeča</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">Običajno na Kitajskem, Japonskem, v Koreji in na Tajvanu</string>
+    <string name="price_colors_swap">Zamenjaj barvi (rast ↔ padec)</string>
+    <string name="price_style_calm">Mirno</string>
+    <string name="price_style_calm_color_vision">Mirno · Motnja barvnega vida</string>
+    <string name="price_style_color_vision">Motnja barvnega vida</string>
+    <string name="price_style_fresh">Sveže</string>
+    <string name="price_style_traditional">Tradicionalno</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">Povezave z borzami nazadnje preverjene na resničnih odgovorih: %1$s</string>
+    <string name="about_license">Tečaji prihajajo neposredno z borz; brez računa in brez sledenja.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">Licence</string>
+    <string name="about_privacy_policy">Pravilnik o zasebnosti</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">Predlagaj borzo</string>
+    <string name="about_source_code">Izvorna koda na GitHubu</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker je neodvisen projekt avtorja r1AD: miren pregled tečajev brez računa, oglasov in sledenja. Vprašanja in želje: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker je odprtokoden (licenca MIT).</string>
+    <string name="licenses_font_title">Pisava Rubik</string>
+    <string name="licenses_icons_bundled_text">Priloženo aplikaciji: ikone iz „Cryptocurrency Icons“ avtorja Christopherja Downerja in sodelavcev (github.com/spothq/cryptocurrency-icons), izdane pod licenco CC0 1.0 Universal. Prikazujejo se, dokler se ne naložijo logotipi CoinGecko ali Binance. Imena in logotipi ostanejo blagovne znamke svojih projektov.</string>
+    <string name="licenses_icons_title">Nadomestne ikone kovancev</string>
+    <string name="licenses_libraries_intro">Aplikacija uporablja te knjižnice pod licenco Apache License 2.0:</string>
+    <string name="licenses_libraries_title">Knjižnice Android</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">Še %d tap do možnosti za razvijalce</item>
+        <item quantity="two">Še %d tapa do možnosti za razvijalce</item>
+        <item quantity="few">Še %d tapi do možnosti za razvijalce</item>
+        <item quantity="other">Še %d tapov do možnosti za razvijalce</item>
+    </plurals>
+    <string name="developer_unlocked">Možnosti za razvijalce odklenjene</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Vibriranje sledi nastavitvam iPhona (Zvoki &amp; haptika).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Šteje nove alarme in tržna obvestila; ob odprtju aplikacije spet 0.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Tvoji podatki</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">V tej napravi</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Tvoj seznam, alarmi in portfelj so shranjeni šifrirano v tej napravi; brez računa, brez lastnega strežnika.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Povezave</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Tečaji prihajajo neposredno z borz tvojih parov, poleg tega devizni tečaji, seznami kovancev in logotipi ter zrcalo podatkov na GitHubu; ti vidijo tvoj naslov IP, nikoli tvojega imetja (spremljani naslovi gredo ponudniku posameznega omrežja).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Varnostna kopija</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Samo če jo ustvariš. Z geslom je šifrirana (Argon2id + AES-256-GCM); brez gesla je berljiva.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Menjava naprave</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">Ključ ostane v stari napravi – najprej ustvari datoteko varnostne kopije.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Deli diagnostiko</string>
+    <string name="diagnostics_share_hint">Besedilna datoteka za podporo: različica, naprava, nastavitve alarmov, nedavna preverjanja in dnevnik alarmov – brez portfelja, zneskov, naslovov in opomb. Najprej jo vidiš ti; nič se ne pošlje samodejno.</string>
+    <string name="diagnostics_preview_title">Predogled diagnostike</string>
+    <string name="diagnostics_action_share">Deli</string>
+    <string name="settings_price_overlay">Prekrivanje tečaja</string>
+    <string name="settings_price_overlay_hint">Pare iz trajnega obvestila o tečaju prikaže kot majhno lebdečo oznako nad drugimi aplikacijami. Tapni za odprtje aplikacije, povleci na × spodaj za zaprtje.</string>
+    <string name="settings_price_overlay_needs">Deluje samo skupaj z „%1$s“.</string>
+    <string name="settings_price_overlay_grant">Dovoli prikaz nad drugimi aplikacijami</string>
+    <string name="price_overlay_close">Zapri prekrivanje</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">Lasten strežnik za naslove</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Samo Bitcoin: tvoj lasten strežnik, združljiv z Esplora ali mempool (npr. https://node.example/api, potrebno je javno zaupanja vredno potrdilo, kot je Let\'s Encrypt). Če je nastavljen, se naslovi Bitcoin in ključi xpub poizvedujejo samo tam – nikoli pri javnih vozliščih, niti ko tvoj strežnik ni dosegljiv. Druga omrežja še naprej uporabljajo javna vozlišča. Prazno = javna vozlišča.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Strežnik Bitcoin (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">Preizkusi</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">Preizkušanje …</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">Strežnik odgovarja – blok %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">Ni veljavnega odgovora – preveri naslov in potrdilo</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">V uporabi: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">Ni nastavljen – uporabljajo se javna vozlišča</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">Dovoljeni so samo naslovi https://</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">V naslovu ne sme biti uporabniškega imena ali gesla</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">V naslovu ne sme biti dela ? ali #</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">Ni veljaven naslov strežnika</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">Preklopim na javna vozlišča?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">Tvoji naslovi Bitcoin in ključi xpub se bodo nato poizvedovali pri javnih vozliščih: %1$s. Ta vidijo te naslove skupaj s tvojim naslovom IP.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">Uporabi javna vozlišča</string>
+</resources>

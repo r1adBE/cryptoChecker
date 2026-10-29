@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Nav izvēlētu monētu</string>
+    <string name="watch_loading">Ielādē…</string>
+    <string name="watch_error">Biržas nav sasniedzamas</string>
+    <string name="watch_updated">Stāvoklis %1$s</string>
+    <string name="watch_refresh">Atsvaidzināt</string>
+    <string name="watch_choose">Izvēlēties monētas</string>
+    <string name="watch_choose_hint">Monētas: ne vairāk kā %1$d</string>
+    <string name="watch_complication_label">Cena</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s 24 stundās</string>
+    <string name="watch_mode_phone">Saraksts: kā tālrunī</string>
+    <string name="watch_mode_own">Saraksts: savs</string>
+    <string name="watch_phone_empty">Tālrunī nav izlases</string>
+    <string name="a11y_watch_outdated">Cena novecojusi</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="zero">pēdējoreiz atjaunināts pirms %1$d minūtēm</item>
+        <item quantity="one">pēdējoreiz atjaunināts pirms %1$d minūtes</item>
+        <item quantity="other">pēdējoreiz atjaunināts pirms %1$d minūtēm</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="zero">pēdējoreiz atjaunināts pirms %1$d stundām</item>
+        <item quantity="one">pēdējoreiz atjaunināts pirms %1$d stundas</item>
+        <item quantity="other">pēdējoreiz atjaunināts pirms %1$d stundām</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="zero">pēdējoreiz atjaunināts pirms %1$d dienām</item>
+        <item quantity="one">pēdējoreiz atjaunināts pirms %1$d dienas</item>
+        <item quantity="other">pēdējoreiz atjaunināts pirms %1$d dienām</item>
+    </plurals>
+</resources>

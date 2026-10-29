@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%2$s-ൽ %1$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">ക്ലോസ്</string>
+    <string name="sheet_chart_converted_current">%1$s, പരിവർത്തനം ചെയ്തത് (നിലവിലെ നിരക്ക്)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, പ്രതിദിന നിരക്കുകളിൽ പരിവർത്തനം ചെയ്തത്</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">ഈ ജോഡിക്ക് വില ഡാറ്റയില്ല</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">ഓപ്പൺ</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">ഇന്ന്</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">വോളിയം %1$s</string>
+    <string name="sheet_more">കൂടുതൽ</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">ആസ്ക്</string>
+    <string name="ticker_bid">ബിഡ്</string>
+    <string name="explain_bid_ask">വാങ്ങുന്നവർ ഇപ്പോൾ നൽകാൻ തയ്യാറുള്ള ഏറ്റവും ഉയർന്ന വിലയാണ് ബിഡ്, വിൽക്കുന്നവർ സ്വീകരിക്കുന്ന ഏറ്റവും കുറഞ്ഞ വിലയാണ് ആസ്ക്.</string>
+    <string name="ticker_high">ഉയർന്നത്</string>
+    <string name="ticker_low">താഴ്ന്നത്</string>
+    <string name="ticker_timestamp">സമയം</string>
+    <string name="ticker_vol_base">വോളിയം (കോയിനുകളിൽ)</string>
+    <string name="ticker_vol_quote">വോളിയം (ക്വോട്ട് കറൻസിയിൽ)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (ഉപകരണത്തിന്റെ സമയമേഖല)</string>
+    <string name="change_basis_local">പ്രാദേശിക സമയം 00:00 മുതൽ</string>
+    <string name="change_basis_rolling">കഴിഞ്ഞ 24 മണിക്കൂർ</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">അവസാന അപ്‌ഡേറ്റ് മുതൽ</string>
+    <string name="change_basis_utc_zone">00:00 %1$s മുതൽ</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">%1$s കാൻഡിലുകളിൽ നിന്നുള്ള മാറ്റം</string>
+    <string name="change_short_since_last">അവസാന അപ്‌ഡേറ്റ്</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">ഇന്ന്</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">ഇന്ന് %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="exchange_data_empty_error">എക്സ്ചേഞ്ചിൽ നിന്ന് ഡാറ്റയൊന്നും ലഭിച്ചില്ല.</string>
+    <string name="market_data_summary">മാർക്കറ്റ് ക്യാപ്, ഗ്യാസ് ഫീസ്, സാമ്പത്തിക ഡാറ്റ, കോയിൻ വിശകലനം</string>
+    <string name="market_data_tab_futures">ഫ്യൂച്ചേഴ്സ്</string>
+    <string name="market_data_title">മാർക്കറ്റ് ഡാറ്റ</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">പ്രചാരത്തിലുള്ള സപ്ലൈ</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">മാർക്കറ്റ് ക്യാപ്</string>
+    <string name="spot_max_supply">പരമാവധി സപ്ലൈ</string>
+    <string name="spot_no_data">ഈ കോയിനിന് സ്പോട്ട് ഡാറ്റയില്ല</string>
+    <string name="spot_source_updated">ഉറവിടം: %1$s · %2$s പ്രകാരം</string>
+    <string name="spot_supply_of_max">പരമാവധി സപ്ലൈയുടെ %1$s പ്രചാരത്തിൽ</string>
+    <string name="spot_total_supply">ആകെ സപ്ലൈ</string>
+    <string name="spot_vol_mcap">വോളിയം/മാർക്കറ്റ് ക്യാപ്</string>
+    <string name="spot_volume_24h">വോളിയം (24 മ.)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">റഫറൻസ്: %1$s</string>
+    <string name="futures_funding">ഫണ്ടിംഗ് നിരക്ക്</string>
+    <string name="futures_funding_interval_unknown">ഇടവേള അജ്ഞാതം</string>
+    <string name="futures_funding_per8h_equiv">= 8 മണിക്കൂറിന് %1$s (അലേർട്ടുകളിലെപ്പോലെ)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">മണിക്കൂറിന്</string>
+    <string name="futures_funding_per_hours">%1$d മണിക്കൂറിന്</string>
+    <string name="futures_next_funding">അടുത്തത് %1$d മ. %2$d മി. കഴിഞ്ഞ്</string>
+    <string name="futures_no_data">ഈ കോയിനിന് ഫ്യൂച്ചേഴ്സ് ഡാറ്റയില്ല</string>
+    <string name="futures_open_interest">ഓപ്പൺ ഇന്ററസ്റ്റ്</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">%1$s-ൽ നിന്നുള്ള റഫറൻസ് – ഫണ്ടിംഗും ഓപ്പൺ ഇന്ററസ്റ്റും ഓരോ എക്സ്ചേഞ്ചിലും വ്യത്യസ്തമാണ്; %2$s-ൽ അവ വ്യത്യാസപ്പെട്ടേക്കാം.</string>
+    <string name="futures_reference_spot">%1$s-ൽ നിന്നുള്ള റഫറൻസ് (കോയിനിന്റെ USDT പെർപെച്വൽ)</string>
+    <string name="futures_source">ഉറവിടം: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">പല ട്രേഡർമാരും കടമെടുത്ത പണം കൊണ്ട് വില ഉയരുമെന്നോ താഴുമെന്നോ പന്തയം വയ്ക്കുന്നു. ലോംഗ്, ഷോർട്ട് പൊസിഷനുകൾക്കിടയിലുള്ള ഫീസ്. ശക്തമായി പോസിറ്റീവ് എങ്കിൽ പലരും വില ഉയരുമെന്ന് പന്തയം വയ്ക്കുന്നു.</string>
+    <string name="explain_open_interest">ഫ്യൂച്ചേഴ്സ് വിലയിന്മേലുള്ള പന്തയങ്ങളാണ്, പലപ്പോഴും കടമെടുത്ത പണം കൊണ്ട്. തുറന്നിരിക്കുന്ന എല്ലാ ഫ്യൂച്ചേഴ്സ് പൊസിഷനുകളുടെയും മൂല്യം. ഇത് ഉയർന്നാൽ, കൂടുതൽ പണം ആ നീക്കത്തിൽ പന്തയം വയ്ക്കുന്നു.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">വിശദീകരണം</string>
+    <string name="explain_spot_fdv">പൂർണ്ണമായി ഡൈല്യൂട്ട് ചെയ്ത മൂല്യം: വില × പരമാവധി സപ്ലൈ (പരിധിയില്ലെങ്കിൽ ആകെ സപ്ലൈ).</string>
+    <string name="explain_spot_market_cap">വില × പ്രചാരത്തിലുള്ള സപ്ലൈ. പിൽ 24 മണിക്കൂറിലെ അതിന്റെ മാറ്റം കാണിക്കുന്നു.</string>
+    <string name="explain_spot_source">എല്ലാ എക്സ്ചേഞ്ചുകളിലുമുള്ള കണക്കുകൾ US ഡോളറിൽ, CoinGecko-ൽ നിന്ന്.</string>
+    <string name="explain_spot_supply">പ്രചാരത്തിലുള്ളത്: ഇപ്പോൾ മാർക്കറ്റിലുള്ള കോയിനുകൾ. ആകെ: സൃഷ്ടിച്ച എല്ലാ കോയിനുകളും, കത്തിച്ചവ ഒഴികെ. പരമാവധി: എക്കാലവും നിലനിൽക്കാവുന്ന ഏറ്റവും കൂടിയ എണ്ണം.</string>
+    <string name="explain_spot_volume">24 മണിക്കൂറിൽ വ്യാപാരം നടന്ന മൂല്യം. വോളിയം/മാർക്കറ്റ് ക്യാപ്: മാർക്കറ്റ് ക്യാപുമായി ആപേക്ഷികമായ വോളിയം — ഉയർന്നതെങ്കിൽ വളരെ സജീവമായ വ്യാപാരം.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · നിരക്ക് %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">വാങ്ങൽ-വിൽപ്പന വിലകൾ തമ്മിൽ വലിയ അന്തരം (%1$s)</string>
+
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">%1$s-ലുള്ള ചരിത്രം, ഇന്നത്തെ നിരക്കിൽ %2$s-ലേക്ക് പരിവർത്തനം ചെയ്തത്</string>
+    <string name="converted_unsure">പരിവർത്തനം അനിശ്ചിതം</string>
+</resources>

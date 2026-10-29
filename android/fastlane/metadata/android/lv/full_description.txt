@@ -1,0 +1,41 @@
+Crypto Checker pārbauda cenas tavā biržā un paziņo, kad pārbaude konstatē, ka tavs slieksnis sasniegts. Kad lietotne ir aizvērta, Android izlemj, kad pārbaudīt brīdinājumus – ne biežāk kā ik pēc 15 minūtēm, bieži tikai pēc vairākām stundām. Īsi lēcieni starp pārbaudēm var palikt nepamanīti; lietotne to pasaka. Tavas biržas cena, nevis vidējā – bez maksas, bez konta.
+
+AR KO TĀ ATŠĶIRAS
+• Tava birža, nevis vidējā cena: katra rinda rāda pāra pēdējo cenu tevis izvēlētajā biržā – Binance, Coinbase, Kraken, OKX, Bybit un daudzās citās.
+• Brīdinājums, kas paziņo vienreiz: „Paziņo, kad BTC kāpj virs 100 000 USDT.“ Tas atskan, kad pārbaude konstatē, ka slieksnis pārsniegts, nevis pie katras atjaunināšanas – „Vienreiz“ tad to izslēdz, „Katru reizi“ to atkal sagatavo, kad cena atgriežas.
+• „Kas kustas līdzi?“: vienas monētas faktoru saraksts – kopējais tirgus, apjoms, svārstīgums, finansējums un atvērtās pozīcijas, attālums līdz maksimumam vai minimumam, Fear & Greed. Rāda, kas kustas vienlaikus – nevis cēloni, ne ziņas, ne ieguldījumu padomu.
+• Bez konta, bez reklāmām, bez izsekošanas. Izstrādātājs nesaņem tavus datus.
+
+GODĪGI PAR DATIEM
+• „Taupīgi“ ir noklusējums: cenas atjauninās, kad atver lietotni, un ar intervāliem fonā. „Tiešraidē, kamēr atvērts“ pievieno Binance, Bybit, OKX, Coinbase un Kraken tiešraides cenas, kamēr vērojamo saraksts ir atvērts.
+• % izmaiņas un diagrammas vispirms nāk no paša pāra biržas; ja tai nav sveču, lietotne izmanto Binance vai Coinbase un to norāda.
+• Fear & Greed, dominance un ķēdes vērtības no alternative.me, CoinGecko un Coin Metrics.
+• Summas atstāj ierīci tikai ar tavu eksportu vai Android sistēmas dublējumu. Cenām uz attiecīgā pāra biržu tiek sūtīti tikai pāru simboli; kā arī valūtu kursi (Frankfurter), tirgus dati un logotipi (CoinGecko, Binance), datu spoguļi (GitHub). Ja vēro adreses vai xpub, publiskie blokķēdes mezgli redz adreses (xpub gadījumā – atvasinātās) un tavu IP.
+
+VĒROJAMO SARAKSTS
+• 56 tirgi 45 biržās: spot un nākotnes līgumi, DEX žetoni caur DexScreener, pēc izvēles akcijas, zelts un valūtas (TradFi)
+• Otrā rinda „≈ vērtība“ vienā no 31 valūtas (EUR, CHF, USD …), pārrēķināta pēc kursa
+• Mini diagramma un % izmaiņas 24 h laikā vai kopš 00:00 tavā laika joslā
+• Grupas, izlase, vilkšana un piezīme katrai monētai
+• Rindas atzīmē „novecojis“ vai „birža nav sasniedzama“
+
+BRĪDINĀJUMI
+• Cena virs vai zem sliekšņa, vai kāpums vai kritums procentos – arī tavā valūtā, piem., 60 000 EUR USDT pārim
+• Izmaiņas par x % laika logā, apjoma lēciens
+• Skaņa (arī savs audio fails), vibrācija un pēc izvēles balss paziņojums
+• Klusuma laiks un „Pārbaudīt brīdinājumu“: iepriekš dzirdi brīdinājumu; brīdinājumu žurnāls: kad pārbaudīts, kāda cena, kāpēc nenostrādāja
+
+TIRGUS
+• Ievērojams: neparastas cenu un apjoma kustības tavā sarakstā, pēc izvēles kā tirgus paziņojums
+• Kripto pulss, Fear & Greed, Bitcoin rādītāji, finansējums un atvērtās pozīcijas – kā vienkāršas izmērītas vērtības
+• Ethereum, Bitcoin un citu tīklu maksas ar gāzes brīdinājumu
+
+VAIRĀK
+• Logrīki: vērojamo saraksts, portfeļa kopsumma, viena monēta ar diagrammu
+• Portfelis pēc izvēles (ieslēdz iestatījumos): pirkumi, pārdošanas, maiņas, pārvedumi, atlīdzības, iemaksas un izmaksas; FIFO (noklusējums) vai vidējais (Ø); tikai lasāmas adreses bez seed frāzes BTC (ieskaitot xpub), ETH un EVM ķēdēm, SOL, TRX, XRP, LTC, ADA un TON; CSV imports no Relai, Swissquote, Bitpanda, Kraken, Binance un Coinbase; gada pārskats CSV; sava bloķēšana. Bitpanda un Swissquote: savas cenas nav, tikai CSV.
+• Salasāms visiem: zaļš/sarkans vai zils/oranžs, zīme un bultiņa, nevis tikai krāsa; TalkBack katru rindu nolasa kā vienu teikumu
+• Dublēšana un atjaunošana failā – arī starp Android un iPhone
+• Gaišais un tumšais režīms, piecas akcenta krāsas, 75 valodas
+• Atvērtais kods (MIT) – publisks GitHub
+
+Piezīme: Crypto Checker rāda cenas un portfeli, ko ievadi tu. Tā nav birža vai maciņš, netirgo un nesniedz ieguldījumu padomus.

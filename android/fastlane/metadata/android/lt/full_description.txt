@@ -1,0 +1,41 @@
+Crypto Checker tikrina kainas tavo biržoje ir praneša, kai tikrinimas randa tavo ribą pasiektą. Uždarius programėlę, Android sprendžia, kada tikrinti įspėjimus – ne dažniau kaip kas 15 min., dažnai tik po kelių valandų. Trumpi šuoliai tarp tikrinimų gali būti praleisti; programėlė tai pasako. Tavo biržos kaina, ne vidurkis – nemokamai, be paskyros.
+
+KUO SKIRIASI
+• Tavo birža, ne vidurkis: eilutė rodo paskutinę poros kainą tavo pasirinktoje biržoje – Binance, Coinbase, Kraken, OKX, Bybit ir daugelyje kitų.
+• Įspėjimas, pranešantis kartą: „Pranešk, kai BTC pakils virš 100 000 USDT.“ Jis suskamba, kai tikrinimas randa ribą peržengtą, ne per kiekvieną atnaujinimą – „Vieną kartą“ tada jį išjungia, „Kiekvieną kartą“ vėl parengia, kai kaina grįžta.
+• „Kas juda kartu?“: vienos monetos veiksnių sąrašas – visa rinka, apimtis, nepastovumas, finansavimas ir atvirosios pozicijos, atstumas iki maksimumo ar minimumo, Fear & Greed. Rodo, kas juda tuo pačiu metu – ne priežastis, ne naujienos, ne investavimo patarimas.
+• Be paskyros, be reklamų, be sekimo. Kūrėjas negauna tavo duomenų.
+
+SĄŽININGAI APIE DUOMENIS
+• Numatytasis režimas – „Taupus“: kainos atnaujinamos atidarius programėlę ir intervalais fone. „Tiesiogiai, kol atidaryta“ prideda Binance, Bybit, OKX, Coinbase ir Kraken tiesiogines kainas, kol atidarytas sąrašas.
+• % pokytis ir diagramos pirmiausia iš pačios poros biržos; jei ji neturi žvakių, programėlė naudoja Binance ar Coinbase ir tai nurodo.
+• Fear & Greed, dominavimas, grandinės vertės iš alternative.me, CoinGecko ir Coin Metrics.
+• Sumos palieka įrenginį tik per tavo eksportą ar Android atsarginę kopiją. Kainoms į poros biržą siunčiami tik porų simboliai; taip pat valiutų kursai (Frankfurter), rinkos duomenys ir logotipai (CoinGecko, Binance), duomenų veidrodžiai (GitHub). Jei stebi adresus ar xpub, vieši grandinės mazgai mato adresus (xpub atveju – išvestinius) ir tavo IP.
+
+STEBIMŲ SĄRAŠAS
+• 56 rinkos 45 biržose: spot ir ateities sandoriai, DEX žetonai per DexScreener, pasirinktinai akcijos, auksas ir valiutos (TradFi)
+• Antra eilutė „≈ vertė“ viena iš 31 valiutos (EUR, CHF, USD …), perskaičiuota kursu
+• Mini diagrama ir % pokytis per 24 val. arba nuo 00:00 tavo laiko juostoje
+• Grupės, mėgstamos, vilkimas ir pastaba monetai
+• Eilutės pažymi „pasenusi“ ar „birža nepasiekiama“
+
+ĮSPĖJIMAI
+• Kaina virš ar žemiau ribos, arba kilimas ar kritimas procentais – ir tavo valiuta, pvz., 60 000 EUR USDT porai
+• Pokytis x % per laiko langą, apimties šuolis
+• Garsas (ir savas garso failas), vibracija ir pasirinktinis balso pranešimas
+• Tylos laikas ir „Išbandyti įspėjimą“: iš anksto išgirsk įspėjimą; įspėjimų žurnalas: kada tikrinta, kokia kaina, kodėl nesuveikė
+
+RINKA
+• Pastebima: neįprasti kainų ir apimties judėjimai tavo sąraše, pasirinktinai – rinkos pranešimas
+• Kripto pulsas, Fear & Greed, Bitcoin rodikliai, finansavimo norma ir atvirosios pozicijos – kaip paprasti matavimai
+• Ethereum, Bitcoin ir kitų tinklų komisiniai mokesčiai, dujų įspėjimas
+
+DAUGIAU
+• Valdikliai: stebimų sąrašas, portfelio suma, viena moneta su diagrama
+• Portfelis pasirinktinai (įjunk nustatymuose): pirkimai, pardavimai, apsikeitimai, pervedimai, atlygiai, įnašai ir išėmimai; FIFO (numatytasis) arba vidurkis (Ø); tik skaitomi adresai be atkūrimo frazės BTC (įsk. xpub), ETH ir EVM grandinėms, SOL, TRX, XRP, LTC, ADA ir TON; CSV importas iš Relai, Swissquote, Bitpanda, Kraken, Binance ir Coinbase; metų apžvalga CSV; savas užraktas. Bitpanda ir Swissquote: savos kainos nėra, tik CSV.
+• Įskaitoma visiems: žalia/raudona arba mėlyna/oranžinė, ženklas ir rodyklė, o ne vien spalva; TalkBack eilutę perskaito vienu sakiniu
+• Atsarginė kopija ir atkūrimas į failą – ir tarp Android bei iPhone
+• Šviesus ir tamsus režimas, penkios akcento spalvos, 75 kalbos
+• Atvirasis kodas (MIT) – viešas GitHub
+
+Pastaba: Crypto Checker rodo kainas ir portfelį, kurį įvedi tu. Tai ne birža ir ne piniginė, ji neprekiauja ir neteikia investavimo patarimų.

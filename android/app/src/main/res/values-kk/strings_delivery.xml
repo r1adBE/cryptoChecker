@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">Ескертулердің жетуін қамтамасыз ету</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">OK</string>
+    <string name="delivery_state_warn">Тексеріңіз</string>
+    <string name="delivery_state_info">Ескерту</string>
+    <string name="delivery_allowed">Рұқсат етілген</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">Хабарландырулар</string>
+    <string name="delivery_notifications_off">Өшірулі – ескертулер жетпейді</string>
+    <string name="delivery_notifications_not_asked">Әлі рұқсат етілмеген</string>
+    <string name="delivery_channel">Ескерту арнасы</string>
+    <string name="delivery_channel_high">Жоғары маңыздылық – экранда шығады</string>
+    <string name="delivery_channel_low">Төмен маңыздылық – ескертулер тізімде дыбыссыз ғана пайда болады</string>
+    <string name="delivery_channel_off">Өшірілген – ескертулер жетпейді</string>
+    <string name="delivery_exact_on">Қосулы – шамамен 15 минут сайын</string>
+    <string name="delivery_exact_off">Өшірулі – Android тұрақсыз тексереді</string>
+    <string name="delivery_battery">Батареяны оңтайландыру</string>
+    <string name="delivery_battery_unrestricted">Шектеусіз</string>
+    <string name="delivery_battery_optimized">Оңтайландырылған – Android тексерулерді кешіктіруі мүмкін. Қолданба ерекшелік сұрамайды; мұны қолданбаның батарея параметрлерінде өзгертуге болады.</string>
+    <string name="delivery_background">Фондық пайдалану</string>
+    <string name="delivery_background_restricted">Шектелген – Android фондық тексерулерді тоқтатады</string>
+    <string name="delivery_dnd">Мазаламау</string>
+    <string name="delivery_dnd_on">Қосулы – ескертулер дыбыссыз келуі мүмкін</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">%1$s дейін белсенді – мерзімі келген ескертулер оған дейін күтеді</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – мерзімі келген ескертулер осы уақытта күтеді</string>
+    <string name="delivery_last_check">Соңғы фондық тексеру</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – 6 сағаттан астам бұрын</string>
+    <string name="delivery_last_check_never">Әлі жоқ</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">Рұқсат ету</string>
+    <string name="delivery_action_change">Өзгерту</string>
+    <string name="delivery_action_show">Көрсету</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">Баннерлер мен дыбыс</string>
+    <string name="delivery_alert_off">Баннерлер өшірулі – ескертулер тек Хабарландыру орталығында көрінеді</string>
+    <string name="delivery_sound_off">Дыбыс өшірулі – ескертулер дыбыссыз келеді</string>
+    <string name="delivery_time_sensitive">Шұғыл хабарландырулар</string>
+    <string name="delivery_time_sensitive_off">Өшірулі – Фокус ескертулерді ұстап қалуы мүмкін</string>
+    <string name="delivery_background_refresh">Фондық жаңарту</string>
+    <string name="delivery_low_power">Қуат үнемдеу режимі</string>
+    <string name="delivery_swipe_away">Қолданбаны сырғытып жаптыңыз ба?</string>
+    <string name="delivery_swipe_away_note">Қолданбаны қолданбалар ауыстырғышында сырғытып жапсаңыз, iOS оны қайта ашқанша фондық тексерулерді тоқтатады.</string>
+    <string name="delivery_live_activity">Live Activity</string>
+    <string name="delivery_live_activity_note">Бағамды құлып экранында көрсетеді, бірақ тек қолданба тексергенде жаңартылады – ескертулерді жиірек тексертпейді.</string>
+
+    <string name="alarm_first_check">Ескертулердің жетуін тексеру</string>
+
+    <string name="oem_battery_title">Өндірушінің батарея үнемдеуі</string>
+    <string name="oem_battery_xiaomi">Xiaomi қолданбаны толық тоқтатуы мүмкін – сонда ескертулер жетпейді. «Автоіске қосу» функциясын қосып, Батарея үнемдеуді «Шектеусіз» етіп қойыңыз.</string>
+    <string name="oem_battery_samsung">Samsung қолданбаны терең ұйқыға жіберуі мүмкін – сонда ескертулер жетпейді. Батарея › Фондық пайдалану шектеулері бөлімінде оны «Ешқашан ұйықтамайтын қолданбаларға» қосыңыз.</string>
+    <string name="oem_battery_huawei">Huawei/Honor қолданбаны тоқтатуы мүмкін – сонда ескертулер жетпейді. Батарея › Қолданбаны іске қосу бөлімінде «Қолмен басқару» таңдап, барлық опцияға рұқсат етіңіз.</string>
+    <string name="oem_battery_oneplus">OnePlus қолданбаны тоқтатуы мүмкін – сонда ескертулер жетпейді. «Автоіске қосу» және Батарея пайдалану бөлімінде фондық белсенділікке рұқсат етіңіз.</string>
+    <string name="oem_battery_oppo">Oppo/Realme қолданбаны тоқтатуы мүмкін – сонда ескертулер жетпейді. «Автоіске қосу» және Батарея пайдалану бөлімінде фондық белсенділікке рұқсат етіңіз.</string>
+    <string name="oem_battery_vivo">Vivo қолданбаны тоқтатуы мүмкін – сонда ескертулер жетпейді. «Автоіске қосу» және Батарея бөлімінде фондағы жоғары қуат тұтынуға рұқсат етіңіз.</string>
+    <string name="alarm_reliability_stale">Соңғы тексеру %1$s – ескертулер кешігуі мүмкін</string>
+    <string name="alarm_reliability_never">Ескертулер қосулы – әлі фондық тексеру болған жоқ</string>
+    <string name="alarm_reliability_notifications_off">Хабарландырулар өшірулі – ескертулер жетпейді</string>
+    <string name="alarm_reliability_battery">Батарея үнемдеу ескерту тексерулерін тоқтатуы мүмкін</string>
+    <string name="alarm_reliability_background_refresh">Фондық жаңарту өшірулі – ескертулер жетпеуі мүмкін</string>
+</resources>

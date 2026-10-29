@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">Enginn skjálás er settur upp á þessu tæki. Settu hann fyrst upp í kerfisstillingum.</string>
+    <string name="app_lock_unlock">Opna</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">Hreinsa eignasafn</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="one">Eyða %d færslu? Vöktuð vistföng haldast. Þú getur afturkallað þetta strax á eftir.</item>
+        <item quantity="other">Eyða öllum %d færslum? Vöktuð vistföng haldast. Þú getur afturkallað þetta strax á eftir.</item>
+    </plurals>
+    <string name="portfolio_empty_action">Bættu við fyrstu kaupunum</string>
+    <string name="portfolio_empty_address">Bara vakta veskisvistfang</string>
+    <string name="portfolio_empty_csv">Keypt á kauphöll? Flyttu inn skrána þaðan</string>
+    <string name="portfolio_empty_example_plain">Dæmi: %1$s BTC keypt 1. mars. Forritið sýnir þá hvers virði það er í dag og hvort þú sért í plús eða mínus – aðeins geymt á þessu tæki.</string>
+    <string name="portfolio_empty_title">Engar færslur enn</string>
+    <string name="portfolio_enable_ask_text">Færslan þín er vistuð. Flipinn Eignasafn sýnir eign þína og virði hennar.</string>
+    <string name="portfolio_enable_ask_title">Kveikja á flipanum Eignasafn?</string>
+    <string name="portfolio_enable_later_hint">Færsla vistuð. Þú getur kveikt á flipanum Eignasafn í Stillingar › Eignasafn.</string>
+    <string name="portfolio_enabled_banner">Kveikt á eignasafni – þú finnur það í flipanum Eignasafn.</string>
+    <string name="portfolio_lock_reason">Opna eignasafn</string>
+    <string name="portfolio_locked_text">Opnaðu til að sjá eign þína og virði.</string>
+    <string name="portfolio_locked_title">Eignasafnið er læst</string>
+    <string name="portfolio_setting_hint">Valfrjálst: skráðu kaup og sölu og sjáðu virði og hagnað/tap í sérstökum flipa.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">Úrelt · staða %1$s</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="one">%d færsla úr kerfisafritinu var ógild og var ekki endurheimt.</item>
+        <item quantity="other">%d færslur úr kerfisafritinu voru ógildar og voru ekki endurheimtar.</item>
+    </plurals>
+    <string name="portfolio_title">Eignasafn</string>
+    <string name="portfolio_unassigned_fee">Gjaldi ekki úthlutað – kostnaðarverð óþekkt: %1$s</string>
+    <string name="portfolio_updated">Verð frá %1$s</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">Annað</string>
+    <string name="portfolio_allocation_title">Skipting</string>
+    <string name="portfolio_card_details">Nánar</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: ekki tiltækt enn</string>
+    <string name="portfolio_card_hints_count">Athugasemdir (%1$d)</string>
+    <string name="portfolio_card_today">Í dag</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">Samtals</string>
+    <string name="portfolio_hide_amounts">Fela upphæðir</string>
+    <string name="portfolio_hide_amounts_hint">Sýnir upphæðir og virði í eignasafninu og eignasafnsgræjunni sem ••• – prósentur haldast sýnilegar.</string>
+    <string name="portfolio_invested">Kostnaðarverð</string>
+    <string name="portfolio_total_no_fx">Ekkert gengi fyrir %1$s – upphæðir í USDT</string>
+    <string name="portfolio_total_value">Heildarvirði</string>
+    <string name="portfolio_value">Virði</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">Meðalt. %1$s · núna %2$s</string>
+    <string name="portfolio_avg_only">Meðalt. %1$s</string>
+    <string name="portfolio_avg_open_lots">Meðalkostnaður mynta í eign</string>
+    <string name="portfolio_avg_partial">Meðaltal %1$s með kaupverði</string>
+    <string name="portfolio_avg_price">Meðalkaupverð</string>
+    <string name="portfolio_avg_price_hint">Meðalkaupverð: meðaltal allra kaupa, vegið eftir magni. Sala er metin á þessu meðaltali.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Lokuð staða (%1$d)</item>
+        <item quantity="other">Lokaðar stöður (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: sala notar elstu myntirnar þínar fyrst. Meðalt. = eftirstandandi kostnaðarverð ÷ magn með kaupverði.</string>
+    <string name="portfolio_holdings">Eign</string>
+    <string name="portfolio_lost_fee_cost">Kostnaður netgjalds án greiddrar lotu: %1$s</string>
+    <string name="portfolio_open_lots">Opnar kauplotur (%1$d)</string>
+    <string name="portfolio_open_lots_avg">Með kaupverði (meðalt.)</string>
+    <string name="portfolio_open_lots_no_cost">Án kaupverðs</string>
+    <string name="portfolio_open_lots_without_price">ekkert kaupverð</string>
+    <string name="portfolio_realized">Innleystur hagnaður/tap</string>
+    <string name="portfolio_unrealized">Óinnleystur hagnaður/tap</string>
+    <string name="portfolio_unrealized_without_unpriced">án %1$s sem vantar kaupverð</string>
+    <string name="portfolio_withdrawn_gain">Tekið út: %1$s (virðisbreyting fram að úttekt)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">Umreikna í</string>
+    <string name="portfolio_convert_to_value">Umreikna í: %1$s</string>
+    <string name="portfolio_current_missing">Ekkert núverandi verð fyrir %1$s</string>
+    <string name="portfolio_current_price">Núverandi verð</string>
+    <string name="portfolio_price_missing">Verð vantar</string>
+    <string name="portfolio_price_missing_hint">Sum kaup hafa ekkert verð. Bættu við kaupverðinu til að sjá hagnað/tap.</string>
+    <string name="portfolio_price_source">Verð: Binance · USDT á markaðsverði</string>
+    <string name="portfolio_price_source_routes">Verð: %1$s, annars Binance · USDT á markaðsverði</string>
+    <string name="portfolio_price_unavailable">Verð ekki tiltækt núna</string>
+    <string name="portfolio_price_unchecked">Verð óstaðfest</string>
+    <string name="portfolio_price_via_base">≈ verð %1$s (bridged/wrapped)</string>
+    <string name="portfolio_usdt_as_usd">USDT umreiknað á markaðsverði þess í USD</string>
+    <string name="portfolio_usdt_assumed">Dollaragengi USDT vantar – reiknað sem 1 Bandaríkjadalur</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">Bæta við eignasafn</string>
+    <string name="portfolio_add_tx">Bæta við færslu</string>
+    <string name="portfolio_buy">Kaupa</string>
+    <string name="portfolio_coin">Mynt</string>
+    <string name="portfolio_coin_invalid">Sláðu inn tákn myntar</string>
+    <string name="portfolio_coin_search">Leita að tákni, t.d. BTC</string>
+    <string name="portfolio_discard_confirm">Henda</string>
+    <string name="portfolio_discard_keep">Halda áfram að breyta</string>
+    <string name="portfolio_discard_title">Henda breytingum?</string>
+    <string name="portfolio_edit_tx">Breyta færslu</string>
+    <string name="portfolio_invalid">Sláðu inn gilda tölu hærri en 0.</string>
+    <string name="portfolio_oversold">Sala er meiri en eignin – athugaðu færslurnar.</string>
+    <string name="portfolio_sell">Selja</string>
+    <string name="portfolio_sell_exceeds">Meira en eign þín (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">Upphæð auk gjalds er meiri en eign þín (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">Meira en eign þín í %2$s (%1$s)</string>
+    <string name="portfolio_transactions">Færslur</string>
+    <string name="portfolio_tx_acquired_date">Upphaflegur kaupdagur (valfrjálst)</string>
+    <string name="portfolio_tx_acquired_date_hint">Fyrir eignarhaldstíma í skattaútflutningi</string>
+    <string name="portfolio_tx_amount">Magn</string>
+    <string name="portfolio_tx_coin_fee">Gjald í mynt (valfrjálst)</string>
+    <string name="portfolio_tx_date">Dagsetning</string>
+    <string name="portfolio_tx_delete_confirm">Þessi færsla verður fjarlægð úr eignasafninu.</string>
+    <string name="portfolio_tx_delete_title">Eyða færslu?</string>
+    <string name="portfolio_tx_deposit">Innlögn</string>
+    <string name="portfolio_tx_entry_currency">Slá inn í</string>
+    <string name="portfolio_tx_explain_deposit">Eign án viðskipta, t.d. myntir frá því áður</string>
+    <string name="portfolio_tx_explain_gift">Myntirnar fara úr eign þinni eins og við úttekt – ráðstöfun á markaðsvirði aðeins þar sem landið skattleggur gjafir (UK, CA, AU)</string>
+    <string name="portfolio_tx_explain_payment">Greitt fyrir vöru eða þjónustu – ráðstöfun á markaðsvirði eins og sala, enginn peningur móttekinn</string>
+    <string name="portfolio_tx_explain_reward">Kostnaðarverð = markaðsvirði við móttöku</string>
+    <string name="portfolio_tx_explain_swap">Ein mynt fyrir aðra: selur myntina sem látin er og kaupir þá sem fæst</string>
+    <string name="portfolio_tx_explain_transfer">Enginn hagnaður – kostnaðarverðið fylgir myntunum</string>
+    <string name="portfolio_tx_explain_withdrawal">Eign fer úr eignasafninu – engin sala, enginn hagnaður</string>
+    <string name="portfolio_tx_fee_consumes_amount">Gjaldið er jafnhátt móttekinni upphæð – ekkert yrði eftir.</string>
+    <string name="portfolio_tx_fees_toggle">Gjöld</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s á gengi %2$s</string>
+    <string name="portfolio_tx_fiat_loading">Hleður gengi…</string>
+    <string name="portfolio_tx_fiat_no_fx">Ekkert gengi fyrir þennan dag – sláðu inn upphæðina í USDT.</string>
+    <string name="portfolio_tx_gift">Gjöf</string>
+    <string name="portfolio_tx_gift_price_hint">Í USDT. Autt = lokaverð þess dags (áætlað).</string>
+    <string name="portfolio_tx_gift_spouse">Til maka / sambúðaraðila</string>
+    <string name="portfolio_tx_gift_spouse_hint">UK og Kanada: hvorki hagnaður né tap – makinn tekur við kostnaðarverði þínu. Önnur lönd hunsa þetta.</string>
+    <string name="portfolio_tx_market_value">Markaðsvirði á mynt</string>
+    <string name="portfolio_tx_more_buy">Gjald, kauphöll, athugasemd</string>
+    <string name="portfolio_tx_network_fee">Netgjald í mynt (valfrjálst)</string>
+    <string name="portfolio_tx_note">Athugasemd (valfrjálst)</string>
+    <string name="portfolio_tx_payment">Greitt með því</string>
+    <string name="portfolio_tx_price">Verð á mynt</string>
+    <string name="portfolio_tx_price_hint">Í USDT. Skildu eftir autt ef óþekkt.</string>
+    <string name="portfolio_tx_price_historic">Staðfest dagslokaverð frá %1$s – breyttu ef þarf</string>
+    <string name="portfolio_tx_price_invalid">Sláðu inn gilda tölu (0 eða hærri) eða skildu reitinn eftir auðan.</string>
+    <string name="portfolio_tx_price_past_hint">Sláðu inn verðið á kaupdegi – skildu eftir autt ef óþekkt</string>
+    <string name="portfolio_tx_price_receipt_hint">Í USDT. Autt = eign án kostnaðarverðs.</string>
+    <string name="portfolio_tx_price_zero">Verð 0 er ekki mögulegt fyrir innfluttar færslur – skildu eftir autt fyrir markaðsverð</string>
+    <string name="portfolio_tx_removed">Færslu eytt</string>
+    <string name="portfolio_tx_reward">Umbun</string>
+    <string name="portfolio_tx_save_failed">Ekki tókst að vista færsluna. Það sem þú slóst inn er enn hér – reyndu aftur.</string>
+    <string name="portfolio_tx_swap">Skipti</string>
+    <string name="portfolio_tx_swap_fee_received">Gjald í %1$s: lækkar móttekna upphæð, ekkert verð þarf.</string>
+    <string name="portfolio_tx_swap_from">Skipta úr %1$s</string>
+    <string name="portfolio_tx_swap_given_amount">Látið magn</string>
+    <string name="portfolio_tx_swap_given_coin">Látin mynt</string>
+    <string name="portfolio_tx_swap_received_amount">Móttekið magn</string>
+    <string name="portfolio_tx_swap_received_coin">Móttekin mynt</string>
+    <string name="portfolio_tx_swap_same_coin">Veldu aðra mynt en þá sem látin er</string>
+    <string name="portfolio_tx_swap_to">Skipta í %1$s</string>
+    <string name="portfolio_tx_swap_value">Virði skiptanna (valfrjálst)</string>
+    <string name="portfolio_tx_swap_value_hint">Heildarvirði. Autt = óþekkt – hagnaður verður ófullkominn (sjálfvirkt með USDT í skiptunum).</string>
+    <string name="portfolio_tx_third_fee_amount">Upphæð gjalds</string>
+    <string name="portfolio_tx_third_fee_coin">Mynt gjalds</string>
+    <string name="portfolio_tx_third_fee_incomplete">Án verðs er gjaldið skilið eftir utan kostnaðarverðs og söluandvirðis; skattaútflutningurinn merkir slíka sölu.</string>
+    <string name="portfolio_tx_third_fee_price">Verð á gjaldmynt (valfrjálst)</string>
+    <string name="portfolio_tx_third_fee_toggle">Gjald í annarri mynt</string>
+    <string name="portfolio_tx_total">Samtals: %1$s</string>
+    <string name="portfolio_tx_transfer">Millifærsla</string>
+    <string name="portfolio_tx_transfer_from">Frá (valfrjálst)</string>
+    <string name="portfolio_tx_transfer_to">Til (valfrjálst)</string>
+    <string name="portfolio_tx_transfer_to_hint">Kauphöll eða veski – metið þar héðan í frá.</string>
+    <string name="portfolio_tx_type_select">Tegund: %1$s</string>
+    <string name="portfolio_tx_value_received">Virði á mynt við móttöku (valfrjálst)</string>
+    <string name="portfolio_tx_withdrawal">Úttekt</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">Gefið eða greitt með því? Skráðu það sem „Gjöf“ eða „Greitt með því“ – eftir landi telst það sala í skattalegu tilliti.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">Valfrjálst: markaðsvirði í USDT, aðeins notað fyrir söguna (autt = verð þess dags). Myntirnar fara alltaf út á kostnaðarverði sínu.</string>
+    <string name="portfolio_wallet_did_you_mean">Áttirðu við %1$s? Önnur stafsetning telst sérstakt veski.</string>
+    <string name="portfolio_wallet_shortfall">Eign í %1$s nægir ekki – vantar millifærslu?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">Hæst %1$s</string>
+    <string name="portfolio_compare">Bera saman</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">Bera saman %1$s og USDT í prósentum</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">Samanburður í prósentum, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">Gjaldmiðlaáhrif: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">Verðgögn ná aðeins aftur til ágúst 2017 — sagan byrjar þar.</string>
+    <string name="portfolio_history_chip_since_first">Allt</string>
+    <string name="portfolio_history_collapse">Fela virðissögu</string>
+    <string name="portfolio_history_converted">Umreiknað á gengi dagsins</string>
+    <string name="portfolio_history_expand">Sýna virðissögu</string>
+    <string name="portfolio_history_gain_a11y">Virði %1$s. Hagnaður/tap, %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">Hagnaður/tap</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">Virði í %1$s</string>
+    <string name="portfolio_history_incl_fx">Að meðtöldu gengi</string>
+    <string name="portfolio_history_incl_withdrawn">Inniheldur virðisbreytingu úttekinna mynta</string>
+    <string name="portfolio_history_includes_trades">Inniheldur kaup og sölu á þessu tímabili</string>
+    <string name="portfolio_history_loading">Hleður virðissögu</string>
+    <string name="portfolio_history_period_1y">1 ár</string>
+    <string name="portfolio_history_period_30d">30 dagar</string>
+    <string name="portfolio_history_period_7d">7 dagar</string>
+    <string name="portfolio_history_period_since_first">frá fyrstu kaupum</string>
+    <string name="portfolio_history_pnl_needs_prices">Kaupverð vantar fyrir hagnað/tap – bættu þeim við í færslunum.</string>
+    <string name="portfolio_history_pnl_without">Hagnaður/tap án %1$s (verð vantar)</string>
+    <string name="portfolio_history_range_1y">1 Á</string>
+    <string name="portfolio_history_range_30d">30 D</string>
+    <string name="portfolio_history_range_7d">7 D</string>
+    <string name="portfolio_history_range_a11y">Sýna sögu fyrir %1$s</string>
+    <string name="portfolio_history_range_since_first">Frá 1. kaupum</string>
+    <string name="portfolio_history_scaled">Saga fyrir %1$s: saga frá Binance kvörðuð að verði kauphallarinnar</string>
+    <string name="portfolio_history_title">Virðissaga</string>
+    <string name="portfolio_history_today">Í dag</string>
+    <string name="portfolio_history_too_short">Sagan byrjar eftir fyrsta heila daginn þinn.</string>
+    <string name="portfolio_history_unavailable">Engin saga tiltæk núna.</string>
+    <string name="portfolio_history_utc_days">Dagar í UTC (dagskerti)</string>
+    <string name="portfolio_history_without_matching">Án %1$s (engin samsvarandi dagsverð)</string>
+    <string name="portfolio_period_rewards">Umbun +%1$s (ekki í hagnaði)</string>
+    <string name="portfolio_period_scaled">7 D/1 Á fyrir %1$s: saga frá Binance kvörðuð að verði kauphallarinnar</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">Viðvörun</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">Upphæð (%1$s)</string>
+    <string name="portfolio_alarm_hint">Athugað eftir hverja endurnýjun. Eins og viðvaranir fer hún af stað þegar farið er yfir mörkin og aðeins aftur eftir að virðið hefur færst til baka.</string>
+    <string name="portfolio_alarm_kind_above">Eignasafn yfir upphæð</string>
+    <string name="portfolio_alarm_kind_below">Eignasafn undir upphæð</string>
+    <string name="portfolio_alarm_kind_down">Eignasafn lækkar</string>
+    <string name="portfolio_alarm_kind_up">Eignasafn hækkar</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">Eignasafn yfir %1$s</string>
+    <string name="portfolio_alarm_sentence_below">Eignasafn undir %1$s</string>
+    <string name="portfolio_alarm_sentence_down">Eignasafn niður um %1$s (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">Eignasafn upp um %1$s (%2$s)</string>
+    <string name="portfolio_alarm_title">Viðvörun um virði eignasafns</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">Kauphöll (valfrjálst)</string>
+    <string name="ledger_exchange_failed">%1$s: ekkert verð frá %2$s núna – metið með Binance.</string>
+    <string name="ledger_exchange_hint">Myntin er metin á verði þessarar kauphallar (annars Binance). Saga, 7 D og 1 Á nota dagsverð Binance kvörðuð að því.</string>
+    <string name="ledger_exchange_mixed">%1$s: nokkrar kauphallir skráðar – metið með Binance. Fluttirðu myntir? Skráðu tilfærsluna sem „Millifærsla“.</string>
+    <string name="ledger_exchange_none">Engin (Binance)</string>
+    <string name="ledger_fee">Gjald (valfrjálst)</string>
+    <string name="ledger_fee_coin">Mynt</string>
+    <string name="ledger_fee_hint">Í USDT hækkar það kostnaðarverðið (sala: lækkar söluandvirðið); í myntinni lækkar það magnið.</string>
+    <string name="ledger_fee_line">Gjald %1$s</string>
+    <string name="ledger_fifo_cost_note">Frá kaupum: FIFO-kostnaður að meðtöldum gjöldum (elstu myntir seldar fyrst).</string>
+    <string name="ledger_gain_info">Í dag, 7 D, 1 Á: virðisbreyting á tímabilinu – kaup og sala teljast ekki hagnaður. Frá kaupum: núverandi virði að frádregnu kostnaðarverði (meðalkostnaður að meðtöldum gjöldum) þeirra mynta sem þú átt enn.</string>
+    <string name="ledger_gain_info_a11y">Hvernig hagnaður og tap eru reiknuð</string>
+    <string name="ledger_gain_info_fifo">Í dag, 7 D, 1 Á: virðisbreyting á tímabilinu – kaup og sala teljast ekki hagnaður. Frá kaupum: núverandi virði að frádregnu kostnaðarverði (FIFO að meðtöldum gjöldum) þeirra mynta sem þú átt enn.</string>
+    <string name="ledger_gain_title">Hagnaður/tap</string>
+    <string name="ledger_more_toggle">Gjald og kauphöll</string>
+    <string name="ledger_partial_cost">„Frá kaupum“ telur aðeins hlutann með kaupverði – án %1$s sem vantar kaupverð.</string>
+    <string name="ledger_period_without">Í dag / 7 D / 1 Á án %1$s – ekkert samsvarandi upphafsverð.</string>
+    <string name="ledger_since_purchase_currency">Frá kaupum (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">Hagnaður/tap frá kaupum, ekki enn selt</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="one">Án %1$d myntar sem vantar kaupverð (%2$s) – bættu verðinu við svo hún teljist með.</item>
+        <item quantity="other">Án %1$d mynta sem vantar kaupverð (%2$s) – bættu verðunum við svo þær teljist með.</item>
+    </plurals>
+
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">Hrun USDT – markaður á %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">Dollaragengi USDT í gegnum USDC/USDT – ef USDC lækkar er þetta gildi rangt</string>
+    <string name="portfolio_amount_bridged_stable">≈ að meðtöldu %1$s (bridged)</string>
+
+    <string name="portfolio_tx_interest">Vextir (útlán)</string>
+    <string name="portfolio_tx_interest_hint">Telst tekjur við móttöku (Austurríki). Notaðu ekki fyrir staking-umbun og airdrop.</string>
+    <string name="app_lock_no_screen_lock">Settu upp skjálás til að opna eignasafnið.</string>
+    <string name="app_lock_turn_off_action">Slökkva á lás eignasafns</string>
+    <string name="app_lock_turn_off_confirm_title">Slökkva á lás eignasafns?</string>
+    <string name="app_lock_turn_off_confirm_message">Án skjáláss er ekki hægt að opna eignasafnið. Ef slökkt er á lásnum sýnir forritið eignasafnið aftur án þess að spyrja. Þegar skjálás hefur verið settur upp geturðu kveikt aftur á lásnum í Stillingum.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">„Frá kaupum“ og kostnaðarverð í %1$s: kostnaður á gengi kaupdags, virði á gengi dagsins.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">Ekkert gengi fyrir kaupdag (vantar í „Frá kaupum“ og kostnaðarverð): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">Kostnaður á kaupdögum án dollaragengis USDT reiknaður sem 1 Bandaríkjadalur á hvert USDT.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">Staða %1$s – ekki næst í kauphöll</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">Dagsverð: %1$s (í stað Binance)</string>
+
+    <string name="portfolio_footer_short">Vinnutól, ekki skatta- eða fjárfestingarráðgjöf. Persónuvernd: Stillingar › Um forritið › Persónuverndarstefna.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">Eyða öllum færslum %1$s?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">%d færsla verður fjarlægð. Þú getur afturkallað þetta strax á eftir.</item>
+        <item quantity="other">%d færslur verða fjarlægðar. Þú getur afturkallað þetta strax á eftir.</item>
+    </plurals>
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">Gjöld greidd í %1$s eru líka fjarlægð úr öðrum færslum: %2$d.</string>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s fjarlægt úr eignasafni (%2$d færsla)</item>
+        <item quantity="other">%1$s fjarlægt úr eignasafni (%2$d færslur)</item>
+    </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">%d færsla fjarlægð</item>
+        <item quantity="other">%d færslur fjarlægðar</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">Þetta fjarlægir líka %d lotu.</item>
+        <item quantity="other">Þetta fjarlægir líka %d lotur.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">Þetta fjarlægir líka %d lotu og stöðusöguna.</item>
+        <item quantity="other">Þetta fjarlægir líka %d lotur og stöðusöguna.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">Þetta fjarlægir líka stöðusöguna.</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">Ekki tókst að vista – reyndu aftur</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">Ógild mörk – eyddu og búðu til aftur</string>
+</resources>

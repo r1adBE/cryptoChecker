@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">Шинэ · %1$s</string>
+    <string name="watchlist_empty_title">Одоогоор хос алга</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%2$d-аас %1$d нь ханшгүй</item>
+        <item quantity="other">%2$d-аас %1$d нь ханшгүй</item>
+    </plurals>
+    <string name="watchlist_last_run">Сүүлийн ажиллагаа %1$s</string>
+    <string name="watchlist_live_a11y">Шууд ханш асаалттай</string>
+    <string name="watchlist_offline_since">Холболт алга · %1$s байдлаар</string>
+    <string name="watchlist_pull_to_refresh">Шинэчлэхийн тулд доош татна уу</string>
+    <string name="watchlist_refresh_report">Сүүлийн шинэчлэл</string>
+    <string name="watchlist_refresh_report_empty">Одоогоор задаргаа алга – бүрэн шинэчлэл хараахан хийгдээгүй. Шинэчлэх дээр товшоод дугуй зогстол хүлээнэ үү.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%2$d-аас %1$d нь хуучирсан</item>
+        <item quantity="other">%2$d-аас %1$d нь хуучирсан</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">Энд байгаа бүх хос идэвхгүй</string>
+    <string name="watchlist_status_exchange_prices">Таны биржүүдийн ханш · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">Биржийн ханш · %1$s</string>
+    <string name="watchlist_status_group_empty">Энэ бүлэгт хос алга</string>
+    <string name="watchlist_status_none_traded">Энд арилжаалагдаж буй хос алга</string>
+    <string name="watchlist_updated">Шинэчилсэн: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">дундаж %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d буурсан</item>
+        <item quantity="other">%1$d буурсан</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d нь 24 ц-ийн утгагүй</item>
+        <item quantity="other">%1$d нь 24 ц-ийн утгагүй</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d нь өнөөдрийн утгагүй</item>
+        <item quantity="other">%1$d нь өнөөдрийн утгагүй</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d өссөн</item>
+        <item quantity="other">%1$d өссөн</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · идэвхгүй</string>
+    <string name="watchlist_row_outdated">%1$s · хуучирсан</string>
+    <string name="watchlist_row_outdated_age">хуучирсан · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">Ханш %1$s-аас хойш өөрчлөгдөөгүй</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s холбогдохгүй</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">Төгсгөл рүү очих</string>
+    <string name="watchlist_jump_start">Эхлэл рүү очих</string>
+    <string name="watchlist_search_close">Хайлтыг хаах</string>
+    <string name="watchlist_search_empty">«%1$s»-д тохирох зүйл алга</string>
+    <string name="watchlist_search_hint">Хос, нэр эсвэл бирж хайх</string>
+    <string name="watchlist_search_open">Хайх</string>
+    <string name="watchlist_sort_ascending">өсөхөөр</string>
+    <string name="watchlist_sort_descending">буурахаар</string>
+    <string name="watchlist_sort_hint">Хосыг дарж байгаад чирэх эсвэл бариулыг ашиглана уу. Дуртай нь дээрээ үлдэнэ.</string>
+    <string name="watchlist_sort_name">Нэр</string>
+    <string name="watchlist_sort_own">Өөрийн дараалал</string>
+    <string name="watchlist_sort_price">Ханш</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">Ажиглах жагсаалтыг цэвэрлэх</string>
+    <string name="watchlist_clear_confirm">Бүх хосыг ажиглах жагсаалтаас хасах уу? Тэдгээрийн дохио хамт устна.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d идэвхгүй</item>
+        <item quantity="other">%1$d идэвхгүй</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">Хасах</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Өөрийн биржид арилжаалагдахаа больсон %1$d хосыг хасах уу? Түүний дохио хамт устна.</item>
+        <item quantity="other">Өөрийн биржид арилжаалагдахаа больсон %1$d хосыг хасах уу? Тэдгээрийн дохио хамт устна.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">Арилжаалагдахгүй хосыг хасах (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Арилжаалагдахгүй хосыг хасах</string>
+    <string name="watchlist_removed">%1$s-г хаслаа</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d хосыг хаслаа</item>
+        <item quantity="other">%1$d хосыг хаслаа</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">Арилжаалагдахгүй %1$d хосыг хаслаа</item>
+        <item quantity="other">Арилжаалагдахгүй %1$d хосыг хаслаа</item>
+    </plurals>
+    <string name="watchlist_select">Сонгох</string>
+    <string name="watchlist_select_all">Бүгдийг сонгох</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d сонгосон</item>
+        <item quantity="other">%1$d сонгосон</item>
+    </plurals>
+    <string name="watchlist_show_all">Бүгдийг харуулах</string>
+    <string name="watchlist_show_only_disabled">Зөвхөн идэвхгүйг харуулах</string>
+    <string name="watchlist_show_only_stale">Зөвхөн хуучирсныг харуулах</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Дохио (%1$d)</item>
+        <item quantity="other">Дохио (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">Одоогоор дуртай зоос алга. Хосыг баруун тийш шудрах эсвэл хосыг нээгээд «Дуртай» дээр товшино уу.</string>
+    <string name="watchlist_group_empty_hint">Бүлгийн хосыг сонгохын тулд түүнийг удаан дарна уу.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">Таны бүлгүүд энд харагдана</string>
+    <string name="watchlist_notification">Ханшийн мэдэгдэл</string>
+    <string name="watchlist_tts">Ханшийг чангаар унших</string>
+    <string name="watchlist_tts_speech_on">Чангаар унших асаалттай. Үүнийг Тохиргоо › Дохио › Чангаар унших хэсэгт өөрчилж болно.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">Виджет болгон нэмэх</string>
+    <string name="watch_action_alarm">Дохио</string>
+    <string name="watch_action_favorite">Дуртай</string>
+    <string name="watch_action_why">Түүнтэй хамт юу хөдөлж байна?</string>
+    <string name="watch_action_why_short">Хамт юу хөдөлж байна?</string>
+    <string name="watch_change_mark">Босгыг өөрчлөх</string>
+    <string name="watch_disable">Идэвхгүй болгох</string>
+    <string name="watch_disable_hint">Хүсэлтгүй, мэдэгдэлгүй</string>
+    <string name="watch_disabled">Идэвхгүй</string>
+    <string name="watch_disabled_banner">%1$s идэвхгүй боллоо</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">Дохио үлдэнэ – босгыг нь шалгана уу</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">Хосыг засах</string>
+    <string name="watch_enable">Идэвхжүүлэх</string>
+    <string name="watch_enable_hint">Ханш болон мэдэгдэл үргэлжилнэ</string>
+    <string name="watch_enabled_banner">%1$s идэвхжлээ</string>
+    <string name="watch_error_offline">Холболт алга</string>
+    <string name="watch_gesture_hint_short">Товших: дохио ба «Түүнтэй хамт юу хөдөлж байна?» · сонгохын тулд удаан дарах · устгахын тулд зүүн тийш шудрах · дуртай болгохын тулд баруун тийш шудрах</string>
+    <string name="watch_hint_tap_why">Дохио болон «Түүнтэй хамт юу хөдөлж байна?»-г харахын тулд зоос дээр товшино уу</string>
+    <string name="watch_not_traded">Энэ биржид арилжаалагдахаа больсон</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">Ажиглах жагсаалтад байхгүй</string>
+    <string name="watch_price_mid">дундаж үнэ (эс бөгөөс тэмдэглэгээний ханш)</string>
+    <string name="watch_row_source_both">Өөрчлөлт &amp; график: %1$s</string>
+    <string name="watch_row_source_change">Өөрчлөлт: %1$s</string>
+    <string name="watch_row_source_chart">График: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s одоо таны ажиглах жагсаалтад байна</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s одоо таны ажиглах жагсаалтад байна</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">Дуртайд нэмэх</string>
+    <string name="favorite_added">%1$s-г дуртайд нэмлээ</string>
+    <string name="favorite_remove">Дуртайгаас хасах</string>
+    <string name="favorite_removed">%1$s-г дуртайгаас хаслаа</string>
+    <string name="hint_favorites_list">Зөвлөгөө: мөрийг дуртай болгохын тулд баруун тийш шударна уу – дуртай нь дээрээ үлдэнэ.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">Шинэ бүлэг</string>
+    <string name="group_all">Бүгд</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Alpha токен</string>
+    <string name="group_delete">Бүлгийг устгах</string>
+    <string name="group_delete_confirm">Хосууд таны ажиглах жагсаалтад үлдэнэ.</string>
+    <string name="group_done">Болсон</string>
+    <string name="group_edit_title">Бүлгийг засах</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">Дуртай</string>
+    <string name="group_in_other">%1$s-д</string>
+    <string name="group_name">Бүлгийн нэр</string>
+    <string name="group_new">Шинэ бүлэг…</string>
+    <string name="group_next">Дараах</string>
+    <string name="group_none">Бүлэггүй</string>
+    <string name="group_rename">Нэр өөрчлөх</string>
+    <string name="group_search_hint">Хос, нэр эсвэл бирж хайх</string>
+    <string name="group_target">Бүлэгт</string>
+    <string name="group_title">Бүлэг</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">Токен</string>
+    <string name="group_value">Бүлэг: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">Тэмдэглэл нэмэх</string>
+    <string name="note_edit">Тэмдэглэл засах</string>
+    <string name="note_hint">ж.нь орсон 0.42, зорилго 0.60</string>
+    <string name="note_remove">Хасах</string>
+    <string name="note_title">Тэмдэглэл</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">Дарааллыг өөрчлөхийн тулд чирнэ үү</string>
+    <string name="sort_move_bottom">Хамгийн доош зөөх</string>
+    <string name="sort_move_down">Доош зөөх</string>
+    <string name="sort_move_top">Хамгийн дээш зөөх</string>
+    <string name="sort_move_up">Дээш зөөх</string>
+
+    <string name="watchlist_first_alarm_title">Анхны дохиогоо тохируулаарай</string>
+    <string name="watchlist_first_alarm_text">Ханш таны босгод хүрэхэд мэдэгдэл аваарай – апп хаалттай үед Android жигд бусаар шалгадаг.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">тэмдэглэгээний ханш (дундаж үнэ алга)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">цагийн ханш</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">Анхны дохиогоо тохируулаарай – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Шинэчлэх (%1$d)</string>
+
+    <!-- Zeile der Merkliste: Börse pausiert (zu viele Anfragen / Zeitüberschreitungen) bis zu einer Uhrzeit, ersetzt die Zeitzeile, z. B. «Binance · pausiert bis 19:45» -->
+    <string name="watchlist_row_exchange_paused">%1$s · %2$s хүртэл түр зогссон</string>
+
+    <string name="watchlist_refresh_just_done">Саяхан шинэчилсэн · %1$d с-ийн өмнө</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">сүүлийн арилжаа %1$s</string>
+
+    <string name="change_candle_source_hint">%1$s-ийн лаанаас тооцсон – бирж өөрөө энэ утгыг өгдөггүй.</string>
+    <string name="change_candle_source_action">Өөрчлөлтийн эх сурвалжийг харуулах</string>
+
+    <string name="watchlist_sort_by_coin">Зоосоор эрэмбэлэх</string>
+    <string name="watchlist_sort_by_exchange">Биржээр эрэмбэлэх</string>
+    <string name="watchlist_limit_reached">Таны ажиглах жагсаалт дээд тал нь %1$s хостой байж болно.</string>
+    <string name="watch_price_reference">лавлах ханш, өдрийн</string>
+    <string name="watch_price_daily">өдрийн</string>
+    <string name="watchlist_compare">Харьцуулах</string>
+    <string name="watchlist_compare_hint">Харьцуулахын тулд 2-оос 4 хос сонгоно уу.</string>
+    <string name="compare_title">Харьцуулалт</string>
+    <string name="compare_basis">Шугамууд хугацааны эхнээс хойших өөрчлөлтийг хувиар харуулна.</string>
+    <string name="compare_from_high">30 Х-ийн оргилтой харьцуулахад</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">%1$d хосыг сэргээсэнгүй – ажиглах жагсаалт дүүрсэн</item>
+        <item quantity="other">%1$d хосыг сэргээсэнгүй – ажиглах жагсаалт дүүрсэн</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">Ажиглах жагсаалт болон түүний дохио яг одоо хадгалагдахгүй байна. Энэ болон цаашдын өөрчлөлт апп хаагдахад алга болно. Ямар ч байсан өөрчлөх үү?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">Ямар ч байсан өөрчлөх</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">%1$d хос</item>
+        <item quantity="other">%1$d хос</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">%1$d хосоос %2$d</item>
+        <item quantity="other">%1$d хосоос %2$d</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">%1$d зай үлдсэн</item>
+        <item quantity="other">%1$d зай үлдсэн</item>
+    </plurals>
+    <string name="watchlist_footer_full">Ажиглах жагсаалт дүүрсэн</string>
+</resources>

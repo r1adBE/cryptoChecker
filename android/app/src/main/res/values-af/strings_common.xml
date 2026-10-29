@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Terug</string>
+    <string name="action_cancel">Kanselleer</string>
+    <string name="action_clear">Maak skoon</string>
+    <string name="action_close">Maak toe</string>
+    <string name="action_keep">Hou</string>
+    <string name="action_delete">Vee uit</string>
+    <string name="action_edit">Wysig</string>
+    <string name="action_more">Meer opsies</string>
+    <string name="action_refresh">Herlaai</string>
+    <string name="action_retry">Probeer weer</string>
+    <string name="action_save">Stoor</string>
+    <string name="action_sort">Sorteer</string>
+    <string name="action_sort_done">Klaar</string>
+    <string name="action_undo">Ontdoen</string>
+    <string name="action_view">Bekyk</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Mark</string>
+    <string name="tab_portfolio">Portefeulje</string>
+    <string name="tab_settings">Instellings</string>
+    <string name="tab_watchlist">Volglys</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Fout: %1$s</string>
+    <string name="error_exchange_unreachable">Beurs nou nie bereikbaar nie – die laaste pryse bly sigbaar.</string>
+    <string name="error_exchange_unreachable_short">Beurs nou nie bereikbaar nie</string>
+    <string name="loading_hint">Laai tans…</string>
+    <string name="option_off">Af</string>
+    <string name="something_went_wrong">Iets het skeefgeloop</string>
+    <string name="time_just_now">sopas</string>
+    <string name="try_again">Probeer weer</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Geen verbinding nie</string>
+    <string name="offline_status_since">Geen verbinding nie · soos op %1$s</string>
+    <string name="status_live">Regstreeks</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Voeg paar by</string>
+    <string name="shortcut_alarms">Alle alarms</string>
+    <string name="shortcut_cycle">Mark</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Voeg paar by volglys</string>
+    <string name="shortcut_alarms_long">Wys alle alarms</string>
+    <string name="shortcut_cycle_long">Open markoorsig</string>
+
+    <string name="log_box_title">Log</string>
+    <string name="label_value">%1$s: %2$s</string>
+</resources>

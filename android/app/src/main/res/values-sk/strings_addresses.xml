@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">Pridať adresu</string>
+    <string name="portfolio_address_count">Započítať</string>
+    <string name="portfolio_address_error">Aktualizácia zlyhala</string>
+    <string name="portfolio_address_hint">Verejná adresa (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) alebo xpub</string>
+    <string name="portfolio_address_label">Označenie (voliteľné)</string>
+    <string name="portfolio_address_not_since_buy">Z adresy · nie je v „Od nákupu“: %1$s</string>
+    <string name="portfolio_address_overlap">Aj vo vlastných transakciách: %1$s – obe sa sčítajú. Rovnaké coiny? Vyber „Iba zobraziť“.</string>
+    <string name="portfolio_address_overlap_ask">%1$s už zaznamenávaš vlastnými transakciami. Má sa zostatok tejto adresy započítať do portfólia, alebo sa má iba zobraziť?</string>
+    <string name="portfolio_address_overlap_auto">„%1$s“ sa teraz iba zobrazuje, nezapočítava sa – %2$s sú aj v tvojich transakciách.</string>
+    <string name="portfolio_address_overlap_title">Rovnaké coiny ako v tvojich transakciách?</string>
+    <string name="portfolio_address_overlap_tx">Rovnaké množstvo ako tvoj vlastný vklad/presun (%1$s) – asi sa počíta dvakrát.</string>
+    <string name="portfolio_address_period_observed">Sledované adresy sa počítajú od prvého zisteného zostatku; neskoršie zmeny sú prítoky/odtoky, nie zisk.</string>
+    <string name="portfolio_address_privacy">Na %1$s sa posiela iba verejná adresa – nikdy kľúče ani seed frázy. Poskytovateľ ju vidí spolu s tvojou IP adresou. Kontroluje sa najviac každých 10 minút.</string>
+    <string name="portfolio_address_remove">Odstrániť adresu</string>
+    <string name="portfolio_address_show_only">Iba zobraziť, nezapočítať do portfólia</string>
+    <string name="portfolio_address_show_only_short">Iba zobraziť</string>
+    <string name="portfolio_address_tokens">Započítať tokeny</string>
+    <string name="portfolio_address_xpub_privacy">Xpub odhalí všetky adresy tejto peňaženky. Odvodzujú sa v tvojom zariadení; na %1$s idú iba jednotlivé adresy – pri prvom hľadaní najmenej 40 dopytov, potom menej. Súkromné kľúče (xprv) sa nikdy neprijímajú.</string>
+    <string name="portfolio_address_xpub_gap">Hľadanie skončí po %1$d nepoužitých adresách za sebou (štandard BIP44, ktorý používa väčšina peňaženiek). Použitá adresa za touto medzerou sa nezapočíta – pridaj ju samostatne.</string>
+    <string name="portfolio_address_xpub_used">Použité adresy: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">Príliš veľa použitých adries na aktualizáciu</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">Veľmi veľa adries – nové platby na staré, prázdne adresy sa nemusia rozpoznať</string>
+    <string name="portfolio_addresses_title">Adresy</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Adresy Bitcoin Cash nemožno sledovať: neexistuje bezplatná verejná služba bez API kľúča, ktorej podmienky by to povoľovali.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) bola v roku 2024 vypnutá – zostatky sú teraz na BNB Smart Chain (0x…)</string>
+    <string name="address_checksum">Nesprávny kontrolný súčet – skontroluj preklepy</string>
+    <string name="address_doge_unsupported">Adresy Dogecoin nemožno sledovať: neexistuje bezplatná verejná služba bez API kľúča, ktorej podmienky by to povoľovali.</string>
+    <string name="address_duplicate">Táto adresa je už pridaná</string>
+    <string name="address_ens">Názvy ENS nie sú podporované – zadaj adresu 0x</string>
+    <string name="address_invalid">Nie je platná adresa podporovanej siete</string>
+    <string name="address_limit">Najviac 20 adries</string>
+    <string name="address_secret">Vyzerá to ako súkromný kľúč alebo seed fráza – nikdy to nikde nezadávaj. Iba verejné adresy.</string>
+    <string name="address_testnet">Adresy testnetu nie sú podporované</string>
+    <string name="address_unsupported">Tento typ adresy nie je podporovaný</string>
+    <string name="address_wrong_chain">Adresa patrí do inej siete</string>
+    <string name="address_xpub_multisig">Kľúče multisig (Ypub/Zpub) nie sú podporované</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Účet Taproot (BIP86): z tohto kľúča sa odvodzujú adresy bc1p… na príjem aj výdavok.</string>
+    <string name="portfolio_address_taproot_hint">Peňaženka Taproot? Vlož namiesto toho deskriptor tr(…) zo svojej peňaženky – obyčajný xpub sa prehľadá iba ako adresy Legacy a SegWit.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">Vlastný server je nedostupný</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">Kto prevádzkuje %1$s, vidí všetky dopytované adresy tejto peňaženky a môže ich prepojiť navzájom aj s tvojou IP adresou.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">Vyhneš sa tomu vlastným serverom v Nastavenia › Portfólio › Vlastný server pre adresy.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d neznámy token (nezapočítaný)</item>
+        <item quantity="few">+%1$d neznáme tokeny (nezapočítané)</item>
+        <item quantity="many">+%1$d neznámeho tokenu (nezapočítané)</item>
+        <item quantity="other">+%1$d neznámych tokenov (nezapočítané)</item>
+    </plurals>
+</resources>

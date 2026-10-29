@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">Vlastné</string>
+    <string name="settings_group_general">Všeobecné</string>
+    <string name="settings_group_more">Viac</string>
+    <string name="settings_minutes">%1$d min</string>
+    <string name="settings_row_about">O aplikácii</string>
+    <string name="settings_row_alarms">Alarmy</string>
+    <string name="settings_row_currency">Mena</string>
+    <string name="settings_row_dated_futures">Termínované futures</string>
+    <string name="settings_row_updates">Aktualizácia kurzov</string>
+    <string name="settings_row_watchlist">Zoznam</string>
+    <string name="settings_search_hint">Hľadať v nastaveniach</string>
+    <string name="settings_seconds">%1$d s</string>
+    <string name="settings_section_about">O aplikácii</string>
+    <string name="settings_section_appearance">Vzhľad</string>
+    <string name="settings_section_developer">Vývojár</string>
+    <string name="settings_section_language">Jazyk</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">Zapnuté</string>
+    <string name="settings_title">Nastavenia</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">Čas pokoja pred ďalším spustením alarmu</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Signál alarmu</string>
+    <string name="settings_alarm_signal_open_system">Upraviť v systémových nastaveniach</string>
+    <string name="settings_alarm_signal_system_hint">Riadi sa nastaveniami upozornení telefónu.</string>
+    <string name="settings_alarm_sound">Zvuk alarmu</string>
+    <string name="settings_alarm_sound_custom">Vlastný zvuk</string>
+    <string name="settings_alarm_sound_default">Predvolený zvuk</string>
+    <string name="settings_alarm_sound_error">Zvuk sa nepodarilo použiť.</string>
+    <string name="settings_alarm_sound_file">Vlastný zvukový súbor…</string>
+    <string name="settings_alarm_sound_reset">Použiť predvolený zvuk</string>
+    <string name="settings_alarm_sound_system">Vybrať systémový zvuk…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Číslo na ikone aplikácie</string>
+    <string name="settings_app_badge_hint">Počíta otvorené upozornenia alarmov. Či sa zobrazí číslo alebo bodka, určuje domovská obrazovka (napr. Samsung: „S číslom“).</string>
+    <string name="settings_exact_checks">Kontrolovať presne</string>
+    <string name="settings_exact_checks_grant">Povoliť budíky a pripomenutia</string>
+    <string name="settings_exact_checks_hint">Android kontroluje približne každých 15 minút, aj keď je zariadenie nečinné. Spotrebuje trochu viac batérie.</string>
+    <string name="settings_exact_checks_nothing">Žiadne aktívne páry – nie je čo kontrolovať.</string>
+    <string name="settings_exact_checks_permission_missing">Chýba povolenie – pri nečinnom zariadení Android kontroluje nepravidelne, niekedy až po hodinách.</string>
+    <string name="settings_notification_change">Hlásiť iba pri zmene kurzu</string>
+    <string name="settings_notification_change_always">Vždy</string>
+    <string name="settings_percent_invalid">Zadaj hodnotu od 0 do 100.</string>
+    <string name="settings_notification_change_hint">Upozornenie na kurz sa zobrazí, až keď sa kurz od posledného pohol aspoň o toľko. Ak chýbajú údaje, nezobrazí sa nič. Alarmy to neovplyvňuje.</string>
+    <string name="settings_ongoing_notifications">Nedá sa odstrániť potiahnutím</string>
+    <string name="settings_ongoing_notifications_hint">Upozornenia na kurzy zostanú pripnuté.</string>
+    <string name="settings_price_notifications">Upozornenia na kurzy</string>
+    <string name="settings_price_notifications_hint">V stavovom riadku zobrazí kurz povolených párov.</string>
+    <string name="settings_price_pairs">Páry</string>
+    <string name="settings_price_pairs_all_off">Všetky vypnuté</string>
+    <string name="settings_price_pairs_all_on">Všetky zapnuté</string>
+    <string name="settings_price_pairs_count">%1$d z %2$d</string>
+    <string name="settings_price_pairs_empty">V zozname zatiaľ nie sú žiadne páry.</string>
+    <string name="settings_price_pairs_hint">Vyber, pre ktoré páry sa kurz zobrazí v lište upozornení.</string>
+    <string name="settings_quiet_hours">Nočný pokoj</string>
+    <string name="settings_quiet_hours_from">Od</string>
+    <string name="settings_quiet_hours_hint">Medzi %1$s a %2$s alarmy čakajú do konca nočného pokoja a potom sa ozvú so zvukom. Ostatné upozornenia prídu potichu, bez hlasu.</string>
+    <string name="settings_quiet_hours_to">Do</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">Interval</string>
+    <string name="settings_background_updates">Aktualizácia na pozadí</string>
+    <string name="settings_battery_hint">Obmedzené znamená, že Android môže aktualizácie na pozadí oneskoriť o hodiny.</string>
+    <string name="settings_battery_ok">Využitie batérie: neobmedzené</string>
+    <string name="settings_battery_restricted">Využitie batérie: obmedzené</string>
+    <string name="settings_check_runs_empty">Zatiaľ nie sú zaznamenané žiadne kontroly.</string>
+    <string name="settings_check_runs_honest_android">Android rozhoduje, kedy sa kontroluje – tu vidíš, kedy sa to naozaj stalo.</string>
+    <string name="settings_check_runs_honest_ios">iOS rozhoduje, kedy sa kontroluje – tu vidíš, kedy sa to naozaj stalo.</string>
+    <string name="settings_check_runs_title">Nedávne kontroly</string>
+    <string name="settings_http_log">Zobraziť denník HTTP</string>
+    <string name="settings_http_log_hint">Zobrazí požiadavky na burzy v spodnej časti stránky „Pridať pár“ – na riešenie problémov.</string>
+    <string name="settings_live_service">Aktualizovať často</string>
+    <string name="settings_live_websocket">Kurzy naživo</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">Výrazné: hlásiť</string>
+    <string name="settings_activity_alerts_hint">Najviac raz za hodinu na pár: nezvyčajné pohyby kurzu, skoky objemu a extrémy futures (údaje z Binance).</string>
+    <string name="settings_activity_sensitivity">Citlivosť</string>
+    <string name="settings_activity_sensitivity_hint">Ako ľahko sa coin považuje za nezvyčajný – rovnako pre kartu v zozname aj trhové upozornenia. Pri „Menej“ karta zobrazí iba 3 najsilnejšie.</string>
+    <string name="settings_watchlist_activity_card">Výrazné: zobraziť v zozname</string>
+    <string name="settings_watchlist_activity_card_hint">Zobrazí čip ⚡ vedľa skupín: ťuknutím uvidíš iba páry, pri ktorých sa práve niečo deje. Upozornenia preň nastavíš v časti „Trhové upozornenia“.</string>
+    <string name="settings_watchlist_names">Zobraziť názvy</string>
+    <string name="settings_watchlist_names_hint">Názov pod párom, napr. Bitcoin alebo NVIDIA. Prichádza so zoznamami log, načítanými raz pre všetky coiny.</string>
+    <string name="settings_watchlist_sparkline">Minigraf v zozname</string>
+    <string name="settings_watchlist_sparkline_hint">24-hodinový priebeh vedľa kurzu</string>
+    <string name="settings_watchlist_value_names">Názvy</string>
+    <string name="settings_watchlist_value_price_only">Iba kurz</string>
+    <string name="settings_watchlist_value_sparkline">Minigraf</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Vrát. Alpha tokenov (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Alpha tokeny: skoré, väčšinou malé projekty zo zoznamu Binance Alpha – často málo obchodované a veľmi volatilné.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">Patrí k tokenom. Nedostupné, kým je vybrané „Iba TradFi“; Alpha tokeny, ktoré už sú v zozname, zostanú.</string>
+    <string name="settings_asset_scope_both">Tokeny a TradFi</string>
+    <string name="settings_asset_scope_both_hint">Všetko – krypto aj TradFi</string>
+    <string name="settings_asset_scope_hint">Určuje, ktoré páry ukáže výber a hľadanie pri pridávaní párov. Páry, ktoré už sú v zozname, vždy zostanú.</string>
+    <string name="settings_asset_scope_title">Tokeny &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">Iba tokeny</string>
+    <string name="settings_asset_scope_tokens_hint">Krypto: spot a perpetuals</string>
+    <string name="settings_asset_scope_tradfi">Iba TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">Futures na akcie, komodity, devízy – kontrakty, nie tokeny</string>
+    <string name="settings_rolling_futures">Vrát. štvrťročných &amp; iných termínovaných futures</string>
+    <string name="settings_rolling_futures_hint">Vypnuté: termínované futures, ktoré chýbajú v zozname burzy, sa označia ako „už sa neobchoduje“ namiesto kontroly jednotlivo. Ušetrí čas pri každom obnovení.</string>
+    <string name="settings_rolling_futures_qtly">Vrát. štvrťročných &amp; iných termínovaných futures (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">Patrí k tokenom. Nedostupné, kým je vybrané „Iba TradFi“; naďalej platí pre termínované futures, ktoré už sú v zozname.</string>
+    <string name="settings_tradfi_futures">Akcie, komodity a devízy (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Pri výbere páru zobrazí aj futures na akcie, zlato a iné komodity, meny a firmy pred vstupom na burzu. Sú to kontrakty, nie tokeny.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">Farba zvýraznenia</string>
+    <string name="settings_accent_hint">Farba pre aplikáciu, miniaplikácie a ikonu aplikácie. Niektoré domovské obrazovky pri zmene ikonu odstránia – potom ju pridaj znova.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Logá coinov</string>
+    <string name="settings_coin_logos_app">V aplikácii</string>
+    <string name="settings_coin_logos_app_hint">Zoznam, otvorený pár a trhové karty</string>
+    <string name="settings_coin_logos_footer">Logá pochádzajú z CoinGecko a pre coiny, ktoré CoinGecko neuvádza (napr. zlato, striebro, akcie), z Binance. Aplikácia načíta všetky logá naraz a uloží ich v tomto zariadení, takže žiadny z poskytovateľov nezistí, ktoré coiny sleduješ. Coiny bez loga zobrazujú svoje iniciály. Obľúbené dostanú na logu malú hviezdičku. Kde je prepínač vypnutý, nezobrazia sa logá ani iniciály; ak sú vypnuté všetky, nenačíta sa nič.</string>
+    <string name="settings_coin_logos_portfolio">V portfóliu</string>
+    <string name="settings_coin_logos_portfolio_hint">Pozície, podrobnosti coinu a analýzy</string>
+    <string name="settings_coin_logos_value_app">Aplikácia</string>
+    <string name="settings_coin_logos_widgets">V miniaplikáciách</string>
+    <string name="settings_coin_logos_widgets_hint">Miniaplikácie zoznamu a jedného coinu</string>
+    <string name="settings_high_contrast">Vysoký kontrast</string>
+    <string name="settings_high_contrast_hint">Výraznejšie farby kurzov a tmavší vedľajší text. Zapne sa aj vtedy, keď systém žiada viac kontrastu.</string>
+    <string name="settings_language_choose">Vybrať jazyk</string>
+    <string name="settings_language_system">Jazyk systému</string>
+    <string name="settings_price_colors">Farby kurzov</string>
+    <string name="settings_price_colors_hint">Modrá / oranžová sa dá ľahko rozlíšiť pri každej poruche farebného videnia (červeno-zelenej aj modro-žltej). Smer sa vždy zobrazuje aj ako + / −.</string>
+    <string name="settings_theme_mode">Svetlý / tmavý</string>
+    <string name="settings_widgets">Miniaplikácie</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">Zmena %1$s &amp; časové pásmo grafu</string>
+    <string name="settings_change_basis_hint_1">Zvolené časové pásmo určuje, odkedy sa počíta percentuálna zmena (zoznam, riadok pulzu, otvorený pár, miniaplikácie) a čas zobrazený v grafoch.</string>
+    <string name="settings_change_basis_hint_2">„%1$s“ porovnáva s kurzom presne pred 24 hodinami. „00:00“ porovnáva s otváracím kurzom o polnoci v tomto časovom pásme.</string>
+    <string name="settings_change_basis_hint_3">Alarmy to neovplyvňuje.</string>
+    <string name="settings_change_basis_hint_since_last">„%1$s“ porovnáva s kurzom predchádzajúcej aktualizácie. Pri kurzoch naživo zostáva blízko 0%%.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">Mena na prepočet</string>
+    <string name="settings_conversion_currency_hint">Platí aj pre portfólio, alarmy v tvojej mene, kartu Kryptotrh a miniaplikáciu portfólia.</string>
+    <string name="settings_cost_method">Metóda obstarávacej ceny</string>
+    <string name="settings_cost_method_average">Priemerné náklady</string>
+    <string name="settings_cost_method_average_hint">Predaje sa oceňujú kĺzavým priemerom nákupnej ceny.</string>
+    <string name="settings_cost_method_fifo">FIFO (predvolené)</string>
+    <string name="settings_cost_method_fifo_hint">Najstaršie coiny sa predávajú ako prvé, naprieč všetkými burzami a peňaženkami.</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO podľa peňaženky/burzy</string>
+    <string name="settings_cost_method_fifo_wallet_hint">Najstaršie coiny ako prvé v rámci každej burzy alebo peňaženky; presuny posúvajú položky s dátumom nákupu.</string>
+    <string name="settings_portfolio_lock">Zámok portfólia</string>
+    <string name="settings_portfolio_lock_footer">Zámok skryje to, čo je zobrazené na obrazovke. Tvoje údaje sú uložené v tomto zariadení a chránené šifrovaním zariadenia. Zálohy môžeš chrániť heslom.</string>
+    <string name="settings_portfolio_lock_hint">Skryje iba portfólio: odomkni odtlačkom prsta, tvárou alebo PIN kódom zariadenia. Znova sa zamkne po viac ako minúte na pozadí. Zoznam, alarmy a ostatné miniaplikácie zostanú otvorené.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Bez PIN kódu alebo hesla zariadenia zámok nič neskryje – nastav zámok obrazovky.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Portfólio v systémovej zálohe</string>
+    <string name="settings_portfolio_system_backup_hint">Vypnuté: tvoje transakcie nebudú v systémovej zálohe zariadenia ani pri prenose z telefónu do telefónu. Na presun do nového telefónu použi vlastnú zálohu aplikácie s heslom.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Vyžaduje Android 9 alebo novší – staršie verzie by uložili portfólio nezašifrované do zálohy Google.</string>
+    <string name="settings_portfolio_tab">Zobraziť kartu Portfólio</string>
+    <string name="settings_portfolio_value_locked">Zapnuté, so zámkom</string>
+    <string name="settings_show_converted">Prepočítané kurzy</string>
+    <string name="settings_show_converted_hint">Zobrazí kurzy v zozname aj v %1$s</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">Hlásiť depeg USDT</string>
+    <string name="settings_depeg_alarm_hint">Ozve sa raz, keď sa USDT odchýli od 1 USD o hranicu (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_threshold">Hranica depegu</string>
+    <string name="settings_fng_above">Fear &amp; Greed: hlásiť nad</string>
+    <string name="settings_fng_below">Fear &amp; Greed: hlásiť pod</string>
+    <string name="settings_gas_alert_hint">Ozve sa raz, keď normálny poplatok klesne pod hranicu. Kontroluje sa pri aktualizácii kurzov, najviac každých 10 minút.</string>
+    <string name="settings_gas_btc_below">Poplatok Bitcoin pod (sat/vB)</string>
+    <string name="settings_gas_eth_below">Gas Ethereum pod (gwei)</string>
+    <string name="settings_ind_ath_within">Pokles od historického maxima najviac</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple nad</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple pod</string>
+    <string name="settings_ind_mvrv_above">MVRV nad</string>
+    <string name="settings_ind_mvrv_below">MVRV pod</string>
+    <string name="settings_indicator_alerts_hint">Ukazovatele Bitcoinu, kontrolované dvakrát denne. Hranice určuješ ty – aplikácia hodnoty nehodnotí.</string>
+    <string name="settings_macro_notifications">Ekonomický kalendár</string>
+    <string name="settings_macro_notifications_hint">O 08:00 v dňoch s dôležitými americkými ekonomickými údajmi (inflácia, správa o trhu práce, rozhodnutie Fedu). Kalendár pochádza z webovej stránky aplikácie a načíta sa raz denne.</string>
+    <string name="settings_market_alerts">Trhové upozornenia</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d aktívne</item>
+        <item quantity="few">%1$d aktívne</item>
+        <item quantity="many">%1$d aktívneho</item>
+        <item quantity="other">%1$d aktívnych</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">Rýchlosť reči: %1$.1f×</string>
+    <string name="settings_tts">Hlasový výstup</string>
+    <string name="settings_tts_alarms_only">Iba alarmy</string>
+    <string name="settings_tts_alarms_only_hint">Vypnuté: každá aktualizácia páru označeného „Čítať kurz“ sa prečíta nahlas.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">Číta kurzy a alarmy nahlas. Mlčí, kým je zariadenie v tichom režime alebo na vibráciách.</string>
+    <string name="settings_tts_test">Otestovať hlas</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">Obnoviť aplikáciu</string>
+    <string name="settings_reset_app_action">Odstrániť všetko</string>
+    <string name="settings_reset_app_confirm">Odstráni zoznam, alarmy, portfólio, nastavenia a všetky uložené údaje, ako po inštalácii. Nedá sa to vrátiť späť. Tip: najprv vytvor zálohu. Zálohy zariadenia (záloha Google alebo iCloud/záloha v počítači) uchovajú predchádzajúce údaje až do ďalšieho zálohovania.</string>
+    <string name="settings_reset_app_title">Obnoviť aplikáciu?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">Hľadať menu</string>
+    <string name="language_search">Hľadať jazyk</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">Tmavý</string>
+    <string name="theme_light">Svetlý</string>
+    <string name="theme_system">Systém</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">Modrá</string>
+    <string name="accent_green">Zelená</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">Oranžová</string>
+    <string name="accent_red">Červená</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">Bežné v Číne, Japonsku, Kórei a na Taiwane</string>
+    <string name="price_colors_swap">Vymeniť farby (rast ↔ pokles)</string>
+    <string name="price_style_calm">Pokojné</string>
+    <string name="price_style_calm_color_vision">Pokojné · Porucha farebného videnia</string>
+    <string name="price_style_color_vision">Porucha farebného videnia</string>
+    <string name="price_style_fresh">Svieže</string>
+    <string name="price_style_traditional">Tradičné</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">Pripojenia k burzám naposledy overené na skutočných odpovediach: %1$s</string>
+    <string name="about_license">Kurzy prichádzajú priamo z búrz; bez účtu a bez sledovania.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">Licencie</string>
+    <string name="about_privacy_policy">Zásady ochrany súkromia</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">Navrhnúť burzu</string>
+    <string name="about_source_code">Zdrojový kód na GitHube</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker je nezávislý projekt od r1AD: pokojný prehľad kurzov bez účtu, reklám a sledovania. Otázky a želania: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker má otvorený zdrojový kód (licencia MIT).</string>
+    <string name="licenses_font_title">Písmo Rubik</string>
+    <string name="licenses_icons_bundled_text">Súčasť aplikácie: ikony z „Cryptocurrency Icons“ od Christophera Downera a prispievateľov (github.com/spothq/cryptocurrency-icons), vydané pod licenciou CC0 1.0 Universal. Zobrazujú sa, kým sa nenačítajú logá z CoinGecko alebo Binance. Názvy a logá zostávajú ochrannými známkami svojich projektov.</string>
+    <string name="licenses_icons_title">Náhradné ikony coinov</string>
+    <string name="licenses_libraries_intro">Aplikácia používa tieto knižnice pod licenciou Apache License 2.0:</string>
+    <string name="licenses_libraries_title">Knižnice Android</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">Ešte %d ťuknutie do možností pre vývojárov</item>
+        <item quantity="few">Ešte %d ťuknutia do možností pre vývojárov</item>
+        <item quantity="many">Ešte %d ťuknutia do možností pre vývojárov</item>
+        <item quantity="other">Ešte %d ťuknutí do možností pre vývojárov</item>
+    </plurals>
+    <string name="developer_unlocked">Možnosti pre vývojárov odomknuté</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Vibrácie sa riadia nastaveniami iPhonu (Zvuky &amp; haptika).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Počíta nové alarmy a trhové upozornenia; po otvorení aplikácie znova 0.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Tvoje údaje</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">V tomto zariadení</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Tvoj zoznam, alarmy a portfólio sú uložené zašifrované v tomto zariadení; bez účtu, bez vlastného servera.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Pripojenia</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Kurzy prichádzajú priamo z búrz tvojich párov, k tomu devízové kurzy, zoznamy coinov a logá a zrkadlo údajov na GitHube; vidia tvoju IP adresu, nikdy tvoju držbu (sledované adresy idú k poskytovateľovi príslušnej siete).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Záloha</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Iba ak ju vytvoríš. S heslom je zašifrovaná (Argon2id + AES-256-GCM); bez hesla je čitateľná.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Zmena zariadenia</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">Kľúč zostáva v starom zariadení – najprv vytvor súbor zálohy.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Zdieľať diagnostiku</string>
+    <string name="diagnostics_share_hint">Textový súbor pre podporu: verzia, zariadenie, nastavenia alarmov, nedávne kontroly a denník alarmov – bez portfólia, súm, adries a poznámok. Najprv ho uvidíš ty; nič sa neodosiela automaticky.</string>
+    <string name="diagnostics_preview_title">Ukážka diagnostiky</string>
+    <string name="diagnostics_action_share">Zdieľať</string>
+    <string name="settings_price_overlay">Prekrytie kurzu</string>
+    <string name="settings_price_overlay_hint">Zobrazí páry trvalého upozornenia na kurz ako malý plávajúci štítok nad inými aplikáciami. Ťuknutím otvoríš aplikáciu, potiahnutím na × dole ho zavrieš.</string>
+    <string name="settings_price_overlay_needs">Funguje iba spolu s „%1$s“.</string>
+    <string name="settings_price_overlay_grant">Povoliť zobrazenie nad inými aplikáciami</string>
+    <string name="price_overlay_close">Zavrieť prekrytie</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">Vlastný server pre adresy</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Iba Bitcoin: tvoj vlastný server kompatibilný s Esplora alebo mempool (napr. https://node.example/api, potrebný verejne dôveryhodný certifikát, napríklad Let\'s Encrypt). Ak je nastavený, adresy Bitcoin a kľúče xpub sa dopytujú iba tam – nikdy na verejných uzloch, ani keď je tvoj server nedostupný. Ostatné siete naďalej používajú verejné uzly. Prázdne = verejné uzly.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Server Bitcoin (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">Otestovať</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">Testuje sa…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">Server odpovedá – blok %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">Žiadna platná odpoveď – skontroluj adresu a certifikát</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">Používa sa: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">Nenastavený – používajú sa verejné uzly</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">Povolené sú iba adresy https://</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">V adrese nesmie byť meno používateľa ani heslo</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">V adrese nesmie byť časť ? alebo #</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">Nie je platná adresa servera</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">Prepnúť na verejné uzly?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">Tvoje adresy Bitcoin a kľúče xpub sa potom budú dopytovať na verejných uzloch: %1$s. Tie vidia tieto adresy spolu s tvojou IP adresou.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">Použiť verejné uzly</string>
+</resources>

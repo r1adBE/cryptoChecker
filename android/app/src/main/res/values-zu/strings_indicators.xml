@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">Ama-altcoin vs. Bitcoin</string>
+    <string name="neutral_btc_indicators_title">Izinkomba ze-Bitcoin</string>
+    <string name="neutral_halving_last">I-halving yokugcina: %1$s</string>
+    <string name="neutral_halving_next">I-halving elandelayo ilindeleke cishe ngo-%1$s (kulinganiselwe ngekhalenda – ukuphakama kwe-block akutholakali okwamanje).</string>
+    <string name="neutral_indicators_disclaimer">Amanani alinganisiwe kuphela, ngaphandle kokuhlolwa. Akusona isibikezelo futhi akusona iseluleko sokutshala imali.</string>
+    <string name="neutral_onchain_missing">Idatha ye-on-chain (Coin Metrics) ayitholakali okwamanje.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">Ukuthi intengo ingaphansi kangakanani kokuphezulu kwayo kwesikhathi sonke kwangaphambilini.</string>
+    <string name="neutral_explain_change_30d">Intengo yanamuhla iqhathaniswa naleyo yezinsuku ezingu-30 ezedlule.</string>
+    <string name="neutral_explain_hashrate">I-hashrate emaphakathi yezinsuku ezingu-30 iqhathaniswa nesilinganiso sezinsuku ezingu-60.</string>
+    <string name="neutral_explain_ma200w">Isilinganiso sezintengo zokuvala zamaviki angu-200 okugcina.</string>
+    <string name="neutral_explain_mayer">Intengo ihlukaniswe ngesilinganiso sezinsuku ezingu-200.</string>
+    <string name="neutral_explain_mvrv">Inani lemakethe lihlukaniswe ngenani elibonakalisiwe (on-chain).</string>
+    <string name="neutral_explain_pi_gap">Isilinganiso sezinsuku ezingu-111 siqhathaniswa nokuphindwe kabili kwesilinganiso sezinsuku ezingu-350.</string>
+    <string name="neutral_explain_puell">Imali engenayo yansuku zonke yabavukuzi ihlukaniswe ngesilinganiso sayo sezinsuku ezingu-365.</string>
+    <string name="neutral_explain_rsi_daily">I-Relative Strength Index yezinsuku ezingu-14 zokugcina, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">I-Relative Strength Index yamaviki angu-14 okugcina, 0–100.</string>
+    <string name="neutral_explain_sma50_200">Isilinganiso sezinsuku ezingu-50 siqhathaniswa nesilinganiso sezinsuku ezingu-200.</string>
+    <string name="neutral_explain_vs_btc">Ushintsho lwentengo uma luqhathaniswa ne-Bitcoin ezinsukwini ezingu-90.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">I-app ibonisa kuphela inani futhi ayikubizi ngokuthi yisizini. Inani livamise ukushintsha ezinsukwini, hhayi emahoreni.</string>
+    <string name="neutral_info_btc_how">Inani ngalinye liza nomusho owodwa ochaza ukuthi lilinganisani, nokuthi likuphi emlandweni walo kusukela ngo-2016. I-app ayiwahloli amanani futhi ayitholi isigaba semakethe; imikhawulo yama-alamu emakethe yileyo oyisethayo kuphela. Amaphethini adlule akudingeki aziphinde.</string>
+    <string name="neutral_info_btc_what">Izinkomba ezivamile ze-Bitcoin njengamanani alinganisiwe nje: Mayer Multiple, isilinganiso samaviki angu-200, ukwehla kusuka kokuphezulu kwesikhathi sonke, ushintsho ezinsukwini ezingu-30, igebe le-Pi Cycle namanani e-on-chain i-MVRV, i-Puell Multiple ne-hashrate.</string>
+    <string name="neutral_info_coin_how">Inani ngalinye liza nomusho owodwa ochaza ukuthi lilinganisani, ngaphandle kokuhlola. Kuma-coin anomlando omfushane wentengo amanye amanani awekho. Idatha ye-on-chain ayifakiwe lapha.</string>
+    <string name="neutral_info_coin_what">Izinkomba ezifanayo ezilula ze-coin oyikhethayo, kusukela kudatha yentengo kuphela: Mayer Multiple, isilinganiso samaviki angu-200, ukwehla kusuka kokuphezulu kwesikhathi sonke, ushintsho ezinsukwini ezingu-30, umkhuba wezinsuku ezingu-50/200, i-RSI namandla uma iqhathaniswa ne-Bitcoin ezinsukwini ezingu-90.</string>
+    <string name="neutral_info_halving_how">I-halving elandelayo ibalwa kusukela ekuphakameni kwe-block kwamanje nesikhathi esimaphakathi se-block senkathi ye-difficulty yamanje (mempool.space); ngaphandle kwaleyo datha, ngekhalenda (i-halving yokugcina kanye neminyaka ecishe ibe mine). Ishadi libonisa indlela yentengo yemijikelezo edlule kusukela ku-halving yayo – umlando, hhayi isibikezelo.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">Umkhuba wezinsuku ezingu-50/200</string>
+    <string name="ind_drawdown">Ukwehla kusuka kokuphezulu kwesikhathi sonke</string>
+    <string name="ind_missing">idatha ayanele</string>
+    <string name="ind_rsi_daily">RSI (nsuku zonke)</string>
+    <string name="ind_rsi_weekly">RSI (masonto onke)</string>
+    <string name="ind_vs_btc">Amandla vs. Bitcoin (izinsuku ezingu-90)</string>
+    <string name="neutral_ind_change_30d">Ushintsho lwezinsuku ezingu-30</string>
+    <string name="neutral_ind_hashrate">I-hashrate 30/60 izinsuku</string>
+    <string name="neutral_ind_ma200w">Isilinganiso samaviki angu-200</string>
+    <string name="neutral_ind_pi_gap">Igebe le-Pi Cycle</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">Okuphezulu kusho ukuthi ama-altcoin amakhulu amaningi ehlule i-Bitcoin ezinsukwini ezingu-90, okuphansi kusho ukuthi i-Bitcoin ehlule amaningi awo.</string>
+    <string name="ind_read_ath_distance">Okuncane kusho ukuthi intengo iseduze nerekhodi layo, okukhulu kusho ukuthi ingaphansi kwalo kakhulu.</string>
+    <string name="ind_read_change_30d">Okuphozithivu kusho ukuthi iphezulu kunezinsuku ezingu-30 ezedlule, okunegethivu kusho ukuthi iphansi.</string>
+    <string name="ind_read_funding">Okuphezulu kusho ukuthi abahwebi abaningi babheja ngokwenyuka kwezintengo nge-leverage, okunegethivu kusho ukuthi abaningi babheja ngokwehla.</string>
+    <string name="ind_read_hashrate_30_60">Okuphozithivu kusho ukuthi amandla ekhompyutha ayakhula, okunegethivu kusho ukuthi abavukuzi bayacisha imishini.</string>
+    <string name="ind_read_leverage">Ama-long amaningi asho ukuthi abaningi babheja ngokwenyuka kwezintengo ngemali ebolekiwe, ama-short amaningi asho ukuthi abaningi babheja ngokwehla.</string>
+    <string name="ind_read_ma200w">Intengo ephezulu kakhulu kwalokho isho ukwenyuka okude, intengo eseduze nakho isho ukubuyela emuva okujulile.</string>
+    <string name="ind_read_mayer">Okuphezulu kusho ukuthi intengo iphezulu kakhulu kwesilinganiso sayo sezinsuku ezingu-200, okuphansi kusho ukuthi ingaphansi kwaso.</string>
+    <string name="ind_read_mvrv">Okuphezulu kusho ukuthi intengo iphezulu kakhulu kwalokho abanikazi abakukhokha ngokwesilinganiso, okuphansi kusho ukuthi iseduze nakho noma ingaphansi kwakho.</string>
+    <string name="ind_read_pi_cycle_gap">Eduze no-zero kusho ukuthi izilinganiso ezimbili zicishe zihlangane, okunegethivu kakhulu kusho ukuthi zikude.</string>
+    <string name="ind_read_puell">Okuphezulu kusho ukuthi abavukuzi bathola okuningi kakhulu kunokuvamile, okuphansi kusho okuncane kakhulu.</string>
+    <string name="ind_read_rsi_daily">Ngaphezu kuka-70 kusho inzuzo enkulu ezinsukwini zakamuva, ngaphansi kuka-30 kusho ukulahlekelwa okukhulu.</string>
+    <string name="ind_read_rsi_weekly">Ngaphezu kuka-70 kusho inzuzo enkulu emavikini akamuva, ngaphansi kuka-30 kusho ukulahlekelwa okukhulu.</string>
+    <string name="ind_read_sma50_vs_200">Okuphozithivu kusho ukuthi isilinganiso sesikhathi esifushane singaphezu kwesesikhathi eside, okunegethivu kusho ukuthi singaphansi.</string>
+    <string name="ind_read_vs_btc">Okuphozithivu kusho ukuthi yenze kangcono kune-Bitcoin, okunegethivu kusho ukuthi yenze kabi kakhulu.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">Intengo efanayo izinsuku ezingu-30: %1$s</string>
+    <string name="ind_context_note">Amanani adlule nezibalo ze-“ntengo efanayo” yizibalo nje, hhayi isibikezelo.</string>
+    <string name="ind_context_percentile">Kusukela ngo-%1$s iphansi ku-%2$s wezinsuku</string>
+</resources>

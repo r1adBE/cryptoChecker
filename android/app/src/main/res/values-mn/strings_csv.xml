@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">CSV импортлох</string>
+    <string name="portfolio_csv_import_all_transfer">Бүгд өөрийн түрийвч рүү</string>
+    <string name="portfolio_csv_import_all_withdrawal">Бүгд багцаас гарна</string>
+    <string name="portfolio_csv_import_choice_proposed">Санал: %1$s-тэй таарч байна</string>
+    <string name="portfolio_csv_import_choice_transfer">Өөрийн түрийвч рүү (шилжүүлэг)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Багцаас гарна (татан авалт)</string>
+    <string name="portfolio_csv_import_choose_each">Татан авалт бүр хаашаа явсныг сонгоно уу.</string>
+    <string name="portfolio_csv_import_columns">Танисан баганууд: %1$s</string>
+    <string name="portfolio_csv_import_confirm">Импортлох (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">Өдөр/Сар</string>
+    <string name="portfolio_csv_import_date_month_first">Сар/Өдөр</string>
+    <string name="portfolio_csv_import_date_order">Хоёрдмол утгатай огноог (жишээ нь 03/04/2024) ингэж уншина:</string>
+    <string name="portfolio_csv_import_decimal">Хоёрдмол утгатай тоог (жишээ нь %1$s) ингэж уншина:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d гүйлгээ импортлогдлоо</item>
+        <item quantity="other">%d гүйлгээ импортлогдлоо</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d аль хэдийн импортлогдсон (алгассан)</item>
+        <item quantity="other">%d аль хэдийн импортлогдсон (алгассан)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">Формат: %1$s</string>
+    <string name="portfolio_csv_import_line">Мөр %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">Файл болон өдрийн ханшийг уншиж байна…</string>
+    <string name="portfolio_csv_import_progress">%2$s мөрөөс %1$s</string>
+    <string name="portfolio_csv_import_saving">Гүйлгээг хадгалж байна…</string>
+    <string name="portfolio_csv_import_missing_fx">%1$s мөрийн өдрийн ханш алга – ханш/шимтгэлгүй импортлосон.</string>
+    <string name="portfolio_csv_import_missing_price">Файлд %1$s мөрийн ханш алга – ханшгүй импортлосон.</string>
+    <string name="portfolio_csv_import_more">+ өөр %1$d</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d шинэ гүйлгээ</item>
+        <item quantity="other">%d шинэ гүйлгээ</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d мөр алгассан</item>
+        <item quantity="other">%d мөр алгассан</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">Стэйблкойны (USDT, USDC …) эсрэг арилжааг солилцоо гэж бүртгэнэ – стэйблкойн таны хөрөнгөд харагдана.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Хэд хэдэн тохирол байж болно – зөвийг нь сонгох эсвэл алийг нь ч сонгохгүй байна уу.</string>
+    <string name="portfolio_csv_import_transfer_fee">Сүлжээний шимтгэл: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">Нэг шилжүүлэг болгон бүртгэх</string>
+    <string name="portfolio_csv_import_transfer_stored">Өмнөх импортын эсрэг бичлэг</string>
+    <string name="portfolio_csv_import_transfers_hint">Нэг зоосны татан авалт ба тохирох орлого нэг шилжүүлэг болно: худалдан авсан ханш ба эзэмшсэн хугацаа шилжиж, зөрүүг сүлжээний шимтгэл гэж тооцно.</string>
+    <string name="portfolio_csv_import_transfers_title">Таны дансуудын хоорондох шилжүүлэг</string>
+    <string name="portfolio_csv_import_unreadable">Дэмжигдсэн гүйлгээ олдсонгүй. Дэмжигддэг: Relai, Swissquote, Kraken, Binance, Coinbase болон Bitpanda-гийн CSV экспорт.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
+    <string name="portfolio_csv_import_too_large">Файл импортлоход хэт том байна (дээд тал нь 16 MB болон %1$s мөр). Богино хугацааг экспортлоод нэг нэгээр нь импортлоно уу.</string>
+    <string name="portfolio_csv_import_failed">Импорт амжилтгүй боллоо – юу ч хадгалагдаагүй. Дахин оролдоно уу.</string>
+    <string name="portfolio_csv_import_locked">Импортлох боломжгүй: хадгалсан өгөгдлийг одоо уншиж чадахгүй байна. Аппыг дахин эхлүүлнэ үү.</string>
+    <string name="portfolio_csv_import_withdrawals_title">Татан авалт – зоос хаашаа явсан бэ?</string>
+    <string name="portfolio_csv_import_zone">Цагийн бүсгүй цагийг ингэж уншина: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">Төхөөрөмж (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">огноо уншигдахгүй</string>
+    <string name="portfolio_csv_skip_bad_number">тоо уншигдахгүй</string>
+    <string name="portfolio_csv_skip_fee_exceeds">шимтгэл ≥ хүлээн авсан дүн</string>
+    <string name="portfolio_csv_skip_internal_move">өөрийн дансуудын хоорондох шилжилт – бүртгэх зүйлгүй</string>
+    <string name="portfolio_csv_skip_missing">талбар дутуу</string>
+    <string name="portfolio_csv_skip_ambiguous">нэг секундэд ялгах боломжгүй хэд хэдэн арилжаа – гараар оруулна уу</string>
+    <string name="portfolio_csv_skip_not_crypto">крипто биш</string>
+    <string name="portfolio_csv_skip_possible_duplicate">аль хэдийн импортлогдсон байж магадгүй (бараг ижил арилжаа) – гараар шалгана уу</string>
+    <string name="portfolio_csv_skip_two_fees">өөр нэгжтэй хоёр шимтгэл – солилцоог гараар оруулна уу</string>
+    <string name="portfolio_csv_skip_unsupported">дэмжигдээгүй төрөл</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">Буцаах</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">Энэ импортын %d гүйлгээг устгах уу? Гараар оруулсан болон бусад импорт үлдэнэ.</item>
+        <item quantity="other">Энэ импортын %d гүйлгээг устгах уу? Гараар оруулсан болон бусад импорт үлдэнэ.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">Импортыг буцаах уу?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">Импортлосон %d гүйлгээг устгалаа</item>
+        <item quantity="other">Импортлосон %d гүйлгээг устгалаа</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d гүйлгээ</item>
+        <item quantity="other">%d гүйлгээ</item>
+    </plurals>
+    <string name="portfolio_imports_empty">Импорт алга</string>
+    <string name="portfolio_imports_title">Импорт</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">ижил гүйлгээний ID, өөр дүнтэй – гараар шалгана уу</string>
+    <string name="portfolio_csv_skip_staking_unpaired">эсрэг бичлэггүй стейкингийн бичлэг – хөрөнгөө шалгана уу</string>
+    <string name="portfolio_csv_skip_amount_too_small">дүн хэт бага – хадгалахад 0 болж бөөрөнхийлөгдөнө</string>
+    <string name="portfolio_csv_skip_invalid_swap">хүчинтэй зоос эсвэл хүлээн авсан дүнгүй солилцоо</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">Файлыг дахин уншиж байна …</string>
+</resources>

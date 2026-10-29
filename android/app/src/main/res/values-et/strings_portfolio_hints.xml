@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">Portfelli hoiatused peatatud: %1$s jaoks puudub praegune hind</string>
+    <string name="portfolio_alarms_paused_price_generic">Portfelli hoiatused peatatud: kõigil müntidel pole praegust hinda</string>
+    <string name="portfolio_alarms_paused_addresses">Portfelli hoiatused peatatud: jälgitavate aadresside saldod pole veel laaditud</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Portfelli hoiatused peatatud: %1$s tokenite saldod osaliselt aegunud</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Portfelli hoiatused peatatud: jälgitavate aadresside tokenite saldod osaliselt aegunud</string>
+    <string name="portfolio_alarms_paused_unverified">Portfelli hoiatused peatatud: %1$s hind kontrollimata</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Portfelli hoiatused peatatud: mõne mündi hind kontrollimata</string>
+    <string name="portfolio_alarms_address_failing">Portfelli hoiatused kontrollivad ilma %1$s: saldo pole laadinud üle 24 tunni</string>
+    <string name="portfolio_alarms_address_failing_generic">Portfelli hoiatused kontrollivad ilma aadressideta, mille saldo pole laadinud üle 24 tunni</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">tokenid osaliselt aegunud</string>
+    <string name="portfolio_address_restore_failed">Aadressi ei õnnestunud taastada – vajadusel lisa see uuesti</string>
+    <string name="portfolio_address_remove_failed">Aadressi ei õnnestunud eemaldada – proovi uuesti</string>
+</resources>

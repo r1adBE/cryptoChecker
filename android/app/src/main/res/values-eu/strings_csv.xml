@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">Inportatu CSVa</string>
+    <string name="portfolio_csv_import_all_transfer">Dena kartera propiora</string>
+    <string name="portfolio_csv_import_all_withdrawal">Dena zorrotik ateratzen da</string>
+    <string name="portfolio_csv_import_choice_proposed">Iradokizuna: bat dator honekin: %1$s</string>
+    <string name="portfolio_csv_import_choice_transfer">Kartera propiora (transferentzia)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Zorrotik ateratzen da (erretiratzea)</string>
+    <string name="portfolio_csv_import_choose_each">Aukeratu erretiratze bakoitzerako nora joan den.</string>
+    <string name="portfolio_csv_import_columns">Ezagututako zutabeak: %1$s</string>
+    <string name="portfolio_csv_import_confirm">Inportatu (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">Eguna/Hila</string>
+    <string name="portfolio_csv_import_date_month_first">Hila/Eguna</string>
+    <string name="portfolio_csv_import_date_order">Data anbiguoak (adib. 03/04/2024) honela irakurrita:</string>
+    <string name="portfolio_csv_import_decimal">Zenbaki anbiguoak (adib. %1$s) honela irakurrita:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d transakzio inportatu da</item>
+        <item quantity="other">%d transakzio inportatu dira</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d inportatuta zegoen jada (saltatuta)</item>
+        <item quantity="other">%d inportatuta zeuden jada (saltatuta)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">Formatua: %1$s</string>
+    <string name="portfolio_csv_import_line">%1$d. lerroa: %2$s</string>
+    <string name="portfolio_csv_import_loading">Fitxategia eta eguneko truke-tasak irakurtzen…</string>
+    <string name="portfolio_csv_import_progress">%1$s / %2$s lerro</string>
+    <string name="portfolio_csv_import_saving">Transakzioak gordetzen…</string>
+    <string name="portfolio_csv_import_missing_fx">Ez dago eguneko truke-tasarik lerro hauetarako: %1$s – preziorik/komisiorik gabe inportatuta.</string>
+    <string name="portfolio_csv_import_missing_price">Fitxategian ez dago preziorik lerro hauetarako: %1$s – preziorik gabe inportatuta.</string>
+    <string name="portfolio_csv_import_more">+ %1$d gehiago</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d transakzio berri</item>
+        <item quantity="other">%d transakzio berri</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d errenkada saltatu da</item>
+        <item quantity="other">%d errenkada saltatu dira</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">Stablecoinen (USDT, USDC …) aurkako eragiketak truke gisa erregistratzen dira – stablecoina zure ondasunetan agertzen da.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Hainbat bat-etortze posible – aukeratu zuzena edo bat ere ez.</string>
+    <string name="portfolio_csv_import_transfer_fee">Sareko komisioa: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">Erregistratu transferentzia bakar gisa</string>
+    <string name="portfolio_csv_import_transfer_stored">Aurreko inportazio bateko kontrapartida</string>
+    <string name="portfolio_csv_import_transfers_hint">Txanpon bereko erretiratze bat eta dagokion gordailua transferentzia bakar bihurtzen dira: erosketa-prezioa eta edukitze-aldia mantentzen dira, eta aldea sareko komisio gisa zenbatzen da.</string>
+    <string name="portfolio_csv_import_transfers_title">Zure kontuen arteko transferentziak</string>
+    <string name="portfolio_csv_import_unreadable">Ez da transakzio bateragarririk aurkitu. Bateragarriak: Relai, Swissquote, Kraken, Binance, Coinbase eta Bitpanda CSV esportazioak.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
+    <string name="portfolio_csv_import_too_large">Fitxategia handiegia da inportatzeko (gehienez 16 MB eta %1$s errenkada). Esportatu aldi laburragoak eta inportatu bata bestearen atzetik.</string>
+    <string name="portfolio_csv_import_failed">Inportazioak ez du funtzionatu – ez da ezer gorde. Saiatu berriro.</string>
+    <string name="portfolio_csv_import_locked">Ezin da inportatu: gordetako datuak ezin dira irakurri une honetan. Berrabiarazi aplikazioa.</string>
+    <string name="portfolio_csv_import_withdrawals_title">Erretiratzeak – nora joan dira txanponak?</string>
+    <string name="portfolio_csv_import_zone">Ordu-zonarik gabeko orduak honela irakurrita: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">Gailua (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">data irakurtezina</string>
+    <string name="portfolio_csv_skip_bad_number">zenbaki irakurtezina</string>
+    <string name="portfolio_csv_skip_fee_exceeds">komisioa ≥ jasotako kopurua</string>
+    <string name="portfolio_csv_skip_internal_move">zure kontuen arteko mugimendua – ez dago ezer erregistratzeko</string>
+    <string name="portfolio_csv_skip_missing">eremu bat falta da</string>
+    <string name="portfolio_csv_skip_ambiguous">segundo berean bereiz ezin daitezkeen hainbat eragiketa – idatzi eskuz</string>
+    <string name="portfolio_csv_skip_not_crypto">ez da kripto</string>
+    <string name="portfolio_csv_skip_possible_duplicate">agian inportatuta dago jada (ia eragiketa bera) – begiratu eskuz</string>
+    <string name="portfolio_csv_skip_two_fees">bi komisio unitate desberdinetan – idatzi trukea eskuz</string>
+    <string name="portfolio_csv_skip_unsupported">mota ez bateragarria</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">Desegin</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">Inportazio honetako transakzio %d ezabatu nahi duzu? Eskuzko sarrerak eta beste inportazioak mantendu egiten dira.</item>
+        <item quantity="other">Inportazio honetako %d transakzioak ezabatu nahi dituzu? Eskuzko sarrerak eta beste inportazioak mantendu egiten dira.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">Inportazioa desegin nahi duzu?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">Inportatutako %d transakzio kendu da</item>
+        <item quantity="other">Inportatutako %d transakzio kendu dira</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d transakzio</item>
+        <item quantity="other">%d transakzio</item>
+    </plurals>
+    <string name="portfolio_imports_empty">Ez dago inportaziorik</string>
+    <string name="portfolio_imports_title">Inportazioak</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">transakzio-ID bera kopuru desberdinarekin – begiratu eskuz</string>
+    <string name="portfolio_csv_skip_staking_unpaired">kontrapartidarik gabeko staking-sarrera – begiratu ondasunak</string>
+    <string name="portfolio_csv_skip_amount_too_small">kopuru txikiegia – gordetzean 0ra biribiltzen da</string>
+    <string name="portfolio_csv_skip_invalid_swap">txanpon edo jasotako kopuru baliozkorik gabeko trukea</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">Fitxategia berriro irakurtzen …</string>
+</resources>

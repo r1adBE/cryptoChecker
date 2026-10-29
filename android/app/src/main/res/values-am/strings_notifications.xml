@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">ጎልቶ የሚታይ፦ %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — አሁን %2$s</string>
+    <string name="notification_alarm_title">ማንቂያ፦ %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">ልውውጡን ይክፈቱ</string>
+    <string name="notification_depeg_text">በመተግበሪያው ውስጥ ያሉ እሴቶች ይህንን የገበያ ዋጋ ይጠቀማሉ።</string>
+    <string name="notification_depeg_title">USDT በ%1$s USD (%2$s)</string>
+    <string name="notification_fng_above">መለኪያው ከ%1$d በላይ ወጥቷል – በዚህ መለኪያ የገበያው ስሜት ስግብግብ ነው።</string>
+    <string name="notification_fng_below">መለኪያው ከ%1$d በታች ወርዷል – በዚህ መለኪያ የገበያው ስሜት ፍርሃት ነው።</string>
+    <string name="notification_fng_title">የስሜት መለኪያ (Fear &amp; Greed)፦ %1$d</string>
+    <string name="notification_gas_btc_text">ከገደብዎ %1$s sat/vB በታች · ዝውውር ≈ %2$s</string>
+    <string name="notification_gas_btc_title">የBitcoin ክፍያ፦ %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">ከገደብዎ %1$s gwei በታች · ዝውውር ≈ %2$s</string>
+    <string name="notification_gas_eth_title">የEthereum gas፦ %1$s gwei</string>
+    <string name="notification_indicator_above">ከገደብዎ %1$s በላይ – የተለካ እሴት ነው እንጂ ምክር አይደለም።</string>
+    <string name="notification_indicator_below">ከገደብዎ %1$s በታች – የተለካ እሴት ነው እንጂ ምክር አይደለም።</string>
+    <string name="notification_indicator_title">%1$s፦ %2$s</string>
+    <string name="notification_macro_title">የዛሬ የኢኮኖሚ ውሂብ</string>
+    <string name="notification_permission_preprompt_continue">ይቀጥሉ</string>
+    <string name="notification_permission_preprompt_later">በኋላ</string>
+    <string name="notification_permission_preprompt_text">ማንቂያዎችና የዋጋ ማሳወቂያዎች እንዲደርሱዎት መተግበሪያው ማሳወቂያዎችን ለመላክ ፈቃድ ያስፈልገዋል። መተግበሪያው የሚጠቀምባቸው ለማንቂያዎችዎና ለዋጋ ማሳወቂያዎችዎ ብቻ ነው።</string>
+    <string name="notification_permission_preprompt_title">ማሳወቂያዎች ይፈቀዱ?</string>
+    <string name="notification_portfolio_alarm_locked">ማንቂያዎ ተቀስቅሷል – ለዝርዝሮች መተግበሪያውን ይክፈቱ።</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – አሁን %2$s</string>
+    <string name="notification_portfolio_alarm_title">የፖርትፎሊዮ ዋጋ</string>
+    <string name="notification_price_change">%1$s፣ ከ%2$s (ከ%3$s በፊት)</string>
+    <string name="notification_price_change_no_age">%1$s፣ ከ%2$s</string>
+    <string name="notification_price_first">ለዚህ ጥንድ የመጀመሪያው የዋጋ ማሳወቂያ</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+%1$d ተጨማሪ ዋጋ</item>
+        <item quantity="other">+%1$d ተጨማሪ ዋጋዎች</item>
+    </plurals>
+    <string name="notification_price_title">%1$s፦ %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">ዋጋዎችን በማዘመን ላይ…</string>
+    <string name="notification_volume_spike_text">ባለፈው ሰዓት መጠን ከተለመደው %1$s×</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">ማንቂያዎች</string>
+    <string name="channel_alarms_description">ማንቂያ ሲቀሰቀስ የሚመጣ ማሳወቂያ።</string>
+    <string name="channel_alarms_quiet">ማንቂያዎች (የጸጥታ ሰዓታት)</string>
+    <string name="channel_alarms_quiet_description">በጸጥታ ሰዓታት ውስጥ ጸጥ ያሉ ማንቂያዎች።</string>
+    <string name="channel_alarms_silent">ማንቂያዎች (ጸጥ ያለ)</string>
+    <string name="channel_alarms_sound">ማንቂያዎች (ድምፅ ብቻ)</string>
+    <string name="channel_alarms_sound_vibrate">ማንቂያዎች (ድምፅና ንዝረት)</string>
+    <string name="channel_alarms_vibrate">ማንቂያዎች (ንዝረት ብቻ)</string>
+    <string name="channel_prices">የዋጋ ማሳወቂያዎች</string>
+    <string name="channel_prices_description">የአንድ ጥንድ የአሁኑን ዋጋ የሚያሳይ ጸጥ ያለ የዋጋ ማሳወቂያ።</string>
+    <string name="channel_service">የዋጋ ዝማኔዎች</string>
+    <string name="channel_service_description">ዋጋዎች እየተዘመኑ ሳሉ የሚታይ ማሳወቂያ።</string>
+    <string name="neutral_channel_market">የገበያ ማንቂያዎች</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed፣ የgas ክፍያዎች፣ «ጎልቶ የሚታይ» እና የኢኮኖሚ ቀኖች</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">ማንቂያ። %1$s፣ %2$s %3$s %4$s፣ አሁን %5$s</string>
+    <string name="tts_direction_down">ወርዷል</string>
+    <string name="tts_direction_funding_above">ከከፍተኛ ፈንዲንግ ጋር</string>
+    <string name="tts_direction_funding_below">ከዝቅተኛ ፈንዲንግ ጋር</string>
+    <string name="tts_direction_move">በጠንካራ ሁኔታ እየተንቀሳቀሰ</string>
+    <string name="tts_direction_near_high">ከከፍተኛው አጠገብ ነው</string>
+    <string name="tts_direction_near_low">ከዝቅተኛው አጠገብ ነው</string>
+    <string name="tts_direction_oi_down">ከሚቀንስ ኦፕን ኢንተረስት ጋር</string>
+    <string name="tts_direction_oi_up">ከሚጨምር ኦፕን ኢንተረስት ጋር</string>
+    <string name="tts_direction_up">ጨምሯል</string>
+    <string name="tts_direction_volume_spike">ከድንገተኛ የመጠን ጭማሪ ጋር</string>
+    <string name="tts_price">%1$s፣ %2$s %3$s፣ %4$s</string>
+
+    <!-- Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+    <string name="notification_alarm_action_snooze">ከ1 ሰ በኋላ</string>
+    <string name="notification_alarm_action_edit">ያስተካክሉ</string>
+</resources>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">பின்னணி</string>
+    <string name="widget_configure_hint">பின்னணியையும் ஒளிபுகாத்தன்மையையும் தேர்ந்தெடுக்கவும். நிறம் ஆப்பைப் பின்பற்றும். விட்ஜெட் உங்கள் முழுக் கண்காணிப்புப் பட்டியலையும் காட்டும்; ஆப்பைத் திறக்க ஒரு வரிசையைத் தட்டவும்.</string>
+    <string name="widget_configure_title">விட்ஜெட்டை அமை</string>
+    <string name="widget_description">உங்கள் கண்காணிப்புப் பட்டியலிலுள்ள ஒரு ஜோடியின் விலையைக் காட்டும்.</string>
+    <string name="widget_empty">கண்காணிப்புப் பட்டியலில் இன்னும் ஜோடிகள் இல்லை.</string>
+    <string name="widget_group_hint">இந்தக் குழுவின் ஜோடிகளை மட்டும் காட்டு.</string>
+    <string name="widget_kind_single">ஒற்றைக் காயின்</string>
+    <string name="widget_opacity">பின்னணி ஒளிபுகாத்தன்மை: %1$s</string>
+    <string name="widget_pulse_description">இப்போது சந்தையில் தனித்துத் தெரிவது: தலைப்பு, சுருக்கமான விவரம் மற்றும் Bitcoin, Ethereum, Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">காலாவதியானது</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">காலாவதியானது · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">கேண்டில்கள்</string>
+    <string name="widget_chart_line">கோடு</string>
+    <string name="widget_chart_range">விளக்கப்பட வரம்பு</string>
+    <string name="widget_chart_type">விளக்கப்பட வகை</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 ஆண்டு</string>
+    <string name="widget_range_24h">24 ம.நே.</string>
+    <string name="widget_range_30d">30 நாட்கள்</string>
+    <string name="widget_range_7d">7 நாட்கள்</string>
+    <string name="widget_range_short_1y">1ஆ</string>
+    <string name="widget_range_short_24h">24ம</string>
+    <string name="widget_range_short_30d">30நா</string>
+    <string name="widget_range_short_7d">7நா</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">%1$s நிலவரப்படி</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">வரலாறு விரைவில் வரும்</string>
+    <string name="widget_portfolio_description">உங்கள் போர்ட்ஃபோலியோவின் மொத்த மதிப்பும் இன்றைய மாற்றமும்</string>
+    <string name="widget_portfolio_entries">காயின்களுக்குக் கீழே பதிவுகள்</string>
+    <string name="widget_portfolio_entries_both">இரண்டும்</string>
+    <string name="widget_portfolio_entries_buys">வாங்கியவை</string>
+    <string name="widget_portfolio_entries_hint">காயின்களுக்குக் கீழே இடம் இருந்தால் மட்டுமே காட்டப்படும். வாங்கியவையில் வைப்புகளும், விற்றவையில் திரும்பப்பெறுதல்களும் அடங்கும்; «இரண்டும்» என்பதில் வரிகளின் கூட்டுத்தொகை இருப்புக்குச் சமம்.</string>
+    <string name="widget_portfolio_entries_off">ஆஃப்</string>
+    <string name="widget_portfolio_entries_sells">விற்றவை</string>
+    <string name="widget_portfolio_display">காட்சி</string>
+    <string name="widget_portfolio_display_conversion">மாற்றம் மட்டும்</string>
+    <string name="widget_portfolio_display_conversion_usdt">மாற்றம் + USDT</string>
+    <string name="widget_portfolio_display_hint">மாற்று நாணயம் USD ஸ்டேபிள்காயினாக (எ.கா. USDC) இருந்தால் USDT வரி மறைக்கப்படும்.</string>
+    <string name="widget_portfolio_display_usdt">USDT மட்டும்</string>
+    <string name="widget_portfolio_empty">போர்ட்ஃபோலியோ தாவலில் வாங்கியவற்றைச் சேர்க்கவும்</string>
+    <string name="widget_portfolio_list_hint">உங்கள் நிலைகளை இங்கே காட்ட ஆப்பைத் திறக்கவும்.</string>
+    <string name="widget_portfolio_locked_hint">பூட்டப்பட்டுள்ளது – ஆப்பில் திறக்கவும்</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="one">%1$d காயின் இல்லாமல்</item>
+        <item quantity="other">%1$d காயின்கள் இல்லாமல்</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ மேலும் %1$d</item>
+        <item quantity="other">+ மேலும் %1$d</item>
+    </plurals>
+    <string name="widget_portfolio_name">போர்ட்ஃபோலியோ</string>
+    <string name="widget_portfolio_off_hint">%1$s இல் இதை ஆன் செய்யவும்.</string>
+    <string name="widget_portfolio_off_short">போர்ட்ஃபோலியோ ஆஃப்</string>
+    <string name="widget_portfolio_off_title">போர்ட்ஃபோலியோ ஆஃப் செய்யப்பட்டுள்ளது</string>
+    <string name="widget_portfolio_partly_stale">சில விலைகள் காலாவதியானவை</string>
+    <string name="widget_portfolio_period">காலம்</string>
+    <string name="widget_portfolio_period_without">%2$s இல்லாமல் %1$s</string>
+    <string name="widget_portfolio_range_48h">48 ம.நே.</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: போர்ட்ஃபோலியோவைத் திறக்கவும்</string>
+    <string name="widget_portfolio_range_short_48h">48ம</string>
+    <string name="widget_portfolio_today_without">இன்று, %1$s இல்லாமல்</string>
+    <string name="widget_portfolio_view">காட்சி முறை</string>
+    <string name="widget_portfolio_view_chart">விளக்கப்படம்</string>
+    <string name="widget_portfolio_view_list">பட்டியல்</string>
+    <string name="widget_portfolio_view_overview">மேலோட்டம்</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">ஒரு ஜோடியைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="single_widget_description">ஒரு காயினை விலை, மாற்றம் மற்றும் 24 மணிநேர விளக்கப்படத்துடன் பெரிதாகக் காட்டும்.</string>
+    <string name="single_widget_label">Crypto Checker – ஒற்றைக் காயின்</string>
+    <string name="single_widget_title">ஒற்றை விட்ஜெட்டை அமை</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">சேர்</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">%1$s விட்ஜெட்டைச் சேர்</string>
+    <string name="widgets_manual_text">உங்கள் முகப்புத் திரையால் ஆப்பிலிருந்து விட்ஜெட்களைச் சேர்க்க முடியாது. முகப்புத் திரையில் ஒரு வெற்று இடத்தைத் தொட்டுப் பிடித்து, “விட்ஜெட்கள்” என்பதைத் தேர்ந்தெடுத்து “Crypto Checker” ஐத் தேடவும்.</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">விட்ஜெட்டை நீங்களே சேர்க்கவும்</string>
+    <string name="widgets_sheet_title">விட்ஜெட்டைச் சேர்</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">ஆப்ஸ் தாமாக விட்ஜெட்களைச் சேர்க்க iOS அனுமதிக்காது. இதற்குச் சில நொடிகளே ஆகும்:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">கிடைக்கும் விட்ஜெட்கள்</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">ஆப்ஸ் அசையும் வரை முகப்புத் திரையில் ஒரு வெற்று இடத்தைத் தொட்டுப் பிடிக்கவும்.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">மேலே “திருத்து” › “விட்ஜெட்டைச் சேர்” என்பதைத் தட்டவும் (பழைய iOS பதிப்புகளில் “+”).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">“Crypto Checker” ஐத் தேடி, ஒரு விட்ஜெட்டைத் தேர்ந்தெடுத்து “விட்ஜெட்டைச் சேர்” என்பதைத் தட்டவும்.</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">புதுப்பி – %1$d வி. இல் மீண்டும் சாத்தியம்</string>
+    <string name="settings_watch">கடிகாரம்</string>
+    <string name="settings_watch_hint">Wear OS இல் உள்ள கடிகார ஆப்புக்கான காயின்கள் (%1$d வரை, USDT க்கு எதிரான விலையில்). இந்தப் பட்டியல் மட்டுமே Google Play சேவைகள் வழியாகக் கடிகாரத்துக்குச் செல்லும்; கடிகாரம் விலைகளைத் தானே பெறும்.</string>
+    <string name="settings_watch_mode_phone">ஃபோனில் உள்ளபடி (பிடித்தவை ★)</string>
+    <string name="settings_watch_mode_own">தனிப் பட்டியல்</string>
+    <string name="settings_watch_own_title">தனிப் பட்டியல்: %2$d இல் %1$d</string>
+    <string name="settings_watch_none">இன்னும் பிடித்தவை இல்லை</string>
+
+    <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
+    <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">“பட்டியல்” இல் USDT வரி இல்லை</string>
+    <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
+    <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">“மேலோட்டம்” அதற்குப் பதிலாக 30 நாட்களைக் காட்டும்</string>
+</resources>

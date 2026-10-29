@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Walang napiling coin</string>
+    <string name="watch_loading">Naglo-load…</string>
+    <string name="watch_error">Hindi maabot ang mga exchange</string>
+    <string name="watch_updated">Noong %1$s</string>
+    <string name="watch_refresh">I-refresh</string>
+    <string name="watch_choose">Pumili ng mga coin</string>
+    <string name="watch_choose_hint">Mga coin: hanggang %1$d</string>
+    <string name="watch_complication_label">Presyo</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s sa loob ng 24 na oras</string>
+    <string name="watch_mode_phone">Listahan: gaya ng phone</string>
+    <string name="watch_mode_own">Listahan: sarili</string>
+    <string name="watch_phone_empty">Walang paborito sa phone</string>
+    <string name="a11y_watch_outdated">Luma na ang presyo</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">huling na-update %1$d minuto ang nakalipas</item>
+        <item quantity="other">huling na-update %1$d minuto ang nakalipas</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">huling na-update %1$d oras ang nakalipas</item>
+        <item quantity="other">huling na-update %1$d oras ang nakalipas</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">huling na-update %1$d araw ang nakalipas</item>
+        <item quantity="other">huling na-update %1$d araw ang nakalipas</item>
+    </plurals>
+</resources>

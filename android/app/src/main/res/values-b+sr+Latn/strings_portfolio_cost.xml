@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generated from values-sr by android/tools/sr_latn.py - do not edit, run the script instead -->
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">Unosi bez nabavne vrednosti: %1$d</string>
+    <string name="cost_gaps_card_text">Dodaj nabavnu vrednost kako bi dobit i porezi bili potpuni.</string>
+    <string name="cost_gaps_sheet_title">Unosi bez nabavne vrednosti</string>
+    <string name="cost_gaps_sheet_intro">Ovi prilivi nemaju nabavnu vrednost. Predlog je dnevna zaključna cena tog datuma – možeš je prilagoditi u unosu.</string>
+    <string name="cost_gaps_empty">Svi unosi imaju nabavnu vrednost.</string>
+    <string name="cost_gap_enter">Unesi nabavnu vrednost</string>
+    <string name="cost_gap_leave_unknown">Ostavi nepoznato</string>
+    <string name="cost_gap_left_unknown">Ostavljeno nepoznato</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">Predlog: dnevna zaključna cena %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">Nema proverene dnevne zaključne cene za ovaj datum</string>
+    <string name="cost_gap_suggestion_loading">Učitavanje dnevne zaključne cene …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">Nabavna vrednost = vrednost pri prijemu (prihod)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">Nabavna vrednost = 0 (nagrada bez priliva, Austrija)</string>
+    <string name="cost_gap_apply">Primeni</string>
+    <string name="address_lots_action">Nabavna vrednost za stanje adrese</string>
+    <string name="address_lots_title">Nabavna vrednost za stanje adrese</string>
+    <string name="address_lots_intro">Unesi datum kupovine, iznos i nabavnu vrednost za stanje ove adrese. Stavke se računaju kao kupovine na ovoj adresi; deo koji nije pokriven ostaje bez nabavne vrednosti.</string>
+    <string name="address_lots_add">Dodaj stavku</string>
+    <string name="address_lots_new">Nova stavka</string>
+    <string name="address_lots_edit">Stavka</string>
+    <string name="address_lots_date">Datum kupovine</string>
+    <string name="address_lots_amount">Iznos</string>
+    <string name="address_lots_mode_total">Ukupno</string>
+    <string name="address_lots_mode_price">Po jedinici</string>
+    <string name="address_lots_price">Cena po jedinici (USDT)</string>
+    <string name="address_lots_total">Ukupna nabavna vrednost (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%1$s od %2$s s nabavnom vrednošću</string>
+    <string name="address_lots_unlotted">%1$s bez nabavne vrednosti</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">Stavke premašuju stanje za %1$s – najstarije se troše prve.</string>
+    <string name="address_lots_not_loaded">Stanje još nije učitano – stavke se računaju čim se učita.</string>
+    <string name="address_lots_invalid">Unesi iznos i nabavnu vrednost</string>
+</resources>

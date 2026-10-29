@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="one">umzuzu ongu-%d odlule</item>
+        <item quantity="other">imizuzu engu-%d edlule</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">namuhla %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed, izilinganiso ze-Bitcoin, i-dominance, i-halving</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">Idatha eyengeziwe yemakethe</string>
+    <string name="market_phase_trend_failed">Idatha yentengo ayitholakali</string>
+    <string name="market_plain_direction_down_clear">Inani eliphelele lawo wonke ama-cryptocurrency liphansi ngokucacile kunamahora angu-24 edlule (%1$s).</string>
+    <string name="market_plain_direction_down_slight">Inani eliphelele lawo wonke ama-cryptocurrency liphansi kancane kunamahora angu-24 edlule (%1$s).</string>
+    <string name="market_plain_direction_flat">Inani eliphelele lawo wonke ama-cryptocurrency licishe lingashintshi emahoreni angu-24 (%1$s).</string>
+    <string name="market_plain_direction_up_clear">Inani eliphelele lawo wonke ama-cryptocurrency liphezulu ngokucacile kunamahora angu-24 edlule (%1$s).</string>
+    <string name="market_plain_direction_up_slight">Inani eliphelele lawo wonke ama-cryptocurrency liphezulu kancane kunamahora angu-24 edlule (%1$s).</string>
+    <string name="market_plain_footnote">Kuchaza amahora angu-24 adlule – akusona isibikezelo, akusona iseluleko sokutshala imali.</string>
+    <string name="market_plain_mood_extreme_fear">Abatshalizimali besaba kakhulu njengamanje: inkomba yomoya (Fear &amp; Greed) iku-%1$d kwangu-100.</string>
+    <string name="market_plain_mood_extreme_greed">Abatshalizimali banomhawu omkhulu njengamanje: inkomba yomoya (Fear &amp; Greed) iku-%1$d kwangu-100.</string>
+    <string name="market_plain_mood_fear">Abatshalizimali besaba ngandlela thize: inkomba yomoya (Fear &amp; Greed) iku-%1$d kwangu-100.</string>
+    <string name="market_plain_mood_greed">Abatshalizimali banomhawu ngandlela thize: inkomba yomoya (Fear &amp; Greed) iku-%1$d kwangu-100.</string>
+    <string name="market_plain_mood_neutral">Umoya wabatshalizimali ulinganiselwe: inkomba yomoya (Fear &amp; Greed) iku-%1$d kwangu-100.</string>
+    <string name="market_plain_standout_above_btc">I-%1$s iyagqama: %2$s emahoreni angu-24, ngaphezu kakhulu kwe-Bitcoin (%3$s).</string>
+    <string name="market_plain_standout_against_btc">I-%1$s iyagqama: %2$s emahoreni angu-24, kuyilapho i-Bitcoin iye ngakolunye uhlangothi (%3$s).</string>
+    <string name="market_plain_standout_below_btc">I-%1$s iyagqama: %2$s emahoreni angu-24, ngaphansi kakhulu kwe-Bitcoin (%3$s).</string>
+    <string name="market_plain_standout_futures_down">I-%1$s iyagqama: abahwebi be-futures abaningi ngokungajwayelekile babheja ngokwehla kwezintengo.</string>
+    <string name="market_plain_standout_futures_up">I-%1$s iyagqama: abahwebi be-futures abaningi ngokungajwayelekile babheja ngokwenyuka kwezintengo.</string>
+    <string name="market_plain_standout_quiet">Ayikho i-coin eyodwa egqamayo njengamanje.</string>
+    <string name="market_plain_standout_volume">I-%1$s iyagqama: cishe izikhathi ezingu-%2$s zokuhweba okuvamile.</string>
+    <string name="market_plain_title">Ngamafuphi</string>
+    <string name="market_section_collapse">Fihla %1$s</string>
+    <string name="market_section_context">Umoya &amp; umjikelezo</string>
+    <string name="market_section_data">Idatha yemakethe</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">Bonisa %1$s</string>
+    <string name="market_section_now">Njengamanje</string>
+    <string name="market_source">Idatha: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="exchange_unavailable_error">I-exchange ayitholakali</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">Ulwazi: %1$s</string>
+    <string name="market_info_alt_season_source">Izintengo zansuku zonke: Binance · kubalwa kabusha cishe njalo emahoreni angu-3</string>
+    <string name="market_info_alt_season_what">Ibala ukuthi mangaki kuma-altcoin amakhulu acishe abe ngu-20 (isb. Ethereum, Solana, XRP) enze kangcono kune-Bitcoin ezinsukwini ezingu-90 ezedlule. Inani yingxenye yawo kusuka ku-0 kuya ku-100.</string>
+    <string name="market_info_coin_source">Izintengo: Binance noma Bybit · kulayishwa kabusha cishe njalo emizuzwini engu-15</string>
+    <string name="market_info_dominance_how">Uma i-dominance inyuka, i-Bitcoin yenza kangcono kunemakethe esele; uma yehla, amanye ama-coin athola isisindo. Ama-stablecoin nawo ayabalwa: uma inani lawo likhula, ingxenye ye-Bitcoin iyehla ngisho noma intengo ye-Bitcoin ihlala ifana.</string>
+    <string name="market_info_dominance_source">Umthombo: CoinGecko · kulayishwa kabusha cishe njalo emizuzwini engu-30</string>
+    <string name="market_info_dominance_what">Ingxenye ye-Bitcoin enanini eliphelele lawo wonke ama-cryptocurrency (i-market capitalization). Ngaphansi kwayo kunengxenye ye-Ethereum.</string>
+    <string name="market_info_fear_greed_how">Ngaphansi kuka-25 kusho ukwesaba okukhulu, ngaphezu kuka-75 umhawu omkhulu, cishe u-50 akuchemile. Uma linwetshiwe, ikhadi libonisa amanani ezolo, eviki eledlule nenyanga edlule. Akusona isignali sokuthenga noma sokuthengisa.</string>
+    <string name="market_info_fear_greed_source">Umthombo: alternative.me · inani elisha kanye ngosuku</string>
+    <string name="market_info_fear_greed_what">Inkomba yomoya yemakethe ye-crypto kusuka ku-0 kuya ku-100. I-alternative.me iyibala kusukela kokokufaka okuningana, okuhlanganisa ukuguquguquka kwentengo, ivolumu yokuhweba, inkundla yezokuxhumana ne-Bitcoin dominance.</string>
+    <string name="market_info_gas_how">Amanani aphezulu asho ukuthi inethiwekhi imatasa futhi ukudlulisa kubiza kakhulu. Kancane, okuvamile nokusheshayo yizimali zokuqinisekisa kamuva noma ngokushesha. Uma linwetshiwe, ikhadi libonisa izindleko ezilinganiselwe zokudlulisa okulula.</string>
+    <string name="market_info_gas_source">Ama-node e-RPC omphakathi, mempool.space · kulayishwa kabusha njalo ngomzuzu</string>
+    <string name="market_info_gas_what">Ukuthi umsebenzi ubiza malini njengamanje kunethiwekhi ngayinye. Ku-Ethereum nakumanethiwekhi afanayo nge-gwei (ingxenye eyodwa kwesigidigidi ye-ETH ngeyunithi ngayinye ye-gas), ku-Bitcoin nge-sat/vB (ama-satoshi ngebhayithi ngalinye elibonakalayo lomsebenzi).</string>
+    <string name="market_info_halving_source">Usuku: kusukela ekuphakameni kwe-block nesikhathi esimaphakathi se-block (mempool.space), uma kungenjalo ngekhalenda · umlando wentengo: Coin Metrics, Binance, kulayishwa kabusha njalo emahoreni angu-12</string>
+    <string name="market_info_halving_what">Ku-halving, umvuzo abavukuzi abawuthola nge-block entsha ye-Bitcoin uhlukaniswa phakathi. Lokhu kwenzeka njalo kuma-block angu-210,000, cishe njalo eminyakeni emine. Ngemuva kwalokho, kudalwa ama-bitcoin amasha ayingxenye kuphela ngosuku.</string>
+    <string name="market_info_how">Ungakufunda kanjani</string>
+    <string name="market_info_macro_how">Inothi livela kuphela uma usuku olunjalo kungolwanamuhla noma kusasa. Ngesikhathi sokukhishwa, izintengo zivamise ukuguquguquka kakhulu kunokuvamile. I-app ibonisa usuku kuphela, hhayi izibalo ngokwazo.</string>
+    <string name="market_info_macro_source">Ikhalenda evela kuwebhusayithi ye-app · ilayishwa kanye ngosuku</string>
+    <string name="market_info_macro_what">Izinsuku zedatha ebalulekile yomnotho wase-US: ukwehla kwenani lemali (CPI, PCE), izintengo zabakhiqizi (PPI), umbiko wemisebenzi nezinqumo zenzalo ze-US Federal Reserve. Izibalo ezinjalo zivamise ukunyakazisa nezintengo ze-crypto.</string>
+    <string name="market_info_no_advice">Akusona iseluleko sokutshala imali.</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · izintengo njalo ngehora, amanani e-on-chain alayishwa kabusha njalo emahoreni angu-12</string>
+    <string name="market_info_pulse_how">Isihloko sisho indlela; nweba ikhadi ukuze uthole imininingwane. Ukunyakaza okubanzi kusho ukuthi ama-coin amakhulu amaningi anyakaza ngendlela efanayo. Umoya we-leverage onethemba usho ukuthi abahwebi abaningi babheja ngokwenyuka kwezintengo nge-leverage, kulinganiswa ngezinga le-funding le-Bitcoin futures. Isithombe sesikhashana, hhayi isibikezelo.</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · kulayishwa kabusha cishe njalo emizuzwini engu-5</string>
+    <string name="market_info_pulse_what">Isifinyezo esifushane semakethe emahoreni angu-24 adlule: ukuthi i-Bitcoin, Ethereum ne-Solana kunyakaza kanjani, mangaki kuma-coin amakhulu kakhulu ayenyuka noma ayehla, ingakanani i-Bitcoin ehwebelanwayo njengamanje nokuthi unjani umoya we-leverage (kulinganiswa ngezinga le-funding le-Bitcoin futures).</string>
+    <string name="market_info_totals_how">Ngakwesokudla kunoshintsho lwenani eliphelele emahoreni angu-24. Ivolumu ephezulu isho ukuthi kuhwebelanwa kakhulu – ayisho ukuthi kuya ngakuphi. Kuboniswa ngemali yokuguqula lapho kungenzeka khona, uma kungenjalo ngamadola aseMelika.</string>
+    <string name="market_info_totals_source">Wonke ama-coin · CoinGecko · kulayishwa kabusha cishe njalo emizuzwini engu-30</string>
+    <string name="market_info_totals_what">Inani eliphelele lawo wonke ama-cryptocurrency (i-market capitalization: intengo iphindwe ngenani elisakazekile, kuhlanganiswe kuwo wonke ama-coin) nevolumu yokuhweba yamahora angu-24 adlule.</string>
+    <string name="market_info_unusual_how">I-coin ngayinye ibonisa okuphawulekayo kwayo kakhulu, noshintsho lwamahora angu-24 ngakwesokudla. Ivolumu engu-2× isho ukuphindwe kabili kokuhweba okuvamile. Okuphawulekayo akusho okuhle noma okubi.</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · kulayishwa kabusha cishe njalo emizuzwini engu-10</string>
+    <string name="market_info_unusual_what">Kufika kuma-coin amahlanu kwacishe abe ngu-30 amakhulu kakhulu (ngaphandle kwama-stablecoin) aziphatha ngendlela engajwayelekile namuhla: anamandla kakhulu noma abuthakathaka kakhulu kune-Bitcoin, aphambene nendlela yemakethe, anevolumu yokuhweba ephezulu ngokungajwayelekile noma anezinga le-funding eliphawulekayo.</string>
+    <string name="market_info_what">Yini lokhu?</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">I-market cap</string>
+    <string name="market_cap_source">Wonke ama-coin · CoinGecko</string>
+    <string name="market_cap_title">Imakethe ye-crypto</string>
+    <string name="market_volume_label">Ivolumu 24h</string>
+
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">Imininingwane</string>
+    <string name="pulse_disclaimer">Akusona isibikezelo · Akusona iseluleko sokutshala imali</string>
+    <string name="pulse_less">Bonisa okuncane</string>
+    <string name="pulse_now_title">Ukushaya kwe-crypto</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">Ushintsho emahoreni angu-24</string>
+    <string name="pulse_section_factors">Izici</string>
+    <string name="pulse_section_market">Imakethe namuhla</string>
+    <string name="pulse_unavailable">Idatha yemakethe ayitholakali okwamanje</string>
+    <string name="pulse_updated">Kusukela ku-%1$s</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">Imakethe ezolile</string>
+    <string name="pulse_headline_down">Ubuthakathaka obubanzi</string>
+    <string name="pulse_headline_mixed">Isithombe esixubile</string>
+    <string name="pulse_headline_up">Amandla abanzi</string>
+    <string name="pulse_lead_alts_stronger">Ama-altcoin anamandla kune-Bitcoin.</string>
+    <string name="pulse_lead_broad_down">Imakethe yehla kabanzi.</string>
+    <string name="pulse_lead_broad_up">Imakethe yenyuka kabanzi.</string>
+    <string name="pulse_lead_btc_leads">I-Bitcoin yenyuka kakhulu.</string>
+    <string name="pulse_lead_btc_stronger">I-Bitcoin inamandla kunama-altcoin.</string>
+    <string name="pulse_lead_calm">Imakethe icishe inganyakazi.</string>
+    <string name="pulse_lead_drift_down">Imakethe yehla kancane kancane.</string>
+    <string name="pulse_lead_drift_up">Imakethe yenyuka kancane kancane.</string>
+    <string name="pulse_lead_mixed">Ama-coin amakhulu anyakaza ngezindlela ezahlukene.</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">Umoya we-leverage unethemba.</string>
+    <string name="pulse_detail_fund_negative">Umoya we-leverage awunathemba.</string>
+    <string name="pulse_detail_fund_neutral">Umoya we-leverage awuchemile.</string>
+    <string name="pulse_detail_vol_above">Ivolumu %1$s ngaphezu kokuvamile.</string>
+    <string name="pulse_detail_vol_above_fund_high">Ivolumu %1$s ngaphezu kokuvamile, umoya we-leverage unethemba.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Ivolumu %1$s ngaphezu kokuvamile, umoya we-leverage awunathemba.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Ivolumu %1$s ngaphezu kokuvamile, umoya we-leverage awuchemile.</string>
+    <string name="pulse_detail_vol_below">Ivolumu %1$s ngaphansi kokuvamile.</string>
+    <string name="pulse_detail_vol_below_fund_high">Ivolumu %1$s ngaphansi kokuvamile, umoya we-leverage unethemba.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Ivolumu %1$s ngaphansi kokuvamile, umoya we-leverage awunathemba.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Ivolumu %1$s ngaphansi kokuvamile, umoya we-leverage awuchemile.</string>
+    <string name="pulse_detail_vol_normal">Ivolumu ivamile.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Ivolumu ivamile, umoya we-leverage unethemba.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Ivolumu ivamile, umoya we-leverage awunathemba.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Ivolumu ivamile, umoya we-leverage awuchemile.</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">Top %1$d: ama-coin amakhulu kakhulu ngenani lemakethe, ngaphandle kwama-stablecoin; ushintsho emahoreni angu-24 (CoinGecko).</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_note_broad_down">Ukuthengisa okubanzi: iningi lama-coin amakhulu kakhulu liyehla.</string>
+    <string name="pulse_breadth_note_broad_up">Ukunyakaza okubanzi: iningi lama-coin amakhulu kakhulu liyenyuka.</string>
+    <string name="pulse_breadth_note_narrow_down">I-Bitcoin iyehla, kodwa iningi lamanye ama-coin amakhulu liyabekezela.</string>
+    <string name="pulse_breadth_note_narrow_up">I-Bitcoin iyenyuka, kodwa iningi lamanye ama-coin amakhulu alihlanganyeli.</string>
+    <string name="pulse_breadth_spoken">Top %1$d: %2$d enyukile, %3$d yehlile</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">Ama-altcoin ne-Bitcoin anyakaza ngokufanayo</string>
+    <string name="pulse_alts_stronger">Ama-altcoin anamandla kune-Bitcoin</string>
+    <string name="pulse_alts_weaker">I-Bitcoin inamandla kunama-altcoin</string>
+    <string name="pulse_chip_funding_high">Umoya we-leverage unethemba</string>
+    <string name="pulse_chip_funding_negative">Umoya we-leverage awunathemba</string>
+
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">Bonisa intengo nezenzo</string>
+    <string name="unusual_fact_against">Inyakaza iphambene nemakethe</string>
+    <string name="unusual_fact_funding_high">I-funding iphezulu (%1$s)</string>
+    <string name="unusual_fact_funding_negative">I-funding iyinegethivu (%1$s)</string>
+    <string name="unusual_fact_stronger">Inyakaza ngamandla amakhulu kakhulu kune-BTC</string>
+    <string name="unusual_fact_volume">Ivolumu %1$s× yevamile</string>
+    <string name="unusual_fact_weaker">Inyakaza buthakathaka kakhulu kune-BTC</string>
+    <string name="unusual_nothing">Akukho okuphawulekayo namuhla</string>
+    <string name="unusual_source">Cishe ama-coin angu-30 amakhulu kakhulu ngaphandle kwama-stablecoin · Binance, CoinGecko</string>
+    <string name="unusual_title">Okuphawulekayo</string>
+
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">Okuphawulekayo</string>
+    <string name="activity_indicator">Okuphawulekayo</string>
+    <string name="activity_sensitivity_less">Okuncane</string>
+    <string name="activity_sensitivity_more">Okuningi</string>
+    <string name="activity_sensitivity_normal">Okuvamile</string>
+    <string name="activity_signal_funding_long">I-funding %1$s — ama-long amaningi ane-leverage</string>
+    <string name="activity_signal_funding_short">I-funding %1$s — ama-short amaningi</string>
+    <string name="activity_signal_open_interest">I-open interest %1$s phakathi nemizuzu engu-%2$d</string>
+    <string name="activity_signal_open_interest_no_time">I-open interest %1$s</string>
+    <string name="activity_signal_price_move">Ukunyakaza okungajwayelekile: %1$s ngehora elilodwa (%2$s× yokuvamile)</string>
+    <string name="activity_signal_volume">Ivolumu %1$s× yokuvamile ehoreni eledlule</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%1$d kuma-altcoin amakhulu angu-%2$d lihlula i-Bitcoin ezinsukwini ezingu-90</item>
+        <item quantity="other">%1$d kuma-altcoin amakhulu angu-%2$d ahlula i-Bitcoin ezinsukwini ezingu-90</item>
+    </plurals>
+    <string name="insights_chart_axis">Iminyaka kusukela ku-halving</string>
+    <string name="insights_chart_hint">Intengo njengokuphindaphindwa kwentengo yosuku lwe-halving (isikali se-log). Imijikelezo yangaphambilini iyiphethini, hhayi isibikezelo.</string>
+    <string name="insights_cycle_chart">Imijikelezo kusukela ku-halving</string>
+    <string name="insights_dominance_eth">ETH %1$s yemakethe yonke</string>
+    <string name="insights_dominance_title">I-Bitcoin dominance</string>
+    <string name="insights_fng_history">Izolo %1$s · iviki eledlule %2$s · inyanga edlule %3$s</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="insights_halving_title">I-halving ye-Bitcoin</string>
+    <string name="insights_source_dominance">Umthombo: CoinGecko, Binance</string>
+    <string name="insights_source_fng">Umthombo: alternative.me</string>
+    <string name="insights_source_history">Umthombo: Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">Ukwesaba okukhulu</string>
+    <string name="fng_extreme_greed">Umhawu omkhulu</string>
+    <string name="fng_fear">Ukwesaba</string>
+    <string name="fng_greed">Umhawu</string>
+    <string name="fng_neutral">Akuchemile</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">Idatha kusukela ku-%1$s · iyabuyekeza…</string>
+    <string name="cycle_from_top">%1$s kusukela phezulu</string>
+    <string name="cycle_marker_bottom">Okuphansi %1$s</string>
+    <string name="cycle_marker_double_bottom">Okuphansi okuphindiwe %1$s</string>
+    <string name="cycle_marker_double_top">Okuphezulu okuphindiwe %1$s</string>
+    <string name="cycle_marker_high_so_far">Okuphezulu kuze kube manje</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">Okuphezulu %1$s</string>
+    <string name="cycle_since_halving">%1$s kusukela ku-halving</string>
+    <string name="halving_estimate_text">Ngokubala, i-halving elandelayo cishe ngo-%1$s: kusele ama-block angu-%2$s ngesilinganiso semizuzu engu-%3$s nge-block ngayinye (inkathi ye-difficulty yamanje). Ukuqagela, hhayi isithembiso – isikhathi se-block siyehluka.</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">I-alamu: %1$s</string>
+    <string name="gas_slow_fast">Kancane %1$s · Ngokushesha %2$s</string>
+    <string name="gas_source">Ama-node e-RPC omphakathi ne-mempool.space · Izindleko zokudlulisa okulula, ngaphandle kwengxenye ye-L1 kuma-L2</string>
+    <string name="gas_title">Izimali zenethiwekhi</string>
+    <string name="gas_transfer_cost">Ukudlulisa ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">Idatha yokwehla kwenani lemali e-US (CPI)</string>
+    <string name="macro_fomc">Isinqumo senzalo se-US Fed</string>
+    <string name="macro_hint_list">%1$s – izimakethe zivamise ukuguquguquka kakhulu ngezinsuku ezinjalo.</string>
+    <string name="macro_hint_today">Namuhla %1$s: %2$s – izimakethe zivamise ukuguquguquka kakhulu ngezinsuku ezinjalo.</string>
+    <string name="macro_hint_today_list">Namuhla: %1$s – izimakethe zivamise ukuguquguquka kakhulu ngezinsuku ezinjalo.</string>
+    <string name="macro_hint_tomorrow">Kusasa %1$s: %2$s – izimakethe zivamise ukuguquguquka kakhulu ngezinsuku ezinjalo.</string>
+    <string name="macro_hint_tomorrow_list">Kusasa: %1$s – izimakethe zivamise ukuguquguquka kakhulu ngezinsuku ezinjalo.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Namuhla %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Kusasa %1$s %2$s</string>
+    <string name="macro_nfp">Umbiko wemisebenzi wase-US</string>
+    <string name="macro_pce">Izintengo zokusebenzisa kwabathengi e-US (PCE)</string>
+    <string name="macro_ppi">Izintengo zabakhiqizi e-US (PPI)</string>
+    <string name="macro_released_list">Kukhishwe namuhla: %1$s.</string>
+    <string name="macro_released_one">Kukhishwe namuhla ngo-%1$s: %2$s.</string>
+    <string name="macro_title">Idatha yomnotho</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">I-coin</string>
+    <string name="coin_no_data">Ayikho idatha yentengo yale coin ku-Binance noma ku-Bybit.</string>
+    <string name="coin_price_only">Kusekelwe entengweni kuphela – idatha ye-on-chain (MVRV, Puell, hashrate) itholakala mahhala ku-Bitcoin kuphela.</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">Umlando wentengo wosuku olu-%1$d kuphela – ezinye izinkomba azikho.</item>
+        <item quantity="other">Umlando wentengo wezinsuku ezingu-%1$d kuphela – ezinye izinkomba azikho.</item>
+    </plurals>
+    <string name="coin_title">Ukuhlaziywa kwe-coin</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">Idatha: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">Enyukile nehlile 24 h</string>
+    <string name="movers_gainers">Enyukile</string>
+    <string name="movers_losers">Ehlile</string>
+    <string name="movers_no_gainers">Ayikho i-coin enyukile ku-24 h</string>
+    <string name="movers_no_losers">Ayikho i-coin ehlile ku-24 h</string>
+    <string name="movers_source">CoinGecko, 24 h, top 100 ngaphandle kwama-stablecoin</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">Bonisa konke</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">Bonisa okuncane</string>
+</resources>

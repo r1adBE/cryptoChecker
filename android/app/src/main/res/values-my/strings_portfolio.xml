@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">ဤစက်တွင် မျက်နှာပြင်လော့ခ် မသတ်မှတ်ရသေးပါ။ စနစ်ဆက်တင်များတွင် အရင် သတ်မှတ်ပါ။</string>
+    <string name="app_lock_unlock">လော့ခ်ဖွင့်ရန်</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">ပေါ့ဖိုလီယို ရှင်းရန်</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="other">ငွေပေးငွေယူ %d ခုလုံးကို ဖျက်မလား။ စောင့်ကြည့်ထားသော လိပ်စာများ ကျန်ရှိမည်။ ပြီးပြီးချင်း နောက်ပြန်နိုင်သည်။</item>
+    </plurals>
+    <string name="portfolio_empty_action">သင့်ပထမဆုံး ဝယ်ယူမှုကို ထည့်ပါ</string>
+    <string name="portfolio_empty_address">ပိုက်ဆံအိတ် လိပ်စာကိုသာ စောင့်ကြည့်ရန်</string>
+    <string name="portfolio_empty_csv">လဲလှယ်ရေးဌာနတွင် ဝယ်ခဲ့သလား။ ၎င်း၏ ဖိုင်ကို တင်သွင်းပါ</string>
+    <string name="portfolio_empty_example_plain">ဥပမာ- မတ်လ 1 ရက်တွင် %1$s BTC ဝယ်ခဲ့သည်။ ထို့နောက် အက်ပ်က ယနေ့ မည်မျှတန်ဖိုးရှိသည်နှင့် အမြတ် သို့မဟုတ် အရှုံး ဖြစ်နေသည်ကို ပြမည် – ဤစက်ပေါ်တွင်သာ သိမ်းဆည်းသည်။</string>
+    <string name="portfolio_empty_title">ငွေပေးငွေယူ မရှိသေးပါ</string>
+    <string name="portfolio_enable_ask_text">သင့်ငွေပေးငွေယူကို သိမ်းပြီးပါပြီ။ ပေါ့ဖိုလီယို တက်ဘ်သည် သင်ကိုင်ဆောင်ထားမှုများနှင့် ၎င်းတို့၏ တန်ဖိုးကို ပြသည်။</string>
+    <string name="portfolio_enable_ask_title">ပေါ့ဖိုလီယို တက်ဘ်ကို ဖွင့်မလား။</string>
+    <string name="portfolio_enable_later_hint">ငွေပေးငွေယူ သိမ်းပြီး။ ပေါ့ဖိုလီယို တက်ဘ်ကို ဆက်တင်များ › ပေါ့ဖိုလီယို တွင် ဖွင့်နိုင်သည်။</string>
+    <string name="portfolio_enabled_banner">ပေါ့ဖိုလီယို ဖွင့်ပြီး – ပေါ့ဖိုလီယို တက်ဘ်တွင် တွေ့နိုင်သည်။</string>
+    <string name="portfolio_lock_reason">ပေါ့ဖိုလီယို လော့ခ်ဖွင့်ရန်</string>
+    <string name="portfolio_locked_text">သင်ကိုင်ဆောင်ထားမှုများနှင့် တန်ဖိုးများကို ကြည့်ရန် လော့ခ်ဖွင့်ပါ။</string>
+    <string name="portfolio_locked_title">ပေါ့ဖိုလီယို လော့ခ်ချထားသည်</string>
+    <string name="portfolio_setting_hint">ရွေးချယ်နိုင်- ဝယ်ယူမှုနှင့် ရောင်းချမှုများကို မှတ်တမ်းတင်ပြီး တန်ဖိုးနှင့် အမြတ်/အရှုံးကို သီးခြား တက်ဘ်တွင် ကြည့်ပါ။</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">ခေတ်မမီတော့ · %1$s အထိ</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="other">စနစ်အရန်သိမ်းခြင်းမှ မှတ်တမ်း %d ခု မမှန်ကန်သဖြင့် ပြန်မယူခဲ့ပါ။</item>
+    </plurals>
+    <string name="portfolio_title">ပေါ့ဖိုလီယို</string>
+    <string name="portfolio_unassigned_fee">အခကြေးငွေ မသတ်မှတ်ရသေး – မူလကုန်ကျစရိတ် မသိ: %1$s</string>
+    <string name="portfolio_updated">%1$s အထိ ဈေးနှုန်းများ</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">အခြား</string>
+    <string name="portfolio_allocation_title">ခွဲဝေမှု</string>
+    <string name="portfolio_card_details">အသေးစိတ်</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: မရရှိနိုင်သေးပါ</string>
+    <string name="portfolio_card_hints_count">မှတ်ချက်များ (%1$d)</string>
+    <string name="portfolio_card_today">ယနေ့</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">စုစုပေါင်း</string>
+    <string name="portfolio_hide_amounts">ပမာဏများ ဖျောက်ရန်</string>
+    <string name="portfolio_hide_amounts_hint">ပေါ့ဖိုလီယိုနှင့် ပေါ့ဖိုလီယို ဝီဂျက်ရှိ ပမာဏနှင့် တန်ဖိုးများကို ••• အဖြစ် ပြသည် – ရာခိုင်နှုန်းများ ဆက်မြင်ရမည်။</string>
+    <string name="portfolio_invested">မူလကုန်ကျစရိတ်</string>
+    <string name="portfolio_total_no_fx">%1$s အတွက် ငွေလဲနှုန်း မရှိ – ပမာဏများ USDT ဖြင့်</string>
+    <string name="portfolio_total_value">စုစုပေါင်း တန်ဖိုး</string>
+    <string name="portfolio_value">တန်ဖိုး</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">ပျမ်းမျှ %1$s · ယခု %2$s</string>
+    <string name="portfolio_avg_only">ပျမ်းမျှ %1$s</string>
+    <string name="portfolio_avg_open_lots">ကိုင်ဆောင်ထားသော ဒင်္ဂါးများ၏ ပျမ်းမျှ ကုန်ကျစရိတ်</string>
+    <string name="portfolio_avg_partial">ဝယ်ဈေးပါသော %1$s ၏ ပျမ်းမျှ</string>
+    <string name="portfolio_avg_price">ပျမ်းမျှ ဝယ်ဈေး</string>
+    <string name="portfolio_avg_price_hint">ပျမ်းမျှ ဝယ်ဈေး- ပမာဏဖြင့် အလေးချိန်ထားသော ဝယ်ယူမှုအားလုံး၏ ပျမ်းမျှ။ ရောင်းချမှုများကို ဤပျမ်းမျှဖြင့် တန်ဖိုးဖြတ်သည်။</string>
+    <plurals name="portfolio_closed">
+        <item quantity="other">ပိတ်ပြီးသော ကိုင်ဆောင်မှုများ (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: ရောင်းချမှုများသည် သင့်အဟောင်းဆုံး ဒင်္ဂါးများကို အရင် အသုံးပြုသည်။ ပျမ်းမျှ = ကျန်ရှိသော မူလကုန်ကျစရိတ် ÷ ဝယ်ဈေးပါသော ပမာဏ။</string>
+    <string name="portfolio_holdings">ကိုင်ဆောင်ထားမှုများ</string>
+    <string name="portfolio_lost_fee_cost">ပေးချေထားသော အစုမရှိသည့် ကွန်ရက်အခကြေးငွေ ကုန်ကျစရိတ်: %1$s</string>
+    <string name="portfolio_open_lots">ဖွင့်ထားဆဲ ဝယ်ယူမှု အစုများ (%1$d)</string>
+    <string name="portfolio_open_lots_avg">ဝယ်ဈေးပါ (ပျမ်းမျှ)</string>
+    <string name="portfolio_open_lots_no_cost">ဝယ်ဈေး မပါ</string>
+    <string name="portfolio_open_lots_without_price">ဝယ်ဈေး မရှိ</string>
+    <string name="portfolio_realized">အကောင်အထည်ပေါ်ပြီး အမြတ်/အရှုံး</string>
+    <string name="portfolio_unrealized">ဖွင့်ထားဆဲ အမြတ်/အရှုံး</string>
+    <string name="portfolio_unrealized_without_unpriced">ဝယ်ဈေးမရှိသော %1$s မပါ</string>
+    <string name="portfolio_withdrawn_gain">ထုတ်ယူပြီး: %1$s (ထုတ်ယူချိန်အထိ တန်ဖိုး ပြောင်းလဲမှု)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">ပြောင်းလဲရန်</string>
+    <string name="portfolio_convert_to_value">ပြောင်းလဲရန်: %1$s</string>
+    <string name="portfolio_current_missing">%1$s အတွက် လက်ရှိဈေးနှုန်း မရှိပါ</string>
+    <string name="portfolio_current_price">လက်ရှိဈေးနှုန်း</string>
+    <string name="portfolio_price_missing">ဈေးနှုန်း မရှိ</string>
+    <string name="portfolio_price_missing_hint">ဝယ်ယူမှုအချို့တွင် ဈေးနှုန်း မရှိပါ။ အမြတ်/အရှုံး ကြည့်ရန် ဝယ်ဈေးကို ထည့်ပါ။</string>
+    <string name="portfolio_price_source">ဈေးနှုန်းများ: Binance · USDT ကို ဈေးကွက်ဈေးဖြင့်</string>
+    <string name="portfolio_price_source_routes">ဈေးနှုန်းများ: %1$s၊ မဟုတ်လျှင် Binance · USDT ကို ဈေးကွက်ဈေးဖြင့်</string>
+    <string name="portfolio_price_unavailable">ယခု ဈေးနှုန်း မရရှိနိုင်ပါ</string>
+    <string name="portfolio_price_unchecked">ဈေးနှုန်း မစစ်ဆေးရသေး</string>
+    <string name="portfolio_price_via_base">≈ %1$s ဈေးနှုန်း (bridged/wrapped)</string>
+    <string name="portfolio_usdt_as_usd">USDT ကို ၎င်း၏ USD ဈေးကွက်ဈေးဖြင့် ပြောင်းလဲထားသည်</string>
+    <string name="portfolio_usdt_assumed">USDT ဒေါ်လာနှုန်း မရှိ – US ဒေါ်လာ 1 အဖြစ် တွက်သည်</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">ပေါ့ဖိုလီယိုသို့ ထည့်ရန်</string>
+    <string name="portfolio_add_tx">ငွေပေးငွေယူ ထည့်ရန်</string>
+    <string name="portfolio_buy">ဝယ်</string>
+    <string name="portfolio_coin">ဒင်္ဂါး</string>
+    <string name="portfolio_coin_invalid">ဒင်္ဂါး သင်္ကေတ ထည့်ပါ</string>
+    <string name="portfolio_coin_search">သင်္ကေတ ရှာရန်၊ ဥပမာ BTC</string>
+    <string name="portfolio_discard_confirm">စွန့်ပစ်ရန်</string>
+    <string name="portfolio_discard_keep">ဆက်ပြင်ရန်</string>
+    <string name="portfolio_discard_title">ပြောင်းလဲမှုများကို စွန့်ပစ်မလား။</string>
+    <string name="portfolio_edit_tx">ငွေပေးငွေယူ ပြင်ဆင်ရန်</string>
+    <string name="portfolio_invalid">0 ထက်ကြီးသော မှန်ကန်သည့် ဂဏန်း ထည့်ပါ။</string>
+    <string name="portfolio_oversold">ရောင်းချမှုများသည် ကိုင်ဆောင်ထားမှုထက် ကျော်လွန်နေသည် – ငွေပေးငွေယူများကို စစ်ဆေးပါ။</string>
+    <string name="portfolio_sell">ရောင်း</string>
+    <string name="portfolio_sell_exceeds">သင်ကိုင်ဆောင်ထားမှုထက် ပိုများသည် (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">ပမာဏ အပေါင်း အခကြေးငွေသည် သင်ကိုင်ဆောင်ထားမှုထက် ပိုများသည် (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">%2$s ရှိ သင်ကိုင်ဆောင်ထားမှုထက် ပိုများသည် (%1$s)</string>
+    <string name="portfolio_transactions">ငွေပေးငွေယူများ</string>
+    <string name="portfolio_tx_acquired_date">မူလ ဝယ်သည့်ရက် (ရွေးချယ်နိုင်)</string>
+    <string name="portfolio_tx_acquired_date_hint">အခွန် ထုတ်ယူမှုရှိ ကိုင်ဆောင်ချိန်အတွက်</string>
+    <string name="portfolio_tx_amount">ပမာဏ</string>
+    <string name="portfolio_tx_coin_fee">ဒင်္ဂါးဖြင့် အခကြေးငွေ (ရွေးချယ်နိုင်)</string>
+    <string name="portfolio_tx_date">ရက်စွဲ</string>
+    <string name="portfolio_tx_delete_confirm">ဤငွေပေးငွေယူကို ပေါ့ဖိုလီယိုမှ ဖယ်ရှားပါမည်။</string>
+    <string name="portfolio_tx_delete_title">ငွေပေးငွေယူကို ဖျက်မလား။</string>
+    <string name="portfolio_tx_deposit">အပ်ငွေ</string>
+    <string name="portfolio_tx_entry_currency">ထည့်သွင်းမည့် ငွေကြေး</string>
+    <string name="portfolio_tx_explain_deposit">အရောင်းအဝယ်မပါသော ကိုင်ဆောင်ထားမှု၊ ဥပမာ ယခင်က ဒင်္ဂါးများ</string>
+    <string name="portfolio_tx_explain_gift">ဒင်္ဂါးများသည် ငွေထုတ်မှုကဲ့သို့ သင်ကိုင်ဆောင်ထားမှုမှ ထွက်သွားသည် – လက်ဆောင်ကို အခွန်ကောက်သော နိုင်ငံများ (UK, CA, AU) တွင်သာ ဈေးကွက်တန်ဖိုးဖြင့် စွန့်လွှတ်မှု ဖြစ်သည်</string>
+    <string name="portfolio_tx_explain_payment">ကုန်ပစ္စည်း သို့မဟုတ် ဝန်ဆောင်မှုအတွက် ပေးချေခဲ့သည် – ရောင်းချမှုကဲ့သို့ ဈေးကွက်တန်ဖိုးဖြင့် စွန့်လွှတ်မှု၊ ငွေ မရရှိပါ</string>
+    <string name="portfolio_tx_explain_reward">မူလကုန်ကျစရိတ် = လက်ခံချိန် ဈေးကွက်တန်ဖိုး</string>
+    <string name="portfolio_tx_explain_swap">ဒင်္ဂါးတစ်ခုကို အခြားတစ်ခုဖြင့်- ပေးသော ဒင်္ဂါးကို ရောင်းပြီး ရရှိသော ဒင်္ဂါးကို ဝယ်သည်</string>
+    <string name="portfolio_tx_explain_transfer">အမြတ် မရှိ – မူလကုန်ကျစရိတ်သည် ဒင်္ဂါးများနှင့်အတူ ရွှေ့သွားသည်</string>
+    <string name="portfolio_tx_explain_withdrawal">ကိုင်ဆောင်ထားမှုသည် ပေါ့ဖိုလီယိုမှ ထွက်သွားသည် – ရောင်းချမှု မဟုတ်၊ အမြတ် မရှိ</string>
+    <string name="portfolio_tx_fee_consumes_amount">အခကြေးငွေသည် ရရှိသော ပမာဏနှင့် တူညီသည် – ဘာမှ ကျန်မည် မဟုတ်ပါ။</string>
+    <string name="portfolio_tx_fees_toggle">အခကြေးငွေများ</string>
+    <string name="portfolio_tx_fiat_converted">≈ %2$s ၏ နှုန်းဖြင့် %1$s</string>
+    <string name="portfolio_tx_fiat_loading">ငွေလဲနှုန်း ဖွင့်နေသည်…</string>
+    <string name="portfolio_tx_fiat_no_fx">ဤနေ့အတွက် ငွေလဲနှုန်း မရှိပါ – ပမာဏကို USDT ဖြင့် ထည့်ပါ။</string>
+    <string name="portfolio_tx_gift">လက်ဆောင်</string>
+    <string name="portfolio_tx_gift_price_hint">USDT ဖြင့်။ ဗလာ = ထိုနေ့၏ ပိတ်ဈေး (ခန့်မှန်း)။</string>
+    <string name="portfolio_tx_gift_spouse">ခင်ပွန်း/ဇနီး / မှတ်ပုံတင်ထားသော အိမ်ထောင်ဖက်သို့</string>
+    <string name="portfolio_tx_gift_spouse_hint">UK နှင့် ကနေဒါ- အမြတ်လည်း မရှိ၊ အရှုံးလည်း မရှိ – သင့်အိမ်ထောင်ဖက်က သင့်မူလကုန်ကျစရိတ်ကို လွှဲယူသည်။ အခြားနိုင်ငံများက ဤအချက်ကို ထည့်မစဉ်းစားပါ။</string>
+    <string name="portfolio_tx_market_value">ဒင်္ဂါးတစ်ခုလျှင် ဈေးကွက်တန်ဖိုး</string>
+    <string name="portfolio_tx_more_buy">အခကြေးငွေ၊ လဲလှယ်ရေးဌာန၊ မှတ်ချက်</string>
+    <string name="portfolio_tx_network_fee">ဒင်္ဂါးဖြင့် ကွန်ရက်အခကြေးငွေ (ရွေးချယ်နိုင်)</string>
+    <string name="portfolio_tx_note">မှတ်ချက် (ရွေးချယ်နိုင်)</string>
+    <string name="portfolio_tx_payment">၎င်းဖြင့် ပေးချေခဲ့သည်</string>
+    <string name="portfolio_tx_price">ဒင်္ဂါးတစ်ခုလျှင် ဈေးနှုန်း</string>
+    <string name="portfolio_tx_price_hint">USDT ဖြင့်။ မသိလျှင် ဗလာထားပါ။</string>
+    <string name="portfolio_tx_price_historic">%1$s ၏ နေ့စဉ် ပိတ်ဈေးကို စစ်ဆေးပြီး – လိုအပ်လျှင် ချိန်ညှိပါ</string>
+    <string name="portfolio_tx_price_invalid">မှန်ကန်သော ဂဏန်း (0 သို့မဟုတ် ထို့ထက်ပို) ထည့်ပါ သို့မဟုတ် အကွက်ကို ဗလာထားပါ။</string>
+    <string name="portfolio_tx_price_past_hint">ဝယ်သည့်နေ့၏ ဈေးနှုန်းကို ထည့်ပါ – မသိလျှင် ဗလာထားပါ</string>
+    <string name="portfolio_tx_price_receipt_hint">USDT ဖြင့်။ ဗလာ = မူလကုန်ကျစရိတ် မပါသော ကိုင်ဆောင်ထားမှု။</string>
+    <string name="portfolio_tx_price_zero">တင်သွင်းထားသော ငွေပေးငွေယူများအတွက် ဈေးနှုန်း 0 မဖြစ်နိုင်ပါ – ဈေးကွက်ဈေးအတွက် ဗလာထားပါ</string>
+    <string name="portfolio_tx_removed">ငွေပေးငွေယူ ဖျက်ပြီး</string>
+    <string name="portfolio_tx_reward">ဆုလာဘ်</string>
+    <string name="portfolio_tx_save_failed">ငွေပေးငွေယူကို သိမ်း၍ မရပါ။ သင်ထည့်ထားသည်များ ဤနေရာတွင် ရှိနေဆဲ – ထပ်ကြိုးစားပါ။</string>
+    <string name="portfolio_tx_swap">ဒင်္ဂါးလဲလှယ်မှု</string>
+    <string name="portfolio_tx_swap_fee_received">%1$s ဖြင့် အခကြေးငွေ- ရရှိသော ပမာဏကို လျှော့ချသည်၊ ဈေးနှုန်း မလိုပါ။</string>
+    <string name="portfolio_tx_swap_from">%1$s မှ လဲလှယ်ရန်</string>
+    <string name="portfolio_tx_swap_given_amount">ပေးသော ပမာဏ</string>
+    <string name="portfolio_tx_swap_given_coin">ပေးသော ဒင်္ဂါး</string>
+    <string name="portfolio_tx_swap_received_amount">ရရှိသော ပမာဏ</string>
+    <string name="portfolio_tx_swap_received_coin">ရရှိသော ဒင်္ဂါး</string>
+    <string name="portfolio_tx_swap_same_coin">ပေးသော ဒင်္ဂါးနှင့် မတူသော ဒင်္ဂါးကို ရွေးပါ</string>
+    <string name="portfolio_tx_swap_to">%1$s သို့ လဲလှယ်ရန်</string>
+    <string name="portfolio_tx_swap_value">ဒင်္ဂါးလဲလှယ်မှု၏ တန်ဖိုး (ရွေးချယ်နိုင်)</string>
+    <string name="portfolio_tx_swap_value_hint">စုစုပေါင်း တန်ဖိုး။ ဗလာ = မသိ – အမြတ် မပြည့်စုံဘဲ ကျန်သည် (လဲလှယ်မှုတွင် USDT ပါလျှင် အလိုအလျောက်)။</string>
+    <string name="portfolio_tx_third_fee_amount">အခကြေးငွေ ပမာဏ</string>
+    <string name="portfolio_tx_third_fee_coin">အခကြေးငွေ ဒင်္ဂါး</string>
+    <string name="portfolio_tx_third_fee_incomplete">ဈေးနှုန်း မပါလျှင် အခကြေးငွေကို မူလကုန်ကျစရိတ်နှင့် ရောင်းရငွေတွင် ထည့်မတွက်ပါ၊ အခွန် ထုတ်ယူမှုက ထိုရောင်းချမှုများကို အမှတ်အသား ပြုသည်။</string>
+    <string name="portfolio_tx_third_fee_price">အခကြေးငွေ ဒင်္ဂါးတစ်ခုလျှင် ဈေးနှုန်း (ရွေးချယ်နိုင်)</string>
+    <string name="portfolio_tx_third_fee_toggle">အခြားဒင်္ဂါးဖြင့် အခကြေးငွေ</string>
+    <string name="portfolio_tx_total">စုစုပေါင်း: %1$s</string>
+    <string name="portfolio_tx_transfer">လွှဲပြောင်းမှု</string>
+    <string name="portfolio_tx_transfer_from">မှ (ရွေးချယ်နိုင်)</string>
+    <string name="portfolio_tx_transfer_to">သို့ (ရွေးချယ်နိုင်)</string>
+    <string name="portfolio_tx_transfer_to_hint">လဲလှယ်ရေးဌာန သို့မဟုတ် ပိုက်ဆံအိတ် – ယခုမှစ၍ ထိုနေရာတွင် တန်ဖိုးဖြတ်သည်။</string>
+    <string name="portfolio_tx_type_select">အမျိုးအစား: %1$s</string>
+    <string name="portfolio_tx_value_received">လက်ခံချိန် ဒင်္ဂါးတစ်ခုလျှင် တန်ဖိုး (ရွေးချယ်နိုင်)</string>
+    <string name="portfolio_tx_withdrawal">ငွေထုတ်မှု</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">ပေးလိုက်သလား သို့မဟုတ် ၎င်းဖြင့် ပေးချေခဲ့သလား။ “လက်ဆောင်” သို့မဟုတ် “၎င်းဖြင့် ပေးချေခဲ့သည်” အဖြစ် မှတ်တမ်းတင်ပါ – နိုင်ငံပေါ်မူတည်၍ အခွန်ရည်ရွယ်ချက်အတွက် ရောင်းချမှုအဖြစ် တွက်သည်။</string>
+    <string name="portfolio_tx_withdrawal_price_hint">ရွေးချယ်နိုင်- USDT ဖြင့် ဈေးကွက်တန်ဖိုး၊ သမိုင်းအတွက်သာ အသုံးပြုသည် (ဗလာ = ထိုနေ့၏ ဈေးနှုန်း)။ ဒင်္ဂါးများသည် ၎င်းတို့၏ မူလကုန်ကျစရိတ်ဖြင့် အမြဲ ထွက်သွားသည်။</string>
+    <string name="portfolio_wallet_did_you_mean">%1$s ကို ဆိုလိုပါသလား။ စာလုံးပေါင်း မတူလျှင် သီးခြား ပိုက်ဆံအိတ်အဖြစ် တွက်သည်။</string>
+    <string name="portfolio_wallet_shortfall">%1$s ရှိ ကိုင်ဆောင်ထားမှု မလုံလောက်ပါ – လွှဲပြောင်းမှု ကျန်နေသလား။</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">အမြင့် %1$s</string>
+    <string name="portfolio_compare">နှိုင်းယှဉ်ရန်</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">%1$s နှင့် USDT ကို ရာခိုင်နှုန်းဖြင့် နှိုင်းယှဉ်ရန်</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">ရာခိုင်နှုန်းဖြင့် နှိုင်းယှဉ်ချက်, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">ငွေကြေး သက်ရောက်မှု: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">ဈေးနှုန်း ဒေတာသည် 2017 ခုနှစ် ဩဂုတ်လအထိသာ ရှိသည် — သမိုင်းသည် ထိုနေရာမှ စတင်သည်။</string>
+    <string name="portfolio_history_chip_since_first">အားလုံး</string>
+    <string name="portfolio_history_collapse">တန်ဖိုးသမိုင်း ဖျောက်ရန်</string>
+    <string name="portfolio_history_converted">ယနေ့နှုန်းဖြင့် ပြောင်းလဲတွက်ချက်ထားသည်</string>
+    <string name="portfolio_history_expand">တန်ဖိုးသမိုင်း ပြရန်</string>
+    <string name="portfolio_history_gain_a11y">တန်ဖိုး %1$s။ အမြတ်/အရှုံး, %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">အမြတ်/အရှုံး</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">%1$s ဖြင့် တန်ဖိုး</string>
+    <string name="portfolio_history_incl_fx">ငွေလဲနှုန်း အပါအဝင်</string>
+    <string name="portfolio_history_incl_withdrawn">ထုတ်ယူပြီး ဒင်္ဂါးများ၏ တန်ဖိုး ပြောင်းလဲမှု ပါဝင်သည်</string>
+    <string name="portfolio_history_includes_trades">ဤကာလအတွင်း ဝယ်ယူမှုနှင့် ရောင်းချမှုများ ပါဝင်သည်</string>
+    <string name="portfolio_history_loading">တန်ဖိုးသမိုင်း ဖွင့်နေသည်</string>
+    <string name="portfolio_history_period_1y">1 နှစ်</string>
+    <string name="portfolio_history_period_30d">ရက် 30</string>
+    <string name="portfolio_history_period_7d">ရက် 7</string>
+    <string name="portfolio_history_period_since_first">ပထမဆုံး ဝယ်ကတည်းက</string>
+    <string name="portfolio_history_pnl_needs_prices">အမြတ်/အရှုံးအတွက် ဝယ်ဈေးများ မရှိပါ – ငွေပေးငွေယူများတွင် ထည့်ပါ။</string>
+    <string name="portfolio_history_pnl_without">%1$s မပါသော အမြတ်/အရှုံး (ဈေးနှုန်း မရှိ)</string>
+    <string name="portfolio_history_range_1y">1 နှစ်</string>
+    <string name="portfolio_history_range_30d">ရက် 30</string>
+    <string name="portfolio_history_range_7d">ရက် 7</string>
+    <string name="portfolio_history_range_a11y">%1$s အတွက် သမိုင်း ပြရန်</string>
+    <string name="portfolio_history_range_since_first">ပထမ ဝယ်ကတည်းက</string>
+    <string name="portfolio_history_scaled">%1$s အတွက် သမိုင်း: Binance သမိုင်းကို လဲလှယ်ရေးဌာန ဈေးနှုန်းသို့ အချိုးချထားသည်</string>
+    <string name="portfolio_history_title">တန်ဖိုးသမိုင်း</string>
+    <string name="portfolio_history_today">ယနေ့</string>
+    <string name="portfolio_history_too_short">သမိုင်းသည် သင့်ပထမဆုံး ရက်ပြည့်နေ့ပြီးနောက် စတင်သည်။</string>
+    <string name="portfolio_history_unavailable">ယခု သမိုင်း မရရှိနိုင်ပါ။</string>
+    <string name="portfolio_history_utc_days">UTC ဖြင့် ရက်များ (နေ့စဉ် ဖယောင်းတိုင်များ)</string>
+    <string name="portfolio_history_without_matching">%1$s မပါ (ကိုက်ညီသော နေ့စဉ်ဈေးနှုန်း မရှိ)</string>
+    <string name="portfolio_period_rewards">ဆုလာဘ် +%1$s (အမြတ်တွင် မပါ)</string>
+    <string name="portfolio_period_scaled">%1$s အတွက် ရက် 7/1 နှစ်: Binance သမိုင်းကို လဲလှယ်ရေးဌာန ဈေးနှုန်းသို့ အချိုးချထားသည်</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">သတိပေးချက်</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">ပမာဏ (%1$s)</string>
+    <string name="portfolio_alarm_hint">ပြန်တင်တိုင်း စစ်ဆေးသည်။ သတိပေးချက်များကဲ့သို့ သတ်မှတ်မှတ်ကို ဖြတ်ကျော်သည့်အခါ ဖြစ်ပေါ်ပြီး တန်ဖိုး ပြန်ရွေ့ပြီးမှသာ ထပ်ဖြစ်ပေါ်သည်။</string>
+    <string name="portfolio_alarm_kind_above">ပေါ့ဖိုလီယို ပမာဏအထက်</string>
+    <string name="portfolio_alarm_kind_below">ပေါ့ဖိုလီယို ပမာဏအောက်</string>
+    <string name="portfolio_alarm_kind_down">ပေါ့ဖိုလီယို ကျဆင်း</string>
+    <string name="portfolio_alarm_kind_up">ပေါ့ဖိုလီယို မြင့်တက်</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">ပေါ့ဖိုလီယို %1$s အထက်</string>
+    <string name="portfolio_alarm_sentence_below">ပေါ့ဖိုလီယို %1$s အောက်</string>
+    <string name="portfolio_alarm_sentence_down">ပေါ့ဖိုလီယို %1$s ကျ (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">ပေါ့ဖိုလီယို %1$s တက် (%2$s)</string>
+    <string name="portfolio_alarm_title">ပေါ့ဖိုလီယို တန်ဖိုး သတိပေးချက်</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">လဲလှယ်ရေးဌာန (ရွေးချယ်နိုင်)</string>
+    <string name="ledger_exchange_failed">%1$s: ယခု %2$s မှ ဈေးနှုန်း မရှိပါ – Binance ဖြင့် တန်ဖိုးဖြတ်သည်။</string>
+    <string name="ledger_exchange_hint">ဒင်္ဂါးကို ဤလဲလှယ်ရေးဌာန၏ ဈေးနှုန်းဖြင့် တန်ဖိုးဖြတ်သည် (မဟုတ်လျှင် Binance)။ သမိုင်း၊ ရက် 7 နှင့် 1 နှစ်သည် ၎င်းသို့ အချိုးချထားသော Binance နေ့စဉ်ဈေးနှုန်းများကို အသုံးပြုသည်။</string>
+    <string name="ledger_exchange_mixed">%1$s: လဲလှယ်ရေးဌာန အများအပြား ထည့်ထားသည် – Binance ဖြင့် တန်ဖိုးဖြတ်သည်။ ဒင်္ဂါးများ ရွှေ့ခဲ့သလား။ ရွှေ့ပြောင်းမှုကို “လွှဲပြောင်းမှု” အဖြစ် မှတ်တမ်းတင်ပါ။</string>
+    <string name="ledger_exchange_none">မရှိ (Binance)</string>
+    <string name="ledger_fee">အခကြေးငွေ (ရွေးချယ်နိုင်)</string>
+    <string name="ledger_fee_coin">ဒင်္ဂါး</string>
+    <string name="ledger_fee_hint">USDT ဖြင့်ဆိုလျှင် မူလကုန်ကျစရိတ်ကို မြှင့်သည် (ရောင်းချမှု- ရောင်းရငွေကို လျှော့သည်)၊ ဒင်္ဂါးဖြင့်ဆိုလျှင် ပမာဏကို လျှော့သည်။</string>
+    <string name="ledger_fee_line">အခကြေးငွေ %1$s</string>
+    <string name="ledger_fifo_cost_note">ဝယ်ကတည်းက: အခကြေးငွေ အပါအဝင် FIFO ကုန်ကျစရိတ် (အဟောင်းဆုံး ဒင်္ဂါးများကို အရင် ရောင်းသည်)။</string>
+    <string name="ledger_gain_info">ယနေ့၊ ရက် 7၊ 1 နှစ်: ကာလအတွင်း တန်ဖိုး ပြောင်းလဲမှု – ဝယ်ယူမှုနှင့် ရောင်းချမှုများကို အမြတ်အဖြစ် မတွက်ပါ။ ဝယ်ကတည်းက: သင် ကိုင်ဆောင်ထားဆဲ ဒင်္ဂါးများ၏ လက်ရှိတန်ဖိုး အနုတ် မူလကုန်ကျစရိတ် (အခကြေးငွေ အပါအဝင် ပျမ်းမျှ ကုန်ကျစရိတ်)။</string>
+    <string name="ledger_gain_info_a11y">အမြတ်နှင့် အရှုံးကို တွက်ချက်ပုံ</string>
+    <string name="ledger_gain_info_fifo">ယနေ့၊ ရက် 7၊ 1 နှစ်: ကာလအတွင်း တန်ဖိုး ပြောင်းလဲမှု – ဝယ်ယူမှုနှင့် ရောင်းချမှုများကို အမြတ်အဖြစ် မတွက်ပါ။ ဝယ်ကတည်းက: သင် ကိုင်ဆောင်ထားဆဲ ဒင်္ဂါးများ၏ လက်ရှိတန်ဖိုး အနုတ် မူလကုန်ကျစရိတ် (အခကြေးငွေ အပါအဝင် FIFO)။</string>
+    <string name="ledger_gain_title">အမြတ်/အရှုံး</string>
+    <string name="ledger_more_toggle">အခကြေးငွေနှင့် လဲလှယ်ရေးဌာန</string>
+    <string name="ledger_partial_cost">“ဝယ်ကတည်းက” သည် ဝယ်ဈေးပါသော အစိတ်အပိုင်းကိုသာ တွက်သည် – ဝယ်ဈေးမရှိသော %1$s မပါ။</string>
+    <string name="ledger_period_without">ယနေ့ / ရက် 7 / 1 နှစ် %1$s မပါ – ကိုက်ညီသော စတင်ဈေးနှုန်း မရှိ။</string>
+    <string name="ledger_since_purchase_currency">ဝယ်ကတည်းက (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">ဝယ်ကတည်းက အမြတ်/အရှုံး၊ မရောင်းရသေး</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="other">ဝယ်ဈေးမရှိသော ဒင်္ဂါး %1$d ခု (%2$s) မပါ – တွက်နိုင်ရန် ဈေးနှုန်းများ ထည့်ပါ။</item>
+    </plurals>
+
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">USDT ပြိုလဲ – ဈေးကွက် %1$s USD တွင်</string>
+    <string name="portfolio_usdt_via_usdc">USDC/USDT မှတစ်ဆင့် USDT ဒေါ်လာနှုန်း – USDC ကျလျှင် ဤတန်ဖိုး မှားမည်</string>
+    <string name="portfolio_amount_bridged_stable">≈ %1$s (bridged) အပါအဝင်</string>
+
+    <string name="portfolio_tx_interest">အတိုး (ချေးငွေ)</string>
+    <string name="portfolio_tx_interest_hint">လက်ခံချိန်တွင် ဝင်ငွေအဖြစ် တွက်သည် (ဩစတြီးယား)။ staking ဆုလာဘ်နှင့် airdrop များအတွက် မသုံးပါနှင့်။</string>
+    <string name="app_lock_no_screen_lock">ပေါ့ဖိုလီယိုကို ဖွင့်ရန် မျက်နှာပြင်လော့ခ် သတ်မှတ်ပါ။</string>
+    <string name="app_lock_turn_off_action">ပေါ့ဖိုလီယို လော့ခ် ပိတ်ရန်</string>
+    <string name="app_lock_turn_off_confirm_title">ပေါ့ဖိုလီယို လော့ခ်ကို ပိတ်မလား။</string>
+    <string name="app_lock_turn_off_confirm_message">မျက်နှာပြင်လော့ခ် မရှိလျှင် ပေါ့ဖိုလီယိုကို လော့ခ်ဖွင့်၍ မရပါ။ ပိတ်ထားလျှင် အက်ပ်က မမေးဘဲ သင့်ပေါ့ဖိုလီယိုကို ထပ်ပြမည်။ မျက်နှာပြင်လော့ခ် သတ်မှတ်ပြီးသည်နှင့် ဆက်တင်များတွင် လော့ခ်ကို ပြန်ဖွင့်နိုင်သည်။</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">%1$s ဖြင့် “ဝယ်ကတည်းက” နှင့် မူလကုန်ကျစရိတ်- ကုန်ကျစရိတ်ကို ဝယ်သည့်နေ့၏ ငွေလဲနှုန်းဖြင့်၊ တန်ဖိုးကို ယနေ့နှုန်းဖြင့်။</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">ဝယ်သည့်နေ့အတွက် ငွေလဲနှုန်း မရှိ (“ဝယ်ကတည်းက” နှင့် မူလကုန်ကျစရိတ်တွင် မပါ): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">USDT ဒေါ်လာနှုန်း မရှိသော ဝယ်သည့်နေ့များရှိ ကုန်ကျစရိတ်ကို USDT တစ်ခုလျှင် US ဒေါ်လာ 1 အဖြစ် တွက်သည်။</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">%1$s အထိ – လဲလှယ်ရေးဌာနကို ချိတ်ဆက်၍မရပါ</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">နေ့စဉ်ဈေးနှုန်းများ: %1$s (Binance အစား)</string>
+
+    <string name="portfolio_footer_short">အလုပ်အထောက်အကူ ဖြစ်ပြီး အခွန် သို့မဟုတ် ရင်းနှီးမြှုပ်နှံမှု အကြံဉာဏ် မဟုတ်ပါ။ ကိုယ်ရေးကိုယ်တာ: ဆက်တင်များ › အက်ပ်အကြောင်း › ကိုယ်ရေးကိုယ်တာ မူဝါဒ။</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">%1$s ၏ ငွေပေးငွေယူအားလုံးကို ဖျက်မလား။</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="other">ငွေပေးငွေယူ %d ခုကို ဖယ်ရှားပါမည်။ ပြီးပြီးချင်း နောက်ပြန်နိုင်သည်။</item>
+    </plurals>
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">%1$s ဖြင့် ပေးချေထားသော အခကြေးငွေများကိုလည်း အခြား ငွေပေးငွေယူများမှ ဖယ်ရှားသည်: %2$d။</string>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="other">%1$s ကို ပေါ့ဖိုလီယိုမှ ဖယ်ရှားပြီး (ငွေပေးငွေယူ %2$d ခု)</item>
+    </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="other">ငွေပေးငွေယူ %d ခု ဖယ်ရှားပြီး</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="other">၎င်းသည် အစု %d ခုကိုလည်း ဖယ်ရှားသည်။</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="other">၎င်းသည် အစု %d ခုနှင့် လက်ကျန်မှတ်တမ်းကိုလည်း ဖယ်ရှားသည်။</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">၎င်းသည် လက်ကျန်မှတ်တမ်းကိုလည်း ဖယ်ရှားသည်။</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">သိမ်း၍ မရပါ – ထပ်ကြိုးစားပါ</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">သတ်မှတ်ချက် မမှန်ကန်ပါ – ဖျက်ပြီး ပြန်ဖန်တီးပါ</string>
+</resources>

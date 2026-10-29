@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">naudoja daugiau duomenų ir akumuliatoriaus</string>
+    <string name="update_mode_live">Tiesiogiai, kol atidaryta</string>
+    <string name="update_mode_live_hint">Kur birža teikia tiesioginę kainą: iš karto, kol atidarytas stebimų sąrašas. Kitaip – kitos užklausos metu. Uždarius: ne dažniau kaip kas %1$s, dažnai vėliau.</string>
+    <string name="update_mode_live_hint_ios">Kur birža teikia tiesioginę kainą: iš karto, kol atidarytas stebimų sąrašas. Kitaip – kitos užklausos metu. Uždarius: kai leidžia iOS, kartais kas kelias valandas. Jei programėlę nubrauki, iOS nustoja tikrinti, kol vėl ją atidarysi.</string>
+    <string name="update_mode_recommended">rekomenduojama</string>
+    <string name="update_mode_sparsam">Taupus</string>
+    <string name="update_mode_sparsam_hint">Kai programėlė uždaryta, ne dažniau kaip kas %1$s, dažnai vėliau (įspėjimai, valdikliai). Atidarius: kiekvieną kartą atidarant.</string>
+    <string name="update_mode_sparsam_hint_ios">Kai programėlė uždaryta, iOS sprendžia, kada tikrinti (įspėjimai, valdikliai), kartais kas kelias valandas. Atidarius: kiekvieną kartą atidarant.</string>
+    <string name="update_mode_title">Atnaujinimo dažnis</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">Atnaujinimas nutrauktas</string>
+    <string name="refresh_sheet_alarms">Įspėjimai</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">Suveikė %1$d</item>
+        <item quantity="few">Suveikė %1$d</item>
+        <item quantity="many">Suveikė %1$d</item>
+        <item quantity="other">Suveikė %1$d</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">Viskas atnaujinta</string>
+    <string name="refresh_sheet_app_start">Programėlės paleidimas</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">bendra užklausa %1$s · %2$d kaina</item>
+        <item quantity="few">bendra užklausa %1$s · %2$d kainos</item>
+        <item quantity="many">bendra užklausa %1$s · %2$d kainos</item>
+        <item quantity="other">bendra užklausa %1$s · %2$d kainų</item>
+    </plurals>
+    <string name="refresh_sheet_database">Duomenų bazė</string>
+    <string name="refresh_sheet_exchange_unreachable">%1$s nepasiekiama</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
+        <item quantity="one">%1$d birža nepasiekiama</item>
+        <item quantity="few">%1$d biržos nepasiekiamos</item>
+        <item quantity="many">%1$d biržos nepasiekiama</item>
+        <item quantity="other">%1$d biržų nepasiekiama</item>
+    </plurals>
+    <string name="refresh_sheet_network">Tinklas</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d kainos pranešimas</item>
+        <item quantity="few">%1$d kainos pranešimai</item>
+        <item quantity="many">%1$d kainos pranešimo</item>
+        <item quantity="other">%1$d kainos pranešimų</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d pora</item>
+        <item quantity="few">%1$d poros</item>
+        <item quantity="many">%1$d poros</item>
+        <item quantity="other">%1$d porų</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d pora neatnaujinta</item>
+        <item quantity="few">%1$d poros neatnaujintos</item>
+        <item quantity="many">%1$d poros neatnaujinta</item>
+        <item quantity="other">%1$d porų neatnaujinta</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d iš %1$d poros</item>
+        <item quantity="few">%2$d iš %1$d porų</item>
+        <item quantity="many">%2$d iš %1$d poros</item>
+        <item quantity="other">%2$d iš %1$d porų</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">pristabdyta iki %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">pristabdyta iki %1$s (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">nėra duomenų</string>
+    <string name="refresh_sheet_reason_offline">nėra ryšio</string>
+    <string name="refresh_sheet_reason_rate_limit">per daug užklausų</string>
+    <string name="refresh_sheet_reason_server">serverio klaida</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">baigėsi laikas</string>
+    <string name="refresh_sheet_reason_unavailable">birža nepasiekiama</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s sekundės</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_exchanges">Biržos</string>
+    <string name="refresh_sheet_section_steps">Eiga</string>
+    <string name="refresh_sheet_status_failed">neatnaujinta</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">viskas atnaujinta</string>
+    <string name="refresh_sheet_status_partial">iš dalies atnaujinta</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Laukiama pradžios</string>
+    <string name="refresh_sheet_widgets">Valdikliai</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">bendra užklausa %1$s (nepavyko)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d klaida</item>
+        <item quantity="few">%1$d klaidos</item>
+        <item quantity="many">%1$d klaidos</item>
+        <item quantity="other">%1$d klaidų</item>
+    </plurals>
+    <string name="refresh_report_live">Tiesiogiai: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d nebeprekiaujama</item>
+        <item quantity="few">%1$d nebeprekiaujama</item>
+        <item quantity="many">%1$d nebeprekiaujama</item>
+        <item quantity="other">%1$d nebeprekiaujama</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d atskirai</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">Nepavyko</string>
+    <string name="check_result_ok">Gerai</string>
+    <string name="check_result_partial">Iš dalies</string>
+    <string name="check_result_skipped">Praleista</string>
+    <string name="check_trigger_bgtask">Fone</string>
+    <string name="check_trigger_exact">Laiku</string>
+    <string name="check_trigger_foreground">Programėlė</string>
+    <string name="check_trigger_widget">Valdiklis</string>
+    <string name="check_trigger_widget_ios">Valdiklis · kainos ir kainų įspėjimai</string>
+    <string name="check_trigger_worker">Fone</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android gali atidėti tikrinimą – nustatyk akumuliatorių į „Neribojama“</string>
+    <string name="battery_later">Vėliau</string>
+    <string name="battery_message">Android atideda foninį darbą, kad taupytų energiją – tada kainos ir valdikliai gali būti kelių valandų senumo. Nustačius neribojamą akumuliatoriaus naudojimą, jie lieka aktualūs. Tai bet kada gali pakeisti Android nustatymuose.</string>
+    <string name="battery_open_settings">Atidaryti akumuliatoriaus nustatymus</string>
+    <string name="battery_steps">Programėlės informacijoje bakstelėk Akumuliatorius (arba Programos akumuliatoriaus naudojimas) ir pasirink Neribojama.</string>
+    <string name="battery_title">Laikyk kainas aktualias</string>
+    <string name="ios_background_refresh_off">Šiai programėlei išjungtas programų naujinimas fone. Be jo įspėjimai tikrinami tik tada, kai programėlė atidaryta.</string>
+    <string name="ios_low_power_mode">Įjungtas mažos galios režimas. iOS fone tikrina retai, todėl įspėjimai gali vėluoti.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Biržos pranešimas: %1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">Saugykla dar užrakinta – kitas bandymas po %1$d s</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="one">Saugykla dar užrakinta – kitas bandymas po %1$d sekundės</item>
+        <item quantity="few">Saugykla dar užrakinta – kitas bandymas po %1$d sekundžių</item>
+        <item quantity="many">Saugykla dar užrakinta – kitas bandymas po %1$d sekundės</item>
+        <item quantity="other">Saugykla dar užrakinta – kitas bandymas po %1$d sekundžių</item>
+    </plurals>
+    <string name="watchlist_retry_short">Kitas bandymas po %1$s</string>
+    <string name="widget_retry_at">Kitas bandymas %1$s</string>
+    <string name="refresh_sheet_wait_attempt">%1$d bandymas – užšifruota saugykla per pirmąjį dar nebuvo paruošta</string>
+</resources>

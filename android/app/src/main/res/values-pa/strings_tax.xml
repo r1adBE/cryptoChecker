@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
+    <string name="portfolio_cutoff_export_action">ਮਿੱਥੀ ਤਾਰੀਖ ਦਾ ਐਕਸਪੋਰਟ…</string>
+    <string name="portfolio_tax_worksheet_action">ਵਰਕਸ਼ੀਟ…</string>
+    <string name="portfolio_export_address_unobserved">ਇਸ ਤਾਰੀਖ ਨੂੰ ਪਤਾ ਨਿਗਰਾਨੀ ਹੇਠ ਨਹੀਂ ਸੀ – ਸ਼ਾਮਲ ਨਹੀਂ</string>
+    <string name="portfolio_export_button">CSV ਐਕਸਪੋਰਟ ਕਰੋ</string>
+    <string name="portfolio_export_col_amount">ਮਾਤਰਾ</string>
+    <string name="portfolio_export_col_coin">ਕੌਇਨ</string>
+    <string name="portfolio_export_col_note">ਨੋਟ</string>
+    <string name="portfolio_export_col_price">ਕੀਮਤ USDT</string>
+    <string name="portfolio_export_col_rate">ਦਰ USDT→%1$s</string>
+    <string name="portfolio_export_col_value">ਮੁੱਲ USDT</string>
+    <string name="portfolio_export_col_value_cur">ਮੁੱਲ %1$s</string>
+    <!-- Inhalt der CSV-Datei -->
+    <string name="portfolio_export_comment"># ਮਿੱਥੀ ਤਾਰੀਖ %1$s, ਮੁਦਰਾ %2$s, %3$s ਦੀ ਵਟਾਂਦਰਾ ਦਰ</string>
+    <string name="portfolio_export_currency">ਮੁਦਰਾ: %1$s</string>
+    <string name="portfolio_export_date">ਮਿੱਥੀ ਤਾਰੀਖ</string>
+    <string name="portfolio_export_done">ਐਕਸਪੋਰਟ ਸੰਭਾਲਿਆ ਗਿਆ</string>
+    <string name="portfolio_export_estv_note">ਦੌਲਤ ਟੈਕਸ ਲਈ ਜਿੱਥੇ ਸੂਚੀਬੱਧ ਹੋਣ ਉੱਥੇ ESTV ਕੀਮਤ ਸੂਚੀ %1$s ਦੇ ਸਰਕਾਰੀ ਸਾਲ-ਅੰਤ ਦੇ ਮੁੱਲ ਲਾਗੂ ਹੁੰਦੇ ਹਨ: %2$s</string>
+    <string name="portfolio_export_failed">ਐਕਸਪੋਰਟ ਨਾਕਾਮ</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">ਐਕਸਪੋਰਟ ਨਾਕਾਮ: ਫਾਈਲ ਲਿਖੀ ਨਹੀਂ ਜਾ ਸਕੀ – ਸੰਭਾਲਣ ਦੀ ਥਾਂ ਮੌਜੂਦ ਨਹੀਂ ਜਾਂ ਲਿਖਣਯੋਗ ਨਹੀਂ</string>
+    <string name="portfolio_export_failed_prices">ਐਕਸਪੋਰਟ ਨਾਕਾਮ: ਕੀਮਤਾਂ ਲੋਡ ਨਹੀਂ ਹੋ ਸਕੀਆਂ – ਕੋਈ ਕਨੈਕਸ਼ਨ ਨਹੀਂ ਜਾਂ ਐਕਸਚੇਂਜ ਜਵਾਬ ਨਹੀਂ ਦੇ ਰਿਹਾ</string>
+    <string name="portfolio_export_from_address">ਪਤੇ ਤੋਂ – ਖਰੀਦ ਕੀਮਤ ਨਹੀਂ</string>
+    <string name="portfolio_export_hint">ਚੁਣੇ ਦਿਨ ਦੇ ਅੰਤ ’ਤੇ ਹੋਲਡਿੰਗਾਂ, USDT ਵਿੱਚ ਰੋਜ਼ਾਨਾ ਬੰਦ ਕੀਮਤ (UTC) ’ਤੇ ਮੁਲਾਂਕਣ ਅਤੇ ਉਸ ਦਿਨ ਦੀ ECB ਹਵਾਲਾ ਦਰ ਨਾਲ ਬਦਲੀਆਂ। ਮੁਦਰਾ “ਇਸ ਵਿੱਚ ਬਦਲੋ” ਨਾਲ ਬਦਲੋ।</string>
+    <string name="portfolio_export_incomplete">ਅਧੂਰਾ</string>
+    <string name="portfolio_export_no_fx">ਵਟਾਂਦਰਾ ਦਰ ਨਹੀਂ</string>
+    <string name="portfolio_export_no_price">ਕੀਮਤ ਨਹੀਂ</string>
+    <string name="portfolio_export_running">ਇਤਿਹਾਸਕ ਕੀਮਤਾਂ ਲਿਆਂਦੀਆਂ ਜਾ ਰਹੀਆਂ ਹਨ…</string>
+    <string name="portfolio_export_title">ਮਿੱਥੀ ਤਾਰੀਖ ਦਾ ਐਕਸਪੋਰਟ</string>
+    <string name="portfolio_export_today_hint">ਅੱਜ ਹਾਲੇ ਖਤਮ ਨਹੀਂ ਹੋਇਆ: ਰੋਜ਼ਾਨਾ ਬੰਦ ਕੀਮਤ ਦੀ ਬਜਾਏ ਮੌਜੂਦਾ ਕੀਮਤ ਵਰਤੀ ਜਾਂਦੀ ਹੈ।</string>
+    <string name="portfolio_export_total">ਕੁੱਲ</string>
+    <string name="portfolio_export_unchecked">ਅਣ-ਜਾਂਚਿਆ (ਮੇਲ ਖਾਂਦੀ ਕੀਮਤ ਨਹੀਂ)</string>
+
+    <!-- Steuer-Export (Arbeitspapier) -->
+    <string name="tax_export_adjustment">superficial loss (ACB ਵਿੱਚ ਜੋੜਿਆ)</string>
+    <string name="tax_export_at_wallet_note">ਆਸਟਰੀਆ: ਪ੍ਰਤੀ ਕੌਇਨ ਅਤੇ ਵਾਲਿਟ (ਐਕਸਚੇਂਜ) ਚਲਦੀ ਔਸਤ – ਟ੍ਰਾਂਸਫਰ ਲਾਗਤ ਨਾਲ ਲੈ ਜਾਂਦੇ ਹਨ – ਇਨਾਮ ਪ੍ਰਾਪਤੀ ਲਾਗਤ 0 ’ਤੇ – 1 ਮਾਰਚ 2021 ਤੋਂ ਹੋਲਡਿੰਗਾਂ ਫੀਸ ਤੋਂ ਬਿਨਾਂ (ਕਟੌਤੀਯੋਗ ਨਹੀਂ) – ਲੈਂਡਿੰਗ ਵਿਆਜ ਮਿਲਣ ਵੇਲੇ ਦੇ ਮੁੱਲ ’ਤੇ (27.5 ਪ੍ਰਤੀਸ਼ਤ ’ਤੇ ਆਮਦਨ)।</string>
+    <string name="tax_export_avg_cost_rates">ਖਰੀਦ ਤਾਰੀਖ ਦੀਆਂ ਦਰਾਂ ’ਤੇ ਲਾਗਤ (ਔਸਤ)</string>
+    <string name="tax_export_ch_wealth_not_calculated">ਦੌਲਤ ਟੈਕਸ ਨਹੀਂ ਗਿਣਿਆ – ESTV ਕੀਮਤ ਸੂਚੀ: %1$s</string>
+    <string name="tax_export_col_acquired">ਪ੍ਰਾਪਤ ਕੀਤਾ</string>
+    <string name="tax_export_col_adjustment">ਨਾ-ਮਨਜ਼ੂਰ ਨੁਕਸਾਨ %1$s</string>
+    <string name="tax_export_col_cost">ਲਾਗਤ %1$s</string>
+    <string name="tax_export_col_date">ਤਾਰੀਖ</string>
+    <string name="tax_export_col_days">ਰੱਖਣ ਦੇ ਦਿਨ</string>
+    <string name="tax_export_col_gain">ਮੁਨਾਫ਼ਾ %1$s</string>
+    <string name="tax_export_col_gross">ਫੀਸ ਤੋਂ ਪਹਿਲਾਂ ਕੀਮਤ %1$s</string>
+    <string name="tax_export_col_long_term">&gt; 1 ਸਾਲ ਰੱਖਿਆ</string>
+    <string name="tax_export_col_portfolio_value">ਪੋਰਟਫੋਲੀਓ ਮੁੱਲ %1$s</string>
+    <string name="tax_export_col_proceeds">ਆਮਦਨ %1$s</string>
+    <string name="tax_export_col_sold">ਵੇਚਿਆ</string>
+    <string name="tax_export_cost_incomplete">ਕੁੱਲ ਪ੍ਰਾਪਤੀ ਲਾਗਤ ਅਧੂਰੀ</string>
+    <string name="tax_export_cost_missing">ਖਰੀਦ ਕੀਮਤ ਗੁੰਮ</string>
+    <string name="tax_export_fee_consumed">ਫੀਸ ਪੂਰੀ ਪ੍ਰਾਪਤੀ ਖਾ ਜਾਂਦੀ ਹੈ</string>
+    <string name="tax_export_fee_leg">ਹੋਰ ਕੌਇਨ ਵਿੱਚ ਫੀਸ</string>
+    <string name="tax_export_fee_row">ਫੀਸ</string>
+    <string name="tax_export_fee_value_missing">ਹੋਰ ਕੌਇਨ ਵਿੱਚ ਫੀਸ ਦਾ ਕੋਈ ਮੁੱਲ ਨਹੀਂ</string>
+    <string name="tax_export_gains">ਪ੍ਰਾਪਤ ਨਿਪਟਾਰੇ (CSV)</string>
+    <string name="tax_export_gains_title">ਪ੍ਰਾਪਤ ਨਿਪਟਾਰੇ %1$s</string>
+    <string name="tax_export_gift">ਤੋਹਫ਼ਾ</string>
+    <string name="tax_export_holdings_cutoff">%1$s ਨੂੰ ਹੋਲਡਿੰਗਾਂ (CSV)</string>
+    <string name="tax_export_holdings_title">%1$s ਨੂੰ ਹੋਲਡਿੰਗਾਂ</string>
+    <string name="tax_export_income">ਆਮਦਨ (CSV)</string>
+    <string name="tax_export_income_title">ਆਮਦਨ %1$s</string>
+    <string name="tax_export_info_template">ਟੈਮਪਲੇਟ: %1$s · ਵਿਧੀ: %2$s · ਟੈਕਸ ਸਾਲ: %3$s · ਮੁਦਰਾ: %4$s · Crypto Checker %5$s</string>
+    <string name="tax_export_lost_fee_cost">ਭੁਗਤਾਨ ਕੀਤੇ ਲਾਟ ਤੋਂ ਬਿਨਾਂ ਨੈੱਟਵਰਕ ਫੀਸ ਦੀ ਲਾਗਤ</string>
+    <string name="tax_export_match_pool">Section 104 pool</string>
+    <string name="tax_export_match_same_day">ਉਸੇ ਦਿਨ (HMRC)</string>
+    <string name="tax_export_match_thirty_day">30 ਦਿਨਾਂ ਦਾ ਨਿਯਮ (HMRC)</string>
+    <string name="tax_export_method_change_warning">ਵਿਧੀ ਜਾਂ ਟੈਮਪਲੇਟ ਬਦਲਣ ਨਾਲ ਪਿਛਲੇ ਸਾਲ ਵੀ ਮੁੜ ਗਿਣੇ ਜਾਂਦੇ ਹਨ – ਜੋ ਪਹਿਲਾਂ ਜਮ੍ਹਾਂ ਕਰਾਇਆ ਗਿਆ ਹੈ ਉਸ ਨਾਲ ਤੁਲਨਾ ਕਰੋ।</string>
+    <string name="tax_export_method_overridden">ਟੈਮਪਲੇਟ %1$s ਗਿਣਦਾ ਹੈ – %2$s ਨਹੀਂ</string>
+    <string name="tax_export_new_holding">1 ਮਾਰਚ 2021 ਤੋਂ ਪ੍ਰਾਪਤ</string>
+    <string name="tax_export_no">ਨਹੀਂ</string>
+    <string name="tax_export_old_holding">1 ਮਾਰਚ 2021 ਤੋਂ ਪਹਿਲਾਂ ਪ੍ਰਾਪਤ</string>
+    <string name="tax_export_oversold">ਦਰਜ ਨਾਲੋਂ ਵੱਧ ਵੇਚਿਆ</string>
+    <string name="tax_export_payment">ਕ੍ਰਿਪਟੋ ਨਾਲ ਭੁਗਤਾਨ</string>
+    <string name="tax_export_period">%1$s – %2$s</string>
+    <string name="tax_export_proceeds_missing">ਵਿਕਰੀ ਕੀਮਤ ਗੁੰਮ</string>
+    <string name="tax_export_proceeds_without_cost">ਖਰੀਦ ਕੀਮਤ ਤੋਂ ਬਿਨਾਂ ਆਮਦਨ</string>
+    <string name="tax_export_realized_differs">ਟੈਕਸ CSV ‘ਪ੍ਰਾਪਤ’ ਤੋਂ ਵੱਖਰੀ ਹੋ ਸਕਦੀ ਹੈ (ਦੇਸ਼ ਦੇ ਟੈਕਸ ਨਿਯਮ)।</string>
+    <string name="tax_export_rule">&gt; 1 ਸਾਲ: ਖਰੀਦ ਤਾਰੀਖ + 1 ਕੈਲੰਡਰ ਸਾਲ ਤੋਂ ਬਾਅਦ ਵੇਚਿਆ। ਤਾਰੀਖਾਂ ਸਥਾਨਕ ਸਮੇਂ ਵਿੱਚ। ਦਰਾਂ: ਲੈਣ-ਦੇਣ ਵਾਲੇ ਦਿਨ ਦੀ ECB ਰੋਜ਼ਾਨਾ ਦਰ; ਜੇ ਨਾ ਹੋਵੇ ਤਾਂ 7 ਦਿਨ ਪਹਿਲਾਂ ਤੱਕ ਦੀ ਆਖਰੀ ਦਰ।</string>
+    <string name="tax_export_rules_date">ਨਿਯਮ ਮੁਤਾਬਕ: %1$s</string>
+    <string name="tax_export_rules_stale">ਨਿਯਮ %1$s ਦੇ ਹਨ – %2$s ਲਈ ਦਰਾਂ ਅਤੇ ਛੋਟਾਂ ਬਦਲ ਚੁੱਕੀਆਂ ਹੋ ਸਕਦੀਆਂ ਹਨ। ਮੁੱਲ ਜਾਂਚੋ।</string>
+    <string name="tax_export_spouse_gift">ਜੀਵਨ ਸਾਥੀ/ਪਾਰਟਨਰ ਨੂੰ – ਨਾ ਮੁਨਾਫ਼ਾ, ਨਾ ਨੁਕਸਾਨ</string>
+    <string name="tax_export_summary">ਸਾਲਾਨਾ ਸਾਰ %1$s (CSV)</string>
+    <string name="tax_export_swap">ਸਵੈਪ</string>
+    <string name="tax_export_tax_year">ਟੈਕਸ ਸਾਲ</string>
+    <string name="tax_export_transfer_fee_info">USDT/ਨਕਦ ਵਿੱਚ ਟ੍ਰਾਂਸਫਰ ਫੀਸ – ਨੁਕਸਾਨ ਨਹੀਂ, ਲਾਗਤ ਅਧਾਰ ਵਿੱਚ ਨਹੀਂ, ਸਿਰਫ਼ ਜਾਣਕਾਰੀ</string>
+    <string name="tax_export_unassigned_fee">ਫੀਸ ਨਿਰਧਾਰਤ ਨਹੀਂ – ਲਾਗਤ ਅਧਾਰ ਅਣਜਾਣ</string>
+    <string name="tax_export_usdt_usd_note">USDT, USDT/USD ਰੋਜ਼ਾਨਾ ਬੰਦ ਕੀਮਤ ’ਤੇ ਬਦਲਿਆ; ਬੰਦ ਕੀਮਤ ਨਾ ਹੋਵੇ ਤਾਂ 1 USD (ਹਰ ਕਤਾਰ ਵਿੱਚ ਨਿਸ਼ਾਨਿਤ)</string>
+    <string name="tax_export_value_estimated">ਮੁੱਲ ਅਨੁਮਾਨਿਤ (ਰੋਜ਼ਾਨਾ ਬੰਦ ਕੀਮਤ)</string>
+    <string name="tax_export_value_missing">ਮਿਲਣ ਵੇਲੇ ਦਾ ਮੁੱਲ ਗੁੰਮ</string>
+    <string name="tax_export_wallet">ਵਾਲਿਟ: %1$s</string>
+    <string name="tax_export_wallet_unspecified">ਨਿਰਧਾਰਤ ਨਹੀਂ</string>
+    <string name="tax_export_withdrawal_fee">ਨਿਕਾਸੀ ਫੀਸ</string>
+    <string name="tax_export_withdrawal_fee_info">USDT/ਨਕਦ ਵਿੱਚ ਨਿਕਾਸੀ ਫੀਸ – ਨੁਕਸਾਨ ਨਹੀਂ, ਸਿਰਫ਼ ਜਾਣਕਾਰੀ</string>
+    <string name="tax_export_workpaper_disclaimer">ਟੈਕਸ ਵਰਕਸ਼ੀਟ – ਟੈਕਸ ਰਿਟਰਨ ਨਹੀਂ ਅਤੇ ਟੈਕਸ ਸਲਾਹ ਨਹੀਂ</string>
+    <string name="tax_export_workpaper_title">ਵਰਕਸ਼ੀਟ</string>
+    <string name="tax_export_year_local_zone">ਤਾਰੀਖਾਂ ਸਥਾਨਕ ਸਮੇਂ ਵਿੱਚ (%1$s)</string>
+    <string name="tax_export_yes">ਹਾਂ</string>
+
+    <!-- Steuer-Export: Zeilen und Spalten -->
+    <string name="tax_line_at_interest">ਲੈਂਡਿੰਗ ਵਿਆਜ (ਮਿਲਣ ਵੇਲੇ ਦਾ ਮੁੱਲ)</string>
+    <string name="tax_line_at_old_long">1 ਮਾਰਚ 2021 ਤੋਂ ਪਹਿਲਾਂ ਪ੍ਰਾਪਤ – &gt; 1 ਸਾਲ ਰੱਖਿਆ: ਆਮ ਤੌਰ ’ਤੇ ਟੈਕਸਯੋਗ ਨਹੀਂ – ਜਾਂਚੋ</string>
+    <string name="tax_line_at_rate">ਵਿਸ਼ੇਸ਼ ਦਰ 27.5 ਪ੍ਰਤੀਸ਼ਤ: ਸ਼ੁੱਧ, 1 ਮਾਰਚ 2021 ਤੋਂ ਪ੍ਰਾਪਤ ਅਤੇ 1 ਮਾਰਚ 2022 ਤੋਂ ਵੇਚਿਆ + ਵਿਆਜ</string>
+    <string name="tax_line_au_discounted">ਨੁਕਸਾਨਾਂ ਅਤੇ 50 ਪ੍ਰਤੀਸ਼ਤ ਛੋਟ ਤੋਂ ਬਾਅਦ ਸ਼ੁੱਧ ਪੂੰਜੀ ਮੁਨਾਫ਼ਾ</string>
+    <string name="tax_line_ca_taxable">ਟੈਕਸਯੋਗ ਪੂੰਜੀ ਮੁਨਾਫ਼ਾ (ਸ਼ਮੂਲੀਅਤ ਦਰ 1/2)</string>
+    <string name="tax_line_ch_income">ਇਨਾਮ ਸੂਚੀਬੱਧ – ਉਨ੍ਹਾਂ ਦੇ ਇਲਾਜ ਲਈ ESTV ਵਰਕਿੰਗ ਪੇਪਰ ਦੇਖੋ</string>
+    <string name="tax_line_ch_private">ਨਿੱਜੀ ਸੰਪਤੀ ’ਤੇ ਪੂੰਜੀ ਮੁਨਾਫ਼ਾ: ਨਹੀਂ ਗਿਣਿਆ – ਵਰਗੀਕਰਨ ਲਈ ESTV ਦੇਖੋ</string>
+    <string name="tax_line_ch_wealth">ਦੌਲਤ ਟੈਕਸ: ਨਹੀਂ ਗਿਣਿਆ – ਹੋਲਡਿੰਗਾਂ CSV 31 ਦਸੰਬਰ ਨੂੰ ਐਕਸਚੇਂਜ ਕੀਮਤ × USD/CHF ਵਰਤਦੀ ਹੈ – ਸਰਕਾਰੀ ਟੈਕਸ ਮੁੱਲ: ESTV ਕੀਮਤ ਸੂਚੀ</string>
+    <string name="tax_line_de_long">&gt; 1 ਸਾਲ ਰੱਖਿਆ: § 23 EStG ਅਧੀਨ ਆਮ ਤੌਰ ’ਤੇ ਟੈਕਸਯੋਗ ਨਹੀਂ – ਜਾਂਚੋ</string>
+    <string name="tax_line_denied_loss">ਨਾ-ਮਨਜ਼ੂਰ ਨੁਕਸਾਨ (superficial loss)</string>
+    <string name="tax_line_fr_outflow">ਵਿਕਰੀ ਤੋਂ ਬਿਨਾਂ ਨਿਕਾਸੀਆਂ – ਕੁੱਲ ਪ੍ਰਾਪਤੀ ਲਾਗਤ ਅਨੁਪਾਤ ਨਾਲ ਘਟਾਈ</string>
+    <string name="tax_line_fr_rate">ਇੱਕਸਾਰ ਦਰ 12.8 ਪ੍ਰਤੀਸ਼ਤ ਜਮ੍ਹਾਂ ਸਮਾਜਿਕ ਯੋਗਦਾਨ (ਜਾਂ ਵਿਕਲਪ ’ਤੇ ਸਲੈਬ)</string>
+    <string name="tax_line_fr_threshold">ਸਾਲ ਵਿੱਚ €305 ਤੱਕ ਨਿਪਟਾਰੇ: ਆਮ ਤੌਰ ’ਤੇ ਛੋਟ (ਵਿਕਰੀ ਕੀਮਤਾਂ ਦਾ ਜੋੜ) – ਜਾਂਚੋ</string>
+    <string name="tax_line_gains">ਮੁਨਾਫ਼ੇ</string>
+    <string name="tax_line_income">ਆਮਦਨ (ਮਿਲਣ ਵੇਲੇ ਦੇ ਮੁੱਲ ’ਤੇ ਇਨਾਮ)</string>
+    <string name="tax_line_jp_misc">ਫੁਟਕਲ ਆਮਦਨ (雑所得): ਸ਼ੁੱਧ ਮੁਨਾਫ਼ਾ + ਆਮਦਨ</string>
+    <string name="tax_line_long_net">ਸ਼ੁੱਧ – &gt; 1 ਸਾਲ ਰੱਖਿਆ</string>
+    <string name="tax_line_losses">ਨੁਕਸਾਨ</string>
+    <string name="tax_line_net">ਸ਼ੁੱਧ ਮੁਨਾਫ਼ਾ/ਨੁਕਸਾਨ</string>
+    <string name="tax_line_new_net">ਸ਼ੁੱਧ – 1 ਮਾਰਚ 2021 ਤੋਂ ਪ੍ਰਾਪਤ, 1 ਮਾਰਚ 2022 ਤੋਂ ਵੇਚਿਆ</string>
+    <string name="tax_line_old_long_net">ਸ਼ੁੱਧ – 1 ਮਾਰਚ 2021 ਤੋਂ ਪਹਿਲਾਂ ਪ੍ਰਾਪਤ – &gt; 1 ਸਾਲ ਰੱਖਿਆ</string>
+    <string name="tax_line_old_short_net">ਸ਼ੁੱਧ – ਸੱਟੇਬਾਜ਼ੀ ਲੈਣ-ਦੇਣ (ਪਿਛਲਾ ਕਾਨੂੰਨ): 1 ਮਾਰਚ 2021 ਤੋਂ ਪਹਿਲਾਂ ਪ੍ਰਾਪਤ ਅਤੇ ≤ 1 ਸਾਲ ਰੱਖਿਆ, ਜਾਂ 1 ਮਾਰਚ 2022 ਤੋਂ ਪਹਿਲਾਂ ਵੇਚਿਆ</string>
+    <string name="tax_line_proceeds">ਆਮਦਨ</string>
+    <string name="tax_line_short_net">ਸ਼ੁੱਧ – ≤ 1 ਸਾਲ ਰੱਖਿਆ</string>
+    <string name="tax_line_transfer_fees">ਟ੍ਰਾਂਸਫਰ ਫੀਸਾਂ (ਆਪਣੇ ਵਾਲਿਟ)</string>
+    <string name="tax_line_uk_after_exempt">ਛੋਟ ਵਾਲੀ ਰਕਮ ਤੋਂ ਵੱਧ ਸ਼ੁੱਧ ਮੁਨਾਫ਼ਾ (ਸਿਰਫ਼ ਕ੍ਰਿਪਟੋ)</string>
+    <string name="tax_line_uk_exempt">ਸਾਲਾਨਾ ਛੋਟ ਵਾਲੀ ਰਕਮ – ਸਾਰੇ ਨਿਪਟਾਰਿਆਂ ’ਤੇ ਇਕੱਠੇ ਲਾਗੂ, ਇੱਥੇ ਪੂਰੀ ਲਾਗੂ ਕੀਤੀ</string>
+    <string name="tax_line_us_terms">ਥੋੜ੍ਹੀ ਮਿਆਦ (≤ 1 ਸਾਲ): ਆਮ ਦਰਾਂ – ਲੰਬੀ ਮਿਆਦ (&gt; 1 ਸਾਲ): ਪੂੰਜੀ ਮੁਨਾਫ਼ਾ ਦਰਾਂ</string>
+    <string name="tax_line_withdrawal_fees">ਨਿਕਾਸੀ ਫੀਸਾਂ</string>
+
+    <!-- Steuer Deutschland -->
+    <string name="tax_de_below">ਸੀਮਾ ਤੋਂ ਹੇਠਾਂ</string>
+    <string name="tax_de_col_item">ਮੱਦ</string>
+    <string name="tax_de_disclaimer">ਸਿਰਫ਼ ਮਾਰਗਦਰਸ਼ਨ ਲਈ – ਟੈਕਸ ਰਿਟਰਨ ਨਹੀਂ ਅਤੇ ਟੈਕਸ ਸਲਾਹ ਨਹੀਂ।</string>
+    <string name="tax_de_explain_below">%1$s ਤੱਕ: ਸੀਮਾ ਤੋਂ ਹੇਠਾਂ (ਮਾਰਗਦਰਸ਼ਨ ਲਈ)।</string>
+    <string name="tax_de_explain_loss">ਸ਼ੁੱਧ ਨੁਕਸਾਨ: ਇਨ੍ਹਾਂ ਵਿਕਰੀਆਂ ’ਤੇ ਕੋਈ ਟੈਕਸ ਨਹੀਂ। § 23 EStG ਅਧੀਨ ਨੁਕਸਾਨ ਸਿਰਫ਼ ਨਿੱਜੀ ਵਿਕਰੀਆਂ ਦੇ ਮੁਨਾਫ਼ਿਆਂ ਨਾਲ ਸਮਾਯੋਜਿਤ ਹੁੰਦੇ ਹਨ – ਉਸੇ ਸਾਲ ਵਿੱਚ ਜਾਂ ਪਿਛਲੇ ਸਾਲ ਵੱਲ ਵਾਪਸ ਲਿਜਾ ਕੇ ਅਤੇ ਅਗਲੇ ਸਾਲਾਂ ਵਿੱਚ ਅੱਗੇ ਲਿਜਾ ਕੇ (§ 23 para. 3 ਅਤੇ § 10d EStG)। ਨੁਕਸਾਨ ਦੇ ਨਿਰਧਾਰਨ ਲਈ ਇਸਨੂੰ ਆਪਣੀ ਟੈਕਸ ਰਿਟਰਨ ਵਿੱਚ ਦੱਸੋ।</string>
+    <string name="tax_de_explain_reached">%1$s ਤੋਂ ਪੂਰੀ ਰਕਮ ਗਿਣੀ ਜਾਂਦੀ ਹੈ (ਛੋਟ ਸੀਮਾ – ਭੱਤਾ ਨਹੀਂ)।</string>
+    <string name="tax_de_explain_unknown">ਜਾਂਚਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ: ਵਟਾਂਦਰਾ ਦਰਾਂ / ਖਰੀਦ ਕੀਮਤਾਂ ਜਾਂ ਰੱਖਣ ਦੀਆਂ ਮਿਆਦਾਂ ਗੁੰਮ ਹਨ।</string>
+    <string name="tax_de_income_limit">ਸੇਵਾਵਾਂ ਲਈ ਛੋਟ ਸੀਮਾ (§ 22 No. 3 EStG)</string>
+    <string name="tax_de_limit_scope">ਸੀਮਾਵਾਂ ਸਾਲ ਦੀਆਂ ਸਾਰੀਆਂ ਨਿੱਜੀ ਵਿਕਰੀਆਂ ਜਾਂ ਸੇਵਾਵਾਂ ’ਤੇ ਇਕੱਠੀਆਂ ਲਾਗੂ ਹੁੰਦੀਆਂ ਹਨ – ਐਪ ਤੋਂ ਬਾਹਰ ਵਾਲੀਆਂ ਵੀ।</string>
+    <string name="tax_de_loading">ਗਿਣਤੀ ਹੋ ਰਹੀ ਹੈ…</string>
+    <string name="tax_de_long_gains">ਮੁਨਾਫ਼ੇ – &gt; 1 ਸਾਲ ਰੱਖਿਆ</string>
+    <string name="tax_de_long_losses">ਨੁਕਸਾਨ – &gt; 1 ਸਾਲ ਰੱਖਿਆ</string>
+    <string name="tax_de_loss">ਸ਼ੁੱਧ ਨੁਕਸਾਨ – ਸਿਰਫ਼ ਨਿੱਜੀ ਵਿਕਰੀਆਂ ਦੇ ਮੁਨਾਫ਼ਿਆਂ ਨਾਲ ਸਮਾਯੋਜਿਤ (§ 23 EStG)</string>
+    <string name="tax_de_private_limit">ਨਿੱਜੀ ਵਿਕਰੀਆਂ ਲਈ ਛੋਟ ਸੀਮਾ (§ 23 EStG)</string>
+    <string name="tax_de_reached">ਸੀਮਾ ਪੂਰੀ ਹੋਈ – ਆਮ ਤੌਰ ’ਤੇ ਪੂਰੀ ਰਕਮ ਗਿਣੀ ਜਾਂਦੀ ਹੈ – ਜਾਂਚੋ</string>
+    <string name="tax_de_short_gains">ਮੁਨਾਫ਼ੇ – ≤ 1 ਸਾਲ ਰੱਖਿਆ</string>
+    <string name="tax_de_short_losses">ਨੁਕਸਾਨ – ≤ 1 ਸਾਲ ਰੱਖਿਆ</string>
+    <string name="tax_de_unclassified">ਰੱਖਣ ਦੀ ਮਿਆਦ ਅਣਜਾਣ</string>
+    <string name="tax_de_unknown">ਜਾਂਚਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ</string>
+
+    <!-- Steuer-Vorlagen je Land -->
+    <string name="tax_template_at">ਆਸਟਰੀਆ</string>
+    <string name="tax_template_au">ਆਸਟ੍ਰੇਲੀਆ</string>
+    <string name="tax_template_beta">ਬੀਟਾ</string>
+    <string name="tax_template_beta_note">ਬੀਟਾ: ਦੇਸ਼ ਦੇ ਨਿਯਮ ਸਰਲ ਕੀਤੇ, ਟੈਕਸ ਰਿਟਰਨ ਭਰਨ ਤੋਂ ਪਹਿਲਾਂ ਜਾਂਚੋ</string>
+    <string name="tax_template_ca">ਕੈਨੇਡਾ</string>
+    <string name="tax_template_ch">ਸਵਿਟਜ਼ਰਲੈਂਡ</string>
+    <string name="tax_template_confirm_text">ਬੀਟਾ, ਸਰਲ ਨਿਯਮ, ਹੋਰ ਪਲੇਟਫਾਰਮਾਂ ਦੇ ਲੈਣ-ਦੇਣ ਸ਼ਾਮਲ ਨਹੀਂ – ਟੈਕਸ ਰਿਟਰਨ ਭਰਨ ਤੋਂ ਪਹਿਲਾਂ ਜਾਂਚੋ।</string>
+    <string name="tax_template_confirm_title">ਟੈਕਸ ਟੈਮਪਲੇਟ (ਬੀਟਾ)</string>
+    <string name="tax_template_current">ਟੈਮਪਲੇਟ: %1$s · ਵਿਧੀ: %2$s · ਮੁਦਰਾ: %3$s</string>
+    <string name="tax_template_de">ਜਰਮਨੀ</string>
+    <string name="tax_template_fr">ਫ਼ਰਾਂਸ</string>
+    <string name="tax_template_hint">ਸਿਰਫ਼ ਮਾਰਗਦਰਸ਼ਨ ਲਈ: ਟੈਕਸ ਵਰਕਸ਼ੀਟ ਦੀ ਵਿਧੀ, ਟੈਕਸ ਸਾਲ ਅਤੇ ਸਾਰ ਤੈਅ ਕਰਦਾ ਹੈ। ਪੋਰਟਫੋਲੀਓ ਕਾਰਡ ਨਿਰਪੱਖ ਰਹਿੰਦਾ ਹੈ – ਤੋਹਫ਼ੇ ਅਤੇ ਟ੍ਰਾਂਸਫਰ ਫੀਸਾਂ ਵਰਕਸ਼ੀਟ ਤੋਂ ਵੱਖਰੀਆਂ ਹੋ ਸਕਦੀਆਂ ਹਨ।</string>
+    <string name="tax_template_jp">ਜਾਪਾਨ</string>
+    <string name="tax_template_neutral">ਨਿਰਪੱਖ (ਸਾਰੇ ਦੇਸ਼)</string>
+    <string name="tax_template_suggestion">ਤੁਹਾਡੇ ਖੇਤਰ ਲਈ ਸੁਝਾਅ: %1$s</string>
+    <string name="tax_template_title">ਟੈਕਸ ਟੈਮਪਲੇਟ</string>
+    <string name="tax_template_uk">ਯੂਨਾਈਟਿਡ ਕਿੰਗਡਮ</string>
+    <string name="tax_template_us">ਅਮਰੀਕਾ</string>
+    <string name="tax_template_use">%1$s ਵਰਤੋ</string>
+
+    <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
+    <string name="tax_method_at">ਪੁਰਾਣੀਆਂ/ਨਵੀਆਂ ਹੋਲਡਿੰਗਾਂ – ਚਲਦੀ ਔਸਤ</string>
+    <string name="tax_method_ca_acb">ACB ਔਸਤ ਲਾਗਤ (superficial loss)</string>
+    <string name="tax_method_fr_pta">ਕੁੱਲ ਪ੍ਰਾਪਤੀ ਕੀਮਤ (art. 150 VH bis)</string>
+    <string name="tax_method_jp_total">ਕੁੱਲ ਔਸਤ (総平均法)</string>
+    <string name="tax_method_uk_pool">Section 104 pool (ਉਸੇ ਦਿਨ / 30 ਦਿਨ)</string>
+    <string name="tax_note_at">ਪ੍ਰਤੀ ਕੌਇਨ ਅਤੇ ਵਾਲਿਟ ਚਲਦੀ ਔਸਤ – ਵਾਲਿਟਾਂ ਦੇ ਪਾਰ ਨਹੀਂ (KryptowährungsVO § 2)। ਇਨਾਮ ਪ੍ਰਾਪਤੀ ਲਾਗਤ 0 ’ਤੇ ਨਵੀਆਂ ਹੋਲਡਿੰਗਾਂ ਵਿੱਚ ਆਉਂਦੇ ਹਨ (BMF: ਸਟੇਕਿੰਗ / ਏਅਰਡ੍ਰੌਪ) – ਆਮਦਨ ਫਾਈਲ ਇਨ੍ਹਾਂ ਨੂੰ ਮਿਲਣ ਵੇਲੇ ਦੇ ਮੁੱਲ ’ਤੇ ਦਿਖਾਉਂਦੀ ਹੈ। 1 ਮਾਰਚ 2021 ਤੋਂ ਪ੍ਰਾਪਤ ਹੋਲਡਿੰਗਾਂ ’ਤੇ ਫੀਸਾਂ ਕਟੌਤੀਯੋਗ ਨਹੀਂ (§ 27a(4) no. 2, § 20(2) EStG): ਫੀਸਾਂ ਤੋਂ ਬਿਨਾਂ ਲਾਗਤ ਅਤੇ ਆਮਦਨ। ਲੈਂਡਿੰਗ ਵਿਆਜ (CSV ਇੰਪੋਰਟ ਜਾਂ ਨੋਟ ਤੋਂ ਕਿਸਮ) ਮਿਲਣ ’ਤੇ 27.5 ਪ੍ਰਤੀਸ਼ਤ ’ਤੇ ਆਮਦਨ ਹੈ ਅਤੇ ਇਹੀ ਮੁੱਲ ਪ੍ਰਾਪਤੀ ਲਾਗਤ ਵਜੋਂ ਰਹਿੰਦਾ ਹੈ।</string>
+    <string name="tax_note_at_staking">ਪਹਿਲਾਂ ਤੋਂ ਕੋਲ ਰੱਖੇ ਕੌਇਨਾਂ ਨਾਲ ਸਟੇਕਿੰਗ ਅਤੇ ਏਅਰਡ੍ਰੌਪ: ਮਿਲਣ ਵੇਲੇ ਦਾ ਮੁੱਲ ਟੈਕਸ ਲਈ ਮਾਇਨੇ ਨਹੀਂ ਰੱਖਦਾ – ਕਾਨੂੰਨ ਮੁਤਾਬਕ ਪ੍ਰਾਪਤੀ ਲਾਗਤ 0 ਹੈ (§ 27b Abs. 2 EStG; BMF “Kryptowährungen”)। ਟੈਕਸ ਸਿਰਫ਼ ਵੇਚਣ ’ਤੇ ਲਾਗੂ ਹੁੰਦਾ ਹੈ।</string>
+    <string name="tax_note_fr">ਕ੍ਰਿਪਟੋ ਵਿੱਚ ਅਦਾ ਕੀਤੀਆਂ ਵਿਕਰੀਆਂ ਅਤੇ ਫੀਸਾਂ ਨਿਪਟਾਰੇ ਹਨ – ਸਵੈਪ ਮੁਲਤਵੀ ਹਨ। ਵਿਕਰੀ ’ਤੇ ਕ੍ਰਿਪਟੋ ਫੀਸ ਫੀਸ ਤੋਂ ਪਹਿਲਾਂ ਦੀ ਕੀਮਤ ਵਿੱਚ ਗਿਣੀ ਜਾਂਦੀ ਹੈ – ਨਹੀਂ ਤਾਂ ਇਹ ਆਪਣੇ ਮੁੱਲ ’ਤੇ ਵੱਖਰਾ ਨਿਪਟਾਰਾ ਹੈ। ਪੋਰਟਫੋਲੀਓ ਮੁੱਲ ਰੋਜ਼ਾਨਾ ਬੰਦ ਕੀਮਤਾਂ ਤੋਂ – ਬੰਦ ਕੀਮਤ ਗੁੰਮ ਹੋਵੇ ਤਾਂ ਲਾਗਤ ਖਾਲੀ ਰਹਿੰਦੀ ਹੈ।</string>
+    <string name="tax_note_network_fee">ਕ੍ਰਿਪਟੋ ਵਿੱਚ ਅਦਾ ਕੀਤੀ ਨੈੱਟਵਰਕ ਫੀਸ (ਆਪਣੇ ਵਾਲਿਟ ਵਿੱਚ ਟ੍ਰਾਂਸਫਰ, ਨਿਕਾਸੀ) ਬਾਜ਼ਾਰੀ ਮੁੱਲ ’ਤੇ ਫੀਸ ਕੌਇਨਾਂ ਦਾ ਨਿਪਟਾਰਾ ਹੈ – ਮੁਨਾਫ਼ਾ ਜਾਂ ਨੁਕਸਾਨ ਸਿਰਫ਼ ਉਨ੍ਹਾਂ ਕੌਇਨਾਂ ’ਤੇ, ਪੂਰੀ ਫੀਸ ਦਾ ਨੁਕਸਾਨ ਨਹੀਂ (%1$s)। ਦਰਜ ਕੀਮਤ ਨਾ ਹੋਵੇ ਤਾਂ: ਉਸੇ ਦਿਨ ਦੀ ਰੋਜ਼ਾਨਾ ਬੰਦ ਕੀਮਤ (UTC); ਬੰਦ ਕੀਮਤ ਨਾ ਹੋਵੇ ਤਾਂ ਆਮਦਨ ਖਾਲੀ ਰਹਿੰਦੀ ਹੈ।</string>
+    <string name="tax_note_specific_id">ਖਾਸ ਪਛਾਣ ਸਮਰਥਿਤ ਨਹੀਂ – FIFO ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ।</string>
+    <string name="tax_note_spouse_gift">“ਜੀਵਨ ਸਾਥੀ / ਸਿਵਲ ਪਾਰਟਨਰ ਨੂੰ” ਨਿਸ਼ਾਨਿਤ ਤੋਹਫ਼ਾ ਨਾ ਮੁਨਾਫ਼ਾ ਹੈ ਨਾ ਨੁਕਸਾਨ: ਆਮਦਨ = ਤੁਹਾਡਾ ਲਾਗਤ ਅਧਾਰ, ਜੋ ਤੁਹਾਡਾ ਸਾਥੀ ਲੈ ਲੈਂਦਾ ਹੈ (%1$s)।</string>
+    <string name="tax_note_stable_swap">ਕ੍ਰਿਪਟੋ ਵੇਚ ਕੇ ਸਟੇਬਲਕੌਇਨ (USDT/USDC/DAI …) ਲੈਣਾ ਅਤੇ ਰੱਖਣਾ ਇੱਥੇ ਕ੍ਰਿਪਟੋ-ਤੋਂ-ਕ੍ਰਿਪਟੋ ਹੈ ਅਤੇ ਇਸ ’ਤੇ ਟੈਕਸ ਨਹੀਂ – ਇਸਨੂੰ ਸਟੇਬਲਕੌਇਨ ਵਿੱਚ ਸਵੈਪ ਵਜੋਂ ਦਰਜ ਕਰੋ। ਸਿਰਫ਼ ਯੂਰੋ ਬਦਲੇ ਵਿਕਰੀ ’ਤੇ ਟੈਕਸ ਹੈ – “ਵਿਕਰੀ” ਯੂਰੋ ਬਦਲੇ ਵਿਕਰੀ ਗਿਣੀ ਜਾਂਦੀ ਹੈ।</string>
+    <string name="tax_note_transfer_fee">ਆਪਣੇ ਵਾਲਿਟਾਂ ਵਿਚਕਾਰ ਟ੍ਰਾਂਸਫਰ ’ਤੇ USDT ਜਾਂ ਨਕਦ ਫੀਸ ’ਤੇ ਵੀ ਇਹੀ ਲਾਗੂ ਹੈ: ਇਹ ਲਾਗਤ ਅਧਾਰ ਵਿੱਚ ਨਹੀਂ ਜੁੜਦੀ ਅਤੇ ਸਿਰਫ਼ ਜਾਣਕਾਰੀ ਵਜੋਂ ਦਰਜ ਹੁੰਦੀ ਹੈ।</string>
+    <string name="tax_note_uk">HMRC ਮੁਤਾਬਕ ਮੇਲ: ਉਸੇ ਦਿਨ → ਅਗਲੇ 30 ਦਿਨ → Section 104 pool।</string>
+    <string name="tax_note_us_transition">1 ਜਨਵਰੀ 2025 ਦੀ ਤਬਦੀਲੀ (Rev. Proc. 2024-28 safe harbor): ਜੇ ਪਿਛਲੇ ਸਾਲਾਂ ਵਿੱਚ ਸਾਰੇ ਵਾਲਿਟਾਂ ਵਿੱਚ FIFO ਵਰਤਿਆ ਗਿਆ ਹੋਵੇ, ਤਾਂ 31 ਦਸੰਬਰ 2024 ਤੱਕ ਬਾਕੀ ਲਾਟ ਉਨ੍ਹਾਂ ਵਾਲਿਟਾਂ ਵਿੱਚ ਜਾਂਦੇ ਹਨ ਜਿਨ੍ਹਾਂ ਵਿੱਚ ਕੌਇਨ ਹਨ – ਸਭ ਤੋਂ ਪੁਰਾਣੇ ਕੌਇਨਾਂ ਵਾਲੇ ਵਾਲਿਟ ਨੂੰ ਸਭ ਤੋਂ ਪੁਰਾਣਾ ਲਾਗਤ ਅਧਾਰ ਮਿਲਦਾ ਹੈ। ਇਹ ਵੰਡ ਐਪ ਦਾ ਇੱਕ ਨਿਯਮ ਹੈ – ਇਸਨੂੰ ਆਪਣੇ ਰਿਕਾਰਡ ਨਾਲ ਮਿਲਾ ਕੇ ਦੇਖੋ।</string>
+    <string name="tax_note_us_wallet">ਟੈਕਸ ਸਾਲ 2025 ਤੋਂ IRS ਪ੍ਰਤੀ ਵਾਲਿਟ ਜਾਂ ਐਕਸਚੇਂਜ ਲਾਗਤ ਅਧਾਰ ਮੰਗਦਾ ਹੈ (Rev. Proc. 2024-28): ਐਕਸਪੋਰਟ 2025 ਤੋਂ ਪ੍ਰਤੀ ਵਾਲਿਟ FIFO ਵਰਤਦਾ ਹੈ – ਪਿਛਲੇ ਸਾਲਾਂ ਲਈ ਸਾਰੇ ਵਾਲਿਟਾਂ ਵਿੱਚ FIFO, ਜਾਂ ਜੇ ਤੁਹਾਡੀ ਲਾਗਤ ਵਿਧੀ ਇਹੀ ਹੈ ਤਾਂ ਪ੍ਰਤੀ ਵਾਲਿਟ FIFO।</string>
+    <string name="tax_note_withdrawal_fee">USDT ਜਾਂ ਨਕਦ ਵਿੱਚ ਨਿਕਾਸੀ ਫੀਸ ਨੁਕਸਾਨ ਨਹੀਂ: ਨਕਦ ਫੀਸ ਕਟੌਤੀਯੋਗ ਲਾਗਤ ਨਹੀਂ, USDT ਫੀਸ ਬਿਨਾਂ ਮੁਨਾਫ਼ੇ ਦੇ ਬਰਾਬਰ ਮੁੱਲ ’ਤੇ ਨਿਪਟਾਰਾ ਹੈ – ਇਸਨੂੰ ਸਿਰਫ਼ ਜਾਣਕਾਰੀ ਵਜੋਂ ਦਰਜ ਕੀਤਾ ਜਾਂਦਾ ਹੈ (%1$s)।</string>
+    <string name="tax_summary_at_interest_income">ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ: ਮਿਲਣ ’ਤੇ 27.5 ਪ੍ਰਤੀਸ਼ਤ ਦੀ ਵਿਸ਼ੇਸ਼ ਦਰ ’ਤੇ ਆਮਦਨ (§ 27b(2) no. 1 EStG / BMF) – ਕੌਇਨ ਇਹੀ ਮੁੱਲ ਪ੍ਰਾਪਤੀ ਲਾਗਤ ਵਜੋਂ ਰੱਖਦੇ ਹਨ</string>
+    <string name="tax_summary_at_reward_info">ਸਿਰਫ਼ ਜਾਣਕਾਰੀ ਲਈ – ਕਿਸੇ ਜੋੜ ਦਾ ਹਿੱਸਾ ਨਹੀਂ: ਇਨਾਮ ਪ੍ਰਾਪਤੀ ਲਾਗਤ 0 ’ਤੇ ਨਵੀਆਂ ਹੋਲਡਿੰਗਾਂ ਵਿੱਚ ਆਉਂਦੇ ਹਨ ਅਤੇ ਸਿਰਫ਼ ਵਿਕਰੀ ’ਤੇ ਟੈਕਸ ਲੱਗਦਾ ਹੈ (ਮੁਨਾਫ਼ਿਆਂ ਵਿੱਚ ਪਹਿਲਾਂ ਹੀ ਸ਼ਾਮਲ) – § 27b para. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">1 ਜਨਵਰੀ–28 ਫ਼ਰਵਰੀ 2022: 27.5 ਪ੍ਰਤੀਸ਼ਤ ਦਾ ਵਿਕਲਪ ਸੰਭਵ</string>
+    <string name="tax_summary_at_withdrawal_fee">ਨਿਕਾਸੀ ਫੀਸ – ਨਵੀਆਂ ਹੋਲਡਿੰਗਾਂ ਨਾਲ ਸਮਾਯੋਜਿਤ ਨਹੀਂ (ਵਿਸ਼ੇਸ਼ ਦਰ ’ਤੇ ਖਰਚੇ ਕਟੌਤੀਯੋਗ ਨਹੀਂ, § 20(2) EStG)</string>
+    <string name="tax_summary_ch_fifo_info">ਸਿਰਫ਼ ਜਾਣਕਾਰੀ ਲਈ – ਐਪ ਦੀ FIFO ਗਿਣਤੀ – ਵਰਗੀਕ੍ਰਿਤ ਨਹੀਂ – ESTV ਦੇਖੋ</string>
+    <string name="tax_summary_ch_year_end_value">ਹੋਲਡਿੰਗਾਂ CSV ਵਿੱਚ 31 ਦਸੰਬਰ ਦਾ ਮੁੱਲ = ਐਕਸਚੇਂਜ ਕੀਮਤ × USD/CHF – ESTV ਟੈਕਸ ਮੁੱਲ ਨਹੀਂ</string>
+    <string name="tax_summary_de_withdrawal_fee">ਨਿਕਾਸੀ ਫੀਸ – § 23 ਅਧੀਨ ਸਮਾਯੋਜਿਤ ਨਹੀਂ, ਜਾਂਚੋ ਕਿ ਆਮਦਨ ਨਾਲ ਸਬੰਧਤ ਖਰਚੇ ਵਜੋਂ ਕਟੌਤੀਯੋਗ ਹੈ ਜਾਂ ਨਹੀਂ</string>
+    <string name="tax_summary_not_calculated_estv">ਨਹੀਂ ਗਿਣਿਆ – ESTV ਕੀਮਤ ਸੂਚੀ: %1$s</string>
+    <string name="tax_summary_orientation">ਮਾਰਗਦਰਸ਼ਨ</string>
+    <string name="tax_summary_orientation_block">ਸਿਰਫ਼ ਮਾਰਗਦਰਸ਼ਨ ਲਈ – ਟੈਕਸ ਸਲਾਹ ਨਹੀਂ – ਨਿਰਧਾਰਨ ਨਹੀਂ</string>
+    <string name="tax_summary_orientation_item">ਮਾਰਗਦਰਸ਼ਨ: %1$s</string>
+    <string name="tax_summary_title">ਸਾਲਾਨਾ ਸਾਰ %1$s %2$s</string>
+    <string name="tax_summary_transfer_fee_info">USDT/ਨਕਦ ਵਿੱਚ ਟ੍ਰਾਂਸਫਰ ਫੀਸਾਂ – ਨੁਕਸਾਨ ਨਹੀਂ ਅਤੇ ਲਾਗਤ ਅਧਾਰ ਵਿੱਚ ਨਹੀਂ, ਸਿਰਫ਼ ਜਾਣਕਾਰੀ</string>
+    <string name="tax_summary_withdrawal_fee_info">USDT/ਨਕਦ ਵਿੱਚ ਨਿਕਾਸੀ ਫੀਸਾਂ – ਨੁਕਸਾਨ ਨਹੀਂ ਗਿਣੀਆਂ ਜਾਂਦੀਆਂ, ਸਿਰਫ਼ ਜਾਣਕਾਰੀ</string>
+
+    <string name="tax_line_at_old_speculation_limit">ਸੱਟੇਬਾਜ਼ੀ ਲੈਣ-ਦੇਣ (ਪਿਛਲਾ ਕਾਨੂੰਨ, ≤ 1 ਸਾਲ ਰੱਖਿਆ): ਛੋਟ ਸੀਮਾ (§ 31 (3) EStG ਪੁਰਾਣਾ ਰੂਪ)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">1 ਮਾਰਚ 2022 ਤੋਂ ਪਹਿਲਾਂ ਦਾ ਲੈਂਡਿੰਗ ਵਿਆਜ (ਮਿਲਣ ਵੇਲੇ ਦਾ ਮੁੱਲ)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">1 ਮਾਰਚ 2022 ਤੋਂ ਪਹਿਲਾਂ ਦਾ ਵਿਆਜ: ਪੁਰਾਣਾ ਕਾਨੂੰਨ (ਆਮਦਨ ਟੈਕਸ ਦਰ), 27.5 ਪ੍ਰਤੀਸ਼ਤ ਨਹੀਂ</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">1 ਮਾਰਚ 2022 ਤੋਂ ਪਹਿਲਾਂ – ਕਿਸੇ ਮਾਹਰ ਤੋਂ ਜਾਂਚ ਕਰਾਓ</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">ਵਿਆਜ – ਮਿਲਣ ’ਤੇ ਟੈਕਸਯੋਗ</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">ਸਟੇਕਿੰਗ – ਸਿਰਫ਼ ਜਾਣਕਾਰੀ ਲਈ (ਪ੍ਰਾਪਤੀ ਲਾਗਤ 0, ਵਿਕਰੀ ’ਤੇ ਟੈਕਸ)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">ਕੁੱਲ ਵਿਆਜ (ਟੈਕਸਯੋਗ)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">ਕੁੱਲ ਸਟੇਕਿੰਗ (ਜਾਣਕਾਰੀ)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">ਸ਼ੁੱਧ ਪੂੰਜੀ ਨੁਕਸਾਨ (ਅੱਗੇ ਲਿਜਾਇਆ)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">ਵਿਕਲਪ ਤੋਂ ਬਿਨਾਂ: 1 ਜਨਵਰੀ–28 ਫ਼ਰਵਰੀ 2022 ਦੀਆਂ ਵਿਕਰੀਆਂ ਸ਼ਾਮਲ</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">1 ਮਾਰਚ 2022 ਤੋਂ ਪਹਿਲਾਂ ਸਟੇਕਿੰਗ: ਪ੍ਰਾਪਤੀ ਲਾਗਤ 0 ਮਿੱਥੀ – ਕਿਸੇ ਮਾਹਰ ਤੋਂ ਜਾਂਚ ਕਰਾਓ</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">30 ਦਿਨਾਂ ਦਾ ਨਿਯਮ ਹਾਲੇ ਇਹ ਅੰਕੜੇ ਬਦਲ ਸਕਦਾ ਹੈ (%1$s ਤੱਕ ਖਰੀਦਾਂ)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">ਰਿਪੋਰਟਿੰਗ ਸੀਮਾ (£50,000; 2020/21–2022/23: £49,200) ਤੋਂ ਵੱਧ ਫੀਸ ਤੋਂ ਪਹਿਲਾਂ ਦੀ ਆਮਦਨ: ਜੇ Self Assessment ਲਈ ਰਜਿਸਟਰ ਹੋ ਤਾਂ HMRC ਨੂੰ ਰਿਪੋਰਟ ਕਰੋ, ਟੈਕਸਯੋਗ ਮੁਨਾਫ਼ਾ ਨਾ ਹੋਵੇ ਤਾਂ ਵੀ</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">ਦੌਲਤ ਮੁੱਲ 31 ਦਸੰਬਰ %1$s (ਮਾਰਗਦਰਸ਼ਨ)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">ESTV ਕੀਮਤ ਸੂਚੀ (ictax.admin.ch) ਪ੍ਰਮਾਣਿਕ ਹੈ। ਸੂਚੀ ਵਿੱਚ ਨਾ ਹੋਣ ਵਾਲੇ ਕੌਇਨਾਂ ਲਈ ਆਮ ਤੌਰ ’ਤੇ ਐਕਸਚੇਂਜ ਦੀ ਬੰਦ ਕੀਮਤ ਲਾਗੂ ਹੁੰਦੀ ਹੈ। ਦੌਲਤ ਟੈਕਸ ਨਹੀਂ ਗਿਣਿਆ।</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – ਹੋਲਡਿੰਗ %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">ਨਹੀਂ ਗਿਣਿਆ</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">ਨਿਗਰਾਨੀ ਵਾਲੇ ਪਤੇ ਪੜ੍ਹੇ ਨਹੀਂ ਜਾ ਸਕੇ – ਇਸ ਫਾਈਲ ਵਿੱਚ ਉਨ੍ਹਾਂ ਦੇ ਬੈਲੈਂਸ ਗੁੰਮ ਹਨ</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">ਨਿਗਰਾਨੀ ਵਾਲੇ ਪਤਿਆਂ ਦੇ ਲਾਟ ਉਨ੍ਹਾਂ ਦੀ ਖਰੀਦ ਤਾਰੀਖ ਤੋਂ ਗਿਣੇ ਜਾਂਦੇ ਹਨ; ਜੇ ਪਤੇ ਦਾ ਅੱਜ ਦਾ ਬੈਲੈਂਸ ਘੱਟ ਹੋਵੇ ਤਾਂ ਉਨ੍ਹਾਂ ਨੂੰ ਘਟਾਇਆ ਜਾਂਦਾ ਹੈ।</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">ਨਿਗਰਾਨੀ ਵਾਲੇ ਪਤੇ ਕੁੱਲ ਮੁੱਲ ਵਿੱਚ ਗਿਣੇ ਜਾਂਦੇ ਹਨ ਪਰ ਉਨ੍ਹਾਂ ਦੀ ਕੋਈ ਪ੍ਰਾਪਤੀ ਲਾਗਤ ਨਹੀਂ – ਇਸ ਲਈ ਮੁਨਾਫ਼ਾ ਸ਼ਾਇਦ ਬਹੁਤ ਜ਼ਿਆਦਾ ਹੈ। ਲਾਗਤ ਨੂੰ ਖਰੀਦ ਵਜੋਂ ਦਰਜ ਕਰੋ।</string>
+    <string name="tax_summary_fr_rewards_income">ਇਹ ਰਕਮ ਮੰਨਦੀ ਹੈ ਕਿ ਇਨਾਮਾਂ ’ਤੇ ਮਿਲਣ ਵੇਲੇ ਆਮਦਨ ਵਜੋਂ ਟੈਕਸ ਲੱਗਿਆ (ਮਿਲਣ ਵੇਲੇ ਦਾ ਮੁੱਲ ਪ੍ਰਾਪਤੀ ਲਾਗਤ ਵਿੱਚ) – ਨਹੀਂ ਤਾਂ ਪ੍ਰਾਪਤੀ ਲਾਗਤ 0 ਸਾਵਧਾਨ ਵਿਆਖਿਆ ਹੁੰਦੀ।</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">ਦਰਜ ਕੀਮਤ ਤੋਂ ਬਿਨਾਂ ਬਾਜ਼ਾਰੀ ਮੁੱਲ (ਫੀਸਾਂ, ਤੋਹਫ਼ੇ/ਭੁਗਤਾਨ, ਸਵੈਪ, ਇਨਾਮ, ਨੈੱਟਵਰਕ ਫੀਸਾਂ, ਪੋਰਟਫੋਲੀਓ ਮੁੱਲ) ਲੈਣ-ਦੇਣ ਵਾਲੇ ਦਿਨ ਦੀ ਰੋਜ਼ਾਨਾ ਬੰਦ ਕੀਮਤ (UTC) ’ਤੇ</string>
+</resources>

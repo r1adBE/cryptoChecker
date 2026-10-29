@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">ກຳນົດເອງ</string>
+    <string name="settings_group_general">ທົ່ວໄປ</string>
+    <string name="settings_group_more">ເພີ່ມເຕີມ</string>
+    <string name="settings_minutes">%1$d ນາທີ</string>
+    <string name="settings_row_about">ກ່ຽວກັບແອັບ</string>
+    <string name="settings_row_alarms">ສັນຍານເຕືອນ</string>
+    <string name="settings_row_currency">ສະກຸນເງິນ</string>
+    <string name="settings_row_dated_futures">Futures ທີ່ມີກຳນົດ</string>
+    <string name="settings_row_updates">ການອັບເດດລາຄາ</string>
+    <string name="settings_row_watchlist">ລາຍການຕິດຕາມ</string>
+    <string name="settings_search_hint">ຄົ້ນຫາການຕັ້ງຄ່າ</string>
+    <string name="settings_seconds">%1$d ວິ.</string>
+    <string name="settings_section_about">ກ່ຽວກັບ</string>
+    <string name="settings_section_appearance">ຮູບລັກສະນະ</string>
+    <string name="settings_section_developer">ນັກພັດທະນາ</string>
+    <string name="settings_section_language">ພາສາ</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">ເປີດ</string>
+    <string name="settings_title">ການຕັ້ງຄ່າ</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">ຊ່ວງພັກກ່ອນສັນຍານເຕືອນເຮັດວຽກອີກ</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">ສັນຍານຂອງການເຕືອນ</string>
+    <string name="settings_alarm_signal_open_system">ປັບໃນການຕັ້ງຄ່າລະບົບ</string>
+    <string name="settings_alarm_signal_system_hint">ເຮັດຕາມການຕັ້ງຄ່າການແຈ້ງເຕືອນຂອງໂທລະສັບທ່ານ.</string>
+    <string name="settings_alarm_sound">ສຽງສັນຍານເຕືອນ</string>
+    <string name="settings_alarm_sound_custom">ສຽງກຳນົດເອງ</string>
+    <string name="settings_alarm_sound_default">ສຽງເລີ່ມຕົ້ນ</string>
+    <string name="settings_alarm_sound_error">ໃຊ້ສຽງນີ້ບໍ່ໄດ້.</string>
+    <string name="settings_alarm_sound_file">ໄຟລ໌ສຽງຂອງທ່ານເອງ…</string>
+    <string name="settings_alarm_sound_reset">ໃຊ້ສຽງເລີ່ມຕົ້ນ</string>
+    <string name="settings_alarm_sound_system">ເລືອກສຽງລະບົບ…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">ຕົວເລກເທິງໄອຄອນແອັບ</string>
+    <string name="settings_app_badge_hint">ນັບການແຈ້ງເຕືອນສັນຍານເຕືອນທີ່ຍັງເປີດຢູ່. ຈະສະແດງເປັນຕົວເລກ ຫຼື ຈຸດແມ່ນຂຶ້ນກັບໜ້າຈໍຫຼັກ (ເຊັ່ນ Samsung: “ສະແດງພ້ອມຕົວເລກ”).</string>
+    <string name="settings_exact_checks">ກວດຕາມເວລາ</string>
+    <string name="settings_exact_checks_grant">ອະນຸຍາດໂມງປຸກ &amp; ການເຕືອນຄວາມຈຳ</string>
+    <string name="settings_exact_checks_hint">Android ກວດປະມານທຸກໆ 15 ນາທີ, ເຖິງແມ່ນອຸປະກອນບໍ່ໄດ້ໃຊ້ງານ. ໃຊ້ແບັດເຕີຣີຫຼາຍຂຶ້ນເລັກນ້ອຍ.</string>
+    <string name="settings_exact_checks_nothing">ບໍ່ມີຄູ່ເທຣດທີ່ເປີດຢູ່ – ບໍ່ມີຫຍັງຕ້ອງກວດ.</string>
+    <string name="settings_exact_checks_permission_missing">ຂາດການອະນຸຍາດ – ໃນຂະນະທີ່ອຸປະກອນພັກ, Android ກວດບໍ່ສະໝ່ຳສະເໝີ, ບາງຄັ້ງຫຼັງຈາກຫຼາຍຊົ່ວໂມງ.</string>
+    <string name="settings_notification_change">ແຈ້ງເຕືອນສະເພາະເມື່ອລາຄາປ່ຽນ</string>
+    <string name="settings_notification_change_always">ສະເໝີ</string>
+    <string name="settings_percent_invalid">ໃສ່ຄ່າຈາກ 0 ຫາ 100.</string>
+    <string name="settings_notification_change_hint">ການແຈ້ງເຕືອນລາຄາຈະປາກົດກໍ່ຕໍ່ເມື່ອລາຄາເໜັງຕີງຢ່າງໜ້ອຍເທົ່ານີ້ນັບແຕ່ຄັ້ງຫຼ້າສຸດ. ບໍ່ສະແດງຫຍັງໃນຂະນະທີ່ຂາດຂໍ້ມູນ. ສັນຍານເຕືອນບໍ່ໄດ້ຮັບຜົນກະທົບ.</string>
+    <string name="settings_ongoing_notifications">ປັດອອກບໍ່ໄດ້</string>
+    <string name="settings_ongoing_notifications_hint">ປັກໝຸດການແຈ້ງເຕືອນລາຄາໄວ້.</string>
+    <string name="settings_price_notifications">ການແຈ້ງເຕືອນລາຄາ</string>
+    <string name="settings_price_notifications_hint">ສະແດງລາຄາປັດຈຸບັນຂອງຄູ່ເທຣດທີ່ເປີດໃນແຖບສະຖານະ.</string>
+    <string name="settings_price_pairs">ຄູ່ເທຣດ</string>
+    <string name="settings_price_pairs_all_off">ປິດທັງໝົດ</string>
+    <string name="settings_price_pairs_all_on">ເປີດທັງໝົດ</string>
+    <string name="settings_price_pairs_count">%1$d ຈາກ %2$d</string>
+    <string name="settings_price_pairs_empty">ຍັງບໍ່ມີຄູ່ເທຣດໃນລາຍການຕິດຕາມ.</string>
+    <string name="settings_price_pairs_hint">ເລືອກຄູ່ເທຣດທີ່ຈະສະແດງລາຄາໃນແຖບແຈ້ງເຕືອນ.</string>
+    <string name="settings_quiet_hours">ຊ່ວງເວລາງຽບ</string>
+    <string name="settings_quiet_hours_from">ຈາກ</string>
+    <string name="settings_quiet_hours_hint">ລະຫວ່າງ %1$s ຫາ %2$s, ສັນຍານເຕືອນຈະລໍຖ້າຈົນກວ່າຊ່ວງເວລາງຽບສິ້ນສຸດ ແລ້ວຈຶ່ງດັງພ້ອມສຽງ. ການແຈ້ງເຕືອນອື່ນມາຮອດແບບງຽບ, ບໍ່ມີການເວົ້າ.</string>
+    <string name="settings_quiet_hours_to">ຫາ</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">ຊ່ວງເວລາ</string>
+    <string name="settings_background_updates">ການອັບເດດໃນພື້ນຫຼັງ</string>
+    <string name="settings_battery_hint">ຖືກຈຳກັດໝາຍເຖິງ Android ອາດເລື່ອນການອັບເດດໃນພື້ນຫຼັງໄປຫຼາຍຊົ່ວໂມງ.</string>
+    <string name="settings_battery_ok">ການໃຊ້ແບັດເຕີຣີ: ບໍ່ຈຳກັດ</string>
+    <string name="settings_battery_restricted">ການໃຊ້ແບັດເຕີຣີ: ຖືກຈຳກັດ</string>
+    <string name="settings_check_runs_empty">ຍັງບໍ່ມີການກວດທີ່ບັນທຶກໄວ້.</string>
+    <string name="settings_check_runs_honest_android">Android ຕັດສິນໃຈວ່າຈະກວດເມື່ອໃດ – ທີ່ນີ້ທ່ານຈະເຫັນວ່າມັນເກີດຂຶ້ນແທ້ເມື່ອໃດ.</string>
+    <string name="settings_check_runs_honest_ios">iOS ຕັດສິນໃຈວ່າຈະກວດເມື່ອໃດ – ທີ່ນີ້ທ່ານຈະເຫັນວ່າມັນເກີດຂຶ້ນແທ້ເມື່ອໃດ.</string>
+    <string name="settings_check_runs_title">ການກວດຫຼ້າສຸດ</string>
+    <string name="settings_http_log">ສະແດງບັນທຶກ HTTP</string>
+    <string name="settings_http_log_hint">ສະແດງຄຳຂໍໄປຫາກະດານແລກປ່ຽນທີ່ລຸ່ມສຸດຂອງໜ້າ “ເພີ່ມຄູ່ເທຣດ” – ສຳລັບການແກ້ໄຂບັນຫາ.</string>
+    <string name="settings_live_service">ອັບເດດເລື້ອຍໆ</string>
+    <string name="settings_live_websocket">ລາຄາສົດ</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">ໂດດເດັ່ນ: ແຈ້ງເຕືອນ</string>
+    <string name="settings_activity_alerts_hint">ສູງສຸດຊົ່ວໂມງລະຄັ້ງຕໍ່ຄູ່ເທຣດ: ການເໜັງຕີງລາຄາຜິດປົກກະຕິ, ປະລິມານພຸ່ງສູງ ແລະ ຄ່າສຸດຂີດຂອງ Futures (ຂໍ້ມູນຈາກ Binance).</string>
+    <string name="settings_activity_sensitivity">ຄວາມອ່ອນໄຫວ</string>
+    <string name="settings_activity_sensitivity_hint">ຫຼຽນຈະຖືກນັບວ່າຜິດປົກກະຕິງ່າຍປານໃດ – ຄືກັນສຳລັບບັດລາຍການຕິດຕາມ ແລະ ສັນຍານເຕືອນຕະຫຼາດ. ດ້ວຍ “ໜ້ອຍ”, ບັດຈະສະແດງພຽງ 3 ອັນທີ່ແຮງທີ່ສຸດ.</string>
+    <string name="settings_watchlist_activity_card">ໂດດເດັ່ນ: ສະແດງໃນລາຍການ</string>
+    <string name="settings_watchlist_activity_card_hint">ສະແດງປ້າຍ ⚡ ຂ້າງກຸ່ມ: ແຕະມັນເພື່ອເບິ່ງສະເພາະຄູ່ເທຣດທີ່ມີບາງຢ່າງເກີດຂຶ້ນໃນຕອນນີ້. ການແຈ້ງເຕືອນສຳລັບມັນຕັ້ງໄດ້ໃນ ສັນຍານເຕືອນຕະຫຼາດ.</string>
+    <string name="settings_watchlist_names">ສະແດງຊື່</string>
+    <string name="settings_watchlist_names_hint">ຊື່ຢູ່ລຸ່ມຄູ່ເທຣດ ເຊັ່ນ Bitcoin ຫຼື NVIDIA. ມາພ້ອມກັບລາຍການໂລໂກ້, ໂຫຼດຄັ້ງດຽວສຳລັບທຸກຫຼຽນ.</string>
+    <string name="settings_watchlist_sparkline">ແຜນພູມນ້ອຍໃນລາຍການຕິດຕາມ</string>
+    <string name="settings_watchlist_sparkline_hint">ແນວໂນ້ມ 24 ຊົ່ວໂມງຂ້າງລາຄາ</string>
+    <string name="settings_watchlist_value_names">ຊື່</string>
+    <string name="settings_watchlist_value_price_only">ລາຄາເທົ່ານັ້ນ</string>
+    <string name="settings_watchlist_value_sparkline">ແຜນພູມນ້ອຍ</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">ລວມໂທເຄັນ Alpha (α)</string>
+    <string name="settings_asset_scope_alpha_hint">ໂທເຄັນ Alpha: ໂຄງການໄລຍະຕົ້ນ, ສ່ວນຫຼາຍນ້ອຍ ຈາກລາຍການ Binance Alpha – ມັກມີການຊື້ຂາຍໜ້ອຍ ແລະ ຜັນຜວນສູງ.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">ເປັນສ່ວນໜຶ່ງຂອງ ໂທເຄັນ. ໃຊ້ບໍ່ໄດ້ໃນຂະນະທີ່ເລືອກ “TradFi ເທົ່ານັ້ນ”; ໂທເຄັນ Alpha ທີ່ມີຢູ່ໃນລາຍການຕິດຕາມແລ້ວຍັງຄົງຢູ່.</string>
+    <string name="settings_asset_scope_both">ໂທເຄັນ ແລະ TradFi</string>
+    <string name="settings_asset_scope_both_hint">ທຸກຢ່າງ – ຄຣິບໂຕ ແລະ TradFi</string>
+    <string name="settings_asset_scope_hint">ກຳນົດວ່າການເລືອກ ແລະ ການຄົ້ນຫາຈະສະແດງຄູ່ເທຣດໃດເມື່ອທ່ານເພີ່ມຄູ່ເທຣດ. ຄູ່ເທຣດທີ່ມີຢູ່ໃນລາຍການຕິດຕາມແລ້ວຈະຍັງຄົງຢູ່ສະເໝີ.</string>
+    <string name="settings_asset_scope_title">ໂທເຄັນ &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">ໂທເຄັນເທົ່ານັ້ນ</string>
+    <string name="settings_asset_scope_tokens_hint">ຄຣິບໂຕ: Spot ແລະ perpetual</string>
+    <string name="settings_asset_scope_tradfi">TradFi ເທົ່ານັ້ນ</string>
+    <string name="settings_asset_scope_tradfi_hint">Futures ຂອງຫຸ້ນ, ສິນຄ້າໂພກະພັນ, FX – ສັນຍາ, ບໍ່ແມ່ນໂທເຄັນ</string>
+    <string name="settings_rolling_futures">ລວມ Futures ລາຍໄຕມາດ &amp; Futures ທີ່ມີກຳນົດອື່ນ</string>
+    <string name="settings_rolling_futures_hint">ປິດ: Futures ທີ່ມີກຳນົດທີ່ບໍ່ມີໃນລາຍການຂອງກະດານແລກປ່ຽນຈະຖືກໝາຍວ່າບໍ່ມີການຊື້ຂາຍອີກແລ້ວ ແທນທີ່ຈະກວດທີລະອັນ. ປະຫຍັດເວລາໃນທຸກການໂຫຼດຄືນໃໝ່.</string>
+    <string name="settings_rolling_futures_qtly">ລວມ Futures ລາຍໄຕມາດ &amp; Futures ທີ່ມີກຳນົດອື່ນ (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">ເປັນສ່ວນໜຶ່ງຂອງ ໂທເຄັນ. ໃຊ້ບໍ່ໄດ້ໃນຂະນະທີ່ເລືອກ “TradFi ເທົ່ານັ້ນ”; ຍັງນຳໃຊ້ກັບ Futures ທີ່ມີກຳນົດທີ່ມີຢູ່ໃນລາຍການຕິດຕາມແລ້ວ.</string>
+    <string name="settings_tradfi_futures">ຫຸ້ນ, ສິນຄ້າໂພກະພັນ ແລະ FX (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">ຍັງສະແດງ Futures ຂອງຫຸ້ນ, ຄຳ ແລະ ສິນຄ້າໂພກະພັນອື່ນ, ສະກຸນເງິນ ແລະ ບໍລິສັດກ່ອນ IPO ເມື່ອທ່ານເລືອກຄູ່ເທຣດ. ສິ່ງເຫຼົ່ານີ້ແມ່ນສັນຍາ, ບໍ່ແມ່ນໂທເຄັນ.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">ສີເນັ້ນ</string>
+    <string name="settings_accent_hint">ສີສຳລັບແອັບ, ວິດເຈັດ ແລະ ໄອຄອນແອັບ. ໜ້າຈໍຫຼັກບາງອັນຈະລຶບໄອຄອນອອກເມື່ອມັນປ່ຽນ – ໃຫ້ເພີ່ມມັນອີກຄັ້ງ.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">ໂລໂກ້ຫຼຽນ</string>
+    <string name="settings_coin_logos_app">ໃນແອັບ</string>
+    <string name="settings_coin_logos_app_hint">ລາຍການຕິດຕາມ, ຄູ່ເທຣດທີ່ເປີດ ແລະ ບັດຕະຫຼາດ</string>
+    <string name="settings_coin_logos_footer">ໂລໂກ້ມາຈາກ CoinGecko, ແລະ ຈາກ Binance ສຳລັບຫຼຽນທີ່ CoinGecko ບໍ່ມີ (ເຊັ່ນ ຄຳ, ເງິນ, ຫຸ້ນ). ແອັບໂຫຼດໂລໂກ້ທັງໝົດພ້ອມກັນ ແລະ ເກັບໄວ້ໃນອຸປະກອນນີ້, ສະນັ້ນບໍ່ມີຜູ້ໃຫ້ບໍລິການໃດຮູ້ວ່າທ່ານຕິດຕາມຫຼຽນໃດ. ຫຼຽນທີ່ບໍ່ມີໂລໂກ້ຈະສະແດງຕົວອັກສອນຫຍໍ້. ລາຍການທີ່ມັກຈະໄດ້ດາວນ້ອຍເທິງໂລໂກ້. ບ່ອນທີ່ສະວິດປິດ, ຈະບໍ່ມີໂລໂກ້ ຫຼື ຕົວອັກສອນຫຍໍ້; ເມື່ອປິດທຸກສະວິດ, ຈະບໍ່ໂຫຼດຫຍັງເລີຍ.</string>
+    <string name="settings_coin_logos_portfolio">ໃນພອດໂຟລິໂອ</string>
+    <string name="settings_coin_logos_portfolio_hint">ການຖືຄອງ, ລາຍລະອຽດຫຼຽນ ແລະ ຂໍ້ມູນເຊີງເລິກ</string>
+    <string name="settings_coin_logos_value_app">ແອັບ</string>
+    <string name="settings_coin_logos_widgets">ໃນວິດເຈັດ</string>
+    <string name="settings_coin_logos_widgets_hint">ວິດເຈັດລາຍການຕິດຕາມ ແລະ ວິດເຈັດຫຼຽນດຽວ</string>
+    <string name="settings_high_contrast">ຄອນທຣາສສູງ</string>
+    <string name="settings_high_contrast_hint">ສີລາຄາເຂັ້ມຂຶ້ນ ແລະ ຂໍ້ຄວາມຮອງເຂັ້ມຂຶ້ນ. ເປີດເອງເມື່ອລະບົບຂໍຄອນທຣາສເພີ່ມ.</string>
+    <string name="settings_language_choose">ເລືອກພາສາ</string>
+    <string name="settings_language_system">ພາສາຂອງລະບົບ</string>
+    <string name="settings_price_colors">ສີລາຄາ</string>
+    <string name="settings_price_colors_hint">ສີຟ້າ / ສີສົ້ມ ແຍກແຍະໄດ້ງ່າຍກັບທຸກຮູບແບບຂອງການບົກພ່ອງໃນການເບິ່ງສີ (ແດງ-ຂຽວ ແລະ ຟ້າ-ເຫຼືອງ). ທິດທາງຈະສະແດງດ້ວຍ + / − ສະເໝີນຳ.</string>
+    <string name="settings_theme_mode">ສະຫວ່າງ / ມືດ</string>
+    <string name="settings_widgets">ວິດເຈັດ</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">ການປ່ຽນແປງ %1$s &amp; ເຂດເວລາຂອງແຜນພູມ</string>
+    <string name="settings_change_basis_hint_1">ເຂດເວລາທີ່ເລືອກກຳນົດວ່າການປ່ຽນແປງເປັນເປີເຊັນນັບຈາກເມື່ອໃດ (ລາຍການຕິດຕາມ, ເສັ້ນຊີບພະຈອນ, ຄູ່ເທຣດທີ່ເປີດ, ວິດເຈັດ) ແລະ ເວລາທີ່ສະແດງໃນແຜນພູມ.</string>
+    <string name="settings_change_basis_hint_2">“%1$s” ປຽບທຽບກັບລາຄາທີ່ 24 ຊົ່ວໂມງກ່ອນພໍດີ. “00:00” ປຽບທຽບກັບລາຄາເປີດຕອນທ່ຽງຄືນໃນເຂດເວລານັ້ນ.</string>
+    <string name="settings_change_basis_hint_3">ສັນຍານເຕືອນບໍ່ໄດ້ຮັບຜົນກະທົບ.</string>
+    <string name="settings_change_basis_hint_since_last">“%1$s” ປຽບທຽບກັບລາຄາຂອງການອັບເດດກ່ອນໜ້າ. ດ້ວຍລາຄາສົດ ມັນຈະຢູ່ໃກ້ 0%%.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">ສະກຸນເງິນແປງ</string>
+    <string name="settings_conversion_currency_hint">ຍັງໃຊ້ສຳລັບພອດໂຟລິໂອ, ສັນຍານເຕືອນເປັນສະກຸນເງິນຂອງທ່ານ, ບັດຕະຫຼາດຄຣິບໂຕ ແລະ ວິດເຈັດພອດໂຟລິໂອ.</string>
+    <string name="settings_cost_method">ວິທີຄິດຕົ້ນທຶນ</string>
+    <string name="settings_cost_method_average">ຕົ້ນທຶນສະເລ່ຍ</string>
+    <string name="settings_cost_method_average_hint">ການຂາຍຖືກປະເມີນຕາມລາຄາຊື້ສະເລ່ຍເຄື່ອນທີ່.</string>
+    <string name="settings_cost_method_fifo">FIFO (ຄ່າເລີ່ມຕົ້ນ)</string>
+    <string name="settings_cost_method_fifo_hint">ຫຼຽນທີ່ເກົ່າທີ່ສຸດຖືກຂາຍກ່ອນ, ໃນທຸກກະດານແລກປ່ຽນ ແລະ ກະເປົາເງິນ.</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO ຕໍ່ກະເປົາເງິນ/ກະດານແລກປ່ຽນ</string>
+    <string name="settings_cost_method_fifo_wallet_hint">ຫຼຽນທີ່ເກົ່າທີ່ສຸດກ່ອນພາຍໃນແຕ່ລະກະດານແລກປ່ຽນ ຫຼື ກະເປົາເງິນ; ການໂອນຍ້າຍລັອດພ້ອມວັນທີຊື້ຂອງມັນ.</string>
+    <string name="settings_portfolio_lock">ລັອກພອດໂຟລິໂອ</string>
+    <string name="settings_portfolio_lock_footer">ລັອກຈະເຊື່ອງສິ່ງທີ່ສະແດງໃນໜ້າຈໍ. ຂໍ້ມູນຂອງທ່ານຖືກເກັບໄວ້ໃນອຸປະກອນນີ້ ແລະ ຖືກປ້ອງກັນດ້ວຍການເຂົ້າລະຫັດຂອງອຸປະກອນ. ທ່ານສາມາດປ້ອງກັນການສຳຮອງດ້ວຍລະຫັດຜ່ານ.</string>
+    <string name="settings_portfolio_lock_hint">ເຊື່ອງສະເພາະພອດໂຟລິໂອ: ປົດລັອກດ້ວຍລາຍນິ້ວມື, ໃບໜ້າ ຫຼື PIN ຂອງອຸປະກອນ. ລັອກອີກຄັ້ງຫຼັງຈາກຢູ່ໃນພື້ນຫຼັງເກີນໜຶ່ງນາທີ. ລາຍການຕິດຕາມ, ສັນຍານເຕືອນ ແລະ ວິດເຈັດອື່ນຍັງເປີດຢູ່.</string>
+    <string name="settings_portfolio_lock_no_device_lock">ຖ້າບໍ່ມີ PIN ຫຼື ລະຫັດຜ່ານຂອງອຸປະກອນ ລັອກຈະບໍ່ເຊື່ອງຫຍັງເລີຍ – ໃຫ້ຕັ້ງລັອກໜ້າຈໍ.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">ພອດໂຟລິໂອໃນການສຳຮອງລະບົບ</string>
+    <string name="settings_portfolio_system_backup_hint">ປິດ: ທຸລະກຳຂອງທ່ານຈະບໍ່ຢູ່ໃນການສຳຮອງລະບົບຂອງອຸປະກອນ ແລະ ການໂອນຈາກໂທລະສັບຫາໂທລະສັບ. ເພື່ອຍ້າຍມັນໄປໂທລະສັບໃໝ່, ໃຫ້ໃຊ້ການສຳຮອງຂອງແອັບເອງພ້ອມລະຫັດຜ່ານ.</string>
+    <string name="settings_portfolio_system_backup_unavailable">ຕ້ອງການ Android 9 ຫຼື ໃໝ່ກວ່າ – ເວີຊັນເກົ່າຈະບັນທຶກພອດໂຟລິໂອແບບບໍ່ເຂົ້າລະຫັດໃນການສຳຮອງ Google.</string>
+    <string name="settings_portfolio_tab">ສະແດງແຖບ ພອດໂຟລິໂອ</string>
+    <string name="settings_portfolio_value_locked">ເປີດ, ພ້ອມລັອກ</string>
+    <string name="settings_show_converted">ລາຄາທີ່ແປງແລ້ວ</string>
+    <string name="settings_show_converted_hint">ສະແດງລາຄາໃນລາຍການຕິດຕາມເປັນ %1$s ນຳ</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">ລາຍງານ USDT depeg</string>
+    <string name="settings_depeg_alarm_hint">ແຈ້ງເຕືອນຄັ້ງດຽວເມື່ອ USDT ຫ່າງຈາກ 1 USD ຕາມເກນ (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_threshold">ເກນ depeg</string>
+    <string name="settings_fng_above">Fear &amp; Greed: ແຈ້ງເຕືອນເມື່ອສູງກວ່າ</string>
+    <string name="settings_fng_below">Fear &amp; Greed: ແຈ້ງເຕືອນເມື່ອຕ່ຳກວ່າ</string>
+    <string name="settings_gas_alert_hint">ແຈ້ງເຕືອນຄັ້ງດຽວເມື່ອຄ່າທຳນຽມປົກກະຕິລົງຕ່ຳກວ່າຂີດຈຳກັດ. ກວດໃນລະຫວ່າງການອັບເດດລາຄາ, ຫຼາຍສຸດທຸກໆ 10 ນາທີ.</string>
+    <string name="settings_gas_btc_below">ຄ່າທຳນຽມ Bitcoin ຕ່ຳກວ່າ (sat/vB)</string>
+    <string name="settings_gas_eth_below">Ethereum gas ຕ່ຳກວ່າ (gwei)</string>
+    <string name="settings_ind_ath_within">ການລົງຈາກຈຸດສູງສຸດຕະຫຼອດການຫຼາຍສຸດ</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple ສູງກວ່າ</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple ຕ່ຳກວ່າ</string>
+    <string name="settings_ind_mvrv_above">MVRV ສູງກວ່າ</string>
+    <string name="settings_ind_mvrv_below">MVRV ຕ່ຳກວ່າ</string>
+    <string name="settings_indicator_alerts_hint">ຕົວຊີ້ວັດ Bitcoin, ກວດມື້ລະສອງຄັ້ງ. ທ່ານເລືອກຂີດຈຳກັດ – ແອັບບໍ່ໄດ້ປະເມີນຄ່າເຫຼົ່ານີ້.</string>
+    <string name="settings_macro_notifications">ປະຕິທິນເສດຖະກິດ</string>
+    <string name="settings_macro_notifications_hint">ເວລາ 08:00 ໃນມື້ທີ່ມີຂໍ້ມູນເສດຖະກິດສຳຄັນຂອງສະຫະລັດ (ເງິນເຟີ້, ລາຍງານການຈ້າງງານ, ການຕັດສິນໃຈຂອງ Fed). ປະຕິທິນມາຈາກເວັບໄຊຂອງແອັບ, ໂຫຼດມື້ລະຄັ້ງ.</string>
+    <string name="settings_market_alerts">ສັນຍານເຕືອນຕະຫຼາດ</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="other">ເປີດຢູ່ %1$d</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">ຄວາມໄວການເວົ້າ: %1$.1f×</string>
+    <string name="settings_tts">ການອ່ານອອກສຽງ</string>
+    <string name="settings_tts_alarms_only">ສັນຍານເຕືອນເທົ່ານັ້ນ</string>
+    <string name="settings_tts_alarms_only_hint">ປິດ: ທຸກການອັບເດດຂອງຄູ່ເທຣດທີ່ໝາຍ “ອ່ານລາຄາ” ຈະຖືກອ່ານອອກສຽງ.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">ອ່ານລາຄາ ແລະ ສັນຍານເຕືອນອອກສຽງ. ງຽບໃນຂະນະທີ່ອຸປະກອນຢູ່ໃນໂໝດງຽບ ຫຼື ສັ່ນ.</string>
+    <string name="settings_tts_test">ທົດສອບສຽງ</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">ຣີເຊັດແອັບ</string>
+    <string name="settings_reset_app_action">ລຶບທຸກຢ່າງ</string>
+    <string name="settings_reset_app_confirm">ລຶບລາຍການຕິດຕາມ, ສັນຍານເຕືອນ, ພອດໂຟລິໂອ, ການຕັ້ງຄ່າ ແລະ ຂໍ້ມູນທີ່ເກັບໄວ້ທັງໝົດ, ຄືຫຼັງຈາກຕິດຕັ້ງ. ບໍ່ສາມາດຍົກເລີກໄດ້. ຄຳແນະນຳ: ສຳຮອງກ່ອນ. ການສຳຮອງຂອງອຸປະກອນ (ການສຳຮອງ Google ຫຼື ການສຳຮອງ iCloud/ຄອມພິວເຕີ) ຈະເກັບຂໍ້ມູນກ່ອນໜ້າໄວ້ຈົນກວ່າການສຳຮອງຄັ້ງຕໍ່ໄປເຮັດວຽກ.</string>
+    <string name="settings_reset_app_title">ຣີເຊັດແອັບບໍ?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">ຄົ້ນຫາສະກຸນເງິນ</string>
+    <string name="language_search">ຄົ້ນຫາພາສາ</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">ມືດ</string>
+    <string name="theme_light">ສະຫວ່າງ</string>
+    <string name="theme_system">ລະບົບ</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">ສີຟ້າ</string>
+    <string name="accent_green">ສີຂຽວ</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">ສີຂຽວ Marrs</string>
+    <string name="accent_orange">ສີສົ້ມ</string>
+    <string name="accent_red">ສີແດງ</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">ນິຍົມໃນຈີນ, ຍີ່ປຸ່ນ, ເກົາຫຼີ ແລະ ໄຕ້ຫວັນ</string>
+    <string name="price_colors_swap">ສະຫຼັບສີ (ຂຶ້ນ ↔ ລົງ)</string>
+    <string name="price_style_calm">ສະຫງົບ</string>
+    <string name="price_style_calm_color_vision">ສະຫງົບ · ການບົກພ່ອງໃນການເບິ່ງສີ</string>
+    <string name="price_style_color_vision">ການບົກພ່ອງໃນການເບິ່ງສີ</string>
+    <string name="price_style_fresh">ສົດໃສ</string>
+    <string name="price_style_traditional">ດັ້ງເດີມ</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">ການເຊື່ອມຕໍ່ກະດານແລກປ່ຽນຖືກກວດກັບການຕອບກັບແທ້ຄັ້ງຫຼ້າສຸດ: %1$s</string>
+    <string name="about_license">ລາຄາມາຈາກກະດານແລກປ່ຽນໂດຍກົງ; ບໍ່ມີບັນຊີ ແລະ ບໍ່ມີການຕິດຕາມ.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">ໃບອະນຸຍາດ</string>
+    <string name="about_privacy_policy">ນະໂຍບາຍຄວາມເປັນສ່ວນຕົວ</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">ຂໍກະດານແລກປ່ຽນ</string>
+    <string name="about_source_code">ຊອດໂຄດໃນ GitHub</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker ແມ່ນໂຄງການອິດສະຫຼະໂດຍ r1AD: ພາບລວມລາຄາທີ່ສະຫງົບ ໂດຍບໍ່ມີບັນຊີ, ໂຄສະນາ ຫຼື ການຕິດຕາມ. ຄຳຖາມ ແລະ ຄວາມປາຖະໜາ: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker ເປັນໂອເພັນຊອດ (MIT License).</string>
+    <string name="licenses_font_title">ຟອນ Rubik</string>
+    <string name="licenses_icons_bundled_text">ມາພ້ອມກັບແອັບ: ໄອຄອນຈາກ “Cryptocurrency Icons” ໂດຍ Christopher Downer ແລະ ຜູ້ຮ່ວມພັດທະນາ (github.com/spothq/cryptocurrency-icons), ເຜີຍແຜ່ພາຍໃຕ້ CC0 1.0 Universal. ພວກມັນຈະສະແດງຈົນກວ່າໂລໂກ້ CoinGecko ຫຼື Binance ຈະຖືກໂຫຼດ. ຊື່ ແລະ ໂລໂກ້ຍັງເປັນເຄື່ອງໝາຍການຄ້າຂອງໂຄງການຂອງພວກມັນ.</string>
+    <string name="licenses_icons_title">ໄອຄອນຫຼຽນສຳຮອງ</string>
+    <string name="licenses_libraries_intro">ແອັບໃຊ້ໄລບຣາຣີເຫຼົ່ານີ້ພາຍໃຕ້ Apache License 2.0:</string>
+    <string name="licenses_libraries_title">ໄລບຣາຣີ Android</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="other">ແຕະອີກ %d ຄັ້ງເພື່ອປົດລັອກຕົວເລືອກນັກພັດທະນາ</item>
+    </plurals>
+    <string name="developer_unlocked">ປົດລັອກຕົວເລືອກນັກພັດທະນາແລ້ວ</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">ການສັ່ນເຮັດຕາມການຕັ້ງຄ່າ iPhone (Sounds &amp; Haptics).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">ນັບສັນຍານເຕືອນໃໝ່ ແລະ ສັນຍານເຕືອນຕະຫຼາດ; ກັບເປັນ 0 ເມື່ອທ່ານເປີດແອັບ.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">ຂໍ້ມູນຂອງທ່ານ</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">ໃນອຸປະກອນນີ້</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">ລາຍການຕິດຕາມ, ສັນຍານເຕືອນ ແລະ ພອດໂຟລິໂອຂອງທ່ານຖືກເກັບໄວ້ແບບເຂົ້າລະຫັດໃນອຸປະກອນນີ້; ບໍ່ມີບັນຊີ, ບໍ່ມີເຊີບເວີຂອງພວກເຮົາເອງ.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">ການເຊື່ອມຕໍ່</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">ລາຄາມາໂດຍກົງຈາກກະດານແລກປ່ຽນຂອງຄູ່ເທຣດຂອງທ່ານ, ບວກກັບອັດຕາແລກປ່ຽນ, ລາຍການຫຼຽນ ແລະ ໂລໂກ້ ແລະ ບ່ອນສຳເນົາຂໍ້ມູນໃນ GitHub; ພວກເຂົາເຫັນທີ່ຢູ່ IP ຂອງທ່ານ, ບໍ່ເຄີຍເຫັນການຖືຄອງຂອງທ່ານ (ທີ່ຢູ່ທີ່ຕິດຕາມຈະໄປຫາຜູ້ໃຫ້ບໍລິການຂອງເຄືອຂ່າຍນັ້ນໆ).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">ການສຳຮອງ</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">ສະເພາະເມື່ອທ່ານສ້າງມັນ. ດ້ວຍລະຫັດຜ່ານ ມັນຈະຖືກເຂົ້າລະຫັດ (Argon2id + AES-256-GCM); ຖ້າບໍ່ມີ ມັນອ່ານໄດ້.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">ການປ່ຽນອຸປະກອນ</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">ກະແຈຢູ່ໃນອຸປະກອນເກົ່າ – ສ້າງໄຟລ໌ສຳຮອງກ່ອນ.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">ແບ່ງປັນຂໍ້ມູນວິນິດໄສ</string>
+    <string name="diagnostics_share_hint">ໄຟລ໌ຂໍ້ຄວາມສຳລັບການຊ່ວຍເຫຼືອ: ເວີຊັນ, ອຸປະກອນ, ການຕັ້ງຄ່າສັນຍານເຕືອນ, ການກວດຫຼ້າສຸດ ແລະ ບັນທຶກສັນຍານເຕືອນ – ບໍ່ມີພອດໂຟລິໂອ, ຈຳນວນ, ທີ່ຢູ່ ຫຼື ໝາຍເຫດ. ທ່ານເຫັນມັນກ່ອນ; ບໍ່ມີຫຍັງຖືກສົ່ງອັດຕະໂນມັດ.</string>
+    <string name="diagnostics_preview_title">ຕົວຢ່າງຂໍ້ມູນວິນິດໄສ</string>
+    <string name="diagnostics_action_share">ແບ່ງປັນ</string>
+    <string name="settings_price_overlay">ລາຄາຊ້ອນ</string>
+    <string name="settings_price_overlay_hint">ສະແດງຄູ່ເທຣດຂອງການແຈ້ງເຕືອນລາຄາຖາວອນເປັນປ້າຍລອຍນ້ອຍເທິງແອັບອື່ນ. ແຕະເພື່ອເປີດແອັບ, ລາກໄປ × ທາງລຸ່ມເພື່ອປິດ.</string>
+    <string name="settings_price_overlay_needs">ໃຊ້ໄດ້ພ້ອມກັບ «%1$s» ເທົ່ານັ້ນ.</string>
+    <string name="settings_price_overlay_grant">ອະນຸຍາດໃຫ້ສະແດງທັບແອັບອື່ນ</string>
+    <string name="price_overlay_close">ປິດການຊ້ອນ</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">ເຊີບເວີຂອງຕົນເອງສຳລັບທີ່ຢູ່</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">ສະເພາະ Bitcoin: ເຊີບເວີຂອງທ່ານເອງທີ່ເຂົ້າກັນໄດ້ກັບ Esplora ຫຼື mempool (ເຊັ່ນ https://node.example/api, ຕ້ອງມີໃບຢັ້ງຢືນທີ່ເຊື່ອຖືໄດ້ສາທາລະນະ ເຊັ່ນ Let\'s Encrypt). ຖ້າຕັ້ງໄວ້, ທີ່ຢູ່ Bitcoin ແລະ ກະແຈ xpub ຈະຖືກສອບຖາມຢູ່ທີ່ນັ້ນເທົ່ານັ້ນ – ບໍ່ເຄີຍຢູ່ node ສາທາລະນະ, ເຖິງແມ່ນເມື່ອເຊີບເວີຂອງທ່ານເຊື່ອມຕໍ່ບໍ່ໄດ້. ເຄືອຂ່າຍອື່ນຍັງໃຊ້ node ສາທາລະນະ. ຫວ່າງ = node ສາທາລະນະ.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">ເຊີບເວີ Bitcoin (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">ທົດສອບ</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">ກຳລັງທົດສອບ…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">ເຊີບເວີຕອບສະໜອງ – ບລັອກ %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">ບໍ່ມີຄຳຕອບທີ່ຖືກຕ້ອງ – ກວດທີ່ຢູ່ ແລະ ໃບຢັ້ງຢືນ</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">ກຳລັງໃຊ້: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">ບໍ່ໄດ້ຕັ້ງ – ໃຊ້ node ສາທາລະນະ</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">ອະນຸຍາດສະເພາະທີ່ຢູ່ https:// ເທົ່ານັ້ນ</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">ບໍ່ມີຊື່ຜູ້ໃຊ້ ຫຼື ລະຫັດຜ່ານໃນທີ່ຢູ່</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">ບໍ່ມີສ່ວນ ? ຫຼື # ໃນທີ່ຢູ່</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">ບໍ່ແມ່ນທີ່ຢູ່ເຊີບເວີທີ່ຖືກຕ້ອງ</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">ສະຫຼັບໄປໃຊ້ node ສາທາລະນະບໍ?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">ທີ່ຢູ່ Bitcoin ແລະ ກະແຈ xpub ຂອງທ່ານຈະຖືກສອບຖາມທີ່ node ສາທາລະນະ: %1$s. ພວກເຂົາເຫັນທີ່ຢູ່ເຫຼົ່ານີ້ພ້ອມກັບທີ່ຢູ່ IP ຂອງທ່ານ.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">ໃຊ້ node ສາທາລະນະ</string>
+</resources>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Tagasi</string>
+    <string name="action_cancel">Tühista</string>
+    <string name="action_clear">Tühjenda</string>
+    <string name="action_close">Sulge</string>
+    <string name="action_keep">Jäta alles</string>
+    <string name="action_delete">Kustuta</string>
+    <string name="action_edit">Muuda</string>
+    <string name="action_more">Rohkem valikuid</string>
+    <string name="action_refresh">Värskenda</string>
+    <string name="action_retry">Proovi uuesti</string>
+    <string name="action_save">Salvesta</string>
+    <string name="action_sort">Sordi</string>
+    <string name="action_sort_done">Valmis</string>
+    <string name="action_undo">Võta tagasi</string>
+    <string name="action_view">Vaata</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Turg</string>
+    <string name="tab_portfolio">Portfell</string>
+    <string name="tab_settings">Seaded</string>
+    <string name="tab_watchlist">Jälgimisloend</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Viga: %1$s</string>
+    <string name="error_exchange_unreachable">Börs pole praegu kättesaadav – viimased hinnad jäävad nähtavaks.</string>
+    <string name="error_exchange_unreachable_short">Börs pole praegu kättesaadav</string>
+    <string name="loading_hint">Laadimine…</string>
+    <string name="option_off">Väljas</string>
+    <string name="something_went_wrong">Midagi läks valesti</string>
+    <string name="time_just_now">just praegu</string>
+    <string name="try_again">Proovi uuesti</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Ühendus puudub</string>
+    <string name="offline_status_since">Ühendus puudub · seis %1$s</string>
+    <string name="status_live">Otse</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Lisa paar</string>
+    <string name="shortcut_alarms">Kõik hoiatused</string>
+    <string name="shortcut_cycle">Turg</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Lisa uus paar</string>
+    <string name="shortcut_alarms_long">Näita kõiki hoiatusi</string>
+    <string name="shortcut_cycle_long">Ava turuülevaade</string>
+
+    <string name="log_box_title">Logi</string>
+    <string name="label_value">%1$s: %2$s</string>
+</resources>

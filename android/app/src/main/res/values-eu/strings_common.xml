@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Atzera</string>
+    <string name="action_cancel">Utzi</string>
+    <string name="action_clear">Garbitu</string>
+    <string name="action_close">Itxi</string>
+    <string name="action_keep">Mantendu</string>
+    <string name="action_delete">Ezabatu</string>
+    <string name="action_edit">Editatu</string>
+    <string name="action_more">Aukera gehiago</string>
+    <string name="action_refresh">Eguneratu</string>
+    <string name="action_retry">Saiatu berriro</string>
+    <string name="action_save">Gorde</string>
+    <string name="action_sort">Ordenatu</string>
+    <string name="action_sort_done">Eginda</string>
+    <string name="action_undo">Desegin</string>
+    <string name="action_view">Ikusi</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Merkatua</string>
+    <string name="tab_portfolio">Zorroa</string>
+    <string name="tab_settings">Ezarpenak</string>
+    <string name="tab_watchlist">Zerrenda</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Ez du funtzionatu: %1$s</string>
+    <string name="error_exchange_unreachable">Burtsa ez dago eskuragarri une honetan – azken prezioak ikusgai jarraitzen dute.</string>
+    <string name="error_exchange_unreachable_short">Burtsa ez dago eskuragarri une honetan</string>
+    <string name="loading_hint">Kargatzen…</string>
+    <string name="option_off">Desaktibatuta</string>
+    <string name="something_went_wrong">Zerbait gaizki atera da</string>
+    <string name="time_just_now">oraintxe</string>
+    <string name="try_again">Saiatu berriro</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Konexiorik ez</string>
+    <string name="offline_status_since">Konexiorik ez · eguneratua: %1$s</string>
+    <string name="status_live">Zuzenean</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Gehitu parea</string>
+    <string name="shortcut_alarms">Alarma guztiak</string>
+    <string name="shortcut_cycle">Merkatua</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Gehitu pare berria</string>
+    <string name="shortcut_alarms_long">Erakutsi alarma guztiak</string>
+    <string name="shortcut_cycle_long">Ireki merkatu-ikuspegia</string>
+
+    <string name="log_box_title">Erregistroa</string>
+    <string name="label_value">%1$s: %2$s</string>
+</resources>

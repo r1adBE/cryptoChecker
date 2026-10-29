@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">უკან</string>
+    <string name="action_cancel">გაუქმება</string>
+    <string name="action_clear">გასუფთავება</string>
+    <string name="action_close">დახურვა</string>
+    <string name="action_keep">შენარჩუნება</string>
+    <string name="action_delete">წაშლა</string>
+    <string name="action_edit">რედაქტირება</string>
+    <string name="action_more">სხვა პარამეტრები</string>
+    <string name="action_refresh">განახლება</string>
+    <string name="action_retry">ხელახლა ცდა</string>
+    <string name="action_save">შენახვა</string>
+    <string name="action_sort">დალაგება</string>
+    <string name="action_sort_done">მზადაა</string>
+    <string name="action_undo">დაბრუნება</string>
+    <string name="action_view">ნახვა</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">ბაზარი</string>
+    <string name="tab_portfolio">პორტფელი</string>
+    <string name="tab_settings">პარამეტრები</string>
+    <string name="tab_watchlist">დაკვირვების სია</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">შეცდომა: %1$s</string>
+    <string name="error_exchange_unreachable">ბირჟა ახლა მიუწვდომელია – ბოლო ფასები ჩანს.</string>
+    <string name="error_exchange_unreachable_short">ბირჟა ახლა მიუწვდომელია</string>
+    <string name="loading_hint">იტვირთება…</string>
+    <string name="option_off">გამორთული</string>
+    <string name="something_went_wrong">რაღაც შეცდომა მოხდა</string>
+    <string name="time_just_now">ახლახან</string>
+    <string name="try_again">კიდევ სცადე</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">კავშირი არ არის</string>
+    <string name="offline_status_since">კავშირი არ არის · მდგომარეობა: %1$s</string>
+    <string name="status_live">Live</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">წყვილის დამატება</string>
+    <string name="shortcut_alarms">ყველა განგაში</string>
+    <string name="shortcut_cycle">ბაზარი</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">წყვილის დამატება სიაში</string>
+    <string name="shortcut_alarms_long">ყველა განგაშის ჩვენება</string>
+    <string name="shortcut_cycle_long">ბაზრის მიმოხილვა</string>
+
+    <string name="log_box_title">ჟურნალი</string>
+    <string name="label_value">%1$s: %2$s</string>
+</resources>

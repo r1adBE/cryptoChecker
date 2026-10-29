@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">કસ્ટમ</string>
+    <string name="settings_group_general">સામાન્ય</string>
+    <string name="settings_group_more">વધુ</string>
+    <string name="settings_minutes">%1$d મિ.</string>
+    <string name="settings_row_about">ઍપ વિશે</string>
+    <string name="settings_row_alarms">એલર્ટ</string>
+    <string name="settings_row_currency">ચલણ</string>
+    <string name="settings_row_dated_futures">મુદતી ફ્યુચર્સ</string>
+    <string name="settings_row_updates">ભાવ અપડેટ</string>
+    <string name="settings_row_watchlist">વૉચલિસ્ટ</string>
+    <string name="settings_search_hint">સેટિંગ્સ શોધો</string>
+    <string name="settings_seconds">%1$d સે.</string>
+    <string name="settings_section_about">માહિતી</string>
+    <string name="settings_section_appearance">દેખાવ</string>
+    <string name="settings_section_developer">ડેવલપર</string>
+    <string name="settings_section_language">ભાષા</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">ચાલુ</string>
+    <string name="settings_title">સેટિંગ્સ</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">એલર્ટ ફરી વાગે તે પહેલાંનો વિરામ સમય</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">એલર્ટ સિગ્નલ</string>
+    <string name="settings_alarm_signal_open_system">સિસ્ટમ સેટિંગ્સમાં ગોઠવો</string>
+    <string name="settings_alarm_signal_system_hint">તમારા ફોનની સૂચના સેટિંગ્સને અનુસરે છે.</string>
+    <string name="settings_alarm_sound">એલર્ટ અવાજ</string>
+    <string name="settings_alarm_sound_custom">કસ્ટમ અવાજ</string>
+    <string name="settings_alarm_sound_default">ડિફૉલ્ટ અવાજ</string>
+    <string name="settings_alarm_sound_error">અવાજ વાપરી શકાયો નથી.</string>
+    <string name="settings_alarm_sound_file">તમારી પોતાની ઑડિયો ફાઇલ…</string>
+    <string name="settings_alarm_sound_reset">ડિફૉલ્ટ અવાજ વાપરો</string>
+    <string name="settings_alarm_sound_system">સિસ્ટમ અવાજ પસંદ કરો…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">ઍપ આઇકન પર સંખ્યા</string>
+    <string name="settings_app_badge_hint">ખુલ્લી એલર્ટ સૂચનાઓ ગણે છે. સંખ્યા દેખાય કે ટપકું, તે હોમ સ્ક્રીન પર આધાર રાખે છે (દા.ત. Samsung: “Show with number”).</string>
+    <string name="settings_exact_checks">સમયસર તપાસો</string>
+    <string name="settings_exact_checks_grant">અલાર્મ અને રિમાઇન્ડરને મંજૂરી આપો</string>
+    <string name="settings_exact_checks_hint">ડિવાઇસ નિષ્ક્રિય હોય ત્યારે પણ Android લગભગ દર 15 મિનિટે તપાસે છે. થોડી વધુ બૅટરી વાપરે છે.</string>
+    <string name="settings_exact_checks_nothing">કોઈ સક્રિય જોડી નથી – તપાસવા જેવું કંઈ નથી.</string>
+    <string name="settings_exact_checks_permission_missing">મંજૂરી ખૂટે છે – ડિવાઇસ આરામમાં હોય ત્યારે Android અનિયમિત રીતે તપાસે છે, ક્યારેક કલાકો પછી જ.</string>
+    <string name="settings_notification_change">ફક્ત ભાવ બદલાય ત્યારે જાણ કરો</string>
+    <string name="settings_notification_change_always">હંમેશાં</string>
+    <string name="settings_percent_invalid">0 થી 100 સુધીનું મૂલ્ય દાખલ કરો.</string>
+    <string name="settings_notification_change_hint">છેલ્લી સૂચના પછી ભાવ ઓછામાં ઓછો આટલો હલે ત્યારે જ ભાવ સૂચના દેખાય છે. ડેટા ખૂટતો હોય ત્યારે કંઈ બતાવાતું નથી. એલર્ટને અસર થતી નથી.</string>
+    <string name="settings_ongoing_notifications">સ્વાઇપ કરીને હટાવી શકાતી નથી</string>
+    <string name="settings_ongoing_notifications_hint">ભાવ સૂચનાઓને પિન કરેલી રાખે છે.</string>
+    <string name="settings_price_notifications">ભાવ સૂચનાઓ</string>
+    <string name="settings_price_notifications_hint">સક્રિય જોડીઓનો વર્તમાન ભાવ સ્ટેટસ બારમાં બતાવો.</string>
+    <string name="settings_price_pairs">જોડીઓ</string>
+    <string name="settings_price_pairs_all_off">બધી બંધ</string>
+    <string name="settings_price_pairs_all_on">બધી ચાલુ</string>
+    <string name="settings_price_pairs_count">%2$d માંથી %1$d</string>
+    <string name="settings_price_pairs_empty">વૉચલિસ્ટમાં હજુ કોઈ જોડી નથી.</string>
+    <string name="settings_price_pairs_hint">કઈ જોડીઓ સૂચના બારમાં તેમનો ભાવ બતાવે તે પસંદ કરો.</string>
+    <string name="settings_quiet_hours">શાંત સમય</string>
+    <string name="settings_quiet_hours_from">થી</string>
+    <string name="settings_quiet_hours_hint">%1$s અને %2$s વચ્ચે, એલર્ટ શાંત સમય પૂરો થાય ત્યાં સુધી રાહ જુએ છે અને પછી અવાજ સાથે વાગે છે. બીજી સૂચનાઓ અવાજ વગર, વાણી વગર આવે છે.</string>
+    <string name="settings_quiet_hours_to">સુધી</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">અંતરાલ</string>
+    <string name="settings_background_updates">બૅકગ્રાઉન્ડ અપડેટ</string>
+    <string name="settings_battery_hint">પ્રતિબંધિત એટલે Android બૅકગ્રાઉન્ડ અપડેટમાં કલાકોનો વિલંબ કરી શકે છે.</string>
+    <string name="settings_battery_ok">બૅટરી વપરાશ: અપ્રતિબંધિત</string>
+    <string name="settings_battery_restricted">બૅટરી વપરાશ: પ્રતિબંધિત</string>
+    <string name="settings_check_runs_empty">હજુ કોઈ તપાસ નોંધાઈ નથી.</string>
+    <string name="settings_check_runs_honest_android">ક્યારે તપાસવું તે Android નક્કી કરે છે – તે ખરેખર ક્યારે થયું તે અહીં દેખાય છે.</string>
+    <string name="settings_check_runs_honest_ios">ક્યારે તપાસવું તે iOS નક્કી કરે છે – તે ખરેખર ક્યારે થયું તે અહીં દેખાય છે.</string>
+    <string name="settings_check_runs_title">તાજેતરની તપાસ</string>
+    <string name="settings_http_log">HTTP લૉગ બતાવો</string>
+    <string name="settings_http_log_hint">“જોડી ઉમેરો” પાનાના તળિયે એક્સચેન્જને મોકલાયેલી વિનંતીઓ બતાવે છે – સમસ્યા શોધવા માટે.</string>
+    <string name="settings_live_service">વારંવાર અપડેટ કરો</string>
+    <string name="settings_live_websocket">લાઇવ ભાવ</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">નોંધપાત્ર: જાણ કરો</string>
+    <string name="settings_activity_alerts_hint">પ્રતિ જોડી કલાકમાં વધુમાં વધુ એક વાર: અસામાન્ય ભાવ હિલચાલ, વૉલ્યુમમાં ઉછાળા અને ફ્યુચર્સની ચરમસીમાઓ (Binance નો ડેટા).</string>
+    <string name="settings_activity_sensitivity">સંવેદનશીલતા</string>
+    <string name="settings_activity_sensitivity_hint">કૉઇન કેટલી સરળતાથી અસામાન્ય ગણાય – વૉચલિસ્ટ કાર્ડ અને માર્કેટ એલર્ટ બંને માટે સમાન. “ઓછું” સાથે કાર્ડ ફક્ત 3 સૌથી મજબૂત બતાવે છે.</string>
+    <string name="settings_watchlist_activity_card">નોંધપાત્ર: યાદીમાં બતાવો</string>
+    <string name="settings_watchlist_activity_card_hint">જૂથોની બાજુમાં ⚡ ચિપ બતાવે છે: અત્યારે કંઈક થઈ રહ્યું હોય તે જોડીઓ જ જોવા તેના પર ટૅપ કરો. તેની સૂચનાઓ માર્કેટ એલર્ટ હેઠળ સેટ થાય છે.</string>
+    <string name="settings_watchlist_names">નામ બતાવો</string>
+    <string name="settings_watchlist_names_hint">જોડી નીચે નામ, દા.ત. Bitcoin અથવા NVIDIA. લોગો યાદીઓ સાથે આવે છે, બધા કૉઇન માટે એક વાર લોડ થાય છે.</string>
+    <string name="settings_watchlist_sparkline">વૉચલિસ્ટમાં મિની ચાર્ટ</string>
+    <string name="settings_watchlist_sparkline_hint">ભાવની બાજુમાં 24 કલાકનો ટ્રેન્ડ</string>
+    <string name="settings_watchlist_value_names">નામ</string>
+    <string name="settings_watchlist_value_price_only">ફક્ત ભાવ</string>
+    <string name="settings_watchlist_value_sparkline">મિની ચાર્ટ</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">આલ્ફા ટોકન સહિત (α)</string>
+    <string name="settings_asset_scope_alpha_hint">આલ્ફા ટોકન: Binance Alpha યાદીના શરૂઆતી, મોટે ભાગે નાના પ્રોજેક્ટ – ઘણી વાર ઓછા ટ્રેડ થતા અને ખૂબ અસ્થિર.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">ટોકનનો ભાગ છે. “ફક્ત TradFi” પસંદ હોય ત્યારે ઉપલબ્ધ નથી; તમારી વૉચલિસ્ટમાં પહેલેથી રહેલા આલ્ફા ટોકન રહે છે.</string>
+    <string name="settings_asset_scope_both">ટોકન અને TradFi</string>
+    <string name="settings_asset_scope_both_hint">બધું – ક્રિપ્ટો અને TradFi</string>
+    <string name="settings_asset_scope_hint">જોડીઓ ઉમેરતી વખતે પસંદગી અને શોધ કઈ જોડીઓ બતાવે તે નક્કી કરે છે. તમારી વૉચલિસ્ટમાં પહેલેથી રહેલી જોડીઓ હંમેશાં રહે છે.</string>
+    <string name="settings_asset_scope_title">ટોકન અને TradFi</string>
+    <string name="settings_asset_scope_tokens">ફક્ત ટોકન</string>
+    <string name="settings_asset_scope_tokens_hint">ક્રિપ્ટો: સ્પૉટ અને પર્પેચ્યુઅલ</string>
+    <string name="settings_asset_scope_tradfi">ફક્ત TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">શૅર, કૉમોડિટી, FX પરના ફ્યુચર્સ – કૉન્ટ્રૅક્ટ, ટોકન નહીં</string>
+    <string name="settings_rolling_futures">ત્રિમાસિક અને બીજા મુદતી ફ્યુચર્સ સહિત</string>
+    <string name="settings_rolling_futures_hint">બંધ: એક્સચેન્જ યાદીમાં ન હોય તેવા મુદતી ફ્યુચર્સ એક-એક તપાસવાને બદલે હવે ટ્રેડ થતા નથી તરીકે ચિહ્નિત થાય છે. દરેક રિફ્રેશમાં સમય બચાવે છે.</string>
+    <string name="settings_rolling_futures_qtly">ત્રિમાસિક અને બીજા મુદતી ફ્યુચર્સ સહિત (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">ટોકનનો ભાગ છે. “ફક્ત TradFi” પસંદ હોય ત્યારે ઉપલબ્ધ નથી; તમારી વૉચલિસ્ટમાં પહેલેથી રહેલા મુદતી ફ્યુચર્સને હજુ લાગુ પડે છે.</string>
+    <string name="settings_tradfi_futures">શૅર, કૉમોડિટી અને FX (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">જોડી પસંદ કરતી વખતે શૅર, સોનું અને બીજી કૉમોડિટી, ચલણો અને પ્રી-IPO કંપનીઓ પરના ફ્યુચર્સ પણ બતાવે છે. આ કૉન્ટ્રૅક્ટ છે, ટોકન નહીં.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">એક્સેન્ટ રંગ</string>
+    <string name="settings_accent_hint">ઍપ, વિજેટ અને ઍપ આઇકનનો રંગ. કેટલીક હોમ સ્ક્રીન આઇકન બદલાય ત્યારે તેને દૂર કરે છે – ત્યારે તેને ફરી ઉમેરો.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">કૉઇન લોગો</string>
+    <string name="settings_coin_logos_app">ઍપમાં</string>
+    <string name="settings_coin_logos_app_hint">વૉચલિસ્ટ, ખોલેલી જોડી અને માર્કેટ કાર્ડ</string>
+    <string name="settings_coin_logos_footer">લોગો CoinGecko પરથી આવે છે, અને CoinGecko લિસ્ટ ન કરતું હોય તેવા કૉઇન (દા.ત. સોનું, ચાંદી, શૅર) માટે Binance પરથી. ઍપ બધા લોગો એકસાથે લોડ કરે છે અને આ ડિવાઇસ પર રાખે છે, તેથી તમે કયા કૉઇન ફૉલો કરો છો તે કોઈ પ્રદાતા જાણી શકતું નથી. લોગો વગરના કૉઇન તેમના આદ્યાક્ષર બતાવે છે. મનપસંદને લોગો પર નાનો તારો મળે છે. જ્યાં સ્વિચ બંધ હોય ત્યાં ન લોગો ન આદ્યાક્ષર દેખાય છે; બધી સ્વિચ બંધ હોય તો કંઈ લોડ થતું નથી.</string>
+    <string name="settings_coin_logos_portfolio">પોર્ટફોલિયોમાં</string>
+    <string name="settings_coin_logos_portfolio_hint">પોઝિશન, કૉઇન વિગતો અને આંતરદૃષ્ટિ</string>
+    <string name="settings_coin_logos_value_app">ઍપ</string>
+    <string name="settings_coin_logos_widgets">વિજેટમાં</string>
+    <string name="settings_coin_logos_widgets_hint">વૉચલિસ્ટ અને એક-કૉઇન વિજેટ</string>
+    <string name="settings_high_contrast">ઊંચો કૉન્ટ્રાસ્ટ</string>
+    <string name="settings_high_contrast_hint">વધુ ઘેરા ભાવ રંગો અને ઘાટું ગૌણ લખાણ. સિસ્ટમ વધુ કૉન્ટ્રાસ્ટ માગે ત્યારે પણ ચાલુ થાય છે.</string>
+    <string name="settings_language_choose">ભાષા પસંદ કરો</string>
+    <string name="settings_language_system">સિસ્ટમ ભાષા</string>
+    <string name="settings_price_colors">ભાવ રંગો</string>
+    <string name="settings_price_colors_hint">વાદળી / નારંગી દરેક પ્રકારની રંગ-દૃષ્ટિ ખામીમાં (લાલ-લીલો અને વાદળી-પીળો) સરળતાથી અલગ પાડી શકાય છે. દિશા હંમેશાં + / − થી પણ બતાવાય છે.</string>
+    <string name="settings_theme_mode">લાઇટ / ડાર્ક</string>
+    <string name="settings_widgets">વિજેટ</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">%1$s ફેરફાર અને ચાર્ટ ટાઇમ ઝોન</string>
+    <string name="settings_change_basis_hint_1">પસંદ કરેલો ટાઇમ ઝોન ટકાવારી ફેરફાર ક્યારથી ગણાય (વૉચલિસ્ટ, પલ્સ લાઇન, ખોલેલી જોડી, વિજેટ) અને ચાર્ટમાં બતાવાતા સમય નક્કી કરે છે.</string>
+    <string name="settings_change_basis_hint_2">“%1$s” બરાબર 24 કલાક પહેલાંના ભાવ સાથે સરખાવે છે. “00:00” તે ટાઇમ ઝોનમાં મધ્યરાત્રિના ખૂલતા ભાવ સાથે સરખાવે છે.</string>
+    <string name="settings_change_basis_hint_3">એલર્ટને અસર થતી નથી.</string>
+    <string name="settings_change_basis_hint_since_last">“%1$s” પાછલા અપડેટના ભાવ સાથે સરખાવે છે. લાઇવ ભાવ સાથે તે 0%% ની નજીક રહે છે.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">રૂપાંતર ચલણ</string>
+    <string name="settings_conversion_currency_hint">પોર્ટફોલિયો, તમારા ચલણમાં એલર્ટ, ક્રિપ્ટો માર્કેટ કાર્ડ અને પોર્ટફોલિયો વિજેટ માટે પણ વપરાય છે.</string>
+    <string name="settings_cost_method">ખર્ચ પદ્ધતિ</string>
+    <string name="settings_cost_method_average">સરેરાશ ખર્ચ</string>
+    <string name="settings_cost_method_average_hint">વેચાણનું મૂલ્ય ચાલુ સરેરાશ ખરીદ ભાવે થાય છે.</string>
+    <string name="settings_cost_method_fifo">FIFO (ડિફૉલ્ટ)</string>
+    <string name="settings_cost_method_fifo_hint">બધાં એક્સચેન્જ અને વૉલેટમાં સૌથી જૂના કૉઇન પહેલાં વેચાય છે.</string>
+    <string name="settings_cost_method_fifo_wallet">દરેક વૉલેટ/એક્સચેન્જ માટે FIFO</string>
+    <string name="settings_cost_method_fifo_wallet_hint">દરેક એક્સચેન્જ કે વૉલેટમાં સૌથી જૂના કૉઇન પહેલાં; ટ્રાન્સફર લૉટને તેમની ખરીદ તારીખ સાથે ખસેડે છે.</string>
+    <string name="settings_portfolio_lock">પોર્ટફોલિયો લૉક</string>
+    <string name="settings_portfolio_lock_footer">લૉક સ્ક્રીન પર દેખાતું છુપાવે છે. તમારો ડેટા આ ડિવાઇસ પર સાચવાય છે અને ડિવાઇસ એન્ક્રિપ્શનથી સુરક્ષિત છે. બૅકઅપને તમે પાસવર્ડથી સુરક્ષિત કરી શકો છો.</string>
+    <string name="settings_portfolio_lock_hint">ફક્ત પોર્ટફોલિયો છુપાવે છે: ફિંગરપ્રિન્ટ, ચહેરો કે ડિવાઇસ PIN થી અનલૉક કરો. એક મિનિટથી વધુ બૅકગ્રાઉન્ડમાં રહે પછી ફરી લૉક થાય છે. વૉચલિસ્ટ, એલર્ટ અને બીજાં વિજેટ ખુલ્લાં રહે છે.</string>
+    <string name="settings_portfolio_lock_no_device_lock">ડિવાઇસ PIN કે પાસકોડ વગર લૉક કંઈ છુપાવતું નથી – સ્ક્રીન લૉક સેટ કરો.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">સિસ્ટમ બૅકઅપમાં પોર્ટફોલિયો</string>
+    <string name="settings_portfolio_system_backup_hint">બંધ: તમારા વ્યવહારો ડિવાઇસના સિસ્ટમ બૅકઅપ અને ફોન-થી-ફોન ટ્રાન્સફરથી બહાર રહે છે. તેમને નવા ફોન પર લઈ જવા, પાસવર્ડ સાથે ઍપનો પોતાનો બૅકઅપ વાપરો.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Android 9 કે પછીનું જોઈએ – જૂનાં વર્ઝન પોર્ટફોલિયોને Google બૅકઅપમાં એન્ક્રિપ્ટ કર્યા વગર સેવ કરશે.</string>
+    <string name="settings_portfolio_tab">પોર્ટફોલિયો ટૅબ બતાવો</string>
+    <string name="settings_portfolio_value_locked">ચાલુ, લૉક સાથે</string>
+    <string name="settings_show_converted">રૂપાંતરિત ભાવ</string>
+    <string name="settings_show_converted_hint">વૉચલિસ્ટમાં ભાવ %1$s માં પણ બતાવે છે</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">USDT ડીપેગની જાણ કરો</string>
+    <string name="settings_depeg_alarm_hint">USDT 1 USD થી મર્યાદા જેટલો દૂર જાય ત્યારે એક વાર જાણ કરે છે (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_threshold">ડીપેગ મર્યાદા</string>
+    <string name="settings_fng_above">Fear &amp; Greed: આનાથી ઉપર જાણ કરો</string>
+    <string name="settings_fng_below">Fear &amp; Greed: આનાથી નીચે જાણ કરો</string>
+    <string name="settings_gas_alert_hint">સામાન્ય ફી મર્યાદાથી નીચે આવે ત્યારે એક વાર જાણ કરે છે. ભાવ અપડેટ દરમિયાન, વધુમાં વધુ દર 10 મિનિટે તપાસાય છે.</string>
+    <string name="settings_gas_btc_below">Bitcoin ફી આનાથી નીચે (sat/vB)</string>
+    <string name="settings_gas_eth_below">Ethereum ગૅસ આનાથી નીચે (gwei)</string>
+    <string name="settings_ind_ath_within">સર્વકાલીન ઊંચા સ્તરથી ઘટાડો વધુમાં વધુ</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple આનાથી ઉપર</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple આનાથી નીચે</string>
+    <string name="settings_ind_mvrv_above">MVRV આનાથી ઉપર</string>
+    <string name="settings_ind_mvrv_below">MVRV આનાથી નીચે</string>
+    <string name="settings_indicator_alerts_hint">Bitcoin સૂચકાંકો, દિવસમાં બે વાર તપાસાય છે. મર્યાદાઓ તમે પસંદ કરો છો – ઍપ મૂલ્યોનું મૂલ્યાંકન કરતી નથી.</string>
+    <string name="settings_macro_notifications">આર્થિક કૅલેન્ડર</string>
+    <string name="settings_macro_notifications_hint">મહત્ત્વના US આર્થિક ડેટાવાળા દિવસોએ 08:00 વાગ્યે (મોંઘવારી, રોજગાર અહેવાલ, ફેડ નિર્ણય). કૅલેન્ડર ઍપની વેબસાઇટ પરથી આવે છે, દિવસમાં એક વાર લોડ થાય છે.</string>
+    <string name="settings_market_alerts">માર્કેટ એલર્ટ</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d સક્રિય</item>
+        <item quantity="other">%1$d સક્રિય</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">વાણીની ઝડપ: %1$.1f×</string>
+    <string name="settings_tts">બોલીને કહેવું</string>
+    <string name="settings_tts_alarms_only">ફક્ત એલર્ટ</string>
+    <string name="settings_tts_alarms_only_hint">બંધ: “ભાવ બોલીને કહો” ચિહ્નિત જોડીનું દરેક અપડેટ મોટેથી વંચાય છે.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">ભાવ અને એલર્ટ મોટેથી વાંચે છે. ડિવાઇસ સાઇલન્ટ કે વાઇબ્રેટ મોડમાં હોય ત્યારે શાંત રહે છે.</string>
+    <string name="settings_tts_test">અવાજ ટેસ્ટ કરો</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">ઍપ રીસેટ કરો</string>
+    <string name="settings_reset_app_action">બધું ડિલીટ કરો</string>
+    <string name="settings_reset_app_confirm">વૉચલિસ્ટ, એલર્ટ, પોર્ટફોલિયો, સેટિંગ્સ અને બધો સાચવેલો ડેટા, ઇન્સ્ટૉલ કર્યા પછીની જેમ ડિલીટ કરે છે. આ પૂર્વવત્ કરી શકાતું નથી. ટિપ: પહેલાં બૅકઅપ લો. ડિવાઇસ બૅકઅપ (Google બૅકઅપ અથવા iCloud/કમ્પ્યુટર બૅકઅપ) આગલો બૅકઅપ થાય ત્યાં સુધી અગાઉનો ડેટા રાખે છે.</string>
+    <string name="settings_reset_app_title">ઍપ રીસેટ કરવી છે?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">ચલણ શોધો</string>
+    <string name="language_search">ભાષા શોધો</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">ડાર્ક</string>
+    <string name="theme_light">લાઇટ</string>
+    <string name="theme_system">સિસ્ટમ</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">વાદળી</string>
+    <string name="accent_green">લીલો</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">નારંગી</string>
+    <string name="accent_red">લાલ</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">ચીન, જાપાન, કોરિયા અને તાઇવાનમાં સામાન્ય</string>
+    <string name="price_colors_swap">રંગો અદલબદલ કરો (વધારો ↔ ઘટાડો)</string>
+    <string name="price_style_calm">શાંત</string>
+    <string name="price_style_calm_color_vision">શાંત · રંગ-દૃષ્ટિ ખામી</string>
+    <string name="price_style_color_vision">રંગ-દૃષ્ટિ ખામી</string>
+    <string name="price_style_fresh">તાજું</string>
+    <string name="price_style_traditional">પરંપરાગત</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">એક્સચેન્જ કનેક્શન સાચા પ્રતિસાદો સામે છેલ્લે તપાસ્યાં: %1$s</string>
+    <string name="about_license">ભાવ સીધા એક્સચેન્જ પરથી આવે છે; કોઈ એકાઉન્ટ નહીં અને કોઈ ટ્રૅકિંગ નહીં.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">લાઇસન્સ</string>
+    <string name="about_privacy_policy">ગોપનીયતા નીતિ</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">એક્સચેન્જની વિનંતી કરો</string>
+    <string name="about_source_code">GitHub પર સોર્સ કોડ</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker એ r1AD નો સ્વતંત્ર પ્રોજેક્ટ છે: એકાઉન્ટ, જાહેરાતો કે ટ્રૅકિંગ વગરની શાંત ભાવ ઝાંખી. પ્રશ્નો અને ઇચ્છાઓ: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker ઓપન સોર્સ છે (MIT License).</string>
+    <string name="licenses_font_title">Rubik ટાઇપફેસ</string>
+    <string name="licenses_icons_bundled_text">ઍપ સાથે સામેલ: Christopher Downer અને યોગદાનકર્તાઓના “Cryptocurrency Icons” માંથી આઇકન (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal હેઠળ પ્રકાશિત. CoinGecko કે Binance લોગો લોડ થાય ત્યાં સુધી તે બતાવાય છે. નામો અને લોગો તેમના પ્રોજેક્ટના ટ્રેડમાર્ક રહે છે.</string>
+    <string name="licenses_icons_title">વૈકલ્પિક કૉઇન આઇકન</string>
+    <string name="licenses_libraries_intro">ઍપ Apache License 2.0 હેઠળ આ લાઇબ્રેરીઓ વાપરે છે:</string>
+    <string name="licenses_libraries_title">Android લાઇબ્રેરીઓ</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">ડેવલપર વિકલ્પો અનલૉક કરવા વધુ %d ટૅપ</item>
+        <item quantity="other">ડેવલપર વિકલ્પો અનલૉક કરવા વધુ %d ટૅપ</item>
+    </plurals>
+    <string name="developer_unlocked">ડેવલપર વિકલ્પો અનલૉક થયા</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">વાઇબ્રેશન iPhone સેટિંગ્સને અનુસરે છે (ધ્વનિ અને હૅપ્ટિક્સ).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">નવા એલર્ટ અને માર્કેટ એલર્ટ ગણે છે; ઍપ ખોલો ત્યારે પાછું 0.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">તમારો ડેટા</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">આ ડિવાઇસ પર</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">તમારી વૉચલિસ્ટ, એલર્ટ અને પોર્ટફોલિયો આ ડિવાઇસ પર એન્ક્રિપ્ટ કરીને સાચવાય છે; કોઈ એકાઉન્ટ નહીં, અમારું પોતાનું કોઈ સર્વર નહીં.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">કનેક્શન</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">ભાવ સીધા તમારી જોડીઓના એક્સચેન્જ પરથી આવે છે, તે ઉપરાંત વિનિમય દરો, કૉઇન યાદીઓ અને લોગો તથા GitHub પરનો ડેટા મિરર; તેઓ તમારું IP સરનામું જુએ છે, તમારું હોલ્ડિંગ ક્યારેય નહીં (જોવાતાં સરનામાં સંબંધિત નેટવર્કના પ્રદાતા પાસે જાય છે).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">બૅકઅપ</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">ફક્ત તમે બનાવો તો જ. પાસવર્ડ સાથે તે એન્ક્રિપ્ટ થાય છે (Argon2id + AES-256-GCM); પાસવર્ડ વગર તે વાંચી શકાય છે.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">ડિવાઇસ બદલતી વખતે</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">કી જૂના ડિવાઇસ પર જ રહે છે – પહેલાં બૅકઅપ ફાઇલ બનાવો.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">નિદાન શેર કરો</string>
+    <string name="diagnostics_share_hint">સપોર્ટ માટે ટેક્સ્ટ ફાઇલ: વર્ઝન, ડિવાઇસ, એલર્ટ સેટિંગ્સ, તાજેતરની તપાસ અને એલર્ટ લૉગ – પોર્ટફોલિયો, રકમ, સરનામાં કે નોંધો વગર. તમે પહેલાં તે જુઓ છો; કંઈ આપમેળે મોકલાતું નથી.</string>
+    <string name="diagnostics_preview_title">નિદાન પૂર્વાવલોકન</string>
+    <string name="diagnostics_action_share">શેર કરો</string>
+    <string name="settings_price_overlay">ભાવ ઓવરલે</string>
+    <string name="settings_price_overlay_hint">કાયમી ભાવ સૂચનાની જોડીઓને બીજી ઍપ પર તરતી નાની પિલ તરીકે બતાવે છે. ઍપ ખોલવા ટૅપ કરો, બંધ કરવા નીચેના × તરફ ખેંચો.</string>
+    <string name="settings_price_overlay_needs">ફક્ત «%1$s» સાથે જ કામ કરે છે.</string>
+    <string name="settings_price_overlay_grant">બીજી ઍપ પર બતાવવાની મંજૂરી આપો</string>
+    <string name="price_overlay_close">ઓવરલે બંધ કરો</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">સરનામાં માટે પોતાનું સર્વર</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">ફક્ત Bitcoin: તમારું પોતાનું Esplora- કે mempool-સુસંગત સર્વર (દા.ત. https://node.example/api, Let\'s Encrypt જેવું સાર્વજનિક રીતે વિશ્વસનીય પ્રમાણપત્ર જરૂરી). સેટ કર્યું હોય તો Bitcoin સરનામાં અને xpub કી ફક્ત ત્યાં જ પૂછાય છે – ક્યારેય સાર્વજનિક નોડ પર નહીં, તમારું સર્વર ઉપલબ્ધ ન હોય ત્યારે પણ નહીં. બીજાં નેટવર્ક સાર્વજનિક નોડ વાપરતાં રહે છે. ખાલી = સાર્વજનિક નોડ.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Bitcoin સર્વર (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">ટેસ્ટ કરો</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">ટેસ્ટ થઈ રહ્યું છે…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">સર્વર જવાબ આપે છે – બ્લૉક %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">કોઈ માન્ય જવાબ નથી – સરનામું અને પ્રમાણપત્ર તપાસો</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">વપરાશમાં: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">સેટ નથી – સાર્વજનિક નોડ વપરાય છે</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">ફક્ત https:// સરનામાંને મંજૂરી છે</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">સરનામામાં વપરાશકર્તા નામ કે પાસવર્ડ નહીં</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">સરનામામાં ? કે # ભાગ નહીં</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">માન્ય સર્વર સરનામું નથી</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">સાર્વજનિક નોડ પર જવું છે?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">ત્યારે તમારાં Bitcoin સરનામાં અને xpub કી સાર્વજનિક નોડ પર પૂછાશે: %1$s. તેઓ આ સરનામાં તમારા IP સરનામા સાથે જુએ છે.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">સાર્વજનિક નોડ વાપરો</string>
+</resources>

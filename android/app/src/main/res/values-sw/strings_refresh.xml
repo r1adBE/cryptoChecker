@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">inahitaji data na betri zaidi</string>
+    <string name="update_mode_live">Moja kwa moja ikiwa wazi</string>
+    <string name="update_mode_live_hint">Pale jukwaa linapotoa bei ya moja kwa moja: papo hapo wakati orodha ya ufuatiliaji iko wazi. Vinginevyo katika upakuaji unaofuata. Ikiwa imefungwa: si mara nyingi zaidi ya kila %1$s, mara nyingi baadaye.</string>
+    <string name="update_mode_live_hint_ios">Pale jukwaa linapotoa bei ya moja kwa moja: papo hapo wakati orodha ya ufuatiliaji iko wazi. Vinginevyo katika upakuaji unaofuata. Ikiwa imefungwa: iOS inaporuhusu, wakati mwingine kwa saa kadhaa kati yake. Ukiiondoa programu kwa kutelezesha, iOS inasimamisha ukaguzi huu hadi utakapoifungua tena.</string>
+    <string name="update_mode_recommended">inapendekezwa</string>
+    <string name="update_mode_sparsam">Kiuchumi</string>
+    <string name="update_mode_sparsam_hint">Programu ikiwa imefungwa, si mara nyingi zaidi ya kila %1$s, mara nyingi baadaye (kengele, wijeti). Ikiwa wazi: kila unapoifungua.</string>
+    <string name="update_mode_sparsam_hint_ios">Programu ikiwa imefungwa, iOS huamua wakati wa kukagua (kengele, wijeti), wakati mwingine kwa saa kadhaa kati yake. Ikiwa wazi: kila unapoifungua.</string>
+    <string name="update_mode_title">Mara za kusasisha</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">Uonyeshaji upya umekatizwa</string>
+    <string name="refresh_sheet_alarms">Kengele</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d imelia</item>
+        <item quantity="other">%1$d zimelia</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">Kila kitu kimesasishwa</string>
+    <string name="refresh_sheet_app_start">Kuanza kwa programu</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">ombi la jumla %1$s · bei %2$d</item>
+        <item quantity="other">ombi la jumla %1$s · bei %2$d</item>
+    </plurals>
+    <string name="refresh_sheet_database">Hifadhidata</string>
+    <string name="refresh_sheet_exchange_unreachable">%1$s haipatikani</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
+        <item quantity="one">Jukwaa %1$d halipatikani</item>
+        <item quantity="other">Majukwaa %1$d hayapatikani</item>
+    </plurals>
+    <string name="refresh_sheet_network">Mtandao</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">arifa %1$d ya bei</item>
+        <item quantity="other">arifa %1$d za bei</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">jozi %1$d</item>
+        <item quantity="other">jozi %1$d</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">Jozi %1$d haijasasishwa</item>
+        <item quantity="other">Jozi %1$d hazijasasishwa</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d kati ya jozi %1$d</item>
+        <item quantity="other">%2$d kati ya jozi %1$d</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">imesitishwa hadi %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">imesitishwa hadi %1$s (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">hakuna data</string>
+    <string name="refresh_sheet_reason_offline">hakuna muunganisho</string>
+    <string name="refresh_sheet_reason_rate_limit">maombi mengi mno</string>
+    <string name="refresh_sheet_reason_server">hitilafu ya seva</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">muda umeisha</string>
+    <string name="refresh_sheet_reason_unavailable">jukwaa halipatikani</string>
+    <string name="refresh_sheet_seconds_a11y">sekunde %1$s</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_exchanges">Majukwaa</string>
+    <string name="refresh_sheet_section_steps">Uchanganuzi</string>
+    <string name="refresh_sheet_status_failed">haijasasishwa</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">zote zimesasishwa</string>
+    <string name="refresh_sheet_status_partial">imesasishwa kwa kiasi</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Inasubiri kuanza</string>
+    <string name="refresh_sheet_widgets">Wijeti</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">ombi la jumla %1$s (limeshindwa)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">hitilafu %1$d</item>
+        <item quantity="other">hitilafu %1$d</item>
+    </plurals>
+    <string name="refresh_report_live">Moja kwa moja: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d haiuzwi tena</item>
+        <item quantity="other">%1$d haziuzwi tena</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d moja moja</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">Imeshindwa</string>
+    <string name="check_result_ok">Sawa</string>
+    <string name="check_result_partial">Kwa kiasi</string>
+    <string name="check_result_skipped">Imerukwa</string>
+    <string name="check_trigger_bgtask">Chinichini</string>
+    <string name="check_trigger_exact">Kwa wakati</string>
+    <string name="check_trigger_foreground">Programu</string>
+    <string name="check_trigger_widget">Wijeti</string>
+    <string name="check_trigger_widget_ios">Wijeti · bei na kengele za bei</string>
+    <string name="check_trigger_worker">Chinichini</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android inaweza kuchelewesha ukaguzi – weka betri kuwa “Bila vikwazo”</string>
+    <string name="battery_later">Baadaye</string>
+    <string name="battery_message">Android huchelewesha kazi za chinichini ili kuokoa nishati — bei na wijeti zinaweza kuwa za saa kadhaa zilizopita. Ukiweka matumizi ya betri bila vikwazo zinabaki za sasa. Unaweza kubadilisha hili wakati wowote kwenye mipangilio ya Android.</string>
+    <string name="battery_open_settings">Fungua mipangilio ya betri</string>
+    <string name="battery_steps">Kwenye maelezo ya programu, gusa Betri (au Matumizi ya betri ya programu) na uchague Bila vikwazo.</string>
+    <string name="battery_title">Weka bei ziwe za sasa</string>
+    <string name="ios_background_refresh_off">Background App Refresh imezimwa kwa programu hii. Bila hiyo, kengele hukaguliwa tu programu ikiwa wazi.</string>
+    <string name="ios_low_power_mode">Low Power Mode imewashwa. iOS hukagua chinichini mara chache, kwa hiyo kengele zinaweza kuchelewa.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Ujumbe wa jukwaa: %1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">Hifadhi bado imefungwa – inajaribu tena baada ya sekunde %1$d</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="one">Hifadhi bado imefungwa – inajaribu tena baada ya sekunde %1$d</item>
+        <item quantity="other">Hifadhi bado imefungwa – inajaribu tena baada ya sekunde %1$d</item>
+    </plurals>
+    <string name="watchlist_retry_short">Inajaribu tena baada ya %1$s</string>
+    <string name="widget_retry_at">Inajaribu tena saa %1$s</string>
+    <string name="refresh_sheet_wait_attempt">Jaribio %1$d – hifadhi iliyosimbwa haikuwa tayari kwenye jaribio la kwanza</string>
+</resources>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Nazaj</string>
+    <string name="action_cancel">Prekliči</string>
+    <string name="action_clear">Počisti</string>
+    <string name="action_close">Zapri</string>
+    <string name="action_keep">Obdrži</string>
+    <string name="action_delete">Izbriši</string>
+    <string name="action_edit">Uredi</string>
+    <string name="action_more">Več možnosti</string>
+    <string name="action_refresh">Osveži</string>
+    <string name="action_retry">Poskusi znova</string>
+    <string name="action_save">Shrani</string>
+    <string name="action_sort">Razvrsti</string>
+    <string name="action_sort_done">Končano</string>
+    <string name="action_undo">Razveljavi</string>
+    <string name="action_view">Poglej</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Trg</string>
+    <string name="tab_portfolio">Portfelj</string>
+    <string name="tab_settings">Nastavitve</string>
+    <string name="tab_watchlist">Seznam</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Napaka: %1$s</string>
+    <string name="error_exchange_unreachable">Borza trenutno ni dosegljiva – zadnji tečaji ostanejo vidni.</string>
+    <string name="error_exchange_unreachable_short">Borza trenutno ni dosegljiva</string>
+    <string name="loading_hint">Nalaganje …</string>
+    <string name="option_off">Izklopljeno</string>
+    <string name="something_went_wrong">Nekaj je šlo narobe</string>
+    <string name="time_just_now">pravkar</string>
+    <string name="try_again">Poskusi znova</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Ni povezave</string>
+    <string name="offline_status_since">Ni povezave · stanje %1$s</string>
+    <string name="status_live">V živo</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Dodaj par</string>
+    <string name="shortcut_alarms">Vsi alarmi</string>
+    <string name="shortcut_cycle">Trg</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Dodaj par na seznam</string>
+    <string name="shortcut_alarms_long">Prikaži vse alarme</string>
+    <string name="shortcut_cycle_long">Odpri pregled trga</string>
+
+    <string name="log_box_title">Dnevnik</string>
+    <string name="label_value">%1$s: %2$s</string>
+</resources>

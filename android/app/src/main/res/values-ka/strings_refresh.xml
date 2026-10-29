@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">მეტ მონაცემს და ბატარეას მოითხოვს</string>
+    <string name="update_mode_live">Live, როცა ღიაა</string>
+    <string name="update_mode_live_hint">სადაც ბირჟა live ფასს იძლევა: მყისიერად, სანამ დაკვირვების სია ღიაა. სხვა შემთხვევაში – შემდეგი მოთხოვნისას. დახურულისას: არაუმეტეს ყოველ %1$s-ში, ხშირად უფრო გვიან.</string>
+    <string name="update_mode_live_hint_ios">სადაც ბირჟა live ფასს იძლევა: მყისიერად, სანამ დაკვირვების სია ღიაა. სხვა შემთხვევაში – შემდეგი მოთხოვნისას. დახურულისას: როცა iOS ამის საშუალებას იძლევა, ზოგჯერ საათების ინტერვალით. თუ აპს გადაფურცლით დახურავ, iOS ამ შემოწმებებს აჩერებს, სანამ ხელახლა არ გახსნი.</string>
+    <string name="update_mode_recommended">რეკომენდებულია</string>
+    <string name="update_mode_sparsam">ეკონომიური</string>
+    <string name="update_mode_sparsam_hint">დახურული აპის დროს – არაუმეტეს ყოველ %1$s-ში, ხშირად უფრო გვიან (განგაშები, ვიჯეტები). ღიისას: ყოველ გახსნაზე.</string>
+    <string name="update_mode_sparsam_hint_ios">დახურული აპის დროს iOS წყვეტს, როდის შეამოწმოს (განგაშები, ვიჯეტები), ზოგჯერ საათების ინტერვალით. ღიისას: ყოველ გახსნაზე.</string>
+    <string name="update_mode_title">განახლების სიხშირე</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">განახლება შეწყდა</string>
+    <string name="refresh_sheet_alarms">განგაშები</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d ამოქმედდა</item>
+        <item quantity="other">%1$d ამოქმედდა</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">ყველაფერი განახლდა</string>
+    <string name="refresh_sheet_app_start">აპის გაშვება</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">ჯგუფური მოთხოვნა %1$s · %2$d ფასი</item>
+        <item quantity="other">ჯგუფური მოთხოვნა %1$s · %2$d ფასი</item>
+    </plurals>
+    <string name="refresh_sheet_database">მონაცემთა ბაზა</string>
+    <string name="refresh_sheet_exchange_unreachable">%1$s მიუწვდომელია</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
+        <item quantity="one">%1$d ბირჟა მიუწვდომელია</item>
+        <item quantity="other">%1$d ბირჟა მიუწვდომელია</item>
+    </plurals>
+    <string name="refresh_sheet_network">ქსელი</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d ფასის შეტყობინება</item>
+        <item quantity="other">%1$d ფასის შეტყობინება</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d წყვილი</item>
+        <item quantity="other">%1$d წყვილი</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d წყვილი არ განახლდა</item>
+        <item quantity="other">%1$d წყვილი არ განახლდა</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d / %1$d წყვილიდან</item>
+        <item quantity="other">%2$d / %1$d წყვილიდან</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">შეჩერებულია %1$s-მდე</string>
+    <string name="refresh_sheet_paused_until_reason">შეჩერებულია %1$s-მდე (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">მონაცემები არ არის</string>
+    <string name="refresh_sheet_reason_offline">კავშირი არ არის</string>
+    <string name="refresh_sheet_reason_rate_limit">ძალიან ბევრი მოთხოვნა</string>
+    <string name="refresh_sheet_reason_server">სერვერის შეცდომა</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">დრო ამოიწურა</string>
+    <string name="refresh_sheet_reason_unavailable">ბირჟა მიუწვდომელია</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s წამი</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_exchanges">ბირჟები</string>
+    <string name="refresh_sheet_section_steps">დეტალები</string>
+    <string name="refresh_sheet_status_failed">არ განახლდა</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">ყველა განახლდა</string>
+    <string name="refresh_sheet_status_partial">ნაწილობრივ განახლდა</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">დაწყების მოლოდინში</string>
+    <string name="refresh_sheet_widgets">ვიჯეტები</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">ჯგუფური მოთხოვნა %1$s (ვერ შესრულდა)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d შეცდომა</item>
+        <item quantity="other">%1$d შეცდომა</item>
+    </plurals>
+    <string name="refresh_report_live">Live: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d აღარ ივაჭრება</item>
+        <item quantity="other">%1$d აღარ ივაჭრება</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d ცალკე</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">ვერ შესრულდა</string>
+    <string name="check_result_ok">კარგადაა</string>
+    <string name="check_result_partial">ნაწილობრივ</string>
+    <string name="check_result_skipped">გამოტოვებულია</string>
+    <string name="check_trigger_bgtask">ფონი</string>
+    <string name="check_trigger_exact">ზუსტ დროზე</string>
+    <string name="check_trigger_foreground">აპი</string>
+    <string name="check_trigger_widget">ვიჯეტი</string>
+    <string name="check_trigger_widget_ios">ვიჯეტი · ფასები და ფასის განგაშები</string>
+    <string name="check_trigger_worker">ფონი</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android-მა შეიძლება შემოწმებები გადადოს – ბატარეა დააყენე «შეზღუდვის გარეშე»</string>
+    <string name="battery_later">მოგვიანებით</string>
+    <string name="battery_message">Android ენერგიის დასაზოგად ფონურ მუშაობას აყოვნებს — ფასები და ვიჯეტები შეიძლება საათობით მოძველებული იყოს. ბატარეის გამოყენების «შეზღუდვის გარეშე» დაყენება მათ აქტუალურს ინარჩუნებს. ამის შეცვლა ნებისმიერ დროს შეგიძლია Android-ის პარამეტრებში.</string>
+    <string name="battery_open_settings">ბატარეის პარამეტრების გახსნა</string>
+    <string name="battery_steps">აპის ინფორმაციაში შეეხე ბატარეას (ან აპის ბატარეის გამოყენებას) და აირჩიე შეზღუდვის გარეშე.</string>
+    <string name="battery_title">ფასები აქტუალური შეინარჩუნე</string>
+    <string name="ios_background_refresh_off">ამ აპისთვის აპის ფონური განახლება გამორთულია. მის გარეშე განგაშები მხოლოდ მაშინ მოწმდება, როცა აპი ღიაა.</string>
+    <string name="ios_low_power_mode">ენერგიის დაზოგვის რეჟიმი ჩართულია. iOS ფონში იშვიათად ამოწმებს, ამიტომ განგაშებმა შეიძლება დააგვიანოს.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">ბირჟის შეტყობინება: %1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">მეხსიერება ჯერ კიდევ დაბლოკილია – ხელახლა ცდა %1$d წმ-ში</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="one">მეხსიერება ჯერ კიდევ დაბლოკილია – ხელახლა ცდა %1$d წამში</item>
+        <item quantity="other">მეხსიერება ჯერ კიდევ დაბლოკილია – ხელახლა ცდა %1$d წამში</item>
+    </plurals>
+    <string name="watchlist_retry_short">ხელახლა ცდა %1$s-ში</string>
+    <string name="widget_retry_at">ხელახლა ცდა %1$s-ზე</string>
+    <string name="refresh_sheet_wait_attempt">მცდელობა %1$d – დაშიფრული მეხსიერება პირველად მზად არ იყო</string>
+</resources>

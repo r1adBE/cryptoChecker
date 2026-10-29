@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">Սեփական</string>
+    <string name="settings_group_general">Ընդհանուր</string>
+    <string name="settings_group_more">Ավելին</string>
+    <string name="settings_minutes">%1$d րոպե</string>
+    <string name="settings_row_about">Հավելվածի մասին</string>
+    <string name="settings_row_alarms">Ահազանգեր</string>
+    <string name="settings_row_currency">Արժույթ</string>
+    <string name="settings_row_dated_futures">Ժամկետային ֆյուչերսներ</string>
+    <string name="settings_row_updates">Գների թարմացում</string>
+    <string name="settings_row_watchlist">Դիտացանկ</string>
+    <string name="settings_search_hint">Որոնել կարգավորումներում</string>
+    <string name="settings_seconds">%1$d վ</string>
+    <string name="settings_section_about">Մասին</string>
+    <string name="settings_section_appearance">Արտաքին տեսք</string>
+    <string name="settings_section_developer">Մշակող</string>
+    <string name="settings_section_language">Լեզու</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">Միացված</string>
+    <string name="settings_title">Կարգավորումներ</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">Դադար՝ մինչև ահազանգի կրկին գործարկվելը</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Ահազանգի ազդանշան</string>
+    <string name="settings_alarm_signal_open_system">Կարգավորել համակարգի կարգավորումներում</string>
+    <string name="settings_alarm_signal_system_hint">Հետևում է քո հեռախոսի ծանուցումների կարգավորումներին։</string>
+    <string name="settings_alarm_sound">Ահազանգի ձայն</string>
+    <string name="settings_alarm_sound_custom">Սեփական ձայն</string>
+    <string name="settings_alarm_sound_default">Լռելյայն ձայն</string>
+    <string name="settings_alarm_sound_error">Ձայնը հնարավոր չեղավ օգտագործել։</string>
+    <string name="settings_alarm_sound_file">Քո սեփական աուդիոֆայլը…</string>
+    <string name="settings_alarm_sound_reset">Օգտագործել լռելյայն ձայնը</string>
+    <string name="settings_alarm_sound_system">Ընտրել համակարգային ձայն…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Թիվ հավելվածի պատկերակի վրա</string>
+    <string name="settings_app_badge_hint">Հաշվում է ահազանգերի բաց ծանուցումները։ Թիվ, թե կետ կհայտնվի՝ որոշում է գլխավոր էկրանը (օր.՝ Samsung՝ «Ցույց տալ թվով»)։</string>
+    <string name="settings_exact_checks">Ստուգել ճշգրիտ ժամին</string>
+    <string name="settings_exact_checks_grant">Թույլատրել զարթուցիչներ &amp; հիշեցումներ</string>
+    <string name="settings_exact_checks_hint">Android-ը ստուգում է մոտավորապես 15 րոպեն մեկ, նույնիսկ երբ սարքը պարապ է։ Մի փոքր ավելի շատ մարտկոց է ծախսում։</string>
+    <string name="settings_exact_checks_nothing">Ակտիվ զույգեր չկան – ստուգելու բան չկա։</string>
+    <string name="settings_exact_checks_permission_missing">Թույլտվությունը բացակայում է – երբ սարքը հանգստի վիճակում է, Android-ը ստուգում է անկանոն, երբեմն միայն ժամեր անց։</string>
+    <string name="settings_notification_change">Ծանուցել միայն գնի փոփոխության դեպքում</string>
+    <string name="settings_notification_change_always">Միշտ</string>
+    <string name="settings_percent_invalid">Մուտքագրիր 0-ից 100 արժեք։</string>
+    <string name="settings_notification_change_hint">Գնի ծանուցումը հայտնվում է միայն այն ժամանակ, երբ գինը վերջինից հետո շարժվել է առնվազն այսքան։ Քանի դեռ տվյալներ չկան, ոչինչ չի ցուցադրվում։ Ահազանգերի վրա չի ազդում։</string>
+    <string name="settings_ongoing_notifications">Հնարավոր չէ սահեցնելով հեռացնել</string>
+    <string name="settings_ongoing_notifications_hint">Պահում է գնի ծանուցումները ամրացված։</string>
+    <string name="settings_price_notifications">Գնի ծանուցումներ</string>
+    <string name="settings_price_notifications_hint">Ցույց տալ միացված զույգերի ընթացիկ գինը կարգավիճակի գոտում։</string>
+    <string name="settings_price_pairs">Զույգեր</string>
+    <string name="settings_price_pairs_all_off">Բոլորն անջատված</string>
+    <string name="settings_price_pairs_all_on">Բոլորը միացված</string>
+    <string name="settings_price_pairs_count">%1$d / %2$d</string>
+    <string name="settings_price_pairs_empty">Դիտացանկում դեռ զույգեր չկան։</string>
+    <string name="settings_price_pairs_hint">Ընտրիր, թե որ զույգերը ցույց տան իրենց գինը ծանուցումների գոտում։</string>
+    <string name="settings_quiet_hours">Լուռ ժամեր</string>
+    <string name="settings_quiet_hours_from">Սկսած</string>
+    <string name="settings_quiet_hours_hint">%1$s-ից %2$s ահազանգերը սպասում են մինչև լուռ ժամերի ավարտը, ապա հնչում են ձայնով։ Այլ ծանուցումները հասնում են անձայն, առանց խոսքի։</string>
+    <string name="settings_quiet_hours_to">Մինչև</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">Միջակայք</string>
+    <string name="settings_background_updates">Ֆոնային թարմացումներ</string>
+    <string name="settings_battery_hint">Սահմանափակվածը նշանակում է, որ Android-ը կարող է ֆոնային թարմացումները ժամերով հետաձգել։</string>
+    <string name="settings_battery_ok">Մարտկոցի օգտագործում՝ առանց սահմանափակման</string>
+    <string name="settings_battery_restricted">Մարտկոցի օգտագործում՝ սահմանափակված</string>
+    <string name="settings_check_runs_empty">Դեռ ստուգումներ չեն գրանցվել։</string>
+    <string name="settings_check_runs_honest_android">Android-ն է որոշում, թե երբ ստուգել – այստեղ տեսնում ես, թե իրականում երբ է դա տեղի ունեցել։</string>
+    <string name="settings_check_runs_honest_ios">iOS-ն է որոշում, թե երբ ստուգել – այստեղ տեսնում ես, թե իրականում երբ է դա տեղի ունեցել։</string>
+    <string name="settings_check_runs_title">Վերջին ստուգումները</string>
+    <string name="settings_http_log">Ցույց տալ HTTP մատյանը</string>
+    <string name="settings_http_log_hint">Ցույց է տալիս բորսաներին ուղղված հարցումները «Ավելացնել զույգ» էջի ներքևում – խնդիրների վերացման համար։</string>
+    <string name="settings_live_service">Թարմացնել հաճախ</string>
+    <string name="settings_live_websocket">Live գներ</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">Ուշագրավ՝ ծանուցել</string>
+    <string name="settings_activity_alerts_hint">Մեկ զույգի համար առավելագույնը ժամը մեկ անգամ՝ գնի անսովոր շարժումներ, ծավալի ցատկեր և ֆյուչերսների ծայրահեղություններ (տվյալներ Binance-ից)։</string>
+    <string name="settings_activity_sensitivity">Զգայունություն</string>
+    <string name="settings_activity_sensitivity_hint">Որքան հեշտությամբ է կոինը համարվում անսովոր – նույնը դիտացանկի քարտի և շուկայի ահազանգերի համար։ «Ավելի քիչ»-ի դեպքում քարտը ցույց է տալիս միայն 3 ամենաուժեղները։</string>
+    <string name="settings_watchlist_activity_card">Ուշագրավ՝ ցույց տալ ցանկում</string>
+    <string name="settings_watchlist_activity_card_hint">Ցույց է տալիս ⚡ պիտակը խմբերի կողքին՝ հպիր դրան՝ տեսնելու միայն այն զույգերը, որտեղ հիմա ինչ-որ բան է կատարվում։ Դրա ծանուցումները կարգավորվում են Շուկայի ահազանգերում։</string>
+    <string name="settings_watchlist_names">Ցույց տալ անունները</string>
+    <string name="settings_watchlist_names_hint">Անունը զույգի տակ, օր.՝ Bitcoin կամ NVIDIA։ Գալիս է լոգոների ցանկերի հետ՝ բեռնված մեկ անգամ բոլոր կոինների համար։</string>
+    <string name="settings_watchlist_sparkline">Մինի գրաֆիկ դիտացանկում</string>
+    <string name="settings_watchlist_sparkline_hint">24-ժամյա միտումը գնի կողքին</string>
+    <string name="settings_watchlist_value_names">Անուններ</string>
+    <string name="settings_watchlist_value_price_only">Միայն գին</string>
+    <string name="settings_watchlist_value_sparkline">Մինի գրաֆիկ</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Ներառյալ Alpha տոկեններ (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Alpha տոկեններ՝ վաղ, հիմնականում փոքր նախագծեր Binance Alpha ցանկից – հաճախ քիչ առևտրվող և խիստ տատանողական։</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">Պատկանում է Տոկեններին։ Հասանելի չէ, քանի դեռ ընտրված է «Միայն TradFi». դիտացանկում արդեն եղած Alpha տոկենները մնում են։</string>
+    <string name="settings_asset_scope_both">Տոկեններ և TradFi</string>
+    <string name="settings_asset_scope_both_hint">Ամեն ինչ – կրիպտո և TradFi</string>
+    <string name="settings_asset_scope_hint">Սահմանում է, թե որ զույգերն են ցույց տալիս ընտրությունն ու որոնումը զույգեր ավելացնելիս։ Դիտացանկում արդեն եղած զույգերը միշտ մնում են։</string>
+    <string name="settings_asset_scope_title">Տոկեններ &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">Միայն տոկեններ</string>
+    <string name="settings_asset_scope_tokens_hint">Կրիպտո՝ սպոտ և perpetual-ներ</string>
+    <string name="settings_asset_scope_tradfi">Միայն TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">Ֆյուչերսներ բաժնետոմսերի, ապրանքների, FX-ի վրա – պայմանագրեր, ոչ տոկեններ</string>
+    <string name="settings_rolling_futures">Ներառյալ եռամսյակային &amp; այլ ժամկետային ֆյուչերսներ</string>
+    <string name="settings_rolling_futures_hint">Անջատված՝ բորսայի ցանկում բացակայող ժամկետային ֆյուչերսները նշվում են որպես այլևս չառևտրվող՝ մեկ առ մեկ ստուգվելու փոխարեն։ Խնայում է ժամանակ յուրաքանչյուր թարմացման ժամանակ։</string>
+    <string name="settings_rolling_futures_qtly">Ներառյալ եռամսյակային &amp; այլ ժամկետային ֆյուչերսներ (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">Պատկանում է Տոկեններին։ Հասանելի չէ, քանի դեռ ընտրված է «Միայն TradFi». դեռ կիրառվում է դիտացանկում արդեն եղած ժամկետային ֆյուչերսների նկատմամբ։</string>
+    <string name="settings_tradfi_futures">Բաժնետոմսեր, ապրանքներ և FX (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Զույգ ընտրելիս ցույց է տալիս նաև ֆյուչերսներ բաժնետոմսերի, ոսկու և այլ ապրանքների, արժույթների և pre-IPO ընկերությունների վրա։ Դրանք պայմանագրեր են, ոչ տոկեններ։</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">Շեշտադրման գույն</string>
+    <string name="settings_accent_hint">Գույնը հավելվածի, վիջեթների և հավելվածի պատկերակի համար։ Որոշ գլխավոր էկրաններ հեռացնում են պատկերակը, երբ այն փոխվում է – այդ դեպքում ավելացրու այն նորից։</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Կոինների լոգոներ</string>
+    <string name="settings_coin_logos_app">Հավելվածում</string>
+    <string name="settings_coin_logos_app_hint">Դիտացանկ, բացված զույգ և շուկայի քարտեր</string>
+    <string name="settings_coin_logos_footer">Լոգոները գալիս են CoinGecko-ից, իսկ այն կոինների համար, որոնք CoinGecko-ն չի ցուցակում (օր.՝ ոսկի, արծաթ, բաժնետոմսեր)՝ Binance-ից։ Հավելվածը բեռնում է բոլոր լոգոները միանգամից և պահում այս սարքում, ուստի ոչ մի մատակարար չի կարող իմանալ, թե որ կոիններին ես հետևում։ Առանց լոգոյի կոինները ցույց են տալիս իրենց սկզբնատառերը։ Ընտրյալները լոգոյի վրա ստանում են փոքր աստղ։ Որտեղ անջատիչն անջատված է, ո՛չ լոգոներ, ո՛չ սկզբնատառեր չեն հայտնվում. բոլոր անջատիչներն անջատված լինելու դեպքում ոչինչ չի բեռնվում։</string>
+    <string name="settings_coin_logos_portfolio">Պորտֆելում</string>
+    <string name="settings_coin_logos_portfolio_hint">Դիրքեր, կոինի մանրամասներ և վերլուծություն</string>
+    <string name="settings_coin_logos_value_app">Հավելված</string>
+    <string name="settings_coin_logos_widgets">Վիջեթներում</string>
+    <string name="settings_coin_logos_widgets_hint">Դիտացանկի և մեկ կոինի վիջեթներ</string>
+    <string name="settings_high_contrast">Բարձր կոնտրաստ</string>
+    <string name="settings_high_contrast_hint">Գնի ավելի ուժեղ գույներ և ավելի մուգ երկրորդական տեքստ։ Միանում է նաև, երբ համակարգը ավելի շատ կոնտրաստ է պահանջում։</string>
+    <string name="settings_language_choose">Ընտրել լեզուն</string>
+    <string name="settings_language_system">Համակարգի լեզու</string>
+    <string name="settings_price_colors">Գնի գույներ</string>
+    <string name="settings_price_colors_hint">Կապույտ / նարնջագույնը հեշտ է տարբերել գունային տեսողության ցանկացած խանգարման դեպքում (կարմիր-կանաչ և կապույտ-դեղին)։ Ուղղությունը միշտ ցույց է տրվում նաև + / − նշաններով։</string>
+    <string name="settings_theme_mode">Բաց / Մուգ</string>
+    <string name="settings_widgets">Վիջեթներ</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">%1$s փոփոխություն &amp; գրաֆիկի ժամային գոտի</string>
+    <string name="settings_change_basis_hint_1">Ընտրված ժամային գոտին սահմանում է, թե երբվանից է հաշվվում տոկոսային փոփոխությունը (դիտացանկ, զարկերակի տող, բացված զույգ, վիջեթներ) և գրաֆիկներում ցուցադրվող ժամերը։</string>
+    <string name="settings_change_basis_hint_2">«%1$s»-ը համեմատում է ճիշտ 24 ժամ առաջվա գնի հետ։ «00:00»-ն համեմատում է այդ ժամային գոտում կեսգիշերի բացման գնի հետ։</string>
+    <string name="settings_change_basis_hint_3">Ահազանգերի վրա չի ազդում։</string>
+    <string name="settings_change_basis_hint_since_last">«%1$s»-ը համեմատում է նախորդ թարմացման գնի հետ։ Live գների դեպքում այն մնում է 0%%-ին մոտ։</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">Փոխարկման արժույթ</string>
+    <string name="settings_conversion_currency_hint">Օգտագործվում է նաև պորտֆելի, քո արժույթով ահազանգերի, կրիպտո շուկայի քարտի և պորտֆելի վիջեթի համար։</string>
+    <string name="settings_cost_method">Արժեքի հաշվարկման մեթոդ</string>
+    <string name="settings_cost_method_average">Միջին արժեք</string>
+    <string name="settings_cost_method_average_hint">Վաճառքները գնահատվում են գնման շարժական միջին գնով։</string>
+    <string name="settings_cost_method_fifo">FIFO (լռելյայն)</string>
+    <string name="settings_cost_method_fifo_hint">Ամենահին կոինները վաճառվում են առաջինը՝ բոլոր բորսաներում և դրամապանակներում։</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO ըստ դրամապանակի/բորսայի</string>
+    <string name="settings_cost_method_fifo_wallet_hint">Ամենահին կոինները առաջինը՝ յուրաքանչյուր բորսայի կամ դրամապանակի ներսում. փոխանցումները տեղափոխում են լոտերը իրենց գնման ամսաթվով։</string>
+    <string name="settings_portfolio_lock">Պորտֆելի կողպեք</string>
+    <string name="settings_portfolio_lock_footer">Կողպեքը թաքցնում է էկրանին ցուցադրվողը։ Քո տվյալները պահվում են այս սարքում և պաշտպանված են սարքի գաղտնագրմամբ։ Պահուստային պատճենները կարող ես պաշտպանել գաղտնաբառով։</string>
+    <string name="settings_portfolio_lock_hint">Թաքցնում է միայն պորտֆելը՝ ապակողպիր մատնահետքով, դեմքով կամ սարքի PIN-ով։ Կրկին կողպվում է ֆոնում մեկ րոպեից ավելի մնալուց հետո։ Դիտացանկը, ահազանգերը և այլ վիջեթները մնում են բաց։</string>
+    <string name="settings_portfolio_lock_no_device_lock">Առանց սարքի PIN-ի կամ գաղտնակոդի կողպեքը ոչինչ չի թաքցնում – կարգավորիր էկրանի կողպեք։</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Պորտֆելը համակարգային պահուստում</string>
+    <string name="settings_portfolio_system_backup_hint">Անջատված՝ քո գործարքները դուրս են մնում սարքի համակարգային պահուստից և հեռախոսից հեռախոս փոխանցումներից։ Նոր հեռախոս տեղափոխելու համար օգտագործիր հավելվածի սեփական պահուստավորումը գաղտնաբառով։</string>
+    <string name="settings_portfolio_system_backup_unavailable">Պահանջում է Android 9 կամ ավելի նոր – հին տարբերակները պորտֆելը կպահեին չգաղտնագրված Google պահուստում։</string>
+    <string name="settings_portfolio_tab">Ցույց տալ Պորտֆել ներդիրը</string>
+    <string name="settings_portfolio_value_locked">Միացված, կողպեքով</string>
+    <string name="settings_show_converted">Փոխարկված գներ</string>
+    <string name="settings_show_converted_hint">Դիտացանկում գները ցույց է տալիս նաև %1$s-ով</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">Հաղորդել USDT-ի depeg-ի մասին</string>
+    <string name="settings_depeg_alarm_hint">Մեկ անգամ ծանուցում է, երբ USDT-ն 1 USD-ից շեղվում է շեմի չափով (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT)։</string>
+    <string name="settings_depeg_threshold">Depeg-ի շեմ</string>
+    <string name="settings_fng_above">Fear &amp; Greed՝ ծանուցել բարձր</string>
+    <string name="settings_fng_below">Fear &amp; Greed՝ ծանուցել ցածր</string>
+    <string name="settings_gas_alert_hint">Մեկ անգամ ծանուցում է, երբ սովորական միջնորդավճարն իջնում է սահմանից ցածր։ Ստուգվում է գների թարմացման ժամանակ, առավելագույնը 10 րոպեն մեկ։</string>
+    <string name="settings_gas_btc_below">Bitcoin-ի միջնորդավճարը ցածր (sat/vB)</string>
+    <string name="settings_gas_eth_below">Ethereum gas-ը ցածր (gwei)</string>
+    <string name="settings_ind_ath_within">Անկում բոլոր ժամանակների առավելագույնից՝ առավելագույնը</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple-ը բարձր</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple-ը ցածր</string>
+    <string name="settings_ind_mvrv_above">MVRV-ն բարձր</string>
+    <string name="settings_ind_mvrv_below">MVRV-ն ցածր</string>
+    <string name="settings_indicator_alerts_hint">Bitcoin-ի ցուցանիշներ, ստուգվում են օրը երկու անգամ։ Սահմանները դու ես ընտրում – հավելվածը չի գնահատում արժեքները։</string>
+    <string name="settings_macro_notifications">Տնտեսական օրացույց</string>
+    <string name="settings_macro_notifications_hint">Ժամը 08:00-ին՝ ԱՄՆ-ի կարևոր տնտեսական տվյալներով օրերին (գնաճ, աշխատաշուկայի զեկույց, ԴՊՀ-ի որոշում)։ Օրացույցը գալիս է հավելվածի կայքից, բեռնվում է օրը մեկ անգամ։</string>
+    <string name="settings_market_alerts">Շուկայի ահազանգեր</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d ակտիվ</item>
+        <item quantity="other">%1$d ակտիվ</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">Խոսքի արագություն՝ %1$.1f×</string>
+    <string name="settings_tts">Բարձրաձայն ընթերցում</string>
+    <string name="settings_tts_alarms_only">Միայն ահազանգեր</string>
+    <string name="settings_tts_alarms_only_hint">Անջատված՝ «Բարձրաձայնել գինը» նշված զույգի յուրաքանչյուր թարմացում կարդացվում է բարձրաձայն։</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">Բարձրաձայն կարդում է գներն ու ահազանգերը։ Լռում է, երբ սարքը անձայն կամ թրթռման ռեժիմում է։</string>
+    <string name="settings_tts_test">Փորձել ձայնը</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">Զրոյացնել հավելվածը</string>
+    <string name="settings_reset_app_action">Ջնջել ամեն ինչ</string>
+    <string name="settings_reset_app_confirm">Ջնջում է դիտացանկը, ահազանգերը, պորտֆելը, կարգավորումները և բոլոր պահված տվյալները, ինչպես տեղադրումից հետո։ Սա հնարավոր չէ հետարկել։ Խորհուրդ՝ նախ ստեղծիր պահուստային պատճեն։ Սարքի պահուստները (Google պահուստ կամ iCloud/համակարգչային պահուստ) պահում են նախկին տվյալները մինչև հաջորդ պահուստավորումը։</string>
+    <string name="settings_reset_app_title">Զրոյացնե՞լ հավելվածը</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">Որոնել արժույթ</string>
+    <string name="language_search">Որոնել լեզու</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">Մուգ</string>
+    <string name="theme_light">Բաց</string>
+    <string name="theme_system">Համակարգային</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">Կապույտ</string>
+    <string name="accent_green">Կանաչ</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs կանաչ</string>
+    <string name="accent_orange">Նարնջագույն</string>
+    <string name="accent_red">Կարմիր</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">Տարածված է Չինաստանում, Ճապոնիայում, Կորեայում և Թայվանում</string>
+    <string name="price_colors_swap">Փոխել գույները (աճ ↔ անկում)</string>
+    <string name="price_style_calm">Հանգիստ</string>
+    <string name="price_style_calm_color_vision">Հանգիստ · Գունային տեսողության խանգարում</string>
+    <string name="price_style_color_vision">Գունային տեսողության խանգարում</string>
+    <string name="price_style_fresh">Թարմ</string>
+    <string name="price_style_traditional">Ավանդական</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">Բորսաների միացումները վերջին անգամ ստուգվել են իրական պատասխանների հետ՝ %1$s</string>
+    <string name="about_license">Գները գալիս են անմիջապես բորսաներից. առանց հաշվի և առանց հետևման։</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">Լիցենզիաներ</string>
+    <string name="about_privacy_policy">Գաղտնիության քաղաքականություն</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">Խնդրել բորսա</string>
+    <string name="about_source_code">Ելակետային կոդը GitHub-ում</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker-ը r1AD-ի անկախ նախագիծ է՝ գների հանգիստ ակնարկ առանց հաշվի, գովազդի կամ հետևման։ Հարցեր և ցանկություններ՝ %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker-ը բաց կոդով է (MIT լիցենզիա)։</string>
+    <string name="licenses_font_title">Rubik տառատեսակ</string>
+    <string name="licenses_icons_bundled_text">Հավելվածի հետ միասին՝ «Cryptocurrency Icons»-ի պատկերակներ, հեղինակ՝ Christopher Downer և մասնակիցներ (github.com/spothq/cryptocurrency-icons), թողարկված CC0 1.0 Universal-ով։ Դրանք ցուցադրվում են, մինչև CoinGecko-ի կամ Binance-ի լոգոները բեռնվեն։ Անուններն ու լոգոները մնում են իրենց նախագծերի ապրանքանիշերը։</string>
+    <string name="licenses_icons_title">Կոինների պահեստային պատկերակներ</string>
+    <string name="licenses_libraries_intro">Հավելվածն օգտագործում է այս գրադարանները Apache License 2.0-ով՝</string>
+    <string name="licenses_libraries_title">Android գրադարաններ</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">ԵՒս %d հպում՝ մշակողի ընտրանքները բացելու համար</item>
+        <item quantity="other">ԵՒս %d հպում՝ մշակողի ընտրանքները բացելու համար</item>
+    </plurals>
+    <string name="developer_unlocked">Մշակողի ընտրանքները բացված են</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Թրթռումը հետևում է iPhone-ի կարգավորումներին (Ձայներ &amp; հապտիկա)։</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Հաշվում է նոր ահազանգերը և շուկայի ահազանգերը. վերադառնում է 0-ի, երբ բացում ես հավելվածը։</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Քո տվյալները</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">Այս սարքում</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Քո դիտացանկը, ահազանգերը և պորտֆելը պահվում են գաղտնագրված այս սարքում. առանց հաշվի, առանց մեր սեփական սերվերի։</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Միացումներ</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Գները գալիս են անմիջապես քո զույգերի բորսաներից, ինչպես նաև փոխարժեքներ, կոինների ցանկեր և լոգոներ և տվյալների հայելին GitHub-ում. նրանք տեսնում են քո IP հասցեն, երբեք քո ակտիվները (դիտվող հասցեները գնում են համապատասխան ցանցի մատակարարին)։</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Պահուստային պատճեն</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Միայն եթե ինքդ ստեղծես։ Գաղտնաբառով այն գաղտնագրված է (Argon2id + AES-256-GCM). առանց գաղտնաբառի՝ ընթեռնելի է։</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Սարքի փոփոխություն</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">Բանալին մնում է հին սարքում – նախ ստեղծիր պահուստային ֆայլ։</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Կիսվել ախտորոշմամբ</string>
+    <string name="diagnostics_share_hint">Տեքստային ֆայլ աջակցության համար՝ տարբերակ, սարք, ահազանգերի կարգավորումներ, վերջին ստուգումներ և ահազանգերի մատյան – առանց պորտֆելի, գումարների, հասցեների կամ նշումների։ Նախ ինքդ ես տեսնում այն. ոչինչ ավտոմատ չի ուղարկվում։</string>
+    <string name="diagnostics_preview_title">Ախտորոշման նախադիտում</string>
+    <string name="diagnostics_action_share">Կիսվել</string>
+    <string name="settings_price_overlay">Գնի ծածկույթ</string>
+    <string name="settings_price_overlay_hint">Մշտական գնի ծանուցման զույգերը ցույց է տալիս որպես փոքր լողացող պիտակ այլ հավելվածների վրա։ Հպիր՝ հավելվածը բացելու համար, քաշիր ներքևի ×-ի վրա՝ փակելու համար։</string>
+    <string name="settings_price_overlay_needs">Աշխատում է միայն «%1$s»-ի հետ միասին։</string>
+    <string name="settings_price_overlay_grant">Թույլատրել ցուցադրումն այլ հավելվածների վրա</string>
+    <string name="price_overlay_close">Փակել ծածկույթը</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">Սեփական սերվեր հասցեների համար</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Միայն Bitcoin՝ քո սեփական Esplora- կամ mempool-համատեղելի սերվերը (օր.՝ https://node.example/api, պահանջվում է հանրորեն վստահելի վկայագիր, օրինակ՝ Let\'s Encrypt)։ Եթե սահմանված է, Bitcoin հասցեներն ու xpub բանալիները հարցվում են միայն այնտեղ – երբեք հանրային հանգույցներում, նույնիսկ երբ քո սերվերը հասանելի չէ։ Այլ ցանցերը շարունակում են օգտագործել հանրային հանգույցներ։ Դատարկ = հանրային հանգույցներ։</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Bitcoin սերվեր (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">Փորձել</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">Փորձարկվում է…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">Սերվերը պատասխանում է – բլոկ %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">Վավեր պատասխան չկա – ստուգիր հասցեն և վկայագիրը</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">Օգտագործվում է՝ %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">Սահմանված չէ – օգտագործվում են հանրային հանգույցներ</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">Թույլատրված են միայն https:// հասցեներ</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">Հասցեում օգտանուն կամ գաղտնաբառ չպետք է լինի</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">Հասցեում ? կամ # մաս չպետք է լինի</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">Վավեր սերվերի հասցե չէ</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">Անցնե՞լ հանրային հանգույցներին</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">Քո Bitcoin հասցեներն ու xpub բանալիներն այդ դեպքում կհարցվեն հանրային հանգույցներում՝ %1$s։ Նրանք տեսնում են այդ հասցեները քո IP հասցեի հետ միասին։</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">Օգտագործել հանրային հանգույցներ</string>
+</resources>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">背景</string>
+    <string name="widget_configure_hint">揀背景同透明度。顏色跟隨 App。小工具會顯示你成個自選清單；撳一行就開啟 App。</string>
+    <string name="widget_configure_title">設定小工具</string>
+    <string name="widget_description">顯示自選清單入面一個交易對嘅價格。</string>
+    <string name="widget_empty">自選清單暫時未有交易對。</string>
+    <string name="widget_group_hint">只顯示呢個群組嘅交易對。</string>
+    <string name="widget_kind_single">單一幣種</string>
+    <string name="widget_opacity">背景透明度：%1$s</string>
+    <string name="widget_pulse_description">而家市場上最突出嘅情況：標題、簡短總結，以及 Bitcoin、Ethereum 同 Solana。</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">已過時</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">已過時 · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">K 線</string>
+    <string name="widget_chart_line">線圖</string>
+    <string name="widget_chart_range">圖表範圍</string>
+    <string name="widget_chart_type">圖表類型</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 年</string>
+    <string name="widget_range_24h">24 小時</string>
+    <string name="widget_range_30d">30 日</string>
+    <string name="widget_range_7d">7 日</string>
+    <string name="widget_range_short_1y">1 年</string>
+    <string name="widget_range_short_24h">24 時</string>
+    <string name="widget_range_short_30d">30 日</string>
+    <string name="widget_range_short_7d">7 日</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">截至 %1$s</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">歷史即將推出</string>
+    <string name="widget_portfolio_description">你投資組合嘅總值同今日變動</string>
+    <string name="widget_portfolio_entries">幣種下面嘅記錄</string>
+    <string name="widget_portfolio_entries_both">兩者</string>
+    <string name="widget_portfolio_entries_buys">買入</string>
+    <string name="widget_portfolio_entries_hint">只喺幣種下面有位時先顯示。買入包括存入，賣出包括提取；揀「兩者」時，各行加埋就係持倉。</string>
+    <string name="widget_portfolio_entries_off">關閉</string>
+    <string name="widget_portfolio_entries_sells">賣出</string>
+    <string name="widget_portfolio_display">顯示</string>
+    <string name="widget_portfolio_display_conversion">只顯示換算</string>
+    <string name="widget_portfolio_display_conversion_usdt">換算 + USDT</string>
+    <string name="widget_portfolio_display_hint">換算貨幣係 USD 穩定幣（例如 USDC）時，USDT 一行會隱藏。</string>
+    <string name="widget_portfolio_display_usdt">只顯示 USDT</string>
+    <string name="widget_portfolio_empty">喺「投資組合」分頁加入買入</string>
+    <string name="widget_portfolio_list_hint">開啟 App 就可以喺呢度顯示你嘅持倉。</string>
+    <string name="widget_portfolio_locked_hint">已鎖定 – 請喺 App 解鎖</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="other">唔計 %1$d 隻幣</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="other">+ 另外 %1$d 個</item>
+    </plurals>
+    <string name="widget_portfolio_name">投資組合</string>
+    <string name="widget_portfolio_off_hint">請喺 %1$s 開啟。</string>
+    <string name="widget_portfolio_off_short">投資組合已關閉</string>
+    <string name="widget_portfolio_off_title">投資組合已關閉</string>
+    <string name="widget_portfolio_partly_stale">部分價格已過時</string>
+    <string name="widget_portfolio_period">期間</string>
+    <string name="widget_portfolio_period_without">%1$s，唔計 %2$s</string>
+    <string name="widget_portfolio_range_48h">48 小時</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s：開啟投資組合</string>
+    <string name="widget_portfolio_range_short_48h">48 時</string>
+    <string name="widget_portfolio_today_without">今日，唔計 %1$s</string>
+    <string name="widget_portfolio_view">檢視</string>
+    <string name="widget_portfolio_view_chart">圖表</string>
+    <string name="widget_portfolio_view_list">清單</string>
+    <string name="widget_portfolio_view_overview">概覽</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">揀一個交易對</string>
+    <string name="single_widget_description">以大字顯示一隻幣，連價格、變動同 24 小時圖表。</string>
+    <string name="single_widget_label">Crypto Checker – 單一幣種</string>
+    <string name="single_widget_title">設定單一幣種小工具</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">加入</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">加入小工具 %1$s</string>
+    <string name="widgets_manual_text">你嘅主畫面唔可以由 App 加入小工具。喺主畫面長按空白位置，揀「小工具」再搵「Crypto Checker」。</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">自己加入小工具</string>
+    <string name="widgets_sheet_title">加入小工具</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS 唔容許 App 自己加入小工具。一陣就搞掂：</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">可用嘅小工具</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">喺主畫面長按空白位置，直到啲 App 開始震。</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">撳頂部嘅「編輯」›「加入小工具」（舊版 iOS 就撳「+」）。</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">搜尋「Crypto Checker」，揀一個小工具再撳「加入小工具」。</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">重新整理 – %1$d 秒後可以再用</string>
+    <string name="settings_watch">手錶</string>
+    <string name="settings_watch_hint">Wear OS 手錶 App 用嘅幣（最多 %1$d 隻，以 USDT 計價）。只有呢個清單會經 Google Play services 傳去手錶；手錶會自己擷取價格。</string>
+    <string name="settings_watch_mode_phone">同手機一樣（最愛 ★）</string>
+    <string name="settings_watch_mode_own">自訂清單</string>
+    <string name="settings_watch_own_title">自訂清單：%1$d／%2$d</string>
+    <string name="settings_watch_none">暫時未有最愛</string>
+
+    <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
+    <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">「清單」冇 USDT 一行</string>
+    <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
+    <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">「概覽」會改為顯示 30 日</string>
+</resources>

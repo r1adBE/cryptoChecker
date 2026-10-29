@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">Bæta við vistfangi</string>
+    <string name="portfolio_address_count">Telja með</string>
+    <string name="portfolio_address_error">Uppfærsla mistókst</string>
+    <string name="portfolio_address_hint">Opinbert vistfang (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) eða xpub</string>
+    <string name="portfolio_address_label">Merki (valfrjálst)</string>
+    <string name="portfolio_address_not_since_buy">Frá vistfangi · ekki í „Frá kaupum“: %1$s</string>
+    <string name="portfolio_address_overlap">Líka í þínum eigin færslum: %1$s – hvort tveggja er lagt saman. Sömu myntir? Veldu „Aðeins sýna“.</string>
+    <string name="portfolio_address_overlap_ask">Þú skráir %1$s nú þegar með eigin færslum. Bæta stöðu þessa vistfangs við eignasafnið eða aðeins sýna hana?</string>
+    <string name="portfolio_address_overlap_auto">„%1$s“ er nú aðeins sýnt, ekki talið með – %2$s birtast líka í færslunum þínum.</string>
+    <string name="portfolio_address_overlap_title">Sömu myntir og í færslunum þínum?</string>
+    <string name="portfolio_address_overlap_tx">Sama upphæð og þín eigin innlögn/millifærsla (%1$s) – líklega talið tvisvar.</string>
+    <string name="portfolio_address_period_observed">Vöktuð vistföng teljast frá fyrstu staðfestu stöðu; síðari breytingar eru inn- og útflæði, ekki hagnaður.</string>
+    <string name="portfolio_address_privacy">Aðeins opinbera vistfangið er sent til %1$s – aldrei lyklar eða endurheimtarorð. Þjónustuaðilinn sér það ásamt IP-tölunni þinni. Athugað í mesta lagi á 10 mínútna fresti.</string>
+    <string name="portfolio_address_remove">Fjarlægja vistfang</string>
+    <string name="portfolio_address_show_only">Aðeins sýna, ekki bæta við eignasafnið</string>
+    <string name="portfolio_address_show_only_short">Aðeins sýna</string>
+    <string name="portfolio_address_tokens">Telja tóka</string>
+    <string name="portfolio_address_xpub_privacy">xpub sýnir öll vistföng þessa veskis. Þau eru leidd út á tækinu þínu; aðeins stök vistföng eru send til %1$s – minnst 40 fyrirspurnir við fyrstu skönnun, síðar færri. Einkalyklar (xprv) eru aldrei samþykktir.</string>
+    <string name="portfolio_address_xpub_gap">Leitin stöðvast eftir %1$d ónotuð vistföng í röð (BIP44-staðallinn sem flest veski nota). Notað vistfang handan þess bils er ekki talið með – bættu því við sérstaklega.</string>
+    <string name="portfolio_address_xpub_used">Vistföng í notkun: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">Of mörg notuð vistföng til að uppfæra</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">Mjög mörg vistföng – nýjar greiðslur á gömul, tóm vistföng greinast hugsanlega ekki</string>
+    <string name="portfolio_addresses_title">Vistföng</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Ekki er hægt að vakta Bitcoin Cash-vistföng: engin ókeypis opinber þjónusta án API-lykils leyfir það í skilmálum sínum.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) var lokað árið 2024 – stöður eru nú á BNB Smart Chain (0x…)</string>
+    <string name="address_checksum">Röng vartala – athugaðu innsláttarvillur</string>
+    <string name="address_doge_unsupported">Ekki er hægt að vakta Dogecoin-vistföng: engin ókeypis opinber þjónusta án API-lykils leyfir það í skilmálum sínum.</string>
+    <string name="address_duplicate">Þessu vistfangi hefur þegar verið bætt við</string>
+    <string name="address_ens">ENS-nöfn eru ekki studd – sláðu inn 0x-vistfangið</string>
+    <string name="address_invalid">Ekki gilt vistfang á studdu neti</string>
+    <string name="address_limit">Í mesta lagi 20 vistföng</string>
+    <string name="address_secret">Þetta lítur út eins og einkalykill eða endurheimtarorð – sláðu það aldrei inn neins staðar. Aðeins opinber vistföng.</string>
+    <string name="address_testnet">Testnet-vistföng eru ekki studd</string>
+    <string name="address_unsupported">Þessi tegund vistfangs er ekki studd</string>
+    <string name="address_wrong_chain">Vistfangið tilheyrir öðru neti</string>
+    <string name="address_xpub_multisig">Multisig-lyklar (Ypub/Zpub) eru ekki studdir</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot-reikningur (BIP86): bc1p…-vistföng eru leidd út frá þessum lykli, fyrir móttöku og afgang.</string>
+    <string name="portfolio_address_taproot_hint">Taproot-veski? Límdu frekar inn lýsinguna tr(…) úr veskinu þínu – venjulegt xpub er aðeins leitað sem Legacy- og SegWit-vistföng.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">Ekki næst í eigin netþjón</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">Sá sem rekur %1$s sér öll vistföng þessa veskis sem spurt er um og getur tengt þau hvert við annað og við IP-töluna þína.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">Til að forðast þetta skaltu slá inn eigin netþjón undir Stillingar › Eignasafn › Eigin netþjónn fyrir vistföng.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d óþekktur tóki (ekki talinn með)</item>
+        <item quantity="other">+%1$d óþekktir tókar (ekki taldir með)</item>
+    </plurals>
+</resources>

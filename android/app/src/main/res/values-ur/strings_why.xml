@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">اس کے ساتھ اور کیا حرکت کر رہا ہے؟</string>
+    <string name="why_all_values">تمام قدریں اور ماخذ</string>
+    <string name="why_all_values_hint">مشاہدہ · ممکنہ وضاحت · ماخذ</string>
+    <string name="why_details">تفصیلات دکھائیں</string>
+    <string name="why_details_hide">تفصیلات چھپائیں</string>
+    <string name="why_disclaimer">مارکیٹ ڈیٹا سے خودکار جائزہ: یہ دکھاتا ہے کہ ایک ہی وقت میں کیا ہو رہا ہے، وجہ کا ثبوت نہیں۔</string>
+    <string name="why_footer_short">ایک ساتھ ہونے کا مطلب وجہ نہیں · سرمایہ کاری کا مشورہ نہیں</string>
+    <string name="why_no_data">اس جوڑے کے لیے Binance سے کوئی ڈیٹا نہیں</string>
+    <string name="why_no_data_hint">قیمت، والیوم اور اتار چڑھاؤ Binance کی گھنٹہ وار کینڈلز سے آتے ہیں۔</string>
+    <string name="why_ref_alts">آلٹس</string>
+    <string name="why_section_context">ممکنہ وضاحت</string>
+    <string name="why_section_observation">مشاہدہ</string>
+    <string name="why_title">اس کے ساتھ اور کیا حرکت کر رہا ہے؟</string>
+    <string name="why_title_coin">%1$s کے ساتھ اور کیا حرکت کر رہا ہے؟</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">مختصراً · بمطابق %1$s</string>
+    <string name="why_brief_label">مختصراً:</string>
+    <string name="why_summary_against">کوائن مارکیٹ کے خلاف چل رہا ہے۔</string>
+    <string name="why_summary_calm">کوئی قابلِ ذکر حرکت نہیں: مارکیٹ اور کوائن پرسکون ہیں۔</string>
+    <string name="why_summary_coin">صرف یہ کوائن حرکت کر رہا ہے – شاید کوئی ایسی بات جو صرف اسی کوائن کو متاثر کرتی ہے۔</string>
+    <string name="why_summary_coin_volume">صرف یہ کوائن حرکت کر رہا ہے، زیادہ والیوم کے ساتھ – شاید کوئی ایسی بات جو صرف اسی کوائن کو متاثر کرتی ہے۔</string>
+    <string name="why_summary_longs">فیوچرز: بہت سی لیوریج والی لانگ پوزیشنز۔</string>
+    <string name="why_summary_market">حرکت وقت کے لحاظ سے مجموعی مارکیٹ سے مطابقت رکھتی ہے۔</string>
+    <string name="why_summary_market_volume">حرکت زیادہ ٹریڈنگ والیوم اور وسیع پیمانے پر حرکت کرتی مارکیٹ کے ساتھ ہو رہی ہے۔</string>
+    <string name="why_summary_peg_near">قیمت اپنے 1:1 پیگ کے قریب ہے۔</string>
+    <string name="why_summary_peg_off">قیمت اپنے 1:1 پیگ سے نمایاں طور پر ہٹی ہوئی ہے۔</string>
+    <string name="why_summary_shorts">فیوچرز: بہت سی شارٹ پوزیشنز۔</string>
+    <string name="why_summary_thin">حرکت کمزور ہے: اس کے پیچھے کم والیوم ہے۔</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">مارکیٹ کے خلاف</string>
+    <string name="why_f_coin_only">صرف یہ کوائن</string>
+    <string name="why_f_leader">مارکیٹ لیڈر کے طور پر Bitcoin</string>
+    <string name="why_f_leverage_balanced">لیوریج متوازن</string>
+    <string name="why_f_leverage_longs">لیوریج: بہت سے لانگز</string>
+    <string name="why_f_leverage_shorts">لیوریج: بہت سے شارٹس</string>
+    <string name="why_f_market_calm">پرسکون مارکیٹ</string>
+    <string name="why_f_market_wide">پوری مارکیٹ حرکت میں</string>
+    <string name="why_factor_funding">فنڈنگ</string>
+    <string name="why_factor_futures">فیوچرز</string>
+    <string name="why_factor_market">مجموعی مارکیٹ</string>
+    <string name="why_factor_near_high">بلند ترین سطح کے قریب</string>
+    <string name="why_factor_near_low">کم ترین سطح کے قریب</string>
+    <string name="why_factor_peg">پیگ (1:1)</string>
+    <string name="why_factor_range3d">3 دن کی رینج</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">تخمینی</string>
+    <string name="why_fn_funding_longs">بہت سے قیمت بڑھنے پر شرط لگا رہے ہیں</string>
+    <string name="why_fn_funding_neutral">غیر جانبدار</string>
+    <string name="why_fn_funding_shorts">بہت سے قیمت گرنے پر شرط لگا رہے ہیں</string>
+    <string name="why_fn_high_at">30 دن کی بلند ترین سطح پر</string>
+    <string name="why_fn_high_below">30 دن کی بلند ترین سطح سے نیچے</string>
+    <string name="why_fn_leader_calm">Bitcoin پرسکون ہے</string>
+    <string name="why_fn_leader_moves">Bitcoin واضح طور پر حرکت کر رہا ہے</string>
+    <string name="why_fn_low_above">30 دن کی کم ترین سطح سے اوپر</string>
+    <string name="why_fn_low_at">30 دن کی کم ترین سطح پر</string>
+    <string name="why_fn_market_against">یہ کوائن مارکیٹ کے خلاف چل رہا ہے</string>
+    <string name="why_fn_market_alone">مارکیٹ پرسکون – یہ کوائن خود حرکت کر رہا ہے</string>
+    <string name="why_fn_market_calm">مارکیٹ پرسکون ہے</string>
+    <string name="why_fn_market_lags">مارکیٹ حرکت میں ہے، یہ کوائن بمشکل</string>
+    <string name="why_fn_market_moves">مارکیٹ اسی سمت میں حرکت کر رہی ہے</string>
+    <string name="why_fn_market_pulls">مارکیٹ BTC کے ساتھ حرکت کر رہی ہے</string>
+    <string name="why_fn_oi_down">اوپن انٹرسٹ نیچے</string>
+    <string name="why_fn_oi_flat">اوپن انٹرسٹ میں بمشکل تبدیلی</string>
+    <string name="why_fn_oi_mixed">اوپن انٹرسٹ ملا جلا</string>
+    <string name="why_fn_oi_up">اوپن انٹرسٹ اوپر</string>
+    <string name="why_fn_peg_above">1:1 پیگ سے %1$s اوپر</string>
+    <string name="why_fn_peg_below">1:1 پیگ سے %1$s نیچے</string>
+    <string name="why_fn_peg_near">1:1 پیگ کے قریب</string>
+    <string name="why_fn_range_above_low">3 دن کی کم ترین سطح سے</string>
+    <string name="why_fn_range_below_high">3 دن کی بلند ترین سطح سے</string>
+    <string name="why_fn_range_near_high">3 دن کی بلند ترین سطح کے قریب</string>
+    <string name="why_fn_range_near_low">3 دن کی کم ترین سطح کے قریب</string>
+    <string name="why_fn_volatility_stronger">معمول سے زیادہ</string>
+    <string name="why_fn_volatility_tiny">مطلق لحاظ سے چھوٹا (%1$s سے کم)</string>
+    <string name="why_fn_volatility_usual">معمول کے مطابق</string>
+    <string name="why_fn_volume_higher">معمول سے زیادہ</string>
+    <string name="why_fn_volume_lower">معمول سے کم</string>
+    <string name="why_fn_volume_usual">معمول کے مطابق</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">24 گھنٹوں میں یہ کوائن %1$s، BTC %2$s — نمایاں طور پر آزاد حرکت۔</string>
+    <string name="why_against_ref_text">24 گھنٹوں میں یہ کوائن %1$s، %2$s %3$s — نمایاں طور پر آزاد حرکت۔</string>
+    <string name="why_btc_independent">%1$s اس وقت Bitcoin سے آزادانہ حرکت کر رہا ہے۔</string>
+    <string name="why_btc_tight">%1$s اس وقت Bitcoin کے ساتھ قریبی طور پر حرکت کر رہا ہے۔</string>
+    <string name="why_change_1h">1 گھنٹہ</string>
+    <string name="why_change_24h">24 گھنٹے</string>
+    <string name="why_coin_only_text">24 گھنٹوں میں %1$s جبکہ مارکیٹ خاموش ہے – شاید کوئی ایسی بات جو صرف اسی کوائن کو متاثر کرتی ہے۔</string>
+    <string name="why_leverage_balanced_text">فیوچرز مارکیٹ میں لانگ یا شارٹ پوزیشنز کا کوئی ہجوم نہیں۔</string>
+    <string name="why_leverage_longs_text">بہت سے لوگ ادھار کی رقم سے قیمت بڑھنے پر شرط لگا رہے ہیں۔ لانگز شارٹس کو ادائیگی کر رہے ہیں — قیمت گرنے پر لیکویڈیشنز کا خطرہ زیادہ۔</string>
+    <string name="why_leverage_shorts_text">بہت سے لوگ ادھار کی رقم سے قیمت گرنے پر شرط لگا رہے ہیں۔ شارٹس لانگز کو ادائیگی کر رہے ہیں – قیمت بڑھنے پر شارٹ اسکویز ممکن ہے۔</string>
+    <string name="why_market_calm_text">یہ کوائن: 24 گھنٹوں میں %1$s۔ نہ مارکیٹ زیادہ حرکت کر رہی ہے نہ کوائن۔</string>
+    <string name="why_market_leader_text">سب سے بڑے کوائن کے طور پر BTC عموماً باقی مارکیٹ کے ساتھ قدم ملا کر چلتا ہے۔ ETH: 24 گھنٹوں میں %1$s۔</string>
+    <string name="why_market_leader_text_no_eth">سب سے بڑے کوائن کے طور پر BTC عموماً باقی مارکیٹ کے ساتھ قدم ملا کر چلتا ہے۔</string>
+    <string name="why_market_similar_text">یہ کوائن: 24 گھنٹوں میں %1$s – اسی وقت مارکیٹ بھی اسی سمت حرکت کر رہی ہے، اگرچہ کم واضح طور پر۔</string>
+    <string name="why_market_wide_text">یہ کوائن: 24 گھنٹوں میں %1$s – اسی وقت مجموعی مارکیٹ واضح طور پر حرکت کر رہی ہے۔</string>
+    <string name="why_open_interest_change">آخری جانچ کے بعد سے اوپن انٹرسٹ %1$s۔</string>
+    <string name="why_peg_text">اسٹیبل کوائن: کوٹ کرنسی سے 1:1 پیگ کے مقابلے میں انحراف %1$s۔</string>
+    <string name="why_sentiment_text">پوری کرپٹو مارکیٹ کا Fear &amp; Greed انڈیکس، کل کے مقابلے میں %1$s۔</string>
+    <string name="why_sentiment_text_no_change">پوری کرپٹو مارکیٹ کا Fear &amp; Greed انڈیکس۔</string>
+    <plurals name="why_trend_falling">
+        <item quantity="one">%1$d گھنٹے سے گر رہا ہے</item>
+        <item quantity="other">%1$d گھنٹوں سے گر رہا ہے</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="one">%1$d گھنٹے سے بڑھ رہا ہے</item>
+        <item quantity="other">%1$d گھنٹوں سے بڑھ رہا ہے</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="one">%1$d گھنٹے سے مستحکم</item>
+        <item quantity="other">%1$d گھنٹوں سے مستحکم</item>
+    </plurals>
+    <string name="why_volatility_high_text">پچھلا گھنٹہ: %1$s — پچھلے 24 گھنٹوں کے عام گھنٹہ وار اتار چڑھاؤ کے مقابلے میں ناپا گیا۔</string>
+    <string name="why_volatility_normal_text">پچھلا گھنٹہ: %1$s — معمول کی حد کے اندر۔</string>
+    <string name="why_volatility_tiny_text">پچھلا گھنٹہ: %1$s — اس کوائن کے لیے غیر معمولی، لیکن مطلق لحاظ سے چھوٹا۔</string>
+    <string name="why_volume_estimated_text">تخمینی: یہ ماخذ ٹرن اوور فراہم نہیں کرتا، اس لیے ٹریڈ شدہ کوائنز کی مقدار کا موازنہ کیا جاتا ہے۔</string>
+    <string name="why_volume_high_text">پچھلے گھنٹے میں معمول سے کہیں زیادہ ٹریڈنگ – حرکت زیادہ والیوم کے ساتھ ہے۔</string>
+    <string name="why_volume_low_text">حرکت کے پیچھے کم ٹریڈنگ – ایسی حرکتیں اکثر کم مستحکم ہوتی ہیں۔</string>
+    <string name="why_volume_normal_text">پچھلے گھنٹے کی ٹریڈنگ پچھلے 24 گھنٹوں کے مطابق ہے۔</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">بڑھا ہوا</string>
+    <string name="why_dot_neutral">غیر جانبدار</string>
+    <string name="why_dot_supports">حرکت سے مطابقت</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">ڈیٹا بمطابق %1$s</string>
+    <string name="why_fresh_breadth">مارکیٹ کی وسعت: %1$s · %2$s</string>
+    <string name="why_fresh_candles">کینڈلز: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">فیوچرز: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="one">%1$d گھنٹہ پہلے کے مقابلے میں اوپن انٹرسٹ</item>
+        <item quantity="other">%1$d گھنٹے پہلے کے مقابلے میں اوپن انٹرسٹ</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="one">%1$d منٹ پہلے کے مقابلے میں اوپن انٹرسٹ</item>
+        <item quantity="other">%1$d منٹ پہلے کے مقابلے میں اوپن انٹرسٹ</item>
+    </plurals>
+    <string name="why_fresh_today">آج</string>
+    <string name="why_fresh_yesterday">کل</string>
+    <string name="why_source_fallback">%1$s (متبادل)</string>
+    <string name="why_source_reference">%1$s (حوالہ)</string>
+    <string name="why_sources">ماخذ: ایکسچینج کی گھنٹہ وار کینڈلز (زیادہ تر Binance)، ایکسچینجز سے فیوچرز ڈیٹا، alternative.me سے Fear &amp; Greed۔</string>
+    <string name="why_sources_list">ماخذ: %1$s۔</string>
+    <string name="why_src_breadth">%1$s (مارکیٹ کی وسعت)</string>
+    <string name="why_src_candles">%1$s (کینڈلز)</string>
+    <string name="why_src_comparison">%1$s (مارکیٹ موازنہ)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (فیوچرز)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">فنڈنگ</string>
+    <string name="factor_spoken_volatility">معمول کے اتار چڑھاؤ کا %1$s گنا</string>
+    <string name="factor_spoken_volume">معمول کا %1$s گنا</string>
+    <string name="factor_volatility">اتار چڑھاؤ (1 گھنٹہ)</string>
+    <string name="factor_volume">والیوم</string>
+</resources>

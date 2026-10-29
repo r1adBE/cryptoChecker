@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">Sérsniðið</string>
+    <string name="settings_group_general">Almennt</string>
+    <string name="settings_group_more">Meira</string>
+    <string name="settings_minutes">%1$d mín.</string>
+    <string name="settings_row_about">Um forritið</string>
+    <string name="settings_row_alarms">Viðvaranir</string>
+    <string name="settings_row_currency">Gjaldmiðill</string>
+    <string name="settings_row_dated_futures">Framvirkir samningar með gjalddaga</string>
+    <string name="settings_row_updates">Verðuppfærslur</string>
+    <string name="settings_row_watchlist">Vaktlisti</string>
+    <string name="settings_search_hint">Leita í stillingum</string>
+    <string name="settings_seconds">%1$d sek.</string>
+    <string name="settings_section_about">Um</string>
+    <string name="settings_section_appearance">Útlit</string>
+    <string name="settings_section_developer">Forritari</string>
+    <string name="settings_section_language">Tungumál</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">Á</string>
+    <string name="settings_title">Stillingar</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">Hvíldartími áður en viðvörun fer aftur af stað</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Viðvörunarmerki</string>
+    <string name="settings_alarm_signal_open_system">Stilla í kerfisstillingum</string>
+    <string name="settings_alarm_signal_system_hint">Fylgir tilkynningastillingum símans.</string>
+    <string name="settings_alarm_sound">Viðvörunarhljóð</string>
+    <string name="settings_alarm_sound_custom">Sérsniðið hljóð</string>
+    <string name="settings_alarm_sound_default">Sjálfgefið hljóð</string>
+    <string name="settings_alarm_sound_error">Ekki var hægt að nota hljóðið.</string>
+    <string name="settings_alarm_sound_file">Þín eigin hljóðskrá…</string>
+    <string name="settings_alarm_sound_reset">Nota sjálfgefið hljóð</string>
+    <string name="settings_alarm_sound_system">Velja kerfishljóð…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Tala á tákni forritsins</string>
+    <string name="settings_app_badge_hint">Telur opnar viðvörunartilkynningar. Heimaskjárinn ræður hvort tala eða punktur birtist (t.d. Samsung: „Sýna með tölu“).</string>
+    <string name="settings_exact_checks">Athuga á réttum tíma</string>
+    <string name="settings_exact_checks_grant">Leyfa vekjara og áminningar</string>
+    <string name="settings_exact_checks_hint">Android athugar á um það bil 15 mínútna fresti, líka þegar tækið er aðgerðalaust. Notar aðeins meiri rafhlöðu.</string>
+    <string name="settings_exact_checks_nothing">Engin virk pör – ekkert að athuga.</string>
+    <string name="settings_exact_checks_permission_missing">Leyfi vantar – meðan tækið er í hvíld athugar Android óreglulega, stundum ekki fyrr en eftir margar klukkustundir.</string>
+    <string name="settings_notification_change">Láta aðeins vita við verðbreytingu</string>
+    <string name="settings_notification_change_always">Alltaf</string>
+    <string name="settings_percent_invalid">Sláðu inn gildi frá 0 til 100.</string>
+    <string name="settings_notification_change_hint">Verðtilkynning birtist aðeins þegar verðið hefur hreyfst að minnsta kosti þetta mikið frá þeirri síðustu. Ekkert er sýnt meðan gögn vantar. Viðvaranir verða ekki fyrir áhrifum.</string>
+    <string name="settings_ongoing_notifications">Ekki hægt að strjúka burt</string>
+    <string name="settings_ongoing_notifications_hint">Heldur verðtilkynningum föstum.</string>
+    <string name="settings_price_notifications">Verðtilkynningar</string>
+    <string name="settings_price_notifications_hint">Sýna núverandi verð virkra para í stöðustikunni.</string>
+    <string name="settings_price_pairs">Pör</string>
+    <string name="settings_price_pairs_all_off">Öll af</string>
+    <string name="settings_price_pairs_all_on">Öll á</string>
+    <string name="settings_price_pairs_count">%1$d af %2$d</string>
+    <string name="settings_price_pairs_empty">Engin pör á vaktlistanum enn.</string>
+    <string name="settings_price_pairs_hint">Veldu hvaða pör sýna verð sitt í tilkynningastikunni.</string>
+    <string name="settings_quiet_hours">Kyrrðartími</string>
+    <string name="settings_quiet_hours_from">Frá</string>
+    <string name="settings_quiet_hours_hint">Milli %1$s og %2$s bíða viðvaranir þar til kyrrðartíma lýkur og hringja þá með hljóði. Aðrar tilkynningar berast hljóðlaust, án tals.</string>
+    <string name="settings_quiet_hours_to">Til</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">Bil</string>
+    <string name="settings_background_updates">Uppfærslur í bakgrunni</string>
+    <string name="settings_battery_hint">Takmarkað þýðir að Android getur seinkað uppfærslum í bakgrunni um margar klukkustundir.</string>
+    <string name="settings_battery_ok">Rafhlöðunotkun: ótakmörkuð</string>
+    <string name="settings_battery_restricted">Rafhlöðunotkun: takmörkuð</string>
+    <string name="settings_check_runs_empty">Engar athuganir skráðar enn.</string>
+    <string name="settings_check_runs_honest_android">Android ákveður hvenær athugað er – hér sérðu hvenær það gerðist í raun.</string>
+    <string name="settings_check_runs_honest_ios">iOS ákveður hvenær athugað er – hér sérðu hvenær það gerðist í raun.</string>
+    <string name="settings_check_runs_title">Nýlegar athuganir</string>
+    <string name="settings_http_log">Sýna HTTP-skrá</string>
+    <string name="settings_http_log_hint">Sýnir fyrirspurnir til kauphallanna neðst á síðunni „Bæta við pari“ – til bilanaleitar.</string>
+    <string name="settings_live_service">Uppfæra oft</string>
+    <string name="settings_live_websocket">Verð í beinni</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">Eftirtektarvert: láta vita</string>
+    <string name="settings_activity_alerts_hint">Í mesta lagi einu sinni á klukkustund á par: óvenjulegar verðhreyfingar, veltustökk og öfgar á framvirkum markaði (gögn frá Binance).</string>
+    <string name="settings_activity_sensitivity">Næmni</string>
+    <string name="settings_activity_sensitivity_hint">Hversu auðveldlega mynt telst óvenjuleg – það sama fyrir spjaldið á vaktlistanum og markaðsviðvaranir. Með „Minna“ sýnir spjaldið aðeins 3 sterkustu.</string>
+    <string name="settings_watchlist_activity_card">Eftirtektarvert: sýna á listanum</string>
+    <string name="settings_watchlist_activity_card_hint">Sýnir ⚡-flöguna við hlið hópanna: ýttu á hana til að sjá aðeins pörin þar sem eitthvað er að gerast núna. Tilkynningar um það eru stilltar undir Markaðsviðvaranir.</string>
+    <string name="settings_watchlist_names">Sýna heiti</string>
+    <string name="settings_watchlist_names_hint">Heiti undir parinu, t.d. Bitcoin eða NVIDIA. Fylgir merkjalistunum, hlaðið einu sinni fyrir allar myntir.</string>
+    <string name="settings_watchlist_sparkline">Smágraf á vaktlista</string>
+    <string name="settings_watchlist_sparkline_hint">24 klukkustunda þróun við hlið verðsins</string>
+    <string name="settings_watchlist_value_names">Heiti</string>
+    <string name="settings_watchlist_value_price_only">Aðeins verð</string>
+    <string name="settings_watchlist_value_sparkline">Smágraf</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Að meðtöldum Alpha-tókum (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Alpha-tókar: snemmbúin, oftast lítil verkefni af Binance Alpha-listanum – oft lítil viðskipti og miklar sveiflur.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">Tilheyrir Tókum. Ekki tiltækt meðan „Aðeins TradFi“ er valið; Alpha-tókar sem eru þegar á vaktlistanum haldast.</string>
+    <string name="settings_asset_scope_both">Tókar og TradFi</string>
+    <string name="settings_asset_scope_both_hint">Allt – rafmyntir og TradFi</string>
+    <string name="settings_asset_scope_hint">Ákveður hvaða pör valið og leitin sýna þegar þú bætir við pörum. Pör sem eru þegar á vaktlistanum haldast alltaf.</string>
+    <string name="settings_asset_scope_title">Tókar og TradFi</string>
+    <string name="settings_asset_scope_tokens">Aðeins tókar</string>
+    <string name="settings_asset_scope_tokens_hint">Rafmyntir: spot og perpetuals</string>
+    <string name="settings_asset_scope_tradfi">Aðeins TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">Framvirkir samningar á hlutabréf, hrávörur, gjaldeyri – samningar, ekki tókar</string>
+    <string name="settings_rolling_futures">Að meðtöldum ársfjórðungslegum og öðrum framvirkum samningum með gjalddaga</string>
+    <string name="settings_rolling_futures_hint">Af: framvirkir samningar með gjalddaga sem vantar á lista kauphallarinnar eru merktir sem ekki lengur í viðskiptum í stað þess að vera athugaðir einn í einu. Sparar tíma við hverja endurnýjun.</string>
+    <string name="settings_rolling_futures_qtly">Að meðtöldum ársfjórðungslegum og öðrum framvirkum samningum með gjalddaga (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">Tilheyrir Tókum. Ekki tiltækt meðan „Aðeins TradFi“ er valið; gildir enn um framvirka samninga með gjalddaga sem eru þegar á vaktlistanum.</string>
+    <string name="settings_tradfi_futures">Hlutabréf, hrávörur og gjaldeyrir (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Sýnir líka framvirka samninga á hlutabréf, gull og aðrar hrávörur, gjaldmiðla og fyrirtæki fyrir skráningu (pre-IPO) þegar þú velur par. Þetta eru samningar, ekki tókar.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">Áherslulitur</string>
+    <string name="settings_accent_hint">Litur fyrir forritið, græjur og tákn forritsins. Sumir heimaskjáir fjarlægja táknið þegar það breytist – bættu því þá við aftur.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Merki mynta</string>
+    <string name="settings_coin_logos_app">Í forritinu</string>
+    <string name="settings_coin_logos_app_hint">Vaktlisti, opnað par og markaðsspjöld</string>
+    <string name="settings_coin_logos_footer">Merkin koma frá CoinGecko, og frá Binance fyrir myntir sem CoinGecko skráir ekki (t.d. gull, silfur, hlutabréf). Forritið hleður öllum merkjum í einu og geymir þau á þessu tæki, svo hvorugur þjónustuaðilinn getur séð hvaða myntum þú fylgist með. Myntir án merkis sýna upphafsstafi sína. Uppáhöld fá litla stjörnu á merkið. Þar sem rofi er af birtast hvorki merki né upphafsstafir; með alla rofa af er engu hlaðið.</string>
+    <string name="settings_coin_logos_portfolio">Í eignasafninu</string>
+    <string name="settings_coin_logos_portfolio_hint">Stöður, upplýsingar um myntir og innsýn</string>
+    <string name="settings_coin_logos_value_app">Forrit</string>
+    <string name="settings_coin_logos_widgets">Í græjum</string>
+    <string name="settings_coin_logos_widgets_hint">Græjur fyrir vaktlista og staka mynt</string>
+    <string name="settings_high_contrast">Mikil birtuskil</string>
+    <string name="settings_high_contrast_hint">Sterkari verðlitir og dekkri aukatexti. Líka á þegar kerfið biður um meiri birtuskil.</string>
+    <string name="settings_language_choose">Velja tungumál</string>
+    <string name="settings_language_system">Tungumál kerfis</string>
+    <string name="settings_price_colors">Verðlitir</string>
+    <string name="settings_price_colors_hint">Blátt / appelsínugult er auðvelt að greina í sundur með hvers kyns litblindu (rauð-græn og blá-gul). Áttin er líka alltaf sýnd með + / −.</string>
+    <string name="settings_theme_mode">Ljóst / Dökkt</string>
+    <string name="settings_widgets">Græjur</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">Tímabelti fyrir breytingu %1$s og graf</string>
+    <string name="settings_change_basis_hint_1">Valið tímabelti ákveður frá hvaða tíma prósentubreytingin telst (vaktlisti, púlslína, opnað par, græjur) og tímana sem sýndir eru á gröfum.</string>
+    <string name="settings_change_basis_hint_2">„%1$s“ ber saman við verðið nákvæmlega fyrir 24 klukkustundum. „00:00“ ber saman við opnunarverðið á miðnætti í því tímabelti.</string>
+    <string name="settings_change_basis_hint_3">Viðvaranir verða ekki fyrir áhrifum.</string>
+    <string name="settings_change_basis_hint_since_last">„%1$s“ ber saman við verð fyrri uppfærslu. Með verði í beinni helst það nálægt 0%%.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">Umreikningsgjaldmiðill</string>
+    <string name="settings_conversion_currency_hint">Líka notaður fyrir eignasafnið, viðvaranir í þínum gjaldmiðli, spjald rafmyntamarkaðarins og eignasafnsgræjuna.</string>
+    <string name="settings_cost_method">Kostnaðaraðferð</string>
+    <string name="settings_cost_method_average">Meðalkostnaður</string>
+    <string name="settings_cost_method_average_hint">Sala er metin á hlaupandi meðalkaupverði.</string>
+    <string name="settings_cost_method_fifo">FIFO (sjálfgefið)</string>
+    <string name="settings_cost_method_fifo_hint">Elstu myntir eru seldar fyrst, þvert á allar kauphallir og veski.</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO eftir veski/kauphöll</string>
+    <string name="settings_cost_method_fifo_wallet_hint">Elstu myntir fyrst innan hverrar kauphallar eða veskis; millifærslur flytja lotur með kaupdegi sínum.</string>
+    <string name="settings_portfolio_lock">Lás eignasafns</string>
+    <string name="settings_portfolio_lock_footer">Lásinn felur það sem birtist á skjánum. Gögnin þín eru geymd á þessu tæki og varin með dulkóðun tækisins. Þú getur varið öryggisafrit með lykilorði.</string>
+    <string name="settings_portfolio_lock_hint">Felur aðeins eignasafnið: opnaðu með fingrafari, andliti eða PIN-númeri tækisins. Læsist aftur eftir meira en mínútu í bakgrunni. Vaktlisti, viðvaranir og aðrar græjur haldast opin.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Án PIN-númers eða aðgangskóða tækisins felur lásinn ekkert – settu upp skjálás.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Eignasafn í kerfisafriti</string>
+    <string name="settings_portfolio_system_backup_hint">Af: færslurnar þínar haldast utan kerfisafrits tækisins og flutnings milli síma. Til að flytja þær í nýjan síma skaltu nota eigið öryggisafrit forritsins með lykilorði.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Þarf Android 9 eða nýrra – eldri útgáfur myndu vista eignasafnið ódulkóðað í afriti Google.</string>
+    <string name="settings_portfolio_tab">Sýna flipann Eignasafn</string>
+    <string name="settings_portfolio_value_locked">Á, með lás</string>
+    <string name="settings_show_converted">Umreiknuð verð</string>
+    <string name="settings_show_converted_hint">Sýnir verð á vaktlistanum líka í %1$s</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">Tilkynna depeg á USDT</string>
+    <string name="settings_depeg_alarm_hint">Lætur vita einu sinni þegar USDT víkur frá 1 USD um mörkin (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_threshold">Mörk fyrir depeg</string>
+    <string name="settings_fng_above">Fear &amp; Greed: láta vita yfir</string>
+    <string name="settings_fng_below">Fear &amp; Greed: láta vita undir</string>
+    <string name="settings_gas_alert_hint">Lætur vita einu sinni þegar venjulega gjaldið fer undir mörkin. Athugað við verðuppfærslur, í mesta lagi á 10 mínútna fresti.</string>
+    <string name="settings_gas_btc_below">Bitcoin-gjald undir (sat/vB)</string>
+    <string name="settings_gas_eth_below">Ethereum-gas undir (gwei)</string>
+    <string name="settings_ind_ath_within">Lækkun frá sögulegu hámarki í mesta lagi</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple yfir</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple undir</string>
+    <string name="settings_ind_mvrv_above">MVRV yfir</string>
+    <string name="settings_ind_mvrv_below">MVRV undir</string>
+    <string name="settings_indicator_alerts_hint">Bitcoin-vísar, athugaðir tvisvar á dag. Þú velur mörkin – forritið metur ekki gildin.</string>
+    <string name="settings_macro_notifications">Efnahagsdagatal</string>
+    <string name="settings_macro_notifications_hint">Kl. 08:00 á dögum með mikilvæg bandarísk efnahagsgögn (verðbólga, atvinnuskýrsla, ákvörðun Fed). Dagatalið kemur af vefsíðu forritsins, hlaðið einu sinni á dag.</string>
+    <string name="settings_market_alerts">Markaðsviðvaranir</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d virk</item>
+        <item quantity="other">%1$d virkar</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">Talhraði: %1$.1f×</string>
+    <string name="settings_tts">Upplestur</string>
+    <string name="settings_tts_alarms_only">Aðeins viðvaranir</string>
+    <string name="settings_tts_alarms_only_hint">Af: hver uppfærsla pars sem merkt er „Lesa verð upp“ er lesin upphátt.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">Les verð og viðvaranir upphátt. Þegir meðan tækið er á hljóðlausri stillingu eða titringi.</string>
+    <string name="settings_tts_test">Prófa rödd</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">Endurstilla forritið</string>
+    <string name="settings_reset_app_action">Eyða öllu</string>
+    <string name="settings_reset_app_confirm">Eyðir vaktlista, viðvörunum, eignasafni, stillingum og öllum vistuðum gögnum, eins og eftir uppsetningu. Ekki er hægt að afturkalla þetta. Ábending: taktu öryggisafrit fyrst. Afrit tækis (afrit Google eða iCloud-/tölvuafrit) geyma fyrri gögnin þar til næsta afritun fer fram.</string>
+    <string name="settings_reset_app_title">Endurstilla forritið?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">Leita að gjaldmiðli</string>
+    <string name="language_search">Leita að tungumáli</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">Dökkt</string>
+    <string name="theme_light">Ljóst</string>
+    <string name="theme_system">Kerfi</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">Blár</string>
+    <string name="accent_green">Grænn</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">Appelsínugulur</string>
+    <string name="accent_red">Rauður</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">Algengt í Kína, Japan, Kóreu og Taívan</string>
+    <string name="price_colors_swap">Víxla litum (hækkun ↔ lækkun)</string>
+    <string name="price_style_calm">Rólegt</string>
+    <string name="price_style_calm_color_vision">Rólegt · Litblinda</string>
+    <string name="price_style_color_vision">Litblinda</string>
+    <string name="price_style_fresh">Ferskt</string>
+    <string name="price_style_traditional">Hefðbundið</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">Tengingar við kauphallir síðast prófaðar gegn raunverulegum svörum: %1$s</string>
+    <string name="about_license">Verð koma beint frá kauphöllunum; enginn aðgangur og engin rakning.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">Leyfi</string>
+    <string name="about_privacy_policy">Persónuverndarstefna</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">Óska eftir kauphöll</string>
+    <string name="about_source_code">Frumkóði á GitHub</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker er sjálfstætt verkefni eftir r1AD: róleg verðyfirsýn án aðgangs, auglýsinga eða rakningar. Spurningar og óskir: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker er opinn hugbúnaður (MIT License).</string>
+    <string name="licenses_font_title">Leturgerðin Rubik</string>
+    <string name="licenses_icons_bundled_text">Fylgir forritinu: tákn úr „Cryptocurrency Icons“ eftir Christopher Downer og fleiri (github.com/spothq/cryptocurrency-icons), gefin út undir CC0 1.0 Universal. Þau eru sýnd þar til merki frá CoinGecko eða Binance hafa hlaðist. Heiti og merki eru áfram vörumerki viðkomandi verkefna.</string>
+    <string name="licenses_icons_title">Vara-tákn mynta</string>
+    <string name="licenses_libraries_intro">Forritið notar þessi söfn undir Apache License 2.0:</string>
+    <string name="licenses_libraries_title">Android-söfn</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">%d ýting í viðbót til að opna forritaravalkosti</item>
+        <item quantity="other">%d ýtingar í viðbót til að opna forritaravalkosti</item>
+    </plurals>
+    <string name="developer_unlocked">Forritaravalkostir opnaðir</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Titringur fylgir stillingum iPhone (Hljóð og snertisvörun).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Telur nýjar viðvaranir og markaðsviðvaranir; fer aftur í 0 þegar þú opnar forritið.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Gögnin þín</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">Á þessu tæki</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Vaktlistinn þinn, viðvaranir og eignasafn eru geymd dulkóðuð á þessu tæki; enginn aðgangur, enginn eigin netþjónn.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Tengingar</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Verð koma beint frá kauphöllum paranna þinna, auk gengis, myntlista og merkja og gagnaspegilsins á GitHub; þau sjá IP-töluna þína, aldrei eign þína (vöktuð vistföng fara til þjónustuaðila viðkomandi nets).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Öryggisafrit</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Aðeins ef þú býrð það til. Með lykilorði er það dulkóðað (Argon2id + AES-256-GCM); án þess er það læsilegt.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Skipt um tæki</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">Lykillinn verður eftir á gamla tækinu – búðu fyrst til öryggisafritsskrá.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Deila greiningargögnum</string>
+    <string name="diagnostics_share_hint">Textaskrá fyrir aðstoð: útgáfa, tæki, viðvörunarstillingar, nýlegar athuganir og viðvörunaskrá – án eignasafns, upphæða, vistfanga eða athugasemda. Þú sérð hana fyrst; ekkert er sent sjálfkrafa.</string>
+    <string name="diagnostics_preview_title">Forskoðun greiningargagna</string>
+    <string name="diagnostics_action_share">Deila</string>
+    <string name="settings_price_overlay">Fljótandi verð</string>
+    <string name="settings_price_overlay_hint">Sýnir pör varanlegu verðtilkynningarinnar sem lítinn fljótandi hnapp ofan á öðrum forritum. Ýttu til að opna forritið, dragðu að × neðst til að loka.</string>
+    <string name="settings_price_overlay_needs">Virkar aðeins ásamt «%1$s».</string>
+    <string name="settings_price_overlay_grant">Leyfa birtingu ofan á öðrum forritum</string>
+    <string name="price_overlay_close">Loka fljótandi verði</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">Eigin netþjónn fyrir vistföng</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Aðeins Bitcoin: þinn eigin Esplora- eða mempool-samhæfði netþjónn (t.d. https://node.example/api, opinberlega traust vottorð áskilið, svo sem Let\'s Encrypt). Ef hann er stilltur eru Bitcoin-vistföng og xpub-lyklar aðeins sótt þangað – aldrei á opinberum hnútum, ekki einu sinni þegar ekki næst í netþjóninn þinn. Önnur net nota áfram opinbera hnúta. Autt = opinberir hnútar.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Bitcoin-netþjónn (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">Prófa</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">Prófar…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">Netþjónn svarar – blokk %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">Ekkert gilt svar – athugaðu vistfangið og vottorðið</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">Í notkun: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">Ekki stillt – opinberir hnútar notaðir</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">Aðeins https://-vistföng eru leyfð</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">Ekkert notandanafn eða lykilorð í vistfanginu</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">Enginn ?- eða #-hluti í vistfanginu</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">Ekki gilt vistfang netþjóns</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">Skipta yfir í opinbera hnúta?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">Bitcoin-vistföng þín og xpub-lyklar verða þá sótt á opinberum hnútum: %1$s. Þeir sjá þessi vistföng ásamt IP-tölunni þinni.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">Nota opinbera hnúta</string>
+</resources>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">ফিরে যান</string>
+    <string name="action_cancel">বাতিল</string>
+    <string name="action_clear">মুছুন</string>
+    <string name="action_close">বন্ধ করুন</string>
+    <string name="action_keep">রাখুন</string>
+    <string name="action_delete">মুছে ফেলুন</string>
+    <string name="action_edit">সম্পাদনা</string>
+    <string name="action_more">আরও বিকল্প</string>
+    <string name="action_refresh">রিফ্রেশ</string>
+    <string name="action_retry">আবার চেষ্টা করুন</string>
+    <string name="action_save">সংরক্ষণ করুন</string>
+    <string name="action_sort">সাজান</string>
+    <string name="action_sort_done">সম্পন্ন</string>
+    <string name="action_undo">পূর্বাবস্থায় ফেরান</string>
+    <string name="action_view">দেখুন</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">বাজার</string>
+    <string name="tab_portfolio">পোর্টফোলিও</string>
+    <string name="tab_settings">সেটিংস</string>
+    <string name="tab_watchlist">ওয়াচলিস্ট</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">ত্রুটি: %1$s</string>
+    <string name="error_exchange_unreachable">এক্সচেঞ্জে এখন পৌঁছানো যাচ্ছে না – শেষ দামগুলো দেখা যাবে।</string>
+    <string name="error_exchange_unreachable_short">এক্সচেঞ্জে এখন পৌঁছানো যাচ্ছে না</string>
+    <string name="loading_hint">লোড হচ্ছে…</string>
+    <string name="option_off">বন্ধ</string>
+    <string name="something_went_wrong">কিছু একটা ভুল হয়েছে</string>
+    <string name="time_just_now">এইমাত্র</string>
+    <string name="try_again">আবার চেষ্টা করুন</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">সংযোগ নেই</string>
+    <string name="offline_status_since">সংযোগ নেই · %1$s অনুযায়ী</string>
+    <string name="status_live">লাইভ</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">পেয়ার যোগ করুন</string>
+    <string name="shortcut_alarms">সব অ্যালার্ট</string>
+    <string name="shortcut_cycle">বাজার</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">নতুন পেয়ার যোগ করুন</string>
+    <string name="shortcut_alarms_long">সব অ্যালার্ট দেখান</string>
+    <string name="shortcut_cycle_long">বাজারের চিত্র খুলুন</string>
+
+    <string name="log_box_title">লগ</string>
+    <string name="label_value">%1$s: %2$s</string>
+</resources>

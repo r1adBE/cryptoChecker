@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">Alarm sprožen</string>
+    <string name="a11y_collapsed">Strnjeno</string>
+    <string name="a11y_converted">približno %1$s</string>
+    <string name="a11y_expanded">Razširjeno</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">odpre se v brskalniku</string>
+    <string name="a11y_favorite">Priljubljeno</string>
+    <string name="a11y_in_watchlist">Že na seznamu</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_exchange_unreachable">%1$s ni dosegljiva</string>
+    <string name="a11y_move_down">Premakni navzdol</string>
+    <string name="a11y_move_up">Premakni navzgor</string>
+    <string name="a11y_note">opomba: %1$s</string>
+    <string name="a11y_price">tečaj %1$s</string>
+    <string name="a11y_price_notification_off">Obvestilo o tečaju izklopljeno</string>
+    <string name="a11y_price_notification_on">Obvestilo o tečaju vklopljeno</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">Tečaj je zastarel</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s na %2$s</string>
+    <string name="a11y_stale">zastarelo, zadnja posodobitev %1$s</string>
+    <string name="a11y_warning">Opozorilo</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">%1$s v 24 urah</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">Sprememba v 24 urah ni na voljo</string>
+    <string name="a11y_change_down">padec za %1$s</string>
+    <string name="a11y_change_flat">nespremenjeno</string>
+    <string name="a11y_change_since_last">%1$s od zadnje posodobitve</string>
+    <string name="a11y_change_since_last_none">Sprememba od zadnje posodobitve ni na voljo</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">%1$s danes</string>
+    <string name="a11y_change_today_none">Današnja sprememba ni na voljo</string>
+    <string name="a11y_change_today_zone">%1$s od polnoči %2$s</string>
+    <string name="a11y_change_today_zone_none">Sprememba od polnoči %1$s ni na voljo</string>
+    <string name="a11y_change_up">rast za %1$s</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Graf %1$s: od %2$s do %3$s, %4$s. Najvišje %5$s, najnižje %6$s.</string>
+    <string name="a11y_chart_empty">Graf: ni podatkov</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Cikel %1$s: %2$s od halvinga, dan %3$d.</string>
+    <string name="a11y_cycle_bottom">Dno %1$s na dan %2$d.</string>
+    <string name="a11y_cycle_double_bottom">Dvojno dno %1$s na dan %2$d.</string>
+    <string name="a11y_cycle_double_top">Dvojni vrh %1$s na dan %2$d.</string>
+    <string name="a11y_cycle_top">Vrh %1$s na dan %2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">Lestvica od %1$s do %2$s: %3$d od 100</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, v povprečju %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d pada</item>
+        <item quantity="two">%1$d padata</item>
+        <item quantity="few">%1$d padajo</item>
+        <item quantity="other">%1$d jih pada</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="one">%1$d par brez 24-urne vrednosti</item>
+        <item quantity="two">%1$d para brez 24-urne vrednosti</item>
+        <item quantity="few">%1$d pari brez 24-urne vrednosti</item>
+        <item quantity="other">%1$d parov brez 24-urne vrednosti</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d par brez današnje vrednosti</item>
+        <item quantity="two">%1$d para brez današnje vrednosti</item>
+        <item quantity="few">%1$d pari brez današnje vrednosti</item>
+        <item quantity="other">%1$d parov brez današnje vrednosti</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d par raste</item>
+        <item quantity="two">%1$d para rasteta</item>
+        <item quantity="few">%1$d pari rastejo</item>
+        <item quantity="other">%1$d parov raste</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="one">nazadnje posodobljeno pred %1$d dnem</item>
+        <item quantity="two">nazadnje posodobljeno pred %1$d dnevoma</item>
+        <item quantity="few">nazadnje posodobljeno pred %1$d dnevi</item>
+        <item quantity="other">nazadnje posodobljeno pred %1$d dnevi</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="one">nazadnje posodobljeno pred %1$d uro</item>
+        <item quantity="two">nazadnje posodobljeno pred %1$d urama</item>
+        <item quantity="few">nazadnje posodobljeno pred %1$d urami</item>
+        <item quantity="other">nazadnje posodobljeno pred %1$d urami</item>
+    </plurals>
+    <string name="a11y_updated_just_now">nazadnje posodobljeno pravkar</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="one">nazadnje posodobljeno pred %1$d minuto</item>
+        <item quantity="two">nazadnje posodobljeno pred %1$d minutama</item>
+        <item quantity="few">nazadnje posodobljeno pred %1$d minutami</item>
+        <item quantity="other">nazadnje posodobljeno pred %1$d minutami</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">znesek skrit</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_entry">%1$s %2$s, danes vredno %3$s</string>
+    <string name="a11y_portfolio_entry_in">Prejem</string>
+    <string name="a11y_portfolio_entry_no_value">vrednost ni na voljo</string>
+    <string name="a11y_portfolio_entry_note">opomba %1$s</string>
+    <string name="a11y_portfolio_entry_out">Izdaja</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, %3$s portfelja</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, %2$s portfelja, %3$s</string>
+    <string name="a11y_portfolio_positions">Največje pozicije: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">Prikaži zneske</string>
+    <string name="a11y_compare_chart">Primerjava v odstotkih, %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">%1$s od 30-dnevnega vrha</string>
+    <string name="a11y_price_overlay">Prekrivanje tečaja: %1$s</string>
+</resources>

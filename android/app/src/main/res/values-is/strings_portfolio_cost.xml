@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">Færslur án kostnaðarverðs: %1$d</string>
+    <string name="cost_gaps_card_text">Bættu við kostnaðarverði svo hagnaður og skattar séu heildstæðir.</string>
+    <string name="cost_gaps_sheet_title">Færslur án kostnaðarverðs</string>
+    <string name="cost_gaps_sheet_intro">Þetta innflæði hefur ekkert kostnaðarverð. Tillagan er dagslokaverð dagsetningarinnar – þú getur breytt henni í færslunni.</string>
+    <string name="cost_gaps_empty">Allar færslur hafa kostnaðarverð.</string>
+    <string name="cost_gap_enter">Slá inn kostnaðarverð</string>
+    <string name="cost_gap_leave_unknown">Hafa óþekkt</string>
+    <string name="cost_gap_left_unknown">Haft óþekkt</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">Tillaga: dagslokaverð %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">Ekkert staðfest dagslokaverð fyrir þessa dagsetningu</string>
+    <string name="cost_gap_suggestion_loading">Hleður dagslokaverði …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">Kostnaðarverð = virði við móttöku (tekjur)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">Kostnaðarverð = 0 (umbun án innflæðis, Austurríki)</string>
+    <string name="cost_gap_apply">Nota</string>
+    <string name="address_lots_action">Kostnaðarverð fyrir stöðu vistfangs</string>
+    <string name="address_lots_title">Kostnaðarverð fyrir stöðu vistfangs</string>
+    <string name="address_lots_intro">Sláðu inn kaupdag, magn og kostnaðarverð fyrir stöðu þessa vistfangs. Loturnar teljast eins og kaup á þessu vistfangi; hluti sem ekki er dekkaður verður áfram án kostnaðarverðs.</string>
+    <string name="address_lots_add">Bæta við lotu</string>
+    <string name="address_lots_new">Ný lota</string>
+    <string name="address_lots_edit">Lota</string>
+    <string name="address_lots_date">Kaupdagur</string>
+    <string name="address_lots_amount">Magn</string>
+    <string name="address_lots_mode_total">Samtals</string>
+    <string name="address_lots_mode_price">Á mynt</string>
+    <string name="address_lots_price">Verð á mynt (USDT)</string>
+    <string name="address_lots_total">Heildarkostnaðarverð (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%1$s af %2$s með kostnaðarverði</string>
+    <string name="address_lots_unlotted">%1$s án kostnaðarverðs</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">Loturnar eru %1$s umfram stöðuna – þær elstu eru notaðar fyrst.</string>
+    <string name="address_lots_not_loaded">Staða ekki hlaðin enn – loturnar teljast um leið og hún er það.</string>
+    <string name="address_lots_invalid">Sláðu inn magn og kostnaðarverð</string>
+</resources>

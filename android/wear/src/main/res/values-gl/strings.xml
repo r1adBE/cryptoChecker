@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Non hai moedas escollidas</string>
+    <string name="watch_loading">Cargando…</string>
+    <string name="watch_error">Exchanges non accesibles</string>
+    <string name="watch_updated">Ás %1$s</string>
+    <string name="watch_refresh">Actualizar</string>
+    <string name="watch_choose">Escoller moedas</string>
+    <string name="watch_choose_hint">Moedas: máx. %1$d</string>
+    <string name="watch_complication_label">Prezo</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s en 24 horas</string>
+    <string name="watch_mode_phone">Lista: como no móbil</string>
+    <string name="watch_mode_own">Lista: propia</string>
+    <string name="watch_phone_empty">Non hai favoritos no móbil</string>
+    <string name="a11y_watch_outdated">Prezo desactualizado</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">actualizado por última vez hai %1$d minuto</item>
+        <item quantity="other">actualizado por última vez hai %1$d minutos</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">actualizado por última vez hai %1$d hora</item>
+        <item quantity="other">actualizado por última vez hai %1$d horas</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">actualizado por última vez hai %1$d día</item>
+        <item quantity="other">actualizado por última vez hai %1$d días</item>
+    </plurals>
+</resources>

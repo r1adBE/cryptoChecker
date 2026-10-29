@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Зоос сонгоогүй</string>
+    <string name="watch_loading">Ачаалж байна…</string>
+    <string name="watch_error">Бирж холбогдохгүй байна</string>
+    <string name="watch_updated">%1$s байдлаар</string>
+    <string name="watch_refresh">Шинэчлэх</string>
+    <string name="watch_choose">Зоос сонгох</string>
+    <string name="watch_choose_hint">Зоос: дээд тал нь %1$d</string>
+    <string name="watch_complication_label">Ханш</string>
+    <string name="a11y_watch_row">%1$s %2$s, 24 цагт %3$s</string>
+    <string name="watch_mode_phone">Жагсаалт: утастай адил</string>
+    <string name="watch_mode_own">Жагсаалт: тусдаа</string>
+    <string name="watch_phone_empty">Утсанд дуртай зоос алга</string>
+    <string name="a11y_watch_outdated">Ханш хуучирсан</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">сүүлд %1$d минутын өмнө шинэчилсэн</item>
+        <item quantity="other">сүүлд %1$d минутын өмнө шинэчилсэн</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">сүүлд %1$d цагийн өмнө шинэчилсэн</item>
+        <item quantity="other">сүүлд %1$d цагийн өмнө шинэчилсэн</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">сүүлд %1$d хоногийн өмнө шинэчилсэн</item>
+        <item quantity="other">сүүлд %1$d хоногийн өмнө шинэчилсэн</item>
+    </plurals>
+</resources>

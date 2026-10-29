@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">போர்ட்ஃபோலியோ விழிப்பூட்டல்கள் இடைநிறுத்தப்பட்டன: %1$s க்குத் தற்போதைய விலை இல்லை</string>
+    <string name="portfolio_alarms_paused_price_generic">போர்ட்ஃபோலியோ விழிப்பூட்டல்கள் இடைநிறுத்தப்பட்டன: எல்லாக் காயின்களுக்கும் தற்போதைய விலை இல்லை</string>
+    <string name="portfolio_alarms_paused_addresses">போர்ட்ஃபோலியோ விழிப்பூட்டல்கள் இடைநிறுத்தப்பட்டன: கண்காணிக்கப்படும் முகவரிகளின் இருப்புகள் இன்னும் ஏற்றப்படவில்லை</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">போர்ட்ஃபோலியோ விழிப்பூட்டல்கள் இடைநிறுத்தப்பட்டன: %1$s இன் டோக்கன் இருப்புகள் பகுதியளவு காலாவதியானவை</string>
+    <string name="portfolio_alarms_paused_tokens_generic">போர்ட்ஃபோலியோ விழிப்பூட்டல்கள் இடைநிறுத்தப்பட்டன: கண்காணிக்கப்படும் முகவரிகளின் டோக்கன் இருப்புகள் பகுதியளவு காலாவதியானவை</string>
+    <string name="portfolio_alarms_paused_unverified">போர்ட்ஃபோலியோ விழிப்பூட்டல்கள் இடைநிறுத்தப்பட்டன: %1$s இன் விலை சரிபார்க்கப்படவில்லை</string>
+    <string name="portfolio_alarms_paused_unverified_generic">போர்ட்ஃபோலியோ விழிப்பூட்டல்கள் இடைநிறுத்தப்பட்டன: சில காயின்களின் விலை சரிபார்க்கப்படவில்லை</string>
+    <string name="portfolio_alarms_address_failing">போர்ட்ஃபோலியோ விழிப்பூட்டல்கள் %1$s இல்லாமல் சரிபார்க்கின்றன: 24 மணிநேரத்துக்கு மேலாக இருப்பு ஏற்றப்படவில்லை</string>
+    <string name="portfolio_alarms_address_failing_generic">24 மணிநேரத்துக்கு மேலாக இருப்பு ஏற்றப்படாத முகவரிகள் இல்லாமல் போர்ட்ஃபோலியோ விழிப்பூட்டல்கள் சரிபார்க்கின்றன</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">டோக்கன்கள் பகுதியளவு காலாவதியானவை</string>
+    <string name="portfolio_address_restore_failed">முகவரியை மீட்டெடுக்க முடியவில்லை – தேவைப்பட்டால் மீண்டும் சேர்க்கவும்</string>
+    <string name="portfolio_address_remove_failed">முகவரியை அகற்ற முடியவில்லை – மீண்டும் முயலவும்</string>
+</resources>

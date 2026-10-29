@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">Фон</string>
+    <string name="widget_configure_hint">Фон мен мөлдірлікті таңдаңыз. Түс қолданбаға сәйкес. Виджет бүкіл бақылау тізіміңізді көрсетеді; қолданбаны ашу үшін жолды түртіңіз.</string>
+    <string name="widget_configure_title">Виджетті баптау</string>
+    <string name="widget_description">Бақылау тізіміңіздегі жұптың бағамын көрсетеді.</string>
+    <string name="widget_empty">Бақылау тізімінде әлі жұп жоқ.</string>
+    <string name="widget_group_hint">Тек осы топтың жұптарын көрсету.</string>
+    <string name="widget_kind_single">Бір монета</string>
+    <string name="widget_opacity">Фон мөлдірлігі: %1$s</string>
+    <string name="widget_pulse_description">Нарықта дәл қазір не ерекшеленеді: тақырып, қысқаша түйін және Bitcoin, Ethereum, Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">ескірген</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">ескірген · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">Шамдар</string>
+    <string name="widget_chart_line">Сызық</string>
+    <string name="widget_chart_range">График аралығы</string>
+    <string name="widget_chart_type">График түрі</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 жыл</string>
+    <string name="widget_range_24h">24 сағ</string>
+    <string name="widget_range_30d">30 күн</string>
+    <string name="widget_range_7d">7 күн</string>
+    <string name="widget_range_short_1y">1 Ж</string>
+    <string name="widget_range_short_24h">24 сағ</string>
+    <string name="widget_range_short_30d">30 К</string>
+    <string name="widget_range_short_7d">7 К</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">%1$s жағдайы бойынша</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">Тарих жақында пайда болады</string>
+    <string name="widget_portfolio_description">Портфельдің жалпы құны және бүгінгі өзгеріс</string>
+    <string name="widget_portfolio_entries">Монеталар астындағы жазбалар</string>
+    <string name="widget_portfolio_entries_both">Екеуі де</string>
+    <string name="widget_portfolio_entries_buys">Сатып алулар</string>
+    <string name="widget_portfolio_entries_hint">Монеталардың астында орын болса ғана көрсетіледі. Сатып алуларға депозиттер, сатуларға шығарулар кіреді; «Екеуі де» таңдалса, жолдардың жиыны активке тең.</string>
+    <string name="widget_portfolio_entries_off">Өшірулі</string>
+    <string name="widget_portfolio_entries_sells">Сатулар</string>
+    <string name="widget_portfolio_display">Көрсету</string>
+    <string name="widget_portfolio_display_conversion">Тек айырбастау</string>
+    <string name="widget_portfolio_display_conversion_usdt">Айырбастау + USDT</string>
+    <string name="widget_portfolio_display_hint">Айырбастау валютасы USD стейблкоині болса (мысалы, USDC), USDT жолы жасырылады.</string>
+    <string name="widget_portfolio_display_usdt">Тек USDT</string>
+    <string name="widget_portfolio_empty">«Портфель» қойындысында сатып алуларды қосыңыз</string>
+    <string name="widget_portfolio_list_hint">Позицияларыңызды осында көрсету үшін қолданбаны ашыңыз.</string>
+    <string name="widget_portfolio_locked_hint">Құлыптаулы – қолданбада ашыңыз</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="one">%1$d монетасыз</item>
+        <item quantity="other">%1$d монетасыз</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ тағы %1$d</item>
+        <item quantity="other">+ тағы %1$d</item>
+    </plurals>
+    <string name="widget_portfolio_name">Портфель</string>
+    <string name="widget_portfolio_off_hint">Оны %1$s бөлімінде қосыңыз.</string>
+    <string name="widget_portfolio_off_short">Портфель өшірулі</string>
+    <string name="widget_portfolio_off_title">Портфель өшірулі</string>
+    <string name="widget_portfolio_partly_stale">кейбір бағамдар ескірген</string>
+    <string name="widget_portfolio_period">Кезең</string>
+    <string name="widget_portfolio_period_without">%1$s, %2$s есептелмеген</string>
+    <string name="widget_portfolio_range_48h">48 сағ</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: Портфельді ашыңыз</string>
+    <string name="widget_portfolio_range_short_48h">48 сағ</string>
+    <string name="widget_portfolio_today_without">Бүгін, %1$s есептелмеген</string>
+    <string name="widget_portfolio_view">Көрініс</string>
+    <string name="widget_portfolio_view_chart">График</string>
+    <string name="widget_portfolio_view_list">Тізім</string>
+    <string name="widget_portfolio_view_overview">Шолу</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">Жұпты таңдаңыз</string>
+    <string name="single_widget_description">Бір монетаны бағаммен, өзгеріспен және 24 сағаттық графикпен үлкен етіп көрсетеді.</string>
+    <string name="single_widget_label">Crypto Checker – бір монета</string>
+    <string name="single_widget_title">Бір монета виджетін баптау</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">Қосу</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">%1$s виджетін қосу</string>
+    <string name="widgets_manual_text">Басты экраныңыз қолданбадан виджет қоса алмайды. Басты экрандағы бос жерді басып тұрып, «Виджеттер» таңдаңыз және «Crypto Checker» іздеңіз.</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">Виджетті өзіңіз қосыңыз</string>
+    <string name="widgets_sheet_title">Виджет қосу</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS қолданбаларға виджеттерді өздері қосуға рұқсат бермейді. Бұл бір сәтті алады:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Қолжетімді виджеттер</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Қолданбалар дірілдей бастағанша Басты экрандағы бос жерді басып тұрыңыз.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Жоғарыдағы «Өңдеу» › «Виджет қосу» түймесін түртіңіз (ескі iOS нұсқаларында «+»).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">«Crypto Checker» іздеп, виджетті таңдап, «Виджет қосу» түймесін түртіңіз.</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">Жаңарту – %1$d с кейін қайта мүмкін</string>
+    <string name="settings_watch">Сағат</string>
+    <string name="settings_watch_hint">Wear OS жүйесіндегі сағат қолданбасына арналған монеталар (%1$d дейін, USDT бойынша бағаланады). Сағатқа тек осы тізім Google Play қызметтері арқылы жіберіледі; сағат бағамдарды өзі алады.</string>
+    <string name="settings_watch_mode_phone">Телефондағыдай (таңдаулылар ★)</string>
+    <string name="settings_watch_mode_own">Жеке тізім</string>
+    <string name="settings_watch_own_title">Жеке тізім: %2$d ішінен %1$d</string>
+    <string name="settings_watch_none">Әзірге таңдаулылар жоқ</string>
+
+    <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
+    <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">«Тізім» көрінісінде USDT жолы жоқ</string>
+    <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
+    <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">«Шолу» оның орнына 30 күнді көрсетеді</string>
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">अलर्ट सेट गर्नुहोस् – मूल्य, प्रतिशत, भोल्युम र असामान्य उतारचढाव</string>
+    <string name="welcome_alert_q">कहिले अलर्ट गर्ने?</string>
+    <string name="welcome_text">तपाईंका मूल्यहरू। तपाईंका अलर्टहरू। तपाईंको अवलोकन।\nखाता चाहिँदैन। विज्ञापन छैन। ट्र्याकिङ छैन।</string>
+    <string name="welcome_understand">बुझ्नुहोस् – अहिले कुनै मूल्यसँगै के चलिरहेको छ</string>
+    <string name="welcome_understand_q">यससँगै के चलिरहेको छ?</string>
+    <string name="welcome_watch">हेर्नुहोस् – तपाईंका कोइन, मूल्य र मूल्यको इतिहास</string>
+    <string name="welcome_watch_q">के भइरहेको छ?</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">वाचलिस्टमा थप्नुहोस् (%1$d)</string>
+    <string name="starter_loading_prices">मूल्यहरू लोड हुँदैछन्…</string>
+    <string name="starter_search_coin">अर्को कोइन खोज्नुहोस्</string>
+    <string name="starter_select_all">सबै छान्नुहोस्</string>
+    <string name="starter_select_none">कुनै पनि नछान्नुहोस्</string>
+    <string name="starter_title">यी कोइनबाट सुरु गर्नुहोस्</string>
+    <string name="starter_watch_alarm_hint">मूल्य हेर्नुहोस्, अलर्ट सेट गर्नुहोस्</string>
+
+    <!-- Start-Auswahl: Börse und Quote der Startpaare (Binance, bei Standort-Sperre Binance.US), z. B. «Kurse von Binance in USDT. …» -->
+    <string name="starter_source_text">%1$s बाट %2$s मा मूल्यहरू। नचाहिएका हटाउनुहोस् र बाँकी एकैपटक थप्नुहोस्। हरेक कोइनका लागि एक्सचेन्ज र जोडी परिवर्तन गर्न सक्नुहुन्छ।</string>
+</resources>

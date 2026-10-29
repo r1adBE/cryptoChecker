@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">ਪਿਛੋਕੜ</string>
+    <string name="widget_configure_hint">ਪਿਛੋਕੜ ਅਤੇ ਧੁੰਦਲਾਪਣ ਚੁਣੋ। ਰੰਗ ਐਪ ਦੀ ਪਾਲਣਾ ਕਰਦਾ ਹੈ। ਵਿਜੇਟ ਤੁਹਾਡੀ ਪੂਰੀ ਵਾਚਲਿਸਟ ਦਿਖਾਉਂਦਾ ਹੈ; ਐਪ ਖੋਲ੍ਹਣ ਲਈ ਕਿਸੇ ਕਤਾਰ ’ਤੇ ਟੈਪ ਕਰੋ।</string>
+    <string name="widget_configure_title">ਵਿਜੇਟ ਸੈੱਟ ਕਰੋ</string>
+    <string name="widget_description">ਤੁਹਾਡੀ ਵਾਚਲਿਸਟ ਦੇ ਕਿਸੇ ਜੋੜੇ ਦੀ ਕੀਮਤ ਦਿਖਾਉਂਦਾ ਹੈ।</string>
+    <string name="widget_empty">ਵਾਚਲਿਸਟ ਵਿੱਚ ਹਾਲੇ ਕੋਈ ਜੋੜਾ ਨਹੀਂ।</string>
+    <string name="widget_group_hint">ਸਿਰਫ਼ ਇਸ ਗਰੁੱਪ ਦੇ ਜੋੜੇ ਦਿਖਾਓ।</string>
+    <string name="widget_kind_single">ਇੱਕ ਕੌਇਨ</string>
+    <string name="widget_opacity">ਪਿਛੋਕੜ ਦਾ ਧੁੰਦਲਾਪਣ: %1$s</string>
+    <string name="widget_pulse_description">ਇਸ ਵੇਲੇ ਬਾਜ਼ਾਰ ਵਿੱਚ ਕੀ ਵੱਖਰਾ ਦਿਖ ਰਿਹਾ ਹੈ: ਸਿਰਲੇਖ, ਛੋਟਾ ਸਾਰ ਅਤੇ Bitcoin, Ethereum ਅਤੇ Solana।</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">ਪੁਰਾਣਾ</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">ਪੁਰਾਣਾ · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">ਕੈਂਡਲਾਂ</string>
+    <string name="widget_chart_line">ਲਾਈਨ</string>
+    <string name="widget_chart_range">ਚਾਰਟ ਦੀ ਰੇਂਜ</string>
+    <string name="widget_chart_type">ਚਾਰਟ ਦੀ ਕਿਸਮ</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 ਸਾਲ</string>
+    <string name="widget_range_24h">24 ਘੰਟੇ</string>
+    <string name="widget_range_30d">30 ਦਿਨ</string>
+    <string name="widget_range_7d">7 ਦਿਨ</string>
+    <string name="widget_range_short_1y">1 ਸਾਲ</string>
+    <string name="widget_range_short_24h">24 ਘੰ</string>
+    <string name="widget_range_short_30d">30 ਦਿਨ</string>
+    <string name="widget_range_short_7d">7 ਦਿਨ</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">%1$s ਮੁਤਾਬਕ</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">ਇਤਿਹਾਸ ਜਲਦੀ ਆ ਰਿਹਾ ਹੈ</string>
+    <string name="widget_portfolio_description">ਤੁਹਾਡੇ ਪੋਰਟਫੋਲੀਓ ਦਾ ਕੁੱਲ ਮੁੱਲ ਅਤੇ ਅੱਜ ਦੀ ਤਬਦੀਲੀ</string>
+    <string name="widget_portfolio_entries">ਕੌਇਨਾਂ ਹੇਠਾਂ ਐਂਟਰੀਆਂ</string>
+    <string name="widget_portfolio_entries_both">ਦੋਵੇਂ</string>
+    <string name="widget_portfolio_entries_buys">ਖਰੀਦਾਂ</string>
+    <string name="widget_portfolio_entries_hint">ਸਿਰਫ਼ ਉਦੋਂ ਦਿਖਦੀਆਂ ਹਨ ਜਦੋਂ ਕੌਇਨਾਂ ਹੇਠਾਂ ਥਾਂ ਹੋਵੇ। ਖਰੀਦਾਂ ਵਿੱਚ ਜਮ੍ਹਾਂ, ਵਿਕਰੀਆਂ ਵਿੱਚ ਨਿਕਾਸੀਆਂ ਸ਼ਾਮਲ ਹਨ; «ਦੋਵੇਂ» ਨਾਲ ਲਾਈਨਾਂ ਦਾ ਜੋੜ ਹੋਲਡਿੰਗ ਦੇ ਬਰਾਬਰ ਹੁੰਦਾ ਹੈ।</string>
+    <string name="widget_portfolio_entries_off">ਬੰਦ</string>
+    <string name="widget_portfolio_entries_sells">ਵਿਕਰੀਆਂ</string>
+    <string name="widget_portfolio_display">ਡਿਸਪਲੇ</string>
+    <string name="widget_portfolio_display_conversion">ਸਿਰਫ਼ ਪਰਿਵਰਤਨ</string>
+    <string name="widget_portfolio_display_conversion_usdt">ਪਰਿਵਰਤਨ + USDT</string>
+    <string name="widget_portfolio_display_hint">ਜਦੋਂ ਪਰਿਵਰਤਨ ਮੁਦਰਾ USD ਸਟੇਬਲਕੌਇਨ ਹੋਵੇ (ਜਿਵੇਂ USDC) ਤਾਂ USDT ਲਾਈਨ ਲੁਕੀ ਰਹਿੰਦੀ ਹੈ।</string>
+    <string name="widget_portfolio_display_usdt">ਸਿਰਫ਼ USDT</string>
+    <string name="widget_portfolio_empty">ਪੋਰਟਫੋਲੀਓ ਟੈਬ ਵਿੱਚ ਖਰੀਦਾਂ ਜੋੜੋ</string>
+    <string name="widget_portfolio_list_hint">ਇੱਥੇ ਆਪਣੀਆਂ ਪੁਜ਼ੀਸ਼ਨਾਂ ਦਿਖਾਉਣ ਲਈ ਐਪ ਖੋਲ੍ਹੋ।</string>
+    <string name="widget_portfolio_locked_hint">ਲੌਕ ਹੈ – ਐਪ ਵਿੱਚ ਅਨਲੌਕ ਕਰੋ</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="one">%1$d ਕੌਇਨ ਤੋਂ ਬਿਨਾਂ</item>
+        <item quantity="other">%1$d ਕੌਇਨਾਂ ਤੋਂ ਬਿਨਾਂ</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ %1$d ਹੋਰ</item>
+        <item quantity="other">+ %1$d ਹੋਰ</item>
+    </plurals>
+    <string name="widget_portfolio_name">ਪੋਰਟਫੋਲੀਓ</string>
+    <string name="widget_portfolio_off_hint">ਇਸਨੂੰ %1$s ਵਿੱਚ ਚਾਲੂ ਕਰੋ।</string>
+    <string name="widget_portfolio_off_short">ਪੋਰਟਫੋਲੀਓ ਬੰਦ</string>
+    <string name="widget_portfolio_off_title">ਪੋਰਟਫੋਲੀਓ ਬੰਦ ਹੈ</string>
+    <string name="widget_portfolio_partly_stale">ਕੁਝ ਕੀਮਤਾਂ ਪੁਰਾਣੀਆਂ</string>
+    <string name="widget_portfolio_period">ਮਿਆਦ</string>
+    <string name="widget_portfolio_period_without">%2$s ਤੋਂ ਬਿਨਾਂ %1$s</string>
+    <string name="widget_portfolio_range_48h">48 ਘੰਟੇ</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: ਪੋਰਟਫੋਲੀਓ ਖੋਲ੍ਹੋ</string>
+    <string name="widget_portfolio_range_short_48h">48 ਘੰ</string>
+    <string name="widget_portfolio_today_without">%1$s ਤੋਂ ਬਿਨਾਂ ਅੱਜ</string>
+    <string name="widget_portfolio_view">ਦ੍ਰਿਸ਼</string>
+    <string name="widget_portfolio_view_chart">ਚਾਰਟ</string>
+    <string name="widget_portfolio_view_list">ਸੂਚੀ</string>
+    <string name="widget_portfolio_view_overview">ਸੰਖੇਪ</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">ਕੋਈ ਜੋੜਾ ਚੁਣੋ</string>
+    <string name="single_widget_description">ਇੱਕ ਕੌਇਨ ਨੂੰ ਵੱਡਾ ਦਿਖਾਉਂਦਾ ਹੈ, ਕੀਮਤ, ਤਬਦੀਲੀ ਅਤੇ 24 ਘੰਟਿਆਂ ਦੇ ਚਾਰਟ ਨਾਲ।</string>
+    <string name="single_widget_label">Crypto Checker – ਇੱਕ ਕੌਇਨ</string>
+    <string name="single_widget_title">ਇੱਕ-ਕੌਇਨ ਵਿਜੇਟ ਸੈੱਟ ਕਰੋ</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">ਜੋੜੋ</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">ਵਿਜੇਟ %1$s ਜੋੜੋ</string>
+    <string name="widgets_manual_text">ਤੁਹਾਡੀ ਹੋਮ ਸਕ੍ਰੀਨ ਐਪ ਤੋਂ ਵਿਜੇਟ ਨਹੀਂ ਜੋੜ ਸਕਦੀ। ਹੋਮ ਸਕ੍ਰੀਨ ’ਤੇ ਕਿਸੇ ਖਾਲੀ ਥਾਂ ਨੂੰ ਦਬਾ ਕੇ ਰੱਖੋ, “ਵਿਜੇਟ” ਚੁਣੋ ਅਤੇ “Crypto Checker” ਲੱਭੋ।</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">ਵਿਜੇਟ ਖੁਦ ਜੋੜੋ</string>
+    <string name="widgets_sheet_title">ਵਿਜੇਟ ਜੋੜੋ</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS ਐਪਾਂ ਨੂੰ ਖੁਦ ਵਿਜੇਟ ਜੋੜਨ ਨਹੀਂ ਦਿੰਦਾ। ਬੱਸ ਇੱਕ ਪਲ ਲੱਗਦਾ ਹੈ:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">ਉਪਲਬਧ ਵਿਜੇਟ</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">ਹੋਮ ਸਕ੍ਰੀਨ ’ਤੇ ਕਿਸੇ ਖਾਲੀ ਥਾਂ ਨੂੰ ਉਦੋਂ ਤੱਕ ਦਬਾ ਕੇ ਰੱਖੋ ਜਦੋਂ ਤੱਕ ਐਪਾਂ ਹਿੱਲਣ ਨਾ ਲੱਗਣ।</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">ਉੱਪਰ “ਸੋਧੋ” › “ਵਿਜੇਟ ਜੋੜੋ” ’ਤੇ ਟੈਪ ਕਰੋ (ਜਾਂ ਪੁਰਾਣੇ iOS ਵਰਜ਼ਨਾਂ ’ਤੇ “+”)।</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">“Crypto Checker” ਲੱਭੋ, ਵਿਜੇਟ ਚੁਣੋ ਅਤੇ “ਵਿਜੇਟ ਜੋੜੋ” ’ਤੇ ਟੈਪ ਕਰੋ।</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">ਤਾਜ਼ਾ ਕਰੋ – %1$d ਸਕਿੰਟ ਵਿੱਚ ਦੁਬਾਰਾ ਸੰਭਵ</string>
+    <string name="settings_watch">ਘੜੀ</string>
+    <string name="settings_watch_hint">Wear OS ’ਤੇ ਘੜੀ ਐਪ ਲਈ ਕੌਇਨ (ਵੱਧ ਤੋਂ ਵੱਧ %1$d, USDT ਦੇ ਮੁਕਾਬਲੇ ਕੀਮਤ)। ਸਿਰਫ਼ ਇਹੀ ਸੂਚੀ Google Play services ਰਾਹੀਂ ਘੜੀ ’ਤੇ ਜਾਂਦੀ ਹੈ; ਘੜੀ ਕੀਮਤਾਂ ਖੁਦ ਲਿਆਉਂਦੀ ਹੈ।</string>
+    <string name="settings_watch_mode_phone">ਫ਼ੋਨ ਵਾਂਗ (ਮਨਪਸੰਦ ★)</string>
+    <string name="settings_watch_mode_own">ਆਪਣੀ ਸੂਚੀ</string>
+    <string name="settings_watch_own_title">ਆਪਣੀ ਸੂਚੀ: %2$d ਵਿੱਚੋਂ %1$d</string>
+    <string name="settings_watch_none">ਹਾਲੇ ਕੋਈ ਮਨਪਸੰਦ ਨਹੀਂ</string>
+
+    <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
+    <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">“ਸੂਚੀ” ਵਿੱਚ USDT ਲਾਈਨ ਨਹੀਂ</string>
+    <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
+    <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">“ਸੰਖੇਪ” ਇਸਦੀ ਬਜਾਏ 30 ਦਿਨ ਦਿਖਾਉਂਦਾ ਹੈ</string>
+</resources>

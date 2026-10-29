@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Protokoll: Titel der Seite und Name des Knopfs in «Alle Alarme» -->
+    <string name="alarm_log_title">Ահազանգերի մատյան</string>
+    <!-- Link unter «Letzte Prüfungen» (Einstellungen › Aktualisierung) -->
+    <string name="alarm_log_open">Ցույց տալ ահազանգերի մատյանը</string>
+    <string name="alarm_log_intro">Երբ ահազանգը գործարկվեց – և երբ այն կգործարկվեր, բայց հետ պահվեց։ Պահվում է միայն այս սարքում՝ 14 օր։</string>
+    <string name="alarm_log_empty_title">Դեռ գրառումներ չկան</string>
+    <string name="alarm_log_empty_message">Գրառումները հայտնվում են այստեղ, երբ ահազանգը գործարկվում է կամ հետ է պահվում – օրինակ՝ հնացած գնի կամ լուռ ժամերի պատճառով։</string>
+    <string name="alarm_log_clear">Մաքրել մատյանը</string>
+    <string name="alarm_log_clear_title">Մաքրե՞լ ահազանգերի մատյանը</string>
+    <string name="alarm_log_clear_message">Բոլոր գրառումները կհեռացվեն։ Քո ահազանգերը կմնան անփոփոխ։</string>
+    <!-- Screenreader: Schwelle des Alarms, z. B. «Marke Über 100’000 CHF» -->
+    <string name="alarm_log_threshold">Շեմ՝ %1$s</string>
+    <!-- Alarm-Editor: letzte Prüfung, %1$s = «14:02 · Kraken 99’800 CHF · Marke nicht erreicht» -->
+    <string name="alarm_last_check">Վերջին ստուգումը՝ %1$s</string>
+    <!-- Ergebnisse einer Alarm-Prüfung (AlarmLogOutcome) -->
+    <string name="alarm_outcome_fired">Գործարկվեց</string>
+    <string name="alarm_outcome_not_reached">Շեմը չի հասել</string>
+    <string name="alarm_outcome_already_triggered">Արդեն հաղորդվել է – սպասում է, մինչև գինը վերադառնա մյուս կողմ</string>
+    <string name="alarm_outcome_cooldown">Չգործարկվեց – դադար վերջին ահազանգից հետո</string>
+    <!-- %1$s = Zeit des Kurses laut Börse -->
+    <string name="alarm_outcome_stale">Չգործարկվեց – գինը հնացած է (առ %1$s)</string>
+    <string name="alarm_outcome_mark_price">Չգործարկվեց – mark price է, ոչ գործարքի գին</string>
+    <string name="alarm_outcome_low_liquidity">Չգործարկվեց – իրացվելիությունը 10,000 USD-ից ցածր է կամ անհայտ</string>
+    <string name="alarm_outcome_quiet_hours">Չգործարկվեց – լուռ ժամեր (հետո կզգուշացնի, եթե պայմանը դեռ պահպանվի)</string>
+    <string name="alarm_outcome_notifications_off">Չգործարկվեց – ծանուցումներն անջատված են</string>
+    <string name="alarm_outcome_not_shown">Չգործարկվեց – ծանուցումը չհասավ, կփորձենք ավելի ուշ</string>
+    <string name="alarm_outcome_no_rate">Չստուգվեց – փոխարժեք չկա</string>
+    <string name="alarm_outcome_no_price">Գին չկա – բորսայի հարցումը ձախողվեց</string>
+
+    <string name="alarm_outcome_snoozed">Հետ է պահված – «1 ժ հետո»-ն դեռ գործում է</string>
+    <string name="alarm_log_source_app">հավելվածում</string>
+    <string name="alarm_log_source_background">ֆոնային ռեժիմում</string>
+    <string name="alarm_log_source_exact">ճշգրիտ ժամին ստուգում</string>
+    <string name="alarm_log_source_widget">վիջեթի միջոցով</string>
+    <string name="alarm_outcome_fx_stale">Չստուգվեց – փոխարժեքը 36 ժամից հին է</string>
+    <string name="alarm_outcome_fx_unsure">Չստուգվեց – USDT փոխարկումն անվստահելի է (միայն USDC-ի միջոցով)</string>
+</resources>

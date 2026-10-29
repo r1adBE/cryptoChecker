@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">Gach toradh</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="one">%1$d mhalartán</item>
+        <item quantity="two">%1$d mhalartán</item>
+        <item quantity="few">%1$d mhalartán</item>
+        <item quantity="many">%1$d malartán</item>
+        <item quantity="other">%1$d malartán</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">Níl péire don bhonn seo sna liostaí lódáilte.</string>
+    <string name="explorer_coin_not_loaded">Liostaí péirí gan lódáil fós</string>
+    <string name="explorer_coin_other_pairs">Péirí eile</string>
+    <string name="explorer_coin_show_pairs">Taispeáin péirí</string>
+    <string name="explorer_coin_suggested">Molta</string>
+    <string name="explorer_coins_title">Boinn</string>
+    <string name="explorer_lists_failed_many">Níl %1$s ag freagairt anois – liostaí péirí gan lódáil. Bain triail eile as ar ball.</string>
+    <plurals name="explorer_lists_failed_more">
+        <item quantity="one">+%1$d eile</item>
+        <item quantity="two">+%1$d eile</item>
+        <item quantity="few">+%1$d eile</item>
+        <item quantity="many">+%1$d eile</item>
+        <item quantity="other">+%1$d eile</item>
+    </plurals>
+    <string name="explorer_lists_failed_one">Níl %1$s ag freagairt anois – liosta péirí gan lódáil. Bain triail eile as ar ball.</string>
+    <string name="explorer_lists_load">Lódáil liostaí</string>
+    <string name="explorer_lists_loading">Liostaí péirí á lódáil… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="one">Níl liosta péirí %1$d mhalartáin ar an ngléas seo fós.</item>
+        <item quantity="two">Níl liostaí péirí %1$d mhalartán ar an ngléas seo fós.</item>
+        <item quantity="few">Níl liostaí péirí %1$d mhalartán ar an ngléas seo fós.</item>
+        <item quantity="many">Níl liostaí péirí %1$d malartán ar an ngléas seo fós.</item>
+        <item quantity="other">Níl liostaí péirí %1$d malartán ar an ngléas seo fós.</item>
+    </plurals>
+    <string name="explorer_lists_privacy">Lódálann sé liosta poiblí iomlán gach malartáin – an ceann céanna do chách. Fanann do chuardach ar an ngléas seo.</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">Cuardach le déanaí: %1$s</string>
+    <string name="explorer_recent_clear">Glan</string>
+    <string name="explorer_recent_clear_a11y">Glan cuardaigh le déanaí</string>
+    <string name="explorer_recent_title">Cuardaigh le déanaí</string>
+    <string name="explorer_search_choose_manually">Roghnaigh malartán agus péire de láimh</string>
+    <string name="explorer_search_empty">Gan torthaí.</string>
+    <string name="explorer_search_hint">Cuardaigh bonn, péire nó malartán</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">Clóscríobh ainm nó siombail boinn, m.sh. Bitcoin nó BTC – ansin roghnaigh an péire.</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">Cuir le liosta faire</string>
+    <string name="explorer_added_to_watchlist">Curtha leis an liosta faire.</string>
+    <string name="explorer_already_in_watchlist">Tá an péire seo sa liosta faire cheana.</string>
+    <string name="explorer_exchange_missing">Malartán ar iarraidh?</string>
+    <string name="explorer_loading_pairs">Péirí trádála á lódáil…</string>
+    <string name="explorer_no_pair_selected">Roghnaigh péire ar dtús.</string>
+    <string name="explorer_no_pairs_yet">Níl péirí lódáilte don mhalartán seo fós.</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$d phéire · nuashonraithe %2$s</item>
+        <item quantity="two">%1$d phéire · nuashonraithe %2$s</item>
+        <item quantity="few">%1$d phéire · nuashonraithe %2$s</item>
+        <item quantity="many">%1$d bpéire · nuashonraithe %2$s</item>
+        <item quantity="other">%1$d péire · nuashonraithe %2$s</item>
+    </plurals>
+    <string name="explorer_pairs_title">Péirí</string>
+    <string name="explorer_precise_title">Ardleibhéal / de réir malartáin</string>
+    <string name="explorer_price_loading">Praghas á lódáil…</string>
+    <string name="explorer_select_exchange_hint">Roghnaigh malartán – lódáiltear a phéirí trádála go huathoibríoch.</string>
+    <string name="explorer_select_placeholder">Roghnaigh</string>
+    <string name="explorer_step_pair">Roghnaigh péire</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">Gnóthaí</string>
+    <string name="explorer_filter_losers">Caillteanais</string>
+    <string name="explorer_filter_volume">Toirt</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">Gach péire %1$s den mhalartán seo</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">Aimsíodh %1$d phéire %2$s</item>
+        <item quantity="two">Aimsíodh %1$d phéire %2$s</item>
+        <item quantity="few">Aimsíodh %1$d phéire %2$s</item>
+        <item quantity="many">Aimsíodh %1$d bpéire %2$s</item>
+        <item quantity="other">Aimsíodh %1$d péire %2$s</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">Níl péirí %1$s ar an malartán seo don chineál conartha roghnaithe. Sioncronaigh an malartán ar dtús, nó bain triail as cineál conartha eile.</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">Cuir an %1$d phéire le liosta faire</item>
+        <item quantity="two">Cuir an %1$d phéire go léir le liosta faire</item>
+        <item quantity="few">Cuir na %1$d phéire go léir le liosta faire</item>
+        <item quantity="many">Cuir na %1$d bpéire go léir le liosta faire</item>
+        <item quantity="other">Cuir na %1$d péire go léir le liosta faire</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">%1$d curtha leis, %2$d sa liosta faire cheana.</item>
+        <item quantity="two">%1$d curtha leis, %2$d sa liosta faire cheana.</item>
+        <item quantity="few">%1$d curtha leis, %2$d sa liosta faire cheana.</item>
+        <item quantity="many">%1$d curtha leis, %2$d sa liosta faire cheana.</item>
+        <item quantity="other">%1$d curtha leis, %2$d sa liosta faire cheana.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">Cuirfear an %1$d phéire %2$s ó %3$s leis an liosta faire mura bhfuil sé ann cheana.</item>
+        <item quantity="two">Cuirfear na %1$d phéire %2$s go léir ó %3$s leis an liosta faire. Scipeáiltear péirí atá ann cheana.</item>
+        <item quantity="few">Cuirfear na %1$d phéire %2$s go léir ó %3$s leis an liosta faire. Scipeáiltear péirí atá ann cheana.</item>
+        <item quantity="many">Cuirfear na %1$d bpéire %2$s go léir ó %3$s leis an liosta faire. Scipeáiltear péirí atá ann cheana.</item>
+        <item quantity="other">Cuirfear na %1$d péire %2$s go léir ó %3$s leis an liosta faire. Scipeáiltear péirí atá ann cheana.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">Cuir %1$d phéire leis?</item>
+        <item quantity="two">Cuir %1$d phéire leis?</item>
+        <item quantity="few">Cuir %1$d phéire leis?</item>
+        <item quantity="many">Cuir %1$d bpéire leis?</item>
+        <item quantity="other">Cuir %1$d péire leis?</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">Folaigh an liosta</string>
+    <string name="explorer_bulk_show_list">Taispeáin an liosta</string>
+    <string name="explorer_bulk_tap_hint">Tapáil péire chun é a roghnú thuas.</string>
+    <string name="explorer_bulk_title">Roinnt péirí le chéile</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">Lódálann sé péirí reatha an mhalartáin roghnaithe.</string>
+    <string name="explorer_no_pair_list">Gan péirí airgeadra</string>
+    <string name="explorer_sync_sheet_last">Sioncronú deireanach: %1$s</string>
+    <string name="explorer_sync_never">riamh</string>
+    <string name="explorer_sync_sheet_action">Sioncronaigh anois</string>
+    <string name="explorer_sync_sheet_title">Nuashonraigh péirí airgeadra</string>
+    <string name="explorer_field_coin">Bonn</string>
+    <string name="explorer_field_contract">Cineál conartha</string>
+    <string name="explorer_field_exchange">Malartán</string>
+    <string name="explorer_field_quote">Airgeadra luachana</string>
+    <string name="explorer_contract_spot">Spot</string>
+    <string name="explorer_reload_pairs">Sioncronaigh</string>
+    <string name="sync_pairs_count">Péirí trádála: %1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">Cuir leis</string>
+    <string name="dex_added">%1$s curtha leis an liosta faire.</string>
+    <string name="dex_already">Tá %1$s sa liosta faire cheana.</string>
+    <string name="dex_intro">Comharthaí lasmuigh de na mórmhalartáin, ó mhalartáin dhíláraithe (Uniswap, PancakeSwap, Raydium …) trí DexScreener. Cuardaigh comhartha agus cuir ceann dá chomhthiomsuithe trádála leis – praghsanna i ndollair SAM.</string>
+    <string name="dex_liquidity">Leachtacht %1$s</string>
+    <string name="dex_no_results">Níor aimsíodh comhthiomsuithe.</string>
+    <string name="dex_search">Cuardaigh</string>
+    <string name="dex_search_hint">Ainm, siombail nó seoladh comhartha</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">Comhartha Alpha</string>
+    <string name="asset_kind_token">Comhartha</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+
+    <string name="dex_low_liquidity_no_alarm">Leachtacht íseal – gan foláirimh</string>
+    <string name="dex_low_liquidity_alarm_hint">Tá níos lú ná 10,000 USD de leachtacht sa chomhthiomsú seo (nó níor tuairiscíodh aon cheann). Is féidir le trádálacha beaga a phraghas a bhogadh, mar sin ní féidir foláirimh a shocrú anseo. Coinnítear foláirimh atá ann ach ní spreagfar iad go dtí go n-ardóidh an leachtacht arís.</string>
+
+    <string name="explorer_bulk_show_all">Taispeáin gach rud (%1$d)</string>
+    <string name="dex_token_address_copy">Cóipeáil seoladh an chomhartha</string>
+    <string name="dex_token_address_copied">Seoladh an chomhartha cóipeáilte</string>
+    <string name="dex_token_address_label">Seoladh comhartha dar críoch %1$s</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="one">Níor cuireadh %1$d phéire leis: is féidir %2$s péire ar a mhéad a bheith i do liosta faire.</item>
+        <item quantity="two">Níor cuireadh %1$d phéire leis: is féidir %2$s péire ar a mhéad a bheith i do liosta faire.</item>
+        <item quantity="few">Níor cuireadh %1$d phéire leis: is féidir %2$s péire ar a mhéad a bheith i do liosta faire.</item>
+        <item quantity="many">Níor cuireadh %1$d bpéire leis: is féidir %2$s péire ar a mhéad a bheith i do liosta faire.</item>
+        <item quantity="other">Níor cuireadh %1$d péire leis: is féidir %2$s péire ar a mhéad a bheith i do liosta faire.</item>
+    </plurals>
+    <string name="bulk_add_progress">Péirí á gcur leis … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="one">Cuir %1$d phéire nua le liosta faire</item>
+        <item quantity="two">Cuir %1$d phéire nua le liosta faire</item>
+        <item quantity="few">Cuir %1$d phéire nua le liosta faire</item>
+        <item quantity="many">Cuir %1$d bpéire nua le liosta faire</item>
+        <item quantity="other">Cuir %1$d péire nua le liosta faire</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="one">%1$d nua, %2$d sa liosta faire cheana</item>
+        <item quantity="two">%1$d nua, %2$d sa liosta faire cheana</item>
+        <item quantity="few">%1$d nua, %2$d sa liosta faire cheana</item>
+        <item quantity="many">%1$d nua, %2$d sa liosta faire cheana</item>
+        <item quantity="other">%1$d nua, %2$d sa liosta faire cheana</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">Gach ceann sa liosta faire cheana</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="one">Bain %1$d phéire arís?</item>
+        <item quantity="two">Bain %1$d phéire arís?</item>
+        <item quantity="few">Bain %1$d phéire arís?</item>
+        <item quantity="many">Bain %1$d bpéire arís?</item>
+        <item quantity="other">Bain %1$d péire arís?</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">Fanfaidh péirí a bhfuil foláireamh socraithe agat dóibh idir an dá linn.</string>
+    <string name="bulk_undo_expired">Níl aisiompú indéanta a thuilleadh – fanann na péirí sa liosta faire.</string>
+    <string name="explorer_section_spot">Spot</string>
+    <string name="explorer_section_futures">Todhchaíochtaí</string>
+    <string name="explorer_section_dex">Comhthiomsuithe DEX</string>
+    <string name="explorer_section_forex">Malairt eachtrach (ráta tagartha)</string>
+    <string name="explorer_forex_hint">Ráta laethúil an Bhainc Ceannais Eorpaigh (trí Frankfurter), ní beo – gan foláirimh.</string>
+</resources>

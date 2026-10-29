@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">ঠিকানা যোগ করুন</string>
+    <string name="portfolio_address_count">গণনায় ধরুন</string>
+    <string name="portfolio_address_error">আপডেট ব্যর্থ হয়েছে</string>
+    <string name="portfolio_address_hint">পাবলিক ঠিকানা (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) অথবা xpub</string>
+    <string name="portfolio_address_label">লেবেল (ঐচ্ছিক)</string>
+    <string name="portfolio_address_not_since_buy">ঠিকানা থেকে · “কেনার পর থেকে”-তে নেই: %1$s</string>
+    <string name="portfolio_address_overlap">আপনার নিজের লেনদেনেও আছে: %1$s – দুটোই যোগ হচ্ছে। একই কয়েন? “শুধু দেখান” বেছে নিন।</string>
+    <string name="portfolio_address_overlap_ask">%1$s আপনি ইতিমধ্যে নিজের লেনদেনে লিখে রাখছেন। এই ঠিকানার ব্যালেন্স পোর্টফোলিওতে যোগ করবেন, নাকি শুধু দেখাবেন?</string>
+    <string name="portfolio_address_overlap_auto">“%1$s” এখন শুধু দেখানো হচ্ছে, গণনায় ধরা হচ্ছে না – %2$s আপনার লেনদেনেও আছে।</string>
+    <string name="portfolio_address_overlap_title">আপনার লেনদেনের মতো একই কয়েন?</string>
+    <string name="portfolio_address_overlap_tx">আপনার নিজের জমা/ট্রান্সফারের (%1$s) সমান পরিমাণ – সম্ভবত দুবার গোনা হয়েছে।</string>
+    <string name="portfolio_address_period_observed">নজরে রাখা ঠিকানা প্রথম দেখা ব্যালেন্স থেকে গোনা হয়; পরের পরিবর্তনগুলো আগমন/নির্গমন, লাভ নয়।</string>
+    <string name="portfolio_address_privacy">%1$s-এ শুধু পাবলিক ঠিকানা পাঠানো হয় – কখনো কী বা সিড ফ্রেজ নয়। প্রদানকারী এটি আপনার IP ঠিকানার সঙ্গে দেখতে পায়। সর্বোচ্চ প্রতি 10 মিনিটে একবার যাচাই হয়।</string>
+    <string name="portfolio_address_remove">ঠিকানা সরান</string>
+    <string name="portfolio_address_show_only">শুধু দেখান, পোর্টফোলিওতে যোগ করবেন না</string>
+    <string name="portfolio_address_show_only_short">শুধু দেখান</string>
+    <string name="portfolio_address_tokens">টোকেন গণনায় ধরুন</string>
+    <string name="portfolio_address_xpub_privacy">একটি xpub এই ওয়ালেটের সব ঠিকানা প্রকাশ করে। ঠিকানাগুলো আপনার ডিভাইসেই তৈরি হয়; %1$s-এ শুধু আলাদা আলাদা ঠিকানা পাঠানো হয় – প্রথম স্ক্যানে কমপক্ষে 40টি অনুরোধ, পরে কম। প্রাইভেট কী (xprv) কখনো গ্রহণ করা হয় না।</string>
+    <string name="portfolio_address_xpub_gap">পরপর %1$dটি অব্যবহৃত ঠিকানার পর খোঁজা থেমে যায় (বেশিরভাগ ওয়ালেটের ব্যবহৃত BIP44 স্ট্যান্ডার্ড)। সেই ফাঁকের পরে কোনো ব্যবহৃত ঠিকানা গণনায় আসে না – সেটি আলাদা করে যোগ করুন।</string>
+    <string name="portfolio_address_xpub_used">ব্যবহৃত ঠিকানা: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">আপডেট করার জন্য ব্যবহৃত ঠিকানা অনেক বেশি</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">খুব বেশি ঠিকানা – পুরোনো, খালি ঠিকানায় নতুন পেমেন্ট হয়তো ধরা পড়বে না</string>
+    <string name="portfolio_addresses_title">ঠিকানা</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Bitcoin Cash ঠিকানা নজরে রাখা যায় না: API কী ছাড়া এমন কোনো বিনামূল্যের পাবলিক সেবা নেই যার শর্ত এটি অনুমতি দেয়।</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) 2024-এ বন্ধ হয়ে গেছে – ব্যালেন্স এখন BNB Smart Chain-এ (0x…)</string>
+    <string name="address_checksum">চেকসাম ভুল – টাইপের ভুল আছে কিনা দেখুন</string>
+    <string name="address_doge_unsupported">Dogecoin ঠিকানা নজরে রাখা যায় না: API কী ছাড়া এমন কোনো বিনামূল্যের পাবলিক সেবা নেই যার শর্ত এটি অনুমতি দেয়।</string>
+    <string name="address_duplicate">এই ঠিকানা ইতিমধ্যে যোগ করা আছে</string>
+    <string name="address_ens">ENS নাম সমর্থিত নয় – 0x ঠিকানা লিখুন</string>
+    <string name="address_invalid">কোনো সমর্থিত নেটওয়ার্কের বৈধ ঠিকানা নয়</string>
+    <string name="address_limit">সর্বোচ্চ 20টি ঠিকানা</string>
+    <string name="address_secret">এটি প্রাইভেট কী বা সিড ফ্রেজের মতো দেখাচ্ছে – এটি কখনো কোথাও লিখবেন না। শুধু পাবলিক ঠিকানা।</string>
+    <string name="address_testnet">টেস্টনেট ঠিকানা সমর্থিত নয়</string>
+    <string name="address_unsupported">এই ধরনের ঠিকানা সমর্থিত নয়</string>
+    <string name="address_wrong_chain">ঠিকানাটি অন্য নেটওয়ার্কের</string>
+    <string name="address_xpub_multisig">মাল্টিসিগ কী (Ypub/Zpub) সমর্থিত নয়</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot অ্যাকাউন্ট (BIP86): এই কী থেকে bc1p… ঠিকানা তৈরি হয়, গ্রহণ ও চেঞ্জের জন্য।</string>
+    <string name="portfolio_address_taproot_hint">Taproot ওয়ালেট? তার বদলে আপনার ওয়ালেট থেকে tr(…) ডেসক্রিপ্টর পেস্ট করুন – সাধারণ xpub শুধু Legacy ও SegWit ঠিকানা হিসেবে খোঁজা হয়।</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">নিজের সার্ভারে পৌঁছানো যাচ্ছে না</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">%1$s যিনি চালান তিনি এই ওয়ালেটের সব জিজ্ঞাসিত ঠিকানা দেখতে পান এবং সেগুলো একে অপরের সঙ্গে ও আপনার IP ঠিকানার সঙ্গে মেলাতে পারেন।</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">এটি এড়াতে সেটিংস › পোর্টফোলিও › ঠিকানার জন্য নিজের সার্ভার-এ আপনার নিজের সার্ভার লিখুন।</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$dটি অজানা টোকেন (গণনায় ধরা হয়নি)</item>
+        <item quantity="other">+%1$dটি অজানা টোকেন (গণনায় ধরা হয়নি)</item>
+    </plurals>
+</resources>

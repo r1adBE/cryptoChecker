@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s ku-%2$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">Ukuvala</string>
+    <string name="sheet_chart_converted_current">%1$s, kuguquliwe (izinga lamanje)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, kuguqulwe ngamazinga ansuku zonke</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">Ayikho idatha yentengo yaleli pheya</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">Ukuvula</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">Namuhla</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">Ivolumu %1$s</string>
+    <string name="sheet_more">Okuningi</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Ask</string>
+    <string name="ticker_bid">Bid</string>
+    <string name="explain_bid_ask">I-bid yintengo ephezulu kakhulu abathengi abayinikezayo njengamanje, i-ask yintengo ephansi kakhulu abathengisi abazoyamukela.</string>
+    <string name="ticker_high">Okuphezulu</string>
+    <string name="ticker_low">Okuphansi</string>
+    <string name="ticker_timestamp">Isikhathi</string>
+    <string name="ticker_vol_base">Ivolumu (ngama-coin)</string>
+    <string name="ticker_vol_quote">Ivolumu (ngemali yokukala)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (indawo yesikhathi yedivayisi)</string>
+    <string name="change_basis_local">Kusukela ngo-00:00 ngesikhathi sendawo</string>
+    <string name="change_basis_rolling">Amahora angu-24 adlule</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">Kusukela ekubuyekezweni kokugcina</string>
+    <string name="change_basis_utc_zone">Kusukela ngo-00:00 %1$s</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">Ushintsho kusukela kuma-candle e-%1$s</string>
+    <string name="change_short_since_last">ukubuyekezwa kokugcina</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">namuhla</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">namuhla %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="exchange_data_empty_error">Ayikho idatha etholiwe ku-exchange.</string>
+    <string name="market_data_summary">I-market cap, izimali ze-gas, idatha yomnotho, ukuhlaziywa kwe-coin</string>
+    <string name="market_data_tab_futures">Futures</string>
+    <string name="market_data_title">Idatha yemakethe</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">Okusakazekile</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">I-market cap</string>
+    <string name="spot_max_supply">Inani eliphezulu</string>
+    <string name="spot_no_data">Ayikho idatha ye-spot yale coin</string>
+    <string name="spot_source_updated">Umthombo: %1$s · kusukela ku-%2$s</string>
+    <string name="spot_supply_of_max">%1$s yenani eliphezulu iyasakazeka</string>
+    <string name="spot_total_supply">Inani eliphelele</string>
+    <string name="spot_vol_mcap">Ivolumu/I-market cap</string>
+    <string name="spot_volume_24h">Ivolumu (24h)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">Ireferensi: %1$s</string>
+    <string name="futures_funding">Izinga le-funding</string>
+    <string name="futures_funding_interval_unknown">isikhathi asaziwa</string>
+    <string name="futures_funding_per8h_equiv">= %1$s emahoreni angu-8 (njengakuma-alamu)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">ngehora</string>
+    <string name="futures_funding_per_hours">nge-%1$d h</string>
+    <string name="futures_next_funding">elandelayo ngemuva kwe-%1$d h %2$d min</string>
+    <string name="futures_no_data">Ayikho idatha ye-futures yale coin</string>
+    <string name="futures_open_interest">I-open interest</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">Ireferensi evela ku-%1$s – i-funding ne-open interest kuyehluka nge-exchange; ku-%2$s kungehluka.</string>
+    <string name="futures_reference_spot">Ireferensi evela ku-%1$s (i-USDT perpetual yale coin)</string>
+    <string name="futures_source">Umthombo: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">Abahwebi abaningi babheja ngokwenyuka noma ngokwehla kwezintengo ngemali ebolekiwe. Imali ekhokhwayo phakathi kwezikhundla ze-long ne-short. Okuphozithivu kakhulu kusho ukuthi abaningi babheja ngokwenyuka kwezintengo.</string>
+    <string name="explain_open_interest">Ama-futures ayizibheja ngentengo, kaningi ngemali ebolekiwe. Inani lazo zonke izikhundla ze-futures ezivulekile. Uma linyuka, imali eningi ibheja ngalokho kunyakaza.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Incazelo</string>
+    <string name="explain_spot_fdv">Inani elihlanjululwe ngokuphelele: intengo × inani eliphezulu (noma inani eliphelele uma kungekho mkhawulo).</string>
+    <string name="explain_spot_market_cap">Intengo × okusakazekile. Iphilisi libonisa ushintsho lwayo emahoreni angu-24.</string>
+    <string name="explain_spot_source">Izibalo kuwo wonke ama-exchange ngamadola aseMelika, ezivela ku-CoinGecko.</string>
+    <string name="explain_spot_supply">Okusakazekile: ama-coin asemakethe manje. Okuphelele: wonke ama-coin adaliwe kukhishwe ashisiwe. Okuphezulu: okuningi kakhulu okungake kube khona.</string>
+    <string name="explain_spot_volume">Inani elihwebelwe emahoreni angu-24. Ivolumu/I-market cap: ivolumu uma iqhathaniswa ne-market cap — okuphezulu kusho ukuhweba okusebenza kakhulu.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · izinga %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">Igebe elikhulu phakathi kwentengo yokuthenga neyokuthengisa (%1$s)</string>
+
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">Umlando nge-%1$s, uguqulelwe ku-%2$s ngezinga lanamuhla</string>
+    <string name="converted_unsure">Ukuguqula akuqinisekile</string>
+</resources>

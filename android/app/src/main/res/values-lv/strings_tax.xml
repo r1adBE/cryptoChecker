@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
+    <string name="portfolio_cutoff_export_action">Eksports uz datumu…</string>
+    <string name="portfolio_tax_worksheet_action">Darba lapa…</string>
+    <string name="portfolio_export_address_unobserved">adrese šajā datumā netika vērota – nav iekļauta</string>
+    <string name="portfolio_export_button">Eksportēt CSV</string>
+    <string name="portfolio_export_col_amount">Daudzums</string>
+    <string name="portfolio_export_col_coin">Monēta</string>
+    <string name="portfolio_export_col_note">Piezīme</string>
+    <string name="portfolio_export_col_price">Cena USDT</string>
+    <string name="portfolio_export_col_rate">Kurss USDT→%1$s</string>
+    <string name="portfolio_export_col_value">Vērtība USDT</string>
+    <string name="portfolio_export_col_value_cur">Vērtība %1$s</string>
+    <!-- Inhalt der CSV-Datei -->
+    <string name="portfolio_export_comment"># Datums %1$s, valūta %2$s, valūtas kurss %3$s</string>
+    <string name="portfolio_export_currency">Valūta: %1$s</string>
+    <string name="portfolio_export_date">Datums</string>
+    <string name="portfolio_export_done">Eksports saglabāts</string>
+    <string name="portfolio_export_estv_note">Īpašuma nodoklim, ja norādītas, piemēro oficiālās ESTV cenu saraksta %1$s gada beigu vērtības: %2$s</string>
+    <string name="portfolio_export_failed">Eksports neizdevās</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">Eksports neizdevās: failu neizdevās ierakstīt – glabāšanas vieta vairs nav pieejama vai nav rakstāma</string>
+    <string name="portfolio_export_failed_prices">Eksports neizdevās: cenas neizdevās ielādēt – nav savienojuma vai birža neatbild</string>
+    <string name="portfolio_export_from_address">no adreses – bez pirkuma cenas</string>
+    <string name="portfolio_export_hint">Turējumi izvēlētās dienas beigās, novērtēti pēc dienas slēgšanas cenas (UTC) USDT un pārrēķināti pēc tās dienas ECB atsauces kursa. Valūtu maini ar „Pārrēķināt uz“.</string>
+    <string name="portfolio_export_incomplete">nepilnīgs</string>
+    <string name="portfolio_export_no_fx">nav valūtas kursa</string>
+    <string name="portfolio_export_no_price">nav cenas</string>
+    <string name="portfolio_export_running">Ielādē vēsturiskās cenas…</string>
+    <string name="portfolio_export_title">Eksports uz datumu</string>
+    <string name="portfolio_export_today_hint">Šodiena vēl nav beigusies: dienas slēgšanas cenas vietā tiek izmantota pašreizējā cena.</string>
+    <string name="portfolio_export_total">Kopā</string>
+    <string name="portfolio_export_unchecked">nav pārbaudīts (nav atbilstošas cenas)</string>
+
+    <!-- Steuer-Export (Arbeitspapier) -->
+    <string name="tax_export_adjustment">šķietamie zaudējumi (superficial loss, pieskaitīti ACB)</string>
+    <string name="tax_export_at_wallet_note">Austrija: slīdošais vidējais katrai monētai un maciņam (biržai) – pārvedumi pārnes iegādes vērtību – atlīdzības ar iegādes izmaksām 0 – turējumi no 01.03.2021. bez maksām (nav atskaitāmas) – aizdošanas procenti pēc vērtības saņemšanas brīdī (ienākumi ar 27,5 procentu likmi).</string>
+    <string name="tax_export_avg_cost_rates">iegādes vērtība pēc pirkuma datumu kursiem (vidējā)</string>
+    <string name="tax_export_ch_wealth_not_calculated">Īpašuma nodoklis nav aprēķināts – ESTV cenu saraksts: %1$s</string>
+    <string name="tax_export_col_acquired">Iegādāts</string>
+    <string name="tax_export_col_adjustment">Neatļautie zaudējumi %1$s</string>
+    <string name="tax_export_col_cost">Iegādes vērtība %1$s</string>
+    <string name="tax_export_col_date">Datums</string>
+    <string name="tax_export_col_days">Turēts dienas</string>
+    <string name="tax_export_col_gain">Peļņa %1$s</string>
+    <string name="tax_export_col_gross">Cena pirms maksām %1$s</string>
+    <string name="tax_export_col_long_term">turēts &gt; 1 gadu</string>
+    <string name="tax_export_col_portfolio_value">Portfeļa vērtība %1$s</string>
+    <string name="tax_export_col_proceeds">Ieņēmumi %1$s</string>
+    <string name="tax_export_col_sold">Pārdots</string>
+    <string name="tax_export_cost_incomplete">kopējās iegādes izmaksas nepilnīgas</string>
+    <string name="tax_export_cost_missing">trūkst pirkuma cenas</string>
+    <string name="tax_export_fee_consumed">Maksa patērē visu saņemto</string>
+    <string name="tax_export_fee_leg">maksa citā monētā</string>
+    <string name="tax_export_fee_row">Maksa</string>
+    <string name="tax_export_fee_value_missing">maksai citā monētā nav vērtības</string>
+    <string name="tax_export_gains">Realizētās atsavināšanas (CSV)</string>
+    <string name="tax_export_gains_title">Realizētās atsavināšanas %1$s</string>
+    <string name="tax_export_gift">Dāvinājums</string>
+    <string name="tax_export_holdings_cutoff">Turējumi uz %1$s (CSV)</string>
+    <string name="tax_export_holdings_title">Turējumi uz %1$s</string>
+    <string name="tax_export_income">Ienākumi (CSV)</string>
+    <string name="tax_export_income_title">Ienākumi %1$s</string>
+    <string name="tax_export_info_template">Veidne: %1$s · Metode: %2$s · Taksācijas gads: %3$s · Valūta: %4$s · Crypto Checker %5$s</string>
+    <string name="tax_export_lost_fee_cost">tīkla maksas izmaksas bez apmaksātas partijas</string>
+    <string name="tax_export_match_pool">Section 104 pool</string>
+    <string name="tax_export_match_same_day">tā pati diena (HMRC)</string>
+    <string name="tax_export_match_thirty_day">30 dienu noteikums (HMRC)</string>
+    <string name="tax_export_method_change_warning">Mainot metodi vai veidni, tiek pārrēķināti arī iepriekšējie gadi – salīdzini ar to, ko jau deklarēji.</string>
+    <string name="tax_export_method_overridden">Veidne rēķina %1$s – nevis %2$s</string>
+    <string name="tax_export_new_holding">iegādāts no 01.03.2021.</string>
+    <string name="tax_export_no">nē</string>
+    <string name="tax_export_old_holding">iegādāts pirms 01.03.2021.</string>
+    <string name="tax_export_oversold">pārdots vairāk nekā uzskaitīts</string>
+    <string name="tax_export_payment">Maksājums ar kriptovalūtu</string>
+    <string name="tax_export_period">%1$s – %2$s</string>
+    <string name="tax_export_proceeds_missing">trūkst pārdošanas cenas</string>
+    <string name="tax_export_proceeds_without_cost">Ieņēmumi bez pirkuma cenas</string>
+    <string name="tax_export_realized_differs">Nodokļu CSV var atšķirties no „realizētā“ (valsts nodokļu noteikumi).</string>
+    <string name="tax_export_rule">&gt; 1 gads: pārdots pēc pirkuma datuma + 1 kalendārais gads. Datumi vietējā laikā. Kursi: darījuma dienas ECB kurss; ja tā nav, pēdējais kurss līdz 7 dienām iepriekš.</string>
+    <string name="tax_export_rules_date">Noteikumi uz: %1$s</string>
+    <string name="tax_export_rules_stale">Noteikumi ir no %1$s – %2$s likmes un atvieglojumi var būt mainījušies. Pārbaudi vērtības.</string>
+    <string name="tax_export_spouse_gift">laulātajam/partnerim – nav peļņas, nav zaudējumu</string>
+    <string name="tax_export_summary">Gada kopsavilkums %1$s (CSV)</string>
+    <string name="tax_export_swap">maiņa</string>
+    <string name="tax_export_tax_year">Taksācijas gads</string>
+    <string name="tax_export_transfer_fee_info">Pārveduma maksa USDT/skaidrā naudā – nav zaudējumi, nav iegādes vērtībā, tikai informācija</string>
+    <string name="tax_export_unassigned_fee">maksa nav piesaistīta – iegādes vērtība nezināma</string>
+    <string name="tax_export_usdt_usd_note">USDT pārrēķināts pēc USDT/USD dienas slēgšanas cenas; kur tās nav – 1 USD (atzīmēts katrā rindā)</string>
+    <string name="tax_export_value_estimated">Vērtība aptuvena (dienas slēgšanas cena)</string>
+    <string name="tax_export_value_missing">trūkst vērtības saņemšanas brīdī</string>
+    <string name="tax_export_wallet">Maciņš: %1$s</string>
+    <string name="tax_export_wallet_unspecified">nav norādīts</string>
+    <string name="tax_export_withdrawal_fee">Izmaksas maksa</string>
+    <string name="tax_export_withdrawal_fee_info">Izmaksas maksa USDT/skaidrā naudā – nav zaudējumi, tikai informācija</string>
+    <string name="tax_export_workpaper_disclaimer">Nodokļu darba lapa – nav nodokļu deklarācija un nav nodokļu konsultācija</string>
+    <string name="tax_export_workpaper_title">Darba lapa</string>
+    <string name="tax_export_year_local_zone">Datumi vietējā laikā (%1$s)</string>
+    <string name="tax_export_yes">jā</string>
+
+    <!-- Steuer-Export: Zeilen und Spalten -->
+    <string name="tax_line_at_interest">Aizdošanas procenti (vērtība saņemšanas brīdī)</string>
+    <string name="tax_line_at_old_long">Iegādāts pirms 01.03.2021. – turēts &gt; 1 gadu: parasti netiek aplikts ar nodokli – pārbaudi</string>
+    <string name="tax_line_at_rate">Īpašā likme 27,5 procenti: neto iegādāts no 01.03.2021. un pārdots no 01.03.2022. + procenti</string>
+    <string name="tax_line_au_discounted">Neto kapitāla pieaugums pēc zaudējumiem un 50 procentu atlaides</string>
+    <string name="tax_line_ca_taxable">Apliekamais kapitāla pieaugums (iekļaušanas likme 1/2)</string>
+    <string name="tax_line_ch_income">Atlīdzības uzskaitītas – to apstrādi skatīt ESTV darba dokumentā</string>
+    <string name="tax_line_ch_private">Kapitāla pieaugums no privātā īpašuma: nav aprēķināts – klasifikāciju skatīt ESTV</string>
+    <string name="tax_line_ch_wealth">Īpašuma nodoklis: nav aprēķināts – turējumu CSV izmanto biržas cenu × USD/CHF 31. decembrī – oficiālās nodokļu vērtības: ESTV cenu saraksts</string>
+    <string name="tax_line_de_long">Turēts &gt; 1 gadu: saskaņā ar § 23 EStG parasti netiek aplikts ar nodokli – pārbaudi</string>
+    <string name="tax_line_denied_loss">Neatļautie zaudējumi (superficial loss)</string>
+    <string name="tax_line_fr_outflow">Izejas bez pārdošanas (izmaksas) – kopējā iegādes cena proporcionāli samazināta</string>
+    <string name="tax_line_fr_rate">Fiksēta likme 12,8 procenti plus sociālās iemaksas (vai progresīvā skala pēc izvēles)</string>
+    <string name="tax_line_fr_threshold">Atsavināšana līdz 305 € gadā: parasti atbrīvota (pārdošanas cenu summa) – pārbaudi</string>
+    <string name="tax_line_gains">Peļņa</string>
+    <string name="tax_line_income">Ienākumi (atlīdzības pēc vērtības saņemšanas brīdī)</string>
+    <string name="tax_line_jp_misc">Citi ienākumi (雑所得): neto peļņa + ienākumi</string>
+    <string name="tax_line_long_net">Neto – turēts &gt; 1 gadu</string>
+    <string name="tax_line_losses">Zaudējumi</string>
+    <string name="tax_line_net">Neto peļņa/zaudējumi</string>
+    <string name="tax_line_new_net">Neto – iegādāts no 01.03.2021., pārdots no 01.03.2022.</string>
+    <string name="tax_line_old_long_net">Neto – iegādāts pirms 01.03.2021. – turēts &gt; 1 gadu</string>
+    <string name="tax_line_old_short_net">Neto – spekulatīvi darījumi (iepriekšējais regulējums): iegādāts pirms 01.03.2021. un turēts ≤ 1 gadu vai pārdots pirms 01.03.2022.</string>
+    <string name="tax_line_proceeds">Ieņēmumi</string>
+    <string name="tax_line_short_net">Neto – turēts ≤ 1 gadu</string>
+    <string name="tax_line_transfer_fees">Pārvedumu maksas (savi maciņi)</string>
+    <string name="tax_line_uk_after_exempt">Neto peļņa virs neapliekamās summas (tikai kripto)</string>
+    <string name="tax_line_uk_exempt">Gada neapliekamā summa (Annual Exempt Amount) – attiecas uz visām atsavināšanām kopā, šeit piemērota pilnībā</string>
+    <string name="tax_line_us_terms">Īstermiņa (≤ 1 gads): parastās likmes – ilgtermiņa (&gt; 1 gads): kapitāla pieauguma likmes</string>
+    <string name="tax_line_withdrawal_fees">Izmaksu maksas</string>
+
+    <!-- Steuer Deutschland -->
+    <string name="tax_de_below">zem robežas</string>
+    <string name="tax_de_col_item">Pozīcija</string>
+    <string name="tax_de_disclaimer">Tikai orientācijai – nav nodokļu deklarācija un nav nodokļu konsultācija.</string>
+    <string name="tax_de_explain_below">Līdz %1$s: zem robežas (orientācijai).</string>
+    <string name="tax_de_explain_loss">Neto zaudējumi: par šīm pārdošanām nodokļa nav. Zaudējumus saskaņā ar § 23 EStG var ieskaitīt tikai pret privāto pārdošanu peļņu – tajā pašā gadā vai pārnesot uz iepriekšējo vai nākamajiem gadiem (§ 23 Abs. 3 un § 10d EStG). Norādi zaudējumus nodokļu deklarācijā, lai tie tiktu noteikti.</string>
+    <string name="tax_de_explain_reached">No %1$s skaitās visa summa (atbrīvojuma robeža – nevis atvieglojums).</string>
+    <string name="tax_de_explain_unknown">Nav pārbaudāms: trūkst valūtas kursu / pirkuma cenu vai turēšanas ilgumu.</string>
+    <string name="tax_de_income_limit">Pakalpojumu atbrīvojuma robeža (§ 22 Nr. 3 EStG)</string>
+    <string name="tax_de_limit_scope">Robežas attiecas uz visām gada privātajām pārdošanām vai pakalpojumiem kopā – arī ārpus lietotnes.</string>
+    <string name="tax_de_loading">Aprēķina…</string>
+    <string name="tax_de_long_gains">Peļņa – turēts &gt; 1 gadu</string>
+    <string name="tax_de_long_losses">Zaudējumi – turēts &gt; 1 gadu</string>
+    <string name="tax_de_loss">neto zaudējumi – ieskaitāmi tikai pret privāto pārdošanu peļņu (§ 23 EStG)</string>
+    <string name="tax_de_private_limit">Privāto pārdošanu atbrīvojuma robeža (§ 23 EStG)</string>
+    <string name="tax_de_reached">robeža sasniegta – parasti skaitās visa summa – pārbaudi</string>
+    <string name="tax_de_short_gains">Peļņa – turēts ≤ 1 gadu</string>
+    <string name="tax_de_short_losses">Zaudējumi – turēts ≤ 1 gadu</string>
+    <string name="tax_de_unclassified">Turēšanas ilgums nezināms</string>
+    <string name="tax_de_unknown">nav pārbaudāms</string>
+
+    <!-- Steuer-Vorlagen je Land -->
+    <string name="tax_template_at">Austrija</string>
+    <string name="tax_template_au">Austrālija</string>
+    <string name="tax_template_beta">Beta</string>
+    <string name="tax_template_beta_note">Beta: valsts noteikumi vienkāršoti, pārbaudi pirms nodokļu deklarācijas iesniegšanas</string>
+    <string name="tax_template_ca">Kanāda</string>
+    <string name="tax_template_ch">Šveice</string>
+    <string name="tax_template_confirm_text">Beta, vienkāršoti noteikumi, trūkst darījumu no citām platformām – pārbaudi pirms nodokļu deklarācijas iesniegšanas.</string>
+    <string name="tax_template_confirm_title">Nodokļu veidne (beta)</string>
+    <string name="tax_template_current">Veidne: %1$s · Metode: %2$s · Valūta: %3$s</string>
+    <string name="tax_template_de">Vācija</string>
+    <string name="tax_template_fr">Francija</string>
+    <string name="tax_template_hint">Tikai orientācijai: nosaka nodokļu darba lapas metodi, taksācijas gadu un kopsavilkumu. Portfeļa kartīte paliek neitrāla – dāvinājumi un pārvedumu maksas var atšķirties no darba lapas.</string>
+    <string name="tax_template_jp">Japāna</string>
+    <string name="tax_template_neutral">Neitrāla (visas valstis)</string>
+    <string name="tax_template_suggestion">Ieteikums tavam reģionam: %1$s</string>
+    <string name="tax_template_title">Nodokļu veidne</string>
+    <string name="tax_template_uk">Apvienotā Karaliste</string>
+    <string name="tax_template_us">ASV</string>
+    <string name="tax_template_use">Izmantot %1$s</string>
+
+    <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
+    <string name="tax_method_at">Vecie/jaunie turējumi – slīdošais vidējais</string>
+    <string name="tax_method_ca_acb">ACB vidējās izmaksas (superficial loss)</string>
+    <string name="tax_method_fr_pta">Kopējā iegādes cena (art. 150 VH bis)</string>
+    <string name="tax_method_jp_total">Kopējais vidējais (総平均法)</string>
+    <string name="tax_method_uk_pool">Section 104 pool (tā pati diena / 30 dienas)</string>
+    <string name="tax_note_at">Slīdošais vidējais katrai monētai un maciņam – nevis pa visiem maciņiem (KryptowährungsVO § 2). Atlīdzības nonāk jaunajos turējumos ar iegādes izmaksām 0 (BMF: staking / airdrop) – ienākumu fails tās uzrāda pēc vērtības saņemšanas brīdī. Turējumiem, kas iegādāti no 01.03.2021., maksas nav atskaitāmas (§ 27a(4) Nr. 2, § 20(2) EStG): iegādes vērtība un ieņēmumi bez maksām. Aizdošanas procenti (veids no CSV importa vai piezīmes) ir ienākumi saņemšanas brīdī ar 27,5 procentu likmi, un šī vērtība paliek kā iegādes izmaksas.</string>
+    <string name="tax_note_at_staking">Staking ar jau turētām monētām un airdrop: vērtība saņemšanas brīdī nodokļiem nav nozīmes – saskaņā ar likumu iegādes izmaksas ir 0 (§ 27b Abs. 2 EStG; BMF „Kryptowährungen“). Nodoklis tiek piemērots tikai pārdodot.</string>
+    <string name="tax_note_fr">Pārdošanas un kriptovalūtā samaksātas maksas ir atsavināšanas – maiņas tiek atliktas. Kriptovalūtas maksa pārdošanā tiek ieskaitīta cenā pirms maksām – citādi tā ir atsevišķa atsavināšana par tās vērtību. Portfeļa vērtība pēc dienas slēgšanas cenām – ja slēgšanas cenas nav, iegādes vērtība paliek tukša.</string>
+    <string name="tax_note_network_fee">Kriptovalūtā samaksāta tīkla maksa (pārvedums uz savu maciņu, izmaksa) ir maksas monētu atsavināšana par tirgus vērtību – peļņa vai zaudējumi tikai par šīm monētām, nevis visas maksas zaudējumi (%1$s). Bez uzskaitītas cenas: tās pašas dienas slēgšanas cena (UTC); bez slēgšanas cenas ieņēmumi paliek tukši.</string>
+    <string name="tax_note_specific_id">Konkrēta identifikācija (specific identification) netiek atbalstīta – tiek izmantots FIFO.</string>
+    <string name="tax_note_spouse_gift">Dāvinājums, kas atzīmēts „laulātajam / partnerim“, nerada ne peļņu, ne zaudējumus: ieņēmumi = tava iegādes vērtība, ko pārņem partneris (%1$s).</string>
+    <string name="tax_note_stable_swap">Kriptovalūtas pārdošana pret stabilo monētu (USDT/USDC/DAI …), ko patur, šeit ir kripto pret kripto un netiek aplikta ar nodokli – ievadi to kā maiņu uz stabilo monētu. Ar nodokli tiek aplikta tikai pārdošana pret eiro – „Pārdošana“ skaitās kā pārdošana pret eiro.</string>
+    <string name="tax_note_transfer_fee">Tas pats attiecas uz USDT vai skaidras naudas maksu pārvedumā starp saviem maciņiem: tā netiek pieskaitīta iegādes vērtībai un ir norādīta tikai informācijai.</string>
+    <string name="tax_note_uk">Piesaiste saskaņā ar HMRC: tā pati diena → nākamās 30 dienas → Section 104 pool.</string>
+    <string name="tax_note_us_transition">Pāreja 01.01.2025. (Rev. Proc. 2024-28 safe harbor): ja iepriekšējos gados izmantoja FIFO pa visiem maciņiem, atlikušās partijas uz 31.12.2024. tiek piešķirtas maciņiem, kuros ir monētas – maciņš ar vecākajām monētām saņem vecāko iegādes vērtību. Šis sadalījums ir lietotnes noteikums – pārbaudi to pret saviem ierakstiem.</string>
+    <string name="tax_note_us_wallet">No 2025. taksācijas gada IRS pieprasa iegādes vērtību katram maciņam vai biržai (Rev. Proc. 2024-28): eksports no 2025. gada izmanto FIFO katram maciņam – iepriekšējiem gadiem FIFO pa visiem maciņiem vai FIFO katram maciņam, ja tā ir tava izmaksu metode.</string>
+    <string name="tax_note_withdrawal_fee">Izmaksas maksa USDT vai skaidrā naudā nav zaudējumi: skaidras naudas maksa nav atskaitāmas izmaksas, USDT maksa ir atsavināšana par nominālvērtību bez peļņas – norādīta tikai informācijai (%1$s).</string>
+    <string name="tax_summary_at_interest_income">skaitās: ienākumi saņemšanas brīdī ar īpašo likmi 27,5 procentu (§ 27b(2) Nr. 1 EStG / BMF) – monētas saglabā šo vērtību kā iegādes izmaksas</string>
+    <string name="tax_summary_at_reward_info">tikai informācijai – nav iekļauts nevienā summā: atlīdzības nonāk jaunajos turējumos ar iegādes izmaksām 0 un tiek apliktas ar nodokli tikai pārdodot (jau peļņā) – § 27b Abs. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">01.01.–28.02.2022.: iespējama 27,5 procentu likmes izvēle</string>
+    <string name="tax_summary_at_withdrawal_fee">Izmaksas maksa – netiek ieskaitīta jaunajos turējumos (izdevumi pie īpašās likmes nav atskaitāmi, § 20(2) EStG)</string>
+    <string name="tax_summary_ch_fifo_info">tikai informācijai – lietotnes FIFO aprēķins – nav klasificēts – skatīt ESTV</string>
+    <string name="tax_summary_ch_year_end_value">vērtība 31. decembrī turējumu CSV = biržas cena × USD/CHF – nevis ESTV nodokļu vērtības</string>
+    <string name="tax_summary_de_withdrawal_fee">Izmaksas maksa – netiek ieskaitīta saskaņā ar § 23, pārbaudi, vai atskaitāma kā ar ienākumiem saistīti izdevumi</string>
+    <string name="tax_summary_not_calculated_estv">nav aprēķināts – ESTV cenu saraksts: %1$s</string>
+    <string name="tax_summary_orientation">Orientācija</string>
+    <string name="tax_summary_orientation_block">Tikai orientācijai – nav nodokļu konsultācija – nav nodokļa aprēķins</string>
+    <string name="tax_summary_orientation_item">Orientācija: %1$s</string>
+    <string name="tax_summary_title">Gada kopsavilkums %1$s %2$s</string>
+    <string name="tax_summary_transfer_fee_info">Pārvedumu maksas USDT/skaidrā naudā – nav zaudējumi un nav iegādes vērtībā, tikai informācija</string>
+    <string name="tax_summary_withdrawal_fee_info">Izmaksu maksas USDT/skaidrā naudā – netiek skaitītas kā zaudējumi, tikai informācija</string>
+
+    <string name="tax_line_at_old_speculation_limit">Spekulatīvi darījumi (iepriekšējais regulējums, turēts ≤ 1 gadu): atbrīvojuma robeža (§ 31 (3) EStG vecā redakcija)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">Aizdošanas procenti pirms 01.03.2022. (vērtība saņemšanas brīdī)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">Procenti pirms 01.03.2022.: iepriekšējais regulējums (ienākuma nodokļa likme), nevis 27,5 procentu</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">pirms 01.03.2022. – pārbaudi ar speciālistu</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">Procenti – apliekami saņemšanas brīdī</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">Staking – tikai informācijai (iegādes izmaksas 0, aplikts pārdodot)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">Procenti kopā (apliekami)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">Staking kopā (informācija)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">Neto kapitāla zaudējumi (pārnesami)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">bez izvēles: ieskaitot pārdošanas 01.01.–28.02.2022.</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">Staking pirms 01.03.2022.: iegādes izmaksas noteiktas 0 – pārbaudi ar speciālistu</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">30 dienu noteikums vēl var mainīt šos skaitļus (pirkumi līdz %1$s)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Ieņēmumi pirms maksām pārsniedz ziņošanas robežu (50 000 £; 2020/21–2022/23: 49 200 £): ziņo HMRC, ja tev ir Self Assessment reģistrācija, pat ja nav apliekamas peļņas</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">Īpašuma vērtība 31.12.%1$s. (orientācijai)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">Noteicošais ir ESTV cenu saraksts (ictax.admin.ch). Monētām, kuru sarakstā nav, parasti piemēro biržas slēgšanas cenu. Īpašuma nodoklis nav aprēķināts.</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – turējums %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">nav aprēķināts</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">Vērojamās adreses neizdevās nolasīt – to atlikumi šajā failā trūkst</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">Vērojamo adrešu partijas tiek skaitītas no to pirkuma datuma; ja adreses šodienas atlikums ir mazāks, tās tiek samazinātas.</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">Vērojamās adreses tiek ieskaitītas kopējā vērtībā, bet tām nav iegādes izmaksu – tāpēc peļņa, visticamāk, ir par lielu. Ievadi izmaksas kā pirkumu.</string>
+    <string name="tax_summary_fr_rewards_income">Summa pieņem, ka atlīdzības tika apliktas ar nodokli kā ienākumi saņemšanas brīdī (vērtība saņemšanas brīdī iegādes cenā) – citādi piesardzīgāks lasījums būtu iegādes cena 0.</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">Tirgus vērtības bez uzskaitītas cenas (maksas, dāvinājumi/maksājumi, maiņas, atlīdzības, tīkla maksas, portfeļa vērtība) pēc darījuma dienas slēgšanas cenas (UTC)</string>
+</resources>

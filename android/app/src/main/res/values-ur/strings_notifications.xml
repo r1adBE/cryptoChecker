@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">قابلِ ذکر: %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — اب %2$s</string>
+    <string name="notification_alarm_title">الرٹ: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">ایکسچینج کھولیں</string>
+    <string name="notification_depeg_text">ایپ میں قدریں یہی مارکیٹ قیمت استعمال کرتی ہیں۔</string>
+    <string name="notification_depeg_title">USDT %1$s USD پر (%2$s)</string>
+    <string name="notification_fng_above">انڈیکس %1$d سے اوپر چلا گیا – اس پیمانے سے مارکیٹ کا موڈ لالچی ہے۔</string>
+    <string name="notification_fng_below">انڈیکس %1$d سے نیچے آ گیا – اس پیمانے سے مارکیٹ کا موڈ خوفزدہ ہے۔</string>
+    <string name="notification_fng_title">موڈ انڈیکس (Fear &amp; Greed): %1$d</string>
+    <string name="notification_gas_btc_text">آپ کی حد %1$s sat/vB سے نیچے · ٹرانسفر ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin فیس: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">آپ کی حد %1$s gwei سے نیچے · ٹرانسفر ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Ethereum گیس: %1$s gwei</string>
+    <string name="notification_indicator_above">آپ کی حد %1$s سے اوپر – ناپی گئی قدر، سفارش نہیں۔</string>
+    <string name="notification_indicator_below">آپ کی حد %1$s سے نیچے – ناپی گئی قدر، سفارش نہیں۔</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">آج کا معاشی ڈیٹا</string>
+    <string name="notification_permission_preprompt_continue">جاری رکھیں</string>
+    <string name="notification_permission_preprompt_later">بعد میں</string>
+    <string name="notification_permission_preprompt_text">تاکہ الرٹس اور قیمت کی اطلاعات آپ تک پہنچیں، ایپ کو اطلاعات بھیجنے کی اجازت درکار ہے۔ ایپ انہیں صرف آپ کے الرٹس اور قیمت کی اطلاعات کے لیے استعمال کرتی ہے۔</string>
+    <string name="notification_permission_preprompt_title">اطلاعات کی اجازت دیں؟</string>
+    <string name="notification_portfolio_alarm_locked">آپ کا الرٹ چل گیا – تفصیلات کے لیے ایپ کھولیں۔</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – اب %2$s</string>
+    <string name="notification_portfolio_alarm_title">پورٹ فولیو کی مالیت</string>
+    <string name="notification_price_change">%1$s، %2$s سے (%3$s پہلے)</string>
+    <string name="notification_price_change_no_age">%1$s، %2$s سے</string>
+    <string name="notification_price_first">اس جوڑے کی پہلی قیمت کی اطلاع</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+%1$d مزید قیمت</item>
+        <item quantity="other">+%1$d مزید قیمتیں</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">قیمتیں اپ ڈیٹ ہو رہی ہیں…</string>
+    <string name="notification_volume_spike_text">پچھلے گھنٹے میں والیوم معمول کا %1$s×</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">الرٹس</string>
+    <string name="channel_alarms_description">کوئی الرٹ چلنے پر اطلاع۔</string>
+    <string name="channel_alarms_quiet">الرٹس (خاموش اوقات)</string>
+    <string name="channel_alarms_quiet_description">خاموش اوقات میں بے آواز الرٹس۔</string>
+    <string name="channel_alarms_silent">الرٹس (خاموش)</string>
+    <string name="channel_alarms_sound">الرٹس (صرف آواز)</string>
+    <string name="channel_alarms_sound_vibrate">الرٹس (آواز اور وائبریشن)</string>
+    <string name="channel_alarms_vibrate">الرٹس (صرف وائبریشن)</string>
+    <string name="channel_prices">قیمت کی اطلاعات</string>
+    <string name="channel_prices_description">کسی جوڑے کی موجودہ قیمت کے ساتھ خاموش اطلاع۔</string>
+    <string name="channel_service">قیمت کی اپ ڈیٹس</string>
+    <string name="channel_service_description">قیمتیں اپ ڈیٹ ہوتے وقت اطلاع۔</string>
+    <string name="neutral_channel_market">مارکیٹ الرٹس</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed، گیس فیس، “قابلِ ذکر” اور معاشی تاریخیں</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">الرٹ۔ %1$s، %2$s %3$s %4$s، اب %5$s</string>
+    <string name="tts_direction_down">گر گیا ہے</string>
+    <string name="tts_direction_funding_above">زیادہ فنڈنگ کے ساتھ</string>
+    <string name="tts_direction_funding_below">کم فنڈنگ کے ساتھ</string>
+    <string name="tts_direction_move">تیزی سے حرکت میں</string>
+    <string name="tts_direction_near_high">بلند ترین سطح کے قریب ہے</string>
+    <string name="tts_direction_near_low">کم ترین سطح کے قریب ہے</string>
+    <string name="tts_direction_oi_down">گرتے ہوئے اوپن انٹرسٹ کے ساتھ</string>
+    <string name="tts_direction_oi_up">بڑھتے ہوئے اوپن انٹرسٹ کے ساتھ</string>
+    <string name="tts_direction_up">بڑھ گیا ہے</string>
+    <string name="tts_direction_volume_spike">والیوم میں اچانک اضافے کے ساتھ</string>
+    <string name="tts_price">%1$s، %2$s %3$s، %4$s</string>
+
+    <!-- Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+    <string name="notification_alarm_action_snooze">1 گھنٹہ بعد</string>
+    <string name="notification_alarm_action_edit">بدلیں</string>
+</resources>

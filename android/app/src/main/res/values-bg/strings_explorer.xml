@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">Всички резултати</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="one">%1$d борса</item>
+        <item quantity="other">%1$d борси</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">В заредените списъци няма двойка за тази монета.</string>
+    <string name="explorer_coin_not_loaded">Списъците с двойки още не са заредени</string>
+    <string name="explorer_coin_other_pairs">Други двойки</string>
+    <string name="explorer_coin_show_pairs">Покажи двойките</string>
+    <string name="explorer_coin_suggested">Предложение</string>
+    <string name="explorer_coins_title">Монети</string>
+    <string name="explorer_lists_failed_many">%1$s в момента не отговарят – списъците с двойки не са заредени. Опитай по-късно.</string>
+    <plurals name="explorer_lists_failed_more">
+        <item quantity="one">+ още %1$d</item>
+        <item quantity="other">+ още %1$d</item>
+    </plurals>
+    <string name="explorer_lists_failed_one">%1$s в момента не отговаря – списъкът с двойки не е зареден. Опитай по-късно.</string>
+    <string name="explorer_lists_load">Зареди списъците</string>
+    <string name="explorer_lists_loading">Зареждане на списъците с двойки… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="one">Списъкът с двойки на %1$d борса още не е на това устройство.</item>
+        <item quantity="other">Списъците с двойки на %1$d борси още не са на това устройство.</item>
+    </plurals>
+    <string name="explorer_lists_privacy">Зарежда пълния публичен списък на всяка борса – еднакъв за всички. Търсенето ти остава на това устройство.</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">Скорошно търсене: %1$s</string>
+    <string name="explorer_recent_clear">Изчисти</string>
+    <string name="explorer_recent_clear_a11y">Изчисти скорошните търсения</string>
+    <string name="explorer_recent_title">Скорошни търсения</string>
+    <string name="explorer_search_choose_manually">Избери борса и двойка ръчно</string>
+    <string name="explorer_search_empty">Няма резултати.</string>
+    <string name="explorer_search_hint">Търси монета, двойка или борса</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">Напиши името или символа на монета, напр. Bitcoin или BTC – после избери двойката.</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">Добави към списъка</string>
+    <string name="explorer_added_to_watchlist">Добавено към списъка.</string>
+    <string name="explorer_already_in_watchlist">Тази двойка вече е в списъка.</string>
+    <string name="explorer_exchange_missing">Липсва борса?</string>
+    <string name="explorer_loading_pairs">Зареждане на търговските двойки…</string>
+    <string name="explorer_no_pair_selected">Първо избери двойка.</string>
+    <string name="explorer_no_pairs_yet">За тази борса още няма заредени двойки.</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$d двойка · обновено %2$s</item>
+        <item quantity="other">%1$d двойки · обновено %2$s</item>
+    </plurals>
+    <string name="explorer_pairs_title">Двойки</string>
+    <string name="explorer_precise_title">Разширено / по борса</string>
+    <string name="explorer_price_loading">Зареждане на курса…</string>
+    <string name="explorer_select_exchange_hint">Избери борса – търговските ѝ двойки се зареждат автоматично.</string>
+    <string name="explorer_select_placeholder">Избери</string>
+    <string name="explorer_step_pair">Избери двойка</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">Поскъпващи</string>
+    <string name="explorer_filter_losers">Поевтиняващи</string>
+    <string name="explorer_filter_volume">Обем</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">Всички двойки с %1$s на тази борса</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">Намерена е %1$d двойка с %2$s</item>
+        <item quantity="other">Намерени са %1$d двойки с %2$s</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">На тази борса няма двойки с %1$s за избрания тип договор. Първо синхронизирай борсата или опитай друг тип договор.</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">Добави %1$d двойка към списъка</item>
+        <item quantity="other">Добави всички %1$d двойки към списъка</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">%1$d добавена, %2$d вече в списъка.</item>
+        <item quantity="other">%1$d добавени, %2$d вече в списъка.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">%1$d двойка с %2$s от %3$s ще бъде добавена към списъка, ако още не е там.</item>
+        <item quantity="other">Всички %1$d двойки с %2$s от %3$s ще бъдат добавени към списъка. Двойките, които вече са в него, се пропускат.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">Да се добави ли %1$d двойка?</item>
+        <item quantity="other">Да се добавят ли %1$d двойки?</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">Скрий списъка</string>
+    <string name="explorer_bulk_show_list">Покажи списъка</string>
+    <string name="explorer_bulk_tap_hint">Докосни двойка, за да я избереш горе.</string>
+    <string name="explorer_bulk_title">Няколко двойки наведнъж</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">Зарежда текущите двойки на избраната борса.</string>
+    <string name="explorer_no_pair_list">Няма валутни двойки</string>
+    <string name="explorer_sync_sheet_last">Последна синхронизация: %1$s</string>
+    <string name="explorer_sync_never">никога</string>
+    <string name="explorer_sync_sheet_action">Синхронизирай сега</string>
+    <string name="explorer_sync_sheet_title">Обнови валутните двойки</string>
+    <string name="explorer_field_coin">Монета</string>
+    <string name="explorer_field_contract">Тип договор</string>
+    <string name="explorer_field_exchange">Борса</string>
+    <string name="explorer_field_quote">Котировъчна валута</string>
+    <string name="explorer_contract_spot">Спот</string>
+    <string name="explorer_reload_pairs">Синхронизирай</string>
+    <string name="sync_pairs_count">Търговски двойки: %1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">Добави</string>
+    <string name="dex_added">%1$s е добавен към списъка.</string>
+    <string name="dex_already">%1$s вече е в списъка.</string>
+    <string name="dex_intro">Токени извън големите борси, от децентрализирани борси (Uniswap, PancakeSwap, Raydium …) чрез DexScreener. Потърси токен и добави един от търговските му пулове – курсове в щатски долари.</string>
+    <string name="dex_liquidity">Ликвидност %1$s</string>
+    <string name="dex_no_results">Не са намерени пулове.</string>
+    <string name="dex_search">Търси</string>
+    <string name="dex_search_hint">Име на токен, символ или адрес</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">Alpha токен</string>
+    <string name="asset_kind_token">Токен</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+
+    <string name="dex_low_liquidity_no_alarm">Ниска ликвидност – без аларми</string>
+    <string name="dex_low_liquidity_alarm_hint">Този пул има под 10 000 USD ликвидност (или не е посочена). Дори малки сделки движат курса, затова тук не могат да се задават аларми. Съществуващите аларми остават, но няма да се задействат, докато ликвидността не се повиши отново.</string>
+
+    <string name="explorer_bulk_show_all">Покажи всички (%1$d)</string>
+    <string name="dex_token_address_copy">Копирай адреса на токена</string>
+    <string name="dex_token_address_copied">Адресът на токена е копиран</string>
+    <string name="dex_token_address_label">Адрес на токена, завършващ на %1$s</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="one">%1$d двойка не е добавена: списъкът ти може да има най-много %2$s двойки.</item>
+        <item quantity="other">%1$d двойки не са добавени: списъкът ти може да има най-много %2$s двойки.</item>
+    </plurals>
+    <string name="bulk_add_progress">Добавяне на двойки… %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="one">Добави %1$d нова двойка към списъка</item>
+        <item quantity="other">Добави %1$d нови двойки към списъка</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="one">%1$d нова, %2$d вече в списъка</item>
+        <item quantity="other">%1$d нови, %2$d вече в списъка</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">Всички вече са в списъка</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="one">Да се премахне ли отново %1$d двойка?</item>
+        <item quantity="other">Да се премахнат ли отново %1$d двойки?</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">Двойките, за които междувременно е зададена аларма, остават.</string>
+    <string name="bulk_undo_expired">Отмяната вече не е възможна – двойките остават в списъка.</string>
+    <string name="explorer_section_spot">Спот</string>
+    <string name="explorer_section_futures">Фючърси</string>
+    <string name="explorer_section_dex">DEX пулове</string>
+    <string name="explorer_section_forex">Forex (референтен курс)</string>
+    <string name="explorer_forex_hint">Дневен курс на Европейската централна банка (чрез Frankfurter), не на живо – без аларми.</string>
+</resources>

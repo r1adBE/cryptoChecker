@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">ຕັ້ງສັນຍານເຕືອນ</string>
+    <string name="alarms_add">ສັນຍານເຕືອນໃໝ່</string>
+    <string name="alarms_edit">ແກ້ໄຂສັນຍານເຕືອນ</string>
+    <string name="alarms_empty">ຍັງບໍ່ມີສັນຍານເຕືອນສຳລັບຄູ່ເທຣດນີ້.</string>
+    <string name="alarms_empty_example">ຕົວຢ່າງ: ແຈ້ງຂ້ອຍເມື່ອ BTC ຂຶ້ນເກີນ %1$s.</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">ການແຈ້ງເຕືອນປິດຢູ່ – ສັນຍານເຕືອນບໍ່ສາມາດມາຮອດທ່ານໄດ້.</string>
+    <string name="alarms_notifications_turn_on">ເປີດ</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="other">ເປີດຢູ່ %1$d</item>
+    </plurals>
+    <string name="alarms_overview_empty">ຍັງບໍ່ມີສັນຍານເຕືອນ. ເປີດຄູ່ເທຣດ ແລ້ວເພີ່ມໃນສ່ວນ ສັນຍານເຕືອນ.</string>
+    <string name="alarms_overview_title">ສັນຍານເຕືອນທັງໝົດ</string>
+    <string name="alarms_title">ສັນຍານເຕືອນ</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">ຂັ້ນສູງ</string>
+    <string name="alarm_change_updates">ປັບການອັບເດດລາຄາ</string>
+    <string name="alarm_create">ສ້າງສັນຍານເຕືອນ</string>
+    <string name="alarm_currency_label">ສະກຸນເງິນ</string>
+    <string name="alarm_delete_confirm">ສັນຍານເຕືອນນີ້ຈະຖືກລຶບອອກ.</string>
+    <string name="alarm_delete_title">ລຶບສັນຍານເຕືອນບໍ?</string>
+    <string name="alarm_field_percent">ເປີເຊັນ</string>
+    <string name="alarm_field_price">ລາຄາ</string>
+    <string name="alarm_fires_now_above">ລາຄາສູງກວ່າ %1$s ແລ້ວ. ບັນທຶກຢູ່ບໍ?</string>
+    <string name="alarm_fires_now_below">ລາຄາຕ່ຳກວ່າ %1$s ແລ້ວ. ບັນທຶກຢູ່ບໍ?</string>
+    <string name="alarm_fires_now_change">ປ່ຽນ</string>
+    <string name="alarm_fires_now_save">ບັນທຶກຢູ່ດີ</string>
+    <string name="alarm_fires_now_title">ສັນຍານເຕືອນຈະເຮັດວຽກທັນທີ</string>
+    <string name="alarm_first_battery_hint">ການເພີ່ມປະສິດທິພາບແບັດເຕີຣີຈຳກັດແອັບ – ສັນຍານເຕືອນອາດມາຊ້າ.</string>
+    <string name="alarm_first_title">ບັນທຶກສັນຍານເຕືອນແລ້ວ</string>
+    <string name="alarm_last_triggered">ຄັ້ງຫຼ້າສຸດເມື່ອ %1$s</string>
+    <string name="alarm_more_conditions">ເງື່ອນໄຂເພີ່ມເຕີມ</string>
+    <string name="alarm_new_extreme">%1$s ໃໝ່</string>
+    <string name="alarm_once">ຄັ້ງດຽວ</string>
+    <string name="alarm_option_repeating">ແຈ້ງເຕືອນ</string>
+    <string name="alarm_option_sound">ສຽງ</string>
+    <string name="alarm_option_speak">ອ່ານສັນຍານເຕືອນອອກສຽງ</string>
+    <string name="alarm_option_vibrate">ການສັ່ນ</string>
+    <string name="alarm_repeat_each">ທຸກຄັ້ງ</string>
+    <string name="alarm_repeat_once">ຄັ້ງດຽວ</string>
+    <string name="alarm_repeating">ທຸກຄັ້ງ</string>
+    <string name="alarm_threshold_error_empty">ໃສ່ຄ່າເພື່ອບັນທຶກສັນຍານເຕືອນ.</string>
+    <string name="alarm_threshold_error_funding">Funding ຕ້ອງເປັນຕົວເລກລະຫວ່າງ −10 ຫາ +10 ເປີເຊັນ.</string>
+    <string name="alarm_threshold_error_invalid">ໃສ່ຕົວເລກທີ່ຖືກຕ້ອງທີ່ຫຼາຍກວ່າ 0.</string>
+    <string name="alarm_threshold_error_oi">ການປ່ຽນແປງ Open interest: ສູງສຸດ 1000 ເປີເຊັນ.</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="other">ພາຍໃນ %1$d ຊມ.</item>
+    </plurals>
+    <string name="alarm_window_label">ຊ່ວງເວລາ</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">ຂຶ້ນເກີນ</string>
+    <string name="alarm_simple_below">ລົງຕ່ຳກວ່າ</string>
+    <string name="alarm_simple_end"></string>
+    <string name="alarm_simple_when">ເມື່ອ %1$s</string>
+    <string name="alarm_template_a11y">ສ້າງສັນຍານເຕືອນ: %1$s</string>
+    <string name="alarm_template_a11y_down">ສ້າງສັນຍານເຕືອນທີ່ລົບ %1$s ເປີເຊັນຈາກລາຄາປັດຈຸບັນ</string>
+    <string name="alarm_template_a11y_up">ສ້າງສັນຍານເຕືອນທີ່ບວກ %1$s ເປີເຊັນຈາກລາຄາປັດຈຸບັນ</string>
+    <string name="alarm_template_from_now">ຈາກຕອນນີ້</string>
+    <string name="alarm_template_volume">ປະລິມານ ×%1$s</string>
+    <string name="alarm_templates_title">ສັນຍານເຕືອນດ່ວນ</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">ລາຄາສູງກວ່າ</string>
+    <string name="alarm_condition_below">ລາຄາຕ່ຳກວ່າ</string>
+    <string name="alarm_condition_down_percent">ລົງ</string>
+    <string name="alarm_condition_funding_above">Funding ສູງກວ່າ</string>
+    <string name="alarm_condition_funding_below">Funding ຕ່ຳກວ່າ</string>
+    <string name="alarm_condition_move_percent">ເໜັງຕີງ</string>
+    <string name="alarm_condition_near_high">ໃກ້ຈຸດສູງສຸດ</string>
+    <string name="alarm_condition_near_low">ໃກ້ຈຸດຕ່ຳສຸດ</string>
+    <string name="alarm_condition_oi_down">Open interest ລົງ</string>
+    <string name="alarm_condition_oi_up">Open interest ຂຶ້ນ</string>
+    <string name="alarm_condition_up_percent">ຂຶ້ນ</string>
+    <string name="alarm_condition_volume_spike">ປະລິມານພຸ່ງສູງ</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">ແຈ້ງຂ້ອຍເມື່ອ %1$s ຂຶ້ນເກີນ %2$s.</string>
+    <string name="alarm_sentence_below">ແຈ້ງຂ້ອຍເມື່ອ %1$s ລົງຕ່ຳກວ່າ %2$s.</string>
+    <string name="alarm_sentence_down_percent">ແຈ້ງຂ້ອຍເມື່ອ %1$s ລົງ %2$s ຕ່ຳກວ່າລາຄາຕອນບັນທຶກ (ຫຼື ຕອນສັນຍານເຕືອນຄັ້ງຫຼ້າສຸດ).</string>
+    <string name="alarm_sentence_funding_above">ແຈ້ງຂ້ອຍເມື່ອ Funding ຂອງ %1$s ຂຶ້ນເກີນ %2$s.</string>
+    <string name="alarm_sentence_funding_below">ແຈ້ງຂ້ອຍເມື່ອ Funding ຂອງ %1$s ລົງຕ່ຳກວ່າ %2$s.</string>
+    <string name="alarm_sentence_incomplete">ໃສ່ຄ່າເພື່ອເບິ່ງສັນຍານເຕືອນເປັນປະໂຫຍກ.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="other">ແຈ້ງຂ້ອຍເມື່ອ %1$s ເໜັງຕີງ %2$s ພາຍໃນ %3$d ຊົ່ວໂມງ.</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">ແຈ້ງຂ້ອຍເມື່ອ %1$s ຢູ່ຕ່ຳກວ່າ%3$sບໍ່ເກີນ %2$s.</string>
+    <string name="alarm_sentence_near_low">ແຈ້ງຂ້ອຍເມື່ອ %1$s ຢູ່ສູງກວ່າ%3$sບໍ່ເກີນ %2$s.</string>
+    <string name="alarm_sentence_new_extreme">ແຈ້ງຂ້ອຍເມື່ອ %1$s ສ້າງ%2$sໃໝ່.</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="other">ແຈ້ງຂ້ອຍເມື່ອ Open interest ຂອງ %1$s ລົງ %2$s ພາຍໃນ %3$d ຊົ່ວໂມງ.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="other">ແຈ້ງຂ້ອຍເມື່ອ Open interest ຂອງ %1$s ຂຶ້ນ %2$s ພາຍໃນ %3$d ຊົ່ວໂມງ.</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">ແຈ້ງຂ້ອຍເມື່ອ %1$s ຂຶ້ນ %2$s ສູງກວ່າລາຄາຕອນບັນທຶກ (ຫຼື ຕອນສັນຍານເຕືອນຄັ້ງຫຼ້າສຸດ).</string>
+    <string name="alarm_sentence_volume">ແຈ້ງຂ້ອຍເມື່ອ %1$s ມີການຊື້ຂາຍ %2$s× ຂອງປະລິມານປົກກະຕິ.</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">ຈຸດສູງສຸດ 30 ມື້</string>
+    <string name="alarm_near_extreme_high_365">ຈຸດສູງສຸດ 1 ປີ</string>
+    <string name="alarm_near_extreme_high_90">ຈຸດສູງສຸດ 90 ມື້</string>
+    <string name="alarm_near_extreme_low_30">ຈຸດຕ່ຳສຸດ 30 ມື້</string>
+    <string name="alarm_near_extreme_low_365">ຈຸດຕ່ຳສຸດ 1 ປີ</string>
+    <string name="alarm_near_extreme_low_90">ຈຸດຕ່ຳສຸດ 90 ມື້</string>
+    <string name="alarm_near_field_distance">ໄລຍະຫ່າງ</string>
+    <string name="alarm_near_hint">ແຈ້ງເຕືອນເມື່ອມີຈຸດສູງສຸດ ຫຼື ຕ່ຳສຸດໃໝ່ນຳ. ອີງຕາມແທ່ງທຽນລາຍວັນ, ອັບເດດທຸກໆ 6 ຊົ່ວໂມງ.</string>
+    <string name="alarm_near_new_only">ສະເພາະຈຸດສູງສຸດ ຫຼື ຕ່ຳສຸດໃໝ່</string>
+    <string name="alarm_near_notification_high">%1$s ຢູ່ຕ່ຳກວ່າ%3$s %2$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s ຢູ່ສູງກວ່າ%3$s %2$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">%1$s ໃໝ່ສຳລັບ %2$s: %3$s (ກ່ອນໜ້າ %4$s)</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="other">%1$d ມື້</item>
+    </plurals>
+    <string name="alarm_near_window_label">ໄລຍະເວລາ</string>
+    <string name="alarm_near_window_year">1 ປີ</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">ອັດຕາ Funding ຕໍ່ 8 ຊົ່ວໂມງ. ສັນຍາທີ່ມີຊ່ວງເວລາອື່ນຈະຖືກແປງ (1 ຊມ. × 8, 4 ຊມ. × 2); ບັດ Futures ສະແດງຄ່າທີ່ແປງແລ້ວ. ຖ້າບໍ່ຮູ້ຊ່ວງເວລາ, ສັນຍານເຕືອນຈະບໍ່ກວດ. ຄ່າລົບໝາຍເຖິງ shorts ຈ່າຍໃຫ້ longs. ± ສະຫຼັບເຄື່ອງໝາຍ.</string>
+    <string name="alarm_funding_sign_a11y">ສະຫຼັບເຄື່ອງໝາຍ</string>
+    <string name="alarm_oi_hint">ປຽບທຽບ Open interest ກັບຄ່າທີ່ບັນທຶກໄວ້ເມື່ອຫຼາຍຊົ່ວໂມງກ່ອນນັ້ນ. ສັນຍານເຕືອນໃໝ່ຈະແຈ້ງກໍ່ຕໍ່ເມື່ອແອັບເກັບຂໍ້ມູນໄດ້ດົນພໍແລ້ວ; ກວດຫຼາຍສຸດທຸກໆ 5 ນາທີ.</string>
+    <string name="alarm_volume_factor_label">ປະລິມານຊົ່ວໂມງຫຼ້າສຸດທຽບກັບປົກກະຕິ</string>
+    <string name="alarm_volume_hint">ຂໍ້ມູນປະລິມານມາຈາກ Binance — ຄູ່ເທຣດທີ່ບໍ່ມີຢູ່ທີ່ນັ້ນຈະບໍ່ເຮັດວຽກເລີຍ.</string>
+    <string name="alarm_volume_zero_hours_hint">ຊົ່ວໂມງທີ່ບໍ່ມີການຊື້ຂາຍນັບເປັນປະລິມານສູນ, ສະນັ້ນໃນຄູ່ເທຣດທີ່ຊື້ຂາຍໜ້ອຍ ຊົ່ວໂມງປົກກະຕິອາດເບິ່ງຄືຜິດປົກກະຕິ.</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">ສັນຍານເຕືອນເປີດຢູ່</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">ບັນທຶກສັນຍານເຕືອນແລ້ວ: %1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">ການແຈ້ງເຕືອນປິດຢູ່</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">ຖ້າບໍ່ມີ “%1$s”, Android ຈະກວດບໍ່ສະໝ່ຳສະເໝີໃນຂະນະທີ່ອຸປະກອນພັກ – ບາງຄັ້ງຫຼັງຈາກຫຼາຍຊົ່ວໂມງ. ຖ້າມີ, ປະມານທຸກໆ 15 ນາທີ.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">ເມື່ອປິດແອັບ, iOS ມັກກວດຊ້າກວ່າ 15 ນາທີ, ບາງຄັ້ງກໍ່ຕໍ່ເມື່ອທ່ານເປີດແອັບຄັ້ງຕໍ່ໄປ. ການພຸ່ງຂຶ້ນສັ້ນໆອາດພາດໄປ.</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">ສັນຍານເຕືອນຖືກກວດເມື່ອໃດ</string>
+    <string name="alarm_timing_where">ປ່ຽນຄວາມຖີ່ຂອງການອັບເດດລາຄາໃນ %1$s.</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">ງຽບ (ແຈ້ງເຕືອນເທົ່ານັ້ນ)</string>
+    <string name="alarm_signal_sound">ສຽງເທົ່ານັ້ນ</string>
+    <string name="alarm_signal_sound_vibrate">ສຽງ ແລະ ການສັ່ນ</string>
+    <string name="alarm_signal_system">ລະບົບ</string>
+    <string name="alarm_signal_vibrate">ການສັ່ນເທົ່ານັ້ນ</string>
+    <string name="alarm_test">ທົດສອບສັນຍານເຕືອນ</string>
+    <string name="alarm_test_action">ທົດສອບ</string>
+    <string name="alarm_test_denied">ການແຈ້ງເຕືອນຖືກປິດສຳລັບ Crypto Checker.</string>
+    <string name="alarm_test_hint">ສົ່ງສັນຍານເຕືອນຕົວຢ່າງດ້ວຍການຕັ້ງຄ່າສຽງ, ການສັ່ນ ແລະ ການເວົ້າຂອງທ່ານ.</string>
+    <string name="alarm_test_open_settings">ເປີດການຕັ້ງຄ່າ</string>
+    <string name="alarm_test_quiet">ຕອນນີ້ຊ່ວງເວລາງຽບເປີດຢູ່: ສັນຍານເຕືອນແທ້ຈະລໍຖ້າຈົນກວ່າມັນສິ້ນສຸດ ແລ້ວຈຶ່ງດັງພ້ອມສຽງ.</string>
+    <string name="alarm_test_text">ນີ້ຄືລັກສະນະ ແລະ ສຽງຂອງສັນຍານເຕືອນ.</string>
+    <string name="alarm_test_title">ທົດສອບ: ສັນຍານເຕືອນ Crypto Checker</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">ສຽງເປີດ</string>
+    <string name="alarm_a11y_speak_on">ການເວົ້າເປີດ</string>
+    <string name="alarm_unchecked_no_candles">ກວດບໍ່ໄດ້ (ບໍ່ມີຂໍ້ມູນແທ່ງທຽນ)</string>
+    <string name="alarm_unchecked_no_rate">ກວດບໍ່ໄດ້ (ບໍ່ມີອັດຕາແລກປ່ຽນ)</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">ການແຈ້ງເຕືອນປິດຢູ່ – ສັນຍານເຕືອນນີ້ຈະບໍ່ມາຮອດທ່ານ</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">ບໍ່ມີສັນຍານເຕືອນ – ສະພາບຄ່ອງຕ່ຳ</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">ກຳລັງລໍຖ້າລາຄາປັດຈຸບັນ</string>
+    <string name="alarm_enter_amount">ໃສ່ຄ່າ</string>
+    <string name="alarm_editor_more">ເພີ່ມເຕີມ</string>
+    <string name="alarm_editor_more_summary">ສັນຍານເຕືອນດ່ວນ, ເງື່ອນໄຂອື່ນ, ສຽງ ແລະ ການເວົ້າ</string>
+    <string name="alarm_reliability_storage_no_key">ສັນຍານເຕືອນຢຸດຊົ່ວຄາວໃນພື້ນຫຼັງ – ລາຍການຕິດຕາມບໍ່ໄດ້ບັນທຶກ</string>
+    <string name="alarms_limit_reached">ຄູ່ເທຣດໜຶ່ງມີສັນຍານເຕືອນໄດ້ສູງສຸດ %1$s ອັນ.</string>
+    <string name="alarms_reference_rate_hint">ອັດຕາອ້າງອີງ ECB ຖືກກຳນົດມື້ລະຄັ້ງເທົ່ານັ້ນ – ບໍ່ມີສັນຍານເຕືອນສຳລັບມັນ.</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">ການລົງຕ້ອງໜ້ອຍກວ່າ 100 ເປີເຊັນ.</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">ເກນບໍ່ຖືກຕ້ອງ – ກະລຸນາປັບ</string>
+
+    <string name="alarm_last_checked">ກວດສອບຫຼ້າສຸດ %1$s</string>
+</resources>

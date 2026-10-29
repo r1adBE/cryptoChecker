@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">Altkoinlər Bitcoin-ə qarşı</string>
+    <string name="neutral_btc_indicators_title">Bitcoin göstəriciləri</string>
+    <string name="neutral_halving_last">Son halvinq: %1$s</string>
+    <string name="neutral_halving_next">Növbəti halvinq təxminən %1$s gözlənilir (təqvimə görə hesablanıb – blok hündürlüyü hazırda əlçatan deyil).</string>
+    <string name="neutral_indicators_disclaimer">Yalnız ölçülmüş dəyərlər, qiymətləndirmə olmadan. Proqnoz və investisiya məsləhəti deyil.</string>
+    <string name="neutral_onchain_missing">On-chain məlumatları (Coin Metrics) hazırda əlçatan deyil.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">Qiymətin əvvəlki tarixi maksimumundan nə qədər aşağı olduğu.</string>
+    <string name="neutral_explain_change_30d">Bugünkü qiymət 30 gün əvvəlki ilə müqayisədə.</string>
+    <string name="neutral_explain_hashrate">30 günlük orta heşreyt 60 günlük orta ilə müqayisədə.</string>
+    <string name="neutral_explain_ma200w">Son 200 həftəlik bağlanışın ortası.</string>
+    <string name="neutral_explain_mayer">Qiymət 200 günlük ortaya bölünmüş.</string>
+    <string name="neutral_explain_mvrv">Bazar dəyəri reallaşdırılmış dəyərə bölünmüş (on-chain).</string>
+    <string name="neutral_explain_pi_gap">111 günlük orta 350 günlük ortanın iki misli ilə müqayisədə.</string>
+    <string name="neutral_explain_puell">Mayner gündəlik gəliri onun 365 günlük ortasına bölünmüş.</string>
+    <string name="neutral_explain_rsi_daily">Son 14 günün nisbi güc indeksi, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">Son 14 həftənin nisbi güc indeksi, 0–100.</string>
+    <string name="neutral_explain_sma50_200">50 günlük orta 200 günlük orta ilə müqayisədə.</string>
+    <string name="neutral_explain_vs_btc">90 gün ərzində Bitcoin ilə müqayisədə qiymət dəyişikliyi.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">Tətbiq yalnız sayı göstərir və onu mövsüm adlandırmır. Dəyər adətən saatlarla deyil, günlərlə dəyişir.</string>
+    <string name="neutral_info_btc_how">Hər dəyərin yanında onun nəyi ölçdüyü və 2016-dan bəri öz tarixçəsində harada olduğu barədə bir cümlə var. Tətbiq dəyərləri qiymətləndirmir və bazar mərhələsi çıxarmır; bazar alarmlarının hədləri yalnız sənin qurduqlarındır. Keçmiş qanunauyğunluqlar mütləq təkrarlanmır.</string>
+    <string name="neutral_info_btc_what">Geniş yayılmış Bitcoin göstəriciləri sadə ölçülmüş dəyərlər kimi: Mayer Multiple, 200 həftəlik orta, tarixi maksimumdan düşüş, 30 gündə dəyişiklik, Pi Cycle fərqi və on-chain dəyərləri MVRV, Puell Multiple və heşreyt.</string>
+    <string name="neutral_info_coin_how">Hər dəyərin yanında onun nəyi ölçdüyü barədə qiymətləndirməsiz bir cümlə var. Qiymət tarixçəsi qısa olan koinlər üçün bəzi dəyərlər yoxdur. On-chain məlumatları buraya daxil deyil.</string>
+    <string name="neutral_info_coin_what">Seçdiyin koin üçün eyni sadə göstəricilər, yalnız qiymət məlumatlarından: Mayer Multiple, 200 həftəlik orta, tarixi maksimumdan düşüş, 30 gündə dəyişiklik, 50/200 günlük trend, RSI və 90 gündə Bitcoin-ə qarşı güc.</string>
+    <string name="neutral_info_halving_how">Növbəti halvinq cari blok hündürlüyündən və cari çətinlik dövrünün orta blok vaxtından (mempool.space) hesablanır; bu məlumatlar olmadan – təqvimə görə (son halvinq üstəgəl təxminən dörd il). Qrafik keçmiş dövrlərin öz halvinqlərindən başlayan qiymət yolunu göstərir – tarixçə, proqnoz deyil.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">Trend 50/200 gün</string>
+    <string name="ind_drawdown">Tarixi maksimumdan düşüş</string>
+    <string name="ind_missing">kifayət qədər məlumat yoxdur</string>
+    <string name="ind_rsi_daily">RSI (günlük)</string>
+    <string name="ind_rsi_weekly">RSI (həftəlik)</string>
+    <string name="ind_vs_btc">Bitcoin-ə qarşı güc (90 gün)</string>
+    <string name="neutral_ind_change_30d">Dəyişiklik 30 gün</string>
+    <string name="neutral_ind_hashrate">Heşreyt 30/60 gün</string>
+    <string name="neutral_ind_ma200w">200 həftəlik orta</string>
+    <string name="neutral_ind_pi_gap">Pi Cycle fərqi</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">Yüksək o deməkdir ki, böyük altkoinlərin çoxu 90 gündə Bitcoin-i ötüb, aşağı isə Bitcoin-in onların çoxunu ötdüyünü göstərir.</string>
+    <string name="ind_read_ath_distance">Kiçik o deməkdir ki, qiymət rekorduna yaxındır, böyük isə ondan xeyli aşağı olduğunu göstərir.</string>
+    <string name="ind_read_change_30d">Müsbət 30 gün əvvəlkindən yüksək, mənfi isə aşağı deməkdir.</string>
+    <string name="ind_read_funding">Yüksək o deməkdir ki, çox treyder kredit çiyini ilə qiymət artımına mərc edir, mənfi isə çoxunun düşüşə mərc etdiyini göstərir.</string>
+    <string name="ind_read_hashrate_30_60">Müsbət hesablama gücünün artdığını, mənfi isə maynerlərin söndürdüyünü göstərir.</string>
+    <string name="ind_read_leverage">Çox lonq o deməkdir ki, çoxları borc pulla qiymət artımına mərc edir, çox şort isə düşüşə mərc edildiyini göstərir.</string>
+    <string name="ind_read_ma200w">Qiymətin ondan xeyli yuxarı olması uzun yüksəlişi, ona yaxın olması isə dərin geri çəkilməni göstərir.</string>
+    <string name="ind_read_mayer">Yüksək qiymətin 200 günlük ortasından xeyli yuxarı, aşağı isə ondan aşağı olduğunu göstərir.</string>
+    <string name="ind_read_mvrv">Yüksək qiymətin sahiblərin orta hesabla ödədiyindən xeyli yuxarı, aşağı isə ona yaxın və ya ondan aşağı olduğunu göstərir.</string>
+    <string name="ind_read_pi_cycle_gap">Sıfıra yaxın iki ortanın demək olar ki, kəsişdiyini, güclü mənfi isə onların bir-birindən uzaq olduğunu göstərir.</string>
+    <string name="ind_read_puell">Yüksək maynerlərin adi haldan xeyli çox, aşağı isə xeyli az qazandığını göstərir.</string>
+    <string name="ind_read_rsi_daily">70-dən yuxarı son günlərdə güclü artım, 30-dan aşağı isə güclü itkilər deməkdir.</string>
+    <string name="ind_read_rsi_weekly">70-dən yuxarı son həftələrdə güclü artım, 30-dan aşağı isə güclü itkilər deməkdir.</string>
+    <string name="ind_read_sma50_vs_200">Müsbət qısamüddətli ortanın uzunmüddətlidən yuxarı, mənfi isə aşağı olduğunu göstərir.</string>
+    <string name="ind_read_vs_btc">Müsbət Bitcoin-dən yaxşı, mənfi isə pis nəticə deməkdir.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">30 gün eyni qiymət: %1$s</string>
+    <string name="ind_context_note">Keçmiş dəyərlər və «eyni qiymət» hesablamaları hesabdır, proqnoz deyil.</string>
+    <string name="ind_context_percentile">%1$s-dən bəri günlərin %2$s hissəsində daha aşağı olub</string>
+</resources>

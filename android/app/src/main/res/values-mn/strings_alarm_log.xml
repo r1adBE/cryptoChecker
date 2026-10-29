@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Protokoll: Titel der Seite und Name des Knopfs in «Alle Alarme» -->
+    <string name="alarm_log_title">Дохионы бүртгэл</string>
+    <!-- Link unter «Letzte Prüfungen» (Einstellungen › Aktualisierung) -->
+    <string name="alarm_log_open">Дохионы бүртгэлийг харуулах</string>
+    <string name="alarm_log_intro">Дохио хэзээ ажилласан – мөн хэзээ ажиллах ёстой байсан ч саатуулсан. Зөвхөн энэ төхөөрөмж дээр 14 хоног хадгална.</string>
+    <string name="alarm_log_empty_title">Одоогоор бичлэг алга</string>
+    <string name="alarm_log_empty_message">Дохио ажиллах эсвэл саатуулагдах үед бичлэг энд гарна – жишээ нь ханш хуучирсан эсвэл чимээгүй цагт.</string>
+    <string name="alarm_log_clear">Бүртгэлийг цэвэрлэх</string>
+    <string name="alarm_log_clear_title">Дохионы бүртгэлийг цэвэрлэх үү?</string>
+    <string name="alarm_log_clear_message">Бүх бичлэг устна. Таны дохио хэвээр үлдэнэ.</string>
+    <!-- Screenreader: Schwelle des Alarms, z. B. «Marke Über 100’000 CHF» -->
+    <string name="alarm_log_threshold">Босго %1$s</string>
+    <!-- Alarm-Editor: letzte Prüfung, %1$s = «14:02 · Kraken 99’800 CHF · Marke nicht erreicht» -->
+    <string name="alarm_last_check">Сүүлд шалгасан: %1$s</string>
+    <!-- Ergebnisse einer Alarm-Prüfung (AlarmLogOutcome) -->
+    <string name="alarm_outcome_fired">Ажилласан</string>
+    <string name="alarm_outcome_not_reached">Босгод хүрээгүй</string>
+    <string name="alarm_outcome_already_triggered">Аль хэдийн мэдэгдсэн – ханш нөгөө тал руугаа буцтал хүлээнэ</string>
+    <string name="alarm_outcome_cooldown">Ажиллаагүй – сүүлийн дохионы дараах чимээгүй хугацаа</string>
+    <!-- %1$s = Zeit des Kurses laut Börse -->
+    <string name="alarm_outcome_stale">Ажиллаагүй – ханш хуучирсан (%1$s байдлаар)</string>
+    <string name="alarm_outcome_mark_price">Ажиллаагүй – тэмдэглэгээний ханш, арилжааны ханш биш</string>
+    <string name="alarm_outcome_low_liquidity">Ажиллаагүй – хөрвөх чадвар 10,000 USD-ээс бага эсвэл тодорхойгүй</string>
+    <string name="alarm_outcome_quiet_hours">Ажиллаагүй – чимээгүй цаг (нөхцөл хэвээр бол дараа нь сануулна)</string>
+    <string name="alarm_outcome_notifications_off">Ажиллаагүй – мэдэгдэл унтраалттай</string>
+    <string name="alarm_outcome_not_shown">Ажиллаагүй – мэдэгдэл хүрээгүй, дараа дахин оролдоно</string>
+    <string name="alarm_outcome_no_rate">Шалгаагүй – валютын ханш алга</string>
+    <string name="alarm_outcome_no_price">Ханш алга – биржийн хүсэлт амжилтгүй</string>
+
+    <string name="alarm_outcome_snoozed">Саатуулсан – «1 цагийн дараа» үргэлжилж байна</string>
+    <string name="alarm_log_source_app">апп дотор</string>
+    <string name="alarm_log_source_background">арын горимд</string>
+    <string name="alarm_log_source_exact">цагтаа хийсэн шалгалт</string>
+    <string name="alarm_log_source_widget">виджетээр</string>
+    <string name="alarm_outcome_fx_stale">Шалгаагүй – валютын ханш 36 цагаас хуучин</string>
+    <string name="alarm_outcome_fx_unsure">Шалгаагүй – USDT хөрвүүлэлт тодорхойгүй (зөвхөн USDC-ээр)</string>
+</resources>

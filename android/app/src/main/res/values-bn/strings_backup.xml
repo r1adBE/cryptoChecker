@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="backup_device_bound">ডিভাইস বদলানোর আগে একটি ব্যাকআপ ফাইল তৈরি করুন – এনক্রিপ্ট করা ডেটা শুধু এই ডিভাইসেই খোলা যায়।</string>
+    <string name="backup_encryption_pending">এনক্রিপশন এখনো চালু হয়নি – পরের বার চালু হওয়ার সময় অ্যাপ আবার চেষ্টা করবে।</string>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">এক্সপোর্ট</string>
+    <string name="backup_exported">ব্যাকআপ সংরক্ষিত।</string>
+    <string name="backup_failed">এটা কাজ করেনি। এটি কি Crypto Checker-এর ব্যাকআপ?</string>
+    <string name="backup_hint">নোট ও গ্রুপসহ আপনার ওয়াচলিস্ট, অ্যালার্ট, প্রিয়, পোর্টফোলিও ও সেটিংস একটি ফাইল হিসেবে সংরক্ষণ করে যা আপনি নিজের কাছে রাখেন – যেমন নতুন ফোনের জন্য।</string>
+    <string name="backup_import">ইমপোর্ট</string>
+    <string name="backup_title">ব্যাকআপ ও পুনরুদ্ধার</string>
+    <string name="backup_too_large">ফাইলটি খুব বড় বা বৈধ ব্যাকআপ নয় (সীমা 64 MB)।</string>
+    <string name="backup_export_too_large">ব্যাকআপটি 64 MB-এর বেশি হতো এবং পুনরুদ্ধার করা যেত না, তাই সংরক্ষণ করা হয়নি।</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">পাসওয়ার্ড</string>
+    <string name="backup_password_continue">চালিয়ে যান</string>
+    <string name="backup_password_hide">পাসওয়ার্ড লুকান</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">কমপক্ষে %1$dটি অক্ষর</string>
+    <string name="backup_password_mismatch">পাসওয়ার্ড মিলছে না</string>
+    <string name="backup_password_prompt">এই ব্যাকআপের পাসওয়ার্ড লিখুন।</string>
+    <string name="backup_password_repeat">পাসওয়ার্ড আবার লিখুন</string>
+    <string name="backup_password_show">পাসওয়ার্ড দেখান</string>
+    <string name="backup_password_title">পাসওয়ার্ড-সুরক্ষিত ব্যাকআপ</string>
+    <string name="backup_password_too_weak">অনুমান করা খুব সহজ – শুধু সংখ্যা, একই অক্ষরের পুনরাবৃত্তি বা “12345678” বা “password”-এর মতো সাধারণ ক্রম এড়িয়ে চলুন।</string>
+    <string name="backup_password_warning">পাসওয়ার্ড ছাড়া ব্যাকআপ পুনরুদ্ধার করা যাবে না।</string>
+    <string name="backup_password_wrong">ভুল পাসওয়ার্ড, অথবা ফাইলটি ক্ষতিগ্রস্ত। অনুগ্রহ করে আবার চেষ্টা করুন।</string>
+    <string name="backup_protect">পাসওয়ার্ড দিয়ে সুরক্ষিত করুন</string>
+    <string name="backup_protect_hint">ফাইলটি এনক্রিপ্ট করে (AES-256)। পোর্টফোলিও ডেটা থাকলে সুপারিশকৃত।</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">পাসওয়ার্ড ছাড়া সংরক্ষণ করুন</string>
+    <string name="backup_plain_confirm_text">ফাইলটি এনক্রিপ্ট করা নয়। যার হাতে এটি পৌঁছাবে সে পড়তে পারবে:</string>
+    <string name="backup_plain_confirm_title">পাসওয়ার্ড ছাড়া সংরক্ষণ করবেন?</string>
+    <string name="backup_plain_contents_addresses">সংরক্ষিত ওয়ালেট ঠিকানা ও xpub কী, ব্যালেন্সের ইতিহাস ও ক্রয়মূল্যসহ</string>
+    <string name="backup_plain_contents_base">নোট ও গ্রুপসহ ওয়াচলিস্ট, অ্যালার্ট, প্রিয় ও সেটিংস</string>
+    <string name="backup_plain_contents_portfolio">পোর্টফোলিও: পরিমাণ ও দামসহ লেনদেন</string>
+    <string name="backup_restore_app_lock_kept">পোর্টফোলিও লক চালু থাকে – এনক্রিপ্ট না করা ব্যাকআপ এটি বন্ধ করতে পারে না।</string>
+    <string name="backup_restore_confirm">ইমপোর্ট করলে আপনার বর্তমান ওয়াচলিস্ট (নোট ও গ্রুপসহ), অ্যালার্ট, প্রিয়, পোর্টফোলিও ও সেটিংস ব্যাকআপ দিয়ে প্রতিস্থাপিত হবে।</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="one">ব্যাকআপের %dটি এন্ট্রি (পোর্টফোলিও বা অ্যালার্ট) অবৈধ এবং ইমপোর্ট করা হবে না।</item>
+        <item quantity="other">ব্যাকআপের %dটি এন্ট্রি (পোর্টফোলিও বা অ্যালার্ট) অবৈধ এবং ইমপোর্ট করা হবে না।</item>
+    </plurals>
+    <string name="backup_restore_newer_version">এই ব্যাকআপ অ্যাপের নতুন সংস্করণের – আগে অ্যাপ আপডেট করুন। কিছুই ইমপোর্ট করা হয়নি।</string>
+    <string name="backup_restore_unencrypted_warning">এই ব্যাকআপ এনক্রিপ্ট করা নয় – এটি আপনার কিনা যাচাই করুন। সেটিংস প্রয়োগ হবে – তবে সুরক্ষা কমায় এমন পরিবর্তন বাদে (পোর্টফোলিও লক, ঠিকানার জন্য নিজের সার্ভার, পরিমাণ লুকান, সিস্টেম ব্যাকআপে পোর্টফোলিও)।</string>
+    <string name="backup_restored">পুনরুদ্ধার হয়েছে: %1$s, %2$s।</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$dটি অ্যালার্ট</item>
+        <item quantity="other">%1$dটি অ্যালার্ট</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$dটি পেয়ার</item>
+        <item quantity="other">%1$dটি পেয়ার</item>
+    </plurals>
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen -->
+    <string name="backup_restore_over_limits">সীমার বেশি (%3$sটি পেয়ার, প্রতি পেয়ারে %4$sটি অ্যালার্ট), পুনরুদ্ধার হবে না: %1$s, %2$s।</string>
+    <string name="backup_restored_over_limits">সীমার বেশি (%3$sটি পেয়ার, প্রতি পেয়ারে %4$sটি অ্যালার্ট), পুনরুদ্ধার হয়নি: %1$s, %2$s।</string>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren -->
+    <string name="storage_recovery_message">এই ডিভাইসে অ্যাপের এনক্রিপ্ট করা ডেটার কী আর নেই, তাই অ্যাপ খালি অবস্থায় শুরু হয়েছে। কিছুই মোছা হয়নি। ওয়াচলিস্ট ও পোর্টফোলিও ফিরে পেতে সেটিংসে “%1$s”-এর নিচে একটি ব্যাকআপ ফাইল ইমপোর্ট করুন।</string>
+    <string name="storage_recovery_title">সংরক্ষিত ডেটা আনলক করা যায়নি</string>
+
+    <!-- Sicherung mit Passwort (Argon2id, 64 MiB): zu wenig Arbeitsspeicher -->
+    <string name="backup_not_enough_memory">পাসওয়ার্ড দিয়ে ব্যাকআপ সুরক্ষিত করতে বা খুলতে যথেষ্ট খালি মেমরি নেই। অন্য অ্যাপ বন্ধ করে আবার চেষ্টা করুন।</string>
+
+    <!-- Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">ব্যাকআপ পুনরুদ্ধার করুন</string>
+    <string name="storage_recovery_acknowledge">বুঝেছি</string>
+    <string name="storage_recovery_restored_title">সংরক্ষিত ডেটা আবার আনলক হয়েছে</string>
+    <string name="storage_recovery_restored_message">এই ডিভাইসের একটি আগের কী সরিয়ে রাখা ডেটা আবার খুলেছে, তাই সেটি ফিরে এসেছে। এর মধ্যে সংরক্ষিত ডেটা অপরিবর্তিত অবস্থায় পাশাপাশি রাখা হয়েছে।</string>
+    <string name="settings_reset_notice_title">সেটিংস রিসেট হয়েছে</string>
+    <string name="settings_reset_notice">আপনার সেটিংস পড়া যায়নি এবং ডিফল্টে রিসেট করা হয়েছে। অনুগ্রহ করে পোর্টফোলিও লক, অ্যালার্টের ব্যবধান ও মুদ্রা যাচাই করুন।</string>
+    <string name="backup_restore_interrupted_title">পুনরুদ্ধার বাধাপ্রাপ্ত হয়েছে</string>
+    <string name="backup_restore_interrupted_rolled_back">ব্যাকআপ পুনরুদ্ধারের সময় অ্যাপ বন্ধ হয়ে গিয়েছিল। আপনার আগের ডেটা ফিরিয়ে আনা হয়েছে; ব্যাকআপ থেকে কিছুই রাখা হয়নি।</string>
+    <string name="backup_restore_interrupted_incomplete">ব্যাকআপ পুনরুদ্ধারের সময় অ্যাপ বন্ধ হয়ে গিয়েছিল, এবং আগের ডেটা পুরোপুরি ফিরিয়ে আনা যায়নি। অনুগ্রহ করে আপনার ওয়াচলিস্ট ও পোর্টফোলিও যাচাই করুন, অথবা সেটিংসে “%1$s”-এর নিচে আবার ব্যাকআপ পুনরুদ্ধার করুন।</string>
+    <string name="backup_not_verified">সংরক্ষণের পর ব্যাকআপ ফাইল যাচাই করা যায়নি – এটি আলাদাভাবে পড়া যাচ্ছে। অনুগ্রহ করে একটি নতুন ফাইলে ব্যাকআপ সংরক্ষণ করুন।</string>
+
+    <!-- Hinweis (nur Android): Portfolio-Kopie aus der Systemsicherung auch beim zweiten Versuch unlesbar und gelöscht -->
+    <string name="system_backup_not_imported_title">সিস্টেম ব্যাকআপ থেকে পোর্টফোলিও পুনরুদ্ধার হয়নি</string>
+    <!-- %1$s = Name des Bereichs «Sichern &amp; Wiederherstellen» in den Einstellungen -->
+    <string name="system_backup_not_imported_message">Android সিস্টেম ব্যাকআপের পোর্টফোলিও কপি দ্বিতীয় চেষ্টাতেও পড়া যায়নি এবং মুছে ফেলা হয়েছে। আপনার কাছে ব্যাকআপ ফাইল থাকলে সেটিংসে “%1$s”-এর নিচে সেটি পুনরুদ্ধার করুন।</string>
+
+    <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
+    <string name="portfolio_storage_kept_in_memory">সংরক্ষিত ডেটা এখন পড়া যাচ্ছে না, তাই পোর্টফোলিও দেখানো বা বদলানো যাচ্ছে না। অ্যাপ আবার চালু করুন।</string>
+    <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
+    <string name="watchlist_storage_kept_in_memory">সংরক্ষিত ডেটা এখন পড়া যাচ্ছে না, তাই ওয়াচলিস্ট দেখানো বা বদলানো যাচ্ছে না। অ্যাপ আবার চালু করুন।</string>
+    <string name="watchlist_storage_locked">ওয়াচলিস্ট বদলানো যাচ্ছে না: সংরক্ষিত ডেটা এখন পড়া যাচ্ছে না। অ্যাপ আবার চালু করুন।</string>
+    <string name="alarm_save_storage_locked">অ্যালার্ট সংরক্ষণ করা যাচ্ছে না: সংরক্ষিত ডেটা এখন পড়া যাচ্ছে না। অ্যাপ আবার চালু করুন।</string>
+    <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
+    <string name="backup_storage_kept">ব্যাকআপ সম্ভব নয়: সংরক্ষিত ডেটা এখন পড়া যাচ্ছে না। অ্যাপ আবার চালু করে আবার চেষ্টা করুন।</string>
+    <string name="backup_restore_storage_in_memory">এখন ইমপোর্ট সম্ভব নয়: অ্যাপ এই মুহূর্তে ডেটা সংরক্ষণ করছে না (এনক্রিপশন এখনো চালু হয়নি), তাই পুনরায় চালু করলে ইমপোর্ট হারিয়ে যাবে। অ্যাপ আবার চালু করে আবার চেষ্টা করুন।</string>
+    <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable) -->
+    <string name="backup_restore_journal_unavailable">এখন ইমপোর্ট সম্ভব নয়: আপনার বর্তমান ডেটার নিরাপত্তা কপি সংরক্ষণ করা যায়নি (এই মুহূর্তে কী পাওয়া যাচ্ছে না)। কিছুই বদলানো হয়নি। পরে আবার চেষ্টা করুন বা অ্যাপ আবার চালু করুন।</string>
+
+    <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
+    <string name="portfolio_storage_in_memory">এনক্রিপশন এখনো চালু হয়নি – পোর্টফোলিও সংরক্ষিত হচ্ছে না, অ্যাপ বন্ধ হলে পরিবর্তন হারিয়ে যাবে। পরের বার চালু হওয়ার সময় অ্যাপ আবার চেষ্টা করবে।</string>
+
+    <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
+    <string name="portfolio_storage_locked">সংরক্ষিত ডেটা এখন পড়া যাচ্ছে না, তাই পরিবর্তন সম্ভব নয়। অ্যাপ আবার চালু করুন।</string>
+    <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
+    <string name="watchlist_storage_in_memory">এই ডিভাইস এখন কোনো কী দিচ্ছে না – ওয়াচলিস্ট সংরক্ষিত হচ্ছে না, অ্যাপ বন্ধ হলে পরিবর্তন হারিয়ে যাবে। ব্যাকগ্রাউন্ডে অ্যালার্ট বিরত। পরের বার চালু হওয়ার সময় অ্যাপ আবার চেষ্টা করবে।</string>
+
+    <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
+    <string name="backup_restore_server_kept">“ঠিকানার জন্য নিজের সার্ভার” প্রয়োগ হয়নি – এনক্রিপ্ট না করা ব্যাকআপ এটি বদলাতে পারে না।</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
+    <string name="backup_restore_server_public">ব্যাকআপের মতো “ঠিকানার জন্য নিজের সার্ভার” সরানো হয়েছে – Bitcoin ঠিকানা আবার পাবলিক নোডে জিজ্ঞাসা করা হয়।</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
+    <string name="backup_restore_server_changed">“ঠিকানার জন্য নিজের সার্ভার” ব্যাকআপের সার্ভার দিয়ে প্রতিস্থাপিত হয়েছে।</string>
+</resources>

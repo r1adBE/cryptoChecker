@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
+    <string name="portfolio_cutoff_export_action">कट-ऑफ तारीख एक्सपोर्ट…</string>
+    <string name="portfolio_tax_worksheet_action">वर्कशीट…</string>
+    <string name="portfolio_export_address_unobserved">या तारखेला पत्ता पाहिलेला नाही – समाविष्ट नाही</string>
+    <string name="portfolio_export_button">CSV एक्सपोर्ट करा</string>
+    <string name="portfolio_export_col_amount">प्रमाण</string>
+    <string name="portfolio_export_col_coin">कॉइन</string>
+    <string name="portfolio_export_col_note">टीप</string>
+    <string name="portfolio_export_col_price">किंमत USDT</string>
+    <string name="portfolio_export_col_rate">दर USDT→%1$s</string>
+    <string name="portfolio_export_col_value">मूल्य USDT</string>
+    <string name="portfolio_export_col_value_cur">मूल्य %1$s</string>
+    <!-- Inhalt der CSV-Datei -->
+    <string name="portfolio_export_comment"># कट-ऑफ तारीख %1$s, चलन %2$s, %3$s चा विनिमय दर</string>
+    <string name="portfolio_export_currency">चलन: %1$s</string>
+    <string name="portfolio_export_date">कट-ऑफ तारीख</string>
+    <string name="portfolio_export_done">एक्सपोर्ट सेव्ह झाले</string>
+    <string name="portfolio_export_estv_note">संपत्ती करासाठी, सूचीबद्ध असेल तिथे ESTV किंमत यादी %1$s ची अधिकृत वर्षअखेरची मूल्ये लागू: %2$s</string>
+    <string name="portfolio_export_failed">एक्सपोर्ट अयशस्वी</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">एक्सपोर्ट अयशस्वी: फाइल लिहिता आली नाही – साठवण स्थान नाही किंवा लिहिण्यायोग्य नाही</string>
+    <string name="portfolio_export_failed_prices">एक्सपोर्ट अयशस्वी: किमती लोड करता आल्या नाहीत – कनेक्शन नाही किंवा एक्सचेंज प्रतिसाद देत नाही</string>
+    <string name="portfolio_export_from_address">पत्त्यावरून – खरेदी किंमत नाही</string>
+    <string name="portfolio_export_hint">निवडलेल्या दिवसाच्या शेवटची होल्डिंग, USDT मध्ये दैनिक बंद भावाने (UTC) मूल्यांकित आणि त्या दिवसाच्या ECB संदर्भ दराने रूपांतरित. “यात रूपांतरित करा” ने चलन बदला.</string>
+    <string name="portfolio_export_incomplete">अपूर्ण</string>
+    <string name="portfolio_export_no_fx">विनिमय दर नाही</string>
+    <string name="portfolio_export_no_price">किंमत नाही</string>
+    <string name="portfolio_export_running">ऐतिहासिक किमती आणत आहे…</string>
+    <string name="portfolio_export_title">कट-ऑफ तारीख एक्सपोर्ट</string>
+    <string name="portfolio_export_today_hint">आजचा दिवस अजून संपलेला नाही: दैनिक बंद भावाऐवजी सध्याची किंमत वापरली जाते.</string>
+    <string name="portfolio_export_total">एकूण</string>
+    <string name="portfolio_export_unchecked">तपासलेले नाही (जुळणारी किंमत नाही)</string>
+
+    <!-- Steuer-Export (Arbeitspapier) -->
+    <string name="tax_export_adjustment">superficial loss (ACB मध्ये जोडले)</string>
+    <string name="tax_export_at_wallet_note">ऑस्ट्रिया: प्रति कॉइन आणि वॉलेट (एक्सचेंज) चालू सरासरी – हस्तांतरणे खर्च सोबत नेतात – रिवॉर्ड 0 संपादन खर्चावर – 1 मार्च 2021 पासूनची होल्डिंग शुल्काशिवाय (वजावट नाही) – लेंडिंग व्याज मिळाले तेव्हाच्या मूल्यावर (27.5 टक्क्यांनी उत्पन्न).</string>
+    <string name="tax_export_avg_cost_rates">खरेदी तारखेच्या दरांनी खर्च (सरासरी)</string>
+    <string name="tax_export_ch_wealth_not_calculated">संपत्ती कर मोजलेला नाही – ESTV किंमत यादी: %1$s</string>
+    <string name="tax_export_col_acquired">संपादित</string>
+    <string name="tax_export_col_adjustment">नामंजूर तोटा %1$s</string>
+    <string name="tax_export_col_cost">खर्च %1$s</string>
+    <string name="tax_export_col_date">तारीख</string>
+    <string name="tax_export_col_days">धारण केलेले दिवस</string>
+    <string name="tax_export_col_gain">नफा %1$s</string>
+    <string name="tax_export_col_gross">शुल्कापूर्वीची किंमत %1$s</string>
+    <string name="tax_export_col_long_term">&gt; 1 वर्ष धारण</string>
+    <string name="tax_export_col_portfolio_value">पोर्टफोलिओ मूल्य %1$s</string>
+    <string name="tax_export_col_proceeds">उत्पन्न %1$s</string>
+    <string name="tax_export_col_sold">विकले</string>
+    <string name="tax_export_cost_incomplete">एकूण संपादन खर्च अपूर्ण</string>
+    <string name="tax_export_cost_missing">खरेदी किंमत नाही</string>
+    <string name="tax_export_fee_consumed">शुल्क संपूर्ण प्राप्ती खाते</string>
+    <string name="tax_export_fee_leg">दुसऱ्या कॉइनमधील शुल्क</string>
+    <string name="tax_export_fee_row">शुल्क</string>
+    <string name="tax_export_fee_value_missing">दुसऱ्या कॉइनमधील शुल्काचे मूल्य नाही</string>
+    <string name="tax_export_gains">प्रत्यक्ष विल्हेवाट (CSV)</string>
+    <string name="tax_export_gains_title">प्रत्यक्ष विल्हेवाट %1$s</string>
+    <string name="tax_export_gift">भेट</string>
+    <string name="tax_export_holdings_cutoff">%1$s रोजीची होल्डिंग (CSV)</string>
+    <string name="tax_export_holdings_title">%1$s रोजीची होल्डिंग</string>
+    <string name="tax_export_income">उत्पन्न (CSV)</string>
+    <string name="tax_export_income_title">उत्पन्न %1$s</string>
+    <string name="tax_export_info_template">टेम्प्लेट: %1$s · पद्धत: %2$s · कर वर्ष: %3$s · चलन: %4$s · Crypto Checker %5$s</string>
+    <string name="tax_export_lost_fee_cost">पैसे दिलेल्या लॉटशिवाय नेटवर्क शुल्क खर्च</string>
+    <string name="tax_export_match_pool">Section 104 पूल</string>
+    <string name="tax_export_match_same_day">त्याच दिवशी (HMRC)</string>
+    <string name="tax_export_match_thirty_day">30 दिवसांचा नियम (HMRC)</string>
+    <string name="tax_export_method_change_warning">पद्धत किंवा टेम्प्लेट बदलल्याने आधीची वर्षेही पुन्हा मोजली जातात – तुम्ही आधीच भरलेल्याशी तुलना करा.</string>
+    <string name="tax_export_method_overridden">टेम्प्लेट %1$s मोजते – %2$s नाही</string>
+    <string name="tax_export_new_holding">1 मार्च 2021 पासून संपादित</string>
+    <string name="tax_export_no">नाही</string>
+    <string name="tax_export_old_holding">1 मार्च 2021 पूर्वी संपादित</string>
+    <string name="tax_export_oversold">नोंदीपेक्षा जास्त विकले</string>
+    <string name="tax_export_payment">क्रिप्टोने पेमेंट</string>
+    <string name="tax_export_period">%1$s – %2$s</string>
+    <string name="tax_export_proceeds_missing">विक्री किंमत नाही</string>
+    <string name="tax_export_proceeds_without_cost">खरेदी किंमतीशिवाय उत्पन्न</string>
+    <string name="tax_export_realized_differs">कर CSV ‘प्रत्यक्ष’ पेक्षा वेगळे असू शकते (देशाचे कर नियम).</string>
+    <string name="tax_export_rule">&gt; 1 वर्ष: खरेदी तारीख + 1 कॅलेंडर वर्षानंतर विकले. तारखा स्थानिक वेळेत. दर: व्यवहाराच्या दिवसाचा ECB दैनिक दर; तो नसल्यास, 7 दिवस आधीपर्यंतचा शेवटचा दर.</string>
+    <string name="tax_export_rules_date">नियम या तारखेनुसार: %1$s</string>
+    <string name="tax_export_rules_stale">नियम %1$s चे आहेत – %2$s साठी दर आणि सवलती बदललेल्या असू शकतात. मूल्ये तपासा.</string>
+    <string name="tax_export_spouse_gift">जोडीदार/पार्टनरला – नफा नाही, तोटा नाही</string>
+    <string name="tax_export_summary">वार्षिक सारांश %1$s (CSV)</string>
+    <string name="tax_export_swap">स्वॅप</string>
+    <string name="tax_export_tax_year">कर वर्ष</string>
+    <string name="tax_export_transfer_fee_info">USDT/रोख मधील हस्तांतरण शुल्क – तोटा नाही, मूळ किंमतीत नाही, फक्त माहितीसाठी</string>
+    <string name="tax_export_unassigned_fee">शुल्क नियुक्त नाही – मूळ किंमत अज्ञात</string>
+    <string name="tax_export_usdt_usd_note">USDT, USDT/USD दैनिक बंद भावाने रूपांतरित; बंद भाव नसल्यास 1 USD (प्रत्येक ओळीत चिन्हांकित)</string>
+    <string name="tax_export_value_estimated">मूल्य अंदाजे (दैनिक बंद भाव)</string>
+    <string name="tax_export_value_missing">मिळाले तेव्हाचे मूल्य नाही</string>
+    <string name="tax_export_wallet">वॉलेट: %1$s</string>
+    <string name="tax_export_wallet_unspecified">नमूद नाही</string>
+    <string name="tax_export_withdrawal_fee">काढण्याचे शुल्क</string>
+    <string name="tax_export_withdrawal_fee_info">USDT/रोख मधील काढण्याचे शुल्क – तोटा नाही, फक्त माहितीसाठी</string>
+    <string name="tax_export_workpaper_disclaimer">कर वर्कशीट – कर विवरणपत्र नाही आणि कर सल्ला नाही</string>
+    <string name="tax_export_workpaper_title">वर्कशीट</string>
+    <string name="tax_export_year_local_zone">तारखा स्थानिक वेळेत (%1$s)</string>
+    <string name="tax_export_yes">होय</string>
+
+    <!-- Steuer-Export: Zeilen und Spalten -->
+    <string name="tax_line_at_interest">लेंडिंग व्याज (मिळाले तेव्हाचे मूल्य)</string>
+    <string name="tax_line_at_old_long">1 मार्च 2021 पूर्वी संपादित – &gt; 1 वर्ष धारण: सहसा करपात्र नाही – तपासा</string>
+    <string name="tax_line_at_rate">विशेष दर 27.5 टक्के: 1 मार्च 2021 पासून संपादित आणि 1 मार्च 2022 पासून विकलेल्याचे निव्वळ + व्याज</string>
+    <string name="tax_line_au_discounted">तोटे आणि 50 टक्के सवलतीनंतरचा निव्वळ भांडवली नफा</string>
+    <string name="tax_line_ca_taxable">करपात्र भांडवली नफा (समावेश दर 1/2)</string>
+    <string name="tax_line_ch_income">रिवॉर्ड सूचीबद्ध – त्यांच्या हाताळणीसाठी ESTV कार्यपत्र पहा</string>
+    <string name="tax_line_ch_private">खासगी मालमत्तेवरील भांडवली नफा: मोजलेला नाही – वर्गीकरणासाठी ESTV पहा</string>
+    <string name="tax_line_ch_wealth">संपत्ती कर: मोजलेला नाही – होल्डिंग CSV 31 डिसेंबरची एक्सचेंज किंमत × USD/CHF वापरते – अधिकृत कर मूल्ये: ESTV किंमत यादी</string>
+    <string name="tax_line_de_long">&gt; 1 वर्ष धारण: § 23 EStG नुसार सहसा करपात्र नाही – तपासा</string>
+    <string name="tax_line_denied_loss">नामंजूर तोटे (superficial loss)</string>
+    <string name="tax_line_fr_outflow">विक्रीशिवाय बाहेर गेलेले (काढलेले) – एकूण संपादन खर्च प्रमाणात कमी केला</string>
+    <string name="tax_line_fr_rate">सपाट दर 12.8 टक्के अधिक सामाजिक योगदान (किंवा पर्याय निवडल्यास स्केल)</string>
+    <string name="tax_line_fr_threshold">वर्षाला €305 पर्यंतची विल्हेवाट: सहसा सूट (विक्री किमतींची बेरीज) – तपासा</string>
+    <string name="tax_line_gains">नफे</string>
+    <string name="tax_line_income">उत्पन्न (मिळाले तेव्हाच्या मूल्यावर रिवॉर्ड)</string>
+    <string name="tax_line_jp_misc">विविध उत्पन्न (雑所得): निव्वळ नफा + उत्पन्न</string>
+    <string name="tax_line_long_net">निव्वळ – &gt; 1 वर्ष धारण</string>
+    <string name="tax_line_losses">तोटे</string>
+    <string name="tax_line_net">निव्वळ नफा/तोटा</string>
+    <string name="tax_line_new_net">निव्वळ – 1 मार्च 2021 पासून संपादित, 1 मार्च 2022 पासून विकले</string>
+    <string name="tax_line_old_long_net">निव्वळ – 1 मार्च 2021 पूर्वी संपादित – &gt; 1 वर्ष धारण</string>
+    <string name="tax_line_old_short_net">निव्वळ – सट्टा व्यवहार (जुना कायदा): 1 मार्च 2021 पूर्वी संपादित आणि ≤ 1 वर्ष धारण, किंवा 1 मार्च 2022 पूर्वी विकले</string>
+    <string name="tax_line_proceeds">उत्पन्न</string>
+    <string name="tax_line_short_net">निव्वळ – ≤ 1 वर्ष धारण</string>
+    <string name="tax_line_transfer_fees">हस्तांतरण शुल्क (स्वतःचे वॉलेट)</string>
+    <string name="tax_line_uk_after_exempt">सूट रकमेवरील निव्वळ नफा (फक्त क्रिप्टो)</string>
+    <string name="tax_line_uk_exempt">वार्षिक सूट रक्कम – सर्व विल्हेवाटींना एकत्र लागू, येथे पूर्ण लागू केली</string>
+    <string name="tax_line_us_terms">अल्पकालीन (≤ 1 वर्ष): सामान्य दर – दीर्घकालीन (&gt; 1 वर्ष): भांडवली नफा दर</string>
+    <string name="tax_line_withdrawal_fees">काढण्याचे शुल्क</string>
+
+    <!-- Steuer Deutschland -->
+    <string name="tax_de_below">मर्यादेखाली</string>
+    <string name="tax_de_col_item">बाब</string>
+    <string name="tax_de_disclaimer">फक्त मार्गदर्शनासाठी – कर विवरणपत्र नाही आणि कर सल्ला नाही.</string>
+    <string name="tax_de_explain_below">%1$s पर्यंत: मर्यादेखाली (मार्गदर्शनासाठी).</string>
+    <string name="tax_de_explain_loss">निव्वळ तोटा: या विक्रीवर कर नाही. § 23 EStG अंतर्गत तोटे फक्त खासगी विक्रीतील नफ्याशी समायोजित होतात – त्याच वर्षी, किंवा मागील वर्षात मागे नेऊन आणि पुढील वर्षांत पुढे नेऊन (§ 23 para. 3 आणि § 10d EStG). तो मूल्यांकित व्हावा म्हणून तुमच्या कर विवरणपत्रात तोटा जाहीर करा.</string>
+    <string name="tax_de_explain_reached">%1$s पासून संपूर्ण रक्कम मोजली जाते (सूट मर्यादा – सवलत रक्कम नाही).</string>
+    <string name="tax_de_explain_unknown">तपासता येत नाही: विनिमय दर / खरेदी किमती किंवा धारण कालावधी नाहीत.</string>
+    <string name="tax_de_income_limit">सेवांसाठी सूट मर्यादा (§ 22 No. 3 EStG)</string>
+    <string name="tax_de_limit_scope">मर्यादा वर्षातील सर्व खासगी विक्री किंवा सेवांना एकत्र लागू – ॲपबाहेरीलही.</string>
+    <string name="tax_de_loading">मोजत आहे…</string>
+    <string name="tax_de_long_gains">नफे – &gt; 1 वर्ष धारण</string>
+    <string name="tax_de_long_losses">तोटे – &gt; 1 वर्ष धारण</string>
+    <string name="tax_de_loss">निव्वळ तोटा – फक्त खासगी विक्रीतील नफ्याशी समायोजित (§ 23 EStG)</string>
+    <string name="tax_de_private_limit">खासगी विक्रीसाठी सूट मर्यादा (§ 23 EStG)</string>
+    <string name="tax_de_reached">मर्यादा गाठली – सहसा संपूर्ण रक्कम मोजली जाते – तपासा</string>
+    <string name="tax_de_short_gains">नफे – ≤ 1 वर्ष धारण</string>
+    <string name="tax_de_short_losses">तोटे – ≤ 1 वर्ष धारण</string>
+    <string name="tax_de_unclassified">धारण कालावधी अज्ञात</string>
+    <string name="tax_de_unknown">तपासता येत नाही</string>
+
+    <!-- Steuer-Vorlagen je Land -->
+    <string name="tax_template_at">ऑस्ट्रिया</string>
+    <string name="tax_template_au">ऑस्ट्रेलिया</string>
+    <string name="tax_template_beta">बीटा</string>
+    <string name="tax_template_beta_note">बीटा: देशाचे नियम सोपे केलेले, कर विवरणपत्र भरण्यापूर्वी तपासा</string>
+    <string name="tax_template_ca">कॅनडा</string>
+    <string name="tax_template_ch">स्वित्झर्लंड</string>
+    <string name="tax_template_confirm_text">बीटा, सोपे केलेले नियम, इतर प्लॅटफॉर्मवरील व्यवहार नाहीत – कर विवरणपत्र भरण्यापूर्वी तपासा.</string>
+    <string name="tax_template_confirm_title">कर टेम्प्लेट (बीटा)</string>
+    <string name="tax_template_current">टेम्प्लेट: %1$s · पद्धत: %2$s · चलन: %3$s</string>
+    <string name="tax_template_de">जर्मनी</string>
+    <string name="tax_template_fr">फ्रान्स</string>
+    <string name="tax_template_hint">फक्त मार्गदर्शनासाठी: कर वर्कशीटची पद्धत, कर वर्ष आणि सारांश ठरवते. पोर्टफोलिओ कार्ड तटस्थ राहते – भेटी आणि हस्तांतरण शुल्क वर्कशीटपेक्षा वेगळे असू शकतात.</string>
+    <string name="tax_template_jp">जपान</string>
+    <string name="tax_template_neutral">तटस्थ (सर्व देश)</string>
+    <string name="tax_template_suggestion">तुमच्या प्रदेशासाठी सूचना: %1$s</string>
+    <string name="tax_template_title">कर टेम्प्लेट</string>
+    <string name="tax_template_uk">युनायटेड किंगडम</string>
+    <string name="tax_template_us">USA</string>
+    <string name="tax_template_use">%1$s वापरा</string>
+
+    <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
+    <string name="tax_method_at">जुनी/नवीन होल्डिंग – चालू सरासरी</string>
+    <string name="tax_method_ca_acb">ACB सरासरी खर्च (superficial loss)</string>
+    <string name="tax_method_fr_pta">एकूण संपादन किंमत (art. 150 VH bis)</string>
+    <string name="tax_method_jp_total">एकूण सरासरी (総平均法)</string>
+    <string name="tax_method_uk_pool">Section 104 पूल (त्याच दिवशी / 30 दिवस)</string>
+    <string name="tax_note_at">प्रति कॉइन आणि वॉलेट चालू सरासरी – सर्व वॉलेट मिळून नाही (KryptowährungsVO § 2). रिवॉर्ड नवीन होल्डिंगमध्ये 0 संपादन खर्चावर येतात (BMF: स्टेकिंग / एअरड्रॉप) – उत्पन्न फाइल त्यांना मिळाले तेव्हाच्या मूल्यावर दाखवते. 1 मार्च 2021 पासून संपादित होल्डिंगसाठी शुल्कांची वजावट मिळत नाही (§ 27a(4) no. 2, § 20(2) EStG): खर्च आणि उत्पन्न शुल्काशिवाय. लेंडिंग व्याज (CSV इम्पोर्ट किंवा टिपेतील प्रकार) मिळाल्यावर 27.5 टक्क्यांनी उत्पन्न असते आणि ते मूल्य संपादन खर्च म्हणून राहते.</string>
+    <string name="tax_note_at_staking">आधीच धारण केलेल्या कॉइनसह स्टेकिंग आणि एअरड्रॉप: मिळाले तेव्हाचे मूल्य करासाठी महत्त्वाचे नाही – कायद्यानुसार संपादन खर्च 0 आहे (§ 27b Abs. 2 EStG; BMF “Kryptowährungen”). विकल्यावरच कर लागतो.</string>
+    <string name="tax_note_fr">क्रिप्टोमध्ये दिलेल्या विक्री आणि शुल्क या विल्हेवाट आहेत – स्वॅप पुढे ढकलले जातात. विक्रीवरील क्रिप्टो शुल्क शुल्कापूर्वीच्या किमतीत मोजले जाते – अन्यथा ते त्याच्या मूल्यावर स्वतंत्र विल्हेवाट असते. पोर्टफोलिओ मूल्य दैनिक बंद भावांवरून – बंद भाव नसल्यास खर्च रिकामा राहतो.</string>
+    <string name="tax_note_network_fee">क्रिप्टोमध्ये दिलेले नेटवर्क शुल्क (स्वतःच्या वॉलेटमध्ये हस्तांतरण, काढणे) म्हणजे शुल्क कॉइनची मार्केट मूल्यावर विल्हेवाट – फक्त त्या कॉइनवर नफा किंवा तोटा, संपूर्ण शुल्काचा तोटा नाही (%1$s). नोंदलेली किंमत नसल्यास: त्याच दिवसाचा दैनिक बंद भाव (UTC); बंद भाव नसल्यास उत्पन्न रिकामे राहते.</string>
+    <string name="tax_note_specific_id">Specific identification समर्थित नाही – FIFO वापरले जाते.</string>
+    <string name="tax_note_spouse_gift">“जोडीदार / सिव्हिल पार्टनरला” चिन्हांकित भेट म्हणजे नफा नाही आणि तोटा नाही: उत्पन्न = तुमची मूळ किंमत, जी तुमचा जोडीदार घेतो (%1$s).</string>
+    <string name="tax_note_stable_swap">तुम्ही ठेवता अशा स्टेबलकॉइनसाठी (USDT/USDC/DAI …) क्रिप्टो विकणे येथे क्रिप्टो-ते-क्रिप्टो आहे आणि करपात्र नाही – ते स्टेबलकॉइनमध्ये स्वॅप म्हणून नोंदवा. फक्त युरोसाठीची विक्री करपात्र आहे – “विक्री” युरोसाठीची विक्री मानली जाते.</string>
+    <string name="tax_note_transfer_fee">स्वतःच्या वॉलेटमधील हस्तांतरणावरील USDT किंवा रोख शुल्कालाही हेच लागू: ते मूळ किंमतीत जोडले जात नाही आणि फक्त माहितीसाठी दाखवले जाते.</string>
+    <string name="tax_note_uk">HMRC नुसार जुळवणी: त्याच दिवशी → पुढील 30 दिवस → Section 104 पूल.</string>
+    <string name="tax_note_us_transition">संक्रमण 1 जानेवारी 2025 (Rev. Proc. 2024-28 safe harbor): आधीच्या वर्षांत सर्व वॉलेट मिळून FIFO वापरले असल्यास, 31 डिसेंबर 2024 रोजी उरलेले लॉट कॉइन असलेल्या वॉलेटकडे जातात – सर्वात जुने कॉइन असलेल्या वॉलेटला सर्वात जुनी मूळ किंमत मिळते. हे वाटप ॲपचा नियम आहे – तुमच्या स्वतःच्या नोंदींशी ते तपासा.</string>
+    <string name="tax_note_us_wallet">कर वर्ष 2025 पासून IRS प्रति वॉलेट किंवा एक्सचेंज मूळ किंमत मागतो (Rev. Proc. 2024-28): एक्सपोर्ट 2025 पासून प्रति वॉलेट FIFO वापरतो – आधीच्या वर्षांसाठी सर्व वॉलेट मिळून FIFO, किंवा ती तुमची खर्च पद्धत असल्यास प्रति वॉलेट FIFO.</string>
+    <string name="tax_note_withdrawal_fee">USDT किंवा रोखीतील काढण्याचे शुल्क तोटा नाही: रोख शुल्क वजावटयोग्य खर्च नाही, USDT शुल्क नफ्याशिवाय सममूल्यावरील विल्हेवाट आहे – ते फक्त माहितीसाठी दाखवले जाते (%1$s).</string>
+    <string name="tax_summary_at_interest_income">मोजले जाते: 27.5 टक्के विशेष दराने मिळाल्यावर उत्पन्न (§ 27b(2) no. 1 EStG / BMF) – कॉइन हे मूल्य संपादन खर्च म्हणून ठेवतात</string>
+    <string name="tax_summary_at_reward_info">फक्त माहितीसाठी – कोणत्याही बेरजेचा भाग नाही: रिवॉर्ड नवीन होल्डिंगमध्ये 0 संपादन खर्चावर येतात आणि विक्रीवरच करपात्र (आधीच नफ्यात) – § 27b para. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">1 जाने.–28 फेब्रु. 2022: 27.5 टक्क्यांचा पर्याय शक्य</string>
+    <string name="tax_summary_at_withdrawal_fee">काढण्याचे शुल्क – नवीन होल्डिंगशी समायोजित नाही (विशेष दरावर खर्चांची वजावट नाही, § 20(2) EStG)</string>
+    <string name="tax_summary_ch_fifo_info">फक्त माहितीसाठी – ॲपची FIFO गणना – वर्गीकृत नाही – ESTV पहा</string>
+    <string name="tax_summary_ch_year_end_value">होल्डिंग CSV मधील 31 डिसेंबरचे मूल्य = एक्सचेंज किंमत × USD/CHF – ESTV कर मूल्ये नाहीत</string>
+    <string name="tax_summary_de_withdrawal_fee">काढण्याचे शुल्क – § 23 अंतर्गत समायोजित नाही, उत्पन्नाशी संबंधित खर्च म्हणून वजावटयोग्य आहे का ते तपासा</string>
+    <string name="tax_summary_not_calculated_estv">मोजलेले नाही – ESTV किंमत यादी: %1$s</string>
+    <string name="tax_summary_orientation">मार्गदर्शन</string>
+    <string name="tax_summary_orientation_block">फक्त मार्गदर्शनासाठी – कर सल्ला नाही – मूल्यांकन नाही</string>
+    <string name="tax_summary_orientation_item">मार्गदर्शन: %1$s</string>
+    <string name="tax_summary_title">वार्षिक सारांश %1$s %2$s</string>
+    <string name="tax_summary_transfer_fee_info">USDT/रोख मधील हस्तांतरण शुल्क – तोटा नाही आणि मूळ किंमतीत नाही, फक्त माहितीसाठी</string>
+    <string name="tax_summary_withdrawal_fee_info">USDT/रोख मधील काढण्याचे शुल्क – तोटा म्हणून मोजलेले नाही, फक्त माहितीसाठी</string>
+
+    <string name="tax_line_at_old_speculation_limit">सट्टा व्यवहार (जुना कायदा, ≤ 1 वर्ष धारण): सूट मर्यादा (§ 31 (3) EStG जुनी आवृत्ती)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">1 मार्च 2022 पूर्वीचे लेंडिंग व्याज (मिळाले तेव्हाचे मूल्य)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">1 मार्च 2022 पूर्वीचे व्याज: जुना कायदा (आयकर दर), 27.5 टक्के नाही</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">1 मार्च 2022 पूर्वी – तज्ञाकडून तपासा</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">व्याज – मिळाल्यावर करपात्र</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">स्टेकिंग – फक्त माहितीसाठी (संपादन खर्च 0, विक्रीवर कर)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">एकूण व्याज (करपात्र)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">एकूण स्टेकिंग (माहिती)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">निव्वळ भांडवली तोटा (पुढे नेणे)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">पर्यायाशिवाय: 1 जाने.–28 फेब्रु. 2022 मधील विक्री समाविष्ट</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">1 मार्च 2022 पूर्वीचे स्टेकिंग: संपादन खर्च 0 ठरवला – तज्ञाकडून तपासा</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">30 दिवसांचा नियम अजूनही हे आकडे बदलू शकतो (%1$s पर्यंतच्या खरेदी)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">अहवाल मर्यादेवरील (£50,000; 2020/21–2022/23: £49,200) शुल्कापूर्वीचे उत्पन्न: तुम्ही Self Assessment साठी नोंदणीकृत असल्यास, करपात्र नफा नसला तरी HMRC ला कळवा</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">संपत्ती मूल्य 31 डिसेंबर %1$s (मार्गदर्शन)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">ESTV किंमत यादी (ictax.admin.ch) अधिकृत आहे. यादीत नसलेल्या कॉइनसाठी सहसा एक्सचेंजचा बंद भाव लागू होतो. संपत्ती कर मोजलेला नाही.</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – होल्डिंग %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">मोजलेले नाही</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">पाहिले जाणारे पत्ते वाचता आले नाहीत – त्यांची शिल्लक या फाइलमध्ये नाही</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">पाहिल्या जाणाऱ्या पत्त्यांचे लॉट त्यांच्या खरेदी तारखेपासून मोजले जातात; पत्त्याची आजची शिल्लक कमी असल्यास ते कमी केले जातात.</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">पाहिले जाणारे पत्ते एकूण मूल्यात मोजले जातात पण त्यांना संपादन खर्च नाही – त्यामुळे नफा बहुधा जास्त दिसतो. खर्च खरेदी म्हणून नोंदवा.</string>
+    <string name="tax_summary_fr_rewards_income">ही रक्कम असे गृहीत धरते की रिवॉर्डवर मिळाल्यावर उत्पन्न म्हणून कर लागला (संपादन खर्चात मिळाले तेव्हाचे मूल्य) – अन्यथा संपादन खर्च 0 हा सावध अर्थ ठरेल.</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">नोंदलेली किंमत नसलेली मार्केट मूल्ये (शुल्क, भेटी/पेमेंट, स्वॅप, रिवॉर्ड, नेटवर्क शुल्क, पोर्टफोलिओ मूल्य) व्यवहाराच्या दिवसाच्या दैनिक बंद भावाने (UTC)</string>
+</resources>

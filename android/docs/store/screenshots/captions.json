@@ -8,6 +8,50 @@
     "05": "optional: Portfolio-Tab mit den Demo-Käufen"
   },
   "locales": {
+    "af": {
+      "01": {
+        "caption": "Jongste prys van die beurs",
+        "subline": "Geen rekening, geen reklame – bedrae bly op jou toestel"
+      },
+      "02": {
+        "caption": "’n Alarm wat jou een keer sê",
+        "subline": "Laat weet wanneer ’n kontrole jou vlak bereik vind"
+      },
+      "03": {
+        "caption": "Pryse op jou tuisskerm",
+        "subline": "Volglys of een munt as legstuk – sonder om die app te open"
+      },
+      "04": {
+        "caption": "Wat beweeg saam?",
+        "subline": "Volume, mark en futures kortliks – geen voorspelling"
+      },
+      "05": {
+        "caption": "Portefeulje, as jy wil",
+        "subline": "Opsioneel, skakel aan in Instellings: koop, verkoop, oordrag"
+      }
+    },
+    "am": {
+      "01": {
+        "caption": "የመጨረሻ ዋጋ ከልውውጡ",
+        "subline": "መለያ የለም፣ ማስታወቂያ የለም – መጠኖች በመሣሪያዎ ላይ ይቆያሉ"
+      },
+      "02": {
+        "caption": "አንድ ጊዜ የሚያሳውቅ ማንቂያ",
+        "subline": "ፍተሻ ገደብዎ መድረሱን ሲያገኝ ያሳውቅዎታል"
+      },
+      "03": {
+        "caption": "ዋጋዎች በመነሻ ማያዎ ላይ",
+        "subline": "የክትትል ዝርዝር ወይም አንድ ሳንቲም እንደ ዊጀት – መተግበሪያውን ሳይከፍቱ"
+      },
+      "04": {
+        "caption": "አብሮ ምን እየተንቀሳቀሰ ነው?",
+        "subline": "መጠን፣ ገበያ እና ፊውቸርስ በአጭሩ – ትንበያ የለም"
+      },
+      "05": {
+        "caption": "ፖርትፎሊዮ፣ ከፈለጉ",
+        "subline": "አማራጭ፣ በቅንብሮች ውስጥ ያብሩ፦ ግዢ፣ ሽያጭ፣ ዝውውር"
+      }
+    },
     "ar": {
       "01": {
         "caption": "آخر سعر من المنصة",
@@ -28,6 +72,116 @@
       "05": {
         "caption": "المحفظة إن أردتها",
         "subline": "اختياري، يُفعَّل من الإعدادات: شراء وبيع وتحويلات"
+      }
+    },
+    "az-AZ": {
+      "01": {
+        "caption": "Birjadan son qiymət",
+        "subline": "Hesab yox, reklam yox – məbləğlər cihazında qalır"
+      },
+      "02": {
+        "caption": "Bir dəfə xəbər verən alarm",
+        "subline": "Yoxlama səviyyənə çatıldığını görəndə xəbər verir"
+      },
+      "03": {
+        "caption": "Qiymətlər ana ekranında",
+        "subline": "İzləmə siyahısı və ya bir koin vidcet kimi – tətbiqi açmadan"
+      },
+      "04": {
+        "caption": "Onunla nə hərəkət edir?",
+        "subline": "Həcm, bazar və fyuçerslər qısaca – proqnoz yoxdur"
+      },
+      "05": {
+        "caption": "Portfel, istəsən",
+        "subline": "İstəyə bağlı, Ayarlarda aç: alış, satış, köçürmə"
+      }
+    },
+    "bg": {
+      "01": {
+        "caption": "Последен курс от борсата",
+        "subline": "Без акаунт, без реклами – сумите остават на устройството ти"
+      },
+      "02": {
+        "caption": "Аларма, която казва веднъж",
+        "subline": "Съобщава, когато проверка установи, че прагът е достигнат"
+      },
+      "03": {
+        "caption": "Курсове на началния екран",
+        "subline": "Списък или монета като уиджет – без да отваряш приложението"
+      },
+      "04": {
+        "caption": "Какво се движи заедно?",
+        "subline": "Обем, пазар и фючърси накратко – без прогноза"
+      },
+      "05": {
+        "caption": "Портфолио, ако искаш",
+        "subline": "По избор, в Настройки: покупки, продажби, прехвърляния"
+      }
+    },
+    "bn-BD": {
+      "01": {
+        "caption": "এক্সচেঞ্জ থেকে সর্বশেষ দাম",
+        "subline": "অ্যাকাউন্ট নেই, বিজ্ঞাপন নেই – পরিমাণ আপনার ডিভাইসেই থাকে"
+      },
+      "02": {
+        "caption": "একবারই জানায় এমন অ্যালার্ট",
+        "subline": "যাচাইয়ে আপনার মাত্রা ছোঁয়া গেলে জানায়"
+      },
+      "03": {
+        "caption": "হোম স্ক্রিনে দাম",
+        "subline": "ওয়াচলিস্ট বা একটি কয়েন উইজেটে – অ্যাপ না খুলেই"
+      },
+      "04": {
+        "caption": "এর সঙ্গে আর কী নড়ছে?",
+        "subline": "ভলিউম, বাজার ও ফিউচার্স সংক্ষেপে – কোনো পূর্বাভাস নয়"
+      },
+      "05": {
+        "caption": "পোর্টফোলিও, চাইলে",
+        "subline": "ঐচ্ছিক, সেটিংসে চালু করুন: কেনা, বেচা, ট্রান্সফার"
+      }
+    },
+    "bs": {
+      "01": {
+        "caption": "Zadnja cijena s berze",
+        "subline": "Bez računa, bez reklama – iznosi ostaju na tvom uređaju"
+      },
+      "02": {
+        "caption": "Alarm koji javlja jednom",
+        "subline": "Javlja kada provjera pokaže da je tvoj nivo dostignut"
+      },
+      "03": {
+        "caption": "Cijene na početnom ekranu",
+        "subline": "Spisak praćenja ili jedan coin kao widget – bez otvaranja"
+      },
+      "04": {
+        "caption": "Šta se kreće s njom?",
+        "subline": "Volumen, tržište i futures ukratko – bez prognoze"
+      },
+      "05": {
+        "caption": "Portfolio, ako želiš",
+        "subline": "Opcionalno, u Postavkama: kupovine, prodaje, prijenosi"
+      }
+    },
+    "ca": {
+      "01": {
+        "caption": "Últim preu de l’exchange",
+        "subline": "Sense compte ni anuncis – els imports queden al dispositiu"
+      },
+      "02": {
+        "caption": "Una alarma que avisa un cop",
+        "subline": "T’avisa quan una comprovació troba el teu nivell assolit"
+      },
+      "03": {
+        "caption": "Preus a la pantalla d’inici",
+        "subline": "Llista o una moneda com a widget – sense obrir l’app"
+      },
+      "04": {
+        "caption": "Què es mou amb ell?",
+        "subline": "Volum, mercat i futurs en resum – sense previsions"
+      },
+      "05": {
+        "caption": "Cartera, si la vols",
+        "subline": "Opcional, a Configuració: compres, vendes, transferències"
       }
     },
     "cs-CZ": {
@@ -162,6 +316,50 @@
         "subline": "Opcional, en Ajustes: compras, ventas, transferencias"
       }
     },
+    "et": {
+      "01": {
+        "caption": "Viimane hind otse börsilt",
+        "subline": "Ilma kontota, ilma reklaamita – summad jäävad seadmesse"
+      },
+      "02": {
+        "caption": "Hoiatus, mis teatab korra",
+        "subline": "Annab teada, kui kontroll leiab, et su lävi on saavutatud"
+      },
+      "03": {
+        "caption": "Hinnad avaekraanil",
+        "subline": "Jälgimisloend või üks münt vidinana – rakendust avamata"
+      },
+      "04": {
+        "caption": "Mis liigub kaasa?",
+        "subline": "Maht, turg ja futuurid lühidalt – ilma prognoosita"
+      },
+      "05": {
+        "caption": "Portfell, kui soovid",
+        "subline": "Valikuline, lülita sisse seadetes: ostud, müügid, ülekanded"
+      }
+    },
+    "eu-ES": {
+      "01": {
+        "caption": "Azken prezioa burtsatik",
+        "subline": "Konturik, iragarkirik ez – zenbatekoak gailuan geratzen dira"
+      },
+      "02": {
+        "caption": "Behin abisatzen duen alarma",
+        "subline": "Egiaztapenak zure muga iritsita aurkitzean abisatzen du"
+      },
+      "03": {
+        "caption": "Prezioak hasierako pantailan",
+        "subline": "Zerrenda edo txanpon bat widget gisa – aplikazioa ireki gabe"
+      },
+      "04": {
+        "caption": "Zer mugitzen da harekin?",
+        "subline": "Bolumena, merkatua eta futuroak laburki – iragarpenik gabe"
+      },
+      "05": {
+        "caption": "Zorroa, nahi baduzu",
+        "subline": "Aukerakoa (Ezarpenak): erosketak, salmentak, transferentziak"
+      }
+    },
     "fa": {
       "01": {
         "caption": "آخرین قیمت از صرافی",
@@ -206,6 +404,28 @@
         "subline": "Valinnainen, asetuksista: ostot, myynnit, siirrot"
       }
     },
+    "fil": {
+      "01": {
+        "caption": "Huling presyo mula sa exchange",
+        "subline": "Walang account, walang ad – nasa device mo ang mga halaga"
+      },
+      "02": {
+        "caption": "Alertong isang beses lang",
+        "subline": "Nag-aalerto kapag nakitang naabot na ang level mo"
+      },
+      "03": {
+        "caption": "Presyo sa home screen mo",
+        "subline": "Watchlist o coin bilang widget – hindi na bubuksan ang app"
+      },
+      "04": {
+        "caption": "Ano ang gumagalaw kasabay nito?",
+        "subline": "Volume, market at futures nang maikli – walang hula"
+      },
+      "05": {
+        "caption": "Portfolio, kung gusto mo",
+        "subline": "Opsyonal, i-on sa Mga Setting: bili, benta, transfer"
+      }
+    },
     "fr-FR": {
       "01": {
         "caption": "Dernier cours de la plateforme",
@@ -226,6 +446,72 @@
       "05": {
         "caption": "Portefeuille, si besoin",
         "subline": "En option, dans les réglages : achats, ventes, transferts"
+      }
+    },
+    "ga": {
+      "01": {
+        "caption": "Praghas is déanaí ón malartán",
+        "subline": "Gan chuntas, gan fógraí – fanann méideanna ar do ghléas"
+      },
+      "02": {
+        "caption": "Foláireamh a deir uair amháin",
+        "subline": "Cuireann sé in iúl nuair a aimsíonn seiceáil do leibhéal"
+      },
+      "03": {
+        "caption": "Praghsanna ar do scáileán baile",
+        "subline": "Liosta faire nó bonn mar ghiuirléid – gan an aip a oscailt"
+      },
+      "04": {
+        "caption": "Cad atá ag bogadh leis?",
+        "subline": "Toirt, margadh agus todhchaíochtaí go gearr – gan tuar"
+      },
+      "05": {
+        "caption": "Punann, más mian leat",
+        "subline": "Roghnach, cas air i Socruithe: ceannach, díol, aistrithe"
+      }
+    },
+    "gl-ES": {
+      "01": {
+        "caption": "Último prezo do exchange",
+        "subline": "Sen conta nin anuncios – os importes quedan no dispositivo"
+      },
+      "02": {
+        "caption": "Unha alarma que avisa unha vez",
+        "subline": "Avísate cando unha comprobación atopa o teu nivel alcanzado"
+      },
+      "03": {
+        "caption": "Prezos na pantalla de inicio",
+        "subline": "Lista ou unha moeda como widget – sen abrir a app"
+      },
+      "04": {
+        "caption": "Que se move con el?",
+        "subline": "Volume, mercado e futuros en resumo – sen previsións"
+      },
+      "05": {
+        "caption": "Carteira, se a queres",
+        "subline": "Opcional, en Configuración: compras, vendas, transferencias"
+      }
+    },
+    "gu": {
+      "01": {
+        "caption": "એક્સચેન્જ પરથી તાજો ભાવ",
+        "subline": "એકાઉન્ટ નહીં, જાહેરાત નહીં – રકમ તમારા ઉપકરણ પર જ રહે છે"
+      },
+      "02": {
+        "caption": "એક જ વાર જણાવતો એલર્ટ",
+        "subline": "તપાસમાં તમારું સ્તર પહોંચેલું દેખાય ત્યારે જણાવે છે"
+      },
+      "03": {
+        "caption": "હોમ સ્ક્રીન પર ભાવ",
+        "subline": "વૉચલિસ્ટ કે એક કૉઇન વિજેટ તરીકે – ઍપ ખોલ્યા વગર"
+      },
+      "04": {
+        "caption": "સાથે શું હલી રહ્યું છે?",
+        "subline": "વૉલ્યુમ, બજાર અને ફ્યુચર્સ ટૂંકમાં – કોઈ આગાહી નહીં"
+      },
+      "05": {
+        "caption": "પોર્ટફોલિયો, ઇચ્છો તો",
+        "subline": "વૈકલ્પિક, સેટિંગ્સમાં ચાલુ કરો: ખરીદી, વેચાણ, ટ્રાન્સફર"
       }
     },
     "hi-IN": {
@@ -250,6 +536,28 @@
         "subline": "वैकल्पिक, सेटिंग्स में चालू करें: ख़रीद, बिक्री, ट्रांसफ़र"
       }
     },
+    "hr": {
+      "01": {
+        "caption": "Zadnja cijena s burze",
+        "subline": "Bez računa, bez oglasa – iznosi ostaju na tvom uređaju"
+      },
+      "02": {
+        "caption": "Alarm koji javlja jednom",
+        "subline": "Javlja kada provjera pokaže da je tvoja razina dosegnuta"
+      },
+      "03": {
+        "caption": "Cijene na početnom zaslonu",
+        "subline": "Popis praćenja ili jedan coin kao widget – bez otvaranja"
+      },
+      "04": {
+        "caption": "Što se kreće s njom?",
+        "subline": "Volumen, tržište i futures ukratko – bez prognoze"
+      },
+      "05": {
+        "caption": "Portfelj, ako želiš",
+        "subline": "Neobavezno, uključi u Postavkama: kupnje, prodaje, prijenosi"
+      }
+    },
     "hu-HU": {
       "01": {
         "caption": "Utolsó ár a tőzsdéről",
@@ -272,6 +580,28 @@
         "subline": "Opcionális, a beállításokban: vétel, eladás, átutalás"
       }
     },
+    "hy-AM": {
+      "01": {
+        "caption": "Վերջին գինը բորսայից",
+        "subline": "Առանց հաշվի, առանց գովազդի – գումարները մնում են սարքում"
+      },
+      "02": {
+        "caption": "Մեկ անգամ հայտնող ահազանգ",
+        "subline": "Տեղեկացնում է, երբ ստուգումը գտնում է, որ մակարդակդ հասել է"
+      },
+      "03": {
+        "caption": "Գները հիմնական էկրանին",
+        "subline": "Դիտացանկ կամ մեկ մետաղադրամ վիջեթով – առանց բացելու"
+      },
+      "04": {
+        "caption": "Ի՞նչն է շարժվում դրա հետ",
+        "subline": "Ծավալ, շուկա և ֆյուչերսներ համառոտ – առանց կանխատեսման"
+      },
+      "05": {
+        "caption": "Պորտֆել, եթե ուզում ես",
+        "subline": "Ըստ ցանկության, Կարգավորումներում՝ գնում, վաճառք, փոխանցում"
+      }
+    },
     "id": {
       "01": {
         "caption": "Harga terakhir dari bursa",
@@ -292,6 +622,28 @@
       "05": {
         "caption": "Portofolio, jika mau",
         "subline": "Opsional, aktifkan di Pengaturan: beli, jual, transfer"
+      }
+    },
+    "is-IS": {
+      "01": {
+        "caption": "Nýjasta verð frá kauphöllinni",
+        "subline": "Án aðgangs og auglýsinga – upphæðir haldast í tækinu"
+      },
+      "02": {
+        "caption": "Viðvörun sem lætur vita einu sinni",
+        "subline": "Lætur vita þegar athugun finnur að markinu er náð"
+      },
+      "03": {
+        "caption": "Verð á heimaskjánum",
+        "subline": "Vaktlisti eða ein mynt sem græja – án þess að opna forritið"
+      },
+      "04": {
+        "caption": "Hvað hreyfist með?",
+        "subline": "Velta, markaður og framvirkt í stuttu máli – engin spá"
+      },
+      "05": {
+        "caption": "Eignasafn, ef þú vilt",
+        "subline": "Valfrjálst, kveiktu í Stillingum: kaup, sala, millifærslur"
       }
     },
     "it-IT": {
@@ -360,6 +712,94 @@
         "subline": "任意・設定でオン：購入、売却、送金"
       }
     },
+    "ka-GE": {
+      "01": {
+        "caption": "ბოლო ფასი ბირჟიდან",
+        "subline": "ანგარიშისა და რეკლამის გარეშე – თანხები მოწყობილობაზე რჩება"
+      },
+      "02": {
+        "caption": "განგაში, რომელიც ერთხელ გეტყვის",
+        "subline": "გაცნობებს, როცა შემოწმება აჩვენებს, რომ შენი დონე მიღწეულია"
+      },
+      "03": {
+        "caption": "ფასები მთავარ ეკრანზე",
+        "subline": "დაკვირვების სია ან ერთი მონეტა ვიჯეტად – აპის გახსნის გარეშე"
+      },
+      "04": {
+        "caption": "რა მოძრაობს მასთან ერთად?",
+        "subline": "მოცულობა, ბაზარი და ფიუჩერსები მოკლედ – პროგნოზის გარეშე"
+      },
+      "05": {
+        "caption": "პორტფელი, თუ გინდა",
+        "subline": "არჩევითი, ჩართე პარამეტრებში: ყიდვა, გაყიდვა, გადარიცხვა"
+      }
+    },
+    "kk": {
+      "01": {
+        "caption": "Биржадан соңғы баға",
+        "subline": "Тіркелгі мен жарнама жоқ – сомалар құрылғыңызда қалады"
+      },
+      "02": {
+        "caption": "Бір рет хабарлайтын ескерту",
+        "subline": "Тексеру шегіңізге жеткенін тапқанда хабарлайды"
+      },
+      "03": {
+        "caption": "Бағалар басты экранда",
+        "subline": "Бақылау тізімі не бір монета виджетте – қолданбаны ашпай"
+      },
+      "04": {
+        "caption": "Онымен бірге не қозғалады?",
+        "subline": "Көлем, нарық және фьючерстер қысқаша – болжамсыз"
+      },
+      "05": {
+        "caption": "Портфель, қаласаңыз",
+        "subline": "Қосымша, Параметрлерде қосыңыз: сатып алу, сату, аударым"
+      }
+    },
+    "km-KH": {
+      "01": {
+        "caption": "តម្លៃចុងក្រោយពីផ្សារប្តូរ",
+        "subline": "ឥតគណនី ឥតការផ្សាយ – ចំនួនទឹកប្រាក់នៅលើឧបករណ៍របស់អ្នក"
+      },
+      "02": {
+        "caption": "ការដាស់តឿនដែលប្រាប់តែម្តង",
+        "subline": "ប្រាប់អ្នកនៅពេលការពិនិត្យរកឃើញថាកម្រិតរបស់អ្នកត្រូវបានឈានដល់"
+      },
+      "03": {
+        "caption": "តម្លៃនៅលើអេក្រង់ដើម",
+        "subline": "បញ្ជីតាមដាន ឬកាក់មួយជាវិដជិត – ដោយមិនបើកកម្មវិធី"
+      },
+      "04": {
+        "caption": "អ្វីកំពុងផ្លាស់ទីជាមួយវា?",
+        "subline": "បរិមាណ ទីផ្សារ និង futures ដោយសង្ខេប – គ្មានការព្យាករ"
+      },
+      "05": {
+        "caption": "ផលប័ត្រ ប្រសិនបើអ្នកចង់",
+        "subline": "ជាជម្រើស បើកក្នុងការកំណត់៖ ទិញ លក់ ផ្ទេរ"
+      }
+    },
+    "kn-IN": {
+      "01": {
+        "caption": "ಎಕ್ಸ್‌ಚೇಂಜ್‌ನಿಂದ ಇತ್ತೀಚಿನ ಬೆಲೆ",
+        "subline": "ಖಾತೆ ಇಲ್ಲ, ಜಾಹೀರಾತು ಇಲ್ಲ – ಮೊತ್ತಗಳು ನಿಮ್ಮ ಸಾಧನದಲ್ಲೇ"
+      },
+      "02": {
+        "caption": "ಒಮ್ಮೆ ತಿಳಿಸುವ ಅಲರ್ಟ್",
+        "subline": "ಪರಿಶೀಲನೆಯಲ್ಲಿ ನಿಮ್ಮ ಮಟ್ಟ ತಲುಪಿದಾಗ ತಿಳಿಸುತ್ತದೆ"
+      },
+      "03": {
+        "caption": "ಹೋಮ್ ಸ್ಕ್ರೀನ್‌ನಲ್ಲಿ ಬೆಲೆಗಳು",
+        "subline": "ವಾಚ್‌ಲಿಸ್ಟ್ ಅಥವಾ ಒಂದು ಕಾಯಿನ್ ವಿಜೆಟ್ ಆಗಿ – ಆ್ಯಪ್ ತೆರೆಯದೆ"
+      },
+      "04": {
+        "caption": "ಜೊತೆಗೆ ಏನು ಚಲಿಸುತ್ತಿದೆ?",
+        "subline": "ವಾಲ್ಯೂಮ್, ಮಾರುಕಟ್ಟೆ, ಫ್ಯೂಚರ್ಸ್ ಕಿರುನೋಟ – ಮುನ್ಸೂಚನೆ ಇಲ್ಲ"
+      },
+      "05": {
+        "caption": "ಬೇಕಿದ್ದರೆ ಪೋರ್ಟ್‌ಫೋಲಿಯೊ",
+        "subline": "ಐಚ್ಛಿಕ, ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಆನ್ ಮಾಡಿ: ಖರೀದಿ, ಮಾರಾಟ, ವರ್ಗಾವಣೆ"
+      }
+    },
     "ko-KR": {
       "01": {
         "caption": "거래소에서 바로 온 최근 가격",
@@ -382,6 +822,160 @@
         "subline": "선택 사항, 설정에서 켜기: 매수, 매도, 이체"
       }
     },
+    "lo-LA": {
+      "01": {
+        "caption": "ລາຄາລ່າສຸດຈາກກະດານແລກປ່ຽນ",
+        "subline": "ບໍ່ມີບັນຊີ ບໍ່ມີໂຄສະນາ – ຈຳນວນຢູ່ໃນອຸປະກອນຂອງທ່ານ"
+      },
+      "02": {
+        "caption": "ສັນຍານເຕືອນທີ່ແຈ້ງເທື່ອດຽວ",
+        "subline": "ແຈ້ງເມື່ອການກວດພົບວ່າຮອດລະດັບຂອງທ່ານແລ້ວ"
+      },
+      "03": {
+        "caption": "ລາຄາໃນໜ້າຈໍຫຼັກ",
+        "subline": "ລາຍການຕິດຕາມ ຫຼື ຫຼຽນດຽວເປັນວິດເຈັດ – ບໍ່ຕ້ອງເປີດແອັບ"
+      },
+      "04": {
+        "caption": "ມີຫຍັງເໜັງຕີງນຳ?",
+        "subline": "ປະລິມານ ຕະຫຼາດ ແລະ futures ໂດຍຫຍໍ້ – ບໍ່ມີການຄາດຄະເນ"
+      },
+      "05": {
+        "caption": "ພອດໂຟລິໂອ ຖ້າທ່ານຕ້ອງການ",
+        "subline": "ທາງເລືອກ ເປີດໃນການຕັ້ງຄ່າ: ຊື້ ຂາຍ ໂອນ"
+      }
+    },
+    "lt": {
+      "01": {
+        "caption": "Paskutinė kaina iš biržos",
+        "subline": "Be paskyros, be reklamų – sumos lieka tavo įrenginyje"
+      },
+      "02": {
+        "caption": "Įspėjimas, pranešantis kartą",
+        "subline": "Praneša, kai tikrinimas randa tavo ribą pasiektą"
+      },
+      "03": {
+        "caption": "Kainos pagrindiniame ekrane",
+        "subline": "Stebimi ar viena moneta valdiklyje – neatidarius programėlės"
+      },
+      "04": {
+        "caption": "Kas juda kartu?",
+        "subline": "Apimtis, rinka ir ateities sandoriai trumpai – be prognozių"
+      },
+      "05": {
+        "caption": "Portfelis, jei nori",
+        "subline": "Įjungiamas nustatymuose: pirkimai, pardavimai, pervedimai"
+      }
+    },
+    "lv": {
+      "01": {
+        "caption": "Pēdējā cena no biržas",
+        "subline": "Bez konta, bez reklāmām – summas paliek tavā ierīcē"
+      },
+      "02": {
+        "caption": "Brīdinājums, kas ziņo vienreiz",
+        "subline": "Paziņo, kad pārbaude konstatē, ka tavs slieksnis sasniegts"
+      },
+      "03": {
+        "caption": "Cenas sākuma ekrānā",
+        "subline": "Vērojamie vai viena monēta logrīkā – neatverot lietotni"
+      },
+      "04": {
+        "caption": "Kas kustas līdzi?",
+        "subline": "Apjoms, tirgus un nākotnes līgumi īsumā – bez prognozēm"
+      },
+      "05": {
+        "caption": "Portfelis, ja vēlies",
+        "subline": "Pēc izvēles, iestatījumos: pirkumi, pārdošana, pārvedumi"
+      }
+    },
+    "mk-MK": {
+      "01": {
+        "caption": "Последна цена од берзата",
+        "subline": "Без сметка, без реклами – износите остануваат на уредот"
+      },
+      "02": {
+        "caption": "Аларм што те известува еднаш",
+        "subline": "Те известува кога проверка ќе ја најде границата достигната"
+      },
+      "03": {
+        "caption": "Цени на почетниот екран",
+        "subline": "Листа за следење или една монета како виџет – без отворање"
+      },
+      "04": {
+        "caption": "Што се движи заедно?",
+        "subline": "Волумен, пазар и фјучерси накратко – без прогноза"
+      },
+      "05": {
+        "caption": "Портфолио, ако сакаш",
+        "subline": "Опционално, во Поставки: купувања, продажби, трансфери"
+      }
+    },
+    "ml-IN": {
+      "01": {
+        "caption": "എക്സ്ചേഞ്ചിൽനിന്ന് പുതിയ വില",
+        "subline": "അക്കൗണ്ടില്ല, പരസ്യമില്ല – തുകകൾ നിങ്ങളുടെ ഉപകരണത്തിൽ"
+      },
+      "02": {
+        "caption": "ഒരിക്കൽ അറിയിക്കുന്ന അലേർട്ട്",
+        "subline": "പരിശോധനയിൽ നിങ്ങളുടെ നില എത്തിയാൽ അറിയിക്കുന്നു"
+      },
+      "03": {
+        "caption": "ഹോം സ്ക്രീനിൽ വിലകൾ",
+        "subline": "വാച്ച്‌ലിസ്റ്റോ ഒരു കോയിനോ വിജറ്റായി – ആപ്പ് തുറക്കാതെ"
+      },
+      "04": {
+        "caption": "ഒപ്പം എന്താണ് നീങ്ങുന്നത്?",
+        "subline": "വോളിയം, മാർക്കറ്റ്, ഫ്യൂച്ചേഴ്സ് ചുരുക്കത്തിൽ – പ്രവചനമില്ല"
+      },
+      "05": {
+        "caption": "വേണമെങ്കിൽ പോർട്ട്ഫോളിയോ",
+        "subline": "ഐച്ഛികം, ക്രമീകരണത്തിൽ ഓണാക്കുക: വാങ്ങൽ, വിൽപ്പന, കൈമാറ്റം"
+      }
+    },
+    "mn-MN": {
+      "01": {
+        "caption": "Биржийн сүүлийн ханш",
+        "subline": "Бүртгэлгүй, зар сурталчилгаагүй – дүн төхөөрөмжид үлдэнэ"
+      },
+      "02": {
+        "caption": "Нэг удаа мэдэгддэг дохио",
+        "subline": "Шалгалтаар таны босгод хүрснийг илрүүлэхэд мэдэгдэнэ"
+      },
+      "03": {
+        "caption": "Ханш үндсэн дэлгэц дээр",
+        "subline": "Ажиглах жагсаалт эсвэл нэг зоос виджетээр – апп нээлгүй"
+      },
+      "04": {
+        "caption": "Түүнтэй хамт юу хөдөлж байна?",
+        "subline": "Хэмжээ, зах зээл, фьючерс товчоор – таамаглалгүй"
+      },
+      "05": {
+        "caption": "Багц, хүсвэл",
+        "subline": "Тохиргоонд асаана: худалдан авалт, борлуулалт, шилжүүлэг"
+      }
+    },
+    "mr-IN": {
+      "01": {
+        "caption": "एक्सचेंजवरून ताजी किंमत",
+        "subline": "खाते नाही, जाहिराती नाहीत – रक्कम तुमच्या डिव्हाइसवरच राहते"
+      },
+      "02": {
+        "caption": "एकदाच सांगणारा अलर्ट",
+        "subline": "तपासणीत तुमची पातळी गाठलेली दिसली की कळवतो"
+      },
+      "03": {
+        "caption": "होम स्क्रीनवर किमती",
+        "subline": "वॉचलिस्ट किंवा एक कॉइन विजेट म्हणून – ॲप न उघडता"
+      },
+      "04": {
+        "caption": "सोबत काय हलत आहे?",
+        "subline": "व्हॉल्यूम, बाजार आणि फ्युचर्स थोडक्यात – अंदाज नाही"
+      },
+      "05": {
+        "caption": "पोर्टफोलिओ, हवे असल्यास",
+        "subline": "पर्यायी, सेटिंग्जमध्ये सुरू करा: खरेदी, विक्री, हस्तांतरण"
+      }
+    },
     "ms": {
       "01": {
         "caption": "Harga terakhir dari bursa",
@@ -402,6 +996,50 @@
       "05": {
         "caption": "Portfolio, jika anda mahu",
         "subline": "Pilihan, hidupkan dalam Tetapan: belian, jualan, pindahan"
+      }
+    },
+    "my-MM": {
+      "01": {
+        "caption": "လဲလှယ်ရေးဌာနမှ နောက်ဆုံးဈေး",
+        "subline": "အကောင့်မလို၊ ကြော်ငြာမဲ့ – ပမာဏများ သင့်စက်ပေါ်တွင်သာ"
+      },
+      "02": {
+        "caption": "တစ်ကြိမ်သာ အသိပေးသော သတိပေးချက်",
+        "subline": "စစ်ဆေးမှုက သင့်အဆင့်ရောက်ကြောင်း တွေ့သောအခါ အသိပေးသည်"
+      },
+      "03": {
+        "caption": "ပင်မစခရင်ပေါ်တွင် ဈေးနှုန်း",
+        "subline": "စောင့်ကြည့်စာရင်း (သို့) ဒင်္ဂါး ဝီဂျက် – အက်ပ်မဖွင့်ဘဲ"
+      },
+      "04": {
+        "caption": "၎င်းနှင့်အတူ ဘာ လှုပ်ရှားနေသလဲ။",
+        "subline": "ပမာဏ၊ ဈေးကွက်နှင့် futures အတိုချုပ် – ခန့်မှန်းချက်မပါ"
+      },
+      "05": {
+        "caption": "လိုလျှင် ပေါ့ဖိုလီယို",
+        "subline": "ရွေးချယ်နိုင်၊ ဆက်တင်တွင် ဖွင့်ပါ- ဝယ်၊ ရောင်း၊ လွှဲပြောင်း"
+      }
+    },
+    "ne-NP": {
+      "01": {
+        "caption": "एक्सचेन्जबाट पछिल्लो मूल्य",
+        "subline": "खाता छैन, विज्ञापन छैन – रकम तपाईंकै यन्त्रमा रहन्छ"
+      },
+      "02": {
+        "caption": "एक पटक मात्र जानकारी दिने अलर्ट",
+        "subline": "जाँचमा तपाईंको सीमा पुगेको भेटिँदा जानकारी दिन्छ"
+      },
+      "03": {
+        "caption": "होम स्क्रिनमा मूल्य",
+        "subline": "वाचलिस्ट वा एउटा कोइन विजेटको रूपमा – एप नखोली"
+      },
+      "04": {
+        "caption": "यससँगै के चलिरहेको छ?",
+        "subline": "भोल्युम, बजार र फ्युचर्स छोटकरीमा – कुनै पूर्वानुमान छैन"
+      },
+      "05": {
+        "caption": "पोर्टफोलियो, चाहेमा",
+        "subline": "ऐच्छिक, सेटिङहरूमा: खरिद, बिक्री, स्थानान्तरण"
       }
     },
     "nl-NL": {
@@ -446,6 +1084,28 @@
       "05": {
         "caption": "Portefølje, om du vil",
         "subline": "Valgfritt, slås på i innstillinger: kjøp, salg, overføringer"
+      }
+    },
+    "pa": {
+      "01": {
+        "caption": "ਐਕਸਚੇਂਜ ਤੋਂ ਤਾਜ਼ਾ ਕੀਮਤ",
+        "subline": "ਨਾ ਖਾਤਾ, ਨਾ ਇਸ਼ਤਿਹਾਰ – ਰਕਮਾਂ ਡਿਵਾਈਸ 'ਤੇ ਹੀ ਰਹਿੰਦੀਆਂ ਹਨ"
+      },
+      "02": {
+        "caption": "ਇੱਕ ਵਾਰ ਦੱਸਣ ਵਾਲਾ ਅਲਰਟ",
+        "subline": "ਜਾਂਚ ਵਿੱਚ ਤੁਹਾਡਾ ਪੱਧਰ ਪੂਰਾ ਹੋਣ 'ਤੇ ਦੱਸਦਾ ਹੈ"
+      },
+      "03": {
+        "caption": "ਹੋਮ ਸਕ੍ਰੀਨ 'ਤੇ ਕੀਮਤਾਂ",
+        "subline": "ਵਾਚਲਿਸਟ ਜਾਂ ਇੱਕ ਕੌਇਨ ਵਿਜੇਟ ਵਜੋਂ – ਐਪ ਖੋਲ੍ਹੇ ਬਿਨਾਂ"
+      },
+      "04": {
+        "caption": "ਨਾਲ ਹੋਰ ਕੀ ਹਿੱਲ ਰਿਹਾ ਹੈ?",
+        "subline": "ਵਾਲੀਅਮ, ਬਜ਼ਾਰ ਅਤੇ ਫਿਊਚਰਜ਼ ਸੰਖੇਪ ਵਿੱਚ – ਕੋਈ ਭਵਿੱਖਬਾਣੀ ਨਹੀਂ"
+      },
+      "05": {
+        "caption": "ਪੋਰਟਫੋਲੀਓ, ਜੇ ਚਾਹੋ",
+        "subline": "ਵਿਕਲਪਿਕ, ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਚਾਲੂ ਕਰੋ: ਖਰੀਦ, ਵਿਕਰੀ, ਟ੍ਰਾਂਸਫਰ"
       }
     },
     "pl-PL": {
@@ -558,6 +1218,72 @@
         "subline": "По желанию, в настройках: покупки, продажи, переводы"
       }
     },
+    "si-LK": {
+      "01": {
+        "caption": "හුවමාරුවෙන් නවතම මිල",
+        "subline": "ගිණුමක් නැත, දැන්වීම් නැත – මුදල් ඔබේ උපාංගයේම රැඳේ"
+      },
+      "02": {
+        "caption": "එක් වරක් දන්වන ඇඟවීම",
+        "subline": "පරීක්ෂාවකදී ඔබේ සීමාවට ළඟා වූ විට දන්වයි"
+      },
+      "03": {
+        "caption": "මුල් තිරයේ මිල ගණන්",
+        "subline": "නිරීක්ෂණ ලැයිස්තුව හෝ කාසියක් විජට් ලෙස – යෙදුම නොවිවෘත කර"
+      },
+      "04": {
+        "caption": "ඒ සමඟ චලනය වන්නේ කුමක්ද?",
+        "subline": "පරිමාව, වෙළඳපොළ සහ ෆියුචර්ස් කෙටියෙන් – අනාවැකි නැත"
+      },
+      "05": {
+        "caption": "කැමති නම් කළඹ",
+        "subline": "විකල්ප, සැකසීම් තුළ: මිලදී ගැනීම්, විකිණීම්, මාරු"
+      }
+    },
+    "sk": {
+      "01": {
+        "caption": "Posledný kurz z burzy",
+        "subline": "Bez účtu, bez reklám – sumy zostávajú v tvojom zariadení"
+      },
+      "02": {
+        "caption": "Alarm, ktorý dá vedieť raz",
+        "subline": "Ozve sa, keď kontrola zistí, že je hranica dosiahnutá"
+      },
+      "03": {
+        "caption": "Kurzy na domovskej obrazovke",
+        "subline": "Zoznam alebo jedna minca ako miniaplikácia – bez otvorenia"
+      },
+      "04": {
+        "caption": "Čo sa hýbe spolu?",
+        "subline": "Objem, trh a futures v skratke – bez prognózy"
+      },
+      "05": {
+        "caption": "Portfólio, ak chceš",
+        "subline": "Voliteľné, zapni v Nastaveniach: nákupy, predaje, presuny"
+      }
+    },
+    "sl": {
+      "01": {
+        "caption": "Zadnji tečaj z borze",
+        "subline": "Brez računa, brez oglasov – zneski ostanejo v tvoji napravi"
+      },
+      "02": {
+        "caption": "Alarm, ki sporoči enkrat",
+        "subline": "Sporoči, ko preverjanje ugotovi, da je tvoja meja dosežena"
+      },
+      "03": {
+        "caption": "Tečaji na začetnem zaslonu",
+        "subline": "Seznam ali en kovanec kot pripomoček – brez odpiranja"
+      },
+      "04": {
+        "caption": "Kaj se giblje zraven?",
+        "subline": "Volumen, trg in futures na kratko – brez napovedi"
+      },
+      "05": {
+        "caption": "Portfelj, če želiš",
+        "subline": "Izbirno, vklopi v Nastavitvah: nakupi, prodaje, prenosi"
+      }
+    },
     "sq": {
       "01": {
         "caption": "Çmimi i fundit nga bursa",
@@ -580,6 +1306,28 @@
         "subline": "Opsionale, nga cilësimet: blerje, shitje, transferime"
       }
     },
+    "sr": {
+      "01": {
+        "caption": "Последња цена с берзе",
+        "subline": "Без налога, без огласа – износи остају на твом уређају"
+      },
+      "02": {
+        "caption": "Аларм који јавља једном",
+        "subline": "Јавља када провера покаже да је твој ниво достигнут"
+      },
+      "03": {
+        "caption": "Цене на почетном екрану",
+        "subline": "Списак праћења или један коин као виџет – без отварања"
+      },
+      "04": {
+        "caption": "Шта се креће с њом?",
+        "subline": "Волумен, тржиште и фјучерс укратко – без прогнозе"
+      },
+      "05": {
+        "caption": "Портфолио, ако желиш",
+        "subline": "Опционо, укључи у Подешавањима: куповине, продаје, преноси"
+      }
+    },
     "sv-SE": {
       "01": {
         "caption": "Senaste kursen från börsen",
@@ -600,6 +1348,72 @@
       "05": {
         "caption": "Portfölj, om du vill",
         "subline": "Valfritt, i inställningar: köp, försäljning, överföringar"
+      }
+    },
+    "sw": {
+      "01": {
+        "caption": "Bei ya mwisho kutoka jukwaa",
+        "subline": "Bila akaunti wala matangazo – kiasi kinabaki kwenye kifaa"
+      },
+      "02": {
+        "caption": "Kengele inayojulisha mara moja",
+        "subline": "Hukujulisha ukaguzi unapokuta kiwango chako kimefikiwa"
+      },
+      "03": {
+        "caption": "Bei kwenye skrini ya mwanzo",
+        "subline": "Ufuatiliaji au sarafu kama wijeti – bila kufungua programu"
+      },
+      "04": {
+        "caption": "Nini kinasonga pamoja nayo?",
+        "subline": "Kiasi, soko na futures kwa ufupi – bila utabiri"
+      },
+      "05": {
+        "caption": "Jalada, ukipenda",
+        "subline": "Hiari, washa kwenye Mipangilio: kununua, kuuza, uhamisho"
+      }
+    },
+    "ta-IN": {
+      "01": {
+        "caption": "எக்ஸ்சேஞ்சிலிருந்து புதிய விலை",
+        "subline": "கணக்கு இல்லை, விளம்பரம் இல்லை – தொகைகள் உங்கள் சாதனத்தில்"
+      },
+      "02": {
+        "caption": "ஒருமுறை சொல்லும் விழிப்பூட்டல்",
+        "subline": "சரிபார்ப்பில் உங்கள் அளவு எட்டியதும் தெரிவிக்கும்"
+      },
+      "03": {
+        "caption": "முகப்புத் திரையில் விலைகள்",
+        "subline": "பட்டியல் அல்லது ஒரு காயின் விட்ஜெட்டாக – ஆப் திறக்காமல்"
+      },
+      "04": {
+        "caption": "கூடவே எது நகர்கிறது?",
+        "subline": "வால்யூம், சந்தை, ஃபியூச்சர்ஸ் சுருக்கமாக – கணிப்பு இல்லை"
+      },
+      "05": {
+        "caption": "வேண்டுமானால் போர்ட்ஃபோலியோ",
+        "subline": "விருப்பம், அமைப்புகளில்: வாங்குதல், விற்பனை, பரிமாற்றம்"
+      }
+    },
+    "te-IN": {
+      "01": {
+        "caption": "ఎక్స్ఛేంజ్ నుండి తాజా ధర",
+        "subline": "ఖాతా లేదు, ప్రకటనలు లేవు – మొత్తాలు మీ పరికరంలోనే"
+      },
+      "02": {
+        "caption": "ఒక్కసారి చెప్పే అలర్ట్",
+        "subline": "తనిఖీలో మీ స్థాయి చేరినట్లు తేలితే తెలియజేస్తుంది"
+      },
+      "03": {
+        "caption": "హోమ్ స్క్రీన్‌పై ధరలు",
+        "subline": "వాచ్‌లిస్ట్ లేదా ఒక కాయిన్ విడ్జెట్‌గా – యాప్ తెరవకుండానే"
+      },
+      "04": {
+        "caption": "దానితో పాటు ఏది కదులుతోంది?",
+        "subline": "వాల్యూమ్, మార్కెట్, ఫ్యూచర్స్ క్లుప్తంగా – అంచనా లేదు"
+      },
+      "05": {
+        "caption": "కావాలంటే పోర్ట్‌ఫోలియో",
+        "subline": "ఐచ్ఛికం, సెట్టింగ్‌లలో: కొనుగోళ్లు, అమ్మకాలు, బదిలీలు"
       }
     },
     "th": {
@@ -668,6 +1482,50 @@
         "subline": "За бажанням, у налаштуваннях: купівлі, продажі, перекази"
       }
     },
+    "ur": {
+      "01": {
+        "caption": "ایکسچینج سے تازہ ترین قیمت",
+        "subline": "نہ اکاؤنٹ، نہ اشتہار – رقوم آپ کے آلے پر ہی رہتی ہیں"
+      },
+      "02": {
+        "caption": "ایک بار بتانے والا الرٹ",
+        "subline": "جانچ میں آپ کی سطح چھو جانے پر بتاتا ہے"
+      },
+      "03": {
+        "caption": "ہوم اسکرین پر قیمتیں",
+        "subline": "واچ لسٹ یا ایک کوائن بطور ویجیٹ – ایپ کھولے بغیر"
+      },
+      "04": {
+        "caption": "ساتھ اور کیا حرکت کر رہا ہے؟",
+        "subline": "والیوم، مارکیٹ اور فیوچرز مختصراً – کوئی پیش گوئی نہیں"
+      },
+      "05": {
+        "caption": "پورٹ فولیو، اگر آپ چاہیں",
+        "subline": "اختیاری، ترتیبات میں آن کریں: خرید، فروخت، ٹرانسفر"
+      }
+    },
+    "uz": {
+      "01": {
+        "caption": "Birjadan soʻnggi narx",
+        "subline": "Akkauntsiz, reklamasiz – summalar qurilmangizda qoladi"
+      },
+      "02": {
+        "caption": "Bir marta xabar beruvchi signal",
+        "subline": "Tekshiruv darajangizga yetilganini topganda xabar beradi"
+      },
+      "03": {
+        "caption": "Narxlar bosh ekranda",
+        "subline": "Kuzatuv roʻyxati yoki tanga vidjetda – ilovani ochmasdan"
+      },
+      "04": {
+        "caption": "U bilan nima harakatlanmoqda?",
+        "subline": "Hajm, bozor va fyucherslar qisqacha – bashoratsiz"
+      },
+      "05": {
+        "caption": "Portfel, xohlasangiz",
+        "subline": "Ixtiyoriy, Sozlamalarda: xaridlar, sotuvlar, oʻtkazmalar"
+      }
+    },
     "vi": {
       "01": {
         "caption": "Giá gần nhất từ sàn",
@@ -688,6 +1546,28 @@
       "05": {
         "caption": "Danh mục, nếu bạn muốn",
         "subline": "Tùy chọn, bật trong Cài đặt: mua, bán, chuyển"
+      }
+    },
+    "yue": {
+      "01": {
+        "caption": "交易所嘅最新價",
+        "subline": "唔使帳戶、冇廣告，金額留喺你部裝置"
+      },
+      "02": {
+        "caption": "只通知一次嘅提示",
+        "subline": "檢查時發現到咗你設定嘅水平就通知你"
+      },
+      "03": {
+        "caption": "主畫面睇價",
+        "subline": "自選清單或者單一幣種做小工具，唔使開 app"
+      },
+      "04": {
+        "caption": "有乜嘢一齊郁？",
+        "subline": "成交量、大市同期貨，簡短總結，唔做預測"
+      },
+      "05": {
+        "caption": "想用先開投資組合",
+        "subline": "可選，喺設定開啟：買入、賣出、轉賬"
       }
     },
     "zh-CN": {
@@ -732,6 +1612,28 @@
       "05": {
         "caption": "需要時再用投資組合",
         "subline": "可選，在設定中開啟：買入、賣出、轉帳"
+      }
+    },
+    "zu": {
+      "01": {
+        "caption": "Intengo yokugcina ye-exchange",
+        "subline": "Ayikho i-akhawunti noma izikhangiso – amanani asedivayisini"
+      },
+      "02": {
+        "caption": "I-alamu ekwazisa kanye",
+        "subline": "Ikwazisa uma ukuhlola kuthola izinga lakho lifinyelelwe"
+      },
+      "03": {
+        "caption": "Izintengo esikrinini sasekhaya",
+        "subline": "Uhlu lokubuka noma i-coin njengewijethi – ungavuli i-app"
+      },
+      "04": {
+        "caption": "Yini enyakaza kanye nayo?",
+        "subline": "Ivolumu, imakethe nama-futures kafushane – akukho kubikezela"
+      },
+      "05": {
+        "caption": "I-portfolio, uma uthanda",
+        "subline": "Ku-Izilungiselelo: ukuthenga, ukuthengisa, ukudlulisa"
       }
     }
   }

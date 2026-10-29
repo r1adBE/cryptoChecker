@@ -1,0 +1,1 @@
+btc,ethereum,eth,dex,কয়েন,চার্ট,অ্যালার্ট,ticker

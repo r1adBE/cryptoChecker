@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">Aktuāls · %1$s</string>
+    <string name="watchlist_empty_title">Vēl nav pāru</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="zero">%1$d no %2$d bez cenas</item>
+        <item quantity="one">%1$d no %2$d bez cenas</item>
+        <item quantity="other">%1$d no %2$d bez cenas</item>
+    </plurals>
+    <string name="watchlist_last_run">Pēdējā palaišana %1$s</string>
+    <string name="watchlist_live_a11y">Tiešraides cenas ieslēgtas</string>
+    <string name="watchlist_offline_since">Nav savienojuma · stāvoklis %1$s</string>
+    <string name="watchlist_pull_to_refresh">Velc uz leju, lai atsvaidzinātu</string>
+    <string name="watchlist_refresh_report">Pēdējā atjaunināšana</string>
+    <string name="watchlist_refresh_report_empty">Vēl nav sadalījuma – līdz šim nav bijusi pilna atjaunināšana. Pieskaries „Atsvaidzināt“ un pagaidi, līdz aplis apstājas.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="zero">%1$d no %2$d novecojuši</item>
+        <item quantity="one">%1$d no %2$d novecojis</item>
+        <item quantity="other">%1$d no %2$d novecojuši</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">Visi pāri šeit ir atspējoti</string>
+    <string name="watchlist_status_exchange_prices">Tavu biržu cenas · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">Biržu cenas · %1$s</string>
+    <string name="watchlist_status_group_empty">Šajā grupā nav pāru</string>
+    <string name="watchlist_status_none_traded">Šeit nav tirgotu pāru</string>
+    <string name="watchlist_updated">Atjaunināts: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">vid. %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="zero">%1$d krītas</item>
+        <item quantity="one">%1$d krītas</item>
+        <item quantity="other">%1$d krītas</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="zero">%1$d bez 24 h vērtības</item>
+        <item quantity="one">%1$d bez 24 h vērtības</item>
+        <item quantity="other">%1$d bez 24 h vērtības</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="zero">%1$d bez šodienas vērtības</item>
+        <item quantity="one">%1$d bez šodienas vērtības</item>
+        <item quantity="other">%1$d bez šodienas vērtības</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="zero">%1$d kāpj</item>
+        <item quantity="one">%1$d kāpj</item>
+        <item quantity="other">%1$d kāpj</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · atspējots</string>
+    <string name="watchlist_row_outdated">%1$s · novecojis</string>
+    <string name="watchlist_row_outdated_age">novecojis · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">Cena nav mainījusies kopš %1$s</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s nav sasniedzama</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">Uz beigām</string>
+    <string name="watchlist_jump_start">Uz sākumu</string>
+    <string name="watchlist_search_close">Aizvērt meklēšanu</string>
+    <string name="watchlist_search_empty">Nav atbilstību vaicājumam „%1$s“</string>
+    <string name="watchlist_search_hint">Meklēt pāri, nosaukumu vai biržu</string>
+    <string name="watchlist_search_open">Meklēt</string>
+    <string name="watchlist_sort_ascending">augošā secībā</string>
+    <string name="watchlist_sort_descending">dilstošā secībā</string>
+    <string name="watchlist_sort_hint">Turi un velc pāri vai izmanto rokturi. Izlase paliek augšā.</string>
+    <string name="watchlist_sort_name">Nosaukums</string>
+    <string name="watchlist_sort_own">Sava secība</string>
+    <string name="watchlist_sort_price">Cena</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">Notīrīt vērojamo sarakstu</string>
+    <string name="watchlist_clear_confirm">Noņemt visus pārus no vērojamo saraksta? Kopā ar tiem tiks noņemti arī to brīdinājumi.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="zero">%1$d atspējoti</item>
+        <item quantity="one">%1$d atspējots</item>
+        <item quantity="other">%1$d atspējoti</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">Noņemt</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="zero">Noņemt %1$d pārus, ar kuriem to biržā vairs netirgo? Kopā ar tiem tiks noņemti arī to brīdinājumi.</item>
+        <item quantity="one">Noņemt %1$d pāri, ar kuru tā biržā vairs netirgo? Kopā ar to tiks noņemti arī tā brīdinājumi.</item>
+        <item quantity="other">Noņemt %1$d pārus, ar kuriem to biržā vairs netirgo? Kopā ar tiem tiks noņemti arī to brīdinājumi.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">Noņemt netirgotos pārus (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Noņemt netirgotos pārus</string>
+    <string name="watchlist_removed">%1$s noņemts</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="zero">Noņemti %1$d pāri</item>
+        <item quantity="one">Noņemts %1$d pāris</item>
+        <item quantity="other">Noņemti %1$d pāri</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="zero">Noņemti %1$d netirgoti pāri</item>
+        <item quantity="one">Noņemts %1$d netirgots pāris</item>
+        <item quantity="other">Noņemti %1$d netirgoti pāri</item>
+    </plurals>
+    <string name="watchlist_select">Atlasīt</string>
+    <string name="watchlist_select_all">Atlasīt visus</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="zero">Atlasīti %1$d</item>
+        <item quantity="one">Atlasīts %1$d</item>
+        <item quantity="other">Atlasīti %1$d</item>
+    </plurals>
+    <string name="watchlist_show_all">Rādīt visus</string>
+    <string name="watchlist_show_only_disabled">Rādīt tikai atspējotos</string>
+    <string name="watchlist_show_only_stale">Rādīt tikai novecojušos</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="zero">Brīdinājumi (%1$d)</item>
+        <item quantity="one">Brīdinājums (%1$d)</item>
+        <item quantity="other">Brīdinājumi (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">Izlasē vēl nekā nav. Pavelc pāri pa labi vai atver pāri un pieskaries „Izlasē“.</string>
+    <string name="watchlist_group_empty_hint">Ilgi nospied grupu, lai izvēlētos tās pārus.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">Šeit parādīsies tavas grupas</string>
+    <string name="watchlist_notification">Cenas paziņojums</string>
+    <string name="watchlist_tts">Nolasīt cenu</string>
+    <string name="watchlist_tts_speech_on">Balss izvade ir ieslēgta. To vari mainīt sadaļā Iestatījumi › Brīdinājumi › Balss izvade.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">Pievienot kā logrīku</string>
+    <string name="watch_action_alarm">Brīdinājums</string>
+    <string name="watch_action_favorite">Izlasē</string>
+    <string name="watch_action_why">Kas kustas līdzi?</string>
+    <string name="watch_action_why_short">Kas kustas līdzi?</string>
+    <string name="watch_change_mark">Mark</string>
+    <string name="watch_disable">Atspējot</string>
+    <string name="watch_disable_hint">Nav pieprasījumu, nav paziņojumu</string>
+    <string name="watch_disabled">Atspējots</string>
+    <string name="watch_disabled_banner">%1$s atspējots</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">Brīdinājumi paliek – pārbaudi to sliekšņus</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">Rediģēt pāri</string>
+    <string name="watch_enable">Iespējot</string>
+    <string name="watch_enable_hint">Cenas un paziņojumi atsākas</string>
+    <string name="watch_enabled_banner">%1$s iespējots</string>
+    <string name="watch_error_offline">Nav savienojuma</string>
+    <string name="watch_gesture_hint_short">Pieskāriens: brīdinājums un „Kas kustas līdzi?“ · ilgi nospied, lai atlasītu · pavelc pa kreisi, lai dzēstu · pavelc pa labi – izlasē</string>
+    <string name="watch_hint_tap_why">Pieskaries monētai, lai redzētu brīdinājumus un „Kas kustas līdzi?“</string>
+    <string name="watch_not_traded">Šajā biržā vairs netiek tirgots</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">Nav vērojamo sarakstā</string>
+    <string name="watch_price_mid">vidējā cena (citādi atzīmes)</string>
+    <string name="watch_row_source_both">Izmaiņas un diagramma: %1$s</string>
+    <string name="watch_row_source_change">Izmaiņas: %1$s</string>
+    <string name="watch_row_source_chart">Diagramma: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s tagad ir tavā vērojamo sarakstā</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s tagad ir tavā vērojamo sarakstā</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">Pievienot izlasei</string>
+    <string name="favorite_added">%1$s pievienots izlasei</string>
+    <string name="favorite_remove">Noņemt no izlases</string>
+    <string name="favorite_removed">%1$s noņemts no izlases</string>
+    <string name="hint_favorites_list">Padoms: pavelc rindu pa labi, lai pievienotu izlasei – izlase paliek augšā.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">Jauna grupa</string>
+    <string name="group_all">Visi</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Alpha žetoni</string>
+    <string name="group_delete">Dzēst grupu</string>
+    <string name="group_delete_confirm">Pāri paliek tavā vērojamo sarakstā.</string>
+    <string name="group_done">Gatavs</string>
+    <string name="group_edit_title">Rediģēt grupu</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">Izlase</string>
+    <string name="group_in_other">grupā %1$s</string>
+    <string name="group_name">Grupas nosaukums</string>
+    <string name="group_new">Jauna grupa…</string>
+    <string name="group_next">Tālāk</string>
+    <string name="group_none">Bez grupas</string>
+    <string name="group_rename">Pārdēvēt</string>
+    <string name="group_search_hint">Meklēt pāri, nosaukumu vai biržu</string>
+    <string name="group_target">Grupā</string>
+    <string name="group_title">Grupa</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">Žetoni</string>
+    <string name="group_value">Grupa: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">Pievienot piezīmi</string>
+    <string name="note_edit">Rediģēt piezīmi</string>
+    <string name="note_hint">piem., ieeja pie 0.42, mērķis 0.60</string>
+    <string name="note_remove">Noņemt</string>
+    <string name="note_title">Piezīme</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">Velc, lai mainītu secību</string>
+    <string name="sort_move_bottom">Pārvietot uz apakšu</string>
+    <string name="sort_move_down">Pārvietot uz leju</string>
+    <string name="sort_move_top">Pārvietot uz augšu</string>
+    <string name="sort_move_up">Pārvietot augšup</string>
+
+    <string name="watchlist_first_alarm_title">Iestati savu pirmo brīdinājumu</string>
+    <string name="watchlist_first_alarm_text">Saņem paziņojumu, kad cena sasniedz tavu slieksni – kad lietotne ir aizvērta, Android pārbauda neregulāri.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">atzīmes cena (nav vidējās cenas)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">stundas cena</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">Iestati savu pirmo brīdinājumu – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Atsvaidzināt (%1$d)</string>
+
+    <!-- Zeile der Merkliste: Börse pausiert (zu viele Anfragen / Zeitüberschreitungen) bis zu einer Uhrzeit, ersetzt die Zeitzeile, z. B. «Binance · pausiert bis 19:45» -->
+    <string name="watchlist_row_exchange_paused">%1$s · apturēts līdz %2$s</string>
+
+    <string name="watchlist_refresh_just_done">Tikko atjaunināts · pirms %1$d s</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">pēdējais darījums %1$s</string>
+
+    <string name="change_candle_source_hint">Aprēķināts pēc %1$s svecēm – birža pati šo vērtību nenodrošina.</string>
+    <string name="change_candle_source_action">Rādīt izmaiņu avotu</string>
+
+    <string name="watchlist_sort_by_coin">Kārtot pēc monētas</string>
+    <string name="watchlist_sort_by_exchange">Kārtot pēc biržas</string>
+    <string name="watchlist_limit_reached">Tavā vērojamo sarakstā var būt ne vairāk kā %1$s pāri.</string>
+    <string name="watch_price_reference">atsauces kurss, katru dienu</string>
+    <string name="watch_price_daily">katru dienu</string>
+    <string name="watchlist_compare">Salīdzināt</string>
+    <string name="watchlist_compare_hint">Atzīmē 2 līdz 4 pārus salīdzināšanai.</string>
+    <string name="compare_title">Salīdzinājums</string>
+    <string name="compare_basis">Līnijas rāda izmaiņas procentos kopš perioda sākuma.</string>
+    <string name="compare_from_high">pret 30 d. maksimumu</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="zero">%1$d pāri nav atjaunoti – vērojamo saraksts ir pilns</item>
+        <item quantity="one">%1$d pāris nav atjaunots – vērojamo saraksts ir pilns</item>
+        <item quantity="other">%1$d pāri nav atjaunoti – vērojamo saraksts ir pilns</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">Vērojamo saraksts un tā brīdinājumi pašlaik netiek saglabāti. Šīs un visas turpmākās izmaiņas pazudīs, aizverot lietotni. Tomēr mainīt?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">Tomēr mainīt</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="zero">Pāri: %1$d</item>
+        <item quantity="one">Pāri: %1$d</item>
+        <item quantity="other">Pāri: %1$d</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="zero">Pāri: %2$d no %1$d</item>
+        <item quantity="one">Pāri: %2$d no %1$d</item>
+        <item quantity="other">Pāri: %2$d no %1$d</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="zero">Brīvas vietas: %1$d</item>
+        <item quantity="one">Brīvas vietas: %1$d</item>
+        <item quantity="other">Brīvas vietas: %1$d</item>
+    </plurals>
+    <string name="watchlist_footer_full">Vērojamo saraksts ir pilns</string>
+</resources>

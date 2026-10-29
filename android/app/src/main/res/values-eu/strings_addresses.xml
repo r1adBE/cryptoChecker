@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">Gehitu helbidea</string>
+    <string name="portfolio_address_count">Zenbatu</string>
+    <string name="portfolio_address_error">Eguneratzeak huts egin du</string>
+    <string name="portfolio_address_hint">Helbide publikoa (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) edo xpub</string>
+    <string name="portfolio_address_label">Etiketa (aukerakoa)</string>
+    <string name="portfolio_address_not_since_buy">Helbidetik · ez dago «Erosketaz geroztik» atalean: %1$s</string>
+    <string name="portfolio_address_overlap">Zure transakzioetan ere bai: %1$s – biak batzen dira. Txanpon berak dira? Aukeratu «Erakutsi soilik».</string>
+    <string name="portfolio_address_overlap_ask">Zure transakzioekin erregistratzen duzu jada: %1$s. Helbide honen saldoa zorroari gehitu nahi diozu, ala erakutsi soilik?</string>
+    <string name="portfolio_address_overlap_auto">«%1$s» erakutsi soilik egiten da orain, ez da zenbatzen – %2$s zure transakzioetan ere agertzen dira.</string>
+    <string name="portfolio_address_overlap_title">Zure transakzioetako txanpon berak?</string>
+    <string name="portfolio_address_overlap_tx">Zure gordailu/transferentziaren kopuru bera (%1$s) – litekeena da bi aldiz zenbatzea.</string>
+    <string name="portfolio_address_period_observed">Jarraitutako helbideak behatutako lehen saldotik zenbatzen dira; geroagoko aldaketak sarrerak/irteerak dira, ez irabaziak.</string>
+    <string name="portfolio_address_privacy">Helbide publikoa bakarrik bidaltzen zaio honi: %1$s – inoiz ez gakoak edo hazi-esaldiak. Hornitzaileak zure IP helbidearekin batera ikusten du. Gehienez 10 minuturo egiaztatzen da.</string>
+    <string name="portfolio_address_remove">Kendu helbidea</string>
+    <string name="portfolio_address_show_only">Erakutsi soilik, ez gehitu zorroari</string>
+    <string name="portfolio_address_show_only_short">Erakutsi soilik</string>
+    <string name="portfolio_address_tokens">Zenbatu tokenak</string>
+    <string name="portfolio_address_xpub_privacy">Xpub batek kartera honen helbide guztiak agerian uzten ditu. Zure gailuan eratortzen dira; banakako helbideak bakarrik bidaltzen zaizkio honi: %1$s – gutxienez 40 eskaera lehen eskaneatzean, gero gutxiago. Gako pribatuak (xprv) ez dira inoiz onartzen.</string>
+    <string name="portfolio_address_xpub_gap">Bilaketa gelditu egiten da jarraian erabili gabeko %1$d helbideren ondoren (kartera gehienek erabiltzen duten BIP44 estandarra). Hutsune horretatik haragoko helbide erabili bat ez da zenbatzen – gehitu bereizita.</string>
+    <string name="portfolio_address_xpub_used">Erabilitako helbideak: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">Erabilitako helbide gehiegi eguneratzeko</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">Helbide asko-asko – baliteke helbide zahar eta hutsetara egindako ordainketa berriak ez antzematea</string>
+    <string name="portfolio_addresses_title">Helbideak</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Bitcoin Cash helbideei ezin zaie jarraitu: ez dago API gakorik gabeko zerbitzu publiko doakorik, haren baldintzek hori baimentzen dutenik.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) 2024an itxi zen – saldoak BNB Smart Chain-en daude orain (0x…)</string>
+    <string name="address_checksum">Kontrol-batura okerra – begiratu idazketa-akatsik dagoen</string>
+    <string name="address_doge_unsupported">Dogecoin helbideei ezin zaie jarraitu: ez dago API gakorik gabeko zerbitzu publiko doakorik, haren baldintzek hori baimentzen dutenik.</string>
+    <string name="address_duplicate">Helbide hau gehituta dago jada</string>
+    <string name="address_ens">ENS izenak ez dira onartzen – idatzi 0x helbidea</string>
+    <string name="address_invalid">Ez da onartutako sare bateko helbide baliozkoa</string>
+    <string name="address_limit">Gehienez 20 helbide</string>
+    <string name="address_secret">Gako pribatu edo hazi-esaldi baten itxura du – ez idatzi inoiz inon. Helbide publikoak soilik.</string>
+    <string name="address_testnet">Testnet helbideak ez dira onartzen</string>
+    <string name="address_unsupported">Helbide mota hau ez da onartzen</string>
+    <string name="address_wrong_chain">Helbidea beste sare batekoa da</string>
+    <string name="address_xpub_multisig">Multisig gakoak (Ypub/Zpub) ez dira onartzen</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot kontua (BIP86): gako honetatik bc1p… helbideak eratortzen dira, jasotzeko eta itzulkinerako.</string>
+    <string name="portfolio_address_taproot_hint">Taproot kartera? Itsatsi horren ordez zure karterako tr(…) deskribatzailea – xpub soil bat Legacy eta SegWit helbide gisa bakarrik bilatzen da.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">Zerbitzari propioa ez dago eskuragarri</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">%1$s kudeatzen duenak kartera honetako kontsultatutako helbide guztiak ikusten ditu, eta elkarren artean eta zure IP helbidearekin lot ditzake.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">Hori saihesteko, idatzi zure zerbitzari propioa hemen: Ezarpenak › Zorroa › Helbideetarako zerbitzari propioa.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d token ezezagun (zenbatu gabe)</item>
+        <item quantity="other">+%1$d token ezezagun (zenbatu gabe)</item>
+    </plurals>
+</resources>

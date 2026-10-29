@@ -221,4 +221,14 @@
     <string name="watchlist_not_saved_confirm_message">Daftar pantau beserta alarmnya sedang tidak disimpan. Perubahan ini dan berikutnya akan hilang saat aplikasi ditutup. Tetap ubah?</string>
     <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
     <string name="watchlist_not_saved_confirm_action">Tetap ubah</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="other">%1$d pasangan</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="other">%2$d dari %1$d pasangan</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="other">sisa %1$d slot</item>
+    </plurals>
+    <string name="watchlist_footer_full">Daftar pantau penuh</string>
 </resources>

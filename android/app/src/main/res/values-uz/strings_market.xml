@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="one">%d daq oldin</item>
+        <item quantity="other">%d daq oldin</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">bugun %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed, Bitcoin koʻrsatkichlari, dominantlik, halving</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">Qoʻshimcha bozor maʼlumotlari</string>
+    <string name="market_phase_trend_failed">Narx maʼlumotlari mavjud emas</string>
+    <string name="market_plain_direction_down_clear">Barcha kriptovalyutalarning umumiy qiymati 24 soat oldingidan sezilarli past (%1$s).</string>
+    <string name="market_plain_direction_down_slight">Barcha kriptovalyutalarning umumiy qiymati 24 soat oldingidan biroz past (%1$s).</string>
+    <string name="market_plain_direction_flat">Barcha kriptovalyutalarning umumiy qiymati 24 soatda deyarli oʻzgarmadi (%1$s).</string>
+    <string name="market_plain_direction_up_clear">Barcha kriptovalyutalarning umumiy qiymati 24 soat oldingidan sezilarli yuqori (%1$s).</string>
+    <string name="market_plain_direction_up_slight">Barcha kriptovalyutalarning umumiy qiymati 24 soat oldingidan biroz yuqori (%1$s).</string>
+    <string name="market_plain_footnote">Oxirgi 24 soatni tavsiflaydi – prognoz emas, investitsiya maslahati emas.</string>
+    <string name="market_plain_mood_extreme_fear">Investorlar hozir juda qoʻrqmoqda: kayfiyat indeksi (Fear &amp; Greed) 100 dan %1$d.</string>
+    <string name="market_plain_mood_extreme_greed">Investorlar hozir juda ochkoʻz: kayfiyat indeksi (Fear &amp; Greed) 100 dan %1$d.</string>
+    <string name="market_plain_mood_fear">Investorlar ancha qoʻrqmoqda: kayfiyat indeksi (Fear &amp; Greed) 100 dan %1$d.</string>
+    <string name="market_plain_mood_greed">Investorlar ancha ochkoʻz: kayfiyat indeksi (Fear &amp; Greed) 100 dan %1$d.</string>
+    <string name="market_plain_mood_neutral">Investorlar kayfiyati muvozanatda: kayfiyat indeksi (Fear &amp; Greed) 100 dan %1$d.</string>
+    <string name="market_plain_standout_above_btc">%1$s ajralib turibdi: 24 soatda %2$s, Bitcoin’dan (%3$s) ancha yuqori.</string>
+    <string name="market_plain_standout_against_btc">%1$s ajralib turibdi: 24 soatda %2$s, Bitcoin esa teskari yoʻnalishda harakatlandi (%3$s).</string>
+    <string name="market_plain_standout_below_btc">%1$s ajralib turibdi: 24 soatda %2$s, Bitcoin’dan (%3$s) ancha past.</string>
+    <string name="market_plain_standout_futures_down">%1$s ajralib turibdi: gʻayrioddiy koʻp fyuchers treyderlari tushishga tikmoqda.</string>
+    <string name="market_plain_standout_futures_up">%1$s ajralib turibdi: gʻayrioddiy koʻp fyuchers treyderlari oʻsishga tikmoqda.</string>
+    <string name="market_plain_standout_quiet">Hozir birorta tanga ajralib turmayapti.</string>
+    <string name="market_plain_standout_volume">%1$s ajralib turibdi: savdo odatdagidan taxminan %2$s barobar koʻp.</string>
+    <string name="market_plain_title">Qisqacha</string>
+    <string name="market_section_collapse">%1$s ni yashirish</string>
+    <string name="market_section_context">Kayfiyat &amp; sikl</string>
+    <string name="market_section_data">Bozor maʼlumotlari</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">%1$s ni koʻrsatish</string>
+    <string name="market_section_now">Hozir</string>
+    <string name="market_source">Maʼlumotlar: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="exchange_unavailable_error">Birja mavjud emas</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">Maʼlumot: %1$s</string>
+    <string name="market_info_alt_season_source">Kunlik kurslar: Binance · taxminan har 3 soatda qayta hisoblanadi</string>
+    <string name="market_info_alt_season_what">Taxminan 20 ta yirik altkoindan (masalan, Ethereum, Solana, XRP) qanchasi oxirgi 90 kunda Bitcoin’dan yaxshiroq natija koʻrsatganini sanaydi. Qiymat – ularning 0 dan 100 gacha ulushi.</string>
+    <string name="market_info_coin_source">Kurslar: Binance yoki Bybit · taxminan har 15 daqiqada qayta yuklanadi</string>
+    <string name="market_info_dominance_how">Dominantlik oshsa, Bitcoin bozorning qolgan qismidan yaxshiroq; pasaysa, boshqa tangalarning ulushi ortadi. Steyblkoinlar ham hisobga olinadi: ularning qiymati oshsa, Bitcoin narxi oʻzgarmasa ham Bitcoin ulushi kamayadi.</string>
+    <string name="market_info_dominance_source">Manba: CoinGecko · taxminan har 30 daqiqada qayta yuklanadi</string>
+    <string name="market_info_dominance_what">Barcha kriptovalyutalarning umumiy qiymatidagi (bozor kapitalizatsiyasi) Bitcoin ulushi. Pastda – Ethereum ulushi.</string>
+    <string name="market_info_fear_greed_how">25 dan past – kuchli qoʻrquv, 75 dan yuqori – kuchli ochkoʻzlik, 50 atrofida – neytral. Yoyilgan kartada kechagi, bir hafta va bir oy oldingi qiymatlar koʻrsatiladi. Sotib olish yoki sotish signali emas.</string>
+    <string name="market_info_fear_greed_source">Manba: alternative.me · yangi qiymat kuniga bir marta</string>
+    <string name="market_info_fear_greed_what">Kripto bozorining 0 dan 100 gacha boʻlgan kayfiyat indeksi. alternative.me uni bir nechta koʻrsatkichdan hisoblaydi, jumladan narx tebranishlari, savdo hajmi, ijtimoiy tarmoqlar va Bitcoin dominantligi.</string>
+    <string name="market_info_gas_how">Yuqori qiymatlar tarmoq band ekanini va oʻtkazmalar qimmatroq ekanini bildiradi. Sekin, oddiy va tez – keyinroq yoki tezroq tasdiqlash uchun komissiyalar. Yoyilgan kartada oddiy oʻtkazmaning taxminiy narxi koʻrsatiladi.</string>
+    <string name="market_info_gas_source">Ochiq RPC tugunlari, mempool.space · har daqiqada qayta yuklanadi</string>
+    <string name="market_info_gas_what">Har bir tarmoqda tranzaksiya hozir qancha turadi. Ethereum va shunga oʻxshash tarmoqlarda gwei’da (gaz birligi uchun ETH’ning milliarddan bir qismi), Bitcoin’da sat/vB’da (tranzaksiyaning virtual bayti uchun satoshi).</string>
+    <string name="market_info_halving_source">Sana: blok balandligi va oʻrtacha blok vaqtidan (mempool.space), aks holda kalendar boʻyicha · narx tarixi: Coin Metrics, Binance, har 12 soatda qayta yuklanadi</string>
+    <string name="market_info_halving_what">Halvingda maynerlar yangi Bitcoin bloki uchun oladigan mukofot ikki baravar kamayadi. Bu har 210,000 blokda, taxminan har toʻrt yilda sodir boʻladi. Shundan keyin kuniga ikki baravar kam yangi bitkoin yaratiladi.</string>
+    <string name="market_info_how">Qanday oʻqish kerak</string>
+    <string name="market_info_macro_how">Eslatma faqat shunday sana bugun yoki ertaga boʻlganda chiqadi. Eʼlon qilinish atrofida narxlar koʻpincha odatdagidan koʻproq tebranadi. Ilova faqat sanani koʻrsatadi, raqamlarning oʻzini emas.</string>
+    <string name="market_info_macro_source">Ilova saytidagi kalendar · kuniga bir marta yuklanadi</string>
+    <string name="market_info_macro_what">AQSHning muhim iqtisodiy maʼlumotlari sanalari: inflyatsiya (CPI, PCE), ishlab chiqaruvchi narxlari (PPI), bandlik hisoboti va AQSH Federal zaxira tizimining foiz stavkasi qarorlari. Bunday raqamlar kripto narxlarini ham koʻpincha harakatlantiradi.</string>
+    <string name="market_info_no_advice">Investitsiya maslahati emas.</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · kurslar har soatda, on-chain qiymatlari har 12 soatda qayta yuklanadi</string>
+    <string name="market_info_pulse_how">Sarlavha yoʻnalishni bildiradi; tafsilotlar uchun kartani yoying. Keng harakat yirik tangalarning koʻpi bir yoʻnalishda harakatlanayotganini bildiradi. Optimistik leveraj kayfiyati koʻp treyderlar leveraj bilan oʻsishga tikayotganini bildiradi, Bitcoin fyuchersining funding stavkasi bilan oʻlchanadi. Lahzalik surat, prognoz emas.</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · taxminan har 5 daqiqada qayta yuklanadi</string>
+    <string name="market_info_pulse_what">Oxirgi 24 soatdagi bozorning qisqacha sharhi: Bitcoin, Ethereum va Solana qanday harakatlanmoqda, eng yirik tangalardan qanchasi oshmoqda yoki pasaymoqda, hozir qancha Bitcoin savdo qilinmoqda va leveraj kayfiyati qanday (Bitcoin fyuchersining funding stavkasi bilan oʻlchanadi).</string>
+    <string name="market_info_totals_how">Oʻngda – 24 soatdagi umumiy qiymat oʻzgarishi. Yuqori hajm koʻp savdo boʻlayotganini bildiradi – qaysi yoʻnalishda ekanini aytmaydi. Iloji boʻlsa, konvertatsiya valyutasida, aks holda AQSH dollarida koʻrsatiladi.</string>
+    <string name="market_info_totals_source">Barcha tangalar · CoinGecko · taxminan har 30 daqiqada qayta yuklanadi</string>
+    <string name="market_info_totals_what">Barcha kriptovalyutalarning umumiy qiymati (bozor kapitalizatsiyasi: narx × muomaladagi miqdor, barcha tangalar boʻyicha jami) va oxirgi 24 soatdagi savdo hajmi.</string>
+    <string name="market_info_unusual_how">Har bir tanga oʻzining eng diqqatga sazovor kuzatuvini koʻrsatadi, oʻngda 24 soatlik oʻzgarish. 2× hajm odatdagidan ikki baravar aylanmani bildiradi. Diqqatga sazovor – yaxshi ham, yomon ham emas.</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · taxminan har 10 daqiqada qayta yuklanadi</string>
+    <string name="market_info_unusual_what">Taxminan 30 ta eng yirik tangadan (steyblkoinlarsiz) bugun gʻayrioddiy harakat qilayotgan beshtagachasi: Bitcoin’dan ancha kuchli yoki kuchsiz, bozor yoʻnalishiga qarshi, gʻayrioddiy yuqori savdo hajmi yoki diqqatga sazovor funding stavkasi bilan.</string>
+    <string name="market_info_what">Bu nima?</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">Bozor kapitalizatsiyasi</string>
+    <string name="market_cap_source">Barcha tangalar · CoinGecko</string>
+    <string name="market_cap_title">Kripto bozori</string>
+    <string name="market_volume_label">Hajm 24 soat</string>
+
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">Tafsilotlar</string>
+    <string name="pulse_disclaimer">Prognoz emas · Investitsiya maslahati emas</string>
+    <string name="pulse_less">Kamroq koʻrsatish</string>
+    <string name="pulse_now_title">Kripto puls</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">24 soatdagi oʻzgarish</string>
+    <string name="pulse_section_factors">Omillar</string>
+    <string name="pulse_section_market">Bugungi bozor</string>
+    <string name="pulse_unavailable">Bozor maʼlumotlari hozir mavjud emas</string>
+    <string name="pulse_updated">%1$s holatiga</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">Sokin bozor</string>
+    <string name="pulse_headline_down">Keng zaiflik</string>
+    <string name="pulse_headline_mixed">Aralash manzara</string>
+    <string name="pulse_headline_up">Keng kuch</string>
+    <string name="pulse_lead_alts_stronger">Altkoinlar Bitcoin’dan kuchliroq.</string>
+    <string name="pulse_lead_broad_down">Bozor keng miqyosda pasaymoqda.</string>
+    <string name="pulse_lead_broad_up">Bozor keng miqyosda oʻsmoqda.</string>
+    <string name="pulse_lead_btc_leads">Bitcoin eng koʻp oʻsmoqda.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin altkoinlardan kuchliroq.</string>
+    <string name="pulse_lead_calm">Bozor deyarli harakatlanmayapti.</string>
+    <string name="pulse_lead_drift_down">Bozor asta-sekin pasaymoqda.</string>
+    <string name="pulse_lead_drift_up">Bozor asta-sekin oʻsmoqda.</string>
+    <string name="pulse_lead_mixed">Yirik tangalar turli yoʻnalishda harakatlanmoqda.</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">Leveraj kayfiyati optimistik.</string>
+    <string name="pulse_detail_fund_negative">Leveraj kayfiyati pessimistik.</string>
+    <string name="pulse_detail_fund_neutral">Leveraj kayfiyati neytral.</string>
+    <string name="pulse_detail_vol_above">Hajm odatdagidan %1$s yuqori.</string>
+    <string name="pulse_detail_vol_above_fund_high">Hajm odatdagidan %1$s yuqori, leveraj kayfiyati optimistik.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Hajm odatdagidan %1$s yuqori, leveraj kayfiyati pessimistik.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Hajm odatdagidan %1$s yuqori, leveraj kayfiyati neytral.</string>
+    <string name="pulse_detail_vol_below">Hajm odatdagidan %1$s past.</string>
+    <string name="pulse_detail_vol_below_fund_high">Hajm odatdagidan %1$s past, leveraj kayfiyati optimistik.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Hajm odatdagidan %1$s past, leveraj kayfiyati pessimistik.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Hajm odatdagidan %1$s past, leveraj kayfiyati neytral.</string>
+    <string name="pulse_detail_vol_normal">Hajm odatdagidek.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Hajm odatdagidek, leveraj kayfiyati optimistik.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Hajm odatdagidek, leveraj kayfiyati pessimistik.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Hajm odatdagidek, leveraj kayfiyati neytral.</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">Top %1$d: bozor qiymati boʻyicha eng yirik tangalar, steyblkoinlarsiz; 24 soatdagi oʻzgarish (CoinGecko).</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_note_broad_down">Keng sotuv: eng yirik tangalarning koʻpi pasaymoqda.</string>
+    <string name="pulse_breadth_note_broad_up">Keng harakat: eng yirik tangalarning koʻpi oʻsmoqda.</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin pasaymoqda, lekin boshqa yirik tangalarning koʻpi barqaror.</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin oʻsmoqda, lekin boshqa yirik tangalarning koʻpi qoʻshilmayapti.</string>
+    <string name="pulse_breadth_spoken">Top %1$d: %2$d ta oʻsdi, %3$d ta pasaydi</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">Altkoinlar va Bitcoin bir xil harakatlanmoqda</string>
+    <string name="pulse_alts_stronger">Altkoinlar Bitcoin’dan kuchliroq</string>
+    <string name="pulse_alts_weaker">Bitcoin altkoinlardan kuchliroq</string>
+    <string name="pulse_chip_funding_high">Leveraj kayfiyati optimistik</string>
+    <string name="pulse_chip_funding_negative">Leveraj kayfiyati pessimistik</string>
+
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">Kurs va amallarni koʻrsatish</string>
+    <string name="unusual_fact_against">Bozorga qarshi harakatlanmoqda</string>
+    <string name="unusual_fact_funding_high">Funding yuqori (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Funding manfiy (%1$s)</string>
+    <string name="unusual_fact_stronger">BTC’dan ancha kuchliroq harakatlanmoqda</string>
+    <string name="unusual_fact_volume">Hajm odatdagidan %1$s×</string>
+    <string name="unusual_fact_weaker">BTC’dan ancha kuchsizroq harakatlanmoqda</string>
+    <string name="unusual_nothing">Bugun diqqatga sazovor narsa yoʻq</string>
+    <string name="unusual_source">Steyblkoinlarsiz taxminan 30 ta eng yirik tanga · Binance, CoinGecko</string>
+    <string name="unusual_title">Diqqatga sazovor</string>
+
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">Diqqatga sazovor</string>
+    <string name="activity_indicator">Diqqatga sazovor</string>
+    <string name="activity_sensitivity_less">Kamroq</string>
+    <string name="activity_sensitivity_more">Koʻproq</string>
+    <string name="activity_sensitivity_normal">Oddiy</string>
+    <string name="activity_signal_funding_long">Funding %1$s — leverajli longlar koʻp</string>
+    <string name="activity_signal_funding_short">Funding %1$s — shortlar koʻp</string>
+    <string name="activity_signal_open_interest">Ochiq pozitsiyalar %2$d daq ichida %1$s</string>
+    <string name="activity_signal_open_interest_no_time">Ochiq pozitsiyalar %1$s</string>
+    <string name="activity_signal_price_move">Gʻayrioddiy harakat: bir soatda %1$s (odatdagidan %2$s×)</string>
+    <string name="activity_signal_volume">Oxirgi soatda hajm odatdagidan %1$s×</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%2$d ta yirik altkoindan %1$d tasi 90 kunda Bitcoin’dan oʻzib ketdi</item>
+        <item quantity="other">%2$d ta yirik altkoindan %1$d tasi 90 kunda Bitcoin’dan oʻzib ketdi</item>
+    </plurals>
+    <string name="insights_chart_axis">Halvingdan beri yillar</string>
+    <string name="insights_chart_hint">Narx halving kunidagi narxning karrasi sifatida (logarifmik shkala). Oldingi sikllar – qonuniyat, prognoz emas.</string>
+    <string name="insights_cycle_chart">Halvingdan beri sikllar</string>
+    <string name="insights_dominance_eth">ETH umumiy bozorning %1$s</string>
+    <string name="insights_dominance_title">Bitcoin dominantligi</string>
+    <string name="insights_fng_history">Kecha %1$s · bir hafta oldin %2$s · bir oy oldin %3$s</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="insights_halving_title">Bitcoin halvingi</string>
+    <string name="insights_source_dominance">Manba: CoinGecko, Binance</string>
+    <string name="insights_source_fng">Manba: alternative.me</string>
+    <string name="insights_source_history">Manba: Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">Kuchli qoʻrquv</string>
+    <string name="fng_extreme_greed">Kuchli ochkoʻzlik</string>
+    <string name="fng_fear">Qoʻrquv</string>
+    <string name="fng_greed">Ochkoʻzlik</string>
+    <string name="fng_neutral">Neytral</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">Maʼlumotlar %1$s holatiga · yangilanmoqda…</string>
+    <string name="cycle_from_top">Choʻqqidan %1$s</string>
+    <string name="cycle_marker_bottom">Tub %1$s</string>
+    <string name="cycle_marker_double_bottom">Ikki karra tub %1$s</string>
+    <string name="cycle_marker_double_top">Ikki karra choʻqqi %1$s</string>
+    <string name="cycle_marker_high_so_far">Hozircha eng yuqori</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">Choʻqqi %1$s</string>
+    <string name="cycle_since_halving">Halvingdan beri %1$s</string>
+    <string name="halving_estimate_text">Hisob boʻyicha keyingi halving taxminan %1$s: har blokka oʻrtacha %3$s daq ketsa, %2$s ta blok qoldi (joriy murakkablik davri). Bu taxmin, vaʼda emas – blok vaqti oʻzgarib turadi.</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">Signal: %1$s</string>
+    <string name="gas_slow_fast">Sekin %1$s · Tez %2$s</string>
+    <string name="gas_source">Ochiq RPC tugunlari va mempool.space · Oddiy oʻtkazma narxi, L2 tarmoqlaridagi L1 ulushisiz</string>
+    <string name="gas_title">Tarmoq komissiyalari</string>
+    <string name="gas_transfer_cost">Oʻtkazma ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">AQSH inflyatsiya maʼlumotlari (CPI)</string>
+    <string name="macro_fomc">AQSH FZT stavka qarori</string>
+    <string name="macro_hint_list">%1$s – bunday kunlarda bozorlar koʻpincha kuchliroq tebranadi.</string>
+    <string name="macro_hint_today">Bugun %1$s: %2$s – bunday kunlarda bozorlar koʻpincha kuchliroq tebranadi.</string>
+    <string name="macro_hint_today_list">Bugun: %1$s – bunday kunlarda bozorlar koʻpincha kuchliroq tebranadi.</string>
+    <string name="macro_hint_tomorrow">Ertaga %1$s: %2$s – bunday kunlarda bozorlar koʻpincha kuchliroq tebranadi.</string>
+    <string name="macro_hint_tomorrow_list">Ertaga: %1$s – bunday kunlarda bozorlar koʻpincha kuchliroq tebranadi.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Bugun %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Ertaga %1$s %2$s</string>
+    <string name="macro_nfp">AQSH bandlik hisoboti</string>
+    <string name="macro_pce">AQSH isteʼmol xarajatlari narxlari (PCE)</string>
+    <string name="macro_ppi">AQSH ishlab chiqaruvchi narxlari (PPI)</string>
+    <string name="macro_released_list">Bugun eʼlon qilindi: %1$s.</string>
+    <string name="macro_released_one">Bugun %1$s da eʼlon qilindi: %2$s.</string>
+    <string name="macro_title">Iqtisodiy maʼlumotlar</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">Tanga</string>
+    <string name="coin_no_data">Binance yoki Bybit’da bu tanga uchun narx maʼlumotlari yoʻq.</string>
+    <string name="coin_price_only">Faqat narxga asoslangan – on-chain maʼlumotlari (MVRV, Puell, xeshreyt) faqat Bitcoin uchun bepul mavjud.</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">Faqat %1$d kunlik narx tarixi – baʼzi indikatorlar yoʻq.</item>
+        <item quantity="other">Faqat %1$d kunlik narx tarixi – baʼzi indikatorlar yoʻq.</item>
+    </plurals>
+    <string name="coin_title">Tanga tahlili</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">Maʼlumotlar: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">24 soatda oʻsganlar va tushganlar</string>
+    <string name="movers_gainers">Oʻsganlar</string>
+    <string name="movers_losers">Tushganlar</string>
+    <string name="movers_no_gainers">24 soatda birorta tanga oʻsmadi</string>
+    <string name="movers_no_losers">24 soatda birorta tanga tushmadi</string>
+    <string name="movers_source">CoinGecko, 24 soat, steyblkoinlarsiz top 100</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">Hammasini koʻrsatish</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">Kamroq koʻrsatish</string>
+</resources>

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
+    <string name="portfolio_cutoff_export_action">Արտահանում ըստ ամսաթվի…</string>
+    <string name="portfolio_tax_worksheet_action">Աշխատանքային թերթ…</string>
+    <string name="portfolio_export_address_unobserved">հասցեն այս ամսաթվին չի դիտարկվել – ներառված չէ</string>
+    <string name="portfolio_export_button">Արտահանել CSV</string>
+    <string name="portfolio_export_col_amount">Քանակ</string>
+    <string name="portfolio_export_col_coin">Կոին</string>
+    <string name="portfolio_export_col_note">Նշում</string>
+    <string name="portfolio_export_col_price">Գին USDT</string>
+    <string name="portfolio_export_col_rate">Փոխարժեք USDT→%1$s</string>
+    <string name="portfolio_export_col_value">Արժեք USDT</string>
+    <string name="portfolio_export_col_value_cur">Արժեք %1$s</string>
+    <!-- Inhalt der CSV-Datei -->
+    <string name="portfolio_export_comment"># Ամսաթիվ %1$s, արժույթ %2$s, փոխարժեքը՝ %3$s-ի դրությամբ</string>
+    <string name="portfolio_export_currency">Արժույթ՝ %1$s</string>
+    <string name="portfolio_export_date">Հաշվետու ամսաթիվ</string>
+    <string name="portfolio_export_done">Արտահանումը պահպանված է</string>
+    <string name="portfolio_export_estv_note">Գույքահարկի համար, որտեղ նշված են, կիրառվում են ESTV գնացուցակի %1$s պաշտոնական տարեվերջյան արժեքները՝ %2$s</string>
+    <string name="portfolio_export_failed">Արտահանումը ձախողվեց</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">Արտահանումը ձախողվեց՝ ֆայլը չհաջողվեց գրել – պահման վայրը չկա կամ գրելի չէ</string>
+    <string name="portfolio_export_failed_prices">Արտահանումը ձախողվեց՝ գները չհաջողվեց բեռնել – կապ չկա կամ բորսան չի պատասխանում</string>
+    <string name="portfolio_export_from_address">հասցեից – գնման գին չկա</string>
+    <string name="portfolio_export_hint">Ակտիվները ընտրված օրվա վերջի դրությամբ՝ գնահատված օրվա փակման գնով (UTC) USDT-ով և փոխարկված այդ օրվա ԵԿԲ հղումային փոխարժեքով։ Փոխիր արժույթը «Փոխարկել»-ով։</string>
+    <string name="portfolio_export_incomplete">թերի</string>
+    <string name="portfolio_export_no_fx">փոխարժեք չկա</string>
+    <string name="portfolio_export_no_price">գին չկա</string>
+    <string name="portfolio_export_running">Պատմական գները բեռնվում են…</string>
+    <string name="portfolio_export_title">Արտահանում ըստ ամսաթվի</string>
+    <string name="portfolio_export_today_hint">Այսօրը դեռ չի ավարտվել՝ օրվա փակման փոխարեն օգտագործվում է ընթացիկ գինը։</string>
+    <string name="portfolio_export_total">Ընդամենը</string>
+    <string name="portfolio_export_unchecked">ստուգված չէ (համապատասխան գին չկա)</string>
+
+    <!-- Steuer-Export (Arbeitspapier) -->
+    <string name="tax_export_adjustment">superficial loss (ավելացված ACB-ին)</string>
+    <string name="tax_export_at_wallet_note">Ավստրիա՝ շարժական միջին ըստ կոինի և դրամապանակի (բորսայի) – փոխանցումները տեղափոխում են արժեքը – պարգևները՝ 0 ձեռքբերման արժեքով – 2021 թ. մարտի 1-ից ակտիվները՝ առանց միջնորդավճարների (չեն նվազեցվում) – լենդինգի տոկոսները՝ ստանալու պահի արժեքով (եկամուտ 27.5 տոկոսով)։</string>
+    <string name="tax_export_avg_cost_rates">արժեքը գնման օրվա փոխարժեքներով (միջին)</string>
+    <string name="tax_export_ch_wealth_not_calculated">Գույքահարկը հաշվարկված չէ – ESTV գնացուցակ՝ %1$s</string>
+    <string name="tax_export_col_acquired">Ձեռք է բերվել</string>
+    <string name="tax_export_col_adjustment">Չընդունված վնաս %1$s</string>
+    <string name="tax_export_col_cost">Արժեք %1$s</string>
+    <string name="tax_export_col_date">Ամսաթիվ</string>
+    <string name="tax_export_col_days">Պահման օրեր</string>
+    <string name="tax_export_col_gain">Շահույթ %1$s</string>
+    <string name="tax_export_col_gross">Գին մինչև միջնորդավճարները %1$s</string>
+    <string name="tax_export_col_long_term">պահված &gt; 1 տարի</string>
+    <string name="tax_export_col_portfolio_value">Պորտֆելի արժեք %1$s</string>
+    <string name="tax_export_col_proceeds">Հասույթ %1$s</string>
+    <string name="tax_export_col_sold">Վաճառված</string>
+    <string name="tax_export_cost_incomplete">ընդհանուր ձեռքբերման արժեքը թերի է</string>
+    <string name="tax_export_cost_missing">գնման գինը բացակայում է</string>
+    <string name="tax_export_fee_consumed">Միջնորդավճարը կլանում է ամբողջ ստացվածը</string>
+    <string name="tax_export_fee_leg">միջնորդավճար այլ կոինով</string>
+    <string name="tax_export_fee_row">Միջնորդավճար</string>
+    <string name="tax_export_fee_value_missing">այլ կոինով միջնորդավճարը արժեք չունի</string>
+    <string name="tax_export_gains">Իրացված օտարումներ (CSV)</string>
+    <string name="tax_export_gains_title">Իրացված օտարումներ %1$s</string>
+    <string name="tax_export_gift">Նվեր</string>
+    <string name="tax_export_holdings_cutoff">Ակտիվներ %1$s-ի դրությամբ (CSV)</string>
+    <string name="tax_export_holdings_title">Ակտիվներ %1$s-ի դրությամբ</string>
+    <string name="tax_export_income">Եկամուտ (CSV)</string>
+    <string name="tax_export_income_title">Եկամուտ %1$s</string>
+    <string name="tax_export_info_template">Ձևանմուշ՝ %1$s · Մեթոդ՝ %2$s · Հարկային տարի՝ %3$s · Արժույթ՝ %4$s · Crypto Checker %5$s</string>
+    <string name="tax_export_lost_fee_cost">ցանցի միջնորդավճարի արժեք առանց վճարված լոտի</string>
+    <string name="tax_export_match_pool">Section 104 pool</string>
+    <string name="tax_export_match_same_day">նույն օրը (HMRC)</string>
+    <string name="tax_export_match_thirty_day">30-օրյա կանոն (HMRC)</string>
+    <string name="tax_export_method_change_warning">Մեթոդը կամ ձևանմուշը փոխելը վերահաշվարկում է նաև նախորդ տարիները – համեմատիր արդեն ներկայացվածի հետ։</string>
+    <string name="tax_export_method_overridden">Ձևանմուշը հաշվարկում է %1$s – ոչ %2$s</string>
+    <string name="tax_export_new_holding">ձեռք է բերվել 2021 թ. մարտի 1-ից</string>
+    <string name="tax_export_no">ոչ</string>
+    <string name="tax_export_old_holding">ձեռք է բերվել մինչև 2021 թ. մարտի 1-ը</string>
+    <string name="tax_export_oversold">վաճառվել է գրանցվածից ավելի</string>
+    <string name="tax_export_payment">Վճարում կրիպտոյով</string>
+    <string name="tax_export_period">%1$s – %2$s</string>
+    <string name="tax_export_proceeds_missing">վաճառքի գինը բացակայում է</string>
+    <string name="tax_export_proceeds_without_cost">Հասույթ առանց գնման գնի</string>
+    <string name="tax_export_realized_differs">Հարկային CSV-ն կարող է տարբերվել «իրացված»-ից (երկրի հարկային կանոններ)։</string>
+    <string name="tax_export_rule">&gt; 1 տարի՝ վաճառված գնման ամսաթիվ + 1 օրացուցային տարի անց։ Ամսաթվերը՝ տեղական ժամով։ Փոխարժեքներ՝ գործարքի օրվա ԵԿԲ օրական փոխարժեքը. եթե չկա՝ վերջին փոխարժեքը մինչև 7 օր առաջ։</string>
+    <string name="tax_export_rules_date">Կանոնները՝ %1$s-ի դրությամբ</string>
+    <string name="tax_export_rules_stale">Կանոնները %1$s-ից են – %2$s-ի համար դրույքներն ու արտոնությունները կարող են փոխված լինել։ Ստուգիր արժեքները։</string>
+    <string name="tax_export_spouse_gift">ամուսնուն/գործընկերոջը – ոչ շահույթ, ոչ վնաս</string>
+    <string name="tax_export_summary">Տարեկան ամփոփում %1$s (CSV)</string>
+    <string name="tax_export_swap">փոխանակում</string>
+    <string name="tax_export_tax_year">Հարկային տարի</string>
+    <string name="tax_export_transfer_fee_info">Փոխանցման միջնորդավճար USDT-ով/կանխիկով – ոչ վնաս, ներառված չէ ձեռքբերման արժեքում, միայն տեղեկատվական</string>
+    <string name="tax_export_unassigned_fee">միջնորդավճարը չի վերագրվել – ձեռքբերման արժեքն անհայտ է</string>
+    <string name="tax_export_usdt_usd_note">USDT-ն փոխարկված է USDT/USD օրվա փակման գնով. 1 USD, որտեղ փակում չկա (նշված է յուրաքանչյուր տողում)</string>
+    <string name="tax_export_value_estimated">Արժեքը գնահատված (օրվա փակում)</string>
+    <string name="tax_export_value_missing">ստանալու պահի արժեքը բացակայում է</string>
+    <string name="tax_export_wallet">Դրամապանակ՝ %1$s</string>
+    <string name="tax_export_wallet_unspecified">նշված չէ</string>
+    <string name="tax_export_withdrawal_fee">Դուրսբերման միջնորդավճար</string>
+    <string name="tax_export_withdrawal_fee_info">Դուրսբերման միջնորդավճար USDT-ով/կանխիկով – ոչ վնաս, միայն տեղեկատվական</string>
+    <string name="tax_export_workpaper_disclaimer">Հարկային աշխատանքային թերթ – ոչ հարկային հայտարարագիր և ոչ հարկային խորհուրդ</string>
+    <string name="tax_export_workpaper_title">Աշխատանքային թերթ</string>
+    <string name="tax_export_year_local_zone">Ամսաթվերը՝ տեղական ժամով (%1$s)</string>
+    <string name="tax_export_yes">այո</string>
+
+    <!-- Steuer-Export: Zeilen und Spalten -->
+    <string name="tax_line_at_interest">Լենդինգի տոկոսներ (ստանալու պահի արժեքով)</string>
+    <string name="tax_line_at_old_long">Ձեռք է բերվել մինչև 2021 թ. մարտի 1-ը – պահված &gt; 1 տարի՝ սովորաբար չի հարկվում – ստուգիր</string>
+    <string name="tax_line_at_rate">Հատուկ դրույք 27.5 տոկոս՝ զուտ, ձեռք բերված 2021 թ. մարտի 1-ից և վաճառված 2022 թ. մարտի 1-ից + տոկոսներ</string>
+    <string name="tax_line_au_discounted">Կապիտալի զուտ շահույթ՝ վնասներից և 50 տոկոս զեղչից հետո</string>
+    <string name="tax_line_ca_taxable">Հարկվող կապիտալի շահույթ (ներառման դրույք 1/2)</string>
+    <string name="tax_line_ch_income">Պարգևները նշված են – դրանց վերաբերմունքի համար տես ESTV-ի աշխատանքային փաստաթուղթը</string>
+    <string name="tax_line_ch_private">Մասնավոր ակտիվների կապիտալի շահույթ՝ հաշվարկված չէ – դասակարգման համար տես ESTV</string>
+    <string name="tax_line_ch_wealth">Գույքահարկ՝ հաշվարկված չէ – ակտիվների CSV-ն օգտագործում է բորսայի գին × USD/CHF դեկտեմբերի 31-ին – պաշտոնական հարկային արժեքներ՝ ESTV գնացուցակ</string>
+    <string name="tax_line_de_long">Պահված &gt; 1 տարի՝ սովորաբար չի հարկվում § 23 EStG-ի համաձայն – ստուգիր</string>
+    <string name="tax_line_denied_loss">Չընդունված վնասներ (superficial loss)</string>
+    <string name="tax_line_fr_outflow">Ելքեր առանց վաճառքի (դուրսբերումներ) – ընդհանուր ձեռքբերման արժեքը համամասնորեն նվազեցված</string>
+    <string name="tax_line_fr_rate">Ֆիքսված դրույք 12.8 տոկոս գումարած սոցիալական վճարներ (կամ սանդղակ՝ ընտրությամբ)</string>
+    <string name="tax_line_fr_threshold">Տարեկան մինչև €305 օտարումներ՝ ընդհանուր առմամբ ազատված (վաճառքի գների գումարը) – ստուգիր</string>
+    <string name="tax_line_gains">Շահույթներ</string>
+    <string name="tax_line_income">Եկամուտ (պարգևները՝ ստանալու պահի արժեքով)</string>
+    <string name="tax_line_jp_misc">Այլ եկամուտ (雑所得)՝ զուտ շահույթ + եկամուտ</string>
+    <string name="tax_line_long_net">Զուտ – պահված &gt; 1 տարի</string>
+    <string name="tax_line_losses">Վնասներ</string>
+    <string name="tax_line_net">Զուտ շահույթ/վնաս</string>
+    <string name="tax_line_new_net">Զուտ – ձեռք բերված 2021 թ. մարտի 1-ից, վաճառված 2022 թ. մարտի 1-ից</string>
+    <string name="tax_line_old_long_net">Զուտ – ձեռք բերված մինչև 2021 թ. մարտի 1-ը – պահված &gt; 1 տարի</string>
+    <string name="tax_line_old_short_net">Զուտ – սպեկուլյատիվ գործարքներ (նախկին օրենք)՝ ձեռք բերված մինչև 2021 թ. մարտի 1-ը և պահված ≤ 1 տարի, կամ վաճառված մինչև 2022 թ. մարտի 1-ը</string>
+    <string name="tax_line_proceeds">Հասույթ</string>
+    <string name="tax_line_short_net">Զուտ – պահված ≤ 1 տարի</string>
+    <string name="tax_line_transfer_fees">Փոխանցման միջնորդավճարներ (սեփական դրամապանակներ)</string>
+    <string name="tax_line_uk_after_exempt">Զուտ շահույթը ազատված գումարից ավելի (միայն կրիպտո)</string>
+    <string name="tax_line_uk_exempt">Տարեկան ազատված գումար – կիրառվում է բոլոր օտարումների համար միասին, այստեղ կիրառված է ամբողջությամբ</string>
+    <string name="tax_line_us_terms">Կարճաժամկետ (≤ 1 տարի)՝ սովորական դրույքներ – երկարաժամկետ (&gt; 1 տարի)՝ կապիտալի շահույթի դրույքներ</string>
+    <string name="tax_line_withdrawal_fees">Դուրսբերման միջնորդավճարներ</string>
+
+    <!-- Steuer Deutschland -->
+    <string name="tax_de_below">սահմանից ցածր</string>
+    <string name="tax_de_col_item">Կետ</string>
+    <string name="tax_de_disclaimer">Միայն կողմնորոշման համար – ոչ հարկային հայտարարագիր և ոչ հարկային խորհուրդ։</string>
+    <string name="tax_de_explain_below">Մինչև %1$s՝ սահմանից ցածր (կողմնորոշման համար)։</string>
+    <string name="tax_de_explain_loss">Զուտ վնաս՝ այս վաճառքների համար հարկ չկա։ § 23 EStG-ի համաձայն վնասները հաշվանցվում են միայն մասնավոր վաճառքների շահույթի հետ – նույն տարում կամ նախորդ տարի հետ տեղափոխելով և հաջորդ տարիներ առաջ տեղափոխելով (§ 23 para. 3 և § 10d EStG)։ Հայտարարիր վնասը քո հարկային հայտարարագրում, որպեսզի այն գնահատվի։</string>
+    <string name="tax_de_explain_reached">%1$s-ից հաշվվում է ամբողջ գումարը (ազատման սահման – ոչ արտոնություն)։</string>
+    <string name="tax_de_explain_unknown">Հնարավոր չէ ստուգել՝ բացակայում են փոխարժեքներ / գնման գներ կամ պահման ժամկետներ։</string>
+    <string name="tax_de_income_limit">Ծառայությունների ազատման սահման (§ 22 No. 3 EStG)</string>
+    <string name="tax_de_limit_scope">Սահմանները կիրառվում են տարվա բոլոր մասնավոր վաճառքների կամ ծառայությունների համար միասին – ներառյալ հավելվածից դուրս։</string>
+    <string name="tax_de_loading">Հաշվարկվում է…</string>
+    <string name="tax_de_long_gains">Շահույթ – պահված &gt; 1 տարի</string>
+    <string name="tax_de_long_losses">Վնասներ – պահված &gt; 1 տարի</string>
+    <string name="tax_de_loss">զուտ վնաս – հաշվանցվում է միայն մասնավոր վաճառքների շահույթի հետ (§ 23 EStG)</string>
+    <string name="tax_de_private_limit">Մասնավոր վաճառքների ազատման սահման (§ 23 EStG)</string>
+    <string name="tax_de_reached">սահմանը հասել է – սովորաբար հաշվվում է ամբողջ գումարը – ստուգիր</string>
+    <string name="tax_de_short_gains">Շահույթ – պահված ≤ 1 տարի</string>
+    <string name="tax_de_short_losses">Վնասներ – պահված ≤ 1 տարի</string>
+    <string name="tax_de_unclassified">Պահման ժամկետն անհայտ է</string>
+    <string name="tax_de_unknown">հնարավոր չէ ստուգել</string>
+
+    <!-- Steuer-Vorlagen je Land -->
+    <string name="tax_template_at">Ավստրիա</string>
+    <string name="tax_template_au">Ավստրալիա</string>
+    <string name="tax_template_beta">Բետա</string>
+    <string name="tax_template_beta_note">Բետա՝ երկրի կանոնները պարզեցված են, ստուգիր նախքան հարկային հայտարարագիր ներկայացնելը</string>
+    <string name="tax_template_ca">Կանադա</string>
+    <string name="tax_template_ch">Շվեյցարիա</string>
+    <string name="tax_template_confirm_text">Բետա, պարզեցված կանոններ, այլ հարթակների գործարքները բացակայում են – ստուգիր նախքան հարկային հայտարարագիր ներկայացնելը։</string>
+    <string name="tax_template_confirm_title">Հարկային ձևանմուշ (բետա)</string>
+    <string name="tax_template_current">Ձևանմուշ՝ %1$s · Մեթոդ՝ %2$s · Արժույթ՝ %3$s</string>
+    <string name="tax_template_de">Գերմանիա</string>
+    <string name="tax_template_fr">Ֆրանսիա</string>
+    <string name="tax_template_hint">Միայն կողմնորոշման համար՝ սահմանում է հարկային աշխատանքային թերթի մեթոդը, հարկային տարին և ամփոփումը։ Պորտֆելի քարտը մնում է չեզոք – նվերներն ու փոխանցման միջնորդավճարները կարող են տարբերվել աշխատանքային թերթից։</string>
+    <string name="tax_template_jp">Ճապոնիա</string>
+    <string name="tax_template_neutral">Չեզոք (բոլոր երկրներ)</string>
+    <string name="tax_template_suggestion">Առաջարկ քո տարածաշրջանի համար՝ %1$s</string>
+    <string name="tax_template_title">Հարկային ձևանմուշ</string>
+    <string name="tax_template_uk">Միացյալ Թագավորություն</string>
+    <string name="tax_template_us">ԱՄՆ</string>
+    <string name="tax_template_use">Օգտագործել %1$s</string>
+
+    <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
+    <string name="tax_method_at">Հին/նոր ակտիվներ – շարժական միջին</string>
+    <string name="tax_method_ca_acb">ACB միջին արժեք (superficial loss)</string>
+    <string name="tax_method_fr_pta">Ընդհանուր ձեռքբերման գին (art. 150 VH bis)</string>
+    <string name="tax_method_jp_total">Ընդհանուր միջին (総平均法)</string>
+    <string name="tax_method_uk_pool">Section 104 pool (նույն օր / 30 օր)</string>
+    <string name="tax_note_at">Շարժական միջին ըստ կոինի և դրամապանակի – ոչ դրամապանակների միջև (KryptowährungsVO § 2)։ Պարգևները նոր ակտիվներ են մտնում 0 ձեռքբերման արժեքով (BMF՝ ստեյքինգ / էյրդրոփներ) – եկամտի ֆայլը դրանք նշում է ստանալու պահի արժեքով։ 2021 թ. մարտի 1-ից ձեռք բերված ակտիվների համար միջնորդավճարները չեն նվազեցվում (§ 27a(4) no. 2, § 20(2) EStG)՝ արժեք և հասույթ առանց միջնորդավճարների։ Լենդինգի տոկոսները (տեսակը՝ CSV ներմուծումից կամ նշումից) եկամուտ են ստանալու պահին 27.5 տոկոսով և պահպանում են այդ արժեքը որպես ձեռքբերման արժեք։</string>
+    <string name="tax_note_at_staking">Ստեյքինգ արդեն պահվող կոիններով և էյրդրոփներ՝ ստանալու պահի արժեքը հարկի համար նշանակություն չունի – օրենքով ձեռքբերման արժեքը 0 է (§ 27b Abs. 2 EStG; BMF «Kryptowährungen»)։ Հարկը կիրառվում է միայն վաճառքի ժամանակ։</string>
+    <string name="tax_note_fr">Կրիպտոյով վճարված վաճառքներն ու միջնորդավճարները օտարումներ են – փոխանակումները հետաձգվում են։ Վաճառքի կրիպտո միջնորդավճարը հաշվվում է մինչև միջնորդավճարները գնի մեջ – այլապես այն առանձին օտարում է իր արժեքով։ Պորտֆելի արժեքը՝ օրվա փակումներից – բացակայող փակումը թողնում է արժեքը դատարկ։</string>
+    <string name="tax_note_network_fee">Կրիպտոյով վճարված ցանցի միջնորդավճարը (փոխանցում սեփական դրամապանակ, դուրսբերում) միջնորդավճարի կոինների օտարում է շուկայական արժեքով – շահույթ կամ վնաս միայն այդ կոինների վրա, ոչ ամբողջ միջնորդավճարի վնաս (%1$s)։ Առանց գրանցված գնի՝ նույն օրվա փակում (UTC). առանց փակման հասույթը մնում է դատարկ։</string>
+    <string name="tax_note_specific_id">Specific identification-ը չի աջակցվում – օգտագործվում է FIFO։</string>
+    <string name="tax_note_spouse_gift">«Ամուսնուն / քաղաքացիական գործընկերոջը» նշված նվերը ոչ շահույթ է, ոչ վնաս՝ հասույթ = քո ձեռքբերման արժեքը, որը վերցնում է քո գործընկերը (%1$s)։</string>
+    <string name="tax_note_stable_swap">Կրիպտոյի վաճառքը ստեյբլքոինի դիմաց (USDT/USDC/DAI …), որը պահում ես, այստեղ կրիպտո-կրիպտո է և չի հարկվում – գրանցիր այն որպես փոխանակում ստեյբլքոինի։ Հարկվում է միայն եվրոյով վաճառքը – «Վաճառք»-ը համարվում է եվրոյով վաճառք։</string>
+    <string name="tax_note_transfer_fee">Նույնը վերաբերում է սեփական դրամապանակների միջև փոխանցման USDT կամ կանխիկ միջնորդավճարին՝ այն չի ավելացվում ձեռքբերման արժեքին և նշվում է միայն որպես տեղեկատվություն։</string>
+    <string name="tax_note_uk">Համապատասխանեցում ըստ HMRC-ի՝ նույն օր → հաջորդ 30 օր → Section 104 pool։</string>
+    <string name="tax_note_us_transition">Անցում 2025 թ. հունվարի 1-ին (Rev. Proc. 2024-28 safe harbor)՝ եթե նախորդ տարիներին օգտագործվել է FIFO բոլոր դրամապանակներով, 2024 թ. դեկտեմբերի 31-ի դրությամբ մնացած լոտերը գնում են կոինները պահող դրամապանակներին – ամենահին կոիններով դրամապանակը ստանում է ամենահին ձեռքբերման արժեքը։ Այս բաշխումը հավելվածի կանոն է – ստուգիր այն քո սեփական գրառումների հետ։</string>
+    <string name="tax_note_us_wallet">2025 հարկային տարվանից IRS-ը պահանջում է ձեռքբերման արժեք ըստ դրամապանակի կամ բորսայի (Rev. Proc. 2024-28)՝ արտահանումը 2025-ից օգտագործում է FIFO ըստ դրամապանակի – նախորդ տարիների համար FIFO բոլոր դրամապանակներով, կամ FIFO ըստ դրամապանակի, եթե դա է քո արժեքի մեթոդը։</string>
+    <string name="tax_note_withdrawal_fee">USDT-ով կամ կանխիկով դուրսբերման միջնորդավճարը վնաս չէ՝ կանխիկ միջնորդավճարը նվազեցվող ծախս չէ, USDT միջնորդավճարը օտարում է անվանական արժեքով առանց շահույթի – այն նշվում է միայն որպես տեղեկատվություն (%1$s)։</string>
+    <string name="tax_summary_at_interest_income">հաշվվում է՝ եկամուտ ստանալու պահին 27.5 տոկոս հատուկ դրույքով (§ 27b(2) no. 1 EStG / BMF) – կոինները պահպանում են այս արժեքը որպես ձեռքբերման արժեք</string>
+    <string name="tax_summary_at_reward_info">միայն տեղեկատվության համար – ոչ մի ընդհանուր գումարի մաս չէ՝ պարգևները նոր ակտիվներ են մտնում 0 ձեռքբերման արժեքով և հարկվում են միայն վաճառքի ժամանակ (արդեն շահույթում են) – § 27b para. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">2022 թ. հունվարի 1–փետրվարի 28՝ հնարավոր է 27.5 տոկոսի ընտրություն</string>
+    <string name="tax_summary_at_withdrawal_fee">Դուրսբերման միջնորդավճար – չի հաշվանցվում նոր ակտիվների հետ (ծախսերը չեն նվազեցվում հատուկ դրույքով, § 20(2) EStG)</string>
+    <string name="tax_summary_ch_fifo_info">միայն տեղեկատվության համար – հավելվածի FIFO հաշվարկը – դասակարգված չէ – տես ESTV</string>
+    <string name="tax_summary_ch_year_end_value">դեկտեմբերի 31-ի արժեքը ակտիվների CSV-ում = բորսայի գին × USD/CHF – ոչ ESTV հարկային արժեքները</string>
+    <string name="tax_summary_de_withdrawal_fee">Դուրսբերման միջնորդավճար – չի հաշվանցվում § 23-ով, ստուգիր, արդյոք նվազեցվում է որպես եկամտի հետ կապված ծախս</string>
+    <string name="tax_summary_not_calculated_estv">հաշվարկված չէ – ESTV գնացուցակ՝ %1$s</string>
+    <string name="tax_summary_orientation">Կողմնորոշում</string>
+    <string name="tax_summary_orientation_block">Միայն կողմնորոշման համար – ոչ հարկային խորհուրդ – ոչ գնահատում</string>
+    <string name="tax_summary_orientation_item">Կողմնորոշում՝ %1$s</string>
+    <string name="tax_summary_title">Տարեկան ամփոփում %1$s %2$s</string>
+    <string name="tax_summary_transfer_fee_info">Փոխանցման միջնորդավճարներ USDT-ով/կանխիկով – ոչ վնաս և ներառված չէ ձեռքբերման արժեքում, միայն տեղեկատվական</string>
+    <string name="tax_summary_withdrawal_fee_info">Դուրսբերման միջնորդավճարներ USDT-ով/կանխիկով – չեն հաշվվում որպես վնաս, միայն տեղեկատվական</string>
+
+    <string name="tax_line_at_old_speculation_limit">Սպեկուլյատիվ գործարքներ (նախկին օրենք, պահված ≤ 1 տարի)՝ ազատման սահման (§ 31 (3) EStG հին խմբագրություն)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">Լենդինգի տոկոսներ մինչև 2022 թ. մարտի 1-ը (ստանալու պահի արժեքով)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">Տոկոսներ մինչև 2022 թ. մարտի 1-ը՝ հին օրենք (եկամտահարկի դրույք), ոչ 27.5 տոկոս</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">մինչև 2022 թ. մարտի 1-ը – ստուգիր մասնագետի հետ</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">Տոկոսներ – հարկվում են ստանալու պահին</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">Ստեյքինգ – միայն տեղեկատվության համար (ձեռքբերման արժեք 0, հարկվում է վաճառքի ժամանակ)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">Ընդհանուր տոկոսներ (հարկվող)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">Ընդհանուր ստեյքինգ (տեղեկատվություն)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">Կապիտալի զուտ վնաս (առաջ տեղափոխում)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">առանց ընտրության՝ ներառում է 2022 թ. հունվարի 1–փետրվարի 28-ի վաճառքները</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">Ստեյքինգ մինչև 2022 թ. մարտի 1-ը՝ ձեռքբերման արժեքը սահմանված է 0 – ստուգիր մասնագետի հետ</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">30-օրյա կանոնը դեռ կարող է փոխել այս թվերը (գնումներ մինչև %1$s)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Հասույթը մինչև միջնորդավճարները հաշվետվության սահմանից ավելի (£50,000; 2020/21–2022/23՝ £49,200)՝ հայտնիր HMRC-ին, եթե գրանցված ես Self Assessment-ի համար, նույնիսկ առանց հարկվող շահույթի</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">Գույքային արժեք դեկտեմբերի 31 %1$s (կողմնորոշում)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">ESTV գնացուցակը (ictax.admin.ch) որոշիչ է։ Ցուցակում չեղած կոինների համար սովորաբար կիրառվում է բորսայի փակման գինը։ Գույքահարկը հաշվարկված չէ։</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – ակտիվ %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">հաշվարկված չէ</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">Դիտվող հասցեները չհաջողվեց կարդալ – դրանց մնացորդները բացակայում են այս ֆայլից</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">Դիտվող հասցեների լոտերը հաշվվում են իրենց գնման ամսաթվից. եթե հասցեի մնացորդն այսօր ավելի քիչ է, դրանք նվազեցվում են։</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">Դիտվող հասցեները հաշվվում են ընդհանուր արժեքում, բայց ձեռքբերման արժեք չունեն – ուստի շահույթը հավանաբար չափազանց բարձր է։ Գրանցիր արժեքը որպես գնում։</string>
+    <string name="tax_summary_fr_rewards_income">Գումարը ենթադրում է, որ պարգևները հարկվել են որպես եկամուտ ստանալու պահին (ստանալու պահի արժեքը ձեռքբերման արժեքում) – այլապես զգուշավոր մեկնաբանությունը կլիներ 0 ձեռքբերման արժեքը։</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">Առանց գրանցված գնի շուկայական արժեքներ (միջնորդավճարներ, նվերներ/վճարումներ, փոխանակումներ, պարգևներ, ցանցի միջնորդավճարներ, պորտֆելի արժեք)՝ գործարքի օրվա փակման գնով (UTC)</string>
+</resources>

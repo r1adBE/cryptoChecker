@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">ক্রয়মূল্য ছাড়া এন্ট্রি: %1$d</string>
+    <string name="cost_gaps_card_text">লাভ ও কর সম্পূর্ণ করতে ক্রয়মূল্য যোগ করুন।</string>
+    <string name="cost_gaps_sheet_title">ক্রয়মূল্য ছাড়া এন্ট্রি</string>
+    <string name="cost_gaps_sheet_intro">এই আগমনগুলোর কোনো ক্রয়মূল্য নেই। প্রস্তাবটি ওই তারিখের দৈনিক ক্লোজ – এন্ট্রিতে এটি বদলানো যায়।</string>
+    <string name="cost_gaps_empty">সব এন্ট্রির ক্রয়মূল্য আছে।</string>
+    <string name="cost_gap_enter">ক্রয়মূল্য লিখুন</string>
+    <string name="cost_gap_leave_unknown">অজানা রাখুন</string>
+    <string name="cost_gap_left_unknown">অজানা রাখা হয়েছে</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">প্রস্তাব: দৈনিক ক্লোজ %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">এই তারিখের কোনো যাচাইকৃত দৈনিক ক্লোজ নেই</string>
+    <string name="cost_gap_suggestion_loading">দৈনিক ক্লোজ লোড হচ্ছে …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">ক্রয়মূল্য = প্রাপ্তির সময়ের মূল্য (আয়)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">ক্রয়মূল্য = 0 (আগমন ছাড়া পুরস্কার, অস্ট্রিয়া)</string>
+    <string name="cost_gap_apply">প্রয়োগ করুন</string>
+    <string name="address_lots_action">ঠিকানার ব্যালেন্সের ক্রয়মূল্য</string>
+    <string name="address_lots_title">ঠিকানার ব্যালেন্সের ক্রয়মূল্য</string>
+    <string name="address_lots_intro">এই ঠিকানার ব্যালেন্সের জন্য কেনার তারিখ, পরিমাণ ও ক্রয়মূল্য লিখুন। লটগুলো এই ঠিকানায় কেনার মতোই গণ্য হয়; যে অংশ ঢাকা পড়ে না তা ক্রয়মূল্য ছাড়া থাকে।</string>
+    <string name="address_lots_add">লট যোগ করুন</string>
+    <string name="address_lots_new">নতুন লট</string>
+    <string name="address_lots_edit">লট</string>
+    <string name="address_lots_date">কেনার তারিখ</string>
+    <string name="address_lots_amount">পরিমাণ</string>
+    <string name="address_lots_mode_total">মোট</string>
+    <string name="address_lots_mode_price">প্রতি কয়েন</string>
+    <string name="address_lots_price">প্রতি কয়েনের দাম (USDT)</string>
+    <string name="address_lots_total">মোট ক্রয়মূল্য (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%2$s-এর মধ্যে %1$s ক্রয়মূল্যসহ</string>
+    <string name="address_lots_unlotted">%1$s ক্রয়মূল্য ছাড়া</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">লটগুলো ব্যালেন্সের চেয়ে %1$s বেশি – সবচেয়ে পুরোনোগুলো আগে ব্যবহৃত হয়।</string>
+    <string name="address_lots_not_loaded">ব্যালেন্স এখনো লোড হয়নি – লোড হলেই লটগুলো গণ্য হবে।</string>
+    <string name="address_lots_invalid">পরিমাণ ও ক্রয়মূল্য লিখুন</string>
+</resources>

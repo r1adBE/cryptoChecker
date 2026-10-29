@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">Fon</string>
+    <string name="widget_configure_hint">Fonu və qeyri-şəffaflığı seç. Rəng tətbiqə uyğunlaşır. Vidcet bütün izləmə siyahını göstərir; tətbiqi açmaq üçün sətirə toxun.</string>
+    <string name="widget_configure_title">Vidceti qur</string>
+    <string name="widget_description">İzləmə siyahından bir cütün qiymətini göstərir.</string>
+    <string name="widget_empty">İzləmə siyahısında hələ cüt yoxdur.</string>
+    <string name="widget_group_hint">Yalnız bu qrupun cütlərini göstər.</string>
+    <string name="widget_kind_single">Tək koin</string>
+    <string name="widget_opacity">Fonun qeyri-şəffaflığı: %1$s</string>
+    <string name="widget_pulse_description">Hazırda bazarda nə diqqət çəkir: başlıq, qısa xülasə və Bitcoin, Ethereum və Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">köhnəlib</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">köhnəlib · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">Şamlar</string>
+    <string name="widget_chart_line">Xətt</string>
+    <string name="widget_chart_range">Qrafik aralığı</string>
+    <string name="widget_chart_type">Qrafik növü</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 il</string>
+    <string name="widget_range_24h">24 saat</string>
+    <string name="widget_range_30d">30 gün</string>
+    <string name="widget_range_7d">7 gün</string>
+    <string name="widget_range_short_1y">1il</string>
+    <string name="widget_range_short_24h">24s</string>
+    <string name="widget_range_short_30d">30g</string>
+    <string name="widget_range_short_7d">7g</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">Vəziyyət: %1$s</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">Tarixçə tezliklə</string>
+    <string name="widget_portfolio_description">Portfelinin ümumi dəyəri və bugünkü dəyişiklik</string>
+    <string name="widget_portfolio_entries">Koinlərin altında qeydlər</string>
+    <string name="widget_portfolio_entries_both">Hər ikisi</string>
+    <string name="widget_portfolio_entries_buys">Alışlar</string>
+    <string name="widget_portfolio_entries_hint">Yalnız koinlərin altında yer olduqda göstərilir. Alışlara depozitlər, satışlara çıxarışlar daxildir; «Hər ikisi» seçildikdə sətirlər aktivə qədər toplanır.</string>
+    <string name="widget_portfolio_entries_off">Söndürülüb</string>
+    <string name="widget_portfolio_entries_sells">Satışlar</string>
+    <string name="widget_portfolio_display">Görünüş</string>
+    <string name="widget_portfolio_display_conversion">Yalnız çevirmə</string>
+    <string name="widget_portfolio_display_conversion_usdt">Çevirmə + USDT</string>
+    <string name="widget_portfolio_display_hint">Çevirmə valyutası USD steyblkoini olduqda (məs. USDC) USDT sətri gizlədilir.</string>
+    <string name="widget_portfolio_display_usdt">Yalnız USDT</string>
+    <string name="widget_portfolio_empty">Portfel bölməsində alış əlavə et</string>
+    <string name="widget_portfolio_list_hint">Mövqelərini burada göstərmək üçün tətbiqi aç.</string>
+    <string name="widget_portfolio_locked_hint">Kilidlidir – tətbiqdə kilidi aç</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="one">%1$d koin olmadan</item>
+        <item quantity="other">%1$d koin olmadan</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ daha %1$d</item>
+        <item quantity="other">+ daha %1$d</item>
+    </plurals>
+    <string name="widget_portfolio_name">Portfel</string>
+    <string name="widget_portfolio_off_hint">Onu burada aktiv et: %1$s.</string>
+    <string name="widget_portfolio_off_short">Portfel söndürülüb</string>
+    <string name="widget_portfolio_off_title">Portfel söndürülüb</string>
+    <string name="widget_portfolio_partly_stale">bəzi qiymətlər köhnəlib</string>
+    <string name="widget_portfolio_period">Dövr</string>
+    <string name="widget_portfolio_period_without">%1$s, %2$s olmadan</string>
+    <string name="widget_portfolio_range_48h">48 saat</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: Portfeli aç</string>
+    <string name="widget_portfolio_range_short_48h">48s</string>
+    <string name="widget_portfolio_today_without">Bu gün, %1$s olmadan</string>
+    <string name="widget_portfolio_view">Görünüş</string>
+    <string name="widget_portfolio_view_chart">Qrafik</string>
+    <string name="widget_portfolio_view_list">Siyahı</string>
+    <string name="widget_portfolio_view_overview">İcmal</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">Cüt seç</string>
+    <string name="single_widget_description">Bir koini böyük göstərir – qiymət, dəyişiklik və 24 saatlıq qrafiklə.</string>
+    <string name="single_widget_label">Crypto Checker – tək koin</string>
+    <string name="single_widget_title">Tək koin vidcetini qur</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">Əlavə et</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">%1$s vidcetini əlavə et</string>
+    <string name="widgets_manual_text">Əsas ekranın tətbiqdən vidcet əlavə edə bilmir. Əsas ekranda boş yerə basıb saxla, «Vidcetlər» seç və «Crypto Checker» axtar.</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">Vidceti özün əlavə et</string>
+    <string name="widgets_sheet_title">Vidcet əlavə et</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS tətbiqlərə vidcetləri özləri əlavə etməyə icazə vermir. Bu, cəmi bir an çəkir:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Mövcud vidcetlər</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Tətbiqlər titrəyənə qədər Əsas ekranda boş yerə basıb saxla.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Yuxarıda «Redaktə et» › «Vidcet əlavə et» düyməsinə toxun (köhnə iOS versiyalarında «+»).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">«Crypto Checker» axtar, vidcet seç və «Vidcet əlavə et» düyməsinə toxun.</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">Yenilə – %1$d san sonra yenidən mümkün olacaq</string>
+    <string name="settings_watch">Saat</string>
+    <string name="settings_watch_hint">Wear OS saat tətbiqi üçün koinlər (%1$d-dək, USDT ilə qiymətləndirilir). Saata yalnız bu siyahı Google Play xidmətləri vasitəsilə gedir; saat qiymətləri özü alır.</string>
+    <string name="settings_watch_mode_phone">Telefondakı kimi (seçilmişlər ★)</string>
+    <string name="settings_watch_mode_own">Öz siyahın</string>
+    <string name="settings_watch_own_title">Öz siyahın: %1$d / %2$d</string>
+    <string name="settings_watch_none">Hələ seçilmiş yoxdur</string>
+
+    <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
+    <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">«Siyahı»da USDT sətri yoxdur</string>
+    <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
+    <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">«İcmal» əvəzində 30 gün göstərir</string>
+</resources>

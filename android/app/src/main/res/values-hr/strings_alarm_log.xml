@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Protokoll: Titel der Seite und Name des Knopfs in «Alle Alarme» -->
+    <string name="alarm_log_title">Zapisnik alarma</string>
+    <!-- Link unter «Letzte Prüfungen» (Einstellungen › Aktualisierung) -->
+    <string name="alarm_log_open">Prikaži zapisnik alarma</string>
+    <string name="alarm_log_intro">Kada se alarm oglasio – i kada bi se oglasio, ali je zadržan. Sprema se samo na ovom uređaju, 14 dana.</string>
+    <string name="alarm_log_empty_title">Još nema unosa</string>
+    <string name="alarm_log_empty_message">Unosi se ovdje pojavljuju kada se alarm oglasi ili bude zadržan – na primjer zbog zastarjele cijene ili tijekom tihih sati.</string>
+    <string name="alarm_log_clear">Očisti zapisnik</string>
+    <string name="alarm_log_clear_title">Očistiti zapisnik alarma?</string>
+    <string name="alarm_log_clear_message">Svi se unosi uklanjaju. Tvoji alarmi ostaju kakvi jesu.</string>
+    <!-- Screenreader: Schwelle des Alarms, z. B. «Marke Über 100’000 CHF» -->
+    <string name="alarm_log_threshold">Prag %1$s</string>
+    <!-- Alarm-Editor: letzte Prüfung, %1$s = «14:02 · Kraken 99’800 CHF · Marke nicht erreicht» -->
+    <string name="alarm_last_check">Posljednja provjera: %1$s</string>
+    <!-- Ergebnisse einer Alarm-Prüfung (AlarmLogOutcome) -->
+    <string name="alarm_outcome_fired">Oglasio se</string>
+    <string name="alarm_outcome_not_reached">Prag nije dosegnut</string>
+    <string name="alarm_outcome_already_triggered">Već prijavljeno – čeka dok se cijena ne vrati na drugu stranu</string>
+    <string name="alarm_outcome_cooldown">Nije se oglasio – mirovanje nakon posljednjeg alarma</string>
+    <!-- %1$s = Zeit des Kurses laut Börse -->
+    <string name="alarm_outcome_stale">Nije se oglasio – cijena zastarjela (stanje od %1$s)</string>
+    <string name="alarm_outcome_mark_price">Nije se oglasio – mark cijena, a ne cijena trgovanja</string>
+    <string name="alarm_outcome_low_liquidity">Nije se oglasio – likvidnost ispod 10.000 USD ili nepoznata</string>
+    <string name="alarm_outcome_quiet_hours">Nije se oglasio – tihi sati (oglasit će se poslije ako je uvjet i dalje ispunjen)</string>
+    <string name="alarm_outcome_notifications_off">Nije se oglasio – obavijesti isključene</string>
+    <string name="alarm_outcome_not_shown">Nije se oglasio – obavijest nije stigla, ponovni pokušaj kasnije</string>
+    <string name="alarm_outcome_no_rate">Nije provjereno – nema tečaja</string>
+    <string name="alarm_outcome_no_price">Nema cijene – upit burzi nije uspio</string>
+
+    <string name="alarm_outcome_snoozed">Zadržano – «Za 1 h» još traje</string>
+    <string name="alarm_log_source_app">u aplikaciji</string>
+    <string name="alarm_log_source_background">u pozadini</string>
+    <string name="alarm_log_source_exact">provjera u točno vrijeme</string>
+    <string name="alarm_log_source_widget">putem widgeta</string>
+    <string name="alarm_outcome_fx_stale">Nije provjereno – tečaj stariji od 36 sati</string>
+    <string name="alarm_outcome_fx_unsure">Nije provjereno – pretvorba USDT nesigurna (samo preko USDC)</string>
+</resources>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">मूळ किंमत नसलेल्या नोंदी: %1$d</string>
+    <string name="cost_gaps_card_text">नफा आणि कर पूर्ण होण्यासाठी मूळ किंमत जोडा.</string>
+    <string name="cost_gaps_sheet_title">मूळ किंमत नसलेल्या नोंदी</string>
+    <string name="cost_gaps_sheet_intro">या जमा नोंदींना मूळ किंमत नाही. सुचवलेली किंमत त्या तारखेचा दैनिक बंद भाव आहे – नोंदीत तुम्ही ती बदलू शकता.</string>
+    <string name="cost_gaps_empty">सर्व नोंदींना मूळ किंमत आहे.</string>
+    <string name="cost_gap_enter">मूळ किंमत भरा</string>
+    <string name="cost_gap_leave_unknown">अज्ञात ठेवा</string>
+    <string name="cost_gap_left_unknown">अज्ञात ठेवले</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">सूचना: दैनिक बंद भाव %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">या तारखेसाठी पडताळलेला दैनिक बंद भाव नाही</string>
+    <string name="cost_gap_suggestion_loading">दैनिक बंद भाव लोड होत आहे …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">मूळ किंमत = मिळाले तेव्हाचे मूल्य (उत्पन्न)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">मूळ किंमत = 0 (जमा न होता मिळालेले रिवॉर्ड, ऑस्ट्रिया)</string>
+    <string name="cost_gap_apply">लागू करा</string>
+    <string name="address_lots_action">पत्त्याच्या शिलकीची मूळ किंमत</string>
+    <string name="address_lots_title">पत्त्याच्या शिलकीची मूळ किंमत</string>
+    <string name="address_lots_intro">या पत्त्याच्या शिलकीसाठी खरेदीची तारीख, प्रमाण आणि मूळ किंमत भरा. लॉट या पत्त्यातील खरेदीप्रमाणे मोजले जातात; न झाकलेला भाग मूळ किंमतीशिवाय राहतो.</string>
+    <string name="address_lots_add">लॉट जोडा</string>
+    <string name="address_lots_new">नवीन लॉट</string>
+    <string name="address_lots_edit">लॉट</string>
+    <string name="address_lots_date">खरेदीची तारीख</string>
+    <string name="address_lots_amount">प्रमाण</string>
+    <string name="address_lots_mode_total">एकूण</string>
+    <string name="address_lots_mode_price">प्रति कॉइन</string>
+    <string name="address_lots_price">प्रति कॉइन किंमत (USDT)</string>
+    <string name="address_lots_total">एकूण मूळ किंमत (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%2$s पैकी %1$s ला मूळ किंमत आहे</string>
+    <string name="address_lots_unlotted">%1$s मूळ किंमतीशिवाय</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">लॉट शिलकीपेक्षा %1$s ने जास्त आहेत – सर्वात जुने आधी वापरले जातात.</string>
+    <string name="address_lots_not_loaded">शिल्लक अजून लोड झालेली नाही – ती लोड होताच लॉट मोजले जातील.</string>
+    <string name="address_lots_invalid">प्रमाण आणि मूळ किंमत भरा</string>
+</resources>

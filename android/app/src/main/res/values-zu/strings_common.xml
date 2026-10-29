@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Emuva</string>
+    <string name="action_cancel">Khansela</string>
+    <string name="action_clear">Sula</string>
+    <string name="action_close">Vala</string>
+    <string name="action_keep">Gcina</string>
+    <string name="action_delete">Susa</string>
+    <string name="action_edit">Hlela</string>
+    <string name="action_more">Okunye okungakhethwa</string>
+    <string name="action_refresh">Vuselela</string>
+    <string name="action_retry">Zama futhi</string>
+    <string name="action_save">Londoloza</string>
+    <string name="action_sort">Hlunga</string>
+    <string name="action_sort_done">Kwenziwe</string>
+    <string name="action_undo">Hlehlisa</string>
+    <string name="action_view">Buka</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Imakethe</string>
+    <string name="tab_portfolio">I-portfolio</string>
+    <string name="tab_settings">Izilungiselelo</string>
+    <string name="tab_watchlist">Uhlu lokubuka</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Iphutha: %1$s</string>
+    <string name="error_exchange_unreachable">I-exchange ayitholakali okwamanje – izintengo zokugcina zihlala zibonakala.</string>
+    <string name="error_exchange_unreachable_short">I-exchange ayitholakali okwamanje</string>
+    <string name="loading_hint">Iyalayisha…</string>
+    <string name="option_off">Kuvaliwe</string>
+    <string name="something_went_wrong">Kukhona okungahambanga kahle</string>
+    <string name="time_just_now">manje nje</string>
+    <string name="try_again">Zama futhi</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Akukho ukuxhumana</string>
+    <string name="offline_status_since">Akukho ukuxhumana · kusukela ku-%1$s</string>
+    <string name="status_live">Bukhoma</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Engeza ipheya</string>
+    <string name="shortcut_alarms">Wonke ama-alamu</string>
+    <string name="shortcut_cycle">Imakethe</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Engeza ipheya elisha</string>
+    <string name="shortcut_alarms_long">Bonisa wonke ama-alamu</string>
+    <string name="shortcut_cycle_long">Vula ukubuka kwemakethe</string>
+
+    <string name="log_box_title">Ilogi</string>
+    <string name="label_value">%1$s: %2$s</string>
+</resources>

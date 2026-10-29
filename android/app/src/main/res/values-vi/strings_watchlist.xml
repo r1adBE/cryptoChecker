@@ -221,4 +221,14 @@
     <string name="watchlist_not_saved_confirm_message">Danh sách cùng các cảnh báo hiện không được lưu. Thay đổi này và các thay đổi tiếp theo sẽ mất khi đóng ứng dụng. Vẫn thay đổi?</string>
     <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
     <string name="watchlist_not_saved_confirm_action">Vẫn thay đổi</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="other">%1$d cặp</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="other">%2$d trên %1$d cặp</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="other">còn %1$d chỗ trống</item>
+    </plurals>
+    <string name="watchlist_footer_full">Danh sách theo dõi đã đầy</string>
 </resources>

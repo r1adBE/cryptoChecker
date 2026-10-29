@@ -221,4 +221,14 @@
     <string name="watchlist_not_saved_confirm_message">ขณะนี้รายการติดตามและสัญญาณเตือนไม่ได้ถูกบันทึก การเปลี่ยนแปลงนี้และครั้งต่อ ๆ ไปจะหายไปเมื่อปิดแอป เปลี่ยนต่อไหม</string>
     <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
     <string name="watchlist_not_saved_confirm_action">เปลี่ยนต่อ</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="other">%1$d คู่</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="other">%2$d จาก %1$d คู่</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="other">ว่างอีก %1$d ที่</item>
+    </plurals>
+    <string name="watchlist_footer_full">รายการติดตามเต็มแล้ว</string>
 </resources>

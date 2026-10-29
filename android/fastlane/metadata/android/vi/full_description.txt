@@ -35,7 +35,7 @@ NGOÀI RA
 • Danh mục tùy chọn (bật trong Cài đặt): mua, bán, hoán đổi, chuyển, phần thưởng, nạp và rút; FIFO (mặc định) hoặc trung bình (Ø); địa chỉ chỉ đọc, không cần seed, cho BTC (cả xpub), ETH & chuỗi EVM, SOL, TRX, XRP, LTC, ADA và TON; nhập CSV từ Relai, Swissquote, Bitpanda, Kraken, Binance và Coinbase; tổng hợp năm dạng CSV; khóa riêng. Bitpanda và Swissquote: không có giá riêng, chỉ qua CSV.
 • Dễ đọc cho mọi người: xanh/đỏ hoặc xanh dương/cam, dấu và mũi tên thay vì chỉ màu; TalkBack đọc mỗi dòng thành một câu
 • Sao lưu và khôi phục ra tệp – cả giữa Android và iPhone
-• Chế độ sáng và tối, năm màu nhấn, 33 ngôn ngữ
+• Chế độ sáng và tối, năm màu nhấn, 75 ngôn ngữ
 • Mã nguồn mở (MIT) – mã công khai trên GitHub
 
 Lưu ý: Crypto Checker hiển thị giá và danh mục do bạn tự nhập. Ứng dụng không phải sàn hay ví, không giao dịch và không tư vấn đầu tư.

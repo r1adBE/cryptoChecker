@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">Өртгийн суурьгүй бичлэг: %1$d</string>
+    <string name="cost_gaps_card_text">Ашиг болон татвар бүрэн байхын тулд өртгийн суурийг нэмнэ үү.</string>
+    <string name="cost_gaps_sheet_title">Өртгийн суурьгүй бичлэг</string>
+    <string name="cost_gaps_sheet_intro">Эдгээр орлогод өртгийн суурь алга. Санал нь тухайн өдрийн хаалтын ханш – бичлэгт засаж болно.</string>
+    <string name="cost_gaps_empty">Бүх бичлэг өртгийн суурьтай.</string>
+    <string name="cost_gap_enter">Өртгийн суурь оруулах</string>
+    <string name="cost_gap_leave_unknown">Тодорхойгүй үлдээх</string>
+    <string name="cost_gap_left_unknown">Тодорхойгүй үлдээсэн</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">Санал: өдрийн хаалт %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">Энэ өдрийн баталгаажсан хаалтын ханш алга</string>
+    <string name="cost_gap_suggestion_loading">Өдрийн хаалтыг ачаалж байна …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">Өртгийн суурь = хүлээн авах үеийн үнэ цэнэ (орлого)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">Өртгийн суурь = 0 (орлогогүй шагнал, Австри)</string>
+    <string name="cost_gap_apply">Хэрэгжүүлэх</string>
+    <string name="address_lots_action">Хаягийн үлдэгдлийн өртгийн суурь</string>
+    <string name="address_lots_title">Хаягийн үлдэгдлийн өртгийн суурь</string>
+    <string name="address_lots_intro">Энэ хаягийн үлдэгдлийн худалдан авсан огноо, дүн, өртгийн суурийг оруулна уу. Лотыг энэ хаяг дахь худалдан авалт шиг тооцно; хамрагдаагүй хэсэг нь өртгийн суурьгүй үлдэнэ.</string>
+    <string name="address_lots_add">Лот нэмэх</string>
+    <string name="address_lots_new">Шинэ лот</string>
+    <string name="address_lots_edit">Лот</string>
+    <string name="address_lots_date">Худалдан авсан огноо</string>
+    <string name="address_lots_amount">Дүн</string>
+    <string name="address_lots_mode_total">Нийт</string>
+    <string name="address_lots_mode_price">Нэг зоосонд</string>
+    <string name="address_lots_price">Нэг зоосны ханш (USDT)</string>
+    <string name="address_lots_total">Нийт өртгийн суурь (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%2$s-аас %1$s нь өртгийн суурьтай</string>
+    <string name="address_lots_unlotted">%1$s өртгийн суурьгүй</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">Лотууд үлдэгдлээс %1$s-аар их байна – хамгийн хуучныг нь эхэлж ашиглана.</string>
+    <string name="address_lots_not_loaded">Үлдэгдэл хараахан ачаалагдаагүй – ачаалагдмагц лотыг тооцно.</string>
+    <string name="address_lots_invalid">Дүн ба өртгийн суурийг оруулна уу</string>
+</resources>

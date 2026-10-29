@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">पत्ता जोडा</string>
+    <string name="portfolio_address_count">मोजा</string>
+    <string name="portfolio_address_error">अपडेट अयशस्वी</string>
+    <string name="portfolio_address_hint">सार्वजनिक पत्ता (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) किंवा xpub</string>
+    <string name="portfolio_address_label">लेबल (ऐच्छिक)</string>
+    <string name="portfolio_address_not_since_buy">पत्त्यावरून · “खरेदीपासून” मध्ये नाही: %1$s</string>
+    <string name="portfolio_address_overlap">तुमच्या स्वतःच्या व्यवहारांतही आहे: %1$s – दोन्ही जोडले जातात. तेच कॉइन आहेत? “फक्त दाखवा” निवडा.</string>
+    <string name="portfolio_address_overlap_ask">तुम्ही %1$s आधीच स्वतःच्या व्यवहारांसह नोंदवता. या पत्त्याची शिल्लक पोर्टफोलिओमध्ये जोडायची की फक्त दाखवायची?</string>
+    <string name="portfolio_address_overlap_auto">“%1$s” आता फक्त दाखवला जातो, मोजला जात नाही – %2$s तुमच्या व्यवहारांतही आहेत.</string>
+    <string name="portfolio_address_overlap_title">तुमच्या व्यवहारांतलेच कॉइन आहेत?</string>
+    <string name="portfolio_address_overlap_tx">तुमच्या स्वतःच्या जमा/हस्तांतरणाइतकीच रक्कम (%1$s) – बहुधा दोनदा मोजली गेली.</string>
+    <string name="portfolio_address_period_observed">पाहिले जाणारे पत्ते त्यांच्या पहिल्यांदा दिसलेल्या शिलकीपासून मोजले जातात; नंतरचे बदल जमा/खर्च आहेत, नफा नाही.</string>
+    <string name="portfolio_address_privacy">फक्त सार्वजनिक पत्ता %1$s ला पाठवला जातो – कधीही की किंवा सीड फ्रेज नाही. प्रदात्याला तो तुमच्या IP पत्त्यासह दिसतो. जास्तीत जास्त दर 10 मिनिटांनी तपासले जाते.</string>
+    <string name="portfolio_address_remove">पत्ता काढा</string>
+    <string name="portfolio_address_show_only">फक्त दाखवा, पोर्टफोलिओमध्ये जोडू नका</string>
+    <string name="portfolio_address_show_only_short">फक्त दाखवा</string>
+    <string name="portfolio_address_tokens">टोकन मोजा</string>
+    <string name="portfolio_address_xpub_privacy">xpub मुळे या वॉलेटचे सर्व पत्ते उघड होतात. ते तुमच्या डिव्हाइसवर काढले जातात; फक्त स्वतंत्र पत्ते %1$s ला पाठवले जातात – पहिल्या स्कॅनमध्ये किमान 40 विनंत्या, नंतर कमी. खासगी की (xprv) कधीही स्वीकारल्या जात नाहीत.</string>
+    <string name="portfolio_address_xpub_gap">सलग %1$d न वापरलेल्या पत्त्यांनंतर शोध थांबतो (बहुतेक वॉलेट वापरतात ते BIP44 मानक). त्या अंतरापलीकडील वापरलेला पत्ता मोजला जात नाही – तो वेगळा जोडा.</string>
+    <string name="portfolio_address_xpub_used">वापरात असलेले पत्ते: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">अपडेट करण्यासाठी वापरलेले पत्ते खूप जास्त आहेत</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">खूप जास्त पत्ते – जुन्या, रिकाम्या पत्त्यांवरची नवीन पेमेंट कदाचित ओळखली जाणार नाहीत</string>
+    <string name="portfolio_addresses_title">पत्ते</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Bitcoin Cash पत्त्यांवर लक्ष ठेवता येत नाही: API की शिवाय, अटी परवानगी देतील अशी कोणतीही मोफत सार्वजनिक सेवा नाही.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) 2024 मध्ये बंद झाली – शिल्लक आता BNB Smart Chain (0x…) वर आहे</string>
+    <string name="address_checksum">चेकसम चुकीचा – टायपिंगच्या चुका तपासा</string>
+    <string name="address_doge_unsupported">Dogecoin पत्त्यांवर लक्ष ठेवता येत नाही: API की शिवाय, अटी परवानगी देतील अशी कोणतीही मोफत सार्वजनिक सेवा नाही.</string>
+    <string name="address_duplicate">हा पत्ता आधीच जोडला आहे</string>
+    <string name="address_ens">ENS नावे समर्थित नाहीत – 0x पत्ता भरा</string>
+    <string name="address_invalid">समर्थित नेटवर्कचा वैध पत्ता नाही</string>
+    <string name="address_limit">जास्तीत जास्त 20 पत्ते</string>
+    <string name="address_secret">ही खासगी की किंवा सीड फ्रेज वाटते – ती कधीही कुठेही टाकू नका. फक्त सार्वजनिक पत्ते.</string>
+    <string name="address_testnet">टेस्टनेट पत्ते समर्थित नाहीत</string>
+    <string name="address_unsupported">हा पत्ता प्रकार समर्थित नाही</string>
+    <string name="address_wrong_chain">पत्ता दुसऱ्या नेटवर्कचा आहे</string>
+    <string name="address_xpub_multisig">मल्टिसिग की (Ypub/Zpub) समर्थित नाहीत</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot खाते (BIP86): मिळवण्यासाठी आणि चेंजसाठीचे bc1p… पत्ते या की मधून काढले जातात.</string>
+    <string name="portfolio_address_taproot_hint">Taproot वॉलेट? त्याऐवजी तुमच्या वॉलेटमधील tr(…) डिस्क्रिप्टर पेस्ट करा – साधा xpub फक्त Legacy आणि SegWit पत्ते म्हणून शोधला जातो.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">स्वतःच्या सर्व्हरशी संपर्क होत नाही</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">जो कोणी %1$s चालवतो त्याला या वॉलेटचे सर्व विचारलेले पत्ते दिसतात आणि तो ते एकमेकांशी व तुमच्या IP पत्त्याशी जोडू शकतो.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">हे टाळण्यासाठी, सेटिंग्ज › पोर्टफोलिओ › पत्त्यांसाठी स्वतःचा सर्व्हर येथे तुमचा स्वतःचा सर्व्हर भरा.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d अज्ञात टोकन (मोजले नाही)</item>
+        <item quantity="other">+%1$d अज्ञात टोकन (मोजले नाहीत)</item>
+    </plurals>
+</resources>

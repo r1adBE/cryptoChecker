@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">آلٹ کوائنز بمقابلہ Bitcoin</string>
+    <string name="neutral_btc_indicators_title">Bitcoin اشاریے</string>
+    <string name="neutral_halving_last">آخری ہالوِنگ: %1$s</string>
+    <string name="neutral_halving_next">اگلی ہالوِنگ تقریباً %1$s کے آس پاس متوقع (کیلنڈر سے اندازہ – بلاک ہائٹ ابھی دستیاب نہیں)۔</string>
+    <string name="neutral_indicators_disclaimer">صرف ناپی گئی قدریں، بغیر جائزے کے۔ پیش گوئی نہیں اور سرمایہ کاری کا مشورہ نہیں۔</string>
+    <string name="neutral_onchain_missing">آن چین ڈیٹا (Coin Metrics) ابھی دستیاب نہیں۔</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">قیمت اپنی پچھلی ہمہ وقتی بلند ترین سطح سے کتنی نیچے ہے۔</string>
+    <string name="neutral_explain_change_30d">آج کی قیمت 30 دن پہلے کے مقابلے میں۔</string>
+    <string name="neutral_explain_hashrate">30 دن کا اوسط ہیش ریٹ 60 دن کی اوسط کے مقابلے میں۔</string>
+    <string name="neutral_explain_ma200w">آخری 200 ہفتہ وار بندشوں کی اوسط۔</string>
+    <string name="neutral_explain_mayer">قیمت تقسیم 200 دن کی اوسط۔</string>
+    <string name="neutral_explain_mvrv">مارکیٹ ویلیو تقسیم حقیقی ویلیو (آن چین)۔</string>
+    <string name="neutral_explain_pi_gap">111 دن کی اوسط 350 دن کی اوسط کے دوگنے کے مقابلے میں۔</string>
+    <string name="neutral_explain_puell">مائنرز کی روزانہ آمدنی تقسیم اس کی 365 دن کی اوسط۔</string>
+    <string name="neutral_explain_rsi_daily">آخری 14 دنوں کا Relative Strength Index، 0–100۔</string>
+    <string name="neutral_explain_rsi_weekly">آخری 14 ہفتوں کا Relative Strength Index، 0–100۔</string>
+    <string name="neutral_explain_sma50_200">50 دن کی اوسط 200 دن کی اوسط کے مقابلے میں۔</string>
+    <string name="neutral_explain_vs_btc">90 دنوں میں Bitcoin کے مقابلے میں قیمت کی تبدیلی۔</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">ایپ صرف گنتی دکھاتی ہے اور اسے کوئی سیزن قرار نہیں دیتی۔ یہ قدر عموماً گھنٹوں میں نہیں، دنوں میں بدلتی ہے۔</string>
+    <string name="neutral_info_btc_how">ہر قدر کے ساتھ ایک جملہ ہوتا ہے کہ وہ کیا ناپتی ہے، اور 2016 سے اپنی تاریخ میں کہاں ہے۔ ایپ قدروں کی درجہ بندی نہیں کرتی اور کوئی مارکیٹ مرحلہ اخذ نہیں کرتی؛ مارکیٹ الرٹس کی حدیں صرف وہی ہیں جو آپ خود مقرر کریں۔ ماضی کے پیٹرن کا دہرایا جانا ضروری نہیں۔</string>
+    <string name="neutral_info_btc_what">عام Bitcoin اشاریے سادہ ناپی گئی قدروں کے طور پر: Mayer Multiple، 200 ہفتوں کی اوسط، ہمہ وقتی بلند ترین سطح سے کمی، 30 دنوں کی تبدیلی، Pi Cycle فرق اور آن چین قدریں MVRV، Puell Multiple اور ہیش ریٹ۔</string>
+    <string name="neutral_info_coin_how">ہر قدر کے ساتھ ایک جملہ ہوتا ہے کہ وہ کیا ناپتی ہے، بغیر درجہ بندی کے۔ مختصر قیمتی تاریخ والے کوائنز کے لیے کچھ قدریں موجود نہیں۔ آن چین ڈیٹا یہاں شامل نہیں۔</string>
+    <string name="neutral_info_coin_what">آپ کی پسند کے کسی کوائن کے لیے وہی سادہ اشاریے، صرف قیمت کے ڈیٹا سے: Mayer Multiple، 200 ہفتوں کی اوسط، ہمہ وقتی بلند ترین سطح سے کمی، 30 دنوں کی تبدیلی، 50/200 دن کا رجحان، RSI اور 90 دنوں میں Bitcoin کے مقابلے میں طاقت۔</string>
+    <string name="neutral_info_halving_how">اگلی ہالوِنگ موجودہ بلاک ہائٹ اور موجودہ ڈیفیکلٹی مدت کے اوسط بلاک ٹائم (mempool.space) سے حساب کی جاتی ہے؛ اس ڈیٹا کے بغیر کیلنڈر سے (آخری ہالوِنگ جمع تقریباً چار سال)۔ چارٹ پچھلے سائیکلز کی ان کی ہالوِنگ سے قیمت کا سفر دکھاتا ہے – تاریخ، پیش گوئی نہیں۔</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">رجحان 50/200 دن</string>
+    <string name="ind_drawdown">ہمہ وقتی بلند ترین سطح سے کمی</string>
+    <string name="ind_missing">کافی ڈیٹا نہیں</string>
+    <string name="ind_rsi_daily">RSI (روزانہ)</string>
+    <string name="ind_rsi_weekly">RSI (ہفتہ وار)</string>
+    <string name="ind_vs_btc">Bitcoin کے مقابلے میں طاقت (90 دن)</string>
+    <string name="neutral_ind_change_30d">تبدیلی 30 دن</string>
+    <string name="neutral_ind_hashrate">ہیش ریٹ 30/60 دن</string>
+    <string name="neutral_ind_ma200w">200 ہفتوں کی اوسط</string>
+    <string name="neutral_ind_pi_gap">Pi Cycle فرق</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">زیادہ کا مطلب ہے کہ زیادہ تر بڑے آلٹ کوائنز نے 90 دنوں میں Bitcoin کو پیچھے چھوڑا، کم کا مطلب ہے کہ Bitcoin نے ان میں سے زیادہ تر کو پیچھے چھوڑا۔</string>
+    <string name="ind_read_ath_distance">کم کا مطلب ہے قیمت اپنے ریکارڈ کے قریب ہے، زیادہ کا مطلب ہے اس سے بہت نیچے ہے۔</string>
+    <string name="ind_read_change_30d">مثبت کا مطلب ہے 30 دن پہلے سے زیادہ، منفی کا مطلب ہے کم۔</string>
+    <string name="ind_read_funding">زیادہ کا مطلب ہے کہ بہت سے ٹریڈرز لیوریج کے ساتھ قیمت بڑھنے پر شرط لگا رہے ہیں، منفی کا مطلب ہے کہ بہت سے قیمت گرنے پر شرط لگا رہے ہیں۔</string>
+    <string name="ind_read_hashrate_30_60">مثبت کا مطلب ہے کمپیوٹنگ پاور بڑھ رہی ہے، منفی کا مطلب ہے مائنرز مشینیں بند کر رہے ہیں۔</string>
+    <string name="ind_read_leverage">زیادہ لانگز کا مطلب ہے بہت سے لوگ ادھار کی رقم سے قیمت بڑھنے پر شرط لگا رہے ہیں، زیادہ شارٹس کا مطلب ہے بہت سے قیمت گرنے پر شرط لگا رہے ہیں۔</string>
+    <string name="ind_read_ma200w">قیمت اس سے بہت اوپر ہو تو طویل اضافہ، اس کے قریب ہو تو گہری گراوٹ۔</string>
+    <string name="ind_read_mayer">زیادہ کا مطلب ہے قیمت اپنی 200 دن کی اوسط سے بہت اوپر ہے، کم کا مطلب ہے اس سے نیچے ہے۔</string>
+    <string name="ind_read_mvrv">زیادہ کا مطلب ہے قیمت اس سے بہت اوپر ہے جو ہولڈرز نے اوسطاً ادا کی، کم کا مطلب ہے اس کے قریب یا نیچے۔</string>
+    <string name="ind_read_pi_cycle_gap">صفر کے قریب کا مطلب ہے دونوں اوسطیں تقریباً مل رہی ہیں، بہت منفی کا مطلب ہے وہ ایک دوسرے سے بہت دور ہیں۔</string>
+    <string name="ind_read_puell">زیادہ کا مطلب ہے مائنرز معمول سے بہت زیادہ کما رہے ہیں، کم کا مطلب ہے بہت کم۔</string>
+    <string name="ind_read_rsi_daily">70 سے اوپر کا مطلب ہے حالیہ دنوں میں زبردست اضافہ، 30 سے نیچے کا مطلب ہے زبردست نقصان۔</string>
+    <string name="ind_read_rsi_weekly">70 سے اوپر کا مطلب ہے حالیہ ہفتوں میں زبردست اضافہ، 30 سے نیچے کا مطلب ہے زبردست نقصان۔</string>
+    <string name="ind_read_sma50_vs_200">مثبت کا مطلب ہے قلیل مدتی اوسط طویل مدتی اوسط سے اوپر ہے، منفی کا مطلب ہے نیچے۔</string>
+    <string name="ind_read_vs_btc">مثبت کا مطلب ہے Bitcoin سے بہتر کارکردگی، منفی کا مطلب ہے بدتر۔</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">30 دن ایک ہی قیمت رہے تو: %1$s</string>
+    <string name="ind_context_note">ماضی کی قدریں اور “ایک ہی قیمت” کے حسابات محض ریاضی ہیں، پیش گوئی نہیں۔</string>
+    <string name="ind_context_percentile">%1$s سے اب تک %2$s دنوں میں اس سے کم رہی</string>
+</resources>

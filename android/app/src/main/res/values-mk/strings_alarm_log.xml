@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Protokoll: Titel der Seite und Name des Knopfs in «Alle Alarme» -->
+    <string name="alarm_log_title">Дневник на аларми</string>
+    <!-- Link unter «Letzte Prüfungen» (Einstellungen › Aktualisierung) -->
+    <string name="alarm_log_open">Прикажи дневник на аларми</string>
+    <string name="alarm_log_intro">Кога се активирал аларм – и кога би се активирал, но бил задржан. Се чува само на овој уред, 14 дена.</string>
+    <string name="alarm_log_empty_title">Сè уште нема записи</string>
+    <string name="alarm_log_empty_message">Записите се појавуваат тука кога аларм ќе се активира или ќе биде задржан – на пример поради застарена цена или за време на тивките часови.</string>
+    <string name="alarm_log_clear">Исчисти дневник</string>
+    <string name="alarm_log_clear_title">Да се исчисти дневникот на аларми?</string>
+    <string name="alarm_log_clear_message">Сите записи се отстрануваат. Твоите аларми остануваат какви што се.</string>
+    <!-- Screenreader: Schwelle des Alarms, z. B. «Marke Über 100’000 CHF» -->
+    <string name="alarm_log_threshold">Праг %1$s</string>
+    <!-- Alarm-Editor: letzte Prüfung, %1$s = «14:02 · Kraken 99’800 CHF · Marke nicht erreicht» -->
+    <string name="alarm_last_check">Последна проверка: %1$s</string>
+    <!-- Ergebnisse einer Alarm-Prüfung (AlarmLogOutcome) -->
+    <string name="alarm_outcome_fired">Активиран</string>
+    <string name="alarm_outcome_not_reached">Прагот не е достигнат</string>
+    <string name="alarm_outcome_already_triggered">Веќе пријавено – чека додека цената не се врати на другата страна</string>
+    <string name="alarm_outcome_cooldown">Не е активиран – време на мирување по последниот аларм</string>
+    <!-- %1$s = Zeit des Kurses laut Börse -->
+    <string name="alarm_outcome_stale">Не е активиран – застарена цена (состојба %1$s)</string>
+    <string name="alarm_outcome_mark_price">Не е активиран – mark-цена, не тргувана цена</string>
+    <string name="alarm_outcome_low_liquidity">Не е активиран – ликвидност под 10.000 USD или непозната</string>
+    <string name="alarm_outcome_quiet_hours">Не е активиран – тивки часови (аларм потоа, ако условот сè уште важи)</string>
+    <string name="alarm_outcome_notifications_off">Не е активиран – известувањата се исклучени</string>
+    <string name="alarm_outcome_not_shown">Не е активиран – известувањето не стигна, нов обид подоцна</string>
+    <string name="alarm_outcome_no_rate">Не е проверено – нема девизен курс</string>
+    <string name="alarm_outcome_no_price">Нема цена – барањето до берзата не успеа</string>
+
+    <string name="alarm_outcome_snoozed">Задржано – „1 ч подоцна“ сè уште трае</string>
+    <string name="alarm_log_source_app">во апликацијата</string>
+    <string name="alarm_log_source_background">во позадина</string>
+    <string name="alarm_log_source_exact">навремена проверка</string>
+    <string name="alarm_log_source_widget">преку виџет</string>
+    <string name="alarm_outcome_fx_stale">Не е проверено – девизниот курс е постар од 36 часа</string>
+    <string name="alarm_outcome_fx_unsure">Не е проверено – конверзијата на USDT е несигурна (само преку USDC)</string>
+</resources>

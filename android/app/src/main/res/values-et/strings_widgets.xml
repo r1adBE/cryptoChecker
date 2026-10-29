@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">Taust</string>
+    <string name="widget_configure_hint">Vali taust ja läbipaistmatus. Värv järgib rakendust. Vidin näitab kogu sinu jälgimisloendit; rea puudutamine avab rakenduse.</string>
+    <string name="widget_configure_title">Seadista vidin</string>
+    <string name="widget_description">Näitab sinu jälgimisloendist ühe paari hinda.</string>
+    <string name="widget_empty">Jälgimisloendis pole veel paare.</string>
+    <string name="widget_group_hint">Näita ainult selle rühma paare.</string>
+    <string name="widget_kind_single">Üks münt</string>
+    <string name="widget_opacity">Tausta läbipaistmatus: %1$s</string>
+    <string name="widget_pulse_description">Mis turul praegu silma paistab: pealkiri, lühikokkuvõte ning Bitcoin, Ethereum ja Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">aegunud</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">aegunud · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">Küünlad</string>
+    <string name="widget_chart_line">Joon</string>
+    <string name="widget_chart_range">Graafiku periood</string>
+    <string name="widget_chart_type">Graafiku tüüp</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 aasta</string>
+    <string name="widget_range_24h">24 h</string>
+    <string name="widget_range_30d">30 päeva</string>
+    <string name="widget_range_7d">7 päeva</string>
+    <string name="widget_range_short_1y">1 a</string>
+    <string name="widget_range_short_24h">24 h</string>
+    <string name="widget_range_short_30d">30 p</string>
+    <string name="widget_range_short_7d">7 p</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">Seis %1$s</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">Ajalugu peagi</string>
+    <string name="widget_portfolio_description">Sinu portfelli koguväärtus ja tänane muutus</string>
+    <string name="widget_portfolio_entries">Kirjed müntide all</string>
+    <string name="widget_portfolio_entries_both">Mõlemad</string>
+    <string name="widget_portfolio_entries_buys">Ostud</string>
+    <string name="widget_portfolio_entries_hint">Näidatakse ainult siis, kui müntide all on ruumi. Ostud sisaldavad sissemakseid, müügid väljamakseid; valikuga „Mõlemad“ annavad read kokku varade koguse.</string>
+    <string name="widget_portfolio_entries_off">Väljas</string>
+    <string name="widget_portfolio_entries_sells">Müügid</string>
+    <string name="widget_portfolio_display">Kuva</string>
+    <string name="widget_portfolio_display_conversion">Ainult teisendus</string>
+    <string name="widget_portfolio_display_conversion_usdt">Teisendus + USDT</string>
+    <string name="widget_portfolio_display_hint">USDT rida peidetakse, kui teisendusvaluuta on USD stabiilne münt (nt USDC).</string>
+    <string name="widget_portfolio_display_usdt">Ainult USDT</string>
+    <string name="widget_portfolio_empty">Lisa ostud portfelli vahekaardil</string>
+    <string name="widget_portfolio_list_hint">Positsioonide siin kuvamiseks ava rakendus.</string>
+    <string name="widget_portfolio_locked_hint">Lukus – ava lukk rakenduses</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="one">ilma %1$d mündita</item>
+        <item quantity="other">ilma %1$d mündita</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ veel %1$d</item>
+        <item quantity="other">+ veel %1$d</item>
+    </plurals>
+    <string name="widget_portfolio_name">Portfell</string>
+    <string name="widget_portfolio_off_hint">Lülita sisse jaotises %1$s.</string>
+    <string name="widget_portfolio_off_short">Portfell väljas</string>
+    <string name="widget_portfolio_off_title">Portfell on väljas</string>
+    <string name="widget_portfolio_partly_stale">mõned hinnad aegunud</string>
+    <string name="widget_portfolio_period">Periood</string>
+    <string name="widget_portfolio_period_without">%1$s ilma %2$s</string>
+    <string name="widget_portfolio_range_48h">48 h</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: ava portfell</string>
+    <string name="widget_portfolio_range_short_48h">48 h</string>
+    <string name="widget_portfolio_today_without">Täna ilma %1$s</string>
+    <string name="widget_portfolio_view">Vaade</string>
+    <string name="widget_portfolio_view_chart">Graafik</string>
+    <string name="widget_portfolio_view_list">Loend</string>
+    <string name="widget_portfolio_view_overview">Ülevaade</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">Vali paar</string>
+    <string name="single_widget_description">Näitab üht münti suurelt koos hinna, muutuse ja 24 tunni graafikuga.</string>
+    <string name="single_widget_label">Crypto Checker – üks münt</string>
+    <string name="single_widget_title">Seadista ühe mündi vidin</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">Lisa</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">Lisa vidin %1$s</string>
+    <string name="widgets_manual_text">Sinu avakuva ei saa vidinaid rakendusest lisada. Hoia sõrme avakuva tühjal kohal, vali „Vidinad“ ja otsi „Crypto Checker“.</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">Lisa vidin ise</string>
+    <string name="widgets_sheet_title">Lisa vidin</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS ei luba rakendustel ise vidinaid lisada. See võtab vaid hetke:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Saadaolevad vidinad</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Hoia sõrme avakuva tühjal kohal, kuni rakendused hakkavad värisema.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Puuduta üleval „Muuda“ › „Lisa vidin“ (vanemates iOS-i versioonides „+“).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Otsi „Crypto Checker“, vali vidin ja puuduta „Lisa vidin“.</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">Värskenda – uuesti võimalik %1$d s pärast</string>
+    <string name="settings_watch">Kell</string>
+    <string name="settings_watch_hint">Mündid Wear OS-i kellarakenduse jaoks (kuni %1$d, hind USDT suhtes). Kellale saadetakse Google Play teenuste kaudu ainult see loend; hinnad hangib kell ise.</string>
+    <string name="settings_watch_mode_phone">Nagu telefonis (lemmikud ★)</string>
+    <string name="settings_watch_mode_own">Oma loend</string>
+    <string name="settings_watch_own_title">Oma loend: %1$d / %2$d</string>
+    <string name="settings_watch_none">Lemmikuid veel pole</string>
+
+    <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
+    <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">Vaates „Loend“ pole USDT rida</string>
+    <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
+    <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">„Ülevaade“ näitab selle asemel 30 päeva</string>
+</resources>

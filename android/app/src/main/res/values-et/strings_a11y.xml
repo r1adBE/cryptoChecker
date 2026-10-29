@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">Hoiatus käivitus</string>
+    <string name="a11y_collapsed">Ahendatud</string>
+    <string name="a11y_converted">umbes %1$s</string>
+    <string name="a11y_expanded">Laiendatud</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">avaneb brauseris</string>
+    <string name="a11y_favorite">Lemmik</string>
+    <string name="a11y_in_watchlist">Juba jälgimisloendis</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_exchange_unreachable">%1$s pole kättesaadav</string>
+    <string name="a11y_move_down">Liiguta alla</string>
+    <string name="a11y_move_up">Liiguta üles</string>
+    <string name="a11y_note">märkus: %1$s</string>
+    <string name="a11y_price">hind %1$s</string>
+    <string name="a11y_price_notification_off">Hinnamärguanne väljas</string>
+    <string name="a11y_price_notification_on">Hinnamärguanne sees</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">Hind aegunud</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s börsil %2$s</string>
+    <string name="a11y_stale">aegunud, viimane uuendus %1$s</string>
+    <string name="a11y_warning">Hoiatus</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">%1$s 24 tunniga</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">24 tunni muutus pole saadaval</string>
+    <string name="a11y_change_down">langenud %1$s</string>
+    <string name="a11y_change_flat">muutumatu</string>
+    <string name="a11y_change_since_last">%1$s pärast viimast uuendust</string>
+    <string name="a11y_change_since_last_none">Muutus pärast viimast uuendust pole saadaval</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">%1$s täna</string>
+    <string name="a11y_change_today_none">Tänane muutus pole saadaval</string>
+    <string name="a11y_change_today_zone">%1$s alates keskööst %2$s</string>
+    <string name="a11y_change_today_zone_none">Muutus alates keskööst %1$s pole saadaval</string>
+    <string name="a11y_change_up">tõusnud %1$s</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Graafik %1$s: %2$s kuni %3$s, %4$s. Kõrgeim %5$s, madalaim %6$s.</string>
+    <string name="a11y_chart_empty">Graafik: andmed puuduvad</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Tsükkel %1$s: %2$s pärast halvingut, päev %3$d.</string>
+    <string name="a11y_cycle_bottom">Põhi %1$s päeval %2$d.</string>
+    <string name="a11y_cycle_double_bottom">Topeltpõhi %1$s päeval %2$d.</string>
+    <string name="a11y_cycle_double_top">Topelttipp %1$s päeval %2$d.</string>
+    <string name="a11y_cycle_top">Tipp %1$s päeval %2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">Skaala %1$s kuni %2$s: %3$d 100-st</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, keskmiselt %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d langeb</item>
+        <item quantity="other">%1$d langeb</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="one">%1$d paaril pole 24 tunni väärtust</item>
+        <item quantity="other">%1$d paaril pole 24 tunni väärtust</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d paaril pole tänast väärtust</item>
+        <item quantity="other">%1$d paaril pole tänast väärtust</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d paar tõuseb</item>
+        <item quantity="other">%1$d paari tõuseb</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="one">viimati uuendatud %1$d päev tagasi</item>
+        <item quantity="other">viimati uuendatud %1$d päeva tagasi</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="one">viimati uuendatud %1$d tund tagasi</item>
+        <item quantity="other">viimati uuendatud %1$d tundi tagasi</item>
+    </plurals>
+    <string name="a11y_updated_just_now">viimati uuendatud just praegu</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="one">viimati uuendatud %1$d minut tagasi</item>
+        <item quantity="other">viimati uuendatud %1$d minutit tagasi</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">summa peidetud</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_entry">%1$s %2$s, täna väärt %3$s</string>
+    <string name="a11y_portfolio_entry_in">Sissetulev</string>
+    <string name="a11y_portfolio_entry_no_value">väärtus pole saadaval</string>
+    <string name="a11y_portfolio_entry_note">märkus %1$s</string>
+    <string name="a11y_portfolio_entry_out">Väljaminev</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, %3$s portfellist</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, %2$s portfellist, %3$s</string>
+    <string name="a11y_portfolio_positions">Suurimad positsioonid: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">Näita summasid</string>
+    <string name="a11y_compare_chart">Võrdlus protsentides, %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">%1$s 30 päeva tipust</string>
+    <string name="a11y_price_overlay">Hinna ülekate: %1$s</string>
+</resources>

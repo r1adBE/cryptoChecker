@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">ໃຫ້ແນ່ໃຈວ່າສັນຍານເຕືອນມາຮອດ</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">ປົກກະຕິ</string>
+    <string name="delivery_state_warn">ກວດເບິ່ງ</string>
+    <string name="delivery_state_info">ໝາຍເຫດ</string>
+    <string name="delivery_allowed">ອະນຸຍາດແລ້ວ</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">ການແຈ້ງເຕືອນ</string>
+    <string name="delivery_notifications_off">ປິດ – ສັນຍານເຕືອນຈະບໍ່ມາຮອດ</string>
+    <string name="delivery_notifications_not_asked">ຍັງບໍ່ໄດ້ອະນຸຍາດ</string>
+    <string name="delivery_channel">ຊ່ອງສັນຍານເຕືອນ</string>
+    <string name="delivery_channel_high">ສຳຄັນສູງ – ປາກົດຂຶ້ນເທິງໜ້າຈໍ</string>
+    <string name="delivery_channel_low">ສຳຄັນຕ່ຳ – ສັນຍານເຕືອນປາກົດແບບງຽບໆໃນລາຍການເທົ່ານັ້ນ</string>
+    <string name="delivery_channel_off">ປິດແລ້ວ – ສັນຍານເຕືອນຈະບໍ່ມາຮອດ</string>
+    <string name="delivery_exact_on">ເປີດ – ປະມານທຸກໆ 15 ນາທີ</string>
+    <string name="delivery_exact_off">ປິດ – Android ກວດບໍ່ສະໝ່ຳສະເໝີ</string>
+    <string name="delivery_battery">ການເພີ່ມປະສິດທິພາບແບັດເຕີຣີ</string>
+    <string name="delivery_battery_unrestricted">ບໍ່ຈຳກັດ</string>
+    <string name="delivery_battery_optimized">ເພີ່ມປະສິດທິພາບແລ້ວ – Android ອາດເລື່ອນການກວດ. ແອັບບໍ່ຂໍຂໍ້ຍົກເວັ້ນ; ທ່ານສາມາດປ່ຽນໄດ້ໃນການຕັ້ງຄ່າແບັດເຕີຣີຂອງແອັບ.</string>
+    <string name="delivery_background">ການໃຊ້ງານໃນພື້ນຫຼັງ</string>
+    <string name="delivery_background_restricted">ຖືກຈຳກັດ – Android ຢຸດການກວດໃນພື້ນຫຼັງ</string>
+    <string name="delivery_dnd">ຫ້າມລົບກວນ</string>
+    <string name="delivery_dnd_on">ເປີດ – ສັນຍານເຕືອນອາດມາຮອດໂດຍບໍ່ມີສຽງ</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">ເປີດຢູ່ຈົນເຖິງ %1$s – ສັນຍານເຕືອນທີ່ຮອດກຳນົດຈະລໍຖ້າຈົນເຖິງຕອນນັ້ນ</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – ສັນຍານເຕືອນທີ່ຮອດກຳນົດຈະລໍຖ້າໃນຊ່ວງເວລານີ້</string>
+    <string name="delivery_last_check">ການກວດໃນພື້ນຫຼັງຄັ້ງຫຼ້າສຸດ</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – ຫຼາຍກວ່າ 6 ຊົ່ວໂມງກ່ອນ</string>
+    <string name="delivery_last_check_never">ຍັງບໍ່ມີ</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">ອະນຸຍາດ</string>
+    <string name="delivery_action_change">ປ່ຽນ</string>
+    <string name="delivery_action_show">ສະແດງ</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">ແບນເນີ ແລະ ສຽງ</string>
+    <string name="delivery_alert_off">ແບນເນີປິດ – ສັນຍານເຕືອນປາກົດໃນ Notification Center ເທົ່ານັ້ນ</string>
+    <string name="delivery_sound_off">ສຽງປິດ – ສັນຍານເຕືອນມາຮອດແບບງຽບໆ</string>
+    <string name="delivery_time_sensitive">Time Sensitive Notifications</string>
+    <string name="delivery_time_sensitive_off">ປິດ – Focus ອາດກັກສັນຍານເຕືອນໄວ້</string>
+    <string name="delivery_background_refresh">Background App Refresh</string>
+    <string name="delivery_low_power">Low Power Mode</string>
+    <string name="delivery_swipe_away">ປັດແອັບອອກແລ້ວບໍ?</string>
+    <string name="delivery_swipe_away_note">ຖ້າທ່ານປັດແອັບອອກໃນຕົວສະຫຼັບແອັບ, iOS ຈະຢຸດການກວດໃນພື້ນຫຼັງຈົນກວ່າທ່ານຈະເປີດມັນອີກຄັ້ງ.</string>
+    <string name="delivery_live_activity">Live Activity</string>
+    <string name="delivery_live_activity_note">ສະແດງລາຄາໃນ Lock Screen ແຕ່ອັບເດດສະເພາະເມື່ອແອັບກວດເທົ່ານັ້ນ – ມັນບໍ່ໄດ້ເຮັດໃຫ້ສັນຍານເຕືອນກວດເລື້ອຍຂຶ້ນ.</string>
+
+    <string name="alarm_first_check">ກວດເບິ່ງວ່າສັນຍານເຕືອນມາຮອດ</string>
+
+    <string name="oem_battery_title">ຕົວປະຢັດແບັດເຕີຣີຂອງຜູ້ຜະລິດ</string>
+    <string name="oem_battery_xiaomi">Xiaomi ອາດຢຸດແອັບທັງໝົດ – ແລ້ວຈະບໍ່ມີສັນຍານເຕືອນມາຮອດ. ເປີດ “ເລີ່ມອັດຕະໂນມັດ” ແລະ ຕັ້ງຕົວປະຢັດແບັດເຕີຣີເປັນ “ບໍ່ຈຳກັດ”.</string>
+    <string name="oem_battery_samsung">Samsung ອາດໃຫ້ແອັບນອນເລິກ – ແລ້ວຈະບໍ່ມີສັນຍານເຕືອນມາຮອດ. ໃນ ແບັດເຕີຣີ › ຂີດຈຳກັດການໃຊ້ງານໃນພື້ນຫຼັງ, ເພີ່ມມັນໃສ່ “ແອັບທີ່ບໍ່ເຄີຍນອນ”.</string>
+    <string name="oem_battery_huawei">Huawei/Honor ອາດຢຸດແອັບ – ແລ້ວຈະບໍ່ມີສັນຍານເຕືອນມາຮອດ. ໃນ ແບັດເຕີຣີ › ການເປີດແອັບ, ເລືອກ “ຈັດການດ້ວຍຕົນເອງ” ແລະ ອະນຸຍາດທຸກຕົວເລືອກ.</string>
+    <string name="oem_battery_oneplus">OnePlus ອາດຢຸດແອັບ – ແລ້ວຈະບໍ່ມີສັນຍານເຕືອນມາຮອດ. ອະນຸຍາດ “ເປີດອັດຕະໂນມັດ” ແລະ ກິດຈະກຳໃນພື້ນຫຼັງໃນ ການໃຊ້ແບັດເຕີຣີ.</string>
+    <string name="oem_battery_oppo">Oppo/Realme ອາດຢຸດແອັບ – ແລ້ວຈະບໍ່ມີສັນຍານເຕືອນມາຮອດ. ອະນຸຍາດ “ເປີດອັດຕະໂນມັດ” ແລະ ກິດຈະກຳໃນພື້ນຫຼັງໃນ ການໃຊ້ແບັດເຕີຣີ.</string>
+    <string name="oem_battery_vivo">Vivo ອາດຢຸດແອັບ – ແລ້ວຈະບໍ່ມີສັນຍານເຕືອນມາຮອດ. ອະນຸຍາດ “ເລີ່ມອັດຕະໂນມັດ” ແລະ ການໃຊ້ພະລັງງານສູງໃນພື້ນຫຼັງໃນ ແບັດເຕີຣີ.</string>
+    <string name="alarm_reliability_stale">ກວດຫຼ້າສຸດ %1$s – ສັນຍານເຕືອນອາດຊ້າ</string>
+    <string name="alarm_reliability_never">ສັນຍານເຕືອນເປີດ – ຍັງບໍ່ມີການກວດໃນພື້ນຫຼັງ</string>
+    <string name="alarm_reliability_notifications_off">ການແຈ້ງເຕືອນປິດ – ສັນຍານເຕືອນຈະບໍ່ມາຮອດ</string>
+    <string name="alarm_reliability_battery">ການປະຢັດແບັດເຕີຣີອາດຢຸດການກວດສັນຍານເຕືອນ</string>
+    <string name="alarm_reliability_background_refresh">Background App Refresh ປິດ – ສັນຍານເຕືອນອາດບໍ່ມາຮອດ</string>
+</resources>

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">Ajakohane · %1$s</string>
+    <string name="watchlist_empty_title">Paare veel pole</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%1$d / %2$d ilma hinnata</item>
+        <item quantity="other">%1$d / %2$d ilma hinnata</item>
+    </plurals>
+    <string name="watchlist_last_run">Viimane käivitus %1$s</string>
+    <string name="watchlist_live_a11y">Reaalajas hinnad sees</string>
+    <string name="watchlist_offline_since">Ühendus puudub · seis %1$s</string>
+    <string name="watchlist_pull_to_refresh">Värskendamiseks tõmba alla</string>
+    <string name="watchlist_refresh_report">Viimane värskendus</string>
+    <string name="watchlist_refresh_report_empty">Ülevaadet veel pole – täielikku värskendust pole seni toimunud. Puuduta värskendamist ja oota, kuni ring peatub.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%1$d / %2$d aegunud</item>
+        <item quantity="other">%1$d / %2$d aegunud</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">Kõik siinsed paarid on keelatud</string>
+    <string name="watchlist_status_exchange_prices">Sinu börside hinnad · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">Börsihinnad · %1$s</string>
+    <string name="watchlist_status_group_empty">Selles rühmas pole paare</string>
+    <string name="watchlist_status_none_traded">Siin pole kaubeldavaid paare</string>
+    <string name="watchlist_updated">Uuendatud: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">kesk. %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d langeb</item>
+        <item quantity="other">%1$d langeb</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d ilma 24 h väärtuseta</item>
+        <item quantity="other">%1$d ilma 24 h väärtuseta</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d ilma tänase väärtuseta</item>
+        <item quantity="other">%1$d ilma tänase väärtuseta</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d tõuseb</item>
+        <item quantity="other">%1$d tõuseb</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · keelatud</string>
+    <string name="watchlist_row_outdated">%1$s · aegunud</string>
+    <string name="watchlist_row_outdated_age">aegunud · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">Hind muutumatu alates %1$s</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s pole kättesaadav</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">Mine lõppu</string>
+    <string name="watchlist_jump_start">Mine algusesse</string>
+    <string name="watchlist_search_close">Sulge otsing</string>
+    <string name="watchlist_search_empty">Päringule „%1$s“ vasteid pole</string>
+    <string name="watchlist_search_hint">Otsi paari, nime või börsi</string>
+    <string name="watchlist_search_open">Otsi</string>
+    <string name="watchlist_sort_ascending">kasvavalt</string>
+    <string name="watchlist_sort_descending">kahanevalt</string>
+    <string name="watchlist_sort_hint">Hoia ja lohista paari või kasuta pidet. Lemmikud jäävad üles.</string>
+    <string name="watchlist_sort_name">Nimi</string>
+    <string name="watchlist_sort_own">Oma järjestus</string>
+    <string name="watchlist_sort_price">Hind</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">Tühjenda jälgimisloend</string>
+    <string name="watchlist_clear_confirm">Kas eemaldada kõik paarid jälgimisloendist? Koos nendega kustutatakse ka nende hoiatused.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d keelatud</item>
+        <item quantity="other">%1$d keelatud</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">Eemalda</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Kas eemaldada %1$d paar, millega selle börsil enam ei kaubelda? Koos sellega kustutatakse ka selle hoiatused.</item>
+        <item quantity="other">Kas eemaldada %1$d paari, millega nende börsil enam ei kaubelda? Koos nendega kustutatakse ka nende hoiatused.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">Eemalda mittekaubeldavad paarid (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Eemalda mittekaubeldavad paarid</string>
+    <string name="watchlist_removed">%1$s eemaldatud</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d paar eemaldatud</item>
+        <item quantity="other">%1$d paari eemaldatud</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">%1$d mittekaubeldav paar eemaldatud</item>
+        <item quantity="other">%1$d mittekaubeldavat paari eemaldatud</item>
+    </plurals>
+    <string name="watchlist_select">Vali</string>
+    <string name="watchlist_select_all">Vali kõik</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d valitud</item>
+        <item quantity="other">%1$d valitud</item>
+    </plurals>
+    <string name="watchlist_show_all">Näita kõiki</string>
+    <string name="watchlist_show_only_disabled">Näita ainult keelatuid</string>
+    <string name="watchlist_show_only_stale">Näita ainult aegunuid</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Hoiatus (%1$d)</item>
+        <item quantity="other">Hoiatused (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">Lemmikuid veel pole. Pühi paari paremale või ava paar ja puuduta „Lemmik“.</string>
+    <string name="watchlist_group_empty_hint">Rühma paaride valimiseks vajuta rühmale pikalt.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">Siia ilmuvad sinu rühmad</string>
+    <string name="watchlist_notification">Hinnamärguanne</string>
+    <string name="watchlist_tts">Loe hind ette</string>
+    <string name="watchlist_tts_speech_on">Kõneväljund on sees. Saad seda muuta jaotises Seaded › Hoiatused › Kõneväljund.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">Lisa vidinana</string>
+    <string name="watch_action_alarm">Hoiatus</string>
+    <string name="watch_action_favorite">Lemmik</string>
+    <string name="watch_action_why">Mis liigub kaasa?</string>
+    <string name="watch_action_why_short">Mis liigub kaasa?</string>
+    <string name="watch_change_mark">Mark</string>
+    <string name="watch_disable">Keela</string>
+    <string name="watch_disable_hint">Päringuid ega märguandeid pole</string>
+    <string name="watch_disabled">Keelatud</string>
+    <string name="watch_disabled_banner">%1$s keelatud</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">Hoiatused jäävad – kontrolli nende lävesid</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">Muuda paari</string>
+    <string name="watch_enable">Luba</string>
+    <string name="watch_enable_hint">Hinnad ja märguanded jätkuvad</string>
+    <string name="watch_enabled_banner">%1$s lubatud</string>
+    <string name="watch_error_offline">Ühendus puudub</string>
+    <string name="watch_gesture_hint_short">Puuduta: hoiatus ja „Mis liigub kaasa?“ · vajuta pikalt valimiseks · pühi vasakule kustutamiseks · pühi paremale = lemmik</string>
+    <string name="watch_hint_tap_why">Puuduta münti hoiatuste ja „Mis liigub kaasa?“ jaoks</string>
+    <string name="watch_not_traded">Selle börsil enam ei kaubelda</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">Pole jälgimisloendis</string>
+    <string name="watch_price_mid">keskhind (muidu märgistushind)</string>
+    <string name="watch_row_source_both">Muutus ja graafik: %1$s</string>
+    <string name="watch_row_source_change">Muutus: %1$s</string>
+    <string name="watch_row_source_chart">Graafik: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s on nüüd sinu jälgimisloendis</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s on nüüd sinu jälgimisloendis</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">Lisa lemmikutesse</string>
+    <string name="favorite_added">%1$s lisati lemmikutesse</string>
+    <string name="favorite_remove">Eemalda lemmikutest</string>
+    <string name="favorite_removed">%1$s eemaldati lemmikutest</string>
+    <string name="hint_favorites_list">Vihje: pühi rida paremale, et see lemmikuks teha – lemmikud jäävad üles.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">Uus rühm</string>
+    <string name="group_all">Kõik</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Alpha-tokenid</string>
+    <string name="group_delete">Kustuta rühm</string>
+    <string name="group_delete_confirm">Paarid jäävad sinu jälgimisloendisse.</string>
+    <string name="group_done">Valmis</string>
+    <string name="group_edit_title">Muuda rühma</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">Lemmikud</string>
+    <string name="group_in_other">rühmas %1$s</string>
+    <string name="group_name">Rühma nimi</string>
+    <string name="group_new">Uus rühm…</string>
+    <string name="group_next">Edasi</string>
+    <string name="group_none">Rühmata</string>
+    <string name="group_rename">Nimeta ümber</string>
+    <string name="group_search_hint">Otsi paari, nime või börsi</string>
+    <string name="group_target">Rühma</string>
+    <string name="group_title">Rühm</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">Tokenid</string>
+    <string name="group_value">Rühm: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">Lisa märkus</string>
+    <string name="note_edit">Muuda märkust</string>
+    <string name="note_hint">nt sisenemine 0.42 juures, siht 0.60</string>
+    <string name="note_remove">Eemalda</string>
+    <string name="note_title">Märkus</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">Lohista järjestuse muutmiseks</string>
+    <string name="sort_move_bottom">Liiguta päris alla</string>
+    <string name="sort_move_down">Liiguta alla</string>
+    <string name="sort_move_top">Liiguta päris üles</string>
+    <string name="sort_move_up">Liiguta üles</string>
+
+    <string name="watchlist_first_alarm_title">Sea oma esimene hoiatus</string>
+    <string name="watchlist_first_alarm_text">Saa teade, kui hind jõuab sinu läveni – kui rakendus on suletud, kontrollib Android ebaregulaarselt.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">märgistushind (keskhinda pole)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">tunnihind</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">Sea oma esimene hoiatus – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Värskenda (%1$d)</string>
+
+    <!-- Zeile der Merkliste: Börse pausiert (zu viele Anfragen / Zeitüberschreitungen) bis zu einer Uhrzeit, ersetzt die Zeitzeile, z. B. «Binance · pausiert bis 19:45» -->
+    <string name="watchlist_row_exchange_paused">%1$s · peatatud kuni %2$s</string>
+
+    <string name="watchlist_refresh_just_done">Just uuendatud · %1$d s tagasi</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">viimane tehing %1$s</string>
+
+    <string name="change_candle_source_hint">Arvutatud %1$s küünalde põhjal – börs ise seda väärtust ei paku.</string>
+    <string name="change_candle_source_action">Näita muutuse allikat</string>
+
+    <string name="watchlist_sort_by_coin">Sordi mündi järgi</string>
+    <string name="watchlist_sort_by_exchange">Sordi börsi järgi</string>
+    <string name="watchlist_limit_reached">Sinu jälgimisloendis saab olla kuni %1$s paari.</string>
+    <string name="watch_price_reference">viitekurss, iga päev</string>
+    <string name="watch_price_daily">iga päev</string>
+    <string name="watchlist_compare">Võrdle</string>
+    <string name="watchlist_compare_hint">Võrdlemiseks märgi 2 kuni 4 paari.</string>
+    <string name="compare_title">Võrdlus</string>
+    <string name="compare_basis">Jooned näitavad muutust protsentides alates perioodi algusest.</string>
+    <string name="compare_from_high">vs 30 p tipp</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">%1$d paari ei taastatud – jälgimisloend on täis</item>
+        <item quantity="other">%1$d paari ei taastatud – jälgimisloend on täis</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">Jälgimisloendit ja selle hoiatusi praegu ei salvestata. See ja kõik edasised muudatused lähevad rakenduse sulgemisel kaduma. Kas muuta siiski?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">Muuda siiski</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">%1$d paar</item>
+        <item quantity="other">%1$d paari</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">%2$d / %1$d paar</item>
+        <item quantity="other">%2$d / %1$d paari</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">%1$d koht vaba</item>
+        <item quantity="other">%1$d kohta vaba</item>
+    </plurals>
+    <string name="watchlist_footer_full">Jälgimisloend on täis</string>
+</resources>

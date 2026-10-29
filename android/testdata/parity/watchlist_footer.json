@@ -1,0 +1,244 @@
+{
+  "description": "Fusszeile am Ende der Merkliste: Android WatchlistFooter.kt (domain/watch), iOS WatchlistFooter.swift. «shown» = gezeigte Zeilen, «total» = Paare der ganzen Merkliste, «selecting» = Mehrfachauswahl, «max» = Obergrenze (fehlt = WatchlistLimits 2000). «expected» null = keine Fusszeile; «filtered» = «x von y Paaren» statt «x Paare»; «remaining» = freie Plätze nahe der Grenze (0 = Merkliste voll), null = kein Hinweis. «Nahe» = höchstens 10 % der Grenze bzw. 10 Plätze frei, was kleiner ist («nearLimit»).",
+  "maxPairs": 2000,
+  "cases": [
+    {
+      "description": "«Alle»: jedes Paar gezeigt",
+      "shown": 6,
+      "total": 6,
+      "selecting": false,
+      "expected": {
+        "filtered": false,
+        "remaining": null
+      }
+    },
+    {
+      "description": "ein einziges Paar",
+      "shown": 1,
+      "total": 1,
+      "selecting": false,
+      "expected": {
+        "filtered": false,
+        "remaining": null
+      }
+    },
+    {
+      "description": "Gruppe, Filter, ⚡ oder Suche blendet Paare aus: «x von y»",
+      "shown": 6,
+      "total": 42,
+      "selecting": false,
+      "expected": {
+        "filtered": true,
+        "remaining": null
+      }
+    },
+    {
+      "description": "Gruppe mit allen Paaren: nichts ausgeblendet, «6 Paare»",
+      "shown": 6,
+      "total": 6,
+      "selecting": false,
+      "expected": {
+        "filtered": false,
+        "remaining": null
+      }
+    },
+    {
+      "description": "leere Merkliste: Start-Auswahl statt Fusszeile",
+      "shown": 0,
+      "total": 0,
+      "selecting": false,
+      "expected": null
+    },
+    {
+      "description": "leere Ansicht bzw. Suche ohne Treffer: Hinweis statt Fusszeile",
+      "shown": 0,
+      "total": 42,
+      "selecting": false,
+      "expected": null
+    },
+    {
+      "description": "Mehrfachauswahl: unten steht die Leiste",
+      "shown": 6,
+      "total": 42,
+      "selecting": true,
+      "expected": null
+    },
+    {
+      "description": "weit unter der Grenze: kein Hinweis",
+      "shown": 42,
+      "total": 42,
+      "selecting": false,
+      "expected": {
+        "filtered": false,
+        "remaining": null
+      }
+    },
+    {
+      "description": "11 frei: noch kein Hinweis",
+      "shown": 1500,
+      "total": 1989,
+      "selecting": false,
+      "expected": {
+        "filtered": true,
+        "remaining": null
+      }
+    },
+    {
+      "description": "10 frei: Hinweis «noch 10 frei»",
+      "shown": 1990,
+      "total": 1990,
+      "selecting": false,
+      "expected": {
+        "filtered": false,
+        "remaining": 10
+      }
+    },
+    {
+      "description": "5 frei, gefiltert",
+      "shown": 30,
+      "total": 1995,
+      "selecting": false,
+      "expected": {
+        "filtered": true,
+        "remaining": 5
+      }
+    },
+    {
+      "description": "1 frei",
+      "shown": 1999,
+      "total": 1999,
+      "selecting": false,
+      "expected": {
+        "filtered": false,
+        "remaining": 1
+      }
+    },
+    {
+      "description": "voll: «Merkliste voll»",
+      "shown": 2000,
+      "total": 2000,
+      "selecting": false,
+      "expected": {
+        "filtered": false,
+        "remaining": 0
+      }
+    },
+    {
+      "description": "alte Liste über der Grenze: voll, nie negativ",
+      "shown": 2100,
+      "total": 2100,
+      "selecting": false,
+      "expected": {
+        "filtered": false,
+        "remaining": 0
+      }
+    },
+    {
+      "description": "kleine Grenze 50: 10 % = 5 ist kleiner als 10",
+      "shown": 45,
+      "total": 45,
+      "selecting": false,
+      "max": 50,
+      "expected": {
+        "filtered": false,
+        "remaining": 5
+      }
+    },
+    {
+      "description": "kleine Grenze 50: 6 frei ist nicht nahe",
+      "shown": 44,
+      "total": 44,
+      "selecting": false,
+      "max": 50,
+      "expected": {
+        "filtered": false,
+        "remaining": null
+      }
+    },
+    {
+      "description": "Grenze 100: 10 % = 10",
+      "shown": 90,
+      "total": 90,
+      "selecting": false,
+      "max": 100,
+      "expected": {
+        "filtered": false,
+        "remaining": 10
+      }
+    },
+    {
+      "description": "Grenze 9: 10 % abgerundet = 0, erst voll zeigt den Hinweis",
+      "shown": 8,
+      "total": 8,
+      "selecting": false,
+      "max": 9,
+      "expected": {
+        "filtered": false,
+        "remaining": null
+      }
+    },
+    {
+      "description": "Grenze 9, voll",
+      "shown": 9,
+      "total": 9,
+      "selecting": false,
+      "max": 9,
+      "expected": {
+        "filtered": false,
+        "remaining": 0
+      }
+    }
+  ],
+  "nearLimit": [
+    {
+      "free": 10,
+      "max": 2000,
+      "expected": true
+    },
+    {
+      "free": 11,
+      "max": 2000,
+      "expected": false
+    },
+    {
+      "free": 0,
+      "max": 2000,
+      "expected": true
+    },
+    {
+      "free": 5,
+      "max": 50,
+      "expected": true
+    },
+    {
+      "free": 6,
+      "max": 50,
+      "expected": false
+    },
+    {
+      "free": 10,
+      "max": 100,
+      "expected": true
+    },
+    {
+      "free": 11,
+      "max": 100,
+      "expected": false
+    },
+    {
+      "free": 0,
+      "max": 9,
+      "expected": true
+    },
+    {
+      "free": 1,
+      "max": 9,
+      "expected": false
+    },
+    {
+      "free": 200,
+      "max": 2000,
+      "expected": false
+    }
+  ]
+}

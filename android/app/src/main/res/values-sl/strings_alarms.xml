@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">Nastavi alarm</string>
+    <string name="alarms_add">Nov alarm</string>
+    <string name="alarms_edit">Uredi alarm</string>
+    <string name="alarms_empty">Za ta par še ni alarmov.</string>
+    <string name="alarms_empty_example">Na primer: Sporoči mi, ko BTC naraste nad %1$s.</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">Obvestila so izklopljena – alarmi ne pridejo do tebe.</string>
+    <string name="alarms_notifications_turn_on">Vklopi</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">%1$d aktiven</item>
+        <item quantity="two">%1$d aktivna</item>
+        <item quantity="few">%1$d aktivni</item>
+        <item quantity="other">%1$d aktivnih</item>
+    </plurals>
+    <string name="alarms_overview_empty">Še ni alarmov. Odpri par in ga dodaj pod „Alarmi“.</string>
+    <string name="alarms_overview_title">Vsi alarmi</string>
+    <string name="alarms_title">Alarmi</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">Napredno</string>
+    <string name="alarm_change_updates">Spremeni posodabljanje tečajev</string>
+    <string name="alarm_create">Ustvari alarm</string>
+    <string name="alarm_currency_label">Valuta</string>
+    <string name="alarm_delete_confirm">Ta alarm bo odstranjen.</string>
+    <string name="alarm_delete_title">Izbrišem alarm?</string>
+    <string name="alarm_field_percent">Odstotek</string>
+    <string name="alarm_field_price">Tečaj</string>
+    <string name="alarm_fires_now_above">Tečaj je že nad %1$s. Vseeno shranim?</string>
+    <string name="alarm_fires_now_below">Tečaj je že pod %1$s. Vseeno shranim?</string>
+    <string name="alarm_fires_now_change">Spremeni</string>
+    <string name="alarm_fires_now_save">Vseeno shrani</string>
+    <string name="alarm_fires_now_title">Alarm bi se sprožil takoj</string>
+    <string name="alarm_first_battery_hint">Optimizacija baterije omejuje aplikacijo – alarmi lahko pridejo pozneje.</string>
+    <string name="alarm_first_title">Alarm shranjen</string>
+    <string name="alarm_last_triggered">nazadnje %1$s</string>
+    <string name="alarm_more_conditions">Več pogojev</string>
+    <string name="alarm_new_extreme">Nov %1$s</string>
+    <string name="alarm_once">Enkrat</string>
+    <string name="alarm_option_repeating">Sporoči</string>
+    <string name="alarm_option_sound">Zvok</string>
+    <string name="alarm_option_speak">Preberi alarm na glas</string>
+    <string name="alarm_option_vibrate">Vibriranje</string>
+    <string name="alarm_repeat_each">Vsakič</string>
+    <string name="alarm_repeat_once">Enkrat</string>
+    <string name="alarm_repeating">Vsakič</string>
+    <string name="alarm_threshold_error_empty">Vnesi vrednost, da shraniš alarm.</string>
+    <string name="alarm_threshold_error_funding">Funding mora biti število med −10 in +10 odstotki.</string>
+    <string name="alarm_threshold_error_invalid">Vnesi veljavno število, večje od 0.</string>
+    <string name="alarm_threshold_error_oi">Sprememba open interesta: največ 1000 odstotkov.</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">v %1$d h</item>
+        <item quantity="two">v %1$d h</item>
+        <item quantity="few">v %1$d h</item>
+        <item quantity="other">v %1$d h</item>
+    </plurals>
+    <string name="alarm_window_label">Časovno okno</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">naraste nad</string>
+    <string name="alarm_simple_below">pade pod</string>
+    <string name="alarm_simple_end"></string>
+    <string name="alarm_simple_when">Ko %1$s</string>
+    <string name="alarm_template_a11y">Ustvari alarm: %1$s</string>
+    <string name="alarm_template_a11y_down">Ustvari alarm pri minus %1$s odstotka od trenutnega tečaja</string>
+    <string name="alarm_template_a11y_up">Ustvari alarm pri plus %1$s odstotka od trenutnega tečaja</string>
+    <string name="alarm_template_from_now">od zdaj</string>
+    <string name="alarm_template_volume">Volumen ×%1$s</string>
+    <string name="alarm_templates_title">Hitri alarmi</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">Tečaj nad</string>
+    <string name="alarm_condition_below">Tečaj pod</string>
+    <string name="alarm_condition_down_percent">Pade za</string>
+    <string name="alarm_condition_funding_above">Funding nad</string>
+    <string name="alarm_condition_funding_below">Funding pod</string>
+    <string name="alarm_condition_move_percent">Se premakne za</string>
+    <string name="alarm_condition_near_high">Blizu maksimuma</string>
+    <string name="alarm_condition_near_low">Blizu minimuma</string>
+    <string name="alarm_condition_oi_down">Open interest pada</string>
+    <string name="alarm_condition_oi_up">Open interest raste</string>
+    <string name="alarm_condition_up_percent">Naraste za</string>
+    <string name="alarm_condition_volume_spike">Skok volumna</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">Sporoči mi, ko %1$s naraste nad %2$s.</string>
+    <string name="alarm_sentence_below">Sporoči mi, ko %1$s pade pod %2$s.</string>
+    <string name="alarm_sentence_down_percent">Sporoči mi, ko %1$s pade za %2$s pod tečaj ob shranjevanju (oz. ob zadnjem alarmu).</string>
+    <string name="alarm_sentence_funding_above">Sporoči mi, ko funding za %1$s naraste nad %2$s.</string>
+    <string name="alarm_sentence_funding_below">Sporoči mi, ko funding za %1$s pade pod %2$s.</string>
+    <string name="alarm_sentence_incomplete">Vnesi vrednost in alarm bo tukaj zapisan kot stavek.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">Sporoči mi, ko se %1$s v %3$d uri premakne za %2$s.</item>
+        <item quantity="two">Sporoči mi, ko se %1$s v %3$d urah premakne za %2$s.</item>
+        <item quantity="few">Sporoči mi, ko se %1$s v %3$d urah premakne za %2$s.</item>
+        <item quantity="other">Sporoči mi, ko se %1$s v %3$d urah premakne za %2$s.</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">Sporoči mi, ko je %1$s največ %2$s pod svojim %3$s.</string>
+    <string name="alarm_sentence_near_low">Sporoči mi, ko je %1$s največ %2$s nad svojim %3$s.</string>
+    <string name="alarm_sentence_new_extreme">Sporoči mi, ko %1$s doseže nov %2$s.</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">Sporoči mi, ko open interest za %1$s v %3$d uri pade za %2$s.</item>
+        <item quantity="two">Sporoči mi, ko open interest za %1$s v %3$d urah pade za %2$s.</item>
+        <item quantity="few">Sporoči mi, ko open interest za %1$s v %3$d urah pade za %2$s.</item>
+        <item quantity="other">Sporoči mi, ko open interest za %1$s v %3$d urah pade za %2$s.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">Sporoči mi, ko open interest za %1$s v %3$d uri naraste za %2$s.</item>
+        <item quantity="two">Sporoči mi, ko open interest za %1$s v %3$d urah naraste za %2$s.</item>
+        <item quantity="few">Sporoči mi, ko open interest za %1$s v %3$d urah naraste za %2$s.</item>
+        <item quantity="other">Sporoči mi, ko open interest za %1$s v %3$d urah naraste za %2$s.</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">Sporoči mi, ko %1$s naraste za %2$s nad tečaj ob shranjevanju (oz. ob zadnjem alarmu).</string>
+    <string name="alarm_sentence_volume">Sporoči mi, ko se z %1$s trguje %2$s× več kot običajno.</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">30-dnevni maksimum</string>
+    <string name="alarm_near_extreme_high_365">letni maksimum</string>
+    <string name="alarm_near_extreme_high_90">90-dnevni maksimum</string>
+    <string name="alarm_near_extreme_low_30">30-dnevni minimum</string>
+    <string name="alarm_near_extreme_low_365">letni minimum</string>
+    <string name="alarm_near_extreme_low_90">90-dnevni minimum</string>
+    <string name="alarm_near_field_distance">Razdalja</string>
+    <string name="alarm_near_hint">Sporoči tudi ob novem maksimumu ali minimumu. Osnova so dnevne sveče, osvežene vsakih 6 ur.</string>
+    <string name="alarm_near_new_only">Samo ob novem maksimumu ali minimumu</string>
+    <string name="alarm_near_notification_high">%1$s je %2$s pod svojim %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s je %2$s nad svojim %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">Nov %1$s za %2$s: %3$s (prej %4$s)</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d dan</item>
+        <item quantity="two">%1$d dneva</item>
+        <item quantity="few">%1$d dnevi</item>
+        <item quantity="other">%1$d dni</item>
+    </plurals>
+    <string name="alarm_near_window_label">Obdobje</string>
+    <string name="alarm_near_window_year">1 leto</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">Funding na 8 ur. Pogodbe z drugim intervalom se preračunajo (1 h × 8, 4 h × 2); kartica Futures prikaže preračunano vrednost. Če interval ni znan, alarm ne preverja. Negativno pomeni: shorti plačujejo longom. ± zamenja predznak.</string>
+    <string name="alarm_funding_sign_a11y">Zamenjaj predznak</string>
+    <string name="alarm_oi_hint">Primerja open interest z vrednostjo, shranjeno pred toliko urami. Nov alarm sporoči šele, ko aplikacija toliko časa zbira vrednosti; preverja se največ vsakih 5 minut.</string>
+    <string name="alarm_volume_factor_label">Volumen zadnje ure v primerjavi z običajnim</string>
+    <string name="alarm_volume_hint">Podatki o volumnu so z Binance – pari, ki tam niso uvrščeni, se nikoli ne sprožijo.</string>
+    <string name="alarm_volume_zero_hours_hint">Ure brez trgovanja štejejo z volumnom 0, zato je lahko pri malo trgovanih parih običajna ura videti nenavadna.</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">Alarm aktiven</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">Alarm shranjen: %1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">Obvestila izklopljena</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">Brez „%1$s“ Android med mirovanjem naprave preverja neredno – včasih šele po urah. S tem približno vsakih 15 minut.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Ko je aplikacija zaprta, iOS pogosto preveri pozneje kot v 15 minutah, včasih šele ob naslednjem odprtju. Kratki skoki lahko manjkajo.</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">Kdaj se alarmi preverjajo</string>
+    <string name="alarm_timing_where">Kako pogosto se tečaji posodabljajo, nastaviš v %1$s.</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">Tiho (samo obvestilo)</string>
+    <string name="alarm_signal_sound">Samo zvok</string>
+    <string name="alarm_signal_sound_vibrate">Zvok in vibriranje</string>
+    <string name="alarm_signal_system">Sistem</string>
+    <string name="alarm_signal_vibrate">Samo vibriranje</string>
+    <string name="alarm_test">Preizkusi alarm</string>
+    <string name="alarm_test_action">Preizkusi</string>
+    <string name="alarm_test_denied">Obvestila za Crypto Checker so izklopljena.</string>
+    <string name="alarm_test_hint">Pošlje vzorčni alarm s tvojimi nastavitvami zvoka, vibriranja in govora.</string>
+    <string name="alarm_test_open_settings">Odpri nastavitve</string>
+    <string name="alarm_test_quiet">Trenutno je nočni mir: pravi alarmi bi počakali do konca in se nato oglasili z zvokom.</string>
+    <string name="alarm_test_text">Tako je alarm videti in tako zveni.</string>
+    <string name="alarm_test_title">Preizkus: alarm Crypto Checker</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">Zvok vklopljen</string>
+    <string name="alarm_a11y_speak_on">Govor vklopljen</string>
+    <string name="alarm_unchecked_no_candles">Ni bilo mogoče preveriti (ni podatkov o poteku)</string>
+    <string name="alarm_unchecked_no_rate">Ni bilo mogoče preveriti (ni deviznega tečaja)</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">Obvestila izklopljena – ta alarm ne pride do tebe</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">Brez alarma – nizka likvidnost</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">Čaka na trenutni tečaj</string>
+    <string name="alarm_enter_amount">Vnesi vrednost</string>
+    <string name="alarm_editor_more">Več</string>
+    <string name="alarm_editor_more_summary">Hitri alarmi, drugi pogoji, zvok in govor</string>
+    <string name="alarm_reliability_storage_no_key">Alarmi v ozadju zaustavljeni – seznam ni shranjen</string>
+    <string name="alarms_limit_reached">Par ima lahko največ %1$s alarmov.</string>
+    <string name="alarms_reference_rate_hint">Referenčni tečaji ECB se določijo samo enkrat na dan – zanje ni alarmov.</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">Padec mora biti manjši od 100 odstotkov.</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">Meja ni veljavna – prilagodi jo</string>
+
+    <string name="alarm_last_checked">Nazadnje preverjeno %1$s</string>
+</resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Կոիններ ընտրված չեն</string>
+    <string name="watch_loading">Բեռնվում է…</string>
+    <string name="watch_error">Բորսաները հասանելի չեն</string>
+    <string name="watch_updated">Առ %1$s</string>
+    <string name="watch_refresh">Թարմացնել</string>
+    <string name="watch_choose">Ընտրել կոիններ</string>
+    <string name="watch_choose_hint">Կոիններ՝ առավելագույնը %1$d</string>
+    <string name="watch_complication_label">Գին</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s 24 ժամում</string>
+    <string name="watch_mode_phone">Ցանկ՝ ինչպես հեռախոսում</string>
+    <string name="watch_mode_own">Ցանկ՝ սեփական</string>
+    <string name="watch_phone_empty">Հեռախոսում ընտրյալներ չկան</string>
+    <string name="a11y_watch_outdated">Գինը հնացած է</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">վերջին թարմացումը՝ %1$d րոպե առաջ</item>
+        <item quantity="other">վերջին թարմացումը՝ %1$d րոպե առաջ</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">վերջին թարմացումը՝ %1$d ժամ առաջ</item>
+        <item quantity="other">վերջին թարմացումը՝ %1$d ժամ առաջ</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">վերջին թարմացումը՝ %1$d օր առաջ</item>
+        <item quantity="other">վերջին թարմացումը՝ %1$d օր առաջ</item>
+    </plurals>
+</resources>

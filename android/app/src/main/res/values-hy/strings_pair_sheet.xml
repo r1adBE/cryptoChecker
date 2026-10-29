@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s %2$s-ում</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">Փակում</string>
+    <string name="sheet_chart_converted_current">%1$s, փոխարկված (ընթացիկ փոխարժեք)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, փոխարկված օրական փոխարժեքներով</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">Այս զույգի համար գնային տվյալներ չկան</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">Բացում</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">Այսօր</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">Ծավ. %1$s</string>
+    <string name="sheet_more">Ավելին</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Ask</string>
+    <string name="ticker_bid">Bid</string>
+    <string name="explain_bid_ask">Bid-ը այն ամենաբարձր գինն է, որ գնորդներն առաջարկում են հիմա, ask-ը՝ ամենացածր գինը, որ վաճառողները կընդունեն։</string>
+    <string name="ticker_high">Առավելագույն</string>
+    <string name="ticker_low">Նվազագույն</string>
+    <string name="ticker_timestamp">Ժամանակ</string>
+    <string name="ticker_vol_base">Ծավալ (կոիններով)</string>
+    <string name="ticker_vol_quote">Ծավալ (գնանշման արժույթով)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (սարքի ժամային գոտի)</string>
+    <string name="change_basis_local">00:00 տեղական ժամից ի վեր</string>
+    <string name="change_basis_rolling">Վերջին 24 ժամ</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">Վերջին թարմացումից ի վեր</string>
+    <string name="change_basis_utc_zone">00:00 %1$s-ից ի վեր</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">Փոփոխությունը՝ %1$s-ի մոմերից</string>
+    <string name="change_short_since_last">վերջին թարմացում</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">այսօր</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">այսօր %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="exchange_data_empty_error">Բորսայից տվյալներ չեն ստացվել։</string>
+    <string name="market_data_summary">Շուկայական կապիտալացում, gas միջնորդավճարներ, տնտեսական տվյալներ, կոինի վերլուծություն</string>
+    <string name="market_data_tab_futures">Ֆյուչերսներ</string>
+    <string name="market_data_title">Շուկայական տվյալներ</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">Շրջանառվող առաջարկ</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">Շուկայական կապիտալացում</string>
+    <string name="spot_max_supply">Առավելագույն առաջարկ</string>
+    <string name="spot_no_data">Այս կոինի համար սպոտ տվյալներ չկան</string>
+    <string name="spot_source_updated">Աղբյուր՝ %1$s · առ %2$s</string>
+    <string name="spot_supply_of_max">Առավելագույն առաջարկի %1$s-ը շրջանառության մեջ է</string>
+    <string name="spot_total_supply">Ընդհանուր առաջարկ</string>
+    <string name="spot_vol_mcap">Ծավալ/Կապ.</string>
+    <string name="spot_volume_24h">Ծավալ (24 ժ)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">Հղում՝ %1$s</string>
+    <string name="futures_funding">Ֆանդինգի դրույք</string>
+    <string name="futures_funding_interval_unknown">միջակայքն անհայտ է</string>
+    <string name="futures_funding_per8h_equiv">= %1$s 8 ժամում (ինչպես ահազանգերում)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">ժամում</string>
+    <string name="futures_funding_per_hours">%1$d ժամում</string>
+    <string name="futures_next_funding">հաջորդը՝ %1$d ժ %2$d րոպեից</string>
+    <string name="futures_no_data">Այս կոինի համար ֆյուչերսների տվյալներ չկան</string>
+    <string name="futures_open_interest">Բաց հետաքրքրություն</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">Հղում՝ %1$s-ից – ֆանդինգը և բաց հետաքրքրությունը տարբերվում են ըստ բորսայի. %2$s-ում դրանք կարող են տարբեր լինել։</string>
+    <string name="futures_reference_spot">Հղում՝ %1$s-ից (կոինի USDT perpetual-ը)</string>
+    <string name="futures_source">Աղբյուր՝ %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">Շատ թրեյդերներ փոխառու գումարով խաղադրույք են անում գնի աճի կամ անկման վրա։ Վճար լոնգ և շորթ դիրքերի միջև։ Խիստ դրականը նշանակում է, որ շատերը խաղադրույք են անում գնի աճի վրա։</string>
+    <string name="explain_open_interest">Ֆյուչերսները խաղադրույքներ են գնի վրա, հաճախ փոխառու գումարով։ Բոլոր բաց ֆյուչերսային դիրքերի արժեքը։ Եթե այն աճում է, ավելի շատ գումար է խաղադրվում շարժման վրա։</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Բացատրություն</string>
+    <string name="explain_spot_fdv">Լիովին նոսրացված գնահատում՝ գին × առավելագույն առաջարկ (կամ ընդհանուր առաջարկ, եթե սահման չկա)։</string>
+    <string name="explain_spot_market_cap">Գին × շրջանառվող առաջարկ։ Պիտակը ցույց է տալիս դրա փոփոխությունը 24 ժամում։</string>
+    <string name="explain_spot_source">Թվերը՝ բոլոր բորսաներով, ԱՄՆ դոլարով, CoinGecko-ից։</string>
+    <string name="explain_spot_supply">Շրջանառվող՝ կոիններ, որոնք հիմա շուկայում են։ Ընդհանուր՝ ստեղծված բոլոր կոինները՝ հանած այրվածները։ Առավելագույն՝ որքան կարող է երբևէ գոյություն ունենալ։</string>
+    <string name="explain_spot_volume">24 ժամում առևտրված արժեքը։ Ծավալ/Կապ.՝ ծավալը շուկայական կապիտալացման նկատմամբ — բարձրը նշանակում է շատ ակտիվ առևտուր։</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · փոխարժեք %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">Մեծ տարբերություն գնման և վաճառքի գների միջև (%1$s)</string>
+
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">Պատմությունը՝ %1$s-ով, փոխարկված %2$s-ի այսօրվա փոխարժեքով</string>
+    <string name="converted_unsure">Փոխարկումն անվստահելի է</string>
+</resources>

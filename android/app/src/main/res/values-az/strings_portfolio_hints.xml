@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">Portfel alarmları dayandırılıb: %1$s üçün cari qiymət yoxdur</string>
+    <string name="portfolio_alarms_paused_price_generic">Portfel alarmları dayandırılıb: hər koinin cari qiyməti yoxdur</string>
+    <string name="portfolio_alarms_paused_addresses">Portfel alarmları dayandırılıb: izlənən ünvanların balansları hələ yüklənməyib</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Portfel alarmları dayandırılıb: %1$s üçün token balansları qismən köhnəlib</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Portfel alarmları dayandırılıb: izlənən ünvanların token balansları qismən köhnəlib</string>
+    <string name="portfolio_alarms_paused_unverified">Portfel alarmları dayandırılıb: %1$s üçün qiymət təsdiqlənməyib</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Portfel alarmları dayandırılıb: bəzi koinlərin qiyməti təsdiqlənməyib</string>
+    <string name="portfolio_alarms_address_failing">Portfel alarmları %1$s olmadan yoxlanılır: balans 24 saatdan çoxdur yüklənmir</string>
+    <string name="portfolio_alarms_address_failing_generic">Portfel alarmları balansı 24 saatdan çoxdur yüklənməyən ünvanlar olmadan yoxlanılır</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">tokenlər qismən köhnəlib</string>
+    <string name="portfolio_address_restore_failed">Ünvan bərpa edilə bilmədi – lazım olsa, yenidən əlavə et</string>
+    <string name="portfolio_address_remove_failed">Ünvan silinə bilmədi – yenidən cəhd et</string>
+</resources>

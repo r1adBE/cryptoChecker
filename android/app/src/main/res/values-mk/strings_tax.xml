@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
+    <string name="portfolio_cutoff_export_action">Извоз на клучен датум…</string>
+    <string name="portfolio_tax_worksheet_action">Работен лист…</string>
+    <string name="portfolio_export_address_unobserved">адресата не е набљудувана на овој датум – не е вклучена</string>
+    <string name="portfolio_export_button">Извези CSV</string>
+    <string name="portfolio_export_col_amount">Износ</string>
+    <string name="portfolio_export_col_coin">Монета</string>
+    <string name="portfolio_export_col_note">Белешка</string>
+    <string name="portfolio_export_col_price">Цена USDT</string>
+    <string name="portfolio_export_col_rate">Курс USDT→%1$s</string>
+    <string name="portfolio_export_col_value">Вредност USDT</string>
+    <string name="portfolio_export_col_value_cur">Вредност %1$s</string>
+    <!-- Inhalt der CSV-Datei -->
+    <string name="portfolio_export_comment"># Клучен датум %1$s, валута %2$s, девизен курс од %3$s</string>
+    <string name="portfolio_export_currency">Валута: %1$s</string>
+    <string name="portfolio_export_date">Клучен датум</string>
+    <string name="portfolio_export_done">Извозот е зачуван</string>
+    <string name="portfolio_export_estv_note">За данокот на имот важат официјалните вредности на крајот на годината од ценовникот на ESTV %1$s каде што се наведени: %2$s</string>
+    <string name="portfolio_export_failed">Извозот не успеа</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">Извозот не успеа: датотеката не можеше да се запише – локацијата за зачувување ја нема или не е запишлива</string>
+    <string name="portfolio_export_failed_prices">Извозот не успеа: цените не можеа да се вчитаат – нема врска или берзата не одговара</string>
+    <string name="portfolio_export_from_address">од адреса – нема набавна цена</string>
+    <string name="portfolio_export_hint">Средства на крајот на избраниот ден, вреднувани по дневното затворање (UTC) во USDT и конвертирани со референтниот курс на ЕЦБ за тој ден. Валутата ја менуваш со „Конвертирај во“.</string>
+    <string name="portfolio_export_incomplete">нецелосно</string>
+    <string name="portfolio_export_no_fx">нема девизен курс</string>
+    <string name="portfolio_export_no_price">нема цена</string>
+    <string name="portfolio_export_running">Се преземаат историски цени…</string>
+    <string name="portfolio_export_title">Извоз на клучен датум</string>
+    <string name="portfolio_export_today_hint">Денешниот ден уште не е завршен: наместо дневното затворање се користи тековната цена.</string>
+    <string name="portfolio_export_total">Вкупно</string>
+    <string name="portfolio_export_unchecked">непроверено (нема соодветна цена)</string>
+
+    <!-- Steuer-Export (Arbeitspapier) -->
+    <string name="tax_export_adjustment">superficial loss (додадено на ACB)</string>
+    <string name="tax_export_at_wallet_note">Австрија: подвижен просек по монета и паричник (берза) – трансферите го носат трошокот – награди по набавна вредност 0 – средства од 1 март 2021 без провизии (не се одбиваат) – камата од позајмување по вредност при примањето (приход по 27,5 проценти).</string>
+    <string name="tax_export_avg_cost_rates">трошок по курсевите на датумот на купување (просек)</string>
+    <string name="tax_export_ch_wealth_not_calculated">Данокот на имот не е пресметан – ценовник на ESTV: %1$s</string>
+    <string name="tax_export_col_acquired">Стекнато</string>
+    <string name="tax_export_col_adjustment">Непризната загуба %1$s</string>
+    <string name="tax_export_col_cost">Трошок %1$s</string>
+    <string name="tax_export_col_date">Датум</string>
+    <string name="tax_export_col_days">Денови поседување</string>
+    <string name="tax_export_col_gain">Добивка %1$s</string>
+    <string name="tax_export_col_gross">Цена пред провизии %1$s</string>
+    <string name="tax_export_col_long_term">поседувано &gt; 1 година</string>
+    <string name="tax_export_col_portfolio_value">Вредност на портфолиото %1$s</string>
+    <string name="tax_export_col_proceeds">Приход %1$s</string>
+    <string name="tax_export_col_sold">Продадено</string>
+    <string name="tax_export_cost_incomplete">вкупниот набавен трошок е нецелосен</string>
+    <string name="tax_export_cost_missing">недостасува набавна цена</string>
+    <string name="tax_export_fee_consumed">Провизијата го троши целиот прием</string>
+    <string name="tax_export_fee_leg">провизија во друга монета</string>
+    <string name="tax_export_fee_row">Провизија</string>
+    <string name="tax_export_fee_value_missing">провизијата во друга монета нема вредност</string>
+    <string name="tax_export_gains">Реализирани отуѓувања (CSV)</string>
+    <string name="tax_export_gains_title">Реализирани отуѓувања %1$s</string>
+    <string name="tax_export_gift">Подарок</string>
+    <string name="tax_export_holdings_cutoff">Средства на %1$s (CSV)</string>
+    <string name="tax_export_holdings_title">Средства на %1$s</string>
+    <string name="tax_export_income">Приход (CSV)</string>
+    <string name="tax_export_income_title">Приход %1$s</string>
+    <string name="tax_export_info_template">Шаблон: %1$s · Метод: %2$s · Даночна година: %3$s · Валута: %4$s · Crypto Checker %5$s</string>
+    <string name="tax_export_lost_fee_cost">трошок за мрежна провизија без платен лот</string>
+    <string name="tax_export_match_pool">Section 104 pool</string>
+    <string name="tax_export_match_same_day">ист ден (HMRC)</string>
+    <string name="tax_export_match_thirty_day">правило од 30 дена (HMRC)</string>
+    <string name="tax_export_method_change_warning">Промената на методот или шаблонот ги пресметува повторно и поранешните години – спореди со она што веќе е пријавено.</string>
+    <string name="tax_export_method_overridden">Шаблонот пресметува %1$s – не %2$s</string>
+    <string name="tax_export_new_holding">стекнато од 1 март 2021</string>
+    <string name="tax_export_no">не</string>
+    <string name="tax_export_old_holding">стекнато пред 1 март 2021</string>
+    <string name="tax_export_oversold">продадено повеќе од евидентираното</string>
+    <string name="tax_export_payment">Плаќање со крипто</string>
+    <string name="tax_export_period">%1$s – %2$s</string>
+    <string name="tax_export_proceeds_missing">недостасува продажна цена</string>
+    <string name="tax_export_proceeds_without_cost">Приход без набавна цена</string>
+    <string name="tax_export_realized_differs">Даночниот CSV може да се разликува од ‘реализирано’ (даночните правила на државата).</string>
+    <string name="tax_export_rule">&gt; 1 година: продадено по датумот на купување + 1 календарска година. Датуми во локално време. Курсеви: дневен курс на ЕЦБ на денот на трансакцијата; ако го нема, последниот курс до 7 дена претходно.</string>
+    <string name="tax_export_rules_date">Правила со состојба: %1$s</string>
+    <string name="tax_export_rules_stale">Правилата се од %1$s – за %2$s стапките и олеснувањата можеби се променети. Провери ги вредностите.</string>
+    <string name="tax_export_spouse_gift">на сопружник/партнер – ни добивка, ни загуба</string>
+    <string name="tax_export_summary">Годишен преглед %1$s (CSV)</string>
+    <string name="tax_export_swap">замена</string>
+    <string name="tax_export_tax_year">Даночна година</string>
+    <string name="tax_export_transfer_fee_info">Провизија за трансфер во USDT/готовина – не е загуба, не е во набавната вредност, само информација</string>
+    <string name="tax_export_unassigned_fee">провизијата не е доделена – набавната вредност е непозната</string>
+    <string name="tax_export_usdt_usd_note">USDT конвертиран по дневното затворање USDT/USD; 1 USD каде што нема затворање (означено по ред)</string>
+    <string name="tax_export_value_estimated">Вредноста е проценета (дневно затворање)</string>
+    <string name="tax_export_value_missing">недостасува вредноста при примањето</string>
+    <string name="tax_export_wallet">Паричник: %1$s</string>
+    <string name="tax_export_wallet_unspecified">не е наведено</string>
+    <string name="tax_export_withdrawal_fee">Провизија за повлекување</string>
+    <string name="tax_export_withdrawal_fee_info">Провизија за повлекување во USDT/готовина – не е загуба, само информација</string>
+    <string name="tax_export_workpaper_disclaimer">Даночен работен лист – не е даночна пријава и не е даночен совет</string>
+    <string name="tax_export_workpaper_title">Работен лист</string>
+    <string name="tax_export_year_local_zone">Датуми во локално време (%1$s)</string>
+    <string name="tax_export_yes">да</string>
+
+    <!-- Steuer-Export: Zeilen und Spalten -->
+    <string name="tax_line_at_interest">Камата од позајмување (вредност при примањето)</string>
+    <string name="tax_line_at_old_long">Стекнато пред 1 март 2021 – поседувано &gt; 1 година: обично не е оданочливо – провери</string>
+    <string name="tax_line_at_rate">Посебна стапка 27,5 проценти: нето стекнато од 1 март 2021 и продадено од 1 март 2022 + камата</string>
+    <string name="tax_line_au_discounted">Нето капитална добивка по загубите и попустот од 50 проценти</string>
+    <string name="tax_line_ca_taxable">Оданочлива капитална добивка (стапка на вклучување 1/2)</string>
+    <string name="tax_line_ch_income">Наградите се наведени – за нивниот третман види го работниот документ на ESTV</string>
+    <string name="tax_line_ch_private">Капитални добивки од приватен имот: не се пресметани – за класификација види ESTV</string>
+    <string name="tax_line_ch_wealth">Данок на имот: не е пресметан – CSV на средства користи цена на берза × USD/CHF на 31 дек. – официјални даночни вредности: ценовник на ESTV</string>
+    <string name="tax_line_de_long">Поседувано &gt; 1 година: обично не е оданочливо според § 23 EStG – провери</string>
+    <string name="tax_line_denied_loss">Непризнати загуби (superficial loss)</string>
+    <string name="tax_line_fr_outflow">Одливи без продажба (повлекувања) – вкупниот набавен трошок пропорционално намален</string>
+    <string name="tax_line_fr_rate">Паушална стапка 12,8 проценти плус социјални придонеси (или скала по избор)</string>
+    <string name="tax_line_fr_threshold">Отуѓувања до 305 € годишно: генерално ослободени (збир на продажните цени) – провери</string>
+    <string name="tax_line_gains">Добивки</string>
+    <string name="tax_line_income">Приход (награди по вредност при примањето)</string>
+    <string name="tax_line_jp_misc">Разни приходи (雑所得): нето добивки + приход</string>
+    <string name="tax_line_long_net">Нето – поседувано &gt; 1 година</string>
+    <string name="tax_line_losses">Загуби</string>
+    <string name="tax_line_net">Нето добивки/загуби</string>
+    <string name="tax_line_new_net">Нето – стекнато од 1 март 2021, продадено од 1 март 2022</string>
+    <string name="tax_line_old_long_net">Нето – стекнато пред 1 март 2021 – поседувано &gt; 1 година</string>
+    <string name="tax_line_old_short_net">Нето – шпекулативни трансакции (поранешен закон): стекнато пред 1 март 2021 и поседувано ≤ 1 година, или продадено пред 1 март 2022</string>
+    <string name="tax_line_proceeds">Приход</string>
+    <string name="tax_line_short_net">Нето – поседувано ≤ 1 година</string>
+    <string name="tax_line_transfer_fees">Провизии за трансфер (сопствени паричници)</string>
+    <string name="tax_line_uk_after_exempt">Нето добивки над ослободениот износ (само крипто)</string>
+    <string name="tax_line_uk_exempt">Годишен ослободен износ – важи за сите отуѓувања заедно, тука целосно применет</string>
+    <string name="tax_line_us_terms">Краткорочно (≤ 1 година): обични стапки – долгорочно (&gt; 1 година): стапки за капитална добивка</string>
+    <string name="tax_line_withdrawal_fees">Провизии за повлекување</string>
+
+    <!-- Steuer Deutschland -->
+    <string name="tax_de_below">под границата</string>
+    <string name="tax_de_col_item">Ставка</string>
+    <string name="tax_de_disclaimer">Само за ориентација – не е даночна пријава и не е даночен совет.</string>
+    <string name="tax_de_explain_below">До %1$s: под границата (за ориентација).</string>
+    <string name="tax_de_explain_loss">Нето загуба: нема данок на овие продажби. Загубите според § 23 EStG се пребиваат само со добивки од приватни продажби – во истата година или со пренос назад во претходната година и пренос напред во следните години (§ 23 ст. 3 и § 10d EStG). Пријави ја загубата во даночната пријава за да биде утврдена.</string>
+    <string name="tax_de_explain_reached">Од %1$s се брои целиот износ (граница на ослободување – не е олеснување).</string>
+    <string name="tax_de_explain_unknown">Не може да се провери: недостасуваат девизни курсеви / набавни цени или периоди на поседување.</string>
+    <string name="tax_de_income_limit">Граница на ослободување за услуги (§ 22 бр. 3 EStG)</string>
+    <string name="tax_de_limit_scope">Границите важат за сите приватни продажби или услуги во годината заедно – вклучително и надвор од апликацијата.</string>
+    <string name="tax_de_loading">Се пресметува…</string>
+    <string name="tax_de_long_gains">Добивки – поседувано &gt; 1 година</string>
+    <string name="tax_de_long_losses">Загуби – поседувано &gt; 1 година</string>
+    <string name="tax_de_loss">нето загуба – може да се пребие само со добивки од приватни продажби (§ 23 EStG)</string>
+    <string name="tax_de_private_limit">Граница на ослободување за приватни продажби (§ 23 EStG)</string>
+    <string name="tax_de_reached">границата е достигната – обично се брои целиот износ – провери</string>
+    <string name="tax_de_short_gains">Добивки – поседувано ≤ 1 година</string>
+    <string name="tax_de_short_losses">Загуби – поседувано ≤ 1 година</string>
+    <string name="tax_de_unclassified">Период на поседување непознат</string>
+    <string name="tax_de_unknown">не може да се провери</string>
+
+    <!-- Steuer-Vorlagen je Land -->
+    <string name="tax_template_at">Австрија</string>
+    <string name="tax_template_au">Австралија</string>
+    <string name="tax_template_beta">Бета</string>
+    <string name="tax_template_beta_note">Бета: поедноставени правила на државата, провери пред да поднесеш даночна пријава</string>
+    <string name="tax_template_ca">Канада</string>
+    <string name="tax_template_ch">Швајцарија</string>
+    <string name="tax_template_confirm_text">Бета, поедноставени правила, недостасуваат трансакции од други платформи – провери пред да поднесеш даночна пријава.</string>
+    <string name="tax_template_confirm_title">Даночен шаблон (бета)</string>
+    <string name="tax_template_current">Шаблон: %1$s · Метод: %2$s · Валута: %3$s</string>
+    <string name="tax_template_de">Германија</string>
+    <string name="tax_template_fr">Франција</string>
+    <string name="tax_template_hint">Само за ориентација: ги одредува методот, даночната година и прегледот на даночниот работен лист. Картичката Портфолио останува неутрална – подароците и провизиите за трансфер може да се разликуваат од работниот лист.</string>
+    <string name="tax_template_jp">Јапонија</string>
+    <string name="tax_template_neutral">Неутрално (сите држави)</string>
+    <string name="tax_template_suggestion">Предлог за твојот регион: %1$s</string>
+    <string name="tax_template_title">Даночен шаблон</string>
+    <string name="tax_template_uk">Обединето Кралство</string>
+    <string name="tax_template_us">САД</string>
+    <string name="tax_template_use">Користи %1$s</string>
+
+    <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
+    <string name="tax_method_at">Стари/нови средства – подвижен просек</string>
+    <string name="tax_method_ca_acb">ACB просечен трошок (superficial loss)</string>
+    <string name="tax_method_fr_pta">Вкупна набавна цена (art. 150 VH bis)</string>
+    <string name="tax_method_jp_total">Вкупен просек (総平均法)</string>
+    <string name="tax_method_uk_pool">Section 104 pool (ист ден / 30 дена)</string>
+    <string name="tax_note_at">Подвижен просек по монета и паричник – не низ паричници (KryptowährungsVO § 2). Наградите влегуваат во новите средства по набавна вредност 0 (BMF: стејкинг / airdrop-и) – датотеката за приход ги наведува по вредност при примањето. Провизиите не се одбиваат за средства стекнати од 1 март 2021 (§ 27a(4) бр. 2, § 20(2) EStG): трошок и приход без провизии. Каматата од позајмување (тип од CSV-увозот или белешката) е приход при примањето по 27,5 проценти и ја задржува таа вредност како набавен трошок.</string>
+    <string name="tax_note_at_staking">Стејкинг со монети што веќе ги поседуваш и airdrop-и: вредноста при примањето не е важна за данокот – според законот набавниот трошок е 0 (§ 27b Abs. 2 EStG; BMF „Kryptowährungen“). Данок се плаќа само кога продаваш.</string>
+    <string name="tax_note_fr">Продажбите и провизиите платени во крипто се отуѓувања – замените се одложени. Крипто-провизија при продажба се брои во цената пред провизии – инаку е посебно отуѓување по својата вредност. Вредност на портфолиото од дневни затворања – недостасувачко затворање го остава трошокот празен.</string>
+    <string name="tax_note_network_fee">Мрежна провизија платена во крипто (трансфер во сопствен паричник, повлекување) е отуѓување на монетите за провизија по пазарна вредност – добивка или загуба само на тие монети, не загуба на целата провизија (%1$s). Без евидентирана цена: дневно затворање (UTC) на истиот ден; без затворање приходот останува празен.</string>
+    <string name="tax_note_specific_id">Специфичната идентификација не е поддржана – се користи FIFO.</string>
+    <string name="tax_note_spouse_gift">Подарок означен „на сопружник / животен партнер“ не е ни добивка ни загуба: приход = твојата набавна вредност, која ја презема твојот партнер (%1$s).</string>
+    <string name="tax_note_stable_swap">Продажба на крипто за стејблкоин (USDT/USDC/DAI …) што го задржуваш тука е крипто-во-крипто и не се оданочува – евидентирај ја како замена во стејблкоинот. Се оданочува само продажба за евра – „Продај“ се смета за продажба за евра.</string>
+    <string name="tax_note_transfer_fee">Истото важи за провизија во USDT или готовина при трансфер меѓу твоите паричници: не се додава на набавната вредност и се наведува само како информација.</string>
+    <string name="tax_note_uk">Спарување според HMRC: ист ден → следните 30 дена → Section 104 pool.</string>
+    <string name="tax_note_us_transition">Премин 1 јан. 2025 (Rev. Proc. 2024-28 safe harbor): ако во поранешните години се користело FIFO низ сите паричници, преостанатите лотови на 31 дек. 2024 одат во паричниците што ги држат монетите – паричникот со најстарите монети ја добива најстарата набавна вредност. Оваа распределба е правило на апликацијата – провери ја според твоите сопствени евиденции.</string>
+    <string name="tax_note_us_wallet">Од даночната 2025 година IRS бара набавна вредност по паричник или берза (Rev. Proc. 2024-28): извозот користи FIFO по паричник од 2025 – за поранешните години FIFO низ сите паричници, или FIFO по паричник ако тоа е твојот метод на трошок.</string>
+    <string name="tax_note_withdrawal_fee">Провизијата за повлекување во USDT или готовина не е загуба: провизијата во готовина не е одбивлив трошок, провизијата во USDT е отуѓување по номинала без добивка – се наведува само како информација (%1$s).</string>
+    <string name="tax_summary_at_interest_income">се брои: приход при примањето по посебна стапка од 27,5 проценти (§ 27b(2) бр. 1 EStG / BMF) – монетите ја задржуваат оваа вредност како набавен трошок</string>
+    <string name="tax_summary_at_reward_info">само за информација – не е дел од ниеден збир: наградите влегуваат во новите средства по набавен трошок 0 и се оданочуваат дури при продажба (веќе во добивките) – § 27b ст. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">1 јан.–28 фев. 2022: можна опција за 27,5 проценти</string>
+    <string name="tax_summary_at_withdrawal_fee">Провизија за повлекување – не се пребива со новите средства (трошоците не се одбиваат по посебната стапка, § 20(2) EStG)</string>
+    <string name="tax_summary_ch_fifo_info">само за информација – FIFO-пресметката на апликацијата – не е класифицирано – види ESTV</string>
+    <string name="tax_summary_ch_year_end_value">вредноста на 31 дек. во CSV на средства = цена на берза × USD/CHF – не даночните вредности на ESTV</string>
+    <string name="tax_summary_de_withdrawal_fee">Провизија за повлекување – не се пребива според § 23, провери дали се одбива како трошок за остварување приход</string>
+    <string name="tax_summary_not_calculated_estv">не е пресметано – ценовник на ESTV: %1$s</string>
+    <string name="tax_summary_orientation">Ориентација</string>
+    <string name="tax_summary_orientation_block">Само за ориентација – не е даночен совет – не е утврдување</string>
+    <string name="tax_summary_orientation_item">Ориентација: %1$s</string>
+    <string name="tax_summary_title">Годишен преглед %1$s %2$s</string>
+    <string name="tax_summary_transfer_fee_info">Провизии за трансфер во USDT/готовина – не се загуба и не се во набавната вредност, само информација</string>
+    <string name="tax_summary_withdrawal_fee_info">Провизии за повлекување во USDT/готовина – не се бројат како загуба, само информација</string>
+
+    <string name="tax_line_at_old_speculation_limit">Шпекулативни трансакции (поранешен закон, поседувано ≤ 1 година): граница на ослободување (§ 31 (3) EStG стара верзија)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">Камата од позајмување пред 1 март 2022 (вредност при примањето)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">Камата пред 1 март 2022: стар закон (стапка на данок на доход), не 27,5 проценти</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">пред 1 март 2022 – провери со стручно лице</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">Камата – оданочлива при примањето</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">Стејкинг – само за информација (набавен трошок 0, се оданочува при продажба)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">Вкупна камата (оданочлива)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">Вкупен стејкинг (информација)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">Нето капитална загуба (пренос напред)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">без опција: ги вклучува продажбите од 1 јан.–28 фев. 2022</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">Стејкинг пред 1 март 2022: набавниот трошок е поставен на 0 – провери со стручно лице</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">Правилото од 30 дена сè уште може да ги промени овие бројки (купувања до %1$s)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Приход пред провизии над границата за пријавување (£50,000; 2020/21–2022/23: £49,200): пријави до HMRC ако имаш регистрација за Self Assessment, дури и без оданочлива добивка</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">Вредност на имотот 31 дек. %1$s (ориентација)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">Меродавен е ценовникот на ESTV (ictax.admin.ch). За монети што не се на листата генерално важи цената на затворање на берзата. Данокот на имот не е пресметан.</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – поседување %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">не е пресметано</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">Следените адреси не можеа да се прочитаат – нивните салда недостасуваат во оваа датотека</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">Лотовите на следените адреси се бројат од нивниот датум на купување; ако денешното салдо на адресата е пониско, тие се намалуваат.</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">Следените адреси се бројат во вкупната вредност, но немаат набавен трошок – затоа добивката веројатно е превисока. Евидентирај го трошокот како купување.</string>
+    <string name="tax_summary_fr_rewards_income">Износот претпоставува дека наградите биле оданочени како приход при примањето (вредноста при примањето во набавниот трошок) – инаку набавен трошок 0 би било претпазливото толкување.</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">Пазарни вредности без евидентирана цена (провизии, подароци/плаќања, замени, награди, мрежни провизии, вредност на портфолиото) по дневното затворање (UTC) на денот на трансакцијата</string>
+</resources>

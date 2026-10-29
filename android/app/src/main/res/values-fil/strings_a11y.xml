@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">Na-trigger ang alerto</string>
+    <string name="a11y_collapsed">Naka-collapse</string>
+    <string name="a11y_converted">mga %1$s</string>
+    <string name="a11y_expanded">Naka-expand</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">bubukas sa browser</string>
+    <string name="a11y_favorite">Paborito</string>
+    <string name="a11y_in_watchlist">Nasa watchlist na</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_exchange_unreachable">Hindi maabot ang %1$s</string>
+    <string name="a11y_move_down">Ibaba</string>
+    <string name="a11y_move_up">Itaas</string>
+    <string name="a11y_note">tala: %1$s</string>
+    <string name="a11y_price">presyo %1$s</string>
+    <string name="a11y_price_notification_off">Naka-off ang notification ng presyo</string>
+    <string name="a11y_price_notification_on">Naka-on ang notification ng presyo</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">Luma na ang presyo</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s sa %2$s</string>
+    <string name="a11y_stale">luma na, huling update %1$s</string>
+    <string name="a11y_warning">Babala</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">%1$s sa loob ng 24 na oras</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">Walang available na pagbabago sa 24 na oras</string>
+    <string name="a11y_change_down">bumaba nang %1$s</string>
+    <string name="a11y_change_flat">walang pagbabago</string>
+    <string name="a11y_change_since_last">%1$s mula sa huling update</string>
+    <string name="a11y_change_since_last_none">Walang available na pagbabago mula sa huling update</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">%1$s ngayong araw</string>
+    <string name="a11y_change_today_none">Walang available na pagbabago ngayong araw</string>
+    <string name="a11y_change_today_zone">%1$s mula hatinggabi %2$s</string>
+    <string name="a11y_change_today_zone_none">Walang available na pagbabago mula hatinggabi %1$s</string>
+    <string name="a11y_change_up">tumaas nang %1$s</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Chart %1$s: mula %2$s hanggang %3$s, %4$s. Pinakamataas %5$s, pinakamababa %6$s.</string>
+    <string name="a11y_chart_empty">Chart: walang data</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Cycle %1$s: %2$s mula sa halving, araw %3$d.</string>
+    <string name="a11y_cycle_bottom">Bottom %1$s sa araw %2$d.</string>
+    <string name="a11y_cycle_double_bottom">Double bottom %1$s sa araw %2$d.</string>
+    <string name="a11y_cycle_double_top">Double top %1$s sa araw %2$d.</string>
+    <string name="a11y_cycle_top">Top %1$s sa araw %2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">Iskala mula %1$s hanggang %2$s: %3$d sa 100</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, sa average %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d ang bumababa</item>
+        <item quantity="other">%1$d ang bumababa</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="one">%1$d pares ang walang value sa 24 na oras</item>
+        <item quantity="other">%1$d pares ang walang value sa 24 na oras</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d pares ang walang value ngayong araw</item>
+        <item quantity="other">%1$d pares ang walang value ngayong araw</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d pares ang tumataas</item>
+        <item quantity="other">%1$d pares ang tumataas</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="one">huling na-update %1$d araw ang nakalipas</item>
+        <item quantity="other">huling na-update %1$d araw ang nakalipas</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="one">huling na-update %1$d oras ang nakalipas</item>
+        <item quantity="other">huling na-update %1$d oras ang nakalipas</item>
+    </plurals>
+    <string name="a11y_updated_just_now">kaka-update lang</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="one">huling na-update %1$d minuto ang nakalipas</item>
+        <item quantity="other">huling na-update %1$d minuto ang nakalipas</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">nakatago ang halaga</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_entry">%1$s %2$s, nagkakahalaga ng %3$s ngayon</string>
+    <string name="a11y_portfolio_entry_in">Papasok</string>
+    <string name="a11y_portfolio_entry_no_value">walang available na value</string>
+    <string name="a11y_portfolio_entry_note">tala %1$s</string>
+    <string name="a11y_portfolio_entry_out">Palabas</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, %3$s ng portfolio</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, %2$s ng portfolio, %3$s</string>
+    <string name="a11y_portfolio_positions">Pinakamalalaking posisyon: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">Ipakita ang mga halaga</string>
+    <string name="a11y_compare_chart">Paghahambing sa porsiyento, %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">%1$s mula sa pinakamataas sa 30 araw</string>
+    <string name="a11y_price_overlay">Overlay ng presyo: %1$s</string>
+</resources>

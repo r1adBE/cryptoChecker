@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%2$sలో %1$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">ముగింపు</string>
+    <string name="sheet_chart_converted_current">%1$s, మార్చబడింది (ప్రస్తుత రేటు)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, రోజువారీ రేట్లతో మార్చబడింది</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">ఈ జతకు ధర డేటా లేదు</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">ప్రారంభం</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">ఈరోజు</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">వాల్. %1$s</string>
+    <string name="sheet_more">మరిన్ని</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Ask</string>
+    <string name="ticker_bid">Bid</string>
+    <string name="explain_bid_ask">Bid అంటే కొనుగోలుదారులు ప్రస్తుతం ఇస్తున్న అత్యధిక ధర, Ask అంటే అమ్మకందారులు అంగీకరించే అత్యల్ప ధర.</string>
+    <string name="ticker_high">గరిష్ఠం</string>
+    <string name="ticker_low">కనిష్ఠం</string>
+    <string name="ticker_timestamp">సమయం</string>
+    <string name="ticker_vol_base">వాల్యూమ్ (కాయిన్‌లలో)</string>
+    <string name="ticker_vol_quote">వాల్యూమ్ (కోట్ కరెన్సీలో)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (పరికరం టైమ్ జోన్)</string>
+    <string name="change_basis_local">స్థానిక సమయం 00:00 నుండి</string>
+    <string name="change_basis_rolling">గత 24 గంటలు</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">చివరి అప్‌డేట్ నుండి</string>
+    <string name="change_basis_utc_zone">00:00 %1$s నుండి</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">%1$s క్యాండిల్‌ల నుండి మార్పు</string>
+    <string name="change_short_since_last">చివరి అప్‌డేట్</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">ఈరోజు</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">ఈరోజు %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="exchange_data_empty_error">ఎక్స్ఛేంజ్ నుండి డేటా ఏదీ అందలేదు.</string>
+    <string name="market_data_summary">మార్కెట్ క్యాప్, gas ఫీజులు, ఆర్థిక డేటా, కాయిన్ విశ్లేషణ</string>
+    <string name="market_data_tab_futures">ఫ్యూచర్స్</string>
+    <string name="market_data_title">మార్కెట్ డేటా</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">చలామణిలో ఉన్న సరఫరా</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">మార్కెట్ క్యాప్</string>
+    <string name="spot_max_supply">గరిష్ఠ సరఫరా</string>
+    <string name="spot_no_data">ఈ కాయిన్‌కు స్పాట్ డేటా లేదు</string>
+    <string name="spot_source_updated">మూలం: %1$s · %2$s నాటికి</string>
+    <string name="spot_supply_of_max">గరిష్ఠ సరఫరాలో %1$s చలామణిలో ఉంది</string>
+    <string name="spot_total_supply">మొత్తం సరఫరా</string>
+    <string name="spot_vol_mcap">వాల్./మార్కెట్ క్యాప్</string>
+    <string name="spot_volume_24h">వాల్యూమ్ (24 గం)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">రిఫరెన్స్: %1$s</string>
+    <string name="futures_funding">ఫండింగ్ రేటు</string>
+    <string name="futures_funding_interval_unknown">వ్యవధి తెలియదు</string>
+    <string name="futures_funding_per8h_equiv">= 8 గంటలకు %1$s (అలర్ట్‌లలో లాగా)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">గంటకు</string>
+    <string name="futures_funding_per_hours">%1$d గంటలకు</string>
+    <string name="futures_next_funding">తదుపరిది %1$d గం %2$d ని.లో</string>
+    <string name="futures_no_data">ఈ కాయిన్‌కు ఫ్యూచర్స్ డేటా లేదు</string>
+    <string name="futures_open_interest">ఓపెన్ ఇంట్రెస్ట్</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">%1$s నుండి రిఫరెన్స్ – ఫండింగ్, ఓపెన్ ఇంట్రెస్ట్ ఒక్కో ఎక్స్ఛేంజ్‌లో వేర్వేరుగా ఉంటాయి; %2$sలో అవి భిన్నంగా ఉండవచ్చు.</string>
+    <string name="futures_reference_spot">%1$s నుండి రిఫరెన్స్ (కాయిన్ USDT పెర్పెచువల్)</string>
+    <string name="futures_source">మూలం: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">చాలా మంది ట్రేడర్‌లు అప్పు తీసుకున్న డబ్బుతో ధరలు పెరుగుతాయని లేదా తగ్గుతాయని పందెం కాస్తారు. లాంగ్, షార్ట్ పొజిషన్‌ల మధ్య ఫీజు. బలంగా పాజిటివ్ అంటే చాలా మంది ధరలు పెరుగుతాయని పందెం కాస్తున్నారు.</string>
+    <string name="explain_open_interest">ఫ్యూచర్స్ అంటే ధరపై పందేలు, తరచుగా అప్పు తీసుకున్న డబ్బుతో. ఓపెన్‌గా ఉన్న అన్ని ఫ్యూచర్స్ పొజిషన్‌ల విలువ. ఇది పెరిగితే, ఎక్కువ డబ్బు ఆ కదలికపై పందెం కాస్తోంది.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">వివరణ</string>
+    <string name="explain_spot_fdv">పూర్తిగా డైల్యూట్ చేసిన విలువ: ధర × గరిష్ఠ సరఫరా (పరిమితి లేకపోతే మొత్తం సరఫరా).</string>
+    <string name="explain_spot_market_cap">ధర × చలామణిలో ఉన్న సరఫరా. 24 గంటల్లో దాని మార్పును ఈ గుర్తు చూపుతుంది.</string>
+    <string name="explain_spot_source">అన్ని ఎక్స్ఛేంజ్‌లలోని గణాంకాలు అమెరికన్ డాలర్లలో, CoinGecko నుండి.</string>
+    <string name="explain_spot_supply">చలామణిలో: ప్రస్తుతం మార్కెట్‌లో ఉన్న కాయిన్‌లు. మొత్తం: సృష్టించిన అన్ని కాయిన్‌లు, బర్న్ చేసినవి మినహా. గరిష్ఠం: ఎప్పటికైనా ఉండగలిగే అత్యధిక సంఖ్య.</string>
+    <string name="explain_spot_volume">24 గంటల్లో ట్రేడ్ అయిన విలువ. వాల్./మార్కెట్ క్యాప్: మార్కెట్ క్యాప్‌తో పోలిస్తే వాల్యూమ్ — ఎక్కువగా ఉంటే చాలా చురుకైన ట్రేడింగ్.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · రేటు %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">కొనుగోలు, అమ్మకం ధరల మధ్య పెద్ద అంతరం (%1$s)</string>
+
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">%1$sలో చరిత్ర, ఈరోజు రేటుతో %2$sకు మార్చబడింది</string>
+    <string name="converted_unsure">మార్పిడి అనిశ్చితం</string>
+</resources>

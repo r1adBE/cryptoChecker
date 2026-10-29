@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">Онымен бірге не қозғалады?</string>
+    <string name="why_all_values">Барлық мән мен дереккөз</string>
+    <string name="why_all_values_hint">Бақылау · Ықтимал түсіндірме · Дереккөздер</string>
+    <string name="why_details">Толығырақ көрсету</string>
+    <string name="why_details_hide">Толығырақ жасыру</string>
+    <string name="why_disclaimer">Нарық деректерінен автоматты бағалау: бір уақытта не болып жатқанын көрсетеді, себептің дәлелі емес.</string>
+    <string name="why_footer_short">Бір уақытта болу себеп дегенді білдірмейді · Инвестициялық кеңес емес</string>
+    <string name="why_no_data">Бұл жұп үшін Binance-тен дерек жоқ</string>
+    <string name="why_no_data_hint">Баға, көлем және құбылмалылық Binance сағаттық шамдарынан алынады.</string>
+    <string name="why_ref_alts">Альттар</string>
+    <string name="why_section_context">Ықтимал түсіндірме</string>
+    <string name="why_section_observation">Бақылау</string>
+    <string name="why_title">Онымен бірге не қозғалады?</string>
+    <string name="why_title_coin">%1$s-мен бірге не қозғалады?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">Қысқаша · %1$s жағдайы бойынша</string>
+    <string name="why_brief_label">Қысқаша:</string>
+    <string name="why_summary_against">Монета нарыққа қарсы қозғалуда.</string>
+    <string name="why_summary_calm">Назар аударарлық қозғалыс жоқ: нарық пен монета тыныш.</string>
+    <string name="why_summary_coin">Тек осы монета қозғалуда – тек осы монетаға қатысты бірдеңе болуы мүмкін.</string>
+    <string name="why_summary_coin_volume">Тек осы монета жоғары көлеммен қозғалуда – тек осы монетаға қатысты бірдеңе болуы мүмкін.</string>
+    <string name="why_summary_longs">Фьючерстер: левереджді лонг позициялар көп.</string>
+    <string name="why_summary_market">Қозғалыс уақыт жағынан жалпы нарыққа сәйкес келеді.</string>
+    <string name="why_summary_market_volume">Қозғалыс жоғары сауда көлемімен және кең қозғалған нарықпен тұспа-тұс келеді.</string>
+    <string name="why_summary_peg_near">Бағам 1:1 байланысына жақын.</string>
+    <string name="why_summary_peg_off">Бағам 1:1 байланысынан айтарлықтай ауытқиды.</string>
+    <string name="why_summary_shorts">Фьючерстер: шорт позициялар көп.</string>
+    <string name="why_summary_thin">Қозғалыс әлсіз: оның артында көлем аз.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">Нарыққа қарсы</string>
+    <string name="why_f_coin_only">Тек осы монета</string>
+    <string name="why_f_leader">Bitcoin нарық көшбасшысы ретінде</string>
+    <string name="why_f_leverage_balanced">Левередж теңгерімді</string>
+    <string name="why_f_leverage_longs">Левередж: лонгтар көп</string>
+    <string name="why_f_leverage_shorts">Левередж: шорттар көп</string>
+    <string name="why_f_market_calm">Тыныш нарық</string>
+    <string name="why_f_market_wide">Бүкіл нарық қозғалуда</string>
+    <string name="why_factor_funding">Фандинг</string>
+    <string name="why_factor_futures">Фьючерстер</string>
+    <string name="why_factor_market">Жалпы нарық</string>
+    <string name="why_factor_near_high">Шыңға жақын</string>
+    <string name="why_factor_near_low">Түпке жақын</string>
+    <string name="why_factor_peg">Байланыс (1:1)</string>
+    <string name="why_factor_range3d">3 күндік диапазон</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">бағаланған</string>
+    <string name="why_fn_funding_longs">көбі өсуге бәс тігуде</string>
+    <string name="why_fn_funding_neutral">бейтарап</string>
+    <string name="why_fn_funding_shorts">көбі құлдырауға бәс тігуде</string>
+    <string name="why_fn_high_at">30 күндік шыңда</string>
+    <string name="why_fn_high_below">30 күндік шыңнан төмен</string>
+    <string name="why_fn_leader_calm">Bitcoin тыныш</string>
+    <string name="why_fn_leader_moves">Bitcoin айқын қозғалуда</string>
+    <string name="why_fn_low_above">30 күндік түптен жоғары</string>
+    <string name="why_fn_low_at">30 күндік түпте</string>
+    <string name="why_fn_market_against">Бұл монета нарыққа қарсы қозғалуда</string>
+    <string name="why_fn_market_alone">Нарық тыныш – бұл монета өз бетінше қозғалуда</string>
+    <string name="why_fn_market_calm">Нарық тыныш</string>
+    <string name="why_fn_market_lags">Нарық қозғалуда, бұл монета әрең</string>
+    <string name="why_fn_market_moves">Нарық сол бағытта қозғалуда</string>
+    <string name="why_fn_market_pulls">Нарық BTC-мен бірге қозғалуда</string>
+    <string name="why_fn_oi_down">Ашық позициялар азайды</string>
+    <string name="why_fn_oi_flat">Ашық позициялар әрең өзгерді</string>
+    <string name="why_fn_oi_mixed">Ашық позициялар аралас</string>
+    <string name="why_fn_oi_up">Ашық позициялар көбейді</string>
+    <string name="why_fn_peg_above">1:1 байланысынан %1$s жоғары</string>
+    <string name="why_fn_peg_below">1:1 байланысынан %1$s төмен</string>
+    <string name="why_fn_peg_near">1:1 байланысына жақын</string>
+    <string name="why_fn_range_above_low">3 күндік түптен бері</string>
+    <string name="why_fn_range_below_high">3 күндік шыңнан бері</string>
+    <string name="why_fn_range_near_high">3 күндік шыңға жақын</string>
+    <string name="why_fn_range_near_low">3 күндік түпке жақын</string>
+    <string name="why_fn_volatility_stronger">әдеттегіден күштірек</string>
+    <string name="why_fn_volatility_tiny">абсолютті мәнде аз (%1$s-ден төмен)</string>
+    <string name="why_fn_volatility_usual">әдеттегідей</string>
+    <string name="why_fn_volume_higher">әдеттегіден жоғары</string>
+    <string name="why_fn_volume_lower">әдеттегіден төмен</string>
+    <string name="why_fn_volume_usual">әдеттегідей</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">Бұл монета %1$s, BTC 24 сағатта %2$s — айтарлықтай дербес қозғалыс.</string>
+    <string name="why_against_ref_text">Бұл монета %1$s, %2$s 24 сағатта %3$s — айтарлықтай дербес қозғалыс.</string>
+    <string name="why_btc_independent">%1$s қазір Bitcoin-нен тәуелсіз қозғалуда.</string>
+    <string name="why_btc_tight">%1$s қазір Bitcoin-мен тығыз бірге қозғалуда.</string>
+    <string name="why_change_1h">1 сағ</string>
+    <string name="why_change_24h">24 сағ</string>
+    <string name="why_coin_only_text">Нарық тыныш кезде 24 сағатта %1$s – тек осы монетаға қатысты бірдеңе болуы мүмкін.</string>
+    <string name="why_leverage_balanced_text">Фьючерс нарығында лонг немесе шорт позициялардың шоғырлануы жоқ.</string>
+    <string name="why_leverage_longs_text">Көбі қарызға алған ақшамен өсуге бәс тігуде. Лонгтар шорттарға төлейді — бағам төмендесе, ликвидациялар қаупі жоғары.</string>
+    <string name="why_leverage_shorts_text">Көбі қарызға алған ақшамен құлдырауға бәс тігуде. Шорттар лонгтарға төлейді – бағам өссе, шорт-сквиз болуы мүмкін.</string>
+    <string name="why_market_calm_text">Бұл монета: 24 сағатта %1$s. Нарық та, монета да көп қозғалмайды.</string>
+    <string name="why_market_leader_text">Ең ірі монета ретінде BTC әдетте нарықтың қалған бөлігімен бірге қозғалады. ETH: 24 сағатта %1$s.</string>
+    <string name="why_market_leader_text_no_eth">Ең ірі монета ретінде BTC әдетте нарықтың қалған бөлігімен бірге қозғалады.</string>
+    <string name="why_market_similar_text">Бұл монета: 24 сағатта %1$s – сонымен бір уақытта нарық та сол бағытта, бірақ әлсізірек қозғалуда.</string>
+    <string name="why_market_wide_text">Бұл монета: 24 сағатта %1$s – сонымен бір уақытта жалпы нарық айқын қозғалуда.</string>
+    <string name="why_open_interest_change">Соңғы тексеруден бері ашық позициялар %1$s.</string>
+    <string name="why_peg_text">Стейблкоин: котировка валютасына 1:1 байланысымен салыстырғанда ауытқу %1$s.</string>
+    <string name="why_sentiment_text">Бүкіл крипто нарығының Fear &amp; Greed индексі, кешемен салыстырғанда %1$s.</string>
+    <string name="why_sentiment_text_no_change">Бүкіл крипто нарығының Fear &amp; Greed индексі.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="one">%1$d сағат бойы төмендеуде</item>
+        <item quantity="other">%1$d сағат бойы төмендеуде</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="one">%1$d сағат бойы өсуде</item>
+        <item quantity="other">%1$d сағат бойы өсуде</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="one">%1$d сағат бойы тұрақты</item>
+        <item quantity="other">%1$d сағат бойы тұрақты</item>
+    </plurals>
+    <string name="why_volatility_high_text">Соңғы сағат: %1$s — соңғы 24 сағаттың әдеттегі сағаттық ауытқуымен салыстырғанда.</string>
+    <string name="why_volatility_normal_text">Соңғы сағат: %1$s — әдеттегі шекте.</string>
+    <string name="why_volatility_tiny_text">Соңғы сағат: %1$s — бұл монета үшін әдеттен тыс, бірақ абсолютті мәнде аз.</string>
+    <string name="why_volume_estimated_text">Бағаланған: бұл дереккөз айналымды бермейді, сондықтан саудаланған монета мөлшерлері салыстырылады.</string>
+    <string name="why_volume_high_text">Соңғы сағатта сауда әдеттегіден әлдеқайда көп – қозғалыс жоғары көлеммен жүруде.</string>
+    <string name="why_volume_low_text">Қозғалыстың артында сауда аз – мұндай қозғалыстар көбіне тұрақсыз.</string>
+    <string name="why_volume_normal_text">Соңғы сағаттағы сауда соңғы 24 сағатқа сәйкес.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">жоғарылаған</string>
+    <string name="why_dot_neutral">бейтарап</string>
+    <string name="why_dot_supports">қозғалысқа сәйкес</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">Деректер %1$s жағдайы бойынша</string>
+    <string name="why_fresh_breadth">Нарық кеңдігі: %1$s · %2$s</string>
+    <string name="why_fresh_candles">Шамдар: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">Фьючерстер: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="one">ашық позициялар %1$d сағат бұрынғымен салыстырғанда</item>
+        <item quantity="other">ашық позициялар %1$d сағат бұрынғымен салыстырғанда</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="one">ашық позициялар %1$d минут бұрынғымен салыстырғанда</item>
+        <item quantity="other">ашық позициялар %1$d минут бұрынғымен салыстырғанда</item>
+    </plurals>
+    <string name="why_fresh_today">бүгін</string>
+    <string name="why_fresh_yesterday">кеше</string>
+    <string name="why_source_fallback">%1$s (резерв)</string>
+    <string name="why_source_reference">%1$s (анықтама)</string>
+    <string name="why_sources">Дереккөздер: биржаның сағаттық шамдары (негізінен Binance), биржалардың фьючерс деректері, alternative.me-ден Fear &amp; Greed.</string>
+    <string name="why_sources_list">Дереккөздер: %1$s.</string>
+    <string name="why_src_breadth">%1$s (нарық кеңдігі)</string>
+    <string name="why_src_candles">%1$s (шамдар)</string>
+    <string name="why_src_comparison">%1$s (нарықпен салыстыру)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (фьючерстер)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Фандинг</string>
+    <string name="factor_spoken_volatility">әдеттегі ауытқудан %1$s есе</string>
+    <string name="factor_spoken_volume">қалыптыдан %1$s есе</string>
+    <string name="factor_volatility">Құбылмалылық (1 сағ)</string>
+    <string name="factor_volume">Көлем</string>
+</resources>

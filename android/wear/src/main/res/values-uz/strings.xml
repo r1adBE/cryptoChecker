@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Tanga tanlanmagan</string>
+    <string name="watch_loading">Yuklanmoqda…</string>
+    <string name="watch_error">Birjalar javob bermayapti</string>
+    <string name="watch_updated">%1$s holatiga</string>
+    <string name="watch_refresh">Yangilash</string>
+    <string name="watch_choose">Tanga tanlash</string>
+    <string name="watch_choose_hint">Tangalar: koʻpi bilan %1$d</string>
+    <string name="watch_complication_label">Kurs</string>
+    <string name="a11y_watch_row">%1$s %2$s, 24 soatda %3$s</string>
+    <string name="watch_mode_phone">Roʻyxat: telefondagidek</string>
+    <string name="watch_mode_own">Roʻyxat: alohida</string>
+    <string name="watch_phone_empty">Telefonda sevimlilar yoʻq</string>
+    <string name="a11y_watch_outdated">Kurs eskirgan</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">oxirgi yangilanish %1$d daqiqa oldin</item>
+        <item quantity="other">oxirgi yangilanish %1$d daqiqa oldin</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">oxirgi yangilanish %1$d soat oldin</item>
+        <item quantity="other">oxirgi yangilanish %1$d soat oldin</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">oxirgi yangilanish %1$d kun oldin</item>
+        <item quantity="other">oxirgi yangilanish %1$d kun oldin</item>
+    </plurals>
+</resources>

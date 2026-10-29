@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">Op datum · %1$s</string>
+    <string name="watchlist_empty_title">Nog geen pare nie</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%1$d van %2$d sonder prys</item>
+        <item quantity="other">%1$d van %2$d sonder prys</item>
+    </plurals>
+    <string name="watchlist_last_run">Laaste lopie %1$s</string>
+    <string name="watchlist_live_a11y">Regstreekse pryse aan</string>
+    <string name="watchlist_offline_since">Geen verbinding nie · soos op %1$s</string>
+    <string name="watchlist_pull_to_refresh">Trek af om te herlaai</string>
+    <string name="watchlist_refresh_report">Laaste herlaai</string>
+    <string name="watchlist_refresh_report_empty">Nog geen uiteensetting nie – tot dusver geen volledige herlaai nie. Tik op herlaai en wag totdat die sirkel stop.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%1$d van %2$d verouderd</item>
+        <item quantity="other">%1$d van %2$d verouderd</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">Alle pare hier is gedeaktiveer</string>
+    <string name="watchlist_status_exchange_prices">Pryse van jou beurse · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">Beurspryse · %1$s</string>
+    <string name="watchlist_status_group_empty">Geen pare in hierdie groep nie</string>
+    <string name="watchlist_status_none_traded">Geen verhandelde pare hier nie</string>
+    <string name="watchlist_updated">Bygewerk: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">gem. %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d af</item>
+        <item quantity="other">%1$d af</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d sonder 24h-waarde</item>
+        <item quantity="other">%1$d sonder 24h-waarde</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d sonder waarde vandag</item>
+        <item quantity="other">%1$d sonder waarde vandag</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d op</item>
+        <item quantity="other">%1$d op</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · gedeaktiveer</string>
+    <string name="watchlist_row_outdated">%1$s · verouderd</string>
+    <string name="watchlist_row_outdated_age">verouderd · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">Prys onveranderd sedert %1$s</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s nie bereikbaar nie</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">Spring na einde</string>
+    <string name="watchlist_jump_start">Spring na bo</string>
+    <string name="watchlist_search_close">Maak soektog toe</string>
+    <string name="watchlist_search_empty">Geen passings vir “%1$s” nie</string>
+    <string name="watchlist_search_hint">Soek paar, naam of beurs</string>
+    <string name="watchlist_search_open">Soek</string>
+    <string name="watchlist_sort_ascending">stygend</string>
+    <string name="watchlist_sort_descending">dalend</string>
+    <string name="watchlist_sort_hint">Hou \'n paar in en sleep dit, of gebruik die handvatsel. Gunstelinge bly bo.</string>
+    <string name="watchlist_sort_name">Naam</string>
+    <string name="watchlist_sort_own">Eie volgorde</string>
+    <string name="watchlist_sort_price">Prys</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">Maak volglys skoon</string>
+    <string name="watchlist_clear_confirm">Verwyder alle pare uit die volglys? Hul alarms gaan saam.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d gedeaktiveer</item>
+        <item quantity="other">%1$d gedeaktiveer</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">Verwyder</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Verwyder %1$d paar wat nie meer op sy beurs verhandel word nie? Sy alarms gaan saam.</item>
+        <item quantity="other">Verwyder %1$d pare wat nie meer op hul beurs verhandel word nie? Hul alarms gaan saam.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">Verwyder onverhandelde pare (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Verwyder onverhandelde pare</string>
+    <string name="watchlist_removed">%1$s verwyder</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d paar verwyder</item>
+        <item quantity="other">%1$d pare verwyder</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">%1$d onverhandelde paar verwyder</item>
+        <item quantity="other">%1$d onverhandelde pare verwyder</item>
+    </plurals>
+    <string name="watchlist_select">Kies</string>
+    <string name="watchlist_select_all">Kies almal</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d gekies</item>
+        <item quantity="other">%1$d gekies</item>
+    </plurals>
+    <string name="watchlist_show_all">Wys almal</string>
+    <string name="watchlist_show_only_disabled">Wys slegs gedeaktiveerdes</string>
+    <string name="watchlist_show_only_stale">Wys slegs verouderdes</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Alarm (%1$d)</item>
+        <item quantity="other">Alarms (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">Nog geen gunstelinge nie. Swiep \'n paar na regs, of open die paar en tik op “Gunsteling”.</string>
+    <string name="watchlist_group_empty_hint">Druk lank op \'n groep om sy pare te kies.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">Jou groepe sal hier verskyn</string>
+    <string name="watchlist_notification">Pryskennisgewing</string>
+    <string name="watchlist_tts">Lees prys voor</string>
+    <string name="watchlist_tts_speech_on">Gesproke uitvoer is aan. Jy kan dit verander in Instellings › Alarms › Gesproke uitvoer.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">Voeg by as legstuk</string>
+    <string name="watch_action_alarm">Alarm</string>
+    <string name="watch_action_favorite">Gunsteling</string>
+    <string name="watch_action_why">Wat beweeg saam?</string>
+    <string name="watch_action_why_short">Wat beweeg saam?</string>
+    <string name="watch_change_mark">Merk</string>
+    <string name="watch_disable">Deaktiveer</string>
+    <string name="watch_disable_hint">Geen versoeke nie, geen kennisgewings nie</string>
+    <string name="watch_disabled">Gedeaktiveer</string>
+    <string name="watch_disabled_banner">%1$s gedeaktiveer</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">Alarms bly – kontroleer hul drempels</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">Wysig paar</string>
+    <string name="watch_enable">Aktiveer</string>
+    <string name="watch_enable_hint">Pryse en kennisgewings hervat</string>
+    <string name="watch_enabled_banner">%1$s geaktiveer</string>
+    <string name="watch_error_offline">Geen verbinding nie</string>
+    <string name="watch_gesture_hint_short">Tik: alarm en “Wat beweeg saam?” · druk lank om te kies · swiep links om uit te vee · swiep regs vir gunsteling</string>
+    <string name="watch_hint_tap_why">Tik op \'n munt vir alarms en “Wat beweeg saam?”</string>
+    <string name="watch_not_traded">Nie meer op hierdie beurs verhandel nie</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">Nie in volglys nie</string>
+    <string name="watch_price_mid">middelprys (anders merk)</string>
+    <string name="watch_row_source_both">Verandering &amp; grafiek: %1$s</string>
+    <string name="watch_row_source_change">Verandering: %1$s</string>
+    <string name="watch_row_source_chart">Grafiek: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s is nou in jou volglys</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s is nou in jou volglys</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">Voeg by gunstelinge</string>
+    <string name="favorite_added">%1$s by gunstelinge gevoeg</string>
+    <string name="favorite_remove">Verwyder uit gunstelinge</string>
+    <string name="favorite_removed">%1$s uit gunstelinge verwyder</string>
+    <string name="hint_favorites_list">Wenk: swiep \'n ry na regs om dit \'n gunsteling te maak – gunstelinge bly bo.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">Nuwe groep</string>
+    <string name="group_all">Alles</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Alpha-tokens</string>
+    <string name="group_delete">Vee groep uit</string>
+    <string name="group_delete_confirm">Die pare bly in jou volglys.</string>
+    <string name="group_done">Klaar</string>
+    <string name="group_edit_title">Wysig groep</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">Gunstelinge</string>
+    <string name="group_in_other">in %1$s</string>
+    <string name="group_name">Groepnaam</string>
+    <string name="group_new">Nuwe groep…</string>
+    <string name="group_next">Volgende</string>
+    <string name="group_none">Geen groep nie</string>
+    <string name="group_rename">Hernoem</string>
+    <string name="group_search_hint">Soek paar, naam of beurs</string>
+    <string name="group_target">In groep</string>
+    <string name="group_title">Groep</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">Tokens</string>
+    <string name="group_value">Groep: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">Voeg nota by</string>
+    <string name="note_edit">Wysig nota</string>
+    <string name="note_hint">bv. ingang teen 0.42, teiken 0.60</string>
+    <string name="note_remove">Verwyder</string>
+    <string name="note_title">Nota</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">Sleep om te herrangskik</string>
+    <string name="sort_move_bottom">Skuif na onder</string>
+    <string name="sort_move_down">Skuif af</string>
+    <string name="sort_move_top">Skuif na bo</string>
+    <string name="sort_move_up">Skuif op</string>
+
+    <string name="watchlist_first_alarm_title">Stel jou eerste alarm</string>
+    <string name="watchlist_first_alarm_text">Kry \'n kennisgewing wanneer \'n prys jou merk bereik – met die app toe kontroleer Android onreëlmatig.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">merkprys (geen middelprys nie)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">uurprys</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">Stel jou eerste alarm – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Herlaai (%1$d)</string>
+
+    <!-- Zeile der Merkliste: Börse pausiert (zu viele Anfragen / Zeitüberschreitungen) bis zu einer Uhrzeit, ersetzt die Zeitzeile, z. B. «Binance · pausiert bis 19:45» -->
+    <string name="watchlist_row_exchange_paused">%1$s · onderbreek tot %2$s</string>
+
+    <string name="watchlist_refresh_just_done">Sopas bygewerk · %1$d s gelede</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">laaste transaksie %1$s</string>
+
+    <string name="change_candle_source_hint">Bereken uit %1$s-kerse – die beurs self verskaf nie hierdie waarde nie.</string>
+    <string name="change_candle_source_action">Wys bron van verandering</string>
+
+    <string name="watchlist_sort_by_coin">Sorteer volgens munt</string>
+    <string name="watchlist_sort_by_exchange">Sorteer volgens beurs</string>
+    <string name="watchlist_limit_reached">Jou volglys kan hoogstens %1$s pare hê.</string>
+    <string name="watch_price_reference">verwysingskoers, daagliks</string>
+    <string name="watch_price_daily">daagliks</string>
+    <string name="watchlist_compare">Vergelyk</string>
+    <string name="watchlist_compare_hint">Kies 2 tot 4 pare om te vergelyk.</string>
+    <string name="compare_title">Vergelyking</string>
+    <string name="compare_basis">Lyne wys die verandering in persent sedert die begin van die tydperk.</string>
+    <string name="compare_from_high">teenoor 30D-hoogtepunt</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">%1$d paar nie herstel nie – volglys vol</item>
+        <item quantity="other">%1$d pare nie herstel nie – volglys vol</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">Die volglys en sy alarms word nou nie gestoor nie. Hierdie en enige verdere veranderinge gaan verlore wanneer die app toemaak. Verander in elk geval?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">Verander in elk geval</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">%1$d paar</item>
+        <item quantity="other">%1$d pare</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">%2$d van %1$d paar</item>
+        <item quantity="other">%2$d van %1$d pare</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">nog %1$d plek oor</item>
+        <item quantity="other">nog %1$d plekke oor</item>
+    </plurals>
+    <string name="watchlist_footer_full">Volglys vol</string>
+</resources>

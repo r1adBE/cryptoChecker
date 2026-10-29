@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">விழிப்பூட்டல் தூண்டப்பட்டது</string>
+    <string name="a11y_collapsed">சுருக்கப்பட்டது</string>
+    <string name="a11y_converted">சுமார் %1$s</string>
+    <string name="a11y_expanded">விரிக்கப்பட்டது</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">உலாவியில் திறக்கும்</string>
+    <string name="a11y_favorite">பிடித்தது</string>
+    <string name="a11y_in_watchlist">ஏற்கெனவே கண்காணிப்புப் பட்டியலில் உள்ளது</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_exchange_unreachable">%1$s அணுக முடியவில்லை</string>
+    <string name="a11y_move_down">கீழே நகர்த்து</string>
+    <string name="a11y_move_up">மேலே நகர்த்து</string>
+    <string name="a11y_note">குறிப்பு: %1$s</string>
+    <string name="a11y_price">விலை %1$s</string>
+    <string name="a11y_price_notification_off">விலை அறிவிப்பு ஆஃப்</string>
+    <string name="a11y_price_notification_on">விலை அறிவிப்பு ஆன்</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">விலை காலாவதியானது</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%2$s இல் %1$s</string>
+    <string name="a11y_stale">காலாவதியானது, கடைசிப் புதுப்பிப்பு %1$s</string>
+    <string name="a11y_warning">எச்சரிக்கை</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">24 மணிநேரத்தில் %1$s</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">24 மணிநேர மாற்றம் கிடைக்கவில்லை</string>
+    <string name="a11y_change_down">%1$s குறைவு</string>
+    <string name="a11y_change_flat">மாற்றமில்லை</string>
+    <string name="a11y_change_since_last">கடைசிப் புதுப்பிப்பிலிருந்து %1$s</string>
+    <string name="a11y_change_since_last_none">கடைசிப் புதுப்பிப்பிலிருந்து மாற்றம் கிடைக்கவில்லை</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">இன்று %1$s</string>
+    <string name="a11y_change_today_none">இன்றைய மாற்றம் கிடைக்கவில்லை</string>
+    <string name="a11y_change_today_zone">நள்ளிரவு %2$s முதல் %1$s</string>
+    <string name="a11y_change_today_zone_none">நள்ளிரவு %1$s முதல் மாற்றம் கிடைக்கவில்லை</string>
+    <string name="a11y_change_up">%1$s உயர்வு</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">விளக்கப்படம் %1$s: %2$s முதல் %3$s வரை, %4$s. அதிகபட்சம் %5$s, குறைந்தபட்சம் %6$s.</string>
+    <string name="a11y_chart_empty">விளக்கப்படம்: தரவு இல்லை</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">சுழற்சி %1$s: ஹால்விங்கிலிருந்து %2$s, நாள் %3$d.</string>
+    <string name="a11y_cycle_bottom">நாள் %2$d இல் அடிமட்டம் %1$s.</string>
+    <string name="a11y_cycle_double_bottom">நாள் %2$d இல் இரட்டை அடிமட்டம் %1$s.</string>
+    <string name="a11y_cycle_double_top">நாள் %2$d இல் இரட்டை உச்சம் %1$s.</string>
+    <string name="a11y_cycle_top">நாள் %2$d இல் உச்சம் %1$s.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">%1$s முதல் %2$s வரையிலான அளவுகோல்: 100 இல் %3$d</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, சராசரியாக %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d இறங்குகிறது</item>
+        <item quantity="other">%1$d இறங்குகின்றன</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="one">%1$d ஜோடிக்கு 24 மணிநேர மதிப்பு இல்லை</item>
+        <item quantity="other">%1$d ஜோடிகளுக்கு 24 மணிநேர மதிப்பு இல்லை</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d ஜோடிக்கு இன்றைய மதிப்பு இல்லை</item>
+        <item quantity="other">%1$d ஜோடிகளுக்கு இன்றைய மதிப்பு இல்லை</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d ஜோடி ஏறுகிறது</item>
+        <item quantity="other">%1$d ஜோடிகள் ஏறுகின்றன</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="one">%1$d நாளுக்கு முன் கடைசியாகப் புதுப்பிக்கப்பட்டது</item>
+        <item quantity="other">%1$d நாட்களுக்கு முன் கடைசியாகப் புதுப்பிக்கப்பட்டது</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="one">%1$d மணிநேரத்துக்கு முன் கடைசியாகப் புதுப்பிக்கப்பட்டது</item>
+        <item quantity="other">%1$d மணிநேரத்துக்கு முன் கடைசியாகப் புதுப்பிக்கப்பட்டது</item>
+    </plurals>
+    <string name="a11y_updated_just_now">இப்போதுதான் புதுப்பிக்கப்பட்டது</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="one">%1$d நிமிடத்துக்கு முன் கடைசியாகப் புதுப்பிக்கப்பட்டது</item>
+        <item quantity="other">%1$d நிமிடங்களுக்கு முன் கடைசியாகப் புதுப்பிக்கப்பட்டது</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">தொகை மறைக்கப்பட்டது</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_entry">%1$s %2$s, இன்றைய மதிப்பு %3$s</string>
+    <string name="a11y_portfolio_entry_in">உள்வரவு</string>
+    <string name="a11y_portfolio_entry_no_value">மதிப்பு கிடைக்கவில்லை</string>
+    <string name="a11y_portfolio_entry_note">குறிப்பு %1$s</string>
+    <string name="a11y_portfolio_entry_out">வெளிச்செலவு</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, போர்ட்ஃபோலியோவில் %3$s</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, போர்ட்ஃபோலியோவில் %2$s, %3$s</string>
+    <string name="a11y_portfolio_positions">மிகப்பெரிய நிலைகள்: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">தொகைகளைக் காட்டு</string>
+    <string name="a11y_compare_chart">சதவீத ஒப்பீடு, %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">30 நாள் உச்சத்திலிருந்து %1$s</string>
+    <string name="a11y_price_overlay">விலை மேலடுக்கு: %1$s</string>
+</resources>

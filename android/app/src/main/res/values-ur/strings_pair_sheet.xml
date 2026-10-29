@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%2$s میں %1$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">بندش</string>
+    <string name="sheet_chart_converted_current">%1$s، تبدیل شدہ (موجودہ شرح)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s، روزانہ شرحوں پر تبدیل شدہ</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">اس جوڑے کی قیمت کا کوئی ڈیٹا نہیں</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">آغاز</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">آج</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">والیوم %1$s</string>
+    <string name="sheet_more">مزید</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">آسک</string>
+    <string name="ticker_bid">بِڈ</string>
+    <string name="explain_bid_ask">بِڈ وہ سب سے زیادہ قیمت ہے جو خریدار اس وقت پیش کر رہے ہیں، آسک وہ سب سے کم قیمت جو فروخت کنندگان قبول کریں گے۔</string>
+    <string name="ticker_high">بلند ترین</string>
+    <string name="ticker_low">کم ترین</string>
+    <string name="ticker_timestamp">وقت</string>
+    <string name="ticker_vol_base">والیوم (کوائنز میں)</string>
+    <string name="ticker_vol_quote">والیوم (کوٹ کرنسی میں)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s، 00:00 (آلے کا ٹائم زون)</string>
+    <string name="change_basis_local">مقامی وقت 00:00 سے</string>
+    <string name="change_basis_rolling">پچھلے 24 گھنٹے</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">آخری اپ ڈیٹ کے بعد سے</string>
+    <string name="change_basis_utc_zone">00:00 %1$s سے</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">%1$s کینڈلز سے تبدیلی</string>
+    <string name="change_short_since_last">آخری اپ ڈیٹ</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">آج</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">آج %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="exchange_data_empty_error">ایکسچینج سے کوئی ڈیٹا موصول نہیں ہوا۔</string>
+    <string name="market_data_summary">مارکیٹ کیپ، گیس فیس، معاشی ڈیٹا، کوائن کا تجزیہ</string>
+    <string name="market_data_tab_futures">فیوچرز</string>
+    <string name="market_data_title">مارکیٹ ڈیٹا</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">گردشی سپلائی</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">مارکیٹ کیپ</string>
+    <string name="spot_max_supply">زیادہ سے زیادہ سپلائی</string>
+    <string name="spot_no_data">اس کوائن کا کوئی اسپاٹ ڈیٹا نہیں</string>
+    <string name="spot_source_updated">ماخذ: %1$s · بمطابق %2$s</string>
+    <string name="spot_supply_of_max">زیادہ سے زیادہ سپلائی کا %1$s گردش میں</string>
+    <string name="spot_total_supply">کل سپلائی</string>
+    <string name="spot_vol_mcap">والیوم/مارکیٹ کیپ</string>
+    <string name="spot_volume_24h">والیوم (24 گھنٹے)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">حوالہ: %1$s</string>
+    <string name="futures_funding">فنڈنگ ریٹ</string>
+    <string name="futures_funding_interval_unknown">وقفہ نامعلوم</string>
+    <string name="futures_funding_per8h_equiv">= ہر 8 گھنٹے میں %1$s (جیسا کہ الرٹس میں)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">فی گھنٹہ</string>
+    <string name="futures_funding_per_hours">ہر %1$d گھنٹے</string>
+    <string name="futures_next_funding">اگلی %1$d گھنٹے %2$d منٹ میں</string>
+    <string name="futures_no_data">اس کوائن کا کوئی فیوچرز ڈیٹا نہیں</string>
+    <string name="futures_open_interest">اوپن انٹرسٹ</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">%1$s سے حوالہ – فنڈنگ اور اوپن انٹرسٹ ہر ایکسچینج پر مختلف ہوتے ہیں؛ %2$s پر مختلف ہو سکتے ہیں۔</string>
+    <string name="futures_reference_spot">%1$s سے حوالہ (کوائن کا USDT پرپیچوئل)</string>
+    <string name="futures_source">ماخذ: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">بہت سے ٹریڈرز ادھار کی رقم سے قیمت بڑھنے یا گرنے پر شرط لگاتے ہیں۔ لانگ اور شارٹ پوزیشنز کے درمیان فیس۔ بہت مثبت کا مطلب ہے بہت سے قیمت بڑھنے پر شرط لگا رہے ہیں۔</string>
+    <string name="explain_open_interest">فیوچرز قیمت پر شرطیں ہیں، اکثر ادھار کی رقم سے۔ تمام کھلی فیوچرز پوزیشنز کی مالیت۔ یہ بڑھے تو زیادہ رقم اس حرکت پر شرط لگا رہی ہے۔</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">وضاحت</string>
+    <string name="explain_spot_fdv">مکمل ڈائلوٹڈ ویلیوایشن: قیمت × زیادہ سے زیادہ سپلائی (یا کوئی حد نہ ہو تو کل سپلائی)۔</string>
+    <string name="explain_spot_market_cap">قیمت × گردشی سپلائی۔ پِل اس کی 24 گھنٹے کی تبدیلی دکھاتی ہے۔</string>
+    <string name="explain_spot_source">تمام ایکسچینجز کے مجموعی اعداد امریکی ڈالر میں، CoinGecko سے۔</string>
+    <string name="explain_spot_supply">گردشی: اس وقت مارکیٹ میں موجود کوائنز۔ کل: بنائے گئے تمام کوائنز منفی جلائے گئے۔ زیادہ سے زیادہ: جتنے کبھی بھی ہو سکتے ہیں۔</string>
+    <string name="explain_spot_volume">24 گھنٹوں میں ٹریڈ ہونے والی مالیت۔ والیوم/مارکیٹ کیپ: مارکیٹ کیپ کے مقابلے میں والیوم — زیادہ کا مطلب ہے بہت سرگرم ٹریڈنگ۔</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · شرح %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">خرید اور فروخت کی قیمت میں بڑا فرق (%1$s)</string>
+
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">%1$s میں تاریخ، آج کی شرح پر %2$s میں تبدیل شدہ</string>
+    <string name="converted_unsure">تبادلہ غیر یقینی</string>
+</resources>

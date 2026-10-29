@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">ალტქოინები Bitcoin-ის წინააღმდეგ</string>
+    <string name="neutral_btc_indicators_title">Bitcoin-ის ინდიკატორები</string>
+    <string name="neutral_halving_last">ბოლო ჰალვინგი: %1$s</string>
+    <string name="neutral_halving_next">შემდეგი ჰალვინგი მოსალოდნელია დაახლოებით %1$s (შეფასებულია კალენდრით – ბლოკის სიმაღლე ახლა მიუწვდომელია).</string>
+    <string name="neutral_indicators_disclaimer">მხოლოდ გაზომილი მნიშვნელობები, შეფასების გარეშე. არ არის პროგნოზი და არც საინვესტიციო რჩევა.</string>
+    <string name="neutral_onchain_missing">On-chain მონაცემები (Coin Metrics) ახლა მიუწვდომელია.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">რამდენით დაბალია ფასი თავის წინა ისტორიულ მაქსიმუმზე.</string>
+    <string name="neutral_explain_change_30d">დღევანდელი ფასი 30 დღის წინანდელთან შედარებით.</string>
+    <string name="neutral_explain_hashrate">30-დღიანი საშუალო ჰეშრეიტი 60-დღიან საშუალოსთან შედარებით.</string>
+    <string name="neutral_explain_ma200w">ბოლო 200 კვირის დახურვების საშუალო.</string>
+    <string name="neutral_explain_mayer">ფასი გაყოფილი 200-დღიან საშუალოზე.</string>
+    <string name="neutral_explain_mvrv">საბაზრო ღირებულება გაყოფილი რეალიზებულ ღირებულებაზე (on-chain).</string>
+    <string name="neutral_explain_pi_gap">111-დღიანი საშუალო 350-დღიანი საშუალოს გაორმაგებულ მნიშვნელობასთან შედარებით.</string>
+    <string name="neutral_explain_puell">მაინერების დღიური შემოსავალი გაყოფილი მის 365-დღიან საშუალოზე.</string>
+    <string name="neutral_explain_rsi_daily">ბოლო 14 დღის ფარდობითი სიძლიერის ინდექსი, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">ბოლო 14 კვირის ფარდობითი სიძლიერის ინდექსი, 0–100.</string>
+    <string name="neutral_explain_sma50_200">50-დღიანი საშუალო 200-დღიან საშუალოსთან შედარებით.</string>
+    <string name="neutral_explain_vs_btc">ფასის ცვლილება Bitcoin-თან შედარებით 90 დღის განმავლობაში.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">აპი მხოლოდ რაოდენობას აჩვენებს და მას სეზონს არ უწოდებს. მნიშვნელობა ჩვეულებრივ დღეების და არა საათების განმავლობაში იცვლება.</string>
+    <string name="neutral_info_btc_how">ყოველ მნიშვნელობას ახლავს ერთი წინადადება იმაზე, თუ რას ზომავს და სად დგას საკუთარ ისტორიაში 2016 წლიდან. აპი მნიშვნელობებს არ აფასებს და ბაზრის ფაზას არ გამოიყვანს; საბაზრო განგაშების ზღვრები მხოლოდ ისაა, რასაც შენ დააყენებ. წარსული კანონზომიერებები აუცილებლად არ განმეორდება.</string>
+    <string name="neutral_info_btc_what">Bitcoin-ის გავრცელებული ინდიკატორები უბრალო გაზომილი მნიშვნელობების სახით: Mayer Multiple, 200-კვირიანი საშუალო, ვარდნა ისტორიული მაქსიმუმიდან, ცვლილება 30 დღეში, Pi Cycle სხვაობა და on-chain მნიშვნელობები MVRV, Puell Multiple და ჰეშრეიტი.</string>
+    <string name="neutral_info_coin_how">ყოველ მნიშვნელობას ახლავს ერთი წინადადება იმაზე, თუ რას ზომავს, შეფასების გარეშე. მოკლე ფასის ისტორიის მქონე მონეტებისთვის ზოგი მნიშვნელობა აკლია. On-chain მონაცემები აქ არ შედის.</string>
+    <string name="neutral_info_coin_what">იგივე უბრალო ინდიკატორები შენ მიერ არჩეული მონეტისთვის, მხოლოდ ფასის მონაცემებით: Mayer Multiple, 200-კვირიანი საშუალო, ვარდნა ისტორიული მაქსიმუმიდან, ცვლილება 30 დღეში, 50/200-დღიანი ტრენდი, RSI და სიძლიერე Bitcoin-თან შედარებით 90 დღეში.</string>
+    <string name="neutral_info_halving_how">შემდეგი ჰალვინგი გამოითვლება ბლოკის მიმდინარე სიმაღლითა და მიმდინარე სირთულის პერიოდის ბლოკის საშუალო დროით (mempool.space); ამ მონაცემების გარეშე – კალენდრით (ბოლო ჰალვინგს პლუს დაახლოებით ოთხი წელი). დიაგრამა აჩვენებს წინა ციკლების ფასის გზას მათი ჰალვინგიდან – ისტორია და არა პროგნოზი.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">ტრენდი 50/200 დღე</string>
+    <string name="ind_drawdown">ვარდნა ისტორიული მაქსიმუმიდან</string>
+    <string name="ind_missing">მონაცემები საკმარისი არ არის</string>
+    <string name="ind_rsi_daily">RSI (დღიური)</string>
+    <string name="ind_rsi_weekly">RSI (კვირის)</string>
+    <string name="ind_vs_btc">სიძლიერე Bitcoin-თან შედარებით (90 დღე)</string>
+    <string name="neutral_ind_change_30d">ცვლილება 30 დღე</string>
+    <string name="neutral_ind_hashrate">ჰეშრეიტი 30/60 დღე</string>
+    <string name="neutral_ind_ma200w">200-კვირიანი საშუალო</string>
+    <string name="neutral_ind_pi_gap">Pi Cycle სხვაობა</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">მაღალი ნიშნავს, რომ დიდი ალტქოინების უმეტესობამ 90 დღეში Bitcoin-ს აჯობა, დაბალი – რომ Bitcoin-მა აჯობა მათ უმეტესობას.</string>
+    <string name="ind_read_ath_distance">მცირე ნიშნავს, რომ ფასი რეკორდთან ახლოსაა, დიდი – რომ მასზე გაცილებით დაბალია.</string>
+    <string name="ind_read_change_30d">დადებითი ნიშნავს 30 დღის წინანდელზე მაღალს, უარყოფითი – დაბალს.</string>
+    <string name="ind_read_funding">მაღალი ნიშნავს, რომ ბევრი ტრეიდერი ბერკეტით ფასის ზრდაზე დებს ფსონს, უარყოფითი – რომ ბევრი ვარდნაზე დებს.</string>
+    <string name="ind_read_hashrate_30_60">დადებითი ნიშნავს, რომ გამოთვლითი სიმძლავრე იზრდება, უარყოფითი – რომ მაინერები ითიშება.</string>
+    <string name="ind_read_leverage">ბევრი ლონგი ნიშნავს, რომ ბევრი ნასესხები ფულით ფასის ზრდაზე დებს ფსონს, ბევრი შორტი – ვარდნაზე.</string>
+    <string name="ind_read_ma200w">მასზე გაცილებით მაღალი ფასი ხანგრძლივ ზრდას ნიშნავს, მასთან ახლოს – ღრმა უკუსვლას.</string>
+    <string name="ind_read_mayer">მაღალი ნიშნავს, რომ ფასი 200-დღიან საშუალოზე გაცილებით მაღალია, დაბალი – რომ მასზე დაბალია.</string>
+    <string name="ind_read_mvrv">მაღალი ნიშნავს, რომ ფასი გაცილებით მაღალია იმაზე, რაც მფლობელებმა საშუალოდ გადაიხადეს, დაბალი – რომ მასთან ახლოს ან მასზე დაბალია.</string>
+    <string name="ind_read_pi_cycle_gap">ნულთან ახლოს ნიშნავს, რომ ორი საშუალო თითქმის ხვდება ერთმანეთს, ძლიერ უარყოფითი – რომ ისინი ერთმანეთისგან შორსაა.</string>
+    <string name="ind_read_puell">მაღალი ნიშნავს, რომ მაინერები ჩვეულებრივზე გაცილებით მეტს გამოიმუშავებენ, დაბალი – გაცილებით ნაკლებს.</string>
+    <string name="ind_read_rsi_daily">70-ზე მეტი ნიშნავს ძლიერ ზრდას ბოლო დღეებში, 30-ზე ნაკლები – ძლიერ დანაკარგებს.</string>
+    <string name="ind_read_rsi_weekly">70-ზე მეტი ნიშნავს ძლიერ ზრდას ბოლო კვირებში, 30-ზე ნაკლები – ძლიერ დანაკარგებს.</string>
+    <string name="ind_read_sma50_vs_200">დადებითი ნიშნავს, რომ მოკლევადიანი საშუალო გრძელვადიანზე მაღალია, უარყოფითი – დაბალი.</string>
+    <string name="ind_read_vs_btc">დადებითი ნიშნავს, რომ Bitcoin-ზე უკეთესი შედეგი ჰქონდა, უარყოფითი – უარესი.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">იგივე ფასი 30 დღის განმავლობაში: %1$s</string>
+    <string name="ind_context_note">წარსული მნიშვნელობები და «იგივე ფასის» გამოთვლები არითმეტიკაა და არა პროგნოზი.</string>
+    <string name="ind_context_percentile">%1$s-დან დღეების %2$s-ში უფრო დაბალი იყო</string>
+</resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Ez da txanponik aukeratu</string>
+    <string name="watch_loading">Kargatzen…</string>
+    <string name="watch_error">Burtsak ez daude eskuragarri</string>
+    <string name="watch_updated">Eguneratua: %1$s</string>
+    <string name="watch_refresh">Eguneratu</string>
+    <string name="watch_choose">Aukeratu txanponak</string>
+    <string name="watch_choose_hint">Txanponak: gehienez %1$d</string>
+    <string name="watch_complication_label">Prezioa</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s 24 ordutan</string>
+    <string name="watch_mode_phone">Zerrenda: telefonoan bezala</string>
+    <string name="watch_mode_own">Zerrenda: propioa</string>
+    <string name="watch_phone_empty">Ez dago gogokorik telefonoan</string>
+    <string name="a11y_watch_outdated">Prezio zaharkitua</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">azkenekoz eguneratua duela %1$d minutu</item>
+        <item quantity="other">azkenekoz eguneratua duela %1$d minutu</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">azkenekoz eguneratua duela %1$d ordu</item>
+        <item quantity="other">azkenekoz eguneratua duela %1$d ordu</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">azkenekoz eguneratua duela %1$d egun</item>
+        <item quantity="other">azkenekoz eguneratua duela %1$d egun</item>
+    </plurals>
+</resources>

@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">Personalizado</string>
+    <string name="settings_group_general">Xeral</string>
+    <string name="settings_group_more">Máis</string>
+    <string name="settings_minutes">%1$d min</string>
+    <string name="settings_row_about">Sobre a app</string>
+    <string name="settings_row_alarms">Alarmas</string>
+    <string name="settings_row_currency">Moeda</string>
+    <string name="settings_row_dated_futures">Futuros con vencemento</string>
+    <string name="settings_row_updates">Actualizacións de prezo</string>
+    <string name="settings_row_watchlist">Lista</string>
+    <string name="settings_search_hint">Buscar na configuración</string>
+    <string name="settings_seconds">%1$d s</string>
+    <string name="settings_section_about">Información</string>
+    <string name="settings_section_appearance">Aparencia</string>
+    <string name="settings_section_developer">Desenvolvemento</string>
+    <string name="settings_section_language">Idioma</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">Activado</string>
+    <string name="settings_title">Configuración</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">Tempo de repouso antes de que unha alarma volva saltar</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Sinal de alarma</string>
+    <string name="settings_alarm_signal_open_system">Axustar na configuración do sistema</string>
+    <string name="settings_alarm_signal_system_hint">Segue a configuración de notificacións do teu móbil.</string>
+    <string name="settings_alarm_sound">Son da alarma</string>
+    <string name="settings_alarm_sound_custom">Son personalizado</string>
+    <string name="settings_alarm_sound_default">Son predeterminado</string>
+    <string name="settings_alarm_sound_error">Non se puido usar o son.</string>
+    <string name="settings_alarm_sound_file">O teu propio ficheiro de audio…</string>
+    <string name="settings_alarm_sound_reset">Usar o son predeterminado</string>
+    <string name="settings_alarm_sound_system">Escoller son do sistema…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Número na icona da app</string>
+    <string name="settings_app_badge_hint">Conta as notificacións de alarma abertas. Que apareza un número ou un punto depende da pantalla de inicio (p. ex. Samsung: «Mostrar con número»).</string>
+    <string name="settings_exact_checks">Comprobar puntualmente</string>
+    <string name="settings_exact_checks_grant">Permitir alarmas e lembranzas</string>
+    <string name="settings_exact_checks_hint">Android comproba aproximadamente cada 15 minutos, mesmo cando o dispositivo está inactivo. Gasta un pouco máis de batería.</string>
+    <string name="settings_exact_checks_nothing">Non hai pares activos – non hai nada que comprobar.</string>
+    <string name="settings_exact_checks_permission_missing">Falta o permiso – mentres o dispositivo repousa, Android comproba de forma irregular, ás veces só despois de horas.</string>
+    <string name="settings_notification_change">Avisar só se o prezo cambia</string>
+    <string name="settings_notification_change_always">Sempre</string>
+    <string name="settings_percent_invalid">Introduce un valor de 0 a 100.</string>
+    <string name="settings_notification_change_hint">Unha notificación de prezo só aparece cando o prezo se moveu polo menos esta cantidade desde a última. Non se mostra nada mentres faltan datos. As alarmas non se ven afectadas.</string>
+    <string name="settings_ongoing_notifications">Non se poden descartar</string>
+    <string name="settings_ongoing_notifications_hint">Mantén fixadas as notificacións de prezo.</string>
+    <string name="settings_price_notifications">Notificacións de prezo</string>
+    <string name="settings_price_notifications_hint">Mostra o prezo actual dos pares activados na barra de estado.</string>
+    <string name="settings_price_pairs">Pares</string>
+    <string name="settings_price_pairs_all_off">Todos desactivados</string>
+    <string name="settings_price_pairs_all_on">Todos activados</string>
+    <string name="settings_price_pairs_count">%1$d de %2$d</string>
+    <string name="settings_price_pairs_empty">Aínda non hai pares na lista.</string>
+    <string name="settings_price_pairs_hint">Escolle que pares mostran o seu prezo na barra de notificacións.</string>
+    <string name="settings_quiet_hours">Horas de silencio</string>
+    <string name="settings_quiet_hours_from">Desde</string>
+    <string name="settings_quiet_hours_hint">Entre as %1$s e as %2$s, as alarmas agardan a que rematen as horas de silencio e despois soan. As outras notificacións chegan en silencio, sen voz.</string>
+    <string name="settings_quiet_hours_to">Ata</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">Intervalo</string>
+    <string name="settings_background_updates">Actualizacións en segundo plano</string>
+    <string name="settings_battery_hint">Restrinxido significa que Android pode atrasar horas as actualizacións en segundo plano.</string>
+    <string name="settings_battery_ok">Uso da batería: sen restricións</string>
+    <string name="settings_battery_restricted">Uso da batería: restrinxido</string>
+    <string name="settings_check_runs_empty">Aínda non se rexistrou ningunha comprobación.</string>
+    <string name="settings_check_runs_honest_android">Android decide cando comprobar – aquí ves cando ocorreu realmente.</string>
+    <string name="settings_check_runs_honest_ios">O iOS decide cando comprobar – aquí ves cando ocorreu realmente.</string>
+    <string name="settings_check_runs_title">Comprobacións recentes</string>
+    <string name="settings_http_log">Mostrar rexistro HTTP</string>
+    <string name="settings_http_log_hint">Mostra as solicitudes aos exchanges na parte inferior da páxina «Engadir par» – para resolver problemas.</string>
+    <string name="settings_live_service">Actualizar a miúdo</string>
+    <string name="settings_live_websocket">Prezos en directo</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">Destacado: avisar</string>
+    <string name="settings_activity_alerts_hint">Como moito unha vez por hora por par: movementos de prezo pouco habituais, picos de volume e extremos de futuros (datos de Binance).</string>
+    <string name="settings_activity_sensitivity">Sensibilidade</string>
+    <string name="settings_activity_sensitivity_hint">Con que facilidade unha moeda se considera pouco habitual – igual para a tarxeta da lista e as alarmas de mercado. Con «Menos», a tarxeta só mostra as 3 máis fortes.</string>
+    <string name="settings_watchlist_activity_card">Destacado: mostrar na lista</string>
+    <string name="settings_watchlist_activity_card_hint">Mostra a pastilla ⚡ xunto aos grupos: tócaa para ver só os pares onde agora mesmo está a pasar algo. As notificacións configúranse en Alarmas de mercado.</string>
+    <string name="settings_watchlist_names">Mostrar nomes</string>
+    <string name="settings_watchlist_names_hint">Nome baixo o par, p. ex. Bitcoin ou NVIDIA. Vén coas listas de logotipos, cargadas unha vez para todas as moedas.</string>
+    <string name="settings_watchlist_sparkline">Minigráfico na lista</string>
+    <string name="settings_watchlist_sparkline_hint">Tendencia de 24 horas xunto ao prezo</string>
+    <string name="settings_watchlist_value_names">Nomes</string>
+    <string name="settings_watchlist_value_price_only">Só o prezo</string>
+    <string name="settings_watchlist_value_sparkline">Minigráfico</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Incl. tokens Alpha (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Tokens Alpha: proxectos temperáns, na maioría pequenos, da lista Binance Alpha – a miúdo pouco negociados e moi volátiles.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">Pertence a Tokens. Non dispoñible mentres «Só TradFi» estea seleccionado; os tokens Alpha que xa están na lista mantéñense.</string>
+    <string name="settings_asset_scope_both">Tokens e TradFi</string>
+    <string name="settings_asset_scope_both_hint">Todo – cripto e TradFi</string>
+    <string name="settings_asset_scope_hint">Define que pares mostran a selección e a busca cando engades pares. Os pares que xa están na lista mantéñense sempre.</string>
+    <string name="settings_asset_scope_title">Tokens e TradFi</string>
+    <string name="settings_asset_scope_tokens">Só tokens</string>
+    <string name="settings_asset_scope_tokens_hint">Cripto: spot e perpetuos</string>
+    <string name="settings_asset_scope_tradfi">Só TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">Futuros sobre accións, materias primas, divisas – contratos, non tokens</string>
+    <string name="settings_rolling_futures">Incl. futuros trimestrais e outros con vencemento</string>
+    <string name="settings_rolling_futures_hint">Desactivado: os futuros con vencemento que faltan na lista do exchange márcanse como non negociados en lugar de comprobalos un por un. Aforra tempo en cada actualización.</string>
+    <string name="settings_rolling_futures_qtly">Incl. futuros trimestrais e outros con vencemento (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">Pertence a Tokens. Non dispoñible mentres «Só TradFi» estea seleccionado; segue aplicándose aos futuros con vencemento que xa están na lista.</string>
+    <string name="settings_tradfi_futures">Accións, materias primas e divisas (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Tamén mostra futuros sobre accións, ouro e outras materias primas, divisas e empresas pre-IPO cando escolles un par. Son contratos, non tokens.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">Cor de énfase</string>
+    <string name="settings_accent_hint">Cor para a app, os widgets e a icona da app. Algunhas pantallas de inicio eliminan a icona cando cambia – nese caso, engádea de novo.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Logotipos das moedas</string>
+    <string name="settings_coin_logos_app">Na app</string>
+    <string name="settings_coin_logos_app_hint">Lista, par aberto e tarxetas de mercado</string>
+    <string name="settings_coin_logos_footer">Os logotipos proceden de CoinGecko e, para as moedas que CoinGecko non inclúe (p. ex. ouro, prata, accións), de Binance. A app carga todos os logotipos dunha vez e gárdaos neste dispositivo, así que ningún provedor pode saber que moedas segues. As moedas sen logotipo mostran as súas iniciais. Os favoritos levan unha pequena estrela no logotipo. Onde un interruptor está desactivado, non aparecen nin logotipos nin iniciais; con todos os interruptores desactivados, non se carga nada.</string>
+    <string name="settings_coin_logos_portfolio">Na carteira</string>
+    <string name="settings_coin_logos_portfolio_hint">Posicións, detalles da moeda e análises</string>
+    <string name="settings_coin_logos_value_app">App</string>
+    <string name="settings_coin_logos_widgets">Nos widgets</string>
+    <string name="settings_coin_logos_widgets_hint">Widgets de lista e dunha moeda</string>
+    <string name="settings_high_contrast">Contraste alto</string>
+    <string name="settings_high_contrast_hint">Cores de prezo máis intensas e texto secundario máis escuro. Tamén se activa cando o sistema pide máis contraste.</string>
+    <string name="settings_language_choose">Escoller idioma</string>
+    <string name="settings_language_system">Idioma do sistema</string>
+    <string name="settings_price_colors">Cores dos prezos</string>
+    <string name="settings_price_colors_hint">Azul / laranxa distínguense facilmente con calquera deficiencia de visión da cor (vermello-verde e azul-amarelo). A dirección sempre se mostra tamén con + / −.</string>
+    <string name="settings_theme_mode">Claro / Escuro</string>
+    <string name="settings_widgets">Widgets</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">Variación %1$s e fuso horario dos gráficos</string>
+    <string name="settings_change_basis_hint_1">O fuso horario escollido define desde cando conta a variación porcentual (lista, liña de pulso, par aberto, widgets) e as horas que se mostran nos gráficos.</string>
+    <string name="settings_change_basis_hint_2">«%1$s» compara co prezo de hai exactamente 24 horas. «00:00» compara co prezo de apertura á medianoite nese fuso horario.</string>
+    <string name="settings_change_basis_hint_3">As alarmas non se ven afectadas.</string>
+    <string name="settings_change_basis_hint_since_last">«%1$s» compara co prezo da actualización anterior. Con prezos en directo mantense preto do 0%%.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">Moeda de conversión</string>
+    <string name="settings_conversion_currency_hint">Tamén se usa para a carteira, as alarmas na túa moeda, a tarxeta do mercado cripto e o widget da carteira.</string>
+    <string name="settings_cost_method">Método de custo</string>
+    <string name="settings_cost_method_average">Custo medio</string>
+    <string name="settings_cost_method_average_hint">As vendas valóranse ao prezo de compra medio móbil.</string>
+    <string name="settings_cost_method_fifo">FIFO (predeterminado)</string>
+    <string name="settings_cost_method_fifo_hint">Véndense primeiro as moedas máis antigas, en todos os exchanges e moedeiros.</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO por moedeiro/exchange</string>
+    <string name="settings_cost_method_fifo_wallet_hint">Primeiro as moedas máis antigas dentro de cada exchange ou moedeiro; as transferencias moven os lotes coa súa data de compra.</string>
+    <string name="settings_portfolio_lock">Bloqueo da carteira</string>
+    <string name="settings_portfolio_lock_footer">O bloqueo oculta o que se mostra na pantalla. Os teus datos gárdanse neste dispositivo e están protexidos polo cifrado do dispositivo. Podes protexer as copias de seguranza cun contrasinal.</string>
+    <string name="settings_portfolio_lock_hint">Só oculta a carteira: desbloquéaa coa pegada, a cara ou o PIN do dispositivo. Volve bloquearse despois de máis dun minuto en segundo plano. A lista, as alarmas e os outros widgets seguen abertos.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Sen PIN ou código do dispositivo, o bloqueo non oculta nada – configura un bloqueo de pantalla.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Carteira na copia do sistema</string>
+    <string name="settings_portfolio_system_backup_hint">Desactivado: as túas transaccións quedan fóra da copia de seguranza do sistema do dispositivo e das transferencias de móbil a móbil. Para movelas a un móbil novo, usa a copia de seguranza propia da app con contrasinal.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Necesita Android 9 ou posterior – as versións anteriores gardarían a carteira sen cifrar na copia de Google.</string>
+    <string name="settings_portfolio_tab">Mostrar a lapela Carteira</string>
+    <string name="settings_portfolio_value_locked">Activada, con bloqueo</string>
+    <string name="settings_show_converted">Prezos convertidos</string>
+    <string name="settings_show_converted_hint">Mostra os prezos da lista tamén en %1$s</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">Avisar da perda de paridade do USDT</string>
+    <string name="settings_depeg_alarm_hint">Avisa unha vez cando o USDT se desvía de 1 USD no limiar (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_threshold">Limiar de perda de paridade</string>
+    <string name="settings_fng_above">Fear &amp; Greed: avisar por riba de</string>
+    <string name="settings_fng_below">Fear &amp; Greed: avisar por debaixo de</string>
+    <string name="settings_gas_alert_hint">Avisa unha vez cando a comisión normal baixa do límite. Compróbase durante as actualizacións de prezo, como moito cada 10 minutos.</string>
+    <string name="settings_gas_btc_below">Comisión de Bitcoin por debaixo de (sat/vB)</string>
+    <string name="settings_gas_eth_below">Gas de Ethereum por debaixo de (gwei)</string>
+    <string name="settings_ind_ath_within">Caída desde o máximo histórico como moito</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple por riba de</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple por debaixo de</string>
+    <string name="settings_ind_mvrv_above">MVRV por riba de</string>
+    <string name="settings_ind_mvrv_below">MVRV por debaixo de</string>
+    <string name="settings_indicator_alerts_hint">Indicadores de Bitcoin, comprobados dúas veces ao día. Ti escolles os límites – a app non valora os valores.</string>
+    <string name="settings_macro_notifications">Calendario económico</string>
+    <string name="settings_macro_notifications_hint">Ás 08:00 os días con datos económicos importantes dos EUA (inflación, informe de emprego, decisión da Fed). O calendario procede da web da app e cárgase unha vez ao día.</string>
+    <string name="settings_market_alerts">Alarmas de mercado</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d activa</item>
+        <item quantity="other">%1$d activas</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">Velocidade da voz: %1$.1f×</string>
+    <string name="settings_tts">Saída de voz</string>
+    <string name="settings_tts_alarms_only">Só alarmas</string>
+    <string name="settings_tts_alarms_only_hint">Desactivado: cada actualización dun par marcado con «Ler o prezo en voz alta» lese en voz alta.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">Le en voz alta os prezos e as alarmas. Permanece en silencio mentres o dispositivo está en modo silencio ou vibración.</string>
+    <string name="settings_tts_test">Probar a voz</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">Restablecer a app</string>
+    <string name="settings_reset_app_action">Eliminar todo</string>
+    <string name="settings_reset_app_confirm">Elimina a lista, as alarmas, a carteira, a configuración e todos os datos gardados, como despois de instalala. Non se pode desfacer. Consello: fai primeiro unha copia de seguranza. As copias do dispositivo (copia de Google ou copia de iCloud/ordenador) conservan os datos anteriores ata a seguinte copia.</string>
+    <string name="settings_reset_app_title">Queres restablecer a app?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">Buscar moeda</string>
+    <string name="language_search">Buscar idioma</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">Escuro</string>
+    <string name="theme_light">Claro</string>
+    <string name="theme_system">Sistema</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">Azul</string>
+    <string name="accent_green">Verde</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Verde Marrs</string>
+    <string name="accent_orange">Laranxa</string>
+    <string name="accent_red">Vermello</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">Habitual en China, Xapón, Corea e Taiwán</string>
+    <string name="price_colors_swap">Intercambiar cores (subida ↔ baixada)</string>
+    <string name="price_style_calm">Tranquilo</string>
+    <string name="price_style_calm_color_vision">Tranquilo · Deficiencia de visión da cor</string>
+    <string name="price_style_color_vision">Deficiencia de visión da cor</string>
+    <string name="price_style_fresh">Fresco</string>
+    <string name="price_style_traditional">Tradicional</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">Conexións cos exchanges verificadas por última vez con respostas reais: %1$s</string>
+    <string name="about_license">Os prezos proceden directamente dos exchanges; sen conta e sen seguimento.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">Licenzas</string>
+    <string name="about_privacy_policy">Política de privacidade</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">Solicitar un exchange</string>
+    <string name="about_source_code">Código fonte en GitHub</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker é un proxecto independente de r1AD: unha visión de prezos tranquila sen conta, anuncios nin seguimento. Preguntas e suxestións: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker é de código aberto (licenza MIT).</string>
+    <string name="licenses_font_title">Tipo de letra Rubik</string>
+    <string name="licenses_icons_bundled_text">Incluídas coa app: iconas de «Cryptocurrency Icons» de Christopher Downer e colaboradores (github.com/spothq/cryptocurrency-icons), publicadas baixo CC0 1.0 Universal. Móstranse ata que se cargan os logotipos de CoinGecko ou Binance. Os nomes e logotipos seguen sendo marcas dos seus proxectos.</string>
+    <string name="licenses_icons_title">Iconas de moedas alternativas</string>
+    <string name="licenses_libraries_intro">A app usa estas bibliotecas baixo a licenza Apache 2.0:</string>
+    <string name="licenses_libraries_title">Bibliotecas de Android</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">Falta %d toque para desbloquear as opcións de desenvolvemento</item>
+        <item quantity="other">Faltan %d toques para desbloquear as opcións de desenvolvemento</item>
+    </plurals>
+    <string name="developer_unlocked">Opcións de desenvolvemento desbloqueadas</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">A vibración segue a configuración do iPhone (Sons e vibracións).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Conta as alarmas novas e as alarmas de mercado; volve a 0 cando abres a app.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Os teus datos</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">Neste dispositivo</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">A túa lista, as alarmas e a carteira gárdanse cifradas neste dispositivo; sen conta, sen servidor propio.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Conexións</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Os prezos proceden directamente dos exchanges dos teus pares, ademais dos tipos de cambio, as listas de moedas e logotipos e o espello de datos en GitHub; ven o teu enderezo IP, nunca os teus haberes (os enderezos seguidos van ao provedor da rede correspondente).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Copia de seguranza</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Só se creas unha. Con contrasinal, está cifrada (Argon2id + AES-256-GCM); sen el, é lexible.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Cambio de dispositivo</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">A clave queda no dispositivo antigo – crea primeiro un ficheiro de copia de seguranza.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Compartir diagnóstico</string>
+    <string name="diagnostics_share_hint">Ficheiro de texto para o soporte: versión, dispositivo, configuración de alarmas, comprobacións recentes e rexistro de alarmas – sen carteira, importes, enderezos nin notas. Primeiro velo ti; non se envía nada automaticamente.</string>
+    <string name="diagnostics_preview_title">Vista previa do diagnóstico</string>
+    <string name="diagnostics_action_share">Compartir</string>
+    <string name="settings_price_overlay">Superposición de prezo</string>
+    <string name="settings_price_overlay_hint">Mostra os pares da notificación de prezo permanente como unha pequena pastilla flotante sobre outras apps. Toca para abrir a app; arrastra ata a × da parte inferior para pechala.</string>
+    <string name="settings_price_overlay_needs">Só funciona xunto con «%1$s».</string>
+    <string name="settings_price_overlay_grant">Permitir a visualización sobre outras apps</string>
+    <string name="price_overlay_close">Pechar superposición</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">Servidor propio para enderezos</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Só Bitcoin: o teu propio servidor compatible con Esplora ou mempool (p. ex. https://node.example/api, require un certificado de confianza pública, como Let\'s Encrypt). Se está configurado, os enderezos de Bitcoin e as claves xpub só se consultan alí – nunca en nodos públicos, nin sequera cando o teu servidor non está accesible. As outras redes seguen usando nodos públicos. Baleiro = nodos públicos.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Servidor de Bitcoin (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">Probar</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">Probando…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">O servidor responde – bloque %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">Non hai ningunha resposta válida – comproba o enderezo e o certificado</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">En uso: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">Non configurado – úsanse nodos públicos</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">Só se permiten enderezos https://</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">Sen nome de usuario nin contrasinal no enderezo</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">Sen parte ? nin # no enderezo</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">Non é un enderezo de servidor válido</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">Queres cambiar a nodos públicos?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">Entón os teus enderezos de Bitcoin e claves xpub consultaranse en nodos públicos: %1$s. Ven estes enderezos xunto co teu enderezo IP.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">Usar nodos públicos</string>
+</resources>

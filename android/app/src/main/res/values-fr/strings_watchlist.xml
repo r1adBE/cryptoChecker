@@ -247,4 +247,20 @@
     <string name="watchlist_not_saved_confirm_message">La liste et ses alertes ne sont pas enregistrées pour le moment. Cette modification et les suivantes seront perdues à la fermeture de l\'app. Modifier quand même ?</string>
     <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
     <string name="watchlist_not_saved_confirm_action">Modifier quand même</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">%1$d paire</item>
+        <item quantity="many">%1$d paires</item>
+        <item quantity="other">%1$d paires</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">%2$d sur %1$d paire</item>
+        <item quantity="many">%2$d sur %1$d paires</item>
+        <item quantity="other">%2$d sur %1$d paires</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">encore %1$d place</item>
+        <item quantity="many">encore %1$d places</item>
+        <item quantity="other">encore %1$d places</item>
+    </plurals>
+    <string name="watchlist_footer_full">Liste de suivi pleine</string>
 </resources>

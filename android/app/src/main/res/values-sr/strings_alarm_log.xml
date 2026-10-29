@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Protokoll: Titel der Seite und Name des Knopfs in «Alle Alarme» -->
+    <string name="alarm_log_title">Записник аларма</string>
+    <!-- Link unter «Letzte Prüfungen» (Einstellungen › Aktualisierung) -->
+    <string name="alarm_log_open">Прикажи записник аларма</string>
+    <string name="alarm_log_intro">Када се аларм огласио – и када би се огласио, али је задржан. Чува се само на овом уређају, 14 дана.</string>
+    <string name="alarm_log_empty_title">Још нема уноса</string>
+    <string name="alarm_log_empty_message">Уноси се овде појављују када се аларм огласи или буде задржан – на пример због застареле цене или током тихих сати.</string>
+    <string name="alarm_log_clear">Обриши записник</string>
+    <string name="alarm_log_clear_title">Обрисати записник аларма?</string>
+    <string name="alarm_log_clear_message">Сви се уноси уклањају. Твоји аларми остају какви јесу.</string>
+    <!-- Screenreader: Schwelle des Alarms, z. B. «Marke Über 100’000 CHF» -->
+    <string name="alarm_log_threshold">Праг %1$s</string>
+    <!-- Alarm-Editor: letzte Prüfung, %1$s = «14:02 · Kraken 99’800 CHF · Marke nicht erreicht» -->
+    <string name="alarm_last_check">Последња провера: %1$s</string>
+    <!-- Ergebnisse einer Alarm-Prüfung (AlarmLogOutcome) -->
+    <string name="alarm_outcome_fired">Огласио се</string>
+    <string name="alarm_outcome_not_reached">Праг није достигнут</string>
+    <string name="alarm_outcome_already_triggered">Већ пријављено – чека док се цена не врати на другу страну</string>
+    <string name="alarm_outcome_cooldown">Није се огласио – мировање након последњег аларма</string>
+    <!-- %1$s = Zeit des Kurses laut Börse -->
+    <string name="alarm_outcome_stale">Није се огласио – цена застарела (стање од %1$s)</string>
+    <string name="alarm_outcome_mark_price">Није се огласио – марк цена, а не цена трговања</string>
+    <string name="alarm_outcome_low_liquidity">Није се огласио – ликвидност испод 10.000 USD или непозната</string>
+    <string name="alarm_outcome_quiet_hours">Није се огласио – тихи сати (огласиће се после ако је услов и даље испуњен)</string>
+    <string name="alarm_outcome_notifications_off">Није се огласио – обавештења искључена</string>
+    <string name="alarm_outcome_not_shown">Није се огласио – обавештење није стигло, поновни покушај касније</string>
+    <string name="alarm_outcome_no_rate">Није проверено – нема курса</string>
+    <string name="alarm_outcome_no_price">Нема цене – упит берзи није успео</string>
+
+    <string name="alarm_outcome_snoozed">Задржано – «За 1 ч» још траје</string>
+    <string name="alarm_log_source_app">у апликацији</string>
+    <string name="alarm_log_source_background">у позадини</string>
+    <string name="alarm_log_source_exact">провера у тачно време</string>
+    <string name="alarm_log_source_widget">путем виџета</string>
+    <string name="alarm_outcome_fx_stale">Није проверено – курс старији од 36 сати</string>
+    <string name="alarm_outcome_fx_unsure">Није проверено – конверзија USDT несигурна (само преко USDC)</string>
+</resources>

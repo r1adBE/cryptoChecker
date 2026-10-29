@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">vajab rohkem andmeid ja akut</string>
+    <string name="update_mode_live">Reaalajas, kuni on avatud</string>
+    <string name="update_mode_live_hint">Kus börs pakub reaalajas hinda: kohe, kuni jälgimisloend on avatud. Muidu järgmisel päringul. Suletuna: mitte sagedamini kui iga %1$s järel, sageli hiljem.</string>
+    <string name="update_mode_live_hint_ios">Kus börs pakub reaalajas hinda: kohe, kuni jälgimisloend on avatud. Muidu järgmisel päringul. Suletuna: kui iOS lubab, mõnikord tundide kaupa vahet. Kui pühid rakenduse ära, lõpetab iOS need kontrollid, kuni avad selle uuesti.</string>
+    <string name="update_mode_recommended">soovitatav</string>
+    <string name="update_mode_sparsam">Säästlik</string>
+    <string name="update_mode_sparsam_hint">Kui rakendus on suletud, mitte sagedamini kui iga %1$s järel, sageli hiljem (hoiatused, vidinad). Avatuna: iga kord, kui selle avad.</string>
+    <string name="update_mode_sparsam_hint_ios">Kui rakendus on suletud, otsustab iOS, millal kontrollida (hoiatused, vidinad), mõnikord tundide kaupa vahet. Avatuna: iga kord, kui selle avad.</string>
+    <string name="update_mode_title">Uuendamise sagedus</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">Värskendamine katkestati</string>
+    <string name="refresh_sheet_alarms">Hoiatused</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d käivitus</item>
+        <item quantity="other">%1$d käivitus</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">Kõik uuendatud</string>
+    <string name="refresh_sheet_app_start">Rakenduse käivitamine</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">koondpäring %1$s · %2$d hind</item>
+        <item quantity="other">koondpäring %1$s · %2$d hinda</item>
+    </plurals>
+    <string name="refresh_sheet_database">Andmebaas</string>
+    <string name="refresh_sheet_exchange_unreachable">%1$s pole kättesaadav</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
+        <item quantity="one">%1$d börs pole kättesaadav</item>
+        <item quantity="other">%1$d börsi pole kättesaadavad</item>
+    </plurals>
+    <string name="refresh_sheet_network">Võrk</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d hinnamärguanne</item>
+        <item quantity="other">%1$d hinnamärguannet</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d paar</item>
+        <item quantity="other">%1$d paari</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d paar uuendamata</item>
+        <item quantity="other">%1$d paari uuendamata</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d / %1$d paarist</item>
+        <item quantity="other">%2$d / %1$d paarist</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">peatatud kuni %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">peatatud kuni %1$s (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">andmed puuduvad</string>
+    <string name="refresh_sheet_reason_offline">ühendus puudub</string>
+    <string name="refresh_sheet_reason_rate_limit">liiga palju päringuid</string>
+    <string name="refresh_sheet_reason_server">serveri viga</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">ajalõpp</string>
+    <string name="refresh_sheet_reason_unavailable">börs pole saadaval</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s sekundit</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_exchanges">Börsid</string>
+    <string name="refresh_sheet_section_steps">Käik</string>
+    <string name="refresh_sheet_status_failed">uuendamata</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">kõik uuendatud</string>
+    <string name="refresh_sheet_status_partial">osaliselt uuendatud</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Ootamine alguseni</string>
+    <string name="refresh_sheet_widgets">Vidinad</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">koondpäring %1$s (ebaõnnestus)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d viga</item>
+        <item quantity="other">%1$d viga</item>
+    </plurals>
+    <string name="refresh_report_live">Reaalajas: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d enam ei kaubelda</item>
+        <item quantity="other">%1$d enam ei kaubelda</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d eraldi</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">Ebaõnnestus</string>
+    <string name="check_result_ok">OK</string>
+    <string name="check_result_partial">Osaliselt</string>
+    <string name="check_result_skipped">Vahele jäetud</string>
+    <string name="check_trigger_bgtask">Taust</string>
+    <string name="check_trigger_exact">Õigel ajal</string>
+    <string name="check_trigger_foreground">Rakendus</string>
+    <string name="check_trigger_widget">Vidin</string>
+    <string name="check_trigger_widget_ios">Vidin · hinnad ja hinnahoiatused</string>
+    <string name="check_trigger_worker">Taust</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android võib kontrolli edasi lükata – sea aku valikuks „Piiranguteta“</string>
+    <string name="battery_later">Hiljem</string>
+    <string name="battery_message">Android lükkab taustatööd energia säästmiseks edasi – siis võivad hinnad ja vidinad olla tunde vanad. Piiranguteta akukasutusega püsivad need ajakohased. Saad seda igal ajal Androidi seadetes muuta.</string>
+    <string name="battery_open_settings">Ava akuseaded</string>
+    <string name="battery_steps">Puuduta rakenduse teabes valikut Aku (või Rakenduse akukasutus) ja vali Piiranguteta.</string>
+    <string name="battery_title">Hoia hinnad ajakohased</string>
+    <string name="ios_background_refresh_off">Selle rakenduse taustal värskendamine on väljas. Ilma selleta kontrollitakse hoiatusi ainult siis, kui rakendus on avatud.</string>
+    <string name="ios_low_power_mode">Vähese energia režiim on sees. iOS kontrollib taustal harva, seega võivad hoiatused hilineda.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Börsi teade: %1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">Mälu on endiselt lukus – uus katse %1$d s pärast</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="one">Mälu on endiselt lukus – uus katse %1$d sekundi pärast</item>
+        <item quantity="other">Mälu on endiselt lukus – uus katse %1$d sekundi pärast</item>
+    </plurals>
+    <string name="watchlist_retry_short">Uus katse %1$s pärast</string>
+    <string name="widget_retry_at">Uus katse kell %1$s</string>
+    <string name="refresh_sheet_wait_attempt">%1$d. katse – krüpteeritud mälu polnud esimesel korral veel valmis</string>
+</resources>

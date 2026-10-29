@@ -1,0 +1,41 @@
+Crypto Checker birjandakı qiymətləri yoxlayır və yoxlama səviyyənə çatıldığını görəndə sənə xəbər verir. Tətbiq bağlı olanda alarmların nə vaxt yoxlanacağına Android qərar verir – ən çoxu 15 dəqiqədən bir, çox vaxt yalnız saatlar sonra. Arada qısa sıçrayışlar buraxıla bilər; tətbiq bunu sənə deyir. Birjanın qiyməti, orta deyil – pulsuz, hesabsız.
+
+FƏRQİ NƏDİR
+• Sənin birjan, orta deyil: hər sətir cütün seçdiyin birjadakı son qiymətini göstərir – Binance, Coinbase, Kraken, OKX, Bybit və s.
+• Bir dəfə xəbər verən alarm: «BTC 100,000 USDT həddindən yuxarı qalxanda xəbər ver.» Yoxlama həddin keçildiyini görəndə səslənir, hər yeniləmədə yox – «Bir dəfə» sonra onu söndürür, «Hər dəfə» qiymət geri qayıdanda yenidən aktiv edir.
+• «Onunla birlikdə nə hərəkət edir?»: bir koin üçün amillər siyahısı – ümumi bazar, həcm, volatillik, fundinq və açıq maraq, maksimuma və ya minimuma məsafə, Fear & Greed. Eyni vaxtda nəyin hərəkət etdiyini göstərir – səbəb, xəbər və investisiya məsləhəti deyil.
+• Hesab, reklam və izləmə yoxdur. Tərtibatçı heç bir məlumatını almır.
+
+MƏLUMATLAR BARƏDƏ DÜRÜST
+• «Qənaətcil» standartdır: qiymətlər tətbiqi açanda və arxa fonda müəyyən intervallarla yenilənir. «Açıq olanda canlı» izləmə siyahısı açıq olduqca canlı qiymətlər əlavə edir (Binance, Bybit, OKX, Coinbase, Kraken).
+• % dəyişiklik və qrafiklər əvvəlcə cütün öz birjasından gəlir; şamları yoxdursa, tətbiq Binance və ya Coinbase-dən istifadə edir və bunu sənə deyir.
+• Fear & Greed, dominantlıq və on-chain dəyərləri alternative.me, CoinGecko və Coin Metrics-dən.
+• Məbləğlər cihazı yalnız sənin ixracınla və ya Android sistem ehtiyat nüsxəsi ilə tərk edir. Qiymətlər üçün müvafiq cütün birjasına yalnız cüt tikerləri gedir; həmçinin məzənnələr (Frankfurter), bazar məlumatları və loqolar (CoinGecko, Binance), məlumat güzgüləri (GitHub). Ünvanları və ya xpub-ı izləyirsənsə, açıq blokçeyn qovşaqları ünvanları (xpub üçün törədilənləri) və IP-ni görür.
+
+İZLƏMƏ SİYAHISI
+• 45 birjada 56 bazar: spot və fyuçerslər, DexScreener vasitəsilə DEX tokenləri, istəyə görə səhmlər, qızıl və FX (TradFi)
+• 31 valyutadan birində (EUR, CHF, USD …) FX məzənnəsi ilə çevrilmiş ikinci sətir «≈ dəyər»
+• Mini qrafik və 24 saat ərzində və ya saat qurşağında 00:00-dan bəri % dəyişiklik
+• Qruplar, seçilmişlər, drag & drop və hər koin üçün qeyd
+• Sətirlər «köhnəlib» və ya «birja əlçatan deyil» qeydini göstərir
+
+ALARMLAR
+• Qiymət səviyyədən yuxarı və ya aşağı, ya da faizlə artım və ya düşüş – öz valyutanda da, məs. USDT cütündə 60,000 EUR
+• Zaman pəncərəsində x % hərəkət, həcm sıçrayışı
+• Səs (öz audio faylın da), vibrasiya və istəyə görə səsli oxuma
+• Sakit saatlar və «Test alarmı»: alarmın necə çatdığını əvvəlcədən eşit; alarm jurnalı: nə vaxt yoxlanılıb, hansı qiymət, alarm niyə işə düşməyib
+
+BAZAR
+• Diqqətəlayiq: izləmə siyahında qeyri-adi qiymət və həcm hərəkətləri, istəyə görə bazar bildirişi kimi
+• Kripto nəbz, Fear & Greed, Bitcoin göstəriciləri, fundinq və açıq maraq – sadə ölçülmüş dəyərlər kimi
+• Ethereum, Bitcoin və digərləri üçün şəbəkə komissiyaları, gas alarmı ilə
+
+DAHA ÇOX
+• Vidcetlər: izləmə siyahısı, portfelin cəmi, qrafikli tək koin
+• İstəyə görə portfel (Ayarlarda aktiv et): alışlar, satışlar, mübadilələr, köçürmələr, mükafatlar, depozitlər və çıxarışlar; FIFO (standart) və ya orta (Ø); seed olmadan yalnız baxış üçün ünvanlar: BTC (xpub daxil), ETH & EVM şəbəkələri, SOL, TRX, XRP, LTC, ADA və TON; Relai, Swissquote, Bitpanda, Kraken, Binance və Coinbase-dən CSV idxalı; CSV kimi illik icmal; öz kilidi. Bitpanda və Swissquote: öz qiyməti yoxdur, yalnız CSV.
+• Hamı üçün oxunaqlı: yaşıl/qırmızı və ya mavi/narıncı, yalnız rəng əvəzinə işarə və ox; TalkBack hər sətri bir cümlə kimi oxuyur
+• Fayla ehtiyat nüsxə və bərpa – Android və iPhone arasında da
+• Açıq və tünd rejim, beş vurğu rəngi, 75 dil
+• Açıq mənbə (MIT) – kod GitHub-da açıqdır
+
+Qeyd: Crypto Checker qiymətləri və özün daxil etdiyin portfeli göstərir. Birja və ya pulqabı deyil, ticarət etmir və investisiya məsləhəti vermir.

@@ -221,4 +221,14 @@
     <string name="watchlist_not_saved_confirm_message">지금은 관심 목록과 경보가 저장되지 않습니다. 이번 변경과 이후의 변경 사항은 앱을 닫으면 사라집니다. 그래도 변경할까요?</string>
     <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
     <string name="watchlist_not_saved_confirm_action">그래도 변경</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="other">거래쌍 %1$d개</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="other">거래쌍 %1$d개 중 %2$d개</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="other">남은 자리 %1$d개</item>
+    </plurals>
+    <string name="watchlist_footer_full">관심 목록이 가득 찼습니다</string>
 </resources>

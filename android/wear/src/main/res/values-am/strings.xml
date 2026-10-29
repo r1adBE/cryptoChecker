@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">ምንም ሳንቲም አልተመረጠም</string>
+    <string name="watch_loading">በመጫን ላይ…</string>
+    <string name="watch_error">ልውውጦች ሊደረስባቸው አልቻለም</string>
+    <string name="watch_updated">እስከ %1$s</string>
+    <string name="watch_refresh">ያድሱ</string>
+    <string name="watch_choose">ሳንቲሞችን ይምረጡ</string>
+    <string name="watch_choose_hint">ሳንቲሞች፦ ቢበዛ %1$d</string>
+    <string name="watch_complication_label">ዋጋ</string>
+    <string name="a11y_watch_row">%1$s %2$s፣ %3$s በ24 ሰዓት ውስጥ</string>
+    <string name="watch_mode_phone">ዝርዝር፦ እንደ ስልኩ</string>
+    <string name="watch_mode_own">ዝርዝር፦ የራስ</string>
+    <string name="watch_phone_empty">በስልኩ ላይ ምንም ተወዳጅ የለም</string>
+    <string name="a11y_watch_outdated">ዋጋው ጊዜው ያለፈበት ነው</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">ከ%1$d ደቂቃ በፊት ተዘምኗል</item>
+        <item quantity="other">ከ%1$d ደቂቃዎች በፊት ተዘምኗል</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">ከ%1$d ሰዓት በፊት ተዘምኗል</item>
+        <item quantity="other">ከ%1$d ሰዓታት በፊት ተዘምኗል</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">ከ%1$d ቀን በፊት ተዘምኗል</item>
+        <item quantity="other">ከ%1$d ቀናት በፊት ተዘምኗል</item>
+    </plurals>
+</resources>

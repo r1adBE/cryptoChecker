@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">అడ్రస్‌ను జోడించు</string>
+    <string name="portfolio_address_count">లెక్కించు</string>
+    <string name="portfolio_address_error">అప్‌డేట్ విఫలమైంది</string>
+    <string name="portfolio_address_hint">పబ్లిక్ అడ్రస్ (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) లేదా xpub</string>
+    <string name="portfolio_address_label">లేబుల్ (ఐచ్ఛికం)</string>
+    <string name="portfolio_address_not_since_buy">అడ్రస్ నుండి · “కొనుగోలు నుండి”లో లేదు: %1$s</string>
+    <string name="portfolio_address_overlap">మీ సొంత లావాదేవీలలో కూడా ఉంది: %1$s – రెండూ కలపబడతాయి. అవే కాయిన్‌లా? “చూపు మాత్రమే” ఎంచుకోండి.</string>
+    <string name="portfolio_address_overlap_ask">మీరు ఇప్పటికే %1$sను మీ సొంత లావాదేవీలతో నమోదు చేస్తున్నారు. ఈ అడ్రస్ బ్యాలెన్స్‌ను పోర్ట్‌ఫోలియోకు జోడించాలా, లేదా చూపించడం మాత్రమేనా?</string>
+    <string name="portfolio_address_overlap_auto">“%1$s” ఇప్పుడు చూపబడుతుంది మాత్రమే, లెక్కించబడదు – %2$s మీ లావాదేవీలలో కూడా ఉన్నాయి.</string>
+    <string name="portfolio_address_overlap_title">మీ లావాదేవీలలోని అవే కాయిన్‌లా?</string>
+    <string name="portfolio_address_overlap_tx">మీ సొంత డిపాజిట్/బదిలీ (%1$s) లాంటి మొత్తమే – రెండుసార్లు లెక్కించబడి ఉండవచ్చు.</string>
+    <string name="portfolio_address_period_observed">పర్యవేక్షిస్తున్న అడ్రస్‌లు మొదట గమనించిన బ్యాలెన్స్ నుండి లెక్కించబడతాయి; తర్వాతి మార్పులు ఇన్‌ఫ్లో/అవుట్‌ఫ్లోలు, లాభం కాదు.</string>
+    <string name="portfolio_address_privacy">పబ్లిక్ అడ్రస్ మాత్రమే %1$sకు పంపబడుతుంది – కీలు లేదా సీడ్ ఫ్రేజ్‌లు ఎప్పుడూ కాదు. ప్రొవైడర్ దాన్ని మీ IP అడ్రస్‌తో కలిపి చూస్తారు. గరిష్ఠంగా 10 నిమిషాలకు ఒకసారి తనిఖీ చేయబడుతుంది.</string>
+    <string name="portfolio_address_remove">అడ్రస్‌ను తీసివేయి</string>
+    <string name="portfolio_address_show_only">చూపు మాత్రమే, పోర్ట్‌ఫోలియోకు జోడించవద్దు</string>
+    <string name="portfolio_address_show_only_short">చూపు మాత్రమే</string>
+    <string name="portfolio_address_tokens">టోకెన్‌లను లెక్కించు</string>
+    <string name="portfolio_address_xpub_privacy">xpub ఈ వాలెట్ అన్ని అడ్రస్‌లను బహిర్గతం చేస్తుంది. అవి మీ పరికరంలోనే రూపొందించబడతాయి; వ్యక్తిగత అడ్రస్‌లు మాత్రమే %1$sకు పంపబడతాయి – మొదటి స్కాన్‌లో కనీసం 40 రిక్వెస్ట్‌లు, తర్వాత తక్కువ. ప్రైవేట్ కీలు (xprv) ఎప్పుడూ అంగీకరించబడవు.</string>
+    <string name="portfolio_address_xpub_gap">వరుసగా %1$d ఉపయోగించని అడ్రస్‌ల తర్వాత శోధన ఆగిపోతుంది (చాలా వాలెట్‌లు ఉపయోగించే BIP44 ప్రమాణం). ఆ అంతరం దాటిన ఉపయోగించిన అడ్రస్ లెక్కించబడదు – దాన్ని విడిగా జోడించండి.</string>
+    <string name="portfolio_address_xpub_used">ఉపయోగంలో ఉన్న అడ్రస్‌లు: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">అప్‌డేట్ చేయడానికి చాలా ఎక్కువ ఉపయోగించిన అడ్రస్‌లు</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">చాలా ఎక్కువ అడ్రస్‌లు – పాత, ఖాళీ అడ్రస్‌లకు వచ్చే కొత్త చెల్లింపులు గుర్తించబడకపోవచ్చు</string>
+    <string name="portfolio_addresses_title">అడ్రస్‌లు</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Bitcoin Cash అడ్రస్‌లను పర్యవేక్షించలేము: API కీ లేకుండా, నిబంధనలు అనుమతించే ఉచిత పబ్లిక్ సేవ ఏదీ లేదు.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) 2024లో మూసివేయబడింది – బ్యాలెన్స్‌లు ఇప్పుడు BNB Smart Chain (0x…)లో ఉన్నాయి</string>
+    <string name="address_checksum">చెక్‌సమ్ తప్పు – అక్షర దోషాలను తనిఖీ చేయండి</string>
+    <string name="address_doge_unsupported">Dogecoin అడ్రస్‌లను పర్యవేక్షించలేము: API కీ లేకుండా, నిబంధనలు అనుమతించే ఉచిత పబ్లిక్ సేవ ఏదీ లేదు.</string>
+    <string name="address_duplicate">ఈ అడ్రస్ ఇప్పటికే జోడించబడింది</string>
+    <string name="address_ens">ENS పేర్లకు మద్దతు లేదు – 0x అడ్రస్‌ను నమోదు చేయండి</string>
+    <string name="address_invalid">మద్దతు ఉన్న నెట్‌వర్క్ యొక్క చెల్లుబాటు అయ్యే అడ్రస్ కాదు</string>
+    <string name="address_limit">గరిష్ఠంగా 20 అడ్రస్‌లు</string>
+    <string name="address_secret">ఇది ప్రైవేట్ కీ లేదా సీడ్ ఫ్రేజ్ లాగా ఉంది – దీన్ని ఎక్కడా ఎప్పుడూ నమోదు చేయవద్దు. పబ్లిక్ అడ్రస్‌లు మాత్రమే.</string>
+    <string name="address_testnet">టెస్ట్‌నెట్ అడ్రస్‌లకు మద్దతు లేదు</string>
+    <string name="address_unsupported">ఈ అడ్రస్ రకానికి మద్దతు లేదు</string>
+    <string name="address_wrong_chain">అడ్రస్ వేరే నెట్‌వర్క్‌కు చెందినది</string>
+    <string name="address_xpub_multisig">మల్టీసిగ్ కీలకు (Ypub/Zpub) మద్దతు లేదు</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot ఖాతా (BIP86): bc1p… అడ్రస్‌లు ఈ కీ నుండి స్వీకరించడానికి, చేంజ్ కోసం రూపొందించబడతాయి.</string>
+    <string name="portfolio_address_taproot_hint">Taproot వాలెటా? బదులుగా మీ వాలెట్ నుండి tr(…) డిస్క్రిప్టర్‌ను పేస్ట్ చేయండి – సాధారణ xpub Legacy, SegWit అడ్రస్‌లుగా మాత్రమే శోధించబడుతుంది.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">సొంత సర్వర్ అందుబాటులో లేదు</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">%1$sను నడిపే వారు ఈ వాలెట్ యొక్క క్వెరీ చేసిన అన్ని అడ్రస్‌లను చూడగలరు, వాటిని ఒకదానితో ఒకటి, మీ IP అడ్రస్‌తో లింక్ చేయగలరు.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">దీన్ని నివారించడానికి, సెట్టింగ్‌లు › పోర్ట్‌ఫోలియో › అడ్రస్‌ల కోసం సొంత సర్వర్ కింద మీ సొంత సర్వర్‌ను నమోదు చేయండి.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d తెలియని టోకెన్ (లెక్కించబడలేదు)</item>
+        <item quantity="other">+%1$d తెలియని టోకెన్‌లు (లెక్కించబడలేదు)</item>
+    </plurals>
+</resources>

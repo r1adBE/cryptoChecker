@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">Kengele za jalada zimesitishwa: hakuna bei ya sasa ya %1$s</string>
+    <string name="portfolio_alarms_paused_price_generic">Kengele za jalada zimesitishwa: si kila sarafu ina bei ya sasa</string>
+    <string name="portfolio_alarms_paused_addresses">Kengele za jalada zimesitishwa: salio la anwani zinazofuatiliwa bado halijapakiwa</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Kengele za jalada zimesitishwa: salio la tokeni la %1$s limepitwa na wakati kwa kiasi</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Kengele za jalada zimesitishwa: salio la tokeni la anwani zinazofuatiliwa limepitwa na wakati kwa kiasi</string>
+    <string name="portfolio_alarms_paused_unverified">Kengele za jalada zimesitishwa: bei ya %1$s haijathibitishwa</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Kengele za jalada zimesitishwa: bei ya baadhi ya sarafu haijathibitishwa</string>
+    <string name="portfolio_alarms_address_failing">Kengele za jalada zinakagua bila %1$s: salio halijapakiwa kwa zaidi ya saa 24</string>
+    <string name="portfolio_alarms_address_failing_generic">Kengele za jalada zinakagua bila anwani ambazo salio lake halijapakiwa kwa zaidi ya saa 24</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">tokeni zimepitwa na wakati kwa kiasi</string>
+    <string name="portfolio_address_restore_failed">Anwani haikuweza kurejeshwa – iongeze tena ikihitajika</string>
+    <string name="portfolio_address_remove_failed">Anwani haikuweza kuondolewa – tafadhali jaribu tena</string>
+</resources>

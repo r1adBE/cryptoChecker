@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="one">prieš %d min.</item>
+        <item quantity="few">prieš %d min.</item>
+        <item quantity="many">prieš %d min.</item>
+        <item quantity="other">prieš %d min.</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">šiandien %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed, Bitcoin rodikliai, dominavimas, halvingas</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">Daugiau rinkos duomenų</string>
+    <string name="market_phase_trend_failed">Kainų duomenys nepasiekiami</string>
+    <string name="market_plain_direction_down_clear">Visų kriptovaliutų bendra vertė aiškiai mažesnė nei prieš 24 valandas (%1$s).</string>
+    <string name="market_plain_direction_down_slight">Visų kriptovaliutų bendra vertė šiek tiek mažesnė nei prieš 24 valandas (%1$s).</string>
+    <string name="market_plain_direction_flat">Visų kriptovaliutų bendra vertė per 24 valandas beveik nepakito (%1$s).</string>
+    <string name="market_plain_direction_up_clear">Visų kriptovaliutų bendra vertė aiškiai didesnė nei prieš 24 valandas (%1$s).</string>
+    <string name="market_plain_direction_up_slight">Visų kriptovaliutų bendra vertė šiek tiek didesnė nei prieš 24 valandas (%1$s).</string>
+    <string name="market_plain_footnote">Apibūdina paskutines 24 valandas – ne prognozė, ne investavimo patarimas.</string>
+    <string name="market_plain_mood_extreme_fear">Investuotojai dabar labai bijo: nuotaikų indeksas (Fear &amp; Greed) yra %1$d iš 100.</string>
+    <string name="market_plain_mood_extreme_greed">Investuotojai dabar labai godūs: nuotaikų indeksas (Fear &amp; Greed) yra %1$d iš 100.</string>
+    <string name="market_plain_mood_fear">Investuotojai gana baimingi: nuotaikų indeksas (Fear &amp; Greed) yra %1$d iš 100.</string>
+    <string name="market_plain_mood_greed">Investuotojai gana godūs: nuotaikų indeksas (Fear &amp; Greed) yra %1$d iš 100.</string>
+    <string name="market_plain_mood_neutral">Investuotojų nuotaika subalansuota: nuotaikų indeksas (Fear &amp; Greed) yra %1$d iš 100.</string>
+    <string name="market_plain_standout_above_btc">Išsiskiria %1$s: %2$s per 24 valandas, gerokai daugiau nei Bitcoin (%3$s).</string>
+    <string name="market_plain_standout_against_btc">Išsiskiria %1$s: %2$s per 24 valandas, o Bitcoin judėjo priešinga kryptimi (%3$s).</string>
+    <string name="market_plain_standout_below_btc">Išsiskiria %1$s: %2$s per 24 valandas, gerokai mažiau nei Bitcoin (%3$s).</string>
+    <string name="market_plain_standout_futures_down">Išsiskiria %1$s: neįprastai daug ateities sandorių prekiautojų stato už krentančias kainas.</string>
+    <string name="market_plain_standout_futures_up">Išsiskiria %1$s: neįprastai daug ateities sandorių prekiautojų stato už kylančias kainas.</string>
+    <string name="market_plain_standout_quiet">Šiuo metu nė viena moneta neišsiskiria.</string>
+    <string name="market_plain_standout_volume">Išsiskiria %1$s: prekiaujama maždaug %2$s karto daugiau nei įprastai.</string>
+    <string name="market_plain_title">Trumpai</string>
+    <string name="market_section_collapse">Slėpti: %1$s</string>
+    <string name="market_section_context">Nuotaikos ir ciklas</string>
+    <string name="market_section_data">Rinkos duomenys</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">Rodyti: %1$s</string>
+    <string name="market_section_now">Dabar</string>
+    <string name="market_source">Duomenys: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="exchange_unavailable_error">Birža nepasiekiama</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">Informacija: %1$s</string>
+    <string name="market_info_alt_season_source">Dienos kainos: Binance · perskaičiuojama maždaug kas 3 valandas</string>
+    <string name="market_info_alt_season_what">Skaičiuoja, kiek iš maždaug 20 didelių altcoinų (pvz., Ethereum, Solana, XRP) per paskutines 90 dienų pasirodė geriau nei Bitcoin. Vertė – jų dalis nuo 0 iki 100.</string>
+    <string name="market_info_coin_source">Kainos: Binance arba Bybit · įkeliama maždaug kas 15 minučių</string>
+    <string name="market_info_dominance_how">Jei dominavimas didėja, Bitcoin sekasi geriau nei likusiai rinkai; jei mažėja, kitos monetos įgauna svorio. Stabiliosios monetos taip pat skaičiuojamos: jei jų vertė auga, Bitcoin dalis mažėja, net jei Bitcoin kaina nesikeičia.</string>
+    <string name="market_info_dominance_source">Šaltinis: CoinGecko · įkeliama maždaug kas 30 minučių</string>
+    <string name="market_info_dominance_what">Bitcoin dalis visų kriptovaliutų bendroje vertėje (rinkos kapitalizacijoje). Žemiau – Ethereum dalis.</string>
+    <string name="market_info_fear_greed_how">Žemiau 25 reiškia didžiulę baimę, virš 75 – didžiulį godumą, apie 50 – neutralu. Išskleista kortelė rodo vakar dienos, prieš savaitę ir prieš mėnesį buvusias vertes. Ne pirkimo ar pardavimo signalas.</string>
+    <string name="market_info_fear_greed_source">Šaltinis: alternative.me · nauja vertė kartą per dieną</string>
+    <string name="market_info_fear_greed_what">Kriptovaliutų rinkos nuotaikų indeksas nuo 0 iki 100. alternative.me jį apskaičiuoja iš kelių šaltinių, įskaitant kainų svyravimus, prekybos apimtį, socialinius tinklus ir Bitcoin dominavimą.</string>
+    <string name="market_info_gas_how">Didesnės vertės reiškia, kad tinklas apkrautas ir pervedimai kainuoja daugiau. Lėtas, įprastas ir greitas – tai komisiniai mokesčiai už vėlesnį ar greitesnį patvirtinimą. Išskleista kortelė rodo apytikslę paprasto pervedimo kainą.</string>
+    <string name="market_info_gas_source">Vieši RPC mazgai, mempool.space · įkeliama kas minutę</string>
+    <string name="market_info_gas_what">Kiek šiuo metu kainuoja transakcija kiekviename tinkle. Ethereum ir panašiuose tinkluose – gwei (viena milijardoji ETH už dujų vienetą), Bitcoin – sat/vB (satošiai už virtualų transakcijos baitą).</string>
+    <string name="market_info_halving_source">Data: pagal bloko aukštį ir vidutinį bloko laiką (mempool.space), kitaip pagal kalendorių · kainų istorija: Coin Metrics, Binance, įkeliama kas 12 valandų</string>
+    <string name="market_info_halving_what">Halvingo metu atlygis, kurį kasėjai gauna už naują Bitcoin bloką, sumažinamas perpus. Tai vyksta kas 210 000 blokų, maždaug kas ketverius metus. Po to per dieną sukuriama tik perpus mažiau naujų bitcoinų.</string>
+    <string name="market_info_how">Kaip tai skaityti</string>
+    <string name="market_info_macro_how">Pastaba rodoma tik tada, kai tokia data yra šiandien arba rytoj. Apie paskelbimo laiką kainos dažnai svyruoja labiau nei įprastai. Programėlė rodo tik datą, ne pačius skaičius.</string>
+    <string name="market_info_macro_source">Kalendorius iš programėlės svetainės · įkeliamas kartą per dieną</string>
+    <string name="market_info_macro_what">Svarbių JAV ekonominių duomenų datos: infliacija (CPI, PCE), gamintojų kainos (PPI), darbo rinkos ataskaita ir JAV federalinio rezervo palūkanų normų sprendimai. Tokie skaičiai dažnai pajudina ir kriptovaliutų kainas.</string>
+    <string name="market_info_no_advice">Ne investavimo patarimas.</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · kainos kas valandą, grandinės vertės įkeliamos kas 12 valandų</string>
+    <string name="market_info_pulse_how">Antraštė nurodo kryptį; išskleisk kortelę, kad pamatytum detales. Platus judėjimas reiškia, kad dauguma didelių monetų juda ta pačia kryptimi. Optimistinė sverto nuotaika reiškia, kad daug prekiautojų su svertu stato už kylančias kainas – matuojama pagal Bitcoin ateities sandorių finansavimo normą. Momentinė nuotrauka, ne prognozė.</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · įkeliama maždaug kas 5 minutes</string>
+    <string name="market_info_pulse_what">Trumpa paskutinių 24 valandų rinkos santrauka: kaip juda Bitcoin, Ethereum ir Solana, kiek didžiausių monetų kyla ar krenta, kiek Bitcoin dabar prekiaujama ir kokia sverto nuotaika (matuojama pagal Bitcoin ateities sandorių finansavimo normą).</string>
+    <string name="market_info_totals_how">Dešinėje – bendros vertės pokytis per 24 valandas. Didelė apimtis reiškia, kad daug prekiaujama – kuria kryptimi, ji nepasako. Kai įmanoma, rodoma perskaičiavimo valiuta, kitaip JAV doleriais.</string>
+    <string name="market_info_totals_source">Visos monetos · CoinGecko · įkeliama maždaug kas 30 minučių</string>
+    <string name="market_info_totals_what">Visų kriptovaliutų bendra vertė (rinkos kapitalizacija: kaina, padauginta iš apyvartoje esančio kiekio, susumuota per visas monetas) ir paskutinių 24 valandų prekybos apimtis.</string>
+    <string name="market_info_unusual_how">Kiekviena moneta rodo labiausiai pastebimą stebėjimą, dešinėje – 24 valandų pokytį. 2× apimtis reiškia dvigubai didesnę apyvartą nei įprastai. Pastebima nereiškia nei gera, nei bloga.</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · įkeliama maždaug kas 10 minučių</string>
+    <string name="market_info_unusual_what">Iki penkių monetų iš maždaug 30 didžiausių (be stabiliųjų monetų), kurios šiandien elgiasi neįprastai: gerokai stipriau ar silpniau nei Bitcoin, prieš rinkos kryptį, su neįprastai didele prekybos apimtimi ar pastebima finansavimo norma.</string>
+    <string name="market_info_what">Kas tai?</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">Rinkos kapitalizacija</string>
+    <string name="market_cap_source">Visos monetos · CoinGecko</string>
+    <string name="market_cap_title">Kriptovaliutų rinka</string>
+    <string name="market_volume_label">Apimtis per 24 val.</string>
+
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">Detalės</string>
+    <string name="pulse_disclaimer">Ne prognozė · Ne investavimo patarimas</string>
+    <string name="pulse_less">Rodyti mažiau</string>
+    <string name="pulse_now_title">Kripto pulsas</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">Pokytis per 24 valandas</string>
+    <string name="pulse_section_factors">Veiksniai</string>
+    <string name="pulse_section_market">Rinka šiandien</string>
+    <string name="pulse_unavailable">Rinkos duomenys šiuo metu nepasiekiami</string>
+    <string name="pulse_updated">Būsena %1$s</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">Rami rinka</string>
+    <string name="pulse_headline_down">Platus silpnumas</string>
+    <string name="pulse_headline_mixed">Mišrus vaizdas</string>
+    <string name="pulse_headline_up">Platus stiprumas</string>
+    <string name="pulse_lead_alts_stronger">Altcoinai stipresni už Bitcoin.</string>
+    <string name="pulse_lead_broad_down">Rinka plačiai krenta.</string>
+    <string name="pulse_lead_broad_up">Rinka plačiai kyla.</string>
+    <string name="pulse_lead_btc_leads">Labiausiai kyla Bitcoin.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin stipresnis už altcoinus.</string>
+    <string name="pulse_lead_calm">Rinka beveik nejuda.</string>
+    <string name="pulse_lead_drift_down">Rinka po truputį leidžiasi.</string>
+    <string name="pulse_lead_drift_up">Rinka po truputį kyla.</string>
+    <string name="pulse_lead_mixed">Didelės monetos juda skirtingomis kryptimis.</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">Sverto nuotaika optimistinė.</string>
+    <string name="pulse_detail_fund_negative">Sverto nuotaika pesimistinė.</string>
+    <string name="pulse_detail_fund_neutral">Sverto nuotaika neutrali.</string>
+    <string name="pulse_detail_vol_above">Apimtis %1$s virš įprastos.</string>
+    <string name="pulse_detail_vol_above_fund_high">Apimtis %1$s virš įprastos, sverto nuotaika optimistinė.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Apimtis %1$s virš įprastos, sverto nuotaika pesimistinė.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Apimtis %1$s virš įprastos, sverto nuotaika neutrali.</string>
+    <string name="pulse_detail_vol_below">Apimtis %1$s žemiau įprastos.</string>
+    <string name="pulse_detail_vol_below_fund_high">Apimtis %1$s žemiau įprastos, sverto nuotaika optimistinė.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Apimtis %1$s žemiau įprastos, sverto nuotaika pesimistinė.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Apimtis %1$s žemiau įprastos, sverto nuotaika neutrali.</string>
+    <string name="pulse_detail_vol_normal">Apimtis įprasta.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Apimtis įprasta, sverto nuotaika optimistinė.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Apimtis įprasta, sverto nuotaika pesimistinė.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Apimtis įprasta, sverto nuotaika neutrali.</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">Top %1$d: didžiausios monetos pagal rinkos vertę, be stabiliųjų monetų; pokytis per 24 valandas (CoinGecko).</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_note_broad_down">Platus išpardavimas: dauguma didžiausių monetų krenta.</string>
+    <string name="pulse_breadth_note_broad_up">Platus judėjimas: dauguma didžiausių monetų kyla.</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin krenta, bet dauguma kitų didelių monetų laikosi.</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin kyla, bet dauguma kitų didelių monetų neprisijungia.</string>
+    <string name="pulse_breadth_spoken">Top %1$d: %2$d kyla, %3$d krenta</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">Altcoinai ir Bitcoin juda panašiai</string>
+    <string name="pulse_alts_stronger">Altcoinai stipresni už Bitcoin</string>
+    <string name="pulse_alts_weaker">Bitcoin stipresnis už altcoinus</string>
+    <string name="pulse_chip_funding_high">Sverto nuotaika optimistinė</string>
+    <string name="pulse_chip_funding_negative">Sverto nuotaika pesimistinė</string>
+
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">Rodyti kainą ir veiksmus</string>
+    <string name="unusual_fact_against">Juda prieš rinką</string>
+    <string name="unusual_fact_funding_high">Finansavimo norma aukšta (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Finansavimo norma neigiama (%1$s)</string>
+    <string name="unusual_fact_stronger">Juda gerokai stipriau nei BTC</string>
+    <string name="unusual_fact_volume">Apimtis %1$s× įprastos</string>
+    <string name="unusual_fact_weaker">Juda gerokai silpniau nei BTC</string>
+    <string name="unusual_nothing">Šiandien nieko pastebimo</string>
+    <string name="unusual_source">Maždaug 30 didžiausių monetų be stabiliųjų monetų · Binance, CoinGecko</string>
+    <string name="unusual_title">Pastebima</string>
+
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">Pastebima</string>
+    <string name="activity_indicator">Pastebima</string>
+    <string name="activity_sensitivity_less">Mažiau</string>
+    <string name="activity_sensitivity_more">Daugiau</string>
+    <string name="activity_sensitivity_normal">Įprastai</string>
+    <string name="activity_signal_funding_long">Finansavimo norma %1$s – daug ilgųjų pozicijų su svertu</string>
+    <string name="activity_signal_funding_short">Finansavimo norma %1$s – daug trumpųjų pozicijų</string>
+    <string name="activity_signal_open_interest">Atvirosios pozicijos %1$s per %2$d min.</string>
+    <string name="activity_signal_open_interest_no_time">Atvirosios pozicijos %1$s</string>
+    <string name="activity_signal_price_move">Neįprastas judėjimas: %1$s per valandą (%2$s× įprasto)</string>
+    <string name="activity_signal_volume">Apimtis %1$s× įprastos per paskutinę valandą</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%1$d iš %2$d didelių altcoinų per 90 dienų aplenkia Bitcoin</item>
+        <item quantity="few">%1$d iš %2$d didelių altcoinų per 90 dienų aplenkia Bitcoin</item>
+        <item quantity="many">%1$d iš %2$d didelių altcoinų per 90 dienų aplenkia Bitcoin</item>
+        <item quantity="other">%1$d iš %2$d didelių altcoinų per 90 dienų aplenkia Bitcoin</item>
+    </plurals>
+    <string name="insights_chart_axis">Metai nuo halvingo</string>
+    <string name="insights_chart_hint">Kaina kaip halvingo dienos kainos kartotinis (logaritminė skalė). Ankstesni ciklai yra modelis, ne prognozė.</string>
+    <string name="insights_cycle_chart">Ciklai nuo halvingo</string>
+    <string name="insights_dominance_eth">ETH %1$s visos rinkos</string>
+    <string name="insights_dominance_title">Bitcoin dominavimas</string>
+    <string name="insights_fng_history">Vakar %1$s · prieš savaitę %2$s · prieš mėnesį %3$s</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="insights_halving_title">Bitcoin halvingas</string>
+    <string name="insights_source_dominance">Šaltinis: CoinGecko, Binance</string>
+    <string name="insights_source_fng">Šaltinis: alternative.me</string>
+    <string name="insights_source_history">Šaltinis: Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">Didžiulė baimė</string>
+    <string name="fng_extreme_greed">Didžiulis godumas</string>
+    <string name="fng_fear">Baimė</string>
+    <string name="fng_greed">Godumas</string>
+    <string name="fng_neutral">Neutralu</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">Būsena %1$s · atnaujinama…</string>
+    <string name="cycle_from_top">%1$s nuo viršūnės</string>
+    <string name="cycle_marker_bottom">Dugnas %1$s</string>
+    <string name="cycle_marker_double_bottom">Dvigubas dugnas %1$s</string>
+    <string name="cycle_marker_double_top">Dviguba viršūnė %1$s</string>
+    <string name="cycle_marker_high_so_far">Kol kas aukščiausia</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">Viršūnė %1$s</string>
+    <string name="cycle_since_halving">%1$s nuo halvingo</string>
+    <string name="halving_estimate_text">Kitas halvingas pagal skaičiavimą apie %1$s: liko %2$s blokų, vidutiniškai %3$s min. vienam blokui (dabartinis sudėtingumo laikotarpis). Projekcija, ne pažadas – bloko laikas kinta.</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">Įspėjimas: %1$s</string>
+    <string name="gas_slow_fast">Lėtas %1$s · Greitas %2$s</string>
+    <string name="gas_source">Vieši RPC mazgai ir mempool.space · Paprasto pervedimo kaina, L2 tinkluose be L1 dalies</string>
+    <string name="gas_title">Tinklo komisiniai mokesčiai</string>
+    <string name="gas_transfer_cost">Pervedimas ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">JAV infliacijos duomenys (CPI)</string>
+    <string name="macro_fomc">JAV FED palūkanų sprendimas</string>
+    <string name="macro_hint_list">%1$s – tokiomis dienomis rinkos dažnai svyruoja labiau.</string>
+    <string name="macro_hint_today">Šiandien %1$s: %2$s – tokiomis dienomis rinkos dažnai svyruoja labiau.</string>
+    <string name="macro_hint_today_list">Šiandien: %1$s – tokiomis dienomis rinkos dažnai svyruoja labiau.</string>
+    <string name="macro_hint_tomorrow">Rytoj %1$s: %2$s – tokiomis dienomis rinkos dažnai svyruoja labiau.</string>
+    <string name="macro_hint_tomorrow_list">Rytoj: %1$s – tokiomis dienomis rinkos dažnai svyruoja labiau.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Šiandien %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Rytoj %1$s %2$s</string>
+    <string name="macro_nfp">JAV darbo rinkos ataskaita</string>
+    <string name="macro_pce">JAV vartojimo išlaidų kainos (PCE)</string>
+    <string name="macro_ppi">JAV gamintojų kainos (PPI)</string>
+    <string name="macro_released_list">Paskelbta šiandien: %1$s.</string>
+    <string name="macro_released_one">Paskelbta šiandien %1$s: %2$s.</string>
+    <string name="macro_title">Ekonominiai duomenys</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">Moneta</string>
+    <string name="coin_no_data">Šios monetos kainų duomenų Binance ar Bybit nėra.</string>
+    <string name="coin_price_only">Remiamasi tik kaina – grandinės duomenys (MVRV, Puell, maišos dažnis) laisvai prieinami tik Bitcoin.</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">Tik %1$d diena kainų istorijos – kai kurių rodiklių trūksta.</item>
+        <item quantity="few">Tik %1$d dienos kainų istorijos – kai kurių rodiklių trūksta.</item>
+        <item quantity="many">Tik %1$d dienos kainų istorijos – kai kurių rodiklių trūksta.</item>
+        <item quantity="other">Tik %1$d dienų kainų istorijos – kai kurių rodiklių trūksta.</item>
+    </plurals>
+    <string name="coin_title">Monetos analizė</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">Duomenys: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">Kylančios ir krentančios per 24 val.</string>
+    <string name="movers_gainers">Kylančios</string>
+    <string name="movers_losers">Krentančios</string>
+    <string name="movers_no_gainers">Per 24 val. nė viena moneta nepakilo</string>
+    <string name="movers_no_losers">Per 24 val. nė viena moneta nenukrito</string>
+    <string name="movers_source">CoinGecko, 24 val., top 100 be stabiliųjų monetų</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">Rodyti visas</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">Rodyti mažiau</string>
+</resources>

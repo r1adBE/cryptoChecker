@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">ඒ සමඟ චලනය වන්නේ කුමක්ද?</string>
+    <string name="why_all_values">සියලු අගයන් සහ මූලාශ්‍ර</string>
+    <string name="why_all_values_hint">නිරීක්ෂණය · විය හැකි පැහැදිලි කිරීම · මූලාශ්‍ර</string>
+    <string name="why_details">විස්තර පෙන්වන්න</string>
+    <string name="why_details_hide">විස්තර සඟවන්න</string>
+    <string name="why_disclaimer">වෙළඳපොළ දත්තවලින් ස්වයංක්‍රීය තක්සේරුවක්: එය එකම වේලාවේ සිදු වන දේ පෙන්වයි, හේතුවක සාක්ෂියක් නොවේ.</string>
+    <string name="why_footer_short">එකවර සිදු වීම යනු හේතුව නොවේ · ආයෝජන උපදෙස් නොවේ</string>
+    <string name="why_no_data">මෙම යුගලය සඳහා Binance වෙතින් දත්ත නැත</string>
+    <string name="why_no_data_hint">මිල, පරිමාව සහ අස්ථායීතාව Binance පැය ඉටිපන්දම්වලින් පැමිණේ.</string>
+    <string name="why_ref_alts">Alts</string>
+    <string name="why_section_context">විය හැකි පැහැදිලි කිරීම</string>
+    <string name="why_section_observation">නිරීක්ෂණය</string>
+    <string name="why_title">ඒ සමඟ චලනය වන්නේ කුමක්ද?</string>
+    <string name="why_title_coin">%1$s සමඟ චලනය වන්නේ කුමක්ද?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">කෙටියෙන් · %1$s වන විට</string>
+    <string name="why_brief_label">කෙටියෙන්:</string>
+    <string name="why_summary_against">කාසිය වෙළඳපොළට එරෙහිව චලනය වේ.</string>
+    <string name="why_summary_calm">සැලකිය යුතු චලනයක් නැත: වෙළඳපොළ සහ කාසිය සන්සුන්ය.</string>
+    <string name="why_summary_coin">මෙම කාසිය පමණක් චලනය වේ – සමහර විට මෙම කාසියට පමණක් බලපාන යමක්.</string>
+    <string name="why_summary_coin_volume">ඉහළ පරිමාවක් සමඟ මෙම කාසිය පමණක් චලනය වේ – සමහර විට මෙම කාසියට පමණක් බලපාන යමක්.</string>
+    <string name="why_summary_longs">ෆියුචර්ස්: උත්තෝලනය කළ ලෝන්ග් ස්ථාන බොහොමයක්.</string>
+    <string name="why_summary_market">චලනය කාලය අනුව සමස්ත වෙළඳපොළට ගැළපේ.</string>
+    <string name="why_summary_market_volume">චලනය ඉහළ වෙළඳ පරිමාවක් සහ පුළුල් ලෙස චලනය වන වෙළඳපොළක් සමඟ සමපාත වේ.</string>
+    <string name="why_summary_peg_near">මිල එහි 1:1 පෙග් එකට ආසන්නයි.</string>
+    <string name="why_summary_peg_off">මිල එහි 1:1 පෙග් එකෙන් සැලකිය යුතු ලෙස අපගමනය වේ.</string>
+    <string name="why_summary_shorts">ෆියුචර්ස්: ෂෝට් ස්ථාන බොහොමයක්.</string>
+    <string name="why_summary_thin">චලනය දුර්වලයි: ඊට පිටුපසින් පරිමාව අඩුයි.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">වෙළඳපොළට එරෙහිව</string>
+    <string name="why_f_coin_only">මෙම කාසිය පමණක්</string>
+    <string name="why_f_leader">වෙළඳපොළ නායකයා ලෙස Bitcoin</string>
+    <string name="why_f_leverage_balanced">උත්තෝලනය සමබරයි</string>
+    <string name="why_f_leverage_longs">උත්තෝලනය: ලෝන්ග් බොහොමයක්</string>
+    <string name="why_f_leverage_shorts">උත්තෝලනය: ෂෝට් බොහොමයක්</string>
+    <string name="why_f_market_calm">සන්සුන් වෙළඳපොළ</string>
+    <string name="why_f_market_wide">මුළු වෙළඳපොළම චලනය වේ</string>
+    <string name="why_factor_funding">ෆන්ඩිං</string>
+    <string name="why_factor_futures">ෆියුචර්ස්</string>
+    <string name="why_factor_market">සමස්ත වෙළඳපොළ</string>
+    <string name="why_factor_near_high">ඉහළම අගය අසල</string>
+    <string name="why_factor_near_low">පහළම අගය අසල</string>
+    <string name="why_factor_peg">පෙග් (1:1)</string>
+    <string name="why_factor_range3d">දින 3 පරාසය</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">ඇස්තමේන්තුගත</string>
+    <string name="why_fn_funding_longs">බොහෝ දෙනා ඉහළ යන මිල මත ඔට්ටු අල්ලති</string>
+    <string name="why_fn_funding_neutral">මධ්‍යස්ථ</string>
+    <string name="why_fn_funding_shorts">බොහෝ දෙනා පහළ යන මිල මත ඔට්ටු අල්ලති</string>
+    <string name="why_fn_high_at">දින 30 ඉහළම අගයේ</string>
+    <string name="why_fn_high_below">දින 30 ඉහළම අගයට පහළින්</string>
+    <string name="why_fn_leader_calm">Bitcoin සන්සුන්ය</string>
+    <string name="why_fn_leader_moves">Bitcoin පැහැදිලිව චලනය වේ</string>
+    <string name="why_fn_low_above">දින 30 පහළම අගයට ඉහළින්</string>
+    <string name="why_fn_low_at">දින 30 පහළම අගයේ</string>
+    <string name="why_fn_market_against">මෙම කාසිය වෙළඳපොළට එරෙහිව චලනය වේ</string>
+    <string name="why_fn_market_alone">වෙළඳපොළ සන්සුන් – මෙම කාසිය තනිවම චලනය වේ</string>
+    <string name="why_fn_market_calm">වෙළඳපොළ සන්සුන්ය</string>
+    <string name="why_fn_market_lags">වෙළඳපොළ චලනය වේ, මෙම කාසිය යන්තම්</string>
+    <string name="why_fn_market_moves">වෙළඳපොළ එකම දිශාවට චලනය වේ</string>
+    <string name="why_fn_market_pulls">වෙළඳපොළ BTC සමඟ චලනය වේ</string>
+    <string name="why_fn_oi_down">විවෘත පොලිය පහළට</string>
+    <string name="why_fn_oi_flat">විවෘත පොලිය යන්තම් වෙනස් විය</string>
+    <string name="why_fn_oi_mixed">විවෘත පොලිය මිශ්‍රයි</string>
+    <string name="why_fn_oi_up">විවෘත පොලිය ඉහළට</string>
+    <string name="why_fn_peg_above">1:1 පෙග් එකට %1$s ඉහළින්</string>
+    <string name="why_fn_peg_below">1:1 පෙග් එකට %1$s පහළින්</string>
+    <string name="why_fn_peg_near">1:1 පෙග් එකට ආසන්නයි</string>
+    <string name="why_fn_range_above_low">දින 3 පහළම අගයේ සිට</string>
+    <string name="why_fn_range_below_high">දින 3 ඉහළම අගයේ සිට</string>
+    <string name="why_fn_range_near_high">දින 3 ඉහළම අගය අසල</string>
+    <string name="why_fn_range_near_low">දින 3 පහළම අගය අසල</string>
+    <string name="why_fn_volatility_stronger">සුපුරුදු ප්‍රමාණයට වඩා ශක්තිමත්</string>
+    <string name="why_fn_volatility_tiny">නිරපේක්ෂ වශයෙන් කුඩා (%1$s ට අඩු)</string>
+    <string name="why_fn_volatility_usual">සුපුරුදු පරිදි</string>
+    <string name="why_fn_volume_higher">සුපුරුදු ප්‍රමාණයට වඩා වැඩි</string>
+    <string name="why_fn_volume_lower">සුපුරුදු ප්‍රමාණයට වඩා අඩු</string>
+    <string name="why_fn_volume_usual">සුපුරුදු පරිදි</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">මෙම කාසිය %1$s, BTC 24h තුළ %2$s — සැලකිය යුතු ලෙස ස්වාධීන චලනයක්.</string>
+    <string name="why_against_ref_text">මෙම කාසිය %1$s, %2$s 24h තුළ %3$s — සැලකිය යුතු ලෙස ස්වාධීන චලනයක්.</string>
+    <string name="why_btc_independent">%1$s දැනට Bitcoin ගෙන් ස්වාධීනව චලනය වේ.</string>
+    <string name="why_btc_tight">%1$s දැනට Bitcoin සමඟ සමීපව චලනය වේ.</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_coin_only_text">වෙළඳපොළ නිශ්ශබ්ද අතරතුර 24h තුළ %1$s – සමහර විට මෙම කාසියට පමණක් බලපාන යමක්.</string>
+    <string name="why_leverage_balanced_text">ෆියුචර්ස් වෙළඳපොළේ ලෝන්ග් හෝ ෂෝට් ස්ථානවල තදබදයක් නැත.</string>
+    <string name="why_leverage_longs_text">බොහෝ දෙනා ණයට ගත් මුදලින් ඉහළ යන මිල මත ඔට්ටු අල්ලති. ලෝන්ග් දරන්නන් ෂෝට් දරන්නන්ට ගෙවයි — මිල පහත වැටුණහොත් ද්‍රවකරණ අවදානම වැඩියි.</string>
+    <string name="why_leverage_shorts_text">බොහෝ දෙනා ණයට ගත් මුදලින් පහළ යන මිල මත ඔට්ටු අල්ලති. ෂෝට් දරන්නන් ලෝන්ග් දරන්නන්ට ගෙවයි – මිල ඉහළ ගියහොත් short squeeze එකක් විය හැක.</string>
+    <string name="why_market_calm_text">මෙම කාසිය: 24h තුළ %1$s. වෙළඳපොළ හෝ කාසිය බොහෝ චලනය නොවේ.</string>
+    <string name="why_market_leader_text">විශාලතම කාසිය ලෙස BTC සාමාන්‍යයෙන් ඉතිරි වෙළඳපොළ සමඟ එකට චලනය වේ. ETH: 24h තුළ %1$s.</string>
+    <string name="why_market_leader_text_no_eth">විශාලතම කාසිය ලෙස BTC සාමාන්‍යයෙන් ඉතිරි වෙළඳපොළ සමඟ එකට චලනය වේ.</string>
+    <string name="why_market_similar_text">මෙම කාසිය: 24h තුළ %1$s – එම අවස්ථාවේම වෙළඳපොළද එකම දිශාවට චලනය වේ, අඩු පැහැදිලිව වුවද.</string>
+    <string name="why_market_wide_text">මෙම කාසිය: 24h තුළ %1$s – එම අවස්ථාවේම සමස්ත වෙළඳපොළ පැහැදිලිව චලනය වේ.</string>
+    <string name="why_open_interest_change">අවසන් පරීක්ෂාවේ සිට විවෘත පොලිය %1$s.</string>
+    <string name="why_peg_text">ස්ථායි කාසිය: උද්ධෘත මුදලට 1:1 පෙග් එකක් සමඟ සසඳන විට, අපගමනය %1$s.</string>
+    <string name="why_sentiment_text">මුළු ක්‍රිප්ටෝ වෙළඳපොළේ Fear &amp; Greed දර්ශකය, ඊයේට සාපේක්ෂව %1$s.</string>
+    <string name="why_sentiment_text_no_change">මුළු ක්‍රිප්ටෝ වෙළඳපොළේ Fear &amp; Greed දර්ශකය.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="one">පැය %1$d ක සිට පහත වැටෙමින්</item>
+        <item quantity="other">පැය %1$d ක සිට පහත වැටෙමින්</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="one">පැය %1$d ක සිට ඉහළ යමින්</item>
+        <item quantity="other">පැය %1$d ක සිට ඉහළ යමින්</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="one">පැය %1$d ක සිට ස්ථාවරයි</item>
+        <item quantity="other">පැය %1$d ක සිට ස්ථාවරයි</item>
+    </plurals>
+    <string name="why_volatility_high_text">අවසන් පැය: %1$s — පසුගිය පැය 24 හි සාමාන්‍ය පැය උච්චාවචනයට එරෙහිව මනින ලදී.</string>
+    <string name="why_volatility_normal_text">අවසන් පැය: %1$s — සුපුරුදු පරාසය තුළ.</string>
+    <string name="why_volatility_tiny_text">අවසන් පැය: %1$s — මෙම කාසියට අසාමාන්‍යයි, නමුත් නිරපේක්ෂ වශයෙන් කුඩායි.</string>
+    <string name="why_volume_estimated_text">ඇස්තමේන්තුගත: මෙම මූලාශ්‍රය පිරිවැටුමක් ලබා නොදෙන බැවින්, වෙළඳාම් වූ කාසි ප්‍රමාණ සංසන්දනය කෙරේ.</string>
+    <string name="why_volume_high_text">අවසන් පැයේ සුපුරුදු ප්‍රමාණයට වඩා බොහෝ වැඩි වෙළඳාමක් – චලනය ඉහළ පරිමාවක් සමඟ පැමිණේ.</string>
+    <string name="why_volume_low_text">චලනය පිටුපස අඩු වෙළඳාමක් – එවැනි චලන බොහෝ විට අඩුවෙන් ස්ථාවරයි.</string>
+    <string name="why_volume_normal_text">අවසන් පැයේ වෙළඳාම පසුගිය පැය 24 ට අනුකූලයි.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">ඉහළ ගොස් ඇත</string>
+    <string name="why_dot_neutral">මධ්‍යස්ථ</string>
+    <string name="why_dot_supports">චලනයට ගැළපේ</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">%1$s වන විට දත්ත</string>
+    <string name="why_fresh_breadth">වෙළඳපොළ පළල: %1$s · %2$s</string>
+    <string name="why_fresh_candles">ඉටිපන්දම්: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">ෆියුචර්ස්: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="one">පැය %1$d කට පෙර සමඟ සංසන්දනය කළ විවෘත පොලිය</item>
+        <item quantity="other">පැය %1$d කට පෙර සමඟ සංසන්දනය කළ විවෘත පොලිය</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="one">මිනිත්තු %1$d කට පෙර සමඟ සංසන්දනය කළ විවෘත පොලිය</item>
+        <item quantity="other">මිනිත්තු %1$d කට පෙර සමඟ සංසන්දනය කළ විවෘත පොලිය</item>
+    </plurals>
+    <string name="why_fresh_today">අද</string>
+    <string name="why_fresh_yesterday">ඊයේ</string>
+    <string name="why_source_fallback">%1$s (විකල්ප)</string>
+    <string name="why_source_reference">%1$s (යොමුව)</string>
+    <string name="why_sources">මූලාශ්‍ර: හුවමාරු පැය ඉටිපන්දම් (බොහෝ විට Binance), හුවමාරුවලින් ෆියුචර්ස් දත්ත, alternative.me වෙතින් Fear &amp; Greed.</string>
+    <string name="why_sources_list">මූලාශ්‍ර: %1$s.</string>
+    <string name="why_src_breadth">%1$s (වෙළඳපොළ පළල)</string>
+    <string name="why_src_candles">%1$s (ඉටිපන්දම්)</string>
+    <string name="why_src_comparison">%1$s (වෙළඳපොළ සංසන්දනය)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (ෆියුචර්ස්)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">ෆන්ඩිං</string>
+    <string name="factor_spoken_volatility">සුපුරුදු උච්චාවචනය මෙන් %1$s ගුණයක්</string>
+    <string name="factor_spoken_volume">සාමාන්‍යය මෙන් %1$s ගුණයක්</string>
+    <string name="factor_volatility">අස්ථායීතාව (1h)</string>
+    <string name="factor_volume">පරිමාව</string>
+</resources>

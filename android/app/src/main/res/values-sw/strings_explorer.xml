@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">Matokeo yote</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="one">jukwaa %1$d</item>
+        <item quantity="other">majukwaa %1$d</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">Hakuna jozi ya sarafu hii kwenye orodha zilizopakiwa.</string>
+    <string name="explorer_coin_not_loaded">Orodha za jozi bado hazijapakiwa</string>
+    <string name="explorer_coin_other_pairs">Jozi nyingine</string>
+    <string name="explorer_coin_show_pairs">Onyesha jozi</string>
+    <string name="explorer_coin_suggested">Inayopendekezwa</string>
+    <string name="explorer_coins_title">Sarafu</string>
+    <string name="explorer_lists_failed_many">%1$s hayajibu kwa sasa – orodha za jozi hazijapakiwa. Jaribu tena baadaye.</string>
+    <plurals name="explorer_lists_failed_more">
+        <item quantity="one">+%1$d zaidi</item>
+        <item quantity="other">+%1$d zaidi</item>
+    </plurals>
+    <string name="explorer_lists_failed_one">%1$s haijibu kwa sasa – orodha ya jozi haijapakiwa. Jaribu tena baadaye.</string>
+    <string name="explorer_lists_load">Pakia orodha</string>
+    <string name="explorer_lists_loading">Inapakia orodha za jozi… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="one">Orodha ya jozi ya jukwaa %1$d bado haiko kwenye kifaa hiki.</item>
+        <item quantity="other">Orodha za jozi za majukwaa %1$d bado haziko kwenye kifaa hiki.</item>
+    </plurals>
+    <string name="explorer_lists_privacy">Inapakia orodha kamili ya umma ya kila jukwaa – ile ile kwa kila mtu. Utafutaji wako unabaki kwenye kifaa hiki.</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">Utafutaji wa hivi karibuni: %1$s</string>
+    <string name="explorer_recent_clear">Futa</string>
+    <string name="explorer_recent_clear_a11y">Futa utafutaji wa hivi karibuni</string>
+    <string name="explorer_recent_title">Utafutaji wa hivi karibuni</string>
+    <string name="explorer_search_choose_manually">Chagua jukwaa na jozi mwenyewe</string>
+    <string name="explorer_search_empty">Hakuna yanayolingana.</string>
+    <string name="explorer_search_hint">Tafuta sarafu, jozi au jukwaa</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">Andika jina au alama ya sarafu, k.m. Bitcoin au BTC – kisha chagua jozi.</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">Ongeza kwenye orodha ya ufuatiliaji</string>
+    <string name="explorer_added_to_watchlist">Imeongezwa kwenye orodha ya ufuatiliaji.</string>
+    <string name="explorer_already_in_watchlist">Jozi hii tayari iko kwenye orodha ya ufuatiliaji.</string>
+    <string name="explorer_exchange_missing">Jukwaa halipo?</string>
+    <string name="explorer_loading_pairs">Inapakia jozi za biashara…</string>
+    <string name="explorer_no_pair_selected">Chagua jozi kwanza.</string>
+    <string name="explorer_no_pairs_yet">Bado hakuna jozi zilizopakiwa kwa jukwaa hili.</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">jozi %1$d · imesasishwa %2$s</item>
+        <item quantity="other">jozi %1$d · zimesasishwa %2$s</item>
+    </plurals>
+    <string name="explorer_pairs_title">Jozi</string>
+    <string name="explorer_precise_title">Kina / kwa jukwaa</string>
+    <string name="explorer_price_loading">Inapakia bei…</string>
+    <string name="explorer_select_exchange_hint">Chagua jukwaa – jozi zake za biashara zinapakiwa kiotomatiki.</string>
+    <string name="explorer_select_placeholder">Tafadhali chagua</string>
+    <string name="explorer_step_pair">Chagua jozi</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">Zilizopanda</string>
+    <string name="explorer_filter_losers">Zilizoshuka</string>
+    <string name="explorer_filter_volume">Kiasi</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">Jozi zote za %1$s za jukwaa hili</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">Jozi %1$d ya %2$s imepatikana</item>
+        <item quantity="other">Jozi %1$d za %2$s zimepatikana</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">Hakuna jozi za %1$s kwenye jukwaa hili kwa aina ya mkataba uliyochagua. Sawazisha jukwaa kwanza, au jaribu aina nyingine ya mkataba.</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">Ongeza jozi %1$d kwenye orodha ya ufuatiliaji</item>
+        <item quantity="other">Ongeza jozi zote %1$d kwenye orodha ya ufuatiliaji</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">%1$d imeongezwa, %2$d tayari ziko kwenye orodha ya ufuatiliaji.</item>
+        <item quantity="other">%1$d zimeongezwa, %2$d tayari ziko kwenye orodha ya ufuatiliaji.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">Jozi %1$d ya %2$s kutoka %3$s itaongezwa kwenye orodha ya ufuatiliaji isipokuwa iko tayari.</item>
+        <item quantity="other">Jozi zote %1$d za %2$s kutoka %3$s zitaongezwa kwenye orodha ya ufuatiliaji. Jozi zilizomo tayari zinarukwa.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">Uongeze jozi %1$d?</item>
+        <item quantity="other">Uongeze jozi %1$d?</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">Ficha orodha</string>
+    <string name="explorer_bulk_show_list">Onyesha orodha</string>
+    <string name="explorer_bulk_tap_hint">Gusa jozi ili kuichagua hapo juu.</string>
+    <string name="explorer_bulk_title">Jozi kadhaa kwa mara moja</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">Inapakia jozi za sasa za jukwaa lililochaguliwa.</string>
+    <string name="explorer_no_pair_list">Hakuna jozi za sarafu</string>
+    <string name="explorer_sync_sheet_last">Usawazishaji wa mwisho: %1$s</string>
+    <string name="explorer_sync_never">haijawahi</string>
+    <string name="explorer_sync_sheet_action">Sawazisha sasa</string>
+    <string name="explorer_sync_sheet_title">Sasisha jozi za sarafu</string>
+    <string name="explorer_field_coin">Sarafu</string>
+    <string name="explorer_field_contract">Aina ya mkataba</string>
+    <string name="explorer_field_exchange">Jukwaa</string>
+    <string name="explorer_field_quote">Sarafu ya bei</string>
+    <string name="explorer_contract_spot">Spot</string>
+    <string name="explorer_reload_pairs">Sawazisha</string>
+    <string name="sync_pairs_count">Jozi za biashara: %1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">Ongeza</string>
+    <string name="dex_added">%1$s imeongezwa kwenye orodha ya ufuatiliaji.</string>
+    <string name="dex_already">%1$s tayari iko kwenye orodha ya ufuatiliaji.</string>
+    <string name="dex_intro">Tokeni nje ya majukwaa makubwa, kutoka majukwaa yaliyogatuliwa (Uniswap, PancakeSwap, Raydium …) kupitia DexScreener. Tafuta tokeni na uongeze mojawapo ya pool zake za biashara – bei kwa dola za Marekani.</string>
+    <string name="dex_liquidity">Ukwasi %1$s</string>
+    <string name="dex_no_results">Hakuna pool zilizopatikana.</string>
+    <string name="dex_search">Tafuta</string>
+    <string name="dex_search_hint">Jina, alama au anwani ya tokeni</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">Tokeni ya Alpha</string>
+    <string name="asset_kind_token">Tokeni</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+
+    <string name="dex_low_liquidity_no_alarm">Ukwasi mdogo – hakuna kengele</string>
+    <string name="dex_low_liquidity_alarm_hint">Pool hii ina ukwasi chini ya USD 10,000 (au hakuna ulioripotiwa). Biashara ndogo zinaweza kusogeza bei yake, kwa hiyo kengele haziwezi kuwekwa hapa. Kengele zilizopo zinabaki lakini hazitalia hadi ukwasi upande tena.</string>
+
+    <string name="explorer_bulk_show_all">Onyesha zote (%1$d)</string>
+    <string name="dex_token_address_copy">Nakili anwani ya tokeni</string>
+    <string name="dex_token_address_copied">Anwani ya tokeni imenakiliwa</string>
+    <string name="dex_token_address_label">Anwani ya tokeni inayoishia na %1$s</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="one">Jozi %1$d haikuongezwa: orodha yako ya ufuatiliaji inaweza kuwa na jozi %2$s zaidi.</item>
+        <item quantity="other">Jozi %1$d hazikuongezwa: orodha yako ya ufuatiliaji inaweza kuwa na jozi %2$s zaidi.</item>
+    </plurals>
+    <string name="bulk_add_progress">Inaongeza jozi … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="one">Ongeza jozi %1$d mpya kwenye orodha ya ufuatiliaji</item>
+        <item quantity="other">Ongeza jozi %1$d mpya kwenye orodha ya ufuatiliaji</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="one">%1$d mpya, %2$d tayari ziko kwenye orodha ya ufuatiliaji</item>
+        <item quantity="other">%1$d mpya, %2$d tayari ziko kwenye orodha ya ufuatiliaji</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">Zote tayari ziko kwenye orodha ya ufuatiliaji</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="one">Uondoe jozi %1$d tena?</item>
+        <item quantity="other">Uondoe jozi %1$d tena?</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">Jozi ulizowekea kengele katikati zitabaki.</string>
+    <string name="bulk_undo_expired">Kutendua hakuwezekani tena – jozi zinabaki kwenye orodha ya ufuatiliaji.</string>
+    <string name="explorer_section_spot">Spot</string>
+    <string name="explorer_section_futures">Futures</string>
+    <string name="explorer_section_dex">Pool za DEX</string>
+    <string name="explorer_section_forex">Forex (kiwango cha marejeleo)</string>
+    <string name="explorer_forex_hint">Kiwango cha kila siku cha Benki Kuu ya Ulaya (kupitia Frankfurter), si cha moja kwa moja – hakuna kengele.</string>
+</resources>

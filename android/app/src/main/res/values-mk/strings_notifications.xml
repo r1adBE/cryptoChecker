@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">Забележително: %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — сега %2$s</string>
+    <string name="notification_alarm_title">Аларм: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">Отвори берза</string>
+    <string name="notification_depeg_text">Вредностите во апликацијата ја користат оваа пазарна цена.</string>
+    <string name="notification_depeg_title">USDT на %1$s USD (%2$s)</string>
+    <string name="notification_fng_above">Индексот порасна над %1$d – според оваа мерка, расположението на пазарот е алчно.</string>
+    <string name="notification_fng_below">Индексот падна под %1$d – според оваа мерка, расположението на пазарот е исплашено.</string>
+    <string name="notification_fng_title">Индекс на расположение (Fear &amp; Greed): %1$d</string>
+    <string name="notification_gas_btc_text">Под твојата граница од %1$s sat/vB · Трансфер ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin-провизија: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">Под твојата граница од %1$s gwei · Трансфер ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Ethereum-гас: %1$s gwei</string>
+    <string name="notification_indicator_above">Над твојата граница %1$s – измерена вредност, не препорака.</string>
+    <string name="notification_indicator_below">Под твојата граница %1$s – измерена вредност, не препорака.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">Економски податоци денес</string>
+    <string name="notification_permission_preprompt_continue">Продолжи</string>
+    <string name="notification_permission_preprompt_later">Подоцна</string>
+    <string name="notification_permission_preprompt_text">За да стигнуваат до тебе алармите и известувањата за цени, на апликацијата ѝ треба дозвола да испраќа известувања. Апликацијата ги користи само за твоите аларми и известувања за цени.</string>
+    <string name="notification_permission_preprompt_title">Да се дозволат известувања?</string>
+    <string name="notification_portfolio_alarm_locked">Твојот аларм се активира – отвори ја апликацијата за детали.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – сега %2$s</string>
+    <string name="notification_portfolio_alarm_title">Вредност на портфолиото</string>
+    <string name="notification_price_change">%1$s, од %2$s (пред %3$s)</string>
+    <string name="notification_price_change_no_age">%1$s, од %2$s</string>
+    <string name="notification_price_first">Прво известување за цена за овој пар</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+уште %1$d цена</item>
+        <item quantity="other">+уште %1$d цени</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">Се ажурираат цените…</string>
+    <string name="notification_volume_spike_text">Волумен %1$s× нормално во последниот час</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">Аларми</string>
+    <string name="channel_alarms_description">Известување кога ќе се активира аларм.</string>
+    <string name="channel_alarms_quiet">Аларми (тивки часови)</string>
+    <string name="channel_alarms_quiet_description">Тивки аларми за време на тивките часови.</string>
+    <string name="channel_alarms_silent">Аларми (тивко)</string>
+    <string name="channel_alarms_sound">Аларми (само звук)</string>
+    <string name="channel_alarms_sound_vibrate">Аларми (звук и вибрација)</string>
+    <string name="channel_alarms_vibrate">Аларми (само вибрација)</string>
+    <string name="channel_prices">Известувања за цени</string>
+    <string name="channel_prices_description">Тивко известување со тековната цена на пар.</string>
+    <string name="channel_service">Ажурирања на цени</string>
+    <string name="channel_service_description">Известување додека се ажурираат цените.</string>
+    <string name="neutral_channel_market">Пазарни аларми</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, провизии за гас, „Забележително“ и економски датуми</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">Аларм. %1$s, %2$s %3$s %4$s, сега %5$s</string>
+    <string name="tts_direction_down">падна</string>
+    <string name="tts_direction_funding_above">со висок фандинг</string>
+    <string name="tts_direction_funding_below">со низок фандинг</string>
+    <string name="tts_direction_move">силно се движи</string>
+    <string name="tts_direction_near_high">е близу својот максимум</string>
+    <string name="tts_direction_near_low">е близу својот минимум</string>
+    <string name="tts_direction_oi_down">со опаѓачки отворен интерес</string>
+    <string name="tts_direction_oi_up">со растечки отворен интерес</string>
+    <string name="tts_direction_up">порасна</string>
+    <string name="tts_direction_volume_spike">со скок на волуменот</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+
+    <!-- Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+    <string name="notification_alarm_action_snooze">1 ч подоцна</string>
+    <string name="notification_alarm_action_edit">Прилагоди</string>
+</resources>

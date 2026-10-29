@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">Weka kengele</string>
+    <string name="alarms_add">Kengele mpya</string>
+    <string name="alarms_edit">Badilisha kengele</string>
+    <string name="alarms_empty">Bado hakuna kengele kwa jozi hii.</string>
+    <string name="alarms_empty_example">Kwa mfano: Niambie BTC ikipanda juu ya %1$s.</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">Arifa zimezimwa – kengele haziwezi kukufikia.</string>
+    <string name="alarms_notifications_turn_on">Washa</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">%1$d inatumika</item>
+        <item quantity="other">%1$d zinatumika</item>
+    </plurals>
+    <string name="alarms_overview_empty">Bado hakuna kengele. Fungua jozi na uongeze moja chini ya Kengele.</string>
+    <string name="alarms_overview_title">Kengele zote</string>
+    <string name="alarms_title">Kengele</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">Kina</string>
+    <string name="alarm_change_updates">Rekebisha masasisho ya bei</string>
+    <string name="alarm_create">Unda kengele</string>
+    <string name="alarm_currency_label">Sarafu ya fedha</string>
+    <string name="alarm_delete_confirm">Kengele hii itaondolewa.</string>
+    <string name="alarm_delete_title">Ufute kengele?</string>
+    <string name="alarm_field_percent">Asilimia</string>
+    <string name="alarm_field_price">Bei</string>
+    <string name="alarm_fires_now_above">Bei tayari iko juu ya %1$s. Uhifadhi hata hivyo?</string>
+    <string name="alarm_fires_now_below">Bei tayari iko chini ya %1$s. Uhifadhi hata hivyo?</string>
+    <string name="alarm_fires_now_change">Badilisha</string>
+    <string name="alarm_fires_now_save">Hifadhi hata hivyo</string>
+    <string name="alarm_fires_now_title">Kengele ingelia sasa hivi</string>
+    <string name="alarm_first_battery_hint">Uboreshaji wa betri unazuia programu – kengele huenda zikachelewa.</string>
+    <string name="alarm_first_title">Kengele imehifadhiwa</string>
+    <string name="alarm_last_triggered">mwisho %1$s</string>
+    <string name="alarm_more_conditions">Masharti zaidi</string>
+    <string name="alarm_new_extreme">%1$s mpya</string>
+    <string name="alarm_once">Mara moja</string>
+    <string name="alarm_option_repeating">Arifu</string>
+    <string name="alarm_option_sound">Sauti</string>
+    <string name="alarm_option_speak">Soma kengele kwa sauti</string>
+    <string name="alarm_option_vibrate">Mtetemo</string>
+    <string name="alarm_repeat_each">Kila mara</string>
+    <string name="alarm_repeat_once">Mara moja</string>
+    <string name="alarm_repeating">Kila mara</string>
+    <string name="alarm_threshold_error_empty">Weka thamani ili kuhifadhi kengele.</string>
+    <string name="alarm_threshold_error_funding">Funding lazima iwe namba kati ya −10 na +10 asilimia.</string>
+    <string name="alarm_threshold_error_invalid">Weka namba halali iliyo kubwa kuliko 0.</string>
+    <string name="alarm_threshold_error_oi">Mabadiliko ya open interest: asilimia 1000 zaidi.</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">ndani ya saa %1$d</item>
+        <item quantity="other">ndani ya saa %1$d</item>
+    </plurals>
+    <string name="alarm_window_label">Kipindi cha muda</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">ikipanda juu ya</string>
+    <string name="alarm_simple_below">ikishuka chini ya</string>
+    <string name="alarm_simple_end">\</string>
+    <string name="alarm_simple_when">%1$s</string>
+    <string name="alarm_template_a11y">Unda kengele: %1$s</string>
+    <string name="alarm_template_a11y_down">Unda kengele kwa minus asilimia %1$s kutoka bei ya sasa</string>
+    <string name="alarm_template_a11y_up">Unda kengele kwa plus asilimia %1$s kutoka bei ya sasa</string>
+    <string name="alarm_template_from_now">kutoka sasa</string>
+    <string name="alarm_template_volume">Kiasi ×%1$s</string>
+    <string name="alarm_templates_title">Kengele za haraka</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">Bei juu ya</string>
+    <string name="alarm_condition_below">Bei chini ya</string>
+    <string name="alarm_condition_down_percent">Inashuka kwa</string>
+    <string name="alarm_condition_funding_above">Funding juu ya</string>
+    <string name="alarm_condition_funding_below">Funding chini ya</string>
+    <string name="alarm_condition_move_percent">Inasonga kwa</string>
+    <string name="alarm_condition_near_high">Karibu na kilele</string>
+    <string name="alarm_condition_near_low">Karibu na kiwango cha chini</string>
+    <string name="alarm_condition_oi_down">Open interest inashuka</string>
+    <string name="alarm_condition_oi_up">Open interest inapanda</string>
+    <string name="alarm_condition_up_percent">Inapanda kwa</string>
+    <string name="alarm_condition_volume_spike">Kiasi kinaruka ghafla</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">Niambie %1$s ikipanda juu ya %2$s.</string>
+    <string name="alarm_sentence_below">Niambie %1$s ikishuka chini ya %2$s.</string>
+    <string name="alarm_sentence_down_percent">Niambie %1$s ikishuka %2$s chini ya bei wakati wa kuhifadhi (au kwenye kengele ya mwisho).</string>
+    <string name="alarm_sentence_funding_above">Niambie funding ya %1$s ikipanda juu ya %2$s.</string>
+    <string name="alarm_sentence_funding_below">Niambie funding ya %1$s ikishuka chini ya %2$s.</string>
+    <string name="alarm_sentence_incomplete">Weka thamani ili kuona kengele kama sentensi.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">Niambie %1$s ikisonga kwa %2$s ndani ya saa %3$d.</item>
+        <item quantity="other">Niambie %1$s ikisonga kwa %2$s ndani ya saa %3$d.</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">Niambie %1$s ikiwa chini ya %3$s yake kwa %2$s au chini zaidi.</string>
+    <string name="alarm_sentence_near_low">Niambie %1$s ikiwa juu ya %3$s yake kwa %2$s au chini zaidi.</string>
+    <string name="alarm_sentence_new_extreme">Niambie %1$s ikiweka %2$s mpya.</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">Niambie open interest ya %1$s ikishuka kwa %2$s ndani ya saa %3$d.</item>
+        <item quantity="other">Niambie open interest ya %1$s ikishuka kwa %2$s ndani ya saa %3$d.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">Niambie open interest ya %1$s ikipanda kwa %2$s ndani ya saa %3$d.</item>
+        <item quantity="other">Niambie open interest ya %1$s ikipanda kwa %2$s ndani ya saa %3$d.</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">Niambie %1$s ikipanda %2$s juu ya bei wakati wa kuhifadhi (au kwenye kengele ya mwisho).</string>
+    <string name="alarm_sentence_volume">Niambie %1$s ikiuzwa %2$s× ya kiasi chake cha kawaida.</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">kilele cha siku 30</string>
+    <string name="alarm_near_extreme_high_365">kilele cha mwaka 1</string>
+    <string name="alarm_near_extreme_high_90">kilele cha siku 90</string>
+    <string name="alarm_near_extreme_low_30">kiwango cha chini cha siku 30</string>
+    <string name="alarm_near_extreme_low_365">kiwango cha chini cha mwaka 1</string>
+    <string name="alarm_near_extreme_low_90">kiwango cha chini cha siku 90</string>
+    <string name="alarm_near_field_distance">Umbali</string>
+    <string name="alarm_near_hint">Pia inaarifu kilele au kiwango cha chini kipya kinapowekwa. Inategemea mishumaa ya kila siku, husasishwa kila saa 6.</string>
+    <string name="alarm_near_new_only">Vilele au viwango vya chini vipya pekee</string>
+    <string name="alarm_near_notification_high">%1$s iko %2$s chini ya %3$s yake (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s iko %2$s juu ya %3$s yake (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">%1$s mpya kwa %2$s: %3$s (awali %4$s)</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">siku %1$d</item>
+        <item quantity="other">siku %1$d</item>
+    </plurals>
+    <string name="alarm_near_window_label">Kipindi</string>
+    <string name="alarm_near_window_year">mwaka 1</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">Kiwango cha funding kwa kila saa 8. Mikataba yenye kipindi kingine hubadilishwa (1 h × 8, 4 h × 2); kadi ya futures inaonyesha thamani iliyobadilishwa. Ikiwa kipindi hakijulikani, kengele haikagui. Hasi inamaanisha shorts wanalipa longs. ± inabadilisha alama.</string>
+    <string name="alarm_funding_sign_a11y">Badilisha alama</string>
+    <string name="alarm_oi_hint">Inalinganisha open interest na thamani iliyohifadhiwa saa hizo zilizopita. Kengele mpya inaripoti tu baada ya programu kukusanya data kwa muda huo; hukaguliwa mara moja kila dakika 5 zaidi.</string>
+    <string name="alarm_volume_factor_label">Kiasi cha saa iliyopita dhidi ya kawaida</string>
+    <string name="alarm_volume_hint">Data ya kiasi inatoka Binance — jozi zisizoorodheshwa huko hazilii kamwe.</string>
+    <string name="alarm_volume_zero_hours_hint">Saa bila biashara zinahesabiwa kama kiasi sifuri, kwa hiyo kwenye jozi zisizouzwa sana saa ya kawaida inaweza kuonekana isiyo ya kawaida.</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">Kengele inatumika</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">Kengele imehifadhiwa: %1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">Arifa zimezimwa</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">Bila “%1$s”, Android hukagua bila mpangilio kifaa kikiwa kimepumzika – wakati mwingine baada ya saa kadhaa tu. Ikiwepo, takriban kila dakika 15.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Programu ikiwa imefungwa, mara nyingi iOS hukagua baadaye kuliko dakika 15, wakati mwingine tu unapofungua programu tena. Miruko mifupi inaweza kupitwa.</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">Kengele hukaguliwa lini</string>
+    <string name="alarm_timing_where">Badilisha jinsi bei zinavyosasishwa mara kwa mara katika %1$s.</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">Kimya (arifa pekee)</string>
+    <string name="alarm_signal_sound">Sauti pekee</string>
+    <string name="alarm_signal_sound_vibrate">Sauti na mtetemo</string>
+    <string name="alarm_signal_system">Mfumo</string>
+    <string name="alarm_signal_vibrate">Mtetemo pekee</string>
+    <string name="alarm_test">Jaribu kengele</string>
+    <string name="alarm_test_action">Jaribu</string>
+    <string name="alarm_test_denied">Arifa zimezimwa kwa Crypto Checker.</string>
+    <string name="alarm_test_hint">Inatuma kengele ya mfano kwa mipangilio yako ya sauti, mtetemo na usomaji kwa sauti.</string>
+    <string name="alarm_test_open_settings">Fungua mipangilio</string>
+    <string name="alarm_test_quiet">Saa za utulivu zimewashwa sasa: kengele halisi zingesubiri hadi ziishe kisha zilie kwa sauti.</string>
+    <string name="alarm_test_text">Hivi ndivyo kengele inavyoonekana na kusikika.</string>
+    <string name="alarm_test_title">Jaribio: kengele ya Crypto Checker</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">Sauti imewashwa</string>
+    <string name="alarm_a11y_speak_on">Usomaji kwa sauti umewashwa</string>
+    <string name="alarm_unchecked_no_candles">Haikuweza kukaguliwa (hakuna data ya mishumaa)</string>
+    <string name="alarm_unchecked_no_rate">Haikuweza kukaguliwa (hakuna kiwango cha ubadilishaji)</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">Arifa zimezimwa – kengele hii haitakufikia</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">Hakuna kengele – ukwasi mdogo</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">Inasubiri bei ya sasa</string>
+    <string name="alarm_enter_amount">Weka thamani</string>
+    <string name="alarm_editor_more">Zaidi</string>
+    <string name="alarm_editor_more_summary">Kengele za haraka, masharti mengine, sauti na usomaji</string>
+    <string name="alarm_reliability_storage_no_key">Kengele zimesitishwa chinichini – orodha ya ufuatiliaji haijahifadhiwa</string>
+    <string name="alarms_limit_reached">Jozi moja inaweza kuwa na kengele %1$s zaidi.</string>
+    <string name="alarms_reference_rate_hint">Viwango vya marejeleo vya ECB huwekwa mara moja tu kwa siku – hakuna kengele kwa ajili yake.</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">Kushuka lazima kuwe chini ya asilimia 100.</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">Kiwango si sahihi – tafadhali rekebisha</string>
+
+    <string name="alarm_last_checked">Ilikaguliwa mwisho %1$s</string>
+</resources>

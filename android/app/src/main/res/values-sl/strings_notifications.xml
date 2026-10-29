@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">Opazno: %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — zdaj %2$s</string>
+    <string name="notification_alarm_title">Alarm: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">Odpri borzo</string>
+    <string name="notification_depeg_text">Vrednosti v aplikaciji računajo s to tržno ceno.</string>
+    <string name="notification_depeg_title">USDT pri %1$s USD (%2$s)</string>
+    <string name="notification_fng_above">Indeks se je dvignil nad %1$d – po tej meri je razpoloženje na trgu pohlepno.</string>
+    <string name="notification_fng_below">Indeks je padel pod %1$d – po tej meri je razpoloženje na trgu prestrašeno.</string>
+    <string name="notification_fng_title">Indeks razpoloženja (Fear &amp; Greed): %1$d</string>
+    <string name="notification_gas_btc_text">Pod tvojo mejo %1$s sat/vB · Prenos ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Provizija Bitcoin: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">Pod tvojo mejo %1$s gwei · Prenos ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Gas Ethereum: %1$s gwei</string>
+    <string name="notification_indicator_above">Nad tvojo mejo %1$s – izmerjena vrednost, ne priporočilo.</string>
+    <string name="notification_indicator_below">Pod tvojo mejo %1$s – izmerjena vrednost, ne priporočilo.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">Danes gospodarski podatki</string>
+    <string name="notification_permission_preprompt_continue">Naprej</string>
+    <string name="notification_permission_preprompt_later">Pozneje</string>
+    <string name="notification_permission_preprompt_text">Da alarmi in obvestila o tečajih pridejo do tebe, aplikacija potrebuje dovoljenje za obvestila. Aplikacija jih uporablja samo za tvoje alarme in obvestila o tečajih.</string>
+    <string name="notification_permission_preprompt_title">Dovolim obvestila?</string>
+    <string name="notification_portfolio_alarm_locked">Tvoj alarm se je sprožil – za podrobnosti odpri aplikacijo.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – zdaj %2$s</string>
+    <string name="notification_portfolio_alarm_title">Vrednost portfelja</string>
+    <string name="notification_price_change">%1$s, od %2$s (pred %3$s)</string>
+    <string name="notification_price_change_no_age">%1$s, od %2$s</string>
+    <string name="notification_price_first">Prvo obvestilo o tečaju za ta par</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+ še %1$d tečaj</item>
+        <item quantity="two">+ še %1$d tečaja</item>
+        <item quantity="few">+ še %1$d tečaji</item>
+        <item quantity="other">+ še %1$d tečajev</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">Posodabljanje tečajev …</string>
+    <string name="notification_volume_spike_text">Volumen %1$s× običajnega v zadnji uri</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">Alarmi</string>
+    <string name="channel_alarms_description">Obvestilo, ko se alarm sproži.</string>
+    <string name="channel_alarms_quiet">Alarmi (nočni mir)</string>
+    <string name="channel_alarms_quiet_description">Tihi alarmi med nočnim mirom.</string>
+    <string name="channel_alarms_silent">Alarmi (tiho)</string>
+    <string name="channel_alarms_sound">Alarmi (samo zvok)</string>
+    <string name="channel_alarms_sound_vibrate">Alarmi (zvok in vibriranje)</string>
+    <string name="channel_alarms_vibrate">Alarmi (samo vibriranje)</string>
+    <string name="channel_prices">Obvestila o tečajih</string>
+    <string name="channel_prices_description">Tiho obvestilo s trenutnim tečajem para.</string>
+    <string name="channel_service">Posodabljanje tečajev</string>
+    <string name="channel_service_description">Obvestilo med posodabljanjem tečajev.</string>
+    <string name="neutral_channel_market">Tržna obvestila</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, provizije za gas, „Opazno“ in gospodarski datumi</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">Alarm. %1$s, %2$s %3$s %4$s, zdaj %5$s</string>
+    <string name="tts_direction_down">pada</string>
+    <string name="tts_direction_funding_above">z visokim fundingom</string>
+    <string name="tts_direction_funding_below">z nizkim fundingom</string>
+    <string name="tts_direction_move">se močno giblje</string>
+    <string name="tts_direction_near_high">blizu maksimuma</string>
+    <string name="tts_direction_near_low">blizu minimuma</string>
+    <string name="tts_direction_oi_down">s padajočim open interestom</string>
+    <string name="tts_direction_oi_up">z rastočim open interestom</string>
+    <string name="tts_direction_up">raste</string>
+    <string name="tts_direction_volume_spike">s skokom volumna</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+
+    <!-- Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+    <string name="notification_alarm_action_snooze">Čez 1 h</string>
+    <string name="notification_alarm_action_edit">Prilagodi</string>
+</resources>

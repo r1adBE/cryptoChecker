@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">Savas</string>
+    <string name="settings_group_general">Bendrieji</string>
+    <string name="settings_group_more">Daugiau</string>
+    <string name="settings_minutes">%1$d min.</string>
+    <string name="settings_row_about">Apie programėlę</string>
+    <string name="settings_row_alarms">Įspėjimai</string>
+    <string name="settings_row_currency">Valiuta</string>
+    <string name="settings_row_dated_futures">Terminuoti ateities sandoriai</string>
+    <string name="settings_row_updates">Kainų atnaujinimas</string>
+    <string name="settings_row_watchlist">Stebimų sąrašas</string>
+    <string name="settings_search_hint">Ieškoti nustatymuose</string>
+    <string name="settings_seconds">%1$d s</string>
+    <string name="settings_section_about">Apie</string>
+    <string name="settings_section_appearance">Išvaizda</string>
+    <string name="settings_section_developer">Kūrėjams</string>
+    <string name="settings_section_language">Kalba</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">Įjungta</string>
+    <string name="settings_title">Nustatymai</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">Ramybės laikas, kol įspėjimas vėl suveiks</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Įspėjimo signalas</string>
+    <string name="settings_alarm_signal_open_system">Koreguoti sistemos nustatymuose</string>
+    <string name="settings_alarm_signal_system_hint">Vadovaujamasi telefono pranešimų nustatymais.</string>
+    <string name="settings_alarm_sound">Įspėjimo garsas</string>
+    <string name="settings_alarm_sound_custom">Savas garsas</string>
+    <string name="settings_alarm_sound_default">Numatytasis garsas</string>
+    <string name="settings_alarm_sound_error">Šio garso naudoti nepavyko.</string>
+    <string name="settings_alarm_sound_file">Savas garso failas…</string>
+    <string name="settings_alarm_sound_reset">Naudoti numatytąjį garsą</string>
+    <string name="settings_alarm_sound_system">Pasirinkti sistemos garsą…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Skaičius ant programėlės piktogramos</string>
+    <string name="settings_app_badge_hint">Skaičiuoja neperskaitytus įspėjimų pranešimus. Ar rodomas skaičius, ar taškas, sprendžia pagrindinis ekranas (pvz., Samsung: „Rodyti su skaičiumi“).</string>
+    <string name="settings_exact_checks">Tikrinti laiku</string>
+    <string name="settings_exact_checks_grant">Leisti signalus ir priminimus</string>
+    <string name="settings_exact_checks_hint">Android tikrina maždaug kas 15 minučių, net kai įrenginys neaktyvus. Naudoja šiek tiek daugiau akumuliatoriaus.</string>
+    <string name="settings_exact_checks_nothing">Nėra aktyvių porų – nėra ko tikrinti.</string>
+    <string name="settings_exact_checks_permission_missing">Trūksta leidimo – kai įrenginys ramybės būsenoje, Android tikrina nereguliariai, kartais tik po kelių valandų.</string>
+    <string name="settings_notification_change">Pranešti tik pasikeitus kainai</string>
+    <string name="settings_notification_change_always">Visada</string>
+    <string name="settings_percent_invalid">Įvesk reikšmę nuo 0 iki 100.</string>
+    <string name="settings_notification_change_hint">Kainos pranešimas atsiranda tik tada, kai kaina nuo paskutinio pranešimo pasikeičia bent tiek. Kol trūksta duomenų, nieko nerodoma. Įspėjimams tai neturi įtakos.</string>
+    <string name="settings_ongoing_notifications">Negalima nubraukti</string>
+    <string name="settings_ongoing_notifications_hint">Kainų pranešimai lieka prisegti.</string>
+    <string name="settings_price_notifications">Kainų pranešimai</string>
+    <string name="settings_price_notifications_hint">Rodo įjungtų porų dabartinę kainą būsenos juostoje.</string>
+    <string name="settings_price_pairs">Poros</string>
+    <string name="settings_price_pairs_all_off">Visos išjungtos</string>
+    <string name="settings_price_pairs_all_on">Visos įjungtos</string>
+    <string name="settings_price_pairs_count">%1$d iš %2$d</string>
+    <string name="settings_price_pairs_empty">Stebimų sąraše dar nėra porų.</string>
+    <string name="settings_price_pairs_hint">Pasirink, kurių porų kaina rodoma pranešimų juostoje.</string>
+    <string name="settings_quiet_hours">Tylos laikas</string>
+    <string name="settings_quiet_hours_from">Nuo</string>
+    <string name="settings_quiet_hours_hint">Nuo %1$s iki %2$s įspėjimai laukia tylos laiko pabaigos ir tada suskamba. Kiti pranešimai ateina tyliai, be balso.</string>
+    <string name="settings_quiet_hours_to">Iki</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">Intervalas</string>
+    <string name="settings_background_updates">Atnaujinimai fone</string>
+    <string name="settings_battery_hint">Ribojama reiškia, kad Android gali atidėti foninius atnaujinimus kelioms valandoms.</string>
+    <string name="settings_battery_ok">Akumuliatoriaus naudojimas: neribojamas</string>
+    <string name="settings_battery_restricted">Akumuliatoriaus naudojimas: ribojamas</string>
+    <string name="settings_check_runs_empty">Tikrinimų dar neužregistruota.</string>
+    <string name="settings_check_runs_honest_android">Android sprendžia, kada tikrinti – čia matai, kada tai iš tikrųjų įvyko.</string>
+    <string name="settings_check_runs_honest_ios">iOS sprendžia, kada tikrinti – čia matai, kada tai iš tikrųjų įvyko.</string>
+    <string name="settings_check_runs_title">Paskutiniai tikrinimai</string>
+    <string name="settings_http_log">Rodyti HTTP žurnalą</string>
+    <string name="settings_http_log_hint">Puslapio „Pridėti porą“ apačioje rodo užklausas biržoms – trikčių šalinimui.</string>
+    <string name="settings_live_service">Atnaujinti dažnai</string>
+    <string name="settings_live_websocket">Tiesioginės kainos</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">Pastebima: pranešti</string>
+    <string name="settings_activity_alerts_hint">Ne dažniau kaip kartą per valandą kiekvienai porai: neįprasti kainų judėjimai, apimties šuoliai ir ateities sandorių kraštutinumai (Binance duomenys).</string>
+    <string name="settings_activity_sensitivity">Jautrumas</string>
+    <string name="settings_activity_sensitivity_hint">Kaip lengvai moneta laikoma neįprasta – vienodai stebimų sąrašo kortelei ir rinkos įspėjimams. Pasirinkus „Mažiau“, kortelė rodo tik 3 stipriausias.</string>
+    <string name="settings_watchlist_activity_card">Pastebima: rodyti sąraše</string>
+    <string name="settings_watchlist_activity_card_hint">Šalia grupių rodo ⚡ ženklelį: bakstelėjus rodomos tik poros, kuriose dabar kažkas vyksta. Jo pranešimai nustatomi skiltyje „Rinkos įspėjimai“.</string>
+    <string name="settings_watchlist_names">Rodyti pavadinimus</string>
+    <string name="settings_watchlist_names_hint">Pavadinimas po pora, pvz., Bitcoin ar NVIDIA. Gaunamas kartu su logotipų sąrašais, įkeliamas vieną kartą visoms monetoms.</string>
+    <string name="settings_watchlist_sparkline">Mini diagrama stebimų sąraše</string>
+    <string name="settings_watchlist_sparkline_hint">24 valandų tendencija šalia kainos</string>
+    <string name="settings_watchlist_value_names">Pavadinimai</string>
+    <string name="settings_watchlist_value_price_only">Tik kaina</string>
+    <string name="settings_watchlist_value_sparkline">Mini diagrama</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Įsk. Alpha žetonus (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Alpha žetonai: ankstyvi, dažniausiai maži projektai iš Binance Alpha sąrašo – dažnai mažai prekiaujami ir labai nepastovūs.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">Priklauso žetonams. Nepasiekiama pasirinkus „Tik TradFi“; jau stebimų sąraše esantys Alpha žetonai lieka.</string>
+    <string name="settings_asset_scope_both">Žetonai ir TradFi</string>
+    <string name="settings_asset_scope_both_hint">Viskas – kriptovaliutos ir TradFi</string>
+    <string name="settings_asset_scope_hint">Nustato, kurias poras rodo pasirinkimas ir paieška pridedant poras. Jau stebimų sąraše esančios poros visada lieka.</string>
+    <string name="settings_asset_scope_title">Žetonai ir TradFi</string>
+    <string name="settings_asset_scope_tokens">Tik žetonai</string>
+    <string name="settings_asset_scope_tokens_hint">Kriptovaliutos: spot ir neterminuotieji kontraktai</string>
+    <string name="settings_asset_scope_tradfi">Tik TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">Ateities sandoriai akcijoms, žaliavoms, valiutoms – kontraktai, ne žetonai</string>
+    <string name="settings_rolling_futures">Įsk. ketvirtinius ir kitus terminuotus ateities sandorius</string>
+    <string name="settings_rolling_futures_hint">Išjungta: biržos sąraše trūkstantys terminuoti ateities sandoriai pažymimi kaip nebeprekiaujami, o ne tikrinami po vieną. Taupo laiką kiekvieno atnaujinimo metu.</string>
+    <string name="settings_rolling_futures_qtly">Įsk. ketvirtinius ir kitus terminuotus ateities sandorius (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">Priklauso žetonams. Nepasiekiama pasirinkus „Tik TradFi“; vis dar taikoma jau stebimų sąraše esantiems terminuotiems ateities sandoriams.</string>
+    <string name="settings_tradfi_futures">Akcijos, žaliavos ir valiutos (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Renkantis porą taip pat rodo ateities sandorius akcijoms, auksui ir kitoms žaliavoms, valiutoms ir įmonėms prieš IPO. Tai kontraktai, ne žetonai.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">Akcento spalva</string>
+    <string name="settings_accent_hint">Programėlės, valdiklių ir programėlės piktogramos spalva. Kai kurie pagrindiniai ekranai pakeitus pašalina piktogramą – tada pridėk ją iš naujo.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Monetų logotipai</string>
+    <string name="settings_coin_logos_app">Programėlėje</string>
+    <string name="settings_coin_logos_app_hint">Stebimų sąrašas, atidaryta pora ir rinkos kortelės</string>
+    <string name="settings_coin_logos_footer">Logotipai gaunami iš CoinGecko, o monetoms, kurių CoinGecko neturi (pvz., auksas, sidabras, akcijos), – iš Binance. Programėlė visus logotipus įkelia iš karto ir saugo šiame įrenginyje, todėl nė vienas teikėjas nesužino, kurias monetas stebi. Monetos be logotipo rodo savo inicialus. Mėgstamos gauna mažą žvaigždutę ant logotipo. Kur jungiklis išjungtas, nerodomi nei logotipai, nei inicialai; išjungus visus, niekas neįkeliama.</string>
+    <string name="settings_coin_logos_portfolio">Portfelyje</string>
+    <string name="settings_coin_logos_portfolio_hint">Pozicijos, monetos detalės ir įžvalgos</string>
+    <string name="settings_coin_logos_value_app">Programėlė</string>
+    <string name="settings_coin_logos_widgets">Valdikliuose</string>
+    <string name="settings_coin_logos_widgets_hint">Stebimų sąrašo ir vienos monetos valdikliai</string>
+    <string name="settings_high_contrast">Didelis kontrastas</string>
+    <string name="settings_high_contrast_hint">Ryškesnės kainų spalvos ir tamsesnis antrinis tekstas. Taip pat įjungiama, kai sistema prašo didesnio kontrasto.</string>
+    <string name="settings_language_choose">Pasirinkti kalbą</string>
+    <string name="settings_language_system">Sistemos kalba</string>
+    <string name="settings_price_colors">Kainų spalvos</string>
+    <string name="settings_price_colors_hint">Mėlyną / oranžinę lengva atskirti esant bet kokiam spalvų matymo sutrikimui (raudonai žaliai ir mėlynai geltonai). Kryptis visada papildomai rodoma + / −.</string>
+    <string name="settings_theme_mode">Šviesi / tamsi</string>
+    <string name="settings_widgets">Valdikliai</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">%1$s pokytis ir diagramų laiko juosta</string>
+    <string name="settings_change_basis_hint_1">Pasirinkta laiko juosta nustato, nuo kada skaičiuojamas procentinis pokytis (stebimų sąrašas, pulso eilutė, atidaryta pora, valdikliai), ir diagramose rodomą laiką.</string>
+    <string name="settings_change_basis_hint_2">„%1$s“ lygina su kaina lygiai prieš 24 valandas. „00:00“ lygina su atidarymo kaina vidurnaktį toje laiko juostoje.</string>
+    <string name="settings_change_basis_hint_3">Įspėjimams tai neturi įtakos.</string>
+    <string name="settings_change_basis_hint_since_last">„%1$s“ lygina su ankstesnio atnaujinimo kaina. Su tiesioginėmis kainomis vertė lieka arti 0%%.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">Perskaičiavimo valiuta</string>
+    <string name="settings_conversion_currency_hint">Taip pat naudojama portfeliui, įspėjimams tavo valiuta, kriptovaliutų rinkos kortelei ir portfelio valdikliui.</string>
+    <string name="settings_cost_method">Savikainos metodas</string>
+    <string name="settings_cost_method_average">Vidutinė kaina</string>
+    <string name="settings_cost_method_average_hint">Pardavimai vertinami pagal slankiąją vidutinę pirkimo kainą.</string>
+    <string name="settings_cost_method_fifo">FIFO (numatytasis)</string>
+    <string name="settings_cost_method_fifo_hint">Pirmiausia parduodamos seniausios monetos visose biržose ir piniginėse.</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO pagal piniginę / biržą</string>
+    <string name="settings_cost_method_fifo_wallet_hint">Seniausios monetos pirmiausia kiekvienoje biržoje ar piniginėje; pervedimai perkelia partijas su jų pirkimo data.</string>
+    <string name="settings_portfolio_lock">Portfelio užraktas</string>
+    <string name="settings_portfolio_lock_footer">Užraktas paslepia tai, kas rodoma ekrane. Tavo duomenys saugomi šiame įrenginyje ir apsaugoti įrenginio šifravimu. Atsargines kopijas gali apsaugoti slaptažodžiu.</string>
+    <string name="settings_portfolio_lock_hint">Paslepia tik portfelį: atrakink piršto atspaudu, veidu ar įrenginio PIN kodu. Vėl užsirakina po daugiau nei minutės fone. Stebimų sąrašas, įspėjimai ir kiti valdikliai lieka atviri.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Be įrenginio PIN kodo ar slaptakodžio užraktas nieko nepaslepia – nustatyk ekrano užraktą.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Portfelis sistemos atsarginėje kopijoje</string>
+    <string name="settings_portfolio_system_backup_hint">Išjungta: tavo transakcijos neįtraukiamos į įrenginio sistemos atsarginę kopiją ir perkėlimą iš telefono į telefoną. Norint perkelti jas į naują telefoną, naudok programėlės atsarginę kopiją su slaptažodžiu.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Reikia Android 9 ar naujesnės – senesnės versijos išsaugotų portfelį neužšifruotą Google atsarginėje kopijoje.</string>
+    <string name="settings_portfolio_tab">Rodyti portfelio skirtuką</string>
+    <string name="settings_portfolio_value_locked">Įjungta, su užraktu</string>
+    <string name="settings_show_converted">Perskaičiuotos kainos</string>
+    <string name="settings_show_converted_hint">Stebimų sąraše kainas papildomai rodo %1$s</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">Pranešti apie USDT atsiejimą</string>
+    <string name="settings_depeg_alarm_hint">Vieną kartą praneša, kai USDT nukrypsta nuo 1 USD ribine verte (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_threshold">Atsiejimo riba</string>
+    <string name="settings_fng_above">Fear &amp; Greed: pranešti virš</string>
+    <string name="settings_fng_below">Fear &amp; Greed: pranešti žemiau</string>
+    <string name="settings_gas_alert_hint">Vieną kartą praneša, kai įprastas komisinis mokestis nukrenta žemiau ribos. Tikrinama atnaujinant kainas, ne dažniau kaip kas 10 minučių.</string>
+    <string name="settings_gas_btc_below">Bitcoin komisinis mokestis žemiau (sat/vB)</string>
+    <string name="settings_gas_eth_below">Ethereum dujos žemiau (gwei)</string>
+    <string name="settings_ind_ath_within">Kritimas nuo visų laikų maksimumo daugiausia</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple virš</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple žemiau</string>
+    <string name="settings_ind_mvrv_above">MVRV virš</string>
+    <string name="settings_ind_mvrv_below">MVRV žemiau</string>
+    <string name="settings_indicator_alerts_hint">Bitcoin rodikliai, tikrinami du kartus per dieną. Ribas renkiesi tu – programėlė vertių nevertina.</string>
+    <string name="settings_macro_notifications">Ekonominis kalendorius</string>
+    <string name="settings_macro_notifications_hint">08:00 dienomis, kai skelbiami svarbūs JAV ekonominiai duomenys (infliacija, darbo rinkos ataskaita, FED sprendimas). Kalendorius gaunamas iš programėlės svetainės, įkeliamas kartą per dieną.</string>
+    <string name="settings_market_alerts">Rinkos įspėjimai</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d aktyvus</item>
+        <item quantity="few">%1$d aktyvūs</item>
+        <item quantity="many">%1$d aktyvaus</item>
+        <item quantity="other">%1$d aktyvių</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">Kalbėjimo greitis: %1$.1f×</string>
+    <string name="settings_tts">Balso išvestis</string>
+    <string name="settings_tts_alarms_only">Tik įspėjimai</string>
+    <string name="settings_tts_alarms_only_hint">Išjungta: perskaitomas kiekvienas poros, pažymėtos „Skaityti kainą“, atnaujinimas.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">Perskaito kainas ir įspėjimus balsu. Tyli, kol įrenginys nustatytas į begarsį ar vibravimo režimą.</string>
+    <string name="settings_tts_test">Išbandyti balsą</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">Atkurti programėlę</string>
+    <string name="settings_reset_app_action">Ištrinti viską</string>
+    <string name="settings_reset_app_confirm">Ištrina stebimų sąrašą, įspėjimus, portfelį, nustatymus ir visus išsaugotus duomenis, kaip po įdiegimo. To anuliuoti negalima. Patarimas: pirmiausia sukurk atsarginę kopiją. Įrenginio atsarginės kopijos (Google atsarginė kopija ar iCloud / kompiuterio atsarginė kopija) išlaiko ankstesnius duomenis iki kitos atsarginės kopijos.</string>
+    <string name="settings_reset_app_title">Atkurti programėlę?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">Ieškoti valiutos</string>
+    <string name="language_search">Ieškoti kalbos</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">Tamsi</string>
+    <string name="theme_light">Šviesi</string>
+    <string name="theme_system">Sistemos</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">Mėlyna</string>
+    <string name="accent_green">Žalia</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">Oranžinė</string>
+    <string name="accent_red">Raudona</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">Įprasta Kinijoje, Japonijoje, Korėjoje ir Taivane</string>
+    <string name="price_colors_swap">Sukeisti spalvas (kilimas ↔ kritimas)</string>
+    <string name="price_style_calm">Rami</string>
+    <string name="price_style_calm_color_vision">Rami · spalvų matymo sutrikimas</string>
+    <string name="price_style_color_vision">Spalvų matymo sutrikimas</string>
+    <string name="price_style_fresh">Gaivi</string>
+    <string name="price_style_traditional">Tradicinė</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">Biržų jungtys paskutinį kartą patikrintos pagal tikrus atsakymus: %1$s</string>
+    <string name="about_license">Kainos gaunamos tiesiai iš biržų; be paskyros ir be sekimo.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">Licencijos</string>
+    <string name="about_privacy_policy">Privatumo politika</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">Pasiūlyti biržą</string>
+    <string name="about_source_code">Šaltinio kodas GitHub</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker – nepriklausomas r1AD projektas: rami kainų apžvalga be paskyros, reklamų ir sekimo. Klausimai ir pageidavimai: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker yra atvirojo kodo (MIT licencija).</string>
+    <string name="licenses_font_title">Šriftas Rubik</string>
+    <string name="licenses_icons_bundled_text">Įtraukta į programėlę: piktogramos iš „Cryptocurrency Icons“, kurias sukūrė Christopher Downer ir bendraautoriai (github.com/spothq/cryptocurrency-icons), išleistos pagal CC0 1.0 Universal. Jos rodomos, kol įkeliami CoinGecko ar Binance logotipai. Pavadinimai ir logotipai lieka atitinkamų projektų prekių ženklais.</string>
+    <string name="licenses_icons_title">Atsarginės monetų piktogramos</string>
+    <string name="licenses_libraries_intro">Programėlė naudoja šias bibliotekas pagal Apache License 2.0:</string>
+    <string name="licenses_libraries_title">Android bibliotekos</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">Dar %d bakstelėjimas iki kūrėjo parinkčių</item>
+        <item quantity="few">Dar %d bakstelėjimai iki kūrėjo parinkčių</item>
+        <item quantity="many">Dar %d bakstelėjimo iki kūrėjo parinkčių</item>
+        <item quantity="other">Dar %d bakstelėjimų iki kūrėjo parinkčių</item>
+    </plurals>
+    <string name="developer_unlocked">Kūrėjo parinktys atrakintos</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Vibracija priklauso nuo iPhone nustatymų (Garsai ir haptika).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Skaičiuoja naujus įspėjimus ir rinkos įspėjimus; atidarius programėlę vėl 0.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Tavo duomenys</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">Šiame įrenginyje</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Tavo stebimų sąrašas, įspėjimai ir portfelis saugomi užšifruoti šiame įrenginyje; jokios paskyros, jokio savo serverio.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Ryšiai</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Kainos gaunamos tiesiai iš tavo porų biržų, taip pat valiutų kursai, monetų sąrašai ir logotipai bei duomenų veidrodis GitHub; jie mato tavo IP adresą, bet niekada ne tavo turtą (stebimi adresai siunčiami atitinkamo tinklo teikėjui).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Atsarginė kopija</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Tik jei ją sukuri. Su slaptažodžiu ji užšifruota (Argon2id + AES-256-GCM); be jo – skaitoma.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Įrenginio keitimas</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">Raktas lieka senajame įrenginyje – pirmiausia sukurk atsarginės kopijos failą.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Bendrinti diagnostiką</string>
+    <string name="diagnostics_share_hint">Tekstinis failas pagalbai: versija, įrenginys, įspėjimų nustatymai, paskutiniai tikrinimai ir įspėjimų žurnalas – be portfelio, sumų, adresų ir pastabų. Pirmiausia jį pamatai; niekas nesiunčiama automatiškai.</string>
+    <string name="diagnostics_preview_title">Diagnostikos peržiūra</string>
+    <string name="diagnostics_action_share">Bendrinti</string>
+    <string name="settings_price_overlay">Kainos perdanga</string>
+    <string name="settings_price_overlay_hint">Nuolatinio kainos pranešimo poras rodo kaip mažą slankiojantį ženklelį virš kitų programų. Bakstelėjus atidaroma programėlė, nutempus prie × apačioje – uždaroma.</string>
+    <string name="settings_price_overlay_needs">Veikia tik kartu su „%1$s“.</string>
+    <string name="settings_price_overlay_grant">Leisti rodyti virš kitų programų</string>
+    <string name="price_overlay_close">Uždaryti perdangą</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">Savas serveris adresams</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Tik Bitcoin: tavo savas su Esplora ar mempool suderinamas serveris (pvz., https://node.example/api, būtinas viešai patikimas sertifikatas, pvz., Let\'s Encrypt). Jei nustatytas, Bitcoin adresai ir xpub raktai tikrinami tik ten – niekada viešuose mazguose, net kai tavo serveris nepasiekiamas. Kiti tinklai toliau naudoja viešus mazgus. Tuščia = vieši mazgai.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Bitcoin serveris (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">Išbandyti</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">Bandoma…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">Serveris atsako – blokas %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">Nėra tinkamo atsakymo – patikrink adresą ir sertifikatą</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">Naudojamas: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">Nenustatytas – naudojami vieši mazgai</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">Leidžiami tik https:// adresai</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">Adrese negali būti naudotojo vardo ar slaptažodžio</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">Adrese negali būti ? ar # dalies</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">Netinkamas serverio adresas</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">Pereiti prie viešų mazgų?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">Tavo Bitcoin adresai ir xpub raktai tada bus tikrinami viešuose mazguose: %1$s. Jie mato šiuos adresus kartu su tavo IP adresu.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">Naudoti viešus mazgus</string>
+</resources>

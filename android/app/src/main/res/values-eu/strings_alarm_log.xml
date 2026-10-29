@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Protokoll: Titel der Seite und Name des Knopfs in «Alle Alarme» -->
+    <string name="alarm_log_title">Alarmen erregistroa</string>
+    <!-- Link unter «Letzte Prüfungen» (Einstellungen › Aktualisierung) -->
+    <string name="alarm_log_open">Erakutsi alarmen erregistroa</string>
+    <string name="alarm_log_intro">Alarma bat noiz jo duen – eta noiz joko zukeen baina atxiki egin den. Gailu honetan bakarrik gordetzen da, 14 egunez.</string>
+    <string name="alarm_log_empty_title">Oraindik ez dago sarrerarik</string>
+    <string name="alarm_log_empty_message">Sarrerak hemen agertzen dira alarma batek jotzen duenean edo atxikitzen denean – adibidez, prezioa zaharra delako edo isiltasun-orduetan.</string>
+    <string name="alarm_log_clear">Garbitu erregistroa</string>
+    <string name="alarm_log_clear_title">Alarmen erregistroa garbitu nahi duzu?</string>
+    <string name="alarm_log_clear_message">Sarrera guztiak kenduko dira. Zure alarmak dauden bezala geratzen dira.</string>
+    <!-- Screenreader: Schwelle des Alarms, z. B. «Marke Über 100’000 CHF» -->
+    <string name="alarm_log_threshold">Muga: %1$s</string>
+    <!-- Alarm-Editor: letzte Prüfung, %1$s = «14:02 · Kraken 99’800 CHF · Marke nicht erreicht» -->
+    <string name="alarm_last_check">Azken egiaztapena: %1$s</string>
+    <!-- Ergebnisse einer Alarm-Prüfung (AlarmLogOutcome) -->
+    <string name="alarm_outcome_fired">Jo du</string>
+    <string name="alarm_outcome_not_reached">Mugara ez da iritsi</string>
+    <string name="alarm_outcome_already_triggered">Jakinarazi da jada – prezioa beste aldera itzuli arte itxaroten du</string>
+    <string name="alarm_outcome_cooldown">Ez du jo – atseden-denbora azken alarmaren ondoren</string>
+    <!-- %1$s = Zeit des Kurses laut Börse -->
+    <string name="alarm_outcome_stale">Ez du jo – prezio zaharra (eguneratua: %1$s)</string>
+    <string name="alarm_outcome_mark_price">Ez du jo – marka-prezioa, ez negoziatutako prezioa</string>
+    <string name="alarm_outcome_low_liquidity">Ez du jo – likidezia 10.000 USD baino txikiagoa edo ezezaguna</string>
+    <string name="alarm_outcome_quiet_hours">Ez du jo – isiltasun-orduak (gero abisatuko du oraindik betetzen bada)</string>
+    <string name="alarm_outcome_notifications_off">Ez du jo – jakinarazpenak desaktibatuta</string>
+    <string name="alarm_outcome_not_shown">Ez du jo – jakinarazpena ez da iritsi, geroago saiatuko da berriro</string>
+    <string name="alarm_outcome_no_rate">Egiaztatu gabe – ez dago truke-tasarik</string>
+    <string name="alarm_outcome_no_price">Preziorik ez – burtsari egindako kontsultak huts egin du</string>
+
+    <string name="alarm_outcome_snoozed">Atxikita – «1 h geroago» martxan oraindik</string>
+    <string name="alarm_log_source_app">aplikazioan</string>
+    <string name="alarm_log_source_background">atzeko planoan</string>
+    <string name="alarm_log_source_exact">garaiz egindako egiaztapena</string>
+    <string name="alarm_log_source_widget">widgetaren bidez</string>
+    <string name="alarm_outcome_fx_stale">Egiaztatu gabe – truke-tasak 36 ordu baino gehiago ditu</string>
+    <string name="alarm_outcome_fx_unsure">Egiaztatu gabe – USDT bihurketa zalantzazkoa (USDC bidez soilik)</string>
+</resources>

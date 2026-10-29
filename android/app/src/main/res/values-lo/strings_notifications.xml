@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">ໂດດເດັ່ນ: %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — ຕອນນີ້ %2$s</string>
+    <string name="notification_alarm_title">ສັນຍານເຕືອນ: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">ເປີດກະດານແລກປ່ຽນ</string>
+    <string name="notification_depeg_text">ຄ່າໃນແອັບໃຊ້ລາຄາຕະຫຼາດນີ້.</string>
+    <string name="notification_depeg_title">USDT ທີ່ %1$s USD (%2$s)</string>
+    <string name="notification_fng_above">ດັດຊະນີຂຶ້ນເກີນ %1$d – ຕາມຕົວວັດນີ້, ອາລົມຕະຫຼາດແມ່ນໂລບ.</string>
+    <string name="notification_fng_below">ດັດຊະນີລົງຕ່ຳກວ່າ %1$d – ຕາມຕົວວັດນີ້, ອາລົມຕະຫຼາດແມ່ນຢ້ານ.</string>
+    <string name="notification_fng_title">ດັດຊະນີອາລົມ (Fear &amp; Greed): %1$d</string>
+    <string name="notification_gas_btc_text">ຕ່ຳກວ່າຂີດຈຳກັດຂອງທ່ານ %1$s sat/vB · ການໂອນ ≈ %2$s</string>
+    <string name="notification_gas_btc_title">ຄ່າທຳນຽມ Bitcoin: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">ຕ່ຳກວ່າຂີດຈຳກັດຂອງທ່ານ %1$s gwei · ການໂອນ ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Ethereum gas: %1$s gwei</string>
+    <string name="notification_indicator_above">ສູງກວ່າຂີດຈຳກັດຂອງທ່ານ %1$s – ຄ່າທີ່ວັດໄດ້, ບໍ່ແມ່ນຄຳແນະນຳ.</string>
+    <string name="notification_indicator_below">ຕ່ຳກວ່າຂີດຈຳກັດຂອງທ່ານ %1$s – ຄ່າທີ່ວັດໄດ້, ບໍ່ແມ່ນຄຳແນະນຳ.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">ຂໍ້ມູນເສດຖະກິດມື້ນີ້</string>
+    <string name="notification_permission_preprompt_continue">ສືບຕໍ່</string>
+    <string name="notification_permission_preprompt_later">ພາຍຫຼັງ</string>
+    <string name="notification_permission_preprompt_text">ເພື່ອໃຫ້ສັນຍານເຕືອນ ແລະ ການແຈ້ງເຕືອນລາຄາມາຮອດທ່ານ, ແອັບຕ້ອງການການອະນຸຍາດໃຫ້ສົ່ງການແຈ້ງເຕືອນ. ແອັບໃຊ້ມັນສະເພາະສຳລັບສັນຍານເຕືອນ ແລະ ການແຈ້ງເຕືອນລາຄາຂອງທ່ານເທົ່ານັ້ນ.</string>
+    <string name="notification_permission_preprompt_title">ອະນຸຍາດການແຈ້ງເຕືອນບໍ?</string>
+    <string name="notification_portfolio_alarm_locked">ສັນຍານເຕືອນຂອງທ່ານເຮັດວຽກແລ້ວ – ເປີດແອັບເພື່ອເບິ່ງລາຍລະອຽດ.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – ຕອນນີ້ %2$s</string>
+    <string name="notification_portfolio_alarm_title">ມູນຄ່າພອດໂຟລິໂອ</string>
+    <string name="notification_price_change">%1$s, ຈາກ %2$s (%3$s ກ່ອນ)</string>
+    <string name="notification_price_change_no_age">%1$s, ຈາກ %2$s</string>
+    <string name="notification_price_first">ການແຈ້ງເຕືອນລາຄາຄັ້ງທຳອິດສຳລັບຄູ່ເທຣດນີ້</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="other">+ອີກ %1$d ລາຄາ</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">ກຳລັງອັບເດດລາຄາ…</string>
+    <string name="notification_volume_spike_text">ປະລິມານ %1$s× ຂອງປົກກະຕິໃນຊົ່ວໂມງຫຼ້າສຸດ</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">ສັນຍານເຕືອນ</string>
+    <string name="channel_alarms_description">ການແຈ້ງເຕືອນເມື່ອສັນຍານເຕືອນເຮັດວຽກ.</string>
+    <string name="channel_alarms_quiet">ສັນຍານເຕືອນ (ຊ່ວງເວລາງຽບ)</string>
+    <string name="channel_alarms_quiet_description">ສັນຍານເຕືອນແບບງຽບໃນຊ່ວງເວລາງຽບ.</string>
+    <string name="channel_alarms_silent">ສັນຍານເຕືອນ (ງຽບ)</string>
+    <string name="channel_alarms_sound">ສັນຍານເຕືອນ (ສຽງເທົ່ານັ້ນ)</string>
+    <string name="channel_alarms_sound_vibrate">ສັນຍານເຕືອນ (ສຽງ ແລະ ການສັ່ນ)</string>
+    <string name="channel_alarms_vibrate">ສັນຍານເຕືອນ (ການສັ່ນເທົ່ານັ້ນ)</string>
+    <string name="channel_prices">ການແຈ້ງເຕືອນລາຄາ</string>
+    <string name="channel_prices_description">ການແຈ້ງເຕືອນລາຄາແບບງຽບພ້ອມລາຄາປັດຈຸບັນຂອງຄູ່ເທຣດ.</string>
+    <string name="channel_service">ການອັບເດດລາຄາ</string>
+    <string name="channel_service_description">ການແຈ້ງເຕືອນໃນຂະນະກຳລັງອັບເດດລາຄາ.</string>
+    <string name="neutral_channel_market">ສັນຍານເຕືອນຕະຫຼາດ</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, ຄ່າ gas, “ໂດດເດັ່ນ” ແລະ ວັນທີເສດຖະກິດ</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">ສັນຍານເຕືອນ. %1$s, %2$s %3$s %4$s, ຕອນນີ້ %5$s</string>
+    <string name="tts_direction_down">ລົງແລ້ວ</string>
+    <string name="tts_direction_funding_above">ພ້ອມ Funding ສູງ</string>
+    <string name="tts_direction_funding_below">ພ້ອມ Funding ຕ່ຳ</string>
+    <string name="tts_direction_move">ເໜັງຕີງແຮງ</string>
+    <string name="tts_direction_near_high">ໃກ້ຈຸດສູງສຸດຂອງມັນ</string>
+    <string name="tts_direction_near_low">ໃກ້ຈຸດຕ່ຳສຸດຂອງມັນ</string>
+    <string name="tts_direction_oi_down">ພ້ອມ Open interest ທີ່ກຳລັງລົງ</string>
+    <string name="tts_direction_oi_up">ພ້ອມ Open interest ທີ່ກຳລັງຂຶ້ນ</string>
+    <string name="tts_direction_up">ຂຶ້ນແລ້ວ</string>
+    <string name="tts_direction_volume_spike">ພ້ອມປະລິມານພຸ່ງສູງ</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+
+    <!-- Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+    <string name="notification_alarm_action_snooze">ອີກ 1 ຊມ.</string>
+    <string name="notification_alarm_action_edit">ປັບ</string>
+</resources>

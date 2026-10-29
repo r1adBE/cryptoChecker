@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">Manzil qoʻshish</string>
+    <string name="portfolio_address_count">Hisobga olish</string>
+    <string name="portfolio_address_error">Yangilash muvaffaqiyatsiz</string>
+    <string name="portfolio_address_hint">Ochiq manzil (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) yoki xpub</string>
+    <string name="portfolio_address_label">Nom (ixtiyoriy)</string>
+    <string name="portfolio_address_not_since_buy">Manzildan · «Xariddan beri» ichida emas: %1$s</string>
+    <string name="portfolio_address_overlap">Oʻz tranzaksiyalaringizda ham bor: %1$s – ikkalasi ham qoʻshiladi. Tangalar bir xilmi? «Faqat koʻrsatish»ni tanlang.</string>
+    <string name="portfolio_address_overlap_ask">%1$s allaqachon oʻz tranzaksiyalaringizda hisobga olingan. Bu manzil balansini portfelga qoʻshasizmi yoki faqat koʻrsatasizmi?</string>
+    <string name="portfolio_address_overlap_auto">«%1$s» endi faqat koʻrsatiladi, hisobga olinmaydi – %2$s tranzaksiyalaringizda ham bor.</string>
+    <string name="portfolio_address_overlap_title">Tangalar tranzaksiyalaringizdagi bilan bir xilmi?</string>
+    <string name="portfolio_address_overlap_tx">Oʻz depozitingiz/oʻtkazmangiz bilan bir xil miqdor (%1$s) – ehtimol ikki marta hisoblangan.</string>
+    <string name="portfolio_address_period_observed">Kuzatilayotgan manzillar birinchi kuzatilgan balansdan hisoblanadi; keyingi oʻzgarishlar – kirim/chiqim, foyda emas.</string>
+    <string name="portfolio_address_privacy">%1$s xizmatiga faqat ochiq manzil yuboriladi – hech qachon kalitlar yoki seed-iboralar emas. Provayder uni IP manzilingiz bilan birga koʻradi. Koʻpi bilan har 10 daqiqada tekshiriladi.</string>
+    <string name="portfolio_address_remove">Manzilni oʻchirish</string>
+    <string name="portfolio_address_show_only">Faqat koʻrsatish, portfelga qoʻshmaslik</string>
+    <string name="portfolio_address_show_only_short">Faqat koʻrsatish</string>
+    <string name="portfolio_address_tokens">Tokenlarni hisobga olish</string>
+    <string name="portfolio_address_xpub_privacy">xpub bu hamyonning barcha manzillarini ochib beradi. Ular qurilmangizda hosil qilinadi; %1$s xizmatiga faqat alohida manzillar yuboriladi – birinchi qidiruvda kamida 40 ta soʻrov, keyin kamroq. Maxfiy kalitlar (xprv) hech qachon qabul qilinmaydi.</string>
+    <string name="portfolio_address_xpub_gap">Qidiruv ketma-ket %1$d ta ishlatilmagan manzildan keyin toʻxtaydi (koʻp hamyonlar ishlatadigan BIP44 standarti). Bu oraliqdan keyingi ishlatilgan manzil hisoblanmaydi – uni alohida qoʻshing.</string>
+    <string name="portfolio_address_xpub_used">Ishlatilgan manzillar: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">Yangilash uchun ishlatilgan manzillar juda koʻp</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">Manzillar juda koʻp – eski, boʻsh manzillarga yangi toʻlovlar aniqlanmasligi mumkin</string>
+    <string name="portfolio_addresses_title">Manzillar</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Bitcoin Cash manzillarini kuzatib boʻlmaydi: shartlari bunga ruxsat beradigan, API kalitisiz bepul ochiq xizmat yoʻq.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) 2024-yilda yopilgan – balanslar endi BNB Smart Chain (0x…) tarmogʻida</string>
+    <string name="address_checksum">Nazorat yigʻindisi notoʻgʻri – xatolarni tekshiring</string>
+    <string name="address_doge_unsupported">Dogecoin manzillarini kuzatib boʻlmaydi: shartlari bunga ruxsat beradigan, API kalitisiz bepul ochiq xizmat yoʻq.</string>
+    <string name="address_duplicate">Bu manzil allaqachon qoʻshilgan</string>
+    <string name="address_ens">ENS nomlari qoʻllab-quvvatlanmaydi – 0x manzilini kiriting</string>
+    <string name="address_invalid">Qoʻllab-quvvatlanadigan tarmoqning yaroqli manzili emas</string>
+    <string name="address_limit">Koʻpi bilan 20 ta manzil</string>
+    <string name="address_secret">Bu maxfiy kalit yoki seed-iboraga oʻxshaydi – uni hech qayerga kiritmang. Faqat ochiq manzillar.</string>
+    <string name="address_testnet">Testnet manzillari qoʻllab-quvvatlanmaydi</string>
+    <string name="address_unsupported">Bu manzil turi qoʻllab-quvvatlanmaydi</string>
+    <string name="address_wrong_chain">Manzil boshqa tarmoqqa tegishli</string>
+    <string name="address_xpub_multisig">Multisig kalitlari (Ypub/Zpub) qoʻllab-quvvatlanmaydi</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot hisobi (BIP86): bc1p… manzillari shu kalitdan qabul qilish va qaytim uchun hosil qilinadi.</string>
+    <string name="portfolio_address_taproot_hint">Taproot hamyonmi? Uning oʻrniga hamyoningizdagi tr(…) deskriptorini qoʻying – oddiy xpub faqat Legacy va SegWit manzillari sifatida qidiriladi.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">Shaxsiy server javob bermayapti</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">%1$s operatori bu hamyonning barcha soʻralgan manzillarini koʻradi va ularni bir-biriga hamda IP manzilingizga bogʻlay oladi.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">Bunga yoʻl qoʻymaslik uchun Sozlamalar › Portfel › Manzillar uchun shaxsiy server boʻlimida oʻz serveringizni kiriting.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d ta nomaʼlum token (hisoblanmaydi)</item>
+        <item quantity="other">+%1$d ta nomaʼlum token (hisoblanmaydi)</item>
+    </plurals>
+</resources>

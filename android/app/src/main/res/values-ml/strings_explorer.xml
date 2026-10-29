@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">എല്ലാ ഫലങ്ങളും</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="one">%1$d എക്സ്ചേഞ്ച്</item>
+        <item quantity="other">%1$d എക്സ്ചേഞ്ചുകൾ</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">ലോഡ് ചെയ്ത ലിസ്റ്റുകളിൽ ഈ കോയിനിന് ജോഡിയില്ല.</string>
+    <string name="explorer_coin_not_loaded">ജോഡി ലിസ്റ്റുകൾ ഇതുവരെ ലോഡ് ആയിട്ടില്ല</string>
+    <string name="explorer_coin_other_pairs">മറ്റ് ജോഡികൾ</string>
+    <string name="explorer_coin_show_pairs">ജോഡികൾ കാണിക്കുക</string>
+    <string name="explorer_coin_suggested">നിർദ്ദേശിച്ചത്</string>
+    <string name="explorer_coins_title">കോയിനുകൾ</string>
+    <string name="explorer_lists_failed_many">%1$s ഇപ്പോൾ പ്രതികരിക്കുന്നില്ല – ജോഡി ലിസ്റ്റുകൾ ലോഡ് ആയില്ല. പിന്നീട് വീണ്ടും ശ്രമിക്കുക.</string>
+    <plurals name="explorer_lists_failed_more">
+        <item quantity="one">+%1$d കൂടി</item>
+        <item quantity="other">+%1$d കൂടി</item>
+    </plurals>
+    <string name="explorer_lists_failed_one">%1$s ഇപ്പോൾ പ്രതികരിക്കുന്നില്ല – ജോഡി ലിസ്റ്റ് ലോഡ് ആയില്ല. പിന്നീട് വീണ്ടും ശ്രമിക്കുക.</string>
+    <string name="explorer_lists_load">ലിസ്റ്റുകൾ ലോഡ് ചെയ്യുക</string>
+    <string name="explorer_lists_loading">ജോഡി ലിസ്റ്റുകൾ ലോഡ് ചെയ്യുന്നു… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="one">%1$d എക്സ്ചേഞ്ചിന്റെ ജോഡി ലിസ്റ്റ് ഇതുവരെ ഈ ഉപകരണത്തിലില്ല.</item>
+        <item quantity="other">%1$d എക്സ്ചേഞ്ചുകളുടെ ജോഡി ലിസ്റ്റുകൾ ഇതുവരെ ഈ ഉപകരണത്തിലില്ല.</item>
+    </plurals>
+    <string name="explorer_lists_privacy">ഓരോ എക്സ്ചേഞ്ചിന്റെയും പൂർണ്ണ പൊതു ലിസ്റ്റ് ലോഡ് ചെയ്യുന്നു – എല്ലാവർക്കും ഒരുപോലെ. നിങ്ങളുടെ തിരയൽ ഈ ഉപകരണത്തിൽ തന്നെ നിലനിൽക്കും.</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">സമീപകാല തിരയൽ: %1$s</string>
+    <string name="explorer_recent_clear">മായ്ക്കുക</string>
+    <string name="explorer_recent_clear_a11y">സമീപകാല തിരയലുകൾ മായ്ക്കുക</string>
+    <string name="explorer_recent_title">സമീപകാല തിരയലുകൾ</string>
+    <string name="explorer_search_choose_manually">എക്സ്ചേഞ്ചും ജോഡിയും സ്വയം തിരഞ്ഞെടുക്കുക</string>
+    <string name="explorer_search_empty">പൊരുത്തങ്ങളൊന്നുമില്ല.</string>
+    <string name="explorer_search_hint">കോയിൻ, ജോഡി അല്ലെങ്കിൽ എക്സ്ചേഞ്ച് തിരയുക</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">ഒരു കോയിനിന്റെ പേരോ ചിഹ്നമോ ടൈപ്പ് ചെയ്യുക, ഉദാ. Bitcoin അല്ലെങ്കിൽ BTC – തുടർന്ന് ജോഡി തിരഞ്ഞെടുക്കുക.</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">വാച്ച്‌ലിസ്റ്റിലേക്ക് ചേർക്കുക</string>
+    <string name="explorer_added_to_watchlist">വാച്ച്‌ലിസ്റ്റിലേക്ക് ചേർത്തു.</string>
+    <string name="explorer_already_in_watchlist">ഈ ജോഡി ഇതിനകം വാച്ച്‌ലിസ്റ്റിലുണ്ട്.</string>
+    <string name="explorer_exchange_missing">എക്സ്ചേഞ്ച് കാണുന്നില്ലേ?</string>
+    <string name="explorer_loading_pairs">ട്രേഡിംഗ് ജോഡികൾ ലോഡ് ചെയ്യുന്നു…</string>
+    <string name="explorer_no_pair_selected">ആദ്യം ഒരു ജോഡി തിരഞ്ഞെടുക്കുക.</string>
+    <string name="explorer_no_pairs_yet">ഈ എക്സ്ചേഞ്ചിന് ഇതുവരെ ജോഡികളൊന്നും ലോഡ് ചെയ്തിട്ടില്ല.</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$d ജോഡി · %2$s പുതുക്കി</item>
+        <item quantity="other">%1$d ജോഡികൾ · %2$s പുതുക്കി</item>
+    </plurals>
+    <string name="explorer_pairs_title">ജോഡികൾ</string>
+    <string name="explorer_precise_title">വിപുലമായത് / എക്സ്ചേഞ്ച് പ്രകാരം</string>
+    <string name="explorer_price_loading">വില ലോഡ് ചെയ്യുന്നു…</string>
+    <string name="explorer_select_exchange_hint">ഒരു എക്സ്ചേഞ്ച് തിരഞ്ഞെടുക്കുക – അതിന്റെ ട്രേഡിംഗ് ജോഡികൾ സ്വയമേവ ലോഡ് ആകും.</string>
+    <string name="explorer_select_placeholder">ദയവായി തിരഞ്ഞെടുക്കുക</string>
+    <string name="explorer_step_pair">ജോഡി തിരഞ്ഞെടുക്കുക</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">ഉയർന്നവ</string>
+    <string name="explorer_filter_losers">താഴ്ന്നവ</string>
+    <string name="explorer_filter_volume">വോളിയം</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">ഈ എക്സ്ചേഞ്ചിലെ എല്ലാ %1$s ജോഡികളും</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">%1$d %2$s ജോഡി കണ്ടെത്തി</item>
+        <item quantity="other">%1$d %2$s ജോഡികൾ കണ്ടെത്തി</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">തിരഞ്ഞെടുത്ത കോൺട്രാക്റ്റ് തരത്തിന് ഈ എക്സ്ചേഞ്ചിൽ %1$s ജോഡികളില്ല. ആദ്യം എക്സ്ചേഞ്ച് സമന്വയിപ്പിക്കുക, അല്ലെങ്കിൽ മറ്റൊരു കോൺട്രാക്റ്റ് തരം പരീക്ഷിക്കുക.</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">%1$d ജോഡി വാച്ച്‌ലിസ്റ്റിലേക്ക് ചേർക്കുക</item>
+        <item quantity="other">എല്ലാ %1$d ജോഡികളും വാച്ച്‌ലിസ്റ്റിലേക്ക് ചേർക്കുക</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">%1$d ചേർത്തു, %2$d ഇതിനകം വാച്ച്‌ലിസ്റ്റിലുണ്ട്.</item>
+        <item quantity="other">%1$d ചേർത്തു, %2$d ഇതിനകം വാച്ച്‌ലിസ്റ്റിലുണ്ട്.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">%3$s-ൽ നിന്നുള്ള %1$d %2$s ജോഡി, ഇതിനകം ഇല്ലെങ്കിൽ, വാച്ച്‌ലിസ്റ്റിലേക്ക് ചേർക്കും.</item>
+        <item quantity="other">%3$s-ൽ നിന്നുള്ള എല്ലാ %1$d %2$s ജോഡികളും വാച്ച്‌ലിസ്റ്റിലേക്ക് ചേർക്കും. ഇതിനകം ഉള്ള ജോഡികൾ ഒഴിവാക്കും.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">%1$d ജോഡി ചേർക്കണോ?</item>
+        <item quantity="other">%1$d ജോഡികൾ ചേർക്കണോ?</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">ലിസ്റ്റ് മറയ്ക്കുക</string>
+    <string name="explorer_bulk_show_list">ലിസ്റ്റ് കാണിക്കുക</string>
+    <string name="explorer_bulk_tap_hint">മുകളിൽ തിരഞ്ഞെടുക്കാൻ ഒരു ജോഡിയിൽ ടാപ്പ് ചെയ്യുക.</string>
+    <string name="explorer_bulk_title">ഒരേസമയം ഒന്നിലധികം ജോഡികൾ</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">തിരഞ്ഞെടുത്ത എക്സ്ചേഞ്ചിന്റെ നിലവിലെ ജോഡികൾ ലോഡ് ചെയ്യുന്നു.</string>
+    <string name="explorer_no_pair_list">കറൻസി ജോഡികളില്ല</string>
+    <string name="explorer_sync_sheet_last">അവസാന സമന്വയം: %1$s</string>
+    <string name="explorer_sync_never">ഒരിക്കലുമില്ല</string>
+    <string name="explorer_sync_sheet_action">ഇപ്പോൾ സമന്വയിപ്പിക്കുക</string>
+    <string name="explorer_sync_sheet_title">കറൻസി ജോഡികൾ പുതുക്കുക</string>
+    <string name="explorer_field_coin">കോയിൻ</string>
+    <string name="explorer_field_contract">കോൺട്രാക്റ്റ് തരം</string>
+    <string name="explorer_field_exchange">എക്സ്ചേഞ്ച്</string>
+    <string name="explorer_field_quote">ക്വോട്ട് കറൻസി</string>
+    <string name="explorer_contract_spot">സ്പോട്ട്</string>
+    <string name="explorer_reload_pairs">സമന്വയിപ്പിക്കുക</string>
+    <string name="sync_pairs_count">ട്രേഡിംഗ് ജോഡികൾ: %1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">ചേർക്കുക</string>
+    <string name="dex_added">%1$s വാച്ച്‌ലിസ്റ്റിലേക്ക് ചേർത്തു.</string>
+    <string name="dex_already">%1$s ഇതിനകം വാച്ച്‌ലിസ്റ്റിലുണ്ട്.</string>
+    <string name="dex_intro">വലിയ എക്സ്ചേഞ്ചുകൾക്ക് പുറത്തുള്ള ടോക്കണുകൾ, വികേന്ദ്രീകൃത എക്സ്ചേഞ്ചുകളിൽ നിന്ന് (Uniswap, PancakeSwap, Raydium …) DexScreener വഴി. ഒരു ടോക്കൺ തിരഞ്ഞ് അതിന്റെ ട്രേഡിംഗ് പൂളുകളിലൊന്ന് ചേർക്കുക – വിലകൾ US ഡോളറിൽ.</string>
+    <string name="dex_liquidity">ലിക്വിഡിറ്റി %1$s</string>
+    <string name="dex_no_results">പൂളുകളൊന്നും കണ്ടെത്തിയില്ല.</string>
+    <string name="dex_search">തിരയുക</string>
+    <string name="dex_search_hint">ടോക്കൺ പേര്, ചിഹ്നം അല്ലെങ്കിൽ വിലാസം</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">ആൽഫ ടോക്കൺ</string>
+    <string name="asset_kind_token">ടോക്കൺ</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+
+    <string name="dex_low_liquidity_no_alarm">കുറഞ്ഞ ലിക്വിഡിറ്റി – അലേർട്ടുകളില്ല</string>
+    <string name="dex_low_liquidity_alarm_hint">ഈ പൂളിൽ 10,000 USD-ൽ താഴെ ലിക്വിഡിറ്റിയാണുള്ളത് (അല്ലെങ്കിൽ ഒന്നും റിപ്പോർട്ട് ചെയ്തിട്ടില്ല). ചെറിയ ട്രേഡുകൾക്ക് അതിന്റെ വില നീക്കാനാകും, അതിനാൽ ഇവിടെ അലേർട്ടുകൾ സജ്ജമാക്കാനാകില്ല. നിലവിലുള്ള അലേർട്ടുകൾ നിലനിർത്തും, പക്ഷേ ലിക്വിഡിറ്റി വീണ്ടും ഉയരുന്നതുവരെ മുഴങ്ങില്ല.</string>
+
+    <string name="explorer_bulk_show_all">എല്ലാം കാണിക്കുക (%1$d)</string>
+    <string name="dex_token_address_copy">ടോക്കൺ വിലാസം പകർത്തുക</string>
+    <string name="dex_token_address_copied">ടോക്കൺ വിലാസം പകർത്തി</string>
+    <string name="dex_token_address_label">%1$s-ൽ അവസാനിക്കുന്ന ടോക്കൺ വിലാസം</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="one">%1$d ജോഡി ചേർത്തില്ല: നിങ്ങളുടെ വാച്ച്‌ലിസ്റ്റിൽ പരമാവധി %2$s ജോഡികൾ മാത്രം.</item>
+        <item quantity="other">%1$d ജോഡികൾ ചേർത്തില്ല: നിങ്ങളുടെ വാച്ച്‌ലിസ്റ്റിൽ പരമാവധി %2$s ജോഡികൾ മാത്രം.</item>
+    </plurals>
+    <string name="bulk_add_progress">ജോഡികൾ ചേർക്കുന്നു … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="one">%1$d പുതിയ ജോഡി വാച്ച്‌ലിസ്റ്റിലേക്ക് ചേർക്കുക</item>
+        <item quantity="other">%1$d പുതിയ ജോഡികൾ വാച്ച്‌ലിസ്റ്റിലേക്ക് ചേർക്കുക</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="one">%1$d പുതിയത്, %2$d ഇതിനകം വാച്ച്‌ലിസ്റ്റിലുണ്ട്</item>
+        <item quantity="other">%1$d പുതിയവ, %2$d ഇതിനകം വാച്ച്‌ലിസ്റ്റിലുണ്ട്</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">എല്ലാം ഇതിനകം വാച്ച്‌ലിസ്റ്റിലുണ്ട്</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="one">%1$d ജോഡി വീണ്ടും നീക്കം ചെയ്യണോ?</item>
+        <item quantity="other">%1$d ജോഡികൾ വീണ്ടും നീക്കം ചെയ്യണോ?</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">ഇതിനിടയിൽ നിങ്ങൾ അലേർട്ട് സജ്ജമാക്കിയ ജോഡികൾ നിലനിൽക്കും.</string>
+    <string name="bulk_undo_expired">പഴയപടിയാക്കൽ ഇനി സാധ്യമല്ല – ജോഡികൾ വാച്ച്‌ലിസ്റ്റിൽ തുടരും.</string>
+    <string name="explorer_section_spot">സ്പോട്ട്</string>
+    <string name="explorer_section_futures">ഫ്യൂച്ചേഴ്സ്</string>
+    <string name="explorer_section_dex">DEX പൂളുകൾ</string>
+    <string name="explorer_section_forex">ഫോറെക്സ് (റഫറൻസ് നിരക്ക്)</string>
+    <string name="explorer_forex_hint">യൂറോപ്യൻ സെൻട്രൽ ബാങ്കിന്റെ പ്രതിദിന നിരക്ക് (Frankfurter വഴി), ലൈവ് അല്ല – അലേർട്ടുകളില്ല.</string>
+</resources>

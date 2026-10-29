@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">Signallar yetib borishini taʼminlash</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">OK</string>
+    <string name="delivery_state_warn">Tekshiring</string>
+    <string name="delivery_state_info">Eslatma</string>
+    <string name="delivery_allowed">Ruxsat berilgan</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">Bildirishnomalar</string>
+    <string name="delivery_notifications_off">Oʻchiq – signallar yetib bormaydi</string>
+    <string name="delivery_notifications_not_asked">Hali ruxsat berilmagan</string>
+    <string name="delivery_channel">Signal kanali</string>
+    <string name="delivery_channel_high">Yuqori muhimlik – ekranda chiqadi</string>
+    <string name="delivery_channel_low">Past muhimlik – signallar roʻyxatda faqat ovozsiz paydo boʻladi</string>
+    <string name="delivery_channel_off">Oʻchirilgan – signallar yetib bormaydi</string>
+    <string name="delivery_exact_on">Yoqiq – taxminan har 15 daqiqada</string>
+    <string name="delivery_exact_off">Oʻchiq – Android notekis tekshiradi</string>
+    <string name="delivery_battery">Batareya optimallashuvi</string>
+    <string name="delivery_battery_unrestricted">Cheklanmagan</string>
+    <string name="delivery_battery_optimized">Optimallashtirilgan – Android tekshiruvlarni kechiktirishi mumkin. Ilova istisno soʻramaydi; buni ilovaning batareya sozlamalarida oʻzgartirishingiz mumkin.</string>
+    <string name="delivery_background">Fonda foydalanish</string>
+    <string name="delivery_background_restricted">Cheklangan – Android fondagi tekshiruvlarni toʻxtatadi</string>
+    <string name="delivery_dnd">Bezovta qilinmasin</string>
+    <string name="delivery_dnd_on">Yoqiq – signallar ovozsiz kelishi mumkin</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">%1$s gacha faol – vaqti kelgan signallar shu vaqtgacha kutadi</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – vaqti kelgan signallar shu vaqt davomida kutadi</string>
+    <string name="delivery_last_check">Fondagi oxirgi tekshiruv</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – 6 soatdan koʻproq oldin</string>
+    <string name="delivery_last_check_never">Hali yoʻq</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">Ruxsat berish</string>
+    <string name="delivery_action_change">Oʻzgartirish</string>
+    <string name="delivery_action_show">Koʻrsatish</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">Bannerlar va ovoz</string>
+    <string name="delivery_alert_off">Bannerlar oʻchiq – signallar faqat Bildirishnomalar markazida koʻrinadi</string>
+    <string name="delivery_sound_off">Ovoz oʻchiq – signallar ovozsiz keladi</string>
+    <string name="delivery_time_sensitive">Shoshilinch bildirishnomalar</string>
+    <string name="delivery_time_sensitive_off">Oʻchiq – Fokus signallarni ushlab qolishi mumkin</string>
+    <string name="delivery_background_refresh">Fonda yangilash</string>
+    <string name="delivery_low_power">Quvvat tejash rejimi</string>
+    <string name="delivery_swipe_away">Ilovani surib yopdingizmi?</string>
+    <string name="delivery_swipe_away_note">Ilovani ilovalar almashtirgichida surib yopsangiz, iOS uni qayta ochguningizcha fondagi tekshiruvlarni toʻxtatadi.</string>
+    <string name="delivery_live_activity">Live Activity</string>
+    <string name="delivery_live_activity_note">Kursni qulflangan ekranda koʻrsatadi, lekin faqat ilova tekshirganda yangilanadi – signallarni tez-tez tekshirishga majbur qilmaydi.</string>
+
+    <string name="alarm_first_check">Signallar yetib borishini tekshirish</string>
+
+    <string name="oem_battery_title">Ishlab chiqaruvchining batareya tejash rejimi</string>
+    <string name="oem_battery_xiaomi">Xiaomi ilovani butunlay toʻxtatishi mumkin – unda signallar yetib bormaydi. «Avtoishga tushirish»ni yoqing va Batareya tejashni «Cheklovlarsiz» qilib qoʻying.</string>
+    <string name="oem_battery_samsung">Samsung ilovani chuqur uyquga yuborishi mumkin – unda signallar yetib bormaydi. Batareya › Fonda foydalanish cheklovlari boʻlimida uni «Hech qachon uxlamaydigan ilovalar»ga qoʻshing.</string>
+    <string name="oem_battery_huawei">Huawei/Honor ilovani toʻxtatishi mumkin – unda signallar yetib bormaydi. Batareya › Ilovani ishga tushirish boʻlimida «Qoʻlda boshqarish»ni tanlang va barcha amallarga ruxsat bering.</string>
+    <string name="oem_battery_oneplus">OnePlus ilovani toʻxtatishi mumkin – unda signallar yetib bormaydi. «Avtoishga tushirish»ga va Batareya sarfi boʻlimida fondagi faollikka ruxsat bering.</string>
+    <string name="oem_battery_oppo">Oppo/Realme ilovani toʻxtatishi mumkin – unda signallar yetib bormaydi. «Avtoishga tushirish»ga va Batareya sarfi boʻlimida fondagi faollikka ruxsat bering.</string>
+    <string name="oem_battery_vivo">Vivo ilovani toʻxtatishi mumkin – unda signallar yetib bormaydi. «Avtoishga tushirish»ga va Batareya boʻlimida fonda yuqori quvvat sarfiga ruxsat bering.</string>
+    <string name="alarm_reliability_stale">Oxirgi tekshiruv %1$s – signallar kechikishi mumkin</string>
+    <string name="alarm_reliability_never">Signallar yoqiq – hali fondagi tekshiruv boʻlmagan</string>
+    <string name="alarm_reliability_notifications_off">Bildirishnomalar oʻchiq – signallar yetib bormaydi</string>
+    <string name="alarm_reliability_battery">Batareya tejash signal tekshiruvlarini toʻxtatishi mumkin</string>
+    <string name="alarm_reliability_background_refresh">Fonda yangilash oʻchiq – signallar yetib bormasligi mumkin</string>
+</resources>

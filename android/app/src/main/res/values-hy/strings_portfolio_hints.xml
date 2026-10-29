@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">Պորտֆելի ահազանգերը դադարեցված են՝ %1$s-ի ընթացիկ գինը չկա</string>
+    <string name="portfolio_alarms_paused_price_generic">Պորտֆելի ահազանգերը դադարեցված են՝ ոչ բոլոր կոիններն ունեն ընթացիկ գին</string>
+    <string name="portfolio_alarms_paused_addresses">Պորտֆելի ահազանգերը դադարեցված են՝ դիտվող հասցեների մնացորդները դեռ բեռնված չեն</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Պորտֆելի ահազանգերը դադարեցված են՝ %1$s-ի տոկենների մնացորդները մասամբ հնացած են</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Պորտֆելի ահազանգերը դադարեցված են՝ դիտվող հասցեների տոկենների մնացորդները մասամբ հնացած են</string>
+    <string name="portfolio_alarms_paused_unverified">Պորտֆելի ահազանգերը դադարեցված են՝ %1$s-ի գինը ստուգված չէ</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Պորտֆելի ահազանգերը դադարեցված են՝ որոշ կոինների գինը ստուգված չէ</string>
+    <string name="portfolio_alarms_address_failing">Պորտֆելի ահազանգերը ստուգվում են առանց %1$s-ի՝ մնացորդը 24 ժամից ավելի է չի բեռնվել</string>
+    <string name="portfolio_alarms_address_failing_generic">Պորտֆելի ահազանգերը ստուգվում են առանց այն հասցեների, որոնց մնացորդը 24 ժամից ավելի է չի բեռնվել</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">տոկենները մասամբ հնացած են</string>
+    <string name="portfolio_address_restore_failed">Հասցեն չհաջողվեց վերականգնել – անհրաժեշտության դեպքում ավելացրու այն նորից</string>
+    <string name="portfolio_address_remove_failed">Հասցեն չհաջողվեց հեռացնել – խնդրում ենք կրկին փորձել</string>
+</resources>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s, %2$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">Itxiera</string>
+    <string name="sheet_chart_converted_current">%1$s, bihurtua (uneko tasa)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, eguneko tasetara bihurtua</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">Ez dago pare honen prezio-daturik</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">Irekiera</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">Gaur</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">Bol. %1$s</string>
+    <string name="sheet_more">Gehiago</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Salmenta</string>
+    <string name="ticker_bid">Erosketa</string>
+    <string name="explain_bid_ask">Erosketa-prezioa (bid) erosleek une honetan eskaintzen duten prezio altuena da; salmenta-prezioa (ask), saltzaileek onartuko duten baxuena.</string>
+    <string name="ticker_high">Gehienezkoa</string>
+    <string name="ticker_low">Gutxienezkoa</string>
+    <string name="ticker_timestamp">Ordua</string>
+    <string name="ticker_vol_base">Bolumena (txanponetan)</string>
+    <string name="ticker_vol_quote">Bolumena (kotizazio-monetan)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (gailuaren ordu-zona)</string>
+    <string name="change_basis_local">Tokiko orduko 00:00etatik</string>
+    <string name="change_basis_rolling">Azken 24 h</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">Azken eguneratzetik</string>
+    <string name="change_basis_utc_zone">00:00etatik (%1$s)</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">Aldaketa %1$s-(e)ko kandeletatik</string>
+    <string name="change_short_since_last">azken eguneratzea</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">gaur</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">gaur %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="exchange_data_empty_error">Ez da daturik jaso burtsatik.</string>
+    <string name="market_data_summary">Kapitalizazioa, gas-komisioak, datu ekonomikoak, txanponen analisia</string>
+    <string name="market_data_tab_futures">Futuroak</string>
+    <string name="market_data_title">Merkatuko datuak</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">Zirkulazioko eskaintza</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">Kapitalizazioa</string>
+    <string name="spot_max_supply">Gehienezko eskaintza</string>
+    <string name="spot_no_data">Ez dago txanpon honen spot daturik</string>
+    <string name="spot_source_updated">Iturria: %1$s · eguneratua: %2$s</string>
+    <string name="spot_supply_of_max">Gehienezko eskaintzaren %1$s zirkulazioan</string>
+    <string name="spot_total_supply">Eskaintza osoa</string>
+    <string name="spot_vol_mcap">Bol./Kapitalizazioa</string>
+    <string name="spot_volume_24h">Bolumena (24 h)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">Erreferentzia: %1$s</string>
+    <string name="futures_funding">Finantzaketa-tasa</string>
+    <string name="futures_funding_interval_unknown">tarte ezezaguna</string>
+    <string name="futures_funding_per8h_equiv">= %1$s 8 orduko (alarmetan bezala)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">orduko</string>
+    <string name="futures_funding_per_hours">%1$d orduko</string>
+    <string name="futures_next_funding">hurrengoa %1$d h %2$d min barru</string>
+    <string name="futures_no_data">Ez dago txanpon honen futuro-daturik</string>
+    <string name="futures_open_interest">Interes irekia</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">Erreferentzia: %1$s – finantzaketa eta interes irekia burtsaren arabera aldatzen dira; %2$s burtsan desberdinak izan daitezke.</string>
+    <string name="futures_reference_spot">Erreferentzia: %1$s (txanponaren USDT perpetuoa)</string>
+    <string name="futures_source">Iturria: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">Trader askok mailegatutako diruarekin egiten dute apustu prezioen igoeraren edo jaitsieraren alde. Long eta short posizioen arteko komisioa. Oso positiboak esan nahi du askok igoeraren alde egiten dutela apustu.</string>
+    <string name="explain_open_interest">Futuroak prezioari buruzko apustuak dira, askotan mailegatutako diruarekin. Futuro-posizio ireki guztien balioa. Igotzen bada, diru gehiago dago mugimenduaren alde apustuan.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Azalpena</string>
+    <string name="explain_spot_fdv">Balorazio guztiz diluitua: prezioa × gehienezko eskaintza (edo eskaintza osoa, mugarik ez badago).</string>
+    <string name="explain_spot_market_cap">Prezioa × zirkulazioko eskaintza. Pilulak 24 orduko aldaketa erakusten du.</string>
+    <string name="explain_spot_source">Burtsa guztietako zifrak AEBko dolarretan, CoinGeckotik.</string>
+    <string name="explain_spot_supply">Zirkulazioan: orain merkatuan dauden txanponak. Osoa: sortutako txanpon guztiak, erretakoak kenduta. Gehienezkoa: inoiz egon daitekeen gehiena.</string>
+    <string name="explain_spot_volume">24 orduan negoziatutako balioa. Bol./Kapitalizazioa: bolumena kapitalizazioarekiko — altuak negoziazio oso aktiboa esan nahi du.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · tasa %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">Alde handia erosketa- eta salmenta-prezioen artean (%1$s)</string>
+
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">Historia %1$s monetan, %2$s monetara bihurtua gaurko tasan</string>
+    <string name="converted_unsure">Bihurketa zalantzazkoa</string>
+</resources>

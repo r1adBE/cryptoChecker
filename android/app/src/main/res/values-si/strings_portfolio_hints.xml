@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">කළඹ ඇඟවීම් නවතා ඇත: %1$s සඳහා වත්මන් මිලක් නැත</string>
+    <string name="portfolio_alarms_paused_price_generic">කළඹ ඇඟවීම් නවතා ඇත: සෑම කාසියකටම වත්මන් මිලක් නැත</string>
+    <string name="portfolio_alarms_paused_addresses">කළඹ ඇඟවීම් නවතා ඇත: නිරීක්ෂිත ලිපිනවල ශේෂ තවම පූරණය වී නැත</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">කළඹ ඇඟවීම් නවතා ඇත: %1$s හි ටෝකන ශේෂ අර්ධ වශයෙන් යල් පැන ගොස් ඇත</string>
+    <string name="portfolio_alarms_paused_tokens_generic">කළඹ ඇඟවීම් නවතා ඇත: නිරීක්ෂිත ලිපිනවල ටෝකන ශේෂ අර්ධ වශයෙන් යල් පැන ගොස් ඇත</string>
+    <string name="portfolio_alarms_paused_unverified">කළඹ ඇඟවීම් නවතා ඇත: %1$s සඳහා මිල තහවුරු කර නැත</string>
+    <string name="portfolio_alarms_paused_unverified_generic">කළඹ ඇඟවීම් නවතා ඇත: සමහර කාසිවල මිල තහවුරු කර නැත</string>
+    <string name="portfolio_alarms_address_failing">කළඹ ඇඟවීම් %1$s නොමැතිව පරීක්ෂා කරයි: පැය 24 කට වැඩි කාලයක් ශේෂය පූරණය වී නැත</string>
+    <string name="portfolio_alarms_address_failing_generic">කළඹ ඇඟවීම් පැය 24 කට වැඩි කාලයක් ශේෂය පූරණය නොවූ ලිපින නොමැතිව පරීක්ෂා කරයි</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">ටෝකන අර්ධ වශයෙන් යල් පැන ඇත</string>
+    <string name="portfolio_address_restore_failed">ලිපිනය ප්‍රතිසාධනය කළ නොහැකි විය – අවශ්‍ය නම් එය නැවත එක් කරන්න</string>
+    <string name="portfolio_address_remove_failed">ලිපිනය ඉවත් කළ නොහැකි විය – කරුණාකර යළි උත්සාහ කරන්න</string>
+</resources>

@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="one">%d мин бұрын</item>
+        <item quantity="other">%d мин бұрын</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">бүгін %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed, Bitcoin көрсеткіштері, үстемдік, халвинг</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">Қосымша нарық деректері</string>
+    <string name="market_phase_trend_failed">Баға деректері қолжетімсіз</string>
+    <string name="market_plain_direction_down_clear">Барлық криптовалютаның жалпы құны 24 сағат бұрынғыдан айтарлықтай төмен (%1$s).</string>
+    <string name="market_plain_direction_down_slight">Барлық криптовалютаның жалпы құны 24 сағат бұрынғыдан сәл төмен (%1$s).</string>
+    <string name="market_plain_direction_flat">Барлық криптовалютаның жалпы құны 24 сағатта әрең өзгерді (%1$s).</string>
+    <string name="market_plain_direction_up_clear">Барлық криптовалютаның жалпы құны 24 сағат бұрынғыдан айтарлықтай жоғары (%1$s).</string>
+    <string name="market_plain_direction_up_slight">Барлық криптовалютаның жалпы құны 24 сағат бұрынғыдан сәл жоғары (%1$s).</string>
+    <string name="market_plain_footnote">Соңғы 24 сағатты сипаттайды – болжам емес, инвестициялық кеңес емес.</string>
+    <string name="market_plain_mood_extreme_fear">Инвесторлар қазір қатты қорқып отыр: көңіл-күй индексі (Fear &amp; Greed) 100-ден %1$d.</string>
+    <string name="market_plain_mood_extreme_greed">Инвесторлар қазір өте ашкөз: көңіл-күй индексі (Fear &amp; Greed) 100-ден %1$d.</string>
+    <string name="market_plain_mood_fear">Инвесторлар біршама қорқып отыр: көңіл-күй индексі (Fear &amp; Greed) 100-ден %1$d.</string>
+    <string name="market_plain_mood_greed">Инвесторлар біршама ашкөз: көңіл-күй индексі (Fear &amp; Greed) 100-ден %1$d.</string>
+    <string name="market_plain_mood_neutral">Инвесторлардың көңіл-күйі теңгерімді: көңіл-күй индексі (Fear &amp; Greed) 100-ден %1$d.</string>
+    <string name="market_plain_standout_above_btc">%1$s ерекшеленеді: 24 сағатта %2$s, Bitcoin-нен (%3$s) әлдеқайда жоғары.</string>
+    <string name="market_plain_standout_against_btc">%1$s ерекшеленеді: 24 сағатта %2$s, ал Bitcoin керісінше қозғалды (%3$s).</string>
+    <string name="market_plain_standout_below_btc">%1$s ерекшеленеді: 24 сағатта %2$s, Bitcoin-нен (%3$s) әлдеқайда төмен.</string>
+    <string name="market_plain_standout_futures_down">%1$s ерекшеленеді: фьючерс трейдерлерінің әдеттен тыс көбі құлдырауға бәс тігуде.</string>
+    <string name="market_plain_standout_futures_up">%1$s ерекшеленеді: фьючерс трейдерлерінің әдеттен тыс көбі өсуге бәс тігуде.</string>
+    <string name="market_plain_standout_quiet">Қазір бірде-бір монета ерекшеленбейді.</string>
+    <string name="market_plain_standout_volume">%1$s ерекшеленеді: сауда әдеттегіден шамамен %2$s есе көп.</string>
+    <string name="market_plain_title">Қысқаша</string>
+    <string name="market_section_collapse">%1$s жасыру</string>
+    <string name="market_section_context">Көңіл-күй &amp; цикл</string>
+    <string name="market_section_data">Нарық деректері</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">%1$s көрсету</string>
+    <string name="market_section_now">Дәл қазір</string>
+    <string name="market_source">Деректер: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="exchange_unavailable_error">Биржа қолжетімсіз</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">Ақпарат: %1$s</string>
+    <string name="market_info_alt_season_source">Күндік бағамдар: Binance · шамамен 3 сағат сайын қайта есептеледі</string>
+    <string name="market_info_alt_season_what">Шамамен 20 ірі альткоиннің (мысалы, Ethereum, Solana, XRP) қаншасы соңғы 90 күнде Bitcoin-нен жақсы нәтиже көрсеткенін санайды. Мән – олардың 0-ден 100-ге дейінгі үлесі.</string>
+    <string name="market_info_coin_source">Бағамдар: Binance немесе Bybit · шамамен 15 минут сайын қайта жүктеледі</string>
+    <string name="market_info_dominance_how">Үстемдік өссе, Bitcoin нарықтың қалған бөлігінен жақсы; төмендесе, басқа монеталардың салмағы артады. Стейблкоиндер де есептеледі: олардың құны өссе, Bitcoin бағасы өзгермесе де, Bitcoin үлесі азаяды.</string>
+    <string name="market_info_dominance_source">Дереккөз: CoinGecko · шамамен 30 минут сайын қайта жүктеледі</string>
+    <string name="market_info_dominance_what">Барлық криптовалютаның жалпы құнындағы (нарықтық капитализация) Bitcoin үлесі. Төменде – Ethereum үлесі.</string>
+    <string name="market_info_fear_greed_how">25-тен төмен – қатты қорқыныш, 75-тен жоғары – қатты ашкөздік, 50 шамасы – бейтарап. Ашылған картада кешегі, бір апта және бір ай бұрынғы мәндер көрсетіледі. Сатып алу немесе сату сигналы емес.</string>
+    <string name="market_info_fear_greed_source">Дереккөз: alternative.me · жаңа мән күніне бір рет</string>
+    <string name="market_info_fear_greed_what">Крипто нарығының 0-ден 100-ге дейінгі көңіл-күй индексі. alternative.me оны бірнеше көрсеткіштен есептейді, соның ішінде баға ауытқулары, сауда көлемі, әлеуметтік желілер және Bitcoin үстемдігі.</string>
+    <string name="market_info_gas_how">Жоғары мәндер желінің жүктелгенін және аударымдардың қымбатырақ екенін білдіреді. Баяу, қалыпты және жылдам – кейінірек немесе тезірек растауға арналған комиссиялар. Ашылған картада қарапайым аударымның шамамен құны көрсетіледі.</string>
+    <string name="market_info_gas_source">Ашық RPC түйіндері, mempool.space · әр минут сайын қайта жүктеледі</string>
+    <string name="market_info_gas_what">Әр желіде транзакция қазір қанша тұрады. Ethereum және ұқсас желілерде gwei-мен (газ бірлігіне ETH-тің миллиардтан бір бөлігі), Bitcoin-де sat/vB-мен (транзакцияның виртуалды байтына сатоши).</string>
+    <string name="market_info_halving_source">Күні: блок биіктігі мен орташа блок уақытынан (mempool.space), әйтпесе күнтізбе бойынша · баға тарихы: Coin Metrics, Binance, 12 сағат сайын қайта жүктеледі</string>
+    <string name="market_info_halving_what">Халвинг кезінде майнерлердің жаңа Bitcoin блогы үшін алатын сыйақысы екі есе азаяды. Бұл әр 210,000 блок сайын, шамамен төрт жылда бір рет болады. Одан кейін күніне екі есе аз жаңа биткоин пайда болады.</string>
+    <string name="market_info_how">Қалай оқу керек</string>
+    <string name="market_info_macro_how">Ескерту мұндай күн бүгін немесе ертең болғанда ғана шығады. Жарияланым кезінде бағалар жиі әдеттегіден көбірек ауытқиды. Қолданба тек күнді көрсетеді, сандардың өзін емес.</string>
+    <string name="market_info_macro_source">Қолданба сайтындағы күнтізбе · күніне бір рет жүктеледі</string>
+    <string name="market_info_macro_what">АҚШ-тың маңызды экономикалық деректерінің күндері: инфляция (CPI, PCE), өндіруші бағалары (PPI), жұмыспен қамту есебі және АҚШ Федералдық резервінің пайыздық мөлшерлеме шешімдері. Мұндай сандар крипто бағаларын да жиі қозғайды.</string>
+    <string name="market_info_no_advice">Инвестициялық кеңес емес.</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · бағамдар сағат сайын, on-chain мәндері 12 сағат сайын қайта жүктеледі</string>
+    <string name="market_info_pulse_how">Тақырып бағытты атайды; толығырақ білу үшін картаны ашыңыз. Кең қозғалыс ірі монеталардың көбі бір бағытта қозғалып жатқанын білдіреді. Оптимистік левередж көңіл-күйі көп трейдердің левереджбен өсуге бәс тігіп жатқанын білдіреді, Bitcoin фьючерстерінің фандинг мөлшерлемесі бойынша өлшенеді. Сурет, болжам емес.</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · шамамен 5 минут сайын қайта жүктеледі</string>
+    <string name="market_info_pulse_what">Соңғы 24 сағаттағы нарықтың қысқаша шолуы: Bitcoin, Ethereum және Solana қалай қозғалуда, ең ірі монеталардың қаншасы өсіп не төмендеп жатыр, қазір қанша Bitcoin саудаланып жатыр және левередж көңіл-күйі қандай (Bitcoin фьючерстерінің фандинг мөлшерлемесі бойынша өлшенеді).</string>
+    <string name="market_info_totals_how">Оң жақта – 24 сағаттағы жалпы құнның өзгерісі. Жоғары көлем көп сауда болып жатқанын білдіреді – қай бағытта екенін айтпайды. Мүмкін болса, айырбастау валютасында, әйтпесе АҚШ долларымен көрсетіледі.</string>
+    <string name="market_info_totals_source">Барлық монеталар · CoinGecko · шамамен 30 минут сайын қайта жүктеледі</string>
+    <string name="market_info_totals_what">Барлық криптовалютаның жалпы құны (нарықтық капитализация: бағаны айналымдағы көлемге көбейтіп, барлық монета бойынша қосқанда) және соңғы 24 сағаттағы сауда көлемі.</string>
+    <string name="market_info_unusual_how">Әр монета өзінің ең назар аударарлық бақылауын көрсетеді, оң жақта 24 сағаттық өзгеріс. 2× көлем әдеттегіден екі есе айналымды білдіреді. Назар аударарлық – жақсы да, жаман да емес.</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · шамамен 10 минут сайын қайта жүктеледі</string>
+    <string name="market_info_unusual_what">Шамамен 30 ең ірі монетаның (стейблкоиндерсіз) бүгін әдеттен тыс әрекет ететін бесеуіне дейін: Bitcoin-нен әлдеқайда күшті немесе әлсіз, нарық бағытына қарсы, әдеттен тыс жоғары сауда көлемімен немесе назар аударарлық фандинг мөлшерлемесімен.</string>
+    <string name="market_info_what">Бұл не?</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">Нарықтық капитализация</string>
+    <string name="market_cap_source">Барлық монеталар · CoinGecko</string>
+    <string name="market_cap_title">Крипто нарығы</string>
+    <string name="market_volume_label">Көлем 24 сағ</string>
+
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">Толығырақ</string>
+    <string name="pulse_disclaimer">Болжам емес · Инвестициялық кеңес емес</string>
+    <string name="pulse_less">Азырақ көрсету</string>
+    <string name="pulse_now_title">Крипто пульс</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">24 сағаттағы өзгеріс</string>
+    <string name="pulse_section_factors">Факторлар</string>
+    <string name="pulse_section_market">Бүгінгі нарық</string>
+    <string name="pulse_unavailable">Нарық деректері қазір қолжетімсіз</string>
+    <string name="pulse_updated">%1$s жағдайы бойынша</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">Тыныш нарық</string>
+    <string name="pulse_headline_down">Кең әлсіздік</string>
+    <string name="pulse_headline_mixed">Аралас көрініс</string>
+    <string name="pulse_headline_up">Кең күш</string>
+    <string name="pulse_lead_alts_stronger">Альткоиндер Bitcoin-нен күшті.</string>
+    <string name="pulse_lead_broad_down">Нарық кеңінен төмендеуде.</string>
+    <string name="pulse_lead_broad_up">Нарық кеңінен өсуде.</string>
+    <string name="pulse_lead_btc_leads">Bitcoin ең көп өсуде.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin альткоиндерден күшті.</string>
+    <string name="pulse_lead_calm">Нарық әрең қозғалуда.</string>
+    <string name="pulse_lead_drift_down">Нарық біртіндеп төмендеуде.</string>
+    <string name="pulse_lead_drift_up">Нарық біртіндеп өсуде.</string>
+    <string name="pulse_lead_mixed">Ірі монеталар әртүрлі бағытта қозғалуда.</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">Левередж көңіл-күйі оптимистік.</string>
+    <string name="pulse_detail_fund_negative">Левередж көңіл-күйі пессимистік.</string>
+    <string name="pulse_detail_fund_neutral">Левередж көңіл-күйі бейтарап.</string>
+    <string name="pulse_detail_vol_above">Көлем қалыптыдан %1$s жоғары.</string>
+    <string name="pulse_detail_vol_above_fund_high">Көлем қалыптыдан %1$s жоғары, левередж көңіл-күйі оптимистік.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Көлем қалыптыдан %1$s жоғары, левередж көңіл-күйі пессимистік.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Көлем қалыптыдан %1$s жоғары, левередж көңіл-күйі бейтарап.</string>
+    <string name="pulse_detail_vol_below">Көлем қалыптыдан %1$s төмен.</string>
+    <string name="pulse_detail_vol_below_fund_high">Көлем қалыптыдан %1$s төмен, левередж көңіл-күйі оптимистік.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Көлем қалыптыдан %1$s төмен, левередж көңіл-күйі пессимистік.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Көлем қалыптыдан %1$s төмен, левередж көңіл-күйі бейтарап.</string>
+    <string name="pulse_detail_vol_normal">Көлем қалыпты.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Көлем қалыпты, левередж көңіл-күйі оптимистік.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Көлем қалыпты, левередж көңіл-күйі пессимистік.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Көлем қалыпты, левередж көңіл-күйі бейтарап.</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">Үздік %1$d: нарықтық құны бойынша ең ірі монеталар, стейблкоиндерсіз; 24 сағаттағы өзгеріс (CoinGecko).</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Үздік %1$d</string>
+    <string name="pulse_breadth_note_broad_down">Кең сатылым: ең ірі монеталардың көбі төмендеуде.</string>
+    <string name="pulse_breadth_note_broad_up">Кең қозғалыс: ең ірі монеталардың көбі өсуде.</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin төмендеуде, бірақ басқа ірі монеталардың көбі тұрақты.</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin өсуде, бірақ басқа ірі монеталардың көбі ілеспейді.</string>
+    <string name="pulse_breadth_spoken">Үздік %1$d: %2$d өсті, %3$d төмендеді</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">Альткоиндер мен Bitcoin бірдей қозғалуда</string>
+    <string name="pulse_alts_stronger">Альткоиндер Bitcoin-нен күшті</string>
+    <string name="pulse_alts_weaker">Bitcoin альткоиндерден күшті</string>
+    <string name="pulse_chip_funding_high">Левередж көңіл-күйі оптимистік</string>
+    <string name="pulse_chip_funding_negative">Левередж көңіл-күйі пессимистік</string>
+
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">Бағам мен әрекеттерді көрсету</string>
+    <string name="unusual_fact_against">Нарыққа қарсы қозғалуда</string>
+    <string name="unusual_fact_funding_high">Фандинг жоғары (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Фандинг теріс (%1$s)</string>
+    <string name="unusual_fact_stronger">BTC-ден әлдеқайда күшті қозғалуда</string>
+    <string name="unusual_fact_volume">Көлем әдеттегіден %1$s×</string>
+    <string name="unusual_fact_weaker">BTC-ден әлдеқайда әлсіз қозғалуда</string>
+    <string name="unusual_nothing">Бүгін назар аударарлық ештеңе жоқ</string>
+    <string name="unusual_source">Стейблкоиндерсіз шамамен 30 ең ірі монета · Binance, CoinGecko</string>
+    <string name="unusual_title">Назар аударарлық</string>
+
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">Назар аударарлық</string>
+    <string name="activity_indicator">Назар аударарлық</string>
+    <string name="activity_sensitivity_less">Азырақ</string>
+    <string name="activity_sensitivity_more">Көбірек</string>
+    <string name="activity_sensitivity_normal">Қалыпты</string>
+    <string name="activity_signal_funding_long">Фандинг %1$s — левереджді лонгтар көп</string>
+    <string name="activity_signal_funding_short">Фандинг %1$s — шорттар көп</string>
+    <string name="activity_signal_open_interest">Ашық позициялар %2$d мин ішінде %1$s</string>
+    <string name="activity_signal_open_interest_no_time">Ашық позициялар %1$s</string>
+    <string name="activity_signal_price_move">Әдеттен тыс қозғалыс: бір сағатта %1$s (қалыптыдан %2$s×)</string>
+    <string name="activity_signal_volume">Соңғы сағатта көлем қалыптыдан %1$s×</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%2$d ірі альткоиннің %1$d-і 90 күнде Bitcoin-нен озды</item>
+        <item quantity="other">%2$d ірі альткоиннің %1$d-і 90 күнде Bitcoin-нен озды</item>
+    </plurals>
+    <string name="insights_chart_axis">Халвингтен бергі жылдар</string>
+    <string name="insights_chart_hint">Бағам халвинг күнгі бағамның еселігі ретінде (логарифмдік шкала). Бұрынғы циклдер – заңдылық, болжам емес.</string>
+    <string name="insights_cycle_chart">Халвингтен бергі циклдер</string>
+    <string name="insights_dominance_eth">ETH жалпы нарықтың %1$s</string>
+    <string name="insights_dominance_title">Bitcoin үстемдігі</string>
+    <string name="insights_fng_history">Кеше %1$s · бір апта бұрын %2$s · бір ай бұрын %3$s</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="insights_halving_title">Bitcoin халвингі</string>
+    <string name="insights_source_dominance">Дереккөз: CoinGecko, Binance</string>
+    <string name="insights_source_fng">Дереккөз: alternative.me</string>
+    <string name="insights_source_history">Дереккөз: Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">Қатты қорқыныш</string>
+    <string name="fng_extreme_greed">Қатты ашкөздік</string>
+    <string name="fng_fear">Қорқыныш</string>
+    <string name="fng_greed">Ашкөздік</string>
+    <string name="fng_neutral">Бейтарап</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">Деректер %1$s жағдайы бойынша · жаңартылуда…</string>
+    <string name="cycle_from_top">Шыңнан %1$s</string>
+    <string name="cycle_marker_bottom">Түп %1$s</string>
+    <string name="cycle_marker_double_bottom">Қос түп %1$s</string>
+    <string name="cycle_marker_double_top">Қос шың %1$s</string>
+    <string name="cycle_marker_high_so_far">Әзірге ең жоғары</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">Шың %1$s</string>
+    <string name="cycle_since_halving">Халвингтен бері %1$s</string>
+    <string name="halving_estimate_text">Есеп бойынша келесі халвинг шамамен %1$s: бір блокқа орта есеппен %3$s мин жұмсалса, %2$s блок қалды (ағымдағы күрделілік кезеңі). Бұл болжам, уәде емес – блок уақыты өзгереді.</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">Ескерту: %1$s</string>
+    <string name="gas_slow_fast">Баяу %1$s · Жылдам %2$s</string>
+    <string name="gas_source">Ашық RPC түйіндері және mempool.space · Қарапайым аударымның құны, L2 желілеріндегі L1 үлесінсіз</string>
+    <string name="gas_title">Желі комиссиялары</string>
+    <string name="gas_transfer_cost">Аударым ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">АҚШ инфляция деректері (CPI)</string>
+    <string name="macro_fomc">АҚШ ФРЖ мөлшерлеме шешімі</string>
+    <string name="macro_hint_list">%1$s – мұндай күндері нарықтар жиі қаттырақ ауытқиды.</string>
+    <string name="macro_hint_today">Бүгін %1$s: %2$s – мұндай күндері нарықтар жиі қаттырақ ауытқиды.</string>
+    <string name="macro_hint_today_list">Бүгін: %1$s – мұндай күндері нарықтар жиі қаттырақ ауытқиды.</string>
+    <string name="macro_hint_tomorrow">Ертең %1$s: %2$s – мұндай күндері нарықтар жиі қаттырақ ауытқиды.</string>
+    <string name="macro_hint_tomorrow_list">Ертең: %1$s – мұндай күндері нарықтар жиі қаттырақ ауытқиды.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Бүгін %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Ертең %1$s %2$s</string>
+    <string name="macro_nfp">АҚШ жұмыспен қамту есебі</string>
+    <string name="macro_pce">АҚШ тұтыну шығындарының бағалары (PCE)</string>
+    <string name="macro_ppi">АҚШ өндіруші бағалары (PPI)</string>
+    <string name="macro_released_list">Бүгін жарияланды: %1$s.</string>
+    <string name="macro_released_one">Бүгін %1$s жарияланды: %2$s.</string>
+    <string name="macro_title">Экономикалық деректер</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">Монета</string>
+    <string name="coin_no_data">Binance немесе Bybit-те бұл монетаның баға деректері жоқ.</string>
+    <string name="coin_price_only">Тек бағаға негізделген – on-chain деректері (MVRV, Puell, хешрейт) тек Bitcoin үшін тегін қолжетімді.</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">Тек %1$d күндік баға тарихы – кейбір индикаторлар жоқ.</item>
+        <item quantity="other">Тек %1$d күндік баға тарихы – кейбір индикаторлар жоқ.</item>
+    </plurals>
+    <string name="coin_title">Монета талдауы</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">Деректер: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">24 сағаттағы көшбасшылар мен аутсайдерлер</string>
+    <string name="movers_gainers">Өскендер</string>
+    <string name="movers_losers">Түскендер</string>
+    <string name="movers_no_gainers">24 сағатта бірде-бір монета өскен жоқ</string>
+    <string name="movers_no_losers">24 сағатта бірде-бір монета түскен жоқ</string>
+    <string name="movers_source">CoinGecko, 24 сағ, стейблкоиндерсіз үздік 100</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">Барлығын көрсету</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">Азырақ көрсету</string>
+</resources>

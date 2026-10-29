@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Protokoll: Titel der Seite und Name des Knopfs in «Alle Alarme» -->
+    <string name="alarm_log_title">अलर्ट लॉग</string>
+    <!-- Link unter «Letzte Prüfungen» (Einstellungen › Aktualisierung) -->
+    <string name="alarm_log_open">अलर्ट लॉग दाखवा</string>
+    <string name="alarm_log_intro">अलर्ट कधी वाजला – आणि कधी वाजायला हवा होता पण रोखला गेला. फक्त या डिव्हाइसवर, 14 दिवसांसाठी साठवले जाते.</string>
+    <string name="alarm_log_empty_title">अजून एकही नोंद नाही</string>
+    <string name="alarm_log_empty_message">अलर्ट वाजला किंवा रोखला गेला की नोंदी इथे दिसतात – उदाहरणार्थ किंमत जुनी असल्यामुळे किंवा शांत वेळेत.</string>
+    <string name="alarm_log_clear">लॉग साफ करा</string>
+    <string name="alarm_log_clear_title">अलर्ट लॉग साफ करायचा?</string>
+    <string name="alarm_log_clear_message">सर्व नोंदी काढल्या जातात. तुमचे अलर्ट जसे आहेत तसेच राहतात.</string>
+    <!-- Screenreader: Schwelle des Alarms, z. B. «Marke Über 100’000 CHF» -->
+    <string name="alarm_log_threshold">मर्यादा %1$s</string>
+    <!-- Alarm-Editor: letzte Prüfung, %1$s = «14:02 · Kraken 99’800 CHF · Marke nicht erreicht» -->
+    <string name="alarm_last_check">शेवटची तपासणी: %1$s</string>
+    <!-- Ergebnisse einer Alarm-Prüfung (AlarmLogOutcome) -->
+    <string name="alarm_outcome_fired">वाजला</string>
+    <string name="alarm_outcome_not_reached">मर्यादा गाठली नाही</string>
+    <string name="alarm_outcome_already_triggered">आधीच कळवले – किंमत पुन्हा दुसऱ्या बाजूला येईपर्यंत थांबतो</string>
+    <string name="alarm_outcome_cooldown">वाजला नाही – मागच्या अलर्टनंतरचा विश्रांती वेळ</string>
+    <!-- %1$s = Zeit des Kurses laut Börse -->
+    <string name="alarm_outcome_stale">वाजला नाही – किंमत जुनी (%1$s नुसार)</string>
+    <string name="alarm_outcome_mark_price">वाजला नाही – मार्क किंमत, व्यवहार झालेली किंमत नाही</string>
+    <string name="alarm_outcome_low_liquidity">वाजला नाही – लिक्विडिटी 10,000 USD पेक्षा कमी किंवा अज्ञात</string>
+    <string name="alarm_outcome_quiet_hours">वाजला नाही – शांत वेळ (नंतरही अट पूर्ण असल्यास अलर्ट येईल)</string>
+    <string name="alarm_outcome_notifications_off">वाजला नाही – सूचना बंद आहेत</string>
+    <string name="alarm_outcome_not_shown">वाजला नाही – सूचना पोहोचली नाही, नंतर पुन्हा प्रयत्न होईल</string>
+    <string name="alarm_outcome_no_rate">तपासले नाही – विनिमय दर नाही</string>
+    <string name="alarm_outcome_no_price">किंमत नाही – एक्सचेंजकडून माहिती मिळाली नाही</string>
+
+    <string name="alarm_outcome_snoozed">रोखले – «1 तासानंतर» अजून चालू आहे</string>
+    <string name="alarm_log_source_app">ॲपमध्ये</string>
+    <string name="alarm_log_source_background">पार्श्वभूमीत</string>
+    <string name="alarm_log_source_exact">वेळेवर तपासणी</string>
+    <string name="alarm_log_source_widget">विजेटद्वारे</string>
+    <string name="alarm_outcome_fx_stale">तपासले नाही – विनिमय दर 36 तासांहून जुना</string>
+    <string name="alarm_outcome_fx_unsure">तपासले नाही – USDT रूपांतरण अनिश्चित (फक्त USDC मार्गे)</string>
+</resources>

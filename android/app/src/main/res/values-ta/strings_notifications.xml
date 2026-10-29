@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">கவனிக்கத்தக்கது: %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — இப்போது %2$s</string>
+    <string name="notification_alarm_title">விழிப்பூட்டல்: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">எக்ஸ்சேஞ்சைத் திற</string>
+    <string name="notification_depeg_text">ஆப்பில் உள்ள மதிப்புகள் இந்தச் சந்தை விலையைப் பயன்படுத்துகின்றன.</string>
+    <string name="notification_depeg_title">USDT %1$s USD இல் (%2$s)</string>
+    <string name="notification_fng_above">குறியீடு %1$d க்கு மேல் உயர்ந்தது – இந்த அளவீட்டின்படி சந்தை மனநிலை பேராசையாக உள்ளது.</string>
+    <string name="notification_fng_below">குறியீடு %1$d க்குக் கீழ் சரிந்தது – இந்த அளவீட்டின்படி சந்தை மனநிலை அச்சமாக உள்ளது.</string>
+    <string name="notification_fng_title">மனநிலைக் குறியீடு (Fear &amp; Greed): %1$d</string>
+    <string name="notification_gas_btc_text">உங்கள் வரம்பான %1$s sat/vB க்குக் கீழ் · பரிமாற்றம் ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin கட்டணம்: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">உங்கள் வரம்பான %1$s gwei க்குக் கீழ் · பரிமாற்றம் ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Ethereum gas: %1$s gwei</string>
+    <string name="notification_indicator_above">உங்கள் வரம்பு %1$s க்கு மேல் – அளவிடப்பட்ட மதிப்பு, பரிந்துரை அல்ல.</string>
+    <string name="notification_indicator_below">உங்கள் வரம்பு %1$s க்குக் கீழ் – அளவிடப்பட்ட மதிப்பு, பரிந்துரை அல்ல.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">இன்றைய பொருளாதாரத் தரவு</string>
+    <string name="notification_permission_preprompt_continue">தொடர்க</string>
+    <string name="notification_permission_preprompt_later">பிறகு</string>
+    <string name="notification_permission_preprompt_text">விழிப்பூட்டல்களும் விலை அறிவிப்புகளும் உங்களை வந்தடைய, அறிவிப்புகளை அனுப்ப ஆப்புக்கு அனுமதி தேவை. உங்கள் விழிப்பூட்டல்கள் மற்றும் விலை அறிவிப்புகளுக்கு மட்டுமே ஆப் அவற்றைப் பயன்படுத்தும்.</string>
+    <string name="notification_permission_preprompt_title">அறிவிப்புகளை அனுமதிக்கவா?</string>
+    <string name="notification_portfolio_alarm_locked">உங்கள் விழிப்பூட்டல் தூண்டப்பட்டது – விவரங்களுக்கு ஆப்பைத் திறக்கவும்.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – இப்போது %2$s</string>
+    <string name="notification_portfolio_alarm_title">போர்ட்ஃபோலியோ மதிப்பு</string>
+    <string name="notification_price_change">%1$s, %2$s இலிருந்து (%3$s முன்பு)</string>
+    <string name="notification_price_change_no_age">%1$s, %2$s இலிருந்து</string>
+    <string name="notification_price_first">இந்த ஜோடிக்கான முதல் விலை அறிவிப்பு</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+மேலும் %1$d விலை</item>
+        <item quantity="other">+மேலும் %1$d விலைகள்</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">விலைகளைப் புதுப்பிக்கிறது…</string>
+    <string name="notification_volume_spike_text">கடந்த ஒரு மணிநேரத்தில் வால்யூம் வழக்கத்தைவிட %1$s×</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">விழிப்பூட்டல்கள்</string>
+    <string name="channel_alarms_description">விழிப்பூட்டல் தூண்டப்படும்போது அறிவிப்பு.</string>
+    <string name="channel_alarms_quiet">விழிப்பூட்டல்கள் (அமைதி நேரம்)</string>
+    <string name="channel_alarms_quiet_description">அமைதி நேரத்தில் ஒலியில்லா விழிப்பூட்டல்கள்.</string>
+    <string name="channel_alarms_silent">விழிப்பூட்டல்கள் (ஒலியில்லை)</string>
+    <string name="channel_alarms_sound">விழிப்பூட்டல்கள் (ஒலி மட்டும்)</string>
+    <string name="channel_alarms_sound_vibrate">விழிப்பூட்டல்கள் (ஒலி மற்றும் அதிர்வு)</string>
+    <string name="channel_alarms_vibrate">விழிப்பூட்டல்கள் (அதிர்வு மட்டும்)</string>
+    <string name="channel_prices">விலை அறிவிப்புகள்</string>
+    <string name="channel_prices_description">ஒரு ஜோடியின் தற்போதைய விலையுடன் ஒலியில்லா விலை அறிவிப்பு.</string>
+    <string name="channel_service">விலைப் புதுப்பிப்புகள்</string>
+    <string name="channel_service_description">விலைகள் புதுப்பிக்கப்படும்போது அறிவிப்பு.</string>
+    <string name="neutral_channel_market">சந்தை விழிப்பூட்டல்கள்</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, gas கட்டணங்கள், “கவனிக்கத்தக்கது” மற்றும் பொருளாதாரத் தேதிகள்</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">விழிப்பூட்டல். %1$s, %2$s %3$s %4$s, இப்போது %5$s</string>
+    <string name="tts_direction_down">சரிந்துள்ளது</string>
+    <string name="tts_direction_funding_above">அதிக ஃபண்டிங்குடன்</string>
+    <string name="tts_direction_funding_below">குறைந்த ஃபண்டிங்குடன்</string>
+    <string name="tts_direction_move">வலுவாக நகர்கிறது</string>
+    <string name="tts_direction_near_high">அதன் உச்சத்துக்கு அருகில் உள்ளது</string>
+    <string name="tts_direction_near_low">அதன் தாழ்வுக்கு அருகில் உள்ளது</string>
+    <string name="tts_direction_oi_down">குறையும் ஓப்பன் இன்ட்ரஸ்டுடன்</string>
+    <string name="tts_direction_oi_up">உயரும் ஓப்பன் இன்ட்ரஸ்டுடன்</string>
+    <string name="tts_direction_up">உயர்ந்துள்ளது</string>
+    <string name="tts_direction_volume_spike">வால்யூம் திடீர் உயர்வுடன்</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+
+    <!-- Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+    <string name="notification_alarm_action_snooze">1 மணி கழித்து</string>
+    <string name="notification_alarm_action_edit">சரிசெய்</string>
+</resources>

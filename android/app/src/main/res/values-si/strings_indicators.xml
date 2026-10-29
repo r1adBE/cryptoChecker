@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">Altcoins එදිරිව Bitcoin</string>
+    <string name="neutral_btc_indicators_title">Bitcoin දර්ශක</string>
+    <string name="neutral_halving_last">අවසන් හැල්විං: %1$s</string>
+    <string name="neutral_halving_next">ඊළඟ හැල්විං %1$s පමණ අපේක්ෂිතයි (දින දර්ශනයෙන් ඇස්තමේන්තු කළ – බ්ලොක් උස දැනට ලබා ගත නොහැක).</string>
+    <string name="neutral_indicators_disclaimer">මනින ලද අගයන් පමණි, තක්සේරුවකින් තොරව. අනාවැකියක් හෝ ආයෝජන උපදෙසක් නොවේ.</string>
+    <string name="neutral_onchain_missing">On-chain දත්ත (Coin Metrics) දැනට ලබා ගත නොහැක.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">මිල එහි පෙර සර්වකාලීන ඉහළම අගයට වඩා කොපමණ පහළින්ද.</string>
+    <string name="neutral_explain_change_30d">අද මිල දින 30 කට පෙර සමඟ සංසන්දනය කර.</string>
+    <string name="neutral_explain_hashrate">දින 30 සාමාන්‍ය හැෂ්රේට් දින 60 සාමාන්‍යය සමඟ සංසන්දනය කර.</string>
+    <string name="neutral_explain_ma200w">අවසන් සතිපතා වසා දැමීම් 200 හි සාමාන්‍යය.</string>
+    <string name="neutral_explain_mayer">මිල දින 200 සාමාන්‍යයෙන් බෙදූ විට.</string>
+    <string name="neutral_explain_mvrv">වෙළඳපොළ වටිනාකම සාක්ෂාත් වටිනාකමෙන් බෙදූ විට (on-chain).</string>
+    <string name="neutral_explain_pi_gap">දින 111 සාමාන්‍යය දින 350 සාමාන්‍යයේ දෙගුණය සමඟ සංසන්දනය කර.</string>
+    <string name="neutral_explain_puell">දෛනික කැණීම්කරු ආදායම එහි දින 365 සාමාන්‍යයෙන් බෙදූ විට.</string>
+    <string name="neutral_explain_rsi_daily">පසුගිය දින 14 හි Relative Strength Index, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">පසුගිය සති 14 හි Relative Strength Index, 0–100.</string>
+    <string name="neutral_explain_sma50_200">දින 50 සාමාන්‍යය දින 200 සාමාන්‍යය සමඟ සංසන්දනය කර.</string>
+    <string name="neutral_explain_vs_btc">දින 90 ක් තුළ Bitcoin සමඟ සංසන්දනය කළ මිල වෙනස.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">යෙදුම ගණන පමණක් පෙන්වන අතර එය සමයක් ලෙස ලේබල් නොකරයි. අගය සාමාන්‍යයෙන් වෙනස් වන්නේ පැය ගණනකින් නොව දින ගණනකිනි.</string>
+    <string name="neutral_info_btc_how">සෑම අගයක් සමඟම එය මනින්නේ කුමක්ද සහ 2016 සිට එහිම ඉතිහාසයේ එය කොතැනද යන්න ගැන එක් වාක්‍යයක් ඇත. යෙදුම අගයන් ශ්‍රේණිගත නොකරන අතර වෙළඳපොළ අවධියක් ව්‍යුත්පන්න නොකරයි; වෙළඳපොළ ඇඟවීම් සඳහා සීමා වන්නේ ඔබ සකසන ඒවා පමණි. අතීත රටා නැවත සිදු විය යුතු නැත.</string>
+    <string name="neutral_info_btc_what">සාමාන්‍ය Bitcoin දර්ශක සරල මනින ලද අගයන් ලෙස: Mayer Multiple, සති 200 සාමාන්‍යය, සර්වකාලීන ඉහළම අගයේ සිට පහත වැටීම, දින 30 වෙනස, Pi Cycle පරතරය සහ on-chain අගයන් MVRV, Puell Multiple සහ හැෂ්රේට්.</string>
+    <string name="neutral_info_coin_how">සෑම අගයක් සමඟම එය මනින්නේ කුමක්ද යන්න ගැන එක් වාක්‍යයක් ඇත, ශ්‍රේණිගත කිරීමකින් තොරව. කෙටි මිල ඉතිහාසයක් ඇති කාසි සඳහා සමහර අගයන් නැත. On-chain දත්ත මෙහි ඇතුළත් නොවේ.</string>
+    <string name="neutral_info_coin_what">ඔබ තෝරන කාසියක් සඳහා එම සරල දර්ශකම, මිල දත්තවලින් පමණි: Mayer Multiple, සති 200 සාමාන්‍යය, සර්වකාලීන ඉහළම අගයේ සිට පහත වැටීම, දින 30 වෙනස, දින 50/200 ප්‍රවණතාව, RSI සහ දින 90 ක් තුළ Bitcoin එදිරිව ශක්තිය.</string>
+    <string name="neutral_info_halving_how">ඊළඟ හැල්විං වත්මන් බ්ලොක් උස සහ වත්මන් දුෂ්කරතා කාලපරිච්ඡේදයේ සාමාන්‍ය බ්ලොක් කාලය (mempool.space) මගින් ගණනය කෙරේ; එම දත්ත නොමැතිව, දින දර්ශනයෙන් (අවසන් හැල්විං සහ වසර හතරක් පමණ). ප්‍රස්තාරය අතීත චක්‍රවල ඒවායේ හැල්විං සිට මිල මාර්ගය පෙන්වයි – ඉතිහාසය, අනාවැකියක් නොවේ.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">ප්‍රවණතාව දින 50/200</string>
+    <string name="ind_drawdown">සර්වකාලීන ඉහළම අගයේ සිට පහත වැටීම</string>
+    <string name="ind_missing">ප්‍රමාණවත් දත්ත නැත</string>
+    <string name="ind_rsi_daily">RSI (දෛනික)</string>
+    <string name="ind_rsi_weekly">RSI (සතිපතා)</string>
+    <string name="ind_vs_btc">Bitcoin එදිරිව ශක්තිය (දින 90)</string>
+    <string name="neutral_ind_change_30d">දින 30 වෙනස</string>
+    <string name="neutral_ind_hashrate">හැෂ්රේට් දින 30/60</string>
+    <string name="neutral_ind_ma200w">සති 200 සාමාන්‍යය</string>
+    <string name="neutral_ind_pi_gap">Pi Cycle පරතරය</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">ඉහළ යනු බොහෝ විශාල altcoins දින 90 ක් තුළ Bitcoin පරාජය කළ බවයි, පහළ යනු Bitcoin ඒවායින් බොහොමයක් පරාජය කළ බවයි.</string>
+    <string name="ind_read_ath_distance">කුඩා යනු මිල එහි වාර්තාව අසල ඇති බවයි, විශාල යනු එයට වඩා බොහෝ පහළින් ඇති බවයි.</string>
+    <string name="ind_read_change_30d">ධන යනු දින 30 කට පෙරට වඩා ඉහළ බවයි, සෘණ යනු පහළ බවයි.</string>
+    <string name="ind_read_funding">ඉහළ යනු බොහෝ වෙළඳුන් උත්තෝලනය සමඟ ඉහළ යන මිල ගණන් මත ඔට්ටු අල්ලන බවයි, සෘණ යනු බොහෝ දෙනා පහළ යන මිල ගණන් මත ඔට්ටු අල්ලන බවයි.</string>
+    <string name="ind_read_hashrate_30_60">ධන යනු පරිගණන බලය වර්ධනය වන බවයි, සෘණ යනු කැණීම්කරුවන් ක්‍රියා විරහිත කරන බවයි.</string>
+    <string name="ind_read_leverage">ලෝන්ග් බොහෝ යනු බොහෝ දෙනා ණයට ගත් මුදලින් ඉහළ යන මිල මත ඔට්ටු අල්ලන බවයි, ෂෝට් බොහෝ යනු බොහෝ දෙනා පහළ යන මිල මත ඔට්ටු අල්ලන බවයි.</string>
+    <string name="ind_read_ma200w">මිල එයට වඩා බොහෝ ඉහළින් යනු දිගු නැගීමකි, මිල එය අසල යනු ගැඹුරු පසුබෑමකි.</string>
+    <string name="ind_read_mayer">ඉහළ යනු මිල එහි දින 200 සාමාන්‍යයට වඩා බොහෝ ඉහළින් ඇති බවයි, පහළ යනු එයට පහළින් ඇති බවයි.</string>
+    <string name="ind_read_mvrv">ඉහළ යනු හිමියන් සාමාන්‍යයෙන් ගෙවූ මිලට වඩා මිල බොහෝ ඉහළින් ඇති බවයි, පහළ යනු එය අසල හෝ පහළින් ඇති බවයි.</string>
+    <string name="ind_read_pi_cycle_gap">ශුන්‍යය අසල යනු සාමාන්‍ය දෙක බොහෝ දුරට හමු වන බවයි, දැඩි සෘණ යනු ඒවා බොහෝ දුරින් ඇති බවයි.</string>
+    <string name="ind_read_puell">ඉහළ යනු කැණීම්කරුවන් සුපුරුදු ප්‍රමාණයට වඩා බොහෝ උපයන බවයි, පහළ යනු බොහෝ අඩුවෙන් උපයන බවයි.</string>
+    <string name="ind_read_rsi_daily">70 ට වැඩි යනු පසුගිය දිනවල ශක්තිමත් වාසි ඇති බවයි, 30 ට අඩු යනු ශක්තිමත් පාඩු ඇති බවයි.</string>
+    <string name="ind_read_rsi_weekly">70 ට වැඩි යනු පසුගිය සතිවල ශක්තිමත් වාසි ඇති බවයි, 30 ට අඩු යනු ශක්තිමත් පාඩු ඇති බවයි.</string>
+    <string name="ind_read_sma50_vs_200">ධන යනු කෙටි කාලීන සාමාන්‍යය දිගු කාලීන එකට වඩා ඉහළින් ඇති බවයි, සෘණ යනු පහළින් ඇති බවයි.</string>
+    <string name="ind_read_vs_btc">ධන යනු එය Bitcoin ට වඩා හොඳින් ක්‍රියා කළ බවයි, සෘණ යනු නරක ලෙස ක්‍රියා කළ බවයි.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">දින 30 ක් එකම මිල: %1$s</string>
+    <string name="ind_context_note">අතීත අගයන් සහ “එකම මිල” ගණනය කිරීම් අංක ගණිතයයි, අනාවැකියක් නොවේ.</string>
+    <string name="ind_context_percentile">%1$s සිට දිනවලින් %2$s ක දී අඩු</string>
+</resources>

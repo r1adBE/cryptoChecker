@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%2$s තුළ %1$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">වසා දැමීම</string>
+    <string name="sheet_chart_converted_current">%1$s, පරිවර්තිත (වත්මන් අනුපාතය)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, දෛනික අනුපාතවලින් පරිවර්තිත</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">මෙම යුගලය සඳහා මිල දත්ත නැත</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">විවෘත</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">අද</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">පරිමාව %1$s</string>
+    <string name="sheet_more">තවත්</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Ask</string>
+    <string name="ticker_bid">Bid</string>
+    <string name="explain_bid_ask">Bid යනු ගැනුම්කරුවන් දැන් ඉදිරිපත් කරන ඉහළම මිලයි, ask යනු විකුණුම්කරුවන් පිළිගන්නා අඩුම මිලයි.</string>
+    <string name="ticker_high">ඉහළම</string>
+    <string name="ticker_low">පහළම</string>
+    <string name="ticker_timestamp">වේලාව</string>
+    <string name="ticker_vol_base">පරිමාව (කාසිවලින්)</string>
+    <string name="ticker_vol_quote">පරිමාව (උද්ධෘත මුදලින්)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (උපාංග වේලා කලාපය)</string>
+    <string name="change_basis_local">දේශීය වේලාව 00:00 සිට</string>
+    <string name="change_basis_rolling">පසුගිය පැය 24</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">අවසන් යාවත්කාලීනයේ සිට</string>
+    <string name="change_basis_utc_zone">00:00 %1$s සිට</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">%1$s ඉටිපන්දම්වලින් වෙනස</string>
+    <string name="change_short_since_last">අවසන් යාවත්කාලීනය</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">අද</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">අද %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="exchange_data_empty_error">හුවමාරුවෙන් දත්ත ලැබුණේ නැත.</string>
+    <string name="market_data_summary">වෙළඳපොළ ප්‍රාග්ධනීකරණය, ගෑස් ගාස්තු, ආර්ථික දත්ත, කාසි විශ්ලේෂණය</string>
+    <string name="market_data_tab_futures">ෆියුචර්ස්</string>
+    <string name="market_data_title">වෙළඳපොළ දත්ත</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">සංසරණ සැපයුම</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">වෙළඳපොළ ප්‍රාග්ධනීකරණය</string>
+    <string name="spot_max_supply">උපරිම සැපයුම</string>
+    <string name="spot_no_data">මෙම කාසිය සඳහා ස්පොට් දත්ත නැත</string>
+    <string name="spot_source_updated">මූලාශ්‍රය: %1$s · %2$s වන විට</string>
+    <string name="spot_supply_of_max">උපරිම සැපයුමෙන් %1$s සංසරණයේ</string>
+    <string name="spot_total_supply">මුළු සැපයුම</string>
+    <string name="spot_vol_mcap">පරිමාව/ප්‍රාග්ධනීකරණය</string>
+    <string name="spot_volume_24h">පරිමාව (24h)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">යොමුව: %1$s</string>
+    <string name="futures_funding">ෆන්ඩිං අනුපාතය</string>
+    <string name="futures_funding_interval_unknown">අන්තරය නොදනී</string>
+    <string name="futures_funding_per8h_equiv">= 8 h කට %1$s (ඇඟවීම්වල මෙන්)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">පැයකට</string>
+    <string name="futures_funding_per_hours">%1$d h කට</string>
+    <string name="futures_next_funding">ඊළඟ %1$d h %2$d min කින්</string>
+    <string name="futures_no_data">මෙම කාසිය සඳහා ෆියුචර්ස් දත්ත නැත</string>
+    <string name="futures_open_interest">විවෘත පොලිය</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">%1$s වෙතින් යොමුව – ෆන්ඩිං සහ විවෘත පොලිය හුවමාරුව අනුව වෙනස් වේ; %2$s හි ඒවා වෙනස් විය හැක.</string>
+    <string name="futures_reference_spot">%1$s වෙතින් යොමුව (කාසියේ USDT perpetual)</string>
+    <string name="futures_source">මූලාශ්‍රය: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">බොහෝ වෙළඳුන් ණයට ගත් මුදලින් ඉහළ යන හෝ පහළ යන මිල ගණන් මත ඔට්ටු අල්ලති. ලෝන්ග් සහ ෂෝට් ස්ථාන අතර ගාස්තුව. දැඩි ධන යනු බොහෝ දෙනා ඉහළ යන මිල මත ඔට්ටු අල්ලන බවයි.</string>
+    <string name="explain_open_interest">ෆියුචර්ස් යනු මිල මත ඔට්ටු වන අතර, බොහෝ විට ණයට ගත් මුදලින්. සියලු විවෘත ෆියුචර්ස් ස්ථානවල වටිනාකම. එය ඉහළ ගියහොත්, චලනය මත වැඩි මුදලක් ඔට්ටු අල්ලයි.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">පැහැදිලි කිරීම</string>
+    <string name="explain_spot_fdv">සම්පූර්ණයෙන් තනුක කළ තක්සේරුව: මිල × උපරිම සැපයුම (හෝ සීමාවක් නැත්නම් මුළු සැපයුම).</string>
+    <string name="explain_spot_market_cap">මිල × සංසරණ සැපයුම. පිල්ල පැය 24 ක් තුළ එහි වෙනස පෙන්වයි.</string>
+    <string name="explain_spot_source">සියලු හුවමාරු පුරා එක්සත් ජනපද ඩොලර්වලින් සංඛ්‍යා, CoinGecko වෙතින්.</string>
+    <string name="explain_spot_supply">සංසරණ: දැන් වෙළඳපොළේ ඇති කාසි. මුළු: නිර්මාණය කළ සියලු කාසි, පුළුස්සා දැමූ ඒවා හැර. උපරිම: කිසිදා පැවතිය හැකි වැඩිම ප්‍රමාණය.</string>
+    <string name="explain_spot_volume">පැය 24 ක් තුළ වෙළඳාම් වූ වටිනාකම. පරිමාව/ප්‍රාග්ධනීකරණය: වෙළඳපොළ ප්‍රාග්ධනීකරණයට සාපේක්ෂව පරිමාව — ඉහළ යනු ඉතා සක්‍රිය වෙළඳාමකි.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · අනුපාතය %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">ගැනුම් සහ විකුණුම් මිල අතර විශාල පරතරයක් (%1$s)</string>
+
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">%1$s වලින් ඉතිහාසය, අද අනුපාතයට %2$s වලට පරිවර්තිත</string>
+    <string name="converted_unsure">පරිවර්තනය අවිනිශ්චිතයි</string>
+</resources>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Orqaga</string>
+    <string name="action_cancel">Bekor qilish</string>
+    <string name="action_clear">Tozalash</string>
+    <string name="action_close">Yopish</string>
+    <string name="action_keep">Qoldirish</string>
+    <string name="action_delete">Oʻchirish</string>
+    <string name="action_edit">Tahrirlash</string>
+    <string name="action_more">Boshqa amallar</string>
+    <string name="action_refresh">Yangilash</string>
+    <string name="action_retry">Qayta urinish</string>
+    <string name="action_save">Saqlash</string>
+    <string name="action_sort">Saralash</string>
+    <string name="action_sort_done">Tayyor</string>
+    <string name="action_undo">Qaytarish</string>
+    <string name="action_view">Koʻrish</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Bozor</string>
+    <string name="tab_portfolio">Portfel</string>
+    <string name="tab_settings">Sozlamalar</string>
+    <string name="tab_watchlist">Kuzatuv roʻyxati</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Xato: %1$s</string>
+    <string name="error_exchange_unreachable">Birja hozir javob bermayapti – oxirgi kurslar koʻrinib turadi.</string>
+    <string name="error_exchange_unreachable_short">Birja hozir javob bermayapti</string>
+    <string name="loading_hint">Yuklanmoqda…</string>
+    <string name="option_off">Oʻchiq</string>
+    <string name="something_went_wrong">Nimadir xato ketdi</string>
+    <string name="time_just_now">hozirgina</string>
+    <string name="try_again">Qayta urinib koʻring</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Aloqa yoʻq</string>
+    <string name="offline_status_since">Aloqa yoʻq · %1$s holatiga</string>
+    <string name="status_live">Jonli</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Juftlik qoʻshish</string>
+    <string name="shortcut_alarms">Barcha signallar</string>
+    <string name="shortcut_cycle">Bozor</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Yangi juftlik qoʻshish</string>
+    <string name="shortcut_alarms_long">Signallarni koʻrsatish</string>
+    <string name="shortcut_cycle_long">Bozor sharhini ochish</string>
+
+    <string name="log_box_title">Jurnal</string>
+    <string name="label_value">%1$s: %2$s</string>
+</resources>

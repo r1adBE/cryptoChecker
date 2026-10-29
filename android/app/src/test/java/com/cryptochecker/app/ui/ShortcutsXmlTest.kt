@@ -42,7 +42,7 @@ class ShortcutsXmlTest {
         assertEquals(shortcuts, longKeys.size)
         val res = file("src/main/res")
         val locales = res.listFiles().orEmpty().filter { File(it, "strings_common.xml").exists() }
-        assertTrue(locales.size >= 33)
+        assertTrue(locales.size >= 75)
         for (dir in locales) {
             val xml = File(dir, "strings_common.xml").readText()
             for (key in longKeys) {

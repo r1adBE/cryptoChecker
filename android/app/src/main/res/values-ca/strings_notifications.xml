@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">Destacat: %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — ara %2$s</string>
+    <string name="notification_alarm_title">Alarma: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">Obre l\'exchange</string>
+    <string name="notification_depeg_text">Els valors de l\'app fan servir aquest preu de mercat.</string>
+    <string name="notification_depeg_title">USDT a %1$s USD (%2$s)</string>
+    <string name="notification_fng_above">L\'índex ha pujat per sobre de %1$d – segons aquesta mesura, l\'estat d\'ànim del mercat és de cobdícia.</string>
+    <string name="notification_fng_below">L\'índex ha baixat per sota de %1$d – segons aquesta mesura, l\'estat d\'ànim del mercat és de por.</string>
+    <string name="notification_fng_title">Índex d\'ànim (Fear &amp; Greed): %1$d</string>
+    <string name="notification_gas_btc_text">Per sota del teu límit de %1$s sat/vB · Transferència ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Comissió de Bitcoin: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">Per sota del teu límit de %1$s gwei · Transferència ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Gas d\'Ethereum: %1$s gwei</string>
+    <string name="notification_indicator_above">Per sobre del teu límit %1$s – valor mesurat, no una recomanació.</string>
+    <string name="notification_indicator_below">Per sota del teu límit %1$s – valor mesurat, no una recomanació.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">Dades econòmiques d\'avui</string>
+    <string name="notification_permission_preprompt_continue">Continua</string>
+    <string name="notification_permission_preprompt_later">Més tard</string>
+    <string name="notification_permission_preprompt_text">Perquè t\'arribin les alarmes i les notificacions de preu, l\'app necessita permís per enviar notificacions. L\'app només les fa servir per a les teves alarmes i notificacions de preu.</string>
+    <string name="notification_permission_preprompt_title">Vols permetre les notificacions?</string>
+    <string name="notification_portfolio_alarm_locked">S\'ha disparat la teva alarma – obre l\'app per veure\'n els detalls.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – ara %2$s</string>
+    <string name="notification_portfolio_alarm_title">Valor de la cartera</string>
+    <string name="notification_price_change">%1$s, des de %2$s (fa %3$s)</string>
+    <string name="notification_price_change_no_age">%1$s, des de %2$s</string>
+    <string name="notification_price_first">Primera notificació de preu per a aquest parell</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+%1$d preu més</item>
+        <item quantity="many">+%1$d preus més</item>
+        <item quantity="other">+%1$d preus més</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">S\'estan actualitzant els preus…</string>
+    <string name="notification_volume_spike_text">Volum %1$s× el normal en l\'última hora</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">Alarmes</string>
+    <string name="channel_alarms_description">Notificació quan es dispara una alarma.</string>
+    <string name="channel_alarms_quiet">Alarmes (hores de silenci)</string>
+    <string name="channel_alarms_quiet_description">Alarmes silencioses durant les hores de silenci.</string>
+    <string name="channel_alarms_silent">Alarmes (silencioses)</string>
+    <string name="channel_alarms_sound">Alarmes (només so)</string>
+    <string name="channel_alarms_sound_vibrate">Alarmes (so i vibració)</string>
+    <string name="channel_alarms_vibrate">Alarmes (només vibració)</string>
+    <string name="channel_prices">Notificacions de preu</string>
+    <string name="channel_prices_description">Notificació de preu silenciosa amb el preu actual d\'un parell.</string>
+    <string name="channel_service">Actualitzacions de preus</string>
+    <string name="channel_service_description">Notificació mentre s\'actualitzen els preus.</string>
+    <string name="neutral_channel_market">Alarmes de mercat</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, comissions de gas, «Destacat» i dates econòmiques</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">Alarma. %1$s, %2$s %3$s %4$s, ara %5$s</string>
+    <string name="tts_direction_down">ha baixat</string>
+    <string name="tts_direction_funding_above">amb un finançament alt</string>
+    <string name="tts_direction_funding_below">amb un finançament baix</string>
+    <string name="tts_direction_move">es mou amb força</string>
+    <string name="tts_direction_near_high">és a prop del màxim</string>
+    <string name="tts_direction_near_low">és a prop del mínim</string>
+    <string name="tts_direction_oi_down">amb l\'interès obert a la baixa</string>
+    <string name="tts_direction_oi_up">amb l\'interès obert a l\'alça</string>
+    <string name="tts_direction_up">ha pujat</string>
+    <string name="tts_direction_volume_spike">amb un pic de volum</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+
+    <!-- Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+    <string name="notification_alarm_action_snooze">1 h més tard</string>
+    <string name="notification_alarm_action_edit">Ajusta</string>
+</resources>

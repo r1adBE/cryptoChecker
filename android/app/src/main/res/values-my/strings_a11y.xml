@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">သတိပေးချက် ဖြစ်ပေါ်ခဲ့သည်</string>
+    <string name="a11y_collapsed">ခေါက်ထားသည်</string>
+    <string name="a11y_converted">ခန့်မှန်း %1$s</string>
+    <string name="a11y_expanded">ဖြန့်ထားသည်</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">ဘရောက်ဇာတွင် ဖွင့်မည်</string>
+    <string name="a11y_favorite">အကြိုက်ဆုံး</string>
+    <string name="a11y_in_watchlist">စောင့်ကြည့်စာရင်းထဲတွင် ရှိပြီးသား</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_exchange_unreachable">%1$s ကို ချိတ်ဆက်၍မရပါ</string>
+    <string name="a11y_move_down">အောက်သို့ ရွှေ့ရန်</string>
+    <string name="a11y_move_up">အပေါ်သို့ ရွှေ့ရန်</string>
+    <string name="a11y_note">မှတ်ချက်: %1$s</string>
+    <string name="a11y_price">ဈေးနှုန်း %1$s</string>
+    <string name="a11y_price_notification_off">ဈေးနှုန်း အကြောင်းကြားချက် ပိတ်ထားသည်</string>
+    <string name="a11y_price_notification_on">ဈေးနှုန်း အကြောင်းကြားချက် ဖွင့်ထားသည်</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">ဈေးနှုန်း ခေတ်မမီတော့ပါ</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%2$s ပေါ်ရှိ %1$s</string>
+    <string name="a11y_stale">ခေတ်မမီတော့ပါ၊ နောက်ဆုံး အပ်ဒိတ် %1$s</string>
+    <string name="a11y_warning">သတိပေးချက်</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">24 နာရီအတွင်း %1$s</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">24 နာရီ ပြောင်းလဲမှု မရရှိနိုင်ပါ</string>
+    <string name="a11y_change_down">%1$s ကျ</string>
+    <string name="a11y_change_flat">မပြောင်းလဲပါ</string>
+    <string name="a11y_change_since_last">နောက်ဆုံး အပ်ဒိတ်ကတည်းက %1$s</string>
+    <string name="a11y_change_since_last_none">နောက်ဆုံး အပ်ဒိတ်ကတည်းက ပြောင်းလဲမှု မရရှိနိုင်ပါ</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">ယနေ့ %1$s</string>
+    <string name="a11y_change_today_none">ယနေ့ ပြောင်းလဲမှု မရရှိနိုင်ပါ</string>
+    <string name="a11y_change_today_zone">သန်းခေါင် %2$s ကတည်းက %1$s</string>
+    <string name="a11y_change_today_zone_none">သန်းခေါင် %1$s ကတည်းက ပြောင်းလဲမှု မရရှိနိုင်ပါ</string>
+    <string name="a11y_change_up">%1$s တက်</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">ဇယား %1$s: %2$s မှ %3$s အထိ, %4$s။ အမြင့်ဆုံး %5$s, အနိမ့်ဆုံး %6$s။</string>
+    <string name="a11y_chart_empty">ဇယား: ဒေတာ မရှိပါ</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">စက်ဝန်း %1$s: halving ကတည်းက %2$s, ရက် %3$d မြောက်။</string>
+    <string name="a11y_cycle_bottom">ရက် %2$d မြောက်တွင် အောက်ခြေ %1$s။</string>
+    <string name="a11y_cycle_double_bottom">ရက် %2$d မြောက်တွင် နှစ်ထပ်အောက်ခြေ %1$s။</string>
+    <string name="a11y_cycle_double_top">ရက် %2$d မြောက်တွင် နှစ်ထပ်ထိပ် %1$s။</string>
+    <string name="a11y_cycle_top">ရက် %2$d မြောက်တွင် ထိပ် %1$s။</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">%1$s မှ %2$s အထိ စကေး: 100 တွင် %3$d</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, ပျမ်းမျှ %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s။ %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="other">%1$d ခု ကျနေသည်</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="other">အတွဲ %1$d ခုတွင် 24 နာရီ တန်ဖိုး မရှိပါ</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="other">အတွဲ %1$d ခုတွင် ယနေ့အတွက် တန်ဖိုး မရှိပါ</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="other">အတွဲ %1$d ခု တက်နေသည်</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="other">နောက်ဆုံး အပ်ဒိတ်လုပ်ခဲ့သည်မှာ %1$d ရက်က</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="other">နောက်ဆုံး အပ်ဒိတ်လုပ်ခဲ့သည်မှာ %1$d နာရီက</item>
+    </plurals>
+    <string name="a11y_updated_just_now">ယခုလေးတင် အပ်ဒိတ်လုပ်ခဲ့သည်</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="other">နောက်ဆုံး အပ်ဒိတ်လုပ်ခဲ့သည်မှာ %1$d မိနစ်က</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">ပမာဏ ဖျောက်ထားသည်</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_entry">%1$s %2$s, ယနေ့ တန်ဖိုး %3$s</string>
+    <string name="a11y_portfolio_entry_in">ဝင်</string>
+    <string name="a11y_portfolio_entry_no_value">တန်ဖိုး မရရှိနိုင်ပါ</string>
+    <string name="a11y_portfolio_entry_note">မှတ်ချက် %1$s</string>
+    <string name="a11y_portfolio_entry_out">ထွက်</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, ပေါ့ဖိုလီယို၏ %3$s</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, ပေါ့ဖိုလီယို၏ %2$s, %3$s</string>
+    <string name="a11y_portfolio_positions">အကြီးဆုံး ပိုင်ဆိုင်မှုများ: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">ပမာဏများ ပြရန်</string>
+    <string name="a11y_compare_chart">ရာခိုင်နှုန်းဖြင့် နှိုင်းယှဉ်ချက်, %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">ရက် 30 အမြင့်ဆုံးမှ %1$s</string>
+    <string name="a11y_price_overlay">ဈေးနှုန်း ထပ်ပြချက်: %1$s</string>
+</resources>

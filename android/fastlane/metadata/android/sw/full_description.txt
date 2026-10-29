@@ -1,0 +1,41 @@
+Crypto Checker hukagua bei kwenye jukwaa lako na kukujulisha ukaguzi unapokuta kiwango chako kimefikiwa. Programu ikiwa imefungwa, Android huamua lini kengele zikaguliwe – mara moja kila dakika 15 zaidi, mara nyingi baada ya saa kadhaa. Miruko mifupi katikati inaweza kupitwa; programu inakuambia hivyo. Bei ya jukwaa lako, si wastani – bure, bila akaunti.
+
+KINACHOITOFAUTISHA
+• Jukwaa lako, si wastani: kila safu ina bei ya mwisho ya jozi kwenye jukwaa ulilochagua – Binance, Coinbase, Kraken, OKX, Bybit na mengine mengi.
+• Kengele inayoarifu mara moja: “Niambie BTC ikipanda juu ya 100,000 USDT.” Inalia ukaguzi unapokuta kiwango kimevukwa, si kila sasisho – “Mara moja” kisha inaizima, “Kila mara” inaiwasha tena bei inaporudi.
+• “Nini kinasonga pamoja nayo?”: orodha ya vipengele vya sarafu moja – soko lote, kiasi, tete, funding na open interest, umbali na kilele au kiwango cha chini, Fear & Greed. Inaonyesha kinachosonga wakati huo huo – si chanzo, si habari, si ushauri wa uwekezaji.
+• Bila akaunti, matangazo wala kufuatiliwa. Msanidi hapokei data yako yoyote.
+
+UKWELI KUHUSU DATA
+• “Kiuchumi” ni chaguomsingi: bei husasishwa unapofungua programu na kwa vipindi chinichini. “Moja kwa moja ikiwa wazi” inaongeza bei hai za Binance, Bybit, OKX, Coinbase na Kraken orodha ikiwa wazi.
+• Mabadiliko ya % na chati hutoka kwanza kwa jukwaa la jozi; likikosa mishumaa, programu hutumia Binance au Coinbase na kukuambia.
+• Fear & Greed, utawala na thamani za on-chain kutoka alternative.me, CoinGecko na Coin Metrics.
+• Kiasi hutoka kwenye kifaa tu kupitia uhamishaji wako au nakala rudufu ya Android. Kwa bei, alama za jozi pekee huenda kwa jukwaa la jozi husika; pia viwango vya ubadilishaji (Frankfurter), data ya soko na nembo (CoinGecko, Binance), vioo vya data (GitHub). Ukifuatilia anwani au xpub, nodi za umma za blockchain zinaona anwani (kwa xpub, zile zilizotolewa) na IP yako.
+
+ORODHA YA UFUATILIAJI
+• Masoko 56 kwenye majukwaa 45: spot na futures, tokeni za DEX kupitia DexScreener, hiari hisa, dhahabu na FX (TradFi)
+• Mstari wa pili “≈ thamani” katika mojawapo ya sarafu 31 (EUR, CHF, USD …), kwa kiwango cha FX
+• Chati ndogo na mabadiliko ya % kwa 24 h au tangu 00:00 kwa saa zako za eneo
+• Vikundi, vipendwa, buruta-uachie na dokezo kwa kila sarafu
+• Safu zinaonyesha “imepitwa na wakati” au “jukwaa halipatikani”
+
+KENGELE
+• Bei juu au chini ya kiwango, au kupanda au kushuka kwa asilimia – pia kwa sarafu yako, k.m. EUR 60,000 kwenye jozi ya USDT
+• Mwenendo wa x % ndani ya kipindi, kiasi kinachoruka ghafla
+• Sauti (pia faili yako ya sauti), mtetemo na tangazo la sauti la hiari
+• Saa za utulivu na “Jaribu kengele”: sikia mapema jinsi kengele inavyofika; kumbukumbu ya kengele: lini ilikaguliwa, bei gani, kwa nini haikulia
+
+SOKO
+• Zinazojitokeza: mienendo isiyo ya kawaida ya bei na kiasi kwenye orodha yako, hiari kama arifa ya soko
+• Crypto Pulse, Fear & Greed, viashiria vya Bitcoin, funding na open interest – kama thamani zilizopimwa tu
+• Ada za mtandao za Ethereum, Bitcoin na nyingine, na kengele ya gas
+
+ZAIDI
+• Wijeti: orodha ya ufuatiliaji, jumla ya jalada, sarafu moja na chati
+• Jalada la hiari (liwashe kwenye Mipangilio): manunuzi, mauzo, swap, uhamisho, tuzo, amana na utoaji; FIFO (chaguomsingi) au wastani (Ø); anwani za kusoma tu bila seed za BTC (na xpub), ETH na minyororo ya EVM, SOL, TRX, XRP, LTC, ADA na TON; uletaji wa CSV kutoka Relai, Swissquote, Bitpanda, Kraken, Binance na Coinbase; muhtasari wa mwaka kama CSV; kufuli yake. Bitpanda na Swissquote: hazina bei yake, CSV pekee.
+• Inasomeka kwa wote: kijani/nyekundu au bluu/machungwa, alama na mshale badala ya rangi pekee; TalkBack husoma kila safu kama sentensi moja
+• Nakala rudufu na kurejesha kwa faili – pia Android ↔ iPhone
+• Mwanga na giza, rangi kuu tano, lugha 75
+• Programu huria (MIT) – msimbo uko wazi kwenye GitHub
+
+Kumbuka: Crypto Checker inaonyesha bei na jalada unaloweka mwenyewe. Si jukwaa la biashara wala wallet, haifanyi biashara na haitoi ushauri wa uwekezaji.

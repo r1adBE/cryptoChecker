@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">ផ្ទៃខាងក្រោយ</string>
+    <string name="widget_configure_hint">ជ្រើសរើសផ្ទៃខាងក្រោយ និងភាពស្រអាប់។ ពណ៌អនុវត្តតាមកម្មវិធី។ វិដជិតបង្ហាញបញ្ជីតាមដានទាំងមូលរបស់អ្នក។ ចុចលើជួរមួយដើម្បីបើកកម្មវិធី។</string>
+    <string name="widget_configure_title">រៀបចំវិដជិត</string>
+    <string name="widget_description">បង្ហាញតម្លៃនៃគូមួយពីបញ្ជីតាមដានរបស់អ្នក។</string>
+    <string name="widget_empty">មិនទាន់មានគូនៅក្នុងបញ្ជីតាមដានទេ។</string>
+    <string name="widget_group_hint">បង្ហាញតែគូនៃក្រុមនេះ។</string>
+    <string name="widget_kind_single">កាក់តែមួយ</string>
+    <string name="widget_opacity">ភាពស្រអាប់ផ្ទៃខាងក្រោយ៖ %1$s</string>
+    <string name="widget_pulse_description">អ្វីដែលលេចធ្លោក្នុងទីផ្សារនៅពេលនេះ៖ ចំណងជើង សេចក្តីសង្ខេបខ្លី និង Bitcoin, Ethereum និង Solana។</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">ហួសសម័យ</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">ហួសសម័យ · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">ទៀន</string>
+    <string name="widget_chart_line">បន្ទាត់</string>
+    <string name="widget_chart_range">រយៈពេលគំនូសតាង</string>
+    <string name="widget_chart_type">ប្រភេទគំនូសតាង</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 ឆ្នាំ</string>
+    <string name="widget_range_24h">24 ម៉ោង</string>
+    <string name="widget_range_30d">30 ថ្ងៃ</string>
+    <string name="widget_range_7d">7 ថ្ងៃ</string>
+    <string name="widget_range_short_1y">1ឆ្នាំ</string>
+    <string name="widget_range_short_24h">24ម៉ោង</string>
+    <string name="widget_range_short_30d">30ថ្ងៃ</string>
+    <string name="widget_range_short_7d">7ថ្ងៃ</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">គិតត្រឹម %1$s</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">ប្រវត្តិនឹងមកដល់ឆាប់ៗ</string>
+    <string name="widget_portfolio_description">តម្លៃសរុបនៃផលប័ត្ររបស់អ្នក និងការប្រែប្រួលថ្ងៃនេះ</string>
+    <string name="widget_portfolio_entries">ការកត់ត្រានៅក្រោមកាក់</string>
+    <string name="widget_portfolio_entries_both">ទាំងពីរ</string>
+    <string name="widget_portfolio_entries_buys">ការទិញ</string>
+    <string name="widget_portfolio_entries_hint">បង្ហាញតែនៅពេលមានកន្លែងនៅក្រោមកាក់ប៉ុណ្ណោះ។ ការទិញរួមបញ្ចូលការដាក់ចូល ការលក់រួមបញ្ចូលការដក។ ជាមួយ «ទាំងពីរ» បន្ទាត់បូកបញ្ចូលគ្នាស្មើនឹងការកាន់កាប់។</string>
+    <string name="widget_portfolio_entries_off">បិទ</string>
+    <string name="widget_portfolio_entries_sells">ការលក់</string>
+    <string name="widget_portfolio_display">ការបង្ហាញ</string>
+    <string name="widget_portfolio_display_conversion">តែការបម្លែង</string>
+    <string name="widget_portfolio_display_conversion_usdt">ការបម្លែង + USDT</string>
+    <string name="widget_portfolio_display_hint">បន្ទាត់ USDT ត្រូវបានលាក់ នៅពេលរូបិយប័ណ្ណបម្លែងជា stablecoin USD (ឧ. USDC)។</string>
+    <string name="widget_portfolio_display_usdt">តែ USDT</string>
+    <string name="widget_portfolio_empty">បន្ថែមការទិញនៅក្នុងផ្ទាំង ផលប័ត្រ</string>
+    <string name="widget_portfolio_list_hint">បើកកម្មវិធី ដើម្បីបង្ហាញការកាន់កាប់របស់អ្នកនៅទីនេះ។</string>
+    <string name="widget_portfolio_locked_hint">បានចាក់សោ – ដោះសោនៅក្នុងកម្មវិធី</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="other">មិនរាប់កាក់ %1$d</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="other">+ %1$d ទៀត</item>
+    </plurals>
+    <string name="widget_portfolio_name">ផលប័ត្រ</string>
+    <string name="widget_portfolio_off_hint">បើកវានៅក្នុង %1$s។</string>
+    <string name="widget_portfolio_off_short">ផលប័ត្របិទ</string>
+    <string name="widget_portfolio_off_title">ផលប័ត្រត្រូវបានបិទ</string>
+    <string name="widget_portfolio_partly_stale">តម្លៃខ្លះហួសសម័យ</string>
+    <string name="widget_portfolio_period">រយៈពេល</string>
+    <string name="widget_portfolio_period_without">%1$s មិនរាប់ %2$s</string>
+    <string name="widget_portfolio_range_48h">48 ម៉ោង</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s៖ បើកផលប័ត្រ</string>
+    <string name="widget_portfolio_range_short_48h">48ម៉ោង</string>
+    <string name="widget_portfolio_today_without">ថ្ងៃនេះមិនរាប់ %1$s</string>
+    <string name="widget_portfolio_view">ទិដ្ឋភាព</string>
+    <string name="widget_portfolio_view_chart">គំនូសតាង</string>
+    <string name="widget_portfolio_view_list">បញ្ជី</string>
+    <string name="widget_portfolio_view_overview">ទិដ្ឋភាពទូទៅ</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">ជ្រើសរើសគូមួយ</string>
+    <string name="single_widget_description">បង្ហាញកាក់មួយធំៗជាមួយតម្លៃ ការប្រែប្រួល និងគំនូសតាង 24 ម៉ោង។</string>
+    <string name="single_widget_label">Crypto Checker – កាក់តែមួយ</string>
+    <string name="single_widget_title">រៀបចំវិដជិតកាក់តែមួយ</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">បន្ថែម</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">បន្ថែមវិដជិត %1$s</string>
+    <string name="widgets_manual_text">អេក្រង់ដើមរបស់អ្នកមិនអាចបន្ថែមវិដជិតពីកម្មវិធីបានទេ។ ចុចសង្កត់លើកន្លែងទំនេរនៅលើអេក្រង់ដើម ជ្រើស «វិដជិត» ហើយស្វែងរក «Crypto Checker»។</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">បន្ថែមវិដជិតដោយខ្លួនឯង</string>
+    <string name="widgets_sheet_title">បន្ថែមវិដជិត</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS មិនអនុញ្ញាតឱ្យកម្មវិធីបន្ថែមវិដជិតដោយខ្លួនឯងទេ។ វាចំណាយពេលតែបន្តិចប៉ុណ្ណោះ៖</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">វិដជិតដែលមាន</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">ចុចសង្កត់លើកន្លែងទំនេរនៅលើ Home Screen រហូតដល់កម្មវិធីញ័រ។</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">ចុច «Edit» › «Add Widget» នៅខាងលើ (ឬ «+» នៅលើកំណែ iOS ចាស់ៗ)។</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">ស្វែងរក «Crypto Checker» ជ្រើសរើសវិដជិតមួយ ហើយចុច «Add Widget»។</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">ផ្ទុកឡើងវិញ – អាចធ្វើបានម្តងទៀតក្នុងរយៈពេល %1$d វិនាទី</string>
+    <string name="settings_watch">នាឡិកា</string>
+    <string name="settings_watch_hint">កាក់សម្រាប់កម្មវិធីនាឡិកានៅលើ Wear OS (រហូតដល់ %1$d កំណត់តម្លៃទល់នឹង USDT)។ មានតែបញ្ជីនេះប៉ុណ្ណោះដែលទៅកាន់នាឡិកា តាមរយៈ Google Play services។ នាឡិកាទាញយកតម្លៃដោយខ្លួនឯង។</string>
+    <string name="settings_watch_mode_phone">ដូចទូរសព្ទ (ចំណូលចិត្ត ★)</string>
+    <string name="settings_watch_mode_own">បញ្ជីផ្ទាល់ខ្លួន</string>
+    <string name="settings_watch_own_title">បញ្ជីផ្ទាល់ខ្លួន៖ %1$d ក្នុងចំណោម %2$d</string>
+    <string name="settings_watch_none">មិនទាន់មានចំណូលចិត្តទេ</string>
+
+    <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
+    <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">គ្មានបន្ទាត់ USDT នៅក្នុង «បញ្ជី»</string>
+    <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
+    <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">«ទិដ្ឋភាពទូទៅ» បង្ហាញ 30 ថ្ងៃជំនួសវិញ</string>
+</resources>

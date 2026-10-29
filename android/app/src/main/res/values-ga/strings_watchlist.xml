@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">Reatha · %1$s</string>
+    <string name="watchlist_empty_title">Gan péirí fós</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%1$d as %2$d gan phraghas</item>
+        <item quantity="two">%1$d as %2$d gan phraghas</item>
+        <item quantity="few">%1$d as %2$d gan phraghas</item>
+        <item quantity="many">%1$d as %2$d gan phraghas</item>
+        <item quantity="other">%1$d as %2$d gan phraghas</item>
+    </plurals>
+    <string name="watchlist_last_run">Rith deireanach %1$s</string>
+    <string name="watchlist_live_a11y">Praghsanna beo ar siúl</string>
+    <string name="watchlist_offline_since">Gan cheangal · staid %1$s</string>
+    <string name="watchlist_pull_to_refresh">Tarraing anuas chun athnuachan</string>
+    <string name="watchlist_refresh_report">Athnuachan dheireanach</string>
+    <string name="watchlist_refresh_report_empty">Gan miondealú fós – gan athnuachan iomlán go dtí seo. Tapáil athnuaigh agus fan go stopfaidh an ciorcal.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%1$d as %2$d as dáta</item>
+        <item quantity="two">%1$d as %2$d as dáta</item>
+        <item quantity="few">%1$d as %2$d as dáta</item>
+        <item quantity="many">%1$d as %2$d as dáta</item>
+        <item quantity="other">%1$d as %2$d as dáta</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">Tá gach péire anseo díchumasaithe</string>
+    <string name="watchlist_status_exchange_prices">Praghsanna ó do mhalartáin · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">Praghsanna malartán · %1$s</string>
+    <string name="watchlist_status_group_empty">Gan péirí sa ghrúpa seo</string>
+    <string name="watchlist_status_none_traded">Gan péirí trádáilte anseo</string>
+    <string name="watchlist_updated">Nuashonraithe: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">meán %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d síos</item>
+        <item quantity="two">%1$d síos</item>
+        <item quantity="few">%1$d síos</item>
+        <item quantity="many">%1$d síos</item>
+        <item quantity="other">%1$d síos</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d gan luach 24 u</item>
+        <item quantity="two">%1$d gan luach 24 u</item>
+        <item quantity="few">%1$d gan luach 24 u</item>
+        <item quantity="many">%1$d gan luach 24 u</item>
+        <item quantity="other">%1$d gan luach 24 u</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d gan luach inniu</item>
+        <item quantity="two">%1$d gan luach inniu</item>
+        <item quantity="few">%1$d gan luach inniu</item>
+        <item quantity="many">%1$d gan luach inniu</item>
+        <item quantity="other">%1$d gan luach inniu</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d suas</item>
+        <item quantity="two">%1$d suas</item>
+        <item quantity="few">%1$d suas</item>
+        <item quantity="many">%1$d suas</item>
+        <item quantity="other">%1$d suas</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · díchumasaithe</string>
+    <string name="watchlist_row_outdated">%1$s · as dáta</string>
+    <string name="watchlist_row_outdated_age">as dáta · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">Praghas gan athrú ó %1$s</string>
+    <string name="watchlist_row_unreachable">%1$s · ní féidir %2$s a bhaint amach</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">Léim go dtí an deireadh</string>
+    <string name="watchlist_jump_start">Léim go dtí an barr</string>
+    <string name="watchlist_search_close">Dún an cuardach</string>
+    <string name="watchlist_search_empty">Gan torthaí do “%1$s”</string>
+    <string name="watchlist_search_hint">Cuardaigh péire, ainm nó malartán</string>
+    <string name="watchlist_search_open">Cuardaigh</string>
+    <string name="watchlist_sort_ascending">ag ardú</string>
+    <string name="watchlist_sort_descending">ag ísliú</string>
+    <string name="watchlist_sort_hint">Coinnigh síos agus tarraing péire, nó úsáid an hanla. Fanann ceanáin ag an mbarr.</string>
+    <string name="watchlist_sort_name">Ainm</string>
+    <string name="watchlist_sort_own">Ord saincheaptha</string>
+    <string name="watchlist_sort_price">Praghas</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">Glan an liosta faire</string>
+    <string name="watchlist_clear_confirm">Bain gach péire ón liosta faire? Imíonn a bhfoláirimh leo.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d díchumasaithe</item>
+        <item quantity="two">%1$d díchumasaithe</item>
+        <item quantity="few">%1$d díchumasaithe</item>
+        <item quantity="many">%1$d díchumasaithe</item>
+        <item quantity="other">%1$d díchumasaithe</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">Bain</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Bain %1$d phéire nach dtrádáiltear ar a mhalartán a thuilleadh? Imíonn a fholáirimh leis.</item>
+        <item quantity="two">Bain %1$d phéire nach dtrádáiltear ar a malartán a thuilleadh? Imíonn a bhfoláirimh leo.</item>
+        <item quantity="few">Bain %1$d phéire nach dtrádáiltear ar a malartán a thuilleadh? Imíonn a bhfoláirimh leo.</item>
+        <item quantity="many">Bain %1$d bpéire nach dtrádáiltear ar a malartán a thuilleadh? Imíonn a bhfoláirimh leo.</item>
+        <item quantity="other">Bain %1$d péire nach dtrádáiltear ar a malartán a thuilleadh? Imíonn a bhfoláirimh leo.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">Bain péirí nach dtrádáiltear (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Bain péirí nach dtrádáiltear</string>
+    <string name="watchlist_removed">%1$s bainte</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d phéire bainte</item>
+        <item quantity="two">%1$d phéire bainte</item>
+        <item quantity="few">%1$d phéire bainte</item>
+        <item quantity="many">%1$d bpéire bainte</item>
+        <item quantity="other">%1$d péire bainte</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">%1$d phéire nach dtrádáiltear bainte</item>
+        <item quantity="two">%1$d phéire nach dtrádáiltear bainte</item>
+        <item quantity="few">%1$d phéire nach dtrádáiltear bainte</item>
+        <item quantity="many">%1$d bpéire nach dtrádáiltear bainte</item>
+        <item quantity="other">%1$d péire nach dtrádáiltear bainte</item>
+    </plurals>
+    <string name="watchlist_select">Roghnaigh</string>
+    <string name="watchlist_select_all">Roghnaigh gach rud</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d roghnaithe</item>
+        <item quantity="two">%1$d roghnaithe</item>
+        <item quantity="few">%1$d roghnaithe</item>
+        <item quantity="many">%1$d roghnaithe</item>
+        <item quantity="other">%1$d roghnaithe</item>
+    </plurals>
+    <string name="watchlist_show_all">Taispeáin gach rud</string>
+    <string name="watchlist_show_only_disabled">Taispeáin díchumasaithe amháin</string>
+    <string name="watchlist_show_only_stale">Taispeáin as dáta amháin</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Foláireamh (%1$d)</item>
+        <item quantity="two">Foláirimh (%1$d)</item>
+        <item quantity="few">Foláirimh (%1$d)</item>
+        <item quantity="many">Foláirimh (%1$d)</item>
+        <item quantity="other">Foláirimh (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">Gan ceanáin fós. Svaidhpeáil péire ar dheis, nó oscail an péire agus tapáil “Ceanán”.</string>
+    <string name="watchlist_group_empty_hint">Brúigh go fada ar ghrúpa chun a phéirí a roghnú.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">Beidh do ghrúpaí le feiceáil anseo</string>
+    <string name="watchlist_notification">Fógra praghais</string>
+    <string name="watchlist_tts">Léigh an praghas os ard</string>
+    <string name="watchlist_tts_speech_on">Tá aschur cainte ar siúl. Is féidir leat é a athrú i Socruithe › Foláirimh › Aschur cainte.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">Cuir leis mar ghiuirléid</string>
+    <string name="watch_action_alarm">Foláireamh</string>
+    <string name="watch_action_favorite">Ceanán</string>
+    <string name="watch_action_why">Cad atá ag bogadh leis?</string>
+    <string name="watch_action_why_short">Cad a bhogann leis?</string>
+    <string name="watch_change_mark">Marc</string>
+    <string name="watch_disable">Díchumasaigh</string>
+    <string name="watch_disable_hint">Gan iarratais, gan fógraí</string>
+    <string name="watch_disabled">Díchumasaithe</string>
+    <string name="watch_disabled_banner">%1$s díchumasaithe</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">Fanann foláirimh – seiceáil a dtairseacha</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">Cuir an péire in eagar</string>
+    <string name="watch_enable">Cumasaigh</string>
+    <string name="watch_enable_hint">Atosaíonn praghsanna agus fógraí</string>
+    <string name="watch_enabled_banner">%1$s cumasaithe</string>
+    <string name="watch_error_offline">Gan cheangal</string>
+    <string name="watch_gesture_hint_short">Tapáil: foláireamh agus “Cad atá ag bogadh leis?” · brúigh go fada chun roghnú · svaidhpeáil ar chlé chun scriosadh · svaidhpeáil ar dheis le haghaidh ceanáin</string>
+    <string name="watch_hint_tap_why">Tapáil bonn le haghaidh foláireamh agus “Cad atá ag bogadh leis?”</string>
+    <string name="watch_not_traded">Ní thrádáiltear ar an malartán seo a thuilleadh</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">Ní sa liosta faire</string>
+    <string name="watch_price_mid">meánphraghas (nó marc)</string>
+    <string name="watch_row_source_both">Athrú agus cairt: %1$s</string>
+    <string name="watch_row_source_change">Athrú: %1$s</string>
+    <string name="watch_row_source_chart">Cairt: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">Tá %1$s i do liosta faire anois</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">Tá %1$s i do liosta faire anois</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">Cuir le ceanáin</string>
+    <string name="favorite_added">%1$s curtha le ceanáin</string>
+    <string name="favorite_remove">Bain ó cheanáin</string>
+    <string name="favorite_removed">%1$s bainte ó cheanáin</string>
+    <string name="hint_favorites_list">Leid: svaidhpeáil ró ar dheis chun ceanán a dhéanamh de – fanann ceanáin ag an mbarr.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">Grúpa nua</string>
+    <string name="group_all">Gach</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Comharthaí Alpha</string>
+    <string name="group_delete">Scrios an grúpa</string>
+    <string name="group_delete_confirm">Fanann na péirí i do liosta faire.</string>
+    <string name="group_done">Déanta</string>
+    <string name="group_edit_title">Cuir an grúpa in eagar</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">Ceanáin</string>
+    <string name="group_in_other">in %1$s</string>
+    <string name="group_name">Ainm an ghrúpa</string>
+    <string name="group_new">Grúpa nua…</string>
+    <string name="group_next">Ar aghaidh</string>
+    <string name="group_none">Gan ghrúpa</string>
+    <string name="group_rename">Athainmnigh</string>
+    <string name="group_search_hint">Cuardaigh péire, ainm nó malartán</string>
+    <string name="group_target">Sa ghrúpa</string>
+    <string name="group_title">Grúpa</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">Comharthaí</string>
+    <string name="group_value">Grúpa: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">Cuir nóta leis</string>
+    <string name="note_edit">Cuir an nóta in eagar</string>
+    <string name="note_hint">m.sh. isteach ag 0.42, sprioc 0.60</string>
+    <string name="note_remove">Bain</string>
+    <string name="note_title">Nóta</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">Tarraing chun athordú</string>
+    <string name="sort_move_bottom">Bog go dtí an bun</string>
+    <string name="sort_move_down">Bog síos</string>
+    <string name="sort_move_top">Bog go dtí an barr</string>
+    <string name="sort_move_up">Bog suas</string>
+
+    <string name="watchlist_first_alarm_title">Socraigh do chéad fholáireamh</string>
+    <string name="watchlist_first_alarm_text">Faigh fógra nuair a shroicheann praghas do mharc – agus an aip dúnta, seiceálann Android go mírialta.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">praghas marcála (gan meánphraghas)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">praghas in aghaidh na huaire</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">Socraigh do chéad fholáireamh – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Athnuaigh (%1$d)</string>
+
+    <!-- Zeile der Merkliste: Börse pausiert (zu viele Anfragen / Zeitüberschreitungen) bis zu einer Uhrzeit, ersetzt die Zeitzeile, z. B. «Binance · pausiert bis 19:45» -->
+    <string name="watchlist_row_exchange_paused">%1$s · ar sos go dtí %2$s</string>
+
+    <string name="watchlist_refresh_just_done">Díreach nuashonraithe · %1$d s ó shin</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">trádáil dheireanach %1$s</string>
+
+    <string name="change_candle_source_hint">Ríomhtha ó choinnle %1$s – ní sholáthraíonn an malartán féin an luach seo.</string>
+    <string name="change_candle_source_action">Taispeáin foinse an athraithe</string>
+
+    <string name="watchlist_sort_by_coin">Sórtáil de réir boinn</string>
+    <string name="watchlist_sort_by_exchange">Sórtáil de réir malartáin</string>
+    <string name="watchlist_limit_reached">Is féidir %1$s péire ar a mhéad a bheith i do liosta faire.</string>
+    <string name="watch_price_reference">ráta tagartha, laethúil</string>
+    <string name="watch_price_daily">laethúil</string>
+    <string name="watchlist_compare">Cuir i gcomparáid</string>
+    <string name="watchlist_compare_hint">Roghnaigh 2 go 4 phéire le cur i gcomparáid.</string>
+    <string name="compare_title">Comparáid</string>
+    <string name="compare_basis">Taispeánann na línte an t-athrú i gcéatadáin ó thús na tréimhse.</string>
+    <string name="compare_from_high">i gcomparáid le buaic 30 L</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">%1$d phéire gan athchóiriú – tá an liosta faire lán</item>
+        <item quantity="two">%1$d phéire gan athchóiriú – tá an liosta faire lán</item>
+        <item quantity="few">%1$d phéire gan athchóiriú – tá an liosta faire lán</item>
+        <item quantity="many">%1$d bpéire gan athchóiriú – tá an liosta faire lán</item>
+        <item quantity="other">%1$d péire gan athchóiriú – tá an liosta faire lán</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">Níl an liosta faire ná a fholáirimh á sábháil faoi láthair. Caillfear an t-athrú seo agus aon athruithe eile nuair a dhúntar an aip. Athraigh mar sin féin?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">Athraigh mar sin féin</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">Péirí: %1$d</item>
+        <item quantity="two">Péirí: %1$d</item>
+        <item quantity="few">Péirí: %1$d</item>
+        <item quantity="many">Péirí: %1$d</item>
+        <item quantity="other">Péirí: %1$d</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">Péirí: %2$d as %1$d</item>
+        <item quantity="two">Péirí: %2$d as %1$d</item>
+        <item quantity="few">Péirí: %2$d as %1$d</item>
+        <item quantity="many">Péirí: %2$d as %1$d</item>
+        <item quantity="other">Péirí: %2$d as %1$d</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">Spásanna saora: %1$d</item>
+        <item quantity="two">Spásanna saora: %1$d</item>
+        <item quantity="few">Spásanna saora: %1$d</item>
+        <item quantity="many">Spásanna saora: %1$d</item>
+        <item quantity="other">Spásanna saora: %1$d</item>
+    </plurals>
+    <string name="watchlist_footer_full">Tá an liosta faire lán</string>
+</resources>

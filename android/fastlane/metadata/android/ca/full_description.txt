@@ -1,0 +1,41 @@
+Crypto Checker comprova els preus al teu exchange i t'avisa quan una comprovació troba el teu nivell assolit. Amb l'app tancada, Android decideix quan es comproven les alarmes – com a molt cada 15 minuts, sovint només al cap d'hores. Pots perdre pics curts entremig; l'app t'ho diu. El preu del teu exchange, no una mitjana – gratuït, sense compte.
+
+QUÈ LA FA DIFERENT
+• El teu exchange, no una mitjana: cada fila mostra l'últim preu del parell a l'exchange triat – Binance, Coinbase, Kraken, OKX, Bybit i molts més.
+• Una alarma que avisa un cop: «Avisa'm quan BTC superi 100.000 USDT». Sona quan una comprovació troba el nivell creuat, no a cada actualització – «Un cop» la desactiva; «Cada vegada» la reactiva quan el preu torna.
+• «Què es mou amb ell?»: llista de factors d'una moneda – mercat general, volum, volatilitat, finançament i interès obert, distància al màxim o mínim, Fear & Greed. Mostra què es mou alhora – sense causa, notícies ni assessorament d'inversió.
+• Sense compte, anuncis ni seguiment. El desenvolupador no rep cap dada teva.
+
+HONESTA AMB LES DADES
+• «Estalvi» és el mode predeterminat: els preus s'actualitzen en obrir l'app i a intervals en segon pla. «En directe amb l'app oberta» afegeix preus en directe de Binance, Bybit, OKX, Coinbase i Kraken amb la llista oberta.
+• La variació en % i els gràfics vénen primer de l'exchange del parell; si no té espelmes, l'app usa Binance o Coinbase i t'ho diu.
+• Fear & Greed, dominància i valors on-chain d'alternative.me, CoinGecko i Coin Metrics.
+• Les quantitats només surten del dispositiu amb la teva exportació o la còpia del sistema Android. Per als preus, només els tickers van a l'exchange de cada parell; a més, tipus de canvi (Frankfurter), dades de mercat i logotips (CoinGecko, Binance), miralls de dades (GitHub). Si segueixes adreces o una xpub, els nodes públics de blockchain veuen les adreces (amb una xpub, les derivades) i la teva IP.
+
+LLISTA
+• 56 mercats en 45 exchanges: spot i futurs, tokens DEX via DexScreener, opcionalment accions, or i divises (TradFi)
+• Segona línia «≈ valor» en una de 31 monedes (EUR, CHF, USD …), al tipus de canvi
+• Minigràfic i variació en % en 24 h o des de les 00:00 al teu fus horari
+• Grups, preferits, ordenar arrossegant, una nota per moneda
+• Les files indiquen «desactualitzat» o «exchange no accessible»
+
+ALARMES
+• Preu per sobre o per sota d'un nivell, o pujada o baixada en un percentatge – també en la teva moneda, p. ex. 60.000 EUR en un parell USDT
+• Moviment d'un x % en un període, pic de volum
+• So (també un fitxer d'àudio propi), vibració i avís de veu opcional
+• Hores de silenci i «Prova l'alarma»: sent abans com arriba; registre: quan es va comprovar, a quin preu, per què no va sonar
+
+MERCAT
+• Destacat: moviments inusuals de preu i volum a la teva llista, opcionalment com a avís
+• Pols cripto, Fear & Greed, indicadors de Bitcoin, finançament i interès obert – com a valors mesurats
+• Comissions de xarxa d'Ethereum, Bitcoin i més, amb alarma de gas
+
+MÉS
+• Widgets: llista, total de la cartera, una moneda amb gràfic
+• Cartera opcional (a Configuració): compres, vendes, intercanvis, transferències, recompenses, dipòsits i retirades; FIFO (predeterminat) o mitjana (Ø); adreces de només lectura sense seed per a BTC (incl. xpub), ETH i cadenes EVM, SOL, TRX, XRP, LTC, ADA i TON; importació CSV de Relai, Swissquote, Bitpanda, Kraken, Binance i Coinbase; resum anual en CSV; bloqueig propi. Bitpanda i Swissquote: sense preu propi, només CSV.
+• Llegible per a tothom: verd/vermell o blau/taronja, signe i fletxa, no només color; TalkBack llegeix cada fila com una frase
+• Còpia de seguretat i restauració en un fitxer – també entre Android i iPhone
+• Mode clar i fosc, cinc colors d'èmfasi, 75 llengües
+• Codi obert (MIT) – el codi és públic a GitHub
+
+Nota: Crypto Checker mostra preus i una cartera que introdueixes tu. No és un exchange ni un moneder, no negocia ni ofereix assessorament d'inversió.

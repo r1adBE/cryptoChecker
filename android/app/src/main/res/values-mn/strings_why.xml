@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">Түүнтэй хамт юу хөдөлж байна?</string>
+    <string name="why_all_values">Бүх утга ба эх сурвалж</string>
+    <string name="why_all_values_hint">Ажиглалт · Боломжит тайлбар · Эх сурвалж</string>
+    <string name="why_details">Дэлгэрэнгүйг харуулах</string>
+    <string name="why_details_hide">Дэлгэрэнгүйг нуух</string>
+    <string name="why_disclaimer">Зах зээлийн өгөгдлөөс автомат үнэлгээ: нэгэн зэрэг юу болж байгааг харуулна, шалтгааны нотолгоо биш.</string>
+    <string name="why_footer_short">Нэгэн зэрэг болох нь шалтгаан гэсэн үг биш · Хөрөнгө оруулалтын зөвлөгөө биш</string>
+    <string name="why_no_data">Энэ хосын Binance-ийн өгөгдөл алга</string>
+    <string name="why_no_data_hint">Ханш, хэмжээ, хэлбэлзлийг Binance-ийн цагийн лаанаас авна.</string>
+    <string name="why_ref_alts">Альт</string>
+    <string name="why_section_context">Боломжит тайлбар</string>
+    <string name="why_section_observation">Ажиглалт</string>
+    <string name="why_title">Түүнтэй хамт юу хөдөлж байна?</string>
+    <string name="why_title_coin">%1$s-тэй хамт юу хөдөлж байна?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">Товчхондоо · %1$s байдлаар</string>
+    <string name="why_brief_label">Товчхондоо:</string>
+    <string name="why_summary_against">Зоос зах зээлийн эсрэг хөдөлж байна.</string>
+    <string name="why_summary_calm">Анхаарал татах хөдөлгөөн алга: зах зээл ба зоос тайван.</string>
+    <string name="why_summary_coin">Зөвхөн энэ зоос хөдөлж байна – зөвхөн энэ зоостой холбоотой ямар нэг зүйл байж магадгүй.</string>
+    <string name="why_summary_coin_volume">Зөвхөн энэ зоос өндөр хэмжээтэй хөдөлж байна – зөвхөн энэ зоостой холбоотой ямар нэг зүйл байж магадгүй.</string>
+    <string name="why_summary_longs">Фьючерс: хөшүүрэгтэй лонг позиц олон.</string>
+    <string name="why_summary_market">Хөдөлгөөн цаг хугацааны хувьд нийт зах зээлтэй таарч байна.</string>
+    <string name="why_summary_market_volume">Хөдөлгөөн өндөр арилжааны хэмжээ болон өргөнөөр хөдөлж буй зах зээлтэй давхцаж байна.</string>
+    <string name="why_summary_peg_near">Ханш 1:1 холбоосдоо ойр байна.</string>
+    <string name="why_summary_peg_off">Ханш 1:1 холбоосоосоо мэдэгдэхүйц хазайж байна.</string>
+    <string name="why_summary_shorts">Фьючерс: шорт позиц олон.</string>
+    <string name="why_summary_thin">Хөдөлгөөн сул: ард нь хэмжээ бага.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">Зах зээлийн эсрэг</string>
+    <string name="why_f_coin_only">Зөвхөн энэ зоос</string>
+    <string name="why_f_leader">Bitcoin зах зээлийн тэргүүлэгчийн хувьд</string>
+    <string name="why_f_leverage_balanced">Хөшүүрэг тэнцвэртэй</string>
+    <string name="why_f_leverage_longs">Хөшүүрэг: лонг олон</string>
+    <string name="why_f_leverage_shorts">Хөшүүрэг: шорт олон</string>
+    <string name="why_f_market_calm">Тайван зах зээл</string>
+    <string name="why_f_market_wide">Бүх зах зээл хөдөлж байна</string>
+    <string name="why_factor_funding">Фандинг</string>
+    <string name="why_factor_futures">Фьючерс</string>
+    <string name="why_factor_market">Нийт зах зээл</string>
+    <string name="why_factor_near_high">Оргилд ойр</string>
+    <string name="why_factor_near_low">Ёроолд ойр</string>
+    <string name="why_factor_peg">Холбоос (1:1)</string>
+    <string name="why_factor_range3d">3 хоногийн хүрээ</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">ойролцоо</string>
+    <string name="why_fn_funding_longs">олонх нь өсөлтөд бооцоо тавьж байна</string>
+    <string name="why_fn_funding_neutral">төвийг сахисан</string>
+    <string name="why_fn_funding_shorts">олонх нь уналтад бооцоо тавьж байна</string>
+    <string name="why_fn_high_at">30 хоногийн оргил дээр</string>
+    <string name="why_fn_high_below">30 хоногийн оргилоос доор</string>
+    <string name="why_fn_leader_calm">Bitcoin тайван</string>
+    <string name="why_fn_leader_moves">Bitcoin тодорхой хөдөлж байна</string>
+    <string name="why_fn_low_above">30 хоногийн ёроолоос дээр</string>
+    <string name="why_fn_low_at">30 хоногийн ёроол дээр</string>
+    <string name="why_fn_market_against">Энэ зоос зах зээлийн эсрэг хөдөлж байна</string>
+    <string name="why_fn_market_alone">Зах зээл тайван – энэ зоос бие даан хөдөлж байна</string>
+    <string name="why_fn_market_calm">Зах зээл тайван</string>
+    <string name="why_fn_market_lags">Зах зээл хөдөлж байгаа ч энэ зоос бараг хөдлөхгүй</string>
+    <string name="why_fn_market_moves">Зах зээл ижил чиглэлд хөдөлж байна</string>
+    <string name="why_fn_market_pulls">Зах зээл BTC-тэй хамт хөдөлж байна</string>
+    <string name="why_fn_oi_down">Нээлттэй позиц буурсан</string>
+    <string name="why_fn_oi_flat">Нээлттэй позиц бараг өөрчлөгдөөгүй</string>
+    <string name="why_fn_oi_mixed">Нээлттэй позиц холимог</string>
+    <string name="why_fn_oi_up">Нээлттэй позиц өссөн</string>
+    <string name="why_fn_peg_above">1:1 холбоосоос %1$s дээр</string>
+    <string name="why_fn_peg_below">1:1 холбоосоос %1$s доор</string>
+    <string name="why_fn_peg_near">1:1 холбоост ойр</string>
+    <string name="why_fn_range_above_low">3 хоногийн ёроолоос хойш</string>
+    <string name="why_fn_range_below_high">3 хоногийн оргилоос хойш</string>
+    <string name="why_fn_range_near_high">3 хоногийн оргилд ойр</string>
+    <string name="why_fn_range_near_low">3 хоногийн ёроолд ойр</string>
+    <string name="why_fn_volatility_stronger">ердийнхөөс хүчтэй</string>
+    <string name="why_fn_volatility_tiny">үнэмлэхүй утгаар бага (%1$s-аас доош)</string>
+    <string name="why_fn_volatility_usual">ердийнх шиг</string>
+    <string name="why_fn_volume_higher">ердийнхөөс өндөр</string>
+    <string name="why_fn_volume_lower">ердийнхөөс бага</string>
+    <string name="why_fn_volume_usual">ердийнх шиг</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">Энэ зоос %1$s, BTC 24 цагт %2$s — мэдэгдэхүйц бие даасан хөдөлгөөн.</string>
+    <string name="why_against_ref_text">Энэ зоос %1$s, %2$s 24 цагт %3$s — мэдэгдэхүйц бие даасан хөдөлгөөн.</string>
+    <string name="why_btc_independent">%1$s одоо Bitcoin-оос үл хамааран хөдөлж байна.</string>
+    <string name="why_btc_tight">%1$s одоо Bitcoin-той нягт хамт хөдөлж байна.</string>
+    <string name="why_change_1h">1 ц</string>
+    <string name="why_change_24h">24 ц</string>
+    <string name="why_coin_only_text">Зах зээл тайван байхад 24 цагт %1$s – зөвхөн энэ зоостой холбоотой ямар нэг зүйл байж магадгүй.</string>
+    <string name="why_leverage_balanced_text">Фьючерсийн зах зээлд лонг эсвэл шорт позицын бөөгнөрөл алга.</string>
+    <string name="why_leverage_longs_text">Олонх нь зээлсэн мөнгөөр өсөлтөд бооцоо тавьж байна. Лонгууд шортуудад төлдөг — ханш унавал татан буулгалтын эрсдэл өндөр.</string>
+    <string name="why_leverage_shorts_text">Олонх нь зээлсэн мөнгөөр уналтад бооцоо тавьж байна. Шортууд лонгуудад төлдөг – ханш өсвөл шорт сквиз болж магадгүй.</string>
+    <string name="why_market_calm_text">Энэ зоос: 24 цагт %1$s. Зах зээл ч, зоос ч төдийлөн хөдлөхгүй байна.</string>
+    <string name="why_market_leader_text">Хамгийн том зоосны хувьд BTC ихэвчлэн зах зээлийн бусад хэсэгтэй хамт хөдөлдөг. ETH: 24 цагт %1$s.</string>
+    <string name="why_market_leader_text_no_eth">Хамгийн том зоосны хувьд BTC ихэвчлэн зах зээлийн бусад хэсэгтэй хамт хөдөлдөг.</string>
+    <string name="why_market_similar_text">Энэ зоос: 24 цагт %1$s – тэр үед зах зээл ч ижил чиглэлд, гэхдээ сул хөдөлж байна.</string>
+    <string name="why_market_wide_text">Энэ зоос: 24 цагт %1$s – тэр үед нийт зах зээл тодорхой хөдөлж байна.</string>
+    <string name="why_open_interest_change">Сүүлийн шалгалтаас хойш нээлттэй позиц %1$s.</string>
+    <string name="why_peg_text">Стэйблкойн: үнэлгээний валюттай 1:1 холбоостой харьцуулахад хазайлт %1$s.</string>
+    <string name="why_sentiment_text">Бүх крипто зах зээлийн Fear &amp; Greed индекс, өчигдөртэй харьцуулахад %1$s.</string>
+    <string name="why_sentiment_text_no_change">Бүх крипто зах зээлийн Fear &amp; Greed индекс.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="one">%1$d цаг буурч байна</item>
+        <item quantity="other">%1$d цаг буурч байна</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="one">%1$d цаг өсөж байна</item>
+        <item quantity="other">%1$d цаг өсөж байна</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="one">%1$d цаг тогтвортой</item>
+        <item quantity="other">%1$d цаг тогтвортой</item>
+    </plurals>
+    <string name="why_volatility_high_text">Сүүлийн цаг: %1$s — сүүлийн 24 цагийн ердийн цагийн хэлбэлзэлтэй харьцуулсан.</string>
+    <string name="why_volatility_normal_text">Сүүлийн цаг: %1$s — ердийн хүрээнд.</string>
+    <string name="why_volatility_tiny_text">Сүүлийн цаг: %1$s — энэ зоосны хувьд ер бусын ч үнэмлэхүй утгаар бага.</string>
+    <string name="why_volume_estimated_text">Ойролцоо: энэ эх сурвалж эргэлтийг өгдөггүй тул арилжсан зоосны тоо хэмжээг харьцуулна.</string>
+    <string name="why_volume_high_text">Сүүлийн цагт арилжаа ердийнхөөс хамаагүй их – хөдөлгөөн өндөр хэмжээтэй явагдаж байна.</string>
+    <string name="why_volume_low_text">Хөдөлгөөний ард арилжаа бага – ийм хөдөлгөөн ихэвчлэн тогтворгүй.</string>
+    <string name="why_volume_normal_text">Сүүлийн цагийн арилжаа сүүлийн 24 цагтай нийцэж байна.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">өндөрсөн</string>
+    <string name="why_dot_neutral">төвийг сахисан</string>
+    <string name="why_dot_supports">хөдөлгөөнтэй таарна</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">Өгөгдөл %1$s байдлаар</string>
+    <string name="why_fresh_breadth">Зах зээлийн өргөн: %1$s · %2$s</string>
+    <string name="why_fresh_candles">Лаа: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">Фьючерс: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="one">нээлттэй позицыг %1$d цагийн өмнөхтэй харьцуулсан</item>
+        <item quantity="other">нээлттэй позицыг %1$d цагийн өмнөхтэй харьцуулсан</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="one">нээлттэй позицыг %1$d минутын өмнөхтэй харьцуулсан</item>
+        <item quantity="other">нээлттэй позицыг %1$d минутын өмнөхтэй харьцуулсан</item>
+    </plurals>
+    <string name="why_fresh_today">өнөөдөр</string>
+    <string name="why_fresh_yesterday">өчигдөр</string>
+    <string name="why_source_fallback">%1$s (нөөц)</string>
+    <string name="why_source_reference">%1$s (лавлагаа)</string>
+    <string name="why_sources">Эх сурвалж: биржийн цагийн лаа (ихэвчлэн Binance), биржүүдийн фьючерсийн өгөгдөл, alternative.me-ийн Fear &amp; Greed.</string>
+    <string name="why_sources_list">Эх сурвалж: %1$s.</string>
+    <string name="why_src_breadth">%1$s (зах зээлийн өргөн)</string>
+    <string name="why_src_candles">%1$s (лаа)</string>
+    <string name="why_src_comparison">%1$s (зах зээлийн харьцуулалт)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (фьючерс)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Фандинг</string>
+    <string name="factor_spoken_volatility">ердийн хэлбэлзлээс %1$s дахин</string>
+    <string name="factor_spoken_volume">ердийнхөөс %1$s дахин</string>
+    <string name="factor_volatility">Хэлбэлзэл (1 ц)</string>
+    <string name="factor_volume">Хэмжээ</string>
+</resources>

@@ -1,0 +1,41 @@
+Crypto Checker kontrollib hindu sinu börsil ja annab teada, kui kontroll leiab, et sinu lävi on saavutatud. Kui rakendus on suletud, otsustab Android, millal hoiatusi kontrollida – kõige rohkem kord 15 minuti jooksul, sageli alles tundide pärast. Lühikesed hüpped vahepeal võivad märkamata jääda; rakendus ütleb seda. Sinu börsi hind, mitte keskmine – tasuta, ilma kontota.
+
+MILLE POOLEST SEE ERINEB
+• Sinu börs, mitte keskmine: iga rida näitab paari viimast hinda sinu valitud börsil – Binance, Coinbase, Kraken, OKX, Bybit ja paljud teised.
+• Hoiatus, mis teatab üks kord: „Anna teada, kui BTC tõuseb üle 100 000 USDT.“ See heliseb, kui kontroll leiab läve ületatuna, mitte iga uuenduse peale – „Üks kord“ lülitab selle siis välja, „Iga kord“ seab selle uuesti valmis, kui hind tagasi tuleb.
+• „Mis liigub kaasa?“: ühe mündi tegurite loend – kogu turg, maht, volatiilsus, rahastamismäär ja avatud positsioonid, kaugus tipust või põhjast, Fear & Greed. Näitab, mis liigub samal ajal – mitte põhjust, uudiseid ega investeerimisnõuannet.
+• Ilma kontota, ilma reklaamideta, ilma jälitamiseta. Arendaja ei saa sinu andmeid.
+
+AUSALT ANDMETEST
+• „Säästlik“ on vaikimisi: hinnad uuenevad rakenduse avamisel ja taustal ajavahemike järel. „Reaalajas, kuni on avatud“ lisab Binance’i, Bybiti, OKX-i, Coinbase’i ja Krakeni reaalajas hinnad, kuni loend on avatud.
+• %-muutus ja graafikud tulevad esmalt paari enda börsilt; kui sellel küünlaid pole, kasutab rakendus Binance’i või Coinbase’i ja ütleb seda.
+• Fear & Greed, dominants ja ahelasisesed väärtused saitidelt alternative.me, CoinGecko ja Coin Metrics.
+• Summad lahkuvad seadmest ainult sinu ekspordi või Androidi süsteemi varukoopia kaudu. Hindade jaoks saadetakse paari börsile ainult paaride sümbolid; lisaks vahetuskursid (Frankfurter), turuandmed ja logod (CoinGecko, Binance), andmepeeglid (GitHub). Kui jälgid aadresse või xpub-i, näevad avalikud plokiahela sõlmed aadresse (xpub-i puhul tuletatuid) ja sinu IP-d.
+
+JÄLGIMISLOEND
+• 56 turgu 45 börsil: spot ja futuurid, DEX-tokenid DexScreeneri kaudu, valikuliselt aktsiad, kuld ja valuutad (TradFi)
+• Teine rida „≈ väärtus“ ühes 31 valuutast (EUR, CHF, USD …), teisendatud kursiga
+• Minigraafik ja %-muutus 24 h jooksul või alates 00:00 sinu ajavööndis
+• Rühmad, lemmikud, lohistamine ja märkus mündi juures
+• Read märgivad „aegunud“ või „börs pole kättesaadav“
+
+HOIATUSED
+• Hind üle või alla läve või tõus või langus protsentides – ka sinu valuutas, nt 60 000 EUR USDT-paaril
+• Muutus x % võrra ajavahemiku jooksul, mahu hüpe
+• Heli (ka oma helifail), vibreerimine ja valikuline häälteade
+• Vaikne aeg ja „Testi hoiatust“: kuula hoiatus ette; hoiatuste logi: millal kontrolliti, milline hind, miks ei käivitunud
+
+TURG
+• Silmapaistev: ebatavalised hinna- ja mahuliikumised sinu loendis, valikuliselt turuteatena
+• Krüptopulss, Fear & Greed, Bitcoini näitajad, rahastamismäär ja avatud positsioonid – lihtsate mõõdetud väärtustena
+• Ethereumi, Bitcoini ja teiste võrkude tasud, gaasihoiatus
+
+VEEL
+• Vidinad: jälgimisloend, portfelli koguväärtus, üks münt koos graafikuga
+• Portfell valikuline (lülita sisse seadetes): ostud, müügid, vahetused, ülekanded, preemiad, sisse- ja väljamaksed; FIFO (vaikimisi) või keskmine (Ø); ainult lugemiseks aadressid ilma taastefraasita BTC (sh xpub), ETH ja EVM-ahelate, SOL, TRX, XRP, LTC, ADA ja TON jaoks; CSV-import Relaist, Swissquote’ist, Bitpandast, Krakenist, Binance’ist ja Coinbase’ist; aastaülevaade CSV-na; oma lukk. Bitpanda ja Swissquote: oma hinda pole, ainult CSV.
+• Kõigile loetav: roheline/punane või sinine/oranž, märk ja nool, mitte ainult värv; TalkBack loeb iga rea ette ühe lausena
+• Varundamine ja taastamine faili – ka Androidi ja iPhone’i vahel
+• Hele ja tume režiim, viis rõhuvärvi, 75 keelt
+• Avatud lähtekood (MIT) – avalik GitHubis
+
+Märkus: Crypto Checker näitab hindu ja portfelli, mille sa ise sisestad. See ei ole börs ega rahakott, ei kauple ega anna investeerimisnõuandeid.

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="backup_device_bound">Pred menjavo naprave ustvari datoteko varnostne kopije – šifrirane podatke je mogoče odpreti samo v tej napravi.</string>
+    <string name="backup_encryption_pending">Šifriranje še ni aktivno – aplikacija bo poskusila znova ob naslednjem zagonu.</string>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">Izvozi</string>
+    <string name="backup_exported">Varnostna kopija shranjena.</string>
+    <string name="backup_failed">To ni uspelo. Je to varnostna kopija Crypto Checker?</string>
+    <string name="backup_hint">Shrani seznam z opombami in skupinami, alarme, priljubljene, portfelj in nastavitve kot datoteko, ki jo shraniš pri sebi – npr. za nov telefon.</string>
+    <string name="backup_import">Uvozi</string>
+    <string name="backup_title">Varnostna kopija &amp; obnovitev</string>
+    <string name="backup_too_large">Datoteka je prevelika ali ni veljavna varnostna kopija (največ 64 MB).</string>
+    <string name="backup_export_too_large">Varnostna kopija bi bila večja od 64 MB in je ne bi bilo mogoče obnoviti, zato ni bila shranjena.</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">Geslo</string>
+    <string name="backup_password_continue">Naprej</string>
+    <string name="backup_password_hide">Skrij geslo</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">Vsaj %1$d znakov</string>
+    <string name="backup_password_mismatch">Gesli se ne ujemata</string>
+    <string name="backup_password_prompt">Vnesi geslo za to varnostno kopijo.</string>
+    <string name="backup_password_repeat">Ponovi geslo</string>
+    <string name="backup_password_show">Prikaži geslo</string>
+    <string name="backup_password_title">Varnostna kopija z geslom</string>
+    <string name="backup_password_too_weak">Preveč lahko uganiti – ne samo številke, ne en ponovljen znak, ne običajna zaporedja, kot sta „12345678“ ali „geslo“.</string>
+    <string name="backup_password_warning">Brez gesla varnostne kopije ni mogoče obnoviti.</string>
+    <string name="backup_password_wrong">Napačno geslo ali poškodovana datoteka. Poskusi znova.</string>
+    <string name="backup_protect">Zaščiti z geslom</string>
+    <string name="backup_protect_hint">Šifrira datoteko (AES-256). Priporočljivo, če vsebuje podatke portfelja.</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">Shrani brez gesla</string>
+    <string name="backup_plain_confirm_text">Datoteka ni šifrirana. Kdor jo dobi, lahko prebere:</string>
+    <string name="backup_plain_confirm_title">Shranim brez gesla?</string>
+    <string name="backup_plain_contents_addresses">Shranjene naslove denarnic in ključe xpub z zgodovino stanj in nabavno vrednostjo</string>
+    <string name="backup_plain_contents_base">Seznam z opombami in skupinami, alarme, priljubljene in nastavitve</string>
+    <string name="backup_plain_contents_portfolio">Portfelj: transakcije s količinami in cenami</string>
+    <string name="backup_restore_app_lock_kept">Zaklep portfelja ostane vklopljen – nešifrirana varnostna kopija ga ne more izklopiti.</string>
+    <string name="backup_restore_confirm">Uvoz nadomesti trenutni seznam (z opombami in skupinami), alarme, priljubljene, portfelj in nastavitve z varnostno kopijo.</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="one">%d vnos v varnostni kopiji (portfelj ali alarm) ni veljaven in ne bo uvožen.</item>
+        <item quantity="two">%d vnosa v varnostni kopiji (portfelj ali alarma) nista veljavna in ne bosta uvožena.</item>
+        <item quantity="few">%d vnosi v varnostni kopiji (portfelj ali alarmi) niso veljavni in ne bodo uvoženi.</item>
+        <item quantity="other">%d vnosov v varnostni kopiji (portfelj ali alarmi) ni veljavnih in ne bodo uvoženi.</item>
+    </plurals>
+    <string name="backup_restore_newer_version">Ta varnostna kopija je iz novejše različice aplikacije – najprej posodobi aplikacijo. Nič ni bilo uvoženo.</string>
+    <string name="backup_restore_unencrypted_warning">Ta varnostna kopija ni šifrirana – preveri, ali je od tebe. Nastavitve bodo prevzete – razen sprememb, ki znižajo zaščito (Zaklep portfelja, Lasten strežnik za naslove, Skrij zneske, Portfelj v sistemski varnostni kopiji).</string>
+    <string name="backup_restored">Obnovljeno: %1$s, %2$s.</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d alarm</item>
+        <item quantity="two">%1$d alarma</item>
+        <item quantity="few">%1$d alarmi</item>
+        <item quantity="other">%1$d alarmov</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d par</item>
+        <item quantity="two">%1$d para</item>
+        <item quantity="few">%1$d pari</item>
+        <item quantity="other">%1$d parov</item>
+    </plurals>
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen -->
+    <string name="backup_restore_over_limits">Zaradi omejitev (%3$s parov, %4$s alarmov na par) ne bo obnovljeno: %1$s, %2$s.</string>
+    <string name="backup_restored_over_limits">Zaradi omejitev (%3$s parov, %4$s alarmov na par) ni obnovljeno: %1$s, %2$s.</string>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren -->
+    <string name="storage_recovery_message">Ta naprava nima več ključa za šifrirane podatke aplikacije, zato se je aplikacija zagnala prazna. Nič ni bilo izbrisano. Seznam in portfelj dobiš nazaj, če v nastavitvah pod „%1$s“ uvoziš datoteko varnostne kopije.</string>
+    <string name="storage_recovery_title">Shranjenih podatkov ni bilo mogoče odkleniti</string>
+
+    <!-- Sicherung mit Passwort (Argon2id, 64 MiB): zu wenig Arbeitsspeicher -->
+    <string name="backup_not_enough_memory">Premalo prostega pomnilnika za zaščito ali odpiranje varnostne kopije z geslom. Zapri druge aplikacije in poskusi znova.</string>
+
+    <!-- Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">Obnovi varnostno kopijo</string>
+    <string name="storage_recovery_acknowledge">Razumem</string>
+    <string name="storage_recovery_restored_title">Shranjeni podatki so spet odklenjeni</string>
+    <string name="storage_recovery_restored_message">Prejšnji ključ te naprave je znova odprl odložene podatke, zato so spet tu. Podatki, shranjeni vmes, so ostali nespremenjeni poleg njih.</string>
+    <string name="settings_reset_notice_title">Nastavitve ponastavljene</string>
+    <string name="settings_reset_notice">Nastavitev ni bilo mogoče prebrati, zato so bile ponastavljene na privzete vrednosti. Preveri zaklep portfelja, interval alarmov in valuto.</string>
+    <string name="backup_restore_interrupted_title">Obnovitev je bila prekinjena</string>
+    <string name="backup_restore_interrupted_rolled_back">Aplikacija se je zaprla med obnavljanjem varnostne kopije. Prejšnji podatki so bili vrnjeni; iz varnostne kopije ni bilo prevzeto nič.</string>
+    <string name="backup_restore_interrupted_incomplete">Aplikacija se je zaprla med obnavljanjem varnostne kopije in prejšnjih podatkov ni bilo mogoče v celoti vrniti. Preveri seznam in portfelj ali znova obnovi varnostno kopijo v nastavitvah pod „%1$s“.</string>
+    <string name="backup_not_verified">Datoteke varnostne kopije po shranjevanju ni bilo mogoče potrditi – prebere se drugače. Shrani varnostno kopijo v novo datoteko.</string>
+
+    <!-- Hinweis (nur Android): Portfolio-Kopie aus der Systemsicherung auch beim zweiten Versuch unlesbar und gelöscht -->
+    <string name="system_backup_not_imported_title">Portfelj ni obnovljen iz sistemske varnostne kopije</string>
+    <!-- %1$s = Name des Bereichs «Sichern &amp; Wiederherstellen» in den Einstellungen -->
+    <string name="system_backup_not_imported_message">Kopije portfelja iz sistemske varnostne kopije Android ni bilo mogoče prebrati niti v drugem poskusu, zato je bila izbrisana. Če imaš datoteko varnostne kopije, jo obnovi v nastavitvah pod „%1$s“.</string>
+
+    <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
+    <string name="portfolio_storage_kept_in_memory">Shranjenih podatkov trenutno ni mogoče prebrati, zato portfelj ni prikazan in ga ni mogoče spreminjati. Znova zaženi aplikacijo.</string>
+    <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
+    <string name="watchlist_storage_kept_in_memory">Shranjenih podatkov trenutno ni mogoče prebrati, zato seznam ni prikazan in ga ni mogoče spreminjati. Znova zaženi aplikacijo.</string>
+    <string name="watchlist_storage_locked">Seznama ni mogoče spreminjati: shranjenih podatkov trenutno ni mogoče prebrati. Znova zaženi aplikacijo.</string>
+    <string name="alarm_save_storage_locked">Alarmov ni mogoče shraniti: shranjenih podatkov trenutno ni mogoče prebrati. Znova zaženi aplikacijo.</string>
+    <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
+    <string name="backup_storage_kept">Varnostno kopiranje ni mogoče: shranjenih podatkov trenutno ni mogoče prebrati. Znova zaženi aplikacijo in poskusi znova.</string>
+    <string name="backup_restore_storage_in_memory">Uvoz trenutno ni mogoč: aplikacija ta hip ne shranjuje podatkov (šifriranje še ni aktivno), zato bi se uvoz ob ponovnem zagonu izgubil. Znova zaženi aplikacijo in poskusi znova.</string>
+    <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable) -->
+    <string name="backup_restore_journal_unavailable">Uvoz trenutno ni mogoč: varnostne kopije tvojih trenutnih podatkov ni bilo mogoče shraniti (ključ ta hip ni na voljo). Nič ni bilo spremenjeno. Poskusi pozneje ali znova zaženi aplikacijo.</string>
+
+    <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
+    <string name="portfolio_storage_in_memory">Šifriranje še ni aktivno – portfelj se ne shranjuje, spremembe se ob zaprtju aplikacije izgubijo. Aplikacija bo poskusila znova ob naslednjem zagonu.</string>
+
+    <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
+    <string name="portfolio_storage_locked">Shranjenih podatkov trenutno ni mogoče prebrati, zato spremembe niso mogoče. Znova zaženi aplikacijo.</string>
+    <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
+    <string name="watchlist_storage_in_memory">Ta naprava trenutno ne zagotavlja ključa – seznam se ne shranjuje, spremembe se ob zaprtju aplikacije izgubijo. Alarmi v ozadju so zaustavljeni. Aplikacija bo poskusila znova ob naslednjem zagonu.</string>
+
+    <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
+    <string name="backup_restore_server_kept">„Lasten strežnik za naslove“ ni bil prevzet – nešifrirana varnostna kopija ga ne more spremeniti.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
+    <string name="backup_restore_server_public">„Lasten strežnik za naslove“ je bil odstranjen kot v varnostni kopiji – naslovi Bitcoin se spet poizvedujejo pri javnih vozliščih.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
+    <string name="backup_restore_server_changed">„Lasten strežnik za naslove“ je bil zamenjan s tistim iz varnostne kopije.</string>
+</resources>

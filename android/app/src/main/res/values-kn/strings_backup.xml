@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="backup_device_bound">ಸಾಧನ ಬದಲಾಯಿಸುವ ಮೊದಲು, ಬ್ಯಾಕಪ್ ಫೈಲ್ ರಚಿಸಿ – ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಿದ ಡೇಟಾವನ್ನು ಈ ಸಾಧನದಲ್ಲಿ ಮಾತ್ರ ತೆರೆಯಬಹುದು.</string>
+    <string name="backup_encryption_pending">ಎನ್‌ಕ್ರಿಪ್ಶನ್ ಇನ್ನೂ ಸಕ್ರಿಯವಾಗಿಲ್ಲ – ಮುಂದಿನ ಆರಂಭದಲ್ಲಿ ಆ್ಯಪ್ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸುತ್ತದೆ.</string>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">ರಫ್ತು ಮಾಡಿ</string>
+    <string name="backup_exported">ಬ್ಯಾಕಪ್ ಉಳಿಸಲಾಗಿದೆ.</string>
+    <string name="backup_failed">ಅದು ಕೆಲಸ ಮಾಡಲಿಲ್ಲ. ಇದು Crypto Checker ಬ್ಯಾಕಪ್ ಆಗಿದೆಯೇ?</string>
+    <string name="backup_hint">ನಿಮ್ಮ ವಾಚ್‌ಲಿಸ್ಟ್ ಅನ್ನು ಟಿಪ್ಪಣಿಗಳು ಮತ್ತು ಗುಂಪುಗಳೊಂದಿಗೆ, ಅಲರ್ಟ್‌ಗಳು, ಮೆಚ್ಚಿನವು, ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಮತ್ತು ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ನೀವೇ ಇಟ್ಟುಕೊಳ್ಳುವ ಫೈಲ್ ಆಗಿ ಉಳಿಸುತ್ತದೆ – ಉದಾ. ಹೊಸ ಫೋನ್‌ಗಾಗಿ.</string>
+    <string name="backup_import">ಆಮದು ಮಾಡಿ</string>
+    <string name="backup_title">ಬ್ಯಾಕಪ್ &amp; ಮರುಸ್ಥಾಪನೆ</string>
+    <string name="backup_too_large">ಫೈಲ್ ತುಂಬಾ ದೊಡ್ಡದಾಗಿದೆ ಅಥವಾ ಮಾನ್ಯ ಬ್ಯಾಕಪ್ ಅಲ್ಲ (ಮಿತಿ 64 MB).</string>
+    <string name="backup_export_too_large">ಬ್ಯಾಕಪ್ 64 MB ಗಿಂತ ದೊಡ್ಡದಾಗಿರುತ್ತದೆ ಮತ್ತು ಮರುಸ್ಥಾಪಿಸಲು ಸಾಧ್ಯವಾಗುವುದಿಲ್ಲ, ಆದ್ದರಿಂದ ಅದನ್ನು ಉಳಿಸಲಾಗಿಲ್ಲ.</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">ಪಾಸ್‌ವರ್ಡ್</string>
+    <string name="backup_password_continue">ಮುಂದುವರಿಸಿ</string>
+    <string name="backup_password_hide">ಪಾಸ್‌ವರ್ಡ್ ಮರೆಮಾಡಿ</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">ಕನಿಷ್ಠ %1$d ಅಕ್ಷರಗಳು</string>
+    <string name="backup_password_mismatch">ಪಾಸ್‌ವರ್ಡ್‌ಗಳು ಹೊಂದಿಕೆಯಾಗುತ್ತಿಲ್ಲ</string>
+    <string name="backup_password_prompt">ಈ ಬ್ಯಾಕಪ್‌ನ ಪಾಸ್‌ವರ್ಡ್ ನಮೂದಿಸಿ.</string>
+    <string name="backup_password_repeat">ಪಾಸ್‌ವರ್ಡ್ ಮತ್ತೆ ನಮೂದಿಸಿ</string>
+    <string name="backup_password_show">ಪಾಸ್‌ವರ್ಡ್ ತೋರಿಸಿ</string>
+    <string name="backup_password_title">ಪಾಸ್‌ವರ್ಡ್-ಸಂರಕ್ಷಿತ ಬ್ಯಾಕಪ್</string>
+    <string name="backup_password_too_weak">ಊಹಿಸಲು ತುಂಬಾ ಸುಲಭ – ಅಂಕಿಗಳು ಮಾತ್ರ, ಒಂದೇ ಅಕ್ಷರದ ಪುನರಾವರ್ತನೆ ಅಥವಾ “12345678” ಅಥವಾ “password” ನಂತಹ ಸಾಮಾನ್ಯ ಅನುಕ್ರಮಗಳನ್ನು ತಪ್ಪಿಸಿ.</string>
+    <string name="backup_password_warning">ಪಾಸ್‌ವರ್ಡ್ ಇಲ್ಲದೆ ಬ್ಯಾಕಪ್ ಅನ್ನು ಮರುಸ್ಥಾಪಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ.</string>
+    <string name="backup_password_wrong">ತಪ್ಪು ಪಾಸ್‌ವರ್ಡ್, ಅಥವಾ ಫೈಲ್ ಹಾನಿಗೊಳಗಾಗಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
+    <string name="backup_protect">ಪಾಸ್‌ವರ್ಡ್‌ನೊಂದಿಗೆ ರಕ್ಷಿಸಿ</string>
+    <string name="backup_protect_hint">ಫೈಲ್ ಅನ್ನು ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡುತ್ತದೆ (AES-256). ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಡೇಟಾ ಇದ್ದರೆ ಶಿಫಾರಸು ಮಾಡಲಾಗಿದೆ.</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">ಪಾಸ್‌ವರ್ಡ್ ಇಲ್ಲದೆ ಉಳಿಸಿ</string>
+    <string name="backup_plain_confirm_text">ಫೈಲ್ ಎನ್‌ಕ್ರಿಪ್ಟ್ ಆಗಿಲ್ಲ. ಅದನ್ನು ಪಡೆದ ಯಾರಾದರೂ ಓದಬಹುದು:</string>
+    <string name="backup_plain_confirm_title">ಪಾಸ್‌ವರ್ಡ್ ಇಲ್ಲದೆ ಉಳಿಸಬೇಕೆ?</string>
+    <string name="backup_plain_contents_addresses">ಬ್ಯಾಲೆನ್ಸ್ ಇತಿಹಾಸ ಮತ್ತು ಖರೀದಿ ವೆಚ್ಚದೊಂದಿಗೆ ಉಳಿಸಿದ ವ್ಯಾಲೆಟ್ ವಿಳಾಸಗಳು ಮತ್ತು xpub ಕೀಗಳು</string>
+    <string name="backup_plain_contents_base">ಟಿಪ್ಪಣಿಗಳು ಮತ್ತು ಗುಂಪುಗಳೊಂದಿಗೆ ವಾಚ್‌ಲಿಸ್ಟ್, ಅಲರ್ಟ್‌ಗಳು, ಮೆಚ್ಚಿನವು ಮತ್ತು ಸೆಟ್ಟಿಂಗ್‌ಗಳು</string>
+    <string name="backup_plain_contents_portfolio">ಪೋರ್ಟ್‌ಫೋಲಿಯೊ: ಮೊತ್ತಗಳು ಮತ್ತು ಬೆಲೆಗಳೊಂದಿಗೆ ವಹಿವಾಟುಗಳು</string>
+    <string name="backup_restore_app_lock_kept">ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಲಾಕ್ ಆನ್ ಆಗಿಯೇ ಇರುತ್ತದೆ – ಎನ್‌ಕ್ರಿಪ್ಟ್ ಆಗದ ಬ್ಯಾಕಪ್ ಅದನ್ನು ಆಫ್ ಮಾಡಲು ಸಾಧ್ಯವಿಲ್ಲ.</string>
+    <string name="backup_restore_confirm">ಆಮದು ಮಾಡುವುದರಿಂದ ನಿಮ್ಮ ಪ್ರಸ್ತುತ ವಾಚ್‌ಲಿಸ್ಟ್ (ಟಿಪ್ಪಣಿಗಳು ಮತ್ತು ಗುಂಪುಗಳೊಂದಿಗೆ), ಅಲರ್ಟ್‌ಗಳು, ಮೆಚ್ಚಿನವು, ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಮತ್ತು ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಬ್ಯಾಕಪ್‌ನಿಂದ ಬದಲಾಯಿಸಲಾಗುತ್ತದೆ.</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="one">ಬ್ಯಾಕಪ್‌ನಲ್ಲಿನ %d ನಮೂದು (ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಅಥವಾ ಅಲರ್ಟ್) ಅಮಾನ್ಯವಾಗಿದೆ ಮತ್ತು ಆಮದು ಮಾಡಲಾಗುವುದಿಲ್ಲ.</item>
+        <item quantity="other">ಬ್ಯಾಕಪ್‌ನಲ್ಲಿನ %d ನಮೂದುಗಳು (ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಅಥವಾ ಅಲರ್ಟ್‌ಗಳು) ಅಮಾನ್ಯವಾಗಿವೆ ಮತ್ತು ಆಮದು ಮಾಡಲಾಗುವುದಿಲ್ಲ.</item>
+    </plurals>
+    <string name="backup_restore_newer_version">ಈ ಬ್ಯಾಕಪ್ ಹೊಸ ಆ್ಯಪ್ ಆವೃತ್ತಿಯಿಂದ ಬಂದಿದೆ – ಮೊದಲು ಆ್ಯಪ್ ಅನ್ನು ಅಪ್‌ಡೇಟ್ ಮಾಡಿ. ಏನನ್ನೂ ಆಮದು ಮಾಡಲಾಗಿಲ್ಲ.</string>
+    <string name="backup_restore_unencrypted_warning">ಈ ಬ್ಯಾಕಪ್ ಎನ್‌ಕ್ರಿಪ್ಟ್ ಆಗಿಲ್ಲ – ಅದು ನಿಮ್ಮದೇ ಎಂದು ಪರಿಶೀಲಿಸಿ. ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಅನ್ವಯಿಸಲಾಗುತ್ತದೆ – ರಕ್ಷಣೆಯನ್ನು ಕಡಿಮೆ ಮಾಡುವ ಬದಲಾವಣೆಗಳನ್ನು ಹೊರತುಪಡಿಸಿ (ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಲಾಕ್, ವಿಳಾಸಗಳಿಗಾಗಿ ಸ್ವಂತ ಸರ್ವರ್, ಮೊತ್ತಗಳನ್ನು ಮರೆಮಾಡಿ, ಸಿಸ್ಟಮ್ ಬ್ಯಾಕಪ್‌ನಲ್ಲಿ ಪೋರ್ಟ್‌ಫೋಲಿಯೊ).</string>
+    <string name="backup_restored">ಮರುಸ್ಥಾಪಿಸಲಾಗಿದೆ: %1$s, %2$s.</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d ಅಲರ್ಟ್</item>
+        <item quantity="other">%1$d ಅಲರ್ಟ್‌ಗಳು</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d ಜೋಡಿ</item>
+        <item quantity="other">%1$d ಜೋಡಿಗಳು</item>
+    </plurals>
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen -->
+    <string name="backup_restore_over_limits">ಮಿತಿಗಳನ್ನು ಮೀರಿದವು (%3$s ಜೋಡಿಗಳು, ಪ್ರತಿ ಜೋಡಿಗೆ %4$s ಅಲರ್ಟ್‌ಗಳು), ಮರುಸ್ಥಾಪಿಸಲಾಗುವುದಿಲ್ಲ: %1$s, %2$s.</string>
+    <string name="backup_restored_over_limits">ಮಿತಿಗಳನ್ನು ಮೀರಿದವು (%3$s ಜೋಡಿಗಳು, ಪ್ರತಿ ಜೋಡಿಗೆ %4$s ಅಲರ್ಟ್‌ಗಳು), ಮರುಸ್ಥಾಪಿಸಲಾಗಿಲ್ಲ: %1$s, %2$s.</string>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren -->
+    <string name="storage_recovery_message">ಆ್ಯಪ್‌ನ ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಿದ ಡೇಟಾದ ಕೀ ಈ ಸಾಧನದಲ್ಲಿ ಇನ್ನು ಇಲ್ಲ, ಆದ್ದರಿಂದ ಆ್ಯಪ್ ಖಾಲಿಯಾಗಿ ಆರಂಭವಾಯಿತು. ಏನನ್ನೂ ಅಳಿಸಲಾಗಿಲ್ಲ. ನಿಮ್ಮ ವಾಚ್‌ಲಿಸ್ಟ್ ಮತ್ತು ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಮರಳಿ ಪಡೆಯಲು, ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ “%1$s” ಅಡಿಯಲ್ಲಿ ಬ್ಯಾಕಪ್ ಫೈಲ್ ಆಮದು ಮಾಡಿ.</string>
+    <string name="storage_recovery_title">ಉಳಿಸಿದ ಡೇಟಾವನ್ನು ಅನ್‌ಲಾಕ್ ಮಾಡಲಾಗಲಿಲ್ಲ</string>
+
+    <!-- Sicherung mit Passwort (Argon2id, 64 MiB): zu wenig Arbeitsspeicher -->
+    <string name="backup_not_enough_memory">ಪಾಸ್‌ವರ್ಡ್‌ನೊಂದಿಗೆ ಬ್ಯಾಕಪ್ ರಕ್ಷಿಸಲು ಅಥವಾ ತೆರೆಯಲು ಸಾಕಷ್ಟು ಖಾಲಿ ಮೆಮೊರಿ ಇಲ್ಲ. ಇತರ ಆ್ಯಪ್‌ಗಳನ್ನು ಮುಚ್ಚಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
+
+    <!-- Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">ಬ್ಯಾಕಪ್ ಮರುಸ್ಥಾಪಿಸಿ</string>
+    <string name="storage_recovery_acknowledge">ಅರ್ಥವಾಯಿತು</string>
+    <string name="storage_recovery_restored_title">ಉಳಿಸಿದ ಡೇಟಾ ಮತ್ತೆ ಅನ್‌ಲಾಕ್ ಆಗಿದೆ</string>
+    <string name="storage_recovery_restored_message">ಈ ಸಾಧನದಲ್ಲಿನ ಹಿಂದಿನ ಕೀ ಬದಿಗಿಟ್ಟ ಡೇಟಾವನ್ನು ಮತ್ತೆ ತೆರೆಯಿತು, ಆದ್ದರಿಂದ ಅದು ಮರಳಿ ಬಂದಿದೆ. ಈ ನಡುವೆ ಉಳಿಸಿದ ಡೇಟಾವನ್ನು ಬದಲಾಯಿಸದೆ ಅದರ ಪಕ್ಕದಲ್ಲೇ ಇರಿಸಲಾಗಿದೆ.</string>
+    <string name="settings_reset_notice_title">ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಮರುಹೊಂದಿಸಲಾಗಿದೆ</string>
+    <string name="settings_reset_notice">ನಿಮ್ಮ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಓದಲಾಗಲಿಲ್ಲ ಮತ್ತು ಡಿಫಾಲ್ಟ್‌ಗಳಿಗೆ ಮರುಹೊಂದಿಸಲಾಗಿದೆ. ದಯವಿಟ್ಟು ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಲಾಕ್, ಅಲರ್ಟ್‌ಗಳ ಅಂತರ ಮತ್ತು ಕರೆನ್ಸಿಯನ್ನು ಪರಿಶೀಲಿಸಿ.</string>
+    <string name="backup_restore_interrupted_title">ಮರುಸ್ಥಾಪನೆ ಅಡಚಣೆಗೊಂಡಿದೆ</string>
+    <string name="backup_restore_interrupted_rolled_back">ಬ್ಯಾಕಪ್ ಮರುಸ್ಥಾಪಿಸುತ್ತಿರುವಾಗ ಆ್ಯಪ್ ಮುಚ್ಚಲ್ಪಟ್ಟಿತು. ನಿಮ್ಮ ಹಿಂದಿನ ಡೇಟಾವನ್ನು ಮರಳಿ ಇರಿಸಲಾಗಿದೆ; ಬ್ಯಾಕಪ್‌ನಿಂದ ಏನನ್ನೂ ಇರಿಸಲಾಗಿಲ್ಲ.</string>
+    <string name="backup_restore_interrupted_incomplete">ಬ್ಯಾಕಪ್ ಮರುಸ್ಥಾಪಿಸುತ್ತಿರುವಾಗ ಆ್ಯಪ್ ಮುಚ್ಚಲ್ಪಟ್ಟಿತು, ಮತ್ತು ಹಿಂದಿನ ಡೇಟಾವನ್ನು ಸಂಪೂರ್ಣವಾಗಿ ಮರಳಿ ಇರಿಸಲಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ನಿಮ್ಮ ವಾಚ್‌ಲಿಸ್ಟ್ ಮತ್ತು ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಪರಿಶೀಲಿಸಿ, ಅಥವಾ ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ “%1$s” ಅಡಿಯಲ್ಲಿ ಬ್ಯಾಕಪ್ ಅನ್ನು ಮತ್ತೆ ಮರುಸ್ಥಾಪಿಸಿ.</string>
+    <string name="backup_not_verified">ಉಳಿಸಿದ ನಂತರ ಬ್ಯಾಕಪ್ ಫೈಲ್ ಅನ್ನು ಪರಿಶೀಲಿಸಲಾಗಲಿಲ್ಲ – ಅದು ಬೇರೆ ರೀತಿಯಲ್ಲಿ ಓದಲ್ಪಡುತ್ತಿದೆ. ದಯವಿಟ್ಟು ಬ್ಯಾಕಪ್ ಅನ್ನು ಹೊಸ ಫೈಲ್‌ಗೆ ಉಳಿಸಿ.</string>
+
+    <!-- Hinweis (nur Android): Portfolio-Kopie aus der Systemsicherung auch beim zweiten Versuch unlesbar und gelöscht -->
+    <string name="system_backup_not_imported_title">ಸಿಸ್ಟಮ್ ಬ್ಯಾಕಪ್‌ನಿಂದ ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಮರುಸ್ಥಾಪಿಸಲಾಗಿಲ್ಲ</string>
+    <!-- %1$s = Name des Bereichs «Sichern &amp; Wiederherstellen» in den Einstellungen -->
+    <string name="system_backup_not_imported_message">Android ಸಿಸ್ಟಮ್ ಬ್ಯಾಕಪ್‌ನಿಂದ ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಪ್ರತಿಯನ್ನು ಎರಡನೇ ಪ್ರಯತ್ನದಲ್ಲೂ ಓದಲಾಗಲಿಲ್ಲ, ಮತ್ತು ಅದನ್ನು ಅಳಿಸಲಾಗಿದೆ. ನಿಮ್ಮಲ್ಲಿ ಬ್ಯಾಕಪ್ ಫೈಲ್ ಇದ್ದರೆ, ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ “%1$s” ಅಡಿಯಲ್ಲಿ ಅದನ್ನು ಮರುಸ್ಥಾಪಿಸಿ.</string>
+
+    <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
+    <string name="portfolio_storage_kept_in_memory">ಉಳಿಸಿದ ಡೇಟಾವನ್ನು ಸದ್ಯ ಓದಲು ಸಾಧ್ಯವಿಲ್ಲ, ಆದ್ದರಿಂದ ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ತೋರಿಸಲಾಗುತ್ತಿಲ್ಲ ಮತ್ತು ಬದಲಾಯಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ. ಆ್ಯಪ್ ಮರುಪ್ರಾರಂಭಿಸಿ.</string>
+    <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
+    <string name="watchlist_storage_kept_in_memory">ಉಳಿಸಿದ ಡೇಟಾವನ್ನು ಸದ್ಯ ಓದಲು ಸಾಧ್ಯವಿಲ್ಲ, ಆದ್ದರಿಂದ ವಾಚ್‌ಲಿಸ್ಟ್ ತೋರಿಸಲಾಗುತ್ತಿಲ್ಲ ಮತ್ತು ಬದಲಾಯಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ. ಆ್ಯಪ್ ಮರುಪ್ರಾರಂಭಿಸಿ.</string>
+    <string name="watchlist_storage_locked">ವಾಚ್‌ಲಿಸ್ಟ್ ಬದಲಾಯಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ: ಉಳಿಸಿದ ಡೇಟಾವನ್ನು ಸದ್ಯ ಓದಲು ಸಾಧ್ಯವಿಲ್ಲ. ಆ್ಯಪ್ ಮರುಪ್ರಾರಂಭಿಸಿ.</string>
+    <string name="alarm_save_storage_locked">ಅಲರ್ಟ್‌ಗಳನ್ನು ಉಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ: ಉಳಿಸಿದ ಡೇಟಾವನ್ನು ಸದ್ಯ ಓದಲು ಸಾಧ್ಯವಿಲ್ಲ. ಆ್ಯಪ್ ಮರುಪ್ರಾರಂಭಿಸಿ.</string>
+    <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
+    <string name="backup_storage_kept">ಬ್ಯಾಕಪ್ ಸಾಧ್ಯವಿಲ್ಲ: ಉಳಿಸಿದ ಡೇಟಾವನ್ನು ಸದ್ಯ ಓದಲು ಸಾಧ್ಯವಿಲ್ಲ. ಆ್ಯಪ್ ಮರುಪ್ರಾರಂಭಿಸಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
+    <string name="backup_restore_storage_in_memory">ಆಮದು ಸದ್ಯ ಸಾಧ್ಯವಿಲ್ಲ: ಆ್ಯಪ್ ಈಗ ಡೇಟಾವನ್ನು ಉಳಿಸುತ್ತಿಲ್ಲ (ಎನ್‌ಕ್ರಿಪ್ಶನ್ ಇನ್ನೂ ಸಕ್ರಿಯವಾಗಿಲ್ಲ), ಆದ್ದರಿಂದ ಮರುಪ್ರಾರಂಭದಲ್ಲಿ ಆಮದು ಕಳೆದುಹೋಗುತ್ತದೆ. ಆ್ಯಪ್ ಮರುಪ್ರಾರಂಭಿಸಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
+    <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable) -->
+    <string name="backup_restore_journal_unavailable">ಆಮದು ಸದ್ಯ ಸಾಧ್ಯವಿಲ್ಲ: ನಿಮ್ಮ ಪ್ರಸ್ತುತ ಡೇಟಾದ ಸುರಕ್ಷತಾ ಪ್ರತಿಯನ್ನು ಉಳಿಸಲಾಗಲಿಲ್ಲ (ಕೀ ಸದ್ಯ ಲಭ್ಯವಿಲ್ಲ). ಏನನ್ನೂ ಬದಲಾಯಿಸಲಾಗಿಲ್ಲ. ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ ಅಥವಾ ಆ್ಯಪ್ ಮರುಪ್ರಾರಂಭಿಸಿ.</string>
+
+    <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
+    <string name="portfolio_storage_in_memory">ಎನ್‌ಕ್ರಿಪ್ಶನ್ ಇನ್ನೂ ಸಕ್ರಿಯವಾಗಿಲ್ಲ – ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಉಳಿಸಲ್ಪಡುತ್ತಿಲ್ಲ, ಆ್ಯಪ್ ಮುಚ್ಚಿದಾಗ ಬದಲಾವಣೆಗಳು ಕಳೆದುಹೋಗುತ್ತವೆ. ಮುಂದಿನ ಆರಂಭದಲ್ಲಿ ಆ್ಯಪ್ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸುತ್ತದೆ.</string>
+
+    <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
+    <string name="portfolio_storage_locked">ಉಳಿಸಿದ ಡೇಟಾವನ್ನು ಸದ್ಯ ಓದಲು ಸಾಧ್ಯವಿಲ್ಲ, ಆದ್ದರಿಂದ ಬದಲಾವಣೆಗಳು ಸಾಧ್ಯವಿಲ್ಲ. ಆ್ಯಪ್ ಮರುಪ್ರಾರಂಭಿಸಿ.</string>
+    <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
+    <string name="watchlist_storage_in_memory">ಈ ಸಾಧನ ಸದ್ಯ ಕೀ ಒದಗಿಸುತ್ತಿಲ್ಲ – ವಾಚ್‌ಲಿಸ್ಟ್ ಉಳಿಸಲ್ಪಡುತ್ತಿಲ್ಲ, ಆ್ಯಪ್ ಮುಚ್ಚಿದಾಗ ಬದಲಾವಣೆಗಳು ಕಳೆದುಹೋಗುತ್ತವೆ. ಹಿನ್ನೆಲೆಯಲ್ಲಿ ಅಲರ್ಟ್‌ಗಳನ್ನು ವಿರಾಮಗೊಳಿಸಲಾಗಿದೆ. ಮುಂದಿನ ಆರಂಭದಲ್ಲಿ ಆ್ಯಪ್ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸುತ್ತದೆ.</string>
+
+    <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
+    <string name="backup_restore_server_kept">“ವಿಳಾಸಗಳಿಗಾಗಿ ಸ್ವಂತ ಸರ್ವರ್” ಅನ್ವಯಿಸಲಾಗಿಲ್ಲ – ಎನ್‌ಕ್ರಿಪ್ಟ್ ಆಗದ ಬ್ಯಾಕಪ್ ಅದನ್ನು ಬದಲಾಯಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
+    <string name="backup_restore_server_public">ಬ್ಯಾಕಪ್‌ನಲ್ಲಿರುವಂತೆ “ವಿಳಾಸಗಳಿಗಾಗಿ ಸ್ವಂತ ಸರ್ವರ್” ತೆಗೆದುಹಾಕಲಾಗಿದೆ – Bitcoin ವಿಳಾಸಗಳನ್ನು ಮತ್ತೆ ಸಾರ್ವಜನಿಕ ನೋಡ್‌ಗಳಲ್ಲಿ ಪ್ರಶ್ನಿಸಲಾಗುತ್ತದೆ.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
+    <string name="backup_restore_server_changed">“ವಿಳಾಸಗಳಿಗಾಗಿ ಸ್ವಂತ ಸರ್ವರ್” ಅನ್ನು ಬ್ಯಾಕಪ್‌ನಲ್ಲಿರುವುದರಿಂದ ಬದಲಾಯಿಸಲಾಗಿದೆ.</string>
+</resources>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">mas maraming data at baterya ang kailangan</string>
+    <string name="update_mode_live">Live habang bukas</string>
+    <string name="update_mode_live_hint">Kung may live price ang exchange: agad-agad habang bukas ang watchlist. Kung wala, sa susunod na pag-fetch. Kapag sarado: hindi mas madalas sa bawat %1$s, madalas mas huli.</string>
+    <string name="update_mode_live_hint_ios">Kung may live price ang exchange: agad-agad habang bukas ang watchlist. Kung wala, sa susunod na pag-fetch. Kapag sarado: kapag pinayagan ng iOS, minsan ilang oras ang pagitan. Kapag na-swipe mo palayo ang app, ititigil ng iOS ang mga pagsusuring ito hanggang buksan mo ulit ito.</string>
+    <string name="update_mode_recommended">inirerekomenda</string>
+    <string name="update_mode_sparsam">Matipid</string>
+    <string name="update_mode_sparsam_hint">Kapag sarado ang app, hindi mas madalas sa bawat %1$s, madalas mas huli (mga alerto, widget). Kapag bukas: sa bawat pagbukas mo.</string>
+    <string name="update_mode_sparsam_hint_ios">Kapag sarado ang app, ang iOS ang nagpapasya kung kailan susuri (mga alerto, widget), minsan ilang oras ang pagitan. Kapag bukas: sa bawat pagbukas mo.</string>
+    <string name="update_mode_title">Dalas ng update</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">Naputol ang refresh</string>
+    <string name="refresh_sheet_alarms">Mga Alerto</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d ang na-trigger</item>
+        <item quantity="other">%1$d ang na-trigger</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">Na-update ang lahat</string>
+    <string name="refresh_sheet_app_start">Pagbukas ng app</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">bulk request %1$s · %2$d presyo</item>
+        <item quantity="other">bulk request %1$s · %2$d presyo</item>
+    </plurals>
+    <string name="refresh_sheet_database">Database</string>
+    <string name="refresh_sheet_exchange_unreachable">Hindi maabot ang %1$s</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
+        <item quantity="one">%1$d exchange ang hindi maabot</item>
+        <item quantity="other">%1$d exchange ang hindi maabot</item>
+    </plurals>
+    <string name="refresh_sheet_network">Network</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d notification ng presyo</item>
+        <item quantity="other">%1$d notification ng presyo</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d pares</item>
+        <item quantity="other">%1$d pares</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d pares ang hindi na-update</item>
+        <item quantity="other">%1$d pares ang hindi na-update</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d sa %1$d pares</item>
+        <item quantity="other">%2$d sa %1$d pares</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">naka-pause hanggang %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">naka-pause hanggang %1$s (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">walang data</string>
+    <string name="refresh_sheet_reason_offline">walang koneksyon</string>
+    <string name="refresh_sheet_reason_rate_limit">masyadong maraming request</string>
+    <string name="refresh_sheet_reason_server">error sa server</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">timeout</string>
+    <string name="refresh_sheet_reason_unavailable">hindi available ang exchange</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s segundo</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_exchanges">Mga exchange</string>
+    <string name="refresh_sheet_section_steps">Breakdown</string>
+    <string name="refresh_sheet_status_failed">hindi na-update</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">na-update lahat</string>
+    <string name="refresh_sheet_status_partial">bahagyang na-update</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Naghihintay magsimula</string>
+    <string name="refresh_sheet_widgets">Mga widget</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">bulk request %1$s (pumalya)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d error</item>
+        <item quantity="other">%1$d error</item>
+    </plurals>
+    <string name="refresh_report_live">Live: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d ang hindi na tine-trade</item>
+        <item quantity="other">%1$d ang hindi na tine-trade</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d nang isa-isa</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">Pumalya</string>
+    <string name="check_result_ok">OK</string>
+    <string name="check_result_partial">Bahagya</string>
+    <string name="check_result_skipped">Nilaktawan</string>
+    <string name="check_trigger_bgtask">Background</string>
+    <string name="check_trigger_exact">Sa takdang oras</string>
+    <string name="check_trigger_foreground">App</string>
+    <string name="check_trigger_widget">Widget</string>
+    <string name="check_trigger_widget_ios">Widget · mga presyo at price alert</string>
+    <string name="check_trigger_worker">Background</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Maaaring iantala ng Android ang mga pagsusuri – itakda ang baterya sa “Walang limitasyon”</string>
+    <string name="battery_later">Mamaya</string>
+    <string name="battery_message">Iniaantala ng Android ang trabaho sa background para makatipid ng power — maaaring ilang oras nang luma ang mga presyo at widget. Kapag itinakda mong walang limitasyon ang paggamit ng baterya, mananatiling kasalukuyan ang mga ito. Mababago mo ito anumang oras sa mga setting ng Android.</string>
+    <string name="battery_open_settings">Buksan ang mga setting ng baterya</string>
+    <string name="battery_steps">Sa app info, i-tap ang Baterya (o Paggamit ng baterya ng app) at piliin ang Walang limitasyon.</string>
+    <string name="battery_title">Panatilihing up to date ang mga presyo</string>
+    <string name="ios_background_refresh_off">Naka-off ang Background App Refresh para sa app na ito. Kung wala ito, sinusuri lang ang mga alerto habang bukas ang app.</string>
+    <string name="ios_low_power_mode">Naka-on ang Low Power Mode. Madalang sumuri ang iOS sa background, kaya maaaring mahuli ang mga alerto.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Mensahe ng exchange: %1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">Naka-lock pa rin ang storage – susubukan ulit sa loob ng %1$d s</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="one">Naka-lock pa rin ang storage – susubukan ulit sa loob ng %1$d segundo</item>
+        <item quantity="other">Naka-lock pa rin ang storage – susubukan ulit sa loob ng %1$d segundo</item>
+    </plurals>
+    <string name="watchlist_retry_short">Susubukan ulit sa loob ng %1$s</string>
+    <string name="widget_retry_at">Susubukan ulit nang %1$s</string>
+    <string name="refresh_sheet_wait_attempt">Subok %1$d – hindi pa handa ang naka-encrypt na storage sa una</string>
+</resources>

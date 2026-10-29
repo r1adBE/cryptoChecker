@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">මෙම උපාංගයේ තිර අගුලක් සකසා නැත. පළමුව පද්ධති සැකසීම් තුළ එකක් සකසන්න.</string>
+    <string name="app_lock_unlock">අගුළු හරින්න</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">කළඹ හිස් කරන්න</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="one">ගනුදෙනු %d ක් මකන්නද? නිරීක්ෂිත ලිපින පවතී. ඔබට මෙය වහාම පසුව පසුගමනය කළ හැක.</item>
+        <item quantity="other">සියලු ගනුදෙනු %d මකන්නද? නිරීක්ෂිත ලිපින පවතී. ඔබට මෙය වහාම පසුව පසුගමනය කළ හැක.</item>
+    </plurals>
+    <string name="portfolio_empty_action">ඔබේ පළමු මිලදී ගැනීම එක් කරන්න</string>
+    <string name="portfolio_empty_address">පසුම්බි ලිපිනයක් නිරීක්ෂණය කරන්න පමණක්</string>
+    <string name="portfolio_empty_csv">හුවමාරුවකින් මිලදී ගත්තාද? එහි ගොනුව ආයාත කරන්න</string>
+    <string name="portfolio_empty_example_plain">උදාහරණය: මාර්තු 1 දින %1$s BTC මිලදී ගත්තා. එවිට යෙදුම එය අද කොපමණ වටිනාද සහ ඔබ ලාභයේද පාඩුවේද යන්න පෙන්වයි – මෙම උපාංගයේ පමණක් ගබඩා වේ.</string>
+    <string name="portfolio_empty_title">තවම ගනුදෙනු නැත</string>
+    <string name="portfolio_enable_ask_text">ඔබේ ගනුදෙනුව සුරකින ලදී. කළඹ ටැබය ඔබේ හිමිකම් සහ ඒවායේ වටිනාකම පෙන්වයි.</string>
+    <string name="portfolio_enable_ask_title">කළඹ ටැබය සක්‍රිය කරන්නද?</string>
+    <string name="portfolio_enable_later_hint">ගනුදෙනුව සුරකින ලදී. ඔබට සැකසීම් › කළඹ තුළ කළඹ ටැබය සක්‍රිය කළ හැක.</string>
+    <string name="portfolio_enabled_banner">කළඹ සක්‍රිය කළා – ඔබට එය කළඹ ටැබයේ හමු වේ.</string>
+    <string name="portfolio_lock_reason">කළඹ අගුළු හරින්න</string>
+    <string name="portfolio_locked_text">ඔබේ හිමිකම් සහ වටිනාකම් බැලීමට අගුළු හරින්න.</string>
+    <string name="portfolio_locked_title">කළඹ අගුළු දමා ඇත</string>
+    <string name="portfolio_setting_hint">විකල්ප: මිලදී ගැනීම් සහ විකිණීම් සටහන් කර වෙනම ටැබයක වටිනාකම සහ ලාභය/පාඩුව බලන්න.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">යල් පැන ඇත · %1$s වන විට</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="one">පද්ධති උපස්ථයේ ඇතුළත් කිරීම් %d ක් වලංගු නොවූ අතර ප්‍රතිසාධනය නොකළා.</item>
+        <item quantity="other">පද්ධති උපස්ථයේ ඇතුළත් කිරීම් %d ක් වලංගු නොවූ අතර ප්‍රතිසාධනය නොකළා.</item>
+    </plurals>
+    <string name="portfolio_title">කළඹ</string>
+    <string name="portfolio_unassigned_fee">ගාස්තුව පවරා නැත – පිරිවැය පදනම නොදනී: %1$s</string>
+    <string name="portfolio_updated">%1$s වන විට මිල ගණන්</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">වෙනත්</string>
+    <string name="portfolio_allocation_title">බෙදා හැරීම</string>
+    <string name="portfolio_card_details">විස්තර</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: තවම ලබා ගත නොහැක</string>
+    <string name="portfolio_card_hints_count">සටහන් (%1$d)</string>
+    <string name="portfolio_card_today">අද</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">මුළු</string>
+    <string name="portfolio_hide_amounts">ප්‍රමාණ සඟවන්න</string>
+    <string name="portfolio_hide_amounts_hint">කළඹේ සහ කළඹ විජට් එකේ ප්‍රමාණ සහ වටිනාකම් ••• ලෙස පෙන්වයි – ප්‍රතිශත දිගටම පෙනේ.</string>
+    <string name="portfolio_invested">පිරිවැය පදනම</string>
+    <string name="portfolio_total_no_fx">%1$s සඳහා විනිමය අනුපාතයක් නැත – ප්‍රමාණ USDT වලින්</string>
+    <string name="portfolio_total_value">මුළු වටිනාකම</string>
+    <string name="portfolio_value">වටිනාකම</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">සාමා. %1$s · දැන් %2$s</string>
+    <string name="portfolio_avg_only">සාමා. %1$s</string>
+    <string name="portfolio_avg_open_lots">රඳවා ඇති කාසිවල සාමාන්‍ය පිරිවැය</string>
+    <string name="portfolio_avg_partial">මිලදී ගැනීමේ මිල ඇති %1$s හි සාමාන්‍යය</string>
+    <string name="portfolio_avg_price">සාමාන්‍ය මිලදී ගැනීමේ මිල</string>
+    <string name="portfolio_avg_price_hint">සාමාන්‍ය මිලදී ගැනීමේ මිල: ප්‍රමාණය අනුව බර තැබූ සියලු මිලදී ගැනීම්වල සාමාන්‍යය. විකිණීම් මෙම සාමාන්‍යයෙන් තක්සේරු කෙරේ.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">වසා දැමූ ස්ථානය (%1$d)</item>
+        <item quantity="other">වසා දැමූ ස්ථාන (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: විකිණීම් පළමුව ඔබේ පැරණිතම කාසි භාවිත කරයි. සාමා. = ඉතිරි පිරිවැය පදනම ÷ මිලදී ගැනීමේ මිල සහිත ප්‍රමාණය.</string>
+    <string name="portfolio_holdings">හිමිකම්</string>
+    <string name="portfolio_lost_fee_cost">ගෙවූ කොටසක් නොමැති ජාල ගාස්තු පිරිවැය: %1$s</string>
+    <string name="portfolio_open_lots">විවෘත මිලදී ගැනීම් කොටස් (%1$d)</string>
+    <string name="portfolio_open_lots_avg">මිලදී ගැනීමේ මිල සමඟ (සාමා.)</string>
+    <string name="portfolio_open_lots_no_cost">මිලදී ගැනීමේ මිල නොමැතිව</string>
+    <string name="portfolio_open_lots_without_price">මිලදී ගැනීමේ මිලක් නැත</string>
+    <string name="portfolio_realized">සාක්ෂාත් ලාභය/පාඩුව</string>
+    <string name="portfolio_unrealized">විවෘත ලාභය/පාඩුව</string>
+    <string name="portfolio_unrealized_without_unpriced">මිලදී ගැනීමේ මිලක් නැති %1$s නොමැතිව</string>
+    <string name="portfolio_withdrawn_gain">ආපසු ගත්: %1$s (ආපසු ගැනීම දක්වා වටිනාකම් වෙනස)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">මෙයට පරිවර්තනය කරන්න</string>
+    <string name="portfolio_convert_to_value">මෙයට පරිවර්තනය: %1$s</string>
+    <string name="portfolio_current_missing">%1$s සඳහා වත්මන් මිලක් නැත</string>
+    <string name="portfolio_current_price">වත්මන් මිල</string>
+    <string name="portfolio_price_missing">මිල නැත</string>
+    <string name="portfolio_price_missing_hint">සමහර මිලදී ගැනීම්වලට මිලක් නැත. ලාභය/පාඩුව බැලීමට මිලදී ගැනීමේ මිල එක් කරන්න.</string>
+    <string name="portfolio_price_source">මිල: Binance · USDT වෙළඳපොළ මිලට</string>
+    <string name="portfolio_price_source_routes">මිල: %1$s, නැතහොත් Binance · USDT වෙළඳපොළ මිලට</string>
+    <string name="portfolio_price_unavailable">මිල දැන් ලබා ගත නොහැක</string>
+    <string name="portfolio_price_unchecked">මිල පරීක්ෂා නොකළ</string>
+    <string name="portfolio_price_via_base">≈ %1$s මිල (bridged/wrapped)</string>
+    <string name="portfolio_usdt_as_usd">USDT එහි USD වෙළඳපොළ මිලට පරිවර්තනය කර ඇත</string>
+    <string name="portfolio_usdt_assumed">USDT ඩොලර් අනුපාතය නැත – එක්සත් ජනපද ඩොලර් 1 ලෙස ගණනය කළා</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">කළඹට එක් කරන්න</string>
+    <string name="portfolio_add_tx">ගනුදෙනුව එක් කරන්න</string>
+    <string name="portfolio_buy">මිලදී ගැනීම</string>
+    <string name="portfolio_coin">කාසිය</string>
+    <string name="portfolio_coin_invalid">කාසි සංකේතයක් ඇතුළත් කරන්න</string>
+    <string name="portfolio_coin_search">සංකේතය සොයන්න, උදා. BTC</string>
+    <string name="portfolio_discard_confirm">ඉවත ලන්න</string>
+    <string name="portfolio_discard_keep">සංස්කරණය දිගටම කරන්න</string>
+    <string name="portfolio_discard_title">වෙනස්කම් ඉවත ලන්නද?</string>
+    <string name="portfolio_edit_tx">ගනුදෙනුව සංස්කරණය කරන්න</string>
+    <string name="portfolio_invalid">0 ට වඩා වැඩි වලංගු සංඛ්‍යාවක් ඇතුළත් කරන්න.</string>
+    <string name="portfolio_oversold">විකිණීම් හිමිකම් ඉක්මවයි – කරුණාකර ගනුදෙනු පරීක්ෂා කරන්න.</string>
+    <string name="portfolio_sell">විකිණීම</string>
+    <string name="portfolio_sell_exceeds">ඔබේ හිමිකම්වලට (%1$s) වඩා වැඩියි</string>
+    <string name="portfolio_sell_exceeds_fee">ප්‍රමාණය සහ ගාස්තුව ඔබේ හිමිකම්වලට (%1$s) වඩා වැඩියි</string>
+    <string name="portfolio_sell_exceeds_wallet">%2$s හි ඔබේ හිමිකම්වලට (%1$s) වඩා වැඩියි</string>
+    <string name="portfolio_transactions">ගනුදෙනු</string>
+    <string name="portfolio_tx_acquired_date">මුල් මිලදී ගැනීමේ දිනය (විකල්ප)</string>
+    <string name="portfolio_tx_acquired_date_hint">බදු නිර්යාතයේ රඳවා ගැනීමේ කාලය සඳහා</string>
+    <string name="portfolio_tx_amount">ප්‍රමාණය</string>
+    <string name="portfolio_tx_coin_fee">කාසියෙන් ගාස්තුව (විකල්ප)</string>
+    <string name="portfolio_tx_date">දිනය</string>
+    <string name="portfolio_tx_delete_confirm">මෙම ගනුදෙනුව කළඹෙන් ඉවත් කෙරේ.</string>
+    <string name="portfolio_tx_delete_title">ගනුදෙනුව මකන්නද?</string>
+    <string name="portfolio_tx_deposit">තැන්පතුව</string>
+    <string name="portfolio_tx_entry_currency">ඇතුළත් කරන මුදල</string>
+    <string name="portfolio_tx_explain_deposit">වෙළඳාමක් නොමැති හිමිකම්, උදා. පෙර සිට තිබූ කාසි</string>
+    <string name="portfolio_tx_explain_gift">කාසි ආපසු ගැනීමක් මෙන් ඔබේ හිමිකම්වලින් ඉවත් වේ – තෑගිවලට බදු අය කරන රටවල (UK, CA, AU) පමණක් වෙළඳපොළ වටිනාකමට බැහැර කිරීමකි</string>
+    <string name="portfolio_tx_explain_payment">භාණ්ඩ හෝ සේවා සඳහා ගෙවා ඇත – විකිණීමක් මෙන් වෙළඳපොළ වටිනාකමට බැහැර කිරීමකි, මුදල් නොලැබේ</string>
+    <string name="portfolio_tx_explain_reward">පිරිවැය පදනම = ලැබුණු විට වෙළඳපොළ වටිනාකම</string>
+    <string name="portfolio_tx_explain_swap">එක් කාසියක් තවත් කාසියකට: දුන් කාසිය විකුණා ලැබුණු කාසිය මිලදී ගනී</string>
+    <string name="portfolio_tx_explain_transfer">ලාභයක් නැත – පිරිවැය පදනම කාසි සමඟ යයි</string>
+    <string name="portfolio_tx_explain_withdrawal">හිමිකම් කළඹෙන් ඉවත් වේ – විකිණීමක් නැත, ලාභයක් නැත</string>
+    <string name="portfolio_tx_fee_consumes_amount">ගාස්තුව ලැබුණු ප්‍රමාණය තරම් විශාලයි – කිසිවක් ඉතිරි නොවේ.</string>
+    <string name="portfolio_tx_fees_toggle">ගාස්තු</string>
+    <string name="portfolio_tx_fiat_converted">%2$s අනුපාතයට ≈ %1$s</string>
+    <string name="portfolio_tx_fiat_loading">විනිමය අනුපාතය පූරණය වෙමින්…</string>
+    <string name="portfolio_tx_fiat_no_fx">මෙම දිනය සඳහා විනිමය අනුපාතයක් නැත – ප්‍රමාණය USDT වලින් ඇතුළත් කරන්න.</string>
+    <string name="portfolio_tx_gift">තෑග්ග</string>
+    <string name="portfolio_tx_gift_price_hint">USDT වලින්. හිස් = එදින වසා දැමීමේ මිල (ඇස්තමේන්තුගත).</string>
+    <string name="portfolio_tx_gift_spouse">කලත්‍රයාට / සිවිල් හවුල්කරුට</string>
+    <string name="portfolio_tx_gift_spouse_hint">UK සහ කැනඩාව: ලාභයක් හෝ පාඩුවක් නැත – ඔබේ හවුල්කරු ඔබේ පිරිවැය පදනම භාර ගනී. වෙනත් රටවල් මෙය නොසලකා හරියි.</string>
+    <string name="portfolio_tx_market_value">කාසියකට වෙළඳපොළ වටිනාකම</string>
+    <string name="portfolio_tx_more_buy">ගාස්තුව, හුවමාරුව, සටහන</string>
+    <string name="portfolio_tx_network_fee">කාසියෙන් ජාල ගාස්තුව (විකල්ප)</string>
+    <string name="portfolio_tx_note">සටහන (විකල්ප)</string>
+    <string name="portfolio_tx_payment">එයින් ගෙවා ඇත</string>
+    <string name="portfolio_tx_price">කාසියකට මිල</string>
+    <string name="portfolio_tx_price_hint">USDT වලින්. නොදන්නේ නම් හිස්ව තබන්න.</string>
+    <string name="portfolio_tx_price_historic">%1$s හි පරීක්ෂා කළ දෛනික වසා දැමීමේ මිල – අවශ්‍ය නම් සකසන්න</string>
+    <string name="portfolio_tx_price_invalid">වලංගු සංඛ්‍යාවක් (0 හෝ වැඩි) ඇතුළත් කරන්න හෝ ක්ෂේත්‍රය හිස්ව තබන්න.</string>
+    <string name="portfolio_tx_price_past_hint">මිලදී ගත් දිනයේ මිල ඇතුළත් කරන්න – නොදන්නේ නම් හිස්ව තබන්න</string>
+    <string name="portfolio_tx_price_receipt_hint">USDT වලින්. හිස් = පිරිවැය පදනමක් නැති හිමිකම්.</string>
+    <string name="portfolio_tx_price_zero">ආයාත කළ ගනුදෙනු සඳහා මිල 0 කළ නොහැක – වෙළඳපොළ මිල සඳහා හිස්ව තබන්න</string>
+    <string name="portfolio_tx_removed">ගනුදෙනුව මකා දැමුණි</string>
+    <string name="portfolio_tx_reward">ත්‍යාගය</string>
+    <string name="portfolio_tx_save_failed">ගනුදෙනුව සුරැකිය නොහැකි විය. ඔබේ ඇතුළත් කිරීම් තවමත් මෙහි ඇත – කරුණාකර යළි උත්සාහ කරන්න.</string>
+    <string name="portfolio_tx_swap">හුවමාරුව</string>
+    <string name="portfolio_tx_swap_fee_received">%1$s වලින් ගාස්තුව: ලැබුණු ප්‍රමාණය අඩු කරයි, මිලක් අවශ්‍ය නැත.</string>
+    <string name="portfolio_tx_swap_from">%1$s වෙතින් හුවමාරුව</string>
+    <string name="portfolio_tx_swap_given_amount">දුන් ප්‍රමාණය</string>
+    <string name="portfolio_tx_swap_given_coin">දුන් කාසිය</string>
+    <string name="portfolio_tx_swap_received_amount">ලැබුණු ප්‍රමාණය</string>
+    <string name="portfolio_tx_swap_received_coin">ලැබුණු කාසිය</string>
+    <string name="portfolio_tx_swap_same_coin">දුන් කාසියට වඩා වෙනස් කාසියක් තෝරන්න</string>
+    <string name="portfolio_tx_swap_to">%1$s වෙත හුවමාරුව</string>
+    <string name="portfolio_tx_swap_value">හුවමාරුවේ වටිනාකම (විකල්ප)</string>
+    <string name="portfolio_tx_swap_value_hint">මුළු වටිනාකම. හිස් = නොදනී – ලාභය අසම්පූර්ණව පවතී (හුවමාරුවේ USDT ඇත්නම් ස්වයංක්‍රීයයි).</string>
+    <string name="portfolio_tx_third_fee_amount">ගාස්තු ප්‍රමාණය</string>
+    <string name="portfolio_tx_third_fee_coin">ගාස්තු කාසිය</string>
+    <string name="portfolio_tx_third_fee_incomplete">මිලක් නොමැතිව ගාස්තුව පිරිවැය පදනමෙන් සහ ආදායමෙන් ඉවත් කෙරේ; බදු නිර්යාතය එවැනි විකිණීම් සලකුණු කරයි.</string>
+    <string name="portfolio_tx_third_fee_price">ගාස්තු කාසියකට මිල (විකල්ප)</string>
+    <string name="portfolio_tx_third_fee_toggle">වෙනත් කාසියකින් ගාස්තුව</string>
+    <string name="portfolio_tx_total">මුළු: %1$s</string>
+    <string name="portfolio_tx_transfer">මාරුව</string>
+    <string name="portfolio_tx_transfer_from">සිට (විකල්ප)</string>
+    <string name="portfolio_tx_transfer_to">වෙත (විකල්ප)</string>
+    <string name="portfolio_tx_transfer_to_hint">හුවමාරුව හෝ පසුම්බිය – මෙතැන් සිට එහි තක්සේරු කෙරේ.</string>
+    <string name="portfolio_tx_type_select">වර්ගය: %1$s</string>
+    <string name="portfolio_tx_value_received">ලැබුණු විට කාසියකට වටිනාකම (විකල්ප)</string>
+    <string name="portfolio_tx_withdrawal">ආපසු ගැනීම</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">එය වෙනත් අයෙකුට දුන්නාද හෝ එයින් ගෙව්වාද? එය “තෑග්ග” හෝ “එයින් ගෙවා ඇත” ලෙස සටහන් කරන්න – රට අනුව, බදු අරමුණු සඳහා එය විකිණීමක් ලෙස ගණන් වේ.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">විකල්ප: USDT වලින් වෙළඳපොළ වටිනාකම, ඉතිහාසය සඳහා පමණක් භාවිත වේ (හිස් = එදින මිල). කාසි සෑම විටම ඒවායේ පිරිවැය පදනමින් ඉවත් වේ.</string>
+    <string name="portfolio_wallet_did_you_mean">ඔබ අදහස් කළේ %1$s ද? වෙනස් අක්ෂර වින්‍යාසයක් වෙනම පසුම්බියක් ලෙස ගණන් වේ.</string>
+    <string name="portfolio_wallet_shortfall">%1$s හි හිමිකම් ප්‍රමාණවත් නැත – මාරුවක් මග හැරුණාද?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">ඉහළම %1$s</string>
+    <string name="portfolio_compare">සංසන්දනය</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">%1$s සහ USDT ප්‍රතිශතයෙන් සංසන්දනය කරන්න</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">ප්‍රතිශතයෙන් සංසන්දනය, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">මුදල් බලපෑම: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">මිල දත්ත 2017 අගෝස්තු දක්වා පමණක් පසුපසට යයි — ඉතිහාසය එතැනින් ආරම්භ වේ.</string>
+    <string name="portfolio_history_chip_since_first">සියල්ල</string>
+    <string name="portfolio_history_collapse">වටිනාකම් ඉතිහාසය සඟවන්න</string>
+    <string name="portfolio_history_converted">අද අනුපාතයට පරිවර්තිත</string>
+    <string name="portfolio_history_expand">වටිනාකම් ඉතිහාසය පෙන්වන්න</string>
+    <string name="portfolio_history_gain_a11y">වටිනාකම %1$s. ලාභය/පාඩුව, %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">ලාභය/පාඩුව</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">%1$s වලින් වටිනාකම</string>
+    <string name="portfolio_history_incl_fx">විනිමය අනුපාතය ඇතුළුව</string>
+    <string name="portfolio_history_incl_withdrawn">ආපසු ගත් කාසිවල වටිනාකම් වෙනස ඇතුළත්</string>
+    <string name="portfolio_history_includes_trades">මෙම කාලපරිච්ඡේදයේ මිලදී ගැනීම් සහ විකිණීම් ඇතුළත්</string>
+    <string name="portfolio_history_loading">වටිනාකම් ඉතිහාසය පූරණය වෙමින්</string>
+    <string name="portfolio_history_period_1y">වසර 1</string>
+    <string name="portfolio_history_period_30d">දින 30</string>
+    <string name="portfolio_history_period_7d">දින 7</string>
+    <string name="portfolio_history_period_since_first">පළමු මිලදී ගැනීමේ සිට</string>
+    <string name="portfolio_history_pnl_needs_prices">ලාභය/පාඩුව සඳහා මිලදී ගැනීමේ මිල නැත – ඒවා ගනුදෙනුවලට එක් කරන්න.</string>
+    <string name="portfolio_history_pnl_without">%1$s නොමැතිව ලාභය/පාඩුව (මිල නැත)</string>
+    <string name="portfolio_history_range_1y">වසර 1</string>
+    <string name="portfolio_history_range_30d">දින 30</string>
+    <string name="portfolio_history_range_7d">දින 7</string>
+    <string name="portfolio_history_range_a11y">%1$s සඳහා ඉතිහාසය පෙන්වන්න</string>
+    <string name="portfolio_history_range_since_first">1 වන මිලදී ගැනීමේ සිට</string>
+    <string name="portfolio_history_scaled">%1$s සඳහා ඉතිහාසය: හුවමාරු මිලට පරිමාණය කළ Binance ඉතිහාසය</string>
+    <string name="portfolio_history_title">වටිනාකම් ඉතිහාසය</string>
+    <string name="portfolio_history_today">අද</string>
+    <string name="portfolio_history_too_short">ඉතිහාසය ඔබේ පළමු සම්පූර්ණ දිනයෙන් පසුව ආරම්භ වේ.</string>
+    <string name="portfolio_history_unavailable">දැන් ඉතිහාසයක් ලබා ගත නොහැක.</string>
+    <string name="portfolio_history_utc_days">UTC හි දින (දෛනික ඉටිපන්දම්)</string>
+    <string name="portfolio_history_without_matching">%1$s නොමැතිව (ගැළපෙන දෛනික මිල නැත)</string>
+    <string name="portfolio_period_rewards">ත්‍යාග +%1$s (ලාභයට ඇතුළත් නොවේ)</string>
+    <string name="portfolio_period_scaled">%1$s සඳහා දින 7/වසර 1: හුවමාරු මිලට පරිමාණය කළ Binance ඉතිහාසය</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">ඇඟවීම</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">ප්‍රමාණය (%1$s)</string>
+    <string name="portfolio_alarm_hint">සෑම නැවුම් කිරීමකින් පසුම පරීක්ෂා කෙරේ. ඇඟවීම් මෙන්, සීමාව පසු කළ විට ක්‍රියාත්මක වන අතර වටිනාකම නැවත ආපසු ගිය පසුව පමණක් නැවත ක්‍රියාත්මක වේ.</string>
+    <string name="portfolio_alarm_kind_above">කළඹ ප්‍රමාණයට වඩා ඉහළින්</string>
+    <string name="portfolio_alarm_kind_below">කළඹ ප්‍රමාණයට වඩා පහළින්</string>
+    <string name="portfolio_alarm_kind_down">කළඹ පහත වැටේ</string>
+    <string name="portfolio_alarm_kind_up">කළඹ ඉහළ යයි</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">කළඹ %1$s ට වඩා ඉහළින්</string>
+    <string name="portfolio_alarm_sentence_below">කළඹ %1$s ට වඩා පහළින්</string>
+    <string name="portfolio_alarm_sentence_down">කළඹ %1$s කින් පහළට (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">කළඹ %1$s කින් ඉහළට (%2$s)</string>
+    <string name="portfolio_alarm_title">කළඹ වටිනාකම් ඇඟවීම</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">හුවමාරුව (විකල්ප)</string>
+    <string name="ledger_exchange_failed">%1$s: දැන් %2$s වෙතින් මිලක් නැත – Binance සමඟ තක්සේරු කළා.</string>
+    <string name="ledger_exchange_hint">කාසිය මෙම හුවමාරුවේ මිලට තක්සේරු කෙරේ (නැතහොත් Binance). ඉතිහාසය, දින 7 සහ වසර 1 එයට පරිමාණය කළ Binance දෛනික මිල භාවිත කරයි.</string>
+    <string name="ledger_exchange_mixed">%1$s: හුවමාරු කිහිපයක් ඇතුළත් කර ඇත – Binance සමඟ තක්සේරු කළා. කාසි ගෙන ගියාද? එම චලනය “මාරුව” ලෙස සටහන් කරන්න.</string>
+    <string name="ledger_exchange_none">කිසිවක් නැත (Binance)</string>
+    <string name="ledger_fee">ගාස්තුව (විකල්ප)</string>
+    <string name="ledger_fee_coin">කාසිය</string>
+    <string name="ledger_fee_hint">USDT වලින් එය පිරිවැය පදනම වැඩි කරයි (විකිණීම: ආදායම අඩු කරයි); කාසියෙන් එය ප්‍රමාණය අඩු කරයි.</string>
+    <string name="ledger_fee_line">ගාස්තුව %1$s</string>
+    <string name="ledger_fifo_cost_note">මිලදී ගැනීමේ සිට: ගාස්තු ඇතුළු FIFO පිරිවැය (පැරණිතම කාසි පළමුව විකුණනු ලැබේ).</string>
+    <string name="ledger_gain_info">අද, දින 7, වසර 1: කාලපරිච්ඡේදය තුළ වටිනාකම් වෙනස – මිලදී ගැනීම් සහ විකිණීම් ලාභය ලෙස ගණන් නොවේ. මිලදී ගැනීමේ සිට: ඔබ තවමත් රඳවා ඇති කාසිවල වත්මන් වටිනාකම අඩු පිරිවැය පදනම (ගාස්තු ඇතුළු සාමාන්‍ය පිරිවැය).</string>
+    <string name="ledger_gain_info_a11y">ලාභය සහ පාඩුව ගණනය කරන ආකාරය</string>
+    <string name="ledger_gain_info_fifo">අද, දින 7, වසර 1: කාලපරිච්ඡේදය තුළ වටිනාකම් වෙනස – මිලදී ගැනීම් සහ විකිණීම් ලාභය ලෙස ගණන් නොවේ. මිලදී ගැනීමේ සිට: ඔබ තවමත් රඳවා ඇති කාසිවල වත්මන් වටිනාකම අඩු පිරිවැය පදනම (ගාස්තු ඇතුළු FIFO).</string>
+    <string name="ledger_gain_title">ලාභය/පාඩුව</string>
+    <string name="ledger_more_toggle">ගාස්තුව සහ හුවමාරුව</string>
+    <string name="ledger_partial_cost">“මිලදී ගැනීමේ සිට” ගණන් කරන්නේ මිලදී ගැනීමේ මිලක් ඇති කොටස පමණි – මිලදී ගැනීමේ මිලක් නැති %1$s නොමැතිව.</string>
+    <string name="ledger_period_without">අද / දින 7 / වසර 1 %1$s නොමැතිව – ගැළපෙන ආරම්භක මිලක් නැත.</string>
+    <string name="ledger_since_purchase_currency">මිලදී ගැනීමේ සිට (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">මිලදී ගැනීමේ සිට ලාභය/පාඩුව, තවම විකුණා නැත</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="one">මිලදී ගැනීමේ මිලක් නැති කාසි %1$d (%2$s) නොමැතිව – එය ගණන් වීමට මිල එක් කරන්න.</item>
+        <item quantity="other">මිලදී ගැනීමේ මිලක් නැති කාසි %1$d (%2$s) නොමැතිව – ඒවා ගණන් වීමට මිල එක් කරන්න.</item>
+    </plurals>
+
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">USDT බිඳවැටීම – වෙළඳපොළ %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">USDC/USDT හරහා USDT ඩොලර් අනුපාතය – USDC පහත වැටුණහොත්, මෙම අගය වැරදියි</string>
+    <string name="portfolio_amount_bridged_stable">≈ %1$s ඇතුළුව (bridged)</string>
+
+    <string name="portfolio_tx_interest">පොලිය (ණය දීම)</string>
+    <string name="portfolio_tx_interest_hint">ලැබුණු විට ආදායම ලෙස ගණන් වේ (ඔස්ට්‍රියාව). ස්ටේකිං ත්‍යාග සහ එයාර්ඩ්‍රොප් සඳහා භාවිත නොකරන්න.</string>
+    <string name="app_lock_no_screen_lock">කළඹ විවෘත කිරීමට තිර අගුලක් සකසන්න.</string>
+    <string name="app_lock_turn_off_action">කළඹ අගුල අක්‍රිය කරන්න</string>
+    <string name="app_lock_turn_off_confirm_title">කළඹ අගුල අක්‍රිය කරන්නද?</string>
+    <string name="app_lock_turn_off_confirm_message">තිර අගුලක් නොමැතිව කළඹ අගුළු හැරිය නොහැක. අක්‍රිය කළ විට, යෙදුම නොවිමසා නැවත ඔබේ කළඹ පෙන්වයි. තිර අගුලක් සැකසූ පසු, ඔබට සැකසීම් තුළ අගුල නැවත සක්‍රිය කළ හැක.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">%1$s වලින් “මිලදී ගැනීමේ සිට” සහ පිරිවැය පදනම: මිලදී ගත් දිනයේ විනිමය අනුපාතයට පිරිවැය, අද අනුපාතයට වටිනාකම.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">මිලදී ගත් දිනය සඳහා විනිමය අනුපාතයක් නැත (“මිලදී ගැනීමේ සිට” සහ පිරිවැය පදනමෙන් ඉවත්ව): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">USDT ඩොලර් අනුපාතයක් නැති මිලදී ගැනීමේ දිනවල පිරිවැය USDT එකකට එක්සත් ජනපද ඩොලර් 1 ලෙස ගණනය කළා.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">%1$s වන විට – හුවමාරුවට ළඟා විය නොහැක</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">දෛනික මිල: %1$s (Binance වෙනුවට)</string>
+
+    <string name="portfolio_footer_short">වැඩ ආධාරකයකි, බදු හෝ ආයෝජන උපදෙස් නොවේ. පෞද්ගලිකත්වය: සැකසීම් › යෙදුම ගැන › පෞද්ගලිකත්ව ප්‍රතිපත්තිය.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">%1$s හි සියලු ගනුදෙනු මකන්නද?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">ගනුදෙනු %d ක් ඉවත් කෙරේ. ඔබට මෙය වහාම පසුව පසුගමනය කළ හැක.</item>
+        <item quantity="other">ගනුදෙනු %d ක් ඉවත් කෙරේ. ඔබට මෙය වහාම පසුව පසුගමනය කළ හැක.</item>
+    </plurals>
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">%1$s වලින් ගෙවූ ගාස්තු වෙනත් ගනුදෙනුවලින්ද ඉවත් කෙරේ: %2$d.</string>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s කළඹෙන් ඉවත් කළා (ගනුදෙනු %2$d)</item>
+        <item quantity="other">%1$s කළඹෙන් ඉවත් කළා (ගනුදෙනු %2$d)</item>
+    </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">ගනුදෙනු %d ක් ඉවත් කළා</item>
+        <item quantity="other">ගනුදෙනු %d ක් ඉවත් කළා</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">මෙය කොටස් %d ක්ද ඉවත් කරයි.</item>
+        <item quantity="other">මෙය කොටස් %d ක්ද ඉවත් කරයි.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">මෙය කොටස් %d ක් සහ ශේෂ ඉතිහාසයද ඉවත් කරයි.</item>
+        <item quantity="other">මෙය කොටස් %d ක් සහ ශේෂ ඉතිහාසයද ඉවත් කරයි.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">මෙය ශේෂ ඉතිහාසයද ඉවත් කරයි.</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">සුරැකිය නොහැකි විය – කරුණාකර යළි උත්සාහ කරන්න</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">සීමාව වලංගු නැත – මකා නැවත සාදන්න</string>
+</resources>

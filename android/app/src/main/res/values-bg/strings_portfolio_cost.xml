@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">Записи без себестойност: %1$d</string>
+    <string name="cost_gaps_card_text">Добави себестойността, за да са пълни печалбата и данъкът.</string>
+    <string name="cost_gaps_sheet_title">Записи без себестойност</string>
+    <string name="cost_gaps_sheet_intro">За тези постъпления липсва себестойност. Предложението е цената на затваряне за датата – можеш да я коригираш в записа.</string>
+    <string name="cost_gaps_empty">Всички записи имат себестойност.</string>
+    <string name="cost_gap_enter">Въведи себестойност</string>
+    <string name="cost_gap_leave_unknown">Остави неизвестно</string>
+    <string name="cost_gap_left_unknown">Оставено неизвестно</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">Предложение: цена на затваряне %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">Няма проверена цена на затваряне за тази дата</string>
+    <string name="cost_gap_suggestion_loading">Зареждане на цената на затваряне…</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">Себестойност = стойност при получаване (доход)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">Себестойност = 0 (награда без постъпление, Австрия)</string>
+    <string name="cost_gap_apply">Приложи</string>
+    <string name="address_lots_action">Себестойност за салдото на адреса</string>
+    <string name="address_lots_title">Себестойност за салдото на адреса</string>
+    <string name="address_lots_intro">Въведи дата на покупка, количество и себестойност за салдото на този адрес. Партидите се броят като покупки в този адрес; непокритата част остава без себестойност.</string>
+    <string name="address_lots_add">Добави партида</string>
+    <string name="address_lots_new">Нова партида</string>
+    <string name="address_lots_edit">Партида</string>
+    <string name="address_lots_date">Дата на покупка</string>
+    <string name="address_lots_amount">Количество</string>
+    <string name="address_lots_mode_total">Общо</string>
+    <string name="address_lots_mode_price">За монета</string>
+    <string name="address_lots_price">Цена за монета (USDT)</string>
+    <string name="address_lots_total">Обща себестойност (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%1$s от %2$s със себестойност</string>
+    <string name="address_lots_unlotted">%1$s без себестойност</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">Партидите надвишават салдото с %1$s – най-старите се използват първи.</string>
+    <string name="address_lots_not_loaded">Салдото още не е заредено – партидите се броят веднага щом се зареди.</string>
+    <string name="address_lots_invalid">Въведи количество и себестойност</string>
+</resources>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">Altboinn in aghaidh Bitcoin</string>
+    <string name="neutral_btc_indicators_title">Táscairí Bitcoin</string>
+    <string name="neutral_halving_last">Leathú deireanach: %1$s</string>
+    <string name="neutral_halving_next">Táthar ag súil leis an gcéad leathú eile thart ar %1$s (measta ón bhféilire – níl airde an bhloic ar fáil faoi láthair).</string>
+    <string name="neutral_indicators_disclaimer">Luachanna tomhaiste amháin, gan mheasúnú. Ní réamhaisnéis é agus ní comhairle infheistíochta é.</string>
+    <string name="neutral_onchain_missing">Níl sonraí on-chain (Coin Metrics) ar fáil faoi láthair.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">Cé chomh fada atá an praghas faoina bhuaic uile-ama roimhe seo.</string>
+    <string name="neutral_explain_change_30d">An praghas inniu i gcomparáid le 30 lá ó shin.</string>
+    <string name="neutral_explain_hashrate">Meán hashrate 30 lá i gcomparáid leis an meán 60 lá.</string>
+    <string name="neutral_explain_ma200w">Meán na 200 dúnadh seachtainiúil deireanach.</string>
+    <string name="neutral_explain_mayer">An praghas roinnte ar an meán 200 lá.</string>
+    <string name="neutral_explain_mvrv">Luach margaidh roinnte ar an luach réadaithe (on-chain).</string>
+    <string name="neutral_explain_pi_gap">Meán 111 lá i gcomparáid le dhá oiread an mheáin 350 lá.</string>
+    <string name="neutral_explain_puell">Ioncam laethúil na mianadóirí roinnte ar a mheán 365 lá.</string>
+    <string name="neutral_explain_rsi_daily">Innéacs Neart Coibhneasta na 14 lá deireanacha, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">Innéacs Neart Coibhneasta na 14 seachtaine deireanacha, 0–100.</string>
+    <string name="neutral_explain_sma50_200">Meán 50 lá i gcomparáid leis an meán 200 lá.</string>
+    <string name="neutral_explain_vs_btc">Athrú praghais i gcomparáid le Bitcoin thar 90 lá.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">Ní thaispeánann an aip ach an líon agus ní lipéadaíonn sí é mar shéasúr. Athraíonn an luach de ghnáth thar laethanta, ní uaireanta.</string>
+    <string name="neutral_info_btc_how">Tagann abairt amháin le gach luach faoina dtomhaiseann sé agus cá seasann sé ina stair féin ó 2016. Ní dhéanann an aip na luachanna a rátáil agus ní dhíorthaíonn sí céim mhargaidh; is iad na teorainneacha d’fholáirimh mhargaidh na cinn a shocraíonn tú féin amháin. Ní gá do phatrúin roimhe seo athdhéanamh.</string>
+    <string name="neutral_info_btc_what">Táscairí coitianta Bitcoin mar luachanna tomhaiste simplí: Mayer Multiple, meán 200 seachtain, titim ón mbuaic uile-ama, athrú thar 30 lá, bearna Pi Cycle agus na luachanna on-chain MVRV, Puell Multiple agus hashrate.</string>
+    <string name="neutral_info_coin_how">Tagann abairt amháin le gach luach faoina dtomhaiseann sé, gan rátáil. I gcás bonn a bhfuil stair ghearr praghais acu, tá roinnt luachanna ar iarraidh. Níl sonraí on-chain san áireamh anseo.</string>
+    <string name="neutral_info_coin_what">Na táscairí simplí céanna do bhonn de do rogha, ó shonraí praghais amháin: Mayer Multiple, meán 200 seachtain, titim ón mbuaic uile-ama, athrú thar 30 lá, treocht 50/200 lá, RSI agus neart in aghaidh Bitcoin thar 90 lá.</string>
+    <string name="neutral_info_halving_how">Ríomhtar an chéad leathú eile ó airde reatha an bhloic agus meán-am bloic na tréimhse deacrachta reatha (mempool.space); gan na sonraí sin, ón bhféilire (an leathú deireanach móide thart ar cheithre bliana). Taispeánann an chairt cosán praghais na dtimthriallta roimhe seo óna leathú – stair, ní réamhaisnéis.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">Treocht 50/200 lá</string>
+    <string name="ind_drawdown">Titim ón mbuaic uile-ama</string>
+    <string name="ind_missing">níl dóthain sonraí</string>
+    <string name="ind_rsi_daily">RSI (laethúil)</string>
+    <string name="ind_rsi_weekly">RSI (seachtainiúil)</string>
+    <string name="ind_vs_btc">Neart in aghaidh Bitcoin (90 lá)</string>
+    <string name="neutral_ind_change_30d">Athrú 30 lá</string>
+    <string name="neutral_ind_hashrate">Hashrate 30/60 lá</string>
+    <string name="neutral_ind_ma200w">Meán 200 seachtain</string>
+    <string name="neutral_ind_pi_gap">Bearna Pi Cycle</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">Ciallaíonn ard gur sháraigh formhór na n-altbonn mór Bitcoin thar 90 lá, ciallaíonn íseal gur sháraigh Bitcoin formhór acu.</string>
+    <string name="ind_read_ath_distance">Ciallaíonn beag go bhfuil an praghas gar dá churiarracht, ciallaíonn mór go bhfuil sé i bhfad faoi.</string>
+    <string name="ind_read_change_30d">Ciallaíonn dearfach níos airde ná 30 lá ó shin, ciallaíonn diúltach níos ísle.</string>
+    <string name="ind_read_funding">Ciallaíonn ard go bhfuil go leor trádálaithe ag geall ar phraghsanna ag ardú le giaráil, ciallaíonn diúltach go bhfuil go leor ag geall ar phraghsanna ag titim.</string>
+    <string name="ind_read_hashrate_30_60">Ciallaíonn dearfach go bhfuil cumhacht ríomhaireachta ag fás, ciallaíonn diúltach go bhfuil mianadóirí ag múchadh.</string>
+    <string name="ind_read_leverage">Go leor fadsuíomhanna: go leor ag geall ar ardú le hairgead ar iasacht; go leor gearrshuíomhanna: go leor ag geall ar thitim.</string>
+    <string name="ind_read_ma200w">Ciallaíonn praghas i bhfad os a chionn ardú fada, ciallaíonn praghas gar dó cúlú domhain.</string>
+    <string name="ind_read_mayer">Ciallaíonn ard go bhfuil an praghas i bhfad os cionn a mheáin 200 lá, ciallaíonn íseal go bhfuil sé faoi.</string>
+    <string name="ind_read_mvrv">Ciallaíonn ard go bhfuil an praghas i bhfad os cionn a d’íoc sealbhóirí ar an meán, ciallaíonn íseal gar dó nó faoi.</string>
+    <string name="ind_read_pi_cycle_gap">Ciallaíonn gar do nialas go bhfuil an dá mheán beagnach ag teacht le chéile, ciallaíonn an-diúltach go bhfuil siad i bhfad óna chéile.</string>
+    <string name="ind_read_puell">Ciallaíonn ard go bhfuil mianadóirí ag tuilleamh i bhfad níos mó ná mar is gnách, ciallaíonn íseal i bhfad níos lú.</string>
+    <string name="ind_read_rsi_daily">Ciallaíonn os cionn 70 gnóthachain láidre le laethanta beaga anuas, ciallaíonn faoi 30 caillteanais láidre.</string>
+    <string name="ind_read_rsi_weekly">Ciallaíonn os cionn 70 gnóthachain láidre le seachtainí beaga anuas, ciallaíonn faoi 30 caillteanais láidre.</string>
+    <string name="ind_read_sma50_vs_200">Ciallaíonn dearfach go bhfuil an meán gearrthéarma os cionn an mheáin fhadtéarma, ciallaíonn diúltach faoi.</string>
+    <string name="ind_read_vs_btc">Ciallaíonn dearfach gur éirigh níos fearr leis ná le Bitcoin, ciallaíonn diúltach níos measa.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">Praghas céanna ar feadh 30 lá: %1$s</string>
+    <string name="ind_context_note">Is uimhríocht iad luachanna roimhe seo agus ríomhanna “praghas céanna”, ní réamhaisnéis.</string>
+    <string name="ind_context_percentile">Ó %1$s níos ísle ar %2$s de na laethanta</string>
+</resources>

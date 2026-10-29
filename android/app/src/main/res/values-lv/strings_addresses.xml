@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">Pievienot adresi</string>
+    <string name="portfolio_address_count">Ieskaitīt</string>
+    <string name="portfolio_address_error">Atjaunināšana neizdevās</string>
+    <string name="portfolio_address_hint">Publiska adrese (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) vai xpub</string>
+    <string name="portfolio_address_label">Nosaukums (nav obligāts)</string>
+    <string name="portfolio_address_not_since_buy">No adreses · nav iekļauts „Kopš pirkuma“: %1$s</string>
+    <string name="portfolio_address_overlap">Ir arī tavos darījumos: %1$s – tiek saskaitīts abos. Tās pašas monētas? Izvēlies „Tikai rādīt“.</string>
+    <string name="portfolio_address_overlap_ask">Tu jau uzskaiti %1$s ar saviem darījumiem. Ieskaitīt šīs adreses atlikumu portfelī vai tikai to rādīt?</string>
+    <string name="portfolio_address_overlap_auto">„%1$s“ tagad tikai tiek rādīts, netiek ieskaitīts – %2$s ir arī tavos darījumos.</string>
+    <string name="portfolio_address_overlap_title">Tās pašas monētas kā tavos darījumos?</string>
+    <string name="portfolio_address_overlap_tx">Tāds pats daudzums kā tavai iemaksai/pārskaitījumam (%1$s) – droši vien tiek skaitīts divreiz.</string>
+    <string name="portfolio_address_period_observed">Vērojamās adreses tiek skaitītas no pirmā novērotā atlikuma; vēlākas izmaiņas ir ienākumi/izejas, nevis peļņa.</string>
+    <string name="portfolio_address_privacy">Uz %1$s tiek sūtīta tikai publiskā adrese – nekad atslēgas vai atkopšanas frāzes. Pakalpojuma sniedzējs to redz kopā ar tavu IP adresi. Pārbaude ne biežāk kā ik pēc 10 minūtēm.</string>
+    <string name="portfolio_address_remove">Noņemt adresi</string>
+    <string name="portfolio_address_show_only">Tikai rādīt, neieskaitīt portfelī</string>
+    <string name="portfolio_address_show_only_short">Tikai rādīt</string>
+    <string name="portfolio_address_tokens">Ieskaitīt žetonus</string>
+    <string name="portfolio_address_xpub_privacy">xpub atklāj visas šī maciņa adreses. Tās tiek atvasinātas tavā ierīcē; uz %1$s tiek sūtītas tikai atsevišķas adreses – pirmajā meklēšanā vismaz 40 pieprasījumi, vēlāk mazāk. Privātās atslēgas (xprv) nekad netiek pieņemtas.</string>
+    <string name="portfolio_address_xpub_gap">Meklēšana apstājas pēc %1$d neizmantotām adresēm pēc kārtas (BIP44 standarts, ko izmanto lielākā daļa maciņu). Izmantota adrese aiz šīs atstarpes netiek ieskaitīta – pievieno to atsevišķi.</string>
+    <string name="portfolio_address_xpub_used">Izmantotās adreses: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">Pārāk daudz izmantotu adrešu atjaunināšanai</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">Ļoti daudz adrešu – jauni maksājumi uz vecām, tukšām adresēm var netikt pamanīti</string>
+    <string name="portfolio_addresses_title">Adreses</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Bitcoin Cash adreses nevar vērot: nav bezmaksas publiska pakalpojuma bez API atslēgas, kura noteikumi to atļautu.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) tika slēgta 2024. gadā – atlikumi tagad ir BNB Smart Chain (0x…)</string>
+    <string name="address_checksum">Nepareiza kontrolsumma – pārbaudi, vai nav drukas kļūdu</string>
+    <string name="address_doge_unsupported">Dogecoin adreses nevar vērot: nav bezmaksas publiska pakalpojuma bez API atslēgas, kura noteikumi to atļautu.</string>
+    <string name="address_duplicate">Šī adrese jau ir pievienota</string>
+    <string name="address_ens">ENS nosaukumi netiek atbalstīti – ievadi 0x adresi</string>
+    <string name="address_invalid">Nav derīga atbalstīta tīkla adrese</string>
+    <string name="address_limit">Ne vairāk kā 20 adreses</string>
+    <string name="address_secret">Tas izskatās pēc privātās atslēgas vai atkopšanas frāzes – nekur to neievadi. Tikai publiskas adreses.</string>
+    <string name="address_testnet">Testnet adreses netiek atbalstītas</string>
+    <string name="address_unsupported">Šis adreses veids netiek atbalstīts</string>
+    <string name="address_wrong_chain">Adrese pieder citam tīklam</string>
+    <string name="address_xpub_multisig">Multisig atslēgas (Ypub/Zpub) netiek atbalstītas</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot konts (BIP86): no šīs atslēgas tiek atvasinātas bc1p… adreses saņemšanai un atlikumam.</string>
+    <string name="portfolio_address_taproot_hint">Taproot maciņš? Tā vietā ielīmē deskriptoru tr(…) no sava maciņa – vienkāršs xpub tiek pārmeklēts tikai kā Legacy un SegWit adreses.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">Savs serveris nav sasniedzams</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">Tas, kurš uztur %1$s, redz visas pieprasītās šī maciņa adreses un var tās sasaistīt savā starpā un ar tavu IP adresi.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">No tā izvairīsies ar savu serveri sadaļā Iestatījumi › Portfelis › Savs serveris adresēm.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="zero">+%1$d nezināmi žetoni (netiek ieskaitīti)</item>
+        <item quantity="one">+%1$d nezināms žetons (netiek ieskaitīts)</item>
+        <item quantity="other">+%1$d nezināmi žetoni (netiek ieskaitīti)</item>
+    </plurals>
+</resources>

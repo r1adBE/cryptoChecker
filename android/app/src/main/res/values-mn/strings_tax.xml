@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
+    <string name="portfolio_cutoff_export_action">Тогтоосон огнооны экспорт…</string>
+    <string name="portfolio_tax_worksheet_action">Ажлын хуудас…</string>
+    <string name="portfolio_export_address_unobserved">хаягийг энэ огноонд ажиглаагүй – оруулаагүй</string>
+    <string name="portfolio_export_button">CSV экспортлох</string>
+    <string name="portfolio_export_col_amount">Дүн</string>
+    <string name="portfolio_export_col_coin">Зоос</string>
+    <string name="portfolio_export_col_note">Тэмдэглэл</string>
+    <string name="portfolio_export_col_price">Ханш USDT</string>
+    <string name="portfolio_export_col_rate">Ханш USDT→%1$s</string>
+    <string name="portfolio_export_col_value">Үнэ цэнэ USDT</string>
+    <string name="portfolio_export_col_value_cur">Үнэ цэнэ %1$s</string>
+    <!-- Inhalt der CSV-Datei -->
+    <string name="portfolio_export_comment"># Тогтоосон огноо %1$s, валют %2$s, %3$s-ийн валютын ханш</string>
+    <string name="portfolio_export_currency">Валют: %1$s</string>
+    <string name="portfolio_export_date">Тогтоосон огноо</string>
+    <string name="portfolio_export_done">Экспорт хадгалагдлаа</string>
+    <string name="portfolio_export_estv_note">Хөрөнгийн татварт ESTV-ийн үнийн жагсаалтад %1$s байгаа бол жилийн эцсийн албан ёсны утгыг хэрэглэнэ: %2$s</string>
+    <string name="portfolio_export_failed">Экспорт амжилтгүй</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">Экспорт амжилтгүй: файлыг бичиж чадсангүй – хадгалах байршил алга эсвэл бичих боломжгүй</string>
+    <string name="portfolio_export_failed_prices">Экспорт амжилтгүй: ханшийг ачаалж чадсангүй – холболт алга эсвэл бирж хариу өгөхгүй байна</string>
+    <string name="portfolio_export_from_address">хаягаас – худалдан авсан ханш алга</string>
+    <string name="portfolio_export_hint">Сонгосон өдрийн эцсийн хөрөнгө, USDT дахь өдрийн хаалтын (UTC) ханшаар үнэлж, тэр өдрийн ЕТБ-ны лавлах ханшаар хөрвүүлсэн. Валютыг «Хөрвүүлэх валют»-аар өөрчилнө үү.</string>
+    <string name="portfolio_export_incomplete">дутуу</string>
+    <string name="portfolio_export_no_fx">валютын ханш алга</string>
+    <string name="portfolio_export_no_price">ханш алга</string>
+    <string name="portfolio_export_running">Түүхэн ханшийг татаж байна…</string>
+    <string name="portfolio_export_title">Тогтоосон огнооны экспорт</string>
+    <string name="portfolio_export_today_hint">Өнөөдөр хараахан дуусаагүй: өдрийн хаалтын оронд одоогийн ханшийг ашиглана.</string>
+    <string name="portfolio_export_total">Нийт</string>
+    <string name="portfolio_export_unchecked">шалгаагүй (тохирох ханш алга)</string>
+
+    <!-- Steuer-Export (Arbeitspapier) -->
+    <string name="tax_export_adjustment">superficial loss (ACB-д нэмсэн)</string>
+    <string name="tax_export_at_wallet_note">Австри: зоос болон түрийвч (бирж) бүрээр хөдөлгөөнт дундаж – шилжүүлэг өртгийг дагуулна – шагнал 0 худалдан авалтын өртгөөр – 2021 оны 3-р сарын 1-нээс хойших хөрөнгө шимтгэлгүй (хасагдахгүй) – зээлийн хүү хүлээн авах үеийн үнээр (27.5 хувийн орлого).</string>
+    <string name="tax_export_avg_cost_rates">худалдан авсан өдрийн ханшаарх өртөг (дундаж)</string>
+    <string name="tax_export_ch_wealth_not_calculated">Хөрөнгийн татварыг тооцоогүй – ESTV үнийн жагсаалт: %1$s</string>
+    <string name="tax_export_col_acquired">Олж авсан</string>
+    <string name="tax_export_col_adjustment">Зөвшөөрөгдөөгүй алдагдал %1$s</string>
+    <string name="tax_export_col_cost">Өртөг %1$s</string>
+    <string name="tax_export_col_date">Огноо</string>
+    <string name="tax_export_col_days">Эзэмшсэн хоног</string>
+    <string name="tax_export_col_gain">Ашиг %1$s</string>
+    <string name="tax_export_col_gross">Шимтгэлээс өмнөх үнэ %1$s</string>
+    <string name="tax_export_col_long_term">&gt; 1 жил эзэмшсэн</string>
+    <string name="tax_export_col_portfolio_value">Багцын үнэ цэнэ %1$s</string>
+    <string name="tax_export_col_proceeds">Орлого %1$s</string>
+    <string name="tax_export_col_sold">Зарсан</string>
+    <string name="tax_export_cost_incomplete">нийт худалдан авалтын өртөг дутуу</string>
+    <string name="tax_export_cost_missing">худалдан авсан ханш алга</string>
+    <string name="tax_export_fee_consumed">Шимтгэл бүх орлогыг шингээнэ</string>
+    <string name="tax_export_fee_leg">өөр зоосоорх шимтгэл</string>
+    <string name="tax_export_fee_row">Шимтгэл</string>
+    <string name="tax_export_fee_value_missing">өөр зоосоорх шимтгэлийн үнэ цэнэ алга</string>
+    <string name="tax_export_gains">Хэрэгжсэн шилжүүлэлт (CSV)</string>
+    <string name="tax_export_gains_title">Хэрэгжсэн шилжүүлэлт %1$s</string>
+    <string name="tax_export_gift">Бэлэг</string>
+    <string name="tax_export_holdings_cutoff">%1$s-ийн хөрөнгө (CSV)</string>
+    <string name="tax_export_holdings_title">%1$s-ийн хөрөнгө</string>
+    <string name="tax_export_income">Орлого (CSV)</string>
+    <string name="tax_export_income_title">Орлого %1$s</string>
+    <string name="tax_export_info_template">Загвар: %1$s · Арга: %2$s · Татварын жил: %3$s · Валют: %4$s · Crypto Checker %5$s</string>
+    <string name="tax_export_lost_fee_cost">төлсөн лотгүй сүлжээний шимтгэлийн зардал</string>
+    <string name="tax_export_match_pool">Section 104 pool</string>
+    <string name="tax_export_match_same_day">тухайн өдөр (HMRC)</string>
+    <string name="tax_export_match_thirty_day">30 хоногийн дүрэм (HMRC)</string>
+    <string name="tax_export_method_change_warning">Арга эсвэл загварыг өөрчлөх нь өмнөх жилүүдийг ч дахин тооцно – өмнө нь тушаасантайгаа харьцуулна уу.</string>
+    <string name="tax_export_method_overridden">Загвар %1$s-ээр тооцно – %2$s биш</string>
+    <string name="tax_export_new_holding">2021 оны 3-р сарын 1-нээс хойш олж авсан</string>
+    <string name="tax_export_no">үгүй</string>
+    <string name="tax_export_old_holding">2021 оны 3-р сарын 1-нээс өмнө олж авсан</string>
+    <string name="tax_export_oversold">бүртгэснээс их зарсан</string>
+    <string name="tax_export_payment">Криптогоор төлсөн төлбөр</string>
+    <string name="tax_export_period">%1$s – %2$s</string>
+    <string name="tax_export_proceeds_missing">борлуулалтын үнэ алга</string>
+    <string name="tax_export_proceeds_without_cost">Худалдан авсан ханшгүй орлого</string>
+    <string name="tax_export_realized_differs">Татварын CSV «хэрэгжсэн»-ээс өөр байж болно (улсын татварын дүрэм).</string>
+    <string name="tax_export_rule">&gt; 1 жил: худалдан авсан огноо + 1 хуанлийн жилийн дараа зарсан. Огноо орон нутгийн цагаар. Ханш: гүйлгээний өдрийн ЕТБ-ны өдрийн ханш; байхгүй бол 7 хоногийн өмнө хүртэлх сүүлийн ханш.</string>
+    <string name="tax_export_rules_date">Дүрмийн огноо: %1$s</string>
+    <string name="tax_export_rules_stale">Дүрэм %1$s-ийнх – %2$s-ийн хувьд хувь хэмжээ, хөнгөлөлт өөрчлөгдсөн байж магадгүй. Утгыг шалгана уу.</string>
+    <string name="tax_export_spouse_gift">эхнэр нөхөр/хамтрагчид – ашиг ч, алдагдал ч алга</string>
+    <string name="tax_export_summary">%1$s жилийн хураангуй (CSV)</string>
+    <string name="tax_export_swap">солилцоо</string>
+    <string name="tax_export_tax_year">Татварын жил</string>
+    <string name="tax_export_transfer_fee_info">USDT/бэлэн мөнгөөрх шилжүүлгийн шимтгэл – алдагдал биш, өртгийн суурьт ороогүй, зөвхөн мэдээлэл</string>
+    <string name="tax_export_unassigned_fee">шимтгэлийг хуваарилаагүй – өртгийн суурь тодорхойгүй</string>
+    <string name="tax_export_usdt_usd_note">USDT-г USDT/USD-ийн өдрийн хаалтаар хөрвүүлсэн; хаалт байхгүй бол 1 USD (мөр бүрт тэмдэглэсэн)</string>
+    <string name="tax_export_value_estimated">Үнэ цэнийг ойролцоогоор (өдрийн хаалт)</string>
+    <string name="tax_export_value_missing">хүлээн авах үеийн үнэ цэнэ алга</string>
+    <string name="tax_export_wallet">Түрийвч: %1$s</string>
+    <string name="tax_export_wallet_unspecified">заагаагүй</string>
+    <string name="tax_export_withdrawal_fee">Татан авалтын шимтгэл</string>
+    <string name="tax_export_withdrawal_fee_info">USDT/бэлэн мөнгөөрх татан авалтын шимтгэл – алдагдал биш, зөвхөн мэдээлэл</string>
+    <string name="tax_export_workpaper_disclaimer">Татварын ажлын хуудас – татварын тайлан биш, татварын зөвлөгөө биш</string>
+    <string name="tax_export_workpaper_title">Ажлын хуудас</string>
+    <string name="tax_export_year_local_zone">Огноо орон нутгийн цагаар (%1$s)</string>
+    <string name="tax_export_yes">тийм</string>
+
+    <!-- Steuer-Export: Zeilen und Spalten -->
+    <string name="tax_line_at_interest">Зээлийн хүү (хүлээн авах үеийн үнэ)</string>
+    <string name="tax_line_at_old_long">2021 оны 3-р сарын 1-нээс өмнө олж авсан – &gt; 1 жил эзэмшсэн: ихэвчлэн татвар ногдохгүй – шалгана уу</string>
+    <string name="tax_line_at_rate">Тусгай хувь 27.5 хувь: 2021 оны 3-р сарын 1-нээс хойш олж авч, 2022 оны 3-р сарын 1-нээс хойш зарсны цэвэр дүн + хүү</string>
+    <string name="tax_line_au_discounted">Алдагдал болон 50 хувийн хөнгөлөлтийн дараах цэвэр хөрөнгийн ашиг</string>
+    <string name="tax_line_ca_taxable">Татвар ногдох хөрөнгийн ашиг (оруулах хувь 1/2)</string>
+    <string name="tax_line_ch_income">Шагналыг жагсаасан – тэдгээрийн хандлагыг ESTV-ийн ажлын баримтаас үзнэ үү</string>
+    <string name="tax_line_ch_private">Хувийн хөрөнгийн ашиг: тооцоогүй – ангиллыг ESTV-ээс үзнэ үү</string>
+    <string name="tax_line_ch_wealth">Хөрөнгийн татвар: тооцоогүй – хөрөнгийн CSV 12-р сарын 31-ний биржийн ханш × USD/CHF-ийг ашиглана – албан ёсны татварын утга: ESTV үнийн жагсаалт</string>
+    <string name="tax_line_de_long">&gt; 1 жил эзэмшсэн: § 23 EStG-ийн дагуу ихэвчлэн татвар ногдохгүй – шалгана уу</string>
+    <string name="tax_line_denied_loss">Зөвшөөрөгдөөгүй алдагдал (superficial loss)</string>
+    <string name="tax_line_fr_outflow">Борлуулалтгүй зарлага (татан авалт) – нийт худалдан авалтын өртгийг хувь тэнцүүлэн бууруулсан</string>
+    <string name="tax_line_fr_rate">Тогтмол хувь 12.8 хувь дээр нийгмийн шимтгэл (эсвэл сонголтоор шатлал)</string>
+    <string name="tax_line_fr_threshold">Жилд €305 хүртэлх шилжүүлэлт: ерөнхийдөө чөлөөлөгдөнө (борлуулалтын үнийн нийлбэр) – шалгана уу</string>
+    <string name="tax_line_gains">Ашиг</string>
+    <string name="tax_line_income">Орлого (шагнал хүлээн авах үеийн үнээр)</string>
+    <string name="tax_line_jp_misc">Бусад орлого (雑所得): цэвэр ашиг + орлого</string>
+    <string name="tax_line_long_net">Цэвэр – &gt; 1 жил эзэмшсэн</string>
+    <string name="tax_line_losses">Алдагдал</string>
+    <string name="tax_line_net">Цэвэр ашиг/алдагдал</string>
+    <string name="tax_line_new_net">Цэвэр – 2021 оны 3-р сарын 1-нээс хойш олж авсан, 2022 оны 3-р сарын 1-нээс хойш зарсан</string>
+    <string name="tax_line_old_long_net">Цэвэр – 2021 оны 3-р сарын 1-нээс өмнө олж авсан – &gt; 1 жил эзэмшсэн</string>
+    <string name="tax_line_old_short_net">Цэвэр – спекулятив гүйлгээ (хуучин хууль): 2021 оны 3-р сарын 1-нээс өмнө олж авч ≤ 1 жил эзэмшсэн, эсвэл 2022 оны 3-р сарын 1-нээс өмнө зарсан</string>
+    <string name="tax_line_proceeds">Орлого</string>
+    <string name="tax_line_short_net">Цэвэр – ≤ 1 жил эзэмшсэн</string>
+    <string name="tax_line_transfer_fees">Шилжүүлгийн шимтгэл (өөрийн түрийвч)</string>
+    <string name="tax_line_uk_after_exempt">Чөлөөлөгдөх дүнгээс давсан цэвэр ашиг (зөвхөн крипто)</string>
+    <string name="tax_line_uk_exempt">Жилийн чөлөөлөгдөх дүн – бүх шилжүүлэлтэд хамтдаа хэрэглэгдэх ба энд бүрэн хэрэглэсэн</string>
+    <string name="tax_line_us_terms">Богино хугацааны (≤ 1 жил): ердийн хувь – урт хугацааны (&gt; 1 жил): хөрөнгийн ашгийн хувь</string>
+    <string name="tax_line_withdrawal_fees">Татан авалтын шимтгэл</string>
+
+    <!-- Steuer Deutschland -->
+    <string name="tax_de_below">хязгаараас доош</string>
+    <string name="tax_de_col_item">Зүйл</string>
+    <string name="tax_de_disclaimer">Зөвхөн чиглүүлэх зорилготой – татварын тайлан биш, татварын зөвлөгөө биш.</string>
+    <string name="tax_de_explain_below">%1$s хүртэл: хязгаараас доош (чиглүүлэх зорилгоор).</string>
+    <string name="tax_de_explain_loss">Цэвэр алдагдал: эдгээр борлуулалтад татвар алга. § 23 EStG-ийн дагуу алдагдал зөвхөн хувийн борлуулалтын ашгийг нөхнө – тухайн жилд, эсвэл өмнөх жил рүү буцаан шилжүүлэх болон дараагийн жилүүдэд шилжүүлэх замаар (§ 23 para. 3 ба § 10d EStG). Алдагдлыг үнэлүүлэхийн тулд татварын тайландаа мэдүүлнэ үү.</string>
+    <string name="tax_de_explain_reached">%1$s-аас эхлэн бүх дүнг тооцно (чөлөөлөлтийн хязгаар – хөнгөлөлт биш).</string>
+    <string name="tax_de_explain_unknown">Шалгах боломжгүй: валютын ханш / худалдан авсан ханш эсвэл эзэмшсэн хугацаа дутуу.</string>
+    <string name="tax_de_income_limit">Үйлчилгээний чөлөөлөлтийн хязгаар (§ 22 No. 3 EStG)</string>
+    <string name="tax_de_limit_scope">Хязгаар нь жилийн бүх хувийн борлуулалт эсвэл үйлчилгээнд хамтдаа хамаарна – аппаас гадуурхыг ч оруулаад.</string>
+    <string name="tax_de_loading">Тооцоолж байна…</string>
+    <string name="tax_de_long_gains">Ашиг – &gt; 1 жил эзэмшсэн</string>
+    <string name="tax_de_long_losses">Алдагдал – &gt; 1 жил эзэмшсэн</string>
+    <string name="tax_de_loss">цэвэр алдагдал – зөвхөн хувийн борлуулалтын ашгаар нөхөгдөнө (§ 23 EStG)</string>
+    <string name="tax_de_private_limit">Хувийн борлуулалтын чөлөөлөлтийн хязгаар (§ 23 EStG)</string>
+    <string name="tax_de_reached">хязгаарт хүрсэн – ихэвчлэн бүх дүнг тооцно – шалгана уу</string>
+    <string name="tax_de_short_gains">Ашиг – ≤ 1 жил эзэмшсэн</string>
+    <string name="tax_de_short_losses">Алдагдал – ≤ 1 жил эзэмшсэн</string>
+    <string name="tax_de_unclassified">Эзэмшсэн хугацаа тодорхойгүй</string>
+    <string name="tax_de_unknown">шалгах боломжгүй</string>
+
+    <!-- Steuer-Vorlagen je Land -->
+    <string name="tax_template_at">Австри</string>
+    <string name="tax_template_au">Австрали</string>
+    <string name="tax_template_beta">Бета</string>
+    <string name="tax_template_beta_note">Бета: улсын дүрмийг хялбарчилсан, татварын тайлан тушаахаас өмнө шалгана уу</string>
+    <string name="tax_template_ca">Канад</string>
+    <string name="tax_template_ch">Швейцари</string>
+    <string name="tax_template_confirm_text">Бета, хялбарчилсан дүрэм, бусад платформын гүйлгээ ороогүй – татварын тайлан тушаахаас өмнө шалгана уу.</string>
+    <string name="tax_template_confirm_title">Татварын загвар (бета)</string>
+    <string name="tax_template_current">Загвар: %1$s · Арга: %2$s · Валют: %3$s</string>
+    <string name="tax_template_de">Герман</string>
+    <string name="tax_template_fr">Франц</string>
+    <string name="tax_template_hint">Зөвхөн чиглүүлэх зорилготой: татварын ажлын хуудасны арга, татварын жил, хураангуйг тогтооно. Багцын карт төвийг сахисан хэвээр – бэлэг болон шилжүүлгийн шимтгэл ажлын хуудаснаас ялгаатай байж болно.</string>
+    <string name="tax_template_jp">Япон</string>
+    <string name="tax_template_neutral">Төвийг сахисан (бүх улс)</string>
+    <string name="tax_template_suggestion">Таны бүс нутагт санал болгох: %1$s</string>
+    <string name="tax_template_title">Татварын загвар</string>
+    <string name="tax_template_uk">Их Британи</string>
+    <string name="tax_template_us">АНУ</string>
+    <string name="tax_template_use">%1$s-г ашиглах</string>
+
+    <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
+    <string name="tax_method_at">Хуучин/шинэ хөрөнгө – хөдөлгөөнт дундаж</string>
+    <string name="tax_method_ca_acb">ACB дундаж өртөг (superficial loss)</string>
+    <string name="tax_method_fr_pta">Нийт худалдан авалтын үнэ (art. 150 VH bis)</string>
+    <string name="tax_method_jp_total">Нийт дундаж (総平均法)</string>
+    <string name="tax_method_uk_pool">Section 104 pool (тухайн өдөр / 30 хоног)</string>
+    <string name="tax_note_at">Зоос болон түрийвч бүрээр хөдөлгөөнт дундаж – түрийвч хооронд биш (KryptowährungsVO § 2). Шагнал шинэ хөрөнгөд 0 худалдан авалтын өртгөөр орно (BMF: стейкинг / airdrop) – орлогын файл тэдгээрийг хүлээн авах үеийн үнээр жагсаана. 2021 оны 3-р сарын 1-нээс хойш олж авсан хөрөнгийн шимтгэл хасагдахгүй (§ 27a(4) no. 2, § 20(2) EStG): өртөг ба орлого шимтгэлгүй. Зээлийн хүү (CSV импортын төрөл эсвэл тэмдэглэл) хүлээн авах үед 27.5 хувиар орлого болох ба тэр үнийг худалдан авалтын өртөг болгон хадгална.</string>
+    <string name="tax_note_at_staking">Эзэмшиж буй зоосоор хийсэн стейкинг ба airdrop: хүлээн авах үеийн үнэ татварт хамаагүй – хуулиар худалдан авалтын өртөг 0 (§ 27b Abs. 2 EStG; BMF «Kryptowährungen»). Татвар зөвхөн зарах үед ногдоно.</string>
+    <string name="tax_note_fr">Криптогоор төлсөн борлуулалт ба шимтгэл нь шилжүүлэлт – солилцоог хойшлуулна. Борлуулалт дахь крипто шимтгэл шимтгэлээс өмнөх үнэд тооцогдоно – эс бөгөөс өөрийн үнээр тусдаа шилжүүлэлт болно. Багцын үнэ цэнэ өдрийн хаалтаас – хаалт байхгүй бол өртөг хоосон үлдэнэ.</string>
+    <string name="tax_note_network_fee">Криптогоор төлсөн сүлжээний шимтгэл (өөрийн түрийвч рүү шилжүүлэг, татан авалт) нь шимтгэлийн зоосыг зах зээлийн үнээр шилжүүлэх явдал – ашиг эсвэл алдагдал зөвхөн тэр зоосонд, бүх шимтгэлийн алдагдал биш (%1$s). Бүртгэсэн ханшгүй бол: тухайн өдрийн өдрийн хаалт (UTC); хаалт байхгүй бол орлого хоосон үлдэнэ.</string>
+    <string name="tax_note_specific_id">Тодорхой ялгах аргыг дэмждэггүй – FIFO-г ашиглана.</string>
+    <string name="tax_note_spouse_gift">«Эхнэр нөхөр / иргэний хамтрагчид» гэж тэмдэглэсэн бэлэг нь ашиг ч, алдагдал ч биш: орлого = таны өртгийн суурь, үүнийг хамтрагч тань авна (%1$s).</string>
+    <string name="tax_note_stable_swap">Криптогоо өөрөө хадгалах стэйблкойнд (USDT/USDC/DAI …) зарах нь энд криптогоос крипто гэж тооцогдож, татвар ногдохгүй – стэйблкойн руу солилцоо гэж бүртгэнэ үү. Зөвхөн евроор зарахад татвар ногдоно – «Зарах» нь евроор зарсан гэж тооцогдоно.</string>
+    <string name="tax_note_transfer_fee">Өөрийн түрийвч хоорондын шилжүүлгийн USDT эсвэл бэлэн шимтгэлд мөн адил: өртгийн суурьт нэмэхгүй, зөвхөн мэдээлэл болгон жагсаана.</string>
+    <string name="tax_note_uk">HMRC-ийн дагуу тааруулалт: тухайн өдөр → дараагийн 30 хоног → Section 104 pool.</string>
+    <string name="tax_note_us_transition">2025 оны 1-р сарын 1-ний шилжилт (Rev. Proc. 2024-28 safe harbor): өмнөх жилүүдэд бүх түрийвчээр FIFO ашигласан бол 2024 оны 12-р сарын 31-ний үлдсэн лот зоосыг эзэмшиж буй түрийвчид очно – хамгийн хуучин зоостой түрийвч хамгийн хуучин өртгийн суурийг авна. Энэ хуваарилалт нь аппын дүрэм – өөрийн бүртгэлтэйгээ тулгана уу.</string>
+    <string name="tax_note_us_wallet">2025 оны татварын жилээс IRS түрийвч эсвэл бирж бүрээр өртгийн суурь шаарддаг (Rev. Proc. 2024-28): экспорт 2025 оноос түрийвч бүрээр FIFO ашиглана – өмнөх жилүүдэд бүх түрийвчээр FIFO, эсвэл таны өртгийн арга тийм бол түрийвч бүрээр FIFO.</string>
+    <string name="tax_note_withdrawal_fee">USDT эсвэл бэлэн мөнгөөрх татан авалтын шимтгэл нь алдагдал биш: бэлэн шимтгэл хасагдах зардал биш, USDT шимтгэл нь ашиггүй нэрлэсэн үнээр шилжүүлэлт – зөвхөн мэдээлэл болгон жагсаана (%1$s).</string>
+    <string name="tax_summary_at_interest_income">тооцогдоно: хүлээн авах үеийн орлого, 27.5 хувийн тусгай хувиар (§ 27b(2) no. 1 EStG / BMF) – зоос энэ үнийг худалдан авалтын өртөг болгон хадгална</string>
+    <string name="tax_summary_at_reward_info">зөвхөн мэдээлэл – ямар ч нийлбэрт ороогүй: шагнал шинэ хөрөнгөд 0 худалдан авалтын өртгөөр орж, зөвхөн зарахад татвар ногдоно (ашигт аль хэдийн орсон) – § 27b para. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">2022 оны 1-р сарын 1–2-р сарын 28: 27.5 хувийг сонгох боломжтой</string>
+    <string name="tax_summary_at_withdrawal_fee">Татан авалтын шимтгэл – шинэ хөрөнгөөс хасагдахгүй (тусгай хувьд зардал хасагдахгүй, § 20(2) EStG)</string>
+    <string name="tax_summary_ch_fifo_info">зөвхөн мэдээлэл – аппын FIFO тооцоо – ангилаагүй – ESTV-ээс үзнэ үү</string>
+    <string name="tax_summary_ch_year_end_value">хөрөнгийн CSV дахь 12-р сарын 31-ний үнэ = биржийн ханш × USD/CHF – ESTV-ийн татварын утга биш</string>
+    <string name="tax_summary_de_withdrawal_fee">Татан авалтын шимтгэл – § 23-ын дагуу хасагдахгүй, орлоготой холбоотой зардлаар хасагдах эсэхийг шалгана уу</string>
+    <string name="tax_summary_not_calculated_estv">тооцоогүй – ESTV үнийн жагсаалт: %1$s</string>
+    <string name="tax_summary_orientation">Чиглэл</string>
+    <string name="tax_summary_orientation_block">Зөвхөн чиглүүлэх зорилготой – татварын зөвлөгөө биш – үнэлгээ биш</string>
+    <string name="tax_summary_orientation_item">Чиглэл: %1$s</string>
+    <string name="tax_summary_title">%1$s %2$s жилийн хураангуй</string>
+    <string name="tax_summary_transfer_fee_info">USDT/бэлэн мөнгөөрх шилжүүлгийн шимтгэл – алдагдал биш, өртгийн суурьт ороогүй, зөвхөн мэдээлэл</string>
+    <string name="tax_summary_withdrawal_fee_info">USDT/бэлэн мөнгөөрх татан авалтын шимтгэл – алдагдалд тооцоогүй, зөвхөн мэдээлэл</string>
+
+    <string name="tax_line_at_old_speculation_limit">Спекулятив гүйлгээ (хуучин хууль, ≤ 1 жил эзэмшсэн): чөлөөлөлтийн хязгаар (§ 31 (3) EStG хуучин хувилбар)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">2022 оны 3-р сарын 1-нээс өмнөх зээлийн хүү (хүлээн авах үеийн үнэ)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">2022 оны 3-р сарын 1-нээс өмнөх хүү: хуучин хууль (орлогын албан татварын хувь), 27.5 хувь биш</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">2022 оны 3-р сарын 1-нээс өмнө – мэргэжилтэнтэй шалгана уу</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">Хүү – хүлээн авахад татвар ногдоно</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">Стейкинг – зөвхөн мэдээлэл (худалдан авалтын өртөг 0, зарахад татвар ногдоно)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">Нийт хүү (татвар ногдох)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">Нийт стейкинг (мэдээлэл)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">Цэвэр хөрөнгийн алдагдал (дараа жилд шилжүүлэх)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">сонголтгүй: 2022 оны 1-р сарын 1–2-р сарын 28-ны борлуулалтыг багтаана</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">2022 оны 3-р сарын 1-нээс өмнөх стейкинг: худалдан авалтын өртгийг 0 гэж тогтоосон – мэргэжилтэнтэй шалгана уу</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">30 хоногийн дүрэм эдгээр тоог одоо ч өөрчилж болно (%1$s хүртэлх худалдан авалт)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Тайлагнах хязгаараас давсан шимтгэлээс өмнөх орлого (£50,000; 2020/21–2022/23: £49,200): Self Assessment-д бүртгэлтэй бол татвар ногдох ашиггүй байсан ч HMRC-д мэдүүлнэ үү</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">12-р сарын 31-ний %1$s хөрөнгийн үнэ цэнэ (чиглэл)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">ESTV-ийн үнийн жагсаалт (ictax.admin.ch) шийдвэрлэх ач холбогдолтой. Жагсаалтад байхгүй зоосонд ерөнхийдөө биржийн хаалтын ханшийг хэрэглэнэ. Хөрөнгийн татварыг тооцоогүй.</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – хөрөнгө %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">тооцоогүй</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">Ажиглаж буй хаягийг уншиж чадсангүй – тэдгээрийн үлдэгдэл энэ файлд алга</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">Ажиглаж буй хаягийн лотыг худалдан авсан огнооноос нь тооцно; хаягийн өнөөдрийн үлдэгдэл бага бол лотыг бууруулна.</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">Ажиглаж буй хаягууд нийт үнэ цэнэд тооцогдох ч худалдан авалтын өртөггүй – тиймээс ашиг хэт өндөр байж магадгүй. Өртгийг худалдан авалт болгон бүртгэнэ үү.</string>
+    <string name="tax_summary_fr_rewards_income">Дүн нь шагналыг хүлээн авах үед орлого гэж татвар ногдуулсан гэж үзсэн (хүлээн авах үеийн үнэ худалдан авалтын өртөгт) – эс бөгөөс болгоомжтой тайлбараар худалдан авалтын өртөг 0 болно.</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">Бүртгэсэн ханшгүй зах зээлийн үнэ (шимтгэл, бэлэг/төлбөр, солилцоо, шагнал, сүлжээний шимтгэл, багцын үнэ цэнэ) гүйлгээний өдрийн өдрийн хаалтаар (UTC)</string>
+</resources>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="backup_device_bound">Սարքը փոխելուց առաջ ստեղծիր պահուստային ֆայլ – գաղտնագրված տվյալները կարելի է բացել միայն այս սարքում։</string>
+    <string name="backup_encryption_pending">Գաղտնագրումը դեռ ակտիվ չէ – հավելվածը կրկին կփորձի հաջորդ գործարկման ժամանակ։</string>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">Արտահանել</string>
+    <string name="backup_exported">Պահուստային պատճենը պահպանված է։</string>
+    <string name="backup_failed">Չստացվեց։ Արդյո՞ք սա Crypto Checker-ի պահուստային պատճեն է։</string>
+    <string name="backup_hint">Պահպանում է քո դիտացանկը՝ նշումներով և խմբերով, ահազանգերը, ընտրյալները, պորտֆելը և կարգավորումները որպես ֆայլ, որը պահում ես ինքդ – օրինակ՝ նոր հեռախոսի համար։</string>
+    <string name="backup_import">Ներմուծել</string>
+    <string name="backup_title">Պահուստավորում &amp; վերականգնում</string>
+    <string name="backup_too_large">Ֆայլը չափազանց մեծ է կամ վավեր պահուստային պատճեն չէ (սահմանը՝ 64 MB)։</string>
+    <string name="backup_export_too_large">Պահուստային պատճենը 64 MB-ից մեծ կլիներ և հնարավոր չէր լինի վերականգնել, ուստի այն չպահպանվեց։</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">Գաղտնաբառ</string>
+    <string name="backup_password_continue">Շարունակել</string>
+    <string name="backup_password_hide">Թաքցնել գաղտնաբառը</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">Առնվազն %1$d նիշ</string>
+    <string name="backup_password_mismatch">Գաղտնաբառերը չեն համընկնում</string>
+    <string name="backup_password_prompt">Մուտքագրիր այս պահուստային պատճենի գաղտնաբառը։</string>
+    <string name="backup_password_repeat">Կրկնիր գաղտնաբառը</string>
+    <string name="backup_password_show">Ցույց տալ գաղտնաբառը</string>
+    <string name="backup_password_title">Գաղտնաբառով պաշտպանված պահուստային պատճեն</string>
+    <string name="backup_password_too_weak">Չափազանց հեշտ է գուշակել – խուսափիր միայն թվերից, մեկ կրկնվող նիշից կամ տարածված հաջորդականություններից, ինչպես «12345678» կամ «password»։</string>
+    <string name="backup_password_warning">Առանց գաղտնաբառի պահուստային պատճենը հնարավոր չէ վերականգնել։</string>
+    <string name="backup_password_wrong">Սխալ գաղտնաբառ, կամ ֆայլը վնասված է։ Խնդրում ենք կրկին փորձել։</string>
+    <string name="backup_protect">Պաշտպանել գաղտնաբառով</string>
+    <string name="backup_protect_hint">Գաղտնագրում է ֆայլը (AES-256)։ Խորհուրդ է տրվում, եթե այն պարունակում է պորտֆելի տվյալներ։</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">Պահպանել առանց գաղտնաբառի</string>
+    <string name="backup_plain_confirm_text">Ֆայլը գաղտնագրված չէ։ Ով որ այն ստանա, կկարողանա կարդալ՝</string>
+    <string name="backup_plain_confirm_title">Պահպանե՞լ առանց գաղտնաբառի</string>
+    <string name="backup_plain_contents_addresses">Պահպանված դրամապանակի հասցեներ և xpub բանալիներ՝ մնացորդի պատմությամբ և ձեռքբերման արժեքով</string>
+    <string name="backup_plain_contents_base">Դիտացանկ՝ նշումներով և խմբերով, ահազանգեր, ընտրյալներ և կարգավորումներ</string>
+    <string name="backup_plain_contents_portfolio">Պորտֆել՝ գործարքներ գումարներով և գներով</string>
+    <string name="backup_restore_app_lock_kept">Պորտֆելի կողպեքը մնում է միացված – չգաղտնագրված պահուստային պատճենը չի կարող այն անջատել։</string>
+    <string name="backup_restore_confirm">Ներմուծումը փոխարինում է քո ընթացիկ դիտացանկը (նշումներով և խմբերով), ահազանգերը, ընտրյալները, պորտֆելը և կարգավորումները պահուստային պատճենով։</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="one">Պահուստային պատճենում %d գրառում (պորտֆել կամ ահազանգ) անվավեր է և չի ներմուծվի։</item>
+        <item quantity="other">Պահուստային պատճենում %d գրառում (պորտֆել կամ ահազանգեր) անվավեր են և չեն ներմուծվի։</item>
+    </plurals>
+    <string name="backup_restore_newer_version">Այս պահուստային պատճենը հավելվածի ավելի նոր տարբերակից է – նախ թարմացրու հավելվածը։ Ոչինչ չի ներմուծվել։</string>
+    <string name="backup_restore_unencrypted_warning">Այս պահուստային պատճենը գաղտնագրված չէ – ստուգիր, որ այն քեզնից է։ Կարգավորումները կկիրառվեն – բացի այն փոփոխություններից, որոնք նվազեցնում են պաշտպանությունը (Պորտֆելի կողպեք, Սեփական սերվեր հասցեների համար, Թաքցնել գումարները, Պորտֆելը համակարգային պահուստում)։</string>
+    <string name="backup_restored">Վերականգնված է՝ %1$s, %2$s։</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d ահազանգ</item>
+        <item quantity="other">%1$d ահազանգ</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d զույգ</item>
+        <item quantity="other">%1$d զույգ</item>
+    </plurals>
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen -->
+    <string name="backup_restore_over_limits">Սահմաններից դուրս (%3$s զույգ, մեկ զույգին %4$s ահազանգ), չի վերականգնվի՝ %1$s, %2$s։</string>
+    <string name="backup_restored_over_limits">Սահմաններից դուրս (%3$s զույգ, մեկ զույգին %4$s ահազանգ), չի վերականգնվել՝ %1$s, %2$s։</string>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren -->
+    <string name="storage_recovery_message">Այս սարքն այլևս չունի հավելվածի գաղտնագրված տվյալների բանալին, ուստի հավելվածը գործարկվեց դատարկ։ Ոչինչ չի ջնջվել։ Դիտացանկը և պորտֆելը վերադարձնելու համար ներմուծիր պահուստային ֆայլ Կարգավորումներում՝ «%1$s» բաժնում։</string>
+    <string name="storage_recovery_title">Պահպանված տվյալները չհաջողվեց ապակողպել</string>
+
+    <!-- Sicherung mit Passwort (Argon2id, 64 MiB): zu wenig Arbeitsspeicher -->
+    <string name="backup_not_enough_memory">Բավարար ազատ հիշողություն չկա՝ պահուստային պատճենը գաղտնաբառով պաշտպանելու կամ բացելու համար։ Փակիր այլ հավելվածներ և կրկին փորձիր։</string>
+
+    <!-- Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">Վերականգնել պահուստային պատճենը</string>
+    <string name="storage_recovery_acknowledge">Հասկանալի է</string>
+    <string name="storage_recovery_restored_title">Պահպանված տվյալները կրկին ապակողպված են</string>
+    <string name="storage_recovery_restored_message">Այս սարքի ավելի վաղ բանալին կրկին բացեց մի կողմ դրված տվյալները, ուստի դրանք վերադարձել են։ Միջանկյալ ժամանակում պահպանված տվյալները մնացել են անփոփոխ դրանց կողքին։</string>
+    <string name="settings_reset_notice_title">Կարգավորումները զրոյացվել են</string>
+    <string name="settings_reset_notice">Քո կարգավորումները չհաջողվեց կարդալ, և դրանք վերադարձվել են լռելյայն արժեքներին։ Խնդրում ենք ստուգել պորտֆելի կողպեքը, ահազանգերի միջակայքը և արժույթը։</string>
+    <string name="backup_restore_interrupted_title">Վերականգնումն ընդհատվել է</string>
+    <string name="backup_restore_interrupted_rolled_back">Հավելվածը փակվել է պահուստային պատճենը վերականգնելիս։ Քո նախկին տվյալները վերադարձվել են. պահուստային պատճենից ոչինչ չի պահպանվել։</string>
+    <string name="backup_restore_interrupted_incomplete">Հավելվածը փակվել է պահուստային պատճենը վերականգնելիս, և նախկին տվյալները չհաջողվեց ամբողջությամբ վերադարձնել։ Խնդրում ենք ստուգել դիտացանկը և պորտֆելը կամ կրկին վերականգնել պահուստային պատճենը Կարգավորումներում՝ «%1$s» բաժնում։</string>
+    <string name="backup_not_verified">Պահուստային ֆայլը պահպանելուց հետո չհաջողվեց ստուգել – այն այլ կերպ է կարդացվում։ Խնդրում ենք պահպանել պահուստային պատճենը նոր ֆայլում։</string>
+
+    <!-- Hinweis (nur Android): Portfolio-Kopie aus der Systemsicherung auch beim zweiten Versuch unlesbar und gelöscht -->
+    <string name="system_backup_not_imported_title">Պորտֆելը չի վերականգնվել համակարգային պահուստից</string>
+    <!-- %1$s = Name des Bereichs «Sichern &amp; Wiederherstellen» in den Einstellungen -->
+    <string name="system_backup_not_imported_message">Android-ի համակարգային պահուստից պորտֆելի պատճենը չհաջողվեց կարդալ, նույնիսկ երկրորդ փորձից, և այն ջնջվել է։ Եթե ունես պահուստային ֆայլ, վերականգնիր այն Կարգավորումներում՝ «%1$s» բաժնում։</string>
+
+    <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
+    <string name="portfolio_storage_kept_in_memory">Պահպանված տվյալները հիմա հնարավոր չէ կարդալ, ուստի պորտֆելը չի ցուցադրվում և չի կարող փոխվել։ Վերագործարկիր հավելվածը։</string>
+    <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
+    <string name="watchlist_storage_kept_in_memory">Պահպանված տվյալները հիմա հնարավոր չէ կարդալ, ուստի դիտացանկը չի ցուցադրվում և չի կարող փոխվել։ Վերագործարկիր հավելվածը։</string>
+    <string name="watchlist_storage_locked">Դիտացանկը հնարավոր չէ փոխել՝ պահպանված տվյալները հիմա հնարավոր չէ կարդալ։ Վերագործարկիր հավելվածը։</string>
+    <string name="alarm_save_storage_locked">Ահազանգերը հնարավոր չէ պահպանել՝ պահպանված տվյալները հիմա հնարավոր չէ կարդալ։ Վերագործարկիր հավելվածը։</string>
+    <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
+    <string name="backup_storage_kept">Պահուստավորումը հնարավոր չէ՝ պահպանված տվյալները հիմա հնարավոր չէ կարդալ։ Վերագործարկիր հավելվածը և կրկին փորձիր։</string>
+    <string name="backup_restore_storage_in_memory">Ներմուծումը հիմա հնարավոր չէ՝ հավելվածն այս պահին տվյալներ չի պահպանում (գաղտնագրումը դեռ ակտիվ չէ), ուստի ներմուծվածը կկորչի վերագործարկման ժամանակ։ Վերագործարկիր հավելվածը և կրկին փորձիր։</string>
+    <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable) -->
+    <string name="backup_restore_journal_unavailable">Ներմուծումը հիմա հնարավոր չէ՝ ընթացիկ տվյալների անվտանգության պատճենը չհաջողվեց պահպանել (բանալին այս պահին հասանելի չէ)։ Ոչինչ չի փոխվել։ Փորձիր ավելի ուշ կամ վերագործարկիր հավելվածը։</string>
+
+    <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
+    <string name="portfolio_storage_in_memory">Գաղտնագրումը դեռ ակտիվ չէ – պորտֆելը չի պահպանվում, փոփոխությունները կկորչեն հավելվածը փակելիս։ Հավելվածը կրկին կփորձի հաջորդ գործարկման ժամանակ։</string>
+
+    <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
+    <string name="portfolio_storage_locked">Պահպանված տվյալները հիմա հնարավոր չէ կարդալ, ուստի փոփոխություններ հնարավոր չեն։ Վերագործարկիր հավելվածը։</string>
+    <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
+    <string name="watchlist_storage_in_memory">Այս սարքը հիմա բանալի չի տրամադրում – դիտացանկը չի պահպանվում, փոփոխությունները կկորչեն հավելվածը փակելիս։ Ահազանգերը ֆոնում դադարեցված են։ Հավելվածը կրկին կփորձի հաջորդ գործարկման ժամանակ։</string>
+
+    <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
+    <string name="backup_restore_server_kept">«Սեփական սերվեր հասցեների համար»-ը չի կիրառվել – չգաղտնագրված պահուստային պատճենը չի կարող այն փոխել։</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
+    <string name="backup_restore_server_public">«Սեփական սերվեր հասցեների համար»-ը հեռացվել է, ինչպես պահուստային պատճենում – Bitcoin հասցեները կրկին հարցվում են հանրային հանգույցներում։</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
+    <string name="backup_restore_server_changed">«Սեփական սերվեր հասցեների համար»-ը փոխարինվել է պահուստային պատճենում եղածով։</string>
+</resources>

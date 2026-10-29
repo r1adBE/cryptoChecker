@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">ត្រូវការទិន្នន័យ និងថ្មច្រើនជាង</string>
+    <string name="update_mode_live">ផ្ទាល់ពេលបើក</string>
+    <string name="update_mode_live_hint">កន្លែងដែលផ្សារប្តូរផ្តល់តម្លៃផ្ទាល់៖ ភ្លាមៗពេលបញ្ជីតាមដានបើក។ បើមិនដូច្នោះទេ នៅការទាញយកបន្ទាប់។ ពេលបិទ៖ មិនញឹកញាប់ជាងរៀងរាល់ %1$s ម្តង ហើយច្រើនតែយឺតជាងនេះ។</string>
+    <string name="update_mode_live_hint_ios">កន្លែងដែលផ្សារប្តូរផ្តល់តម្លៃផ្ទាល់៖ ភ្លាមៗពេលបញ្ជីតាមដានបើក។ បើមិនដូច្នោះទេ នៅការទាញយកបន្ទាប់។ ពេលបិទ៖ នៅពេល iOS អនុញ្ញាត ពេលខ្លះឃ្លាតគ្នាច្រើនម៉ោង។ ប្រសិនបើអ្នកអូសកម្មវិធីចោល iOS នឹងបញ្ឈប់ការពិនិត្យទាំងនេះ រហូតដល់អ្នកបើកវាម្តងទៀត។</string>
+    <string name="update_mode_recommended">បានណែនាំ</string>
+    <string name="update_mode_sparsam">សន្សំសំចៃ</string>
+    <string name="update_mode_sparsam_hint">ពេលកម្មវិធីបិទ មិនញឹកញាប់ជាងរៀងរាល់ %1$s ម្តង ហើយច្រើនតែយឺតជាងនេះ (ការដាស់តឿន វិដជិត)។ ពេលបើក៖ រាល់ពេលដែលអ្នកបើកវា។</string>
+    <string name="update_mode_sparsam_hint_ios">ពេលកម្មវិធីបិទ iOS សម្រេចថាពេលណាត្រូវពិនិត្យ (ការដាស់តឿន វិដជិត) ពេលខ្លះឃ្លាតគ្នាច្រើនម៉ោង។ ពេលបើក៖ រាល់ពេលដែលអ្នកបើកវា។</string>
+    <string name="update_mode_title">ភាពញឹកញាប់នៃការធ្វើបច្ចុប្បន្នភាព</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">ការផ្ទុកឡើងវិញត្រូវបានបោះបង់</string>
+    <string name="refresh_sheet_alarms">ការដាស់តឿន</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="other">បានកើតឡើង %1$d</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">អ្វីៗទាំងអស់បានធ្វើបច្ចុប្បន្នភាព</string>
+    <string name="refresh_sheet_app_start">ការចាប់ផ្ដើមកម្មវិធី</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="other">សំណើរួម %1$s · តម្លៃ %2$d</item>
+    </plurals>
+    <string name="refresh_sheet_database">មូលដ្ឋានទិន្នន័យ</string>
+    <string name="refresh_sheet_exchange_unreachable">មិនអាចភ្ជាប់ទៅ %1$s បានទេ</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
+        <item quantity="other">មិនអាចភ្ជាប់ទៅផ្សារប្តូរ %1$d បានទេ</item>
+    </plurals>
+    <string name="refresh_sheet_network">បណ្ដាញ</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="other">ការជូនដំណឹងតម្លៃ %1$d</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="other">%1$d គូ</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="other">%1$d គូមិនបានធ្វើបច្ចុប្បន្នភាព</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="other">%2$d ក្នុងចំណោម %1$d គូ</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">បានផ្អាករហូតដល់ %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">បានផ្អាករហូតដល់ %1$s (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">គ្មានទិន្នន័យ</string>
+    <string name="refresh_sheet_reason_offline">គ្មានការតភ្ជាប់</string>
+    <string name="refresh_sheet_reason_rate_limit">សំណើច្រើនពេក</string>
+    <string name="refresh_sheet_reason_server">កំហុសម៉ាស៊ីនមេ</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">អស់ពេល</string>
+    <string name="refresh_sheet_reason_unavailable">ផ្សារប្តូរមិនអាចប្រើបាន</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s វិនាទី</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_exchanges">ផ្សារប្តូរ</string>
+    <string name="refresh_sheet_section_steps">ការបែងចែកលម្អិត</string>
+    <string name="refresh_sheet_status_failed">មិនបានធ្វើបច្ចុប្បន្នភាព</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">បានធ្វើបច្ចុប្បន្នភាពទាំងអស់</string>
+    <string name="refresh_sheet_status_partial">បានធ្វើបច្ចុប្បន្នភាពមួយផ្នែក</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">កំពុងរង់ចាំចាប់ផ្ដើម</string>
+    <string name="refresh_sheet_widgets">វិដជិត</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">សំណើរួម %1$s (បរាជ័យ)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="other">កំហុស %1$d</item>
+    </plurals>
+    <string name="refresh_report_live">ផ្ទាល់៖ %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="other">%1$d លែងជួញដូរទៀតហើយ</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d ដោយឡែកៗ</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">បរាជ័យ</string>
+    <string name="check_result_ok">ល្អ</string>
+    <string name="check_result_partial">មួយផ្នែក</string>
+    <string name="check_result_skipped">បានរំលង</string>
+    <string name="check_trigger_bgtask">ផ្ទៃខាងក្រោយ</string>
+    <string name="check_trigger_exact">ទាន់ពេល</string>
+    <string name="check_trigger_foreground">កម្មវិធី</string>
+    <string name="check_trigger_widget">វិដជិត</string>
+    <string name="check_trigger_widget_ios">វិដជិត · តម្លៃ និងការដាស់តឿនតម្លៃ</string>
+    <string name="check_trigger_worker">ផ្ទៃខាងក្រោយ</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android អាចពន្យារការពិនិត្យ – សូមកំណត់ថ្មទៅ «គ្មានការរឹតត្បិត»</string>
+    <string name="battery_later">ពេលក្រោយ</string>
+    <string name="battery_message">Android ពន្យារការងារនៅផ្ទៃខាងក្រោយ ដើម្បីសន្សំថាមពល — បន្ទាប់មកតម្លៃ និងវិដជិតអាចចាស់ច្រើនម៉ោង។ ការកំណត់ការប្រើថ្មទៅគ្មានការរឹតត្បិត ធ្វើឱ្យវាទាន់សម័យជានិច្ច។ អ្នកអាចផ្លាស់ប្តូរវាគ្រប់ពេលនៅក្នុងការកំណត់ Android។</string>
+    <string name="battery_open_settings">បើកការកំណត់ថ្ម</string>
+    <string name="battery_steps">នៅក្នុងព័ត៌មានកម្មវិធី សូមចុច ថ្ម (ឬ ការប្រើថ្មរបស់កម្មវិធី) ហើយជ្រើសរើស គ្មានការរឹតត្បិត។</string>
+    <string name="battery_title">រក្សាតម្លៃឱ្យទាន់សម័យ</string>
+    <string name="ios_background_refresh_off">Background App Refresh បានបិទសម្រាប់កម្មវិធីនេះ។ បើគ្មានវាទេ ការដាស់តឿនត្រូវបានពិនិត្យតែពេលកម្មវិធីបើកប៉ុណ្ណោះ។</string>
+    <string name="ios_low_power_mode">Low Power Mode កំពុងបើក។ iOS កម្រពិនិត្យនៅផ្ទៃខាងក្រោយណាស់ ដូច្នេះការដាស់តឿនអាចមកយឺត។</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">សារពីផ្សារប្តូរ៖ %1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">ឃ្លាំងផ្ទុកនៅតែជាប់សោ – ព្យាយាមម្តងទៀតក្នុងរយៈពេល %1$d វិនាទី</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="other">ឃ្លាំងផ្ទុកនៅតែជាប់សោ – ព្យាយាមម្តងទៀតក្នុងរយៈពេល %1$d វិនាទី</item>
+    </plurals>
+    <string name="watchlist_retry_short">ព្យាយាមម្តងទៀតក្នុងរយៈពេល %1$s</string>
+    <string name="widget_retry_at">ព្យាយាមម្តងទៀតនៅ %1$s</string>
+    <string name="refresh_sheet_wait_attempt">ការព្យាយាមលើកទី %1$d – ឃ្លាំងផ្ទុកដែលបានអ៊ិនគ្រីបមិនទាន់រួចរាល់នៅលើកដំបូង</string>
+</resources>

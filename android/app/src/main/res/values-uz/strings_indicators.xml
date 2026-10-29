@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">Altkoinlar va Bitcoin</string>
+    <string name="neutral_btc_indicators_title">Bitcoin indikatorlari</string>
+    <string name="neutral_halving_last">Oxirgi halving: %1$s</string>
+    <string name="neutral_halving_next">Keyingi halving taxminan %1$s kutilmoqda (kalendar boʻyicha baholangan – blok balandligi hozir mavjud emas).</string>
+    <string name="neutral_indicators_disclaimer">Faqat oʻlchangan qiymatlar, baholashsiz. Prognoz emas va investitsiya maslahati emas.</string>
+    <string name="neutral_onchain_missing">On-chain maʼlumotlari (Coin Metrics) hozir mavjud emas.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">Narx oldingi tarixiy maksimumidan qanchalik past.</string>
+    <string name="neutral_explain_change_30d">Bugungi narx 30 kun oldingisiga nisbatan.</string>
+    <string name="neutral_explain_hashrate">30 kunlik oʻrtacha xeshreyt 60 kunlik oʻrtachaga nisbatan.</string>
+    <string name="neutral_explain_ma200w">Oxirgi 200 haftalik yopilish narxlarining oʻrtachasi.</string>
+    <string name="neutral_explain_mayer">Narx 200 kunlik oʻrtachaga boʻlingan.</string>
+    <string name="neutral_explain_mvrv">Bozor qiymati realizatsiya qilingan qiymatga boʻlingan (on-chain).</string>
+    <string name="neutral_explain_pi_gap">111 kunlik oʻrtacha 350 kunlik oʻrtachaning ikki baravariga nisbatan.</string>
+    <string name="neutral_explain_puell">Maynerlarning kunlik daromadi uning 365 kunlik oʻrtachasiga boʻlingan.</string>
+    <string name="neutral_explain_rsi_daily">Oxirgi 14 kunning nisbiy kuch indeksi, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">Oxirgi 14 haftaning nisbiy kuch indeksi, 0–100.</string>
+    <string name="neutral_explain_sma50_200">50 kunlik oʻrtacha 200 kunlik oʻrtachaga nisbatan.</string>
+    <string name="neutral_explain_vs_btc">90 kun ichidagi narx oʻzgarishi Bitcoin’ga nisbatan.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">Ilova faqat sonni koʻrsatadi va uni mavsum deb atamaydi. Qiymat odatda soatlar emas, kunlar davomida oʻzgaradi.</string>
+    <string name="neutral_info_btc_how">Har bir qiymat bilan birga u nimani oʻlchashi va 2016-yildan beri oʻz tarixida qayerda turgani haqida bitta gap beriladi. Ilova qiymatlarni baholamaydi va bozor fazasini chiqarmaydi; bozor signallari chegaralari faqat siz qoʻyganlardir. Oʻtmishdagi qonuniyatlar takrorlanishi shart emas.</string>
+    <string name="neutral_info_btc_what">Keng tarqalgan Bitcoin indikatorlari oddiy oʻlchangan qiymatlar sifatida: Mayer Multiple, 200 haftalik oʻrtacha, tarixiy maksimumdan tushish, 30 kunlik oʻzgarish, Pi Cycle oraligʻi va on-chain qiymatlari MVRV, Puell Multiple va xeshreyt.</string>
+    <string name="neutral_info_coin_how">Har bir qiymat bilan birga u nimani oʻlchashi haqida bitta gap beriladi, baholashsiz. Narx tarixi qisqa tangalarda baʼzi qiymatlar yoʻq. On-chain maʼlumotlari bu yerga kirmaydi.</string>
+    <string name="neutral_info_coin_what">Siz tanlagan tanga uchun oʻsha oddiy indikatorlar, faqat narx maʼlumotlaridan: Mayer Multiple, 200 haftalik oʻrtacha, tarixiy maksimumdan tushish, 30 kunlik oʻzgarish, 50/200 kunlik trend, RSI va 90 kun ichida Bitcoin’ga nisbatan kuch.</string>
+    <string name="neutral_info_halving_how">Keyingi halving joriy blok balandligi va joriy murakkablik davrining oʻrtacha blok vaqti boʻyicha hisoblanadi (mempool.space); bu maʼlumotlarsiz – kalendar boʻyicha (oxirgi halving plyus taxminan toʻrt yil). Grafik oʻtgan sikllarning halvingdan boshlab narx yoʻlini koʻrsatadi – tarix, prognoz emas.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">Trend 50/200 kun</string>
+    <string name="ind_drawdown">Tarixiy maksimumdan tushish</string>
+    <string name="ind_missing">maʼlumot yetarli emas</string>
+    <string name="ind_rsi_daily">RSI (kunlik)</string>
+    <string name="ind_rsi_weekly">RSI (haftalik)</string>
+    <string name="ind_vs_btc">Bitcoin’ga nisbatan kuch (90 kun)</string>
+    <string name="neutral_ind_change_30d">30 kunlik oʻzgarish</string>
+    <string name="neutral_ind_hashrate">Xeshreyt 30/60 kun</string>
+    <string name="neutral_ind_ma200w">200 haftalik oʻrtacha</string>
+    <string name="neutral_ind_pi_gap">Pi Cycle oraligʻi</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">Yuqori – yirik altkoinlarning koʻpi 90 kunda Bitcoin’dan oʻzib ketgan, past – Bitcoin ularning koʻpidan oʻzib ketgan.</string>
+    <string name="ind_read_ath_distance">Kichik – narx rekordga yaqin, katta – undan ancha past.</string>
+    <string name="ind_read_change_30d">Musbat – 30 kun oldingidan yuqori, manfiy – past.</string>
+    <string name="ind_read_funding">Yuqori – koʻp treyderlar leveraj bilan oʻsishga tikmoqda, manfiy – koʻpchilik tushishga tikmoqda.</string>
+    <string name="ind_read_hashrate_30_60">Musbat – hisoblash quvvati oʻsmoqda, manfiy – maynerlar oʻchirmoqda.</string>
+    <string name="ind_read_leverage">Longlar koʻp – koʻpchilik qarz pul bilan oʻsishga tikmoqda, shortlar koʻp – koʻpchilik tushishga tikmoqda.</string>
+    <string name="ind_read_ma200w">Narx undan ancha yuqori – uzoq oʻsish, unga yaqin – chuqur tuzatish.</string>
+    <string name="ind_read_mayer">Yuqori – narx 200 kunlik oʻrtachadan ancha yuqori, past – undan past.</string>
+    <string name="ind_read_mvrv">Yuqori – narx egalar oʻrtacha toʻlaganidan ancha yuqori, past – unga yaqin yoki undan past.</string>
+    <string name="ind_read_pi_cycle_gap">Nolga yaqin – ikki oʻrtacha deyarli kesishadi, kuchli manfiy – ular bir-biridan uzoq.</string>
+    <string name="ind_read_puell">Yuqori – maynerlar odatdagidan ancha koʻp topadi, past – ancha kam.</string>
+    <string name="ind_read_rsi_daily">70 dan yuqori – soʻnggi kunlarda kuchli oʻsish, 30 dan past – kuchli tushish.</string>
+    <string name="ind_read_rsi_weekly">70 dan yuqori – soʻnggi haftalarda kuchli oʻsish, 30 dan past – kuchli tushish.</string>
+    <string name="ind_read_sma50_vs_200">Musbat – qisqa muddatli oʻrtacha uzoq muddatlidan yuqori, manfiy – past.</string>
+    <string name="ind_read_vs_btc">Musbat – Bitcoin’dan yaxshiroq, manfiy – yomonroq.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">30 kun davomida bir xil narx: %1$s</string>
+    <string name="ind_context_note">Oʻtgan qiymatlar va «bir xil narx» hisoblari – arifmetika, prognoz emas.</string>
+    <string name="ind_context_percentile">%1$s dan beri kunlarning %2$s qismida pastroq boʻlgan</string>
+</resources>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">ຜົນທັງໝົດ</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="other">%1$d ກະດານແລກປ່ຽນ</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">ບໍ່ມີຄູ່ເທຣດສຳລັບຫຼຽນນີ້ໃນລາຍການທີ່ໂຫຼດແລ້ວ.</string>
+    <string name="explorer_coin_not_loaded">ຍັງບໍ່ໄດ້ໂຫຼດລາຍການຄູ່ເທຣດ</string>
+    <string name="explorer_coin_other_pairs">ຄູ່ເທຣດອື່ນ</string>
+    <string name="explorer_coin_show_pairs">ສະແດງຄູ່ເທຣດ</string>
+    <string name="explorer_coin_suggested">ແນະນຳ</string>
+    <string name="explorer_coins_title">ຫຼຽນ</string>
+    <string name="explorer_lists_failed_many">%1$s ບໍ່ຕອບສະໜອງໃນຕອນນີ້ – ບໍ່ໄດ້ໂຫຼດລາຍການຄູ່ເທຣດ. ລອງໃໝ່ພາຍຫຼັງ.</string>
+    <plurals name="explorer_lists_failed_more">
+        <item quantity="other">+ອີກ %1$d</item>
+    </plurals>
+    <string name="explorer_lists_failed_one">%1$s ບໍ່ຕອບສະໜອງໃນຕອນນີ້ – ບໍ່ໄດ້ໂຫຼດລາຍການຄູ່ເທຣດ. ລອງໃໝ່ພາຍຫຼັງ.</string>
+    <string name="explorer_lists_load">ໂຫຼດລາຍການ</string>
+    <string name="explorer_lists_loading">ກຳລັງໂຫຼດລາຍການຄູ່ເທຣດ… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="other">ລາຍການຄູ່ເທຣດຂອງ %1$d ກະດານແລກປ່ຽນຍັງບໍ່ມີຢູ່ໃນອຸປະກອນນີ້.</item>
+    </plurals>
+    <string name="explorer_lists_privacy">ໂຫຼດລາຍການສາທາລະນະທີ່ຄົບຖ້ວນຂອງແຕ່ລະກະດານແລກປ່ຽນ – ຄືກັນສຳລັບທຸກຄົນ. ການຄົ້ນຫາຂອງທ່ານຢູ່ໃນອຸປະກອນນີ້ເທົ່ານັ້ນ.</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">ການຄົ້ນຫາຫຼ້າສຸດ: %1$s</string>
+    <string name="explorer_recent_clear">ລ້າງ</string>
+    <string name="explorer_recent_clear_a11y">ລ້າງການຄົ້ນຫາຫຼ້າສຸດ</string>
+    <string name="explorer_recent_title">ການຄົ້ນຫາຫຼ້າສຸດ</string>
+    <string name="explorer_search_choose_manually">ເລືອກກະດານແລກປ່ຽນ ແລະ ຄູ່ເທຣດດ້ວຍຕົນເອງ</string>
+    <string name="explorer_search_empty">ບໍ່ພົບຜົນ.</string>
+    <string name="explorer_search_hint">ຄົ້ນຫາຫຼຽນ, ຄູ່ເທຣດ ຫຼື ກະດານແລກປ່ຽນ</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">ພິມຊື່ ຫຼື ສັນຍາລັກຂອງຫຼຽນ ເຊັ່ນ Bitcoin ຫຼື BTC – ແລ້ວເລືອກຄູ່ເທຣດ.</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">ເພີ່ມໃສ່ລາຍການຕິດຕາມ</string>
+    <string name="explorer_added_to_watchlist">ເພີ່ມໃສ່ລາຍການຕິດຕາມແລ້ວ.</string>
+    <string name="explorer_already_in_watchlist">ຄູ່ເທຣດນີ້ມີຢູ່ໃນລາຍການຕິດຕາມແລ້ວ.</string>
+    <string name="explorer_exchange_missing">ບໍ່ມີກະດານແລກປ່ຽນທີ່ຕ້ອງການບໍ?</string>
+    <string name="explorer_loading_pairs">ກຳລັງໂຫຼດຄູ່ເທຣດ…</string>
+    <string name="explorer_no_pair_selected">ເລືອກຄູ່ເທຣດກ່ອນ.</string>
+    <string name="explorer_no_pairs_yet">ຍັງບໍ່ໄດ້ໂຫຼດຄູ່ເທຣດສຳລັບກະດານແລກປ່ຽນນີ້.</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="other">%1$d ຄູ່ · ອັບເດດ %2$s</item>
+    </plurals>
+    <string name="explorer_pairs_title">ຄູ່ເທຣດ</string>
+    <string name="explorer_precise_title">ຂັ້ນສູງ / ຕາມກະດານແລກປ່ຽນ</string>
+    <string name="explorer_price_loading">ກຳລັງໂຫຼດລາຄາ…</string>
+    <string name="explorer_select_exchange_hint">ເລືອກກະດານແລກປ່ຽນ – ຄູ່ເທຣດຂອງມັນຈະໂຫຼດອັດຕະໂນມັດ.</string>
+    <string name="explorer_select_placeholder">ກະລຸນາເລືອກ</string>
+    <string name="explorer_step_pair">ເລືອກຄູ່ເທຣດ</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">ຂຶ້ນຫຼາຍສຸດ</string>
+    <string name="explorer_filter_losers">ລົງຫຼາຍສຸດ</string>
+    <string name="explorer_filter_volume">ປະລິມານ</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">ຄູ່ເທຣດ %1$s ທັງໝົດຂອງກະດານແລກປ່ຽນນີ້</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="other">ພົບຄູ່ເທຣດ %2$s %1$d ຄູ່</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">ບໍ່ມີຄູ່ເທຣດ %1$s ໃນກະດານແລກປ່ຽນນີ້ສຳລັບປະເພດສັນຍາທີ່ເລືອກ. ຊິງກະດານແລກປ່ຽນກ່ອນ ຫຼື ລອງປະເພດສັນຍາອື່ນ.</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="other">ເພີ່ມຄູ່ເທຣດທັງໝົດ %1$d ຄູ່ໃສ່ລາຍການຕິດຕາມ</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="other">ເພີ່ມແລ້ວ %1$d, %2$d ມີຢູ່ໃນລາຍການຕິດຕາມແລ້ວ.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="other">ຄູ່ເທຣດ %2$s ທັງໝົດ %1$d ຄູ່ຈາກ %3$s ຈະຖືກເພີ່ມໃສ່ລາຍການຕິດຕາມ. ຄູ່ທີ່ມີຢູ່ແລ້ວຈະຖືກຂ້າມ.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="other">ເພີ່ມ %1$d ຄູ່ເທຣດບໍ?</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">ເຊື່ອງລາຍການ</string>
+    <string name="explorer_bulk_show_list">ສະແດງລາຍການ</string>
+    <string name="explorer_bulk_tap_hint">ແຕະຄູ່ເທຣດເພື່ອເລືອກມັນຂ້າງເທິງ.</string>
+    <string name="explorer_bulk_title">ຫຼາຍຄູ່ເທຣດພ້ອມກັນ</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">ໂຫຼດຄູ່ເທຣດປັດຈຸບັນຂອງກະດານແລກປ່ຽນທີ່ເລືອກ.</string>
+    <string name="explorer_no_pair_list">ບໍ່ມີຄູ່ສະກຸນເງິນ</string>
+    <string name="explorer_sync_sheet_last">ຊິງຫຼ້າສຸດ: %1$s</string>
+    <string name="explorer_sync_never">ບໍ່ເຄີຍ</string>
+    <string name="explorer_sync_sheet_action">ຊິງດຽວນີ້</string>
+    <string name="explorer_sync_sheet_title">ອັບເດດຄູ່ສະກຸນເງິນ</string>
+    <string name="explorer_field_coin">ຫຼຽນ</string>
+    <string name="explorer_field_contract">ປະເພດສັນຍາ</string>
+    <string name="explorer_field_exchange">ກະດານແລກປ່ຽນ</string>
+    <string name="explorer_field_quote">ສະກຸນເງິນອ້າງອີງ</string>
+    <string name="explorer_contract_spot">Spot</string>
+    <string name="explorer_reload_pairs">ຊິງ</string>
+    <string name="sync_pairs_count">ຄູ່ເທຣດ: %1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">ເພີ່ມ</string>
+    <string name="dex_added">ເພີ່ມ %1$s ໃສ່ລາຍການຕິດຕາມແລ້ວ.</string>
+    <string name="dex_already">%1$s ມີຢູ່ໃນລາຍການຕິດຕາມແລ້ວ.</string>
+    <string name="dex_intro">ໂທເຄັນນອກກະດານແລກປ່ຽນໃຫຍ່ໆ, ຈາກກະດານແລກປ່ຽນແບບກະຈາຍສູນ (Uniswap, PancakeSwap, Raydium …) ຜ່ານ DexScreener. ຄົ້ນຫາໂທເຄັນ ແລະ ເພີ່ມ pool ການຊື້ຂາຍໜຶ່ງຂອງມັນ – ລາຄາເປັນໂດລາສະຫະລັດ.</string>
+    <string name="dex_liquidity">ສະພາບຄ່ອງ %1$s</string>
+    <string name="dex_no_results">ບໍ່ພົບ pool.</string>
+    <string name="dex_search">ຄົ້ນຫາ</string>
+    <string name="dex_search_hint">ຊື່, ສັນຍາລັກ ຫຼື ທີ່ຢູ່ຂອງໂທເຄັນ</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">ໂທເຄັນ Alpha</string>
+    <string name="asset_kind_token">ໂທເຄັນ</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+
+    <string name="dex_low_liquidity_no_alarm">ສະພາບຄ່ອງຕ່ຳ – ບໍ່ມີສັນຍານເຕືອນ</string>
+    <string name="dex_low_liquidity_alarm_hint">pool ນີ້ມີສະພາບຄ່ອງໜ້ອຍກວ່າ 10,000 USD (ຫຼື ບໍ່ມີການລາຍງານ). ການຊື້ຂາຍນ້ອຍໆສາມາດເຮັດໃຫ້ລາຄາປ່ຽນ, ສະນັ້ນຈຶ່ງຕັ້ງສັນຍານເຕືອນຢູ່ນີ້ບໍ່ໄດ້. ສັນຍານເຕືອນທີ່ມີຢູ່ແລ້ວຈະຖືກເກັບໄວ້ ແຕ່ຈະບໍ່ເຮັດວຽກຈົນກວ່າສະພາບຄ່ອງຈະເພີ່ມຂຶ້ນອີກ.</string>
+
+    <string name="explorer_bulk_show_all">ສະແດງທັງໝົດ (%1$d)</string>
+    <string name="dex_token_address_copy">ສຳເນົາທີ່ຢູ່ໂທເຄັນ</string>
+    <string name="dex_token_address_copied">ສຳເນົາທີ່ຢູ່ໂທເຄັນແລ້ວ</string>
+    <string name="dex_token_address_label">ທີ່ຢູ່ໂທເຄັນທີ່ລົງທ້າຍດ້ວຍ %1$s</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="other">%1$d ຄູ່ເທຣດບໍ່ໄດ້ຖືກເພີ່ມ: ລາຍການຕິດຕາມຂອງທ່ານມີໄດ້ສູງສຸດ %2$s ຄູ່.</item>
+    </plurals>
+    <string name="bulk_add_progress">ກຳລັງເພີ່ມຄູ່ເທຣດ … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="other">ເພີ່ມຄູ່ເທຣດໃໝ່ %1$d ຄູ່ໃສ່ລາຍການຕິດຕາມ</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="other">ໃໝ່ %1$d, %2$d ມີຢູ່ໃນລາຍການຕິດຕາມແລ້ວ</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">ທັງໝົດມີຢູ່ໃນລາຍການຕິດຕາມແລ້ວ</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="other">ລຶບ %1$d ຄູ່ເທຣດອອກອີກບໍ?</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">ຄູ່ເທຣດທີ່ທ່ານຕັ້ງສັນຍານເຕືອນໄວ້ໃນລະຫວ່າງນີ້ຈະຍັງຄົງຢູ່.</string>
+    <string name="bulk_undo_expired">ຍົກເລີກບໍ່ໄດ້ອີກແລ້ວ – ຄູ່ເທຣດຍັງຢູ່ໃນລາຍການຕິດຕາມ.</string>
+    <string name="explorer_section_spot">Spot</string>
+    <string name="explorer_section_futures">Futures</string>
+    <string name="explorer_section_dex">DEX pools</string>
+    <string name="explorer_section_forex">Forex (ອັດຕາອ້າງອີງ)</string>
+    <string name="explorer_forex_hint">ອັດຕາລາຍວັນຂອງທະນາຄານກາງເອີຣົບ (ຜ່ານ Frankfurter), ບໍ່ແມ່ນແບບສົດ – ບໍ່ມີສັນຍານເຕືອນ.</string>
+</resources>

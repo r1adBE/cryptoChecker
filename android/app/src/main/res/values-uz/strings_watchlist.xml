@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">Dolzarb · %1$s</string>
+    <string name="watchlist_empty_title">Hozircha juftliklar yoʻq</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%2$d tadan %1$d tasi kurssiz</item>
+        <item quantity="other">%2$d tadan %1$d tasi kurssiz</item>
+    </plurals>
+    <string name="watchlist_last_run">Oxirgi ishga tushirish %1$s</string>
+    <string name="watchlist_live_a11y">Jonli kurslar yoqiq</string>
+    <string name="watchlist_offline_since">Aloqa yoʻq · %1$s holatiga</string>
+    <string name="watchlist_pull_to_refresh">Yangilash uchun pastga torting</string>
+    <string name="watchlist_refresh_report">Oxirgi yangilanish</string>
+    <string name="watchlist_refresh_report_empty">Hozircha tafsilot yoʻq – hali toʻliq yangilanish boʻlmagan. Yangilashga bosing va aylana toʻxtaguncha kuting.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%2$d tadan %1$d tasi eskirgan</item>
+        <item quantity="other">%2$d tadan %1$d tasi eskirgan</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">Bu yerdagi barcha juftliklar oʻchirilgan</string>
+    <string name="watchlist_status_exchange_prices">Birjalaringiz kurslari · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">Birja kurslari · %1$s</string>
+    <string name="watchlist_status_group_empty">Bu guruhda juftliklar yoʻq</string>
+    <string name="watchlist_status_none_traded">Bu yerda savdodagi juftliklar yoʻq</string>
+    <string name="watchlist_updated">Yangilandi: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">oʻrt. %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d ta pasaydi</item>
+        <item quantity="other">%1$d ta pasaydi</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d ta 24 soatlik qiymatsiz</item>
+        <item quantity="other">%1$d ta 24 soatlik qiymatsiz</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d ta bugungi qiymatsiz</item>
+        <item quantity="other">%1$d ta bugungi qiymatsiz</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d ta oshdi</item>
+        <item quantity="other">%1$d ta oshdi</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · oʻchirilgan</string>
+    <string name="watchlist_row_outdated">%1$s · eskirgan</string>
+    <string name="watchlist_row_outdated_age">eskirgan · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">Kurs %1$s dan beri oʻzgarmagan</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s javob bermayapti</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">Oxiriga oʻtish</string>
+    <string name="watchlist_jump_start">Boshiga oʻtish</string>
+    <string name="watchlist_search_close">Qidiruvni yopish</string>
+    <string name="watchlist_search_empty">«%1$s» boʻyicha mos natija yoʻq</string>
+    <string name="watchlist_search_hint">Juftlik, nom yoki birjani qidirish</string>
+    <string name="watchlist_search_open">Qidirish</string>
+    <string name="watchlist_sort_ascending">oʻsish tartibida</string>
+    <string name="watchlist_sort_descending">kamayish tartibida</string>
+    <string name="watchlist_sort_hint">Juftlikni bosib turib torting yoki dastakdan foydalaning. Sevimlilar yuqorida qoladi.</string>
+    <string name="watchlist_sort_name">Nom</string>
+    <string name="watchlist_sort_own">Oʻz tartibingiz</string>
+    <string name="watchlist_sort_price">Kurs</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">Kuzatuv roʻyxatini tozalash</string>
+    <string name="watchlist_clear_confirm">Barcha juftliklar kuzatuv roʻyxatidan olib tashlansinmi? Ularning signallari ham oʻchiriladi.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d ta oʻchirilgan</item>
+        <item quantity="other">%1$d ta oʻchirilgan</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">Olib tashlash</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Oʻz birjasida endi savdoda boʻlmagan %1$d ta juftlik olib tashlansinmi? Uning signallari ham oʻchiriladi.</item>
+        <item quantity="other">Oʻz birjasida endi savdoda boʻlmagan %1$d ta juftlik olib tashlansinmi? Ularning signallari ham oʻchiriladi.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">Savdoda boʻlmagan juftliklarni olib tashlash (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Savdoda boʻlmagan juftliklarni olib tashlash</string>
+    <string name="watchlist_removed">%1$s olib tashlandi</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d ta juftlik olib tashlandi</item>
+        <item quantity="other">%1$d ta juftlik olib tashlandi</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">Savdoda boʻlmagan %1$d ta juftlik olib tashlandi</item>
+        <item quantity="other">Savdoda boʻlmagan %1$d ta juftlik olib tashlandi</item>
+    </plurals>
+    <string name="watchlist_select">Tanlash</string>
+    <string name="watchlist_select_all">Hammasini tanlash</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d ta tanlandi</item>
+        <item quantity="other">%1$d ta tanlandi</item>
+    </plurals>
+    <string name="watchlist_show_all">Hammasini koʻrsatish</string>
+    <string name="watchlist_show_only_disabled">Faqat oʻchirilganlarni koʻrsatish</string>
+    <string name="watchlist_show_only_stale">Faqat eskirganlarni koʻrsatish</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Signal (%1$d)</item>
+        <item quantity="other">Signallar (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">Hozircha sevimlilar yoʻq. Juftlikni oʻngga suring yoki juftlikni ochib «Sevimli»ga bosing.</string>
+    <string name="watchlist_group_empty_hint">Guruh juftliklarini tanlash uchun uni bosib turing.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">Guruhlaringiz shu yerda paydo boʻladi</string>
+    <string name="watchlist_notification">Kurs bildirishnomasi</string>
+    <string name="watchlist_tts">Kursni ovoz chiqarib oʻqish</string>
+    <string name="watchlist_tts_speech_on">Ovozli oʻqish yoqiq. Uni Sozlamalar › Signallar › Ovozli oʻqish boʻlimida oʻzgartirishingiz mumkin.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">Vidjet sifatida qoʻshish</string>
+    <string name="watch_action_alarm">Signal</string>
+    <string name="watch_action_favorite">Sevimli</string>
+    <string name="watch_action_why">U bilan birga nima harakatlanmoqda?</string>
+    <string name="watch_action_why_short">Birga nima harakatlanmoqda?</string>
+    <string name="watch_change_mark">Chegarani oʻzgartirish</string>
+    <string name="watch_disable">Oʻchirish</string>
+    <string name="watch_disable_hint">Soʻrovlarsiz, bildirishnomalarsiz</string>
+    <string name="watch_disabled">Oʻchirilgan</string>
+    <string name="watch_disabled_banner">%1$s oʻchirildi</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">Signallar qoladi – ularning chegaralarini tekshiring</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">Juftlikni tahrirlash</string>
+    <string name="watch_enable">Yoqish</string>
+    <string name="watch_enable_hint">Kurslar va bildirishnomalar davom etadi</string>
+    <string name="watch_enabled_banner">%1$s yoqildi</string>
+    <string name="watch_error_offline">Aloqa yoʻq</string>
+    <string name="watch_gesture_hint_short">Bosish: signal va «U bilan birga nima harakatlanmoqda?» · tanlash uchun bosib turish · oʻchirish uchun chapga surish · sevimli uchun oʻngga surish</string>
+    <string name="watch_hint_tap_why">Signallar va «U bilan birga nima harakatlanmoqda?» uchun tangaga bosing</string>
+    <string name="watch_not_traded">Bu birjada endi savdoda emas</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">Kuzatuv roʻyxatida yoʻq</string>
+    <string name="watch_price_mid">oʻrta narx (aks holda belgi narxi)</string>
+    <string name="watch_row_source_both">Oʻzgarish &amp; grafik: %1$s</string>
+    <string name="watch_row_source_change">Oʻzgarish: %1$s</string>
+    <string name="watch_row_source_chart">Grafik: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s endi kuzatuv roʻyxatingizda</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s endi kuzatuv roʻyxatingizda</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">Sevimlilarga qoʻshish</string>
+    <string name="favorite_added">%1$s sevimlilarga qoʻshildi</string>
+    <string name="favorite_remove">Sevimlilardan olib tashlash</string>
+    <string name="favorite_removed">%1$s sevimlilardan olib tashlandi</string>
+    <string name="hint_favorites_list">Maslahat: qatorni sevimli qilish uchun uni oʻngga suring – sevimlilar yuqorida qoladi.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">Yangi guruh</string>
+    <string name="group_all">Hammasi</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Alpha tokenlari</string>
+    <string name="group_delete">Guruhni oʻchirish</string>
+    <string name="group_delete_confirm">Juftliklar kuzatuv roʻyxatingizda qoladi.</string>
+    <string name="group_done">Tayyor</string>
+    <string name="group_edit_title">Guruhni tahrirlash</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">Sevimlilar</string>
+    <string name="group_in_other">%1$s da</string>
+    <string name="group_name">Guruh nomi</string>
+    <string name="group_new">Yangi guruh…</string>
+    <string name="group_next">Keyingi</string>
+    <string name="group_none">Guruhsiz</string>
+    <string name="group_rename">Nomini oʻzgartirish</string>
+    <string name="group_search_hint">Juftlik, nom yoki birjani qidirish</string>
+    <string name="group_target">Guruhga</string>
+    <string name="group_title">Guruh</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">Tokenlar</string>
+    <string name="group_value">Guruh: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">Izoh qoʻshish</string>
+    <string name="note_edit">Izohni tahrirlash</string>
+    <string name="note_hint">masalan, kirish 0.42, maqsad 0.60</string>
+    <string name="note_remove">Olib tashlash</string>
+    <string name="note_title">Izoh</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">Tartibni oʻzgartirish uchun torting</string>
+    <string name="sort_move_bottom">Eng pastga surish</string>
+    <string name="sort_move_down">Pastga surish</string>
+    <string name="sort_move_top">Eng yuqoriga surish</string>
+    <string name="sort_move_up">Yuqoriga surish</string>
+
+    <string name="watchlist_first_alarm_title">Birinchi signalingizni qoʻying</string>
+    <string name="watchlist_first_alarm_text">Kurs chegarangizga yetganda xabar oling – ilova yopiq boʻlsa, Android notekis tekshiradi.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">belgi narxi (oʻrta narx yoʻq)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">soatlik kurs</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">Birinchi signalingizni qoʻying – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Yangilash (%1$d)</string>
+
+    <!-- Zeile der Merkliste: Börse pausiert (zu viele Anfragen / Zeitüberschreitungen) bis zu einer Uhrzeit, ersetzt die Zeitzeile, z. B. «Binance · pausiert bis 19:45» -->
+    <string name="watchlist_row_exchange_paused">%1$s · %2$s gacha toʻxtatilgan</string>
+
+    <string name="watchlist_refresh_just_done">Hozirgina yangilandi · %1$d s oldin</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">oxirgi savdo %1$s</string>
+
+    <string name="change_candle_source_hint">%1$s shamlaridan hisoblangan – birjaning oʻzi bu qiymatni bermaydi.</string>
+    <string name="change_candle_source_action">Oʻzgarish manbasini koʻrsatish</string>
+
+    <string name="watchlist_sort_by_coin">Tanga boʻyicha saralash</string>
+    <string name="watchlist_sort_by_exchange">Birja boʻyicha saralash</string>
+    <string name="watchlist_limit_reached">Kuzatuv roʻyxatingizda koʻpi bilan %1$s ta juftlik boʻlishi mumkin.</string>
+    <string name="watch_price_reference">maʼlumotnoma kursi, kunlik</string>
+    <string name="watch_price_daily">kunlik</string>
+    <string name="watchlist_compare">Solishtirish</string>
+    <string name="watchlist_compare_hint">Solishtirish uchun 2 dan 4 tagacha juftlik tanlang.</string>
+    <string name="compare_title">Solishtirish</string>
+    <string name="compare_basis">Chiziqlar davr boshidan beri oʻzgarishni foizda koʻrsatadi.</string>
+    <string name="compare_from_high">30 K choʻqqisiga nisbatan</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">%1$d ta juftlik tiklanmadi – kuzatuv roʻyxati toʻla</item>
+        <item quantity="other">%1$d ta juftlik tiklanmadi – kuzatuv roʻyxati toʻla</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">Kuzatuv roʻyxati va uning signallari hozir saqlanmayapti. Bu va keyingi oʻzgarishlar ilova yopilganda yoʻqoladi. Baribir oʻzgartirilsinmi?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">Baribir oʻzgartirish</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">%1$d ta juftlik</item>
+        <item quantity="other">%1$d ta juftlik</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">%2$d / %1$d ta juftlik</item>
+        <item quantity="other">%2$d / %1$d ta juftlik</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">%1$d ta oʻrin qoldi</item>
+        <item quantity="other">%1$d ta oʻrin qoldi</item>
+    </plurals>
+    <string name="watchlist_footer_full">Kuzatuv roʻyxati toʻldi</string>
+</resources>

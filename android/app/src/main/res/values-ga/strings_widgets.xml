@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">Cúlra</string>
+    <string name="widget_configure_hint">Roghnaigh cúlra agus teimhneacht. Leanann an dath an aip. Taispeánann an ghiuirléid do liosta faire ar fad; tapáil ró chun an aip a oscailt.</string>
+    <string name="widget_configure_title">Socraigh an ghiuirléid</string>
+    <string name="widget_description">Taispeánann sí praghas péire ó do liosta faire.</string>
+    <string name="widget_empty">Gan péirí sa liosta faire fós.</string>
+    <string name="widget_group_hint">Taispeáin péirí an ghrúpa seo amháin.</string>
+    <string name="widget_kind_single">Bonn aonair</string>
+    <string name="widget_opacity">Teimhneacht an chúlra: %1$s</string>
+    <string name="widget_pulse_description">Cad atá ag seasamh amach sa mhargadh faoi láthair: ceannlíne, achoimre ghearr agus Bitcoin, Ethereum agus Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">as dáta</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">as dáta · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">Coinnle</string>
+    <string name="widget_chart_line">Líne</string>
+    <string name="widget_chart_range">Raon na cairte</string>
+    <string name="widget_chart_type">Cineál cairte</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 bhliain</string>
+    <string name="widget_range_24h">24 u</string>
+    <string name="widget_range_30d">30 lá</string>
+    <string name="widget_range_7d">7 lá</string>
+    <string name="widget_range_short_1y">1B</string>
+    <string name="widget_range_short_24h">24u</string>
+    <string name="widget_range_short_30d">30L</string>
+    <string name="widget_range_short_7d">7L</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">Staid %1$s</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">Stair ar an mbealach</string>
+    <string name="widget_portfolio_description">Luach iomlán do phunainne agus athrú an lae inniu</string>
+    <string name="widget_portfolio_entries">Iontrálacha faoi na boinn</string>
+    <string name="widget_portfolio_entries_both">An dá cheann</string>
+    <string name="widget_portfolio_entries_buys">Ceannacháin</string>
+    <string name="widget_portfolio_entries_hint">Ní thaispeántar ach má tá spás faoi na boinn. Áirítear taiscí le ceannacháin, aistarraingtí le díolacháin; le «An dá cheann» suimíonn na línte go dtí an sealúchas.</string>
+    <string name="widget_portfolio_entries_off">Múchta</string>
+    <string name="widget_portfolio_entries_sells">Díolacháin</string>
+    <string name="widget_portfolio_display">Taispeáint</string>
+    <string name="widget_portfolio_display_conversion">Tiontú amháin</string>
+    <string name="widget_portfolio_display_conversion_usdt">Tiontú + USDT</string>
+    <string name="widget_portfolio_display_hint">Bíonn líne USDT i bhfolach nuair is bonn cobhsaí USD é an t-airgeadra tiontaithe (m.sh. USDC).</string>
+    <string name="widget_portfolio_display_usdt">USDT amháin</string>
+    <string name="widget_portfolio_empty">Cuir ceannacháin leis sa chluaisín Punann</string>
+    <string name="widget_portfolio_list_hint">Oscail an aip chun do shuíomhanna a thaispeáint anseo.</string>
+    <string name="widget_portfolio_locked_hint">Faoi ghlas – díghlasáil san aip</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="one">gan %1$d bhonn</item>
+        <item quantity="two">gan %1$d bhonn</item>
+        <item quantity="few">gan %1$d bhonn</item>
+        <item quantity="many">gan %1$d mbonn</item>
+        <item quantity="other">gan %1$d bonn</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ %1$d eile</item>
+        <item quantity="two">+ %1$d eile</item>
+        <item quantity="few">+ %1$d eile</item>
+        <item quantity="many">+ %1$d eile</item>
+        <item quantity="other">+ %1$d eile</item>
+    </plurals>
+    <string name="widget_portfolio_name">Punann</string>
+    <string name="widget_portfolio_off_hint">Cas air é in %1$s.</string>
+    <string name="widget_portfolio_off_short">Punann múchta</string>
+    <string name="widget_portfolio_off_title">Tá an phunann múchta</string>
+    <string name="widget_portfolio_partly_stale">roinnt praghsanna as dáta</string>
+    <string name="widget_portfolio_period">Tréimhse</string>
+    <string name="widget_portfolio_period_without">%1$s gan %2$s</string>
+    <string name="widget_portfolio_range_48h">48 u</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: oscail an Phunann</string>
+    <string name="widget_portfolio_range_short_48h">48u</string>
+    <string name="widget_portfolio_today_without">Inniu gan %1$s</string>
+    <string name="widget_portfolio_view">Amharc</string>
+    <string name="widget_portfolio_view_chart">Cairt</string>
+    <string name="widget_portfolio_view_list">Liosta</string>
+    <string name="widget_portfolio_view_overview">Forbhreathnú</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">Roghnaigh péire</string>
+    <string name="single_widget_description">Taispeánann sí bonn amháin go mór le praghas, athrú agus cairt 24 uair an chloig.</string>
+    <string name="single_widget_label">Crypto Checker – bonn aonair</string>
+    <string name="single_widget_title">Socraigh giuirléid aonair</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">Cuir leis</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">Cuir giuirléid %1$s leis</string>
+    <string name="widgets_manual_text">Ní féidir le do scáileán baile giuirléidí a chur leis ón aip. Coinnigh do mhéar ar spás folamh ar an scáileán baile, roghnaigh “Giuirléidí” agus cuardaigh “Crypto Checker”.</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">Cuir an ghiuirléid leis tú féin</string>
+    <string name="widgets_sheet_title">Cuir giuirléid leis</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">Ní ligeann iOS d’aipeanna giuirléidí a chur leis iad féin. Ní thógann sé ach nóiméad:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Giuirléidí atá ar fáil</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Coinnigh do mhéar ar spás folamh ar an Scáileán Baile go dtí go mbogann na haipeanna.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Tapáil “Edit” › “Add Widget” ag an mbarr (nó “+” ar leaganacha níos sine de iOS).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Cuardaigh “Crypto Checker”, roghnaigh giuirléid agus tapáil “Add Widget”.</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">Athnuaigh – indéanta arís i gceann %1$d s</string>
+    <string name="settings_watch">Uaireadóir</string>
+    <string name="settings_watch_hint">Boinn don aip uaireadóra ar Wear OS (suas le %1$d, praghas in aghaidh USDT). Ní théann ach an liosta seo chuig an uaireadóir, trí sheirbhísí Google Play; faigheann an t-uaireadóir na praghsanna é féin.</string>
+    <string name="settings_watch_mode_phone">Cosúil leis an bhfón (ceanáin ★)</string>
+    <string name="settings_watch_mode_own">Liosta féin</string>
+    <string name="settings_watch_own_title">Liosta féin: %1$d as %2$d</string>
+    <string name="settings_watch_none">Gan ceanáin fós</string>
+
+    <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
+    <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">Gan líne USDT i “Liosta”</string>
+    <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
+    <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">Taispeánann “Forbhreathnú” 30 lá ina ionad</string>
+</resources>

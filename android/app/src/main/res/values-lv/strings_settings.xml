@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">Savs</string>
+    <string name="settings_group_general">Vispārīgi</string>
+    <string name="settings_group_more">Vairāk</string>
+    <string name="settings_minutes">%1$d min</string>
+    <string name="settings_row_about">Par lietotni</string>
+    <string name="settings_row_alarms">Brīdinājumi</string>
+    <string name="settings_row_currency">Valūta</string>
+    <string name="settings_row_dated_futures">Termiņa nākotnes līgumi</string>
+    <string name="settings_row_updates">Cenu atjaunināšana</string>
+    <string name="settings_row_watchlist">Vērojamo saraksts</string>
+    <string name="settings_search_hint">Meklēt iestatījumos</string>
+    <string name="settings_seconds">%1$d s</string>
+    <string name="settings_section_about">Par</string>
+    <string name="settings_section_appearance">Izskats</string>
+    <string name="settings_section_developer">Izstrādātājiem</string>
+    <string name="settings_section_language">Valoda</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">Ieslēgts</string>
+    <string name="settings_title">Iestatījumi</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">Miera laiks, pirms brīdinājums nostrādā atkal</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Brīdinājuma signāls</string>
+    <string name="settings_alarm_signal_open_system">Pielāgot sistēmas iestatījumos</string>
+    <string name="settings_alarm_signal_system_hint">Atbilst tālruņa paziņojumu iestatījumiem.</string>
+    <string name="settings_alarm_sound">Brīdinājuma skaņa</string>
+    <string name="settings_alarm_sound_custom">Sava skaņa</string>
+    <string name="settings_alarm_sound_default">Noklusējuma skaņa</string>
+    <string name="settings_alarm_sound_error">Skaņu neizdevās izmantot.</string>
+    <string name="settings_alarm_sound_file">Savs audio fails…</string>
+    <string name="settings_alarm_sound_reset">Izmantot noklusējuma skaņu</string>
+    <string name="settings_alarm_sound_system">Izvēlēties sistēmas skaņu…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Skaitlis uz lietotnes ikonas</string>
+    <string name="settings_app_badge_hint">Skaita atvērtos brīdinājumu paziņojumus. Vai parādās skaitlis vai punkts, nosaka sākuma ekrāns (piem., Samsung: „Rādīt ar skaitli“).</string>
+    <string name="settings_exact_checks">Pārbaudīt laikā</string>
+    <string name="settings_exact_checks_grant">Atļaut modinātājus un atgādinājumus</string>
+    <string name="settings_exact_checks_hint">Android pārbauda aptuveni ik pēc 15 minūtēm, pat ja ierīce ir dīkstāvē. Patērē nedaudz vairāk akumulatora.</string>
+    <string name="settings_exact_checks_nothing">Nav aktīvu pāru – nav ko pārbaudīt.</string>
+    <string name="settings_exact_checks_permission_missing">Trūkst atļaujas – kamēr ierīce atpūšas, Android pārbauda neregulāri, dažreiz tikai pēc vairākām stundām.</string>
+    <string name="settings_notification_change">Paziņot tikai par cenas izmaiņām</string>
+    <string name="settings_notification_change_always">Vienmēr</string>
+    <string name="settings_percent_invalid">Ievadi vērtību no 0 līdz 100.</string>
+    <string name="settings_notification_change_hint">Cenas paziņojums parādās tikai tad, kad cena kopš pēdējā paziņojuma mainījusies vismaz par tik. Kamēr trūkst datu, nekas netiek rādīts. Brīdinājumus tas neietekmē.</string>
+    <string name="settings_ongoing_notifications">Nevar aizvilkt prom</string>
+    <string name="settings_ongoing_notifications_hint">Cenu paziņojumi paliek piesprausti.</string>
+    <string name="settings_price_notifications">Cenu paziņojumi</string>
+    <string name="settings_price_notifications_hint">Rāda ieslēgto pāru pašreizējo cenu statusa joslā.</string>
+    <string name="settings_price_pairs">Pāri</string>
+    <string name="settings_price_pairs_all_off">Visi izslēgti</string>
+    <string name="settings_price_pairs_all_on">Visi ieslēgti</string>
+    <string name="settings_price_pairs_count">%1$d no %2$d</string>
+    <string name="settings_price_pairs_empty">Vērojamo sarakstā vēl nav pāru.</string>
+    <string name="settings_price_pairs_hint">Izvēlies, kuru pāru cena tiek rādīta paziņojumu joslā.</string>
+    <string name="settings_quiet_hours">Klusuma laiks</string>
+    <string name="settings_quiet_hours_from">No</string>
+    <string name="settings_quiet_hours_hint">No %1$s līdz %2$s brīdinājumi gaida klusuma laika beigas un tad atskan ar skaņu. Citi paziņojumi pienāk klusi, bez balss.</string>
+    <string name="settings_quiet_hours_to">Līdz</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">Intervāls</string>
+    <string name="settings_background_updates">Atjaunināšana fonā</string>
+    <string name="settings_battery_hint">Ierobežots nozīmē, ka Android var aizkavēt fona atjaunināšanu par vairākām stundām.</string>
+    <string name="settings_battery_ok">Akumulatora lietojums: neierobežots</string>
+    <string name="settings_battery_restricted">Akumulatora lietojums: ierobežots</string>
+    <string name="settings_check_runs_empty">Vēl nav reģistrētu pārbaužu.</string>
+    <string name="settings_check_runs_honest_android">Android izlemj, kad pārbaudīt – šeit redzams, kad tas patiešām notika.</string>
+    <string name="settings_check_runs_honest_ios">iOS izlemj, kad pārbaudīt – šeit redzams, kad tas patiešām notika.</string>
+    <string name="settings_check_runs_title">Pēdējās pārbaudes</string>
+    <string name="settings_http_log">Rādīt HTTP žurnālu</string>
+    <string name="settings_http_log_hint">Lapas „Pievienot pāri“ apakšā rāda pieprasījumus biržām – problēmu novēršanai.</string>
+    <string name="settings_live_service">Atjaunināt bieži</string>
+    <string name="settings_live_websocket">Tiešraides cenas</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">Ievērojams: paziņot</string>
+    <string name="settings_activity_alerts_hint">Ne biežāk kā reizi stundā katram pārim: neparastas cenu kustības, apjoma lēcieni un nākotnes līgumu galējības (dati no Binance).</string>
+    <string name="settings_activity_sensitivity">Jutīgums</string>
+    <string name="settings_activity_sensitivity_hint">Cik viegli monēta tiek uzskatīta par neparastu – vienādi vērojamo saraksta kartītei un tirgus brīdinājumiem. Ar „Mazāk“ kartīte rāda tikai 3 spēcīgākās.</string>
+    <string name="settings_watchlist_activity_card">Ievērojams: rādīt sarakstā</string>
+    <string name="settings_watchlist_activity_card_hint">Blakus grupām rāda ⚡: pieskaroties redzami tikai pāri, kuros pašlaik kaut kas notiek. Paziņojumi par to tiek iestatīti sadaļā „Tirgus brīdinājumi“.</string>
+    <string name="settings_watchlist_names">Rādīt nosaukumus</string>
+    <string name="settings_watchlist_names_hint">Nosaukums zem pāra, piem., Bitcoin vai NVIDIA. Nāk kopā ar logotipu sarakstiem, ielādēts vienreiz visām monētām.</string>
+    <string name="settings_watchlist_sparkline">Mini diagramma vērojamo sarakstā</string>
+    <string name="settings_watchlist_sparkline_hint">24 stundu tendence blakus cenai</string>
+    <string name="settings_watchlist_value_names">Nosaukumi</string>
+    <string name="settings_watchlist_value_price_only">Tikai cena</string>
+    <string name="settings_watchlist_value_sparkline">Mini diagramma</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Ieskaitot Alpha žetonus (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Alpha žetoni: agrīni, pārsvarā mazi projekti no Binance Alpha saraksta – bieži maz tirgoti un ļoti svārstīgi.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">Pieder pie žetoniem. Nav pieejams, kamēr izvēlēts „Tikai TradFi“; Alpha žetoni, kas jau ir vērojamo sarakstā, paliek.</string>
+    <string name="settings_asset_scope_both">Žetoni un TradFi</string>
+    <string name="settings_asset_scope_both_hint">Viss – kripto un TradFi</string>
+    <string name="settings_asset_scope_hint">Nosaka, kurus pārus rāda izvēle un meklēšana, pievienojot pārus. Pāri, kas jau ir vērojamo sarakstā, vienmēr paliek.</string>
+    <string name="settings_asset_scope_title">Žetoni un TradFi</string>
+    <string name="settings_asset_scope_tokens">Tikai žetoni</string>
+    <string name="settings_asset_scope_tokens_hint">Kripto: spot un beztermiņa līgumi</string>
+    <string name="settings_asset_scope_tradfi">Tikai TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">Nākotnes līgumi uz akcijām, izejvielām, valūtām – līgumi, nevis žetoni</string>
+    <string name="settings_rolling_futures">Ieskaitot ceturkšņa un citus termiņa nākotnes līgumus</string>
+    <string name="settings_rolling_futures_hint">Izslēgts: termiņa nākotnes līgumi, kuru trūkst biržas sarakstā, tiek atzīmēti kā vairs netirgoti, nevis pārbaudīti pa vienam. Ietaupa laiku katrā atjaunināšanā.</string>
+    <string name="settings_rolling_futures_qtly">Ieskaitot ceturkšņa un citus termiņa nākotnes līgumus (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">Pieder pie žetoniem. Nav pieejams, kamēr izvēlēts „Tikai TradFi“; joprojām attiecas uz termiņa nākotnes līgumiem, kas jau ir vērojamo sarakstā.</string>
+    <string name="settings_tradfi_futures">Akcijas, izejvielas un valūtas (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Izvēloties pāri, rāda arī nākotnes līgumus uz akcijām, zeltu un citām izejvielām, valūtām un uzņēmumiem pirms IPO. Tie ir līgumi, nevis žetoni.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">Akcenta krāsa</string>
+    <string name="settings_accent_hint">Lietotnes, logrīku un lietotnes ikonas krāsa. Daži sākuma ekrāni maiņas laikā noņem ikonu – tad pievieno to atkal.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Monētu logotipi</string>
+    <string name="settings_coin_logos_app">Lietotnē</string>
+    <string name="settings_coin_logos_app_hint">Vērojamo saraksts, atvērtais pāris un tirgus kartītes</string>
+    <string name="settings_coin_logos_footer">Logotipi nāk no CoinGecko, bet monētām, kuras CoinGecko neuzskaita (piem., zelts, sudrabs, akcijas), – no Binance. Lietotne ielādē visus logotipus uzreiz un glabā tos šajā ierīcē, tāpēc neviens pakalpojuma sniedzējs neuzzina, kurām monētām tu seko. Monētām bez logotipa redzami to iniciāļi. Izlases monētām uz logotipa ir maza zvaigznīte. Kur slēdzis ir izslēgts, nerādās ne logotipi, ne iniciāļi; ja visi izslēgti, nekas netiek ielādēts.</string>
+    <string name="settings_coin_logos_portfolio">Portfelī</string>
+    <string name="settings_coin_logos_portfolio_hint">Pozīcijas, monētas detaļas un ieskati</string>
+    <string name="settings_coin_logos_value_app">Lietotne</string>
+    <string name="settings_coin_logos_widgets">Logrīkos</string>
+    <string name="settings_coin_logos_widgets_hint">Vērojamo saraksta un vienas monētas logrīki</string>
+    <string name="settings_high_contrast">Augsts kontrasts</string>
+    <string name="settings_high_contrast_hint">Spilgtākas cenu krāsas un tumšāks sekundārais teksts. Ieslēdzas arī tad, ja sistēma pieprasa lielāku kontrastu.</string>
+    <string name="settings_language_choose">Izvēlēties valodu</string>
+    <string name="settings_language_system">Sistēmas valoda</string>
+    <string name="settings_price_colors">Cenu krāsas</string>
+    <string name="settings_price_colors_hint">Zilo / oranžo viegli atšķirt pie jebkura krāsu redzes traucējuma (sarkans-zaļš un zils-dzeltens). Virziens vienmēr tiek rādīts arī ar + / −.</string>
+    <string name="settings_theme_mode">Gaišs / tumšs</string>
+    <string name="settings_widgets">Logrīki</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">%1$s izmaiņas un diagrammu laika josla</string>
+    <string name="settings_change_basis_hint_1">Izvēlētā laika josla nosaka, no kura brīža tiek skaitītas procentuālās izmaiņas (vērojamo saraksts, pulsa rinda, atvērtais pāris, logrīki), un diagrammās rādīto laiku.</string>
+    <string name="settings_change_basis_hint_2">„%1$s“ salīdzina ar cenu tieši pirms 24 stundām. „00:00“ salīdzina ar atvēršanas cenu pusnaktī šajā laika joslā.</string>
+    <string name="settings_change_basis_hint_3">Brīdinājumus tas neietekmē.</string>
+    <string name="settings_change_basis_hint_since_last">„%1$s“ salīdzina ar iepriekšējās atjaunināšanas cenu. Ar tiešraides cenām vērtība paliek tuvu 0%%.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">Pārrēķina valūta</string>
+    <string name="settings_conversion_currency_hint">Izmanto arī portfelim, brīdinājumiem tavā valūtā, kriptovalūtu tirgus kartītei un portfeļa logrīkam.</string>
+    <string name="settings_cost_method">Izmaksu metode</string>
+    <string name="settings_cost_method_average">Vidējās izmaksas</string>
+    <string name="settings_cost_method_average_hint">Pārdošanas tiek vērtētas pēc slīdošās vidējās pirkuma cenas.</string>
+    <string name="settings_cost_method_fifo">FIFO (noklusējums)</string>
+    <string name="settings_cost_method_fifo_hint">Vispirms tiek pārdotas vecākās monētas visās biržās un maciņos.</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO katram maciņam/biržai</string>
+    <string name="settings_cost_method_fifo_wallet_hint">Vecākās monētas vispirms katrā biržā vai maciņā; pārvedumi pārvieto partijas ar to pirkuma datumu.</string>
+    <string name="settings_portfolio_lock">Portfeļa bloķēšana</string>
+    <string name="settings_portfolio_lock_footer">Bloķēšana paslēpj to, kas redzams ekrānā. Tavi dati glabājas šajā ierīcē un ir aizsargāti ar ierīces šifrēšanu. Dublējumus vari aizsargāt ar paroli.</string>
+    <string name="settings_portfolio_lock_hint">Paslēpj tikai portfeli: atbloķē ar pirkstu nospiedumu, seju vai ierīces PIN. Atkal bloķējas pēc vairāk nekā minūtes fonā. Vērojamo saraksts, brīdinājumi un citi logrīki paliek atvērti.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Bez ierīces PIN vai piekļuves koda bloķēšana neko nepaslēpj – iestati ekrāna bloķēšanu.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Portfelis sistēmas dublējumā</string>
+    <string name="settings_portfolio_system_backup_hint">Izslēgts: tavi darījumi netiek iekļauti ierīces sistēmas dublējumā un pārsūtīšanā no tālruņa uz tālruni. Lai tos pārvietotu uz jaunu tālruni, izmanto lietotnes dublējumu ar paroli.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Nepieciešams Android 9 vai jaunāks – vecākas versijas saglabātu portfeli nešifrētu Google dublējumā.</string>
+    <string name="settings_portfolio_tab">Rādīt cilni „Portfelis“</string>
+    <string name="settings_portfolio_value_locked">Ieslēgts, ar bloķēšanu</string>
+    <string name="settings_show_converted">Pārrēķinātās cenas</string>
+    <string name="settings_show_converted_hint">Rāda cenas vērojamo sarakstā arī %1$s</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">Ziņot par USDT piesaistes zudumu</string>
+    <string name="settings_depeg_alarm_hint">Vienreiz paziņo, kad USDT novirzās no 1 USD par slieksni (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_threshold">Piesaistes zuduma slieksnis</string>
+    <string name="settings_fng_above">Fear &amp; Greed: paziņot virs</string>
+    <string name="settings_fng_below">Fear &amp; Greed: paziņot zem</string>
+    <string name="settings_gas_alert_hint">Vienreiz paziņo, kad parastā maksa nokrītas zem robežas. Pārbauda cenu atjaunināšanas laikā, ne biežāk kā ik pēc 10 minūtēm.</string>
+    <string name="settings_gas_btc_below">Bitcoin maksa zem (sat/vB)</string>
+    <string name="settings_gas_eth_below">Ethereum gāze zem (gwei)</string>
+    <string name="settings_ind_ath_within">Kritums no visu laiku maksimuma ne vairāk kā</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple virs</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple zem</string>
+    <string name="settings_ind_mvrv_above">MVRV virs</string>
+    <string name="settings_ind_mvrv_below">MVRV zem</string>
+    <string name="settings_indicator_alerts_hint">Bitcoin rādītāji, pārbaudīti divreiz dienā. Robežas izvēlies tu – lietotne vērtības nevērtē.</string>
+    <string name="settings_macro_notifications">Ekonomikas kalendārs</string>
+    <string name="settings_macro_notifications_hint">Plkst. 08:00 dienās ar svarīgiem ASV ekonomikas datiem (inflācija, darba tirgus pārskats, FRS lēmums). Kalendārs nāk no lietotnes vietnes, ielādēts reizi dienā.</string>
+    <string name="settings_market_alerts">Tirgus brīdinājumi</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="zero">%1$d aktīvi</item>
+        <item quantity="one">%1$d aktīvs</item>
+        <item quantity="other">%1$d aktīvi</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">Runas ātrums: %1$.1f×</string>
+    <string name="settings_tts">Balss izvade</string>
+    <string name="settings_tts_alarms_only">Tikai brīdinājumi</string>
+    <string name="settings_tts_alarms_only_hint">Izslēgts: tiek nolasīta katra pāra, kas atzīmēts ar „Nolasīt cenu“, atjaunināšana.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">Nolasa cenas un brīdinājumus balsī. Klusē, kamēr ierīce ir klusajā vai vibrācijas režīmā.</string>
+    <string name="settings_tts_test">Pārbaudīt balsi</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">Atiestatīt lietotni</string>
+    <string name="settings_reset_app_action">Dzēst visu</string>
+    <string name="settings_reset_app_confirm">Dzēš vērojamo sarakstu, brīdinājumus, portfeli, iestatījumus un visus saglabātos datus, kā pēc instalēšanas. To nevar atsaukt. Padoms: vispirms izveido dublējumu. Ierīces dublējumi (Google dublējums vai iCloud/datora dublējums) saglabā iepriekšējos datus līdz nākamajai dublēšanai.</string>
+    <string name="settings_reset_app_title">Atiestatīt lietotni?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">Meklēt valūtu</string>
+    <string name="language_search">Meklēt valodu</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">Tumšs</string>
+    <string name="theme_light">Gaišs</string>
+    <string name="theme_system">Sistēmas</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">Zila</string>
+    <string name="accent_green">Zaļa</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">Oranža</string>
+    <string name="accent_red">Sarkana</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">Ierasts Ķīnā, Japānā, Korejā un Taivānā</string>
+    <string name="price_colors_swap">Samainīt krāsas (kāpums ↔ kritums)</string>
+    <string name="price_style_calm">Mierīgs</string>
+    <string name="price_style_calm_color_vision">Mierīgs · krāsu redzes traucējumi</string>
+    <string name="price_style_color_vision">Krāsu redzes traucējumi</string>
+    <string name="price_style_fresh">Svaigs</string>
+    <string name="price_style_traditional">Tradicionāls</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">Biržu savienojumi pēdējoreiz pārbaudīti pret īstām atbildēm: %1$s</string>
+    <string name="about_license">Cenas nāk tieši no biržām; bez konta un bez izsekošanas.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">Licences</string>
+    <string name="about_privacy_policy">Privātuma politika</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">Ieteikt biržu</string>
+    <string name="about_source_code">Pirmkods GitHub</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker ir neatkarīgs r1AD projekts: mierīgs cenu pārskats bez konta, reklāmām un izsekošanas. Jautājumi un vēlmes: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker ir atvērtā koda (MIT licence).</string>
+    <string name="licenses_font_title">Burtveidols Rubik</string>
+    <string name="licenses_icons_bundled_text">Iekļauts lietotnē: ikonas no „Cryptocurrency Icons“, ko izveidoja Christopher Downer un līdzautori (github.com/spothq/cryptocurrency-icons), izdotas ar CC0 1.0 Universal. Tās tiek rādītas, līdz ielādēti CoinGecko vai Binance logotipi. Nosaukumi un logotipi paliek attiecīgo projektu preču zīmes.</string>
+    <string name="licenses_icons_title">Rezerves monētu ikonas</string>
+    <string name="licenses_libraries_intro">Lietotne izmanto šīs bibliotēkas saskaņā ar Apache License 2.0:</string>
+    <string name="licenses_libraries_title">Android bibliotēkas</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="zero">Vēl %d pieskārieni līdz izstrādātāja opcijām</item>
+        <item quantity="one">Vēl %d pieskāriens līdz izstrādātāja opcijām</item>
+        <item quantity="other">Vēl %d pieskārieni līdz izstrādātāja opcijām</item>
+    </plurals>
+    <string name="developer_unlocked">Izstrādātāja opcijas atbloķētas</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Vibrācija atbilst iPhone iestatījumiem (Skaņas un haptika).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Skaita jaunus brīdinājumus un tirgus brīdinājumus; atverot lietotni, atkal 0.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Tavi dati</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">Šajā ierīcē</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Tavs vērojamo saraksts, brīdinājumi un portfelis glabājas šifrēti šajā ierīcē; nav konta, nav sava servera.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Savienojumi</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Cenas nāk tieši no tavu pāru biržām, kā arī valūtu kursi, monētu saraksti un logotipi un datu spogulis GitHub; tie redz tavu IP adresi, nekad – tavus turējumus (vērojamās adreses tiek sūtītas attiecīgā tīkla pakalpojuma sniedzējam).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Dublējums</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Tikai tad, ja tu to izveido. Ar paroli tas ir šifrēts (Argon2id + AES-256-GCM); bez paroles – lasāms.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Ierīces maiņa</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">Atslēga paliek vecajā ierīcē – vispirms izveido dublējuma failu.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Kopīgot diagnostiku</string>
+    <string name="diagnostics_share_hint">Teksta fails atbalstam: versija, ierīce, brīdinājumu iestatījumi, pēdējās pārbaudes un brīdinājumu žurnāls – bez portfeļa, summām, adresēm un piezīmēm. Tu to redzi vispirms; nekas netiek nosūtīts automātiski.</string>
+    <string name="diagnostics_preview_title">Diagnostikas priekšskatījums</string>
+    <string name="diagnostics_action_share">Kopīgot</string>
+    <string name="settings_price_overlay">Cenas pārklājums</string>
+    <string name="settings_price_overlay_hint">Rāda pastāvīgā cenas paziņojuma pārus kā mazu peldošu plāksnīti virs citām lietotnēm. Pieskaroties atveras lietotne, velkot uz × apakšā – aizveras.</string>
+    <string name="settings_price_overlay_needs">Darbojas tikai kopā ar „%1$s“.</string>
+    <string name="settings_price_overlay_grant">Atļaut rādīt virs citām lietotnēm</string>
+    <string name="price_overlay_close">Aizvērt pārklājumu</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">Savs serveris adresēm</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Tikai Bitcoin: tavs savs Esplora vai mempool saderīgs serveris (piem., https://node.example/api, nepieciešams publiski uzticams sertifikāts, piemēram, Let\'s Encrypt). Ja iestatīts, Bitcoin adreses un xpub atslēgas tiek pieprasītas tikai tur – nekad publiskajos mezglos, pat ja tavs serveris nav sasniedzams. Citi tīkli turpina izmantot publiskos mezglus. Tukšs = publiskie mezgli.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Bitcoin serveris (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">Pārbaudīt</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">Pārbauda…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">Serveris atbild – bloks %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">Nav derīgas atbildes – pārbaudi adresi un sertifikātu</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">Lietošanā: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">Nav iestatīts – tiek izmantoti publiskie mezgli</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">Atļautas tikai https:// adreses</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">Adresē nedrīkst būt lietotājvārds vai parole</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">Adresē nedrīkst būt ? vai # daļa</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">Nav derīga servera adrese</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">Pārslēgties uz publiskajiem mezgliem?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">Tavas Bitcoin adreses un xpub atslēgas tad tiks pieprasītas publiskajos mezglos: %1$s. Tie redz šīs adreses kopā ar tavu IP adresi.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">Izmantot publiskos mezglus</string>
+</resources>

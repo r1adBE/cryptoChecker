@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">Portfeļa brīdinājumi apturēti: nav pašreizējās cenas – %1$s</string>
+    <string name="portfolio_alarms_paused_price_generic">Portfeļa brīdinājumi apturēti: ne visām monētām ir pašreizējā cena</string>
+    <string name="portfolio_alarms_paused_addresses">Portfeļa brīdinājumi apturēti: vērojamo adrešu atlikumi vēl nav ielādēti</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Portfeļa brīdinājumi apturēti: %1$s žetonu atlikumi daļēji novecojuši</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Portfeļa brīdinājumi apturēti: vērojamo adrešu žetonu atlikumi daļēji novecojuši</string>
+    <string name="portfolio_alarms_paused_unverified">Portfeļa brīdinājumi apturēti: cena nav pārbaudīta – %1$s</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Portfeļa brīdinājumi apturēti: dažu monētu cena nav pārbaudīta</string>
+    <string name="portfolio_alarms_address_failing">Portfeļa brīdinājumi pārbauda bez %1$s: atlikums nav ielādēts ilgāk par 24 stundām</string>
+    <string name="portfolio_alarms_address_failing_generic">Portfeļa brīdinājumi pārbauda bez adresēm, kuru atlikums nav ielādēts ilgāk par 24 stundām</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">žetoni daļēji novecojuši</string>
+    <string name="portfolio_address_restore_failed">Adresi neizdevās atjaunot – ja vajag, pievieno to vēlreiz</string>
+    <string name="portfolio_address_remove_failed">Adresi neizdevās noņemt – mēģini vēlreiz</string>
+</resources>

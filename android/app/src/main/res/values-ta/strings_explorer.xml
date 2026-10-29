@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">எல்லா முடிவுகளும்</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="one">%1$d எக்ஸ்சேஞ்ச்</item>
+        <item quantity="other">%1$d எக்ஸ்சேஞ்ச்கள்</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">ஏற்றப்பட்ட பட்டியல்களில் இந்தக் காயினுக்கு ஜோடி இல்லை.</string>
+    <string name="explorer_coin_not_loaded">ஜோடிப் பட்டியல்கள் இன்னும் ஏற்றப்படவில்லை</string>
+    <string name="explorer_coin_other_pairs">பிற ஜோடிகள்</string>
+    <string name="explorer_coin_show_pairs">ஜோடிகளைக் காட்டு</string>
+    <string name="explorer_coin_suggested">பரிந்துரைக்கப்பட்டவை</string>
+    <string name="explorer_coins_title">காயின்கள்</string>
+    <string name="explorer_lists_failed_many">%1$s இப்போது பதிலளிக்கவில்லை – ஜோடிப் பட்டியல்கள் ஏற்றப்படவில்லை. பின்னர் மீண்டும் முயலவும்.</string>
+    <plurals name="explorer_lists_failed_more">
+        <item quantity="one">+மேலும் %1$d</item>
+        <item quantity="other">+மேலும் %1$d</item>
+    </plurals>
+    <string name="explorer_lists_failed_one">%1$s இப்போது பதிலளிக்கவில்லை – ஜோடிப் பட்டியல் ஏற்றப்படவில்லை. பின்னர் மீண்டும் முயலவும்.</string>
+    <string name="explorer_lists_load">பட்டியல்களை ஏற்று</string>
+    <string name="explorer_lists_loading">ஜோடிப் பட்டியல்களை ஏற்றுகிறது… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="one">%1$d எக்ஸ்சேஞ்சின் ஜோடிப் பட்டியல் இன்னும் இந்தச் சாதனத்தில் இல்லை.</item>
+        <item quantity="other">%1$d எக்ஸ்சேஞ்ச்களின் ஜோடிப் பட்டியல்கள் இன்னும் இந்தச் சாதனத்தில் இல்லை.</item>
+    </plurals>
+    <string name="explorer_lists_privacy">ஒவ்வொரு எக்ஸ்சேஞ்சின் முழுப் பொதுப் பட்டியலையும் ஏற்றும் – அனைவருக்கும் ஒன்றே. உங்கள் தேடல் இந்தச் சாதனத்திலேயே இருக்கும்.</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">சமீபத்திய தேடல்: %1$s</string>
+    <string name="explorer_recent_clear">அழி</string>
+    <string name="explorer_recent_clear_a11y">சமீபத்திய தேடல்களை அழி</string>
+    <string name="explorer_recent_title">சமீபத்திய தேடல்கள்</string>
+    <string name="explorer_search_choose_manually">எக்ஸ்சேஞ்சையும் ஜோடியையும் நீங்களே தேர்ந்தெடுக்கவும்</string>
+    <string name="explorer_search_empty">பொருத்தங்கள் இல்லை.</string>
+    <string name="explorer_search_hint">காயின், ஜோடி அல்லது எக்ஸ்சேஞ்சைத் தேடு</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">காயினின் பெயர் அல்லது குறியீட்டைத் தட்டச்சு செய்யவும், எ.கா. Bitcoin அல்லது BTC – பிறகு ஜோடியைத் தேர்ந்தெடுக்கவும்.</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">கண்காணிப்புப் பட்டியலில் சேர்</string>
+    <string name="explorer_added_to_watchlist">கண்காணிப்புப் பட்டியலில் சேர்க்கப்பட்டது.</string>
+    <string name="explorer_already_in_watchlist">இந்த ஜோடி ஏற்கெனவே கண்காணிப்புப் பட்டியலில் உள்ளது.</string>
+    <string name="explorer_exchange_missing">எக்ஸ்சேஞ்ச் இல்லையா?</string>
+    <string name="explorer_loading_pairs">வர்த்தக ஜோடிகளை ஏற்றுகிறது…</string>
+    <string name="explorer_no_pair_selected">முதலில் ஒரு ஜோடியைத் தேர்ந்தெடுக்கவும்.</string>
+    <string name="explorer_no_pairs_yet">இந்த எக்ஸ்சேஞ்சுக்கு இன்னும் ஜோடிகள் ஏற்றப்படவில்லை.</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$d ஜோடி · %2$s புதுப்பிக்கப்பட்டது</item>
+        <item quantity="other">%1$d ஜோடிகள் · %2$s புதுப்பிக்கப்பட்டது</item>
+    </plurals>
+    <string name="explorer_pairs_title">ஜோடிகள்</string>
+    <string name="explorer_precise_title">மேம்பட்டது / எக்ஸ்சேஞ்ச் வாரியாக</string>
+    <string name="explorer_price_loading">விலையை ஏற்றுகிறது…</string>
+    <string name="explorer_select_exchange_hint">ஒரு எக்ஸ்சேஞ்சைத் தேர்ந்தெடுக்கவும் – அதன் வர்த்தக ஜோடிகள் தானாக ஏற்றப்படும்.</string>
+    <string name="explorer_select_placeholder">தேர்ந்தெடுக்கவும்</string>
+    <string name="explorer_step_pair">ஜோடியைத் தேர்ந்தெடு</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">ஏற்றம் கண்டவை</string>
+    <string name="explorer_filter_losers">இறக்கம் கண்டவை</string>
+    <string name="explorer_filter_volume">வால்யூம்</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">இந்த எக்ஸ்சேஞ்சின் எல்லா %1$s ஜோடிகளும்</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">%1$d %2$s ஜோடி கிடைத்தது</item>
+        <item quantity="other">%1$d %2$s ஜோடிகள் கிடைத்தன</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">தேர்ந்தெடுத்த ஒப்பந்த வகைக்கு இந்த எக்ஸ்சேஞ்சில் %1$s ஜோடிகள் இல்லை. முதலில் எக்ஸ்சேஞ்சை ஒத்திசைக்கவும், அல்லது வேறு ஒப்பந்த வகையை முயலவும்.</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">%1$d ஜோடியைக் கண்காணிப்புப் பட்டியலில் சேர்</item>
+        <item quantity="other">எல்லா %1$d ஜோடிகளையும் கண்காணிப்புப் பட்டியலில் சேர்</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">%1$d சேர்க்கப்பட்டது, %2$d ஏற்கெனவே கண்காணிப்புப் பட்டியலில் உள்ளன.</item>
+        <item quantity="other">%1$d சேர்க்கப்பட்டன, %2$d ஏற்கெனவே கண்காணிப்புப் பட்டியலில் உள்ளன.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">%3$s இலிருந்து %1$d %2$s ஜோடி, ஏற்கெனவே இல்லையெனில், கண்காணிப்புப் பட்டியலில் சேர்க்கப்படும்.</item>
+        <item quantity="other">%3$s இலிருந்து எல்லா %1$d %2$s ஜோடிகளும் கண்காணிப்புப் பட்டியலில் சேர்க்கப்படும். ஏற்கெனவே உள்ள ஜோடிகள் தவிர்க்கப்படும்.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">%1$d ஜோடியைச் சேர்க்கவா?</item>
+        <item quantity="other">%1$d ஜோடிகளைச் சேர்க்கவா?</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">பட்டியலை மறை</string>
+    <string name="explorer_bulk_show_list">பட்டியலைக் காட்டு</string>
+    <string name="explorer_bulk_tap_hint">மேலே தேர்ந்தெடுக்க ஒரு ஜோடியைத் தட்டவும்.</string>
+    <string name="explorer_bulk_title">ஒரே நேரத்தில் பல ஜோடிகள்</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">தேர்ந்தெடுத்த எக்ஸ்சேஞ்சின் தற்போதைய ஜோடிகளை ஏற்றும்.</string>
+    <string name="explorer_no_pair_list">நாணய ஜோடிகள் இல்லை</string>
+    <string name="explorer_sync_sheet_last">கடைசி ஒத்திசைவு: %1$s</string>
+    <string name="explorer_sync_never">ஒருபோதும் இல்லை</string>
+    <string name="explorer_sync_sheet_action">இப்போது ஒத்திசை</string>
+    <string name="explorer_sync_sheet_title">நாணய ஜோடிகளைப் புதுப்பி</string>
+    <string name="explorer_field_coin">காயின்</string>
+    <string name="explorer_field_contract">ஒப்பந்த வகை</string>
+    <string name="explorer_field_exchange">எக்ஸ்சேஞ்ச்</string>
+    <string name="explorer_field_quote">மேற்கோள் நாணயம்</string>
+    <string name="explorer_contract_spot">ஸ்பாட்</string>
+    <string name="explorer_reload_pairs">ஒத்திசை</string>
+    <string name="sync_pairs_count">வர்த்தக ஜோடிகள்: %1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">சேர்</string>
+    <string name="dex_added">%1$s கண்காணிப்புப் பட்டியலில் சேர்க்கப்பட்டது.</string>
+    <string name="dex_already">%1$s ஏற்கெனவே கண்காணிப்புப் பட்டியலில் உள்ளது.</string>
+    <string name="dex_intro">பெரிய எக்ஸ்சேஞ்ச்களுக்கு வெளியே உள்ள டோக்கன்கள், பரவலாக்கப்பட்ட எக்ஸ்சேஞ்ச்களிலிருந்து (Uniswap, PancakeSwap, Raydium …) DexScreener வழியாக. ஒரு டோக்கனைத் தேடி அதன் வர்த்தகப் பூல்களில் ஒன்றைச் சேர்க்கவும் – விலைகள் அமெரிக்க டாலரில்.</string>
+    <string name="dex_liquidity">பணப்புழக்கம் %1$s</string>
+    <string name="dex_no_results">பூல்கள் எதுவும் கிடைக்கவில்லை.</string>
+    <string name="dex_search">தேடு</string>
+    <string name="dex_search_hint">டோக்கன் பெயர், குறியீடு அல்லது முகவரி</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">Alpha டோக்கன்</string>
+    <string name="asset_kind_token">டோக்கன்</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+
+    <string name="dex_low_liquidity_no_alarm">குறைந்த பணப்புழக்கம் – விழிப்பூட்டல்கள் இல்லை</string>
+    <string name="dex_low_liquidity_alarm_hint">இந்தப் பூலில் 10,000 USD க்கும் குறைவான பணப்புழக்கம் உள்ளது (அல்லது எதுவும் தெரிவிக்கப்படவில்லை). சிறிய வர்த்தகங்கள் அதன் விலையை நகர்த்தக்கூடும், எனவே இங்கே விழிப்பூட்டல்களை அமைக்க முடியாது. ஏற்கெனவே உள்ள விழிப்பூட்டல்கள் வைக்கப்படும், ஆனால் பணப்புழக்கம் மீண்டும் உயரும் வரை தூண்டப்படாது.</string>
+
+    <string name="explorer_bulk_show_all">அனைத்தையும் காட்டு (%1$d)</string>
+    <string name="dex_token_address_copy">டோக்கன் முகவரியை நகலெடு</string>
+    <string name="dex_token_address_copied">டோக்கன் முகவரி நகலெடுக்கப்பட்டது</string>
+    <string name="dex_token_address_label">%1$s இல் முடியும் டோக்கன் முகவரி</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="one">%1$d ஜோடி சேர்க்கப்படவில்லை: உங்கள் கண்காணிப்புப் பட்டியலில் அதிகபட்சம் %2$s ஜோடிகள் இருக்கலாம்.</item>
+        <item quantity="other">%1$d ஜோடிகள் சேர்க்கப்படவில்லை: உங்கள் கண்காணிப்புப் பட்டியலில் அதிகபட்சம் %2$s ஜோடிகள் இருக்கலாம்.</item>
+    </plurals>
+    <string name="bulk_add_progress">ஜோடிகளைச் சேர்க்கிறது … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="one">%1$d புதிய ஜோடியைக் கண்காணிப்புப் பட்டியலில் சேர்</item>
+        <item quantity="other">%1$d புதிய ஜோடிகளைக் கண்காணிப்புப் பட்டியலில் சேர்</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="one">%1$d புதியது, %2$d ஏற்கெனவே கண்காணிப்புப் பட்டியலில்</item>
+        <item quantity="other">%1$d புதியவை, %2$d ஏற்கெனவே கண்காணிப்புப் பட்டியலில்</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">அனைத்தும் ஏற்கெனவே கண்காணிப்புப் பட்டியலில் உள்ளன</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="one">%1$d ஜோடியை மீண்டும் அகற்றவா?</item>
+        <item quantity="other">%1$d ஜோடிகளை மீண்டும் அகற்றவா?</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">இடையில் நீங்கள் விழிப்பூட்டல் அமைத்த ஜோடிகள் அப்படியே இருக்கும்.</string>
+    <string name="bulk_undo_expired">செயல்தவிர்ப்பு இனி சாத்தியமில்லை – ஜோடிகள் கண்காணிப்புப் பட்டியலில் இருக்கும்.</string>
+    <string name="explorer_section_spot">ஸ்பாட்</string>
+    <string name="explorer_section_futures">ஃபியூச்சர்ஸ்</string>
+    <string name="explorer_section_dex">DEX பூல்கள்</string>
+    <string name="explorer_section_forex">Forex (குறிப்பு விகிதம்)</string>
+    <string name="explorer_forex_hint">ஐரோப்பிய மத்திய வங்கியின் தினசரி விகிதம் (Frankfurter வழியாக), நேரலை அல்ல – விழிப்பூட்டல்கள் இல்லை.</string>
+</resources>

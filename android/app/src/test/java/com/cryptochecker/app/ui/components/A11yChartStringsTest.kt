@@ -6,7 +6,7 @@ import org.junit.Test
 import java.io.File
 
 /**
- * Texte der Diagramme für Screenreader (`strings_a11y_charts.xml`): in allen 33 Sprachen alle Schlüssel; die Ansage
+ * Texte der Diagramme für Screenreader (`strings_a11y_charts.xml`): in allen 75 Sprachen alle Schlüssel; die Ansage
  * beider Linien des Vergleichs (`a11y_chart_two_series`) mit den vier Platzhaltern in der Reihenfolge
  * Währung, Veränderung, USDT, Veränderung.
  */
@@ -22,7 +22,7 @@ class A11yChartStringsTest {
         val files = resDir().listFiles { f -> f.isDirectory && f.name.startsWith("values") }!!
             .map { File(it, "strings_a11y_charts.xml") }
             .filter { it.isFile }
-        assertEquals("strings_a11y_charts.xml in allen 33 Sprachen", 33, files.size)
+        assertEquals("strings_a11y_charts.xml in allen 75 Sprachen", 75, files.size)
         for (file in files) {
             val text = file.readText(Charsets.UTF_8)
             for (key in keys) {

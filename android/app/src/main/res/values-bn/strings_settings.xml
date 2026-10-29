@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">কাস্টম</string>
+    <string name="settings_group_general">সাধারণ</string>
+    <string name="settings_group_more">আরও</string>
+    <string name="settings_minutes">%1$d মিনিট</string>
+    <string name="settings_row_about">অ্যাপ সম্পর্কে</string>
+    <string name="settings_row_alarms">অ্যালার্ট</string>
+    <string name="settings_row_currency">মুদ্রা</string>
+    <string name="settings_row_dated_futures">মেয়াদি ফিউচার্স</string>
+    <string name="settings_row_updates">দামের আপডেট</string>
+    <string name="settings_row_watchlist">ওয়াচলিস্ট</string>
+    <string name="settings_search_hint">সেটিংস খুঁজুন</string>
+    <string name="settings_seconds">%1$d সে.</string>
+    <string name="settings_section_about">সম্পর্কে</string>
+    <string name="settings_section_appearance">চেহারা</string>
+    <string name="settings_section_developer">ডেভেলপার</string>
+    <string name="settings_section_language">ভাষা</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">চালু</string>
+    <string name="settings_title">সেটিংস</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">অ্যালার্ট আবার চালু হওয়ার আগে বিরতি</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">অ্যালার্ট সংকেত</string>
+    <string name="settings_alarm_signal_open_system">সিস্টেম সেটিংসে বদলান</string>
+    <string name="settings_alarm_signal_system_hint">আপনার ফোনের নোটিফিকেশন সেটিংস অনুসরণ করে।</string>
+    <string name="settings_alarm_sound">অ্যালার্টের শব্দ</string>
+    <string name="settings_alarm_sound_custom">কাস্টম শব্দ</string>
+    <string name="settings_alarm_sound_default">ডিফল্ট শব্দ</string>
+    <string name="settings_alarm_sound_error">শব্দটি ব্যবহার করা যায়নি।</string>
+    <string name="settings_alarm_sound_file">আপনার নিজের অডিও ফাইল…</string>
+    <string name="settings_alarm_sound_reset">ডিফল্ট শব্দ ব্যবহার করুন</string>
+    <string name="settings_alarm_sound_system">সিস্টেমের শব্দ বেছে নিন…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">অ্যাপ আইকনে সংখ্যা</string>
+    <string name="settings_app_badge_hint">খোলা অ্যালার্ট নোটিফিকেশন গোনে। সংখ্যা না বিন্দু দেখাবে তা হোম স্ক্রিনের উপর নির্ভর করে (যেমন Samsung: “সংখ্যাসহ দেখান”)।</string>
+    <string name="settings_exact_checks">সময়মতো যাচাই</string>
+    <string name="settings_exact_checks_grant">অ্যালার্ম ও রিমাইন্ডারের অনুমতি দিন</string>
+    <string name="settings_exact_checks_hint">ডিভাইস নিষ্ক্রিয় থাকলেও Android প্রায় প্রতি 15 মিনিটে যাচাই করে। একটু বেশি ব্যাটারি লাগে।</string>
+    <string name="settings_exact_checks_nothing">কোনো সক্রিয় পেয়ার নেই – যাচাই করার কিছু নেই।</string>
+    <string name="settings_exact_checks_permission_missing">অনুমতি নেই – ডিভাইস বিশ্রামে থাকলে Android অনিয়মিতভাবে যাচাই করে, কখনো কয়েক ঘণ্টা পরে।</string>
+    <string name="settings_notification_change">শুধু দাম বদলালে জানান</string>
+    <string name="settings_notification_change_always">সবসময়</string>
+    <string name="settings_percent_invalid">0 থেকে 100-এর মধ্যে একটি মান লিখুন।</string>
+    <string name="settings_notification_change_hint">শেষটির পর থেকে দাম কমপক্ষে এতটা নড়লেই কেবল দামের নোটিফিকেশন দেখা যায়। ডেটা না থাকলে কিছু দেখানো হয় না। অ্যালার্টে এর প্রভাব নেই।</string>
+    <string name="settings_ongoing_notifications">সোয়াইপ করে সরানো যাবে না</string>
+    <string name="settings_ongoing_notifications_hint">দামের নোটিফিকেশন পিন করে রাখে।</string>
+    <string name="settings_price_notifications">দামের নোটিফিকেশন</string>
+    <string name="settings_price_notifications_hint">স্ট্যাটাস বারে চালু করা পেয়ারগুলোর বর্তমান দাম দেখান।</string>
+    <string name="settings_price_pairs">পেয়ার</string>
+    <string name="settings_price_pairs_all_off">সব বন্ধ</string>
+    <string name="settings_price_pairs_all_on">সব চালু</string>
+    <string name="settings_price_pairs_count">%2$d-এর মধ্যে %1$d</string>
+    <string name="settings_price_pairs_empty">ওয়াচলিস্টে এখনো কোনো পেয়ার নেই।</string>
+    <string name="settings_price_pairs_hint">কোন পেয়ারগুলোর দাম নোটিফিকেশন বারে দেখাবে তা বেছে নিন।</string>
+    <string name="settings_quiet_hours">নীরব সময়</string>
+    <string name="settings_quiet_hours_from">থেকে</string>
+    <string name="settings_quiet_hours_hint">%1$s থেকে %2$s-এর মধ্যে অ্যালার্ট নীরব সময় শেষ হওয়া পর্যন্ত অপেক্ষা করে, তারপর শব্দসহ বাজে। অন্যান্য নোটিফিকেশন নীরবে আসে, কথা ছাড়া।</string>
+    <string name="settings_quiet_hours_to">পর্যন্ত</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">ব্যবধান</string>
+    <string name="settings_background_updates">ব্যাকগ্রাউন্ড আপডেট</string>
+    <string name="settings_battery_hint">সীমিত মানে Android ব্যাকগ্রাউন্ড আপডেট কয়েক ঘণ্টা বিলম্বিত করতে পারে।</string>
+    <string name="settings_battery_ok">ব্যাটারি ব্যবহার: সীমাহীন</string>
+    <string name="settings_battery_restricted">ব্যাটারি ব্যবহার: সীমিত</string>
+    <string name="settings_check_runs_empty">এখনো কোনো যাচাই রেকর্ড হয়নি।</string>
+    <string name="settings_check_runs_honest_android">কখন যাচাই হবে তা Android ঠিক করে – এখানে দেখবেন আসলে কখন হয়েছে।</string>
+    <string name="settings_check_runs_honest_ios">কখন যাচাই হবে তা iOS ঠিক করে – এখানে দেখবেন আসলে কখন হয়েছে।</string>
+    <string name="settings_check_runs_title">সাম্প্রতিক যাচাই</string>
+    <string name="settings_http_log">HTTP লগ দেখান</string>
+    <string name="settings_http_log_hint">“পেয়ার যোগ করুন” পাতার নিচে এক্সচেঞ্জে পাঠানো অনুরোধগুলো দেখায় – সমস্যা সমাধানের জন্য।</string>
+    <string name="settings_live_service">ঘন ঘন আপডেট</string>
+    <string name="settings_live_websocket">লাইভ দাম</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">উল্লেখযোগ্য: জানান</string>
+    <string name="settings_activity_alerts_hint">প্রতি পেয়ারে ঘণ্টায় সর্বোচ্চ একবার: অস্বাভাবিক দামের গতি, ভলিউম স্পাইক ও ফিউচার্সের চরম অবস্থা (Binance-এর ডেটা)।</string>
+    <string name="settings_activity_sensitivity">সংবেদনশীলতা</string>
+    <string name="settings_activity_sensitivity_hint">কোনো কয়েন কত সহজে অস্বাভাবিক গণ্য হয় – ওয়াচলিস্ট কার্ড ও বাজার অ্যালার্ট উভয়ের জন্য একই। “কম” বেছে নিলে কার্ডে শুধু সবচেয়ে শক্তিশালী 3টি দেখায়।</string>
+    <string name="settings_watchlist_activity_card">উল্লেখযোগ্য: তালিকায় দেখান</string>
+    <string name="settings_watchlist_activity_card_hint">গ্রুপগুলোর পাশে ⚡ চিপ দেখায়: ট্যাপ করলে শুধু সেই পেয়ারগুলো দেখা যায় যেখানে এই মুহূর্তে কিছু ঘটছে। এর নোটিফিকেশন বাজার অ্যালার্ট-এ সেট করা হয়।</string>
+    <string name="settings_watchlist_names">নাম দেখান</string>
+    <string name="settings_watchlist_names_hint">পেয়ারের নিচে নাম, যেমন Bitcoin বা NVIDIA। লোগো তালিকার সঙ্গে আসে, সব কয়েনের জন্য একবার লোড হয়।</string>
+    <string name="settings_watchlist_sparkline">ওয়াচলিস্টে মিনি চার্ট</string>
+    <string name="settings_watchlist_sparkline_hint">দামের পাশে 24 ঘণ্টার প্রবণতা</string>
+    <string name="settings_watchlist_value_names">নাম</string>
+    <string name="settings_watchlist_value_price_only">শুধু দাম</string>
+    <string name="settings_watchlist_value_sparkline">মিনি চার্ট</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Alpha টোকেনসহ (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Alpha টোকেন: Binance Alpha তালিকার প্রাথমিক, বেশিরভাগ ছোট প্রকল্প – প্রায়ই কম লেনদেন ও অত্যন্ত অস্থির।</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">টোকেনের অন্তর্ভুক্ত। “শুধু TradFi” বেছে নেওয়া থাকলে পাওয়া যায় না; আপনার ওয়াচলিস্টে আগে থেকে থাকা Alpha টোকেন থেকে যায়।</string>
+    <string name="settings_asset_scope_both">টোকেন ও TradFi</string>
+    <string name="settings_asset_scope_both_hint">সবকিছু – ক্রিপ্টো ও TradFi</string>
+    <string name="settings_asset_scope_hint">পেয়ার যোগ করার সময় বাছাই ও খোঁজে কোন পেয়ার দেখাবে তা ঠিক করে। আপনার ওয়াচলিস্টে আগে থেকে থাকা পেয়ার সবসময় থেকে যায়।</string>
+    <string name="settings_asset_scope_title">টোকেন ও TradFi</string>
+    <string name="settings_asset_scope_tokens">শুধু টোকেন</string>
+    <string name="settings_asset_scope_tokens_hint">ক্রিপ্টো: স্পট ও পারপেচুয়াল</string>
+    <string name="settings_asset_scope_tradfi">শুধু TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">শেয়ার, পণ্য, FX-এর ফিউচার্স – কন্ট্রাক্ট, টোকেন নয়</string>
+    <string name="settings_rolling_futures">ত্রৈমাসিক ও অন্যান্য মেয়াদি ফিউচার্সসহ</string>
+    <string name="settings_rolling_futures_hint">বন্ধ: এক্সচেঞ্জের তালিকায় না থাকা মেয়াদি ফিউচার্স একে একে যাচাইয়ের বদলে আর লেনদেন হয় না বলে চিহ্নিত হয়। প্রতিটি রিফ্রেশে সময় বাঁচায়।</string>
+    <string name="settings_rolling_futures_qtly">ত্রৈমাসিক ও অন্যান্য মেয়াদি ফিউচার্সসহ (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">টোকেনের অন্তর্ভুক্ত। “শুধু TradFi” বেছে নেওয়া থাকলে পাওয়া যায় না; আপনার ওয়াচলিস্টে আগে থেকে থাকা মেয়াদি ফিউচার্সে তবুও প্রযোজ্য।</string>
+    <string name="settings_tradfi_futures">শেয়ার, পণ্য ও FX (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">পেয়ার বাছাইয়ের সময় শেয়ার, সোনা ও অন্যান্য পণ্য, মুদ্রা এবং প্রি-IPO কোম্পানির ফিউচার্সও দেখায়। এগুলো কন্ট্রাক্ট, টোকেন নয়।</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">অ্যাকসেন্ট রং</string>
+    <string name="settings_accent_hint">অ্যাপ, উইজেট ও অ্যাপ আইকনের রং। কিছু হোম স্ক্রিন বদলানোর সময় আইকন সরিয়ে দেয় – তখন আবার যোগ করুন।</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">কয়েন লোগো</string>
+    <string name="settings_coin_logos_app">অ্যাপে</string>
+    <string name="settings_coin_logos_app_hint">ওয়াচলিস্ট, খোলা পেয়ার ও বাজারের কার্ড</string>
+    <string name="settings_coin_logos_footer">লোগো আসে CoinGecko থেকে, আর CoinGecko-তে না থাকা কয়েনের জন্য (যেমন সোনা, রুপা, শেয়ার) Binance থেকে। অ্যাপ সব লোগো একবারে লোড করে এই ডিভাইসে রাখে, তাই কোনো প্রদানকারীই জানতে পারে না আপনি কোন কয়েন অনুসরণ করেন। লোগোহীন কয়েনে আদ্যক্ষর দেখায়। প্রিয় কয়েনের লোগোতে একটি ছোট তারা থাকে। যেখানে সুইচ বন্ধ, সেখানে লোগো বা আদ্যক্ষর কিছুই দেখায় না; সব সুইচ বন্ধ থাকলে কিছুই লোড হয় না।</string>
+    <string name="settings_coin_logos_portfolio">পোর্টফোলিওতে</string>
+    <string name="settings_coin_logos_portfolio_hint">পজিশন, কয়েনের বিস্তারিত ও বিশ্লেষণ</string>
+    <string name="settings_coin_logos_value_app">অ্যাপ</string>
+    <string name="settings_coin_logos_widgets">উইজেটে</string>
+    <string name="settings_coin_logos_widgets_hint">ওয়াচলিস্ট ও একক-কয়েন উইজেট</string>
+    <string name="settings_high_contrast">উচ্চ কনট্রাস্ট</string>
+    <string name="settings_high_contrast_hint">আরও জোরালো দামের রং ও গাঢ় গৌণ লেখা। সিস্টেম বেশি কনট্রাস্ট চাইলেও চালু হয়।</string>
+    <string name="settings_language_choose">ভাষা বেছে নিন</string>
+    <string name="settings_language_system">সিস্টেমের ভাষা</string>
+    <string name="settings_price_colors">দামের রং</string>
+    <string name="settings_price_colors_hint">নীল / কমলা যেকোনো বর্ণান্ধতায় (লাল-সবুজ ও নীল-হলুদ) সহজে আলাদা করা যায়। দিক সবসময় + / − দিয়েও দেখানো হয়।</string>
+    <string name="settings_theme_mode">লাইট / ডার্ক</string>
+    <string name="settings_widgets">উইজেট</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">%1$s পরিবর্তন ও চার্টের টাইম জোন</string>
+    <string name="settings_change_basis_hint_1">বেছে নেওয়া টাইম জোন ঠিক করে শতাংশ পরিবর্তন কখন থেকে গোনা হবে (ওয়াচলিস্ট, পালস লাইন, খোলা পেয়ার, উইজেট) এবং চার্টে দেখানো সময়।</string>
+    <string name="settings_change_basis_hint_2">“%1$s” ঠিক 24 ঘণ্টা আগের দামের সঙ্গে তুলনা করে। “00:00” ওই টাইম জোনে মধ্যরাতের খোলার দামের সঙ্গে তুলনা করে।</string>
+    <string name="settings_change_basis_hint_3">অ্যালার্টে এর প্রভাব নেই।</string>
+    <string name="settings_change_basis_hint_since_last">“%1$s” আগের আপডেটের দামের সঙ্গে তুলনা করে। লাইভ দামে এটি 0%%-এর কাছাকাছি থাকে।</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">রূপান্তর মুদ্রা</string>
+    <string name="settings_conversion_currency_hint">পোর্টফোলিও, আপনার মুদ্রায় অ্যালার্ট, ক্রিপ্টো বাজার কার্ড ও পোর্টফোলিও উইজেটেও ব্যবহৃত হয়।</string>
+    <string name="settings_cost_method">খরচ পদ্ধতি</string>
+    <string name="settings_cost_method_average">গড় খরচ</string>
+    <string name="settings_cost_method_average_hint">বিক্রি চলমান গড় কেনার দামে মূল্যায়িত হয়।</string>
+    <string name="settings_cost_method_fifo">FIFO (ডিফল্ট)</string>
+    <string name="settings_cost_method_fifo_hint">সব এক্সচেঞ্জ ও ওয়ালেট মিলিয়ে সবচেয়ে পুরোনো কয়েন আগে বিক্রি হয়।</string>
+    <string name="settings_cost_method_fifo_wallet">প্রতি ওয়ালেট/এক্সচেঞ্জে FIFO</string>
+    <string name="settings_cost_method_fifo_wallet_hint">প্রতিটি এক্সচেঞ্জ বা ওয়ালেটের ভেতরে সবচেয়ে পুরোনো কয়েন আগে; ট্রান্সফারে লট তাদের কেনার তারিখসহ সরে যায়।</string>
+    <string name="settings_portfolio_lock">পোর্টফোলিও লক</string>
+    <string name="settings_portfolio_lock_footer">লক স্ক্রিনে যা দেখায় তা লুকায়। আপনার ডেটা এই ডিভাইসে সংরক্ষিত এবং ডিভাইসের এনক্রিপশন দিয়ে সুরক্ষিত। ব্যাকআপ পাসওয়ার্ড দিয়ে সুরক্ষিত করা যায়।</string>
+    <string name="settings_portfolio_lock_hint">শুধু পোর্টফোলিও লুকায়: আঙুলের ছাপ, মুখ বা ডিভাইস PIN দিয়ে আনলক করুন। ব্যাকগ্রাউন্ডে এক মিনিটের বেশি থাকলে আবার লক হয়। ওয়াচলিস্ট, অ্যালার্ট ও অন্যান্য উইজেট খোলা থাকে।</string>
+    <string name="settings_portfolio_lock_no_device_lock">ডিভাইস PIN বা পাসকোড ছাড়া লক কিছুই লুকায় না – একটি স্ক্রিন লক সেট করুন।</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">সিস্টেম ব্যাকআপে পোর্টফোলিও</string>
+    <string name="settings_portfolio_system_backup_hint">বন্ধ: আপনার লেনদেন ডিভাইসের সিস্টেম ব্যাকআপ ও ফোন-থেকে-ফোন স্থানান্তরের বাইরে থাকে। নতুন ফোনে নিতে পাসওয়ার্ডসহ অ্যাপের নিজস্ব ব্যাকআপ ব্যবহার করুন।</string>
+    <string name="settings_portfolio_system_backup_unavailable">Android 9 বা নতুনতর লাগে – পুরোনো সংস্করণ Google ব্যাকআপে পোর্টফোলিও এনক্রিপশন ছাড়া সংরক্ষণ করত।</string>
+    <string name="settings_portfolio_tab">পোর্টফোলিও ট্যাব দেখান</string>
+    <string name="settings_portfolio_value_locked">চালু, লকসহ</string>
+    <string name="settings_show_converted">রূপান্তরিত দাম</string>
+    <string name="settings_show_converted_hint">ওয়াচলিস্টে দাম %1$s-এও দেখায়</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">USDT ডিপেগ জানান</string>
+    <string name="settings_depeg_alarm_hint">USDT সীমা অনুযায়ী 1 USD থেকে সরে গেলে একবার জানায় (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT)।</string>
+    <string name="settings_depeg_threshold">ডিপেগ সীমা</string>
+    <string name="settings_fng_above">Fear &amp; Greed: এর উপরে জানান</string>
+    <string name="settings_fng_below">Fear &amp; Greed: এর নিচে জানান</string>
+    <string name="settings_gas_alert_hint">স্বাভাবিক ফি সীমার নিচে নামলে একবার জানায়। দামের আপডেটের সময় যাচাই হয়, সর্বোচ্চ প্রতি 10 মিনিটে।</string>
+    <string name="settings_gas_btc_below">Bitcoin ফি এর নিচে (sat/vB)</string>
+    <string name="settings_gas_eth_below">Ethereum গ্যাস এর নিচে (gwei)</string>
+    <string name="settings_ind_ath_within">সর্বকালের সর্বোচ্চ থেকে পতন সর্বোচ্চ</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple এর উপরে</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple এর নিচে</string>
+    <string name="settings_ind_mvrv_above">MVRV এর উপরে</string>
+    <string name="settings_ind_mvrv_below">MVRV এর নিচে</string>
+    <string name="settings_indicator_alerts_hint">Bitcoin সূচক, দিনে দুবার যাচাই হয়। সীমা আপনি বেছে নেন – অ্যাপ মানগুলোর মূল্যায়ন করে না।</string>
+    <string name="settings_macro_notifications">অর্থনৈতিক ক্যালেন্ডার</string>
+    <string name="settings_macro_notifications_hint">গুরুত্বপূর্ণ মার্কিন অর্থনৈতিক ডেটার দিনগুলোতে 08:00-এ (মূল্যস্ফীতি, চাকরির প্রতিবেদন, ফেডের সিদ্ধান্ত)। ক্যালেন্ডার অ্যাপের ওয়েবসাইট থেকে আসে, দিনে একবার লোড হয়।</string>
+    <string name="settings_market_alerts">বাজার অ্যালার্ট</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$dটি সক্রিয়</item>
+        <item quantity="other">%1$dটি সক্রিয়</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">কথার গতি: %1$.1f×</string>
+    <string name="settings_tts">কণ্ঠে পড়ে শোনানো</string>
+    <string name="settings_tts_alarms_only">শুধু অ্যালার্ট</string>
+    <string name="settings_tts_alarms_only_hint">বন্ধ: “দাম পড়ে শোনান” চিহ্নিত পেয়ারের প্রতিটি আপডেট জোরে পড়ে শোনানো হয়।</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">দাম ও অ্যালার্ট জোরে পড়ে শোনায়। ডিভাইস সাইলেন্ট বা ভাইব্রেট মোডে থাকলে চুপ থাকে।</string>
+    <string name="settings_tts_test">কণ্ঠ পরীক্ষা করুন</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">অ্যাপ রিসেট করুন</string>
+    <string name="settings_reset_app_action">সবকিছু মুছে ফেলুন</string>
+    <string name="settings_reset_app_confirm">ওয়াচলিস্ট, অ্যালার্ট, পোর্টফোলিও, সেটিংস ও সব সংরক্ষিত ডেটা মুছে ফেলে, ইনস্টলের পরের মতো। এটি পূর্বাবস্থায় ফেরানো যায় না। পরামর্শ: আগে একটি ব্যাকআপ নিন। ডিভাইস ব্যাকআপ (Google ব্যাকআপ বা iCloud/কম্পিউটার ব্যাকআপ) পরের ব্যাকআপ চলা পর্যন্ত আগের ডেটা রেখে দেয়।</string>
+    <string name="settings_reset_app_title">অ্যাপ রিসেট করবেন?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">মুদ্রা খুঁজুন</string>
+    <string name="language_search">ভাষা খুঁজুন</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">ডার্ক</string>
+    <string name="theme_light">লাইট</string>
+    <string name="theme_system">সিস্টেম</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">নীল</string>
+    <string name="accent_green">সবুজ</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">মার্স গ্রিন</string>
+    <string name="accent_orange">কমলা</string>
+    <string name="accent_red">লাল</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">চীন, জাপান, কোরিয়া ও তাইওয়ানে প্রচলিত</string>
+    <string name="price_colors_swap">রং অদলবদল (বৃদ্ধি ↔ পতন)</string>
+    <string name="price_style_calm">শান্ত</string>
+    <string name="price_style_calm_color_vision">শান্ত · বর্ণান্ধতা</string>
+    <string name="price_style_color_vision">বর্ণান্ধতা</string>
+    <string name="price_style_fresh">তাজা</string>
+    <string name="price_style_traditional">প্রথাগত</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">এক্সচেঞ্জ সংযোগ সর্বশেষ আসল সাড়ার সঙ্গে যাচাই করা হয়েছে: %1$s</string>
+    <string name="about_license">দাম সরাসরি এক্সচেঞ্জ থেকে আসে; কোনো অ্যাকাউন্ট নেই, কোনো ট্র্যাকিং নেই।</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">লাইসেন্স</string>
+    <string name="about_privacy_policy">গোপনীয়তা নীতি</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">একটি এক্সচেঞ্জের অনুরোধ করুন</string>
+    <string name="about_source_code">GitHub-এ সোর্স কোড</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker হলো r1AD-এর একটি স্বাধীন প্রকল্প: অ্যাকাউন্ট, বিজ্ঞাপন বা ট্র্যাকিং ছাড়া দামের একটি শান্ত সংক্ষিপ্ত চিত্র। প্রশ্ন ও ইচ্ছা: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker ওপেন সোর্স (MIT License)।</string>
+    <string name="licenses_font_title">Rubik টাইপফেস</string>
+    <string name="licenses_icons_bundled_text">অ্যাপের সঙ্গে দেওয়া: Christopher Downer ও অবদানকারীদের “Cryptocurrency Icons” থেকে আইকন (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal-এর অধীনে প্রকাশিত। CoinGecko বা Binance-এর লোগো লোড না হওয়া পর্যন্ত এগুলো দেখায়। নাম ও লোগো তাদের প্রকল্পের ট্রেডমার্ক থাকে।</string>
+    <string name="licenses_icons_title">বিকল্প কয়েন আইকন</string>
+    <string name="licenses_libraries_intro">অ্যাপ Apache License 2.0-এর অধীনে এই লাইব্রেরিগুলো ব্যবহার করে:</string>
+    <string name="licenses_libraries_title">Android লাইব্রেরি</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">ডেভেলপার অপশন আনলক করতে আরও %dটি ট্যাপ</item>
+        <item quantity="other">ডেভেলপার অপশন আনলক করতে আরও %dটি ট্যাপ</item>
+    </plurals>
+    <string name="developer_unlocked">ডেভেলপার অপশন আনলক হয়েছে</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">ভাইব্রেশন iPhone-এর সেটিংস অনুসরণ করে (শব্দ ও হ্যাপটিক্স)।</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">নতুন অ্যালার্ট ও বাজার অ্যালার্ট গোনে; অ্যাপ খুললে আবার 0 হয়।</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">আপনার ডেটা</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">এই ডিভাইসে</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">আপনার ওয়াচলিস্ট, অ্যালার্ট ও পোর্টফোলিও এই ডিভাইসে এনক্রিপ্ট করে সংরক্ষিত; কোনো অ্যাকাউন্ট নেই, আমাদের নিজস্ব কোনো সার্ভার নেই।</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">সংযোগ</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">দাম সরাসরি আপনার পেয়ারগুলোর এক্সচেঞ্জ থেকে আসে, সঙ্গে বিনিময় হার, কয়েন তালিকা ও লোগো এবং GitHub-এর ডেটা মিরর; এরা আপনার IP ঠিকানা দেখে, কখনো আপনার হোল্ডিং নয় (নজরে রাখা ঠিকানা সংশ্লিষ্ট নেটওয়ার্কের প্রদানকারীর কাছে যায়)।</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">ব্যাকআপ</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">শুধু আপনি তৈরি করলে। পাসওয়ার্ড দিলে এটি এনক্রিপ্টেড (Argon2id + AES-256-GCM); না দিলে পড়া যায়।</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">ডিভাইস বদলানো</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">কী পুরোনো ডিভাইসেই থাকে – আগে একটি ব্যাকআপ ফাইল তৈরি করুন।</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">ডায়াগনস্টিকস শেয়ার করুন</string>
+    <string name="diagnostics_share_hint">সাপোর্টের জন্য টেক্সট ফাইল: সংস্করণ, ডিভাইস, অ্যালার্ট সেটিংস, সাম্প্রতিক যাচাই ও অ্যালার্ট লগ – পোর্টফোলিও, পরিমাণ, ঠিকানা বা নোট ছাড়া। আপনি আগে এটি দেখেন; স্বয়ংক্রিয়ভাবে কিছুই পাঠানো হয় না।</string>
+    <string name="diagnostics_preview_title">ডায়াগনস্টিকসের প্রিভিউ</string>
+    <string name="diagnostics_action_share">শেয়ার করুন</string>
+    <string name="settings_price_overlay">দামের ওভারলে</string>
+    <string name="settings_price_overlay_hint">স্থায়ী দামের নোটিফিকেশনের পেয়ারগুলো অন্যান্য অ্যাপের উপর একটি ছোট ভাসমান পিল হিসেবে দেখায়। অ্যাপ খুলতে ট্যাপ করুন, বন্ধ করতে নিচের ×-এ টেনে আনুন।</string>
+    <string name="settings_price_overlay_needs">শুধু «%1$s»-এর সঙ্গে কাজ করে।</string>
+    <string name="settings_price_overlay_grant">অন্যান্য অ্যাপের উপর দেখানোর অনুমতি দিন</string>
+    <string name="price_overlay_close">ওভারলে বন্ধ করুন</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">ঠিকানার জন্য নিজের সার্ভার</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">শুধু Bitcoin: আপনার নিজের Esplora- বা mempool-সামঞ্জস্যপূর্ণ সার্ভার (যেমন https://node.example/api, Let\'s Encrypt-এর মতো সর্বজনস্বীকৃত সার্টিফিকেট প্রয়োজন)। সেট করা থাকলে Bitcoin ঠিকানা ও xpub কী শুধু সেখানেই জিজ্ঞাসা করা হয় – কখনো পাবলিক নোডে নয়, আপনার সার্ভারে পৌঁছানো না গেলেও নয়। অন্যান্য নেটওয়ার্ক পাবলিক নোডই ব্যবহার করে। খালি = পাবলিক নোড।</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Bitcoin সার্ভার (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">পরীক্ষা</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">পরীক্ষা হচ্ছে…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">সার্ভার সাড়া দিচ্ছে – ব্লক %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">বৈধ উত্তর নেই – ঠিকানা ও সার্টিফিকেট যাচাই করুন</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">ব্যবহৃত: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">সেট করা নেই – পাবলিক নোড ব্যবহৃত হয়</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">শুধু https:// ঠিকানা অনুমোদিত</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">ঠিকানায় কোনো ব্যবহারকারীর নাম বা পাসওয়ার্ড নয়</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">ঠিকানায় কোনো ? বা # অংশ নয়</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">বৈধ সার্ভার ঠিকানা নয়</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">পাবলিক নোডে বদলাবেন?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">আপনার Bitcoin ঠিকানা ও xpub কী তখন পাবলিক নোডে জিজ্ঞাসা করা হবে: %1$s। তারা এই ঠিকানাগুলো আপনার IP ঠিকানার সঙ্গে দেখে।</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">পাবলিক নোড ব্যবহার করুন</string>
+</resources>

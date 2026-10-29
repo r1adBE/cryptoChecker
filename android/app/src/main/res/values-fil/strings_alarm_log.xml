@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Protokoll: Titel der Seite und Name des Knopfs in «Alle Alarme» -->
+    <string name="alarm_log_title">Log ng alerto</string>
+    <!-- Link unter «Letzte Prüfungen» (Einstellungen › Aktualisierung) -->
+    <string name="alarm_log_open">Ipakita ang log ng alerto</string>
+    <string name="alarm_log_intro">Kailan nag-trigger ang isang alerto – at kailan sana ito nag-trigger pero pinigilan. Sa device lang na ito naka-store, nang 14 na araw.</string>
+    <string name="alarm_log_empty_title">Wala pang entry</string>
+    <string name="alarm_log_empty_message">Lalabas dito ang mga entry kapag nag-trigger o pinigilan ang isang alerto – halimbawa dahil luma na ang presyo o habang tahimik na oras.</string>
+    <string name="alarm_log_clear">I-clear ang log</string>
+    <string name="alarm_log_clear_title">I-clear ang log ng alerto?</string>
+    <string name="alarm_log_clear_message">Aalisin ang lahat ng entry. Mananatili ang mga alerto mo.</string>
+    <!-- Screenreader: Schwelle des Alarms, z. B. «Marke Über 100’000 CHF» -->
+    <string name="alarm_log_threshold">Threshold %1$s</string>
+    <!-- Alarm-Editor: letzte Prüfung, %1$s = «14:02 · Kraken 99’800 CHF · Marke nicht erreicht» -->
+    <string name="alarm_last_check">Huling sinuri: %1$s</string>
+    <!-- Ergebnisse einer Alarm-Prüfung (AlarmLogOutcome) -->
+    <string name="alarm_outcome_fired">Nag-trigger</string>
+    <string name="alarm_outcome_not_reached">Hindi naabot ang threshold</string>
+    <string name="alarm_outcome_already_triggered">Naiulat na – naghihintay hanggang bumalik ang presyo sa kabilang panig</string>
+    <string name="alarm_outcome_cooldown">Hindi nag-trigger – tahimik na panahon pagkatapos ng huling alerto</string>
+    <!-- %1$s = Zeit des Kurses laut Börse -->
+    <string name="alarm_outcome_stale">Hindi nag-trigger – luma na ang presyo (noong %1$s)</string>
+    <string name="alarm_outcome_mark_price">Hindi nag-trigger – mark price, hindi presyo ng aktwal na trade</string>
+    <string name="alarm_outcome_low_liquidity">Hindi nag-trigger – liquidity na mas mababa sa 10,000 USD o hindi alam</string>
+    <string name="alarm_outcome_quiet_hours">Hindi nag-trigger – tahimik na oras (mag-aalerto pagkatapos kung natutugunan pa rin)</string>
+    <string name="alarm_outcome_notifications_off">Hindi nag-trigger – naka-off ang mga notification</string>
+    <string name="alarm_outcome_not_shown">Hindi nag-trigger – hindi dumating ang notification, susubukan ulit mamaya</string>
+    <string name="alarm_outcome_no_rate">Hindi nasuri – walang exchange rate</string>
+    <string name="alarm_outcome_no_price">Walang presyo – pumalya ang query sa exchange</string>
+
+    <string name="alarm_outcome_snoozed">Pinigilan – tumatakbo pa ang «1 oras mamaya»</string>
+    <string name="alarm_log_source_app">sa app</string>
+    <string name="alarm_log_source_background">sa background</string>
+    <string name="alarm_log_source_exact">pagsusuri sa takdang oras</string>
+    <string name="alarm_log_source_widget">sa pamamagitan ng widget</string>
+    <string name="alarm_outcome_fx_stale">Hindi nasuri – lampas 36 na oras na ang exchange rate</string>
+    <string name="alarm_outcome_fx_unsure">Hindi nasuri – hindi tiyak ang conversion sa USDT (sa USDC lang)</string>
+</resources>

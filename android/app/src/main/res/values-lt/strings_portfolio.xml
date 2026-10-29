@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">Šiame įrenginyje nenustatytas ekrano užraktas. Pirmiausia jį nustatyk sistemos nustatymuose.</string>
+    <string name="app_lock_unlock">Atrakinti</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">Išvalyti portfelį</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="one">Ištrinti %d transakciją? Stebimi adresai lieka. Iškart po to galėsi tai anuliuoti.</item>
+        <item quantity="few">Ištrinti visas %d transakcijas? Stebimi adresai lieka. Iškart po to galėsi tai anuliuoti.</item>
+        <item quantity="many">Ištrinti %d transakcijos? Stebimi adresai lieka. Iškart po to galėsi tai anuliuoti.</item>
+        <item quantity="other">Ištrinti %d transakcijų? Stebimi adresai lieka. Iškart po to galėsi tai anuliuoti.</item>
+    </plurals>
+    <string name="portfolio_empty_action">Pridėk pirmą pirkimą</string>
+    <string name="portfolio_empty_address">Tik stebėti piniginės adresą</string>
+    <string name="portfolio_empty_csv">Pirkai biržoje? Importuok jos failą</string>
+    <string name="portfolio_empty_example_plain">Pavyzdys: %1$s BTC nupirkta kovo 1 d. Programėlė parodys, kiek tai vertinga šiandien ir ar esi pelne, ar nuostolyje – saugoma tik šiame įrenginyje.</string>
+    <string name="portfolio_empty_title">Transakcijų dar nėra</string>
+    <string name="portfolio_enable_ask_text">Tavo transakcija išsaugota. Portfelio skirtukas rodo tavo turimą turtą ir jo vertę.</string>
+    <string name="portfolio_enable_ask_title">Įjungti portfelio skirtuką?</string>
+    <string name="portfolio_enable_later_hint">Transakcija išsaugota. Portfelio skirtuką gali įjungti skiltyje Nustatymai › Portfelis.</string>
+    <string name="portfolio_enabled_banner">Portfelis įjungtas – jį rasi skirtuke „Portfelis“.</string>
+    <string name="portfolio_lock_reason">Atrakinti portfelį</string>
+    <string name="portfolio_locked_text">Atrakink, kad matytum turimą turtą ir vertes.</string>
+    <string name="portfolio_locked_title">Portfelis užrakintas</string>
+    <string name="portfolio_setting_hint">Neprivaloma: registruok pirkimus ir pardavimus, o vertę ir pelną / nuostolį matyk atskirame skirtuke.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">Pasenę · būsena %1$s</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="one">%d sistemos atsarginės kopijos įrašas buvo netinkamas ir neatkurtas.</item>
+        <item quantity="few">%d sistemos atsarginės kopijos įrašai buvo netinkami ir neatkurti.</item>
+        <item quantity="many">%d sistemos atsarginės kopijos įrašo buvo netinkama ir neatkurta.</item>
+        <item quantity="other">%d sistemos atsarginės kopijos įrašų buvo netinkama ir neatkurta.</item>
+    </plurals>
+    <string name="portfolio_title">Portfelis</string>
+    <string name="portfolio_unassigned_fee">Komisinis mokestis nepriskirtas – savikaina nežinoma: %1$s</string>
+    <string name="portfolio_updated">Kainos: %1$s</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">Kita</string>
+    <string name="portfolio_allocation_title">Paskirstymas</string>
+    <string name="portfolio_card_details">Detalės</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: dar nepasiekiama</string>
+    <string name="portfolio_card_hints_count">Pastabos (%1$d)</string>
+    <string name="portfolio_card_today">Šiandien</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">Iš viso</string>
+    <string name="portfolio_hide_amounts">Slėpti sumas</string>
+    <string name="portfolio_hide_amounts_hint">Portfelyje ir portfelio valdiklyje sumas ir vertes rodo kaip ••• – procentai lieka matomi.</string>
+    <string name="portfolio_invested">Savikaina</string>
+    <string name="portfolio_total_no_fx">Nėra %1$s valiutos kurso – sumos USDT</string>
+    <string name="portfolio_total_value">Bendra vertė</string>
+    <string name="portfolio_value">Vertė</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">Vid. %1$s · dabar %2$s</string>
+    <string name="portfolio_avg_only">Vid. %1$s</string>
+    <string name="portfolio_avg_open_lots">Vid. turimų monetų savikaina</string>
+    <string name="portfolio_avg_partial">Vid. iš %1$s su pirkimo kaina</string>
+    <string name="portfolio_avg_price">Vid. pirkimo kaina</string>
+    <string name="portfolio_avg_price_hint">Vid. pirkimo kaina: visų pirkimų vidurkis, svertinis pagal kiekį. Pardavimai vertinami pagal šį vidurkį.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Uždaryta pozicija (%1$d)</item>
+        <item quantity="few">Uždarytos pozicijos (%1$d)</item>
+        <item quantity="many">Uždarytos pozicijos (%1$d)</item>
+        <item quantity="other">Uždarytos pozicijos (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: parduodant pirmiausia naudojamos seniausios monetos. Vid. = likusi savikaina ÷ kiekis su pirkimo kaina.</string>
+    <string name="portfolio_holdings">Turimas turtas</string>
+    <string name="portfolio_lost_fee_cost">Tinklo komisinio mokesčio savikaina be apmokėtos partijos: %1$s</string>
+    <string name="portfolio_open_lots">Atviros pirkimo partijos (%1$d)</string>
+    <string name="portfolio_open_lots_avg">Su pirkimo kaina (vid.)</string>
+    <string name="portfolio_open_lots_no_cost">Be pirkimo kainos</string>
+    <string name="portfolio_open_lots_without_price">be pirkimo kainos</string>
+    <string name="portfolio_realized">Realizuotas pelnas / nuostolis</string>
+    <string name="portfolio_unrealized">Atviras pelnas / nuostolis</string>
+    <string name="portfolio_unrealized_without_unpriced">be %1$s be pirkimo kainos</string>
+    <string name="portfolio_withdrawn_gain">Išimta: %1$s (vertės pokytis iki išėmimo)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">Perskaičiuoti į</string>
+    <string name="portfolio_convert_to_value">Perskaičiuoti į: %1$s</string>
+    <string name="portfolio_current_missing">Nėra dabartinės %1$s kainos</string>
+    <string name="portfolio_current_price">Dabartinė kaina</string>
+    <string name="portfolio_price_missing">Trūksta kainos</string>
+    <string name="portfolio_price_missing_hint">Kai kurie pirkimai neturi kainos. Pridėk pirkimo kainą, kad matytum pelną / nuostolį.</string>
+    <string name="portfolio_price_source">Kainos: Binance · USDT rinkos kaina</string>
+    <string name="portfolio_price_source_routes">Kainos: %1$s, kitaip Binance · USDT rinkos kaina</string>
+    <string name="portfolio_price_unavailable">Kaina šiuo metu nepasiekiama</string>
+    <string name="portfolio_price_unchecked">Kaina nepatikrinta</string>
+    <string name="portfolio_price_via_base">≈ %1$s kaina (perkelta per tiltą / apgaubta)</string>
+    <string name="portfolio_usdt_as_usd">USDT perskaičiuota pagal jos USD rinkos kainą</string>
+    <string name="portfolio_usdt_assumed">Trūksta USDT dolerio kurso – skaičiuojama kaip 1 JAV doleris</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">Pridėti į portfelį</string>
+    <string name="portfolio_add_tx">Pridėti transakciją</string>
+    <string name="portfolio_buy">Pirkimas</string>
+    <string name="portfolio_coin">Moneta</string>
+    <string name="portfolio_coin_invalid">Įvesk monetos simbolį</string>
+    <string name="portfolio_coin_search">Ieškoti simbolio, pvz., BTC</string>
+    <string name="portfolio_discard_confirm">Atmesti</string>
+    <string name="portfolio_discard_keep">Toliau redaguoti</string>
+    <string name="portfolio_discard_title">Atmesti pakeitimus?</string>
+    <string name="portfolio_edit_tx">Redaguoti transakciją</string>
+    <string name="portfolio_invalid">Įvesk tinkamą skaičių, didesnį už 0.</string>
+    <string name="portfolio_oversold">Pardavimai viršija turimą kiekį – patikrink transakcijas.</string>
+    <string name="portfolio_sell">Pardavimas</string>
+    <string name="portfolio_sell_exceeds">Daugiau nei turi (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">Kiekis su komisiniu mokesčiu viršija tai, ką turi (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">Daugiau nei turi %2$s (%1$s)</string>
+    <string name="portfolio_transactions">Transakcijos</string>
+    <string name="portfolio_tx_acquired_date">Pradinė pirkimo data (neprivaloma)</string>
+    <string name="portfolio_tx_acquired_date_hint">Laikymo trukmei mokesčių eksporte</string>
+    <string name="portfolio_tx_amount">Kiekis</string>
+    <string name="portfolio_tx_coin_fee">Komisinis mokestis moneta (neprivaloma)</string>
+    <string name="portfolio_tx_date">Data</string>
+    <string name="portfolio_tx_delete_confirm">Ši transakcija bus pašalinta iš portfelio.</string>
+    <string name="portfolio_tx_delete_title">Ištrinti transakciją?</string>
+    <string name="portfolio_tx_deposit">Įnašas</string>
+    <string name="portfolio_tx_entry_currency">Įvesti</string>
+    <string name="portfolio_tx_explain_deposit">Turtas be sandorio, pvz., anksčiau turėtos monetos</string>
+    <string name="portfolio_tx_explain_gift">Monetos palieka turimą turtą kaip išėmimas – perleidimas rinkos verte tik ten, kur šalis taip apmokestina dovanas (UK, CA, AU)</string>
+    <string name="portfolio_tx_explain_payment">Sumokėta už prekes ar paslaugas – perleidimas rinkos verte kaip pardavimas, negavus pinigų</string>
+    <string name="portfolio_tx_explain_reward">Savikaina = rinkos vertė gavimo metu</string>
+    <string name="portfolio_tx_explain_swap">Viena moneta į kitą: atiduotoji parduodama, gautoji perkama</string>
+    <string name="portfolio_tx_explain_transfer">Jokio pelno – savikaina keliauja kartu su monetomis</string>
+    <string name="portfolio_tx_explain_withdrawal">Turtas palieka portfelį – ne pardavimas, ne pelnas</string>
+    <string name="portfolio_tx_fee_consumes_amount">Komisinis mokestis toks pat kaip gautas kiekis – nieko neliktų.</string>
+    <string name="portfolio_tx_fees_toggle">Komisiniai mokesčiai</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s pagal %2$s kursą</string>
+    <string name="portfolio_tx_fiat_loading">Įkeliamas valiutos kursas…</string>
+    <string name="portfolio_tx_fiat_no_fx">Šiai dienai nėra valiutos kurso – įvesk sumą USDT.</string>
+    <string name="portfolio_tx_gift">Dovana</string>
+    <string name="portfolio_tx_gift_price_hint">USDT. Tuščia = tos dienos uždarymo kaina (apytikslė).</string>
+    <string name="portfolio_tx_gift_spouse">Sutuoktiniui / partneriui</string>
+    <string name="portfolio_tx_gift_spouse_hint">UK ir Kanada: nei pelno, nei nuostolio – partneris perima tavo savikainą. Kitos šalys į tai neatsižvelgia.</string>
+    <string name="portfolio_tx_market_value">Rinkos vertė už monetą</string>
+    <string name="portfolio_tx_more_buy">Komisinis mokestis, birža, pastaba</string>
+    <string name="portfolio_tx_network_fee">Tinklo komisinis mokestis moneta (neprivaloma)</string>
+    <string name="portfolio_tx_note">Pastaba (neprivaloma)</string>
+    <string name="portfolio_tx_payment">Sumokėta</string>
+    <string name="portfolio_tx_price">Kaina už monetą</string>
+    <string name="portfolio_tx_price_hint">USDT. Palik tuščią, jei nežinoma.</string>
+    <string name="portfolio_tx_price_historic">Patikrinta %1$s dienos uždarymo kaina – jei reikia, pakoreguok</string>
+    <string name="portfolio_tx_price_invalid">Įvesk tinkamą skaičių (0 ar daugiau) arba palik lauką tuščią.</string>
+    <string name="portfolio_tx_price_past_hint">Įvesk pirkimo dienos kainą – palik tuščią, jei nežinoma</string>
+    <string name="portfolio_tx_price_receipt_hint">USDT. Tuščia = turtas be savikainos.</string>
+    <string name="portfolio_tx_price_zero">Importuotoms transakcijoms kaina 0 negalima – palik tuščią rinkos kainai</string>
+    <string name="portfolio_tx_removed">Transakcija ištrinta</string>
+    <string name="portfolio_tx_reward">Atlygis</string>
+    <string name="portfolio_tx_save_failed">Nepavyko išsaugoti transakcijos. Tavo įvesti duomenys lieka – bandyk dar kartą.</string>
+    <string name="portfolio_tx_swap">Apsikeitimas</string>
+    <string name="portfolio_tx_swap_fee_received">Komisinis mokestis %1$s: sumažina gautą kiekį, kaina nereikalinga.</string>
+    <string name="portfolio_tx_swap_from">Apsikeitimas iš %1$s</string>
+    <string name="portfolio_tx_swap_given_amount">Atiduotas kiekis</string>
+    <string name="portfolio_tx_swap_given_coin">Atiduota moneta</string>
+    <string name="portfolio_tx_swap_received_amount">Gautas kiekis</string>
+    <string name="portfolio_tx_swap_received_coin">Gauta moneta</string>
+    <string name="portfolio_tx_swap_same_coin">Pasirink kitą monetą nei atiduotoji</string>
+    <string name="portfolio_tx_swap_to">Apsikeitimas į %1$s</string>
+    <string name="portfolio_tx_swap_value">Apsikeitimo vertė (neprivaloma)</string>
+    <string name="portfolio_tx_swap_value_hint">Bendra vertė. Tuščia = nežinoma – pelnas lieka nepilnas (automatiškai, jei apsikeitime yra USDT).</string>
+    <string name="portfolio_tx_third_fee_amount">Komisinio mokesčio kiekis</string>
+    <string name="portfolio_tx_third_fee_coin">Komisinio mokesčio moneta</string>
+    <string name="portfolio_tx_third_fee_incomplete">Be kainos komisinis mokestis neįtraukiamas į savikainą ir pajamas; mokesčių eksportas pažymi tokius pardavimus.</string>
+    <string name="portfolio_tx_third_fee_price">Komisinio mokesčio monetos kaina (neprivaloma)</string>
+    <string name="portfolio_tx_third_fee_toggle">Komisinis mokestis kita moneta</string>
+    <string name="portfolio_tx_total">Iš viso: %1$s</string>
+    <string name="portfolio_tx_transfer">Pervedimas</string>
+    <string name="portfolio_tx_transfer_from">Iš (neprivaloma)</string>
+    <string name="portfolio_tx_transfer_to">Į (neprivaloma)</string>
+    <string name="portfolio_tx_transfer_to_hint">Birža ar piniginė – nuo šiol vertinama ten.</string>
+    <string name="portfolio_tx_type_select">Tipas: %1$s</string>
+    <string name="portfolio_tx_value_received">Vertė už monetą gavimo metu (neprivaloma)</string>
+    <string name="portfolio_tx_withdrawal">Išėmimas</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">Padovanojai ar ja sumokėjai? Registruok kaip „Dovana“ ar „Sumokėta“ – priklausomai nuo šalies, mokesčių tikslais tai laikoma pardavimu.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">Neprivaloma: rinkos vertė USDT, naudojama tik istorijai (tuščia = tos dienos kaina). Monetos visada išeina savikaina.</string>
+    <string name="portfolio_wallet_did_you_mean">Ar turėjai omenyje %1$s? Kita rašyba laikoma atskira pinigine.</string>
+    <string name="portfolio_wallet_shortfall">Turto %1$s nepakanka – ar trūksta pervedimo?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">Aukščiausia %1$s</string>
+    <string name="portfolio_compare">Palyginti</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">Palyginti %1$s ir USDT procentais</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">Palyginimas procentais, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">Valiutos poveikis: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">Kainų duomenys siekia tik 2017 m. rugpjūtį — istorija prasideda nuo tada.</string>
+    <string name="portfolio_history_chip_since_first">Visi</string>
+    <string name="portfolio_history_collapse">Slėpti vertės istoriją</string>
+    <string name="portfolio_history_converted">Perskaičiuota šiandienos kursu</string>
+    <string name="portfolio_history_expand">Rodyti vertės istoriją</string>
+    <string name="portfolio_history_gain_a11y">Vertė %1$s. Pelnas / nuostolis, %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">Pelnas / nuostolis</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">Vertė %1$s</string>
+    <string name="portfolio_history_incl_fx">Įsk. valiutos kursą</string>
+    <string name="portfolio_history_incl_withdrawn">Įskaitant išimtų monetų vertės pokytį</string>
+    <string name="portfolio_history_includes_trades">Įskaitant šio laikotarpio pirkimus ir pardavimus</string>
+    <string name="portfolio_history_loading">Įkeliama vertės istorija</string>
+    <string name="portfolio_history_period_1y">1 metai</string>
+    <string name="portfolio_history_period_30d">30 dienų</string>
+    <string name="portfolio_history_period_7d">7 dienos</string>
+    <string name="portfolio_history_period_since_first">nuo pirmo pirkimo</string>
+    <string name="portfolio_history_pnl_needs_prices">Pelnui / nuostoliui trūksta pirkimo kainų – pridėk jas transakcijose.</string>
+    <string name="portfolio_history_pnl_without">Pelnas / nuostolis be %1$s (trūksta kainos)</string>
+    <string name="portfolio_history_range_1y">1 m.</string>
+    <string name="portfolio_history_range_30d">30 d.</string>
+    <string name="portfolio_history_range_7d">7 d.</string>
+    <string name="portfolio_history_range_a11y">Rodyti istoriją: %1$s</string>
+    <string name="portfolio_history_range_since_first">Nuo 1-ojo pirkimo</string>
+    <string name="portfolio_history_scaled">%1$s istorija: Binance istorija pritaikyta biržos kainai</string>
+    <string name="portfolio_history_title">Vertės istorija</string>
+    <string name="portfolio_history_today">Šiandien</string>
+    <string name="portfolio_history_too_short">Istorija prasideda po pirmos pilnos dienos.</string>
+    <string name="portfolio_history_unavailable">Šiuo metu istorijos nėra.</string>
+    <string name="portfolio_history_utc_days">Dienos pagal UTC (dienos žvakės)</string>
+    <string name="portfolio_history_without_matching">Be %1$s (nėra atitinkamų dienos kainų)</string>
+    <string name="portfolio_period_rewards">Atlygiai +%1$s (neįskaičiuoti į pelną)</string>
+    <string name="portfolio_period_scaled">7 d./1 m. %1$s: Binance istorija pritaikyta biržos kainai</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">Įspėjimas</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">Suma (%1$s)</string>
+    <string name="portfolio_alarm_hint">Tikrinama po kiekvieno atnaujinimo. Kaip ir įspėjimai, suveikia peržengus ribą ir vėl tik tada, kai vertė grįžta atgal.</string>
+    <string name="portfolio_alarm_kind_above">Portfelis virš sumos</string>
+    <string name="portfolio_alarm_kind_below">Portfelis žemiau sumos</string>
+    <string name="portfolio_alarm_kind_down">Portfelis krenta</string>
+    <string name="portfolio_alarm_kind_up">Portfelis kyla</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">Portfelis virš %1$s</string>
+    <string name="portfolio_alarm_sentence_below">Portfelis žemiau %1$s</string>
+    <string name="portfolio_alarm_sentence_down">Portfelis nukrito %1$s (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">Portfelis pakilo %1$s (%2$s)</string>
+    <string name="portfolio_alarm_title">Portfelio vertės įspėjimas</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">Birža (neprivaloma)</string>
+    <string name="ledger_exchange_failed">%1$s: šiuo metu nėra kainos iš %2$s – vertinama pagal Binance.</string>
+    <string name="ledger_exchange_hint">Moneta vertinama pagal šios biržos kainą (kitaip Binance). Istorija, 7 d. ir 1 m. naudoja Binance dienos kainas, pritaikytas jai.</string>
+    <string name="ledger_exchange_mixed">%1$s: įvestos kelios biržos – vertinama pagal Binance. Perkėlei monetas? Užregistruok tai kaip „Pervedimas“.</string>
+    <string name="ledger_exchange_none">Nėra (Binance)</string>
+    <string name="ledger_fee">Komisinis mokestis (neprivaloma)</string>
+    <string name="ledger_fee_coin">Moneta</string>
+    <string name="ledger_fee_hint">USDT jis didina savikainą (pardavimo atveju – mažina pajamas); moneta – mažina kiekį.</string>
+    <string name="ledger_fee_line">Komisinis mokestis %1$s</string>
+    <string name="ledger_fifo_cost_note">Nuo pirkimo: FIFO savikaina įsk. komisinius mokesčius (pirmiausia parduodamos seniausios monetos).</string>
+    <string name="ledger_gain_info">Šiandien, 7 d., 1 m.: vertės pokytis per laikotarpį – pirkimai ir pardavimai nelaikomi pelnu. Nuo pirkimo: dabartinė vertė atėmus dar turimų monetų savikainą (vidutinė kaina įsk. komisinius mokesčius).</string>
+    <string name="ledger_gain_info_a11y">Kaip skaičiuojamas pelnas ir nuostolis</string>
+    <string name="ledger_gain_info_fifo">Šiandien, 7 d., 1 m.: vertės pokytis per laikotarpį – pirkimai ir pardavimai nelaikomi pelnu. Nuo pirkimo: dabartinė vertė atėmus dar turimų monetų savikainą (FIFO įsk. komisinius mokesčius).</string>
+    <string name="ledger_gain_title">Pelnas / nuostolis</string>
+    <string name="ledger_more_toggle">Komisinis mokestis ir birža</string>
+    <string name="ledger_partial_cost">„Nuo pirkimo“ skaičiuoja tik dalį su pirkimo kaina – be %1$s be pirkimo kainos.</string>
+    <string name="ledger_period_without">Šiandien / 7 d. / 1 m. be %1$s – nėra atitinkamos pradinės kainos.</string>
+    <string name="ledger_since_purchase_currency">Nuo pirkimo (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">Pelnas / nuostolis nuo pirkimo, dar neparduota</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="one">Be %1$d monetos be pirkimo kainos (%2$s) – pridėk kainą, kad ji būtų įskaičiuota.</item>
+        <item quantity="few">Be %1$d monetų be pirkimo kainos (%2$s) – pridėk kainas, kad jos būtų įskaičiuotos.</item>
+        <item quantity="many">Be %1$d monetos be pirkimo kainos (%2$s) – pridėk kainas, kad jos būtų įskaičiuotos.</item>
+        <item quantity="other">Be %1$d monetų be pirkimo kainos (%2$s) – pridėk kainas, kad jos būtų įskaičiuotos.</item>
+    </plurals>
+
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">USDT kritimas – rinka ties %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">USDT dolerio kursas per USDC/USDT – jei USDC kris, ši vertė bus neteisinga</string>
+    <string name="portfolio_amount_bridged_stable">≈ įsk. %1$s (per tiltą)</string>
+
+    <string name="portfolio_tx_interest">Palūkanos (skolinimas)</string>
+    <string name="portfolio_tx_interest_hint">Laikoma pajamomis gavimo metu (Austrija). Staking atlygiams ir airdrop palik išjungtą.</string>
+    <string name="app_lock_no_screen_lock">Nustatyk ekrano užraktą, kad atidarytum portfelį.</string>
+    <string name="app_lock_turn_off_action">Išjungti portfelio užraktą</string>
+    <string name="app_lock_turn_off_confirm_title">Išjungti portfelio užraktą?</string>
+    <string name="app_lock_turn_off_confirm_message">Be ekrano užrakto portfelio atrakinti negalima. Išjungus programėlė vėl rodys tavo portfelį neklausdama. Nustačius ekrano užraktą, užraktą vėl galėsi įjungti nustatymuose.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">„Nuo pirkimo“ ir savikaina %1$s: savikaina pagal pirkimo dienos valiutos kursą, vertė – pagal šiandienos kursą.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">Nėra pirkimo dienos valiutos kurso (trūksta „Nuo pirkimo“ ir savikainoje): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">Pirkimo dienomis be USDT dolerio kurso savikaina skaičiuota kaip 1 JAV doleris už USDT.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">Būsena %1$s – birža nepasiekiama</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">Dienos kainos: %1$s (vietoj Binance)</string>
+
+    <string name="portfolio_footer_short">Darbo priemonė, ne mokesčių ar investavimo patarimas. Privatumas: Nustatymai › Apie programėlę › Privatumo politika.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">Ištrinti visas %1$s transakcijas?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">Bus pašalinta %d transakcija. Iškart po to galėsi tai anuliuoti.</item>
+        <item quantity="few">Bus pašalintos %d transakcijos. Iškart po to galėsi tai anuliuoti.</item>
+        <item quantity="many">Bus pašalinta %d transakcijos. Iškart po to galėsi tai anuliuoti.</item>
+        <item quantity="other">Bus pašalinta %d transakcijų. Iškart po to galėsi tai anuliuoti.</item>
+    </plurals>
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">Komisiniai mokesčiai %1$s taip pat pašalinami iš kitų transakcijų: %2$d.</string>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s pašalinta iš portfelio (%2$d transakcija)</item>
+        <item quantity="few">%1$s pašalinta iš portfelio (%2$d transakcijos)</item>
+        <item quantity="many">%1$s pašalinta iš portfelio (%2$d transakcijos)</item>
+        <item quantity="other">%1$s pašalinta iš portfelio (%2$d transakcijų)</item>
+    </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">Pašalinta %d transakcija</item>
+        <item quantity="few">Pašalintos %d transakcijos</item>
+        <item quantity="many">Pašalinta %d transakcijos</item>
+        <item quantity="other">Pašalinta %d transakcijų</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">Taip pat bus pašalinta %d partija.</item>
+        <item quantity="few">Taip pat bus pašalintos %d partijos.</item>
+        <item quantity="many">Taip pat bus pašalinta %d partijos.</item>
+        <item quantity="other">Taip pat bus pašalinta %d partijų.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">Taip pat bus pašalinta %d partija ir likučio istorija.</item>
+        <item quantity="few">Taip pat bus pašalintos %d partijos ir likučio istorija.</item>
+        <item quantity="many">Taip pat bus pašalinta %d partijos ir likučio istorija.</item>
+        <item quantity="other">Taip pat bus pašalinta %d partijų ir likučio istorija.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">Taip pat bus pašalinta likučio istorija.</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">Nepavyko išsaugoti – bandyk dar kartą</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">Netinkama riba – ištrink ir sukurk iš naujo</string>
+</resources>

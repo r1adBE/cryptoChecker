@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s በ%2$s ውስጥ</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">መዝጊያ</string>
+    <string name="sheet_chart_converted_current">%1$s፣ የተለወጠ (የአሁኑ ተመን)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s፣ በዕለታዊ ተመኖች የተለወጠ</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">ለዚህ ጥንድ የዋጋ ውሂብ የለም</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">መክፈቻ</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">ዛሬ</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">መጠን %1$s</string>
+    <string name="sheet_more">ተጨማሪ</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">የሽያጭ ዋጋ</string>
+    <string name="ticker_bid">የግዢ ዋጋ</string>
+    <string name="explain_bid_ask">የግዢ ዋጋ (Bid) ገዢዎች አሁን የሚያቀርቡት ከፍተኛው ዋጋ ነው፤ የሽያጭ ዋጋ (Ask) ሻጮች የሚቀበሉት ዝቅተኛው ዋጋ ነው።</string>
+    <string name="ticker_high">ከፍተኛ</string>
+    <string name="ticker_low">ዝቅተኛ</string>
+    <string name="ticker_timestamp">ጊዜ</string>
+    <string name="ticker_vol_base">መጠን (በሳንቲሞች)</string>
+    <string name="ticker_vol_quote">መጠን (በዋጋ ምንዛሪ)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s፣ 00:00 (የመሣሪያው የሰዓት ሰቅ)</string>
+    <string name="change_basis_local">ከአካባቢ ሰዓት 00:00 ወዲህ</string>
+    <string name="change_basis_rolling">ያለፉት 24 ሰዓታት</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">ከመጨረሻው ዝማኔ ወዲህ</string>
+    <string name="change_basis_utc_zone">ከ00:00 %1$s ወዲህ</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">ከ%1$s ሻማዎች የተገኘ ለውጥ</string>
+    <string name="change_short_since_last">የመጨረሻ ዝማኔ</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">ዛሬ</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">ዛሬ %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="exchange_data_empty_error">ከልውውጡ ምንም ውሂብ አልደረሰም።</string>
+    <string name="market_data_summary">የገበያ ካፒታል፣ የgas ክፍያዎች፣ የኢኮኖሚ ውሂብ፣ የሳንቲም ትንተና</string>
+    <string name="market_data_tab_futures">ፊውቸርስ</string>
+    <string name="market_data_title">የገበያ ውሂብ</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">የሚዘዋወር አቅርቦት</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">የገበያ ካፒታል</string>
+    <string name="spot_max_supply">ከፍተኛ አቅርቦት</string>
+    <string name="spot_no_data">ለዚህ ሳንቲም የስፖት ውሂብ የለም</string>
+    <string name="spot_source_updated">ምንጭ፦ %1$s · እስከ %2$s</string>
+    <string name="spot_supply_of_max">ከከፍተኛው አቅርቦት %1$s በዝውውር ላይ</string>
+    <string name="spot_total_supply">ጠቅላላ አቅርቦት</string>
+    <string name="spot_vol_mcap">መጠን/የገበያ ካፒታል</string>
+    <string name="spot_volume_24h">መጠን (24 ሰ)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">ማጣቀሻ፦ %1$s</string>
+    <string name="futures_funding">የፈንዲንግ ተመን</string>
+    <string name="futures_funding_interval_unknown">ክፍተቱ አይታወቅም</string>
+    <string name="futures_funding_per8h_equiv">= %1$s በ8 ሰ (እንደ ማንቂያዎቹ)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">በሰዓት</string>
+    <string name="futures_funding_per_hours">በ%1$d ሰ</string>
+    <string name="futures_next_funding">ቀጣዩ በ%1$d ሰ %2$d ደቂቃ</string>
+    <string name="futures_no_data">ለዚህ ሳንቲም የፊውቸርስ ውሂብ የለም</string>
+    <string name="futures_open_interest">ኦፕን ኢንተረስት</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">ማጣቀሻ ከ%1$s – ፈንዲንግና ኦፕን ኢንተረስት እንደ ልውውጡ ይለያያሉ፤ በ%2$s ላይ ሊለያዩ ይችላሉ።</string>
+    <string name="futures_reference_spot">ማጣቀሻ ከ%1$s (የሳንቲሙ USDT perpetual)</string>
+    <string name="futures_source">ምንጭ፦ %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">ብዙ ነጋዴዎች በተበደረ ገንዘብ ዋጋ ይጨምራል ወይም ይወርዳል ብለው ይወራረዳሉ። በሎንግና በሾርት ቦታዎች መካከል የሚከፈል ክፍያ። በጣም አዎንታዊ ማለት ብዙዎች ዋጋ ይጨምራል ብለው እየተወራረዱ ነው ማለት ነው።</string>
+    <string name="explain_open_interest">ፊውቸርስ ብዙውን ጊዜ በተበደረ ገንዘብ በዋጋው ላይ የሚደረጉ ውርርዶች ናቸው። የሁሉም ክፍት የፊውቸርስ ቦታዎች ዋጋ። ከጨመረ፣ በእንቅስቃሴው ላይ የሚወራረድ ገንዘብ በዝቷል።</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">ማብራሪያ</string>
+    <string name="explain_spot_fdv">ሙሉ በሙሉ የተበረዘ ግምት (FDV)፦ ዋጋ × ከፍተኛ አቅርቦት (ገደብ ከሌለ ጠቅላላ አቅርቦት)።</string>
+    <string name="explain_spot_market_cap">ዋጋ × የሚዘዋወር አቅርቦት። ምልክቱ በ24 ሰዓት ውስጥ ያለውን ለውጥ ያሳያል።</string>
+    <string name="explain_spot_source">በሁሉም ልውውጦች ላይ ያሉ አሃዞች በአሜሪካ ዶላር፣ ከCoinGecko።</string>
+    <string name="explain_spot_supply">የሚዘዋወር፦ አሁን በገበያ ላይ ያሉ ሳንቲሞች። ጠቅላላ፦ የተፈጠሩ ሁሉም ሳንቲሞች ሲቀነስ የተቃጠሉት። ከፍተኛ፦ በጭራሽ ሊኖር የሚችለው ብዛት።</string>
+    <string name="explain_spot_volume">በ24 ሰዓት ውስጥ የተገበያየ ዋጋ። መጠን/የገበያ ካፒታል፦ መጠን ከገበያ ካፒታል አንጻር — ከፍተኛ ማለት በጣም ንቁ ግብይት ማለት ነው።</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · ተመን %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">በግዢና በሽያጭ ዋጋ መካከል ሰፊ ክፍተት (%1$s)</string>
+
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">ታሪክ በ%1$s፣ በዛሬው ተመን ወደ %2$s የተለወጠ</string>
+    <string name="converted_unsure">ልወጣው እርግጠኛ አይደለም</string>
+</resources>

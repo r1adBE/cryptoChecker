@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">یقینی بنائیں کہ الرٹس پہنچیں</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">ٹھیک ہے</string>
+    <string name="delivery_state_warn">اسے چیک کریں</string>
+    <string name="delivery_state_info">نوٹ</string>
+    <string name="delivery_allowed">اجازت ہے</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">اطلاعات</string>
+    <string name="delivery_notifications_off">بند – الرٹس نہیں پہنچیں گے</string>
+    <string name="delivery_notifications_not_asked">ابھی اجازت نہیں</string>
+    <string name="delivery_channel">الرٹ چینل</string>
+    <string name="delivery_channel_high">زیادہ اہمیت – اسکرین پر ابھرتا ہے</string>
+    <string name="delivery_channel_low">کم اہمیت – الرٹس صرف خاموشی سے فہرست میں نظر آتے ہیں</string>
+    <string name="delivery_channel_off">بند کیا گیا – الرٹس نہیں پہنچیں گے</string>
+    <string name="delivery_exact_on">آن – تقریباً ہر 15 منٹ میں</string>
+    <string name="delivery_exact_off">بند – Android بے قاعدگی سے جانچتا ہے</string>
+    <string name="delivery_battery">بیٹری آپٹیمائزیشن</string>
+    <string name="delivery_battery_unrestricted">غیر محدود</string>
+    <string name="delivery_battery_optimized">آپٹیمائزڈ – Android جانچ میں تاخیر کر سکتا ہے۔ ایپ کوئی استثنا نہیں مانگتی؛ یہ ایپ کی بیٹری ترتیبات میں بدلا جا سکتا ہے۔</string>
+    <string name="delivery_background">پس منظر میں استعمال</string>
+    <string name="delivery_background_restricted">محدود – Android پس منظر کی جانچ روک دیتا ہے</string>
+    <string name="delivery_dnd">ڈسٹرب نہ کریں</string>
+    <string name="delivery_dnd_on">آن – الرٹس بغیر آواز کے آ سکتے ہیں</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">%1$s تک فعال – واجب الرٹس تب تک انتظار کریں گے</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – اس دوران واجب الرٹس انتظار کرتے ہیں</string>
+    <string name="delivery_last_check">پس منظر کی آخری جانچ</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – 6 گھنٹے سے زیادہ پہلے</string>
+    <string name="delivery_last_check_never">ابھی تک نہیں</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">اجازت دیں</string>
+    <string name="delivery_action_change">بدلیں</string>
+    <string name="delivery_action_show">دکھائیں</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">بینرز اور آواز</string>
+    <string name="delivery_alert_off">بینرز بند – الرٹس صرف نوٹیفکیشن سینٹر میں نظر آتے ہیں</string>
+    <string name="delivery_sound_off">آواز بند – الرٹس خاموشی سے آتے ہیں</string>
+    <string name="delivery_time_sensitive">وقت کی حساس اطلاعات</string>
+    <string name="delivery_time_sensitive_off">بند – کوئی فوکس الرٹس روک سکتا ہے</string>
+    <string name="delivery_background_refresh">پس منظر میں ایپ ریفریش</string>
+    <string name="delivery_low_power">کم پاور موڈ</string>
+    <string name="delivery_swipe_away">ایپ کو سوائپ کر کے ہٹا دیا؟</string>
+    <string name="delivery_swipe_away_note">ایپ سوئچر میں ایپ کو سوائپ کر کے ہٹانے پر iOS پس منظر کی جانچ تب تک روک دیتا ہے جب تک ایپ دوبارہ نہ کھلے۔</string>
+    <string name="delivery_live_activity">لائیو ایکٹیویٹی</string>
+    <string name="delivery_live_activity_note">لاک اسکرین پر قیمت دکھاتا ہے لیکن صرف تب اپ ڈیٹ ہوتا ہے جب ایپ جانچ کرے – اس سے الرٹس زیادہ کثرت سے نہیں جانچے جاتے۔</string>
+
+    <string name="alarm_first_check">چیک کریں کہ الرٹس پہنچتے ہیں</string>
+
+    <string name="oem_battery_title">مینوفیکچرر کا بیٹری سیور</string>
+    <string name="oem_battery_xiaomi">Xiaomi ایپ کو مکمل طور پر روک سکتا ہے – پھر کوئی الرٹ نہیں آتا۔ “آٹو اسٹارٹ” آن کریں اور بیٹری سیور کو “کوئی پابندی نہیں” پر سیٹ کریں۔</string>
+    <string name="oem_battery_samsung">Samsung ایپ کو گہری نیند میں ڈال سکتا ہے – پھر کوئی الرٹ نہیں آتا۔ بیٹری › پس منظر کے استعمال کی حدود میں اسے “کبھی نہ سونے والی ایپس” میں شامل کریں۔</string>
+    <string name="oem_battery_huawei">Huawei/Honor ایپ کو روک سکتا ہے – پھر کوئی الرٹ نہیں آتا۔ بیٹری › ایپ لانچ میں “دستی طور پر منظم کریں” منتخب کریں اور تمام اختیارات کی اجازت دیں۔</string>
+    <string name="oem_battery_oneplus">OnePlus ایپ کو روک سکتا ہے – پھر کوئی الرٹ نہیں آتا۔ “آٹو لانچ” اور بیٹری کے استعمال میں پس منظر کی سرگرمی کی اجازت دیں۔</string>
+    <string name="oem_battery_oppo">Oppo/Realme ایپ کو روک سکتا ہے – پھر کوئی الرٹ نہیں آتا۔ “آٹو لانچ” اور بیٹری کے استعمال میں پس منظر کی سرگرمی کی اجازت دیں۔</string>
+    <string name="oem_battery_vivo">Vivo ایپ کو روک سکتا ہے – پھر کوئی الرٹ نہیں آتا۔ “آٹو اسٹارٹ” اور بیٹری میں پس منظر میں زیادہ بجلی کے استعمال کی اجازت دیں۔</string>
+    <string name="alarm_reliability_stale">آخری جانچ %1$s – الرٹس دیر سے آ سکتے ہیں</string>
+    <string name="alarm_reliability_never">الرٹس آن – ابھی تک پس منظر میں کوئی جانچ نہیں</string>
+    <string name="alarm_reliability_notifications_off">اطلاعات بند – الرٹس نہیں پہنچیں گے</string>
+    <string name="alarm_reliability_battery">بیٹری کی بچت الرٹ کی جانچ روک سکتی ہے</string>
+    <string name="alarm_reliability_background_refresh">پس منظر میں ایپ ریفریش بند – الرٹس شاید نہ پہنچیں</string>
+</resources>

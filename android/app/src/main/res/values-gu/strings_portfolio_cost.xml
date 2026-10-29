@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">પડતર કિંમત વગરની એન્ટ્રીઓ: %1$d</string>
+    <string name="cost_gaps_card_text">નફો અને કર પૂરા થાય તે માટે પડતર કિંમત ઉમેરો.</string>
+    <string name="cost_gaps_sheet_title">પડતર કિંમત વગરની એન્ટ્રીઓ</string>
+    <string name="cost_gaps_sheet_intro">આ આવકોની પડતર કિંમત નથી. સૂચન એ તારીખનો દૈનિક બંધ ભાવ છે – એન્ટ્રીમાં તમે તેને બદલી શકો છો.</string>
+    <string name="cost_gaps_empty">બધી એન્ટ્રીઓની પડતર કિંમત છે.</string>
+    <string name="cost_gap_enter">પડતર કિંમત દાખલ કરો</string>
+    <string name="cost_gap_leave_unknown">અજ્ઞાત રહેવા દો</string>
+    <string name="cost_gap_left_unknown">અજ્ઞાત રહેવા દીધું</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">સૂચન: દૈનિક બંધ ભાવ %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">આ તારીખ માટે ચકાસાયેલો દૈનિક બંધ ભાવ નથી</string>
+    <string name="cost_gap_suggestion_loading">દૈનિક બંધ ભાવ લોડ થઈ રહ્યો છે …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">પડતર કિંમત = મળ્યું ત્યારનું મૂલ્ય (આવક)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">પડતર કિંમત = 0 (આવક વગરનું રિવૉર્ડ, ઑસ્ટ્રિયા)</string>
+    <string name="cost_gap_apply">લાગુ કરો</string>
+    <string name="address_lots_action">સરનામાંના બેલેન્સની પડતર કિંમત</string>
+    <string name="address_lots_title">સરનામાંના બેલેન્સની પડતર કિંમત</string>
+    <string name="address_lots_intro">આ સરનામાંના બેલેન્સ માટે ખરીદીની તારીખ, જથ્થો અને પડતર કિંમત દાખલ કરો. લૉટ આ સરનામાંની ખરીદી જેમ ગણાય છે; આવરી ન લેવાયેલો ભાગ પડતર કિંમત વગર રહે છે.</string>
+    <string name="address_lots_add">લૉટ ઉમેરો</string>
+    <string name="address_lots_new">નવો લૉટ</string>
+    <string name="address_lots_edit">લૉટ</string>
+    <string name="address_lots_date">ખરીદીની તારીખ</string>
+    <string name="address_lots_amount">જથ્થો</string>
+    <string name="address_lots_mode_total">કુલ</string>
+    <string name="address_lots_mode_price">પ્રતિ કૉઇન</string>
+    <string name="address_lots_price">પ્રતિ કૉઇન ભાવ (USDT)</string>
+    <string name="address_lots_total">કુલ પડતર કિંમત (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%2$s માંથી %1$s ની પડતર કિંમત છે</string>
+    <string name="address_lots_unlotted">%1$s પડતર કિંમત વગર</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">લૉટ બેલેન્સ કરતાં %1$s વધુ છે – સૌથી જૂના પહેલાં વપરાય છે.</string>
+    <string name="address_lots_not_loaded">બેલેન્સ હજુ લોડ થયું નથી – તે લોડ થતાં જ લૉટ ગણાશે.</string>
+    <string name="address_lots_invalid">જથ્થો અને પડતર કિંમત દાખલ કરો</string>
+</resources>

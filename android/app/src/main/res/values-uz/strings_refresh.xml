@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">koʻproq maʼlumot va batareya talab qiladi</string>
+    <string name="update_mode_live">Ochiq paytda jonli</string>
+    <string name="update_mode_live_hint">Birja jonli kurs bersa: kuzatuv roʻyxati ochiq paytda darhol. Aks holda keyingi soʻrovda. Yopiq boʻlsa: har %1$s dan tez-tez emas, koʻpincha kechroq.</string>
+    <string name="update_mode_live_hint_ios">Birja jonli kurs bersa: kuzatuv roʻyxati ochiq paytda darhol. Aks holda keyingi soʻrovda. Yopiq boʻlsa: iOS ruxsat berganda, baʼzan bir necha soat oraliq bilan. Ilovani surib yopsangiz, iOS uni qayta ochguningizcha bu tekshiruvlarni toʻxtatadi.</string>
+    <string name="update_mode_recommended">tavsiya etiladi</string>
+    <string name="update_mode_sparsam">Tejamkor</string>
+    <string name="update_mode_sparsam_hint">Ilova yopiq boʻlsa, har %1$s dan tez-tez emas, koʻpincha kechroq (signallar, vidjetlar). Ochiq boʻlsa: har safar ochganingizda.</string>
+    <string name="update_mode_sparsam_hint_ios">Ilova yopiq boʻlsa, qachon tekshirishni iOS hal qiladi (signallar, vidjetlar), baʼzan bir necha soat oraliq bilan. Ochiq boʻlsa: har safar ochganingizda.</string>
+    <string name="update_mode_title">Yangilash chastotasi</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">Yangilash toʻxtatildi</string>
+    <string name="refresh_sheet_alarms">Signallar</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d ta ishga tushdi</item>
+        <item quantity="other">%1$d ta ishga tushdi</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">Hammasi yangilandi</string>
+    <string name="refresh_sheet_app_start">Ilovani ishga tushirish</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">guruhli soʻrov %1$s · %2$d ta kurs</item>
+        <item quantity="other">guruhli soʻrov %1$s · %2$d ta kurs</item>
+    </plurals>
+    <string name="refresh_sheet_database">Maʼlumotlar bazasi</string>
+    <string name="refresh_sheet_exchange_unreachable">%1$s javob bermayapti</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
+        <item quantity="one">%1$d ta birja javob bermayapti</item>
+        <item quantity="other">%1$d ta birja javob bermayapti</item>
+    </plurals>
+    <string name="refresh_sheet_network">Tarmoq</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d ta kurs bildirishnomasi</item>
+        <item quantity="other">%1$d ta kurs bildirishnomasi</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d ta juftlik</item>
+        <item quantity="other">%1$d ta juftlik</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d ta juftlik yangilanmadi</item>
+        <item quantity="other">%1$d ta juftlik yangilanmadi</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%1$d ta juftlikdan %2$d tasi</item>
+        <item quantity="other">%1$d ta juftlikdan %2$d tasi</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">%1$s gacha toʻxtatildi</string>
+    <string name="refresh_sheet_paused_until_reason">%1$s gacha toʻxtatildi (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">maʼlumot yoʻq</string>
+    <string name="refresh_sheet_reason_offline">aloqa yoʻq</string>
+    <string name="refresh_sheet_reason_rate_limit">soʻrovlar juda koʻp</string>
+    <string name="refresh_sheet_reason_server">server xatosi</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">kutish vaqti tugadi</string>
+    <string name="refresh_sheet_reason_unavailable">birja mavjud emas</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s soniya</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_exchanges">Birjalar</string>
+    <string name="refresh_sheet_section_steps">Tafsilot</string>
+    <string name="refresh_sheet_status_failed">yangilanmadi</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">hammasi yangilandi</string>
+    <string name="refresh_sheet_status_partial">qisman yangilandi</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Boshlanishi kutilmoqda</string>
+    <string name="refresh_sheet_widgets">Vidjetlar</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">guruhli soʻrov %1$s (muvaffaqiyatsiz)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d ta xato</item>
+        <item quantity="other">%1$d ta xato</item>
+    </plurals>
+    <string name="refresh_report_live">Jonli: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d tasi endi savdoda emas</item>
+        <item quantity="other">%1$d tasi endi savdoda emas</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d tasi alohida</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">Muvaffaqiyatsiz</string>
+    <string name="check_result_ok">OK</string>
+    <string name="check_result_partial">Qisman</string>
+    <string name="check_result_skipped">Oʻtkazib yuborildi</string>
+    <string name="check_trigger_bgtask">Fon</string>
+    <string name="check_trigger_exact">Oʻz vaqtida</string>
+    <string name="check_trigger_foreground">Ilova</string>
+    <string name="check_trigger_widget">Vidjet</string>
+    <string name="check_trigger_widget_ios">Vidjet · kurslar va kurs signallari</string>
+    <string name="check_trigger_worker">Fon</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android tekshiruvlarni kechiktirishi mumkin – batareyani «Cheklanmagan» qilib qoʻying</string>
+    <string name="battery_later">Keyinroq</string>
+    <string name="battery_message">Android quvvatni tejash uchun fondagi ishlarni kechiktiradi — shunda kurslar va vidjetlar bir necha soat eski boʻlishi mumkin. Batareya sarfini cheklanmagan qilib qoʻysangiz, ular dolzarb qoladi. Buni istalgan vaqtda Android sozlamalarida oʻzgartirishingiz mumkin.</string>
+    <string name="battery_open_settings">Batareya sozlamalarini ochish</string>
+    <string name="battery_steps">Ilova haqida maʼlumotda Batareya (yoki Ilovaning batareya sarfi) ga bosing va Cheklanmagan ni tanlang.</string>
+    <string name="battery_title">Kurslarni dolzarb saqlash</string>
+    <string name="ios_background_refresh_off">Bu ilova uchun Fonda yangilash oʻchiq. Usiz signallar faqat ilova ochiq paytda tekshiriladi.</string>
+    <string name="ios_low_power_mode">Quvvat tejash rejimi yoqiq. iOS fonda kamdan-kam tekshiradi, shuning uchun signallar kechikishi mumkin.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Birja xabari: %1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">Xotira hali qulflangan – %1$d s dan keyin qayta uriniladi</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="one">Xotira hali qulflangan – %1$d soniyadan keyin qayta uriniladi</item>
+        <item quantity="other">Xotira hali qulflangan – %1$d soniyadan keyin qayta uriniladi</item>
+    </plurals>
+    <string name="watchlist_retry_short">%1$s dan keyin qayta uriniladi</string>
+    <string name="widget_retry_at">%1$s da qayta uriniladi</string>
+    <string name="refresh_sheet_wait_attempt">%1$d-urinish – shifrlangan xotira birinchisida tayyor emas edi</string>
+</resources>

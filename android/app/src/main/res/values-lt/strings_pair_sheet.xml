@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s per %2$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">Uždarymas</string>
+    <string name="sheet_chart_converted_current">%1$s, perskaičiuota (dabartinis kursas)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, perskaičiuota dienos kursais</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">Šios poros kainų duomenų nėra</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">Atidarymas</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">Šiandien</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">Apimtis %1$s</string>
+    <string name="sheet_more">Daugiau</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Pardavimo kaina</string>
+    <string name="ticker_bid">Pirkimo kaina</string>
+    <string name="explain_bid_ask">Pirkimo kaina – didžiausia kaina, kurią pirkėjai dabar siūlo, pardavimo kaina – mažiausia, kurią sutinka priimti pardavėjai.</string>
+    <string name="ticker_high">Aukščiausia</string>
+    <string name="ticker_low">Žemiausia</string>
+    <string name="ticker_timestamp">Laikas</string>
+    <string name="ticker_vol_base">Apimtis (monetomis)</string>
+    <string name="ticker_vol_quote">Apimtis (kotiruojama valiuta)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (įrenginio laiko juosta)</string>
+    <string name="change_basis_local">Nuo 00:00 vietos laiku</string>
+    <string name="change_basis_rolling">Paskutinės 24 val.</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">Nuo paskutinio atnaujinimo</string>
+    <string name="change_basis_utc_zone">Nuo 00:00 %1$s</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">Pokytis pagal %1$s žvakes</string>
+    <string name="change_short_since_last">pask. atnaujinimas</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">šiandien</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">šiandien %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="exchange_data_empty_error">Iš biržos negauta duomenų.</string>
+    <string name="market_data_summary">Rinkos kapitalizacija, dujų komisiniai mokesčiai, ekonominiai duomenys, monetos analizė</string>
+    <string name="market_data_tab_futures">Ateities sandoriai</string>
+    <string name="market_data_title">Rinkos duomenys</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">Apyvartoje esantis kiekis</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">Rinkos kapitalizacija</string>
+    <string name="spot_max_supply">Didžiausias kiekis</string>
+    <string name="spot_no_data">Šios monetos spot duomenų nėra</string>
+    <string name="spot_source_updated">Šaltinis: %1$s · būsena %2$s</string>
+    <string name="spot_supply_of_max">%1$s didžiausio kiekio apyvartoje</string>
+    <string name="spot_total_supply">Bendras kiekis</string>
+    <string name="spot_vol_mcap">Apimtis / rinkos kap.</string>
+    <string name="spot_volume_24h">Apimtis (24 val.)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">Orientyras: %1$s</string>
+    <string name="futures_funding">Finansavimo norma</string>
+    <string name="futures_funding_interval_unknown">intervalas nežinomas</string>
+    <string name="futures_funding_per8h_equiv">= %1$s per 8 val. (kaip įspėjimuose)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">per valandą</string>
+    <string name="futures_funding_per_hours">per %1$d val.</string>
+    <string name="futures_next_funding">kitas po %1$d val. %2$d min.</string>
+    <string name="futures_no_data">Šios monetos ateities sandorių duomenų nėra</string>
+    <string name="futures_open_interest">Atvirosios pozicijos</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">Orientyras iš %1$s – finansavimo norma ir atvirosios pozicijos kiekvienoje biržoje skiriasi; %2$s jos gali būti kitokios.</string>
+    <string name="futures_reference_spot">Orientyras iš %1$s (monetos USDT neterminuotasis kontraktas)</string>
+    <string name="futures_source">Šaltinis: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">Daug prekiautojų skolintais pinigais stato už kylančias ar krentančias kainas. Komisinis mokestis tarp ilgųjų ir trumpųjų pozicijų. Labai teigiama reiškia, kad daugelis stato už kylančias kainas.</string>
+    <string name="explain_open_interest">Ateities sandoriai – tai statymai už kainą, dažnai skolintais pinigais. Visų atvirų ateities sandorių pozicijų vertė. Jei ji didėja, už judėjimą statoma daugiau pinigų.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Paaiškinimas</string>
+    <string name="explain_spot_fdv">Visiškai praskiesta vertė: kaina × didžiausias kiekis (arba bendras kiekis, jei ribos nėra).</string>
+    <string name="explain_spot_market_cap">Kaina × apyvartoje esantis kiekis. Ženklelis rodo jos pokytį per 24 valandas.</string>
+    <string name="explain_spot_source">Visų biržų duomenys JAV doleriais iš CoinGecko.</string>
+    <string name="explain_spot_supply">Apyvartoje: monetos, šiuo metu esančios rinkoje. Bendras: visos sukurtos monetos, atėmus sudegintas. Didžiausias: daugiausia, kiek jų kada nors gali būti.</string>
+    <string name="explain_spot_volume">Per 24 valandas parduota vertė. Apimtis / rinkos kap.: apimtis, palyginti su rinkos kapitalizacija — didelė reiškia labai aktyvią prekybą.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · kursas %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sat.</string>
+
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">Didelis skirtumas tarp pirkimo ir pardavimo kainos (%1$s)</string>
+
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">Istorija %1$s, perskaičiuota į %2$s šiandienos kursu</string>
+    <string name="converted_unsure">Perskaičiavimas nepatikimas</string>
+</resources>

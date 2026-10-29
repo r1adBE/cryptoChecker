@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">Бұл құрылғыда экран құлпы орнатылмаған. Алдымен оны жүйе параметрлерінде орнатыңыз.</string>
+    <string name="app_lock_unlock">Құлпын ашу</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">Портфельді тазалау</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="one">%d транзакцияны жою керек пе? Бақыланатын мекенжайлар қалады. Мұны бірден болдырмауға болады.</item>
+        <item quantity="other">Барлық %d транзакцияны жою керек пе? Бақыланатын мекенжайлар қалады. Мұны бірден болдырмауға болады.</item>
+    </plurals>
+    <string name="portfolio_empty_action">Алғашқы сатып алуыңызды қосыңыз</string>
+    <string name="portfolio_empty_address">Әмиян мекенжайын жай бақылау</string>
+    <string name="portfolio_empty_csv">Биржадан сатып алдыңыз ба? Оның файлын импорттаңыз</string>
+    <string name="portfolio_empty_example_plain">Мысалы: 1 наурызда %1$s BTC сатып алынды. Қолданба оның бүгін қанша тұратынын және пайдадасыз ба, шығындасыз ба – көрсетеді, тек осы құрылғыда сақталады.</string>
+    <string name="portfolio_empty_title">Әзірге транзакция жоқ</string>
+    <string name="portfolio_enable_ask_text">Транзакцияңыз сақталды. «Портфель» қойындысы активтеріңіз бен олардың құнын көрсетеді.</string>
+    <string name="portfolio_enable_ask_title">«Портфель» қойындысын қосу керек пе?</string>
+    <string name="portfolio_enable_later_hint">Транзакция сақталды. «Портфель» қойындысын Параметрлер › Портфель бөлімінде қосуға болады.</string>
+    <string name="portfolio_enabled_banner">Портфель қосылды – оны «Портфель» қойындысынан табасыз.</string>
+    <string name="portfolio_lock_reason">Портфельдің құлпын ашу</string>
+    <string name="portfolio_locked_text">Активтеріңіз бен құндарын көру үшін құлпын ашыңыз.</string>
+    <string name="portfolio_locked_title">Портфель құлыптаулы</string>
+    <string name="portfolio_setting_hint">Міндетті емес: сатып алу мен сатуды жазып, құн мен пайда/шығынды бөлек қойындыда көріңіз.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">Ескірген · %1$s жағдайы бойынша</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="one">Жүйелік сақтық көшірмедегі %d жазба жарамсыз болды және қалпына келтірілмеді.</item>
+        <item quantity="other">Жүйелік сақтық көшірмедегі %d жазба жарамсыз болды және қалпына келтірілмеді.</item>
+    </plurals>
+    <string name="portfolio_title">Портфель</string>
+    <string name="portfolio_unassigned_fee">Комиссия тағайындалмаған – құн негізі белгісіз: %1$s</string>
+    <string name="portfolio_updated">Бағамдар %1$s жағдайы бойынша</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">Басқа</string>
+    <string name="portfolio_allocation_title">Бөлінуі</string>
+    <string name="portfolio_card_details">Толығырақ</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: әлі қолжетімсіз</string>
+    <string name="portfolio_card_hints_count">Ескертпелер (%1$d)</string>
+    <string name="portfolio_card_today">Бүгін</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">Барлығы</string>
+    <string name="portfolio_hide_amounts">Сомаларды жасыру</string>
+    <string name="portfolio_hide_amounts_hint">Портфель мен портфель виджетіндегі сомалар мен құндарды ••• түрінде көрсетеді – пайыздар көрініп тұрады.</string>
+    <string name="portfolio_invested">Құн негізі</string>
+    <string name="portfolio_total_no_fx">%1$s үшін айырбас бағамы жоқ – сомалар USDT-мен</string>
+    <string name="portfolio_total_value">Жалпы құн</string>
+    <string name="portfolio_value">Құны</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">Орт. %1$s · қазір %2$s</string>
+    <string name="portfolio_avg_only">Орт. %1$s</string>
+    <string name="portfolio_avg_open_lots">Ұсталатын монеталардың орташа құны</string>
+    <string name="portfolio_avg_partial">Сатып алу бағасы бар %1$s бойынша орташа</string>
+    <string name="portfolio_avg_price">Орташа сатып алу бағасы</string>
+    <string name="portfolio_avg_price_hint">Орташа сатып алу бағасы: барлық сатып алудың сомасына қарай өлшенген орташасы. Сатулар осы орташамен бағаланады.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Жабылған позиция (%1$d)</item>
+        <item quantity="other">Жабылған позициялар (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: сатуда алдымен ең ескі монеталарыңыз жұмсалады. Орт. = қалған құн негізі ÷ сатып алу бағасы бар сома.</string>
+    <string name="portfolio_holdings">Активтер</string>
+    <string name="portfolio_lost_fee_cost">Төленген лотсыз желі комиссиясының құны: %1$s</string>
+    <string name="portfolio_open_lots">Ашық сатып алу лоттары (%1$d)</string>
+    <string name="portfolio_open_lots_avg">Сатып алу бағасымен (орт.)</string>
+    <string name="portfolio_open_lots_no_cost">Сатып алу бағасынсыз</string>
+    <string name="portfolio_open_lots_without_price">сатып алу бағасы жоқ</string>
+    <string name="portfolio_realized">Іске асқан пайда/шығын</string>
+    <string name="portfolio_unrealized">Ашық пайда/шығын</string>
+    <string name="portfolio_unrealized_without_unpriced">сатып алу бағасы жоқ %1$s есептелмеген</string>
+    <string name="portfolio_withdrawn_gain">Шығарылған: %1$s (шығарылғанға дейінгі құн өзгерісі)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">Айырбастау валютасы</string>
+    <string name="portfolio_convert_to_value">Айырбастау валютасы: %1$s</string>
+    <string name="portfolio_current_missing">%1$s үшін ағымдағы бағам жоқ</string>
+    <string name="portfolio_current_price">Ағымдағы бағам</string>
+    <string name="portfolio_price_missing">Баға жоқ</string>
+    <string name="portfolio_price_missing_hint">Кейбір сатып алуларда баға жоқ. Пайда/шығынды көру үшін сатып алу бағасын қосыңыз.</string>
+    <string name="portfolio_price_source">Бағамдар: Binance · USDT нарықтық бағамен</string>
+    <string name="portfolio_price_source_routes">Бағамдар: %1$s, әйтпесе Binance · USDT нарықтық бағамен</string>
+    <string name="portfolio_price_unavailable">Бағам қазір қолжетімсіз</string>
+    <string name="portfolio_price_unchecked">Бағам тексерілмеген</string>
+    <string name="portfolio_price_via_base">≈ %1$s бағамы (bridged/wrapped)</string>
+    <string name="portfolio_usdt_as_usd">USDT өзінің USD нарықтық бағасымен айырбасталды</string>
+    <string name="portfolio_usdt_assumed">USDT доллар бағамы жоқ – 1 АҚШ доллары деп есептелді</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">Портфельге қосу</string>
+    <string name="portfolio_add_tx">Транзакция қосу</string>
+    <string name="portfolio_buy">Сатып алу</string>
+    <string name="portfolio_coin">Монета</string>
+    <string name="portfolio_coin_invalid">Монета таңбасын енгізіңіз</string>
+    <string name="portfolio_coin_search">Таңбаны іздеу, мысалы BTC</string>
+    <string name="portfolio_discard_confirm">Бас тарту</string>
+    <string name="portfolio_discard_keep">Өңдеуді жалғастыру</string>
+    <string name="portfolio_discard_title">Өзгерістерден бас тарту керек пе?</string>
+    <string name="portfolio_edit_tx">Транзакцияны өңдеу</string>
+    <string name="portfolio_invalid">0-ден үлкен жарамды сан енгізіңіз.</string>
+    <string name="portfolio_oversold">Сатулар активтерден асады – транзакцияларды тексеріңіз.</string>
+    <string name="portfolio_sell">Сату</string>
+    <string name="portfolio_sell_exceeds">Активтеріңізден көп (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">Сома мен комиссия активтеріңізден көп (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">%2$s ішіндегі активтеріңізден көп (%1$s)</string>
+    <string name="portfolio_transactions">Транзакциялар</string>
+    <string name="portfolio_tx_acquired_date">Бастапқы сатып алу күні (міндетті емес)</string>
+    <string name="portfolio_tx_acquired_date_hint">Салық экспортындағы ұстау мерзімі үшін</string>
+    <string name="portfolio_tx_amount">Сома</string>
+    <string name="portfolio_tx_coin_fee">Монетамен комиссия (міндетті емес)</string>
+    <string name="portfolio_tx_date">Күні</string>
+    <string name="portfolio_tx_delete_confirm">Бұл транзакция портфельден жойылады.</string>
+    <string name="portfolio_tx_delete_title">Транзакцияны жою керек пе?</string>
+    <string name="portfolio_tx_deposit">Депозит</string>
+    <string name="portfolio_tx_entry_currency">Енгізу валютасы</string>
+    <string name="portfolio_tx_explain_deposit">Саудасыз активтер, мысалы бұрынғы монеталар</string>
+    <string name="portfolio_tx_explain_gift">Монеталар шығару сияқты активтеріңізден шығады – тек ел сыйлыққа салық салатын жерде (UK, CA, AU) нарықтық құнмен иеліктен шығару</string>
+    <string name="portfolio_tx_explain_payment">Тауар немесе қызмет үшін төленді – сату сияқты нарықтық құнмен иеліктен шығару, ақша алынбайды</string>
+    <string name="portfolio_tx_explain_reward">Құн негізі = алған кездегі нарықтық құн</string>
+    <string name="portfolio_tx_explain_swap">Бір монетаны басқасына: берілген монетаны сатады және алынған монетаны сатып алады</string>
+    <string name="portfolio_tx_explain_transfer">Пайда жоқ – құн негізі монеталармен бірге ауысады</string>
+    <string name="portfolio_tx_explain_withdrawal">Активтер портфельден шығады – сату емес, пайда жоқ</string>
+    <string name="portfolio_tx_fee_consumes_amount">Комиссия алынған сомамен бірдей – ештеңе қалмас еді.</string>
+    <string name="portfolio_tx_fees_toggle">Комиссиялар</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s, %2$s бағамы бойынша</string>
+    <string name="portfolio_tx_fiat_loading">Айырбас бағамы жүктелуде…</string>
+    <string name="portfolio_tx_fiat_no_fx">Бұл күнге айырбас бағамы жоқ – соманы USDT-мен енгізіңіз.</string>
+    <string name="portfolio_tx_gift">Сыйлық</string>
+    <string name="portfolio_tx_gift_price_hint">USDT-мен. Бос = сол күннің жабылу бағасы (бағаланған).</string>
+    <string name="portfolio_tx_gift_spouse">Жұбайға / азаматтық серіктеске</string>
+    <string name="portfolio_tx_gift_spouse_hint">Ұлыбритания мен Канада: пайда да, шығын да жоқ – серіктесіңіз құн негізіңізді қабылдайды. Басқа елдер мұны ескермейді.</string>
+    <string name="portfolio_tx_market_value">Бір монетаның нарықтық құны</string>
+    <string name="portfolio_tx_more_buy">Комиссия, биржа, ескертпе</string>
+    <string name="portfolio_tx_network_fee">Монетамен желі комиссиясы (міндетті емес)</string>
+    <string name="portfolio_tx_note">Ескертпе (міндетті емес)</string>
+    <string name="portfolio_tx_payment">Онымен төленді</string>
+    <string name="portfolio_tx_price">Бір монета бағасы</string>
+    <string name="portfolio_tx_price_hint">USDT-мен. Белгісіз болса, бос қалдырыңыз.</string>
+    <string name="portfolio_tx_price_historic">%1$s тексерілген күндік жабылуы – қажет болса түзетіңіз</string>
+    <string name="portfolio_tx_price_invalid">Жарамды сан (0 немесе одан көп) енгізіңіз немесе өрісті бос қалдырыңыз.</string>
+    <string name="portfolio_tx_price_past_hint">Сатып алу күнгі бағаны енгізіңіз – белгісіз болса, бос қалдырыңыз</string>
+    <string name="portfolio_tx_price_receipt_hint">USDT-мен. Бос = құн негізі жоқ активтер.</string>
+    <string name="portfolio_tx_price_zero">Импортталған транзакциялар үшін 0 баға мүмкін емес – нарықтық баға үшін бос қалдырыңыз</string>
+    <string name="portfolio_tx_removed">Транзакция жойылды</string>
+    <string name="portfolio_tx_reward">Сыйақы</string>
+    <string name="portfolio_tx_save_failed">Транзакцияны сақтау мүмкін болмады. Енгізгендеріңіз осында – қайталап көріңіз.</string>
+    <string name="portfolio_tx_swap">Айырбас</string>
+    <string name="portfolio_tx_swap_fee_received">%1$s комиссиясы: алынған соманы азайтады, баға қажет емес.</string>
+    <string name="portfolio_tx_swap_from">%1$s монетасынан айырбас</string>
+    <string name="portfolio_tx_swap_given_amount">Берілген сома</string>
+    <string name="portfolio_tx_swap_given_coin">Берілген монета</string>
+    <string name="portfolio_tx_swap_received_amount">Алынған сома</string>
+    <string name="portfolio_tx_swap_received_coin">Алынған монета</string>
+    <string name="portfolio_tx_swap_same_coin">Берілгеннен басқа монета таңдаңыз</string>
+    <string name="portfolio_tx_swap_to">%1$s монетасына айырбас</string>
+    <string name="portfolio_tx_swap_value">Айырбас құны (міндетті емес)</string>
+    <string name="portfolio_tx_swap_value_hint">Жалпы құн. Бос = белгісіз – пайда толық емес болып қалады (айырбаста USDT болса, автоматты).</string>
+    <string name="portfolio_tx_third_fee_amount">Комиссия сомасы</string>
+    <string name="portfolio_tx_third_fee_coin">Комиссия монетасы</string>
+    <string name="portfolio_tx_third_fee_incomplete">Бағасыз комиссия құн негізі мен түсімге кірмейді; салық экспорты мұндай сатуларды белгілейді.</string>
+    <string name="portfolio_tx_third_fee_price">Комиссия монетасының бағасы (міндетті емес)</string>
+    <string name="portfolio_tx_third_fee_toggle">Басқа монетамен комиссия</string>
+    <string name="portfolio_tx_total">Барлығы: %1$s</string>
+    <string name="portfolio_tx_transfer">Аударым</string>
+    <string name="portfolio_tx_transfer_from">Қайдан (міндетті емес)</string>
+    <string name="portfolio_tx_transfer_to">Қайда (міндетті емес)</string>
+    <string name="portfolio_tx_transfer_to_hint">Биржа немесе әмиян – бұдан былай сонда бағаланады.</string>
+    <string name="portfolio_tx_type_select">Түрі: %1$s</string>
+    <string name="portfolio_tx_value_received">Алған кездегі бір монетаның құны (міндетті емес)</string>
+    <string name="portfolio_tx_withdrawal">Шығару</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">Сыйладыңыз ба немесе онымен төледіңіз бе? Оны «Сыйлық» немесе «Онымен төленді» ретінде жазыңыз – елге қарай бұл салық үшін сату болып есептеледі.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">Міндетті емес: USDT-дағы нарықтық құн, тек тарих үшін қолданылады (бос = сол күнгі бағам). Монеталар әрқашан құн негізімен шығады.</string>
+    <string name="portfolio_wallet_did_you_mean">%1$s деп айтқыңыз келді ме? Басқаша жазылуы бөлек әмиян болып есептеледі.</string>
+    <string name="portfolio_wallet_shortfall">%1$s ішіндегі активтер жеткіліксіз – аударым жетіспей ме?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">Ең жоғары %1$s</string>
+    <string name="portfolio_compare">Салыстыру</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">%1$s мен USDT-ны пайызбен салыстыру</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">Пайызбен салыстыру, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">Валюта әсері: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">Баға деректері тек 2017 жылдың тамызынан басталады — тарих сол жерден басталады.</string>
+    <string name="portfolio_history_chip_since_first">Барлығы</string>
+    <string name="portfolio_history_collapse">Құн тарихын жасыру</string>
+    <string name="portfolio_history_converted">Бүгінгі бағаммен айырбасталды</string>
+    <string name="portfolio_history_expand">Құн тарихын көрсету</string>
+    <string name="portfolio_history_gain_a11y">Құны %1$s. Пайда/шығын, %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">Пайда/шығын</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">%1$s бойынша құн</string>
+    <string name="portfolio_history_incl_fx">Айырбас бағамын қоса</string>
+    <string name="portfolio_history_incl_withdrawn">Шығарылған монеталардың құн өзгерісін қамтиды</string>
+    <string name="portfolio_history_includes_trades">Осы кезеңдегі сатып алу мен сатуды қамтиды</string>
+    <string name="portfolio_history_loading">Құн тарихы жүктелуде</string>
+    <string name="portfolio_history_period_1y">1 жыл</string>
+    <string name="portfolio_history_period_30d">30 күн</string>
+    <string name="portfolio_history_period_7d">7 күн</string>
+    <string name="portfolio_history_period_since_first">алғашқы сатып алудан бері</string>
+    <string name="portfolio_history_pnl_needs_prices">Пайда/шығын үшін сатып алу бағалары жоқ – оларды транзакцияларға қосыңыз.</string>
+    <string name="portfolio_history_pnl_without">%1$s есептелмеген пайда/шығын (баға жоқ)</string>
+    <string name="portfolio_history_range_1y">1 Ж</string>
+    <string name="portfolio_history_range_30d">30 К</string>
+    <string name="portfolio_history_range_7d">7 К</string>
+    <string name="portfolio_history_range_a11y">%1$s тарихын көрсету</string>
+    <string name="portfolio_history_range_since_first">1-сатып алудан бері</string>
+    <string name="portfolio_history_scaled">%1$s тарихы: Binance тарихы биржа бағамына масштабталған</string>
+    <string name="portfolio_history_title">Құн тарихы</string>
+    <string name="portfolio_history_today">Бүгін</string>
+    <string name="portfolio_history_too_short">Тарих алғашқы толық күніңізден кейін басталады.</string>
+    <string name="portfolio_history_unavailable">Қазір тарих қолжетімсіз.</string>
+    <string name="portfolio_history_utc_days">UTC бойынша күндер (күндік шамдар)</string>
+    <string name="portfolio_history_without_matching">%1$s есептелмеген (сәйкес күндік бағамдар жоқ)</string>
+    <string name="portfolio_period_rewards">Сыйақылар +%1$s (пайдаға кірмейді)</string>
+    <string name="portfolio_period_scaled">%1$s үшін 7 К/1 Ж: Binance тарихы биржа бағамына масштабталған</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">Ескерту</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">Сома (%1$s)</string>
+    <string name="portfolio_alarm_hint">Әр жаңартудан кейін тексеріледі. Ескертулер сияқты, шекті кесіп өткенде іске қосылады және құн кері қайтқаннан кейін ғана қайталанады.</string>
+    <string name="portfolio_alarm_kind_above">Портфель сомадан жоғары</string>
+    <string name="portfolio_alarm_kind_below">Портфель сомадан төмен</string>
+    <string name="portfolio_alarm_kind_down">Портфель төмендейді</string>
+    <string name="portfolio_alarm_kind_up">Портфель өседі</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">Портфель %1$s жоғары</string>
+    <string name="portfolio_alarm_sentence_below">Портфель %1$s төмен</string>
+    <string name="portfolio_alarm_sentence_down">Портфель %1$s төмендеді (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">Портфель %1$s өсті (%2$s)</string>
+    <string name="portfolio_alarm_title">Портфель құнының ескертуі</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">Биржа (міндетті емес)</string>
+    <string name="ledger_exchange_failed">%1$s: %2$s қазір бағам бермейді – Binance бойынша бағаланды.</string>
+    <string name="ledger_exchange_hint">Монета осы биржаның бағамымен бағаланады (әйтпесе Binance). Тарих, 7 К және 1 Ж оған масштабталған Binance күндік бағамдарын пайдаланады.</string>
+    <string name="ledger_exchange_mixed">%1$s: бірнеше биржа енгізілген – Binance бойынша бағаланды. Монеталарды ауыстырдыңыз ба? Ауыстыруды «Аударым» ретінде жазыңыз.</string>
+    <string name="ledger_exchange_none">Жоқ (Binance)</string>
+    <string name="ledger_fee">Комиссия (міндетті емес)</string>
+    <string name="ledger_fee_coin">Монета</string>
+    <string name="ledger_fee_hint">USDT-мен болса, құн негізін арттырады (сатуда түсімді азайтады); монетамен болса, соманы азайтады.</string>
+    <string name="ledger_fee_line">Комиссия %1$s</string>
+    <string name="ledger_fifo_cost_note">Сатып алғаннан бері: комиссияларды қоса FIFO құны (алдымен ең ескі монеталар сатылады).</string>
+    <string name="ledger_gain_info">Бүгін, 7 К, 1 Ж: кезеңдегі құн өзгерісі – сатып алу мен сату пайда болып есептелмейді. Сатып алғаннан бері: әлі ұстап отырған монеталарыңыздың ағымдағы құнынан құн негізін (комиссияларды қоса орташа құн) шегергенде.</string>
+    <string name="ledger_gain_info_a11y">Пайда мен шығын қалай есептеледі</string>
+    <string name="ledger_gain_info_fifo">Бүгін, 7 К, 1 Ж: кезеңдегі құн өзгерісі – сатып алу мен сату пайда болып есептелмейді. Сатып алғаннан бері: әлі ұстап отырған монеталарыңыздың ағымдағы құнынан құн негізін (комиссияларды қоса FIFO) шегергенде.</string>
+    <string name="ledger_gain_title">Пайда/шығын</string>
+    <string name="ledger_more_toggle">Комиссия және биржа</string>
+    <string name="ledger_partial_cost">«Сатып алғаннан бері» тек сатып алу бағасы бар бөлікті есептейді – сатып алу бағасы жоқ %1$s есептелмейді.</string>
+    <string name="ledger_period_without">Бүгін / 7 К / 1 Ж: %1$s есептелмеген – сәйкес бастапқы баға жоқ.</string>
+    <string name="ledger_since_purchase_currency">Сатып алғаннан бері (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">Сатып алғаннан бергі пайда/шығын, әлі сатылмаған</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="one">Сатып алу бағасы жоқ %1$d монета есептелмеген (%2$s) – есептелуі үшін бағасын қосыңыз.</item>
+        <item quantity="other">Сатып алу бағасы жоқ %1$d монета есептелмеген (%2$s) – есептелуі үшін бағаларын қосыңыз.</item>
+    </plurals>
+
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">USDT құлдырауы – нарық %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">USDT доллар бағамы USDC/USDT арқылы – USDC төмендесе, бұл мән қате</string>
+    <string name="portfolio_amount_bridged_stable">≈ %1$s қоса (bridged)</string>
+
+    <string name="portfolio_tx_interest">Пайыз (несиелеу)</string>
+    <string name="portfolio_tx_interest_hint">Алған кезде табыс болып есептеледі (Австрия). Стейкинг сыйақылары мен airdrop үшін қолданбаңыз.</string>
+    <string name="app_lock_no_screen_lock">Портфельді ашу үшін экран құлпын орнатыңыз.</string>
+    <string name="app_lock_turn_off_action">Портфель құлпын өшіру</string>
+    <string name="app_lock_turn_off_confirm_title">Портфель құлпын өшіру керек пе?</string>
+    <string name="app_lock_turn_off_confirm_message">Экран құлпынсыз портфельдің құлпын ашу мүмкін емес. Өшірілсе, қолданба портфельді сұрамай қайта көрсетеді. Экран құлпы орнатылғаннан кейін құлыпты Параметрлерде қайта қосуға болады.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">«Сатып алғаннан бері» және %1$s бойынша құн негізі: құн сатып алу күнгі айырбас бағамымен, қазіргі құн бүгінгі бағаммен.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">Сатып алу күні үшін айырбас бағамы жоқ («Сатып алғаннан бері» мен құн негізіне кірмейді): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">USDT доллар бағамы жоқ сатып алу күндеріндегі құн 1 USDT үшін 1 АҚШ доллары деп есептелді.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">%1$s жағдайы бойынша – биржа қолжетімсіз</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">Күндік бағамдар: %1$s (Binance орнына)</string>
+
+    <string name="portfolio_footer_short">Жұмыс құралы, салық немесе инвестициялық кеңес емес. Құпиялылық: Параметрлер › Қолданба туралы › Құпиялылық саясаты.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">%1$s монетасының барлық транзакциясын жою керек пе?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">%d транзакция жойылады. Мұны бірден болдырмауға болады.</item>
+        <item quantity="other">%d транзакция жойылады. Мұны бірден болдырмауға болады.</item>
+    </plurals>
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">%1$s монетасымен төленген комиссиялар басқа транзакциялардан да жойылады: %2$d.</string>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s портфельден жойылды (%2$d транзакция)</item>
+        <item quantity="other">%1$s портфельден жойылды (%2$d транзакция)</item>
+    </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">%d транзакция жойылды</item>
+        <item quantity="other">%d транзакция жойылды</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">Бұл сондай-ақ %d лотты жояды.</item>
+        <item quantity="other">Бұл сондай-ақ %d лотты жояды.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">Бұл сондай-ақ %d лотты және баланс тарихын жояды.</item>
+        <item quantity="other">Бұл сондай-ақ %d лотты және баланс тарихын жояды.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">Бұл сондай-ақ баланс тарихын жояды.</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">Сақтау мүмкін болмады – қайталап көріңіз</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">Шек жарамсыз – жойып, қайта жасаңыз</string>
+</resources>

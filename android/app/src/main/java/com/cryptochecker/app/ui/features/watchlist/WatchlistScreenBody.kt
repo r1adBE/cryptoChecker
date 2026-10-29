@@ -42,6 +42,7 @@ import com.cryptochecker.app.domain.watch.LiveStatus
 import com.cryptochecker.app.domain.watch.QuickView
 import com.cryptochecker.app.domain.watch.WatchFilter
 import com.cryptochecker.app.domain.watch.WatchPulse
+import com.cryptochecker.app.domain.watch.WatchlistFooter
 import com.cryptochecker.app.domain.watch.WatchlistOnboarding
 import com.cryptochecker.app.ui.components.ReadableInset
 import com.cryptochecker.app.ui.features.alarms.AlarmReliabilityLine
@@ -236,6 +237,8 @@ internal fun WatchlistBody(
                     onEditGroup = selectedGroup?.takeIf { ui.quickView == null && it in groups && it != AutoGroup.TRADFI }
                         ?.let { group -> { ui.startEditingGroup(group) } },
                     shown = listed,
+                    // Gezeigte Zeilen von der ganzen Merkliste; in der Mehrfachauswahl steht unten die Leiste
+                    footer = WatchlistFooter.of(shown = listed.size, total = watches.size, selecting = ui.selecting),
                 ) { watch, shape ->
                     WatchlistItem(
                         watch = watch,

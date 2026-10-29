@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="zero">pirms %d min.</item>
+        <item quantity="one">pirms %d min.</item>
+        <item quantity="other">pirms %d min.</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">šodien %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed, Bitcoin rādītāji, dominance, halvings</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">Vairāk tirgus datu</string>
+    <string name="market_phase_trend_failed">Cenu dati nav pieejami</string>
+    <string name="market_plain_direction_down_clear">Visu kriptovalūtu kopējā vērtība ir skaidri zemāka nekā pirms 24 stundām (%1$s).</string>
+    <string name="market_plain_direction_down_slight">Visu kriptovalūtu kopējā vērtība ir nedaudz zemāka nekā pirms 24 stundām (%1$s).</string>
+    <string name="market_plain_direction_flat">Visu kriptovalūtu kopējā vērtība 24 stundās gandrīz nav mainījusies (%1$s).</string>
+    <string name="market_plain_direction_up_clear">Visu kriptovalūtu kopējā vērtība ir skaidri augstāka nekā pirms 24 stundām (%1$s).</string>
+    <string name="market_plain_direction_up_slight">Visu kriptovalūtu kopējā vērtība ir nedaudz augstāka nekā pirms 24 stundām (%1$s).</string>
+    <string name="market_plain_footnote">Apraksta pēdējās 24 stundas – nav prognoze, nav ieguldījumu padoms.</string>
+    <string name="market_plain_mood_extreme_fear">Ieguldītāji pašlaik ļoti baidās: noskaņojuma indekss (Fear &amp; Greed) ir %1$d no 100.</string>
+    <string name="market_plain_mood_extreme_greed">Ieguldītāji pašlaik ir ļoti alkatīgi: noskaņojuma indekss (Fear &amp; Greed) ir %1$d no 100.</string>
+    <string name="market_plain_mood_fear">Ieguldītāji drīzāk baidās: noskaņojuma indekss (Fear &amp; Greed) ir %1$d no 100.</string>
+    <string name="market_plain_mood_greed">Ieguldītāji drīzāk ir alkatīgi: noskaņojuma indekss (Fear &amp; Greed) ir %1$d no 100.</string>
+    <string name="market_plain_mood_neutral">Ieguldītāju noskaņojums ir līdzsvarots: noskaņojuma indekss (Fear &amp; Greed) ir %1$d no 100.</string>
+    <string name="market_plain_standout_above_btc">Izceļas %1$s: %2$s 24 stundās, krietni virs Bitcoin (%3$s).</string>
+    <string name="market_plain_standout_against_btc">Izceļas %1$s: %2$s 24 stundās, kamēr Bitcoin virzījās pretējā virzienā (%3$s).</string>
+    <string name="market_plain_standout_below_btc">Izceļas %1$s: %2$s 24 stundās, krietni zem Bitcoin (%3$s).</string>
+    <string name="market_plain_standout_futures_down">Izceļas %1$s: neparasti daudz nākotnes līgumu tirgotāju liek uz cenu kritumu.</string>
+    <string name="market_plain_standout_futures_up">Izceļas %1$s: neparasti daudz nākotnes līgumu tirgotāju liek uz cenu kāpumu.</string>
+    <string name="market_plain_standout_quiet">Pašlaik neviena monēta neizceļas.</string>
+    <string name="market_plain_standout_volume">Izceļas %1$s: tirdzniecība aptuveni %2$s reizes lielāka nekā parasti.</string>
+    <string name="market_plain_title">Īsumā</string>
+    <string name="market_section_collapse">Paslēpt: %1$s</string>
+    <string name="market_section_context">Noskaņojums un cikls</string>
+    <string name="market_section_data">Tirgus dati</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">Rādīt: %1$s</string>
+    <string name="market_section_now">Tagad</string>
+    <string name="market_source">Dati: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="exchange_unavailable_error">Birža nav pieejama</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">Informācija: %1$s</string>
+    <string name="market_info_alt_season_source">Dienas cenas: Binance · pārrēķina aptuveni ik pēc 3 stundām</string>
+    <string name="market_info_alt_season_what">Saskaita, cik no aptuveni 20 lieliem altkoiniem (piem., Ethereum, Solana, XRP) pēdējās 90 dienās ir veicies labāk nekā Bitcoin. Vērtība ir to daļa no 0 līdz 100.</string>
+    <string name="market_info_coin_source">Cenas: Binance vai Bybit · ielādē aptuveni ik pēc 15 minūtēm</string>
+    <string name="market_info_dominance_how">Ja dominance aug, Bitcoin veicas labāk nekā pārējam tirgum; ja tā krītas, citas monētas iegūst svaru. Arī stabilās monētas tiek skaitītas: ja to vērtība aug, Bitcoin daļa samazinās pat tad, ja Bitcoin cena paliek nemainīga.</string>
+    <string name="market_info_dominance_source">Avots: CoinGecko · ielādē aptuveni ik pēc 30 minūtēm</string>
+    <string name="market_info_dominance_what">Bitcoin daļa visu kriptovalūtu kopējā vērtībā (tirgus kapitalizācijā). Zem tās ir Ethereum daļa.</string>
+    <string name="market_info_fear_greed_how">Zem 25 nozīmē ārkārtējas bailes, virs 75 – ārkārtēju alkatību, ap 50 – neitrāli. Izvērstā kartītē redzamas vakardienas, nedēļu un mēnesi vecas vērtības. Nav pirkšanas vai pārdošanas signāls.</string>
+    <string name="market_info_fear_greed_source">Avots: alternative.me · jauna vērtība reizi dienā</string>
+    <string name="market_info_fear_greed_what">Kriptovalūtu tirgus noskaņojuma indekss no 0 līdz 100. alternative.me to aprēķina no vairākiem datiem, tostarp cenu svārstībām, tirdzniecības apjoma, sociālajiem medijiem un Bitcoin dominances.</string>
+    <string name="market_info_gas_how">Augstākas vērtības nozīmē, ka tīkls ir noslogots un pārskaitījumi maksā vairāk. Lēns, parasts un ātrs ir maksas par vēlāku vai ātrāku apstiprinājumu. Izvērstā kartītē redzamas aptuvenas vienkārša pārskaitījuma izmaksas.</string>
+    <string name="market_info_gas_source">Publiski RPC mezgli, mempool.space · ielādē katru minūti</string>
+    <string name="market_info_gas_what">Cik darījums pašlaik maksā katrā tīklā. Ethereum un līdzīgos tīklos – gwei (viena miljardā daļa ETH par gāzes vienību), Bitcoin – sat/vB (satoši par darījuma virtuālo baitu).</string>
+    <string name="market_info_halving_source">Datums: no bloka augstuma un vidējā bloka laika (mempool.space), citādi pēc kalendāra · cenu vēsture: Coin Metrics, Binance, ielādē ik pēc 12 stundām</string>
+    <string name="market_info_halving_what">Halvinga laikā atlīdzība, ko kalnrači saņem par jaunu Bitcoin bloku, tiek samazināta uz pusi. Tas notiek ik pēc 210 000 blokiem, aptuveni ik pēc četriem gadiem. Pēc tam dienā rodas tikai uz pusi mazāk jaunu bitkoinu.</string>
+    <string name="market_info_how">Kā to lasīt</string>
+    <string name="market_info_macro_how">Piezīme parādās tikai tad, ja šāds datums ir šodien vai rīt. Ap publicēšanas laiku cenas bieži svārstās vairāk nekā parasti. Lietotne rāda tikai datumu, nevis pašus skaitļus.</string>
+    <string name="market_info_macro_source">Kalendārs no lietotnes vietnes · ielādē reizi dienā</string>
+    <string name="market_info_macro_what">Svarīgu ASV ekonomikas datu datumi: inflācija (CPI, PCE), ražotāju cenas (PPI), darba tirgus pārskats un ASV Federālo rezervju procentu likmju lēmumi. Šādi skaitļi bieži izkustina arī kriptovalūtu cenas.</string>
+    <string name="market_info_no_advice">Nav ieguldījumu padoms.</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · cenas katru stundu, ķēdes vērtības ielādē ik pēc 12 stundām</string>
+    <string name="market_info_pulse_how">Virsraksts nosauc virzienu; izvērs kartīti, lai redzētu detaļas. Plaša kustība nozīmē, ka lielākā daļa lielo monētu virzās vienā virzienā. Optimistisks sviras noskaņojums nozīmē, ka daudzi tirgotāji ar sviru liek uz cenu kāpumu, mērot pēc Bitcoin nākotnes līgumu finansējuma likmes. Momentuzņēmums, nevis prognoze.</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · ielādē aptuveni ik pēc 5 minūtēm</string>
+    <string name="market_info_pulse_what">Īss tirgus kopsavilkums par pēdējām 24 stundām: kā virzās Bitcoin, Ethereum un Solana, cik no lielākajām monētām kāpj vai krītas, cik daudz Bitcoin pašlaik tiek tirgots un kāds ir sviras noskaņojums (mērot pēc Bitcoin nākotnes līgumu finansējuma likmes).</string>
+    <string name="market_info_totals_how">Labajā pusē ir kopējās vērtības izmaiņas 24 stundās. Liels apjoms nozīmē, ka daudz tiek tirgots – bet nepasaka, kurā virzienā. Ja iespējams, rāda pārrēķina valūtā, citādi ASV dolāros.</string>
+    <string name="market_info_totals_source">Visas monētas · CoinGecko · ielādē aptuveni ik pēc 30 minūtēm</string>
+    <string name="market_info_totals_what">Visu kriptovalūtu kopējā vērtība (tirgus kapitalizācija: cena reiz apgrozībā esošais daudzums, summēts visām monētām) un pēdējo 24 stundu tirdzniecības apjoms.</string>
+    <string name="market_info_unusual_how">Katrai monētai redzams tās ievērojamākais novērojums, labajā pusē – 24 stundu izmaiņas. Apjoms 2× nozīmē divreiz lielāku apgrozījumu nekā parasti. Ievērojams nenozīmē ne labs, ne slikts.</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · ielādē aptuveni ik pēc 10 minūtēm</string>
+    <string name="market_info_unusual_what">Līdz piecām monētām no aptuveni 30 lielākajām (bez stabilajām monētām), kas šodien uzvedas neparasti: daudz spēcīgāk vai vājāk nekā Bitcoin, pret tirgus virzienu, ar neparasti lielu tirdzniecības apjomu vai ar ievērojamu finansējuma likmi.</string>
+    <string name="market_info_what">Kas tas ir?</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">Tirgus kapitalizācija</string>
+    <string name="market_cap_source">Visas monētas · CoinGecko</string>
+    <string name="market_cap_title">Kriptovalūtu tirgus</string>
+    <string name="market_volume_label">Apjoms 24 h</string>
+
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">Detaļas</string>
+    <string name="pulse_disclaimer">Nav prognoze · Nav ieguldījumu padoms</string>
+    <string name="pulse_less">Rādīt mazāk</string>
+    <string name="pulse_now_title">Kripto pulss</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">Izmaiņas 24 stundās</string>
+    <string name="pulse_section_factors">Faktori</string>
+    <string name="pulse_section_market">Tirgus šodien</string>
+    <string name="pulse_unavailable">Tirgus dati pašlaik nav pieejami</string>
+    <string name="pulse_updated">Stāvoklis %1$s</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">Mierīgs tirgus</string>
+    <string name="pulse_headline_down">Plašs vājums</string>
+    <string name="pulse_headline_mixed">Jaukta aina</string>
+    <string name="pulse_headline_up">Plašs spēks</string>
+    <string name="pulse_lead_alts_stronger">Altkoini ir spēcīgāki par Bitcoin.</string>
+    <string name="pulse_lead_broad_down">Tirgus plaši krītas.</string>
+    <string name="pulse_lead_broad_up">Tirgus plaši kāpj.</string>
+    <string name="pulse_lead_btc_leads">Visvairāk kāpj Bitcoin.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin ir spēcīgāks par altkoiniem.</string>
+    <string name="pulse_lead_calm">Tirgus gandrīz nekustas.</string>
+    <string name="pulse_lead_drift_down">Tirgus lēnām slīd uz leju.</string>
+    <string name="pulse_lead_drift_up">Tirgus lēnām virzās augšup.</string>
+    <string name="pulse_lead_mixed">Lielās monētas virzās dažādos virzienos.</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">Sviras noskaņojums optimistisks.</string>
+    <string name="pulse_detail_fund_negative">Sviras noskaņojums pesimistisks.</string>
+    <string name="pulse_detail_fund_neutral">Sviras noskaņojums neitrāls.</string>
+    <string name="pulse_detail_vol_above">Apjoms %1$s virs normas.</string>
+    <string name="pulse_detail_vol_above_fund_high">Apjoms %1$s virs normas, sviras noskaņojums optimistisks.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Apjoms %1$s virs normas, sviras noskaņojums pesimistisks.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Apjoms %1$s virs normas, sviras noskaņojums neitrāls.</string>
+    <string name="pulse_detail_vol_below">Apjoms %1$s zem normas.</string>
+    <string name="pulse_detail_vol_below_fund_high">Apjoms %1$s zem normas, sviras noskaņojums optimistisks.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Apjoms %1$s zem normas, sviras noskaņojums pesimistisks.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Apjoms %1$s zem normas, sviras noskaņojums neitrāls.</string>
+    <string name="pulse_detail_vol_normal">Apjoms normāls.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Apjoms normāls, sviras noskaņojums optimistisks.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Apjoms normāls, sviras noskaņojums pesimistisks.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Apjoms normāls, sviras noskaņojums neitrāls.</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">Top %1$d: lielākās monētas pēc tirgus vērtības, bez stabilajām monētām; izmaiņas 24 stundās (CoinGecko).</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_note_broad_down">Plaša izpārdošana: lielākā daļa lielāko monētu krītas.</string>
+    <string name="pulse_breadth_note_broad_up">Plaša kustība: lielākā daļa lielāko monētu kāpj.</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin krītas, bet lielākā daļa citu lielo monētu turas.</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin kāpj, bet lielākā daļa citu lielo monētu nepievienojas.</string>
+    <string name="pulse_breadth_spoken">Top %1$d: %2$d kāpj, %3$d krītas</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">Altkoini un Bitcoin virzās līdzīgi</string>
+    <string name="pulse_alts_stronger">Altkoini spēcīgāki par Bitcoin</string>
+    <string name="pulse_alts_weaker">Bitcoin spēcīgāks par altkoiniem</string>
+    <string name="pulse_chip_funding_high">Sviras noskaņojums optimistisks</string>
+    <string name="pulse_chip_funding_negative">Sviras noskaņojums pesimistisks</string>
+
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">Rādīt cenu un darbības</string>
+    <string name="unusual_fact_against">Virzās pret tirgu</string>
+    <string name="unusual_fact_funding_high">Finansējums augsts (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Finansējums negatīvs (%1$s)</string>
+    <string name="unusual_fact_stronger">Virzās daudz spēcīgāk nekā BTC</string>
+    <string name="unusual_fact_volume">Apjoms %1$s× no parastā</string>
+    <string name="unusual_fact_weaker">Virzās daudz vājāk nekā BTC</string>
+    <string name="unusual_nothing">Šodien nekas ievērojams</string>
+    <string name="unusual_source">Aptuveni 30 lielākās monētas bez stabilajām monētām · Binance, CoinGecko</string>
+    <string name="unusual_title">Ievērojams</string>
+
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">Ievērojams</string>
+    <string name="activity_indicator">Ievērojams</string>
+    <string name="activity_sensitivity_less">Mazāk</string>
+    <string name="activity_sensitivity_more">Vairāk</string>
+    <string name="activity_sensitivity_normal">Normāli</string>
+    <string name="activity_signal_funding_long">Finansējums %1$s – daudz garo pozīciju ar sviru</string>
+    <string name="activity_signal_funding_short">Finansējums %1$s – daudz īso pozīciju</string>
+    <string name="activity_signal_open_interest">Atvērtās pozīcijas %1$s %2$d min laikā</string>
+    <string name="activity_signal_open_interest_no_time">Atvērtās pozīcijas %1$s</string>
+    <string name="activity_signal_price_move">Neparasta kustība: %1$s vienā stundā (%2$s× no normas)</string>
+    <string name="activity_signal_volume">Apjoms %1$s× no normas pēdējā stundā</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="zero">%1$d no %2$d lieliem altkoiniem 90 dienās pārspēj Bitcoin</item>
+        <item quantity="one">%1$d no %2$d lieliem altkoiniem 90 dienās pārspēj Bitcoin</item>
+        <item quantity="other">%1$d no %2$d lieliem altkoiniem 90 dienās pārspēj Bitcoin</item>
+    </plurals>
+    <string name="insights_chart_axis">Gadi kopš halvinga</string>
+    <string name="insights_chart_hint">Cena kā halvinga dienas cenas daudzkārtnis (logaritmiskā skala). Agrākie cikli ir modelis, nevis prognoze.</string>
+    <string name="insights_cycle_chart">Cikli kopš halvinga</string>
+    <string name="insights_dominance_eth">ETH %1$s no kopējā tirgus</string>
+    <string name="insights_dominance_title">Bitcoin dominance</string>
+    <string name="insights_fng_history">Vakar %1$s · pirms nedēļas %2$s · pirms mēneša %3$s</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="insights_halving_title">Bitcoin halvings</string>
+    <string name="insights_source_dominance">Avots: CoinGecko, Binance</string>
+    <string name="insights_source_fng">Avots: alternative.me</string>
+    <string name="insights_source_history">Avots: Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">Ārkārtējas bailes</string>
+    <string name="fng_extreme_greed">Ārkārtēja alkatība</string>
+    <string name="fng_fear">Bailes</string>
+    <string name="fng_greed">Alkatība</string>
+    <string name="fng_neutral">Neitrāli</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">Stāvoklis %1$s · atjaunina…</string>
+    <string name="cycle_from_top">%1$s no virsotnes</string>
+    <string name="cycle_marker_bottom">Dibens %1$s</string>
+    <string name="cycle_marker_double_bottom">Dubultais dibens %1$s</string>
+    <string name="cycle_marker_double_top">Dubultā virsotne %1$s</string>
+    <string name="cycle_marker_high_so_far">Līdzšinējais maksimums</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">Virsotne %1$s</string>
+    <string name="cycle_since_halving">%1$s kopš halvinga</string>
+    <string name="halving_estimate_text">Nākamais halvings pēc aprēķina ap %1$s: atlikuši %2$s bloki ar vidēji %3$s min uz bloku (pašreizējais sarežģītības periods). Prognozējums, nevis solījums – bloka laiks svārstās.</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">Brīdinājums: %1$s</string>
+    <string name="gas_slow_fast">Lēni %1$s · Ātri %2$s</string>
+    <string name="gas_source">Publiski RPC mezgli un mempool.space · Vienkārša pārskaitījuma izmaksas, L2 tīklos bez L1 daļas</string>
+    <string name="gas_title">Tīkla maksas</string>
+    <string name="gas_transfer_cost">Pārskaitījums ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">ASV inflācijas dati (CPI)</string>
+    <string name="macro_fomc">ASV FRS procentu likmes lēmums</string>
+    <string name="macro_hint_list">%1$s – šādās dienās tirgi bieži svārstās vairāk.</string>
+    <string name="macro_hint_today">Šodien %1$s: %2$s – šādās dienās tirgi bieži svārstās vairāk.</string>
+    <string name="macro_hint_today_list">Šodien: %1$s – šādās dienās tirgi bieži svārstās vairāk.</string>
+    <string name="macro_hint_tomorrow">Rīt %1$s: %2$s – šādās dienās tirgi bieži svārstās vairāk.</string>
+    <string name="macro_hint_tomorrow_list">Rīt: %1$s – šādās dienās tirgi bieži svārstās vairāk.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Šodien %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Rīt %1$s %2$s</string>
+    <string name="macro_nfp">ASV darba tirgus pārskats</string>
+    <string name="macro_pce">ASV patēriņa izdevumu cenas (PCE)</string>
+    <string name="macro_ppi">ASV ražotāju cenas (PPI)</string>
+    <string name="macro_released_list">Publicēts šodien: %1$s.</string>
+    <string name="macro_released_one">Publicēts šodien %1$s: %2$s.</string>
+    <string name="macro_title">Ekonomikas dati</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">Monēta</string>
+    <string name="coin_no_data">Šai monētai nav cenu datu Binance vai Bybit.</string>
+    <string name="coin_price_only">Balstīts tikai uz cenu – ķēdes dati (MVRV, Puell, hashrate) brīvi pieejami tikai Bitcoin.</string>
+    <plurals name="coin_short_history">
+        <item quantity="zero">Tikai %1$d dienu cenu vēsture – daži rādītāji trūkst.</item>
+        <item quantity="one">Tikai %1$d dienas cenu vēsture – daži rādītāji trūkst.</item>
+        <item quantity="other">Tikai %1$d dienu cenu vēsture – daži rādītāji trūkst.</item>
+    </plurals>
+    <string name="coin_title">Monētas analīze</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">Dati: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">Augošās un krītošās 24 h</string>
+    <string name="movers_gainers">Augošās</string>
+    <string name="movers_losers">Krītošās</string>
+    <string name="movers_no_gainers">24 h laikā neviena monēta nav kāpusi</string>
+    <string name="movers_no_losers">24 h laikā neviena monēta nav kritusies</string>
+    <string name="movers_source">CoinGecko, 24 h, top 100 bez stabilajām monētām</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">Rādīt visas</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">Rādīt mazāk</string>
+</resources>

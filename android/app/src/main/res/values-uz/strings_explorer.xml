@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">Barcha natijalar</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="one">%1$d ta birja</item>
+        <item quantity="other">%1$d ta birja</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">Yuklangan roʻyxatlarda bu tanga uchun juftlik yoʻq.</string>
+    <string name="explorer_coin_not_loaded">Juftliklar roʻyxati hali yuklanmagan</string>
+    <string name="explorer_coin_other_pairs">Boshqa juftliklar</string>
+    <string name="explorer_coin_show_pairs">Juftliklarni koʻrsatish</string>
+    <string name="explorer_coin_suggested">Tavsiya etilgan</string>
+    <string name="explorer_coins_title">Tangalar</string>
+    <string name="explorer_lists_failed_many">%1$s hozir javob bermayapti – juftliklar roʻyxati yuklanmadi. Keyinroq urinib koʻring.</string>
+    <plurals name="explorer_lists_failed_more">
+        <item quantity="one">+ yana %1$d ta</item>
+        <item quantity="other">+ yana %1$d ta</item>
+    </plurals>
+    <string name="explorer_lists_failed_one">%1$s hozir javob bermayapti – juftliklar roʻyxati yuklanmadi. Keyinroq urinib koʻring.</string>
+    <string name="explorer_lists_load">Roʻyxatlarni yuklash</string>
+    <string name="explorer_lists_loading">Juftliklar roʻyxati yuklanmoqda… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="one">%1$d ta birjaning juftliklar roʻyxati bu qurilmada hali yoʻq.</item>
+        <item quantity="other">%1$d ta birjaning juftliklar roʻyxati bu qurilmada hali yoʻq.</item>
+    </plurals>
+    <string name="explorer_lists_privacy">Har bir birjaning toʻliq ochiq roʻyxatini yuklaydi – hamma uchun bir xil. Qidiruvingiz shu qurilmada qoladi.</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">Soʻnggi qidiruv: %1$s</string>
+    <string name="explorer_recent_clear">Tozalash</string>
+    <string name="explorer_recent_clear_a11y">Soʻnggi qidiruvlarni tozalash</string>
+    <string name="explorer_recent_title">Soʻnggi qidiruvlar</string>
+    <string name="explorer_search_choose_manually">Birja va juftlikni oʻzingiz tanlang</string>
+    <string name="explorer_search_empty">Mos natija yoʻq.</string>
+    <string name="explorer_search_hint">Tanga, juftlik yoki birjani qidirish</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">Tanganing nomi yoki belgisini yozing, masalan Bitcoin yoki BTC – keyin juftlikni tanlang.</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">Kuzatuv roʻyxatiga qoʻshish</string>
+    <string name="explorer_added_to_watchlist">Kuzatuv roʻyxatiga qoʻshildi.</string>
+    <string name="explorer_already_in_watchlist">Bu juftlik kuzatuv roʻyxatida bor.</string>
+    <string name="explorer_exchange_missing">Birja yoʻqmi?</string>
+    <string name="explorer_loading_pairs">Savdo juftliklari yuklanmoqda…</string>
+    <string name="explorer_no_pair_selected">Avval juftlikni tanlang.</string>
+    <string name="explorer_no_pairs_yet">Bu birja uchun hali juftliklar yuklanmagan.</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$d ta juftlik · yangilandi %2$s</item>
+        <item quantity="other">%1$d ta juftlik · yangilandi %2$s</item>
+    </plurals>
+    <string name="explorer_pairs_title">Juftliklar</string>
+    <string name="explorer_precise_title">Kengaytirilgan / birja boʻyicha</string>
+    <string name="explorer_price_loading">Kurs yuklanmoqda…</string>
+    <string name="explorer_select_exchange_hint">Birjani tanlang – uning savdo juftliklari avtomatik yuklanadi.</string>
+    <string name="explorer_select_placeholder">Tanlang</string>
+    <string name="explorer_step_pair">Juftlikni tanlash</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">Oʻsganlar</string>
+    <string name="explorer_filter_losers">Tushganlar</string>
+    <string name="explorer_filter_volume">Hajm</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">Bu birjaning barcha %1$s juftliklari</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">%1$d ta %2$s juftligi topildi</item>
+        <item quantity="other">%1$d ta %2$s juftligi topildi</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">Tanlangan kontrakt turi uchun bu birjada %1$s juftliklari yoʻq. Avval birjani sinxronlang yoki boshqa kontrakt turini sinab koʻring.</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">%1$d ta juftlikni kuzatuv roʻyxatiga qoʻshish</item>
+        <item quantity="other">Barcha %1$d ta juftlikni kuzatuv roʻyxatiga qoʻshish</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">%1$d ta qoʻshildi, %2$d tasi kuzatuv roʻyxatida bor.</item>
+        <item quantity="other">%1$d ta qoʻshildi, %2$d tasi kuzatuv roʻyxatida bor.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">%3$s birjasidagi %1$d ta %2$s juftligi kuzatuv roʻyxatida boʻlmasa, unga qoʻshiladi.</item>
+        <item quantity="other">%3$s birjasidagi barcha %1$d ta %2$s juftligi kuzatuv roʻyxatiga qoʻshiladi. Unda bor juftliklar oʻtkazib yuboriladi.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">%1$d ta juftlik qoʻshilsinmi?</item>
+        <item quantity="other">%1$d ta juftlik qoʻshilsinmi?</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">Roʻyxatni yashirish</string>
+    <string name="explorer_bulk_show_list">Roʻyxatni koʻrsatish</string>
+    <string name="explorer_bulk_tap_hint">Juftlikni yuqorida tanlash uchun unga bosing.</string>
+    <string name="explorer_bulk_title">Bir vaqtda bir nechta juftlik</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">Tanlangan birjaning joriy juftliklarini yuklaydi.</string>
+    <string name="explorer_no_pair_list">Valyuta juftliklari yoʻq</string>
+    <string name="explorer_sync_sheet_last">Oxirgi sinxronlash: %1$s</string>
+    <string name="explorer_sync_never">hech qachon</string>
+    <string name="explorer_sync_sheet_action">Hozir sinxronlash</string>
+    <string name="explorer_sync_sheet_title">Valyuta juftliklarini yangilash</string>
+    <string name="explorer_field_coin">Tanga</string>
+    <string name="explorer_field_contract">Kontrakt turi</string>
+    <string name="explorer_field_exchange">Birja</string>
+    <string name="explorer_field_quote">Kotirovka valyutasi</string>
+    <string name="explorer_contract_spot">Spot</string>
+    <string name="explorer_reload_pairs">Sinxronlash</string>
+    <string name="sync_pairs_count">Savdo juftliklari: %1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">Qoʻshish</string>
+    <string name="dex_added">%1$s kuzatuv roʻyxatiga qoʻshildi.</string>
+    <string name="dex_already">%1$s kuzatuv roʻyxatida bor.</string>
+    <string name="dex_intro">Yirik birjalardan tashqaridagi tokenlar, markazlashmagan birjalardan (Uniswap, PancakeSwap, Raydium …) DexScreener orqali. Tokenni qidiring va uning savdo pullaridan birini qoʻshing – narxlar AQSH dollarida.</string>
+    <string name="dex_liquidity">Likvidlik %1$s</string>
+    <string name="dex_no_results">Pullar topilmadi.</string>
+    <string name="dex_search">Qidirish</string>
+    <string name="dex_search_hint">Token nomi, belgisi yoki manzili</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">Alpha token</string>
+    <string name="asset_kind_token">Token</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+
+    <string name="dex_low_liquidity_no_alarm">Likvidlik past – signal yoʻq</string>
+    <string name="dex_low_liquidity_alarm_hint">Bu pulda likvidlik 10,000 USD dan kam (yoki xabar qilinmagan). Kichik savdolar uning narxini oʻzgartirishi mumkin, shuning uchun bu yerda signal qoʻyib boʻlmaydi. Mavjud signallar saqlanadi, lekin likvidlik yana oshmaguncha ishga tushmaydi.</string>
+
+    <string name="explorer_bulk_show_all">Hammasini koʻrsatish (%1$d)</string>
+    <string name="dex_token_address_copy">Token manzilini nusxalash</string>
+    <string name="dex_token_address_copied">Token manzili nusxalandi</string>
+    <string name="dex_token_address_label">%1$s bilan tugaydigan token manzili</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="one">%1$d ta juftlik qoʻshilmadi: kuzatuv roʻyxatingizda koʻpi bilan %2$s ta juftlik boʻlishi mumkin.</item>
+        <item quantity="other">%1$d ta juftlik qoʻshilmadi: kuzatuv roʻyxatingizda koʻpi bilan %2$s ta juftlik boʻlishi mumkin.</item>
+    </plurals>
+    <string name="bulk_add_progress">Juftliklar qoʻshilmoqda … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="one">%1$d ta yangi juftlikni kuzatuv roʻyxatiga qoʻshish</item>
+        <item quantity="other">%1$d ta yangi juftlikni kuzatuv roʻyxatiga qoʻshish</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="one">%1$d ta yangi, %2$d tasi kuzatuv roʻyxatida bor</item>
+        <item quantity="other">%1$d ta yangi, %2$d tasi kuzatuv roʻyxatida bor</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">Hammasi kuzatuv roʻyxatida bor</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="one">%1$d ta juftlik yana olib tashlansinmi?</item>
+        <item quantity="other">%1$d ta juftlik yana olib tashlansinmi?</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">Shu orada signal qoʻygan juftliklaringiz qoladi.</string>
+    <string name="bulk_undo_expired">Bekor qilish endi imkonsiz – juftliklar kuzatuv roʻyxatida qoladi.</string>
+    <string name="explorer_section_spot">Spot</string>
+    <string name="explorer_section_futures">Fyucherslar</string>
+    <string name="explorer_section_dex">DEX pullari</string>
+    <string name="explorer_section_forex">Forex (maʼlumotnoma kursi)</string>
+    <string name="explorer_forex_hint">Yevropa Markaziy bankining kunlik kursi (Frankfurter orqali), real vaqtda emas – signallar yoʻq.</string>
+</resources>

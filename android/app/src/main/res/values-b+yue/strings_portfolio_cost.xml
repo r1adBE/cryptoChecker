@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">冇成本基礎嘅記錄：%1$d</string>
+    <string name="cost_gaps_card_text">加入成本基礎，盈利同稅務先會完整。</string>
+    <string name="cost_gaps_sheet_title">冇成本基礎嘅記錄</string>
+    <string name="cost_gaps_sheet_intro">呢啲流入冇成本基礎。建議值係當日嘅每日收市價 – 你可以喺記錄入面調整。</string>
+    <string name="cost_gaps_empty">所有記錄都有成本基礎。</string>
+    <string name="cost_gap_enter">輸入成本基礎</string>
+    <string name="cost_gap_leave_unknown">保留未知</string>
+    <string name="cost_gap_left_unknown">保留咗未知</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">建議：每日收市價 %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">呢日冇已核實嘅每日收市價</string>
+    <string name="cost_gap_suggestion_loading">載入緊每日收市價 …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">成本基礎 = 收到時嘅價值（收入）</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">成本基礎 = 0（冇流入嘅獎勵，奧地利）</string>
+    <string name="cost_gap_apply">套用</string>
+    <string name="address_lots_action">地址結餘嘅成本基礎</string>
+    <string name="address_lots_title">地址結餘嘅成本基礎</string>
+    <string name="address_lots_intro">為呢個地址嘅結餘輸入買入日期、數量同成本基礎。批次會好似買入咁計入呢個地址；未覆蓋嘅部分會保持冇成本基礎。</string>
+    <string name="address_lots_add">新增批次</string>
+    <string name="address_lots_new">新批次</string>
+    <string name="address_lots_edit">批次</string>
+    <string name="address_lots_date">買入日期</string>
+    <string name="address_lots_amount">數量</string>
+    <string name="address_lots_mode_total">總計</string>
+    <string name="address_lots_mode_price">每枚幣</string>
+    <string name="address_lots_price">每枚幣價格（USDT）</string>
+    <string name="address_lots_total">總成本基礎（USDT）</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%2$s 之中有 %1$s 有成本基礎</string>
+    <string name="address_lots_unlotted">%1$s 冇成本基礎</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">批次超出結餘 %1$s – 最舊嘅會先用完。</string>
+    <string name="address_lots_not_loaded">結餘未載入 – 載入後批次就會計入。</string>
+    <string name="address_lots_invalid">請輸入數量同成本基礎</string>
+</resources>

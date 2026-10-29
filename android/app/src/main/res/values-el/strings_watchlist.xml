@@ -234,4 +234,17 @@
     <string name="watchlist_not_saved_confirm_message">Η λίστα μαζί με τους συναγερμούς δεν αποθηκεύεται αυτή τη στιγμή. Αυτή και οι επόμενες αλλαγές θα χαθούν όταν κλείσει η εφαρμογή. Θέλεις να αλλάξεις παρ’ όλα αυτά;</string>
     <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
     <string name="watchlist_not_saved_confirm_action">Αλλαγή παρ’ όλα αυτά</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">%1$d ζεύγος</item>
+        <item quantity="other">%1$d ζεύγη</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">%2$d από %1$d ζεύγος</item>
+        <item quantity="other">%2$d από %1$d ζεύγη</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">απομένει %1$d θέση</item>
+        <item quantity="other">απομένουν %1$d θέσεις</item>
+    </plurals>
+    <string name="watchlist_footer_full">Η λίστα παρακολούθησης είναι γεμάτη</string>
 </resources>

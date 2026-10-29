@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">На това устройство няма настроено заключване на екрана. Първо настрой такова в системните настройки.</string>
+    <string name="app_lock_unlock">Отключи</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">Изпразни портфолиото</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="one">Да се изтрие ли %d транзакция? Следените адреси остават. Можеш да отмениш това веднага след това.</item>
+        <item quantity="other">Да се изтрият ли всички %d транзакции? Следените адреси остават. Можеш да отмениш това веднага след това.</item>
+    </plurals>
+    <string name="portfolio_empty_action">Въведи първата покупка</string>
+    <string name="portfolio_empty_address">Само следи адрес на портфейл</string>
+    <string name="portfolio_empty_csv">Купено на борса? Импортирай файла ѝ</string>
+    <string name="portfolio_empty_example_plain">Пример: %1$s BTC, купени на 1 март. После приложението показва колко струват днес и дали си на плюс или на минус – пази се само на това устройство.</string>
+    <string name="portfolio_empty_title">Още няма транзакции</string>
+    <string name="portfolio_enable_ask_text">Транзакцията ти е запазена. Разделът „Портфолио“ показва наличностите ти и стойността им.</string>
+    <string name="portfolio_enable_ask_title">Да се включи ли разделът „Портфолио“?</string>
+    <string name="portfolio_enable_later_hint">Транзакцията е запазена. Раздела „Портфолио“ включваш в Настройки › Портфолио.</string>
+    <string name="portfolio_enabled_banner">Портфолиото е включено – ще го намериш в раздела „Портфолио“.</string>
+    <string name="portfolio_lock_reason">Отключи портфолиото</string>
+    <string name="portfolio_locked_text">Отключи го, за да видиш наличностите и стойностите.</string>
+    <string name="portfolio_locked_title">Портфолиото е заключено</string>
+    <string name="portfolio_setting_hint">По избор: записвай покупки и продажби и виж стойността и печалбата/загубата в отделен раздел.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">Остаряло · към %1$s</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="one">%d запис от системното резервно копие беше невалиден и не беше възстановен.</item>
+        <item quantity="other">%d записа от системното резервно копие бяха невалидни и не бяха възстановени.</item>
+    </plurals>
+    <string name="portfolio_title">Портфолио</string>
+    <string name="portfolio_unassigned_fee">Таксата не е разпределена – себестойността е неизвестна: %1$s</string>
+    <string name="portfolio_updated">Курсове от %1$s</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">Други</string>
+    <string name="portfolio_allocation_title">Разпределение</string>
+    <string name="portfolio_card_details">Подробности</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: още не е налично</string>
+    <string name="portfolio_card_hints_count">Бележки (%1$d)</string>
+    <string name="portfolio_card_today">Днес</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">Общо</string>
+    <string name="portfolio_hide_amounts">Скрий сумите</string>
+    <string name="portfolio_hide_amounts_hint">Показва сумите и стойностите в портфолиото и в уиджета на портфолиото като ••• – процентите остават видими.</string>
+    <string name="portfolio_invested">Себестойност</string>
+    <string name="portfolio_total_no_fx">Няма валутен курс за %1$s – суми в USDT</string>
+    <string name="portfolio_total_value">Обща стойност</string>
+    <string name="portfolio_value">Стойност</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">Ср. %1$s · сега %2$s</string>
+    <string name="portfolio_avg_only">Ср. %1$s</string>
+    <string name="portfolio_avg_open_lots">Ср. себестойност на държаните монети</string>
+    <string name="portfolio_avg_partial">Ср. от %1$s с покупна цена</string>
+    <string name="portfolio_avg_price">Ср. покупна цена</string>
+    <string name="portfolio_avg_price_hint">Ср. покупна цена: средната от всички покупки, претеглена по количество. Продажбите се оценяват по тази средна.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Затворена позиция (%1$d)</item>
+        <item quantity="other">Затворени позиции (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: продажбите първо използват най-старите ти монети. Ср. = оставаща себестойност ÷ количество с покупна цена.</string>
+    <string name="portfolio_holdings">Наличности</string>
+    <string name="portfolio_lost_fee_cost">Себестойност на мрежова такса без платена партида: %1$s</string>
+    <string name="portfolio_open_lots">Отворени покупни партиди (%1$d)</string>
+    <string name="portfolio_open_lots_avg">С покупна цена (ср.)</string>
+    <string name="portfolio_open_lots_no_cost">Без покупна цена</string>
+    <string name="portfolio_open_lots_without_price">без покупна цена</string>
+    <string name="portfolio_realized">Реализирана печалба/загуба</string>
+    <string name="portfolio_unrealized">Нереализирана печалба/загуба</string>
+    <string name="portfolio_unrealized_without_unpriced">без %1$s без покупна цена</string>
+    <string name="portfolio_withdrawn_gain">Изведено: %1$s (промяна на стойността до тегленето)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">Превърни в</string>
+    <string name="portfolio_convert_to_value">Превърни в: %1$s</string>
+    <string name="portfolio_current_missing">Няма текущ курс за %1$s</string>
+    <string name="portfolio_current_price">Текущ курс</string>
+    <string name="portfolio_price_missing">Липсва цена</string>
+    <string name="portfolio_price_missing_hint">При някои покупки липсва цена. Добави покупната цена, за да видиш печалбата/загубата.</string>
+    <string name="portfolio_price_source">Курсове: Binance · USDT по пазарна цена</string>
+    <string name="portfolio_price_source_routes">Курсове: %1$s, иначе Binance · USDT по пазарна цена</string>
+    <string name="portfolio_price_unavailable">Курсът в момента не е наличен</string>
+    <string name="portfolio_price_unchecked">Курсът не е проверен</string>
+    <string name="portfolio_price_via_base">≈ курс на %1$s (мостово/обвито)</string>
+    <string name="portfolio_usdt_as_usd">USDT е превърнат по пазарната си цена в USD</string>
+    <string name="portfolio_usdt_assumed">Липсва доларовият курс на USDT – изчислено като 1 щатски долар</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">Добави към портфолиото</string>
+    <string name="portfolio_add_tx">Добави транзакция</string>
+    <string name="portfolio_buy">Покупка</string>
+    <string name="portfolio_coin">Монета</string>
+    <string name="portfolio_coin_invalid">Въведи символ на монета</string>
+    <string name="portfolio_coin_search">Търси символ, напр. BTC</string>
+    <string name="portfolio_discard_confirm">Отхвърли</string>
+    <string name="portfolio_discard_keep">Продължи редактирането</string>
+    <string name="portfolio_discard_title">Да се отхвърлят ли промените?</string>
+    <string name="portfolio_edit_tx">Редактирай транзакцията</string>
+    <string name="portfolio_invalid">Въведи валидно число, по-голямо от 0.</string>
+    <string name="portfolio_oversold">Продажбите надхвърлят наличностите – провери транзакциите.</string>
+    <string name="portfolio_sell">Продажба</string>
+    <string name="portfolio_sell_exceeds">Повече от наличностите ти (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">Количеството плюс таксата е повече от наличностите ти (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">Повече от наличностите ти в %2$s (%1$s)</string>
+    <string name="portfolio_transactions">Транзакции</string>
+    <string name="portfolio_tx_acquired_date">Първоначална дата на покупка (по избор)</string>
+    <string name="portfolio_tx_acquired_date_hint">За периода на държане в данъчния експорт</string>
+    <string name="portfolio_tx_amount">Количество</string>
+    <string name="portfolio_tx_coin_fee">Такса в монетата (по избор)</string>
+    <string name="portfolio_tx_date">Дата</string>
+    <string name="portfolio_tx_delete_confirm">Тази транзакция ще бъде премахната от портфолиото.</string>
+    <string name="portfolio_tx_delete_title">Да се изтрие ли транзакцията?</string>
+    <string name="portfolio_tx_deposit">Депозит</string>
+    <string name="portfolio_tx_entry_currency">Въвеждане в</string>
+    <string name="portfolio_tx_explain_deposit">Наличности без търговия, напр. монети отпреди</string>
+    <string name="portfolio_tx_explain_gift">Монетите напускат наличностите като при теглене – разпореждане по пазарна стойност само там, където държавата облага така подаръците (UK, CA, AU)</string>
+    <string name="portfolio_tx_explain_payment">Платено за стоки или услуги – разпореждане по пазарна стойност като при продажба, без получени пари</string>
+    <string name="portfolio_tx_explain_reward">Себестойност = пазарната стойност при получаване</string>
+    <string name="portfolio_tx_explain_swap">Монета срещу монета: продажба на дадената и покупка на получената монета</string>
+    <string name="portfolio_tx_explain_transfer">Без печалба – себестойността се премества с монетите</string>
+    <string name="portfolio_tx_explain_withdrawal">Наличностите напускат портфолиото – без продажба, без печалба</string>
+    <string name="portfolio_tx_fee_consumes_amount">Таксата е колкото полученото количество – нищо няма да остане.</string>
+    <string name="portfolio_tx_fees_toggle">Такси</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s по курса от %2$s</string>
+    <string name="portfolio_tx_fiat_loading">Зареждане на валутния курс…</string>
+    <string name="portfolio_tx_fiat_no_fx">Няма валутен курс за този ден – въведи сумата в USDT.</string>
+    <string name="portfolio_tx_gift">Подарено</string>
+    <string name="portfolio_tx_gift_price_hint">В USDT. Празно = цена на затваряне за деня (оценка).</string>
+    <string name="portfolio_tx_gift_spouse">На съпруг/съпруга / партньор</string>
+    <string name="portfolio_tx_gift_spouse_hint">UK и Канада: без печалба и без загуба – партньорът поема твоята себестойност. Другите държави не отчитат това.</string>
+    <string name="portfolio_tx_market_value">Пазарна стойност за монета</string>
+    <string name="portfolio_tx_more_buy">Такса, борса, бележка</string>
+    <string name="portfolio_tx_network_fee">Мрежова такса в монетата (по избор)</string>
+    <string name="portfolio_tx_note">Бележка (по избор)</string>
+    <string name="portfolio_tx_payment">Платено с тях</string>
+    <string name="portfolio_tx_price">Цена за монета</string>
+    <string name="portfolio_tx_price_hint">В USDT. Остави празно, ако не е известна.</string>
+    <string name="portfolio_tx_price_historic">Проверена цена на затваряне от %1$s – коригирай при нужда</string>
+    <string name="portfolio_tx_price_invalid">Въведи валидно число (0 или повече) или остави полето празно.</string>
+    <string name="portfolio_tx_price_past_hint">Въведи курса от деня на покупката – остави празно, ако не е известен</string>
+    <string name="portfolio_tx_price_receipt_hint">В USDT. Празно = наличности без себестойност.</string>
+    <string name="portfolio_tx_price_zero">Цена 0 не е възможна при импортирани транзакции – остави празно за пазарен курс</string>
+    <string name="portfolio_tx_removed">Транзакцията е изтрита</string>
+    <string name="portfolio_tx_reward">Награда</string>
+    <string name="portfolio_tx_save_failed">Транзакцията не можа да бъде запазена. Въведеното от теб остава – опитай отново.</string>
+    <string name="portfolio_tx_swap">Размяна</string>
+    <string name="portfolio_tx_swap_fee_received">Такса в %1$s: намалява полученото количество, не е нужна цена.</string>
+    <string name="portfolio_tx_swap_from">Размяна от %1$s</string>
+    <string name="portfolio_tx_swap_given_amount">Дадено количество</string>
+    <string name="portfolio_tx_swap_given_coin">Дадена монета</string>
+    <string name="portfolio_tx_swap_received_amount">Получено количество</string>
+    <string name="portfolio_tx_swap_received_coin">Получена монета</string>
+    <string name="portfolio_tx_swap_same_coin">Избери различна монета от дадената</string>
+    <string name="portfolio_tx_swap_to">Размяна в %1$s</string>
+    <string name="portfolio_tx_swap_value">Стойност на размяната (по избор)</string>
+    <string name="portfolio_tx_swap_value_hint">Обща стойност. Празно = неизвестно – печалбата остава непълна (автоматично при USDT в размяната).</string>
+    <string name="portfolio_tx_third_fee_amount">Количество на таксата</string>
+    <string name="portfolio_tx_third_fee_coin">Монета на таксата</string>
+    <string name="portfolio_tx_third_fee_incomplete">Без цена таксата не се включва в себестойността, съответно в приходите; данъчният експорт отбелязва такива продажби.</string>
+    <string name="portfolio_tx_third_fee_price">Цена за монета на таксата (по избор)</string>
+    <string name="portfolio_tx_third_fee_toggle">Такса в друга монета</string>
+    <string name="portfolio_tx_total">Общо: %1$s</string>
+    <string name="portfolio_tx_transfer">Прехвърляне</string>
+    <string name="portfolio_tx_transfer_from">От (по избор)</string>
+    <string name="portfolio_tx_transfer_to">Към (по избор)</string>
+    <string name="portfolio_tx_transfer_to_hint">Борса или портфейл – оттук нататък се оценява там.</string>
+    <string name="portfolio_tx_type_select">Вид: %1$s</string>
+    <string name="portfolio_tx_value_received">Стойност за монета при получаване (по избор)</string>
+    <string name="portfolio_tx_withdrawal">Теглене</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">Подарено или платено с тях? Запиши го като „Подарено“ или „Платено с тях“ – според държавата това данъчно се счита за продажба.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">По избор: пазарна стойност в USDT, само за изчисляване на историята (празно = дневен курс). Монетите винаги излизат по себестойност.</string>
+    <string name="portfolio_wallet_did_you_mean">Може би %1$s? Различно изписване се брои като отделен портфейл.</string>
+    <string name="portfolio_wallet_shortfall">Наличностите в %1$s не стигат – липсва ли прехвърляне?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">Най-високо %1$s</string>
+    <string name="portfolio_compare">Сравнение</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">Сравни %1$s и USDT в проценти</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">Сравнение в проценти, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">Валутен ефект: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">Данните за курсовете стигат само до август 2017 г. — историята започва оттам.</string>
+    <string name="portfolio_history_chip_since_first">Всичко</string>
+    <string name="portfolio_history_collapse">Скрий историята на стойността</string>
+    <string name="portfolio_history_converted">Превърнато по днешния курс</string>
+    <string name="portfolio_history_expand">Покажи историята на стойността</string>
+    <string name="portfolio_history_gain_a11y">Стойност %1$s. Печалба/загуба, %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">Печалба/загуба</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">Стойност в %1$s</string>
+    <string name="portfolio_history_incl_fx">Вкл. валутния курс</string>
+    <string name="portfolio_history_incl_withdrawn">Включва промяната в стойността на изведените монети</string>
+    <string name="portfolio_history_includes_trades">Включва покупки и продажби през този период</string>
+    <string name="portfolio_history_loading">Зареждане на историята на стойността</string>
+    <string name="portfolio_history_period_1y">1 година</string>
+    <string name="portfolio_history_period_30d">30 дни</string>
+    <string name="portfolio_history_period_7d">7 дни</string>
+    <string name="portfolio_history_period_since_first">от първата покупка</string>
+    <string name="portfolio_history_pnl_needs_prices">За печалбата/загубата липсват покупни цени – добави ги в транзакциите.</string>
+    <string name="portfolio_history_pnl_without">Печалба/загуба без %1$s (липсва цена)</string>
+    <string name="portfolio_history_range_1y">1 Г</string>
+    <string name="portfolio_history_range_30d">30 Д</string>
+    <string name="portfolio_history_range_7d">7 Д</string>
+    <string name="portfolio_history_range_a11y">Покажи историята за %1$s</string>
+    <string name="portfolio_history_range_since_first">От 1-вата покупка</string>
+    <string name="portfolio_history_scaled">История за %1$s: историята от Binance, мащабирана спрямо курса на борсата</string>
+    <string name="portfolio_history_title">История на стойността</string>
+    <string name="portfolio_history_today">Днес</string>
+    <string name="portfolio_history_too_short">Историята започва след първия ти пълен ден.</string>
+    <string name="portfolio_history_unavailable">В момента няма налична история.</string>
+    <string name="portfolio_history_utc_days">Дни в UTC (дневни свещи)</string>
+    <string name="portfolio_history_without_matching">Без %1$s (няма съответни дневни курсове)</string>
+    <string name="portfolio_period_rewards">Награди +%1$s (не са в печалбата)</string>
+    <string name="portfolio_period_scaled">7 Д/1 Г за %1$s: историята от Binance, мащабирана спрямо курса на борсата</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">Аларма</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">Сума (%1$s)</string>
+    <string name="portfolio_alarm_hint">Проверява се след всяко обновяване. Както при алармите: известява при преминаване на прага и отново едва след като стойността се е върнала.</string>
+    <string name="portfolio_alarm_kind_above">Портфолио над сума</string>
+    <string name="portfolio_alarm_kind_below">Портфолио под сума</string>
+    <string name="portfolio_alarm_kind_down">Портфолиото пада</string>
+    <string name="portfolio_alarm_kind_up">Портфолиото расте</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">Портфолио над %1$s</string>
+    <string name="portfolio_alarm_sentence_below">Портфолио под %1$s</string>
+    <string name="portfolio_alarm_sentence_down">Портфолиото пада с %1$s (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">Портфолиото расте с %1$s (%2$s)</string>
+    <string name="portfolio_alarm_title">Аларма за стойността на портфолиото</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">Борса (по избор)</string>
+    <string name="ledger_exchange_failed">%1$s: в момента няма курс от %2$s – оценено с Binance.</string>
+    <string name="ledger_exchange_hint">Монетата се оценява по курса на тази борса (иначе Binance). Историята, 7 Д и 1 Г използват дневните курсове на Binance, мащабирани спрямо него.</string>
+    <string name="ledger_exchange_mixed">%1$s: въведени са няколко борси – оценено с Binance. Преместени монети? Запиши преместването като „Прехвърляне“.</string>
+    <string name="ledger_exchange_none">Няма (Binance)</string>
+    <string name="ledger_fee">Такса (по избор)</string>
+    <string name="ledger_fee_coin">Монета</string>
+    <string name="ledger_fee_hint">В USDT увеличава себестойността (продажба: намалява приходите); в монетата намалява количеството.</string>
+    <string name="ledger_fee_line">Такса %1$s</string>
+    <string name="ledger_fifo_cost_note">От покупката: себестойност по FIFO вкл. таксите (най-старите монети се продават първи).</string>
+    <string name="ledger_gain_info">Днес, 7 Д, 1 Г: промяна в стойността за периода – покупките и продажбите не се броят като печалба. От покупката: текущата стойност минус себестойността (средна цена вкл. таксите) на монетите, които още държиш.</string>
+    <string name="ledger_gain_info_a11y">Как се изчисляват печалбата и загубата</string>
+    <string name="ledger_gain_info_fifo">Днес, 7 Д, 1 Г: промяна в стойността за периода – покупките и продажбите не се броят като печалба. От покупката: текущата стойност минус себестойността (FIFO вкл. таксите) на монетите, които още държиш.</string>
+    <string name="ledger_gain_title">Печалба/загуба</string>
+    <string name="ledger_more_toggle">Такса и борса</string>
+    <string name="ledger_partial_cost">„От покупката“ включва само частта с покупна цена – без %1$s без покупна цена.</string>
+    <string name="ledger_period_without">Днес / 7 Д / 1 Г без %1$s – няма съответен начален курс.</string>
+    <string name="ledger_since_purchase_currency">От покупката (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">Печалба/загуба от покупката, още непродадено</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="one">Без %1$d монета без покупна цена (%2$s) – добави цената, за да се включи.</item>
+        <item quantity="other">Без %1$d монети без покупна цена (%2$s) – добави цените, за да се включат.</item>
+    </plurals>
+
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">Срив на USDT – пазарът е на %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">Доларов курс на USDT чрез USDC/USDT – ако USDC падне, тази стойност е грешна</string>
+    <string name="portfolio_amount_bridged_stable">≈ вкл. %1$s (мостово)</string>
+
+    <string name="portfolio_tx_interest">Лихва (кредитиране)</string>
+    <string name="portfolio_tx_interest_hint">Брои се като доход при получаване (Австрия). За награди от стейкинг и airdrop-и остави изключено.</string>
+    <string name="app_lock_no_screen_lock">Настрой заключване на екрана, за да отвориш портфолиото.</string>
+    <string name="app_lock_turn_off_action">Изключи заключването на портфолиото</string>
+    <string name="app_lock_turn_off_confirm_title">Да се изключи ли заключването на портфолиото?</string>
+    <string name="app_lock_turn_off_confirm_message">Без заключване на екрана портфолиото не може да бъде отключено. Изключено, приложението отново показва портфолиото ти без питане. След като настроиш заключване на екрана, можеш отново да включиш заключването в настройките.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">„От покупката“ и себестойност в %1$s: разход по валутния курс от деня на покупката, стойност по днешния курс.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">Няма валутен курс за деня на покупката (липсва в „От покупката“ и себестойността): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">Разходът в дни на покупка без доларов курс на USDT е изчислен като 1 щатски долар за USDT.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">Към %1$s – борсата е недостъпна</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">Дневни курсове: %1$s (вместо Binance)</string>
+
+    <string name="portfolio_footer_short">Работен инструмент, не данъчен или инвестиционен съвет. Поверителност: Настройки › За приложението › Политика за поверителност.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">Да се изтрият ли всички транзакции на %1$s?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">%d транзакция ще бъде премахната. Можеш да отмениш това веднага след това.</item>
+        <item quantity="other">%d транзакции ще бъдат премахнати. Можеш да отмениш това веднага след това.</item>
+    </plurals>
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">Таксите, платени в %1$s, се премахват и от други транзакции: %2$d.</string>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s е премахнат от портфолиото (%2$d транзакция)</item>
+        <item quantity="other">%1$s е премахнат от портфолиото (%2$d транзакции)</item>
+    </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">%d транзакция е премахната</item>
+        <item quantity="other">%d транзакции са премахнати</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">Така се премахва и %d партида.</item>
+        <item quantity="other">Така се премахват и %d партиди.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">Така се премахват и %d партида и историята на салдото.</item>
+        <item quantity="other">Така се премахват и %d партиди и историята на салдото.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">Така се премахва и историята на салдото.</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">Не можа да бъде запазено – опитай отново</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">Невалиден праг – изтрий и създай отново</string>
+</resources>

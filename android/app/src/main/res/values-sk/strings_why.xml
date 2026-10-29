@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">Čo sa hýbe spolu?</string>
+    <string name="why_all_values">Všetky hodnoty a zdroje</string>
+    <string name="why_all_values_hint">Pozorovanie · Možné vysvetlenie · Zdroje</string>
+    <string name="why_details">Zobraziť podrobnosti</string>
+    <string name="why_details_hide">Skryť podrobnosti</string>
+    <string name="why_disclaimer">Automatické hodnotenie z trhových údajov: ukazuje, čo sa deje v rovnakom čase, nie je to dôkaz príčiny.</string>
+    <string name="why_footer_short">Súčasne neznamená príčina · Nie je to investičné poradenstvo</string>
+    <string name="why_no_data">Pre tento pár nie sú žiadne údaje z Binance</string>
+    <string name="why_no_data_hint">Kurz, objem a volatilita pochádzajú z hodinových sviečok Binance.</string>
+    <string name="why_ref_alts">Alty</string>
+    <string name="why_section_context">Možné vysvetlenie</string>
+    <string name="why_section_observation">Pozorovanie</string>
+    <string name="why_title">Čo sa hýbe spolu?</string>
+    <string name="why_title_coin">Čo sa hýbe spolu s %1$s?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">Stručne · stav %1$s</string>
+    <string name="why_brief_label">Stručne:</string>
+    <string name="why_summary_against">Coin sa hýbe proti trhu.</string>
+    <string name="why_summary_calm">Žiadny výrazný pohyb: trh aj coin sú pokojné.</string>
+    <string name="why_summary_coin">Hýbe sa iba tento coin – možno ide o niečo, čo sa týka iba tohto coinu.</string>
+    <string name="why_summary_coin_volume">Hýbe sa iba tento coin, pri vyššom objeme – možno ide o niečo, čo sa týka iba tohto coinu.</string>
+    <string name="why_summary_longs">Futures: veľa pákových long pozícií.</string>
+    <string name="why_summary_market">Pohyb časovo zodpovedá celkovému trhu.</string>
+    <string name="why_summary_market_volume">Pohyb sa časovo zhoduje s vyšším objemom obchodov a široko sa hýbucim trhom.</string>
+    <string name="why_summary_peg_near">Kurz je blízko svojej väzby 1:1.</string>
+    <string name="why_summary_peg_off">Kurz sa citeľne odchyľuje od svojej väzby 1:1.</string>
+    <string name="why_summary_shorts">Futures: veľa short pozícií.</string>
+    <string name="why_summary_thin">Pohyb je slabý: stojí za ním málo objemu.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">Proti trhu</string>
+    <string name="why_f_coin_only">Iba tento coin</string>
+    <string name="why_f_leader">Bitcoin ako líder trhu</string>
+    <string name="why_f_leverage_balanced">Páka vyrovnaná</string>
+    <string name="why_f_leverage_longs">Páka: veľa longov</string>
+    <string name="why_f_leverage_shorts">Páka: veľa shortov</string>
+    <string name="why_f_market_calm">Pokojný trh</string>
+    <string name="why_f_market_wide">Hýbe sa celý trh</string>
+    <string name="why_factor_funding">Funding</string>
+    <string name="why_factor_futures">Futures</string>
+    <string name="why_factor_market">Celkový trh</string>
+    <string name="why_factor_near_high">Blízko maxima</string>
+    <string name="why_factor_near_low">Blízko minima</string>
+    <string name="why_factor_peg">Väzba (1:1)</string>
+    <string name="why_factor_range3d">3-dňové rozpätie</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">odhad</string>
+    <string name="why_fn_funding_longs">veľa ľudí stavia na rast kurzov</string>
+    <string name="why_fn_funding_neutral">neutrálne</string>
+    <string name="why_fn_funding_shorts">veľa ľudí stavia na pokles kurzov</string>
+    <string name="why_fn_high_at">na 30-dňovom maxime</string>
+    <string name="why_fn_high_below">pod 30-dňovým maximom</string>
+    <string name="why_fn_leader_calm">Bitcoin je pokojný</string>
+    <string name="why_fn_leader_moves">Bitcoin sa výrazne hýbe</string>
+    <string name="why_fn_low_above">nad 30-dňovým minimom</string>
+    <string name="why_fn_low_at">na 30-dňovom minime</string>
+    <string name="why_fn_market_against">Tento coin sa hýbe proti trhu</string>
+    <string name="why_fn_market_alone">Trh pokojný – tento coin sa hýbe sám</string>
+    <string name="why_fn_market_calm">Trh je pokojný</string>
+    <string name="why_fn_market_lags">Trh sa hýbe, tento coin sotva</string>
+    <string name="why_fn_market_moves">Trh sa hýbe rovnakým smerom</string>
+    <string name="why_fn_market_pulls">Trh sa hýbe s BTC</string>
+    <string name="why_fn_oi_down">Open interest klesol</string>
+    <string name="why_fn_oi_flat">Open interest sa takmer nezmenil</string>
+    <string name="why_fn_oi_mixed">Open interest nejednotný</string>
+    <string name="why_fn_oi_up">Open interest stúpol</string>
+    <string name="why_fn_peg_above">%1$s nad väzbou 1:1</string>
+    <string name="why_fn_peg_below">%1$s pod väzbou 1:1</string>
+    <string name="why_fn_peg_near">blízko väzby 1:1</string>
+    <string name="why_fn_range_above_low">od 3-dňového minima</string>
+    <string name="why_fn_range_below_high">od 3-dňového maxima</string>
+    <string name="why_fn_range_near_high">blízko 3-dňového maxima</string>
+    <string name="why_fn_range_near_low">blízko 3-dňového minima</string>
+    <string name="why_fn_volatility_stronger">silnejšia ako zvyčajne</string>
+    <string name="why_fn_volatility_tiny">v absolútnom vyjadrení malá (pod %1$s)</string>
+    <string name="why_fn_volatility_usual">ako zvyčajne</string>
+    <string name="why_fn_volume_higher">vyšší ako zvyčajne</string>
+    <string name="why_fn_volume_lower">nižší ako zvyčajne</string>
+    <string name="why_fn_volume_usual">ako zvyčajne</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">Tento coin %1$s, BTC %2$s za 24 h — výrazne samostatný pohyb.</string>
+    <string name="why_against_ref_text">Tento coin %1$s, %2$s %3$s za 24 h — výrazne samostatný pohyb.</string>
+    <string name="why_btc_independent">%1$s sa momentálne hýbe nezávisle od Bitcoinu.</string>
+    <string name="why_btc_tight">%1$s sa momentálne hýbe tesne s Bitcoinom.</string>
+    <string name="why_change_1h">1 h</string>
+    <string name="why_change_24h">24 h</string>
+    <string name="why_coin_only_text">%1$s za 24 h pri pokojnom trhu – možno ide o niečo, čo sa týka iba tohto coinu.</string>
+    <string name="why_leverage_balanced_text">Na trhu futures nie je nahromadenie long ani short pozícií.</string>
+    <string name="why_leverage_longs_text">Veľa ľudí stavia s požičanými peniazmi na rast kurzov. Longy platia shortom — zvýšené riziko likvidácií, ak kurz klesne.</string>
+    <string name="why_leverage_shorts_text">Veľa ľudí stavia s požičanými peniazmi na pokles kurzov. Shorty platia longom – ak kurz stúpne, je možný short squeeze.</string>
+    <string name="why_market_calm_text">Tento coin: %1$s za 24 h. Trh ani coin sa výrazne nehýbu.</string>
+    <string name="why_market_leader_text">Ako najväčší coin sa BTC zvyčajne hýbe v súlade so zvyškom trhu. ETH: %1$s za 24 h.</string>
+    <string name="why_market_leader_text_no_eth">Ako najväčší coin sa BTC zvyčajne hýbe v súlade so zvyškom trhu.</string>
+    <string name="why_market_similar_text">Tento coin: %1$s za 24 h – súčasne sa trh hýbe rovnakým smerom, hoci menej výrazne.</string>
+    <string name="why_market_wide_text">Tento coin: %1$s za 24 h – súčasne sa celkový trh výrazne hýbe.</string>
+    <string name="why_open_interest_change">Open interest %1$s od posledného merania.</string>
+    <string name="why_peg_text">Stablecoin: v porovnaní s väzbou 1:1 na kótovanú menu je odchýlka %1$s.</string>
+    <string name="why_sentiment_text">Index Fear &amp; Greed celého kryptotrhu, %1$s oproti včerajšku.</string>
+    <string name="why_sentiment_text_no_change">Index Fear &amp; Greed celého kryptotrhu.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="one">klesá už %1$d hodinu</item>
+        <item quantity="few">klesá už %1$d hodiny</item>
+        <item quantity="many">klesá už %1$d hodiny</item>
+        <item quantity="other">klesá už %1$d hodín</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="one">rastie už %1$d hodinu</item>
+        <item quantity="few">rastie už %1$d hodiny</item>
+        <item quantity="many">rastie už %1$d hodiny</item>
+        <item quantity="other">rastie už %1$d hodín</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="one">stabilný už %1$d hodinu</item>
+        <item quantity="few">stabilný už %1$d hodiny</item>
+        <item quantity="many">stabilný už %1$d hodiny</item>
+        <item quantity="other">stabilný už %1$d hodín</item>
+    </plurals>
+    <string name="why_volatility_high_text">Posledná hodina: %1$s — merané voči bežnému hodinovému výkyvu za posledných 24 hodín.</string>
+    <string name="why_volatility_normal_text">Posledná hodina: %1$s — v bežnom rozsahu.</string>
+    <string name="why_volatility_tiny_text">Posledná hodina: %1$s — pre tento coin nezvyčajné, ale v absolútnom vyjadrení malé.</string>
+    <string name="why_volume_estimated_text">Odhad: tento zdroj neposkytuje obrat, preto sa porovnávajú obchodované množstvá coinov.</string>
+    <string name="why_volume_high_text">Za poslednú hodinu sa obchodovalo oveľa viac ako zvyčajne – pohyb sprevádza vysoký objem.</string>
+    <string name="why_volume_low_text">Za pohybom je málo obchodov – takéto pohyby sú často menej stabilné.</string>
+    <string name="why_volume_normal_text">Obchodovanie za poslednú hodinu zodpovedá posledným 24 hodinám.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">zvýšené</string>
+    <string name="why_dot_neutral">neutrálne</string>
+    <string name="why_dot_supports">zodpovedá pohybu</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">Stav údajov %1$s</string>
+    <string name="why_fresh_breadth">Šírka trhu: %1$s · %2$s</string>
+    <string name="why_fresh_candles">Sviečky: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">Futures: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="one">open interest porovnaný so stavom pred %1$d hodinou</item>
+        <item quantity="few">open interest porovnaný so stavom pred %1$d hodinami</item>
+        <item quantity="many">open interest porovnaný so stavom pred %1$d hodiny</item>
+        <item quantity="other">open interest porovnaný so stavom pred %1$d hodinami</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="one">open interest porovnaný so stavom pred %1$d minútou</item>
+        <item quantity="few">open interest porovnaný so stavom pred %1$d minútami</item>
+        <item quantity="many">open interest porovnaný so stavom pred %1$d minúty</item>
+        <item quantity="other">open interest porovnaný so stavom pred %1$d minútami</item>
+    </plurals>
+    <string name="why_fresh_today">dnes</string>
+    <string name="why_fresh_yesterday">včera</string>
+    <string name="why_source_fallback">%1$s (náhradný zdroj)</string>
+    <string name="why_source_reference">%1$s (referencia)</string>
+    <string name="why_sources">Zdroje: hodinové sviečky burzy (väčšinou Binance), údaje o futures z búrz, Fear &amp; Greed z alternative.me.</string>
+    <string name="why_sources_list">Zdroje: %1$s.</string>
+    <string name="why_src_breadth">%1$s (šírka trhu)</string>
+    <string name="why_src_candles">%1$s (sviečky)</string>
+    <string name="why_src_comparison">%1$s (porovnanie s trhom)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (futures)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Funding</string>
+    <string name="factor_spoken_volatility">%1$s-krát silnejší výkyv ako zvyčajne</string>
+    <string name="factor_spoken_volume">%1$s-krát viac ako zvyčajne</string>
+    <string name="factor_volatility">Volatilita (1 h)</string>
+    <string name="factor_volume">Objem</string>
+</resources>

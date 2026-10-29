@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Назад</string>
+    <string name="action_cancel">Отказ</string>
+    <string name="action_clear">Изчисти</string>
+    <string name="action_close">Затвори</string>
+    <string name="action_keep">Запази</string>
+    <string name="action_delete">Изтрий</string>
+    <string name="action_edit">Редактирай</string>
+    <string name="action_more">Още опции</string>
+    <string name="action_refresh">Обнови</string>
+    <string name="action_retry">Опитай отново</string>
+    <string name="action_save">Запази</string>
+    <string name="action_sort">Подреди</string>
+    <string name="action_sort_done">Готово</string>
+    <string name="action_undo">Отмени</string>
+    <string name="action_view">Преглед</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Пазар</string>
+    <string name="tab_portfolio">Портфолио</string>
+    <string name="tab_settings">Настройки</string>
+    <string name="tab_watchlist">Списък</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Грешка: %1$s</string>
+    <string name="error_exchange_unreachable">Борсата в момента е недостъпна – последните курсове остават видими.</string>
+    <string name="error_exchange_unreachable_short">Борсата в момента е недостъпна</string>
+    <string name="loading_hint">Зареждане…</string>
+    <string name="option_off">Изкл.</string>
+    <string name="something_went_wrong">Нещо се обърка</string>
+    <string name="time_just_now">току-що</string>
+    <string name="try_again">Опитай отново</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Няма връзка</string>
+    <string name="offline_status_since">Няма връзка · към %1$s</string>
+    <string name="status_live">На живо</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Добави двойка</string>
+    <string name="shortcut_alarms">Всички аларми</string>
+    <string name="shortcut_cycle">Пазар</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Добави двойка към списъка</string>
+    <string name="shortcut_alarms_long">Покажи всички аларми</string>
+    <string name="shortcut_cycle_long">Отвори пазарния преглед</string>
+
+    <string name="log_box_title">Дневник</string>
+    <string name="label_value">%1$s: %2$s</string>
+</resources>

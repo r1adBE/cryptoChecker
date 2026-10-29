@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
+    <string name="portfolio_cutoff_export_action">ဖြတ်ရက် ထုတ်ယူမှု…</string>
+    <string name="portfolio_tax_worksheet_action">အလုပ်စာရွက်…</string>
+    <string name="portfolio_export_address_unobserved">ဤရက်စွဲတွင် လိပ်စာကို စောင့်ကြည့်မထား – မထည့်ပါ</string>
+    <string name="portfolio_export_button">CSV ထုတ်ယူရန်</string>
+    <string name="portfolio_export_col_amount">ပမာဏ</string>
+    <string name="portfolio_export_col_coin">ဒင်္ဂါး</string>
+    <string name="portfolio_export_col_note">မှတ်ချက်</string>
+    <string name="portfolio_export_col_price">ဈေးနှုန်း USDT</string>
+    <string name="portfolio_export_col_rate">နှုန်း USDT→%1$s</string>
+    <string name="portfolio_export_col_value">တန်ဖိုး USDT</string>
+    <string name="portfolio_export_col_value_cur">တန်ဖိုး %1$s</string>
+    <!-- Inhalt der CSV-Datei -->
+    <string name="portfolio_export_comment"># ဖြတ်ရက် %1$s, ငွေကြေး %2$s, %3$s ၏ ငွေလဲနှုန်း</string>
+    <string name="portfolio_export_currency">ငွေကြေး: %1$s</string>
+    <string name="portfolio_export_date">ဖြတ်ရက်</string>
+    <string name="portfolio_export_done">ထုတ်ယူမှု သိမ်းပြီး</string>
+    <string name="portfolio_export_estv_note">ဓနအခွန်အတွက် စာရင်းတွင် ပါသည့်နေရာများ၌ ESTV ဈေးနှုန်းစာရင်း %1$s ၏ တရားဝင် နှစ်ကုန်တန်ဖိုးများ သက်ရောက်သည်: %2$s</string>
+    <string name="portfolio_export_failed">ထုတ်ယူမှု မအောင်မြင်ပါ</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">ထုတ်ယူမှု မအောင်မြင်ပါ- ဖိုင်ကို ရေး၍ မရပါ – သိမ်းဆည်းရာနေရာ မရှိတော့ သို့မဟုတ် ရေး၍ မရ</string>
+    <string name="portfolio_export_failed_prices">ထုတ်ယူမှု မအောင်မြင်ပါ- ဈေးနှုန်းများကို ဖွင့်၍ မရပါ – ချိတ်ဆက်မှု မရှိ သို့မဟုတ် လဲလှယ်ရေးဌာန မတုံ့ပြန်</string>
+    <string name="portfolio_export_from_address">လိပ်စာမှ – ဝယ်ဈေး မရှိ</string>
+    <string name="portfolio_export_hint">ရွေးထားသောနေ့၏ အဆုံးရှိ ကိုင်ဆောင်ထားမှု၊ နေ့စဉ် ပိတ်ဈေး (UTC) ဖြင့် USDT ဖြင့် တန်ဖိုးဖြတ်ပြီး ထိုနေ့၏ ECB ရည်ညွှန်းနှုန်းဖြင့် ပြောင်းလဲတွက်ချက်ထားသည်။ “ပြောင်းလဲရန်” ဖြင့် ငွေကြေးကို ပြောင်းပါ။</string>
+    <string name="portfolio_export_incomplete">မပြည့်စုံ</string>
+    <string name="portfolio_export_no_fx">ငွေလဲနှုန်း မရှိ</string>
+    <string name="portfolio_export_no_price">ဈေးနှုန်း မရှိ</string>
+    <string name="portfolio_export_running">သမိုင်းဝင် ဈေးနှုန်းများကို ရယူနေသည်…</string>
+    <string name="portfolio_export_title">ဖြတ်ရက် ထုတ်ယူမှု</string>
+    <string name="portfolio_export_today_hint">ယနေ့ မပြီးသေးပါ- နေ့စဉ် ပိတ်ဈေးအစား လက်ရှိဈေးနှုန်းကို အသုံးပြုသည်။</string>
+    <string name="portfolio_export_total">စုစုပေါင်း</string>
+    <string name="portfolio_export_unchecked">မစစ်ဆေးရ (ကိုက်ညီသော ဈေးနှုန်း မရှိ)</string>
+
+    <!-- Steuer-Export (Arbeitspapier) -->
+    <string name="tax_export_adjustment">superficial loss (ACB သို့ ပေါင်းထည့်)</string>
+    <string name="tax_export_at_wallet_note">ဩစတြီးယား- ဒင်္ဂါးနှင့် ပိုက်ဆံအိတ် (လဲလှယ်ရေးဌာန) အလိုက် ရွေ့လျားပျမ်းမျှ – လွှဲပြောင်းမှုများသည် ကုန်ကျစရိတ်ကို သယ်ဆောင်သွားသည် – ဆုလာဘ်များကို ရယူမှုကုန်ကျစရိတ် 0 ဖြင့် – 2021 မတ် 1 မှစ၍ ကိုင်ဆောင်ထားမှုများ အခကြေးငွေ မပါ (နုတ်ယူ၍ မရ) – ချေးငွေ အတိုးကို လက်ခံချိန် တန်ဖိုးဖြင့် (27.5 ရာခိုင်နှုန်းဖြင့် ဝင်ငွေ)။</string>
+    <string name="tax_export_avg_cost_rates">ဝယ်သည့်ရက် နှုန်းများဖြင့် ကုန်ကျစရိတ် (ပျမ်းမျှ)</string>
+    <string name="tax_export_ch_wealth_not_calculated">ဓနအခွန် မတွက်ချက်ရသေး – ESTV ဈေးနှုန်းစာရင်း: %1$s</string>
+    <string name="tax_export_col_acquired">ရယူခဲ့သည်</string>
+    <string name="tax_export_col_adjustment">ခွင့်မပြုသော အရှုံး %1$s</string>
+    <string name="tax_export_col_cost">ကုန်ကျစရိတ် %1$s</string>
+    <string name="tax_export_col_date">ရက်စွဲ</string>
+    <string name="tax_export_col_days">ကိုင်ဆောင်ရက်</string>
+    <string name="tax_export_col_gain">အမြတ် %1$s</string>
+    <string name="tax_export_col_gross">အခကြေးငွေ မတိုင်မီ ဈေးနှုန်း %1$s</string>
+    <string name="tax_export_col_long_term">ကိုင်ဆောင်ချိန် &gt; 1 နှစ်</string>
+    <string name="tax_export_col_portfolio_value">ပေါ့ဖိုလီယို တန်ဖိုး %1$s</string>
+    <string name="tax_export_col_proceeds">ရောင်းရငွေ %1$s</string>
+    <string name="tax_export_col_sold">ရောင်းခဲ့သည်</string>
+    <string name="tax_export_cost_incomplete">စုစုပေါင်း ရယူမှုကုန်ကျစရိတ် မပြည့်စုံ</string>
+    <string name="tax_export_cost_missing">ဝယ်ဈေး မရှိ</string>
+    <string name="tax_export_fee_consumed">အခကြေးငွေသည် ရရှိငွေ အားလုံးကို ကုန်စေသည်</string>
+    <string name="tax_export_fee_leg">အခြားဒင်္ဂါးဖြင့် အခကြေးငွေ</string>
+    <string name="tax_export_fee_row">အခကြေးငွေ</string>
+    <string name="tax_export_fee_value_missing">အခြားဒင်္ဂါးဖြင့် အခကြေးငွေတွင် တန်ဖိုး မရှိ</string>
+    <string name="tax_export_gains">အကောင်အထည်ပေါ်ပြီး စွန့်လွှတ်မှုများ (CSV)</string>
+    <string name="tax_export_gains_title">အကောင်အထည်ပေါ်ပြီး စွန့်လွှတ်မှုများ %1$s</string>
+    <string name="tax_export_gift">လက်ဆောင်</string>
+    <string name="tax_export_holdings_cutoff">%1$s ရှိ ကိုင်ဆောင်ထားမှု (CSV)</string>
+    <string name="tax_export_holdings_title">%1$s ရှိ ကိုင်ဆောင်ထားမှု</string>
+    <string name="tax_export_income">ဝင်ငွေ (CSV)</string>
+    <string name="tax_export_income_title">ဝင်ငွေ %1$s</string>
+    <string name="tax_export_info_template">ပုံစံ: %1$s · နည်းလမ်း: %2$s · အခွန်နှစ်: %3$s · ငွေကြေး: %4$s · Crypto Checker %5$s</string>
+    <string name="tax_export_lost_fee_cost">ပေးချေထားသော အစုမရှိသည့် ကွန်ရက်အခကြေးငွေ ကုန်ကျစရိတ်</string>
+    <string name="tax_export_match_pool">Section 104 pool</string>
+    <string name="tax_export_match_same_day">တစ်နေ့တည်း (HMRC)</string>
+    <string name="tax_export_match_thirty_day">ရက် 30 စည်းမျဉ်း (HMRC)</string>
+    <string name="tax_export_method_change_warning">နည်းလမ်း သို့မဟုတ် ပုံစံကို ပြောင်းခြင်းသည် ယခင်နှစ်များကိုလည်း ပြန်တွက်သည် – သင် တင်သွင်းပြီးသားနှင့် နှိုင်းယှဉ်ပါ။</string>
+    <string name="tax_export_method_overridden">ပုံစံသည် %1$s ဖြင့် တွက်သည် – %2$s မဟုတ်ပါ</string>
+    <string name="tax_export_new_holding">2021 မတ် 1 မှစ၍ ရယူခဲ့သည်</string>
+    <string name="tax_export_no">မဟုတ်</string>
+    <string name="tax_export_old_holding">2021 မတ် 1 မတိုင်မီ ရယူခဲ့သည်</string>
+    <string name="tax_export_oversold">မှတ်တမ်းတင်ထားသည်ထက် ပိုရောင်းခဲ့သည်</string>
+    <string name="tax_export_payment">crypto ဖြင့် ငွေပေးချေမှု</string>
+    <string name="tax_export_period">%1$s – %2$s</string>
+    <string name="tax_export_proceeds_missing">ရောင်းဈေး မရှိ</string>
+    <string name="tax_export_proceeds_without_cost">ဝယ်ဈေးမပါသော ရောင်းရငွေ</string>
+    <string name="tax_export_realized_differs">အခွန် CSV သည် ‘အကောင်အထည်ပေါ်ပြီး’ နှင့် ကွဲပြားနိုင်သည် (နိုင်ငံ၏ အခွန်စည်းမျဉ်းများ)။</string>
+    <string name="tax_export_rule">&gt; 1 နှစ်- ဝယ်သည့်ရက် + ပြက္ခဒိန် 1 နှစ်ပြီးနောက် ရောင်းခဲ့သည်။ ရက်စွဲများ ဒေသစံတော်ချိန်ဖြင့်။ နှုန်းများ- ငွေပေးငွေယူနေ့၏ ECB နေ့စဉ်နှုန်း၊ မရှိလျှင် ရက် 7 အတွင်း နောက်ဆုံးနှုန်း။</string>
+    <string name="tax_export_rules_date">စည်းမျဉ်းများ အခြေအနေ: %1$s</string>
+    <string name="tax_export_rules_stale">စည်းမျဉ်းများသည် %1$s မှ ဖြစ်သည် – %2$s အတွက် နှုန်းထားများနှင့် ကင်းလွတ်ခွင့်များ ပြောင်းလဲနိုင်သည်။ တန်ဖိုးများကို စစ်ဆေးပါ။</string>
+    <string name="tax_export_spouse_gift">ခင်ပွန်း/ဇနီး/အိမ်ထောင်ဖက်သို့ – အမြတ် မရှိ၊ အရှုံး မရှိ</string>
+    <string name="tax_export_summary">နှစ်ပတ်လည် အကျဉ်းချုပ် %1$s (CSV)</string>
+    <string name="tax_export_swap">ဒင်္ဂါးလဲလှယ်မှု</string>
+    <string name="tax_export_tax_year">အခွန်နှစ်</string>
+    <string name="tax_export_transfer_fee_info">USDT/ငွေသားဖြင့် လွှဲပြောင်းခ – အရှုံး မဟုတ်၊ မူလကုန်ကျစရိတ်တွင် မပါ၊ အချက်အလက်အတွက်သာ</string>
+    <string name="tax_export_unassigned_fee">အခကြေးငွေ မသတ်မှတ်ရသေး – မူလကုန်ကျစရိတ် မသိ</string>
+    <string name="tax_export_usdt_usd_note">USDT ကို USDT/USD နေ့စဉ် ပိတ်ဈေးဖြင့် ပြောင်းလဲထားသည်၊ ပိတ်ဈေး မရှိသည့်နေရာတွင် 1 USD (စာကြောင်းအလိုက် အမှတ်အသားပြုထားသည်)</string>
+    <string name="tax_export_value_estimated">ခန့်မှန်း တန်ဖိုး (နေ့စဉ် ပိတ်ဈေး)</string>
+    <string name="tax_export_value_missing">လက်ခံချိန် တန်ဖိုး မရှိ</string>
+    <string name="tax_export_wallet">ပိုက်ဆံအိတ်: %1$s</string>
+    <string name="tax_export_wallet_unspecified">မဖော်ပြထား</string>
+    <string name="tax_export_withdrawal_fee">ငွေထုတ်ခ</string>
+    <string name="tax_export_withdrawal_fee_info">USDT/ငွေသားဖြင့် ငွေထုတ်ခ – အရှုံး မဟုတ်၊ အချက်အလက်အတွက်သာ</string>
+    <string name="tax_export_workpaper_disclaimer">အခွန် အလုပ်စာရွက် – အခွန်ပြန်တမ်း မဟုတ်ဘဲ အခွန် အကြံဉာဏ်လည်း မဟုတ်ပါ</string>
+    <string name="tax_export_workpaper_title">အလုပ်စာရွက်</string>
+    <string name="tax_export_year_local_zone">ဒေသစံတော်ချိန်ဖြင့် ရက်စွဲများ (%1$s)</string>
+    <string name="tax_export_yes">ဟုတ်</string>
+
+    <!-- Steuer-Export: Zeilen und Spalten -->
+    <string name="tax_line_at_interest">ချေးငွေ အတိုး (လက်ခံချိန် တန်ဖိုး)</string>
+    <string name="tax_line_at_old_long">2021 မတ် 1 မတိုင်မီ ရယူခဲ့သည် – ကိုင်ဆောင်ချိန် &gt; 1 နှစ်- များသောအားဖြင့် အခွန်မဆောင်ရ – စစ်ဆေးပါ</string>
+    <string name="tax_line_at_rate">အထူးနှုန်း 27.5 ရာခိုင်နှုန်း- 2021 မတ် 1 မှစ၍ ရယူပြီး 2022 မတ် 1 မှစ၍ ရောင်းသော အသားတင် + အတိုး</string>
+    <string name="tax_line_au_discounted">အရှုံးများနှင့် 50 ရာခိုင်နှုန်း လျှော့ပေးမှုအပြီး အသားတင် အရင်းအနှီး အမြတ်</string>
+    <string name="tax_line_ca_taxable">အခွန်ဆောင်ရမည့် အရင်းအနှီး အမြတ် (ထည့်သွင်းနှုန်း 1/2)</string>
+    <string name="tax_line_ch_income">ဆုလာဘ်များကို ဖော်ပြထားသည် – ၎င်းတို့ကို ကိုင်တွယ်ပုံအတွက် ESTV အလုပ်စာတမ်းကို ကြည့်ပါ</string>
+    <string name="tax_line_ch_private">ပုဂ္ဂလိက ပိုင်ဆိုင်မှုအပေါ် အရင်းအနှီး အမြတ်- မတွက်ချက်ရ – အမျိုးအစားခွဲခြားမှုအတွက် ESTV ကို ကြည့်ပါ</string>
+    <string name="tax_line_ch_wealth">ဓနအခွန်- မတွက်ချက်ရ – ကိုင်ဆောင်ထားမှု CSV သည် ဒီဇင်ဘာ 31 ရက်ရှိ လဲလှယ်ရေးဌာန ဈေးနှုန်း × USD/CHF ကို အသုံးပြုသည် – တရားဝင် အခွန်တန်ဖိုးများ- ESTV ဈေးနှုန်းစာရင်း</string>
+    <string name="tax_line_de_long">ကိုင်ဆောင်ချိန် &gt; 1 နှစ်- § 23 EStG အရ များသောအားဖြင့် အခွန်မဆောင်ရ – စစ်ဆေးပါ</string>
+    <string name="tax_line_denied_loss">ခွင့်မပြုသော အရှုံးများ (superficial loss)</string>
+    <string name="tax_line_fr_outflow">ရောင်းချမှုမပါသော ငွေထွက်များ (ငွေထုတ်မှုများ) – စုစုပေါင်း ရယူမှုကုန်ကျစရိတ်ကို အချိုးကျ လျှော့ချထားသည်</string>
+    <string name="tax_line_fr_rate">ပုံသေနှုန်း 12.8 ရာခိုင်နှုန်း အပေါင်း လူမှုရေး ထည့်ဝင်ငွေ (သို့မဟုတ် ရွေးချယ်လျှင် အဆင့်လိုက်နှုန်း)</string>
+    <string name="tax_line_fr_threshold">တစ်နှစ်လျှင် €305 အထိ စွန့်လွှတ်မှုများ- ယေဘုယျအားဖြင့် ကင်းလွတ်ခွင့်ရှိသည် (ရောင်းဈေး စုစုပေါင်း) – စစ်ဆေးပါ</string>
+    <string name="tax_line_gains">အမြတ်များ</string>
+    <string name="tax_line_income">ဝင်ငွေ (လက်ခံချိန် တန်ဖိုးဖြင့် ဆုလာဘ်များ)</string>
+    <string name="tax_line_jp_misc">အထွေထွေ ဝင်ငွေ (雑所得)- အသားတင် အမြတ် + ဝင်ငွေ</string>
+    <string name="tax_line_long_net">အသားတင် – ကိုင်ဆောင်ချိန် &gt; 1 နှစ်</string>
+    <string name="tax_line_losses">အရှုံးများ</string>
+    <string name="tax_line_net">အသားတင် အမြတ်/အရှုံး</string>
+    <string name="tax_line_new_net">အသားတင် – 2021 မတ် 1 မှစ၍ ရယူ၊ 2022 မတ် 1 မှစ၍ ရောင်း</string>
+    <string name="tax_line_old_long_net">အသားတင် – 2021 မတ် 1 မတိုင်မီ ရယူ – ကိုင်ဆောင်ချိန် &gt; 1 နှစ်</string>
+    <string name="tax_line_old_short_net">အသားတင် – ခန့်မှန်းလောင်းကစား ငွေပေးငွေယူများ (ဥပဒေဟောင်း)- 2021 မတ် 1 မတိုင်မီ ရယူပြီး ≤ 1 နှစ် ကိုင်ဆောင်ခဲ့သည်၊ သို့မဟုတ် 2022 မတ် 1 မတိုင်မီ ရောင်းခဲ့သည်</string>
+    <string name="tax_line_proceeds">ရောင်းရငွေ</string>
+    <string name="tax_line_short_net">အသားတင် – ကိုင်ဆောင်ချိန် ≤ 1 နှစ်</string>
+    <string name="tax_line_transfer_fees">လွှဲပြောင်းခ (ကိုယ်ပိုင်ပိုက်ဆံအိတ်များ)</string>
+    <string name="tax_line_uk_after_exempt">ကင်းလွတ်ခွင့် ပမာဏကျော် အသားတင် အမြတ် (crypto သာ)</string>
+    <string name="tax_line_uk_exempt">နှစ်စဉ် ကင်းလွတ်ခွင့် ပမာဏ – စွန့်လွှတ်မှုအားလုံး ပေါင်း၍ သက်ရောက်သည်၊ ဤနေရာတွင် အပြည့်အဝ အသုံးချထားသည်</string>
+    <string name="tax_line_us_terms">ကာလတို (≤ 1 နှစ်)- ပုံမှန်နှုန်းများ – ကာလရှည် (&gt; 1 နှစ်)- အရင်းအနှီး အမြတ် နှုန်းများ</string>
+    <string name="tax_line_withdrawal_fees">ငွေထုတ်ခများ</string>
+
+    <!-- Steuer Deutschland -->
+    <string name="tax_de_below">ကန့်သတ်ချက်အောက်</string>
+    <string name="tax_de_col_item">အကြောင်းအရာ</string>
+    <string name="tax_de_disclaimer">လမ်းညွှန်အတွက်သာ – အခွန်ပြန်တမ်း မဟုတ်ဘဲ အခွန် အကြံဉာဏ်လည်း မဟုတ်ပါ။</string>
+    <string name="tax_de_explain_below">%1$s အထိ- ကန့်သတ်ချက်အောက် (လမ်းညွှန်အတွက်)။</string>
+    <string name="tax_de_explain_loss">အသားတင် အရှုံး- ဤရောင်းချမှုများအပေါ် အခွန် မရှိပါ။ § 23 EStG အရ အရှုံးများကို ပုဂ္ဂလိက ရောင်းချမှုမှ အမြတ်များနှင့်သာ ချေဖျက်နိုင်သည် – တစ်နှစ်တည်းတွင် သို့မဟုတ် ယခင်နှစ်သို့ နောက်ပြန်ရွှေ့ခြင်းနှင့် နောက်နှစ်များသို့ ရှေ့ဆက်ရွှေ့ခြင်းဖြင့် (§ 23 အပိုဒ် 3 နှင့် § 10d EStG)။ အရှုံးကို အကဲဖြတ်နိုင်ရန် သင့်အခွန်ပြန်တမ်းတွင် ကြေညာပါ။</string>
+    <string name="tax_de_explain_reached">%1$s မှစ၍ ပမာဏ တစ်ခုလုံးကို တွက်သည် (ကင်းလွတ်ခွင့် ကန့်သတ်ချက် – နုတ်ယူခွင့် မဟုတ်)။</string>
+    <string name="tax_de_explain_unknown">စစ်ဆေး၍ မရ- ငွေလဲနှုန်း / ဝယ်ဈေး သို့မဟုတ် ကိုင်ဆောင်ချိန် မရှိ။</string>
+    <string name="tax_de_income_limit">ဝန်ဆောင်မှုများအတွက် ကင်းလွတ်ခွင့် ကန့်သတ်ချက် (§ 22 No. 3 EStG)</string>
+    <string name="tax_de_limit_scope">ကန့်သတ်ချက်များသည် နှစ်အတွင်း ပုဂ္ဂလိက ရောင်းချမှု သို့မဟုတ် ဝန်ဆောင်မှုအားလုံး ပေါင်း၍ သက်ရောက်သည် – အက်ပ်ပြင်ပရှိသည်များ အပါအဝင်။</string>
+    <string name="tax_de_loading">တွက်ချက်နေသည်…</string>
+    <string name="tax_de_long_gains">အမြတ်များ – ကိုင်ဆောင်ချိန် &gt; 1 နှစ်</string>
+    <string name="tax_de_long_losses">အရှုံးများ – ကိုင်ဆောင်ချိန် &gt; 1 နှစ်</string>
+    <string name="tax_de_loss">အသားတင် အရှုံး – ပုဂ္ဂလိက ရောင်းချမှုမှ အမြတ်များနှင့်သာ ချေဖျက်နိုင်သည် (§ 23 EStG)</string>
+    <string name="tax_de_private_limit">ပုဂ္ဂလိက ရောင်းချမှုများအတွက် ကင်းလွတ်ခွင့် ကန့်သတ်ချက် (§ 23 EStG)</string>
+    <string name="tax_de_reached">ကန့်သတ်ချက် ရောက်ပြီ – များသောအားဖြင့် ပမာဏ တစ်ခုလုံးကို တွက်သည် – စစ်ဆေးပါ</string>
+    <string name="tax_de_short_gains">အမြတ်များ – ကိုင်ဆောင်ချိန် ≤ 1 နှစ်</string>
+    <string name="tax_de_short_losses">အရှုံးများ – ကိုင်ဆောင်ချိန် ≤ 1 နှစ်</string>
+    <string name="tax_de_unclassified">ကိုင်ဆောင်ချိန် မသိ</string>
+    <string name="tax_de_unknown">စစ်ဆေး၍ မရ</string>
+
+    <!-- Steuer-Vorlagen je Land -->
+    <string name="tax_template_at">ဩစတြီးယား</string>
+    <string name="tax_template_au">ဩစတြေးလျ</string>
+    <string name="tax_template_beta">ဘီတာ</string>
+    <string name="tax_template_beta_note">ဘီတာ- နိုင်ငံ စည်းမျဉ်းများကို ရိုးရှင်းအောင် ပြုလုပ်ထားသည်၊ သင့်အခွန်ပြန်တမ်း မတင်မီ စစ်ဆေးပါ</string>
+    <string name="tax_template_ca">ကနေဒါ</string>
+    <string name="tax_template_ch">ဆွစ်ဇာလန်</string>
+    <string name="tax_template_confirm_text">ဘီတာ၊ ရိုးရှင်းသော စည်းမျဉ်းများ၊ အခြား platform များမှ ငွေပေးငွေယူများ မပါ – သင့်အခွန်ပြန်တမ်း မတင်မီ စစ်ဆေးပါ။</string>
+    <string name="tax_template_confirm_title">အခွန် ပုံစံ (ဘီတာ)</string>
+    <string name="tax_template_current">ပုံစံ: %1$s · နည်းလမ်း: %2$s · ငွေကြေး: %3$s</string>
+    <string name="tax_template_de">ဂျာမနီ</string>
+    <string name="tax_template_fr">ပြင်သစ်</string>
+    <string name="tax_template_hint">လမ်းညွှန်အတွက်သာ- အခွန် အလုပ်စာရွက်၏ နည်းလမ်း၊ အခွန်နှစ်နှင့် အကျဉ်းချုပ်ကို သတ်မှတ်သည်။ ပေါ့ဖိုလီယို ကတ်သည် ကြားနေအတိုင်း ရှိသည် – လက်ဆောင်နှင့် လွှဲပြောင်းခများသည် အလုပ်စာရွက်နှင့် ကွဲပြားနိုင်သည်။</string>
+    <string name="tax_template_jp">ဂျပန်</string>
+    <string name="tax_template_neutral">ကြားနေ (နိုင်ငံအားလုံး)</string>
+    <string name="tax_template_suggestion">သင့်ဒေသအတွက် အကြံပြုချက်: %1$s</string>
+    <string name="tax_template_title">အခွန် ပုံစံ</string>
+    <string name="tax_template_uk">ယူနိုက်တက်ကင်းဒမ်း</string>
+    <string name="tax_template_us">အမေရိကန်</string>
+    <string name="tax_template_use">%1$s ကို သုံးရန်</string>
+
+    <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
+    <string name="tax_method_at">ကိုင်ဆောင်မှု ဟောင်း/သစ် – ရွေ့လျားပျမ်းမျှ</string>
+    <string name="tax_method_ca_acb">ACB ပျမ်းမျှ ကုန်ကျစရိတ် (superficial loss)</string>
+    <string name="tax_method_fr_pta">စုစုပေါင်း ရယူမှုဈေး (art. 150 VH bis)</string>
+    <string name="tax_method_jp_total">စုစုပေါင်း ပျမ်းမျှ (総平均法)</string>
+    <string name="tax_method_uk_pool">Section 104 pool (တစ်နေ့တည်း / ရက် 30)</string>
+    <string name="tax_note_at">ဒင်္ဂါးနှင့် ပိုက်ဆံအိတ် အလိုက် ရွေ့လျားပျမ်းမျှ – ပိုက်ဆံအိတ်များကို ဖြတ်ကျော်၍ မဟုတ် (KryptowährungsVO § 2)။ ဆုလာဘ်များသည် ကိုင်ဆောင်မှုအသစ်ထဲသို့ ရယူမှုကုန်ကျစရိတ် 0 ဖြင့် ဝင်သည် (BMF: staking / airdrop) – ဝင်ငွေဖိုင်တွင် ၎င်းတို့ကို လက်ခံချိန် တန်ဖိုးဖြင့် ဖော်ပြသည်။ 2021 မတ် 1 မှစ၍ ရယူသော ကိုင်ဆောင်မှုများအတွက် အခကြေးငွေများကို နုတ်ယူ၍ မရ (§ 27a(4) no. 2, § 20(2) EStG)- ကုန်ကျစရိတ်နှင့် ရောင်းရငွေတွင် အခကြေးငွေ မပါ။ ချေးငွေ အတိုး (CSV တင်သွင်းမှု သို့မဟုတ် မှတ်ချက်မှ အမျိုးအစား) သည် လက်ခံချိန်တွင် 27.5 ရာခိုင်နှုန်းဖြင့် ဝင်ငွေ ဖြစ်ပြီး ထိုတန်ဖိုးကို ရယူမှုကုန်ကျစရိတ်အဖြစ် ထားသည်။</string>
+    <string name="tax_note_at_staking">သင် ကိုင်ဆောင်ပြီးသား ဒင်္ဂါးများဖြင့် staking နှင့် airdrop များ- လက်ခံချိန် တန်ဖိုးသည် အခွန်အတွက် အရေးမပါ – ဥပဒေအရ ရယူမှုကုန်ကျစရိတ်သည် 0 ဖြစ်သည် (§ 27b Abs. 2 EStG; BMF “Kryptowährungen”)။ သင် ရောင်းမှသာ အခွန် သက်ရောက်သည်။</string>
+    <string name="tax_note_fr">crypto ဖြင့် ပေးချေသော ရောင်းချမှုနှင့် အခကြေးငွေများသည် စွန့်လွှတ်မှုများ ဖြစ်သည် – ဒင်္ဂါးလဲလှယ်မှုများကို ဆိုင်းငံ့ထားသည်။ ရောင်းချမှုအပေါ် crypto အခကြေးငွေကို အခကြေးငွေ မတိုင်မီ ဈေးနှုန်းတွင် တွက်သည် – မဟုတ်လျှင် ၎င်းသည် ၎င်း၏ တန်ဖိုးဖြင့် သီးခြား စွန့်လွှတ်မှု ဖြစ်သည်။ ပေါ့ဖိုလီယို တန်ဖိုးကို နေ့စဉ် ပိတ်ဈေးများမှ ယူသည် – ပိတ်ဈေး မရှိလျှင် ကုန်ကျစရိတ် ဗလာ ကျန်သည်။</string>
+    <string name="tax_note_network_fee">crypto ဖြင့် ပေးချေသော ကွန်ရက်အခကြေးငွေ (ကိုယ်ပိုင်ပိုက်ဆံအိတ်သို့ လွှဲပြောင်းမှု၊ ငွေထုတ်မှု) သည် အခကြေးငွေ ဒင်္ဂါးများကို ဈေးကွက်တန်ဖိုးဖြင့် စွန့်လွှတ်မှု ဖြစ်သည် – ထိုဒင်္ဂါးများအပေါ်သာ အမြတ် သို့မဟုတ် အရှုံး ဖြစ်ပြီး အခကြေးငွေ တစ်ခုလုံး၏ အရှုံး မဟုတ်ပါ (%1$s)။ မှတ်တမ်းတင်ထားသော ဈေးနှုန်း မရှိလျှင်- တစ်နေ့တည်း၏ နေ့စဉ် ပိတ်ဈေး (UTC)၊ ပိတ်ဈေး မရှိလျှင် ရောင်းရငွေ ဗလာ ကျန်သည်။</string>
+    <string name="tax_note_specific_id">သီးခြား သတ်မှတ်ခြင်း (specific identification) ကို မပံ့ပိုးပါ – FIFO ကို အသုံးပြုသည်။</string>
+    <string name="tax_note_spouse_gift">“ခင်ပွန်း/ဇနီး / မှတ်ပုံတင်ထားသော အိမ်ထောင်ဖက်သို့” ဟု အမှတ်အသားပြုထားသော လက်ဆောင်သည် အမြတ်လည်း မရှိ၊ အရှုံးလည်း မရှိ- ရောင်းရငွေ = သင့်မူလကုန်ကျစရိတ်၊ ၎င်းကို သင့်အိမ်ထောင်ဖက်က လွှဲယူသည် (%1$s)။</string>
+    <string name="tax_note_stable_swap">သင် ဆက်ထားမည့် stablecoin (USDT/USDC/DAI …) အတွက် crypto ကို ရောင်းခြင်းသည် ဤနေရာတွင် crypto မှ crypto ဖြစ်ပြီး အခွန် မကောက်ပါ – ၎င်းကို stablecoin သို့ ဒင်္ဂါးလဲလှယ်မှုအဖြစ် မှတ်တမ်းတင်ပါ။ ယူရိုဖြင့် ရောင်းခြင်းကိုသာ အခွန်ကောက်သည် – “ရောင်း” ကို ယူရိုဖြင့် ရောင်းချမှုအဖြစ် တွက်သည်။</string>
+    <string name="tax_note_transfer_fee">သင့်ကိုယ်ပိုင်ပိုက်ဆံအိတ်များကြား လွှဲပြောင်းမှုအပေါ် USDT သို့မဟုတ် ငွေသား အခကြေးငွေအတွက်လည်း အတူတူပင်- ၎င်းကို မူလကုန်ကျစရိတ်တွင် မပေါင်းဘဲ အချက်အလက်အဖြစ်သာ ဖော်ပြသည်။</string>
+    <string name="tax_note_uk">HMRC အတိုင်း ကိုက်ညီစေခြင်း- တစ်နေ့တည်း → နောက် ရက် 30 → Section 104 pool။</string>
+    <string name="tax_note_us_transition">ကူးပြောင်းမှု 2025 ဇန်နဝါရီ 1 (Rev. Proc. 2024-28 safe harbor)- ယခင်နှစ်များတွင် ပိုက်ဆံအိတ်အားလုံးကို ဖြတ်ကျော်၍ FIFO သုံးခဲ့လျှင် 2024 ဒီဇင်ဘာ 31 ရှိ ကျန်ရှိသော အစုများသည် ဒင်္ဂါးများကို ကိုင်ဆောင်ထားသော ပိုက်ဆံအိတ်များသို့ သွားသည် – အဟောင်းဆုံး ဒင်္ဂါးပါသော ပိုက်ဆံအိတ်က အဟောင်းဆုံး မူလကုန်ကျစရိတ်ကို ရသည်။ ဤခွဲဝေမှုသည် အက်ပ်၏ စည်းမျဉ်း ဖြစ်သည် – သင့်ကိုယ်ပိုင် မှတ်တမ်းများနှင့် စစ်ဆေးပါ။</string>
+    <string name="tax_note_us_wallet">2025 အခွန်နှစ်မှစ၍ IRS သည် ပိုက်ဆံအိတ် သို့မဟုတ် လဲလှယ်ရေးဌာန အလိုက် မူလကုန်ကျစရိတ်ကို တောင်းဆိုသည် (Rev. Proc. 2024-28)- ထုတ်ယူမှုသည် 2025 မှစ၍ ပိုက်ဆံအိတ်အလိုက် FIFO ကို အသုံးပြုသည် – ယခင်နှစ်များအတွက် ပိုက်ဆံအိတ်အားလုံးကို ဖြတ်ကျော်၍ FIFO၊ သို့မဟုတ် ၎င်းသည် သင့်ကုန်ကျစရိတ် တွက်နည်း ဖြစ်လျှင် ပိုက်ဆံအိတ်အလိုက် FIFO။</string>
+    <string name="tax_note_withdrawal_fee">USDT သို့မဟုတ် ငွေသားဖြင့် ငွေထုတ်ခသည် အရှုံး မဟုတ်ပါ- ငွေသား အခကြေးငွေသည် နုတ်ယူနိုင်သော ကုန်ကျစရိတ် မဟုတ်၊ USDT အခကြေးငွေသည် အမြတ်မပါသော မူလတန်ဖိုးဖြင့် စွန့်လွှတ်မှု ဖြစ်သည် – ၎င်းကို အချက်အလက်အဖြစ်သာ ဖော်ပြသည် (%1$s)။</string>
+    <string name="tax_summary_at_interest_income">တွက်သည်- အထူးနှုန်း 27.5 ရာခိုင်နှုန်းဖြင့် လက်ခံချိန် ဝင်ငွေ (§ 27b(2) no. 1 EStG / BMF) – ဒင်္ဂါးများသည် ဤတန်ဖိုးကို ရယူမှုကုန်ကျစရိတ်အဖြစ် ထားသည်</string>
+    <string name="tax_summary_at_reward_info">အချက်အလက်အတွက်သာ – မည်သည့် စုစုပေါင်းတွင်မှ မပါ- ဆုလာဘ်များသည် ကိုင်ဆောင်မှုအသစ်ထဲသို့ ရယူမှုကုန်ကျစရိတ် 0 ဖြင့် ဝင်ပြီး ရောင်းမှသာ အခွန်ကောက်သည် (အမြတ်ထဲတွင် ပါပြီးသား) – § 27b para. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">2022 ဇန်နဝါရီ 1–ဖေဖော်ဝါရီ 28- 27.5 ရာခိုင်နှုန်းကို ရွေးချယ်နိုင်သည်</string>
+    <string name="tax_summary_at_withdrawal_fee">ငွေထုတ်ခ – ကိုင်ဆောင်မှုအသစ်များနှင့် မချေဖျက်ပါ (အထူးနှုန်းတွင် ကုန်ကျစရိတ်များ နုတ်ယူ၍ မရ၊ § 20(2) EStG)</string>
+    <string name="tax_summary_ch_fifo_info">အချက်အလက်အတွက်သာ – အက်ပ်၏ FIFO တွက်ချက်မှု – အမျိုးအစား မခွဲရ – ESTV ကို ကြည့်ပါ</string>
+    <string name="tax_summary_ch_year_end_value">ကိုင်ဆောင်ထားမှု CSV ရှိ ဒီဇင်ဘာ 31 တန်ဖိုး = လဲလှယ်ရေးဌာန ဈေးနှုန်း × USD/CHF – ESTV အခွန်တန်ဖိုးများ မဟုတ်ပါ</string>
+    <string name="tax_summary_de_withdrawal_fee">ငွေထုတ်ခ – § 23 အရ မချေဖျက်ပါ၊ ဝင်ငွေဆိုင်ရာ ကုန်ကျစရိတ်အဖြစ် နုတ်ယူနိုင်မနိုင် စစ်ဆေးပါ</string>
+    <string name="tax_summary_not_calculated_estv">မတွက်ချက်ရ – ESTV ဈေးနှုန်းစာရင်း: %1$s</string>
+    <string name="tax_summary_orientation">လမ်းညွှန်</string>
+    <string name="tax_summary_orientation_block">လမ်းညွှန်အတွက်သာ – အခွန် အကြံဉာဏ် မဟုတ် – အခွန်ဆုံးဖြတ်ချက် မဟုတ်</string>
+    <string name="tax_summary_orientation_item">လမ်းညွှန်: %1$s</string>
+    <string name="tax_summary_title">နှစ်ပတ်လည် အကျဉ်းချုပ် %1$s %2$s</string>
+    <string name="tax_summary_transfer_fee_info">USDT/ငွေသားဖြင့် လွှဲပြောင်းခများ – အရှုံး မဟုတ်ဘဲ မူလကုန်ကျစရိတ်တွင်လည်း မပါ၊ အချက်အလက်အတွက်သာ</string>
+    <string name="tax_summary_withdrawal_fee_info">USDT/ငွေသားဖြင့် ငွေထုတ်ခများ – အရှုံးအဖြစ် မတွက်ပါ၊ အချက်အလက်အတွက်သာ</string>
+
+    <string name="tax_line_at_old_speculation_limit">ခန့်မှန်းလောင်းကစား ငွေပေးငွေယူများ (ဥပဒေဟောင်း၊ ကိုင်ဆောင်ချိန် ≤ 1 နှစ်)- ကင်းလွတ်ခွင့် ကန့်သတ်ချက် (§ 31 (3) EStG ဗားရှင်းဟောင်း)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">2022 မတ် 1 မတိုင်မီ ချေးငွေ အတိုး (လက်ခံချိန် တန်ဖိုး)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">2022 မတ် 1 မတိုင်မီ အတိုး- ဥပဒေဟောင်း (ဝင်ငွေခွန်နှုန်း)၊ 27.5 ရာခိုင်နှုန်း မဟုတ်</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">2022 မတ် 1 မတိုင်မီ – ကျွမ်းကျင်သူနှင့် စစ်ဆေးပါ</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">အတိုး – လက်ခံချိန်တွင် အခွန်ဆောင်ရ</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">Staking – အချက်အလက်အတွက်သာ (ရယူမှုကုန်ကျစရိတ် 0၊ ရောင်းချိန်တွင် အခွန်ကောက်)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">စုစုပေါင်း အတိုး (အခွန်ဆောင်ရ)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">စုစုပေါင်း staking (အချက်အလက်)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">အသားတင် အရင်းအနှီး အရှုံး (ရှေ့ဆက်ရွှေ့)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">ရွေးချယ်မှု မပါလျှင်- 2022 ဇန်နဝါရီ 1–ဖေဖော်ဝါရီ 28 ရောင်းချမှုများ ပါဝင်သည်</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">2022 မတ် 1 မတိုင်မီ staking- ရယူမှုကုန်ကျစရိတ်ကို 0 ဟု သတ်မှတ်ထားသည် – ကျွမ်းကျင်သူနှင့် စစ်ဆေးပါ</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">ရက် 30 စည်းမျဉ်းက ဤကိန်းဂဏန်းများကို ပြောင်းလဲနိုင်သေးသည် (%1$s အထိ ဝယ်ယူမှုများ)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">အခကြေးငွေ မတိုင်မီ ရောင်းရငွေသည် သတင်းပို့ရန် ကန့်သတ်ချက် (£50,000; 2020/21–2022/23: £49,200) ကျော်လွန်သည်- Self Assessment အတွက် မှတ်ပုံတင်ထားလျှင် အခွန်ဆောင်ရမည့် အမြတ် မရှိသော်လည်း HMRC သို့ သတင်းပို့ပါ</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">ဒီဇင်ဘာ 31 %1$s ဓနတန်ဖိုး (လမ်းညွှန်)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">ESTV ဈေးနှုန်းစာရင်း (ictax.admin.ch) သည် အခိုင်အမာ ရည်ညွှန်းချက် ဖြစ်သည်။ စာရင်းတွင် မပါသော ဒင်္ဂါးများအတွက် ယေဘုယျအားဖြင့် လဲလှယ်ရေးဌာန၏ ပိတ်ဈေးကို အသုံးပြုသည်။ ဓနအခွန် မတွက်ချက်ရ။</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – ကိုင်ဆောင်ထားမှု %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">မတွက်ချက်ရ</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">စောင့်ကြည့်ထားသော လိပ်စာများကို ဖတ်၍ မရပါ – ၎င်းတို့၏ လက်ကျန်များ ဤဖိုင်တွင် မပါပါ</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">စောင့်ကြည့်ထားသော လိပ်စာများ၏ အစုများကို ၎င်းတို့၏ ဝယ်သည့်ရက်မှ စတွက်သည်၊ လိပ်စာ၏ ယနေ့ လက်ကျန် ပိုနည်းလျှင် ၎င်းတို့ကို လျှော့ချသည်။</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">စောင့်ကြည့်ထားသော လိပ်စာများကို စုစုပေါင်း တန်ဖိုးတွင် တွက်သော်လည်း ရယူမှုကုန်ကျစရိတ် မရှိပါ – ထို့ကြောင့် အမြတ် မြင့်လွန်းနိုင်သည်။ ကုန်ကျစရိတ်ကို ဝယ်ယူမှုအဖြစ် မှတ်တမ်းတင်ပါ။</string>
+    <string name="tax_summary_fr_rewards_income">ဤပမာဏသည် ဆုလာဘ်များကို လက်ခံချိန်တွင် ဝင်ငွေအဖြစ် အခွန်ကောက်ခဲ့သည်ဟု ယူဆသည် (ရယူမှုကုန်ကျစရိတ်တွင် လက်ခံချိန် တန်ဖိုး) – မဟုတ်လျှင် ရယူမှုကုန်ကျစရိတ် 0 သည် သတိထားသော အဓိပ္ပာယ်ကောက်ယူမှု ဖြစ်မည်။</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">မှတ်တမ်းတင်ထားသော ဈေးနှုန်း မပါသော ဈေးကွက်တန်ဖိုးများ (အခကြေးငွေ၊ လက်ဆောင်/ငွေပေးချေမှု၊ ဒင်္ဂါးလဲလှယ်မှု၊ ဆုလာဘ်၊ ကွန်ရက်အခကြေးငွေ၊ ပေါ့ဖိုလီယို တန်ဖိုး) ကို ငွေပေးငွေယူနေ့၏ နေ့စဉ် ပိတ်ဈေး (UTC) ဖြင့်</string>
+</resources>

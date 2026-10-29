@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">એલર્ટ સેટ કરો – ભાવ, ટકા, વૉલ્યુમ અને અસામાન્ય હિલચાલ</string>
+    <string name="welcome_alert_q">ક્યારે જાણ કરવી?</string>
+    <string name="welcome_text">તમારા ભાવ. તમારા એલર્ટ. તમારી ઝાંખી.\nકોઈ એકાઉન્ટ નહીં. કોઈ જાહેરાત નહીં. કોઈ ટ્રૅકિંગ નહીં.</string>
+    <string name="welcome_understand">સમજો – અત્યારે કોઈ ભાવની સાથે શું હલી રહ્યું છે</string>
+    <string name="welcome_understand_q">સાથે શું હલી રહ્યું છે?</string>
+    <string name="welcome_watch">નજર રાખો – તમારા કૉઇન, ભાવ અને ભાવનો ઇતિહાસ</string>
+    <string name="welcome_watch_q">શું થઈ રહ્યું છે?</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">વૉચલિસ્ટમાં ઉમેરો (%1$d)</string>
+    <string name="starter_loading_prices">ભાવ લોડ થઈ રહ્યા છે…</string>
+    <string name="starter_search_coin">બીજો કૉઇન શોધો</string>
+    <string name="starter_select_all">બધા પસંદ કરો</string>
+    <string name="starter_select_none">એક પણ પસંદ ન કરો</string>
+    <string name="starter_title">આ કૉઇનથી શરૂઆત કરો</string>
+    <string name="starter_watch_alarm_hint">ભાવ પર નજર રાખો, એલર્ટ સેટ કરો</string>
+
+    <!-- Start-Auswahl: Börse und Quote der Startpaare (Binance, bei Standort-Sperre Binance.US), z. B. «Kurse von Binance in USDT. …» -->
+    <string name="starter_source_text">%1$s પરથી ભાવ, %2$s માં. જે ન જોઈતું હોય તેની પસંદગી હટાવો અને બાકીના એકસાથે ઉમેરો. દરેક કૉઇન માટે એક્સચેન્જ અને જોડી તમે બદલી શકો છો.</string>
+</resources>

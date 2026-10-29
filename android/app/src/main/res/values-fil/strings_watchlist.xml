@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">Kasalukuyan · %1$s</string>
+    <string name="watchlist_empty_title">Wala pang pares</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%1$d sa %2$d ang walang presyo</item>
+        <item quantity="other">%1$d sa %2$d ang walang presyo</item>
+    </plurals>
+    <string name="watchlist_last_run">Huling takbo %1$s</string>
+    <string name="watchlist_live_a11y">Naka-on ang mga live price</string>
+    <string name="watchlist_offline_since">Walang koneksyon · noong %1$s</string>
+    <string name="watchlist_pull_to_refresh">Hilahin pababa para i-refresh</string>
+    <string name="watchlist_refresh_report">Huling refresh</string>
+    <string name="watchlist_refresh_report_empty">Wala pang breakdown – wala pang buong refresh. I-tap ang refresh at maghintay hanggang huminto ang bilog.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%1$d sa %2$d ang luma na</item>
+        <item quantity="other">%1$d sa %2$d ang luma na</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">Naka-disable ang lahat ng pares dito</string>
+    <string name="watchlist_status_exchange_prices">Mga presyo mula sa mga exchange mo · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">Presyo ng exchange · %1$s</string>
+    <string name="watchlist_status_group_empty">Walang pares sa grupong ito</string>
+    <string name="watchlist_status_none_traded">Walang tine-trade na pares dito</string>
+    <string name="watchlist_updated">Na-update: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">avg. %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d ang bumaba</item>
+        <item quantity="other">%1$d ang bumaba</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d ang walang 24h value</item>
+        <item quantity="other">%1$d ang walang 24h value</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d ang walang value ngayon</item>
+        <item quantity="other">%1$d ang walang value ngayon</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d ang tumaas</item>
+        <item quantity="other">%1$d ang tumaas</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · naka-disable</string>
+    <string name="watchlist_row_outdated">%1$s · luma na</string>
+    <string name="watchlist_row_outdated_age">luma na · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">Walang pagbabago sa presyo mula %1$s</string>
+    <string name="watchlist_row_unreachable">%1$s · hindi maabot ang %2$s</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">Pumunta sa dulo</string>
+    <string name="watchlist_jump_start">Pumunta sa itaas</string>
+    <string name="watchlist_search_close">Isara ang paghahanap</string>
+    <string name="watchlist_search_empty">Walang tugma para sa “%1$s”</string>
+    <string name="watchlist_search_hint">Maghanap ng pares, pangalan o exchange</string>
+    <string name="watchlist_search_open">Maghanap</string>
+    <string name="watchlist_sort_ascending">pataas</string>
+    <string name="watchlist_sort_descending">pababa</string>
+    <string name="watchlist_sort_hint">Pindutin nang matagal at i-drag ang isang pares, o gamitin ang handle. Nananatili sa itaas ang mga paborito.</string>
+    <string name="watchlist_sort_name">Pangalan</string>
+    <string name="watchlist_sort_own">Sariling pagkakasunod</string>
+    <string name="watchlist_sort_price">Presyo</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">I-clear ang watchlist</string>
+    <string name="watchlist_clear_confirm">Alisin ang lahat ng pares sa watchlist? Kasama nilang maaalis ang mga alerto nila.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d ang naka-disable</item>
+        <item quantity="other">%1$d ang naka-disable</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">Alisin</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Alisin ang %1$d pares na hindi na tine-trade sa exchange nito? Kasama nitong maaalis ang mga alerto nito.</item>
+        <item quantity="other">Alisin ang %1$d pares na hindi na tine-trade sa exchange nila? Kasama nilang maaalis ang mga alerto nila.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">Alisin ang mga hindi tine-trade na pares (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Alisin ang mga hindi tine-trade na pares</string>
+    <string name="watchlist_removed">Inalis ang %1$s</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d pares ang inalis</item>
+        <item quantity="other">%1$d pares ang inalis</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">%1$d hindi tine-trade na pares ang inalis</item>
+        <item quantity="other">%1$d hindi tine-trade na pares ang inalis</item>
+    </plurals>
+    <string name="watchlist_select">Pumili</string>
+    <string name="watchlist_select_all">Piliin lahat</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d ang napili</item>
+        <item quantity="other">%1$d ang napili</item>
+    </plurals>
+    <string name="watchlist_show_all">Ipakita lahat</string>
+    <string name="watchlist_show_only_disabled">Ipakita lang ang naka-disable</string>
+    <string name="watchlist_show_only_stale">Ipakita lang ang luma na</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Alerto (%1$d)</item>
+        <item quantity="other">Mga Alerto (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">Wala pang paborito. I-swipe pakanan ang isang pares, o buksan ang pares at i-tap ang “Paborito”.</string>
+    <string name="watchlist_group_empty_hint">Pindutin nang matagal ang isang grupo para piliin ang mga pares nito.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">Dito lalabas ang mga grupo mo</string>
+    <string name="watchlist_notification">Notification ng presyo</string>
+    <string name="watchlist_tts">Basahin ang presyo</string>
+    <string name="watchlist_tts_speech_on">Naka-on ang pagbasa nang malakas. Mababago mo ito sa Mga Setting › Mga Alerto › Pagbasa nang malakas.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">Idagdag bilang widget</string>
+    <string name="watch_action_alarm">Alerto</string>
+    <string name="watch_action_favorite">Paborito</string>
+    <string name="watch_action_why">Ano ang gumagalaw kasabay nito?</string>
+    <string name="watch_action_why_short">Ano ang kasabay?</string>
+    <string name="watch_change_mark">Mark</string>
+    <string name="watch_disable">I-disable</string>
+    <string name="watch_disable_hint">Walang request, walang notification</string>
+    <string name="watch_disabled">Naka-disable</string>
+    <string name="watch_disabled_banner">Na-disable ang %1$s</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">Mananatili ang mga alerto – tingnan ang mga threshold nila</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">I-edit ang pares</string>
+    <string name="watch_enable">I-enable</string>
+    <string name="watch_enable_hint">Magpapatuloy ang mga presyo at notification</string>
+    <string name="watch_enabled_banner">Na-enable ang %1$s</string>
+    <string name="watch_error_offline">Walang koneksyon</string>
+    <string name="watch_gesture_hint_short">I-tap: alerto at “Ano ang gumagalaw kasabay nito?” · pindutin nang matagal para pumili · i-swipe pakaliwa para i-delete · i-swipe pakanan para sa paborito</string>
+    <string name="watch_hint_tap_why">Mag-tap ng coin para sa mga alerto at “Ano ang gumagalaw kasabay nito?”</string>
+    <string name="watch_not_traded">Hindi na tine-trade sa exchange na ito</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">Wala sa watchlist</string>
+    <string name="watch_price_mid">mid price (kung hindi ay mark)</string>
+    <string name="watch_row_source_both">Pagbabago &amp; chart: %1$s</string>
+    <string name="watch_row_source_change">Pagbabago: %1$s</string>
+    <string name="watch_row_source_chart">Chart: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">Nasa watchlist mo na ang %1$s</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">Nasa watchlist mo na ang %1$s</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">Idagdag sa mga paborito</string>
+    <string name="favorite_added">Naidagdag ang %1$s sa mga paborito</string>
+    <string name="favorite_remove">Alisin sa mga paborito</string>
+    <string name="favorite_removed">Inalis ang %1$s sa mga paborito</string>
+    <string name="hint_favorites_list">Tip: i-swipe pakanan ang isang row para gawin itong paborito – nananatili sa itaas ang mga paborito.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">Bagong grupo</string>
+    <string name="group_all">Lahat</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Mga Alpha token</string>
+    <string name="group_delete">I-delete ang grupo</string>
+    <string name="group_delete_confirm">Mananatili sa watchlist mo ang mga pares.</string>
+    <string name="group_done">Tapos na</string>
+    <string name="group_edit_title">I-edit ang grupo</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">Mga paborito</string>
+    <string name="group_in_other">sa %1$s</string>
+    <string name="group_name">Pangalan ng grupo</string>
+    <string name="group_new">Bagong grupo…</string>
+    <string name="group_next">Susunod</string>
+    <string name="group_none">Walang grupo</string>
+    <string name="group_rename">Palitan ang pangalan</string>
+    <string name="group_search_hint">Maghanap ng pares, pangalan o exchange</string>
+    <string name="group_target">Sa grupo</string>
+    <string name="group_title">Grupo</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">Mga token</string>
+    <string name="group_value">Grupo: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">Magdagdag ng tala</string>
+    <string name="note_edit">I-edit ang tala</string>
+    <string name="note_hint">hal. pasok sa 0.42, target 0.60</string>
+    <string name="note_remove">Alisin</string>
+    <string name="note_title">Tala</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">I-drag para ayusin ang pagkakasunod</string>
+    <string name="sort_move_bottom">Ilipat sa ibaba</string>
+    <string name="sort_move_down">Ibaba</string>
+    <string name="sort_move_top">Ilipat sa itaas</string>
+    <string name="sort_move_up">Itaas</string>
+
+    <string name="watchlist_first_alarm_title">Itakda ang una mong alerto</string>
+    <string name="watchlist_first_alarm_text">Masabihan kapag naabot ng presyo ang marka mo – kapag sarado ang app, hindi regular ang pagsusuri ng Android.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">mark price (walang mid price)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">presyo kada oras</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">Itakda ang una mong alerto – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">I-refresh (%1$d)</string>
+
+    <!-- Zeile der Merkliste: Börse pausiert (zu viele Anfragen / Zeitüberschreitungen) bis zu einer Uhrzeit, ersetzt die Zeitzeile, z. B. «Binance · pausiert bis 19:45» -->
+    <string name="watchlist_row_exchange_paused">%1$s · naka-pause hanggang %2$s</string>
+
+    <string name="watchlist_refresh_just_done">Kaka-update lang · %1$d s ang nakalipas</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">huling trade %1$s</string>
+
+    <string name="change_candle_source_hint">Kinakalkula mula sa mga candle ng %1$s – hindi ibinibigay ng exchange mismo ang value na ito.</string>
+    <string name="change_candle_source_action">Ipakita ang pinagmulan ng pagbabago</string>
+
+    <string name="watchlist_sort_by_coin">Ayusin ayon sa coin</string>
+    <string name="watchlist_sort_by_exchange">Ayusin ayon sa exchange</string>
+    <string name="watchlist_limit_reached">Hanggang %1$s pares lang ang puwede sa watchlist mo.</string>
+    <string name="watch_price_reference">reference rate, araw-araw</string>
+    <string name="watch_price_daily">araw-araw</string>
+    <string name="watchlist_compare">Ihambing</string>
+    <string name="watchlist_compare_hint">Pumili ng 2 hanggang 4 na pares para ihambing.</string>
+    <string name="compare_title">Paghahambing</string>
+    <string name="compare_basis">Ipinapakita ng mga linya ang pagbabago sa porsiyento mula sa simula ng panahon.</string>
+    <string name="compare_from_high">vs. 30A high</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">%1$d pares ang hindi na-restore – puno na ang watchlist</item>
+        <item quantity="other">%1$d pares ang hindi na-restore – puno na ang watchlist</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">Hindi sine-save ngayon ang watchlist at ang mga alerto nito. Mawawala ito at anumang susunod na pagbabago kapag nagsara ang app. Baguhin pa rin?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">Baguhin pa rin</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">%1$d pares</item>
+        <item quantity="other">%1$d pares</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">%2$d sa %1$d pares</item>
+        <item quantity="other">%2$d sa %1$d pares</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">%1$d bakante pa</item>
+        <item quantity="other">%1$d bakante pa</item>
+    </plurals>
+    <string name="watchlist_footer_full">Puno na ang watchlist</string>
+</resources>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">Altmyntir á móti Bitcoin</string>
+    <string name="neutral_btc_indicators_title">Bitcoin-vísar</string>
+    <string name="neutral_halving_last">Síðasta helmingun: %1$s</string>
+    <string name="neutral_halving_next">Næsta helmingun áætluð um %1$s (metið út frá dagatali – blokkhæð ekki tiltæk eins og er).</string>
+    <string name="neutral_indicators_disclaimer">Aðeins mæld gildi, án mats. Ekki spá og ekki fjárfestingarráðgjöf.</string>
+    <string name="neutral_onchain_missing">On-chain gögn (Coin Metrics) ekki tiltæk eins og er.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">Hversu langt verðið er undir fyrra sögulegu hámarki.</string>
+    <string name="neutral_explain_change_30d">Verðið í dag miðað við fyrir 30 dögum.</string>
+    <string name="neutral_explain_hashrate">30 daga meðaltal hashrate miðað við 60 daga meðaltalið.</string>
+    <string name="neutral_explain_ma200w">Meðaltal síðustu 200 vikulokaverða.</string>
+    <string name="neutral_explain_mayer">Verð deilt með 200 daga meðaltalinu.</string>
+    <string name="neutral_explain_mvrv">Markaðsvirði deilt með raunvirði (on-chain).</string>
+    <string name="neutral_explain_pi_gap">111 daga meðaltal miðað við tvöfalt 350 daga meðaltal.</string>
+    <string name="neutral_explain_puell">Daglegar tekjur námumanna deilt með 365 daga meðaltali þeirra.</string>
+    <string name="neutral_explain_rsi_daily">Relative Strength Index síðustu 14 daga, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">Relative Strength Index síðustu 14 vikna, 0–100.</string>
+    <string name="neutral_explain_sma50_200">50 daga meðaltal miðað við 200 daga meðaltalið.</string>
+    <string name="neutral_explain_vs_btc">Verðbreyting miðað við Bitcoin á 90 dögum.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">Forritið sýnir aðeins fjöldann og merkir hann ekki sem tímabil. Gildið breytist yfirleitt á dögum, ekki klukkustundum.</string>
+    <string name="neutral_info_btc_how">Hverju gildi fylgir ein setning um hvað það mælir og hvar það stendur í eigin sögu frá 2016. Forritið metur ekki gildin og leiðir enga markaðsfasa út; mörk markaðsviðvarana eru aðeins þau sem þú stillir. Fyrri mynstur þurfa ekki að endurtaka sig.</string>
+    <string name="neutral_info_btc_what">Algengir Bitcoin-vísar sem einföld mæld gildi: Mayer Multiple, 200 vikna meðaltal, lækkun frá sögulegu hámarki, breyting á 30 dögum, Pi Cycle-bil og on-chain gildin MVRV, Puell Multiple og hashrate.</string>
+    <string name="neutral_info_coin_how">Hverju gildi fylgir ein setning um hvað það mælir, án mats. Fyrir myntir með stutta verðsögu vantar sum gildi. On-chain gögn eru ekki tekin með hér.</string>
+    <string name="neutral_info_coin_what">Sömu einföldu vísarnir fyrir mynt að eigin vali, eingöngu út frá verðgögnum: Mayer Multiple, 200 vikna meðaltal, lækkun frá sögulegu hámarki, breyting á 30 dögum, 50/200 daga þróun, RSI og styrkur á móti Bitcoin á 90 dögum.</string>
+    <string name="neutral_info_halving_how">Næsta helmingun er reiknuð út frá núverandi blokkhæð og meðalblokktíma núverandi erfiðleikatímabils (mempool.space); án þeirra gagna út frá dagatali (síðasta helmingun auk um fjögurra ára). Grafið sýnir verðferil fyrri hringrása frá helmingun þeirra – saga, ekki spá.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">Þróun 50/200 daga</string>
+    <string name="ind_drawdown">Lækkun frá sögulegu hámarki</string>
+    <string name="ind_missing">ekki nægileg gögn</string>
+    <string name="ind_rsi_daily">RSI (daglegt)</string>
+    <string name="ind_rsi_weekly">RSI (vikulegt)</string>
+    <string name="ind_vs_btc">Styrkur á móti Bitcoin (90 dagar)</string>
+    <string name="neutral_ind_change_30d">Breyting 30 dagar</string>
+    <string name="neutral_ind_hashrate">Hashrate 30/60 dagar</string>
+    <string name="neutral_ind_ma200w">200 vikna meðaltal</string>
+    <string name="neutral_ind_pi_gap">Pi Cycle-bil</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">Hátt þýðir að flestar stórar altmyntir hafi staðið sig betur en Bitcoin á 90 dögum, lágt þýðir að Bitcoin hafi staðið sig betur en flestar þeirra.</string>
+    <string name="ind_read_ath_distance">Lítið þýðir að verðið sé nálægt metinu, mikið þýðir að það sé langt undir því.</string>
+    <string name="ind_read_change_30d">Jákvætt þýðir hærra en fyrir 30 dögum, neikvætt þýðir lægra.</string>
+    <string name="ind_read_funding">Hátt þýðir að margir veðji á hækkandi verð með skuldsetningu, neikvætt þýðir að margir veðji á lækkandi verð.</string>
+    <string name="ind_read_hashrate_30_60">Jákvætt þýðir að reikniafl vaxi, neikvætt þýðir að námumenn slökkvi á vélum.</string>
+    <string name="ind_read_leverage">Margar langstöður þýða að margir veðji á hækkun með lánsfé, margar skortstöður að margir veðji á lækkun.</string>
+    <string name="ind_read_ma200w">Verð langt yfir því þýðir langvarandi hækkun, verð nálægt því þýðir djúpa leiðréttingu.</string>
+    <string name="ind_read_mayer">Hátt þýðir að verðið sé langt yfir 200 daga meðaltalinu, lágt þýðir að það sé undir því.</string>
+    <string name="ind_read_mvrv">Hátt þýðir að verðið sé langt yfir því sem eigendur greiddu að meðaltali, lágt þýðir nálægt því eða undir.</string>
+    <string name="ind_read_pi_cycle_gap">Nálægt núlli þýðir að meðaltölin tvö mætist nánast, mjög neikvætt þýðir að þau séu langt hvort frá öðru.</string>
+    <string name="ind_read_puell">Hátt þýðir að námumenn þéni mun meira en venjulega, lágt þýðir mun minna.</string>
+    <string name="ind_read_rsi_daily">Yfir 70 þýðir mikla hækkun síðustu daga, undir 30 þýðir mikla lækkun.</string>
+    <string name="ind_read_rsi_weekly">Yfir 70 þýðir mikla hækkun síðustu vikur, undir 30 þýðir mikla lækkun.</string>
+    <string name="ind_read_sma50_vs_200">Jákvætt þýðir að skammtímameðaltalið sé yfir langtímameðaltalinu, neikvætt þýðir undir.</string>
+    <string name="ind_read_vs_btc">Jákvætt þýðir að það hafi staðið sig betur en Bitcoin, neikvætt þýðir verr.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">Sama verð í 30 daga: %1$s</string>
+    <string name="ind_context_note">Fyrri gildi og útreikningar „sama verð“ eru reikningur, ekki spá.</string>
+    <string name="ind_context_percentile">Frá %1$s lægra á %2$s daganna</string>
+</resources>

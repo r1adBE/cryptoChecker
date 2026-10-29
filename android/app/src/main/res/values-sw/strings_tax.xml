@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
+    <string name="portfolio_cutoff_export_action">Hamisha kwa tarehe ya mwisho…</string>
+    <string name="portfolio_tax_worksheet_action">Karatasi ya kazi…</string>
+    <string name="portfolio_export_address_unobserved">anwani haikufuatiliwa tarehe hii – haijajumuishwa</string>
+    <string name="portfolio_export_button">Hamisha CSV</string>
+    <string name="portfolio_export_col_amount">Kiasi</string>
+    <string name="portfolio_export_col_coin">Sarafu</string>
+    <string name="portfolio_export_col_note">Dokezo</string>
+    <string name="portfolio_export_col_price">Bei USDT</string>
+    <string name="portfolio_export_col_rate">Kiwango USDT→%1$s</string>
+    <string name="portfolio_export_col_value">Thamani USDT</string>
+    <string name="portfolio_export_col_value_cur">Thamani %1$s</string>
+    <!-- Inhalt der CSV-Datei -->
+    <string name="portfolio_export_comment"># Tarehe ya mwisho %1$s, sarafu ya fedha %2$s, kiwango cha FX cha %3$s</string>
+    <string name="portfolio_export_currency">Sarafu ya fedha: %1$s</string>
+    <string name="portfolio_export_date">Tarehe ya mwisho</string>
+    <string name="portfolio_export_done">Uhamishaji umehifadhiwa</string>
+    <string name="portfolio_export_estv_note">Kwa kodi ya utajiri, thamani rasmi za mwisho wa mwaka za orodha ya bei ya ESTV %1$s zinatumika pale zilipoorodheshwa: %2$s</string>
+    <string name="portfolio_export_failed">Uhamishaji umeshindwa</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">Uhamishaji umeshindwa: faili haikuweza kuandikwa – mahali pa kuhifadhi hapapo au hapaandikiki</string>
+    <string name="portfolio_export_failed_prices">Uhamishaji umeshindwa: bei hazikuweza kupakiwa – hakuna muunganisho au jukwaa halijibu</string>
+    <string name="portfolio_export_from_address">kutoka anwani – hakuna bei ya ununuzi</string>
+    <string name="portfolio_export_hint">Mali mwishoni mwa siku iliyochaguliwa, zimethaminiwa kwa bei ya kufunga ya siku (UTC) kwa USDT na kubadilishwa kwa kiwango cha marejeleo cha ECB cha siku hiyo. Badilisha sarafu ya fedha kwa “Badilisha kuwa”.</string>
+    <string name="portfolio_export_incomplete">pungufu</string>
+    <string name="portfolio_export_no_fx">hakuna kiwango cha FX</string>
+    <string name="portfolio_export_no_price">hakuna bei</string>
+    <string name="portfolio_export_running">Inapata bei za kihistoria…</string>
+    <string name="portfolio_export_title">Hamisha kwa tarehe ya mwisho</string>
+    <string name="portfolio_export_today_hint">Leo bado haijaisha: bei ya sasa inatumika badala ya bei ya kufunga ya siku.</string>
+    <string name="portfolio_export_total">Jumla</string>
+    <string name="portfolio_export_unchecked">haijakaguliwa (hakuna bei inayolingana)</string>
+
+    <!-- Steuer-Export (Arbeitspapier) -->
+    <string name="tax_export_adjustment">superficial loss (imeongezwa kwenye ACB)</string>
+    <string name="tax_export_at_wallet_note">Austria: wastani unaosonga kwa kila sarafu na wallet (jukwaa) – uhamisho huhamisha gharama – tuzo kwa gharama ya upatikanaji 0 – mali kuanzia 1 Mac 2021 bila ada (hazikatwi) – riba ya ukopeshaji kwa thamani wakati wa kupokea (mapato kwa asilimia 27.5).</string>
+    <string name="tax_export_avg_cost_rates">gharama kwa viwango vya tarehe ya ununuzi (wastani)</string>
+    <string name="tax_export_ch_wealth_not_calculated">Kodi ya utajiri haijakokotolewa – orodha ya bei ya ESTV: %1$s</string>
+    <string name="tax_export_col_acquired">Ilipatikana</string>
+    <string name="tax_export_col_adjustment">Hasara isiyoruhusiwa %1$s</string>
+    <string name="tax_export_col_cost">Gharama %1$s</string>
+    <string name="tax_export_col_date">Tarehe</string>
+    <string name="tax_export_col_days">Siku za kumiliki</string>
+    <string name="tax_export_col_gain">Faida %1$s</string>
+    <string name="tax_export_col_gross">Bei kabla ya ada %1$s</string>
+    <string name="tax_export_col_long_term">imemilikiwa &gt; mwaka 1</string>
+    <string name="tax_export_col_portfolio_value">Thamani ya jalada %1$s</string>
+    <string name="tax_export_col_proceeds">Mapato %1$s</string>
+    <string name="tax_export_col_sold">Iliuzwa</string>
+    <string name="tax_export_cost_incomplete">jumla ya gharama ya upatikanaji ni pungufu</string>
+    <string name="tax_export_cost_missing">bei ya ununuzi haipo</string>
+    <string name="tax_export_fee_consumed">Ada inamaliza kiasi chote kilichopokelewa</string>
+    <string name="tax_export_fee_leg">ada kwa sarafu nyingine</string>
+    <string name="tax_export_fee_row">Ada</string>
+    <string name="tax_export_fee_value_missing">ada kwa sarafu nyingine haina thamani</string>
+    <string name="tax_export_gains">Uondoaji uliokamilika (CSV)</string>
+    <string name="tax_export_gains_title">Uondoaji uliokamilika %1$s</string>
+    <string name="tax_export_gift">Zawadi</string>
+    <string name="tax_export_holdings_cutoff">Mali tarehe %1$s (CSV)</string>
+    <string name="tax_export_holdings_title">Mali tarehe %1$s</string>
+    <string name="tax_export_income">Mapato (CSV)</string>
+    <string name="tax_export_income_title">Mapato %1$s</string>
+    <string name="tax_export_info_template">Kiolezo: %1$s · Njia: %2$s · Mwaka wa kodi: %3$s · Sarafu ya fedha: %4$s · Crypto Checker %5$s</string>
+    <string name="tax_export_lost_fee_cost">gharama ya ada ya mtandao bila fungu lililolipiwa</string>
+    <string name="tax_export_match_pool">Section 104 pool</string>
+    <string name="tax_export_match_same_day">siku ile ile (HMRC)</string>
+    <string name="tax_export_match_thirty_day">kanuni ya siku 30 (HMRC)</string>
+    <string name="tax_export_method_change_warning">Kubadilisha njia au kiolezo hukokotoa upya miaka ya awali pia – linganisha na ulichowasilisha tayari.</string>
+    <string name="tax_export_method_overridden">Kiolezo kinakokotoa %1$s – si %2$s</string>
+    <string name="tax_export_new_holding">ilipatikana kuanzia 1 Mac 2021</string>
+    <string name="tax_export_no">hapana</string>
+    <string name="tax_export_old_holding">ilipatikana kabla ya 1 Mac 2021</string>
+    <string name="tax_export_oversold">imeuzwa zaidi ya iliyorekodiwa</string>
+    <string name="tax_export_payment">Malipo kwa crypto</string>
+    <string name="tax_export_period">%1$s – %2$s</string>
+    <string name="tax_export_proceeds_missing">bei ya mauzo haipo</string>
+    <string name="tax_export_proceeds_without_cost">Mapato bila bei ya ununuzi</string>
+    <string name="tax_export_realized_differs">CSV ya kodi inaweza kutofautiana na ‘iliyopatikana’ (kanuni za kodi za nchi).</string>
+    <string name="tax_export_rule">&gt; mwaka 1: imeuzwa baada ya tarehe ya ununuzi + mwaka 1 wa kalenda. Tarehe kwa saa za hapa. Viwango: kiwango cha kila siku cha ECB cha siku ya muamala; kisipokuwepo, kiwango cha mwisho hadi siku 7 kabla.</string>
+    <string name="tax_export_rules_date">Kanuni hadi: %1$s</string>
+    <string name="tax_export_rules_stale">Kanuni ni za %1$s – kwa %2$s, viwango na misamaha huenda vimebadilika. Angalia thamani.</string>
+    <string name="tax_export_spouse_gift">kwa mwenzi/mshirika – hakuna faida, hakuna hasara</string>
+    <string name="tax_export_summary">Muhtasari wa mwaka %1$s (CSV)</string>
+    <string name="tax_export_swap">swap</string>
+    <string name="tax_export_tax_year">Mwaka wa kodi</string>
+    <string name="tax_export_transfer_fee_info">Ada ya uhamisho kwa USDT/fedha taslimu – si hasara, haimo kwenye gharama ya msingi, taarifa tu</string>
+    <string name="tax_export_unassigned_fee">ada haijapangiwa – gharama ya msingi haijulikani</string>
+    <string name="tax_export_usdt_usd_note">USDT imebadilishwa kwa bei ya kufunga ya siku ya USDT/USD; USD 1 pale hakuna bei ya kufunga (imewekwa alama kwa kila safu)</string>
+    <string name="tax_export_value_estimated">Thamani imekadiriwa (bei ya kufunga ya siku)</string>
+    <string name="tax_export_value_missing">thamani wakati wa kupokea haipo</string>
+    <string name="tax_export_wallet">Wallet: %1$s</string>
+    <string name="tax_export_wallet_unspecified">haijabainishwa</string>
+    <string name="tax_export_withdrawal_fee">Ada ya utoaji</string>
+    <string name="tax_export_withdrawal_fee_info">Ada ya utoaji kwa USDT/fedha taslimu – si hasara, taarifa tu</string>
+    <string name="tax_export_workpaper_disclaimer">Karatasi ya kazi ya kodi – si ritani ya kodi wala ushauri wa kodi</string>
+    <string name="tax_export_workpaper_title">Karatasi ya kazi</string>
+    <string name="tax_export_year_local_zone">Tarehe kwa saa za hapa (%1$s)</string>
+    <string name="tax_export_yes">ndiyo</string>
+
+    <!-- Steuer-Export: Zeilen und Spalten -->
+    <string name="tax_line_at_interest">Riba ya ukopeshaji (thamani wakati wa kupokea)</string>
+    <string name="tax_line_at_old_long">Ilipatikana kabla ya 1 Mac 2021 – imemilikiwa &gt; mwaka 1: kwa kawaida haitozwi kodi – angalia</string>
+    <string name="tax_line_at_rate">Kiwango maalum cha asilimia 27.5: jumla halisi iliyopatikana kuanzia 1 Mac 2021 na kuuzwa kuanzia 1 Mac 2022 + riba</string>
+    <string name="tax_line_au_discounted">Faida halisi ya mtaji baada ya hasara na punguzo la asilimia 50</string>
+    <string name="tax_line_ca_taxable">Faida ya mtaji inayotozwa kodi (kiwango cha ujumuishaji 1/2)</string>
+    <string name="tax_line_ch_income">Tuzo zimeorodheshwa – angalia karatasi ya kazi ya ESTV kuhusu jinsi zinavyoshughulikiwa</string>
+    <string name="tax_line_ch_private">Faida ya mtaji kwenye mali binafsi: haijakokotolewa – angalia ESTV kwa uainishaji</string>
+    <string name="tax_line_ch_wealth">Kodi ya utajiri: haijakokotolewa – CSV ya mali inatumia bei ya jukwaa × USD/CHF tarehe 31 Des – thamani rasmi za kodi: orodha ya bei ya ESTV</string>
+    <string name="tax_line_de_long">Imemilikiwa &gt; mwaka 1: kwa kawaida haitozwi kodi chini ya § 23 EStG – angalia</string>
+    <string name="tax_line_denied_loss">Hasara zisizoruhusiwa (superficial loss)</string>
+    <string name="tax_line_fr_outflow">Utokaji bila mauzo (utoaji) – jumla ya gharama ya upatikanaji imepunguzwa kwa uwiano</string>
+    <string name="tax_line_fr_rate">Kiwango bapa cha asilimia 12.8 pamoja na michango ya kijamii (au kiwango cha ngazi ukichagua)</string>
+    <string name="tax_line_fr_threshold">Uondoaji hadi €305 kwa mwaka: kwa ujumla umesamehewa (jumla ya bei za mauzo) – angalia</string>
+    <string name="tax_line_gains">Faida</string>
+    <string name="tax_line_income">Mapato (tuzo kwa thamani wakati wa kupokea)</string>
+    <string name="tax_line_jp_misc">Mapato mengineyo (雑所得): faida halisi + mapato</string>
+    <string name="tax_line_long_net">Halisi – imemilikiwa &gt; mwaka 1</string>
+    <string name="tax_line_losses">Hasara</string>
+    <string name="tax_line_net">Faida/hasara halisi</string>
+    <string name="tax_line_new_net">Halisi – ilipatikana kuanzia 1 Mac 2021, iliuzwa kuanzia 1 Mac 2022</string>
+    <string name="tax_line_old_long_net">Halisi – ilipatikana kabla ya 1 Mac 2021 – imemilikiwa &gt; mwaka 1</string>
+    <string name="tax_line_old_short_net">Halisi – miamala ya kubahatisha (sheria ya zamani): ilipatikana kabla ya 1 Mac 2021 na kumilikiwa ≤ mwaka 1, au iliuzwa kabla ya 1 Mac 2022</string>
+    <string name="tax_line_proceeds">Mapato</string>
+    <string name="tax_line_short_net">Halisi – imemilikiwa ≤ mwaka 1</string>
+    <string name="tax_line_transfer_fees">Ada za uhamisho (wallet zako)</string>
+    <string name="tax_line_uk_after_exempt">Faida halisi juu ya kiasi kilichosamehewa (crypto pekee)</string>
+    <string name="tax_line_uk_exempt">Kiasi cha msamaha cha mwaka – kinahusu uondoaji wote kwa pamoja, kimetumika kikamilifu hapa</string>
+    <string name="tax_line_us_terms">Muda mfupi (≤ mwaka 1): viwango vya kawaida – muda mrefu (&gt; mwaka 1): viwango vya faida ya mtaji</string>
+    <string name="tax_line_withdrawal_fees">Ada za utoaji</string>
+
+    <!-- Steuer Deutschland -->
+    <string name="tax_de_below">chini ya kikomo</string>
+    <string name="tax_de_col_item">Kipengele</string>
+    <string name="tax_de_disclaimer">Kwa mwongozo tu – si ritani ya kodi wala ushauri wa kodi.</string>
+    <string name="tax_de_explain_below">Hadi %1$s: chini ya kikomo (kwa mwongozo).</string>
+    <string name="tax_de_explain_loss">Hasara halisi: hakuna kodi kwenye mauzo haya. Hasara chini ya § 23 EStG zinafidia tu faida kutoka mauzo binafsi – katika mwaka ule ule au kwa kurudisha kwenye mwaka uliopita na kusogeza kwenye miaka ijayo (§ 23 para. 3 na § 10d EStG). Tangaza hasara kwenye ritani yako ya kodi ili itathminiwe.</string>
+    <string name="tax_de_explain_reached">Kuanzia %1$s kiasi chote kinahesabiwa (kikomo cha msamaha – si posho).</string>
+    <string name="tax_de_explain_unknown">Haiwezi kukaguliwa: viwango vya ubadilishaji / bei za ununuzi au muda wa kumiliki havipo.</string>
+    <string name="tax_de_income_limit">Kikomo cha msamaha kwa huduma (§ 22 No. 3 EStG)</string>
+    <string name="tax_de_limit_scope">Vikomo vinahusu mauzo yote binafsi au huduma za mwaka kwa pamoja – pamoja na nje ya programu.</string>
+    <string name="tax_de_loading">Inakokotoa…</string>
+    <string name="tax_de_long_gains">Faida – imemilikiwa &gt; mwaka 1</string>
+    <string name="tax_de_long_losses">Hasara – imemilikiwa &gt; mwaka 1</string>
+    <string name="tax_de_loss">hasara halisi – inaweza kufidiwa tu dhidi ya faida kutoka mauzo binafsi (§ 23 EStG)</string>
+    <string name="tax_de_private_limit">Kikomo cha msamaha kwa mauzo binafsi (§ 23 EStG)</string>
+    <string name="tax_de_reached">kikomo kimefikiwa – kwa kawaida kiasi chote kinahesabiwa – angalia</string>
+    <string name="tax_de_short_gains">Faida – imemilikiwa ≤ mwaka 1</string>
+    <string name="tax_de_short_losses">Hasara – imemilikiwa ≤ mwaka 1</string>
+    <string name="tax_de_unclassified">Muda wa kumiliki haujulikani</string>
+    <string name="tax_de_unknown">haiwezi kukaguliwa</string>
+
+    <!-- Steuer-Vorlagen je Land -->
+    <string name="tax_template_at">Austria</string>
+    <string name="tax_template_au">Australia</string>
+    <string name="tax_template_beta">Beta</string>
+    <string name="tax_template_beta_note">Beta: kanuni za nchi zimerahisishwa, angalia kabla ya kuwasilisha ritani yako ya kodi</string>
+    <string name="tax_template_ca">Kanada</string>
+    <string name="tax_template_ch">Uswisi</string>
+    <string name="tax_template_confirm_text">Beta, kanuni zilizorahisishwa, miamala kutoka majukwaa mengine haipo – angalia kabla ya kuwasilisha ritani yako ya kodi.</string>
+    <string name="tax_template_confirm_title">Kiolezo cha kodi (beta)</string>
+    <string name="tax_template_current">Kiolezo: %1$s · Njia: %2$s · Sarafu ya fedha: %3$s</string>
+    <string name="tax_template_de">Ujerumani</string>
+    <string name="tax_template_fr">Ufaransa</string>
+    <string name="tax_template_hint">Kwa mwongozo tu: huweka njia, mwaka wa kodi na muhtasari wa karatasi ya kazi ya kodi. Kadi ya Jalada inabaki ya kati – zawadi na ada za uhamisho zinaweza kutofautiana na karatasi ya kazi.</string>
+    <string name="tax_template_jp">Japani</string>
+    <string name="tax_template_neutral">Ya kati (nchi zote)</string>
+    <string name="tax_template_suggestion">Pendekezo kwa eneo lako: %1$s</string>
+    <string name="tax_template_title">Kiolezo cha kodi</string>
+    <string name="tax_template_uk">Uingereza</string>
+    <string name="tax_template_us">Marekani</string>
+    <string name="tax_template_use">Tumia %1$s</string>
+
+    <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
+    <string name="tax_method_at">Mali za zamani/mpya – wastani unaosonga</string>
+    <string name="tax_method_ca_acb">Wastani wa gharama ACB (superficial loss)</string>
+    <string name="tax_method_fr_pta">Jumla ya bei ya upatikanaji (art. 150 VH bis)</string>
+    <string name="tax_method_jp_total">Wastani wa jumla (総平均法)</string>
+    <string name="tax_method_uk_pool">Section 104 pool (siku ile ile / siku 30)</string>
+    <string name="tax_note_at">Wastani unaosonga kwa kila sarafu na wallet – si kwa wallet zote (KryptowährungsVO § 2). Tuzo zinaingia kwenye mali mpya kwa gharama ya upatikanaji 0 (BMF: staking / airdrops) – faili ya mapato inaziorodhesha kwa thamani wakati wa kupokea. Ada hazikatwi kwa mali zilizopatikana kuanzia 1 Mac 2021 (§ 27a(4) no. 2, § 20(2) EStG): gharama na mapato bila ada. Riba ya ukopeshaji (aina kutoka uletaji wa CSV au dokezo) ni mapato wakati wa kupokea kwa asilimia 27.5 na inabaki na thamani hiyo kama gharama ya upatikanaji.</string>
+    <string name="tax_note_at_staking">Staking kwa sarafu unazomiliki tayari na airdrops: thamani wakati wa kupokea haijalishi kwa kodi – kisheria gharama ya upatikanaji ni 0 (§ 27b Abs. 2 EStG; BMF “Kryptowährungen”). Kodi inatozwa tu unapouza.</string>
+    <string name="tax_note_fr">Mauzo na ada zilizolipwa kwa crypto ni uondoaji – swap zinaahirishwa. Ada ya crypto kwenye mauzo inahesabiwa kwenye bei kabla ya ada – vinginevyo ni uondoaji wake yenyewe kwa thamani yake. Thamani ya jalada kutoka bei za kufunga za siku – bei ya kufunga ikikosekana gharama inabaki tupu.</string>
+    <string name="tax_note_network_fee">Ada ya mtandao iliyolipwa kwa crypto (uhamisho kwenda wallet yako, utoaji) ni uondoaji wa sarafu za ada kwa thamani ya soko – faida au hasara kwenye sarafu hizo tu, si hasara ya ada yote (%1$s). Bila bei iliyorekodiwa: bei ya kufunga ya siku (UTC) ya siku ile ile; bila bei ya kufunga mapato yanabaki tupu.</string>
+    <string name="tax_note_specific_id">Utambulisho mahususi hautumiki – FIFO inatumika.</string>
+    <string name="tax_note_spouse_gift">Zawadi iliyowekewa alama “kwa mwenzi / mshirika wa kiraia” haina faida wala hasara: mapato = gharama yako ya msingi, ambayo mwenzi wako anaichukua (%1$s).</string>
+    <string name="tax_note_stable_swap">Kuuza crypto kwa stablecoin (USDT/USDC/DAI …) unayoitunza ni crypto-kwa-crypto hapa na haitozwi kodi – irekodi kama swap kwenda stablecoin. Mauzo kwa euro pekee ndiyo yanatozwa kodi – “Uza” inahesabiwa kama mauzo kwa euro.</string>
+    <string name="tax_note_transfer_fee">Vivyo hivyo kwa ada ya USDT au fedha taslimu kwenye uhamisho kati ya wallet zako: haiongezwi kwenye gharama ya msingi na inaorodheshwa kama taarifa tu.</string>
+    <string name="tax_note_uk">Ulinganisho kwa mujibu wa HMRC: siku ile ile → siku 30 zinazofuata → Section 104 pool.</string>
+    <string name="tax_note_us_transition">Mpito 1 Jan 2025 (Rev. Proc. 2024-28 safe harbor): ikiwa miaka ya awali ilitumia FIFO kwa wallet zote, mafungu yaliyobaki tarehe 31 Des 2024 yanaenda kwa wallet zinazomiliki sarafu – wallet yenye sarafu za zamani zaidi inapata gharama ya msingi ya zamani zaidi. Mgawanyo huu ni kanuni ya programu – ilinganishe na kumbukumbu zako mwenyewe.</string>
+    <string name="tax_note_us_wallet">Kuanzia mwaka wa kodi 2025 IRS inahitaji gharama ya msingi kwa kila wallet au jukwaa (Rev. Proc. 2024-28): uhamishaji unatumia FIFO kwa kila wallet kuanzia 2025 – kwa miaka ya awali FIFO kwa wallet zote, au FIFO kwa kila wallet ikiwa hiyo ndiyo njia yako ya gharama.</string>
+    <string name="tax_note_withdrawal_fee">Ada ya utoaji kwa USDT au fedha taslimu si hasara: ada ya fedha taslimu si gharama inayokatwa, ada ya USDT ni uondoaji kwa thamani sawa bila faida – inaorodheshwa kama taarifa tu (%1$s).</string>
+    <string name="tax_summary_at_interest_income">inahesabiwa: mapato wakati wa kupokea kwa kiwango maalum cha asilimia 27.5 (§ 27b(2) no. 1 EStG / BMF) – sarafu zinabaki na thamani hii kama gharama ya upatikanaji</string>
+    <string name="tax_summary_at_reward_info">kwa taarifa tu – si sehemu ya jumla yoyote: tuzo zinaingia kwenye mali mpya kwa gharama ya upatikanaji 0 na zinatozwa kodi tu zikiuzwa (tayari ziko kwenye faida) – § 27b para. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">1 Jan–28 Feb 2022: chaguo la asilimia 27.5 linawezekana</string>
+    <string name="tax_summary_at_withdrawal_fee">Ada ya utoaji – haifidiwi dhidi ya mali mpya (gharama hazikatwi kwa kiwango maalum, § 20(2) EStG)</string>
+    <string name="tax_summary_ch_fifo_info">kwa taarifa tu – hesabu ya FIFO ya programu – haijaainishwa – angalia ESTV</string>
+    <string name="tax_summary_ch_year_end_value">thamani tarehe 31 Des kwenye CSV ya mali = bei ya jukwaa × USD/CHF – si thamani za kodi za ESTV</string>
+    <string name="tax_summary_de_withdrawal_fee">Ada ya utoaji – haifidiwi chini ya § 23, angalia kama inakatwa kama gharama inayohusiana na mapato</string>
+    <string name="tax_summary_not_calculated_estv">haijakokotolewa – orodha ya bei ya ESTV: %1$s</string>
+    <string name="tax_summary_orientation">Mwongozo</string>
+    <string name="tax_summary_orientation_block">Kwa mwongozo tu – si ushauri wa kodi – si tathmini</string>
+    <string name="tax_summary_orientation_item">Mwongozo: %1$s</string>
+    <string name="tax_summary_title">Muhtasari wa mwaka %1$s %2$s</string>
+    <string name="tax_summary_transfer_fee_info">Ada za uhamisho kwa USDT/fedha taslimu – si hasara na hazimo kwenye gharama ya msingi, taarifa tu</string>
+    <string name="tax_summary_withdrawal_fee_info">Ada za utoaji kwa USDT/fedha taslimu – hazihesabiwi kama hasara, taarifa tu</string>
+
+    <string name="tax_line_at_old_speculation_limit">Miamala ya kubahatisha (sheria ya zamani, imemilikiwa ≤ mwaka 1): kikomo cha msamaha (§ 31 (3) EStG toleo la zamani)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">Riba ya ukopeshaji kabla ya 1 Mac 2022 (thamani wakati wa kupokea)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">Riba kabla ya 1 Mac 2022: sheria ya zamani (kiwango cha kodi ya mapato), si asilimia 27.5</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">kabla ya 1 Mac 2022 – wasiliana na mtaalamu</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">Riba – inatozwa kodi wakati wa kupokea</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">Staking – kwa taarifa tu (gharama ya upatikanaji 0, kodi inatozwa wakati wa kuuza)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">Jumla ya riba (inatozwa kodi)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">Jumla ya staking (taarifa)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">Hasara halisi ya mtaji (inasogezwa mbele)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">bila chaguo: inajumuisha mauzo ya 1 Jan–28 Feb 2022</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">Staking kabla ya 1 Mac 2022: gharama ya upatikanaji imewekwa 0 – wasiliana na mtaalamu</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">Kanuni ya siku 30 bado inaweza kubadilisha takwimu hizi (manunuzi hadi %1$s)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Mapato kabla ya ada juu ya kikomo cha kuripoti (£50,000; 2020/21–2022/23: £49,200): ripoti kwa HMRC ikiwa umesajiliwa kwa Self Assessment, hata bila faida inayotozwa kodi</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">Thamani ya utajiri 31 Des %1$s (mwongozo)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">Orodha ya bei ya ESTV (ictax.admin.ch) ndiyo yenye mamlaka. Kwa sarafu zisizo kwenye orodha, kwa ujumla bei ya kufunga ya jukwaa inatumika. Kodi ya utajiri haijakokotolewa.</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – mali %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">haijakokotolewa</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">Anwani zinazofuatiliwa hazikuweza kusomwa – salio lake halimo kwenye faili hii</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">Mafungu ya anwani zinazofuatiliwa yanahesabiwa kuanzia tarehe yake ya ununuzi; ikiwa salio la anwani leo ni dogo zaidi, yanapunguzwa.</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">Anwani zinazofuatiliwa zinahesabiwa kwenye thamani ya jumla lakini hazina gharama ya upatikanaji – kwa hiyo faida huenda iko juu mno. Rekodi gharama kama ununuzi.</string>
+    <string name="tax_summary_fr_rewards_income">Kiasi kinadhani tuzo zilitozwa kodi kama mapato wakati wa kupokea (thamani wakati wa kupokea kwenye gharama ya upatikanaji) – vinginevyo gharama ya upatikanaji 0 ingekuwa tafsiri ya tahadhari.</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">Thamani za soko bila bei iliyorekodiwa (ada, zawadi/malipo, swap, tuzo za staking, ada za mtandao, thamani ya jalada) kwa bei ya kufunga ya siku (UTC) ya siku ya muamala</string>
+</resources>

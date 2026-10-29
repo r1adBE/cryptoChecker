@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">Engeza ikheli</string>
+    <string name="portfolio_address_count">Bala</string>
+    <string name="portfolio_address_error">Ukubuyekeza kwehlulekile</string>
+    <string name="portfolio_address_hint">Ikheli lomphakathi (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) noma i-xpub</string>
+    <string name="portfolio_address_label">Ilebula (uyazikhethela)</string>
+    <string name="portfolio_address_not_since_buy">Kusuka ekhelini · akukho ku-“Kusukela ekuthengeni”: %1$s</string>
+    <string name="portfolio_address_overlap">Kukhona nasemisebenzini yakho: %1$s – kokubili kuyangezwa. Ama-coin afanayo? Khetha “Bonisa kuphela”.</string>
+    <string name="portfolio_address_overlap_ask">Usuvele ubhala i-%1$s ngemisebenzi yakho. Engeza ibhalansi yaleli kheli ku-portfolio, noma ulibonise kuphela?</string>
+    <string name="portfolio_address_overlap_auto">“%1$s” manje kuyabonakala kuphela, akubalwa – i-%2$s ivela nasemisebenzini yakho.</string>
+    <string name="portfolio_address_overlap_title">Ama-coin afanayo nawemisebenzi yakho?</string>
+    <string name="portfolio_address_overlap_tx">Inani elifanayo nediphozithi/ukudlulisa kwakho (%1$s) – kungenzeka kubalwe kabili.</string>
+    <string name="portfolio_address_period_observed">Amakheli abukwayo abalwa kusukela ebhalansini yawo yokuqala ebonakele; izinguquko zakamuva zingukungena/ukuphuma, hhayi inzuzo.</string>
+    <string name="portfolio_address_privacy">Ikheli lomphakathi kuphela elithunyelwa ku-%1$s – hhayi okhiye noma ama-seed phrase. Umhlinzeki ulibona kanye nekheli lakho le-IP. Kuhlolwa kungadluli kanye emizuzwini engu-10.</string>
+    <string name="portfolio_address_remove">Susa ikheli</string>
+    <string name="portfolio_address_show_only">Bonisa kuphela, ungangezi ku-portfolio</string>
+    <string name="portfolio_address_show_only_short">Bonisa kuphela</string>
+    <string name="portfolio_address_tokens">Bala amathokheni</string>
+    <string name="portfolio_address_xpub_privacy">I-xpub iveza wonke amakheli ale wallet. Akhiqizwa kudivayisi yakho; amakheli ngamanye kuphela athunyelwa ku-%1$s – okungenani izicelo ezingu-40 ekuskeneni kokuqala, kamuva zibe ncane. Okhiye abayimfihlo (xprv) abamukelwa neze.</string>
+    <string name="portfolio_address_xpub_gap">Ukusesha kuma ngemuva kwamakheli angu-%1$d alandelanayo angasetshenziswanga (izinga le-BIP44 elisetshenziswa ama-wallet amaningi). Ikheli elisetshenzisiwe elingaphezu kwaleso sikhala alibalwa – lengeze ngokwehlukile.</string>
+    <string name="portfolio_address_xpub_used">Amakheli asetshenziswayo: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">Mningi kakhulu amakheli asetshenzisiwe ukuthi abuyekezwe</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">Amakheli amaningi kakhulu – izinkokhelo ezintsha kumakheli amadala angenalutho zingase zingatholakali</string>
+    <string name="portfolio_addresses_title">Amakheli</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Amakheli e-Bitcoin Cash awakwazi ukubukwa: ayikho insiza yomphakathi yamahhala engenayo i-API key imibandela yayo evumela lokhu.</string>
+    <string name="address_bep2_shutdown">I-BNB Beacon Chain (BEP-2) yavalwa ngo-2024 – amabhalansi manje asku-BNB Smart Chain (0x…)</string>
+    <string name="address_checksum">I-checksum ayilungile – hlola amaphutha okubhala</string>
+    <string name="address_doge_unsupported">Amakheli e-Dogecoin awakwazi ukubukwa: ayikho insiza yomphakathi yamahhala engenayo i-API key imibandela yayo evumela lokhu.</string>
+    <string name="address_duplicate">Leli kheli selingeziwe</string>
+    <string name="address_ens">Amagama e-ENS awasekelwa – faka ikheli le-0x</string>
+    <string name="address_invalid">Akulona ikheli elivumelekile lenethiwekhi esekelwayo</string>
+    <string name="address_limit">Amakheli angu-20 ubuningi</string>
+    <string name="address_secret">Lokhu kubukeka njengokhiye oyimfihlo noma i-seed phrase – ungakufaki neze noma kuphi. Amakheli omphakathi kuphela.</string>
+    <string name="address_testnet">Amakheli e-testnet awasekelwa</string>
+    <string name="address_unsupported">Lolu hlobo lwekheli alusekelwa</string>
+    <string name="address_wrong_chain">Ikheli lingelenye inethiwekhi</string>
+    <string name="address_xpub_multisig">Okhiye be-multisig (Ypub/Zpub) abasekelwa</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">I-akhawunti ye-Taproot (BIP86): amakheli e-bc1p… akhiqizwa kulo khiye, okwamukela nokwenshintsho.</string>
+    <string name="portfolio_address_taproot_hint">I-wallet ye-Taproot? Esikhundleni salokho namathisela i-descriptor tr(…) evela ku-wallet yakho – i-xpub evamile isesha kuphela njengamakheli e-Legacy ne-SegWit.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">Iseva yakho ayitholakali</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">Noma ngubani oqhuba i-%1$s ubona wonke amakheli abuziwe ale wallet futhi angawaxhumanisa komunye nomunye nasekhelini lakho le-IP.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">Ukugwema lokhu, faka iseva yakho ku-Izilungiselelo › I-portfolio › Iseva yakho yamakheli.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d ithokheni engaziwa (ayibalwa)</item>
+        <item quantity="other">+%1$d amathokheni angaziwa (awabalwa)</item>
+    </plurals>
+</resources>

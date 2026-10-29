@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">Ünvan əlavə et</string>
+    <string name="portfolio_address_count">Hesabla</string>
+    <string name="portfolio_address_error">Yeniləmə alınmadı</string>
+    <string name="portfolio_address_hint">Açıq ünvan (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) və ya xpub</string>
+    <string name="portfolio_address_label">Ad (istəyə görə)</string>
+    <string name="portfolio_address_not_since_buy">Ünvandan · «Alışdan bəri»-yə daxil deyil: %1$s</string>
+    <string name="portfolio_address_overlap">Öz əməliyyatlarında da var: %1$s – hər ikisi toplanır. Eyni koinlərdir? «Yalnız göstər» seç.</string>
+    <string name="portfolio_address_overlap_ask">%1$s artıq öz əməliyyatlarınla qeyd olunur. Bu ünvanın balansı portfelə əlavə edilsin, yoxsa yalnız göstərilsin?</string>
+    <string name="portfolio_address_overlap_auto">«%1$s» indi yalnız göstərilir, hesablanmır – %2$s əməliyyatlarında da var.</string>
+    <string name="portfolio_address_overlap_title">Əməliyyatlarındakı eyni koinlərdir?</string>
+    <string name="portfolio_address_overlap_tx">Öz depozitin/köçürmən (%1$s) ilə eyni məbləğ – çox güman ki, iki dəfə hesablanıb.</string>
+    <string name="portfolio_address_period_observed">İzlənən ünvanlar ilk müşahidə olunan balansdan hesablanır; sonrakı dəyişikliklər daxilolma/çıxış sayılır, gəlir deyil.</string>
+    <string name="portfolio_address_privacy">%1$s xidmətinə yalnız açıq ünvan göndərilir – heç vaxt açarlar və ya seed ifadələri. Provayder onu IP ünvanınla birlikdə görür. Ən çoxu 10 dəqiqədən bir yoxlanılır.</string>
+    <string name="portfolio_address_remove">Ünvanı sil</string>
+    <string name="portfolio_address_show_only">Yalnız göstər, portfelə əlavə etmə</string>
+    <string name="portfolio_address_show_only_short">Yalnız göstər</string>
+    <string name="portfolio_address_tokens">Tokenləri hesabla</string>
+    <string name="portfolio_address_xpub_privacy">xpub bu pulqabının bütün ünvanlarını açır. Onlar sənin cihazında törədilir; %1$s xidmətinə yalnız ayrı-ayrı ünvanlar göndərilir – ilk skanda ən azı 40 sorğu, sonra daha az. Şəxsi açarlar (xprv) heç vaxt qəbul edilmir.</string>
+    <string name="portfolio_address_xpub_gap">Axtarış ardıcıl %1$d istifadə olunmamış ünvandan sonra dayanır (əksər pulqabılarının istifadə etdiyi BIP44 standartı). Bu boşluqdan sonrakı istifadə olunmuş ünvan hesablanmır – onu ayrıca əlavə et.</string>
+    <string name="portfolio_address_xpub_used">İstifadədə olan ünvanlar: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">Yeniləmək üçün istifadə olunmuş ünvan çox çoxdur</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">Ünvan çox çoxdur – köhnə, boş ünvanlara yeni ödənişlər aşkarlanmaya bilər</string>
+    <string name="portfolio_addresses_title">Ünvanlar</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Bitcoin Cash ünvanlarını izləmək mümkün deyil: şərtləri buna icazə verən, API açarı tələb etməyən pulsuz açıq xidmət yoxdur.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) 2024-cü ildə bağlanıb – balanslar indi BNB Smart Chain-dədir (0x…)</string>
+    <string name="address_checksum">Yoxlama cəmi səhvdir – yazı səhvlərini yoxla</string>
+    <string name="address_doge_unsupported">Dogecoin ünvanlarını izləmək mümkün deyil: şərtləri buna icazə verən, API açarı tələb etməyən pulsuz açıq xidmət yoxdur.</string>
+    <string name="address_duplicate">Bu ünvan artıq əlavə edilib</string>
+    <string name="address_ens">ENS adları dəstəklənmir – 0x ünvanını daxil et</string>
+    <string name="address_invalid">Dəstəklənən şəbəkənin etibarlı ünvanı deyil</string>
+    <string name="address_limit">Ən çoxu 20 ünvan</string>
+    <string name="address_secret">Bu, şəxsi açara və ya seed ifadəsinə bənzəyir – onu heç vaxt heç yerə daxil etmə. Yalnız açıq ünvanlar.</string>
+    <string name="address_testnet">Testnet ünvanları dəstəklənmir</string>
+    <string name="address_unsupported">Bu ünvan növü dəstəklənmir</string>
+    <string name="address_wrong_chain">Ünvan başqa şəbəkəyə aiddir</string>
+    <string name="address_xpub_multisig">Multisig açarları (Ypub/Zpub) dəstəklənmir</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot hesabı (BIP86): bc1p… ünvanları bu açardan törədilir – qəbul və qalıq üçün.</string>
+    <string name="portfolio_address_taproot_hint">Taproot pulqabı? Əvəzində pulqabındakı tr(…) deskriptorunu yapışdır – adi xpub yalnız Legacy və SegWit ünvanları kimi axtarılır.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">Öz serverin əlçatan deyil</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">%1$s xidmətini idarə edən şəxs bu pulqabının sorğulanan bütün ünvanlarını görür və onları bir-biri ilə və IP ünvanınla əlaqələndirə bilər.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">Bunun qarşısını almaq üçün öz serverini Ayarlar › Portfel › Ünvanlar üçün öz server bölməsində daxil et.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d naməlum token (hesablanmır)</item>
+        <item quantity="other">+%1$d naməlum token (hesablanmır)</item>
+    </plurals>
+</resources>

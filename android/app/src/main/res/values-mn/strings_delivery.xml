@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">Дохио хүрч ирэхийг баталгаажуулах</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">OK</string>
+    <string name="delivery_state_warn">Шалгана уу</string>
+    <string name="delivery_state_info">Тэмдэглэл</string>
+    <string name="delivery_allowed">Зөвшөөрсөн</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">Мэдэгдэл</string>
+    <string name="delivery_notifications_off">Унтраалттай – дохио ирэхгүй</string>
+    <string name="delivery_notifications_not_asked">Хараахан зөвшөөрөөгүй</string>
+    <string name="delivery_channel">Дохионы суваг</string>
+    <string name="delivery_channel_high">Өндөр ач холбогдол – дэлгэц дээр гарч ирнэ</string>
+    <string name="delivery_channel_low">Бага ач холбогдол – дохио зөвхөн жагсаалтад дуугүй гарна</string>
+    <string name="delivery_channel_off">Унтраасан – дохио ирэхгүй</string>
+    <string name="delivery_exact_on">Асаалттай – ойролцоогоор 15 минут тутам</string>
+    <string name="delivery_exact_off">Унтраалттай – Android жигд бусаар шалгадаг</string>
+    <string name="delivery_battery">Батарейн оновчлол</string>
+    <string name="delivery_battery_unrestricted">Хязгааргүй</string>
+    <string name="delivery_battery_optimized">Оновчилсон – Android шалгалтыг хойшлуулж болно. Апп онцгой зөвшөөрөл хүсдэггүй; үүнийг аппын батарейн тохиргоонд өөрчилж болно.</string>
+    <string name="delivery_background">Арын горимын хэрэглээ</string>
+    <string name="delivery_background_restricted">Хязгаарласан – Android арын шалгалтыг зогсооно</string>
+    <string name="delivery_dnd">Бүү саатуул</string>
+    <string name="delivery_dnd_on">Асаалттай – дохио дуугүй ирж магадгүй</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">%1$s хүртэл идэвхтэй – хугацаа нь болсон дохио тэр хүртэл хүлээнэ</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – хугацаа нь болсон дохио энэ хугацаанд хүлээнэ</string>
+    <string name="delivery_last_check">Арын горимын сүүлийн шалгалт</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – 6 цагаас өмнө</string>
+    <string name="delivery_last_check_never">Одоогоор алга</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">Зөвшөөрөх</string>
+    <string name="delivery_action_change">Өөрчлөх</string>
+    <string name="delivery_action_show">Харуулах</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">Баннер ба дуу</string>
+    <string name="delivery_alert_off">Баннер унтраалттай – дохио зөвхөн Мэдэгдлийн төвд харагдана</string>
+    <string name="delivery_sound_off">Дуу унтраалттай – дохио дуугүй ирнэ</string>
+    <string name="delivery_time_sensitive">Цаг мэдрэмтгий мэдэгдэл</string>
+    <string name="delivery_time_sensitive_off">Унтраалттай – Фокус дохиог саатуулж болно</string>
+    <string name="delivery_background_refresh">Арын горимд шинэчлэх</string>
+    <string name="delivery_low_power">Цэнэг хэмнэх горим</string>
+    <string name="delivery_swipe_away">Аппыг шударч хаасан уу?</string>
+    <string name="delivery_swipe_away_note">Апп сэлгэгч дээр аппыг шударч хаавал iOS түүнийг дахин нээх хүртэл арын шалгалтыг зогсооно.</string>
+    <string name="delivery_live_activity">Live Activity</string>
+    <string name="delivery_live_activity_note">Ханшийг түгжээтэй дэлгэц дээр харуулдаг ч зөвхөн апп шалгахад шинэчлэгдэнэ – дохиог илүү олон шалгуулдаггүй.</string>
+
+    <string name="alarm_first_check">Дохио ирж байгааг шалгах</string>
+
+    <string name="oem_battery_title">Үйлдвэрлэгчийн батарей хэмнэгч</string>
+    <string name="oem_battery_xiaomi">Xiaomi аппыг бүрэн зогсоож болно – тэгвэл дохио ирэхгүй. «Автоматаар эхлүүлэх»-ийг асааж, Батарей хэмнэгчийг «Хязгаарлалтгүй» болгоно уу.</string>
+    <string name="oem_battery_samsung">Samsung аппыг гүн нойронд оруулж болно – тэгвэл дохио ирэхгүй. Батарей › Арын горимын хэрэглээний хязгаар хэсэгт үүнийг «Хэзээ ч унтдаггүй апп»-д нэмнэ үү.</string>
+    <string name="oem_battery_huawei">Huawei/Honor аппыг зогсоож болно – тэгвэл дохио ирэхгүй. Батарей › Апп эхлүүлэх хэсэгт «Гараар удирдах»-ыг сонгож, бүх сонголтыг зөвшөөрнө үү.</string>
+    <string name="oem_battery_oneplus">OnePlus аппыг зогсоож болно – тэгвэл дохио ирэхгүй. «Автоматаар эхлүүлэх» болон Батарейн хэрэглээ хэсэгт арын идэвхийг зөвшөөрнө үү.</string>
+    <string name="oem_battery_oppo">Oppo/Realme аппыг зогсоож болно – тэгвэл дохио ирэхгүй. «Автоматаар эхлүүлэх» болон Батарейн хэрэглээ хэсэгт арын идэвхийг зөвшөөрнө үү.</string>
+    <string name="oem_battery_vivo">Vivo аппыг зогсоож болно – тэгвэл дохио ирэхгүй. «Автоматаар эхлүүлэх» болон Батарей хэсэгт арын горимын өндөр эрчим хүчний хэрэглээг зөвшөөрнө үү.</string>
+    <string name="alarm_reliability_stale">Сүүлийн шалгалт %1$s – дохио хоцорч магадгүй</string>
+    <string name="alarm_reliability_never">Дохио асаалттай – арын шалгалт хараахан хийгдээгүй</string>
+    <string name="alarm_reliability_notifications_off">Мэдэгдэл унтраалттай – дохио ирэхгүй</string>
+    <string name="alarm_reliability_battery">Батарей хэмнэлт дохионы шалгалтыг зогсоож болно</string>
+    <string name="alarm_reliability_background_refresh">Арын горимд шинэчлэх унтраалттай – дохио ирэхгүй байж магадгүй</string>
+</resources>

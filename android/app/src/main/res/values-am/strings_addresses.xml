@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">አድራሻ ያክሉ</string>
+    <string name="portfolio_address_count">ይቁጠሩ</string>
+    <string name="portfolio_address_error">ማዘመን አልተሳካም</string>
+    <string name="portfolio_address_hint">ይፋዊ አድራሻ (BTC፣ ETH &amp; EVM፣ SOL፣ TRX፣ XRP፣ LTC፣ TON፣ ADA) ወይም xpub</string>
+    <string name="portfolio_address_label">መለያ ስም (አማራጭ)</string>
+    <string name="portfolio_address_not_since_buy">ከአድራሻ · በ«ከግዢ ወዲህ» ውስጥ የለም፦ %1$s</string>
+    <string name="portfolio_address_overlap">በራስዎ ግብይቶች ውስጥም አለ፦ %1$s – ሁለቱም ይደመራሉ። ተመሳሳይ ሳንቲሞች ናቸው? «ያሳዩ ብቻ»ን ይምረጡ።</string>
+    <string name="portfolio_address_overlap_ask">%1$sን አስቀድመው በራስዎ ግብይቶች ይመዘግባሉ። የዚህን አድራሻ ቀሪ ሂሳብ ወደ ፖርትፎሊዮው ይደምሩ ወይስ ያሳዩት ብቻ?</string>
+    <string name="portfolio_address_overlap_auto">«%1$s» አሁን የሚታይ ብቻ ነው፣ አይቆጠርም – %2$s በግብይቶችዎ ውስጥም ይገኛሉ።</string>
+    <string name="portfolio_address_overlap_title">ከግብይቶችዎ ጋር ተመሳሳይ ሳንቲሞች?</string>
+    <string name="portfolio_address_overlap_tx">ከራስዎ ገቢ/ዝውውር (%1$s) ጋር ተመሳሳይ መጠን – ምናልባት ሁለት ጊዜ ተቆጥሯል።</string>
+    <string name="portfolio_address_period_observed">የሚከታተሉ አድራሻዎች ከመጀመሪያው የታየ ቀሪ ሂሳባቸው ይቆጠራሉ፤ በኋላ ያሉ ለውጦች ገቢ/ወጪ ናቸው እንጂ ትርፍ አይደሉም።</string>
+    <string name="portfolio_address_privacy">ወደ %1$s የሚላከው ይፋዊው አድራሻ ብቻ ነው – ቁልፎች ወይም የዘር ሐረጎች (seed phrase) በፍጹም አይላኩም። አቅራቢው ከአይፒ አድራሻዎ ጋር አብሮ ያየዋል። ቢበዛ በየ10 ደቂቃው ይፈተሻል።</string>
+    <string name="portfolio_address_remove">አድራሻ ያስወግዱ</string>
+    <string name="portfolio_address_show_only">ያሳዩ ብቻ፣ ወደ ፖርትፎሊዮ አይደምሩ</string>
+    <string name="portfolio_address_show_only_short">ያሳዩ ብቻ</string>
+    <string name="portfolio_address_tokens">ቶከኖችን ይቁጠሩ</string>
+    <string name="portfolio_address_xpub_privacy">xpub የዚህን ቦርሳ ሁሉንም አድራሻዎች ይገልጣል። በመሣሪያዎ ላይ ይመነጫሉ፤ ወደ %1$s የሚላኩት ነጠላ አድራሻዎች ብቻ ናቸው – በመጀመሪያው ፍተሻ ቢያንስ 40 ጥያቄዎች፣ በኋላ ያነሱ። የግል ቁልፎች (xprv) በፍጹም አይቀበሉም።</string>
+    <string name="portfolio_address_xpub_gap">ፍለጋው በተከታታይ %1$d ጥቅም ላይ ያልዋሉ አድራሻዎች በኋላ ይቆማል (አብዛኞቹ ቦርሳዎች የሚጠቀሙበት የBIP44 መስፈርት)። ከዚያ ክፍተት ባሻገር ያለ ጥቅም ላይ የዋለ አድራሻ አይቆጠርም – ለብቻው ያክሉት።</string>
+    <string name="portfolio_address_xpub_used">ጥቅም ላይ ያሉ አድራሻዎች፦ %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">ለማዘመን በጣም ብዙ ጥቅም ላይ የዋሉ አድራሻዎች</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">በጣም ብዙ አድራሻዎች – ወደ ቀድሞ ባዶ አድራሻዎች የሚመጡ አዳዲስ ክፍያዎች ላይታወቁ ይችላሉ</string>
+    <string name="portfolio_addresses_title">አድራሻዎች</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">የBitcoin Cash አድራሻዎችን መከታተል አይቻልም፦ ውሉ የሚፈቅድ ያለ API ቁልፍ የሚሰራ ነፃ ይፋዊ አገልግሎት የለም።</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) በ2024 ተዘግቷል – ቀሪ ሂሳቦች አሁን በBNB Smart Chain (0x…) ላይ ናቸው</string>
+    <string name="address_checksum">ቼክሰሙ የተሳሳተ ነው – የፊደል ስህተት ካለ ይፈትሹ</string>
+    <string name="address_doge_unsupported">የDogecoin አድራሻዎችን መከታተል አይቻልም፦ ውሉ የሚፈቅድ ያለ API ቁልፍ የሚሰራ ነፃ ይፋዊ አገልግሎት የለም።</string>
+    <string name="address_duplicate">ይህ አድራሻ አስቀድሞ ታክሏል</string>
+    <string name="address_ens">የENS ስሞች አይደገፉም – የ0x አድራሻውን ያስገቡ</string>
+    <string name="address_invalid">የሚደገፍ አውታረ መረብ ትክክለኛ አድራሻ አይደለም</string>
+    <string name="address_limit">ቢበዛ 20 አድራሻዎች</string>
+    <string name="address_secret">ይህ የግል ቁልፍ ወይም የዘር ሐረግ ይመስላል – በየትም ቦታ በፍጹም አያስገቡት። ይፋዊ አድራሻዎች ብቻ።</string>
+    <string name="address_testnet">የTestnet አድራሻዎች አይደገፉም</string>
+    <string name="address_unsupported">ይህ የአድራሻ ዓይነት አይደገፍም</string>
+    <string name="address_wrong_chain">አድራሻው የሌላ አውታረ መረብ ነው</string>
+    <string name="address_xpub_multisig">የMultisig ቁልፎች (Ypub/Zpub) አይደገፉም</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">የTaproot መለያ (BIP86)፦ የbc1p… አድራሻዎች ከዚህ ቁልፍ ይመነጫሉ፣ ለመቀበልና ለመልስ (change)።</string>
+    <string name="portfolio_address_taproot_hint">የTaproot ቦርሳ ነው? በምትኩ ከቦርሳዎ የtr(…) ገላጭን (descriptor) ይለጥፉ – ተራ xpub የሚፈለገው እንደ Legacy እና SegWit አድራሻዎች ብቻ ነው።</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">የራስ አገልጋይ ሊደረስበት አልቻለም</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">%1$sን የሚያስተዳድር ማንኛውም ሰው የዚህን ቦርሳ የተጠየቁ አድራሻዎች ሁሉ ያያል፤ እርስ በእርስና ከአይፒ አድራሻዎ ጋር ሊያገናኛቸው ይችላል።</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">ይህንን ለማስቀረት፣ በቅንብሮች › ፖርትፎሊዮ › ለአድራሻዎች የራስ አገልጋይ ስር የራስዎን አገልጋይ ያስገቡ።</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d ያልታወቀ ቶከን (አልተቆጠረም)</item>
+        <item quantity="other">+%1$d ያልታወቁ ቶከኖች (አልተቆጠሩም)</item>
+    </plurals>
+</resources>

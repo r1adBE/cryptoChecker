@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">Altcoin ທຽບກັບ Bitcoin</string>
+    <string name="neutral_btc_indicators_title">ຕົວຊີ້ວັດ Bitcoin</string>
+    <string name="neutral_halving_last">Halving ຄັ້ງຫຼ້າສຸດ: %1$s</string>
+    <string name="neutral_halving_next">Halving ຄັ້ງຕໍ່ໄປຄາດວ່າປະມານ %1$s (ປະເມີນຈາກປະຕິທິນ – ຄວາມສູງບລັອກບໍ່ມີໃນຕອນນີ້).</string>
+    <string name="neutral_indicators_disclaimer">ສະເພາະຄ່າທີ່ວັດໄດ້, ບໍ່ມີການປະເມີນ. ບໍ່ແມ່ນການຄາດຄະເນ ແລະ ບໍ່ແມ່ນຄຳແນະນຳການລົງທຶນ.</string>
+    <string name="neutral_onchain_missing">ຂໍ້ມູນ On-chain (Coin Metrics) ບໍ່ມີໃນຕອນນີ້.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">ລາຄາຕ່ຳກວ່າຈຸດສູງສຸດຕະຫຼອດການກ່ອນໜ້າຂອງມັນເທົ່າໃດ.</string>
+    <string name="neutral_explain_change_30d">ລາຄາມື້ນີ້ທຽບກັບ 30 ມື້ກ່ອນ.</string>
+    <string name="neutral_explain_hashrate">Hashrate ສະເລ່ຍ 30 ມື້ທຽບກັບສະເລ່ຍ 60 ມື້.</string>
+    <string name="neutral_explain_ma200w">ສະເລ່ຍຂອງລາຄາປິດລາຍອາທິດ 200 ຄັ້ງຫຼ້າສຸດ.</string>
+    <string name="neutral_explain_mayer">ລາຄາຫານດ້ວຍສະເລ່ຍ 200 ມື້.</string>
+    <string name="neutral_explain_mvrv">ມູນຄ່າຕະຫຼາດຫານດ້ວຍມູນຄ່າທີ່ຮັບຮູ້ແລ້ວ (on-chain).</string>
+    <string name="neutral_explain_pi_gap">ສະເລ່ຍ 111 ມື້ທຽບກັບສອງເທົ່າຂອງສະເລ່ຍ 350 ມື້.</string>
+    <string name="neutral_explain_puell">ລາຍຮັບລາຍວັນຂອງນັກຂຸດຫານດ້ວຍສະເລ່ຍ 365 ມື້ຂອງມັນ.</string>
+    <string name="neutral_explain_rsi_daily">Relative Strength Index ຂອງ 14 ມື້ຫຼ້າສຸດ, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">Relative Strength Index ຂອງ 14 ອາທິດຫຼ້າສຸດ, 0–100.</string>
+    <string name="neutral_explain_sma50_200">ສະເລ່ຍ 50 ມື້ທຽບກັບສະເລ່ຍ 200 ມື້.</string>
+    <string name="neutral_explain_vs_btc">ການປ່ຽນແປງລາຄາທຽບກັບ Bitcoin ໃນ 90 ມື້.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">ແອັບສະແດງສະເພາະຈຳນວນ ແລະ ບໍ່ໄດ້ຕິດປ້າຍວ່າເປັນລະດູ. ໂດຍປົກກະຕິຄ່ານີ້ປ່ຽນແປງເປັນມື້, ບໍ່ແມ່ນເປັນຊົ່ວໂມງ.</string>
+    <string name="neutral_info_btc_how">ແຕ່ລະຄ່າມາພ້ອມປະໂຫຍກໜຶ່ງກ່ຽວກັບສິ່ງທີ່ມັນວັດ ແລະ ຕຳແໜ່ງຂອງມັນໃນປະຫວັດຂອງຕົນເອງນັບແຕ່ປີ 2016. ແອັບບໍ່ໄດ້ປະເມີນຄ່າເຫຼົ່ານີ້ ແລະ ບໍ່ໄດ້ສະຫຼຸບໄລຍະຕະຫຼາດ; ຂີດຈຳກັດສຳລັບສັນຍານເຕືອນຕະຫຼາດມີແຕ່ທີ່ທ່ານຕັ້ງເອງເທົ່ານັ້ນ. ຮູບແບບໃນອະດີດບໍ່ຈຳເປັນຕ້ອງເກີດຊ້ຳ.</string>
+    <string name="neutral_info_btc_what">ຕົວຊີ້ວັດ Bitcoin ທົ່ວໄປເປັນຄ່າທີ່ວັດໄດ້ແບບທຳມະດາ: Mayer Multiple, ສະເລ່ຍ 200 ອາທິດ, ການລົງຈາກຈຸດສູງສຸດຕະຫຼອດການ, ການປ່ຽນແປງໃນ 30 ມື້, ຊ່ອງຫ່າງ Pi Cycle ແລະ ຄ່າ on-chain MVRV, Puell Multiple ແລະ hashrate.</string>
+    <string name="neutral_info_coin_how">ແຕ່ລະຄ່າມາພ້ອມປະໂຫຍກໜຶ່ງກ່ຽວກັບສິ່ງທີ່ມັນວັດ, ໂດຍບໍ່ມີການປະເມີນ. ສຳລັບຫຼຽນທີ່ມີປະຫວັດລາຄາສັ້ນ ບາງຄ່າອາດຂາດໄປ. ຂໍ້ມູນ On-chain ບໍ່ລວມຢູ່ນີ້.</string>
+    <string name="neutral_info_coin_what">ຕົວຊີ້ວັດທຳມະດາດຽວກັນສຳລັບຫຼຽນທີ່ທ່ານເລືອກ, ຈາກຂໍ້ມູນລາຄາເທົ່ານັ້ນ: Mayer Multiple, ສະເລ່ຍ 200 ອາທິດ, ການລົງຈາກຈຸດສູງສຸດຕະຫຼອດການ, ການປ່ຽນແປງໃນ 30 ມື້, ແນວໂນ້ມ 50/200 ມື້, RSI ແລະ ຄວາມແຂງແຮງທຽບກັບ Bitcoin ໃນ 90 ມື້.</string>
+    <string name="neutral_info_halving_how">Halving ຄັ້ງຕໍ່ໄປຄຳນວນຈາກຄວາມສູງບລັອກປັດຈຸບັນ ແລະ ເວລາບລັອກສະເລ່ຍຂອງໄລຍະ difficulty ປັດຈຸບັນ (mempool.space); ຖ້າບໍ່ມີຂໍ້ມູນນັ້ນ, ຄຳນວນຈາກປະຕິທິນ (halving ຄັ້ງຫຼ້າສຸດ ບວກປະມານສີ່ປີ). ແຜນພູມສະແດງເສັ້ນທາງລາຄາຂອງຮອບວຽນທີ່ຜ່ານມານັບແຕ່ halving ຂອງມັນ – ເປັນປະຫວັດ, ບໍ່ແມ່ນການຄາດຄະເນ.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">ແນວໂນ້ມ 50/200 ມື້</string>
+    <string name="ind_drawdown">ການລົງຈາກຈຸດສູງສຸດຕະຫຼອດການ</string>
+    <string name="ind_missing">ຂໍ້ມູນບໍ່ພຽງພໍ</string>
+    <string name="ind_rsi_daily">RSI (ລາຍວັນ)</string>
+    <string name="ind_rsi_weekly">RSI (ລາຍອາທິດ)</string>
+    <string name="ind_vs_btc">ຄວາມແຂງແຮງທຽບກັບ Bitcoin (90 ມື້)</string>
+    <string name="neutral_ind_change_30d">ການປ່ຽນແປງ 30 ມື້</string>
+    <string name="neutral_ind_hashrate">Hashrate 30/60 ມື້</string>
+    <string name="neutral_ind_ma200w">ສະເລ່ຍ 200 ອາທິດ</string>
+    <string name="neutral_ind_pi_gap">ຊ່ອງຫ່າງ Pi Cycle</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">ສູງໝາຍເຖິງ altcoin ໃຫຍ່ສ່ວນຫຼາຍເຮັດໄດ້ດີກວ່າ Bitcoin ໃນ 90 ມື້, ຕ່ຳໝາຍເຖິງ Bitcoin ເຮັດໄດ້ດີກວ່າສ່ວນຫຼາຍ.</string>
+    <string name="ind_read_ath_distance">ນ້ອຍໝາຍເຖິງລາຄາໃກ້ສະຖິຕິຂອງມັນ, ໃຫຍ່ໝາຍເຖິງມັນຢູ່ຕ່ຳກວ່າຫຼາຍ.</string>
+    <string name="ind_read_change_30d">ບວກໝາຍເຖິງສູງກວ່າ 30 ມື້ກ່ອນ, ລົບໝາຍເຖິງຕ່ຳກວ່າ.</string>
+    <string name="ind_read_funding">ສູງໝາຍເຖິງນັກເທຣດຫຼາຍຄົນເດີມພັນວ່າລາຄາຈະຂຶ້ນດ້ວຍ leverage, ລົບໝາຍເຖິງຫຼາຍຄົນເດີມພັນວ່າລາຄາຈະລົງ.</string>
+    <string name="ind_read_hashrate_30_60">ບວກໝາຍເຖິງພະລັງການຄຳນວນກຳລັງເພີ່ມຂຶ້ນ, ລົບໝາຍເຖິງນັກຂຸດກຳລັງປິດເຄື່ອງ.</string>
+    <string name="ind_read_leverage">Longs ຫຼາຍໝາຍເຖິງຫຼາຍຄົນເດີມພັນວ່າລາຄາຈະຂຶ້ນດ້ວຍເງິນກູ້, shorts ຫຼາຍໝາຍເຖິງຫຼາຍຄົນເດີມພັນວ່າລາຄາຈະລົງ.</string>
+    <string name="ind_read_ma200w">ລາຄາສູງກວ່າມັນຫຼາຍໝາຍເຖິງການຂຶ້ນຍາວນານ, ລາຄາໃກ້ມັນໝາຍເຖິງການຖອຍລົງເລິກ.</string>
+    <string name="ind_read_mayer">ສູງໝາຍເຖິງລາຄາສູງກວ່າສະເລ່ຍ 200 ມື້ຫຼາຍ, ຕ່ຳໝາຍເຖິງຢູ່ຕ່ຳກວ່າ.</string>
+    <string name="ind_read_mvrv">ສູງໝາຍເຖິງລາຄາສູງກວ່າທີ່ຜູ້ຖືຈ່າຍໂດຍສະເລ່ຍຫຼາຍ, ຕ່ຳໝາຍເຖິງໃກ້ ຫຼື ຕ່ຳກວ່າ.</string>
+    <string name="ind_read_pi_cycle_gap">ໃກ້ສູນໝາຍເຖິງສະເລ່ຍທັງສອງເກືອບພົບກັນ, ລົບຫຼາຍໝາຍເຖິງພວກມັນຫ່າງກັນຫຼາຍ.</string>
+    <string name="ind_read_puell">ສູງໝາຍເຖິງນັກຂຸດມີລາຍໄດ້ຫຼາຍກວ່າປົກກະຕິຫຼາຍ, ຕ່ຳໝາຍເຖິງໜ້ອຍກວ່າຫຼາຍ.</string>
+    <string name="ind_read_rsi_daily">ສູງກວ່າ 70 ໝາຍເຖິງຂຶ້ນແຮງໃນມື້ຫຼ້າສຸດ, ຕ່ຳກວ່າ 30 ໝາຍເຖິງລົງແຮງ.</string>
+    <string name="ind_read_rsi_weekly">ສູງກວ່າ 70 ໝາຍເຖິງຂຶ້ນແຮງໃນອາທິດຫຼ້າສຸດ, ຕ່ຳກວ່າ 30 ໝາຍເຖິງລົງແຮງ.</string>
+    <string name="ind_read_sma50_vs_200">ບວກໝາຍເຖິງສະເລ່ຍໄລຍະສັ້ນຢູ່ສູງກວ່າສະເລ່ຍໄລຍະຍາວ, ລົບໝາຍເຖິງຕ່ຳກວ່າ.</string>
+    <string name="ind_read_vs_btc">ບວກໝາຍເຖິງມັນເຮັດໄດ້ດີກວ່າ Bitcoin, ລົບໝາຍເຖິງບໍ່ດີເທົ່າ.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">ລາຄາດຽວກັນເປັນເວລາ 30 ມື້: %1$s</string>
+    <string name="ind_context_note">ຄ່າໃນອະດີດ ແລະ ການຄຳນວນ “ລາຄາດຽວກັນ” ແມ່ນການຄິດເລກ, ບໍ່ແມ່ນການຄາດຄະເນ.</string>
+    <string name="ind_context_percentile">ນັບແຕ່ %1$s ຕ່ຳກວ່າໃນ %2$s ຂອງມື້</string>
+</resources>

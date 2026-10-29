@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Артқа</string>
+    <string name="action_cancel">Бас тарту</string>
+    <string name="action_clear">Тазалау</string>
+    <string name="action_close">Жабу</string>
+    <string name="action_keep">Қалдыру</string>
+    <string name="action_delete">Жою</string>
+    <string name="action_edit">Өңдеу</string>
+    <string name="action_more">Басқа опциялар</string>
+    <string name="action_refresh">Жаңарту</string>
+    <string name="action_retry">Қайталау</string>
+    <string name="action_save">Сақтау</string>
+    <string name="action_sort">Сұрыптау</string>
+    <string name="action_sort_done">Дайын</string>
+    <string name="action_undo">Болдырмау</string>
+    <string name="action_view">Көру</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Нарық</string>
+    <string name="tab_portfolio">Портфель</string>
+    <string name="tab_settings">Параметрлер</string>
+    <string name="tab_watchlist">Бақылау тізімі</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Қате: %1$s</string>
+    <string name="error_exchange_unreachable">Биржа қазір қолжетімсіз – соңғы бағамдар көрініп тұрады.</string>
+    <string name="error_exchange_unreachable_short">Биржа қазір қолжетімсіз</string>
+    <string name="loading_hint">Жүктелуде…</string>
+    <string name="option_off">Өшірулі</string>
+    <string name="something_went_wrong">Бірдеңе дұрыс болмады</string>
+    <string name="time_just_now">жаңа ғана</string>
+    <string name="try_again">Қайталап көріңіз</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Байланыс жоқ</string>
+    <string name="offline_status_since">Байланыс жоқ · %1$s жағдайы бойынша</string>
+    <string name="status_live">Тікелей</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Жұп қосу</string>
+    <string name="shortcut_alarms">Барлық ескерту</string>
+    <string name="shortcut_cycle">Нарық</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Жаңа жұп қосу</string>
+    <string name="shortcut_alarms_long">Барлық ескертуді көрсету</string>
+    <string name="shortcut_cycle_long">Нарыққа шолуды ашу</string>
+
+    <string name="log_box_title">Журнал</string>
+    <string name="label_value">%1$s: %2$s</string>
+</resources>

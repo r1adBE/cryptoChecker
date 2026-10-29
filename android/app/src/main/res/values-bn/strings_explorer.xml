@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">সব ফলাফল</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="one">%1$dটি এক্সচেঞ্জ</item>
+        <item quantity="other">%1$dটি এক্সচেঞ্জ</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">লোড করা তালিকায় এই কয়েনের কোনো পেয়ার নেই।</string>
+    <string name="explorer_coin_not_loaded">পেয়ার তালিকা এখনো লোড হয়নি</string>
+    <string name="explorer_coin_other_pairs">অন্যান্য পেয়ার</string>
+    <string name="explorer_coin_show_pairs">পেয়ার দেখান</string>
+    <string name="explorer_coin_suggested">প্রস্তাবিত</string>
+    <string name="explorer_coins_title">কয়েন</string>
+    <string name="explorer_lists_failed_many">%1$s এখন সাড়া দিচ্ছে না – পেয়ার তালিকা লোড হয়নি। পরে আবার চেষ্টা করুন।</string>
+    <plurals name="explorer_lists_failed_more">
+        <item quantity="one">+আরও %1$dটি</item>
+        <item quantity="other">+আরও %1$dটি</item>
+    </plurals>
+    <string name="explorer_lists_failed_one">%1$s এখন সাড়া দিচ্ছে না – পেয়ার তালিকা লোড হয়নি। পরে আবার চেষ্টা করুন।</string>
+    <string name="explorer_lists_load">তালিকা লোড করুন</string>
+    <string name="explorer_lists_loading">পেয়ার তালিকা লোড হচ্ছে… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="one">%1$dটি এক্সচেঞ্জের পেয়ার তালিকা এখনো এই ডিভাইসে নেই।</item>
+        <item quantity="other">%1$dটি এক্সচেঞ্জের পেয়ার তালিকা এখনো এই ডিভাইসে নেই।</item>
+    </plurals>
+    <string name="explorer_lists_privacy">প্রতিটি এক্সচেঞ্জের সম্পূর্ণ পাবলিক তালিকা লোড করে – সবার জন্য একই। আপনার খোঁজ এই ডিভাইসেই থাকে।</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">সাম্প্রতিক খোঁজ: %1$s</string>
+    <string name="explorer_recent_clear">মুছুন</string>
+    <string name="explorer_recent_clear_a11y">সাম্প্রতিক খোঁজ মুছুন</string>
+    <string name="explorer_recent_title">সাম্প্রতিক খোঁজ</string>
+    <string name="explorer_search_choose_manually">এক্সচেঞ্জ ও পেয়ার নিজে বেছে নিন</string>
+    <string name="explorer_search_empty">কোনো মিল নেই।</string>
+    <string name="explorer_search_hint">কয়েন, পেয়ার বা এক্সচেঞ্জ খুঁজুন</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">কয়েনের নাম বা প্রতীক লিখুন, যেমন Bitcoin বা BTC – তারপর পেয়ার বেছে নিন।</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">ওয়াচলিস্টে যোগ করুন</string>
+    <string name="explorer_added_to_watchlist">ওয়াচলিস্টে যোগ করা হয়েছে।</string>
+    <string name="explorer_already_in_watchlist">এই পেয়ার ইতিমধ্যে ওয়াচলিস্টে আছে।</string>
+    <string name="explorer_exchange_missing">এক্সচেঞ্জ নেই?</string>
+    <string name="explorer_loading_pairs">ট্রেডিং পেয়ার লোড হচ্ছে…</string>
+    <string name="explorer_no_pair_selected">আগে একটি পেয়ার বেছে নিন।</string>
+    <string name="explorer_no_pairs_yet">এই এক্সচেঞ্জের জন্য এখনো কোনো পেয়ার লোড হয়নি।</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$dটি পেয়ার · আপডেট %2$s</item>
+        <item quantity="other">%1$dটি পেয়ার · আপডেট %2$s</item>
+    </plurals>
+    <string name="explorer_pairs_title">পেয়ার</string>
+    <string name="explorer_precise_title">উন্নত / এক্সচেঞ্জ অনুযায়ী</string>
+    <string name="explorer_price_loading">দাম লোড হচ্ছে…</string>
+    <string name="explorer_select_exchange_hint">একটি এক্সচেঞ্জ বেছে নিন – এর ট্রেডিং পেয়ার স্বয়ংক্রিয়ভাবে লোড হবে।</string>
+    <string name="explorer_select_placeholder">অনুগ্রহ করে বেছে নিন</string>
+    <string name="explorer_step_pair">পেয়ার বেছে নিন</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">বেড়েছে</string>
+    <string name="explorer_filter_losers">কমেছে</string>
+    <string name="explorer_filter_volume">ভলিউম</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">এই এক্সচেঞ্জের সব %1$s পেয়ার</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">%1$dটি %2$s পেয়ার পাওয়া গেছে</item>
+        <item quantity="other">%1$dটি %2$s পেয়ার পাওয়া গেছে</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">বেছে নেওয়া কন্ট্রাক্টের ধরনের জন্য এই এক্সচেঞ্জে কোনো %1$s পেয়ার নেই। আগে এক্সচেঞ্জ সিঙ্ক করুন, বা অন্য কন্ট্রাক্টের ধরন চেষ্টা করুন।</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">%1$dটি পেয়ার ওয়াচলিস্টে যোগ করুন</item>
+        <item quantity="other">সব %1$dটি পেয়ার ওয়াচলিস্টে যোগ করুন</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">%1$dটি যোগ হয়েছে, %2$dটি ইতিমধ্যে ওয়াচলিস্টে।</item>
+        <item quantity="other">%1$dটি যোগ হয়েছে, %2$dটি ইতিমধ্যে ওয়াচলিস্টে।</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">%3$s থেকে %1$dটি %2$s পেয়ার ওয়াচলিস্টে যোগ হবে, যদি না সেটি আগেই থাকে।</item>
+        <item quantity="other">%3$s থেকে সব %1$dটি %2$s পেয়ার ওয়াচলিস্টে যোগ হবে। যেগুলো আগেই আছে সেগুলো বাদ যাবে।</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">%1$dটি পেয়ার যোগ করবেন?</item>
+        <item quantity="other">%1$dটি পেয়ার যোগ করবেন?</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">তালিকা লুকান</string>
+    <string name="explorer_bulk_show_list">তালিকা দেখান</string>
+    <string name="explorer_bulk_tap_hint">উপরে বেছে নিতে একটি পেয়ারে ট্যাপ করুন।</string>
+    <string name="explorer_bulk_title">একসঙ্গে একাধিক পেয়ার</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">বেছে নেওয়া এক্সচেঞ্জের বর্তমান পেয়ার লোড করে।</string>
+    <string name="explorer_no_pair_list">কোনো মুদ্রা পেয়ার নেই</string>
+    <string name="explorer_sync_sheet_last">শেষ সিঙ্ক: %1$s</string>
+    <string name="explorer_sync_never">কখনো না</string>
+    <string name="explorer_sync_sheet_action">এখনই সিঙ্ক করুন</string>
+    <string name="explorer_sync_sheet_title">মুদ্রা পেয়ার আপডেট করুন</string>
+    <string name="explorer_field_coin">কয়েন</string>
+    <string name="explorer_field_contract">কন্ট্রাক্টের ধরন</string>
+    <string name="explorer_field_exchange">এক্সচেঞ্জ</string>
+    <string name="explorer_field_quote">কোট মুদ্রা</string>
+    <string name="explorer_contract_spot">স্পট</string>
+    <string name="explorer_reload_pairs">সিঙ্ক</string>
+    <string name="sync_pairs_count">ট্রেডিং পেয়ার: %1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">যোগ করুন</string>
+    <string name="dex_added">%1$s ওয়াচলিস্টে যোগ করা হয়েছে।</string>
+    <string name="dex_already">%1$s ইতিমধ্যে ওয়াচলিস্টে আছে।</string>
+    <string name="dex_intro">বড় এক্সচেঞ্জের বাইরের টোকেন, বিকেন্দ্রীভূত এক্সচেঞ্জ (Uniswap, PancakeSwap, Raydium …) থেকে DexScreener-এর মাধ্যমে। একটি টোকেন খুঁজুন এবং এর একটি ট্রেডিং পুল যোগ করুন – দাম US ডলারে।</string>
+    <string name="dex_liquidity">লিকুইডিটি %1$s</string>
+    <string name="dex_no_results">কোনো পুল পাওয়া যায়নি।</string>
+    <string name="dex_search">খুঁজুন</string>
+    <string name="dex_search_hint">টোকেনের নাম, প্রতীক বা ঠিকানা</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">Alpha টোকেন</string>
+    <string name="asset_kind_token">টোকেন</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+
+    <string name="dex_low_liquidity_no_alarm">কম লিকুইডিটি – কোনো অ্যালার্ট নেই</string>
+    <string name="dex_low_liquidity_alarm_hint">এই পুলে 10,000 USD-এর কম লিকুইডিটি আছে (বা কিছুই জানানো হয়নি)। ছোট ট্রেডও এর দাম নাড়াতে পারে, তাই এখানে কোনো অ্যালার্ট সেট করা যায় না। বিদ্যমান অ্যালার্ট রাখা হয় কিন্তু লিকুইডিটি আবার না বাড়া পর্যন্ত চালু হবে না।</string>
+
+    <string name="explorer_bulk_show_all">সব দেখান (%1$d)</string>
+    <string name="dex_token_address_copy">টোকেনের ঠিকানা কপি করুন</string>
+    <string name="dex_token_address_copied">টোকেনের ঠিকানা কপি হয়েছে</string>
+    <string name="dex_token_address_label">%1$s দিয়ে শেষ হওয়া টোকেনের ঠিকানা</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="one">%1$dটি পেয়ার যোগ হয়নি: আপনার ওয়াচলিস্টে সর্বোচ্চ %2$sটি পেয়ার থাকতে পারে।</item>
+        <item quantity="other">%1$dটি পেয়ার যোগ হয়নি: আপনার ওয়াচলিস্টে সর্বোচ্চ %2$sটি পেয়ার থাকতে পারে।</item>
+    </plurals>
+    <string name="bulk_add_progress">পেয়ার যোগ হচ্ছে … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="one">%1$dটি নতুন পেয়ার ওয়াচলিস্টে যোগ করুন</item>
+        <item quantity="other">%1$dটি নতুন পেয়ার ওয়াচলিস্টে যোগ করুন</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="one">%1$dটি নতুন, %2$dটি ইতিমধ্যে ওয়াচলিস্টে</item>
+        <item quantity="other">%1$dটি নতুন, %2$dটি ইতিমধ্যে ওয়াচলিস্টে</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">সবগুলো ইতিমধ্যে ওয়াচলিস্টে</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="one">%1$dটি পেয়ার আবার সরাবেন?</item>
+        <item quantity="other">%1$dটি পেয়ার আবার সরাবেন?</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">এর মধ্যে যেসব পেয়ারে আপনি অ্যালার্ট সেট করেছেন সেগুলো থেকে যাবে।</string>
+    <string name="bulk_undo_expired">আর পূর্বাবস্থায় ফেরানো সম্ভব নয় – পেয়ারগুলো ওয়াচলিস্টে থাকবে।</string>
+    <string name="explorer_section_spot">স্পট</string>
+    <string name="explorer_section_futures">ফিউচার্স</string>
+    <string name="explorer_section_dex">DEX পুল</string>
+    <string name="explorer_section_forex">ফরেক্স (রেফারেন্স রেট)</string>
+    <string name="explorer_forex_hint">ইউরোপীয় কেন্দ্রীয় ব্যাংকের দৈনিক হার (Frankfurter-এর মাধ্যমে), লাইভ নয় – কোনো অ্যালার্ট নেই।</string>
+</resources>

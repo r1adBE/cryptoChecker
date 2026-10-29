@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">Altcoin ធៀបនឹង Bitcoin</string>
+    <string name="neutral_btc_indicators_title">សូចនាករ Bitcoin</string>
+    <string name="neutral_halving_last">Halving ចុងក្រោយ៖ %1$s</string>
+    <string name="neutral_halving_next">Halving បន្ទាប់រំពឹងថានៅប្រហែល %1$s (ប៉ាន់ស្មានតាមប្រតិទិន – កម្ពស់ប្លុកមិនមាននៅពេលនេះទេ)។</string>
+    <string name="neutral_indicators_disclaimer">មានតែតម្លៃដែលបានវាស់ប៉ុណ្ណោះ ដោយគ្មានការវាយតម្លៃ។ មិនមែនជាការព្យាករណ៍ ហើយមិនមែនជាដំបូន្មានវិនិយោគទេ។</string>
+    <string name="neutral_onchain_missing">ទិន្នន័យ On-chain (Coin Metrics) មិនមាននៅពេលនេះទេ។</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">តម្លៃនៅក្រោមកម្រិតខ្ពស់បំផុតគ្រប់ពេលមុនរបស់វាប៉ុន្មាន។</string>
+    <string name="neutral_explain_change_30d">តម្លៃថ្ងៃនេះធៀបនឹង 30 ថ្ងៃមុន។</string>
+    <string name="neutral_explain_hashrate">Hashrate មធ្យម 30 ថ្ងៃ ធៀបនឹងមធ្យម 60 ថ្ងៃ។</string>
+    <string name="neutral_explain_ma200w">មធ្យមនៃតម្លៃបិទប្រចាំសប្តាហ៍ 200 ចុងក្រោយ។</string>
+    <string name="neutral_explain_mayer">តម្លៃចែកនឹងមធ្យម 200 ថ្ងៃ។</string>
+    <string name="neutral_explain_mvrv">តម្លៃទីផ្សារចែកនឹងតម្លៃដែលបានសម្រេច (on-chain)។</string>
+    <string name="neutral_explain_pi_gap">មធ្យម 111 ថ្ងៃ ធៀបនឹងពីរដងនៃមធ្យម 350 ថ្ងៃ។</string>
+    <string name="neutral_explain_puell">ចំណូលប្រចាំថ្ងៃរបស់អ្នករុករករ៉ែ ចែកនឹងមធ្យម 365 ថ្ងៃរបស់វា។</string>
+    <string name="neutral_explain_rsi_daily">Relative Strength Index នៃ 14 ថ្ងៃចុងក្រោយ 0–100។</string>
+    <string name="neutral_explain_rsi_weekly">Relative Strength Index នៃ 14 សប្តាហ៍ចុងក្រោយ 0–100។</string>
+    <string name="neutral_explain_sma50_200">មធ្យម 50 ថ្ងៃ ធៀបនឹងមធ្យម 200 ថ្ងៃ។</string>
+    <string name="neutral_explain_vs_btc">ការប្រែប្រួលតម្លៃធៀបនឹង Bitcoin ក្នុងរយៈពេល 90 ថ្ងៃ។</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">កម្មវិធីបង្ហាញតែចំនួនប៉ុណ្ណោះ ហើយមិនដាក់ស្លាកថាជារដូវទេ។ តម្លៃនេះជាធម្មតាប្រែប្រួលក្នុងរយៈពេលច្រើនថ្ងៃ មិនមែនច្រើនម៉ោងទេ។</string>
+    <string name="neutral_info_btc_how">តម្លៃនីមួយៗមកជាមួយប្រយោគមួយអំពីអ្វីដែលវាវាស់ និងទីតាំងរបស់វាក្នុងប្រវត្តិផ្ទាល់ខ្លួនតាំងពីឆ្នាំ 2016។ កម្មវិធីមិនវាយតម្លៃតម្លៃទាំងនេះ ហើយមិនទាញយកដំណាក់កាលទីផ្សារទេ។ ដែនកំណត់សម្រាប់ការដាស់តឿនទីផ្សារគឺមានតែដែនកំណត់ដែលអ្នកកំណត់ប៉ុណ្ណោះ។ លំនាំពីមុនមិនចាំបាច់កើតឡើងម្តងទៀតទេ។</string>
+    <string name="neutral_info_btc_what">សូចនាករ Bitcoin ទូទៅជាតម្លៃដែលបានវាស់ធម្មតា៖ Mayer Multiple មធ្យម 200 សប្តាហ៍ ការធ្លាក់ពីកម្រិតខ្ពស់បំផុតគ្រប់ពេល ការប្រែប្រួលក្នុង 30 ថ្ងៃ គម្លាត Pi Cycle និងតម្លៃ on-chain MVRV, Puell Multiple និង hashrate។</string>
+    <string name="neutral_info_coin_how">តម្លៃនីមួយៗមកជាមួយប្រយោគមួយអំពីអ្វីដែលវាវាស់ ដោយគ្មានការវាយតម្លៃ។ សម្រាប់កាក់ដែលមានប្រវត្តិតម្លៃខ្លី តម្លៃខ្លះខ្វះ។ ទិន្នន័យ On-chain មិនរួមបញ្ចូលនៅទីនេះទេ។</string>
+    <string name="neutral_info_coin_what">សូចនាករធម្មតាដូចគ្នាសម្រាប់កាក់ដែលអ្នកជ្រើសរើស ពីទិន្នន័យតម្លៃតែប៉ុណ្ណោះ៖ Mayer Multiple មធ្យម 200 សប្តាហ៍ ការធ្លាក់ពីកម្រិតខ្ពស់បំផុតគ្រប់ពេល ការប្រែប្រួលក្នុង 30 ថ្ងៃ និន្នាការ 50/200 ថ្ងៃ RSI និងកម្លាំងធៀបនឹង Bitcoin ក្នុងរយៈពេល 90 ថ្ងៃ។</string>
+    <string name="neutral_info_halving_how">Halving បន្ទាប់ត្រូវបានគណនាពីកម្ពស់ប្លុកបច្ចុប្បន្ន និងពេលវេលាប្លុកមធ្យមនៃរយៈពេល difficulty បច្ចុប្បន្ន (mempool.space)។ បើគ្មានទិន្នន័យនោះទេ គណនាតាមប្រតិទិន (halving ចុងក្រោយ បូកប្រហែលបួនឆ្នាំ)។ គំនូសតាងបង្ហាញផ្លូវតម្លៃនៃវដ្តមុនៗចាប់ពី halving របស់វា – ជាប្រវត្តិ មិនមែនការព្យាករណ៍ទេ។</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">និន្នាការ 50/200 ថ្ងៃ</string>
+    <string name="ind_drawdown">ការធ្លាក់ពីកម្រិតខ្ពស់បំផុតគ្រប់ពេល</string>
+    <string name="ind_missing">ទិន្នន័យមិនគ្រប់គ្រាន់</string>
+    <string name="ind_rsi_daily">RSI (ប្រចាំថ្ងៃ)</string>
+    <string name="ind_rsi_weekly">RSI (ប្រចាំសប្តាហ៍)</string>
+    <string name="ind_vs_btc">កម្លាំងធៀបនឹង Bitcoin (90 ថ្ងៃ)</string>
+    <string name="neutral_ind_change_30d">ការប្រែប្រួល 30 ថ្ងៃ</string>
+    <string name="neutral_ind_hashrate">Hashrate 30/60 ថ្ងៃ</string>
+    <string name="neutral_ind_ma200w">មធ្យម 200 សប្តាហ៍</string>
+    <string name="neutral_ind_pi_gap">គម្លាត Pi Cycle</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">ខ្ពស់មានន័យថា altcoin ធំៗភាគច្រើនឈ្នះ Bitcoin ក្នុងរយៈពេល 90 ថ្ងៃ ទាបមានន័យថា Bitcoin ឈ្នះពួកវាភាគច្រើន។</string>
+    <string name="ind_read_ath_distance">តូចមានន័យថាតម្លៃនៅជិតកំណត់ត្រារបស់វា ធំមានន័យថាវានៅក្រោមឆ្ងាយ។</string>
+    <string name="ind_read_change_30d">វិជ្ជមានមានន័យថាខ្ពស់ជាង 30 ថ្ងៃមុន អវិជ្ជមានមានន័យថាទាបជាង។</string>
+    <string name="ind_read_funding">ខ្ពស់មានន័យថាអ្នកជួញដូរជាច្រើនភ្នាល់លើតម្លៃកើនឡើងដោយប្រើ leverage អវិជ្ជមានមានន័យថាជាច្រើនភ្នាល់លើតម្លៃធ្លាក់ចុះ។</string>
+    <string name="ind_read_hashrate_30_60">វិជ្ជមានមានន័យថាថាមពលគណនាកំពុងកើនឡើង អវិជ្ជមានមានន័យថាអ្នករុករករ៉ែកំពុងបិទម៉ាស៊ីន។</string>
+    <string name="ind_read_leverage">Longs ច្រើនមានន័យថាជាច្រើនភ្នាល់លើតម្លៃកើនឡើងដោយប្រាក់ខ្ចី shorts ច្រើនមានន័យថាជាច្រើនភ្នាល់លើតម្លៃធ្លាក់ចុះ។</string>
+    <string name="ind_read_ma200w">តម្លៃលើវាឆ្ងាយមានន័យថាការកើនឡើងយូរ តម្លៃជិតវាមានន័យថាការស្រុតចុះជ្រៅ។</string>
+    <string name="ind_read_mayer">ខ្ពស់មានន័យថាតម្លៃនៅលើមធ្យម 200 ថ្ងៃរបស់វាឆ្ងាយ ទាបមានន័យថាវានៅក្រោម។</string>
+    <string name="ind_read_mvrv">ខ្ពស់មានន័យថាតម្លៃនៅលើឆ្ងាយពីអ្វីដែលអ្នកកាន់កាប់បានបង់ជាមធ្យម ទាបមានន័យថាជិត ឬក្រោមនោះ។</string>
+    <string name="ind_read_pi_cycle_gap">ជិតសូន្យមានន័យថាមធ្យមទាំងពីរស្ទើរតែជួបគ្នា អវិជ្ជមានខ្លាំងមានន័យថាពួកវានៅឆ្ងាយពីគ្នា។</string>
+    <string name="ind_read_puell">ខ្ពស់មានន័យថាអ្នករុករករ៉ែរកបានច្រើនជាងធម្មតាខ្លាំង ទាបមានន័យថាតិចជាងខ្លាំង។</string>
+    <string name="ind_read_rsi_daily">លើស 70 មានន័យថាការកើនឡើងខ្លាំងក្នុងប៉ុន្មានថ្ងៃថ្មីៗ ក្រោម 30 មានន័យថាការខាតខ្លាំង។</string>
+    <string name="ind_read_rsi_weekly">លើស 70 មានន័យថាការកើនឡើងខ្លាំងក្នុងប៉ុន្មានសប្តាហ៍ថ្មីៗ ក្រោម 30 មានន័យថាការខាតខ្លាំង។</string>
+    <string name="ind_read_sma50_vs_200">វិជ្ជមានមានន័យថាមធ្យមរយៈពេលខ្លីនៅលើមធ្យមរយៈពេលវែង អវិជ្ជមានមានន័យថានៅក្រោម។</string>
+    <string name="ind_read_vs_btc">វិជ្ជមានមានន័យថាវាល្អជាង Bitcoin អវិជ្ជមានមានន័យថាអាក្រក់ជាង។</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">តម្លៃដដែលរយៈពេល 30 ថ្ងៃ៖ %1$s</string>
+    <string name="ind_context_note">តម្លៃពីមុន និងការគណនា «តម្លៃដដែល» គឺជាការគណនាលេខ មិនមែនការព្យាករណ៍ទេ។</string>
+    <string name="ind_context_percentile">តាំងពី %1$s ទាបជាងនៅ %2$s នៃថ្ងៃ</string>
+</resources>

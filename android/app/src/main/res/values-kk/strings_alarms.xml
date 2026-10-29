@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">Ескерту орнату</string>
+    <string name="alarms_add">Жаңа ескерту</string>
+    <string name="alarms_edit">Ескертуді өңдеу</string>
+    <string name="alarms_empty">Бұл жұп үшін әзірге ескерту жоқ.</string>
+    <string name="alarms_empty_example">Мысалы: BTC %1$s деңгейінен асқанда хабарлаңыз.</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">Хабарландырулар өшірулі – ескертулер сізге жетпейді.</string>
+    <string name="alarms_notifications_turn_on">Қосу</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">%1$d белсенді</item>
+        <item quantity="other">%1$d белсенді</item>
+    </plurals>
+    <string name="alarms_overview_empty">Әзірге ескерту жоқ. Жұпты ашып, «Ескертулер» бөлімінде қосыңыз.</string>
+    <string name="alarms_overview_title">Барлық ескерту</string>
+    <string name="alarms_title">Ескертулер</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">Кеңейтілген</string>
+    <string name="alarm_change_updates">Бағам жаңартуын баптау</string>
+    <string name="alarm_create">Ескерту жасау</string>
+    <string name="alarm_currency_label">Валюта</string>
+    <string name="alarm_delete_confirm">Бұл ескерту жойылады.</string>
+    <string name="alarm_delete_title">Ескертуді жою керек пе?</string>
+    <string name="alarm_field_percent">Пайыз</string>
+    <string name="alarm_field_price">Бағам</string>
+    <string name="alarm_fires_now_above">Бағам қазірдің өзінде %1$s деңгейінен жоғары. Бәрібір сақтау керек пе?</string>
+    <string name="alarm_fires_now_below">Бағам қазірдің өзінде %1$s деңгейінен төмен. Бәрібір сақтау керек пе?</string>
+    <string name="alarm_fires_now_change">Өзгерту</string>
+    <string name="alarm_fires_now_save">Бәрібір сақтау</string>
+    <string name="alarm_fires_now_title">Ескерту дәл қазір іске қосылар еді</string>
+    <string name="alarm_first_battery_hint">Батареяны оңтайландыру қолданбаны шектейді – ескертулер кешігуі мүмкін.</string>
+    <string name="alarm_first_title">Ескерту сақталды</string>
+    <string name="alarm_last_triggered">соңғысы: %1$s</string>
+    <string name="alarm_more_conditions">Басқа шарттар</string>
+    <string name="alarm_new_extreme">Жаңа %1$s</string>
+    <string name="alarm_once">Бір рет</string>
+    <string name="alarm_option_repeating">Хабарлау</string>
+    <string name="alarm_option_sound">Дыбыс</string>
+    <string name="alarm_option_speak">Ескертуді дауыстап оқу</string>
+    <string name="alarm_option_vibrate">Діріл</string>
+    <string name="alarm_repeat_each">Әр жолы</string>
+    <string name="alarm_repeat_once">Бір рет</string>
+    <string name="alarm_repeating">Әр жолы</string>
+    <string name="alarm_threshold_error_empty">Ескертуді сақтау үшін мән енгізіңіз.</string>
+    <string name="alarm_threshold_error_funding">Фандинг −10 және +10 пайыз аралығындағы сан болуы керек.</string>
+    <string name="alarm_threshold_error_invalid">0-ден үлкен жарамды сан енгізіңіз.</string>
+    <string name="alarm_threshold_error_oi">Ашық позициялардың өзгерісі: ең көбі 1000 пайыз.</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">%1$d сағ ішінде</item>
+        <item quantity="other">%1$d сағ ішінде</item>
+    </plurals>
+    <string name="alarm_window_label">Уақыт аралығы</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">мына деңгейден асқанда:</string>
+    <string name="alarm_simple_below">мына деңгейден төмендегенде:</string>
+    <string name="alarm_simple_end"></string>
+    <string name="alarm_simple_when">%1$s бағамы</string>
+    <string name="alarm_template_a11y">Ескерту жасау: %1$s</string>
+    <string name="alarm_template_a11y_down">Ағымдағы бағамнан минус %1$s пайызға ескерту жасау</string>
+    <string name="alarm_template_a11y_up">Ағымдағы бағамнан плюс %1$s пайызға ескерту жасау</string>
+    <string name="alarm_template_from_now">қазіргіден</string>
+    <string name="alarm_template_volume">Көлем ×%1$s</string>
+    <string name="alarm_templates_title">Жылдам ескертулер</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">Бағам жоғары</string>
+    <string name="alarm_condition_below">Бағам төмен</string>
+    <string name="alarm_condition_down_percent">Төмендеуі</string>
+    <string name="alarm_condition_funding_above">Фандинг жоғары</string>
+    <string name="alarm_condition_funding_below">Фандинг төмен</string>
+    <string name="alarm_condition_move_percent">Қозғалысы</string>
+    <string name="alarm_condition_near_high">Шыңға жақын</string>
+    <string name="alarm_condition_near_low">Түпке жақын</string>
+    <string name="alarm_condition_oi_down">Ашық позициялар азайды</string>
+    <string name="alarm_condition_oi_up">Ашық позициялар көбейді</string>
+    <string name="alarm_condition_up_percent">Өсуі</string>
+    <string name="alarm_condition_volume_spike">Көлемнің секіруі</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">%1$s бағамы %2$s деңгейінен асқанда хабарлаңыз.</string>
+    <string name="alarm_sentence_below">%1$s бағамы %2$s деңгейінен төмен түскенде хабарлаңыз.</string>
+    <string name="alarm_sentence_down_percent">%1$s бағамы сақтау кезіндегі (немесе соңғы ескертудегі) бағамнан %2$s төмендегенде хабарлаңыз.</string>
+    <string name="alarm_sentence_funding_above">%1$s фандингі %2$s деңгейінен асқанда хабарлаңыз.</string>
+    <string name="alarm_sentence_funding_below">%1$s фандингі %2$s деңгейінен төмен түскенде хабарлаңыз.</string>
+    <string name="alarm_sentence_incomplete">Ескертуді сөйлем түрінде көру үшін мән енгізіңіз.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">%1$s бағамы %3$d сағат ішінде %2$s өзгергенде хабарлаңыз.</item>
+        <item quantity="other">%1$s бағамы %3$d сағат ішінде %2$s өзгергенде хабарлаңыз.</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">%1$s бағамы %3$s деңгейінен ең көбі %2$s төмен болғанда хабарлаңыз.</string>
+    <string name="alarm_sentence_near_low">%1$s бағамы %3$s деңгейінен ең көбі %2$s жоғары болғанда хабарлаңыз.</string>
+    <string name="alarm_sentence_new_extreme">%1$s жаңа %2$s орнатқанда хабарлаңыз.</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">%1$s ашық позициялары %3$d сағат ішінде %2$s азайғанда хабарлаңыз.</item>
+        <item quantity="other">%1$s ашық позициялары %3$d сағат ішінде %2$s азайғанда хабарлаңыз.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">%1$s ашық позициялары %3$d сағат ішінде %2$s көбейгенде хабарлаңыз.</item>
+        <item quantity="other">%1$s ашық позициялары %3$d сағат ішінде %2$s көбейгенде хабарлаңыз.</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">%1$s бағамы сақтау кезіндегі (немесе соңғы ескертудегі) бағамнан %2$s өскенде хабарлаңыз.</string>
+    <string name="alarm_sentence_volume">%1$s сауда көлемі әдеттегіден %2$s есе асқанда хабарлаңыз.</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">30 күндік шың</string>
+    <string name="alarm_near_extreme_high_365">1 жылдық шың</string>
+    <string name="alarm_near_extreme_high_90">90 күндік шың</string>
+    <string name="alarm_near_extreme_low_30">30 күндік түп</string>
+    <string name="alarm_near_extreme_low_365">1 жылдық түп</string>
+    <string name="alarm_near_extreme_low_90">90 күндік түп</string>
+    <string name="alarm_near_field_distance">Қашықтық</string>
+    <string name="alarm_near_hint">Жаңа шың немесе түп орнағанда да хабарлайды. Күндік шамдарға негізделген, 6 сағат сайын жаңартылады.</string>
+    <string name="alarm_near_new_only">Тек жаңа шыңдар немесе түптер</string>
+    <string name="alarm_near_notification_high">%1$s өзінің %3$s деңгейінен %2$s төмен (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s өзінің %3$s деңгейінен %2$s жоғары (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">%2$s үшін жаңа %1$s: %3$s (алдыңғысы %4$s)</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d күн</item>
+        <item quantity="other">%1$d күн</item>
+    </plurals>
+    <string name="alarm_near_window_label">Кезең</string>
+    <string name="alarm_near_window_year">1 жыл</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">8 сағаттағы фандинг мөлшерлемесі. Басқа аралықтағы келісімшарттар қайта есептеледі (1 сағ × 8, 4 сағ × 2); фьючерс картасы қайта есептелген мәнді көрсетеді. Аралық белгісіз болса, ескерту тексермейді. Теріс мән – шорттар лонгтарға төлейді. ± таңбаны ауыстырады.</string>
+    <string name="alarm_funding_sign_a11y">Таңбаны ауыстыру</string>
+    <string name="alarm_oi_hint">Ашық позицияларды сонша сағат бұрын сақталған мәнмен салыстырады. Жаңа ескерту қолданба деректі сонша уақыт жинағаннан кейін ғана хабарлайды; ең жиі 5 минут сайын тексеріледі.</string>
+    <string name="alarm_volume_factor_label">Соңғы сағаттағы көлем әдеттегімен салыстырғанда</string>
+    <string name="alarm_volume_hint">Көлем деректері Binance-тен алынады — онда жоқ жұптар ешқашан іске қосылмайды.</string>
+    <string name="alarm_volume_zero_hours_hint">Саудасыз сағаттар нөлдік көлем болып есептеледі, сондықтан саудасы аз жұптарда қалыпты сағат әдеттен тыс көрінуі мүмкін.</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">Ескерту белсенді</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">Ескерту сақталды: %1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">Хабарландырулар өшірулі</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">«%1$s» болмаса, құрылғы тыныштықта тұрғанда Android тұрақсыз тексереді – кейде бірнеше сағаттан кейін ғана. Онымен шамамен 15 минут сайын.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Қолданба жабық болса, iOS көбіне 15 минуттан кешірек, кейде қолданбаны келесі ашқанда ғана тексереді. Қысқа секірулер өткізіліп кетуі мүмкін.</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">Ескертулер қашан тексеріледі</string>
+    <string name="alarm_timing_where">Бағамдардың жаңару жиілігін %1$s бөлімінде өзгертіңіз.</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">Дыбыссыз (тек хабарландыру)</string>
+    <string name="alarm_signal_sound">Тек дыбыс</string>
+    <string name="alarm_signal_sound_vibrate">Дыбыс және діріл</string>
+    <string name="alarm_signal_system">Жүйелік</string>
+    <string name="alarm_signal_vibrate">Тек діріл</string>
+    <string name="alarm_test">Сынақ ескерту</string>
+    <string name="alarm_test_action">Сынау</string>
+    <string name="alarm_test_denied">Crypto Checker үшін хабарландырулар өшірілген.</string>
+    <string name="alarm_test_hint">Дыбыс, діріл және сөйлеу параметрлеріңізбен үлгі ескерту жібереді.</string>
+    <string name="alarm_test_open_settings">Параметрлерді ашу</string>
+    <string name="alarm_test_quiet">Дәл қазір тыныш сағаттар қосулы: нақты ескертулер олар біткенше күтіп, содан кейін дыбыспен келеді.</string>
+    <string name="alarm_test_text">Ескерту осылай көрінеді және естіледі.</string>
+    <string name="alarm_test_title">Сынақ: Crypto Checker ескертуі</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">Дыбыс қосулы</string>
+    <string name="alarm_a11y_speak_on">Сөйлеу қосулы</string>
+    <string name="alarm_unchecked_no_candles">Тексеру мүмкін болмады (шам деректері жоқ)</string>
+    <string name="alarm_unchecked_no_rate">Тексеру мүмкін болмады (айырбас бағамы жоқ)</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">Хабарландырулар өшірулі – бұл ескерту сізге жетпейді</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">Ескерту жоқ – өтімділік төмен</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">Ағымдағы бағам күтілуде</string>
+    <string name="alarm_enter_amount">Мән енгізіңіз</string>
+    <string name="alarm_editor_more">Қосымша</string>
+    <string name="alarm_editor_more_summary">Жылдам ескертулер, басқа шарттар, дыбыс пен дауыс</string>
+    <string name="alarm_reliability_storage_no_key">Фондағы ескертулер кідіртілді – бақылау тізімі сақталмады</string>
+    <string name="alarms_limit_reached">Бір жұпта ең көбі %1$s ескерту болуы мүмкін.</string>
+    <string name="alarms_reference_rate_hint">ЕОБ анықтамалық бағамдары күніне бір рет қана белгіленеді – олар үшін ескерту жоқ.</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">Төмендеу 100 пайыздан аз болуы керек.</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">Шек жарамсыз – түзетіңіз</string>
+
+    <string name="alarm_last_checked">Соңғы тексеру %1$s</string>
+</resources>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">Iontrálacha gan bhunchostas: %1$d</string>
+    <string name="cost_gaps_card_text">Cuir an bunchostas leis ionas go mbeidh gnóthachain agus cánacha iomlán.</string>
+    <string name="cost_gaps_sheet_title">Iontrálacha gan bhunchostas</string>
+    <string name="cost_gaps_sheet_intro">Níl bunchostas ag na hinsreafaí seo. Is é dúnadh laethúil an dáta an moladh – is féidir leat é a choigeartú san iontráil.</string>
+    <string name="cost_gaps_empty">Tá bunchostas ag gach iontráil.</string>
+    <string name="cost_gap_enter">Cuir bunchostas isteach</string>
+    <string name="cost_gap_leave_unknown">Fág anaithnid</string>
+    <string name="cost_gap_left_unknown">Fágtha anaithnid</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">Moladh: dúnadh laethúil %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">Gan dúnadh laethúil fíoraithe don dáta seo</string>
+    <string name="cost_gap_suggestion_loading">Dúnadh laethúil á lódáil …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">Bunchostas = luach nuair a fuarthas é (ioncam)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">Bunchostas = 0 (luach saothair gan insreabhadh, an Ostair)</string>
+    <string name="cost_gap_apply">Cuir i bhfeidhm</string>
+    <string name="address_lots_action">Bunchostas d’iarmhéid an tseolta</string>
+    <string name="address_lots_title">Bunchostas d’iarmhéid an tseolta</string>
+    <string name="address_lots_intro">Cuir isteach dáta ceannaigh, méid agus bunchostas d’iarmhéid an tseolta seo. Comhairtear na baisceanna cosúil le ceannacháin sa seoladh seo; fanann aon chuid nach gclúdaítear gan bhunchostas.</string>
+    <string name="address_lots_add">Cuir baisc leis</string>
+    <string name="address_lots_new">Baisc nua</string>
+    <string name="address_lots_edit">Baisc</string>
+    <string name="address_lots_date">Dáta ceannaigh</string>
+    <string name="address_lots_amount">Méid</string>
+    <string name="address_lots_mode_total">Iomlán</string>
+    <string name="address_lots_mode_price">In aghaidh an bhoinn</string>
+    <string name="address_lots_price">Praghas in aghaidh an bhoinn (USDT)</string>
+    <string name="address_lots_total">Bunchostas iomlán (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%1$s as %2$s le bunchostas</string>
+    <string name="address_lots_unlotted">%1$s gan bhunchostas</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">Sáraíonn na baisceanna an t-iarmhéid faoi %1$s – úsáidtear na cinn is sine ar dtús.</string>
+    <string name="address_lots_not_loaded">Iarmhéid gan lódáil fós – comhairtear na baisceanna a luaithe a bheidh.</string>
+    <string name="address_lots_invalid">Cuir isteach méid agus bunchostas</string>
+</resources>

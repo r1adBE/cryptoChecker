@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">CSV ఇంపోర్ట్ చేయి</string>
+    <string name="portfolio_csv_import_all_transfer">అన్నీ సొంత వాలెట్‌కు</string>
+    <string name="portfolio_csv_import_all_withdrawal">అన్నీ పోర్ట్‌ఫోలియో నుండి బయటకు</string>
+    <string name="portfolio_csv_import_choice_proposed">సూచన: %1$sతో సరిపోలుతుంది</string>
+    <string name="portfolio_csv_import_choice_transfer">సొంత వాలెట్‌కు (బదిలీ)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">పోర్ట్‌ఫోలియో నుండి బయటకు (విత్‌డ్రా)</string>
+    <string name="portfolio_csv_import_choose_each">ప్రతి విత్‌డ్రా ఎక్కడికి వెళ్లిందో ఎంచుకోండి.</string>
+    <string name="portfolio_csv_import_columns">గుర్తించిన కాలమ్‌లు: %1$s</string>
+    <string name="portfolio_csv_import_confirm">ఇంపోర్ట్ చేయి (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">రోజు/నెల</string>
+    <string name="portfolio_csv_import_date_month_first">నెల/రోజు</string>
+    <string name="portfolio_csv_import_date_order">అస్పష్టమైన తేదీలు (ఉదా. 03/04/2024) ఇలా చదవబడతాయి:</string>
+    <string name="portfolio_csv_import_decimal">అస్పష్టమైన సంఖ్యలు (ఉదా. %1$s) ఇలా చదవబడతాయి:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d లావాదేవీ ఇంపోర్ట్ అయింది</item>
+        <item quantity="other">%d లావాదేవీలు ఇంపోర్ట్ అయ్యాయి</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d ఇప్పటికే ఇంపోర్ట్ అయింది (దాటవేయబడింది)</item>
+        <item quantity="other">%d ఇప్పటికే ఇంపోర్ట్ అయ్యాయి (దాటవేయబడ్డాయి)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">ఫార్మాట్: %1$s</string>
+    <string name="portfolio_csv_import_line">లైన్ %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">ఫైల్, రోజువారీ రేట్లను చదువుతోంది…</string>
+    <string name="portfolio_csv_import_progress">%2$sలో లైన్ %1$s</string>
+    <string name="portfolio_csv_import_saving">లావాదేవీలను సేవ్ చేస్తోంది…</string>
+    <string name="portfolio_csv_import_missing_fx">లైన్‌లు %1$sకు రోజువారీ రేటు లేదు – ధర/ఫీజు లేకుండా ఇంపోర్ట్ అయ్యాయి.</string>
+    <string name="portfolio_csv_import_missing_price">లైన్‌లు %1$sకు ఫైల్‌లో ధర లేదు – ధర లేకుండా ఇంపోర్ట్ అయ్యాయి.</string>
+    <string name="portfolio_csv_import_more">+ మరో %1$d</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d కొత్త లావాదేవీ</item>
+        <item quantity="other">%d కొత్త లావాదేవీలు</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d వరుస దాటవేయబడింది</item>
+        <item quantity="other">%d వరుసలు దాటవేయబడ్డాయి</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">స్టేబుల్‌కాయిన్‌లతో (USDT, USDC …) ట్రేడ్‌లు స్వాప్‌లుగా బుక్ అవుతాయి – స్టేబుల్‌కాయిన్ మీ హోల్డింగ్‌లలో కనిపిస్తుంది.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">అనేక సరిపోలికలు సాధ్యం – సరైనదాన్ని ఎంచుకోండి లేదా ఏదీ ఎంచుకోవద్దు.</string>
+    <string name="portfolio_csv_import_transfer_fee">నెట్‌వర్క్ ఫీజు: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">ఒకే బదిలీగా బుక్ చేయి</string>
+    <string name="portfolio_csv_import_transfer_stored">మునుపటి ఇంపోర్ట్ నుండి ప్రతిరూప ఎంట్రీ</string>
+    <string name="portfolio_csv_import_transfers_hint">ఒకే కాయిన్ విత్‌డ్రా, దానికి సరిపోలే డిపాజిట్ కలిసి ఒకే బదిలీ అవుతాయి: కొనుగోలు ధర, హోల్డింగ్ వ్యవధి కొనసాగుతాయి, తేడా నెట్‌వర్క్ ఫీజుగా లెక్కించబడుతుంది.</string>
+    <string name="portfolio_csv_import_transfers_title">మీ ఖాతాల మధ్య బదిలీలు</string>
+    <string name="portfolio_csv_import_unreadable">మద్దతు ఉన్న లావాదేవీలు ఏవీ కనుగొనబడలేదు. మద్దతు ఉన్నవి: Relai, Swissquote, Kraken, Binance, Coinbase, Bitpanda CSV ఎక్స్‌పోర్ట్‌లు.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
+    <string name="portfolio_csv_import_too_large">ఇంపోర్ట్ చేయడానికి ఫైల్ చాలా పెద్దది (గరిష్ఠంగా 16 MB, %1$s వరుసలు). తక్కువ వ్యవధులను ఎక్స్‌పోర్ట్ చేసి ఒకదాని తర్వాత ఒకటి ఇంపోర్ట్ చేయండి.</string>
+    <string name="portfolio_csv_import_failed">ఇంపోర్ట్ పని చేయలేదు – ఏదీ సేవ్ కాలేదు. దయచేసి మళ్లీ ప్రయత్నించండి.</string>
+    <string name="portfolio_csv_import_locked">ఇంపోర్ట్ సాధ్యం కాదు: సేవ్ చేసిన డేటాను ప్రస్తుతం చదవలేము. యాప్‌ను రీస్టార్ట్ చేయండి.</string>
+    <string name="portfolio_csv_import_withdrawals_title">విత్‌డ్రాలు – కాయిన్‌లు ఎక్కడికి వెళ్లాయి?</string>
+    <string name="portfolio_csv_import_zone">టైమ్ జోన్ లేని సమయాలు ఇలా చదవబడతాయి: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">పరికరం (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">చదవలేని తేదీ</string>
+    <string name="portfolio_csv_skip_bad_number">చదవలేని సంఖ్య</string>
+    <string name="portfolio_csv_skip_fee_exceeds">ఫీజు ≥ అందుకున్న మొత్తం</string>
+    <string name="portfolio_csv_skip_internal_move">మీ సొంత ఖాతాల మధ్య తరలింపు – బుక్ చేయాల్సింది ఏమీ లేదు</string>
+    <string name="portfolio_csv_skip_missing">ఫీల్డ్ లేదు</string>
+    <string name="portfolio_csv_skip_ambiguous">ఒకే సెకనులో వేరు చేయలేని అనేక ట్రేడ్‌లు – వాటిని మాన్యువల్‌గా నమోదు చేయండి</string>
+    <string name="portfolio_csv_skip_not_crypto">క్రిప్టో కాదు</string>
+    <string name="portfolio_csv_skip_possible_duplicate">ఇప్పటికే ఇంపోర్ట్ అయి ఉండవచ్చు (దాదాపు అదే ట్రేడ్) – మాన్యువల్‌గా తనిఖీ చేయండి</string>
+    <string name="portfolio_csv_skip_two_fees">వేర్వేరు యూనిట్‌లలో రెండు ఫీజులు – స్వాప్‌ను మాన్యువల్‌గా నమోదు చేయండి</string>
+    <string name="portfolio_csv_skip_unsupported">మద్దతు లేని రకం</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">చర్య రద్దు చేయి</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">ఈ ఇంపోర్ట్‌లోని %d లావాదేవీని తొలగించాలా? మాన్యువల్ ఎంట్రీలు, ఇతర ఇంపోర్ట్‌లు అలాగే ఉంటాయి.</item>
+        <item quantity="other">ఈ ఇంపోర్ట్‌లోని %d లావాదేవీలను తొలగించాలా? మాన్యువల్ ఎంట్రీలు, ఇతర ఇంపోర్ట్‌లు అలాగే ఉంటాయి.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">ఇంపోర్ట్‌ను రద్దు చేయాలా?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">ఇంపోర్ట్ చేసిన %d లావాదేవీ తీసివేయబడింది</item>
+        <item quantity="other">ఇంపోర్ట్ చేసిన %d లావాదేవీలు తీసివేయబడ్డాయి</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d లావాదేవీ</item>
+        <item quantity="other">%d లావాదేవీలు</item>
+    </plurals>
+    <string name="portfolio_imports_empty">ఇంపోర్ట్‌లు లేవు</string>
+    <string name="portfolio_imports_title">ఇంపోర్ట్‌లు</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">అదే లావాదేవీ ID, వేరే మొత్తం – మాన్యువల్‌గా తనిఖీ చేయండి</string>
+    <string name="portfolio_csv_skip_staking_unpaired">ప్రతి-ఎంట్రీ లేని స్టేకింగ్ ఎంట్రీ – హోల్డింగ్‌లను తనిఖీ చేయండి</string>
+    <string name="portfolio_csv_skip_amount_too_small">మొత్తం చాలా చిన్నది – సేవ్ చేసినప్పుడు 0కు రౌండ్ అవుతుంది</string>
+    <string name="portfolio_csv_skip_invalid_swap">చెల్లుబాటు అయ్యే కాయిన్ లేదా అందుకున్న మొత్తం లేని స్వాప్</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">ఫైల్‌ను మళ్లీ చదువుతోంది …</string>
+</resources>

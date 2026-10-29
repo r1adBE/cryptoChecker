@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">Eftirtektarvert: %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — núna %2$s</string>
+    <string name="notification_alarm_title">Viðvörun: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">Opna kauphöll</string>
+    <string name="notification_depeg_text">Gildi í forritinu nota þetta markaðsverð.</string>
+    <string name="notification_depeg_title">USDT á %1$s USD (%2$s)</string>
+    <string name="notification_fng_above">Vísitalan fór yfir %1$d – samkvæmt þessum mælikvarða er markaðsstemningin gráðug.</string>
+    <string name="notification_fng_below">Vísitalan fór undir %1$d – samkvæmt þessum mælikvarða er markaðsstemningin hrædd.</string>
+    <string name="notification_fng_title">Stemningsvísitala (Fear &amp; Greed): %1$d</string>
+    <string name="notification_gas_btc_text">Undir mörkunum þínum, %1$s sat/vB · Millifærsla ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin-gjald: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">Undir mörkunum þínum, %1$s gwei · Millifærsla ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Ethereum-gas: %1$s gwei</string>
+    <string name="notification_indicator_above">Yfir mörkunum þínum, %1$s – mælt gildi, ekki ráðlegging.</string>
+    <string name="notification_indicator_below">Undir mörkunum þínum, %1$s – mælt gildi, ekki ráðlegging.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">Efnahagsgögn í dag</string>
+    <string name="notification_permission_preprompt_continue">Halda áfram</string>
+    <string name="notification_permission_preprompt_later">Síðar</string>
+    <string name="notification_permission_preprompt_text">Til að viðvaranir og verðtilkynningar nái til þín þarf forritið leyfi til að senda tilkynningar. Forritið notar þær aðeins fyrir viðvaranir þínar og verðtilkynningar.</string>
+    <string name="notification_permission_preprompt_title">Leyfa tilkynningar?</string>
+    <string name="notification_portfolio_alarm_locked">Viðvörunin þín fór af stað – opnaðu forritið til að sjá nánar.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – núna %2$s</string>
+    <string name="notification_portfolio_alarm_title">Virði eignasafns</string>
+    <string name="notification_price_change">%1$s, frá %2$s (fyrir %3$s)</string>
+    <string name="notification_price_change_no_age">%1$s, frá %2$s</string>
+    <string name="notification_price_first">Fyrsta verðtilkynning fyrir þetta par</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+%1$d verð í viðbót</item>
+        <item quantity="other">+%1$d verð í viðbót</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">Uppfærir verð…</string>
+    <string name="notification_volume_spike_text">Velta %1$s× venjuleg síðustu klukkustund</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">Viðvaranir</string>
+    <string name="channel_alarms_description">Tilkynning þegar viðvörun fer af stað.</string>
+    <string name="channel_alarms_quiet">Viðvaranir (kyrrðartími)</string>
+    <string name="channel_alarms_quiet_description">Hljóðlausar viðvaranir á kyrrðartíma.</string>
+    <string name="channel_alarms_silent">Viðvaranir (hljóðlaust)</string>
+    <string name="channel_alarms_sound">Viðvaranir (aðeins hljóð)</string>
+    <string name="channel_alarms_sound_vibrate">Viðvaranir (hljóð og titringur)</string>
+    <string name="channel_alarms_vibrate">Viðvaranir (aðeins titringur)</string>
+    <string name="channel_prices">Verðtilkynningar</string>
+    <string name="channel_prices_description">Hljóðlaus verðtilkynning með núverandi verði pars.</string>
+    <string name="channel_service">Verðuppfærslur</string>
+    <string name="channel_service_description">Tilkynning meðan verið er að uppfæra verð.</string>
+    <string name="neutral_channel_market">Markaðsviðvaranir</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, gasgjöld, „Eftirtektarvert“ og efnahagsdagsetningar</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">Viðvörun. %1$s, %2$s %3$s %4$s, núna %5$s</string>
+    <string name="tts_direction_down">hefur lækkað</string>
+    <string name="tts_direction_funding_above">með háa fjármögnun</string>
+    <string name="tts_direction_funding_below">með lága fjármögnun</string>
+    <string name="tts_direction_move">hreyfist mikið</string>
+    <string name="tts_direction_near_high">er nálægt hámarki sínu</string>
+    <string name="tts_direction_near_low">er nálægt lágmarki sínu</string>
+    <string name="tts_direction_oi_down">með fækkandi opnum stöðum</string>
+    <string name="tts_direction_oi_up">með fjölgandi opnum stöðum</string>
+    <string name="tts_direction_up">hefur hækkað</string>
+    <string name="tts_direction_volume_spike">með veltustökki</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+
+    <!-- Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+    <string name="notification_alarm_action_snooze">1 klst. síðar</string>
+    <string name="notification_alarm_action_edit">Stilla</string>
+</resources>

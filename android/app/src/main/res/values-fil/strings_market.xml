@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="one">%d min ang nakalipas</item>
+        <item quantity="other">%d min ang nakalipas</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">ngayong araw %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed, mga sukatan ng Bitcoin, dominance, halving</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">Higit pang market data</string>
+    <string name="market_phase_trend_failed">Walang available na price data</string>
+    <string name="market_plain_direction_down_clear">Malinaw na mas mababa ang kabuuang value ng lahat ng cryptocurrency kaysa 24 na oras ang nakalipas (%1$s).</string>
+    <string name="market_plain_direction_down_slight">Bahagyang mas mababa ang kabuuang value ng lahat ng cryptocurrency kaysa 24 na oras ang nakalipas (%1$s).</string>
+    <string name="market_plain_direction_flat">Halos hindi nagbago ang kabuuang value ng lahat ng cryptocurrency sa loob ng 24 na oras (%1$s).</string>
+    <string name="market_plain_direction_up_clear">Malinaw na mas mataas ang kabuuang value ng lahat ng cryptocurrency kaysa 24 na oras ang nakalipas (%1$s).</string>
+    <string name="market_plain_direction_up_slight">Bahagyang mas mataas ang kabuuang value ng lahat ng cryptocurrency kaysa 24 na oras ang nakalipas (%1$s).</string>
+    <string name="market_plain_footnote">Inilalarawan ang huling 24 na oras – hindi forecast, hindi investment advice.</string>
+    <string name="market_plain_mood_extreme_fear">Lubhang takot ang mga investor ngayon: nasa %1$d sa 100 ang mood index (Fear &amp; Greed).</string>
+    <string name="market_plain_mood_extreme_greed">Lubhang sakim ang mga investor ngayon: nasa %1$d sa 100 ang mood index (Fear &amp; Greed).</string>
+    <string name="market_plain_mood_fear">Medyo takot ang mga investor: nasa %1$d sa 100 ang mood index (Fear &amp; Greed).</string>
+    <string name="market_plain_mood_greed">Medyo sakim ang mga investor: nasa %1$d sa 100 ang mood index (Fear &amp; Greed).</string>
+    <string name="market_plain_mood_neutral">Balanse ang mood ng mga investor: nasa %1$d sa 100 ang mood index (Fear &amp; Greed).</string>
+    <string name="market_plain_standout_above_btc">Namumukod ang %1$s: %2$s sa loob ng 24 na oras, mas mataas nang husto kaysa Bitcoin (%3$s).</string>
+    <string name="market_plain_standout_against_btc">Namumukod ang %1$s: %2$s sa loob ng 24 na oras, habang kabaligtaran ang galaw ng Bitcoin (%3$s).</string>
+    <string name="market_plain_standout_below_btc">Namumukod ang %1$s: %2$s sa loob ng 24 na oras, mas mababa nang husto kaysa Bitcoin (%3$s).</string>
+    <string name="market_plain_standout_futures_down">Namumukod ang %1$s: di-pangkaraniwang dami ng futures trader ang tumataya sa pagbaba ng presyo.</string>
+    <string name="market_plain_standout_futures_up">Namumukod ang %1$s: di-pangkaraniwang dami ng futures trader ang tumataya sa pagtaas ng presyo.</string>
+    <string name="market_plain_standout_quiet">Walang iisang coin na namumukod ngayon.</string>
+    <string name="market_plain_standout_volume">Namumukod ang %1$s: mga %2$s beses na mas maraming trading kaysa karaniwan.</string>
+    <string name="market_plain_title">Sa madaling salita</string>
+    <string name="market_section_collapse">Itago ang %1$s</string>
+    <string name="market_section_context">Sentiment &amp; cycle</string>
+    <string name="market_section_data">Market data</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">Ipakita ang %1$s</string>
+    <string name="market_section_now">Sa ngayon</string>
+    <string name="market_source">Data: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="exchange_unavailable_error">Hindi available ang exchange</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">Impormasyon: %1$s</string>
+    <string name="market_info_alt_season_source">Araw-araw na presyo: Binance · kinakalkula ulit mga bawat 3 oras</string>
+    <string name="market_info_alt_season_what">Binibilang kung ilan sa mga 20 malalaking altcoin (hal. Ethereum, Solana, XRP) ang mas mahusay ang takbo kaysa Bitcoin sa huling 90 araw. Ang value ay ang bahagi nila mula 0 hanggang 100.</string>
+    <string name="market_info_coin_source">Mga presyo: Binance o Bybit · nilo-load ulit mga bawat 15 minuto</string>
+    <string name="market_info_dominance_how">Kapag tumaas ang dominance, mas mahusay ang Bitcoin kaysa sa iba pang market; kapag bumaba, nagkakaroon ng mas malaking bigat ang ibang coin. Kasama rin ang mga stablecoin: kapag lumaki ang value nila, bumababa ang bahagi ng Bitcoin kahit hindi nagbabago ang presyo ng Bitcoin.</string>
+    <string name="market_info_dominance_source">Pinagmulan: CoinGecko · nilo-load ulit mga bawat 30 minuto</string>
+    <string name="market_info_dominance_what">Ang bahagi ng Bitcoin sa kabuuang value ng lahat ng cryptocurrency (market capitalization). Sa ibaba nito ang bahagi ng Ethereum.</string>
+    <string name="market_info_fear_greed_how">Ang mas mababa sa 25 ay matinding takot, ang lampas 75 ay matinding kasakiman, ang mga 50 ay neutral. Kapag naka-expand, ipinapakita ng card ang mga value kahapon, isang linggo at isang buwan ang nakalipas. Hindi ito signal para bumili o magbenta.</string>
+    <string name="market_info_fear_greed_source">Pinagmulan: alternative.me · bagong value isang beses kada araw</string>
+    <string name="market_info_fear_greed_what">Isang sentiment index para sa crypto market mula 0 hanggang 100. Kinakalkula ito ng alternative.me mula sa ilang input, kabilang ang paggalaw ng presyo, trading volume, social media at Bitcoin dominance.</string>
+    <string name="market_info_gas_how">Ang mas matataas na value ay nangangahulugang abala ang network at mas mahal ang mga transfer. Ang mabagal, normal at mabilis ay mga fee para sa mas huli o mas mabilis na confirmation. Kapag naka-expand, ipinapakita ng card ang tinatayang gastos ng simpleng transfer.</string>
+    <string name="market_info_gas_source">Mga pampublikong RPC node, mempool.space · nilo-load ulit bawat minuto</string>
+    <string name="market_info_gas_what">Magkano ang halaga ng isang transaksyon ngayon sa bawat network. Sa Ethereum at mga katulad na network sa gwei (isang bilyong bahagi ng ETH bawat unit ng gas), sa Bitcoin sa sat/vB (satoshi bawat virtual byte ng transaksyon).</string>
+    <string name="market_info_halving_source">Petsa: mula sa block height at average na block time (mempool.space), kung hindi ay ayon sa kalendaryo · kasaysayan ng presyo: Coin Metrics, Binance, nilo-load ulit bawat 12 oras</string>
+    <string name="market_info_halving_what">Sa halving, nahahati sa kalahati ang reward na natatanggap ng mga miner para sa bagong Bitcoin block. Nangyayari ito bawat 210,000 block, mga bawat apat na taon. Pagkatapos nito, kalahati na lang ng mga bagong bitcoin ang nalilikha bawat araw.</string>
+    <string name="market_info_how">Paano ito basahin</string>
+    <string name="market_info_macro_how">Lumalabas lang ang paalala kapag ngayon o bukas ang ganitong petsa. Sa paligid ng paglabas, madalas na mas malaki kaysa karaniwan ang paggalaw ng presyo. Ang petsa lang ang ipinapakita ng app, hindi ang mismong mga numero.</string>
+    <string name="market_info_macro_source">Kalendaryo mula sa website ng app · nilo-load isang beses kada araw</string>
+    <string name="market_info_macro_what">Mga petsa ng mahahalagang economic data ng US: inflation (CPI, PCE), producer prices (PPI), ang jobs report at mga desisyon sa interest rate ng US Federal Reserve. Madalas ding gumagalaw ang mga presyo ng crypto dahil sa mga ganitong numero.</string>
+    <string name="market_info_no_advice">Hindi investment advice.</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · mga presyo kada oras, mga on-chain value nilo-load ulit bawat 12 oras</string>
+    <string name="market_info_pulse_how">Ang headline ang nagsasabi ng direksyon; i-expand ang card para sa mga detalye. Ang malawak na galaw ay nangangahulugang karamihan ng malalaking coin ay gumagalaw sa parehong direksyon. Ang optimistic na leverage mood ay nangangahulugang maraming trader ang tumataya sa pagtaas ng presyo gamit ang leverage, sinusukat sa funding rate ng Bitcoin futures. Isang snapshot, hindi forecast.</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · nilo-load ulit mga bawat 5 minuto</string>
+    <string name="market_info_pulse_what">Maikling buod ng market sa huling 24 na oras: paano gumagalaw ang Bitcoin, Ethereum at Solana, ilan sa pinakamalalaking coin ang tumataas o bumababa, gaano karaming Bitcoin ang tine-trade ngayon at ano ang leverage mood (sinusukat sa funding rate ng Bitcoin futures).</string>
+    <string name="market_info_totals_how">Sa kanan ang pagbabago ng kabuuang value sa loob ng 24 na oras. Ang mataas na volume ay nangangahulugang maraming tine-trade – hindi nito sinasabi kung saang direksyon. Ipinapakita sa conversion currency kung posible, kung hindi ay sa US dollar.</string>
+    <string name="market_info_totals_source">Lahat ng coin · CoinGecko · nilo-load ulit mga bawat 30 minuto</string>
+    <string name="market_info_totals_what">Ang kabuuang value ng lahat ng cryptocurrency (market capitalization: presyo na pinarami sa circulating supply, pinagsama sa lahat ng coin) at ang trading volume ng huling 24 na oras.</string>
+    <string name="market_info_unusual_how">Ipinapakita ng bawat coin ang pinakakapansin-pansing obserbasyon nito, kasama ang pagbabago sa 24 na oras sa kanan. Ang volume na 2× ay nangangahulugang dalawang beses ng karaniwang turnover. Ang kapansin-pansin ay hindi nangangahulugang mabuti o masama.</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · nilo-load ulit mga bawat 10 minuto</string>
+    <string name="market_info_unusual_what">Hanggang limang coin mula sa mga 30 pinakamalaki (walang stablecoin) na kakaiba ang kilos ngayon: mas malakas o mas mahina nang husto kaysa Bitcoin, salungat sa direksyon ng market, na may di-pangkaraniwang taas na trading volume o may kapansin-pansing funding rate.</string>
+    <string name="market_info_what">Ano ito?</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">Market cap</string>
+    <string name="market_cap_source">Lahat ng coin · CoinGecko</string>
+    <string name="market_cap_title">Crypto market</string>
+    <string name="market_volume_label">Volume 24h</string>
+
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">Mga detalye</string>
+    <string name="pulse_disclaimer">Hindi forecast · Hindi investment advice</string>
+    <string name="pulse_less">Ipakita nang mas kaunti</string>
+    <string name="pulse_now_title">Crypto pulse</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">Pagbabago sa loob ng 24 na oras</string>
+    <string name="pulse_section_factors">Mga salik</string>
+    <string name="pulse_section_market">Market ngayon</string>
+    <string name="pulse_unavailable">Hindi available ngayon ang market data</string>
+    <string name="pulse_updated">Noong %1$s</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">Kalmadong market</string>
+    <string name="pulse_headline_down">Malawak na kahinaan</string>
+    <string name="pulse_headline_mixed">Halo-halong larawan</string>
+    <string name="pulse_headline_up">Malawak na lakas</string>
+    <string name="pulse_lead_alts_stronger">Mas malakas ang mga altcoin kaysa Bitcoin.</string>
+    <string name="pulse_lead_broad_down">Malawakang bumababa ang market.</string>
+    <string name="pulse_lead_broad_up">Malawakang tumataas ang market.</string>
+    <string name="pulse_lead_btc_leads">Ang Bitcoin ang pinakamataas ang itinaas.</string>
+    <string name="pulse_lead_btc_stronger">Mas malakas ang Bitcoin kaysa mga altcoin.</string>
+    <string name="pulse_lead_calm">Halos hindi gumagalaw ang market.</string>
+    <string name="pulse_lead_drift_down">Unti-unting bumababa ang market.</string>
+    <string name="pulse_lead_drift_up">Unti-unting tumataas ang market.</string>
+    <string name="pulse_lead_mixed">Naghihiwalay ang galaw ng malalaking coin.</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">Optimistic ang leverage mood.</string>
+    <string name="pulse_detail_fund_negative">Pessimistic ang leverage mood.</string>
+    <string name="pulse_detail_fund_neutral">Neutral ang leverage mood.</string>
+    <string name="pulse_detail_vol_above">Volume %1$s lampas sa normal.</string>
+    <string name="pulse_detail_vol_above_fund_high">Volume %1$s lampas sa normal, optimistic ang leverage mood.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Volume %1$s lampas sa normal, pessimistic ang leverage mood.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Volume %1$s lampas sa normal, neutral ang leverage mood.</string>
+    <string name="pulse_detail_vol_below">Volume %1$s mababa sa normal.</string>
+    <string name="pulse_detail_vol_below_fund_high">Volume %1$s mababa sa normal, optimistic ang leverage mood.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Volume %1$s mababa sa normal, pessimistic ang leverage mood.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Volume %1$s mababa sa normal, neutral ang leverage mood.</string>
+    <string name="pulse_detail_vol_normal">Normal ang volume.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Normal ang volume, optimistic ang leverage mood.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Normal ang volume, pessimistic ang leverage mood.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Normal ang volume, neutral ang leverage mood.</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">Top %1$d: ang pinakamalalaking coin ayon sa market value, walang stablecoin; pagbabago sa loob ng 24 na oras (CoinGecko).</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_note_broad_down">Malawakang sell-off: bumababa ang karamihan ng pinakamalalaking coin.</string>
+    <string name="pulse_breadth_note_broad_up">Malawak na galaw: tumataas ang karamihan ng pinakamalalaking coin.</string>
+    <string name="pulse_breadth_note_narrow_down">Bumababa ang Bitcoin, pero nananatiling matatag ang karamihan ng ibang malalaking coin.</string>
+    <string name="pulse_breadth_note_narrow_up">Tumataas ang Bitcoin, pero hindi sumasabay ang karamihan ng ibang malalaking coin.</string>
+    <string name="pulse_breadth_spoken">Top %1$d: %2$d ang tumaas, %3$d ang bumaba</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">Pareho ang galaw ng mga altcoin at Bitcoin</string>
+    <string name="pulse_alts_stronger">Mas malakas ang mga altcoin kaysa Bitcoin</string>
+    <string name="pulse_alts_weaker">Mas malakas ang Bitcoin kaysa mga altcoin</string>
+    <string name="pulse_chip_funding_high">Optimistic ang leverage mood</string>
+    <string name="pulse_chip_funding_negative">Pessimistic ang leverage mood</string>
+
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">Ipakita ang presyo at mga aksyon</string>
+    <string name="unusual_fact_against">Salungat sa market ang galaw</string>
+    <string name="unusual_fact_funding_high">Mataas ang funding (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Negatibo ang funding (%1$s)</string>
+    <string name="unusual_fact_stronger">Mas malakas nang husto ang galaw kaysa BTC</string>
+    <string name="unusual_fact_volume">Volume %1$s× ng karaniwan</string>
+    <string name="unusual_fact_weaker">Mas mahina nang husto ang galaw kaysa BTC</string>
+    <string name="unusual_nothing">Walang kapansin-pansin ngayon</string>
+    <string name="unusual_source">Mga 30 pinakamalalaking coin na walang stablecoin · Binance, CoinGecko</string>
+    <string name="unusual_title">Kapansin-pansin</string>
+
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">Kapansin-pansin</string>
+    <string name="activity_indicator">Kapansin-pansin</string>
+    <string name="activity_sensitivity_less">Mas kaunti</string>
+    <string name="activity_sensitivity_more">Mas marami</string>
+    <string name="activity_sensitivity_normal">Normal</string>
+    <string name="activity_signal_funding_long">Funding %1$s — maraming leveraged long</string>
+    <string name="activity_signal_funding_short">Funding %1$s — maraming short</string>
+    <string name="activity_signal_open_interest">Open interest %1$s sa loob ng %2$d min</string>
+    <string name="activity_signal_open_interest_no_time">Open interest %1$s</string>
+    <string name="activity_signal_price_move">Kakaibang galaw: %1$s sa loob ng isang oras (%2$s× ng normal)</string>
+    <string name="activity_signal_volume">Volume %1$s× ng normal sa huling oras</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%1$d sa %2$d malalaking altcoin ang nanalo laban sa Bitcoin sa loob ng 90 araw</item>
+        <item quantity="other">%1$d sa %2$d malalaking altcoin ang nanalo laban sa Bitcoin sa loob ng 90 araw</item>
+    </plurals>
+    <string name="insights_chart_axis">Mga taon mula sa halving</string>
+    <string name="insights_chart_hint">Presyo bilang multiple ng presyo sa araw ng halving (log scale). Pattern ang mga naunang cycle, hindi forecast.</string>
+    <string name="insights_cycle_chart">Mga cycle mula sa halving</string>
+    <string name="insights_dominance_eth">ETH %1$s ng kabuuang market</string>
+    <string name="insights_dominance_title">Bitcoin dominance</string>
+    <string name="insights_fng_history">Kahapon %1$s · isang linggo ang nakalipas %2$s · isang buwan ang nakalipas %3$s</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="insights_halving_title">Bitcoin halving</string>
+    <string name="insights_source_dominance">Pinagmulan: CoinGecko, Binance</string>
+    <string name="insights_source_fng">Pinagmulan: alternative.me</string>
+    <string name="insights_source_history">Pinagmulan: Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">Matinding takot</string>
+    <string name="fng_extreme_greed">Matinding kasakiman</string>
+    <string name="fng_fear">Takot</string>
+    <string name="fng_greed">Kasakiman</string>
+    <string name="fng_neutral">Neutral</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">Data noong %1$s · nag-a-update…</string>
+    <string name="cycle_from_top">%1$s mula sa top</string>
+    <string name="cycle_marker_bottom">Bottom %1$s</string>
+    <string name="cycle_marker_double_bottom">Double bottom %1$s</string>
+    <string name="cycle_marker_double_top">Double top %1$s</string>
+    <string name="cycle_marker_high_so_far">Pinakamataas sa ngayon</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">Top %1$s</string>
+    <string name="cycle_since_halving">%1$s mula sa halving</string>
+    <string name="halving_estimate_text">Ayon sa kalkulasyon, susunod na halving bandang %1$s: %2$s block pa ang natitira sa average na %3$s min bawat block (kasalukuyang difficulty period). Isang projection, hindi pangako – nag-iiba ang block time.</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">Alerto: %1$s</string>
+    <string name="gas_slow_fast">Mabagal %1$s · Mabilis %2$s</string>
+    <string name="gas_source">Mga pampublikong RPC node at mempool.space · Gastos ng simpleng transfer, walang bahagi ng L1 sa mga L2</string>
+    <string name="gas_title">Mga network fee</string>
+    <string name="gas_transfer_cost">Transfer ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">Inflation data ng US (CPI)</string>
+    <string name="macro_fomc">Desisyon sa rate ng US Fed</string>
+    <string name="macro_hint_list">%1$s – madalas mas malaki ang paggalaw ng market sa mga ganitong araw.</string>
+    <string name="macro_hint_today">Ngayon %1$s: %2$s – madalas mas malaki ang paggalaw ng market sa mga ganitong araw.</string>
+    <string name="macro_hint_today_list">Ngayon: %1$s – madalas mas malaki ang paggalaw ng market sa mga ganitong araw.</string>
+    <string name="macro_hint_tomorrow">Bukas %1$s: %2$s – madalas mas malaki ang paggalaw ng market sa mga ganitong araw.</string>
+    <string name="macro_hint_tomorrow_list">Bukas: %1$s – madalas mas malaki ang paggalaw ng market sa mga ganitong araw.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Ngayon %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Bukas %1$s %2$s</string>
+    <string name="macro_nfp">Jobs report ng US</string>
+    <string name="macro_pce">Presyo ng consumer spending sa US (PCE)</string>
+    <string name="macro_ppi">Producer prices ng US (PPI)</string>
+    <string name="macro_released_list">Inilabas ngayon: %1$s.</string>
+    <string name="macro_released_one">Inilabas ngayon nang %1$s: %2$s.</string>
+    <string name="macro_title">Economic data</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">Coin</string>
+    <string name="coin_no_data">Walang price data para sa coin na ito sa Binance o Bybit.</string>
+    <string name="coin_price_only">Batay sa presyo lang – para sa Bitcoin lang malayang available ang on-chain data (MVRV, Puell, hashrate).</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">%1$d araw lang ng kasaysayan ng presyo – may ilang indicator na kulang.</item>
+        <item quantity="other">%1$d araw lang ng kasaysayan ng presyo – may ilang indicator na kulang.</item>
+    </plurals>
+    <string name="coin_title">Pagsusuri ng coin</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">Data: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">Mga tumaas at bumaba 24 h</string>
+    <string name="movers_gainers">Tumaas</string>
+    <string name="movers_losers">Bumaba</string>
+    <string name="movers_no_gainers">Walang coin na tumaas sa 24 h</string>
+    <string name="movers_no_losers">Walang coin na bumaba sa 24 h</string>
+    <string name="movers_source">CoinGecko, 24 h, top 100 na walang stablecoin</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">Ipakita lahat</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">Ipakita nang mas kaunti</string>
+</resources>

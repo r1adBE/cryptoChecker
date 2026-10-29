@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">Walang naka-set up na screen lock sa device na ito. Mag-set up muna nito sa mga setting ng system.</string>
+    <string name="app_lock_unlock">I-unlock</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">I-clear ang portfolio</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="one">I-delete ang %d transaksyon? Mananatili ang mga binabantayang address. Maaari mo itong i-undo kaagad pagkatapos.</item>
+        <item quantity="other">I-delete ang lahat ng %d transaksyon? Mananatili ang mga binabantayang address. Maaari mo itong i-undo kaagad pagkatapos.</item>
+    </plurals>
+    <string name="portfolio_empty_action">Idagdag ang una mong pagbili</string>
+    <string name="portfolio_empty_address">Bantayan lang ang isang wallet address</string>
+    <string name="portfolio_empty_csv">Bumili sa isang exchange? I-import ang file nito</string>
+    <string name="portfolio_empty_example_plain">Halimbawa: %1$s BTC na binili noong 1 Marso. Ipapakita ng app kung magkano ang halaga nito ngayon at kung tubo o lugi ka – sa device lang na ito naka-store.</string>
+    <string name="portfolio_empty_title">Wala pang transaksyon</string>
+    <string name="portfolio_enable_ask_text">Na-save ang transaksyon mo. Ipinapakita ng tab na Portfolio ang mga hawak mo at ang value ng mga ito.</string>
+    <string name="portfolio_enable_ask_title">I-on ang tab na Portfolio?</string>
+    <string name="portfolio_enable_later_hint">Na-save ang transaksyon. Mao-on mo ang tab na Portfolio sa Mga Setting › Portfolio.</string>
+    <string name="portfolio_enabled_banner">Naka-on na ang portfolio – makikita mo ito sa tab na Portfolio.</string>
+    <string name="portfolio_lock_reason">I-unlock ang portfolio</string>
+    <string name="portfolio_locked_text">Mag-unlock para makita ang mga hawak at value mo.</string>
+    <string name="portfolio_locked_title">Naka-lock ang portfolio</string>
+    <string name="portfolio_setting_hint">Opsyonal: itala ang mga pagbili at pagbenta at tingnan ang value at tubo/lugi sa hiwalay na tab.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">Luma na · noong %1$s</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="one">%d entry mula sa system backup ang hindi valid at hindi na-restore.</item>
+        <item quantity="other">%d entry mula sa system backup ang hindi valid at hindi na-restore.</item>
+    </plurals>
+    <string name="portfolio_title">Portfolio</string>
+    <string name="portfolio_unassigned_fee">Hindi naka-assign ang fee – hindi alam ang cost basis: %1$s</string>
+    <string name="portfolio_updated">Mga presyo noong %1$s</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">Iba pa</string>
+    <string name="portfolio_allocation_title">Hatian</string>
+    <string name="portfolio_card_details">Mga detalye</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: hindi pa available</string>
+    <string name="portfolio_card_hints_count">Mga paalala (%1$d)</string>
+    <string name="portfolio_card_today">Ngayon</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">Kabuuan</string>
+    <string name="portfolio_hide_amounts">Itago ang mga halaga</string>
+    <string name="portfolio_hide_amounts_hint">Ipinapakita bilang ••• ang mga halaga at value sa portfolio at sa portfolio widget – makikita pa rin ang mga porsiyento.</string>
+    <string name="portfolio_invested">Cost basis</string>
+    <string name="portfolio_total_no_fx">Walang exchange rate para sa %1$s – mga halaga sa USDT</string>
+    <string name="portfolio_total_value">Kabuuang value</string>
+    <string name="portfolio_value">Value</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">Avg. %1$s · ngayon %2$s</string>
+    <string name="portfolio_avg_only">Avg. %1$s</string>
+    <string name="portfolio_avg_open_lots">Avg. na gastos ng mga hawak na coin</string>
+    <string name="portfolio_avg_partial">Avg. ng %1$s na may presyo ng pagbili</string>
+    <string name="portfolio_avg_price">Avg. na presyo ng pagbili</string>
+    <string name="portfolio_avg_price_hint">Avg. na presyo ng pagbili: ang average ng lahat ng pagbili, weighted ayon sa halaga. Pinapahalagahan ang mga pagbenta sa average na ito.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Saradong posisyon (%1$d)</item>
+        <item quantity="other">Mga saradong posisyon (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: ginagamit muna ng mga pagbenta ang pinakaluma mong mga coin. Avg. = natitirang cost basis ÷ halagang may presyo ng pagbili.</string>
+    <string name="portfolio_holdings">Mga hawak</string>
+    <string name="portfolio_lost_fee_cost">Gastos ng network fee na walang bayad na lot: %1$s</string>
+    <string name="portfolio_open_lots">Mga bukas na lot ng pagbili (%1$d)</string>
+    <string name="portfolio_open_lots_avg">May presyo ng pagbili (avg.)</string>
+    <string name="portfolio_open_lots_no_cost">Walang presyo ng pagbili</string>
+    <string name="portfolio_open_lots_without_price">walang presyo ng pagbili</string>
+    <string name="portfolio_realized">Realized na tubo/lugi</string>
+    <string name="portfolio_unrealized">Bukas na tubo/lugi</string>
+    <string name="portfolio_unrealized_without_unpriced">wala ang %1$s na walang presyo ng pagbili</string>
+    <string name="portfolio_withdrawn_gain">Na-withdraw: %1$s (pagbabago ng value hanggang sa withdrawal)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">I-convert sa</string>
+    <string name="portfolio_convert_to_value">I-convert sa: %1$s</string>
+    <string name="portfolio_current_missing">Walang kasalukuyang presyo para sa %1$s</string>
+    <string name="portfolio_current_price">Kasalukuyang presyo</string>
+    <string name="portfolio_price_missing">Walang presyo</string>
+    <string name="portfolio_price_missing_hint">May mga pagbiling walang presyo. Idagdag ang presyo ng pagbili para makita ang tubo/lugi.</string>
+    <string name="portfolio_price_source">Mga presyo: Binance · USDT sa market price</string>
+    <string name="portfolio_price_source_routes">Mga presyo: %1$s, kung hindi ay Binance · USDT sa market price</string>
+    <string name="portfolio_price_unavailable">Hindi available ang presyo ngayon</string>
+    <string name="portfolio_price_unchecked">Hindi nasuri ang presyo</string>
+    <string name="portfolio_price_via_base">≈ presyo ng %1$s (bridged/wrapped)</string>
+    <string name="portfolio_usdt_as_usd">Kino-convert ang USDT sa USD market price nito</string>
+    <string name="portfolio_usdt_assumed">Walang dollar rate ng USDT – binibilang bilang 1 US dollar</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">Idagdag sa portfolio</string>
+    <string name="portfolio_add_tx">Magdagdag ng transaksyon</string>
+    <string name="portfolio_buy">Bumili</string>
+    <string name="portfolio_coin">Coin</string>
+    <string name="portfolio_coin_invalid">Maglagay ng simbolo ng coin</string>
+    <string name="portfolio_coin_search">Maghanap ng simbolo, hal. BTC</string>
+    <string name="portfolio_discard_confirm">I-discard</string>
+    <string name="portfolio_discard_keep">Ituloy ang pag-edit</string>
+    <string name="portfolio_discard_title">I-discard ang mga pagbabago?</string>
+    <string name="portfolio_edit_tx">I-edit ang transaksyon</string>
+    <string name="portfolio_invalid">Maglagay ng valid na numerong mas malaki sa 0.</string>
+    <string name="portfolio_oversold">Lumalampas ang mga pagbenta sa mga hawak – pakitingnan ang mga transaksyon.</string>
+    <string name="portfolio_sell">Magbenta</string>
+    <string name="portfolio_sell_exceeds">Higit sa mga hawak mo (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">Ang halaga at fee ay higit sa mga hawak mo (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">Higit sa mga hawak mo sa %2$s (%1$s)</string>
+    <string name="portfolio_transactions">Mga transaksyon</string>
+    <string name="portfolio_tx_acquired_date">Orihinal na petsa ng pagbili (opsyonal)</string>
+    <string name="portfolio_tx_acquired_date_hint">Para sa tagal ng paghawak sa tax export</string>
+    <string name="portfolio_tx_amount">Halaga</string>
+    <string name="portfolio_tx_coin_fee">Fee sa coin (opsyonal)</string>
+    <string name="portfolio_tx_date">Petsa</string>
+    <string name="portfolio_tx_delete_confirm">Aalisin ang transaksyong ito sa portfolio.</string>
+    <string name="portfolio_tx_delete_title">I-delete ang transaksyon?</string>
+    <string name="portfolio_tx_deposit">Deposit</string>
+    <string name="portfolio_tx_entry_currency">Ilagay sa</string>
+    <string name="portfolio_tx_explain_deposit">Mga hawak na walang trade, hal. mga coin mula noon</string>
+    <string name="portfolio_tx_explain_gift">Lumalabas ang mga coin sa mga hawak mo gaya ng withdrawal – disposal sa market value lang kung saan binubuwisan ng bansa ang mga regalo (UK, CA, AU)</string>
+    <string name="portfolio_tx_explain_payment">Ipinambayad sa mga produkto o serbisyo – disposal sa market value gaya ng pagbenta, walang natanggap na pera</string>
+    <string name="portfolio_tx_explain_reward">Cost basis = market value nang matanggap</string>
+    <string name="portfolio_tx_explain_swap">Isang coin kapalit ng iba: ibinebenta ang ibinigay na coin at binibili ang natanggap na coin</string>
+    <string name="portfolio_tx_explain_transfer">Walang tubo – kasama ng mga coin na lumilipat ang cost basis</string>
+    <string name="portfolio_tx_explain_withdrawal">Lumalabas ang mga hawak sa portfolio – walang pagbenta, walang tubo</string>
+    <string name="portfolio_tx_fee_consumes_amount">Kasinlaki ng natanggap na halaga ang fee – walang matitira.</string>
+    <string name="portfolio_tx_fees_toggle">Mga fee</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s sa rate noong %2$s</string>
+    <string name="portfolio_tx_fiat_loading">Nilo-load ang exchange rate…</string>
+    <string name="portfolio_tx_fiat_no_fx">Walang exchange rate para sa araw na ito – ilagay ang halaga sa USDT.</string>
+    <string name="portfolio_tx_gift">Regalo</string>
+    <string name="portfolio_tx_gift_price_hint">Sa USDT. Walang laman = close ng araw na iyon (tinatantiya).</string>
+    <string name="portfolio_tx_gift_spouse">Sa asawa / civil partner</string>
+    <string name="portfolio_tx_gift_spouse_hint">UK at Canada: walang tubo at walang lugi – kinukuha ng partner mo ang cost basis mo. Hindi ito pinapansin ng ibang bansa.</string>
+    <string name="portfolio_tx_market_value">Market value bawat coin</string>
+    <string name="portfolio_tx_more_buy">Fee, exchange, tala</string>
+    <string name="portfolio_tx_network_fee">Network fee sa coin (opsyonal)</string>
+    <string name="portfolio_tx_note">Tala (opsyonal)</string>
+    <string name="portfolio_tx_payment">Ipinambayad</string>
+    <string name="portfolio_tx_price">Presyo bawat coin</string>
+    <string name="portfolio_tx_price_hint">Sa USDT. Iwanang walang laman kung hindi alam.</string>
+    <string name="portfolio_tx_price_historic">Nasuring daily close ng %1$s – baguhin kung kailangan</string>
+    <string name="portfolio_tx_price_invalid">Maglagay ng valid na numero (0 o higit pa) o iwanang walang laman ang field.</string>
+    <string name="portfolio_tx_price_past_hint">Ilagay ang presyo noong araw ng pagbili – iwanang walang laman kung hindi alam</string>
+    <string name="portfolio_tx_price_receipt_hint">Sa USDT. Walang laman = mga hawak na walang cost basis.</string>
+    <string name="portfolio_tx_price_zero">Hindi puwede ang presyong 0 sa mga na-import na transaksyon – iwanang walang laman para sa market price</string>
+    <string name="portfolio_tx_removed">Na-delete ang transaksyon</string>
+    <string name="portfolio_tx_reward">Reward</string>
+    <string name="portfolio_tx_save_failed">Hindi ma-save ang transaksyon. Narito pa rin ang mga inilagay mo – pakisubukan ulit.</string>
+    <string name="portfolio_tx_swap">Swap</string>
+    <string name="portfolio_tx_swap_fee_received">Fee sa %1$s: binabawasan ang natanggap na halaga, hindi kailangan ng presyo.</string>
+    <string name="portfolio_tx_swap_from">Swap mula sa %1$s</string>
+    <string name="portfolio_tx_swap_given_amount">Halagang ibinigay</string>
+    <string name="portfolio_tx_swap_given_coin">Coin na ibinigay</string>
+    <string name="portfolio_tx_swap_received_amount">Halagang natanggap</string>
+    <string name="portfolio_tx_swap_received_coin">Coin na natanggap</string>
+    <string name="portfolio_tx_swap_same_coin">Pumili ng coin na iba sa ibinigay</string>
+    <string name="portfolio_tx_swap_to">Swap papunta sa %1$s</string>
+    <string name="portfolio_tx_swap_value">Value ng swap (opsyonal)</string>
+    <string name="portfolio_tx_swap_value_hint">Kabuuang value. Walang laman = hindi alam – mananatiling hindi kumpleto ang tubo (awtomatiko kapag may USDT sa swap).</string>
+    <string name="portfolio_tx_third_fee_amount">Halaga ng fee</string>
+    <string name="portfolio_tx_third_fee_coin">Coin ng fee</string>
+    <string name="portfolio_tx_third_fee_incomplete">Kung walang presyo, hindi isinasama ang fee sa cost basis at kinita; minamarkahan ng tax export ang mga ganitong pagbenta.</string>
+    <string name="portfolio_tx_third_fee_price">Presyo bawat fee coin (opsyonal)</string>
+    <string name="portfolio_tx_third_fee_toggle">Fee sa ibang coin</string>
+    <string name="portfolio_tx_total">Kabuuan: %1$s</string>
+    <string name="portfolio_tx_transfer">Transfer</string>
+    <string name="portfolio_tx_transfer_from">Mula sa (opsyonal)</string>
+    <string name="portfolio_tx_transfer_to">Papunta sa (opsyonal)</string>
+    <string name="portfolio_tx_transfer_to_hint">Exchange o wallet – doon na pinapahalagahan mula ngayon.</string>
+    <string name="portfolio_tx_type_select">Uri: %1$s</string>
+    <string name="portfolio_tx_value_received">Value bawat coin nang matanggap (opsyonal)</string>
+    <string name="portfolio_tx_withdrawal">Withdrawal</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">Ipinamigay o ipinambayad? Itala ito bilang “Regalo” o “Ipinambayad” – depende sa bansa, binibilang iyon na pagbenta para sa buwis.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">Opsyonal: market value sa USDT, ginagamit lang para sa kasaysayan (walang laman = presyo ng araw na iyon). Laging lumalabas ang mga coin sa cost basis nila.</string>
+    <string name="portfolio_wallet_did_you_mean">%1$s ba ang ibig mong sabihin? Ang ibang baybay ay binibilang bilang hiwalay na wallet.</string>
+    <string name="portfolio_wallet_shortfall">Kulang ang mga hawak sa %1$s – may nawawalang transfer ba?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">High %1$s</string>
+    <string name="portfolio_compare">Ihambing</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">Ihambing ang %1$s at USDT sa porsiyento</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">Paghahambing sa porsiyento, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">Epekto ng currency: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">Hanggang Agosto 2017 lang ang price data — doon nagsisimula ang kasaysayan.</string>
+    <string name="portfolio_history_chip_since_first">Lahat</string>
+    <string name="portfolio_history_collapse">Itago ang kasaysayan ng value</string>
+    <string name="portfolio_history_converted">Na-convert sa rate ngayon</string>
+    <string name="portfolio_history_expand">Ipakita ang kasaysayan ng value</string>
+    <string name="portfolio_history_gain_a11y">Value %1$s. Tubo/lugi, %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">Tubo/lugi</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">Value sa %1$s</string>
+    <string name="portfolio_history_incl_fx">Kasama ang exchange rate</string>
+    <string name="portfolio_history_incl_withdrawn">Kasama ang pagbabago ng value ng mga na-withdraw na coin</string>
+    <string name="portfolio_history_includes_trades">Kasama ang mga pagbili at pagbenta sa panahong ito</string>
+    <string name="portfolio_history_loading">Nilo-load ang kasaysayan ng value</string>
+    <string name="portfolio_history_period_1y">1 taon</string>
+    <string name="portfolio_history_period_30d">30 araw</string>
+    <string name="portfolio_history_period_7d">7 araw</string>
+    <string name="portfolio_history_period_since_first">mula sa unang pagbili</string>
+    <string name="portfolio_history_pnl_needs_prices">Kulang ang mga presyo ng pagbili para sa tubo/lugi – idagdag ang mga ito sa mga transaksyon.</string>
+    <string name="portfolio_history_pnl_without">Tubo/lugi nang wala ang %1$s (walang presyo)</string>
+    <string name="portfolio_history_range_1y">1 T</string>
+    <string name="portfolio_history_range_30d">30 A</string>
+    <string name="portfolio_history_range_7d">7 A</string>
+    <string name="portfolio_history_range_a11y">Ipakita ang kasaysayan para sa %1$s</string>
+    <string name="portfolio_history_range_since_first">Mula 1st na bili</string>
+    <string name="portfolio_history_scaled">Kasaysayan para sa %1$s: kasaysayan ng Binance na in-scale sa presyo ng exchange</string>
+    <string name="portfolio_history_title">Kasaysayan ng value</string>
+    <string name="portfolio_history_today">Ngayon</string>
+    <string name="portfolio_history_too_short">Magsisimula ang kasaysayan pagkatapos ng una mong buong araw.</string>
+    <string name="portfolio_history_unavailable">Walang available na kasaysayan ngayon.</string>
+    <string name="portfolio_history_utc_days">Mga araw sa UTC (daily candles)</string>
+    <string name="portfolio_history_without_matching">Wala ang %1$s (walang katugmang daily price)</string>
+    <string name="portfolio_period_rewards">Mga reward +%1$s (hindi kasama sa tubo)</string>
+    <string name="portfolio_period_scaled">7 A/1 T para sa %1$s: kasaysayan ng Binance na in-scale sa presyo ng exchange</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">Alerto</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">Halaga (%1$s)</string>
+    <string name="portfolio_alarm_hint">Sinusuri pagkatapos ng bawat refresh. Gaya ng mga alerto, nagti-trigger ito kapag nalampasan ang marka at muli lang pagkatapos bumalik ang value.</string>
+    <string name="portfolio_alarm_kind_above">Portfolio lampas sa halaga</string>
+    <string name="portfolio_alarm_kind_below">Portfolio mababa sa halaga</string>
+    <string name="portfolio_alarm_kind_down">Bumababa ang portfolio</string>
+    <string name="portfolio_alarm_kind_up">Tumataas ang portfolio</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">Portfolio lampas %1$s</string>
+    <string name="portfolio_alarm_sentence_below">Portfolio mababa sa %1$s</string>
+    <string name="portfolio_alarm_sentence_down">Portfolio bumaba nang %1$s (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">Portfolio tumaas nang %1$s (%2$s)</string>
+    <string name="portfolio_alarm_title">Alerto sa value ng portfolio</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">Exchange (opsyonal)</string>
+    <string name="ledger_exchange_failed">%1$s: walang presyo mula sa %2$s ngayon – pinahalagahan gamit ang Binance.</string>
+    <string name="ledger_exchange_hint">Pinapahalagahan ang coin sa presyo ng exchange na ito (kung hindi ay Binance). Gumagamit ang kasaysayan, 7 A at 1 T ng mga daily price ng Binance na in-scale dito.</string>
+    <string name="ledger_exchange_mixed">%1$s: maraming exchange ang inilagay – pinahalagahan gamit ang Binance. Inilipat ang mga coin? Itala ang paglipat bilang “Transfer”.</string>
+    <string name="ledger_exchange_none">Wala (Binance)</string>
+    <string name="ledger_fee">Fee (opsyonal)</string>
+    <string name="ledger_fee_coin">Coin</string>
+    <string name="ledger_fee_hint">Sa USDT, tinataasan nito ang cost basis (pagbenta: binabawasan ang kinita); sa coin, binabawasan nito ang halaga.</string>
+    <string name="ledger_fee_line">Fee %1$s</string>
+    <string name="ledger_fifo_cost_note">Mula nang bilhin: FIFO na gastos kasama ang mga fee (pinakalumang coin ang unang ibinebenta).</string>
+    <string name="ledger_gain_info">Ngayon, 7 A, 1 T: pagbabago ng value sa panahon – hindi binibilang na tubo ang mga pagbili at pagbenta. Mula nang bilhin: kasalukuyang value bawas ang cost basis (average na gastos kasama ang mga fee) ng mga coin na hawak mo pa.</string>
+    <string name="ledger_gain_info_a11y">Paano kinakalkula ang tubo at lugi</string>
+    <string name="ledger_gain_info_fifo">Ngayon, 7 A, 1 T: pagbabago ng value sa panahon – hindi binibilang na tubo ang mga pagbili at pagbenta. Mula nang bilhin: kasalukuyang value bawas ang cost basis (FIFO kasama ang mga fee) ng mga coin na hawak mo pa.</string>
+    <string name="ledger_gain_title">Tubo/lugi</string>
+    <string name="ledger_more_toggle">Fee at exchange</string>
+    <string name="ledger_partial_cost">Ang bahaging may presyo ng pagbili lang ang binibilang ng “Mula nang bilhin” – wala ang %1$s na walang presyo ng pagbili.</string>
+    <string name="ledger_period_without">Ngayon / 7 A / 1 T nang wala ang %1$s – walang katugmang panimulang presyo.</string>
+    <string name="ledger_since_purchase_currency">Mula nang bilhin (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">Tubo/lugi mula nang bilhin, hindi pa naibebenta</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="one">Wala ang %1$d coin na walang presyo ng pagbili (%2$s) – idagdag ang presyo para mabilang ito.</item>
+        <item quantity="other">Wala ang %1$d coin na walang presyo ng pagbili (%2$s) – idagdag ang mga presyo para mabilang ang mga ito.</item>
+    </plurals>
+
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">Pagbagsak ng USDT – market sa %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">Dollar rate ng USDT sa pamamagitan ng USDC/USDT – kung bumagsak ang USDC, mali ang value na ito</string>
+    <string name="portfolio_amount_bridged_stable">≈ kasama ang %1$s (bridged)</string>
+
+    <string name="portfolio_tx_interest">Interes (lending)</string>
+    <string name="portfolio_tx_interest_hint">Binibilang na kita kapag natanggap (Austria). Huwag gamitin para sa staking reward at airdrop.</string>
+    <string name="app_lock_no_screen_lock">Mag-set up ng screen lock para mabuksan ang portfolio.</string>
+    <string name="app_lock_turn_off_action">I-off ang lock ng portfolio</string>
+    <string name="app_lock_turn_off_confirm_title">I-off ang lock ng portfolio?</string>
+    <string name="app_lock_turn_off_confirm_message">Kung walang screen lock, hindi ma-unlock ang portfolio. Kapag naka-off, ipapakita ulit ng app ang portfolio mo nang hindi nagtatanong. Kapag may naka-set up nang screen lock, maaari mong i-on ulit ang lock sa Mga Setting.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">“Mula nang bilhin” at cost basis sa %1$s: gastos sa exchange rate ng araw ng pagbili, value sa rate ngayon.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">Walang exchange rate para sa araw ng pagbili (wala sa “Mula nang bilhin” at cost basis): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">Ang gastos sa mga araw ng pagbili na walang dollar rate ng USDT ay binilang bilang 1 US dollar bawat USDT.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">Noong %1$s – hindi maabot ang exchange</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">Mga daily price: %1$s (sa halip na Binance)</string>
+
+    <string name="portfolio_footer_short">Pantulong sa trabaho, hindi tax o investment advice. Privacy: Mga Setting › Tungkol sa app › Patakaran sa privacy.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">I-delete ang lahat ng transaksyon ng %1$s?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">Aalisin ang %d transaksyon. Maaari mo itong i-undo kaagad pagkatapos.</item>
+        <item quantity="other">Aalisin ang %d transaksyon. Maaari mo itong i-undo kaagad pagkatapos.</item>
+    </plurals>
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">Aalisin din sa ibang transaksyon ang mga fee na binayaran sa %1$s: %2$d.</string>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">Inalis ang %1$s sa portfolio (%2$d transaksyon)</item>
+        <item quantity="other">Inalis ang %1$s sa portfolio (%2$d transaksyon)</item>
+    </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">%d transaksyon ang inalis</item>
+        <item quantity="other">%d transaksyon ang inalis</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">Aalisin din nito ang %d lot.</item>
+        <item quantity="other">Aalisin din nito ang %d lot.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">Aalisin din nito ang %d lot at ang kasaysayan ng balanse.</item>
+        <item quantity="other">Aalisin din nito ang %d lot at ang kasaysayan ng balanse.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">Aalisin din nito ang kasaysayan ng balanse.</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">Hindi ma-save – pakisubukan ulit</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">Hindi valid ang threshold – i-delete at gumawa ulit</string>
+</resources>

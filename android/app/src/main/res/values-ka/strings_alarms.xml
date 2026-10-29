@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">განგაშის დაყენება</string>
+    <string name="alarms_add">ახალი განგაში</string>
+    <string name="alarms_edit">განგაშის რედაქტირება</string>
+    <string name="alarms_empty">ამ წყვილისთვის განგაშები ჯერ არ არის.</string>
+    <string name="alarms_empty_example">მაგალითად: შემატყობინე, როცა BTC %1$s-ზე მაღლა აიწევს.</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">შეტყობინებები გამორთულია – განგაშები ვერ მოგაღწევს.</string>
+    <string name="alarms_notifications_turn_on">ჩართვა</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">%1$d აქტიური</item>
+        <item quantity="other">%1$d აქტიური</item>
+    </plurals>
+    <string name="alarms_overview_empty">განგაშები ჯერ არ არის. გახსენი წყვილი და დაამატე განგაში «განგაშები» განყოფილებაში.</string>
+    <string name="alarms_overview_title">ყველა განგაში</string>
+    <string name="alarms_title">განგაშები</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">გაფართოებული</string>
+    <string name="alarm_change_updates">ფასის განახლებების მორგება</string>
+    <string name="alarm_create">განგაშის შექმნა</string>
+    <string name="alarm_currency_label">ვალუტა</string>
+    <string name="alarm_delete_confirm">ეს განგაში წაიშლება.</string>
+    <string name="alarm_delete_title">წავშალო განგაში?</string>
+    <string name="alarm_field_percent">პროცენტი</string>
+    <string name="alarm_field_price">ფასი</string>
+    <string name="alarm_fires_now_above">ფასი უკვე %1$s-ზე მაღალია. მაინც შევინახო?</string>
+    <string name="alarm_fires_now_below">ფასი უკვე %1$s-ზე დაბალია. მაინც შევინახო?</string>
+    <string name="alarm_fires_now_change">შეცვლა</string>
+    <string name="alarm_fires_now_save">მაინც შენახვა</string>
+    <string name="alarm_fires_now_title">განგაში ახლავე ამოქმედდებოდა</string>
+    <string name="alarm_first_battery_hint">ბატარეის ოპტიმიზაცია აპს ზღუდავს – განგაშებმა შეიძლება დააგვიანოს.</string>
+    <string name="alarm_first_title">განგაში შენახულია</string>
+    <string name="alarm_last_triggered">ბოლოს: %1$s</string>
+    <string name="alarm_more_conditions">სხვა პირობები</string>
+    <string name="alarm_new_extreme">ახალი %1$s</string>
+    <string name="alarm_once">ერთხელ</string>
+    <string name="alarm_option_repeating">შეტყობინება</string>
+    <string name="alarm_option_sound">ხმა</string>
+    <string name="alarm_option_speak">განგაშის ხმამაღლა წაკითხვა</string>
+    <string name="alarm_option_vibrate">ვიბრაცია</string>
+    <string name="alarm_repeat_each">ყოველ ჯერზე</string>
+    <string name="alarm_repeat_once">ერთხელ</string>
+    <string name="alarm_repeating">ყოველ ჯერზე</string>
+    <string name="alarm_threshold_error_empty">განგაშის შესანახად შეიყვანე მნიშვნელობა.</string>
+    <string name="alarm_threshold_error_funding">ფანდინგი უნდა იყოს რიცხვი −10-დან +10 პროცენტამდე.</string>
+    <string name="alarm_threshold_error_invalid">შეიყვანე 0-ზე მეტი სწორი რიცხვი.</string>
+    <string name="alarm_threshold_error_oi">ღია ინტერესის ცვლილება: მაქსიმუმ 1000 პროცენტი.</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">%1$d სთ-ში</item>
+        <item quantity="other">%1$d სთ-ში</item>
+    </plurals>
+    <string name="alarm_window_label">დროის ფანჯარა</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">აიწევს ამ დონეზე მაღლა:</string>
+    <string name="alarm_simple_below">ჩამოვა ამ დონეზე დაბლა:</string>
+    <string name="alarm_simple_end"></string>
+    <string name="alarm_simple_when">როცა %1$s</string>
+    <string name="alarm_template_a11y">განგაშის შექმნა: %1$s</string>
+    <string name="alarm_template_a11y_down">განგაშის შექმნა მიმდინარე ფასზე მინუს %1$s პროცენტით</string>
+    <string name="alarm_template_a11y_up">განგაშის შექმნა მიმდინარე ფასზე პლუს %1$s პროცენტით</string>
+    <string name="alarm_template_from_now">ახლანდელიდან</string>
+    <string name="alarm_template_volume">მოცულობა ×%1$s</string>
+    <string name="alarm_templates_title">სწრაფი განგაშები</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">ფასი ზემოთ</string>
+    <string name="alarm_condition_below">ფასი ქვემოთ</string>
+    <string name="alarm_condition_down_percent">ეცემა</string>
+    <string name="alarm_condition_funding_above">ფანდინგი ზემოთ</string>
+    <string name="alarm_condition_funding_below">ფანდინგი ქვემოთ</string>
+    <string name="alarm_condition_move_percent">მოძრაობს</string>
+    <string name="alarm_condition_near_high">მაქსიმუმთან ახლოს</string>
+    <string name="alarm_condition_near_low">მინიმუმთან ახლოს</string>
+    <string name="alarm_condition_oi_down">ღია ინტერესი ეცემა</string>
+    <string name="alarm_condition_oi_up">ღია ინტერესი იზრდება</string>
+    <string name="alarm_condition_up_percent">იზრდება</string>
+    <string name="alarm_condition_volume_spike">მოცულობის ნახტომი</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">შემატყობინე, როცა %1$s %2$s-ზე მაღლა აიწევს.</string>
+    <string name="alarm_sentence_below">შემატყობინე, როცა %1$s %2$s-ზე დაბლა ჩამოვა.</string>
+    <string name="alarm_sentence_down_percent">შემატყობინე, როცა %1$s შენახვისას (ან ბოლო განგაშისას) არსებულ ფასზე %2$s-ით დაბლა ჩამოვა.</string>
+    <string name="alarm_sentence_funding_above">შემატყობინე, როცა %1$s-ის ფანდინგი %2$s-ზე მაღლა აიწევს.</string>
+    <string name="alarm_sentence_funding_below">შემატყობინე, როცა %1$s-ის ფანდინგი %2$s-ზე დაბლა ჩამოვა.</string>
+    <string name="alarm_sentence_incomplete">შეიყვანე მნიშვნელობა, რომ განგაში წინადადების სახით დაინახო.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">შემატყობინე, როცა %1$s %3$d საათში %2$s-ით გადაადგილდება.</item>
+        <item quantity="other">შემატყობინე, როცა %1$s %3$d საათში %2$s-ით გადაადგილდება.</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">შემატყობინე, როცა %1$s თავის %3$s-ზე მაქსიმუმ %2$s-ით დაბლა იქნება.</string>
+    <string name="alarm_sentence_near_low">შემატყობინე, როცა %1$s თავის %3$s-ზე მაქსიმუმ %2$s-ით მაღლა იქნება.</string>
+    <string name="alarm_sentence_new_extreme">შემატყობინე, როცა %1$s ახალ %2$s-ს დაამყარებს.</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">შემატყობინე, როცა %1$s-ის ღია ინტერესი %3$d საათში %2$s-ით შემცირდება.</item>
+        <item quantity="other">შემატყობინე, როცა %1$s-ის ღია ინტერესი %3$d საათში %2$s-ით შემცირდება.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">შემატყობინე, როცა %1$s-ის ღია ინტერესი %3$d საათში %2$s-ით გაიზრდება.</item>
+        <item quantity="other">შემატყობინე, როცა %1$s-ის ღია ინტერესი %3$d საათში %2$s-ით გაიზრდება.</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">შემატყობინე, როცა %1$s შენახვისას (ან ბოლო განგაშისას) არსებულ ფასზე %2$s-ით მაღლა აიწევს.</string>
+    <string name="alarm_sentence_volume">შემატყობინე, როცა %1$s-ით ვაჭრობის მოცულობა ჩვეულებრივზე %2$s×-ჯერ მეტი იქნება.</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">30-დღიანი მაქსიმუმი</string>
+    <string name="alarm_near_extreme_high_365">1-წლიანი მაქსიმუმი</string>
+    <string name="alarm_near_extreme_high_90">90-დღიანი მაქსიმუმი</string>
+    <string name="alarm_near_extreme_low_30">30-დღიანი მინიმუმი</string>
+    <string name="alarm_near_extreme_low_365">1-წლიანი მინიმუმი</string>
+    <string name="alarm_near_extreme_low_90">90-დღიანი მინიმუმი</string>
+    <string name="alarm_near_field_distance">მანძილი</string>
+    <string name="alarm_near_hint">ასევე გაცნობებს, როცა ახალი მაქსიმუმი ან მინიმუმი დამყარდება. ეფუძნება დღიურ სანთლებს, ახლდება ყოველ 6 საათში.</string>
+    <string name="alarm_near_new_only">მხოლოდ ახალი მაქსიმუმები ან მინიმუმები</string>
+    <string name="alarm_near_notification_high">%1$s თავის %3$s-ზე %2$s-ით დაბლაა (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s თავის %3$s-ზე %2$s-ით მაღლაა (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">ახალი %1$s %2$s-ისთვის: %3$s (წინა %4$s)</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d დღე</item>
+        <item quantity="other">%1$d დღე</item>
+    </plurals>
+    <string name="alarm_near_window_label">პერიოდი</string>
+    <string name="alarm_near_window_year">1 წელი</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">ფანდინგის განაკვეთი 8 საათზე. სხვა ინტერვალის კონტრაქტები გადაიანგარიშება (1 სთ × 8, 4 სთ × 2); ფიუჩერსების ბარათი გადაანგარიშებულ მნიშვნელობას აჩვენებს. თუ ინტერვალი უცნობია, განგაში არ ამოწმებს. უარყოფითი ნიშნავს, რომ შორტები ლონგებს უხდიან. ± ნიშანს ცვლის.</string>
+    <string name="alarm_funding_sign_a11y">ნიშნის შეცვლა</string>
+    <string name="alarm_oi_hint">ადარებს ღია ინტერესს იმდენი საათის წინ შენახულ მნიშვნელობას. ახალი განგაში მხოლოდ მაშინ გაცნობებს, როცა აპი ამდენი ხნის მონაცემებს შეაგროვებს; მოწმდება მაქსიმუმ ყოველ 5 წუთში.</string>
+    <string name="alarm_volume_factor_label">ბოლო საათის მოცულობა ჩვეულებრივთან შედარებით</string>
+    <string name="alarm_volume_hint">მოცულობის მონაცემები Binance-იდან მოდის — იქ არარსებული წყვილები არასოდეს ამოქმედდება.</string>
+    <string name="alarm_volume_zero_hours_hint">საათები ვაჭრობის გარეშე ნულოვან მოცულობად ითვლება, ამიტომ იშვიათად ვაჭრობად წყვილებზე ჩვეულებრივი საათი შეიძლება უჩვეულოდ გამოიყურებოდეს.</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">განგაში აქტიურია</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">განგაში შენახულია: %1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">შეტყობინებები გამორთულია</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">«%1$s»-ის გარეშე Android არარეგულარულად ამოწმებს უმოქმედო მოწყობილობაზე – ზოგჯერ მხოლოდ საათების შემდეგ. მასთან – დაახლოებით ყოველ 15 წუთში.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">დახურული აპის დროს iOS ხშირად 15 წუთზე გვიან ამოწმებს, ზოგჯერ მხოლოდ მაშინ, როცა აპს შემდეგ ჯერზე გახსნი. მოკლე ნახტომები შეიძლება გამოგრჩეს.</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">როდის მოწმდება განგაშები</string>
+    <string name="alarm_timing_where">ფასების განახლების სიხშირე შეცვალე აქ: %1$s.</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">უხმო (მხოლოდ შეტყობინება)</string>
+    <string name="alarm_signal_sound">მხოლოდ ხმა</string>
+    <string name="alarm_signal_sound_vibrate">ხმა და ვიბრაცია</string>
+    <string name="alarm_signal_system">სისტემური</string>
+    <string name="alarm_signal_vibrate">მხოლოდ ვიბრაცია</string>
+    <string name="alarm_test">სატესტო განგაში</string>
+    <string name="alarm_test_action">ტესტი</string>
+    <string name="alarm_test_denied">Crypto Checker-ის შეტყობინებები გამორთულია.</string>
+    <string name="alarm_test_hint">აგზავნის სანიმუშო განგაშს შენი ხმის, ვიბრაციისა და მეტყველების პარამეტრებით.</string>
+    <string name="alarm_test_open_settings">პარამეტრების გახსნა</string>
+    <string name="alarm_test_quiet">მშვიდი საათები ახლა ჩართულია: ნამდვილი განგაშები მათ დასრულებამდე დაელოდება და შემდეგ ხმით ამოქმედდება.</string>
+    <string name="alarm_test_text">ასე გამოიყურება და ჟღერს განგაში.</string>
+    <string name="alarm_test_title">ტესტი: Crypto Checker-ის განგაში</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">ხმა ჩართულია</string>
+    <string name="alarm_a11y_speak_on">მეტყველება ჩართულია</string>
+    <string name="alarm_unchecked_no_candles">ვერ შემოწმდა (სანთლების მონაცემები არ არის)</string>
+    <string name="alarm_unchecked_no_rate">ვერ შემოწმდა (გაცვლითი კურსი არ არის)</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">შეტყობინებები გამორთულია – ეს განგაში ვერ მოგაღწევს</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">განგაში არ არის – დაბალი ლიკვიდობა</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">მიმდინარე ფასის მოლოდინში</string>
+    <string name="alarm_enter_amount">შეიყვანე მნიშვნელობა</string>
+    <string name="alarm_editor_more">მეტი</string>
+    <string name="alarm_editor_more_summary">სწრაფი განგაშები, სხვა პირობები, ხმა და მეტყველება</string>
+    <string name="alarm_reliability_storage_no_key">განგაშები ფონურ რეჟიმში შეჩერებულია – დაკვირვების სია არ შენახულა</string>
+    <string name="alarms_limit_reached">წყვილს შეიძლება ჰქონდეს მაქსიმუმ %1$s განგაში.</string>
+    <string name="alarms_reference_rate_hint">ევროპის ცენტრალური ბანკის საორიენტაციო კურსები დღეში მხოლოდ ერთხელ დგინდება – მათთვის განგაშები არ არის.</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">ვარდნა 100 პროცენტზე ნაკლები უნდა იყოს.</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">ზღვარი არასწორია – გთხოვ, შეასწორე</string>
+
+    <string name="alarm_last_checked">ბოლო შემოწმება %1$s</string>
+</resources>

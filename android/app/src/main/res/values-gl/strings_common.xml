@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Atrás</string>
+    <string name="action_cancel">Cancelar</string>
+    <string name="action_clear">Baleirar</string>
+    <string name="action_close">Pechar</string>
+    <string name="action_keep">Manter</string>
+    <string name="action_delete">Eliminar</string>
+    <string name="action_edit">Editar</string>
+    <string name="action_more">Máis opcións</string>
+    <string name="action_refresh">Actualizar</string>
+    <string name="action_retry">Tentar de novo</string>
+    <string name="action_save">Gardar</string>
+    <string name="action_sort">Ordenar</string>
+    <string name="action_sort_done">Feito</string>
+    <string name="action_undo">Desfacer</string>
+    <string name="action_view">Ver</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Mercado</string>
+    <string name="tab_portfolio">Carteira</string>
+    <string name="tab_settings">Configuración</string>
+    <string name="tab_watchlist">Lista</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Non funcionou: %1$s</string>
+    <string name="error_exchange_unreachable">O exchange non está accesible agora mesmo – os últimos prezos seguen visibles.</string>
+    <string name="error_exchange_unreachable_short">O exchange non está accesible agora mesmo</string>
+    <string name="loading_hint">Cargando…</string>
+    <string name="option_off">Desactivado</string>
+    <string name="something_went_wrong">Algo saíu mal</string>
+    <string name="time_just_now">agora mesmo</string>
+    <string name="try_again">Tentar de novo</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Sen conexión</string>
+    <string name="offline_status_since">Sen conexión · ás %1$s</string>
+    <string name="status_live">En directo</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Engadir par</string>
+    <string name="shortcut_alarms">Todas as alarmas</string>
+    <string name="shortcut_cycle">Mercado</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Engadir un par novo</string>
+    <string name="shortcut_alarms_long">Ver todas as alarmas</string>
+    <string name="shortcut_cycle_long">Abrir resumo do mercado</string>
+
+    <string name="log_box_title">Rexistro</string>
+    <string name="label_value">%1$s: %2$s</string>
+</resources>

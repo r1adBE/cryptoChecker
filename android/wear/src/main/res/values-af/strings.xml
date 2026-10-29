@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Geen munte gekies nie</string>
+    <string name="watch_loading">Laai tans…</string>
+    <string name="watch_error">Beurse nie bereikbaar nie</string>
+    <string name="watch_updated">Soos op %1$s</string>
+    <string name="watch_refresh">Herlaai</string>
+    <string name="watch_choose">Kies munte</string>
+    <string name="watch_choose_hint">Munte: hoogstens %1$d</string>
+    <string name="watch_complication_label">Prys</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s in 24 uur</string>
+    <string name="watch_mode_phone">Lys: soos foon</string>
+    <string name="watch_mode_own">Lys: eie</string>
+    <string name="watch_phone_empty">Geen gunstelinge op die foon nie</string>
+    <string name="a11y_watch_outdated">Prys verouderd</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">laas %1$d minuut gelede bygewerk</item>
+        <item quantity="other">laas %1$d minute gelede bygewerk</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">laas %1$d uur gelede bygewerk</item>
+        <item quantity="other">laas %1$d uur gelede bygewerk</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">laas %1$d dag gelede bygewerk</item>
+        <item quantity="other">laas %1$d dae gelede bygewerk</item>
+    </plurals>
+</resources>

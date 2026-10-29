@@ -247,4 +247,20 @@
     <string name="watchlist_not_saved_confirm_message">Lista, împreună cu alarmele, nu se salvează acum. Această modificare și următoarele se pierd la închiderea aplicației. Modifici oricum?</string>
     <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
     <string name="watchlist_not_saved_confirm_action">Modifică oricum</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">Perechi: %1$d</item>
+        <item quantity="few">Perechi: %1$d</item>
+        <item quantity="other">Perechi: %1$d</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">Perechi: %2$d din %1$d</item>
+        <item quantity="few">Perechi: %2$d din %1$d</item>
+        <item quantity="other">Perechi: %2$d din %1$d</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">Locuri libere: %1$d</item>
+        <item quantity="few">Locuri libere: %1$d</item>
+        <item quantity="other">Locuri libere: %1$d</item>
+    </plurals>
+    <string name="watchlist_footer_full">Lista de urmărire e plină</string>
 </resources>

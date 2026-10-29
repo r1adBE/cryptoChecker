@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">Pertsonalizatua</string>
+    <string name="settings_group_general">Orokorra</string>
+    <string name="settings_group_more">Gehiago</string>
+    <string name="settings_minutes">%1$d min</string>
+    <string name="settings_row_about">Aplikazioari buruz</string>
+    <string name="settings_row_alarms">Alarmak</string>
+    <string name="settings_row_currency">Moneta</string>
+    <string name="settings_row_dated_futures">Epemugadun futuroak</string>
+    <string name="settings_row_updates">Prezio-eguneratzeak</string>
+    <string name="settings_row_watchlist">Zerrenda</string>
+    <string name="settings_search_hint">Bilatu ezarpenetan</string>
+    <string name="settings_seconds">%1$d s</string>
+    <string name="settings_section_about">Honi buruz</string>
+    <string name="settings_section_appearance">Itxura</string>
+    <string name="settings_section_developer">Garapena</string>
+    <string name="settings_section_language">Hizkuntza</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">Aktibatuta</string>
+    <string name="settings_title">Ezarpenak</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">Atseden-denbora alarma batek berriro jo aurretik</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Alarma-seinalea</string>
+    <string name="settings_alarm_signal_open_system">Doitu sistemaren ezarpenetan</string>
+    <string name="settings_alarm_signal_system_hint">Zure telefonoaren jakinarazpen-ezarpenei jarraitzen die.</string>
+    <string name="settings_alarm_sound">Alarmaren soinua</string>
+    <string name="settings_alarm_sound_custom">Soinu pertsonalizatua</string>
+    <string name="settings_alarm_sound_default">Soinu lehenetsia</string>
+    <string name="settings_alarm_sound_error">Ezin izan da soinua erabili.</string>
+    <string name="settings_alarm_sound_file">Zure audio-fitxategi propioa…</string>
+    <string name="settings_alarm_sound_reset">Erabili soinu lehenetsia</string>
+    <string name="settings_alarm_sound_system">Aukeratu sistemaren soinua…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Zenbakia aplikazioaren ikonoan</string>
+    <string name="settings_app_badge_hint">Alarma-jakinarazpen irekiak zenbatzen ditu. Zenbaki bat edo puntu bat agertzea hasierako pantailaren araberakoa da (adib. Samsung: «Erakutsi zenbakiarekin»).</string>
+    <string name="settings_exact_checks">Egiaztatu garaiz</string>
+    <string name="settings_exact_checks_grant">Baimendu alarmak eta gogorarazpenak</string>
+    <string name="settings_exact_checks_hint">Android-ek 15 minuturo gutxi gorabehera egiaztatzen du, gailua inaktibo dagoenean ere. Bateria apur bat gehiago erabiltzen du.</string>
+    <string name="settings_exact_checks_nothing">Ez dago pare aktiborik – ez dago ezer egiaztatzeko.</string>
+    <string name="settings_exact_checks_permission_missing">Baimena falta da – gailua atsedenean dagoen bitartean, Android-ek modu irregularrean egiaztatzen du, batzuetan ordu batzuen ondoren bakarrik.</string>
+    <string name="settings_notification_change">Abisatu prezioa aldatzen denean soilik</string>
+    <string name="settings_notification_change_always">Beti</string>
+    <string name="settings_percent_invalid">Idatzi 0 eta 100 arteko balio bat.</string>
+    <string name="settings_notification_change_hint">Prezio-jakinarazpen bat prezioa azkenetik gutxienez hainbeste mugitu denean bakarrik agertzen da. Datuak falta diren bitartean ez da ezer erakusten. Alarmei ez die eragiten.</string>
+    <string name="settings_ongoing_notifications">Ezin dira baztertu</string>
+    <string name="settings_ongoing_notifications_hint">Prezio-jakinarazpenak finkatuta mantentzen ditu.</string>
+    <string name="settings_price_notifications">Prezio-jakinarazpenak</string>
+    <string name="settings_price_notifications_hint">Erakutsi aktibatutako pareen uneko prezioa egoera-barran.</string>
+    <string name="settings_price_pairs">Pareak</string>
+    <string name="settings_price_pairs_all_off">Denak desaktibatuta</string>
+    <string name="settings_price_pairs_all_on">Denak aktibatuta</string>
+    <string name="settings_price_pairs_count">%1$d / %2$d</string>
+    <string name="settings_price_pairs_empty">Oraindik ez dago parerik zerrendan.</string>
+    <string name="settings_price_pairs_hint">Aukeratu zein parek erakusten duten prezioa jakinarazpen-barran.</string>
+    <string name="settings_quiet_hours">Isiltasun-orduak</string>
+    <string name="settings_quiet_hours_from">Noiztik</string>
+    <string name="settings_quiet_hours_hint">%1$s eta %2$s artean, alarmek isiltasun-orduak amaitu arte itxaroten dute, eta gero soinuarekin jotzen dute. Beste jakinarazpenak isilean iristen dira, ahotsik gabe.</string>
+    <string name="settings_quiet_hours_to">Noiz arte</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">Tartea</string>
+    <string name="settings_background_updates">Atzeko planoko eguneratzeak</string>
+    <string name="settings_battery_hint">Murriztuak esan nahi du Android-ek atzeko planoko eguneratzeak ordu batzuk atzera ditzakeela.</string>
+    <string name="settings_battery_ok">Bateria-erabilera: murrizketarik gabe</string>
+    <string name="settings_battery_restricted">Bateria-erabilera: murriztua</string>
+    <string name="settings_check_runs_empty">Oraindik ez da egiaztapenik erregistratu.</string>
+    <string name="settings_check_runs_honest_android">Android-ek erabakitzen du noiz egiaztatu – hemen ikusten duzu benetan noiz gertatu den.</string>
+    <string name="settings_check_runs_honest_ios">iOS-ek erabakitzen du noiz egiaztatu – hemen ikusten duzu benetan noiz gertatu den.</string>
+    <string name="settings_check_runs_title">Azken egiaztapenak</string>
+    <string name="settings_http_log">Erakutsi HTTP erregistroa</string>
+    <string name="settings_http_log_hint">Burtsei egindako eskaerak «Gehitu parea» orriaren behealdean erakusten ditu – arazoak konpontzeko.</string>
+    <string name="settings_live_service">Eguneratu maiz</string>
+    <string name="settings_live_websocket">Zuzeneko prezioak</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">Nabarmena: abisatu</string>
+    <string name="settings_activity_alerts_hint">Gehienez orduan behin pareko: ezohiko prezio-mugimenduak, bolumen-gailurrak eta futuroen muturrak (Binanceko datuak).</string>
+    <string name="settings_activity_sensitivity">Sentikortasuna</string>
+    <string name="settings_activity_sensitivity_hint">Zein erraz jotzen den txanpon bat ezohikotzat – berdina zerrendako txartelerako eta merkatu-alarmetarako. «Gutxiago» aukerarekin, txartelak 3 indartsuenak bakarrik erakusten ditu.</string>
+    <string name="settings_watchlist_activity_card">Nabarmena: erakutsi zerrendan</string>
+    <string name="settings_watchlist_activity_card_hint">⚡ pilula erakusten du taldeen ondoan: sakatu une honetan zerbait gertatzen ari den pareak bakarrik ikusteko. Haren jakinarazpenak Merkatu-alarmak atalean ezartzen dira.</string>
+    <string name="settings_watchlist_names">Erakutsi izenak</string>
+    <string name="settings_watchlist_names_hint">Izena parearen azpian, adib. Bitcoin edo NVIDIA. Logo-zerrendekin dator, txanpon guztietarako behin kargatuta.</string>
+    <string name="settings_watchlist_sparkline">Minidiagrama zerrendan</string>
+    <string name="settings_watchlist_sparkline_hint">24 orduko joera prezioaren ondoan</string>
+    <string name="settings_watchlist_value_names">Izenak</string>
+    <string name="settings_watchlist_value_price_only">Prezioa soilik</string>
+    <string name="settings_watchlist_value_sparkline">Minidiagrama</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Alpha tokenak barne (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Alpha tokenak: Binance Alpha zerrendako proiektu goiztiarrak, gehienak txikiak – askotan gutxi negoziatuak eta oso hegazkorrak.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">Tokenak aukerakoa da. Ez dago erabilgarri «TradFi soilik» hautatuta dagoen bitartean; zerrendan dauden Alpha tokenak mantendu egiten dira.</string>
+    <string name="settings_asset_scope_both">Tokenak eta TradFi</string>
+    <string name="settings_asset_scope_both_hint">Dena – kripto eta TradFi</string>
+    <string name="settings_asset_scope_hint">Pareak gehitzean hautapenak eta bilaketak zein pare erakusten dituzten zehazten du. Zerrendan dauden pareak beti mantentzen dira.</string>
+    <string name="settings_asset_scope_title">Tokenak eta TradFi</string>
+    <string name="settings_asset_scope_tokens">Tokenak soilik</string>
+    <string name="settings_asset_scope_tokens_hint">Kripto: spot eta perpetuoak</string>
+    <string name="settings_asset_scope_tradfi">TradFi soilik</string>
+    <string name="settings_asset_scope_tradfi_hint">Akzioen, lehengaien eta dibisen gaineko futuroak – kontratuak, ez tokenak</string>
+    <string name="settings_rolling_futures">Hiruhileko eta beste epemugadun futuroak barne</string>
+    <string name="settings_rolling_futures_hint">Desaktibatuta: burtsaren zerrendan falta diren epemugadun futuroak jada negoziatzen ez diren gisa markatzen dira, banan-banan egiaztatu beharrean. Denbora aurrezten du eguneratze bakoitzean.</string>
+    <string name="settings_rolling_futures_qtly">Hiruhileko eta beste epemugadun futuroak barne (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">Tokenak aukerakoa da. Ez dago erabilgarri «TradFi soilik» hautatuta dagoen bitartean; zerrendan dauden epemugadun futuroei aplikatzen jarraitzen zaie.</string>
+    <string name="settings_tradfi_futures">Akzioak, lehengaiak eta dibisak (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Akzioen, urrearen eta beste lehengaien, dibisen eta pre-IPO enpresen gaineko futuroak ere erakusten ditu pare bat aukeratzean. Kontratuak dira, ez tokenak.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">Nabarmentze-kolorea</string>
+    <string name="settings_accent_hint">Aplikaziorako, widgetetarako eta aplikazioaren ikonorako kolorea. Hasierako pantaila batzuek ikonoa kentzen dute aldatzen denean – kasu horretan, gehitu berriro.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Txanponen logoak</string>
+    <string name="settings_coin_logos_app">Aplikazioan</string>
+    <string name="settings_coin_logos_app_hint">Zerrenda, irekitako parea eta merkatu-txartelak</string>
+    <string name="settings_coin_logos_footer">Logoak CoinGeckotik datoz, eta CoinGeckok zerrendatzen ez dituen txanponetarako (adib. urrea, zilarra, akzioak) Binancetik. Aplikazioak logo guztiak batera kargatzen ditu eta gailu honetan gordetzen ditu; beraz, hornitzaileek ezin dute jakin zein txanponi jarraitzen diezun. Logorik gabeko txanponek haien inizialak erakusten dituzte. Gogokoek izar txiki bat dute logoan. Etengailu bat desaktibatuta dagoen tokian, ez da logorik ez inizialik agertzen; etengailu guztiak desaktibatuta, ez da ezer kargatzen.</string>
+    <string name="settings_coin_logos_portfolio">Zorroan</string>
+    <string name="settings_coin_logos_portfolio_hint">Posizioak, txanponaren xehetasunak eta analisiak</string>
+    <string name="settings_coin_logos_value_app">Aplikazioa</string>
+    <string name="settings_coin_logos_widgets">Widgetetan</string>
+    <string name="settings_coin_logos_widgets_hint">Zerrenda-widgetak eta txanpon bakarreko widgetak</string>
+    <string name="settings_high_contrast">Kontraste handia</string>
+    <string name="settings_high_contrast_hint">Prezio-kolore biziagoak eta bigarren mailako testu ilunagoa. Sistemak kontraste gehiago eskatzen duenean ere aktibatzen da.</string>
+    <string name="settings_language_choose">Aukeratu hizkuntza</string>
+    <string name="settings_language_system">Sistemaren hizkuntza</string>
+    <string name="settings_price_colors">Prezioen koloreak</string>
+    <string name="settings_price_colors_hint">Urdina / laranja erraz bereizten dira kolore-ikusmenaren edozein urritasunekin (gorria-berdea eta urdina-horia). Norabidea beti erakusten da + / − ikurrekin ere.</string>
+    <string name="settings_theme_mode">Argia / Iluna</string>
+    <string name="settings_widgets">Widgetak</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">%1$s aldaketa eta diagramen ordu-zona</string>
+    <string name="settings_change_basis_hint_1">Aukeratutako ordu-zonak zehazten du noiztik zenbatzen den ehuneko-aldaketa (zerrenda, pultsu-lerroa, irekitako parea, widgetak) eta diagrametan erakusten diren orduak.</string>
+    <string name="settings_change_basis_hint_2">«%1$s» aukerak duela zehazki 24 orduko prezioarekin alderatzen du. «00:00» aukerak ordu-zona horretako gauerdiko irekiera-prezioarekin alderatzen du.</string>
+    <string name="settings_change_basis_hint_3">Alarmei ez die eragiten.</string>
+    <string name="settings_change_basis_hint_since_last">«%1$s» aukerak aurreko eguneratzeko prezioarekin alderatzen du. Zuzeneko prezioekin %%0tik gertu geratzen da.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">Bihurketa-moneta</string>
+    <string name="settings_conversion_currency_hint">Zorrorako, zure monetako alarmetarako, kripto-merkatuaren txartelerako eta zorroaren widgeterako ere erabiltzen da.</string>
+    <string name="settings_cost_method">Kostu-metodoa</string>
+    <string name="settings_cost_method_average">Batez besteko kostua</string>
+    <string name="settings_cost_method_average_hint">Salmentak batez besteko erosketa-prezio mugikorrean baloratzen dira.</string>
+    <string name="settings_cost_method_fifo">FIFO (lehenetsia)</string>
+    <string name="settings_cost_method_fifo_hint">Txanpon zaharrenak saltzen dira lehenik, burtsa eta kartera guztietan.</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO kartera/burtsa bakoitzeko</string>
+    <string name="settings_cost_method_fifo_wallet_hint">Txanpon zaharrenak lehenik burtsa edo kartera bakoitzaren barruan; transferentziek loteak beren erosketa-datarekin mugitzen dituzte.</string>
+    <string name="settings_portfolio_lock">Zorroaren blokeoa</string>
+    <string name="settings_portfolio_lock_footer">Blokeoak pantailan erakusten dena ezkutatzen du. Zure datuak gailu honetan gordetzen dira eta gailuaren zifratzeak babesten ditu. Babeskopiak pasahitz batekin babes ditzakezu.</string>
+    <string name="settings_portfolio_lock_hint">Zorroa bakarrik ezkutatzen du: desblokeatu hatz-markarekin, aurpegiarekin edo gailuaren PINarekin. Atzeko planoan minutu bat baino gehiago egon ondoren blokeatzen da berriro. Zerrenda, alarmak eta beste widgetak irekita geratzen dira.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Gailuaren PIN edo pasakoderik gabe, blokeoak ez du ezer ezkutatzen – konfiguratu pantaila-blokeo bat.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Zorroa sistemaren babeskopian</string>
+    <string name="settings_portfolio_system_backup_hint">Desaktibatuta: zure transakzioak gailuaren sistemaren babeskopiatik eta telefonoz telefonoko transferentzietatik kanpo geratzen dira. Telefono berri batera eramateko, erabili aplikazioaren babeskopia propioa pasahitzarekin.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Android 9 edo berriagoa behar du – bertsio zaharragoek zorroa zifratu gabe gordeko lukete Google-ren babeskopian.</string>
+    <string name="settings_portfolio_tab">Erakutsi Zorroa fitxa</string>
+    <string name="settings_portfolio_value_locked">Aktibatuta, blokeoarekin</string>
+    <string name="settings_show_converted">Bihurtutako prezioak</string>
+    <string name="settings_show_converted_hint">Zerrendako prezioak beste moneta honetan ere erakusten ditu: %1$s</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">Jakinarazi USDTren parekotasun-galera</string>
+    <string name="settings_depeg_alarm_hint">Behin abisatzen du USDT 1 USDtik muga adina desbideratzen denean (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_threshold">Parekotasun-galeraren muga</string>
+    <string name="settings_fng_above">Fear &amp; Greed: abisatu honen gainetik</string>
+    <string name="settings_fng_below">Fear &amp; Greed: abisatu honen azpitik</string>
+    <string name="settings_gas_alert_hint">Behin abisatzen du komisio normala mugaren azpitik jaisten denean. Prezio-eguneratzeetan egiaztatzen da, gehienez 10 minuturo.</string>
+    <string name="settings_gas_btc_below">Bitcoin komisioa honen azpitik (sat/vB)</string>
+    <string name="settings_gas_eth_below">Ethereum gasa honen azpitik (gwei)</string>
+    <string name="settings_ind_ath_within">Gehienezko historikotik jaitsiera gehienez</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple honen gainetik</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple honen azpitik</string>
+    <string name="settings_ind_mvrv_above">MVRV honen gainetik</string>
+    <string name="settings_ind_mvrv_below">MVRV honen azpitik</string>
+    <string name="settings_indicator_alerts_hint">Bitcoin adierazleak, egunean bitan egiaztatuak. Zuk aukeratzen dituzu mugak – aplikazioak ez ditu balioak baloratzen.</string>
+    <string name="settings_macro_notifications">Egutegi ekonomikoa</string>
+    <string name="settings_macro_notifications_hint">08:00etan, AEBko datu ekonomiko garrantzitsuak dauden egunetan (inflazioa, enplegu-txostena, Fed-en erabakia). Egutegia aplikazioaren webgunetik dator, egunean behin kargatuta.</string>
+    <string name="settings_market_alerts">Merkatu-alarmak</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d aktibo</item>
+        <item quantity="other">%1$d aktibo</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">Ahotsaren abiadura: %1$.1f×</string>
+    <string name="settings_tts">Ahots-irteera</string>
+    <string name="settings_tts_alarms_only">Alarmak soilik</string>
+    <string name="settings_tts_alarms_only_hint">Desaktibatuta: «Irakurri prezioa ozen» markatuta duen pare baten eguneratze bakoitza ozen irakurtzen da.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">Prezioak eta alarmak ozen irakurtzen ditu. Isilik geratzen da gailua isilik edo dardara moduan dagoen bitartean.</string>
+    <string name="settings_tts_test">Probatu ahotsa</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">Berrezarri aplikazioa</string>
+    <string name="settings_reset_app_action">Ezabatu dena</string>
+    <string name="settings_reset_app_confirm">Zerrenda, alarmak, zorroa, ezarpenak eta gordetako datu guztiak ezabatzen ditu, instalatu ondoren bezala. Ezin da desegin. Aholkua: egin babeskopia bat lehenik. Gailuaren babeskopiek (Google-ren babeskopia edo iCloud/ordenagailuko babeskopia) aurreko datuak gordetzen dituzte hurrengo babeskopia egin arte.</string>
+    <string name="settings_reset_app_title">Aplikazioa berrezarri nahi duzu?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">Bilatu moneta</string>
+    <string name="language_search">Bilatu hizkuntza</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">Iluna</string>
+    <string name="theme_light">Argia</string>
+    <string name="theme_system">Sistema</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">Urdina</string>
+    <string name="accent_green">Berdea</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs berdea</string>
+    <string name="accent_orange">Laranja</string>
+    <string name="accent_red">Gorria</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">Ohikoa Txinan, Japonian, Korean eta Taiwanen</string>
+    <string name="price_colors_swap">Trukatu koloreak (igoera ↔ jaitsiera)</string>
+    <string name="price_style_calm">Lasaia</string>
+    <string name="price_style_calm_color_vision">Lasaia · Kolore-ikusmenaren urritasuna</string>
+    <string name="price_style_color_vision">Kolore-ikusmenaren urritasuna</string>
+    <string name="price_style_fresh">Freskoa</string>
+    <string name="price_style_traditional">Tradizionala</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">Burtsekiko konexioak benetako erantzunekin egiaztatu ziren azkenekoz: %1$s</string>
+    <string name="about_license">Prezioak zuzenean burtsetatik datoz; konturik eta jarraipenik gabe.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">Lizentziak</string>
+    <string name="about_privacy_policy">Pribatutasun-politika</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">Eskatu burtsa bat</string>
+    <string name="about_source_code">Iturburu-kodea GitHub-en</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker r1AD-ren proiektu independente bat da: prezioen ikuspegi lasaia, konturik, iragarkirik eta jarraipenik gabe. Galderak eta iradokizunak: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker kode irekikoa da (MIT lizentzia).</string>
+    <string name="licenses_font_title">Rubik letra-tipoa</string>
+    <string name="licenses_icons_bundled_text">Aplikazioarekin batera: Christopher Downer-en eta laguntzaileen «Cryptocurrency Icons» ikonoak (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal lizentziapean argitaratuak. CoinGecko edo Binance logoak kargatu arte erakusten dira. Izenak eta logoak beren proiektuen marka dira.</string>
+    <string name="licenses_icons_title">Txanponen ordezko ikonoak</string>
+    <string name="licenses_libraries_intro">Aplikazioak liburutegi hauek erabiltzen ditu Apache License 2.0 lizentziapean:</string>
+    <string name="licenses_libraries_title">Android liburutegiak</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">Sakatze %d falta da garatzaileentzako aukerak desblokeatzeko</item>
+        <item quantity="other">%d sakatze falta dira garatzaileentzako aukerak desblokeatzeko</item>
+    </plurals>
+    <string name="developer_unlocked">Garatzaileentzako aukerak desblokeatuta</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Dardarak iPhone-aren ezarpenei jarraitzen die (Soinuak eta ukipen-erantzuna).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Alarma berriak eta merkatu-alarmak zenbatzen ditu; 0ra itzultzen da aplikazioa irekitzean.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Zure datuak</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">Gailu honetan</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Zure zerrenda, alarmak eta zorroa zifratuta gordetzen dira gailu honetan; konturik ez, zerbitzari propiorik ez.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Konexioak</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Prezioak zuzenean zure pareen burtsetatik datoz, gehi truke-tasak, txanpon- eta logo-zerrendak eta GitHub-eko datu-ispilua; zure IP helbidea ikusten dute, inoiz ez zure ondasunak (jarraitutako helbideak dagokion sarearen hornitzailera doaz).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Babeskopia</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Zuk bat sortzen baduzu bakarrik. Pasahitzarekin zifratuta dago (Argon2id + AES-256-GCM); hura gabe irakurgarria da.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Gailuz aldatzea</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">Gakoa gailu zaharrean geratzen da – sortu babeskopia-fitxategi bat lehenik.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Partekatu diagnostikoa</string>
+    <string name="diagnostics_share_hint">Laguntzarako testu-fitxategia: bertsioa, gailua, alarma-ezarpenak, azken egiaztapenak eta alarmen erregistroa – zorrorik, zenbatekorik, helbiderik eta oharrik gabe. Zuk ikusten duzu lehenik; ez da ezer automatikoki bidaltzen.</string>
+    <string name="diagnostics_preview_title">Diagnostikoaren aurrebista</string>
+    <string name="diagnostics_action_share">Partekatu</string>
+    <string name="settings_price_overlay">Prezio-gainjartzea</string>
+    <string name="settings_price_overlay_hint">Prezio-jakinarazpen iraunkorreko pareak beste aplikazioen gainean pilula flotatzaile txiki gisa erakusten ditu. Sakatu aplikazioa irekitzeko; arrastatu beheko ×-ra ixteko.</string>
+    <string name="settings_price_overlay_needs">Honekin batera bakarrik funtzionatzen du: «%1$s».</string>
+    <string name="settings_price_overlay_grant">Baimendu beste aplikazioen gainean bistaratzea</string>
+    <string name="price_overlay_close">Itxi gainjartzea</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">Helbideetarako zerbitzari propioa</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Bitcoin soilik: Esplora edo mempool-ekin bateragarria den zure zerbitzari propioa (adib. https://node.example/api; publikoki fidagarria den ziurtagiria behar da, Let\'s Encrypt bezala). Ezarrita badago, Bitcoin helbideak eta xpub gakoak han bakarrik kontsultatzen dira – inoiz ez nodo publikoetan, ezta zure zerbitzaria eskuragarri ez dagoenean ere. Beste sareek nodo publikoak erabiltzen jarraitzen dute. Hutsik = nodo publikoak.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Bitcoin zerbitzaria (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">Probatu</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">Probatzen…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">Zerbitzariak erantzuten du – %1$s blokea</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">Ez dago erantzun baliozkorik – begiratu helbidea eta ziurtagiria</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">Erabiltzen: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">Ezarri gabe – nodo publikoak erabiltzen dira</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">https:// helbideak bakarrik onartzen dira</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">Ez erabiltzaile-izenik ez pasahitzik helbidean</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">Ez ? edo # zatirik helbidean</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">Ez da zerbitzari-helbide baliozkoa</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">Nodo publikoetara aldatu nahi duzu?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">Orduan, zure Bitcoin helbideak eta xpub gakoak nodo publikoetan kontsultatuko dira: %1$s. Helbide horiek zure IP helbidearekin batera ikusten dituzte.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">Erabili nodo publikoak</string>
+</resources>

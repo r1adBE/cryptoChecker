@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%2$s માં %1$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">બંધ</string>
+    <string name="sheet_chart_converted_current">%1$s, રૂપાંતરિત (વર્તમાન દર)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, દૈનિક દરે રૂપાંતરિત</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">આ જોડી માટે ભાવ ડેટા નથી</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">ખૂલતો</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">આજે</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">વૉલ્યુમ %1$s</string>
+    <string name="sheet_more">વધુ</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">આસ્ક</string>
+    <string name="ticker_bid">બિડ</string>
+    <string name="explain_bid_ask">બિડ એટલે ખરીદનારા અત્યારે આપવા તૈયાર હોય તે સૌથી ઊંચો ભાવ, આસ્ક એટલે વેચનારા સ્વીકારે તે સૌથી નીચો ભાવ.</string>
+    <string name="ticker_high">ઊંચો</string>
+    <string name="ticker_low">નીચો</string>
+    <string name="ticker_timestamp">સમય</string>
+    <string name="ticker_vol_base">વૉલ્યુમ (કૉઇનમાં)</string>
+    <string name="ticker_vol_quote">વૉલ્યુમ (ક્વોટ ચલણમાં)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (ડિવાઇસનો ટાઇમ ઝોન)</string>
+    <string name="change_basis_local">સ્થાનિક સમય 00:00 થી</string>
+    <string name="change_basis_rolling">છેલ્લા 24 કલાક</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">છેલ્લા અપડેટથી</string>
+    <string name="change_basis_utc_zone">00:00 %1$s થી</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">%1$s કૅન્ડલ પરથી ફેરફાર</string>
+    <string name="change_short_since_last">છેલ્લું અપડેટ</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">આજે</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">આજે %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="exchange_data_empty_error">એક્સચેન્જ પાસેથી કોઈ ડેટા મળ્યો નથી.</string>
+    <string name="market_data_summary">માર્કેટ કૅપ, ગૅસ ફી, આર્થિક ડેટા, કૉઇન વિશ્લેષણ</string>
+    <string name="market_data_tab_futures">ફ્યુચર્સ</string>
+    <string name="market_data_title">માર્કેટ ડેટા</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">ચલણમાં પુરવઠો</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">માર્કેટ કૅપ</string>
+    <string name="spot_max_supply">મહત્તમ પુરવઠો</string>
+    <string name="spot_no_data">આ કૉઇન માટે સ્પૉટ ડેટા નથી</string>
+    <string name="spot_source_updated">સ્રોત: %1$s · %2$s મુજબ</string>
+    <string name="spot_supply_of_max">મહત્તમ પુરવઠાનો %1$s ચલણમાં</string>
+    <string name="spot_total_supply">કુલ પુરવઠો</string>
+    <string name="spot_vol_mcap">વૉલ્યુમ/માર્કેટ કૅપ</string>
+    <string name="spot_volume_24h">વૉલ્યુમ (24 ક.)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">સંદર્ભ: %1$s</string>
+    <string name="futures_funding">ફંડિંગ દર</string>
+    <string name="futures_funding_interval_unknown">અંતરાલ અજ્ઞાત</string>
+    <string name="futures_funding_per8h_equiv">= પ્રતિ 8 કલાક %1$s (એલર્ટની જેમ)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">પ્રતિ કલાક</string>
+    <string name="futures_funding_per_hours">પ્રતિ %1$d કલાક</string>
+    <string name="futures_next_funding">આગલું %1$d ક. %2$d મિ. માં</string>
+    <string name="futures_no_data">આ કૉઇન માટે ફ્યુચર્સ ડેટા નથી</string>
+    <string name="futures_open_interest">ઓપન ઇન્ટરેસ્ટ</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">%1$s પરથી સંદર્ભ – ફંડિંગ અને ઓપન ઇન્ટરેસ્ટ દરેક એક્સચેન્જ પર અલગ હોય છે; %2$s પર તે અલગ હોઈ શકે છે.</string>
+    <string name="futures_reference_spot">%1$s પરથી સંદર્ભ (કૉઇનનો USDT પર્પેચ્યુઅલ)</string>
+    <string name="futures_source">સ્રોત: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">ઘણા ટ્રેડર ઉધાર પૈસાથી વધતા કે ઘટતા ભાવ પર દાવ લગાવે છે. લૉન્ગ અને શૉર્ટ પોઝિશન વચ્ચેની ફી. ખૂબ હકારાત્મક એટલે ઘણા વધતા ભાવ પર દાવ લગાવી રહ્યા છે.</string>
+    <string name="explain_open_interest">ફ્યુચર્સ ભાવ પરના દાવ છે, ઘણી વાર ઉધાર પૈસાથી. બધી ખુલ્લી ફ્યુચર્સ પોઝિશનનું મૂલ્ય. તે વધે તો, વધુ પૈસા એ હિલચાલ પર દાવ લગાવી રહ્યા છે.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">સમજૂતી</string>
+    <string name="explain_spot_fdv">સંપૂર્ણ ડાઇલ્યુટેડ મૂલ્યાંકન: ભાવ × મહત્તમ પુરવઠો (મર્યાદા ન હોય તો કુલ પુરવઠો).</string>
+    <string name="explain_spot_market_cap">ભાવ × ચલણમાં પુરવઠો. પિલ 24 કલાકમાં તેનો ફેરફાર બતાવે છે.</string>
+    <string name="explain_spot_source">બધાં એક્સચેન્જના આંકડા US ડૉલરમાં, CoinGecko પરથી.</string>
+    <string name="explain_spot_supply">ચલણમાં: અત્યારે માર્કેટમાં રહેલા કૉઇન. કુલ: બનાવેલા બધા કૉઇન બાદ બર્ન થયેલા. મહત્તમ: ક્યારેય અસ્તિત્વમાં હોઈ શકે તેટલા વધુમાં વધુ.</string>
+    <string name="explain_spot_volume">24 કલાકમાં ટ્રેડ થયેલું મૂલ્ય. વૉલ્યુમ/માર્કેટ કૅપ: માર્કેટ કૅપની સરખામણીમાં વૉલ્યુમ — ઊંચું એટલે ખૂબ સક્રિય ટ્રેડિંગ.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · દર %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">ખરીદ અને વેચાણ ભાવ વચ્ચે મોટો ગાળો (%1$s)</string>
+
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">%1$s માં ઇતિહાસ, આજના દરે %2$s માં રૂપાંતરિત</string>
+    <string name="converted_unsure">રૂપાંતર અનિશ્ચિત</string>
+</resources>

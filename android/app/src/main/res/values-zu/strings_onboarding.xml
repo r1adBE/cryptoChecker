@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">Setha ama-alamu – intengo, iphesenti, ivolumu nokunyakaza okungajwayelekile</string>
+    <string name="welcome_alert_q">Ikhale nini?</string>
+    <string name="welcome_text">Izintengo zakho. Ama-alamu akho. Ukubuka kwakho konke.\nAyikho i-akhawunti. Azikho izikhangiso. Akukho ukulandelelwa.</string>
+    <string name="welcome_understand">Qonda – okunyakazayo kanye nentengo njengamanje</string>
+    <string name="welcome_understand_q">Yini enyakaza kanye nayo?</string>
+    <string name="welcome_watch">Buka – ama-coin akho, izintengo nomlando wentengo</string>
+    <string name="welcome_watch_q">Kwenzekani?</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">Engeza ohlwini lokubuka (%1$d)</string>
+    <string name="starter_loading_prices">Ilayisha izintengo…</string>
+    <string name="starter_search_coin">Sesha elinye i-coin</string>
+    <string name="starter_select_all">Khetha konke</string>
+    <string name="starter_select_none">Ungakhethi lutho</string>
+    <string name="starter_title">Qala ngalawa ma-coin</string>
+    <string name="starter_watch_alarm_hint">Buka intengo, setha i-alamu</string>
+
+    <!-- Start-Auswahl: Börse und Quote der Startpaare (Binance, bei Standort-Sperre Binance.US), z. B. «Kurse von Binance in USDT. …» -->
+    <string name="starter_source_text">Izintengo ezivela ku-%1$s ku-%2$s. Khipha ukukhetha kokungakufuni bese wengeza okusele kanye kanye. Ungashintsha i-exchange nepheya ku-coin ngalinye.</string>
+</resources>

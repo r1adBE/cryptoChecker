@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">អ្វីកំពុងផ្លាស់ទីជាមួយវា?</string>
+    <string name="why_all_values">តម្លៃ និងប្រភពទាំងអស់</string>
+    <string name="why_all_values_hint">ការសង្កេត · ការពន្យល់ដែលអាចមាន · ប្រភព</string>
+    <string name="why_details">បង្ហាញព័ត៌មានលម្អិត</string>
+    <string name="why_details_hide">លាក់ព័ត៌មានលម្អិត</string>
+    <string name="why_disclaimer">ការវាយតម្លៃស្វ័យប្រវត្តិពីទិន្នន័យទីផ្សារ៖ វាបង្ហាញអ្វីដែលកើតឡើងក្នុងពេលតែមួយ មិនមែនភស្តុតាងនៃមូលហេតុទេ។</string>
+    <string name="why_footer_short">ក្នុងពេលតែមួយមិនមានន័យថាជាមូលហេតុទេ · មិនមែនដំបូន្មានវិនិយោគ</string>
+    <string name="why_no_data">គ្មានទិន្នន័យពី Binance សម្រាប់គូនេះទេ</string>
+    <string name="why_no_data_hint">តម្លៃ បរិមាណ និងភាពប្រែប្រួលមកពីទៀនប្រចាំម៉ោងរបស់ Binance។</string>
+    <string name="why_ref_alts">Alts</string>
+    <string name="why_section_context">ការពន្យល់ដែលអាចមាន</string>
+    <string name="why_section_observation">ការសង្កេត</string>
+    <string name="why_title">អ្វីកំពុងផ្លាស់ទីជាមួយវា?</string>
+    <string name="why_title_coin">អ្វីកំពុងផ្លាស់ទីជាមួយ %1$s?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">សង្ខេប · គិតត្រឹម %1$s</string>
+    <string name="why_brief_label">សង្ខេប៖</string>
+    <string name="why_summary_against">កាក់កំពុងផ្លាស់ទីផ្ទុយនឹងទីផ្សារ។</string>
+    <string name="why_summary_calm">គ្មានចលនាគួរកត់សម្គាល់៖ ទីផ្សារ និងកាក់ស្ងប់ស្ងាត់។</string>
+    <string name="why_summary_coin">មានតែកាក់នេះកំពុងផ្លាស់ទី – ប្រហែលជាមានអ្វីមួយដែលប៉ះពាល់តែកាក់នេះ។</string>
+    <string name="why_summary_coin_volume">មានតែកាក់នេះកំពុងផ្លាស់ទី ជាមួយបរិមាណខ្ពស់ជាង – ប្រហែលជាមានអ្វីមួយដែលប៉ះពាល់តែកាក់នេះ។</string>
+    <string name="why_summary_longs">Futures៖ ស្ថានភាព long ប្រើ leverage ច្រើន។</string>
+    <string name="why_summary_market">ចលនាស្របពេលជាមួយទីផ្សារទាំងមូល។</string>
+    <string name="why_summary_market_volume">ចលនាស្របពេលជាមួយបរិមាណជួញដូរខ្ពស់ជាង និងទីផ្សារដែលកំពុងផ្លាស់ទីទូលំទូលាយ។</string>
+    <string name="why_summary_peg_near">តម្លៃនៅជិត peg 1:1 របស់វា។</string>
+    <string name="why_summary_peg_off">តម្លៃខុសពី peg 1:1 របស់វាគួរឱ្យកត់សម្គាល់។</string>
+    <string name="why_summary_shorts">Futures៖ ស្ថានភាព short ច្រើន។</string>
+    <string name="why_summary_thin">ចលនាស្តើង៖ មានបរិមាណតិចនៅពីក្រោយវា។</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">ផ្ទុយនឹងទីផ្សារ</string>
+    <string name="why_f_coin_only">តែកាក់នេះ</string>
+    <string name="why_f_leader">Bitcoin ជាអ្នកដឹកនាំទីផ្សារ</string>
+    <string name="why_f_leverage_balanced">Leverage មានតុល្យភាព</string>
+    <string name="why_f_leverage_longs">Leverage៖ longs ច្រើន</string>
+    <string name="why_f_leverage_shorts">Leverage៖ shorts ច្រើន</string>
+    <string name="why_f_market_calm">ទីផ្សារស្ងប់ស្ងាត់</string>
+    <string name="why_f_market_wide">ទីផ្សារទាំងមូលកំពុងផ្លាស់ទី</string>
+    <string name="why_factor_funding">Funding</string>
+    <string name="why_factor_futures">Futures</string>
+    <string name="why_factor_market">ទីផ្សារទាំងមូល</string>
+    <string name="why_factor_near_high">ជិតកម្រិតខ្ពស់</string>
+    <string name="why_factor_near_low">ជិតកម្រិតទាប</string>
+    <string name="why_factor_peg">Peg (1:1)</string>
+    <string name="why_factor_range3d">ចន្លោះ 3 ថ្ងៃ</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">ប៉ាន់ស្មាន</string>
+    <string name="why_fn_funding_longs">ជាច្រើនកំពុងភ្នាល់លើតម្លៃកើនឡើង</string>
+    <string name="why_fn_funding_neutral">អព្យាក្រឹត</string>
+    <string name="why_fn_funding_shorts">ជាច្រើនកំពុងភ្នាល់លើតម្លៃធ្លាក់ចុះ</string>
+    <string name="why_fn_high_at">នៅកម្រិតខ្ពស់ 30 ថ្ងៃ</string>
+    <string name="why_fn_high_below">ក្រោមកម្រិតខ្ពស់ 30 ថ្ងៃ</string>
+    <string name="why_fn_leader_calm">Bitcoin ស្ងប់ស្ងាត់</string>
+    <string name="why_fn_leader_moves">Bitcoin កំពុងផ្លាស់ទីយ៉ាងច្បាស់</string>
+    <string name="why_fn_low_above">លើកម្រិតទាប 30 ថ្ងៃ</string>
+    <string name="why_fn_low_at">នៅកម្រិតទាប 30 ថ្ងៃ</string>
+    <string name="why_fn_market_against">កាក់នេះកំពុងផ្លាស់ទីផ្ទុយនឹងទីផ្សារ</string>
+    <string name="why_fn_market_alone">ទីផ្សារស្ងប់ – កាក់នេះផ្លាស់ទីដោយខ្លួនឯង</string>
+    <string name="why_fn_market_calm">ទីផ្សារស្ងប់ស្ងាត់</string>
+    <string name="why_fn_market_lags">ទីផ្សារកំពុងផ្លាស់ទី កាក់នេះស្ទើរតែមិនផ្លាស់ទី</string>
+    <string name="why_fn_market_moves">ទីផ្សារកំពុងផ្លាស់ទីក្នុងទិសដូចគ្នា</string>
+    <string name="why_fn_market_pulls">ទីផ្សារកំពុងផ្លាស់ទីជាមួយ BTC</string>
+    <string name="why_fn_oi_down">Open interest ធ្លាក់ចុះ</string>
+    <string name="why_fn_oi_flat">Open interest ស្ទើរតែមិនប្រែប្រួល</string>
+    <string name="why_fn_oi_mixed">Open interest ចម្រុះ</string>
+    <string name="why_fn_oi_up">Open interest កើនឡើង</string>
+    <string name="why_fn_peg_above">%1$s លើ peg 1:1</string>
+    <string name="why_fn_peg_below">%1$s ក្រោម peg 1:1</string>
+    <string name="why_fn_peg_near">ជិត peg 1:1</string>
+    <string name="why_fn_range_above_low">តាំងពីកម្រិតទាប 3 ថ្ងៃ</string>
+    <string name="why_fn_range_below_high">តាំងពីកម្រិតខ្ពស់ 3 ថ្ងៃ</string>
+    <string name="why_fn_range_near_high">ជិតកម្រិតខ្ពស់ 3 ថ្ងៃ</string>
+    <string name="why_fn_range_near_low">ជិតកម្រិតទាប 3 ថ្ងៃ</string>
+    <string name="why_fn_volatility_stronger">ខ្លាំងជាងធម្មតា</string>
+    <string name="why_fn_volatility_tiny">តូចក្នុងន័យដាច់ខាត (ក្រោម %1$s)</string>
+    <string name="why_fn_volatility_usual">ដូចធម្មតា</string>
+    <string name="why_fn_volume_higher">ខ្ពស់ជាងធម្មតា</string>
+    <string name="why_fn_volume_lower">ទាបជាងធម្មតា</string>
+    <string name="why_fn_volume_usual">ដូចធម្មតា</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">កាក់នេះ %1$s, BTC %2$s ក្នុង 24 ម៉ោង — ចលនាឯករាជ្យគួរកត់សម្គាល់។</string>
+    <string name="why_against_ref_text">កាក់នេះ %1$s, %2$s %3$s ក្នុង 24 ម៉ោង — ចលនាឯករាជ្យគួរកត់សម្គាល់។</string>
+    <string name="why_btc_independent">%1$s បច្ចុប្បន្នកំពុងផ្លាស់ទីដោយឯករាជ្យពី Bitcoin។</string>
+    <string name="why_btc_tight">%1$s បច្ចុប្បន្នកំពុងផ្លាស់ទីយ៉ាងជិតស្និទ្ធជាមួយ Bitcoin។</string>
+    <string name="why_change_1h">1 ម៉ោង</string>
+    <string name="why_change_24h">24 ម៉ោង</string>
+    <string name="why_coin_only_text">%1$s ក្នុង 24 ម៉ោង ខណៈទីផ្សារស្ងប់ស្ងាត់ – ប្រហែលជាមានអ្វីមួយដែលប៉ះពាល់តែកាក់នេះ។</string>
+    <string name="why_leverage_balanced_text">គ្មានការប្រមូលផ្តុំស្ថានភាព long ឬ short នៅក្នុងទីផ្សារ Futures ទេ។</string>
+    <string name="why_leverage_longs_text">ជាច្រើនកំពុងភ្នាល់លើតម្លៃកើនឡើងដោយប្រាក់ខ្ចី។ Longs កំពុងបង់ឱ្យ shorts — ហានិភ័យនៃការ liquidation កើនឡើង ប្រសិនបើតម្លៃធ្លាក់។</string>
+    <string name="why_leverage_shorts_text">ជាច្រើនកំពុងភ្នាល់លើតម្លៃធ្លាក់ចុះដោយប្រាក់ខ្ចី។ Shorts កំពុងបង់ឱ្យ longs – ប្រសិនបើតម្លៃកើនឡើង short squeeze អាចកើតឡើង។</string>
+    <string name="why_market_calm_text">កាក់នេះ៖ %1$s ក្នុង 24 ម៉ោង។ ទាំងទីផ្សារ និងកាក់មិនសូវផ្លាស់ទីទេ។</string>
+    <string name="why_market_leader_text">ជាកាក់ធំបំផុត BTC ជាធម្មតាផ្លាស់ទីស្របនឹងទីផ្សារដែលនៅសល់។ ETH៖ %1$s ក្នុង 24 ម៉ោង។</string>
+    <string name="why_market_leader_text_no_eth">ជាកាក់ធំបំផុត BTC ជាធម្មតាផ្លាស់ទីស្របនឹងទីផ្សារដែលនៅសល់។</string>
+    <string name="why_market_similar_text">កាក់នេះ៖ %1$s ក្នុង 24 ម៉ោង – ក្នុងពេលតែមួយ ទីផ្សារកំពុងផ្លាស់ទីក្នុងទិសដូចគ្នា ទោះបីមិនសូវច្បាស់ក៏ដោយ។</string>
+    <string name="why_market_wide_text">កាក់នេះ៖ %1$s ក្នុង 24 ម៉ោង – ក្នុងពេលតែមួយ ទីផ្សារទាំងមូលកំពុងផ្លាស់ទីយ៉ាងច្បាស់។</string>
+    <string name="why_open_interest_change">Open interest %1$s តាំងពីការពិនិត្យចុងក្រោយ។</string>
+    <string name="why_peg_text">Stablecoin៖ ធៀបនឹង peg 1:1 ទៅរូបិយប័ណ្ណតម្លៃ គម្លាត %1$s។</string>
+    <string name="why_sentiment_text">សន្ទស្សន៍ Fear &amp; Greed នៃទីផ្សារគ្រីបតូទាំងមូល %1$s ធៀបនឹងម្សិលមិញ។</string>
+    <string name="why_sentiment_text_no_change">សន្ទស្សន៍ Fear &amp; Greed នៃទីផ្សារគ្រីបតូទាំងមូល។</string>
+    <plurals name="why_trend_falling">
+        <item quantity="other">ធ្លាក់ចុះអស់រយៈពេល %1$d ម៉ោង</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="other">កើនឡើងអស់រយៈពេល %1$d ម៉ោង</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="other">ស្ថិរភាពអស់រយៈពេល %1$d ម៉ោង</item>
+    </plurals>
+    <string name="why_volatility_high_text">ម៉ោងចុងក្រោយ៖ %1$s — វាស់ធៀបនឹងការឡើងចុះប្រចាំម៉ោងធម្មតានៃ 24 ម៉ោងកន្លងមក។</string>
+    <string name="why_volatility_normal_text">ម៉ោងចុងក្រោយ៖ %1$s — ក្នុងចន្លោះធម្មតា។</string>
+    <string name="why_volatility_tiny_text">ម៉ោងចុងក្រោយ៖ %1$s — មិនធម្មតាសម្រាប់កាក់នេះ ប៉ុន្តែតូចក្នុងន័យដាច់ខាត។</string>
+    <string name="why_volume_estimated_text">ប៉ាន់ស្មាន៖ ប្រភពនេះមិនផ្តល់ចំណូលជួញដូរទេ ដូច្នេះចំនួនកាក់ដែលបានជួញដូរត្រូវបានប្រៀបធៀប។</string>
+    <string name="why_volume_high_text">ការជួញដូរច្រើនជាងធម្មតាខ្លាំងក្នុងម៉ោងចុងក្រោយ – ចលនាមកជាមួយបរិមាណខ្ពស់។</string>
+    <string name="why_volume_low_text">ការជួញដូរតិចនៅពីក្រោយចលនា – ចលនាបែបនេះច្រើនតែមិនសូវមានស្ថិរភាព។</string>
+    <string name="why_volume_normal_text">ការជួញដូរក្នុងម៉ោងចុងក្រោយស្របនឹង 24 ម៉ោងកន្លងមក។</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">ខ្ពស់ជាងធម្មតា</string>
+    <string name="why_dot_neutral">អព្យាក្រឹត</string>
+    <string name="why_dot_supports">ស្របនឹងចលនា</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">ទិន្នន័យគិតត្រឹម %1$s</string>
+    <string name="why_fresh_breadth">ទំហំទីផ្សារ៖ %1$s · %2$s</string>
+    <string name="why_fresh_candles">ទៀន៖ %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed៖ %1$s</string>
+    <string name="why_fresh_futures">Futures៖ %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="other">Open interest ធៀបនឹង %1$d ម៉ោងមុន</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="other">Open interest ធៀបនឹង %1$d នាទីមុន</item>
+    </plurals>
+    <string name="why_fresh_today">ថ្ងៃនេះ</string>
+    <string name="why_fresh_yesterday">ម្សិលមិញ</string>
+    <string name="why_source_fallback">%1$s (បម្រុង)</string>
+    <string name="why_source_reference">%1$s (យោង)</string>
+    <string name="why_sources">ប្រភព៖ ទៀនប្រចាំម៉ោងរបស់ផ្សារប្តូរ (ភាគច្រើន Binance) ទិន្នន័យ Futures ពីផ្សារប្តូរ Fear &amp; Greed ពី alternative.me។</string>
+    <string name="why_sources_list">ប្រភព៖ %1$s។</string>
+    <string name="why_src_breadth">%1$s (ទំហំទីផ្សារ)</string>
+    <string name="why_src_candles">%1$s (ទៀន)</string>
+    <string name="why_src_comparison">%1$s (ការប្រៀបធៀបទីផ្សារ)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (Futures)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Funding</string>
+    <string name="factor_spoken_volatility">%1$s ដងនៃការឡើងចុះធម្មតា</string>
+    <string name="factor_spoken_volume">%1$s ដងនៃធម្មតា</string>
+    <string name="factor_volatility">ភាពប្រែប្រួល (1 ម៉ោង)</string>
+    <string name="factor_volume">បរិមាណ</string>
+</resources>

@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">ਇਸ ਡਿਵਾਈਸ ’ਤੇ ਕੋਈ ਸਕ੍ਰੀਨ ਲੌਕ ਸੈੱਟ ਨਹੀਂ। ਪਹਿਲਾਂ ਸਿਸਟਮ ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਇੱਕ ਸੈੱਟ ਕਰੋ।</string>
+    <string name="app_lock_unlock">ਅਨਲੌਕ ਕਰੋ</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">ਪੋਰਟਫੋਲੀਓ ਖਾਲੀ ਕਰੋ</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="one">%d ਲੈਣ-ਦੇਣ ਮਿਟਾਉਣਾ ਹੈ? ਨਿਗਰਾਨੀ ਵਾਲੇ ਪਤੇ ਰਹਿਣਗੇ। ਇਸਨੂੰ ਤੁਰੰਤ ਬਾਅਦ ਵਾਪਸ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ।</item>
+        <item quantity="other">ਸਾਰੇ %d ਲੈਣ-ਦੇਣ ਮਿਟਾਉਣੇ ਹਨ? ਨਿਗਰਾਨੀ ਵਾਲੇ ਪਤੇ ਰਹਿਣਗੇ। ਇਸਨੂੰ ਤੁਰੰਤ ਬਾਅਦ ਵਾਪਸ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ।</item>
+    </plurals>
+    <string name="portfolio_empty_action">ਆਪਣੀ ਪਹਿਲੀ ਖਰੀਦ ਜੋੜੋ</string>
+    <string name="portfolio_empty_address">ਬੱਸ ਕਿਸੇ ਵਾਲਿਟ ਪਤੇ ’ਤੇ ਨਜ਼ਰ ਰੱਖੋ</string>
+    <string name="portfolio_empty_csv">ਕਿਸੇ ਐਕਸਚੇਂਜ ’ਤੇ ਖਰੀਦਿਆ? ਉਸਦੀ ਫਾਈਲ ਇੰਪੋਰਟ ਕਰੋ</string>
+    <string name="portfolio_empty_example_plain">ਮਿਸਾਲ: 1 ਮਾਰਚ ਨੂੰ %1$s BTC ਖਰੀਦੇ ਗਏ। ਐਪ ਫਿਰ ਦਿਖਾਉਂਦੀ ਹੈ ਕਿ ਅੱਜ ਇਸਦਾ ਮੁੱਲ ਕੀ ਹੈ ਅਤੇ ਮੁਨਾਫ਼ਾ ਹੈ ਜਾਂ ਨੁਕਸਾਨ – ਸਿਰਫ਼ ਇਸ ਡਿਵਾਈਸ ’ਤੇ ਸੰਭਾਲਿਆ।</string>
+    <string name="portfolio_empty_title">ਹਾਲੇ ਕੋਈ ਲੈਣ-ਦੇਣ ਨਹੀਂ</string>
+    <string name="portfolio_enable_ask_text">ਤੁਹਾਡਾ ਲੈਣ-ਦੇਣ ਸੰਭਾਲਿਆ ਗਿਆ। ਪੋਰਟਫੋਲੀਓ ਟੈਬ ਤੁਹਾਡੀਆਂ ਹੋਲਡਿੰਗਾਂ ਅਤੇ ਉਨ੍ਹਾਂ ਦਾ ਮੁੱਲ ਦਿਖਾਉਂਦਾ ਹੈ।</string>
+    <string name="portfolio_enable_ask_title">ਪੋਰਟਫੋਲੀਓ ਟੈਬ ਚਾਲੂ ਕਰਨਾ ਹੈ?</string>
+    <string name="portfolio_enable_later_hint">ਲੈਣ-ਦੇਣ ਸੰਭਾਲਿਆ ਗਿਆ। ਪੋਰਟਫੋਲੀਓ ਟੈਬ ਸੈਟਿੰਗਾਂ › ਪੋਰਟਫੋਲੀਓ ਵਿੱਚ ਚਾਲੂ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ।</string>
+    <string name="portfolio_enabled_banner">ਪੋਰਟਫੋਲੀਓ ਚਾਲੂ ਹੋ ਗਿਆ – ਇਹ ਪੋਰਟਫੋਲੀਓ ਟੈਬ ਵਿੱਚ ਮਿਲੇਗਾ।</string>
+    <string name="portfolio_lock_reason">ਪੋਰਟਫੋਲੀਓ ਅਨਲੌਕ ਕਰੋ</string>
+    <string name="portfolio_locked_text">ਆਪਣੀਆਂ ਹੋਲਡਿੰਗਾਂ ਅਤੇ ਮੁੱਲ ਦੇਖਣ ਲਈ ਅਨਲੌਕ ਕਰੋ।</string>
+    <string name="portfolio_locked_title">ਪੋਰਟਫੋਲੀਓ ਲੌਕ ਹੈ</string>
+    <string name="portfolio_setting_hint">ਵਿਕਲਪਿਕ: ਖਰੀਦ ਅਤੇ ਵਿਕਰੀ ਦਰਜ ਕਰੋ ਅਤੇ ਇੱਕ ਵੱਖਰੇ ਟੈਬ ਵਿੱਚ ਮੁੱਲ ਅਤੇ ਮੁਨਾਫ਼ਾ/ਨੁਕਸਾਨ ਦੇਖੋ।</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">ਪੁਰਾਣਾ · %1$s ਮੁਤਾਬਕ</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="one">ਸਿਸਟਮ ਬੈਕਅੱਪ ਦੀ %d ਐਂਟਰੀ ਅਵੈਧ ਸੀ ਅਤੇ ਬਹਾਲ ਨਹੀਂ ਹੋਈ।</item>
+        <item quantity="other">ਸਿਸਟਮ ਬੈਕਅੱਪ ਦੀਆਂ %d ਐਂਟਰੀਆਂ ਅਵੈਧ ਸਨ ਅਤੇ ਬਹਾਲ ਨਹੀਂ ਹੋਈਆਂ।</item>
+    </plurals>
+    <string name="portfolio_title">ਪੋਰਟਫੋਲੀਓ</string>
+    <string name="portfolio_unassigned_fee">ਫੀਸ ਨਿਰਧਾਰਤ ਨਹੀਂ – ਲਾਗਤ ਅਧਾਰ ਅਣਜਾਣ: %1$s</string>
+    <string name="portfolio_updated">ਕੀਮਤਾਂ %1$s ਮੁਤਾਬਕ</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">ਹੋਰ</string>
+    <string name="portfolio_allocation_title">ਵੰਡ</string>
+    <string name="portfolio_card_details">ਵੇਰਵੇ</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: ਹਾਲੇ ਉਪਲਬਧ ਨਹੀਂ</string>
+    <string name="portfolio_card_hints_count">ਨੋਟ (%1$d)</string>
+    <string name="portfolio_card_today">ਅੱਜ</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">ਕੁੱਲ</string>
+    <string name="portfolio_hide_amounts">ਰਕਮਾਂ ਲੁਕਾਓ</string>
+    <string name="portfolio_hide_amounts_hint">ਪੋਰਟਫੋਲੀਓ ਅਤੇ ਪੋਰਟਫੋਲੀਓ ਵਿਜੇਟ ਵਿੱਚ ਰਕਮਾਂ ਅਤੇ ਮੁੱਲ ••• ਵਜੋਂ ਦਿਖਾਉਂਦਾ ਹੈ – ਪ੍ਰਤੀਸ਼ਤ ਦਿਖਦੇ ਰਹਿੰਦੇ ਹਨ।</string>
+    <string name="portfolio_invested">ਲਾਗਤ ਅਧਾਰ</string>
+    <string name="portfolio_total_no_fx">%1$s ਲਈ ਵਟਾਂਦਰਾ ਦਰ ਨਹੀਂ – ਰਕਮਾਂ USDT ਵਿੱਚ</string>
+    <string name="portfolio_total_value">ਕੁੱਲ ਮੁੱਲ</string>
+    <string name="portfolio_value">ਮੁੱਲ</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">ਔਸਤ %1$s · ਹੁਣ %2$s</string>
+    <string name="portfolio_avg_only">ਔਸਤ %1$s</string>
+    <string name="portfolio_avg_open_lots">ਕੋਲ ਰੱਖੇ ਕੌਇਨਾਂ ਦੀ ਔਸਤ ਲਾਗਤ</string>
+    <string name="portfolio_avg_partial">ਖਰੀਦ ਕੀਮਤ ਵਾਲੇ %1$s ਦੀ ਔਸਤ</string>
+    <string name="portfolio_avg_price">ਔਸਤ ਖਰੀਦ ਕੀਮਤ</string>
+    <string name="portfolio_avg_price_hint">ਔਸਤ ਖਰੀਦ ਕੀਮਤ: ਸਾਰੀਆਂ ਖਰੀਦਾਂ ਦੀ ਔਸਤ, ਮਾਤਰਾ ਮੁਤਾਬਕ ਭਾਰਿਤ। ਵਿਕਰੀਆਂ ਦਾ ਮੁਲਾਂਕਣ ਇਸੇ ਔਸਤ ’ਤੇ ਹੁੰਦਾ ਹੈ।</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">ਬੰਦ ਪੁਜ਼ੀਸ਼ਨ (%1$d)</item>
+        <item quantity="other">ਬੰਦ ਪੁਜ਼ੀਸ਼ਨਾਂ (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: ਵਿਕਰੀਆਂ ਵਿੱਚ ਪਹਿਲਾਂ ਤੁਹਾਡੇ ਸਭ ਤੋਂ ਪੁਰਾਣੇ ਕੌਇਨ ਵਰਤੇ ਜਾਂਦੇ ਹਨ। ਔਸਤ = ਬਾਕੀ ਲਾਗਤ ਅਧਾਰ ÷ ਖਰੀਦ ਕੀਮਤ ਵਾਲੀ ਮਾਤਰਾ।</string>
+    <string name="portfolio_holdings">ਹੋਲਡਿੰਗਾਂ</string>
+    <string name="portfolio_lost_fee_cost">ਭੁਗਤਾਨ ਕੀਤੇ ਲਾਟ ਤੋਂ ਬਿਨਾਂ ਨੈੱਟਵਰਕ ਫੀਸ ਦੀ ਲਾਗਤ: %1$s</string>
+    <string name="portfolio_open_lots">ਖੁੱਲ੍ਹੇ ਖਰੀਦ ਲਾਟ (%1$d)</string>
+    <string name="portfolio_open_lots_avg">ਖਰੀਦ ਕੀਮਤ ਨਾਲ (ਔਸਤ)</string>
+    <string name="portfolio_open_lots_no_cost">ਖਰੀਦ ਕੀਮਤ ਤੋਂ ਬਿਨਾਂ</string>
+    <string name="portfolio_open_lots_without_price">ਖਰੀਦ ਕੀਮਤ ਨਹੀਂ</string>
+    <string name="portfolio_realized">ਪ੍ਰਾਪਤ ਮੁਨਾਫ਼ਾ/ਨੁਕਸਾਨ</string>
+    <string name="portfolio_unrealized">ਖੁੱਲ੍ਹਾ ਮੁਨਾਫ਼ਾ/ਨੁਕਸਾਨ</string>
+    <string name="portfolio_unrealized_without_unpriced">ਖਰੀਦ ਕੀਮਤ ਤੋਂ ਬਿਨਾਂ %1$s ਛੱਡ ਕੇ</string>
+    <string name="portfolio_withdrawn_gain">ਕੱਢਿਆ ਗਿਆ: %1$s (ਨਿਕਾਸੀ ਤੱਕ ਮੁੱਲ ਦੀ ਤਬਦੀਲੀ)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">ਇਸ ਵਿੱਚ ਬਦਲੋ</string>
+    <string name="portfolio_convert_to_value">ਇਸ ਵਿੱਚ ਬਦਲੋ: %1$s</string>
+    <string name="portfolio_current_missing">%1$s ਦੀ ਮੌਜੂਦਾ ਕੀਮਤ ਨਹੀਂ</string>
+    <string name="portfolio_current_price">ਮੌਜੂਦਾ ਕੀਮਤ</string>
+    <string name="portfolio_price_missing">ਕੀਮਤ ਗੁੰਮ</string>
+    <string name="portfolio_price_missing_hint">ਕੁਝ ਖਰੀਦਾਂ ਦੀ ਕੀਮਤ ਨਹੀਂ। ਮੁਨਾਫ਼ਾ/ਨੁਕਸਾਨ ਦੇਖਣ ਲਈ ਖਰੀਦ ਕੀਮਤ ਜੋੜੋ।</string>
+    <string name="portfolio_price_source">ਕੀਮਤਾਂ: Binance · USDT ਬਾਜ਼ਾਰੀ ਕੀਮਤ ’ਤੇ</string>
+    <string name="portfolio_price_source_routes">ਕੀਮਤਾਂ: %1$s, ਨਹੀਂ ਤਾਂ Binance · USDT ਬਾਜ਼ਾਰੀ ਕੀਮਤ ’ਤੇ</string>
+    <string name="portfolio_price_unavailable">ਕੀਮਤ ਹੁਣੇ ਉਪਲਬਧ ਨਹੀਂ</string>
+    <string name="portfolio_price_unchecked">ਕੀਮਤ ਅਣ-ਜਾਂਚੀ</string>
+    <string name="portfolio_price_via_base">≈ %1$s ਦੀ ਕੀਮਤ (ਬ੍ਰਿਜਡ/ਰੈਪਡ)</string>
+    <string name="portfolio_usdt_as_usd">USDT ਉਸਦੀ USD ਬਾਜ਼ਾਰੀ ਕੀਮਤ ’ਤੇ ਬਦਲਿਆ</string>
+    <string name="portfolio_usdt_assumed">USDT ਦੀ ਡਾਲਰ ਦਰ ਗੁੰਮ – 1 ਅਮਰੀਕੀ ਡਾਲਰ ਗਿਣਿਆ ਗਿਆ</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">ਪੋਰਟਫੋਲੀਓ ਵਿੱਚ ਜੋੜੋ</string>
+    <string name="portfolio_add_tx">ਲੈਣ-ਦੇਣ ਜੋੜੋ</string>
+    <string name="portfolio_buy">ਖਰੀਦ</string>
+    <string name="portfolio_coin">ਕੌਇਨ</string>
+    <string name="portfolio_coin_invalid">ਕੌਇਨ ਦਾ ਚਿੰਨ੍ਹ ਦਰਜ ਕਰੋ</string>
+    <string name="portfolio_coin_search">ਚਿੰਨ੍ਹ ਖੋਜੋ, ਜਿਵੇਂ BTC</string>
+    <string name="portfolio_discard_confirm">ਰੱਦ ਕਰੋ</string>
+    <string name="portfolio_discard_keep">ਸੋਧਣਾ ਜਾਰੀ ਰੱਖੋ</string>
+    <string name="portfolio_discard_title">ਤਬਦੀਲੀਆਂ ਰੱਦ ਕਰਨੀਆਂ ਹਨ?</string>
+    <string name="portfolio_edit_tx">ਲੈਣ-ਦੇਣ ਸੋਧੋ</string>
+    <string name="portfolio_invalid">0 ਤੋਂ ਵੱਡੀ ਕੋਈ ਵੈਧ ਸੰਖਿਆ ਦਰਜ ਕਰੋ।</string>
+    <string name="portfolio_oversold">ਵਿਕਰੀਆਂ ਹੋਲਡਿੰਗਾਂ ਤੋਂ ਵੱਧ ਹਨ – ਕਿਰਪਾ ਕਰਕੇ ਲੈਣ-ਦੇਣ ਜਾਂਚੋ।</string>
+    <string name="portfolio_sell">ਵਿਕਰੀ</string>
+    <string name="portfolio_sell_exceeds">ਤੁਹਾਡੀਆਂ ਹੋਲਡਿੰਗਾਂ ਤੋਂ ਵੱਧ (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">ਰਕਮ ਜਮ੍ਹਾਂ ਫੀਸ ਤੁਹਾਡੀਆਂ ਹੋਲਡਿੰਗਾਂ ਤੋਂ ਵੱਧ ਹੈ (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">%2$s ਵਿੱਚ ਤੁਹਾਡੀਆਂ ਹੋਲਡਿੰਗਾਂ ਤੋਂ ਵੱਧ (%1$s)</string>
+    <string name="portfolio_transactions">ਲੈਣ-ਦੇਣ</string>
+    <string name="portfolio_tx_acquired_date">ਅਸਲ ਖਰੀਦ ਤਾਰੀਖ (ਵਿਕਲਪਿਕ)</string>
+    <string name="portfolio_tx_acquired_date_hint">ਟੈਕਸ ਐਕਸਪੋਰਟ ਵਿੱਚ ਰੱਖਣ ਦੀ ਮਿਆਦ ਲਈ</string>
+    <string name="portfolio_tx_amount">ਮਾਤਰਾ</string>
+    <string name="portfolio_tx_coin_fee">ਕੌਇਨ ਵਿੱਚ ਫੀਸ (ਵਿਕਲਪਿਕ)</string>
+    <string name="portfolio_tx_date">ਤਾਰੀਖ</string>
+    <string name="portfolio_tx_delete_confirm">ਇਹ ਲੈਣ-ਦੇਣ ਪੋਰਟਫੋਲੀਓ ਤੋਂ ਹਟਾ ਦਿੱਤਾ ਜਾਵੇਗਾ।</string>
+    <string name="portfolio_tx_delete_title">ਲੈਣ-ਦੇਣ ਮਿਟਾਉਣਾ ਹੈ?</string>
+    <string name="portfolio_tx_deposit">ਜਮ੍ਹਾਂ</string>
+    <string name="portfolio_tx_entry_currency">ਇਸ ਵਿੱਚ ਦਰਜ ਕਰੋ</string>
+    <string name="portfolio_tx_explain_deposit">ਬਿਨਾਂ ਵਪਾਰ ਦੇ ਹੋਲਡਿੰਗਾਂ, ਜਿਵੇਂ ਪਹਿਲਾਂ ਦੇ ਕੌਇਨ</string>
+    <string name="portfolio_tx_explain_gift">ਕੌਇਨ ਨਿਕਾਸੀ ਵਾਂਗ ਤੁਹਾਡੀਆਂ ਹੋਲਡਿੰਗਾਂ ਤੋਂ ਨਿਕਲ ਜਾਂਦੇ ਹਨ – ਬਾਜ਼ਾਰੀ ਮੁੱਲ ’ਤੇ ਨਿਪਟਾਰਾ ਸਿਰਫ਼ ਉੱਥੇ ਜਿੱਥੇ ਦੇਸ਼ ਤੋਹਫ਼ਿਆਂ ’ਤੇ ਟੈਕਸ ਲਾਉਂਦਾ ਹੈ (UK, CA, AU)</string>
+    <string name="portfolio_tx_explain_payment">ਵਸਤਾਂ ਜਾਂ ਸੇਵਾਵਾਂ ਲਈ ਭੁਗਤਾਨ – ਵਿਕਰੀ ਵਾਂਗ ਬਾਜ਼ਾਰੀ ਮੁੱਲ ’ਤੇ ਨਿਪਟਾਰਾ, ਕੋਈ ਪੈਸਾ ਨਹੀਂ ਮਿਲਿਆ</string>
+    <string name="portfolio_tx_explain_reward">ਲਾਗਤ ਅਧਾਰ = ਮਿਲਣ ਵੇਲੇ ਦਾ ਬਾਜ਼ਾਰੀ ਮੁੱਲ</string>
+    <string name="portfolio_tx_explain_swap">ਇੱਕ ਕੌਇਨ ਦੇ ਬਦਲੇ ਦੂਜਾ: ਦਿੱਤਾ ਕੌਇਨ ਵੇਚਦਾ ਹੈ ਅਤੇ ਮਿਲਿਆ ਕੌਇਨ ਖਰੀਦਦਾ ਹੈ</string>
+    <string name="portfolio_tx_explain_transfer">ਕੋਈ ਮੁਨਾਫ਼ਾ ਨਹੀਂ – ਲਾਗਤ ਅਧਾਰ ਕੌਇਨਾਂ ਨਾਲ ਜਾਂਦਾ ਹੈ</string>
+    <string name="portfolio_tx_explain_withdrawal">ਹੋਲਡਿੰਗਾਂ ਪੋਰਟਫੋਲੀਓ ਤੋਂ ਨਿਕਲ ਜਾਂਦੀਆਂ ਹਨ – ਨਾ ਵਿਕਰੀ, ਨਾ ਮੁਨਾਫ਼ਾ</string>
+    <string name="portfolio_tx_fee_consumes_amount">ਫੀਸ ਮਿਲੀ ਰਕਮ ਜਿੰਨੀ ਹੈ – ਕੁਝ ਵੀ ਨਹੀਂ ਬਚੇਗਾ।</string>
+    <string name="portfolio_tx_fees_toggle">ਫੀਸਾਂ</string>
+    <string name="portfolio_tx_fiat_converted">%2$s ਦੀ ਦਰ ’ਤੇ ≈ %1$s</string>
+    <string name="portfolio_tx_fiat_loading">ਵਟਾਂਦਰਾ ਦਰ ਲੋਡ ਹੋ ਰਹੀ ਹੈ…</string>
+    <string name="portfolio_tx_fiat_no_fx">ਇਸ ਦਿਨ ਲਈ ਕੋਈ ਵਟਾਂਦਰਾ ਦਰ ਨਹੀਂ – ਰਕਮ USDT ਵਿੱਚ ਦਰਜ ਕਰੋ।</string>
+    <string name="portfolio_tx_gift">ਤੋਹਫ਼ਾ</string>
+    <string name="portfolio_tx_gift_price_hint">USDT ਵਿੱਚ। ਖਾਲੀ = ਉਸ ਦਿਨ ਦੀ ਬੰਦ ਕੀਮਤ (ਅਨੁਮਾਨਿਤ)।</string>
+    <string name="portfolio_tx_gift_spouse">ਜੀਵਨ ਸਾਥੀ / ਸਿਵਲ ਪਾਰਟਨਰ ਨੂੰ</string>
+    <string name="portfolio_tx_gift_spouse_hint">UK ਅਤੇ ਕੈਨੇਡਾ: ਨਾ ਮੁਨਾਫ਼ਾ ਨਾ ਨੁਕਸਾਨ – ਤੁਹਾਡਾ ਸਾਥੀ ਤੁਹਾਡਾ ਲਾਗਤ ਅਧਾਰ ਲੈ ਲੈਂਦਾ ਹੈ। ਹੋਰ ਦੇਸ਼ ਇਸਨੂੰ ਨਜ਼ਰਅੰਦਾਜ਼ ਕਰਦੇ ਹਨ।</string>
+    <string name="portfolio_tx_market_value">ਪ੍ਰਤੀ ਕੌਇਨ ਬਾਜ਼ਾਰੀ ਮੁੱਲ</string>
+    <string name="portfolio_tx_more_buy">ਫੀਸ, ਐਕਸਚੇਂਜ, ਨੋਟ</string>
+    <string name="portfolio_tx_network_fee">ਕੌਇਨ ਵਿੱਚ ਨੈੱਟਵਰਕ ਫੀਸ (ਵਿਕਲਪਿਕ)</string>
+    <string name="portfolio_tx_note">ਨੋਟ (ਵਿਕਲਪਿਕ)</string>
+    <string name="portfolio_tx_payment">ਇਸ ਨਾਲ ਭੁਗਤਾਨ</string>
+    <string name="portfolio_tx_price">ਪ੍ਰਤੀ ਕੌਇਨ ਕੀਮਤ</string>
+    <string name="portfolio_tx_price_hint">USDT ਵਿੱਚ। ਅਣਜਾਣ ਹੋਵੇ ਤਾਂ ਖਾਲੀ ਛੱਡੋ।</string>
+    <string name="portfolio_tx_price_historic">%1$s ਦੀ ਰੋਜ਼ਾਨਾ ਬੰਦ ਕੀਮਤ ਜਾਂਚੀ ਗਈ – ਲੋੜ ਹੋਵੇ ਤਾਂ ਬਦਲੋ</string>
+    <string name="portfolio_tx_price_invalid">ਕੋਈ ਵੈਧ ਸੰਖਿਆ (0 ਜਾਂ ਵੱਧ) ਦਰਜ ਕਰੋ ਜਾਂ ਖੇਤਰ ਖਾਲੀ ਛੱਡੋ।</string>
+    <string name="portfolio_tx_price_past_hint">ਖਰੀਦ ਵਾਲੇ ਦਿਨ ਦੀ ਕੀਮਤ ਦਰਜ ਕਰੋ – ਅਣਜਾਣ ਹੋਵੇ ਤਾਂ ਖਾਲੀ ਛੱਡੋ</string>
+    <string name="portfolio_tx_price_receipt_hint">USDT ਵਿੱਚ। ਖਾਲੀ = ਲਾਗਤ ਅਧਾਰ ਤੋਂ ਬਿਨਾਂ ਹੋਲਡਿੰਗਾਂ।</string>
+    <string name="portfolio_tx_price_zero">ਇੰਪੋਰਟ ਕੀਤੇ ਲੈਣ-ਦੇਣ ਲਈ ਕੀਮਤ 0 ਸੰਭਵ ਨਹੀਂ – ਬਾਜ਼ਾਰੀ ਕੀਮਤ ਲਈ ਖਾਲੀ ਛੱਡੋ</string>
+    <string name="portfolio_tx_removed">ਲੈਣ-ਦੇਣ ਮਿਟਾਇਆ ਗਿਆ</string>
+    <string name="portfolio_tx_reward">ਇਨਾਮ</string>
+    <string name="portfolio_tx_save_failed">ਲੈਣ-ਦੇਣ ਸੰਭਾਲਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ। ਤੁਹਾਡੀਆਂ ਐਂਟਰੀਆਂ ਹਾਲੇ ਇੱਥੇ ਹਨ – ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
+    <string name="portfolio_tx_swap">ਸਵੈਪ</string>
+    <string name="portfolio_tx_swap_fee_received">%1$s ਵਿੱਚ ਫੀਸ: ਮਿਲੀ ਰਕਮ ਘਟਾਉਂਦੀ ਹੈ, ਕੀਮਤ ਦੀ ਲੋੜ ਨਹੀਂ।</string>
+    <string name="portfolio_tx_swap_from">%1$s ਤੋਂ ਸਵੈਪ</string>
+    <string name="portfolio_tx_swap_given_amount">ਦਿੱਤੀ ਰਕਮ</string>
+    <string name="portfolio_tx_swap_given_coin">ਦਿੱਤਾ ਕੌਇਨ</string>
+    <string name="portfolio_tx_swap_received_amount">ਮਿਲੀ ਰਕਮ</string>
+    <string name="portfolio_tx_swap_received_coin">ਮਿਲਿਆ ਕੌਇਨ</string>
+    <string name="portfolio_tx_swap_same_coin">ਦਿੱਤੇ ਕੌਇਨ ਤੋਂ ਵੱਖਰਾ ਕੋਈ ਕੌਇਨ ਚੁਣੋ</string>
+    <string name="portfolio_tx_swap_to">%1$s ਵਿੱਚ ਸਵੈਪ</string>
+    <string name="portfolio_tx_swap_value">ਸਵੈਪ ਦਾ ਮੁੱਲ (ਵਿਕਲਪਿਕ)</string>
+    <string name="portfolio_tx_swap_value_hint">ਕੁੱਲ ਮੁੱਲ। ਖਾਲੀ = ਅਣਜਾਣ – ਮੁਨਾਫ਼ਾ ਅਧੂਰਾ ਰਹਿੰਦਾ ਹੈ (ਸਵੈਪ ਵਿੱਚ USDT ਹੋਵੇ ਤਾਂ ਆਪਣੇ-ਆਪ)।</string>
+    <string name="portfolio_tx_third_fee_amount">ਫੀਸ ਦੀ ਰਕਮ</string>
+    <string name="portfolio_tx_third_fee_coin">ਫੀਸ ਦਾ ਕੌਇਨ</string>
+    <string name="portfolio_tx_third_fee_incomplete">ਕੀਮਤ ਤੋਂ ਬਿਨਾਂ ਫੀਸ ਲਾਗਤ ਅਧਾਰ ਅਤੇ ਆਮਦਨ ਤੋਂ ਬਾਹਰ ਰਹਿੰਦੀ ਹੈ; ਟੈਕਸ ਐਕਸਪੋਰਟ ਅਜਿਹੀਆਂ ਵਿਕਰੀਆਂ ’ਤੇ ਨਿਸ਼ਾਨ ਲਾਉਂਦਾ ਹੈ।</string>
+    <string name="portfolio_tx_third_fee_price">ਪ੍ਰਤੀ ਫੀਸ ਕੌਇਨ ਕੀਮਤ (ਵਿਕਲਪਿਕ)</string>
+    <string name="portfolio_tx_third_fee_toggle">ਕਿਸੇ ਹੋਰ ਕੌਇਨ ਵਿੱਚ ਫੀਸ</string>
+    <string name="portfolio_tx_total">ਕੁੱਲ: %1$s</string>
+    <string name="portfolio_tx_transfer">ਟ੍ਰਾਂਸਫਰ</string>
+    <string name="portfolio_tx_transfer_from">ਤੋਂ (ਵਿਕਲਪਿਕ)</string>
+    <string name="portfolio_tx_transfer_to">ਨੂੰ (ਵਿਕਲਪਿਕ)</string>
+    <string name="portfolio_tx_transfer_to_hint">ਐਕਸਚੇਂਜ ਜਾਂ ਵਾਲਿਟ – ਹੁਣ ਤੋਂ ਉੱਥੇ ਹੀ ਮੁਲਾਂਕਣ ਹੋਵੇਗਾ।</string>
+    <string name="portfolio_tx_type_select">ਕਿਸਮ: %1$s</string>
+    <string name="portfolio_tx_value_received">ਮਿਲਣ ਵੇਲੇ ਪ੍ਰਤੀ ਕੌਇਨ ਮੁੱਲ (ਵਿਕਲਪਿਕ)</string>
+    <string name="portfolio_tx_withdrawal">ਨਿਕਾਸੀ</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">ਕਿਸੇ ਨੂੰ ਦੇ ਦਿੱਤਾ ਜਾਂ ਇਸ ਨਾਲ ਭੁਗਤਾਨ ਕੀਤਾ? ਇਸਨੂੰ “ਤੋਹਫ਼ਾ” ਜਾਂ “ਇਸ ਨਾਲ ਭੁਗਤਾਨ” ਵਜੋਂ ਦਰਜ ਕਰੋ – ਦੇਸ਼ ਮੁਤਾਬਕ ਇਹ ਟੈਕਸ ਲਈ ਵਿਕਰੀ ਗਿਣੀ ਜਾਂਦੀ ਹੈ।</string>
+    <string name="portfolio_tx_withdrawal_price_hint">ਵਿਕਲਪਿਕ: USDT ਵਿੱਚ ਬਾਜ਼ਾਰੀ ਮੁੱਲ, ਸਿਰਫ਼ ਇਤਿਹਾਸ ਲਈ ਵਰਤਿਆ (ਖਾਲੀ = ਉਸ ਦਿਨ ਦੀ ਕੀਮਤ)। ਕੌਇਨ ਹਮੇਸ਼ਾ ਆਪਣੇ ਲਾਗਤ ਅਧਾਰ ’ਤੇ ਨਿਕਲਦੇ ਹਨ।</string>
+    <string name="portfolio_wallet_did_you_mean">ਕੀ ਤੁਹਾਡਾ ਮਤਲਬ %1$s ਸੀ? ਵੱਖਰੇ ਸ਼ਬਦ-ਜੋੜ ਨੂੰ ਵੱਖਰਾ ਵਾਲਿਟ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ।</string>
+    <string name="portfolio_wallet_shortfall">%1$s ਵਿੱਚ ਹੋਲਡਿੰਗਾਂ ਕਾਫ਼ੀ ਨਹੀਂ – ਕੋਈ ਟ੍ਰਾਂਸਫਰ ਰਹਿ ਗਿਆ?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">ਸਭ ਤੋਂ ਉੱਚਾ %1$s</string>
+    <string name="portfolio_compare">ਤੁਲਨਾ ਕਰੋ</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">ਪ੍ਰਤੀਸ਼ਤ ਵਿੱਚ %1$s ਅਤੇ USDT ਦੀ ਤੁਲਨਾ ਕਰੋ</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">ਪ੍ਰਤੀਸ਼ਤ ਵਿੱਚ ਤੁਲਨਾ, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">ਮੁਦਰਾ ਪ੍ਰਭਾਵ: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">ਕੀਮਤ ਡਾਟਾ ਸਿਰਫ਼ ਅਗਸਤ 2017 ਤੱਕ ਪਿੱਛੇ ਜਾਂਦਾ ਹੈ — ਇਤਿਹਾਸ ਉੱਥੋਂ ਸ਼ੁਰੂ ਹੁੰਦਾ ਹੈ।</string>
+    <string name="portfolio_history_chip_since_first">ਸਾਰੇ</string>
+    <string name="portfolio_history_collapse">ਮੁੱਲ ਇਤਿਹਾਸ ਲੁਕਾਓ</string>
+    <string name="portfolio_history_converted">ਅੱਜ ਦੀ ਦਰ ’ਤੇ ਬਦਲਿਆ</string>
+    <string name="portfolio_history_expand">ਮੁੱਲ ਇਤਿਹਾਸ ਦਿਖਾਓ</string>
+    <string name="portfolio_history_gain_a11y">ਮੁੱਲ %1$s। ਮੁਨਾਫ਼ਾ/ਨੁਕਸਾਨ, %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">ਮੁਨਾਫ਼ਾ/ਨੁਕਸਾਨ</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">%1$s ਵਿੱਚ ਮੁੱਲ</string>
+    <string name="portfolio_history_incl_fx">ਵਟਾਂਦਰਾ ਦਰ ਸਮੇਤ</string>
+    <string name="portfolio_history_incl_withdrawn">ਕੱਢੇ ਕੌਇਨਾਂ ਦੇ ਮੁੱਲ ਦੀ ਤਬਦੀਲੀ ਸਮੇਤ</string>
+    <string name="portfolio_history_includes_trades">ਇਸ ਮਿਆਦ ਦੀਆਂ ਖਰੀਦਾਂ ਅਤੇ ਵਿਕਰੀਆਂ ਸਮੇਤ</string>
+    <string name="portfolio_history_loading">ਮੁੱਲ ਇਤਿਹਾਸ ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ</string>
+    <string name="portfolio_history_period_1y">1 ਸਾਲ</string>
+    <string name="portfolio_history_period_30d">30 ਦਿਨ</string>
+    <string name="portfolio_history_period_7d">7 ਦਿਨ</string>
+    <string name="portfolio_history_period_since_first">ਪਹਿਲੀ ਖਰੀਦ ਤੋਂ</string>
+    <string name="portfolio_history_pnl_needs_prices">ਮੁਨਾਫ਼ੇ/ਨੁਕਸਾਨ ਲਈ ਖਰੀਦ ਕੀਮਤਾਂ ਗੁੰਮ ਹਨ – ਉਨ੍ਹਾਂ ਨੂੰ ਲੈਣ-ਦੇਣ ਵਿੱਚ ਜੋੜੋ।</string>
+    <string name="portfolio_history_pnl_without">%1$s ਤੋਂ ਬਿਨਾਂ ਮੁਨਾਫ਼ਾ/ਨੁਕਸਾਨ (ਕੀਮਤ ਗੁੰਮ)</string>
+    <string name="portfolio_history_range_1y">1 ਸਾਲ</string>
+    <string name="portfolio_history_range_30d">30 ਦਿਨ</string>
+    <string name="portfolio_history_range_7d">7 ਦਿਨ</string>
+    <string name="portfolio_history_range_a11y">%1$s ਦਾ ਇਤਿਹਾਸ ਦਿਖਾਓ</string>
+    <string name="portfolio_history_range_since_first">ਪਹਿਲੀ ਖਰੀਦ ਤੋਂ</string>
+    <string name="portfolio_history_scaled">%1$s ਦਾ ਇਤਿਹਾਸ: Binance ਇਤਿਹਾਸ ਐਕਸਚੇਂਜ ਦੀ ਕੀਮਤ ਮੁਤਾਬਕ ਢਾਲਿਆ</string>
+    <string name="portfolio_history_title">ਮੁੱਲ ਇਤਿਹਾਸ</string>
+    <string name="portfolio_history_today">ਅੱਜ</string>
+    <string name="portfolio_history_too_short">ਇਤਿਹਾਸ ਤੁਹਾਡੇ ਪਹਿਲੇ ਪੂਰੇ ਦਿਨ ਤੋਂ ਬਾਅਦ ਸ਼ੁਰੂ ਹੁੰਦਾ ਹੈ।</string>
+    <string name="portfolio_history_unavailable">ਹੁਣੇ ਕੋਈ ਇਤਿਹਾਸ ਉਪਲਬਧ ਨਹੀਂ।</string>
+    <string name="portfolio_history_utc_days">UTC ਵਿੱਚ ਦਿਨ (ਰੋਜ਼ਾਨਾ ਕੈਂਡਲਾਂ)</string>
+    <string name="portfolio_history_without_matching">%1$s ਤੋਂ ਬਿਨਾਂ (ਮੇਲ ਖਾਂਦੀਆਂ ਰੋਜ਼ਾਨਾ ਕੀਮਤਾਂ ਨਹੀਂ)</string>
+    <string name="portfolio_period_rewards">ਇਨਾਮ +%1$s (ਮੁਨਾਫ਼ੇ ਵਿੱਚ ਨਹੀਂ)</string>
+    <string name="portfolio_period_scaled">%1$s ਲਈ 7 ਦਿਨ/1 ਸਾਲ: Binance ਇਤਿਹਾਸ ਐਕਸਚੇਂਜ ਦੀ ਕੀਮਤ ਮੁਤਾਬਕ ਢਾਲਿਆ</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">ਅਲਰਟ</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">ਰਕਮ (%1$s)</string>
+    <string name="portfolio_alarm_hint">ਹਰ ਤਾਜ਼ਗੀ ਤੋਂ ਬਾਅਦ ਜਾਂਚਿਆ ਜਾਂਦਾ ਹੈ। ਅਲਰਟਾਂ ਵਾਂਗ, ਸੀਮਾ ਪਾਰ ਹੋਣ ’ਤੇ ਚੱਲਦਾ ਹੈ ਅਤੇ ਮੁੱਲ ਦੇ ਵਾਪਸ ਆਉਣ ਤੋਂ ਬਾਅਦ ਹੀ ਦੁਬਾਰਾ।</string>
+    <string name="portfolio_alarm_kind_above">ਪੋਰਟਫੋਲੀਓ ਰਕਮ ਤੋਂ ਉੱਪਰ</string>
+    <string name="portfolio_alarm_kind_below">ਪੋਰਟਫੋਲੀਓ ਰਕਮ ਤੋਂ ਹੇਠਾਂ</string>
+    <string name="portfolio_alarm_kind_down">ਪੋਰਟਫੋਲੀਓ ਡਿੱਗਦਾ ਹੈ</string>
+    <string name="portfolio_alarm_kind_up">ਪੋਰਟਫੋਲੀਓ ਵਧਦਾ ਹੈ</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">ਪੋਰਟਫੋਲੀਓ %1$s ਤੋਂ ਉੱਪਰ</string>
+    <string name="portfolio_alarm_sentence_below">ਪੋਰਟਫੋਲੀਓ %1$s ਤੋਂ ਹੇਠਾਂ</string>
+    <string name="portfolio_alarm_sentence_down">ਪੋਰਟਫੋਲੀਓ %1$s ਹੇਠਾਂ (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">ਪੋਰਟਫੋਲੀਓ %1$s ਉੱਪਰ (%2$s)</string>
+    <string name="portfolio_alarm_title">ਪੋਰਟਫੋਲੀਓ ਮੁੱਲ ਅਲਰਟ</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">ਐਕਸਚੇਂਜ (ਵਿਕਲਪਿਕ)</string>
+    <string name="ledger_exchange_failed">%1$s: ਹੁਣੇ %2$s ਤੋਂ ਕੀਮਤ ਨਹੀਂ – Binance ਨਾਲ ਮੁਲਾਂਕਣ ਕੀਤਾ।</string>
+    <string name="ledger_exchange_hint">ਕੌਇਨ ਦਾ ਮੁਲਾਂਕਣ ਇਸ ਐਕਸਚੇਂਜ ਦੀ ਕੀਮਤ ’ਤੇ ਹੁੰਦਾ ਹੈ (ਨਹੀਂ ਤਾਂ Binance)। ਇਤਿਹਾਸ, 7 ਦਿਨ ਅਤੇ 1 ਸਾਲ ਇਸ ਮੁਤਾਬਕ ਢਾਲੀਆਂ Binance ਰੋਜ਼ਾਨਾ ਕੀਮਤਾਂ ਵਰਤਦੇ ਹਨ।</string>
+    <string name="ledger_exchange_mixed">%1$s: ਕਈ ਐਕਸਚੇਂਜ ਦਰਜ ਹਨ – Binance ਨਾਲ ਮੁਲਾਂਕਣ ਕੀਤਾ। ਕੌਇਨ ਤਬਦੀਲ ਕੀਤੇ? ਤਬਾਦਲੇ ਨੂੰ “ਟ੍ਰਾਂਸਫਰ” ਵਜੋਂ ਦਰਜ ਕਰੋ।</string>
+    <string name="ledger_exchange_none">ਕੋਈ ਨਹੀਂ (Binance)</string>
+    <string name="ledger_fee">ਫੀਸ (ਵਿਕਲਪਿਕ)</string>
+    <string name="ledger_fee_coin">ਕੌਇਨ</string>
+    <string name="ledger_fee_hint">USDT ਵਿੱਚ ਇਹ ਲਾਗਤ ਅਧਾਰ ਵਧਾਉਂਦੀ ਹੈ (ਵਿਕਰੀ: ਆਮਦਨ ਘਟਾਉਂਦੀ ਹੈ); ਕੌਇਨ ਵਿੱਚ ਇਹ ਮਾਤਰਾ ਘਟਾਉਂਦੀ ਹੈ।</string>
+    <string name="ledger_fee_line">ਫੀਸ %1$s</string>
+    <string name="ledger_fifo_cost_note">ਖਰੀਦ ਤੋਂ ਬਾਅਦ: ਫੀਸਾਂ ਸਮੇਤ FIFO ਲਾਗਤ (ਸਭ ਤੋਂ ਪੁਰਾਣੇ ਕੌਇਨ ਪਹਿਲਾਂ ਵੇਚੇ)।</string>
+    <string name="ledger_gain_info">ਅੱਜ, 7 ਦਿਨ, 1 ਸਾਲ: ਮਿਆਦ ਦੌਰਾਨ ਮੁੱਲ ਦੀ ਤਬਦੀਲੀ – ਖਰੀਦਾਂ ਅਤੇ ਵਿਕਰੀਆਂ ਮੁਨਾਫ਼ਾ ਨਹੀਂ ਗਿਣੀਆਂ ਜਾਂਦੀਆਂ। ਖਰੀਦ ਤੋਂ ਬਾਅਦ: ਹਾਲੇ ਕੋਲ ਰੱਖੇ ਕੌਇਨਾਂ ਦਾ ਮੌਜੂਦਾ ਮੁੱਲ ਘਟਾਓ ਲਾਗਤ ਅਧਾਰ (ਫੀਸਾਂ ਸਮੇਤ ਔਸਤ ਲਾਗਤ)।</string>
+    <string name="ledger_gain_info_a11y">ਮੁਨਾਫ਼ਾ ਅਤੇ ਨੁਕਸਾਨ ਕਿਵੇਂ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ</string>
+    <string name="ledger_gain_info_fifo">ਅੱਜ, 7 ਦਿਨ, 1 ਸਾਲ: ਮਿਆਦ ਦੌਰਾਨ ਮੁੱਲ ਦੀ ਤਬਦੀਲੀ – ਖਰੀਦਾਂ ਅਤੇ ਵਿਕਰੀਆਂ ਮੁਨਾਫ਼ਾ ਨਹੀਂ ਗਿਣੀਆਂ ਜਾਂਦੀਆਂ। ਖਰੀਦ ਤੋਂ ਬਾਅਦ: ਹਾਲੇ ਕੋਲ ਰੱਖੇ ਕੌਇਨਾਂ ਦਾ ਮੌਜੂਦਾ ਮੁੱਲ ਘਟਾਓ ਲਾਗਤ ਅਧਾਰ (ਫੀਸਾਂ ਸਮੇਤ FIFO)।</string>
+    <string name="ledger_gain_title">ਮੁਨਾਫ਼ਾ/ਨੁਕਸਾਨ</string>
+    <string name="ledger_more_toggle">ਫੀਸ ਅਤੇ ਐਕਸਚੇਂਜ</string>
+    <string name="ledger_partial_cost">“ਖਰੀਦ ਤੋਂ ਬਾਅਦ” ਸਿਰਫ਼ ਖਰੀਦ ਕੀਮਤ ਵਾਲਾ ਹਿੱਸਾ ਗਿਣਦਾ ਹੈ – ਖਰੀਦ ਕੀਮਤ ਤੋਂ ਬਿਨਾਂ %1$s ਛੱਡ ਕੇ।</string>
+    <string name="ledger_period_without">ਅੱਜ / 7 ਦਿਨ / 1 ਸਾਲ %1$s ਤੋਂ ਬਿਨਾਂ – ਮੇਲ ਖਾਂਦੀ ਸ਼ੁਰੂਆਤੀ ਕੀਮਤ ਨਹੀਂ।</string>
+    <string name="ledger_since_purchase_currency">ਖਰੀਦ ਤੋਂ ਬਾਅਦ (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">ਖਰੀਦ ਤੋਂ ਬਾਅਦ ਮੁਨਾਫ਼ਾ/ਨੁਕਸਾਨ, ਹਾਲੇ ਵੇਚਿਆ ਨਹੀਂ</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="one">ਖਰੀਦ ਕੀਮਤ ਤੋਂ ਬਿਨਾਂ %1$d ਕੌਇਨ (%2$s) ਛੱਡ ਕੇ – ਗਿਣਤੀ ਲਈ ਕੀਮਤ ਜੋੜੋ।</item>
+        <item quantity="other">ਖਰੀਦ ਕੀਮਤ ਤੋਂ ਬਿਨਾਂ %1$d ਕੌਇਨ (%2$s) ਛੱਡ ਕੇ – ਗਿਣਤੀ ਲਈ ਕੀਮਤਾਂ ਜੋੜੋ।</item>
+    </plurals>
+
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">USDT ਕਰੈਸ਼ – ਬਾਜ਼ਾਰ %1$s USD ’ਤੇ</string>
+    <string name="portfolio_usdt_via_usdc">USDC/USDT ਰਾਹੀਂ USDT ਦੀ ਡਾਲਰ ਦਰ – ਜੇ USDC ਡਿੱਗੇ ਤਾਂ ਇਹ ਮੁੱਲ ਗਲਤ ਹੈ</string>
+    <string name="portfolio_amount_bridged_stable">≈ %1$s ਸਮੇਤ (ਬ੍ਰਿਜਡ)</string>
+
+    <string name="portfolio_tx_interest">ਵਿਆਜ (ਲੈਂਡਿੰਗ)</string>
+    <string name="portfolio_tx_interest_hint">ਮਿਲਣ ’ਤੇ ਆਮਦਨ ਗਿਣੀ ਜਾਂਦੀ ਹੈ (ਆਸਟਰੀਆ)। ਸਟੇਕਿੰਗ ਇਨਾਮਾਂ ਅਤੇ ਏਅਰਡ੍ਰੌਪਾਂ ਲਈ ਬੰਦ ਰੱਖੋ।</string>
+    <string name="app_lock_no_screen_lock">ਪੋਰਟਫੋਲੀਓ ਖੋਲ੍ਹਣ ਲਈ ਸਕ੍ਰੀਨ ਲੌਕ ਸੈੱਟ ਕਰੋ।</string>
+    <string name="app_lock_turn_off_action">ਪੋਰਟਫੋਲੀਓ ਲੌਕ ਬੰਦ ਕਰੋ</string>
+    <string name="app_lock_turn_off_confirm_title">ਪੋਰਟਫੋਲੀਓ ਲੌਕ ਬੰਦ ਕਰਨਾ ਹੈ?</string>
+    <string name="app_lock_turn_off_confirm_message">ਸਕ੍ਰੀਨ ਲੌਕ ਤੋਂ ਬਿਨਾਂ ਪੋਰਟਫੋਲੀਓ ਅਨਲੌਕ ਨਹੀਂ ਹੋ ਸਕਦਾ। ਬੰਦ ਕਰਨ ’ਤੇ ਐਪ ਬਿਨਾਂ ਪੁੱਛੇ ਮੁੜ ਤੁਹਾਡਾ ਪੋਰਟਫੋਲੀਓ ਦਿਖਾਏਗੀ। ਸਕ੍ਰੀਨ ਲੌਕ ਸੈੱਟ ਹੋਣ ਤੋਂ ਬਾਅਦ ਲੌਕ ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਮੁੜ ਚਾਲੂ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ।</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">%1$s ਵਿੱਚ “ਖਰੀਦ ਤੋਂ ਬਾਅਦ” ਅਤੇ ਲਾਗਤ ਅਧਾਰ: ਖਰੀਦ ਵਾਲੇ ਦਿਨ ਦੀ ਵਟਾਂਦਰਾ ਦਰ ’ਤੇ ਲਾਗਤ, ਅੱਜ ਦੀ ਦਰ ’ਤੇ ਮੁੱਲ।</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">ਖਰੀਦ ਵਾਲੇ ਦਿਨ ਦੀ ਵਟਾਂਦਰਾ ਦਰ ਨਹੀਂ (“ਖਰੀਦ ਤੋਂ ਬਾਅਦ” ਅਤੇ ਲਾਗਤ ਅਧਾਰ ਵਿੱਚ ਸ਼ਾਮਲ ਨਹੀਂ): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">USDT ਡਾਲਰ ਦਰ ਤੋਂ ਬਿਨਾਂ ਖਰੀਦ ਵਾਲੇ ਦਿਨਾਂ ਦੀ ਲਾਗਤ ਪ੍ਰਤੀ USDT 1 ਅਮਰੀਕੀ ਡਾਲਰ ਗਿਣੀ ਗਈ।</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">%1$s ਮੁਤਾਬਕ – ਐਕਸਚੇਂਜ ਤੱਕ ਪਹੁੰਚ ਨਹੀਂ</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">ਰੋਜ਼ਾਨਾ ਕੀਮਤਾਂ: %1$s (Binance ਦੀ ਬਜਾਏ)</string>
+
+    <string name="portfolio_footer_short">ਕੰਮ ਵਿੱਚ ਮਦਦ, ਟੈਕਸ ਜਾਂ ਨਿਵੇਸ਼ ਸਲਾਹ ਨਹੀਂ। ਪਰਦੇਦਾਰੀ: ਸੈਟਿੰਗਾਂ › ਐਪ ਬਾਰੇ › ਪਰਦੇਦਾਰੀ ਨੀਤੀ।</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">%1$s ਦੇ ਸਾਰੇ ਲੈਣ-ਦੇਣ ਮਿਟਾਉਣੇ ਹਨ?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">%d ਲੈਣ-ਦੇਣ ਹਟਾਇਆ ਜਾਵੇਗਾ। ਇਸਨੂੰ ਤੁਰੰਤ ਬਾਅਦ ਵਾਪਸ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ।</item>
+        <item quantity="other">%d ਲੈਣ-ਦੇਣ ਹਟਾਏ ਜਾਣਗੇ। ਇਸਨੂੰ ਤੁਰੰਤ ਬਾਅਦ ਵਾਪਸ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ।</item>
+    </plurals>
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">%1$s ਵਿੱਚ ਅਦਾ ਕੀਤੀਆਂ ਫੀਸਾਂ ਹੋਰ ਲੈਣ-ਦੇਣ ਤੋਂ ਵੀ ਹਟਾਈਆਂ ਜਾਂਦੀਆਂ ਹਨ: %2$d।</string>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s ਪੋਰਟਫੋਲੀਓ ਤੋਂ ਹਟਾਇਆ ਗਿਆ (%2$d ਲੈਣ-ਦੇਣ)</item>
+        <item quantity="other">%1$s ਪੋਰਟਫੋਲੀਓ ਤੋਂ ਹਟਾਇਆ ਗਿਆ (%2$d ਲੈਣ-ਦੇਣ)</item>
+    </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">%d ਲੈਣ-ਦੇਣ ਹਟਾਇਆ ਗਿਆ</item>
+        <item quantity="other">%d ਲੈਣ-ਦੇਣ ਹਟਾਏ ਗਏ</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">ਇਸ ਨਾਲ %d ਲਾਟ ਵੀ ਹਟ ਜਾਂਦਾ ਹੈ।</item>
+        <item quantity="other">ਇਸ ਨਾਲ %d ਲਾਟ ਵੀ ਹਟ ਜਾਂਦੇ ਹਨ।</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">ਇਸ ਨਾਲ %d ਲਾਟ ਅਤੇ ਬੈਲੈਂਸ ਦਾ ਇਤਿਹਾਸ ਵੀ ਹਟ ਜਾਂਦਾ ਹੈ।</item>
+        <item quantity="other">ਇਸ ਨਾਲ %d ਲਾਟ ਅਤੇ ਬੈਲੈਂਸ ਦਾ ਇਤਿਹਾਸ ਵੀ ਹਟ ਜਾਂਦੇ ਹਨ।</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">ਇਸ ਨਾਲ ਬੈਲੈਂਸ ਦਾ ਇਤਿਹਾਸ ਵੀ ਹਟ ਜਾਂਦਾ ਹੈ।</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">ਸੰਭਾਲਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ – ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">ਸੀਮਾ ਅਵੈਧ – ਮਿਟਾ ਕੇ ਦੁਬਾਰਾ ਬਣਾਓ</string>
+</resources>

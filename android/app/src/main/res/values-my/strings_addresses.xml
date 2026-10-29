@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">လိပ်စာ ထည့်ရန်</string>
+    <string name="portfolio_address_count">ထည့်တွက်ရန်</string>
+    <string name="portfolio_address_error">အပ်ဒိတ် မအောင်မြင်ပါ</string>
+    <string name="portfolio_address_hint">အများသုံး လိပ်စာ (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) သို့မဟုတ် xpub</string>
+    <string name="portfolio_address_label">အမည်တံဆိပ် (ရွေးချယ်နိုင်)</string>
+    <string name="portfolio_address_not_since_buy">လိပ်စာမှ · “ဝယ်ကတည်းက” တွင် မပါ: %1$s</string>
+    <string name="portfolio_address_overlap">သင့်ကိုယ်ပိုင် ငွေပေးငွေယူများတွင်လည်း ပါသည်: %1$s – နှစ်ခုလုံးကို ပေါင်းထည့်ထားသည်။ ဒင်္ဂါး တူသလား။ “ပြရုံသာ” ကို ရွေးပါ။</string>
+    <string name="portfolio_address_overlap_ask">%1$s ကို သင့်ကိုယ်ပိုင် ငွေပေးငွေယူများဖြင့် မှတ်တမ်းတင်ပြီးဖြစ်သည်။ ဤလိပ်စာ၏ လက်ကျန်ကို ပေါ့ဖိုလီယိုထဲ ပေါင်းထည့်မလား၊ သို့မဟုတ် ပြရုံသာ ပြမလား။</string>
+    <string name="portfolio_address_overlap_auto">“%1$s” ကို ယခု ပြရုံသာ ပြပြီး ထည့်မတွက်ပါ – %2$s သည် သင့်ငွေပေးငွေယူများတွင်လည်း ပါသည်။</string>
+    <string name="portfolio_address_overlap_title">သင့်ငွေပေးငွေယူများနှင့် ဒင်္ဂါး တူသလား။</string>
+    <string name="portfolio_address_overlap_tx">သင့်ကိုယ်ပိုင် အပ်ငွေ/လွှဲငွေ (%1$s) နှင့် ပမာဏ တူသည် – နှစ်ခါ တွက်မိနိုင်သည်။</string>
+    <string name="portfolio_address_period_observed">စောင့်ကြည့်သော လိပ်စာများကို ပထမဆုံး တွေ့ရှိသည့် လက်ကျန်မှ စတင်တွက်သည်၊ နောက်ပိုင်း ပြောင်းလဲမှုများသည် ငွေဝင်/ငွေထွက်ဖြစ်ပြီး အမြတ်မဟုတ်ပါ။</string>
+    <string name="portfolio_address_privacy">အများသုံး လိပ်စာကိုသာ %1$s သို့ ပို့သည် – သော့ သို့မဟုတ် seed phrase ကို ဘယ်တော့မှ မပို့ပါ။ ဝန်ဆောင်မှုပေးသူသည် ၎င်းကို သင့် IP လိပ်စာနှင့်အတူ မြင်ရသည်။ အများဆုံး မိနစ် 10 တစ်ကြိမ် စစ်ဆေးသည်။</string>
+    <string name="portfolio_address_remove">လိပ်စာ ဖယ်ရှားရန်</string>
+    <string name="portfolio_address_show_only">ပြရုံသာ၊ ပေါ့ဖိုလီယိုထဲ မပေါင်းထည့်ပါ</string>
+    <string name="portfolio_address_show_only_short">ပြရုံသာ</string>
+    <string name="portfolio_address_tokens">တိုကင်များ ထည့်တွက်ရန်</string>
+    <string name="portfolio_address_xpub_privacy">xpub တစ်ခုသည် ဤပိုက်ဆံအိတ်၏ လိပ်စာအားလုံးကို ဖော်ပြသည်။ ၎င်းတို့ကို သင့်စက်ပေါ်တွင် ထုတ်ယူပြီး လိပ်စာတစ်ခုချင်းစီကိုသာ %1$s သို့ ပို့သည် – ပထမဆုံး စကင်တွင် အနည်းဆုံး တောင်းဆိုမှု 40 ခု၊ နောက်ပိုင်း ပိုနည်းသည်။ ပုဂ္ဂလိကသော့ (xprv) ကို ဘယ်တော့မှ လက်မခံပါ။</string>
+    <string name="portfolio_address_xpub_gap">အသုံးမပြုရသေးသော လိပ်စာ %1$d ခု ဆက်တိုက်တွေ့ပြီးနောက် ရှာဖွေမှု ရပ်သည် (ပိုက်ဆံအိတ် အများစုသုံးသော BIP44 စံ)။ ထိုကွာဟချက်ကျော်ရှိ အသုံးပြုထားသော လိပ်စာကို ထည့်မတွက်ပါ – သီးခြား ထည့်ပါ။</string>
+    <string name="portfolio_address_xpub_used">အသုံးပြုနေသော လိပ်စာများ: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">အပ်ဒိတ်လုပ်ရန် အသုံးပြုထားသော လိပ်စာ များလွန်းသည်</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">လိပ်စာ အလွန်များသည် – ဗလာဖြစ်နေသော လိပ်စာဟောင်းများသို့ ငွေပေးချေမှုအသစ်များကို မတွေ့နိုင်ပါ</string>
+    <string name="portfolio_addresses_title">လိပ်စာများ</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Bitcoin Cash လိပ်စာများကို စောင့်ကြည့်၍မရပါ- API key မလိုဘဲ စည်းကမ်းချက်အရ ခွင့်ပြုသော အခမဲ့ အများသုံး ဝန်ဆောင်မှု မရှိပါ။</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) ကို 2024 တွင် ပိတ်ခဲ့သည် – လက်ကျန်များသည် ယခု BNB Smart Chain (0x…) ပေါ်တွင် ရှိသည်</string>
+    <string name="address_checksum">Checksum မှားနေသည် – စာလုံးပေါင်းအမှား စစ်ပါ</string>
+    <string name="address_doge_unsupported">Dogecoin လိပ်စာများကို စောင့်ကြည့်၍မရပါ- API key မလိုဘဲ စည်းကမ်းချက်အရ ခွင့်ပြုသော အခမဲ့ အများသုံး ဝန်ဆောင်မှု မရှိပါ။</string>
+    <string name="address_duplicate">ဤလိပ်စာကို ထည့်ပြီးသား ဖြစ်သည်</string>
+    <string name="address_ens">ENS အမည်များကို မပံ့ပိုးပါ – 0x လိပ်စာကို ထည့်ပါ</string>
+    <string name="address_invalid">ပံ့ပိုးထားသော ကွန်ရက်၏ မှန်ကန်သော လိပ်စာ မဟုတ်ပါ</string>
+    <string name="address_limit">အများဆုံး လိပ်စာ 20 ခု</string>
+    <string name="address_secret">ဤအရာသည် ပုဂ္ဂလိကသော့ သို့မဟုတ် seed phrase နှင့် တူသည် – မည်သည့်နေရာတွင်မှ မထည့်ပါနှင့်။ အများသုံး လိပ်စာများသာ။</string>
+    <string name="address_testnet">Testnet လိပ်စာများကို မပံ့ပိုးပါ</string>
+    <string name="address_unsupported">ဤလိပ်စာ အမျိုးအစားကို မပံ့ပိုးပါ</string>
+    <string name="address_wrong_chain">လိပ်စာသည် အခြားကွန်ရက်နှင့် သက်ဆိုင်သည်</string>
+    <string name="address_xpub_multisig">Multisig သော့များ (Ypub/Zpub) ကို မပံ့ပိုးပါ</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot အကောင့် (BIP86): bc1p… လိပ်စာများကို ဤသော့မှ လက်ခံရန်နှင့် အကြွေအမ်းရန်အတွက် ထုတ်ယူသည်။</string>
+    <string name="portfolio_address_taproot_hint">Taproot ပိုက်ဆံအိတ်လား။ ၎င်းအစား သင့်ပိုက်ဆံအိတ်မှ descriptor tr(…) ကို ကူးထည့်ပါ – ရိုးရိုး xpub ကို Legacy နှင့် SegWit လိပ်စာများအဖြစ်သာ ရှာဖွေသည်။</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">ကိုယ်ပိုင်ဆာဗာကို ချိတ်ဆက်၍မရပါ</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">%1$s ကို လည်ပတ်သူမည်သူမဆို ဤပိုက်ဆံအိတ်၏ မေးမြန်းထားသော လိပ်စာအားလုံးကို မြင်ရပြီး ၎င်းတို့ကို အချင်းချင်းနှင့် သင့် IP လိပ်စာနှင့် ချိတ်ဆက်နိုင်သည်။</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">ယင်းကို ရှောင်ရန် ဆက်တင်များ › ပေါ့ဖိုလီယို › လိပ်စာများအတွက် ကိုယ်ပိုင်ဆာဗာ တွင် သင့်ကိုယ်ပိုင်ဆာဗာကို ထည့်ပါ။</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="other">+%1$d မသိသော တိုကင် (ထည့်မတွက်ပါ)</item>
+    </plurals>
+</resources>

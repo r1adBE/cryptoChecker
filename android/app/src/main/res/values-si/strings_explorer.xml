@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">සියලු ප්‍රතිඵල</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="one">හුවමාරු %1$d</item>
+        <item quantity="other">හුවමාරු %1$d</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">පූරණය කළ ලැයිස්තුවල මෙම කාසිය සඳහා යුගලයක් නැත.</string>
+    <string name="explorer_coin_not_loaded">යුගල ලැයිස්තු තවම පූරණය වී නැත</string>
+    <string name="explorer_coin_other_pairs">වෙනත් යුගල</string>
+    <string name="explorer_coin_show_pairs">යුගල පෙන්වන්න</string>
+    <string name="explorer_coin_suggested">යෝජිත</string>
+    <string name="explorer_coins_title">කාසි</string>
+    <string name="explorer_lists_failed_many">%1$s මේ මොහොතේ ප්‍රතිචාර නොදක්වයි – යුගල ලැයිස්තු පූරණය නොවීය. පසුව යළි උත්සාහ කරන්න.</string>
+    <plurals name="explorer_lists_failed_more">
+        <item quantity="one">+තවත් %1$d</item>
+        <item quantity="other">+තවත් %1$d</item>
+    </plurals>
+    <string name="explorer_lists_failed_one">%1$s මේ මොහොතේ ප්‍රතිචාර නොදක්වයි – යුගල ලැයිස්තුව පූරණය නොවීය. පසුව යළි උත්සාහ කරන්න.</string>
+    <string name="explorer_lists_load">ලැයිස්තු පූරණය කරන්න</string>
+    <string name="explorer_lists_loading">යුගල ලැයිස්තු පූරණය වෙමින්… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="one">හුවමාරු %1$d ක යුගල ලැයිස්තුව තවම මෙම උපාංගයේ නැත.</item>
+        <item quantity="other">හුවමාරු %1$d ක යුගල ලැයිස්තු තවම මෙම උපාංගයේ නැත.</item>
+    </plurals>
+    <string name="explorer_lists_privacy">එක් එක් හුවමාරුවේ සම්පූර්ණ පොදු ලැයිස්තුව පූරණය කරයි – සැමට එකම දේ. ඔබේ සෙවීම මෙම උපාංගයේම පවතී.</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">මෑත සෙවීම: %1$s</string>
+    <string name="explorer_recent_clear">හිස් කරන්න</string>
+    <string name="explorer_recent_clear_a11y">මෑත සෙවීම් හිස් කරන්න</string>
+    <string name="explorer_recent_title">මෑත සෙවීම්</string>
+    <string name="explorer_search_choose_manually">හුවමාරුව සහ යුගලය ඔබම තෝරන්න</string>
+    <string name="explorer_search_empty">ගැළපීම් නැත.</string>
+    <string name="explorer_search_hint">කාසිය, යුගලය හෝ හුවමාරුව සොයන්න</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">කාසියක නම හෝ සංකේතය ටයිප් කරන්න, උදා. Bitcoin හෝ BTC – ඉන්පසු යුගලය තෝරන්න.</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">නිරීක්ෂණ ලැයිස්තුවට එක් කරන්න</string>
+    <string name="explorer_added_to_watchlist">නිරීක්ෂණ ලැයිස්තුවට එක් කළා.</string>
+    <string name="explorer_already_in_watchlist">මෙම යුගලය දැනටමත් නිරීක්ෂණ ලැයිස්තුවේ ඇත.</string>
+    <string name="explorer_exchange_missing">හුවමාරුවක් නැද්ද?</string>
+    <string name="explorer_loading_pairs">වෙළඳ යුගල පූරණය වෙමින්…</string>
+    <string name="explorer_no_pair_selected">පළමුව යුගලයක් තෝරන්න.</string>
+    <string name="explorer_no_pairs_yet">මෙම හුවමාරුව සඳහා තවම යුගල පූරණය වී නැත.</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">යුගල %1$d · %2$s යාවත්කාලීන කළා</item>
+        <item quantity="other">යුගල %1$d · %2$s යාවත්කාලීන කළා</item>
+    </plurals>
+    <string name="explorer_pairs_title">යුගල</string>
+    <string name="explorer_precise_title">උසස් / හුවමාරුව අනුව</string>
+    <string name="explorer_price_loading">මිල පූරණය වෙමින්…</string>
+    <string name="explorer_select_exchange_hint">හුවමාරුවක් තෝරන්න – එහි වෙළඳ යුගල ස්වයංක්‍රීයව පූරණය වේ.</string>
+    <string name="explorer_select_placeholder">කරුණාකර තෝරන්න</string>
+    <string name="explorer_step_pair">යුගලය තෝරන්න</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">ඉහළ යන</string>
+    <string name="explorer_filter_losers">පහළ යන</string>
+    <string name="explorer_filter_volume">පරිමාව</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">මෙම හුවමාරුවේ සියලු %1$s යුගල</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">%1$d %2$s යුගල හමු විය</item>
+        <item quantity="other">%1$d %2$s යුගල හමු විය</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">තෝරාගත් ගිවිසුම් වර්ගය සඳහා මෙම හුවමාරුවේ %1$s යුගල නැත. පළමුව හුවමාරුව සමමුහුර්ත කරන්න, නැතහොත් වෙනත් ගිවිසුම් වර්ගයක් උත්සාහ කරන්න.</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">යුගල %1$d නිරීක්ෂණ ලැයිස්තුවට එක් කරන්න</item>
+        <item quantity="other">සියලු යුගල %1$d නිරීක්ෂණ ලැයිස්තුවට එක් කරන්න</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">%1$d ක් එක් කළා, %2$d ක් දැනටමත් නිරීක්ෂණ ලැයිස්තුවේ.</item>
+        <item quantity="other">%1$d ක් එක් කළා, %2$d ක් දැනටමත් නිරීක්ෂණ ලැයිස්තුවේ.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">%3$s වෙතින් %1$d %2$s යුගලය දැනටමත් නොමැති නම් නිරීක්ෂණ ලැයිස්තුවට එක් කෙරේ.</item>
+        <item quantity="other">%3$s වෙතින් සියලු %1$d %2$s යුගල නිරීක්ෂණ ලැයිස්තුවට එක් කෙරේ. දැනටමත් එහි ඇති යුගල මඟ හැරේ.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">යුගල %1$d එක් කරන්නද?</item>
+        <item quantity="other">යුගල %1$d එක් කරන්නද?</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">ලැයිස්තුව සඟවන්න</string>
+    <string name="explorer_bulk_show_list">ලැයිස්තුව පෙන්වන්න</string>
+    <string name="explorer_bulk_tap_hint">ඉහත තේරීමට යුගලයක් තට්ටු කරන්න.</string>
+    <string name="explorer_bulk_title">යුගල කිහිපයක් එකවර</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">තෝරාගත් හුවමාරුවේ වත්මන් යුගල පූරණය කරයි.</string>
+    <string name="explorer_no_pair_list">මුදල් යුගල නැත</string>
+    <string name="explorer_sync_sheet_last">අවසන් සමමුහුර්තය: %1$s</string>
+    <string name="explorer_sync_never">කිසි විටෙක නැත</string>
+    <string name="explorer_sync_sheet_action">දැන් සමමුහුර්ත කරන්න</string>
+    <string name="explorer_sync_sheet_title">මුදල් යුගල යාවත්කාලීන කරන්න</string>
+    <string name="explorer_field_coin">කාසිය</string>
+    <string name="explorer_field_contract">ගිවිසුම් වර්ගය</string>
+    <string name="explorer_field_exchange">හුවමාරුව</string>
+    <string name="explorer_field_quote">උද්ධෘත මුදල</string>
+    <string name="explorer_contract_spot">ස්පොට්</string>
+    <string name="explorer_reload_pairs">සමමුහුර්ත කරන්න</string>
+    <string name="sync_pairs_count">වෙළඳ යුගල: %1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">එක් කරන්න</string>
+    <string name="dex_added">%1$s නිරීක්ෂණ ලැයිස්තුවට එක් කළා.</string>
+    <string name="dex_already">%1$s දැනටමත් නිරීක්ෂණ ලැයිස්තුවේ ඇත.</string>
+    <string name="dex_intro">විශාල හුවමාරුවලින් පිටත ටෝකන, විමධ්‍යගත හුවමාරු (Uniswap, PancakeSwap, Raydium …) වෙතින් DexScreener හරහා. ටෝකනයක් සොයා එහි වෙළඳ සංචිතයක් එක් කරන්න – මිල ගණන් එක්සත් ජනපද ඩොලර්වලින්.</string>
+    <string name="dex_liquidity">ද්‍රවශීලතාව %1$s</string>
+    <string name="dex_no_results">සංචිත හමු නොවීය.</string>
+    <string name="dex_search">සොයන්න</string>
+    <string name="dex_search_hint">ටෝකන නම, සංකේතය හෝ ලිපිනය</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">Alpha ටෝකනය</string>
+    <string name="asset_kind_token">ටෝකනය</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+
+    <string name="dex_low_liquidity_no_alarm">අඩු ද්‍රවශීලතාව – ඇඟවීම් නැත</string>
+    <string name="dex_low_liquidity_alarm_hint">මෙම සංචිතයේ ද්‍රවශීලතාව 10,000 USD ට අඩුය (නැතහොත් කිසිවක් වාර්තා කර නැත). කුඩා වෙළඳාම්වලට එහි මිල චලනය කළ හැකි බැවින්, මෙහි ඇඟවීම් සැකසිය නොහැක. පවතින ඇඟවීම් තබා ගනු ලැබේ, නමුත් ද්‍රවශීලතාව නැවත ඉහළ යන තුරු ක්‍රියාත්මක නොවේ.</string>
+
+    <string name="explorer_bulk_show_all">සියල්ල පෙන්වන්න (%1$d)</string>
+    <string name="dex_token_address_copy">ටෝකන ලිපිනය පිටපත් කරන්න</string>
+    <string name="dex_token_address_copied">ටෝකන ලිපිනය පිටපත් කළා</string>
+    <string name="dex_token_address_label">%1$s න් අවසන් වන ටෝකන ලිපිනය</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="one">යුගල %1$d ක් එක් නොකළා: ඔබේ නිරීක්ෂණ ලැයිස්තුවට උපරිම යුගල %2$s ක් තිබිය හැක.</item>
+        <item quantity="other">යුගල %1$d ක් එක් නොකළා: ඔබේ නිරීක්ෂණ ලැයිස්තුවට උපරිම යුගල %2$s ක් තිබිය හැක.</item>
+    </plurals>
+    <string name="bulk_add_progress">යුගල එක් කරමින් … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="one">නව යුගල %1$d නිරීක්ෂණ ලැයිස්තුවට එක් කරන්න</item>
+        <item quantity="other">නව යුගල %1$d නිරීක්ෂණ ලැයිස්තුවට එක් කරන්න</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="one">නව %1$d, දැනටමත් නිරීක්ෂණ ලැයිස්තුවේ %2$d</item>
+        <item quantity="other">නව %1$d, දැනටමත් නිරීක්ෂණ ලැයිස්තුවේ %2$d</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">සියල්ල දැනටමත් නිරීක්ෂණ ලැයිස්තුවේ ඇත</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="one">යුගල %1$d නැවත ඉවත් කරන්නද?</item>
+        <item quantity="other">යුගල %1$d නැවත ඉවත් කරන්නද?</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">මේ අතරතුර ඔබ ඇඟවීමක් සැකසූ යුගල පවතී.</string>
+    <string name="bulk_undo_expired">පසුගමනය තවදුරටත් කළ නොහැක – යුගල නිරීක්ෂණ ලැයිස්තුවේ පවතී.</string>
+    <string name="explorer_section_spot">ස්පොට්</string>
+    <string name="explorer_section_futures">ෆියුචර්ස්</string>
+    <string name="explorer_section_dex">DEX සංචිත</string>
+    <string name="explorer_section_forex">විදේශ විනිමය (යොමු අනුපාතය)</string>
+    <string name="explorer_forex_hint">යුරෝපීය මහ බැංකුවේ දෛනික අනුපාතය (Frankfurter හරහා), සජීවී නොවේ – ඇඟවීම් නැත.</string>
+</resources>

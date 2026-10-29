@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">Bakgrunnur</string>
+    <string name="widget_configure_hint">Veldu bakgrunn og ógegnsæi. Liturinn fylgir forritinu. Græjan sýnir allan vaktlistann; ýttu á línu til að opna forritið.</string>
+    <string name="widget_configure_title">Setja upp græju</string>
+    <string name="widget_description">Sýnir verð pars af vaktlistanum þínum.</string>
+    <string name="widget_empty">Engin pör á vaktlistanum enn.</string>
+    <string name="widget_group_hint">Sýna aðeins pör þessa hóps.</string>
+    <string name="widget_kind_single">Stök mynt</string>
+    <string name="widget_opacity">Ógegnsæi bakgrunns: %1$s</string>
+    <string name="widget_pulse_description">Hvað sker sig úr á markaðnum núna: fyrirsögn, stutt samantekt og Bitcoin, Ethereum og Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">úrelt</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">úrelt · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">Kerti</string>
+    <string name="widget_chart_line">Lína</string>
+    <string name="widget_chart_range">Tímabil grafs</string>
+    <string name="widget_chart_type">Tegund grafs</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 ár</string>
+    <string name="widget_range_24h">24 klst.</string>
+    <string name="widget_range_30d">30 dagar</string>
+    <string name="widget_range_7d">7 dagar</string>
+    <string name="widget_range_short_1y">1Á</string>
+    <string name="widget_range_short_24h">24k</string>
+    <string name="widget_range_short_30d">30D</string>
+    <string name="widget_range_short_7d">7D</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">Staða %1$s</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">Saga væntanleg</string>
+    <string name="widget_portfolio_description">Heildarvirði eignasafnsins og breyting dagsins</string>
+    <string name="widget_portfolio_entries">Bókanir undir myntunum</string>
+    <string name="widget_portfolio_entries_both">Hvort tveggja</string>
+    <string name="widget_portfolio_entries_buys">Kaup</string>
+    <string name="widget_portfolio_entries_hint">Aðeins sýnt ef pláss er undir myntunum. Kaup innihalda innlagnir, sala inniheldur úttektir; með «Hvort tveggja» leggjast línurnar saman í eignina.</string>
+    <string name="widget_portfolio_entries_off">Af</string>
+    <string name="widget_portfolio_entries_sells">Sala</string>
+    <string name="widget_portfolio_display">Birting</string>
+    <string name="widget_portfolio_display_conversion">Aðeins umreikningur</string>
+    <string name="widget_portfolio_display_conversion_usdt">Umreikningur + USDT</string>
+    <string name="widget_portfolio_display_hint">USDT-línan er falin þegar umreikningsgjaldmiðillinn er USD-stöðugleikamynt (t.d. USDC).</string>
+    <string name="widget_portfolio_display_usdt">Aðeins USDT</string>
+    <string name="widget_portfolio_empty">Bættu við kaupum í flipanum Eignasafn</string>
+    <string name="widget_portfolio_list_hint">Opnaðu forritið til að sýna stöðurnar þínar hér.</string>
+    <string name="widget_portfolio_locked_hint">Læst – opnaðu í forritinu</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="one">án %1$d myntar</item>
+        <item quantity="other">án %1$d mynta</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ %1$d í viðbót</item>
+        <item quantity="other">+ %1$d í viðbót</item>
+    </plurals>
+    <string name="widget_portfolio_name">Eignasafn</string>
+    <string name="widget_portfolio_off_hint">Kveiktu á því í %1$s.</string>
+    <string name="widget_portfolio_off_short">Eignasafn af</string>
+    <string name="widget_portfolio_off_title">Slökkt er á eignasafni</string>
+    <string name="widget_portfolio_partly_stale">sum verð úrelt</string>
+    <string name="widget_portfolio_period">Tímabil</string>
+    <string name="widget_portfolio_period_without">%1$s án %2$s</string>
+    <string name="widget_portfolio_range_48h">48 klst.</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: opna Eignasafn</string>
+    <string name="widget_portfolio_range_short_48h">48k</string>
+    <string name="widget_portfolio_today_without">Í dag án %1$s</string>
+    <string name="widget_portfolio_view">Sýn</string>
+    <string name="widget_portfolio_view_chart">Graf</string>
+    <string name="widget_portfolio_view_list">Listi</string>
+    <string name="widget_portfolio_view_overview">Yfirlit</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">Veldu par</string>
+    <string name="single_widget_description">Sýnir eina mynt stórt með verði, breytingu og 24 klukkustunda grafi.</string>
+    <string name="single_widget_label">Crypto Checker – stök mynt</string>
+    <string name="single_widget_title">Setja upp staka græju</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">Bæta við</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">Bæta við græju %1$s</string>
+    <string name="widgets_manual_text">Heimaskjárinn þinn getur ekki bætt við græjum úr forritinu. Haltu inni á auðum stað á heimaskjánum, veldu „Græjur“ og leitaðu að „Crypto Checker“.</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">Bættu græjunni við handvirkt</string>
+    <string name="widgets_sheet_title">Bæta við græju</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS leyfir forritum ekki að bæta við græjum sjálf. Það tekur aðeins augnablik:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Tiltækar græjur</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Haltu inni á auðum stað á heimaskjánum þar til forritin hristast.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Ýttu á „Breyta“ › „Bæta við græju“ efst (eða „+“ í eldri útgáfum iOS).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Leitaðu að „Crypto Checker“, veldu græju og ýttu á „Bæta við græju“.</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">Endurnýja – mögulegt aftur eftir %1$d sek.</string>
+    <string name="settings_watch">Úr</string>
+    <string name="settings_watch_hint">Myntir fyrir úraforritið á Wear OS (allt að %1$d, verð á móti USDT). Aðeins þessi listi fer í úrið, í gegnum Google Play-þjónustu; úrið sækir verðin sjálft.</string>
+    <string name="settings_watch_mode_phone">Eins og síminn (uppáhöld ★)</string>
+    <string name="settings_watch_mode_own">Eigin listi</string>
+    <string name="settings_watch_own_title">Eigin listi: %1$d af %2$d</string>
+    <string name="settings_watch_none">Engin uppáhöld enn</string>
+
+    <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
+    <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">Engin USDT-lína í „Listi“</string>
+    <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
+    <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">„Yfirlit“ sýnir 30 daga í staðinn</string>
+</resources>

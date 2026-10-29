@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">Ահազանգեր – գին, տոկոս, ծավալ և անսովոր շարժումներ</string>
+    <string name="welcome_alert_q">Ե՞րբ զգուշացնել</string>
+    <string name="welcome_text">Քո գները։ Քո ահազանգերը։ Քո ակնարկը։\nՀաշիվ չկա։ Գովազդ չկա։ Հետևում չկա։</string>
+    <string name="welcome_understand">Հասկանալ – ինչն է հիմա շարժվում գնի հետ միասին</string>
+    <string name="welcome_understand_q">Ի՞նչն է շարժվում դրա հետ</string>
+    <string name="welcome_watch">Հետևել – քո կոինները, գները և գնի պատմությունը</string>
+    <string name="welcome_watch_q">Ի՞նչ է կատարվում</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">Ավելացնել դիտացանկում (%1$d)</string>
+    <string name="starter_loading_prices">Գները բեռնվում են…</string>
+    <string name="starter_search_coin">Որոնել այլ կոին</string>
+    <string name="starter_select_all">Ընտրել բոլորը</string>
+    <string name="starter_select_none">Չընտրել ոչինչ</string>
+    <string name="starter_title">Սկսիր այս կոիններով</string>
+    <string name="starter_watch_alarm_hint">Հետևիր գնին, սահմանիր ահազանգ</string>
+
+    <!-- Start-Auswahl: Börse und Quote der Startpaare (Binance, bei Standort-Sperre Binance.US), z. B. «Kurse von Binance in USDT. …» -->
+    <string name="starter_source_text">Գները՝ %1$s-ից, %2$s-ով։ Հանիր նշումը նրանցից, որոնք պետք չեն, իսկ մնացածը ավելացրու միանգամից։ Յուրաքանչյուր կոինի համար կարող ես փոխել բորսան և զույգը։</string>
+</resources>

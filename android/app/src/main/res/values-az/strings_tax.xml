@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
+    <string name="portfolio_cutoff_export_action">Tarixə görə ixrac…</string>
+    <string name="portfolio_tax_worksheet_action">İş vərəqi…</string>
+    <string name="portfolio_export_address_unobserved">ünvan bu tarixdə müşahidə olunmayıb – daxil deyil</string>
+    <string name="portfolio_export_button">CSV ixrac et</string>
+    <string name="portfolio_export_col_amount">Miqdar</string>
+    <string name="portfolio_export_col_coin">Koin</string>
+    <string name="portfolio_export_col_note">Qeyd</string>
+    <string name="portfolio_export_col_price">Qiymət USDT</string>
+    <string name="portfolio_export_col_rate">Məzənnə USDT→%1$s</string>
+    <string name="portfolio_export_col_value">Dəyər USDT</string>
+    <string name="portfolio_export_col_value_cur">Dəyər %1$s</string>
+    <!-- Inhalt der CSV-Datei -->
+    <string name="portfolio_export_comment"># Hesabat tarixi %1$s, valyuta %2$s, %3$s tarixli məzənnə</string>
+    <string name="portfolio_export_currency">Valyuta: %1$s</string>
+    <string name="portfolio_export_date">Hesabat tarixi</string>
+    <string name="portfolio_export_done">İxrac yadda saxlanıldı</string>
+    <string name="portfolio_export_estv_note">Əmlak vergisi üçün siyahıda olan yerlərdə ESTV qiymət siyahısının %1$s rəsmi ilsonu dəyərləri tətbiq olunur: %2$s</string>
+    <string name="portfolio_export_failed">İxrac alınmadı</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">İxrac alınmadı: fayl yazıla bilmədi – saxlama yeri yoxdur və ya yazıla bilən deyil</string>
+    <string name="portfolio_export_failed_prices">İxrac alınmadı: qiymətlər yüklənə bilmədi – bağlantı yoxdur və ya birja cavab vermir</string>
+    <string name="portfolio_export_from_address">ünvandan – alış qiyməti yoxdur</string>
+    <string name="portfolio_export_hint">Seçilmiş günün sonunda aktivlər, USDT ilə günlük bağlanış qiyməti (UTC) ilə qiymətləndirilir və həmin günün AMB istinad məzənnəsi ilə çevrilir. Valyutanı «Çevir» ilə dəyiş.</string>
+    <string name="portfolio_export_incomplete">natamam</string>
+    <string name="portfolio_export_no_fx">məzənnə yoxdur</string>
+    <string name="portfolio_export_no_price">qiymət yoxdur</string>
+    <string name="portfolio_export_running">Tarixi qiymətlər yüklənir…</string>
+    <string name="portfolio_export_title">Tarixə görə ixrac</string>
+    <string name="portfolio_export_today_hint">Bu gün hələ bitməyib: günlük bağlanış əvəzinə cari qiymətdən istifadə olunur.</string>
+    <string name="portfolio_export_total">Cəmi</string>
+    <string name="portfolio_export_unchecked">yoxlanılmayıb (uyğun qiymət yoxdur)</string>
+
+    <!-- Steuer-Export (Arbeitspapier) -->
+    <string name="tax_export_adjustment">superficial loss (ACB-yə əlavə edilib)</string>
+    <string name="tax_export_at_wallet_note">Avstriya: koin və pulqabı (birja) üzrə sürüşkən orta – köçürmələr xərci özü ilə aparır – mükafatlar 0 alış xərci ilə – 1 mart 2021-dən aktivlər komissiyasız (çıxılmır) – lendinq faizi alınma anındakı dəyərlə (27.5 faizlə gəlir).</string>
+    <string name="tax_export_avg_cost_rates">alış günü məzənnələri ilə xərc (orta)</string>
+    <string name="tax_export_ch_wealth_not_calculated">Əmlak vergisi hesablanmayıb – ESTV qiymət siyahısı: %1$s</string>
+    <string name="tax_export_col_acquired">Əldə edilib</string>
+    <string name="tax_export_col_adjustment">Qəbul edilməyən zərər %1$s</string>
+    <string name="tax_export_col_cost">Xərc %1$s</string>
+    <string name="tax_export_col_date">Tarix</string>
+    <string name="tax_export_col_days">Saxlama günləri</string>
+    <string name="tax_export_col_gain">Gəlir %1$s</string>
+    <string name="tax_export_col_gross">Komissiyadan əvvəl qiymət %1$s</string>
+    <string name="tax_export_col_long_term">saxlanılıb &gt; 1 il</string>
+    <string name="tax_export_col_portfolio_value">Portfel dəyəri %1$s</string>
+    <string name="tax_export_col_proceeds">Satış gəliri %1$s</string>
+    <string name="tax_export_col_sold">Satılıb</string>
+    <string name="tax_export_cost_incomplete">ümumi alış xərci natamamdır</string>
+    <string name="tax_export_cost_missing">alış qiyməti yoxdur</string>
+    <string name="tax_export_fee_consumed">Komissiya bütün alınanı udur</string>
+    <string name="tax_export_fee_leg">başqa koinlə komissiya</string>
+    <string name="tax_export_fee_row">Komissiya</string>
+    <string name="tax_export_fee_value_missing">başqa koinlə komissiyanın dəyəri yoxdur</string>
+    <string name="tax_export_gains">Reallaşmış özgəninkiləşdirmələr (CSV)</string>
+    <string name="tax_export_gains_title">Reallaşmış özgəninkiləşdirmələr %1$s</string>
+    <string name="tax_export_gift">Hədiyyə</string>
+    <string name="tax_export_holdings_cutoff">%1$s tarixinə aktivlər (CSV)</string>
+    <string name="tax_export_holdings_title">%1$s tarixinə aktivlər</string>
+    <string name="tax_export_income">Gəlir (CSV)</string>
+    <string name="tax_export_income_title">Gəlir %1$s</string>
+    <string name="tax_export_info_template">Şablon: %1$s · Metod: %2$s · Vergi ili: %3$s · Valyuta: %4$s · Crypto Checker %5$s</string>
+    <string name="tax_export_lost_fee_cost">ödənilmiş lotu olmayan şəbəkə komissiyası xərci</string>
+    <string name="tax_export_match_pool">Section 104 pool</string>
+    <string name="tax_export_match_same_day">eyni gün (HMRC)</string>
+    <string name="tax_export_match_thirty_day">30 gün qaydası (HMRC)</string>
+    <string name="tax_export_method_change_warning">Metodu və ya şablonu dəyişmək əvvəlki illəri də yenidən hesablayır – artıq təqdim etdiyinlə müqayisə et.</string>
+    <string name="tax_export_method_overridden">Şablon %1$s hesablayır – %2$s deyil</string>
+    <string name="tax_export_new_holding">1 mart 2021-dən əldə edilib</string>
+    <string name="tax_export_no">xeyr</string>
+    <string name="tax_export_old_holding">1 mart 2021-dən əvvəl əldə edilib</string>
+    <string name="tax_export_oversold">qeyd ediləndən çox satılıb</string>
+    <string name="tax_export_payment">Kripto ilə ödəniş</string>
+    <string name="tax_export_period">%1$s – %2$s</string>
+    <string name="tax_export_proceeds_missing">satış qiyməti yoxdur</string>
+    <string name="tax_export_proceeds_without_cost">Alış qiyməti olmadan satış gəliri</string>
+    <string name="tax_export_realized_differs">Vergi CSV-si «reallaşmış» göstəricidən fərqlənə bilər (ölkənin vergi qaydaları).</string>
+    <string name="tax_export_rule">&gt; 1 il: alış tarixi + 1 təqvim ilindən sonra satılıb. Tarixlər yerli vaxtla. Məzənnələr: əməliyyat gününün AMB günlük məzənnəsi; yoxdursa, 7 günə qədər əvvəlki son məzənnə.</string>
+    <string name="tax_export_rules_date">Qaydalar: %1$s vəziyyətinə</string>
+    <string name="tax_export_rules_stale">Qaydalar %1$s tarixlidir – %2$s üçün dərəcələr və güzəştlər dəyişmiş ola bilər. Dəyərləri yoxla.</string>
+    <string name="tax_export_spouse_gift">həyat yoldaşına/partnyora – nə gəlir, nə zərər</string>
+    <string name="tax_export_summary">İllik xülasə %1$s (CSV)</string>
+    <string name="tax_export_swap">mübadilə</string>
+    <string name="tax_export_tax_year">Vergi ili</string>
+    <string name="tax_export_transfer_fee_info">USDT/nağd ilə köçürmə komissiyası – zərər deyil, maya dəyərinə daxil deyil, yalnız məlumat üçün</string>
+    <string name="tax_export_unassigned_fee">komissiya aid edilməyib – maya dəyəri bilinmir</string>
+    <string name="tax_export_usdt_usd_note">USDT USDT/USD günlük bağlanışı ilə çevrilib; bağlanış olmayan yerdə 1 USD (hər sətirdə qeyd olunub)</string>
+    <string name="tax_export_value_estimated">Dəyər təxminidir (günlük bağlanış)</string>
+    <string name="tax_export_value_missing">alınma anındakı dəyər yoxdur</string>
+    <string name="tax_export_wallet">Pulqabı: %1$s</string>
+    <string name="tax_export_wallet_unspecified">göstərilməyib</string>
+    <string name="tax_export_withdrawal_fee">Çıxarış komissiyası</string>
+    <string name="tax_export_withdrawal_fee_info">USDT/nağd ilə çıxarış komissiyası – zərər deyil, yalnız məlumat üçün</string>
+    <string name="tax_export_workpaper_disclaimer">Vergi iş vərəqi – vergi bəyannaməsi və vergi məsləhəti deyil</string>
+    <string name="tax_export_workpaper_title">İş vərəqi</string>
+    <string name="tax_export_year_local_zone">Tarixlər yerli vaxtla (%1$s)</string>
+    <string name="tax_export_yes">bəli</string>
+
+    <!-- Steuer-Export: Zeilen und Spalten -->
+    <string name="tax_line_at_interest">Lendinq faizi (alınma anındakı dəyərlə)</string>
+    <string name="tax_line_at_old_long">1 mart 2021-dən əvvəl əldə edilib – saxlanılıb &gt; 1 il: adətən vergiyə cəlb edilmir – yoxla</string>
+    <string name="tax_line_at_rate">Xüsusi dərəcə 27.5 faiz: xalis, 1 mart 2021-dən əldə edilmiş və 1 mart 2022-dən satılmış + faiz</string>
+    <string name="tax_line_au_discounted">Zərərlər və 50 faiz güzəştdən sonra xalis kapital gəliri</string>
+    <string name="tax_line_ca_taxable">Vergiyə cəlb olunan kapital gəliri (daxiletmə dərəcəsi 1/2)</string>
+    <string name="tax_line_ch_income">Mükafatlar sadalanıb – onlarla rəftar üçün ESTV iş sənədinə bax</string>
+    <string name="tax_line_ch_private">Şəxsi aktivlər üzrə kapital gəliri: hesablanmayıb – təsnifat üçün ESTV-yə bax</string>
+    <string name="tax_line_ch_wealth">Əmlak vergisi: hesablanmayıb – aktivlər CSV-si 31 dekabrda birja qiyməti × USD/CHF istifadə edir – rəsmi vergi dəyərləri: ESTV qiymət siyahısı</string>
+    <string name="tax_line_de_long">Saxlanılıb &gt; 1 il: § 23 EStG-yə görə adətən vergiyə cəlb edilmir – yoxla</string>
+    <string name="tax_line_denied_loss">Qəbul edilməyən zərərlər (superficial loss)</string>
+    <string name="tax_line_fr_outflow">Satışsız çıxışlar (çıxarışlar) – ümumi alış xərci mütənasib azaldılıb</string>
+    <string name="tax_line_fr_rate">Sabit dərəcə 12.8 faiz üstəgəl sosial ödənişlər (və ya seçimə görə şkala)</string>
+    <string name="tax_line_fr_threshold">İldə €305-ə qədər özgəninkiləşdirmələr: ümumiyyətlə azaddır (satış qiymətlərinin cəmi) – yoxla</string>
+    <string name="tax_line_gains">Gəlirlər</string>
+    <string name="tax_line_income">Gəlir (mükafatlar alınma anındakı dəyərlə)</string>
+    <string name="tax_line_jp_misc">Müxtəlif gəlirlər (雑所得): xalis gəlir + gəlir</string>
+    <string name="tax_line_long_net">Xalis – saxlanılıb &gt; 1 il</string>
+    <string name="tax_line_losses">Zərərlər</string>
+    <string name="tax_line_net">Xalis gəlir/zərər</string>
+    <string name="tax_line_new_net">Xalis – 1 mart 2021-dən əldə edilib, 1 mart 2022-dən satılıb</string>
+    <string name="tax_line_old_long_net">Xalis – 1 mart 2021-dən əvvəl əldə edilib – saxlanılıb &gt; 1 il</string>
+    <string name="tax_line_old_short_net">Xalis – spekulyativ əməliyyatlar (köhnə qanun): 1 mart 2021-dən əvvəl əldə edilib və ≤ 1 il saxlanılıb və ya 1 mart 2022-dən əvvəl satılıb</string>
+    <string name="tax_line_proceeds">Satış gəliri</string>
+    <string name="tax_line_short_net">Xalis – saxlanılıb ≤ 1 il</string>
+    <string name="tax_line_transfer_fees">Köçürmə komissiyaları (öz pulqabıları)</string>
+    <string name="tax_line_uk_after_exempt">Azad məbləğdən yuxarı xalis gəlir (yalnız kripto)</string>
+    <string name="tax_line_uk_exempt">İllik azad məbləğ – bütün özgəninkiləşdirmələrə birlikdə tətbiq olunur, burada tam tətbiq edilib</string>
+    <string name="tax_line_us_terms">Qısamüddətli (≤ 1 il): adi dərəcələr – uzunmüddətli (&gt; 1 il): kapital gəliri dərəcələri</string>
+    <string name="tax_line_withdrawal_fees">Çıxarış komissiyaları</string>
+
+    <!-- Steuer Deutschland -->
+    <string name="tax_de_below">limitdən aşağı</string>
+    <string name="tax_de_col_item">Bənd</string>
+    <string name="tax_de_disclaimer">Yalnız istiqamət üçün – vergi bəyannaməsi və vergi məsləhəti deyil.</string>
+    <string name="tax_de_explain_below">%1$s-dək: limitdən aşağı (istiqamət üçün).</string>
+    <string name="tax_de_explain_loss">Xalis zərər: bu satışlara vergi yoxdur. § 23 EStG-yə görə zərərlər yalnız şəxsi satışlardan gəlirlə əvəzləşdirilir – eyni ildə və ya əvvəlki ilə geri keçirmə və sonrakı illərə irəli keçirmə yolu ilə (§ 23 para. 3 və § 10d EStG). Zərəri vergi bəyannaməndə göstər ki, qiymətləndirilsin.</string>
+    <string name="tax_de_explain_reached">%1$s-dən bütün məbləğ hesablanır (azadolma həddi – güzəşt deyil).</string>
+    <string name="tax_de_explain_unknown">Yoxlamaq mümkün deyil: məzənnələr / alış qiymətləri və ya saxlama müddətləri yoxdur.</string>
+    <string name="tax_de_income_limit">Xidmətlər üçün azadolma həddi (§ 22 No. 3 EStG)</string>
+    <string name="tax_de_limit_scope">Limitlər ilin bütün şəxsi satışlarına və ya xidmətlərinə birlikdə tətbiq olunur – tətbiqdən kənarda olanlar da daxil.</string>
+    <string name="tax_de_loading">Hesablanır…</string>
+    <string name="tax_de_long_gains">Gəlirlər – saxlanılıb &gt; 1 il</string>
+    <string name="tax_de_long_losses">Zərərlər – saxlanılıb &gt; 1 il</string>
+    <string name="tax_de_loss">xalis zərər – yalnız şəxsi satışlardan gəlirlə əvəzləşdirilir (§ 23 EStG)</string>
+    <string name="tax_de_private_limit">Şəxsi satışlar üçün azadolma həddi (§ 23 EStG)</string>
+    <string name="tax_de_reached">limitə çatılıb – adətən bütün məbləğ hesablanır – yoxla</string>
+    <string name="tax_de_short_gains">Gəlirlər – saxlanılıb ≤ 1 il</string>
+    <string name="tax_de_short_losses">Zərərlər – saxlanılıb ≤ 1 il</string>
+    <string name="tax_de_unclassified">Saxlama müddəti bilinmir</string>
+    <string name="tax_de_unknown">yoxlamaq mümkün deyil</string>
+
+    <!-- Steuer-Vorlagen je Land -->
+    <string name="tax_template_at">Avstriya</string>
+    <string name="tax_template_au">Avstraliya</string>
+    <string name="tax_template_beta">Beta</string>
+    <string name="tax_template_beta_note">Beta: ölkə qaydaları sadələşdirilib, vergi bəyannaməsini təqdim etməzdən əvvəl yoxla</string>
+    <string name="tax_template_ca">Kanada</string>
+    <string name="tax_template_ch">İsveçrə</string>
+    <string name="tax_template_confirm_text">Beta, sadələşdirilmiş qaydalar, digər platformaların əməliyyatları yoxdur – vergi bəyannaməsini təqdim etməzdən əvvəl yoxla.</string>
+    <string name="tax_template_confirm_title">Vergi şablonu (beta)</string>
+    <string name="tax_template_current">Şablon: %1$s · Metod: %2$s · Valyuta: %3$s</string>
+    <string name="tax_template_de">Almaniya</string>
+    <string name="tax_template_fr">Fransa</string>
+    <string name="tax_template_hint">Yalnız istiqamət üçün: vergi iş vərəqinin metodunu, vergi ilini və xülasəsini müəyyən edir. Portfel kartı neytral qalır – hədiyyələr və köçürmə komissiyaları iş vərəqindən fərqlənə bilər.</string>
+    <string name="tax_template_jp">Yaponiya</string>
+    <string name="tax_template_neutral">Neytral (bütün ölkələr)</string>
+    <string name="tax_template_suggestion">Regionun üçün təklif: %1$s</string>
+    <string name="tax_template_title">Vergi şablonu</string>
+    <string name="tax_template_uk">Birləşmiş Krallıq</string>
+    <string name="tax_template_us">ABŞ</string>
+    <string name="tax_template_use">%1$s istifadə et</string>
+
+    <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
+    <string name="tax_method_at">Köhnə/yeni aktivlər – sürüşkən orta</string>
+    <string name="tax_method_ca_acb">ACB orta xərc (superficial loss)</string>
+    <string name="tax_method_fr_pta">Ümumi alış qiyməti (art. 150 VH bis)</string>
+    <string name="tax_method_jp_total">Ümumi orta (総平均法)</string>
+    <string name="tax_method_uk_pool">Section 104 pool (eyni gün / 30 gün)</string>
+    <string name="tax_note_at">Koin və pulqabı üzrə sürüşkən orta – pulqabıları arasında deyil (KryptowährungsVO § 2). Mükafatlar yeni aktivlərə 0 alış xərci ilə daxil olur (BMF: steykinq / airdroplar) – gəlir faylı onları alınma anındakı dəyərlə sadalayır. 1 mart 2021-dən əldə edilmiş aktivlər üçün komissiyalar çıxılmır (§ 27a(4) no. 2, § 20(2) EStG): xərc və satış gəliri komissiyasız. Lendinq faizi (növ CSV idxalından və ya qeyddən) alınanda 27.5 faizlə gəlirdir və bu dəyəri alış xərci kimi saxlayır.</string>
+    <string name="tax_note_at_staking">Artıq saxladığın koinlərlə steykinq və airdroplar: alınma anındakı dəyərin vergi üçün əhəmiyyəti yoxdur – qanuna görə alış xərci 0-dır (§ 27b Abs. 2 EStG; BMF «Kryptowährungen»). Vergi yalnız satanda tətbiq olunur.</string>
+    <string name="tax_note_fr">Kripto ilə ödənilmiş satışlar və komissiyalar özgəninkiləşdirmədir – mübadilələr təxirə salınır. Satışdakı kripto komissiyası komissiyadan əvvəlki qiymətə daxil edilir – əks halda öz dəyəri ilə ayrıca özgəninkiləşdirmədir. Portfel dəyəri günlük bağlanışlardan – olmayan bağlanış xərci boş qoyur.</string>
+    <string name="tax_note_network_fee">Kripto ilə ödənilmiş şəbəkə komissiyası (öz pulqabına köçürmə, çıxarış) komissiya koinlərinin bazar dəyəri ilə özgəninkiləşdirilməsidir – gəlir və ya zərər yalnız həmin koinlər üzrə, bütün komissiyanın zərəri deyil (%1$s). Qeyd edilmiş qiymət olmadan: eyni günün günlük bağlanışı (UTC); bağlanış olmadan satış gəliri boş qalır.</string>
+    <string name="tax_note_specific_id">Specific identification dəstəklənmir – FIFO istifadə olunur.</string>
+    <string name="tax_note_spouse_gift">«Həyat yoldaşına / vətəndaş partnyoruna» kimi işarələnmiş hədiyyə nə gəlir, nə zərərdir: satış gəliri = sənin maya dəyərin, onu partnyorun götürür (%1$s).</string>
+    <string name="tax_note_stable_swap">Saxladığın steyblkoinə (USDT/USDC/DAI …) kripto satışı burada kripto-kripto sayılır və vergiyə cəlb edilmir – onu steyblkoinə mübadilə kimi qeyd et. Yalnız avroya satış vergiyə cəlb olunur – «Satış» avroya satış sayılır.</string>
+    <string name="tax_note_transfer_fee">Eyni şey öz pulqabıların arasında köçürmədə USDT və ya nağd komissiyaya da aiddir: maya dəyərinə əlavə edilmir və yalnız məlumat kimi sadalanır.</string>
+    <string name="tax_note_uk">HMRC-yə görə uyğunlaşdırma: eyni gün → növbəti 30 gün → Section 104 pool.</string>
+    <string name="tax_note_us_transition">1 yanvar 2025 keçidi (Rev. Proc. 2024-28 safe harbor): əvvəlki illərdə bütün pulqabıları üzrə FIFO istifadə edilibsə, 31 dekabr 2024 tarixinə qalan lotlar koinləri saxlayan pulqabılarına keçir – ən köhnə koinləri olan pulqabı ən köhnə maya dəyərini alır. Bu bölgü tətbiqin qaydasıdır – öz qeydlərinlə yoxla.</string>
+    <string name="tax_note_us_wallet">2025 vergi ilindən IRS maya dəyərinin pulqabı və ya birja üzrə olmasını tələb edir (Rev. Proc. 2024-28): ixrac 2025-dən pulqabı üzrə FIFO istifadə edir – əvvəlki illər üçün bütün pulqabıları üzrə FIFO və ya xərc metodun budursa, pulqabı üzrə FIFO.</string>
+    <string name="tax_note_withdrawal_fee">USDT və ya nağd ilə çıxarış komissiyası zərər deyil: nağd komissiya çıxıla bilən xərc deyil, USDT komissiyası gəlirsiz nominal dəyərlə özgəninkiləşdirmədir – yalnız məlumat kimi sadalanır (%1$s).</string>
+    <string name="tax_summary_at_interest_income">hesablanır: alınanda 27.5 faizlik xüsusi dərəcə ilə gəlir (§ 27b(2) no. 1 EStG / BMF) – koinlər bu dəyəri alış xərci kimi saxlayır</string>
+    <string name="tax_summary_at_reward_info">yalnız məlumat üçün – heç bir cəmin hissəsi deyil: mükafatlar yeni aktivlərə 0 alış xərci ilə daxil olur və yalnız satışda vergiyə cəlb edilir (artıq gəlirlərdədir) – § 27b para. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">1 yanvar–28 fevral 2022: 27.5 faiz seçimi mümkündür</string>
+    <string name="tax_summary_at_withdrawal_fee">Çıxarış komissiyası – yeni aktivlərlə əvəzləşdirilmir (xüsusi dərəcədə xərclər çıxılmır, § 20(2) EStG)</string>
+    <string name="tax_summary_ch_fifo_info">yalnız məlumat üçün – tətbiqin FIFO hesablaması – təsnif edilməyib – ESTV-yə bax</string>
+    <string name="tax_summary_ch_year_end_value">aktivlər CSV-sində 31 dekabr dəyəri = birja qiyməti × USD/CHF – ESTV vergi dəyərləri deyil</string>
+    <string name="tax_summary_de_withdrawal_fee">Çıxarış komissiyası – § 23 üzrə əvəzləşdirilmir, gəlirlə bağlı xərc kimi çıxıla biləcəyini yoxla</string>
+    <string name="tax_summary_not_calculated_estv">hesablanmayıb – ESTV qiymət siyahısı: %1$s</string>
+    <string name="tax_summary_orientation">İstiqamət</string>
+    <string name="tax_summary_orientation_block">Yalnız istiqamət üçün – vergi məsləhəti deyil – qiymətləndirmə deyil</string>
+    <string name="tax_summary_orientation_item">İstiqamət: %1$s</string>
+    <string name="tax_summary_title">İllik xülasə %1$s %2$s</string>
+    <string name="tax_summary_transfer_fee_info">USDT/nağd ilə köçürmə komissiyaları – zərər deyil və maya dəyərinə daxil deyil, yalnız məlumat üçün</string>
+    <string name="tax_summary_withdrawal_fee_info">USDT/nağd ilə çıxarış komissiyaları – zərər sayılmır, yalnız məlumat üçün</string>
+
+    <string name="tax_line_at_old_speculation_limit">Spekulyativ əməliyyatlar (köhnə qanun, saxlanılıb ≤ 1 il): azadolma həddi (§ 31 (3) EStG köhnə redaksiya)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">1 mart 2022-dən əvvəl lendinq faizi (alınma anındakı dəyərlə)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">1 mart 2022-dən əvvəl faiz: köhnə qanun (gəlir vergisi dərəcəsi), 27.5 faiz deyil</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">1 mart 2022-dən əvvəl – mütəxəssislə yoxla</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">Faiz – alınanda vergiyə cəlb olunur</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">Steykinq – yalnız məlumat üçün (alış xərci 0, satışda vergiyə cəlb olunur)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">Cəmi faiz (vergiyə cəlb olunan)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">Cəmi steykinq (məlumat)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">Xalis kapital zərəri (irəli keçirmə)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">seçimsiz: 1 yanvar–28 fevral 2022 satışları daxildir</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">1 mart 2022-dən əvvəl steykinq: alış xərci 0 qəbul edilib – mütəxəssislə yoxla</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">30 gün qaydası bu rəqəmləri hələ dəyişə bilər (%1$s-dək alışlar)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Komissiyadan əvvəlki satış gəliri hesabat limitindən yuxarıdır (£50,000; 2020/21–2022/23: £49,200): Self Assessment üçün qeydiyyatdasansa, vergiyə cəlb olunan gəlir olmasa belə HMRC-yə bildir</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">Əmlak dəyəri 31 dekabr %1$s (istiqamət)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">ESTV qiymət siyahısı (ictax.admin.ch) həlledicidir. Siyahıda olmayan koinlər üçün adətən birjanın bağlanış qiyməti tətbiq olunur. Əmlak vergisi hesablanmayıb.</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – aktiv %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">hesablanmayıb</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">İzlənən ünvanlar oxuna bilmədi – onların balansları bu faylda yoxdur</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">İzlənən ünvanların lotları alış tarixindən hesablanır; ünvanın bugünkü balansı azdırsa, onlar azaldılır.</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">İzlənən ünvanlar ümumi dəyərə daxil edilir, amma alış xərci yoxdur – buna görə gəlir çox güman ki, həddindən yüksəkdir. Xərci alış kimi qeyd et.</string>
+    <string name="tax_summary_fr_rewards_income">Məbləğ mükafatların alınanda gəlir kimi vergiyə cəlb edildiyini fərz edir (alınma anındakı dəyər alış xərcindədir) – əks halda ehtiyatlı yanaşma 0 alış xərci olardı.</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">Qeyd edilmiş qiyməti olmayan bazar dəyərləri (komissiyalar, hədiyyələr/ödənişlər, mübadilələr, mükafatlar, şəbəkə komissiyaları, portfel dəyəri) əməliyyat gününün günlük bağlanışı (UTC) ilə</string>
+</resources>

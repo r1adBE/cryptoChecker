@@ -234,4 +234,17 @@
     <string name="watchlist_not_saved_confirm_message">واچ‌لیست همراه با هشدارها فعلاً ذخیره نمی‌شود. این تغییر و تغییرهای بعدی با بستن برنامه از بین می‌روند. باز هم تغییر می‌دهی؟</string>
     <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
     <string name="watchlist_not_saved_confirm_action">باز هم تغییر بده</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">%1$d جفت</item>
+        <item quantity="other">%1$d جفت</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">%2$d از %1$d جفت</item>
+        <item quantity="other">%2$d از %1$d جفت</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">%1$d جای خالی مانده</item>
+        <item quantity="other">%1$d جای خالی مانده</item>
+    </plurals>
+    <string name="watchlist_footer_full">واچ‌لیست پر است</string>
 </resources>

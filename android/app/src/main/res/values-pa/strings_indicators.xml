@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">ਆਲਟਕੌਇਨ ਬਨਾਮ Bitcoin</string>
+    <string name="neutral_btc_indicators_title">Bitcoin ਸੂਚਕ</string>
+    <string name="neutral_halving_last">ਆਖਰੀ ਹਾਲਵਿੰਗ: %1$s</string>
+    <string name="neutral_halving_next">ਅਗਲੀ ਹਾਲਵਿੰਗ ਲਗਭਗ %1$s ਦੇ ਆਸਪਾਸ ਉਮੀਦ ਹੈ (ਕੈਲੰਡਰ ਤੋਂ ਅੰਦਾਜ਼ਾ – ਬਲਾਕ ਉਚਾਈ ਹੁਣੇ ਉਪਲਬਧ ਨਹੀਂ)।</string>
+    <string name="neutral_indicators_disclaimer">ਸਿਰਫ਼ ਮਾਪੇ ਗਏ ਮੁੱਲ, ਬਿਨਾਂ ਮੁਲਾਂਕਣ ਦੇ। ਭਵਿੱਖਬਾਣੀ ਨਹੀਂ ਅਤੇ ਨਿਵੇਸ਼ ਸਲਾਹ ਨਹੀਂ।</string>
+    <string name="neutral_onchain_missing">ਆਨ-ਚੇਨ ਡਾਟਾ (Coin Metrics) ਹੁਣੇ ਉਪਲਬਧ ਨਹੀਂ।</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">ਕੀਮਤ ਆਪਣੇ ਪਿਛਲੇ ਸਰਬਕਾਲੀ ਸਿਖਰ ਤੋਂ ਕਿੰਨੀ ਹੇਠਾਂ ਹੈ।</string>
+    <string name="neutral_explain_change_30d">ਅੱਜ ਦੀ ਕੀਮਤ 30 ਦਿਨ ਪਹਿਲਾਂ ਦੇ ਮੁਕਾਬਲੇ।</string>
+    <string name="neutral_explain_hashrate">30 ਦਿਨਾਂ ਦਾ ਔਸਤ ਹੈਸ਼ਰੇਟ 60 ਦਿਨਾਂ ਦੀ ਔਸਤ ਦੇ ਮੁਕਾਬਲੇ।</string>
+    <string name="neutral_explain_ma200w">ਆਖਰੀ 200 ਹਫ਼ਤਾਵਾਰੀ ਬੰਦ ਕੀਮਤਾਂ ਦੀ ਔਸਤ।</string>
+    <string name="neutral_explain_mayer">ਕੀਮਤ ਨੂੰ 200 ਦਿਨਾਂ ਦੀ ਔਸਤ ਨਾਲ ਭਾਗ।</string>
+    <string name="neutral_explain_mvrv">ਬਾਜ਼ਾਰ ਮੁੱਲ ਨੂੰ ਪ੍ਰਾਪਤ ਮੁੱਲ ਨਾਲ ਭਾਗ (ਆਨ-ਚੇਨ)।</string>
+    <string name="neutral_explain_pi_gap">111 ਦਿਨਾਂ ਦੀ ਔਸਤ 350 ਦਿਨਾਂ ਦੀ ਔਸਤ ਦੇ ਦੁੱਗਣੇ ਦੇ ਮੁਕਾਬਲੇ।</string>
+    <string name="neutral_explain_puell">ਮਾਈਨਰਾਂ ਦੀ ਰੋਜ਼ਾਨਾ ਆਮਦਨ ਨੂੰ ਉਸਦੀ 365 ਦਿਨਾਂ ਦੀ ਔਸਤ ਨਾਲ ਭਾਗ।</string>
+    <string name="neutral_explain_rsi_daily">ਆਖਰੀ 14 ਦਿਨਾਂ ਦਾ Relative Strength Index, 0–100।</string>
+    <string name="neutral_explain_rsi_weekly">ਆਖਰੀ 14 ਹਫ਼ਤਿਆਂ ਦਾ Relative Strength Index, 0–100।</string>
+    <string name="neutral_explain_sma50_200">50 ਦਿਨਾਂ ਦੀ ਔਸਤ 200 ਦਿਨਾਂ ਦੀ ਔਸਤ ਦੇ ਮੁਕਾਬਲੇ।</string>
+    <string name="neutral_explain_vs_btc">90 ਦਿਨਾਂ ਵਿੱਚ Bitcoin ਦੇ ਮੁਕਾਬਲੇ ਕੀਮਤ ਦੀ ਤਬਦੀਲੀ।</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">ਐਪ ਸਿਰਫ਼ ਗਿਣਤੀ ਦਿਖਾਉਂਦੀ ਹੈ ਅਤੇ ਇਸਨੂੰ ਕੋਈ ਸੀਜ਼ਨ ਨਹੀਂ ਕਹਿੰਦੀ। ਇਹ ਮੁੱਲ ਆਮ ਤੌਰ ’ਤੇ ਘੰਟਿਆਂ ਵਿੱਚ ਨਹੀਂ, ਦਿਨਾਂ ਵਿੱਚ ਬਦਲਦਾ ਹੈ।</string>
+    <string name="neutral_info_btc_how">ਹਰ ਮੁੱਲ ਨਾਲ ਇੱਕ ਵਾਕ ਹੁੰਦਾ ਹੈ ਕਿ ਉਹ ਕੀ ਮਾਪਦਾ ਹੈ, ਅਤੇ 2016 ਤੋਂ ਆਪਣੇ ਇਤਿਹਾਸ ਵਿੱਚ ਕਿੱਥੇ ਹੈ। ਐਪ ਮੁੱਲਾਂ ਦਾ ਮੁਲਾਂਕਣ ਨਹੀਂ ਕਰਦੀ ਅਤੇ ਕੋਈ ਬਾਜ਼ਾਰ ਪੜਾਅ ਨਹੀਂ ਕੱਢਦੀ; ਬਾਜ਼ਾਰ ਅਲਰਟਾਂ ਦੀਆਂ ਸੀਮਾਵਾਂ ਸਿਰਫ਼ ਉਹੀ ਹਨ ਜੋ ਤੁਸੀਂ ਖੁਦ ਤੈਅ ਕਰੋ। ਪਿਛਲੇ ਪੈਟਰਨਾਂ ਦਾ ਦੁਹਰਾਇਆ ਜਾਣਾ ਜ਼ਰੂਰੀ ਨਹੀਂ।</string>
+    <string name="neutral_info_btc_what">ਆਮ Bitcoin ਸੂਚਕ ਸਾਦੇ ਮਾਪੇ ਮੁੱਲਾਂ ਵਜੋਂ: Mayer Multiple, 200 ਹਫ਼ਤਿਆਂ ਦੀ ਔਸਤ, ਸਰਬਕਾਲੀ ਸਿਖਰ ਤੋਂ ਗਿਰਾਵਟ, 30 ਦਿਨਾਂ ਦੀ ਤਬਦੀਲੀ, Pi Cycle ਫ਼ਰਕ ਅਤੇ ਆਨ-ਚੇਨ ਮੁੱਲ MVRV, Puell Multiple ਅਤੇ ਹੈਸ਼ਰੇਟ।</string>
+    <string name="neutral_info_coin_how">ਹਰ ਮੁੱਲ ਨਾਲ ਇੱਕ ਵਾਕ ਹੁੰਦਾ ਹੈ ਕਿ ਉਹ ਕੀ ਮਾਪਦਾ ਹੈ, ਬਿਨਾਂ ਮੁਲਾਂਕਣ ਦੇ। ਛੋਟੇ ਕੀਮਤ ਇਤਿਹਾਸ ਵਾਲੇ ਕੌਇਨਾਂ ਲਈ ਕੁਝ ਮੁੱਲ ਗੁੰਮ ਹਨ। ਆਨ-ਚੇਨ ਡਾਟਾ ਇੱਥੇ ਸ਼ਾਮਲ ਨਹੀਂ।</string>
+    <string name="neutral_info_coin_what">ਤੁਹਾਡੀ ਪਸੰਦ ਦੇ ਕਿਸੇ ਕੌਇਨ ਲਈ ਉਹੀ ਸਾਦੇ ਸੂਚਕ, ਸਿਰਫ਼ ਕੀਮਤ ਡਾਟੇ ਤੋਂ: Mayer Multiple, 200 ਹਫ਼ਤਿਆਂ ਦੀ ਔਸਤ, ਸਰਬਕਾਲੀ ਸਿਖਰ ਤੋਂ ਗਿਰਾਵਟ, 30 ਦਿਨਾਂ ਦੀ ਤਬਦੀਲੀ, 50/200 ਦਿਨਾਂ ਦਾ ਰੁਝਾਨ, RSI ਅਤੇ 90 ਦਿਨਾਂ ਵਿੱਚ Bitcoin ਦੇ ਮੁਕਾਬਲੇ ਤਾਕਤ।</string>
+    <string name="neutral_info_halving_how">ਅਗਲੀ ਹਾਲਵਿੰਗ ਮੌਜੂਦਾ ਬਲਾਕ ਉਚਾਈ ਅਤੇ ਮੌਜੂਦਾ ਡਿਫਿਕਲਟੀ ਮਿਆਦ ਦੇ ਔਸਤ ਬਲਾਕ ਸਮੇਂ (mempool.space) ਤੋਂ ਗਿਣੀ ਜਾਂਦੀ ਹੈ; ਉਸ ਡਾਟੇ ਤੋਂ ਬਿਨਾਂ ਕੈਲੰਡਰ ਤੋਂ (ਆਖਰੀ ਹਾਲਵਿੰਗ ਜਮ੍ਹਾਂ ਲਗਭਗ ਚਾਰ ਸਾਲ)। ਚਾਰਟ ਪਿਛਲੇ ਚੱਕਰਾਂ ਦਾ ਉਨ੍ਹਾਂ ਦੀ ਹਾਲਵਿੰਗ ਤੋਂ ਕੀਮਤ ਦਾ ਰਸਤਾ ਦਿਖਾਉਂਦਾ ਹੈ – ਇਤਿਹਾਸ, ਭਵਿੱਖਬਾਣੀ ਨਹੀਂ।</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">ਰੁਝਾਨ 50/200 ਦਿਨ</string>
+    <string name="ind_drawdown">ਸਰਬਕਾਲੀ ਸਿਖਰ ਤੋਂ ਗਿਰਾਵਟ</string>
+    <string name="ind_missing">ਕਾਫ਼ੀ ਡਾਟਾ ਨਹੀਂ</string>
+    <string name="ind_rsi_daily">RSI (ਰੋਜ਼ਾਨਾ)</string>
+    <string name="ind_rsi_weekly">RSI (ਹਫ਼ਤਾਵਾਰੀ)</string>
+    <string name="ind_vs_btc">Bitcoin ਦੇ ਮੁਕਾਬਲੇ ਤਾਕਤ (90 ਦਿਨ)</string>
+    <string name="neutral_ind_change_30d">ਤਬਦੀਲੀ 30 ਦਿਨ</string>
+    <string name="neutral_ind_hashrate">ਹੈਸ਼ਰੇਟ 30/60 ਦਿਨ</string>
+    <string name="neutral_ind_ma200w">200 ਹਫ਼ਤਿਆਂ ਦੀ ਔਸਤ</string>
+    <string name="neutral_ind_pi_gap">Pi Cycle ਫ਼ਰਕ</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">ਉੱਚਾ ਮਤਲਬ ਜ਼ਿਆਦਾਤਰ ਵੱਡੇ ਆਲਟਕੌਇਨਾਂ ਨੇ 90 ਦਿਨਾਂ ਵਿੱਚ Bitcoin ਨੂੰ ਪਿੱਛੇ ਛੱਡਿਆ, ਨੀਵਾਂ ਮਤਲਬ Bitcoin ਨੇ ਉਨ੍ਹਾਂ ਵਿੱਚੋਂ ਜ਼ਿਆਦਾਤਰ ਨੂੰ ਪਿੱਛੇ ਛੱਡਿਆ।</string>
+    <string name="ind_read_ath_distance">ਛੋਟਾ ਮਤਲਬ ਕੀਮਤ ਆਪਣੇ ਰਿਕਾਰਡ ਦੇ ਨੇੜੇ ਹੈ, ਵੱਡਾ ਮਤਲਬ ਉਸ ਤੋਂ ਬਹੁਤ ਹੇਠਾਂ ਹੈ।</string>
+    <string name="ind_read_change_30d">ਸਕਾਰਾਤਮਕ ਮਤਲਬ 30 ਦਿਨ ਪਹਿਲਾਂ ਨਾਲੋਂ ਵੱਧ, ਨਕਾਰਾਤਮਕ ਮਤਲਬ ਘੱਟ।</string>
+    <string name="ind_read_funding">ਉੱਚਾ ਮਤਲਬ ਬਹੁਤ ਸਾਰੇ ਵਪਾਰੀ ਲੀਵਰੇਜ ਨਾਲ ਕੀਮਤ ਵਧਣ ’ਤੇ ਦਾਅ ਲਗਾ ਰਹੇ ਹਨ, ਨਕਾਰਾਤਮਕ ਮਤਲਬ ਬਹੁਤ ਸਾਰੇ ਕੀਮਤ ਡਿੱਗਣ ’ਤੇ ਦਾਅ ਲਗਾ ਰਹੇ ਹਨ।</string>
+    <string name="ind_read_hashrate_30_60">ਸਕਾਰਾਤਮਕ ਮਤਲਬ ਕੰਪਿਊਟਿੰਗ ਸ਼ਕਤੀ ਵੱਧ ਰਹੀ ਹੈ, ਨਕਾਰਾਤਮਕ ਮਤਲਬ ਮਾਈਨਰ ਮਸ਼ੀਨਾਂ ਬੰਦ ਕਰ ਰਹੇ ਹਨ।</string>
+    <string name="ind_read_leverage">ਬਹੁਤ ਸਾਰੇ ਲੌਂਗ ਮਤਲਬ ਬਹੁਤ ਸਾਰੇ ਲੋਕ ਉਧਾਰ ਦੇ ਪੈਸੇ ਨਾਲ ਕੀਮਤ ਵਧਣ ’ਤੇ ਦਾਅ ਲਗਾ ਰਹੇ ਹਨ, ਬਹੁਤ ਸਾਰੇ ਸ਼ਾਰਟ ਮਤਲਬ ਬਹੁਤ ਸਾਰੇ ਕੀਮਤ ਡਿੱਗਣ ’ਤੇ ਦਾਅ ਲਗਾ ਰਹੇ ਹਨ।</string>
+    <string name="ind_read_ma200w">ਕੀਮਤ ਇਸ ਤੋਂ ਬਹੁਤ ਉੱਪਰ ਮਤਲਬ ਲੰਬਾ ਵਾਧਾ, ਕੀਮਤ ਇਸਦੇ ਨੇੜੇ ਮਤਲਬ ਡੂੰਘੀ ਗਿਰਾਵਟ।</string>
+    <string name="ind_read_mayer">ਉੱਚਾ ਮਤਲਬ ਕੀਮਤ ਆਪਣੀ 200 ਦਿਨਾਂ ਦੀ ਔਸਤ ਤੋਂ ਬਹੁਤ ਉੱਪਰ ਹੈ, ਨੀਵਾਂ ਮਤਲਬ ਉਸ ਤੋਂ ਹੇਠਾਂ ਹੈ।</string>
+    <string name="ind_read_mvrv">ਉੱਚਾ ਮਤਲਬ ਕੀਮਤ ਉਸ ਤੋਂ ਬਹੁਤ ਉੱਪਰ ਹੈ ਜੋ ਧਾਰਕਾਂ ਨੇ ਔਸਤਨ ਅਦਾ ਕੀਤੀ, ਨੀਵਾਂ ਮਤਲਬ ਉਸਦੇ ਨੇੜੇ ਜਾਂ ਹੇਠਾਂ।</string>
+    <string name="ind_read_pi_cycle_gap">ਜ਼ੀਰੋ ਦੇ ਨੇੜੇ ਮਤਲਬ ਦੋਵੇਂ ਔਸਤਾਂ ਲਗਭਗ ਮਿਲ ਰਹੀਆਂ ਹਨ, ਬਹੁਤ ਨਕਾਰਾਤਮਕ ਮਤਲਬ ਉਹ ਇੱਕ-ਦੂਜੇ ਤੋਂ ਬਹੁਤ ਦੂਰ ਹਨ।</string>
+    <string name="ind_read_puell">ਉੱਚਾ ਮਤਲਬ ਮਾਈਨਰ ਆਮ ਨਾਲੋਂ ਬਹੁਤ ਜ਼ਿਆਦਾ ਕਮਾ ਰਹੇ ਹਨ, ਨੀਵਾਂ ਮਤਲਬ ਬਹੁਤ ਘੱਟ।</string>
+    <string name="ind_read_rsi_daily">70 ਤੋਂ ਉੱਪਰ ਮਤਲਬ ਹਾਲੀਆ ਦਿਨਾਂ ਵਿੱਚ ਜ਼ੋਰਦਾਰ ਵਾਧਾ, 30 ਤੋਂ ਹੇਠਾਂ ਮਤਲਬ ਜ਼ੋਰਦਾਰ ਨੁਕਸਾਨ।</string>
+    <string name="ind_read_rsi_weekly">70 ਤੋਂ ਉੱਪਰ ਮਤਲਬ ਹਾਲੀਆ ਹਫ਼ਤਿਆਂ ਵਿੱਚ ਜ਼ੋਰਦਾਰ ਵਾਧਾ, 30 ਤੋਂ ਹੇਠਾਂ ਮਤਲਬ ਜ਼ੋਰਦਾਰ ਨੁਕਸਾਨ।</string>
+    <string name="ind_read_sma50_vs_200">ਸਕਾਰਾਤਮਕ ਮਤਲਬ ਥੋੜ੍ਹੇ ਸਮੇਂ ਦੀ ਔਸਤ ਲੰਬੇ ਸਮੇਂ ਦੀ ਔਸਤ ਤੋਂ ਉੱਪਰ ਹੈ, ਨਕਾਰਾਤਮਕ ਮਤਲਬ ਹੇਠਾਂ।</string>
+    <string name="ind_read_vs_btc">ਸਕਾਰਾਤਮਕ ਮਤਲਬ Bitcoin ਨਾਲੋਂ ਬਿਹਤਰ ਕੀਤਾ, ਨਕਾਰਾਤਮਕ ਮਤਲਬ ਮਾੜਾ।</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">30 ਦਿਨ ਇੱਕੋ ਕੀਮਤ ਰਹੇ ਤਾਂ: %1$s</string>
+    <string name="ind_context_note">ਪਿਛਲੇ ਮੁੱਲ ਅਤੇ “ਇੱਕੋ ਕੀਮਤ” ਵਾਲੀਆਂ ਗਿਣਤੀਆਂ ਸਿਰਫ਼ ਹਿਸਾਬ ਹਨ, ਭਵਿੱਖਬਾਣੀ ਨਹੀਂ।</string>
+    <string name="ind_context_percentile">%1$s ਤੋਂ ਹੁਣ ਤੱਕ %2$s ਦਿਨਾਂ ’ਤੇ ਇਸ ਤੋਂ ਘੱਟ ਰਹੀ</string>
+</resources>

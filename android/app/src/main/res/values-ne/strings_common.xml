@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">पछाडि</string>
+    <string name="action_cancel">रद्द गर्नुहोस्</string>
+    <string name="action_clear">खाली गर्नुहोस्</string>
+    <string name="action_close">बन्द गर्नुहोस्</string>
+    <string name="action_keep">राख्नुहोस्</string>
+    <string name="action_delete">मेटाउनुहोस्</string>
+    <string name="action_edit">सम्पादन गर्नुहोस्</string>
+    <string name="action_more">थप विकल्पहरू</string>
+    <string name="action_refresh">रिफ्रेस गर्नुहोस्</string>
+    <string name="action_retry">फेरि प्रयास गर्नुहोस्</string>
+    <string name="action_save">सेभ गर्नुहोस्</string>
+    <string name="action_sort">क्रमबद्ध गर्नुहोस्</string>
+    <string name="action_sort_done">सम्पन्न</string>
+    <string name="action_undo">अनडू गर्नुहोस्</string>
+    <string name="action_view">हेर्नुहोस्</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">बजार</string>
+    <string name="tab_portfolio">पोर्टफोलियो</string>
+    <string name="tab_settings">सेटिङहरू</string>
+    <string name="tab_watchlist">वाचलिस्ट</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">त्रुटि: %1$s</string>
+    <string name="error_exchange_unreachable">एक्सचेन्जमा अहिले पुग्न सकिएन – पछिल्ला मूल्यहरू देखिइरहन्छन्।</string>
+    <string name="error_exchange_unreachable_short">एक्सचेन्जमा अहिले पुग्न सकिएन</string>
+    <string name="loading_hint">लोड हुँदैछ…</string>
+    <string name="option_off">बन्द</string>
+    <string name="something_went_wrong">केही गडबड भयो</string>
+    <string name="time_just_now">भर्खरै</string>
+    <string name="try_again">फेरि प्रयास गर्नुहोस्</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">जडान छैन</string>
+    <string name="offline_status_since">जडान छैन · %1$s सम्मको</string>
+    <string name="status_live">लाइभ</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">जोडी थप्नुहोस्</string>
+    <string name="shortcut_alarms">सबै अलर्टहरू</string>
+    <string name="shortcut_cycle">बजार</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">वाचलिस्टमा जोडी थप्नुहोस्</string>
+    <string name="shortcut_alarms_long">सबै अलर्टहरू हेर्नुहोस्</string>
+    <string name="shortcut_cycle_long">बजार अवलोकन खोल्नुहोस्</string>
+
+    <string name="log_box_title">लग</string>
+    <string name="label_value">%1$s: %2$s</string>
+</resources>

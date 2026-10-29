@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">Įspėjimas suveikė</string>
+    <string name="a11y_collapsed">Suskleista</string>
+    <string name="a11y_converted">apie %1$s</string>
+    <string name="a11y_expanded">Išskleista</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">atsidaro naršyklėje</string>
+    <string name="a11y_favorite">Mėgstama</string>
+    <string name="a11y_in_watchlist">Jau stebimų sąraše</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_exchange_unreachable">%1$s nepasiekiama</string>
+    <string name="a11y_move_down">Perkelti žemyn</string>
+    <string name="a11y_move_up">Perkelti aukštyn</string>
+    <string name="a11y_note">pastaba: %1$s</string>
+    <string name="a11y_price">kaina %1$s</string>
+    <string name="a11y_price_notification_off">Kainos pranešimas išjungtas</string>
+    <string name="a11y_price_notification_on">Kainos pranešimas įjungtas</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">Kaina pasenusi</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s biržoje %2$s</string>
+    <string name="a11y_stale">pasenusi, paskutinis atnaujinimas %1$s</string>
+    <string name="a11y_warning">Įspėjimas</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">%1$s per 24 valandas</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">24 valandų pokytis nepasiekiamas</string>
+    <string name="a11y_change_down">nukrito %1$s</string>
+    <string name="a11y_change_flat">nepakito</string>
+    <string name="a11y_change_since_last">%1$s nuo paskutinio atnaujinimo</string>
+    <string name="a11y_change_since_last_none">Pokytis nuo paskutinio atnaujinimo nepasiekiamas</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">%1$s šiandien</string>
+    <string name="a11y_change_today_none">Šiandienos pokytis nepasiekiamas</string>
+    <string name="a11y_change_today_zone">%1$s nuo vidurnakčio %2$s</string>
+    <string name="a11y_change_today_zone_none">Pokytis nuo vidurnakčio %1$s nepasiekiamas</string>
+    <string name="a11y_change_up">pakilo %1$s</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Diagrama %1$s: nuo %2$s iki %3$s, %4$s. Aukščiausia %5$s, žemiausia %6$s.</string>
+    <string name="a11y_chart_empty">Diagrama: duomenų nėra</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Ciklas %1$s: %2$s nuo halvingo, %3$d diena.</string>
+    <string name="a11y_cycle_bottom">Dugnas %1$s %2$d dieną.</string>
+    <string name="a11y_cycle_double_bottom">Dvigubas dugnas %1$s %2$d dieną.</string>
+    <string name="a11y_cycle_double_top">Dviguba viršūnė %1$s %2$d dieną.</string>
+    <string name="a11y_cycle_top">Viršūnė %1$s %2$d dieną.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">Skalė nuo %1$s iki %2$s: %3$d iš 100</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, vidutiniškai %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d krenta</item>
+        <item quantity="few">%1$d krenta</item>
+        <item quantity="many">%1$d krenta</item>
+        <item quantity="other">%1$d krenta</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="one">%1$d pora neturi 24 valandų vertės</item>
+        <item quantity="few">%1$d poros neturi 24 valandų vertės</item>
+        <item quantity="many">%1$d poros neturi 24 valandų vertės</item>
+        <item quantity="other">%1$d porų neturi 24 valandų vertės</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d pora neturi šiandienos vertės</item>
+        <item quantity="few">%1$d poros neturi šiandienos vertės</item>
+        <item quantity="many">%1$d poros neturi šiandienos vertės</item>
+        <item quantity="other">%1$d porų neturi šiandienos vertės</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d pora kyla</item>
+        <item quantity="few">%1$d poros kyla</item>
+        <item quantity="many">%1$d poros kyla</item>
+        <item quantity="other">%1$d porų kyla</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="one">paskutinį kartą atnaujinta prieš %1$d dieną</item>
+        <item quantity="few">paskutinį kartą atnaujinta prieš %1$d dienas</item>
+        <item quantity="many">paskutinį kartą atnaujinta prieš %1$d dienos</item>
+        <item quantity="other">paskutinį kartą atnaujinta prieš %1$d dienų</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="one">paskutinį kartą atnaujinta prieš %1$d valandą</item>
+        <item quantity="few">paskutinį kartą atnaujinta prieš %1$d valandas</item>
+        <item quantity="many">paskutinį kartą atnaujinta prieš %1$d valandos</item>
+        <item quantity="other">paskutinį kartą atnaujinta prieš %1$d valandų</item>
+    </plurals>
+    <string name="a11y_updated_just_now">paskutinį kartą atnaujinta ką tik</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="one">paskutinį kartą atnaujinta prieš %1$d minutę</item>
+        <item quantity="few">paskutinį kartą atnaujinta prieš %1$d minutes</item>
+        <item quantity="many">paskutinį kartą atnaujinta prieš %1$d minutės</item>
+        <item quantity="other">paskutinį kartą atnaujinta prieš %1$d minučių</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">suma paslėpta</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_entry">%1$s %2$s, šiandien vertė %3$s</string>
+    <string name="a11y_portfolio_entry_in">Gauta</string>
+    <string name="a11y_portfolio_entry_no_value">vertė nepasiekiama</string>
+    <string name="a11y_portfolio_entry_note">pastaba %1$s</string>
+    <string name="a11y_portfolio_entry_out">Išsiųsta</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, %3$s portfelio</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, %2$s portfelio, %3$s</string>
+    <string name="a11y_portfolio_positions">Didžiausios pozicijos: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">Rodyti sumas</string>
+    <string name="a11y_compare_chart">Palyginimas procentais, %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">%1$s nuo 30 dienų aukščiausios kainos</string>
+    <string name="a11y_price_overlay">Kainos perdanga: %1$s</string>
+</resources>

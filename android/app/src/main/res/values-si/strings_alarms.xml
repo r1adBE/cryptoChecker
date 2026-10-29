@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">ඇඟවීමක් සකසන්න</string>
+    <string name="alarms_add">නව ඇඟවීම</string>
+    <string name="alarms_edit">ඇඟවීම සංස්කරණය කරන්න</string>
+    <string name="alarms_empty">මෙම යුගලය සඳහා තවම ඇඟවීම් නැත.</string>
+    <string name="alarms_empty_example">උදාහරණයක් ලෙස: BTC %1$s ට වඩා ඉහළ ගිය විට මට දන්වන්න.</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">දැනුම්දීම් අක්‍රියයි – ඇඟවීම් ඔබට ළඟා විය නොහැක.</string>
+    <string name="alarms_notifications_turn_on">සක්‍රිය කරන්න</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">%1$d ක් සක්‍රියයි</item>
+        <item quantity="other">%1$d ක් සක්‍රියයි</item>
+    </plurals>
+    <string name="alarms_overview_empty">තවම ඇඟවීම් නැත. යුගලයක් විවෘත කර ඇඟවීම් යටතේ එකක් එක් කරන්න.</string>
+    <string name="alarms_overview_title">සියලු ඇඟවීම්</string>
+    <string name="alarms_title">ඇඟවීම්</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">උසස්</string>
+    <string name="alarm_change_updates">මිල යාවත්කාලීන සකසන්න</string>
+    <string name="alarm_create">ඇඟවීම සාදන්න</string>
+    <string name="alarm_currency_label">මුදල් ඒකකය</string>
+    <string name="alarm_delete_confirm">මෙම ඇඟවීම ඉවත් කෙරේ.</string>
+    <string name="alarm_delete_title">ඇඟවීම මකන්නද?</string>
+    <string name="alarm_field_percent">ප්‍රතිශතය</string>
+    <string name="alarm_field_price">මිල</string>
+    <string name="alarm_fires_now_above">මිල දැනටමත් %1$s ට වඩා ඉහළයි. කෙසේ වෙතත් සුරකින්නද?</string>
+    <string name="alarm_fires_now_below">මිල දැනටමත් %1$s ට වඩා පහළයි. කෙසේ වෙතත් සුරකින්නද?</string>
+    <string name="alarm_fires_now_change">වෙනස් කරන්න</string>
+    <string name="alarm_fires_now_save">කෙසේ වෙතත් සුරකින්න</string>
+    <string name="alarm_fires_now_title">ඇඟවීම දැන්ම ක්‍රියාත්මක වේ</string>
+    <string name="alarm_first_battery_hint">බැටරි ප්‍රශස්තකරණය යෙදුම සීමා කරයි – ඇඟවීම් ප්‍රමාද වී ලැබිය හැක.</string>
+    <string name="alarm_first_title">ඇඟවීම සුරකින ලදී</string>
+    <string name="alarm_last_triggered">අවසන් වරට %1$s</string>
+    <string name="alarm_more_conditions">තවත් කොන්දේසි</string>
+    <string name="alarm_new_extreme">නව %1$s</string>
+    <string name="alarm_once">එක් වරක්</string>
+    <string name="alarm_option_repeating">දන්වන්න</string>
+    <string name="alarm_option_sound">ශබ්දය</string>
+    <string name="alarm_option_speak">ඇඟවීම හඬින් කියවන්න</string>
+    <string name="alarm_option_vibrate">කම්පනය</string>
+    <string name="alarm_repeat_each">සෑම විටම</string>
+    <string name="alarm_repeat_once">එක් වරක්</string>
+    <string name="alarm_repeating">සෑම විටම</string>
+    <string name="alarm_threshold_error_empty">ඇඟවීම සුරැකීමට අගයක් ඇතුළත් කරන්න.</string>
+    <string name="alarm_threshold_error_funding">ෆන්ඩිං −10 සහ +10 ප්‍රතිශතය අතර සංඛ්‍යාවක් විය යුතුය.</string>
+    <string name="alarm_threshold_error_invalid">0 ට වඩා වැඩි වලංගු සංඛ්‍යාවක් ඇතුළත් කරන්න.</string>
+    <string name="alarm_threshold_error_oi">විවෘත පොලී වෙනස: උපරිම ප්‍රතිශත 1000.</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">පැය %1$d තුළ</item>
+        <item quantity="other">පැය %1$d තුළ</item>
+    </plurals>
+    <string name="alarm_window_label">කාල කවුළුව</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">මෙම අගයට වඩා ඉහළ ගිය විට:</string>
+    <string name="alarm_simple_below">මෙම අගයට වඩා පහළ ගිය විට:</string>
+    <string name="alarm_simple_end"></string>
+    <string name="alarm_simple_when">%1$s</string>
+    <string name="alarm_template_a11y">ඇඟවීම සාදන්න: %1$s</string>
+    <string name="alarm_template_a11y_down">වත්මන් මිලෙන් අඩු %1$s ප්‍රතිශතයකදී ඇඟවීමක් සාදන්න</string>
+    <string name="alarm_template_a11y_up">වත්මන් මිලෙන් වැඩි %1$s ප්‍රතිශතයකදී ඇඟවීමක් සාදන්න</string>
+    <string name="alarm_template_from_now">දැන් සිට</string>
+    <string name="alarm_template_volume">පරිමාව ×%1$s</string>
+    <string name="alarm_templates_title">ඉක්මන් ඇඟවීම්</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">මිල ඉහළින්</string>
+    <string name="alarm_condition_below">මිල පහළින්</string>
+    <string name="alarm_condition_down_percent">මෙපමණ පහත වැටුණු විට</string>
+    <string name="alarm_condition_funding_above">ෆන්ඩිං ඉහළින්</string>
+    <string name="alarm_condition_funding_below">ෆන්ඩිං පහළින්</string>
+    <string name="alarm_condition_move_percent">මෙපමණ චලනය වූ විට</string>
+    <string name="alarm_condition_near_high">ඉහළම අගය අසල</string>
+    <string name="alarm_condition_near_low">පහළම අගය අසල</string>
+    <string name="alarm_condition_oi_down">විවෘත පොලිය පහළට</string>
+    <string name="alarm_condition_oi_up">විවෘත පොලිය ඉහළට</string>
+    <string name="alarm_condition_up_percent">මෙපමණ ඉහළ ගිය විට</string>
+    <string name="alarm_condition_volume_spike">පරිමා උල්පතක්</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">%1$s %2$s ට වඩා ඉහළ ගිය විට මට දන්වන්න.</string>
+    <string name="alarm_sentence_below">%1$s %2$s ට වඩා පහළ වැටුණු විට මට දන්වන්න.</string>
+    <string name="alarm_sentence_down_percent">%1$s සුරැකූ විට තිබූ මිලට (හෝ අවසන් ඇඟවීමේ මිලට) වඩා %2$s කින් පහළ වැටුණු විට මට දන්වන්න.</string>
+    <string name="alarm_sentence_funding_above">%1$s හි ෆන්ඩිං %2$s ට වඩා ඉහළ ගිය විට මට දන්වන්න.</string>
+    <string name="alarm_sentence_funding_below">%1$s හි ෆන්ඩිං %2$s ට වඩා පහළ වැටුණු විට මට දන්වන්න.</string>
+    <string name="alarm_sentence_incomplete">ඇඟවීම වාක්‍යයක් ලෙස බැලීමට අගයක් ඇතුළත් කරන්න.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">%1$s පැය %3$d ක් තුළ %2$s කින් චලනය වූ විට මට දන්වන්න.</item>
+        <item quantity="other">%1$s පැය %3$d ක් තුළ %2$s කින් චලනය වූ විට මට දන්වන්න.</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">%1$s එහි %3$s ට වඩා උපරිම %2$s ක් පහළින් ඇති විට මට දන්වන්න.</string>
+    <string name="alarm_sentence_near_low">%1$s එහි %3$s ට වඩා උපරිම %2$s ක් ඉහළින් ඇති විට මට දන්වන්න.</string>
+    <string name="alarm_sentence_new_extreme">%1$s නව %2$s ක් ඇති කළ විට මට දන්වන්න.</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">%1$s හි විවෘත පොලිය පැය %3$d ක් තුළ %2$s කින් පහළ වැටුණු විට මට දන්වන්න.</item>
+        <item quantity="other">%1$s හි විවෘත පොලිය පැය %3$d ක් තුළ %2$s කින් පහළ වැටුණු විට මට දන්වන්න.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">%1$s හි විවෘත පොලිය පැය %3$d ක් තුළ %2$s කින් ඉහළ ගිය විට මට දන්වන්න.</item>
+        <item quantity="other">%1$s හි විවෘත පොලිය පැය %3$d ක් තුළ %2$s කින් ඉහළ ගිය විට මට දන්වන්න.</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">%1$s සුරැකූ විට තිබූ මිලට (හෝ අවසන් ඇඟවීමේ මිලට) වඩා %2$s කින් ඉහළ ගිය විට මට දන්වන්න.</string>
+    <string name="alarm_sentence_volume">%1$s එහි සාමාන්‍ය පරිමාව මෙන් %2$s× වෙළඳාම් වූ විට මට දන්වන්න.</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">දින 30 ඉහළම අගය</string>
+    <string name="alarm_near_extreme_high_365">වසර 1 ඉහළම අගය</string>
+    <string name="alarm_near_extreme_high_90">දින 90 ඉහළම අගය</string>
+    <string name="alarm_near_extreme_low_30">දින 30 පහළම අගය</string>
+    <string name="alarm_near_extreme_low_365">වසර 1 පහළම අගය</string>
+    <string name="alarm_near_extreme_low_90">දින 90 පහළම අගය</string>
+    <string name="alarm_near_field_distance">දුර</string>
+    <string name="alarm_near_hint">නව ඉහළම හෝ පහළම අගයක් ඇති වූ විටද දන්වයි. දෛනික ඉටිපන්දම් මත පදනම් වේ, සෑම පැය 6 කට වරක් නැවුම් කෙරේ.</string>
+    <string name="alarm_near_new_only">නව ඉහළම හෝ පහළම අගයන් පමණක්</string>
+    <string name="alarm_near_notification_high">%1$s එහි %3$s ට වඩා %2$s ක් පහළින් ඇත (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s එහි %3$s ට වඩා %2$s ක් ඉහළින් ඇත (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">%2$s සඳහා නව %1$s: %3$s (පෙර %4$s)</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">දින %1$d</item>
+        <item quantity="other">දින %1$d</item>
+    </plurals>
+    <string name="alarm_near_window_label">කාලපරිච්ඡේදය</string>
+    <string name="alarm_near_window_year">වසර 1</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">පැය 8 කට ෆන්ඩිං අනුපාතය. වෙනත් අන්තරයක් ඇති ගිවිසුම් පරිවර්තනය කෙරේ (1 h × 8, 4 h × 2); ෆියුචර්ස් කාඩ්පත පරිවර්තිත අගය පෙන්වයි. අන්තරය නොදන්නේ නම්, ඇඟවීම පරීක්ෂා නොකරයි. සෘණ යනු ෂෝට් දරන්නන් ලෝන්ග් දරන්නන්ට ගෙවන බවයි. ± ලකුණ මාරු කරයි.</string>
+    <string name="alarm_funding_sign_a11y">ලකුණ මාරු කරන්න</string>
+    <string name="alarm_oi_hint">විවෘත පොලිය එම පැය ගණනකට පෙර ගබඩා කළ අගය සමඟ සංසන්දනය කරයි. යෙදුම එතරම් කාලයක දත්ත එකතු කළ පසුව පමණක් නව ඇඟවීමක් වාර්තා කරයි; උපරිම වශයෙන් සෑම මිනිත්තු 5 කට වරක් පරීක්ෂා කෙරේ.</string>
+    <string name="alarm_volume_factor_label">අවසන් පැයේ පරිමාව සාමාන්‍යයට එදිරිව</string>
+    <string name="alarm_volume_hint">පරිමා දත්ත Binance වෙතින් පැමිණේ — එහි ලැයිස්තුගත නොවූ යුගල කිසිවිටෙක ක්‍රියාත්මක නොවේ.</string>
+    <string name="alarm_volume_zero_hours_hint">ගනුදෙනු නොමැති පැය ශුන්‍ය පරිමාව ලෙස ගණනය වේ, එබැවින් අඩුවෙන් වෙළඳාම් වන යුගලවල සාමාන්‍ය පැයක් අසාමාන්‍ය ලෙස පෙනිය හැක.</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">ඇඟවීම සක්‍රියයි</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">ඇඟවීම සුරකින ලදී: %1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">දැනුම්දීම් අක්‍රියයි</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">“%1$s” නොමැතිව, උපාංගය විවේකයේ ඇති විට Android අක්‍රමවත්ව පරීක්ෂා කරයි – සමහර විට පැය ගණනකට පසුව. එය සමඟ, දළ වශයෙන් මිනිත්තු 15 කට වරක්.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">යෙදුම වසා ඇති විට, iOS බොහෝ විට මිනිත්තු 15 කට වඩා පසුව පරීක්ෂා කරයි, සමහර විට ඔබ ඊළඟට යෙදුම විවෘත කරන විට පමණි. කෙටි උල්පත් මග හැරිය හැක.</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">ඇඟවීම් පරීක්ෂා කරන්නේ කවදාද</string>
+    <string name="alarm_timing_where">මිල ගණන් කොපමණ වාරයක් යාවත්කාලීන වේද යන්න %1$s හි වෙනස් කරන්න.</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">නිහඬ (දැනුම්දීම පමණි)</string>
+    <string name="alarm_signal_sound">ශබ්දය පමණි</string>
+    <string name="alarm_signal_sound_vibrate">ශබ්දය සහ කම්පනය</string>
+    <string name="alarm_signal_system">පද්ධතිය</string>
+    <string name="alarm_signal_vibrate">කම්පනය පමණි</string>
+    <string name="alarm_test">පරීක්ෂණ ඇඟවීම</string>
+    <string name="alarm_test_action">පරීක්ෂා කරන්න</string>
+    <string name="alarm_test_denied">Crypto Checker සඳහා දැනුම්දීම් අක්‍රිය කර ඇත.</string>
+    <string name="alarm_test_hint">ඔබේ ශබ්ද, කම්පන සහ කථන සැකසීම් සමඟ නියැදි ඇඟවීමක් යවයි.</string>
+    <string name="alarm_test_open_settings">සැකසීම් විවෘත කරන්න</string>
+    <string name="alarm_test_quiet">නිහඬ පැය දැන් සක්‍රියයි: සැබෑ ඇඟවීම් ඒවා අවසන් වන තුරු රැඳී සිට පසුව ශබ්දය සමඟ නාද වේ.</string>
+    <string name="alarm_test_text">ඇඟවීමක් පෙනෙන සහ ඇසෙන ආකාරය මෙයයි.</string>
+    <string name="alarm_test_title">පරීක්ෂණය: Crypto Checker ඇඟවීම</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">ශබ්දය සක්‍රියයි</string>
+    <string name="alarm_a11y_speak_on">කථනය සක්‍රියයි</string>
+    <string name="alarm_unchecked_no_candles">පරීක්ෂා කළ නොහැකි විය (ඉටිපන්දම් දත්ත නැත)</string>
+    <string name="alarm_unchecked_no_rate">පරීක්ෂා කළ නොහැකි විය (විනිමය අනුපාතයක් නැත)</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">දැනුම්දීම් අක්‍රියයි – මෙම ඇඟවීම ඔබට ළඟා නොවේ</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">ඇඟවීමක් නැත – අඩු ද්‍රවශීලතාව</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">වත්මන් මිලක් බලාපොරොත්තුවෙන්</string>
+    <string name="alarm_enter_amount">අගයක් ඇතුළත් කරන්න</string>
+    <string name="alarm_editor_more">තවත්</string>
+    <string name="alarm_editor_more_summary">ඉක්මන් ඇඟවීම්, වෙනත් කොන්දේසි, ශබ්දය සහ හඬ</string>
+    <string name="alarm_reliability_storage_no_key">පසුබිමේ ඇඟවීම් නවතා ඇත – නිරීක්ෂණ ලැයිස්තුව සුරැකී නැත</string>
+    <string name="alarms_limit_reached">යුගලයකට උපරිම ඇඟවීම් %1$s ක් තිබිය හැක.</string>
+    <string name="alarms_reference_rate_hint">ECB යොමු අනුපාත දිනකට එක් වරක් පමණක් තීරණය වේ – ඒවා සඳහා ඇඟවීම් නැත.</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">පහත වැටීමක් ප්‍රතිශත 100 ට වඩා අඩු විය යුතුය.</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">සීමාව වලංගු නැත – කරුණාකර සකසන්න</string>
+
+    <string name="alarm_last_checked">අවසන් පරීක්ෂාව %1$s</string>
+</resources>

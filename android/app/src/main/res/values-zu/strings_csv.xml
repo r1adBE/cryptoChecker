@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">Ngenisa i-CSV</string>
+    <string name="portfolio_csv_import_all_transfer">Konke kuya ku-wallet yakho</string>
+    <string name="portfolio_csv_import_all_withdrawal">Konke kuphuma ku-portfolio</string>
+    <string name="portfolio_csv_import_choice_proposed">Isiphakamiso: kufana ne-%1$s</string>
+    <string name="portfolio_csv_import_choice_transfer">Kuya ku-wallet yakho (ukudlulisa)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Kuphuma ku-portfolio (ukukhipha)</string>
+    <string name="portfolio_csv_import_choose_each">Khetha kukho konke ukukhipha ukuthi kuye kuphi.</string>
+    <string name="portfolio_csv_import_columns">Amakholomu aziwayo: %1$s</string>
+    <string name="portfolio_csv_import_confirm">Ngenisa (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">Usuku/Inyanga</string>
+    <string name="portfolio_csv_import_date_month_first">Inyanga/Usuku</string>
+    <string name="portfolio_csv_import_date_order">Izinsuku ezingacacile (isb. 03/04/2024) zifundwa njengokuthi:</string>
+    <string name="portfolio_csv_import_decimal">Izinombolo ezingacacile (isb. %1$s) zifundwa njengokuthi:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">Umsebenzi ongu-%d ungenisiwe</item>
+        <item quantity="other">Imisebenzi engu-%d ingenisiwe</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d sekungenisiwe (kweqiwe)</item>
+        <item quantity="other">%d sekungenisiwe (kweqiwe)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">Ifomethi: %1$s</string>
+    <string name="portfolio_csv_import_line">Umugqa %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">Ifunda ifayela namazinga ansuku zonke…</string>
+    <string name="portfolio_csv_import_progress">Umugqa %1$s kwengu-%2$s</string>
+    <string name="portfolio_csv_import_saving">Ilondoloza imisebenzi…</string>
+    <string name="portfolio_csv_import_missing_fx">Alikho izinga losuku lemigqa %1$s – kungenisiwe ngaphandle kwentengo/imali ekhokhwayo.</string>
+    <string name="portfolio_csv_import_missing_price">Ayikho intengo efayeleni yemigqa %1$s – kungenisiwe ngaphandle kwentengo.</string>
+    <string name="portfolio_csv_import_more">+ %1$d okunye</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">Umsebenzi omusha ongu-%d</item>
+        <item quantity="other">Imisebenzi emisha engu-%d</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">Umugqa ongu-%d weqiwe</item>
+        <item quantity="other">Imigqa engu-%d yeqiwe</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">Ukuhweba ngama-stablecoin (USDT, USDC …) kubhalwa njengama-swap – i-stablecoin ivela ezimpahleni zakho.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Kungenzeka ukufana okuningana – khetha okulungile noma lutho.</string>
+    <string name="portfolio_csv_import_transfer_fee">Imali yenethiwekhi: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">Bhala njengokudlulisa okukodwa</string>
+    <string name="portfolio_csv_import_transfer_stored">Okuhambisanayo kokungeniswe ngaphambilini</string>
+    <string name="portfolio_csv_import_transfers_hint">Ukukhipha nediphozithi efanayo ye-coin efanayo kuba ukudlulisa okukodwa: intengo yokuthenga nesikhathi sokuphatha kuyaqhubeka, umehluko ubalwa njengemali yenethiwekhi.</string>
+    <string name="portfolio_csv_import_transfers_title">Ukudlulisa phakathi kwama-akhawunti akho</string>
+    <string name="portfolio_csv_import_unreadable">Ayikho imisebenzi esekelwayo etholakele. Okusekelwayo: amafayela e-CSV athunyelwe ngaphandle avela ku-Relai, Swissquote, Kraken, Binance, Coinbase ne-Bitpanda.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
+    <string name="portfolio_csv_import_too_large">Ifayela likhulu kakhulu ukuthi lingeniswe (16 MB nemigqa engu-%1$s ubuningi). Thumela izikhathi ezimfushane bese uzingenisa ngokulandelana.</string>
+    <string name="portfolio_csv_import_failed">Ukungenisa akusebenzanga – akukho okulondoloziwe. Sicela uzame futhi.</string>
+    <string name="portfolio_csv_import_locked">Ukungenisa akukwenzeki: idatha elondoloziwe ayikwazi ukufundwa okwamanje. Qala kabusha i-app.</string>
+    <string name="portfolio_csv_import_withdrawals_title">Ukukhipha – ama-coin aye kuphi?</string>
+    <string name="portfolio_csv_import_zone">Izikhathi ezingenayo indawo yesikhathi zifundwa njengokuthi: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">Idivayisi (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">usuku olungafundeki</string>
+    <string name="portfolio_csv_skip_bad_number">inombolo engafundeki</string>
+    <string name="portfolio_csv_skip_fee_exceeds">imali ekhokhwayo ≥ inani elitholiwe</string>
+    <string name="portfolio_csv_skip_internal_move">ukuhambisa phakathi kwama-akhawunti akho – akukho okuzobhalwa</string>
+    <string name="portfolio_csv_skip_missing">inkambu ayikho</string>
+    <string name="portfolio_csv_skip_ambiguous">ukuhweba okuningana ngomzuzwana ofanayo okungehlukaniswe – kufake ngesandla</string>
+    <string name="portfolio_csv_skip_not_crypto">akuyona i-crypto</string>
+    <string name="portfolio_csv_skip_possible_duplicate">kungenzeka sekungenisiwe (ukuhweba okucishe kufane) – hlola ngesandla</string>
+    <string name="portfolio_csv_skip_two_fees">izimali ezimbili ezikhokhwayo ngamayunithi ahlukene – faka i-swap ngesandla</string>
+    <string name="portfolio_csv_skip_unsupported">uhlobo olungasekelwa</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">Hlehlisa</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">Susa umsebenzi ongu-%d walokhu kungenisa? Okufakwe ngesandla nokunye ukungenisa kuyahlala.</item>
+        <item quantity="other">Susa imisebenzi engu-%d yalokhu kungenisa? Okufakwe ngesandla nokunye ukungenisa kuyahlala.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">Hlehlisa ukungenisa?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">Umsebenzi ongu-%d ongenisiwe ususiwe</item>
+        <item quantity="other">Imisebenzi engu-%d engenisiwe isusiwe</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">umsebenzi ongu-%d</item>
+        <item quantity="other">imisebenzi engu-%d</item>
+    </plurals>
+    <string name="portfolio_imports_empty">Akukho ukungenisa</string>
+    <string name="portfolio_imports_title">Okungenisiwe</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">i-ID efanayo yomsebenzi enenani elihlukile – hlola ngesandla</string>
+    <string name="portfolio_csv_skip_staking_unpaired">okufakiwe kwe-staking okungenakho okuhambisanayo – hlola izimpahla</string>
+    <string name="portfolio_csv_skip_amount_too_small">inani lincane kakhulu – liba ngu-0 uma lilondolozwa</string>
+    <string name="portfolio_csv_skip_invalid_swap">i-swap engenayo i-coin evumelekile noma inani elitholiwe</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">Ifunda ifayela futhi …</string>
+</resources>

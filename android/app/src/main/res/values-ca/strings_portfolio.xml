@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">En aquest dispositiu no hi ha cap bloqueig de pantalla configurat. Configura\'n un primer a la configuració del sistema.</string>
+    <string name="app_lock_unlock">Desbloqueja</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">Buida la cartera</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="one">Vols suprimir %d transacció? Les adreces seguides es mantenen. Ho pots desfer just després.</item>
+        <item quantity="many">Vols suprimir totes les %d transaccions? Les adreces seguides es mantenen. Ho pots desfer just després.</item>
+        <item quantity="other">Vols suprimir totes les %d transaccions? Les adreces seguides es mantenen. Ho pots desfer just després.</item>
+    </plurals>
+    <string name="portfolio_empty_action">Afegeix la teva primera compra</string>
+    <string name="portfolio_empty_address">Només segueix una adreça de moneder</string>
+    <string name="portfolio_empty_csv">Has comprat en un exchange? Importa\'n el fitxer</string>
+    <string name="portfolio_empty_example_plain">Exemple: %1$s BTC comprats l\'1 de març. Llavors l\'app mostra què valen avui i si guanyes o perds – desat només en aquest dispositiu.</string>
+    <string name="portfolio_empty_title">Encara no hi ha transaccions</string>
+    <string name="portfolio_enable_ask_text">S\'ha desat la transacció. La pestanya Cartera mostra les teves tinences i el seu valor.</string>
+    <string name="portfolio_enable_ask_title">Vols activar la pestanya Cartera?</string>
+    <string name="portfolio_enable_later_hint">S\'ha desat la transacció. Pots activar la pestanya Cartera a Configuració › Cartera.</string>
+    <string name="portfolio_enabled_banner">Cartera activada – la trobaràs a la pestanya Cartera.</string>
+    <string name="portfolio_lock_reason">Desbloqueja la cartera</string>
+    <string name="portfolio_locked_text">Desbloqueja per veure les teves tinences i valors.</string>
+    <string name="portfolio_locked_title">La cartera està bloquejada</string>
+    <string name="portfolio_setting_hint">Opcional: registra compres i vendes i consulta el valor i els guanys/pèrdues en una pestanya a part.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">Desactualitzat · a les %1$s</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="one">%d entrada de la còpia del sistema no era vàlida i no s\'ha restaurat.</item>
+        <item quantity="many">%d entrades de la còpia del sistema no eren vàlides i no s\'han restaurat.</item>
+        <item quantity="other">%d entrades de la còpia del sistema no eren vàlides i no s\'han restaurat.</item>
+    </plurals>
+    <string name="portfolio_title">Cartera</string>
+    <string name="portfolio_unassigned_fee">Comissió no assignada – cost d\'adquisició desconegut: %1$s</string>
+    <string name="portfolio_updated">Preus a les %1$s</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">Altres</string>
+    <string name="portfolio_allocation_title">Distribució</string>
+    <string name="portfolio_card_details">Detalls</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: encara no disponible</string>
+    <string name="portfolio_card_hints_count">Notes (%1$d)</string>
+    <string name="portfolio_card_today">Avui</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">Total</string>
+    <string name="portfolio_hide_amounts">Amaga els imports</string>
+    <string name="portfolio_hide_amounts_hint">Mostra les quantitats i els valors de la cartera i del widget de cartera com a ••• – els percentatges continuen visibles.</string>
+    <string name="portfolio_invested">Cost d\'adquisició</string>
+    <string name="portfolio_total_no_fx">No hi ha tipus de canvi per a %1$s – imports en USDT</string>
+    <string name="portfolio_total_value">Valor total</string>
+    <string name="portfolio_value">Valor</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">Mitjana %1$s · ara %2$s</string>
+    <string name="portfolio_avg_only">Mitjana %1$s</string>
+    <string name="portfolio_avg_open_lots">Cost mitjà de les monedes en tinença</string>
+    <string name="portfolio_avg_partial">Mitjana de %1$s amb preu de compra</string>
+    <string name="portfolio_avg_price">Preu de compra mitjà</string>
+    <string name="portfolio_avg_price_hint">Preu de compra mitjà: la mitjana de totes les compres, ponderada per quantitat. Les vendes es valoren a aquesta mitjana.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Posició tancada (%1$d)</item>
+        <item quantity="many">Posicions tancades (%1$d)</item>
+        <item quantity="other">Posicions tancades (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: les vendes fan servir primer les monedes més antigues. Mitjana = cost d\'adquisició restant ÷ quantitat amb preu de compra.</string>
+    <string name="portfolio_holdings">Tinences</string>
+    <string name="portfolio_lost_fee_cost">Cost de la comissió de xarxa sense lot pagat: %1$s</string>
+    <string name="portfolio_open_lots">Lots de compra oberts (%1$d)</string>
+    <string name="portfolio_open_lots_avg">Amb preu de compra (mitjana)</string>
+    <string name="portfolio_open_lots_no_cost">Sense preu de compra</string>
+    <string name="portfolio_open_lots_without_price">sense preu de compra</string>
+    <string name="portfolio_realized">Guany/pèrdua realitzat</string>
+    <string name="portfolio_unrealized">Guany/pèrdua obert</string>
+    <string name="portfolio_unrealized_without_unpriced">sense %1$s sense preu de compra</string>
+    <string name="portfolio_withdrawn_gain">Retirat: %1$s (variació del valor fins a la retirada)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">Converteix a</string>
+    <string name="portfolio_convert_to_value">Converteix a: %1$s</string>
+    <string name="portfolio_current_missing">No hi ha preu actual per a %1$s</string>
+    <string name="portfolio_current_price">Preu actual</string>
+    <string name="portfolio_price_missing">Falta el preu</string>
+    <string name="portfolio_price_missing_hint">Algunes compres no tenen preu. Afegeix el preu de compra per veure els guanys/pèrdues.</string>
+    <string name="portfolio_price_source">Preus: Binance · USDT a preu de mercat</string>
+    <string name="portfolio_price_source_routes">Preus: %1$s, si no, Binance · USDT a preu de mercat</string>
+    <string name="portfolio_price_unavailable">Preu no disponible ara mateix</string>
+    <string name="portfolio_price_unchecked">Preu no verificat</string>
+    <string name="portfolio_price_via_base">≈ preu de %1$s (bridged/wrapped)</string>
+    <string name="portfolio_usdt_as_usd">USDT convertit al seu preu de mercat en USD</string>
+    <string name="portfolio_usdt_assumed">Falta el tipus en dòlars de l\'USDT – es compta com 1 dòlar dels EUA</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">Afegeix a la cartera</string>
+    <string name="portfolio_add_tx">Afegeix una transacció</string>
+    <string name="portfolio_buy">Compra</string>
+    <string name="portfolio_coin">Moneda</string>
+    <string name="portfolio_coin_invalid">Introdueix el símbol d\'una moneda</string>
+    <string name="portfolio_coin_search">Cerca un símbol, p. ex. BTC</string>
+    <string name="portfolio_discard_confirm">Descarta</string>
+    <string name="portfolio_discard_keep">Continua editant</string>
+    <string name="portfolio_discard_title">Vols descartar els canvis?</string>
+    <string name="portfolio_edit_tx">Edita la transacció</string>
+    <string name="portfolio_invalid">Introdueix un nombre vàlid més gran que 0.</string>
+    <string name="portfolio_oversold">Les vendes superen les tinences – revisa les transaccions.</string>
+    <string name="portfolio_sell">Venda</string>
+    <string name="portfolio_sell_exceeds">Més que les teves tinences (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">La quantitat més la comissió supera les teves tinences (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">Més que les teves tinences a %2$s (%1$s)</string>
+    <string name="portfolio_transactions">Transaccions</string>
+    <string name="portfolio_tx_acquired_date">Data de compra original (opcional)</string>
+    <string name="portfolio_tx_acquired_date_hint">Per al període de tinença a l\'exportació fiscal</string>
+    <string name="portfolio_tx_amount">Quantitat</string>
+    <string name="portfolio_tx_coin_fee">Comissió en la moneda (opcional)</string>
+    <string name="portfolio_tx_date">Data</string>
+    <string name="portfolio_tx_delete_confirm">Aquesta transacció s\'eliminarà de la cartera.</string>
+    <string name="portfolio_tx_delete_title">Vols suprimir la transacció?</string>
+    <string name="portfolio_tx_deposit">Dipòsit</string>
+    <string name="portfolio_tx_entry_currency">Introdueix en</string>
+    <string name="portfolio_tx_explain_deposit">Tinences sense operació, p. ex. monedes d\'abans</string>
+    <string name="portfolio_tx_explain_gift">Les monedes surten de les tinences com en una retirada – una alienació a valor de mercat només on el país grava les donacions (UK, CA, AU)</string>
+    <string name="portfolio_tx_explain_payment">Pagament de béns o serveis – una alienació a valor de mercat com una venda, sense rebre diners</string>
+    <string name="portfolio_tx_explain_reward">Cost d\'adquisició = valor de mercat en rebre-la</string>
+    <string name="portfolio_tx_explain_swap">Una moneda per una altra: ven la moneda lliurada i compra la moneda rebuda</string>
+    <string name="portfolio_tx_explain_transfer">Sense guany – el cost d\'adquisició es mou amb les monedes</string>
+    <string name="portfolio_tx_explain_withdrawal">Les tinences surten de la cartera – sense venda, sense guany</string>
+    <string name="portfolio_tx_fee_consumes_amount">La comissió és tan gran com la quantitat rebuda – no quedaria res.</string>
+    <string name="portfolio_tx_fees_toggle">Comissions</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s al tipus del %2$s</string>
+    <string name="portfolio_tx_fiat_loading">S\'està carregant el tipus de canvi…</string>
+    <string name="portfolio_tx_fiat_no_fx">No hi ha tipus de canvi per a aquest dia – introdueix l\'import en USDT.</string>
+    <string name="portfolio_tx_gift">Donació</string>
+    <string name="portfolio_tx_gift_price_hint">En USDT. Buit = tancament d\'aquell dia (estimat).</string>
+    <string name="portfolio_tx_gift_spouse">Al cònjuge / parella de fet</string>
+    <string name="portfolio_tx_gift_spouse_hint">Regne Unit i Canadà: ni guany ni pèrdua – la teva parella n\'assumeix el cost d\'adquisició. Els altres països ho ignoren.</string>
+    <string name="portfolio_tx_market_value">Valor de mercat per moneda</string>
+    <string name="portfolio_tx_more_buy">Comissió, exchange, nota</string>
+    <string name="portfolio_tx_network_fee">Comissió de xarxa en la moneda (opcional)</string>
+    <string name="portfolio_tx_note">Nota (opcional)</string>
+    <string name="portfolio_tx_payment">Pagament</string>
+    <string name="portfolio_tx_price">Preu per moneda</string>
+    <string name="portfolio_tx_price_hint">En USDT. Deixa-ho buit si no el saps.</string>
+    <string name="portfolio_tx_price_historic">Tancament diari verificat del %1$s – ajusta\'l si cal</string>
+    <string name="portfolio_tx_price_invalid">Introdueix un nombre vàlid (0 o més) o deixa el camp buit.</string>
+    <string name="portfolio_tx_price_past_hint">Introdueix el preu del dia de compra – deixa-ho buit si no el saps</string>
+    <string name="portfolio_tx_price_receipt_hint">En USDT. Buit = tinences sense cost d\'adquisició.</string>
+    <string name="portfolio_tx_price_zero">El preu 0 no és possible per a transaccions importades – deixa-ho buit per al preu de mercat</string>
+    <string name="portfolio_tx_removed">S\'ha suprimit la transacció</string>
+    <string name="portfolio_tx_reward">Recompensa</string>
+    <string name="portfolio_tx_save_failed">No s\'ha pogut desar la transacció. Les dades introduïdes encara hi són – torna-ho a provar.</string>
+    <string name="portfolio_tx_swap">Intercanvi</string>
+    <string name="portfolio_tx_swap_fee_received">Comissió en %1$s: redueix la quantitat rebuda, no cal preu.</string>
+    <string name="portfolio_tx_swap_from">Intercanvi des de %1$s</string>
+    <string name="portfolio_tx_swap_given_amount">Quantitat lliurada</string>
+    <string name="portfolio_tx_swap_given_coin">Moneda lliurada</string>
+    <string name="portfolio_tx_swap_received_amount">Quantitat rebuda</string>
+    <string name="portfolio_tx_swap_received_coin">Moneda rebuda</string>
+    <string name="portfolio_tx_swap_same_coin">Tria una moneda diferent de la lliurada</string>
+    <string name="portfolio_tx_swap_to">Intercanvi a %1$s</string>
+    <string name="portfolio_tx_swap_value">Valor de l\'intercanvi (opcional)</string>
+    <string name="portfolio_tx_swap_value_hint">Valor total. Buit = desconegut – el guany queda incomplet (automàtic amb USDT a l\'intercanvi).</string>
+    <string name="portfolio_tx_third_fee_amount">Import de la comissió</string>
+    <string name="portfolio_tx_third_fee_coin">Moneda de la comissió</string>
+    <string name="portfolio_tx_third_fee_incomplete">Sense preu, la comissió queda fora del cost d\'adquisició i dels ingressos; l\'exportació fiscal marca aquestes vendes.</string>
+    <string name="portfolio_tx_third_fee_price">Preu per moneda de comissió (opcional)</string>
+    <string name="portfolio_tx_third_fee_toggle">Comissió en una altra moneda</string>
+    <string name="portfolio_tx_total">Total: %1$s</string>
+    <string name="portfolio_tx_transfer">Transferència</string>
+    <string name="portfolio_tx_transfer_from">Des de (opcional)</string>
+    <string name="portfolio_tx_transfer_to">A (opcional)</string>
+    <string name="portfolio_tx_transfer_to_hint">Exchange o moneder – a partir d\'ara es valora allà.</string>
+    <string name="portfolio_tx_type_select">Tipus: %1$s</string>
+    <string name="portfolio_tx_value_received">Valor per moneda en rebre-la (opcional)</string>
+    <string name="portfolio_tx_withdrawal">Retirada</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">L\'has regalat o hi has pagat? Registra-ho com a «Donació» o «Pagament» – segons el país, compta com una venda a efectes fiscals.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">Opcional: valor de mercat en USDT, només per a l\'historial (buit = preu d\'aquell dia). Les monedes sempre surten al seu cost d\'adquisició.</string>
+    <string name="portfolio_wallet_did_you_mean">Volies dir %1$s? Una grafia diferent compta com un moneder separat.</string>
+    <string name="portfolio_wallet_shortfall">Les tinences a %1$s no són suficients – falta alguna transferència?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">Màxim %1$s</string>
+    <string name="portfolio_compare">Compara</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">Compara %1$s i USDT en percentatge</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">Comparació en percentatge, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">Efecte de la moneda: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">Les dades de preu només arriben fins a l\'agost del 2017 — l\'historial comença allà.</string>
+    <string name="portfolio_history_chip_since_first">Tot</string>
+    <string name="portfolio_history_collapse">Amaga l\'historial de valor</string>
+    <string name="portfolio_history_converted">Convertit al tipus d\'avui</string>
+    <string name="portfolio_history_expand">Mostra l\'historial de valor</string>
+    <string name="portfolio_history_gain_a11y">Valor %1$s. Guany/pèrdua, %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">Guany/pèrdua</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">Valor en %1$s</string>
+    <string name="portfolio_history_incl_fx">Incl. tipus de canvi</string>
+    <string name="portfolio_history_incl_withdrawn">Inclou la variació del valor de les monedes retirades</string>
+    <string name="portfolio_history_includes_trades">Inclou compres i vendes en aquest període</string>
+    <string name="portfolio_history_loading">S\'està carregant l\'historial de valor</string>
+    <string name="portfolio_history_period_1y">1 any</string>
+    <string name="portfolio_history_period_30d">30 dies</string>
+    <string name="portfolio_history_period_7d">7 dies</string>
+    <string name="portfolio_history_period_since_first">des de la primera compra</string>
+    <string name="portfolio_history_pnl_needs_prices">Falten preus de compra per als guanys/pèrdues – afegeix-los a les transaccions.</string>
+    <string name="portfolio_history_pnl_without">Guany/pèrdua sense %1$s (falta el preu)</string>
+    <string name="portfolio_history_range_1y">1 A</string>
+    <string name="portfolio_history_range_30d">30 D</string>
+    <string name="portfolio_history_range_7d">7 D</string>
+    <string name="portfolio_history_range_a11y">Mostra l\'historial de %1$s</string>
+    <string name="portfolio_history_range_since_first">Des de la 1a compra</string>
+    <string name="portfolio_history_scaled">Historial de %1$s: historial de Binance escalat al preu de l\'exchange</string>
+    <string name="portfolio_history_title">Historial de valor</string>
+    <string name="portfolio_history_today">Avui</string>
+    <string name="portfolio_history_too_short">L\'historial comença després del teu primer dia complet.</string>
+    <string name="portfolio_history_unavailable">Ara mateix no hi ha historial disponible.</string>
+    <string name="portfolio_history_utc_days">Dies en UTC (espelmes diàries)</string>
+    <string name="portfolio_history_without_matching">Sense %1$s (no hi ha preus diaris coincidents)</string>
+    <string name="portfolio_period_rewards">Recompenses +%1$s (no incloses al guany)</string>
+    <string name="portfolio_period_scaled">7 D/1 A per a %1$s: historial de Binance escalat al preu de l\'exchange</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">Alarma</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">Import (%1$s)</string>
+    <string name="portfolio_alarm_hint">Es comprova després de cada actualització. Com les alarmes, es dispara quan es creua la marca i només torna a fer-ho quan el valor ha tornat enrere.</string>
+    <string name="portfolio_alarm_kind_above">Cartera per sobre de l\'import</string>
+    <string name="portfolio_alarm_kind_below">Cartera per sota de l\'import</string>
+    <string name="portfolio_alarm_kind_down">La cartera baixa</string>
+    <string name="portfolio_alarm_kind_up">La cartera puja</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">Cartera per sobre de %1$s</string>
+    <string name="portfolio_alarm_sentence_below">Cartera per sota de %1$s</string>
+    <string name="portfolio_alarm_sentence_down">Cartera baixa %1$s (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">Cartera puja %1$s (%2$s)</string>
+    <string name="portfolio_alarm_title">Alarma del valor de la cartera</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">Exchange (opcional)</string>
+    <string name="ledger_exchange_failed">%1$s: ara mateix no hi ha preu de %2$s – valorat amb Binance.</string>
+    <string name="ledger_exchange_hint">La moneda es valora al preu d\'aquest exchange (si no, Binance). L\'historial, 7 D i 1 A fan servir preus diaris de Binance escalats a aquest preu.</string>
+    <string name="ledger_exchange_mixed">%1$s: s\'han introduït diversos exchanges – valorat amb Binance. Has mogut monedes? Registra el moviment com a «Transferència».</string>
+    <string name="ledger_exchange_none">Cap (Binance)</string>
+    <string name="ledger_fee">Comissió (opcional)</string>
+    <string name="ledger_fee_coin">Moneda</string>
+    <string name="ledger_fee_hint">En USDT augmenta el cost d\'adquisició (venda: redueix els ingressos); en la moneda redueix la quantitat.</string>
+    <string name="ledger_fee_line">Comissió %1$s</string>
+    <string name="ledger_fifo_cost_note">Des de la compra: cost FIFO incl. comissions (es venen primer les monedes més antigues).</string>
+    <string name="ledger_gain_info">Avui, 7 D, 1 A: variació del valor en el període – les compres i vendes no compten com a guany. Des de la compra: valor actual menys el cost d\'adquisició (cost mitjà incl. comissions) de les monedes que encara tens.</string>
+    <string name="ledger_gain_info_a11y">Com es calculen els guanys i les pèrdues</string>
+    <string name="ledger_gain_info_fifo">Avui, 7 D, 1 A: variació del valor en el període – les compres i vendes no compten com a guany. Des de la compra: valor actual menys el cost d\'adquisició (FIFO incl. comissions) de les monedes que encara tens.</string>
+    <string name="ledger_gain_title">Guany/pèrdua</string>
+    <string name="ledger_more_toggle">Comissió i exchange</string>
+    <string name="ledger_partial_cost">«Des de la compra» només compta la part amb preu de compra – sense %1$s sense preu de compra.</string>
+    <string name="ledger_period_without">Avui / 7 D / 1 A sense %1$s – no hi ha preu inicial coincident.</string>
+    <string name="ledger_since_purchase_currency">Des de la compra (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">Guany/pèrdua des de la compra, encara no venut</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="one">Sense %1$d moneda sense preu de compra (%2$s) – afegeix-ne el preu perquè compti.</item>
+        <item quantity="many">Sense %1$d monedes sense preu de compra (%2$s) – afegeix-ne els preus perquè comptin.</item>
+        <item quantity="other">Sense %1$d monedes sense preu de compra (%2$s) – afegeix-ne els preus perquè comptin.</item>
+    </plurals>
+
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">Caiguda de l\'USDT – mercat a %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">Tipus en dòlars de l\'USDT via USDC/USDT – si l\'USDC cau, aquest valor és incorrecte</string>
+    <string name="portfolio_amount_bridged_stable">≈ incl. %1$s (bridged)</string>
+
+    <string name="portfolio_tx_interest">Interessos (préstec)</string>
+    <string name="portfolio_tx_interest_hint">Compta com a ingrés en rebre\'ls (Àustria). No ho facis servir per a recompenses de staking ni airdrops.</string>
+    <string name="app_lock_no_screen_lock">Configura un bloqueig de pantalla per obrir la cartera.</string>
+    <string name="app_lock_turn_off_action">Desactiva el bloqueig de la cartera</string>
+    <string name="app_lock_turn_off_confirm_title">Vols desactivar el bloqueig de la cartera?</string>
+    <string name="app_lock_turn_off_confirm_message">Sense bloqueig de pantalla, la cartera no es pot desbloquejar. Si el desactives, l\'app torna a mostrar la cartera sense preguntar. Quan hagis configurat un bloqueig de pantalla, el pots tornar a activar a la configuració.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">«Des de la compra» i cost d\'adquisició en %1$s: cost al tipus de canvi del dia de compra, valor al tipus d\'avui.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">No hi ha tipus de canvi per al dia de compra (falta a «Des de la compra» i al cost d\'adquisició): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">El cost en dies de compra sense tipus en dòlars de l\'USDT es compta com 1 dòlar dels EUA per USDT.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">A les %1$s – exchange no accessible</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">Preus diaris: %1$s (en lloc de Binance)</string>
+
+    <string name="portfolio_footer_short">Eina de suport, no és assessorament fiscal ni d\'inversió. Privadesa: Configuració › Quant a l\'app › Política de privadesa.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">Vols suprimir totes les transaccions de %1$s?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">S\'eliminarà %d transacció. Ho pots desfer just després.</item>
+        <item quantity="many">S\'eliminaran %d transaccions. Ho pots desfer just després.</item>
+        <item quantity="other">S\'eliminaran %d transaccions. Ho pots desfer just després.</item>
+    </plurals>
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">Les comissions pagades en %1$s també s\'eliminen d\'altres transaccions: %2$d.</string>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">S\'ha eliminat %1$s de la cartera (%2$d transacció)</item>
+        <item quantity="many">S\'ha eliminat %1$s de la cartera (%2$d transaccions)</item>
+        <item quantity="other">S\'ha eliminat %1$s de la cartera (%2$d transaccions)</item>
+    </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">S\'ha eliminat %d transacció</item>
+        <item quantity="many">S\'han eliminat %d transaccions</item>
+        <item quantity="other">S\'han eliminat %d transaccions</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">També s\'elimina %d lot.</item>
+        <item quantity="many">També s\'eliminen %d lots.</item>
+        <item quantity="other">També s\'eliminen %d lots.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">També s\'elimina %d lot i l\'historial de saldo.</item>
+        <item quantity="many">També s\'eliminen %d lots i l\'historial de saldo.</item>
+        <item quantity="other">També s\'eliminen %d lots i l\'historial de saldo.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">També s\'elimina l\'historial de saldo.</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">No s\'ha pogut desar – torna-ho a provar</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">Llindar no vàlid – suprimeix-la i torna-la a crear</string>
+</resources>

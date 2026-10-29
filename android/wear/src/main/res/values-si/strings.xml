@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">කාසි කිසිවක් තෝරා නැත</string>
+    <string name="watch_loading">පූරණය වෙමින්…</string>
+    <string name="watch_error">හුවමාරුවලට ළඟා විය නොහැක</string>
+    <string name="watch_updated">%1$s වන විට</string>
+    <string name="watch_refresh">නැවුම් කරන්න</string>
+    <string name="watch_choose">කාසි තෝරන්න</string>
+    <string name="watch_choose_hint">කාසි: උපරිම %1$d</string>
+    <string name="watch_complication_label">මිල</string>
+    <string name="a11y_watch_row">%1$s %2$s, පැය 24 තුළ %3$s</string>
+    <string name="watch_mode_phone">ලැයිස්තුව: දුරකථනය මෙන්</string>
+    <string name="watch_mode_own">ලැයිස්තුව: තමන්ගේම</string>
+    <string name="watch_phone_empty">දුරකථනයේ ප්‍රියතම කිසිවක් නැත</string>
+    <string name="a11y_watch_outdated">මිල යල් පැන ගොස් ඇත</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">අවසන් වරට යාවත්කාලීන කළේ මිනිත්තු %1$d කට පෙර</item>
+        <item quantity="other">අවසන් වරට යාවත්කාලීන කළේ මිනිත්තු %1$d කට පෙර</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">අවසන් වරට යාවත්කාලීන කළේ පැය %1$d කට පෙර</item>
+        <item quantity="other">අවසන් වරට යාවත්කාලීන කළේ පැය %1$d කට පෙර</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">අවසන් වරට යාවත්කාලීන කළේ දින %1$d කට පෙර</item>
+        <item quantity="other">අවසන් වරට යාවත්කාලීන කළේ දින %1$d කට පෙර</item>
+    </plurals>
+</resources>

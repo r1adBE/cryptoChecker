@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Monetos nepasirinktos</string>
+    <string name="watch_loading">Įkeliama…</string>
+    <string name="watch_error">Biržos nepasiekiamos</string>
+    <string name="watch_updated">Būsena %1$s</string>
+    <string name="watch_refresh">Atnaujinti</string>
+    <string name="watch_choose">Pasirinkti monetas</string>
+    <string name="watch_choose_hint">Monetų: daugiausia %1$d</string>
+    <string name="watch_complication_label">Kaina</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s per 24 valandas</string>
+    <string name="watch_mode_phone">Sąrašas: kaip telefone</string>
+    <string name="watch_mode_own">Sąrašas: savas</string>
+    <string name="watch_phone_empty">Telefone nėra mėgstamų</string>
+    <string name="a11y_watch_outdated">Kaina pasenusi</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">paskutinį kartą atnaujinta prieš %1$d minutę</item>
+        <item quantity="few">paskutinį kartą atnaujinta prieš %1$d minutes</item>
+        <item quantity="many">paskutinį kartą atnaujinta prieš %1$d minutės</item>
+        <item quantity="other">paskutinį kartą atnaujinta prieš %1$d minučių</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">paskutinį kartą atnaujinta prieš %1$d valandą</item>
+        <item quantity="few">paskutinį kartą atnaujinta prieš %1$d valandas</item>
+        <item quantity="many">paskutinį kartą atnaujinta prieš %1$d valandos</item>
+        <item quantity="other">paskutinį kartą atnaujinta prieš %1$d valandų</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">paskutinį kartą atnaujinta prieš %1$d dieną</item>
+        <item quantity="few">paskutinį kartą atnaujinta prieš %1$d dienas</item>
+        <item quantity="many">paskutinį kartą atnaujinta prieš %1$d dienos</item>
+        <item quantity="other">paskutinį kartą atnaujinta prieš %1$d dienų</item>
+    </plurals>
+</resources>

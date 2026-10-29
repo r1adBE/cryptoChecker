@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
+    <string name="portfolio_cutoff_export_action">Eksportas pagal datą…</string>
+    <string name="portfolio_tax_worksheet_action">Darbo lapas…</string>
+    <string name="portfolio_export_address_unobserved">adresas šią dieną nestebėtas – neįtrauktas</string>
+    <string name="portfolio_export_button">Eksportuoti CSV</string>
+    <string name="portfolio_export_col_amount">Kiekis</string>
+    <string name="portfolio_export_col_coin">Moneta</string>
+    <string name="portfolio_export_col_note">Pastaba</string>
+    <string name="portfolio_export_col_price">Kaina USDT</string>
+    <string name="portfolio_export_col_rate">Kursas USDT→%1$s</string>
+    <string name="portfolio_export_col_value">Vertė USDT</string>
+    <string name="portfolio_export_col_value_cur">Vertė %1$s</string>
+    <!-- Inhalt der CSV-Datei -->
+    <string name="portfolio_export_comment"># Data %1$s, valiuta %2$s, valiutos kursas %3$s</string>
+    <string name="portfolio_export_currency">Valiuta: %1$s</string>
+    <string name="portfolio_export_date">Data</string>
+    <string name="portfolio_export_done">Eksportas išsaugotas</string>
+    <string name="portfolio_export_estv_note">Turto mokesčiui taikomos oficialios ESTV kainų sąrašo %1$s metų pabaigos vertės, jei jos nurodytos: %2$s</string>
+    <string name="portfolio_export_failed">Eksportuoti nepavyko</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">Eksportuoti nepavyko: failo įrašyti nepavyko – saugojimo vietos nebėra arba į ją negalima rašyti</string>
+    <string name="portfolio_export_failed_prices">Eksportuoti nepavyko: kainų įkelti nepavyko – nėra ryšio arba birža neatsako</string>
+    <string name="portfolio_export_from_address">iš adreso – be pirkimo kainos</string>
+    <string name="portfolio_export_hint">Turimas turtas pasirinktos dienos pabaigoje, įvertintas dienos uždarymo kaina (UTC) USDT ir perskaičiuotas tos dienos ECB orientaciniu kursu. Valiutą keisk per „Perskaičiuoti į“.</string>
+    <string name="portfolio_export_incomplete">nepilna</string>
+    <string name="portfolio_export_no_fx">nėra valiutos kurso</string>
+    <string name="portfolio_export_no_price">nėra kainos</string>
+    <string name="portfolio_export_running">Gaunamos istorinės kainos…</string>
+    <string name="portfolio_export_title">Eksportas pagal datą</string>
+    <string name="portfolio_export_today_hint">Šiandiena dar nesibaigė: vietoj dienos uždarymo kainos naudojama dabartinė kaina.</string>
+    <string name="portfolio_export_total">Iš viso</string>
+    <string name="portfolio_export_unchecked">nepatikrinta (nėra atitinkamos kainos)</string>
+
+    <!-- Steuer-Export (Arbeitspapier) -->
+    <string name="tax_export_adjustment">fiktyvus nuostolis (superficial loss, pridėtas prie ACB)</string>
+    <string name="tax_export_at_wallet_note">Austrija: slankusis vidurkis kiekvienai monetai ir piniginei (biržai) – pervedimai perkelia savikainą – atlygiai su įsigijimo kaina 0 – turtas nuo 2021-03-01 be komisinių mokesčių (neatskaitomi) – palūkanos už skolinimą gavimo metu esančia verte (pajamos 27,5 proc. tarifu).</string>
+    <string name="tax_export_avg_cost_rates">savikaina pagal pirkimo datų kursus (vidurkis)</string>
+    <string name="tax_export_ch_wealth_not_calculated">Turto mokestis neapskaičiuotas – ESTV kainų sąrašas: %1$s</string>
+    <string name="tax_export_col_acquired">Įsigyta</string>
+    <string name="tax_export_col_adjustment">Neleidžiamas nuostolis %1$s</string>
+    <string name="tax_export_col_cost">Savikaina %1$s</string>
+    <string name="tax_export_col_date">Data</string>
+    <string name="tax_export_col_days">Laikyta dienų</string>
+    <string name="tax_export_col_gain">Pelnas %1$s</string>
+    <string name="tax_export_col_gross">Kaina be komisinių mokesčių %1$s</string>
+    <string name="tax_export_col_long_term">laikyta &gt; 1 metus</string>
+    <string name="tax_export_col_portfolio_value">Portfelio vertė %1$s</string>
+    <string name="tax_export_col_proceeds">Pajamos %1$s</string>
+    <string name="tax_export_col_sold">Parduota</string>
+    <string name="tax_export_cost_incomplete">bendra įsigijimo kaina nepilna</string>
+    <string name="tax_export_cost_missing">trūksta pirkimo kainos</string>
+    <string name="tax_export_fee_consumed">Komisinis mokestis sunaudoja visą gautą kiekį</string>
+    <string name="tax_export_fee_leg">komisinis mokestis kita moneta</string>
+    <string name="tax_export_fee_row">Komisinis mokestis</string>
+    <string name="tax_export_fee_value_missing">komisinis mokestis kita moneta neturi vertės</string>
+    <string name="tax_export_gains">Realizuoti perleidimai (CSV)</string>
+    <string name="tax_export_gains_title">Realizuoti perleidimai %1$s</string>
+    <string name="tax_export_gift">Dovana</string>
+    <string name="tax_export_holdings_cutoff">Turimas turtas %1$s (CSV)</string>
+    <string name="tax_export_holdings_title">Turimas turtas %1$s</string>
+    <string name="tax_export_income">Pajamos (CSV)</string>
+    <string name="tax_export_income_title">Pajamos %1$s</string>
+    <string name="tax_export_info_template">Šablonas: %1$s · Metodas: %2$s · Mokestiniai metai: %3$s · Valiuta: %4$s · Crypto Checker %5$s</string>
+    <string name="tax_export_lost_fee_cost">tinklo komisinio mokesčio savikaina be apmokėtos partijos</string>
+    <string name="tax_export_match_pool">Section 104 pool</string>
+    <string name="tax_export_match_same_day">ta pati diena (HMRC)</string>
+    <string name="tax_export_match_thirty_day">30 dienų taisyklė (HMRC)</string>
+    <string name="tax_export_method_change_warning">Pakeitus metodą ar šabloną, perskaičiuojami ir ankstesni metai – palygink su tuo, ką jau deklaravai.</string>
+    <string name="tax_export_method_overridden">Šablonas skaičiuoja %1$s – ne %2$s</string>
+    <string name="tax_export_new_holding">įsigyta nuo 2021-03-01</string>
+    <string name="tax_export_no">ne</string>
+    <string name="tax_export_old_holding">įsigyta iki 2021-03-01</string>
+    <string name="tax_export_oversold">parduota daugiau nei užregistruota</string>
+    <string name="tax_export_payment">Mokėjimas kriptovaliuta</string>
+    <string name="tax_export_period">%1$s – %2$s</string>
+    <string name="tax_export_proceeds_missing">trūksta pardavimo kainos</string>
+    <string name="tax_export_proceeds_without_cost">Pajamos be pirkimo kainos</string>
+    <string name="tax_export_realized_differs">Mokesčių CSV gali skirtis nuo „realizuota“ (šalies mokesčių taisyklės).</string>
+    <string name="tax_export_rule">&gt; 1 metai: parduota po pirkimo datos + 1 kalendoriniai metai. Datos vietos laiku. Kursai: ECB transakcijos dienos kursas; jei jo nėra, paskutinis kursas iki 7 dienų prieš tai.</string>
+    <string name="tax_export_rules_date">Taisyklių data: %1$s</string>
+    <string name="tax_export_rules_stale">Taisyklės iš %1$s – %2$s tarifai ir lengvatos galėjo pasikeisti. Patikrink vertes.</string>
+    <string name="tax_export_spouse_gift">sutuoktiniui / partneriui – nei pelno, nei nuostolio</string>
+    <string name="tax_export_summary">Metinė suvestinė %1$s (CSV)</string>
+    <string name="tax_export_swap">apsikeitimas</string>
+    <string name="tax_export_tax_year">Mokestiniai metai</string>
+    <string name="tax_export_transfer_fee_info">Pervedimo komisinis mokestis USDT / grynaisiais – ne nuostolis, neįtraukiamas į savikainą, tik informacija</string>
+    <string name="tax_export_unassigned_fee">komisinis mokestis nepriskirtas – savikaina nežinoma</string>
+    <string name="tax_export_usdt_usd_note">USDT perskaičiuota pagal USDT/USD dienos uždarymo kainą; kur jos nėra – 1 USD (pažymėta kiekvienoje eilutėje)</string>
+    <string name="tax_export_value_estimated">Vertė apytikslė (dienos uždarymo kaina)</string>
+    <string name="tax_export_value_missing">trūksta vertės gavimo metu</string>
+    <string name="tax_export_wallet">Piniginė: %1$s</string>
+    <string name="tax_export_wallet_unspecified">nenurodyta</string>
+    <string name="tax_export_withdrawal_fee">Išėmimo komisinis mokestis</string>
+    <string name="tax_export_withdrawal_fee_info">Išėmimo komisinis mokestis USDT / grynaisiais – ne nuostolis, tik informacija</string>
+    <string name="tax_export_workpaper_disclaimer">Mokesčių darbo lapas – ne mokesčių deklaracija ir ne mokesčių konsultacija</string>
+    <string name="tax_export_workpaper_title">Darbo lapas</string>
+    <string name="tax_export_year_local_zone">Datos vietos laiku (%1$s)</string>
+    <string name="tax_export_yes">taip</string>
+
+    <!-- Steuer-Export: Zeilen und Spalten -->
+    <string name="tax_line_at_interest">Palūkanos už skolinimą (vertė gavimo metu)</string>
+    <string name="tax_line_at_old_long">Įsigyta iki 2021-03-01 – laikyta &gt; 1 metus: paprastai neapmokestinama – patikrink</string>
+    <string name="tax_line_at_rate">Specialus 27,5 proc. tarifas: grynasis rezultatas įsigijus nuo 2021-03-01 ir pardavus nuo 2022-03-01 + palūkanos</string>
+    <string name="tax_line_au_discounted">Grynasis kapitalo prieaugis po nuostolių ir 50 proc. nuolaidos</string>
+    <string name="tax_line_ca_taxable">Apmokestinamasis kapitalo prieaugis (įtraukimo norma 1/2)</string>
+    <string name="tax_line_ch_income">Atlygiai išvardyti – jų vertinimą žr. ESTV darbo dokumente</string>
+    <string name="tax_line_ch_private">Kapitalo prieaugis iš privataus turto: neapskaičiuota – klasifikaciją žr. ESTV</string>
+    <string name="tax_line_ch_wealth">Turto mokestis: neapskaičiuotas – turto CSV naudoja biržos kainą × USD/CHF gruodžio 31 d. – oficialios mokestinės vertės: ESTV kainų sąrašas</string>
+    <string name="tax_line_de_long">Laikyta &gt; 1 metus: pagal § 23 EStG paprastai neapmokestinama – patikrink</string>
+    <string name="tax_line_denied_loss">Neleidžiami nuostoliai (superficial loss)</string>
+    <string name="tax_line_fr_outflow">Išėjimai be pardavimo (išėmimai) – bendra įsigijimo kaina proporcingai sumažinta</string>
+    <string name="tax_line_fr_rate">Fiksuotas 12,8 proc. tarifas plius socialinės įmokos (arba progresinis tarifas pasirinkus)</string>
+    <string name="tax_line_fr_threshold">Perleidimai iki 305 € per metus: paprastai neapmokestinami (pardavimo kainų suma) – patikrink</string>
+    <string name="tax_line_gains">Pelnas</string>
+    <string name="tax_line_income">Pajamos (atlygiai gavimo metu esančia verte)</string>
+    <string name="tax_line_jp_misc">Kitos pajamos (雑所得): grynasis pelnas + pajamos</string>
+    <string name="tax_line_long_net">Grynasis – laikyta &gt; 1 metus</string>
+    <string name="tax_line_losses">Nuostoliai</string>
+    <string name="tax_line_net">Grynasis pelnas / nuostolis</string>
+    <string name="tax_line_new_net">Grynasis – įsigyta nuo 2021-03-01, parduota nuo 2022-03-01</string>
+    <string name="tax_line_old_long_net">Grynasis – įsigyta iki 2021-03-01 – laikyta &gt; 1 metus</string>
+    <string name="tax_line_old_short_net">Grynasis – spekuliaciniai sandoriai (ankstesnis reglamentavimas): įsigyta iki 2021-03-01 ir laikyta ≤ 1 metus arba parduota iki 2022-03-01</string>
+    <string name="tax_line_proceeds">Pajamos</string>
+    <string name="tax_line_short_net">Grynasis – laikyta ≤ 1 metus</string>
+    <string name="tax_line_transfer_fees">Pervedimo komisiniai mokesčiai (savos piniginės)</string>
+    <string name="tax_line_uk_after_exempt">Grynasis pelnas virš neapmokestinamos sumos (tik kriptovaliutos)</string>
+    <string name="tax_line_uk_exempt">Metinė neapmokestinama suma (Annual Exempt Amount) – taikoma visiems perleidimams kartu, čia pritaikyta visa</string>
+    <string name="tax_line_us_terms">Trumpalaikis (≤ 1 metai): įprasti tarifai – ilgalaikis (&gt; 1 metai): kapitalo prieaugio tarifai</string>
+    <string name="tax_line_withdrawal_fees">Išėmimo komisiniai mokesčiai</string>
+
+    <!-- Steuer Deutschland -->
+    <string name="tax_de_below">žemiau ribos</string>
+    <string name="tax_de_col_item">Straipsnis</string>
+    <string name="tax_de_disclaimer">Tik orientacijai – ne mokesčių deklaracija ir ne mokesčių konsultacija.</string>
+    <string name="tax_de_explain_below">Iki %1$s: žemiau ribos (orientacijai).</string>
+    <string name="tax_de_explain_loss">Grynasis nuostolis: šiems pardavimams mokesčio nėra. Nuostoliai pagal § 23 EStG gali būti įskaityti tik į privačių pardavimų pelną – tais pačiais metais arba perkeliant į ankstesnius ar vėlesnius metus (§ 23 Abs. 3 ir § 10d EStG). Nurodyk nuostolį mokesčių deklaracijoje, kad jis būtų nustatytas.</string>
+    <string name="tax_de_explain_reached">Nuo %1$s skaičiuojama visa suma (neapmokestinimo riba – ne lengvata).</string>
+    <string name="tax_de_explain_unknown">Patikrinti negalima: trūksta valiutų kursų / pirkimo kainų ar laikymo trukmių.</string>
+    <string name="tax_de_income_limit">Paslaugų neapmokestinimo riba (§ 22 Nr. 3 EStG)</string>
+    <string name="tax_de_limit_scope">Ribos taikomos visiems metų privatiems pardavimams ar paslaugoms kartu – įskaitant už programėlės ribų.</string>
+    <string name="tax_de_loading">Skaičiuojama…</string>
+    <string name="tax_de_long_gains">Pelnas – laikyta &gt; 1 metus</string>
+    <string name="tax_de_long_losses">Nuostoliai – laikyta &gt; 1 metus</string>
+    <string name="tax_de_loss">grynasis nuostolis – įskaitomas tik į privačių pardavimų pelną (§ 23 EStG)</string>
+    <string name="tax_de_private_limit">Privačių pardavimų neapmokestinimo riba (§ 23 EStG)</string>
+    <string name="tax_de_reached">riba pasiekta – paprastai skaičiuojama visa suma – patikrink</string>
+    <string name="tax_de_short_gains">Pelnas – laikyta ≤ 1 metus</string>
+    <string name="tax_de_short_losses">Nuostoliai – laikyta ≤ 1 metus</string>
+    <string name="tax_de_unclassified">Laikymo trukmė nežinoma</string>
+    <string name="tax_de_unknown">negalima patikrinti</string>
+
+    <!-- Steuer-Vorlagen je Land -->
+    <string name="tax_template_at">Austrija</string>
+    <string name="tax_template_au">Australija</string>
+    <string name="tax_template_beta">Beta</string>
+    <string name="tax_template_beta_note">Beta: šalies taisyklės supaprastintos, patikrink prieš teikiant mokesčių deklaraciją</string>
+    <string name="tax_template_ca">Kanada</string>
+    <string name="tax_template_ch">Šveicarija</string>
+    <string name="tax_template_confirm_text">Beta, supaprastintos taisyklės, trūksta kitų platformų transakcijų – patikrink prieš teikiant mokesčių deklaraciją.</string>
+    <string name="tax_template_confirm_title">Mokesčių šablonas (beta)</string>
+    <string name="tax_template_current">Šablonas: %1$s · Metodas: %2$s · Valiuta: %3$s</string>
+    <string name="tax_template_de">Vokietija</string>
+    <string name="tax_template_fr">Prancūzija</string>
+    <string name="tax_template_hint">Tik orientacijai: nustato mokesčių darbo lapo metodą, mokestinius metus ir suvestinę. Portfelio kortelė lieka neutrali – dovanos ir pervedimo komisiniai mokesčiai gali skirtis nuo darbo lapo.</string>
+    <string name="tax_template_jp">Japonija</string>
+    <string name="tax_template_neutral">Neutralus (visos šalys)</string>
+    <string name="tax_template_suggestion">Pasiūlymas tavo regionui: %1$s</string>
+    <string name="tax_template_title">Mokesčių šablonas</string>
+    <string name="tax_template_uk">Jungtinė Karalystė</string>
+    <string name="tax_template_us">JAV</string>
+    <string name="tax_template_use">Naudoti %1$s</string>
+
+    <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
+    <string name="tax_method_at">Senas / naujas turtas – slankusis vidurkis</string>
+    <string name="tax_method_ca_acb">ACB vidutinė savikaina (superficial loss)</string>
+    <string name="tax_method_fr_pta">Bendra įsigijimo kaina (art. 150 VH bis)</string>
+    <string name="tax_method_jp_total">Bendras vidurkis (総平均法)</string>
+    <string name="tax_method_uk_pool">Section 104 pool (ta pati diena / 30 dienų)</string>
+    <string name="tax_note_at">Slankusis vidurkis kiekvienai monetai ir piniginei – ne per visas pinigines (KryptowährungsVO § 2). Atlygiai patenka į naują turtą su įsigijimo kaina 0 (BMF: staking / airdrop) – pajamų failas juos pateikia gavimo metu esančia verte. Turtui, įsigytam nuo 2021-03-01, komisiniai mokesčiai neatskaitomi (§ 27a(4) Nr. 2, § 20(2) EStG): savikaina ir pajamos be komisinių mokesčių. Palūkanos už skolinimą (tipas iš CSV importo ar pastabos) yra pajamos gavimo metu 27,5 proc. tarifu, ir ši vertė lieka įsigijimo kaina.</string>
+    <string name="tax_note_at_staking">Staking su jau turimomis monetomis ir airdrop: vertė gavimo metu mokesčiams neturi reikšmės – pagal įstatymą įsigijimo kaina yra 0 (§ 27b Abs. 2 EStG; BMF „Kryptowährungen“). Mokestis taikomas tik parduodant.</string>
+    <string name="tax_note_fr">Pardavimai ir kriptovaliuta sumokėti komisiniai mokesčiai yra perleidimai – apsikeitimai atidedami. Kriptovaliutos komisinis mokestis pardavimo metu įskaičiuojamas į kainą be komisinių mokesčių – kitaip tai atskiras perleidimas jo verte. Portfelio vertė pagal dienos uždarymo kainas – jei uždarymo kainos nėra, savikaina lieka tuščia.</string>
+    <string name="tax_note_network_fee">Kriptovaliuta sumokėtas tinklo komisinis mokestis (pervedimas į savą piniginę, išėmimas) yra komisinio mokesčio monetų perleidimas rinkos verte – pelnas ar nuostolis tik toms monetoms, ne viso komisinio mokesčio nuostolis (%1$s). Be užregistruotos kainos: tos pačios dienos uždarymo kaina (UTC); be uždarymo kainos pajamos lieka tuščios.</string>
+    <string name="tax_note_specific_id">Konkretus identifikavimas (specific identification) nepalaikomas – naudojamas FIFO.</string>
+    <string name="tax_note_spouse_gift">Dovana, pažymėta „sutuoktiniui / partneriui“, neduoda nei pelno, nei nuostolio: pajamos = tavo savikaina, kurią perima partneris (%1$s).</string>
+    <string name="tax_note_stable_swap">Kriptovaliutos pardavimas už stabiliąją monetą (USDT/USDC/DAI …), kurią pasilieki, čia laikomas kriptovaliutos keitimu į kriptovaliutą ir neapmokestinamas – registruok tai kaip apsikeitimą į stabiliąją monetą. Apmokestinamas tik pardavimas už eurus – „Pardavimas“ laikomas pardavimu už eurus.</string>
+    <string name="tax_note_transfer_fee">Tas pats galioja USDT ar grynųjų komisiniam mokesčiui pervedant tarp savų piniginių: jis nepridedamas prie savikainos ir pateikiamas tik kaip informacija.</string>
+    <string name="tax_note_uk">Atitikimas pagal HMRC: ta pati diena → kitos 30 dienų → Section 104 pool.</string>
+    <string name="tax_note_us_transition">Perėjimas 2025-01-01 (Rev. Proc. 2024-28 safe harbor): jei ankstesniais metais naudotas FIFO per visas pinigines, likusios partijos 2024-12-31 atitenka piniginėms, kuriose yra monetos – piniginė su seniausiomis monetomis gauna seniausią savikainą. Šis paskirstymas yra programėlės taisyklė – patikrink pagal savo įrašus.</string>
+    <string name="tax_note_us_wallet">Nuo 2025 mokestinių metų IRS reikalauja savikainos kiekvienai piniginei ar biržai (Rev. Proc. 2024-28): eksportas nuo 2025 m. naudoja FIFO pagal piniginę – ankstesniems metams FIFO per visas pinigines arba FIFO pagal piniginę, jei tai tavo savikainos metodas.</string>
+    <string name="tax_note_withdrawal_fee">Išėmimo komisinis mokestis USDT ar grynaisiais nėra nuostolis: grynųjų komisinis mokestis nėra atskaitoma išlaida, USDT komisinis mokestis yra perleidimas nominalia verte be pelno – pateikiamas tik kaip informacija (%1$s).</string>
+    <string name="tax_summary_at_interest_income">skaičiuojama: pajamos gavimo metu specialiu 27,5 proc. tarifu (§ 27b(2) Nr. 1 EStG / BMF) – monetos išlaiko šią vertę kaip įsigijimo kainą</string>
+    <string name="tax_summary_at_reward_info">tik informacijai – neįtraukta į jokią sumą: atlygiai patenka į naują turtą su įsigijimo kaina 0 ir apmokestinami tik parduodant (jau įtraukta į pelną) – § 27b Abs. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">2022-01-01–2022-02-28: galima pasirinkti 27,5 proc. tarifą</string>
+    <string name="tax_summary_at_withdrawal_fee">Išėmimo komisinis mokestis – neįskaitomas į naują turtą (išlaidos taikant specialų tarifą neatskaitomos, § 20(2) EStG)</string>
+    <string name="tax_summary_ch_fifo_info">tik informacijai – programėlės FIFO skaičiavimas – neklasifikuota – žr. ESTV</string>
+    <string name="tax_summary_ch_year_end_value">vertė gruodžio 31 d. turto CSV = biržos kaina × USD/CHF – ne ESTV mokestinės vertės</string>
+    <string name="tax_summary_de_withdrawal_fee">Išėmimo komisinis mokestis – neįskaitomas pagal § 23, patikrink, ar atskaitomas kaip su pajamomis susijusios išlaidos</string>
+    <string name="tax_summary_not_calculated_estv">neapskaičiuota – ESTV kainų sąrašas: %1$s</string>
+    <string name="tax_summary_orientation">Orientacija</string>
+    <string name="tax_summary_orientation_block">Tik orientacijai – ne mokesčių konsultacija – ne mokesčių apskaičiavimas</string>
+    <string name="tax_summary_orientation_item">Orientacija: %1$s</string>
+    <string name="tax_summary_title">Metinė suvestinė %1$s %2$s</string>
+    <string name="tax_summary_transfer_fee_info">Pervedimo komisiniai mokesčiai USDT / grynaisiais – ne nuostolis ir neįtraukti į savikainą, tik informacija</string>
+    <string name="tax_summary_withdrawal_fee_info">Išėmimo komisiniai mokesčiai USDT / grynaisiais – nelaikomi nuostoliu, tik informacija</string>
+
+    <string name="tax_line_at_old_speculation_limit">Spekuliaciniai sandoriai (ankstesnis reglamentavimas, laikyta ≤ 1 metus): neapmokestinimo riba (§ 31 (3) EStG senoji redakcija)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">Palūkanos už skolinimą iki 2022-03-01 (vertė gavimo metu)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">Palūkanos iki 2022-03-01: ankstesnis reglamentavimas (pajamų mokesčio tarifas), ne 27,5 proc.</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">iki 2022-03-01 – pasitark su specialistu</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">Palūkanos – apmokestinamos gavimo metu</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">Staking – tik informacijai (įsigijimo kaina 0, apmokestinama parduodant)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">Iš viso palūkanų (apmokestinama)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">Iš viso staking (informacija)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">Grynasis kapitalo nuostolis (perkeliamas)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">be pasirinkimo: įskaitant 2022-01-01–2022-02-28 pardavimus</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">Staking iki 2022-03-01: įsigijimo kaina nustatyta 0 – pasitark su specialistu</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">30 dienų taisyklė dar gali pakeisti šiuos skaičius (pirkimai iki %1$s)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Pajamos be komisinių mokesčių viršija pranešimo ribą (50 000 £; 2020/21–2022/23: 49 200 £): pranešk HMRC, jei turi Self Assessment registraciją, net jei nėra apmokestinamo pelno</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">Turto vertė %1$s-12-31 (orientacijai)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">Lemiamas yra ESTV kainų sąrašas (ictax.admin.ch). Monetoms, kurių sąraše nėra, paprastai taikoma biržos uždarymo kaina. Turto mokestis neapskaičiuotas.</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – turima %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">neapskaičiuota</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">Stebimų adresų perskaityti nepavyko – jų likučių šiame faile nėra</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">Stebimų adresų partijos skaičiuojamos nuo jų pirkimo datos; jei šiandieninis adreso likutis mažesnis, jos sumažinamos.</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">Stebimi adresai įskaičiuojami į bendrą vertę, bet neturi įsigijimo kainos – todėl pelnas tikriausiai per didelis. Užregistruok savikainą kaip pirkimą.</string>
+    <string name="tax_summary_fr_rewards_income">Suma daro prielaidą, kad atlygiai buvo apmokestinti kaip pajamos juos gavus (vertė gavimo metu įtraukta į įsigijimo kainą) – kitaip atsargesnis vertinimas būtų įsigijimo kaina 0.</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">Rinkos vertės be užregistruotos kainos (komisiniai mokesčiai, dovanos / mokėjimai, apsikeitimai, atlygiai, tinklo komisiniai mokesčiai, portfelio vertė) pagal transakcijos dienos uždarymo kainą (UTC)</string>
+</resources>

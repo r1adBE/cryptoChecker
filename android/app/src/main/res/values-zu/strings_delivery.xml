@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">Qinisekisa ukuthi ama-alamu ayafika</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">KULUNGILE</string>
+    <string name="delivery_state_warn">Hlola lokhu</string>
+    <string name="delivery_state_info">Inothi</string>
+    <string name="delivery_allowed">Kuvunyelwe</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">Izaziso</string>
+    <string name="delivery_notifications_off">Kuvaliwe – ama-alamu ngeke afike</string>
+    <string name="delivery_notifications_not_asked">Akukavunyelwa</string>
+    <string name="delivery_channel">Isiteshi sama-alamu</string>
+    <string name="delivery_channel_high">Ukubaluleka okuphezulu – kuvela esikrinini</string>
+    <string name="delivery_channel_low">Ukubaluleka okuphansi – ama-alamu avela ohlwini kuphela ngokuthula</string>
+    <string name="delivery_channel_off">Kuvaliwe – ama-alamu ngeke afike</string>
+    <string name="delivery_exact_on">Kuvuliwe – cishe njalo emizuzwini engu-15</string>
+    <string name="delivery_exact_off">Kuvaliwe – i-Android ihlola ngokungahlelekile</string>
+    <string name="delivery_battery">Ukulungiselelwa kwebhethri</string>
+    <string name="delivery_battery_unrestricted">Akukhawulelwe</string>
+    <string name="delivery_battery_optimized">Kulungiselelwe – i-Android ingabambezela ukuhlola. I-app ayiceli okuhlukile; ungakushintsha lokhu kuzilungiselelo zebhethri ze-app.</string>
+    <string name="delivery_background">Ukusetshenziswa ngemuva</string>
+    <string name="delivery_background_restricted">Kukhawulelwe – i-Android imisa ukuhlola okungemuva</string>
+    <string name="delivery_dnd">Ungaphazamisi</string>
+    <string name="delivery_dnd_on">Kuvuliwe – ama-alamu angafika engenamsindo</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">Kuyasebenza kuze kube ngu-%1$s – ama-alamu afanele alinda kuze kube yileso sikhathi</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – ama-alamu afanele alinda ngalesi sikhathi</string>
+    <string name="delivery_last_check">Ukuhlola kokugcina ngemuva</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – ngaphezu kwamahora angu-6 edlule</string>
+    <string name="delivery_last_check_never">Akukabi khona</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">Vumela</string>
+    <string name="delivery_action_change">Shintsha</string>
+    <string name="delivery_action_show">Bonisa</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">Amabhena nomsindo</string>
+    <string name="delivery_alert_off">Amabhena avaliwe – ama-alamu avela kuphela ku-Notification Center</string>
+    <string name="delivery_sound_off">Umsindo uvaliwe – ama-alamu afika ngokuthula</string>
+    <string name="delivery_time_sensitive">Time Sensitive Notifications</string>
+    <string name="delivery_time_sensitive_off">Kuvaliwe – i-Focus ingavimba ama-alamu</string>
+    <string name="delivery_background_refresh">Background App Refresh</string>
+    <string name="delivery_low_power">Low Power Mode</string>
+    <string name="delivery_swipe_away">Uyisusile i-app ngokuswayipha?</string>
+    <string name="delivery_swipe_away_note">Uma usula i-app ngokuswayipha kusishintshi sama-app, i-iOS imisa ukuhlola okungemuva uze uyivule futhi.</string>
+    <string name="delivery_live_activity">Live Activity</string>
+    <string name="delivery_live_activity_note">Ibonisa intengo ku-Lock Screen kodwa ibuyekeza kuphela lapho i-app ihlola – ayenzi ukuthi ama-alamu ahlolwe kaningi.</string>
+
+    <string name="alarm_first_check">Hlola ukuthi ama-alamu ayafika</string>
+
+    <string name="oem_battery_title">Isilondolozi sebhethri somkhiqizi</string>
+    <string name="oem_battery_xiaomi">I-Xiaomi ingayimisa ngokuphelele i-app – bese kungafiki ama-alamu. Vula u-“Autostart” bese usetha i-Battery saver ibe ngu-“No restrictions”.</string>
+    <string name="oem_battery_samsung">I-Samsung ingafaka i-app ebuthongweni obujulile – bese kungafiki ama-alamu. Ngaphansi kwe-Battery › Background usage limits, yengeze ku-“Never sleeping apps”.</string>
+    <string name="oem_battery_huawei">I-Huawei/Honor ingayimisa i-app – bese kungafiki ama-alamu. Ngaphansi kwe-Battery › App launch, khetha “Manage manually” bese uvumela zonke izinketho.</string>
+    <string name="oem_battery_oneplus">I-OnePlus ingayimisa i-app – bese kungafiki ama-alamu. Vumela “Auto-launch” futhi, ngaphansi kwe-Battery usage, umsebenzi ongemuva.</string>
+    <string name="oem_battery_oppo">I-Oppo/Realme ingayimisa i-app – bese kungafiki ama-alamu. Vumela “Auto launch” futhi, ngaphansi kwe-Battery usage, umsebenzi ongemuva.</string>
+    <string name="oem_battery_vivo">I-Vivo ingayimisa i-app – bese kungafiki ama-alamu. Vumela “Autostart” futhi, ngaphansi kwe-Battery, ukusetshenziswa kwamandla amaningi ngemuva.</string>
+    <string name="alarm_reliability_stale">Ukuhlola kokugcina %1$s – ama-alamu angase afike sekwephuzile</string>
+    <string name="alarm_reliability_never">Ama-alamu avuliwe – akukabi khona ukuhlola ngemuva</string>
+    <string name="alarm_reliability_notifications_off">Izaziso zivaliwe – ama-alamu ngeke afike</string>
+    <string name="alarm_reliability_battery">Ukonga ibhethri kungamisa ukuhlolwa kwama-alamu</string>
+    <string name="alarm_reliability_background_refresh">I-Background App Refresh ivaliwe – ama-alamu angase angafiki</string>
+</resources>

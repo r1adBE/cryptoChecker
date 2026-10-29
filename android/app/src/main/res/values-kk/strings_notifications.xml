@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">Назар аударарлық: %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — қазір %2$s</string>
+    <string name="notification_alarm_title">Ескерту: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">Биржаны ашу</string>
+    <string name="notification_depeg_text">Қолданбадағы мәндер осы нарықтық бағаны пайдаланады.</string>
+    <string name="notification_depeg_title">USDT %1$s USD (%2$s)</string>
+    <string name="notification_fng_above">Индекс %1$d деңгейінен асты – бұл өлшем бойынша нарық көңіл-күйі ашкөз.</string>
+    <string name="notification_fng_below">Индекс %1$d деңгейінен төмендеді – бұл өлшем бойынша нарық көңіл-күйі қорқынышты.</string>
+    <string name="notification_fng_title">Көңіл-күй индексі (Fear &amp; Greed): %1$d</string>
+    <string name="notification_gas_btc_text">Сіздің %1$s sat/vB шегіңізден төмен · Аударым ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin комиссиясы: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">Сіздің %1$s gwei шегіңізден төмен · Аударым ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Ethereum газы: %1$s gwei</string>
+    <string name="notification_indicator_above">Сіздің %1$s шегіңізден жоғары – өлшенген мән, ұсыныс емес.</string>
+    <string name="notification_indicator_below">Сіздің %1$s шегіңізден төмен – өлшенген мән, ұсыныс емес.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">Бүгінгі экономикалық деректер</string>
+    <string name="notification_permission_preprompt_continue">Жалғастыру</string>
+    <string name="notification_permission_preprompt_later">Кейінірек</string>
+    <string name="notification_permission_preprompt_text">Ескертулер мен бағам хабарландырулары сізге жетуі үшін қолданбаға хабарландыру жіберуге рұқсат керек. Қолданба оларды тек ескертулеріңіз бен бағам хабарландыруларыңыз үшін пайдаланады.</string>
+    <string name="notification_permission_preprompt_title">Хабарландыруларға рұқсат ету керек пе?</string>
+    <string name="notification_portfolio_alarm_locked">Ескертуіңіз іске қосылды – толығырақ білу үшін қолданбаны ашыңыз.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – қазір %2$s</string>
+    <string name="notification_portfolio_alarm_title">Портфель құны</string>
+    <string name="notification_price_change">%1$s, %2$s бастап (%3$s бұрын)</string>
+    <string name="notification_price_change_no_age">%1$s, %2$s бастап</string>
+    <string name="notification_price_first">Бұл жұп үшін алғашқы бағам хабарландыруы</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+ тағы %1$d бағам</item>
+        <item quantity="other">+ тағы %1$d бағам</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">Бағамдар жаңартылуда…</string>
+    <string name="notification_volume_spike_text">Соңғы сағатта көлем қалыптыдан %1$s×</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">Ескертулер</string>
+    <string name="channel_alarms_description">Ескерту іске қосылғандағы хабарландыру.</string>
+    <string name="channel_alarms_quiet">Ескертулер (тыныш сағаттар)</string>
+    <string name="channel_alarms_quiet_description">Тыныш сағаттардағы дыбыссыз ескертулер.</string>
+    <string name="channel_alarms_silent">Ескертулер (дыбыссыз)</string>
+    <string name="channel_alarms_sound">Ескертулер (тек дыбыс)</string>
+    <string name="channel_alarms_sound_vibrate">Ескертулер (дыбыс және діріл)</string>
+    <string name="channel_alarms_vibrate">Ескертулер (тек діріл)</string>
+    <string name="channel_prices">Бағам хабарландырулары</string>
+    <string name="channel_prices_description">Жұптың ағымдағы бағамы бар дыбыссыз бағам хабарландыруы.</string>
+    <string name="channel_service">Бағам жаңартулары</string>
+    <string name="channel_service_description">Бағамдар жаңартылып жатқандағы хабарландыру.</string>
+    <string name="neutral_channel_market">Нарық ескертулері</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, газ комиссиялары, «Назар аударарлық» және экономикалық күндер</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">Ескерту. %1$s, %2$s %3$s %4$s, қазір %5$s</string>
+    <string name="tts_direction_down">төмендеді</string>
+    <string name="tts_direction_funding_above">фандингі жоғары</string>
+    <string name="tts_direction_funding_below">фандингі төмен</string>
+    <string name="tts_direction_move">қатты қозғалуда</string>
+    <string name="tts_direction_near_high">шыңына жақын</string>
+    <string name="tts_direction_near_low">түбіне жақын</string>
+    <string name="tts_direction_oi_down">ашық позициялары азаюда</string>
+    <string name="tts_direction_oi_up">ашық позициялары көбеюде</string>
+    <string name="tts_direction_up">өсті</string>
+    <string name="tts_direction_volume_spike">көлемі секірді</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+
+    <!-- Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+    <string name="notification_alarm_action_snooze">1 сағаттан кейін</string>
+    <string name="notification_alarm_action_edit">Баптау</string>
+</resources>

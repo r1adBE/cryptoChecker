@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%2$s ərzində %1$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">Bağlanış</string>
+    <string name="sheet_chart_converted_current">%1$s, çevrilmiş (cari məzənnə)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, günlük məzənnələrlə çevrilmiş</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">Bu cüt üçün qiymət məlumatı yoxdur</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">Açılış</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">Bu gün</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">Həcm %1$s</string>
+    <string name="sheet_more">Daha çox</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Ask</string>
+    <string name="ticker_bid">Bid</string>
+    <string name="explain_bid_ask">Bid alıcıların hazırda təklif etdiyi ən yüksək qiymətdir, ask isə satıcıların qəbul edəcəyi ən aşağı qiymət.</string>
+    <string name="ticker_high">Maksimum</string>
+    <string name="ticker_low">Minimum</string>
+    <string name="ticker_timestamp">Vaxt</string>
+    <string name="ticker_vol_base">Həcm (koinlərlə)</string>
+    <string name="ticker_vol_quote">Həcm (kotirovka valyutasında)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (cihazın saat qurşağı)</string>
+    <string name="change_basis_local">Yerli vaxtla 00:00-dan bəri</string>
+    <string name="change_basis_rolling">Son 24 saat</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">Son yenilənmədən bəri</string>
+    <string name="change_basis_utc_zone">00:00 %1$s-dən bəri</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">%1$s şamlarından dəyişiklik</string>
+    <string name="change_short_since_last">son yenilənmə</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">bu gün</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">bu gün %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="exchange_data_empty_error">Birjadan məlumat alınmadı.</string>
+    <string name="market_data_summary">Bazar kapitallaşması, gas komissiyaları, iqtisadi məlumatlar, koin təhlili</string>
+    <string name="market_data_tab_futures">Fyuçerslər</string>
+    <string name="market_data_title">Bazar məlumatları</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">Dövriyyədəki təklif</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">Bazar kapitallaşması</string>
+    <string name="spot_max_supply">Maksimum təklif</string>
+    <string name="spot_no_data">Bu koin üçün spot məlumatı yoxdur</string>
+    <string name="spot_source_updated">Mənbə: %1$s · vəziyyət: %2$s</string>
+    <string name="spot_supply_of_max">Maksimum təklifin %1$s hissəsi dövriyyədədir</string>
+    <string name="spot_total_supply">Ümumi təklif</string>
+    <string name="spot_vol_mcap">Həcm/Kap.</string>
+    <string name="spot_volume_24h">Həcm (24 saat)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">İstinad: %1$s</string>
+    <string name="futures_funding">Fundinq dərəcəsi</string>
+    <string name="futures_funding_interval_unknown">interval bilinmir</string>
+    <string name="futures_funding_per8h_equiv">= 8 saatda %1$s (alarmlardakı kimi)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">saatda</string>
+    <string name="futures_funding_per_hours">%1$d saatda</string>
+    <string name="futures_next_funding">növbəti %1$d saat %2$d dəq sonra</string>
+    <string name="futures_no_data">Bu koin üçün fyuçers məlumatı yoxdur</string>
+    <string name="futures_open_interest">Açıq maraq</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">İstinad %1$s birjasından – fundinq və açıq maraq birjadan birjaya fərqlənir; %2$s birjasında fərqli ola bilər.</string>
+    <string name="futures_reference_spot">İstinad %1$s birjasından (koinin USDT perpetual-ı)</string>
+    <string name="futures_source">Mənbə: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">Çox treyder borc pulla qiymətin artmasına və ya düşməsinə mərc edir. Lonq və şort mövqelər arasında ödəniş. Güclü müsbət çoxlarının qiymət artımına mərc etdiyini göstərir.</string>
+    <string name="explain_open_interest">Fyuçerslər qiymətə edilən mərclərdir, çox vaxt borc pulla. Bütün açıq fyuçers mövqelərinin dəyəri. Artırsa, hərəkətə daha çox pul mərc edilir.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">İzah</string>
+    <string name="explain_spot_fdv">Tam seyreltilmiş dəyər: qiymət × maksimum təklif (limit yoxdursa, ümumi təklif).</string>
+    <string name="explain_spot_market_cap">Qiymət × dövriyyədəki təklif. Nişan onun 24 saatlıq dəyişikliyini göstərir.</string>
+    <string name="explain_spot_source">Bütün birjalar üzrə ABŞ dollarında rəqəmlər, CoinGecko-dan.</string>
+    <string name="explain_spot_supply">Dövriyyədə: hazırda bazarda olan koinlər. Ümumi: yaradılmış bütün koinlər, yandırılanlar çıxılmaqla. Maksimum: heç vaxt mövcud ola biləcək ən çox miqdar.</string>
+    <string name="explain_spot_volume">24 saatda alınıb-satılan dəyər. Həcm/Kap.: həcmin bazar kapitallaşmasına nisbəti — yüksək çox aktiv ticarət deməkdir.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · məzənnə %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">Alış və satış qiymətləri arasında böyük fərq (%1$s)</string>
+
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">%1$s ilə tarixçə, bugünkü məzənnə ilə %2$s valyutasına çevrilmiş</string>
+    <string name="converted_unsure">Çevirmə qeyri-müəyyəndir</string>
+</resources>

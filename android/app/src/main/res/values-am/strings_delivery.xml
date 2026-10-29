@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">ማንቂያዎች መድረሳቸውን ያረጋግጡ</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">እሺ</string>
+    <string name="delivery_state_warn">ይህንን ይፈትሹ</string>
+    <string name="delivery_state_info">ማስታወሻ</string>
+    <string name="delivery_allowed">ተፈቅዷል</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">ማሳወቂያዎች</string>
+    <string name="delivery_notifications_off">ጠፍቷል – ማንቂያዎች አይደርሱም</string>
+    <string name="delivery_notifications_not_asked">ገና አልተፈቀደም</string>
+    <string name="delivery_channel">የማንቂያ ቻናል</string>
+    <string name="delivery_channel_high">ከፍተኛ አስፈላጊነት – በማያ ገጹ ላይ ብቅ ይላል</string>
+    <string name="delivery_channel_low">ዝቅተኛ አስፈላጊነት – ማንቂያዎች በዝርዝሩ ውስጥ በጸጥታ ብቻ ይታያሉ</string>
+    <string name="delivery_channel_off">ጠፍቷል – ማንቂያዎች አይደርሱም</string>
+    <string name="delivery_exact_on">በርቷል – በግምት በየ15 ደቂቃው</string>
+    <string name="delivery_exact_off">ጠፍቷል – Android መደበኛ ባልሆነ ሁኔታ ይፈትሻል</string>
+    <string name="delivery_battery">የባትሪ ማመቻቸት</string>
+    <string name="delivery_battery_unrestricted">ያልተገደበ</string>
+    <string name="delivery_battery_optimized">የተመቻቸ – Android ፍተሻዎችን ሊያዘገይ ይችላል። መተግበሪያው ልዩ ፈቃድ አይጠይቅም፤ ይህንን በመተግበሪያው የባትሪ ቅንብሮች ውስጥ መቀየር ይችላሉ።</string>
+    <string name="delivery_background">የበስተጀርባ አጠቃቀም</string>
+    <string name="delivery_background_restricted">የተገደበ – Android የበስተጀርባ ፍተሻዎችን ያቆማል</string>
+    <string name="delivery_dnd">አትረብሽ</string>
+    <string name="delivery_dnd_on">በርቷል – ማንቂያዎች ያለ ድምፅ ሊደርሱ ይችላሉ</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">እስከ %1$s ንቁ – የደረሱ ማንቂያዎች እስከዚያ ይጠብቃሉ</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – የደረሱ ማንቂያዎች በዚህ ጊዜ ይጠብቃሉ</string>
+    <string name="delivery_last_check">የመጨረሻው የበስተጀርባ ፍተሻ</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – ከ6 ሰዓት በላይ በፊት</string>
+    <string name="delivery_last_check_never">እስካሁን የለም</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">ይፍቀዱ</string>
+    <string name="delivery_action_change">ይቀይሩ</string>
+    <string name="delivery_action_show">ያሳዩ</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">ባነሮችና ድምፅ</string>
+    <string name="delivery_alert_off">ባነሮች ጠፍተዋል – ማንቂያዎች በማሳወቂያ ማዕከል ውስጥ ብቻ ይታያሉ</string>
+    <string name="delivery_sound_off">ድምፅ ጠፍቷል – ማንቂያዎች በጸጥታ ይደርሳሉ</string>
+    <string name="delivery_time_sensitive">ጊዜ-ነክ ማሳወቂያዎች</string>
+    <string name="delivery_time_sensitive_off">ጠፍቷል – ትኩረት (Focus) ማንቂያዎችን ሊይዝ ይችላል</string>
+    <string name="delivery_background_refresh">የበስተጀርባ መተግበሪያ ማደስ</string>
+    <string name="delivery_low_power">ዝቅተኛ የኃይል ሁነታ</string>
+    <string name="delivery_swipe_away">መተግበሪያውን አንሸራተው ዘግተውታል?</string>
+    <string name="delivery_swipe_away_note">መተግበሪያውን በመተግበሪያ መቀያየሪያው ውስጥ አንሸራተው ከዘጉት፣ እንደገና እስኪከፍቱት ድረስ iOS የበስተጀርባ ፍተሻዎችን ያቆማል።</string>
+    <string name="delivery_live_activity">የቀጥታ እንቅስቃሴ (Live Activity)</string>
+    <string name="delivery_live_activity_note">ዋጋውን በቆልፍ ማያ ገጹ ላይ ያሳያል፤ ግን የሚዘምነው መተግበሪያው ሲፈትሽ ብቻ ነው – ማንቂያዎች በብዛት እንዲፈተሹ አያደርግም።</string>
+
+    <string name="alarm_first_check">ማንቂያዎች መድረሳቸውን ያረጋግጡ</string>
+
+    <string name="oem_battery_title">የአምራች ባትሪ ቆጣቢ</string>
+    <string name="oem_battery_xiaomi">Xiaomi መተግበሪያውን ሙሉ በሙሉ ሊያቆመው ይችላል – ያኔ ምንም ማንቂያ አይደርስም። «Autostart»ን ያብሩና ባትሪ ቆጣቢውን ወደ «No restrictions» ያዘጋጁ።</string>
+    <string name="oem_battery_samsung">Samsung መተግበሪያውን ወደ ጥልቅ እንቅልፍ ሊያስገባው ይችላል – ያኔ ምንም ማንቂያ አይደርስም። በBattery › Background usage limits ስር ወደ «Never sleeping apps» ያክሉት።</string>
+    <string name="oem_battery_huawei">Huawei/Honor መተግበሪያውን ሊያቆመው ይችላል – ያኔ ምንም ማንቂያ አይደርስም። በBattery › App launch ስር «Manage manually»ን ይምረጡና ሁሉንም አማራጮች ይፍቀዱ።</string>
+    <string name="oem_battery_oneplus">OnePlus መተግበሪያውን ሊያቆመው ይችላል – ያኔ ምንም ማንቂያ አይደርስም። «Auto-launch»ን፣ እንዲሁም በBattery usage ስር የበስተጀርባ እንቅስቃሴን ይፍቀዱ።</string>
+    <string name="oem_battery_oppo">Oppo/Realme መተግበሪያውን ሊያቆመው ይችላል – ያኔ ምንም ማንቂያ አይደርስም። «Auto launch»ን፣ እንዲሁም በBattery usage ስር የበስተጀርባ እንቅስቃሴን ይፍቀዱ።</string>
+    <string name="oem_battery_vivo">Vivo መተግበሪያውን ሊያቆመው ይችላል – ያኔ ምንም ማንቂያ አይደርስም። «Autostart»ን፣ እንዲሁም በBattery ስር ከፍተኛ የበስተጀርባ ኃይል አጠቃቀምን ይፍቀዱ።</string>
+    <string name="alarm_reliability_stale">የመጨረሻ ፍተሻ %1$s – ማንቂያዎች ሊዘገዩ ይችላሉ</string>
+    <string name="alarm_reliability_never">ማንቂያዎች በርተዋል – እስካሁን የበስተጀርባ ፍተሻ የለም</string>
+    <string name="alarm_reliability_notifications_off">ማሳወቂያዎች ጠፍተዋል – ማንቂያዎች አይደርሱም</string>
+    <string name="alarm_reliability_battery">ባትሪ መቆጠብ የማንቂያ ፍተሻዎችን ሊያቆም ይችላል</string>
+    <string name="alarm_reliability_background_refresh">የበስተጀርባ መተግበሪያ ማደስ ጠፍቷል – ማንቂያዎች ላይደርሱ ይችላሉ</string>
+</resources>

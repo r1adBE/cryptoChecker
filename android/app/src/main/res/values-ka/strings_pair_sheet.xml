@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s %2$s-ში</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">დახურვა</string>
+    <string name="sheet_chart_converted_current">%1$s, გადაანგარიშებული (მიმდინარე კურსი)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, გადაანგარიშებული დღიური კურსებით</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">ამ წყვილისთვის ფასის მონაცემები არ არის</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">გახსნა</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">დღეს</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">მოც. %1$s</string>
+    <string name="sheet_more">მეტი</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Ask</string>
+    <string name="ticker_bid">Bid</string>
+    <string name="explain_bid_ask">Bid არის უმაღლესი ფასი, რომელსაც მყიდველები ახლა სთავაზობენ, ask – უდაბლესი ფასი, რომელსაც გამყიდველები მიიღებენ.</string>
+    <string name="ticker_high">მაქსიმუმი</string>
+    <string name="ticker_low">მინიმუმი</string>
+    <string name="ticker_timestamp">დრო</string>
+    <string name="ticker_vol_base">მოცულობა (მონეტებში)</string>
+    <string name="ticker_vol_quote">მოცულობა (კოტირების ვალუტაში)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (მოწყობილობის სასაათო სარტყელი)</string>
+    <string name="change_basis_local">ადგილობრივი დროით 00:00-დან</string>
+    <string name="change_basis_rolling">ბოლო 24 სთ</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">ბოლო განახლების შემდეგ</string>
+    <string name="change_basis_utc_zone">00:00 %1$s-დან</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">ცვლილება %1$s-ის სანთლებიდან</string>
+    <string name="change_short_since_last">ბოლო განახლება</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">დღეს</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">დღეს %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="exchange_data_empty_error">ბირჟიდან მონაცემები არ მიღებულა.</string>
+    <string name="market_data_summary">საბაზრო კაპიტალიზაცია, gas საკომისიოები, ეკონომიკური მონაცემები, მონეტის ანალიზი</string>
+    <string name="market_data_tab_futures">ფიუჩერსები</string>
+    <string name="market_data_title">საბაზრო მონაცემები</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">მიმოქცევაში არსებული მარაგი</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">საბაზრო კაპიტალიზაცია</string>
+    <string name="spot_max_supply">მაქსიმალური მარაგი</string>
+    <string name="spot_no_data">ამ მონეტისთვის სპოტის მონაცემები არ არის</string>
+    <string name="spot_source_updated">წყარო: %1$s · მდგომარეობა: %2$s</string>
+    <string name="spot_supply_of_max">მაქსიმალური მარაგის %1$s მიმოქცევაშია</string>
+    <string name="spot_total_supply">სრული მარაგი</string>
+    <string name="spot_vol_mcap">მოც./კაპ.</string>
+    <string name="spot_volume_24h">მოცულობა (24 სთ)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">ორიენტირი: %1$s</string>
+    <string name="futures_funding">ფანდინგის განაკვეთი</string>
+    <string name="futures_funding_interval_unknown">ინტერვალი უცნობია</string>
+    <string name="futures_funding_per8h_equiv">= %1$s 8 სთ-ზე (როგორც განგაშებში)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">საათში</string>
+    <string name="futures_funding_per_hours">%1$d სთ-ზე</string>
+    <string name="futures_next_funding">შემდეგი %1$d სთ %2$d წთ-ში</string>
+    <string name="futures_no_data">ამ მონეტისთვის ფიუჩერსების მონაცემები არ არის</string>
+    <string name="futures_open_interest">ღია ინტერესი</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">ორიენტირი %1$s-დან – ფანდინგი და ღია ინტერესი ბირჟების მიხედვით განსხვავდება; %2$s-ზე შეიძლება სხვა იყოს.</string>
+    <string name="futures_reference_spot">ორიენტირი %1$s-დან (მონეტის USDT perpetual)</string>
+    <string name="futures_source">წყარო: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">ბევრი ტრეიდერი ნასესხები ფულით ფასის ზრდაზე ან ვარდნაზე დებს ფსონს. საფასური ლონგ და შორტ პოზიციებს შორის. ძლიერ დადებითი ნიშნავს, რომ ბევრი ფასის ზრდაზე დებს.</string>
+    <string name="explain_open_interest">ფიუჩერსები ფასზე დადებული ფსონებია, ხშირად ნასესხები ფულით. ყველა ღია ფიუჩერსული პოზიციის ღირებულება. თუ ის იზრდება, მოძრაობაზე მეტი ფული იდება.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">ახსნა</string>
+    <string name="explain_spot_fdv">სრულად განზავებული შეფასება: ფასი × მაქსიმალური მარაგი (ან სრული მარაგი, თუ ლიმიტი არ არის).</string>
+    <string name="explain_spot_market_cap">ფასი × მიმოქცევაში არსებული მარაგი. ნიშნული აჩვენებს მის ცვლილებას 24 საათში.</string>
+    <string name="explain_spot_source">მაჩვენებლები ყველა ბირჟაზე, აშშ დოლარში, CoinGecko-დან.</string>
+    <string name="explain_spot_supply">მიმოქცევაში: მონეტები, რომლებიც ახლა ბაზარზეა. სრული: ყველა შექმნილი მონეტა დამწვარის გამოკლებით. მაქსიმალური: მაქსიმუმი, რაც შეიძლება ოდესმე არსებობდეს.</string>
+    <string name="explain_spot_volume">24 საათში ნავაჭრი ღირებულება. მოც./კაპ.: მოცულობა საბაზრო კაპიტალიზაციასთან მიმართებით — მაღალი ნიშნავს ძალიან აქტიურ ვაჭრობას.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · კურსი %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">დიდი სხვაობა ყიდვისა და გაყიდვის ფასს შორის (%1$s)</string>
+
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">ისტორია %1$s-ში, გადაანგარიშებული %2$s-ში დღევანდელი კურსით</string>
+    <string name="converted_unsure">გადაანგარიშება საეჭვოა</string>
+</resources>

@@ -40,8 +40,8 @@ OUT_DIR = os.path.join(ROOT, "Shared", "Resources")
 
 # Android resource qualifier -> Apple language code
 LOCALE_MAP = {"iw": "he", "in": "id", "ji": "yi", "zh": "zh-Hans", "zh-rCN": "zh-Hans", "b+zh+Hant": "zh-Hant",
-              "zh-rTW": "zh-Hant", "zh-rHK": "zh-Hant", "nb": "nb", "pt-rBR": "pt-BR",
-              "pt-rPT": "pt-PT", "es-rUS": "es-US"}
+              "b+yue": "yue-Hant", "zh-rTW": "zh-Hant", "zh-rHK": "zh-Hant", "nb": "nb", "pt-rBR": "pt-BR",
+              "pt-rPT": "pt-PT", "es-rUS": "es-US", "b+sr+Latn": "sr-Latn"}
 
 # Info.plist key -> string key (Android XML or tools/ios_extra_strings.json)
 INFO_PLIST_KEYS = {
@@ -61,6 +61,10 @@ PLURAL_CATS = {
     "pt": {"one", "many", "other"}, "pt-BR": {"one", "many", "other"},
     "id": {"other"}, "ja": {"other"}, "ko": {"other"}, "ms": {"other"}, "th": {"other"}, "vi": {"other"},
     "zh-Hans": {"other"}, "zh-Hant": {"other"},
+    "ca": {"one", "many", "other"}, "lt": {"one", "few", "many", "other"}, "sk": {"one", "few", "many", "other"},
+    "hr": {"one", "few", "other"}, "bs": {"one", "few", "other"}, "sr": {"one", "few", "other"},
+    "sl": {"one", "two", "few", "other"}, "lv": {"zero", "one", "other"}, "ga": {"one", "two", "few", "many", "other"},
+    "km": {"other"}, "lo": {"other"}, "my": {"other"}, "yue-Hant": {"other"}, "sr-Latn": {"one", "few", "other"},
 }
 PLURAL_ORDER = ["zero", "one", "two", "few", "many", "other"]
 
@@ -356,8 +360,8 @@ def main():
     errors = []
     with open(out_path, encoding="utf-8") as f:
         reparsed = json.load(f)
-    if len(all_langs) != 33:
-        errors.append(f"expected 33 languages, found {len(all_langs)}: {all_langs}")
+    if len(all_langs) != 75:
+        errors.append(f"expected 75 languages, found {len(all_langs)}: {all_langs}")
     escape_re = re.compile(r"\\['\"@?nt\\]|&(amp|lt|gt|quot|apos);|<!\[CDATA\[")
     for key, entry in reparsed["strings"].items():
         locs = entry["localizations"]

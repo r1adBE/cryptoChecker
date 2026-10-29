@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">Configura alarmes – preu, percentatge, volum i moviments inusuals</string>
+    <string name="welcome_alert_q">Quan cal avisar?</string>
+    <string name="welcome_text">Els teus preus. Les teves alarmes. La teva visió general.\nSense compte. Sense anuncis. Sense seguiment.</string>
+    <string name="welcome_understand">Entén – què es mou ara mateix juntament amb un preu</string>
+    <string name="welcome_understand_q">Què es mou amb ell?</string>
+    <string name="welcome_watch">Segueix – les teves monedes, preus i historial de preus</string>
+    <string name="welcome_watch_q">Què passa?</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">Afegeix a la llista (%1$d)</string>
+    <string name="starter_loading_prices">S\'estan carregant els preus…</string>
+    <string name="starter_search_coin">Cerca una altra moneda</string>
+    <string name="starter_select_all">Selecciona-ho tot</string>
+    <string name="starter_select_none">No en seleccionis cap</string>
+    <string name="starter_title">Comença amb aquestes monedes</string>
+    <string name="starter_watch_alarm_hint">Segueix el preu, configura una alarma</string>
+
+    <!-- Start-Auswahl: Börse und Quote der Startpaare (Binance, bei Standort-Sperre Binance.US), z. B. «Kurse von Binance in USDT. …» -->
+    <string name="starter_source_text">Preus de %1$s en %2$s. Desmarca el que no vulguis i afegeix la resta d\'una vegada. Pots canviar l\'exchange i el parell de cada moneda.</string>
+</resources>

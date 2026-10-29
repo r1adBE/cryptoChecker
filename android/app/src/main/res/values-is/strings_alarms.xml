@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">Stilla viðvörun</string>
+    <string name="alarms_add">Ný viðvörun</string>
+    <string name="alarms_edit">Breyta viðvörun</string>
+    <string name="alarms_empty">Engar viðvaranir fyrir þetta par enn.</string>
+    <string name="alarms_empty_example">Til dæmis: Láttu mig vita þegar BTC fer yfir %1$s.</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">Slökkt er á tilkynningum – viðvaranir ná ekki til þín.</string>
+    <string name="alarms_notifications_turn_on">Kveikja</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">%1$d virk</item>
+        <item quantity="other">%1$d virkar</item>
+    </plurals>
+    <string name="alarms_overview_empty">Engar viðvaranir enn. Opnaðu par og bættu einni við undir Viðvaranir.</string>
+    <string name="alarms_overview_title">Allar viðvaranir</string>
+    <string name="alarms_title">Viðvaranir</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">Ítarlegt</string>
+    <string name="alarm_change_updates">Stilla verðuppfærslur</string>
+    <string name="alarm_create">Búa til viðvörun</string>
+    <string name="alarm_currency_label">Gjaldmiðill</string>
+    <string name="alarm_delete_confirm">Þessi viðvörun verður fjarlægð.</string>
+    <string name="alarm_delete_title">Eyða viðvörun?</string>
+    <string name="alarm_field_percent">Prósent</string>
+    <string name="alarm_field_price">Verð</string>
+    <string name="alarm_fires_now_above">Verðið er þegar yfir %1$s. Vista samt?</string>
+    <string name="alarm_fires_now_below">Verðið er þegar undir %1$s. Vista samt?</string>
+    <string name="alarm_fires_now_change">Breyta</string>
+    <string name="alarm_fires_now_save">Vista samt</string>
+    <string name="alarm_fires_now_title">Viðvörunin færi strax af stað</string>
+    <string name="alarm_first_battery_hint">Rafhlöðusparnaður takmarkar forritið – viðvaranir geta borist seint.</string>
+    <string name="alarm_first_title">Viðvörun vistuð</string>
+    <string name="alarm_last_triggered">síðast kl. %1$s</string>
+    <string name="alarm_more_conditions">Fleiri skilyrði</string>
+    <string name="alarm_new_extreme">Nýtt met: %1$s</string>
+    <string name="alarm_once">Einu sinni</string>
+    <string name="alarm_option_repeating">Láta vita</string>
+    <string name="alarm_option_sound">Hljóð</string>
+    <string name="alarm_option_speak">Lesa viðvörun upp</string>
+    <string name="alarm_option_vibrate">Titringur</string>
+    <string name="alarm_repeat_each">Í hvert skipti</string>
+    <string name="alarm_repeat_once">Einu sinni</string>
+    <string name="alarm_repeating">Í hvert skipti</string>
+    <string name="alarm_threshold_error_empty">Sláðu inn gildi til að vista viðvörunina.</string>
+    <string name="alarm_threshold_error_funding">Fjármögnun verður að vera tala á milli −10 og +10 prósenta.</string>
+    <string name="alarm_threshold_error_invalid">Sláðu inn gilda tölu hærri en 0.</string>
+    <string name="alarm_threshold_error_oi">Breyting á opnum stöðum: í mesta lagi 1000 prósent.</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">innan %1$d klst.</item>
+        <item quantity="other">innan %1$d klst.</item>
+    </plurals>
+    <string name="alarm_window_label">Tímagluggi</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">fer yfir</string>
+    <string name="alarm_simple_below">fer undir</string>
+    <string name="alarm_simple_end">\</string>
+    <string name="alarm_simple_when">Þegar %1$s</string>
+    <string name="alarm_template_a11y">Búa til viðvörun: %1$s</string>
+    <string name="alarm_template_a11y_down">Búa til viðvörun við mínus %1$s prósent frá núverandi verði</string>
+    <string name="alarm_template_a11y_up">Búa til viðvörun við plús %1$s prósent frá núverandi verði</string>
+    <string name="alarm_template_from_now">frá núna</string>
+    <string name="alarm_template_volume">Velta ×%1$s</string>
+    <string name="alarm_templates_title">Flýtiviðvaranir</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">Verð yfir</string>
+    <string name="alarm_condition_below">Verð undir</string>
+    <string name="alarm_condition_down_percent">Lækkar um</string>
+    <string name="alarm_condition_funding_above">Fjármögnun yfir</string>
+    <string name="alarm_condition_funding_below">Fjármögnun undir</string>
+    <string name="alarm_condition_move_percent">Hreyfist um</string>
+    <string name="alarm_condition_near_high">Nálægt hámarki</string>
+    <string name="alarm_condition_near_low">Nálægt lágmarki</string>
+    <string name="alarm_condition_oi_down">Opnar stöður lækka</string>
+    <string name="alarm_condition_oi_up">Opnar stöður hækka</string>
+    <string name="alarm_condition_up_percent">Hækkar um</string>
+    <string name="alarm_condition_volume_spike">Veltustökk</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">Láttu mig vita þegar %1$s fer yfir %2$s.</string>
+    <string name="alarm_sentence_below">Láttu mig vita þegar %1$s fer undir %2$s.</string>
+    <string name="alarm_sentence_down_percent">Láttu mig vita þegar %1$s lækkar %2$s undir verðið við vistun (eða við síðustu viðvörun).</string>
+    <string name="alarm_sentence_funding_above">Láttu mig vita þegar fjármögnun %1$s fer yfir %2$s.</string>
+    <string name="alarm_sentence_funding_below">Láttu mig vita þegar fjármögnun %1$s fer undir %2$s.</string>
+    <string name="alarm_sentence_incomplete">Sláðu inn gildi til að sjá viðvörunina sem setningu.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">Láttu mig vita þegar %1$s hreyfist um %2$s innan %3$d klukkustundar.</item>
+        <item quantity="other">Láttu mig vita þegar %1$s hreyfist um %2$s innan %3$d klukkustunda.</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">Láttu mig vita þegar %1$s er í mesta lagi %2$s undir viðmiði: %3$s.</string>
+    <string name="alarm_sentence_near_low">Láttu mig vita þegar %1$s er í mesta lagi %2$s yfir viðmiði: %3$s.</string>
+    <string name="alarm_sentence_new_extreme">Láttu mig vita þegar %1$s nær nýju meti: %2$s.</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">Láttu mig vita þegar opnar stöður í %1$s lækka um %2$s innan %3$d klukkustundar.</item>
+        <item quantity="other">Láttu mig vita þegar opnar stöður í %1$s lækka um %2$s innan %3$d klukkustunda.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">Láttu mig vita þegar opnar stöður í %1$s hækka um %2$s innan %3$d klukkustundar.</item>
+        <item quantity="other">Láttu mig vita þegar opnar stöður í %1$s hækka um %2$s innan %3$d klukkustunda.</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">Láttu mig vita þegar %1$s hækkar %2$s yfir verðið við vistun (eða við síðustu viðvörun).</string>
+    <string name="alarm_sentence_volume">Láttu mig vita þegar viðskipti með %1$s ná %2$s× venjulegrar veltu.</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">30 daga hámark</string>
+    <string name="alarm_near_extreme_high_365">1 árs hámark</string>
+    <string name="alarm_near_extreme_high_90">90 daga hámark</string>
+    <string name="alarm_near_extreme_low_30">30 daga lágmark</string>
+    <string name="alarm_near_extreme_low_365">1 árs lágmark</string>
+    <string name="alarm_near_extreme_low_90">90 daga lágmark</string>
+    <string name="alarm_near_field_distance">Fjarlægð</string>
+    <string name="alarm_near_hint">Lætur líka vita þegar nýtt hámark eða lágmark næst. Byggt á dagskertum, endurnýjað á 6 klukkustunda fresti.</string>
+    <string name="alarm_near_new_only">Aðeins ný hámörk eða lágmörk</string>
+    <string name="alarm_near_notification_high">%1$s er %2$s undir viðmiði: %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s er %2$s yfir viðmiði: %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">Nýtt met (%1$s) fyrir %2$s: %3$s (áður %4$s)</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d dagur</item>
+        <item quantity="other">%1$d dagar</item>
+    </plurals>
+    <string name="alarm_near_window_label">Tímabil</string>
+    <string name="alarm_near_window_year">1 ár</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">Fjármögnunarhlutfall á 8 klukkustunda fresti. Samningar með annað bil eru umreiknaðir (1 klst. × 8, 4 klst. × 2); spjaldið fyrir framvirka samninga sýnir umreiknaða gildið. Ef bilið er óþekkt athugar viðvörunin ekki. Neikvætt þýðir að skortstöður greiða langstöðum. ± skiptir um formerki.</string>
+    <string name="alarm_funding_sign_a11y">Skipta um formerki</string>
+    <string name="alarm_oi_hint">Ber opnar stöður saman við gildið sem var vistað fyrir jafnmörgum klukkustundum. Ný viðvörun lætur aðeins vita þegar forritið hefur safnað gögnum í svo langan tíma; athugað í mesta lagi á 5 mínútna fresti.</string>
+    <string name="alarm_volume_factor_label">Velta síðustu klukkustundar miðað við venjulega</string>
+    <string name="alarm_volume_hint">Veltugögn koma frá Binance — pör sem eru ekki skráð þar fara aldrei af stað.</string>
+    <string name="alarm_volume_zero_hours_hint">Klukkustundir án viðskipta teljast sem núllvelta, svo á pörum með lítil viðskipti getur venjuleg klukkustund virst óvenjuleg.</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">Viðvörun virk</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">Viðvörun vistuð: %1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">Tilkynningar af</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">Án „%1$s“ athugar Android óreglulega meðan tækið er í hvíld – stundum aðeins eftir nokkrar klukkustundir. Með því, á um 15 mínútna fresti.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Þegar forritið er lokað athugar iOS oft síðar en eftir 15 mínútur, stundum ekki fyrr en þú opnar forritið næst. Stutt stökk geta farið fram hjá.</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">Hvenær viðvaranir eru athugaðar</string>
+    <string name="alarm_timing_where">Hversu oft verð uppfærast breytir þú í %1$s.</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">Hljóðlaust (aðeins tilkynning)</string>
+    <string name="alarm_signal_sound">Aðeins hljóð</string>
+    <string name="alarm_signal_sound_vibrate">Hljóð og titringur</string>
+    <string name="alarm_signal_system">Kerfi</string>
+    <string name="alarm_signal_vibrate">Aðeins titringur</string>
+    <string name="alarm_test">Prufuviðvörun</string>
+    <string name="alarm_test_action">Prófa</string>
+    <string name="alarm_test_denied">Slökkt er á tilkynningum fyrir Crypto Checker.</string>
+    <string name="alarm_test_hint">Sendir sýnishorn af viðvörun með þínum stillingum fyrir hljóð, titring og tal.</string>
+    <string name="alarm_test_open_settings">Opna stillingar</string>
+    <string name="alarm_test_quiet">Kyrrðartími er á núna: raunverulegar viðvaranir myndu bíða þar til honum lýkur og hringja þá með hljóði.</string>
+    <string name="alarm_test_text">Svona lítur viðvörun út og hljómar.</string>
+    <string name="alarm_test_title">Prufa: viðvörun frá Crypto Checker</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">Hljóð á</string>
+    <string name="alarm_a11y_speak_on">Tal á</string>
+    <string name="alarm_unchecked_no_candles">Ekki hægt að athuga (engin kertagögn)</string>
+    <string name="alarm_unchecked_no_rate">Ekki hægt að athuga (ekkert gengi)</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">Tilkynningar af – þessi viðvörun nær ekki til þín</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">Engin viðvörun – lítið lausafé</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">Beðið eftir núverandi verði</string>
+    <string name="alarm_enter_amount">Sláðu inn gildi</string>
+    <string name="alarm_editor_more">Meira</string>
+    <string name="alarm_editor_more_summary">Flýtiviðvaranir, önnur skilyrði, hljóð og rödd</string>
+    <string name="alarm_reliability_storage_no_key">Viðvaranir í bakgrunni í bið – vaktlisti ekki vistaður</string>
+    <string name="alarms_limit_reached">Par getur haft í mesta lagi %1$s viðvaranir.</string>
+    <string name="alarms_reference_rate_hint">Viðmiðunargengi Seðlabanka Evrópu er aðeins ákveðið einu sinni á dag – engar viðvaranir eru fyrir það.</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">Lækkun verður að vera minni en 100 prósent.</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">Ógild mörk – lagaðu þau</string>
+
+    <string name="alarm_last_checked">Síðast athugað %1$s</string>
+</resources>

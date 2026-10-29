@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="backup_device_bound">ഉപകരണം മാറുന്നതിന് മുമ്പ് ഒരു ബാക്കപ്പ് ഫയൽ സൃഷ്ടിക്കുക – എൻക്രിപ്റ്റ് ചെയ്ത ഡാറ്റ ഈ ഉപകരണത്തിൽ മാത്രമേ തുറക്കാനാകൂ.</string>
+    <string name="backup_encryption_pending">എൻക്രിപ്ഷൻ ഇതുവരെ സജീവമല്ല – അടുത്ത തുടക്കത്തിൽ ആപ്പ് വീണ്ടും ശ്രമിക്കും.</string>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">എക്സ്പോർട്ട് ചെയ്യുക</string>
+    <string name="backup_exported">ബാക്കപ്പ് സംരക്ഷിച്ചു.</string>
+    <string name="backup_failed">അത് വിജയിച്ചില്ല. ഇതൊരു Crypto Checker ബാക്കപ്പ് ആണോ?</string>
+    <string name="backup_hint">കുറിപ്പുകളും ഗ്രൂപ്പുകളുമുള്ള വാച്ച്‌ലിസ്റ്റ്, അലേർട്ടുകൾ, പ്രിയപ്പെട്ടവ, പോർട്ട്ഫോളിയോ, ക്രമീകരണങ്ങൾ എന്നിവ നിങ്ങൾ തന്നെ സൂക്ഷിക്കുന്ന ഒരു ഫയലായി സംരക്ഷിക്കുന്നു – ഉദാ. ഒരു പുതിയ ഫോണിനായി.</string>
+    <string name="backup_import">ഇമ്പോർട്ട് ചെയ്യുക</string>
+    <string name="backup_title">ബാക്കപ്പും പുനഃസ്ഥാപനവും</string>
+    <string name="backup_too_large">ഫയൽ വളരെ വലുതാണ് അല്ലെങ്കിൽ സാധുവായ ബാക്കപ്പ് അല്ല (പരിധി 64 MB).</string>
+    <string name="backup_export_too_large">ബാക്കപ്പ് 64 MB-യിൽ കൂടുതലാകുമായിരുന്നു, പുനഃസ്ഥാപിക്കാനാകുമായിരുന്നില്ല, അതിനാൽ സംരക്ഷിച്ചില്ല.</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">പാസ്‌വേഡ്</string>
+    <string name="backup_password_continue">തുടരുക</string>
+    <string name="backup_password_hide">പാസ്‌വേഡ് മറയ്ക്കുക</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">കുറഞ്ഞത് %1$d പ്രതീകങ്ങൾ</string>
+    <string name="backup_password_mismatch">പാസ്‌വേഡുകൾ പൊരുത്തപ്പെടുന്നില്ല</string>
+    <string name="backup_password_prompt">ഈ ബാക്കപ്പിന്റെ പാസ്‌വേഡ് നൽകുക.</string>
+    <string name="backup_password_repeat">പാസ്‌വേഡ് ആവർത്തിക്കുക</string>
+    <string name="backup_password_show">പാസ്‌വേഡ് കാണിക്കുക</string>
+    <string name="backup_password_title">പാസ്‌വേഡ് സംരക്ഷിത ബാക്കപ്പ്</string>
+    <string name="backup_password_too_weak">ഊഹിക്കാൻ വളരെ എളുപ്പമാണ് – അക്കങ്ങൾ മാത്രം, ആവർത്തിക്കുന്ന ഒരേ പ്രതീകം, “12345678” അല്ലെങ്കിൽ “password” പോലുള്ള സാധാരണ ശ്രേണികൾ ഒഴിവാക്കുക.</string>
+    <string name="backup_password_warning">പാസ്‌വേഡ് ഇല്ലാതെ ബാക്കപ്പ് പുനഃസ്ഥാപിക്കാനാകില്ല.</string>
+    <string name="backup_password_wrong">തെറ്റായ പാസ്‌വേഡ്, അല്ലെങ്കിൽ ഫയൽ കേടായി. ദയവായി വീണ്ടും ശ്രമിക്കുക.</string>
+    <string name="backup_protect">പാസ്‌വേഡ് ഉപയോഗിച്ച് സംരക്ഷിക്കുക</string>
+    <string name="backup_protect_hint">ഫയൽ എൻക്രിപ്റ്റ് ചെയ്യുന്നു (AES-256). പോർട്ട്ഫോളിയോ ഡാറ്റയുണ്ടെങ്കിൽ ശുപാർശ ചെയ്യുന്നു.</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">പാസ്‌വേഡില്ലാതെ സംരക്ഷിക്കുക</string>
+    <string name="backup_plain_confirm_text">ഫയൽ എൻക്രിപ്റ്റ് ചെയ്തിട്ടില്ല. അത് ലഭിക്കുന്ന ആർക്കും വായിക്കാം:</string>
+    <string name="backup_plain_confirm_title">പാസ്‌വേഡില്ലാതെ സംരക്ഷിക്കണോ?</string>
+    <string name="backup_plain_contents_addresses">ബാലൻസ് ചരിത്രവും ചെലവുവിലയുമുള്ള സംരക്ഷിച്ച വാലറ്റ് വിലാസങ്ങളും xpub കീകളും</string>
+    <string name="backup_plain_contents_base">കുറിപ്പുകളും ഗ്രൂപ്പുകളുമുള്ള വാച്ച്‌ലിസ്റ്റ്, അലേർട്ടുകൾ, പ്രിയപ്പെട്ടവ, ക്രമീകരണങ്ങൾ</string>
+    <string name="backup_plain_contents_portfolio">പോർട്ട്ഫോളിയോ: തുകകളും വിലകളുമുള്ള ഇടപാടുകൾ</string>
+    <string name="backup_restore_app_lock_kept">പോർട്ട്ഫോളിയോ ലോക്ക് ഓണായി തുടരും – എൻക്രിപ്റ്റ് ചെയ്യാത്ത ബാക്കപ്പിന് അത് ഓഫാക്കാനാകില്ല.</string>
+    <string name="backup_restore_confirm">ഇമ്പോർട്ട് ചെയ്യുന്നത് നിങ്ങളുടെ നിലവിലെ വാച്ച്‌ലിസ്റ്റ് (കുറിപ്പുകളും ഗ്രൂപ്പുകളും സഹിതം), അലേർട്ടുകൾ, പ്രിയപ്പെട്ടവ, പോർട്ട്ഫോളിയോ, ക്രമീകരണങ്ങൾ എന്നിവയെ ബാക്കപ്പ് ഉപയോഗിച്ച് മാറ്റിസ്ഥാപിക്കുന്നു.</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="one">ബാക്കപ്പിലെ %d എൻട്രി (പോർട്ട്ഫോളിയോ അല്ലെങ്കിൽ അലേർട്ട്) അസാധുവാണ്, ഇമ്പോർട്ട് ചെയ്യില്ല.</item>
+        <item quantity="other">ബാക്കപ്പിലെ %d എൻട്രികൾ (പോർട്ട്ഫോളിയോ അല്ലെങ്കിൽ അലേർട്ടുകൾ) അസാധുവാണ്, ഇമ്പോർട്ട് ചെയ്യില്ല.</item>
+    </plurals>
+    <string name="backup_restore_newer_version">ഈ ബാക്കപ്പ് പുതിയൊരു ആപ്പ് പതിപ്പിൽ നിന്നുള്ളതാണ് – ആദ്യം ആപ്പ് അപ്‌ഡേറ്റ് ചെയ്യുക. ഒന്നും ഇമ്പോർട്ട് ചെയ്തില്ല.</string>
+    <string name="backup_restore_unencrypted_warning">ഈ ബാക്കപ്പ് എൻക്രിപ്റ്റ് ചെയ്തിട്ടില്ല – ഇത് നിങ്ങളുടേതാണെന്ന് ഉറപ്പാക്കുക. ക്രമീകരണങ്ങൾ പ്രയോഗിക്കും – സംരക്ഷണം കുറയ്ക്കുന്ന മാറ്റങ്ങൾ ഒഴികെ (പോർട്ട്ഫോളിയോ ലോക്ക്, വിലാസങ്ങൾക്കുള്ള സ്വന്തം സെർവർ, തുകകൾ മറയ്ക്കുക, സിസ്റ്റം ബാക്കപ്പിൽ പോർട്ട്ഫോളിയോ).</string>
+    <string name="backup_restored">പുനഃസ്ഥാപിച്ചു: %1$s, %2$s.</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d അലേർട്ട്</item>
+        <item quantity="other">%1$d അലേർട്ടുകൾ</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d ജോഡി</item>
+        <item quantity="other">%1$d ജോഡികൾ</item>
+    </plurals>
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen -->
+    <string name="backup_restore_over_limits">പരിധിക്ക് മുകളിൽ (%3$s ജോഡികൾ, ഒരു ജോഡിക്ക് %4$s അലേർട്ടുകൾ), പുനഃസ്ഥാപിക്കില്ല: %1$s, %2$s.</string>
+    <string name="backup_restored_over_limits">പരിധിക്ക് മുകളിൽ (%3$s ജോഡികൾ, ഒരു ജോഡിക്ക് %4$s അലേർട്ടുകൾ), പുനഃസ്ഥാപിച്ചില്ല: %1$s, %2$s.</string>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren -->
+    <string name="storage_recovery_message">ആപ്പിന്റെ എൻക്രിപ്റ്റ് ചെയ്ത ഡാറ്റയുടെ കീ ഈ ഉപകരണത്തിൽ ഇനി ഇല്ല, അതിനാൽ ആപ്പ് ശൂന്യമായി ആരംഭിച്ചു. ഒന്നും ഇല്ലാതാക്കിയിട്ടില്ല. വാച്ച്‌ലിസ്റ്റും പോർട്ട്ഫോളിയോയും തിരികെ ലഭിക്കാൻ, ക്രമീകരണത്തിലെ “%1$s” എന്നതിൽ ഒരു ബാക്കപ്പ് ഫയൽ ഇമ്പോർട്ട് ചെയ്യുക.</string>
+    <string name="storage_recovery_title">സംരക്ഷിച്ച ഡാറ്റ അൺലോക്ക് ചെയ്യാനായില്ല</string>
+
+    <!-- Sicherung mit Passwort (Argon2id, 64 MiB): zu wenig Arbeitsspeicher -->
+    <string name="backup_not_enough_memory">പാസ്‌വേഡ് ഉപയോഗിച്ച് ബാക്കപ്പ് സംരക്ഷിക്കാനോ തുറക്കാനോ ആവശ്യമായ സ്വതന്ത്ര മെമ്മറിയില്ല. മറ്റ് ആപ്പുകൾ അടച്ച് വീണ്ടും ശ്രമിക്കുക.</string>
+
+    <!-- Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">ബാക്കപ്പ് പുനഃസ്ഥാപിക്കുക</string>
+    <string name="storage_recovery_acknowledge">മനസ്സിലായി</string>
+    <string name="storage_recovery_restored_title">സംരക്ഷിച്ച ഡാറ്റ വീണ്ടും അൺലോക്ക് ചെയ്തു</string>
+    <string name="storage_recovery_restored_message">ഈ ഉപകരണത്തിലെ ഒരു പഴയ കീ മാറ്റിവച്ച ഡാറ്റ വീണ്ടും തുറന്നു, അതിനാൽ അത് തിരികെയെത്തി. ഇതിനിടയിൽ സംരക്ഷിച്ച ഡാറ്റ മാറ്റമില്ലാതെ അതിനോടൊപ്പം നിലനിർത്തി.</string>
+    <string name="settings_reset_notice_title">ക്രമീകരണങ്ങൾ പുനഃസജ്ജമാക്കി</string>
+    <string name="settings_reset_notice">നിങ്ങളുടെ ക്രമീകരണങ്ങൾ വായിക്കാനായില്ല, അവ ഡിഫോൾട്ടിലേക്ക് പുനഃസജ്ജമാക്കി. പോർട്ട്ഫോളിയോ ലോക്ക്, അലേർട്ട് ഇടവേള, കറൻസി എന്നിവ പരിശോധിക്കുക.</string>
+    <string name="backup_restore_interrupted_title">പുനഃസ്ഥാപനം തടസ്സപ്പെട്ടു</string>
+    <string name="backup_restore_interrupted_rolled_back">ഒരു ബാക്കപ്പ് പുനഃസ്ഥാപിക്കുന്നതിനിടെ ആപ്പ് അടച്ചു. നിങ്ങളുടെ മുൻ ഡാറ്റ തിരികെ വച്ചു; ബാക്കപ്പിൽ നിന്ന് ഒന്നും നിലനിർത്തിയില്ല.</string>
+    <string name="backup_restore_interrupted_incomplete">ഒരു ബാക്കപ്പ് പുനഃസ്ഥാപിക്കുന്നതിനിടെ ആപ്പ് അടച്ചു, മുൻ ഡാറ്റ പൂർണ്ണമായി തിരികെ വയ്ക്കാനായില്ല. നിങ്ങളുടെ വാച്ച്‌ലിസ്റ്റും പോർട്ട്ഫോളിയോയും പരിശോധിക്കുക, അല്ലെങ്കിൽ ക്രമീകരണത്തിലെ “%1$s” എന്നതിൽ ബാക്കപ്പ് വീണ്ടും പുനഃസ്ഥാപിക്കുക.</string>
+    <string name="backup_not_verified">സംരക്ഷിച്ച ശേഷം ബാക്കപ്പ് ഫയൽ സ്ഥിരീകരിക്കാനായില്ല – തിരികെ വായിക്കുമ്പോൾ വ്യത്യസ്തമാണ്. ദയവായി ബാക്കപ്പ് ഒരു പുതിയ ഫയലിലേക്ക് സംരക്ഷിക്കുക.</string>
+
+    <!-- Hinweis (nur Android): Portfolio-Kopie aus der Systemsicherung auch beim zweiten Versuch unlesbar und gelöscht -->
+    <string name="system_backup_not_imported_title">സിസ്റ്റം ബാക്കപ്പിൽ നിന്ന് പോർട്ട്ഫോളിയോ പുനഃസ്ഥാപിച്ചില്ല</string>
+    <!-- %1$s = Name des Bereichs «Sichern &amp; Wiederherstellen» in den Einstellungen -->
+    <string name="system_backup_not_imported_message">Android സിസ്റ്റം ബാക്കപ്പിൽ നിന്നുള്ള പോർട്ട്ഫോളിയോ പകർപ്പ് രണ്ടാം ശ്രമത്തിലും വായിക്കാനായില്ല, അത് ഇല്ലാതാക്കി. നിങ്ങൾക്ക് ഒരു ബാക്കപ്പ് ഫയലുണ്ടെങ്കിൽ, ക്രമീകരണത്തിലെ “%1$s” എന്നതിൽ അത് പുനഃസ്ഥാപിക്കുക.</string>
+
+    <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
+    <string name="portfolio_storage_kept_in_memory">സംരക്ഷിച്ച ഡാറ്റ ഇപ്പോൾ വായിക്കാനാകുന്നില്ല, അതിനാൽ പോർട്ട്ഫോളിയോ കാണിക്കുന്നില്ല, മാറ്റാനുമാകില്ല. ആപ്പ് പുനരാരംഭിക്കുക.</string>
+    <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
+    <string name="watchlist_storage_kept_in_memory">സംരക്ഷിച്ച ഡാറ്റ ഇപ്പോൾ വായിക്കാനാകുന്നില്ല, അതിനാൽ വാച്ച്‌ലിസ്റ്റ് കാണിക്കുന്നില്ല, മാറ്റാനുമാകില്ല. ആപ്പ് പുനരാരംഭിക്കുക.</string>
+    <string name="watchlist_storage_locked">വാച്ച്‌ലിസ്റ്റ് മാറ്റാനാകില്ല: സംരക്ഷിച്ച ഡാറ്റ ഇപ്പോൾ വായിക്കാനാകുന്നില്ല. ആപ്പ് പുനരാരംഭിക്കുക.</string>
+    <string name="alarm_save_storage_locked">അലേർട്ടുകൾ സംരക്ഷിക്കാനാകില്ല: സംരക്ഷിച്ച ഡാറ്റ ഇപ്പോൾ വായിക്കാനാകുന്നില്ല. ആപ്പ് പുനരാരംഭിക്കുക.</string>
+    <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
+    <string name="backup_storage_kept">ബാക്കപ്പ് സാധ്യമല്ല: സംരക്ഷിച്ച ഡാറ്റ ഇപ്പോൾ വായിക്കാനാകുന്നില്ല. ആപ്പ് പുനരാരംഭിച്ച് വീണ്ടും ശ്രമിക്കുക.</string>
+    <string name="backup_restore_storage_in_memory">ഇപ്പോൾ ഇമ്പോർട്ട് സാധ്യമല്ല: ആപ്പ് ഇപ്പോൾ ഡാറ്റ സംരക്ഷിക്കുന്നില്ല (എൻക്രിപ്ഷൻ ഇതുവരെ സജീവമല്ല), അതിനാൽ പുനരാരംഭിക്കുമ്പോൾ ഇമ്പോർട്ട് നഷ്ടപ്പെടും. ആപ്പ് പുനരാരംഭിച്ച് വീണ്ടും ശ്രമിക്കുക.</string>
+    <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable) -->
+    <string name="backup_restore_journal_unavailable">ഇപ്പോൾ ഇമ്പോർട്ട് സാധ്യമല്ല: നിങ്ങളുടെ നിലവിലെ ഡാറ്റയുടെ സുരക്ഷാ പകർപ്പ് സംരക്ഷിക്കാനായില്ല (കീ ഇപ്പോൾ ലഭ്യമല്ല). ഒന്നും മാറ്റിയിട്ടില്ല. പിന്നീട് വീണ്ടും ശ്രമിക്കുക അല്ലെങ്കിൽ ആപ്പ് പുനരാരംഭിക്കുക.</string>
+
+    <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
+    <string name="portfolio_storage_in_memory">എൻക്രിപ്ഷൻ ഇതുവരെ സജീവമല്ല – പോർട്ട്ഫോളിയോ സംരക്ഷിക്കുന്നില്ല, ആപ്പ് അടയ്ക്കുമ്പോൾ മാറ്റങ്ങൾ നഷ്ടപ്പെടും. അടുത്ത തുടക്കത്തിൽ ആപ്പ് വീണ്ടും ശ്രമിക്കും.</string>
+
+    <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
+    <string name="portfolio_storage_locked">സംരക്ഷിച്ച ഡാറ്റ ഇപ്പോൾ വായിക്കാനാകുന്നില്ല, അതിനാൽ മാറ്റങ്ങൾ സാധ്യമല്ല. ആപ്പ് പുനരാരംഭിക്കുക.</string>
+    <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
+    <string name="watchlist_storage_in_memory">ഈ ഉപകരണം ഇപ്പോൾ കീ നൽകുന്നില്ല – വാച്ച്‌ലിസ്റ്റ് സംരക്ഷിക്കുന്നില്ല, ആപ്പ് അടയ്ക്കുമ്പോൾ മാറ്റങ്ങൾ നഷ്ടപ്പെടും. പശ്ചാത്തലത്തിൽ അലേർട്ടുകൾ താൽക്കാലികമായി നിർത്തി. അടുത്ത തുടക്കത്തിൽ ആപ്പ് വീണ്ടും ശ്രമിക്കും.</string>
+
+    <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
+    <string name="backup_restore_server_kept">“വിലാസങ്ങൾക്കുള്ള സ്വന്തം സെർവർ” പ്രയോഗിച്ചില്ല – എൻക്രിപ്റ്റ് ചെയ്യാത്ത ബാക്കപ്പിന് അത് മാറ്റാനാകില്ല.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
+    <string name="backup_restore_server_public">ബാക്കപ്പിലേതുപോലെ “വിലാസങ്ങൾക്കുള്ള സ്വന്തം സെർവർ” നീക്കം ചെയ്തു – Bitcoin വിലാസങ്ങൾ വീണ്ടും പൊതു നോഡുകളിൽ അന്വേഷിക്കുന്നു.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
+    <string name="backup_restore_server_changed">“വിലാസങ്ങൾക്കുള്ള സ്വന്തം സെർവർ” ബാക്കപ്പിലേതുകൊണ്ട് മാറ്റിസ്ഥാപിച്ചു.</string>
+</resources>

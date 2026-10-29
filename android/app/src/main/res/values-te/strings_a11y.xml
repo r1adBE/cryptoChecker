@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">అలర్ట్ ట్రిగ్గర్ అయింది</string>
+    <string name="a11y_collapsed">కుదించబడింది</string>
+    <string name="a11y_converted">సుమారు %1$s</string>
+    <string name="a11y_expanded">విస్తరించబడింది</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">బ్రౌజర్‌లో తెరుచుకుంటుంది</string>
+    <string name="a11y_favorite">ఇష్టమైనది</string>
+    <string name="a11y_in_watchlist">ఇప్పటికే వాచ్‌లిస్ట్‌లో ఉంది</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_exchange_unreachable">%1$s అందుబాటులో లేదు</string>
+    <string name="a11y_move_down">కిందికి జరుపు</string>
+    <string name="a11y_move_up">పైకి జరుపు</string>
+    <string name="a11y_note">గమనిక: %1$s</string>
+    <string name="a11y_price">ధర %1$s</string>
+    <string name="a11y_price_notification_off">ధర నోటిఫికేషన్ ఆఫ్</string>
+    <string name="a11y_price_notification_on">ధర నోటిఫికేషన్ ఆన్</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">ధర పాతది</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%2$sలో %1$s</string>
+    <string name="a11y_stale">పాతది, చివరి అప్‌డేట్ %1$s</string>
+    <string name="a11y_warning">హెచ్చరిక</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">24 గంటల్లో %1$s</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">24 గంటల మార్పు అందుబాటులో లేదు</string>
+    <string name="a11y_change_down">%1$s తగ్గింది</string>
+    <string name="a11y_change_flat">మార్పు లేదు</string>
+    <string name="a11y_change_since_last">చివరి అప్‌డేట్ నుండి %1$s</string>
+    <string name="a11y_change_since_last_none">చివరి అప్‌డేట్ నుండి మార్పు అందుబాటులో లేదు</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">ఈరోజు %1$s</string>
+    <string name="a11y_change_today_none">ఈరోజు మార్పు అందుబాటులో లేదు</string>
+    <string name="a11y_change_today_zone">అర్ధరాత్రి %2$s నుండి %1$s</string>
+    <string name="a11y_change_today_zone_none">అర్ధరాత్రి %1$s నుండి మార్పు అందుబాటులో లేదు</string>
+    <string name="a11y_change_up">%1$s పెరిగింది</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">చార్ట్ %1$s: %2$s నుండి %3$s వరకు, %4$s. గరిష్ఠం %5$s, కనిష్ఠం %6$s.</string>
+    <string name="a11y_chart_empty">చార్ట్: డేటా లేదు</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">సైకిల్ %1$s: హాల్వింగ్ నుండి %2$s, రోజు %3$d.</string>
+    <string name="a11y_cycle_bottom">రోజు %2$dన కనిష్ఠ స్థాయి %1$s.</string>
+    <string name="a11y_cycle_double_bottom">రోజు %2$dన డబుల్ బాటమ్ %1$s.</string>
+    <string name="a11y_cycle_double_top">రోజు %2$dన డబుల్ టాప్ %1$s.</string>
+    <string name="a11y_cycle_top">రోజు %2$dన గరిష్ఠ స్థాయి %1$s.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">%1$s నుండి %2$s వరకు స్కేల్: 100లో %3$d</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, సగటున %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d తగ్గుతోంది</item>
+        <item quantity="other">%1$d తగ్గుతున్నాయి</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="one">%1$d జతకు 24 గంటల విలువ లేదు</item>
+        <item quantity="other">%1$d జతలకు 24 గంటల విలువ లేదు</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d జతకు ఈరోజు విలువ లేదు</item>
+        <item quantity="other">%1$d జతలకు ఈరోజు విలువ లేదు</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d జత పెరుగుతోంది</item>
+        <item quantity="other">%1$d జతలు పెరుగుతున్నాయి</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="one">%1$d రోజు క్రితం చివరిగా అప్‌డేట్ అయింది</item>
+        <item quantity="other">%1$d రోజుల క్రితం చివరిగా అప్‌డేట్ అయింది</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="one">%1$d గంట క్రితం చివరిగా అప్‌డేట్ అయింది</item>
+        <item quantity="other">%1$d గంటల క్రితం చివరిగా అప్‌డేట్ అయింది</item>
+    </plurals>
+    <string name="a11y_updated_just_now">ఇప్పుడే అప్‌డేట్ అయింది</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="one">%1$d నిమిషం క్రితం చివరిగా అప్‌డేట్ అయింది</item>
+        <item quantity="other">%1$d నిమిషాల క్రితం చివరిగా అప్‌డేట్ అయింది</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">మొత్తం దాచబడింది</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_entry">%1$s %2$s, ఈరోజు విలువ %3$s</string>
+    <string name="a11y_portfolio_entry_in">ఇన్‌కమింగ్</string>
+    <string name="a11y_portfolio_entry_no_value">విలువ అందుబాటులో లేదు</string>
+    <string name="a11y_portfolio_entry_note">గమనిక %1$s</string>
+    <string name="a11y_portfolio_entry_out">అవుట్‌గోయింగ్</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, పోర్ట్‌ఫోలియోలో %3$s</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, పోర్ట్‌ఫోలియోలో %2$s, %3$s</string>
+    <string name="a11y_portfolio_positions">అతిపెద్ద పొజిషన్‌లు: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">మొత్తాలను చూపు</string>
+    <string name="a11y_compare_chart">శాతంలో పోలిక, %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">30 రోజుల గరిష్ఠం నుండి %1$s</string>
+    <string name="a11y_price_overlay">ధర ఓవర్‌లే: %1$s</string>
+</resources>

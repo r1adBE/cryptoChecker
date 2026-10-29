@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">მისამართის დამატება</string>
+    <string name="portfolio_address_count">დათვლა</string>
+    <string name="portfolio_address_error">განახლება ვერ მოხერხდა</string>
+    <string name="portfolio_address_hint">საჯარო მისამართი (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) ან xpub</string>
+    <string name="portfolio_address_label">დასახელება (სურვილისამებრ)</string>
+    <string name="portfolio_address_not_since_buy">მისამართიდან · არ შედის «შეძენის შემდეგ»-ში: %1$s</string>
+    <string name="portfolio_address_overlap">ასევე შენს საკუთარ ტრანზაქციებშია: %1$s – ორივე იკრიბება. იგივე მონეტებია? აირჩიე «მხოლოდ ჩვენება».</string>
+    <string name="portfolio_address_overlap_ask">%1$s უკვე აღრიცხული გაქვს საკუთარი ტრანზაქციებით. დავამატო ამ მისამართის ნაშთი პორტფელს თუ მხოლოდ ვაჩვენო?</string>
+    <string name="portfolio_address_overlap_auto">«%1$s» ახლა მხოლოდ ჩანს და არ ითვლება – %2$s შენს ტრანზაქციებშიც არის.</string>
+    <string name="portfolio_address_overlap_title">იგივე მონეტებია, რაც შენს ტრანზაქციებში?</string>
+    <string name="portfolio_address_overlap_tx">იგივე თანხაა, რაც შენი შეტანა/გადარიცხვა (%1$s) – სავარაუდოდ ორჯერ ითვლება.</string>
+    <string name="portfolio_address_period_observed">დაკვირვებადი მისამართები ითვლება პირველი დაფიქსირებული ნაშთიდან; შემდგომი ცვლილებები შემოსვლა/გასვლაა და არა მოგება.</string>
+    <string name="portfolio_address_privacy">%1$s-ს მხოლოდ საჯარო მისამართი ეგზავნება – არასოდეს გასაღებები ან seed ფრაზები. მომწოდებელი მას შენს IP მისამართთან ერთად ხედავს. მოწმდება მაქსიმუმ ყოველ 10 წუთში.</string>
+    <string name="portfolio_address_remove">მისამართის წაშლა</string>
+    <string name="portfolio_address_show_only">მხოლოდ ჩვენება, პორტფელს არ დაემატოს</string>
+    <string name="portfolio_address_show_only_short">მხოლოდ ჩვენება</string>
+    <string name="portfolio_address_tokens">ტოკენების დათვლა</string>
+    <string name="portfolio_address_xpub_privacy">xpub ამ საფულის ყველა მისამართს ავლენს. ისინი შენს მოწყობილობაზე გამოითვლება; %1$s-ს მხოლოდ ცალკეული მისამართები ეგზავნება – პირველი სკანირებისას მინიმუმ 40 მოთხოვნა, შემდეგ ნაკლები. პირადი გასაღებები (xprv) არასოდეს მიიღება.</string>
+    <string name="portfolio_address_xpub_gap">ძებნა წყდება ზედიზედ %1$d გამოუყენებელი მისამართის შემდეგ (BIP44 სტანდარტი, რომელსაც საფულეების უმეტესობა იყენებს). ამ შუალედის მიღმა გამოყენებული მისამართი არ ითვლება – დაამატე ცალკე.</string>
+    <string name="portfolio_address_xpub_used">გამოყენებული მისამართები: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">განახლებისთვის ძალიან ბევრი გამოყენებული მისამართია</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">ძალიან ბევრი მისამართია – ძველ, ცარიელ მისამართებზე ახალი გადახდები შეიძლება ვერ აღმოჩნდეს</string>
+    <string name="portfolio_addresses_title">მისამართები</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Bitcoin Cash მისამართებზე დაკვირვება შეუძლებელია: არ არსებობს უფასო საჯარო სერვისი API გასაღების გარეშე, რომლის პირობებიც ამის უფლებას იძლევა.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) 2024 წელს დაიხურა – ნაშთები ახლა BNB Smart Chain-ზეა (0x…)</string>
+    <string name="address_checksum">საკონტროლო ჯამი არასწორია – შეამოწმე შეცდომები</string>
+    <string name="address_doge_unsupported">Dogecoin მისამართებზე დაკვირვება შეუძლებელია: არ არსებობს უფასო საჯარო სერვისი API გასაღების გარეშე, რომლის პირობებიც ამის უფლებას იძლევა.</string>
+    <string name="address_duplicate">ეს მისამართი უკვე დამატებულია</string>
+    <string name="address_ens">ENS სახელები არ არის მხარდაჭერილი – შეიყვანე 0x მისამართი</string>
+    <string name="address_invalid">მხარდაჭერილი ქსელის სწორი მისამართი არ არის</string>
+    <string name="address_limit">მაქსიმუმ 20 მისამართი</string>
+    <string name="address_secret">ეს პირად გასაღებს ან seed ფრაზას ჰგავს – არასოდეს შეიყვანო ის არსად. მხოლოდ საჯარო მისამართები.</string>
+    <string name="address_testnet">Testnet მისამართები არ არის მხარდაჭერილი</string>
+    <string name="address_unsupported">მისამართის ეს ტიპი არ არის მხარდაჭერილი</string>
+    <string name="address_wrong_chain">მისამართი სხვა ქსელს ეკუთვნის</string>
+    <string name="address_xpub_multisig">Multisig გასაღებები (Ypub/Zpub) არ არის მხარდაჭერილი</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot ანგარიში (BIP86): bc1p… მისამართები ამ გასაღებიდან გამოითვლება, მისაღებად და ხურდისთვის.</string>
+    <string name="portfolio_address_taproot_hint">Taproot საფულე? ჩასვი მის ნაცვლად შენი საფულის tr(…) დესკრიპტორი – უბრალო xpub მხოლოდ Legacy და SegWit მისამართებად იძებნება.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">საკუთარი სერვერი მიუწვდომელია</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">ვინც %1$s-ს მართავს, ხედავს ამ საფულის ყველა მოთხოვნილ მისამართს და შეუძლია ისინი ერთმანეთს და შენს IP მისამართს დაუკავშიროს.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">ამის თავიდან ასაცილებლად შეიყვანე საკუთარი სერვერი: პარამეტრები › პორტფელი › საკუთარი სერვერი მისამართებისთვის.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d უცნობი ტოკენი (არ ითვლება)</item>
+        <item quantity="other">+%1$d უცნობი ტოკენი (არ ითვლება)</item>
+    </plurals>
+</resources>

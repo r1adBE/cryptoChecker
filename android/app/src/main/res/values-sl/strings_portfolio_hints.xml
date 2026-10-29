@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">Alarmi portfelja so zaustavljeni: ni trenutnega tečaja za %1$s</string>
+    <string name="portfolio_alarms_paused_price_generic">Alarmi portfelja so zaustavljeni: vsi kovanci nimajo trenutnega tečaja</string>
+    <string name="portfolio_alarms_paused_addresses">Alarmi portfelja so zaustavljeni: stanja spremljanih naslovov še niso naložena</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Alarmi portfelja so zaustavljeni: stanja žetonov za %1$s so delno zastarela</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Alarmi portfelja so zaustavljeni: stanja žetonov spremljanih naslovov so delno zastarela</string>
+    <string name="portfolio_alarms_paused_unverified">Alarmi portfelja so zaustavljeni: tečaj za %1$s ni preverjen</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Alarmi portfelja so zaustavljeni: tečaj nekaterih kovancev ni preverjen</string>
+    <string name="portfolio_alarms_address_failing">Alarmi portfelja preverjajo brez %1$s: stanje ni naloženo že več kot 24 ur</string>
+    <string name="portfolio_alarms_address_failing_generic">Alarmi portfelja preverjajo brez naslovov, katerih stanje se ne nalaga že več kot 24 ur</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">žetoni delno zastareli</string>
+    <string name="portfolio_address_restore_failed">Naslova ni bilo mogoče obnoviti – po potrebi ga dodaj znova</string>
+    <string name="portfolio_address_remove_failed">Naslova ni bilo mogoče odstraniti – poskusi znova</string>
+</resources>

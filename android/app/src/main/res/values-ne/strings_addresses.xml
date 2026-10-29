@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">ठेगाना थप्नुहोस्</string>
+    <string name="portfolio_address_count">गणना गर्नुहोस्</string>
+    <string name="portfolio_address_error">अपडेट असफल भयो</string>
+    <string name="portfolio_address_hint">सार्वजनिक ठेगाना (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) वा xpub</string>
+    <string name="portfolio_address_label">लेबल (ऐच्छिक)</string>
+    <string name="portfolio_address_not_since_buy">ठेगानाबाट · “खरिददेखि” मा समावेश छैन: %1$s</string>
+    <string name="portfolio_address_overlap">तपाईंका आफ्नै कारोबारमा पनि छ: %1$s – दुवै जोडिन्छन्। उही कोइन हुन्? “देखाउने मात्र” छान्नुहोस्।</string>
+    <string name="portfolio_address_overlap_ask">तपाईंले %1$s आफ्नै कारोबारहरूमा पहिले नै राख्नुभएको छ। यो ठेगानाको ब्यालेन्स पोर्टफोलियोमा जोड्ने, वा देखाउने मात्र?</string>
+    <string name="portfolio_address_overlap_auto">“%1$s” अब देखाइन्छ मात्र, गणना गरिँदैन – %2$s तपाईंका कारोबारमा पनि छन्।</string>
+    <string name="portfolio_address_overlap_title">तपाईंका कारोबारकै कोइन हुन्?</string>
+    <string name="portfolio_address_overlap_tx">तपाईंको आफ्नै जम्मा/स्थानान्तरण (%1$s) जत्तिकै रकम – सम्भवतः दुई पटक गणना भएको।</string>
+    <string name="portfolio_address_period_observed">हेरिएका ठेगानाहरू पहिलो पटक देखिएको ब्यालेन्सबाट गणना हुन्छन्; पछिका परिवर्तनहरू आगमन/बहिर्गमन हुन्, नाफा होइन।</string>
+    <string name="portfolio_address_privacy">%1$s लाई सार्वजनिक ठेगाना मात्र पठाइन्छ – कुञ्जी वा सीड फ्रेज कहिल्यै पठाइँदैन। प्रदायकले यसलाई तपाईंको IP ठेगानासँगै देख्छ। बढीमा हरेक 10 मिनेटमा जाँच गरिन्छ।</string>
+    <string name="portfolio_address_remove">ठेगाना हटाउनुहोस्</string>
+    <string name="portfolio_address_show_only">देखाउने मात्र, पोर्टफोलियोमा नजोड्ने</string>
+    <string name="portfolio_address_show_only_short">देखाउने मात्र</string>
+    <string name="portfolio_address_tokens">टोकनहरू गणना गर्नुहोस्</string>
+    <string name="portfolio_address_xpub_privacy">xpub ले यो वालेटका सबै ठेगानाहरू खुलाउँछ। ती तपाईंकै डिभाइसमा निकालिन्छन्; %1$s लाई एक्लाएक्लै ठेगानाहरू मात्र पठाइन्छन् – पहिलो स्क्यानमा कम्तीमा 40 अनुरोध, पछि कम। निजी कुञ्जी (xprv) कहिल्यै स्वीकार गरिँदैन।</string>
+    <string name="portfolio_address_xpub_gap">लगातार %1$d प्रयोग नभएका ठेगानापछि खोज रोकिन्छ (धेरैजसो वालेटले प्रयोग गर्ने BIP44 मानक)। त्यो अन्तरभन्दा परको प्रयोग भएको ठेगाना गणना हुँदैन – त्यसलाई छुट्टै थप्नुहोस्।</string>
+    <string name="portfolio_address_xpub_used">प्रयोगमा रहेका ठेगाना: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">अपडेट गर्न धेरै बढी प्रयोग भएका ठेगानाहरू</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">धेरै ठेगानाहरू – पुराना, खाली ठेगानामा आएका नयाँ भुक्तानी पत्ता नलाग्न सक्छ</string>
+    <string name="portfolio_addresses_title">ठेगानाहरू</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Bitcoin Cash ठेगानाहरू हेर्न सकिँदैन: API कुञ्जीबिनाको, सर्तहरूले अनुमति दिने कुनै निःशुल्क सार्वजनिक सेवा छैन।</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) 2024 मा बन्द भयो – ब्यालेन्स अब BNB Smart Chain (0x…) मा छन्</string>
+    <string name="address_checksum">चेकसम गलत – टाइपिङ त्रुटि जाँच्नुहोस्</string>
+    <string name="address_doge_unsupported">Dogecoin ठेगानाहरू हेर्न सकिँदैन: API कुञ्जीबिनाको, सर्तहरूले अनुमति दिने कुनै निःशुल्क सार्वजनिक सेवा छैन।</string>
+    <string name="address_duplicate">यो ठेगाना पहिले नै थपिएको छ</string>
+    <string name="address_ens">ENS नामहरू समर्थित छैनन् – 0x ठेगाना लेख्नुहोस्</string>
+    <string name="address_invalid">समर्थित नेटवर्कको मान्य ठेगाना होइन</string>
+    <string name="address_limit">बढीमा 20 ठेगाना</string>
+    <string name="address_secret">यो निजी कुञ्जी वा सीड फ्रेजजस्तो देखिन्छ – यसलाई कहिल्यै कतै नलेख्नुहोस्। सार्वजनिक ठेगाना मात्र।</string>
+    <string name="address_testnet">टेस्टनेट ठेगानाहरू समर्थित छैनन्</string>
+    <string name="address_unsupported">यो ठेगाना प्रकार समर्थित छैन</string>
+    <string name="address_wrong_chain">ठेगाना अर्को नेटवर्कको हो</string>
+    <string name="address_xpub_multisig">मल्टिसिग कुञ्जी (Ypub/Zpub) समर्थित छैनन्</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot खाता (BIP86): यो कुञ्जीबाट प्राप्ति र चेन्जका लागि bc1p… ठेगानाहरू निकालिन्छन्।</string>
+    <string name="portfolio_address_taproot_hint">Taproot वालेट? त्यसको सट्टा आफ्नो वालेटबाट डिस्क्रिप्टर tr(…) टाँस्नुहोस् – साधारण xpub लाई Legacy र SegWit ठेगानाका रूपमा मात्र खोजिन्छ।</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">आफ्नो सर्भरमा पुग्न सकिएन</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">%1$s चलाउनेले यो वालेटका सबै सोधिएका ठेगानाहरू देख्छ र तिनलाई आपसमा तथा तपाईंको IP ठेगानासँग जोड्न सक्छ।</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">यसबाट बच्न सेटिङहरू › पोर्टफोलियो › ठेगानाका लागि आफ्नो सर्भर मा आफ्नो सर्भर लेख्नुहोस्।</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d अज्ञात टोकन (गणना गरिएको छैन)</item>
+        <item quantity="other">+%1$d अज्ञात टोकन (गणना गरिएको छैन)</item>
+    </plurals>
+</resources>

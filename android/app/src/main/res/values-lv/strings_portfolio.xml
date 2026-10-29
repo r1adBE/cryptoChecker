@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">Šajā ierīcē nav iestatīta ekrāna bloķēšana. Vispirms iestati to sistēmas iestatījumos.</string>
+    <string name="app_lock_unlock">Atbloķēt</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">Notīrīt portfeli</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="zero">Dzēst visus %d darījumus? Vērojamās adreses paliek. Uzreiz pēc tam to vari atsaukt.</item>
+        <item quantity="one">Dzēst %d darījumu? Vērojamās adreses paliek. Uzreiz pēc tam to vari atsaukt.</item>
+        <item quantity="other">Dzēst visus %d darījumus? Vērojamās adreses paliek. Uzreiz pēc tam to vari atsaukt.</item>
+    </plurals>
+    <string name="portfolio_empty_action">Pievieno savu pirmo pirkumu</string>
+    <string name="portfolio_empty_address">Tikai vērot maciņa adresi</string>
+    <string name="portfolio_empty_csv">Pirki biržā? Importē tās failu</string>
+    <string name="portfolio_empty_example_plain">Piemērs: %1$s BTC nopirkts 1. martā. Lietotne parādīs, cik tas ir vērts šodien un vai esi plusos vai mīnusos – glabājas tikai šajā ierīcē.</string>
+    <string name="portfolio_empty_title">Vēl nav darījumu</string>
+    <string name="portfolio_enable_ask_text">Tavs darījums ir saglabāts. Cilnē „Portfelis“ redzami tavi turējumi un to vērtība.</string>
+    <string name="portfolio_enable_ask_title">Ieslēgt cilni „Portfelis“?</string>
+    <string name="portfolio_enable_later_hint">Darījums saglabāts. Cilni „Portfelis“ vari ieslēgt sadaļā Iestatījumi › Portfelis.</string>
+    <string name="portfolio_enabled_banner">Portfelis ieslēgts – tas atrodams cilnē „Portfelis“.</string>
+    <string name="portfolio_lock_reason">Atbloķēt portfeli</string>
+    <string name="portfolio_locked_text">Atbloķē, lai redzētu turējumus un vērtības.</string>
+    <string name="portfolio_locked_title">Portfelis ir bloķēts</string>
+    <string name="portfolio_setting_hint">Nav obligāti: uzskaiti pirkumus un pārdošanas un redzi vērtību un peļņu/zaudējumus atsevišķā cilnē.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">Novecojis · stāvoklis %1$s</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="zero">%d ieraksti no sistēmas dublējuma nebija derīgi un netika atjaunoti.</item>
+        <item quantity="one">%d ieraksts no sistēmas dublējuma nebija derīgs un netika atjaunots.</item>
+        <item quantity="other">%d ieraksti no sistēmas dublējuma nebija derīgi un netika atjaunoti.</item>
+    </plurals>
+    <string name="portfolio_title">Portfelis</string>
+    <string name="portfolio_unassigned_fee">Maksa nav piesaistīta – iegādes vērtība nezināma: %1$s</string>
+    <string name="portfolio_updated">Cenas: %1$s</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">Citi</string>
+    <string name="portfolio_allocation_title">Sadalījums</string>
+    <string name="portfolio_card_details">Detaļas</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: vēl nav pieejams</string>
+    <string name="portfolio_card_hints_count">Piezīmes (%1$d)</string>
+    <string name="portfolio_card_today">Šodien</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">Kopā</string>
+    <string name="portfolio_hide_amounts">Paslēpt summas</string>
+    <string name="portfolio_hide_amounts_hint">Portfelī un portfeļa logrīkā rāda summas un vērtības kā ••• – procenti paliek redzami.</string>
+    <string name="portfolio_invested">Iegādes vērtība</string>
+    <string name="portfolio_total_no_fx">Nav valūtas kursa %1$s – summas USDT</string>
+    <string name="portfolio_total_value">Kopējā vērtība</string>
+    <string name="portfolio_value">Vērtība</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">Vid. %1$s · tagad %2$s</string>
+    <string name="portfolio_avg_only">Vid. %1$s</string>
+    <string name="portfolio_avg_open_lots">Turēto monētu vid. iegādes vērtība</string>
+    <string name="portfolio_avg_partial">Vid. no %1$s ar pirkuma cenu</string>
+    <string name="portfolio_avg_price">Vid. pirkuma cena</string>
+    <string name="portfolio_avg_price_hint">Vid. pirkuma cena: visu pirkumu vidējā vērtība, svērta pēc daudzuma. Pārdošanas tiek vērtētas pēc šīs vidējās vērtības.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="zero">Slēgtās pozīcijas (%1$d)</item>
+        <item quantity="one">Slēgtā pozīcija (%1$d)</item>
+        <item quantity="other">Slēgtās pozīcijas (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: pārdošanā vispirms tiek izmantotas vecākās monētas. Vid. = atlikusī iegādes vērtība ÷ daudzums ar pirkuma cenu.</string>
+    <string name="portfolio_holdings">Turējumi</string>
+    <string name="portfolio_lost_fee_cost">Tīkla maksas izmaksas bez apmaksātas partijas: %1$s</string>
+    <string name="portfolio_open_lots">Atvērtās pirkuma partijas (%1$d)</string>
+    <string name="portfolio_open_lots_avg">Ar pirkuma cenu (vid.)</string>
+    <string name="portfolio_open_lots_no_cost">Bez pirkuma cenas</string>
+    <string name="portfolio_open_lots_without_price">bez pirkuma cenas</string>
+    <string name="portfolio_realized">Realizētā peļņa/zaudējumi</string>
+    <string name="portfolio_unrealized">Atvērtā peļņa/zaudējumi</string>
+    <string name="portfolio_unrealized_without_unpriced">bez %1$s bez pirkuma cenas</string>
+    <string name="portfolio_withdrawn_gain">Izņemts: %1$s (vērtības izmaiņas līdz izmaksai)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">Pārrēķināt uz</string>
+    <string name="portfolio_convert_to_value">Pārrēķināt uz: %1$s</string>
+    <string name="portfolio_current_missing">Nav pašreizējās cenas %1$s</string>
+    <string name="portfolio_current_price">Pašreizējā cena</string>
+    <string name="portfolio_price_missing">Trūkst cenas</string>
+    <string name="portfolio_price_missing_hint">Dažiem pirkumiem nav cenas. Pievieno pirkuma cenu, lai redzētu peļņu/zaudējumus.</string>
+    <string name="portfolio_price_source">Cenas: Binance · USDT pēc tirgus cenas</string>
+    <string name="portfolio_price_source_routes">Cenas: %1$s, citādi Binance · USDT pēc tirgus cenas</string>
+    <string name="portfolio_price_unavailable">Cena pašlaik nav pieejama</string>
+    <string name="portfolio_price_unchecked">Cena nav pārbaudīta</string>
+    <string name="portfolio_price_via_base">≈ %1$s cena (caur tiltu/ietīts)</string>
+    <string name="portfolio_usdt_as_usd">USDT pārrēķināts pēc tā USD tirgus cenas</string>
+    <string name="portfolio_usdt_assumed">Trūkst USDT dolāra kursa – skaitīts kā 1 ASV dolārs</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">Pievienot portfelim</string>
+    <string name="portfolio_add_tx">Pievienot darījumu</string>
+    <string name="portfolio_buy">Pirkums</string>
+    <string name="portfolio_coin">Monēta</string>
+    <string name="portfolio_coin_invalid">Ievadi monētas simbolu</string>
+    <string name="portfolio_coin_search">Meklēt simbolu, piem., BTC</string>
+    <string name="portfolio_discard_confirm">Atmest</string>
+    <string name="portfolio_discard_keep">Turpināt rediģēt</string>
+    <string name="portfolio_discard_title">Atmest izmaiņas?</string>
+    <string name="portfolio_edit_tx">Rediģēt darījumu</string>
+    <string name="portfolio_invalid">Ievadi derīgu skaitli, kas lielāks par 0.</string>
+    <string name="portfolio_oversold">Pārdošanas pārsniedz turējumus – lūdzu, pārbaudi darījumus.</string>
+    <string name="portfolio_sell">Pārdošana</string>
+    <string name="portfolio_sell_exceeds">Vairāk nekā tavi turējumi (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">Daudzums kopā ar maksu pārsniedz tavus turējumus (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">Vairāk nekā tavi turējumi %2$s (%1$s)</string>
+    <string name="portfolio_transactions">Darījumi</string>
+    <string name="portfolio_tx_acquired_date">Sākotnējais pirkuma datums (nav obligāts)</string>
+    <string name="portfolio_tx_acquired_date_hint">Turēšanas ilgumam nodokļu eksportā</string>
+    <string name="portfolio_tx_amount">Daudzums</string>
+    <string name="portfolio_tx_coin_fee">Maksa monētā (nav obligāta)</string>
+    <string name="portfolio_tx_date">Datums</string>
+    <string name="portfolio_tx_delete_confirm">Šis darījums tiks noņemts no portfeļa.</string>
+    <string name="portfolio_tx_delete_title">Dzēst darījumu?</string>
+    <string name="portfolio_tx_deposit">Iemaksa</string>
+    <string name="portfolio_tx_entry_currency">Ievadīt</string>
+    <string name="portfolio_tx_explain_deposit">Turējumi bez darījuma, piem., agrāk iegūtas monētas</string>
+    <string name="portfolio_tx_explain_gift">Monētas atstāj turējumus kā izmaksa – atsavināšana par tirgus vērtību tikai tur, kur valsts šādi apliek dāvinājumus ar nodokli (UK, CA, AU)</string>
+    <string name="portfolio_tx_explain_payment">Samaksāts par precēm vai pakalpojumiem – atsavināšana par tirgus vērtību kā pārdošana, nesaņemot naudu</string>
+    <string name="portfolio_tx_explain_reward">Iegādes vērtība = tirgus vērtība saņemšanas brīdī</string>
+    <string name="portfolio_tx_explain_swap">Viena monēta pret citu: atdotā tiek pārdota, saņemtā – nopirkta</string>
+    <string name="portfolio_tx_explain_transfer">Nav peļņas – iegādes vērtība pārvietojas līdz ar monētām</string>
+    <string name="portfolio_tx_explain_withdrawal">Turējumi atstāj portfeli – nav pārdošanas, nav peļņas</string>
+    <string name="portfolio_tx_fee_consumes_amount">Maksa ir tikpat liela kā saņemtais daudzums – nekas nepaliktu pāri.</string>
+    <string name="portfolio_tx_fees_toggle">Maksas</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s pēc %2$s kursa</string>
+    <string name="portfolio_tx_fiat_loading">Ielādē valūtas kursu…</string>
+    <string name="portfolio_tx_fiat_no_fx">Šai dienai nav valūtas kursa – ievadi summu USDT.</string>
+    <string name="portfolio_tx_gift">Dāvinājums</string>
+    <string name="portfolio_tx_gift_price_hint">USDT. Tukšs = tās dienas slēgšanas cena (aptuvena).</string>
+    <string name="portfolio_tx_gift_spouse">Laulātajam / partnerim</string>
+    <string name="portfolio_tx_gift_spouse_hint">UK un Kanāda: nav ne peļņas, ne zaudējumu – partneris pārņem tavu iegādes vērtību. Citas valstis to neņem vērā.</string>
+    <string name="portfolio_tx_market_value">Tirgus vērtība par monētu</string>
+    <string name="portfolio_tx_more_buy">Maksa, birža, piezīme</string>
+    <string name="portfolio_tx_network_fee">Tīkla maksa monētā (nav obligāta)</string>
+    <string name="portfolio_tx_note">Piezīme (nav obligāta)</string>
+    <string name="portfolio_tx_payment">Samaksāts ar to</string>
+    <string name="portfolio_tx_price">Cena par monētu</string>
+    <string name="portfolio_tx_price_hint">USDT. Atstāj tukšu, ja nav zināma.</string>
+    <string name="portfolio_tx_price_historic">Pārbaudīta %1$s dienas slēgšanas cena – ja vajag, pielāgo</string>
+    <string name="portfolio_tx_price_invalid">Ievadi derīgu skaitli (0 vai vairāk) vai atstāj lauku tukšu.</string>
+    <string name="portfolio_tx_price_past_hint">Ievadi pirkuma dienas cenu – atstāj tukšu, ja nav zināma</string>
+    <string name="portfolio_tx_price_receipt_hint">USDT. Tukšs = turējumi bez iegādes vērtības.</string>
+    <string name="portfolio_tx_price_zero">Importētiem darījumiem cena 0 nav iespējama – atstāj tukšu tirgus cenai</string>
+    <string name="portfolio_tx_removed">Darījums izdzēsts</string>
+    <string name="portfolio_tx_reward">Atlīdzība</string>
+    <string name="portfolio_tx_save_failed">Darījumu neizdevās saglabāt. Tavi ievadītie dati joprojām ir šeit – lūdzu, mēģini vēlreiz.</string>
+    <string name="portfolio_tx_swap">Maiņa</string>
+    <string name="portfolio_tx_swap_fee_received">Maksa %1$s: samazina saņemto daudzumu, cena nav vajadzīga.</string>
+    <string name="portfolio_tx_swap_from">Maiņa no %1$s</string>
+    <string name="portfolio_tx_swap_given_amount">Atdotais daudzums</string>
+    <string name="portfolio_tx_swap_given_coin">Atdotā monēta</string>
+    <string name="portfolio_tx_swap_received_amount">Saņemtais daudzums</string>
+    <string name="portfolio_tx_swap_received_coin">Saņemtā monēta</string>
+    <string name="portfolio_tx_swap_same_coin">Izvēlies citu monētu, nevis atdoto</string>
+    <string name="portfolio_tx_swap_to">Maiņa uz %1$s</string>
+    <string name="portfolio_tx_swap_value">Maiņas vērtība (nav obligāta)</string>
+    <string name="portfolio_tx_swap_value_hint">Kopējā vērtība. Tukšs = nezināma – peļņa paliek nepilnīga (automātiski, ja maiņā ir USDT).</string>
+    <string name="portfolio_tx_third_fee_amount">Maksas daudzums</string>
+    <string name="portfolio_tx_third_fee_coin">Maksas monēta</string>
+    <string name="portfolio_tx_third_fee_incomplete">Bez cenas maksa netiek iekļauta iegādes vērtībā un ieņēmumos; nodokļu eksports atzīmē šādas pārdošanas.</string>
+    <string name="portfolio_tx_third_fee_price">Maksas monētas cena (nav obligāta)</string>
+    <string name="portfolio_tx_third_fee_toggle">Maksa citā monētā</string>
+    <string name="portfolio_tx_total">Kopā: %1$s</string>
+    <string name="portfolio_tx_transfer">Pārvedums</string>
+    <string name="portfolio_tx_transfer_from">No (nav obligāti)</string>
+    <string name="portfolio_tx_transfer_to">Uz (nav obligāti)</string>
+    <string name="portfolio_tx_transfer_to_hint">Birža vai maciņš – turpmāk vērtēts tur.</string>
+    <string name="portfolio_tx_type_select">Veids: %1$s</string>
+    <string name="portfolio_tx_value_received">Vērtība par monētu saņemšanas brīdī (nav obligāta)</string>
+    <string name="portfolio_tx_withdrawal">Izmaksa</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">Uzdāvināji vai samaksāji ar to? Ievadi to kā „Dāvinājums“ vai „Samaksāts ar to“ – atkarībā no valsts nodokļu nolūkos tā ir pārdošana.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">Nav obligāti: tirgus vērtība USDT, izmanto tikai vēsturei (tukšs = tās dienas cena). Monētas vienmēr aiziet par iegādes vērtību.</string>
+    <string name="portfolio_wallet_did_you_mean">Vai domāji %1$s? Cita rakstība skaitās kā atsevišķs maciņš.</string>
+    <string name="portfolio_wallet_shortfall">Turējumu %1$s nepietiek – vai trūkst pārveduma?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">Maksimums %1$s</string>
+    <string name="portfolio_compare">Salīdzināt</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">Salīdzināt %1$s un USDT procentos</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">Salīdzinājums procentos, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">Valūtas ietekme: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">Cenu dati sniedzas tikai līdz 2017. gada augustam — vēsture sākas tur.</string>
+    <string name="portfolio_history_chip_since_first">Viss</string>
+    <string name="portfolio_history_collapse">Paslēpt vērtības vēsturi</string>
+    <string name="portfolio_history_converted">Pārrēķināts pēc šodienas kursa</string>
+    <string name="portfolio_history_expand">Rādīt vērtības vēsturi</string>
+    <string name="portfolio_history_gain_a11y">Vērtība %1$s. Peļņa/zaudējumi, %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">Peļņa/zaudējumi</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">Vērtība %1$s</string>
+    <string name="portfolio_history_incl_fx">Ieskaitot valūtas kursu</string>
+    <string name="portfolio_history_incl_withdrawn">Ieskaitot izņemto monētu vērtības izmaiņas</string>
+    <string name="portfolio_history_includes_trades">Ietver šī perioda pirkumus un pārdošanas</string>
+    <string name="portfolio_history_loading">Ielādē vērtības vēsturi</string>
+    <string name="portfolio_history_period_1y">1 gads</string>
+    <string name="portfolio_history_period_30d">30 dienas</string>
+    <string name="portfolio_history_period_7d">7 dienas</string>
+    <string name="portfolio_history_period_since_first">kopš pirmā pirkuma</string>
+    <string name="portfolio_history_pnl_needs_prices">Peļņai/zaudējumiem trūkst pirkuma cenu – pievieno tās darījumos.</string>
+    <string name="portfolio_history_pnl_without">Peļņa/zaudējumi bez %1$s (trūkst cenas)</string>
+    <string name="portfolio_history_range_1y">1 g.</string>
+    <string name="portfolio_history_range_30d">30 d.</string>
+    <string name="portfolio_history_range_7d">7 d.</string>
+    <string name="portfolio_history_range_a11y">Rādīt vēsturi: %1$s</string>
+    <string name="portfolio_history_range_since_first">Kopš 1. pirkuma</string>
+    <string name="portfolio_history_scaled">Vēsture %1$s: Binance vēsture pielāgota biržas cenai</string>
+    <string name="portfolio_history_title">Vērtības vēsture</string>
+    <string name="portfolio_history_today">Šodien</string>
+    <string name="portfolio_history_too_short">Vēsture sākas pēc pirmās pilnās dienas.</string>
+    <string name="portfolio_history_unavailable">Pašlaik vēsture nav pieejama.</string>
+    <string name="portfolio_history_utc_days">Dienas pēc UTC (dienas sveces)</string>
+    <string name="portfolio_history_without_matching">Bez %1$s (nav atbilstošu dienas cenu)</string>
+    <string name="portfolio_period_rewards">Atlīdzības +%1$s (nav ieskaitītas peļņā)</string>
+    <string name="portfolio_period_scaled">7 d./1 g. %1$s: Binance vēsture pielāgota biržas cenai</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">Brīdinājums</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">Summa (%1$s)</string>
+    <string name="portfolio_alarm_hint">Pārbauda pēc katras atjaunināšanas. Tāpat kā brīdinājumi, nostrādā, kad slieksnis pārsniegts, un atkal tikai pēc tam, kad vērtība atgriezusies.</string>
+    <string name="portfolio_alarm_kind_above">Portfelis virs summas</string>
+    <string name="portfolio_alarm_kind_below">Portfelis zem summas</string>
+    <string name="portfolio_alarm_kind_down">Portfelis krītas</string>
+    <string name="portfolio_alarm_kind_up">Portfelis kāpj</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">Portfelis virs %1$s</string>
+    <string name="portfolio_alarm_sentence_below">Portfelis zem %1$s</string>
+    <string name="portfolio_alarm_sentence_down">Portfelis krities par %1$s (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">Portfelis kāpis par %1$s (%2$s)</string>
+    <string name="portfolio_alarm_title">Portfeļa vērtības brīdinājums</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">Birža (nav obligāta)</string>
+    <string name="ledger_exchange_failed">%1$s: pašlaik nav cenas no %2$s – vērtēts pēc Binance.</string>
+    <string name="ledger_exchange_hint">Monēta tiek vērtēta pēc šīs biržas cenas (citādi Binance). Vēsture, 7 d. un 1 g. izmanto Binance dienas cenas, pielāgotas tai.</string>
+    <string name="ledger_exchange_mixed">%1$s: ievadītas vairākas biržas – vērtēts pēc Binance. Pārvietoji monētas? Ievadi to kā „Pārvedums“.</string>
+    <string name="ledger_exchange_none">Nav (Binance)</string>
+    <string name="ledger_fee">Maksa (nav obligāta)</string>
+    <string name="ledger_fee_coin">Monēta</string>
+    <string name="ledger_fee_hint">USDT tā palielina iegādes vērtību (pārdošanā – samazina ieņēmumus); monētā – samazina daudzumu.</string>
+    <string name="ledger_fee_line">Maksa %1$s</string>
+    <string name="ledger_fifo_cost_note">Kopš pirkuma: FIFO izmaksas ieskaitot maksas (vispirms pārdotas vecākās monētas).</string>
+    <string name="ledger_gain_info">Šodien, 7 d., 1 g.: vērtības izmaiņas periodā – pirkumi un pārdošanas netiek skaitīti kā peļņa. Kopš pirkuma: pašreizējā vērtība mīnus vēl turēto monētu iegādes vērtība (vidējās izmaksas ieskaitot maksas).</string>
+    <string name="ledger_gain_info_a11y">Kā tiek aprēķināta peļņa un zaudējumi</string>
+    <string name="ledger_gain_info_fifo">Šodien, 7 d., 1 g.: vērtības izmaiņas periodā – pirkumi un pārdošanas netiek skaitīti kā peļņa. Kopš pirkuma: pašreizējā vērtība mīnus vēl turēto monētu iegādes vērtība (FIFO ieskaitot maksas).</string>
+    <string name="ledger_gain_title">Peļņa/zaudējumi</string>
+    <string name="ledger_more_toggle">Maksa un birža</string>
+    <string name="ledger_partial_cost">„Kopš pirkuma“ skaita tikai daļu ar pirkuma cenu – bez %1$s bez pirkuma cenas.</string>
+    <string name="ledger_period_without">Šodien / 7 d. / 1 g. bez %1$s – nav atbilstošas sākuma cenas.</string>
+    <string name="ledger_since_purchase_currency">Kopš pirkuma (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">Peļņa/zaudējumi kopš pirkuma, vēl nav pārdots</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="zero">Bez %1$d monētām bez pirkuma cenas (%2$s) – pievieno cenas, lai tās tiktu ieskaitītas.</item>
+        <item quantity="one">Bez %1$d monētas bez pirkuma cenas (%2$s) – pievieno cenu, lai tā tiktu ieskaitīta.</item>
+        <item quantity="other">Bez %1$d monētām bez pirkuma cenas (%2$s) – pievieno cenas, lai tās tiktu ieskaitītas.</item>
+    </plurals>
+
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">USDT kritums – tirgus pie %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">USDT dolāra kurss caur USDC/USDT – ja USDC kritīsies, šī vērtība būs nepareiza</string>
+    <string name="portfolio_amount_bridged_stable">≈ ieskaitot %1$s (caur tiltu)</string>
+
+    <string name="portfolio_tx_interest">Procenti (aizdošana)</string>
+    <string name="portfolio_tx_interest_hint">Skaitās kā ienākumi saņemšanas brīdī (Austrija). Staking atlīdzībām un airdrop atstāj izslēgtu.</string>
+    <string name="app_lock_no_screen_lock">Iestati ekrāna bloķēšanu, lai atvērtu portfeli.</string>
+    <string name="app_lock_turn_off_action">Izslēgt portfeļa bloķēšanu</string>
+    <string name="app_lock_turn_off_confirm_title">Izslēgt portfeļa bloķēšanu?</string>
+    <string name="app_lock_turn_off_confirm_message">Bez ekrāna bloķēšanas portfeli nevar atbloķēt. Ja to izslēgsi, lietotne atkal rādīs tavu portfeli bez jautāšanas. Kad ekrāna bloķēšana būs iestatīta, bloķēšanu varēsi atkal ieslēgt iestatījumos.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">„Kopš pirkuma“ un iegādes vērtība %1$s: izmaksas pēc pirkuma dienas valūtas kursa, vērtība pēc šodienas kursa.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">Nav pirkuma dienas valūtas kursa (trūkst „Kopš pirkuma“ un iegādes vērtībā): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">Izmaksas pirkuma dienās bez USDT dolāra kursa rēķinātas kā 1 ASV dolārs par USDT.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">Stāvoklis %1$s – birža nav sasniedzama</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">Dienas cenas: %1$s (Binance vietā)</string>
+
+    <string name="portfolio_footer_short">Darba palīglīdzeklis, nevis nodokļu vai ieguldījumu padoms. Privātums: Iestatījumi › Par lietotni › Privātuma politika.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">Dzēst visus %1$s darījumus?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="zero">Tiks noņemti %d darījumi. Uzreiz pēc tam to vari atsaukt.</item>
+        <item quantity="one">Tiks noņemts %d darījums. Uzreiz pēc tam to vari atsaukt.</item>
+        <item quantity="other">Tiks noņemti %d darījumi. Uzreiz pēc tam to vari atsaukt.</item>
+    </plurals>
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">Maksas %1$s tiek noņemtas arī no citiem darījumiem: %2$d.</string>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="zero">%1$s noņemts no portfeļa (%2$d darījumi)</item>
+        <item quantity="one">%1$s noņemts no portfeļa (%2$d darījums)</item>
+        <item quantity="other">%1$s noņemts no portfeļa (%2$d darījumi)</item>
+    </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="zero">Noņemti %d darījumi</item>
+        <item quantity="one">Noņemts %d darījums</item>
+        <item quantity="other">Noņemti %d darījumi</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="zero">Tiks noņemtas arī %d partijas.</item>
+        <item quantity="one">Tiks noņemta arī %d partija.</item>
+        <item quantity="other">Tiks noņemtas arī %d partijas.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="zero">Tiks noņemtas arī %d partijas un atlikuma vēsture.</item>
+        <item quantity="one">Tiks noņemta arī %d partija un atlikuma vēsture.</item>
+        <item quantity="other">Tiks noņemtas arī %d partijas un atlikuma vēsture.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">Tiks noņemta arī atlikuma vēsture.</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">Neizdevās saglabāt – lūdzu, mēģini vēlreiz</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">Nederīgs slieksnis – dzēs un izveido no jauna</string>
+</resources>

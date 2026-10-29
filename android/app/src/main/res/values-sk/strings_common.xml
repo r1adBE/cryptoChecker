@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Späť</string>
+    <string name="action_cancel">Zrušiť</string>
+    <string name="action_clear">Vymazať</string>
+    <string name="action_close">Zavrieť</string>
+    <string name="action_keep">Ponechať</string>
+    <string name="action_delete">Odstrániť</string>
+    <string name="action_edit">Upraviť</string>
+    <string name="action_more">Ďalšie možnosti</string>
+    <string name="action_refresh">Obnoviť</string>
+    <string name="action_retry">Skúsiť znova</string>
+    <string name="action_save">Uložiť</string>
+    <string name="action_sort">Zoradiť</string>
+    <string name="action_sort_done">Hotovo</string>
+    <string name="action_undo">Späť</string>
+    <string name="action_view">Zobraziť</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Trh</string>
+    <string name="tab_portfolio">Portfólio</string>
+    <string name="tab_settings">Nastavenia</string>
+    <string name="tab_watchlist">Zoznam</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Chyba: %1$s</string>
+    <string name="error_exchange_unreachable">Burza je teraz nedostupná – posledné kurzy zostávajú viditeľné.</string>
+    <string name="error_exchange_unreachable_short">Burza je teraz nedostupná</string>
+    <string name="loading_hint">Načítava sa…</string>
+    <string name="option_off">Vypnuté</string>
+    <string name="something_went_wrong">Niečo sa pokazilo</string>
+    <string name="time_just_now">práve teraz</string>
+    <string name="try_again">Skúsiť znova</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Bez pripojenia</string>
+    <string name="offline_status_since">Bez pripojenia · stav %1$s</string>
+    <string name="status_live">Naživo</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Pridať pár</string>
+    <string name="shortcut_alarms">Všetky alarmy</string>
+    <string name="shortcut_cycle">Trh</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Pridať pár do zoznamu</string>
+    <string name="shortcut_alarms_long">Zobraziť všetky alarmy</string>
+    <string name="shortcut_cycle_long">Otvoriť prehľad trhu</string>
+
+    <string name="log_box_title">Denník</string>
+    <string name="label_value">%1$s: %2$s</string>
+</resources>

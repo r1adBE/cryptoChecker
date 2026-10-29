@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generated from values-sr by android/tools/sr_latn.py - do not edit, run the script instead -->
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">Alarmi portfolija pauzirani: nema trenutne cene za %1$s</string>
+    <string name="portfolio_alarms_paused_price_generic">Alarmi portfolija pauzirani: nemaju sve kriptovalute trenutnu cenu</string>
+    <string name="portfolio_alarms_paused_addresses">Alarmi portfolija pauzirani: stanja praćenih adresa još nisu učitana</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Alarmi portfolija pauzirani: stanja tokena za %1$s delimično su zastarela</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Alarmi portfolija pauzirani: stanja tokena praćenih adresa delimično su zastarela</string>
+    <string name="portfolio_alarms_paused_unverified">Alarmi portfolija pauzirani: cena za %1$s nije proverena</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Alarmi portfolija pauzirani: cena nekih kriptovaluta nije proverena</string>
+    <string name="portfolio_alarms_address_failing">Alarmi portfolija proveravaju bez %1$s: stanje se ne učitava više od 24 sata</string>
+    <string name="portfolio_alarms_address_failing_generic">Alarmi portfolija proveravaju bez adresa čije se stanje ne učitava više od 24 sata</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">tokeni delimično zastareli</string>
+    <string name="portfolio_address_restore_failed">Adresu nije bilo moguće vratiti – po potrebi je ponovo dodaj</string>
+    <string name="portfolio_address_remove_failed">Adresu nije bilo moguće ukloniti – pokušaj ponovo</string>
+</resources>

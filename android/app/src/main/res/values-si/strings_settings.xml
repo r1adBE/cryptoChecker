@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">අභිරුචි</string>
+    <string name="settings_group_general">සාමාන්‍ය</string>
+    <string name="settings_group_more">තවත්</string>
+    <string name="settings_minutes">මිනි. %1$d</string>
+    <string name="settings_row_about">යෙදුම ගැන</string>
+    <string name="settings_row_alarms">ඇඟවීම්</string>
+    <string name="settings_row_currency">මුදල් ඒකකය</string>
+    <string name="settings_row_dated_futures">දිනයක් සහිත ෆියුචර්ස්</string>
+    <string name="settings_row_updates">මිල යාවත්කාලීන</string>
+    <string name="settings_row_watchlist">නිරීක්ෂණ ලැයිස්තුව</string>
+    <string name="settings_search_hint">සැකසීම් සොයන්න</string>
+    <string name="settings_seconds">%1$d s</string>
+    <string name="settings_section_about">ගැන</string>
+    <string name="settings_section_appearance">පෙනුම</string>
+    <string name="settings_section_developer">සංවර්ධක</string>
+    <string name="settings_section_language">භාෂාව</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">සක්‍රියයි</string>
+    <string name="settings_title">සැකසීම්</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">ඇඟවීමක් නැවත ක්‍රියාත්මක වීමට පෙර විවේක කාලය</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">ඇඟවීම් සංඥාව</string>
+    <string name="settings_alarm_signal_open_system">පද්ධති සැකසීම් තුළ සකසන්න</string>
+    <string name="settings_alarm_signal_system_hint">ඔබේ දුරකථනයේ දැනුම්දීම් සැකසීම් අනුගමනය කරයි.</string>
+    <string name="settings_alarm_sound">ඇඟවීම් ශබ්දය</string>
+    <string name="settings_alarm_sound_custom">අභිරුචි ශබ්දය</string>
+    <string name="settings_alarm_sound_default">පෙරනිමි ශබ්දය</string>
+    <string name="settings_alarm_sound_error">ශබ්දය භාවිත කළ නොහැකි විය.</string>
+    <string name="settings_alarm_sound_file">ඔබේම ශ්‍රව්‍ය ගොනුව…</string>
+    <string name="settings_alarm_sound_reset">පෙරනිමි ශබ්දය භාවිත කරන්න</string>
+    <string name="settings_alarm_sound_system">පද්ධති ශබ්දය තෝරන්න…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">යෙදුම් නිරූපකයේ අංකය</string>
+    <string name="settings_app_badge_hint">විවෘත ඇඟවීම් දැනුම්දීම් ගණන් කරයි. අංකයක් හෝ තිතක් දිස් වන්නේද යන්න මුල් තිරය මත රඳා පවතී (උදා. Samsung: “අංකය සමඟ පෙන්වන්න”).</string>
+    <string name="settings_exact_checks">නියමිත වේලාවට පරීක්ෂා කරන්න</string>
+    <string name="settings_exact_checks_grant">එලාම් &amp; සිහිකැඳවීම්වලට ඉඩ දෙන්න</string>
+    <string name="settings_exact_checks_hint">උපාංගය අක්‍රියව ඇති විටද Android ආසන්න වශයෙන් සෑම මිනිත්තු 15 කට වරක් පරීක්ෂා කරයි. මඳක් වැඩි බැටරි භාවිත කරයි.</string>
+    <string name="settings_exact_checks_nothing">සක්‍රිය යුගල නැත – පරීක්ෂා කිරීමට කිසිවක් නැත.</string>
+    <string name="settings_exact_checks_permission_missing">අවසරය නැත – උපාංගය විවේකයේ ඇති විට Android අක්‍රමවත්ව පරීක්ෂා කරයි, සමහර විට පැය ගණනකට පසුව පමණි.</string>
+    <string name="settings_notification_change">මිල වෙනස් වූ විට පමණක් දන්වන්න</string>
+    <string name="settings_notification_change_always">සැමවිටම</string>
+    <string name="settings_percent_invalid">0 සිට 100 දක්වා අගයක් ඇතුළත් කරන්න.</string>
+    <string name="settings_notification_change_hint">මිල දැනුම්දීමක් දිස් වන්නේ අවසන් දැනුම්දීමෙන් පසු මිල අවම වශයෙන් මෙපමණ චලනය වූ පසුව පමණි. දත්ත නොමැති අතරතුර කිසිවක් නොපෙන්වයි. ඇඟවීම්වලට බලපෑමක් නැත.</string>
+    <string name="settings_ongoing_notifications">ස්වයිප් කර ඉවත් කළ නොහැක</string>
+    <string name="settings_ongoing_notifications_hint">මිල දැනුම්දීම් අමුණා තබයි.</string>
+    <string name="settings_price_notifications">මිල දැනුම්දීම්</string>
+    <string name="settings_price_notifications_hint">සක්‍රිය කළ යුගලවල වත්මන් මිල තත්ත්ව තීරුවේ පෙන්වන්න.</string>
+    <string name="settings_price_pairs">යුගල</string>
+    <string name="settings_price_pairs_all_off">සියල්ල අක්‍රිය</string>
+    <string name="settings_price_pairs_all_on">සියල්ල සක්‍රිය</string>
+    <string name="settings_price_pairs_count">%2$d න් %1$d</string>
+    <string name="settings_price_pairs_empty">නිරීක්ෂණ ලැයිස්තුවේ තවම යුගල නැත.</string>
+    <string name="settings_price_pairs_hint">දැනුම්දීම් තීරුවේ මිල පෙන්වන යුගල තෝරන්න.</string>
+    <string name="settings_quiet_hours">නිහඬ පැය</string>
+    <string name="settings_quiet_hours_from">සිට</string>
+    <string name="settings_quiet_hours_hint">%1$s සහ %2$s අතර, ඇඟවීම් නිහඬ පැය අවසන් වන තුරු රැඳී සිට පසුව ශබ්දය සමඟ නාද වේ. වෙනත් දැනුම්දීම් කථනයකින් තොරව නිහඬව ලැබේ.</string>
+    <string name="settings_quiet_hours_to">දක්වා</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">අන්තරය</string>
+    <string name="settings_background_updates">පසුබිම් යාවත්කාලීන</string>
+    <string name="settings_battery_hint">සීමා කළ යනු Android පසුබිම් යාවත්කාලීන පැය ගණනකින් ප්‍රමාද කළ හැකි බවයි.</string>
+    <string name="settings_battery_ok">බැටරි භාවිතය: සීමා නොකළ</string>
+    <string name="settings_battery_restricted">බැටරි භාවිතය: සීමා කළ</string>
+    <string name="settings_check_runs_empty">තවම පරීක්ෂා කිසිවක් සටහන් කර නැත.</string>
+    <string name="settings_check_runs_honest_android">පරීක්ෂා කරන්නේ කවදාද යන්න Android තීරණය කරයි – එය සැබවින්ම සිදු වූයේ කවදාදැයි මෙහි ඔබට පෙනේ.</string>
+    <string name="settings_check_runs_honest_ios">පරීක්ෂා කරන්නේ කවදාද යන්න iOS තීරණය කරයි – එය සැබවින්ම සිදු වූයේ කවදාදැයි මෙහි ඔබට පෙනේ.</string>
+    <string name="settings_check_runs_title">මෑත පරීක්ෂා</string>
+    <string name="settings_http_log">HTTP ලොගය පෙන්වන්න</string>
+    <string name="settings_http_log_hint">“යුගලයක් එක් කරන්න” පිටුවේ පහළින් හුවමාරු වෙත ඉල්ලීම් පෙන්වයි – දෝෂ නිරාකරණය සඳහා.</string>
+    <string name="settings_live_service">නිතර යාවත්කාලීන කරන්න</string>
+    <string name="settings_live_websocket">සජීවී මිල</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">සැලකිය යුතු: දන්වන්න</string>
+    <string name="settings_activity_alerts_hint">යුගලයකට පැයකට උපරිම එක් වරක්: අසාමාන්‍ය මිල චලන, පරිමා උල්පත් සහ ෆියුචර්ස් අන්ත (Binance දත්ත).</string>
+    <string name="settings_activity_sensitivity">සංවේදීතාව</string>
+    <string name="settings_activity_sensitivity_hint">කාසියක් කොතරම් පහසුවෙන් අසාමාන්‍ය ලෙස ගණන් වේද – නිරීක්ෂණ ලැයිස්තු කාඩ්පතට සහ වෙළඳපොළ ඇඟවීම්වලට එකම ලෙස. “අඩු” සමඟ, කාඩ්පත ශක්තිමත්ම 3 පමණක් පෙන්වයි.</string>
+    <string name="settings_watchlist_activity_card">සැලකිය යුතු: ලැයිස්තුවේ පෙන්වන්න</string>
+    <string name="settings_watchlist_activity_card_hint">කණ්ඩායම් අසල ⚡ චිපය පෙන්වයි: දැන් යමක් සිදු වන යුගල පමණක් බැලීමට එය තට්ටු කරන්න. ඒ සඳහා දැනුම්දීම් වෙළඳපොළ ඇඟවීම් යටතේ සකසා ඇත.</string>
+    <string name="settings_watchlist_names">නම් පෙන්වන්න</string>
+    <string name="settings_watchlist_names_hint">යුගලයට පහළින් නම, උදා. Bitcoin හෝ NVIDIA. ලාංඡන ලැයිස්තු සමඟ පැමිණේ, සියලු කාසි සඳහා එක් වරක් පූරණය වේ.</string>
+    <string name="settings_watchlist_sparkline">නිරීක්ෂණ ලැයිස්තුවේ කුඩා ප්‍රස්තාරය</string>
+    <string name="settings_watchlist_sparkline_hint">මිල අසල පැය 24 ප්‍රවණතාව</string>
+    <string name="settings_watchlist_value_names">නම්</string>
+    <string name="settings_watchlist_value_price_only">මිල පමණක්</string>
+    <string name="settings_watchlist_value_sparkline">කුඩා ප්‍රස්තාරය</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Alpha ටෝකන ඇතුළුව (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Alpha ටෝකන: Binance Alpha ලැයිස්තුවේ මුල්, බොහෝ දුරට කුඩා ව්‍යාපෘති – බොහෝ විට අඩුවෙන් වෙළඳාම් වන අතර ඉතා අස්ථායී.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">ටෝකන යටතට අයත් වේ. “TradFi පමණක්” තෝරා ඇති අතරතුර ලබා ගත නොහැක; ඔබේ නිරීක්ෂණ ලැයිස්තුවේ දැනටමත් ඇති Alpha ටෝකන පවතී.</string>
+    <string name="settings_asset_scope_both">ටෝකන සහ TradFi</string>
+    <string name="settings_asset_scope_both_hint">සියල්ල – ක්‍රිප්ටෝ සහ TradFi</string>
+    <string name="settings_asset_scope_hint">ඔබ යුගල එක් කරන විට තේරීම සහ සෙවීම පෙන්වන්නේ කුමන යුගලදැයි සකසයි. ඔබේ නිරීක්ෂණ ලැයිස්තුවේ දැනටමත් ඇති යුගල සැමවිටම පවතී.</string>
+    <string name="settings_asset_scope_title">ටෝකන &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">ටෝකන පමණක්</string>
+    <string name="settings_asset_scope_tokens_hint">ක්‍රිප්ටෝ: ස්පොට් සහ perpetual</string>
+    <string name="settings_asset_scope_tradfi">TradFi පමණක්</string>
+    <string name="settings_asset_scope_tradfi_hint">කොටස්, භාණ්ඩ, FX මත ෆියුචර්ස් – ගිවිසුම්, ටෝකන නොවේ</string>
+    <string name="settings_rolling_futures">කාර්තුමය &amp; වෙනත් දිනයක් සහිත ෆියුචර්ස් ඇතුළුව</string>
+    <string name="settings_rolling_futures_hint">අක්‍රිය: හුවමාරු ලැයිස්තුවෙන් නැති දිනයක් සහිත ෆියුචර්ස් එකින් එක පරීක්ෂා කරනවා වෙනුවට තවදුරටත් වෙළඳාම් නොවන ලෙස සලකුණු කෙරේ. සෑම නැවුම් කිරීමකදීම කාලය ඉතිරි කරයි.</string>
+    <string name="settings_rolling_futures_qtly">කාර්තුමය &amp; වෙනත් දිනයක් සහිත ෆියුචර්ස් ඇතුළුව (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">ටෝකන යටතට අයත් වේ. “TradFi පමණක්” තෝරා ඇති අතරතුර ලබා ගත නොහැක; ඔබේ නිරීක්ෂණ ලැයිස්තුවේ දැනටමත් ඇති දිනයක් සහිත ෆියුචර්ස් සඳහා තවමත් අදාළ වේ.</string>
+    <string name="settings_tradfi_futures">කොටස්, භාණ්ඩ සහ FX (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">ඔබ යුගලයක් තෝරන විට කොටස්, රත්‍රන් සහ වෙනත් භාණ්ඩ, මුදල් සහ pre-IPO සමාගම් මත ෆියුචර්ස්ද පෙන්වයි. මේවා ගිවිසුම් මිස ටෝකන නොවේ.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">උච්චාරණ වර්ණය</string>
+    <string name="settings_accent_hint">යෙදුම, විජට් සහ යෙදුම් නිරූපකය සඳහා වර්ණය. සමහර මුල් තිර එය වෙනස් වූ විට නිරූපකය ඉවත් කරයි – එවිට එය නැවත එක් කරන්න.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">කාසි ලාංඡන</string>
+    <string name="settings_coin_logos_app">යෙදුම තුළ</string>
+    <string name="settings_coin_logos_app_hint">නිරීක්ෂණ ලැයිස්තුව, විවෘත කළ යුගලය සහ වෙළඳපොළ කාඩ්පත්</string>
+    <string name="settings_coin_logos_footer">ලාංඡන CoinGecko වෙතින්ද, CoinGecko ලැයිස්තුගත නොකරන කාසි (උදා. රත්‍රන්, රිදී, කොටස්) සඳහා Binance වෙතින්ද පැමිණේ. යෙදුම සියලු ලාංඡන එකවර පූරණය කර මෙම උපාංගයේ තබා ගනී, එබැවින් ඔබ අනුගමනය කරන්නේ කුමන කාසිදැයි කිසිදු සපයන්නෙකුට දැනගත නොහැක. ලාංඡනයක් නැති කාසි ඒවායේ මුලකුරු පෙන්වයි. ප්‍රියතම කාසිවල ලාංඡනයට කුඩා තරුවක් ලැබේ. ස්විචයක් අක්‍රිය තැන, ලාංඡන හෝ මුලකුරු දිස් නොවේ; සියලු ස්විච අක්‍රිය නම්, කිසිවක් පූරණය නොවේ.</string>
+    <string name="settings_coin_logos_portfolio">කළඹ තුළ</string>
+    <string name="settings_coin_logos_portfolio_hint">ස්ථාන, කාසි විස්තර සහ අවබෝධය</string>
+    <string name="settings_coin_logos_value_app">යෙදුම</string>
+    <string name="settings_coin_logos_widgets">විජට්වල</string>
+    <string name="settings_coin_logos_widgets_hint">නිරීක්ෂණ ලැයිස්තු සහ තනි කාසි විජට්</string>
+    <string name="settings_high_contrast">ඉහළ වෙනස</string>
+    <string name="settings_high_contrast_hint">ශක්තිමත් මිල වර්ණ සහ තද ද්විතීයික පෙළ. පද්ධතිය වැඩි වෙනසක් ඉල්ලන විටද සක්‍රිය වේ.</string>
+    <string name="settings_language_choose">භාෂාව තෝරන්න</string>
+    <string name="settings_language_system">පද්ධති භාෂාව</string>
+    <string name="settings_price_colors">මිල වර්ණ</string>
+    <string name="settings_price_colors_hint">නිල් / තැඹිලි සෑම වර්ණ දෘෂ්ටි ඌනතාවයකදීම (රතු-කොළ සහ නිල්-කහ) පහසුවෙන් වෙන්කර හඳුනාගත හැක. දිශාව සැමවිටම + / − මගින්ද පෙන්වයි.</string>
+    <string name="settings_theme_mode">ආලෝක / අඳුරු</string>
+    <string name="settings_widgets">විජට්</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">%1$s වෙනස &amp; ප්‍රස්තාර වේලා කලාපය</string>
+    <string name="settings_change_basis_hint_1">තෝරාගත් වේලා කලාපය ප්‍රතිශත වෙනස ගණන් කරන්නේ කවදා සිටද (නිරීක්ෂණ ලැයිස්තුව, ස්පන්දන රේඛාව, විවෘත කළ යුගලය, විජට්) සහ ප්‍රස්තාරවල පෙන්වන වේලාවන් සකසයි.</string>
+    <string name="settings_change_basis_hint_2">“%1$s” හරියටම පැය 24 කට පෙර මිල සමඟ සංසන්දනය කරයි. “00:00” එම වේලා කලාපයේ මධ්‍යම රාත්‍රියේ ආරම්භක මිල සමඟ සංසන්දනය කරයි.</string>
+    <string name="settings_change_basis_hint_3">ඇඟවීම්වලට බලපෑමක් නැත.</string>
+    <string name="settings_change_basis_hint_since_last">“%1$s” පෙර යාවත්කාලීනයේ මිල සමඟ සංසන්දනය කරයි. සජීවී මිල සමඟ එය 0%% අසලම පවතී.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">පරිවර්තන මුදල</string>
+    <string name="settings_conversion_currency_hint">කළඹ, ඔබේ මුදලින් ඇඟවීම්, ක්‍රිප්ටෝ වෙළඳපොළ කාඩ්පත සහ කළඹ විජට් සඳහාද භාවිත වේ.</string>
+    <string name="settings_cost_method">පිරිවැය ක්‍රමය</string>
+    <string name="settings_cost_method_average">සාමාන්‍ය පිරිවැය</string>
+    <string name="settings_cost_method_average_hint">විකිණීම් චලන සාමාන්‍ය මිලදී ගැනීමේ මිලට තක්සේරු කෙරේ.</string>
+    <string name="settings_cost_method_fifo">FIFO (පෙරනිමි)</string>
+    <string name="settings_cost_method_fifo_hint">සියලු හුවමාරු සහ පසුම්බි පුරා, පැරණිතම කාසි පළමුව විකුණනු ලැබේ.</string>
+    <string name="settings_cost_method_fifo_wallet">පසුම්බියකට/හුවමාරුවකට FIFO</string>
+    <string name="settings_cost_method_fifo_wallet_hint">එක් එක් හුවමාරුව හෝ පසුම්බිය තුළ පැරණිතම කාසි පළමුව; මාරු කොටස් ඒවායේ මිලදී ගැනීමේ දිනය සමඟ ගෙන යයි.</string>
+    <string name="settings_portfolio_lock">කළඹ අගුල</string>
+    <string name="settings_portfolio_lock_footer">අගුල තිරයේ පෙන්වන දේ සඟවයි. ඔබේ දත්ත මෙම උපාංගයේ ගබඩා වන අතර උපාංග සංකේතනයෙන් ආරක්ෂා වේ. ඔබට උපස්ථ මුරපදයකින් ආරක්ෂා කළ හැක.</string>
+    <string name="settings_portfolio_lock_hint">කළඹ පමණක් සඟවයි: ඇඟිලි සලකුණ, මුහුණ හෝ උපාංග PIN මගින් අගුළු හරින්න. පසුබිමේ මිනිත්තුවකට වඩා වැඩි කාලයකට පසු නැවත අගුළු වැටේ. නිරීක්ෂණ ලැයිස්තුව, ඇඟවීම් සහ වෙනත් විජට් විවෘතව පවතී.</string>
+    <string name="settings_portfolio_lock_no_device_lock">උපාංග PIN එකක් හෝ මුරකේතයක් නොමැතිව අගුල කිසිවක් නොසඟවයි – තිර අගුලක් සකසන්න.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">පද්ධති උපස්ථයේ කළඹ</string>
+    <string name="settings_portfolio_system_backup_hint">අක්‍රිය: ඔබේ ගනුදෙනු උපාංගයේ පද්ධති උපස්ථයෙන් සහ දුරකථනයෙන් දුරකථනයට මාරු කිරීම්වලින් පිටත පවතී. ඒවා නව දුරකථනයකට ගෙන යාමට, මුරපදයක් සහිත යෙදුමේම උපස්ථය භාවිත කරන්න.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Android 9 හෝ ඊට පසු අවශ්‍යයි – පැරණි අනුවාද කළඹ Google උපස්ථයේ සංකේතනයකින් තොරව සුරකිනු ඇත.</string>
+    <string name="settings_portfolio_tab">කළඹ ටැබය පෙන්වන්න</string>
+    <string name="settings_portfolio_value_locked">සක්‍රියයි, අගුල සමඟ</string>
+    <string name="settings_show_converted">පරිවර්තිත මිල</string>
+    <string name="settings_show_converted_hint">නිරීක්ෂණ ලැයිස්තුවේ මිල %1$s වලින්ද පෙන්වයි</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">USDT depeg වාර්තා කරන්න</string>
+    <string name="settings_depeg_alarm_hint">USDT සීමාව තරමින් 1 USD වලින් ඉවතට ගිය විට එක් වරක් දන්වයි (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_threshold">Depeg සීමාව</string>
+    <string name="settings_fng_above">Fear &amp; Greed: මෙයට ඉහළින් දන්වන්න</string>
+    <string name="settings_fng_below">Fear &amp; Greed: මෙයට පහළින් දන්වන්න</string>
+    <string name="settings_gas_alert_hint">සාමාන්‍ය ගාස්තුව සීමාවට පහළ වැටුණු විට එක් වරක් දන්වයි. මිල යාවත්කාලීන අතරතුර, උපරිම වශයෙන් සෑම මිනිත්තු 10 කට වරක් පරීක්ෂා කෙරේ.</string>
+    <string name="settings_gas_btc_below">Bitcoin ගාස්තුව මෙයට පහළින් (sat/vB)</string>
+    <string name="settings_gas_eth_below">Ethereum ගෑස් මෙයට පහළින් (gwei)</string>
+    <string name="settings_ind_ath_within">සර්වකාලීන ඉහළම අගයේ සිට පහත වැටීම උපරිම</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple මෙයට ඉහළින්</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple මෙයට පහළින්</string>
+    <string name="settings_ind_mvrv_above">MVRV මෙයට ඉහළින්</string>
+    <string name="settings_ind_mvrv_below">MVRV මෙයට පහළින්</string>
+    <string name="settings_indicator_alerts_hint">Bitcoin දර්ශක, දිනකට දෙවරක් පරීක්ෂා කෙරේ. ඔබ සීමා තෝරයි – යෙදුම අගයන් ශ්‍රේණිගත නොකරයි.</string>
+    <string name="settings_macro_notifications">ආර්ථික දින දර්ශනය</string>
+    <string name="settings_macro_notifications_hint">වැදගත් එ.ජ. ආර්ථික දත්ත (උද්ධමනය, රැකියා වාර්තාව, ෆෙඩ් තීරණය) ඇති දිනවල 08:00 ට. දින දර්ශනය යෙදුමේ වෙබ් අඩවියෙන් පැමිණේ, දිනකට එක් වරක් පූරණය වේ.</string>
+    <string name="settings_market_alerts">වෙළඳපොළ ඇඟවීම්</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d ක් සක්‍රියයි</item>
+        <item quantity="other">%1$d ක් සක්‍රියයි</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">කථන වේගය: %1$.1f×</string>
+    <string name="settings_tts">හඬ ප්‍රතිදානය</string>
+    <string name="settings_tts_alarms_only">ඇඟවීම් පමණක්</string>
+    <string name="settings_tts_alarms_only_hint">අක්‍රිය: “මිල කියවන්න” ලෙස සලකුණු කළ යුගලයක සෑම යාවත්කාලීනයක්ම හඬින් කියවනු ලැබේ.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">මිල ගණන් සහ ඇඟවීම් හඬින් කියවයි. උපාංගය නිහඬ හෝ කම්පන ප්‍රකාරයේ ඇති විට නිහඬව සිටී.</string>
+    <string name="settings_tts_test">හඬ පරීක්ෂා කරන්න</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">යෙදුම යළි පිහිටුවන්න</string>
+    <string name="settings_reset_app_action">සියල්ල මකන්න</string>
+    <string name="settings_reset_app_confirm">ස්ථාපනයෙන් පසු මෙන්, නිරීක්ෂණ ලැයිස්තුව, ඇඟවීම්, කළඹ, සැකසීම් සහ ගබඩා කළ සියලු දත්ත මකයි. මෙය පසුගමනය කළ නොහැක. ඉඟිය: පළමුව උපස්ථයක් සාදන්න. උපාංග උපස්ථ (Google උපස්ථය හෝ iCloud/පරිගණක උපස්ථය) ඊළඟ උපස්ථය ක්‍රියාත්මක වන තුරු පෙර දත්ත තබා ගනී.</string>
+    <string name="settings_reset_app_title">යෙදුම යළි පිහිටුවන්නද?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">මුදල් ඒකකය සොයන්න</string>
+    <string name="language_search">භාෂාව සොයන්න</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">අඳුරු</string>
+    <string name="theme_light">ආලෝක</string>
+    <string name="theme_system">පද්ධතිය</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">නිල්</string>
+    <string name="accent_green">කොළ</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">තැඹිලි</string>
+    <string name="accent_red">රතු</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">චීනය, ජපානය, කොරියාව සහ තායිවානයේ සුලභයි</string>
+    <string name="price_colors_swap">වර්ණ මාරු කරන්න (ඉහළ යාම ↔ පහළ යාම)</string>
+    <string name="price_style_calm">සන්සුන්</string>
+    <string name="price_style_calm_color_vision">සන්සුන් · වර්ණ දෘෂ්ටි ඌනතාව</string>
+    <string name="price_style_color_vision">වර්ණ දෘෂ්ටි ඌනතාව</string>
+    <string name="price_style_fresh">නැවුම්</string>
+    <string name="price_style_traditional">සාම්ප්‍රදායික</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">හුවමාරු සම්බන්ධතා සැබෑ ප්‍රතිචාරවලට එරෙහිව අවසන් වරට පරීක්ෂා කළේ: %1$s</string>
+    <string name="about_license">මිල ගණන් කෙලින්ම හුවමාරුවලින් පැමිණේ; ගිණුමක් නැත, ලුහුබැඳීමක් නැත.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">බලපත්‍ර</string>
+    <string name="about_privacy_policy">පෞද්ගලිකත්ව ප්‍රතිපත්තිය</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">හුවමාරුවක් ඉල්ලන්න</string>
+    <string name="about_source_code">GitHub හි මූලාශ්‍ර කේතය</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker යනු r1AD ගේ ස්වාධීන ව්‍යාපෘතියකි: ගිණුම්, දැන්වීම් හෝ ලුහුබැඳීම් නොමැති සන්සුන් මිල දළ විශ්ලේෂණයකි. ප්‍රශ්න සහ කැමැත්තන්: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker විවෘත මූලාශ්‍රයකි (MIT License).</string>
+    <string name="licenses_font_title">Rubik අකුරු මුහුණත</string>
+    <string name="licenses_icons_bundled_text">යෙදුම සමඟ ඇතුළත්: Christopher Downer සහ දායකයින්ගේ “Cryptocurrency Icons” හි නිරූපක (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal යටතේ නිකුත් කර ඇත. CoinGecko හෝ Binance ලාංඡන පූරණය වන තුරු ඒවා පෙන්වයි. නම් සහ ලාංඡන ඒවායේ ව්‍යාපෘතිවල වෙළඳ ලකුණු ලෙස පවතී.</string>
+    <string name="licenses_icons_title">අමතර කාසි නිරූපක</string>
+    <string name="licenses_libraries_intro">යෙදුම Apache License 2.0 යටතේ මෙම පුස්තකාල භාවිත කරයි:</string>
+    <string name="licenses_libraries_title">Android පුස්තකාල</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">සංවර්ධක විකල්ප අගුළු හැරීමට තවත් තට්ටු %d යි</item>
+        <item quantity="other">සංවර්ධක විකල්ප අගුළු හැරීමට තවත් තට්ටු %d යි</item>
+    </plurals>
+    <string name="developer_unlocked">සංවර්ධක විකල්ප අගුළු හැරිණි</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">කම්පනය iPhone සැකසීම් (Sounds &amp; Haptics) අනුගමනය කරයි.</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">නව ඇඟවීම් සහ වෙළඳපොළ ඇඟවීම් ගණන් කරයි; ඔබ යෙදුම විවෘත කළ විට නැවත 0 වේ.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">ඔබේ දත්ත</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">මෙම උපාංගයේ</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">ඔබේ නිරීක්ෂණ ලැයිස්තුව, ඇඟවීම් සහ කළඹ මෙම උපාංගයේ සංකේතනය කර ගබඩා කෙරේ; ගිණුමක් නැත, අපගේම සේවාදායකයක් නැත.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">සම්බන්ධතා</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">මිල ගණන් කෙලින්ම ඔබේ යුගලවල හුවමාරුවලින් පැමිණේ, ඊට අමතරව විනිමය අනුපාත, කාසි ලැයිස්තු සහ ලාංඡන සහ GitHub හි දත්ත දර්පණය; ඒවාට ඔබේ IP ලිපිනය පෙනේ, කිසිවිටෙක ඔබේ හිමිකම් නොපෙනේ (නිරීක්ෂිත ලිපින අදාළ ජාලයේ සපයන්නා වෙත යයි).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">උපස්ථය</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">ඔබ එකක් සාදන්නේ නම් පමණි. මුරපදයක් සමඟ එය සංකේතනය වේ (Argon2id + AES-256-GCM); එය නොමැතිව එය කියවිය හැක.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">උපාංග මාරු කිරීම</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">යතුර පැරණි උපාංගයේම පවතී – පළමුව උපස්ථ ගොනුවක් සාදන්න.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">රෝග විනිශ්චය බෙදාගන්න</string>
+    <string name="diagnostics_share_hint">සහාය සඳහා පෙළ ගොනුව: අනුවාදය, උපාංගය, ඇඟවීම් සැකසීම්, මෑත පරීක්ෂා සහ ඇඟවීම් ලොගය – කළඹ, ප්‍රමාණ, ලිපින හෝ සටහන් නොමැතිව. ඔබ එය පළමුව දකී; කිසිවක් ස්වයංක්‍රීයව යවන්නේ නැත.</string>
+    <string name="diagnostics_preview_title">රෝග විනිශ්චය පෙරදසුන</string>
+    <string name="diagnostics_action_share">බෙදාගන්න</string>
+    <string name="settings_price_overlay">මිල ආවරණය</string>
+    <string name="settings_price_overlay_hint">ස්ථිර මිල දැනුම්දීමේ යුගල වෙනත් යෙදුම් මත කුඩා පාවෙන පිල්ලක් ලෙස පෙන්වයි. යෙදුම විවෘත කිරීමට තට්ටු කරන්න, වැසීමට පහළ ඇති × වෙත ඇදගෙන යන්න.</string>
+    <string name="settings_price_overlay_needs">“%1$s” සමඟ පමණක් ක්‍රියා කරයි.</string>
+    <string name="settings_price_overlay_grant">වෙනත් යෙදුම් මත පෙන්වීමට ඉඩ දෙන්න</string>
+    <string name="price_overlay_close">ආවරණය වසන්න</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">ලිපින සඳහා ඔබේම සේවාදායකය</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Bitcoin පමණි: ඔබේම Esplora- හෝ mempool-ගැළපෙන සේවාදායකය (උදා. https://node.example/api, Let\'s Encrypt වැනි පොදුවේ විශ්වාසනීය සහතිකයක් අවශ්‍යයි). සකසා ඇත්නම්, Bitcoin ලිපින සහ xpub යතුරු විමසනු ලබන්නේ එහි පමණි – කිසිවිටෙක පොදු නෝඩ් වලින් නොවේ, ඔබේ සේවාදායකයට ළඟා විය නොහැකි විටදී පවා. වෙනත් ජාල දිගටම පොදු නෝඩ් භාවිත කරයි. හිස් = පොදු නෝඩ්.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Bitcoin සේවාදායකය (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">පරීක්ෂා කරන්න</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">පරීක්ෂා කරමින්…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">සේවාදායකය ප්‍රතිචාර දක්වයි – බ්ලොක් %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">වලංගු පිළිතුරක් නැත – ලිපිනය සහ සහතිකය පරීක්ෂා කරන්න</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">භාවිතයේ: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">සකසා නැත – පොදු නෝඩ් භාවිත වේ</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">https:// ලිපින පමණක් ඉඩ දෙනු ලැබේ</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">ලිපිනයේ පරිශීලක නාමයක් හෝ මුරපදයක් එපා</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">ලිපිනයේ ? හෝ # කොටසක් එපා</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">වලංගු සේවාදායක ලිපිනයක් නොවේ</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">පොදු නෝඩ් වෙත මාරු වන්නද?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">එවිට ඔබේ Bitcoin ලිපින සහ xpub යතුරු පොදු නෝඩ් වලින් විමසනු ලැබේ: %1$s. ඒවාට මෙම ලිපින ඔබේ IP ලිපිනය සමඟ පෙනේ.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">පොදු නෝඩ් භාවිත කරන්න</string>
+</resources>

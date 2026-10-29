@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">இந்தச் சாதனத்தில் திரைப் பூட்டு அமைக்கப்படவில்லை. முதலில் சிஸ்டம் அமைப்புகளில் ஒன்றை அமைக்கவும்.</string>
+    <string name="app_lock_unlock">திற</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">போர்ட்ஃபோலியோவை அழி</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="one">%d பரிவர்த்தனையை நீக்கவா? கண்காணிக்கப்படும் முகவரிகள் அப்படியே இருக்கும். உடனே இதைச் செயல்தவிர்க்கலாம்.</item>
+        <item quantity="other">எல்லா %d பரிவர்த்தனைகளையும் நீக்கவா? கண்காணிக்கப்படும் முகவரிகள் அப்படியே இருக்கும். உடனே இதைச் செயல்தவிர்க்கலாம்.</item>
+    </plurals>
+    <string name="portfolio_empty_action">உங்கள் முதல் வாங்குதலைச் சேர்க்கவும்</string>
+    <string name="portfolio_empty_address">ஒரு வாலட் முகவரியைக் கண்காணிக்க மட்டும்</string>
+    <string name="portfolio_empty_csv">எக்ஸ்சேஞ்சில் வாங்கினீர்களா? அதன் கோப்பை இறக்குமதி செய்யவும்</string>
+    <string name="portfolio_empty_example_plain">எடுத்துக்காட்டு: மார்ச் 1 அன்று %1$s BTC வாங்கப்பட்டது. அதன் இன்றைய மதிப்பையும் நீங்கள் லாபத்திலா நஷ்டத்திலா என்பதையும் ஆப் காட்டும் – இந்தச் சாதனத்தில் மட்டுமே சேமிக்கப்படும்.</string>
+    <string name="portfolio_empty_title">இன்னும் பரிவர்த்தனைகள் இல்லை</string>
+    <string name="portfolio_enable_ask_text">உங்கள் பரிவர்த்தனை சேமிக்கப்பட்டது. போர்ட்ஃபோலியோ தாவல் உங்கள் இருப்புகளையும் அவற்றின் மதிப்பையும் காட்டும்.</string>
+    <string name="portfolio_enable_ask_title">போர்ட்ஃபோலியோ தாவலை ஆன் செய்யவா?</string>
+    <string name="portfolio_enable_later_hint">பரிவர்த்தனை சேமிக்கப்பட்டது. அமைப்புகள் › போர்ட்ஃபோலியோ என்பதில் போர்ட்ஃபோலியோ தாவலை ஆன் செய்யலாம்.</string>
+    <string name="portfolio_enabled_banner">போர்ட்ஃபோலியோ ஆன் செய்யப்பட்டது – போர்ட்ஃபோலியோ தாவலில் காணலாம்.</string>
+    <string name="portfolio_lock_reason">போர்ட்ஃபோலியோவைத் திற</string>
+    <string name="portfolio_locked_text">உங்கள் இருப்புகளையும் மதிப்புகளையும் காணத் திறக்கவும்.</string>
+    <string name="portfolio_locked_title">போர்ட்ஃபோலியோ பூட்டப்பட்டுள்ளது</string>
+    <string name="portfolio_setting_hint">விருப்பத்தேர்வு: வாங்குதல்களையும் விற்பனைகளையும் பதிவுசெய்து, மதிப்பையும் லாபம்/நஷ்டத்தையும் தனித் தாவலில் காணுங்கள்.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">காலாவதியானது · %1$s நிலவரப்படி</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="one">சிஸ்டம் காப்புப்பிரதியிலிருந்து %d பதிவு தவறானது, மீட்டமைக்கப்படவில்லை.</item>
+        <item quantity="other">சிஸ்டம் காப்புப்பிரதியிலிருந்து %d பதிவுகள் தவறானவை, மீட்டமைக்கப்படவில்லை.</item>
+    </plurals>
+    <string name="portfolio_title">போர்ட்ஃபோலியோ</string>
+    <string name="portfolio_unassigned_fee">ஒதுக்கப்படாத கட்டணம் – அடக்க விலை தெரியவில்லை: %1$s</string>
+    <string name="portfolio_updated">%1$s நிலவரப்படி விலைகள்</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">பிற</string>
+    <string name="portfolio_allocation_title">ஒதுக்கீடு</string>
+    <string name="portfolio_card_details">விவரங்கள்</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: இன்னும் கிடைக்கவில்லை</string>
+    <string name="portfolio_card_hints_count">குறிப்புகள் (%1$d)</string>
+    <string name="portfolio_card_today">இன்று</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">மொத்தம்</string>
+    <string name="portfolio_hide_amounts">தொகைகளை மறை</string>
+    <string name="portfolio_hide_amounts_hint">போர்ட்ஃபோலியோவிலும் போர்ட்ஃபோலியோ விட்ஜெட்டிலும் தொகைகளையும் மதிப்புகளையும் ••• எனக் காட்டும் – சதவீதங்கள் தெரியும்.</string>
+    <string name="portfolio_invested">அடக்க விலை</string>
+    <string name="portfolio_total_no_fx">%1$s க்கு மாற்று விகிதம் இல்லை – தொகைகள் USDT இல்</string>
+    <string name="portfolio_total_value">மொத்த மதிப்பு</string>
+    <string name="portfolio_value">மதிப்பு</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">சராசரி %1$s · இப்போது %2$s</string>
+    <string name="portfolio_avg_only">சராசரி %1$s</string>
+    <string name="portfolio_avg_open_lots">வைத்திருக்கும் காயின்களின் சராசரி விலை</string>
+    <string name="portfolio_avg_partial">வாங்கிய விலையுள்ள %1$s இன் சராசரி</string>
+    <string name="portfolio_avg_price">சராசரி வாங்கிய விலை</string>
+    <string name="portfolio_avg_price_hint">சராசரி வாங்கிய விலை: அளவின் அடிப்படையில் எடையிடப்பட்ட எல்லா வாங்குதல்களின் சராசரி. விற்பனைகள் இந்தச் சராசரியில் மதிப்பிடப்படும்.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">மூடப்பட்ட நிலை (%1$d)</item>
+        <item quantity="other">மூடப்பட்ட நிலைகள் (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: விற்பனைகள் உங்கள் பழைய காயின்களை முதலில் பயன்படுத்தும். சராசரி = மீதமுள்ள அடக்க விலை ÷ வாங்கிய விலையுள்ள அளவு.</string>
+    <string name="portfolio_holdings">இருப்புகள்</string>
+    <string name="portfolio_lost_fee_cost">செலுத்தப்பட்ட லாட் இல்லாத நெட்வொர்க் கட்டணச் செலவு: %1$s</string>
+    <string name="portfolio_open_lots">திறந்த வாங்குதல் லாட்கள் (%1$d)</string>
+    <string name="portfolio_open_lots_avg">வாங்கிய விலையுடன் (சராசரி)</string>
+    <string name="portfolio_open_lots_no_cost">வாங்கிய விலை இல்லாமல்</string>
+    <string name="portfolio_open_lots_without_price">வாங்கிய விலை இல்லை</string>
+    <string name="portfolio_realized">உணரப்பட்ட லாபம்/நஷ்டம்</string>
+    <string name="portfolio_unrealized">திறந்த லாபம்/நஷ்டம்</string>
+    <string name="portfolio_unrealized_without_unpriced">வாங்கிய விலை இல்லாத %1$s இல்லாமல்</string>
+    <string name="portfolio_withdrawn_gain">திரும்பப்பெறப்பட்டது: %1$s (திரும்பப்பெறும் வரையிலான மதிப்பு மாற்றம்)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">இதற்கு மாற்று</string>
+    <string name="portfolio_convert_to_value">இதற்கு மாற்று: %1$s</string>
+    <string name="portfolio_current_missing">%1$s க்குத் தற்போதைய விலை இல்லை</string>
+    <string name="portfolio_current_price">தற்போதைய விலை</string>
+    <string name="portfolio_price_missing">விலை இல்லை</string>
+    <string name="portfolio_price_missing_hint">சில வாங்குதல்களுக்கு விலை இல்லை. லாபம்/நஷ்டத்தைக் காண வாங்கிய விலையைச் சேர்க்கவும்.</string>
+    <string name="portfolio_price_source">விலைகள்: Binance · சந்தை விலையில் USDT</string>
+    <string name="portfolio_price_source_routes">விலைகள்: %1$s, இல்லையெனில் Binance · சந்தை விலையில் USDT</string>
+    <string name="portfolio_price_unavailable">விலை இப்போது கிடைக்கவில்லை</string>
+    <string name="portfolio_price_unchecked">விலை சரிபார்க்கப்படவில்லை</string>
+    <string name="portfolio_price_via_base">≈ %1$s விலை (bridged/wrapped)</string>
+    <string name="portfolio_usdt_as_usd">USDT அதன் USD சந்தை விலையில் மாற்றப்பட்டது</string>
+    <string name="portfolio_usdt_assumed">USDT டாலர் விகிதம் இல்லை – 1 அமெரிக்க டாலராகக் கணக்கிடப்பட்டது</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">போர்ட்ஃபோலியோவில் சேர்</string>
+    <string name="portfolio_add_tx">பரிவர்த்தனையைச் சேர்</string>
+    <string name="portfolio_buy">வாங்கு</string>
+    <string name="portfolio_coin">காயின்</string>
+    <string name="portfolio_coin_invalid">காயின் குறியீட்டை உள்ளிடவும்</string>
+    <string name="portfolio_coin_search">குறியீட்டைத் தேடு, எ.கா. BTC</string>
+    <string name="portfolio_discard_confirm">நிராகரி</string>
+    <string name="portfolio_discard_keep">திருத்தத்தைத் தொடர்</string>
+    <string name="portfolio_discard_title">மாற்றங்களை நிராகரிக்கவா?</string>
+    <string name="portfolio_edit_tx">பரிவர்த்தனையைத் திருத்து</string>
+    <string name="portfolio_invalid">0 ஐவிடப் பெரிய சரியான எண்ணை உள்ளிடவும்.</string>
+    <string name="portfolio_oversold">விற்பனைகள் இருப்புகளை மீறுகின்றன – பரிவர்த்தனைகளைச் சரிபார்க்கவும்.</string>
+    <string name="portfolio_sell">விற்பனை</string>
+    <string name="portfolio_sell_exceeds">உங்கள் இருப்பைவிட அதிகம் (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">தொகையும் கட்டணமும் சேர்ந்து உங்கள் இருப்பைவிட அதிகம் (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">%2$s இல் உள்ள உங்கள் இருப்பைவிட அதிகம் (%1$s)</string>
+    <string name="portfolio_transactions">பரிவர்த்தனைகள்</string>
+    <string name="portfolio_tx_acquired_date">அசல் வாங்கிய தேதி (விருப்பத்தேர்வு)</string>
+    <string name="portfolio_tx_acquired_date_hint">வரி ஏற்றுமதியில் வைத்திருக்கும் காலத்துக்காக</string>
+    <string name="portfolio_tx_amount">அளவு</string>
+    <string name="portfolio_tx_coin_fee">காயினில் கட்டணம் (விருப்பத்தேர்வு)</string>
+    <string name="portfolio_tx_date">தேதி</string>
+    <string name="portfolio_tx_delete_confirm">இந்தப் பரிவர்த்தனை போர்ட்ஃபோலியோவிலிருந்து அகற்றப்படும்.</string>
+    <string name="portfolio_tx_delete_title">பரிவர்த்தனையை நீக்கவா?</string>
+    <string name="portfolio_tx_deposit">வைப்பு</string>
+    <string name="portfolio_tx_entry_currency">உள்ளிடும் நாணயம்</string>
+    <string name="portfolio_tx_explain_deposit">வர்த்தகம் இல்லாத இருப்பு, எ.கா. முன்பிருந்த காயின்கள்</string>
+    <string name="portfolio_tx_explain_gift">காயின்கள் திரும்பப்பெறுதல் போல உங்கள் இருப்பிலிருந்து வெளியேறும் – பரிசுக்கு வரி விதிக்கும் நாடுகளில் மட்டுமே (UK, CA, AU) சந்தை மதிப்பில் விற்பனையாகக் கணக்கிடப்படும்</string>
+    <string name="portfolio_tx_explain_payment">பொருட்கள் அல்லது சேவைகளுக்குச் செலுத்தப்பட்டது – விற்பனை போலச் சந்தை மதிப்பில் கைமாற்றம், பணம் பெறப்படவில்லை</string>
+    <string name="portfolio_tx_explain_reward">அடக்க விலை = பெற்றபோது இருந்த சந்தை மதிப்பு</string>
+    <string name="portfolio_tx_explain_swap">ஒரு காயினுக்கு மற்றொன்று: கொடுத்த காயினை விற்று, பெற்ற காயினை வாங்கும்</string>
+    <string name="portfolio_tx_explain_transfer">லாபம் இல்லை – அடக்க விலை காயின்களுடன் நகரும்</string>
+    <string name="portfolio_tx_explain_withdrawal">இருப்பு போர்ட்ஃபோலியோவிலிருந்து வெளியேறும் – விற்பனை இல்லை, லாபம் இல்லை</string>
+    <string name="portfolio_tx_fee_consumes_amount">கட்டணம் பெற்ற தொகைக்குச் சமமாக உள்ளது – எதுவும் மீதமிருக்காது.</string>
+    <string name="portfolio_tx_fees_toggle">கட்டணங்கள்</string>
+    <string name="portfolio_tx_fiat_converted">≈ %2$s விகிதத்தில் %1$s</string>
+    <string name="portfolio_tx_fiat_loading">மாற்று விகிதத்தை ஏற்றுகிறது…</string>
+    <string name="portfolio_tx_fiat_no_fx">இந்த நாளுக்கு மாற்று விகிதம் இல்லை – தொகையை USDT இல் உள்ளிடவும்.</string>
+    <string name="portfolio_tx_gift">பரிசு</string>
+    <string name="portfolio_tx_gift_price_hint">USDT இல். காலி = அந்த நாளின் இறுதி விலை (மதிப்பிடப்பட்டது).</string>
+    <string name="portfolio_tx_gift_spouse">துணைவருக்கு / சிவில் பார்ட்னருக்கு</string>
+    <string name="portfolio_tx_gift_spouse_hint">UK மற்றும் கனடா: லாபமும் இல்லை, நஷ்டமும் இல்லை – உங்கள் துணைவர் உங்கள் அடக்க விலையை ஏற்றுக்கொள்வார். பிற நாடுகள் இதைப் புறக்கணிக்கும்.</string>
+    <string name="portfolio_tx_market_value">ஒரு காயினுக்கான சந்தை மதிப்பு</string>
+    <string name="portfolio_tx_more_buy">கட்டணம், எக்ஸ்சேஞ்ச், குறிப்பு</string>
+    <string name="portfolio_tx_network_fee">காயினில் நெட்வொர்க் கட்டணம் (விருப்பத்தேர்வு)</string>
+    <string name="portfolio_tx_note">குறிப்பு (விருப்பத்தேர்வு)</string>
+    <string name="portfolio_tx_payment">இதைக் கொண்டு செலுத்தப்பட்டது</string>
+    <string name="portfolio_tx_price">ஒரு காயினுக்கான விலை</string>
+    <string name="portfolio_tx_price_hint">USDT இல். தெரியாவிட்டால் காலியாக விடவும்.</string>
+    <string name="portfolio_tx_price_historic">%1$s இன் சரிபார்க்கப்பட்ட தினசரி இறுதி விலை – தேவைப்பட்டால் சரிசெய்யவும்</string>
+    <string name="portfolio_tx_price_invalid">சரியான எண்ணை (0 அல்லது அதற்கு மேல்) உள்ளிடவும் அல்லது புலத்தைக் காலியாக விடவும்.</string>
+    <string name="portfolio_tx_price_past_hint">வாங்கிய நாளின் விலையை உள்ளிடவும் – தெரியாவிட்டால் காலியாக விடவும்</string>
+    <string name="portfolio_tx_price_receipt_hint">USDT இல். காலி = அடக்க விலை இல்லாத இருப்பு.</string>
+    <string name="portfolio_tx_price_zero">இறக்குமதி செய்யப்பட்ட பரிவர்த்தனைகளுக்கு விலை 0 சாத்தியமில்லை – சந்தை விலைக்குக் காலியாக விடவும்</string>
+    <string name="portfolio_tx_removed">பரிவர்த்தனை நீக்கப்பட்டது</string>
+    <string name="portfolio_tx_reward">வெகுமதி</string>
+    <string name="portfolio_tx_save_failed">பரிவர்த்தனையைச் சேமிக்க முடியவில்லை. நீங்கள் உள்ளிட்டவை இன்னும் இங்கே உள்ளன – மீண்டும் முயலவும்.</string>
+    <string name="portfolio_tx_swap">ஸ்வாப்</string>
+    <string name="portfolio_tx_swap_fee_received">%1$s இல் கட்டணம்: பெற்ற தொகையைக் குறைக்கும், விலை தேவையில்லை.</string>
+    <string name="portfolio_tx_swap_from">%1$s இலிருந்து ஸ்வாப்</string>
+    <string name="portfolio_tx_swap_given_amount">கொடுத்த அளவு</string>
+    <string name="portfolio_tx_swap_given_coin">கொடுத்த காயின்</string>
+    <string name="portfolio_tx_swap_received_amount">பெற்ற அளவு</string>
+    <string name="portfolio_tx_swap_received_coin">பெற்ற காயின்</string>
+    <string name="portfolio_tx_swap_same_coin">கொடுத்ததிலிருந்து வேறுபட்ட காயினைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="portfolio_tx_swap_to">%1$s க்கு ஸ்வாப்</string>
+    <string name="portfolio_tx_swap_value">ஸ்வாப்பின் மதிப்பு (விருப்பத்தேர்வு)</string>
+    <string name="portfolio_tx_swap_value_hint">மொத்த மதிப்பு. காலி = தெரியவில்லை – லாபம் முழுமையற்றதாக இருக்கும் (ஸ்வாப்பில் USDT இருந்தால் தானியங்கு).</string>
+    <string name="portfolio_tx_third_fee_amount">கட்டணத் தொகை</string>
+    <string name="portfolio_tx_third_fee_coin">கட்டண காயின்</string>
+    <string name="portfolio_tx_third_fee_incomplete">விலை இல்லாவிட்டால், கட்டணம் அடக்க விலையிலும் வருவாயிலும் சேர்க்கப்படாது; வரி ஏற்றுமதி அத்தகைய விற்பனைகளைக் குறிக்கும்.</string>
+    <string name="portfolio_tx_third_fee_price">ஒரு கட்டண காயினுக்கான விலை (விருப்பத்தேர்வு)</string>
+    <string name="portfolio_tx_third_fee_toggle">வேறு காயினில் கட்டணம்</string>
+    <string name="portfolio_tx_total">மொத்தம்: %1$s</string>
+    <string name="portfolio_tx_transfer">பரிமாற்றம்</string>
+    <string name="portfolio_tx_transfer_from">இருந்து (விருப்பத்தேர்வு)</string>
+    <string name="portfolio_tx_transfer_to">க்கு (விருப்பத்தேர்வு)</string>
+    <string name="portfolio_tx_transfer_to_hint">எக்ஸ்சேஞ்ச் அல்லது வாலட் – இனி அங்கே மதிப்பிடப்படும்.</string>
+    <string name="portfolio_tx_type_select">வகை: %1$s</string>
+    <string name="portfolio_tx_value_received">பெற்றபோது ஒரு காயினுக்கான மதிப்பு (விருப்பத்தேர்வு)</string>
+    <string name="portfolio_tx_withdrawal">திரும்பப்பெறுதல்</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">பரிசாகக் கொடுத்தீர்களா அல்லது அதைக் கொண்டு செலுத்தினீர்களா? அதை “பரிசு” அல்லது “இதைக் கொண்டு செலுத்தப்பட்டது” எனப் பதிவுசெய்யவும் – நாட்டைப் பொறுத்து, வரி நோக்கில் அது விற்பனையாகக் கணக்கிடப்படும்.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">விருப்பத்தேர்வு: USDT இல் சந்தை மதிப்பு, வரலாற்றுக்கு மட்டுமே பயன்படும் (காலி = அந்த நாளின் விலை). காயின்கள் எப்போதும் அவற்றின் அடக்க விலையில் வெளியேறும்.</string>
+    <string name="portfolio_wallet_did_you_mean">%1$s என்று சொல்ல வந்தீர்களா? வேறு எழுத்துக்கூட்டல் தனி வாலட்டாகக் கணக்கிடப்படும்.</string>
+    <string name="portfolio_wallet_shortfall">%1$s இல் உள்ள இருப்பு போதவில்லை – ஒரு பரிமாற்றம் விடுபட்டுள்ளதா?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">உச்சம் %1$s</string>
+    <string name="portfolio_compare">ஒப்பிடு</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">%1$s மற்றும் USDT ஐச் சதவீதத்தில் ஒப்பிடு</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">சதவீத ஒப்பீடு, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">நாணய விளைவு: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">விலைத் தரவு ஆகஸ்ட் 2017 வரை மட்டுமே பின்னோக்கிச் செல்கிறது — வரலாறு அங்கிருந்து தொடங்குகிறது.</string>
+    <string name="portfolio_history_chip_since_first">அனைத்தும்</string>
+    <string name="portfolio_history_collapse">மதிப்பு வரலாற்றை மறை</string>
+    <string name="portfolio_history_converted">இன்றைய விகிதத்தில் மாற்றப்பட்டது</string>
+    <string name="portfolio_history_expand">மதிப்பு வரலாற்றைக் காட்டு</string>
+    <string name="portfolio_history_gain_a11y">மதிப்பு %1$s. லாபம்/நஷ்டம், %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">லாபம்/நஷ்டம்</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">%1$s இல் மதிப்பு</string>
+    <string name="portfolio_history_incl_fx">மாற்று விகிதம் உட்பட</string>
+    <string name="portfolio_history_incl_withdrawn">திரும்பப்பெற்ற காயின்களின் மதிப்பு மாற்றம் உட்பட</string>
+    <string name="portfolio_history_includes_trades">இந்தக் காலத்திலுள்ள வாங்குதல்களும் விற்பனைகளும் உட்பட</string>
+    <string name="portfolio_history_loading">மதிப்பு வரலாற்றை ஏற்றுகிறது</string>
+    <string name="portfolio_history_period_1y">1 ஆண்டு</string>
+    <string name="portfolio_history_period_30d">30 நாட்கள்</string>
+    <string name="portfolio_history_period_7d">7 நாட்கள்</string>
+    <string name="portfolio_history_period_since_first">முதல் வாங்குதலிலிருந்து</string>
+    <string name="portfolio_history_pnl_needs_prices">லாபம்/நஷ்டத்துக்கு வாங்கிய விலைகள் இல்லை – பரிவர்த்தனைகளில் அவற்றைச் சேர்க்கவும்.</string>
+    <string name="portfolio_history_pnl_without">%1$s இல்லாமல் லாபம்/நஷ்டம் (விலை இல்லை)</string>
+    <string name="portfolio_history_range_1y">1 ஆ</string>
+    <string name="portfolio_history_range_30d">30 நா</string>
+    <string name="portfolio_history_range_7d">7 நா</string>
+    <string name="portfolio_history_range_a11y">%1$s க்கான வரலாற்றைக் காட்டு</string>
+    <string name="portfolio_history_range_since_first">முதல் வாங்குதலிலிருந்து</string>
+    <string name="portfolio_history_scaled">%1$s க்கான வரலாறு: எக்ஸ்சேஞ்ச் விலைக்கு அளவிடப்பட்ட Binance வரலாறு</string>
+    <string name="portfolio_history_title">மதிப்பு வரலாறு</string>
+    <string name="portfolio_history_today">இன்று</string>
+    <string name="portfolio_history_too_short">உங்கள் முதல் முழு நாளுக்குப் பிறகு வரலாறு தொடங்கும்.</string>
+    <string name="portfolio_history_unavailable">இப்போது வரலாறு கிடைக்கவில்லை.</string>
+    <string name="portfolio_history_utc_days">UTC இல் நாட்கள் (தினசரி கேண்டில்கள்)</string>
+    <string name="portfolio_history_without_matching">%1$s இல்லாமல் (பொருந்தும் தினசரி விலைகள் இல்லை)</string>
+    <string name="portfolio_period_rewards">வெகுமதிகள் +%1$s (லாபத்தில் இல்லை)</string>
+    <string name="portfolio_period_scaled">%1$s க்கு 7 நா/1 ஆ: எக்ஸ்சேஞ்ச் விலைக்கு அளவிடப்பட்ட Binance வரலாறு</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">விழிப்பூட்டல்</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">தொகை (%1$s)</string>
+    <string name="portfolio_alarm_hint">ஒவ்வொரு புதுப்பிப்புக்குப் பிறகும் சரிபார்க்கப்படும். விழிப்பூட்டல்களைப் போலவே, குறி கடக்கப்படும்போது தூண்டப்படும், மதிப்பு திரும்பிச் சென்ற பிறகே மீண்டும் தூண்டப்படும்.</string>
+    <string name="portfolio_alarm_kind_above">போர்ட்ஃபோலியோ தொகைக்கு மேல்</string>
+    <string name="portfolio_alarm_kind_below">போர்ட்ஃபோலியோ தொகைக்குக் கீழ்</string>
+    <string name="portfolio_alarm_kind_down">போர்ட்ஃபோலியோ சரிகிறது</string>
+    <string name="portfolio_alarm_kind_up">போர்ட்ஃபோலியோ உயர்கிறது</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">போர்ட்ஃபோலியோ %1$s க்கு மேல்</string>
+    <string name="portfolio_alarm_sentence_below">போர்ட்ஃபோலியோ %1$s க்குக் கீழ்</string>
+    <string name="portfolio_alarm_sentence_down">போர்ட்ஃபோலியோ %1$s குறைவு (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">போர்ட்ஃபோலியோ %1$s உயர்வு (%2$s)</string>
+    <string name="portfolio_alarm_title">போர்ட்ஃபோலியோ மதிப்பு விழிப்பூட்டல்</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">எக்ஸ்சேஞ்ச் (விருப்பத்தேர்வு)</string>
+    <string name="ledger_exchange_failed">%1$s: இப்போது %2$s இலிருந்து விலை இல்லை – Binance உடன் மதிப்பிடப்பட்டது.</string>
+    <string name="ledger_exchange_hint">காயின் இந்த எக்ஸ்சேஞ்சின் விலையில் மதிப்பிடப்படும் (இல்லையெனில் Binance). வரலாறு, 7 நா மற்றும் 1 ஆ அதற்கு அளவிடப்பட்ட Binance தினசரி விலைகளைப் பயன்படுத்தும்.</string>
+    <string name="ledger_exchange_mixed">%1$s: பல எக்ஸ்சேஞ்ச்கள் உள்ளிடப்பட்டுள்ளன – Binance உடன் மதிப்பிடப்பட்டது. காயின்களை நகர்த்தினீர்களா? அந்த நகர்வை “பரிமாற்றம்” எனப் பதிவுசெய்யவும்.</string>
+    <string name="ledger_exchange_none">எதுவுமில்லை (Binance)</string>
+    <string name="ledger_fee">கட்டணம் (விருப்பத்தேர்வு)</string>
+    <string name="ledger_fee_coin">காயின்</string>
+    <string name="ledger_fee_hint">USDT இல் இருந்தால் அடக்க விலையை உயர்த்தும் (விற்பனை: வருவாயைக் குறைக்கும்); காயினில் இருந்தால் அளவைக் குறைக்கும்.</string>
+    <string name="ledger_fee_line">கட்டணம் %1$s</string>
+    <string name="ledger_fifo_cost_note">வாங்கியதிலிருந்து: கட்டணங்கள் உட்பட FIFO செலவு (பழைய காயின்கள் முதலில் விற்கப்படும்).</string>
+    <string name="ledger_gain_info">இன்று, 7 நா, 1 ஆ: அந்தக் காலத்தில் மதிப்பின் மாற்றம் – வாங்குதல்களும் விற்பனைகளும் லாபமாகக் கணக்கிடப்படாது. வாங்கியதிலிருந்து: தற்போதைய மதிப்பு கழித்தல் நீங்கள் இன்னும் வைத்திருக்கும் காயின்களின் அடக்க விலை (கட்டணங்கள் உட்பட சராசரிச் செலவு).</string>
+    <string name="ledger_gain_info_a11y">லாபமும் நஷ்டமும் எவ்வாறு கணக்கிடப்படுகின்றன</string>
+    <string name="ledger_gain_info_fifo">இன்று, 7 நா, 1 ஆ: அந்தக் காலத்தில் மதிப்பின் மாற்றம் – வாங்குதல்களும் விற்பனைகளும் லாபமாகக் கணக்கிடப்படாது. வாங்கியதிலிருந்து: தற்போதைய மதிப்பு கழித்தல் நீங்கள் இன்னும் வைத்திருக்கும் காயின்களின் அடக்க விலை (கட்டணங்கள் உட்பட FIFO).</string>
+    <string name="ledger_gain_title">லாபம்/நஷ்டம்</string>
+    <string name="ledger_more_toggle">கட்டணம் மற்றும் எக்ஸ்சேஞ்ச்</string>
+    <string name="ledger_partial_cost">“வாங்கியதிலிருந்து” வாங்கிய விலையுள்ள பகுதியை மட்டுமே கணக்கிடுகிறது – வாங்கிய விலை இல்லாத %1$s இல்லாமல்.</string>
+    <string name="ledger_period_without">இன்று / 7 நா / 1 ஆ, %1$s இல்லாமல் – பொருந்தும் தொடக்க விலை இல்லை.</string>
+    <string name="ledger_since_purchase_currency">வாங்கியதிலிருந்து (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">வாங்கியதிலிருந்து லாபம்/நஷ்டம், இன்னும் விற்கப்படவில்லை</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="one">வாங்கிய விலை இல்லாத %1$d காயின் இல்லாமல் (%2$s) – அது கணக்கில் சேர விலையைச் சேர்க்கவும்.</item>
+        <item quantity="other">வாங்கிய விலை இல்லாத %1$d காயின்கள் இல்லாமல் (%2$s) – அவை கணக்கில் சேர விலைகளைச் சேர்க்கவும்.</item>
+    </plurals>
+
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">USDT சரிவு – சந்தை %1$s USD இல்</string>
+    <string name="portfolio_usdt_via_usdc">USDT டாலர் விகிதம் USDC/USDT வழியாக – USDC சரிந்தால், இந்த மதிப்பு தவறாகும்</string>
+    <string name="portfolio_amount_bridged_stable">≈ %1$s உட்பட (bridged)</string>
+
+    <string name="portfolio_tx_interest">வட்டி (கடன் வழங்கல்)</string>
+    <string name="portfolio_tx_interest_hint">பெற்றபோது வருமானமாகக் கணக்கிடப்படும் (ஆஸ்திரியா). ஸ்டேக்கிங் வெகுமதிகளுக்கும் ஏர்டிராப்களுக்கும் இதைப் பயன்படுத்த வேண்டாம்.</string>
+    <string name="app_lock_no_screen_lock">போர்ட்ஃபோலியோவைத் திறக்கத் திரைப் பூட்டை அமைக்கவும்.</string>
+    <string name="app_lock_turn_off_action">போர்ட்ஃபோலியோ பூட்டை ஆஃப் செய்</string>
+    <string name="app_lock_turn_off_confirm_title">போர்ட்ஃபோலியோ பூட்டை ஆஃப் செய்யவா?</string>
+    <string name="app_lock_turn_off_confirm_message">திரைப் பூட்டு இல்லாமல் போர்ட்ஃபோலியோவைத் திறக்க முடியாது. ஆஃப் செய்தால், ஆப் கேட்காமலேயே உங்கள் போர்ட்ஃபோலியோவை மீண்டும் காட்டும். திரைப் பூட்டு அமைக்கப்பட்டதும், அமைப்புகளில் பூட்டை மீண்டும் ஆன் செய்யலாம்.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">%1$s இல் “வாங்கியதிலிருந்து” மற்றும் அடக்க விலை: வாங்கிய நாளின் மாற்று விகிதத்தில் செலவு, இன்றைய விகிதத்தில் மதிப்பு.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">வாங்கிய நாளுக்கு மாற்று விகிதம் இல்லை (“வாங்கியதிலிருந்து” மற்றும் அடக்க விலையில் இல்லை): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">USDT டாலர் விகிதம் இல்லாத வாங்கிய நாட்களின் செலவு, ஒரு USDT க்கு 1 அமெரிக்க டாலராகக் கணக்கிடப்பட்டது.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">%1$s நிலவரப்படி – எக்ஸ்சேஞ்சை அணுக முடியவில்லை</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">தினசரி விலைகள்: %1$s (Binance க்குப் பதிலாக)</string>
+
+    <string name="portfolio_footer_short">பணி உதவி, வரி அல்லது முதலீட்டு ஆலோசனை அல்ல. தனியுரிமை: அமைப்புகள் › ஆப் பற்றி › தனியுரிமைக் கொள்கை.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">%1$s இன் எல்லாப் பரிவர்த்தனைகளையும் நீக்கவா?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">%d பரிவர்த்தனை அகற்றப்படும். உடனே இதைச் செயல்தவிர்க்கலாம்.</item>
+        <item quantity="other">%d பரிவர்த்தனைகள் அகற்றப்படும். உடனே இதைச் செயல்தவிர்க்கலாம்.</item>
+    </plurals>
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">%1$s இல் செலுத்தப்பட்ட கட்டணங்களும் பிற பரிவர்த்தனைகளிலிருந்து அகற்றப்படும்: %2$d.</string>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s போர்ட்ஃபோலியோவிலிருந்து அகற்றப்பட்டது (%2$d பரிவர்த்தனை)</item>
+        <item quantity="other">%1$s போர்ட்ஃபோலியோவிலிருந்து அகற்றப்பட்டது (%2$d பரிவர்த்தனைகள்)</item>
+    </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">%d பரிவர்த்தனை அகற்றப்பட்டது</item>
+        <item quantity="other">%d பரிவர்த்தனைகள் அகற்றப்பட்டன</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">இது %d லாட்டையும் அகற்றும்.</item>
+        <item quantity="other">இது %d லாட்களையும் அகற்றும்.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">இது %d லாட்டையும் இருப்பு வரலாற்றையும் அகற்றும்.</item>
+        <item quantity="other">இது %d லாட்களையும் இருப்பு வரலாற்றையும் அகற்றும்.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">இது இருப்பு வரலாற்றையும் அகற்றும்.</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">சேமிக்க முடியவில்லை – மீண்டும் முயலவும்</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">வரம்பு தவறானது – நீக்கிவிட்டு மீண்டும் உருவாக்கவும்</string>
+</resources>

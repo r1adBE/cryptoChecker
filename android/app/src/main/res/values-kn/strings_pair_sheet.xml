@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%2$s ನಲ್ಲಿ %1$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">ಮುಕ್ತಾಯ</string>
+    <string name="sheet_chart_converted_current">%1$s, ಪರಿವರ್ತಿಸಲಾಗಿದೆ (ಪ್ರಸ್ತುತ ದರ)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, ದೈನಂದಿನ ದರಗಳಲ್ಲಿ ಪರಿವರ್ತಿಸಲಾಗಿದೆ</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">ಈ ಜೋಡಿಗೆ ಬೆಲೆ ಡೇಟಾ ಇಲ್ಲ</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">ಆರಂಭ</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">ಇಂದು</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">ವಾಲ್. %1$s</string>
+    <string name="sheet_more">ಇನ್ನಷ್ಟು</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Ask</string>
+    <string name="ticker_bid">Bid</string>
+    <string name="explain_bid_ask">Bid ಎಂದರೆ ಖರೀದಿದಾರರು ಸದ್ಯ ನೀಡುತ್ತಿರುವ ಗರಿಷ್ಠ ಬೆಲೆ, Ask ಎಂದರೆ ಮಾರಾಟಗಾರರು ಒಪ್ಪುವ ಕನಿಷ್ಠ ಬೆಲೆ.</string>
+    <string name="ticker_high">ಗರಿಷ್ಠ</string>
+    <string name="ticker_low">ಕನಿಷ್ಠ</string>
+    <string name="ticker_timestamp">ಸಮಯ</string>
+    <string name="ticker_vol_base">ವಾಲ್ಯೂಮ್ (ಕಾಯಿನ್‌ಗಳಲ್ಲಿ)</string>
+    <string name="ticker_vol_quote">ವಾಲ್ಯೂಮ್ (ಕೋಟ್ ಕರೆನ್ಸಿಯಲ್ಲಿ)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (ಸಾಧನದ ಸಮಯ ವಲಯ)</string>
+    <string name="change_basis_local">ಸ್ಥಳೀಯ ಸಮಯ 00:00 ರಿಂದ</string>
+    <string name="change_basis_rolling">ಕಳೆದ 24 ಗಂಟೆಗಳು</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">ಕೊನೆಯ ಅಪ್‌ಡೇಟ್‌ನಿಂದ</string>
+    <string name="change_basis_utc_zone">00:00 %1$s ರಿಂದ</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">%1$s ಕ್ಯಾಂಡಲ್‌ಗಳಿಂದ ಬದಲಾವಣೆ</string>
+    <string name="change_short_since_last">ಕೊನೆಯ ಅಪ್‌ಡೇಟ್</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">ಇಂದು</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">ಇಂದು %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="exchange_data_empty_error">ಎಕ್ಸ್‌ಚೇಂಜ್‌ನಿಂದ ಯಾವುದೇ ಡೇಟಾ ಬಂದಿಲ್ಲ.</string>
+    <string name="market_data_summary">ಮಾರುಕಟ್ಟೆ ಮೌಲ್ಯ, gas ಶುಲ್ಕಗಳು, ಆರ್ಥಿಕ ಡೇಟಾ, ಕಾಯಿನ್ ವಿಶ್ಲೇಷಣೆ</string>
+    <string name="market_data_tab_futures">ಫ್ಯೂಚರ್ಸ್</string>
+    <string name="market_data_title">ಮಾರುಕಟ್ಟೆ ಡೇಟಾ</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">ಚಲಾವಣೆಯಲ್ಲಿರುವ ಪೂರೈಕೆ</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">ಮಾರುಕಟ್ಟೆ ಮೌಲ್ಯ</string>
+    <string name="spot_max_supply">ಗರಿಷ್ಠ ಪೂರೈಕೆ</string>
+    <string name="spot_no_data">ಈ ಕಾಯಿನ್‌ಗೆ ಸ್ಪಾಟ್ ಡೇಟಾ ಇಲ್ಲ</string>
+    <string name="spot_source_updated">ಮೂಲ: %1$s · %2$s ರಂತೆ</string>
+    <string name="spot_supply_of_max">ಗರಿಷ್ಠ ಪೂರೈಕೆಯ %1$s ಚಲಾವಣೆಯಲ್ಲಿದೆ</string>
+    <string name="spot_total_supply">ಒಟ್ಟು ಪೂರೈಕೆ</string>
+    <string name="spot_vol_mcap">ವಾಲ್./ಮಾರುಕಟ್ಟೆ ಮೌಲ್ಯ</string>
+    <string name="spot_volume_24h">ವಾಲ್ಯೂಮ್ (24 ಗಂ)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">ಉಲ್ಲೇಖ: %1$s</string>
+    <string name="futures_funding">ಫಂಡಿಂಗ್ ದರ</string>
+    <string name="futures_funding_interval_unknown">ಅಂತರ ತಿಳಿದಿಲ್ಲ</string>
+    <string name="futures_funding_per8h_equiv">= 8 ಗಂಟೆಗೆ %1$s (ಅಲರ್ಟ್‌ಗಳಲ್ಲಿರುವಂತೆ)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">ಪ್ರತಿ ಗಂಟೆಗೆ</string>
+    <string name="futures_funding_per_hours">ಪ್ರತಿ %1$d ಗಂಟೆಗೆ</string>
+    <string name="futures_next_funding">ಮುಂದಿನದು %1$d ಗಂ %2$d ನಿ. ನಲ್ಲಿ</string>
+    <string name="futures_no_data">ಈ ಕಾಯಿನ್‌ಗೆ ಫ್ಯೂಚರ್ಸ್ ಡೇಟಾ ಇಲ್ಲ</string>
+    <string name="futures_open_interest">ಓಪನ್ ಇಂಟರೆಸ್ಟ್</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">%1$s ನಿಂದ ಉಲ್ಲೇಖ – ಫಂಡಿಂಗ್ ಮತ್ತು ಓಪನ್ ಇಂಟರೆಸ್ಟ್ ಪ್ರತಿ ಎಕ್ಸ್‌ಚೇಂಜ್‌ನಲ್ಲೂ ಬೇರೆಯಾಗಿರುತ್ತವೆ; %2$s ನಲ್ಲಿ ಅವು ಭಿನ್ನವಾಗಿರಬಹುದು.</string>
+    <string name="futures_reference_spot">%1$s ನಿಂದ ಉಲ್ಲೇಖ (ಕಾಯಿನ್‌ನ USDT ಪರ್ಪೆಚುವಲ್)</string>
+    <string name="futures_source">ಮೂಲ: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">ಅನೇಕ ಟ್ರೇಡರ್‌ಗಳು ಸಾಲದ ಹಣದೊಂದಿಗೆ ಬೆಲೆ ಏರುತ್ತದೆ ಅಥವಾ ಇಳಿಯುತ್ತದೆ ಎಂದು ಬಾಜಿ ಕಟ್ಟುತ್ತಾರೆ. ಲಾಂಗ್ ಮತ್ತು ಶಾರ್ಟ್ ಪೊಸಿಷನ್‌ಗಳ ನಡುವಿನ ಶುಲ್ಕ. ಬಲವಾಗಿ ಧನಾತ್ಮಕ ಎಂದರೆ ಅನೇಕರು ಬೆಲೆ ಏರುತ್ತದೆ ಎಂದು ಬಾಜಿ ಕಟ್ಟುತ್ತಿದ್ದಾರೆ.</string>
+    <string name="explain_open_interest">ಫ್ಯೂಚರ್ಸ್ ಎಂದರೆ ಬೆಲೆಯ ಮೇಲಿನ ಬಾಜಿಗಳು, ಹೆಚ್ಚಾಗಿ ಸಾಲದ ಹಣದೊಂದಿಗೆ. ತೆರೆದಿರುವ ಎಲ್ಲಾ ಫ್ಯೂಚರ್ಸ್ ಪೊಸಿಷನ್‌ಗಳ ಮೌಲ್ಯ. ಇದು ಏರಿದರೆ, ಹೆಚ್ಚು ಹಣ ಆ ಚಲನೆಯ ಮೇಲೆ ಬಾಜಿ ಕಟ್ಟುತ್ತಿದೆ.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">ವಿವರಣೆ</string>
+    <string name="explain_spot_fdv">ಸಂಪೂರ್ಣ ಡೈಲ್ಯೂಟೆಡ್ ಮೌಲ್ಯಮಾಪನ: ಬೆಲೆ × ಗರಿಷ್ಠ ಪೂರೈಕೆ (ಮಿತಿ ಇಲ್ಲದಿದ್ದರೆ ಒಟ್ಟು ಪೂರೈಕೆ).</string>
+    <string name="explain_spot_market_cap">ಬೆಲೆ × ಚಲಾವಣೆಯಲ್ಲಿರುವ ಪೂರೈಕೆ. 24 ಗಂಟೆಗಳಲ್ಲಿನ ಅದರ ಬದಲಾವಣೆಯನ್ನು ಈ ಗುರುತು ತೋರಿಸುತ್ತದೆ.</string>
+    <string name="explain_spot_source">ಎಲ್ಲಾ ಎಕ್ಸ್‌ಚೇಂಜ್‌ಗಳ ಅಂಕಿಅಂಶಗಳು ಅಮೆರಿಕನ್ ಡಾಲರ್‌ಗಳಲ್ಲಿ, CoinGecko ನಿಂದ.</string>
+    <string name="explain_spot_supply">ಚಲಾವಣೆಯಲ್ಲಿ: ಈಗ ಮಾರುಕಟ್ಟೆಯಲ್ಲಿರುವ ಕಾಯಿನ್‌ಗಳು. ಒಟ್ಟು: ರಚಿಸಲಾದ ಎಲ್ಲಾ ಕಾಯಿನ್‌ಗಳು, ಸುಟ್ಟವುಗಳನ್ನು ಹೊರತುಪಡಿಸಿ. ಗರಿಷ್ಠ: ಎಂದಾದರೂ ಇರಬಹುದಾದ ಅತ್ಯಧಿಕ ಸಂಖ್ಯೆ.</string>
+    <string name="explain_spot_volume">24 ಗಂಟೆಗಳಲ್ಲಿ ವಹಿವಾಟಾದ ಮೌಲ್ಯ. ವಾಲ್./ಮಾರುಕಟ್ಟೆ ಮೌಲ್ಯ: ಮಾರುಕಟ್ಟೆ ಮೌಲ್ಯಕ್ಕೆ ಹೋಲಿಸಿದರೆ ವಾಲ್ಯೂಮ್ — ಹೆಚ್ಚಾಗಿದ್ದರೆ ತುಂಬಾ ಸಕ್ರಿಯ ವಹಿವಾಟು.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · ದರ %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">ಖರೀದಿ ಮತ್ತು ಮಾರಾಟ ಬೆಲೆಯ ನಡುವೆ ದೊಡ್ಡ ಅಂತರ (%1$s)</string>
+
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">%1$s ನಲ್ಲಿ ಇತಿಹಾಸ, ಇಂದಿನ ದರದಲ್ಲಿ %2$s ಗೆ ಪರಿವರ್ತಿಸಲಾಗಿದೆ</string>
+    <string name="converted_unsure">ಪರಿವರ್ತನೆ ಅನಿಶ್ಚಿತ</string>
+</resources>

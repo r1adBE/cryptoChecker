@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">ආපසු</string>
+    <string name="action_cancel">අවලංගු කරන්න</string>
+    <string name="action_clear">හිස් කරන්න</string>
+    <string name="action_close">වසන්න</string>
+    <string name="action_keep">තබා ගන්න</string>
+    <string name="action_delete">මකන්න</string>
+    <string name="action_edit">සංස්කරණය කරන්න</string>
+    <string name="action_more">තවත් විකල්ප</string>
+    <string name="action_refresh">නැවුම් කරන්න</string>
+    <string name="action_retry">යළි උත්සාහ කරන්න</string>
+    <string name="action_save">සුරකින්න</string>
+    <string name="action_sort">පෙළගස්වන්න</string>
+    <string name="action_sort_done">නිමයි</string>
+    <string name="action_undo">පසුගමනය කරන්න</string>
+    <string name="action_view">බලන්න</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">වෙළඳපොළ</string>
+    <string name="tab_portfolio">කළඹ</string>
+    <string name="tab_settings">සැකසීම්</string>
+    <string name="tab_watchlist">නිරීක්ෂණ ලැයිස්තුව</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">දෝෂය: %1$s</string>
+    <string name="error_exchange_unreachable">හුවමාරුවට මේ මොහොතේ ළඟා විය නොහැක – අවසන් මිල ගණන් දිගටම පෙනේ.</string>
+    <string name="error_exchange_unreachable_short">හුවමාරුවට මේ මොහොතේ ළඟා විය නොහැක</string>
+    <string name="loading_hint">පූරණය වෙමින්…</string>
+    <string name="option_off">අක්‍රිය</string>
+    <string name="something_went_wrong">යමක් වැරදී ගියා</string>
+    <string name="time_just_now">මේ දැන්</string>
+    <string name="try_again">යළි උත්සාහ කරන්න</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">සම්බන්ධතාවක් නැත</string>
+    <string name="offline_status_since">සම්බන්ධතාවක් නැත · %1$s වන විට</string>
+    <string name="status_live">සජීවී</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">යුගලයක් එක් කරන්න</string>
+    <string name="shortcut_alarms">සියලු ඇඟවීම්</string>
+    <string name="shortcut_cycle">වෙළඳපොළ</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">ලැයිස්තුවට යුගලයක් දමන්න</string>
+    <string name="shortcut_alarms_long">සියලු ඇඟවීම් පෙන්වන්න</string>
+    <string name="shortcut_cycle_long">වෙළඳපොළ දළ විශ්ලේෂණය</string>
+
+    <string name="log_box_title">ලොගය</string>
+    <string name="label_value">%1$s: %2$s</string>
+</resources>

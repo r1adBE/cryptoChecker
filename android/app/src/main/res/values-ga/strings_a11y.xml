@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">Foláireamh spreagtha</string>
+    <string name="a11y_collapsed">Laghdaithe</string>
+    <string name="a11y_converted">thart ar %1$s</string>
+    <string name="a11y_expanded">Leathnaithe</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">osclaítear sa bhrabhsálaí é</string>
+    <string name="a11y_favorite">Ceanán</string>
+    <string name="a11y_in_watchlist">Sa liosta faire cheana</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_exchange_unreachable">Ní féidir %1$s a bhaint amach</string>
+    <string name="a11y_move_down">Bog síos</string>
+    <string name="a11y_move_up">Bog suas</string>
+    <string name="a11y_note">nóta: %1$s</string>
+    <string name="a11y_price">praghas %1$s</string>
+    <string name="a11y_price_notification_off">Fógra praghais múchta</string>
+    <string name="a11y_price_notification_on">Fógra praghais ar siúl</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">Praghas as dáta</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s ar %2$s</string>
+    <string name="a11y_stale">as dáta, nuashonrú deireanach %1$s</string>
+    <string name="a11y_warning">Rabhadh</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">%1$s in 24 uair an chloig</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">Níl athrú 24 uair an chloig ar fáil</string>
+    <string name="a11y_change_down">síos %1$s</string>
+    <string name="a11y_change_flat">gan athrú</string>
+    <string name="a11y_change_since_last">%1$s ón nuashonrú deireanach</string>
+    <string name="a11y_change_since_last_none">Níl athrú ón nuashonrú deireanach ar fáil</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">%1$s inniu</string>
+    <string name="a11y_change_today_none">Níl athrú an lae inniu ar fáil</string>
+    <string name="a11y_change_today_zone">%1$s ó mheán oíche %2$s</string>
+    <string name="a11y_change_today_zone_none">Níl athrú ó mheán oíche %1$s ar fáil</string>
+    <string name="a11y_change_up">suas %1$s</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Cairt %1$s: ó %2$s go %3$s, %4$s. Buaic %5$s, íosmhéid %6$s.</string>
+    <string name="a11y_chart_empty">Cairt: gan sonraí</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Timthriall %1$s: %2$s ón leathú, lá %3$d.</string>
+    <string name="a11y_cycle_bottom">Grinneall %1$s ar lá %2$d.</string>
+    <string name="a11y_cycle_double_bottom">Grinneall dúbailte %1$s ar lá %2$d.</string>
+    <string name="a11y_cycle_double_top">Barr dúbailte %1$s ar lá %2$d.</string>
+    <string name="a11y_cycle_top">Barr %1$s ar lá %2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">Scála ó %1$s go %2$s: %3$d as 100</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, %3$s ar an meán</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d ag titim</item>
+        <item quantity="two">%1$d ag titim</item>
+        <item quantity="few">%1$d ag titim</item>
+        <item quantity="many">%1$d ag titim</item>
+        <item quantity="other">%1$d ag titim</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="one">%1$d phéire gan luach 24 uair an chloig</item>
+        <item quantity="two">%1$d phéire gan luach 24 uair an chloig</item>
+        <item quantity="few">%1$d phéire gan luach 24 uair an chloig</item>
+        <item quantity="many">%1$d bpéire gan luach 24 uair an chloig</item>
+        <item quantity="other">%1$d péire gan luach 24 uair an chloig</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d phéire gan luach don lá inniu</item>
+        <item quantity="two">%1$d phéire gan luach don lá inniu</item>
+        <item quantity="few">%1$d phéire gan luach don lá inniu</item>
+        <item quantity="many">%1$d bpéire gan luach don lá inniu</item>
+        <item quantity="other">%1$d péire gan luach don lá inniu</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d phéire ag ardú</item>
+        <item quantity="two">%1$d phéire ag ardú</item>
+        <item quantity="few">%1$d phéire ag ardú</item>
+        <item quantity="many">%1$d bpéire ag ardú</item>
+        <item quantity="other">%1$d péire ag ardú</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="one">nuashonraithe %1$d lá ó shin</item>
+        <item quantity="two">nuashonraithe %1$d lá ó shin</item>
+        <item quantity="few">nuashonraithe %1$d lá ó shin</item>
+        <item quantity="many">nuashonraithe %1$d lá ó shin</item>
+        <item quantity="other">nuashonraithe %1$d lá ó shin</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="one">nuashonraithe %1$d uair an chloig ó shin</item>
+        <item quantity="two">nuashonraithe %1$d uair an chloig ó shin</item>
+        <item quantity="few">nuashonraithe %1$d huaire an chloig ó shin</item>
+        <item quantity="many">nuashonraithe %1$d n-uaire an chloig ó shin</item>
+        <item quantity="other">nuashonraithe %1$d uair an chloig ó shin</item>
+    </plurals>
+    <string name="a11y_updated_just_now">nuashonraithe díreach anois</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="one">nuashonraithe %1$d nóiméad ó shin</item>
+        <item quantity="two">nuashonraithe %1$d nóiméad ó shin</item>
+        <item quantity="few">nuashonraithe %1$d nóiméad ó shin</item>
+        <item quantity="many">nuashonraithe %1$d nóiméad ó shin</item>
+        <item quantity="other">nuashonraithe %1$d nóiméad ó shin</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">méid i bhfolach</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_entry">%1$s %2$s, ar fiú %3$s inniu</string>
+    <string name="a11y_portfolio_entry_in">Isteach</string>
+    <string name="a11y_portfolio_entry_no_value">níl an luach ar fáil</string>
+    <string name="a11y_portfolio_entry_note">nóta %1$s</string>
+    <string name="a11y_portfolio_entry_out">Amach</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, %3$s den phunann</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, %2$s den phunann, %3$s</string>
+    <string name="a11y_portfolio_positions">Na suíomhanna is mó: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">Taispeáin méideanna</string>
+    <string name="a11y_compare_chart">Comparáid i gcéatadáin, %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">%1$s ón mbuaic 30 lá</string>
+    <string name="a11y_price_overlay">Praghas ar foluain: %1$s</string>
+</resources>

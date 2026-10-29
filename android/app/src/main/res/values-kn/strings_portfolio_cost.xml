@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">ಖರೀದಿ ವೆಚ್ಚವಿಲ್ಲದ ನಮೂದುಗಳು: %1$d</string>
+    <string name="cost_gaps_card_text">ಲಾಭ ಮತ್ತು ತೆರಿಗೆಗಳು ಪೂರ್ಣವಾಗಿರಲು ಖರೀದಿ ವೆಚ್ಚವನ್ನು ಸೇರಿಸಿ.</string>
+    <string name="cost_gaps_sheet_title">ಖರೀದಿ ವೆಚ್ಚವಿಲ್ಲದ ನಮೂದುಗಳು</string>
+    <string name="cost_gaps_sheet_intro">ಈ ಒಳಹರಿವುಗಳಿಗೆ ಖರೀದಿ ವೆಚ್ಚವಿಲ್ಲ. ಸಲಹೆಯು ಆ ದಿನಾಂಕದ ದೈನಂದಿನ ಮುಕ್ತಾಯ ಬೆಲೆ – ಅದನ್ನು ನಮೂದಿನಲ್ಲಿ ಹೊಂದಿಸಬಹುದು.</string>
+    <string name="cost_gaps_empty">ಎಲ್ಲಾ ನಮೂದುಗಳಿಗೂ ಖರೀದಿ ವೆಚ್ಚವಿದೆ.</string>
+    <string name="cost_gap_enter">ಖರೀದಿ ವೆಚ್ಚ ನಮೂದಿಸಿ</string>
+    <string name="cost_gap_leave_unknown">ಅಜ್ಞಾತವಾಗಿ ಬಿಡಿ</string>
+    <string name="cost_gap_left_unknown">ಅಜ್ಞಾತವಾಗಿ ಬಿಡಲಾಗಿದೆ</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">ಸಲಹೆ: ದೈನಂದಿನ ಮುಕ್ತಾಯ ಬೆಲೆ %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">ಈ ದಿನಾಂಕಕ್ಕೆ ಪರಿಶೀಲಿತ ದೈನಂದಿನ ಮುಕ್ತಾಯ ಬೆಲೆ ಇಲ್ಲ</string>
+    <string name="cost_gap_suggestion_loading">ದೈನಂದಿನ ಮುಕ್ತಾಯ ಬೆಲೆ ಲೋಡ್ ಆಗುತ್ತಿದೆ …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">ಖರೀದಿ ವೆಚ್ಚ = ಸ್ವೀಕರಿಸಿದಾಗಿನ ಮೌಲ್ಯ (ಆದಾಯ)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">ಖರೀದಿ ವೆಚ್ಚ = 0 (ಒಳಹರಿವು ಇಲ್ಲದ ಬಹುಮಾನ, ಆಸ್ಟ್ರಿಯಾ)</string>
+    <string name="cost_gap_apply">ಅನ್ವಯಿಸಿ</string>
+    <string name="address_lots_action">ವಿಳಾಸದ ಬ್ಯಾಲೆನ್ಸ್‌ಗೆ ಖರೀದಿ ವೆಚ್ಚ</string>
+    <string name="address_lots_title">ವಿಳಾಸದ ಬ್ಯಾಲೆನ್ಸ್‌ಗೆ ಖರೀದಿ ವೆಚ್ಚ</string>
+    <string name="address_lots_intro">ಈ ವಿಳಾಸದ ಬ್ಯಾಲೆನ್ಸ್‌ಗೆ ಖರೀದಿ ದಿನಾಂಕ, ಪ್ರಮಾಣ ಮತ್ತು ಖರೀದಿ ವೆಚ್ಚವನ್ನು ನಮೂದಿಸಿ. ಲಾಟ್‌ಗಳನ್ನು ಈ ವಿಳಾಸದಲ್ಲಿನ ಖರೀದಿಗಳಂತೆ ಎಣಿಸಲಾಗುತ್ತದೆ; ಒಳಗೊಳ್ಳದ ಭಾಗ ಖರೀದಿ ವೆಚ್ಚವಿಲ್ಲದೆ ಉಳಿಯುತ್ತದೆ.</string>
+    <string name="address_lots_add">ಲಾಟ್ ಸೇರಿಸಿ</string>
+    <string name="address_lots_new">ಹೊಸ ಲಾಟ್</string>
+    <string name="address_lots_edit">ಲಾಟ್</string>
+    <string name="address_lots_date">ಖರೀದಿ ದಿನಾಂಕ</string>
+    <string name="address_lots_amount">ಪ್ರಮಾಣ</string>
+    <string name="address_lots_mode_total">ಒಟ್ಟು</string>
+    <string name="address_lots_mode_price">ಪ್ರತಿ ಕಾಯಿನ್‌ಗೆ</string>
+    <string name="address_lots_price">ಪ್ರತಿ ಕಾಯಿನ್‌ನ ಬೆಲೆ (USDT)</string>
+    <string name="address_lots_total">ಒಟ್ಟು ಖರೀದಿ ವೆಚ್ಚ (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%2$s ರಲ್ಲಿ %1$s ಖರೀದಿ ವೆಚ್ಚದೊಂದಿಗೆ</string>
+    <string name="address_lots_unlotted">%1$s ಖರೀದಿ ವೆಚ್ಚವಿಲ್ಲದೆ</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">ಲಾಟ್‌ಗಳು ಬ್ಯಾಲೆನ್ಸ್ ಅನ್ನು %1$s ರಷ್ಟು ಮೀರುತ್ತವೆ – ಹಳೆಯವುಗಳನ್ನು ಮೊದಲು ಬಳಸಲಾಗುತ್ತದೆ.</string>
+    <string name="address_lots_not_loaded">ಬ್ಯಾಲೆನ್ಸ್ ಇನ್ನೂ ಲೋಡ್ ಆಗಿಲ್ಲ – ಲೋಡ್ ಆದ ತಕ್ಷಣ ಲಾಟ್‌ಗಳು ಲೆಕ್ಕಕ್ಕೆ ಬರುತ್ತವೆ.</string>
+    <string name="address_lots_invalid">ಪ್ರಮಾಣ ಮತ್ತು ಖರೀದಿ ವೆಚ್ಚ ನಮೂದಿಸಿ</string>
+</resources>

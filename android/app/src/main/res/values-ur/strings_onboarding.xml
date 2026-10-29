@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">الرٹس لگائیں – قیمت، فیصد، والیوم اور غیر معمولی حرکتیں</string>
+    <string name="welcome_alert_q">کب اطلاع دی جائے؟</string>
+    <string name="welcome_text">آپ کی قیمتیں۔ آپ کے الرٹس۔ آپ کا جائزہ۔\nکوئی اکاؤنٹ نہیں۔ کوئی اشتہار نہیں۔ کوئی ٹریکنگ نہیں۔</string>
+    <string name="welcome_understand">سمجھیں – اس وقت کسی قیمت کے ساتھ اور کیا حرکت کر رہا ہے</string>
+    <string name="welcome_understand_q">اس کے ساتھ اور کیا حرکت کر رہا ہے؟</string>
+    <string name="welcome_watch">نظر رکھیں – آپ کے کوائنز، قیمتیں اور قیمت کی تاریخ</string>
+    <string name="welcome_watch_q">کیا ہو رہا ہے؟</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">واچ لسٹ میں شامل کریں (%1$d)</string>
+    <string name="starter_loading_prices">قیمتیں لوڈ ہو رہی ہیں…</string>
+    <string name="starter_search_coin">کوئی اور کوائن تلاش کریں</string>
+    <string name="starter_select_all">سب منتخب کریں</string>
+    <string name="starter_select_none">کوئی نہیں</string>
+    <string name="starter_title">ان کوائنز سے شروع کریں</string>
+    <string name="starter_watch_alarm_hint">قیمت پر نظر رکھیں، الرٹ لگائیں</string>
+
+    <!-- Start-Auswahl: Börse und Quote der Startpaare (Binance, bei Standort-Sperre Binance.US), z. B. «Kurse von Binance in USDT. …» -->
+    <string name="starter_source_text">%2$s میں %1$s سے قیمتیں۔ جو نہیں چاہیے اسے غیر منتخب کریں اور باقی ایک ساتھ شامل کریں۔ ہر کوائن کا ایکسچینج اور جوڑا بدلا جا سکتا ہے۔</string>
+</resources>

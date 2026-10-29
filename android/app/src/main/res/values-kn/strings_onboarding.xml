@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">ಅಲರ್ಟ್‌ಗಳನ್ನು ಹೊಂದಿಸಿ – ಬೆಲೆ, ಶೇಕಡಾ, ವಾಲ್ಯೂಮ್ ಮತ್ತು ಅಸಾಮಾನ್ಯ ಚಲನೆಗಳು</string>
+    <string name="welcome_alert_q">ಯಾವಾಗ ಅಲರ್ಟ್ ಮಾಡಬೇಕು?</string>
+    <string name="welcome_text">ನಿಮ್ಮ ಬೆಲೆಗಳು. ನಿಮ್ಮ ಅಲರ್ಟ್‌ಗಳು. ನಿಮ್ಮ ಅವಲೋಕನ.\nಖಾತೆ ಇಲ್ಲ. ಜಾಹೀರಾತುಗಳಿಲ್ಲ. ಟ್ರ್ಯಾಕಿಂಗ್ ಇಲ್ಲ.</string>
+    <string name="welcome_understand">ಅರ್ಥಮಾಡಿಕೊಳ್ಳಿ – ಸದ್ಯ ಒಂದು ಬೆಲೆಯ ಜೊತೆಗೆ ಏನು ಚಲಿಸುತ್ತಿದೆ</string>
+    <string name="welcome_understand_q">ಜೊತೆಗೆ ಏನು ಚಲಿಸುತ್ತಿದೆ?</string>
+    <string name="welcome_watch">ಗಮನಿಸಿ – ನಿಮ್ಮ ಕಾಯಿನ್‌ಗಳು, ಬೆಲೆಗಳು ಮತ್ತು ಬೆಲೆ ಇತಿಹಾಸ</string>
+    <string name="welcome_watch_q">ಏನಾಗುತ್ತಿದೆ?</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">ವಾಚ್‌ಲಿಸ್ಟ್‌ಗೆ ಸೇರಿಸಿ (%1$d)</string>
+    <string name="starter_loading_prices">ಬೆಲೆಗಳು ಲೋಡ್ ಆಗುತ್ತಿವೆ…</string>
+    <string name="starter_search_coin">ಇನ್ನೊಂದು ಕಾಯಿನ್ ಹುಡುಕಿ</string>
+    <string name="starter_select_all">ಎಲ್ಲವನ್ನೂ ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="starter_select_none">ಯಾವುದನ್ನೂ ಆಯ್ಕೆಮಾಡಬೇಡಿ</string>
+    <string name="starter_title">ಈ ಕಾಯಿನ್‌ಗಳೊಂದಿಗೆ ಪ್ರಾರಂಭಿಸಿ</string>
+    <string name="starter_watch_alarm_hint">ಬೆಲೆಯನ್ನು ಗಮನಿಸಿ, ಅಲರ್ಟ್ ಹೊಂದಿಸಿ</string>
+
+    <!-- Start-Auswahl: Börse und Quote der Startpaare (Binance, bei Standort-Sperre Binance.US), z. B. «Kurse von Binance in USDT. …» -->
+    <string name="starter_source_text">%1$s ನಿಂದ %2$s ನಲ್ಲಿ ಬೆಲೆಗಳು. ಬೇಡವಾದವುಗಳ ಆಯ್ಕೆ ತೆಗೆದು, ಉಳಿದವನ್ನು ಒಂದೇ ಬಾರಿಗೆ ಸೇರಿಸಿ. ಪ್ರತಿ ಕಾಯಿನ್‌ಗೆ ಎಕ್ಸ್‌ಚೇಂಜ್ ಮತ್ತು ಜೋಡಿಯನ್ನು ಬದಲಾಯಿಸಬಹುದು.</string>
+</resources>

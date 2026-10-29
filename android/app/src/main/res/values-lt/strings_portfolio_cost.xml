@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">Įrašai be savikainos: %1$d</string>
+    <string name="cost_gaps_card_text">Pridėk savikainą, kad pelnas ir mokesčiai būtų išsamūs.</string>
+    <string name="cost_gaps_sheet_title">Įrašai be savikainos</string>
+    <string name="cost_gaps_sheet_intro">Šios įplaukos neturi savikainos. Siūloma tos datos dienos uždarymo kaina – ją gali pakoreguoti įraše.</string>
+    <string name="cost_gaps_empty">Visi įrašai turi savikainą.</string>
+    <string name="cost_gap_enter">Įvesti savikainą</string>
+    <string name="cost_gap_leave_unknown">Palikti nežinomą</string>
+    <string name="cost_gap_left_unknown">Palikta nežinoma</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">Siūloma: dienos uždarymo kaina %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">Šiai datai nėra patikrintos dienos uždarymo kainos</string>
+    <string name="cost_gap_suggestion_loading">Įkeliama dienos uždarymo kaina…</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">Savikaina = vertė gavimo metu (pajamos)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">Savikaina = 0 (atlygis be įplaukos, Austrija)</string>
+    <string name="cost_gap_apply">Taikyti</string>
+    <string name="address_lots_action">Adreso likučio savikaina</string>
+    <string name="address_lots_title">Adreso likučio savikaina</string>
+    <string name="address_lots_intro">Įvesk šio adreso likučio pirkimo datą, kiekį ir savikainą. Partijos skaičiuojamos kaip pirkimai šiame adrese; nepadengta dalis lieka be savikainos.</string>
+    <string name="address_lots_add">Pridėti partiją</string>
+    <string name="address_lots_new">Nauja partija</string>
+    <string name="address_lots_edit">Partija</string>
+    <string name="address_lots_date">Pirkimo data</string>
+    <string name="address_lots_amount">Kiekis</string>
+    <string name="address_lots_mode_total">Iš viso</string>
+    <string name="address_lots_mode_price">Už monetą</string>
+    <string name="address_lots_price">Kaina už monetą (USDT)</string>
+    <string name="address_lots_total">Bendra savikaina (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%1$s iš %2$s su savikaina</string>
+    <string name="address_lots_unlotted">%1$s be savikainos</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">Partijos viršija likutį %1$s – pirmiausia sunaudojamos seniausios.</string>
+    <string name="address_lots_not_loaded">Likutis dar neįkeltas – partijos bus įskaičiuotos, kai tik jis bus įkeltas.</string>
+    <string name="address_lots_invalid">Įvesk kiekį ir savikainą</string>
+</resources>

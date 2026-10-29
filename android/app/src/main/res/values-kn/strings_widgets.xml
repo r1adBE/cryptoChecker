@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">ಹಿನ್ನೆಲೆ</string>
+    <string name="widget_configure_hint">ಹಿನ್ನೆಲೆ ಮತ್ತು ಅಪಾರದರ್ಶಕತೆಯನ್ನು ಆರಿಸಿ. ಬಣ್ಣ ಆ್ಯಪ್ ಅನ್ನು ಅನುಸರಿಸುತ್ತದೆ. ವಿಜೆಟ್ ನಿಮ್ಮ ಸಂಪೂರ್ಣ ವಾಚ್‌ಲಿಸ್ಟ್ ಅನ್ನು ತೋರಿಸುತ್ತದೆ; ಆ್ಯಪ್ ತೆರೆಯಲು ಸಾಲನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ.</string>
+    <string name="widget_configure_title">ವಿಜೆಟ್ ಹೊಂದಿಸಿ</string>
+    <string name="widget_description">ನಿಮ್ಮ ವಾಚ್‌ಲಿಸ್ಟ್‌ನ ಒಂದು ಜೋಡಿಯ ಬೆಲೆಯನ್ನು ತೋರಿಸುತ್ತದೆ.</string>
+    <string name="widget_empty">ವಾಚ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿ ಇನ್ನೂ ಜೋಡಿಗಳಿಲ್ಲ.</string>
+    <string name="widget_group_hint">ಈ ಗುಂಪಿನ ಜೋಡಿಗಳನ್ನು ಮಾತ್ರ ತೋರಿಸಿ.</string>
+    <string name="widget_kind_single">ಒಂದೇ ಕಾಯಿನ್</string>
+    <string name="widget_opacity">ಹಿನ್ನೆಲೆ ಅಪಾರದರ್ಶಕತೆ: %1$s</string>
+    <string name="widget_pulse_description">ಸದ್ಯ ಮಾರುಕಟ್ಟೆಯಲ್ಲಿ ಗಮನ ಸೆಳೆಯುತ್ತಿರುವುದು: ಶೀರ್ಷಿಕೆ, ಸಂಕ್ಷಿಪ್ತ ಸಾರಾಂಶ ಮತ್ತು Bitcoin, Ethereum, Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">ಹಳೆಯದು</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">ಹಳೆಯದು · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">ಕ್ಯಾಂಡಲ್‌ಗಳು</string>
+    <string name="widget_chart_line">ರೇಖೆ</string>
+    <string name="widget_chart_range">ಚಾರ್ಟ್ ಅವಧಿ</string>
+    <string name="widget_chart_type">ಚಾರ್ಟ್ ಪ್ರಕಾರ</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 ವರ್ಷ</string>
+    <string name="widget_range_24h">24 ಗಂ</string>
+    <string name="widget_range_30d">30 ದಿನಗಳು</string>
+    <string name="widget_range_7d">7 ದಿನಗಳು</string>
+    <string name="widget_range_short_1y">1ವ</string>
+    <string name="widget_range_short_24h">24ಗಂ</string>
+    <string name="widget_range_short_30d">30ದಿ</string>
+    <string name="widget_range_short_7d">7ದಿ</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">%1$s ರಂತೆ</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">ಇತಿಹಾಸ ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ</string>
+    <string name="widget_portfolio_description">ನಿಮ್ಮ ಪೋರ್ಟ್‌ಫೋಲಿಯೊದ ಒಟ್ಟು ಮೌಲ್ಯ ಮತ್ತು ಇಂದಿನ ಬದಲಾವಣೆ</string>
+    <string name="widget_portfolio_entries">ಕಾಯಿನ್‌ಗಳ ಕೆಳಗೆ ಬುಕಿಂಗ್‌ಗಳು</string>
+    <string name="widget_portfolio_entries_both">ಎರಡೂ</string>
+    <string name="widget_portfolio_entries_buys">ಖರೀದಿಗಳು</string>
+    <string name="widget_portfolio_entries_hint">ಕಾಯಿನ್‌ಗಳ ಕೆಳಗೆ ಜಾಗವಿದ್ದರೆ ಮಾತ್ರ ತೋರಿಸಲಾಗುತ್ತದೆ. ಖರೀದಿಗಳಲ್ಲಿ ಠೇವಣಿಗಳು, ಮಾರಾಟಗಳಲ್ಲಿ ಹಿಂಪಡೆಯುವಿಕೆಗಳು ಸೇರಿವೆ; «ಎರಡೂ» ಆಯ್ಕೆಯಲ್ಲಿ ಸಾಲುಗಳ ಮೊತ್ತ ಹೋಲ್ಡಿಂಗ್‌ಗೆ ಸಮ.</string>
+    <string name="widget_portfolio_entries_off">ಆಫ್</string>
+    <string name="widget_portfolio_entries_sells">ಮಾರಾಟಗಳು</string>
+    <string name="widget_portfolio_display">ಪ್ರದರ್ಶನ</string>
+    <string name="widget_portfolio_display_conversion">ಪರಿವರ್ತನೆ ಮಾತ್ರ</string>
+    <string name="widget_portfolio_display_conversion_usdt">ಪರಿವರ್ತನೆ + USDT</string>
+    <string name="widget_portfolio_display_hint">ಪರಿವರ್ತನಾ ಕರೆನ್ಸಿ USD ಸ್ಟೇಬಲ್‌ಕಾಯಿನ್ (ಉದಾ. USDC) ಆಗಿದ್ದರೆ USDT ಸಾಲನ್ನು ಮರೆಮಾಡಲಾಗುತ್ತದೆ.</string>
+    <string name="widget_portfolio_display_usdt">USDT ಮಾತ್ರ</string>
+    <string name="widget_portfolio_empty">ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಟ್ಯಾಬ್‌ನಲ್ಲಿ ಖರೀದಿಗಳನ್ನು ಸೇರಿಸಿ</string>
+    <string name="widget_portfolio_list_hint">ನಿಮ್ಮ ಪೊಸಿಷನ್‌ಗಳನ್ನು ಇಲ್ಲಿ ತೋರಿಸಲು ಆ್ಯಪ್ ತೆರೆಯಿರಿ.</string>
+    <string name="widget_portfolio_locked_hint">ಲಾಕ್ ಆಗಿದೆ – ಆ್ಯಪ್‌ನಲ್ಲಿ ಅನ್‌ಲಾಕ್ ಮಾಡಿ</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="one">%1$d ಕಾಯಿನ್ ಇಲ್ಲದೆ</item>
+        <item quantity="other">%1$d ಕಾಯಿನ್‌ಗಳಿಲ್ಲದೆ</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ ಇನ್ನೂ %1$d</item>
+        <item quantity="other">+ ಇನ್ನೂ %1$d</item>
+    </plurals>
+    <string name="widget_portfolio_name">ಪೋರ್ಟ್‌ಫೋಲಿಯೊ</string>
+    <string name="widget_portfolio_off_hint">%1$s ನಲ್ಲಿ ಇದನ್ನು ಆನ್ ಮಾಡಿ.</string>
+    <string name="widget_portfolio_off_short">ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಆಫ್</string>
+    <string name="widget_portfolio_off_title">ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಆಫ್ ಆಗಿದೆ</string>
+    <string name="widget_portfolio_partly_stale">ಕೆಲವು ಬೆಲೆಗಳು ಹಳೆಯವು</string>
+    <string name="widget_portfolio_period">ಅವಧಿ</string>
+    <string name="widget_portfolio_period_without">%2$s ಇಲ್ಲದೆ %1$s</string>
+    <string name="widget_portfolio_range_48h">48 ಗಂ</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ತೆರೆಯಿರಿ</string>
+    <string name="widget_portfolio_range_short_48h">48ಗಂ</string>
+    <string name="widget_portfolio_today_without">ಇಂದು, %1$s ಇಲ್ಲದೆ</string>
+    <string name="widget_portfolio_view">ನೋಟ</string>
+    <string name="widget_portfolio_view_chart">ಚಾರ್ಟ್</string>
+    <string name="widget_portfolio_view_list">ಪಟ್ಟಿ</string>
+    <string name="widget_portfolio_view_overview">ಅವಲೋಕನ</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">ಒಂದು ಜೋಡಿಯನ್ನು ಆರಿಸಿ</string>
+    <string name="single_widget_description">ಒಂದು ಕಾಯಿನ್ ಅನ್ನು ಬೆಲೆ, ಬದಲಾವಣೆ ಮತ್ತು 24 ಗಂಟೆಗಳ ಚಾರ್ಟ್‌ನೊಂದಿಗೆ ದೊಡ್ಡದಾಗಿ ತೋರಿಸುತ್ತದೆ.</string>
+    <string name="single_widget_label">Crypto Checker – ಒಂದೇ ಕಾಯಿನ್</string>
+    <string name="single_widget_title">ಏಕ ವಿಜೆಟ್ ಹೊಂದಿಸಿ</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">ಸೇರಿಸಿ</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">%1$s ವಿಜೆಟ್ ಸೇರಿಸಿ</string>
+    <string name="widgets_manual_text">ನಿಮ್ಮ ಹೋಮ್ ಸ್ಕ್ರೀನ್ ಆ್ಯಪ್‌ನಿಂದ ವಿಜೆಟ್‌ಗಳನ್ನು ಸೇರಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ. ಹೋಮ್ ಸ್ಕ್ರೀನ್‌ನಲ್ಲಿ ಖಾಲಿ ಜಾಗವನ್ನು ಸ್ಪರ್ಶಿಸಿ ಹಿಡಿದುಕೊಳ್ಳಿ, “ವಿಜೆಟ್‌ಗಳು” ಆಯ್ಕೆಮಾಡಿ ಮತ್ತು “Crypto Checker” ಹುಡುಕಿ.</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">ವಿಜೆಟ್ ಅನ್ನು ನೀವೇ ಸೇರಿಸಿ</string>
+    <string name="widgets_sheet_title">ವಿಜೆಟ್ ಸೇರಿಸಿ</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS ಆ್ಯಪ್‌ಗಳಿಗೆ ತಾವೇ ವಿಜೆಟ್‌ಗಳನ್ನು ಸೇರಿಸಲು ಬಿಡುವುದಿಲ್ಲ. ಇದಕ್ಕೆ ಕೆಲವೇ ಕ್ಷಣಗಳು ಸಾಕು:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">ಲಭ್ಯವಿರುವ ವಿಜೆಟ್‌ಗಳು</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">ಆ್ಯಪ್‌ಗಳು ಅಲುಗಾಡುವವರೆಗೆ ಹೋಮ್ ಸ್ಕ್ರೀನ್‌ನಲ್ಲಿ ಖಾಲಿ ಜಾಗವನ್ನು ಸ್ಪರ್ಶಿಸಿ ಹಿಡಿದುಕೊಳ್ಳಿ.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">ಮೇಲ್ಭಾಗದಲ್ಲಿ “ಎಡಿಟ್ ಮಾಡಿ” › “ವಿಜೆಟ್ ಸೇರಿಸಿ” ಟ್ಯಾಪ್ ಮಾಡಿ (ಹಳೆಯ iOS ಆವೃತ್ತಿಗಳಲ್ಲಿ “+”).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">“Crypto Checker” ಹುಡುಕಿ, ಒಂದು ವಿಜೆಟ್ ಆರಿಸಿ ಮತ್ತು “ವಿಜೆಟ್ ಸೇರಿಸಿ” ಟ್ಯಾಪ್ ಮಾಡಿ.</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">ರಿಫ್ರೆಶ್ – %1$d ಸೆ. ನಲ್ಲಿ ಮತ್ತೆ ಸಾಧ್ಯ</string>
+    <string name="settings_watch">ವಾಚ್</string>
+    <string name="settings_watch_hint">Wear OS ನಲ್ಲಿನ ವಾಚ್ ಆ್ಯಪ್‌ಗಾಗಿ ಕಾಯಿನ್‌ಗಳು (%1$d ವರೆಗೆ, USDT ವಿರುದ್ಧ ಬೆಲೆ). ಈ ಪಟ್ಟಿ ಮಾತ್ರ Google Play ಸೇವೆಗಳ ಮೂಲಕ ವಾಚ್‌ಗೆ ಹೋಗುತ್ತದೆ; ವಾಚ್ ಬೆಲೆಗಳನ್ನು ತಾನೇ ಪಡೆಯುತ್ತದೆ.</string>
+    <string name="settings_watch_mode_phone">ಫೋನ್‌ನಂತೆ (ಮೆಚ್ಚಿನವು ★)</string>
+    <string name="settings_watch_mode_own">ಸ್ವಂತ ಪಟ್ಟಿ</string>
+    <string name="settings_watch_own_title">ಸ್ವಂತ ಪಟ್ಟಿ: %2$d ರಲ್ಲಿ %1$d</string>
+    <string name="settings_watch_none">ಇನ್ನೂ ಮೆಚ್ಚಿನವುಗಳಿಲ್ಲ</string>
+
+    <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
+    <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">“ಪಟ್ಟಿ” ಯಲ್ಲಿ USDT ಸಾಲು ಇಲ್ಲ</string>
+    <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
+    <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">“ಅವಲೋಕನ” ಬದಲಿಗೆ 30 ದಿನಗಳನ್ನು ತೋರಿಸುತ್ತದೆ</string>
+</resources>

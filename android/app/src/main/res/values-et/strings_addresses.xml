@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">Lisa aadress</string>
+    <string name="portfolio_address_count">Arvesta</string>
+    <string name="portfolio_address_error">Uuendamine ebaõnnestus</string>
+    <string name="portfolio_address_hint">Avalik aadress (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) või xpub</string>
+    <string name="portfolio_address_label">Nimi (valikuline)</string>
+    <string name="portfolio_address_not_since_buy">Aadressilt · pole „Ostust alates“ osas: %1$s</string>
+    <string name="portfolio_address_overlap">Ka sinu enda tehingutes: %1$s – mõlemad liidetakse. Samad mündid? Vali „Ainult näita“.</string>
+    <string name="portfolio_address_overlap_ask">Sa juba arvestad %1$s oma tehingutega. Kas lisada selle aadressi saldo portfelli või ainult näidata seda?</string>
+    <string name="portfolio_address_overlap_auto">„%1$s“ on nüüd ainult näidatud, mitte arvestatud – %2$s on ka sinu tehingutes.</string>
+    <string name="portfolio_address_overlap_title">Samad mündid nagu sinu tehingutes?</string>
+    <string name="portfolio_address_overlap_tx">Sama kogus nagu sinu enda sissemaksel/ülekandel (%1$s) – tõenäoliselt arvestatud kaks korda.</string>
+    <string name="portfolio_address_period_observed">Jälgitavaid aadresse arvestatakse esimesest täheldatud saldost; hilisemad muutused on sisse-/väljavoolud, mitte kasum.</string>
+    <string name="portfolio_address_privacy">Teenusele %1$s saadetakse ainult avalik aadress – mitte kunagi võtmeid ega taastefraase. Teenusepakkuja näeb seda koos sinu IP-aadressiga. Kontrollitakse kõige rohkem iga 10 minuti järel.</string>
+    <string name="portfolio_address_remove">Eemalda aadress</string>
+    <string name="portfolio_address_show_only">Ainult näita, ära lisa portfelli</string>
+    <string name="portfolio_address_show_only_short">Ainult näita</string>
+    <string name="portfolio_address_tokens">Arvesta tokeneid</string>
+    <string name="portfolio_address_xpub_privacy">xpub paljastab selle rahakoti kõik aadressid. Need tuletatakse sinu seadmes; teenusele %1$s saadetakse ainult üksikud aadressid – esimesel otsingul vähemalt 40 päringut, hiljem vähem. Privaatvõtmeid (xprv) ei aktsepteerita kunagi.</string>
+    <string name="portfolio_address_xpub_gap">Otsing peatub pärast %1$d kasutamata aadressi järjest (BIP44 standard, mida enamik rahakotte kasutab). Kasutatud aadressi pärast seda vahet ei arvestata – lisa see eraldi.</string>
+    <string name="portfolio_address_xpub_used">Kasutusel aadresse: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">Uuendamiseks liiga palju kasutatud aadresse</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">Väga palju aadresse – uusi makseid vanadele, tühjadele aadressidele ei pruugita tuvastada</string>
+    <string name="portfolio_addresses_title">Aadressid</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Bitcoin Cashi aadresse ei saa jälgida: puudub tasuta avalik teenus ilma API-võtmeta, mille tingimused seda lubaksid.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) suleti 2024. aastal – saldod on nüüd BNB Smart Chainis (0x…)</string>
+    <string name="address_checksum">Kontrollsumma vale – kontrolli trükivigu</string>
+    <string name="address_doge_unsupported">Dogecoini aadresse ei saa jälgida: puudub tasuta avalik teenus ilma API-võtmeta, mille tingimused seda lubaksid.</string>
+    <string name="address_duplicate">See aadress on juba lisatud</string>
+    <string name="address_ens">ENS-nimesid ei toetata – sisesta 0x-aadress</string>
+    <string name="address_invalid">Pole toetatud võrgu kehtiv aadress</string>
+    <string name="address_limit">Kuni 20 aadressi</string>
+    <string name="address_secret">See näeb välja nagu privaatvõti või taastefraas – ära sisesta seda kuskile. Ainult avalikud aadressid.</string>
+    <string name="address_testnet">Testnet-aadresse ei toetata</string>
+    <string name="address_unsupported">Seda aadressitüüpi ei toetata</string>
+    <string name="address_wrong_chain">Aadress kuulub teise võrku</string>
+    <string name="address_xpub_multisig">Multisig-võtmeid (Ypub/Zpub) ei toetata</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot-konto (BIP86): sellest võtmest tuletatakse bc1p…-aadressid vastuvõtmiseks ja vahetusrahaks.</string>
+    <string name="portfolio_address_taproot_hint">Taproot-rahakott? Kleebi selle asemel oma rahakotist deskriptor tr(…) – lihtsat xpub-i otsitakse ainult Legacy- ja SegWit-aadressidena.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">Oma server pole kättesaadav</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">See, kes haldab %1$s, näeb kõiki selle rahakoti päritud aadresse ja saab neid omavahel ning sinu IP-aadressiga siduda.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">Selle väldid oma serveriga jaotises Seaded › Portfell › Oma server aadresside jaoks.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d tundmatu token (arvestamata)</item>
+        <item quantity="other">+%1$d tundmatut tokenit (arvestamata)</item>
+    </plurals>
+</resources>

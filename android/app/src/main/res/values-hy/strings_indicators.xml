@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">Ալթքոիններն ընդդեմ Bitcoin-ի</string>
+    <string name="neutral_btc_indicators_title">Bitcoin-ի ցուցանիշներ</string>
+    <string name="neutral_halving_last">Վերջին հալվինգը՝ %1$s</string>
+    <string name="neutral_halving_next">Հաջորդ հալվինգը սպասվում է մոտավորապես %1$s (գնահատված է ըստ օրացույցի – բլոկի բարձրությունը հիմա հասանելի չէ)։</string>
+    <string name="neutral_indicators_disclaimer">Միայն չափված արժեքներ՝ առանց գնահատականի։ Կանխատեսում չէ և ներդրումային խորհուրդ չէ։</string>
+    <string name="neutral_onchain_missing">On-chain տվյալները (Coin Metrics) հիմա հասանելի չեն։</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">Որքանով է գինը ցածր իր նախորդ բոլոր ժամանակների առավելագույնից։</string>
+    <string name="neutral_explain_change_30d">Այսօրվա գինը 30 օր առաջվա համեմատ։</string>
+    <string name="neutral_explain_hashrate">30-օրյա միջին հեշրեյթը 60-օրյա միջինի համեմատ։</string>
+    <string name="neutral_explain_ma200w">Վերջին 200 շաբաթական փակումների միջինը։</string>
+    <string name="neutral_explain_mayer">Գինը՝ բաժանված 200-օրյա միջինի վրա։</string>
+    <string name="neutral_explain_mvrv">Շուկայական արժեքը՝ բաժանված իրացված արժեքի վրա (on-chain)։</string>
+    <string name="neutral_explain_pi_gap">111-օրյա միջինը 350-օրյա միջինի կրկնապատիկի համեմատ։</string>
+    <string name="neutral_explain_puell">Մայներների օրական եկամուտը՝ բաժանված դրա 365-օրյա միջինի վրա։</string>
+    <string name="neutral_explain_rsi_daily">Վերջին 14 օրվա հարաբերական ուժի ինդեքսը (RSI), 0–100։</string>
+    <string name="neutral_explain_rsi_weekly">Վերջին 14 շաբաթվա հարաբերական ուժի ինդեքսը (RSI), 0–100։</string>
+    <string name="neutral_explain_sma50_200">50-օրյա միջինը 200-օրյա միջինի համեմատ։</string>
+    <string name="neutral_explain_vs_btc">Գնի փոփոխությունը Bitcoin-ի համեմատ 90 օրվա ընթացքում։</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">Հավելվածը ցույց է տալիս միայն քանակը և այն չի անվանում սեզոն։ Արժեքը սովորաբար փոխվում է օրերի, ոչ թե ժամերի ընթացքում։</string>
+    <string name="neutral_info_btc_how">Յուրաքանչյուր արժեքի հետ կա մեկ նախադասություն այն մասին, թե ինչ է այն չափում, և որտեղ է այն գտնվում իր սեփական պատմության մեջ 2016-ից ի վեր։ Հավելվածը չի գնահատում արժեքները և շուկայի փուլ չի բխեցնում. շուկայի ահազանգերի սահմանները միայն նրանք են, որոնք դու ես սահմանում։ Անցյալի օրինաչափությունները պարտադիր չէ, որ կրկնվեն։</string>
+    <string name="neutral_info_btc_what">Bitcoin-ի տարածված ցուցանիշները՝ որպես պարզ չափված արժեքներ՝ Mayer Multiple, 200-շաբաթյա միջին, անկում բոլոր ժամանակների առավելագույնից, փոփոխություն 30 օրում, Pi Cycle բաց և on-chain արժեքներ՝ MVRV, Puell Multiple և հեշրեյթ։</string>
+    <string name="neutral_info_coin_how">Յուրաքանչյուր արժեքի հետ կա մեկ նախադասություն այն մասին, թե ինչ է այն չափում, առանց գնահատականի։ Կարճ գնային պատմություն ունեցող կոինների համար որոշ արժեքներ բացակայում են։ On-chain տվյալներն այստեղ ներառված չեն։</string>
+    <string name="neutral_info_coin_what">Նույն պարզ ցուցանիշները քո ընտրած կոինի համար՝ միայն գնային տվյալներից՝ Mayer Multiple, 200-շաբաթյա միջին, անկում բոլոր ժամանակների առավելագույնից, փոփոխություն 30 օրում, 50/200-օրյա միտում, RSI և ուժը Bitcoin-ի համեմատ 90 օրում։</string>
+    <string name="neutral_info_halving_how">Հաջորդ հալվինգը հաշվարկվում է բլոկի ընթացիկ բարձրությունից և ընթացիկ բարդության շրջանի բլոկի միջին ժամանակից (mempool.space). առանց այդ տվյալների՝ ըստ օրացույցի (վերջին հալվինգը գումարած մոտ չորս տարի)։ Գրաֆիկը ցույց է տալիս նախորդ ցիկլերի գնի ընթացքը իրենց հալվինգից – պատմություն, ոչ կանխատեսում։</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">Միտում 50/200 օր</string>
+    <string name="ind_drawdown">Անկում բոլոր ժամանակների առավելագույնից</string>
+    <string name="ind_missing">բավարար տվյալներ չկան</string>
+    <string name="ind_rsi_daily">RSI (օրական)</string>
+    <string name="ind_rsi_weekly">RSI (շաբաթական)</string>
+    <string name="ind_vs_btc">Ուժը Bitcoin-ի համեմատ (90 օր)</string>
+    <string name="neutral_ind_change_30d">Փոփոխություն 30 օրում</string>
+    <string name="neutral_ind_hashrate">Հեշրեյթ 30/60 օր</string>
+    <string name="neutral_ind_ma200w">200-շաբաթյա միջին</string>
+    <string name="neutral_ind_pi_gap">Pi Cycle բաց</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">Բարձրը նշանակում է, որ խոշոր ալթքոինների մեծ մասը 90 օրում գերազանցել է Bitcoin-ին, ցածրը՝ որ Bitcoin-ը գերազանցել է դրանց մեծ մասին։</string>
+    <string name="ind_read_ath_distance">Փոքրը նշանակում է, որ գինը մոտ է իր ռեկորդին, մեծը՝ որ շատ ցածր է դրանից։</string>
+    <string name="ind_read_change_30d">Դրականը նշանակում է ավելի բարձր, քան 30 օր առաջ, բացասականը՝ ավելի ցածր։</string>
+    <string name="ind_read_funding">Բարձրը նշանակում է, որ շատ թրեյդերներ լծակով խաղադրույք են անում գնի աճի վրա, բացասականը՝ որ շատերը խաղադրույք են անում անկման վրա։</string>
+    <string name="ind_read_hashrate_30_60">Դրականը նշանակում է, որ հաշվողական հզորությունն աճում է, բացասականը՝ որ մայներներն անջատվում են։</string>
+    <string name="ind_read_leverage">Շատ լոնգերը նշանակում են, որ շատերը փոխառու գումարով խաղադրույք են անում գնի աճի վրա, շատ շորթերը՝ անկման վրա։</string>
+    <string name="ind_read_ma200w">Գինը դրանից շատ բարձր՝ նշանակում է երկար աճ, դրան մոտ՝ խորը հետընթաց։</string>
+    <string name="ind_read_mayer">Բարձրը նշանակում է, որ գինը շատ բարձր է իր 200-օրյա միջինից, ցածրը՝ որ դրանից ցածր է։</string>
+    <string name="ind_read_mvrv">Բարձրը նշանակում է, որ գինը շատ բարձր է այն գնից, որը տերերը միջինում վճարել են, ցածրը՝ որ դրան մոտ է կամ ցածր։</string>
+    <string name="ind_read_pi_cycle_gap">Զրոյին մոտը նշանակում է, որ երկու միջինները գրեթե հատվում են, խիստ բացասականը՝ որ դրանք իրարից հեռու են։</string>
+    <string name="ind_read_puell">Բարձրը նշանակում է, որ մայներները սովորականից շատ ավելի են վաստակում, ցածրը՝ շատ ավելի քիչ։</string>
+    <string name="ind_read_rsi_daily">70-ից բարձրը նշանակում է ուժեղ աճ վերջին օրերին, 30-ից ցածրը՝ ուժեղ կորուստներ։</string>
+    <string name="ind_read_rsi_weekly">70-ից բարձրը նշանակում է ուժեղ աճ վերջին շաբաթներին, 30-ից ցածրը՝ ուժեղ կորուստներ։</string>
+    <string name="ind_read_sma50_vs_200">Դրականը նշանակում է, որ կարճաժամկետ միջինը բարձր է երկարաժամկետից, բացասականը՝ ցածր։</string>
+    <string name="ind_read_vs_btc">Դրականը նշանակում է, որ այն Bitcoin-ից լավ է արդյունք ցույց տվել, բացասականը՝ վատ։</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">Նույն գինը 30 օր՝ %1$s</string>
+    <string name="ind_context_note">Անցյալի արժեքները և «նույն գին» հաշվարկները թվաբանություն են, ոչ կանխատեսում։</string>
+    <string name="ind_context_percentile">%1$s-ից ի վեր ավելի ցածր է եղել օրերի %2$s-ում</string>
+</resources>

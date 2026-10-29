@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">Importēt CSV</string>
+    <string name="portfolio_csv_import_all_transfer">Visi uz savu maciņu</string>
+    <string name="portfolio_csv_import_all_withdrawal">Visi atstāj portfeli</string>
+    <string name="portfolio_csv_import_choice_proposed">Ieteikums: atbilst %1$s</string>
+    <string name="portfolio_csv_import_choice_transfer">Uz savu maciņu (pārvedums)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Atstāj portfeli (izmaksa)</string>
+    <string name="portfolio_csv_import_choose_each">Katrai izmaksai izvēlies, kurp tā devās.</string>
+    <string name="portfolio_csv_import_columns">Atpazītās kolonnas: %1$s</string>
+    <string name="portfolio_csv_import_confirm">Importēt (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">Diena/mēnesis</string>
+    <string name="portfolio_csv_import_date_month_first">Mēnesis/diena</string>
+    <string name="portfolio_csv_import_date_order">Neviennozīmīgi datumi (piem., 03/04/2024) tiek lasīti kā:</string>
+    <string name="portfolio_csv_import_decimal">Neviennozīmīgi skaitļi (piem., %1$s) tiek lasīti kā:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="zero">Importēti %d darījumi</item>
+        <item quantity="one">Importēts %d darījums</item>
+        <item quantity="other">Importēti %d darījumi</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="zero">%d jau importēti (izlaisti)</item>
+        <item quantity="one">%d jau importēts (izlaists)</item>
+        <item quantity="other">%d jau importēti (izlaisti)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">Formāts: %1$s</string>
+    <string name="portfolio_csv_import_line">%1$d. rinda: %2$s</string>
+    <string name="portfolio_csv_import_loading">Lasa failu un dienas kursus…</string>
+    <string name="portfolio_csv_import_progress">%1$s. rinda no %2$s</string>
+    <string name="portfolio_csv_import_saving">Saglabā darījumus…</string>
+    <string name="portfolio_csv_import_missing_fx">Nav dienas kursa rindām %1$s – importēts bez cenas/maksas.</string>
+    <string name="portfolio_csv_import_missing_price">Failā nav cenas rindām %1$s – importēts bez cenas.</string>
+    <string name="portfolio_csv_import_more">+ vēl %1$d</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="zero">%d jauni darījumi</item>
+        <item quantity="one">%d jauns darījums</item>
+        <item quantity="other">%d jauni darījumi</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="zero">Izlaistas %d rindas</item>
+        <item quantity="one">Izlaista %d rinda</item>
+        <item quantity="other">Izlaistas %d rindas</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">Darījumi pret stabilajām monētām (USDT, USDC …) tiek uzskaitīti kā maiņa – stabilā monēta parādās tavos turējumos.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Iespējamas vairākas atbilstības – izvēlies pareizo vai nevienu.</string>
+    <string name="portfolio_csv_import_transfer_fee">Tīkla maksa: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">Uzskaitīt kā vienu pārvedumu</string>
+    <string name="portfolio_csv_import_transfer_stored">Pretdarījums no agrāka importa</string>
+    <string name="portfolio_csv_import_transfers_hint">Izmaksa un atbilstošā tās pašas monētas iemaksa kļūst par vienu pārvedumu: pirkuma cena un turēšanas ilgums saglabājas, starpība skaitās kā tīkla maksa.</string>
+    <string name="portfolio_csv_import_transfers_title">Pārvedumi starp taviem kontiem</string>
+    <string name="portfolio_csv_import_unreadable">Netika atrasti atbalstīti darījumi. Atbalstīti: Relai, Swissquote, Kraken, Binance, Coinbase un Bitpanda CSV eksporti.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
+    <string name="portfolio_csv_import_too_large">Fails ir pārāk liels importēšanai (ne vairāk kā 16 MB un %1$s rindas). Eksportē īsākus periodus un importē tos vienu pēc otra.</string>
+    <string name="portfolio_csv_import_failed">Importēšana neizdevās – nekas netika saglabāts. Lūdzu, mēģini vēlreiz.</string>
+    <string name="portfolio_csv_import_locked">Importēšana nav iespējama: saglabātos datus pašlaik nevar nolasīt. Restartē lietotni.</string>
+    <string name="portfolio_csv_import_withdrawals_title">Izmaksas – kurp devās monētas?</string>
+    <string name="portfolio_csv_import_zone">Laiki bez laika joslas tiek lasīti kā: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">Ierīce (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">nesalasāms datums</string>
+    <string name="portfolio_csv_skip_bad_number">nesalasāms skaitlis</string>
+    <string name="portfolio_csv_skip_fee_exceeds">maksa ≥ saņemtais daudzums</string>
+    <string name="portfolio_csv_skip_internal_move">pārvietošana starp taviem kontiem – nav ko uzskaitīt</string>
+    <string name="portfolio_csv_skip_missing">trūkst lauka</string>
+    <string name="portfolio_csv_skip_ambiguous">vairāki darījumi tajā pašā sekundē, kurus nevar atšķirt – ievadi tos manuāli</string>
+    <string name="portfolio_csv_skip_not_crypto">nav kriptovalūta</string>
+    <string name="portfolio_csv_skip_possible_duplicate">iespējams, jau importēts (gandrīz tāds pats darījums) – pārbaudi manuāli</string>
+    <string name="portfolio_csv_skip_two_fees">divas maksas dažādās vienībās – ievadi maiņu manuāli</string>
+    <string name="portfolio_csv_skip_unsupported">neatbalstīts veids</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">Atsaukt</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="zero">Dzēst šī importa %d darījumus? Manuāli ievadītie ieraksti un citi importi paliek.</item>
+        <item quantity="one">Dzēst šī importa %d darījumu? Manuāli ievadītie ieraksti un citi importi paliek.</item>
+        <item quantity="other">Dzēst šī importa %d darījumus? Manuāli ievadītie ieraksti un citi importi paliek.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">Atsaukt importu?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="zero">Noņemti %d importēti darījumi</item>
+        <item quantity="one">Noņemts %d importēts darījums</item>
+        <item quantity="other">Noņemti %d importēti darījumi</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="zero">%d darījumi</item>
+        <item quantity="one">%d darījums</item>
+        <item quantity="other">%d darījumi</item>
+    </plurals>
+    <string name="portfolio_imports_empty">Nav importu</string>
+    <string name="portfolio_imports_title">Importi</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">tas pats darījuma ID ar citu daudzumu – pārbaudi manuāli</string>
+    <string name="portfolio_csv_skip_staking_unpaired">staking ieraksts bez pretieraksta – pārbaudi turējumus</string>
+    <string name="portfolio_csv_skip_amount_too_small">daudzums pārāk mazs – saglabājot noapaļojas uz 0</string>
+    <string name="portfolio_csv_skip_invalid_swap">maiņa bez derīgas saņemtās monētas vai daudzuma</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">Fails tiek lasīts no jauna…</string>
+</resources>

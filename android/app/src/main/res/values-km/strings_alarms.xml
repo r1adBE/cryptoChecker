@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">កំណត់ការដាស់តឿន</string>
+    <string name="alarms_add">ការដាស់តឿនថ្មី</string>
+    <string name="alarms_edit">កែសម្រួលការដាស់តឿន</string>
+    <string name="alarms_empty">មិនទាន់មានការដាស់តឿនសម្រាប់គូនេះទេ។</string>
+    <string name="alarms_empty_example">ឧទាហរណ៍៖ ប្រាប់ខ្ញុំនៅពេល BTC ឡើងលើស %1$s។</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">ការជូនដំណឹងបានបិទ – ការដាស់តឿនមិនអាចទៅដល់អ្នកបានទេ។</string>
+    <string name="alarms_notifications_turn_on">បើក</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="other">%1$d សកម្ម</item>
+    </plurals>
+    <string name="alarms_overview_empty">មិនទាន់មានការដាស់តឿនទេ។ សូមបើកគូមួយ ហើយបន្ថែមនៅក្រោម ការដាស់តឿន។</string>
+    <string name="alarms_overview_title">ការដាស់តឿនទាំងអស់</string>
+    <string name="alarms_title">ការដាស់តឿន</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">កម្រិតខ្ពស់</string>
+    <string name="alarm_change_updates">កែតម្រូវការធ្វើបច្ចុប្បន្នភាពតម្លៃ</string>
+    <string name="alarm_create">បង្កើតការដាស់តឿន</string>
+    <string name="alarm_currency_label">រូបិយប័ណ្ណ</string>
+    <string name="alarm_delete_confirm">ការដាស់តឿននេះនឹងត្រូវដកចេញ។</string>
+    <string name="alarm_delete_title">លុបការដាស់តឿនមែនទេ?</string>
+    <string name="alarm_field_percent">ភាគរយ</string>
+    <string name="alarm_field_price">តម្លៃ</string>
+    <string name="alarm_fires_now_above">តម្លៃលើស %1$s រួចហើយ។ រក្សាទុកដដែលឬ?</string>
+    <string name="alarm_fires_now_below">តម្លៃក្រោម %1$s រួចហើយ។ រក្សាទុកដដែលឬ?</string>
+    <string name="alarm_fires_now_change">ផ្លាស់ប្តូរ</string>
+    <string name="alarm_fires_now_save">រក្សាទុកដដែល</string>
+    <string name="alarm_fires_now_title">ការដាស់តឿននឹងកើតឡើងភ្លាមៗ</string>
+    <string name="alarm_first_battery_hint">ការបង្កើនប្រសិទ្ធភាពថ្មរឹតត្បិតកម្មវិធី – ការដាស់តឿនអាចមកដល់យឺត។</string>
+    <string name="alarm_first_title">បានរក្សាទុកការដាស់តឿន</string>
+    <string name="alarm_last_triggered">ចុងក្រោយនៅ %1$s</string>
+    <string name="alarm_more_conditions">លក្ខខណ្ឌបន្ថែម</string>
+    <string name="alarm_new_extreme">%1$s ថ្មី</string>
+    <string name="alarm_once">ម្តង</string>
+    <string name="alarm_option_repeating">ជូនដំណឹង</string>
+    <string name="alarm_option_sound">សំឡេង</string>
+    <string name="alarm_option_speak">អានការដាស់តឿនឮៗ</string>
+    <string name="alarm_option_vibrate">ការញ័រ</string>
+    <string name="alarm_repeat_each">រាល់ពេល</string>
+    <string name="alarm_repeat_once">ម្តង</string>
+    <string name="alarm_repeating">រាល់ពេល</string>
+    <string name="alarm_threshold_error_empty">សូមបញ្ចូលតម្លៃ ដើម្បីរក្សាទុកការដាស់តឿន។</string>
+    <string name="alarm_threshold_error_funding">Funding ត្រូវតែជាលេខចន្លោះពី −10 ដល់ +10 ភាគរយ។</string>
+    <string name="alarm_threshold_error_invalid">សូមបញ្ចូលលេខត្រឹមត្រូវដែលធំជាង 0។</string>
+    <string name="alarm_threshold_error_oi">ការប្រែប្រួល Open interest៖ យ៉ាងច្រើន 1000 ភាគរយ។</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="other">ក្នុង %1$d ម៉ោង</item>
+    </plurals>
+    <string name="alarm_window_label">ចន្លោះពេល</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">ឡើងលើស</string>
+    <string name="alarm_simple_below">ធ្លាក់ក្រោម</string>
+    <string name="alarm_simple_end"></string>
+    <string name="alarm_simple_when">នៅពេល %1$s</string>
+    <string name="alarm_template_a11y">បង្កើតការដាស់តឿន៖ %1$s</string>
+    <string name="alarm_template_a11y_down">បង្កើតការដាស់តឿននៅដក %1$s ភាគរយពីតម្លៃបច្ចុប្បន្ន</string>
+    <string name="alarm_template_a11y_up">បង្កើតការដាស់តឿននៅបូក %1$s ភាគរយពីតម្លៃបច្ចុប្បន្ន</string>
+    <string name="alarm_template_from_now">ពីពេលនេះ</string>
+    <string name="alarm_template_volume">បរិមាណ ×%1$s</string>
+    <string name="alarm_templates_title">ការដាស់តឿនរហ័ស</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">តម្លៃលើស</string>
+    <string name="alarm_condition_below">តម្លៃក្រោម</string>
+    <string name="alarm_condition_down_percent">ធ្លាក់ចុះ</string>
+    <string name="alarm_condition_funding_above">Funding លើស</string>
+    <string name="alarm_condition_funding_below">Funding ក្រោម</string>
+    <string name="alarm_condition_move_percent">ប្រែប្រួល</string>
+    <string name="alarm_condition_near_high">ជិតកម្រិតខ្ពស់</string>
+    <string name="alarm_condition_near_low">ជិតកម្រិតទាប</string>
+    <string name="alarm_condition_oi_down">Open interest ធ្លាក់ចុះ</string>
+    <string name="alarm_condition_oi_up">Open interest កើនឡើង</string>
+    <string name="alarm_condition_up_percent">កើនឡើង</string>
+    <string name="alarm_condition_volume_spike">បរិមាណកើនខ្លាំង</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">ប្រាប់ខ្ញុំនៅពេល %1$s ឡើងលើស %2$s។</string>
+    <string name="alarm_sentence_below">ប្រាប់ខ្ញុំនៅពេល %1$s ធ្លាក់ក្រោម %2$s។</string>
+    <string name="alarm_sentence_down_percent">ប្រាប់ខ្ញុំនៅពេល %1$s ធ្លាក់ចុះ %2$s ក្រោមតម្លៃពេលរក្សាទុក (ឬពេលការដាស់តឿនចុងក្រោយ)។</string>
+    <string name="alarm_sentence_funding_above">ប្រាប់ខ្ញុំនៅពេល Funding របស់ %1$s ឡើងលើស %2$s។</string>
+    <string name="alarm_sentence_funding_below">ប្រាប់ខ្ញុំនៅពេល Funding របស់ %1$s ធ្លាក់ក្រោម %2$s។</string>
+    <string name="alarm_sentence_incomplete">សូមបញ្ចូលតម្លៃ ដើម្បីមើលការដាស់តឿនជាប្រយោគ។</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="other">ប្រាប់ខ្ញុំនៅពេល %1$s ប្រែប្រួល %2$s ក្នុងរយៈពេល %3$d ម៉ោង។</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">ប្រាប់ខ្ញុំនៅពេល %1$s នៅក្រោម%3$sរបស់វាមិនលើស %2$s។</string>
+    <string name="alarm_sentence_near_low">ប្រាប់ខ្ញុំនៅពេល %1$s នៅលើ%3$sរបស់វាមិនលើស %2$s។</string>
+    <string name="alarm_sentence_new_extreme">ប្រាប់ខ្ញុំនៅពេល %1$s បង្កើត%2$sថ្មី។</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="other">ប្រាប់ខ្ញុំនៅពេល Open interest របស់ %1$s ធ្លាក់ចុះ %2$s ក្នុងរយៈពេល %3$d ម៉ោង។</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="other">ប្រាប់ខ្ញុំនៅពេល Open interest របស់ %1$s កើនឡើង %2$s ក្នុងរយៈពេល %3$d ម៉ោង។</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">ប្រាប់ខ្ញុំនៅពេល %1$s កើនឡើង %2$s លើសតម្លៃពេលរក្សាទុក (ឬពេលការដាស់តឿនចុងក្រោយ)។</string>
+    <string name="alarm_sentence_volume">ប្រាប់ខ្ញុំនៅពេល %1$s ជួញដូរ %2$s× នៃបរិមាណធម្មតារបស់វា។</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">កម្រិតខ្ពស់ 30 ថ្ងៃ</string>
+    <string name="alarm_near_extreme_high_365">កម្រិតខ្ពស់ 1 ឆ្នាំ</string>
+    <string name="alarm_near_extreme_high_90">កម្រិតខ្ពស់ 90 ថ្ងៃ</string>
+    <string name="alarm_near_extreme_low_30">កម្រិតទាប 30 ថ្ងៃ</string>
+    <string name="alarm_near_extreme_low_365">កម្រិតទាប 1 ឆ្នាំ</string>
+    <string name="alarm_near_extreme_low_90">កម្រិតទាប 90 ថ្ងៃ</string>
+    <string name="alarm_near_field_distance">ចម្ងាយ</string>
+    <string name="alarm_near_hint">ក៏ជូនដំណឹងផងដែរ នៅពេលមានកម្រិតខ្ពស់ ឬទាបថ្មី។ ផ្អែកលើទៀនប្រចាំថ្ងៃ ធ្វើបច្ចុប្បន្នភាពរៀងរាល់ 6 ម៉ោង។</string>
+    <string name="alarm_near_new_only">តែកម្រិតខ្ពស់ ឬទាបថ្មីប៉ុណ្ណោះ</string>
+    <string name="alarm_near_notification_high">%1$s នៅក្រោម%3$sរបស់វា %2$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s នៅលើ%3$sរបស់វា %2$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">%1$s ថ្មីសម្រាប់ %2$s៖ %3$s (មុន %4$s)</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="other">%1$d ថ្ងៃ</item>
+    </plurals>
+    <string name="alarm_near_window_label">រយៈពេល</string>
+    <string name="alarm_near_window_year">1 ឆ្នាំ</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">អត្រា Funding ក្នុង 8 ម៉ោង។ កិច្ចសន្យាដែលមានចន្លោះពេលផ្សេងត្រូវបានបម្លែង (1 ម៉ោង × 8, 4 ម៉ោង × 2)។ កាត Futures បង្ហាញតម្លៃដែលបានបម្លែង។ ប្រសិនបើមិនស្គាល់ចន្លោះពេលទេ ការដាស់តឿននឹងមិនពិនិត្យឡើយ។ អវិជ្ជមានមានន័យថា shorts បង់ឱ្យ longs។ ± ប្តូរសញ្ញា។</string>
+    <string name="alarm_funding_sign_a11y">ប្តូរសញ្ញា</string>
+    <string name="alarm_oi_hint">ប្រៀបធៀប Open interest ជាមួយតម្លៃដែលបានរក្សាទុកប៉ុន្មានម៉ោងមុននោះ។ ការដាស់តឿនថ្មីរាយការណ៍តែបន្ទាប់ពីកម្មវិធីប្រមូលទិន្នន័យបានយូរប៉ុណ្ណោះ។ ពិនិត្យយ៉ាងច្រើនរៀងរាល់ 5 នាទីម្តង។</string>
+    <string name="alarm_volume_factor_label">បរិមាណម៉ោងចុងក្រោយធៀបនឹងធម្មតា</string>
+    <string name="alarm_volume_hint">ទិន្នន័យបរិមាណមកពី Binance — គូដែលមិនមាននៅទីនោះនឹងមិនដែលដាស់តឿនទេ។</string>
+    <string name="alarm_volume_zero_hours_hint">ម៉ោងដែលគ្មានការជួញដូរត្រូវបានរាប់ជាបរិមាណសូន្យ ដូច្នេះនៅលើគូដែលជួញដូរតិច ម៉ោងធម្មតាអាចមើលទៅមិនប្រក្រតី។</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">ការដាស់តឿនសកម្ម</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">បានរក្សាទុកការដាស់តឿន៖ %1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">ការជូនដំណឹងបានបិទ</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">បើគ្មាន «%1$s» ទេ Android ពិនិត្យមិនទៀងទាត់ពេលឧបករណ៍សម្រាក – ពេលខ្លះតែក្រោយច្រើនម៉ោង។ បើមាន វាពិនិត្យប្រហែលរៀងរាល់ 15 នាទីម្តង។</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">ពេលកម្មវិធីបិទ iOS ច្រើនតែពិនិត្យយឺតជាង 15 នាទី ពេលខ្លះតែនៅពេលអ្នកបើកកម្មវិធីលើកក្រោយ។ ការឡើងចុះរយៈពេលខ្លីអាចត្រូវរំលង។</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">ពេលណាការដាស់តឿនត្រូវបានពិនិត្យ</string>
+    <string name="alarm_timing_where">ផ្លាស់ប្តូរភាពញឹកញាប់នៃការធ្វើបច្ចុប្បន្នភាពតម្លៃនៅក្នុង %1$s។</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">ស្ងាត់ (តែការជូនដំណឹង)</string>
+    <string name="alarm_signal_sound">តែសំឡេង</string>
+    <string name="alarm_signal_sound_vibrate">សំឡេង និងការញ័រ</string>
+    <string name="alarm_signal_system">ប្រព័ន្ធ</string>
+    <string name="alarm_signal_vibrate">តែការញ័រ</string>
+    <string name="alarm_test">សាកល្បងការដាស់តឿន</string>
+    <string name="alarm_test_action">សាកល្បង</string>
+    <string name="alarm_test_denied">ការជូនដំណឹងត្រូវបានបិទសម្រាប់ Crypto Checker។</string>
+    <string name="alarm_test_hint">ផ្ញើការដាស់តឿនគំរូមួយជាមួយការកំណត់សំឡេង ការញ័រ និងការនិយាយរបស់អ្នក។</string>
+    <string name="alarm_test_open_settings">បើកការកំណត់</string>
+    <string name="alarm_test_quiet">ម៉ោងស្ងាត់កំពុងបើកនៅពេលនេះ៖ ការដាស់តឿនពិតនឹងរង់ចាំរហូតដល់វាបញ្ចប់ ហើយបន្ទាប់មកបន្លឺសំឡេង។</string>
+    <string name="alarm_test_text">នេះជារបៀបដែលការដាស់តឿនមើលទៅ និងបន្លឺសំឡេង។</string>
+    <string name="alarm_test_title">សាកល្បង៖ ការដាស់តឿន Crypto Checker</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">សំឡេងបើក</string>
+    <string name="alarm_a11y_speak_on">ការនិយាយបើក</string>
+    <string name="alarm_unchecked_no_candles">មិនអាចពិនិត្យបានទេ (គ្មានទិន្នន័យទៀន)</string>
+    <string name="alarm_unchecked_no_rate">មិនអាចពិនិត្យបានទេ (គ្មានអត្រាប្តូរប្រាក់)</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">ការជូនដំណឹងបានបិទ – ការដាស់តឿននេះនឹងមិនទៅដល់អ្នកទេ</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">គ្មានការដាស់តឿន – សន្ទនីយភាព ទាប</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">កំពុងរង់ចាំតម្លៃបច្ចុប្បន្ន</string>
+    <string name="alarm_enter_amount">បញ្ចូលតម្លៃ</string>
+    <string name="alarm_editor_more">បន្ថែម</string>
+    <string name="alarm_editor_more_summary">ការដាស់តឿនរហ័ស លក្ខខណ្ឌផ្សេងទៀត សំឡេង និងការនិយាយ</string>
+    <string name="alarm_reliability_storage_no_key">ការដាស់តឿនបានផ្អាកនៅផ្ទៃខាងក្រោយ – បញ្ជីតាមដានមិនត្រូវបានរក្សាទុក</string>
+    <string name="alarms_limit_reached">គូមួយអាចមានការដាស់តឿនយ៉ាងច្រើន %1$s។</string>
+    <string name="alarms_reference_rate_hint">អត្រាយោង ECB ត្រូវបានកំណត់តែម្តងក្នុងមួយថ្ងៃប៉ុណ្ណោះ – គ្មានការដាស់តឿនសម្រាប់វាទេ។</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">ការធ្លាក់ចុះត្រូវតែតិចជាង 100 ភាគរយ។</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">កម្រិតមិនត្រឹមត្រូវ – សូមកែតម្រូវ</string>
+
+    <string name="alarm_last_checked">ពិនិត្យចុងក្រោយ %1$s</string>
+</resources>

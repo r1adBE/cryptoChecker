@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">اس آلے پر کوئی اسکرین لاک سیٹ نہیں۔ پہلے سسٹم کی ترتیبات میں ایک سیٹ کریں۔</string>
+    <string name="app_lock_unlock">ان لاک کریں</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">پورٹ فولیو خالی کریں</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="one">%d لین دین حذف کریں؟ زیرِ نگرانی پتے باقی رہیں گے۔ اسے فوراً بعد کالعدم کیا جا سکتا ہے۔</item>
+        <item quantity="other">تمام %d لین دین حذف کریں؟ زیرِ نگرانی پتے باقی رہیں گے۔ اسے فوراً بعد کالعدم کیا جا سکتا ہے۔</item>
+    </plurals>
+    <string name="portfolio_empty_action">اپنی پہلی خریداری شامل کریں</string>
+    <string name="portfolio_empty_address">بس کسی والیٹ پتے پر نظر رکھیں</string>
+    <string name="portfolio_empty_csv">کسی ایکسچینج پر خریدا؟ اس کی فائل امپورٹ کریں</string>
+    <string name="portfolio_empty_example_plain">مثال: 1 مارچ کو %1$s BTC خریدے گئے۔ ایپ پھر دکھاتی ہے کہ آج اس کی مالیت کیا ہے اور آپ نفع میں ہیں یا نقصان میں – صرف اس آلے پر محفوظ۔</string>
+    <string name="portfolio_empty_title">ابھی کوئی لین دین نہیں</string>
+    <string name="portfolio_enable_ask_text">آپ کا لین دین محفوظ ہو گیا۔ پورٹ فولیو ٹیب آپ کی ہولڈنگز اور ان کی مالیت دکھاتا ہے۔</string>
+    <string name="portfolio_enable_ask_title">پورٹ فولیو ٹیب آن کریں؟</string>
+    <string name="portfolio_enable_later_hint">لین دین محفوظ ہو گیا۔ پورٹ فولیو ٹیب ترتیبات › پورٹ فولیو میں آن کیا جا سکتا ہے۔</string>
+    <string name="portfolio_enabled_banner">پورٹ فولیو آن ہو گیا – یہ پورٹ فولیو ٹیب میں ملے گا۔</string>
+    <string name="portfolio_lock_reason">پورٹ فولیو ان لاک کریں</string>
+    <string name="portfolio_locked_text">اپنی ہولڈنگز اور مالیت دیکھنے کے لیے ان لاک کریں۔</string>
+    <string name="portfolio_locked_title">پورٹ فولیو لاک ہے</string>
+    <string name="portfolio_setting_hint">اختیاری: خرید و فروخت درج کریں اور ایک الگ ٹیب میں مالیت اور نفع/نقصان دیکھیں۔</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">پرانا · بمطابق %1$s</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="one">سسٹم بیک اپ کا %d اندراج غلط تھا اور بحال نہیں ہوا۔</item>
+        <item quantity="other">سسٹم بیک اپ کے %d اندراجات غلط تھے اور بحال نہیں ہوئے۔</item>
+    </plurals>
+    <string name="portfolio_title">پورٹ فولیو</string>
+    <string name="portfolio_unassigned_fee">فیس تفویض نہیں – لاگت کی بنیاد نامعلوم: %1$s</string>
+    <string name="portfolio_updated">قیمتیں بمطابق %1$s</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">دیگر</string>
+    <string name="portfolio_allocation_title">تقسیم</string>
+    <string name="portfolio_card_details">تفصیلات</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: ابھی دستیاب نہیں</string>
+    <string name="portfolio_card_hints_count">نوٹس (%1$d)</string>
+    <string name="portfolio_card_today">آج</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">کل</string>
+    <string name="portfolio_hide_amounts">رقوم چھپائیں</string>
+    <string name="portfolio_hide_amounts_hint">پورٹ فولیو اور پورٹ فولیو ویجیٹ میں رقوم اور مالیت ••• کے طور پر دکھاتا ہے – فیصد نظر آتے رہتے ہیں۔</string>
+    <string name="portfolio_invested">لاگت کی بنیاد</string>
+    <string name="portfolio_total_no_fx">%1$s کے لیے شرح تبادلہ نہیں – رقوم USDT میں</string>
+    <string name="portfolio_total_value">کل مالیت</string>
+    <string name="portfolio_value">مالیت</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">اوسط %1$s · اب %2$s</string>
+    <string name="portfolio_avg_only">اوسط %1$s</string>
+    <string name="portfolio_avg_open_lots">موجود کوائنز کی اوسط لاگت</string>
+    <string name="portfolio_avg_partial">قیمتِ خرید والے %1$s کی اوسط</string>
+    <string name="portfolio_avg_price">اوسط قیمتِ خرید</string>
+    <string name="portfolio_avg_price_hint">اوسط قیمتِ خرید: تمام خریداریوں کی اوسط، مقدار کے لحاظ سے وزنی۔ فروخت اسی اوسط پر جانچی جاتی ہے۔</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">بند پوزیشن (%1$d)</item>
+        <item quantity="other">بند پوزیشنز (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: فروخت میں پہلے آپ کے سب سے پرانے کوائنز استعمال ہوتے ہیں۔ اوسط = باقی لاگت کی بنیاد ÷ قیمتِ خرید والی مقدار۔</string>
+    <string name="portfolio_holdings">ہولڈنگز</string>
+    <string name="portfolio_lost_fee_cost">ادا شدہ لاٹ کے بغیر نیٹ ورک فیس کی لاگت: %1$s</string>
+    <string name="portfolio_open_lots">کھلے خریداری لاٹس (%1$d)</string>
+    <string name="portfolio_open_lots_avg">قیمتِ خرید کے ساتھ (اوسط)</string>
+    <string name="portfolio_open_lots_no_cost">قیمتِ خرید کے بغیر</string>
+    <string name="portfolio_open_lots_without_price">قیمتِ خرید نہیں</string>
+    <string name="portfolio_realized">حاصل شدہ نفع/نقصان</string>
+    <string name="portfolio_unrealized">کھلا نفع/نقصان</string>
+    <string name="portfolio_unrealized_without_unpriced">قیمتِ خرید کے بغیر %1$s کے علاوہ</string>
+    <string name="portfolio_withdrawn_gain">نکالا گیا: %1$s (نکلوائی تک مالیت کی تبدیلی)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">تبدیل کریں</string>
+    <string name="portfolio_convert_to_value">تبدیل کریں: %1$s</string>
+    <string name="portfolio_current_missing">%1$s کی موجودہ قیمت نہیں</string>
+    <string name="portfolio_current_price">موجودہ قیمت</string>
+    <string name="portfolio_price_missing">قیمت موجود نہیں</string>
+    <string name="portfolio_price_missing_hint">کچھ خریداریوں کی قیمت نہیں۔ نفع/نقصان دیکھنے کے لیے قیمتِ خرید شامل کریں۔</string>
+    <string name="portfolio_price_source">قیمتیں: Binance · USDT مارکیٹ قیمت پر</string>
+    <string name="portfolio_price_source_routes">قیمتیں: %1$s، ورنہ Binance · USDT مارکیٹ قیمت پر</string>
+    <string name="portfolio_price_unavailable">قیمت ابھی دستیاب نہیں</string>
+    <string name="portfolio_price_unchecked">قیمت غیر تصدیق شدہ</string>
+    <string name="portfolio_price_via_base">≈ %1$s کی قیمت (برجڈ/ریپڈ)</string>
+    <string name="portfolio_usdt_as_usd">USDT اس کی USD مارکیٹ قیمت پر تبدیل</string>
+    <string name="portfolio_usdt_assumed">USDT کی ڈالر شرح موجود نہیں – 1 امریکی ڈالر شمار کیا گیا</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">پورٹ فولیو میں شامل کریں</string>
+    <string name="portfolio_add_tx">لین دین شامل کریں</string>
+    <string name="portfolio_buy">خرید</string>
+    <string name="portfolio_coin">کوائن</string>
+    <string name="portfolio_coin_invalid">کوائن کی علامت درج کریں</string>
+    <string name="portfolio_coin_search">علامت تلاش کریں، مثلاً BTC</string>
+    <string name="portfolio_discard_confirm">رد کریں</string>
+    <string name="portfolio_discard_keep">ترمیم جاری رکھیں</string>
+    <string name="portfolio_discard_title">تبدیلیاں رد کریں؟</string>
+    <string name="portfolio_edit_tx">لین دین میں ترمیم</string>
+    <string name="portfolio_invalid">0 سے بڑا کوئی درست عدد درج کریں۔</string>
+    <string name="portfolio_oversold">فروخت ہولڈنگز سے زیادہ ہے – براہ کرم لین دین چیک کریں۔</string>
+    <string name="portfolio_sell">فروخت</string>
+    <string name="portfolio_sell_exceeds">آپ کی ہولڈنگز سے زیادہ (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">رقم جمع فیس آپ کی ہولڈنگز سے زیادہ ہے (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">%2$s میں آپ کی ہولڈنگز سے زیادہ (%1$s)</string>
+    <string name="portfolio_transactions">لین دین</string>
+    <string name="portfolio_tx_acquired_date">اصل تاریخِ خرید (اختیاری)</string>
+    <string name="portfolio_tx_acquired_date_hint">ٹیکس ایکسپورٹ میں ہولڈنگ کی مدت کے لیے</string>
+    <string name="portfolio_tx_amount">مقدار</string>
+    <string name="portfolio_tx_coin_fee">کوائن میں فیس (اختیاری)</string>
+    <string name="portfolio_tx_date">تاریخ</string>
+    <string name="portfolio_tx_delete_confirm">یہ لین دین پورٹ فولیو سے ہٹا دیا جائے گا۔</string>
+    <string name="portfolio_tx_delete_title">لین دین حذف کریں؟</string>
+    <string name="portfolio_tx_deposit">ڈپازٹ</string>
+    <string name="portfolio_tx_entry_currency">اس میں درج کریں</string>
+    <string name="portfolio_tx_explain_deposit">بغیر ٹریڈ کے ہولڈنگز، مثلاً پہلے کے کوائنز</string>
+    <string name="portfolio_tx_explain_gift">کوائنز نکلوائی کی طرح آپ کی ہولڈنگز سے نکل جاتے ہیں – مارکیٹ ویلیو پر تصرف صرف وہاں جہاں ملک تحائف پر ٹیکس لگاتا ہے (UK، CA، AU)</string>
+    <string name="portfolio_tx_explain_payment">اشیا یا خدمات کی ادائیگی – فروخت کی طرح مارکیٹ ویلیو پر تصرف، کوئی رقم وصول نہیں ہوئی</string>
+    <string name="portfolio_tx_explain_reward">لاگت کی بنیاد = وصولی کے وقت مارکیٹ ویلیو</string>
+    <string name="portfolio_tx_explain_swap">ایک کوائن کے بدلے دوسرا: دیا گیا کوائن فروخت اور وصول شدہ کوائن خرید</string>
+    <string name="portfolio_tx_explain_transfer">کوئی نفع نہیں – لاگت کی بنیاد کوائنز کے ساتھ منتقل ہوتی ہے</string>
+    <string name="portfolio_tx_explain_withdrawal">ہولڈنگز پورٹ فولیو سے نکل جاتی ہیں – نہ فروخت، نہ نفع</string>
+    <string name="portfolio_tx_fee_consumes_amount">فیس وصول شدہ رقم جتنی ہے – کچھ باقی نہیں بچے گا۔</string>
+    <string name="portfolio_tx_fees_toggle">فیسیں</string>
+    <string name="portfolio_tx_fiat_converted">%2$s کی شرح پر ≈ %1$s</string>
+    <string name="portfolio_tx_fiat_loading">شرح تبادلہ لوڈ ہو رہی ہے…</string>
+    <string name="portfolio_tx_fiat_no_fx">اس دن کی کوئی شرح تبادلہ نہیں – رقم USDT میں درج کریں۔</string>
+    <string name="portfolio_tx_gift">تحفہ</string>
+    <string name="portfolio_tx_gift_price_hint">USDT میں۔ خالی = اس دن کی بندش (تخمینہ)۔</string>
+    <string name="portfolio_tx_gift_spouse">شریکِ حیات / سول پارٹنر کو</string>
+    <string name="portfolio_tx_gift_spouse_hint">UK اور کینیڈا: نہ نفع نہ نقصان – آپ کا شریک آپ کی لاگت کی بنیاد سنبھال لیتا ہے۔ دوسرے ممالک اسے نظر انداز کرتے ہیں۔</string>
+    <string name="portfolio_tx_market_value">فی کوائن مارکیٹ ویلیو</string>
+    <string name="portfolio_tx_more_buy">فیس، ایکسچینج، نوٹ</string>
+    <string name="portfolio_tx_network_fee">کوائن میں نیٹ ورک فیس (اختیاری)</string>
+    <string name="portfolio_tx_note">نوٹ (اختیاری)</string>
+    <string name="portfolio_tx_payment">اس سے ادائیگی</string>
+    <string name="portfolio_tx_price">فی کوائن قیمت</string>
+    <string name="portfolio_tx_price_hint">USDT میں۔ نامعلوم ہو تو خالی چھوڑیں۔</string>
+    <string name="portfolio_tx_price_historic">%1$s کی روزانہ بندش چیک کی گئی – ضرورت ہو تو بدلیں</string>
+    <string name="portfolio_tx_price_invalid">کوئی درست عدد (0 یا زیادہ) درج کریں یا خانہ خالی چھوڑیں۔</string>
+    <string name="portfolio_tx_price_past_hint">خریداری کے دن کی قیمت درج کریں – نامعلوم ہو تو خالی چھوڑیں</string>
+    <string name="portfolio_tx_price_receipt_hint">USDT میں۔ خالی = لاگت کی بنیاد کے بغیر ہولڈنگز۔</string>
+    <string name="portfolio_tx_price_zero">امپورٹ شدہ لین دین کے لیے قیمت 0 ممکن نہیں – مارکیٹ قیمت کے لیے خالی چھوڑیں</string>
+    <string name="portfolio_tx_removed">لین دین حذف ہو گیا</string>
+    <string name="portfolio_tx_reward">انعام</string>
+    <string name="portfolio_tx_save_failed">لین دین محفوظ نہیں ہو سکا۔ آپ کے اندراجات ابھی یہیں ہیں – براہ کرم دوبارہ کوشش کریں۔</string>
+    <string name="portfolio_tx_swap">سواپ</string>
+    <string name="portfolio_tx_swap_fee_received">%1$s میں فیس: وصول شدہ رقم کم کرتی ہے، قیمت کی ضرورت نہیں۔</string>
+    <string name="portfolio_tx_swap_from">%1$s سے سواپ</string>
+    <string name="portfolio_tx_swap_given_amount">دی گئی رقم</string>
+    <string name="portfolio_tx_swap_given_coin">دیا گیا کوائن</string>
+    <string name="portfolio_tx_swap_received_amount">وصول شدہ رقم</string>
+    <string name="portfolio_tx_swap_received_coin">وصول شدہ کوائن</string>
+    <string name="portfolio_tx_swap_same_coin">دیے گئے کوائن کے علاوہ کوئی اور کوائن منتخب کریں</string>
+    <string name="portfolio_tx_swap_to">%1$s میں سواپ</string>
+    <string name="portfolio_tx_swap_value">سواپ کی مالیت (اختیاری)</string>
+    <string name="portfolio_tx_swap_value_hint">کل مالیت۔ خالی = نامعلوم – نفع نامکمل رہتا ہے (سواپ میں USDT ہو تو خودکار)۔</string>
+    <string name="portfolio_tx_third_fee_amount">فیس کی رقم</string>
+    <string name="portfolio_tx_third_fee_coin">فیس کا کوائن</string>
+    <string name="portfolio_tx_third_fee_incomplete">قیمت کے بغیر فیس لاگت کی بنیاد اور آمدنی سے باہر رہتی ہے؛ ٹیکس ایکسپورٹ ایسی فروخت کو نشان زد کرتا ہے۔</string>
+    <string name="portfolio_tx_third_fee_price">فی فیس کوائن قیمت (اختیاری)</string>
+    <string name="portfolio_tx_third_fee_toggle">کسی اور کوائن میں فیس</string>
+    <string name="portfolio_tx_total">کل: %1$s</string>
+    <string name="portfolio_tx_transfer">ٹرانسفر</string>
+    <string name="portfolio_tx_transfer_from">سے (اختیاری)</string>
+    <string name="portfolio_tx_transfer_to">کو (اختیاری)</string>
+    <string name="portfolio_tx_transfer_to_hint">ایکسچینج یا والیٹ – اب سے وہیں جانچا جائے گا۔</string>
+    <string name="portfolio_tx_type_select">قسم: %1$s</string>
+    <string name="portfolio_tx_value_received">وصولی کے وقت فی کوائن مالیت (اختیاری)</string>
+    <string name="portfolio_tx_withdrawal">نکلوائی</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">کسی کو دے دیا یا اس سے ادائیگی کی؟ اسے “تحفہ” یا “اس سے ادائیگی” کے طور پر درج کریں – ملک کے لحاظ سے یہ ٹیکس کے مقاصد کے لیے فروخت شمار ہوتا ہے۔</string>
+    <string name="portfolio_tx_withdrawal_price_hint">اختیاری: USDT میں مارکیٹ ویلیو، صرف تاریخ کے لیے استعمال (خالی = اس دن کی قیمت)۔ کوائنز ہمیشہ اپنی لاگت کی بنیاد پر نکلتے ہیں۔</string>
+    <string name="portfolio_wallet_did_you_mean">کیا مراد %1$s تھا؟ مختلف ہجے الگ والیٹ شمار ہوتے ہیں۔</string>
+    <string name="portfolio_wallet_shortfall">%1$s میں ہولڈنگز کافی نہیں – کوئی ٹرانسفر رہ گیا؟</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">بلند ترین %1$s</string>
+    <string name="portfolio_compare">موازنہ کریں</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">فیصد میں %1$s اور USDT کا موازنہ کریں</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">فیصد میں موازنہ، %1$s: %2$s %3$s، USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">کرنسی کا اثر: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">قیمت کا ڈیٹا صرف اگست 2017 تک پیچھے جاتا ہے — تاریخ وہیں سے شروع ہوتی ہے۔</string>
+    <string name="portfolio_history_chip_since_first">سب</string>
+    <string name="portfolio_history_collapse">مالیت کی تاریخ چھپائیں</string>
+    <string name="portfolio_history_converted">آج کی شرح پر تبدیل شدہ</string>
+    <string name="portfolio_history_expand">مالیت کی تاریخ دکھائیں</string>
+    <string name="portfolio_history_gain_a11y">مالیت %1$s۔ نفع/نقصان، %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">نفع/نقصان</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">%1$s میں مالیت</string>
+    <string name="portfolio_history_incl_fx">شرح تبادلہ سمیت</string>
+    <string name="portfolio_history_incl_withdrawn">نکالے گئے کوائنز کی مالیت کی تبدیلی سمیت</string>
+    <string name="portfolio_history_includes_trades">اس مدت کی خرید و فروخت سمیت</string>
+    <string name="portfolio_history_loading">مالیت کی تاریخ لوڈ ہو رہی ہے</string>
+    <string name="portfolio_history_period_1y">1 سال</string>
+    <string name="portfolio_history_period_30d">30 دن</string>
+    <string name="portfolio_history_period_7d">7 دن</string>
+    <string name="portfolio_history_period_since_first">پہلی خریداری سے</string>
+    <string name="portfolio_history_pnl_needs_prices">نفع/نقصان کے لیے قیمتِ خرید موجود نہیں – انہیں لین دین میں شامل کریں۔</string>
+    <string name="portfolio_history_pnl_without">%1$s کے بغیر نفع/نقصان (قیمت موجود نہیں)</string>
+    <string name="portfolio_history_range_1y">1 سال</string>
+    <string name="portfolio_history_range_30d">30 دن</string>
+    <string name="portfolio_history_range_7d">7 دن</string>
+    <string name="portfolio_history_range_a11y">%1$s کی تاریخ دکھائیں</string>
+    <string name="portfolio_history_range_since_first">پہلی خریداری سے</string>
+    <string name="portfolio_history_scaled">%1$s کی تاریخ: Binance کی تاریخ ایکسچینج کی قیمت کے مطابق ڈھالی گئی</string>
+    <string name="portfolio_history_title">مالیت کی تاریخ</string>
+    <string name="portfolio_history_today">آج</string>
+    <string name="portfolio_history_too_short">تاریخ آپ کے پہلے پورے دن کے بعد شروع ہوتی ہے۔</string>
+    <string name="portfolio_history_unavailable">ابھی کوئی تاریخ دستیاب نہیں۔</string>
+    <string name="portfolio_history_utc_days">UTC میں دن (روزانہ کینڈلز)</string>
+    <string name="portfolio_history_without_matching">%1$s کے بغیر (مماثل روزانہ قیمتیں نہیں)</string>
+    <string name="portfolio_period_rewards">انعامات +%1$s (نفع میں نہیں)</string>
+    <string name="portfolio_period_scaled">%1$s کے لیے 7 دن/1 سال: Binance کی تاریخ ایکسچینج کی قیمت کے مطابق ڈھالی گئی</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">الرٹ</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">رقم (%1$s)</string>
+    <string name="portfolio_alarm_hint">ہر ریفریش کے بعد جانچا جاتا ہے۔ الرٹس کی طرح، حد پار ہونے پر چلتا ہے اور قدر کے واپس آنے کے بعد ہی دوبارہ۔</string>
+    <string name="portfolio_alarm_kind_above">پورٹ فولیو رقم سے اوپر</string>
+    <string name="portfolio_alarm_kind_below">پورٹ فولیو رقم سے نیچے</string>
+    <string name="portfolio_alarm_kind_down">پورٹ فولیو گرتا ہے</string>
+    <string name="portfolio_alarm_kind_up">پورٹ فولیو بڑھتا ہے</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">پورٹ فولیو %1$s سے اوپر</string>
+    <string name="portfolio_alarm_sentence_below">پورٹ فولیو %1$s سے نیچے</string>
+    <string name="portfolio_alarm_sentence_down">پورٹ فولیو %1$s نیچے (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">پورٹ فولیو %1$s اوپر (%2$s)</string>
+    <string name="portfolio_alarm_title">پورٹ فولیو مالیت کا الرٹ</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">ایکسچینج (اختیاری)</string>
+    <string name="ledger_exchange_failed">%1$s: ابھی %2$s سے قیمت نہیں – Binance سے جانچا گیا۔</string>
+    <string name="ledger_exchange_hint">کوائن اس ایکسچینج کی قیمت پر جانچا جاتا ہے (ورنہ Binance)۔ تاریخ، 7 دن اور 1 سال اس کے مطابق ڈھالی گئی Binance کی روزانہ قیمتیں استعمال کرتے ہیں۔</string>
+    <string name="ledger_exchange_mixed">%1$s: کئی ایکسچینجز درج ہیں – Binance سے جانچا گیا۔ کوائنز منتقل کیے؟ منتقلی کو “ٹرانسفر” کے طور پر درج کریں۔</string>
+    <string name="ledger_exchange_none">کوئی نہیں (Binance)</string>
+    <string name="ledger_fee">فیس (اختیاری)</string>
+    <string name="ledger_fee_coin">کوائن</string>
+    <string name="ledger_fee_hint">USDT میں یہ لاگت کی بنیاد بڑھاتی ہے (فروخت: آمدنی کم کرتی ہے)؛ کوائن میں یہ مقدار کم کرتی ہے۔</string>
+    <string name="ledger_fee_line">فیس %1$s</string>
+    <string name="ledger_fifo_cost_note">خریداری کے بعد سے: فیس سمیت FIFO لاگت (سب سے پرانے کوائنز پہلے فروخت)۔</string>
+    <string name="ledger_gain_info">آج، 7 دن، 1 سال: مدت کے دوران مالیت کی تبدیلی – خرید و فروخت نفع شمار نہیں ہوتی۔ خریداری کے بعد سے: ابھی موجود کوائنز کی موجودہ مالیت منفی لاگت کی بنیاد (فیس سمیت اوسط لاگت)۔</string>
+    <string name="ledger_gain_info_a11y">نفع اور نقصان کیسے حساب ہوتا ہے</string>
+    <string name="ledger_gain_info_fifo">آج، 7 دن، 1 سال: مدت کے دوران مالیت کی تبدیلی – خرید و فروخت نفع شمار نہیں ہوتی۔ خریداری کے بعد سے: ابھی موجود کوائنز کی موجودہ مالیت منفی لاگت کی بنیاد (فیس سمیت FIFO)۔</string>
+    <string name="ledger_gain_title">نفع/نقصان</string>
+    <string name="ledger_more_toggle">فیس اور ایکسچینج</string>
+    <string name="ledger_partial_cost">“خریداری کے بعد سے” صرف قیمتِ خرید والا حصہ شمار کرتا ہے – قیمتِ خرید کے بغیر %1$s کے علاوہ۔</string>
+    <string name="ledger_period_without">آج / 7 دن / 1 سال %1$s کے بغیر – مماثل ابتدائی قیمت نہیں۔</string>
+    <string name="ledger_since_purchase_currency">خریداری کے بعد سے (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">خریداری کے بعد سے نفع/نقصان، ابھی فروخت نہیں ہوا</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="one">قیمتِ خرید کے بغیر %1$d کوائن (%2$s) کے علاوہ – شمار کرانے کے لیے قیمت شامل کریں۔</item>
+        <item quantity="other">قیمتِ خرید کے بغیر %1$d کوائنز (%2$s) کے علاوہ – شمار کرانے کے لیے قیمتیں شامل کریں۔</item>
+    </plurals>
+
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">USDT کریش – مارکیٹ %1$s USD پر</string>
+    <string name="portfolio_usdt_via_usdc">USDC/USDT کے ذریعے USDT کی ڈالر شرح – اگر USDC گرے تو یہ قدر غلط ہے</string>
+    <string name="portfolio_amount_bridged_stable">≈ %1$s سمیت (برجڈ)</string>
+
+    <string name="portfolio_tx_interest">سود (لینڈنگ)</string>
+    <string name="portfolio_tx_interest_hint">وصولی پر آمدنی شمار ہوتا ہے (آسٹریا)۔ اسٹیکنگ انعامات اور ایئر ڈراپس کے لیے بند رکھیں۔</string>
+    <string name="app_lock_no_screen_lock">پورٹ فولیو کھولنے کے لیے اسکرین لاک سیٹ کریں۔</string>
+    <string name="app_lock_turn_off_action">پورٹ فولیو لاک بند کریں</string>
+    <string name="app_lock_turn_off_confirm_title">پورٹ فولیو لاک بند کریں؟</string>
+    <string name="app_lock_turn_off_confirm_message">اسکرین لاک کے بغیر پورٹ فولیو ان لاک نہیں ہو سکتا۔ بند کرنے پر ایپ بغیر پوچھے دوبارہ آپ کا پورٹ فولیو دکھائے گی۔ اسکرین لاک سیٹ ہونے کے بعد لاک ترتیبات میں دوبارہ آن کیا جا سکتا ہے۔</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">%1$s میں “خریداری کے بعد سے” اور لاگت کی بنیاد: خریداری کے دن کی شرح تبادلہ پر لاگت، آج کی شرح پر مالیت۔</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">خریداری کے دن کی شرح تبادلہ نہیں (“خریداری کے بعد سے” اور لاگت کی بنیاد میں شامل نہیں): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">USDT کی ڈالر شرح کے بغیر خریداری کے دنوں کی لاگت فی USDT 1 امریکی ڈالر شمار کی گئی۔</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">بمطابق %1$s – ایکسچینج تک رسائی نہیں</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">روزانہ قیمتیں: %1$s (Binance کے بجائے)</string>
+
+    <string name="portfolio_footer_short">کام میں معاون، ٹیکس یا سرمایہ کاری کا مشورہ نہیں۔ رازداری: ترتیبات › ایپ کے بارے میں › رازداری کی پالیسی۔</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">%1$s کے تمام لین دین حذف کریں؟</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">%d لین دین ہٹا دیا جائے گا۔ اسے فوراً بعد کالعدم کیا جا سکتا ہے۔</item>
+        <item quantity="other">%d لین دین ہٹا دیے جائیں گے۔ اسے فوراً بعد کالعدم کیا جا سکتا ہے۔</item>
+    </plurals>
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">%1$s میں ادا کی گئی فیسیں دوسرے لین دین سے بھی ہٹا دی جاتی ہیں: %2$d۔</string>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s پورٹ فولیو سے ہٹا دیا گیا (%2$d لین دین)</item>
+        <item quantity="other">%1$s پورٹ فولیو سے ہٹا دیا گیا (%2$d لین دین)</item>
+    </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">%d لین دین ہٹا دیا گیا</item>
+        <item quantity="other">%d لین دین ہٹا دیے گئے</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">اس سے %d لاٹ بھی ہٹ جاتا ہے۔</item>
+        <item quantity="other">اس سے %d لاٹس بھی ہٹ جاتے ہیں۔</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">اس سے %d لاٹ اور بیلنس کی تاریخ بھی ہٹ جاتی ہے۔</item>
+        <item quantity="other">اس سے %d لاٹس اور بیلنس کی تاریخ بھی ہٹ جاتی ہے۔</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">اس سے بیلنس کی تاریخ بھی ہٹ جاتی ہے۔</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">محفوظ نہیں ہو سکا – براہ کرم دوبارہ کوشش کریں</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">حد غلط – حذف کر کے دوبارہ بنائیں</string>
+</resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">കോയിനുകളൊന്നും തിരഞ്ഞെടുത്തിട്ടില്ല</string>
+    <string name="watch_loading">ലോഡ് ചെയ്യുന്നു…</string>
+    <string name="watch_error">എക്സ്ചേഞ്ചുകളിൽ എത്താനാകുന്നില്ല</string>
+    <string name="watch_updated">%1$s പ്രകാരം</string>
+    <string name="watch_refresh">പുതുക്കുക</string>
+    <string name="watch_choose">കോയിനുകൾ തിരഞ്ഞെടുക്കുക</string>
+    <string name="watch_choose_hint">കോയിനുകൾ: പരമാവധി %1$d</string>
+    <string name="watch_complication_label">വില</string>
+    <string name="a11y_watch_row">%1$s %2$s, 24 മണിക്കൂറിൽ %3$s</string>
+    <string name="watch_mode_phone">ലിസ്റ്റ്: ഫോണിലേതുപോലെ</string>
+    <string name="watch_mode_own">ലിസ്റ്റ്: സ്വന്തം</string>
+    <string name="watch_phone_empty">ഫോണിൽ പ്രിയപ്പെട്ടവയൊന്നുമില്ല</string>
+    <string name="a11y_watch_outdated">വില പഴയതാണ്</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">%1$d മിനിറ്റ് മുമ്പ് അവസാനം പുതുക്കി</item>
+        <item quantity="other">%1$d മിനിറ്റ് മുമ്പ് അവസാനം പുതുക്കി</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">%1$d മണിക്കൂർ മുമ്പ് അവസാനം പുതുക്കി</item>
+        <item quantity="other">%1$d മണിക്കൂർ മുമ്പ് അവസാനം പുതുക്കി</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">%1$d ദിവസം മുമ്പ് അവസാനം പുതുക്കി</item>
+        <item quantity="other">%1$d ദിവസം മുമ്പ് അവസാനം പുതുക്കി</item>
+    </plurals>
+</resources>

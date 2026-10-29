@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">Բոլոր արդյունքները</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="one">%1$d բորսա</item>
+        <item quantity="other">%1$d բորսա</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">Բեռնված ցանկերում այս կոինի համար զույգ չկա։</string>
+    <string name="explorer_coin_not_loaded">Զույգերի ցանկերը դեռ բեռնված չեն</string>
+    <string name="explorer_coin_other_pairs">Այլ զույգեր</string>
+    <string name="explorer_coin_show_pairs">Ցույց տալ զույգերը</string>
+    <string name="explorer_coin_suggested">Առաջարկվող</string>
+    <string name="explorer_coins_title">Կոիններ</string>
+    <string name="explorer_lists_failed_many">%1$s-ը հիմա չեն պատասխանում – զույգերի ցանկերը բեռնված չեն։ Փորձիր ավելի ուշ։</string>
+    <plurals name="explorer_lists_failed_more">
+        <item quantity="one">+ևս %1$d</item>
+        <item quantity="other">+ևս %1$d</item>
+    </plurals>
+    <string name="explorer_lists_failed_one">%1$s-ը հիմա չի պատասխանում – զույգերի ցանկը բեռնված չէ։ Փորձիր ավելի ուշ։</string>
+    <string name="explorer_lists_load">Բեռնել ցանկերը</string>
+    <string name="explorer_lists_loading">Զույգերի ցանկերը բեռնվում են… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="one">%1$d բորսայի զույգերի ցանկը դեռ այս սարքում չէ։</item>
+        <item quantity="other">%1$d բորսաների զույգերի ցանկերը դեռ այս սարքում չեն։</item>
+    </plurals>
+    <string name="explorer_lists_privacy">Բեռնում է յուրաքանչյուր բորսայի ամբողջական հանրային ցանկը – բոլորի համար նույնը։ Քո որոնումը մնում է այս սարքում։</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">Վերջին որոնում՝ %1$s</string>
+    <string name="explorer_recent_clear">Մաքրել</string>
+    <string name="explorer_recent_clear_a11y">Մաքրել վերջին որոնումները</string>
+    <string name="explorer_recent_title">Վերջին որոնումները</string>
+    <string name="explorer_search_choose_manually">Ընտրիր բորսան և զույգը ինքդ</string>
+    <string name="explorer_search_empty">Համընկնումներ չկան։</string>
+    <string name="explorer_search_hint">Որոնել կոին, զույգ կամ բորսա</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">Մուտքագրիր կոինի անունը կամ նշանը, օր.՝ Bitcoin կամ BTC – ապա ընտրիր զույգը։</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">Ավելացնել դիտացանկում</string>
+    <string name="explorer_added_to_watchlist">Ավելացվեց դիտացանկում։</string>
+    <string name="explorer_already_in_watchlist">Այս զույգն արդեն դիտացանկում է։</string>
+    <string name="explorer_exchange_missing">Բորսան բացակայո՞ւմ է</string>
+    <string name="explorer_loading_pairs">Առևտրային զույգերը բեռնվում են…</string>
+    <string name="explorer_no_pair_selected">Նախ ընտրիր զույգ։</string>
+    <string name="explorer_no_pairs_yet">Այս բորսայի համար դեռ զույգեր բեռնված չեն։</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$d զույգ · թարմացվել է %2$s</item>
+        <item quantity="other">%1$d զույգ · թարմացվել է %2$s</item>
+    </plurals>
+    <string name="explorer_pairs_title">Զույգեր</string>
+    <string name="explorer_precise_title">Ընդլայնված / ըստ բորսայի</string>
+    <string name="explorer_price_loading">Գինը բեռնվում է…</string>
+    <string name="explorer_select_exchange_hint">Ընտրիր բորսա – դրա առևտրային զույգերը կբեռնվեն ավտոմատ։</string>
+    <string name="explorer_select_placeholder">Խնդրում ենք ընտրել</string>
+    <string name="explorer_step_pair">Ընտրել զույգ</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">Աճողներ</string>
+    <string name="explorer_filter_losers">Նվազողներ</string>
+    <string name="explorer_filter_volume">Ծավալ</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">Այս բորսայի բոլոր %1$s զույգերը</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">Գտնվեց %1$d %2$s զույգ</item>
+        <item quantity="other">Գտնվեց %1$d %2$s զույգ</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">Ընտրված պայմանագրի տեսակի համար այս բորսայում %1$s զույգեր չկան։ Նախ համաժամեցրու բորսան կամ փորձիր այլ պայմանագրի տեսակ։</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">Ավելացնել %1$d զույգը դիտացանկում</item>
+        <item quantity="other">Ավելացնել բոլոր %1$d զույգերը դիտացանկում</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">%1$d-ն ավելացվեց, %2$d-ն արդեն դիտացանկում է։</item>
+        <item quantity="other">%1$d-ն ավելացվեց, %2$d-ն արդեն դիտացանկում են։</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">%3$s-ի %1$d %2$s զույգը կավելացվի դիտացանկում, եթե այն արդեն այնտեղ չէ։</item>
+        <item quantity="other">%3$s-ի բոլոր %1$d %2$s զույգերը կավելացվեն դիտացանկում։ Այնտեղ արդեն եղած զույգերը բաց կթողնվեն։</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">Ավելացնե՞լ %1$d զույգ</item>
+        <item quantity="other">Ավելացնե՞լ %1$d զույգ</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">Թաքցնել ցանկը</string>
+    <string name="explorer_bulk_show_list">Ցույց տալ ցանկը</string>
+    <string name="explorer_bulk_tap_hint">Հպիր զույգին՝ այն վերևում ընտրելու համար։</string>
+    <string name="explorer_bulk_title">Մի քանի զույգ միանգամից</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">Բեռնում է ընտրված բորսայի ընթացիկ զույգերը։</string>
+    <string name="explorer_no_pair_list">Արժութային զույգեր չկան</string>
+    <string name="explorer_sync_sheet_last">Վերջին համաժամեցումը՝ %1$s</string>
+    <string name="explorer_sync_never">երբեք</string>
+    <string name="explorer_sync_sheet_action">Համաժամեցնել հիմա</string>
+    <string name="explorer_sync_sheet_title">Թարմացնել արժութային զույգերը</string>
+    <string name="explorer_field_coin">Կոին</string>
+    <string name="explorer_field_contract">Պայմանագրի տեսակ</string>
+    <string name="explorer_field_exchange">Բորսա</string>
+    <string name="explorer_field_quote">Գնանշման արժույթ</string>
+    <string name="explorer_contract_spot">Սպոտ</string>
+    <string name="explorer_reload_pairs">Համաժամեցնել</string>
+    <string name="sync_pairs_count">Առևտրային զույգեր՝ %1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">Ավելացնել</string>
+    <string name="dex_added">%1$s-ը ավելացվեց դիտացանկում։</string>
+    <string name="dex_already">%1$s-ը արդեն դիտացանկում է։</string>
+    <string name="dex_intro">Մեծ բորսաներից դուրս տոկեններ՝ ապակենտրոնացված բորսաներից (Uniswap, PancakeSwap, Raydium …) DexScreener-ի միջոցով։ Որոնիր տոկեն և ավելացրու դրա առևտրային պուլերից մեկը – գները ԱՄՆ դոլարով։</string>
+    <string name="dex_liquidity">Իրացվելիություն՝ %1$s</string>
+    <string name="dex_no_results">Պուլեր չեն գտնվել։</string>
+    <string name="dex_search">Որոնել</string>
+    <string name="dex_search_hint">Տոկենի անուն, նշան կամ հասցե</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">Alpha տոկեն</string>
+    <string name="asset_kind_token">Տոկեն</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+
+    <string name="dex_low_liquidity_no_alarm">Ցածր իրացվելիություն – առանց ահազանգերի</string>
+    <string name="dex_low_liquidity_alarm_hint">Այս պուլի իրացվելիությունը 10,000 USD-ից պակաս է (կամ չի հաղորդվում)։ Փոքր գործարքները կարող են շարժել դրա գինը, ուստի այստեղ ահազանգեր հնարավոր չէ սահմանել։ Առկա ահազանգերը պահպանվում են, բայց չեն գործարկվի, մինչև իրացվելիությունը նորից չաճի։</string>
+
+    <string name="explorer_bulk_show_all">Ցույց տալ բոլորը (%1$d)</string>
+    <string name="dex_token_address_copy">Պատճենել տոկենի հասցեն</string>
+    <string name="dex_token_address_copied">Տոկենի հասցեն պատճենված է</string>
+    <string name="dex_token_address_label">Տոկենի հասցե՝ %1$s վերջավորությամբ</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="one">%1$d զույգ չավելացվեց՝ դիտացանկը կարող է ունենալ առավելագույնը %2$s զույգ։</item>
+        <item quantity="other">%1$d զույգ չավելացվեց՝ դիտացանկը կարող է ունենալ առավելագույնը %2$s զույգ։</item>
+    </plurals>
+    <string name="bulk_add_progress">Զույգերն ավելացվում են … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="one">Ավելացնել %1$d նոր զույգ դիտացանկում</item>
+        <item quantity="other">Ավելացնել %1$d նոր զույգ դիտացանկում</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="one">%1$d նոր, %2$d-ն արդեն դիտացանկում</item>
+        <item quantity="other">%1$d նոր, %2$d-ն արդեն դիտացանկում</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">Բոլորն արդեն դիտացանկում են</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="one">Կրկին հեռացնե՞լ %1$d զույգ</item>
+        <item quantity="other">Կրկին հեռացնե՞լ %1$d զույգ</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">Այն զույգերը, որոնց համար այդ ընթացքում ահազանգ ես սահմանել, կմնան։</string>
+    <string name="bulk_undo_expired">Հետարկումն այլևս հնարավոր չէ – զույգերը մնում են դիտացանկում։</string>
+    <string name="explorer_section_spot">Սպոտ</string>
+    <string name="explorer_section_futures">Ֆյուչերսներ</string>
+    <string name="explorer_section_dex">DEX պուլեր</string>
+    <string name="explorer_section_forex">Forex (հղումային փոխարժեք)</string>
+    <string name="explorer_forex_hint">Եվրոպական կենտրոնական բանկի օրական փոխարժեքը (Frankfurter-ի միջոցով), ոչ իրական ժամանակում – առանց ահազանգերի։</string>
+</resources>

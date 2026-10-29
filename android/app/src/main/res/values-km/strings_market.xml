@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="other">%d នាទីមុន</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">ថ្ងៃនេះ %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed រង្វាស់ Bitcoin ភាពលេចធ្លោ halving</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">ទិន្នន័យទីផ្សារបន្ថែម</string>
+    <string name="market_phase_trend_failed">មិនមានទិន្នន័យតម្លៃទេ</string>
+    <string name="market_plain_direction_down_clear">តម្លៃសរុបនៃគ្រីបតូទាំងអស់ទាបជាង 24 ម៉ោងមុនយ៉ាងច្បាស់ (%1$s)។</string>
+    <string name="market_plain_direction_down_slight">តម្លៃសរុបនៃគ្រីបតូទាំងអស់ទាបជាង 24 ម៉ោងមុនបន្តិច (%1$s)។</string>
+    <string name="market_plain_direction_flat">តម្លៃសរុបនៃគ្រីបតូទាំងអស់ស្ទើរតែមិនប្រែប្រួលក្នុង 24 ម៉ោង (%1$s)។</string>
+    <string name="market_plain_direction_up_clear">តម្លៃសរុបនៃគ្រីបតូទាំងអស់ខ្ពស់ជាង 24 ម៉ោងមុនយ៉ាងច្បាស់ (%1$s)។</string>
+    <string name="market_plain_direction_up_slight">តម្លៃសរុបនៃគ្រីបតូទាំងអស់ខ្ពស់ជាង 24 ម៉ោងមុនបន្តិច (%1$s)។</string>
+    <string name="market_plain_footnote">ពិពណ៌នាអំពី 24 ម៉ោងចុងក្រោយ – មិនមែនការព្យាករណ៍ មិនមែនដំបូន្មានវិនិយោគទេ។</string>
+    <string name="market_plain_mood_extreme_fear">វិនិយោគិនកំពុងភ័យខ្លាចខ្លាំងនៅពេលនេះ៖ សន្ទស្សន៍អារម្មណ៍ (Fear &amp; Greed) ស្ថិតនៅ %1$d ក្នុងចំណោម 100។</string>
+    <string name="market_plain_mood_extreme_greed">វិនិយោគិនកំពុងលោភលន់ខ្លាំងនៅពេលនេះ៖ សន្ទស្សន៍អារម្មណ៍ (Fear &amp; Greed) ស្ថិតនៅ %1$d ក្នុងចំណោម 100។</string>
+    <string name="market_plain_mood_fear">វិនិយោគិនមានការភ័យខ្លាចបន្តិច៖ សន្ទស្សន៍អារម្មណ៍ (Fear &amp; Greed) ស្ថិតនៅ %1$d ក្នុងចំណោម 100។</string>
+    <string name="market_plain_mood_greed">វិនិយោគិនមានការលោភលន់បន្តិច៖ សន្ទស្សន៍អារម្មណ៍ (Fear &amp; Greed) ស្ថិតនៅ %1$d ក្នុងចំណោម 100។</string>
+    <string name="market_plain_mood_neutral">អារម្មណ៍វិនិយោគិនមានតុល្យភាព៖ សន្ទស្សន៍អារម្មណ៍ (Fear &amp; Greed) ស្ថិតនៅ %1$d ក្នុងចំណោម 100។</string>
+    <string name="market_plain_standout_above_btc">%1$s លេចធ្លោ៖ %2$s ក្នុង 24 ម៉ោង ខ្ពស់ជាង Bitcoin ឆ្ងាយ (%3$s)។</string>
+    <string name="market_plain_standout_against_btc">%1$s លេចធ្លោ៖ %2$s ក្នុង 24 ម៉ោង ខណៈ Bitcoin ទៅទិសផ្ទុយ (%3$s)។</string>
+    <string name="market_plain_standout_below_btc">%1$s លេចធ្លោ៖ %2$s ក្នុង 24 ម៉ោង ទាបជាង Bitcoin ឆ្ងាយ (%3$s)។</string>
+    <string name="market_plain_standout_futures_down">%1$s លេចធ្លោ៖ អ្នកជួញដូរ Futures ច្រើនមិនធម្មតាកំពុងភ្នាល់លើតម្លៃធ្លាក់ចុះ។</string>
+    <string name="market_plain_standout_futures_up">%1$s លេចធ្លោ៖ អ្នកជួញដូរ Futures ច្រើនមិនធម្មតាកំពុងភ្នាល់លើតម្លៃកើនឡើង។</string>
+    <string name="market_plain_standout_quiet">គ្មានកាក់ណាមួយលេចធ្លោនៅពេលនេះទេ។</string>
+    <string name="market_plain_standout_volume">%1$s លេចធ្លោ៖ ការជួញដូរប្រហែល %2$s ដងនៃធម្មតា។</string>
+    <string name="market_plain_title">សង្ខេប</string>
+    <string name="market_section_collapse">លាក់ %1$s</string>
+    <string name="market_section_context">អារម្មណ៍ &amp; វដ្ត</string>
+    <string name="market_section_data">ទិន្នន័យទីផ្សារ</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">បង្ហាញ %1$s</string>
+    <string name="market_section_now">ឥឡូវនេះ</string>
+    <string name="market_source">ទិន្នន័យ៖ Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="exchange_unavailable_error">ផ្សារប្តូរមិនអាចប្រើបានទេ</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">ព័ត៌មាន៖ %1$s</string>
+    <string name="market_info_alt_season_source">តម្លៃប្រចាំថ្ងៃ៖ Binance · គណនាឡើងវិញប្រហែលរៀងរាល់ 3 ម៉ោងម្តង</string>
+    <string name="market_info_alt_season_what">រាប់ថាតើ altcoin ធំៗប្រហែល 20 (ឧ. Ethereum, Solana, XRP) មានប៉ុន្មានដែលដំណើរការល្អជាង Bitcoin ក្នុងរយៈពេល 90 ថ្ងៃចុងក្រោយ។ តម្លៃគឺជាចំណែករបស់ពួកវាពី 0 ដល់ 100។</string>
+    <string name="market_info_coin_source">តម្លៃ៖ Binance ឬ Bybit · ផ្ទុកឡើងវិញប្រហែលរៀងរាល់ 15 នាទីម្តង</string>
+    <string name="market_info_dominance_how">ប្រសិនបើភាពលេចធ្លោកើនឡើង Bitcoin កំពុងដំណើរការល្អជាងទីផ្សារដែលនៅសល់។ ប្រសិនបើវាធ្លាក់ កាក់ផ្សេងទៀតទទួលបានទម្ងន់។ Stablecoin ក៏រាប់ដែរ៖ ប្រសិនបើតម្លៃរបស់វាកើនឡើង ចំណែក Bitcoin ធ្លាក់ចុះ ទោះបីតម្លៃ Bitcoin នៅដដែលក៏ដោយ។</string>
+    <string name="market_info_dominance_source">ប្រភព៖ CoinGecko · ផ្ទុកឡើងវិញប្រហែលរៀងរាល់ 30 នាទីម្តង</string>
+    <string name="market_info_dominance_what">ចំណែករបស់ Bitcoin ក្នុងតម្លៃសរុបនៃគ្រីបតូទាំងអស់ (មូលធនប័ត្រទីផ្សារ)។ នៅខាងក្រោមគឺចំណែករបស់ Ethereum។</string>
+    <string name="market_info_fear_greed_how">ក្រោម 25 មានន័យថាភ័យខ្លាចខ្លាំង លើស 75 លោភលន់ខ្លាំង ប្រហែល 50 អព្យាក្រឹត។ នៅពេលពង្រីក កាតបង្ហាញតម្លៃពីម្សិលមិញ មួយសប្តាហ៍មុន និងមួយខែមុន។ មិនមែនជាសញ្ញាទិញ ឬលក់ទេ។</string>
+    <string name="market_info_fear_greed_source">ប្រភព៖ alternative.me · តម្លៃថ្មីម្តងក្នុងមួយថ្ងៃ</string>
+    <string name="market_info_fear_greed_what">សន្ទស្សន៍អារម្មណ៍សម្រាប់ទីផ្សារគ្រីបតូពី 0 ដល់ 100។ alternative.me គណនាវាពីធាតុចូលជាច្រើន រួមទាំងការឡើងចុះតម្លៃ បរិមាណជួញដូរ បណ្ដាញសង្គម និងភាពលេចធ្លោរបស់ Bitcoin។</string>
+    <string name="market_info_gas_how">តម្លៃខ្ពស់មានន័យថាបណ្ដាញរវល់ ហើយការផ្ទេរមានតម្លៃថ្លៃជាង។ យឺត ធម្មតា និងលឿន គឺជាកម្រៃសម្រាប់ការបញ្ជាក់ក្រោយ ឬលឿនជាង។ នៅពេលពង្រីក កាតបង្ហាញតម្លៃប្រហាក់ប្រហែលនៃការផ្ទេរធម្មតា។</string>
+    <string name="market_info_gas_source">RPC node សាធារណៈ, mempool.space · ផ្ទុកឡើងវិញរៀងរាល់នាទី</string>
+    <string name="market_info_gas_what">តម្លៃនៃប្រតិបត្តិការនៅលើបណ្ដាញនីមួយៗនាពេលបច្ចុប្បន្ន។ នៅលើ Ethereum និងបណ្ដាញស្រដៀងគ្នាជា gwei (មួយភាគពាន់លាននៃ ETH ក្នុងមួយឯកតា gas) នៅលើ Bitcoin ជា sat/vB (satoshi ក្នុងមួយបៃនិម្មិតនៃប្រតិបត្តិការ)។</string>
+    <string name="market_info_halving_source">កាលបរិច្ឆេទ៖ ពីកម្ពស់ប្លុក និងពេលវេលាប្លុកមធ្យម (mempool.space) បើមិនដូច្នោះទេតាមប្រតិទិន · ប្រវត្តិតម្លៃ៖ Coin Metrics, Binance ផ្ទុកឡើងវិញរៀងរាល់ 12 ម៉ោង</string>
+    <string name="market_info_halving_what">នៅពេល halving រង្វាន់ដែលអ្នករុករករ៉ែទទួលបានសម្រាប់ប្លុក Bitcoin ថ្មីត្រូវបានកាត់បន្ថយពាក់កណ្ដាល។ វាកើតឡើងរៀងរាល់ 210,000 ប្លុក ប្រហែលរៀងរាល់បួនឆ្នាំម្តង។ បន្ទាប់ពីនោះ bitcoin ថ្មីត្រូវបានបង្កើតតែពាក់កណ្ដាលក្នុងមួយថ្ងៃ។</string>
+    <string name="market_info_how">របៀបអាន</string>
+    <string name="market_info_macro_how">កំណត់ចំណាំបង្ហាញតែនៅពេលកាលបរិច្ឆេទបែបនេះជាថ្ងៃនេះ ឬថ្ងៃស្អែកប៉ុណ្ណោះ។ ជុំវិញពេលចេញផ្សាយ តម្លៃច្រើនតែឡើងចុះខ្លាំងជាងធម្មតា។ កម្មវិធីបង្ហាញតែកាលបរិច្ឆេទ មិនមែនតួលេខខ្លួនឯងទេ។</string>
+    <string name="market_info_macro_source">ប្រតិទិនពីគេហទំព័ររបស់កម្មវិធី · ផ្ទុកម្តងក្នុងមួយថ្ងៃ</string>
+    <string name="market_info_macro_what">កាលបរិច្ឆេទនៃទិន្នន័យសេដ្ឋកិច្ចសំខាន់ៗរបស់សហរដ្ឋអាមេរិក៖ អតិផរណា (CPI, PCE) តម្លៃអ្នកផលិត (PPI) របាយការណ៍ការងារ និងការសម្រេចអត្រាការប្រាក់របស់ធនាគារកណ្ដាលសហរដ្ឋអាមេរិក។ តួលេខបែបនេះច្រើនតែធ្វើឱ្យតម្លៃគ្រីបតូប្រែប្រួលផងដែរ។</string>
+    <string name="market_info_no_advice">មិនមែនដំបូន្មានវិនិយោគទេ។</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · តម្លៃរៀងរាល់ម៉ោង តម្លៃ on-chain ផ្ទុកឡើងវិញរៀងរាល់ 12 ម៉ោង</string>
+    <string name="market_info_pulse_how">ចំណងជើងប្រាប់ពីទិសដៅ។ ពង្រីកកាតដើម្បីមើលព័ត៌មានលម្អិត។ ចលនាទូលំទូលាយមានន័យថាកាក់ធំៗភាគច្រើនកំពុងផ្លាស់ទីក្នុងទិសដូចគ្នា។ អារម្មណ៍ leverage សុទិដ្ឋិនិយមមានន័យថាអ្នកជួញដូរជាច្រើនកំពុងភ្នាល់លើតម្លៃកើនឡើងដោយប្រើ leverage ដែលវាស់ដោយអត្រា Funding នៃ Futures Bitcoin។ រូបភាពមួយភ្លែត មិនមែនការព្យាករណ៍ទេ។</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · ផ្ទុកឡើងវិញប្រហែលរៀងរាល់ 5 នាទីម្តង</string>
+    <string name="market_info_pulse_what">សេចក្តីសង្ខេបខ្លីនៃទីផ្សារក្នុង 24 ម៉ោងចុងក្រោយ៖ របៀបដែល Bitcoin, Ethereum និង Solana កំពុងផ្លាស់ទី កាក់ធំបំផុតប៉ុន្មានកំពុងកើនឡើង ឬធ្លាក់ចុះ Bitcoin កំពុងត្រូវបានជួញដូរប៉ុន្មាននៅពេលនេះ និងអារម្មណ៍ leverage យ៉ាងដូចម្តេច (វាស់ដោយអត្រា Funding នៃ Futures Bitcoin)។</string>
+    <string name="market_info_totals_how">នៅខាងស្តាំគឺការប្រែប្រួលនៃតម្លៃសរុបក្នុង 24 ម៉ោង។ បរិមាណខ្ពស់មានន័យថាមានការជួញដូរច្រើន – វាមិនប្រាប់ពីទិសដៅទេ។ បង្ហាញជារូបិយប័ណ្ណបម្លែងនៅពេលអាច បើមិនដូច្នោះទេជាដុល្លារអាមេរិក។</string>
+    <string name="market_info_totals_source">កាក់ទាំងអស់ · CoinGecko · ផ្ទុកឡើងវិញប្រហែលរៀងរាល់ 30 នាទីម្តង</string>
+    <string name="market_info_totals_what">តម្លៃសរុបនៃគ្រីបតូទាំងអស់ (មូលធនប័ត្រទីផ្សារ៖ តម្លៃគុណនឹងបរិមាណកំពុងចរាចរ បូកបញ្ចូលគ្នាលើកាក់ទាំងអស់) និងបរិមាណជួញដូរនៃ 24 ម៉ោងចុងក្រោយ។</string>
+    <string name="market_info_unusual_how">កាក់នីមួយៗបង្ហាញការសង្កេតគួរកត់សម្គាល់បំផុតរបស់វា ជាមួយការប្រែប្រួល 24 ម៉ោងនៅខាងស្តាំ។ បរិមាណ 2× មានន័យថាពីរដងនៃការជួញដូរធម្មតា។ គួរកត់សម្គាល់មិនមានន័យថាល្អ ឬអាក្រក់ទេ។</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · ផ្ទុកឡើងវិញប្រហែលរៀងរាល់ 10 នាទីម្តង</string>
+    <string name="market_info_unusual_what">កាក់រហូតដល់ប្រាំពីក្នុងចំណោមកាក់ធំបំផុតប្រហែល 30 (មិនរាប់ stablecoin) ដែលមានឥរិយាបថមិនធម្មតាថ្ងៃនេះ៖ ខ្លាំង ឬខ្សោយជាង Bitcoin ច្រើន ផ្ទុយនឹងទិសដៅទីផ្សារ មានបរិមាណជួញដូរខ្ពស់មិនធម្មតា ឬមានអត្រា Funding គួរកត់សម្គាល់។</string>
+    <string name="market_info_what">នេះជាអ្វី?</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">មូលធនប័ត្រទីផ្សារ</string>
+    <string name="market_cap_source">កាក់ទាំងអស់ · CoinGecko</string>
+    <string name="market_cap_title">ទីផ្សារគ្រីបតូ</string>
+    <string name="market_volume_label">បរិមាណ 24 ម៉ោង</string>
+
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">ព័ត៌មានលម្អិត</string>
+    <string name="pulse_disclaimer">មិនមែនការព្យាករណ៍ · មិនមែនដំបូន្មានវិនិយោគ</string>
+    <string name="pulse_less">បង្ហាញតិច</string>
+    <string name="pulse_now_title">ជីពចរគ្រីបតូ</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">ការប្រែប្រួលក្នុង 24 ម៉ោង</string>
+    <string name="pulse_section_factors">កត្តា</string>
+    <string name="pulse_section_market">ទីផ្សារថ្ងៃនេះ</string>
+    <string name="pulse_unavailable">ទិន្នន័យទីផ្សារមិនមាននៅពេលនេះទេ</string>
+    <string name="pulse_updated">គិតត្រឹម %1$s</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">ទីផ្សារស្ងប់ស្ងាត់</string>
+    <string name="pulse_headline_down">ខ្សោយទូលំទូលាយ</string>
+    <string name="pulse_headline_mixed">រូបភាពចម្រុះ</string>
+    <string name="pulse_headline_up">ខ្លាំងទូលំទូលាយ</string>
+    <string name="pulse_lead_alts_stronger">Altcoin ខ្លាំងជាង Bitcoin។</string>
+    <string name="pulse_lead_broad_down">ទីផ្សារកំពុងធ្លាក់ចុះទូលំទូលាយ។</string>
+    <string name="pulse_lead_broad_up">ទីផ្សារកំពុងកើនឡើងទូលំទូលាយ។</string>
+    <string name="pulse_lead_btc_leads">Bitcoin កំពុងកើនឡើងច្រើនជាងគេ។</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin ខ្លាំងជាង altcoin។</string>
+    <string name="pulse_lead_calm">ទីផ្សារស្ទើរតែមិនផ្លាស់ទី។</string>
+    <string name="pulse_lead_drift_down">ទីផ្សារកំពុងចុះបន្តិចម្តងៗ។</string>
+    <string name="pulse_lead_drift_up">ទីផ្សារកំពុងឡើងបន្តិចម្តងៗ។</string>
+    <string name="pulse_lead_mixed">កាក់ធំៗកំពុងផ្លាស់ទីខុសគ្នា។</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">អារម្មណ៍ leverage សុទិដ្ឋិនិយម។</string>
+    <string name="pulse_detail_fund_negative">អារម្មណ៍ leverage ទុទិដ្ឋិនិយម។</string>
+    <string name="pulse_detail_fund_neutral">អារម្មណ៍ leverage អព្យាក្រឹត។</string>
+    <string name="pulse_detail_vol_above">បរិមាណលើសធម្មតា %1$s។</string>
+    <string name="pulse_detail_vol_above_fund_high">បរិមាណលើសធម្មតា %1$s អារម្មណ៍ leverage សុទិដ្ឋិនិយម។</string>
+    <string name="pulse_detail_vol_above_fund_negative">បរិមាណលើសធម្មតា %1$s អារម្មណ៍ leverage ទុទិដ្ឋិនិយម។</string>
+    <string name="pulse_detail_vol_above_fund_neutral">បរិមាណលើសធម្មតា %1$s អារម្មណ៍ leverage អព្យាក្រឹត។</string>
+    <string name="pulse_detail_vol_below">បរិមាណក្រោមធម្មតា %1$s។</string>
+    <string name="pulse_detail_vol_below_fund_high">បរិមាណក្រោមធម្មតា %1$s អារម្មណ៍ leverage សុទិដ្ឋិនិយម។</string>
+    <string name="pulse_detail_vol_below_fund_negative">បរិមាណក្រោមធម្មតា %1$s អារម្មណ៍ leverage ទុទិដ្ឋិនិយម។</string>
+    <string name="pulse_detail_vol_below_fund_neutral">បរិមាណក្រោមធម្មតា %1$s អារម្មណ៍ leverage អព្យាក្រឹត។</string>
+    <string name="pulse_detail_vol_normal">បរិមាណធម្មតា។</string>
+    <string name="pulse_detail_vol_normal_fund_high">បរិមាណធម្មតា អារម្មណ៍ leverage សុទិដ្ឋិនិយម។</string>
+    <string name="pulse_detail_vol_normal_fund_negative">បរិមាណធម្មតា អារម្មណ៍ leverage ទុទិដ្ឋិនិយម។</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">បរិមាណធម្មតា អារម្មណ៍ leverage អព្យាក្រឹត។</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">Top %1$d៖ កាក់ធំបំផុតតាមតម្លៃទីផ្សារ មិនរាប់ stablecoin។ ការប្រែប្រួលក្នុង 24 ម៉ោង (CoinGecko)។</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_note_broad_down">ការលក់ចេញទូលំទូលាយ៖ កាក់ធំបំផុតភាគច្រើនកំពុងធ្លាក់ចុះ។</string>
+    <string name="pulse_breadth_note_broad_up">ចលនាទូលំទូលាយ៖ កាក់ធំបំផុតភាគច្រើនកំពុងកើនឡើង។</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin កំពុងធ្លាក់ចុះ ប៉ុន្តែកាក់ធំៗផ្សេងទៀតភាគច្រើននៅតែរឹងមាំ។</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin កំពុងកើនឡើង ប៉ុន្តែកាក់ធំៗផ្សេងទៀតភាគច្រើនមិនចូលរួមទេ។</string>
+    <string name="pulse_breadth_spoken">Top %1$d៖ ឡើង %2$d ចុះ %3$d</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">Altcoin និង Bitcoin ផ្លាស់ទីដូចគ្នា</string>
+    <string name="pulse_alts_stronger">Altcoin ខ្លាំងជាង Bitcoin</string>
+    <string name="pulse_alts_weaker">Bitcoin ខ្លាំងជាង altcoin</string>
+    <string name="pulse_chip_funding_high">អារម្មណ៍ leverage សុទិដ្ឋិនិយម</string>
+    <string name="pulse_chip_funding_negative">អារម្មណ៍ leverage ទុទិដ្ឋិនិយម</string>
+
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s។ %3$s។</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">បង្ហាញតម្លៃ និងសកម្មភាព</string>
+    <string name="unusual_fact_against">ផ្លាស់ទីផ្ទុយនឹងទីផ្សារ</string>
+    <string name="unusual_fact_funding_high">Funding ខ្ពស់ (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Funding អវិជ្ជមាន (%1$s)</string>
+    <string name="unusual_fact_stronger">ផ្លាស់ទីខ្លាំងជាង BTC ច្រើន</string>
+    <string name="unusual_fact_volume">បរិមាណ %1$s× នៃធម្មតា</string>
+    <string name="unusual_fact_weaker">ផ្លាស់ទីខ្សោយជាង BTC ច្រើន</string>
+    <string name="unusual_nothing">គ្មានអ្វីគួរកត់សម្គាល់ថ្ងៃនេះទេ</string>
+    <string name="unusual_source">កាក់ធំបំផុតប្រហែល 30 មិនរាប់ stablecoin · Binance, CoinGecko</string>
+    <string name="unusual_title">គួរកត់សម្គាល់</string>
+
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">គួរកត់សម្គាល់</string>
+    <string name="activity_indicator">គួរកត់សម្គាល់</string>
+    <string name="activity_sensitivity_less">តិច</string>
+    <string name="activity_sensitivity_more">ច្រើន</string>
+    <string name="activity_sensitivity_normal">ធម្មតា</string>
+    <string name="activity_signal_funding_long">Funding %1$s — longs ប្រើ leverage ច្រើន</string>
+    <string name="activity_signal_funding_short">Funding %1$s — shorts ច្រើន</string>
+    <string name="activity_signal_open_interest">Open interest %1$s ក្នុងរយៈពេល %2$d នាទី</string>
+    <string name="activity_signal_open_interest_no_time">Open interest %1$s</string>
+    <string name="activity_signal_price_move">ចលនាមិនធម្មតា៖ %1$s ក្នុងមួយម៉ោង (%2$s× នៃធម្មតា)</string>
+    <string name="activity_signal_volume">បរិមាណ %1$s× នៃធម្មតាក្នុងម៉ោងចុងក្រោយ</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="other">altcoin ធំៗ %1$d ក្នុងចំណោម %2$d ឈ្នះ Bitcoin ក្នុងរយៈពេល 90 ថ្ងៃ</item>
+    </plurals>
+    <string name="insights_chart_axis">ឆ្នាំតាំងពី halving</string>
+    <string name="insights_chart_hint">តម្លៃជាពហុគុណនៃតម្លៃថ្ងៃ halving (មាត្រដ្ឋាន log)។ វដ្តមុនៗជាលំនាំ មិនមែនការព្យាករណ៍ទេ។</string>
+    <string name="insights_cycle_chart">វដ្តតាំងពី halving</string>
+    <string name="insights_dominance_eth">ETH %1$s នៃទីផ្សារសរុប</string>
+    <string name="insights_dominance_title">ភាពលេចធ្លោរបស់ Bitcoin</string>
+    <string name="insights_fng_history">ម្សិលមិញ %1$s · មួយសប្តាហ៍មុន %2$s · មួយខែមុន %3$s</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="insights_halving_title">Bitcoin halving</string>
+    <string name="insights_source_dominance">ប្រភព៖ CoinGecko, Binance</string>
+    <string name="insights_source_fng">ប្រភព៖ alternative.me</string>
+    <string name="insights_source_history">ប្រភព៖ Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">ភ័យខ្លាចខ្លាំង</string>
+    <string name="fng_extreme_greed">លោភលន់ខ្លាំង</string>
+    <string name="fng_fear">ភ័យខ្លាច</string>
+    <string name="fng_greed">លោភលន់</string>
+    <string name="fng_neutral">អព្យាក្រឹត</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">ទិន្នន័យគិតត្រឹម %1$s · កំពុងធ្វើបច្ចុប្បន្នភាព…</string>
+    <string name="cycle_from_top">%1$s ពីកំពូល</string>
+    <string name="cycle_marker_bottom">បាត %1$s</string>
+    <string name="cycle_marker_double_bottom">បាតពីរដង %1$s</string>
+    <string name="cycle_marker_double_top">កំពូលពីរដង %1$s</string>
+    <string name="cycle_marker_high_so_far">ខ្ពស់បំផុតរហូតមកដល់ពេលនេះ</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">កំពូល %1$s</string>
+    <string name="cycle_since_halving">%1$s តាំងពី halving</string>
+    <string name="halving_estimate_text">Halving បន្ទាប់តាមការគណនានៅប្រហែល %1$s៖ នៅសល់ %2$s ប្លុក ជាមធ្យម %3$s នាទីក្នុងមួយប្លុក (រយៈពេល difficulty បច្ចុប្បន្ន)។ ជាការប៉ាន់ស្មាន មិនមែនការសន្យាទេ – ពេលវេលាប្លុកប្រែប្រួល។</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">ការដាស់តឿន៖ %1$s</string>
+    <string name="gas_slow_fast">យឺត %1$s · លឿន %2$s</string>
+    <string name="gas_source">RPC node សាធារណៈ និង mempool.space · តម្លៃនៃការផ្ទេរធម្មតា ដោយមិនរាប់ចំណែក L1 នៅលើ L2</string>
+    <string name="gas_title">កម្រៃបណ្ដាញ</string>
+    <string name="gas_transfer_cost">ការផ្ទេរ ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">ទិន្នន័យអតិផរណាសហរដ្ឋអាមេរិក (CPI)</string>
+    <string name="macro_fomc">ការសម្រេចអត្រាការប្រាក់ Fed សហរដ្ឋអាមេរិក</string>
+    <string name="macro_hint_list">%1$s – ទីផ្សារច្រើនតែឡើងចុះខ្លាំងជាងនៅថ្ងៃបែបនេះ។</string>
+    <string name="macro_hint_today">ថ្ងៃនេះ %1$s៖ %2$s – ទីផ្សារច្រើនតែឡើងចុះខ្លាំងជាងនៅថ្ងៃបែបនេះ។</string>
+    <string name="macro_hint_today_list">ថ្ងៃនេះ៖ %1$s – ទីផ្សារច្រើនតែឡើងចុះខ្លាំងជាងនៅថ្ងៃបែបនេះ។</string>
+    <string name="macro_hint_tomorrow">ថ្ងៃស្អែក %1$s៖ %2$s – ទីផ្សារច្រើនតែឡើងចុះខ្លាំងជាងនៅថ្ងៃបែបនេះ។</string>
+    <string name="macro_hint_tomorrow_list">ថ្ងៃស្អែក៖ %1$s – ទីផ្សារច្រើនតែឡើងចុះខ្លាំងជាងនៅថ្ងៃបែបនេះ។</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">ថ្ងៃនេះ %1$s %2$s</string>
+    <string name="macro_item_tomorrow">ថ្ងៃស្អែក %1$s %2$s</string>
+    <string name="macro_nfp">របាយការណ៍ការងារសហរដ្ឋអាមេរិក</string>
+    <string name="macro_pce">តម្លៃចំណាយអ្នកប្រើប្រាស់សហរដ្ឋអាមេរិក (PCE)</string>
+    <string name="macro_ppi">តម្លៃអ្នកផលិតសហរដ្ឋអាមេរិក (PPI)</string>
+    <string name="macro_released_list">បានចេញផ្សាយថ្ងៃនេះ៖ %1$s។</string>
+    <string name="macro_released_one">បានចេញផ្សាយថ្ងៃនេះនៅ %1$s៖ %2$s។</string>
+    <string name="macro_title">ទិន្នន័យសេដ្ឋកិច្ច</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">កាក់</string>
+    <string name="coin_no_data">គ្មានទិន្នន័យតម្លៃសម្រាប់កាក់នេះនៅលើ Binance ឬ Bybit ទេ។</string>
+    <string name="coin_price_only">ផ្អែកលើតម្លៃតែប៉ុណ្ណោះ – ទិន្នន័យ on-chain (MVRV, Puell, hashrate) មានដោយឥតគិតថ្លៃសម្រាប់តែ Bitcoin ប៉ុណ្ណោះ។</string>
+    <plurals name="coin_short_history">
+        <item quantity="other">មានប្រវត្តិតម្លៃតែ %1$d ថ្ងៃប៉ុណ្ណោះ – សូចនាករខ្លះខ្វះ។</item>
+    </plurals>
+    <string name="coin_title">ការវិភាគកាក់</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">ទិន្នន័យ៖ %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">ឡើង និងចុះខ្លាំងជាងគេ 24 ម៉ោង</string>
+    <string name="movers_gainers">ឡើងខ្លាំង</string>
+    <string name="movers_losers">ចុះខ្លាំង</string>
+    <string name="movers_no_gainers">គ្មានកាក់ណាឡើងក្នុង 24 ម៉ោងទេ</string>
+    <string name="movers_no_losers">គ្មានកាក់ណាធ្លាក់ក្នុង 24 ម៉ោងទេ</string>
+    <string name="movers_source">CoinGecko, 24 ម៉ោង, top 100 មិនរាប់ stablecoin</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">បង្ហាញទាំងអស់</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">បង្ហាញតិច</string>
+</resources>

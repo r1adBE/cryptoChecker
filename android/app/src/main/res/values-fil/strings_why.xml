@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">Ano ang gumagalaw kasabay nito?</string>
+    <string name="why_all_values">Lahat ng value at pinagmulan</string>
+    <string name="why_all_values_hint">Obserbasyon · Posibleng paliwanag · Mga pinagmulan</string>
+    <string name="why_details">Ipakita ang mga detalye</string>
+    <string name="why_details_hide">Itago ang mga detalye</string>
+    <string name="why_disclaimer">Awtomatikong pagtatasa mula sa market data: ipinapakita nito kung ano ang nangyayari nang sabay, hindi patunay ng sanhi.</string>
+    <string name="why_footer_short">Ang sabay ay hindi nangangahulugang sanhi · Hindi investment advice</string>
+    <string name="why_no_data">Walang data mula sa Binance para sa pares na ito</string>
+    <string name="why_no_data_hint">Galing sa mga hourly candle ng Binance ang presyo, volume at volatility.</string>
+    <string name="why_ref_alts">Alts</string>
+    <string name="why_section_context">Posibleng paliwanag</string>
+    <string name="why_section_observation">Obserbasyon</string>
+    <string name="why_title">Ano ang gumagalaw kasabay nito?</string>
+    <string name="why_title_coin">Ano ang gumagalaw kasabay ng %1$s?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">Sa madaling salita · Noong %1$s</string>
+    <string name="why_brief_label">Sa madaling salita:</string>
+    <string name="why_summary_against">Salungat sa market ang galaw ng coin.</string>
+    <string name="why_summary_calm">Walang kapansin-pansing galaw: kalmado ang market at ang coin.</string>
+    <string name="why_summary_coin">Ang coin lang na ito ang gumagalaw – posibleng may nakakaapekto lang sa coin na ito.</string>
+    <string name="why_summary_coin_volume">Ang coin lang na ito ang gumagalaw, na may mas mataas na volume – posibleng may nakakaapekto lang sa coin na ito.</string>
+    <string name="why_summary_longs">Futures: maraming leveraged na long position.</string>
+    <string name="why_summary_market">Tugma sa oras ang galaw sa kabuuang market.</string>
+    <string name="why_summary_market_volume">Kasabay ng galaw ang mas mataas na trading volume at malawakang gumagalaw na market.</string>
+    <string name="why_summary_peg_near">Malapit ang presyo sa 1:1 peg nito.</string>
+    <string name="why_summary_peg_off">Kapansin-pansing lumilihis ang presyo sa 1:1 peg nito.</string>
+    <string name="why_summary_shorts">Futures: maraming short position.</string>
+    <string name="why_summary_thin">Manipis ang galaw: kaunting volume ang nasa likod nito.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">Salungat sa market</string>
+    <string name="why_f_coin_only">Ang coin lang na ito</string>
+    <string name="why_f_leader">Bitcoin bilang lider ng market</string>
+    <string name="why_f_leverage_balanced">Balanse ang leverage</string>
+    <string name="why_f_leverage_longs">Leverage: maraming long</string>
+    <string name="why_f_leverage_shorts">Leverage: maraming short</string>
+    <string name="why_f_market_calm">Kalmadong market</string>
+    <string name="why_f_market_wide">Gumagalaw ang buong market</string>
+    <string name="why_factor_funding">Funding</string>
+    <string name="why_factor_futures">Futures</string>
+    <string name="why_factor_market">Kabuuang market</string>
+    <string name="why_factor_near_high">Malapit sa high</string>
+    <string name="why_factor_near_low">Malapit sa low</string>
+    <string name="why_factor_peg">Peg (1:1)</string>
+    <string name="why_factor_range3d">3-araw na saklaw</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">tinantiya</string>
+    <string name="why_fn_funding_longs">marami ang tumataya sa pagtaas ng presyo</string>
+    <string name="why_fn_funding_neutral">neutral</string>
+    <string name="why_fn_funding_shorts">marami ang tumataya sa pagbaba ng presyo</string>
+    <string name="why_fn_high_at">nasa 30-araw na high</string>
+    <string name="why_fn_high_below">mas mababa sa 30-araw na high</string>
+    <string name="why_fn_leader_calm">Kalmado ang Bitcoin</string>
+    <string name="why_fn_leader_moves">Malinaw na gumagalaw ang Bitcoin</string>
+    <string name="why_fn_low_above">mas mataas sa 30-araw na low</string>
+    <string name="why_fn_low_at">nasa 30-araw na low</string>
+    <string name="why_fn_market_against">Salungat sa market ang galaw ng coin na ito</string>
+    <string name="why_fn_market_alone">Kalmado ang market – mag-isang gumagalaw ang coin na ito</string>
+    <string name="why_fn_market_calm">Kalmado ang market</string>
+    <string name="why_fn_market_lags">Gumagalaw ang market, halos hindi ang coin na ito</string>
+    <string name="why_fn_market_moves">Gumagalaw ang market sa parehong direksyon</string>
+    <string name="why_fn_market_pulls">Gumagalaw ang market kasabay ng BTC</string>
+    <string name="why_fn_oi_down">Bumaba ang open interest</string>
+    <string name="why_fn_oi_flat">Halos hindi nagbago ang open interest</string>
+    <string name="why_fn_oi_mixed">Halo-halo ang open interest</string>
+    <string name="why_fn_oi_up">Tumaas ang open interest</string>
+    <string name="why_fn_peg_above">%1$s lampas sa 1:1 peg</string>
+    <string name="why_fn_peg_below">%1$s mababa sa 1:1 peg</string>
+    <string name="why_fn_peg_near">malapit sa 1:1 peg</string>
+    <string name="why_fn_range_above_low">mula sa 3-araw na low</string>
+    <string name="why_fn_range_below_high">mula sa 3-araw na high</string>
+    <string name="why_fn_range_near_high">malapit sa 3-araw na high</string>
+    <string name="why_fn_range_near_low">malapit sa 3-araw na low</string>
+    <string name="why_fn_volatility_stronger">mas malakas kaysa karaniwan</string>
+    <string name="why_fn_volatility_tiny">maliit sa absolute na halaga (mas mababa sa %1$s)</string>
+    <string name="why_fn_volatility_usual">gaya ng karaniwan</string>
+    <string name="why_fn_volume_higher">mas mataas kaysa karaniwan</string>
+    <string name="why_fn_volume_lower">mas mababa kaysa karaniwan</string>
+    <string name="why_fn_volume_usual">gaya ng karaniwan</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">Ang coin na ito %1$s, ang BTC %2$s sa 24h — kapansin-pansing hiwalay na galaw.</string>
+    <string name="why_against_ref_text">Ang coin na ito %1$s, %2$s %3$s sa 24h — kapansin-pansing hiwalay na galaw.</string>
+    <string name="why_btc_independent">Kasalukuyang gumagalaw ang %1$s nang hiwalay sa Bitcoin.</string>
+    <string name="why_btc_tight">Kasalukuyang gumagalaw ang %1$s nang malapit sa Bitcoin.</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_coin_only_text">%1$s sa 24h habang tahimik ang market – posibleng may nakakaapekto lang sa coin na ito.</string>
+    <string name="why_leverage_balanced_text">Walang pagdagsa ng long o short position sa futures market.</string>
+    <string name="why_leverage_longs_text">Marami ang tumataya sa pagtaas ng presyo gamit ang hiniram na pera. Nagbabayad ang mga long sa mga short — mas mataas ang panganib ng liquidation kung bumaba ang presyo.</string>
+    <string name="why_leverage_shorts_text">Marami ang tumataya sa pagbaba ng presyo gamit ang hiniram na pera. Nagbabayad ang mga short sa mga long – kung tumaas ang presyo, posible ang short squeeze.</string>
+    <string name="why_market_calm_text">Ang coin na ito: %1$s sa 24h. Hindi gaanong gumagalaw ang market o ang coin.</string>
+    <string name="why_market_leader_text">Bilang pinakamalaking coin, karaniwang sumasabay ang BTC sa galaw ng iba pang market. ETH: %1$s sa 24h.</string>
+    <string name="why_market_leader_text_no_eth">Bilang pinakamalaking coin, karaniwang sumasabay ang BTC sa galaw ng iba pang market.</string>
+    <string name="why_market_similar_text">Ang coin na ito: %1$s sa 24h – kasabay nito, gumagalaw ang market sa parehong direksyon, pero hindi kasinlinaw.</string>
+    <string name="why_market_wide_text">Ang coin na ito: %1$s sa 24h – kasabay nito, malinaw na gumagalaw ang kabuuang market.</string>
+    <string name="why_open_interest_change">Open interest %1$s mula sa huling pagsusuri.</string>
+    <string name="why_peg_text">Stablecoin: kumpara sa 1:1 peg sa quote currency, paglihis %1$s.</string>
+    <string name="why_sentiment_text">Fear &amp; Greed index ng buong crypto market, %1$s kumpara kahapon.</string>
+    <string name="why_sentiment_text_no_change">Fear &amp; Greed index ng buong crypto market.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="one">bumababa nang %1$d oras</item>
+        <item quantity="other">bumababa nang %1$d oras</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="one">tumataas nang %1$d oras</item>
+        <item quantity="other">tumataas nang %1$d oras</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="one">matatag nang %1$d oras</item>
+        <item quantity="other">matatag nang %1$d oras</item>
+    </plurals>
+    <string name="why_volatility_high_text">Huling oras: %1$s — sinukat laban sa karaniwang paggalaw kada oras sa nakalipas na 24 na oras.</string>
+    <string name="why_volatility_normal_text">Huling oras: %1$s — nasa karaniwang saklaw.</string>
+    <string name="why_volatility_tiny_text">Huling oras: %1$s — kakaiba para sa coin na ito, pero maliit sa absolute na halaga.</string>
+    <string name="why_volume_estimated_text">Tinantiya: walang turnover na ibinibigay ang pinagmulang ito, kaya inihahambing ang mga dami ng tine-trade na coin.</string>
+    <string name="why_volume_high_text">Mas maraming trading kaysa karaniwan sa huling oras – may kasamang mataas na volume ang galaw.</string>
+    <string name="why_volume_low_text">Kaunting trading ang nasa likod ng galaw – madalas na hindi gaanong matatag ang ganitong mga galaw.</string>
+    <string name="why_volume_normal_text">Tugma ang trading sa huling oras sa nakalipas na 24 na oras.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">mataas</string>
+    <string name="why_dot_neutral">neutral</string>
+    <string name="why_dot_supports">tugma sa galaw</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">Data noong %1$s</string>
+    <string name="why_fresh_breadth">Lawak ng market: %1$s · %2$s</string>
+    <string name="why_fresh_candles">Mga candle: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">Futures: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="one">open interest kumpara %1$d oras ang nakalipas</item>
+        <item quantity="other">open interest kumpara %1$d oras ang nakalipas</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="one">open interest kumpara %1$d minuto ang nakalipas</item>
+        <item quantity="other">open interest kumpara %1$d minuto ang nakalipas</item>
+    </plurals>
+    <string name="why_fresh_today">ngayon</string>
+    <string name="why_fresh_yesterday">kahapon</string>
+    <string name="why_source_fallback">%1$s (fallback)</string>
+    <string name="why_source_reference">%1$s (reference)</string>
+    <string name="why_sources">Mga pinagmulan: mga hourly candle ng exchange (karamihan Binance), futures data mula sa mga exchange, Fear &amp; Greed mula sa alternative.me.</string>
+    <string name="why_sources_list">Mga pinagmulan: %1$s.</string>
+    <string name="why_src_breadth">%1$s (lawak ng market)</string>
+    <string name="why_src_candles">%1$s (mga candle)</string>
+    <string name="why_src_comparison">%1$s (paghahambing sa market)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (futures)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Funding</string>
+    <string name="factor_spoken_volatility">%1$s beses ng karaniwang paggalaw</string>
+    <string name="factor_spoken_volume">%1$s beses ng normal</string>
+    <string name="factor_volatility">Volatility (1h)</string>
+    <string name="factor_volume">Volume</string>
+</resources>

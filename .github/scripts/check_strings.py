@@ -12,6 +12,8 @@ Android (android/app/src/main/res and the watch app android/wear/src/main/res):
     in every quantity; English needs one + other
   * no unescaped apostrophes, no keys that only exist in a translation
   * every R.string / R.plurals / R.array and @string/ reference in the code exists
+  * Serbian Latin (values-b+sr+Latn, iOS sr-Latn) is exactly the transliteration of Serbian
+    Cyrillic (android/tools/sr_latn.py --check), so the two cannot drift apart
 iOS (ios/):
   * tools/ios_extra_strings.json: every key in every language, same placeholders
   * tools/convert_strings.py validates and regenerates the string catalogs; the result must
@@ -40,8 +42,13 @@ PLURAL_CATS = {
     "ro": {"one", "few", "other"}, "iw": {"one", "two", "other"},
     "fr": {"one", "many", "other"}, "es": {"one", "many", "other"}, "it": {"one", "many", "other"},
     "pt": {"one", "many", "other"}, "pt-rBR": {"one", "many", "other"},
+    "ca": {"one", "many", "other"}, "lt": {"one", "few", "many", "other"}, "sk": {"one", "few", "many", "other"},
+    "hr": {"one", "few", "other"}, "bs": {"one", "few", "other"}, "sr": {"one", "few", "other"},
+    "b+sr+Latn": {"one", "few", "other"},
+    "sl": {"one", "two", "few", "other"}, "lv": {"zero", "one", "other"},
+    "ga": {"one", "two", "few", "many", "other"},
 }
-for _l in ["in", "ja", "ko", "ms", "th", "vi", "zh", "b+zh+Hant"]:
+for _l in ["in", "ja", "ko", "ms", "th", "vi", "zh", "b+zh+Hant", "km", "lo", "my", "b+yue"]:
     PLURAL_CATS[_l] = {"other"}
 
 problems = []
@@ -180,7 +187,7 @@ def check_android(android):
         problem("MISSING", res)
         return 0
     _, locales = check_res(res, "")
-    # The watch app (:wear) has its own texts in the same 33 languages
+    # The watch app (:wear) has its own texts in the same 75 languages
     wear_res = os.path.join(android, "wear", "src", "main", "res")
     if os.path.isdir(wear_res):
         check_res(wear_res, "wear/")
@@ -196,6 +203,18 @@ def check_android(android):
         known = {**values.get("marketdata", {}), **values["wear"]} if m == "wear" else phone
         check_references(android, m, known)
     return locales
+
+
+def check_sr_latn(root):
+    """values-b+sr+Latn and the iOS sr-Latn texts are generated from values-sr; they must be up to date."""
+    tool = os.path.join(root, "android", "tools", "sr_latn.py")
+    if not os.path.isfile(tool):
+        problem("MISSING", os.path.relpath(tool, root))
+        return
+    run = subprocess.run([sys.executable, "-I", tool, "--check", "--root", root],
+                         capture_output=True, text=True, encoding="utf-8")
+    if run.returncode != 0:
+        problem("SERBIAN LATIN OUT OF DATE (run: python3 -I android/tools/sr_latn.py):\n" + run.stdout + run.stderr)
 
 
 def check_ios(ios, android):
@@ -279,6 +298,7 @@ def main():
     args = ap.parse_args()
     android, ios = os.path.join(args.root, "android"), os.path.join(args.root, "ios")
     n_android = check_android(android)
+    check_sr_latn(args.root)
     n_ios = check_ios(ios, android) if os.path.isdir(ios) else 0
     for p in problems:
         print(p)

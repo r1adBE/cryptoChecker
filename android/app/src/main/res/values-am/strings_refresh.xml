@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">ተጨማሪ ውሂብና ባትሪ ይፈልጋል</string>
+    <string name="update_mode_live">ሲከፈት ቀጥታ</string>
+    <string name="update_mode_live_hint">ልውውጡ ቀጥታ ዋጋ በሚያቀርብበት፦ የክትትል ዝርዝሩ ክፍት ሳለ ወዲያውኑ። አለበለዚያ በሚቀጥለው ማምጣት። ሲዘጋ፦ ከየ%1$s በላይ በተደጋጋሚ አይደለም፣ ብዙውን ጊዜ ዘግይቶ።</string>
+    <string name="update_mode_live_hint_ios">ልውውጡ ቀጥታ ዋጋ በሚያቀርብበት፦ የክትትል ዝርዝሩ ክፍት ሳለ ወዲያውኑ። አለበለዚያ በሚቀጥለው ማምጣት። ሲዘጋ፦ iOS ሲፈቅድ፣ አንዳንዴ በሰዓታት ልዩነት። መተግበሪያውን አንሸራተው ከዘጉት፣ እንደገና እስኪከፍቱት ድረስ iOS እነዚህን ፍተሻዎች ያቆማል።</string>
+    <string name="update_mode_recommended">የሚመከር</string>
+    <string name="update_mode_sparsam">ቆጣቢ</string>
+    <string name="update_mode_sparsam_hint">መተግበሪያው ሲዘጋ፣ ከየ%1$s በላይ በተደጋጋሚ አይደለም፣ ብዙውን ጊዜ ዘግይቶ (ማንቂያዎች፣ ዊጀቶች)። ሲከፈት፦ በከፈቱት ቁጥር።</string>
+    <string name="update_mode_sparsam_hint_ios">መተግበሪያው ሲዘጋ፣ መቼ እንደሚፈተሽ iOS ይወስናል (ማንቂያዎች፣ ዊጀቶች)፣ አንዳንዴ በሰዓታት ልዩነት። ሲከፈት፦ በከፈቱት ቁጥር።</string>
+    <string name="update_mode_title">የዝማኔ ድግግሞሽ</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">ማደሱ ተቋርጧል</string>
+    <string name="refresh_sheet_alarms">ማንቂያዎች</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d ተቀስቅሷል</item>
+        <item quantity="other">%1$d ተቀስቅሰዋል</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">ሁሉም ተዘምኗል</string>
+    <string name="refresh_sheet_app_start">የመተግበሪያ ጅምር</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">የጅምላ ጥያቄ %1$s · %2$d ዋጋ</item>
+        <item quantity="other">የጅምላ ጥያቄ %1$s · %2$d ዋጋዎች</item>
+    </plurals>
+    <string name="refresh_sheet_database">የውሂብ ጎታ</string>
+    <string name="refresh_sheet_exchange_unreachable">%1$s ሊደረስበት አልቻለም</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
+        <item quantity="one">%1$d ልውውጥ ሊደረስበት አልቻለም</item>
+        <item quantity="other">%1$d ልውውጦች ሊደረስባቸው አልቻለም</item>
+    </plurals>
+    <string name="refresh_sheet_network">አውታረ መረብ</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d የዋጋ ማሳወቂያ</item>
+        <item quantity="other">%1$d የዋጋ ማሳወቂያዎች</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d ጥንድ</item>
+        <item quantity="other">%1$d ጥንዶች</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d ጥንድ አልተዘመነም</item>
+        <item quantity="other">%1$d ጥንዶች አልተዘመኑም</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">ከ%1$d ጥንድ %2$d</item>
+        <item quantity="other">ከ%1$d ጥንዶች %2$d</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">እስከ %1$s ቆሟል</string>
+    <string name="refresh_sheet_paused_until_reason">እስከ %1$s ቆሟል (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">ውሂብ የለም</string>
+    <string name="refresh_sheet_reason_offline">ግንኙነት የለም</string>
+    <string name="refresh_sheet_reason_rate_limit">በጣም ብዙ ጥያቄዎች</string>
+    <string name="refresh_sheet_reason_server">የአገልጋይ ስህተት</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">ጊዜው አልፏል</string>
+    <string name="refresh_sheet_reason_unavailable">ልውውጡ አይገኝም</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s ሰከንዶች</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_exchanges">ልውውጦች</string>
+    <string name="refresh_sheet_section_steps">ዝርዝር</string>
+    <string name="refresh_sheet_status_failed">አልተዘመነም</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">ሁሉም ተዘምኗል</string>
+    <string name="refresh_sheet_status_partial">በከፊል ተዘምኗል</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">ለመጀመር በመጠባበቅ ላይ</string>
+    <string name="refresh_sheet_widgets">ዊጀቶች</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">የጅምላ ጥያቄ %1$s (አልተሳካም)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d ስህተት</item>
+        <item quantity="other">%1$d ስህተቶች</item>
+    </plurals>
+    <string name="refresh_report_live">ቀጥታ፦ %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d ከእንግዲህ አይገበያይም</item>
+        <item quantity="other">%1$d ከእንግዲህ አይገበያዩም</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d በተናጠል</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">አልተሳካም</string>
+    <string name="check_result_ok">እሺ</string>
+    <string name="check_result_partial">በከፊል</string>
+    <string name="check_result_skipped">ተዘሏል</string>
+    <string name="check_trigger_bgtask">ከበስተጀርባ</string>
+    <string name="check_trigger_exact">በሰዓቱ</string>
+    <string name="check_trigger_foreground">መተግበሪያ</string>
+    <string name="check_trigger_widget">ዊጀት</string>
+    <string name="check_trigger_widget_ios">ዊጀት · ዋጋዎችና የዋጋ ማንቂያዎች</string>
+    <string name="check_trigger_worker">ከበስተጀርባ</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android ፍተሻዎችን ሊያዘገይ ይችላል – ባትሪውን ወደ «ያልተገደበ» ያዘጋጁ</string>
+    <string name="battery_later">በኋላ</string>
+    <string name="battery_message">Android ኃይል ለመቆጠብ የበስተጀርባ ሥራን ያዘገያል — ያኔ ዋጋዎችና ዊጀቶች የሰዓታት ዕድሜ ሊኖራቸው ይችላል። የባትሪ አጠቃቀምን ወደ ያልተገደበ ማዘጋጀት ወቅታዊ ያደርጋቸዋል። ይህንን በማንኛውም ጊዜ በAndroid ቅንብሮች ውስጥ መቀየር ይችላሉ።</string>
+    <string name="battery_open_settings">የባትሪ ቅንብሮችን ይክፈቱ</string>
+    <string name="battery_steps">በመተግበሪያ መረጃው ውስጥ ባትሪ (ወይም የመተግበሪያ ባትሪ አጠቃቀም) ይንኩና ያልተገደበን ይምረጡ።</string>
+    <string name="battery_title">ዋጋዎችን ወቅታዊ ያድርጉ</string>
+    <string name="ios_background_refresh_off">ለዚህ መተግበሪያ የበስተጀርባ መተግበሪያ ማደስ ጠፍቷል። ያለ እሱ ማንቂያዎች የሚፈተሹት መተግበሪያው ክፍት ሳለ ብቻ ነው።</string>
+    <string name="ios_low_power_mode">ዝቅተኛ የኃይል ሁነታ በርቷል። iOS ከበስተጀርባ እምብዛም ስለማይፈትሽ ማንቂያዎች ዘግይተው ሊመጡ ይችላሉ።</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">የልውውጡ መልእክት፦ %1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">ማከማቻው አሁንም ተቆልፏል – በ%1$d ሰ እንደገና ይሞከራል</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="one">ማከማቻው አሁንም ተቆልፏል – በ%1$d ሰከንድ እንደገና ይሞከራል</item>
+        <item quantity="other">ማከማቻው አሁንም ተቆልፏል – በ%1$d ሰከንዶች እንደገና ይሞከራል</item>
+    </plurals>
+    <string name="watchlist_retry_short">በ%1$s እንደገና ይሞከራል</string>
+    <string name="widget_retry_at">በ%1$s እንደገና ይሞከራል</string>
+    <string name="refresh_sheet_wait_attempt">ሙከራ %1$d – የተመሰጠረው ማከማቻ በመጀመሪያው ሙከራ ዝግጁ አልነበረም</string>
+</resources>

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
+    <string name="portfolio_cutoff_export_action">കട്ട്ഓഫ് തീയതി എക്സ്പോർട്ട്…</string>
+    <string name="portfolio_tax_worksheet_action">വർക്ക്ഷീറ്റ്…</string>
+    <string name="portfolio_export_address_unobserved">ഈ തീയതിയിൽ വിലാസം നിരീക്ഷിച്ചിട്ടില്ല – ഉൾപ്പെടുത്തിയിട്ടില്ല</string>
+    <string name="portfolio_export_button">CSV എക്സ്പോർട്ട് ചെയ്യുക</string>
+    <string name="portfolio_export_col_amount">അളവ്</string>
+    <string name="portfolio_export_col_coin">കോയിൻ</string>
+    <string name="portfolio_export_col_note">കുറിപ്പ്</string>
+    <string name="portfolio_export_col_price">വില USDT</string>
+    <string name="portfolio_export_col_rate">നിരക്ക് USDT→%1$s</string>
+    <string name="portfolio_export_col_value">മൂല്യം USDT</string>
+    <string name="portfolio_export_col_value_cur">മൂല്യം %1$s</string>
+    <!-- Inhalt der CSV-Datei -->
+    <string name="portfolio_export_comment"># കട്ട്ഓഫ് തീയതി %1$s, കറൻസി %2$s, %3$s-ലെ വിനിമയ നിരക്ക്</string>
+    <string name="portfolio_export_currency">കറൻസി: %1$s</string>
+    <string name="portfolio_export_date">കട്ട്ഓഫ് തീയതി</string>
+    <string name="portfolio_export_done">എക്സ്പോർട്ട് സംരക്ഷിച്ചു</string>
+    <string name="portfolio_export_estv_note">സമ്പത്ത് നികുതിക്ക്, ലിസ്റ്റ് ചെയ്തിടത്ത് ESTV വില ലിസ്റ്റ് %1$s-ലെ ഔദ്യോഗിക വർഷാന്ത്യ മൂല്യങ്ങൾ ബാധകം: %2$s</string>
+    <string name="portfolio_export_failed">എക്സ്പോർട്ട് പരാജയപ്പെട്ടു</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">എക്സ്പോർട്ട് പരാജയപ്പെട്ടു: ഫയൽ എഴുതാനായില്ല – സ്റ്റോറേജ് സ്ഥാനം ഇല്ല അല്ലെങ്കിൽ എഴുതാനാകില്ല</string>
+    <string name="portfolio_export_failed_prices">എക്സ്പോർട്ട് പരാജയപ്പെട്ടു: വിലകൾ ലോഡ് ചെയ്യാനായില്ല – കണക്ഷനില്ല അല്ലെങ്കിൽ എക്സ്ചേഞ്ച് പ്രതികരിക്കുന്നില്ല</string>
+    <string name="portfolio_export_from_address">വിലാസത്തിൽ നിന്ന് – വാങ്ങൽ വിലയില്ല</string>
+    <string name="portfolio_export_hint">തിരഞ്ഞെടുത്ത ദിവസത്തിന്റെ അവസാനത്തിലെ ഹോൾഡിംഗുകൾ, USDT-ൽ ദിവസാന്ത്യ ക്ലോസിംഗിൽ (UTC) മൂല്യനിർണ്ണയം ചെയ്ത് ആ ദിവസത്തെ ECB റഫറൻസ് നിരക്കിൽ പരിവർത്തനം ചെയ്തത്. “ഇതിലേക്ക് പരിവർത്തനം ചെയ്യുക” ഉപയോഗിച്ച് കറൻസി മാറ്റുക.</string>
+    <string name="portfolio_export_incomplete">അപൂർണ്ണം</string>
+    <string name="portfolio_export_no_fx">വിനിമയ നിരക്കില്ല</string>
+    <string name="portfolio_export_no_price">വിലയില്ല</string>
+    <string name="portfolio_export_running">ചരിത്രപരമായ വിലകൾ ലഭ്യമാക്കുന്നു…</string>
+    <string name="portfolio_export_title">കട്ട്ഓഫ് തീയതി എക്സ്പോർട്ട്</string>
+    <string name="portfolio_export_today_hint">ഇന്ന് ഇതുവരെ കഴിഞ്ഞിട്ടില്ല: ദിവസാന്ത്യ ക്ലോസിംഗിന് പകരം നിലവിലെ വില ഉപയോഗിക്കുന്നു.</string>
+    <string name="portfolio_export_total">ആകെ</string>
+    <string name="portfolio_export_unchecked">പരിശോധിച്ചിട്ടില്ല (യോജിക്കുന്ന വിലയില്ല)</string>
+
+    <!-- Steuer-Export (Arbeitspapier) -->
+    <string name="tax_export_adjustment">superficial loss (ACB-യിലേക്ക് ചേർത്തു)</string>
+    <string name="tax_export_at_wallet_note">ഓസ്ട്രിയ: ഓരോ കോയിനിനും വാലറ്റിനും (എക്സ്ചേഞ്ച്) ചലിക്കുന്ന ശരാശരി – കൈമാറ്റങ്ങൾ ചെലവ് കൂടെ കൊണ്ടുപോകുന്നു – റിവാർഡുകൾ ഏറ്റെടുക്കൽ ചെലവ് 0-ൽ – 2021 മാർച്ച് 1 മുതലുള്ള ഹോൾഡിംഗുകൾ ഫീസ് ഇല്ലാതെ (കിഴിക്കാനാകില്ല) – ലെൻഡിംഗ് പലിശ ലഭിച്ചപ്പോഴുള്ള മൂല്യത്തിൽ (27.5 ശതമാനത്തിൽ വരുമാനം).</string>
+    <string name="tax_export_avg_cost_rates">വാങ്ങൽ തീയതിയിലെ നിരക്കുകളിലുള്ള ചെലവ് (ശരാശരി)</string>
+    <string name="tax_export_ch_wealth_not_calculated">സമ്പത്ത് നികുതി കണക്കാക്കിയിട്ടില്ല – ESTV വില ലിസ്റ്റ്: %1$s</string>
+    <string name="tax_export_col_acquired">ഏറ്റെടുത്തത്</string>
+    <string name="tax_export_col_adjustment">അനുവദിക്കാത്ത നഷ്ടം %1$s</string>
+    <string name="tax_export_col_cost">ചെലവ് %1$s</string>
+    <string name="tax_export_col_date">തീയതി</string>
+    <string name="tax_export_col_days">കൈവശം വച്ച ദിവസങ്ങൾ</string>
+    <string name="tax_export_col_gain">ലാഭം %1$s</string>
+    <string name="tax_export_col_gross">ഫീസിന് മുമ്പുള്ള വില %1$s</string>
+    <string name="tax_export_col_long_term">&gt; 1 വർഷം കൈവശം</string>
+    <string name="tax_export_col_portfolio_value">പോർട്ട്ഫോളിയോ മൂല്യം %1$s</string>
+    <string name="tax_export_col_proceeds">വരുമാനം %1$s</string>
+    <string name="tax_export_col_sold">വിറ്റത്</string>
+    <string name="tax_export_cost_incomplete">ആകെ ഏറ്റെടുക്കൽ ചെലവ് അപൂർണ്ണം</string>
+    <string name="tax_export_cost_missing">വാങ്ങൽ വില ഇല്ല</string>
+    <string name="tax_export_fee_consumed">ഫീസ് മുഴുവൻ വരവും എടുക്കുന്നു</string>
+    <string name="tax_export_fee_leg">മറ്റ് കോയിനിലുള്ള ഫീസ്</string>
+    <string name="tax_export_fee_row">ഫീസ്</string>
+    <string name="tax_export_fee_value_missing">മറ്റൊരു കോയിനിലുള്ള ഫീസിന് മൂല്യമില്ല</string>
+    <string name="tax_export_gains">സാക്ഷാത്കരിച്ച ഒഴിവാക്കലുകൾ (CSV)</string>
+    <string name="tax_export_gains_title">സാക്ഷാത്കരിച്ച ഒഴിവാക്കലുകൾ %1$s</string>
+    <string name="tax_export_gift">സമ്മാനം</string>
+    <string name="tax_export_holdings_cutoff">%1$s-ലെ ഹോൾഡിംഗുകൾ (CSV)</string>
+    <string name="tax_export_holdings_title">%1$s-ലെ ഹോൾഡിംഗുകൾ</string>
+    <string name="tax_export_income">വരുമാനം (CSV)</string>
+    <string name="tax_export_income_title">വരുമാനം %1$s</string>
+    <string name="tax_export_info_template">ടെംപ്ലേറ്റ്: %1$s · രീതി: %2$s · നികുതി വർഷം: %3$s · കറൻസി: %4$s · Crypto Checker %5$s</string>
+    <string name="tax_export_lost_fee_cost">പണമടച്ച ലോട്ട് ഇല്ലാത്ത നെറ്റ്‌വർക്ക് ഫീസ് ചെലവ്</string>
+    <string name="tax_export_match_pool">Section 104 പൂൾ</string>
+    <string name="tax_export_match_same_day">അതേ ദിവസം (HMRC)</string>
+    <string name="tax_export_match_thirty_day">30 ദിവസ നിയമം (HMRC)</string>
+    <string name="tax_export_method_change_warning">രീതിയോ ടെംപ്ലേറ്റോ മാറ്റുന്നത് മുൻ വർഷങ്ങളും വീണ്ടും കണക്കാക്കും – നിങ്ങൾ ഇതിനകം സമർപ്പിച്ചതുമായി താരതമ്യം ചെയ്യുക.</string>
+    <string name="tax_export_method_overridden">ടെംപ്ലേറ്റ് %1$s കണക്കാക്കുന്നു – %2$s അല്ല</string>
+    <string name="tax_export_new_holding">2021 മാർച്ച് 1 മുതൽ ഏറ്റെടുത്തത്</string>
+    <string name="tax_export_no">ഇല്ല</string>
+    <string name="tax_export_old_holding">2021 മാർച്ച് 1-ന് മുമ്പ് ഏറ്റെടുത്തത്</string>
+    <string name="tax_export_oversold">രേഖപ്പെടുത്തിയതിനെക്കാൾ കൂടുതൽ വിറ്റു</string>
+    <string name="tax_export_payment">ക്രിപ്റ്റോ ഉപയോഗിച്ചുള്ള പേയ്‌മെന്റ്</string>
+    <string name="tax_export_period">%1$s – %2$s</string>
+    <string name="tax_export_proceeds_missing">വിൽപ്പന വില ഇല്ല</string>
+    <string name="tax_export_proceeds_without_cost">വാങ്ങൽ വിലയില്ലാത്ത വരുമാനം</string>
+    <string name="tax_export_realized_differs">നികുതി CSV ‘സാക്ഷാത്കരിച്ച’ എന്നതിൽ നിന്ന് വ്യത്യസ്തമാകാം (രാജ്യത്തിന്റെ നികുതി നിയമങ്ങൾ).</string>
+    <string name="tax_export_rule">&gt; 1 വർഷം: വാങ്ങൽ തീയതി + 1 കലണ്ടർ വർഷത്തിന് ശേഷം വിറ്റത്. തീയതികൾ പ്രാദേശിക സമയത്തിൽ. നിരക്കുകൾ: ഇടപാട് ദിവസത്തെ ECB പ്രതിദിന നിരക്ക്; അതില്ലെങ്കിൽ, 7 ദിവസം മുമ്പ് വരെയുള്ള അവസാന നിരക്ക്.</string>
+    <string name="tax_export_rules_date">നിയമങ്ങൾ ഈ തീയതി പ്രകാരം: %1$s</string>
+    <string name="tax_export_rules_stale">നിയമങ്ങൾ %1$s-ലേതാണ് – %2$s-ന് നിരക്കുകളും ഇളവുകളും മാറിയിരിക്കാം. മൂല്യങ്ങൾ പരിശോധിക്കുക.</string>
+    <string name="tax_export_spouse_gift">ജീവിതപങ്കാളിക്ക്/പങ്കാളിക്ക് – ലാഭമില്ല, നഷ്ടമില്ല</string>
+    <string name="tax_export_summary">വാർഷിക സംഗ്രഹം %1$s (CSV)</string>
+    <string name="tax_export_swap">സ്വാപ്പ്</string>
+    <string name="tax_export_tax_year">നികുതി വർഷം</string>
+    <string name="tax_export_transfer_fee_info">USDT/പണത്തിലുള്ള കൈമാറ്റ ഫീസ് – നഷ്ടമല്ല, ചെലവുവിലയിൽ ഇല്ല, വിവരത്തിന് മാത്രം</string>
+    <string name="tax_export_unassigned_fee">ഫീസ് നിയോഗിച്ചിട്ടില്ല – ചെലവുവില അജ്ഞാതം</string>
+    <string name="tax_export_usdt_usd_note">USDT, USDT/USD ദിവസാന്ത്യ ക്ലോസിംഗിൽ പരിവർത്തനം ചെയ്തു; ക്ലോസിംഗ് ഇല്ലാത്തിടത്ത് 1 USD (ഓരോ വരിയിലും അടയാളപ്പെടുത്തി)</string>
+    <string name="tax_export_value_estimated">മൂല്യം കണക്കാക്കിയത് (ദിവസാന്ത്യ ക്ലോസിംഗ്)</string>
+    <string name="tax_export_value_missing">ലഭിച്ചപ്പോഴുള്ള മൂല്യം ഇല്ല</string>
+    <string name="tax_export_wallet">വാലറ്റ്: %1$s</string>
+    <string name="tax_export_wallet_unspecified">വ്യക്തമാക്കിയിട്ടില്ല</string>
+    <string name="tax_export_withdrawal_fee">പിൻവലിക്കൽ ഫീസ്</string>
+    <string name="tax_export_withdrawal_fee_info">USDT/പണത്തിലുള്ള പിൻവലിക്കൽ ഫീസ് – നഷ്ടമല്ല, വിവരത്തിന് മാത്രം</string>
+    <string name="tax_export_workpaper_disclaimer">നികുതി വർക്ക്ഷീറ്റ് – നികുതി റിട്ടേണോ നികുതി ഉപദേശമോ അല്ല</string>
+    <string name="tax_export_workpaper_title">വർക്ക്ഷീറ്റ്</string>
+    <string name="tax_export_year_local_zone">തീയതികൾ പ്രാദേശിക സമയത്തിൽ (%1$s)</string>
+    <string name="tax_export_yes">അതെ</string>
+
+    <!-- Steuer-Export: Zeilen und Spalten -->
+    <string name="tax_line_at_interest">ലെൻഡിംഗ് പലിശ (ലഭിച്ചപ്പോഴുള്ള മൂല്യം)</string>
+    <string name="tax_line_at_old_long">2021 മാർച്ച് 1-ന് മുമ്പ് ഏറ്റെടുത്തത് – &gt; 1 വർഷം കൈവശം: സാധാരണയായി നികുതി ബാധകമല്ല – പരിശോധിക്കുക</string>
+    <string name="tax_line_at_rate">പ്രത്യേക നിരക്ക് 27.5 ശതമാനം: 2021 മാർച്ച് 1 മുതൽ ഏറ്റെടുത്ത് 2022 മാർച്ച് 1 മുതൽ വിറ്റതിന്റെ അറ്റം + പലിശ</string>
+    <string name="tax_line_au_discounted">നഷ്ടങ്ങൾക്കും 50 ശതമാനം ഇളവിനും ശേഷമുള്ള അറ്റ മൂലധന ലാഭം</string>
+    <string name="tax_line_ca_taxable">നികുതി ബാധകമായ മൂലധന ലാഭം (ഉൾപ്പെടുത്തൽ നിരക്ക് 1/2)</string>
+    <string name="tax_line_ch_income">റിവാർഡുകൾ ലിസ്റ്റ് ചെയ്തിരിക്കുന്നു – അവയുടെ പരിഗണനയ്ക്ക് ESTV വർക്കിംഗ് പേപ്പർ കാണുക</string>
+    <string name="tax_line_ch_private">സ്വകാര്യ ആസ്തികളിലെ മൂലധന ലാഭം: കണക്കാക്കിയിട്ടില്ല – വർഗ്ഗീകരണത്തിന് ESTV കാണുക</string>
+    <string name="tax_line_ch_wealth">സമ്പത്ത് നികുതി: കണക്കാക്കിയിട്ടില്ല – ഹോൾഡിംഗ്സ് CSV ഡിസംബർ 31-ലെ എക്സ്ചേഞ്ച് വില × USD/CHF ഉപയോഗിക്കുന്നു – ഔദ്യോഗിക നികുതി മൂല്യങ്ങൾ: ESTV വില ലിസ്റ്റ്</string>
+    <string name="tax_line_de_long">&gt; 1 വർഷം കൈവശം: § 23 EStG പ്രകാരം സാധാരണയായി നികുതി ബാധകമല്ല – പരിശോധിക്കുക</string>
+    <string name="tax_line_denied_loss">അനുവദിക്കാത്ത നഷ്ടങ്ങൾ (superficial loss)</string>
+    <string name="tax_line_fr_outflow">വിൽപ്പനയില്ലാത്ത പോക്കുകൾ (പിൻവലിക്കലുകൾ) – ആകെ ഏറ്റെടുക്കൽ ചെലവ് ആനുപാതികമായി കുറച്ചു</string>
+    <string name="tax_line_fr_rate">ഫ്ലാറ്റ് നിരക്ക് 12.8 ശതമാനവും സാമൂഹിക സംഭാവനകളും (അല്ലെങ്കിൽ ഓപ്ഷനിൽ സ്കെയിൽ)</string>
+    <string name="tax_line_fr_threshold">വർഷം €305 വരെയുള്ള ഒഴിവാക്കലുകൾ: സാധാരണയായി ഒഴിവാക്കപ്പെട്ടത് (വിൽപ്പന വിലകളുടെ ആകെ) – പരിശോധിക്കുക</string>
+    <string name="tax_line_gains">ലാഭങ്ങൾ</string>
+    <string name="tax_line_income">വരുമാനം (ലഭിച്ചപ്പോഴുള്ള മൂല്യത്തിലെ റിവാർഡുകൾ)</string>
+    <string name="tax_line_jp_misc">വിവിധ വരുമാനം (雑所得): അറ്റ ലാഭം + വരുമാനം</string>
+    <string name="tax_line_long_net">അറ്റം – &gt; 1 വർഷം കൈവശം</string>
+    <string name="tax_line_losses">നഷ്ടങ്ങൾ</string>
+    <string name="tax_line_net">അറ്റ ലാഭം/നഷ്ടം</string>
+    <string name="tax_line_new_net">അറ്റം – 2021 മാർച്ച് 1 മുതൽ ഏറ്റെടുത്ത്, 2022 മാർച്ച് 1 മുതൽ വിറ്റത്</string>
+    <string name="tax_line_old_long_net">അറ്റം – 2021 മാർച്ച് 1-ന് മുമ്പ് ഏറ്റെടുത്തത് – &gt; 1 വർഷം കൈവശം</string>
+    <string name="tax_line_old_short_net">അറ്റം – ഊഹക്കച്ചവട ഇടപാടുകൾ (പഴയ നിയമം): 2021 മാർച്ച് 1-ന് മുമ്പ് ഏറ്റെടുത്ത് ≤ 1 വർഷം കൈവശം വച്ചത്, അല്ലെങ്കിൽ 2022 മാർച്ച് 1-ന് മുമ്പ് വിറ്റത്</string>
+    <string name="tax_line_proceeds">വരുമാനം</string>
+    <string name="tax_line_short_net">അറ്റം – ≤ 1 വർഷം കൈവശം</string>
+    <string name="tax_line_transfer_fees">കൈമാറ്റ ഫീസുകൾ (സ്വന്തം വാലറ്റുകൾ)</string>
+    <string name="tax_line_uk_after_exempt">ഒഴിവ് തുകയ്ക്ക് മുകളിലുള്ള അറ്റ ലാഭം (ക്രിപ്റ്റോ മാത്രം)</string>
+    <string name="tax_line_uk_exempt">വാർഷിക ഒഴിവ് തുക – എല്ലാ ഒഴിവാക്കലുകൾക്കും ഒരുമിച്ച് ബാധകം, ഇവിടെ പൂർണ്ണമായി പ്രയോഗിച്ചു</string>
+    <string name="tax_line_us_terms">ഹ്രസ്വകാലം (≤ 1 വർഷം): സാധാരണ നിരക്കുകൾ – ദീർഘകാലം (&gt; 1 വർഷം): മൂലധന ലാഭ നിരക്കുകൾ</string>
+    <string name="tax_line_withdrawal_fees">പിൻവലിക്കൽ ഫീസുകൾ</string>
+
+    <!-- Steuer Deutschland -->
+    <string name="tax_de_below">പരിധിക്ക് താഴെ</string>
+    <string name="tax_de_col_item">ഇനം</string>
+    <string name="tax_de_disclaimer">മാർഗ്ഗനിർദ്ദേശത്തിന് മാത്രം – നികുതി റിട്ടേണോ നികുതി ഉപദേശമോ അല്ല.</string>
+    <string name="tax_de_explain_below">%1$s വരെ: പരിധിക്ക് താഴെ (മാർഗ്ഗനിർദ്ദേശത്തിന്).</string>
+    <string name="tax_de_explain_loss">അറ്റ നഷ്ടം: ഈ വിൽപ്പനകൾക്ക് നികുതിയില്ല. § 23 EStG പ്രകാരമുള്ള നഷ്ടങ്ങൾ സ്വകാര്യ വിൽപ്പനകളിൽ നിന്നുള്ള ലാഭങ്ങളുമായി മാത്രമേ തട്ടിക്കിഴിക്കാനാകൂ – അതേ വർഷം, അല്ലെങ്കിൽ മുൻ വർഷത്തിലേക്ക് പിന്നോട്ടും പിന്നീടുള്ള വർഷങ്ങളിലേക്ക് മുന്നോട്ടും കൊണ്ടുപോയി (§ 23 para. 3, § 10d EStG). വിലയിരുത്തപ്പെടാൻ നിങ്ങളുടെ നികുതി റിട്ടേണിൽ നഷ്ടം പ്രഖ്യാപിക്കുക.</string>
+    <string name="tax_de_explain_reached">%1$s മുതൽ മുഴുവൻ തുകയും കണക്കാക്കും (ഒഴിവ് പരിധി – ഇളവ് തുകയല്ല).</string>
+    <string name="tax_de_explain_unknown">പരിശോധിക്കാനാകില്ല: വിനിമയ നിരക്കുകൾ / വാങ്ങൽ വിലകൾ അല്ലെങ്കിൽ കൈവശ കാലയളവുകൾ ഇല്ല.</string>
+    <string name="tax_de_income_limit">സേവനങ്ങൾക്കുള്ള ഒഴിവ് പരിധി (§ 22 No. 3 EStG)</string>
+    <string name="tax_de_limit_scope">പരിധികൾ വർഷത്തിലെ എല്ലാ സ്വകാര്യ വിൽപ്പനകൾക്കും സേവനങ്ങൾക്കും ഒരുമിച്ച് ബാധകം – ആപ്പിന് പുറത്തുള്ളവ ഉൾപ്പെടെ.</string>
+    <string name="tax_de_loading">കണക്കാക്കുന്നു…</string>
+    <string name="tax_de_long_gains">ലാഭങ്ങൾ – &gt; 1 വർഷം കൈവശം</string>
+    <string name="tax_de_long_losses">നഷ്ടങ്ങൾ – &gt; 1 വർഷം കൈവശം</string>
+    <string name="tax_de_loss">അറ്റ നഷ്ടം – സ്വകാര്യ വിൽപ്പനകളിൽ നിന്നുള്ള ലാഭങ്ങളുമായി മാത്രം തട്ടിക്കിഴിക്കാം (§ 23 EStG)</string>
+    <string name="tax_de_private_limit">സ്വകാര്യ വിൽപ്പനകൾക്കുള്ള ഒഴിവ് പരിധി (§ 23 EStG)</string>
+    <string name="tax_de_reached">പരിധിയിലെത്തി – സാധാരണയായി മുഴുവൻ തുകയും കണക്കാക്കും – പരിശോധിക്കുക</string>
+    <string name="tax_de_short_gains">ലാഭങ്ങൾ – ≤ 1 വർഷം കൈവശം</string>
+    <string name="tax_de_short_losses">നഷ്ടങ്ങൾ – ≤ 1 വർഷം കൈവശം</string>
+    <string name="tax_de_unclassified">കൈവശ കാലയളവ് അജ്ഞാതം</string>
+    <string name="tax_de_unknown">പരിശോധിക്കാനാകില്ല</string>
+
+    <!-- Steuer-Vorlagen je Land -->
+    <string name="tax_template_at">ഓസ്ട്രിയ</string>
+    <string name="tax_template_au">ഓസ്ട്രേലിയ</string>
+    <string name="tax_template_beta">ബീറ്റ</string>
+    <string name="tax_template_beta_note">ബീറ്റ: രാജ്യ നിയമങ്ങൾ ലളിതമാക്കിയത്, നികുതി റിട്ടേൺ സമർപ്പിക്കുന്നതിന് മുമ്പ് പരിശോധിക്കുക</string>
+    <string name="tax_template_ca">കാനഡ</string>
+    <string name="tax_template_ch">സ്വിറ്റ്സർലൻഡ്</string>
+    <string name="tax_template_confirm_text">ബീറ്റ, ലളിതമാക്കിയ നിയമങ്ങൾ, മറ്റ് പ്ലാറ്റ്‌ഫോമുകളിൽ നിന്നുള്ള ഇടപാടുകൾ ഇല്ല – നികുതി റിട്ടേൺ സമർപ്പിക്കുന്നതിന് മുമ്പ് പരിശോധിക്കുക.</string>
+    <string name="tax_template_confirm_title">നികുതി ടെംപ്ലേറ്റ് (ബീറ്റ)</string>
+    <string name="tax_template_current">ടെംപ്ലേറ്റ്: %1$s · രീതി: %2$s · കറൻസി: %3$s</string>
+    <string name="tax_template_de">ജർമ്മനി</string>
+    <string name="tax_template_fr">ഫ്രാൻസ്</string>
+    <string name="tax_template_hint">മാർഗ്ഗനിർദ്ദേശത്തിന് മാത്രം: നികുതി വർക്ക്ഷീറ്റിന്റെ രീതി, നികുതി വർഷം, സംഗ്രഹം എന്നിവ നിശ്ചയിക്കുന്നു. പോർട്ട്ഫോളിയോ കാർഡ് നിഷ്പക്ഷമായി തുടരും – സമ്മാനങ്ങളും കൈമാറ്റ ഫീസുകളും വർക്ക്ഷീറ്റിൽ നിന്ന് വ്യത്യസ്തമാകാം.</string>
+    <string name="tax_template_jp">ജപ്പാൻ</string>
+    <string name="tax_template_neutral">നിഷ്പക്ഷം (എല്ലാ രാജ്യങ്ങളും)</string>
+    <string name="tax_template_suggestion">നിങ്ങളുടെ പ്രദേശത്തിനുള്ള നിർദ്ദേശം: %1$s</string>
+    <string name="tax_template_title">നികുതി ടെംപ്ലേറ്റ്</string>
+    <string name="tax_template_uk">യുണൈറ്റഡ് കിംഗ്ഡം</string>
+    <string name="tax_template_us">USA</string>
+    <string name="tax_template_use">%1$s ഉപയോഗിക്കുക</string>
+
+    <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
+    <string name="tax_method_at">പഴയ/പുതിയ ഹോൾഡിംഗുകൾ – ചലിക്കുന്ന ശരാശരി</string>
+    <string name="tax_method_ca_acb">ACB ശരാശരി ചെലവ് (superficial loss)</string>
+    <string name="tax_method_fr_pta">ആകെ ഏറ്റെടുക്കൽ വില (art. 150 VH bis)</string>
+    <string name="tax_method_jp_total">മൊത്തം ശരാശരി (総平均法)</string>
+    <string name="tax_method_uk_pool">Section 104 പൂൾ (അതേ ദിവസം / 30 ദിവസം)</string>
+    <string name="tax_note_at">ഓരോ കോയിനിനും വാലറ്റിനും ചലിക്കുന്ന ശരാശരി – വാലറ്റുകൾക്ക് കുറുകെയല്ല (KryptowährungsVO § 2). റിവാർഡുകൾ ഏറ്റെടുക്കൽ ചെലവ് 0-ൽ പുതിയ ഹോൾഡിംഗുകളിൽ പ്രവേശിക്കുന്നു (BMF: സ്റ്റേക്കിംഗ് / എയർഡ്രോപ്പുകൾ) – വരുമാന ഫയൽ അവയെ ലഭിച്ചപ്പോഴുള്ള മൂല്യത്തിൽ ലിസ്റ്റ് ചെയ്യുന്നു. 2021 മാർച്ച് 1 മുതൽ ഏറ്റെടുത്ത ഹോൾഡിംഗുകൾക്ക് ഫീസുകൾ കിഴിക്കാനാകില്ല (§ 27a(4) no. 2, § 20(2) EStG): ചെലവും വരുമാനവും ഫീസ് ഇല്ലാതെ. ലെൻഡിംഗ് പലിശ (CSV ഇമ്പോർട്ടിൽ നിന്നോ കുറിപ്പിൽ നിന്നോ ഉള്ള തരം) ലഭിക്കുമ്പോൾ 27.5 ശതമാനത്തിൽ വരുമാനമാണ്, ആ മൂല്യം ഏറ്റെടുക്കൽ ചെലവായി നിലനിർത്തുന്നു.</string>
+    <string name="tax_note_at_staking">ഇതിനകം കൈവശമുള്ള കോയിനുകൾ ഉപയോഗിച്ചുള്ള സ്റ്റേക്കിംഗും എയർഡ്രോപ്പുകളും: ലഭിച്ചപ്പോഴുള്ള മൂല്യം നികുതിക്ക് പ്രസക്തമല്ല – നിയമപ്രകാരം ഏറ്റെടുക്കൽ ചെലവ് 0 ആണ് (§ 27b Abs. 2 EStG; BMF “Kryptowährungen”). വിൽക്കുമ്പോൾ മാത്രമേ നികുതി ബാധകമാകൂ.</string>
+    <string name="tax_note_fr">ക്രിപ്റ്റോയിൽ അടച്ച വിൽപ്പനകളും ഫീസുകളും ഒഴിവാക്കലുകളാണ് – സ്വാപ്പുകൾ മാറ്റിവയ്ക്കുന്നു. ഒരു വിൽപ്പനയിലെ ക്രിപ്റ്റോ ഫീസ് ഫീസിന് മുമ്പുള്ള വിലയിൽ കണക്കാക്കും – അല്ലെങ്കിൽ അതിന്റെ മൂല്യത്തിൽ അത് സ്വന്തം ഒഴിവാക്കലാണ്. പോർട്ട്ഫോളിയോ മൂല്യം ദിവസാന്ത്യ ക്ലോസിംഗുകളിൽ നിന്ന് – ക്ലോസിംഗ് ഇല്ലെങ്കിൽ ചെലവ് ശൂന്യമായി തുടരും.</string>
+    <string name="tax_note_network_fee">ക്രിപ്റ്റോയിൽ അടച്ച നെറ്റ്‌വർക്ക് ഫീസ് (സ്വന്തം വാലറ്റിലേക്കുള്ള കൈമാറ്റം, പിൻവലിക്കൽ) ഫീസ് കോയിനുകളുടെ മാർക്കറ്റ് മൂല്യത്തിലുള്ള ഒഴിവാക്കലാണ് – ആ കോയിനുകളിൽ മാത്രം ലാഭമോ നഷ്ടമോ, മുഴുവൻ ഫീസിന്റെ നഷ്ടമല്ല (%1$s). രേഖപ്പെടുത്തിയ വിലയില്ലെങ്കിൽ: അതേ ദിവസത്തെ ദിവസാന്ത്യ ക്ലോസിംഗ് (UTC); ക്ലോസിംഗ് ഇല്ലെങ്കിൽ വരുമാനം ശൂന്യമായി തുടരും.</string>
+    <string name="tax_note_specific_id">Specific identification പിന്തുണയ്ക്കുന്നില്ല – FIFO ഉപയോഗിക്കുന്നു.</string>
+    <string name="tax_note_spouse_gift">“ജീവിതപങ്കാളിക്ക് / സിവിൽ പങ്കാളിക്ക്” എന്ന് അടയാളപ്പെടുത്തിയ സമ്മാനം ലാഭമോ നഷ്ടമോ അല്ല: വരുമാനം = നിങ്ങളുടെ ചെലവുവില, അത് നിങ്ങളുടെ പങ്കാളി ഏറ്റെടുക്കുന്നു (%1$s).</string>
+    <string name="tax_note_stable_swap">നിങ്ങൾ സൂക്ഷിക്കുന്ന ഒരു സ്റ്റേബിൾകോയിനിന് (USDT/USDC/DAI …) ക്രിപ്റ്റോ വിൽക്കുന്നത് ഇവിടെ ക്രിപ്റ്റോ-ടു-ക്രിപ്റ്റോ ആണ്, നികുതി ബാധകമല്ല – അതിനെ സ്റ്റേബിൾകോയിനിലേക്കുള്ള സ്വാപ്പായി രേഖപ്പെടുത്തുക. യൂറോയ്ക്കുള്ള വിൽപ്പനയ്ക്ക് മാത്രമേ നികുതിയുള്ളൂ – “വിൽപ്പന” യൂറോയ്ക്കുള്ള വിൽപ്പനയായി കണക്കാക്കും.</string>
+    <string name="tax_note_transfer_fee">സ്വന്തം വാലറ്റുകൾക്കിടയിലെ കൈമാറ്റത്തിലെ USDT അല്ലെങ്കിൽ പണ ഫീസിനും ഇത് ബാധകമാണ്: അത് ചെലവുവിലയിൽ ചേർക്കില്ല, വിവരത്തിന് മാത്രമായി ലിസ്റ്റ് ചെയ്യുന്നു.</string>
+    <string name="tax_note_uk">HMRC പ്രകാരമുള്ള പൊരുത്തപ്പെടുത്തൽ: അതേ ദിവസം → അടുത്ത 30 ദിവസം → Section 104 പൂൾ.</string>
+    <string name="tax_note_us_transition">പരിവർത്തനം 2025 ജനുവരി 1 (Rev. Proc. 2024-28 safe harbor): മുൻ വർഷങ്ങൾ എല്ലാ വാലറ്റുകളിലുമായി FIFO ഉപയോഗിച്ചിരുന്നെങ്കിൽ, 2024 ഡിസംബർ 31-ലെ ബാക്കി ലോട്ടുകൾ കോയിനുകൾ കൈവശമുള്ള വാലറ്റുകളിലേക്ക് പോകുന്നു – ഏറ്റവും പഴയ കോയിനുകളുള്ള വാലറ്റിന് ഏറ്റവും പഴയ ചെലവുവില ലഭിക്കും. ഈ വിതരണം ഒരു ആപ്പ് നിയമമാണ് – നിങ്ങളുടെ സ്വന്തം രേഖകളുമായി ഒത്തുനോക്കുക.</string>
+    <string name="tax_note_us_wallet">2025 നികുതി വർഷം മുതൽ IRS ഓരോ വാലറ്റിനും എക്സ്ചേഞ്ചിനും ചെലവുവില ആവശ്യപ്പെടുന്നു (Rev. Proc. 2024-28): എക്സ്പോർട്ട് 2025 മുതൽ ഓരോ വാലറ്റിനും FIFO ഉപയോഗിക്കുന്നു – മുൻ വർഷങ്ങൾക്ക് എല്ലാ വാലറ്റുകളിലുമായി FIFO, അല്ലെങ്കിൽ അത് നിങ്ങളുടെ ചെലവ് രീതിയാണെങ്കിൽ ഓരോ വാലറ്റിനും FIFO.</string>
+    <string name="tax_note_withdrawal_fee">USDT-ലോ പണത്തിലോ ഉള്ള പിൻവലിക്കൽ ഫീസ് നഷ്ടമല്ല: പണ ഫീസ് കിഴിക്കാവുന്ന ചെലവല്ല, USDT ഫീസ് ലാഭമില്ലാത്ത മുഖവിലയിലെ ഒഴിവാക്കലാണ് – വിവരത്തിന് മാത്രമായി ലിസ്റ്റ് ചെയ്യുന്നു (%1$s).</string>
+    <string name="tax_summary_at_interest_income">കണക്കാക്കുന്നു: 27.5 ശതമാനം പ്രത്യേക നിരക്കിൽ ലഭിക്കുമ്പോഴുള്ള വരുമാനം (§ 27b(2) no. 1 EStG / BMF) – കോയിനുകൾ ഈ മൂല്യം ഏറ്റെടുക്കൽ ചെലവായി നിലനിർത്തുന്നു</string>
+    <string name="tax_summary_at_reward_info">വിവരത്തിന് മാത്രം – ഒരു ആകെത്തുകയുടെയും ഭാഗമല്ല: റിവാർഡുകൾ ഏറ്റെടുക്കൽ ചെലവ് 0-ൽ പുതിയ ഹോൾഡിംഗുകളിൽ പ്രവേശിക്കുന്നു, വിൽക്കുമ്പോൾ മാത്രം നികുതി (ഇതിനകം ലാഭങ്ങളിൽ ഉണ്ട്) – § 27b para. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">2022 ജനുവരി 1–ഫെബ്രുവരി 28: 27.5 ശതമാനത്തിനുള്ള ഓപ്ഷൻ സാധ്യമാണ്</string>
+    <string name="tax_summary_at_withdrawal_fee">പിൻവലിക്കൽ ഫീസ് – പുതിയ ഹോൾഡിംഗുകളുമായി തട്ടിക്കിഴിക്കുന്നില്ല (പ്രത്യേക നിരക്കിൽ ചെലവുകൾ കിഴിക്കാനാകില്ല, § 20(2) EStG)</string>
+    <string name="tax_summary_ch_fifo_info">വിവരത്തിന് മാത്രം – ആപ്പിന്റെ FIFO കണക്കുകൂട്ടൽ – വർഗ്ഗീകരിച്ചിട്ടില്ല – ESTV കാണുക</string>
+    <string name="tax_summary_ch_year_end_value">ഹോൾഡിംഗ്സ് CSV-യിലെ ഡിസംബർ 31-ലെ മൂല്യം = എക്സ്ചേഞ്ച് വില × USD/CHF – ESTV നികുതി മൂല്യങ്ങളല്ല</string>
+    <string name="tax_summary_de_withdrawal_fee">പിൻവലിക്കൽ ഫീസ് – § 23 പ്രകാരം തട്ടിക്കിഴിക്കുന്നില്ല, വരുമാനവുമായി ബന്ധപ്പെട്ട ചെലവായി കിഴിക്കാനാകുമോ എന്ന് പരിശോധിക്കുക</string>
+    <string name="tax_summary_not_calculated_estv">കണക്കാക്കിയിട്ടില്ല – ESTV വില ലിസ്റ്റ്: %1$s</string>
+    <string name="tax_summary_orientation">മാർഗ്ഗനിർദ്ദേശം</string>
+    <string name="tax_summary_orientation_block">മാർഗ്ഗനിർദ്ദേശത്തിന് മാത്രം – നികുതി ഉപദേശമല്ല – വിലയിരുത്തലല്ല</string>
+    <string name="tax_summary_orientation_item">മാർഗ്ഗനിർദ്ദേശം: %1$s</string>
+    <string name="tax_summary_title">വാർഷിക സംഗ്രഹം %1$s %2$s</string>
+    <string name="tax_summary_transfer_fee_info">USDT/പണത്തിലുള്ള കൈമാറ്റ ഫീസുകൾ – നഷ്ടമല്ല, ചെലവുവിലയിൽ ഇല്ല, വിവരത്തിന് മാത്രം</string>
+    <string name="tax_summary_withdrawal_fee_info">USDT/പണത്തിലുള്ള പിൻവലിക്കൽ ഫീസുകൾ – നഷ്ടമായി കണക്കാക്കുന്നില്ല, വിവരത്തിന് മാത്രം</string>
+
+    <string name="tax_line_at_old_speculation_limit">ഊഹക്കച്ചവട ഇടപാടുകൾ (പഴയ നിയമം, ≤ 1 വർഷം കൈവശം): ഒഴിവ് പരിധി (§ 31 (3) EStG പഴയ പതിപ്പ്)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">2022 മാർച്ച് 1-ന് മുമ്പുള്ള ലെൻഡിംഗ് പലിശ (ലഭിച്ചപ്പോഴുള്ള മൂല്യം)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">2022 മാർച്ച് 1-ന് മുമ്പുള്ള പലിശ: പഴയ നിയമം (ആദായ നികുതി നിരക്ക്), 27.5 ശതമാനമല്ല</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">2022 മാർച്ച് 1-ന് മുമ്പ് – ഒരു വിദഗ്ദ്ധനുമായി പരിശോധിക്കുക</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">പലിശ – ലഭിക്കുമ്പോൾ നികുതി ബാധകം</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">സ്റ്റേക്കിംഗ് – വിവരത്തിന് മാത്രം (ഏറ്റെടുക്കൽ ചെലവ് 0, വിൽക്കുമ്പോൾ നികുതി)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">ആകെ പലിശ (നികുതി ബാധകം)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">ആകെ സ്റ്റേക്കിംഗ് (വിവരം)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">അറ്റ മൂലധന നഷ്ടം (മുന്നോട്ട് കൊണ്ടുപോകൽ)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">ഓപ്ഷൻ ഇല്ലാതെ: 2022 ജനുവരി 1–ഫെബ്രുവരി 28-ലെ വിൽപ്പനകൾ ഉൾപ്പെടുന്നു</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">2022 മാർച്ച് 1-ന് മുമ്പുള്ള സ്റ്റേക്കിംഗ്: ഏറ്റെടുക്കൽ ചെലവ് 0 ആയി നിശ്ചയിച്ചു – ഒരു വിദഗ്ദ്ധനുമായി പരിശോധിക്കുക</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">30 ദിവസ നിയമം ഇപ്പോഴും ഈ കണക്കുകൾ മാറ്റിയേക്കാം (%1$s വരെയുള്ള വാങ്ങലുകൾ)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">റിപ്പോർട്ടിംഗ് പരിധിക്ക് (£50,000; 2020/21–2022/23: £49,200) മുകളിലുള്ള ഫീസിന് മുമ്പുള്ള വരുമാനം: നിങ്ങൾ Self Assessment-ന് രജിസ്റ്റർ ചെയ്തിട്ടുണ്ടെങ്കിൽ, നികുതി ബാധകമായ ലാഭമില്ലെങ്കിലും HMRC-യെ അറിയിക്കുക</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">സമ്പത്ത് മൂല്യം ഡിസംബർ 31 %1$s (മാർഗ്ഗനിർദ്ദേശം)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">ESTV വില ലിസ്റ്റ് (ictax.admin.ch) ആണ് ആധികാരികം. ലിസ്റ്റിൽ ഇല്ലാത്ത കോയിനുകൾക്ക്, സാധാരണയായി എക്സ്ചേഞ്ച് ക്ലോസിംഗ് വില ബാധകമാണ്. സമ്പത്ത് നികുതി കണക്കാക്കിയിട്ടില്ല.</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – ഹോൾഡിംഗ് %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">കണക്കാക്കിയിട്ടില്ല</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">നിരീക്ഷിക്കുന്ന വിലാസങ്ങൾ വായിക്കാനായില്ല – അവയുടെ ബാലൻസുകൾ ഈ ഫയലിൽ ഇല്ല</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">നിരീക്ഷിക്കുന്ന വിലാസങ്ങളുടെ ലോട്ടുകൾ അവയുടെ വാങ്ങൽ തീയതി മുതൽ കണക്കാക്കുന്നു; വിലാസത്തിന്റെ ഇന്നത്തെ ബാലൻസ് കുറവാണെങ്കിൽ, അവ കുറയ്ക്കും.</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">നിരീക്ഷിക്കുന്ന വിലാസങ്ങൾ ആകെ മൂല്യത്തിൽ കണക്കാക്കുന്നു, പക്ഷേ ഏറ്റെടുക്കൽ ചെലവില്ല – അതിനാൽ ലാഭം കൂടുതലായിരിക്കാൻ സാധ്യതയുണ്ട്. ചെലവ് ഒരു വാങ്ങലായി രേഖപ്പെടുത്തുക.</string>
+    <string name="tax_summary_fr_rewards_income">റിവാർഡുകൾ ലഭിച്ചപ്പോൾ വരുമാനമായി നികുതി ചുമത്തിയെന്ന് (ഏറ്റെടുക്കൽ ചെലവിൽ ലഭിച്ചപ്പോഴുള്ള മൂല്യം) തുക അനുമാനിക്കുന്നു – അല്ലെങ്കിൽ ഏറ്റെടുക്കൽ ചെലവ് 0 ആയിരിക്കും ജാഗ്രതയുള്ള വായന.</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">രേഖപ്പെടുത്തിയ വിലയില്ലാത്ത മാർക്കറ്റ് മൂല്യങ്ങൾ (ഫീസുകൾ, സമ്മാനങ്ങൾ/പേയ്‌മെന്റുകൾ, സ്വാപ്പുകൾ, റിവാർഡുകൾ, നെറ്റ്‌വർക്ക് ഫീസുകൾ, പോർട്ട്ഫോളിയോ മൂല്യം) ഇടപാട് ദിവസത്തെ ദിവസാന്ത്യ ക്ലോസിംഗിൽ (UTC)</string>
+</resources>

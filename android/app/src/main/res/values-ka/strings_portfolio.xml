@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">ამ მოწყობილობაზე ეკრანის დაბლოკვა არ არის დაყენებული. ჯერ სისტემის პარამეტრებში დააყენე.</string>
+    <string name="app_lock_unlock">განბლოკვა</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">პორტფელის გასუფთავება</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="one">წავშალო %d ტრანზაქცია? დაკვირვებადი მისამართები რჩება. ამის დაბრუნება შემდეგ მაშინვე შეგიძლია.</item>
+        <item quantity="other">წავშალო ყველა %d ტრანზაქცია? დაკვირვებადი მისამართები რჩება. ამის დაბრუნება შემდეგ მაშინვე შეგიძლია.</item>
+    </plurals>
+    <string name="portfolio_empty_action">დაამატე შენი პირველი შესყიდვა</string>
+    <string name="portfolio_empty_address">უბრალოდ ადევნე თვალი საფულის მისამართს</string>
+    <string name="portfolio_empty_csv">ბირჟაზე იყიდე? შემოიტანე მისი ფაილი</string>
+    <string name="portfolio_empty_example_plain">მაგალითი: %1$s BTC, ნაყიდი 1 მარტს. აპი აჩვენებს, რა ღირს ის დღეს და მოგებაში ხარ თუ ზარალში – ინახება მხოლოდ ამ მოწყობილობაზე.</string>
+    <string name="portfolio_empty_title">ტრანზაქციები ჯერ არ არის</string>
+    <string name="portfolio_enable_ask_text">შენი ტრანზაქცია შენახულია. პორტფელის ჩანართი აჩვენებს შენს აქტივებს და მათ ღირებულებას.</string>
+    <string name="portfolio_enable_ask_title">ჩავრთო პორტფელის ჩანართი?</string>
+    <string name="portfolio_enable_later_hint">ტრანზაქცია შენახულია. პორტფელის ჩანართის ჩართვა შეგიძლია აქ: პარამეტრები › პორტფელი.</string>
+    <string name="portfolio_enabled_banner">პორტფელი ჩართულია – მას პორტფელის ჩანართში ნახავ.</string>
+    <string name="portfolio_lock_reason">პორტფელის განბლოკვა</string>
+    <string name="portfolio_locked_text">განბლოკე, რომ შენი აქტივები და ღირებულებები ნახო.</string>
+    <string name="portfolio_locked_title">პორტფელი დაბლოკილია</string>
+    <string name="portfolio_setting_hint">სურვილისამებრ: აღრიცხე ყიდვები და გაყიდვები და ნახე ღირებულება და მოგება/ზარალი ცალკე ჩანართში.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">მოძველებულია · მდგომარეობა: %1$s</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="one">სისტემური სარეზერვო ასლიდან %d ჩანაწერი არასწორი იყო და არ აღდგა.</item>
+        <item quantity="other">სისტემური სარეზერვო ასლიდან %d ჩანაწერი არასწორი იყო და არ აღდგა.</item>
+    </plurals>
+    <string name="portfolio_title">პორტფელი</string>
+    <string name="portfolio_unassigned_fee">საკომისიო არ არის მიკუთვნებული – შეძენის ღირებულება უცნობია: %1$s</string>
+    <string name="portfolio_updated">ფასები: %1$s</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">სხვა</string>
+    <string name="portfolio_allocation_title">განაწილება</string>
+    <string name="portfolio_card_details">დეტალები</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: ჯერ მიუწვდომელია</string>
+    <string name="portfolio_card_hints_count">შენიშვნები (%1$d)</string>
+    <string name="portfolio_card_today">დღეს</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">სულ</string>
+    <string name="portfolio_hide_amounts">თანხების დამალვა</string>
+    <string name="portfolio_hide_amounts_hint">პორტფელსა და პორტფელის ვიჯეტში თანხებსა და ღირებულებებს ••• სახით აჩვენებს – პროცენტები ხილული რჩება.</string>
+    <string name="portfolio_invested">შეძენის ღირებულება</string>
+    <string name="portfolio_total_no_fx">%1$s-ის გაცვლითი კურსი არ არის – თანხები USDT-ში</string>
+    <string name="portfolio_total_value">სრული ღირებულება</string>
+    <string name="portfolio_value">ღირებულება</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">საშ. %1$s · ახლა %2$s</string>
+    <string name="portfolio_avg_only">საშ. %1$s</string>
+    <string name="portfolio_avg_open_lots">ფლობილი მონეტების საშუალო ღირებულება</string>
+    <string name="portfolio_avg_partial">შეძენის ფასის მქონე %1$s-ის საშუალო</string>
+    <string name="portfolio_avg_price">შეძენის საშუალო ფასი</string>
+    <string name="portfolio_avg_price_hint">შეძენის საშუალო ფასი: ყველა შესყიდვის საშუალო, რაოდენობით შეწონილი. გაყიდვები ამ საშუალოთი ფასდება.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">დახურული პოზიცია (%1$d)</item>
+        <item quantity="other">დახურული პოზიციები (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: გაყიდვები ჯერ შენს ყველაზე ძველ მონეტებს იყენებს. საშ. = დარჩენილი შეძენის ღირებულება ÷ შეძენის ფასის მქონე რაოდენობა.</string>
+    <string name="portfolio_holdings">აქტივები</string>
+    <string name="portfolio_lost_fee_cost">ქსელის საკომისიოს ღირებულება გადახდილი ლოტის გარეშე: %1$s</string>
+    <string name="portfolio_open_lots">ღია შესყიდვის ლოტები (%1$d)</string>
+    <string name="portfolio_open_lots_avg">შეძენის ფასით (საშ.)</string>
+    <string name="portfolio_open_lots_no_cost">შეძენის ფასის გარეშე</string>
+    <string name="portfolio_open_lots_without_price">შეძენის ფასი არ არის</string>
+    <string name="portfolio_realized">რეალიზებული მოგება/ზარალი</string>
+    <string name="portfolio_unrealized">ღია მოგება/ზარალი</string>
+    <string name="portfolio_unrealized_without_unpriced">შეძენის ფასის არმქონე %1$s-ის გარეშე</string>
+    <string name="portfolio_withdrawn_gain">გატანილია: %1$s (ღირებულების ცვლილება გატანამდე)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">კონვერტაცია</string>
+    <string name="portfolio_convert_to_value">კონვერტაცია: %1$s</string>
+    <string name="portfolio_current_missing">%1$s-ის მიმდინარე ფასი არ არის</string>
+    <string name="portfolio_current_price">მიმდინარე ფასი</string>
+    <string name="portfolio_price_missing">ფასი აკლია</string>
+    <string name="portfolio_price_missing_hint">ზოგ შესყიდვას ფასი არ აქვს. დაამატე შეძენის ფასი, რომ მოგება/ზარალი ნახო.</string>
+    <string name="portfolio_price_source">ფასები: Binance · USDT საბაზრო ფასით</string>
+    <string name="portfolio_price_source_routes">ფასები: %1$s, სხვა შემთხვევაში Binance · USDT საბაზრო ფასით</string>
+    <string name="portfolio_price_unavailable">ფასი ახლა მიუწვდომელია</string>
+    <string name="portfolio_price_unchecked">ფასი გადაუმოწმებელია</string>
+    <string name="portfolio_price_via_base">≈ %1$s-ის ფასი (bridged/wrapped)</string>
+    <string name="portfolio_usdt_as_usd">USDT გადაანგარიშებულია მისი USD საბაზრო ფასით</string>
+    <string name="portfolio_usdt_assumed">USDT-ის დოლარის კურსი აკლია – ითვლება როგორც 1 აშშ დოლარი</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">პორტფელში დამატება</string>
+    <string name="portfolio_add_tx">ტრანზაქციის დამატება</string>
+    <string name="portfolio_buy">ყიდვა</string>
+    <string name="portfolio_coin">მონეტა</string>
+    <string name="portfolio_coin_invalid">შეიყვანე მონეტის სიმბოლო</string>
+    <string name="portfolio_coin_search">მოძებნე სიმბოლო, მაგ. BTC</string>
+    <string name="portfolio_discard_confirm">უარყოფა</string>
+    <string name="portfolio_discard_keep">რედაქტირების გაგრძელება</string>
+    <string name="portfolio_discard_title">უარვყო ცვლილებები?</string>
+    <string name="portfolio_edit_tx">ტრანზაქციის რედაქტირება</string>
+    <string name="portfolio_invalid">შეიყვანე 0-ზე მეტი სწორი რიცხვი.</string>
+    <string name="portfolio_oversold">გაყიდვები აქტივებს აღემატება – გთხოვ, შეამოწმე ტრანზაქციები.</string>
+    <string name="portfolio_sell">გაყიდვა</string>
+    <string name="portfolio_sell_exceeds">შენს აქტივებზე მეტია (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">თანხა საკომისიოსთან ერთად შენს აქტივებზე მეტია (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">%2$s-ში შენს აქტივებზე მეტია (%1$s)</string>
+    <string name="portfolio_transactions">ტრანზაქციები</string>
+    <string name="portfolio_tx_acquired_date">თავდაპირველი შეძენის თარიღი (სურვილისამებრ)</string>
+    <string name="portfolio_tx_acquired_date_hint">ფლობის პერიოდისთვის საგადასახადო ექსპორტში</string>
+    <string name="portfolio_tx_amount">რაოდენობა</string>
+    <string name="portfolio_tx_coin_fee">საკომისიო მონეტაში (სურვილისამებრ)</string>
+    <string name="portfolio_tx_date">თარიღი</string>
+    <string name="portfolio_tx_delete_confirm">ეს ტრანზაქცია პორტფელიდან წაიშლება.</string>
+    <string name="portfolio_tx_delete_title">წავშალო ტრანზაქცია?</string>
+    <string name="portfolio_tx_deposit">შეტანა</string>
+    <string name="portfolio_tx_entry_currency">შეყვანის ვალუტა</string>
+    <string name="portfolio_tx_explain_deposit">აქტივები გარიგების გარეშე, მაგ. ადრინდელი მონეტები</string>
+    <string name="portfolio_tx_explain_gift">მონეტები აქტივებს ტოვებს, როგორც გატანისას – გასხვისება საბაზრო ღირებულებით მხოლოდ იქ, სადაც ქვეყანა საჩუქრებს ბეგრავს (UK, CA, AU)</string>
+    <string name="portfolio_tx_explain_payment">გადახდილია საქონელში ან მომსახურებაში – გასხვისება საბაზრო ღირებულებით, როგორც გაყიდვა, ფული არ მიღებულა</string>
+    <string name="portfolio_tx_explain_reward">შეძენის ღირებულება = საბაზრო ღირებულება მიღებისას</string>
+    <string name="portfolio_tx_explain_swap">ერთი მონეტა მეორეში: ყიდის გაცემულ მონეტას და ყიდულობს მიღებულს</string>
+    <string name="portfolio_tx_explain_transfer">მოგება არ არის – შეძენის ღირებულება მონეტებთან ერთად გადადის</string>
+    <string name="portfolio_tx_explain_withdrawal">აქტივები ტოვებს პორტფელს – არც გაყიდვა, არც მოგება</string>
+    <string name="portfolio_tx_fee_consumes_amount">საკომისიო მიღებული თანხის ტოლია – არაფერი დარჩებოდა.</string>
+    <string name="portfolio_tx_fees_toggle">საკომისიოები</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s %2$s-ის კურსით</string>
+    <string name="portfolio_tx_fiat_loading">გაცვლითი კურსი იტვირთება…</string>
+    <string name="portfolio_tx_fiat_no_fx">ამ დღისთვის გაცვლითი კურსი არ არის – შეიყვანე თანხა USDT-ში.</string>
+    <string name="portfolio_tx_gift">საჩუქარი</string>
+    <string name="portfolio_tx_gift_price_hint">USDT-ში. ცარიელი = იმ დღის დახურვის ფასი (შეფასებული).</string>
+    <string name="portfolio_tx_gift_spouse">მეუღლეს / სამოქალაქო პარტნიორს</string>
+    <string name="portfolio_tx_gift_spouse_hint">UK და კანადა: არც მოგება, არც ზარალი – შენი პარტნიორი შენს შეძენის ღირებულებას იღებს. სხვა ქვეყნები ამას არ ითვალისწინებს.</string>
+    <string name="portfolio_tx_market_value">საბაზრო ღირებულება ერთ მონეტაზე</string>
+    <string name="portfolio_tx_more_buy">საკომისიო, ბირჟა, შენიშვნა</string>
+    <string name="portfolio_tx_network_fee">ქსელის საკომისიო მონეტაში (სურვილისამებრ)</string>
+    <string name="portfolio_tx_note">შენიშვნა (სურვილისამებრ)</string>
+    <string name="portfolio_tx_payment">ამით გადახდილი</string>
+    <string name="portfolio_tx_price">ფასი ერთ მონეტაზე</string>
+    <string name="portfolio_tx_price_hint">USDT-ში. დატოვე ცარიელი, თუ უცნობია.</string>
+    <string name="portfolio_tx_price_historic">%1$s-ის გადამოწმებული დღიური დახურვა – საჭიროებისამებრ შეცვალე</string>
+    <string name="portfolio_tx_price_invalid">შეიყვანე სწორი რიცხვი (0 ან მეტი) ან დატოვე ველი ცარიელი.</string>
+    <string name="portfolio_tx_price_past_hint">შეიყვანე შეძენის დღის ფასი – დატოვე ცარიელი, თუ უცნობია</string>
+    <string name="portfolio_tx_price_receipt_hint">USDT-ში. ცარიელი = აქტივები შეძენის ღირებულების გარეშე.</string>
+    <string name="portfolio_tx_price_zero">შემოტანილი ტრანზაქციებისთვის ფასი 0 შეუძლებელია – საბაზრო ფასისთვის დატოვე ცარიელი</string>
+    <string name="portfolio_tx_removed">ტრანზაქცია წაიშალა</string>
+    <string name="portfolio_tx_reward">ჯილდო</string>
+    <string name="portfolio_tx_save_failed">ტრანზაქციის შენახვა ვერ მოხერხდა. შენი ჩანაწერები ისევ აქაა – კიდევ სცადე.</string>
+    <string name="portfolio_tx_swap">გაცვლა</string>
+    <string name="portfolio_tx_swap_fee_received">საკომისიო %1$s-ში: ამცირებს მიღებულ თანხას, ფასი საჭირო არ არის.</string>
+    <string name="portfolio_tx_swap_from">გაცვლა %1$s-დან</string>
+    <string name="portfolio_tx_swap_given_amount">გაცემული რაოდენობა</string>
+    <string name="portfolio_tx_swap_given_coin">გაცემული მონეტა</string>
+    <string name="portfolio_tx_swap_received_amount">მიღებული რაოდენობა</string>
+    <string name="portfolio_tx_swap_received_coin">მიღებული მონეტა</string>
+    <string name="portfolio_tx_swap_same_coin">აირჩიე გაცემულისგან განსხვავებული მონეტა</string>
+    <string name="portfolio_tx_swap_to">გაცვლა %1$s-ზე</string>
+    <string name="portfolio_tx_swap_value">გაცვლის ღირებულება (სურვილისამებრ)</string>
+    <string name="portfolio_tx_swap_value_hint">სრული ღირებულება. ცარიელი = უცნობი – მოგება არასრული რჩება (ავტომატურია, თუ გაცვლაში USDT მონაწილეობს).</string>
+    <string name="portfolio_tx_third_fee_amount">საკომისიოს ოდენობა</string>
+    <string name="portfolio_tx_third_fee_coin">საკომისიოს მონეტა</string>
+    <string name="portfolio_tx_third_fee_incomplete">ფასის გარეშე საკომისიო შეძენის ღირებულებასა და შემოსავალში არ ითვლება; საგადასახადო ექსპორტი ასეთ გაყიდვებს მონიშნავს.</string>
+    <string name="portfolio_tx_third_fee_price">ფასი საკომისიოს ერთ მონეტაზე (სურვილისამებრ)</string>
+    <string name="portfolio_tx_third_fee_toggle">საკომისიო სხვა მონეტაში</string>
+    <string name="portfolio_tx_total">სულ: %1$s</string>
+    <string name="portfolio_tx_transfer">გადარიცხვა</string>
+    <string name="portfolio_tx_transfer_from">საიდან (სურვილისამებრ)</string>
+    <string name="portfolio_tx_transfer_to">სად (სურვილისამებრ)</string>
+    <string name="portfolio_tx_transfer_to_hint">ბირჟა ან საფულე – ამიერიდან იქ ფასდება.</string>
+    <string name="portfolio_tx_type_select">ტიპი: %1$s</string>
+    <string name="portfolio_tx_value_received">ღირებულება ერთ მონეტაზე მიღებისას (სურვილისამებრ)</string>
+    <string name="portfolio_tx_withdrawal">გატანა</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">აჩუქე ან ამით გადაიხადე? აღრიცხე როგორც «საჩუქარი» ან «ამით გადახდილი» – ქვეყნის მიხედვით, საგადასახადო მიზნებისთვის ეს გაყიდვად ითვლება.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">სურვილისამებრ: საბაზრო ღირებულება USDT-ში, გამოიყენება მხოლოდ ისტორიისთვის (ცარიელი = იმ დღის ფასი). მონეტები ყოველთვის შეძენის ღირებულებით გადის.</string>
+    <string name="portfolio_wallet_did_you_mean">%1$s გულისხმობდი? სხვანაირი მართლწერა ცალკე საფულედ ითვლება.</string>
+    <string name="portfolio_wallet_shortfall">%1$s-ში აქტივები საკმარისი არ არის – გადარიცხვა აკლია?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">მაქსიმუმი %1$s</string>
+    <string name="portfolio_compare">შედარება</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">%1$s-ისა და USDT-ის შედარება პროცენტებში</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">შედარება პროცენტებში, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">სავალუტო ეფექტი: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">ფასის მონაცემები მხოლოდ 2017 წლის აგვისტომდე მიდის — ისტორია იქიდან იწყება.</string>
+    <string name="portfolio_history_chip_since_first">ყველა</string>
+    <string name="portfolio_history_collapse">ღირებულების ისტორიის დამალვა</string>
+    <string name="portfolio_history_converted">გადაანგარიშებულია დღევანდელი კურსით</string>
+    <string name="portfolio_history_expand">ღირებულების ისტორიის ჩვენება</string>
+    <string name="portfolio_history_gain_a11y">ღირებულება %1$s. მოგება/ზარალი, %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">მოგება/ზარალი</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">ღირებულება %1$s-ში</string>
+    <string name="portfolio_history_incl_fx">გაცვლითი კურსის ჩათვლით</string>
+    <string name="portfolio_history_incl_withdrawn">მოიცავს გატანილი მონეტების ღირებულების ცვლილებას</string>
+    <string name="portfolio_history_includes_trades">მოიცავს ამ პერიოდის ყიდვებს და გაყიდვებს</string>
+    <string name="portfolio_history_loading">ღირებულების ისტორია იტვირთება</string>
+    <string name="portfolio_history_period_1y">1 წელი</string>
+    <string name="portfolio_history_period_30d">30 დღე</string>
+    <string name="portfolio_history_period_7d">7 დღე</string>
+    <string name="portfolio_history_period_since_first">პირველი შესყიდვიდან</string>
+    <string name="portfolio_history_pnl_needs_prices">მოგება/ზარალისთვის შეძენის ფასები აკლია – დაამატე ისინი ტრანზაქციებში.</string>
+    <string name="portfolio_history_pnl_without">მოგება/ზარალი %1$s-ის გარეშე (ფასი აკლია)</string>
+    <string name="portfolio_history_range_1y">1 წ</string>
+    <string name="portfolio_history_range_30d">30 დ</string>
+    <string name="portfolio_history_range_7d">7 დ</string>
+    <string name="portfolio_history_range_a11y">ისტორიის ჩვენება: %1$s</string>
+    <string name="portfolio_history_range_since_first">1-ლი შესყიდვიდან</string>
+    <string name="portfolio_history_scaled">ისტორია %1$s-ისთვის: Binance-ის ისტორია ბირჟის ფასზე მასშტაბირებული</string>
+    <string name="portfolio_history_title">ღირებულების ისტორია</string>
+    <string name="portfolio_history_today">დღეს</string>
+    <string name="portfolio_history_too_short">ისტორია შენი პირველი სრული დღის შემდეგ იწყება.</string>
+    <string name="portfolio_history_unavailable">ისტორია ახლა მიუწვდომელია.</string>
+    <string name="portfolio_history_utc_days">დღეები UTC-ით (დღიური სანთლები)</string>
+    <string name="portfolio_history_without_matching">%1$s-ის გარეშე (შესაბამისი დღიური ფასები არ არის)</string>
+    <string name="portfolio_period_rewards">ჯილდოები +%1$s (მოგებაში არ შედის)</string>
+    <string name="portfolio_period_scaled">7 დ/1 წ %1$s-ისთვის: Binance-ის ისტორია ბირჟის ფასზე მასშტაბირებული</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">განგაში</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">თანხა (%1$s)</string>
+    <string name="portfolio_alarm_hint">მოწმდება ყოველი განახლების შემდეგ. განგაშების მსგავსად, ამოქმედდება ნიშნულის გადაკვეთისას და ხელახლა – მხოლოდ მას შემდეგ, რაც ღირებულება უკან დაბრუნდება.</string>
+    <string name="portfolio_alarm_kind_above">პორტფელი თანხაზე მაღლა</string>
+    <string name="portfolio_alarm_kind_below">პორტფელი თანხაზე დაბლა</string>
+    <string name="portfolio_alarm_kind_down">პორტფელი ეცემა</string>
+    <string name="portfolio_alarm_kind_up">პორტფელი იზრდება</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">პორტფელი %1$s-ზე მაღლა</string>
+    <string name="portfolio_alarm_sentence_below">პორტფელი %1$s-ზე დაბლა</string>
+    <string name="portfolio_alarm_sentence_down">პორტფელი დაეცა %1$s-ით (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">პორტფელი გაიზარდა %1$s-ით (%2$s)</string>
+    <string name="portfolio_alarm_title">პორტფელის ღირებულების განგაში</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">ბირჟა (სურვილისამებრ)</string>
+    <string name="ledger_exchange_failed">%1$s: %2$s-დან ახლა ფასი არ არის – შეფასებულია Binance-ით.</string>
+    <string name="ledger_exchange_hint">მონეტა ამ ბირჟის ფასით ფასდება (სხვა შემთხვევაში Binance). ისტორია, 7 დ და 1 წ იყენებს Binance-ის დღიურ ფასებს, მასზე მასშტაბირებულს.</string>
+    <string name="ledger_exchange_mixed">%1$s: შეყვანილია რამდენიმე ბირჟა – შეფასებულია Binance-ით. მონეტები გადაიტანე? აღრიცხე გადატანა როგორც «გადარიცხვა».</string>
+    <string name="ledger_exchange_none">არცერთი (Binance)</string>
+    <string name="ledger_fee">საკომისიო (სურვილისამებრ)</string>
+    <string name="ledger_fee_coin">მონეტა</string>
+    <string name="ledger_fee_hint">USDT-ში ზრდის შეძენის ღირებულებას (გაყიდვისას ამცირებს შემოსავალს); მონეტაში ამცირებს რაოდენობას.</string>
+    <string name="ledger_fee_line">საკომისიო %1$s</string>
+    <string name="ledger_fifo_cost_note">შეძენის შემდეგ: FIFO ღირებულება საკომისიოების ჩათვლით (ჯერ ყველაზე ძველი მონეტები იყიდება).</string>
+    <string name="ledger_gain_info">დღეს, 7 დ, 1 წ: ღირებულების ცვლილება პერიოდში – ყიდვები და გაყიდვები მოგებად არ ითვლება. შეძენის შემდეგ: მიმდინარე ღირებულებას გამოკლებული იმ მონეტების შეძენის ღირებულება (საშუალო ღირებულება საკომისიოების ჩათვლით), რომლებიც ჯერ კიდევ გაქვს.</string>
+    <string name="ledger_gain_info_a11y">როგორ ითვლება მოგება და ზარალი</string>
+    <string name="ledger_gain_info_fifo">დღეს, 7 დ, 1 წ: ღირებულების ცვლილება პერიოდში – ყიდვები და გაყიდვები მოგებად არ ითვლება. შეძენის შემდეგ: მიმდინარე ღირებულებას გამოკლებული იმ მონეტების შეძენის ღირებულება (FIFO საკომისიოების ჩათვლით), რომლებიც ჯერ კიდევ გაქვს.</string>
+    <string name="ledger_gain_title">მოგება/ზარალი</string>
+    <string name="ledger_more_toggle">საკომისიო და ბირჟა</string>
+    <string name="ledger_partial_cost">«შეძენის შემდეგ» ითვლის მხოლოდ შეძენის ფასის მქონე ნაწილს – შეძენის ფასის არმქონე %1$s-ის გარეშე.</string>
+    <string name="ledger_period_without">დღეს / 7 დ / 1 წ %1$s-ის გარეშე – შესაბამისი საწყისი ფასი არ არის.</string>
+    <string name="ledger_since_purchase_currency">შეძენის შემდეგ (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">მოგება/ზარალი შეძენის შემდეგ, ჯერ გაუყიდავი</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="one">შეძენის ფასის არმქონე %1$d მონეტის გარეშე (%2$s) – დაამატე ფასი, რომ ჩაითვალოს.</item>
+        <item quantity="other">შეძენის ფასის არმქონე %1$d მონეტის გარეშე (%2$s) – დაამატე ფასები, რომ ჩაითვალოს.</item>
+    </plurals>
+
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">USDT-ის კრახი – ბაზარი %1$s USD-ზეა</string>
+    <string name="portfolio_usdt_via_usdc">USDT-ის დოლარის კურსი USDC/USDT-ით – თუ USDC დაეცა, ეს მნიშვნელობა არასწორია</string>
+    <string name="portfolio_amount_bridged_stable">≈ %1$s-ის ჩათვლით (bridged)</string>
+
+    <string name="portfolio_tx_interest">პროცენტი (ლენდინგი)</string>
+    <string name="portfolio_tx_interest_hint">მიღებისას შემოსავლად ითვლება (ავსტრია). არ გამოიყენო სტეიკინგის ჯილდოებისა და აირდროპებისთვის.</string>
+    <string name="app_lock_no_screen_lock">პორტფელის გასახსნელად დააყენე ეკრანის დაბლოკვა.</string>
+    <string name="app_lock_turn_off_action">პორტფელის დაბლოკვის გამორთვა</string>
+    <string name="app_lock_turn_off_confirm_title">გამოვრთო პორტფელის დაბლოკვა?</string>
+    <string name="app_lock_turn_off_confirm_message">ეკრანის დაბლოკვის გარეშე პორტფელის განბლოკვა შეუძლებელია. გამორთვის შემდეგ აპი შენს პორტფელს უკითხავად აჩვენებს. ეკრანის დაბლოკვის დაყენების შემდეგ დაბლოკვას პარამეტრებში ისევ ჩართავ.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">«შეძენის შემდეგ» და შეძენის ღირებულება %1$s-ში: ღირებულება შეძენის დღის კურსით, მიმდინარე ღირებულება დღევანდელი კურსით.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">შეძენის დღის გაცვლითი კურსი არ არის (აკლია «შეძენის შემდეგ»-სა და შეძენის ღირებულებას): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">შეძენის დღეებში, როცა USDT-ის დოლარის კურსი არ იყო, ღირებულება ითვლებოდა 1 აშშ დოლარად თითო USDT-ზე.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">მდგომარეობა: %1$s – ბირჟა მიუწვდომელია</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">დღიური ფასები: %1$s (Binance-ის ნაცვლად)</string>
+
+    <string name="portfolio_footer_short">სამუშაო დამხმარე საშუალება და არა საგადასახადო ან საინვესტიციო რჩევა. კონფიდენციალურობა: პარამეტრები › აპის შესახებ › კონფიდენციალურობის პოლიტიკა.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">წავშალო %1$s-ის ყველა ტრანზაქცია?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">%d ტრანზაქცია წაიშლება. ამის დაბრუნება შემდეგ მაშინვე შეგიძლია.</item>
+        <item quantity="other">%d ტრანზაქცია წაიშლება. ამის დაბრუნება შემდეგ მაშინვე შეგიძლია.</item>
+    </plurals>
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">%1$s-ში გადახდილი საკომისიოებიც წაიშლება სხვა ტრანზაქციებიდან: %2$d.</string>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s წაიშალა პორტფელიდან (%2$d ტრანზაქცია)</item>
+        <item quantity="other">%1$s წაიშალა პორტფელიდან (%2$d ტრანზაქცია)</item>
+    </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">წაიშალა %d ტრანზაქცია</item>
+        <item quantity="other">წაიშალა %d ტრანზაქცია</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">ეს ასევე წაშლის %d ლოტს.</item>
+        <item quantity="other">ეს ასევე წაშლის %d ლოტს.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">ეს ასევე წაშლის %d ლოტს და ნაშთის ისტორიას.</item>
+        <item quantity="other">ეს ასევე წაშლის %d ლოტს და ნაშთის ისტორიას.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">ეს ასევე წაშლის ნაშთის ისტორიას.</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">შენახვა ვერ მოხერხდა – კიდევ სცადე</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">ზღვარი არასწორია – წაშალე და ხელახლა შექმენი</string>
+</resources>

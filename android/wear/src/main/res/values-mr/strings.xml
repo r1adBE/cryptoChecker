@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">एकही कॉइन निवडलेला नाही</string>
+    <string name="watch_loading">लोड होत आहे…</string>
+    <string name="watch_error">एक्सचेंजशी संपर्क होत नाही</string>
+    <string name="watch_updated">%1$s नुसार</string>
+    <string name="watch_refresh">रिफ्रेश करा</string>
+    <string name="watch_choose">कॉइन निवडा</string>
+    <string name="watch_choose_hint">कॉइन: कमाल %1$d</string>
+    <string name="watch_complication_label">किंमत</string>
+    <string name="a11y_watch_row">%1$s %2$s, 24 तासांत %3$s</string>
+    <string name="watch_mode_phone">यादी: फोनप्रमाणे</string>
+    <string name="watch_mode_own">यादी: स्वतःची</string>
+    <string name="watch_phone_empty">फोनवर एकही आवडता नाही</string>
+    <string name="a11y_watch_outdated">किंमत जुनी आहे</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">शेवटचे अपडेट %1$d मिनिटापूर्वी</item>
+        <item quantity="other">शेवटचे अपडेट %1$d मिनिटांपूर्वी</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">शेवटचे अपडेट %1$d तासापूर्वी</item>
+        <item quantity="other">शेवटचे अपडेट %1$d तासांपूर्वी</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">शेवटचे अपडेट %1$d दिवसापूर्वी</item>
+        <item quantity="other">शेवटचे अपडेट %1$d दिवसांपूर्वी</item>
+    </plurals>
+</resources>

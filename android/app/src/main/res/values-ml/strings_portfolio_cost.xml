@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">ചെലവുവിലയില്ലാത്ത എൻട്രികൾ: %1$d</string>
+    <string name="cost_gaps_card_text">ലാഭവും നികുതിയും പൂർണ്ണമാകാൻ ചെലവുവില ചേർക്കുക.</string>
+    <string name="cost_gaps_sheet_title">ചെലവുവിലയില്ലാത്ത എൻട്രികൾ</string>
+    <string name="cost_gaps_sheet_intro">ഈ വരവുകൾക്ക് ചെലവുവിലയില്ല. നിർദ്ദേശം ആ തീയതിയിലെ ദിവസാന്ത്യ ക്ലോസിംഗ് വിലയാണ് – എൻട്രിയിൽ നിങ്ങൾക്ക് അത് മാറ്റാം.</string>
+    <string name="cost_gaps_empty">എല്ലാ എൻട്രികൾക്കും ചെലവുവിലയുണ്ട്.</string>
+    <string name="cost_gap_enter">ചെലവുവില നൽകുക</string>
+    <string name="cost_gap_leave_unknown">അജ്ഞാതമായി വിടുക</string>
+    <string name="cost_gap_left_unknown">അജ്ഞാതമായി വിട്ടു</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">നിർദ്ദേശം: ദിവസാന്ത്യ ക്ലോസിംഗ് %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">ഈ തീയതിക്ക് സ്ഥിരീകരിച്ച ദിവസാന്ത്യ ക്ലോസിംഗ് ഇല്ല</string>
+    <string name="cost_gap_suggestion_loading">ദിവസാന്ത്യ ക്ലോസിംഗ് ലോഡ് ചെയ്യുന്നു …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">ചെലവുവില = ലഭിച്ചപ്പോഴുള്ള മൂല്യം (വരുമാനം)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">ചെലവുവില = 0 (വരവില്ലാത്ത റിവാർഡ്, ഓസ്ട്രിയ)</string>
+    <string name="cost_gap_apply">പ്രയോഗിക്കുക</string>
+    <string name="address_lots_action">വിലാസ ബാലൻസിന്റെ ചെലവുവില</string>
+    <string name="address_lots_title">വിലാസ ബാലൻസിന്റെ ചെലവുവില</string>
+    <string name="address_lots_intro">ഈ വിലാസത്തിന്റെ ബാലൻസിനായി വാങ്ങിയ തീയതി, അളവ്, ചെലവുവില എന്നിവ നൽകുക. ലോട്ടുകൾ ഈ വിലാസത്തിലെ വാങ്ങലുകൾ പോലെ കണക്കാക്കും; ഉൾപ്പെടാത്ത ഭാഗം ചെലവുവിലയില്ലാതെ തുടരും.</string>
+    <string name="address_lots_add">ലോട്ട് ചേർക്കുക</string>
+    <string name="address_lots_new">പുതിയ ലോട്ട്</string>
+    <string name="address_lots_edit">ലോട്ട്</string>
+    <string name="address_lots_date">വാങ്ങിയ തീയതി</string>
+    <string name="address_lots_amount">അളവ്</string>
+    <string name="address_lots_mode_total">ആകെ</string>
+    <string name="address_lots_mode_price">ഒരു കോയിനിന്</string>
+    <string name="address_lots_price">ഒരു കോയിനിന്റെ വില (USDT)</string>
+    <string name="address_lots_total">ആകെ ചെലവുവില (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%2$s-ൽ %1$s-ന് ചെലവുവിലയുണ്ട്</string>
+    <string name="address_lots_unlotted">%1$s ചെലവുവിലയില്ലാതെ</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">ലോട്ടുകൾ ബാലൻസിനെക്കാൾ %1$s കൂടുതലാണ് – ഏറ്റവും പഴയവ ആദ്യം ഉപയോഗിക്കും.</string>
+    <string name="address_lots_not_loaded">ബാലൻസ് ഇതുവരെ ലോഡ് ആയിട്ടില്ല – ലോഡ് ആയാലുടൻ ലോട്ടുകൾ കണക്കാക്കും.</string>
+    <string name="address_lots_invalid">അളവും ചെലവുവിലയും നൽകുക</string>
+</resources>

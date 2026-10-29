@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Protokoll: Titel der Seite und Name des Knopfs in «Alle Alarme» -->
+    <string name="alarm_log_title">កំណត់ហេតុការដាស់តឿន</string>
+    <!-- Link unter «Letzte Prüfungen» (Einstellungen › Aktualisierung) -->
+    <string name="alarm_log_open">បង្ហាញកំណត់ហេតុការដាស់តឿន</string>
+    <string name="alarm_log_intro">ពេលណាការដាស់តឿនបានកើតឡើង – និងពេលណាវាគួរតែកើតឡើង ប៉ុន្តែត្រូវបានទប់ទុក។ រក្សាទុកតែនៅលើឧបករណ៍នេះប៉ុណ្ណោះ រយៈពេល 14 ថ្ងៃ។</string>
+    <string name="alarm_log_empty_title">មិនទាន់មានធាតុនៅឡើយទេ</string>
+    <string name="alarm_log_empty_message">ធាតុនឹងបង្ហាញនៅទីនេះ នៅពេលការដាស់តឿនកើតឡើង ឬត្រូវបានទប់ទុក – ឧទាហរណ៍ ដោយសារតម្លៃហួសសម័យ ឬក្នុងម៉ោងស្ងាត់។</string>
+    <string name="alarm_log_clear">សម្អាតកំណត់ហេតុ</string>
+    <string name="alarm_log_clear_title">សម្អាតកំណត់ហេតុការដាស់តឿនមែនទេ?</string>
+    <string name="alarm_log_clear_message">ធាតុទាំងអស់នឹងត្រូវដកចេញ។ ការដាស់តឿនរបស់អ្នកនៅដដែល។</string>
+    <!-- Screenreader: Schwelle des Alarms, z. B. «Marke Über 100’000 CHF» -->
+    <string name="alarm_log_threshold">កម្រិត %1$s</string>
+    <!-- Alarm-Editor: letzte Prüfung, %1$s = «14:02 · Kraken 99’800 CHF · Marke nicht erreicht» -->
+    <string name="alarm_last_check">ពិនិត្យចុងក្រោយ៖ %1$s</string>
+    <!-- Ergebnisse einer Alarm-Prüfung (AlarmLogOutcome) -->
+    <string name="alarm_outcome_fired">បានកើតឡើង</string>
+    <string name="alarm_outcome_not_reached">មិនទាន់ដល់កម្រិត</string>
+    <string name="alarm_outcome_already_triggered">បានរាយការណ៍រួចហើយ – រង់ចាំរហូតដល់តម្លៃត្រឡប់ទៅម្ខាងទៀតវិញ</string>
+    <string name="alarm_outcome_cooldown">មិនបានកើតឡើង – ពេលស្ងាត់បន្ទាប់ពីការដាស់តឿនចុងក្រោយ</string>
+    <!-- %1$s = Zeit des Kurses laut Börse -->
+    <string name="alarm_outcome_stale">មិនបានកើតឡើង – តម្លៃហួសសម័យ (គិតត្រឹម %1$s)</string>
+    <string name="alarm_outcome_mark_price">មិនបានកើតឡើង – mark price មិនមែនតម្លៃដែលបានជួញដូរទេ</string>
+    <string name="alarm_outcome_low_liquidity">មិនបានកើតឡើង – សន្ទនីយភាព ក្រោម 10,000 USD ឬមិនស្គាល់</string>
+    <string name="alarm_outcome_quiet_hours">មិនបានកើតឡើង – ម៉ោងស្ងាត់ (ដាស់តឿនក្រោយមក ប្រសិនបើលក្ខខណ្ឌនៅតែត្រូវ)</string>
+    <string name="alarm_outcome_notifications_off">មិនបានកើតឡើង – ការជូនដំណឹងបានបិទ</string>
+    <string name="alarm_outcome_not_shown">មិនបានកើតឡើង – ការជូនដំណឹងមិនបានមកដល់ នឹងព្យាយាមម្តងទៀតពេលក្រោយ</string>
+    <string name="alarm_outcome_no_rate">មិនបានពិនិត្យ – គ្មានអត្រាប្តូរប្រាក់</string>
+    <string name="alarm_outcome_no_price">គ្មានតម្លៃ – ការសួរទៅផ្សារប្តូរបានបរាជ័យ</string>
+
+    <string name="alarm_outcome_snoozed">ត្រូវបានទប់ទុក – «1 ម៉ោងក្រោយ» នៅតែដំណើរការ</string>
+    <string name="alarm_log_source_app">ក្នុងកម្មវិធី</string>
+    <string name="alarm_log_source_background">នៅផ្ទៃខាងក្រោយ</string>
+    <string name="alarm_log_source_exact">ការពិនិត្យទាន់ពេល</string>
+    <string name="alarm_log_source_widget">តាមរយៈវិដជិត</string>
+    <string name="alarm_outcome_fx_stale">មិនបានពិនិត្យ – អត្រាប្តូរប្រាក់ចាស់ជាង 36 ម៉ោង</string>
+    <string name="alarm_outcome_fx_unsure">មិនបានពិនិត្យ – ការប្តូរ USDT មិនច្បាស់លាស់ (តាមរយៈ USDC តែប៉ុណ្ណោះ)</string>
+</resources>

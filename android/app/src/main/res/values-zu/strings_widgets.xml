@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">Ingemuva</string>
+    <string name="widget_configure_hint">Khetha ingemuva nokubonakala. Umbala ulandela i-app. Iwijethi ibonisa lonke uhlu lwakho lokubuka; thepha umugqa ukuze uvule i-app.</string>
+    <string name="widget_configure_title">Setha iwijethi</string>
+    <string name="widget_description">Ibonisa intengo yepheya elivela ohlwini lwakho lokubuka.</string>
+    <string name="widget_empty">Awekho amapheya ohlwini lokubuka okwamanje.</string>
+    <string name="widget_group_hint">Bonisa kuphela amapheya aleli qembu.</string>
+    <string name="widget_kind_single">I-coin eyodwa</string>
+    <string name="widget_opacity">Ukubonakala kwengemuva: %1$s</string>
+    <string name="widget_pulse_description">Okugqamayo emakethe njengamanje: isihloko, isifinyezo esifushane ne-Bitcoin, Ethereum ne-Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">kudala</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">kudala · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">Ama-candle</string>
+    <string name="widget_chart_line">Umugqa</string>
+    <string name="widget_chart_range">Ububanzi beshadi</string>
+    <string name="widget_chart_type">Uhlobo lweshadi</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">unyaka o-1</string>
+    <string name="widget_range_24h">24h</string>
+    <string name="widget_range_30d">izinsuku ezingu-30</string>
+    <string name="widget_range_7d">izinsuku ezingu-7</string>
+    <string name="widget_range_short_1y">Un1</string>
+    <string name="widget_range_short_24h">24h</string>
+    <string name="widget_range_short_30d">Iz30</string>
+    <string name="widget_range_short_7d">Iz7</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">Kusukela ku-%1$s</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">Umlando uyeza maduze</string>
+    <string name="widget_portfolio_description">Inani eliphelele le-portfolio yakho noshintsho lwanamuhla</string>
+    <string name="widget_portfolio_entries">Okubhaliwe ngaphansi kwama-coin</string>
+    <string name="widget_portfolio_entries_both">Kokubili</string>
+    <string name="widget_portfolio_entries_buys">Ukuthenga</string>
+    <string name="widget_portfolio_entries_hint">Kuboniswa kuphela uma kunendawo ngaphansi kwama-coin. Ukuthenga kufaka amadiphozithi, ukuthengisa kufaka ukukhipha; ngo-«Kokubili» imigqa ihlangana ibe yizimpahla.</string>
+    <string name="widget_portfolio_entries_off">Kuvaliwe</string>
+    <string name="widget_portfolio_entries_sells">Ukuthengisa</string>
+    <string name="widget_portfolio_display">Ukubonisa</string>
+    <string name="widget_portfolio_display_conversion">Ukuguqula kuphela</string>
+    <string name="widget_portfolio_display_conversion_usdt">Ukuguqula + USDT</string>
+    <string name="widget_portfolio_display_hint">Umugqa we-USDT uyafihlwa uma imali yokuguqula iyi-stablecoin ye-USD (isb. USDC).</string>
+    <string name="widget_portfolio_display_usdt">I-USDT kuphela</string>
+    <string name="widget_portfolio_empty">Engeza ukuthenga ethebhini ye-Portfolio</string>
+    <string name="widget_portfolio_list_hint">Vula i-app ukuze ubonise izikhundla zakho lapha.</string>
+    <string name="widget_portfolio_locked_hint">Kukhiyiwe – vula ku-app</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="one">ngaphandle kwe-coin engu-%1$d</item>
+        <item quantity="other">ngaphandle kwama-coin angu-%1$d</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ %1$d okunye</item>
+        <item quantity="other">+ %1$d okunye</item>
+    </plurals>
+    <string name="widget_portfolio_name">I-portfolio</string>
+    <string name="widget_portfolio_off_hint">Yivule ku-%1$s.</string>
+    <string name="widget_portfolio_off_short">I-portfolio ivaliwe</string>
+    <string name="widget_portfolio_off_title">I-portfolio ivaliwe</string>
+    <string name="widget_portfolio_partly_stale">ezinye izintengo zindala</string>
+    <string name="widget_portfolio_period">Isikhathi</string>
+    <string name="widget_portfolio_period_without">%1$s ngaphandle kwe-%2$s</string>
+    <string name="widget_portfolio_range_48h">48h</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: vula i-Portfolio</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="widget_portfolio_today_without">Namuhla ngaphandle kwe-%1$s</string>
+    <string name="widget_portfolio_view">Ukubuka</string>
+    <string name="widget_portfolio_view_chart">Ishadi</string>
+    <string name="widget_portfolio_view_list">Uhlu</string>
+    <string name="widget_portfolio_view_overview">Ukubuka konke</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">Khetha ipheya</string>
+    <string name="single_widget_description">Ibonisa i-coin eyodwa ngobukhulu nentengo, ushintsho neshadi lamahora angu-24.</string>
+    <string name="single_widget_label">Crypto Checker – i-coin eyodwa</string>
+    <string name="single_widget_title">Setha iwijethi ye-coin eyodwa</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">Engeza</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">Engeza iwijethi %1$s</string>
+    <string name="widgets_manual_text">Isikrini sakho sasekhaya asikwazi ukwengeza amawijethi kusuka ku-app. Thinta bese ubamba indawo engenalutho esikrinini sasekhaya, khetha “Amawijethi” bese ubheka “Crypto Checker”.</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">Zengezele iwijethi</string>
+    <string name="widgets_sheet_title">Engeza iwijethi</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">I-iOS ayivumeli ama-app ukuthi engeze amawijethi ngokwawo. Kuthatha isikhashana nje:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Amawijethi atholakalayo</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Thinta bese ubamba indawo engenalutho ku-Home Screen kuze kunyakaze ama-app.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Thepha “Edit” › “Add Widget” phezulu (noma “+” ezinguqulweni ezindala ze-iOS).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Sesha “Crypto Checker”, khetha iwijethi bese uthepha “Add Widget”.</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">Vuselela – kungenzeka futhi ngemuva kuka-%1$d s</string>
+    <string name="settings_watch">Iwashi</string>
+    <string name="settings_watch_hint">Ama-coin e-app yewashi ku-Wear OS (kuze kufike ku-%1$d, intengo ngokuqhathaniswa ne-USDT). Lolu hlu kuphela oluya ewashini, ngama-Google Play services; iwashi lilanda izintengo ngokwalo.</string>
+    <string name="settings_watch_mode_phone">Njengocingo (izintandokazi ★)</string>
+    <string name="settings_watch_mode_own">Uhlu lwakho</string>
+    <string name="settings_watch_own_title">Uhlu lwakho: %1$d kwangu-%2$d</string>
+    <string name="settings_watch_none">Azikho izintandokazi okwamanje</string>
+
+    <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
+    <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">Awukho umugqa we-USDT ku-“Uhlu”</string>
+    <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
+    <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">“Ukubuka konke” kubonisa izinsuku ezingu-30 esikhundleni salokho</string>
+</resources>

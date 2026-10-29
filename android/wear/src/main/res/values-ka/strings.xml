@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">მონეტები არ არის არჩეული</string>
+    <string name="watch_loading">იტვირთება…</string>
+    <string name="watch_error">ბირჟები მიუწვდომელია</string>
+    <string name="watch_updated">მდგომარეობა: %1$s</string>
+    <string name="watch_refresh">განახლება</string>
+    <string name="watch_choose">მონეტების არჩევა</string>
+    <string name="watch_choose_hint">მონეტები: მაქს. %1$d</string>
+    <string name="watch_complication_label">ფასი</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s 24 საათში</string>
+    <string name="watch_mode_phone">სია: როგორც ტელეფონზე</string>
+    <string name="watch_mode_own">სია: საკუთარი</string>
+    <string name="watch_phone_empty">ტელეფონზე რჩეულები არ არის</string>
+    <string name="a11y_watch_outdated">ფასი მოძველებულია</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">ბოლოს განახლდა %1$d წუთის წინ</item>
+        <item quantity="other">ბოლოს განახლდა %1$d წუთის წინ</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">ბოლოს განახლდა %1$d საათის წინ</item>
+        <item quantity="other">ბოლოს განახლდა %1$d საათის წინ</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">ბოლოს განახლდა %1$d დღის წინ</item>
+        <item quantity="other">ბოლოს განახლდა %1$d დღის წინ</item>
+    </plurals>
+</resources>

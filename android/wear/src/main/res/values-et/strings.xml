@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Münte pole valitud</string>
+    <string name="watch_loading">Laadimine…</string>
+    <string name="watch_error">Börsid pole kättesaadavad</string>
+    <string name="watch_updated">Seis %1$s</string>
+    <string name="watch_refresh">Värskenda</string>
+    <string name="watch_choose">Vali mündid</string>
+    <string name="watch_choose_hint">Münte: kuni %1$d</string>
+    <string name="watch_complication_label">Hind</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s 24 tunniga</string>
+    <string name="watch_mode_phone">Loend: nagu telefonis</string>
+    <string name="watch_mode_own">Loend: oma</string>
+    <string name="watch_phone_empty">Telefonis pole lemmikuid</string>
+    <string name="a11y_watch_outdated">Hind aegunud</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">viimati uuendatud %1$d minut tagasi</item>
+        <item quantity="other">viimati uuendatud %1$d minutit tagasi</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">viimati uuendatud %1$d tund tagasi</item>
+        <item quantity="other">viimati uuendatud %1$d tundi tagasi</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">viimati uuendatud %1$d päev tagasi</item>
+        <item quantity="other">viimati uuendatud %1$d päeva tagasi</item>
+    </plurals>
+</resources>

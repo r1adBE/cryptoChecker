@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">Постави аларм</string>
+    <string name="alarms_add">Нов аларм</string>
+    <string name="alarms_edit">Уреди аларм</string>
+    <string name="alarms_empty">Сè уште нема аларми за овој пар.</string>
+    <string name="alarms_empty_example">На пример: Извести ме кога BTC ќе порасне над %1$s.</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">Известувањата се исклучени – алармите не можат да стигнат до тебе.</string>
+    <string name="alarms_notifications_turn_on">Вклучи</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">%1$d активен</item>
+        <item quantity="other">%1$d активни</item>
+    </plurals>
+    <string name="alarms_overview_empty">Сè уште нема аларми. Отвори пар и додај еден под Аларми.</string>
+    <string name="alarms_overview_title">Сите аларми</string>
+    <string name="alarms_title">Аларми</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">Напредно</string>
+    <string name="alarm_change_updates">Прилагоди ажурирања на цени</string>
+    <string name="alarm_create">Создај аларм</string>
+    <string name="alarm_currency_label">Валута</string>
+    <string name="alarm_delete_confirm">Овој аларм ќе биде отстранет.</string>
+    <string name="alarm_delete_title">Да се избрише алармот?</string>
+    <string name="alarm_field_percent">Процент</string>
+    <string name="alarm_field_price">Цена</string>
+    <string name="alarm_fires_now_above">Цената е веќе над %1$s. Сепак да се зачува?</string>
+    <string name="alarm_fires_now_below">Цената е веќе под %1$s. Сепак да се зачува?</string>
+    <string name="alarm_fires_now_change">Промени</string>
+    <string name="alarm_fires_now_save">Сепак зачувај</string>
+    <string name="alarm_fires_now_title">Алармот би се активирал веднаш</string>
+    <string name="alarm_first_battery_hint">Оптимизацијата на батеријата ја ограничува апликацијата – алармите може да доцнат.</string>
+    <string name="alarm_first_title">Алармот е зачуван</string>
+    <string name="alarm_last_triggered">последно во %1$s</string>
+    <string name="alarm_more_conditions">Повеќе услови</string>
+    <string name="alarm_new_extreme">Нов %1$s</string>
+    <string name="alarm_once">Еднаш</string>
+    <string name="alarm_option_repeating">Извести</string>
+    <string name="alarm_option_sound">Звук</string>
+    <string name="alarm_option_speak">Изговори аларм</string>
+    <string name="alarm_option_vibrate">Вибрација</string>
+    <string name="alarm_repeat_each">Секој пат</string>
+    <string name="alarm_repeat_once">Еднаш</string>
+    <string name="alarm_repeating">Секој пат</string>
+    <string name="alarm_threshold_error_empty">Внеси вредност за да го зачуваш алармот.</string>
+    <string name="alarm_threshold_error_funding">Фандингот мора да биде број помеѓу −10 и +10 проценти.</string>
+    <string name="alarm_threshold_error_invalid">Внеси валиден број поголем од 0.</string>
+    <string name="alarm_threshold_error_oi">Промена на отворениот интерес: најмногу 1000 проценти.</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">за %1$d ч</item>
+        <item quantity="other">за %1$d ч</item>
+    </plurals>
+    <string name="alarm_window_label">Временски прозорец</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">ќе порасне над</string>
+    <string name="alarm_simple_below">ќе падне под</string>
+    <string name="alarm_simple_end">\</string>
+    <string name="alarm_simple_when">Кога %1$s</string>
+    <string name="alarm_template_a11y">Создај аларм: %1$s</string>
+    <string name="alarm_template_a11y_down">Создај аларм на минус %1$s проценти од тековната цена</string>
+    <string name="alarm_template_a11y_up">Создај аларм на плус %1$s проценти од тековната цена</string>
+    <string name="alarm_template_from_now">од сега</string>
+    <string name="alarm_template_volume">Волумен ×%1$s</string>
+    <string name="alarm_templates_title">Брзи аларми</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">Цена над</string>
+    <string name="alarm_condition_below">Цена под</string>
+    <string name="alarm_condition_down_percent">Паѓа за</string>
+    <string name="alarm_condition_funding_above">Фандинг над</string>
+    <string name="alarm_condition_funding_below">Фандинг под</string>
+    <string name="alarm_condition_move_percent">Се движи за</string>
+    <string name="alarm_condition_near_high">Близу максимум</string>
+    <string name="alarm_condition_near_low">Близу минимум</string>
+    <string name="alarm_condition_oi_down">Отворениот интерес опаѓа</string>
+    <string name="alarm_condition_oi_up">Отворениот интерес расте</string>
+    <string name="alarm_condition_up_percent">Расте за</string>
+    <string name="alarm_condition_volume_spike">Скок на волуменот</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">Извести ме кога %1$s ќе порасне над %2$s.</string>
+    <string name="alarm_sentence_below">Извести ме кога %1$s ќе падне под %2$s.</string>
+    <string name="alarm_sentence_down_percent">Извести ме кога %1$s ќе падне %2$s под цената при зачувувањето (или при последниот аларм).</string>
+    <string name="alarm_sentence_funding_above">Извести ме кога фандингот на %1$s ќе порасне над %2$s.</string>
+    <string name="alarm_sentence_funding_below">Извести ме кога фандингот на %1$s ќе падне под %2$s.</string>
+    <string name="alarm_sentence_incomplete">Внеси вредност за да го видиш алармот како реченица.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">Извести ме кога %1$s ќе се помести за %2$s во рок од %3$d час.</item>
+        <item quantity="other">Извести ме кога %1$s ќе се помести за %2$s во рок од %3$d часа.</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">Извести ме кога %1$s е најмногу %2$s под својот %3$s.</string>
+    <string name="alarm_sentence_near_low">Извести ме кога %1$s е најмногу %2$s над својот %3$s.</string>
+    <string name="alarm_sentence_new_extreme">Извести ме кога %1$s ќе постави нов %2$s.</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">Извести ме кога отворениот интерес на %1$s ќе падне за %2$s во рок од %3$d час.</item>
+        <item quantity="other">Извести ме кога отворениот интерес на %1$s ќе падне за %2$s во рок од %3$d часа.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">Извести ме кога отворениот интерес на %1$s ќе порасне за %2$s во рок од %3$d час.</item>
+        <item quantity="other">Извести ме кога отворениот интерес на %1$s ќе порасне за %2$s во рок од %3$d часа.</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">Извести ме кога %1$s ќе порасне %2$s над цената при зачувувањето (или при последниот аларм).</string>
+    <string name="alarm_sentence_volume">Извести ме кога %1$s ќе тргува %2$s× од вообичаениот волумен.</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">30-дневен максимум</string>
+    <string name="alarm_near_extreme_high_365">едногодишен максимум</string>
+    <string name="alarm_near_extreme_high_90">90-дневен максимум</string>
+    <string name="alarm_near_extreme_low_30">30-дневен минимум</string>
+    <string name="alarm_near_extreme_low_365">едногодишен минимум</string>
+    <string name="alarm_near_extreme_low_90">90-дневен минимум</string>
+    <string name="alarm_near_field_distance">Растојание</string>
+    <string name="alarm_near_hint">Известува и кога ќе се постави нов максимум или минимум. Врз основа на дневни свеќи, освежени на секои 6 часа.</string>
+    <string name="alarm_near_new_only">Само нови максимуми или минимуми</string>
+    <string name="alarm_near_notification_high">%1$s е %2$s под својот %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s е %2$s над својот %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">Нов %1$s за %2$s: %3$s (претходно %4$s)</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d ден</item>
+        <item quantity="other">%1$d дена</item>
+    </plurals>
+    <string name="alarm_near_window_label">Период</string>
+    <string name="alarm_near_window_year">1 година</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">Стапка на фандинг на секои 8 часа. Договорите со друг интервал се пресметуваат (1 ч × 8, 4 ч × 2); картичката за фјучерси ја прикажува пресметаната вредност. Ако интервалот е непознат, алармот не проверува. Негативно значи дека шортовите им плаќаат на лонговите. ± го менува знакот.</string>
+    <string name="alarm_funding_sign_a11y">Промени знак</string>
+    <string name="alarm_oi_hint">Го споредува отворениот интерес со вредноста зачувана пред толку часа. Нов аларм известува дури откако апликацијата ќе собере податоци толку долго; се проверува најмногу на секои 5 минути.</string>
+    <string name="alarm_volume_factor_label">Волумен во последниот час наспроти вообичаеното</string>
+    <string name="alarm_volume_hint">Податоците за волуменот доаѓаат од Binance — парови што не се таму никогаш не се активираат.</string>
+    <string name="alarm_volume_zero_hours_hint">Часовите без тргување се бројат како нулти волумен, па кај парови со слабо тргување нормален час може да изгледа необично.</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">Алармот е активен</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">Алармот е зачуван: %1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">Известувањата се исклучени</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">Без „%1$s“ Android проверува неправилно додека уредот мирува – понекогаш дури по неколку часа. Со тоа, приближно на секои 15 минути.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Кога апликацијата е затворена, iOS често проверува подоцна од 15 минути, понекогаш дури при следното отворање. Кратки скокови може да се пропуштат.</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">Кога се проверуваат алармите</string>
+    <string name="alarm_timing_where">Колку често се ажурираат цените менуваш во %1$s.</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">Тивко (само известување)</string>
+    <string name="alarm_signal_sound">Само звук</string>
+    <string name="alarm_signal_sound_vibrate">Звук и вибрација</string>
+    <string name="alarm_signal_system">Систем</string>
+    <string name="alarm_signal_vibrate">Само вибрација</string>
+    <string name="alarm_test">Тест-аларм</string>
+    <string name="alarm_test_action">Тестирај</string>
+    <string name="alarm_test_denied">Известувањата за Crypto Checker се исклучени.</string>
+    <string name="alarm_test_hint">Испраќа пример-аларм со твоите поставки за звук, вибрација и говор.</string>
+    <string name="alarm_test_open_settings">Отвори поставки</string>
+    <string name="alarm_test_quiet">Тивките часови се сега вклучени: вистинските аларми би чекале до нивниот крај и потоа би заѕвонеле со звук.</string>
+    <string name="alarm_test_text">Вака изгледа и звучи еден аларм.</string>
+    <string name="alarm_test_title">Тест: аларм од Crypto Checker</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">Звукот е вклучен</string>
+    <string name="alarm_a11y_speak_on">Говорот е вклучен</string>
+    <string name="alarm_unchecked_no_candles">Не можеше да се провери (нема податоци за свеќи)</string>
+    <string name="alarm_unchecked_no_rate">Не можеше да се провери (нема девизен курс)</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">Известувањата се исклучени – овој аларм нема да стигне до тебе</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">Нема аларм – ниска ликвидност</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">Се чека тековна цена</string>
+    <string name="alarm_enter_amount">Внеси вредност</string>
+    <string name="alarm_editor_more">Повеќе</string>
+    <string name="alarm_editor_more_summary">Брзи аларми, други услови, звук и глас</string>
+    <string name="alarm_reliability_storage_no_key">Алармите во позадина се паузирани – листата за следење не е зачувана</string>
+    <string name="alarms_limit_reached">Еден пар може да има најмногу %1$s аларми.</string>
+    <string name="alarms_reference_rate_hint">Референтните курсеви на ЕЦБ се утврдуваат само еднаш дневно – за нив нема аларми.</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">Падот мора да биде помал од 100 проценти.</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">Невалиден праг – те молам прилагоди</string>
+
+    <string name="alarm_last_checked">Последна проверка %1$s</string>
+</resources>

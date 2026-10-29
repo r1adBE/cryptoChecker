@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">পোর্টফোলিও অ্যালার্ট বিরত: %1$s-এর বর্তমান দাম নেই</string>
+    <string name="portfolio_alarms_paused_price_generic">পোর্টফোলিও অ্যালার্ট বিরত: সব কয়েনের বর্তমান দাম নেই</string>
+    <string name="portfolio_alarms_paused_addresses">পোর্টফোলিও অ্যালার্ট বিরত: নজরে রাখা ঠিকানার ব্যালেন্স এখনো লোড হয়নি</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">পোর্টফোলিও অ্যালার্ট বিরত: %1$s-এর টোকেন ব্যালেন্স আংশিক পুরোনো</string>
+    <string name="portfolio_alarms_paused_tokens_generic">পোর্টফোলিও অ্যালার্ট বিরত: নজরে রাখা ঠিকানার টোকেন ব্যালেন্স আংশিক পুরোনো</string>
+    <string name="portfolio_alarms_paused_unverified">পোর্টফোলিও অ্যালার্ট বিরত: %1$s-এর দাম যাচাই হয়নি</string>
+    <string name="portfolio_alarms_paused_unverified_generic">পোর্টফোলিও অ্যালার্ট বিরত: কিছু কয়েনের দাম যাচাই হয়নি</string>
+    <string name="portfolio_alarms_address_failing">পোর্টফোলিও অ্যালার্ট %1$s ছাড়া যাচাই করে: 24 ঘণ্টার বেশি ব্যালেন্স লোড হয়নি</string>
+    <string name="portfolio_alarms_address_failing_generic">পোর্টফোলিও অ্যালার্ট সেইসব ঠিকানা ছাড়া যাচাই করে যাদের ব্যালেন্স 24 ঘণ্টার বেশি লোড হয়নি</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">টোকেন আংশিক পুরোনো</string>
+    <string name="portfolio_address_restore_failed">ঠিকানা পুনরুদ্ধার করা যায়নি – দরকার হলে আবার যোগ করুন</string>
+    <string name="portfolio_address_remove_failed">ঠিকানা সরানো যায়নি – অনুগ্রহ করে আবার চেষ্টা করুন</string>
+</resources>

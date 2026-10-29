@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s sa %2$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">Pagsara</string>
+    <string name="sheet_chart_converted_current">%1$s, na-convert (kasalukuyang rate)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, na-convert sa mga daily rate</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">Walang price data para sa pares na ito</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">Pagbukas</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">Ngayon</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">Vol %1$s</string>
+    <string name="sheet_more">Higit pa</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Ask</string>
+    <string name="ticker_bid">Bid</string>
+    <string name="explain_bid_ask">Ang bid ay ang pinakamataas na presyong inaalok ng mga mamimili ngayon, ang ask ay ang pinakamababang presyong tatanggapin ng mga nagbebenta.</string>
+    <string name="ticker_high">High</string>
+    <string name="ticker_low">Low</string>
+    <string name="ticker_timestamp">Oras</string>
+    <string name="ticker_vol_base">Volume (sa coin)</string>
+    <string name="ticker_vol_quote">Volume (sa quote currency)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (time zone ng device)</string>
+    <string name="change_basis_local">Mula 00:00 lokal na oras</string>
+    <string name="change_basis_rolling">Huling 24 na oras</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">Mula sa huling update</string>
+    <string name="change_basis_utc_zone">Mula 00:00 %1$s</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">Pagbabago mula sa mga candle ng %1$s</string>
+    <string name="change_short_since_last">huling update</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">ngayon</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">ngayon %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="exchange_data_empty_error">Walang natanggap na data mula sa exchange.</string>
+    <string name="market_data_summary">Market cap, gas fee, economic data, pagsusuri ng coin</string>
+    <string name="market_data_tab_futures">Futures</string>
+    <string name="market_data_title">Market data</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">Circulating supply</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">Market cap</string>
+    <string name="spot_max_supply">Max supply</string>
+    <string name="spot_no_data">Walang spot data para sa coin na ito</string>
+    <string name="spot_source_updated">Pinagmulan: %1$s · noong %2$s</string>
+    <string name="spot_supply_of_max">%1$s ng max supply ang nasa sirkulasyon</string>
+    <string name="spot_total_supply">Kabuuang supply</string>
+    <string name="spot_vol_mcap">Vol/Market cap</string>
+    <string name="spot_volume_24h">Volume (24h)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">Reference: %1$s</string>
+    <string name="futures_funding">Funding rate</string>
+    <string name="futures_funding_interval_unknown">hindi alam ang interval</string>
+    <string name="futures_funding_per8h_equiv">= %1$s kada 8 h (gaya sa mga alerto)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">kada oras</string>
+    <string name="futures_funding_per_hours">kada %1$d h</string>
+    <string name="futures_next_funding">susunod sa loob ng %1$d h %2$d min</string>
+    <string name="futures_no_data">Walang futures data para sa coin na ito</string>
+    <string name="futures_open_interest">Open interest</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">Reference mula sa %1$s – nagkakaiba ang funding at open interest bawat exchange; maaaring iba ang mga ito sa %2$s.</string>
+    <string name="futures_reference_spot">Reference mula sa %1$s (ang USDT perpetual ng coin)</string>
+    <string name="futures_source">Pinagmulan: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">Maraming trader ang tumataya sa pagtaas o pagbaba ng presyo gamit ang hiniram na pera. Fee sa pagitan ng mga long at short na posisyon. Kapag lubhang positibo, marami ang tumataya sa pagtaas ng presyo.</string>
+    <string name="explain_open_interest">Ang futures ay mga taya sa presyo, madalas gamit ang hiniram na pera. Value ng lahat ng bukas na futures position. Kapag tumaas ito, mas maraming pera ang tumataya sa galaw.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Paliwanag</string>
+    <string name="explain_spot_fdv">Fully diluted valuation: presyo × max supply (o kabuuang supply kung walang limitasyon).</string>
+    <string name="explain_spot_market_cap">Presyo × circulating supply. Ipinapakita ng pill ang pagbabago nito sa loob ng 24 na oras.</string>
+    <string name="explain_spot_source">Mga numero sa lahat ng exchange sa US dollar, mula sa CoinGecko.</string>
+    <string name="explain_spot_supply">Circulating: mga coin na nasa market ngayon. Kabuuan: lahat ng nalikhang coin bawas ang mga sinunog. Max: ang pinakamaraming puwedeng umiral.</string>
+    <string name="explain_spot_volume">Value na na-trade sa loob ng 24 na oras. Vol/Market cap: volume kumpara sa market cap — kapag mataas, napakaaktibo ng trading.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · rate %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">Malaking agwat ng presyo ng pagbili at pagbenta (%1$s)</string>
+
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">Kasaysayan sa %1$s, na-convert sa %2$s sa rate ngayon</string>
+    <string name="converted_unsure">Hindi tiyak ang conversion</string>
+</resources>

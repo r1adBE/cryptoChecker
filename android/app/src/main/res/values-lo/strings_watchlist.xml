@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">ເປັນປັດຈຸບັນ · %1$s</string>
+    <string name="watchlist_empty_title">ຍັງບໍ່ມີຄູ່ເທຣດ</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="other">%1$d ຈາກ %2$d ບໍ່ມີລາຄາ</item>
+    </plurals>
+    <string name="watchlist_last_run">ເຮັດວຽກຫຼ້າສຸດ %1$s</string>
+    <string name="watchlist_live_a11y">ລາຄາສົດເປີດຢູ່</string>
+    <string name="watchlist_offline_since">ບໍ່ມີການເຊື່ອມຕໍ່ · ຂໍ້ມູນເມື່ອ %1$s</string>
+    <string name="watchlist_pull_to_refresh">ດຶງລົງເພື່ອໂຫຼດຄືນໃໝ່</string>
+    <string name="watchlist_refresh_report">ການໂຫຼດຄືນໃໝ່ຫຼ້າສຸດ</string>
+    <string name="watchlist_refresh_report_empty">ຍັງບໍ່ມີລາຍລະອຽດ – ຍັງບໍ່ມີການໂຫຼດຄືນໃໝ່ທັງໝົດ. ແຕະໂຫຼດຄືນໃໝ່ ແລ້ວລໍຖ້າຈົນກວ່າວົງມົນຈະຢຸດ.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="other">%1$d ຈາກ %2$d ບໍ່ເປັນປັດຈຸບັນ</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">ຄູ່ເທຣດທັງໝົດຢູ່ນີ້ຖືກປິດໃຊ້ງານ</string>
+    <string name="watchlist_status_exchange_prices">ລາຄາຈາກກະດານແລກປ່ຽນຂອງທ່ານ · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">ລາຄາກະດານແລກປ່ຽນ · %1$s</string>
+    <string name="watchlist_status_group_empty">ບໍ່ມີຄູ່ເທຣດໃນກຸ່ມນີ້</string>
+    <string name="watchlist_status_none_traded">ບໍ່ມີຄູ່ເທຣດທີ່ມີການຊື້ຂາຍຢູ່ນີ້</string>
+    <string name="watchlist_updated">ອັບເດດແລ້ວ: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">ສະເລ່ຍ %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="other">%1$d ລົງ</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="other">%1$d ບໍ່ມີຄ່າ 24 ຊມ.</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="other">%1$d ບໍ່ມີຄ່າມື້ນີ້</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="other">%1$d ຂຶ້ນ</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · ປິດໃຊ້ງານ</string>
+    <string name="watchlist_row_outdated">%1$s · ບໍ່ເປັນປັດຈຸບັນ</string>
+    <string name="watchlist_row_outdated_age">ບໍ່ເປັນປັດຈຸບັນ · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">ລາຄາບໍ່ປ່ຽນແປງນັບແຕ່ %1$s</string>
+    <string name="watchlist_row_unreachable">%1$s · ເຊື່ອມຕໍ່ %2$s ບໍ່ໄດ້</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">ໄປທ້າຍສຸດ</string>
+    <string name="watchlist_jump_start">ໄປເທິງສຸດ</string>
+    <string name="watchlist_search_close">ປິດການຄົ້ນຫາ</string>
+    <string name="watchlist_search_empty">ບໍ່ພົບຜົນສຳລັບ “%1$s”</string>
+    <string name="watchlist_search_hint">ຄົ້ນຫາຄູ່ເທຣດ, ຊື່ ຫຼື ກະດານແລກປ່ຽນ</string>
+    <string name="watchlist_search_open">ຄົ້ນຫາ</string>
+    <string name="watchlist_sort_ascending">ນ້ອຍຫາໃຫຍ່</string>
+    <string name="watchlist_sort_descending">ໃຫຍ່ຫານ້ອຍ</string>
+    <string name="watchlist_sort_hint">ກົດຄ້າງ ແລ້ວລາກຄູ່ເທຣດ ຫຼື ໃຊ້ບ່ອນຈັບ. ລາຍການທີ່ມັກຍັງຢູ່ເທິງສຸດ.</string>
+    <string name="watchlist_sort_name">ຊື່</string>
+    <string name="watchlist_sort_own">ລຳດັບກຳນົດເອງ</string>
+    <string name="watchlist_sort_price">ລາຄາ</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">ລ້າງລາຍການຕິດຕາມ</string>
+    <string name="watchlist_clear_confirm">ລຶບຄູ່ເທຣດທັງໝົດອອກຈາກລາຍການຕິດຕາມບໍ? ສັນຍານເຕືອນຂອງພວກມັນຈະຖືກລຶບນຳ.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="other">%1$d ປິດໃຊ້ງານ</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">ລຶບອອກ</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="other">ລຶບ %1$d ຄູ່ເທຣດທີ່ບໍ່ມີການຊື້ຂາຍໃນກະດານແລກປ່ຽນຂອງມັນອີກແລ້ວອອກບໍ? ສັນຍານເຕືອນຂອງພວກມັນຈະຖືກລຶບນຳ.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">ລຶບຄູ່ເທຣດທີ່ບໍ່ມີການຊື້ຂາຍ (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">ລຶບຄູ່ເທຣດທີ່ບໍ່ມີການຊື້ຂາຍ</string>
+    <string name="watchlist_removed">ລຶບ %1$s ແລ້ວ</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="other">ລຶບ %1$d ຄູ່ເທຣດແລ້ວ</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="other">ລຶບ %1$d ຄູ່ເທຣດທີ່ບໍ່ມີການຊື້ຂາຍແລ້ວ</item>
+    </plurals>
+    <string name="watchlist_select">ເລືອກ</string>
+    <string name="watchlist_select_all">ເລືອກທັງໝົດ</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="other">ເລືອກແລ້ວ %1$d</item>
+    </plurals>
+    <string name="watchlist_show_all">ສະແດງທັງໝົດ</string>
+    <string name="watchlist_show_only_disabled">ສະແດງສະເພາະທີ່ປິດໃຊ້ງານ</string>
+    <string name="watchlist_show_only_stale">ສະແດງສະເພາະທີ່ບໍ່ເປັນປັດຈຸບັນ</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="other">ສັນຍານເຕືອນ (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">ຍັງບໍ່ມີລາຍການທີ່ມັກ. ປັດຄູ່ເທຣດໄປທາງຂວາ ຫຼື ເປີດຄູ່ເທຣດແລ້ວແຕະ “ລາຍການທີ່ມັກ”.</string>
+    <string name="watchlist_group_empty_hint">ກົດຄ້າງທີ່ກຸ່ມເພື່ອເລືອກຄູ່ເທຣດຂອງມັນ.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">ກຸ່ມຂອງທ່ານຈະປາກົດຢູ່ນີ້</string>
+    <string name="watchlist_notification">ການແຈ້ງເຕືອນລາຄາ</string>
+    <string name="watchlist_tts">ອ່ານລາຄາ</string>
+    <string name="watchlist_tts_speech_on">ການອ່ານອອກສຽງເປີດຢູ່. ທ່ານສາມາດປ່ຽນໄດ້ໃນ ການຕັ້ງຄ່າ › ສັນຍານເຕືອນ › ການອ່ານອອກສຽງ.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">ເພີ່ມເປັນວິດເຈັດ</string>
+    <string name="watch_action_alarm">ສັນຍານເຕືອນ</string>
+    <string name="watch_action_favorite">ລາຍການທີ່ມັກ</string>
+    <string name="watch_action_why">ມີຫຍັງເໜັງຕີງນຳ?</string>
+    <string name="watch_action_why_short">ມີຫຍັງເໜັງຕີງນຳ?</string>
+    <string name="watch_change_mark">ເຄື່ອງໝາຍ</string>
+    <string name="watch_disable">ປິດໃຊ້ງານ</string>
+    <string name="watch_disable_hint">ບໍ່ມີຄຳຂໍ, ບໍ່ມີການແຈ້ງເຕືອນ</string>
+    <string name="watch_disabled">ປິດໃຊ້ງານແລ້ວ</string>
+    <string name="watch_disabled_banner">ປິດໃຊ້ງານ %1$s ແລ້ວ</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">ສັນຍານເຕືອນຍັງຄົງຢູ່ – ກວດເກນຂອງພວກມັນ</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">ແກ້ໄຂຄູ່ເທຣດ</string>
+    <string name="watch_enable">ເປີດໃຊ້ງານ</string>
+    <string name="watch_enable_hint">ລາຄາ ແລະ ການແຈ້ງເຕືອນຈະເລີ່ມຄືນ</string>
+    <string name="watch_enabled_banner">ເປີດໃຊ້ງານ %1$s ແລ້ວ</string>
+    <string name="watch_error_offline">ບໍ່ມີການເຊື່ອມຕໍ່</string>
+    <string name="watch_gesture_hint_short">ແຕະ: ສັນຍານເຕືອນ ແລະ “ມີຫຍັງເໜັງຕີງນຳ?” · ກົດຄ້າງເພື່ອເລືອກ · ປັດຊ້າຍເພື່ອລຶບ · ປັດຂວາສຳລັບລາຍການທີ່ມັກ</string>
+    <string name="watch_hint_tap_why">ແຕະຫຼຽນສຳລັບສັນຍານເຕືອນ ແລະ “ມີຫຍັງເໜັງຕີງນຳ?”</string>
+    <string name="watch_not_traded">ບໍ່ມີການຊື້ຂາຍໃນກະດານແລກປ່ຽນນີ້ອີກແລ້ວ</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">ບໍ່ຢູ່ໃນລາຍການຕິດຕາມ</string>
+    <string name="watch_price_mid">ລາຄາກາງ (ຖ້າບໍ່ດັ່ງນັ້ນ mark)</string>
+    <string name="watch_row_source_both">ການປ່ຽນແປງ &amp; ແຜນພູມ: %1$s</string>
+    <string name="watch_row_source_change">ການປ່ຽນແປງ: %1$s</string>
+    <string name="watch_row_source_chart">ແຜນພູມ: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s ຕອນນີ້ຢູ່ໃນລາຍການຕິດຕາມຂອງທ່ານແລ້ວ</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s ຕອນນີ້ຢູ່ໃນລາຍການຕິດຕາມຂອງທ່ານແລ້ວ</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">ເພີ່ມໃສ່ລາຍການທີ່ມັກ</string>
+    <string name="favorite_added">ເພີ່ມ %1$s ໃສ່ລາຍການທີ່ມັກແລ້ວ</string>
+    <string name="favorite_remove">ລຶບອອກຈາກລາຍການທີ່ມັກ</string>
+    <string name="favorite_removed">ລຶບ %1$s ອອກຈາກລາຍການທີ່ມັກແລ້ວ</string>
+    <string name="hint_favorites_list">ເຄັດລັບ: ປັດແຖວໄປທາງຂວາເພື່ອເຮັດໃຫ້ເປັນລາຍການທີ່ມັກ – ລາຍການທີ່ມັກຍັງຢູ່ເທິງສຸດ.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">ກຸ່ມໃໝ່</string>
+    <string name="group_all">ທັງໝົດ</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">ໂທເຄັນ Alpha</string>
+    <string name="group_delete">ລຶບກຸ່ມ</string>
+    <string name="group_delete_confirm">ຄູ່ເທຣດຍັງຢູ່ໃນລາຍການຕິດຕາມຂອງທ່ານ.</string>
+    <string name="group_done">ສຳເລັດ</string>
+    <string name="group_edit_title">ແກ້ໄຂກຸ່ມ</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">ລາຍການທີ່ມັກ</string>
+    <string name="group_in_other">ໃນ %1$s</string>
+    <string name="group_name">ຊື່ກຸ່ມ</string>
+    <string name="group_new">ກຸ່ມໃໝ່…</string>
+    <string name="group_next">ຕໍ່ໄປ</string>
+    <string name="group_none">ບໍ່ມີກຸ່ມ</string>
+    <string name="group_rename">ປ່ຽນຊື່</string>
+    <string name="group_search_hint">ຄົ້ນຫາຄູ່ເທຣດ, ຊື່ ຫຼື ກະດານແລກປ່ຽນ</string>
+    <string name="group_target">ໃນກຸ່ມ</string>
+    <string name="group_title">ກຸ່ມ</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">ໂທເຄັນ</string>
+    <string name="group_value">ກຸ່ມ: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">ເພີ່ມໝາຍເຫດ</string>
+    <string name="note_edit">ແກ້ໄຂໝາຍເຫດ</string>
+    <string name="note_hint">ເຊັ່ນ ເຂົ້າທີ່ 0.42, ເປົ້າໝາຍ 0.60</string>
+    <string name="note_remove">ລຶບອອກ</string>
+    <string name="note_title">ໝາຍເຫດ</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">ລາກເພື່ອຈັດລຽງໃໝ່</string>
+    <string name="sort_move_bottom">ຍ້າຍໄປລຸ່ມສຸດ</string>
+    <string name="sort_move_down">ຍ້າຍລົງ</string>
+    <string name="sort_move_top">ຍ້າຍໄປເທິງສຸດ</string>
+    <string name="sort_move_up">ຍ້າຍຂຶ້ນ</string>
+
+    <string name="watchlist_first_alarm_title">ຕັ້ງສັນຍານເຕືອນທຳອິດຂອງທ່ານ</string>
+    <string name="watchlist_first_alarm_text">ຮັບການແຈ້ງເຕືອນເມື່ອລາຄາຮອດເຄື່ອງໝາຍຂອງທ່ານ – ເມື່ອປິດແອັບ, Android ກວດບໍ່ສະໝ່ຳສະເໝີ.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">mark price (ບໍ່ມີລາຄາກາງ)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">ລາຄາລາຍຊົ່ວໂມງ</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">ຕັ້ງສັນຍານເຕືອນທຳອິດຂອງທ່ານ – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">ໂຫຼດຄືນໃໝ່ (%1$d)</string>
+
+    <!-- Zeile der Merkliste: Börse pausiert (zu viele Anfragen / Zeitüberschreitungen) bis zu einer Uhrzeit, ersetzt die Zeitzeile, z. B. «Binance · pausiert bis 19:45» -->
+    <string name="watchlist_row_exchange_paused">%1$s · ຢຸດຊົ່ວຄາວຈົນເຖິງ %2$s</string>
+
+    <string name="watchlist_refresh_just_done">ຫາກໍ່ອັບເດດ · %1$d ວິ. ກ່ອນ</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">ການຊື້ຂາຍຫຼ້າສຸດ %1$s</string>
+
+    <string name="change_candle_source_hint">ຄຳນວນຈາກແທ່ງທຽນ %1$s – ກະດານແລກປ່ຽນເອງບໍ່ໄດ້ໃຫ້ຄ່ານີ້.</string>
+    <string name="change_candle_source_action">ສະແດງແຫຼ່ງທີ່ມາຂອງການປ່ຽນແປງ</string>
+
+    <string name="watchlist_sort_by_coin">ຈັດລຽງຕາມຫຼຽນ</string>
+    <string name="watchlist_sort_by_exchange">ຈັດລຽງຕາມກະດານແລກປ່ຽນ</string>
+    <string name="watchlist_limit_reached">ລາຍການຕິດຕາມຂອງທ່ານມີໄດ້ສູງສຸດ %1$s ຄູ່.</string>
+    <string name="watch_price_reference">ອັດຕາອ້າງອີງ, ລາຍວັນ</string>
+    <string name="watch_price_daily">ລາຍວັນ</string>
+    <string name="watchlist_compare">ປຽບທຽບ</string>
+    <string name="watchlist_compare_hint">ເລືອກ 2 ຫາ 4 ຄູ່ເທຣດເພື່ອປຽບທຽບ.</string>
+    <string name="compare_title">ການປຽບທຽບ</string>
+    <string name="compare_basis">ເສັ້ນສະແດງການປ່ຽນແປງເປັນເປີເຊັນນັບແຕ່ເລີ່ມຕົ້ນໄລຍະເວລາ.</string>
+    <string name="compare_from_high">ທຽບກັບຈຸດສູງສຸດ 30 ມື້</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="other">%1$d ຄູ່ເທຣດບໍ່ໄດ້ຖືກກູ້ຄືນ – ລາຍການຕິດຕາມເຕັມ</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">ຕອນນີ້ລາຍການຕິດຕາມ ແລະ ສັນຍານເຕືອນຂອງມັນບໍ່ໄດ້ຖືກບັນທຶກ. ການປ່ຽນແປງນີ້ ແລະ ການປ່ຽນແປງຕໍ່ໄປຈະສູນຫາຍເມື່ອແອັບປິດ. ປ່ຽນຢູ່ບໍ?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">ປ່ຽນຢູ່ດີ</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="other">%1$d ຄູ່ເທຣດ</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="other">%2$d ຈາກ %1$d ຄູ່ເທຣດ</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="other">ເຫຼືອ %1$d ບ່ອນ</item>
+    </plurals>
+    <string name="watchlist_footer_full">ລາຍການຕິດຕາມເຕັມແລ້ວ</string>
+</resources>

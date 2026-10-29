@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Protokoll: Titel der Seite und Name des Knopfs in «Alle Alarme» -->
+    <string name="alarm_log_title">Rexistro de alarmas</string>
+    <!-- Link unter «Letzte Prüfungen» (Einstellungen › Aktualisierung) -->
+    <string name="alarm_log_open">Ver rexistro de alarmas</string>
+    <string name="alarm_log_intro">Cando saltou unha alarma – e cando tería saltado pero se retivo. Só se garda neste dispositivo, durante 14 días.</string>
+    <string name="alarm_log_empty_title">Aínda non hai entradas</string>
+    <string name="alarm_log_empty_message">As entradas aparecen aquí cando unha alarma salta ou se retén – por exemplo porque o prezo é antigo ou durante as horas de silencio.</string>
+    <string name="alarm_log_clear">Baleirar rexistro</string>
+    <string name="alarm_log_clear_title">Queres baleirar o rexistro de alarmas?</string>
+    <string name="alarm_log_clear_message">Elimínanse todas as entradas. As túas alarmas quedan como están.</string>
+    <!-- Screenreader: Schwelle des Alarms, z. B. «Marke Über 100’000 CHF» -->
+    <string name="alarm_log_threshold">Limiar %1$s</string>
+    <!-- Alarm-Editor: letzte Prüfung, %1$s = «14:02 · Kraken 99’800 CHF · Marke nicht erreicht» -->
+    <string name="alarm_last_check">Última comprobación: %1$s</string>
+    <!-- Ergebnisse einer Alarm-Prüfung (AlarmLogOutcome) -->
+    <string name="alarm_outcome_fired">Saltou</string>
+    <string name="alarm_outcome_not_reached">Limiar non alcanzado</string>
+    <string name="alarm_outcome_already_triggered">Xa se avisou – agarda a que o prezo volva ao outro lado</string>
+    <string name="alarm_outcome_cooldown">Non saltou – tempo de repouso tras a última alarma</string>
+    <!-- %1$s = Zeit des Kurses laut Börse -->
+    <string name="alarm_outcome_stale">Non saltou – prezo antigo (ás %1$s)</string>
+    <string name="alarm_outcome_mark_price">Non saltou – prezo de marca, non un prezo negociado</string>
+    <string name="alarm_outcome_low_liquidity">Non saltou – liquidez inferior a 10.000 USD ou descoñecida</string>
+    <string name="alarm_outcome_quiet_hours">Non saltou – horas de silencio (avisa despois se aínda se cumpre)</string>
+    <string name="alarm_outcome_notifications_off">Non saltou – notificacións desactivadas</string>
+    <string name="alarm_outcome_not_shown">Non saltou – a notificación non chegou, tentarase máis tarde</string>
+    <string name="alarm_outcome_no_rate">Sen comprobar – non hai tipo de cambio</string>
+    <string name="alarm_outcome_no_price">Sen prezo – fallou a consulta ao exchange</string>
+
+    <string name="alarm_outcome_snoozed">Retida – «1 h máis tarde» aínda activo</string>
+    <string name="alarm_log_source_app">na app</string>
+    <string name="alarm_log_source_background">en segundo plano</string>
+    <string name="alarm_log_source_exact">comprobación puntual</string>
+    <string name="alarm_log_source_widget">desde o widget</string>
+    <string name="alarm_outcome_fx_stale">Sen comprobar – tipo de cambio de hai máis de 36 horas</string>
+    <string name="alarm_outcome_fx_unsure">Sen comprobar – conversión a USDT incerta (só vía USDC)</string>
+</resources>

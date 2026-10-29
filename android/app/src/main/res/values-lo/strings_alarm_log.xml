@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Protokoll: Titel der Seite und Name des Knopfs in «Alle Alarme» -->
+    <string name="alarm_log_title">ບັນທຶກສັນຍານເຕືອນ</string>
+    <!-- Link unter «Letzte Prüfungen» (Einstellungen › Aktualisierung) -->
+    <string name="alarm_log_open">ສະແດງບັນທຶກສັນຍານເຕືອນ</string>
+    <string name="alarm_log_intro">ເມື່ອສັນຍານເຕືອນເຮັດວຽກ – ແລະ ເມື່ອມັນຄວນເຮັດວຽກແຕ່ຖືກກັກໄວ້. ເກັບໄວ້ໃນອຸປະກອນນີ້ເທົ່ານັ້ນ, ເປັນເວລາ 14 ມື້.</string>
+    <string name="alarm_log_empty_title">ຍັງບໍ່ມີລາຍການ</string>
+    <string name="alarm_log_empty_message">ລາຍການຈະປາກົດຢູ່ນີ້ເມື່ອສັນຍານເຕືອນເຮັດວຽກ ຫຼື ຖືກກັກໄວ້ – ຕົວຢ່າງ ເພາະລາຄາບໍ່ເປັນປັດຈຸບັນ ຫຼື ໃນຊ່ວງເວລາງຽບ.</string>
+    <string name="alarm_log_clear">ລ້າງບັນທຶກ</string>
+    <string name="alarm_log_clear_title">ລ້າງບັນທຶກສັນຍານເຕືອນບໍ?</string>
+    <string name="alarm_log_clear_message">ລາຍການທັງໝົດຈະຖືກລຶບອອກ. ສັນຍານເຕືອນຂອງທ່ານຍັງຄືເກົ່າ.</string>
+    <!-- Screenreader: Schwelle des Alarms, z. B. «Marke Über 100’000 CHF» -->
+    <string name="alarm_log_threshold">ເກນ %1$s</string>
+    <!-- Alarm-Editor: letzte Prüfung, %1$s = «14:02 · Kraken 99’800 CHF · Marke nicht erreicht» -->
+    <string name="alarm_last_check">ກວດສອບຫຼ້າສຸດ: %1$s</string>
+    <!-- Ergebnisse einer Alarm-Prüfung (AlarmLogOutcome) -->
+    <string name="alarm_outcome_fired">ເຮັດວຽກແລ້ວ</string>
+    <string name="alarm_outcome_not_reached">ຍັງບໍ່ເຖິງເກນ</string>
+    <string name="alarm_outcome_already_triggered">ແຈ້ງແລ້ວ – ລໍຖ້າຈົນກວ່າລາຄາຈະກັບໄປອີກຝັ່ງໜຶ່ງ</string>
+    <string name="alarm_outcome_cooldown">ບໍ່ເຮັດວຽກ – ຊ່ວງພັກຫຼັງຈາກສັນຍານເຕືອນຄັ້ງຫຼ້າສຸດ</string>
+    <!-- %1$s = Zeit des Kurses laut Börse -->
+    <string name="alarm_outcome_stale">ບໍ່ເຮັດວຽກ – ລາຄາບໍ່ເປັນປັດຈຸບັນ (ຂໍ້ມູນເມື່ອ %1$s)</string>
+    <string name="alarm_outcome_mark_price">ບໍ່ເຮັດວຽກ – mark price, ບໍ່ແມ່ນລາຄາທີ່ມີການຊື້ຂາຍ</string>
+    <string name="alarm_outcome_low_liquidity">ບໍ່ເຮັດວຽກ – ສະພາບຄ່ອງຕ່ຳກວ່າ 10,000 USD ຫຼື ບໍ່ຮູ້</string>
+    <string name="alarm_outcome_quiet_hours">ບໍ່ເຮັດວຽກ – ຊ່ວງເວລາງຽບ (ເຕືອນພາຍຫຼັງ ຖ້າຍັງເປັນໄປຕາມເງື່ອນໄຂ)</string>
+    <string name="alarm_outcome_notifications_off">ບໍ່ເຮັດວຽກ – ການແຈ້ງເຕືອນປິດຢູ່</string>
+    <string name="alarm_outcome_not_shown">ບໍ່ເຮັດວຽກ – ການແຈ້ງເຕືອນບໍ່ມາຮອດ, ຈະລອງໃໝ່ພາຍຫຼັງ</string>
+    <string name="alarm_outcome_no_rate">ບໍ່ໄດ້ກວດ – ບໍ່ມີອັດຕາແລກປ່ຽນ</string>
+    <string name="alarm_outcome_no_price">ບໍ່ມີລາຄາ – ການສອບຖາມກະດານແລກປ່ຽນລົ້ມເຫຼວ</string>
+
+    <string name="alarm_outcome_snoozed">ຖືກກັກໄວ້ – «ອີກ 1 ຊມ.» ຍັງເຮັດວຽກຢູ່</string>
+    <string name="alarm_log_source_app">ໃນແອັບ</string>
+    <string name="alarm_log_source_background">ໃນພື້ນຫຼັງ</string>
+    <string name="alarm_log_source_exact">ການກວດຕາມເວລາ</string>
+    <string name="alarm_log_source_widget">ຜ່ານວິດເຈັດ</string>
+    <string name="alarm_outcome_fx_stale">ບໍ່ໄດ້ກວດ – ອັດຕາແລກປ່ຽນເກົ່າກວ່າ 36 ຊົ່ວໂມງ</string>
+    <string name="alarm_outcome_fx_unsure">ບໍ່ໄດ້ກວດ – ການແປງ USDT ບໍ່ແນ່ນອນ (ຜ່ານ USDC ເທົ່ານັ້ນ)</string>
+</resources>

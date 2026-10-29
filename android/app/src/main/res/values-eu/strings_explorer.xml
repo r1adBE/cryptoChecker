@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">Emaitza guztiak</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="one">%1$d burtsa</item>
+        <item quantity="other">%1$d burtsa</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">Ez dago txanpon honetarako parerik kargatutako zerrendetan.</string>
+    <string name="explorer_coin_not_loaded">Pare-zerrendak ez dira kargatu oraindik</string>
+    <string name="explorer_coin_other_pairs">Beste pare batzuk</string>
+    <string name="explorer_coin_show_pairs">Erakutsi pareak</string>
+    <string name="explorer_coin_suggested">Iradokita</string>
+    <string name="explorer_coins_title">Txanponak</string>
+    <string name="explorer_lists_failed_many">%1$s ez dira erantzuten ari une honetan – pare-zerrendak ez dira kargatu. Saiatu berriro geroago.</string>
+    <plurals name="explorer_lists_failed_more">
+        <item quantity="one">+%1$d gehiago</item>
+        <item quantity="other">+%1$d gehiago</item>
+    </plurals>
+    <string name="explorer_lists_failed_one">%1$s ez da erantzuten ari une honetan – pare-zerrenda ez da kargatu. Saiatu berriro geroago.</string>
+    <string name="explorer_lists_load">Kargatu zerrendak</string>
+    <string name="explorer_lists_loading">Pare-zerrendak kargatzen… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="one">%1$d burtsaren pare-zerrenda ez dago oraindik gailu honetan.</item>
+        <item quantity="other">%1$d burtsaren pare-zerrendak ez daude oraindik gailu honetan.</item>
+    </plurals>
+    <string name="explorer_lists_privacy">Burtsa bakoitzaren zerrenda publiko osoa kargatzen du – berdina guztientzat. Zure bilaketa gailu honetan geratzen da.</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">Azken bilaketa: %1$s</string>
+    <string name="explorer_recent_clear">Garbitu</string>
+    <string name="explorer_recent_clear_a11y">Garbitu azken bilaketak</string>
+    <string name="explorer_recent_title">Azken bilaketak</string>
+    <string name="explorer_search_choose_manually">Aukeratu burtsa eta parea eskuz</string>
+    <string name="explorer_search_empty">Ez dago bat-etortzerik.</string>
+    <string name="explorer_search_hint">Bilatu txanpona, parea edo burtsa</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">Idatzi txanpon baten izena edo ikurra, adib. Bitcoin edo BTC – eta gero aukeratu parea.</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">Gehitu zerrendara</string>
+    <string name="explorer_added_to_watchlist">Zerrendara gehitu da.</string>
+    <string name="explorer_already_in_watchlist">Pare hau zerrendan dago jada.</string>
+    <string name="explorer_exchange_missing">Burtsaren bat falta da?</string>
+    <string name="explorer_loading_pairs">Negoziazio-pareak kargatzen…</string>
+    <string name="explorer_no_pair_selected">Aukeratu pare bat lehenik.</string>
+    <string name="explorer_no_pairs_yet">Ez da parerik kargatu oraindik burtsa honetarako.</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$d pare · eguneratua: %2$s</item>
+        <item quantity="other">%1$d pare · eguneratua: %2$s</item>
+    </plurals>
+    <string name="explorer_pairs_title">Pareak</string>
+    <string name="explorer_precise_title">Aurreratua / burtsaren arabera</string>
+    <string name="explorer_price_loading">Prezioa kargatzen…</string>
+    <string name="explorer_select_exchange_hint">Aukeratu burtsa bat – haren negoziazio-pareak automatikoki kargatzen dira.</string>
+    <string name="explorer_select_placeholder">Hautatu</string>
+    <string name="explorer_step_pair">Aukeratu parea</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">Gorantz</string>
+    <string name="explorer_filter_losers">Beherantz</string>
+    <string name="explorer_filter_volume">Bolumena</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">Burtsa honetako %1$s pare guztiak</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">%1$d %2$s pare aurkitu da</item>
+        <item quantity="other">%1$d %2$s pare aurkitu dira</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">Burtsa honetan ez dago %1$s parerik hautatutako kontratu motarako. Sinkronizatu burtsa lehenik, edo probatu beste kontratu mota bat.</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">Gehitu parea (%1$d) zerrendara</item>
+        <item quantity="other">Gehitu %1$d pareak zerrendara</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">%1$d gehitu da, %2$d zerrendan zeuden jada.</item>
+        <item quantity="other">%1$d gehitu dira, %2$d zerrendan zeuden jada.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">%3$s burtsako %2$s parea (%1$d) zerrendara gehituko da, bertan ez badago.</item>
+        <item quantity="other">%3$s burtsako %1$d %2$s pare guztiak zerrendara gehituko dira. Bertan daudenak saltatu egiten dira.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">%1$d pare gehitu nahi duzu?</item>
+        <item quantity="other">%1$d pare gehitu nahi dituzu?</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">Ezkutatu zerrenda</string>
+    <string name="explorer_bulk_show_list">Erakutsi zerrenda</string>
+    <string name="explorer_bulk_tap_hint">Sakatu pare bat goian hautatzeko.</string>
+    <string name="explorer_bulk_title">Hainbat pare batera</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">Hautatutako burtsaren uneko pareak kargatzen ditu.</string>
+    <string name="explorer_no_pair_list">Ez dago dibisa-parerik</string>
+    <string name="explorer_sync_sheet_last">Azken sinkronizazioa: %1$s</string>
+    <string name="explorer_sync_never">inoiz ez</string>
+    <string name="explorer_sync_sheet_action">Sinkronizatu orain</string>
+    <string name="explorer_sync_sheet_title">Eguneratu dibisa-pareak</string>
+    <string name="explorer_field_coin">Txanpona</string>
+    <string name="explorer_field_contract">Kontratu mota</string>
+    <string name="explorer_field_exchange">Burtsa</string>
+    <string name="explorer_field_quote">Kotizazio-moneta</string>
+    <string name="explorer_contract_spot">Spot</string>
+    <string name="explorer_reload_pairs">Sinkronizatu</string>
+    <string name="sync_pairs_count">Negoziazio-pareak: %1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">Gehitu</string>
+    <string name="dex_added">Zerrendara gehitu da: %1$s.</string>
+    <string name="dex_already">Zerrendan dago jada: %1$s.</string>
+    <string name="dex_intro">Burtsa handietatik kanpoko tokenak, burtsa deszentralizatuetakoak (Uniswap, PancakeSwap, Raydium …), DexScreener bidez. Bilatu token bat eta gehitu haren negoziazio-pooletako bat – prezioak AEBko dolarretan.</string>
+    <string name="dex_liquidity">Likidezia: %1$s</string>
+    <string name="dex_no_results">Ez da poolik aurkitu.</string>
+    <string name="dex_search">Bilatu</string>
+    <string name="dex_search_hint">Tokenaren izena, ikurra edo helbidea</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">Alpha tokena</string>
+    <string name="asset_kind_token">Tokena</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+
+    <string name="dex_low_liquidity_no_alarm">Likidezia txikia – alarmarik ez</string>
+    <string name="dex_low_liquidity_alarm_hint">Pool honek 10.000 USD baino likidezia txikiagoa du (edo ez du jakinarazten). Eragiketa txikiek haren prezioa mugi dezakete; beraz, hemen ezin da alarmarik ezarri. Lehendik dauden alarmak mantendu egiten dira, baina ez dute joko likidezia berriro igo arte.</string>
+
+    <string name="explorer_bulk_show_all">Erakutsi guztiak (%1$d)</string>
+    <string name="dex_token_address_copy">Kopiatu tokenaren helbidea</string>
+    <string name="dex_token_address_copied">Tokenaren helbidea kopiatu da</string>
+    <string name="dex_token_address_label">Amaiera hau duen token-helbidea: %1$s</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="one">%1$d pare ez da gehitu: zure zerrendak gehienez %2$s pare izan ditzake.</item>
+        <item quantity="other">%1$d pare ez dira gehitu: zure zerrendak gehienez %2$s pare izan ditzake.</item>
+    </plurals>
+    <string name="bulk_add_progress">Pareak gehitzen … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="one">Gehitu %1$d pare berri zerrendara</item>
+        <item quantity="other">Gehitu %1$d pare berri zerrendara</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="one">%1$d berri, %2$d zerrendan jada</item>
+        <item quantity="other">%1$d berri, %2$d zerrendan jada</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">Denak zerrendan daude jada</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="one">%1$d pare berriro kendu nahi duzu?</item>
+        <item quantity="other">%1$d pare berriro kendu nahi dituzu?</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">Bitartean alarma bat ezarri diezun pareak mantendu egingo dira.</string>
+    <string name="bulk_undo_expired">Ezin da desegin jada – pareak zerrendan geratzen dira.</string>
+    <string name="explorer_section_spot">Spot</string>
+    <string name="explorer_section_futures">Futuroak</string>
+    <string name="explorer_section_dex">DEX poolak</string>
+    <string name="explorer_section_forex">Forex (erreferentzia-tasa)</string>
+    <string name="explorer_forex_hint">Europako Banku Zentralaren eguneko tasa (Frankfurter bidez), ez zuzenean – alarmarik ez.</string>
+</resources>

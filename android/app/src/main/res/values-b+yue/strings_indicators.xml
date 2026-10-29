@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">山寨幣對比 Bitcoin</string>
+    <string name="neutral_btc_indicators_title">Bitcoin 指標</string>
+    <string name="neutral_halving_last">上次減半：%1$s</string>
+    <string name="neutral_halving_next">下次減半預計約喺 %1$s（按日曆估算 – 暫時攞唔到區塊高度）。</string>
+    <string name="neutral_indicators_disclaimer">只係量度數值，冇評估。唔係預測，亦唔係投資建議。</string>
+    <string name="neutral_onchain_missing">鏈上資料（Coin Metrics）暫時未能提供。</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">價格低過之前歷史高位幾多。</string>
+    <string name="neutral_explain_change_30d">今日價格同 30 日前比較。</string>
+    <string name="neutral_explain_hashrate">30 日平均算力同 60 日平均比較。</string>
+    <string name="neutral_explain_ma200w">最近 200 個週收市價嘅平均。</string>
+    <string name="neutral_explain_mayer">價格除以 200 日平均。</string>
+    <string name="neutral_explain_mvrv">市值除以已實現價值（鏈上）。</string>
+    <string name="neutral_explain_pi_gap">111 日平均同 350 日平均嘅兩倍比較。</string>
+    <string name="neutral_explain_puell">礦工每日收入除以佢嘅 365 日平均。</string>
+    <string name="neutral_explain_rsi_daily">最近 14 日嘅相對強弱指數，0–100。</string>
+    <string name="neutral_explain_rsi_weekly">最近 14 週嘅相對強弱指數，0–100。</string>
+    <string name="neutral_explain_sma50_200">50 日平均同 200 日平均比較。</string>
+    <string name="neutral_explain_vs_btc">90 日內價格變動同 Bitcoin 比較。</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">App 只顯示數目，唔會標示做某個季節。數值通常以日計變化，唔係以小時計。</string>
+    <string name="neutral_info_btc_how">每個數值都附一句說明佢量度乜嘢，以及佢喺 2016 年以嚟自身歷史中嘅位置。App 唔會評價數值，亦唔會推斷市場階段；市場提示嘅界限只係你自己設定嘅。過去嘅規律未必會重複。</string>
+    <string name="neutral_info_btc_what">常見嘅 Bitcoin 指標，以純量度數值顯示：Mayer Multiple、200 週平均、距歷史高位跌幅、30 日變動、Pi Cycle 差距，以及鏈上數值 MVRV、Puell Multiple 同算力。</string>
+    <string name="neutral_info_coin_how">每個數值都附一句說明佢量度乜嘢，冇評價。價格歷史短嘅幣，有啲數值會欠缺。呢度唔包括鏈上資料。</string>
+    <string name="neutral_info_coin_what">同樣嘅純指標，適用於你揀嘅幣，只用價格資料：Mayer Multiple、200 週平均、距歷史高位跌幅、30 日變動、50/200 日趨勢、RSI，以及 90 日內對比 Bitcoin 嘅強弱。</string>
+    <string name="neutral_info_halving_how">下次減半按目前區塊高度同目前難度週期嘅平均出塊時間（mempool.space）計算；冇呢啲資料就按日曆（上次減半加大約四年）。圖表顯示過往週期由減半開始嘅價格走勢 – 係歷史，唔係預測。</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">趨勢 50/200 日</string>
+    <string name="ind_drawdown">距歷史高位跌幅</string>
+    <string name="ind_missing">資料不足</string>
+    <string name="ind_rsi_daily">RSI（日線）</string>
+    <string name="ind_rsi_weekly">RSI（週線）</string>
+    <string name="ind_vs_btc">對比 Bitcoin 強弱（90 日）</string>
+    <string name="neutral_ind_change_30d">30 日變動</string>
+    <string name="neutral_ind_hashrate">算力 30/60 日</string>
+    <string name="neutral_ind_ma200w">200 週平均</string>
+    <string name="neutral_ind_pi_gap">Pi Cycle 差距</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">高代表大部分大型山寨幣喺 90 日內跑贏 Bitcoin，低代表 Bitcoin 跑贏佢哋大部分。</string>
+    <string name="ind_read_ath_distance">細代表價格接近紀錄，大代表遠低於紀錄。</string>
+    <string name="ind_read_change_30d">正數代表高過 30 日前，負數代表低過。</string>
+    <string name="ind_read_funding">高代表好多交易者用槓桿押注價格上升，負數代表好多人押注價格下跌。</string>
+    <string name="ind_read_hashrate_30_60">正數代表算力增長緊，負數代表礦工關機。</string>
+    <string name="ind_read_leverage">多頭多代表好多人借錢押注價格上升，空頭多代表好多人押注價格下跌。</string>
+    <string name="ind_read_ma200w">價格遠高於佢代表長期上升，價格貼近佢代表深度回調。</string>
+    <string name="ind_read_mayer">高代表價格遠高於 200 日平均，低代表低過平均。</string>
+    <string name="ind_read_mvrv">高代表價格遠高於持有人嘅平均成本，低代表接近或低於成本。</string>
+    <string name="ind_read_pi_cycle_gap">接近零代表兩條平均線差唔多相交，大幅負數代表相距好遠。</string>
+    <string name="ind_read_puell">高代表礦工收入遠高過平時，低代表遠低過平時。</string>
+    <string name="ind_read_rsi_daily">高過 70 代表最近幾日升得勁，低過 30 代表跌得勁。</string>
+    <string name="ind_read_rsi_weekly">高過 70 代表最近幾週升得勁，低過 30 代表跌得勁。</string>
+    <string name="ind_read_sma50_vs_200">正數代表短期平均高過長期平均，負數代表低過。</string>
+    <string name="ind_read_vs_btc">正數代表表現好過 Bitcoin，負數代表差過。</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">30 日價格不變：%1$s</string>
+    <string name="ind_context_note">過往數值同「價格不變」嘅計算只係算術，唔係預測。</string>
+    <string name="ind_context_percentile">%1$s 以嚟有 %2$s 日數低過現時</string>
+</resources>

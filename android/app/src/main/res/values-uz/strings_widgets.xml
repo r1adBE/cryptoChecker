@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">Fon</string>
+    <string name="widget_configure_hint">Fon va shaffoflikni tanlang. Rang ilovaga moslashadi. Vidjet butun kuzatuv roʻyxatingizni koʻrsatadi; ilovani ochish uchun qatorga bosing.</string>
+    <string name="widget_configure_title">Vidjetni sozlash</string>
+    <string name="widget_description">Kuzatuv roʻyxatingizdagi juftlik kursini koʻrsatadi.</string>
+    <string name="widget_empty">Kuzatuv roʻyxatida hali juftliklar yoʻq.</string>
+    <string name="widget_group_hint">Faqat shu guruh juftliklarini koʻrsatish.</string>
+    <string name="widget_kind_single">Bitta tanga</string>
+    <string name="widget_opacity">Fon shaffofligi: %1$s</string>
+    <string name="widget_pulse_description">Bozorda hozir nima ajralib turibdi: sarlavha, qisqacha xulosa hamda Bitcoin, Ethereum va Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">eskirgan</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">eskirgan · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">Shamlar</string>
+    <string name="widget_chart_line">Chiziq</string>
+    <string name="widget_chart_range">Grafik oraligʻi</string>
+    <string name="widget_chart_type">Grafik turi</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 yil</string>
+    <string name="widget_range_24h">24 soat</string>
+    <string name="widget_range_30d">30 kun</string>
+    <string name="widget_range_7d">7 kun</string>
+    <string name="widget_range_short_1y">1 Y</string>
+    <string name="widget_range_short_24h">24 s</string>
+    <string name="widget_range_short_30d">30 K</string>
+    <string name="widget_range_short_7d">7 K</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">%1$s holatiga</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">Tarix tez orada</string>
+    <string name="widget_portfolio_description">Portfelingizning umumiy qiymati va bugungi oʻzgarish</string>
+    <string name="widget_portfolio_entries">Tangalar ostidagi yozuvlar</string>
+    <string name="widget_portfolio_entries_both">Ikkalasi</string>
+    <string name="widget_portfolio_entries_buys">Xaridlar</string>
+    <string name="widget_portfolio_entries_hint">Faqat tangalar ostida joy boʻlsa koʻrsatiladi. Xaridlarga depozitlar, sotuvlarga yechib olishlar kiradi; «Ikkalasi» tanlansa, qatorlar yigʻindisi aktivga teng.</string>
+    <string name="widget_portfolio_entries_off">Oʻchiq</string>
+    <string name="widget_portfolio_entries_sells">Sotuvlar</string>
+    <string name="widget_portfolio_display">Koʻrsatish</string>
+    <string name="widget_portfolio_display_conversion">Faqat konvertatsiya</string>
+    <string name="widget_portfolio_display_conversion_usdt">Konvertatsiya + USDT</string>
+    <string name="widget_portfolio_display_hint">Konvertatsiya valyutasi USD steyblkoini boʻlsa (masalan, USDC), USDT qatori yashiriladi.</string>
+    <string name="widget_portfolio_display_usdt">Faqat USDT</string>
+    <string name="widget_portfolio_empty">«Portfel» yorligʻida xaridlarni qoʻshing</string>
+    <string name="widget_portfolio_list_hint">Pozitsiyalaringizni shu yerda koʻrsatish uchun ilovani oching.</string>
+    <string name="widget_portfolio_locked_hint">Qulflangan – ilovada oching</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="one">%1$d ta tangasiz</item>
+        <item quantity="other">%1$d ta tangasiz</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ yana %1$d ta</item>
+        <item quantity="other">+ yana %1$d ta</item>
+    </plurals>
+    <string name="widget_portfolio_name">Portfel</string>
+    <string name="widget_portfolio_off_hint">Uni %1$s boʻlimida yoqing.</string>
+    <string name="widget_portfolio_off_short">Portfel oʻchiq</string>
+    <string name="widget_portfolio_off_title">Portfel oʻchiq</string>
+    <string name="widget_portfolio_partly_stale">baʼzi kurslar eskirgan</string>
+    <string name="widget_portfolio_period">Davr</string>
+    <string name="widget_portfolio_period_without">%1$s, %2$s hisobga olinmagan</string>
+    <string name="widget_portfolio_range_48h">48 soat</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: Portfelni oching</string>
+    <string name="widget_portfolio_range_short_48h">48 s</string>
+    <string name="widget_portfolio_today_without">Bugun, %1$s hisobga olinmagan</string>
+    <string name="widget_portfolio_view">Koʻrinish</string>
+    <string name="widget_portfolio_view_chart">Grafik</string>
+    <string name="widget_portfolio_view_list">Roʻyxat</string>
+    <string name="widget_portfolio_view_overview">Umumiy koʻrinish</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">Juftlikni tanlang</string>
+    <string name="single_widget_description">Bitta tangani kurs, oʻzgarish va 24 soatlik grafik bilan katta qilib koʻrsatadi.</string>
+    <string name="single_widget_label">Crypto Checker – bitta tanga</string>
+    <string name="single_widget_title">Bitta tanga vidjetini sozlash</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">Qoʻshish</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">%1$s vidjetini qoʻshish</string>
+    <string name="widgets_manual_text">Bosh ekraningiz ilovadan vidjet qoʻsha olmaydi. Bosh ekrandagi boʻsh joyni bosib turing, «Vidjetlar»ni tanlang va «Crypto Checker»ni qidiring.</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">Vidjetni oʻzingiz qoʻshing</string>
+    <string name="widgets_sheet_title">Vidjet qoʻshish</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS ilovalarga vidjetlarni oʻzlari qoʻshishga ruxsat bermaydi. Bu bir lahzalik ish:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Mavjud vidjetlar</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Ilovalar tebrana boshlaguncha Bosh ekrandagi boʻsh joyni bosib turing.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Yuqoridagi «Tahrirlash» › «Vidjet qoʻshish»ga bosing (eski iOS versiyalarida «+»).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">«Crypto Checker»ni qidiring, vidjetni tanlang va «Vidjet qoʻshish»ga bosing.</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">Yangilash – %1$d s dan keyin yana mumkin</string>
+    <string name="settings_watch">Soat</string>
+    <string name="settings_watch_hint">Wear OS’dagi soat ilovasi uchun tangalar (%1$d tagacha, USDT’ga nisbatan baholanadi). Soatga faqat shu roʻyxat Google Play xizmatlari orqali yuboriladi; soat kurslarni oʻzi oladi.</string>
+    <string name="settings_watch_mode_phone">Telefondagidek (sevimlilar ★)</string>
+    <string name="settings_watch_mode_own">Alohida roʻyxat</string>
+    <string name="settings_watch_own_title">Alohida roʻyxat: %2$d tadan %1$d ta</string>
+    <string name="settings_watch_none">Hozircha sevimlilar yoʻq</string>
+
+    <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
+    <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">«Roʻyxat»da USDT qatori yoʻq</string>
+    <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
+    <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">«Umumiy koʻrinish» oʻrniga 30 kunni koʻrsatadi</string>
+</resources>

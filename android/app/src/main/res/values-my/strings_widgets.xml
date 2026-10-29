@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">နောက်ခံ</string>
+    <string name="widget_configure_hint">နောက်ခံနှင့် အလင်းပိတ်မှုကို ရွေးပါ။ အရောင်သည် အက်ပ်အတိုင်း လိုက်သည်။ ဝီဂျက်သည် သင့်စောင့်ကြည့်စာရင်း တစ်ခုလုံးကို ပြသည်၊ အက်ပ်ဖွင့်ရန် အတန်းတစ်ခုကို တို့ပါ။</string>
+    <string name="widget_configure_title">ဝီဂျက် သတ်မှတ်ရန်</string>
+    <string name="widget_description">သင့်စောင့်ကြည့်စာရင်းမှ အတွဲတစ်ခု၏ ဈေးနှုန်းကို ပြသည်။</string>
+    <string name="widget_empty">စောင့်ကြည့်စာရင်းတွင် အတွဲ မရှိသေးပါ။</string>
+    <string name="widget_group_hint">ဤအုပ်စု၏ အတွဲများကိုသာ ပြရန်။</string>
+    <string name="widget_kind_single">ဒင်္ဂါးတစ်ခုတည်း</string>
+    <string name="widget_opacity">နောက်ခံ အလင်းပိတ်မှု: %1$s</string>
+    <string name="widget_pulse_description">ယခု ဈေးကွက်တွင် ထင်ရှားနေသည့်အရာ- ခေါင်းစဉ်၊ အကျဉ်းချုပ်နှင့် Bitcoin, Ethereum နှင့် Solana။</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">ခေတ်မမီ</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">ခေတ်မမီ · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">ဖယောင်းတိုင်များ</string>
+    <string name="widget_chart_line">မျဉ်း</string>
+    <string name="widget_chart_range">ဇယား ကာလ</string>
+    <string name="widget_chart_type">ဇယား အမျိုးအစား</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 နှစ်</string>
+    <string name="widget_range_24h">24 နာရီ</string>
+    <string name="widget_range_30d">ရက် 30</string>
+    <string name="widget_range_7d">ရက် 7</string>
+    <string name="widget_range_short_1y">1နှစ်</string>
+    <string name="widget_range_short_24h">24နာရီ</string>
+    <string name="widget_range_short_30d">30ရက်</string>
+    <string name="widget_range_short_7d">7ရက်</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">%1$s အထိ</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">သမိုင်း မကြာမီ လာမည်</string>
+    <string name="widget_portfolio_description">သင့်ပေါ့ဖိုလီယို၏ စုစုပေါင်း တန်ဖိုးနှင့် ယနေ့ ပြောင်းလဲမှု</string>
+    <string name="widget_portfolio_entries">ဒင်္ဂါးများအောက်ရှိ မှတ်တမ်းများ</string>
+    <string name="widget_portfolio_entries_both">နှစ်မျိုးလုံး</string>
+    <string name="widget_portfolio_entries_buys">ဝယ်ယူမှုများ</string>
+    <string name="widget_portfolio_entries_hint">ဒင်္ဂါးများအောက်တွင် နေရာရှိမှသာ ပြသည်။ ဝယ်ယူမှုများတွင် အပ်ငွေများ ပါဝင်ပြီး ရောင်းချမှုများတွင် ငွေထုတ်မှုများ ပါဝင်သည်၊ «နှစ်မျိုးလုံး» ဖြင့် စာကြောင်းများ ပေါင်းလျှင် ကိုင်ဆောင်ထားမှုနှင့် ညီသည်။</string>
+    <string name="widget_portfolio_entries_off">ပိတ်</string>
+    <string name="widget_portfolio_entries_sells">ရောင်းချမှုများ</string>
+    <string name="widget_portfolio_display">ပြသမှု</string>
+    <string name="widget_portfolio_display_conversion">ပြောင်းလဲတွက်ချက်မှုသာ</string>
+    <string name="widget_portfolio_display_conversion_usdt">ပြောင်းလဲတွက်ချက်မှု + USDT</string>
+    <string name="widget_portfolio_display_hint">ပြောင်းလဲတွက်ချက်သော ငွေကြေးသည် USD stablecoin (ဥပမာ USDC) ဖြစ်လျှင် USDT စာကြောင်းကို ဖျောက်ထားသည်။</string>
+    <string name="widget_portfolio_display_usdt">USDT သာ</string>
+    <string name="widget_portfolio_empty">ပေါ့ဖိုလီယို တက်ဘ်တွင် ဝယ်ယူမှုများ ထည့်ပါ</string>
+    <string name="widget_portfolio_list_hint">သင်ကိုင်ဆောင်ထားမှုများကို ဤနေရာတွင် ပြရန် အက်ပ်ကို ဖွင့်ပါ။</string>
+    <string name="widget_portfolio_locked_hint">လော့ခ်ချထားသည် – အက်ပ်ထဲတွင် လော့ခ်ဖွင့်ပါ</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="other">ဒင်္ဂါး %1$d ခု မပါ</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="other">+ နောက်ထပ် %1$d</item>
+    </plurals>
+    <string name="widget_portfolio_name">ပေါ့ဖိုလီယို</string>
+    <string name="widget_portfolio_off_hint">%1$s တွင် ဖွင့်ပါ။</string>
+    <string name="widget_portfolio_off_short">ပေါ့ဖိုလီယို ပိတ်</string>
+    <string name="widget_portfolio_off_title">ပေါ့ဖိုလီယို ပိတ်ထားသည်</string>
+    <string name="widget_portfolio_partly_stale">ဈေးနှုန်းအချို့ ခေတ်မမီ</string>
+    <string name="widget_portfolio_period">ကာလ</string>
+    <string name="widget_portfolio_period_without">%2$s မပါသော %1$s</string>
+    <string name="widget_portfolio_range_48h">48 နာရီ</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: ပေါ့ဖိုလီယို ဖွင့်ပါ</string>
+    <string name="widget_portfolio_range_short_48h">48နာရီ</string>
+    <string name="widget_portfolio_today_without">%1$s မပါသော ယနေ့</string>
+    <string name="widget_portfolio_view">မြင်ကွင်း</string>
+    <string name="widget_portfolio_view_chart">ဇယား</string>
+    <string name="widget_portfolio_view_list">စာရင်း</string>
+    <string name="widget_portfolio_view_overview">ခြုံငုံသုံးသပ်ချက်</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">အတွဲတစ်ခု ရွေးပါ</string>
+    <string name="single_widget_description">ဒင်္ဂါးတစ်ခုကို ဈေးနှုန်း၊ ပြောင်းလဲမှုနှင့် 24 နာရီ ဇယားဖြင့် ကြီးကြီး ပြသည်။</string>
+    <string name="single_widget_label">Crypto Checker – ဒင်္ဂါးတစ်ခုတည်း</string>
+    <string name="single_widget_title">ဒင်္ဂါးတစ်ခုတည်း ဝီဂျက် သတ်မှတ်ရန်</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">ထည့်ရန်</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">ဝီဂျက် %1$s ထည့်ရန်</string>
+    <string name="widgets_manual_text">သင့်ပင်မမျက်နှာပြင်သည် အက်ပ်မှ ဝီဂျက်များကို ထည့်၍ မရပါ။ ပင်မမျက်နှာပြင်ရှိ နေရာလွတ်တစ်ခုကို ထိ၍ ဖိထားပြီး “ဝီဂျက်များ” ကို ရွေးကာ “Crypto Checker” ကို ရှာပါ။</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">ဝီဂျက်ကို ကိုယ်တိုင် ထည့်ပါ</string>
+    <string name="widgets_sheet_title">ဝီဂျက်တစ်ခု ထည့်ရန်</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS သည် အက်ပ်များကို ဝီဂျက်ကိုယ်တိုင် ထည့်ခွင့်မပြုပါ။ ခဏလေးသာ ကြာသည်-</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">ရရှိနိုင်သော ဝီဂျက်များ</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">အက်ပ်များ လှုပ်ခါလာသည်အထိ Home Screen ရှိ နေရာလွတ်တစ်ခုကို ထိ၍ ဖိထားပါ။</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">ထိပ်ရှိ “Edit” › “Add Widget” ကို တို့ပါ (သို့မဟုတ် iOS ဗားရှင်းဟောင်းများတွင် “+”)။</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">“Crypto Checker” ကို ရှာပြီး ဝီဂျက်တစ်ခု ရွေးကာ “Add Widget” ကို တို့ပါ။</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">ပြန်တင်ရန် – %1$d စက္ကန့်အတွင်း ထပ်လုပ်နိုင်မည်</string>
+    <string name="settings_watch">နာရီ</string>
+    <string name="settings_watch_hint">Wear OS ပေါ်ရှိ နာရီအက်ပ်အတွက် ဒင်္ဂါးများ (%1$d အထိ၊ USDT ဖြင့် ဈေးနှုန်း)။ ဤစာရင်းကိုသာ Google Play services မှတစ်ဆင့် နာရီသို့ ပို့သည်၊ နာရီက ဈေးနှုန်းများကို ကိုယ်တိုင် ရယူသည်။</string>
+    <string name="settings_watch_mode_phone">ဖုန်းအတိုင်း (အကြိုက်ဆုံး ★)</string>
+    <string name="settings_watch_mode_own">ကိုယ်ပိုင် စာရင်း</string>
+    <string name="settings_watch_own_title">ကိုယ်ပိုင် စာရင်း: %2$d အနက် %1$d</string>
+    <string name="settings_watch_none">အကြိုက်ဆုံး မရှိသေးပါ</string>
+
+    <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
+    <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">“စာရင်း” တွင် USDT စာကြောင်း မပါ</string>
+    <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
+    <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">“ခြုံငုံသုံးသပ်ချက်” သည် ၎င်းအစား ရက် 30 ကို ပြသည်</string>
+</resources>

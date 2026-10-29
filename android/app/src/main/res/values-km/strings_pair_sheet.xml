@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s ក្នុង %2$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">តម្លៃបិទ</string>
+    <string name="sheet_chart_converted_current">%1$s បានបម្លែង (អត្រាបច្ចុប្បន្ន)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s បានបម្លែងតាមអត្រាប្រចាំថ្ងៃ</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">គ្មានទិន្នន័យតម្លៃសម្រាប់គូនេះទេ</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">តម្លៃបើក</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">ថ្ងៃនេះ</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">បរិមាណ %1$s</string>
+    <string name="sheet_more">បន្ថែម</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Ask</string>
+    <string name="ticker_bid">Bid</string>
+    <string name="explain_bid_ask">Bid គឺជាតម្លៃខ្ពស់បំផុតដែលអ្នកទិញកំពុងផ្តល់ឱ្យនៅពេលនេះ ask គឺជាតម្លៃទាបបំផុតដែលអ្នកលក់នឹងទទួលយក។</string>
+    <string name="ticker_high">ខ្ពស់</string>
+    <string name="ticker_low">ទាប</string>
+    <string name="ticker_timestamp">ពេលវេលា</string>
+    <string name="ticker_vol_base">បរិមាណ (ជាកាក់)</string>
+    <string name="ticker_vol_quote">បរិមាណ (ជារូបិយប័ណ្ណតម្លៃ)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (ល្វែងម៉ោងឧបករណ៍)</string>
+    <string name="change_basis_local">តាំងពី 00:00 ម៉ោងក្នុងស្រុក</string>
+    <string name="change_basis_rolling">24 ម៉ោងចុងក្រោយ</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">តាំងពីការធ្វើបច្ចុប្បន្នភាពចុងក្រោយ</string>
+    <string name="change_basis_utc_zone">តាំងពី 00:00 %1$s</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">ការប្រែប្រួលពីទៀន %1$s</string>
+    <string name="change_short_since_last">ការធ្វើបច្ចុប្បន្នភាពចុងក្រោយ</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">ថ្ងៃនេះ</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">ថ្ងៃនេះ %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="exchange_data_empty_error">មិនបានទទួលទិន្នន័យពីផ្សារប្តូរទេ។</string>
+    <string name="market_data_summary">មូលធនប័ត្រទីផ្សារ កម្រៃ gas ទិន្នន័យសេដ្ឋកិច្ច ការវិភាគកាក់</string>
+    <string name="market_data_tab_futures">Futures</string>
+    <string name="market_data_title">ទិន្នន័យទីផ្សារ</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">បរិមាណកំពុងចរាចរ</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">មូលធនប័ត្រទីផ្សារ</string>
+    <string name="spot_max_supply">បរិមាណអតិបរមា</string>
+    <string name="spot_no_data">គ្មានទិន្នន័យ Spot សម្រាប់កាក់នេះទេ</string>
+    <string name="spot_source_updated">ប្រភព៖ %1$s · គិតត្រឹម %2$s</string>
+    <string name="spot_supply_of_max">%1$s នៃបរិមាណអតិបរមាកំពុងចរាចរ</string>
+    <string name="spot_total_supply">បរិមាណសរុប</string>
+    <string name="spot_vol_mcap">បរិមាណ/មូលធនប័ត្រ</string>
+    <string name="spot_volume_24h">បរិមាណ (24 ម៉ោង)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">យោង៖ %1$s</string>
+    <string name="futures_funding">អត្រា Funding</string>
+    <string name="futures_funding_interval_unknown">មិនស្គាល់ចន្លោះពេល</string>
+    <string name="futures_funding_per8h_equiv">= %1$s ក្នុង 8 ម៉ោង (ដូចក្នុងការដាស់តឿន)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">ក្នុងមួយម៉ោង</string>
+    <string name="futures_funding_per_hours">ក្នុង %1$d ម៉ោង</string>
+    <string name="futures_next_funding">បន្ទាប់ក្នុងរយៈពេល %1$d ម៉ោង %2$d នាទី</string>
+    <string name="futures_no_data">គ្មានទិន្នន័យ Futures សម្រាប់កាក់នេះទេ</string>
+    <string name="futures_open_interest">Open interest</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">យោងពី %1$s – Funding និង Open interest ខុសគ្នាតាមផ្សារប្តូរ។ នៅលើ %2$s វាអាចខុសគ្នា។</string>
+    <string name="futures_reference_spot">យោងពី %1$s (USDT perpetual របស់កាក់)</string>
+    <string name="futures_source">ប្រភព៖ %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">អ្នកជួញដូរជាច្រើនភ្នាល់លើតម្លៃកើនឡើង ឬធ្លាក់ចុះដោយប្រាក់ខ្ចី។ កម្រៃរវាងស្ថានភាព long និង short។ វិជ្ជមានខ្លាំងមានន័យថាជាច្រើនកំពុងភ្នាល់លើតម្លៃកើនឡើង។</string>
+    <string name="explain_open_interest">Futures គឺជាការភ្នាល់លើតម្លៃ ច្រើនតែដោយប្រាក់ខ្ចី។ តម្លៃនៃស្ថានភាព Futures បើកទាំងអស់។ ប្រសិនបើវាកើនឡើង ប្រាក់កាន់តែច្រើនកំពុងភ្នាល់លើចលនានោះ។</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">ការពន្យល់</string>
+    <string name="explain_spot_fdv">តម្លៃពេញលេញ (Fully diluted valuation)៖ តម្លៃ × បរិមាណអតិបរមា (ឬបរិមាណសរុប ប្រសិនបើគ្មានដែនកំណត់)។</string>
+    <string name="explain_spot_market_cap">តម្លៃ × បរិមាណកំពុងចរាចរ។ ស្លាកបង្ហាញការប្រែប្រួលរបស់វាក្នុង 24 ម៉ោង។</string>
+    <string name="explain_spot_source">តួលេខនៅគ្រប់ផ្សារប្តូរជាដុល្លារអាមេរិក ពី CoinGecko។</string>
+    <string name="explain_spot_supply">កំពុងចរាចរ៖ កាក់នៅលើទីផ្សារឥឡូវនេះ។ សរុប៖ កាក់ទាំងអស់ដែលបានបង្កើត ដកកាក់ដែលបានដុត។ អតិបរមា៖ ចំនួនច្រើនបំផុតដែលអាចមាន។</string>
+    <string name="explain_spot_volume">តម្លៃដែលបានជួញដូរក្នុង 24 ម៉ោង។ បរិមាណ/មូលធនប័ត្រ៖ បរិមាណធៀបនឹងមូលធនប័ត្រទីផ្សារ — ខ្ពស់មានន័យថាការជួញដូរសកម្មខ្លាំង។</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · អត្រា %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">គម្លាតធំរវាងតម្លៃទិញ និងលក់ (%1$s)</string>
+
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">ប្រវត្តិជា %1$s បានបម្លែងទៅ %2$s តាមអត្រាថ្ងៃនេះ</string>
+    <string name="converted_unsure">ការបម្លែងមិនច្បាស់លាស់</string>
+</resources>

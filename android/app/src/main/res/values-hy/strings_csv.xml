@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">Ներմուծել CSV</string>
+    <string name="portfolio_csv_import_all_transfer">Բոլորը՝ սեփական դրամապանակ</string>
+    <string name="portfolio_csv_import_all_withdrawal">Բոլորը դուրս են գալիս պորտֆելից</string>
+    <string name="portfolio_csv_import_choice_proposed">Առաջարկվում է՝ համընկնում է %1$s-ի հետ</string>
+    <string name="portfolio_csv_import_choice_transfer">Սեփական դրամապանակ (փոխանցում)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Դուրս է գալիս պորտֆելից (դուրսբերում)</string>
+    <string name="portfolio_csv_import_choose_each">Յուրաքանչյուր դուրսբերման համար ընտրիր, թե ուր է գնացել։</string>
+    <string name="portfolio_csv_import_columns">Ճանաչված սյունակներ՝ %1$s</string>
+    <string name="portfolio_csv_import_confirm">Ներմուծել (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">Օր/Ամիս</string>
+    <string name="portfolio_csv_import_date_month_first">Ամիս/Օր</string>
+    <string name="portfolio_csv_import_date_order">Երկիմաստ ամսաթվերը (օր.՝ 03/04/2024) կարդալ որպես՝</string>
+    <string name="portfolio_csv_import_decimal">Երկիմաստ թվերը (օր.՝ %1$s) կարդալ որպես՝</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">Ներմուծվեց %d գործարք</item>
+        <item quantity="other">Ներմուծվեց %d գործարք</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d-ն արդեն ներմուծված է (բաց է թողնված)</item>
+        <item quantity="other">%d-ն արդեն ներմուծված են (բաց են թողնված)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">Ձևաչափ՝ %1$s</string>
+    <string name="portfolio_csv_import_line">Տող %1$d՝ %2$s</string>
+    <string name="portfolio_csv_import_loading">Ֆայլը և օրական փոխարժեքները կարդացվում են…</string>
+    <string name="portfolio_csv_import_progress">Տող %1$s՝ %2$s-ից</string>
+    <string name="portfolio_csv_import_saving">Գործարքները պահպանվում են…</string>
+    <string name="portfolio_csv_import_missing_fx">%1$s տողերի համար օրական փոխարժեք չկա – ներմուծված են առանց գնի/միջնորդավճարի։</string>
+    <string name="portfolio_csv_import_missing_price">Ֆայլում %1$s տողերի համար գին չկա – ներմուծված են առանց գնի։</string>
+    <string name="portfolio_csv_import_more">+ ևս %1$d</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d նոր գործարք</item>
+        <item quantity="other">%d նոր գործարք</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d տող բաց է թողնված</item>
+        <item quantity="other">%d տող բաց է թողնված</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">Ստեյբլքոինների (USDT, USDC …) դիմաց գործարքները գրանցվում են որպես փոխանակումներ – ստեյբլքոինը հայտնվում է քո ակտիվներում։</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Հնարավոր են մի քանի համընկնումներ – ընտրիր ճիշտը կամ ոչ մեկը։</string>
+    <string name="portfolio_csv_import_transfer_fee">Ցանցի միջնորդավճար՝ %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">Գրանցել որպես մեկ փոխանցում</string>
+    <string name="portfolio_csv_import_transfer_stored">Զույգ գրառում ավելի վաղ ներմուծումից</string>
+    <string name="portfolio_csv_import_transfers_hint">Դուրսբերումը և նույն կոինի համապատասխան մուտքագրումը դառնում են մեկ փոխանցում՝ գնման գինը և պահման ժամկետը փոխանցվում են, տարբերությունը հաշվվում է որպես ցանցի միջնորդավճար։</string>
+    <string name="portfolio_csv_import_transfers_title">Փոխանցումներ քո հաշիվների միջև</string>
+    <string name="portfolio_csv_import_unreadable">Աջակցվող գործարքներ չեն գտնվել։ Աջակցվում են՝ Relai, Swissquote, Kraken, Binance, Coinbase և Bitpanda CSV արտահանումներ։</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
+    <string name="portfolio_csv_import_too_large">Ֆայլը չափազանց մեծ է ներմուծելու համար (առավելագույնը 16 MB և %1$s տող)։ Արտահանիր ավելի կարճ ժամանակահատվածներ և ներմուծիր դրանք հերթով։</string>
+    <string name="portfolio_csv_import_failed">Ներմուծումը չստացվեց – ոչինչ չի պահպանվել։ Խնդրում ենք կրկին փորձել։</string>
+    <string name="portfolio_csv_import_locked">Ներմուծումը հնարավոր չէ՝ պահպանված տվյալները հիմա հնարավոր չէ կարդալ։ Վերագործարկիր հավելվածը։</string>
+    <string name="portfolio_csv_import_withdrawals_title">Դուրսբերումներ – ո՞ւր են գնացել կոինները</string>
+    <string name="portfolio_csv_import_zone">Առանց ժամային գոտու ժամերը կարդալ որպես՝ %1$s</string>
+    <string name="portfolio_csv_import_zone_device">Սարք (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">անընթեռնելի ամսաթիվ</string>
+    <string name="portfolio_csv_skip_bad_number">անընթեռնելի թիվ</string>
+    <string name="portfolio_csv_skip_fee_exceeds">միջնորդավճար ≥ ստացված գումար</string>
+    <string name="portfolio_csv_skip_internal_move">տեղափոխում քո սեփական հաշիվների միջև – գրանցելու բան չկա</string>
+    <string name="portfolio_csv_skip_missing">դաշտը բացակայում է</string>
+    <string name="portfolio_csv_skip_ambiguous">նույն վայրկյանին մի քանի գործարք, որոնք հնարավոր չէ տարբերել – մուտքագրիր դրանք ձեռքով</string>
+    <string name="portfolio_csv_skip_not_crypto">կրիպտո չէ</string>
+    <string name="portfolio_csv_skip_possible_duplicate">հնարավոր է՝ արդեն ներմուծված (գրեթե նույն գործարքը) – ստուգիր ձեռքով</string>
+    <string name="portfolio_csv_skip_two_fees">երկու միջնորդավճար տարբեր միավորներով – մուտքագրիր փոխանակումը ձեռքով</string>
+    <string name="portfolio_csv_skip_unsupported">չաջակցվող տեսակ</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">Հետարկել</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">Ջնջե՞լ այս ներմուծման %d գործարքը։ Ձեռքով գրառումները և այլ ներմուծումները մնում են։</item>
+        <item quantity="other">Ջնջե՞լ այս ներմուծման %d գործարքները։ Ձեռքով գրառումները և այլ ներմուծումները մնում են։</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">Հետարկե՞լ ներմուծումը</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">Հեռացվեց %d ներմուծված գործարք</item>
+        <item quantity="other">Հեռացվեց %d ներմուծված գործարք</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d գործարք</item>
+        <item quantity="other">%d գործարք</item>
+    </plurals>
+    <string name="portfolio_imports_empty">Ներմուծումներ չկան</string>
+    <string name="portfolio_imports_title">Ներմուծումներ</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">նույն գործարքի ID-ն այլ գումարով – ստուգիր ձեռքով</string>
+    <string name="portfolio_csv_skip_staking_unpaired">ստեյքինգի գրառում առանց հակագրառման – ստուգիր ակտիվները</string>
+    <string name="portfolio_csv_skip_amount_too_small">գումարը չափազանց փոքր է – պահպանելիս կլորացվում է 0-ի</string>
+    <string name="portfolio_csv_skip_invalid_swap">փոխանակում առանց վավեր կոինի կամ ստացված գումարի</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">Ֆայլը կրկին կարդացվում է …</string>
+</resources>

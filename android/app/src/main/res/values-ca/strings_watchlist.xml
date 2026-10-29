@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">Actual · %1$s</string>
+    <string name="watchlist_empty_title">Encara no hi ha parells</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%1$d de %2$d sense preu</item>
+        <item quantity="many">%1$d de %2$d sense preu</item>
+        <item quantity="other">%1$d de %2$d sense preu</item>
+    </plurals>
+    <string name="watchlist_last_run">Última execució %1$s</string>
+    <string name="watchlist_live_a11y">Preus en directe activats</string>
+    <string name="watchlist_offline_since">Sense connexió · a les %1$s</string>
+    <string name="watchlist_pull_to_refresh">Llisca cap avall per actualitzar</string>
+    <string name="watchlist_refresh_report">Última actualització</string>
+    <string name="watchlist_refresh_report_empty">Encara no hi ha desglossament – fins ara no s\'ha fet cap actualització completa. Toca Actualitza i espera fins que el cercle s\'aturi.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%1$d de %2$d desactualitzat</item>
+        <item quantity="many">%1$d de %2$d desactualitzats</item>
+        <item quantity="other">%1$d de %2$d desactualitzats</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">Tots els parells d\'aquí estan desactivats</string>
+    <string name="watchlist_status_exchange_prices">Preus dels teus exchanges · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">Preus dels exchanges · %1$s</string>
+    <string name="watchlist_status_group_empty">No hi ha parells en aquest grup</string>
+    <string name="watchlist_status_none_traded">Aquí no hi ha parells negociats</string>
+    <string name="watchlist_updated">Actualitzat: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">mitjana %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d baixa</item>
+        <item quantity="many">%1$d baixen</item>
+        <item quantity="other">%1$d baixen</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d sense valor de 24 h</item>
+        <item quantity="many">%1$d sense valor de 24 h</item>
+        <item quantity="other">%1$d sense valor de 24 h</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d sense valor d\'avui</item>
+        <item quantity="many">%1$d sense valor d\'avui</item>
+        <item quantity="other">%1$d sense valor d\'avui</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d puja</item>
+        <item quantity="many">%1$d pugen</item>
+        <item quantity="other">%1$d pugen</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · desactivat</string>
+    <string name="watchlist_row_outdated">%1$s · desactualitzat</string>
+    <string name="watchlist_row_outdated_age">desactualitzat · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">Preu sense canvis des de %1$s</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s no accessible</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">Ves al final</string>
+    <string name="watchlist_jump_start">Ves a l\'inici</string>
+    <string name="watchlist_search_close">Tanca la cerca</string>
+    <string name="watchlist_search_empty">No hi ha coincidències per a «%1$s»</string>
+    <string name="watchlist_search_hint">Cerca un parell, un nom o un exchange</string>
+    <string name="watchlist_search_open">Cerca</string>
+    <string name="watchlist_sort_ascending">ascendent</string>
+    <string name="watchlist_sort_descending">descendent</string>
+    <string name="watchlist_sort_hint">Mantén premut i arrossega un parell, o fes servir la nansa. Els preferits es queden a dalt.</string>
+    <string name="watchlist_sort_name">Nom</string>
+    <string name="watchlist_sort_own">Ordre personalitzat</string>
+    <string name="watchlist_sort_price">Preu</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">Buida la llista</string>
+    <string name="watchlist_clear_confirm">Vols eliminar tots els parells de la llista? Les seves alarmes també s\'eliminaran.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d desactivat</item>
+        <item quantity="many">%1$d desactivats</item>
+        <item quantity="other">%1$d desactivats</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">Elimina</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Vols eliminar %1$d parell que ja no es negocia al seu exchange? Les seves alarmes també s\'eliminaran.</item>
+        <item quantity="many">Vols eliminar %1$d parells que ja no es negocien al seu exchange? Les seves alarmes també s\'eliminaran.</item>
+        <item quantity="other">Vols eliminar %1$d parells que ja no es negocien al seu exchange? Les seves alarmes també s\'eliminaran.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">Elimina els parells no negociats (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Elimina els parells no negociats</string>
+    <string name="watchlist_removed">S\'ha eliminat %1$s</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">S\'ha eliminat %1$d parell</item>
+        <item quantity="many">S\'han eliminat %1$d parells</item>
+        <item quantity="other">S\'han eliminat %1$d parells</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">S\'ha eliminat %1$d parell no negociat</item>
+        <item quantity="many">S\'han eliminat %1$d parells no negociats</item>
+        <item quantity="other">S\'han eliminat %1$d parells no negociats</item>
+    </plurals>
+    <string name="watchlist_select">Selecciona</string>
+    <string name="watchlist_select_all">Selecciona-ho tot</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d seleccionat</item>
+        <item quantity="many">%1$d seleccionats</item>
+        <item quantity="other">%1$d seleccionats</item>
+    </plurals>
+    <string name="watchlist_show_all">Mostra-ho tot</string>
+    <string name="watchlist_show_only_disabled">Mostra només els desactivats</string>
+    <string name="watchlist_show_only_stale">Mostra només els desactualitzats</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Alarma (%1$d)</item>
+        <item quantity="many">Alarmes (%1$d)</item>
+        <item quantity="other">Alarmes (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">Encara no hi ha preferits. Llisca un parell cap a la dreta, o obre el parell i toca «Preferit».</string>
+    <string name="watchlist_group_empty_hint">Mantén premut un grup per triar-ne els parells.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">Els teus grups apareixeran aquí</string>
+    <string name="watchlist_notification">Notificació de preu</string>
+    <string name="watchlist_tts">Llegeix el preu en veu alta</string>
+    <string name="watchlist_tts_speech_on">La sortida de veu està activada. La pots canviar a Configuració › Alarmes › Sortida de veu.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">Afegeix com a widget</string>
+    <string name="watch_action_alarm">Alarma</string>
+    <string name="watch_action_favorite">Preferit</string>
+    <string name="watch_action_why">Què es mou amb ell?</string>
+    <string name="watch_action_why_short">Què es mou amb ell?</string>
+    <string name="watch_change_mark">Marca</string>
+    <string name="watch_disable">Desactiva</string>
+    <string name="watch_disable_hint">Sense sol·licituds ni notificacions</string>
+    <string name="watch_disabled">Desactivat</string>
+    <string name="watch_disabled_banner">S\'ha desactivat %1$s</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">Les alarmes es mantenen – revisa\'n els llindars</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">Edita el parell</string>
+    <string name="watch_enable">Activa</string>
+    <string name="watch_enable_hint">Es reprenen els preus i les notificacions</string>
+    <string name="watch_enabled_banner">S\'ha activat %1$s</string>
+    <string name="watch_error_offline">Sense connexió</string>
+    <string name="watch_gesture_hint_short">Toca: alarma i «Què es mou amb ell?» · mantén premut per seleccionar · llisca a l\'esquerra per suprimir · llisca a la dreta per a preferit</string>
+    <string name="watch_hint_tap_why">Toca una moneda per a alarmes i «Què es mou amb ell?»</string>
+    <string name="watch_not_traded">Ja no es negocia en aquest exchange</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">No és a la llista</string>
+    <string name="watch_price_mid">preu mitjà (si no, de marca)</string>
+    <string name="watch_row_source_both">Variació i gràfic: %1$s</string>
+    <string name="watch_row_source_change">Variació: %1$s</string>
+    <string name="watch_row_source_chart">Gràfic: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s ja és a la teva llista</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s ja són a la teva llista</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">Afegeix als preferits</string>
+    <string name="favorite_added">S\'ha afegit %1$s als preferits</string>
+    <string name="favorite_remove">Elimina dels preferits</string>
+    <string name="favorite_removed">S\'ha eliminat %1$s dels preferits</string>
+    <string name="hint_favorites_list">Consell: llisca una fila cap a la dreta per fer-la preferida – els preferits es queden a dalt.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">Grup nou</string>
+    <string name="group_all">Tots</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Tokens Alpha</string>
+    <string name="group_delete">Suprimeix el grup</string>
+    <string name="group_delete_confirm">Els parells es queden a la teva llista.</string>
+    <string name="group_done">Fet</string>
+    <string name="group_edit_title">Edita el grup</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">Preferits</string>
+    <string name="group_in_other">a %1$s</string>
+    <string name="group_name">Nom del grup</string>
+    <string name="group_new">Grup nou…</string>
+    <string name="group_next">Següent</string>
+    <string name="group_none">Sense grup</string>
+    <string name="group_rename">Canvia el nom</string>
+    <string name="group_search_hint">Cerca un parell, un nom o un exchange</string>
+    <string name="group_target">Al grup</string>
+    <string name="group_title">Grup</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">Tokens</string>
+    <string name="group_value">Grup: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">Afegeix una nota</string>
+    <string name="note_edit">Edita la nota</string>
+    <string name="note_hint">p. ex. entrada a 0,42, objectiu 0,60</string>
+    <string name="note_remove">Elimina</string>
+    <string name="note_title">Nota</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">Arrossega per reordenar</string>
+    <string name="sort_move_bottom">Mou al final</string>
+    <string name="sort_move_down">Mou cap avall</string>
+    <string name="sort_move_top">Mou a l\'inici</string>
+    <string name="sort_move_up">Mou cap amunt</string>
+
+    <string name="watchlist_first_alarm_title">Configura la teva primera alarma</string>
+    <string name="watchlist_first_alarm_text">Rep un avís quan un preu arribi al teu nivell – amb l\'app tancada, Android comprova de manera irregular.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">preu de marca (sense preu mitjà)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">preu horari</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">Configura la teva primera alarma – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Actualitza (%1$d)</string>
+
+    <!-- Zeile der Merkliste: Börse pausiert (zu viele Anfragen / Zeitüberschreitungen) bis zu einer Uhrzeit, ersetzt die Zeitzeile, z. B. «Binance · pausiert bis 19:45» -->
+    <string name="watchlist_row_exchange_paused">%1$s · en pausa fins a les %2$s</string>
+
+    <string name="watchlist_refresh_just_done">Acabat d\'actualitzar · fa %1$d s</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">última operació %1$s</string>
+
+    <string name="change_candle_source_hint">Calculat a partir d\'espelmes de %1$s – l\'exchange mateix no proporciona aquest valor.</string>
+    <string name="change_candle_source_action">Mostra l\'origen de la variació</string>
+
+    <string name="watchlist_sort_by_coin">Ordena per moneda</string>
+    <string name="watchlist_sort_by_exchange">Ordena per exchange</string>
+    <string name="watchlist_limit_reached">La teva llista pot tenir com a màxim %1$s parells.</string>
+    <string name="watch_price_reference">tipus de referència, diari</string>
+    <string name="watch_price_daily">diari</string>
+    <string name="watchlist_compare">Compara</string>
+    <string name="watchlist_compare_hint">Selecciona de 2 a 4 parells per comparar-los.</string>
+    <string name="compare_title">Comparació</string>
+    <string name="compare_basis">Les línies mostren la variació en percentatge des de l\'inici del període.</string>
+    <string name="compare_from_high">vs. màxim de 30 dies</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">%1$d parell no restaurat – la llista és plena</item>
+        <item quantity="many">%1$d parells no restaurats – la llista és plena</item>
+        <item quantity="other">%1$d parells no restaurats – la llista és plena</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">Ara mateix la llista i les seves alarmes no s\'estan desant. Aquest canvi i els següents es perdran en tancar l\'app. Vols canviar-ho igualment?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">Canvia igualment</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">%1$d parell</item>
+        <item quantity="many">%1$d parells</item>
+        <item quantity="other">%1$d parells</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">%2$d de %1$d parell</item>
+        <item quantity="many">%2$d de %1$d parells</item>
+        <item quantity="other">%2$d de %1$d parells</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">queda %1$d lloc lliure</item>
+        <item quantity="many">queden %1$d llocs lliures</item>
+        <item quantity="other">queden %1$d llocs lliures</item>
+    </plurals>
+    <string name="watchlist_footer_full">Llista plena</string>
+</resources>

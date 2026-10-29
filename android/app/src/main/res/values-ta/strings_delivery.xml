@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">விழிப்பூட்டல்கள் வந்துசேர்வதை உறுதிசெய்யவும்</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">சரி</string>
+    <string name="delivery_state_warn">இதைச் சரிபார்க்கவும்</string>
+    <string name="delivery_state_info">குறிப்பு</string>
+    <string name="delivery_allowed">அனுமதிக்கப்பட்டது</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">அறிவிப்புகள்</string>
+    <string name="delivery_notifications_off">ஆஃப் – விழிப்பூட்டல்கள் வந்துசேராது</string>
+    <string name="delivery_notifications_not_asked">இன்னும் அனுமதிக்கப்படவில்லை</string>
+    <string name="delivery_channel">விழிப்பூட்டல் சேனல்</string>
+    <string name="delivery_channel_high">அதிக முக்கியத்துவம் – திரையில் தோன்றும்</string>
+    <string name="delivery_channel_low">குறைந்த முக்கியத்துவம் – விழிப்பூட்டல்கள் பட்டியலில் ஒலியின்றி மட்டும் தோன்றும்</string>
+    <string name="delivery_channel_off">முடக்கப்பட்டது – விழிப்பூட்டல்கள் வந்துசேராது</string>
+    <string name="delivery_exact_on">ஆன் – சுமார் ஒவ்வொரு 15 நிமிடத்துக்கும்</string>
+    <string name="delivery_exact_off">ஆஃப் – Android ஒழுங்கற்ற இடைவெளிகளில் சரிபார்க்கும்</string>
+    <string name="delivery_battery">பேட்டரி மேம்படுத்தல்</string>
+    <string name="delivery_battery_unrestricted">கட்டுப்பாடற்றது</string>
+    <string name="delivery_battery_optimized">மேம்படுத்தப்பட்டது – Android சரிபார்ப்புகளைத் தாமதப்படுத்தலாம். ஆப் விதிவிலக்கைக் கேட்காது; ஆப்பின் பேட்டரி அமைப்புகளில் இதை மாற்றலாம்.</string>
+    <string name="delivery_background">பின்னணிப் பயன்பாடு</string>
+    <string name="delivery_background_restricted">கட்டுப்படுத்தப்பட்டது – Android பின்னணிச் சரிபார்ப்புகளை நிறுத்துகிறது</string>
+    <string name="delivery_dnd">தொந்தரவு செய்ய வேண்டாம்</string>
+    <string name="delivery_dnd_on">ஆன் – விழிப்பூட்டல்கள் ஒலியின்றி வரலாம்</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">%1$s வரை செயலில் – நிலுவையிலுள்ள விழிப்பூட்டல்கள் அதுவரை காத்திருக்கும்</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – இந்த நேரத்தில் நிலுவையிலுள்ள விழிப்பூட்டல்கள் காத்திருக்கும்</string>
+    <string name="delivery_last_check">கடைசிப் பின்னணிச் சரிபார்ப்பு</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – 6 மணிநேரத்துக்கும் முன்பு</string>
+    <string name="delivery_last_check_never">இன்னும் இல்லை</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">அனுமதி</string>
+    <string name="delivery_action_change">மாற்று</string>
+    <string name="delivery_action_show">காட்டு</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">பேனர்களும் ஒலியும்</string>
+    <string name="delivery_alert_off">பேனர்கள் ஆஃப் – விழிப்பூட்டல்கள் அறிவிப்பு மையத்தில் மட்டும் தோன்றும்</string>
+    <string name="delivery_sound_off">ஒலி ஆஃப் – விழிப்பூட்டல்கள் ஒலியின்றி வரும்</string>
+    <string name="delivery_time_sensitive">நேரம் சார்ந்த அறிவிப்புகள்</string>
+    <string name="delivery_time_sensitive_off">ஆஃப் – ஒரு ஃபோகஸ் விழிப்பூட்டல்களை நிறுத்திவைக்கலாம்</string>
+    <string name="delivery_background_refresh">பின்னணி ஆப் புதுப்பிப்பு</string>
+    <string name="delivery_low_power">குறைந்த மின் பயன்முறை</string>
+    <string name="delivery_swipe_away">ஆப்பை ஸ்வைப் செய்து மூடினீர்களா?</string>
+    <string name="delivery_swipe_away_note">ஆப் மாற்றியில் ஆப்பை ஸ்வைப் செய்து மூடினால், நீங்கள் மீண்டும் திறக்கும் வரை iOS பின்னணிச் சரிபார்ப்புகளை நிறுத்தும்.</string>
+    <string name="delivery_live_activity">நேரலைச் செயல்பாடு</string>
+    <string name="delivery_live_activity_note">பூட்டுத் திரையில் விலையைக் காட்டும், ஆனால் ஆப் சரிபார்க்கும்போது மட்டுமே புதுப்பிக்கும் – விழிப்பூட்டல்களை அடிக்கடி சரிபார்க்க வைக்காது.</string>
+
+    <string name="alarm_first_check">விழிப்பூட்டல்கள் வந்துசேர்வதைச் சரிபார்க்கவும்</string>
+
+    <string name="oem_battery_title">உற்பத்தியாளரின் பேட்டரி சேமிப்பான்</string>
+    <string name="oem_battery_xiaomi">Xiaomi ஆப்பை முழுமையாக நிறுத்தக்கூடும் – அப்போது விழிப்பூட்டல்கள் வராது. “தானியங்கு தொடக்கம்” என்பதை ஆன் செய்து, பேட்டரி சேமிப்பானை “கட்டுப்பாடுகள் இல்லை” என அமைக்கவும்.</string>
+    <string name="oem_battery_samsung">Samsung ஆப்பை ஆழ்ந்த உறக்கத்தில் வைக்கக்கூடும் – அப்போது விழிப்பூட்டல்கள் வராது. பேட்டரி › பின்னணிப் பயன்பாட்டு வரம்புகள் என்பதில், அதை “ஒருபோதும் உறங்காத ஆப்ஸ்” இல் சேர்க்கவும்.</string>
+    <string name="oem_battery_huawei">Huawei/Honor ஆப்பை நிறுத்தக்கூடும் – அப்போது விழிப்பூட்டல்கள் வராது. பேட்டரி › ஆப் தொடக்கம் என்பதில், “கைமுறையாக நிர்வகி” என்பதைத் தேர்ந்தெடுத்து எல்லா விருப்பங்களையும் அனுமதிக்கவும்.</string>
+    <string name="oem_battery_oneplus">OnePlus ஆப்பை நிறுத்தக்கூடும் – அப்போது விழிப்பூட்டல்கள் வராது. “தானியங்கு தொடக்கம்” என்பதையும், பேட்டரிப் பயன்பாடு என்பதில் பின்னணிச் செயல்பாட்டையும் அனுமதிக்கவும்.</string>
+    <string name="oem_battery_oppo">Oppo/Realme ஆப்பை நிறுத்தக்கூடும் – அப்போது விழிப்பூட்டல்கள் வராது. “தானியங்கு தொடக்கம்” என்பதையும், பேட்டரிப் பயன்பாடு என்பதில் பின்னணிச் செயல்பாட்டையும் அனுமதிக்கவும்.</string>
+    <string name="oem_battery_vivo">Vivo ஆப்பை நிறுத்தக்கூடும் – அப்போது விழிப்பூட்டல்கள் வராது. “தானியங்கு தொடக்கம்” என்பதையும், பேட்டரி என்பதில் அதிக பின்னணி மின் பயன்பாட்டையும் அனுமதிக்கவும்.</string>
+    <string name="alarm_reliability_stale">கடைசிச் சரிபார்ப்பு %1$s – விழிப்பூட்டல்கள் தாமதமாகலாம்</string>
+    <string name="alarm_reliability_never">விழிப்பூட்டல்கள் ஆன் – இன்னும் பின்னணிச் சரிபார்ப்பு இல்லை</string>
+    <string name="alarm_reliability_notifications_off">அறிவிப்புகள் ஆஃப் – விழிப்பூட்டல்கள் வந்துசேராது</string>
+    <string name="alarm_reliability_battery">பேட்டரி சேமிப்பு விழிப்பூட்டல் சரிபார்ப்புகளை நிறுத்தக்கூடும்</string>
+    <string name="alarm_reliability_background_refresh">பின்னணி ஆப் புதுப்பிப்பு ஆஃப் – விழிப்பூட்டல்கள் வராமல் போகலாம்</string>
+</resources>

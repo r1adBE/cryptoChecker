@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">Diqqətəlayiq: %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — indi %2$s</string>
+    <string name="notification_alarm_title">Alarm: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">Birjanı aç</string>
+    <string name="notification_depeg_text">Tətbiqdəki dəyərlər bu bazar qiymətindən istifadə edir.</string>
+    <string name="notification_depeg_title">USDT %1$s USD (%2$s)</string>
+    <string name="notification_fng_above">İndeks %1$d həddindən yuxarı qalxdı – bu ölçüyə görə bazar əhvalı acgözdür.</string>
+    <string name="notification_fng_below">İndeks %1$d həddindən aşağı düşdü – bu ölçüyə görə bazar əhvalı qorxuludur.</string>
+    <string name="notification_fng_title">Əhval indeksi (Fear &amp; Greed): %1$d</string>
+    <string name="notification_gas_btc_text">%1$s sat/vB limitindən aşağı · Köçürmə ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin komissiyası: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">%1$s gwei limitindən aşağı · Köçürmə ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Ethereum gas: %1$s gwei</string>
+    <string name="notification_indicator_above">%1$s limitindən yuxarı – ölçülmüş dəyər, tövsiyə deyil.</string>
+    <string name="notification_indicator_below">%1$s limitindən aşağı – ölçülmüş dəyər, tövsiyə deyil.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">Bu günün iqtisadi məlumatları</string>
+    <string name="notification_permission_preprompt_continue">Davam et</string>
+    <string name="notification_permission_preprompt_later">Sonra</string>
+    <string name="notification_permission_preprompt_text">Alarmlar və qiymət bildirişləri sənə çatsın deyə tətbiqə bildiriş göndərmək icazəsi lazımdır. Tətbiq onlardan yalnız alarmların və qiymət bildirişlərin üçün istifadə edir.</string>
+    <string name="notification_permission_preprompt_title">Bildirişlərə icazə verilsin?</string>
+    <string name="notification_portfolio_alarm_locked">Alarmın işə düşdü – təfərrüatlar üçün tətbiqi aç.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – indi %2$s</string>
+    <string name="notification_portfolio_alarm_title">Portfelin dəyəri</string>
+    <string name="notification_price_change">%1$s, %2$s-dən (%3$s əvvəl)</string>
+    <string name="notification_price_change_no_age">%1$s, %2$s-dən</string>
+    <string name="notification_price_first">Bu cüt üçün ilk qiymət bildirişi</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+daha %1$d qiymət</item>
+        <item quantity="other">+daha %1$d qiymət</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">Qiymətlər yenilənir…</string>
+    <string name="notification_volume_spike_text">Son saatda həcm adi haldan %1$s× çox</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">Alarmlar</string>
+    <string name="channel_alarms_description">Alarm işə düşəndə bildiriş.</string>
+    <string name="channel_alarms_quiet">Alarmlar (sakit saatlar)</string>
+    <string name="channel_alarms_quiet_description">Sakit saatlarda səssiz alarmlar.</string>
+    <string name="channel_alarms_silent">Alarmlar (səssiz)</string>
+    <string name="channel_alarms_sound">Alarmlar (yalnız səs)</string>
+    <string name="channel_alarms_sound_vibrate">Alarmlar (səs və vibrasiya)</string>
+    <string name="channel_alarms_vibrate">Alarmlar (yalnız vibrasiya)</string>
+    <string name="channel_prices">Qiymət bildirişləri</string>
+    <string name="channel_prices_description">Cütün cari qiyməti ilə səssiz qiymət bildirişi.</string>
+    <string name="channel_service">Qiymət yeniləmələri</string>
+    <string name="channel_service_description">Qiymətlər yenilənərkən bildiriş.</string>
+    <string name="neutral_channel_market">Bazar alarmları</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, gas komissiyaları, «Diqqətəlayiq» və iqtisadi tarixlər</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">Alarm. %1$s, %2$s %3$s %4$s, indi %5$s</string>
+    <string name="tts_direction_down">düşüb</string>
+    <string name="tts_direction_funding_above">yüksək fundinqlə</string>
+    <string name="tts_direction_funding_below">aşağı fundinqlə</string>
+    <string name="tts_direction_move">güclü hərəkət edir</string>
+    <string name="tts_direction_near_high">maksimuma yaxındır</string>
+    <string name="tts_direction_near_low">minimuma yaxındır</string>
+    <string name="tts_direction_oi_down">azalan açıq maraqla</string>
+    <string name="tts_direction_oi_up">artan açıq maraqla</string>
+    <string name="tts_direction_up">qalxıb</string>
+    <string name="tts_direction_volume_spike">həcm sıçrayışı ilə</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+
+    <!-- Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+    <string name="notification_alarm_action_snooze">1 saat sonra</string>
+    <string name="notification_alarm_action_edit">Tənzimlə</string>
+</resources>

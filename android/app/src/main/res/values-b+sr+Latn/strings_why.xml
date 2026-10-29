@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generated from values-sr by android/tools/sr_latn.py - do not edit, run the script instead -->
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">Šta se kreće s njom?</string>
+    <string name="why_all_values">Sve vrednosti i izvori</string>
+    <string name="why_all_values_hint">Zapažanje · Moguće objašnjenje · Izvori</string>
+    <string name="why_details">Prikaži detalje</string>
+    <string name="why_details_hide">Sakrij detalje</string>
+    <string name="why_disclaimer">Automatska procena iz tržišnih podataka: prikazuje što se događa istovremeno, a ne dokaz uzroka.</string>
+    <string name="why_footer_short">Istovremeno ne znači uzrok · Nije savet za ulaganje</string>
+    <string name="why_no_data">Nema podataka s Binance-a za ovaj par</string>
+    <string name="why_no_data_hint">Cena, volumen i volatilnost dolaze iz satnih sveća s Binance-a.</string>
+    <string name="why_ref_alts">Altkoini</string>
+    <string name="why_section_context">Moguće objašnjenje</string>
+    <string name="why_section_observation">Zapažanje</string>
+    <string name="why_title">Šta se kreće s njom?</string>
+    <string name="why_title_coin">Šta se kreće s %1$s?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">Ukratko · Stanje od %1$s</string>
+    <string name="why_brief_label">Ukratko:</string>
+    <string name="why_summary_against">Kriptovaluta se kreće suprotno tržištu.</string>
+    <string name="why_summary_calm">Nema upadljivog kretanja: tržište i kriptovaluta su mirni.</string>
+    <string name="why_summary_coin">Kreće se samo ova kriptovaluta – možda nešto što utiče samo na nju.</string>
+    <string name="why_summary_coin_volume">Kreće se samo ova kriptovaluta, uz veći volumen – možda nešto što utiče samo na nju.</string>
+    <string name="why_summary_longs">Fjučersi: mnogo long pozicija s polugom.</string>
+    <string name="why_summary_market">Kretanje se vremenski poklapa s ukupnim tržištem.</string>
+    <string name="why_summary_market_volume">Kretanje se poklapa s većim volumenom trgovanja i široko pokrenutim tržištem.</string>
+    <string name="why_summary_peg_near">Cena je blizu vezanja 1:1.</string>
+    <string name="why_summary_peg_off">Cena primetno odstupa od vezanja 1:1.</string>
+    <string name="why_summary_shorts">Fjučersi: mnogo šort pozicija.</string>
+    <string name="why_summary_thin">Kretanje je slabo: iza njega je malo volumena.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">Suprotno tržištu</string>
+    <string name="why_f_coin_only">Samo ova kriptovaluta</string>
+    <string name="why_f_leader">Bitkoin kao predvodnik tržišta</string>
+    <string name="why_f_leverage_balanced">Poluga uravnotežena</string>
+    <string name="why_f_leverage_longs">Poluga: mnogo longova</string>
+    <string name="why_f_leverage_shorts">Poluga: mnogo šortova</string>
+    <string name="why_f_market_calm">Mirno tržište</string>
+    <string name="why_f_market_wide">Kreće se celo tržište</string>
+    <string name="why_factor_funding">Fanding</string>
+    <string name="why_factor_futures">Fjučers</string>
+    <string name="why_factor_market">Ukupno tržište</string>
+    <string name="why_factor_near_high">Blizu maksimuma</string>
+    <string name="why_factor_near_low">Blizu minimuma</string>
+    <string name="why_factor_peg">Vezanje (1:1)</string>
+    <string name="why_factor_range3d">Raspon 3 dana</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">procenjeno</string>
+    <string name="why_fn_funding_longs">mnogi se klade na rast cena</string>
+    <string name="why_fn_funding_neutral">neutralno</string>
+    <string name="why_fn_funding_shorts">mnogi se klade na pad cena</string>
+    <string name="why_fn_high_at">na 30-dnevnom maksimumu</string>
+    <string name="why_fn_high_below">ispod 30-dnevnog maksimuma</string>
+    <string name="why_fn_leader_calm">Bitkoin je miran</string>
+    <string name="why_fn_leader_moves">Bitkoin se jasno kreće</string>
+    <string name="why_fn_low_above">iznad 30-dnevnog minimuma</string>
+    <string name="why_fn_low_at">na 30-dnevnom minimumu</string>
+    <string name="why_fn_market_against">Ova se kriptovaluta kreće suprotno tržištu</string>
+    <string name="why_fn_market_alone">Tržište mirno – ova se kriptovaluta kreće sama</string>
+    <string name="why_fn_market_calm">Tržište je mirno</string>
+    <string name="why_fn_market_lags">Tržište se kreće, ova kriptovaluta jedva</string>
+    <string name="why_fn_market_moves">Tržište se kreće u istom smeru</string>
+    <string name="why_fn_market_pulls">Tržište se kreće s BTC-om</string>
+    <string name="why_fn_oi_down">Otvoreni interes pada</string>
+    <string name="why_fn_oi_flat">Otvoreni interes jedva se promenio</string>
+    <string name="why_fn_oi_mixed">Otvoreni interes mešovit</string>
+    <string name="why_fn_oi_up">Otvoreni interes raste</string>
+    <string name="why_fn_peg_above">%1$s iznad vezanja 1:1</string>
+    <string name="why_fn_peg_below">%1$s ispod vezanja 1:1</string>
+    <string name="why_fn_peg_near">blizu vezanja 1:1</string>
+    <string name="why_fn_range_above_low">od 3-dnevnog minimuma</string>
+    <string name="why_fn_range_below_high">od 3-dnevnog maksimuma</string>
+    <string name="why_fn_range_near_high">blizu 3-dnevnog maksimuma</string>
+    <string name="why_fn_range_near_low">blizu 3-dnevnog minimuma</string>
+    <string name="why_fn_volatility_stronger">jače nego obično</string>
+    <string name="why_fn_volatility_tiny">malo u apsolutnom iznosu (ispod %1$s)</string>
+    <string name="why_fn_volatility_usual">kao obično</string>
+    <string name="why_fn_volume_higher">više nego obično</string>
+    <string name="why_fn_volume_lower">manje nego obično</string>
+    <string name="why_fn_volume_usual">kao obično</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">Ova kriptovaluta %1$s, BTC %2$s u 24 č — izrazito samostalno kretanje.</string>
+    <string name="why_against_ref_text">Ova kriptovaluta %1$s, %2$s %3$s u 24 č — izrazito samostalno kretanje.</string>
+    <string name="why_btc_independent">%1$s se trenutno kreće nezavisno od Bitkoina.</string>
+    <string name="why_btc_tight">%1$s se trenutno kreće usko uz Bitkoin.</string>
+    <string name="why_change_1h">1 č</string>
+    <string name="why_change_24h">24 č</string>
+    <string name="why_coin_only_text">%1$s u 24 č dok je tržište mirno – možda nešto što utiče samo na ovu kriptovalutu.</string>
+    <string name="why_leverage_balanced_text">Na fjučers tržištu nema nagomilavanja long ni šort pozicija.</string>
+    <string name="why_leverage_longs_text">Mnogi se pozajmljenim novcem klade na rast cena. Longovi plaćaju šortovima — povećan rizik od likvidacija ako cena padne.</string>
+    <string name="why_leverage_shorts_text">Mnogi se pozajmljenim novcem klade na pad cena. Šortovi plaćaju longovima – ako cena poraste, moguć je šort skviz.</string>
+    <string name="why_market_calm_text">Ova kriptovaluta: %1$s u 24 č. Ni tržište ni kriptovaluta ne kreću se mnogo.</string>
+    <string name="why_market_leader_text">Kao najveća kriptovaluta, BTC se obično kreće ukorak s ostatkom tržišta. ETH: %1$s u 24 č.</string>
+    <string name="why_market_leader_text_no_eth">Kao najveća kriptovaluta, BTC se obično kreće ukorak s ostatkom tržišta.</string>
+    <string name="why_market_similar_text">Ova kriptovaluta: %1$s u 24 č – istovremeno se tržište kreće u istom smeru, iako manje izraženo.</string>
+    <string name="why_market_wide_text">Ova kriptovaluta: %1$s u 24 č – istovremeno se ukupno tržište jasno kreće.</string>
+    <string name="why_open_interest_change">Otvoreni interes %1$s od poslednje provere.</string>
+    <string name="why_peg_text">Stejblkoin: u odnosu na vezanje 1:1 uz kotiranu valutu, odstupanje %1$s.</string>
+    <string name="why_sentiment_text">Indeks Fear &amp; Greed celog kripto tržišta, %1$s u odnosu na juče.</string>
+    <string name="why_sentiment_text_no_change">Indeks Fear &amp; Greed celog kripto tržišta.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="one">pada već %1$d sat</item>
+        <item quantity="few">pada već %1$d sata</item>
+        <item quantity="other">pada već %1$d sati</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="one">raste već %1$d sat</item>
+        <item quantity="few">raste već %1$d sata</item>
+        <item quantity="other">raste već %1$d sati</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="one">stabilno već %1$d sat</item>
+        <item quantity="few">stabilno već %1$d sata</item>
+        <item quantity="other">stabilno već %1$d sati</item>
+    </plurals>
+    <string name="why_volatility_high_text">Poslednji sat: %1$s — mereno prema tipičnom satnom kolebanju u poslednja 24 sata.</string>
+    <string name="why_volatility_normal_text">Poslednji sat: %1$s — u uobičajenom rasponu.</string>
+    <string name="why_volatility_tiny_text">Poslednji sat: %1$s — neobično za ovu kriptovalutu, ali malo u apsolutnom iznosu.</string>
+    <string name="why_volume_estimated_text">Procenjeno: ovaj izvor ne daje promet, pa se upoređuju trgovane količine kriptovalute.</string>
+    <string name="why_volume_high_text">U poslednjem satu mnogo više trgovanja nego obično – kretanje prati visok volumen.</string>
+    <string name="why_volume_low_text">Iza kretanja je malo trgovanja – takva kretanja često su manje stabilna.</string>
+    <string name="why_volume_normal_text">Trgovanje u poslednjem satu u skladu je s poslednja 24 sata.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">povišeno</string>
+    <string name="why_dot_neutral">neutralno</string>
+    <string name="why_dot_supports">odgovara kretanju</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">Podaci od %1$s</string>
+    <string name="why_fresh_breadth">Širina tržišta: %1$s · %2$s</string>
+    <string name="why_fresh_candles">Sveće: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">Fjučers: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="one">otvoreni interes u poređenju s onim pre %1$d sata</item>
+        <item quantity="few">otvoreni interes u poređenju s onim pre %1$d sata</item>
+        <item quantity="other">otvoreni interes u poređenju s onim pre %1$d sati</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="one">otvoreni interes u poređenju s onim pre %1$d minute</item>
+        <item quantity="few">otvoreni interes u poređenju s onim pre %1$d minute</item>
+        <item quantity="other">otvoreni interes u poređenju s onim pre %1$d minuta</item>
+    </plurals>
+    <string name="why_fresh_today">danas</string>
+    <string name="why_fresh_yesterday">juče</string>
+    <string name="why_source_fallback">%1$s (zamenski)</string>
+    <string name="why_source_reference">%1$s (referenca)</string>
+    <string name="why_sources">Izvori: satne sveće berzi (uglavnom Binance), fjučers podaci s berzi, Fear &amp; Greed s alternative.me.</string>
+    <string name="why_sources_list">Izvori: %1$s.</string>
+    <string name="why_src_breadth">%1$s (širina tržišta)</string>
+    <string name="why_src_candles">%1$s (sveće)</string>
+    <string name="why_src_comparison">%1$s (poređenje s tržištem)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (fjučers)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Fanding</string>
+    <string name="factor_spoken_volatility">%1$s puta uobičajeno kolebanje</string>
+    <string name="factor_spoken_volume">%1$s puta uobičajeno</string>
+    <string name="factor_volatility">Volatilnost (1 č)</string>
+    <string name="factor_volume">Volumen</string>
+</resources>

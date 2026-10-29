@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
+    <string name="portfolio_cutoff_export_action">குறிப்பிட்ட தேதி ஏற்றுமதி…</string>
+    <string name="portfolio_tax_worksheet_action">பணித்தாள்…</string>
+    <string name="portfolio_export_address_unobserved">இந்தத் தேதியில் முகவரி கவனிக்கப்படவில்லை – சேர்க்கப்படவில்லை</string>
+    <string name="portfolio_export_button">CSV ஏற்றுமதி</string>
+    <string name="portfolio_export_col_amount">அளவு</string>
+    <string name="portfolio_export_col_coin">காயின்</string>
+    <string name="portfolio_export_col_note">குறிப்பு</string>
+    <string name="portfolio_export_col_price">விலை USDT</string>
+    <string name="portfolio_export_col_rate">விகிதம் USDT→%1$s</string>
+    <string name="portfolio_export_col_value">மதிப்பு USDT</string>
+    <string name="portfolio_export_col_value_cur">மதிப்பு %1$s</string>
+    <!-- Inhalt der CSV-Datei -->
+    <string name="portfolio_export_comment"># குறிப்பிட்ட தேதி %1$s, நாணயம் %2$s, %3$s இன் FX விகிதம்</string>
+    <string name="portfolio_export_currency">நாணயம்: %1$s</string>
+    <string name="portfolio_export_date">குறிப்பிட்ட தேதி</string>
+    <string name="portfolio_export_done">ஏற்றுமதி சேமிக்கப்பட்டது</string>
+    <string name="portfolio_export_estv_note">சொத்து வரிக்கு, பட்டியலிடப்பட்ட இடங்களில் ESTV விலைப் பட்டியல் %1$s இன் அதிகாரப்பூர்வ ஆண்டு இறுதி மதிப்புகள் பொருந்தும்: %2$s</string>
+    <string name="portfolio_export_failed">ஏற்றுமதி தோல்வியடைந்தது</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">ஏற்றுமதி தோல்வியடைந்தது: கோப்பை எழுத முடியவில்லை – சேமிப்பிடம் இல்லை அல்லது எழுத முடியாதது</string>
+    <string name="portfolio_export_failed_prices">ஏற்றுமதி தோல்வியடைந்தது: விலைகளை ஏற்ற முடியவில்லை – இணைப்பு இல்லை அல்லது எக்ஸ்சேஞ்ச் பதிலளிக்கவில்லை</string>
+    <string name="portfolio_export_from_address">முகவரியிலிருந்து – வாங்கிய விலை இல்லை</string>
+    <string name="portfolio_export_hint">தேர்ந்தெடுத்த நாளின் இறுதியில் உள்ள இருப்புகள், USDT இல் தினசரி இறுதி விலையில் (UTC) மதிப்பிடப்பட்டு, அந்த நாளின் ECB குறிப்பு விகிதத்தில் மாற்றப்பட்டவை. “இதற்கு மாற்று” மூலம் நாணயத்தை மாற்றவும்.</string>
+    <string name="portfolio_export_incomplete">முழுமையற்றது</string>
+    <string name="portfolio_export_no_fx">FX விகிதம் இல்லை</string>
+    <string name="portfolio_export_no_price">விலை இல்லை</string>
+    <string name="portfolio_export_running">வரலாற்று விலைகளைப் பெறுகிறது…</string>
+    <string name="portfolio_export_title">குறிப்பிட்ட தேதி ஏற்றுமதி</string>
+    <string name="portfolio_export_today_hint">இன்று இன்னும் முடியவில்லை: தினசரி இறுதி விலைக்குப் பதிலாகத் தற்போதைய விலை பயன்படுத்தப்படுகிறது.</string>
+    <string name="portfolio_export_total">மொத்தம்</string>
+    <string name="portfolio_export_unchecked">சரிபார்க்கப்படவில்லை (பொருந்தும் விலை இல்லை)</string>
+
+    <!-- Steuer-Export (Arbeitspapier) -->
+    <string name="tax_export_adjustment">superficial loss (ACB இல் சேர்க்கப்பட்டது)</string>
+    <string name="tax_export_at_wallet_note">ஆஸ்திரியா: ஒவ்வொரு காயின் மற்றும் வாலட்டுக்கும் (எக்ஸ்சேஞ்ச்) நகரும் சராசரி – பரிமாற்றங்கள் செலவைக் கூடவே எடுத்துச் செல்லும் – வெகுமதிகள் கையகச் செலவு 0 இல் – 1 மார்ச் 2021 முதலான இருப்புகள் கட்டணங்கள் இல்லாமல் (கழிக்க முடியாது) – கடன் வட்டி பெற்றபோதைய மதிப்பில் (27.5 சதவீதத்தில் வருமானம்).</string>
+    <string name="tax_export_avg_cost_rates">வாங்கிய தேதி விகிதங்களில் செலவு (சராசரி)</string>
+    <string name="tax_export_ch_wealth_not_calculated">சொத்து வரி கணக்கிடப்படவில்லை – ESTV விலைப் பட்டியல்: %1$s</string>
+    <string name="tax_export_col_acquired">பெறப்பட்டது</string>
+    <string name="tax_export_col_adjustment">அனுமதிக்கப்படாத நஷ்டம் %1$s</string>
+    <string name="tax_export_col_cost">செலவு %1$s</string>
+    <string name="tax_export_col_date">தேதி</string>
+    <string name="tax_export_col_days">வைத்திருந்த நாட்கள்</string>
+    <string name="tax_export_col_gain">லாபம் %1$s</string>
+    <string name="tax_export_col_gross">கட்டணங்களுக்கு முந்தைய விலை %1$s</string>
+    <string name="tax_export_col_long_term">வைத்திருந்தது &gt; 1 ஆண்டு</string>
+    <string name="tax_export_col_portfolio_value">போர்ட்ஃபோலியோ மதிப்பு %1$s</string>
+    <string name="tax_export_col_proceeds">வருவாய் %1$s</string>
+    <string name="tax_export_col_sold">விற்கப்பட்டது</string>
+    <string name="tax_export_cost_incomplete">மொத்தக் கையகச் செலவு முழுமையற்றது</string>
+    <string name="tax_export_cost_missing">வாங்கிய விலை இல்லை</string>
+    <string name="tax_export_fee_consumed">கட்டணம் முழு வரவையும் எடுத்துக்கொள்கிறது</string>
+    <string name="tax_export_fee_leg">வேறு காயினில் கட்டணம்</string>
+    <string name="tax_export_fee_row">கட்டணம்</string>
+    <string name="tax_export_fee_value_missing">வேறு காயினிலான கட்டணத்துக்கு மதிப்பு இல்லை</string>
+    <string name="tax_export_gains">உணரப்பட்ட கைமாற்றங்கள் (CSV)</string>
+    <string name="tax_export_gains_title">உணரப்பட்ட கைமாற்றங்கள் %1$s</string>
+    <string name="tax_export_gift">பரிசு</string>
+    <string name="tax_export_holdings_cutoff">%1$s அன்று இருப்புகள் (CSV)</string>
+    <string name="tax_export_holdings_title">%1$s அன்று இருப்புகள்</string>
+    <string name="tax_export_income">வருமானம் (CSV)</string>
+    <string name="tax_export_income_title">வருமானம் %1$s</string>
+    <string name="tax_export_info_template">வார்ப்புரு: %1$s · முறை: %2$s · வரி ஆண்டு: %3$s · நாணயம்: %4$s · Crypto Checker %5$s</string>
+    <string name="tax_export_lost_fee_cost">செலுத்தப்பட்ட லாட் இல்லாத நெட்வொர்க் கட்டணச் செலவு</string>
+    <string name="tax_export_match_pool">Section 104 pool</string>
+    <string name="tax_export_match_same_day">அதே நாள் (HMRC)</string>
+    <string name="tax_export_match_thirty_day">30 நாள் விதி (HMRC)</string>
+    <string name="tax_export_method_change_warning">முறையையோ வார்ப்புருவையோ மாற்றினால் முந்தைய ஆண்டுகளும் மீண்டும் கணக்கிடப்படும் – நீங்கள் ஏற்கெனவே தாக்கல் செய்ததுடன் ஒப்பிடவும்.</string>
+    <string name="tax_export_method_overridden">வார்ப்புரு %1$s ஐக் கணக்கிடுகிறது – %2$s ஐ அல்ல</string>
+    <string name="tax_export_new_holding">1 மார்ச் 2021 முதல் பெறப்பட்டது</string>
+    <string name="tax_export_no">இல்லை</string>
+    <string name="tax_export_old_holding">1 மார்ச் 2021 க்கு முன் பெறப்பட்டது</string>
+    <string name="tax_export_oversold">பதிவுசெய்ததைவிட அதிகமாக விற்கப்பட்டது</string>
+    <string name="tax_export_payment">கிரிப்டோ மூலம் செலுத்துதல்</string>
+    <string name="tax_export_period">%1$s – %2$s</string>
+    <string name="tax_export_proceeds_missing">விற்பனை விலை இல்லை</string>
+    <string name="tax_export_proceeds_without_cost">வாங்கிய விலை இல்லாத வருவாய்</string>
+    <string name="tax_export_realized_differs">வரி CSV ‘உணரப்பட்டது’ என்பதிலிருந்து வேறுபடலாம் (நாட்டின் வரி விதிகள்).</string>
+    <string name="tax_export_rule">&gt; 1 ஆண்டு: வாங்கிய தேதி + 1 நாட்காட்டி ஆண்டுக்குப் பிறகு விற்கப்பட்டது. தேதிகள் உள்ளூர் நேரத்தில். விகிதங்கள்: பரிவர்த்தனை நாளின் ECB தினசரி விகிதம்; இல்லையெனில், 7 நாட்கள் முன்பு வரையிலான கடைசி விகிதம்.</string>
+    <string name="tax_export_rules_date">விதிகள் நிலவரப்படி: %1$s</string>
+    <string name="tax_export_rules_stale">விதிகள் %1$s ஐச் சேர்ந்தவை – %2$s க்கு, விகிதங்களும் விலக்குகளும் மாறியிருக்கலாம். மதிப்புகளைச் சரிபார்க்கவும்.</string>
+    <string name="tax_export_spouse_gift">துணைவர்/பார்ட்னருக்கு – லாபம் இல்லை, நஷ்டம் இல்லை</string>
+    <string name="tax_export_summary">ஆண்டுச் சுருக்கம் %1$s (CSV)</string>
+    <string name="tax_export_swap">ஸ்வாப்</string>
+    <string name="tax_export_tax_year">வரி ஆண்டு</string>
+    <string name="tax_export_transfer_fee_info">USDT/பணத்தில் பரிமாற்றக் கட்டணம் – நஷ்டம் அல்ல, அடக்க விலையில் இல்லை, தகவலுக்கு மட்டும்</string>
+    <string name="tax_export_unassigned_fee">ஒதுக்கப்படாத கட்டணம் – அடக்க விலை தெரியவில்லை</string>
+    <string name="tax_export_usdt_usd_note">USDT, USDT/USD தினசரி இறுதி விலையில் மாற்றப்பட்டது; இறுதி விலை இல்லாத இடத்தில் 1 USD (ஒவ்வொரு வரிசையிலும் குறிக்கப்பட்டுள்ளது)</string>
+    <string name="tax_export_value_estimated">மதிப்பு மதிப்பிடப்பட்டது (தினசரி இறுதி விலை)</string>
+    <string name="tax_export_value_missing">பெற்றபோதைய மதிப்பு இல்லை</string>
+    <string name="tax_export_wallet">வாலட்: %1$s</string>
+    <string name="tax_export_wallet_unspecified">குறிப்பிடப்படவில்லை</string>
+    <string name="tax_export_withdrawal_fee">திரும்பப்பெறுதல் கட்டணம்</string>
+    <string name="tax_export_withdrawal_fee_info">USDT/பணத்தில் திரும்பப்பெறுதல் கட்டணம் – நஷ்டம் அல்ல, தகவலுக்கு மட்டும்</string>
+    <string name="tax_export_workpaper_disclaimer">வரிப் பணித்தாள் – வரி அறிக்கை அல்ல, வரி ஆலோசனையும் அல்ல</string>
+    <string name="tax_export_workpaper_title">பணித்தாள்</string>
+    <string name="tax_export_year_local_zone">உள்ளூர் நேரத்தில் தேதிகள் (%1$s)</string>
+    <string name="tax_export_yes">ஆம்</string>
+
+    <!-- Steuer-Export: Zeilen und Spalten -->
+    <string name="tax_line_at_interest">கடன் வட்டி (பெற்றபோதைய மதிப்பு)</string>
+    <string name="tax_line_at_old_long">1 மார்ச் 2021 க்கு முன் பெறப்பட்டது – வைத்திருந்தது &gt; 1 ஆண்டு: பொதுவாக வரிக்கு உட்பட்டதல்ல – சரிபார்க்கவும்</string>
+    <string name="tax_line_at_rate">சிறப்பு விகிதம் 27.5 சதவீதம்: 1 மார்ச் 2021 முதல் பெறப்பட்டு 1 மார்ச் 2022 முதல் விற்கப்பட்டவற்றின் நிகரம் + வட்டி</string>
+    <string name="tax_line_au_discounted">நஷ்டங்கள் மற்றும் 50 சதவீதத் தள்ளுபடிக்குப் பிந்தைய நிகர மூலதன லாபம்</string>
+    <string name="tax_line_ca_taxable">வரிக்குட்பட்ட மூலதன லாபம் (சேர்ப்பு விகிதம் 1/2)</string>
+    <string name="tax_line_ch_income">வெகுமதிகள் பட்டியலிடப்பட்டுள்ளன – அவற்றின் கையாளுதலுக்கு ESTV பணித்தாளைப் பார்க்கவும்</string>
+    <string name="tax_line_ch_private">தனிப்பட்ட சொத்துகள் மீதான மூலதன லாபம்: கணக்கிடப்படவில்லை – வகைப்படுத்தலுக்கு ESTV ஐப் பார்க்கவும்</string>
+    <string name="tax_line_ch_wealth">சொத்து வரி: கணக்கிடப்படவில்லை – இருப்புகள் CSV, 31 டிசம்பர் அன்றைய எக்ஸ்சேஞ்ச் விலை × USD/CHF ஐப் பயன்படுத்துகிறது – அதிகாரப்பூர்வ வரி மதிப்புகள்: ESTV விலைப் பட்டியல்</string>
+    <string name="tax_line_de_long">வைத்திருந்தது &gt; 1 ஆண்டு: § 23 EStG இன் கீழ் பொதுவாக வரிக்கு உட்பட்டதல்ல – சரிபார்க்கவும்</string>
+    <string name="tax_line_denied_loss">அனுமதிக்கப்படாத நஷ்டங்கள் (superficial loss)</string>
+    <string name="tax_line_fr_outflow">விற்பனை இல்லாத வெளிச்செலவுகள் (திரும்பப்பெறுதல்கள்) – மொத்தக் கையகச் செலவு விகிதாசாரமாகக் குறைக்கப்பட்டது</string>
+    <string name="tax_line_fr_rate">நிலையான விகிதம் 12.8 சதவீதம் மற்றும் சமூகப் பங்களிப்புகள் (அல்லது விருப்பத்தின்பேரில் அளவுகோல்)</string>
+    <string name="tax_line_fr_threshold">ஆண்டுக்கு €305 வரையிலான கைமாற்றங்கள்: பொதுவாக விலக்கு (விற்பனை விலைகளின் மொத்தம்) – சரிபார்க்கவும்</string>
+    <string name="tax_line_gains">லாபங்கள்</string>
+    <string name="tax_line_income">வருமானம் (பெற்றபோதைய மதிப்பில் வெகுமதிகள்)</string>
+    <string name="tax_line_jp_misc">பல்வகை வருமானம் (雑所得): நிகர லாபங்கள் + வருமானம்</string>
+    <string name="tax_line_long_net">நிகரம் – வைத்திருந்தது &gt; 1 ஆண்டு</string>
+    <string name="tax_line_losses">நஷ்டங்கள்</string>
+    <string name="tax_line_net">நிகர லாபம்/நஷ்டம்</string>
+    <string name="tax_line_new_net">நிகரம் – 1 மார்ச் 2021 முதல் பெறப்பட்டு, 1 மார்ச் 2022 முதல் விற்கப்பட்டது</string>
+    <string name="tax_line_old_long_net">நிகரம் – 1 மார்ச் 2021 க்கு முன் பெறப்பட்டது – வைத்திருந்தது &gt; 1 ஆண்டு</string>
+    <string name="tax_line_old_short_net">நிகரம் – ஊக வணிகப் பரிவர்த்தனைகள் (முந்தைய சட்டம்): 1 மார்ச் 2021 க்கு முன் பெறப்பட்டு ≤ 1 ஆண்டு வைத்திருந்தது, அல்லது 1 மார்ச் 2022 க்கு முன் விற்கப்பட்டது</string>
+    <string name="tax_line_proceeds">வருவாய்</string>
+    <string name="tax_line_short_net">நிகரம் – வைத்திருந்தது ≤ 1 ஆண்டு</string>
+    <string name="tax_line_transfer_fees">பரிமாற்றக் கட்டணங்கள் (சொந்த வாலட்கள்)</string>
+    <string name="tax_line_uk_after_exempt">விலக்குத் தொகைக்கு மேலான நிகர லாபங்கள் (கிரிப்டோ மட்டும்)</string>
+    <string name="tax_line_uk_exempt">ஆண்டு விலக்குத் தொகை – எல்லாக் கைமாற்றங்களுக்கும் சேர்த்துப் பொருந்தும், இங்கே முழுமையாகப் பயன்படுத்தப்பட்டது</string>
+    <string name="tax_line_us_terms">குறுகியகாலம் (≤ 1 ஆண்டு): சாதாரண விகிதங்கள் – நீண்டகாலம் (&gt; 1 ஆண்டு): மூலதன லாப விகிதங்கள்</string>
+    <string name="tax_line_withdrawal_fees">திரும்பப்பெறுதல் கட்டணங்கள்</string>
+
+    <!-- Steuer Deutschland -->
+    <string name="tax_de_below">வரம்புக்குக் கீழ்</string>
+    <string name="tax_de_col_item">உருப்படி</string>
+    <string name="tax_de_disclaimer">வழிகாட்டுதலுக்கு மட்டும் – வரி அறிக்கை அல்ல, வரி ஆலோசனையும் அல்ல.</string>
+    <string name="tax_de_explain_below">%1$s வரை: வரம்புக்குக் கீழ் (வழிகாட்டுதலுக்காக).</string>
+    <string name="tax_de_explain_loss">நிகர நஷ்டம்: இந்த விற்பனைகளுக்கு வரி இல்லை. § 23 EStG இன் கீழான நஷ்டங்கள் தனிப்பட்ட விற்பனைகளின் லாபங்களுடன் மட்டுமே ஈடுசெய்யப்படும் – அதே ஆண்டில், அல்லது முந்தைய ஆண்டுக்குப் பின்னோக்கியும் பிந்தைய ஆண்டுகளுக்கு முன்னோக்கியும் கொண்டுசெல்வதன் மூலம் (§ 23 பிரிவு 3 மற்றும் § 10d EStG). மதிப்பிடப்பட, நஷ்டத்தை உங்கள் வரி அறிக்கையில் அறிவிக்கவும்.</string>
+    <string name="tax_de_explain_reached">%1$s முதல் முழுத் தொகையும் கணக்கில் சேரும் (விலக்கு வரம்பு – கழிவுத் தொகை அல்ல).</string>
+    <string name="tax_de_explain_unknown">சரிபார்க்க முடியாது: மாற்று விகிதங்கள் / வாங்கிய விலைகள் அல்லது வைத்திருந்த காலங்கள் இல்லை.</string>
+    <string name="tax_de_income_limit">சேவைகளுக்கான விலக்கு வரம்பு (§ 22 No. 3 EStG)</string>
+    <string name="tax_de_limit_scope">வரம்புகள் ஆண்டின் எல்லாத் தனிப்பட்ட விற்பனைகள் அல்லது சேவைகளுக்கும் சேர்த்துப் பொருந்தும் – ஆப்புக்கு வெளியே உள்ளவை உட்பட.</string>
+    <string name="tax_de_loading">கணக்கிடுகிறது…</string>
+    <string name="tax_de_long_gains">லாபங்கள் – வைத்திருந்தது &gt; 1 ஆண்டு</string>
+    <string name="tax_de_long_losses">நஷ்டங்கள் – வைத்திருந்தது &gt; 1 ஆண்டு</string>
+    <string name="tax_de_loss">நிகர நஷ்டம் – தனிப்பட்ட விற்பனைகளின் லாபங்களுடன் மட்டுமே ஈடுசெய்யலாம் (§ 23 EStG)</string>
+    <string name="tax_de_private_limit">தனிப்பட்ட விற்பனைகளுக்கான விலக்கு வரம்பு (§ 23 EStG)</string>
+    <string name="tax_de_reached">வரம்பை எட்டியது – பொதுவாக முழுத் தொகையும் கணக்கில் சேரும் – சரிபார்க்கவும்</string>
+    <string name="tax_de_short_gains">லாபங்கள் – வைத்திருந்தது ≤ 1 ஆண்டு</string>
+    <string name="tax_de_short_losses">நஷ்டங்கள் – வைத்திருந்தது ≤ 1 ஆண்டு</string>
+    <string name="tax_de_unclassified">வைத்திருந்த காலம் தெரியவில்லை</string>
+    <string name="tax_de_unknown">சரிபார்க்க முடியாது</string>
+
+    <!-- Steuer-Vorlagen je Land -->
+    <string name="tax_template_at">ஆஸ்திரியா</string>
+    <string name="tax_template_au">ஆஸ்திரேலியா</string>
+    <string name="tax_template_beta">பீட்டா</string>
+    <string name="tax_template_beta_note">பீட்டா: நாட்டு விதிகள் எளிமைப்படுத்தப்பட்டவை, உங்கள் வரி அறிக்கையைத் தாக்கல் செய்யும் முன் சரிபார்க்கவும்</string>
+    <string name="tax_template_ca">கனடா</string>
+    <string name="tax_template_ch">சுவிட்சர்லாந்து</string>
+    <string name="tax_template_confirm_text">பீட்டா, எளிமைப்படுத்தப்பட்ட விதிகள், பிற தளங்களின் பரிவர்த்தனைகள் இல்லை – உங்கள் வரி அறிக்கையைத் தாக்கல் செய்யும் முன் சரிபார்க்கவும்.</string>
+    <string name="tax_template_confirm_title">வரி வார்ப்புரு (பீட்டா)</string>
+    <string name="tax_template_current">வார்ப்புரு: %1$s · முறை: %2$s · நாணயம்: %3$s</string>
+    <string name="tax_template_de">ஜெர்மனி</string>
+    <string name="tax_template_fr">பிரான்ஸ்</string>
+    <string name="tax_template_hint">வழிகாட்டுதலுக்கு மட்டும்: வரிப் பணித்தாளின் முறை, வரி ஆண்டு மற்றும் சுருக்கத்தை அமைக்கிறது. போர்ட்ஃபோலியோ அட்டை நடுநிலையாகவே இருக்கும் – பரிசுகளும் பரிமாற்றக் கட்டணங்களும் பணித்தாளிலிருந்து வேறுபடலாம்.</string>
+    <string name="tax_template_jp">ஜப்பான்</string>
+    <string name="tax_template_neutral">நடுநிலை (எல்லா நாடுகளும்)</string>
+    <string name="tax_template_suggestion">உங்கள் பகுதிக்கான பரிந்துரை: %1$s</string>
+    <string name="tax_template_title">வரி வார்ப்புரு</string>
+    <string name="tax_template_uk">ஐக்கிய இராச்சியம்</string>
+    <string name="tax_template_us">அமெரிக்கா</string>
+    <string name="tax_template_use">%1$s ஐப் பயன்படுத்து</string>
+
+    <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
+    <string name="tax_method_at">பழைய/புதிய இருப்புகள் – நகரும் சராசரி</string>
+    <string name="tax_method_ca_acb">ACB சராசரிச் செலவு (superficial loss)</string>
+    <string name="tax_method_fr_pta">மொத்தக் கையக விலை (art. 150 VH bis)</string>
+    <string name="tax_method_jp_total">மொத்தச் சராசரி (総平均法)</string>
+    <string name="tax_method_uk_pool">Section 104 pool (அதே நாள் / 30 நாட்கள்)</string>
+    <string name="tax_note_at">ஒவ்வொரு காயின் மற்றும் வாலட்டுக்கும் நகரும் சராசரி – வாலட்களுக்கு இடையே அல்ல (KryptowährungsVO § 2). வெகுமதிகள் கையகச் செலவு 0 இல் புதிய இருப்புகளில் சேரும் (BMF: staking / airdrops) – வருமானக் கோப்பு அவற்றைப் பெற்றபோதைய மதிப்பில் பட்டியலிடுகிறது. 1 மார்ச் 2021 முதல் பெறப்பட்ட இருப்புகளுக்குக் கட்டணங்கள் கழிக்க முடியாது (§ 27a(4) no. 2, § 20(2) EStG): கட்டணங்கள் இல்லாமல் செலவும் வருவாயும். கடன் வட்டி (CSV இறக்குமதி அல்லது குறிப்பிலிருந்து வகை) பெற்றபோது 27.5 சதவீதத்தில் வருமானம், அந்த மதிப்பைக் கையகச் செலவாக வைத்திருக்கும்.</string>
+    <string name="tax_note_at_staking">ஏற்கெனவே வைத்திருக்கும் காயின்களுடன் ஸ்டேக்கிங் மற்றும் ஏர்டிராப்கள்: பெற்றபோதைய மதிப்பு வரிக்கு முக்கியமல்ல – சட்டப்படி கையகச் செலவு 0 (§ 27b Abs. 2 EStG; BMF “Kryptowährungen”). விற்கும்போது மட்டுமே வரி பொருந்தும்.</string>
+    <string name="tax_note_fr">கிரிப்டோவில் செலுத்தப்பட்ட விற்பனைகளும் கட்டணங்களும் கைமாற்றங்கள் – ஸ்வாப்கள் ஒத்திவைக்கப்படும். விற்பனையின் கிரிப்டோ கட்டணம் கட்டணங்களுக்கு முந்தைய விலையில் கணக்கிடப்படும் – இல்லையெனில் அது அதன் மதிப்பில் தனிக் கைமாற்றம். தினசரி இறுதி விலைகளிலிருந்து போர்ட்ஃபோலியோ மதிப்பு – இறுதி விலை இல்லையெனில் செலவு காலியாக இருக்கும்.</string>
+    <string name="tax_note_network_fee">கிரிப்டோவில் செலுத்தப்பட்ட நெட்வொர்க் கட்டணம் (சொந்த வாலட்டுக்குப் பரிமாற்றம், திரும்பப்பெறுதல்) சந்தை மதிப்பில் கட்டண காயின்களின் கைமாற்றம் – அந்தக் காயின்களில் மட்டுமே லாபம் அல்லது நஷ்டம், முழுக் கட்டணத்தின் நஷ்டம் அல்ல (%1$s). பதிவுசெய்த விலை இல்லாவிட்டால்: அதே நாளின் தினசரி இறுதி விலை (UTC); இறுதி விலை இல்லாவிட்டால் வருவாய் காலியாக இருக்கும்.</string>
+    <string name="tax_note_specific_id">குறிப்பிட்ட அடையாளம் (specific identification) ஆதரிக்கப்படவில்லை – FIFO பயன்படுத்தப்படுகிறது.</string>
+    <string name="tax_note_spouse_gift">“துணைவருக்கு / சிவில் பார்ட்னருக்கு” எனக் குறிக்கப்பட்ட பரிசு லாபமும் அல்ல நஷ்டமும் அல்ல: வருவாய் = உங்கள் அடக்க விலை, அதை உங்கள் துணைவர் ஏற்றுக்கொள்வார் (%1$s).</string>
+    <string name="tax_note_stable_swap">நீங்கள் வைத்திருக்கும் ஸ்டேபிள்காயினுக்கு (USDT/USDC/DAI …) கிரிப்டோவை விற்பது இங்கே கிரிப்டோ-டு-கிரிப்டோ, வரி விதிக்கப்படாது – அதை ஸ்டேபிள்காயினுக்கான ஸ்வாப்பாகப் பதிவுசெய்யவும். யூரோவுக்கான விற்பனைக்கு மட்டுமே வரி – “விற்பனை” யூரோவுக்கான விற்பனையாகக் கணக்கிடப்படும்.</string>
+    <string name="tax_note_transfer_fee">சொந்த வாலட்களுக்கு இடையிலான பரிமாற்றத்தின் USDT அல்லது பணக் கட்டணத்துக்கும் இதுவே பொருந்தும்: அது அடக்க விலையில் சேர்க்கப்படாது, தகவலுக்கு மட்டுமே பட்டியலிடப்படும்.</string>
+    <string name="tax_note_uk">HMRC படி பொருத்துதல்: அதே நாள் → அடுத்த 30 நாட்கள் → Section 104 pool.</string>
+    <string name="tax_note_us_transition">மாற்றம் 1 ஜனவரி 2025 (Rev. Proc. 2024-28 safe harbor): முந்தைய ஆண்டுகளில் எல்லா வாலட்களிலும் FIFO பயன்படுத்தப்பட்டிருந்தால், 31 டிசம்பர் 2024 நிலவரப்படி மீதமுள்ள லாட்கள் காயின்களை வைத்திருக்கும் வாலட்களுக்குச் செல்லும் – பழைய காயின்களுள்ள வாலட் பழைய அடக்க விலையைப் பெறும். இந்த ஒதுக்கீடு ஒரு ஆப் விதி – உங்கள் சொந்தப் பதிவுகளுடன் சரிபார்க்கவும்.</string>
+    <string name="tax_note_us_wallet">வரி ஆண்டு 2025 முதல், IRS ஒவ்வொரு வாலட் அல்லது எக்ஸ்சேஞ்சுக்கும் அடக்க விலையைக் கோருகிறது (Rev. Proc. 2024-28): ஏற்றுமதி 2025 முதல் வாலட் வாரியாக FIFO ஐப் பயன்படுத்துகிறது – முந்தைய ஆண்டுகளுக்கு எல்லா வாலட்களிலும் FIFO, அல்லது அது உங்கள் செலவு முறையாக இருந்தால் வாலட் வாரியாக FIFO.</string>
+    <string name="tax_note_withdrawal_fee">USDT அல்லது பணத்திலான திரும்பப்பெறுதல் கட்டணம் நஷ்டம் அல்ல: பணக் கட்டணம் கழிக்கக்கூடிய செலவு அல்ல, USDT கட்டணம் லாபமின்றி முக மதிப்பில் கைமாற்றம் – அது தகவலுக்கு மட்டுமே பட்டியலிடப்படும் (%1$s).</string>
+    <string name="tax_summary_at_interest_income">கணக்கில் சேரும்: 27.5 சதவீதச் சிறப்பு விகிதத்தில் பெற்றபோது வருமானம் (§ 27b(2) no. 1 EStG / BMF) – காயின்கள் இந்த மதிப்பைக் கையகச் செலவாக வைத்திருக்கும்</string>
+    <string name="tax_summary_at_reward_info">தகவலுக்கு மட்டும் – எந்த மொத்தத்திலும் சேராது: வெகுமதிகள் கையகச் செலவு 0 இல் புதிய இருப்புகளில் சேர்ந்து விற்கும்போது மட்டுமே வரி விதிக்கப்படும் (ஏற்கெனவே லாபங்களில் உள்ளன) – § 27b பிரிவு 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">1 ஜனவரி–28 பிப்ரவரி 2022: 27.5 சதவீதத்துக்கான விருப்பம் சாத்தியம்</string>
+    <string name="tax_summary_at_withdrawal_fee">திரும்பப்பெறுதல் கட்டணம் – புதிய இருப்புகளுடன் ஈடுசெய்யப்படாது (சிறப்பு விகிதத்தில் செலவுகள் கழிக்க முடியாது, § 20(2) EStG)</string>
+    <string name="tax_summary_ch_fifo_info">தகவலுக்கு மட்டும் – ஆப்பின் FIFO கணக்கீடு – வகைப்படுத்தப்படவில்லை – ESTV ஐப் பார்க்கவும்</string>
+    <string name="tax_summary_ch_year_end_value">இருப்புகள் CSV இல் 31 டிசம்பர் அன்றைய மதிப்பு = எக்ஸ்சேஞ்ச் விலை × USD/CHF – ESTV வரி மதிப்புகள் அல்ல</string>
+    <string name="tax_summary_de_withdrawal_fee">திரும்பப்பெறுதல் கட்டணம் – § 23 இன் கீழ் ஈடுசெய்யப்படாது, வருமானம் தொடர்பான செலவாகக் கழிக்கலாமா என்று சரிபார்க்கவும்</string>
+    <string name="tax_summary_not_calculated_estv">கணக்கிடப்படவில்லை – ESTV விலைப் பட்டியல்: %1$s</string>
+    <string name="tax_summary_orientation">வழிகாட்டுதல்</string>
+    <string name="tax_summary_orientation_block">வழிகாட்டுதலுக்கு மட்டும் – வரி ஆலோசனை அல்ல – மதிப்பீடு அல்ல</string>
+    <string name="tax_summary_orientation_item">வழிகாட்டுதல்: %1$s</string>
+    <string name="tax_summary_title">ஆண்டுச் சுருக்கம் %1$s %2$s</string>
+    <string name="tax_summary_transfer_fee_info">USDT/பணத்தில் பரிமாற்றக் கட்டணங்கள் – நஷ்டம் அல்ல, அடக்க விலையிலும் இல்லை, தகவலுக்கு மட்டும்</string>
+    <string name="tax_summary_withdrawal_fee_info">USDT/பணத்தில் திரும்பப்பெறுதல் கட்டணங்கள் – நஷ்டமாகக் கணக்கிடப்படாது, தகவலுக்கு மட்டும்</string>
+
+    <string name="tax_line_at_old_speculation_limit">ஊக வணிகப் பரிவர்த்தனைகள் (முந்தைய சட்டம், வைத்திருந்தது ≤ 1 ஆண்டு): விலக்கு வரம்பு (§ 31 (3) EStG பழைய பதிப்பு)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">1 மார்ச் 2022 க்கு முந்தைய கடன் வட்டி (பெற்றபோதைய மதிப்பு)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">1 மார்ச் 2022 க்கு முந்தைய வட்டி: பழைய சட்டம் (வருமான வரி விகிதம்), 27.5 சதவீதம் அல்ல</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">1 மார்ச் 2022 க்கு முன் – நிபுணருடன் சரிபார்க்கவும்</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">வட்டி – பெற்றபோது வரிக்கு உட்பட்டது</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">ஸ்டேக்கிங் – தகவலுக்கு மட்டும் (கையகச் செலவு 0, விற்கும்போது வரி)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">மொத்த வட்டி (வரிக்கு உட்பட்டது)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">மொத்த ஸ்டேக்கிங் (தகவல்)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">நிகர மூலதன நஷ்டம் (முன்னோக்கிக் கொண்டுசெல்லல்)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">விருப்பம் இல்லாமல்: 1 ஜனவரி–28 பிப்ரவரி 2022 இன் விற்பனைகள் உட்பட</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">1 மார்ச் 2022 க்கு முந்தைய ஸ்டேக்கிங்: கையகச் செலவு 0 என அமைக்கப்பட்டது – நிபுணருடன் சரிபார்க்கவும்</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">30 நாள் விதி இந்தப் புள்ளிவிவரங்களை இன்னும் மாற்றக்கூடும் (%1$s வரையிலான வாங்குதல்கள்)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">அறிக்கை வரம்புக்கு மேலான கட்டணங்களுக்கு முந்தைய வருவாய் (£50,000; 2020/21–2022/23: £49,200): நீங்கள் Self Assessment க்குப் பதிவுசெய்திருந்தால், வரிக்குட்பட்ட லாபம் இல்லாவிட்டாலும் HMRC க்குத் தெரிவிக்கவும்</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">சொத்து மதிப்பு 31 டிசம்பர் %1$s (வழிகாட்டுதல்)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">ESTV விலைப் பட்டியல் (ictax.admin.ch) அதிகாரப்பூர்வமானது. பட்டியலில் இல்லாத காயின்களுக்கு, பொதுவாக எக்ஸ்சேஞ்ச் இறுதி விலை பொருந்தும். சொத்து வரி கணக்கிடப்படவில்லை.</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – இருப்பு %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">கணக்கிடப்படவில்லை</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">கண்காணிக்கப்படும் முகவரிகளைப் படிக்க முடியவில்லை – அவற்றின் இருப்புகள் இந்தக் கோப்பில் இல்லை</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">கண்காணிக்கப்படும் முகவரிகளின் லாட்கள் அவற்றின் வாங்கிய தேதியிலிருந்து கணக்கிடப்படும்; முகவரியின் இன்றைய இருப்பு குறைவாக இருந்தால், அவை குறைக்கப்படும்.</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">கண்காணிக்கப்படும் முகவரிகள் மொத்த மதிப்பில் சேரும், ஆனால் கையகச் செலவு இல்லை – எனவே லாபம் அநேகமாக அதிகமாக இருக்கும். செலவை ஒரு வாங்குதலாகப் பதிவுசெய்யவும்.</string>
+    <string name="tax_summary_fr_rewards_income">வெகுமதிகள் பெற்றபோது வருமானமாக வரி விதிக்கப்பட்டதாக (பெற்றபோதைய மதிப்பு கையகச் செலவில்) இந்தத் தொகை கருதுகிறது – இல்லையெனில் கையகச் செலவு 0 என்பதே எச்சரிக்கையான விளக்கம்.</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">பதிவுசெய்த விலை இல்லாத சந்தை மதிப்புகள் (கட்டணங்கள், பரிசுகள்/செலுத்துதல்கள், ஸ்வாப்கள், வெகுமதிகள், நெட்வொர்க் கட்டணங்கள், போர்ட்ஃபோலியோ மதிப்பு) பரிவர்த்தனை நாளின் தினசரி இறுதி விலையில் (UTC)</string>
+</resources>

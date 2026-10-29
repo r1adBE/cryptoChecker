@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">Iompórtáil CSV</string>
+    <string name="portfolio_csv_import_all_transfer">Gach rud chuig mo sparán féin</string>
+    <string name="portfolio_csv_import_all_withdrawal">Fágann gach rud an phunann</string>
+    <string name="portfolio_csv_import_choice_proposed">Molta: meaitseálann %1$s</string>
+    <string name="portfolio_csv_import_choice_transfer">Chuig mo sparán féin (aistriú)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Fágann sé an phunann (aistarraingt)</string>
+    <string name="portfolio_csv_import_choose_each">Roghnaigh do gach aistarraingt cá ndeachaigh sí.</string>
+    <string name="portfolio_csv_import_columns">Colúin aitheanta: %1$s</string>
+    <string name="portfolio_csv_import_confirm">Iompórtáil (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">Lá/Mí</string>
+    <string name="portfolio_csv_import_date_month_first">Mí/Lá</string>
+    <string name="portfolio_csv_import_date_order">Léigh dátaí débhríocha (m.sh. 03/04/2024) mar:</string>
+    <string name="portfolio_csv_import_decimal">Léigh uimhreacha débhríocha (m.sh. %1$s) mar:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d idirbheart iompórtáilte</item>
+        <item quantity="two">%d idirbheart iompórtáilte</item>
+        <item quantity="few">%d idirbheart iompórtáilte</item>
+        <item quantity="many">%d n-idirbheart iompórtáilte</item>
+        <item quantity="other">%d idirbheart iompórtáilte</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d iompórtáilte cheana (scipeáilte)</item>
+        <item quantity="two">%d iompórtáilte cheana (scipeáilte)</item>
+        <item quantity="few">%d iompórtáilte cheana (scipeáilte)</item>
+        <item quantity="many">%d iompórtáilte cheana (scipeáilte)</item>
+        <item quantity="other">%d iompórtáilte cheana (scipeáilte)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">Formáid: %1$s</string>
+    <string name="portfolio_csv_import_line">Líne %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">Ag léamh an chomhaid agus na rátaí laethúla…</string>
+    <string name="portfolio_csv_import_progress">Líne %1$s as %2$s</string>
+    <string name="portfolio_csv_import_saving">Ag sábháil idirbheart…</string>
+    <string name="portfolio_csv_import_missing_fx">Gan ráta laethúil do línte %1$s – iompórtáilte gan phraghas/táille.</string>
+    <string name="portfolio_csv_import_missing_price">Gan phraghas sa chomhad do línte %1$s – iompórtáilte gan phraghas.</string>
+    <string name="portfolio_csv_import_more">+ %1$d eile</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d idirbheart nua</item>
+        <item quantity="two">%d idirbheart nua</item>
+        <item quantity="few">%d idirbheart nua</item>
+        <item quantity="many">%d n-idirbheart nua</item>
+        <item quantity="other">%d idirbheart nua</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d líne scipeáilte</item>
+        <item quantity="two">%d líne scipeáilte</item>
+        <item quantity="few">%d líne scipeáilte</item>
+        <item quantity="many">%d líne scipeáilte</item>
+        <item quantity="other">%d líne scipeáilte</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">Cuirtear trádálacha in aghaidh bonn cobhsaí (USDT, USDC …) in áirithe mar bhabhtálacha – feictear an bonn cobhsaí i do shealúchais.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Is féidir roinnt meaitseálacha – roghnaigh an ceann ceart nó ceann ar bith.</string>
+    <string name="portfolio_csv_import_transfer_fee">Táille líonra: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">Cuir in áirithe mar aistriú amháin</string>
+    <string name="portfolio_csv_import_transfer_stored">Contrapháirt ó iompórtáil níos luaithe</string>
+    <string name="portfolio_csv_import_transfers_hint">Éiríonn aistarraingt agus an taisce mheaitseála den bhonn céanna ina n-aistriú amháin: aistrítear an praghas ceannaigh agus an tréimhse sealbhaíochta, comhairtear an difríocht mar tháille líonra.</string>
+    <string name="portfolio_csv_import_transfers_title">Aistrithe idir do chuntais</string>
+    <string name="portfolio_csv_import_unreadable">Níor aimsíodh idirbhearta a dtacaítear leo. Tacaítear le: easpórtálacha CSV ó Relai, Swissquote, Kraken, Binance, Coinbase agus Bitpanda.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
+    <string name="portfolio_csv_import_too_large">Tá an comhad rómhór le hiompórtáil (16 MB agus %1$s líne ar a mhéad). Easpórtáil tréimhsí níos giorra agus iompórtáil iad ceann i ndiaidh a chéile.</string>
+    <string name="portfolio_csv_import_failed">Níor oibrigh an iompórtáil – níor sábháladh aon rud. Bain triail eile as.</string>
+    <string name="portfolio_csv_import_locked">Níl iompórtáil indéanta: ní féidir na sonraí sábháilte a léamh anois. Atosaigh an aip.</string>
+    <string name="portfolio_csv_import_withdrawals_title">Aistarraingtí – cá ndeachaigh na boinn?</string>
+    <string name="portfolio_csv_import_zone">Léigh amanna gan chrios ama mar: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">Gléas (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">dáta doléite</string>
+    <string name="portfolio_csv_skip_bad_number">uimhir dholéite</string>
+    <string name="portfolio_csv_skip_fee_exceeds">táille ≥ méid faighte</string>
+    <string name="portfolio_csv_skip_internal_move">aistriú idir do chuntais féin – níl aon rud le cur in áirithe</string>
+    <string name="portfolio_csv_skip_missing">réimse ar iarraidh</string>
+    <string name="portfolio_csv_skip_ambiguous">roinnt trádálacha sa soicind céanna nach féidir idirdhealú eatarthu – cuir isteach de láimh iad</string>
+    <string name="portfolio_csv_skip_not_crypto">ní crypto é</string>
+    <string name="portfolio_csv_skip_possible_duplicate">b’fhéidir iompórtáilte cheana (trádáil beagnach mar an gcéanna) – seiceáil de láimh</string>
+    <string name="portfolio_csv_skip_two_fees">dhá tháille in aonaid éagsúla – cuir an bhabhtáil isteach de láimh</string>
+    <string name="portfolio_csv_skip_unsupported">cineál nach dtacaítear leis</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">Aisiompaigh</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">An bhfuil an %d idirbheart ón iompórtáil seo le scriosadh? Fanann iontrálacha láimhe agus iompórtálacha eile.</item>
+        <item quantity="two">An bhfuil na %d idirbheart ón iompórtáil seo le scriosadh? Fanann iontrálacha láimhe agus iompórtálacha eile.</item>
+        <item quantity="few">An bhfuil na %d idirbheart ón iompórtáil seo le scriosadh? Fanann iontrálacha láimhe agus iompórtálacha eile.</item>
+        <item quantity="many">An bhfuil na %d n-idirbheart ón iompórtáil seo le scriosadh? Fanann iontrálacha láimhe agus iompórtálacha eile.</item>
+        <item quantity="other">An bhfuil na %d idirbheart ón iompórtáil seo le scriosadh? Fanann iontrálacha láimhe agus iompórtálacha eile.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">An bhfuil an iompórtáil le haisiompú?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">%d idirbheart iompórtáilte bainte</item>
+        <item quantity="two">%d idirbheart iompórtáilte bainte</item>
+        <item quantity="few">%d idirbheart iompórtáilte bainte</item>
+        <item quantity="many">%d n-idirbheart iompórtáilte bainte</item>
+        <item quantity="other">%d idirbheart iompórtáilte bainte</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d idirbheart</item>
+        <item quantity="two">%d idirbheart</item>
+        <item quantity="few">%d idirbheart</item>
+        <item quantity="many">%d n-idirbheart</item>
+        <item quantity="other">%d idirbheart</item>
+    </plurals>
+    <string name="portfolio_imports_empty">Gan iompórtálacha</string>
+    <string name="portfolio_imports_title">Iompórtálacha</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">an t-aitheantas idirbhirt céanna le méid difriúil – seiceáil de láimh</string>
+    <string name="portfolio_csv_skip_staking_unpaired">iontráil gealltóireachta gan frith-iontráil – seiceáil na sealúchais</string>
+    <string name="portfolio_csv_skip_amount_too_small">méid róbheag – slánaítear go 0 é ag sábháil</string>
+    <string name="portfolio_csv_skip_invalid_swap">babhtáil gan bonn nó méid faighte bailí</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">Ag léamh an chomhaid arís …</string>
+</resources>

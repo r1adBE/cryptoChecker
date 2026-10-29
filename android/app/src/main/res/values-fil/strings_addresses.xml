@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">Magdagdag ng address</string>
+    <string name="portfolio_address_count">Isama sa bilang</string>
+    <string name="portfolio_address_error">Hindi na-update</string>
+    <string name="portfolio_address_hint">Pampublikong address (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) o xpub</string>
+    <string name="portfolio_address_label">Label (opsyonal)</string>
+    <string name="portfolio_address_not_since_buy">Mula sa address · wala sa “Mula nang bilhin”: %1$s</string>
+    <string name="portfolio_address_overlap">Nasa sarili mong mga transaksyon din: %1$s – parehong idinadagdag. Parehong mga coin? Piliin ang “Ipakita lang”.</string>
+    <string name="portfolio_address_overlap_ask">Itinatala mo na ang %1$s sa sarili mong mga transaksyon. Idagdag ang balanse ng address na ito sa portfolio, o ipakita lang ito?</string>
+    <string name="portfolio_address_overlap_auto">Ipinapakita na lang ang “%1$s”, hindi binibilang – lumalabas din ang %2$s sa mga transaksyon mo.</string>
+    <string name="portfolio_address_overlap_title">Parehong mga coin ng mga transaksyon mo?</string>
+    <string name="portfolio_address_overlap_tx">Kapareho ng halaga ng sarili mong deposit/transfer (%1$s) – malamang dalawang beses nabilang.</string>
+    <string name="portfolio_address_period_observed">Binibilang ang mga binabantayang address mula sa unang nakitang balanse nila; ang mga sumunod na pagbabago ay pagpasok/paglabas, hindi kita.</string>
+    <string name="portfolio_address_privacy">Ang pampublikong address lang ang ipinapadala sa %1$s – hindi kailanman ang mga key o seed phrase. Nakikita ito ng provider kasama ng IP address mo. Sinusuri nang hindi hihigit sa isang beses kada 10 minuto.</string>
+    <string name="portfolio_address_remove">Alisin ang address</string>
+    <string name="portfolio_address_show_only">Ipakita lang, huwag idagdag sa portfolio</string>
+    <string name="portfolio_address_show_only_short">Ipakita lang</string>
+    <string name="portfolio_address_tokens">Isama ang mga token</string>
+    <string name="portfolio_address_xpub_privacy">Inilalantad ng xpub ang lahat ng address ng wallet na ito. Hinahango ang mga ito sa device mo; mga indibidwal na address lang ang ipinapadala sa %1$s – hindi bababa sa 40 request sa unang scan, mas kaunti pagkatapos. Hindi kailanman tinatanggap ang mga private key (xprv).</string>
+    <string name="portfolio_address_xpub_gap">Humihinto ang paghahanap pagkatapos ng %1$d sunod-sunod na hindi nagamit na address (ang BIP44 standard na gamit ng karamihan ng wallet). Hindi binibilang ang nagamit na address na lampas sa puwang na iyon – idagdag ito nang hiwalay.</string>
+    <string name="portfolio_address_xpub_used">Mga address na ginagamit: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">Masyadong maraming nagamit na address para i-update</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">Napakaraming address – maaaring hindi matukoy ang mga bagong bayad sa luma at walang lamang address</string>
+    <string name="portfolio_addresses_title">Mga address</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Hindi mababantayan ang mga Bitcoin Cash address: walang libreng pampublikong serbisyo na walang API key na pinapayagan ito ng mga tuntunin.</string>
+    <string name="address_bep2_shutdown">Isinara ang BNB Beacon Chain (BEP-2) noong 2024 – nasa BNB Smart Chain (0x…) na ang mga balanse</string>
+    <string name="address_checksum">Mali ang checksum – tingnan kung may typo</string>
+    <string name="address_doge_unsupported">Hindi mababantayan ang mga Dogecoin address: walang libreng pampublikong serbisyo na walang API key na pinapayagan ito ng mga tuntunin.</string>
+    <string name="address_duplicate">Naidagdag na ang address na ito</string>
+    <string name="address_ens">Hindi suportado ang mga ENS name – ilagay ang 0x address</string>
+    <string name="address_invalid">Hindi valid na address ng isang suportadong network</string>
+    <string name="address_limit">Hanggang 20 address lang</string>
+    <string name="address_secret">Mukhang private key o seed phrase ito – huwag itong ilagay kahit saan. Mga pampublikong address lang.</string>
+    <string name="address_testnet">Hindi suportado ang mga testnet address</string>
+    <string name="address_unsupported">Hindi suportado ang uri ng address na ito</string>
+    <string name="address_wrong_chain">Sa ibang network ang address</string>
+    <string name="address_xpub_multisig">Hindi suportado ang mga multisig key (Ypub/Zpub)</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot account (BIP86): hinahango mula sa key na ito ang mga bc1p… address, para sa pagtanggap at sukli.</string>
+    <string name="portfolio_address_taproot_hint">Taproot wallet? I-paste na lang ang descriptor na tr(…) mula sa wallet mo – ang simpleng xpub ay hinahanap lang bilang mga Legacy at SegWit address.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">Hindi maabot ang sariling server</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">Ang nagpapatakbo ng %1$s ay nakakakita ng lahat ng tinanong na address ng wallet na ito at kaya silang iugnay sa isa\'t isa at sa IP address mo.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">Para maiwasan ito, ilagay ang sarili mong server sa Mga Setting › Portfolio › Sariling server para sa mga address.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d hindi kilalang token (hindi binibilang)</item>
+        <item quantity="other">+%1$d hindi kilalang token (hindi binibilang)</item>
+    </plurals>
+</resources>

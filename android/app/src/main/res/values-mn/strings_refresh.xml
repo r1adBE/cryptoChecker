@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">илүү их өгөгдөл, батарей шаардана</string>
+    <string name="update_mode_live">Нээлттэй үед шууд</string>
+    <string name="update_mode_live_hint">Бирж шууд ханш өгдөг бол: ажиглах жагсаалт нээлттэй үед шууд. Үгүй бол дараагийн татахад. Хаалттай үед: %1$s тутмаас олон биш, ихэвчлэн хожуу.</string>
+    <string name="update_mode_live_hint_ios">Бирж шууд ханш өгдөг бол: ажиглах жагсаалт нээлттэй үед шууд. Үгүй бол дараагийн татахад. Хаалттай үед: iOS зөвшөөрөх үед, заримдаа хэдэн цагийн зайтай. Аппыг шударч хаавал iOS түүнийг дахин нээх хүртэл эдгээр шалгалтыг зогсооно.</string>
+    <string name="update_mode_recommended">зөвлөмж болгосон</string>
+    <string name="update_mode_sparsam">Хэмнэлттэй</string>
+    <string name="update_mode_sparsam_hint">Апп хаалттай үед %1$s тутмаас олон биш, ихэвчлэн хожуу (дохио, виджет). Нээлттэй үед: нээх бүрт.</string>
+    <string name="update_mode_sparsam_hint_ios">Апп хаалттай үед хэзээ шалгахыг iOS шийднэ (дохио, виджет), заримдаа хэдэн цагийн зайтай. Нээлттэй үед: нээх бүрт.</string>
+    <string name="update_mode_title">Шинэчлэх давтамж</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">Шинэчлэл тасарсан</string>
+    <string name="refresh_sheet_alarms">Дохио</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d ажилласан</item>
+        <item quantity="other">%1$d ажилласан</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">Бүгд шинэчлэгдсэн</string>
+    <string name="refresh_sheet_app_start">Апп эхлэх</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">бөөн хүсэлт %1$s · %2$d ханш</item>
+        <item quantity="other">бөөн хүсэлт %1$s · %2$d ханш</item>
+    </plurals>
+    <string name="refresh_sheet_database">Өгөгдлийн сан</string>
+    <string name="refresh_sheet_exchange_unreachable">%1$s холбогдохгүй</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
+        <item quantity="one">%1$d бирж холбогдохгүй</item>
+        <item quantity="other">%1$d бирж холбогдохгүй</item>
+    </plurals>
+    <string name="refresh_sheet_network">Сүлжээ</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d ханшийн мэдэгдэл</item>
+        <item quantity="other">%1$d ханшийн мэдэгдэл</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d хос</item>
+        <item quantity="other">%1$d хос</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d хос шинэчлэгдээгүй</item>
+        <item quantity="other">%1$d хос шинэчлэгдээгүй</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%1$d хосоос %2$d</item>
+        <item quantity="other">%1$d хосоос %2$d</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">%1$s хүртэл түр зогссон</string>
+    <string name="refresh_sheet_paused_until_reason">%1$s хүртэл түр зогссон (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">өгөгдөл алга</string>
+    <string name="refresh_sheet_reason_offline">холболт алга</string>
+    <string name="refresh_sheet_reason_rate_limit">хэт олон хүсэлт</string>
+    <string name="refresh_sheet_reason_server">серверийн алдаа</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">хугацаа хэтэрсэн</string>
+    <string name="refresh_sheet_reason_unavailable">бирж боломжгүй</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s секунд</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_exchanges">Бирж</string>
+    <string name="refresh_sheet_section_steps">Задаргаа</string>
+    <string name="refresh_sheet_status_failed">шинэчлэгдээгүй</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">бүгд шинэчлэгдсэн</string>
+    <string name="refresh_sheet_status_partial">хэсэгчлэн шинэчлэгдсэн</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Эхлэхийг хүлээж байна</string>
+    <string name="refresh_sheet_widgets">Виджет</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">бөөн хүсэлт %1$s (амжилтгүй)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d алдаа</item>
+        <item quantity="other">%1$d алдаа</item>
+    </plurals>
+    <string name="refresh_report_live">Шууд: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d арилжаалагдахаа больсон</item>
+        <item quantity="other">%1$d арилжаалагдахаа больсон</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d тус тусдаа</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">Амжилтгүй</string>
+    <string name="check_result_ok">OK</string>
+    <string name="check_result_partial">Хэсэгчлэн</string>
+    <string name="check_result_skipped">Алгассан</string>
+    <string name="check_trigger_bgtask">Арын горим</string>
+    <string name="check_trigger_exact">Цагтаа</string>
+    <string name="check_trigger_foreground">Апп</string>
+    <string name="check_trigger_widget">Виджет</string>
+    <string name="check_trigger_widget_ios">Виджет · ханш ба ханшийн дохио</string>
+    <string name="check_trigger_worker">Арын горим</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android шалгалтыг хойшлуулж болно – батарейг «Хязгааргүй» болгоно уу</string>
+    <string name="battery_later">Дараа</string>
+    <string name="battery_message">Android цэнэг хэмнэхийн тулд арын ажлыг хойшлуулдаг — тэгвэл ханш болон виджет хэдэн цагийн хуучин байж болно. Батарейн хэрэглээг хязгааргүй болговол тэд шинэ хэвээр байна. Үүнийг Android-ийн тохиргоонд хүссэн үедээ өөрчилж болно.</string>
+    <string name="battery_open_settings">Батарейн тохиргоог нээх</string>
+    <string name="battery_steps">Аппын мэдээлэлд Батарей (эсвэл Аппын батарейн хэрэглээ) дээр товшоод Хязгааргүй-г сонгоно уу.</string>
+    <string name="battery_title">Ханшийг шинэ байлгах</string>
+    <string name="ios_background_refresh_off">Энэ аппын Арын горимд шинэчлэх унтраалттай. Үүнгүйгээр дохиог зөвхөн апп нээлттэй үед шалгана.</string>
+    <string name="ios_low_power_mode">Цэнэг хэмнэх горим асаалттай. iOS арын горимд ховор шалгадаг тул дохио хоцорч ирж магадгүй.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Биржийн мессеж: %1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">Санах ой түгжээтэй хэвээр – %1$d с-ийн дараа дахин оролдоно</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="one">Санах ой түгжээтэй хэвээр – %1$d секундын дараа дахин оролдоно</item>
+        <item quantity="other">Санах ой түгжээтэй хэвээр – %1$d секундын дараа дахин оролдоно</item>
+    </plurals>
+    <string name="watchlist_retry_short">%1$s-ийн дараа дахин оролдоно</string>
+    <string name="widget_retry_at">%1$s-д дахин оролдоно</string>
+    <string name="refresh_sheet_wait_attempt">%1$d дахь оролдлого – шифрлэсэн санах ой эхнийх дээр бэлэн биш байсан</string>
+</resources>

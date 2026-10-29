@@ -1,0 +1,41 @@
+Crypto Checker kontroluje kurzy na tvojej burze a dá ti vedieť, keď kontrola zistí, že je tvoja hranica dosiahnutá. Pri zatvorenej aplikácii iOS kontroluje zriedka – často až po hodinách a vôbec nie, keď aplikáciu zatvoríš potiahnutím. Najspoľahlivejšie s otvorenou aplikáciou. Krátke výkyvy medzi tým môžu chýbať; aplikácia ti to povie. Kurz tvojej burzy, nie priemer – zadarmo, bez účtu.
+
+ČÍM SA LÍŠI
+• Tvoja burza, nie priemer: každý riadok ukazuje posledný kurz páru na burze, ktorú si zvolíš – Binance, Coinbase, Kraken, OKX, Bybit a mnohé ďalšie.
+• Alarm, ktorý sa ozve raz: „Daj mi vedieť, keď BTC stúpne nad 100 000 USDT.“ Ozve sa, keď kontrola zistí, že hranica bola prekročená, nie pri každej aktualizácii – „Raz“ ho potom vypne, „Zakaždým“ ho znova nastaví, keď sa kurz vráti.
+• „Čo sa hýbe spolu?“: zoznam faktorov pre jeden coin – celkový trh, objem, volatilita, funding a open interest, vzdialenosť od maxima či minima, Fear & Greed. Ukazuje, čo sa hýbe v rovnakom čase – nie príčinu, nie správy, nie investičné poradenstvo.
+• Bez účtu, bez reklám, bez sledovania. Vývojár nedostane žiadne tvoje údaje.
+
+ÚPRIMNE O ÚDAJOCH
+• „Úsporne“ je predvolené: kurzy sa obnovia, keď otvoríš aplikáciu, a v intervaloch na pozadí. „Naživo, kým je otvorené“ pridá kurzy naživo pre Binance, Bybit, OKX, Coinbase a Kraken, kým je zoznam otvorený.
+• Zmena v % a grafy pochádzajú najprv z vlastnej burzy páru; ak nemá sviečky, aplikácia použije Binance alebo Coinbase a povie ti to.
+• Fear & Greed, dominancia a on-chain hodnoty z alternative.me, CoinGecko a Coin Metrics.
+• Sumy opúšťajú zariadenie iba cez tvoj export (CSV, záloha) alebo zašifrované v zálohe iCloud/zariadenia. Pre kurzy idú na burzu príslušného páru iba označenia párov; k tomu devízové kurzy (Frankfurter), trhové údaje a logá (CoinGecko, Binance), zrkadlá údajov (GitHub). Ak sleduješ adresy alebo xpub, verejné uzly blockchainu vidia adresy (pri xpub odvodené) a tvoju IP adresu.
+
+ZOZNAM
+• 56 trhov na 45 burzách: spot a futures, DEX tokeny cez DexScreener, voliteľne akcie, zlato a devízy (TradFi)
+• Druhý riadok „≈ hodnota“ v jednej z 31 mien (EUR, CHF, USD …), prepočítané devízovým kurzom
+• Minigraf a zmena v % za 24 h alebo od 00:00 v tvojom časovom pásme
+• Skupiny, obľúbené, presúvanie potiahnutím a poznámka ku každému coinu
+• Riadky označia „zastarané“ alebo „burza je nedostupná“
+
+ALARMY
+• Kurz nad alebo pod hranicou, alebo rast či pokles o percento – aj v tvojej mene, napr. 60 000 EUR pri páre USDT
+• Pohyb o x % v časovom okne, skok objemu
+• Časovo citlivé hlásenie, výber zvuku alarmu, voliteľne čítanie nahlas
+• Nočný pokoj a „Otestovať alarm“: vopred počuješ, ako alarm príde; denník alarmov: kedy sa kontrolovalo, aký kurz, prečo sa alarm nespustil
+
+TRH
+• Výrazné: nezvyčajné pohyby kurzu a objemu v tvojom zozname, voliteľne ako trhové hlásenie
+• Krypto pulz, Fear & Greed, ukazovatele Bitcoinu, funding a open interest – ako čisté namerané hodnoty
+• Sieťové poplatky pre Ethereum, Bitcoin a ďalšie, s alarmom na gas
+
+ĎALŠIE
+• Widgety na ploche a zamknutej obrazovke, živá aktivita pre jeden coin
+• Portfólio voliteľne (zapni ho v nastaveniach): nákupy, predaje, výmeny, presuny, odmeny, vklady a výbery; FIFO (predvolené) alebo priemer (Ø); adresy iba na čítanie bez seedu pre BTC (vrát. xpub), ETH a siete EVM, SOL, TRX, XRP, LTC, ADA a TON; import CSV z Relai, Swissquote, Bitpanda, Kraken, Binance a Coinbase; ročný prehľad ako CSV; vlastný zámok. Bitpanda a Swissquote: bez vlastného kurzu, iba CSV.
+• Čitateľné pre všetkých: zelená/červená alebo modrá/oranžová, znamienko a šípka namiesto samotnej farby, Dynamic Type; VoiceOver prečíta každý riadok ako jednu vetu
+• Záloha a obnovenie cez aplikáciu Súbory
+• Svetlý a tmavý režim, päť farieb zvýraznenia, 75 jazykov
+• Otvorený zdrojový kód (MIT) – kód je verejný na GitHube
+
+Poznámka: Crypto Checker zobrazuje kurzy a portfólio, ktoré si zadáš. Nie je to burza ani peňaženka, neobchoduje a neposkytuje investičné poradenstvo.

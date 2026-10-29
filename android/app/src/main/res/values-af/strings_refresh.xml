@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">het meer data en battery nodig</string>
+    <string name="update_mode_live">Regstreeks terwyl oop</string>
+    <string name="update_mode_live_hint">Waar die beurs \'n regstreekse prys verskaf: onmiddellik terwyl die volglys oop is. Andersins by die volgende haal. Toe: nie meer gereeld as elke %1$s nie, dikwels later.</string>
+    <string name="update_mode_live_hint_ios">Waar die beurs \'n regstreekse prys verskaf: onmiddellik terwyl die volglys oop is. Andersins by die volgende haal. Toe: wanneer iOS dit toelaat, soms ure uitmekaar. As jy die app wegswiep, stop iOS hierdie kontroles totdat jy dit weer oopmaak.</string>
+    <string name="update_mode_recommended">aanbeveel</string>
+    <string name="update_mode_sparsam">Spaarsaam</string>
+    <string name="update_mode_sparsam_hint">As die app toe is, nie meer gereeld as elke %1$s nie, dikwels later (alarms, legstukke). Oop: elke keer as jy dit oopmaak.</string>
+    <string name="update_mode_sparsam_hint_ios">As die app toe is, besluit iOS wanneer om te kontroleer (alarms, legstukke), soms ure uitmekaar. Oop: elke keer as jy dit oopmaak.</string>
+    <string name="update_mode_title">Bywerkingsfrekwensie</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">Herlaai gestaak</string>
+    <string name="refresh_sheet_alarms">Alarms</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d afgegaan</item>
+        <item quantity="other">%1$d afgegaan</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">Alles bygewerk</string>
+    <string name="refresh_sheet_app_start">App-begin</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">grootmaatversoek %1$s · %2$d prys</item>
+        <item quantity="other">grootmaatversoek %1$s · %2$d pryse</item>
+    </plurals>
+    <string name="refresh_sheet_database">Databasis</string>
+    <string name="refresh_sheet_exchange_unreachable">%1$s onbereikbaar</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
+        <item quantity="one">%1$d beurs onbereikbaar</item>
+        <item quantity="other">%1$d beurse onbereikbaar</item>
+    </plurals>
+    <string name="refresh_sheet_network">Netwerk</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d pryskennisgewing</item>
+        <item quantity="other">%1$d pryskennisgewings</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d paar</item>
+        <item quantity="other">%1$d pare</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d paar nie bygewerk nie</item>
+        <item quantity="other">%1$d pare nie bygewerk nie</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d van %1$d paar</item>
+        <item quantity="other">%2$d van %1$d pare</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">onderbreek tot %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">onderbreek tot %1$s (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">geen data nie</string>
+    <string name="refresh_sheet_reason_offline">geen verbinding nie</string>
+    <string name="refresh_sheet_reason_rate_limit">te veel versoeke</string>
+    <string name="refresh_sheet_reason_server">bedienerfout</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">tyd verstreke</string>
+    <string name="refresh_sheet_reason_unavailable">beurs nie beskikbaar nie</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s sekondes</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_exchanges">Beurse</string>
+    <string name="refresh_sheet_section_steps">Uiteensetting</string>
+    <string name="refresh_sheet_status_failed">nie bygewerk nie</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">alles bygewerk</string>
+    <string name="refresh_sheet_status_partial">deels bygewerk</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Wag om te begin</string>
+    <string name="refresh_sheet_widgets">Legstukke</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">grootmaatversoek %1$s (misluk)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d fout</item>
+        <item quantity="other">%1$d foute</item>
+    </plurals>
+    <string name="refresh_report_live">Regstreeks: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d nie meer verhandel nie</item>
+        <item quantity="other">%1$d nie meer verhandel nie</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d individueel</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">Misluk</string>
+    <string name="check_result_ok">OK</string>
+    <string name="check_result_partial">Gedeeltelik</string>
+    <string name="check_result_skipped">Oorgeslaan</string>
+    <string name="check_trigger_bgtask">Agtergrond</string>
+    <string name="check_trigger_exact">Betyds</string>
+    <string name="check_trigger_foreground">App</string>
+    <string name="check_trigger_widget">Legstuk</string>
+    <string name="check_trigger_widget_ios">Legstuk · pryse en prysalarms</string>
+    <string name="check_trigger_worker">Agtergrond</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android kan kontroles vertraag – stel battery op “Onbeperk”</string>
+    <string name="battery_later">Later</string>
+    <string name="battery_message">Android vertraag agtergrondwerk om krag te bespaar — pryse en legstukke kan dan ure oud wees. As jy batterygebruik op onbeperk stel, bly hulle op datum. Jy kan dit enige tyd in Android-instellings verander.</string>
+    <string name="battery_open_settings">Open batteryinstellings</string>
+    <string name="battery_steps">Tik in die app-inligting op Battery (of App-batterygebruik) en kies Onbeperk.</string>
+    <string name="battery_title">Hou pryse op datum</string>
+    <string name="ios_background_refresh_off">Background App Refresh is vir hierdie app af. Daarsonder word alarms net gekontroleer terwyl die app oop is.</string>
+    <string name="ios_low_power_mode">Low Power Mode is aan. iOS kontroleer selde in die agtergrond, so alarms kan laat kom.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Beursboodskap: %1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">Berging nog gesluit – probeer weer oor %1$d s</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="one">Berging nog gesluit – probeer weer oor %1$d sekonde</item>
+        <item quantity="other">Berging nog gesluit – probeer weer oor %1$d sekondes</item>
+    </plurals>
+    <string name="watchlist_retry_short">Probeer weer oor %1$s</string>
+    <string name="widget_retry_at">Probeer weer om %1$s</string>
+    <string name="refresh_sheet_wait_attempt">Poging %1$d – die geënkripteerde berging was nie met die eerste een gereed nie</string>
+</resources>

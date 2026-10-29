@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="one">මිනිත්තු %d කට පෙර</item>
+        <item quantity="other">මිනිත්තු %d කට පෙර</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">අද %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed, Bitcoin මිනුම්, ආධිපත්‍යය, හැල්විං</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">තවත් වෙළඳපොළ දත්ත</string>
+    <string name="market_phase_trend_failed">මිල දත්ත ලබා ගත නොහැක</string>
+    <string name="market_plain_direction_down_clear">සියලු ක්‍රිප්ටෝ මුදල්වල මුළු වටිනාකම පැය 24 කට පෙරට වඩා පැහැදිලිවම අඩුයි (%1$s).</string>
+    <string name="market_plain_direction_down_slight">සියලු ක්‍රිප්ටෝ මුදල්වල මුළු වටිනාකම පැය 24 කට පෙරට වඩා මඳක් අඩුයි (%1$s).</string>
+    <string name="market_plain_direction_flat">සියලු ක්‍රිප්ටෝ මුදල්වල මුළු වටිනාකම පැය 24 තුළ යන්තම් වෙනස් වී ඇත (%1$s).</string>
+    <string name="market_plain_direction_up_clear">සියලු ක්‍රිප්ටෝ මුදල්වල මුළු වටිනාකම පැය 24 කට පෙරට වඩා පැහැදිලිවම වැඩියි (%1$s).</string>
+    <string name="market_plain_direction_up_slight">සියලු ක්‍රිප්ටෝ මුදල්වල මුළු වටිනාකම පැය 24 කට පෙරට වඩා මඳක් වැඩියි (%1$s).</string>
+    <string name="market_plain_footnote">පසුගිය පැය 24 විස්තර කරයි – අනාවැකියක් නොවේ, ආයෝජන උපදෙස් නොවේ.</string>
+    <string name="market_plain_mood_extreme_fear">ආයෝජකයින් දැන් ඉතා බියෙන් සිටිති: මනෝභාව දර්ශකය (Fear &amp; Greed) 100 න් %1$d යි.</string>
+    <string name="market_plain_mood_extreme_greed">ආයෝජකයින් දැන් ඉතා කෑදරයි: මනෝභාව දර්ශකය (Fear &amp; Greed) 100 න් %1$d යි.</string>
+    <string name="market_plain_mood_fear">ආයෝජකයින් තරමක් බියෙන් සිටිති: මනෝභාව දර්ශකය (Fear &amp; Greed) 100 න් %1$d යි.</string>
+    <string name="market_plain_mood_greed">ආයෝජකයින් තරමක් කෑදරයි: මනෝභාව දර්ශකය (Fear &amp; Greed) 100 න් %1$d යි.</string>
+    <string name="market_plain_mood_neutral">ආයෝජක මනෝභාවය සමබරයි: මනෝභාව දර්ශකය (Fear &amp; Greed) 100 න් %1$d යි.</string>
+    <string name="market_plain_standout_above_btc">%1$s කැපී පෙනේ: පැය 24 තුළ %2$s, Bitcoin (%3$s) ට වඩා බොහෝ ඉහළින්.</string>
+    <string name="market_plain_standout_against_btc">%1$s කැපී පෙනේ: පැය 24 තුළ %2$s, Bitcoin ප්‍රතිවිරුද්ධ දිශාවට ගිය අතර (%3$s).</string>
+    <string name="market_plain_standout_below_btc">%1$s කැපී පෙනේ: පැය 24 තුළ %2$s, Bitcoin (%3$s) ට වඩා බොහෝ පහළින්.</string>
+    <string name="market_plain_standout_futures_down">%1$s කැපී පෙනේ: අසාමාන්‍ය ලෙස බොහෝ ෆියුචර්ස් වෙළඳුන් පහළ යන මිල මත ඔට්ටු අල්ලති.</string>
+    <string name="market_plain_standout_futures_up">%1$s කැපී පෙනේ: අසාමාන්‍ය ලෙස බොහෝ ෆියුචර්ස් වෙළඳුන් ඉහළ යන මිල මත ඔට්ටු අල්ලති.</string>
+    <string name="market_plain_standout_quiet">දැන් කිසිදු කාසියක් කැපී පෙනෙන්නේ නැත.</string>
+    <string name="market_plain_standout_volume">%1$s කැපී පෙනේ: සුපුරුදු ප්‍රමාණය මෙන් ආසන්න වශයෙන් %2$s ගුණයක වෙළඳාම.</string>
+    <string name="market_plain_title">කෙටියෙන්</string>
+    <string name="market_section_collapse">%1$s සඟවන්න</string>
+    <string name="market_section_context">මනෝභාවය &amp; චක්‍රය</string>
+    <string name="market_section_data">වෙළඳපොළ දත්ත</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">%1$s පෙන්වන්න</string>
+    <string name="market_section_now">මේ මොහොතේ</string>
+    <string name="market_source">දත්ත: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="exchange_unavailable_error">හුවමාරුව ලබා ගත නොහැක</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">තොරතුරු: %1$s</string>
+    <string name="market_info_alt_season_source">දෛනික මිල: Binance · ආසන්න වශයෙන් සෑම පැය 3 කට වරක් නැවත ගණනය කෙරේ</string>
+    <string name="market_info_alt_season_what">විශාල altcoins 20 ක් පමණ (උදා. Ethereum, Solana, XRP) අතරින් පසුගිය දින 90 තුළ Bitcoin ට වඩා හොඳින් ක්‍රියා කළේ කීයක්දැයි ගණන් කරයි. අගය 0 සිට 100 දක්වා ඒවායේ කොටසයි.</string>
+    <string name="market_info_coin_source">මිල: Binance හෝ Bybit · ආසන්න වශයෙන් සෑම මිනිත්තු 15 කට වරක් නැවත පූරණය</string>
+    <string name="market_info_dominance_how">ආධිපත්‍යය ඉහළ ගියහොත්, Bitcoin ඉතිරි වෙළඳපොළට වඩා හොඳින් ක්‍රියා කරයි; පහළ ගියහොත්, වෙනත් කාසි බර ලබා ගනී. ස්ථායි කාසිද ගණන් වේ: ඒවායේ වටිනාකම වැඩි වුවහොත්, Bitcoin මිල එලෙසම තිබුණත් Bitcoin කොටස අඩු වේ.</string>
+    <string name="market_info_dominance_source">මූලාශ්‍රය: CoinGecko · ආසන්න වශයෙන් සෑම මිනිත්තු 30 කට වරක් නැවත පූරණය</string>
+    <string name="market_info_dominance_what">සියලු ක්‍රිප්ටෝ මුදල්වල මුළු වටිනාකමෙහි (වෙළඳපොළ ප්‍රාග්ධනීකරණය) Bitcoin හි කොටස. ඊට පහළින් Ethereum හි කොටස ඇත.</string>
+    <string name="market_info_fear_greed_how">25 ට අඩු යනු දැඩි බියයි, 75 ට වැඩි දැඩි කෑදරකමයි, 50 පමණ මධ්‍යස්ථයි. දිග හළ විට, කාඩ්පත ඊයේ, සතියකට පෙර සහ මාසයකට පෙර අගයන් පෙන්වයි. මිලදී ගැනීමේ හෝ විකිණීමේ සංඥාවක් නොවේ.</string>
+    <string name="market_info_fear_greed_source">මූලාශ්‍රය: alternative.me · දිනකට එක් වරක් නව අගයක්</string>
+    <string name="market_info_fear_greed_what">ක්‍රිප්ටෝ වෙළඳපොළ සඳහා 0 සිට 100 දක්වා මනෝභාව දර්ශකයක්. alternative.me එය මිල උච්චාවචන, වෙළඳ පරිමාව, සමාජ මාධ්‍ය සහ Bitcoin ආධිපත්‍යය ඇතුළු ආදාන කිහිපයකින් ගණනය කරයි.</string>
+    <string name="market_info_gas_how">ඉහළ අගයන් යනු ජාලය කාර්යබහුල වන අතර මාරු සඳහා වැඩි වියදමක් වන බවයි. මන්දගාමී, සාමාන්‍ය සහ වේගවත් යනු පසුව හෝ ඉක්මන් තහවුරු කිරීමක් සඳහා ගාස්තුයි. දිග හළ විට, කාඩ්පත සරල මාරුවක ආසන්න පිරිවැය පෙන්වයි.</string>
+    <string name="market_info_gas_source">පොදු RPC නෝඩ්, mempool.space · සෑම මිනිත්තුවකම නැවත පූරණය</string>
+    <string name="market_info_gas_what">එක් එක් ජාලයේ දැනට ගනුදෙනුවක පිරිවැය. Ethereum සහ ඒ හා සමාන ජාලවල gwei වලින් (ගෑස් ඒකකයකට ETH එකකින් බිලියනයෙන් එකක්), Bitcoin හි sat/vB වලින් (ගනුදෙනුවේ අතථ්‍ය බයිටයකට satoshi).</string>
+    <string name="market_info_halving_source">දිනය: බ්ලොක් උස සහ සාමාන්‍ය බ්ලොක් කාලයෙන් (mempool.space), නැතහොත් දින දර්ශනය අනුව · මිල ඉතිහාසය: Coin Metrics, Binance, සෑම පැය 12 කට වරක් නැවත පූරණය</string>
+    <string name="market_info_halving_what">හැල්විං හිදී, නව Bitcoin බ්ලොක් එකක් සඳහා කැණීම්කරුවන්ට ලැබෙන ත්‍යාගය අඩකින් කපා හැරේ. මෙය සෑම බ්ලොක් 210,000 කට වරක්, ආසන්න වශයෙන් සෑම වසර හතරකට වරක් සිදු වේ. ඉන්පසු, දිනකට නිර්මාණය වන්නේ නව bitcoin අඩක් පමණි.</string>
+    <string name="market_info_how">කියවන ආකාරය</string>
+    <string name="market_info_macro_how">සටහන දිස් වන්නේ එවැනි දිනයක් අද හෝ හෙට වූ විට පමණි. නිකුතුව අවට, මිල ගණන් බොහෝ විට සුපුරුදු ප්‍රමාණයට වඩා උච්චාවචනය වේ. යෙදුම පෙන්වන්නේ දිනය පමණි, සංඛ්‍යා නොවේ.</string>
+    <string name="market_info_macro_source">යෙදුම් වෙබ් අඩවියෙන් දින දර්ශනය · දිනකට එක් වරක් පූරණය</string>
+    <string name="market_info_macro_what">වැදගත් එක්සත් ජනපද ආර්ථික දත්තවල දින: උද්ධමනය (CPI, PCE), නිෂ්පාදක මිල (PPI), රැකියා වාර්තාව සහ එක්සත් ජනපද ෆෙඩරල් සංචිතයේ පොලී අනුපාත තීරණ. එවැනි සංඛ්‍යා බොහෝ විට ක්‍රිප්ටෝ මිලද චලනය කරයි.</string>
+    <string name="market_info_no_advice">ආයෝජන උපදෙස් නොවේ.</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · මිල පැයෙන් පැයට, on-chain අගයන් සෑම පැය 12 කට වරක් නැවත පූරණය</string>
+    <string name="market_info_pulse_how">සිරස්තලය දිශාව නම් කරයි; විස්තර සඳහා කාඩ්පත දිග හරින්න. පුළුල් චලනයක් යනු බොහෝ විශාල කාසි එකම දිශාවට චලනය වන බවයි. ශුභවාදී උත්තෝලන මනෝභාවයක් යනු බොහෝ වෙළඳුන් උත්තෝලනය සමඟ ඉහළ යන මිල මත ඔට්ටු අල්ලන බවයි, Bitcoin ෆියුචර්ස්වල ෆන්ඩිං අනුපාතයෙන් මනිනු ලැබේ. ක්ෂණික රූපයක්, අනාවැකියක් නොවේ.</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · ආසන්න වශයෙන් සෑම මිනිත්තු 5 කට වරක් නැවත පූරණය</string>
+    <string name="market_info_pulse_what">පසුගිය පැය 24 තුළ වෙළඳපොළේ කෙටි සාරාංශයක්: Bitcoin, Ethereum සහ Solana චලනය වන ආකාරය, විශාලතම කාසිවලින් කීයක් ඉහළ යනවාද හෝ පහළ යනවාද, දැන් Bitcoin කොපමණ වෙළඳාම් වේද සහ උත්තෝලන මනෝභාවය කුමක්ද (Bitcoin ෆියුචර්ස්වල ෆන්ඩිං අනුපාතයෙන් මනිනු ලැබේ).</string>
+    <string name="market_info_totals_how">දකුණු පැත්තේ පැය 24 තුළ මුළු වටිනාකමේ වෙනස ඇත. ඉහළ පරිමාව යනු බොහෝ වෙළඳාම් වන බවයි – එය කුමන දිශාවටදැයි නොකියයි. හැකි තැන්වල පරිවර්තන මුදලින්, නැතහොත් එක්සත් ජනපද ඩොලර්වලින් පෙන්වයි.</string>
+    <string name="market_info_totals_source">සියලු කාසි · CoinGecko · ආසන්න වශයෙන් සෑම මිනිත්තු 30 කට වරක් නැවත පූරණය</string>
+    <string name="market_info_totals_what">සියලු ක්‍රිප්ටෝ මුදල්වල මුළු වටිනාකම (වෙළඳපොළ ප්‍රාග්ධනීකරණය: මිල ගුණ කළ සංසරණ සැපයුම, සියලු කාසි පුරා එකතු කළ) සහ පසුගිය පැය 24 හි වෙළඳ පරිමාව.</string>
+    <string name="market_info_unusual_how">සෑම කාසියක්ම එහි වඩාත්ම සැලකිය යුතු නිරීක්ෂණය පෙන්වයි, දකුණු පැත්තේ පැය 24 වෙනස සමඟ. 2× පරිමාවක් යනු සුපුරුදු පිරිවැටුම මෙන් දෙගුණයකි. සැලකිය යුතු යනු හොඳ හෝ නරක යන්න නොවේ.</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · ආසන්න වශයෙන් සෑම මිනිත්තු 10 කට වරක් නැවත පූරණය</string>
+    <string name="market_info_unusual_what">විශාලතම 30 ක් පමණ (ස්ථායි කාසි නොමැතිව) අතරින් අද අසාමාන්‍ය ලෙස හැසිරෙන කාසි පහක් දක්වා: Bitcoin ට වඩා බොහෝ ශක්තිමත් හෝ දුර්වල, වෙළඳපොළ දිශාවට එරෙහිව, අසාමාන්‍ය ලෙස ඉහළ වෙළඳ පරිමාවක් හෝ සැලකිය යුතු ෆන්ඩිං අනුපාතයක් සමඟ.</string>
+    <string name="market_info_what">මෙය කුමක්ද?</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">වෙළඳපොළ ප්‍රාග්ධනීකරණය</string>
+    <string name="market_cap_source">සියලු කාසි · CoinGecko</string>
+    <string name="market_cap_title">ක්‍රිප්ටෝ වෙළඳපොළ</string>
+    <string name="market_volume_label">පරිමාව 24h</string>
+
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">විස්තර</string>
+    <string name="pulse_disclaimer">අනාවැකියක් නොවේ · ආයෝජන උපදෙස් නොවේ</string>
+    <string name="pulse_less">අඩුවෙන් පෙන්වන්න</string>
+    <string name="pulse_now_title">ක්‍රිප්ටෝ ස්පන්දනය</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">පැය 24 ක් තුළ වෙනස</string>
+    <string name="pulse_section_factors">සාධක</string>
+    <string name="pulse_section_market">අද වෙළඳපොළ</string>
+    <string name="pulse_unavailable">වෙළඳපොළ දත්ත දැනට ලබා ගත නොහැක</string>
+    <string name="pulse_updated">%1$s වන විට</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">සන්සුන් වෙළඳපොළ</string>
+    <string name="pulse_headline_down">පුළුල් දුර්වලතාව</string>
+    <string name="pulse_headline_mixed">මිශ්‍ර චිත්‍රයක්</string>
+    <string name="pulse_headline_up">පුළුල් ශක්තිය</string>
+    <string name="pulse_lead_alts_stronger">Altcoins Bitcoin ට වඩා ශක්තිමත්ය.</string>
+    <string name="pulse_lead_broad_down">වෙළඳපොළ පුළුල් ලෙස පහත වැටෙමින් පවතී.</string>
+    <string name="pulse_lead_broad_up">වෙළඳපොළ පුළුල් ලෙස ඉහළ යමින් පවතී.</string>
+    <string name="pulse_lead_btc_leads">Bitcoin වැඩියෙන්ම ඉහළ යයි.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin altcoins වලට වඩා ශක්තිමත්ය.</string>
+    <string name="pulse_lead_calm">වෙළඳපොළ යන්තම් චලනය වේ.</string>
+    <string name="pulse_lead_drift_down">වෙළඳපොළ සෙමෙන් පහළට යයි.</string>
+    <string name="pulse_lead_drift_up">වෙළඳපොළ සෙමෙන් ඉහළට යයි.</string>
+    <string name="pulse_lead_mixed">විශාල කාසි වෙනස් දිශාවලට චලනය වේ.</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">උත්තෝලන මනෝභාවය ශුභවාදීයි.</string>
+    <string name="pulse_detail_fund_negative">උත්තෝලන මනෝභාවය අශුභවාදීයි.</string>
+    <string name="pulse_detail_fund_neutral">උත්තෝලන මනෝභාවය මධ්‍යස්ථයි.</string>
+    <string name="pulse_detail_vol_above">පරිමාව සාමාන්‍යයට වඩා %1$s ඉහළින්.</string>
+    <string name="pulse_detail_vol_above_fund_high">පරිමාව සාමාන්‍යයට වඩා %1$s ඉහළින්, උත්තෝලන මනෝභාවය ශුභවාදීයි.</string>
+    <string name="pulse_detail_vol_above_fund_negative">පරිමාව සාමාන්‍යයට වඩා %1$s ඉහළින්, උත්තෝලන මනෝභාවය අශුභවාදීයි.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">පරිමාව සාමාන්‍යයට වඩා %1$s ඉහළින්, උත්තෝලන මනෝභාවය මධ්‍යස්ථයි.</string>
+    <string name="pulse_detail_vol_below">පරිමාව සාමාන්‍යයට වඩා %1$s පහළින්.</string>
+    <string name="pulse_detail_vol_below_fund_high">පරිමාව සාමාන්‍යයට වඩා %1$s පහළින්, උත්තෝලන මනෝභාවය ශුභවාදීයි.</string>
+    <string name="pulse_detail_vol_below_fund_negative">පරිමාව සාමාන්‍යයට වඩා %1$s පහළින්, උත්තෝලන මනෝභාවය අශුභවාදීයි.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">පරිමාව සාමාන්‍යයට වඩා %1$s පහළින්, උත්තෝලන මනෝභාවය මධ්‍යස්ථයි.</string>
+    <string name="pulse_detail_vol_normal">පරිමාව සාමාන්‍යයි.</string>
+    <string name="pulse_detail_vol_normal_fund_high">පරිමාව සාමාන්‍යයි, උත්තෝලන මනෝභාවය ශුභවාදීයි.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">පරිමාව සාමාන්‍යයි, උත්තෝලන මනෝභාවය අශුභවාදීයි.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">පරිමාව සාමාන්‍යයි, උත්තෝලන මනෝභාවය මධ්‍යස්ථයි.</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">ඉහළම %1$d: වෙළඳපොළ වටිනාකම අනුව විශාලතම කාසි, ස්ථායි කාසි නොමැතිව; පැය 24 ක් තුළ වෙනස (CoinGecko).</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">ඉහළම %1$d</string>
+    <string name="pulse_breadth_note_broad_down">පුළුල් විකිණීමක්: විශාලතම කාසිවලින් බොහොමයක් පහත වැටේ.</string>
+    <string name="pulse_breadth_note_broad_up">පුළුල් චලනයක්: විශාලතම කාසිවලින් බොහොමයක් ඉහළ යයි.</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin පහත වැටේ, නමුත් වෙනත් විශාල කාසිවලින් බොහොමයක් ස්ථාවරව පවතී.</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin ඉහළ යයි, නමුත් වෙනත් විශාල කාසිවලින් බොහොමයක් එයට එක් නොවේ.</string>
+    <string name="pulse_breadth_spoken">ඉහළම %1$d: %2$d ක් ඉහළට, %3$d ක් පහළට</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">Altcoins සහ Bitcoin සමානව චලනය වේ</string>
+    <string name="pulse_alts_stronger">Altcoins Bitcoin ට වඩා ශක්තිමත්</string>
+    <string name="pulse_alts_weaker">Bitcoin altcoins වලට වඩා ශක්තිමත්</string>
+    <string name="pulse_chip_funding_high">උත්තෝලන මනෝභාවය ශුභවාදීයි</string>
+    <string name="pulse_chip_funding_negative">උත්තෝලන මනෝභාවය අශුභවාදීයි</string>
+
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">මිල සහ ක්‍රියා පෙන්වන්න</string>
+    <string name="unusual_fact_against">වෙළඳපොළට එරෙහිව චලනය වේ</string>
+    <string name="unusual_fact_funding_high">ෆන්ඩිං ඉහළයි (%1$s)</string>
+    <string name="unusual_fact_funding_negative">ෆන්ඩිං සෘණයි (%1$s)</string>
+    <string name="unusual_fact_stronger">BTC ට වඩා බොහෝ ශක්තිමත්ව චලනය වේ</string>
+    <string name="unusual_fact_volume">පරිමාව සුපුරුදු ප්‍රමාණයේ %1$s×</string>
+    <string name="unusual_fact_weaker">BTC ට වඩා බොහෝ දුර්වලව චලනය වේ</string>
+    <string name="unusual_nothing">අද සැලකිය යුතු කිසිවක් නැත</string>
+    <string name="unusual_source">ස්ථායි කාසි නොමැතිව විශාලතම කාසි 30 ක් පමණ · Binance, CoinGecko</string>
+    <string name="unusual_title">සැලකිය යුතු</string>
+
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">සැලකිය යුතු</string>
+    <string name="activity_indicator">සැලකිය යුතු</string>
+    <string name="activity_sensitivity_less">අඩු</string>
+    <string name="activity_sensitivity_more">වැඩි</string>
+    <string name="activity_sensitivity_normal">සාමාන්‍ය</string>
+    <string name="activity_signal_funding_long">ෆන්ඩිං %1$s — උත්තෝලනය කළ ලෝන්ග් බොහොමයක්</string>
+    <string name="activity_signal_funding_short">ෆන්ඩිං %1$s — ෂෝට් බොහොමයක්</string>
+    <string name="activity_signal_open_interest">මිනිත්තු %2$d ක් තුළ විවෘත පොලිය %1$s</string>
+    <string name="activity_signal_open_interest_no_time">විවෘත පොලිය %1$s</string>
+    <string name="activity_signal_price_move">අසාමාන්‍ය චලනය: එක් පැයක් තුළ %1$s (සාමාන්‍යයේ %2$s×)</string>
+    <string name="activity_signal_volume">අවසන් පැයේ පරිමාව සාමාන්‍යයේ %1$s×</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="one">විශාල altcoins %2$d න් %1$d ක් දින 90 ක් තුළ Bitcoin පරාජය කරයි</item>
+        <item quantity="other">විශාල altcoins %2$d න් %1$d ක් දින 90 ක් තුළ Bitcoin පරාජය කරයි</item>
+    </plurals>
+    <string name="insights_chart_axis">හැල්විං සිට වසර</string>
+    <string name="insights_chart_hint">හැල්විං දිනයේ මිලෙහි ගුණාකාරයක් ලෙස මිල (ලඝු පරිමාණය). පෙර චක්‍ර රටාවකි, අනාවැකියක් නොවේ.</string>
+    <string name="insights_cycle_chart">හැල්විං සිට චක්‍ර</string>
+    <string name="insights_dominance_eth">මුළු වෙළඳපොළෙන් ETH %1$s</string>
+    <string name="insights_dominance_title">Bitcoin ආධිපත්‍යය</string>
+    <string name="insights_fng_history">ඊයේ %1$s · සතියකට පෙර %2$s · මාසයකට පෙර %3$s</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="insights_halving_title">Bitcoin හැල්විං</string>
+    <string name="insights_source_dominance">මූලාශ්‍රය: CoinGecko, Binance</string>
+    <string name="insights_source_fng">මූලාශ්‍රය: alternative.me</string>
+    <string name="insights_source_history">මූලාශ්‍රය: Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">දැඩි බිය</string>
+    <string name="fng_extreme_greed">දැඩි කෑදරකම</string>
+    <string name="fng_fear">බිය</string>
+    <string name="fng_greed">කෑදරකම</string>
+    <string name="fng_neutral">මධ්‍යස්ථ</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">%1$s වන විට දත්ත · යාවත්කාලීන වෙමින්…</string>
+    <string name="cycle_from_top">මුදුනේ සිට %1$s</string>
+    <string name="cycle_marker_bottom">පතුල %1$s</string>
+    <string name="cycle_marker_double_bottom">ද්විත්ව පතුල %1$s</string>
+    <string name="cycle_marker_double_top">ද්විත්ව මුදුන %1$s</string>
+    <string name="cycle_marker_high_so_far">මෙතෙක් ඉහළම</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">මුදුන %1$s</string>
+    <string name="cycle_since_halving">හැල්විං සිට %1$s</string>
+    <string name="halving_estimate_text">ගණනය කිරීම අනුව ඊළඟ හැල්විං %1$s පමණ: බ්ලොක් එකකට සාමාන්‍යයෙන් මිනිත්තු %3$s බැගින් බ්ලොක් %2$s ක් ඉතිරියි (වත්මන් දුෂ්කරතා කාලපරිච්ඡේදය). ප්‍රක්ෂේපණයකි, පොරොන්දුවක් නොවේ – බ්ලොක් කාලය වෙනස් වේ.</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">ඇඟවීම: %1$s</string>
+    <string name="gas_slow_fast">මන්දගාමී %1$s · වේගවත් %2$s</string>
+    <string name="gas_source">පොදු RPC නෝඩ් සහ mempool.space · සරල මාරුවක පිරිවැය, L2 වල L1 කොටස නොමැතිව</string>
+    <string name="gas_title">ජාල ගාස්තු</string>
+    <string name="gas_transfer_cost">මාරුව ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">එ.ජ. උද්ධමන දත්ත (CPI)</string>
+    <string name="macro_fomc">එ.ජ. ෆෙඩ් පොලී අනුපාත තීරණය</string>
+    <string name="macro_hint_list">%1$s – මෙවැනි දිනවල වෙළඳපොළ බොහෝ විට වැඩියෙන් උච්චාවචනය වේ.</string>
+    <string name="macro_hint_today">අද %1$s: %2$s – මෙවැනි දිනවල වෙළඳපොළ බොහෝ විට වැඩියෙන් උච්චාවචනය වේ.</string>
+    <string name="macro_hint_today_list">අද: %1$s – මෙවැනි දිනවල වෙළඳපොළ බොහෝ විට වැඩියෙන් උච්චාවචනය වේ.</string>
+    <string name="macro_hint_tomorrow">හෙට %1$s: %2$s – මෙවැනි දිනවල වෙළඳපොළ බොහෝ විට වැඩියෙන් උච්චාවචනය වේ.</string>
+    <string name="macro_hint_tomorrow_list">හෙට: %1$s – මෙවැනි දිනවල වෙළඳපොළ බොහෝ විට වැඩියෙන් උච්චාවචනය වේ.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">අද %1$s %2$s</string>
+    <string name="macro_item_tomorrow">හෙට %1$s %2$s</string>
+    <string name="macro_nfp">එ.ජ. රැකියා වාර්තාව</string>
+    <string name="macro_pce">එ.ජ. පාරිභෝගික වියදම් මිල (PCE)</string>
+    <string name="macro_ppi">එ.ජ. නිෂ්පාදක මිල (PPI)</string>
+    <string name="macro_released_list">අද නිකුත් කළා: %1$s.</string>
+    <string name="macro_released_one">අද %1$s ට නිකුත් කළා: %2$s.</string>
+    <string name="macro_title">ආර්ථික දත්ත</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">කාසිය</string>
+    <string name="coin_no_data">Binance හෝ Bybit හි මෙම කාසිය සඳහා මිල දත්ත නැත.</string>
+    <string name="coin_price_only">මිල මත පමණක් පදනම් වේ – on-chain දත්ත (MVRV, Puell, හැෂ්රේට්) නොමිලේ ලබා ගත හැක්කේ Bitcoin සඳහා පමණි.</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">මිල ඉතිහාසය දින %1$d ක් පමණි – සමහර දර්ශක නැත.</item>
+        <item quantity="other">මිල ඉතිහාසය දින %1$d ක් පමණි – සමහර දර්ශක නැත.</item>
+    </plurals>
+    <string name="coin_title">කාසි විශ්ලේෂණය</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">දත්ත: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">24 h ඉහළ යන සහ පහළ යන</string>
+    <string name="movers_gainers">ඉහළ යන</string>
+    <string name="movers_losers">පහළ යන</string>
+    <string name="movers_no_gainers">24 h තුළ කිසිදු කාසියක් ඉහළ ගියේ නැත</string>
+    <string name="movers_no_losers">24 h තුළ කිසිදු කාසියක් පහළ ගියේ නැත</string>
+    <string name="movers_source">CoinGecko, 24 h, ස්ථායි කාසි නොමැතිව ඉහළම 100</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">සියල්ල පෙන්වන්න</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">අඩුවෙන් පෙන්වන්න</string>
+</resources>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">Алармата се задейства</string>
+    <string name="a11y_collapsed">Свито</string>
+    <string name="a11y_converted">около %1$s</string>
+    <string name="a11y_expanded">Разгънато</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">отваря се в браузъра</string>
+    <string name="a11y_favorite">Любими</string>
+    <string name="a11y_in_watchlist">Вече е в списъка</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_exchange_unreachable">%1$s е недостъпна</string>
+    <string name="a11y_move_down">Премести надолу</string>
+    <string name="a11y_move_up">Премести нагоре</string>
+    <string name="a11y_note">бележка: %1$s</string>
+    <string name="a11y_price">курс %1$s</string>
+    <string name="a11y_price_notification_off">Известието за курса е изключено</string>
+    <string name="a11y_price_notification_on">Известието за курса е включено</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">Курсът е остарял</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s в %2$s</string>
+    <string name="a11y_stale">остаряло, последно обновяване %1$s</string>
+    <string name="a11y_warning">Предупреждение</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">%1$s за 24 часа</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">Промяната за 24 часа не е налична</string>
+    <string name="a11y_change_down">спад с %1$s</string>
+    <string name="a11y_change_flat">без промяна</string>
+    <string name="a11y_change_since_last">%1$s от последното обновяване</string>
+    <string name="a11y_change_since_last_none">Промяната от последното обновяване не е налична</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">%1$s днес</string>
+    <string name="a11y_change_today_none">Промяната за днес не е налична</string>
+    <string name="a11y_change_today_zone">%1$s от полунощ %2$s</string>
+    <string name="a11y_change_today_zone_none">Промяната от полунощ %1$s не е налична</string>
+    <string name="a11y_change_up">ръст с %1$s</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Графика %1$s: от %2$s до %3$s, %4$s. Най-високо %5$s, най-ниско %6$s.</string>
+    <string name="a11y_chart_empty">Графика: няма данни</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Цикъл %1$s: %2$s от халвинга, ден %3$d.</string>
+    <string name="a11y_cycle_bottom">Дъно %1$s на ден %2$d.</string>
+    <string name="a11y_cycle_double_bottom">Двойно дъно %1$s на ден %2$d.</string>
+    <string name="a11y_cycle_double_top">Двоен връх %1$s на ден %2$d.</string>
+    <string name="a11y_cycle_top">Връх %1$s на ден %2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">Скала от %1$s до %2$s: %3$d от 100</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, средно %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d пада</item>
+        <item quantity="other">%1$d падат</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="one">%1$d двойка без 24-часова стойност</item>
+        <item quantity="other">%1$d двойки без 24-часова стойност</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d двойка без стойност за днес</item>
+        <item quantity="other">%1$d двойки без стойност за днес</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d двойка расте</item>
+        <item quantity="other">%1$d двойки растат</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="one">последно обновено преди %1$d ден</item>
+        <item quantity="other">последно обновено преди %1$d дни</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="one">последно обновено преди %1$d час</item>
+        <item quantity="other">последно обновено преди %1$d часа</item>
+    </plurals>
+    <string name="a11y_updated_just_now">последно обновено току-що</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="one">последно обновено преди %1$d минута</item>
+        <item quantity="other">последно обновено преди %1$d минути</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">сумата е скрита</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_entry">%1$s %2$s, днес на стойност %3$s</string>
+    <string name="a11y_portfolio_entry_in">Постъпление</string>
+    <string name="a11y_portfolio_entry_no_value">стойността не е налична</string>
+    <string name="a11y_portfolio_entry_note">бележка %1$s</string>
+    <string name="a11y_portfolio_entry_out">Изходящо</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, %3$s от портфолиото</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, %2$s от портфолиото, %3$s</string>
+    <string name="a11y_portfolio_positions">Най-големи позиции: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">Покажи сумите</string>
+    <string name="a11y_compare_chart">Сравнение в проценти, %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">%1$s от 30-дневния връх</string>
+    <string name="a11y_price_overlay">Наслагване на курса: %1$s</string>
+</resources>

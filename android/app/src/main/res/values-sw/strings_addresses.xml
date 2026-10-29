@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">Ongeza anwani</string>
+    <string name="portfolio_address_count">Hesabu</string>
+    <string name="portfolio_address_error">Imeshindwa kusasisha</string>
+    <string name="portfolio_address_hint">Anwani ya umma (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) au xpub</string>
+    <string name="portfolio_address_label">Lebo (si lazima)</string>
+    <string name="portfolio_address_not_since_buy">Kutoka anwani · haimo kwenye “Tangu ununuzi”: %1$s</string>
+    <string name="portfolio_address_overlap">Pia iko kwenye miamala yako mwenyewe: %1$s – zote mbili zinaongezwa. Sarafu zile zile? Chagua “Onyesha tu”.</string>
+    <string name="portfolio_address_overlap_ask">Tayari unarekodi %1$s kwa miamala yako mwenyewe. Uongeze salio la anwani hii kwenye jalada, au uionyeshe tu?</string>
+    <string name="portfolio_address_overlap_auto">“%1$s” sasa inaonyeshwa tu, haihesabiwi – %2$s pia zinaonekana kwenye miamala yako.</string>
+    <string name="portfolio_address_overlap_title">Sarafu zile zile kama za miamala yako?</string>
+    <string name="portfolio_address_overlap_tx">Kiasi sawa na amana/uhamisho wako mwenyewe (%1$s) – huenda kimehesabiwa mara mbili.</string>
+    <string name="portfolio_address_period_observed">Anwani zinazofuatiliwa zinahesabiwa kuanzia salio lao la kwanza lililoonekana; mabadiliko ya baadaye ni uingiaji/utokaji, si faida.</string>
+    <string name="portfolio_address_privacy">Anwani ya umma pekee ndiyo inatumwa kwa %1$s – kamwe si funguo wala seed phrase. Mtoa huduma anaiona pamoja na anwani yako ya IP. Hukaguliwa mara moja kila dakika 10 zaidi.</string>
+    <string name="portfolio_address_remove">Ondoa anwani</string>
+    <string name="portfolio_address_show_only">Onyesha tu, usiongeze kwenye jalada</string>
+    <string name="portfolio_address_show_only_short">Onyesha tu</string>
+    <string name="portfolio_address_tokens">Hesabu tokeni</string>
+    <string name="portfolio_address_xpub_privacy">xpub hufichua anwani zote za wallet hii. Zinatolewa kwenye kifaa chako; anwani moja moja pekee ndizo zinatumwa kwa %1$s – angalau maombi 40 kwenye uchanganuzi wa kwanza, baadaye machache zaidi. Funguo za siri (xprv) hazikubaliwi kamwe.</string>
+    <string name="portfolio_address_xpub_gap">Utafutaji unasimama baada ya anwani %1$d mfululizo ambazo hazijatumika (kiwango cha BIP44 kinachotumiwa na wallet nyingi). Anwani iliyotumika nje ya pengo hilo haihesabiwi – iongeze kando.</string>
+    <string name="portfolio_address_xpub_used">Anwani zinazotumika: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">Anwani zilizotumika ni nyingi mno kusasisha</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">Anwani nyingi sana – malipo mapya kwa anwani za zamani zilizo tupu huenda yasigunduliwe</string>
+    <string name="portfolio_addresses_title">Anwani</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Anwani za Bitcoin Cash haziwezi kufuatiliwa: hakuna huduma ya umma ya bure bila API key ambayo masharti yake yanaruhusu hilo.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) ilizimwa mwaka 2024 – salio sasa liko kwenye BNB Smart Chain (0x…)</string>
+    <string name="address_checksum">Checksum si sahihi – angalia makosa ya uchapaji</string>
+    <string name="address_doge_unsupported">Anwani za Dogecoin haziwezi kufuatiliwa: hakuna huduma ya umma ya bure bila API key ambayo masharti yake yanaruhusu hilo.</string>
+    <string name="address_duplicate">Anwani hii tayari imeongezwa</string>
+    <string name="address_ens">Majina ya ENS hayatumiki – weka anwani ya 0x</string>
+    <string name="address_invalid">Si anwani halali ya mtandao unaotumika</string>
+    <string name="address_limit">Anwani 20 zaidi</string>
+    <string name="address_secret">Hii inaonekana kama ufunguo wa siri au seed phrase – usiiweke popote kamwe. Anwani za umma pekee.</string>
+    <string name="address_testnet">Anwani za testnet hazitumiki</string>
+    <string name="address_unsupported">Aina hii ya anwani haitumiki</string>
+    <string name="address_wrong_chain">Anwani ni ya mtandao mwingine</string>
+    <string name="address_xpub_multisig">Funguo za multisig (Ypub/Zpub) hazitumiki</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Akaunti ya Taproot (BIP86): anwani za bc1p… zinatolewa kutoka ufunguo huu, kwa kupokea na chenji.</string>
+    <string name="portfolio_address_taproot_hint">Wallet ya Taproot? Badala yake bandika descriptor tr(…) kutoka wallet yako – xpub ya kawaida hutafutwa tu kama anwani za Legacy na SegWit.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">Seva yako mwenyewe haipatikani</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">Anayeendesha %1$s anaona anwani zote zilizoulizwa za wallet hii na anaweza kuziunganisha zenyewe kwa zenyewe na anwani yako ya IP.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">Ili kuepuka hili, weka seva yako mwenyewe kwenye Mipangilio › Jalada › Seva yako ya anwani.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d tokeni isiyojulikana (haihesabiwi)</item>
+        <item quantity="other">+%1$d tokeni zisizojulikana (hazihesabiwi)</item>
+    </plurals>
+</resources>

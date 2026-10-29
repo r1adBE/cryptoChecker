@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">അലേർട്ടുകൾ എത്തുന്നുണ്ടെന്ന് ഉറപ്പാക്കുക</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">ശരി</string>
+    <string name="delivery_state_warn">ഇത് പരിശോധിക്കുക</string>
+    <string name="delivery_state_info">ശ്രദ്ധിക്കുക</string>
+    <string name="delivery_allowed">അനുവദിച്ചു</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">അറിയിപ്പുകൾ</string>
+    <string name="delivery_notifications_off">ഓഫ് – അലേർട്ടുകൾ എത്തില്ല</string>
+    <string name="delivery_notifications_not_asked">ഇതുവരെ അനുവദിച്ചിട്ടില്ല</string>
+    <string name="delivery_channel">അലേർട്ട് ചാനൽ</string>
+    <string name="delivery_channel_high">ഉയർന്ന പ്രാധാന്യം – സ്ക്രീനിൽ പ്രത്യക്ഷപ്പെടും</string>
+    <string name="delivery_channel_low">കുറഞ്ഞ പ്രാധാന്യം – അലേർട്ടുകൾ ലിസ്റ്റിൽ നിശബ്ദമായി മാത്രം കാണും</string>
+    <string name="delivery_channel_off">ഓഫാക്കി – അലേർട്ടുകൾ എത്തില്ല</string>
+    <string name="delivery_exact_on">ഓൺ – ഏകദേശം ഓരോ 15 മിനിറ്റിലും</string>
+    <string name="delivery_exact_off">ഓഫ് – Android ക്രമരഹിതമായി പരിശോധിക്കുന്നു</string>
+    <string name="delivery_battery">ബാറ്ററി ഒപ്റ്റിമൈസേഷൻ</string>
+    <string name="delivery_battery_unrestricted">നിയന്ത്രണമില്ല</string>
+    <string name="delivery_battery_optimized">ഒപ്റ്റിമൈസ് ചെയ്തു – Android പരിശോധനകൾ വൈകിപ്പിച്ചേക്കാം. ആപ്പ് ഒഴിവ് ആവശ്യപ്പെടുന്നില്ല; ആപ്പിന്റെ ബാറ്ററി ക്രമീകരണങ്ങളിൽ നിങ്ങൾക്ക് ഇത് മാറ്റാം.</string>
+    <string name="delivery_background">പശ്ചാത്തല ഉപയോഗം</string>
+    <string name="delivery_background_restricted">നിയന്ത്രിതം – Android പശ്ചാത്തല പരിശോധനകൾ നിർത്തുന്നു</string>
+    <string name="delivery_dnd">ശല്യപ്പെടുത്തരുത്</string>
+    <string name="delivery_dnd_on">ഓൺ – അലേർട്ടുകൾ ശബ്ദമില്ലാതെ എത്തിയേക്കാം</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">%1$s വരെ സജീവം – സമയമായ അലേർട്ടുകൾ അതുവരെ കാത്തിരിക്കും</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – ഈ സമയത്ത് സമയമായ അലേർട്ടുകൾ കാത്തിരിക്കും</string>
+    <string name="delivery_last_check">അവസാന പശ്ചാത്തല പരിശോധന</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – 6 മണിക്കൂറിലേറെ മുമ്പ്</string>
+    <string name="delivery_last_check_never">ഇതുവരെ ഇല്ല</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">അനുവദിക്കുക</string>
+    <string name="delivery_action_change">മാറ്റുക</string>
+    <string name="delivery_action_show">കാണിക്കുക</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">ബാനറുകളും ശബ്ദവും</string>
+    <string name="delivery_alert_off">ബാനറുകൾ ഓഫ് – അലേർട്ടുകൾ അറിയിപ്പ് കേന്ദ്രത്തിൽ മാത്രം കാണും</string>
+    <string name="delivery_sound_off">ശബ്ദം ഓഫ് – അലേർട്ടുകൾ നിശബ്ദമായി എത്തും</string>
+    <string name="delivery_time_sensitive">സമയബന്ധിത അറിയിപ്പുകൾ</string>
+    <string name="delivery_time_sensitive_off">ഓഫ് – ഒരു ഫോക്കസ് അലേർട്ടുകൾ തടഞ്ഞുവച്ചേക്കാം</string>
+    <string name="delivery_background_refresh">പശ്ചാത്തല ആപ്പ് പുതുക്കൽ</string>
+    <string name="delivery_low_power">ലോ പവർ മോഡ്</string>
+    <string name="delivery_swipe_away">ആപ്പ് സ്വൈപ്പ് ചെയ്ത് മാറ്റിയോ?</string>
+    <string name="delivery_swipe_away_note">ആപ്പ് സ്വിച്ചറിൽ ആപ്പ് സ്വൈപ്പ് ചെയ്ത് മാറ്റിയാൽ, വീണ്ടും തുറക്കുന്നതുവരെ iOS പശ്ചാത്തല പരിശോധനകൾ നിർത്തും.</string>
+    <string name="delivery_live_activity">ലൈവ് ആക്റ്റിവിറ്റി</string>
+    <string name="delivery_live_activity_note">ലോക്ക് സ്ക്രീനിൽ വില കാണിക്കുന്നു, പക്ഷേ ആപ്പ് പരിശോധിക്കുമ്പോൾ മാത്രമേ പുതുക്കൂ – ഇത് അലേർട്ടുകൾ കൂടുതൽ തവണ പരിശോധിക്കാൻ ഇടയാക്കുന്നില്ല.</string>
+
+    <string name="alarm_first_check">അലേർട്ടുകൾ എത്തുന്നുണ്ടോയെന്ന് പരിശോധിക്കുക</string>
+
+    <string name="oem_battery_title">നിർമ്മാതാവിന്റെ ബാറ്ററി സേവർ</string>
+    <string name="oem_battery_xiaomi">Xiaomi ആപ്പിനെ പൂർണ്ണമായി നിർത്തിയേക്കാം – അപ്പോൾ അലേർട്ടുകൾ എത്തില്ല. “Autostart” ഓണാക്കി ബാറ്ററി സേവർ “No restrictions” ആക്കുക.</string>
+    <string name="oem_battery_samsung">Samsung ആപ്പിനെ ഡീപ് സ്ലീപ്പിലാക്കിയേക്കാം – അപ്പോൾ അലേർട്ടുകൾ എത്തില്ല. ബാറ്ററി › പശ്ചാത്തല ഉപയോഗ പരിധികൾ എന്നതിൽ, അതിനെ “Never sleeping apps”-ൽ ചേർക്കുക.</string>
+    <string name="oem_battery_huawei">Huawei/Honor ആപ്പിനെ നിർത്തിയേക്കാം – അപ്പോൾ അലേർട്ടുകൾ എത്തില്ല. ബാറ്ററി › ആപ്പ് ലോഞ്ച് എന്നതിൽ “Manage manually” തിരഞ്ഞെടുത്ത് എല്ലാ ഓപ്ഷനുകളും അനുവദിക്കുക.</string>
+    <string name="oem_battery_oneplus">OnePlus ആപ്പിനെ നിർത്തിയേക്കാം – അപ്പോൾ അലേർട്ടുകൾ എത്തില്ല. “Auto-launch” അനുവദിക്കുക, ബാറ്ററി ഉപയോഗം എന്നതിൽ പശ്ചാത്തല പ്രവർത്തനവും അനുവദിക്കുക.</string>
+    <string name="oem_battery_oppo">Oppo/Realme ആപ്പിനെ നിർത്തിയേക്കാം – അപ്പോൾ അലേർട്ടുകൾ എത്തില്ല. “Auto launch” അനുവദിക്കുക, ബാറ്ററി ഉപയോഗം എന്നതിൽ പശ്ചാത്തല പ്രവർത്തനവും അനുവദിക്കുക.</string>
+    <string name="oem_battery_vivo">Vivo ആപ്പിനെ നിർത്തിയേക്കാം – അപ്പോൾ അലേർട്ടുകൾ എത്തില്ല. “Autostart” അനുവദിക്കുക, ബാറ്ററി എന്നതിൽ ഉയർന്ന പശ്ചാത്തല ഊർജ്ജ ഉപയോഗവും അനുവദിക്കുക.</string>
+    <string name="alarm_reliability_stale">അവസാന പരിശോധന %1$s – അലേർട്ടുകൾ വൈകിയേക്കാം</string>
+    <string name="alarm_reliability_never">അലേർട്ടുകൾ ഓൺ – ഇതുവരെ പശ്ചാത്തല പരിശോധനയില്ല</string>
+    <string name="alarm_reliability_notifications_off">അറിയിപ്പുകൾ ഓഫ് – അലേർട്ടുകൾ എത്തില്ല</string>
+    <string name="alarm_reliability_battery">ബാറ്ററി ലാഭിക്കൽ അലേർട്ട് പരിശോധനകൾ നിർത്തിയേക്കാം</string>
+    <string name="alarm_reliability_background_refresh">പശ്ചാത്തല ആപ്പ് പുതുക്കൽ ഓഫ് – അലേർട്ടുകൾ എത്താതിരുന്നേക്കാം</string>
+</resources>

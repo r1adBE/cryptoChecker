@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">Importuoti CSV</string>
+    <string name="portfolio_csv_import_all_transfer">Visi į savą piniginę</string>
+    <string name="portfolio_csv_import_all_withdrawal">Visi palieka portfelį</string>
+    <string name="portfolio_csv_import_choice_proposed">Siūloma: atitinka %1$s</string>
+    <string name="portfolio_csv_import_choice_transfer">Į savą piniginę (pervedimas)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Palieka portfelį (išėmimas)</string>
+    <string name="portfolio_csv_import_choose_each">Kiekvienam išėmimui pasirink, kur jis nukeliavo.</string>
+    <string name="portfolio_csv_import_columns">Atpažinti stulpeliai: %1$s</string>
+    <string name="portfolio_csv_import_confirm">Importuoti (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">Diena/mėnuo</string>
+    <string name="portfolio_csv_import_date_month_first">Mėnuo/diena</string>
+    <string name="portfolio_csv_import_date_order">Dviprasmės datos (pvz., 03/04/2024) skaitomos kaip:</string>
+    <string name="portfolio_csv_import_decimal">Dviprasmiai skaičiai (pvz., %1$s) skaitomi kaip:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">Importuota %d transakcija</item>
+        <item quantity="few">Importuotos %d transakcijos</item>
+        <item quantity="many">Importuota %d transakcijos</item>
+        <item quantity="other">Importuota %d transakcijų</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d jau importuota (praleista)</item>
+        <item quantity="few">%d jau importuotos (praleistos)</item>
+        <item quantity="many">%d jau importuota (praleista)</item>
+        <item quantity="other">%d jau importuota (praleista)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">Formatas: %1$s</string>
+    <string name="portfolio_csv_import_line">%1$d eilutė: %2$s</string>
+    <string name="portfolio_csv_import_loading">Skaitomas failas ir dienos kursai…</string>
+    <string name="portfolio_csv_import_progress">%1$s eilutė iš %2$s</string>
+    <string name="portfolio_csv_import_saving">Išsaugomos transakcijos…</string>
+    <string name="portfolio_csv_import_missing_fx">Nėra dienos kurso eilutėms %1$s – importuota be kainos / komisinio mokesčio.</string>
+    <string name="portfolio_csv_import_missing_price">Faile nėra kainos eilutėms %1$s – importuota be kainos.</string>
+    <string name="portfolio_csv_import_more">+ dar %1$d</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d nauja transakcija</item>
+        <item quantity="few">%d naujos transakcijos</item>
+        <item quantity="many">%d naujos transakcijos</item>
+        <item quantity="other">%d naujų transakcijų</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">Praleista %d eilutė</item>
+        <item quantity="few">Praleistos %d eilutės</item>
+        <item quantity="many">Praleista %d eilutės</item>
+        <item quantity="other">Praleista %d eilučių</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">Sandoriai su stabiliosiomis monetomis (USDT, USDC …) registruojami kaip apsikeitimai – stabilioji moneta atsiranda tavo turimame turte.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Galimi keli atitikmenys – pasirink tinkamą arba nė vieno.</string>
+    <string name="portfolio_csv_import_transfer_fee">Tinklo komisinis mokestis: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">Registruoti kaip vieną pervedimą</string>
+    <string name="portfolio_csv_import_transfer_stored">Atitikmuo iš ankstesnio importo</string>
+    <string name="portfolio_csv_import_transfers_hint">Išėmimas ir atitinkamas tos pačios monetos įnašas tampa vienu pervedimu: pirkimo kaina ir laikymo trukmė išlieka, skirtumas laikomas tinklo komisiniu mokesčiu.</string>
+    <string name="portfolio_csv_import_transfers_title">Pervedimai tarp tavo paskyrų</string>
+    <string name="portfolio_csv_import_unreadable">Palaikomų transakcijų nerasta. Palaikoma: Relai, Swissquote, Kraken, Binance, Coinbase ir Bitpanda CSV eksportai.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
+    <string name="portfolio_csv_import_too_large">Failas per didelis importuoti (daugiausia 16 MB ir %1$s eilučių). Eksportuok trumpesnius laikotarpius ir importuok juos vieną po kito.</string>
+    <string name="portfolio_csv_import_failed">Importuoti nepavyko – niekas neišsaugota. Bandyk dar kartą.</string>
+    <string name="portfolio_csv_import_locked">Importuoti negalima: išsaugotų duomenų šiuo metu perskaityti negalima. Paleisk programėlę iš naujo.</string>
+    <string name="portfolio_csv_import_withdrawals_title">Išėmimai – kur nukeliavo monetos?</string>
+    <string name="portfolio_csv_import_zone">Laikas be laiko juostos skaitomas kaip: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">Įrenginys (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">neįskaitoma data</string>
+    <string name="portfolio_csv_skip_bad_number">neįskaitomas skaičius</string>
+    <string name="portfolio_csv_skip_fee_exceeds">komisinis mokestis ≥ gautas kiekis</string>
+    <string name="portfolio_csv_skip_internal_move">perkėlimas tarp tavo paskyrų – nėra ko registruoti</string>
+    <string name="portfolio_csv_skip_missing">trūksta lauko</string>
+    <string name="portfolio_csv_skip_ambiguous">keli sandoriai tą pačią sekundę, kurių neįmanoma atskirti – įvesk juos ranka</string>
+    <string name="portfolio_csv_skip_not_crypto">ne kriptovaliuta</string>
+    <string name="portfolio_csv_skip_possible_duplicate">galbūt jau importuota (beveik toks pat sandoris) – patikrink ranka</string>
+    <string name="portfolio_csv_skip_two_fees">du komisiniai mokesčiai skirtingais vienetais – įvesk apsikeitimą ranka</string>
+    <string name="portfolio_csv_skip_unsupported">nepalaikomas tipas</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">Anuliuoti</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">Ištrinti %d šio importo transakciją? Ranka įvesti įrašai ir kiti importai lieka.</item>
+        <item quantity="few">Ištrinti %d šio importo transakcijas? Ranka įvesti įrašai ir kiti importai lieka.</item>
+        <item quantity="many">Ištrinti %d šio importo transakcijos? Ranka įvesti įrašai ir kiti importai lieka.</item>
+        <item quantity="other">Ištrinti %d šio importo transakcijų? Ranka įvesti įrašai ir kiti importai lieka.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">Anuliuoti importą?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">Pašalinta %d importuota transakcija</item>
+        <item quantity="few">Pašalintos %d importuotos transakcijos</item>
+        <item quantity="many">Pašalinta %d importuotos transakcijos</item>
+        <item quantity="other">Pašalinta %d importuotų transakcijų</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d transakcija</item>
+        <item quantity="few">%d transakcijos</item>
+        <item quantity="many">%d transakcijos</item>
+        <item quantity="other">%d transakcijų</item>
+    </plurals>
+    <string name="portfolio_imports_empty">Importų nėra</string>
+    <string name="portfolio_imports_title">Importai</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">tas pats transakcijos ID su kitu kiekiu – patikrink ranka</string>
+    <string name="portfolio_csv_skip_staking_unpaired">staking įrašas be priešingo įrašo – patikrink turimą turtą</string>
+    <string name="portfolio_csv_skip_amount_too_small">kiekis per mažas – išsaugant suapvalinamas iki 0</string>
+    <string name="portfolio_csv_skip_invalid_swap">apsikeitimas be tinkamos gautos monetos ar kiekio</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">Failas skaitomas iš naujo…</string>
+</resources>

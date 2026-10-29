@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">Alarma disparada</string>
+    <string name="a11y_collapsed">Replegat</string>
+    <string name="a11y_converted">aproximadament %1$s</string>
+    <string name="a11y_expanded">Desplegat</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">s\'obre al navegador</string>
+    <string name="a11y_favorite">Preferit</string>
+    <string name="a11y_in_watchlist">Ja és a la llista</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_exchange_unreachable">%1$s no accessible</string>
+    <string name="a11y_move_down">Mou cap avall</string>
+    <string name="a11y_move_up">Mou cap amunt</string>
+    <string name="a11y_note">nota: %1$s</string>
+    <string name="a11y_price">preu %1$s</string>
+    <string name="a11y_price_notification_off">Notificació de preu desactivada</string>
+    <string name="a11y_price_notification_on">Notificació de preu activada</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">Preu desactualitzat</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s a %2$s</string>
+    <string name="a11y_stale">desactualitzat, última actualització %1$s</string>
+    <string name="a11y_warning">Advertiment</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">%1$s en 24 hores</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">Variació de 24 hores no disponible</string>
+    <string name="a11y_change_down">baixa %1$s</string>
+    <string name="a11y_change_flat">sense canvis</string>
+    <string name="a11y_change_since_last">%1$s des de l\'última actualització</string>
+    <string name="a11y_change_since_last_none">Variació des de l\'última actualització no disponible</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">%1$s avui</string>
+    <string name="a11y_change_today_none">Variació d\'avui no disponible</string>
+    <string name="a11y_change_today_zone">%1$s des de mitjanit %2$s</string>
+    <string name="a11y_change_today_zone_none">Variació des de mitjanit %1$s no disponible</string>
+    <string name="a11y_change_up">puja %1$s</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Gràfic %1$s: de %2$s a %3$s, %4$s. Màxim %5$s, mínim %6$s.</string>
+    <string name="a11y_chart_empty">Gràfic: sense dades</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Cicle %1$s: %2$s des del halving, dia %3$d.</string>
+    <string name="a11y_cycle_bottom">Mínim %1$s el dia %2$d.</string>
+    <string name="a11y_cycle_double_bottom">Doble mínim %1$s el dia %2$d.</string>
+    <string name="a11y_cycle_double_top">Doble màxim %1$s el dia %2$d.</string>
+    <string name="a11y_cycle_top">Màxim %1$s el dia %2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">Escala de %1$s a %2$s: %3$d de 100</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, de mitjana %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d baixa</item>
+        <item quantity="many">%1$d baixen</item>
+        <item quantity="other">%1$d baixen</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="one">%1$d parell no té valor de 24 hores</item>
+        <item quantity="many">%1$d parells no tenen valor de 24 hores</item>
+        <item quantity="other">%1$d parells no tenen valor de 24 hores</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d parell no té valor d\'avui</item>
+        <item quantity="many">%1$d parells no tenen valor d\'avui</item>
+        <item quantity="other">%1$d parells no tenen valor d\'avui</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d parell puja</item>
+        <item quantity="many">%1$d parells pugen</item>
+        <item quantity="other">%1$d parells pugen</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="one">actualitzat per última vegada fa %1$d dia</item>
+        <item quantity="many">actualitzat per última vegada fa %1$d dies</item>
+        <item quantity="other">actualitzat per última vegada fa %1$d dies</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="one">actualitzat per última vegada fa %1$d hora</item>
+        <item quantity="many">actualitzat per última vegada fa %1$d hores</item>
+        <item quantity="other">actualitzat per última vegada fa %1$d hores</item>
+    </plurals>
+    <string name="a11y_updated_just_now">actualitzat ara mateix</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="one">actualitzat per última vegada fa %1$d minut</item>
+        <item quantity="many">actualitzat per última vegada fa %1$d minuts</item>
+        <item quantity="other">actualitzat per última vegada fa %1$d minuts</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">import amagat</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_entry">%1$s %2$s, val %3$s avui</string>
+    <string name="a11y_portfolio_entry_in">Entrada</string>
+    <string name="a11y_portfolio_entry_no_value">valor no disponible</string>
+    <string name="a11y_portfolio_entry_note">nota %1$s</string>
+    <string name="a11y_portfolio_entry_out">Sortida</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, %3$s de la cartera</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, %2$s de la cartera, %3$s</string>
+    <string name="a11y_portfolio_positions">Posicions més grans: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">Mostra els imports</string>
+    <string name="a11y_compare_chart">Comparació en percentatge, %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">%1$s des del màxim de 30 dies</string>
+    <string name="a11y_price_overlay">Superposició de preu: %1$s</string>
+</resources>

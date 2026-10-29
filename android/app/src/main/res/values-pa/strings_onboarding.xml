@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">ਅਲਰਟ ਲਗਾਓ – ਕੀਮਤ, ਪ੍ਰਤੀਸ਼ਤ, ਵਾਲੀਅਮ ਅਤੇ ਅਸਾਧਾਰਨ ਹਲਚਲ</string>
+    <string name="welcome_alert_q">ਕਦੋਂ ਸੂਚਿਤ ਕਰੀਏ?</string>
+    <string name="welcome_text">ਤੁਹਾਡੀਆਂ ਕੀਮਤਾਂ। ਤੁਹਾਡੇ ਅਲਰਟ। ਤੁਹਾਡਾ ਸੰਖੇਪ।\nਕੋਈ ਖਾਤਾ ਨਹੀਂ। ਕੋਈ ਇਸ਼ਤਿਹਾਰ ਨਹੀਂ। ਕੋਈ ਟਰੈਕਿੰਗ ਨਹੀਂ।</string>
+    <string name="welcome_understand">ਸਮਝੋ – ਇਸ ਵੇਲੇ ਕਿਸੇ ਕੀਮਤ ਦੇ ਨਾਲ ਹੋਰ ਕੀ ਹਿੱਲ ਰਿਹਾ ਹੈ</string>
+    <string name="welcome_understand_q">ਇਸਦੇ ਨਾਲ ਹੋਰ ਕੀ ਹਿੱਲ ਰਿਹਾ ਹੈ?</string>
+    <string name="welcome_watch">ਨਜ਼ਰ ਰੱਖੋ – ਤੁਹਾਡੇ ਕੌਇਨ, ਕੀਮਤਾਂ ਅਤੇ ਕੀਮਤ ਇਤਿਹਾਸ</string>
+    <string name="welcome_watch_q">ਕੀ ਹੋ ਰਿਹਾ ਹੈ?</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">ਵਾਚਲਿਸਟ ਵਿੱਚ ਜੋੜੋ (%1$d)</string>
+    <string name="starter_loading_prices">ਕੀਮਤਾਂ ਲੋਡ ਹੋ ਰਹੀਆਂ ਹਨ…</string>
+    <string name="starter_search_coin">ਕੋਈ ਹੋਰ ਕੌਇਨ ਖੋਜੋ</string>
+    <string name="starter_select_all">ਸਾਰੇ ਚੁਣੋ</string>
+    <string name="starter_select_none">ਕੋਈ ਨਹੀਂ</string>
+    <string name="starter_title">ਇਨ੍ਹਾਂ ਕੌਇਨਾਂ ਨਾਲ ਸ਼ੁਰੂ ਕਰੋ</string>
+    <string name="starter_watch_alarm_hint">ਕੀਮਤ ’ਤੇ ਨਜ਼ਰ ਰੱਖੋ, ਅਲਰਟ ਲਗਾਓ</string>
+
+    <!-- Start-Auswahl: Börse und Quote der Startpaare (Binance, bei Standort-Sperre Binance.US), z. B. «Kurse von Binance in USDT. …» -->
+    <string name="starter_source_text">%2$s ਵਿੱਚ %1$s ਤੋਂ ਕੀਮਤਾਂ। ਜੋ ਨਹੀਂ ਚਾਹੀਦਾ ਉਸਨੂੰ ਹਟਾਓ ਅਤੇ ਬਾਕੀ ਇੱਕੋ ਵਾਰ ਜੋੜੋ। ਹਰ ਕੌਇਨ ਦਾ ਐਕਸਚੇਂਜ ਅਤੇ ਜੋੜਾ ਬਦਲਿਆ ਜਾ ਸਕਦਾ ਹੈ।</string>
+</resources>

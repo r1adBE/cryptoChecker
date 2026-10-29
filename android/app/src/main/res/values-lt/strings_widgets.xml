@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">Fonas</string>
+    <string name="widget_configure_hint">Pasirink foną ir neskaidrumą. Spalva atitinka programėlę. Valdiklis rodo visą tavo stebimų sąrašą; bakstelėjus eilutę atidaroma programėlė.</string>
+    <string name="widget_configure_title">Nustatyti valdiklį</string>
+    <string name="widget_description">Rodo poros iš tavo stebimų sąrašo kainą.</string>
+    <string name="widget_empty">Stebimų sąraše dar nėra porų.</string>
+    <string name="widget_group_hint">Rodyti tik šios grupės poras.</string>
+    <string name="widget_kind_single">Viena moneta</string>
+    <string name="widget_opacity">Fono neskaidrumas: %1$s</string>
+    <string name="widget_pulse_description">Kas dabar išsiskiria rinkoje: antraštė, trumpa santrauka ir Bitcoin, Ethereum bei Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">pasenusi</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">pasenusi · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">Žvakės</string>
+    <string name="widget_chart_line">Linija</string>
+    <string name="widget_chart_range">Diagramos laikotarpis</string>
+    <string name="widget_chart_type">Diagramos tipas</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 metai</string>
+    <string name="widget_range_24h">24 val.</string>
+    <string name="widget_range_30d">30 dienų</string>
+    <string name="widget_range_7d">7 dienos</string>
+    <string name="widget_range_short_1y">1 m.</string>
+    <string name="widget_range_short_24h">24 val.</string>
+    <string name="widget_range_short_30d">30 d.</string>
+    <string name="widget_range_short_7d">7 d.</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">Būsena %1$s</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">Istorija netrukus</string>
+    <string name="widget_portfolio_description">Bendra tavo portfelio vertė ir šiandienos pokytis</string>
+    <string name="widget_portfolio_entries">Įrašai po monetomis</string>
+    <string name="widget_portfolio_entries_both">Abu</string>
+    <string name="widget_portfolio_entries_buys">Pirkimai</string>
+    <string name="widget_portfolio_entries_hint">Rodoma tik tada, jei po monetomis yra vietos. Pirkimai apima įnašus, pardavimai – išėmimus; pasirinkus „Abu“, eilutės susideda į turimą kiekį.</string>
+    <string name="widget_portfolio_entries_off">Išjungta</string>
+    <string name="widget_portfolio_entries_sells">Pardavimai</string>
+    <string name="widget_portfolio_display">Rodymas</string>
+    <string name="widget_portfolio_display_conversion">Tik perskaičiavimas</string>
+    <string name="widget_portfolio_display_conversion_usdt">Perskaičiavimas + USDT</string>
+    <string name="widget_portfolio_display_hint">USDT eilutė paslepiama, kai perskaičiavimo valiuta yra USD stabilioji moneta (pvz., USDC).</string>
+    <string name="widget_portfolio_display_usdt">Tik USDT</string>
+    <string name="widget_portfolio_empty">Pridėk pirkimų portfelio skirtuke</string>
+    <string name="widget_portfolio_list_hint">Atidaryk programėlę, kad čia būtų rodomos pozicijos.</string>
+    <string name="widget_portfolio_locked_hint">Užrakinta – atrakink programėlėje</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="one">be %1$d monetos</item>
+        <item quantity="few">be %1$d monetų</item>
+        <item quantity="many">be %1$d monetos</item>
+        <item quantity="other">be %1$d monetų</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ dar %1$d</item>
+        <item quantity="few">+ dar %1$d</item>
+        <item quantity="many">+ dar %1$d</item>
+        <item quantity="other">+ dar %1$d</item>
+    </plurals>
+    <string name="widget_portfolio_name">Portfelis</string>
+    <string name="widget_portfolio_off_hint">Įjunk skiltyje %1$s.</string>
+    <string name="widget_portfolio_off_short">Portfelis išjungtas</string>
+    <string name="widget_portfolio_off_title">Portfelis išjungtas</string>
+    <string name="widget_portfolio_partly_stale">kai kurios kainos pasenusios</string>
+    <string name="widget_portfolio_period">Laikotarpis</string>
+    <string name="widget_portfolio_period_without">%1$s be %2$s</string>
+    <string name="widget_portfolio_range_48h">48 val.</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: atidaryk portfelį</string>
+    <string name="widget_portfolio_range_short_48h">48 val.</string>
+    <string name="widget_portfolio_today_without">Šiandien be %1$s</string>
+    <string name="widget_portfolio_view">Vaizdas</string>
+    <string name="widget_portfolio_view_chart">Diagrama</string>
+    <string name="widget_portfolio_view_list">Sąrašas</string>
+    <string name="widget_portfolio_view_overview">Apžvalga</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">Pasirink porą</string>
+    <string name="single_widget_description">Rodo vieną monetą dideliu formatu su kaina, pokyčiu ir 24 valandų diagrama.</string>
+    <string name="single_widget_label">Crypto Checker – viena moneta</string>
+    <string name="single_widget_title">Nustatyti vienos monetos valdiklį</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">Pridėti</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">Pridėti valdiklį %1$s</string>
+    <string name="widgets_manual_text">Tavo pagrindinis ekranas negali pridėti valdiklių iš programėlės. Palaikyk tuščią pagrindinio ekrano vietą, pasirink „Valdikliai“ ir ieškok „Crypto Checker“.</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">Pridėk valdiklį rankiniu būdu</string>
+    <string name="widgets_sheet_title">Pridėti valdiklį</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS neleidžia programėlėms pačioms pridėti valdiklių. Tai užtrunka tik akimirką:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Galimi valdikliai</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Palaikyk tuščią pagrindinio ekrano vietą, kol programos ims kraipytis.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Viršuje bakstelėk „Redaguoti“ › „Pridėti valdiklį“ (senesnėse iOS versijose – „+“).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Ieškok „Crypto Checker“, pasirink valdiklį ir bakstelėk „Pridėti valdiklį“.</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">Atnaujinti – vėl galima po %1$d s</string>
+    <string name="settings_watch">Laikrodis</string>
+    <string name="settings_watch_hint">Monetos laikrodžio programai Wear OS (iki %1$d, kaina USDT). Į laikrodį per Google Play paslaugas siunčiamas tik šis sąrašas; kainas laikrodis gauna pats.</string>
+    <string name="settings_watch_mode_phone">Kaip telefone (mėgstamos ★)</string>
+    <string name="settings_watch_mode_own">Savas sąrašas</string>
+    <string name="settings_watch_own_title">Savas sąrašas: %1$d iš %2$d</string>
+    <string name="settings_watch_none">Mėgstamų dar nėra</string>
+
+    <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
+    <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">„Sąraše“ nėra USDT eilutės</string>
+    <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
+    <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">„Apžvalga“ vietoj to rodo 30 dienų</string>
+</resources>

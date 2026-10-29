@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">Mis liigub kaasa?</string>
+    <string name="why_all_values">Kõik väärtused ja allikad</string>
+    <string name="why_all_values_hint">Tähelepanek · Võimalik selgitus · Allikad</string>
+    <string name="why_details">Näita üksikasju</string>
+    <string name="why_details_hide">Peida üksikasjad</string>
+    <string name="why_disclaimer">Automaatne hinnang turuandmete põhjal: näitab, mis toimub samal ajal, mitte põhjuse tõestust.</string>
+    <string name="why_footer_short">Samaaegne ei tähenda põhjust · Ei ole investeerimisnõuanne</string>
+    <string name="why_no_data">Selle paari kohta pole Binance’i andmeid</string>
+    <string name="why_no_data_hint">Hind, maht ja volatiilsus pärinevad Binance’i tunniküünaldest.</string>
+    <string name="why_ref_alts">Altcoinid</string>
+    <string name="why_section_context">Võimalik selgitus</string>
+    <string name="why_section_observation">Tähelepanek</string>
+    <string name="why_title">Mis liigub kaasa?</string>
+    <string name="why_title_coin">Mis liigub koos mündiga %1$s?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">Lühidalt · Seis %1$s</string>
+    <string name="why_brief_label">Lühidalt:</string>
+    <string name="why_summary_against">Münt liigub turule vastu.</string>
+    <string name="why_summary_calm">Silmapaistvat liikumist pole: turg ja münt on rahulikud.</string>
+    <string name="why_summary_coin">Liigub ainult see münt – võib-olla midagi, mis puudutab ainult seda münti.</string>
+    <string name="why_summary_coin_volume">Liigub ainult see münt, suurema mahuga – võib-olla midagi, mis puudutab ainult seda münti.</string>
+    <string name="why_summary_longs">Futuurid: palju võimendusega pikki positsioone.</string>
+    <string name="why_summary_market">Liikumine langeb ajaliselt kokku kogu turuga.</string>
+    <string name="why_summary_market_volume">Liikumine langeb kokku suurema kauplemismahu ja laialt liikuva turuga.</string>
+    <string name="why_summary_peg_near">Hind on oma 1:1 sidumise lähedal.</string>
+    <string name="why_summary_peg_off">Hind kaldub märgatavalt oma 1:1 sidumisest kõrvale.</string>
+    <string name="why_summary_shorts">Futuurid: palju lühikesi positsioone.</string>
+    <string name="why_summary_thin">Liikumine on nõrk: selle taga on vähe mahtu.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">Turule vastu</string>
+    <string name="why_f_coin_only">Ainult see münt</string>
+    <string name="why_f_leader">Bitcoin turuliidrina</string>
+    <string name="why_f_leverage_balanced">Võimendus tasakaalus</string>
+    <string name="why_f_leverage_longs">Võimendus: palju pikki</string>
+    <string name="why_f_leverage_shorts">Võimendus: palju lühikesi</string>
+    <string name="why_f_market_calm">Rahulik turg</string>
+    <string name="why_f_market_wide">Kogu turg liigub</string>
+    <string name="why_factor_funding">Rahastamismäär</string>
+    <string name="why_factor_futures">Futuurid</string>
+    <string name="why_factor_market">Kogu turg</string>
+    <string name="why_factor_near_high">Tipu lähedal</string>
+    <string name="why_factor_near_low">Põhja lähedal</string>
+    <string name="why_factor_peg">Sidumine (1:1)</string>
+    <string name="why_factor_range3d">3 päeva vahemik</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">hinnanguline</string>
+    <string name="why_fn_funding_longs">paljud panustavad hinnatõusule</string>
+    <string name="why_fn_funding_neutral">neutraalne</string>
+    <string name="why_fn_funding_shorts">paljud panustavad hinnalangusele</string>
+    <string name="why_fn_high_at">30 päeva tipul</string>
+    <string name="why_fn_high_below">allpool 30 päeva tippu</string>
+    <string name="why_fn_leader_calm">Bitcoin on rahulik</string>
+    <string name="why_fn_leader_moves">Bitcoin liigub selgelt</string>
+    <string name="why_fn_low_above">ülalpool 30 päeva põhja</string>
+    <string name="why_fn_low_at">30 päeva põhjas</string>
+    <string name="why_fn_market_against">See münt liigub turule vastu</string>
+    <string name="why_fn_market_alone">Turg rahulik – see münt liigub omaette</string>
+    <string name="why_fn_market_calm">Turg on rahulik</string>
+    <string name="why_fn_market_lags">Turg liigub, see münt vaevu</string>
+    <string name="why_fn_market_moves">Turg liigub samas suunas</string>
+    <string name="why_fn_market_pulls">Turg liigub koos BTC-ga</string>
+    <string name="why_fn_oi_down">Avatud positsioonid vähenenud</string>
+    <string name="why_fn_oi_flat">Avatud positsioonid vaevu muutunud</string>
+    <string name="why_fn_oi_mixed">Avatud positsioonid ebaühtlased</string>
+    <string name="why_fn_oi_up">Avatud positsioonid kasvanud</string>
+    <string name="why_fn_peg_above">%1$s üle 1:1 sidumise</string>
+    <string name="why_fn_peg_below">%1$s alla 1:1 sidumise</string>
+    <string name="why_fn_peg_near">1:1 sidumise lähedal</string>
+    <string name="why_fn_range_above_low">alates 3 päeva põhjast</string>
+    <string name="why_fn_range_below_high">alates 3 päeva tipust</string>
+    <string name="why_fn_range_near_high">3 päeva tipu lähedal</string>
+    <string name="why_fn_range_near_low">3 päeva põhja lähedal</string>
+    <string name="why_fn_volatility_stronger">tugevam kui tavaliselt</string>
+    <string name="why_fn_volatility_tiny">absoluutselt väike (alla %1$s)</string>
+    <string name="why_fn_volatility_usual">nagu tavaliselt</string>
+    <string name="why_fn_volume_higher">suurem kui tavaliselt</string>
+    <string name="why_fn_volume_lower">väiksem kui tavaliselt</string>
+    <string name="why_fn_volume_usual">nagu tavaliselt</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">See münt %1$s, BTC %2$s 24 h jooksul — märgatavalt iseseisev liikumine.</string>
+    <string name="why_against_ref_text">See münt %1$s, %2$s %3$s 24 h jooksul — märgatavalt iseseisev liikumine.</string>
+    <string name="why_btc_independent">%1$s liigub praegu Bitcoinist sõltumatult.</string>
+    <string name="why_btc_tight">%1$s liigub praegu tihedalt koos Bitcoiniga.</string>
+    <string name="why_change_1h">1 h</string>
+    <string name="why_change_24h">24 h</string>
+    <string name="why_coin_only_text">%1$s 24 h jooksul, samal ajal kui turg on vaikne – võib-olla midagi, mis puudutab ainult seda münti.</string>
+    <string name="why_leverage_balanced_text">Futuuriturul pole pikkade ega lühikeste positsioonide kuhjumist.</string>
+    <string name="why_leverage_longs_text">Paljud panustavad laenatud rahaga hinnatõusule. Pikad positsioonid maksavad lühikestele — hinna langemisel on likvideerimiste oht suurem.</string>
+    <string name="why_leverage_shorts_text">Paljud panustavad laenatud rahaga hinnalangusele. Lühikesed positsioonid maksavad pikkadele – hinna tõusmisel on võimalik short squeeze.</string>
+    <string name="why_market_calm_text">See münt: %1$s 24 h jooksul. Ei turg ega münt liigu palju.</string>
+    <string name="why_market_leader_text">Suurima mündina liigub BTC tavaliselt ülejäänud turuga samas rütmis. ETH: %1$s 24 h jooksul.</string>
+    <string name="why_market_leader_text_no_eth">Suurima mündina liigub BTC tavaliselt ülejäänud turuga samas rütmis.</string>
+    <string name="why_market_similar_text">See münt: %1$s 24 h jooksul – samal ajal liigub turg samas suunas, kuigi vähem selgelt.</string>
+    <string name="why_market_wide_text">See münt: %1$s 24 h jooksul – samal ajal liigub kogu turg selgelt.</string>
+    <string name="why_open_interest_change">Avatud positsioonid %1$s pärast viimast kontrolli.</string>
+    <string name="why_peg_text">Stabiilne münt: võrreldes 1:1 sidumisega noteeringuvaluutaga, kõrvalekalle %1$s.</string>
+    <string name="why_sentiment_text">Kogu krüptoturu Fear &amp; Greed indeks, %1$s võrreldes eilsega.</string>
+    <string name="why_sentiment_text_no_change">Kogu krüptoturu Fear &amp; Greed indeks.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="one">langeb juba %1$d tund</item>
+        <item quantity="other">langeb juba %1$d tundi</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="one">tõuseb juba %1$d tund</item>
+        <item quantity="other">tõuseb juba %1$d tundi</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="one">stabiilne juba %1$d tund</item>
+        <item quantity="other">stabiilne juba %1$d tundi</item>
+    </plurals>
+    <string name="why_volatility_high_text">Viimane tund: %1$s — mõõdetuna viimase 24 tunni tavapärase tunnikõikumisega.</string>
+    <string name="why_volatility_normal_text">Viimane tund: %1$s — tavapärastes piirides.</string>
+    <string name="why_volatility_tiny_text">Viimane tund: %1$s — selle mündi jaoks ebatavaline, kuid absoluutselt väike.</string>
+    <string name="why_volume_estimated_text">Hinnanguline: see allikas ei paku käivet, seega võrreldakse kaubeldud müntide koguseid.</string>
+    <string name="why_volume_high_text">Viimase tunni jooksul kaubeldi palju rohkem kui tavaliselt – liikumisega kaasneb suur maht.</string>
+    <string name="why_volume_low_text">Liikumise taga on vähe kauplemist – sellised liikumised on sageli vähem stabiilsed.</string>
+    <string name="why_volume_normal_text">Viimase tunni kauplemine vastab viimasele 24 tunnile.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">kõrgenenud</string>
+    <string name="why_dot_neutral">neutraalne</string>
+    <string name="why_dot_supports">sobib liikumisega</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">Andmete seis %1$s</string>
+    <string name="why_fresh_breadth">Turu laius: %1$s · %2$s</string>
+    <string name="why_fresh_candles">Küünlad: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">Futuurid: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="one">avatud positsioone võrreldi %1$d tunni taguse seisuga</item>
+        <item quantity="other">avatud positsioone võrreldi %1$d tunni taguse seisuga</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="one">avatud positsioone võrreldi %1$d minuti taguse seisuga</item>
+        <item quantity="other">avatud positsioone võrreldi %1$d minuti taguse seisuga</item>
+    </plurals>
+    <string name="why_fresh_today">täna</string>
+    <string name="why_fresh_yesterday">eile</string>
+    <string name="why_source_fallback">%1$s (varuallikas)</string>
+    <string name="why_source_reference">%1$s (võrdlus)</string>
+    <string name="why_sources">Allikad: börsi tunniküünlad (enamasti Binance), börside futuuriandmed, Fear &amp; Greed saidilt alternative.me.</string>
+    <string name="why_sources_list">Allikad: %1$s.</string>
+    <string name="why_src_breadth">%1$s (turu laius)</string>
+    <string name="why_src_candles">%1$s (küünlad)</string>
+    <string name="why_src_comparison">%1$s (turu võrdlus)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (futuurid)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Rahastamismäär</string>
+    <string name="factor_spoken_volatility">%1$s korda tugevam kõikumine kui tavaliselt</string>
+    <string name="factor_spoken_volume">%1$s korda rohkem kui tavaliselt</string>
+    <string name="factor_volatility">Volatiilsus (1 h)</string>
+    <string name="factor_volume">Maht</string>
+</resources>

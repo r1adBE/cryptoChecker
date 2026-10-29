@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">троши више података и батерије</string>
+    <string name="update_mode_live">Уживо док је отворено</string>
+    <string name="update_mode_live_hint">Где берза нуди цену уживо: одмах док је списак праћења отворен. Иначе при следећем преузимању. Затворено: не чешће од сваких %1$s, често касније.</string>
+    <string name="update_mode_live_hint_ios">Где берза нуди цену уживо: одмах док је списак праћења отворен. Иначе при следећем преузимању. Затворено: када iOS то дозволи, понекад у размацима од неколико сати. Ако апликацију затвориш превлачењем, iOS зауставља те провере док је поново не отвориш.</string>
+    <string name="update_mode_recommended">препоручено</string>
+    <string name="update_mode_sparsam">Штедљиво</string>
+    <string name="update_mode_sparsam_hint">Када је апликација затворена, не чешће од сваких %1$s, често касније (аларми, виџети). Отворена: сваки пут када је отвориш.</string>
+    <string name="update_mode_sparsam_hint_ios">Када је апликација затворена, iOS одлучује када проверити (аларми, виџети), понекад у размацима од неколико сати. Отворена: сваки пут када је отвориш.</string>
+    <string name="update_mode_title">Учесталост ажурирања</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">Освежавање прекинуто</string>
+    <string name="refresh_sheet_alarms">Аларми</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d оглашен</item>
+        <item quantity="few">%1$d оглашена</item>
+        <item quantity="other">%1$d оглашених</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">Све ажурирано</string>
+    <string name="refresh_sheet_app_start">Покретање апликације</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">скупни упит %1$s · %2$d цена</item>
+        <item quantity="few">скупни упит %1$s · %2$d цене</item>
+        <item quantity="other">скупни упит %1$s · %2$d цена</item>
+    </plurals>
+    <string name="refresh_sheet_database">База података</string>
+    <string name="refresh_sheet_exchange_unreachable">Берза %1$s није доступна</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
+        <item quantity="one">%1$d берза није доступна</item>
+        <item quantity="few">%1$d берзе нису доступне</item>
+        <item quantity="other">%1$d берзи није доступно</item>
+    </plurals>
+    <string name="refresh_sheet_network">Мрежа</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d обавештење о цени</item>
+        <item quantity="few">%1$d обавештења о цени</item>
+        <item quantity="other">%1$d обавештења о цени</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d пар</item>
+        <item quantity="few">%1$d пара</item>
+        <item quantity="other">%1$d парова</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d пар није ажуриран</item>
+        <item quantity="few">%1$d пара нису ажурирана</item>
+        <item quantity="other">%1$d парова није ажурирано</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d од %1$d пара</item>
+        <item quantity="few">%2$d од %1$d пара</item>
+        <item quantity="other">%2$d од %1$d парова</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">паузирано до %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">паузирано до %1$s (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">нема података</string>
+    <string name="refresh_sheet_reason_offline">нема везе</string>
+    <string name="refresh_sheet_reason_rate_limit">превише упита</string>
+    <string name="refresh_sheet_reason_server">грешка сервера</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">истекло време</string>
+    <string name="refresh_sheet_reason_unavailable">берза није доступна</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s секунди</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_exchanges">Берзе</string>
+    <string name="refresh_sheet_section_steps">Ток</string>
+    <string name="refresh_sheet_status_failed">није ажурирано</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">све ажурирано</string>
+    <string name="refresh_sheet_status_partial">делимично ажурирано</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Чекање на почетак</string>
+    <string name="refresh_sheet_widgets">Виџети</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">скупни упит %1$s (неуспешно)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d грешка</item>
+        <item quantity="few">%1$d грешке</item>
+        <item quantity="other">%1$d грешака</item>
+    </plurals>
+    <string name="refresh_report_live">Уживо: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d се више не тргује</item>
+        <item quantity="few">%1$d се више не тргују</item>
+        <item quantity="other">%1$d се више не тргује</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d појединачно</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">Неуспешно</string>
+    <string name="check_result_ok">У реду</string>
+    <string name="check_result_partial">Делимично</string>
+    <string name="check_result_skipped">Прескочено</string>
+    <string name="check_trigger_bgtask">Позадина</string>
+    <string name="check_trigger_exact">У тачно време</string>
+    <string name="check_trigger_foreground">Апликација</string>
+    <string name="check_trigger_widget">Виџет</string>
+    <string name="check_trigger_widget_ios">Виџет · цене и аларми цена</string>
+    <string name="check_trigger_worker">Позадина</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android може одлагати провере – постави батерију на „Неограничено“</string>
+    <string name="battery_later">Касније</string>
+    <string name="battery_message">Android одлаже рад у позадини ради уштеде енергије — цене и виџети тада могу бити стари и неколико сати. Ако употребу батерије поставиш на неограничено, остају ажурни. То можеш променити у било којем тренутку у подешавањима Android-а.</string>
+    <string name="battery_open_settings">Отвори подешавања батерије</string>
+    <string name="battery_steps">У информацијама о апликацији додирни Батерија (или Употреба батерије апликације) и изабери Неограничено.</string>
+    <string name="battery_title">Одржавај цене ажурнима</string>
+    <string name="ios_background_refresh_off">Освежавање у позадини искључено је за ову апликацију. Без њега се аларми проверавају само док је апликација отворена.</string>
+    <string name="ios_low_power_mode">Укључен је режим ниске потрошње. iOS ретко проверава у позадини, па аларми могу каснити.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Порука берзе: %1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">Складиште је још закључано – нови покушај за %1$d с</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="one">Складиште је још закључано – нови покушај за %1$d секунду</item>
+        <item quantity="few">Складиште је још закључано – нови покушај за %1$d секунде</item>
+        <item quantity="other">Складиште је још закључано – нови покушај за %1$d секунди</item>
+    </plurals>
+    <string name="watchlist_retry_short">Нови покушај за %1$s</string>
+    <string name="widget_retry_at">Нови покушај у %1$s</string>
+    <string name="refresh_sheet_wait_attempt">Покушај %1$d – шифровано складиште није било спремно при првом</string>
+</resources>

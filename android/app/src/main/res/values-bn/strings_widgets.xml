@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">পটভূমি</string>
+    <string name="widget_configure_hint">পটভূমি ও অস্বচ্ছতা বেছে নিন। রং অ্যাপ অনুসরণ করে। উইজেট আপনার পুরো ওয়াচলিস্ট দেখায়; অ্যাপ খুলতে একটি সারিতে ট্যাপ করুন।</string>
+    <string name="widget_configure_title">উইজেট সেট আপ করুন</string>
+    <string name="widget_description">আপনার ওয়াচলিস্টের একটি পেয়ারের দাম দেখায়।</string>
+    <string name="widget_empty">ওয়াচলিস্টে এখনো কোনো পেয়ার নেই।</string>
+    <string name="widget_group_hint">শুধু এই গ্রুপের পেয়ার দেখান।</string>
+    <string name="widget_kind_single">একক কয়েন</string>
+    <string name="widget_opacity">পটভূমির অস্বচ্ছতা: %1$s</string>
+    <string name="widget_pulse_description">এই মুহূর্তে বাজারে কী চোখে পড়ছে: শিরোনাম, সংক্ষিপ্ত সারাংশ এবং Bitcoin, Ethereum ও Solana।</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">পুরোনো</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">পুরোনো · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">ক্যান্ডেল</string>
+    <string name="widget_chart_line">লাইন</string>
+    <string name="widget_chart_range">চার্টের পরিসর</string>
+    <string name="widget_chart_type">চার্টের ধরন</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 বছর</string>
+    <string name="widget_range_24h">24 ঘণ্টা</string>
+    <string name="widget_range_30d">30 দিন</string>
+    <string name="widget_range_7d">7 দিন</string>
+    <string name="widget_range_short_1y">1 ব.</string>
+    <string name="widget_range_short_24h">24 ঘ.</string>
+    <string name="widget_range_short_30d">30 দি.</string>
+    <string name="widget_range_short_7d">7 দি.</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">%1$s অনুযায়ী</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">ইতিহাস শীঘ্রই আসছে</string>
+    <string name="widget_portfolio_description">আপনার পোর্টফোলিওর মোট মূল্য ও আজকের পরিবর্তন</string>
+    <string name="widget_portfolio_entries">কয়েনের নিচে এন্ট্রি</string>
+    <string name="widget_portfolio_entries_both">উভয়</string>
+    <string name="widget_portfolio_entries_buys">কেনা</string>
+    <string name="widget_portfolio_entries_hint">কয়েনের নিচে জায়গা থাকলেই কেবল দেখায়। কেনার মধ্যে জমা, বেচার মধ্যে উত্তোলন অন্তর্ভুক্ত; «উভয়» বেছে নিলে লাইনগুলোর যোগফল হোল্ডিংয়ের সমান।</string>
+    <string name="widget_portfolio_entries_off">বন্ধ</string>
+    <string name="widget_portfolio_entries_sells">বেচা</string>
+    <string name="widget_portfolio_display">প্রদর্শন</string>
+    <string name="widget_portfolio_display_conversion">শুধু রূপান্তর</string>
+    <string name="widget_portfolio_display_conversion_usdt">রূপান্তর + USDT</string>
+    <string name="widget_portfolio_display_hint">রূপান্তর মুদ্রা USD স্টেবলকয়েন হলে (যেমন USDC) USDT লাইন লুকানো থাকে।</string>
+    <string name="widget_portfolio_display_usdt">শুধু USDT</string>
+    <string name="widget_portfolio_empty">পোর্টফোলিও ট্যাবে কেনা যোগ করুন</string>
+    <string name="widget_portfolio_list_hint">এখানে আপনার পজিশন দেখাতে অ্যাপ খুলুন।</string>
+    <string name="widget_portfolio_locked_hint">লক করা – অ্যাপে আনলক করুন</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="one">%1$dটি কয়েন ছাড়া</item>
+        <item quantity="other">%1$dটি কয়েন ছাড়া</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ আরও %1$dটি</item>
+        <item quantity="other">+ আরও %1$dটি</item>
+    </plurals>
+    <string name="widget_portfolio_name">পোর্টফোলিও</string>
+    <string name="widget_portfolio_off_hint">%1$s-এ এটি চালু করুন।</string>
+    <string name="widget_portfolio_off_short">পোর্টফোলিও বন্ধ</string>
+    <string name="widget_portfolio_off_title">পোর্টফোলিও বন্ধ আছে</string>
+    <string name="widget_portfolio_partly_stale">কিছু দাম পুরোনো</string>
+    <string name="widget_portfolio_period">সময়কাল</string>
+    <string name="widget_portfolio_period_without">%2$s ছাড়া %1$s</string>
+    <string name="widget_portfolio_range_48h">48 ঘণ্টা</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: পোর্টফোলিও খুলুন</string>
+    <string name="widget_portfolio_range_short_48h">48 ঘ.</string>
+    <string name="widget_portfolio_today_without">%1$s ছাড়া আজ</string>
+    <string name="widget_portfolio_view">ভিউ</string>
+    <string name="widget_portfolio_view_chart">চার্ট</string>
+    <string name="widget_portfolio_view_list">তালিকা</string>
+    <string name="widget_portfolio_view_overview">সংক্ষিপ্ত চিত্র</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">একটি পেয়ার বেছে নিন</string>
+    <string name="single_widget_description">একটি কয়েন বড় করে দাম, পরিবর্তন ও 24 ঘণ্টার চার্টসহ দেখায়।</string>
+    <string name="single_widget_label">Crypto Checker – একক কয়েন</string>
+    <string name="single_widget_title">একক উইজেট সেট আপ করুন</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">যোগ করুন</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">%1$s উইজেট যোগ করুন</string>
+    <string name="widgets_manual_text">আপনার হোম স্ক্রিন অ্যাপ থেকে উইজেট যোগ করতে পারে না। হোম স্ক্রিনের একটি খালি জায়গায় চেপে ধরুন, “উইজেট” বেছে নিন এবং “Crypto Checker” খুঁজুন।</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">উইজেটটি নিজে যোগ করুন</string>
+    <string name="widgets_sheet_title">একটি উইজেট যোগ করুন</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS অ্যাপকে নিজে উইজেট যোগ করতে দেয় না। এক মুহূর্তের কাজ:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">উপলব্ধ উইজেট</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">হোম স্ক্রিনের একটি খালি জায়গায় চেপে ধরুন যতক্ষণ না অ্যাপগুলো নড়তে থাকে।</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">উপরে “সম্পাদনা” › “উইজেট যোগ করুন”-এ ট্যাপ করুন (বা পুরোনো iOS সংস্করণে “+”)।</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">“Crypto Checker” খুঁজুন, একটি উইজেট বেছে নিন এবং “উইজেট যোগ করুন”-এ ট্যাপ করুন।</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">রিফ্রেশ – %1$d সে. পরে আবার সম্ভব</string>
+    <string name="settings_watch">ঘড়ি</string>
+    <string name="settings_watch_hint">Wear OS-এর ঘড়ি অ্যাপের জন্য কয়েন (সর্বোচ্চ %1$dটি, USDT-এর বিপরীতে দাম)। শুধু এই তালিকাটি Google Play services-এর মাধ্যমে ঘড়িতে যায়; ঘড়ি নিজেই দাম আনে।</string>
+    <string name="settings_watch_mode_phone">ফোনের মতো (প্রিয় ★)</string>
+    <string name="settings_watch_mode_own">নিজস্ব তালিকা</string>
+    <string name="settings_watch_own_title">নিজস্ব তালিকা: %2$dটির মধ্যে %1$dটি</string>
+    <string name="settings_watch_none">এখনো কোনো প্রিয় নেই</string>
+
+    <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
+    <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">“তালিকা”-তে USDT লাইন নেই</string>
+    <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
+    <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">“সংক্ষিপ্ত চিত্র” এর বদলে 30 দিন দেখায়</string>
+</resources>

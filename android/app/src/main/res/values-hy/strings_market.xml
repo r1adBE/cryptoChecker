@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="one">%d րոպե առաջ</item>
+        <item quantity="other">%d րոպե առաջ</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">այսօր %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed, Bitcoin-ի ցուցանիշներ, գերակայություն, հալվինգ</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">Լրացուցիչ շուկայական տվյալներ</string>
+    <string name="market_phase_trend_failed">Գնային տվյալները հասանելի չեն</string>
+    <string name="market_plain_direction_down_clear">Բոլոր կրիպտոարժույթների ընդհանուր արժեքը հստակ ցածր է, քան 24 ժամ առաջ (%1$s)։</string>
+    <string name="market_plain_direction_down_slight">Բոլոր կրիպտոարժույթների ընդհանուր արժեքը մի փոքր ցածր է, քան 24 ժամ առաջ (%1$s)։</string>
+    <string name="market_plain_direction_flat">Բոլոր կրիպտոարժույթների ընդհանուր արժեքը 24 ժամում գրեթե չի փոխվել (%1$s)։</string>
+    <string name="market_plain_direction_up_clear">Բոլոր կրիպտոարժույթների ընդհանուր արժեքը հստակ բարձր է, քան 24 ժամ առաջ (%1$s)։</string>
+    <string name="market_plain_direction_up_slight">Բոլոր կրիպտոարժույթների ընդհանուր արժեքը մի փոքր բարձր է, քան 24 ժամ առաջ (%1$s)։</string>
+    <string name="market_plain_footnote">Նկարագրում է վերջին 24 ժամը – ոչ կանխատեսում, ոչ ներդրումային խորհուրդ։</string>
+    <string name="market_plain_mood_extreme_fear">Ներդրողները հիմա շատ վախեցած են՝ տրամադրության ինդեքսը (Fear &amp; Greed) %1$d է 100-ից։</string>
+    <string name="market_plain_mood_extreme_greed">Ներդրողները հիմա շատ ագահ են՝ տրամադրության ինդեքսը (Fear &amp; Greed) %1$d է 100-ից։</string>
+    <string name="market_plain_mood_fear">Ներդրողները ավելի շուտ վախեցած են՝ տրամադրության ինդեքսը (Fear &amp; Greed) %1$d է 100-ից։</string>
+    <string name="market_plain_mood_greed">Ներդրողները ավելի շուտ ագահ են՝ տրամադրության ինդեքսը (Fear &amp; Greed) %1$d է 100-ից։</string>
+    <string name="market_plain_mood_neutral">Ներդրողների տրամադրությունը հավասարակշռված է՝ տրամադրության ինդեքսը (Fear &amp; Greed) %1$d է 100-ից։</string>
+    <string name="market_plain_standout_above_btc">%1$s-ն աչքի է ընկնում՝ %2$s 24 ժամում, Bitcoin-ից (%3$s) զգալիորեն բարձր։</string>
+    <string name="market_plain_standout_against_btc">%1$s-ն աչքի է ընկնում՝ %2$s 24 ժամում, մինչդեռ Bitcoin-ը գնաց հակառակ ուղղությամբ (%3$s)։</string>
+    <string name="market_plain_standout_below_btc">%1$s-ն աչքի է ընկնում՝ %2$s 24 ժամում, Bitcoin-ից (%3$s) զգալիորեն ցածր։</string>
+    <string name="market_plain_standout_futures_down">%1$s-ն աչքի է ընկնում՝ անսովոր շատ ֆյուչերս թրեյդերներ խաղադրույք են անում գնի անկման վրա։</string>
+    <string name="market_plain_standout_futures_up">%1$s-ն աչքի է ընկնում՝ անսովոր շատ ֆյուչերս թրեյդերներ խաղադրույք են անում գնի աճի վրա։</string>
+    <string name="market_plain_standout_quiet">Հիմա ոչ մի կոին առանձնապես աչքի չի ընկնում։</string>
+    <string name="market_plain_standout_volume">%1$s-ն աչքի է ընկնում՝ սովորականից մոտ %2$s անգամ ավելի շատ առևտուր։</string>
+    <string name="market_plain_title">Համառոտ</string>
+    <string name="market_section_collapse">Թաքցնել %1$s</string>
+    <string name="market_section_context">Տրամադրություն &amp; ցիկլ</string>
+    <string name="market_section_data">Շուկայական տվյալներ</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">Ցույց տալ %1$s</string>
+    <string name="market_section_now">Հենց հիմա</string>
+    <string name="market_source">Տվյալներ՝ Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="exchange_unavailable_error">Բորսան հասանելի չէ</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">Տեղեկություն՝ %1$s</string>
+    <string name="market_info_alt_season_source">Օրական գներ՝ Binance · վերահաշվարկվում է մոտ 3 ժամը մեկ</string>
+    <string name="market_info_alt_season_what">Հաշվում է, թե մոտ 20 խոշոր ալթքոիններից (օր.՝ Ethereum, Solana, XRP) քանիսն են վերջին 90 օրում Bitcoin-ից լավ արդյունք ցույց տվել։ Արժեքը դրանց մասնաբաժինն է՝ 0-ից 100։</string>
+    <string name="market_info_coin_source">Գներ՝ Binance կամ Bybit · վերաբեռնվում է մոտ 15 րոպեն մեկ</string>
+    <string name="market_info_dominance_how">Եթե գերակայությունն աճում է, Bitcoin-ն ավելի լավ է, քան շուկայի մնացած մասը. եթե նվազում է, մյուս կոիններն են կշիռ ստանում։ Ստեյբլքոիններն էլ են հաշվվում՝ եթե դրանց արժեքն աճում է, Bitcoin-ի մասնաբաժինը նվազում է, նույնիսկ երբ Bitcoin-ի գինը նույնն է մնում։</string>
+    <string name="market_info_dominance_source">Աղբյուր՝ CoinGecko · վերաբեռնվում է մոտ 30 րոպեն մեկ</string>
+    <string name="market_info_dominance_what">Bitcoin-ի մասնաբաժինը բոլոր կրիպտոարժույթների ընդհանուր արժեքում (շուկայական կապիտալացում)։ Դրա տակ Ethereum-ի մասնաբաժինն է։</string>
+    <string name="market_info_fear_greed_how">25-ից ցածրը նշանակում է ծայրահեղ վախ, 75-ից բարձրը՝ ծայրահեղ ագահություն, մոտ 50-ը՝ չեզոք։ Բացված վիճակում քարտը ցույց է տալիս երեկվա, մեկ շաբաթ և մեկ ամիս առաջվա արժեքները։ Գնման կամ վաճառքի ազդանշան չէ։</string>
+    <string name="market_info_fear_greed_source">Աղբյուր՝ alternative.me · նոր արժեք օրը մեկ անգամ</string>
+    <string name="market_info_fear_greed_what">Կրիպտո շուկայի տրամադրության ինդեքս՝ 0-ից 100։ alternative.me-ն այն հաշվարկում է մի քանի տվյալներից, այդ թվում՝ գնի տատանումներից, առևտրի ծավալից, սոցիալական ցանցերից և Bitcoin-ի գերակայությունից։</string>
+    <string name="market_info_gas_how">Ավելի բարձր արժեքները նշանակում են, որ ցանցը զբաղված է, և փոխանցումներն ավելի թանկ են։ Դանդաղ, սովորական և արագ՝ միջնորդավճարներ ավելի ուշ կամ ավելի արագ հաստատման համար։ Բացված վիճակում քարտը ցույց է տալիս պարզ փոխանցման մոտավոր արժեքը։</string>
+    <string name="market_info_gas_source">Հանրային RPC հանգույցներ, mempool.space · վերաբեռնվում է ամեն րոպե</string>
+    <string name="market_info_gas_what">Որքան է հիմա արժենում գործարքը յուրաքանչյուր ցանցում։ Ethereum-ում և նմանատիպ ցանցերում՝ gwei-ով (ETH-ի մեկ միլիարդերորդը gas-ի մեկ միավորի համար), Bitcoin-ում՝ sat/vB-ով (սատոշի գործարքի մեկ վիրտուալ բայթի համար)։</string>
+    <string name="market_info_halving_source">Ամսաթիվ՝ բլոկի բարձրությունից և բլոկի միջին ժամանակից (mempool.space), այլապես՝ ըստ օրացույցի · գնի պատմություն՝ Coin Metrics, Binance, վերաբեռնվում է 12 ժամը մեկ</string>
+    <string name="market_info_halving_what">Հալվինգի ժամանակ նոր Bitcoin բլոկի համար մայներների ստացած պարգևը կիսով չափ կրճատվում է։ Դա տեղի է ունենում յուրաքանչյուր 210,000 բլոկը մեկ, մոտավորապես չորս տարին մեկ։ Դրանից հետո օրական ստեղծվում է երկու անգամ ավելի քիչ նոր բիթքոին։</string>
+    <string name="market_info_how">Ինչպես կարդալ</string>
+    <string name="market_info_macro_how">Նշումը հայտնվում է միայն, երբ նման ամսաթիվը այսօր է կամ վաղը։ Հրապարակման շուրջ գները հաճախ սովորականից ավելի են տատանվում։ Հավելվածը ցույց է տալիս միայն ամսաթիվը, ոչ թե թվերը։</string>
+    <string name="market_info_macro_source">Օրացույց հավելվածի կայքից · բեռնվում է օրը մեկ անգամ</string>
+    <string name="market_info_macro_what">ԱՄՆ-ի կարևոր տնտեսական տվյալների ամսաթվեր՝ գնաճ (CPI, PCE), արտադրողների գներ (PPI), աշխատաշուկայի զեկույց և ԱՄՆ Դաշնային պահուստային համակարգի տոկոսադրույքի որոշումներ։ Նման թվերը հաճախ շարժում են նաև կրիպտո գները։</string>
+    <string name="market_info_no_advice">Ներդրումային խորհուրդ չէ։</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · գները՝ ամեն ժամ, on-chain արժեքները վերաբեռնվում են 12 ժամը մեկ</string>
+    <string name="market_info_pulse_how">Վերնագիրը նշում է ուղղությունը. մանրամասների համար բացիր քարտը։ Լայն շարժումը նշանակում է, որ խոշոր կոինների մեծ մասը շարժվում է նույն ուղղությամբ։ Լծակային տրամադրության լավատեսությունը նշանակում է, որ շատ թրեյդերներ լծակով խաղադրույք են անում գնի աճի վրա՝ չափված Bitcoin ֆյուչերսների ֆանդինգի դրույքով։ Ակնթարթային պատկեր, ոչ կանխատեսում։</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · վերաբեռնվում է մոտ 5 րոպեն մեկ</string>
+    <string name="market_info_pulse_what">Վերջին 24 ժամվա շուկայի կարճ ամփոփում՝ ինչպես են շարժվում Bitcoin-ը, Ethereum-ը և Solana-ն, ամենամեծ կոիններից քանիսն են աճում կամ նվազում, որքան Bitcoin է առևտրվում հիմա և ինչպիսին է լծակային տրամադրությունը (չափված Bitcoin ֆյուչերսների ֆանդինգի դրույքով)։</string>
+    <string name="market_info_totals_how">Աջ կողմում ընդհանուր արժեքի 24-ժամյա փոփոխությունն է։ Բարձր ծավալը նշանակում է, որ շատ է առևտրվում – այն չի ասում, թե որ ուղղությամբ։ Ցուցադրվում է փոխարկման արժույթով, որտեղ հնարավոր է, այլապես՝ ԱՄՆ դոլարով։</string>
+    <string name="market_info_totals_source">Բոլոր կոինները · CoinGecko · վերաբեռնվում է մոտ 30 րոպեն մեկ</string>
+    <string name="market_info_totals_what">Բոլոր կրիպտոարժույթների ընդհանուր արժեքը (շուկայական կապիտալացում՝ գինը բազմապատկած շրջանառվող առաջարկով, գումարված բոլոր կոինների համար) և վերջին 24 ժամվա առևտրի ծավալը։</string>
+    <string name="market_info_unusual_how">Յուրաքանչյուր կոին ցույց է տալիս իր ամենաուշագրավ դիտարկումը, աջ կողմում՝ 24-ժամյա փոփոխությունը։ 2× ծավալը նշանակում է սովորականից կրկնակի շրջանառություն։ Ուշագրավը չի նշանակում ո՛չ լավ, ո՛չ վատ։</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · վերաբեռնվում է մոտ 10 րոպեն մեկ</string>
+    <string name="market_info_unusual_what">Մինչև հինգ կոին մոտ 30 ամենամեծերից (առանց ստեյբլքոինների), որոնք այսօր անսովոր են իրենց պահում՝ Bitcoin-ից շատ ավելի ուժեղ կամ թույլ, շուկայի ուղղությանը հակառակ, անսովոր բարձր առևտրի ծավալով կամ ուշագրավ ֆանդինգի դրույքով։</string>
+    <string name="market_info_what">Ի՞նչ է սա</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">Շուկայական կապ.</string>
+    <string name="market_cap_source">Բոլոր կոինները · CoinGecko</string>
+    <string name="market_cap_title">Կրիպտո շուկա</string>
+    <string name="market_volume_label">Ծավալ 24ժ</string>
+
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">Մանրամասներ</string>
+    <string name="pulse_disclaimer">Կանխատեսում չէ · Ներդրումային խորհուրդ չէ</string>
+    <string name="pulse_less">Ցույց տալ ավելի քիչ</string>
+    <string name="pulse_now_title">Կրիպտո զարկերակ</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">Փոփոխություն 24 ժամում</string>
+    <string name="pulse_section_factors">Գործոններ</string>
+    <string name="pulse_section_market">Շուկան այսօր</string>
+    <string name="pulse_unavailable">Շուկայական տվյալները հիմա հասանելի չեն</string>
+    <string name="pulse_updated">Առ %1$s</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">Հանգիստ շուկա</string>
+    <string name="pulse_headline_down">Լայն թուլություն</string>
+    <string name="pulse_headline_mixed">Խառը պատկեր</string>
+    <string name="pulse_headline_up">Լայն ուժ</string>
+    <string name="pulse_lead_alts_stronger">Ալթքոիններն ավելի ուժեղ են, քան Bitcoin-ը։</string>
+    <string name="pulse_lead_broad_down">Շուկան լայնորեն նվազում է։</string>
+    <string name="pulse_lead_broad_up">Շուկան լայնորեն աճում է։</string>
+    <string name="pulse_lead_btc_leads">Bitcoin-ն ամենաշատն է աճում։</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin-ն ավելի ուժեղ է, քան ալթքոինները։</string>
+    <string name="pulse_lead_calm">Շուկան գրեթե չի շարժվում։</string>
+    <string name="pulse_lead_drift_down">Շուկան դանդաղ իջնում է։</string>
+    <string name="pulse_lead_drift_up">Շուկան դանդաղ բարձրանում է։</string>
+    <string name="pulse_lead_mixed">Խոշոր կոինները շարժվում են տարբեր ուղղություններով։</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">Լծակային տրամադրությունը լավատեսական է։</string>
+    <string name="pulse_detail_fund_negative">Լծակային տրամադրությունը հոռետեսական է։</string>
+    <string name="pulse_detail_fund_neutral">Լծակային տրամադրությունը չեզոք է։</string>
+    <string name="pulse_detail_vol_above">Ծավալը սովորականից %1$s բարձր է։</string>
+    <string name="pulse_detail_vol_above_fund_high">Ծավալը սովորականից %1$s բարձր է, լծակային տրամադրությունը լավատեսական է։</string>
+    <string name="pulse_detail_vol_above_fund_negative">Ծավալը սովորականից %1$s բարձր է, լծակային տրամադրությունը հոռետեսական է։</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Ծավալը սովորականից %1$s բարձր է, լծակային տրամադրությունը չեզոք է։</string>
+    <string name="pulse_detail_vol_below">Ծավալը սովորականից %1$s ցածր է։</string>
+    <string name="pulse_detail_vol_below_fund_high">Ծավալը սովորականից %1$s ցածր է, լծակային տրամադրությունը լավատեսական է։</string>
+    <string name="pulse_detail_vol_below_fund_negative">Ծավալը սովորականից %1$s ցածր է, լծակային տրամադրությունը հոռետեսական է։</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Ծավալը սովորականից %1$s ցածր է, լծակային տրամադրությունը չեզոք է։</string>
+    <string name="pulse_detail_vol_normal">Ծավալը սովորական է։</string>
+    <string name="pulse_detail_vol_normal_fund_high">Ծավալը սովորական է, լծակային տրամադրությունը լավատեսական է։</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Ծավալը սովորական է, լծակային տրամադրությունը հոռետեսական է։</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Ծավալը սովորական է, լծակային տրամադրությունը չեզոք է։</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">Թոփ %1$d՝ շուկայական արժեքով ամենամեծ կոինները, առանց ստեյբլքոինների. փոփոխությունը 24 ժամում (CoinGecko)։</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Թոփ %1$d</string>
+    <string name="pulse_breadth_note_broad_down">Լայն վաճառք՝ ամենամեծ կոինների մեծ մասը նվազում է։</string>
+    <string name="pulse_breadth_note_broad_up">Լայն շարժում՝ ամենամեծ կոինների մեծ մասն աճում է։</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin-ը նվազում է, բայց մյուս խոշոր կոինների մեծ մասը կայուն է մնում։</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin-ն աճում է, բայց մյուս խոշոր կոինների մեծ մասը չի միանում։</string>
+    <string name="pulse_breadth_spoken">Թոփ %1$d՝ %2$d-ը աճում, %3$d-ը նվազում</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">Ալթքոիններն ու Bitcoin-ը շարժվում են նման</string>
+    <string name="pulse_alts_stronger">Ալթքոիններն ավելի ուժեղ են, քան Bitcoin-ը</string>
+    <string name="pulse_alts_weaker">Bitcoin-ն ավելի ուժեղ է, քան ալթքոինները</string>
+    <string name="pulse_chip_funding_high">Լծակային տրամադրությունը լավատեսական է</string>
+    <string name="pulse_chip_funding_negative">Լծակային տրամադրությունը հոռետեսական է</string>
+
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s։ %3$s։</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">Ցույց տալ գինը և գործողությունները</string>
+    <string name="unusual_fact_against">Շարժվում է շուկային հակառակ</string>
+    <string name="unusual_fact_funding_high">Ֆանդինգը բարձր է (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Ֆանդինգը բացասական է (%1$s)</string>
+    <string name="unusual_fact_stronger">Շարժվում է BTC-ից շատ ավելի ուժեղ</string>
+    <string name="unusual_fact_volume">Ծավալը սովորականի %1$s×-ն է</string>
+    <string name="unusual_fact_weaker">Շարժվում է BTC-ից շատ ավելի թույլ</string>
+    <string name="unusual_nothing">Այսօր ուշագրավ ոչինչ չկա</string>
+    <string name="unusual_source">Մոտ 30 ամենամեծ կոինները՝ առանց ստեյբլքոինների · Binance, CoinGecko</string>
+    <string name="unusual_title">Ուշագրավ</string>
+
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">Ուշագրավ</string>
+    <string name="activity_indicator">Ուշագրավ</string>
+    <string name="activity_sensitivity_less">Ավելի քիչ</string>
+    <string name="activity_sensitivity_more">Ավելի շատ</string>
+    <string name="activity_sensitivity_normal">Սովորական</string>
+    <string name="activity_signal_funding_long">Ֆանդինգ %1$s — շատ լծակային լոնգեր</string>
+    <string name="activity_signal_funding_short">Ֆանդինգ %1$s — շատ շորթեր</string>
+    <string name="activity_signal_open_interest">Բաց հետաքրքրություն %1$s %2$d րոպեում</string>
+    <string name="activity_signal_open_interest_no_time">Բաց հետաքրքրություն %1$s</string>
+    <string name="activity_signal_price_move">Անսովոր շարժում՝ %1$s մեկ ժամում (սովորականի %2$s×-ը)</string>
+    <string name="activity_signal_volume">Վերջին ժամում ծավալը սովորականի %1$s×-ն է</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%2$d խոշոր ալթքոիններից %1$d-ը 90 օրում գերազանցում է Bitcoin-ին</item>
+        <item quantity="other">%2$d խոշոր ալթքոիններից %1$d-ը 90 օրում գերազանցում են Bitcoin-ին</item>
+    </plurals>
+    <string name="insights_chart_axis">Տարիներ հալվինգից ի վեր</string>
+    <string name="insights_chart_hint">Գինը՝ որպես հալվինգի օրվա գնի բազմապատիկ (լոգարիթմական սանդղակ)։ Նախորդ ցիկլերը օրինաչափություն են, ոչ կանխատեսում։</string>
+    <string name="insights_cycle_chart">Ցիկլեր հալվինգից ի վեր</string>
+    <string name="insights_dominance_eth">ETH՝ ընդհանուր շուկայի %1$s-ը</string>
+    <string name="insights_dominance_title">Bitcoin-ի գերակայություն</string>
+    <string name="insights_fng_history">Երեկ %1$s · մեկ շաբաթ առաջ %2$s · մեկ ամիս առաջ %3$s</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="insights_halving_title">Bitcoin-ի հալվինգ</string>
+    <string name="insights_source_dominance">Աղբյուր՝ CoinGecko, Binance</string>
+    <string name="insights_source_fng">Աղբյուր՝ alternative.me</string>
+    <string name="insights_source_history">Աղբյուր՝ Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">Ծայրահեղ վախ</string>
+    <string name="fng_extreme_greed">Ծայրահեղ ագահություն</string>
+    <string name="fng_fear">Վախ</string>
+    <string name="fng_greed">Ագահություն</string>
+    <string name="fng_neutral">Չեզոք</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">Տվյալներն՝ առ %1$s · թարմացվում է…</string>
+    <string name="cycle_from_top">%1$s գագաթից</string>
+    <string name="cycle_marker_bottom">Հատակ %1$s</string>
+    <string name="cycle_marker_double_bottom">Կրկնակի հատակ %1$s</string>
+    <string name="cycle_marker_double_top">Կրկնակի գագաթ %1$s</string>
+    <string name="cycle_marker_high_so_far">Առայժմ առավելագույնը</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">Գագաթ %1$s</string>
+    <string name="cycle_since_halving">%1$s հալվինգից ի վեր</string>
+    <string name="halving_estimate_text">Հաջորդ հալվինգը ըստ հաշվարկի՝ մոտ %1$s՝ մնացել է %2$s բլոկ, միջինը %3$s րոպե մեկ բլոկի համար (բարդության ընթացիկ շրջան)։ Կանխատեսում է, ոչ խոստում – բլոկի ժամանակը տատանվում է։</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">Ահազանգ՝ %1$s</string>
+    <string name="gas_slow_fast">Դանդաղ %1$s · Արագ %2$s</string>
+    <string name="gas_source">Հանրային RPC հանգույցներ և mempool.space · Պարզ փոխանցման արժեքը՝ առանց L2-ներում L1 մասնաբաժնի</string>
+    <string name="gas_title">Ցանցի միջնորդավճարներ</string>
+    <string name="gas_transfer_cost">Փոխանցում ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">ԱՄՆ գնաճի տվյալներ (CPI)</string>
+    <string name="macro_fomc">ԱՄՆ ԴՊՀ-ի տոկոսադրույքի որոշում</string>
+    <string name="macro_hint_list">%1$s – նման օրերին շուկաները հաճախ ավելի են տատանվում։</string>
+    <string name="macro_hint_today">Այսօր %1$s՝ %2$s – նման օրերին շուկաները հաճախ ավելի են տատանվում։</string>
+    <string name="macro_hint_today_list">Այսօր՝ %1$s – նման օրերին շուկաները հաճախ ավելի են տատանվում։</string>
+    <string name="macro_hint_tomorrow">Վաղը %1$s՝ %2$s – նման օրերին շուկաները հաճախ ավելի են տատանվում։</string>
+    <string name="macro_hint_tomorrow_list">Վաղը՝ %1$s – նման օրերին շուկաները հաճախ ավելի են տատանվում։</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Այսօր %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Վաղը %1$s %2$s</string>
+    <string name="macro_nfp">ԱՄՆ աշխատաշուկայի զեկույց</string>
+    <string name="macro_pce">ԱՄՆ սպառողական ծախսերի գներ (PCE)</string>
+    <string name="macro_ppi">ԱՄՆ արտադրողների գներ (PPI)</string>
+    <string name="macro_released_list">Այսօր հրապարակված՝ %1$s։</string>
+    <string name="macro_released_one">Այսօր ժամը %1$s-ին հրապարակված՝ %2$s։</string>
+    <string name="macro_title">Տնտեսական տվյալներ</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">Կոին</string>
+    <string name="coin_no_data">Այս կոինի համար Binance-ում կամ Bybit-ում գնային տվյալներ չկան։</string>
+    <string name="coin_price_only">Հիմնված է միայն գնի վրա – on-chain տվյալները (MVRV, Puell, հեշրեյթ) ազատ հասանելի են միայն Bitcoin-ի համար։</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">Գնի պատմությունը միայն %1$d օր է – որոշ ցուցանիշներ բացակայում են։</item>
+        <item quantity="other">Գնի պատմությունը միայն %1$d օր է – որոշ ցուցանիշներ բացակայում են։</item>
+    </plurals>
+    <string name="coin_title">Կոինի վերլուծություն</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">Տվյալներ՝ %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">Աճողներ և նվազողներ 24 ժ</string>
+    <string name="movers_gainers">Աճողներ</string>
+    <string name="movers_losers">Նվազողներ</string>
+    <string name="movers_no_gainers">24 ժամում ոչ մի կոին չի աճել</string>
+    <string name="movers_no_losers">24 ժամում ոչ մի կոին չի նվազել</string>
+    <string name="movers_source">CoinGecko, 24 ժ, թոփ 100՝ առանց ստեյբլքոինների</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">Ցույց տալ բոլորը</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">Ցույց տալ ավելի քիչ</string>
+</resources>

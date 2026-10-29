@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">زیادہ ڈیٹا اور بیٹری استعمال ہوتی ہے</string>
+    <string name="update_mode_live">کھلی ہو تو لائیو</string>
+    <string name="update_mode_live_hint">جہاں ایکسچینج لائیو قیمت دیتا ہے: واچ لسٹ کھلی ہو تو فوراً۔ ورنہ اگلی بار معلومات لینے پر۔ بند ہو تو: %1$s سے زیادہ کثرت سے نہیں، اکثر بعد میں۔</string>
+    <string name="update_mode_live_hint_ios">جہاں ایکسچینج لائیو قیمت دیتا ہے: واچ لسٹ کھلی ہو تو فوراً۔ ورنہ اگلی بار معلومات لینے پر۔ بند ہو تو: جب iOS اجازت دے، کبھی کبھی گھنٹوں کے وقفے سے۔ ایپ کو سوائپ کر کے ہٹانے پر iOS یہ جانچ تب تک روک دیتا ہے جب تک ایپ دوبارہ نہ کھلے۔</string>
+    <string name="update_mode_recommended">تجویز کردہ</string>
+    <string name="update_mode_sparsam">کفایتی</string>
+    <string name="update_mode_sparsam_hint">ایپ بند ہو تو %1$s سے زیادہ کثرت سے نہیں، اکثر بعد میں (الرٹس، ویجیٹس)۔ کھلی ہو تو: ہر بار کھولنے پر۔</string>
+    <string name="update_mode_sparsam_hint_ios">ایپ بند ہو تو iOS طے کرتا ہے کہ کب جانچنا ہے (الرٹس، ویجیٹس)، کبھی کبھی گھنٹوں کے وقفے سے۔ کھلی ہو تو: ہر بار کھولنے پر۔</string>
+    <string name="update_mode_title">اپ ڈیٹ کی رفتار</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">ریفریش منسوخ ہو گیا</string>
+    <string name="refresh_sheet_alarms">الرٹس</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d چلا</item>
+        <item quantity="other">%1$d چلے</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">سب اپ ڈیٹ ہو گیا</string>
+    <string name="refresh_sheet_app_start">ایپ کا آغاز</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">اجتماعی درخواست %1$s · %2$d قیمت</item>
+        <item quantity="other">اجتماعی درخواست %1$s · %2$d قیمتیں</item>
+    </plurals>
+    <string name="refresh_sheet_database">ڈیٹا بیس</string>
+    <string name="refresh_sheet_exchange_unreachable">%1$s تک رسائی نہیں</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
+        <item quantity="one">%1$d ایکسچینج تک رسائی نہیں</item>
+        <item quantity="other">%1$d ایکسچینجز تک رسائی نہیں</item>
+    </plurals>
+    <string name="refresh_sheet_network">نیٹ ورک</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d قیمت کی اطلاع</item>
+        <item quantity="other">%1$d قیمت کی اطلاعات</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d جوڑا</item>
+        <item quantity="other">%1$d جوڑے</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d جوڑا اپ ڈیٹ نہیں ہوا</item>
+        <item quantity="other">%1$d جوڑے اپ ڈیٹ نہیں ہوئے</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%1$d جوڑے میں سے %2$d</item>
+        <item quantity="other">%1$d جوڑوں میں سے %2$d</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">%1$s تک موقوف</string>
+    <string name="refresh_sheet_paused_until_reason">%1$s تک موقوف (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">کوئی ڈیٹا نہیں</string>
+    <string name="refresh_sheet_reason_offline">کوئی کنکشن نہیں</string>
+    <string name="refresh_sheet_reason_rate_limit">بہت زیادہ درخواستیں</string>
+    <string name="refresh_sheet_reason_server">سرور کی خرابی</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">وقت ختم</string>
+    <string name="refresh_sheet_reason_unavailable">ایکسچینج دستیاب نہیں</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s سیکنڈ</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_exchanges">ایکسچینجز</string>
+    <string name="refresh_sheet_section_steps">تفصیل</string>
+    <string name="refresh_sheet_status_failed">اپ ڈیٹ نہیں ہوا</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">سب اپ ڈیٹ ہو گیا</string>
+    <string name="refresh_sheet_status_partial">جزوی طور پر اپ ڈیٹ</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">آغاز کا انتظار</string>
+    <string name="refresh_sheet_widgets">ویجیٹس</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">اجتماعی درخواست %1$s (ناکام)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d خرابی</item>
+        <item quantity="other">%1$d خرابیاں</item>
+    </plurals>
+    <string name="refresh_report_live">لائیو: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d اب ٹریڈ نہیں ہوتا</item>
+        <item quantity="other">%1$d اب ٹریڈ نہیں ہوتے</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d الگ الگ</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">ناکام</string>
+    <string name="check_result_ok">ٹھیک ہے</string>
+    <string name="check_result_partial">جزوی</string>
+    <string name="check_result_skipped">چھوڑ دیا گیا</string>
+    <string name="check_trigger_bgtask">پس منظر</string>
+    <string name="check_trigger_exact">بروقت</string>
+    <string name="check_trigger_foreground">ایپ</string>
+    <string name="check_trigger_widget">ویجیٹ</string>
+    <string name="check_trigger_widget_ios">ویجیٹ · قیمتیں اور قیمت کے الرٹس</string>
+    <string name="check_trigger_worker">پس منظر</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android جانچ میں تاخیر کر سکتا ہے – بیٹری کو “غیر محدود” پر سیٹ کریں</string>
+    <string name="battery_later">بعد میں</string>
+    <string name="battery_message">Android بجلی بچانے کے لیے پس منظر کے کام میں تاخیر کرتا ہے — پھر قیمتیں اور ویجیٹس گھنٹوں پرانے ہو سکتے ہیں۔ بیٹری کا استعمال غیر محدود کرنے سے یہ تازہ رہتے ہیں۔ یہ Android کی ترتیبات میں کسی بھی وقت بدلا جا سکتا ہے۔</string>
+    <string name="battery_open_settings">بیٹری کی ترتیبات کھولیں</string>
+    <string name="battery_steps">ایپ کی معلومات میں بیٹری (یا ایپ بیٹری کا استعمال) پر ٹیپ کریں اور غیر محدود منتخب کریں۔</string>
+    <string name="battery_title">قیمتیں تازہ رکھیں</string>
+    <string name="ios_background_refresh_off">اس ایپ کے لیے پس منظر میں ایپ ریفریش بند ہے۔ اس کے بغیر الرٹس صرف ایپ کھلی ہونے پر جانچے جاتے ہیں۔</string>
+    <string name="ios_low_power_mode">کم پاور موڈ آن ہے۔ iOS پس منظر میں کم ہی جانچتا ہے، اس لیے الرٹس دیر سے آ سکتے ہیں۔</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">ایکسچینج کا پیغام: %1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">اسٹوریج ابھی لاک ہے – %1$d سیکنڈ میں دوبارہ کوشش</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="one">اسٹوریج ابھی لاک ہے – %1$d سیکنڈ میں دوبارہ کوشش</item>
+        <item quantity="other">اسٹوریج ابھی لاک ہے – %1$d سیکنڈ میں دوبارہ کوشش</item>
+    </plurals>
+    <string name="watchlist_retry_short">%1$s میں دوبارہ کوشش</string>
+    <string name="widget_retry_at">%1$s پر دوبارہ کوشش</string>
+    <string name="refresh_sheet_wait_attempt">کوشش %1$d – پہلی بار انکرپٹ شدہ اسٹوریج تیار نہیں تھی</string>
+</resources>

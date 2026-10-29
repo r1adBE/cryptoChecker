@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">Zer mugitzen da harekin batera?</string>
+    <string name="why_all_values">Balio eta iturri guztiak</string>
+    <string name="why_all_values_hint">Behaketa · Azalpen posiblea · Iturriak</string>
+    <string name="why_details">Erakutsi xehetasunak</string>
+    <string name="why_details_hide">Ezkutatu xehetasunak</string>
+    <string name="why_disclaimer">Merkatuko datuetatik egindako balorazio automatikoa: aldi berean gertatzen dena erakusten du, ez kausa baten froga.</string>
+    <string name="why_footer_short">Aldiberekoak ez du kausa esan nahi · Ez da inbertsio-aholkularitza</string>
+    <string name="why_no_data">Ez dago Binanceko daturik pare honetarako</string>
+    <string name="why_no_data_hint">Prezioa, bolumena eta hegazkortasuna Binanceko orduko kandeletatik datoz.</string>
+    <string name="why_ref_alts">Altak</string>
+    <string name="why_section_context">Azalpen posiblea</string>
+    <string name="why_section_observation">Behaketa</string>
+    <string name="why_title">Zer mugitzen da harekin batera?</string>
+    <string name="why_title_coin">Zer mugitzen da %1$s-(r)ekin batera?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">Laburbilduz · Eguneratua: %1$s</string>
+    <string name="why_brief_label">Laburbilduz:</string>
+    <string name="why_summary_against">Txanpona merkatuaren aurka mugitzen ari da.</string>
+    <string name="why_summary_calm">Ez dago mugimendu nabarmenik: merkatua eta txanpona lasai daude.</string>
+    <string name="why_summary_coin">Txanpon hau bakarrik mugitzen ari da – agian txanpon honi bakarrik eragiten dion zerbait.</string>
+    <string name="why_summary_coin_volume">Txanpon hau bakarrik mugitzen ari da, bolumen handiagoarekin – agian txanpon honi bakarrik eragiten dion zerbait.</string>
+    <string name="why_summary_longs">Futuroak: palankadun long posizio asko.</string>
+    <string name="why_summary_market">Mugimendua denboran bat dator merkatu orokorrarekin.</string>
+    <string name="why_summary_market_volume">Mugimendua negoziazio-bolumen handiagoarekin eta modu orokorrean mugitzen den merkatu batekin dator bat.</string>
+    <string name="why_summary_peg_near">Prezioa bere 1:1 parekotasunetik gertu dago.</string>
+    <string name="why_summary_peg_off">Prezioa nabarmen desbideratzen da bere 1:1 parekotasunetik.</string>
+    <string name="why_summary_shorts">Futuroak: short posizio asko.</string>
+    <string name="why_summary_thin">Mugimendua ahula da: bolumen gutxi dago atzean.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">Merkatuaren aurka</string>
+    <string name="why_f_coin_only">Txanpon hau bakarrik</string>
+    <string name="why_f_leader">Bitcoin merkatuko lider gisa</string>
+    <string name="why_f_leverage_balanced">Palanka orekatua</string>
+    <string name="why_f_leverage_longs">Palanka: long asko</string>
+    <string name="why_f_leverage_shorts">Palanka: short asko</string>
+    <string name="why_f_market_calm">Merkatu lasaia</string>
+    <string name="why_f_market_wide">Merkatu osoa mugitzen ari da</string>
+    <string name="why_factor_funding">Finantzaketa</string>
+    <string name="why_factor_futures">Futuroak</string>
+    <string name="why_factor_market">Merkatu orokorra</string>
+    <string name="why_factor_near_high">Gehienezkotik gertu</string>
+    <string name="why_factor_near_low">Gutxienezkotik gertu</string>
+    <string name="why_factor_peg">Parekotasuna (1:1)</string>
+    <string name="why_factor_range3d">3 eguneko tartea</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">kalkulatua</string>
+    <string name="why_fn_funding_longs">askok igoeraren alde egiten dute apustu</string>
+    <string name="why_fn_funding_neutral">neutroa</string>
+    <string name="why_fn_funding_shorts">askok jaitsieraren alde egiten dute apustu</string>
+    <string name="why_fn_high_at">30 eguneko gehienezkoan</string>
+    <string name="why_fn_high_below">30 eguneko gehienezkoaren azpitik</string>
+    <string name="why_fn_leader_calm">Bitcoin lasai dago</string>
+    <string name="why_fn_leader_moves">Bitcoin argi mugitzen ari da</string>
+    <string name="why_fn_low_above">30 eguneko gutxienezkoaren gainetik</string>
+    <string name="why_fn_low_at">30 eguneko gutxienezkoan</string>
+    <string name="why_fn_market_against">Txanpon hau merkatuaren aurka mugitzen ari da</string>
+    <string name="why_fn_market_alone">Merkatua lasai – txanpon hau bere kabuz mugitzen da</string>
+    <string name="why_fn_market_calm">Merkatua lasai dago</string>
+    <string name="why_fn_market_lags">Merkatua mugitzen ari da, txanpon hau ia ez</string>
+    <string name="why_fn_market_moves">Merkatua norabide berean mugitzen ari da</string>
+    <string name="why_fn_market_pulls">Merkatua BTCrekin batera mugitzen ari da</string>
+    <string name="why_fn_oi_down">Interes irekia behera</string>
+    <string name="why_fn_oi_flat">Interes irekia ia aldatu gabe</string>
+    <string name="why_fn_oi_mixed">Interes irekia nahasia</string>
+    <string name="why_fn_oi_up">Interes irekia gora</string>
+    <string name="why_fn_peg_above">%1$s 1:1 parekotasunaren gainetik</string>
+    <string name="why_fn_peg_below">%1$s 1:1 parekotasunaren azpitik</string>
+    <string name="why_fn_peg_near">1:1 parekotasunetik gertu</string>
+    <string name="why_fn_range_above_low">3 eguneko gutxienezkotik</string>
+    <string name="why_fn_range_below_high">3 eguneko gehienezkotik</string>
+    <string name="why_fn_range_near_high">3 eguneko gehienezkotik gertu</string>
+    <string name="why_fn_range_near_low">3 eguneko gutxienezkotik gertu</string>
+    <string name="why_fn_volatility_stronger">ohi baino handiagoa</string>
+    <string name="why_fn_volatility_tiny">txikia termino absolutuetan (%1$s baino gutxiago)</string>
+    <string name="why_fn_volatility_usual">ohi bezala</string>
+    <string name="why_fn_volume_higher">ohi baino handiagoa</string>
+    <string name="why_fn_volume_lower">ohi baino txikiagoa</string>
+    <string name="why_fn_volume_usual">ohi bezala</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">Txanpon hau %1$s, BTC %2$s 24 orduan — mugimendu nabarmen independentea.</string>
+    <string name="why_against_ref_text">Txanpon hau %1$s, %2$s %3$s 24 orduan — mugimendu nabarmen independentea.</string>
+    <string name="why_btc_independent">%1$s Bitcoinekiko independenteki mugitzen ari da une honetan.</string>
+    <string name="why_btc_tight">%1$s Bitcoinekin estuki lotuta mugitzen ari da une honetan.</string>
+    <string name="why_change_1h">1 h</string>
+    <string name="why_change_24h">24 h</string>
+    <string name="why_coin_only_text">%1$s 24 orduan, merkatua lasai dagoen bitartean – agian txanpon honi bakarrik eragiten dion zerbait.</string>
+    <string name="why_leverage_balanced_text">Ez dago long edo short posizioen pilaketarik futuro-merkatuan.</string>
+    <string name="why_leverage_longs_text">Askok mailegatutako diruarekin egiten dute apustu igoeraren alde. Longek shortei ordaintzen diete — likidazio-arrisku handiagoa prezioa jaisten bada.</string>
+    <string name="why_leverage_shorts_text">Askok mailegatutako diruarekin egiten dute apustu jaitsieraren alde. Shortek longei ordaintzen diete – prezioa igotzen bada, short squeeze bat gerta daiteke.</string>
+    <string name="why_market_calm_text">Txanpon hau: %1$s 24 orduan. Ez merkatua ez txanpona ez dira asko mugitzen.</string>
+    <string name="why_market_leader_text">Txanpon handiena den aldetik, BTC merkatuaren gainerakoarekin batera mugitu ohi da. ETH: %1$s 24 orduan.</string>
+    <string name="why_market_leader_text_no_eth">Txanpon handiena den aldetik, BTC merkatuaren gainerakoarekin batera mugitu ohi da.</string>
+    <string name="why_market_similar_text">Txanpon hau: %1$s 24 orduan – aldi berean, merkatua norabide berean mugitzen ari da, argitasun gutxiagorekin bada ere.</string>
+    <string name="why_market_wide_text">Txanpon hau: %1$s 24 orduan – aldi berean, merkatu orokorra argi mugitzen ari da.</string>
+    <string name="why_open_interest_change">Interes irekia %1$s azken egiaztapenetik.</string>
+    <string name="why_peg_text">Stablecoina: kotizazio-monetarekiko 1:1 parekotasunarekin alderatuta, desbideratzea %1$s.</string>
+    <string name="why_sentiment_text">Kripto-merkatu osoaren Fear &amp; Greed indizea, %1$s atzokoarekin alderatuta.</string>
+    <string name="why_sentiment_text_no_change">Kripto-merkatu osoaren Fear &amp; Greed indizea.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="one">jaisten %1$d orduz</item>
+        <item quantity="other">jaisten %1$d orduz</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="one">igotzen %1$d orduz</item>
+        <item quantity="other">igotzen %1$d orduz</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="one">egonkor %1$d orduz</item>
+        <item quantity="other">egonkor %1$d orduz</item>
+    </plurals>
+    <string name="why_volatility_high_text">Azken ordua: %1$s — azken 24 orduetako orduko gorabehera tipikoarekin alderatuta.</string>
+    <string name="why_volatility_normal_text">Azken ordua: %1$s — ohiko tartean.</string>
+    <string name="why_volatility_tiny_text">Azken ordua: %1$s — ezohikoa txanpon honetarako, baina txikia termino absolutuetan.</string>
+    <string name="why_volume_estimated_text">Kalkulatua: iturri honek ez du negozio-bolumenik ematen; beraz, negoziatutako txanpon-kopuruak alderatzen dira.</string>
+    <string name="why_volume_high_text">Ohi baino askoz negoziazio gehiago azken orduan – mugimenduak bolumen handia du.</string>
+    <string name="why_volume_low_text">Negoziazio gutxi mugimenduaren atzean – horrelako mugimenduak askotan ez dira hain egonkorrak.</string>
+    <string name="why_volume_normal_text">Azken orduko negoziazioa azken 24 orduen ildoan dago.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">altua</string>
+    <string name="why_dot_neutral">neutroa</string>
+    <string name="why_dot_supports">mugimenduarekin bat dator</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">Datuak: %1$s</string>
+    <string name="why_fresh_breadth">Merkatuaren zabalera: %1$s · %2$s</string>
+    <string name="why_fresh_candles">Kandelak: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">Futuroak: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="one">interes irekia duela %1$d ordukoarekin alderatuta</item>
+        <item quantity="other">interes irekia duela %1$d ordukoarekin alderatuta</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="one">interes irekia duela %1$d minutukoarekin alderatuta</item>
+        <item quantity="other">interes irekia duela %1$d minutukoarekin alderatuta</item>
+    </plurals>
+    <string name="why_fresh_today">gaur</string>
+    <string name="why_fresh_yesterday">atzo</string>
+    <string name="why_source_fallback">%1$s (ordezkoa)</string>
+    <string name="why_source_reference">%1$s (erreferentzia)</string>
+    <string name="why_sources">Iturriak: burtsetako orduko kandelak (gehienbat Binance), burtsetako futuro-datuak, Fear &amp; Greed alternative.me-tik.</string>
+    <string name="why_sources_list">Iturriak: %1$s.</string>
+    <string name="why_src_breadth">%1$s (merkatuaren zabalera)</string>
+    <string name="why_src_candles">%1$s (kandelak)</string>
+    <string name="why_src_comparison">%1$s (merkatu-konparazioa)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (futuroak)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Finantzaketa</string>
+    <string name="factor_spoken_volatility">ohiko gorabehera %1$s aldiz</string>
+    <string name="factor_spoken_volume">normala %1$s aldiz</string>
+    <string name="factor_volatility">Hegazkortasuna (1 h)</string>
+    <string name="factor_volume">Bolumena</string>
+</resources>

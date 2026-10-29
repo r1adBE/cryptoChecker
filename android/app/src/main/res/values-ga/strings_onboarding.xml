@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">Socraigh foláirimh – praghas, céatadán, toirt agus gluaiseachtaí neamhghnácha</string>
+    <string name="welcome_alert_q">Cathain ba chóir foláireamh?</string>
+    <string name="welcome_text">Do phraghsanna. D’fholáirimh. D’fhorbhreathnú.\nGan chuntas. Gan fógráin. Gan rianú.</string>
+    <string name="welcome_understand">Tuig – cad atá ag bogadh in éineacht le praghas faoi láthair</string>
+    <string name="welcome_understand_q">Cad atá ag bogadh leis?</string>
+    <string name="welcome_watch">Coimhéad – do bhoinn, praghsanna agus stair phraghais</string>
+    <string name="welcome_watch_q">Cad atá ag tarlú?</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">Cuir le liosta faire (%1$d)</string>
+    <string name="starter_loading_prices">Praghsanna á lódáil…</string>
+    <string name="starter_search_coin">Cuardaigh bonn eile</string>
+    <string name="starter_select_all">Roghnaigh gach rud</string>
+    <string name="starter_select_none">Ná roghnaigh aon rud</string>
+    <string name="starter_title">Tosaigh leis na boinn seo</string>
+    <string name="starter_watch_alarm_hint">Coimhéad an praghas, socraigh foláireamh</string>
+
+    <!-- Start-Auswahl: Börse und Quote der Startpaare (Binance, bei Standort-Sperre Binance.US), z. B. «Kurse von Binance in USDT. …» -->
+    <string name="starter_source_text">Praghsanna ó %1$s in %2$s. Díroghnaigh an méid nach dteastaíonn uait agus cuir an chuid eile leis d’aon iarraidh. Is féidir leat an malartán agus an péire a athrú do gach bonn.</string>
+</resources>

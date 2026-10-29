@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="one">%d منٹ پہلے</item>
+        <item quantity="other">%d منٹ پہلے</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">آج %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed، Bitcoin میٹرکس، ڈومیننس، ہالوِنگ</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">مزید مارکیٹ ڈیٹا</string>
+    <string name="market_phase_trend_failed">قیمت کا ڈیٹا دستیاب نہیں</string>
+    <string name="market_plain_direction_down_clear">تمام کرپٹو کرنسیوں کی کل مالیت 24 گھنٹے پہلے سے واضح طور پر کم ہے (%1$s)۔</string>
+    <string name="market_plain_direction_down_slight">تمام کرپٹو کرنسیوں کی کل مالیت 24 گھنٹے پہلے سے تھوڑی کم ہے (%1$s)۔</string>
+    <string name="market_plain_direction_flat">تمام کرپٹو کرنسیوں کی کل مالیت 24 گھنٹوں میں بمشکل بدلی ہے (%1$s)۔</string>
+    <string name="market_plain_direction_up_clear">تمام کرپٹو کرنسیوں کی کل مالیت 24 گھنٹے پہلے سے واضح طور پر زیادہ ہے (%1$s)۔</string>
+    <string name="market_plain_direction_up_slight">تمام کرپٹو کرنسیوں کی کل مالیت 24 گھنٹے پہلے سے تھوڑی زیادہ ہے (%1$s)۔</string>
+    <string name="market_plain_footnote">پچھلے 24 گھنٹوں کی تفصیل – کوئی پیش گوئی نہیں، سرمایہ کاری کا مشورہ نہیں۔</string>
+    <string name="market_plain_mood_extreme_fear">سرمایہ کار ابھی بہت خوفزدہ ہیں: موڈ انڈیکس (Fear &amp; Greed) 100 میں سے %1$d پر ہے۔</string>
+    <string name="market_plain_mood_extreme_greed">سرمایہ کار ابھی بہت لالچی ہیں: موڈ انڈیکس (Fear &amp; Greed) 100 میں سے %1$d پر ہے۔</string>
+    <string name="market_plain_mood_fear">سرمایہ کار کچھ خوفزدہ ہیں: موڈ انڈیکس (Fear &amp; Greed) 100 میں سے %1$d پر ہے۔</string>
+    <string name="market_plain_mood_greed">سرمایہ کار کچھ لالچی ہیں: موڈ انڈیکس (Fear &amp; Greed) 100 میں سے %1$d پر ہے۔</string>
+    <string name="market_plain_mood_neutral">سرمایہ کاروں کا موڈ متوازن ہے: موڈ انڈیکس (Fear &amp; Greed) 100 میں سے %1$d پر ہے۔</string>
+    <string name="market_plain_standout_above_btc">%1$s نمایاں ہے: 24 گھنٹوں میں %2$s، Bitcoin (%3$s) سے کافی اوپر۔</string>
+    <string name="market_plain_standout_against_btc">%1$s نمایاں ہے: 24 گھنٹوں میں %2$s، جبکہ Bitcoin الٹی سمت گیا (%3$s)۔</string>
+    <string name="market_plain_standout_below_btc">%1$s نمایاں ہے: 24 گھنٹوں میں %2$s، Bitcoin (%3$s) سے کافی نیچے۔</string>
+    <string name="market_plain_standout_futures_down">%1$s نمایاں ہے: غیر معمولی طور پر بہت سے فیوچرز ٹریڈرز قیمت گرنے پر شرط لگا رہے ہیں۔</string>
+    <string name="market_plain_standout_futures_up">%1$s نمایاں ہے: غیر معمولی طور پر بہت سے فیوچرز ٹریڈرز قیمت بڑھنے پر شرط لگا رہے ہیں۔</string>
+    <string name="market_plain_standout_quiet">ابھی کوئی ایک کوائن نمایاں نہیں۔</string>
+    <string name="market_plain_standout_volume">%1$s نمایاں ہے: معمول سے تقریباً %2$s گنا زیادہ ٹریڈنگ۔</string>
+    <string name="market_plain_title">مختصراً</string>
+    <string name="market_section_collapse">%1$s چھپائیں</string>
+    <string name="market_section_context">موڈ اور سائیکل</string>
+    <string name="market_section_data">مارکیٹ ڈیٹا</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">%1$s دکھائیں</string>
+    <string name="market_section_now">ابھی</string>
+    <string name="market_source">ڈیٹا: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="exchange_unavailable_error">ایکسچینج دستیاب نہیں</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">معلومات: %1$s</string>
+    <string name="market_info_alt_season_source">روزانہ قیمتیں: Binance · تقریباً ہر 3 گھنٹے میں دوبارہ حساب</string>
+    <string name="market_info_alt_season_what">گنتا ہے کہ تقریباً 20 بڑے آلٹ کوائنز (مثلاً Ethereum، Solana، XRP) میں سے کتنوں نے پچھلے 90 دنوں میں Bitcoin سے بہتر کارکردگی دکھائی۔ قدر ان کا حصہ ہے، 0 سے 100 تک۔</string>
+    <string name="market_info_coin_source">قیمتیں: Binance یا Bybit · تقریباً ہر 15 منٹ میں دوبارہ لوڈ</string>
+    <string name="market_info_dominance_how">ڈومیننس بڑھے تو Bitcoin باقی مارکیٹ سے بہتر کر رہا ہے؛ گھٹے تو دوسرے کوائنز کا وزن بڑھ رہا ہے۔ اسٹیبل کوائنز بھی شمار ہوتے ہیں: ان کی مالیت بڑھے تو Bitcoin کی قیمت وہی رہنے پر بھی Bitcoin کا حصہ گھٹ جاتا ہے۔</string>
+    <string name="market_info_dominance_source">ماخذ: CoinGecko · تقریباً ہر 30 منٹ میں دوبارہ لوڈ</string>
+    <string name="market_info_dominance_what">تمام کرپٹو کرنسیوں کی کل مالیت (مارکیٹ کیپٹلائزیشن) میں Bitcoin کا حصہ۔ اس کے نیچے Ethereum کا حصہ ہے۔</string>
+    <string name="market_info_fear_greed_how">25 سے نیچے کا مطلب شدید خوف، 75 سے اوپر شدید لالچ، 50 کے آس پاس غیر جانبدار۔ پھیلانے پر کارڈ کل، ایک ہفتہ پہلے اور ایک مہینہ پہلے کی قدریں دکھاتا ہے۔ خرید یا فروخت کا اشارہ نہیں۔</string>
+    <string name="market_info_fear_greed_source">ماخذ: alternative.me · دن میں ایک بار نئی قدر</string>
+    <string name="market_info_fear_greed_what">کرپٹو مارکیٹ کے لیے 0 سے 100 تک ایک موڈ انڈیکس۔ alternative.me اسے کئی عوامل سے حساب کرتا ہے، جن میں قیمت کے اتار چڑھاؤ، ٹریڈنگ والیوم، سوشل میڈیا اور Bitcoin ڈومیننس شامل ہیں۔</string>
+    <string name="market_info_gas_how">زیادہ قدروں کا مطلب ہے نیٹ ورک مصروف ہے اور ٹرانسفر مہنگے ہیں۔ سست، عام اور تیز بعد میں یا جلد تصدیق کی فیسیں ہیں۔ پھیلانے پر کارڈ ایک سادہ ٹرانسفر کی تقریبی لاگت دکھاتا ہے۔</string>
+    <string name="market_info_gas_source">عوامی RPC نوڈز، mempool.space · ہر منٹ دوبارہ لوڈ</string>
+    <string name="market_info_gas_what">ہر نیٹ ورک پر ابھی ایک ٹرانزیکشن کی کیا لاگت ہے۔ Ethereum اور اس جیسے نیٹ ورکس پر gwei میں (فی یونٹ گیس ETH کا ایک اربواں حصہ)، Bitcoin پر sat/vB میں (ٹرانزیکشن کے فی ورچوئل بائٹ ساتوشی)۔</string>
+    <string name="market_info_halving_source">تاریخ: بلاک ہائٹ اور اوسط بلاک ٹائم سے (mempool.space)، ورنہ کیلنڈر کے مطابق · قیمت کی تاریخ: Coin Metrics، Binance، ہر 12 گھنٹے میں دوبارہ لوڈ</string>
+    <string name="market_info_halving_what">ہالوِنگ پر نئے Bitcoin بلاک کے لیے مائنرز کا انعام آدھا ہو جاتا ہے۔ یہ ہر 210,000 بلاکس پر ہوتا ہے، تقریباً ہر چار سال میں۔ اس کے بعد روزانہ پہلے سے آدھے نئے بٹ کوائن بنتے ہیں۔</string>
+    <string name="market_info_how">اسے کیسے پڑھیں</string>
+    <string name="market_info_macro_how">نوٹ صرف تب نظر آتا ہے جب ایسی کوئی تاریخ آج یا کل ہو۔ اجرا کے آس پاس قیمتیں اکثر معمول سے زیادہ اوپر نیچے ہوتی ہیں۔ ایپ صرف تاریخ دکھاتی ہے، خود اعداد و شمار نہیں۔</string>
+    <string name="market_info_macro_source">ایپ کی ویب سائٹ سے کیلنڈر · دن میں ایک بار لوڈ</string>
+    <string name="market_info_macro_what">اہم امریکی معاشی ڈیٹا کی تاریخیں: افراطِ زر (CPI، PCE)، پیداواری قیمتیں (PPI)، روزگار رپورٹ اور امریکی فیڈرل ریزرو کے شرحِ سود کے فیصلے۔ ایسے اعداد و شمار اکثر کرپٹو قیمتوں کو بھی ہلا دیتے ہیں۔</string>
+    <string name="market_info_no_advice">سرمایہ کاری کا مشورہ نہیں۔</string>
+    <string name="market_info_phase_source">Binance، Coin Metrics · قیمتیں ہر گھنٹے، آن چین قدریں ہر 12 گھنٹے میں دوبارہ لوڈ</string>
+    <string name="market_info_pulse_how">سرخی سمت بتاتی ہے؛ تفصیلات کے لیے کارڈ پھیلائیں۔ وسیع حرکت کا مطلب ہے زیادہ تر بڑے کوائنز ایک ہی سمت جا رہے ہیں۔ پرامید لیوریج موڈ کا مطلب ہے بہت سے ٹریڈرز لیوریج کے ساتھ قیمت بڑھنے پر شرط لگا رہے ہیں، Bitcoin فیوچرز کی فنڈنگ ریٹ سے ناپا گیا۔ ایک جھلک، پیش گوئی نہیں۔</string>
+    <string name="market_info_pulse_source">Binance، CoinGecko · تقریباً ہر 5 منٹ میں دوبارہ لوڈ</string>
+    <string name="market_info_pulse_what">پچھلے 24 گھنٹوں کی مارکیٹ کا مختصر خلاصہ: Bitcoin، Ethereum اور Solana کیسے چل رہے ہیں، سب سے بڑے کوائنز میں سے کتنے بڑھ رہے یا گر رہے ہیں، ابھی کتنا Bitcoin ٹریڈ ہو رہا ہے اور لیوریج موڈ کیا ہے (Bitcoin فیوچرز کی فنڈنگ ریٹ سے ناپا گیا)۔</string>
+    <string name="market_info_totals_how">دائیں طرف 24 گھنٹوں میں کل مالیت کی تبدیلی ہے۔ زیادہ والیوم کا مطلب ہے بہت ٹریڈنگ ہو رہی ہے – یہ نہیں بتاتا کہ کس سمت میں۔ جہاں ممکن ہو تبادلے کی کرنسی میں دکھایا جاتا ہے، ورنہ امریکی ڈالر میں۔</string>
+    <string name="market_info_totals_source">تمام کوائنز · CoinGecko · تقریباً ہر 30 منٹ میں دوبارہ لوڈ</string>
+    <string name="market_info_totals_what">تمام کرپٹو کرنسیوں کی کل مالیت (مارکیٹ کیپٹلائزیشن: قیمت ضرب گردشی سپلائی، تمام کوائنز کا مجموعہ) اور پچھلے 24 گھنٹوں کا ٹریڈنگ والیوم۔</string>
+    <string name="market_info_unusual_how">ہر کوائن اپنا سب سے قابلِ ذکر مشاہدہ دکھاتا ہے، دائیں طرف 24 گھنٹے کی تبدیلی کے ساتھ۔ 2× والیوم کا مطلب ہے معمول سے دگنا لین دین۔ قابلِ ذکر کا مطلب نہ اچھا ہے نہ برا۔</string>
+    <string name="market_info_unusual_source">Binance، CoinGecko · تقریباً ہر 10 منٹ میں دوبارہ لوڈ</string>
+    <string name="market_info_unusual_what">تقریباً 30 سب سے بڑے کوائنز (اسٹیبل کوائنز کے بغیر) میں سے زیادہ سے زیادہ پانچ جو آج غیر معمولی رویہ دکھا رہے ہیں: Bitcoin سے کہیں زیادہ مضبوط یا کمزور، مارکیٹ کی سمت کے خلاف، غیر معمولی زیادہ ٹریڈنگ والیوم کے ساتھ یا قابلِ ذکر فنڈنگ ریٹ کے ساتھ۔</string>
+    <string name="market_info_what">یہ کیا ہے؟</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">مارکیٹ کیپ</string>
+    <string name="market_cap_source">تمام کوائنز · CoinGecko</string>
+    <string name="market_cap_title">کرپٹو مارکیٹ</string>
+    <string name="market_volume_label">والیوم 24 گھنٹے</string>
+
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">تفصیلات</string>
+    <string name="pulse_disclaimer">کوئی پیش گوئی نہیں · سرمایہ کاری کا مشورہ نہیں</string>
+    <string name="pulse_less">کم دکھائیں</string>
+    <string name="pulse_now_title">کرپٹو پلس</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">24 گھنٹوں میں تبدیلی</string>
+    <string name="pulse_section_factors">عوامل</string>
+    <string name="pulse_section_market">آج کی مارکیٹ</string>
+    <string name="pulse_unavailable">مارکیٹ ڈیٹا ابھی دستیاب نہیں</string>
+    <string name="pulse_updated">بمطابق %1$s</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">پرسکون مارکیٹ</string>
+    <string name="pulse_headline_down">وسیع کمزوری</string>
+    <string name="pulse_headline_mixed">ملی جلی صورتحال</string>
+    <string name="pulse_headline_up">وسیع مضبوطی</string>
+    <string name="pulse_lead_alts_stronger">آلٹ کوائنز Bitcoin سے مضبوط ہیں۔</string>
+    <string name="pulse_lead_broad_down">مارکیٹ وسیع پیمانے پر گر رہی ہے۔</string>
+    <string name="pulse_lead_broad_up">مارکیٹ وسیع پیمانے پر بڑھ رہی ہے۔</string>
+    <string name="pulse_lead_btc_leads">Bitcoin سب سے زیادہ بڑھ رہا ہے۔</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin آلٹ کوائنز سے مضبوط ہے۔</string>
+    <string name="pulse_lead_calm">مارکیٹ بمشکل حرکت کر رہی ہے۔</string>
+    <string name="pulse_lead_drift_down">مارکیٹ آہستہ آہستہ نیچے جا رہی ہے۔</string>
+    <string name="pulse_lead_drift_up">مارکیٹ آہستہ آہستہ اوپر جا رہی ہے۔</string>
+    <string name="pulse_lead_mixed">بڑے کوائنز مختلف سمتوں میں جا رہے ہیں۔</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">لیوریج موڈ پرامید۔</string>
+    <string name="pulse_detail_fund_negative">لیوریج موڈ مایوس۔</string>
+    <string name="pulse_detail_fund_neutral">لیوریج موڈ غیر جانبدار۔</string>
+    <string name="pulse_detail_vol_above">والیوم معمول سے %1$s زیادہ۔</string>
+    <string name="pulse_detail_vol_above_fund_high">والیوم معمول سے %1$s زیادہ، لیوریج موڈ پرامید۔</string>
+    <string name="pulse_detail_vol_above_fund_negative">والیوم معمول سے %1$s زیادہ، لیوریج موڈ مایوس۔</string>
+    <string name="pulse_detail_vol_above_fund_neutral">والیوم معمول سے %1$s زیادہ، لیوریج موڈ غیر جانبدار۔</string>
+    <string name="pulse_detail_vol_below">والیوم معمول سے %1$s کم۔</string>
+    <string name="pulse_detail_vol_below_fund_high">والیوم معمول سے %1$s کم، لیوریج موڈ پرامید۔</string>
+    <string name="pulse_detail_vol_below_fund_negative">والیوم معمول سے %1$s کم، لیوریج موڈ مایوس۔</string>
+    <string name="pulse_detail_vol_below_fund_neutral">والیوم معمول سے %1$s کم، لیوریج موڈ غیر جانبدار۔</string>
+    <string name="pulse_detail_vol_normal">والیوم معمول کے مطابق۔</string>
+    <string name="pulse_detail_vol_normal_fund_high">والیوم معمول کے مطابق، لیوریج موڈ پرامید۔</string>
+    <string name="pulse_detail_vol_normal_fund_negative">والیوم معمول کے مطابق، لیوریج موڈ مایوس۔</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">والیوم معمول کے مطابق، لیوریج موڈ غیر جانبدار۔</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">ٹاپ %1$d: مارکیٹ ویلیو کے لحاظ سے سب سے بڑے کوائنز، اسٹیبل کوائنز کے بغیر؛ 24 گھنٹوں میں تبدیلی (CoinGecko)۔</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">ٹاپ %1$d</string>
+    <string name="pulse_breadth_note_broad_down">وسیع فروخت: سب سے بڑے کوائنز میں سے زیادہ تر گر رہے ہیں۔</string>
+    <string name="pulse_breadth_note_broad_up">وسیع حرکت: سب سے بڑے کوائنز میں سے زیادہ تر بڑھ رہے ہیں۔</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin گر رہا ہے، لیکن زیادہ تر دوسرے بڑے کوائنز ٹکے ہوئے ہیں۔</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin بڑھ رہا ہے، لیکن زیادہ تر دوسرے بڑے کوائنز ساتھ نہیں دے رہے۔</string>
+    <string name="pulse_breadth_spoken">ٹاپ %1$d: %2$d اوپر، %3$d نیچے</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">آلٹ کوائنز اور Bitcoin ایک جیسے چل رہے ہیں</string>
+    <string name="pulse_alts_stronger">آلٹ کوائنز Bitcoin سے مضبوط</string>
+    <string name="pulse_alts_weaker">Bitcoin آلٹ کوائنز سے مضبوط</string>
+    <string name="pulse_chip_funding_high">لیوریج موڈ پرامید</string>
+    <string name="pulse_chip_funding_negative">لیوریج موڈ مایوس</string>
+
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s، %2$s۔ %3$s۔</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">قیمت اور اقدامات دکھائیں</string>
+    <string name="unusual_fact_against">مارکیٹ کے خلاف چل رہا ہے</string>
+    <string name="unusual_fact_funding_high">فنڈنگ زیادہ (%1$s)</string>
+    <string name="unusual_fact_funding_negative">فنڈنگ منفی (%1$s)</string>
+    <string name="unusual_fact_stronger">BTC سے کہیں زیادہ تیزی سے چل رہا ہے</string>
+    <string name="unusual_fact_volume">والیوم معمول کا %1$s×</string>
+    <string name="unusual_fact_weaker">BTC سے کہیں زیادہ کمزوری سے چل رہا ہے</string>
+    <string name="unusual_nothing">آج کچھ قابلِ ذکر نہیں</string>
+    <string name="unusual_source">اسٹیبل کوائنز کے بغیر تقریباً 30 سب سے بڑے کوائنز · Binance، CoinGecko</string>
+    <string name="unusual_title">قابلِ ذکر</string>
+
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">قابلِ ذکر</string>
+    <string name="activity_indicator">قابلِ ذکر</string>
+    <string name="activity_sensitivity_less">کم</string>
+    <string name="activity_sensitivity_more">زیادہ</string>
+    <string name="activity_sensitivity_normal">معمول</string>
+    <string name="activity_signal_funding_long">فنڈنگ %1$s — بہت سے لیوریج والے لانگز</string>
+    <string name="activity_signal_funding_short">فنڈنگ %1$s — بہت سے شارٹس</string>
+    <string name="activity_signal_open_interest">%2$d منٹ میں اوپن انٹرسٹ %1$s</string>
+    <string name="activity_signal_open_interest_no_time">اوپن انٹرسٹ %1$s</string>
+    <string name="activity_signal_price_move">غیر معمولی حرکت: ایک گھنٹے میں %1$s (معمول کا %2$s×)</string>
+    <string name="activity_signal_volume">پچھلے گھنٹے میں والیوم معمول کا %1$s×</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%2$d بڑے آلٹ کوائنز میں سے %1$d نے 90 دنوں میں Bitcoin کو پیچھے چھوڑا</item>
+        <item quantity="other">%2$d بڑے آلٹ کوائنز میں سے %1$d نے 90 دنوں میں Bitcoin کو پیچھے چھوڑا</item>
+    </plurals>
+    <string name="insights_chart_axis">ہالوِنگ کے بعد سال</string>
+    <string name="insights_chart_hint">قیمت ہالوِنگ کے دن کی قیمت کے گنا کے طور پر (لاگ اسکیل)۔ پچھلے سائیکلز ایک پیٹرن ہیں، پیش گوئی نہیں۔</string>
+    <string name="insights_cycle_chart">ہالوِنگ کے بعد سے سائیکلز</string>
+    <string name="insights_dominance_eth">کل مارکیٹ کا ETH %1$s</string>
+    <string name="insights_dominance_title">Bitcoin ڈومیننس</string>
+    <string name="insights_fng_history">کل %1$s · ایک ہفتہ پہلے %2$s · ایک مہینہ پہلے %3$s</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="insights_halving_title">Bitcoin ہالوِنگ</string>
+    <string name="insights_source_dominance">ماخذ: CoinGecko، Binance</string>
+    <string name="insights_source_fng">ماخذ: alternative.me</string>
+    <string name="insights_source_history">ماخذ: Coin Metrics (CC BY-NC 4.0)، Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">شدید خوف</string>
+    <string name="fng_extreme_greed">شدید لالچ</string>
+    <string name="fng_fear">خوف</string>
+    <string name="fng_greed">لالچ</string>
+    <string name="fng_neutral">غیر جانبدار</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">ڈیٹا بمطابق %1$s · اپ ڈیٹ ہو رہا ہے…</string>
+    <string name="cycle_from_top">بلند ترین سطح سے %1$s</string>
+    <string name="cycle_marker_bottom">نچلی سطح %1$s</string>
+    <string name="cycle_marker_double_bottom">ڈبل باٹم %1$s</string>
+    <string name="cycle_marker_double_top">ڈبل ٹاپ %1$s</string>
+    <string name="cycle_marker_high_so_far">اب تک کی بلند ترین</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">بلند سطح %1$s</string>
+    <string name="cycle_since_halving">ہالوِنگ کے بعد سے %1$s</string>
+    <string name="halving_estimate_text">حساب کے مطابق اگلی ہالوِنگ تقریباً %1$s: فی بلاک اوسطاً %3$s منٹ کے حساب سے %2$s بلاکس باقی (موجودہ ڈیفیکلٹی مدت)۔ ایک تخمینہ، وعدہ نہیں – بلاک ٹائم بدلتا رہتا ہے۔</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">الرٹ: %1$s</string>
+    <string name="gas_slow_fast">سست %1$s · تیز %2$s</string>
+    <string name="gas_source">عوامی RPC نوڈز اور mempool.space · ایک سادہ ٹرانسفر کی لاگت، L2 پر L1 حصے کے بغیر</string>
+    <string name="gas_title">نیٹ ورک فیس</string>
+    <string name="gas_transfer_cost">ٹرانسفر ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">امریکی افراطِ زر کا ڈیٹا (CPI)</string>
+    <string name="macro_fomc">امریکی فیڈ کا شرحِ سود کا فیصلہ</string>
+    <string name="macro_hint_list">%1$s – ایسے دنوں میں مارکیٹس اکثر زیادہ اوپر نیچے ہوتی ہیں۔</string>
+    <string name="macro_hint_today">آج %1$s: %2$s – ایسے دنوں میں مارکیٹس اکثر زیادہ اوپر نیچے ہوتی ہیں۔</string>
+    <string name="macro_hint_today_list">آج: %1$s – ایسے دنوں میں مارکیٹس اکثر زیادہ اوپر نیچے ہوتی ہیں۔</string>
+    <string name="macro_hint_tomorrow">کل %1$s: %2$s – ایسے دنوں میں مارکیٹس اکثر زیادہ اوپر نیچے ہوتی ہیں۔</string>
+    <string name="macro_hint_tomorrow_list">کل: %1$s – ایسے دنوں میں مارکیٹس اکثر زیادہ اوپر نیچے ہوتی ہیں۔</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">آج %1$s %2$s</string>
+    <string name="macro_item_tomorrow">کل %1$s %2$s</string>
+    <string name="macro_nfp">امریکی روزگار رپورٹ</string>
+    <string name="macro_pce">امریکی صارفین کے اخراجات کی قیمتیں (PCE)</string>
+    <string name="macro_ppi">امریکی پیداواری قیمتیں (PPI)</string>
+    <string name="macro_released_list">آج جاری ہوا: %1$s۔</string>
+    <string name="macro_released_one">آج %1$s بجے جاری ہوا: %2$s۔</string>
+    <string name="macro_title">معاشی ڈیٹا</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">کوائن</string>
+    <string name="coin_no_data">Binance یا Bybit پر اس کوائن کی قیمت کا کوئی ڈیٹا نہیں۔</string>
+    <string name="coin_price_only">صرف قیمت پر مبنی – آن چین ڈیٹا (MVRV، Puell، ہیش ریٹ) مفت صرف Bitcoin کے لیے دستیاب ہے۔</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">صرف %1$d دن کی قیمتی تاریخ – کچھ اشاریے موجود نہیں۔</item>
+        <item quantity="other">صرف %1$d دنوں کی قیمتی تاریخ – کچھ اشاریے موجود نہیں۔</item>
+    </plurals>
+    <string name="coin_title">کوائن کا تجزیہ</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">ڈیٹا: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">24 گھنٹے میں بڑھنے اور گرنے والے</string>
+    <string name="movers_gainers">بڑھنے والے</string>
+    <string name="movers_losers">گرنے والے</string>
+    <string name="movers_no_gainers">24 گھنٹے میں کوئی کوائن نہیں بڑھا</string>
+    <string name="movers_no_losers">24 گھنٹے میں کوئی کوائن نہیں گرا</string>
+    <string name="movers_source">CoinGecko، 24 گھنٹے، اسٹیبل کوائنز کے بغیر ٹاپ 100</string>
+    <string name="movers_a11y_row">%1$s (%2$s)، %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">سب دکھائیں</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">کم دکھائیں</string>
+</resources>

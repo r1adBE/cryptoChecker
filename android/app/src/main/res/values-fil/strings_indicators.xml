@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">Altcoins vs. Bitcoin</string>
+    <string name="neutral_btc_indicators_title">Mga indicator ng Bitcoin</string>
+    <string name="neutral_halving_last">Huling halving: %1$s</string>
+    <string name="neutral_halving_next">Inaasahan ang susunod na halving bandang %1$s (tinantiya mula sa kalendaryo – hindi available ngayon ang block height).</string>
+    <string name="neutral_indicators_disclaimer">Mga sinukat na value lang, walang pagtatasa. Hindi ito forecast at hindi investment advice.</string>
+    <string name="neutral_onchain_missing">Hindi available ngayon ang on-chain data (Coin Metrics).</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">Gaano kalayo ang presyo sa ibaba ng dating all-time high nito.</string>
+    <string name="neutral_explain_change_30d">Presyo ngayon kumpara 30 araw na ang nakalipas.</string>
+    <string name="neutral_explain_hashrate">30-araw na average na hashrate kumpara sa 60-araw na average.</string>
+    <string name="neutral_explain_ma200w">Average ng huling 200 lingguhang close.</string>
+    <string name="neutral_explain_mayer">Presyo na hinati sa 200-araw na average.</string>
+    <string name="neutral_explain_mvrv">Market value na hinati sa realized value (on-chain).</string>
+    <string name="neutral_explain_pi_gap">111-araw na average kumpara sa dalawang beses ng 350-araw na average.</string>
+    <string name="neutral_explain_puell">Araw-araw na kita ng mga miner na hinati sa 365-araw na average nito.</string>
+    <string name="neutral_explain_rsi_daily">Relative Strength Index ng huling 14 na araw, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">Relative Strength Index ng huling 14 na linggo, 0–100.</string>
+    <string name="neutral_explain_sma50_200">50-araw na average kumpara sa 200-araw na average.</string>
+    <string name="neutral_explain_vs_btc">Pagbabago ng presyo kumpara sa Bitcoin sa loob ng 90 araw.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">Ang bilang lang ang ipinapakita ng app at hindi nito tinatawag itong season. Karaniwang nagbabago ang value sa loob ng mga araw, hindi oras.</string>
+    <string name="neutral_info_btc_how">May kasamang isang pangungusap ang bawat value tungkol sa sinusukat nito, at kung nasaan ito sa sarili nitong kasaysayan mula 2016. Hindi nire-rate ng app ang mga value at hindi ito naghihinuha ng market phase; ang mga limitasyon para sa mga market alert ay ang mga itinakda mo lang. Hindi kailangang maulit ang mga nakaraang pattern.</string>
+    <string name="neutral_info_btc_what">Mga karaniwang indicator ng Bitcoin bilang simpleng sinukat na value: Mayer Multiple, 200-linggong average, pagbaba mula sa all-time high, pagbabago sa loob ng 30 araw, Pi Cycle gap at ang mga on-chain value na MVRV, Puell Multiple at hashrate.</string>
+    <string name="neutral_info_coin_how">May kasamang isang pangungusap ang bawat value tungkol sa sinusukat nito, nang walang rating. Para sa mga coin na maikli ang kasaysayan ng presyo, may ilang value na kulang. Hindi kasama rito ang on-chain data.</string>
+    <string name="neutral_info_coin_what">Ang parehong simpleng indicator para sa coin na pipiliin mo, mula sa price data lang: Mayer Multiple, 200-linggong average, pagbaba mula sa all-time high, pagbabago sa loob ng 30 araw, 50/200-araw na trend, RSI at lakas laban sa Bitcoin sa loob ng 90 araw.</string>
+    <string name="neutral_info_halving_how">Kinakalkula ang susunod na halving mula sa kasalukuyang block height at sa average na block time ng kasalukuyang difficulty period (mempool.space); kung wala ang data na iyon, mula sa kalendaryo (huling halving at mga apat na taon). Ipinapakita ng chart ang takbo ng presyo ng mga nakaraang cycle mula sa halving nila – kasaysayan, hindi forecast.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">Trend 50/200 araw</string>
+    <string name="ind_drawdown">Pagbaba mula sa all-time high</string>
+    <string name="ind_missing">kulang ang data</string>
+    <string name="ind_rsi_daily">RSI (araw-araw)</string>
+    <string name="ind_rsi_weekly">RSI (lingguhan)</string>
+    <string name="ind_vs_btc">Lakas vs. Bitcoin (90 araw)</string>
+    <string name="neutral_ind_change_30d">Pagbabago 30 araw</string>
+    <string name="neutral_ind_hashrate">Hashrate 30/60 araw</string>
+    <string name="neutral_ind_ma200w">200-linggong average</string>
+    <string name="neutral_ind_pi_gap">Pi Cycle gap</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">Kapag mataas, karamihan ng malalaking altcoin ay nanalo laban sa Bitcoin sa loob ng 90 araw; kapag mababa, nanalo ang Bitcoin laban sa karamihan nila.</string>
+    <string name="ind_read_ath_distance">Kapag maliit, malapit ang presyo sa record nito; kapag malaki, malayo ito sa ibaba nito.</string>
+    <string name="ind_read_change_30d">Kapag positibo, mas mataas kaysa 30 araw na ang nakalipas; kapag negatibo, mas mababa.</string>
+    <string name="ind_read_funding">Kapag mataas, maraming trader ang tumataya sa pagtaas ng presyo gamit ang leverage; kapag negatibo, marami ang tumataya sa pagbaba.</string>
+    <string name="ind_read_hashrate_30_60">Kapag positibo, lumalaki ang computing power; kapag negatibo, nagpapatay ng makina ang mga miner.</string>
+    <string name="ind_read_leverage">Kapag maraming long, marami ang tumataya sa pagtaas ng presyo gamit ang hiniram na pera; kapag maraming short, marami ang tumataya sa pagbaba.</string>
+    <string name="ind_read_ma200w">Kapag malayo ang presyo sa itaas nito, matagal na pagtaas ito; kapag malapit ang presyo rito, malalim na pullback ito.</string>
+    <string name="ind_read_mayer">Kapag mataas, malayo ang presyo sa itaas ng 200-araw na average nito; kapag mababa, nasa ibaba ito nito.</string>
+    <string name="ind_read_mvrv">Kapag mataas, malayo ang presyo sa itaas ng karaniwang ibinayad ng mga holder; kapag mababa, malapit o mas mababa rito.</string>
+    <string name="ind_read_pi_cycle_gap">Kapag malapit sa zero, halos nagtatagpo ang dalawang average; kapag lubhang negatibo, malayo ang agwat nila.</string>
+    <string name="ind_read_puell">Kapag mataas, mas malaki nang husto ang kita ng mga miner kaysa karaniwan; kapag mababa, mas maliit nang husto.</string>
+    <string name="ind_read_rsi_daily">Kapag lampas 70, malakas ang pagtaas nitong mga nakaraang araw; kapag mababa sa 30, malakas ang pagbaba.</string>
+    <string name="ind_read_rsi_weekly">Kapag lampas 70, malakas ang pagtaas nitong mga nakaraang linggo; kapag mababa sa 30, malakas ang pagbaba.</string>
+    <string name="ind_read_sma50_vs_200">Kapag positibo, nasa itaas ng pangmatagalang average ang panandaliang average; kapag negatibo, nasa ibaba.</string>
+    <string name="ind_read_vs_btc">Kapag positibo, mas maganda ang takbo nito kaysa Bitcoin; kapag negatibo, mas masama.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">Parehong presyo sa loob ng 30 araw: %1$s</string>
+    <string name="ind_context_note">Aritmetika ang mga nakaraang value at kalkulasyong “parehong presyo”, hindi forecast.</string>
+    <string name="ind_context_percentile">Mula %1$s, mas mababa sa %2$s ng mga araw</string>
+</resources>

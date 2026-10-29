@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">පසුබිම</string>
+    <string name="widget_configure_hint">පසුබිම සහ පාරාන්ධතාව තෝරන්න. වර්ණය යෙදුම අනුගමනය කරයි. විජට් එක ඔබේ මුළු නිරීක්ෂණ ලැයිස්තුවම පෙන්වයි; යෙදුම විවෘත කිරීමට පේළියක් තට්ටු කරන්න.</string>
+    <string name="widget_configure_title">විජට් එක සකසන්න</string>
+    <string name="widget_description">ඔබේ නිරීක්ෂණ ලැයිස්තුවේ යුගලයක මිල පෙන්වයි.</string>
+    <string name="widget_empty">නිරීක්ෂණ ලැයිස්තුවේ තවම යුගල නැත.</string>
+    <string name="widget_group_hint">මෙම කණ්ඩායමේ යුගල පමණක් පෙන්වන්න.</string>
+    <string name="widget_kind_single">තනි කාසිය</string>
+    <string name="widget_opacity">පසුබිම් පාරාන්ධතාව: %1$s</string>
+    <string name="widget_pulse_description">දැන් වෙළඳපොළේ කැපී පෙනෙන දේ: සිරස්තලය, කෙටි සාරාංශය සහ Bitcoin, Ethereum සහ Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">යල් පැන ඇත</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">යල් පැන ඇත · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">ඉටිපන්දම්</string>
+    <string name="widget_chart_line">රේඛාව</string>
+    <string name="widget_chart_range">ප්‍රස්තාර පරාසය</string>
+    <string name="widget_chart_type">ප්‍රස්තාර වර්ගය</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">වසර 1</string>
+    <string name="widget_range_24h">24h</string>
+    <string name="widget_range_30d">දින 30</string>
+    <string name="widget_range_7d">දින 7</string>
+    <string name="widget_range_short_1y">වසර 1</string>
+    <string name="widget_range_short_24h">24h</string>
+    <string name="widget_range_short_30d">දින 30</string>
+    <string name="widget_range_short_7d">දින 7</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">%1$s වන විට</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">ඉතිහාසය ඉක්මනින් පැමිණේ</string>
+    <string name="widget_portfolio_description">ඔබේ කළඹේ මුළු වටිනාකම සහ අද වෙනස</string>
+    <string name="widget_portfolio_entries">කාසිවලට පහළින් ඇතුළත් කිරීම්</string>
+    <string name="widget_portfolio_entries_both">දෙකම</string>
+    <string name="widget_portfolio_entries_buys">මිලදී ගැනීම්</string>
+    <string name="widget_portfolio_entries_hint">කාසිවලට පහළින් ඉඩ ඇත්නම් පමණක් පෙන්වයි. මිලදී ගැනීම්වල තැන්පතුද, විකිණීම්වල ආපසු ගැනීම්ද ඇතුළත් වේ; “දෙකම” සමඟ පේළිවල එකතුව හිමිකමට සමාන වේ.</string>
+    <string name="widget_portfolio_entries_off">අක්‍රිය</string>
+    <string name="widget_portfolio_entries_sells">විකිණීම්</string>
+    <string name="widget_portfolio_display">සංදර්ශනය</string>
+    <string name="widget_portfolio_display_conversion">පරිවර්තනය පමණක්</string>
+    <string name="widget_portfolio_display_conversion_usdt">පරිවර්තනය + USDT</string>
+    <string name="widget_portfolio_display_hint">පරිවර්තන මුදල USD ස්ථායි කාසියක් (උදා. USDC) වන විට USDT පේළිය සඟවයි.</string>
+    <string name="widget_portfolio_display_usdt">USDT පමණක්</string>
+    <string name="widget_portfolio_empty">කළඹ ටැබයේ මිලදී ගැනීම් එක් කරන්න</string>
+    <string name="widget_portfolio_list_hint">ඔබේ ස්ථාන මෙහි පෙන්වීමට යෙදුම විවෘත කරන්න.</string>
+    <string name="widget_portfolio_locked_hint">අගුළු දමා ඇත – යෙදුම තුළ අගුළු හරින්න</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="one">කාසි %1$d ක් නොමැතිව</item>
+        <item quantity="other">කාසි %1$d ක් නොමැතිව</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ තවත් %1$d</item>
+        <item quantity="other">+ තවත් %1$d</item>
+    </plurals>
+    <string name="widget_portfolio_name">කළඹ</string>
+    <string name="widget_portfolio_off_hint">එය %1$s තුළ සක්‍රිය කරන්න.</string>
+    <string name="widget_portfolio_off_short">කළඹ අක්‍රියයි</string>
+    <string name="widget_portfolio_off_title">කළඹ අක්‍රියයි</string>
+    <string name="widget_portfolio_partly_stale">සමහර මිල යල් පැන ඇත</string>
+    <string name="widget_portfolio_period">කාලපරිච්ඡේදය</string>
+    <string name="widget_portfolio_period_without">%1$s, %2$s නොමැතිව</string>
+    <string name="widget_portfolio_range_48h">48h</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: කළඹ විවෘත කරන්න</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="widget_portfolio_today_without">අද, %1$s නොමැතිව</string>
+    <string name="widget_portfolio_view">දසුන</string>
+    <string name="widget_portfolio_view_chart">ප්‍රස්තාරය</string>
+    <string name="widget_portfolio_view_list">ලැයිස්තුව</string>
+    <string name="widget_portfolio_view_overview">දළ විශ්ලේෂණය</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">යුගලයක් තෝරන්න</string>
+    <string name="single_widget_description">එක් කාසියක් මිල, වෙනස සහ පැය 24 ප්‍රස්තාරයක් සමඟ විශාලව පෙන්වයි.</string>
+    <string name="single_widget_label">Crypto Checker – තනි කාසිය</string>
+    <string name="single_widget_title">තනි විජට් එක සකසන්න</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">එක් කරන්න</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">%1$s විජට් එක එක් කරන්න</string>
+    <string name="widgets_manual_text">ඔබේ මුල් තිරයට යෙදුමෙන් විජට් එක් කළ නොහැක. මුල් තිරයේ හිස් තැනක් ස්පර්ශ කර අල්ලාගෙන, “විජට්” තෝරා “Crypto Checker” සොයන්න.</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">විජට් එක ඔබම එක් කරන්න</string>
+    <string name="widgets_sheet_title">විජට් එකක් එක් කරන්න</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS යෙදුම්වලට විජට් තනිවම එක් කිරීමට ඉඩ නොදේ. එයට ගත වන්නේ මොහොතක් පමණි:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">ලබා ගත හැකි විජට්</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">යෙදුම් සෙලවෙන තුරු Home Screen හි හිස් තැනක් ස්පර්ශ කර අල්ලාගෙන සිටින්න.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">ඉහළින් “Edit” › “Add Widget” තට්ටු කරන්න (නැතහොත් පැරණි iOS අනුවාදවල “+”).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">“Crypto Checker” සොයා, විජට් එකක් තෝරා “Add Widget” තට්ටු කරන්න.</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">නැවුම් කරන්න – %1$d s කින් නැවත හැකිය</string>
+    <string name="settings_watch">ඔරලෝසුව</string>
+    <string name="settings_watch_hint">Wear OS හි ඔරලෝසු යෙදුම සඳහා කාසි (%1$d දක්වා, USDT එදිරිව මිල). Google Play services හරහා ඔරලෝසුවට යන්නේ මෙම ලැයිස්තුව පමණි; ඔරලෝසුව මිල ගණන් තනිවම ලබා ගනී.</string>
+    <string name="settings_watch_mode_phone">දුරකථනය මෙන් (ප්‍රියතම ★)</string>
+    <string name="settings_watch_mode_own">තමන්ගේම ලැයිස්තුව</string>
+    <string name="settings_watch_own_title">තමන්ගේම ලැයිස්තුව: %2$d න් %1$d</string>
+    <string name="settings_watch_none">තවම ප්‍රියතම නැත</string>
+
+    <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
+    <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">“ලැයිස්තුව” හි USDT පේළියක් නැත</string>
+    <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
+    <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">“දළ විශ්ලේෂණය” ඒ වෙනුවට දින 30 පෙන්වයි</string>
+</resources>

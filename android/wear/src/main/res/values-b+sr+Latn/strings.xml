@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generated from values-sr by android/tools/sr_latn.py - do not edit, run the script instead -->
+<resources>
+    <string name="watch_empty">Nije izabrana nijedna kriptovaluta</string>
+    <string name="watch_loading">Učitavanje…</string>
+    <string name="watch_error">Berze nisu dostupne</string>
+    <string name="watch_updated">Stanje od %1$s</string>
+    <string name="watch_refresh">Osveži</string>
+    <string name="watch_choose">Izaberi kriptovalute</string>
+    <string name="watch_choose_hint">Kriptovalute: najviše %1$d</string>
+    <string name="watch_complication_label">Cena</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s u 24 sata</string>
+    <string name="watch_mode_phone">Spisak: kao na telefonu</string>
+    <string name="watch_mode_own">Spisak: sopstveni</string>
+    <string name="watch_phone_empty">Nema favorita na telefonu</string>
+    <string name="a11y_watch_outdated">Cena zastarela</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">poslednje ažuriranje pre %1$d minute</item>
+        <item quantity="few">poslednje ažuriranje pre %1$d minute</item>
+        <item quantity="other">poslednje ažuriranje pre %1$d minuta</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">poslednje ažuriranje pre %1$d sata</item>
+        <item quantity="few">poslednje ažuriranje pre %1$d sata</item>
+        <item quantity="other">poslednje ažuriranje pre %1$d sati</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">poslednje ažuriranje pre %1$d dana</item>
+        <item quantity="few">poslednje ažuriranje pre %1$d dana</item>
+        <item quantity="other">poslednje ažuriranje pre %1$d dana</item>
+    </plurals>
+</resources>

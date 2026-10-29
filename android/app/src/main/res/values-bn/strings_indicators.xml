@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">অল্টকয়েন বনাম Bitcoin</string>
+    <string name="neutral_btc_indicators_title">Bitcoin সূচক</string>
+    <string name="neutral_halving_last">শেষ হালভিং: %1$s</string>
+    <string name="neutral_halving_next">পরের হালভিং আনুমানিক %1$s নাগাদ (ক্যালেন্ডার থেকে হিসাব – ব্লক হাইট এখন পাওয়া যাচ্ছে না)।</string>
+    <string name="neutral_indicators_disclaimer">শুধু মাপা মান, মূল্যায়ন ছাড়া। পূর্বাভাস নয় এবং বিনিয়োগ পরামর্শ নয়।</string>
+    <string name="neutral_onchain_missing">অন-চেইন ডেটা (Coin Metrics) এখন পাওয়া যাচ্ছে না।</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">দাম তার আগের সর্বকালের সর্বোচ্চ থেকে কতটা নিচে।</string>
+    <string name="neutral_explain_change_30d">আজকের দাম 30 দিন আগের তুলনায়।</string>
+    <string name="neutral_explain_hashrate">30 দিনের গড় হ্যাশরেট 60 দিনের গড়ের তুলনায়।</string>
+    <string name="neutral_explain_ma200w">শেষ 200টি সাপ্তাহিক ক্লোজের গড়।</string>
+    <string name="neutral_explain_mayer">দামকে 200 দিনের গড় দিয়ে ভাগ।</string>
+    <string name="neutral_explain_mvrv">বাজারমূল্যকে বাস্তবায়িত মূল্য দিয়ে ভাগ (অন-চেইন)।</string>
+    <string name="neutral_explain_pi_gap">111 দিনের গড় 350 দিনের গড়ের দ্বিগুণের তুলনায়।</string>
+    <string name="neutral_explain_puell">মাইনারদের দৈনিক আয়কে তার 365 দিনের গড় দিয়ে ভাগ।</string>
+    <string name="neutral_explain_rsi_daily">শেষ 14 দিনের Relative Strength Index, 0–100।</string>
+    <string name="neutral_explain_rsi_weekly">শেষ 14 সপ্তাহের Relative Strength Index, 0–100।</string>
+    <string name="neutral_explain_sma50_200">50 দিনের গড় 200 দিনের গড়ের তুলনায়।</string>
+    <string name="neutral_explain_vs_btc">90 দিনে Bitcoin-এর তুলনায় দামের পরিবর্তন।</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">অ্যাপ শুধু সংখ্যাটি দেখায় এবং এটিকে কোনো সিজন বলে চিহ্নিত করে না। মানটি সাধারণত ঘণ্টায় নয়, দিনে দিনে বদলায়।</string>
+    <string name="neutral_info_btc_how">প্রতিটি মানের সঙ্গে একটি বাক্য থাকে যে এটি কী মাপে, এবং 2016 থেকে নিজের ইতিহাসে এটি কোথায় আছে। অ্যাপ মানগুলোর মূল্যায়ন করে না এবং কোনো বাজার পর্ব নির্ধারণ করে না; বাজার অ্যালার্টের সীমা শুধু সেগুলোই যা আপনি সেট করেন। অতীতের ধরন পুনরাবৃত্তি হবেই এমন নয়।</string>
+    <string name="neutral_info_btc_what">প্রচলিত Bitcoin সূচক সাধারণ মাপা মান হিসেবে: Mayer Multiple, 200 সপ্তাহের গড়, সর্বকালের সর্বোচ্চ থেকে পতন, 30 দিনের পরিবর্তন, Pi Cycle ব্যবধান এবং অন-চেইন মান MVRV, Puell Multiple ও হ্যাশরেট।</string>
+    <string name="neutral_info_coin_how">প্রতিটি মানের সঙ্গে একটি বাক্য থাকে যে এটি কী মাপে, মূল্যায়ন ছাড়া। ছোট দামের ইতিহাসের কয়েনে কিছু মান থাকে না। অন-চেইন ডেটা এখানে অন্তর্ভুক্ত নয়।</string>
+    <string name="neutral_info_coin_what">আপনার পছন্দের কোনো কয়েনের জন্য একই সাধারণ সূচক, শুধু দামের ডেটা থেকে: Mayer Multiple, 200 সপ্তাহের গড়, সর্বকালের সর্বোচ্চ থেকে পতন, 30 দিনের পরিবর্তন, 50/200 দিনের প্রবণতা, RSI এবং 90 দিনে Bitcoin-এর তুলনায় শক্তি।</string>
+    <string name="neutral_info_halving_how">পরের হালভিং বর্তমান ব্লক হাইট ও বর্তমান ডিফিকাল্টি পর্বের গড় ব্লক সময় (mempool.space) থেকে হিসাব করা হয়; সেই ডেটা না থাকলে ক্যালেন্ডার থেকে (শেষ হালভিং যোগ প্রায় চার বছর)। চার্টে অতীত চক্রগুলোর হালভিং থেকে দামের গতিপথ দেখায় – ইতিহাস, পূর্বাভাস নয়।</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">প্রবণতা 50/200 দিন</string>
+    <string name="ind_drawdown">সর্বকালের সর্বোচ্চ থেকে পতন</string>
+    <string name="ind_missing">যথেষ্ট ডেটা নেই</string>
+    <string name="ind_rsi_daily">RSI (দৈনিক)</string>
+    <string name="ind_rsi_weekly">RSI (সাপ্তাহিক)</string>
+    <string name="ind_vs_btc">Bitcoin-এর তুলনায় শক্তি (90 দিন)</string>
+    <string name="neutral_ind_change_30d">পরিবর্তন 30 দিন</string>
+    <string name="neutral_ind_hashrate">হ্যাশরেট 30/60 দিন</string>
+    <string name="neutral_ind_ma200w">200 সপ্তাহের গড়</string>
+    <string name="neutral_ind_pi_gap">Pi Cycle ব্যবধান</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">বেশি মানে বেশিরভাগ বড় অল্টকয়েন 90 দিনে Bitcoin-কে ছাড়িয়েছে, কম মানে Bitcoin বেশিরভাগকে ছাড়িয়েছে।</string>
+    <string name="ind_read_ath_distance">কম মানে দাম তার রেকর্ডের কাছে, বেশি মানে অনেক নিচে।</string>
+    <string name="ind_read_change_30d">ধনাত্মক মানে 30 দিন আগের চেয়ে বেশি, ঋণাত্মক মানে কম।</string>
+    <string name="ind_read_funding">বেশি মানে অনেক ট্রেডার লিভারেজ নিয়ে দাম বাড়ার পক্ষে বাজি ধরছে, ঋণাত্মক মানে অনেকে দাম কমার পক্ষে বাজি ধরছে।</string>
+    <string name="ind_read_hashrate_30_60">ধনাত্মক মানে কম্পিউটিং শক্তি বাড়ছে, ঋণাত্মক মানে মাইনাররা বন্ধ করে দিচ্ছে।</string>
+    <string name="ind_read_leverage">অনেক লং মানে অনেকে ধার করা টাকায় দাম বাড়ার পক্ষে বাজি ধরছে, অনেক শর্ট মানে অনেকে দাম কমার পক্ষে।</string>
+    <string name="ind_read_ma200w">দাম এর অনেক উপরে মানে দীর্ঘ উত্থান, দাম এর কাছাকাছি মানে গভীর পতন।</string>
+    <string name="ind_read_mayer">বেশি মানে দাম তার 200 দিনের গড়ের অনেক উপরে, কম মানে তার নিচে।</string>
+    <string name="ind_read_mvrv">বেশি মানে দাম ধারকদের গড় ক্রয়মূল্যের অনেক উপরে, কম মানে তার কাছাকাছি বা নিচে।</string>
+    <string name="ind_read_pi_cycle_gap">শূন্যের কাছে মানে দুটি গড় প্রায় মিলে যাচ্ছে, অনেক ঋণাত্মক মানে সেগুলো অনেক দূরে।</string>
+    <string name="ind_read_puell">বেশি মানে মাইনাররা স্বাভাবিকের চেয়ে অনেক বেশি আয় করছে, কম মানে অনেক কম।</string>
+    <string name="ind_read_rsi_daily">70-এর উপরে মানে সাম্প্রতিক দিনগুলোতে জোরালো বৃদ্ধি, 30-এর নিচে মানে জোরালো ক্ষতি।</string>
+    <string name="ind_read_rsi_weekly">70-এর উপরে মানে সাম্প্রতিক সপ্তাহগুলোতে জোরালো বৃদ্ধি, 30-এর নিচে মানে জোরালো ক্ষতি।</string>
+    <string name="ind_read_sma50_vs_200">ধনাত্মক মানে স্বল্পমেয়াদি গড় দীর্ঘমেয়াদি গড়ের উপরে, ঋণাত্মক মানে নিচে।</string>
+    <string name="ind_read_vs_btc">ধনাত্মক মানে Bitcoin-এর চেয়ে ভালো করেছে, ঋণাত্মক মানে খারাপ।</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">30 দিন একই দাম থাকলে: %1$s</string>
+    <string name="ind_context_note">অতীতের মান ও “একই দাম” হিসাব নিছক গাণিতিক, পূর্বাভাস নয়।</string>
+    <string name="ind_context_percentile">%1$s থেকে দিনগুলোর %2$s-এ এর চেয়ে কম ছিল</string>
+</resources>

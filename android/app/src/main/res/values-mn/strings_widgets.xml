@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">Дэвсгэр</string>
+    <string name="widget_configure_hint">Дэвсгэр болон тунгалаг байдлыг сонгоно уу. Өнгө аппыг дагана. Виджет таны бүх ажиглах жагсаалтыг харуулна; аппыг нээхийн тулд мөр дээр товшино уу.</string>
+    <string name="widget_configure_title">Виджет тохируулах</string>
+    <string name="widget_description">Таны ажиглах жагсаалтын хосын ханшийг харуулна.</string>
+    <string name="widget_empty">Ажиглах жагсаалтад хараахан хос алга.</string>
+    <string name="widget_group_hint">Зөвхөн энэ бүлгийн хосыг харуулах.</string>
+    <string name="widget_kind_single">Нэг зоос</string>
+    <string name="widget_opacity">Дэвсгэрийн тунгалаг байдал: %1$s</string>
+    <string name="widget_pulse_description">Зах зээлд яг одоо юу онцгойрч байна: гарчиг, товч дүгнэлт болон Bitcoin, Ethereum, Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">хуучирсан</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">хуучирсан · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">Лаа</string>
+    <string name="widget_chart_line">Шугам</string>
+    <string name="widget_chart_range">Графикийн хүрээ</string>
+    <string name="widget_chart_type">Графикийн төрөл</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 жил</string>
+    <string name="widget_range_24h">24 ц</string>
+    <string name="widget_range_30d">30 хоног</string>
+    <string name="widget_range_7d">7 хоног</string>
+    <string name="widget_range_short_1y">1 Ж</string>
+    <string name="widget_range_short_24h">24 ц</string>
+    <string name="widget_range_short_30d">30 Х</string>
+    <string name="widget_range_short_7d">7 Х</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">%1$s байдлаар</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">Түүх удахгүй гарна</string>
+    <string name="widget_portfolio_description">Таны багцын нийт үнэ цэнэ болон өнөөдрийн өөрчлөлт</string>
+    <string name="widget_portfolio_entries">Зоосны доорх бичлэг</string>
+    <string name="widget_portfolio_entries_both">Хоёулаа</string>
+    <string name="widget_portfolio_entries_buys">Худалдан авалт</string>
+    <string name="widget_portfolio_entries_hint">Зоосны доор зай байвал л харагдана. Худалдан авалтад орлого, борлуулалтад татан авалт орно; «Хоёулаа» сонговол мөрүүдийн нийлбэр хөрөнгөтэй тэнцэнэ.</string>
+    <string name="widget_portfolio_entries_off">Унтраалттай</string>
+    <string name="widget_portfolio_entries_sells">Борлуулалт</string>
+    <string name="widget_portfolio_display">Харуулах</string>
+    <string name="widget_portfolio_display_conversion">Зөвхөн хөрвүүлэлт</string>
+    <string name="widget_portfolio_display_conversion_usdt">Хөрвүүлэлт + USDT</string>
+    <string name="widget_portfolio_display_hint">Хөрвүүлэх валют нь USD стэйблкойн бол (жишээ нь USDC) USDT мөрийг нууна.</string>
+    <string name="widget_portfolio_display_usdt">Зөвхөн USDT</string>
+    <string name="widget_portfolio_empty">«Багц» табад худалдан авалт нэмнэ үү</string>
+    <string name="widget_portfolio_list_hint">Позицоо энд харуулахын тулд аппыг нээнэ үү.</string>
+    <string name="widget_portfolio_locked_hint">Түгжээтэй – апп дотор тайлна уу</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="one">%1$d зоосгүй</item>
+        <item quantity="other">%1$d зоосгүй</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ өөр %1$d</item>
+        <item quantity="other">+ өөр %1$d</item>
+    </plurals>
+    <string name="widget_portfolio_name">Багц</string>
+    <string name="widget_portfolio_off_hint">Үүнийг %1$s хэсэгт асаана уу.</string>
+    <string name="widget_portfolio_off_short">Багц унтраалттай</string>
+    <string name="widget_portfolio_off_title">Багц унтраалттай</string>
+    <string name="widget_portfolio_partly_stale">зарим ханш хуучирсан</string>
+    <string name="widget_portfolio_period">Хугацаа</string>
+    <string name="widget_portfolio_period_without">%1$s, %2$s-гүй</string>
+    <string name="widget_portfolio_range_48h">48 ц</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: Багцыг нээнэ үү</string>
+    <string name="widget_portfolio_range_short_48h">48 ц</string>
+    <string name="widget_portfolio_today_without">Өнөөдөр, %1$s-гүй</string>
+    <string name="widget_portfolio_view">Харагдац</string>
+    <string name="widget_portfolio_view_chart">График</string>
+    <string name="widget_portfolio_view_list">Жагсаалт</string>
+    <string name="widget_portfolio_view_overview">Тойм</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">Хос сонгоно уу</string>
+    <string name="single_widget_description">Нэг зоосыг ханш, өөрчлөлт болон 24 цагийн графиктай томоор харуулна.</string>
+    <string name="single_widget_label">Crypto Checker – нэг зоос</string>
+    <string name="single_widget_title">Нэг зоосны виджет тохируулах</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">Нэмэх</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">%1$s виджет нэмэх</string>
+    <string name="widgets_manual_text">Таны үндсэн дэлгэц аппаас виджет нэмж чадахгүй. Үндсэн дэлгэцийн хоосон хэсгийг удаан дараад «Виджет»-ийг сонгож, «Crypto Checker»-ийг хайна уу.</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">Виджетийг өөрөө нэмнэ үү</string>
+    <string name="widgets_sheet_title">Виджет нэмэх</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS аппуудад виджетийг өөрсдөө нэмэхийг зөвшөөрдөггүй. Энэ хэдхэн хором л болно:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Боломжтой виджет</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Аппууд чичирч эхлэх хүртэл Үндсэн дэлгэцийн хоосон хэсгийг удаан дарна уу.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Дээд хэсэгт «Засах» › «Виджет нэмэх» дээр товшино уу (хуучин iOS хувилбарт «+»).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">«Crypto Checker»-ийг хайж, виджет сонгоод «Виджет нэмэх» дээр товшино уу.</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">Шинэчлэх – %1$d с-ийн дараа дахин боломжтой</string>
+    <string name="settings_watch">Ухаалаг цаг</string>
+    <string name="settings_watch_hint">Wear OS дээрх цагны аппын зоос (%1$d хүртэл, USDT-тэй харьцуулан үнэлнэ). Цаг руу зөвхөн энэ жагсаалтыг Google Play-ийн үйлчилгээгээр илгээнэ; цаг ханшийг өөрөө татна.</string>
+    <string name="settings_watch_mode_phone">Утастай адил (дуртай ★)</string>
+    <string name="settings_watch_mode_own">Тусдаа жагсаалт</string>
+    <string name="settings_watch_own_title">Тусдаа жагсаалт: %2$d-аас %1$d</string>
+    <string name="settings_watch_none">Одоогоор дуртай зоос алга</string>
+
+    <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
+    <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">«Жагсаалт»-д USDT мөр алга</string>
+    <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
+    <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">«Тойм» оронд нь 30 хоногийг харуулна</string>
+</resources>

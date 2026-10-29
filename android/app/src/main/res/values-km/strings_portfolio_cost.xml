@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">ធាតុគ្មានតម្លៃដើម៖ %1$d</string>
+    <string name="cost_gaps_card_text">សូមបន្ថែមតម្លៃដើម ដើម្បីឱ្យប្រាក់ចំណេញ និងពន្ធពេញលេញ។</string>
+    <string name="cost_gaps_sheet_title">ធាតុគ្មានតម្លៃដើម</string>
+    <string name="cost_gaps_sheet_intro">លំហូរចូលទាំងនេះគ្មានតម្លៃដើមទេ។ ការណែនាំគឺតម្លៃបិទប្រចាំថ្ងៃនៃកាលបរិច្ឆេទនោះ – អ្នកអាចកែតម្រូវវានៅក្នុងធាតុ។</string>
+    <string name="cost_gaps_empty">ធាតុទាំងអស់មានតម្លៃដើម។</string>
+    <string name="cost_gap_enter">បញ្ចូលតម្លៃដើម</string>
+    <string name="cost_gap_leave_unknown">ទុកជាមិនស្គាល់</string>
+    <string name="cost_gap_left_unknown">បានទុកជាមិនស្គាល់</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">ការណែនាំ៖ តម្លៃបិទប្រចាំថ្ងៃ %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">គ្មានតម្លៃបិទប្រចាំថ្ងៃដែលបានផ្ទៀងផ្ទាត់សម្រាប់កាលបរិច្ឆេទនេះទេ</string>
+    <string name="cost_gap_suggestion_loading">កំពុងផ្ទុកតម្លៃបិទប្រចាំថ្ងៃ …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">តម្លៃដើម = តម្លៃនៅពេលទទួល (ចំណូល)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">តម្លៃដើម = 0 (រង្វាន់ដោយគ្មានលំហូរចូល អូទ្រីស)</string>
+    <string name="cost_gap_apply">អនុវត្ត</string>
+    <string name="address_lots_action">តម្លៃដើមសម្រាប់សមតុល្យអាសយដ្ឋាន</string>
+    <string name="address_lots_title">តម្លៃដើមសម្រាប់សមតុល្យអាសយដ្ឋាន</string>
+    <string name="address_lots_intro">បញ្ចូលកាលបរិច្ឆេទទិញ ចំនួន និងតម្លៃដើមសម្រាប់សមតុល្យនៃអាសយដ្ឋាននេះ។ ឡូតិ៍ត្រូវបានរាប់ដូចការទិញនៅក្នុងអាសយដ្ឋាននេះ។ ផ្នែកណាដែលមិនត្រូវបានគ្របដណ្ដប់នៅតែគ្មានតម្លៃដើម។</string>
+    <string name="address_lots_add">បន្ថែមឡូតិ៍</string>
+    <string name="address_lots_new">ឡូតិ៍ថ្មី</string>
+    <string name="address_lots_edit">ឡូតិ៍</string>
+    <string name="address_lots_date">កាលបរិច្ឆេទទិញ</string>
+    <string name="address_lots_amount">ចំនួន</string>
+    <string name="address_lots_mode_total">សរុប</string>
+    <string name="address_lots_mode_price">ក្នុងមួយកាក់</string>
+    <string name="address_lots_price">តម្លៃក្នុងមួយកាក់ (USDT)</string>
+    <string name="address_lots_total">តម្លៃដើមសរុប (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%1$s នៃ %2$s មានតម្លៃដើម</string>
+    <string name="address_lots_unlotted">%1$s គ្មានតម្លៃដើម</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">ឡូតិ៍លើសសមតុល្យ %1$s – ឡូតិ៍ចាស់បំផុតត្រូវបានប្រើមុន។</string>
+    <string name="address_lots_not_loaded">សមតុល្យមិនទាន់បានផ្ទុកនៅឡើយទេ – ឡូតិ៍នឹងត្រូវរាប់ភ្លាមៗនៅពេលវាផ្ទុក។</string>
+    <string name="address_lots_invalid">បញ្ចូលចំនួន និងតម្លៃដើម</string>
+</resources>

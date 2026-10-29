@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">CSV idxal et</string>
+    <string name="portfolio_csv_import_all_transfer">Hamısı öz pulqabına</string>
+    <string name="portfolio_csv_import_all_withdrawal">Hamısı portfeldən çıxır</string>
+    <string name="portfolio_csv_import_choice_proposed">Təklif: %1$s ilə uyğun gəlir</string>
+    <string name="portfolio_csv_import_choice_transfer">Öz pulqabına (köçürmə)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Portfeldən çıxır (çıxarış)</string>
+    <string name="portfolio_csv_import_choose_each">Hər çıxarış üçün hara getdiyini seç.</string>
+    <string name="portfolio_csv_import_columns">Tanınan sütunlar: %1$s</string>
+    <string name="portfolio_csv_import_confirm">İdxal et (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">Gün/Ay</string>
+    <string name="portfolio_csv_import_date_month_first">Ay/Gün</string>
+    <string name="portfolio_csv_import_date_order">Qeyri-müəyyən tarixlər (məs. 03/04/2024) belə oxunsun:</string>
+    <string name="portfolio_csv_import_decimal">Qeyri-müəyyən rəqəmlər (məs. %1$s) belə oxunsun:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d əməliyyat idxal edildi</item>
+        <item quantity="other">%d əməliyyat idxal edildi</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d artıq idxal edilib (buraxıldı)</item>
+        <item quantity="other">%d artıq idxal edilib (buraxıldı)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">Format: %1$s</string>
+    <string name="portfolio_csv_import_line">Sətir %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">Fayl və günlük məzənnələr oxunur…</string>
+    <string name="portfolio_csv_import_progress">Sətir %1$s / %2$s</string>
+    <string name="portfolio_csv_import_saving">Əməliyyatlar yadda saxlanılır…</string>
+    <string name="portfolio_csv_import_missing_fx">%1$s sətirləri üçün günlük məzənnə yoxdur – qiymət/komissiya olmadan idxal edildi.</string>
+    <string name="portfolio_csv_import_missing_price">Faylda %1$s sətirləri üçün qiymət yoxdur – qiymətsiz idxal edildi.</string>
+    <string name="portfolio_csv_import_more">+ daha %1$d</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d yeni əməliyyat</item>
+        <item quantity="other">%d yeni əməliyyat</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d sətir buraxıldı</item>
+        <item quantity="other">%d sətir buraxıldı</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">Steyblkoinlərə (USDT, USDC …) qarşı alqı-satqı mübadilə kimi qeydə alınır – steyblkoin aktivlərində görünür.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Bir neçə uyğunluq mümkündür – düzgününü seç və ya heç birini.</string>
+    <string name="portfolio_csv_import_transfer_fee">Şəbəkə komissiyası: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">Bir köçürmə kimi qeydə al</string>
+    <string name="portfolio_csv_import_transfer_stored">Əvvəlki idxaldan qarşı qeyd</string>
+    <string name="portfolio_csv_import_transfers_hint">Eyni koinin çıxarışı və uyğun depoziti bir köçürməyə çevrilir: alış qiyməti və saxlama müddəti keçir, fərq şəbəkə komissiyası sayılır.</string>
+    <string name="portfolio_csv_import_transfers_title">Hesabların arasında köçürmələr</string>
+    <string name="portfolio_csv_import_unreadable">Dəstəklənən əməliyyat tapılmadı. Dəstəklənir: Relai, Swissquote, Kraken, Binance, Coinbase və Bitpanda CSV ixracları.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
+    <string name="portfolio_csv_import_too_large">Fayl idxal üçün çox böyükdür (ən çoxu 16 MB və %1$s sətir). Daha qısa dövrləri ixrac et və onları bir-birinin ardınca idxal et.</string>
+    <string name="portfolio_csv_import_failed">İdxal alınmadı – heç nə yadda saxlanılmadı. Yenidən cəhd et.</string>
+    <string name="portfolio_csv_import_locked">İdxal mümkün deyil: saxlanılmış məlumatlar hazırda oxuna bilmir. Tətbiqi yenidən başlat.</string>
+    <string name="portfolio_csv_import_withdrawals_title">Çıxarışlar – koinlər hara getdi?</string>
+    <string name="portfolio_csv_import_zone">Saat qurşağı olmayan vaxtlar belə oxunsun: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">Cihaz (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">oxunmayan tarix</string>
+    <string name="portfolio_csv_skip_bad_number">oxunmayan rəqəm</string>
+    <string name="portfolio_csv_skip_fee_exceeds">komissiya ≥ alınan məbləğ</string>
+    <string name="portfolio_csv_skip_internal_move">öz hesabların arasında köçürmə – qeydə alınacaq bir şey yoxdur</string>
+    <string name="portfolio_csv_skip_missing">sahə yoxdur</string>
+    <string name="portfolio_csv_skip_ambiguous">eyni saniyədə bir-birindən ayırd edilə bilməyən bir neçə əqd – onları əl ilə daxil et</string>
+    <string name="portfolio_csv_skip_not_crypto">kripto deyil</string>
+    <string name="portfolio_csv_skip_possible_duplicate">ola bilsin artıq idxal edilib (demək olar ki, eyni əqd) – əl ilə yoxla</string>
+    <string name="portfolio_csv_skip_two_fees">müxtəlif vahidlərdə iki komissiya – mübadiləni əl ilə daxil et</string>
+    <string name="portfolio_csv_skip_unsupported">dəstəklənməyən növ</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">Geri qaytar</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">Bu idxalın %d əməliyyatı silinsin? Əl ilə daxil edilmiş qeydlər və digər idxallar qalır.</item>
+        <item quantity="other">Bu idxalın %d əməliyyatı silinsin? Əl ilə daxil edilmiş qeydlər və digər idxallar qalır.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">İdxal geri qaytarılsın?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">%d idxal edilmiş əməliyyat silindi</item>
+        <item quantity="other">%d idxal edilmiş əməliyyat silindi</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d əməliyyat</item>
+        <item quantity="other">%d əməliyyat</item>
+    </plurals>
+    <string name="portfolio_imports_empty">İdxal yoxdur</string>
+    <string name="portfolio_imports_title">İdxallar</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">eyni əməliyyat ID-si fərqli məbləğlə – əl ilə yoxla</string>
+    <string name="portfolio_csv_skip_staking_unpaired">qarşı qeydi olmayan steykinq qeydi – aktivləri yoxla</string>
+    <string name="portfolio_csv_skip_amount_too_small">məbləğ çox kiçikdir – saxlananda 0-a yuvarlaqlaşdırılır</string>
+    <string name="portfolio_csv_skip_invalid_swap">etibarlı koin və ya alınan məbləğ olmadan mübadilə</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">Fayl yenidən oxunur …</string>
+</resources>

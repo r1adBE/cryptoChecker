@@ -234,4 +234,17 @@
     <string name="watchlist_not_saved_confirm_message">Liste ve alarmları şu anda kaydedilmiyor. Bu ve sonraki değişiklikler uygulama kapanınca kaybolur. Yine de değiştirmek istiyor musun?</string>
     <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
     <string name="watchlist_not_saved_confirm_action">Yine de değiştir</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">%1$d çift</item>
+        <item quantity="other">%1$d çift</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">%2$d / %1$d çift</item>
+        <item quantity="other">%2$d / %1$d çift</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">%1$d yer kaldı</item>
+        <item quantity="other">%1$d yer kaldı</item>
+    </plurals>
+    <string name="watchlist_footer_full">İzleme listesi dolu</string>
 </resources>

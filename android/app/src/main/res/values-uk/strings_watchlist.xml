@@ -260,4 +260,23 @@
     <string name="watchlist_not_saved_confirm_message">Список разом із сигналами зараз не зберігається. Ця та наступні зміни зникнуть після закриття застосунку. Усе одно змінити?</string>
     <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
     <string name="watchlist_not_saved_confirm_action">Усе одно змінити</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">Пари: %1$d</item>
+        <item quantity="few">Пари: %1$d</item>
+        <item quantity="many">Пари: %1$d</item>
+        <item quantity="other">Пари: %1$d</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">Пари: %2$d з %1$d</item>
+        <item quantity="few">Пари: %2$d з %1$d</item>
+        <item quantity="many">Пари: %2$d з %1$d</item>
+        <item quantity="other">Пари: %2$d з %1$d</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">Вільних місць: %1$d</item>
+        <item quantity="few">Вільних місць: %1$d</item>
+        <item quantity="many">Вільних місць: %1$d</item>
+        <item quantity="other">Вільних місць: %1$d</item>
+    </plurals>
+    <string name="watchlist_footer_full">Список заповнений</string>
 </resources>

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
+    <string name="portfolio_cutoff_export_action">Ukuthumela ngosuku lokunquma…</string>
+    <string name="portfolio_tax_worksheet_action">Ishidi lokusebenza…</string>
+    <string name="portfolio_export_address_unobserved">ikheli belingabukwa ngalolu suku – alifakiwe</string>
+    <string name="portfolio_export_button">Thumela i-CSV</string>
+    <string name="portfolio_export_col_amount">Inani</string>
+    <string name="portfolio_export_col_coin">I-coin</string>
+    <string name="portfolio_export_col_note">Inothi</string>
+    <string name="portfolio_export_col_price">Intengo USDT</string>
+    <string name="portfolio_export_col_rate">Izinga USDT→%1$s</string>
+    <string name="portfolio_export_col_value">Inani USDT</string>
+    <string name="portfolio_export_col_value_cur">Inani %1$s</string>
+    <!-- Inhalt der CSV-Datei -->
+    <string name="portfolio_export_comment"># Usuku lokunquma %1$s, imali %2$s, izinga le-FX lika-%3$s</string>
+    <string name="portfolio_export_currency">Uhlobo lwemali: %1$s</string>
+    <string name="portfolio_export_date">Usuku lokunquma</string>
+    <string name="portfolio_export_done">Ukuthumela kulondoloziwe</string>
+    <string name="portfolio_export_estv_note">Entelweni yengcebo kusebenza amanani asemthethweni okuphela konyaka ohlwini lwezintengo lwe-ESTV %1$s lapho ebhaliwe khona: %2$s</string>
+    <string name="portfolio_export_failed">Ukuthumela kwehlulekile</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">Ukuthumela kwehlulekile: ifayela alikwazanga ukubhalwa – indawo yesitoreji ayisekho noma ayibhaleki</string>
+    <string name="portfolio_export_failed_prices">Ukuthumela kwehlulekile: izintengo azikwazanga ukulayishwa – akukho ukuxhumana noma i-exchange ayiphenduli</string>
+    <string name="portfolio_export_from_address">kusuka ekhelini – ayikho intengo yokuthenga</string>
+    <string name="portfolio_export_hint">Izimpahla ekupheleni kosuku olukhethiwe, zibalwe ngentengo yokuvala yosuku (UTC) nge-USDT futhi ziguqulwe ngezinga lereferensi le-ECB lalolo suku. Shintsha imali nge-“Imali yokuguqulela”.</string>
+    <string name="portfolio_export_incomplete">akuphelele</string>
+    <string name="portfolio_export_no_fx">alikho izinga le-FX</string>
+    <string name="portfolio_export_no_price">ayikho intengo</string>
+    <string name="portfolio_export_running">Ilanda izintengo zomlando…</string>
+    <string name="portfolio_export_title">Ukuthumela ngosuku lokunquma</string>
+    <string name="portfolio_export_today_hint">Namuhla akukapheli: kusetshenziswa intengo yamanje esikhundleni sentengo yokuvala yosuku.</string>
+    <string name="portfolio_export_total">Isamba</string>
+    <string name="portfolio_export_unchecked">akuhloliwe (ayikho intengo ehambisanayo)</string>
+
+    <!-- Steuer-Export (Arbeitspapier) -->
+    <string name="tax_export_adjustment">superficial loss (kwengezwe ku-ACB)</string>
+    <string name="tax_export_at_wallet_note">Austria: isilinganiso esinyakazayo nge-coin ngayinye ne-wallet (exchange) – ukudlulisa kuhambisa izindleko – imivuzo ngezindleko zokuthola ezingu-0 – izimpahla kusukela ngo-1 Mar 2021 ngaphandle kwezimali ezikhokhwayo (azisuseki) – inzalo yokuboleka ngenani ngesikhathi sokwamukela (imali engenayo ngamaphesenti angu-27.5).</string>
+    <string name="tax_export_avg_cost_rates">izindleko ngamazinga osuku lokuthenga (isilinganiso)</string>
+    <string name="tax_export_ch_wealth_not_calculated">Intela yengcebo ayibalwanga – uhlu lwezintengo lwe-ESTV: %1$s</string>
+    <string name="tax_export_col_acquired">Kutholiwe</string>
+    <string name="tax_export_col_adjustment">Ukulahlekelwa okungavunyelwe %1$s</string>
+    <string name="tax_export_col_cost">Izindleko %1$s</string>
+    <string name="tax_export_col_date">Usuku</string>
+    <string name="tax_export_col_days">Izinsuku zokuphatha</string>
+    <string name="tax_export_col_gain">Inzuzo %1$s</string>
+    <string name="tax_export_col_gross">Intengo ngaphambi kwezimali ezikhokhwayo %1$s</string>
+    <string name="tax_export_col_long_term">kuphethwe &gt; unyaka o-1</string>
+    <string name="tax_export_col_portfolio_value">Inani le-portfolio %1$s</string>
+    <string name="tax_export_col_proceeds">Imali etholiwe %1$s</string>
+    <string name="tax_export_col_sold">Kuthengisiwe</string>
+    <string name="tax_export_cost_incomplete">izindleko eziphelele zokuthola aziphelele</string>
+    <string name="tax_export_cost_missing">intengo yokuthenga ayikho</string>
+    <string name="tax_export_fee_consumed">Imali ekhokhwayo idla konke okutholiwe</string>
+    <string name="tax_export_fee_leg">imali ekhokhwayo ngenye i-coin</string>
+    <string name="tax_export_fee_row">Imali ekhokhwayo</string>
+    <string name="tax_export_fee_value_missing">imali ekhokhwayo ngenye i-coin ayinalo inani</string>
+    <string name="tax_export_gains">Ukulahlwa okuphothuliwe (CSV)</string>
+    <string name="tax_export_gains_title">Ukulahlwa okuphothuliwe %1$s</string>
+    <string name="tax_export_gift">Isipho</string>
+    <string name="tax_export_holdings_cutoff">Izimpahla ngomhla ka-%1$s (CSV)</string>
+    <string name="tax_export_holdings_title">Izimpahla ngomhla ka-%1$s</string>
+    <string name="tax_export_income">Imali engenayo (CSV)</string>
+    <string name="tax_export_income_title">Imali engenayo %1$s</string>
+    <string name="tax_export_info_template">Isifanekiso: %1$s · Indlela: %2$s · Unyaka wentela: %3$s · Imali: %4$s · Crypto Checker %5$s</string>
+    <string name="tax_export_lost_fee_cost">izindleko zemali yenethiwekhi ngaphandle kwe-lot ekhokhelwe</string>
+    <string name="tax_export_match_pool">Section 104 pool</string>
+    <string name="tax_export_match_same_day">usuku olufanayo (HMRC)</string>
+    <string name="tax_export_match_thirty_day">umthetho wezinsuku ezingu-30 (HMRC)</string>
+    <string name="tax_export_method_change_warning">Ukushintsha indlela noma isifanekiso kubala kabusha neminyaka yangaphambilini – qhathanisa nalokho osukufakile.</string>
+    <string name="tax_export_method_overridden">Isifanekiso sibala i-%1$s – hhayi i-%2$s</string>
+    <string name="tax_export_new_holding">kutholwe kusukela ngo-1 Mar 2021</string>
+    <string name="tax_export_no">cha</string>
+    <string name="tax_export_old_holding">kutholwe ngaphambi kuka-1 Mar 2021</string>
+    <string name="tax_export_oversold">kuthengiswe ngaphezu kwalokho okubhaliwe</string>
+    <string name="tax_export_payment">Inkokhelo nge-crypto</string>
+    <string name="tax_export_period">%1$s – %2$s</string>
+    <string name="tax_export_proceeds_missing">intengo yokuthengisa ayikho</string>
+    <string name="tax_export_proceeds_without_cost">Imali etholiwe ngaphandle kwentengo yokuthenga</string>
+    <string name="tax_export_realized_differs">I-CSV yentela ingehluka ku-‘okuphothuliwe’ (imithetho yentela yezwe).</string>
+    <string name="tax_export_rule">&gt; unyaka o-1: kuthengiswe ngemuva kosuku lokuthenga + unyaka o-1 wekhalenda. Izinsuku ngesikhathi sendawo. Amazinga: izinga lansuku zonke le-ECB losuku lomsebenzi; uma lingekho, izinga lokugcina kuze kube yizinsuku ezi-7 ngaphambili.</string>
+    <string name="tax_export_rules_date">Imithetho kusukela ku-: %1$s</string>
+    <string name="tax_export_rules_stale">Imithetho ingeka-%1$s – ku-%2$s, amazinga nezibonelelo kungenzeka kushintshile. Hlola amanani.</string>
+    <string name="tax_export_spouse_gift">kumlingani womshado/umlingani – ayikho inzuzo, akukho ukulahlekelwa</string>
+    <string name="tax_export_summary">Isifinyezo sonyaka %1$s (CSV)</string>
+    <string name="tax_export_swap">i-swap</string>
+    <string name="tax_export_tax_year">Unyaka wentela</string>
+    <string name="tax_export_transfer_fee_info">Imali yokudlulisa nge-USDT/ngokheshi – akukhona ukulahlekelwa, akukho ezindlekweni zokuthenga, ulwazi kuphela</string>
+    <string name="tax_export_unassigned_fee">imali ekhokhwayo ayabelwanga – izindleko zokuthenga azaziwa</string>
+    <string name="tax_export_usdt_usd_note">I-USDT iguqulwe ngentengo yokuvala yosuku ye-USDT/USD; 1 USD lapho ingekho intengo yokuvala (kumakwe emugqeni ngamunye)</string>
+    <string name="tax_export_value_estimated">Inani lilinganiselwe (intengo yokuvala yosuku)</string>
+    <string name="tax_export_value_missing">inani ngesikhathi sokwamukela alikho</string>
+    <string name="tax_export_wallet">I-wallet: %1$s</string>
+    <string name="tax_export_wallet_unspecified">akucacisiwe</string>
+    <string name="tax_export_withdrawal_fee">Imali yokukhipha</string>
+    <string name="tax_export_withdrawal_fee_info">Imali yokukhipha nge-USDT/ngokheshi – akukhona ukulahlekelwa, ulwazi kuphela</string>
+    <string name="tax_export_workpaper_disclaimer">Ishidi lokusebenza lentela – akusona isimemezelo sentela futhi akusona iseluleko sentela</string>
+    <string name="tax_export_workpaper_title">Ishidi lokusebenza</string>
+    <string name="tax_export_year_local_zone">Izinsuku ngesikhathi sendawo (%1$s)</string>
+    <string name="tax_export_yes">yebo</string>
+
+    <!-- Steuer-Export: Zeilen und Spalten -->
+    <string name="tax_line_at_interest">Inzalo yokuboleka (inani ngesikhathi sokwamukela)</string>
+    <string name="tax_line_at_old_long">Kutholwe ngaphambi kuka-1 Mar 2021 – kuphethwe &gt; unyaka o-1: ngokuvamile akukhokhiswa intela – hlola</string>
+    <string name="tax_line_at_rate">Izinga elikhethekile lamaphesenti angu-27.5: inani elihlanzekile elitholwe kusukela ngo-1 Mar 2021 lathengiswa kusukela ngo-1 Mar 2022 + inzalo</string>
+    <string name="tax_line_au_discounted">Inzuzo yemali ehlanzekile ngemuva kokulahlekelwa nesaphulelo samaphesenti angu-50</string>
+    <string name="tax_line_ca_taxable">Inzuzo yemali ekhokhiswa intela (izinga lokufaka 1/2)</string>
+    <string name="tax_line_ch_income">Imivuzo ibhaliwe – bheka iphepha lokusebenza le-ESTV ukuthi iphathwa kanjani</string>
+    <string name="tax_line_ch_private">Inzuzo yemali kumafa omuntu siqu: ayibalwanga – bheka i-ESTV ukuze kuhlukaniswe</string>
+    <string name="tax_line_ch_wealth">Intela yengcebo: ayibalwanga – i-CSV yezimpahla isebenzisa intengo ye-exchange × USD/CHF ngomhla ka-31 Dis – amanani entela asemthethweni: uhlu lwezintengo lwe-ESTV</string>
+    <string name="tax_line_de_long">Kuphethwe &gt; unyaka o-1: ngokuvamile akukhokhiswa intela ngaphansi kwe-§ 23 EStG – hlola</string>
+    <string name="tax_line_denied_loss">Ukulahlekelwa okungavunyelwe (superficial loss)</string>
+    <string name="tax_line_fr_outflow">Okuphumayo ngaphandle kokuthengisa (ukukhipha) – izindleko eziphelele zokuthola zehliswe ngokulinganayo</string>
+    <string name="tax_line_fr_rate">Izinga elilinganayo lamaphesenti angu-12.8 kanye neminikelo yezenhlalakahle (noma isikali uma ukhetha)</string>
+    <string name="tax_line_fr_threshold">Ukulahlwa okufika ku-€305 ngonyaka: ngokuvamile akukhokhiswa (isamba sezintengo zokuthengisa) – hlola</string>
+    <string name="tax_line_gains">Inzuzo</string>
+    <string name="tax_line_income">Imali engenayo (imivuzo ngenani ngesikhathi sokwamukela)</string>
+    <string name="tax_line_jp_misc">Imali engenayo ehlukahlukene (雑所得): inzuzo ehlanzekile + imali engenayo</string>
+    <string name="tax_line_long_net">Okuhlanzekile – kuphethwe &gt; unyaka o-1</string>
+    <string name="tax_line_losses">Ukulahlekelwa</string>
+    <string name="tax_line_net">Inzuzo/ukulahlekelwa okuhlanzekile</string>
+    <string name="tax_line_new_net">Okuhlanzekile – kutholwe kusukela ngo-1 Mar 2021, kwathengiswa kusukela ngo-1 Mar 2022</string>
+    <string name="tax_line_old_long_net">Okuhlanzekile – kutholwe ngaphambi kuka-1 Mar 2021 – kuphethwe &gt; unyaka o-1</string>
+    <string name="tax_line_old_short_net">Okuhlanzekile – imisebenzi yokuqagela (umthetho wangaphambili): kutholwe ngaphambi kuka-1 Mar 2021 futhi kwaphathwa ≤ unyaka o-1, noma kwathengiswa ngaphambi kuka-1 Mar 2022</string>
+    <string name="tax_line_proceeds">Imali etholiwe</string>
+    <string name="tax_line_short_net">Okuhlanzekile – kuphethwe ≤ unyaka o-1</string>
+    <string name="tax_line_transfer_fees">Izimali zokudlulisa (ama-wallet akho)</string>
+    <string name="tax_line_uk_after_exempt">Inzuzo ehlanzekile ngaphezu kwenani elingakhokhiswa (i-crypto kuphela)</string>
+    <string name="tax_line_uk_exempt">Inani lonyaka elingakhokhiswa – lisebenza kukho konke ukulahlwa ndawonye, lisetshenziswe ngokuphelele lapha</string>
+    <string name="tax_line_us_terms">Isikhathi esifushane (≤ unyaka o-1): amazinga avamile – isikhathi eside (&gt; unyaka o-1): amazinga enzuzo yemali</string>
+    <string name="tax_line_withdrawal_fees">Izimali zokukhipha</string>
+
+    <!-- Steuer Deutschland -->
+    <string name="tax_de_below">ngaphansi komkhawulo</string>
+    <string name="tax_de_col_item">Into</string>
+    <string name="tax_de_disclaimer">Okokuqondisa kuphela – akusona isimemezelo sentela futhi akusona iseluleko sentela.</string>
+    <string name="tax_de_explain_below">Kufika ku-%1$s: ngaphansi komkhawulo (okokuqondisa).</string>
+    <string name="tax_de_explain_loss">Ukulahlekelwa okuhlanzekile: ayikho intela kulokhu kuthengisa. Ukulahlekelwa ngaphansi kwe-§ 23 EStG kunciphisa kuphela inzuzo evela ekuthengiseni komuntu siqu – ngonyaka ofanayo noma ngokubuyisela onyakeni odlule nokudlulisela eminyakeni ezayo (§ 23 para. 3 ne-§ 10d EStG). Memezela ukulahlekelwa esimemezelweni sakho sentela ukuze kuhlolwe.</string>
+    <string name="tax_de_explain_reached">Kusukela ku-%1$s lonke inani liyabalwa (umkhawulo wokukhululwa – hhayi isibonelelo).</string>
+    <string name="tax_de_explain_unknown">Akuhloleki: amazinga okushintshisana / izintengo zokuthenga noma izikhathi zokuphatha azikho.</string>
+    <string name="tax_de_income_limit">Umkhawulo wokukhululwa wezinsiza (§ 22 No. 3 EStG)</string>
+    <string name="tax_de_limit_scope">Imikhawulo isebenza kukho konke ukuthengisa komuntu siqu noma izinsiza zonyaka ndawonye – kufaka nokungaphandle kwe-app.</string>
+    <string name="tax_de_loading">Iyabala…</string>
+    <string name="tax_de_long_gains">Inzuzo – kuphethwe &gt; unyaka o-1</string>
+    <string name="tax_de_long_losses">Ukulahlekelwa – kuphethwe &gt; unyaka o-1</string>
+    <string name="tax_de_loss">ukulahlekelwa okuhlanzekile – kunganciphiswa kuphela enzuzweni evela ekuthengiseni komuntu siqu (§ 23 EStG)</string>
+    <string name="tax_de_private_limit">Umkhawulo wokukhululwa wokuthengisa komuntu siqu (§ 23 EStG)</string>
+    <string name="tax_de_reached">umkhawulo ufinyelelwe – ngokuvamile lonke inani liyabalwa – hlola</string>
+    <string name="tax_de_short_gains">Inzuzo – kuphethwe ≤ unyaka o-1</string>
+    <string name="tax_de_short_losses">Ukulahlekelwa – kuphethwe ≤ unyaka o-1</string>
+    <string name="tax_de_unclassified">Isikhathi sokuphatha asaziwa</string>
+    <string name="tax_de_unknown">akuhloleki</string>
+
+    <!-- Steuer-Vorlagen je Land -->
+    <string name="tax_template_at">I-Austria</string>
+    <string name="tax_template_au">I-Australia</string>
+    <string name="tax_template_beta">Beta</string>
+    <string name="tax_template_beta_note">Beta: imithetho yezwe yenziwe lula, hlola ngaphambi kokufaka isimemezelo sakho sentela</string>
+    <string name="tax_template_ca">I-Canada</string>
+    <string name="tax_template_ch">I-Switzerland</string>
+    <string name="tax_template_confirm_text">Beta, imithetho eyenziwe lula, imisebenzi evela kwezinye izinkundla ayikho – hlola ngaphambi kokufaka isimemezelo sakho sentela.</string>
+    <string name="tax_template_confirm_title">Isifanekiso sentela (beta)</string>
+    <string name="tax_template_current">Isifanekiso: %1$s · Indlela: %2$s · Imali: %3$s</string>
+    <string name="tax_template_de">I-Germany</string>
+    <string name="tax_template_fr">I-France</string>
+    <string name="tax_template_hint">Okokuqondisa kuphela: isetha indlela, unyaka wentela nesifinyezo sephepha lokusebenza lentela. Ikhadi le-Portfolio lihlala lingachemile – izipho nezimali zokudlulisa zingehluka ephepheni lokusebenza.</string>
+    <string name="tax_template_jp">I-Japan</string>
+    <string name="tax_template_neutral">Akuchemile (wonke amazwe)</string>
+    <string name="tax_template_suggestion">Isiphakamiso sesifunda sakho: %1$s</string>
+    <string name="tax_template_title">Isifanekiso sentela</string>
+    <string name="tax_template_uk">I-United Kingdom</string>
+    <string name="tax_template_us">I-USA</string>
+    <string name="tax_template_use">Sebenzisa i-%1$s</string>
+
+    <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
+    <string name="tax_method_at">Izimpahla ezindala/ezintsha – isilinganiso esinyakazayo</string>
+    <string name="tax_method_ca_acb">Isilinganiso sezindleko se-ACB (superficial loss)</string>
+    <string name="tax_method_fr_pta">Intengo ephelele yokuthola (art. 150 VH bis)</string>
+    <string name="tax_method_jp_total">Isilinganiso esiphelele (総平均法)</string>
+    <string name="tax_method_uk_pool">Section 104 pool (usuku olufanayo / izinsuku ezingu-30)</string>
+    <string name="tax_note_at">Isilinganiso esinyakazayo nge-coin ngayinye ne-wallet – hhayi kuwo wonke ama-wallet (KryptowährungsVO § 2). Imivuzo ingena ezimpahleni ezintsha ngezindleko zokuthola ezingu-0 (BMF: staking / airdrops) – ifayela lemali engenayo liyibhala ngenani ngesikhathi sokwamukela. Izimali ezikhokhwayo azisuseki ezimpahleni ezitholwe kusukela ngo-1 Mar 2021 (§ 27a(4) no. 2, § 20(2) EStG): izindleko nemali etholiwe ngaphandle kwezimali ezikhokhwayo. Inzalo yokuboleka (uhlobo oluvela ekungeniseni kwe-CSV noma enothini) iyimali engenayo ngesikhathi sokwamukela ngamaphesenti angu-27.5 futhi igcina lelo nani njengezindleko zokuthola.</string>
+    <string name="tax_note_at_staking">I-staking ngama-coin osuvele unawo nama-airdrop: inani ngesikhathi sokwamukela alibalulekile entelweni – ngokomthetho izindleko zokuthola zingu-0 (§ 27b Abs. 2 EStG; BMF “Kryptowährungen”). Intela isebenza kuphela uma uthengisa.</string>
+    <string name="tax_note_fr">Ukuthengisa nezimali ezikhokhwe nge-crypto kungukulahlwa – ama-swap ayahlehliswa. Imali ekhokhwayo ye-crypto ekuthengiseni ibalwa entengweni ngaphambi kwezimali ezikhokhwayo – uma kungenjalo kungukulahlwa kwayo ngokwayo ngenani layo. Inani le-portfolio kusukela ezintengweni zokuvala zosuku – uma intengo yokuvala ingekho izindleko zihlala zingenalutho.</string>
+    <string name="tax_note_network_fee">Imali yenethiwekhi ekhokhwe nge-crypto (ukudlulisa ku-wallet yakho, ukukhipha) kungukulahlwa kwama-coin emali ekhokhwayo ngenani lemakethe – inzuzo noma ukulahlekelwa kulawo ma-coin kuphela, hhayi ukulahlekelwa kwayo yonke imali ekhokhwayo (%1$s). Ngaphandle kwentengo ebhaliwe: intengo yokuvala yosuku (UTC) yosuku olufanayo; ngaphandle kwentengo yokuvala imali etholiwe ihlala ingenalutho.</string>
+    <string name="tax_note_specific_id">Ukuhlonza okuqondile akusekelwa – kusetshenziswa i-FIFO.</string>
+    <string name="tax_note_spouse_gift">Isipho esimakwe ngokuthi “kumlingani womshado / umlingani osemthethweni” asinanzuzo futhi asinakulahlekelwa: imali etholiwe = izindleko zakho zokuthenga, umlingani wakho azithathayo (%1$s).</string>
+    <string name="tax_note_stable_swap">Ukuthengisa i-crypto nge-stablecoin (USDT/USDC/DAI …) oyigcinayo kuyi-crypto-kuya-ku-crypto lapha futhi akukhokhiswa intela – kubhale njenge-swap eya ku-stablecoin. Ukuthengisa ngama-euro kuphela okukhokhiswa intela – u-“Thengisa” ubalwa njengokuthengisa ngama-euro.</string>
+    <string name="tax_note_transfer_fee">Kufana nemali ekhokhwayo ye-USDT noma ekheshi ekudluliseni phakathi kwama-wallet akho: ayengezwa ezindlekweni zokuthenga futhi ibhalwa njengolwazi kuphela.</string>
+    <string name="tax_note_uk">Ukufanisa ngokwe-HMRC: usuku olufanayo → izinsuku ezingu-30 ezilandelayo → Section 104 pool.</string>
+    <string name="tax_note_us_transition">Ushintsho 1 Jan 2025 (Rev. Proc. 2024-28 safe harbor): uma iminyaka yangaphambilini yasebenzisa i-FIFO kuwo wonke ama-wallet, ama-lot asele ngomhla ka-31 Dis 2024 aya kuma-wallet aphethe ama-coin – i-wallet enama-coin amadala kakhulu ithola izindleko zokuthenga ezindala kakhulu. Lokhu kwabiwa kungumthetho we-app – kuhlole ngamarekhodi akho.</string>
+    <string name="tax_note_us_wallet">Kusukela onyakeni wentela ka-2025 i-IRS idinga izindleko zokuthenga nge-wallet noma i-exchange ngayinye (Rev. Proc. 2024-28): ukuthumela kusebenzisa i-FIFO nge-wallet ngayinye kusukela ngo-2025 – eminyakeni yangaphambilini i-FIFO kuwo wonke ama-wallet, noma i-FIFO nge-wallet ngayinye uma leyo kuyindlela yakho yezindleko.</string>
+    <string name="tax_note_withdrawal_fee">Imali yokukhipha nge-USDT noma ngokheshi akukhona ukulahlekelwa: imali ekhokhwayo ngokheshi akuyona izindleko ezisusekayo, imali ekhokhwayo nge-USDT kungukulahlwa ngenani elilinganayo ngaphandle kwenzuzo – ibhalwa njengolwazi kuphela (%1$s).</string>
+    <string name="tax_summary_at_interest_income">kuyabalwa: imali engenayo ngesikhathi sokwamukela ngezinga elikhethekile lamaphesenti angu-27.5 (§ 27b(2) no. 1 EStG / BMF) – ama-coin agcina leli nani njengezindleko zokuthola</string>
+    <string name="tax_summary_at_reward_info">ngolwazi kuphela – akuyona ingxenye yanoma yisiphi isamba: imivuzo ingena ezimpahleni ezintsha ngezindleko zokuthola ezingu-0 futhi ikhokhiswa intela kuphela uma ithengiswa (isivele isenzuzweni) – § 27b para. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">1 Jan–28 Feb 2022: ukukhetha amaphesenti angu-27.5 kuyenzeka</string>
+    <string name="tax_summary_at_withdrawal_fee">Imali yokukhipha – ayinciphiswa ezimpahleni ezintsha (izindleko azisuseki ngezinga elikhethekile, § 20(2) EStG)</string>
+    <string name="tax_summary_ch_fifo_info">ngolwazi kuphela – ukubala kwe-FIFO kwe-app – akuhlukanisiwe – bheka i-ESTV</string>
+    <string name="tax_summary_ch_year_end_value">inani ngomhla ka-31 Dis ku-CSV yezimpahla = intengo ye-exchange × USD/CHF – hhayi amanani entela e-ESTV</string>
+    <string name="tax_summary_de_withdrawal_fee">Imali yokukhipha – ayinciphiswa ngaphansi kwe-§ 23, hlola ukuthi iyasuseka yini njengezindleko ezihlobene nemali engenayo</string>
+    <string name="tax_summary_not_calculated_estv">akubalwanga – uhlu lwezintengo lwe-ESTV: %1$s</string>
+    <string name="tax_summary_orientation">Ukuqondisa</string>
+    <string name="tax_summary_orientation_block">Okokuqondisa kuphela – akusona iseluleko sentela – akukhona ukuhlolwa</string>
+    <string name="tax_summary_orientation_item">Ukuqondisa: %1$s</string>
+    <string name="tax_summary_title">Isifinyezo sonyaka %1$s %2$s</string>
+    <string name="tax_summary_transfer_fee_info">Izimali zokudlulisa nge-USDT/ngokheshi – akukhona ukulahlekelwa futhi azikho ezindlekweni zokuthenga, ulwazi kuphela</string>
+    <string name="tax_summary_withdrawal_fee_info">Izimali zokukhipha nge-USDT/ngokheshi – azibalwa njengokulahlekelwa, ulwazi kuphela</string>
+
+    <string name="tax_line_at_old_speculation_limit">Imisebenzi yokuqagela (umthetho wangaphambili, kuphethwe ≤ unyaka o-1): umkhawulo wokukhululwa (§ 31 (3) EStG inguqulo endala)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">Inzalo yokuboleka ngaphambi kuka-1 Mar 2022 (inani ngesikhathi sokwamukela)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">Inzalo ngaphambi kuka-1 Mar 2022: umthetho omdala (izinga lentela yemali engenayo), hhayi amaphesenti angu-27.5</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">ngaphambi kuka-1 Mar 2022 – xhumana nochwepheshe</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">Inzalo – ikhokhiswa intela ngesikhathi sokwamukela</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">I-staking – ngolwazi kuphela (izindleko zokuthola 0, intela lapho kuthengiswa)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">Isamba senzalo (ikhokhiswa intela)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">Isamba se-staking (ulwazi)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">Ukulahlekelwa kwemali okuhlanzekile (kudluliselwa phambili)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">ngaphandle kokukhetha: kufaka ukuthengisa kuka-1 Jan–28 Feb 2022</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">I-staking ngaphambi kuka-1 Mar 2022: izindleko zokuthola zisethwe ku-0 – xhumana nochwepheshe</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">Umthetho wezinsuku ezingu-30 usengazishintsha lezi zibalo (ukuthenga kuze kube ngu-%1$s)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Imali etholiwe ngaphambi kwezimali ezikhokhwayo ngaphezu komkhawulo wokubika (£50,000; 2020/21–2022/23: £49,200): bika ku-HMRC uma ubhalisile ku-Self Assessment, ngisho ngaphandle kwenzuzo ekhokhiswa intela</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">Inani lengcebo 31 Dis %1$s (ukuqondisa)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">Uhlu lwezintengo lwe-ESTV (ictax.admin.ch) yilo olunegunya. Kuma-coin angekho ohlwini, ngokuvamile kusebenza intengo yokuvala ye-exchange. Intela yengcebo ayibalwanga.</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – izimpahla %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">akubalwanga</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">Amakheli abukwayo awakwazanga ukufundwa – amabhalansi awo awekho kuleli fayela</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">Ama-lot amakheli abukwayo abalwa kusukela osukwini lwawo lokuthenga; uma ibhalansi yekheli namuhla iphansi, ayancishiswa.</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">Amakheli abukwayo abalwa enanini eliphelele kodwa awanazo izindleko zokuthola – ngakho inzuzo kungenzeka iphezulu kakhulu. Bhala izindleko njengokuthenga.</string>
+    <string name="tax_summary_fr_rewards_income">Inani licabanga ukuthi imivuzo yakhokhiswa intela njengemali engenayo ngesikhathi itholwa (inani ngesikhathi sokwamukela ezindlekweni zokuthola) – uma kungenjalo izindleko zokuthola ezingu-0 kungaba ukufunda okuqaphelayo.</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">Amanani emakethe angenayo intengo ebhaliwe (izimali ezikhokhwayo, izipho/izinkokhelo, ama-swap, imivuzo, izimali zenethiwekhi, inani le-portfolio) ngentengo yokuvala yosuku (UTC) yosuku lomsebenzi</string>
+</resources>

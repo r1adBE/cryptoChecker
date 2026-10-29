@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">ऑल्टकॉइन विरुद्ध Bitcoin</string>
+    <string name="neutral_btc_indicators_title">Bitcoin निर्देशक</string>
+    <string name="neutral_halving_last">शेवटचे हाल्व्हिंग: %1$s</string>
+    <string name="neutral_halving_next">पुढचे हाल्व्हिंग साधारण %1$s च्या सुमारास अपेक्षित (कॅलेंडरवरून अंदाज – ब्लॉक उंची सध्या उपलब्ध नाही).</string>
+    <string name="neutral_indicators_disclaimer">फक्त मोजलेली मूल्ये, मूल्यमापनाशिवाय. अंदाज नाही आणि गुंतवणूक सल्ला नाही.</string>
+    <string name="neutral_onchain_missing">ऑन-चेन डेटा (Coin Metrics) सध्या उपलब्ध नाही.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">किंमत तिच्या मागील सर्वकालीन उच्चांकापेक्षा किती खाली आहे.</string>
+    <string name="neutral_explain_change_30d">आजची किंमत 30 दिवसांपूर्वीच्या तुलनेत.</string>
+    <string name="neutral_explain_hashrate">30 दिवसांचा सरासरी हॅशरेट 60 दिवसांच्या सरासरीच्या तुलनेत.</string>
+    <string name="neutral_explain_ma200w">शेवटच्या 200 साप्ताहिक बंद भावांची सरासरी.</string>
+    <string name="neutral_explain_mayer">किंमतीला 200 दिवसांच्या सरासरीने भागले.</string>
+    <string name="neutral_explain_mvrv">बाजार मूल्याला प्रत्यक्ष मूल्याने भागले (ऑन-चेन).</string>
+    <string name="neutral_explain_pi_gap">111 दिवसांची सरासरी 350 दिवसांच्या सरासरीच्या दुप्पटीच्या तुलनेत.</string>
+    <string name="neutral_explain_puell">खाणकामगारांच्या दैनिक उत्पन्नाला त्याच्या 365 दिवसांच्या सरासरीने भागले.</string>
+    <string name="neutral_explain_rsi_daily">शेवटच्या 14 दिवसांचा Relative Strength Index, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">शेवटच्या 14 आठवड्यांचा Relative Strength Index, 0–100.</string>
+    <string name="neutral_explain_sma50_200">50 दिवसांची सरासरी 200 दिवसांच्या सरासरीच्या तुलनेत.</string>
+    <string name="neutral_explain_vs_btc">90 दिवसांतील किंमत बदल Bitcoin च्या तुलनेत.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">ॲप फक्त संख्या दाखवते आणि तिला सीझन म्हणत नाही. मूल्य सहसा तासांत नव्हे, तर दिवसांत बदलते.</string>
+    <string name="neutral_info_btc_how">प्रत्येक मूल्यासोबत ते काय मोजते आणि 2016 पासूनच्या स्वतःच्या इतिहासात ते कुठे आहे याबद्दल एक वाक्य असते. ॲप मूल्यांचे मूल्यमापन करत नाही आणि कोणताही मार्केट टप्पा ठरवत नाही; मार्केट अलर्टच्या मर्यादा फक्त तुम्ही सेट केलेल्याच असतात. मागील पॅटर्न पुन्हा घडतीलच असे नाही.</string>
+    <string name="neutral_info_btc_what">सामान्य Bitcoin निर्देशक साध्या मोजलेल्या मूल्यांच्या रूपात: Mayer Multiple, 200 आठवड्यांची सरासरी, सर्वकालीन उच्चांकापासूनची घसरण, 30 दिवसांतील बदल, Pi Cycle अंतर आणि ऑन-चेन मूल्ये MVRV, Puell Multiple व हॅशरेट.</string>
+    <string name="neutral_info_coin_how">प्रत्येक मूल्यासोबत ते काय मोजते याबद्दल एक वाक्य असते, मूल्यमापनाशिवाय. कमी किंमत इतिहास असलेल्या कॉइनसाठी काही मूल्ये नसतात. ऑन-चेन डेटा येथे समाविष्ट नाही.</string>
+    <string name="neutral_info_coin_what">तुमच्या आवडीच्या कॉइनसाठी तेच साधे निर्देशक, फक्त किंमत डेटावरून: Mayer Multiple, 200 आठवड्यांची सरासरी, सर्वकालीन उच्चांकापासूनची घसरण, 30 दिवसांतील बदल, 50/200 दिवसांचा ट्रेंड, RSI आणि 90 दिवसांत Bitcoin विरुद्धची ताकद.</string>
+    <string name="neutral_info_halving_how">पुढचे हाल्व्हिंग सध्याची ब्लॉक उंची आणि सध्याच्या डिफिकल्टी कालावधीच्या सरासरी ब्लॉक वेळेवरून (mempool.space) मोजले जाते; तो डेटा नसल्यास कॅलेंडरवरून (शेवटचे हाल्व्हिंग अधिक सुमारे चार वर्षे). चार्ट मागील सायकलचा त्यांच्या हाल्व्हिंगपासूनचा किंमत मार्ग दाखवतो – इतिहास, अंदाज नाही.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">ट्रेंड 50/200 दिवस</string>
+    <string name="ind_drawdown">सर्वकालीन उच्चांकापासून घसरण</string>
+    <string name="ind_missing">पुरेसा डेटा नाही</string>
+    <string name="ind_rsi_daily">RSI (दैनिक)</string>
+    <string name="ind_rsi_weekly">RSI (साप्ताहिक)</string>
+    <string name="ind_vs_btc">Bitcoin विरुद्ध ताकद (90 दिवस)</string>
+    <string name="neutral_ind_change_30d">बदल 30 दिवस</string>
+    <string name="neutral_ind_hashrate">हॅशरेट 30/60 दिवस</string>
+    <string name="neutral_ind_ma200w">200 आठवड्यांची सरासरी</string>
+    <string name="neutral_ind_pi_gap">Pi Cycle अंतर</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">जास्त म्हणजे बहुतेक मोठ्या ऑल्टकॉइननी 90 दिवसांत Bitcoin ला मागे टाकले, कमी म्हणजे Bitcoin ने त्यांपैकी बहुतेकांना मागे टाकले.</string>
+    <string name="ind_read_ath_distance">कमी म्हणजे किंमत विक्रमाजवळ आहे, जास्त म्हणजे त्याच्यापेक्षा खूप खाली आहे.</string>
+    <string name="ind_read_change_30d">धन म्हणजे 30 दिवसांपूर्वीपेक्षा जास्त, ऋण म्हणजे कमी.</string>
+    <string name="ind_read_funding">जास्त म्हणजे अनेक ट्रेडर लिव्हरेजसह किंमत वाढेल यावर पैज लावतात, ऋण म्हणजे अनेकजण किंमत घसरेल यावर पैज लावतात.</string>
+    <string name="ind_read_hashrate_30_60">धन म्हणजे संगणकीय शक्ती वाढत आहे, ऋण म्हणजे खाणकामगार मशीन बंद करत आहेत.</string>
+    <string name="ind_read_leverage">अनेक लॉंग म्हणजे अनेकजण उधार पैशाने किंमत वाढेल यावर पैज लावतात, अनेक शॉर्ट म्हणजे अनेकजण किंमत घसरेल यावर पैज लावतात.</string>
+    <string name="ind_read_ma200w">किंमत याच्या खूप वर म्हणजे दीर्घ वाढ, याच्या जवळ म्हणजे खोल घसरण.</string>
+    <string name="ind_read_mayer">जास्त म्हणजे किंमत तिच्या 200 दिवसांच्या सरासरीपेक्षा खूप वर आहे, कमी म्हणजे तिच्या खाली आहे.</string>
+    <string name="ind_read_mvrv">जास्त म्हणजे धारकांनी सरासरी दिलेल्यापेक्षा किंमत खूप वर आहे, कमी म्हणजे त्याच्या जवळ किंवा खाली.</string>
+    <string name="ind_read_pi_cycle_gap">शून्याजवळ म्हणजे दोन्ही सरासरी जवळजवळ मिळतात, जोरदार ऋण म्हणजे त्या खूप दूर आहेत.</string>
+    <string name="ind_read_puell">जास्त म्हणजे खाणकामगार नेहमीपेक्षा खूप जास्त कमावतात, कमी म्हणजे खूप कमी.</string>
+    <string name="ind_read_rsi_daily">70 च्या वर म्हणजे अलीकडच्या दिवसांत जोरदार वाढ, 30 च्या खाली म्हणजे जोरदार घसरण.</string>
+    <string name="ind_read_rsi_weekly">70 च्या वर म्हणजे अलीकडच्या आठवड्यांत जोरदार वाढ, 30 च्या खाली म्हणजे जोरदार घसरण.</string>
+    <string name="ind_read_sma50_vs_200">धन म्हणजे अल्पकालीन सरासरी दीर्घकालीन सरासरीच्या वर आहे, ऋण म्हणजे खाली.</string>
+    <string name="ind_read_vs_btc">धन म्हणजे Bitcoin पेक्षा चांगली कामगिरी, ऋण म्हणजे वाईट.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">30 दिवस हीच किंमत राहिल्यास: %1$s</string>
+    <string name="ind_context_note">मागील मूल्ये आणि “हीच किंमत” गणना फक्त अंकगणित आहे, अंदाज नाही.</string>
+    <string name="ind_context_percentile">%1$s पासून %2$s दिवसांमध्ये यापेक्षा कमी</string>
+</resources>

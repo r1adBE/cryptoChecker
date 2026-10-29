@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">સરનામું ઉમેરો</string>
+    <string name="portfolio_address_count">ગણો</string>
+    <string name="portfolio_address_error">અપડેટ નિષ્ફળ</string>
+    <string name="portfolio_address_hint">સાર્વજનિક સરનામું (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) અથવા xpub</string>
+    <string name="portfolio_address_label">લેબલ (વૈકલ્પિક)</string>
+    <string name="portfolio_address_not_since_buy">સરનામા પરથી · “ખરીદીથી” માં નથી: %1$s</string>
+    <string name="portfolio_address_overlap">તમારા પોતાના વ્યવહારોમાં પણ છે: %1$s – બંને ઉમેરાય છે. એ જ કૉઇન છે? “ફક્ત બતાવો” પસંદ કરો.</string>
+    <string name="portfolio_address_overlap_ask">તમે %1$s પહેલેથી પોતાના વ્યવહારો તરીકે નોંધો છો. આ સરનામાનું બેલેન્સ પોર્ટફોલિયોમાં ઉમેરવું છે કે ફક્ત બતાવવું છે?</string>
+    <string name="portfolio_address_overlap_auto">“%1$s” હવે ફક્ત બતાવાય છે, ગણાતું નથી – %2$s તમારા વ્યવહારોમાં પણ છે.</string>
+    <string name="portfolio_address_overlap_title">તમારા વ્યવહારો જેવા જ કૉઇન છે?</string>
+    <string name="portfolio_address_overlap_tx">તમારી પોતાની ડિપોઝિટ/ટ્રાન્સફર (%1$s) જેટલી જ રકમ – કદાચ બે વાર ગણાયું છે.</string>
+    <string name="portfolio_address_period_observed">જોવાતાં સરનામાં તેમના પહેલી વાર દેખાયેલા બેલેન્સથી ગણાય છે; પછીના ફેરફારો આવક/જાવક છે, નફો નથી.</string>
+    <string name="portfolio_address_privacy">ફક્ત સાર્વજનિક સરનામું %1$s ને મોકલાય છે – ક્યારેય કી કે સીડ ફ્રેઝ નહીં. પ્રદાતા તેને તમારા IP સરનામા સાથે જુએ છે. વધુમાં વધુ દર 10 મિનિટે તપાસાય છે.</string>
+    <string name="portfolio_address_remove">સરનામું દૂર કરો</string>
+    <string name="portfolio_address_show_only">ફક્ત બતાવો, પોર્ટફોલિયોમાં ઉમેરશો નહીં</string>
+    <string name="portfolio_address_show_only_short">ફક્ત બતાવો</string>
+    <string name="portfolio_address_tokens">ટોકન ગણો</string>
+    <string name="portfolio_address_xpub_privacy">xpub આ વૉલેટનાં બધાં સરનામાં જાહેર કરે છે. તે તમારા ડિવાઇસ પર જ મેળવાય છે; ફક્ત અલગ-અલગ સરનામાં %1$s ને મોકલાય છે – પહેલા સ્કૅનમાં ઓછામાં ઓછી 40 વિનંતીઓ, પછી ઓછી. ખાનગી કી (xprv) ક્યારેય સ્વીકારાતી નથી.</string>
+    <string name="portfolio_address_xpub_gap">સળંગ %1$d વણવપરાયેલાં સરનામાં પછી શોધ અટકે છે (મોટા ભાગનાં વૉલેટ વાપરે છે તે BIP44 ધોરણ). તે ગાળા પછીનું વપરાયેલું સરનામું ગણાતું નથી – તેને અલગથી ઉમેરો.</string>
+    <string name="portfolio_address_xpub_used">વપરાશમાં સરનામાં: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">અપડેટ કરવા માટે વપરાયેલાં સરનામાં ઘણાં વધારે છે</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">ઘણાં બધાં સરનામાં – જૂના, ખાલી સરનામાં પરની નવી ચુકવણીઓ કદાચ ન ઓળખાય</string>
+    <string name="portfolio_addresses_title">સરનામાં</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Bitcoin Cash સરનામાં પર નજર રાખી શકાતી નથી: API કી વગરની, શરતો મંજૂરી આપે તેવી કોઈ મફત સાર્વજનિક સેવા નથી.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) 2024 માં બંધ થઈ – બેલેન્સ હવે BNB Smart Chain (0x…) પર છે</string>
+    <string name="address_checksum">ચેકસમ ખોટો – ટાઇપની ભૂલ તપાસો</string>
+    <string name="address_doge_unsupported">Dogecoin સરનામાં પર નજર રાખી શકાતી નથી: API કી વગરની, શરતો મંજૂરી આપે તેવી કોઈ મફત સાર્વજનિક સેવા નથી.</string>
+    <string name="address_duplicate">આ સરનામું પહેલેથી ઉમેરેલું છે</string>
+    <string name="address_ens">ENS નામો સપોર્ટેડ નથી – 0x સરનામું દાખલ કરો</string>
+    <string name="address_invalid">સપોર્ટેડ નેટવર્કનું માન્ય સરનામું નથી</string>
+    <string name="address_limit">વધુમાં વધુ 20 સરનામાં</string>
+    <string name="address_secret">આ ખાનગી કી કે સીડ ફ્રેઝ જેવું લાગે છે – તેને ક્યારેય ક્યાંય દાખલ ન કરો. ફક્ત સાર્વજનિક સરનામાં.</string>
+    <string name="address_testnet">ટેસ્ટનેટ સરનામાં સપોર્ટેડ નથી</string>
+    <string name="address_unsupported">આ સરનામાનો પ્રકાર સપોર્ટેડ નથી</string>
+    <string name="address_wrong_chain">સરનામું બીજા નેટવર્કનું છે</string>
+    <string name="address_xpub_multisig">મલ્ટિસિગ કી (Ypub/Zpub) સપોર્ટેડ નથી</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot એકાઉન્ટ (BIP86): મેળવવા અને ચેન્જ માટેનાં bc1p… સરનામાં આ કી પરથી મેળવાય છે.</string>
+    <string name="portfolio_address_taproot_hint">Taproot વૉલેટ છે? તેના બદલે તમારા વૉલેટમાંથી tr(…) ડિસ્ક્રિપ્ટર પેસ્ટ કરો – સાદો xpub ફક્ત Legacy અને SegWit સરનામાં તરીકે શોધાય છે.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">પોતાના સર્વર સુધી પહોંચી શકાતું નથી</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">જે કોઈ %1$s ચલાવે છે તે આ વૉલેટનાં પૂછાયેલાં બધાં સરનામાં જુએ છે અને તેમને એકબીજા સાથે તેમજ તમારા IP સરનામા સાથે જોડી શકે છે.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">આ ટાળવા માટે, સેટિંગ્સ › પોર્ટફોલિયો › સરનામાં માટે પોતાનું સર્વર માં તમારું પોતાનું સર્વર દાખલ કરો.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d અજ્ઞાત ટોકન (ગણાયું નથી)</item>
+        <item quantity="other">+%1$d અજ્ઞાત ટોકન (ગણાયા નથી)</item>
+    </plurals>
+</resources>

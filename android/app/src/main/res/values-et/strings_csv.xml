@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">Impordi CSV</string>
+    <string name="portfolio_csv_import_all_transfer">Kõik oma rahakotti</string>
+    <string name="portfolio_csv_import_all_withdrawal">Kõik lahkuvad portfellist</string>
+    <string name="portfolio_csv_import_choice_proposed">Soovitus: sobib kirjega %1$s</string>
+    <string name="portfolio_csv_import_choice_transfer">Oma rahakotti (ülekanne)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Lahkub portfellist (väljamakse)</string>
+    <string name="portfolio_csv_import_choose_each">Vali iga väljamakse puhul, kuhu see läks.</string>
+    <string name="portfolio_csv_import_columns">Tuvastatud veerud: %1$s</string>
+    <string name="portfolio_csv_import_confirm">Impordi (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">Päev/kuu</string>
+    <string name="portfolio_csv_import_date_month_first">Kuu/päev</string>
+    <string name="portfolio_csv_import_date_order">Mitmetähenduslikke kuupäevi (nt 03/04/2024) loetakse kui:</string>
+    <string name="portfolio_csv_import_decimal">Mitmetähenduslikke arve (nt %1$s) loetakse kui:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d tehing imporditud</item>
+        <item quantity="other">%d tehingut imporditud</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d juba imporditud (vahele jäetud)</item>
+        <item quantity="other">%d juba imporditud (vahele jäetud)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">Vorming: %1$s</string>
+    <string name="portfolio_csv_import_line">Rida %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">Faili ja päevakursside lugemine…</string>
+    <string name="portfolio_csv_import_progress">Rida %1$s / %2$s</string>
+    <string name="portfolio_csv_import_saving">Tehingute salvestamine…</string>
+    <string name="portfolio_csv_import_missing_fx">Ridadele %1$s pole päevakurssi – imporditud ilma hinna/tasuta.</string>
+    <string name="portfolio_csv_import_missing_price">Failis pole ridadele %1$s hinda – imporditud ilma hinnata.</string>
+    <string name="portfolio_csv_import_more">+ veel %1$d</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d uus tehing</item>
+        <item quantity="other">%d uut tehingut</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d rida vahele jäetud</item>
+        <item quantity="other">%d rida vahele jäetud</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">Tehingud stabiilsete müntide (USDT, USDC …) vastu kirjendatakse vahetustena – stabiilne münt ilmub sinu varade hulka.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Võimalikud on mitu vastet – vali õige või mitte ühtegi.</string>
+    <string name="portfolio_csv_import_transfer_fee">Võrgutasu: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">Kirjenda ühe ülekandena</string>
+    <string name="portfolio_csv_import_transfer_stored">Vastaskirje varasemast impordist</string>
+    <string name="portfolio_csv_import_transfers_hint">Väljamakse ja sama mündi vastav sissemakse muutuvad üheks ülekandeks: ostuhind ja hoidmisperiood jäävad samaks, vahe loetakse võrgutasuks.</string>
+    <string name="portfolio_csv_import_transfers_title">Ülekanded sinu kontode vahel</string>
+    <string name="portfolio_csv_import_unreadable">Toetatud tehinguid ei leitud. Toetatud: Relai, Swissquote, Kraken, Binance, Coinbase ja Bitpanda CSV-ekspordid.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
+    <string name="portfolio_csv_import_too_large">Fail on importimiseks liiga suur (kuni 16 MB ja %1$s rida). Ekspordi lühemad perioodid ja impordi need üksteise järel.</string>
+    <string name="portfolio_csv_import_failed">Import ei õnnestunud – midagi ei salvestatud. Palun proovi uuesti.</string>
+    <string name="portfolio_csv_import_locked">Import pole võimalik: salvestatud andmeid ei saa praegu lugeda. Taaskäivita rakendus.</string>
+    <string name="portfolio_csv_import_withdrawals_title">Väljamaksed – kuhu mündid läksid?</string>
+    <string name="portfolio_csv_import_zone">Ajavööndita aegu loetakse kui: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">Seade (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">loetamatu kuupäev</string>
+    <string name="portfolio_csv_skip_bad_number">loetamatu arv</string>
+    <string name="portfolio_csv_skip_fee_exceeds">tasu ≥ saadud kogus</string>
+    <string name="portfolio_csv_skip_internal_move">liikumine sinu enda kontode vahel – pole midagi kirjendada</string>
+    <string name="portfolio_csv_skip_missing">väli puudub</string>
+    <string name="portfolio_csv_skip_ambiguous">mitu tehingut samal sekundil, mida ei saa eristada – sisesta need käsitsi</string>
+    <string name="portfolio_csv_skip_not_crypto">pole krüpto</string>
+    <string name="portfolio_csv_skip_possible_duplicate">võib-olla juba imporditud (peaaegu sama tehing) – kontrolli käsitsi</string>
+    <string name="portfolio_csv_skip_two_fees">kaks tasu eri ühikutes – sisesta vahetus käsitsi</string>
+    <string name="portfolio_csv_skip_unsupported">toetamata tüüp</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">Võta tagasi</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">Kas kustutada selle impordi %d tehing? Käsitsi sisestatud kirjed ja muud impordid jäävad alles.</item>
+        <item quantity="other">Kas kustutada selle impordi %d tehingut? Käsitsi sisestatud kirjed ja muud impordid jäävad alles.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">Kas võtta import tagasi?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">%d imporditud tehing eemaldatud</item>
+        <item quantity="other">%d imporditud tehingut eemaldatud</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d tehing</item>
+        <item quantity="other">%d tehingut</item>
+    </plurals>
+    <string name="portfolio_imports_empty">Importe pole</string>
+    <string name="portfolio_imports_title">Impordid</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">sama tehingu ID erineva kogusega – kontrolli käsitsi</string>
+    <string name="portfolio_csv_skip_staking_unpaired">staking-kirje ilma vastaskirjeta – kontrolli varasid</string>
+    <string name="portfolio_csv_skip_amount_too_small">kogus liiga väike – salvestamisel ümardatakse 0-ks</string>
+    <string name="portfolio_csv_skip_invalid_swap">vahetus ilma kehtiva saadud mündi või koguseta</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">Faili loetakse uuesti…</string>
+</resources>

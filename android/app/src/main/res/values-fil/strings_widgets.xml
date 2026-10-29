@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">Background</string>
+    <string name="widget_configure_hint">Pumili ng background at opacity. Sumusunod sa app ang kulay. Ipinapakita ng widget ang buong watchlist mo; mag-tap ng row para buksan ang app.</string>
+    <string name="widget_configure_title">I-set up ang widget</string>
+    <string name="widget_description">Ipinapakita ang presyo ng isang pares mula sa watchlist mo.</string>
+    <string name="widget_empty">Wala pang pares sa watchlist.</string>
+    <string name="widget_group_hint">Ipakita lang ang mga pares ng grupong ito.</string>
+    <string name="widget_kind_single">Iisang coin</string>
+    <string name="widget_opacity">Opacity ng background: %1$s</string>
+    <string name="widget_pulse_description">Ano ang namumukod sa market ngayon: headline, maikling buod at Bitcoin, Ethereum at Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">luma na</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">luma na · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">Mga candle</string>
+    <string name="widget_chart_line">Linya</string>
+    <string name="widget_chart_range">Saklaw ng chart</string>
+    <string name="widget_chart_type">Uri ng chart</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 taon</string>
+    <string name="widget_range_24h">24h</string>
+    <string name="widget_range_30d">30 araw</string>
+    <string name="widget_range_7d">7 araw</string>
+    <string name="widget_range_short_1y">1T</string>
+    <string name="widget_range_short_24h">24h</string>
+    <string name="widget_range_short_30d">30A</string>
+    <string name="widget_range_short_7d">7A</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">Noong %1$s</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">Paparating na ang kasaysayan</string>
+    <string name="widget_portfolio_description">Kabuuang value ng portfolio mo at ang pagbabago ngayon</string>
+    <string name="widget_portfolio_entries">Mga booking sa ilalim ng mga coin</string>
+    <string name="widget_portfolio_entries_both">Pareho</string>
+    <string name="widget_portfolio_entries_buys">Mga pagbili</string>
+    <string name="widget_portfolio_entries_hint">Ipinapakita lang kung may espasyo sa ilalim ng mga coin. Kasama sa mga pagbili ang mga deposit, kasama sa mga pagbenta ang mga withdrawal; sa «Pareho», nagsusuma ang mga linya sa hawak.</string>
+    <string name="widget_portfolio_entries_off">Naka-off</string>
+    <string name="widget_portfolio_entries_sells">Mga pagbenta</string>
+    <string name="widget_portfolio_display">Display</string>
+    <string name="widget_portfolio_display_conversion">Conversion lang</string>
+    <string name="widget_portfolio_display_conversion_usdt">Conversion + USDT</string>
+    <string name="widget_portfolio_display_hint">Nakatago ang linya ng USDT kapag USD stablecoin ang conversion currency (hal. USDC).</string>
+    <string name="widget_portfolio_display_usdt">USDT lang</string>
+    <string name="widget_portfolio_empty">Magdagdag ng mga pagbili sa tab na Portfolio</string>
+    <string name="widget_portfolio_list_hint">Buksan ang app para ipakita rito ang mga posisyon mo.</string>
+    <string name="widget_portfolio_locked_hint">Naka-lock – i-unlock sa app</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="one">wala ang %1$d coin</item>
+        <item quantity="other">wala ang %1$d coin</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ %1$d pa</item>
+        <item quantity="other">+ %1$d pa</item>
+    </plurals>
+    <string name="widget_portfolio_name">Portfolio</string>
+    <string name="widget_portfolio_off_hint">I-on ito sa %1$s.</string>
+    <string name="widget_portfolio_off_short">Naka-off ang portfolio</string>
+    <string name="widget_portfolio_off_title">Naka-off ang portfolio</string>
+    <string name="widget_portfolio_partly_stale">luma na ang ilang presyo</string>
+    <string name="widget_portfolio_period">Panahon</string>
+    <string name="widget_portfolio_period_without">%1$s nang wala ang %2$s</string>
+    <string name="widget_portfolio_range_48h">48h</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: buksan ang Portfolio</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="widget_portfolio_today_without">Ngayon nang wala ang %1$s</string>
+    <string name="widget_portfolio_view">View</string>
+    <string name="widget_portfolio_view_chart">Chart</string>
+    <string name="widget_portfolio_view_list">Listahan</string>
+    <string name="widget_portfolio_view_overview">Overview</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">Pumili ng pares</string>
+    <string name="single_widget_description">Ipinapakita nang malaki ang isang coin kasama ang presyo, pagbabago at 24 na oras na chart.</string>
+    <string name="single_widget_label">Crypto Checker – iisang coin</string>
+    <string name="single_widget_title">I-set up ang single widget</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">Idagdag</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">Idagdag ang widget na %1$s</string>
+    <string name="widgets_manual_text">Hindi makapagdagdag ng widget ang home screen mo mula sa app. Pindutin nang matagal ang bakanteng puwesto sa home screen, piliin ang “Mga Widget” at hanapin ang “Crypto Checker”.</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">Ikaw mismo ang magdagdag ng widget</string>
+    <string name="widgets_sheet_title">Magdagdag ng widget</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">Hindi pinapayagan ng iOS ang mga app na magdagdag ng widget nang mag-isa. Sandali lang ito:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Mga available na widget</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Pindutin nang matagal ang bakanteng puwesto sa Home Screen hanggang gumalaw ang mga app.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">I-tap ang “Edit” › “Add Widget” sa itaas (o “+” sa mas lumang bersyon ng iOS).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Hanapin ang “Crypto Checker”, pumili ng widget at i-tap ang “Add Widget”.</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">I-refresh – puwede ulit sa loob ng %1$d s</string>
+    <string name="settings_watch">Relo</string>
+    <string name="settings_watch_hint">Mga coin para sa watch app sa Wear OS (hanggang %1$d, may presyo laban sa USDT). Ang listahang ito lang ang napupunta sa relo, sa pamamagitan ng Google Play services; ang relo mismo ang kumukuha ng mga presyo.</string>
+    <string name="settings_watch_mode_phone">Gaya ng phone (mga paborito ★)</string>
+    <string name="settings_watch_mode_own">Sariling listahan</string>
+    <string name="settings_watch_own_title">Sariling listahan: %1$d sa %2$d</string>
+    <string name="settings_watch_none">Wala pang paborito</string>
+
+    <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
+    <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">Walang linya ng USDT sa “Listahan”</string>
+    <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
+    <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">Sa halip, 30 araw ang ipinapakita ng “Overview”</string>
+</resources>

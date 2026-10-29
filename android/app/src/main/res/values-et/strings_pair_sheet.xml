@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s %2$s jooksul</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">Sulgemine</string>
+    <string name="sheet_chart_converted_current">%1$s, teisendatud (praegune kurss)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, teisendatud päevakurssidega</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">Selle paari kohta pole hinnaandmeid</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">Avamine</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">Täna</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">Maht %1$s</string>
+    <string name="sheet_more">Rohkem</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Müük</string>
+    <string name="ticker_bid">Ost</string>
+    <string name="explain_bid_ask">Ost on kõrgeim hind, mida ostjad praegu pakuvad, müük madalaim hind, millega müüjad nõustuvad.</string>
+    <string name="ticker_high">Kõrgeim</string>
+    <string name="ticker_low">Madalaim</string>
+    <string name="ticker_timestamp">Aeg</string>
+    <string name="ticker_vol_base">Maht (müntides)</string>
+    <string name="ticker_vol_quote">Maht (noteeringuvaluutas)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (seadme ajavöönd)</string>
+    <string name="change_basis_local">Alates 00:00 kohaliku aja järgi</string>
+    <string name="change_basis_rolling">Viimased 24 h</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">Pärast viimast uuendust</string>
+    <string name="change_basis_utc_zone">Alates 00:00 %1$s</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">Muutus %1$s küünalde põhjal</string>
+    <string name="change_short_since_last">viimane seis</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">täna</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">täna %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="exchange_data_empty_error">Börsilt ei saadud andmeid.</string>
+    <string name="market_data_summary">Turukapitalisatsioon, gaasitasud, majandusandmed, mündi analüüs</string>
+    <string name="market_data_tab_futures">Futuurid</string>
+    <string name="market_data_title">Turuandmed</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">Ringluses kogus</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">Turukapitalisatsioon</string>
+    <string name="spot_max_supply">Maksimaalne kogus</string>
+    <string name="spot_no_data">Selle mündi kohta pole spot-andmeid</string>
+    <string name="spot_source_updated">Allikas: %1$s · seis %2$s</string>
+    <string name="spot_supply_of_max">%1$s maksimaalsest kogusest ringluses</string>
+    <string name="spot_total_supply">Kogu kogus</string>
+    <string name="spot_vol_mcap">Maht/turukap.</string>
+    <string name="spot_volume_24h">Maht (24 h)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">Võrdlus: %1$s</string>
+    <string name="futures_funding">Rahastamismäär</string>
+    <string name="futures_funding_interval_unknown">intervall teadmata</string>
+    <string name="futures_funding_per8h_equiv">= %1$s 8 h kohta (nagu hoiatustes)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">tunnis</string>
+    <string name="futures_funding_per_hours">%1$d h kohta</string>
+    <string name="futures_next_funding">järgmine %1$d h %2$d min pärast</string>
+    <string name="futures_no_data">Selle mündi kohta pole futuuriandmeid</string>
+    <string name="futures_open_interest">Avatud positsioonid</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">Võrdlusväärtus börsilt %1$s – rahastamismäär ja avatud positsioonid erinevad börsiti; börsil %2$s võivad need olla teised.</string>
+    <string name="futures_reference_spot">Võrdlusväärtus börsilt %1$s (mündi USDT tähtajatu leping)</string>
+    <string name="futures_source">Allikas: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">Paljud kauplejad panustavad laenatud rahaga tõusvatele või langevatele hindadele. Tasu pikkade ja lühikeste positsioonide vahel. Tugevalt positiivne tähendab, et paljud panustavad hinnatõusule.</string>
+    <string name="explain_open_interest">Futuurid on panused hinnale, sageli laenatud rahaga. Kõigi avatud futuuripositsioonide väärtus. Kui see kasvab, panustatakse liikumisele rohkem raha.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Selgitus</string>
+    <string name="explain_spot_fdv">Täielikult lahjendatud väärtus: hind × maksimaalne kogus (või kogu kogus, kui piirangut pole).</string>
+    <string name="explain_spot_market_cap">Hind × ringluses kogus. Märk näitab selle muutust 24 tunniga.</string>
+    <string name="explain_spot_source">Kõigi börside andmed USA dollarites, CoinGeckost.</string>
+    <string name="explain_spot_supply">Ringluses: mündid, mis on praegu turul. Kogu: kõik loodud mündid miinus põletatud. Maksimaalne: suurim kogus, mis saab üldse olemas olla.</string>
+    <string name="explain_spot_volume">24 tunniga kaubeldud väärtus. Maht/turukap.: maht võrreldes turukapitalisatsiooniga — kõrge tähendab väga elavat kauplemist.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · kurss %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sat</string>
+
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">Suur vahe ostu- ja müügihinna vahel (%1$s)</string>
+
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">Ajalugu valuutas %1$s, teisendatud valuutasse %2$s tänase kursiga</string>
+    <string name="converted_unsure">Teisendus ebakindel</string>
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">Alarmi portfelja pauzirani: nema trenutne cijene za %1$s</string>
+    <string name="portfolio_alarms_paused_price_generic">Alarmi portfelja pauzirani: nemaju sve kriptovalute trenutnu cijenu</string>
+    <string name="portfolio_alarms_paused_addresses">Alarmi portfelja pauzirani: stanja praćenih adresa još nisu učitana</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Alarmi portfelja pauzirani: stanja tokena za %1$s djelomično su zastarjela</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Alarmi portfelja pauzirani: stanja tokena praćenih adresa djelomično su zastarjela</string>
+    <string name="portfolio_alarms_paused_unverified">Alarmi portfelja pauzirani: cijena za %1$s nije provjerena</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Alarmi portfelja pauzirani: cijena nekih kriptovaluta nije provjerena</string>
+    <string name="portfolio_alarms_address_failing">Alarmi portfelja provjeravaju bez %1$s: stanje se ne učitava više od 24 sata</string>
+    <string name="portfolio_alarms_address_failing_generic">Alarmi portfelja provjeravaju bez adresa čije se stanje ne učitava više od 24 sata</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">tokeni djelomično zastarjeli</string>
+    <string name="portfolio_address_restore_failed">Adresu nije bilo moguće vratiti – po potrebi je ponovno dodaj</string>
+    <string name="portfolio_address_remove_failed">Adresu nije bilo moguće ukloniti – pokušaj ponovno</string>
+</resources>

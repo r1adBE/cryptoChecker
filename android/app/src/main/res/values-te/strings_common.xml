@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">వెనుకకు</string>
+    <string name="action_cancel">రద్దు చేయి</string>
+    <string name="action_clear">క్లియర్ చేయి</string>
+    <string name="action_close">మూసివేయి</string>
+    <string name="action_keep">ఉంచు</string>
+    <string name="action_delete">తొలగించు</string>
+    <string name="action_edit">ఎడిట్ చేయి</string>
+    <string name="action_more">మరిన్ని ఆప్షన్‌లు</string>
+    <string name="action_refresh">రిఫ్రెష్ చేయి</string>
+    <string name="action_retry">మళ్లీ ప్రయత్నించు</string>
+    <string name="action_save">సేవ్ చేయి</string>
+    <string name="action_sort">క్రమబద్ధీకరించు</string>
+    <string name="action_sort_done">పూర్తయింది</string>
+    <string name="action_undo">చర్య రద్దు చేయి</string>
+    <string name="action_view">చూడు</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">మార్కెట్</string>
+    <string name="tab_portfolio">పోర్ట్‌ఫోలియో</string>
+    <string name="tab_settings">సెట్టింగ్‌లు</string>
+    <string name="tab_watchlist">వాచ్‌లిస్ట్</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">ఎర్రర్: %1$s</string>
+    <string name="error_exchange_unreachable">ఎక్స్ఛేంజ్ ప్రస్తుతం అందుబాటులో లేదు – చివరి ధరలు కనిపిస్తూనే ఉంటాయి.</string>
+    <string name="error_exchange_unreachable_short">ఎక్స్ఛేంజ్ ప్రస్తుతం అందుబాటులో లేదు</string>
+    <string name="loading_hint">లోడ్ అవుతోంది…</string>
+    <string name="option_off">ఆఫ్</string>
+    <string name="something_went_wrong">ఏదో తప్పు జరిగింది</string>
+    <string name="time_just_now">ఇప్పుడే</string>
+    <string name="try_again">మళ్లీ ప్రయత్నించండి</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">కనెక్షన్ లేదు</string>
+    <string name="offline_status_since">కనెక్షన్ లేదు · %1$s నాటికి</string>
+    <string name="status_live">లైవ్</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">జతను జోడించు</string>
+    <string name="shortcut_alarms">అన్ని అలర్ట్‌లు</string>
+    <string name="shortcut_cycle">మార్కెట్</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">కొత్త జతను జోడించు</string>
+    <string name="shortcut_alarms_long">అన్ని అలర్ట్‌లను చూపు</string>
+    <string name="shortcut_cycle_long">మార్కెట్ అవలోకనం</string>
+
+    <string name="log_box_title">లాగ్</string>
+    <string name="label_value">%1$s: %2$s</string>
+</resources>

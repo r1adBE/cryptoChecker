@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">አልትኮይኖች ከBitcoin ጋር</string>
+    <string name="neutral_btc_indicators_title">የBitcoin አመላካቾች</string>
+    <string name="neutral_halving_last">የመጨረሻው ሃልቪንግ፦ %1$s</string>
+    <string name="neutral_halving_next">ቀጣዩ ሃልቪንግ በግምት %1$s አካባቢ ይጠበቃል (ከቀን መቁጠሪያው የተገመተ – የብሎክ ከፍታ አሁን አይገኝም)።</string>
+    <string name="neutral_indicators_disclaimer">የተለኩ እሴቶች ብቻ፣ ያለ ግምገማ። ትንበያ አይደለም፣ የኢንቨስትመንት ምክርም አይደለም።</string>
+    <string name="neutral_onchain_missing">የኦን-ቼይን ውሂብ (Coin Metrics) አሁን አይገኝም።</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">ዋጋው ከቀድሞው የምንጊዜም ከፍተኛው ምን ያህል በታች እንደሆነ።</string>
+    <string name="neutral_explain_change_30d">የዛሬው ዋጋ ከ30 ቀናት በፊት ጋር ሲነጻጸር።</string>
+    <string name="neutral_explain_hashrate">የ30 ቀን አማካይ ሃሽሬት ከ60 ቀን አማካዩ ጋር ሲነጻጸር።</string>
+    <string name="neutral_explain_ma200w">የመጨረሻዎቹ 200 ሳምንታዊ መዝጊያዎች አማካይ።</string>
+    <string name="neutral_explain_mayer">ዋጋ ለ200 ቀን አማካዩ ሲካፈል።</string>
+    <string name="neutral_explain_mvrv">የገበያ ዋጋ ለተገነዘበው ዋጋ (realized value፣ ኦን-ቼይን) ሲካፈል።</string>
+    <string name="neutral_explain_pi_gap">የ111 ቀን አማካይ ከ350 ቀን አማካዩ እጥፍ ጋር ሲነጻጸር።</string>
+    <string name="neutral_explain_puell">የማዕድን አውጪዎች ዕለታዊ ገቢ ለ365 ቀን አማካዩ ሲካፈል።</string>
+    <string name="neutral_explain_rsi_daily">የመጨረሻዎቹ 14 ቀናት አንጻራዊ ጥንካሬ መለኪያ (RSI)፣ 0–100።</string>
+    <string name="neutral_explain_rsi_weekly">የመጨረሻዎቹ 14 ሳምንታት አንጻራዊ ጥንካሬ መለኪያ (RSI)፣ 0–100።</string>
+    <string name="neutral_explain_sma50_200">የ50 ቀን አማካይ ከ200 ቀን አማካዩ ጋር ሲነጻጸር።</string>
+    <string name="neutral_explain_vs_btc">በ90 ቀናት ውስጥ ከBitcoin ጋር ሲነጻጸር ያለ የዋጋ ለውጥ።</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">መተግበሪያው ቁጥሩን ብቻ ያሳያል፣ እንደ ወቅት አይሰይመውም። እሴቱ ብዙውን ጊዜ የሚለወጠው በቀናት ውስጥ ነው እንጂ በሰዓታት አይደለም።</string>
+    <string name="neutral_info_btc_how">እያንዳንዱ እሴት ምን እንደሚለካ እና ከ2016 ወዲህ በራሱ ታሪክ ውስጥ የት እንዳለ በአንድ ዓረፍተ ነገር ይቀርባል። መተግበሪያው እሴቶቹን አይገመግምም፣ የገበያ ምዕራፍም አያወጣም፤ የገበያ ማንቂያዎች ገደቦች እርስዎ ያዘጋጁዋቸው ብቻ ናቸው። ያለፉ ቅጦች መደገም የለባቸውም።</string>
+    <string name="neutral_info_btc_what">የተለመዱ የBitcoin አመላካቾች እንደ ተራ የተለኩ እሴቶች፦ Mayer Multiple፣ የ200 ሳምንት አማካይ፣ ከምንጊዜም ከፍተኛው ያለ ውድቀት፣ በ30 ቀናት ውስጥ ያለ ለውጥ፣ የPi Cycle ክፍተት እና የኦን-ቼይን እሴቶቹ MVRV፣ Puell Multiple እና ሃሽሬት።</string>
+    <string name="neutral_info_coin_how">እያንዳንዱ እሴት ምን እንደሚለካ በአንድ ዓረፍተ ነገር ይቀርባል፣ ያለ ግምገማ። አጭር የዋጋ ታሪክ ላላቸው ሳንቲሞች አንዳንድ እሴቶች ይጎድላሉ። የኦን-ቼይን ውሂብ እዚህ አልተካተተም።</string>
+    <string name="neutral_info_coin_what">ለመረጡት ሳንቲም ተመሳሳይ ተራ አመላካቾች፣ ከዋጋ ውሂብ ብቻ፦ Mayer Multiple፣ የ200 ሳምንት አማካይ፣ ከምንጊዜም ከፍተኛው ያለ ውድቀት፣ በ30 ቀናት ውስጥ ያለ ለውጥ፣ የ50/200 ቀን አዝማሚያ፣ RSI እና በ90 ቀናት ውስጥ ከBitcoin አንጻር ያለ ጥንካሬ።</string>
+    <string name="neutral_info_halving_how">ቀጣዩ ሃልቪንግ የሚሰላው ከአሁኑ የብሎክ ከፍታ እና ከአሁኑ የችግር ደረጃ (difficulty) ጊዜ አማካይ የብሎክ ጊዜ ነው (mempool.space)፤ ያለዚያ ውሂብ፣ ከቀን መቁጠሪያው (የመጨረሻው ሃልቪንግ እና በግምት አራት ዓመታት)። ገበታው ያለፉ ዑደቶችን የዋጋ ጉዞ ከሃልቪንጋቸው ጀምሮ ያሳያል – ታሪክ ነው እንጂ ትንበያ አይደለም።</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">አዝማሚያ 50/200 ቀናት</string>
+    <string name="ind_drawdown">ከምንጊዜም ከፍተኛው ያለ ውድቀት</string>
+    <string name="ind_missing">በቂ ውሂብ የለም</string>
+    <string name="ind_rsi_daily">RSI (ዕለታዊ)</string>
+    <string name="ind_rsi_weekly">RSI (ሳምንታዊ)</string>
+    <string name="ind_vs_btc">ከBitcoin አንጻር ጥንካሬ (90 ቀናት)</string>
+    <string name="neutral_ind_change_30d">ለውጥ 30 ቀናት</string>
+    <string name="neutral_ind_hashrate">ሃሽሬት 30/60 ቀናት</string>
+    <string name="neutral_ind_ma200w">የ200 ሳምንት አማካይ</string>
+    <string name="neutral_ind_pi_gap">የPi Cycle ክፍተት</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">ከፍተኛ ማለት አብዛኞቹ ትልልቅ አልትኮይኖች በ90 ቀናት ውስጥ ከBitcoin በልጠዋል ማለት ነው፣ ዝቅተኛ ማለት Bitcoin ከአብዛኞቻቸው በልጧል ማለት ነው።</string>
+    <string name="ind_read_ath_distance">ትንሽ ማለት ዋጋው ከሪከርዱ አጠገብ ነው ማለት ነው፣ ትልቅ ማለት ከሱ በጣም በታች ነው ማለት ነው።</string>
+    <string name="ind_read_change_30d">አዎንታዊ ማለት ከ30 ቀናት በፊት ከፍ ያለ ማለት ነው፣ አሉታዊ ማለት ዝቅ ያለ ማለት ነው።</string>
+    <string name="ind_read_funding">ከፍተኛ ማለት ብዙ ነጋዴዎች በሌቨሬጅ ዋጋ ይጨምራል ብለው ይወራረዳሉ ማለት ነው፣ አሉታዊ ማለት ብዙዎች ዋጋ ይወርዳል ብለው ይወራረዳሉ ማለት ነው።</string>
+    <string name="ind_read_hashrate_30_60">አዎንታዊ ማለት የማስላት ኃይል እያደገ ነው ማለት ነው፣ አሉታዊ ማለት የማዕድን አውጪዎች እያጠፉ ነው ማለት ነው።</string>
+    <string name="ind_read_leverage">ብዙ ሎንጎች ማለት ብዙዎች በተበደረ ገንዘብ ዋጋ ይጨምራል ብለው ይወራረዳሉ ማለት ነው፣ ብዙ ሾርቶች ማለት ብዙዎች ዋጋ ይወርዳል ብለው ይወራረዳሉ ማለት ነው።</string>
+    <string name="ind_read_ma200w">ዋጋው ከሱ በጣም በላይ ከሆነ ረጅም ጭማሪ ማለት ነው፣ ዋጋው ወደሱ ከተጠጋ ጥልቅ መመለስ ማለት ነው።</string>
+    <string name="ind_read_mayer">ከፍተኛ ማለት ዋጋው ከ200 ቀን አማካዩ በጣም በላይ ነው ማለት ነው፣ ዝቅተኛ ማለት ከሱ በታች ነው ማለት ነው።</string>
+    <string name="ind_read_mvrv">ከፍተኛ ማለት ዋጋው ባለይዞታዎች በአማካይ ከከፈሉት በጣም በላይ ነው ማለት ነው፣ ዝቅተኛ ማለት ወደሱ የቀረበ ወይም ከሱ በታች ማለት ነው።</string>
+    <string name="ind_read_pi_cycle_gap">ወደ ዜሮ የቀረበ ማለት ሁለቱ አማካዮች ሊገናኙ ተቃርበዋል ማለት ነው፣ በጣም አሉታዊ ማለት በጣም ተራርቀዋል ማለት ነው።</string>
+    <string name="ind_read_puell">ከፍተኛ ማለት የማዕድን አውጪዎች ከወትሮው በጣም የበለጠ ያገኛሉ ማለት ነው፣ ዝቅተኛ ማለት በጣም ያነሰ ማለት ነው።</string>
+    <string name="ind_read_rsi_daily">ከ70 በላይ ማለት ባለፉት ቀናት ጠንካራ ጭማሪዎች ማለት ነው፣ ከ30 በታች ማለት ጠንካራ ኪሳራዎች ማለት ነው።</string>
+    <string name="ind_read_rsi_weekly">ከ70 በላይ ማለት ባለፉት ሳምንታት ጠንካራ ጭማሪዎች ማለት ነው፣ ከ30 በታች ማለት ጠንካራ ኪሳራዎች ማለት ነው።</string>
+    <string name="ind_read_sma50_vs_200">አዎንታዊ ማለት የአጭር ጊዜ አማካዩ ከረጅም ጊዜው በላይ ነው ማለት ነው፣ አሉታዊ ማለት በታች ማለት ነው።</string>
+    <string name="ind_read_vs_btc">አዎንታዊ ማለት ከBitcoin የተሻለ ሠርቷል ማለት ነው፣ አሉታዊ ማለት የባሰ ማለት ነው።</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">ለ30 ቀናት ተመሳሳይ ዋጋ፦ %1$s</string>
+    <string name="ind_context_note">ያለፉ እሴቶችና የ«ተመሳሳይ ዋጋ» ስሌቶች ሂሳብ ናቸው እንጂ ትንበያ አይደሉም።</string>
+    <string name="ind_context_percentile">ከ%1$s ወዲህ በ%2$s ቀናት ዝቅ ያለ</string>
+</resources>

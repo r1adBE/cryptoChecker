@@ -1,0 +1,41 @@
+Crypto Checker provjerava cijene na tvojoj burzi i javlja kada provjera pokaže da je tvoja razina dosegnuta. Kada je aplikacija zatvorena, Android odlučuje kada se alarmi provjeravaju – najviše jednom u 15 minuta, često tek nakon nekoliko sati. Kratki skokovi između provjera mogu promaknuti; aplikacija to kaže. Cijena tvoje burze, a ne prosjek – besplatno, bez računa.
+
+ŠTO JE DRUKČIJE
+• Tvoja burza, a ne prosjek: svaki redak prikazuje posljednju cijenu para na burzi koju odabereš – Binance, Coinbase, Kraken, OKX, Bybit i mnoge druge.
+• Alarm koji javlja jednom: „Javi mi kada BTC poraste iznad 100.000 USDT.“ Oglašava se kada provjera pokaže prijeđenu razinu, ne pri svakom ažuriranju – „Jednom“ ga zatim isključuje, „Svaki put“ ga ponovno aktivira kad se cijena vrati.
+• „Što se kreće s njom?“: popis čimbenika za kriptovalutu – ukupno tržište, volumen, volatilnost, funding i open interest, udaljenost od maksimuma ili minimuma, Fear & Greed. Prikazuje što se kreće istodobno – bez uzroka, bez vijesti, bez savjeta za ulaganje.
+• Bez računa, bez oglasa, bez praćenja. Programer ne prima tvoje podatke.
+
+ISKRENO O PODACIMA
+• „Štedljivo“ je zadano: cijene se osvježavaju pri otvaranju aplikacije i povremeno u pozadini. „Uživo dok je otvoreno“ dodaje cijene uživo za Binance, Bybit, OKX, Coinbase i Kraken dok je popis praćenja otvoren.
+• % promjena i grafikoni dolaze najprije s burze para; ako nema svijeća, aplikacija koristi Binance ili Coinbase i to kaže.
+• Fear & Greed, dominacija i on-chain vrijednosti s alternative.me, CoinGecka i Coin Metricsa.
+• Iznosi napuštaju uređaj samo kroz tvoj izvoz ili sigurnosne kopije sustava Android. Za cijene burza para dobiva samo oznake parova; uz to tečajevi (Frankfurter), tržišni podaci i logotipi (CoinGecko, Binance), zrcala podataka (GitHub). Ako pratiš adrese ili xpub, javni blockchain čvorovi vide adrese (kod xpuba izvedene) i tvoj IP.
+
+POPIS PRAĆENJA
+• 56 tržišta na 45 burzi: spot i futures, DEX tokeni putem DexScreenera, po želji dionice, zlato i FX (TradFi)
+• Drugi redak „≈ vrijednost“ u jednoj od 31 valute (EUR, CHF, USD …), preračunato po tečaju
+• Mini grafikon i % promjena u 24 h ili od 00:00 u tvojoj vremenskoj zoni
+• Grupe, favoriti, drag & drop i bilješka po kriptovaluti
+• Retci označavaju „zastarjelo“ ili „burza nije dostupna“
+
+ALARMI
+• Cijena iznad ili ispod razine, ili rast ili pad za postotak – i u tvojoj valuti, npr. 60.000 EUR na USDT paru
+• Pomak za x % unutar vremenskog okvira, skok volumena
+• Zvuk (i vlastita audiodatoteka), vibracija i po želji izgovorena najava
+• Tihi sati i „Probni alarm“: unaprijed čuj kako alarm stiže; zapisnik alarma: kada je provjereno, koja cijena, zašto se nije oglasio
+
+TRŽIŠTE
+• Upadljivo: neobična kretanja cijena i volumena na tvojem popisu praćenja, po želji kao tržišna obavijest
+• Kripto puls, Fear & Greed, Bitcoin pokazatelji, funding i open interest – kao čiste izmjerene vrijednosti
+• Mrežne naknade za Ethereum, Bitcoin i druge, s alarmom za gas
+
+JOŠ
+• Widgeti: popis praćenja, ukupna vrijednost portfelja, pojedinačna kriptovaluta s grafikonom
+• Portfelj po želji (uključi ga u Postavkama): kupnje, prodaje, zamjene, prijenosi, nagrade, uplate i isplate; FIFO (zadano) ili prosjek (Ø); adrese samo za čitanje bez seeda za BTC (uklj. xpub), ETH i EVM mreže, SOL, TRX, XRP, LTC, ADA i TON; CSV uvoz iz Relai, Swissquote, Bitpanda, Kraken, Binance i Coinbase; godišnji pregled kao CSV; vlastito zaključavanje. Bitpanda i Swissquote: bez vlastite cijene, samo CSV.
+• Čitljivo za sve: zeleno/crveno ili plavo/narančasto, predznak i strelica umjesto samo boje; TalkBack čita svaki redak kao jednu rečenicu
+• Sigurnosna kopija i vraćanje u datoteku – i između Androida i iPhonea
+• Svijetli i tamni način, pet boja naglaska, 75 jezika
+• Otvoreni kod (MIT) – kod je javan na GitHubu
+
+Napomena: Crypto Checker prikazuje cijene i portfelj koji unosiš ti. Nije burza ni novčanik, ne trguje i ne daje savjete za ulaganje.

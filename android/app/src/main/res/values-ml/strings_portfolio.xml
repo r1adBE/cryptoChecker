@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">ഈ ഉപകരണത്തിൽ സ്ക്രീൻ ലോക്ക് സജ്ജമാക്കിയിട്ടില്ല. ആദ്യം സിസ്റ്റം ക്രമീകരണങ്ങളിൽ ഒന്ന് സജ്ജമാക്കുക.</string>
+    <string name="app_lock_unlock">അൺലോക്ക് ചെയ്യുക</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">പോർട്ട്ഫോളിയോ മായ്ക്കുക</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="one">%d ഇടപാട് ഇല്ലാതാക്കണോ? നിരീക്ഷിക്കുന്ന വിലാസങ്ങൾ നിലനിൽക്കും. ഇതിന് തൊട്ടുപിന്നാലെ നിങ്ങൾക്ക് പഴയപടിയാക്കാം.</item>
+        <item quantity="other">എല്ലാ %d ഇടപാടുകളും ഇല്ലാതാക്കണോ? നിരീക്ഷിക്കുന്ന വിലാസങ്ങൾ നിലനിൽക്കും. ഇതിന് തൊട്ടുപിന്നാലെ നിങ്ങൾക്ക് പഴയപടിയാക്കാം.</item>
+    </plurals>
+    <string name="portfolio_empty_action">നിങ്ങളുടെ ആദ്യ വാങ്ങൽ ചേർക്കുക</string>
+    <string name="portfolio_empty_address">ഒരു വാലറ്റ് വിലാസം നിരീക്ഷിക്കുക മാത്രം</string>
+    <string name="portfolio_empty_csv">ഒരു എക്സ്ചേഞ്ചിൽ വാങ്ങിയോ? അതിന്റെ ഫയൽ ഇമ്പോർട്ട് ചെയ്യുക</string>
+    <string name="portfolio_empty_example_plain">ഉദാഹരണം: മാർച്ച് 1-ന് %1$s BTC വാങ്ങി. ഇന്ന് അതിന്റെ മൂല്യം എത്രയാണെന്നും നിങ്ങൾ ലാഭത്തിലാണോ നഷ്ടത്തിലാണോ എന്നും ആപ്പ് കാണിക്കും – ഈ ഉപകരണത്തിൽ മാത്രം സൂക്ഷിക്കുന്നു.</string>
+    <string name="portfolio_empty_title">ഇതുവരെ ഇടപാടുകളൊന്നുമില്ല</string>
+    <string name="portfolio_enable_ask_text">നിങ്ങളുടെ ഇടപാട് സംരക്ഷിച്ചു. പോർട്ട്ഫോളിയോ ടാബ് നിങ്ങളുടെ ഹോൾഡിംഗുകളും അവയുടെ മൂല്യവും കാണിക്കുന്നു.</string>
+    <string name="portfolio_enable_ask_title">പോർട്ട്ഫോളിയോ ടാബ് ഓണാക്കണോ?</string>
+    <string name="portfolio_enable_later_hint">ഇടപാട് സംരക്ഷിച്ചു. ക്രമീകരണം › പോർട്ട്ഫോളിയോ എന്നതിൽ നിങ്ങൾക്ക് പോർട്ട്ഫോളിയോ ടാബ് ഓണാക്കാം.</string>
+    <string name="portfolio_enabled_banner">പോർട്ട്ഫോളിയോ ഓണാക്കി – പോർട്ട്ഫോളിയോ ടാബിൽ നിങ്ങൾക്ക് അത് കാണാം.</string>
+    <string name="portfolio_lock_reason">പോർട്ട്ഫോളിയോ അൺലോക്ക് ചെയ്യുക</string>
+    <string name="portfolio_locked_text">നിങ്ങളുടെ ഹോൾഡിംഗുകളും മൂല്യങ്ങളും കാണാൻ അൺലോക്ക് ചെയ്യുക.</string>
+    <string name="portfolio_locked_title">പോർട്ട്ഫോളിയോ ലോക്ക് ചെയ്തിരിക്കുന്നു</string>
+    <string name="portfolio_setting_hint">ഓപ്ഷണൽ: വാങ്ങലുകളും വിൽപ്പനകളും രേഖപ്പെടുത്തി മൂല്യവും ലാഭ/നഷ്ടവും ഒരു പ്രത്യേക ടാബിൽ കാണുക.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">പഴയത് · %1$s പ്രകാരം</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="one">സിസ്റ്റം ബാക്കപ്പിൽ നിന്നുള്ള %d എൻട്രി അസാധുവായിരുന്നു, പുനഃസ്ഥാപിച്ചില്ല.</item>
+        <item quantity="other">സിസ്റ്റം ബാക്കപ്പിൽ നിന്നുള്ള %d എൻട്രികൾ അസാധുവായിരുന്നു, പുനഃസ്ഥാപിച്ചില്ല.</item>
+    </plurals>
+    <string name="portfolio_title">പോർട്ട്ഫോളിയോ</string>
+    <string name="portfolio_unassigned_fee">ഫീസ് നിയോഗിച്ചിട്ടില്ല – ചെലവുവില അജ്ഞാതം: %1$s</string>
+    <string name="portfolio_updated">%1$s പ്രകാരമുള്ള വിലകൾ</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">മറ്റുള്ളവ</string>
+    <string name="portfolio_allocation_title">വിഹിതം</string>
+    <string name="portfolio_card_details">വിശദാംശങ്ങൾ</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: ഇതുവരെ ലഭ്യമല്ല</string>
+    <string name="portfolio_card_hints_count">കുറിപ്പുകൾ (%1$d)</string>
+    <string name="portfolio_card_today">ഇന്ന്</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">ആകെ</string>
+    <string name="portfolio_hide_amounts">തുകകൾ മറയ്ക്കുക</string>
+    <string name="portfolio_hide_amounts_hint">പോർട്ട്ഫോളിയോയിലും പോർട്ട്ഫോളിയോ വിജറ്റിലും തുകകളും മൂല്യങ്ങളും ••• ആയി കാണിക്കുന്നു – ശതമാനങ്ങൾ കാണാവുന്ന നിലയിൽ തുടരും.</string>
+    <string name="portfolio_invested">ചെലവുവില</string>
+    <string name="portfolio_total_no_fx">%1$s-ന് വിനിമയ നിരക്കില്ല – തുകകൾ USDT-ൽ</string>
+    <string name="portfolio_total_value">ആകെ മൂല്യം</string>
+    <string name="portfolio_value">മൂല്യം</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">ശരാശരി %1$s · ഇപ്പോൾ %2$s</string>
+    <string name="portfolio_avg_only">ശരാശരി %1$s</string>
+    <string name="portfolio_avg_open_lots">കൈവശമുള്ള കോയിനുകളുടെ ശരാശരി ചെലവ്</string>
+    <string name="portfolio_avg_partial">വാങ്ങൽ വിലയുള്ള %1$s-ന്റെ ശരാശരി</string>
+    <string name="portfolio_avg_price">ശരാശരി വാങ്ങൽ വില</string>
+    <string name="portfolio_avg_price_hint">ശരാശരി വാങ്ങൽ വില: എല്ലാ വാങ്ങലുകളുടെയും അളവ് അനുസരിച്ചുള്ള ശരാശരി. വിൽപ്പനകൾ ഈ ശരാശരിയിൽ മൂല്യനിർണ്ണയം ചെയ്യുന്നു.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">അടച്ച പൊസിഷൻ (%1$d)</item>
+        <item quantity="other">അടച്ച പൊസിഷനുകൾ (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: വിൽപ്പനകൾ നിങ്ങളുടെ ഏറ്റവും പഴയ കോയിനുകൾ ആദ്യം ഉപയോഗിക്കുന്നു. ശരാശരി = ബാക്കി ചെലവുവില ÷ വാങ്ങൽ വിലയുള്ള അളവ്.</string>
+    <string name="portfolio_holdings">ഹോൾഡിംഗുകൾ</string>
+    <string name="portfolio_lost_fee_cost">പണമടച്ച ലോട്ട് ഇല്ലാത്ത നെറ്റ്‌വർക്ക് ഫീസ് ചെലവ്: %1$s</string>
+    <string name="portfolio_open_lots">തുറന്ന വാങ്ങൽ ലോട്ടുകൾ (%1$d)</string>
+    <string name="portfolio_open_lots_avg">വാങ്ങൽ വിലയോടെ (ശരാശരി)</string>
+    <string name="portfolio_open_lots_no_cost">വാങ്ങൽ വിലയില്ലാതെ</string>
+    <string name="portfolio_open_lots_without_price">വാങ്ങൽ വിലയില്ല</string>
+    <string name="portfolio_realized">സാക്ഷാത്കരിച്ച ലാഭം/നഷ്ടം</string>
+    <string name="portfolio_unrealized">തുറന്ന ലാഭം/നഷ്ടം</string>
+    <string name="portfolio_unrealized_without_unpriced">വാങ്ങൽ വിലയില്ലാത്ത %1$s ഇല്ലാതെ</string>
+    <string name="portfolio_withdrawn_gain">പിൻവലിച്ചത്: %1$s (പിൻവലിക്കൽ വരെയുള്ള മൂല്യ മാറ്റം)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">ഇതിലേക്ക് പരിവർത്തനം ചെയ്യുക</string>
+    <string name="portfolio_convert_to_value">ഇതിലേക്ക് പരിവർത്തനം: %1$s</string>
+    <string name="portfolio_current_missing">%1$s-ന് നിലവിലെ വിലയില്ല</string>
+    <string name="portfolio_current_price">നിലവിലെ വില</string>
+    <string name="portfolio_price_missing">വില ഇല്ല</string>
+    <string name="portfolio_price_missing_hint">ചില വാങ്ങലുകൾക്ക് വിലയില്ല. ലാഭ/നഷ്ടം കാണാൻ വാങ്ങൽ വില ചേർക്കുക.</string>
+    <string name="portfolio_price_source">വിലകൾ: Binance · USDT മാർക്കറ്റ് വിലയിൽ</string>
+    <string name="portfolio_price_source_routes">വിലകൾ: %1$s, അല്ലെങ്കിൽ Binance · USDT മാർക്കറ്റ് വിലയിൽ</string>
+    <string name="portfolio_price_unavailable">വില ഇപ്പോൾ ലഭ്യമല്ല</string>
+    <string name="portfolio_price_unchecked">വില പരിശോധിച്ചിട്ടില്ല</string>
+    <string name="portfolio_price_via_base">≈ %1$s വില (ബ്രിഡ്ജ്ഡ്/റാപ്പ്ഡ്)</string>
+    <string name="portfolio_usdt_as_usd">USDT അതിന്റെ USD മാർക്കറ്റ് വിലയിൽ പരിവർത്തനം ചെയ്തു</string>
+    <string name="portfolio_usdt_assumed">USDT ഡോളർ നിരക്ക് ഇല്ല – 1 US ഡോളറായി കണക്കാക്കി</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">പോർട്ട്ഫോളിയോയിലേക്ക് ചേർക്കുക</string>
+    <string name="portfolio_add_tx">ഇടപാട് ചേർക്കുക</string>
+    <string name="portfolio_buy">വാങ്ങൽ</string>
+    <string name="portfolio_coin">കോയിൻ</string>
+    <string name="portfolio_coin_invalid">ഒരു കോയിൻ ചിഹ്നം നൽകുക</string>
+    <string name="portfolio_coin_search">ചിഹ്നം തിരയുക, ഉദാ. BTC</string>
+    <string name="portfolio_discard_confirm">ഉപേക്ഷിക്കുക</string>
+    <string name="portfolio_discard_keep">എഡിറ്റിംഗ് തുടരുക</string>
+    <string name="portfolio_discard_title">മാറ്റങ്ങൾ ഉപേക്ഷിക്കണോ?</string>
+    <string name="portfolio_edit_tx">ഇടപാട് എഡിറ്റ് ചെയ്യുക</string>
+    <string name="portfolio_invalid">0-നെക്കാൾ വലിയ സാധുവായ സംഖ്യ നൽകുക.</string>
+    <string name="portfolio_oversold">വിൽപ്പനകൾ ഹോൾഡിംഗുകളെക്കാൾ കൂടുതലാണ് – ദയവായി ഇടപാടുകൾ പരിശോധിക്കുക.</string>
+    <string name="portfolio_sell">വിൽപ്പന</string>
+    <string name="portfolio_sell_exceeds">നിങ്ങളുടെ ഹോൾഡിംഗുകളെക്കാൾ (%1$s) കൂടുതൽ</string>
+    <string name="portfolio_sell_exceeds_fee">തുകയും ഫീസും ചേർന്നാൽ നിങ്ങളുടെ ഹോൾഡിംഗുകളെക്കാൾ (%1$s) കൂടുതൽ</string>
+    <string name="portfolio_sell_exceeds_wallet">%2$s-ലെ നിങ്ങളുടെ ഹോൾഡിംഗുകളെക്കാൾ (%1$s) കൂടുതൽ</string>
+    <string name="portfolio_transactions">ഇടപാടുകൾ</string>
+    <string name="portfolio_tx_acquired_date">യഥാർത്ഥ വാങ്ങൽ തീയതി (ഓപ്ഷണൽ)</string>
+    <string name="portfolio_tx_acquired_date_hint">നികുതി എക്സ്പോർട്ടിലെ കൈവശ കാലയളവിനായി</string>
+    <string name="portfolio_tx_amount">അളവ്</string>
+    <string name="portfolio_tx_coin_fee">കോയിനിലുള്ള ഫീസ് (ഓപ്ഷണൽ)</string>
+    <string name="portfolio_tx_date">തീയതി</string>
+    <string name="portfolio_tx_delete_confirm">ഈ ഇടപാട് പോർട്ട്ഫോളിയോയിൽ നിന്ന് നീക്കം ചെയ്യും.</string>
+    <string name="portfolio_tx_delete_title">ഇടപാട് ഇല്ലാതാക്കണോ?</string>
+    <string name="portfolio_tx_deposit">നിക്ഷേപം</string>
+    <string name="portfolio_tx_entry_currency">നൽകുന്ന കറൻസി</string>
+    <string name="portfolio_tx_explain_deposit">ട്രേഡില്ലാതെയുള്ള ഹോൾഡിംഗുകൾ, ഉദാ. മുമ്പുള്ള കോയിനുകൾ</string>
+    <string name="portfolio_tx_explain_gift">കോയിനുകൾ ഒരു പിൻവലിക്കൽ പോലെ നിങ്ങളുടെ ഹോൾഡിംഗുകളിൽ നിന്ന് പോകുന്നു – സമ്മാനങ്ങൾക്ക് നികുതി ചുമത്തുന്ന രാജ്യങ്ങളിൽ (UK, CA, AU) മാത്രം മാർക്കറ്റ് മൂല്യത്തിലുള്ള ഒഴിവാക്കൽ</string>
+    <string name="portfolio_tx_explain_payment">സാധനങ്ങൾക്കോ സേവനങ്ങൾക്കോ പണമടച്ചു – ഒരു വിൽപ്പന പോലെ മാർക്കറ്റ് മൂല്യത്തിലുള്ള ഒഴിവാക്കൽ, പണം ലഭിച്ചിട്ടില്ല</string>
+    <string name="portfolio_tx_explain_reward">ചെലവുവില = ലഭിച്ചപ്പോഴുള്ള മാർക്കറ്റ് മൂല്യം</string>
+    <string name="portfolio_tx_explain_swap">ഒരു കോയിനിന് പകരം മറ്റൊന്ന്: നൽകിയ കോയിൻ വിൽക്കുകയും ലഭിച്ച കോയിൻ വാങ്ങുകയും ചെയ്യുന്നു</string>
+    <string name="portfolio_tx_explain_transfer">ലാഭമില്ല – ചെലവുവില കോയിനുകൾക്കൊപ്പം നീങ്ങുന്നു</string>
+    <string name="portfolio_tx_explain_withdrawal">ഹോൾഡിംഗുകൾ പോർട്ട്ഫോളിയോയിൽ നിന്ന് പോകുന്നു – വിൽപ്പനയില്ല, ലാഭമില്ല</string>
+    <string name="portfolio_tx_fee_consumes_amount">ഫീസ് ലഭിച്ച തുകയോളം വലുതാണ് – ഒന്നും ബാക്കിയുണ്ടാകില്ല.</string>
+    <string name="portfolio_tx_fees_toggle">ഫീസുകൾ</string>
+    <string name="portfolio_tx_fiat_converted">%2$s നിരക്കിൽ ≈ %1$s</string>
+    <string name="portfolio_tx_fiat_loading">വിനിമയ നിരക്ക് ലോഡ് ചെയ്യുന്നു…</string>
+    <string name="portfolio_tx_fiat_no_fx">ഈ ദിവസത്തിന് വിനിമയ നിരക്കില്ല – തുക USDT-ൽ നൽകുക.</string>
+    <string name="portfolio_tx_gift">സമ്മാനം</string>
+    <string name="portfolio_tx_gift_price_hint">USDT-ൽ. ശൂന്യം = ആ ദിവസത്തെ ക്ലോസിംഗ് (കണക്കാക്കിയത്).</string>
+    <string name="portfolio_tx_gift_spouse">ജീവിതപങ്കാളിക്ക് / സിവിൽ പങ്കാളിക്ക്</string>
+    <string name="portfolio_tx_gift_spouse_hint">UK, കാനഡ: ലാഭവുമില്ല നഷ്ടവുമില്ല – നിങ്ങളുടെ പങ്കാളി നിങ്ങളുടെ ചെലവുവില ഏറ്റെടുക്കുന്നു. മറ്റ് രാജ്യങ്ങൾ ഇത് അവഗണിക്കുന്നു.</string>
+    <string name="portfolio_tx_market_value">ഒരു കോയിനിന്റെ മാർക്കറ്റ് മൂല്യം</string>
+    <string name="portfolio_tx_more_buy">ഫീസ്, എക്സ്ചേഞ്ച്, കുറിപ്പ്</string>
+    <string name="portfolio_tx_network_fee">കോയിനിലുള്ള നെറ്റ്‌വർക്ക് ഫീസ് (ഓപ്ഷണൽ)</string>
+    <string name="portfolio_tx_note">കുറിപ്പ് (ഓപ്ഷണൽ)</string>
+    <string name="portfolio_tx_payment">ഇതുകൊണ്ട് പണമടച്ചു</string>
+    <string name="portfolio_tx_price">ഒരു കോയിനിന്റെ വില</string>
+    <string name="portfolio_tx_price_hint">USDT-ൽ. അറിയില്ലെങ്കിൽ ശൂന്യമായി വിടുക.</string>
+    <string name="portfolio_tx_price_historic">%1$s-ന്റെ പരിശോധിച്ച ദിവസാന്ത്യ ക്ലോസിംഗ് – ആവശ്യമെങ്കിൽ ക്രമീകരിക്കുക</string>
+    <string name="portfolio_tx_price_invalid">സാധുവായ സംഖ്യ (0 അല്ലെങ്കിൽ കൂടുതൽ) നൽകുക, അല്ലെങ്കിൽ ഫീൽഡ് ശൂന്യമായി വിടുക.</string>
+    <string name="portfolio_tx_price_past_hint">വാങ്ങിയ ദിവസത്തെ വില നൽകുക – അറിയില്ലെങ്കിൽ ശൂന്യമായി വിടുക</string>
+    <string name="portfolio_tx_price_receipt_hint">USDT-ൽ. ശൂന്യം = ചെലവുവിലയില്ലാത്ത ഹോൾഡിംഗുകൾ.</string>
+    <string name="portfolio_tx_price_zero">ഇമ്പോർട്ട് ചെയ്ത ഇടപാടുകൾക്ക് വില 0 സാധ്യമല്ല – മാർക്കറ്റ് വിലയ്ക്കായി ശൂന്യമായി വിടുക</string>
+    <string name="portfolio_tx_removed">ഇടപാട് ഇല്ലാതാക്കി</string>
+    <string name="portfolio_tx_reward">റിവാർഡ്</string>
+    <string name="portfolio_tx_save_failed">ഇടപാട് സംരക്ഷിക്കാനായില്ല. നിങ്ങൾ നൽകിയവ ഇപ്പോഴും ഇവിടെയുണ്ട് – ദയവായി വീണ്ടും ശ്രമിക്കുക.</string>
+    <string name="portfolio_tx_swap">സ്വാപ്പ്</string>
+    <string name="portfolio_tx_swap_fee_received">%1$s-ലുള്ള ഫീസ്: ലഭിച്ച തുക കുറയ്ക്കുന്നു, വില ആവശ്യമില്ല.</string>
+    <string name="portfolio_tx_swap_from">%1$s-ൽ നിന്ന് സ്വാപ്പ്</string>
+    <string name="portfolio_tx_swap_given_amount">നൽകിയ തുക</string>
+    <string name="portfolio_tx_swap_given_coin">നൽകിയ കോയിൻ</string>
+    <string name="portfolio_tx_swap_received_amount">ലഭിച്ച തുക</string>
+    <string name="portfolio_tx_swap_received_coin">ലഭിച്ച കോയിൻ</string>
+    <string name="portfolio_tx_swap_same_coin">നൽകിയതിൽ നിന്ന് വ്യത്യസ്തമായ ഒരു കോയിൻ തിരഞ്ഞെടുക്കുക</string>
+    <string name="portfolio_tx_swap_to">%1$s-ലേക്ക് സ്വാപ്പ്</string>
+    <string name="portfolio_tx_swap_value">സ്വാപ്പിന്റെ മൂല്യം (ഓപ്ഷണൽ)</string>
+    <string name="portfolio_tx_swap_value_hint">ആകെ മൂല്യം. ശൂന്യം = അജ്ഞാതം – ലാഭം അപൂർണ്ണമായി തുടരും (സ്വാപ്പിൽ USDT ഉണ്ടെങ്കിൽ സ്വയമേവ).</string>
+    <string name="portfolio_tx_third_fee_amount">ഫീസ് തുക</string>
+    <string name="portfolio_tx_third_fee_coin">ഫീസ് കോയിൻ</string>
+    <string name="portfolio_tx_third_fee_incomplete">വിലയില്ലെങ്കിൽ ഫീസ് ചെലവുവിലയിൽ നിന്നും വരുമാനത്തിൽ നിന്നും ഒഴിവാക്കും; നികുതി എക്സ്പോർട്ട് അത്തരം വിൽപ്പനകൾ അടയാളപ്പെടുത്തുന്നു.</string>
+    <string name="portfolio_tx_third_fee_price">ഒരു ഫീസ് കോയിനിന്റെ വില (ഓപ്ഷണൽ)</string>
+    <string name="portfolio_tx_third_fee_toggle">മറ്റൊരു കോയിനിലുള്ള ഫീസ്</string>
+    <string name="portfolio_tx_total">ആകെ: %1$s</string>
+    <string name="portfolio_tx_transfer">കൈമാറ്റം</string>
+    <string name="portfolio_tx_transfer_from">എവിടെ നിന്ന് (ഓപ്ഷണൽ)</string>
+    <string name="portfolio_tx_transfer_to">എവിടേക്ക് (ഓപ്ഷണൽ)</string>
+    <string name="portfolio_tx_transfer_to_hint">എക്സ്ചേഞ്ച് അല്ലെങ്കിൽ വാലറ്റ് – ഇനി മുതൽ അവിടെ മൂല്യനിർണ്ണയം ചെയ്യും.</string>
+    <string name="portfolio_tx_type_select">തരം: %1$s</string>
+    <string name="portfolio_tx_value_received">ലഭിച്ചപ്പോഴുള്ള ഒരു കോയിനിന്റെ മൂല്യം (ഓപ്ഷണൽ)</string>
+    <string name="portfolio_tx_withdrawal">പിൻവലിക്കൽ</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">സമ്മാനമായി നൽകിയോ അതുകൊണ്ട് പണമടച്ചോ? “സമ്മാനം” അല്ലെങ്കിൽ “ഇതുകൊണ്ട് പണമടച്ചു” ആയി രേഖപ്പെടുത്തുക – രാജ്യം അനുസരിച്ച്, നികുതി ആവശ്യങ്ങൾക്ക് അത് വിൽപ്പനയായി കണക്കാക്കും.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">ഓപ്ഷണൽ: USDT-ലുള്ള മാർക്കറ്റ് മൂല്യം, ചരിത്രത്തിന് മാത്രം ഉപയോഗിക്കുന്നു (ശൂന്യം = ആ ദിവസത്തെ വില). കോയിനുകൾ എല്ലായ്പ്പോഴും അവയുടെ ചെലവുവിലയിൽ പോകുന്നു.</string>
+    <string name="portfolio_wallet_did_you_mean">നിങ്ങൾ ഉദ്ദേശിച്ചത് %1$s ആണോ? വ്യത്യസ്ത അക്ഷരവിന്യാസം ഒരു പ്രത്യേക വാലറ്റായി കണക്കാക്കും.</string>
+    <string name="portfolio_wallet_shortfall">%1$s-ലെ ഹോൾഡിംഗുകൾ പോരാ – ഒരു കൈമാറ്റം വിട്ടുപോയോ?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">ഉയർന്നത് %1$s</string>
+    <string name="portfolio_compare">താരതമ്യം ചെയ്യുക</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">%1$s-ഉം USDT-ഉം ശതമാനത്തിൽ താരതമ്യം ചെയ്യുക</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">ശതമാനത്തിലുള്ള താരതമ്യം, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">കറൻസി പ്രഭാവം: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">വില ഡാറ്റ 2017 ഓഗസ്റ്റ് വരെ മാത്രമേ പിന്നോട്ട് പോകൂ — ചരിത്രം അവിടെ ആരംഭിക്കുന്നു.</string>
+    <string name="portfolio_history_chip_since_first">എല്ലാം</string>
+    <string name="portfolio_history_collapse">മൂല്യ ചരിത്രം മറയ്ക്കുക</string>
+    <string name="portfolio_history_converted">ഇന്നത്തെ നിരക്കിൽ പരിവർത്തനം ചെയ്തത്</string>
+    <string name="portfolio_history_expand">മൂല്യ ചരിത്രം കാണിക്കുക</string>
+    <string name="portfolio_history_gain_a11y">മൂല്യം %1$s. ലാഭം/നഷ്ടം, %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">ലാഭം/നഷ്ടം</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">%1$s-ലുള്ള മൂല്യം</string>
+    <string name="portfolio_history_incl_fx">വിനിമയ നിരക്ക് ഉൾപ്പെടെ</string>
+    <string name="portfolio_history_incl_withdrawn">പിൻവലിച്ച കോയിനുകളുടെ മൂല്യ മാറ്റം ഉൾപ്പെടുന്നു</string>
+    <string name="portfolio_history_includes_trades">ഈ കാലയളവിലെ വാങ്ങലുകളും വിൽപ്പനകളും ഉൾപ്പെടുന്നു</string>
+    <string name="portfolio_history_loading">മൂല്യ ചരിത്രം ലോഡ് ചെയ്യുന്നു</string>
+    <string name="portfolio_history_period_1y">1 വർഷം</string>
+    <string name="portfolio_history_period_30d">30 ദിവസം</string>
+    <string name="portfolio_history_period_7d">7 ദിവസം</string>
+    <string name="portfolio_history_period_since_first">ആദ്യ വാങ്ങൽ മുതൽ</string>
+    <string name="portfolio_history_pnl_needs_prices">ലാഭ/നഷ്ടത്തിന് വാങ്ങൽ വിലകൾ ഇല്ല – ഇടപാടുകളിൽ അവ ചേർക്കുക.</string>
+    <string name="portfolio_history_pnl_without">%1$s ഇല്ലാതെയുള്ള ലാഭം/നഷ്ടം (വില ഇല്ല)</string>
+    <string name="portfolio_history_range_1y">1 വ.</string>
+    <string name="portfolio_history_range_30d">30 ദി.</string>
+    <string name="portfolio_history_range_7d">7 ദി.</string>
+    <string name="portfolio_history_range_a11y">%1$s-നുള്ള ചരിത്രം കാണിക്കുക</string>
+    <string name="portfolio_history_range_since_first">ആദ്യ വാങ്ങൽ മുതൽ</string>
+    <string name="portfolio_history_scaled">%1$s-നുള്ള ചരിത്രം: എക്സ്ചേഞ്ച് വിലയിലേക്ക് സ്കെയിൽ ചെയ്ത Binance ചരിത്രം</string>
+    <string name="portfolio_history_title">മൂല്യ ചരിത്രം</string>
+    <string name="portfolio_history_today">ഇന്ന്</string>
+    <string name="portfolio_history_too_short">നിങ്ങളുടെ ആദ്യ പൂർണ്ണ ദിവസത്തിന് ശേഷം ചരിത്രം ആരംഭിക്കുന്നു.</string>
+    <string name="portfolio_history_unavailable">ഇപ്പോൾ ചരിത്രം ലഭ്യമല്ല.</string>
+    <string name="portfolio_history_utc_days">UTC-യിലെ ദിവസങ്ങൾ (പ്രതിദിന കാൻഡിലുകൾ)</string>
+    <string name="portfolio_history_without_matching">%1$s ഇല്ലാതെ (യോജിക്കുന്ന പ്രതിദിന വിലകളില്ല)</string>
+    <string name="portfolio_period_rewards">റിവാർഡുകൾ +%1$s (ലാഭത്തിൽ ഉൾപ്പെടുന്നില്ല)</string>
+    <string name="portfolio_period_scaled">%1$s-ന് 7 ദി./1 വ.: എക്സ്ചേഞ്ച് വിലയിലേക്ക് സ്കെയിൽ ചെയ്ത Binance ചരിത്രം</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">അലേർട്ട്</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">തുക (%1$s)</string>
+    <string name="portfolio_alarm_hint">ഓരോ പുതുക്കലിന് ശേഷവും പരിശോധിക്കുന്നു. അലേർട്ടുകളെപ്പോലെ, പരിധി കടക്കുമ്പോൾ മുഴങ്ങും, മൂല്യം തിരികെ നീങ്ങിയ ശേഷം മാത്രമേ വീണ്ടും മുഴങ്ങൂ.</string>
+    <string name="portfolio_alarm_kind_above">പോർട്ട്ഫോളിയോ തുകയ്ക്ക് മുകളിൽ</string>
+    <string name="portfolio_alarm_kind_below">പോർട്ട്ഫോളിയോ തുകയ്ക്ക് താഴെ</string>
+    <string name="portfolio_alarm_kind_down">പോർട്ട്ഫോളിയോ താഴുന്നു</string>
+    <string name="portfolio_alarm_kind_up">പോർട്ട്ഫോളിയോ ഉയരുന്നു</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">പോർട്ട്ഫോളിയോ %1$s-ന് മുകളിൽ</string>
+    <string name="portfolio_alarm_sentence_below">പോർട്ട്ഫോളിയോ %1$s-ന് താഴെ</string>
+    <string name="portfolio_alarm_sentence_down">പോർട്ട്ഫോളിയോ %1$s താഴ്ന്നു (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">പോർട്ട്ഫോളിയോ %1$s ഉയർന്നു (%2$s)</string>
+    <string name="portfolio_alarm_title">പോർട്ട്ഫോളിയോ മൂല്യ അലേർട്ട്</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">എക്സ്ചേഞ്ച് (ഓപ്ഷണൽ)</string>
+    <string name="ledger_exchange_failed">%1$s: %2$s-ൽ നിന്ന് ഇപ്പോൾ വിലയില്ല – Binance ഉപയോഗിച്ച് മൂല്യനിർണ്ണയം ചെയ്തു.</string>
+    <string name="ledger_exchange_hint">ഈ എക്സ്ചേഞ്ചിന്റെ വിലയിൽ കോയിൻ മൂല്യനിർണ്ണയം ചെയ്യുന്നു (അല്ലെങ്കിൽ Binance). ചരിത്രം, 7 ദി., 1 വ. എന്നിവ അതിലേക്ക് സ്കെയിൽ ചെയ്ത Binance പ്രതിദിന വിലകൾ ഉപയോഗിക്കുന്നു.</string>
+    <string name="ledger_exchange_mixed">%1$s: ഒന്നിലധികം എക്സ്ചേഞ്ചുകൾ നൽകി – Binance ഉപയോഗിച്ച് മൂല്യനിർണ്ണയം ചെയ്തു. കോയിനുകൾ നീക്കിയോ? ആ നീക്കം “കൈമാറ്റം” ആയി രേഖപ്പെടുത്തുക.</string>
+    <string name="ledger_exchange_none">ഒന്നുമില്ല (Binance)</string>
+    <string name="ledger_fee">ഫീസ് (ഓപ്ഷണൽ)</string>
+    <string name="ledger_fee_coin">കോയിൻ</string>
+    <string name="ledger_fee_hint">USDT-ൽ ആണെങ്കിൽ ചെലവുവില കൂട്ടുന്നു (വിൽപ്പന: വരുമാനം കുറയ്ക്കുന്നു); കോയിനിൽ ആണെങ്കിൽ അളവ് കുറയ്ക്കുന്നു.</string>
+    <string name="ledger_fee_line">ഫീസ് %1$s</string>
+    <string name="ledger_fifo_cost_note">വാങ്ങിയതുമുതൽ: ഫീസുകൾ ഉൾപ്പെടെ FIFO ചെലവ് (ഏറ്റവും പഴയ കോയിനുകൾ ആദ്യം വിൽക്കുന്നു).</string>
+    <string name="ledger_gain_info">ഇന്ന്, 7 ദി., 1 വ.: കാലയളവിലെ മൂല്യ മാറ്റം – വാങ്ങലുകളും വിൽപ്പനകളും ലാഭമായി കണക്കാക്കുന്നില്ല. വാങ്ങിയതുമുതൽ: നിങ്ങൾ ഇപ്പോഴും കൈവശം വച്ചിരിക്കുന്ന കോയിനുകളുടെ നിലവിലെ മൂല്യത്തിൽ നിന്ന് ചെലവുവില (ഫീസുകൾ ഉൾപ്പെടെ ശരാശരി ചെലവ്) കുറച്ചത്.</string>
+    <string name="ledger_gain_info_a11y">ലാഭവും നഷ്ടവും എങ്ങനെ കണക്കാക്കുന്നു</string>
+    <string name="ledger_gain_info_fifo">ഇന്ന്, 7 ദി., 1 വ.: കാലയളവിലെ മൂല്യ മാറ്റം – വാങ്ങലുകളും വിൽപ്പനകളും ലാഭമായി കണക്കാക്കുന്നില്ല. വാങ്ങിയതുമുതൽ: നിങ്ങൾ ഇപ്പോഴും കൈവശം വച്ചിരിക്കുന്ന കോയിനുകളുടെ നിലവിലെ മൂല്യത്തിൽ നിന്ന് ചെലവുവില (ഫീസുകൾ ഉൾപ്പെടെ FIFO) കുറച്ചത്.</string>
+    <string name="ledger_gain_title">ലാഭം/നഷ്ടം</string>
+    <string name="ledger_more_toggle">ഫീസും എക്സ്ചേഞ്ചും</string>
+    <string name="ledger_partial_cost">“വാങ്ങിയതുമുതൽ” വാങ്ങൽ വിലയുള്ള ഭാഗം മാത്രം കണക്കാക്കുന്നു – വാങ്ങൽ വിലയില്ലാത്ത %1$s ഇല്ലാതെ.</string>
+    <string name="ledger_period_without">ഇന്ന് / 7 ദി. / 1 വ. %1$s ഇല്ലാതെ – യോജിക്കുന്ന ആരംഭ വിലയില്ല.</string>
+    <string name="ledger_since_purchase_currency">വാങ്ങിയതുമുതൽ (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">വാങ്ങിയതുമുതലുള്ള ലാഭം/നഷ്ടം, ഇതുവരെ വിറ്റിട്ടില്ല</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="one">വാങ്ങൽ വിലയില്ലാത്ത %1$d കോയിൻ (%2$s) ഇല്ലാതെ – കണക്കാക്കാൻ വില ചേർക്കുക.</item>
+        <item quantity="other">വാങ്ങൽ വിലയില്ലാത്ത %1$d കോയിനുകൾ (%2$s) ഇല്ലാതെ – കണക്കാക്കാൻ വിലകൾ ചേർക്കുക.</item>
+    </plurals>
+
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">USDT തകർച്ച – മാർക്കറ്റ് %1$s USD-ൽ</string>
+    <string name="portfolio_usdt_via_usdc">USDC/USDT വഴിയുള്ള USDT ഡോളർ നിരക്ക് – USDC താഴ്ന്നാൽ, ഈ മൂല്യം തെറ്റാണ്</string>
+    <string name="portfolio_amount_bridged_stable">≈ %1$s ഉൾപ്പെടെ (ബ്രിഡ്ജ്ഡ്)</string>
+
+    <string name="portfolio_tx_interest">പലിശ (ലെൻഡിംഗ്)</string>
+    <string name="portfolio_tx_interest_hint">ലഭിക്കുമ്പോൾ വരുമാനമായി കണക്കാക്കുന്നു (ഓസ്ട്രിയ). സ്റ്റേക്കിംഗ് റിവാർഡുകൾക്കും എയർഡ്രോപ്പുകൾക്കും ഉപയോഗിക്കരുത്.</string>
+    <string name="app_lock_no_screen_lock">പോർട്ട്ഫോളിയോ തുറക്കാൻ ഒരു സ്ക്രീൻ ലോക്ക് സജ്ജമാക്കുക.</string>
+    <string name="app_lock_turn_off_action">പോർട്ട്ഫോളിയോ ലോക്ക് ഓഫാക്കുക</string>
+    <string name="app_lock_turn_off_confirm_title">പോർട്ട്ഫോളിയോ ലോക്ക് ഓഫാക്കണോ?</string>
+    <string name="app_lock_turn_off_confirm_message">സ്ക്രീൻ ലോക്ക് ഇല്ലാതെ പോർട്ട്ഫോളിയോ അൺലോക്ക് ചെയ്യാനാകില്ല. ഓഫാക്കിയാൽ, ആപ്പ് ചോദിക്കാതെ തന്നെ വീണ്ടും നിങ്ങളുടെ പോർട്ട്ഫോളിയോ കാണിക്കും. ഒരു സ്ക്രീൻ ലോക്ക് സജ്ജമാക്കിയാൽ, ക്രമീകരണത്തിൽ ലോക്ക് വീണ്ടും ഓണാക്കാം.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">%1$s-ലുള്ള “വാങ്ങിയതുമുതൽ”, ചെലവുവില: ചെലവ് വാങ്ങിയ ദിവസത്തെ വിനിമയ നിരക്കിൽ, മൂല്യം ഇന്നത്തെ നിരക്കിൽ.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">വാങ്ങിയ ദിവസത്തിന് വിനിമയ നിരക്കില്ല (“വാങ്ങിയതുമുതൽ”, ചെലവുവില എന്നിവയിൽ ഇല്ല): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">USDT ഡോളർ നിരക്കില്ലാത്ത വാങ്ങൽ ദിവസങ്ങളിലെ ചെലവ് ഒരു USDT-ക്ക് 1 US ഡോളറായി കണക്കാക്കി.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">%1$s പ്രകാരം – എക്സ്ചേഞ്ചിൽ എത്താനാകുന്നില്ല</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">പ്രതിദിന വിലകൾ: %1$s (Binance-ന് പകരം)</string>
+
+    <string name="portfolio_footer_short">സഹായ ഉപകരണം, നികുതി ഉപദേശമോ നിക്ഷേപ ഉപദേശമോ അല്ല. സ്വകാര്യത: ക്രമീകരണം › ആപ്പിനെക്കുറിച്ച് › സ്വകാര്യതാ നയം.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">%1$s-ന്റെ എല്ലാ ഇടപാടുകളും ഇല്ലാതാക്കണോ?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">%d ഇടപാട് നീക്കം ചെയ്യും. ഇതിന് തൊട്ടുപിന്നാലെ നിങ്ങൾക്ക് പഴയപടിയാക്കാം.</item>
+        <item quantity="other">%d ഇടപാടുകൾ നീക്കം ചെയ്യും. ഇതിന് തൊട്ടുപിന്നാലെ നിങ്ങൾക്ക് പഴയപടിയാക്കാം.</item>
+    </plurals>
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">%1$s-ൽ അടച്ച ഫീസുകളും മറ്റ് ഇടപാടുകളിൽ നിന്ന് നീക്കം ചെയ്യും: %2$d.</string>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s പോർട്ട്ഫോളിയോയിൽ നിന്ന് നീക്കം ചെയ്തു (%2$d ഇടപാട്)</item>
+        <item quantity="other">%1$s പോർട്ട്ഫോളിയോയിൽ നിന്ന് നീക്കം ചെയ്തു (%2$d ഇടപാടുകൾ)</item>
+    </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">%d ഇടപാട് നീക്കം ചെയ്തു</item>
+        <item quantity="other">%d ഇടപാടുകൾ നീക്കം ചെയ്തു</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">ഇത് %d ലോട്ടും നീക്കം ചെയ്യും.</item>
+        <item quantity="other">ഇത് %d ലോട്ടുകളും നീക്കം ചെയ്യും.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">ഇത് %d ലോട്ടും ബാലൻസ് ചരിത്രവും നീക്കം ചെയ്യും.</item>
+        <item quantity="other">ഇത് %d ലോട്ടുകളും ബാലൻസ് ചരിത്രവും നീക്കം ചെയ്യും.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">ഇത് ബാലൻസ് ചരിത്രവും നീക്കം ചെയ്യും.</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">സംരക്ഷിക്കാനായില്ല – ദയവായി വീണ്ടും ശ്രമിക്കുക</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">പരിധി അസാധുവാണ് – ഇല്ലാതാക്കി വീണ്ടും സൃഷ്ടിക്കുക</string>
+</resources>

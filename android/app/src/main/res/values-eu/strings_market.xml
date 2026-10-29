@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="one">duela %d min</item>
+        <item quantity="other">duela %d min</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">gaur %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed, Bitcoin metrikak, nagusitasuna, halvinga</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">Merkatuko datu gehiago</string>
+    <string name="market_phase_trend_failed">Prezio-datuak ez daude erabilgarri</string>
+    <string name="market_plain_direction_down_clear">Kriptomoneta guztien balio osoa argi eta garbi baxuagoa da duela 24 ordu baino (%1$s).</string>
+    <string name="market_plain_direction_down_slight">Kriptomoneta guztien balio osoa apur bat baxuagoa da duela 24 ordu baino (%1$s).</string>
+    <string name="market_plain_direction_flat">Kriptomoneta guztien balio osoa ia ez da aldatu 24 orduan (%1$s).</string>
+    <string name="market_plain_direction_up_clear">Kriptomoneta guztien balio osoa argi eta garbi altuagoa da duela 24 ordu baino (%1$s).</string>
+    <string name="market_plain_direction_up_slight">Kriptomoneta guztien balio osoa apur bat altuagoa da duela 24 ordu baino (%1$s).</string>
+    <string name="market_plain_footnote">Azken 24 orduak deskribatzen ditu – ez da iragarpena, ezta inbertsio-aholkularitza ere.</string>
+    <string name="market_plain_mood_extreme_fear">Inbertitzaileek beldur handia dute une honetan: aldarte-indizea (Fear &amp; Greed) %1$d da 100etik.</string>
+    <string name="market_plain_mood_extreme_greed">Inbertitzaileek gutizia handia dute une honetan: aldarte-indizea (Fear &amp; Greed) %1$d da 100etik.</string>
+    <string name="market_plain_mood_fear">Inbertitzaileek beldur samarra dute: aldarte-indizea (Fear &amp; Greed) %1$d da 100etik.</string>
+    <string name="market_plain_mood_greed">Inbertitzaileek gutizia samarra dute: aldarte-indizea (Fear &amp; Greed) %1$d da 100etik.</string>
+    <string name="market_plain_mood_neutral">Inbertitzaileen aldartea orekatua da: aldarte-indizea (Fear &amp; Greed) %1$d da 100etik.</string>
+    <string name="market_plain_standout_above_btc">%1$s nabarmentzen da: %2$s 24 ordutan, Bitcoinen gainetik argi (%3$s).</string>
+    <string name="market_plain_standout_against_btc">%1$s nabarmentzen da: %2$s 24 ordutan, Bitcoin kontrako norabidean joan den bitartean (%3$s).</string>
+    <string name="market_plain_standout_below_btc">%1$s nabarmentzen da: %2$s 24 ordutan, Bitcoinen azpitik argi (%3$s).</string>
+    <string name="market_plain_standout_futures_down">%1$s nabarmentzen da: ohi baino askoz futuro-trader gehiagok egiten dute apustu prezioen jaitsieraren alde.</string>
+    <string name="market_plain_standout_futures_up">%1$s nabarmentzen da: ohi baino askoz futuro-trader gehiagok egiten dute apustu prezioen igoeraren alde.</string>
+    <string name="market_plain_standout_quiet">Une honetan ez da txanponik nabarmentzen.</string>
+    <string name="market_plain_standout_volume">%1$s nabarmentzen da: ohi baino %2$s aldiz negoziazio gehiago gutxi gorabehera.</string>
+    <string name="market_plain_title">Laburbilduz</string>
+    <string name="market_section_collapse">Ezkutatu: %1$s</string>
+    <string name="market_section_context">Sentimendua eta zikloa</string>
+    <string name="market_section_data">Merkatuko datuak</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">Erakutsi: %1$s</string>
+    <string name="market_section_now">Une honetan</string>
+    <string name="market_source">Datuak: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="exchange_unavailable_error">Burtsa ez dago erabilgarri</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">Informazioa: %1$s</string>
+    <string name="market_info_alt_season_source">Eguneko prezioak: Binance · 3 orduro gutxi gorabehera berriro kalkulatua</string>
+    <string name="market_info_alt_season_what">Altcoin handi 20 inguruetatik (adib. Ethereum, Solana, XRP) zenbatek izan duten Bitcoinek baino errendimendu hobea azken 90 egunetan zenbatzen du. Balioa haien proportzioa da, 0tik 100era.</string>
+    <string name="market_info_coin_source">Prezioak: Binance edo Bybit · 15 minuturo gutxi gorabehera berriro kargatuak</string>
+    <string name="market_info_dominance_how">Nagusitasuna igotzen bada, Bitcoini merkatuaren gainerakoari baino hobeto doakio; jaisten bada, beste txanpon batzuek pisua irabazten dute. Stablecoinek ere zenbatzen dute: haien balioa hazten bada, Bitcoinen proportzioa jaitsi egiten da Bitcoinen prezioa berdin mantenduta ere.</string>
+    <string name="market_info_dominance_source">Iturria: CoinGecko · 30 minuturo gutxi gorabehera berriro kargatua</string>
+    <string name="market_info_dominance_what">Bitcoinek kriptomoneta guztien balio osoan duen proportzioa (merkatu-kapitalizazioa). Azpian Ethereumen proportzioa dago.</string>
+    <string name="market_info_fear_greed_how">25etik behera beldur muturrekoa da, 75etik gora gutizia muturrekoa, 50 inguruan neutroa. Zabalduta, txartelak atzoko, duela astebeteko eta duela hilabeteko balioak erakusten ditu. Ez da erosteko edo saltzeko seinalea.</string>
+    <string name="market_info_fear_greed_source">Iturria: alternative.me · balio berri bat egunean behin</string>
+    <string name="market_info_fear_greed_what">Kripto-merkatuaren sentimendu-indize bat, 0tik 100era. alternative.me-k hainbat datutatik kalkulatzen du, besteak beste prezio-gorabeheretatik, negoziazio-bolumenetik, sare sozialetatik eta Bitcoinen nagusitasunetik.</string>
+    <string name="market_info_gas_how">Balio altuagoek esan nahi dute sarea lanpetuta dagoela eta transferentziak garestiagoak direla. Motela, normala eta azkarra berrespen geroagoko edo azkarrago baterako komisioak dira. Zabalduta, txartelak transferentzia soil baten gutxi gorabeherako kostua erakusten du.</string>
+    <string name="market_info_gas_source">RPC nodo publikoak, mempool.space · minuturo berriro kargatua</string>
+    <string name="market_info_gas_what">Transakzio batek une honetan sare bakoitzean zer kostatzen duen. Ethereumen eta antzeko sareetan gwei-tan (ETH baten mila milioiren bat gas-unitateko), Bitcoinen sat/vB-tan (satoshi transakzioaren byte birtual bakoitzeko).</string>
+    <string name="market_info_halving_source">Data: bloke-altueratik eta batez besteko bloke-denboratik (mempool.space), bestela egutegiaren arabera · prezio-historia: Coin Metrics, Binance, 12 orduro berriro kargatua</string>
+    <string name="market_info_halving_what">Halvingean, meatzariek Bitcoin bloke berri bakoitzeko jasotzen duten saria erdira murrizten da. 210.000 blokero gertatzen da, gutxi gorabehera lau urtean behin. Ondoren, egunean bitcoin berrien erdiak bakarrik sortzen dira.</string>
+    <string name="market_info_how">Nola irakurri</string>
+    <string name="market_info_macro_how">Oharra data hori gaur edo bihar denean bakarrik agertzen da. Argitaratzearen inguruan, prezioek ohi baino gehiago egiten dute gora-behera. Aplikazioak data bakarrik erakusten du, ez zifrak berak.</string>
+    <string name="market_info_macro_source">Aplikazioaren webguneko egutegia · egunean behin kargatua</string>
+    <string name="market_info_macro_what">AEBko datu ekonomiko garrantzitsuen datak: inflazioa (CPI, PCE), ekoizpen-prezioak (PPI), enplegu-txostena eta AEBko Erreserba Federalaren interes-tasei buruzko erabakiak. Zifra horiek kripto-prezioak ere mugitu ohi dituzte.</string>
+    <string name="market_info_no_advice">Ez da inbertsio-aholkularitza.</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · prezioak orduro, on-chain balioak 12 orduro berriro kargatuak</string>
+    <string name="market_info_pulse_how">Izenburuak norabidea adierazten du; zabaldu txartela xehetasunak ikusteko. Mugimendu zabalak esan nahi du txanpon handi gehienak norabide berean mugitzen ari direla. Palanka-aldarte baikorrak esan nahi du trader askok palankarekin prezioen igoeraren alde egiten dutela apustu, Bitcoin futuroen finantzaketa-tasaren bidez neurtuta. Argazki bat, ez iragarpena.</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · 5 minuturo gutxi gorabehera berriro kargatua</string>
+    <string name="market_info_pulse_what">Azken 24 orduetako merkatuaren laburpen laburra: nola mugitzen diren Bitcoin, Ethereum eta Solana, txanpon handienetatik zenbat igotzen edo jaisten diren, zenbat Bitcoin negoziatzen ari den une honetan eta zein den palanka-aldartea (Bitcoin futuroen finantzaketa-tasaren bidez neurtuta).</string>
+    <string name="market_info_totals_how">Eskuinean balio osoaren 24 orduko aldaketa dago. Bolumen handiak esan nahi du asko negoziatzen ari dela – ez du esaten zein norabidetan. Bihurketa-monetan erakusten da ahal denean; bestela, AEBko dolarretan.</string>
+    <string name="market_info_totals_source">Txanpon guztiak · CoinGecko · 30 minuturo gutxi gorabehera berriro kargatua</string>
+    <string name="market_info_totals_what">Kriptomoneta guztien balio osoa (merkatu-kapitalizazioa: prezioa bider zirkulazioan dagoen eskaintza, txanpon guztietarako batuta) eta azken 24 orduetako negoziazio-bolumena.</string>
+    <string name="market_info_unusual_how">Txanpon bakoitzak bere behaketa nabarmenena erakusten du, eskuinean 24 orduko aldaketarekin. 2×-ko bolumenak ohiko negozio-bolumenaren bikoitza esan nahi du. Nabarmenak ez du esan nahi ona edo txarra denik.</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · 10 minuturo gutxi gorabehera berriro kargatua</string>
+    <string name="market_info_unusual_what">30 txanpon handienetatik gutxi gorabehera (stablecoinik gabe) gaur modu ezohikoan jokatzen ari diren bost txanpon arte: Bitcoin baino askoz indartsuagoak edo ahulagoak, merkatuaren norabidearen aurka, ohiz kanpoko negoziazio-bolumen handiarekin edo finantzaketa-tasa nabarmen batekin.</string>
+    <string name="market_info_what">Zer da hau?</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">Kapitalizazioa</string>
+    <string name="market_cap_source">Txanpon guztiak · CoinGecko</string>
+    <string name="market_cap_title">Kripto-merkatua</string>
+    <string name="market_volume_label">Bolumena 24 h</string>
+
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">Xehetasunak</string>
+    <string name="pulse_disclaimer">Ez da iragarpena · Ez da inbertsio-aholkularitza</string>
+    <string name="pulse_less">Erakutsi gutxiago</string>
+    <string name="pulse_now_title">Kripto-pultsua</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">Aldaketa 24 ordutan</string>
+    <string name="pulse_section_factors">Faktoreak</string>
+    <string name="pulse_section_market">Merkatua gaur</string>
+    <string name="pulse_unavailable">Merkatuko datuak ez daude erabilgarri une honetan</string>
+    <string name="pulse_updated">Eguneratua: %1$s</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">Merkatu lasaia</string>
+    <string name="pulse_headline_down">Ahultasun orokorra</string>
+    <string name="pulse_headline_mixed">Egoera nahasia</string>
+    <string name="pulse_headline_up">Indar orokorra</string>
+    <string name="pulse_lead_alts_stronger">Altcoinak Bitcoin baino indartsuagoak dira.</string>
+    <string name="pulse_lead_broad_down">Merkatua modu orokorrean jaisten ari da.</string>
+    <string name="pulse_lead_broad_up">Merkatua modu orokorrean igotzen ari da.</string>
+    <string name="pulse_lead_btc_leads">Bitcoin da gehien igotzen ari dena.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin altcoinak baino indartsuagoa da.</string>
+    <string name="pulse_lead_calm">Merkatua ia ez da mugitzen.</string>
+    <string name="pulse_lead_drift_down">Merkatua apur bat jaisten ari da.</string>
+    <string name="pulse_lead_drift_up">Merkatua apur bat igotzen ari da.</string>
+    <string name="pulse_lead_mixed">Txanpon handiak norabide desberdinetan mugitzen ari dira.</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">Palanka-aldarte baikorra.</string>
+    <string name="pulse_detail_fund_negative">Palanka-aldarte ezkorra.</string>
+    <string name="pulse_detail_fund_neutral">Palanka-aldarte neutroa.</string>
+    <string name="pulse_detail_vol_above">Bolumena normala baino %1$s handiagoa.</string>
+    <string name="pulse_detail_vol_above_fund_high">Bolumena normala baino %1$s handiagoa, palanka-aldarte baikorra.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Bolumena normala baino %1$s handiagoa, palanka-aldarte ezkorra.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Bolumena normala baino %1$s handiagoa, palanka-aldarte neutroa.</string>
+    <string name="pulse_detail_vol_below">Bolumena normala baino %1$s txikiagoa.</string>
+    <string name="pulse_detail_vol_below_fund_high">Bolumena normala baino %1$s txikiagoa, palanka-aldarte baikorra.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Bolumena normala baino %1$s txikiagoa, palanka-aldarte ezkorra.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Bolumena normala baino %1$s txikiagoa, palanka-aldarte neutroa.</string>
+    <string name="pulse_detail_vol_normal">Bolumen normala.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Bolumen normala, palanka-aldarte baikorra.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Bolumen normala, palanka-aldarte ezkorra.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Bolumen normala, palanka-aldarte neutroa.</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">Top %1$d: merkatu-balioaren arabera txanpon handienak, stablecoinik gabe; 24 orduko aldaketa (CoinGecko).</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_note_broad_down">Salmenta orokorra: txanpon handienetako gehienak jaisten ari dira.</string>
+    <string name="pulse_breadth_note_broad_up">Mugimendu zabala: txanpon handienetako gehienak igotzen ari dira.</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin jaisten ari da, baina beste txanpon handi gehienek eusten diote.</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin igotzen ari da, baina beste txanpon handi gehienak ez doaz atzetik.</string>
+    <string name="pulse_breadth_spoken">Top %1$d: %2$d gora, %3$d behera</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">Altcoinak eta Bitcoin antzera mugitzen dira</string>
+    <string name="pulse_alts_stronger">Altcoinak Bitcoin baino indartsuagoak</string>
+    <string name="pulse_alts_weaker">Bitcoin altcoinak baino indartsuagoa</string>
+    <string name="pulse_chip_funding_high">Palanka-aldarte baikorra</string>
+    <string name="pulse_chip_funding_negative">Palanka-aldarte ezkorra</string>
+
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">Erakutsi prezioa eta ekintzak</string>
+    <string name="unusual_fact_against">Merkatuaren aurka mugitzen da</string>
+    <string name="unusual_fact_funding_high">Finantzaketa altua (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Finantzaketa negatiboa (%1$s)</string>
+    <string name="unusual_fact_stronger">BTC baino askoz indartsuago mugitzen da</string>
+    <string name="unusual_fact_volume">Bolumena ohikoa baino %1$s×</string>
+    <string name="unusual_fact_weaker">BTC baino askoz ahulago mugitzen da</string>
+    <string name="unusual_nothing">Gaur ez dago ezer nabarmenik</string>
+    <string name="unusual_source">30 txanpon handienak gutxi gorabehera, stablecoinik gabe · Binance, CoinGecko</string>
+    <string name="unusual_title">Nabarmena</string>
+
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">Nabarmena</string>
+    <string name="activity_indicator">Nabarmena</string>
+    <string name="activity_sensitivity_less">Gutxiago</string>
+    <string name="activity_sensitivity_more">Gehiago</string>
+    <string name="activity_sensitivity_normal">Normala</string>
+    <string name="activity_signal_funding_long">Finantzaketa %1$s — palankadun long asko</string>
+    <string name="activity_signal_funding_short">Finantzaketa %1$s — short asko</string>
+    <string name="activity_signal_open_interest">Interes irekia %1$s %2$d minututan</string>
+    <string name="activity_signal_open_interest_no_time">Interes irekia %1$s</string>
+    <string name="activity_signal_price_move">Ezohiko mugimendua: %1$s ordubetean (normala baino %2$s×)</string>
+    <string name="activity_signal_volume">Bolumena normala baino %1$s× azken orduan</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%2$d altcoin handietatik %1$d-ek Bitcoin gainditzen du 90 egunetan</item>
+        <item quantity="other">%2$d altcoin handietatik %1$d-ek Bitcoin gainditzen dute 90 egunetan</item>
+    </plurals>
+    <string name="insights_chart_axis">Halvingetik igarotako urteak</string>
+    <string name="insights_chart_hint">Prezioa halving-eguneko prezioaren multiplo gisa (eskala logaritmikoa). Aurreko zikloak eredu bat dira, ez iragarpena.</string>
+    <string name="insights_cycle_chart">Zikloak halvingetik</string>
+    <string name="insights_dominance_eth">ETH: merkatu osoaren %1$s</string>
+    <string name="insights_dominance_title">Bitcoinen nagusitasuna</string>
+    <string name="insights_fng_history">Atzo %1$s · duela astebete %2$s · duela hilabete %3$s</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="insights_halving_title">Bitcoinen halvinga</string>
+    <string name="insights_source_dominance">Iturria: CoinGecko, Binance</string>
+    <string name="insights_source_fng">Iturria: alternative.me</string>
+    <string name="insights_source_history">Iturria: Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">Muturreko beldurra</string>
+    <string name="fng_extreme_greed">Muturreko gutizia</string>
+    <string name="fng_fear">Beldurra</string>
+    <string name="fng_greed">Gutizia</string>
+    <string name="fng_neutral">Neutroa</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">Datuak: %1$s · eguneratzen…</string>
+    <string name="cycle_from_top">%1$s goi-mugatik</string>
+    <string name="cycle_marker_bottom">Behe-muga %1$s</string>
+    <string name="cycle_marker_double_bottom">Behe-muga bikoitza %1$s</string>
+    <string name="cycle_marker_double_top">Goi-muga bikoitza %1$s</string>
+    <string name="cycle_marker_high_so_far">Orain arteko gehienezkoa</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">Goi-muga %1$s</string>
+    <string name="cycle_since_halving">%1$s halvingetik</string>
+    <string name="halving_estimate_text">Kalkuluaren arabera, hurrengo halvinga %1$s inguruan: %2$s bloke falta dira, batez beste %3$s min blokeko (uneko zailtasun-aldia). Proiekzio bat, ez promesa bat – bloke-denbora aldakorra da.</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">Alarma: %1$s</string>
+    <string name="gas_slow_fast">Motela %1$s · Azkarra %2$s</string>
+    <string name="gas_source">RPC nodo publikoak eta mempool.space · Transferentzia soil baten kostua, L2etan L1eko zatia kontuan hartu gabe</string>
+    <string name="gas_title">Sareko komisioak</string>
+    <string name="gas_transfer_cost">Transferentzia ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">AEBko inflazio-datuak (CPI)</string>
+    <string name="macro_fomc">Fed-en interes-tasen erabakia</string>
+    <string name="macro_hint_list">%1$s – horrelako egunetan merkatuek gora-behera handiagoak izan ohi dituzte.</string>
+    <string name="macro_hint_today">Gaur %1$s: %2$s – horrelako egunetan merkatuek gora-behera handiagoak izan ohi dituzte.</string>
+    <string name="macro_hint_today_list">Gaur: %1$s – horrelako egunetan merkatuek gora-behera handiagoak izan ohi dituzte.</string>
+    <string name="macro_hint_tomorrow">Bihar %1$s: %2$s – horrelako egunetan merkatuek gora-behera handiagoak izan ohi dituzte.</string>
+    <string name="macro_hint_tomorrow_list">Bihar: %1$s – horrelako egunetan merkatuek gora-behera handiagoak izan ohi dituzte.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Gaur %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Bihar %1$s %2$s</string>
+    <string name="macro_nfp">AEBko enplegu-txostena</string>
+    <string name="macro_pce">AEBko kontsumo-gastuaren prezioak (PCE)</string>
+    <string name="macro_ppi">AEBko ekoizpen-prezioak (PPI)</string>
+    <string name="macro_released_list">Gaur argitaratua: %1$s.</string>
+    <string name="macro_released_one">Gaur argitaratua (%1$s): %2$s.</string>
+    <string name="macro_title">Datu ekonomikoak</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">Txanpona</string>
+    <string name="coin_no_data">Ez dago txanpon honen prezio-daturik Binancen ez Bybiten.</string>
+    <string name="coin_price_only">Prezioan soilik oinarritua – on-chain datuak (MVRV, Puell, hashrate) Bitcoinerako bakarrik daude doan erabilgarri.</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">Egun %1$d-eko prezio-historia bakarrik – adierazle batzuk falta dira.</item>
+        <item quantity="other">%1$d eguneko prezio-historia bakarrik – adierazle batzuk falta dira.</item>
+    </plurals>
+    <string name="coin_title">Txanponaren analisia</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">Datuak: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">Igoerak eta jaitsierak 24 h</string>
+    <string name="movers_gainers">Gorantz</string>
+    <string name="movers_losers">Beherantz</string>
+    <string name="movers_no_gainers">Ez da txanponik igo 24 orduan</string>
+    <string name="movers_no_losers">Ez da txanponik jaitsi 24 orduan</string>
+    <string name="movers_source">CoinGecko, 24 h, top 100 stablecoinik gabe</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">Erakutsi guztiak</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">Erakutsi gutxiago</string>
+</resources>

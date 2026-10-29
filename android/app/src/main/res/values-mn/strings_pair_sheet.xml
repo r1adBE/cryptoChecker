@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%2$s-д %1$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">Хаалт</string>
+    <string name="sheet_chart_converted_current">%1$s, хөрвүүлсэн (одоогийн ханш)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, өдрийн ханшаар хөрвүүлсэн</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">Энэ хосын ханшийн өгөгдөл алга</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">Нээлт</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">Өнөөдөр</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">Хэмжээ %1$s</string>
+    <string name="sheet_more">Бусад</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Ask</string>
+    <string name="ticker_bid">Bid</string>
+    <string name="explain_bid_ask">Bid нь худалдан авагчдын яг одоо санал болгож буй хамгийн өндөр үнэ, ask нь худалдагчдын зөвшөөрөх хамгийн бага үнэ.</string>
+    <string name="ticker_high">Дээд</string>
+    <string name="ticker_low">Доод</string>
+    <string name="ticker_timestamp">Цаг</string>
+    <string name="ticker_vol_base">Хэмжээ (зоосоор)</string>
+    <string name="ticker_vol_quote">Хэмжээ (үнэлгээний валютаар)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (төхөөрөмжийн цагийн бүс)</string>
+    <string name="change_basis_local">Орон нутгийн цагаар 00:00-ээс хойш</string>
+    <string name="change_basis_rolling">Сүүлийн 24 ц</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">Сүүлийн шинэчлэлээс хойш</string>
+    <string name="change_basis_utc_zone">%1$s 00:00-ээс хойш</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">%1$s лааны өөрчлөлт</string>
+    <string name="change_short_since_last">сүүлийн шинэчлэл</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">өнөөдөр</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">өнөөдөр %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="exchange_data_empty_error">Биржээс өгөгдөл ирсэнгүй.</string>
+    <string name="market_data_summary">Зах зээлийн үнэлгээ, газын шимтгэл, эдийн засгийн мэдээлэл, зоосны шинжилгээ</string>
+    <string name="market_data_tab_futures">Фьючерс</string>
+    <string name="market_data_title">Зах зээлийн өгөгдөл</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">Эргэлтэд буй нийлүүлэлт</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">Зах зээлийн үнэлгээ</string>
+    <string name="spot_max_supply">Дээд нийлүүлэлт</string>
+    <string name="spot_no_data">Энэ зоосны спот өгөгдөл алга</string>
+    <string name="spot_source_updated">Эх сурвалж: %1$s · %2$s байдлаар</string>
+    <string name="spot_supply_of_max">Дээд нийлүүлэлтийн %1$s эргэлтэд</string>
+    <string name="spot_total_supply">Нийт нийлүүлэлт</string>
+    <string name="spot_vol_mcap">Хэмжээ/Зах зээлийн үнэлгээ</string>
+    <string name="spot_volume_24h">Хэмжээ (24 ц)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">Лавлагаа: %1$s</string>
+    <string name="futures_funding">Фандингийн хүү</string>
+    <string name="futures_funding_interval_unknown">интервал тодорхойгүй</string>
+    <string name="futures_funding_per8h_equiv">= 8 цагт %1$s (дохионы адил)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">цагт</string>
+    <string name="futures_funding_per_hours">%1$d цагт</string>
+    <string name="futures_next_funding">дараагийнх нь %1$d ц %2$d мин-ийн дараа</string>
+    <string name="futures_no_data">Энэ зоосны фьючерсийн өгөгдөл алга</string>
+    <string name="futures_open_interest">Нээлттэй позиц</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">Лавлагаа %1$s-аас – фандинг ба нээлттэй позиц бирж бүрт өөр; %2$s дээр ялгаатай байж болно.</string>
+    <string name="futures_reference_spot">Лавлагаа %1$s-аас (зоосны USDT мөнхийн гэрээ)</string>
+    <string name="futures_source">Эх сурвалж: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">Олон арилжаачин зээлсэн мөнгөөр ханшийн өсөлт эсвэл уналтад бооцоо тавьдаг. Лонг ба шорт позицын хоорондох төлбөр. Хүчтэй эерэг бол олонх нь өсөлтөд бооцоо тавьж байна гэсэн үг.</string>
+    <string name="explain_open_interest">Фьючерс нь ханшид тавих бооцоо, ихэвчлэн зээлсэн мөнгөөр. Бүх нээлттэй фьючерсийн позицын үнэ цэнэ. Өсвөл хөдөлгөөнд илүү их мөнгө бооцоо тавьж байна.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Тайлбар</string>
+    <string name="explain_spot_fdv">Бүрэн шингэлсэн үнэлгээ: ханш × дээд нийлүүлэлт (хязгааргүй бол нийт нийлүүлэлт).</string>
+    <string name="explain_spot_market_cap">Ханш × эргэлтэд буй нийлүүлэлт. Тэмдэглэгээ нь 24 цагийн өөрчлөлтийг харуулна.</string>
+    <string name="explain_spot_source">Бүх биржийн АНУ-ын доллараарх тоо, CoinGecko-оос.</string>
+    <string name="explain_spot_supply">Эргэлтэд: одоо зах зээлд буй зоос. Нийт: үүсгэсэн бүх зоосноос шатаасныг хассан. Дээд: хэзээ ч байж болох хамгийн их тоо.</string>
+    <string name="explain_spot_volume">24 цагт арилжсан үнэ цэнэ. Хэмжээ/Зах зээлийн үнэлгээ: хэмжээний зах зээлийн үнэлгээнд харьцах харьцаа — өндөр бол арилжаа маш идэвхтэй.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · ханш %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">Авах ба зарах үнийн зөрүү их (%1$s)</string>
+
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">%1$s дахь түүх, өнөөдрийн ханшаар %2$s руу хөрвүүлсэн</string>
+    <string name="converted_unsure">Хөрвүүлэлт тодорхойгүй</string>
+</resources>

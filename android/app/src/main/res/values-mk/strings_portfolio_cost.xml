@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">Записи без набавна вредност: %1$d</string>
+    <string name="cost_gaps_card_text">Додај ја набавната вредност за добивките и даноците да бидат целосни.</string>
+    <string name="cost_gaps_sheet_title">Записи без набавна вредност</string>
+    <string name="cost_gaps_sheet_intro">Овие приливи немаат набавна вредност. Предлогот е дневното затворање на датумот – можеш да го прилагодиш во записот.</string>
+    <string name="cost_gaps_empty">Сите записи имаат набавна вредност.</string>
+    <string name="cost_gap_enter">Внеси набавна вредност</string>
+    <string name="cost_gap_leave_unknown">Остави непознато</string>
+    <string name="cost_gap_left_unknown">Оставено непознато</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">Предлог: дневно затворање %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">Нема проверено дневно затворање за овој датум</string>
+    <string name="cost_gap_suggestion_loading">Се вчитува дневното затворање …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">Набавна вредност = вредност при примањето (приход)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">Набавна вредност = 0 (награда без прилив, Австрија)</string>
+    <string name="cost_gap_apply">Примени</string>
+    <string name="address_lots_action">Набавна вредност за салдото на адресата</string>
+    <string name="address_lots_title">Набавна вредност за салдото на адресата</string>
+    <string name="address_lots_intro">Внеси датум на купување, износ и набавна вредност за салдото на оваа адреса. Лотовите се сметаат како купувања во оваа адреса; секој непокриен дел останува без набавна вредност.</string>
+    <string name="address_lots_add">Додај лот</string>
+    <string name="address_lots_new">Нов лот</string>
+    <string name="address_lots_edit">Лот</string>
+    <string name="address_lots_date">Датум на купување</string>
+    <string name="address_lots_amount">Износ</string>
+    <string name="address_lots_mode_total">Вкупно</string>
+    <string name="address_lots_mode_price">По монета</string>
+    <string name="address_lots_price">Цена по монета (USDT)</string>
+    <string name="address_lots_total">Вкупна набавна вредност (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%1$s од %2$s со набавна вредност</string>
+    <string name="address_lots_unlotted">%1$s без набавна вредност</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">Лотовите го надминуваат салдото за %1$s – најстарите се трошат први.</string>
+    <string name="address_lots_not_loaded">Салдото сè уште не е вчитано – лотовите се бројат штом ќе биде.</string>
+    <string name="address_lots_invalid">Внеси износ и набавна вредност</string>
+</resources>

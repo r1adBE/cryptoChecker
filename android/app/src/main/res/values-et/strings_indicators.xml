@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">Altcoinid vs Bitcoin</string>
+    <string name="neutral_btc_indicators_title">Bitcoini näitajad</string>
+    <string name="neutral_halving_last">Viimane halving: %1$s</string>
+    <string name="neutral_halving_next">Järgmine halving on oodata umbes %1$s (hinnatud kalendri järgi – ploki kõrgus pole praegu saadaval).</string>
+    <string name="neutral_indicators_disclaimer">Ainult mõõdetud väärtused, ilma hinnanguta. Ei ole prognoos ega investeerimisnõuanne.</string>
+    <string name="neutral_onchain_missing">Ahelasisesed andmed (Coin Metrics) pole praegu saadaval.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">Kui palju on hind allpool senist kõigi aegade tippu.</string>
+    <string name="neutral_explain_change_30d">Tänane hind võrreldes 30 päeva taguse hinnaga.</string>
+    <string name="neutral_explain_hashrate">30 päeva keskmine räsikiirus võrreldes 60 päeva keskmisega.</string>
+    <string name="neutral_explain_ma200w">Viimase 200 nädala sulgemishindade keskmine.</string>
+    <string name="neutral_explain_mayer">Hind jagatud 200 päeva keskmisega.</string>
+    <string name="neutral_explain_mvrv">Turuväärtus jagatud realiseeritud väärtusega (ahelas).</string>
+    <string name="neutral_explain_pi_gap">111 päeva keskmine võrreldes kahekordse 350 päeva keskmisega.</string>
+    <string name="neutral_explain_puell">Kaevurite päevatulu jagatud selle 365 päeva keskmisega.</string>
+    <string name="neutral_explain_rsi_daily">Viimase 14 päeva suhtelise tugevuse indeks, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">Viimase 14 nädala suhtelise tugevuse indeks, 0–100.</string>
+    <string name="neutral_explain_sma50_200">50 päeva keskmine võrreldes 200 päeva keskmisega.</string>
+    <string name="neutral_explain_vs_btc">Hinnamuutus võrreldes Bitcoiniga 90 päeva jooksul.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">Rakendus näitab ainult arvu ega nimeta seda hooajaks. Väärtus muutub tavaliselt päevade, mitte tundide jooksul.</string>
+    <string name="neutral_info_btc_how">Iga väärtuse juures on üks lause selle kohta, mida see mõõdab ja kus see paikneb oma ajaloos alates 2016. aastast. Rakendus ei hinda väärtusi ega tuleta turufaasi; turuhoiatuste piirid on ainult need, mille ise sead. Varasemad mustrid ei pruugi korduda.</string>
+    <string name="neutral_info_btc_what">Levinud Bitcoini näitajad lihtsate mõõdetud väärtustena: Mayer Multiple, 200 nädala keskmine, langus kõigi aegade tipust, muutus 30 päevaga, Pi Cycle’i vahe ning ahelasisesed väärtused MVRV, Puell Multiple ja räsikiirus.</string>
+    <string name="neutral_info_coin_how">Iga väärtuse juures on üks lause selle kohta, mida see mõõdab, ilma hinnanguta. Lühikese hinnaajalooga müntidel puuduvad mõned väärtused. Ahelasiseseid andmeid siin ei kasutata.</string>
+    <string name="neutral_info_coin_what">Samad lihtsad näitajad valitud mündi jaoks, ainult hinnaandmetest: Mayer Multiple, 200 nädala keskmine, langus kõigi aegade tipust, muutus 30 päevaga, 50/200 päeva trend, RSI ja tugevus Bitcoini suhtes 90 päeva jooksul.</string>
+    <string name="neutral_info_halving_how">Järgmine halving arvutatakse praeguse ploki kõrguse ja jooksva raskusperioodi keskmise plokiaja põhjal (mempool.space); ilma nende andmeteta kalendri järgi (viimane halving pluss umbes neli aastat). Graafik näitab varasemate tsüklite hinnakäiku alates nende halvingust – ajalugu, mitte prognoos.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">Trend 50/200 päeva</string>
+    <string name="ind_drawdown">Langus kõigi aegade tipust</string>
+    <string name="ind_missing">liiga vähe andmeid</string>
+    <string name="ind_rsi_daily">RSI (päev)</string>
+    <string name="ind_rsi_weekly">RSI (nädal)</string>
+    <string name="ind_vs_btc">Tugevus Bitcoini suhtes (90 päeva)</string>
+    <string name="neutral_ind_change_30d">Muutus 30 päeva</string>
+    <string name="neutral_ind_hashrate">Räsikiirus 30/60 päeva</string>
+    <string name="neutral_ind_ma200w">200 nädala keskmine</string>
+    <string name="neutral_ind_pi_gap">Pi Cycle’i vahe</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">Kõrge tähendab, et enamik suuri altcoine edestas 90 päeva jooksul Bitcoini, madal – et Bitcoin edestas enamikku neist.</string>
+    <string name="ind_read_ath_distance">Väike tähendab, et hind on rekordi lähedal, suur – et sellest kaugel allpool.</string>
+    <string name="ind_read_change_30d">Positiivne tähendab kõrgemat kui 30 päeva tagasi, negatiivne – madalamat.</string>
+    <string name="ind_read_funding">Kõrge tähendab, et paljud kauplejad panustavad finantsvõimendusega tõusvatele hindadele, negatiivne – et paljud panustavad langusele.</string>
+    <string name="ind_read_hashrate_30_60">Positiivne tähendab, et arvutusvõimsus kasvab, negatiivne – et kaevurid lülituvad välja.</string>
+    <string name="ind_read_leverage">Palju pikki positsioone tähendab, et paljud panustavad laenatud rahaga tõusvatele hindadele, palju lühikesi – et langevatele.</string>
+    <string name="ind_read_ma200w">Hind sellest kaugel üleval tähendab pikka tõusu, hind selle lähedal – sügavat tagasilangust.</string>
+    <string name="ind_read_mayer">Kõrge tähendab, et hind on kaugel üle 200 päeva keskmise, madal – et sellest allpool.</string>
+    <string name="ind_read_mvrv">Kõrge tähendab, et hind on kaugel üle selle, mida hoidjad keskmiselt maksid, madal – selle lähedal või allpool.</string>
+    <string name="ind_read_pi_cycle_gap">Nulli lähedal tähendab, et kaks keskmist peaaegu kohtuvad, tugevalt negatiivne – et need on teineteisest kaugel.</string>
+    <string name="ind_read_puell">Kõrge tähendab, et kaevurid teenivad palju rohkem kui tavaliselt, madal – palju vähem.</string>
+    <string name="ind_read_rsi_daily">Üle 70 tähendab tugevat tõusu viimastel päevadel, alla 30 – tugevat langust.</string>
+    <string name="ind_read_rsi_weekly">Üle 70 tähendab tugevat tõusu viimastel nädalatel, alla 30 – tugevat langust.</string>
+    <string name="ind_read_sma50_vs_200">Positiivne tähendab, et lühiajaline keskmine on pikaajalisest kõrgemal, negatiivne – madalamal.</string>
+    <string name="ind_read_vs_btc">Positiivne tähendab, et läks paremini kui Bitcoinil, negatiivne – halvemini.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">Sama hinna korral 30 päeva pärast: %1$s</string>
+    <string name="ind_context_note">Varasemad väärtused ja „sama hinna“ arvutused on aritmeetika, mitte prognoos.</string>
+    <string name="ind_context_percentile">Alates %1$s madalam %2$s päevadest</string>
+</resources>

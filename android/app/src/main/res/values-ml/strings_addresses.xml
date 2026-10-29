@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">വിലാസം ചേർക്കുക</string>
+    <string name="portfolio_address_count">കണക്കാക്കുക</string>
+    <string name="portfolio_address_error">അപ്‌ഡേറ്റ് പരാജയപ്പെട്ടു</string>
+    <string name="portfolio_address_hint">പൊതു വിലാസം (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) അല്ലെങ്കിൽ xpub</string>
+    <string name="portfolio_address_label">ലേബൽ (ഓപ്ഷണൽ)</string>
+    <string name="portfolio_address_not_since_buy">വിലാസത്തിൽ നിന്ന് · “വാങ്ങിയതുമുതൽ” എന്നതിൽ ഇല്ല: %1$s</string>
+    <string name="portfolio_address_overlap">നിങ്ങളുടെ സ്വന്തം ഇടപാടുകളിലും ഉണ്ട്: %1$s – രണ്ടും കൂട്ടിച്ചേർക്കുന്നു. ഒരേ കോയിനുകളാണോ? “കാണിക്കുക മാത്രം” തിരഞ്ഞെടുക്കുക.</string>
+    <string name="portfolio_address_overlap_ask">%1$s നിങ്ങൾ ഇതിനകം സ്വന്തം ഇടപാടുകളായി രേഖപ്പെടുത്തുന്നുണ്ട്. ഈ വിലാസത്തിന്റെ ബാലൻസ് പോർട്ട്ഫോളിയോയിൽ ചേർക്കണോ, അതോ കാണിക്കുക മാത്രം മതിയോ?</string>
+    <string name="portfolio_address_overlap_auto">“%1$s” ഇപ്പോൾ കാണിക്കുക മാത്രം ചെയ്യുന്നു, കണക്കാക്കുന്നില്ല – %2$s നിങ്ങളുടെ ഇടപാടുകളിലും ഉണ്ട്.</string>
+    <string name="portfolio_address_overlap_title">നിങ്ങളുടെ ഇടപാടുകളിലെ അതേ കോയിനുകളാണോ?</string>
+    <string name="portfolio_address_overlap_tx">നിങ്ങളുടെ സ്വന്തം നിക്ഷേപം/കൈമാറ്റത്തിന്റെ (%1$s) അതേ തുക – രണ്ടുതവണ കണക്കാക്കിയിരിക്കാൻ സാധ്യത.</string>
+    <string name="portfolio_address_period_observed">നിരീക്ഷിക്കുന്ന വിലാസങ്ങൾ ആദ്യം കണ്ട ബാലൻസ് മുതൽ കണക്കാക്കുന്നു; പിന്നീടുള്ള മാറ്റങ്ങൾ വരവ്/പോക്ക് ആണ്, ലാഭമല്ല.</string>
+    <string name="portfolio_address_privacy">പൊതു വിലാസം മാത്രമാണ് %1$s-ലേക്ക് അയയ്ക്കുന്നത് – കീകളോ സീഡ് ഫ്രേസുകളോ ഒരിക്കലുമില്ല. ദാതാവ് അത് നിങ്ങളുടെ IP വിലാസത്തോടൊപ്പം കാണുന്നു. പരമാവധി 10 മിനിറ്റിലൊരിക്കൽ പരിശോധിക്കുന്നു.</string>
+    <string name="portfolio_address_remove">വിലാസം നീക്കം ചെയ്യുക</string>
+    <string name="portfolio_address_show_only">കാണിക്കുക മാത്രം, പോർട്ട്ഫോളിയോയിൽ ചേർക്കരുത്</string>
+    <string name="portfolio_address_show_only_short">കാണിക്കുക മാത്രം</string>
+    <string name="portfolio_address_tokens">ടോക്കണുകൾ കണക്കാക്കുക</string>
+    <string name="portfolio_address_xpub_privacy">ഒരു xpub ഈ വാലറ്റിന്റെ എല്ലാ വിലാസങ്ങളും വെളിപ്പെടുത്തുന്നു. അവ നിങ്ങളുടെ ഉപകരണത്തിൽ തന്നെ കണ്ടെത്തുന്നു; ഓരോ വിലാസവും മാത്രമാണ് %1$s-ലേക്ക് അയയ്ക്കുന്നത് – ആദ്യ സ്കാനിൽ കുറഞ്ഞത് 40 അഭ്യർത്ഥനകൾ, പിന്നീട് കുറവ്. സ്വകാര്യ കീകൾ (xprv) ഒരിക്കലും സ്വീകരിക്കില്ല.</string>
+    <string name="portfolio_address_xpub_gap">തുടർച്ചയായി ഉപയോഗിക്കാത്ത %1$d വിലാസങ്ങൾക്ക് ശേഷം തിരയൽ നിർത്തുന്നു (മിക്ക വാലറ്റുകളും ഉപയോഗിക്കുന്ന BIP44 സ്റ്റാൻഡേർഡ്). ആ വിടവിനപ്പുറമുള്ള ഉപയോഗിച്ച വിലാസം കണക്കാക്കില്ല – അത് പ്രത്യേകം ചേർക്കുക.</string>
+    <string name="portfolio_address_xpub_used">ഉപയോഗത്തിലുള്ള വിലാസങ്ങൾ: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">അപ്‌ഡേറ്റ് ചെയ്യാൻ ഉപയോഗിച്ച വിലാസങ്ങൾ വളരെ കൂടുതലാണ്</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">വളരെയധികം വിലാസങ്ങൾ – പഴയ, ശൂന്യമായ വിലാസങ്ങളിലേക്കുള്ള പുതിയ പേയ്‌മെന്റുകൾ കണ്ടെത്താനായേക്കില്ല</string>
+    <string name="portfolio_addresses_title">വിലാസങ്ങൾ</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Bitcoin Cash വിലാസങ്ങൾ നിരീക്ഷിക്കാനാകില്ല: API കീ ഇല്ലാതെ, നിബന്ധനകൾ അനുവദിക്കുന്ന സൗജന്യ പൊതു സേവനമൊന്നുമില്ല.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) 2024-ൽ അടച്ചുപൂട്ടി – ബാലൻസുകൾ ഇപ്പോൾ BNB Smart Chain-ലാണ് (0x…)</string>
+    <string name="address_checksum">ചെക്ക്സം തെറ്റാണ് – അക്ഷരപ്പിശകുകൾ പരിശോധിക്കുക</string>
+    <string name="address_doge_unsupported">Dogecoin വിലാസങ്ങൾ നിരീക്ഷിക്കാനാകില്ല: API കീ ഇല്ലാതെ, നിബന്ധനകൾ അനുവദിക്കുന്ന സൗജന്യ പൊതു സേവനമൊന്നുമില്ല.</string>
+    <string name="address_duplicate">ഈ വിലാസം ഇതിനകം ചേർത്തിട്ടുണ്ട്</string>
+    <string name="address_ens">ENS പേരുകൾ പിന്തുണയ്ക്കുന്നില്ല – 0x വിലാസം നൽകുക</string>
+    <string name="address_invalid">പിന്തുണയുള്ള നെറ്റ്‌വർക്കിന്റെ സാധുവായ വിലാസമല്ല</string>
+    <string name="address_limit">പരമാവധി 20 വിലാസങ്ങൾ</string>
+    <string name="address_secret">ഇതൊരു സ്വകാര്യ കീ അല്ലെങ്കിൽ സീഡ് ഫ്രേസ് പോലെ തോന്നുന്നു – ഇത് ഒരിടത്തും നൽകരുത്. പൊതു വിലാസങ്ങൾ മാത്രം.</string>
+    <string name="address_testnet">ടെസ്റ്റ്‌നെറ്റ് വിലാസങ്ങൾ പിന്തുണയ്ക്കുന്നില്ല</string>
+    <string name="address_unsupported">ഈ വിലാസ തരം പിന്തുണയ്ക്കുന്നില്ല</string>
+    <string name="address_wrong_chain">വിലാസം മറ്റൊരു നെറ്റ്‌വർക്കിന്റേതാണ്</string>
+    <string name="address_xpub_multisig">മൾട്ടിസിഗ് കീകൾ (Ypub/Zpub) പിന്തുണയ്ക്കുന്നില്ല</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot അക്കൗണ്ട് (BIP86): സ്വീകരിക്കാനും ചേഞ്ചിനുമുള്ള bc1p… വിലാസങ്ങൾ ഈ കീയിൽ നിന്ന് കണ്ടെത്തുന്നു.</string>
+    <string name="portfolio_address_taproot_hint">Taproot വാലറ്റാണോ? പകരം നിങ്ങളുടെ വാലറ്റിൽ നിന്നുള്ള tr(…) ഡിസ്ക്രിപ്റ്റർ ഒട്ടിക്കുക – സാധാരണ xpub Legacy, SegWit വിലാസങ്ങളായി മാത്രമേ തിരയൂ.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">സ്വന്തം സെർവറിൽ എത്താനാകുന്നില്ല</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">%1$s നടത്തുന്നവർക്ക് ഈ വാലറ്റിന്റെ അന്വേഷിച്ച എല്ലാ വിലാസങ്ങളും കാണാനും അവയെ പരസ്പരവും നിങ്ങളുടെ IP വിലാസവുമായും ബന്ധിപ്പിക്കാനും കഴിയും.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">ഇത് ഒഴിവാക്കാൻ, ക്രമീകരണം › പോർട്ട്ഫോളിയോ › വിലാസങ്ങൾക്കുള്ള സ്വന്തം സെർവർ എന്നതിൽ നിങ്ങളുടെ സ്വന്തം സെർവർ നൽകുക.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d അജ്ഞാത ടോക്കൺ (കണക്കാക്കിയിട്ടില്ല)</item>
+        <item quantity="other">+%1$d അജ്ഞാത ടോക്കണുകൾ (കണക്കാക്കിയിട്ടില്ല)</item>
+    </plurals>
+</resources>

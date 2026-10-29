@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s u %2$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">Zatvaranje</string>
+    <string name="sheet_chart_converted_current">%1$s, preračunato (trenutni tečaj)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, preračunato po dnevnim tečajevima</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">Nema podataka o cijeni za ovaj par</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">Otvaranje</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">Danas</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">Vol. %1$s</string>
+    <string name="sheet_more">Više</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Ask</string>
+    <string name="ticker_bid">Bid</string>
+    <string name="explain_bid_ask">Bid je najviša cijena koju kupci trenutno nude, ask najniža cijena koju prodavatelji prihvaćaju.</string>
+    <string name="ticker_high">Maks.</string>
+    <string name="ticker_low">Min.</string>
+    <string name="ticker_timestamp">Vrijeme</string>
+    <string name="ticker_vol_base">Volumen (u kriptovaluti)</string>
+    <string name="ticker_vol_quote">Volumen (u kotiranoj valuti)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (vremenska zona uređaja)</string>
+    <string name="change_basis_local">Od 00:00 po lokalnom vremenu</string>
+    <string name="change_basis_rolling">Posljednja 24 h</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">Od posljednjeg ažuriranja</string>
+    <string name="change_basis_utc_zone">Od 00:00 %1$s</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">Promjena iz svijeća burze %1$s</string>
+    <string name="change_short_since_last">posljednje ažuriranje</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">danas</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">danas %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="exchange_data_empty_error">Od burze nisu primljeni podaci.</string>
+    <string name="market_data_summary">Tržišna kapitalizacija, naknade za gas, gospodarski podaci, analiza kriptovalute</string>
+    <string name="market_data_tab_futures">Futures</string>
+    <string name="market_data_title">Tržišni podaci</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">U optjecaju</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">Tržišna kapitalizacija</string>
+    <string name="spot_max_supply">Maksimalna količina</string>
+    <string name="spot_no_data">Nema spot podataka za ovu kriptovalutu</string>
+    <string name="spot_source_updated">Izvor: %1$s · stanje od %2$s</string>
+    <string name="spot_supply_of_max">%1$s maksimalne količine u optjecaju</string>
+    <string name="spot_total_supply">Ukupna količina</string>
+    <string name="spot_vol_mcap">Vol./trž. kap.</string>
+    <string name="spot_volume_24h">Volumen (24 h)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">Referenca: %1$s</string>
+    <string name="futures_funding">Funding stopa</string>
+    <string name="futures_funding_interval_unknown">interval nepoznat</string>
+    <string name="futures_funding_per8h_equiv">= %1$s za 8 h (kao u alarmima)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">po satu</string>
+    <string name="futures_funding_per_hours">za %1$d h</string>
+    <string name="futures_next_funding">sljedeći za %1$d h %2$d min</string>
+    <string name="futures_no_data">Nema futures podataka za ovu kriptovalutu</string>
+    <string name="futures_open_interest">Open interest</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">Referenca s burze %1$s – funding i open interest razlikuju se od burze do burze; na %2$s mogu biti drukčiji.</string>
+    <string name="futures_reference_spot">Referenca s burze %1$s (USDT perpetual te kriptovalute)</string>
+    <string name="futures_source">Izvor: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">Mnogi trgovci posuđenim novcem klade se na rast ili pad cijena. Naknada između long i short pozicija. Izrazito pozitivno znači da se mnogi klade na rast cijena.</string>
+    <string name="explain_open_interest">Futuresi su oklade na cijenu, često posuđenim novcem. Vrijednost svih otvorenih futures pozicija. Ako raste, više se novca kladi na kretanje.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Objašnjenje</string>
+    <string name="explain_spot_fdv">Potpuno razrijeđena vrijednost: cijena × maksimalna količina (ili ukupna količina ako nema ograničenja).</string>
+    <string name="explain_spot_market_cap">Cijena × količina u optjecaju. Oznaka prikazuje njezinu promjenu u 24 sata.</string>
+    <string name="explain_spot_source">Brojke za sve burze u američkim dolarima, s CoinGecka.</string>
+    <string name="explain_spot_supply">U optjecaju: jedinice koje su sada na tržištu. Ukupno: sve stvorene jedinice umanjene za spaljene. Maksimalno: najviše što ikada može postojati.</string>
+    <string name="explain_spot_volume">Vrijednost trgovanja u 24 sata. Vol./trž. kap.: volumen u odnosu na tržišnu kapitalizaciju — visoko znači vrlo živo trgovanje.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · tečaj %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s satsa</string>
+
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">Velik razmak između kupovne i prodajne cijene (%1$s)</string>
+
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">Povijest u %1$s, preračunato u %2$s po današnjem tečaju</string>
+    <string name="converted_unsure">Preračun nesiguran</string>
+</resources>

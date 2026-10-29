@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">ማንቂያ ያዘጋጁ</string>
+    <string name="alarms_add">አዲስ ማንቂያ</string>
+    <string name="alarms_edit">ማንቂያ ያርትዑ</string>
+    <string name="alarms_empty">ለዚህ ጥንድ እስካሁን ምንም ማንቂያ የለም።</string>
+    <string name="alarms_empty_example">ለምሳሌ፦ BTC ከ%1$s በላይ ሲወጣ ንገረኝ።</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">ማሳወቂያዎች ጠፍተዋል – ማንቂያዎች ሊደርሱዎት አይችሉም።</string>
+    <string name="alarms_notifications_turn_on">ያብሩ</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">%1$d ንቁ</item>
+        <item quantity="other">%1$d ንቁ</item>
+    </plurals>
+    <string name="alarms_overview_empty">እስካሁን ምንም ማንቂያ የለም። ጥንድ ይክፈቱና በማንቂያዎች ስር አንድ ያክሉ።</string>
+    <string name="alarms_overview_title">ሁሉም ማንቂያዎች</string>
+    <string name="alarms_title">ማንቂያዎች</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">የላቀ</string>
+    <string name="alarm_change_updates">የዋጋ ዝማኔዎችን ያስተካክሉ</string>
+    <string name="alarm_create">ማንቂያ ይፍጠሩ</string>
+    <string name="alarm_currency_label">ምንዛሪ</string>
+    <string name="alarm_delete_confirm">ይህ ማንቂያ ይወገዳል።</string>
+    <string name="alarm_delete_title">ማንቂያው ይሰረዝ?</string>
+    <string name="alarm_field_percent">መቶኛ</string>
+    <string name="alarm_field_price">ዋጋ</string>
+    <string name="alarm_fires_now_above">ዋጋው አስቀድሞ ከ%1$s በላይ ነው። ቢሆንም ይቀመጥ?</string>
+    <string name="alarm_fires_now_below">ዋጋው አስቀድሞ ከ%1$s በታች ነው። ቢሆንም ይቀመጥ?</string>
+    <string name="alarm_fires_now_change">ይቀይሩ</string>
+    <string name="alarm_fires_now_save">ቢሆንም ያስቀምጡ</string>
+    <string name="alarm_fires_now_title">ማንቂያው አሁን ይቀሰቀሳል</string>
+    <string name="alarm_first_battery_hint">የባትሪ ማመቻቸት መተግበሪያውን ይገድባል – ማንቂያዎች ዘግይተው ሊደርሱ ይችላሉ።</string>
+    <string name="alarm_first_title">ማንቂያ ተቀምጧል</string>
+    <string name="alarm_last_triggered">መጨረሻ በ%1$s</string>
+    <string name="alarm_more_conditions">ተጨማሪ ሁኔታዎች</string>
+    <string name="alarm_new_extreme">አዲስ %1$s</string>
+    <string name="alarm_once">አንድ ጊዜ</string>
+    <string name="alarm_option_repeating">ያሳውቁ</string>
+    <string name="alarm_option_sound">ድምፅ</string>
+    <string name="alarm_option_speak">ማንቂያውን በድምፅ ያንብቡ</string>
+    <string name="alarm_option_vibrate">ንዝረት</string>
+    <string name="alarm_repeat_each">በየጊዜው</string>
+    <string name="alarm_repeat_once">አንድ ጊዜ</string>
+    <string name="alarm_repeating">በየጊዜው</string>
+    <string name="alarm_threshold_error_empty">ማንቂያውን ለማስቀመጥ እሴት ያስገቡ።</string>
+    <string name="alarm_threshold_error_funding">ፈንዲንግ በ−10 እና በ+10 መቶኛ መካከል ያለ ቁጥር መሆን አለበት።</string>
+    <string name="alarm_threshold_error_invalid">ከ0 የሚበልጥ ትክክለኛ ቁጥር ያስገቡ።</string>
+    <string name="alarm_threshold_error_oi">የኦፕን ኢንተረስት ለውጥ፦ ቢበዛ 1000 መቶኛ።</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">በ%1$d ሰ</item>
+        <item quantity="other">በ%1$d ሰ</item>
+    </plurals>
+    <string name="alarm_window_label">የጊዜ መስኮት</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">ከዚህ በላይ ሲወጣ፦</string>
+    <string name="alarm_simple_below">ከዚህ በታች ሲወርድ፦</string>
+    <string name="alarm_simple_end"></string>
+    <string name="alarm_simple_when">%1$s</string>
+    <string name="alarm_template_a11y">ማንቂያ ፍጠር፦ %1$s</string>
+    <string name="alarm_template_a11y_down">ከአሁኑ ዋጋ በመቀነስ %1$s መቶኛ ላይ ማንቂያ ይፍጠሩ</string>
+    <string name="alarm_template_a11y_up">ከአሁኑ ዋጋ በመደመር %1$s መቶኛ ላይ ማንቂያ ይፍጠሩ</string>
+    <string name="alarm_template_from_now">ከአሁኑ</string>
+    <string name="alarm_template_volume">መጠን ×%1$s</string>
+    <string name="alarm_templates_title">ፈጣን ማንቂያዎች</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">ዋጋ ከ… በላይ</string>
+    <string name="alarm_condition_below">ዋጋ ከ… በታች</string>
+    <string name="alarm_condition_down_percent">በ… ሲወርድ</string>
+    <string name="alarm_condition_funding_above">ፈንዲንግ ከ… በላይ</string>
+    <string name="alarm_condition_funding_below">ፈንዲንግ ከ… በታች</string>
+    <string name="alarm_condition_move_percent">በ… ሲንቀሳቀስ</string>
+    <string name="alarm_condition_near_high">ከፍተኛው አጠገብ</string>
+    <string name="alarm_condition_near_low">ዝቅተኛው አጠገብ</string>
+    <string name="alarm_condition_oi_down">ኦፕን ኢንተረስት ሲቀንስ</string>
+    <string name="alarm_condition_oi_up">ኦፕን ኢንተረስት ሲጨምር</string>
+    <string name="alarm_condition_up_percent">በ… ሲጨምር</string>
+    <string name="alarm_condition_volume_spike">የመጠን ድንገተኛ ጭማሪ</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">%1$s ከ%2$s በላይ ሲወጣ ንገረኝ።</string>
+    <string name="alarm_sentence_below">%1$s ከ%2$s በታች ሲወርድ ንገረኝ።</string>
+    <string name="alarm_sentence_down_percent">%1$s ሲቀመጥ ከነበረው ዋጋ (ወይም ከመጨረሻው ማንቂያ) በ%2$s ሲወርድ ንገረኝ።</string>
+    <string name="alarm_sentence_funding_above">የ%1$s ፈንዲንግ ከ%2$s በላይ ሲወጣ ንገረኝ።</string>
+    <string name="alarm_sentence_funding_below">የ%1$s ፈንዲንግ ከ%2$s በታች ሲወርድ ንገረኝ።</string>
+    <string name="alarm_sentence_incomplete">ማንቂያውን እንደ ዓረፍተ ነገር ለማየት እሴት ያስገቡ።</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">%1$s በ%3$d ሰዓት ውስጥ በ%2$s ሲንቀሳቀስ ንገረኝ።</item>
+        <item quantity="other">%1$s በ%3$d ሰዓታት ውስጥ በ%2$s ሲንቀሳቀስ ንገረኝ።</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">%1$s ከ%3$s ቢበዛ በ%2$s በታች ሲሆን ንገረኝ።</string>
+    <string name="alarm_sentence_near_low">%1$s ከ%3$s ቢበዛ በ%2$s በላይ ሲሆን ንገረኝ።</string>
+    <string name="alarm_sentence_new_extreme">%1$s አዲስ %2$s ሲያስመዘግብ ንገረኝ።</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">የ%1$s ኦፕን ኢንተረስት በ%3$d ሰዓት ውስጥ በ%2$s ሲቀንስ ንገረኝ።</item>
+        <item quantity="other">የ%1$s ኦፕን ኢንተረስት በ%3$d ሰዓታት ውስጥ በ%2$s ሲቀንስ ንገረኝ።</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">የ%1$s ኦፕን ኢንተረስት በ%3$d ሰዓት ውስጥ በ%2$s ሲጨምር ንገረኝ።</item>
+        <item quantity="other">የ%1$s ኦፕን ኢንተረስት በ%3$d ሰዓታት ውስጥ በ%2$s ሲጨምር ንገረኝ።</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">%1$s ሲቀመጥ ከነበረው ዋጋ (ወይም ከመጨረሻው ማንቂያ) በ%2$s ሲጨምር ንገረኝ።</string>
+    <string name="alarm_sentence_volume">%1$s ከተለመደው መጠኑ %2$s× ሲገበያይ ንገረኝ።</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">የ30 ቀን ከፍተኛ</string>
+    <string name="alarm_near_extreme_high_365">የ1 ዓመት ከፍተኛ</string>
+    <string name="alarm_near_extreme_high_90">የ90 ቀን ከፍተኛ</string>
+    <string name="alarm_near_extreme_low_30">የ30 ቀን ዝቅተኛ</string>
+    <string name="alarm_near_extreme_low_365">የ1 ዓመት ዝቅተኛ</string>
+    <string name="alarm_near_extreme_low_90">የ90 ቀን ዝቅተኛ</string>
+    <string name="alarm_near_field_distance">ርቀት</string>
+    <string name="alarm_near_hint">አዲስ ከፍተኛ ወይም ዝቅተኛ ሲመዘገብም ያሳውቃል። በዕለታዊ ሻማዎች ላይ የተመሠረተ፣ በየ6 ሰዓቱ ይታደሳል።</string>
+    <string name="alarm_near_new_only">አዲስ ከፍተኛ ወይም ዝቅተኛ ብቻ</string>
+    <string name="alarm_near_notification_high">%1$s ከ%3$s በ%2$s በታች ነው (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s ከ%3$s በ%2$s በላይ ነው (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">ለ%2$s አዲስ %1$s፦ %3$s (የቀድሞው %4$s)</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d ቀን</item>
+        <item quantity="other">%1$d ቀናት</item>
+    </plurals>
+    <string name="alarm_near_window_label">ጊዜ</string>
+    <string name="alarm_near_window_year">1 ዓመት</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">የፈንዲንግ ተመን በየ8 ሰዓቱ። ሌላ ክፍተት ያላቸው ኮንትራቶች ይለወጣሉ (1 ሰ × 8፣ 4 ሰ × 2)፤ የፊውቸርስ ካርዱ የተለወጠውን እሴት ያሳያል። ክፍተቱ ካልታወቀ ማንቂያው አይፈትሽም። አሉታዊ ማለት ሾርቶች ለሎንጎች ይከፍላሉ ማለት ነው። ± ምልክቱን ይቀይራል።</string>
+    <string name="alarm_funding_sign_a11y">ምልክት ይቀይሩ</string>
+    <string name="alarm_oi_hint">ኦፕን ኢንተረስትን ከያኔው ብዙ ሰዓታት በፊት ከተቀመጠው እሴት ጋር ያነጻጽራል። አዲስ ማንቂያ የሚያሳውቀው መተግበሪያው ለዚያ ያህል ጊዜ ውሂብ ከሰበሰበ በኋላ ብቻ ነው፤ ቢበዛ በየ5 ደቂቃው ይፈተሻል።</string>
+    <string name="alarm_volume_factor_label">የመጨረሻው ሰዓት መጠን ከተለመደው ጋር ሲነጻጸር</string>
+    <string name="alarm_volume_hint">የመጠን ውሂብ ከBinance ይመጣል — እዚያ ያልተዘረዘሩ ጥንዶች በፍጹም አይቀሰቅሱም።</string>
+    <string name="alarm_volume_zero_hours_hint">ግብይት የሌለባቸው ሰዓታት እንደ ዜሮ መጠን ይቆጠራሉ፤ ስለዚህ ብዙም በማይገበያዩ ጥንዶች ላይ ተራ ሰዓት ያልተለመደ ሊመስል ይችላል።</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">ማንቂያ ንቁ ነው</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">ማንቂያ ተቀምጧል፦ %1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">ማሳወቂያዎች ጠፍተዋል</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">ያለ «%1$s»፣ መሣሪያው ሲያርፍ Android መደበኛ ባልሆነ ሁኔታ ይፈትሻል – አንዳንዴ ከሰዓታት በኋላ ብቻ። ከእሱ ጋር፣ በግምት በየ15 ደቂቃው።</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">መተግበሪያው ሲዘጋ iOS ብዙውን ጊዜ ከ15 ደቂቃ በኋላ ይፈትሻል፣ አንዳንዴ መተግበሪያውን በሚቀጥለው ጊዜ ሲከፍቱ ብቻ። አጭር ድንገተኛ ለውጦች ሊያመልጡ ይችላሉ።</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">ማንቂያዎች መቼ ይፈተሻሉ</string>
+    <string name="alarm_timing_where">ዋጋዎች በምን ያህል ጊዜ እንደሚዘምኑ በ%1$s ውስጥ ይቀይሩ።</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">ጸጥ ያለ (ማሳወቂያ ብቻ)</string>
+    <string name="alarm_signal_sound">ድምፅ ብቻ</string>
+    <string name="alarm_signal_sound_vibrate">ድምፅና ንዝረት</string>
+    <string name="alarm_signal_system">ሲስተም</string>
+    <string name="alarm_signal_vibrate">ንዝረት ብቻ</string>
+    <string name="alarm_test">የሙከራ ማንቂያ</string>
+    <string name="alarm_test_action">ይሞክሩ</string>
+    <string name="alarm_test_denied">ማሳወቂያዎች ለCrypto Checker ጠፍተዋል።</string>
+    <string name="alarm_test_hint">በድምፅ፣ በንዝረትና በንግግር ቅንብሮችዎ የናሙና ማንቂያ ይልካል።</string>
+    <string name="alarm_test_open_settings">ቅንብሮችን ይክፈቱ</string>
+    <string name="alarm_test_quiet">የጸጥታ ሰዓታት አሁን በርተዋል፦ እውነተኛ ማንቂያዎች እስኪያበቁ ይጠብቃሉ፣ ከዚያም በድምፅ ይጮኻሉ።</string>
+    <string name="alarm_test_text">ማንቂያ እንዲህ ይመስላል፣ እንዲህም ይሰማል።</string>
+    <string name="alarm_test_title">ሙከራ፦ የCrypto Checker ማንቂያ</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">ድምፅ በርቷል</string>
+    <string name="alarm_a11y_speak_on">ንግግር በርቷል</string>
+    <string name="alarm_unchecked_no_candles">ሊፈተሽ አልተቻለም (የሻማ ውሂብ የለም)</string>
+    <string name="alarm_unchecked_no_rate">ሊፈተሽ አልተቻለም (የምንዛሪ ተመን የለም)</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">ማሳወቂያዎች ጠፍተዋል – ይህ ማንቂያ አይደርስዎትም</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">ማንቂያ የለም – ዝቅተኛ ፈሳሽነት</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">የአሁኑን ዋጋ በመጠባበቅ ላይ</string>
+    <string name="alarm_enter_amount">እሴት ያስገቡ</string>
+    <string name="alarm_editor_more">ተጨማሪ</string>
+    <string name="alarm_editor_more_summary">ፈጣን ማንቂያዎች፣ ሌሎች ሁኔታዎች፣ ድምፅና ንግግር</string>
+    <string name="alarm_reliability_storage_no_key">ማንቂያዎች ከበስተጀርባ ቆመዋል – የክትትል ዝርዝሩ አልተቀመጠም</string>
+    <string name="alarms_limit_reached">አንድ ጥንድ ቢበዛ %1$s ማንቂያዎች ሊኖሩት ይችላል።</string>
+    <string name="alarms_reference_rate_hint">የECB የማጣቀሻ ተመኖች የሚወሰኑት በቀን አንድ ጊዜ ብቻ ነው – ለእነሱ ማንቂያዎች የሉም።</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">መውረዱ ከ100 መቶኛ ያነሰ መሆን አለበት።</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">ገደቡ ትክክል አይደለም – እባክዎ ያስተካክሉ</string>
+
+    <string name="alarm_last_checked">መጨረሻ የተፈተሸው %1$s</string>
+</resources>

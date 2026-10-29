@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
+    <string name="portfolio_cutoff_export_action">Ebaki-datako esportazioa…</string>
+    <string name="portfolio_tax_worksheet_action">Lan-orria…</string>
+    <string name="portfolio_export_address_unobserved">helbidea ez da data honetan behatu – ez dago sartuta</string>
+    <string name="portfolio_export_button">Esportatu CSV</string>
+    <string name="portfolio_export_col_amount">Kopurua</string>
+    <string name="portfolio_export_col_coin">Txanpona</string>
+    <string name="portfolio_export_col_note">Oharra</string>
+    <string name="portfolio_export_col_price">Prezioa USDT</string>
+    <string name="portfolio_export_col_rate">Tasa USDT→%1$s</string>
+    <string name="portfolio_export_col_value">Balioa USDT</string>
+    <string name="portfolio_export_col_value_cur">Balioa %1$s</string>
+    <!-- Inhalt der CSV-Datei -->
+    <string name="portfolio_export_comment"># Ebaki-data %1$s, moneta %2$s, truke-tasaren data %3$s</string>
+    <string name="portfolio_export_currency">Moneta: %1$s</string>
+    <string name="portfolio_export_date">Ebaki-data</string>
+    <string name="portfolio_export_done">Esportazioa gorde da</string>
+    <string name="portfolio_export_estv_note">Ondarearen gaineko zergarako, ESTVren %1$s kotizazio-zerrendako urte amaierako balio ofizialak aplikatzen dira zerrendan daudenean: %2$s</string>
+    <string name="portfolio_export_failed">Esportazioak huts egin du</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">Esportazioak huts egin du: ezin izan da fitxategia idatzi – biltegiratze-kokapena ez dago edo ezin da bertan idatzi</string>
+    <string name="portfolio_export_failed_prices">Esportazioak huts egin du: ezin izan dira prezioak kargatu – ez dago konexiorik edo burtsak ez du erantzuten</string>
+    <string name="portfolio_export_from_address">helbidetik – erosketa-preziorik gabe</string>
+    <string name="portfolio_export_hint">Aukeratutako egunaren amaierako ondasunak, eguneko itxieran (UTC) USDTtan baloratuak eta egun horretako EBZren erreferentzia-tasarekin bihurtuak. Aldatu moneta «Bihurtu hona» aukerarekin.</string>
+    <string name="portfolio_export_incomplete">osatu gabea</string>
+    <string name="portfolio_export_no_fx">truke-tasarik ez</string>
+    <string name="portfolio_export_no_price">preziorik ez</string>
+    <string name="portfolio_export_running">Prezio historikoak eskuratzen…</string>
+    <string name="portfolio_export_title">Ebaki-datako esportazioa</string>
+    <string name="portfolio_export_today_hint">Gaur ez da amaitu oraindik: uneko prezioa erabiltzen da eguneko itxieraren ordez.</string>
+    <string name="portfolio_export_total">Guztira</string>
+    <string name="portfolio_export_unchecked">egiaztatu gabea (ez dago bat datorren preziorik)</string>
+
+    <!-- Steuer-Export (Arbeitspapier) -->
+    <string name="tax_export_adjustment">superficial loss (ACBri gehitua)</string>
+    <string name="tax_export_at_wallet_note">Austria: batez besteko mugikorra txanpon eta kartera (burtsa) bakoitzeko – transferentziek kostua eramaten dute – sariak 0 eskuratze-kostuan – 2021eko martxoaren 1etik aurrerako ondasunak komisiorik gabe (ez kengarriak) – mailegu-interesak jasotzean zuten balioan (diru-sarrera, ehuneko 27,5).</string>
+    <string name="tax_export_avg_cost_rates">kostua erosketa-datako tasetan (batez bestekoa)</string>
+    <string name="tax_export_ch_wealth_not_calculated">Ondarearen gaineko zerga kalkulatu gabe – ESTVren kotizazio-zerrenda: %1$s</string>
+    <string name="tax_export_col_acquired">Eskuratua</string>
+    <string name="tax_export_col_adjustment">Onartu gabeko galera %1$s</string>
+    <string name="tax_export_col_cost">Kostua %1$s</string>
+    <string name="tax_export_col_date">Data</string>
+    <string name="tax_export_col_days">Edukitze-egunak</string>
+    <string name="tax_export_col_gain">Irabazia %1$s</string>
+    <string name="tax_export_col_gross">Prezioa komisioen aurretik %1$s</string>
+    <string name="tax_export_col_long_term">edukitzea &gt; 1 urte</string>
+    <string name="tax_export_col_portfolio_value">Zorroaren balioa %1$s</string>
+    <string name="tax_export_col_proceeds">Diru-sarrerak %1$s</string>
+    <string name="tax_export_col_sold">Saldua</string>
+    <string name="tax_export_cost_incomplete">eskuratze-kostu osoa osatu gabe</string>
+    <string name="tax_export_cost_missing">erosketa-prezioa falta da</string>
+    <string name="tax_export_fee_consumed">Komisioak jasotako guztia jaten du</string>
+    <string name="tax_export_fee_leg">komisioa beste txanpon batean</string>
+    <string name="tax_export_fee_row">Komisioa</string>
+    <string name="tax_export_fee_value_missing">beste txanpon bateko komisioak ez du baliorik</string>
+    <string name="tax_export_gains">Gauzatutako besterentzeak (CSV)</string>
+    <string name="tax_export_gains_title">Gauzatutako besterentzeak %1$s</string>
+    <string name="tax_export_gift">Dohaintza</string>
+    <string name="tax_export_holdings_cutoff">Ondasunak data honetan: %1$s (CSV)</string>
+    <string name="tax_export_holdings_title">Ondasunak data honetan: %1$s</string>
+    <string name="tax_export_income">Diru-sarrerak (CSV)</string>
+    <string name="tax_export_income_title">Diru-sarrerak %1$s</string>
+    <string name="tax_export_info_template">Txantiloia: %1$s · Metodoa: %2$s · Zerga-ekitaldia: %3$s · Moneta: %4$s · Crypto Checker %5$s</string>
+    <string name="tax_export_lost_fee_cost">ordaindutako loterik gabeko sareko komisioaren kostua</string>
+    <string name="tax_export_match_pool">Section 104 pool</string>
+    <string name="tax_export_match_same_day">egun bera (HMRC)</string>
+    <string name="tax_export_match_thirty_day">30 eguneko araua (HMRC)</string>
+    <string name="tax_export_method_change_warning">Metodoa edo txantiloia aldatzeak aurreko urteak ere berriro kalkulatzen ditu – alderatu dagoeneko aurkeztu duzunarekin.</string>
+    <string name="tax_export_method_overridden">Txantiloiak %1$s kalkulatzen du – ez %2$s</string>
+    <string name="tax_export_new_holding">2021eko martxoaren 1etik aurrera eskuratua</string>
+    <string name="tax_export_no">ez</string>
+    <string name="tax_export_old_holding">2021eko martxoaren 1a baino lehen eskuratua</string>
+    <string name="tax_export_oversold">erregistratutakoa baino gehiago saldua</string>
+    <string name="tax_export_payment">Kriptoarekin ordainketa</string>
+    <string name="tax_export_period">%1$s – %2$s</string>
+    <string name="tax_export_proceeds_missing">salmenta-prezioa falta da</string>
+    <string name="tax_export_proceeds_without_cost">Erosketa-preziorik gabeko diru-sarrerak</string>
+    <string name="tax_export_realized_differs">Zerga-CSVa «gauzatua» atalaren desberdina izan daiteke (herrialdearen zerga-arauak).</string>
+    <string name="tax_export_rule">&gt; 1 urte: erosketa-data + urte natural 1 ondoren saldua. Datak tokiko orduan. Tasak: eragiketa-eguneko EBZren eguneko tasa; ez badago, 7 egun lehenagora arteko azken tasa.</string>
+    <string name="tax_export_rules_date">Arauen data: %1$s</string>
+    <string name="tax_export_rules_stale">Arauak %1$s-(e)koak dira – %2$s-(e)rako tasak eta hobariak aldatu egin daitezke. Begiratu balioak.</string>
+    <string name="tax_export_spouse_gift">ezkontideari/bikotekideari – ez irabazirik ez galerarik</string>
+    <string name="tax_export_summary">Urteko laburpena %1$s (CSV)</string>
+    <string name="tax_export_swap">trukea</string>
+    <string name="tax_export_tax_year">Zerga-ekitaldia</string>
+    <string name="tax_export_transfer_fee_info">Transferentzia-komisioa USDTtan/eskudirutan – ez da galera, ez dago eskuratze-kostuan, informaziorako soilik</string>
+    <string name="tax_export_unassigned_fee">esleitu gabeko komisioa – eskuratze-kostu ezezaguna</string>
+    <string name="tax_export_usdt_usd_note">USDT USDT/USD eguneko itxieran bihurtua; USD 1 itxierarik ez dagoenean (errenkada bakoitzean markatua)</string>
+    <string name="tax_export_value_estimated">Balio kalkulatua (eguneko itxiera)</string>
+    <string name="tax_export_value_missing">jasotzean zuen balioa falta da</string>
+    <string name="tax_export_wallet">Kartera: %1$s</string>
+    <string name="tax_export_wallet_unspecified">zehaztu gabe</string>
+    <string name="tax_export_withdrawal_fee">Erretiratze-komisioa</string>
+    <string name="tax_export_withdrawal_fee_info">Erretiratze-komisioa USDTtan/eskudirutan – ez da galera, informaziorako soilik</string>
+    <string name="tax_export_workpaper_disclaimer">Zerga-lan-orria – ez da zerga-aitorpena, ezta zerga-aholkularitza ere</string>
+    <string name="tax_export_workpaper_title">Lan-orria</string>
+    <string name="tax_export_year_local_zone">Datak tokiko orduan (%1$s)</string>
+    <string name="tax_export_yes">bai</string>
+
+    <!-- Steuer-Export: Zeilen und Spalten -->
+    <string name="tax_line_at_interest">Mailegu-interesak (jasotzean zuten balioa)</string>
+    <string name="tax_line_at_old_long">2021eko martxoaren 1a baino lehen eskuratua – edukitzea &gt; 1 urte: normalean ez da zergapetzen – egiaztatu</string>
+    <string name="tax_line_at_rate">Ehuneko 27,5eko tasa berezia: 2021eko martxoaren 1etik aurrera eskuratutako eta 2022ko martxoaren 1etik aurrera saldutako garbia + interesak</string>
+    <string name="tax_line_au_discounted">Kapital-irabazi garbia galeren eta ehuneko 50eko deskontuaren ondoren</string>
+    <string name="tax_line_ca_taxable">Kapital-irabazi zergagarria (inklusio-tasa 1/2)</string>
+    <string name="tax_line_ch_income">Zerrendatutako sariak – ikusi ESTVren lan-dokumentua haien tratamendurako</string>
+    <string name="tax_line_ch_private">Ondasun pribatuen kapital-irabaziak: kalkulatu gabe – ikusi ESTV sailkapenerako</string>
+    <string name="tax_line_ch_wealth">Ondarearen gaineko zerga: kalkulatu gabe – ondasunen CSVak burtsaren prezioa × USD/CHF erabiltzen du abenduaren 31n – zerga-balio ofizialak: ESTVren kotizazio-zerrenda</string>
+    <string name="tax_line_de_long">Edukitzea &gt; 1 urte: normalean ez da zergapetzen § 23 EStG-ren arabera – egiaztatu</string>
+    <string name="tax_line_denied_loss">Onartu gabeko galerak (superficial loss)</string>
+    <string name="tax_line_fr_outflow">Salmentarik gabeko irteerak (erretiratzeak) – eskuratze-kostu osoa proportzionalki murriztua</string>
+    <string name="tax_line_fr_rate">Ehuneko 12,8ko tasa finkoa gehi gizarte-ekarpenak (edo eskala, aukeran)</string>
+    <string name="tax_line_fr_threshold">Urtean 305 € arteko besterentzeak: oro har salbuetsiak (salmenta-prezioen guztizkoa) – egiaztatu</string>
+    <string name="tax_line_gains">Irabaziak</string>
+    <string name="tax_line_income">Diru-sarrerak (sariak jasotzean zuten balioan)</string>
+    <string name="tax_line_jp_misc">Askotariko diru-sarrerak (雑所得): irabazi garbiak + diru-sarrerak</string>
+    <string name="tax_line_long_net">Garbia – edukitzea &gt; 1 urte</string>
+    <string name="tax_line_losses">Galerak</string>
+    <string name="tax_line_net">Irabazi/galera garbiak</string>
+    <string name="tax_line_new_net">Garbia – 2021eko martxoaren 1etik aurrera eskuratua, 2022ko martxoaren 1etik aurrera saldua</string>
+    <string name="tax_line_old_long_net">Garbia – 2021eko martxoaren 1a baino lehen eskuratua – edukitzea &gt; 1 urte</string>
+    <string name="tax_line_old_short_net">Garbia – eragiketa espekulatiboak (aurreko legea): 2021eko martxoaren 1a baino lehen eskuratua eta edukitzea ≤ 1 urte, edo 2022ko martxoaren 1a baino lehen saldua</string>
+    <string name="tax_line_proceeds">Diru-sarrerak</string>
+    <string name="tax_line_short_net">Garbia – edukitzea ≤ 1 urte</string>
+    <string name="tax_line_transfer_fees">Transferentzia-komisioak (kartera propioak)</string>
+    <string name="tax_line_uk_after_exempt">Salbuetsitako zenbatekoaren gaineko irabazi garbiak (kripto soilik)</string>
+    <string name="tax_line_uk_exempt">Urteko salbuetsitako zenbatekoa – besterentze guztiei batera aplikatzen zaie, hemen osorik aplikatua</string>
+    <string name="tax_line_us_terms">Epe laburra (≤ 1 urte): tasa arruntak – epe luzea (&gt; 1 urte): kapital-irabazien tasak</string>
+    <string name="tax_line_withdrawal_fees">Erretiratze-komisioak</string>
+
+    <!-- Steuer Deutschland -->
+    <string name="tax_de_below">mugaren azpitik</string>
+    <string name="tax_de_col_item">Kontzeptua</string>
+    <string name="tax_de_disclaimer">Orientaziorako soilik – ez da zerga-aitorpena, ezta zerga-aholkularitza ere.</string>
+    <string name="tax_de_explain_below">%1$s arte: mugaren azpitik (orientaziorako).</string>
+    <string name="tax_de_explain_loss">Galera garbia: salmenta hauek ez dute zergarik. § 23 EStG-ren araberako galerek salmenta pribatuetako irabaziak bakarrik konpentsatzen dituzte – urte berean, edo aurreko urtera atzeraeraginez eta ondorengo urteetara eramanez (§ 23 3. par. eta § 10d EStG). Aitortu galera zure zerga-aitorpenean zehaztu dadin.</string>
+    <string name="tax_de_explain_reached">%1$s-(e)tik aurrera zenbateko osoa zenbatzen da (salbuespen-muga – ez hobaria).</string>
+    <string name="tax_de_explain_unknown">Ezin da egiaztatu: truke-tasak / erosketa-prezioak edo edukitze-aldiak falta dira.</string>
+    <string name="tax_de_income_limit">Zerbitzuetarako salbuespen-muga (§ 22 3. zk. EStG)</string>
+    <string name="tax_de_limit_scope">Mugak urteko salmenta pribatu edo zerbitzu guztiei batera aplikatzen zaizkie – aplikaziotik kanpokoak barne.</string>
+    <string name="tax_de_loading">Kalkulatzen…</string>
+    <string name="tax_de_long_gains">Irabaziak – edukitzea &gt; 1 urte</string>
+    <string name="tax_de_long_losses">Galerak – edukitzea &gt; 1 urte</string>
+    <string name="tax_de_loss">galera garbia – salmenta pribatuetako irabaziekin bakarrik konpentsa daiteke (§ 23 EStG)</string>
+    <string name="tax_de_private_limit">Salmenta pribatuetarako salbuespen-muga (§ 23 EStG)</string>
+    <string name="tax_de_reached">muga gaindituta – normalean zenbateko osoa zenbatzen da – egiaztatu</string>
+    <string name="tax_de_short_gains">Irabaziak – edukitzea ≤ 1 urte</string>
+    <string name="tax_de_short_losses">Galerak – edukitzea ≤ 1 urte</string>
+    <string name="tax_de_unclassified">Edukitze-aldi ezezaguna</string>
+    <string name="tax_de_unknown">ezin da egiaztatu</string>
+
+    <!-- Steuer-Vorlagen je Land -->
+    <string name="tax_template_at">Austria</string>
+    <string name="tax_template_au">Australia</string>
+    <string name="tax_template_beta">Beta</string>
+    <string name="tax_template_beta_note">Beta: herrialdeko arau sinplifikatuak, egiaztatu zerga-aitorpena aurkeztu aurretik</string>
+    <string name="tax_template_ca">Kanada</string>
+    <string name="tax_template_ch">Suitza</string>
+    <string name="tax_template_confirm_text">Beta, arau sinplifikatuak, beste plataforma batzuetako transakzioak falta dira – egiaztatu zerga-aitorpena aurkeztu aurretik.</string>
+    <string name="tax_template_confirm_title">Zerga-txantiloia (beta)</string>
+    <string name="tax_template_current">Txantiloia: %1$s · Metodoa: %2$s · Moneta: %3$s</string>
+    <string name="tax_template_de">Alemania</string>
+    <string name="tax_template_fr">Frantzia</string>
+    <string name="tax_template_hint">Orientaziorako soilik: zerga-lan-orriaren metodoa, zerga-ekitaldia eta laburpena zehazten ditu. Zorroaren txartela neutro geratzen da – dohaintzak eta transferentzia-komisioak lan-orritik desberdinak izan daitezke.</string>
+    <string name="tax_template_jp">Japonia</string>
+    <string name="tax_template_neutral">Neutroa (herrialde guztiak)</string>
+    <string name="tax_template_suggestion">Zure eskualderako iradokizuna: %1$s</string>
+    <string name="tax_template_title">Zerga-txantiloia</string>
+    <string name="tax_template_uk">Erresuma Batua</string>
+    <string name="tax_template_us">AEB</string>
+    <string name="tax_template_use">Erabili %1$s</string>
+
+    <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
+    <string name="tax_method_at">Ondasun zahar/berriak – batez besteko mugikorra</string>
+    <string name="tax_method_ca_acb">ACB batez besteko kostua (superficial loss)</string>
+    <string name="tax_method_fr_pta">Eskuratze-prezio osoa (art. 150 VH bis)</string>
+    <string name="tax_method_jp_total">Batez besteko osoa (総平均法)</string>
+    <string name="tax_method_uk_pool">Section 104 pool (egun bera / 30 egun)</string>
+    <string name="tax_note_at">Batez besteko mugikorra txanpon eta kartera bakoitzeko – ez karteren artean (KryptowährungsVO § 2). Sariak ondasun berrietan sartzen dira 0 eskuratze-kostuan (BMF: staking / airdropak) – diru-sarreren fitxategiak jasotzean zuten balioan zerrendatzen ditu. Komisioak ez dira kengarriak 2021eko martxoaren 1etik aurrera eskuratutako ondasunetarako (§ 27a(4) 2. zk., § 20(2) EStG): kostua eta diru-sarrerak komisiorik gabe. Mailegu-interesak (CSV inportazioko mota edo oharra) diru-sarrera dira jasotzean, ehuneko 27,5ean, eta balio hori mantentzen dute eskuratze-kostu gisa.</string>
+    <string name="tax_note_at_staking">Lehendik dituzun txanponekin egindako stakinga eta airdropak: jasotzean zuten balioak ez du garrantzirik zergetarako – legez eskuratze-kostua 0 da (§ 27b Abs. 2 EStG; BMF «Kryptowährungen»). Saltzen duzunean bakarrik ordaintzen da zerga.</string>
+    <string name="tax_note_fr">Kriptotan ordaindutako salmentak eta komisioak besterentzeak dira – trukeak geroratu egiten dira. Salmenta bateko kripto-komisioa komisioen aurreko prezioan zenbatzen da – bestela, bere balioko besterentze propioa da. Zorroaren balioa eguneko itxieretatik – itxiera bat falta bada, kostua hutsik geratzen da.</string>
+    <string name="tax_note_network_fee">Kriptotan ordaindutako sareko komisio bat (zure kartera propiorako transferentzia, erretiratzea) komisio-txanponen besterentzea da merkatu-balioan – irabazia edo galera txanpon horietan bakarrik, ez komisio osoaren galera (%1$s). Erregistratutako preziorik gabe: egun bereko eguneko itxiera (UTC); itxierarik gabe, diru-sarrerak hutsik geratzen dira.</string>
+    <string name="tax_note_specific_id">Identifikazio espezifikoa ez da onartzen – FIFO erabiltzen da.</string>
+    <string name="tax_note_spouse_gift">«Ezkontideari / izatezko bikotekideari» markatutako dohaintza batek ez du irabazirik ez galerarik sortzen: diru-sarrerak = zure eskuratze-kostua, zure bikotekideak hartzen duena (%1$s).</string>
+    <string name="tax_note_stable_swap">Kriptoa gordetzen duzun stablecoin baten truke (USDT/USDC/DAI …) saltzea hemen kriptotik kriptora da eta ez da zergapetzen – erregistratu stablecoinerako truke gisa. Euroen truke egindako salmenta bakarrik zergapetzen da – «Salmenta» euroen truke egindako salmenta gisa zenbatzen da.</string>
+    <string name="tax_note_transfer_fee">Gauza bera aplikatzen zaio zure kartera propioen arteko transferentzia bateko USDT edo eskudiru-komisioari: ez zaio eskuratze-kostuari gehitzen eta informazio gisa bakarrik zerrendatzen da.</string>
+    <string name="tax_note_uk">Esleipena HMRCren arabera: egun bera → hurrengo 30 egunak → Section 104 pool.</string>
+    <string name="tax_note_us_transition">Trantsizioa 2025eko urtarrilaren 1ean (Rev. Proc. 2024-28 safe harbor): aurreko urteetan kartera guztien arteko FIFO erabili bazen, 2024ko abenduaren 31ko lote geratuak txanponak dituzten karteretara doaz – txanpon zaharrenak dituen karterak eskuratze-kostu zaharrena jasotzen du. Esleipen hau aplikazioaren arau bat da – egiaztatu zure erregistroekin.</string>
+    <string name="tax_note_us_wallet">2025eko zerga-ekitalditik aurrera, IRSk eskuratze-kostua kartera edo burtsa bakoitzeko eskatzen du (Rev. Proc. 2024-28): esportazioak kartera bakoitzeko FIFO erabiltzen du 2025etik aurrera – aurreko urteetarako, kartera guztien arteko FIFO, edo kartera bakoitzeko FIFO hori bada zure kostu-metodoa.</string>
+    <string name="tax_note_withdrawal_fee">USDTtan edo eskudirutan ordaindutako erretiratze-komisioa ez da galera: eskudiru-komisioa ez da kostu kengarria, eta USDT komisioa irabazirik gabeko parekotasun-besterentzea da – informazio gisa bakarrik zerrendatzen da (%1$s).</string>
+    <string name="tax_summary_at_interest_income">zenbatzen da: diru-sarrera jasotzean, ehuneko 27,5eko tasa berezian (§ 27b(2) 1. zk. EStG / BMF) – txanponek balio hori mantentzen dute eskuratze-kostu gisa</string>
+    <string name="tax_summary_at_reward_info">informaziorako soilik – ez da inongo guztizkoaren parte: sariak ondasun berrietan sartzen dira 0 eskuratze-kostuan eta saltzean bakarrik zergapetzen dira (irabazietan jada) – § 27b 2. par. EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">2022ko urtarrilaren 1a–otsailaren 28a: ehuneko 27,5erako aukera posible</string>
+    <string name="tax_summary_at_withdrawal_fee">Erretiratze-komisioa – ez da ondasun berriekin konpentsatzen (gastuak ez dira kengarriak tasa berezian, § 20(2) EStG)</string>
+    <string name="tax_summary_ch_fifo_info">informaziorako soilik – aplikazioaren FIFO kalkulua – sailkatu gabea – ikusi ESTV</string>
+    <string name="tax_summary_ch_year_end_value">abenduaren 31ko balioa ondasunen CSVan = burtsaren prezioa × USD/CHF – ez ESTVren zerga-balioak</string>
+    <string name="tax_summary_de_withdrawal_fee">Erretiratze-komisioa – ez da § 23ren arabera konpentsatzen, egiaztatu diru-sarrerei lotutako gastu gisa kengarria den</string>
+    <string name="tax_summary_not_calculated_estv">kalkulatu gabe – ESTVren kotizazio-zerrenda: %1$s</string>
+    <string name="tax_summary_orientation">Orientazioa</string>
+    <string name="tax_summary_orientation_block">Orientaziorako soilik – ez da zerga-aholkularitza – ez da likidazioa</string>
+    <string name="tax_summary_orientation_item">Orientazioa: %1$s</string>
+    <string name="tax_summary_title">Urteko laburpena %1$s %2$s</string>
+    <string name="tax_summary_transfer_fee_info">Transferentzia-komisioak USDTtan/eskudirutan – ez dira galera eta ez daude eskuratze-kostuan, informaziorako soilik</string>
+    <string name="tax_summary_withdrawal_fee_info">Erretiratze-komisioak USDTtan/eskudirutan – ez dira galera gisa zenbatzen, informaziorako soilik</string>
+
+    <string name="tax_line_at_old_speculation_limit">Eragiketa espekulatiboak (aurreko legea, edukitzea ≤ 1 urte): salbuespen-muga (§ 31 (3) EStG bertsio zaharra)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">2022ko martxoaren 1a baino lehenagoko mailegu-interesak (jasotzean zuten balioa)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">2022ko martxoaren 1a baino lehenagoko interesak: aurreko legea (errenta-zergaren tasa), ez ehuneko 27,5</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">2022ko martxoaren 1a baino lehen – kontsultatu profesional batekin</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">Interesak – jasotzean zergapetzen dira</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">Stakinga – informaziorako soilik (eskuratze-kostua 0, saltzean zergapetua)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">Interesak guztira (zergagarria)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">Stakinga guztira (informazioa)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">Kapital-galera garbia (hurrengo urteetara eramatea)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">aukerarik gabe: 2022ko urtarrilaren 1etik otsailaren 28ra bitarteko salmentak barne</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">2022ko martxoaren 1a baino lehenagoko stakinga: eskuratze-kostua 0an finkatua – kontsultatu profesional batekin</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">30 eguneko arauak oraindik alda ditzake zifra hauek (erosketak data honetara arte: %1$s)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Komisioen aurreko diru-sarrerak aitortze-mugaren gainetik (50.000 £; 2020/21–2022/23: 49.200 £): jakinarazi HMRCri Self Assessment-en erregistratuta bazaude, zerga-irabazirik gabe ere</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">Ondare-balioa %1$s abenduaren 31n (orientaziorako)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">ESTVren kotizazio-zerrenda (ictax.admin.ch) da erabakigarria. Zerrendan ez dauden txanponetarako, oro har burtsaren itxiera-prezioa aplikatzen da. Ondarearen gaineko zerga kalkulatu gabe.</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – ondasuna %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">kalkulatu gabe</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">Ezin izan dira jarraitutako helbideak irakurri – haien saldoak falta dira fitxategi honetan</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">Jarraitutako helbideen loteak beren erosketa-datatik zenbatzen dira; helbidearen gaurko saldoa txikiagoa bada, murriztu egiten dira.</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">Jarraitutako helbideak balio osoan zenbatzen dira, baina ez dute eskuratze-kosturik – beraz, irabazia altuegia izango da seguruenik. Erregistratu kostua erosketa gisa.</string>
+    <string name="tax_summary_fr_rewards_income">Zenbatekoak suposatzen du sariak diru-sarrera gisa zergapetu zirela jasotzean (jasotzean zuten balioa eskuratze-kostuan) – bestela, 0 eskuratze-kostua litzateke irakurketa zuhurra.</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">Erregistratutako preziorik gabeko merkatu-balioak (komisioak, dohaintzak/ordainketak, trukeak, sariak, sareko komisioak, zorroaren balioa) eragiketa-eguneko eguneko itxieran (UTC)</string>
+</resources>

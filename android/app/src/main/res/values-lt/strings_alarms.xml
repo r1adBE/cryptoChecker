@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">Nustatyti įspėjimą</string>
+    <string name="alarms_add">Naujas įspėjimas</string>
+    <string name="alarms_edit">Redaguoti įspėjimą</string>
+    <string name="alarms_empty">Šiai porai įspėjimų dar nėra.</string>
+    <string name="alarms_empty_example">Pavyzdžiui: pranešk, kai BTC pakils virš %1$s.</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">Pranešimai išjungti – įspėjimai tavęs nepasieks.</string>
+    <string name="alarms_notifications_turn_on">Įjungti</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">%1$d aktyvus</item>
+        <item quantity="few">%1$d aktyvūs</item>
+        <item quantity="many">%1$d aktyvaus</item>
+        <item quantity="other">%1$d aktyvių</item>
+    </plurals>
+    <string name="alarms_overview_empty">Įspėjimų dar nėra. Atidaryk porą ir pridėk įspėjimą skiltyje „Įspėjimai“.</string>
+    <string name="alarms_overview_title">Visi įspėjimai</string>
+    <string name="alarms_title">Įspėjimai</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">Išplėstiniai</string>
+    <string name="alarm_change_updates">Keisti kainų atnaujinimą</string>
+    <string name="alarm_create">Sukurti įspėjimą</string>
+    <string name="alarm_currency_label">Valiuta</string>
+    <string name="alarm_delete_confirm">Šis įspėjimas bus pašalintas.</string>
+    <string name="alarm_delete_title">Ištrinti įspėjimą?</string>
+    <string name="alarm_field_percent">Procentai</string>
+    <string name="alarm_field_price">Kaina</string>
+    <string name="alarm_fires_now_above">Kaina jau viršija %1$s. Vis tiek išsaugoti?</string>
+    <string name="alarm_fires_now_below">Kaina jau žemesnė nei %1$s. Vis tiek išsaugoti?</string>
+    <string name="alarm_fires_now_change">Keisti</string>
+    <string name="alarm_fires_now_save">Vis tiek išsaugoti</string>
+    <string name="alarm_fires_now_title">Įspėjimas suveiktų iš karto</string>
+    <string name="alarm_first_battery_hint">Akumuliatoriaus optimizavimas riboja programėlę – įspėjimai gali vėluoti.</string>
+    <string name="alarm_first_title">Įspėjimas išsaugotas</string>
+    <string name="alarm_last_triggered">paskutinį kartą %1$s</string>
+    <string name="alarm_more_conditions">Daugiau sąlygų</string>
+    <string name="alarm_new_extreme">Naujas %1$s</string>
+    <string name="alarm_once">Vieną kartą</string>
+    <string name="alarm_option_repeating">Pranešti</string>
+    <string name="alarm_option_sound">Garsas</string>
+    <string name="alarm_option_speak">Perskaityti įspėjimą balsu</string>
+    <string name="alarm_option_vibrate">Vibracija</string>
+    <string name="alarm_repeat_each">Kiekvieną kartą</string>
+    <string name="alarm_repeat_once">Vieną kartą</string>
+    <string name="alarm_repeating">Kiekvieną kartą</string>
+    <string name="alarm_threshold_error_empty">Įvesk reikšmę, kad išsaugotum įspėjimą.</string>
+    <string name="alarm_threshold_error_funding">Finansavimo norma turi būti skaičius nuo −10 iki +10 procentų.</string>
+    <string name="alarm_threshold_error_invalid">Įvesk tinkamą skaičių, didesnį už 0.</string>
+    <string name="alarm_threshold_error_oi">Atvirųjų pozicijų pokytis: daugiausia 1000 procentų.</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">per %1$d val.</item>
+        <item quantity="few">per %1$d val.</item>
+        <item quantity="many">per %1$d val.</item>
+        <item quantity="other">per %1$d val.</item>
+    </plurals>
+    <string name="alarm_window_label">Laiko langas</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">pakyla virš</string>
+    <string name="alarm_simple_below">nukrenta žemiau</string>
+    <string name="alarm_simple_end"></string>
+    <string name="alarm_simple_when">Kai %1$s</string>
+    <string name="alarm_template_a11y">Sukurti įspėjimą: %1$s</string>
+    <string name="alarm_template_a11y_down">Sukurti įspėjimą ties minus %1$s procentų nuo dabartinės kainos</string>
+    <string name="alarm_template_a11y_up">Sukurti įspėjimą ties plius %1$s procentų nuo dabartinės kainos</string>
+    <string name="alarm_template_from_now">nuo dabar</string>
+    <string name="alarm_template_volume">Apimtis ×%1$s</string>
+    <string name="alarm_templates_title">Greiti įspėjimai</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">Kaina virš</string>
+    <string name="alarm_condition_below">Kaina žemiau</string>
+    <string name="alarm_condition_down_percent">Nukrenta</string>
+    <string name="alarm_condition_funding_above">Finansavimo norma virš</string>
+    <string name="alarm_condition_funding_below">Finansavimo norma žemiau</string>
+    <string name="alarm_condition_move_percent">Pasikeičia</string>
+    <string name="alarm_condition_near_high">Arti maksimumo</string>
+    <string name="alarm_condition_near_low">Arti minimumo</string>
+    <string name="alarm_condition_oi_down">Atvirosios pozicijos mažėja</string>
+    <string name="alarm_condition_oi_up">Atvirosios pozicijos didėja</string>
+    <string name="alarm_condition_up_percent">Pakyla</string>
+    <string name="alarm_condition_volume_spike">Apimties šuolis</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">Pranešk, kai %1$s pakils virš %2$s.</string>
+    <string name="alarm_sentence_below">Pranešk, kai %1$s nukris žemiau %2$s.</string>
+    <string name="alarm_sentence_down_percent">Pranešk, kai %1$s nukris %2$s žemiau kainos išsaugojimo metu (arba paskutinio įspėjimo metu).</string>
+    <string name="alarm_sentence_funding_above">Pranešk, kai %1$s finansavimo norma pakils virš %2$s.</string>
+    <string name="alarm_sentence_funding_below">Pranešk, kai %1$s finansavimo norma nukris žemiau %2$s.</string>
+    <string name="alarm_sentence_incomplete">Įvesk reikšmę, ir įspėjimas čia bus parodytas sakiniu.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">Pranešk, kai %1$s per %3$d valandą pasikeis %2$s.</item>
+        <item quantity="few">Pranešk, kai %1$s per %3$d valandas pasikeis %2$s.</item>
+        <item quantity="many">Pranešk, kai %1$s per %3$d valandos pasikeis %2$s.</item>
+        <item quantity="other">Pranešk, kai %1$s per %3$d valandų pasikeis %2$s.</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">Pranešk, kai %1$s bus ne daugiau kaip %2$s žemiau nei %3$s.</string>
+    <string name="alarm_sentence_near_low">Pranešk, kai %1$s bus ne daugiau kaip %2$s aukščiau nei %3$s.</string>
+    <string name="alarm_sentence_new_extreme">Pranešk, kai bus naujas %1$s %2$s.</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">Pranešk, kai %1$s atvirosios pozicijos per %3$d valandą sumažės %2$s.</item>
+        <item quantity="few">Pranešk, kai %1$s atvirosios pozicijos per %3$d valandas sumažės %2$s.</item>
+        <item quantity="many">Pranešk, kai %1$s atvirosios pozicijos per %3$d valandos sumažės %2$s.</item>
+        <item quantity="other">Pranešk, kai %1$s atvirosios pozicijos per %3$d valandų sumažės %2$s.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">Pranešk, kai %1$s atvirosios pozicijos per %3$d valandą padidės %2$s.</item>
+        <item quantity="few">Pranešk, kai %1$s atvirosios pozicijos per %3$d valandas padidės %2$s.</item>
+        <item quantity="many">Pranešk, kai %1$s atvirosios pozicijos per %3$d valandos padidės %2$s.</item>
+        <item quantity="other">Pranešk, kai %1$s atvirosios pozicijos per %3$d valandų padidės %2$s.</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">Pranešk, kai %1$s pakils %2$s virš kainos išsaugojimo metu (arba paskutinio įspėjimo metu).</string>
+    <string name="alarm_sentence_volume">Pranešk, kai %1$s prekybos apimtis bus %2$s× didesnė nei įprastai.</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">30 dienų maksimumas</string>
+    <string name="alarm_near_extreme_high_365">metų maksimumas</string>
+    <string name="alarm_near_extreme_high_90">90 dienų maksimumas</string>
+    <string name="alarm_near_extreme_low_30">30 dienų minimumas</string>
+    <string name="alarm_near_extreme_low_365">metų minimumas</string>
+    <string name="alarm_near_extreme_low_90">90 dienų minimumas</string>
+    <string name="alarm_near_field_distance">Atstumas</string>
+    <string name="alarm_near_hint">Taip pat praneša, kai pasiekiamas naujas maksimumas ar minimumas. Remiamasi dienos žvakėmis, atnaujinama kas 6 valandas.</string>
+    <string name="alarm_near_new_only">Tik nauji maksimumai ar minimumai</string>
+    <string name="alarm_near_notification_high">%1$s yra %2$s žemiau nei %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s yra %2$s aukščiau nei %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">Naujas %1$s – %2$s: %3$s (ankstesnis %4$s)</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d diena</item>
+        <item quantity="few">%1$d dienos</item>
+        <item quantity="many">%1$d dienos</item>
+        <item quantity="other">%1$d dienų</item>
+    </plurals>
+    <string name="alarm_near_window_label">Laikotarpis</string>
+    <string name="alarm_near_window_year">1 metai</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">Finansavimo norma per 8 valandas. Kito intervalo kontraktai perskaičiuojami (1 val. × 8, 4 val. × 2); ateities sandorių kortelėje rodoma perskaičiuota vertė. Jei intervalas nežinomas, įspėjimas netikrina. Neigiama reiškia, kad trumposios pozicijos moka ilgosioms. ± keičia ženklą.</string>
+    <string name="alarm_funding_sign_a11y">Keisti ženklą</string>
+    <string name="alarm_oi_hint">Lygina atvirąsias pozicijas su verte, išsaugota prieš tiek valandų. Naujas įspėjimas praneša tik tada, kai programėlė surenka tiek laiko duomenų; tikrinama ne dažniau kaip kas 5 minutes.</string>
+    <string name="alarm_volume_factor_label">Paskutinės valandos apimtis, palyginti su įprasta</string>
+    <string name="alarm_volume_hint">Apimties duomenys gaunami iš Binance – ten neįtrauktos poros niekada nesuveikia.</string>
+    <string name="alarm_volume_zero_hours_hint">Valandos be sandorių skaičiuojamos kaip nulinė apimtis, todėl retai prekiaujamose porose įprasta valanda gali atrodyti neįprastai.</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">Įspėjimas aktyvus</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">Įspėjimas išsaugotas: %1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">Pranešimai išjungti</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">Be „%1$s“ Android, kai įrenginys ramybės būsenoje, tikrina nereguliariai – kartais tik po kelių valandų. Su juo – maždaug kas 15 minučių.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Kai programėlė uždaryta, iOS dažnai tikrina rečiau nei kas 15 minučių, kartais tik kitą kartą atidarius programėlę. Trumpi šuoliai gali būti praleisti.</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">Kada tikrinami įspėjimai</string>
+    <string name="alarm_timing_where">Kaip dažnai atnaujinamos kainos, keisk skiltyje %1$s.</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">Tyliai (tik pranešimas)</string>
+    <string name="alarm_signal_sound">Tik garsas</string>
+    <string name="alarm_signal_sound_vibrate">Garsas ir vibracija</string>
+    <string name="alarm_signal_system">Sistemos</string>
+    <string name="alarm_signal_vibrate">Tik vibracija</string>
+    <string name="alarm_test">Išbandyti įspėjimą</string>
+    <string name="alarm_test_action">Išbandyti</string>
+    <string name="alarm_test_denied">Crypto Checker pranešimai išjungti.</string>
+    <string name="alarm_test_hint">Išsiunčia pavyzdinį įspėjimą su tavo garso, vibracijos ir balso nustatymais.</string>
+    <string name="alarm_test_open_settings">Atidaryti nustatymus</string>
+    <string name="alarm_test_quiet">Dabar tylos laikas: tikri įspėjimai palauktų jo pabaigos ir tada suskambėtų.</string>
+    <string name="alarm_test_text">Taip įspėjimas atrodo ir skamba.</string>
+    <string name="alarm_test_title">Bandymas: Crypto Checker įspėjimas</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">Garsas įjungtas</string>
+    <string name="alarm_a11y_speak_on">Balsas įjungtas</string>
+    <string name="alarm_unchecked_no_candles">Nepavyko patikrinti (nėra žvakių duomenų)</string>
+    <string name="alarm_unchecked_no_rate">Nepavyko patikrinti (nėra valiutos kurso)</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">Pranešimai išjungti – šis įspėjimas tavęs nepasieks</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">Įspėjimo nėra – mažas likvidumas</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">Laukiama dabartinės kainos</string>
+    <string name="alarm_enter_amount">Įvesk reikšmę</string>
+    <string name="alarm_editor_more">Daugiau</string>
+    <string name="alarm_editor_more_summary">Greiti įspėjimai, kitos sąlygos, garsas ir balsas</string>
+    <string name="alarm_reliability_storage_no_key">Įspėjimai fone pristabdyti – stebimų sąrašas neišsaugotas</string>
+    <string name="alarms_limit_reached">Porai galima nustatyti daugiausia %1$s įspėjimų.</string>
+    <string name="alarms_reference_rate_hint">ECB orientaciniai kursai nustatomi tik kartą per dieną – jiems įspėjimų nėra.</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">Kritimas turi būti mažesnis nei 100 procentų.</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">Netinkama riba – pakoreguok</string>
+
+    <string name="alarm_last_checked">Paskutinį kartą tikrinta %1$s</string>
+</resources>

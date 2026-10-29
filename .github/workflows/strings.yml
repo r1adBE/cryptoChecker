@@ -1,4 +1,4 @@
-# Checks the translations: Android string resources (33 languages, placeholders,
+# Checks the translations: Android string resources (75 languages, placeholders,
 # plural forms, references in the code) and the iOS string catalog generated from them.
 name: Strings
 
@@ -13,6 +13,8 @@ on:
       - 'android/*/src/main/res/**'
       - 'android/**/*.kt'
       - 'ios/tools/**'
+      # Serbian Latin is generated from values-sr (check_strings.py runs it with --check)
+      - 'android/tools/sr_latn.py'
       - 'ios/Shared/Resources/*.xcstrings'
       - 'ios/**/*.swift'
       - '.github/scripts/check_strings.py'
@@ -43,6 +45,11 @@ jobs:
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: '3.12'
+
+      - name: Serbian Latin transliteration (self-test)
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: python3 -I android/tools/sr_latn.py --self-test
 
       - name: Check strings
         env:

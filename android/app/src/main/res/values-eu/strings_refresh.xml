@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">datu eta bateria gehiago behar ditu</string>
+    <string name="update_mode_live">Zuzenean irekita dagoen bitartean</string>
+    <string name="update_mode_live_hint">Burtsak zuzeneko prezioa ematen duenean: berehala zerrenda irekita dagoen bitartean. Bestela, hurrengo kontsultan. Itxita: ez %1$s baino maizago, askotan geroago.</string>
+    <string name="update_mode_live_hint_ios">Burtsak zuzeneko prezioa ematen duenean: berehala zerrenda irekita dagoen bitartean. Bestela, hurrengo kontsultan. Itxita: iOS-ek baimentzen duenean, batzuetan ordu batzuen tartearekin. Aplikazioa irristatuz ixten baduzu, iOS-ek egiaztapen horiek geldiarazten ditu berriro ireki arte.</string>
+    <string name="update_mode_recommended">gomendatua</string>
+    <string name="update_mode_sparsam">Aurrezlea</string>
+    <string name="update_mode_sparsam_hint">Aplikazioa itxita dagoela, ez %1$s baino maizago, askotan geroago (alarmak, widgetak). Irekita: irekitzen duzun bakoitzean.</string>
+    <string name="update_mode_sparsam_hint_ios">Aplikazioa itxita dagoela, iOS-ek erabakitzen du noiz egiaztatu (alarmak, widgetak), batzuetan ordu batzuen tartearekin. Irekita: irekitzen duzun bakoitzean.</string>
+    <string name="update_mode_title">Eguneratze-maiztasuna</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">Eguneratzea eten da</string>
+    <string name="refresh_sheet_alarms">Alarmak</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d-ek jo du</item>
+        <item quantity="other">%1$d-ek jo dute</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">Dena eguneratuta</string>
+    <string name="refresh_sheet_app_start">Aplikazioaren abiaraztea</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">eskaera bateratua %1$s · %2$d prezio</item>
+        <item quantity="other">eskaera bateratua %1$s · %2$d prezio</item>
+    </plurals>
+    <string name="refresh_sheet_database">Datu-basea</string>
+    <string name="refresh_sheet_exchange_unreachable">%1$s ez dago eskuragarri</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
+        <item quantity="one">%1$d burtsa ez dago eskuragarri</item>
+        <item quantity="other">%1$d burtsa ez daude eskuragarri</item>
+    </plurals>
+    <string name="refresh_sheet_network">Sarea</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d prezio-jakinarazpen</item>
+        <item quantity="other">%1$d prezio-jakinarazpen</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d pare</item>
+        <item quantity="other">%1$d pare</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d pare eguneratu gabe</item>
+        <item quantity="other">%1$d pare eguneratu gabe</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d / %1$d pare</item>
+        <item quantity="other">%2$d / %1$d pare</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">pausatuta ordu honetara arte: %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">pausatuta ordu honetara arte: %1$s (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">daturik ez</string>
+    <string name="refresh_sheet_reason_offline">konexiorik ez</string>
+    <string name="refresh_sheet_reason_rate_limit">eskaera gehiegi</string>
+    <string name="refresh_sheet_reason_server">zerbitzariaren errorea</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">denbora-muga gainditua</string>
+    <string name="refresh_sheet_reason_unavailable">burtsa ez dago erabilgarri</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s segundo</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_exchanges">Burtsak</string>
+    <string name="refresh_sheet_section_steps">Xehakapena</string>
+    <string name="refresh_sheet_status_failed">eguneratu gabe</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">dena eguneratuta</string>
+    <string name="refresh_sheet_status_partial">partzialki eguneratuta</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Hasteko zain</string>
+    <string name="refresh_sheet_widgets">Widgetak</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">eskaera bateratua %1$s (huts egin du)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d errore</item>
+        <item quantity="other">%1$d errore</item>
+    </plurals>
+    <string name="refresh_report_live">Zuzenean: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d ez da negoziatzen jada</item>
+        <item quantity="other">%1$d ez dira negoziatzen jada</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d banaka</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">Huts egin du</string>
+    <string name="check_result_ok">Ondo</string>
+    <string name="check_result_partial">Partziala</string>
+    <string name="check_result_skipped">Saltatua</string>
+    <string name="check_trigger_bgtask">Atzeko planoa</string>
+    <string name="check_trigger_exact">Garaiz</string>
+    <string name="check_trigger_foreground">Aplikazioa</string>
+    <string name="check_trigger_widget">Widgeta</string>
+    <string name="check_trigger_widget_ios">Widgeta · prezioak eta prezio-alarmak</string>
+    <string name="check_trigger_worker">Atzeko planoa</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android-ek egiaztapenak atzera ditzake – ezarri bateria «Murrizketarik gabe» aukeran</string>
+    <string name="battery_later">Geroago</string>
+    <string name="battery_message">Android-ek atzeko planoko lana atzeratzen du energia aurrezteko — orduan, prezioek eta widgetek ordu batzuk izan ditzakete. Bateriaren erabilera murrizketarik gabe ezartzen baduzu, eguneratuta mantentzen dira. Edonoiz alda dezakezu Android-en ezarpenetan.</string>
+    <string name="battery_open_settings">Ireki bateriaren ezarpenak</string>
+    <string name="battery_steps">Aplikazioaren informazioan, sakatu Bateria (edo Aplikazioaren bateria-erabilera) eta aukeratu Murrizketarik gabe.</string>
+    <string name="battery_title">Mantendu prezioak eguneratuta</string>
+    <string name="ios_background_refresh_off">Atzeko planoko eguneratzea desaktibatuta dago aplikazio honetarako. Hori gabe, alarmak aplikazioa irekita dagoen bitartean bakarrik egiaztatzen dira.</string>
+    <string name="ios_low_power_mode">Kontsumo txikiko modua aktibatuta dago. iOS-ek gutxitan egiaztatzen du atzeko planoan; beraz, alarmak berandu irits daitezke.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Burtsaren mezua: %1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">Biltegia blokeatuta dago oraindik – berriro saiatuko da %1$d s barru</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="one">Biltegia blokeatuta dago oraindik – berriro saiatuko da segundo %1$d barru</item>
+        <item quantity="other">Biltegia blokeatuta dago oraindik – berriro saiatuko da %1$d segundo barru</item>
+    </plurals>
+    <string name="watchlist_retry_short">Berriro saiatuko da %1$s barru</string>
+    <string name="widget_retry_at">Berriro saiatuko da ordu honetan: %1$s</string>
+    <string name="refresh_sheet_wait_attempt">%1$d. saiakera – biltegi zifratua ez zegoen prest lehenengoan</string>
+</resources>

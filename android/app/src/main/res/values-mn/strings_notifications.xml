@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">Анхаарал татах: %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — одоо %2$s</string>
+    <string name="notification_alarm_title">Дохио: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">Биржийг нээх</string>
+    <string name="notification_depeg_text">Апп доторх утгууд энэ зах зээлийн ханшийг ашигладаг.</string>
+    <string name="notification_depeg_title">USDT %1$s USD (%2$s)</string>
+    <string name="notification_fng_above">Индекс %1$d-ээс дээш гарлаа – энэ хэмжүүрээр зах зээлийн сэтгэл хандлага шуналтай байна.</string>
+    <string name="notification_fng_below">Индекс %1$d-ээс доош орлоо – энэ хэмжүүрээр зах зээлийн сэтгэл хандлага айдастай байна.</string>
+    <string name="notification_fng_title">Сэтгэл хандлагын индекс (Fear &amp; Greed): %1$d</string>
+    <string name="notification_gas_btc_text">Таны %1$s sat/vB хязгаараас доош · Шилжүүлэг ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin шимтгэл: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">Таны %1$s gwei хязгаараас доош · Шилжүүлэг ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Ethereum газ: %1$s gwei</string>
+    <string name="notification_indicator_above">Таны %1$s хязгаараас дээш – хэмжсэн утга, зөвлөмж биш.</string>
+    <string name="notification_indicator_below">Таны %1$s хязгаараас доош – хэмжсэн утга, зөвлөмж биш.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">Өнөөдрийн эдийн засгийн мэдээлэл</string>
+    <string name="notification_permission_preprompt_continue">Үргэлжлүүлэх</string>
+    <string name="notification_permission_preprompt_later">Дараа</string>
+    <string name="notification_permission_preprompt_text">Дохио болон ханшийн мэдэгдэл танд хүрэхийн тулд апп мэдэгдэл илгээх зөвшөөрөл хэрэгтэй. Апп үүнийг зөвхөн таны дохио болон ханшийн мэдэгдэлд ашиглана.</string>
+    <string name="notification_permission_preprompt_title">Мэдэгдлийг зөвшөөрөх үү?</string>
+    <string name="notification_portfolio_alarm_locked">Таны дохио ажиллалаа – дэлгэрэнгүйг харахын тулд аппыг нээнэ үү.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – одоо %2$s</string>
+    <string name="notification_portfolio_alarm_title">Багцын үнэ цэнэ</string>
+    <string name="notification_price_change">%1$s, %2$s-аас (%3$s-ын өмнө)</string>
+    <string name="notification_price_change_no_age">%1$s, %2$s-аас</string>
+    <string name="notification_price_first">Энэ хосын анхны ханшийн мэдэгдэл</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+ өөр %1$d ханш</item>
+        <item quantity="other">+ өөр %1$d ханш</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">Ханш шинэчилж байна…</string>
+    <string name="notification_volume_spike_text">Сүүлийн цагт хэмжээ ердийнхөөс %1$s×</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">Дохио</string>
+    <string name="channel_alarms_description">Дохио ажиллах үеийн мэдэгдэл.</string>
+    <string name="channel_alarms_quiet">Дохио (чимээгүй цаг)</string>
+    <string name="channel_alarms_quiet_description">Чимээгүй цагийн дуугүй дохио.</string>
+    <string name="channel_alarms_silent">Дохио (дуугүй)</string>
+    <string name="channel_alarms_sound">Дохио (зөвхөн дуу)</string>
+    <string name="channel_alarms_sound_vibrate">Дохио (дуу ба чичиргээ)</string>
+    <string name="channel_alarms_vibrate">Дохио (зөвхөн чичиргээ)</string>
+    <string name="channel_prices">Ханшийн мэдэгдэл</string>
+    <string name="channel_prices_description">Хосын одоогийн ханштай дуугүй ханшийн мэдэгдэл.</string>
+    <string name="channel_service">Ханшийн шинэчлэл</string>
+    <string name="channel_service_description">Ханш шинэчлэгдэж байх үеийн мэдэгдэл.</string>
+    <string name="neutral_channel_market">Зах зээлийн дохио</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, газын шимтгэл, «Анхаарал татах» болон эдийн засгийн огноо</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">Дохио. %1$s, %2$s %3$s %4$s, одоо %5$s</string>
+    <string name="tts_direction_down">буурсан</string>
+    <string name="tts_direction_funding_above">өндөр фандингтай</string>
+    <string name="tts_direction_funding_below">бага фандингтай</string>
+    <string name="tts_direction_move">хүчтэй хөдөлж байна</string>
+    <string name="tts_direction_near_high">оргилдоо ойр байна</string>
+    <string name="tts_direction_near_low">ёроолдоо ойр байна</string>
+    <string name="tts_direction_oi_down">нээлттэй позиц буурч байхад</string>
+    <string name="tts_direction_oi_up">нээлттэй позиц өсөж байхад</string>
+    <string name="tts_direction_up">өссөн</string>
+    <string name="tts_direction_volume_spike">хэмжээ огцом өсөхөд</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+
+    <!-- Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+    <string name="notification_alarm_action_snooze">1 цагийн дараа</string>
+    <string name="notification_alarm_action_edit">Тохируулах</string>
+</resources>

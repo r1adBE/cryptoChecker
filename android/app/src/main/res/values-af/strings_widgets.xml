@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">Agtergrond</string>
+    <string name="widget_configure_hint">Kies agtergrond en ondeursigtigheid. Die kleur volg die app. Die legstuk wys jou hele volglys; tik op \'n ry om die app oop te maak.</string>
+    <string name="widget_configure_title">Stel legstuk op</string>
+    <string name="widget_description">Wys die prys van \'n paar uit jou volglys.</string>
+    <string name="widget_empty">Nog geen pare in die volglys nie.</string>
+    <string name="widget_group_hint">Wys net die pare van hierdie groep.</string>
+    <string name="widget_kind_single">Enkelmunt</string>
+    <string name="widget_opacity">Agtergrond-ondeursigtigheid: %1$s</string>
+    <string name="widget_pulse_description">Wat nou in die mark opval: opskrif, kort opsomming en Bitcoin, Ethereum en Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">verouderd</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">verouderd · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">Kerse</string>
+    <string name="widget_chart_line">Lyn</string>
+    <string name="widget_chart_range">Grafiekreeks</string>
+    <string name="widget_chart_type">Grafiektipe</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 jaar</string>
+    <string name="widget_range_24h">24h</string>
+    <string name="widget_range_30d">30 dae</string>
+    <string name="widget_range_7d">7 dae</string>
+    <string name="widget_range_short_1y">1J</string>
+    <string name="widget_range_short_24h">24h</string>
+    <string name="widget_range_short_30d">30D</string>
+    <string name="widget_range_short_7d">7D</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">Soos op %1$s</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">Geskiedenis kom binnekort</string>
+    <string name="widget_portfolio_description">Totale waarde van jou portefeulje en vandag se verandering</string>
+    <string name="widget_portfolio_entries">Boekings onder die munte</string>
+    <string name="widget_portfolio_entries_both">Albei</string>
+    <string name="widget_portfolio_entries_buys">Aankope</string>
+    <string name="widget_portfolio_entries_hint">Word net gewys as daar plek onder die munte is. Aankope sluit deposito\'s in, verkope sluit onttrekkings in; met “Albei” tel die reëls op tot die besit.</string>
+    <string name="widget_portfolio_entries_off">Af</string>
+    <string name="widget_portfolio_entries_sells">Verkope</string>
+    <string name="widget_portfolio_display">Vertoning</string>
+    <string name="widget_portfolio_display_conversion">Slegs omskakeling</string>
+    <string name="widget_portfolio_display_conversion_usdt">Omskakeling + USDT</string>
+    <string name="widget_portfolio_display_hint">Die USDT-reël word versteek wanneer die omskakelingsgeldeenheid \'n USD-stablecoin is (bv. USDC).</string>
+    <string name="widget_portfolio_display_usdt">Slegs USDT</string>
+    <string name="widget_portfolio_empty">Voeg aankope by in die Portefeulje-oortjie</string>
+    <string name="widget_portfolio_list_hint">Open die app om jou posisies hier te wys.</string>
+    <string name="widget_portfolio_locked_hint">Gesluit – ontsluit in die app</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="one">sonder %1$d munt</item>
+        <item quantity="other">sonder %1$d munte</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ nog %1$d</item>
+        <item quantity="other">+ nog %1$d</item>
+    </plurals>
+    <string name="widget_portfolio_name">Portefeulje</string>
+    <string name="widget_portfolio_off_hint">Skakel dit aan in %1$s.</string>
+    <string name="widget_portfolio_off_short">Portefeulje af</string>
+    <string name="widget_portfolio_off_title">Portefeulje is af</string>
+    <string name="widget_portfolio_partly_stale">sommige pryse verouderd</string>
+    <string name="widget_portfolio_period">Tydperk</string>
+    <string name="widget_portfolio_period_without">%1$s sonder %2$s</string>
+    <string name="widget_portfolio_range_48h">48h</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: open Portefeulje</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="widget_portfolio_today_without">Vandag sonder %1$s</string>
+    <string name="widget_portfolio_view">Aansig</string>
+    <string name="widget_portfolio_view_chart">Grafiek</string>
+    <string name="widget_portfolio_view_list">Lys</string>
+    <string name="widget_portfolio_view_overview">Oorsig</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">Kies \'n paar</string>
+    <string name="single_widget_description">Wys een munt groot met prys, verandering en \'n 24-uur-grafiek.</string>
+    <string name="single_widget_label">Crypto Checker – enkelmunt</string>
+    <string name="single_widget_title">Stel enkellegstuk op</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">Voeg by</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">Voeg legstuk %1$s by</string>
+    <string name="widgets_manual_text">Jou tuisskerm kan nie legstukke uit die app byvoeg nie. Raak en hou \'n leë plek op die tuisskerm, kies “Legstukke” en soek “Crypto Checker”.</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">Voeg die legstuk self by</string>
+    <string name="widgets_sheet_title">Voeg \'n legstuk by</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS laat nie apps toe om self legstukke by te voeg nie. Dit neem net \'n oomblik:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Beskikbare legstukke</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Raak en hou \'n leë plek op die Home Screen totdat die apps wikkel.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Tik bo op “Edit” › “Add Widget” (of “+” op ouer iOS-weergawes).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Soek “Crypto Checker”, kies \'n legstuk en tik op “Add Widget”.</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">Herlaai – weer moontlik oor %1$d s</string>
+    <string name="settings_watch">Horlosie</string>
+    <string name="settings_watch_hint">Munte vir die horlosie-app op Wear OS (tot %1$d, geprys teen USDT). Slegs hierdie lys gaan na die horlosie, via Google Play services; die horlosie haal self pryse.</string>
+    <string name="settings_watch_mode_phone">Soos foon (gunstelinge ★)</string>
+    <string name="settings_watch_mode_own">Eie lys</string>
+    <string name="settings_watch_own_title">Eie lys: %1$d van %2$d</string>
+    <string name="settings_watch_none">Nog geen gunstelinge nie</string>
+
+    <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
+    <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">Geen USDT-reël in “Lys” nie</string>
+    <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
+    <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">“Oorsig” wys eerder 30 dae</string>
+</resources>

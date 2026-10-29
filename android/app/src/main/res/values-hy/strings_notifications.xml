@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">Ուշագրավ՝ %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — հիմա %2$s</string>
+    <string name="notification_alarm_title">Ահազանգ՝ %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">Բացել բորսան</string>
+    <string name="notification_depeg_text">Հավելվածի արժեքներն օգտագործում են այս շուկայական գինը։</string>
+    <string name="notification_depeg_title">USDT-ն %1$s USD է (%2$s)</string>
+    <string name="notification_fng_above">Ինդեքսը բարձրացավ %1$d-ից վեր – ըստ այս չափման՝ շուկայի տրամադրությունը ագահ է։</string>
+    <string name="notification_fng_below">Ինդեքսն իջավ %1$d-ից ցած – ըստ այս չափման՝ շուկայի տրամադրությունը վախեցած է։</string>
+    <string name="notification_fng_title">Տրամադրության ինդեքս (Fear &amp; Greed)՝ %1$d</string>
+    <string name="notification_gas_btc_text">Քո %1$s sat/vB սահմանից ցածր · Փոխանցում ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin-ի միջնորդավճար՝ %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">Քո %1$s gwei սահմանից ցածր · Փոխանցում ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Ethereum gas՝ %1$s gwei</string>
+    <string name="notification_indicator_above">Քո %1$s սահմանից բարձր – չափված արժեք, ոչ խորհուրդ։</string>
+    <string name="notification_indicator_below">Քո %1$s սահմանից ցածր – չափված արժեք, ոչ խորհուրդ։</string>
+    <string name="notification_indicator_title">%1$s՝ %2$s</string>
+    <string name="notification_macro_title">Այսօրվա տնտեսական տվյալները</string>
+    <string name="notification_permission_preprompt_continue">Շարունակել</string>
+    <string name="notification_permission_preprompt_later">Ավելի ուշ</string>
+    <string name="notification_permission_preprompt_text">Որպեսզի ահազանգերն ու գնի ծանուցումները հասնեն քեզ, հավելվածին անհրաժեշտ է ծանուցումներ ուղարկելու թույլտվություն։ Հավելվածն օգտագործում է դրանք միայն քո ահազանգերի և գնի ծանուցումների համար։</string>
+    <string name="notification_permission_preprompt_title">Թույլատրե՞լ ծանուցումները</string>
+    <string name="notification_portfolio_alarm_locked">Քո ահազանգը գործարկվեց – մանրամասների համար բացիր հավելվածը։</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – հիմա %2$s</string>
+    <string name="notification_portfolio_alarm_title">Պորտֆելի արժեքը</string>
+    <string name="notification_price_change">%1$s, %2$s-ից (%3$s առաջ)</string>
+    <string name="notification_price_change_no_age">%1$s, %2$s-ից</string>
+    <string name="notification_price_first">Այս զույգի առաջին գնի ծանուցումը</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+ևս %1$d գին</item>
+        <item quantity="other">+ևս %1$d գին</item>
+    </plurals>
+    <string name="notification_price_title">%1$s՝ %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">Գները թարմացվում են…</string>
+    <string name="notification_volume_spike_text">Վերջին ժամում ծավալը սովորականի %1$s×-ն է</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">Ահազանգեր</string>
+    <string name="channel_alarms_description">Ծանուցում, երբ ահազանգը գործարկվում է։</string>
+    <string name="channel_alarms_quiet">Ահազանգեր (լուռ ժամեր)</string>
+    <string name="channel_alarms_quiet_description">Անձայն ահազանգեր լուռ ժամերին։</string>
+    <string name="channel_alarms_silent">Ահազանգեր (անձայն)</string>
+    <string name="channel_alarms_sound">Ահազանգեր (միայն ձայն)</string>
+    <string name="channel_alarms_sound_vibrate">Ահազանգեր (ձայն և թրթռում)</string>
+    <string name="channel_alarms_vibrate">Ահազանգեր (միայն թրթռում)</string>
+    <string name="channel_prices">Գնի ծանուցումներ</string>
+    <string name="channel_prices_description">Անձայն գնի ծանուցում զույգի ընթացիկ գնով։</string>
+    <string name="channel_service">Գների թարմացում</string>
+    <string name="channel_service_description">Ծանուցում, մինչ գները թարմացվում են։</string>
+    <string name="neutral_channel_market">Շուկայի ահազանգեր</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, gas միջնորդավճարներ, «Ուշագրավ» և տնտեսական ամսաթվեր</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">Ահազանգ։ %1$s, %2$s %3$s %4$s, հիմա %5$s</string>
+    <string name="tts_direction_down">իջել է</string>
+    <string name="tts_direction_funding_above">բարձր ֆանդինգով</string>
+    <string name="tts_direction_funding_below">ցածր ֆանդինգով</string>
+    <string name="tts_direction_move">ուժեղ շարժվում է</string>
+    <string name="tts_direction_near_high">մոտ է իր առավելագույնին</string>
+    <string name="tts_direction_near_low">մոտ է իր նվազագույնին</string>
+    <string name="tts_direction_oi_down">նվազող բաց հետաքրքրությամբ</string>
+    <string name="tts_direction_oi_up">աճող բաց հետաքրքրությամբ</string>
+    <string name="tts_direction_up">բարձրացել է</string>
+    <string name="tts_direction_volume_spike">ծավալի ցատկով</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+
+    <!-- Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+    <string name="notification_alarm_action_snooze">1 ժ հետո</string>
+    <string name="notification_alarm_action_edit">Կարգավորել</string>
+</resources>

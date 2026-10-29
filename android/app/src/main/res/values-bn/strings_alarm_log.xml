@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Protokoll: Titel der Seite und Name des Knopfs in «Alle Alarme» -->
+    <string name="alarm_log_title">অ্যালার্ট লগ</string>
+    <!-- Link unter «Letzte Prüfungen» (Einstellungen › Aktualisierung) -->
+    <string name="alarm_log_open">অ্যালার্ট লগ দেখান</string>
+    <string name="alarm_log_intro">কখন কোনো অ্যালার্ট চালু হয়েছে – এবং কখন চালু হতো কিন্তু আটকে রাখা হয়েছে। শুধু এই ডিভাইসে, 14 দিনের জন্য সংরক্ষিত।</string>
+    <string name="alarm_log_empty_title">এখনো কোনো এন্ট্রি নেই</string>
+    <string name="alarm_log_empty_message">কোনো অ্যালার্ট চালু হলে বা আটকে রাখা হলে এখানে এন্ট্রি দেখা যায় – যেমন দাম পুরোনো হলে বা নীরব সময়ে।</string>
+    <string name="alarm_log_clear">লগ মুছুন</string>
+    <string name="alarm_log_clear_title">অ্যালার্ট লগ মুছবেন?</string>
+    <string name="alarm_log_clear_message">সব এন্ট্রি মুছে যাবে। আপনার অ্যালার্টগুলো যেমন আছে তেমনই থাকবে।</string>
+    <!-- Screenreader: Schwelle des Alarms, z. B. «Marke Über 100’000 CHF» -->
+    <string name="alarm_log_threshold">সীমা %1$s</string>
+    <!-- Alarm-Editor: letzte Prüfung, %1$s = «14:02 · Kraken 99’800 CHF · Marke nicht erreicht» -->
+    <string name="alarm_last_check">শেষ যাচাই: %1$s</string>
+    <!-- Ergebnisse einer Alarm-Prüfung (AlarmLogOutcome) -->
+    <string name="alarm_outcome_fired">চালু হয়েছে</string>
+    <string name="alarm_outcome_not_reached">সীমায় পৌঁছায়নি</string>
+    <string name="alarm_outcome_already_triggered">ইতিমধ্যে জানানো হয়েছে – দাম আবার অন্য দিকে না যাওয়া পর্যন্ত অপেক্ষা করে</string>
+    <string name="alarm_outcome_cooldown">চালু হয়নি – শেষ অ্যালার্টের পর বিরতির সময়</string>
+    <!-- %1$s = Zeit des Kurses laut Börse -->
+    <string name="alarm_outcome_stale">চালু হয়নি – দাম পুরোনো (%1$s অনুযায়ী)</string>
+    <string name="alarm_outcome_mark_price">চালু হয়নি – মার্ক প্রাইস, লেনদেন হওয়া দাম নয়</string>
+    <string name="alarm_outcome_low_liquidity">চালু হয়নি – লিকুইডিটি 10,000 USD-এর কম বা অজানা</string>
+    <string name="alarm_outcome_quiet_hours">চালু হয়নি – নীরব সময় (পরে তখনো শর্ত পূরণ হলে অ্যালার্ট দেবে)</string>
+    <string name="alarm_outcome_notifications_off">চালু হয়নি – নোটিফিকেশন বন্ধ</string>
+    <string name="alarm_outcome_not_shown">চালু হয়নি – নোটিফিকেশন পৌঁছায়নি, পরে আবার চেষ্টা হবে</string>
+    <string name="alarm_outcome_no_rate">যাচাই হয়নি – বিনিময় হার নেই</string>
+    <string name="alarm_outcome_no_price">দাম নেই – এক্সচেঞ্জ থেকে তথ্য আনা ব্যর্থ</string>
+
+    <string name="alarm_outcome_snoozed">আটকে রাখা – «1 ঘণ্টা পরে» এখনো চলছে</string>
+    <string name="alarm_log_source_app">অ্যাপে</string>
+    <string name="alarm_log_source_background">ব্যাকগ্রাউন্ডে</string>
+    <string name="alarm_log_source_exact">সময়মতো যাচাই</string>
+    <string name="alarm_log_source_widget">উইজেটের মাধ্যমে</string>
+    <string name="alarm_outcome_fx_stale">যাচাই হয়নি – বিনিময় হার 36 ঘণ্টার বেশি পুরোনো</string>
+    <string name="alarm_outcome_fx_unsure">যাচাই হয়নি – USDT রূপান্তর অনিশ্চিত (শুধু USDC হয়ে)</string>
+</resources>

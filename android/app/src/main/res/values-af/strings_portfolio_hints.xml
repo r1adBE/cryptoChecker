@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">Portefeuljealarms onderbreek: geen huidige prys vir %1$s nie</string>
+    <string name="portfolio_alarms_paused_price_generic">Portefeuljealarms onderbreek: nie elke munt het \'n huidige prys nie</string>
+    <string name="portfolio_alarms_paused_addresses">Portefeuljealarms onderbreek: saldo\'s van gevolgde adresse nog nie gelaai nie</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Portefeuljealarms onderbreek: tokensaldo\'s van %1$s deels verouderd</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Portefeuljealarms onderbreek: tokensaldo\'s van gevolgde adresse deels verouderd</string>
+    <string name="portfolio_alarms_paused_unverified">Portefeuljealarms onderbreek: prys onbevestig vir %1$s</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Portefeuljealarms onderbreek: prys van sommige munte onbevestig</string>
+    <string name="portfolio_alarms_address_failing">Portefeuljealarms kontroleer sonder %1$s: saldo al meer as 24 uur nie gelaai nie</string>
+    <string name="portfolio_alarms_address_failing_generic">Portefeuljealarms kontroleer sonder adresse waarvan die saldo al meer as 24 uur nie gelaai het nie</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">tokens deels verouderd</string>
+    <string name="portfolio_address_restore_failed">Adres kon nie herstel word nie – voeg dit weer by indien nodig</string>
+    <string name="portfolio_address_remove_failed">Adres kon nie verwyder word nie – probeer asseblief weer</string>
+</resources>

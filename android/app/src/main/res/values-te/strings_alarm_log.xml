@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Protokoll: Titel der Seite und Name des Knopfs in «Alle Alarme» -->
+    <string name="alarm_log_title">అలర్ట్‌ల లాగ్</string>
+    <!-- Link unter «Letzte Prüfungen» (Einstellungen › Aktualisierung) -->
+    <string name="alarm_log_open">అలర్ట్‌ల లాగ్‌ను చూపు</string>
+    <string name="alarm_log_intro">అలర్ట్ ఎప్పుడు ట్రిగ్గర్ అయింది – ఎప్పుడు ట్రిగ్గర్ కావాల్సి ఉండి ఆపివేయబడింది. ఈ పరికరంలో మాత్రమే, 14 రోజుల పాటు నిల్వ చేయబడుతుంది.</string>
+    <string name="alarm_log_empty_title">ఇంకా ఎంట్రీలు లేవు</string>
+    <string name="alarm_log_empty_message">అలర్ట్ ట్రిగ్గర్ అయినప్పుడు లేదా ఆపివేయబడినప్పుడు ఎంట్రీలు ఇక్కడ కనిపిస్తాయి – ఉదాహరణకు ధర పాతది కావడం వల్ల లేదా నిశ్శబ్ద సమయంలో.</string>
+    <string name="alarm_log_clear">లాగ్‌ను క్లియర్ చేయి</string>
+    <string name="alarm_log_clear_title">అలర్ట్‌ల లాగ్‌ను క్లియర్ చేయాలా?</string>
+    <string name="alarm_log_clear_message">అన్ని ఎంట్రీలు తీసివేయబడతాయి. మీ అలర్ట్‌లు అలాగే ఉంటాయి.</string>
+    <!-- Screenreader: Schwelle des Alarms, z. B. «Marke Über 100’000 CHF» -->
+    <string name="alarm_log_threshold">పరిమితి %1$s</string>
+    <!-- Alarm-Editor: letzte Prüfung, %1$s = «14:02 · Kraken 99’800 CHF · Marke nicht erreicht» -->
+    <string name="alarm_last_check">చివరిగా తనిఖీ చేసింది: %1$s</string>
+    <!-- Ergebnisse einer Alarm-Prüfung (AlarmLogOutcome) -->
+    <string name="alarm_outcome_fired">ట్రిగ్గర్ అయింది</string>
+    <string name="alarm_outcome_not_reached">పరిమితిని చేరలేదు</string>
+    <string name="alarm_outcome_already_triggered">ఇప్పటికే తెలియజేయబడింది – ధర మళ్లీ అవతలి వైపుకు వచ్చే వరకు వేచి ఉంటుంది</string>
+    <string name="alarm_outcome_cooldown">ట్రిగ్గర్ కాలేదు – చివరి అలర్ట్ తర్వాత విరామ సమయం</string>
+    <!-- %1$s = Zeit des Kurses laut Börse -->
+    <string name="alarm_outcome_stale">ట్రిగ్గర్ కాలేదు – ధర పాతది (%1$s నాటికి)</string>
+    <string name="alarm_outcome_mark_price">ట్రిగ్గర్ కాలేదు – మార్క్ ధర, ట్రేడ్ అయిన ధర కాదు</string>
+    <string name="alarm_outcome_low_liquidity">ట్రిగ్గర్ కాలేదు – లిక్విడిటీ 10,000 USD కంటే తక్కువ లేదా తెలియదు</string>
+    <string name="alarm_outcome_quiet_hours">ట్రిగ్గర్ కాలేదు – నిశ్శబ్ద సమయం (షరతు ఇంకా నెరవేరితే తర్వాత అలర్ట్ చేస్తుంది)</string>
+    <string name="alarm_outcome_notifications_off">ట్రిగ్గర్ కాలేదు – నోటిఫికేషన్‌లు ఆఫ్</string>
+    <string name="alarm_outcome_not_shown">ట్రిగ్గర్ కాలేదు – నోటిఫికేషన్ చేరలేదు, తర్వాత మళ్లీ ప్రయత్నిస్తుంది</string>
+    <string name="alarm_outcome_no_rate">తనిఖీ కాలేదు – మారకపు రేటు లేదు</string>
+    <string name="alarm_outcome_no_price">ధర లేదు – ఎక్స్ఛేంజ్ క్వెరీ విఫలమైంది</string>
+
+    <string name="alarm_outcome_snoozed">ఆపివేయబడింది – «1 గం తర్వాత» ఇంకా నడుస్తోంది</string>
+    <string name="alarm_log_source_app">యాప్‌లో</string>
+    <string name="alarm_log_source_background">బ్యాక్‌గ్రౌండ్‌లో</string>
+    <string name="alarm_log_source_exact">సమయానికి తనిఖీ</string>
+    <string name="alarm_log_source_widget">విడ్జెట్ ద్వారా</string>
+    <string name="alarm_outcome_fx_stale">తనిఖీ కాలేదు – మారకపు రేటు 36 గంటల కంటే పాతది</string>
+    <string name="alarm_outcome_fx_unsure">తనిఖీ కాలేదు – USDT మార్పిడి అనిశ్చితం (USDC ద్వారా మాత్రమే)</string>
+</resources>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="backup_device_bound">Құрылғыны ауыстырмас бұрын сақтық көшірме файлын жасаңыз – шифрланған деректерді тек осы құрылғыда ашуға болады.</string>
+    <string name="backup_encryption_pending">Шифрлау әлі белсенді емес – қолданба келесі іске қосылғанда қайталайды.</string>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">Экспорттау</string>
+    <string name="backup_exported">Сақтық көшірме сақталды.</string>
+    <string name="backup_failed">Бұл орындалмады. Бұл Crypto Checker сақтық көшірмесі ме?</string>
+    <string name="backup_hint">Бақылау тізімін ескертпелер мен топтарымен, ескертулерді, таңдаулыларды, портфельді және параметрлерді өзіңіз сақтайтын файл ретінде сақтайды – мысалы, жаңа телефон үшін.</string>
+    <string name="backup_import">Импорттау</string>
+    <string name="backup_title">Сақтық көшірме &amp; қалпына келтіру</string>
+    <string name="backup_too_large">Файл тым үлкен немесе жарамды сақтық көшірме емес (шегі 64 MB).</string>
+    <string name="backup_export_too_large">Сақтық көшірме 64 MB-тан үлкен болар еді және оны қалпына келтіру мүмкін болмас еді, сондықтан ол сақталмады.</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">Құпиясөз</string>
+    <string name="backup_password_continue">Жалғастыру</string>
+    <string name="backup_password_hide">Құпиясөзді жасыру</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">Кемінде %1$d таңба</string>
+    <string name="backup_password_mismatch">Құпиясөздер сәйкес келмейді</string>
+    <string name="backup_password_prompt">Осы сақтық көшірменің құпиясөзін енгізіңіз.</string>
+    <string name="backup_password_repeat">Құпиясөзді қайталаңыз</string>
+    <string name="backup_password_show">Құпиясөзді көрсету</string>
+    <string name="backup_password_title">Құпиясөзбен қорғалған сақтық көшірме</string>
+    <string name="backup_password_too_weak">Табу тым оңай – тек сандардан, бір қайталанған таңбадан немесе «12345678» не «password» сияқты кең тараған тізбектерден аулақ болыңыз.</string>
+    <string name="backup_password_warning">Құпиясөзсіз сақтық көшірмені қалпына келтіру мүмкін емес.</string>
+    <string name="backup_password_wrong">Құпиясөз қате немесе файл зақымдалған. Қайталап көріңіз.</string>
+    <string name="backup_protect">Құпиясөзбен қорғау</string>
+    <string name="backup_protect_hint">Файлды шифрлайды (AES-256). Портфель деректері болса, ұсынылады.</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">Құпиясөзсіз сақтау</string>
+    <string name="backup_plain_confirm_text">Файл шифрланбаған. Оны алған кез келген адам мыналарды оқи алады:</string>
+    <string name="backup_plain_confirm_title">Құпиясөзсіз сақтау керек пе?</string>
+    <string name="backup_plain_contents_addresses">Баланс тарихы мен құн негізі бар сақталған әмиян мекенжайлары мен xpub кілттері</string>
+    <string name="backup_plain_contents_base">Ескертпелері мен топтары бар бақылау тізімі, ескертулер, таңдаулылар және параметрлер</string>
+    <string name="backup_plain_contents_portfolio">Портфель: сомалары мен бағалары бар транзакциялар</string>
+    <string name="backup_restore_app_lock_kept">Портфель құлпы қосулы қалады – шифрланбаған сақтық көшірме оны өшіре алмайды.</string>
+    <string name="backup_restore_confirm">Импорттау ағымдағы бақылау тізімін (ескертпелері мен топтарымен), ескертулерді, таңдаулыларды, портфельді және параметрлерді сақтық көшірмедегімен ауыстырады.</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="one">Сақтық көшірмедегі %d жазба (портфель немесе ескерту) жарамсыз және импортталмайды.</item>
+        <item quantity="other">Сақтық көшірмедегі %d жазба (портфель немесе ескертулер) жарамсыз және импортталмайды.</item>
+    </plurals>
+    <string name="backup_restore_newer_version">Бұл сақтық көшірме қолданбаның жаңарақ нұсқасынан – алдымен қолданбаны жаңартыңыз. Ештеңе импортталмады.</string>
+    <string name="backup_restore_unencrypted_warning">Бұл сақтық көшірме шифрланбаған – оның сізден екенін тексеріңіз. Параметрлер қолданылады – қорғанысты төмендететін өзгерістерден басқа (Портфель құлпы, Мекенжайларға арналған жеке сервер, Сомаларды жасыру, Портфель жүйелік сақтық көшірмеде).</string>
+    <string name="backup_restored">Қалпына келтірілді: %1$s, %2$s.</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d ескерту</item>
+        <item quantity="other">%1$d ескерту</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d жұп</item>
+        <item quantity="other">%1$d жұп</item>
+    </plurals>
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen -->
+    <string name="backup_restore_over_limits">Шектен асатындар (%3$s жұп, бір жұпқа %4$s ескерту) қалпына келтірілмейді: %1$s, %2$s.</string>
+    <string name="backup_restored_over_limits">Шектен асатындар (%3$s жұп, бір жұпқа %4$s ескерту) қалпына келтірілмеді: %1$s, %2$s.</string>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren -->
+    <string name="storage_recovery_message">Бұл құрылғыда қолданбаның шифрланған деректерінің кілті енді жоқ, сондықтан қолданба бос іске қосылды. Ештеңе жойылған жоқ. Бақылау тізімі мен портфельді қайтару үшін Параметрлердегі «%1$s» бөлімінде сақтық көшірме файлын импорттаңыз.</string>
+    <string name="storage_recovery_title">Сақталған деректердің құлпын ашу мүмкін болмады</string>
+
+    <!-- Sicherung mit Passwort (Argon2id, 64 MiB): zu wenig Arbeitsspeicher -->
+    <string name="backup_not_enough_memory">Сақтық көшірмені құпиясөзбен қорғауға немесе ашуға бос жад жеткіліксіз. Басқа қолданбаларды жауып, қайталап көріңіз.</string>
+
+    <!-- Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">Сақтық көшірмені қалпына келтіру</string>
+    <string name="storage_recovery_acknowledge">Түсінікті</string>
+    <string name="storage_recovery_restored_title">Сақталған деректердің құлпы қайта ашылды</string>
+    <string name="storage_recovery_restored_message">Бұл құрылғыдағы бұрынғы кілт бөлек сақталған деректерді қайта ашты, сондықтан олар қайтарылды. Осы аралықта сақталған деректер олардың жанында өзгеріссіз қалды.</string>
+    <string name="settings_reset_notice_title">Параметрлер қалпына келтірілді</string>
+    <string name="settings_reset_notice">Параметрлеріңізді оқу мүмкін болмады, сондықтан олар әдепкі мәндерге қайтарылды. Портфель құлпын, ескерту аралығын және валютаны тексеріңіз.</string>
+    <string name="backup_restore_interrupted_title">Қалпына келтіру үзілді</string>
+    <string name="backup_restore_interrupted_rolled_back">Сақтық көшірмені қалпына келтіру кезінде қолданба жабылды. Бұрынғы деректеріңіз қайтарылды; сақтық көшірмеден ештеңе қалған жоқ.</string>
+    <string name="backup_restore_interrupted_incomplete">Сақтық көшірмені қалпына келтіру кезінде қолданба жабылды және бұрынғы деректерді толық қайтару мүмкін болмады. Бақылау тізімі мен портфельді тексеріңіз немесе Параметрлердегі «%1$s» бөлімінде сақтық көшірмені қайта қалпына келтіріңіз.</string>
+    <string name="backup_not_verified">Сақтық көшірме файлын сақтағаннан кейін тексеру мүмкін болмады – ол басқаша оқылады. Сақтық көшірмені жаңа файлға сақтаңыз.</string>
+
+    <!-- Hinweis (nur Android): Portfolio-Kopie aus der Systemsicherung auch beim zweiten Versuch unlesbar und gelöscht -->
+    <string name="system_backup_not_imported_title">Портфель жүйелік сақтық көшірмеден қалпына келтірілмеді</string>
+    <!-- %1$s = Name des Bereichs «Sichern &amp; Wiederherstellen» in den Einstellungen -->
+    <string name="system_backup_not_imported_message">Android жүйелік сақтық көшірмесіндегі портфель көшірмесін екінші әрекетте де оқу мүмкін болмады және ол жойылды. Сақтық көшірме файлыңыз болса, оны Параметрлердегі «%1$s» бөлімінде қалпына келтіріңіз.</string>
+
+    <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
+    <string name="portfolio_storage_kept_in_memory">Сақталған деректерді қазір оқу мүмкін емес, сондықтан портфель көрсетілмейді және оны өзгерту мүмкін емес. Қолданбаны қайта іске қосыңыз.</string>
+    <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
+    <string name="watchlist_storage_kept_in_memory">Сақталған деректерді қазір оқу мүмкін емес, сондықтан бақылау тізімі көрсетілмейді және оны өзгерту мүмкін емес. Қолданбаны қайта іске қосыңыз.</string>
+    <string name="watchlist_storage_locked">Бақылау тізімін өзгерту мүмкін емес: сақталған деректерді қазір оқу мүмкін емес. Қолданбаны қайта іске қосыңыз.</string>
+    <string name="alarm_save_storage_locked">Ескертулерді сақтау мүмкін емес: сақталған деректерді қазір оқу мүмкін емес. Қолданбаны қайта іске қосыңыз.</string>
+    <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
+    <string name="backup_storage_kept">Сақтық көшірме мүмкін емес: сақталған деректерді қазір оқу мүмкін емес. Қолданбаны қайта іске қосып, қайталап көріңіз.</string>
+    <string name="backup_restore_storage_in_memory">Импорттау қазір мүмкін емес: қолданба дәл қазір деректерді сақтамайды (шифрлау әлі белсенді емес), сондықтан импорт қайта іске қосқанда жоғалады. Қолданбаны қайта іске қосып, қайталап көріңіз.</string>
+    <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable) -->
+    <string name="backup_restore_journal_unavailable">Импорттау қазір мүмкін емес: ағымдағы деректеріңіздің қауіпсіздік көшірмесін сақтау мүмкін болмады (кілт қазір қолжетімсіз). Ештеңе өзгерген жоқ. Кейінірек қайталаңыз немесе қолданбаны қайта іске қосыңыз.</string>
+
+    <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
+    <string name="portfolio_storage_in_memory">Шифрлау әлі белсенді емес – портфель сақталмайды, қолданба жабылғанда өзгерістер жоғалады. Қолданба келесі іске қосылғанда қайталайды.</string>
+
+    <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
+    <string name="portfolio_storage_locked">Сақталған деректерді қазір оқу мүмкін емес, сондықтан өзгерту мүмкін емес. Қолданбаны қайта іске қосыңыз.</string>
+    <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
+    <string name="watchlist_storage_in_memory">Бұл құрылғы қазір кілт бермейді – бақылау тізімі сақталмайды, қолданба жабылғанда өзгерістер жоғалады. Фондағы ескертулер кідіртілді. Қолданба келесі іске қосылғанда қайталайды.</string>
+
+    <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
+    <string name="backup_restore_server_kept">«Мекенжайларға арналған жеке сервер» қолданылмады – шифрланбаған сақтық көшірме оны өзгерте алмайды.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
+    <string name="backup_restore_server_public">«Мекенжайларға арналған жеке сервер» сақтық көшірмедегідей жойылды – Bitcoin мекенжайлары қайтадан ашық түйіндерден сұралады.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
+    <string name="backup_restore_server_changed">«Мекенжайларға арналған жеке сервер» сақтық көшірмедегімен ауыстырылды.</string>
+</resources>

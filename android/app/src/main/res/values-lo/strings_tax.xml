@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
+    <string name="portfolio_cutoff_export_action">ສົ່ງອອກຕາມວັນທີຕັດຍອດ…</string>
+    <string name="portfolio_tax_worksheet_action">ແຜ່ນວຽກ…</string>
+    <string name="portfolio_export_address_unobserved">ທີ່ຢູ່ບໍ່ໄດ້ຖືກຕິດຕາມໃນວັນທີນີ້ – ບໍ່ລວມ</string>
+    <string name="portfolio_export_button">ສົ່ງອອກ CSV</string>
+    <string name="portfolio_export_col_amount">ຈຳນວນ</string>
+    <string name="portfolio_export_col_coin">ຫຼຽນ</string>
+    <string name="portfolio_export_col_note">ໝາຍເຫດ</string>
+    <string name="portfolio_export_col_price">ລາຄາ USDT</string>
+    <string name="portfolio_export_col_rate">ອັດຕາ USDT→%1$s</string>
+    <string name="portfolio_export_col_value">ມູນຄ່າ USDT</string>
+    <string name="portfolio_export_col_value_cur">ມູນຄ່າ %1$s</string>
+    <!-- Inhalt der CSV-Datei -->
+    <string name="portfolio_export_comment"># ວັນທີຕັດຍອດ %1$s, ສະກຸນເງິນ %2$s, ອັດຕາແລກປ່ຽນຂອງ %3$s</string>
+    <string name="portfolio_export_currency">ສະກຸນເງິນ: %1$s</string>
+    <string name="portfolio_export_date">ວັນທີຕັດຍອດ</string>
+    <string name="portfolio_export_done">ບັນທຶກການສົ່ງອອກແລ້ວ</string>
+    <string name="portfolio_export_estv_note">ສຳລັບພາສີຊັບສິນ, ມູນຄ່າທ້າຍປີທາງການຂອງລາຍການລາຄາ ESTV %1$s ນຳໃຊ້ກັບຫຼຽນທີ່ມີໃນລາຍການ: %2$s</string>
+    <string name="portfolio_export_failed">ການສົ່ງອອກລົ້ມເຫຼວ</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">ການສົ່ງອອກລົ້ມເຫຼວ: ຂຽນໄຟລ໌ບໍ່ໄດ້ – ບ່ອນເກັບຫາຍໄປ ຫຼື ຂຽນບໍ່ໄດ້</string>
+    <string name="portfolio_export_failed_prices">ການສົ່ງອອກລົ້ມເຫຼວ: ໂຫຼດລາຄາບໍ່ໄດ້ – ບໍ່ມີການເຊື່ອມຕໍ່ ຫຼື ກະດານແລກປ່ຽນບໍ່ຕອບສະໜອງ</string>
+    <string name="portfolio_export_from_address">ຈາກທີ່ຢູ່ – ບໍ່ມີລາຄາຊື້</string>
+    <string name="portfolio_export_hint">ການຖືຄອງໃນທ້າຍມື້ທີ່ເລືອກ, ປະເມີນຕາມລາຄາປິດລາຍວັນ (UTC) ເປັນ USDT ແລະ ແປງດ້ວຍອັດຕາອ້າງອີງ ECB ຂອງມື້ນັ້ນ. ປ່ຽນສະກຸນເງິນດ້ວຍ “ແປງເປັນ”.</string>
+    <string name="portfolio_export_incomplete">ບໍ່ຄົບຖ້ວນ</string>
+    <string name="portfolio_export_no_fx">ບໍ່ມີອັດຕາແລກປ່ຽນ</string>
+    <string name="portfolio_export_no_price">ບໍ່ມີລາຄາ</string>
+    <string name="portfolio_export_running">ກຳລັງດຶງລາຄາຍ້ອນຫຼັງ…</string>
+    <string name="portfolio_export_title">ສົ່ງອອກຕາມວັນທີຕັດຍອດ</string>
+    <string name="portfolio_export_today_hint">ມື້ນີ້ຍັງບໍ່ສິ້ນສຸດ: ໃຊ້ລາຄາປັດຈຸບັນແທນລາຄາປິດລາຍວັນ.</string>
+    <string name="portfolio_export_total">ທັງໝົດ</string>
+    <string name="portfolio_export_unchecked">ບໍ່ໄດ້ກວດ (ບໍ່ມີລາຄາທີ່ກົງກັນ)</string>
+
+    <!-- Steuer-Export (Arbeitspapier) -->
+    <string name="tax_export_adjustment">superficial loss (ເພີ່ມເຂົ້າ ACB)</string>
+    <string name="tax_export_at_wallet_note">ອອສເຕຣຍ: ສະເລ່ຍເຄື່ອນທີ່ຕໍ່ຫຼຽນ ແລະ ກະເປົາເງິນ (ກະດານແລກປ່ຽນ) – ການໂອນນຳຕົ້ນທຶນໄປນຳ – ລາງວັນທີ່ຕົ້ນທຶນ 0 – ການຖືຄອງຕັ້ງແຕ່ 1 ມີ.ນ. 2021 ບໍ່ລວມຄ່າທຳນຽມ (ຫັກບໍ່ໄດ້) – ດອກເບ້ຍການໃຫ້ກູ້ຕາມມູນຄ່າເມື່ອໄດ້ຮັບ (ລາຍຮັບທີ່ 27.5 ເປີເຊັນ).</string>
+    <string name="tax_export_avg_cost_rates">ຕົ້ນທຶນຕາມອັດຕາຂອງວັນທີຊື້ (ສະເລ່ຍ)</string>
+    <string name="tax_export_ch_wealth_not_calculated">ບໍ່ໄດ້ຄຳນວນພາສີຊັບສິນ – ລາຍການລາຄາ ESTV: %1$s</string>
+    <string name="tax_export_col_acquired">ໄດ້ມາ</string>
+    <string name="tax_export_col_adjustment">ການຂາດທຶນທີ່ບໍ່ອະນຸຍາດ %1$s</string>
+    <string name="tax_export_col_cost">ຕົ້ນທຶນ %1$s</string>
+    <string name="tax_export_col_date">ວັນທີ</string>
+    <string name="tax_export_col_days">ມື້ທີ່ຖື</string>
+    <string name="tax_export_col_gain">ກຳໄລ %1$s</string>
+    <string name="tax_export_col_gross">ລາຄາກ່ອນຄ່າທຳນຽມ %1$s</string>
+    <string name="tax_export_col_long_term">ຖື &gt; 1 ປີ</string>
+    <string name="tax_export_col_portfolio_value">ມູນຄ່າພອດໂຟລິໂອ %1$s</string>
+    <string name="tax_export_col_proceeds">ລາຍຮັບຈາກການຂາຍ %1$s</string>
+    <string name="tax_export_col_sold">ຂາຍແລ້ວ</string>
+    <string name="tax_export_cost_incomplete">ຕົ້ນທຶນການໄດ້ມາທັງໝົດບໍ່ຄົບຖ້ວນ</string>
+    <string name="tax_export_cost_missing">ບໍ່ມີລາຄາຊື້</string>
+    <string name="tax_export_fee_consumed">ຄ່າທຳນຽມໃຊ້ໝົດສິ່ງທີ່ໄດ້ຮັບ</string>
+    <string name="tax_export_fee_leg">ຄ່າທຳນຽມເປັນຫຼຽນອື່ນ</string>
+    <string name="tax_export_fee_row">ຄ່າທຳນຽມ</string>
+    <string name="tax_export_fee_value_missing">ຄ່າທຳນຽມເປັນຫຼຽນອື່ນບໍ່ມີມູນຄ່າ</string>
+    <string name="tax_export_gains">ການຈຳໜ່າຍທີ່ຮັບຮູ້ແລ້ວ (CSV)</string>
+    <string name="tax_export_gains_title">ການຈຳໜ່າຍທີ່ຮັບຮູ້ແລ້ວ %1$s</string>
+    <string name="tax_export_gift">ຂອງຂວັນ</string>
+    <string name="tax_export_holdings_cutoff">ການຖືຄອງໃນ %1$s (CSV)</string>
+    <string name="tax_export_holdings_title">ການຖືຄອງໃນ %1$s</string>
+    <string name="tax_export_income">ລາຍຮັບ (CSV)</string>
+    <string name="tax_export_income_title">ລາຍຮັບ %1$s</string>
+    <string name="tax_export_info_template">ແມ່ແບບ: %1$s · ວິທີ: %2$s · ປີພາສີ: %3$s · ສະກຸນເງິນ: %4$s · Crypto Checker %5$s</string>
+    <string name="tax_export_lost_fee_cost">ຄ່າທຳນຽມເຄືອຂ່າຍທີ່ບໍ່ມີລັອດທີ່ຈ່າຍແລ້ວ</string>
+    <string name="tax_export_match_pool">Section 104 pool</string>
+    <string name="tax_export_match_same_day">ມື້ດຽວກັນ (HMRC)</string>
+    <string name="tax_export_match_thirty_day">ກົດ 30 ມື້ (HMRC)</string>
+    <string name="tax_export_method_change_warning">ການປ່ຽນວິທີ ຫຼື ແມ່ແບບຈະຄຳນວນປີກ່ອນໜ້າໃໝ່ນຳ – ປຽບທຽບກັບສິ່ງທີ່ທ່ານຍື່ນແລ້ວ.</string>
+    <string name="tax_export_method_overridden">ແມ່ແບບຄຳນວນ %1$s – ບໍ່ແມ່ນ %2$s</string>
+    <string name="tax_export_new_holding">ໄດ້ມາຕັ້ງແຕ່ 1 ມີ.ນ. 2021</string>
+    <string name="tax_export_no">ບໍ່</string>
+    <string name="tax_export_old_holding">ໄດ້ມາກ່ອນ 1 ມີ.ນ. 2021</string>
+    <string name="tax_export_oversold">ຂາຍຫຼາຍກວ່າທີ່ບັນທຶກໄວ້</string>
+    <string name="tax_export_payment">ການຈ່າຍດ້ວຍຄຣິບໂຕ</string>
+    <string name="tax_export_period">%1$s – %2$s</string>
+    <string name="tax_export_proceeds_missing">ບໍ່ມີລາຄາຂາຍ</string>
+    <string name="tax_export_proceeds_without_cost">ລາຍຮັບຈາກການຂາຍທີ່ບໍ່ມີລາຄາຊື້</string>
+    <string name="tax_export_realized_differs">CSV ພາສີອາດແຕກຕ່າງຈາກ ‘ຮັບຮູ້ແລ້ວ’ (ກົດລະບຽບພາສີຂອງປະເທດ).</string>
+    <string name="tax_export_rule">&gt; 1 ປີ: ຂາຍຫຼັງວັນທີຊື້ + 1 ປີປະຕິທິນ. ວັນທີເປັນເວລາທ້ອງຖິ່ນ. ອັດຕາ: ອັດຕາລາຍວັນ ECB ຂອງມື້ທຸລະກຳ; ຖ້າບໍ່ມີ, ອັດຕາຫຼ້າສຸດຍ້ອນຫຼັງບໍ່ເກີນ 7 ມື້.</string>
+    <string name="tax_export_rules_date">ກົດລະບຽບເມື່ອ: %1$s</string>
+    <string name="tax_export_rules_stale">ກົດລະບຽບມາຈາກ %1$s – ສຳລັບ %2$s, ອັດຕາ ແລະ ການຍົກເວັ້ນອາດປ່ຽນແປງແລ້ວ. ກວດຄ່າ.</string>
+    <string name="tax_export_spouse_gift">ໃຫ້ຄູ່ສົມລົດ/ຄູ່ຊີວິດ – ບໍ່ມີກຳໄລ, ບໍ່ມີຂາດທຶນ</string>
+    <string name="tax_export_summary">ສະຫຼຸບປະຈຳປີ %1$s (CSV)</string>
+    <string name="tax_export_swap">ການສະຫຼັບຫຼຽນ</string>
+    <string name="tax_export_tax_year">ປີພາສີ</string>
+    <string name="tax_export_transfer_fee_info">ຄ່າທຳນຽມການໂອນເປັນ USDT/ເງິນສົດ – ບໍ່ແມ່ນການຂາດທຶນ, ບໍ່ຢູ່ໃນຕົ້ນທຶນ, ສຳລັບຂໍ້ມູນເທົ່ານັ້ນ</string>
+    <string name="tax_export_unassigned_fee">ຄ່າທຳນຽມບໍ່ໄດ້ກຳນົດ – ບໍ່ຮູ້ຕົ້ນທຶນ</string>
+    <string name="tax_export_usdt_usd_note">USDT ແປງຕາມລາຄາປິດລາຍວັນ USDT/USD; 1 USD ບ່ອນທີ່ບໍ່ມີລາຄາປິດ (ໝາຍໄວ້ແຕ່ລະແຖວ)</string>
+    <string name="tax_export_value_estimated">ມູນຄ່າປະເມີນ (ລາຄາປິດລາຍວັນ)</string>
+    <string name="tax_export_value_missing">ບໍ່ມີມູນຄ່າເມື່ອໄດ້ຮັບ</string>
+    <string name="tax_export_wallet">ກະເປົາເງິນ: %1$s</string>
+    <string name="tax_export_wallet_unspecified">ບໍ່ໄດ້ລະບຸ</string>
+    <string name="tax_export_withdrawal_fee">ຄ່າທຳນຽມການຖອນ</string>
+    <string name="tax_export_withdrawal_fee_info">ຄ່າທຳນຽມການຖອນເປັນ USDT/ເງິນສົດ – ບໍ່ແມ່ນການຂາດທຶນ, ສຳລັບຂໍ້ມູນເທົ່ານັ້ນ</string>
+    <string name="tax_export_workpaper_disclaimer">ແຜ່ນວຽກພາສີ – ບໍ່ແມ່ນແບບຍື່ນພາສີ ແລະ ບໍ່ແມ່ນຄຳແນະນຳດ້ານພາສີ</string>
+    <string name="tax_export_workpaper_title">ແຜ່ນວຽກ</string>
+    <string name="tax_export_year_local_zone">ວັນທີເປັນເວລາທ້ອງຖິ່ນ (%1$s)</string>
+    <string name="tax_export_yes">ແມ່ນ</string>
+
+    <!-- Steuer-Export: Zeilen und Spalten -->
+    <string name="tax_line_at_interest">ດອກເບ້ຍການໃຫ້ກູ້ (ມູນຄ່າເມື່ອໄດ້ຮັບ)</string>
+    <string name="tax_line_at_old_long">ໄດ້ມາກ່ອນ 1 ມີ.ນ. 2021 – ຖື &gt; 1 ປີ: ປົກກະຕິບໍ່ຕ້ອງເສຍພາສີ – ກວດເບິ່ງ</string>
+    <string name="tax_line_at_rate">ອັດຕາພິເສດ 27.5 ເປີເຊັນ: ສຸດທິທີ່ໄດ້ມາຕັ້ງແຕ່ 1 ມີ.ນ. 2021 ແລະ ຂາຍຕັ້ງແຕ່ 1 ມີ.ນ. 2022 + ດອກເບ້ຍ</string>
+    <string name="tax_line_au_discounted">ກຳໄລສ່ວນທຶນສຸດທິຫຼັງຫັກການຂາດທຶນ ແລະ ສ່ວນຫຼຸດ 50 ເປີເຊັນ</string>
+    <string name="tax_line_ca_taxable">ກຳໄລສ່ວນທຶນທີ່ຕ້ອງເສຍພາສີ (ອັດຕາລວມ 1/2)</string>
+    <string name="tax_line_ch_income">ລາງວັນທີ່ລະບຸ – ເບິ່ງເອກະສານວຽກ ESTV ສຳລັບວິທີປະຕິບັດ</string>
+    <string name="tax_line_ch_private">ກຳໄລສ່ວນທຶນຈາກຊັບສິນສ່ວນຕົວ: ບໍ່ໄດ້ຄຳນວນ – ເບິ່ງ ESTV ສຳລັບການຈັດປະເພດ</string>
+    <string name="tax_line_ch_wealth">ພາສີຊັບສິນ: ບໍ່ໄດ້ຄຳນວນ – CSV ການຖືຄອງໃຊ້ລາຄາກະດານແລກປ່ຽນ × USD/CHF ວັນທີ 31 ທັນວາ – ມູນຄ່າພາສີທາງການ: ລາຍການລາຄາ ESTV</string>
+    <string name="tax_line_de_long">ຖື &gt; 1 ປີ: ປົກກະຕິບໍ່ຕ້ອງເສຍພາສີຕາມ § 23 EStG – ກວດເບິ່ງ</string>
+    <string name="tax_line_denied_loss">ການຂາດທຶນທີ່ບໍ່ອະນຸຍາດ (superficial loss)</string>
+    <string name="tax_line_fr_outflow">ເງິນອອກທີ່ບໍ່ມີການຂາຍ (ການຖອນ) – ຕົ້ນທຶນການໄດ້ມາທັງໝົດຫຼຸດລົງຕາມສັດສ່ວນ</string>
+    <string name="tax_line_fr_rate">ອັດຕາຄົງທີ່ 12.8 ເປີເຊັນ ບວກເງິນສົມທົບສັງຄົມ (ຫຼື ອັດຕາກ້າວໜ້າຕາມທາງເລືອກ)</string>
+    <string name="tax_line_fr_threshold">ການຈຳໜ່າຍບໍ່ເກີນ €305 ຕໍ່ປີ: ໂດຍທົ່ວໄປໄດ້ຮັບການຍົກເວັ້ນ (ລວມລາຄາຂາຍ) – ກວດເບິ່ງ</string>
+    <string name="tax_line_gains">ກຳໄລ</string>
+    <string name="tax_line_income">ລາຍຮັບ (ລາງວັນຕາມມູນຄ່າເມື່ອໄດ້ຮັບ)</string>
+    <string name="tax_line_jp_misc">ລາຍຮັບອື່ນໆ (雑所得): ກຳໄລສຸດທິ + ລາຍຮັບ</string>
+    <string name="tax_line_long_net">ສຸດທິ – ຖື &gt; 1 ປີ</string>
+    <string name="tax_line_losses">ການຂາດທຶນ</string>
+    <string name="tax_line_net">ກຳໄລ/ຂາດທຶນສຸດທິ</string>
+    <string name="tax_line_new_net">ສຸດທິ – ໄດ້ມາຕັ້ງແຕ່ 1 ມີ.ນ. 2021, ຂາຍຕັ້ງແຕ່ 1 ມີ.ນ. 2022</string>
+    <string name="tax_line_old_long_net">ສຸດທິ – ໄດ້ມາກ່ອນ 1 ມີ.ນ. 2021 – ຖື &gt; 1 ປີ</string>
+    <string name="tax_line_old_short_net">ສຸດທິ – ທຸລະກຳເກັງກຳໄລ (ກົດໝາຍເກົ່າ): ໄດ້ມາກ່ອນ 1 ມີ.ນ. 2021 ແລະ ຖື ≤ 1 ປີ, ຫຼື ຂາຍກ່ອນ 1 ມີ.ນ. 2022</string>
+    <string name="tax_line_proceeds">ລາຍຮັບຈາກການຂາຍ</string>
+    <string name="tax_line_short_net">ສຸດທິ – ຖື ≤ 1 ປີ</string>
+    <string name="tax_line_transfer_fees">ຄ່າທຳນຽມການໂອນ (ກະເປົາເງິນຂອງຕົນເອງ)</string>
+    <string name="tax_line_uk_after_exempt">ກຳໄລສຸດທິທີ່ເກີນຈຳນວນຍົກເວັ້ນ (ຄຣິບໂຕເທົ່ານັ້ນ)</string>
+    <string name="tax_line_uk_exempt">ຈຳນວນຍົກເວັ້ນປະຈຳປີ – ນຳໃຊ້ກັບການຈຳໜ່າຍທັງໝົດລວມກັນ, ນຳໃຊ້ເຕັມທີ່ຢູ່ນີ້</string>
+    <string name="tax_line_us_terms">ໄລຍະສັ້ນ (≤ 1 ປີ): ອັດຕາປົກກະຕິ – ໄລຍະຍາວ (&gt; 1 ປີ): ອັດຕາກຳໄລສ່ວນທຶນ</string>
+    <string name="tax_line_withdrawal_fees">ຄ່າທຳນຽມການຖອນ</string>
+
+    <!-- Steuer Deutschland -->
+    <string name="tax_de_below">ຕ່ຳກວ່າຂີດຈຳກັດ</string>
+    <string name="tax_de_col_item">ລາຍການ</string>
+    <string name="tax_de_disclaimer">ສຳລັບເປັນແນວທາງເທົ່ານັ້ນ – ບໍ່ແມ່ນແບບຍື່ນພາສີ ແລະ ບໍ່ແມ່ນຄຳແນະນຳດ້ານພາສີ.</string>
+    <string name="tax_de_explain_below">ບໍ່ເກີນ %1$s: ຕ່ຳກວ່າຂີດຈຳກັດ (ສຳລັບເປັນແນວທາງ).</string>
+    <string name="tax_de_explain_loss">ຂາດທຶນສຸດທິ: ບໍ່ມີພາສີສຳລັບການຂາຍເຫຼົ່ານີ້. ການຂາດທຶນຕາມ § 23 EStG ຫັກລົບໄດ້ສະເພາະກັບກຳໄລຈາກການຂາຍສ່ວນຕົວ – ໃນປີດຽວກັນ ຫຼື ໂດຍການໂອນຍ້ອນຫຼັງໄປປີກ່ອນ ແລະ ໂອນໄປປີຕໍ່ໆໄປ (§ 23 ວັກ 3 ແລະ § 10d EStG). ແຈ້ງການຂາດທຶນໃນແບບຍື່ນພາສີຂອງທ່ານເພື່ອໃຫ້ມັນຖືກປະເມີນ.</string>
+    <string name="tax_de_explain_reached">ຕັ້ງແຕ່ %1$s ຈຳນວນທັງໝົດຈະຖືກນັບ (ຂີດຈຳກັດການຍົກເວັ້ນ – ບໍ່ແມ່ນການຫັກລົດຢ່ອນ).</string>
+    <string name="tax_de_explain_unknown">ກວດບໍ່ໄດ້: ຂາດອັດຕາແລກປ່ຽນ / ລາຄາຊື້ ຫຼື ໄລຍະເວລາຖືຄອງ.</string>
+    <string name="tax_de_income_limit">ຂີດຈຳກັດການຍົກເວັ້ນສຳລັບການບໍລິການ (§ 22 No. 3 EStG)</string>
+    <string name="tax_de_limit_scope">ຂີດຈຳກັດນຳໃຊ້ກັບການຂາຍສ່ວນຕົວ ຫຼື ການບໍລິການທັງໝົດຂອງປີລວມກັນ – ລວມທັງນອກແອັບ.</string>
+    <string name="tax_de_loading">ກຳລັງຄຳນວນ…</string>
+    <string name="tax_de_long_gains">ກຳໄລ – ຖື &gt; 1 ປີ</string>
+    <string name="tax_de_long_losses">ຂາດທຶນ – ຖື &gt; 1 ປີ</string>
+    <string name="tax_de_loss">ຂາດທຶນສຸດທິ – ຫັກລົບໄດ້ສະເພາະກັບກຳໄລຈາກການຂາຍສ່ວນຕົວ (§ 23 EStG)</string>
+    <string name="tax_de_private_limit">ຂີດຈຳກັດການຍົກເວັ້ນສຳລັບການຂາຍສ່ວນຕົວ (§ 23 EStG)</string>
+    <string name="tax_de_reached">ຮອດຂີດຈຳກັດແລ້ວ – ໂດຍປົກກະຕິຈຳນວນທັງໝົດຈະຖືກນັບ – ກວດເບິ່ງ</string>
+    <string name="tax_de_short_gains">ກຳໄລ – ຖື ≤ 1 ປີ</string>
+    <string name="tax_de_short_losses">ຂາດທຶນ – ຖື ≤ 1 ປີ</string>
+    <string name="tax_de_unclassified">ບໍ່ຮູ້ໄລຍະເວລາຖືຄອງ</string>
+    <string name="tax_de_unknown">ກວດບໍ່ໄດ້</string>
+
+    <!-- Steuer-Vorlagen je Land -->
+    <string name="tax_template_at">ອອສເຕຣຍ</string>
+    <string name="tax_template_au">ອອສເຕຣເລຍ</string>
+    <string name="tax_template_beta">ເບຕ້າ</string>
+    <string name="tax_template_beta_note">ເບຕ້າ: ກົດລະບຽບຂອງປະເທດຖືກເຮັດໃຫ້ງ່າຍ, ກວດກ່ອນຍື່ນແບບພາສີຂອງທ່ານ</string>
+    <string name="tax_template_ca">ການາດາ</string>
+    <string name="tax_template_ch">ສະວິດເຊີແລນ</string>
+    <string name="tax_template_confirm_text">ເບຕ້າ, ກົດລະບຽບແບບງ່າຍ, ຂາດທຸລະກຳຈາກແພລດຟອມອື່ນ – ກວດກ່ອນຍື່ນແບບພາສີຂອງທ່ານ.</string>
+    <string name="tax_template_confirm_title">ແມ່ແບບພາສີ (ເບຕ້າ)</string>
+    <string name="tax_template_current">ແມ່ແບບ: %1$s · ວິທີ: %2$s · ສະກຸນເງິນ: %3$s</string>
+    <string name="tax_template_de">ເຢຍລະມັນ</string>
+    <string name="tax_template_fr">ຝຣັ່ງ</string>
+    <string name="tax_template_hint">ສຳລັບເປັນແນວທາງເທົ່ານັ້ນ: ກຳນົດວິທີ, ປີພາສີ ແລະ ສະຫຼຸບຂອງແຜ່ນວຽກພາສີ. ບັດພອດໂຟລິໂອຍັງເປັນກາງ – ຂອງຂວັນ ແລະ ຄ່າທຳນຽມການໂອນອາດແຕກຕ່າງຈາກແຜ່ນວຽກ.</string>
+    <string name="tax_template_jp">ຍີ່ປຸ່ນ</string>
+    <string name="tax_template_neutral">ເປັນກາງ (ທຸກປະເທດ)</string>
+    <string name="tax_template_suggestion">ຄຳແນະນຳສຳລັບພາກພື້ນຂອງທ່ານ: %1$s</string>
+    <string name="tax_template_title">ແມ່ແບບພາສີ</string>
+    <string name="tax_template_uk">ສະຫະລາຊະອານາຈັກ</string>
+    <string name="tax_template_us">ສະຫະລັດອາເມລິກາ</string>
+    <string name="tax_template_use">ໃຊ້ %1$s</string>
+
+    <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
+    <string name="tax_method_at">ການຖືຄອງເກົ່າ/ໃໝ່ – ສະເລ່ຍເຄື່ອນທີ່</string>
+    <string name="tax_method_ca_acb">ຕົ້ນທຶນສະເລ່ຍ ACB (superficial loss)</string>
+    <string name="tax_method_fr_pta">ລາຄາໄດ້ມາທັງໝົດ (art. 150 VH bis)</string>
+    <string name="tax_method_jp_total">ສະເລ່ຍລວມ (総平均法)</string>
+    <string name="tax_method_uk_pool">Section 104 pool (ມື້ດຽວກັນ / 30 ມື້)</string>
+    <string name="tax_note_at">ສະເລ່ຍເຄື່ອນທີ່ຕໍ່ຫຼຽນ ແລະ ກະເປົາເງິນ – ບໍ່ແມ່ນຂ້າມກະເປົາເງິນ (KryptowährungsVO § 2). ລາງວັນເຂົ້າໄປໃນການຖືຄອງໃໝ່ທີ່ຕົ້ນທຶນ 0 (BMF: staking / airdrop) – ໄຟລ໌ລາຍຮັບລະບຸພວກມັນຕາມມູນຄ່າເມື່ອໄດ້ຮັບ. ຄ່າທຳນຽມຫັກບໍ່ໄດ້ສຳລັບການຖືຄອງທີ່ໄດ້ມາຕັ້ງແຕ່ 1 ມີ.ນ. 2021 (§ 27a(4) no. 2, § 20(2) EStG): ຕົ້ນທຶນ ແລະ ລາຍຮັບບໍ່ລວມຄ່າທຳນຽມ. ດອກເບ້ຍການໃຫ້ກູ້ (ປະເພດຈາກການນຳເຂົ້າ CSV ຫຼື ໝາຍເຫດ) ແມ່ນລາຍຮັບເມື່ອໄດ້ຮັບທີ່ 27.5 ເປີເຊັນ ແລະ ເກັບມູນຄ່ານັ້ນໄວ້ເປັນຕົ້ນທຶນ.</string>
+    <string name="tax_note_at_staking">Staking ດ້ວຍຫຼຽນທີ່ທ່ານຖືຢູ່ແລ້ວ ແລະ airdrop: ມູນຄ່າເມື່ອໄດ້ຮັບບໍ່ສຳຄັນສຳລັບພາສີ – ຕາມກົດໝາຍ ຕົ້ນທຶນແມ່ນ 0 (§ 27b Abs. 2 EStG; BMF “Kryptowährungen”). ພາສີນຳໃຊ້ສະເພາະເມື່ອທ່ານຂາຍ.</string>
+    <string name="tax_note_fr">ການຂາຍ ແລະ ຄ່າທຳນຽມທີ່ຈ່າຍເປັນຄຣິບໂຕແມ່ນການຈຳໜ່າຍ – ການສະຫຼັບຫຼຽນຖືກເລື່ອນ. ຄ່າທຳນຽມຄຣິບໂຕໃນການຂາຍນັບລວມໃນລາຄາກ່ອນຄ່າທຳນຽມ – ຖ້າບໍ່ດັ່ງນັ້ນ ມັນເປັນການຈຳໜ່າຍຂອງມັນເອງຕາມມູນຄ່າຂອງມັນ. ມູນຄ່າພອດໂຟລິໂອຈາກລາຄາປິດລາຍວັນ – ລາຄາປິດທີ່ຂາດຈະເຮັດໃຫ້ຕົ້ນທຶນຫວ່າງ.</string>
+    <string name="tax_note_network_fee">ຄ່າທຳນຽມເຄືອຂ່າຍທີ່ຈ່າຍເປັນຄຣິບໂຕ (ການໂອນໄປກະເປົາເງິນຂອງຕົນເອງ, ການຖອນ) ແມ່ນການຈຳໜ່າຍຫຼຽນຄ່າທຳນຽມຕາມມູນຄ່າຕະຫຼາດ – ກຳໄລ ຫຼື ຂາດທຶນສະເພາະຫຼຽນເຫຼົ່ານັ້ນ, ບໍ່ແມ່ນການຂາດທຶນຂອງຄ່າທຳນຽມທັງໝົດ (%1$s). ຖ້າບໍ່ມີລາຄາທີ່ບັນທຶກ: ລາຄາປິດລາຍວັນ (UTC) ຂອງມື້ດຽວກັນ; ຖ້າບໍ່ມີລາຄາປິດ ລາຍຮັບຍັງຫວ່າງ.</string>
+    <string name="tax_note_specific_id">ບໍ່ຮອງຮັບການລະບຸສະເພາະ (specific identification) – ໃຊ້ FIFO.</string>
+    <string name="tax_note_spouse_gift">ຂອງຂວັນທີ່ໝາຍວ່າ “ໃຫ້ຄູ່ສົມລົດ / ຄູ່ຊີວິດທີ່ຈົດທະບຽນ” ບໍ່ມີກຳໄລ ແລະ ບໍ່ມີຂາດທຶນ: ລາຍຮັບ = ຕົ້ນທຶນຂອງທ່ານ, ເຊິ່ງຄູ່ຂອງທ່ານຮັບເອົາ (%1$s).</string>
+    <string name="tax_note_stable_swap">ການຂາຍຄຣິບໂຕເພື່ອເອົາ stablecoin (USDT/USDC/DAI …) ທີ່ທ່ານເກັບໄວ້ ແມ່ນຄຣິບໂຕຫາຄຣິບໂຕຢູ່ນີ້ ແລະ ບໍ່ເສຍພາສີ – ບັນທຶກເປັນການສະຫຼັບຫຼຽນເຂົ້າ stablecoin. ສະເພາະການຂາຍເປັນເອີໂຣເທົ່ານັ້ນທີ່ເສຍພາສີ – “ຂາຍ” ນັບເປັນການຂາຍເປັນເອີໂຣ.</string>
+    <string name="tax_note_transfer_fee">ອັນດຽວກັນນຳໃຊ້ກັບຄ່າທຳນຽມ USDT ຫຼື ເງິນສົດໃນການໂອນລະຫວ່າງກະເປົາເງິນຂອງທ່ານເອງ: ມັນບໍ່ຖືກເພີ່ມເຂົ້າຕົ້ນທຶນ ແລະ ລະບຸໄວ້ເປັນຂໍ້ມູນເທົ່ານັ້ນ.</string>
+    <string name="tax_note_uk">ການຈັບຄູ່ຕາມ HMRC: ມື້ດຽວກັນ → 30 ມື້ຕໍ່ໄປ → Section 104 pool.</string>
+    <string name="tax_note_us_transition">ການປ່ຽນຜ່ານ 1 ມ.ກ. 2025 (Rev. Proc. 2024-28 safe harbor): ຖ້າປີກ່ອນໜ້າໃຊ້ FIFO ຂ້າມກະເປົາເງິນທັງໝົດ, ລັອດທີ່ເຫຼືອໃນວັນທີ 31 ທ.ວ. 2024 ຈະໄປຫາກະເປົາເງິນທີ່ຖືຫຼຽນ – ກະເປົາເງິນທີ່ມີຫຼຽນເກົ່າທີ່ສຸດໄດ້ຕົ້ນທຶນເກົ່າທີ່ສຸດ. ການຈັດສັນນີ້ແມ່ນກົດຂອງແອັບ – ກວດກັບບັນທຶກຂອງທ່ານເອງ.</string>
+    <string name="tax_note_us_wallet">ຕັ້ງແຕ່ປີພາສີ 2025 IRS ຮຽກຮ້ອງຕົ້ນທຶນຕໍ່ກະເປົາເງິນ ຫຼື ກະດານແລກປ່ຽນ (Rev. Proc. 2024-28): ການສົ່ງອອກໃຊ້ FIFO ຕໍ່ກະເປົາເງິນຕັ້ງແຕ່ 2025 – ສຳລັບປີກ່ອນໜ້າ FIFO ຂ້າມກະເປົາເງິນທັງໝົດ, ຫຼື FIFO ຕໍ່ກະເປົາເງິນຖ້ານັ້ນແມ່ນວິທີຄິດຕົ້ນທຶນຂອງທ່ານ.</string>
+    <string name="tax_note_withdrawal_fee">ຄ່າທຳນຽມການຖອນເປັນ USDT ຫຼື ເງິນສົດບໍ່ແມ່ນການຂາດທຶນ: ຄ່າທຳນຽມເງິນສົດບໍ່ແມ່ນຄ່າໃຊ້ຈ່າຍທີ່ຫັກໄດ້, ຄ່າທຳນຽມ USDT ແມ່ນການຈຳໜ່າຍທີ່ມູນຄ່າເທົ່າກັນໂດຍບໍ່ມີກຳໄລ – ມັນລະບຸໄວ້ເປັນຂໍ້ມູນເທົ່ານັ້ນ (%1$s).</string>
+    <string name="tax_summary_at_interest_income">ນັບ: ລາຍຮັບເມື່ອໄດ້ຮັບທີ່ອັດຕາພິເສດ 27.5 ເປີເຊັນ (§ 27b(2) no. 1 EStG / BMF) – ຫຼຽນເກັບມູນຄ່ານີ້ໄວ້ເປັນຕົ້ນທຶນ</string>
+    <string name="tax_summary_at_reward_info">ສຳລັບຂໍ້ມູນເທົ່ານັ້ນ – ບໍ່ແມ່ນສ່ວນໜຶ່ງຂອງຍອດລວມໃດ: ລາງວັນເຂົ້າໄປໃນການຖືຄອງໃໝ່ທີ່ຕົ້ນທຶນ 0 ແລະ ເສຍພາສີສະເພາະເມື່ອຂາຍ (ມີໃນກຳໄລແລ້ວ) – § 27b para. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">1 ມ.ກ.–28 ກ.ພ. 2022: ເລືອກອັດຕາ 27.5 ເປີເຊັນໄດ້</string>
+    <string name="tax_summary_at_withdrawal_fee">ຄ່າທຳນຽມການຖອນ – ບໍ່ຫັກລົບກັບການຖືຄອງໃໝ່ (ຄ່າໃຊ້ຈ່າຍຫັກບໍ່ໄດ້ທີ່ອັດຕາພິເສດ, § 20(2) EStG)</string>
+    <string name="tax_summary_ch_fifo_info">ສຳລັບຂໍ້ມູນເທົ່ານັ້ນ – ການຄຳນວນ FIFO ຂອງແອັບ – ບໍ່ໄດ້ຈັດປະເພດ – ເບິ່ງ ESTV</string>
+    <string name="tax_summary_ch_year_end_value">ມູນຄ່າວັນທີ 31 ທ.ວ. ໃນ CSV ການຖືຄອງ = ລາຄາກະດານແລກປ່ຽນ × USD/CHF – ບໍ່ແມ່ນມູນຄ່າພາສີ ESTV</string>
+    <string name="tax_summary_de_withdrawal_fee">ຄ່າທຳນຽມການຖອນ – ບໍ່ຫັກລົບຕາມ § 23, ກວດເບິ່ງວ່າຫັກເປັນຄ່າໃຊ້ຈ່າຍທີ່ກ່ຽວກັບລາຍຮັບໄດ້ບໍ</string>
+    <string name="tax_summary_not_calculated_estv">ບໍ່ໄດ້ຄຳນວນ – ລາຍການລາຄາ ESTV: %1$s</string>
+    <string name="tax_summary_orientation">ແນວທາງ</string>
+    <string name="tax_summary_orientation_block">ສຳລັບເປັນແນວທາງເທົ່ານັ້ນ – ບໍ່ແມ່ນຄຳແນະນຳດ້ານພາສີ – ບໍ່ແມ່ນການປະເມີນພາສີ</string>
+    <string name="tax_summary_orientation_item">ແນວທາງ: %1$s</string>
+    <string name="tax_summary_title">ສະຫຼຸບປະຈຳປີ %1$s %2$s</string>
+    <string name="tax_summary_transfer_fee_info">ຄ່າທຳນຽມການໂອນເປັນ USDT/ເງິນສົດ – ບໍ່ແມ່ນການຂາດທຶນ ແລະ ບໍ່ຢູ່ໃນຕົ້ນທຶນ, ສຳລັບຂໍ້ມູນເທົ່ານັ້ນ</string>
+    <string name="tax_summary_withdrawal_fee_info">ຄ່າທຳນຽມການຖອນເປັນ USDT/ເງິນສົດ – ບໍ່ນັບເປັນການຂາດທຶນ, ສຳລັບຂໍ້ມູນເທົ່ານັ້ນ</string>
+
+    <string name="tax_line_at_old_speculation_limit">ທຸລະກຳເກັງກຳໄລ (ກົດໝາຍເກົ່າ, ຖື ≤ 1 ປີ): ຂີດຈຳກັດການຍົກເວັ້ນ (§ 31 (3) EStG ສະບັບເກົ່າ)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">ດອກເບ້ຍການໃຫ້ກູ້ກ່ອນ 1 ມີ.ນ. 2022 (ມູນຄ່າເມື່ອໄດ້ຮັບ)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">ດອກເບ້ຍກ່ອນ 1 ມີ.ນ. 2022: ກົດໝາຍເກົ່າ (ອັດຕາພາສີລາຍໄດ້), ບໍ່ແມ່ນ 27.5 ເປີເຊັນ</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">ກ່ອນ 1 ມີ.ນ. 2022 – ປຶກສາຜູ້ຊ່ຽວຊານ</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">ດອກເບ້ຍ – ເສຍພາສີເມື່ອໄດ້ຮັບ</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">Staking – ສຳລັບຂໍ້ມູນເທົ່ານັ້ນ (ຕົ້ນທຶນ 0, ເສຍພາສີເມື່ອຂາຍ)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">ດອກເບ້ຍທັງໝົດ (ເສຍພາສີ)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">Staking ທັງໝົດ (ຂໍ້ມູນ)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">ຂາດທຶນສ່ວນທຶນສຸດທິ (ຍົກໄປ)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">ບໍ່ມີທາງເລືອກ: ລວມການຂາຍຂອງ 1 ມ.ກ.–28 ກ.ພ. 2022</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">Staking ກ່ອນ 1 ມີ.ນ. 2022: ຕົ້ນທຶນຕັ້ງເປັນ 0 – ປຶກສາຜູ້ຊ່ຽວຊານ</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">ກົດ 30 ມື້ອາດຍັງປ່ຽນຕົວເລກເຫຼົ່ານີ້ (ການຊື້ຈົນເຖິງ %1$s)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">ລາຍຮັບກ່ອນຄ່າທຳນຽມເກີນຂີດຈຳກັດການລາຍງານ (£50,000; 2020/21–2022/23: £49,200): ລາຍງານຕໍ່ HMRC ຖ້າທ່ານລົງທະບຽນ Self Assessment, ເຖິງແມ່ນບໍ່ມີກຳໄລທີ່ຕ້ອງເສຍພາສີ</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">ມູນຄ່າຊັບສິນ 31 ທ.ວ. %1$s (ແນວທາງ)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">ລາຍການລາຄາ ESTV (ictax.admin.ch) ແມ່ນອ້າງອີງຫຼັກ. ສຳລັບຫຼຽນທີ່ບໍ່ມີໃນລາຍການ, ໂດຍທົ່ວໄປໃຊ້ລາຄາປິດຂອງກະດານແລກປ່ຽນ. ບໍ່ໄດ້ຄຳນວນພາສີຊັບສິນ.</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – ການຖືຄອງ %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">ບໍ່ໄດ້ຄຳນວນ</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">ອ່ານທີ່ຢູ່ທີ່ຕິດຕາມບໍ່ໄດ້ – ຍອດເງິນຂອງພວກມັນຂາດຈາກໄຟລ໌ນີ້</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">ລັອດຂອງທີ່ຢູ່ທີ່ຕິດຕາມນັບແຕ່ວັນທີຊື້ຂອງມັນ; ຖ້າຍອດເງິນຂອງທີ່ຢູ່ມື້ນີ້ຕ່ຳກວ່າ, ພວກມັນຈະຖືກຫຼຸດລົງ.</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">ທີ່ຢູ່ທີ່ຕິດຕາມນັບລວມໃນມູນຄ່າທັງໝົດ ແຕ່ບໍ່ມີຕົ້ນທຶນ – ສະນັ້ນກຳໄລອາດສູງເກີນໄປ. ບັນທຶກຕົ້ນທຶນເປັນການຊື້.</string>
+    <string name="tax_summary_fr_rewards_income">ຈຳນວນນີ້ສົມມຸດວ່າລາງວັນຖືກເກັບພາສີເປັນລາຍຮັບເມື່ອໄດ້ຮັບ (ມູນຄ່າເມື່ອໄດ້ຮັບໃນຕົ້ນທຶນ) – ຖ້າບໍ່ດັ່ງນັ້ນ ຕົ້ນທຶນ 0 ຈະເປັນການຕີຄວາມແບບລະມັດລະວັງ.</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">ມູນຄ່າຕະຫຼາດທີ່ບໍ່ມີລາຄາບັນທຶກ (ຄ່າທຳນຽມ, ຂອງຂວັນ/ການຈ່າຍ, ການສະຫຼັບຫຼຽນ, ລາງວັນ, ຄ່າທຳນຽມເຄືອຂ່າຍ, ມູນຄ່າພອດໂຟລິໂອ) ຕາມລາຄາປິດລາຍວັນ (UTC) ຂອງມື້ທຸລະກຳ</string>
+</resources>

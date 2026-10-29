@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">Cuir seoladh leis</string>
+    <string name="portfolio_address_count">Comhair</string>
+    <string name="portfolio_address_error">Theip ar an nuashonrú</string>
+    <string name="portfolio_address_hint">Seoladh poiblí (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) nó xpub</string>
+    <string name="portfolio_address_label">Lipéad (roghnach)</string>
+    <string name="portfolio_address_not_since_buy">Ó sheoladh · ní in “Ón gceannach”: %1$s</string>
+    <string name="portfolio_address_overlap">I d’idirbhearta féin freisin: %1$s – cuirtear an dá cheann leis. Na boinn chéanna? Roghnaigh “Taispeáin amháin”.</string>
+    <string name="portfolio_address_overlap_ask">Taifeadann tú %1$s cheana le d’idirbhearta féin. An gcuirfear iarmhéid an tseolta seo leis an bpunann, nó an dtaispeánfar amháin é?</string>
+    <string name="portfolio_address_overlap_auto">Taispeántar “%1$s” amháin anois, ní chomhairtear é – tá %2$s i d’idirbhearta freisin.</string>
+    <string name="portfolio_address_overlap_title">Na boinn chéanna le d’idirbhearta?</string>
+    <string name="portfolio_address_overlap_tx">An méid céanna le do thaisce/d’aistriú féin (%1$s) – comhairthe faoi dhó is dócha.</string>
+    <string name="portfolio_address_period_observed">Comhairtear seoltaí faire ón gcéad iarmhéid a breathnaíodh; is insreabhadh/eis-sreabhadh athruithe níos déanaí, ní gnóthachan.</string>
+    <string name="portfolio_address_privacy">Ní sheoltar ach an seoladh poiblí chuig %1$s – eochracha nó frásaí síl riamh. Feiceann an soláthraí é in éineacht le do sheoladh IP. Seiceáiltear é uair sa 10 nóiméad ar a mhéad.</string>
+    <string name="portfolio_address_remove">Bain an seoladh</string>
+    <string name="portfolio_address_show_only">Taispeáin amháin, ná cuir leis an bpunann</string>
+    <string name="portfolio_address_show_only_short">Taispeáin amháin</string>
+    <string name="portfolio_address_tokens">Comhair comharthaí</string>
+    <string name="portfolio_address_xpub_privacy">Nochtann xpub gach seoladh den sparán seo. Díorthaítear iad ar do ghléas; ní sheoltar ach seoltaí aonair chuig %1$s – 40 iarratas ar a laghad ag an gcéad scanadh, níos lú ina dhiaidh sin. Ní ghlactar le heochracha príobháideacha (xprv) riamh.</string>
+    <string name="portfolio_address_xpub_gap">Stopann an cuardach tar éis %1$d seoladh nár úsáideadh as a chéile (caighdeán BIP44 a úsáideann formhór na sparán). Ní chomhairtear seoladh úsáidte taobh thall den bhearna sin – cuir leis ar leith é.</string>
+    <string name="portfolio_address_xpub_used">Seoltaí in úsáid: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">An iomarca seoltaí úsáidte le nuashonrú</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">An-chuid seoltaí – b’fhéidir nach mbraithfear íocaíochtaí nua chuig seoltaí sean folmha</string>
+    <string name="portfolio_addresses_title">Seoltaí</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Ní féidir faire ar sheoltaí Bitcoin Cash: níl aon seirbhís phoiblí saor in aisce gan eochair API a cheadaíonn é ina téarmaí.</string>
+    <string name="address_bep2_shutdown">Dúnadh BNB Beacon Chain (BEP-2) in 2024 – tá iarmhéideanna ar BNB Smart Chain (0x…) anois</string>
+    <string name="address_checksum">Suim sheiceála mícheart – seiceáil le haghaidh botún clóscríofa</string>
+    <string name="address_doge_unsupported">Ní féidir faire ar sheoltaí Dogecoin: níl aon seirbhís phoiblí saor in aisce gan eochair API a cheadaíonn é ina téarmaí.</string>
+    <string name="address_duplicate">Tá an seoladh seo curtha leis cheana</string>
+    <string name="address_ens">Ní thacaítear le hainmneacha ENS – cuir isteach an seoladh 0x</string>
+    <string name="address_invalid">Ní seoladh bailí ar líonra a dtacaítear leis é</string>
+    <string name="address_limit">20 seoladh ar a mhéad</string>
+    <string name="address_secret">Tá cuma eochair phríobháideach nó frása síl air seo – ná cuir isteach é áit ar bith riamh. Seoltaí poiblí amháin.</string>
+    <string name="address_testnet">Ní thacaítear le seoltaí Testnet</string>
+    <string name="address_unsupported">Ní thacaítear leis an gcineál seolta seo</string>
+    <string name="address_wrong_chain">Baineann an seoladh le líonra eile</string>
+    <string name="address_xpub_multisig">Ní thacaítear le heochracha Multisig (Ypub/Zpub)</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Cuntas Taproot (BIP86): díorthaítear seoltaí bc1p… ón eochair seo, le haghaidh glactha agus sóinseála.</string>
+    <string name="portfolio_address_taproot_hint">Sparán Taproot? Greamaigh an tuairisceoir tr(…) ó do sparán ina ionad – ní chuardaítear xpub simplí ach mar sheoltaí Legacy agus SegWit.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">Ní féidir do fhreastalaí féin a bhaint amach</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">Cibé duine a ritheann %1$s, feiceann sé gach seoladh den sparán seo a fiosraíodh agus is féidir leis iad a nascadh lena chéile agus le do sheoladh IP.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">Chun é seo a sheachaint, cuir isteach do fhreastalaí féin faoi Socruithe › Punann › Freastalaí féin do sheoltaí.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d chomhartha anaithnid (gan comhaireamh)</item>
+        <item quantity="two">+%1$d chomhartha anaithnid (gan comhaireamh)</item>
+        <item quantity="few">+%1$d chomhartha anaithnid (gan comhaireamh)</item>
+        <item quantity="many">+%1$d gcomhartha anaithnid (gan comhaireamh)</item>
+        <item quantity="other">+%1$d comhartha anaithnid (gan comhaireamh)</item>
+    </plurals>
+</resources>

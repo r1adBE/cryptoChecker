@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%2$s ichida %1$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">Yopilish</string>
+    <string name="sheet_chart_converted_current">%1$s, konvertatsiya qilingan (joriy kurs)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, kunlik kurslar boʻyicha konvertatsiya qilingan</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">Bu juftlik uchun narx maʼlumotlari yoʻq</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">Ochilish</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">Bugun</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">Hajm %1$s</string>
+    <string name="sheet_more">Qoʻshimcha</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Ask</string>
+    <string name="ticker_bid">Bid</string>
+    <string name="explain_bid_ask">Bid – xaridorlar hozir taklif qilayotgan eng yuqori narx, ask – sotuvchilar rozi boʻladigan eng past narx.</string>
+    <string name="ticker_high">Eng yuqori</string>
+    <string name="ticker_low">Eng past</string>
+    <string name="ticker_timestamp">Vaqt</string>
+    <string name="ticker_vol_base">Hajm (tangalarda)</string>
+    <string name="ticker_vol_quote">Hajm (kotirovka valyutasida)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (qurilma vaqt mintaqasi)</string>
+    <string name="change_basis_local">Mahalliy vaqt boʻyicha 00:00 dan beri</string>
+    <string name="change_basis_rolling">Oxirgi 24 soat</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">Oxirgi yangilanishdan beri</string>
+    <string name="change_basis_utc_zone">%1$s 00:00 dan beri</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">%1$s shamlari boʻyicha oʻzgarish</string>
+    <string name="change_short_since_last">oxirgi yangilanish</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">bugun</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">bugun %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="exchange_data_empty_error">Birjadan maʼlumot kelmadi.</string>
+    <string name="market_data_summary">Bozor kapitalizatsiyasi, gaz komissiyalari, iqtisodiy maʼlumotlar, tanga tahlili</string>
+    <string name="market_data_tab_futures">Fyucherslar</string>
+    <string name="market_data_title">Bozor maʼlumotlari</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">Muomaladagi miqdor</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">Bozor kapitalizatsiyasi</string>
+    <string name="spot_max_supply">Maksimal miqdor</string>
+    <string name="spot_no_data">Bu tanga uchun spot maʼlumotlari yoʻq</string>
+    <string name="spot_source_updated">Manba: %1$s · %2$s holatiga</string>
+    <string name="spot_supply_of_max">Maksimal miqdorning %1$s muomalada</string>
+    <string name="spot_total_supply">Umumiy miqdor</string>
+    <string name="spot_vol_mcap">Hajm/Bozor kap.</string>
+    <string name="spot_volume_24h">Hajm (24 soat)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">Maʼlumotnoma: %1$s</string>
+    <string name="futures_funding">Funding stavkasi</string>
+    <string name="futures_funding_interval_unknown">interval nomaʼlum</string>
+    <string name="futures_funding_per8h_equiv">= 8 soatga %1$s (signallardagidek)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">soatiga</string>
+    <string name="futures_funding_per_hours">%1$d soatga</string>
+    <string name="futures_next_funding">keyingisi %1$d soat %2$d daqiqadan keyin</string>
+    <string name="futures_no_data">Bu tanga uchun fyuchers maʼlumotlari yoʻq</string>
+    <string name="futures_open_interest">Ochiq pozitsiyalar</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">Maʼlumotnoma %1$s birjasidan – funding va ochiq pozitsiyalar birjaga qarab farq qiladi; %2$s birjasida ular boshqacha boʻlishi mumkin.</string>
+    <string name="futures_reference_spot">Maʼlumotnoma %1$s birjasidan (tanganing USDT perpetual kontrakti)</string>
+    <string name="futures_source">Manba: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">Koʻp treyderlar qarz pul bilan narx oshishi yoki tushishiga tikadi. Long va short pozitsiyalar orasidagi toʻlov. Kuchli musbat qiymat koʻpchilik oʻsishga tikayotganini bildiradi.</string>
+    <string name="explain_open_interest">Fyucherslar – narxga tikishlar, koʻpincha qarz pul bilan. Barcha ochiq fyuchers pozitsiyalarining qiymati. Oshsa, harakatga koʻproq pul tikilmoqda.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Izoh</string>
+    <string name="explain_spot_fdv">Toʻliq suyultirilgan baho: narx × maksimal miqdor (cheklov boʻlmasa, umumiy miqdor).</string>
+    <string name="explain_spot_market_cap">Narx × muomaladagi miqdor. Belgi uning 24 soatdagi oʻzgarishini koʻrsatadi.</string>
+    <string name="explain_spot_source">Barcha birjalar boʻyicha AQSH dollaridagi koʻrsatkichlar, CoinGecko’dan.</string>
+    <string name="explain_spot_supply">Muomalada: hozir bozordagi tangalar. Umumiy: yaratilgan barcha tangalar, yoqib yuborilganlari ayirilgan. Maksimal: hech qachon mavjud boʻlishi mumkin boʻlgan eng koʻp miqdor.</string>
+    <string name="explain_spot_volume">24 soatda savdo qilingan qiymat. Hajm/Bozor kap.: hajmning bozor kapitalizatsiyasiga nisbati — yuqori boʻlsa, savdo juda faol.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · kurs %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">Xarid va sotish narxi orasidagi farq katta (%1$s)</string>
+
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">%1$s dagi tarix, bugungi kurs boʻyicha %2$s ga konvertatsiya qilingan</string>
+    <string name="converted_unsure">Konvertatsiya noaniq</string>
+</resources>

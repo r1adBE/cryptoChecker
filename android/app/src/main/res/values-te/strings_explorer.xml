@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">అన్ని ఫలితాలు</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="one">%1$d ఎక్స్ఛేంజ్</item>
+        <item quantity="other">%1$d ఎక్స్ఛేంజ్‌లు</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">లోడ్ చేసిన జాబితాలలో ఈ కాయిన్‌కు జత లేదు.</string>
+    <string name="explorer_coin_not_loaded">జతల జాబితాలు ఇంకా లోడ్ కాలేదు</string>
+    <string name="explorer_coin_other_pairs">ఇతర జతలు</string>
+    <string name="explorer_coin_show_pairs">జతలను చూపు</string>
+    <string name="explorer_coin_suggested">సూచించినవి</string>
+    <string name="explorer_coins_title">కాయిన్‌లు</string>
+    <string name="explorer_lists_failed_many">%1$s ప్రస్తుతం స్పందించడం లేదు – జతల జాబితాలు లోడ్ కాలేదు. తర్వాత మళ్లీ ప్రయత్నించండి.</string>
+    <plurals name="explorer_lists_failed_more">
+        <item quantity="one">+మరో %1$d</item>
+        <item quantity="other">+మరో %1$d</item>
+    </plurals>
+    <string name="explorer_lists_failed_one">%1$s ప్రస్తుతం స్పందించడం లేదు – జతల జాబితా లోడ్ కాలేదు. తర్వాత మళ్లీ ప్రయత్నించండి.</string>
+    <string name="explorer_lists_load">జాబితాలను లోడ్ చేయి</string>
+    <string name="explorer_lists_loading">జతల జాబితాలు లోడ్ అవుతున్నాయి… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="one">%1$d ఎక్స్ఛేంజ్ జతల జాబితా ఇంకా ఈ పరికరంలో లేదు.</item>
+        <item quantity="other">%1$d ఎక్స్ఛేంజ్‌ల జతల జాబితాలు ఇంకా ఈ పరికరంలో లేవు.</item>
+    </plurals>
+    <string name="explorer_lists_privacy">ప్రతి ఎక్స్ఛేంజ్ పూర్తి పబ్లిక్ జాబితాను లోడ్ చేస్తుంది – అందరికీ ఒకటే. మీ శోధన ఈ పరికరంలోనే ఉంటుంది.</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">ఇటీవలి శోధన: %1$s</string>
+    <string name="explorer_recent_clear">క్లియర్ చేయి</string>
+    <string name="explorer_recent_clear_a11y">ఇటీవలి శోధనలను క్లియర్ చేయి</string>
+    <string name="explorer_recent_title">ఇటీవలి శోధనలు</string>
+    <string name="explorer_search_choose_manually">ఎక్స్ఛేంజ్, జతను మీరే ఎంచుకోండి</string>
+    <string name="explorer_search_empty">సరిపోలికలు లేవు.</string>
+    <string name="explorer_search_hint">కాయిన్, జత లేదా ఎక్స్ఛేంజ్ కోసం వెతకండి</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">కాయిన్ పేరు లేదా సింబల్ టైప్ చేయండి, ఉదా. Bitcoin లేదా BTC – తర్వాత జతను ఎంచుకోండి.</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">వాచ్‌లిస్ట్‌కు జోడించు</string>
+    <string name="explorer_added_to_watchlist">వాచ్‌లిస్ట్‌కు జోడించబడింది.</string>
+    <string name="explorer_already_in_watchlist">ఈ జత ఇప్పటికే వాచ్‌లిస్ట్‌లో ఉంది.</string>
+    <string name="explorer_exchange_missing">ఎక్స్ఛేంజ్ కనిపించడం లేదా?</string>
+    <string name="explorer_loading_pairs">ట్రేడింగ్ జతలు లోడ్ అవుతున్నాయి…</string>
+    <string name="explorer_no_pair_selected">ముందుగా ఒక జతను ఎంచుకోండి.</string>
+    <string name="explorer_no_pairs_yet">ఈ ఎక్స్ఛేంజ్‌కు ఇంకా జతలు లోడ్ కాలేదు.</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$d జత · %2$s అప్‌డేట్ అయింది</item>
+        <item quantity="other">%1$d జతలు · %2$s అప్‌డేట్ అయ్యాయి</item>
+    </plurals>
+    <string name="explorer_pairs_title">జతలు</string>
+    <string name="explorer_precise_title">అధునాతనం / ఎక్స్ఛేంజ్ వారీగా</string>
+    <string name="explorer_price_loading">ధర లోడ్ అవుతోంది…</string>
+    <string name="explorer_select_exchange_hint">ఒక ఎక్స్ఛేంజ్‌ను ఎంచుకోండి – దాని ట్రేడింగ్ జతలు ఆటోమేటిక్‌గా లోడ్ అవుతాయి.</string>
+    <string name="explorer_select_placeholder">దయచేసి ఎంచుకోండి</string>
+    <string name="explorer_step_pair">జతను ఎంచుకో</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">పెరిగినవి</string>
+    <string name="explorer_filter_losers">తగ్గినవి</string>
+    <string name="explorer_filter_volume">వాల్యూమ్</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">ఈ ఎక్స్ఛేంజ్ యొక్క అన్ని %1$s జతలు</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">%1$d %2$s జత కనుగొనబడింది</item>
+        <item quantity="other">%1$d %2$s జతలు కనుగొనబడ్డాయి</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">ఎంచుకున్న కాంట్రాక్ట్ రకానికి ఈ ఎక్స్ఛేంజ్‌లో %1$s జతలు లేవు. ముందుగా ఎక్స్ఛేంజ్‌ను సింక్ చేయండి, లేదా వేరే కాంట్రాక్ట్ రకాన్ని ప్రయత్నించండి.</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">%1$d జతను వాచ్‌లిస్ట్‌కు జోడించు</item>
+        <item quantity="other">మొత్తం %1$d జతలను వాచ్‌లిస్ట్‌కు జోడించు</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">%1$d జోడించబడింది, %2$d ఇప్పటికే వాచ్‌లిస్ట్‌లో ఉన్నాయి.</item>
+        <item quantity="other">%1$d జోడించబడ్డాయి, %2$d ఇప్పటికే వాచ్‌లిస్ట్‌లో ఉన్నాయి.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">%3$s నుండి %1$d %2$s జత, ఇప్పటికే లేకపోతే, వాచ్‌లిస్ట్‌కు జోడించబడుతుంది.</item>
+        <item quantity="other">%3$s నుండి మొత్తం %1$d %2$s జతలు వాచ్‌లిస్ట్‌కు జోడించబడతాయి. ఇప్పటికే ఉన్న జతలు దాటవేయబడతాయి.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">%1$d జతను జోడించాలా?</item>
+        <item quantity="other">%1$d జతలను జోడించాలా?</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">జాబితాను దాచు</string>
+    <string name="explorer_bulk_show_list">జాబితాను చూపు</string>
+    <string name="explorer_bulk_tap_hint">పైన ఎంచుకోవడానికి ఒక జతను నొక్కండి.</string>
+    <string name="explorer_bulk_title">ఒకేసారి అనేక జతలు</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">ఎంచుకున్న ఎక్స్ఛేంజ్ ప్రస్తుత జతలను లోడ్ చేస్తుంది.</string>
+    <string name="explorer_no_pair_list">కరెన్సీ జతలు లేవు</string>
+    <string name="explorer_sync_sheet_last">చివరి సింక్: %1$s</string>
+    <string name="explorer_sync_never">ఎప్పుడూ లేదు</string>
+    <string name="explorer_sync_sheet_action">ఇప్పుడే సింక్ చేయి</string>
+    <string name="explorer_sync_sheet_title">కరెన్సీ జతలను అప్‌డేట్ చేయి</string>
+    <string name="explorer_field_coin">కాయిన్</string>
+    <string name="explorer_field_contract">కాంట్రాక్ట్ రకం</string>
+    <string name="explorer_field_exchange">ఎక్స్ఛేంజ్</string>
+    <string name="explorer_field_quote">కోట్ కరెన్సీ</string>
+    <string name="explorer_contract_spot">స్పాట్</string>
+    <string name="explorer_reload_pairs">సింక్ చేయి</string>
+    <string name="sync_pairs_count">ట్రేడింగ్ జతలు: %1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">జోడించు</string>
+    <string name="dex_added">%1$s వాచ్‌లిస్ట్‌కు జోడించబడింది.</string>
+    <string name="dex_already">%1$s ఇప్పటికే వాచ్‌లిస్ట్‌లో ఉంది.</string>
+    <string name="dex_intro">పెద్ద ఎక్స్ఛేంజ్‌ల వెలుపలి టోకెన్‌లు, వికేంద్రీకృత ఎక్స్ఛేంజ్‌ల (Uniswap, PancakeSwap, Raydium …) నుండి DexScreener ద్వారా. ఒక టోకెన్ కోసం వెతికి దాని ట్రేడింగ్ పూల్‌లలో ఒకదాన్ని జోడించండి – ధరలు అమెరికన్ డాలర్లలో.</string>
+    <string name="dex_liquidity">లిక్విడిటీ %1$s</string>
+    <string name="dex_no_results">పూల్‌లు ఏవీ కనుగొనబడలేదు.</string>
+    <string name="dex_search">వెతుకు</string>
+    <string name="dex_search_hint">టోకెన్ పేరు, సింబల్ లేదా అడ్రస్</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">Alpha టోకెన్</string>
+    <string name="asset_kind_token">టోకెన్</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+
+    <string name="dex_low_liquidity_no_alarm">తక్కువ లిక్విడిటీ – అలర్ట్‌లు లేవు</string>
+    <string name="dex_low_liquidity_alarm_hint">ఈ పూల్‌లో 10,000 USD కంటే తక్కువ లిక్విడిటీ ఉంది (లేదా ఏదీ నివేదించబడలేదు). చిన్న ట్రేడ్‌లు దాని ధరను కదిలించగలవు, కాబట్టి ఇక్కడ అలర్ట్‌లను సెట్ చేయలేరు. ఇప్పటికే ఉన్న అలర్ట్‌లు ఉంచబడతాయి, కానీ లిక్విడిటీ మళ్లీ పెరిగే వరకు ట్రిగ్గర్ కావు.</string>
+
+    <string name="explorer_bulk_show_all">అన్నీ చూపు (%1$d)</string>
+    <string name="dex_token_address_copy">టోకెన్ అడ్రస్‌ను కాపీ చేయి</string>
+    <string name="dex_token_address_copied">టోకెన్ అడ్రస్ కాపీ అయింది</string>
+    <string name="dex_token_address_label">%1$sతో ముగిసే టోకెన్ అడ్రస్</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="one">%1$d జత జోడించబడలేదు: మీ వాచ్‌లిస్ట్‌లో గరిష్ఠంగా %2$s జతలు ఉండవచ్చు.</item>
+        <item quantity="other">%1$d జతలు జోడించబడలేదు: మీ వాచ్‌లిస్ట్‌లో గరిష్ఠంగా %2$s జతలు ఉండవచ్చు.</item>
+    </plurals>
+    <string name="bulk_add_progress">జతలను జోడిస్తోంది … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="one">%1$d కొత్త జతను వాచ్‌లిస్ట్‌కు జోడించు</item>
+        <item quantity="other">%1$d కొత్త జతలను వాచ్‌లిస్ట్‌కు జోడించు</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="one">%1$d కొత్తది, %2$d ఇప్పటికే వాచ్‌లిస్ట్‌లో</item>
+        <item quantity="other">%1$d కొత్తవి, %2$d ఇప్పటికే వాచ్‌లిస్ట్‌లో</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">అన్నీ ఇప్పటికే వాచ్‌లిస్ట్‌లో ఉన్నాయి</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="one">%1$d జతను మళ్లీ తీసివేయాలా?</item>
+        <item quantity="other">%1$d జతలను మళ్లీ తీసివేయాలా?</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">ఈలోగా మీరు అలర్ట్ సెట్ చేసిన జతలు అలాగే ఉంటాయి.</string>
+    <string name="bulk_undo_expired">ఇకపై రద్దు చేయడం సాధ్యం కాదు – జతలు వాచ్‌లిస్ట్‌లోనే ఉంటాయి.</string>
+    <string name="explorer_section_spot">స్పాట్</string>
+    <string name="explorer_section_futures">ఫ్యూచర్స్</string>
+    <string name="explorer_section_dex">DEX పూల్‌లు</string>
+    <string name="explorer_section_forex">Forex (రిఫరెన్స్ రేటు)</string>
+    <string name="explorer_forex_hint">యూరోపియన్ సెంట్రల్ బ్యాంక్ రోజువారీ రేటు (Frankfurter ద్వారా), లైవ్ కాదు – అలర్ట్‌లు లేవు.</string>
+</resources>

@@ -58,7 +58,7 @@ class OemBatteryTest {
     @Test
     fun everyVendorHasPagesAndTextInAllLanguages() {
         val languages = StringResources.byLanguage()
-        assertEquals(33, languages.size)
+        assertEquals(75, languages.size)
         for (vendor in OemBattery.Vendor.entries) {
             assertTrue(vendor.code, OemBattery.pages(vendor).isNotEmpty())
             // Tippfehler-Schutz: Activity liegt im Namensraum des Herstellers

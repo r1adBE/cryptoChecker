@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">Pozadie</string>
+    <string name="widget_configure_hint">Vyber pozadie a krytie. Farba sa riadi aplikáciou. Miniaplikácia zobrazuje celý zoznam; ťuknutím na riadok otvoríš aplikáciu.</string>
+    <string name="widget_configure_title">Nastaviť miniaplikáciu</string>
+    <string name="widget_description">Zobrazuje kurz páru z tvojho zoznamu.</string>
+    <string name="widget_empty">V zozname zatiaľ nie sú žiadne páry.</string>
+    <string name="widget_group_hint">Zobraziť iba páry tejto skupiny.</string>
+    <string name="widget_kind_single">Jeden coin</string>
+    <string name="widget_opacity">Krytie pozadia: %1$s</string>
+    <string name="widget_pulse_description">Čo práve na trhu vyniká: titulok, krátke zhrnutie a Bitcoin, Ethereum a Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">zastarané</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">zastarané · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">Sviečky</string>
+    <string name="widget_chart_line">Čiara</string>
+    <string name="widget_chart_range">Obdobie grafu</string>
+    <string name="widget_chart_type">Typ grafu</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 rok</string>
+    <string name="widget_range_24h">24 h</string>
+    <string name="widget_range_30d">30 dní</string>
+    <string name="widget_range_7d">7 dní</string>
+    <string name="widget_range_short_1y">1 R</string>
+    <string name="widget_range_short_24h">24 h</string>
+    <string name="widget_range_short_30d">30 D</string>
+    <string name="widget_range_short_7d">7 D</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">Stav %1$s</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">Priebeh bude čoskoro</string>
+    <string name="widget_portfolio_description">Celková hodnota tvojho portfólia a dnešná zmena</string>
+    <string name="widget_portfolio_entries">Zápisy pod coinmi</string>
+    <string name="widget_portfolio_entries_both">Oboje</string>
+    <string name="widget_portfolio_entries_buys">Nákupy</string>
+    <string name="widget_portfolio_entries_hint">Zobrazí sa, iba ak je pod coinmi miesto. Nákupy zahŕňajú vklady, predaje výbery; pri „Oboje“ dávajú riadky spolu držbu.</string>
+    <string name="widget_portfolio_entries_off">Vypnuté</string>
+    <string name="widget_portfolio_entries_sells">Predaje</string>
+    <string name="widget_portfolio_display">Zobrazenie</string>
+    <string name="widget_portfolio_display_conversion">Iba prepočet</string>
+    <string name="widget_portfolio_display_conversion_usdt">Prepočet + USDT</string>
+    <string name="widget_portfolio_display_hint">Riadok USDT sa skryje, keď je mena na prepočet USD stablecoin (napr. USDC).</string>
+    <string name="widget_portfolio_display_usdt">Iba USDT</string>
+    <string name="widget_portfolio_empty">Pridaj nákupy na karte Portfólio</string>
+    <string name="widget_portfolio_list_hint">Otvor aplikáciu a zobrazia sa tu pozície.</string>
+    <string name="widget_portfolio_locked_hint">Zamknuté – odomkni v aplikácii</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="one">bez %1$d coinu</item>
+        <item quantity="few">bez %1$d coinov</item>
+        <item quantity="many">bez %1$d coinu</item>
+        <item quantity="other">bez %1$d coinov</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ ďalší %1$d</item>
+        <item quantity="few">+ ďalšie %1$d</item>
+        <item quantity="many">+ ďalších %1$d</item>
+        <item quantity="other">+ ďalších %1$d</item>
+    </plurals>
+    <string name="widget_portfolio_name">Portfólio</string>
+    <string name="widget_portfolio_off_hint">Zapni ho v %1$s.</string>
+    <string name="widget_portfolio_off_short">Portfólio vypnuté</string>
+    <string name="widget_portfolio_off_title">Portfólio je vypnuté</string>
+    <string name="widget_portfolio_partly_stale">niektoré kurzy zastarané</string>
+    <string name="widget_portfolio_period">Obdobie</string>
+    <string name="widget_portfolio_period_without">%1$s bez %2$s</string>
+    <string name="widget_portfolio_range_48h">48 h</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: otvoriť portfólio</string>
+    <string name="widget_portfolio_range_short_48h">48 h</string>
+    <string name="widget_portfolio_today_without">Dnes bez %1$s</string>
+    <string name="widget_portfolio_view">Zobrazenie</string>
+    <string name="widget_portfolio_view_chart">Graf</string>
+    <string name="widget_portfolio_view_list">Zoznam</string>
+    <string name="widget_portfolio_view_overview">Prehľad</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">Vyber pár</string>
+    <string name="single_widget_description">Zobrazí jeden coin naveľko s kurzom, zmenou a 24-hodinovým grafom.</string>
+    <string name="single_widget_label">Crypto Checker – jeden coin</string>
+    <string name="single_widget_title">Nastaviť miniaplikáciu jedného coinu</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">Pridať</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">Pridať miniaplikáciu %1$s</string>
+    <string name="widgets_manual_text">Tvoja domovská obrazovka nevie pridávať miniaplikácie z aplikácie. Podrž prázdne miesto na domovskej obrazovke, vyber „Miniaplikácie“ a vyhľadaj „Crypto Checker“.</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">Pridanie miniaplikácie ručne</string>
+    <string name="widgets_sheet_title">Pridať miniaplikáciu</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS nedovoľuje aplikáciám pridávať widgety samy. Trvá to len chvíľu:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Dostupné widgety</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Podrž prázdne miesto na ploche, kým sa aplikácie nezačnú triasť.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Hore ťukni na „Upraviť“ › „Pridať widget“ (alebo „+“ v starších verziách iOS).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Vyhľadaj „Crypto Checker“, vyber widget a ťukni na „Pridať widget“.</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">Obnoviť – znova možné o %1$d s</string>
+    <string name="settings_watch">Hodinky</string>
+    <string name="settings_watch_hint">Coiny pre aplikáciu na hodinkách s Wear OS (až %1$d, kurz voči USDT). Do hodiniek ide iba tento zoznam, cez služby Google Play; kurzy si hodinky načítajú samy.</string>
+    <string name="settings_watch_mode_phone">Ako v telefóne (obľúbené ★)</string>
+    <string name="settings_watch_mode_own">Vlastný zoznam</string>
+    <string name="settings_watch_own_title">Vlastný zoznam: %1$d z %2$d</string>
+    <string name="settings_watch_none">Zatiaľ žiadne obľúbené</string>
+
+    <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
+    <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">Pri „Zoznam“ bez riadka USDT</string>
+    <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
+    <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">„Prehľad“ namiesto toho zobrazí 30 dní</string>
+</resources>

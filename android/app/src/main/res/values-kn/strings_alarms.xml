@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">ಅಲರ್ಟ್ ಹೊಂದಿಸಿ</string>
+    <string name="alarms_add">ಹೊಸ ಅಲರ್ಟ್</string>
+    <string name="alarms_edit">ಅಲರ್ಟ್ ಎಡಿಟ್ ಮಾಡಿ</string>
+    <string name="alarms_empty">ಈ ಜೋಡಿಗೆ ಇನ್ನೂ ಅಲರ್ಟ್‌ಗಳಿಲ್ಲ.</string>
+    <string name="alarms_empty_example">ಉದಾಹರಣೆಗೆ: BTC %1$s ಮೀರಿ ಏರಿದಾಗ ನನಗೆ ತಿಳಿಸು.</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">ಅಧಿಸೂಚನೆಗಳು ಆಫ್ ಆಗಿವೆ – ಅಲರ್ಟ್‌ಗಳು ನಿಮ್ಮನ್ನು ತಲುಪಲು ಸಾಧ್ಯವಿಲ್ಲ.</string>
+    <string name="alarms_notifications_turn_on">ಆನ್ ಮಾಡಿ</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">%1$d ಸಕ್ರಿಯ</item>
+        <item quantity="other">%1$d ಸಕ್ರಿಯ</item>
+    </plurals>
+    <string name="alarms_overview_empty">ಇನ್ನೂ ಅಲರ್ಟ್‌ಗಳಿಲ್ಲ. ಒಂದು ಜೋಡಿಯನ್ನು ತೆರೆದು ಅಲರ್ಟ್‌ಗಳು ಅಡಿಯಲ್ಲಿ ಒಂದನ್ನು ಸೇರಿಸಿ.</string>
+    <string name="alarms_overview_title">ಎಲ್ಲಾ ಅಲರ್ಟ್‌ಗಳು</string>
+    <string name="alarms_title">ಅಲರ್ಟ್‌ಗಳು</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">ಸುಧಾರಿತ</string>
+    <string name="alarm_change_updates">ಬೆಲೆ ಅಪ್‌ಡೇಟ್‌ಗಳನ್ನು ಹೊಂದಿಸಿ</string>
+    <string name="alarm_create">ಅಲರ್ಟ್ ರಚಿಸಿ</string>
+    <string name="alarm_currency_label">ಕರೆನ್ಸಿ</string>
+    <string name="alarm_delete_confirm">ಈ ಅಲರ್ಟ್ ಅನ್ನು ತೆಗೆದುಹಾಕಲಾಗುತ್ತದೆ.</string>
+    <string name="alarm_delete_title">ಅಲರ್ಟ್ ಅಳಿಸಬೇಕೆ?</string>
+    <string name="alarm_field_percent">ಶೇಕಡಾ</string>
+    <string name="alarm_field_price">ಬೆಲೆ</string>
+    <string name="alarm_fires_now_above">ಬೆಲೆ ಈಗಾಗಲೇ %1$s ಗಿಂತ ಮೇಲಿದೆ. ಆದರೂ ಉಳಿಸಬೇಕೆ?</string>
+    <string name="alarm_fires_now_below">ಬೆಲೆ ಈಗಾಗಲೇ %1$s ಗಿಂತ ಕೆಳಗಿದೆ. ಆದರೂ ಉಳಿಸಬೇಕೆ?</string>
+    <string name="alarm_fires_now_change">ಬದಲಾಯಿಸಿ</string>
+    <string name="alarm_fires_now_save">ಆದರೂ ಉಳಿಸಿ</string>
+    <string name="alarm_fires_now_title">ಅಲರ್ಟ್ ಈಗಲೇ ಟ್ರಿಗರ್ ಆಗುತ್ತದೆ</string>
+    <string name="alarm_first_battery_hint">ಬ್ಯಾಟರಿ ಆಪ್ಟಿಮೈಸೇಶನ್ ಆ್ಯಪ್ ಅನ್ನು ನಿರ್ಬಂಧಿಸುತ್ತಿದೆ – ಅಲರ್ಟ್‌ಗಳು ತಡವಾಗಿ ಬರಬಹುದು.</string>
+    <string name="alarm_first_title">ಅಲರ್ಟ್ ಉಳಿಸಲಾಗಿದೆ</string>
+    <string name="alarm_last_triggered">ಕೊನೆಯದಾಗಿ %1$s ಕ್ಕೆ</string>
+    <string name="alarm_more_conditions">ಇನ್ನಷ್ಟು ಷರತ್ತುಗಳು</string>
+    <string name="alarm_new_extreme">ಹೊಸ %1$s</string>
+    <string name="alarm_once">ಒಮ್ಮೆ</string>
+    <string name="alarm_option_repeating">ತಿಳಿಸಿ</string>
+    <string name="alarm_option_sound">ಶಬ್ದ</string>
+    <string name="alarm_option_speak">ಅಲರ್ಟ್ ಓದಿ ಹೇಳಿ</string>
+    <string name="alarm_option_vibrate">ವೈಬ್ರೇಷನ್</string>
+    <string name="alarm_repeat_each">ಪ್ರತಿ ಬಾರಿ</string>
+    <string name="alarm_repeat_once">ಒಮ್ಮೆ</string>
+    <string name="alarm_repeating">ಪ್ರತಿ ಬಾರಿ</string>
+    <string name="alarm_threshold_error_empty">ಅಲರ್ಟ್ ಉಳಿಸಲು ಒಂದು ಮೌಲ್ಯವನ್ನು ನಮೂದಿಸಿ.</string>
+    <string name="alarm_threshold_error_funding">ಫಂಡಿಂಗ್ −10 ಮತ್ತು +10 ಶೇಕಡಾ ನಡುವಿನ ಸಂಖ್ಯೆಯಾಗಿರಬೇಕು.</string>
+    <string name="alarm_threshold_error_invalid">0 ಗಿಂತ ದೊಡ್ಡ ಮಾನ್ಯ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ.</string>
+    <string name="alarm_threshold_error_oi">ಓಪನ್ ಇಂಟರೆಸ್ಟ್ ಬದಲಾವಣೆ: ಗರಿಷ್ಠ 1000 ಶೇಕಡಾ.</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">%1$d ಗಂಟೆಯಲ್ಲಿ</item>
+        <item quantity="other">%1$d ಗಂಟೆಗಳಲ್ಲಿ</item>
+    </plurals>
+    <string name="alarm_window_label">ಸಮಯದ ವಿಂಡೋ</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">ಈ ಮಟ್ಟಕ್ಕಿಂತ ಮೇಲೆ ಹೋದರೆ:</string>
+    <string name="alarm_simple_below">ಈ ಮಟ್ಟಕ್ಕಿಂತ ಕೆಳಗೆ ಹೋದರೆ:</string>
+    <string name="alarm_simple_end"></string>
+    <string name="alarm_simple_when">%1$s ಬೆಲೆ</string>
+    <string name="alarm_template_a11y">ಅಲರ್ಟ್ ರಚಿಸಿ: %1$s</string>
+    <string name="alarm_template_a11y_down">ಪ್ರಸ್ತುತ ಬೆಲೆಯಿಂದ ಮೈನಸ್ %1$s ಶೇಕಡಾದಲ್ಲಿ ಅಲರ್ಟ್ ರಚಿಸಿ</string>
+    <string name="alarm_template_a11y_up">ಪ್ರಸ್ತುತ ಬೆಲೆಯಿಂದ ಪ್ಲಸ್ %1$s ಶೇಕಡಾದಲ್ಲಿ ಅಲರ್ಟ್ ರಚಿಸಿ</string>
+    <string name="alarm_template_from_now">ಈಗಿನಿಂದ</string>
+    <string name="alarm_template_volume">ವಾಲ್ಯೂಮ್ ×%1$s</string>
+    <string name="alarm_templates_title">ತ್ವರಿತ ಅಲರ್ಟ್‌ಗಳು</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">ಬೆಲೆ ಇದಕ್ಕಿಂತ ಮೇಲೆ</string>
+    <string name="alarm_condition_below">ಬೆಲೆ ಇದಕ್ಕಿಂತ ಕೆಳಗೆ</string>
+    <string name="alarm_condition_down_percent">ಇಷ್ಟು ಇಳಿದರೆ</string>
+    <string name="alarm_condition_funding_above">ಫಂಡಿಂಗ್ ಇದಕ್ಕಿಂತ ಮೇಲೆ</string>
+    <string name="alarm_condition_funding_below">ಫಂಡಿಂಗ್ ಇದಕ್ಕಿಂತ ಕೆಳಗೆ</string>
+    <string name="alarm_condition_move_percent">ಇಷ್ಟು ಚಲಿಸಿದರೆ</string>
+    <string name="alarm_condition_near_high">ಗರಿಷ್ಠದ ಸಮೀಪ</string>
+    <string name="alarm_condition_near_low">ಕನಿಷ್ಠದ ಸಮೀಪ</string>
+    <string name="alarm_condition_oi_down">ಓಪನ್ ಇಂಟರೆಸ್ಟ್ ಇಳಿಕೆ</string>
+    <string name="alarm_condition_oi_up">ಓಪನ್ ಇಂಟರೆಸ್ಟ್ ಏರಿಕೆ</string>
+    <string name="alarm_condition_up_percent">ಇಷ್ಟು ಏರಿದರೆ</string>
+    <string name="alarm_condition_volume_spike">ವಾಲ್ಯೂಮ್ ಹಠಾತ್ ಏರಿಕೆ</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">%1$s %2$s ಮೀರಿ ಏರಿದಾಗ ನನಗೆ ತಿಳಿಸು.</string>
+    <string name="alarm_sentence_below">%1$s %2$s ಗಿಂತ ಕೆಳಗೆ ಇಳಿದಾಗ ನನಗೆ ತಿಳಿಸು.</string>
+    <string name="alarm_sentence_down_percent">%1$s ಉಳಿಸಿದಾಗಿನ ಬೆಲೆಗಿಂತ (ಅಥವಾ ಕೊನೆಯ ಅಲರ್ಟ್‌ನ ಬೆಲೆಗಿಂತ) %2$s ಕೆಳಗೆ ಇಳಿದಾಗ ನನಗೆ ತಿಳಿಸು.</string>
+    <string name="alarm_sentence_funding_above">%1$s ನ ಫಂಡಿಂಗ್ %2$s ಮೀರಿ ಏರಿದಾಗ ನನಗೆ ತಿಳಿಸು.</string>
+    <string name="alarm_sentence_funding_below">%1$s ನ ಫಂಡಿಂಗ್ %2$s ಗಿಂತ ಕೆಳಗೆ ಇಳಿದಾಗ ನನಗೆ ತಿಳಿಸು.</string>
+    <string name="alarm_sentence_incomplete">ಅಲರ್ಟ್ ಅನ್ನು ವಾಕ್ಯವಾಗಿ ನೋಡಲು ಒಂದು ಮೌಲ್ಯವನ್ನು ನಮೂದಿಸಿ.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">%1$s %3$d ಗಂಟೆಯೊಳಗೆ %2$s ಚಲಿಸಿದಾಗ ನನಗೆ ತಿಳಿಸು.</item>
+        <item quantity="other">%1$s %3$d ಗಂಟೆಗಳೊಳಗೆ %2$s ಚಲಿಸಿದಾಗ ನನಗೆ ತಿಳಿಸು.</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">%1$s ತನ್ನ %3$s ಗಿಂತ ಗರಿಷ್ಠ %2$s ಕೆಳಗಿರುವಾಗ ನನಗೆ ತಿಳಿಸು.</string>
+    <string name="alarm_sentence_near_low">%1$s ತನ್ನ %3$s ಗಿಂತ ಗರಿಷ್ಠ %2$s ಮೇಲಿರುವಾಗ ನನಗೆ ತಿಳಿಸು.</string>
+    <string name="alarm_sentence_new_extreme">%1$s ಹೊಸ %2$s ತಲುಪಿದಾಗ ನನಗೆ ತಿಳಿಸು.</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">%1$s ನ ಓಪನ್ ಇಂಟರೆಸ್ಟ್ %3$d ಗಂಟೆಯೊಳಗೆ %2$s ಇಳಿದಾಗ ನನಗೆ ತಿಳಿಸು.</item>
+        <item quantity="other">%1$s ನ ಓಪನ್ ಇಂಟರೆಸ್ಟ್ %3$d ಗಂಟೆಗಳೊಳಗೆ %2$s ಇಳಿದಾಗ ನನಗೆ ತಿಳಿಸು.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">%1$s ನ ಓಪನ್ ಇಂಟರೆಸ್ಟ್ %3$d ಗಂಟೆಯೊಳಗೆ %2$s ಏರಿದಾಗ ನನಗೆ ತಿಳಿಸು.</item>
+        <item quantity="other">%1$s ನ ಓಪನ್ ಇಂಟರೆಸ್ಟ್ %3$d ಗಂಟೆಗಳೊಳಗೆ %2$s ಏರಿದಾಗ ನನಗೆ ತಿಳಿಸು.</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">%1$s ಉಳಿಸಿದಾಗಿನ ಬೆಲೆಗಿಂತ (ಅಥವಾ ಕೊನೆಯ ಅಲರ್ಟ್‌ನ ಬೆಲೆಗಿಂತ) %2$s ಮೇಲೆ ಏರಿದಾಗ ನನಗೆ ತಿಳಿಸು.</string>
+    <string name="alarm_sentence_volume">%1$s ತನ್ನ ಸಾಮಾನ್ಯ ವಾಲ್ಯೂಮ್‌ನ %2$s× ವಹಿವಾಟಾದಾಗ ನನಗೆ ತಿಳಿಸು.</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">30 ದಿನಗಳ ಗರಿಷ್ಠ</string>
+    <string name="alarm_near_extreme_high_365">1 ವರ್ಷದ ಗರಿಷ್ಠ</string>
+    <string name="alarm_near_extreme_high_90">90 ದಿನಗಳ ಗರಿಷ್ಠ</string>
+    <string name="alarm_near_extreme_low_30">30 ದಿನಗಳ ಕನಿಷ್ಠ</string>
+    <string name="alarm_near_extreme_low_365">1 ವರ್ಷದ ಕನಿಷ್ಠ</string>
+    <string name="alarm_near_extreme_low_90">90 ದಿನಗಳ ಕನಿಷ್ಠ</string>
+    <string name="alarm_near_field_distance">ಅಂತರ</string>
+    <string name="alarm_near_hint">ಹೊಸ ಗರಿಷ್ಠ ಅಥವಾ ಕನಿಷ್ಠ ದಾಖಲಾದಾಗಲೂ ತಿಳಿಸುತ್ತದೆ. ದೈನಂದಿನ ಕ್ಯಾಂಡಲ್‌ಗಳನ್ನು ಆಧರಿಸಿದೆ, ಪ್ರತಿ 6 ಗಂಟೆಗೆ ರಿಫ್ರೆಶ್ ಆಗುತ್ತದೆ.</string>
+    <string name="alarm_near_new_only">ಹೊಸ ಗರಿಷ್ಠಗಳು ಅಥವಾ ಕನಿಷ್ಠಗಳು ಮಾತ್ರ</string>
+    <string name="alarm_near_notification_high">%1$s ತನ್ನ %3$s ಗಿಂತ %2$s ಕೆಳಗಿದೆ (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s ತನ್ನ %3$s ಗಿಂತ %2$s ಮೇಲಿದೆ (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">%2$s ಗೆ ಹೊಸ %1$s: %3$s (ಹಿಂದಿನದು %4$s)</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d ದಿನ</item>
+        <item quantity="other">%1$d ದಿನಗಳು</item>
+    </plurals>
+    <string name="alarm_near_window_label">ಅವಧಿ</string>
+    <string name="alarm_near_window_year">1 ವರ್ಷ</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">ಪ್ರತಿ 8 ಗಂಟೆಗೆ ಫಂಡಿಂಗ್ ದರ. ಬೇರೆ ಅಂತರವಿರುವ ಒಪ್ಪಂದಗಳನ್ನು ಪರಿವರ್ತಿಸಲಾಗುತ್ತದೆ (1 ಗಂ × 8, 4 ಗಂ × 2); ಫ್ಯೂಚರ್ಸ್ ಕಾರ್ಡ್ ಪರಿವರ್ತಿತ ಮೌಲ್ಯವನ್ನು ತೋರಿಸುತ್ತದೆ. ಅಂತರ ತಿಳಿದಿಲ್ಲದಿದ್ದರೆ, ಅಲರ್ಟ್ ಪರಿಶೀಲಿಸುವುದಿಲ್ಲ. ಋಣಾತ್ಮಕ ಎಂದರೆ ಶಾರ್ಟ್‌ಗಳು ಲಾಂಗ್‌ಗಳಿಗೆ ಪಾವತಿಸುತ್ತವೆ. ± ಚಿಹ್ನೆಯನ್ನು ಬದಲಾಯಿಸುತ್ತದೆ.</string>
+    <string name="alarm_funding_sign_a11y">ಚಿಹ್ನೆ ಬದಲಾಯಿಸಿ</string>
+    <string name="alarm_oi_hint">ಓಪನ್ ಇಂಟರೆಸ್ಟ್ ಅನ್ನು ಅಷ್ಟು ಗಂಟೆಗಳ ಹಿಂದೆ ಸಂಗ್ರಹಿಸಿದ ಮೌಲ್ಯದೊಂದಿಗೆ ಹೋಲಿಸುತ್ತದೆ. ಆ್ಯಪ್ ಅಷ್ಟು ಕಾಲ ಡೇಟಾ ಸಂಗ್ರಹಿಸಿದ ನಂತರವೇ ಹೊಸ ಅಲರ್ಟ್ ತಿಳಿಸುತ್ತದೆ; ಗರಿಷ್ಠ 5 ನಿಮಿಷಕ್ಕೊಮ್ಮೆ ಪರಿಶೀಲಿಸಲಾಗುತ್ತದೆ.</string>
+    <string name="alarm_volume_factor_label">ಕಳೆದ ಗಂಟೆಯ ವಾಲ್ಯೂಮ್ vs. ಸಾಮಾನ್ಯ</string>
+    <string name="alarm_volume_hint">ವಾಲ್ಯೂಮ್ ಡೇಟಾ Binance ನಿಂದ ಬರುತ್ತದೆ — ಅಲ್ಲಿ ಪಟ್ಟಿ ಮಾಡದ ಜೋಡಿಗಳು ಎಂದಿಗೂ ಟ್ರಿಗರ್ ಆಗುವುದಿಲ್ಲ.</string>
+    <string name="alarm_volume_zero_hours_hint">ವಹಿವಾಟುಗಳಿಲ್ಲದ ಗಂಟೆಗಳನ್ನು ಶೂನ್ಯ ವಾಲ್ಯೂಮ್ ಎಂದು ಎಣಿಸಲಾಗುತ್ತದೆ, ಆದ್ದರಿಂದ ಕಡಿಮೆ ವಹಿವಾಟಿನ ಜೋಡಿಗಳಲ್ಲಿ ಸಾಮಾನ್ಯ ಗಂಟೆಯೂ ಅಸಾಮಾನ್ಯವಾಗಿ ಕಾಣಬಹುದು.</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">ಅಲರ್ಟ್ ಸಕ್ರಿಯ</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">ಅಲರ್ಟ್ ಉಳಿಸಲಾಗಿದೆ: %1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">ಅಧಿಸೂಚನೆಗಳು ಆಫ್</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">“%1$s” ಇಲ್ಲದೆ, ಸಾಧನ ವಿಶ್ರಾಂತಿಯಲ್ಲಿರುವಾಗ Android ಅನಿಯಮಿತವಾಗಿ ಪರಿಶೀಲಿಸುತ್ತದೆ – ಕೆಲವೊಮ್ಮೆ ಗಂಟೆಗಳ ನಂತರವೇ. ಅದರೊಂದಿಗೆ, ಸುಮಾರು ಪ್ರತಿ 15 ನಿಮಿಷಕ್ಕೆ.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">ಆ್ಯಪ್ ಮುಚ್ಚಿದಾಗ, iOS ಹೆಚ್ಚಾಗಿ 15 ನಿಮಿಷಗಳಿಗಿಂತ ತಡವಾಗಿ ಪರಿಶೀಲಿಸುತ್ತದೆ, ಕೆಲವೊಮ್ಮೆ ನೀವು ಮುಂದಿನ ಬಾರಿ ಆ್ಯಪ್ ತೆರೆದಾಗ ಮಾತ್ರ. ಸಣ್ಣ ಹಠಾತ್ ಏರಿಳಿತಗಳು ತಪ್ಪಿಹೋಗಬಹುದು.</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">ಅಲರ್ಟ್‌ಗಳನ್ನು ಯಾವಾಗ ಪರಿಶೀಲಿಸಲಾಗುತ್ತದೆ</string>
+    <string name="alarm_timing_where">ಬೆಲೆಗಳು ಎಷ್ಟು ಬಾರಿ ಅಪ್‌ಡೇಟ್ ಆಗುತ್ತವೆ ಎಂಬುದನ್ನು %1$s ನಲ್ಲಿ ಬದಲಾಯಿಸಿ.</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">ಶಬ್ದರಹಿತ (ಅಧಿಸೂಚನೆ ಮಾತ್ರ)</string>
+    <string name="alarm_signal_sound">ಶಬ್ದ ಮಾತ್ರ</string>
+    <string name="alarm_signal_sound_vibrate">ಶಬ್ದ ಮತ್ತು ವೈಬ್ರೇಷನ್</string>
+    <string name="alarm_signal_system">ಸಿಸ್ಟಮ್</string>
+    <string name="alarm_signal_vibrate">ವೈಬ್ರೇಷನ್ ಮಾತ್ರ</string>
+    <string name="alarm_test">ಅಲರ್ಟ್ ಪರೀಕ್ಷಿಸಿ</string>
+    <string name="alarm_test_action">ಪರೀಕ್ಷಿಸಿ</string>
+    <string name="alarm_test_denied">Crypto Checker ಗೆ ಅಧಿಸೂಚನೆಗಳನ್ನು ಆಫ್ ಮಾಡಲಾಗಿದೆ.</string>
+    <string name="alarm_test_hint">ನಿಮ್ಮ ಶಬ್ದ, ವೈಬ್ರೇಷನ್ ಮತ್ತು ಧ್ವನಿ ಸೆಟ್ಟಿಂಗ್‌ಗಳೊಂದಿಗೆ ಮಾದರಿ ಅಲರ್ಟ್ ಕಳುಹಿಸುತ್ತದೆ.</string>
+    <string name="alarm_test_open_settings">ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ತೆರೆಯಿರಿ</string>
+    <string name="alarm_test_quiet">ಶಾಂತ ಸಮಯ ಸದ್ಯ ಆನ್ ಆಗಿದೆ: ನೈಜ ಅಲರ್ಟ್‌ಗಳು ಅದು ಮುಗಿಯುವವರೆಗೆ ಕಾಯುತ್ತವೆ ಮತ್ತು ನಂತರ ಶಬ್ದದೊಂದಿಗೆ ಮೊಳಗುತ್ತವೆ.</string>
+    <string name="alarm_test_text">ಅಲರ್ಟ್ ಹೀಗೆ ಕಾಣುತ್ತದೆ ಮತ್ತು ಹೀಗೆ ಕೇಳಿಸುತ್ತದೆ.</string>
+    <string name="alarm_test_title">ಪರೀಕ್ಷೆ: Crypto Checker ಅಲರ್ಟ್</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">ಶಬ್ದ ಆನ್</string>
+    <string name="alarm_a11y_speak_on">ಧ್ವನಿ ಆನ್</string>
+    <string name="alarm_unchecked_no_candles">ಪರಿಶೀಲಿಸಲಾಗಲಿಲ್ಲ (ಕ್ಯಾಂಡಲ್ ಡೇಟಾ ಇಲ್ಲ)</string>
+    <string name="alarm_unchecked_no_rate">ಪರಿಶೀಲಿಸಲಾಗಲಿಲ್ಲ (ವಿನಿಮಯ ದರವಿಲ್ಲ)</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">ಅಧಿಸೂಚನೆಗಳು ಆಫ್ – ಈ ಅಲರ್ಟ್ ನಿಮ್ಮನ್ನು ತಲುಪುವುದಿಲ್ಲ</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">ಅಲರ್ಟ್ ಇಲ್ಲ – ಕಡಿಮೆ ಲಿಕ್ವಿಡಿಟಿ</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">ಪ್ರಸ್ತುತ ಬೆಲೆಗಾಗಿ ಕಾಯುತ್ತಿದೆ</string>
+    <string name="alarm_enter_amount">ಒಂದು ಮೌಲ್ಯವನ್ನು ನಮೂದಿಸಿ</string>
+    <string name="alarm_editor_more">ಇನ್ನಷ್ಟು</string>
+    <string name="alarm_editor_more_summary">ತ್ವರಿತ ಅಲರ್ಟ್‌ಗಳು, ಇತರ ಷರತ್ತುಗಳು, ಶಬ್ದ ಮತ್ತು ಧ್ವನಿ</string>
+    <string name="alarm_reliability_storage_no_key">ಹಿನ್ನೆಲೆಯಲ್ಲಿ ಅಲರ್ಟ್‌ಗಳನ್ನು ವಿರಾಮಗೊಳಿಸಲಾಗಿದೆ – ವಾಚ್‌ಲಿಸ್ಟ್ ಉಳಿಸಲಾಗಿಲ್ಲ</string>
+    <string name="alarms_limit_reached">ಒಂದು ಜೋಡಿಗೆ ಗರಿಷ್ಠ %1$s ಅಲರ್ಟ್‌ಗಳು ಇರಬಹುದು.</string>
+    <string name="alarms_reference_rate_hint">ECB ಉಲ್ಲೇಖ ದರಗಳನ್ನು ದಿನಕ್ಕೆ ಒಮ್ಮೆ ಮಾತ್ರ ನಿಗದಿಪಡಿಸಲಾಗುತ್ತದೆ – ಅವುಗಳಿಗೆ ಅಲರ್ಟ್‌ಗಳಿಲ್ಲ.</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">ಇಳಿಕೆ 100 ಶೇಕಡಾಕ್ಕಿಂತ ಕಡಿಮೆ ಇರಬೇಕು.</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">ಮಿತಿ ಅಮಾನ್ಯ – ದಯವಿಟ್ಟು ಹೊಂದಿಸಿ</string>
+
+    <string name="alarm_last_checked">ಕೊನೆಯದಾಗಿ ಪರಿಶೀಲಿಸಿದ್ದು %1$s</string>
+</resources>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">დარწმუნდი, რომ განგაშები მოდის</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">კარგადაა</string>
+    <string name="delivery_state_warn">შეამოწმე</string>
+    <string name="delivery_state_info">შენიშვნა</string>
+    <string name="delivery_allowed">დაშვებულია</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">შეტყობინებები</string>
+    <string name="delivery_notifications_off">გამორთულია – განგაშები არ მოვა</string>
+    <string name="delivery_notifications_not_asked">ჯერ არ არის დაშვებული</string>
+    <string name="delivery_channel">განგაშების არხი</string>
+    <string name="delivery_channel_high">მაღალი პრიორიტეტი – ეკრანზე ამოდის</string>
+    <string name="delivery_channel_low">დაბალი პრიორიტეტი – განგაშები მხოლოდ ჩუმად ჩნდება სიაში</string>
+    <string name="delivery_channel_off">გამორთულია – განგაშები არ მოვა</string>
+    <string name="delivery_exact_on">ჩართულია – დაახლოებით ყოველ 15 წუთში</string>
+    <string name="delivery_exact_off">გამორთულია – Android არარეგულარულად ამოწმებს</string>
+    <string name="delivery_battery">ბატარეის ოპტიმიზაცია</string>
+    <string name="delivery_battery_unrestricted">შეზღუდვის გარეშე</string>
+    <string name="delivery_battery_optimized">ოპტიმიზებულია – Android-მა შეიძლება შემოწმებები გადადოს. აპი გამონაკლისს არ ითხოვს; ამის შეცვლა აპის ბატარეის პარამეტრებში შეგიძლია.</string>
+    <string name="delivery_background">ფონური გამოყენება</string>
+    <string name="delivery_background_restricted">შეზღუდულია – Android ფონურ შემოწმებებს აჩერებს</string>
+    <string name="delivery_dnd">არ შემაწუხოთ</string>
+    <string name="delivery_dnd_on">ჩართულია – განგაშები შეიძლება უხმოდ მოვიდეს</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">აქტიურია %1$s-მდე – ვადადამდგარი განგაშები მანამდე ელოდება</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – ვადადამდგარი განგაშები ამ დროს ელოდება</string>
+    <string name="delivery_last_check">ბოლო ფონური შემოწმება</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – 6 საათზე მეტი ხნის წინ</string>
+    <string name="delivery_last_check_never">ჯერ არცერთი</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">დაშვება</string>
+    <string name="delivery_action_change">შეცვლა</string>
+    <string name="delivery_action_show">ჩვენება</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">ბანერები და ხმა</string>
+    <string name="delivery_alert_off">ბანერები გამორთულია – განგაშები მხოლოდ შეტყობინებების ცენტრში ჩნდება</string>
+    <string name="delivery_sound_off">ხმა გამორთულია – განგაშები უხმოდ მოდის</string>
+    <string name="delivery_time_sensitive">დროზე მგრძნობიარე შეტყობინებები</string>
+    <string name="delivery_time_sensitive_off">გამორთულია – ფოკუსის რეჟიმმა შეიძლება განგაშები შეაკავოს</string>
+    <string name="delivery_background_refresh">აპის ფონური განახლება</string>
+    <string name="delivery_low_power">ენერგიის დაზოგვის რეჟიმი</string>
+    <string name="delivery_swipe_away">აპი გადაფურცლით დახურე?</string>
+    <string name="delivery_swipe_away_note">თუ აპს აპების გადამრთველში გადაფურცლით დახურავ, iOS ფონურ შემოწმებებს აჩერებს, სანამ ხელახლა არ გახსნი.</string>
+    <string name="delivery_live_activity">Live Activity</string>
+    <string name="delivery_live_activity_note">ფასს ჩაკეტილ ეკრანზე აჩვენებს, მაგრამ მხოლოდ მაშინ განახლდება, როცა აპი ამოწმებს – განგაშებს უფრო ხშირად არ ამოწმებინებს.</string>
+
+    <string name="alarm_first_check">შეამოწმე, რომ განგაშები მოდის</string>
+
+    <string name="oem_battery_title">მწარმოებლის ბატარეის დაზოგვა</string>
+    <string name="oem_battery_xiaomi">Xiaomi-მ შეიძლება აპი მთლიანად გააჩეროს – მაშინ განგაშები არ მოვა. ჩართე «ავტოგაშვება» და ბატარეის დაზოგვა დააყენე «შეზღუდვების გარეშე».</string>
+    <string name="oem_battery_samsung">Samsung-მა შეიძლება აპი ღრმა ძილში გადაიყვანოს – მაშინ განგაშები არ მოვა. ბატარეა › ფონური გამოყენების შეზღუდვები განყოფილებაში დაამატე ის «არასოდეს მძინარე აპებში».</string>
+    <string name="oem_battery_huawei">Huawei/Honor-მა შეიძლება აპი გააჩეროს – მაშინ განგაშები არ მოვა. ბატარეა › აპის გაშვება განყოფილებაში აირჩიე «ხელით მართვა» და დაუშვი ყველა ვარიანტი.</string>
+    <string name="oem_battery_oneplus">OnePlus-მა შეიძლება აპი გააჩეროს – მაშინ განგაშები არ მოვა. დაუშვი «ავტოგაშვება», ხოლო ბატარეის გამოყენებაში – ფონური აქტივობა.</string>
+    <string name="oem_battery_oppo">Oppo/Realme-მ შეიძლება აპი გააჩეროს – მაშინ განგაშები არ მოვა. დაუშვი «ავტოგაშვება», ხოლო ბატარეის გამოყენებაში – ფონური აქტივობა.</string>
+    <string name="oem_battery_vivo">Vivo-მ შეიძლება აპი გააჩეროს – მაშინ განგაშები არ მოვა. დაუშვი «ავტოგაშვება», ხოლო ბატარეაში – ფონში ენერგიის მაღალი მოხმარება.</string>
+    <string name="alarm_reliability_stale">ბოლო შემოწმება %1$s – განგაშები შეიძლება დააგვიანოს</string>
+    <string name="alarm_reliability_never">განგაშები ჩართულია – ფონური შემოწმება ჯერ არ ყოფილა</string>
+    <string name="alarm_reliability_notifications_off">შეტყობინებები გამორთულია – განგაშები არ მოვა</string>
+    <string name="alarm_reliability_battery">ბატარეის დაზოგვამ შეიძლება განგაშების შემოწმება შეაჩეროს</string>
+    <string name="alarm_reliability_background_refresh">აპის ფონური განახლება გამორთულია – განგაშები შეიძლება არ მოვიდეს</string>
+</resources>

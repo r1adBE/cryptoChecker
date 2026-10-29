@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">ຍັງບໍ່ໄດ້ຕັ້ງລັອກໜ້າຈໍໃນອຸປະກອນນີ້. ກະລຸນາຕັ້ງມັນໃນການຕັ້ງຄ່າລະບົບກ່ອນ.</string>
+    <string name="app_lock_unlock">ປົດລັອກ</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">ລ້າງພອດໂຟລິໂອ</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="other">ລຶບທຸລະກຳທັງໝົດ %d ລາຍການບໍ? ທີ່ຢູ່ທີ່ຕິດຕາມຍັງຄົງຢູ່. ທ່ານສາມາດຍົກເລີກໄດ້ທັນທີຫຼັງຈາກນັ້ນ.</item>
+    </plurals>
+    <string name="portfolio_empty_action">ເພີ່ມການຊື້ຄັ້ງທຳອິດຂອງທ່ານ</string>
+    <string name="portfolio_empty_address">ພຽງແຕ່ຕິດຕາມທີ່ຢູ່ກະເປົາເງິນ</string>
+    <string name="portfolio_empty_csv">ຊື້ຢູ່ກະດານແລກປ່ຽນບໍ? ນຳເຂົ້າໄຟລ໌ຂອງມັນ</string>
+    <string name="portfolio_empty_example_plain">ຕົວຢ່າງ: ຊື້ %1$s BTC ໃນວັນທີ 1 ມີນາ. ແລ້ວແອັບຈະສະແດງວ່າມັນມີມູນຄ່າເທົ່າໃດມື້ນີ້ ແລະ ທ່ານໄດ້ກຳໄລ ຫຼື ຂາດທຶນ – ເກັບໄວ້ໃນອຸປະກອນນີ້ເທົ່ານັ້ນ.</string>
+    <string name="portfolio_empty_title">ຍັງບໍ່ມີທຸລະກຳ</string>
+    <string name="portfolio_enable_ask_text">ທຸລະກຳຂອງທ່ານຖືກບັນທຶກແລ້ວ. ແຖບ ພອດໂຟລິໂອ ສະແດງການຖືຄອງ ແລະ ມູນຄ່າຂອງມັນ.</string>
+    <string name="portfolio_enable_ask_title">ເປີດແຖບ ພອດໂຟລິໂອ ບໍ?</string>
+    <string name="portfolio_enable_later_hint">ບັນທຶກທຸລະກຳແລ້ວ. ທ່ານສາມາດເປີດແຖບ ພອດໂຟລິໂອ ໃນ ການຕັ້ງຄ່າ › ພອດໂຟລິໂອ.</string>
+    <string name="portfolio_enabled_banner">ເປີດພອດໂຟລິໂອແລ້ວ – ທ່ານຈະພົບມັນໃນແຖບ ພອດໂຟລິໂອ.</string>
+    <string name="portfolio_lock_reason">ປົດລັອກພອດໂຟລິໂອ</string>
+    <string name="portfolio_locked_text">ປົດລັອກເພື່ອເບິ່ງການຖືຄອງ ແລະ ມູນຄ່າຂອງທ່ານ.</string>
+    <string name="portfolio_locked_title">ພອດໂຟລິໂອຖືກລັອກ</string>
+    <string name="portfolio_setting_hint">ບໍ່ບັງຄັບ: ບັນທຶກການຊື້ ແລະ ຂາຍ ແລະ ເບິ່ງມູນຄ່າ ແລະ ກຳໄລ/ຂາດທຶນໃນແຖບແຍກຕ່າງຫາກ.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">ບໍ່ເປັນປັດຈຸບັນ · ຂໍ້ມູນເມື່ອ %1$s</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="other">%d ລາຍການຈາກການສຳຮອງລະບົບບໍ່ຖືກຕ້ອງ ແລະ ບໍ່ໄດ້ຖືກກູ້ຄືນ.</item>
+    </plurals>
+    <string name="portfolio_title">ພອດໂຟລິໂອ</string>
+    <string name="portfolio_unassigned_fee">ຄ່າທຳນຽມບໍ່ໄດ້ກຳນົດ – ບໍ່ຮູ້ຕົ້ນທຶນ: %1$s</string>
+    <string name="portfolio_updated">ລາຄາເມື່ອ %1$s</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">ອື່ນໆ</string>
+    <string name="portfolio_allocation_title">ການຈັດສັນ</string>
+    <string name="portfolio_card_details">ລາຍລະອຽດ</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: ຍັງບໍ່ມີ</string>
+    <string name="portfolio_card_hints_count">ໝາຍເຫດ (%1$d)</string>
+    <string name="portfolio_card_today">ມື້ນີ້</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">ທັງໝົດ</string>
+    <string name="portfolio_hide_amounts">ເຊື່ອງຈຳນວນ</string>
+    <string name="portfolio_hide_amounts_hint">ສະແດງຈຳນວນ ແລະ ມູນຄ່າໃນພອດໂຟລິໂອ ແລະ ວິດເຈັດພອດໂຟລິໂອເປັນ ••• – ເປີເຊັນຍັງເຫັນໄດ້.</string>
+    <string name="portfolio_invested">ຕົ້ນທຶນ</string>
+    <string name="portfolio_total_no_fx">ບໍ່ມີອັດຕາແລກປ່ຽນສຳລັບ %1$s – ຈຳນວນເປັນ USDT</string>
+    <string name="portfolio_total_value">ມູນຄ່າທັງໝົດ</string>
+    <string name="portfolio_value">ມູນຄ່າ</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">ສະເລ່ຍ %1$s · ຕອນນີ້ %2$s</string>
+    <string name="portfolio_avg_only">ສະເລ່ຍ %1$s</string>
+    <string name="portfolio_avg_open_lots">ຕົ້ນທຶນສະເລ່ຍຂອງຫຼຽນທີ່ຖືຢູ່</string>
+    <string name="portfolio_avg_partial">ສະເລ່ຍຂອງ %1$s ທີ່ມີລາຄາຊື້</string>
+    <string name="portfolio_avg_price">ລາຄາຊື້ສະເລ່ຍ</string>
+    <string name="portfolio_avg_price_hint">ລາຄາຊື້ສະເລ່ຍ: ສະເລ່ຍຂອງການຊື້ທັງໝົດ, ຖ່ວງນ້ຳໜັກຕາມຈຳນວນ. ການຂາຍຖືກປະເມີນຕາມສະເລ່ຍນີ້.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="other">ການຖືຄອງທີ່ປິດແລ້ວ (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: ການຂາຍໃຊ້ຫຼຽນທີ່ເກົ່າທີ່ສຸດຂອງທ່ານກ່ອນ. ສະເລ່ຍ = ຕົ້ນທຶນທີ່ເຫຼືອ ÷ ຈຳນວນທີ່ມີລາຄາຊື້.</string>
+    <string name="portfolio_holdings">ການຖືຄອງ</string>
+    <string name="portfolio_lost_fee_cost">ຄ່າທຳນຽມເຄືອຂ່າຍທີ່ບໍ່ມີລັອດທີ່ຈ່າຍແລ້ວ: %1$s</string>
+    <string name="portfolio_open_lots">ລັອດການຊື້ທີ່ຍັງເປີດຢູ່ (%1$d)</string>
+    <string name="portfolio_open_lots_avg">ມີລາຄາຊື້ (ສະເລ່ຍ)</string>
+    <string name="portfolio_open_lots_no_cost">ບໍ່ມີລາຄາຊື້</string>
+    <string name="portfolio_open_lots_without_price">ບໍ່ມີລາຄາຊື້</string>
+    <string name="portfolio_realized">ກຳໄລ/ຂາດທຶນທີ່ຮັບຮູ້ແລ້ວ</string>
+    <string name="portfolio_unrealized">ກຳໄລ/ຂາດທຶນທີ່ຍັງບໍ່ຮັບຮູ້</string>
+    <string name="portfolio_unrealized_without_unpriced">ບໍ່ລວມ %1$s ທີ່ບໍ່ມີລາຄາຊື້</string>
+    <string name="portfolio_withdrawn_gain">ຖອນແລ້ວ: %1$s (ການປ່ຽນແປງມູນຄ່າຈົນເຖິງການຖອນ)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">ແປງເປັນ</string>
+    <string name="portfolio_convert_to_value">ແປງເປັນ: %1$s</string>
+    <string name="portfolio_current_missing">ບໍ່ມີລາຄາປັດຈຸບັນສຳລັບ %1$s</string>
+    <string name="portfolio_current_price">ລາຄາປັດຈຸບັນ</string>
+    <string name="portfolio_price_missing">ບໍ່ມີລາຄາ</string>
+    <string name="portfolio_price_missing_hint">ການຊື້ບາງລາຍການບໍ່ມີລາຄາ. ເພີ່ມລາຄາຊື້ເພື່ອເບິ່ງກຳໄລ/ຂາດທຶນ.</string>
+    <string name="portfolio_price_source">ລາຄາ: Binance · USDT ຕາມລາຄາຕະຫຼາດ</string>
+    <string name="portfolio_price_source_routes">ລາຄາ: %1$s, ຖ້າບໍ່ດັ່ງນັ້ນ Binance · USDT ຕາມລາຄາຕະຫຼາດ</string>
+    <string name="portfolio_price_unavailable">ຕອນນີ້ບໍ່ມີລາຄາ</string>
+    <string name="portfolio_price_unchecked">ລາຄາຍັງບໍ່ໄດ້ກວດ</string>
+    <string name="portfolio_price_via_base">≈ ລາຄາ %1$s (bridged/wrapped)</string>
+    <string name="portfolio_usdt_as_usd">USDT ແປງຕາມລາຄາຕະຫຼາດ USD ຂອງມັນ</string>
+    <string name="portfolio_usdt_assumed">ບໍ່ມີອັດຕາໂດລາຂອງ USDT – ນັບເປັນ 1 ໂດລາສະຫະລັດ</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">ເພີ່ມໃສ່ພອດໂຟລິໂອ</string>
+    <string name="portfolio_add_tx">ເພີ່ມທຸລະກຳ</string>
+    <string name="portfolio_buy">ຊື້</string>
+    <string name="portfolio_coin">ຫຼຽນ</string>
+    <string name="portfolio_coin_invalid">ໃສ່ສັນຍາລັກຫຼຽນ</string>
+    <string name="portfolio_coin_search">ຄົ້ນຫາສັນຍາລັກ ເຊັ່ນ BTC</string>
+    <string name="portfolio_discard_confirm">ຖິ້ມ</string>
+    <string name="portfolio_discard_keep">ແກ້ໄຂຕໍ່</string>
+    <string name="portfolio_discard_title">ຖິ້ມການປ່ຽນແປງບໍ?</string>
+    <string name="portfolio_edit_tx">ແກ້ໄຂທຸລະກຳ</string>
+    <string name="portfolio_invalid">ໃສ່ຕົວເລກທີ່ຖືກຕ້ອງທີ່ຫຼາຍກວ່າ 0.</string>
+    <string name="portfolio_oversold">ການຂາຍເກີນການຖືຄອງ – ກະລຸນາກວດທຸລະກຳ.</string>
+    <string name="portfolio_sell">ຂາຍ</string>
+    <string name="portfolio_sell_exceeds">ຫຼາຍກວ່າການຖືຄອງຂອງທ່ານ (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">ຈຳນວນບວກຄ່າທຳນຽມຫຼາຍກວ່າການຖືຄອງຂອງທ່ານ (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">ຫຼາຍກວ່າການຖືຄອງຂອງທ່ານໃນ %2$s (%1$s)</string>
+    <string name="portfolio_transactions">ທຸລະກຳ</string>
+    <string name="portfolio_tx_acquired_date">ວັນທີຊື້ເດີມ (ບໍ່ບັງຄັບ)</string>
+    <string name="portfolio_tx_acquired_date_hint">ສຳລັບໄລຍະເວລາຖືຄອງໃນການສົ່ງອອກພາສີ</string>
+    <string name="portfolio_tx_amount">ຈຳນວນ</string>
+    <string name="portfolio_tx_coin_fee">ຄ່າທຳນຽມເປັນຫຼຽນ (ບໍ່ບັງຄັບ)</string>
+    <string name="portfolio_tx_date">ວັນທີ</string>
+    <string name="portfolio_tx_delete_confirm">ທຸລະກຳນີ້ຈະຖືກລຶບອອກຈາກພອດໂຟລິໂອ.</string>
+    <string name="portfolio_tx_delete_title">ລຶບທຸລະກຳບໍ?</string>
+    <string name="portfolio_tx_deposit">ການຝາກ</string>
+    <string name="portfolio_tx_entry_currency">ໃສ່ເປັນ</string>
+    <string name="portfolio_tx_explain_deposit">ການຖືຄອງທີ່ບໍ່ມີການຊື້ຂາຍ ເຊັ່ນ ຫຼຽນຈາກກ່ອນໜ້າ</string>
+    <string name="portfolio_tx_explain_gift">ຫຼຽນອອກຈາກການຖືຄອງຂອງທ່ານຄືການຖອນ – ເປັນການຈຳໜ່າຍຕາມມູນຄ່າຕະຫຼາດສະເພາະໃນປະເທດທີ່ເກັບພາສີຂອງຂວັນ (UK, CA, AU)</string>
+    <string name="portfolio_tx_explain_payment">ຈ່າຍສຳລັບສິນຄ້າ ຫຼື ບໍລິການ – ເປັນການຈຳໜ່າຍຕາມມູນຄ່າຕະຫຼາດຄືການຂາຍ, ບໍ່ໄດ້ຮັບເງິນ</string>
+    <string name="portfolio_tx_explain_reward">ຕົ້ນທຶນ = ມູນຄ່າຕະຫຼາດເມື່ອໄດ້ຮັບ</string>
+    <string name="portfolio_tx_explain_swap">ຫຼຽນໜຶ່ງແລກກັບອີກຫຼຽນໜຶ່ງ: ຂາຍຫຼຽນທີ່ໃຫ້ ແລະ ຊື້ຫຼຽນທີ່ໄດ້ຮັບ</string>
+    <string name="portfolio_tx_explain_transfer">ບໍ່ມີກຳໄລ – ຕົ້ນທຶນຍ້າຍໄປພ້ອມກັບຫຼຽນ</string>
+    <string name="portfolio_tx_explain_withdrawal">ການຖືຄອງອອກຈາກພອດໂຟລິໂອ – ບໍ່ມີການຂາຍ, ບໍ່ມີກຳໄລ</string>
+    <string name="portfolio_tx_fee_consumes_amount">ຄ່າທຳນຽມເທົ່າກັບຈຳນວນທີ່ໄດ້ຮັບ – ຈະບໍ່ມີຫຍັງເຫຼືອ.</string>
+    <string name="portfolio_tx_fees_toggle">ຄ່າທຳນຽມ</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s ຕາມອັດຕາຂອງ %2$s</string>
+    <string name="portfolio_tx_fiat_loading">ກຳລັງໂຫຼດອັດຕາແລກປ່ຽນ…</string>
+    <string name="portfolio_tx_fiat_no_fx">ບໍ່ມີອັດຕາແລກປ່ຽນສຳລັບມື້ນີ້ – ໃສ່ຈຳນວນເປັນ USDT.</string>
+    <string name="portfolio_tx_gift">ຂອງຂວັນ</string>
+    <string name="portfolio_tx_gift_price_hint">ເປັນ USDT. ຫວ່າງ = ລາຄາປິດຂອງມື້ນັ້ນ (ປະເມີນ).</string>
+    <string name="portfolio_tx_gift_spouse">ໃຫ້ຄູ່ສົມລົດ / ຄູ່ຊີວິດທີ່ຈົດທະບຽນ</string>
+    <string name="portfolio_tx_gift_spouse_hint">UK ແລະ ການາດາ: ບໍ່ມີກຳໄລ ແລະ ບໍ່ມີຂາດທຶນ – ຄູ່ຂອງທ່ານຮັບເອົາຕົ້ນທຶນຂອງທ່ານ. ປະເທດອື່ນບໍ່ສົນໃຈອັນນີ້.</string>
+    <string name="portfolio_tx_market_value">ມູນຄ່າຕະຫຼາດຕໍ່ຫຼຽນ</string>
+    <string name="portfolio_tx_more_buy">ຄ່າທຳນຽມ, ກະດານແລກປ່ຽນ, ໝາຍເຫດ</string>
+    <string name="portfolio_tx_network_fee">ຄ່າທຳນຽມເຄືອຂ່າຍເປັນຫຼຽນ (ບໍ່ບັງຄັບ)</string>
+    <string name="portfolio_tx_note">ໝາຍເຫດ (ບໍ່ບັງຄັບ)</string>
+    <string name="portfolio_tx_payment">ຈ່າຍດ້ວຍມັນ</string>
+    <string name="portfolio_tx_price">ລາຄາຕໍ່ຫຼຽນ</string>
+    <string name="portfolio_tx_price_hint">ເປັນ USDT. ປ່ອຍຫວ່າງຖ້າບໍ່ຮູ້.</string>
+    <string name="portfolio_tx_price_historic">ກວດລາຄາປິດລາຍວັນຂອງ %1$s ແລ້ວ – ປັບຖ້າຈຳເປັນ</string>
+    <string name="portfolio_tx_price_invalid">ໃສ່ຕົວເລກທີ່ຖືກຕ້ອງ (0 ຫຼື ຫຼາຍກວ່າ) ຫຼື ປ່ອຍຊ່ອງຫວ່າງ.</string>
+    <string name="portfolio_tx_price_past_hint">ໃສ່ລາຄາໃນມື້ຊື້ – ປ່ອຍຫວ່າງຖ້າບໍ່ຮູ້</string>
+    <string name="portfolio_tx_price_receipt_hint">ເປັນ USDT. ຫວ່າງ = ການຖືຄອງທີ່ບໍ່ມີຕົ້ນທຶນ.</string>
+    <string name="portfolio_tx_price_zero">ລາຄາ 0 ໃຊ້ບໍ່ໄດ້ສຳລັບທຸລະກຳທີ່ນຳເຂົ້າ – ປ່ອຍຫວ່າງສຳລັບລາຄາຕະຫຼາດ</string>
+    <string name="portfolio_tx_removed">ລຶບທຸລະກຳແລ້ວ</string>
+    <string name="portfolio_tx_reward">ລາງວັນ</string>
+    <string name="portfolio_tx_save_failed">ບັນທຶກທຸລະກຳບໍ່ໄດ້. ຂໍ້ມູນທີ່ທ່ານໃສ່ຍັງຢູ່ນີ້ – ກະລຸນາລອງໃໝ່.</string>
+    <string name="portfolio_tx_swap">ການສະຫຼັບຫຼຽນ</string>
+    <string name="portfolio_tx_swap_fee_received">ຄ່າທຳນຽມເປັນ %1$s: ຫຼຸດຈຳນວນທີ່ໄດ້ຮັບ, ບໍ່ຕ້ອງການລາຄາ.</string>
+    <string name="portfolio_tx_swap_from">ສະຫຼັບຈາກ %1$s</string>
+    <string name="portfolio_tx_swap_given_amount">ຈຳນວນທີ່ໃຫ້</string>
+    <string name="portfolio_tx_swap_given_coin">ຫຼຽນທີ່ໃຫ້</string>
+    <string name="portfolio_tx_swap_received_amount">ຈຳນວນທີ່ໄດ້ຮັບ</string>
+    <string name="portfolio_tx_swap_received_coin">ຫຼຽນທີ່ໄດ້ຮັບ</string>
+    <string name="portfolio_tx_swap_same_coin">ເລືອກຫຼຽນທີ່ແຕກຕ່າງຈາກຫຼຽນທີ່ໃຫ້</string>
+    <string name="portfolio_tx_swap_to">ສະຫຼັບເປັນ %1$s</string>
+    <string name="portfolio_tx_swap_value">ມູນຄ່າຂອງການສະຫຼັບ (ບໍ່ບັງຄັບ)</string>
+    <string name="portfolio_tx_swap_value_hint">ມູນຄ່າທັງໝົດ. ຫວ່າງ = ບໍ່ຮູ້ – ກຳໄລຍັງບໍ່ຄົບຖ້ວນ (ອັດຕະໂນມັດເມື່ອມີ USDT ໃນການສະຫຼັບ).</string>
+    <string name="portfolio_tx_third_fee_amount">ຈຳນວນຄ່າທຳນຽມ</string>
+    <string name="portfolio_tx_third_fee_coin">ຫຼຽນຄ່າທຳນຽມ</string>
+    <string name="portfolio_tx_third_fee_incomplete">ຖ້າບໍ່ມີລາຄາ ຄ່າທຳນຽມຈະບໍ່ຖືກລວມໃນຕົ້ນທຶນ ແລະ ລາຍຮັບຈາກການຂາຍ; ການສົ່ງອອກພາສີຈະໝາຍການຂາຍດັ່ງກ່າວ.</string>
+    <string name="portfolio_tx_third_fee_price">ລາຄາຕໍ່ຫຼຽນຄ່າທຳນຽມ (ບໍ່ບັງຄັບ)</string>
+    <string name="portfolio_tx_third_fee_toggle">ຄ່າທຳນຽມເປັນຫຼຽນອື່ນ</string>
+    <string name="portfolio_tx_total">ທັງໝົດ: %1$s</string>
+    <string name="portfolio_tx_transfer">ການໂອນ</string>
+    <string name="portfolio_tx_transfer_from">ຈາກ (ບໍ່ບັງຄັບ)</string>
+    <string name="portfolio_tx_transfer_to">ໄປຫາ (ບໍ່ບັງຄັບ)</string>
+    <string name="portfolio_tx_transfer_to_hint">ກະດານແລກປ່ຽນ ຫຼື ກະເປົາເງິນ – ປະເມີນຢູ່ທີ່ນັ້ນນັບແຕ່ນີ້ເປັນຕົ້ນໄປ.</string>
+    <string name="portfolio_tx_type_select">ປະເພດ: %1$s</string>
+    <string name="portfolio_tx_value_received">ມູນຄ່າຕໍ່ຫຼຽນເມື່ອໄດ້ຮັບ (ບໍ່ບັງຄັບ)</string>
+    <string name="portfolio_tx_withdrawal">ການຖອນ</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">ໃຫ້ຄົນອື່ນ ຫຼື ຈ່າຍດ້ວຍມັນບໍ? ໃຫ້ບັນທຶກເປັນ “ຂອງຂວັນ” ຫຼື “ຈ່າຍດ້ວຍມັນ” – ຂຶ້ນກັບປະເທດ, ສິ່ງນີ້ນັບເປັນການຂາຍເພື່ອຈຸດປະສົງທາງພາສີ.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">ບໍ່ບັງຄັບ: ມູນຄ່າຕະຫຼາດເປັນ USDT, ໃຊ້ສະເພາະສຳລັບປະຫວັດ (ຫວ່າງ = ລາຄາຂອງມື້ນັ້ນ). ຫຼຽນຈະອອກໄປຕາມຕົ້ນທຶນຂອງມັນສະເໝີ.</string>
+    <string name="portfolio_wallet_did_you_mean">ທ່ານໝາຍເຖິງ %1$s ບໍ? ການສະກົດທີ່ແຕກຕ່າງນັບເປັນກະເປົາເງິນແຍກຕ່າງຫາກ.</string>
+    <string name="portfolio_wallet_shortfall">ການຖືຄອງໃນ %1$s ບໍ່ພຽງພໍ – ຂາດການໂອນບໍ?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">ສູງ %1$s</string>
+    <string name="portfolio_compare">ປຽບທຽບ</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">ປຽບທຽບ %1$s ແລະ USDT ເປັນເປີເຊັນ</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">ການປຽບທຽບເປັນເປີເຊັນ, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">ຜົນກະທົບຂອງສະກຸນເງິນ: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">ຂໍ້ມູນລາຄາມີຍ້ອນຫຼັງໄປຮອດເດືອນສິງຫາ 2017 ເທົ່ານັ້ນ — ປະຫວັດເລີ່ມຕົ້ນຢູ່ທີ່ນັ້ນ.</string>
+    <string name="portfolio_history_chip_since_first">ທັງໝົດ</string>
+    <string name="portfolio_history_collapse">ເຊື່ອງປະຫວັດມູນຄ່າ</string>
+    <string name="portfolio_history_converted">ແປງຕາມອັດຕາມື້ນີ້</string>
+    <string name="portfolio_history_expand">ສະແດງປະຫວັດມູນຄ່າ</string>
+    <string name="portfolio_history_gain_a11y">ມູນຄ່າ %1$s. ກຳໄລ/ຂາດທຶນ, %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">ກຳໄລ/ຂາດທຶນ</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">ມູນຄ່າເປັນ %1$s</string>
+    <string name="portfolio_history_incl_fx">ລວມອັດຕາແລກປ່ຽນ</string>
+    <string name="portfolio_history_incl_withdrawn">ລວມການປ່ຽນແປງມູນຄ່າຂອງຫຼຽນທີ່ຖອນແລ້ວ</string>
+    <string name="portfolio_history_includes_trades">ລວມການຊື້ ແລະ ຂາຍໃນໄລຍະນີ້</string>
+    <string name="portfolio_history_loading">ກຳລັງໂຫຼດປະຫວັດມູນຄ່າ</string>
+    <string name="portfolio_history_period_1y">1 ປີ</string>
+    <string name="portfolio_history_period_30d">30 ມື້</string>
+    <string name="portfolio_history_period_7d">7 ມື້</string>
+    <string name="portfolio_history_period_since_first">ນັບແຕ່ການຊື້ຄັ້ງທຳອິດ</string>
+    <string name="portfolio_history_pnl_needs_prices">ຂາດລາຄາຊື້ສຳລັບກຳໄລ/ຂາດທຶນ – ເພີ່ມມັນໃນທຸລະກຳ.</string>
+    <string name="portfolio_history_pnl_without">ກຳໄລ/ຂາດທຶນບໍ່ລວມ %1$s (ບໍ່ມີລາຄາ)</string>
+    <string name="portfolio_history_range_1y">1 ປີ</string>
+    <string name="portfolio_history_range_30d">30 ມື້</string>
+    <string name="portfolio_history_range_7d">7 ມື້</string>
+    <string name="portfolio_history_range_a11y">ສະແດງປະຫວັດສຳລັບ %1$s</string>
+    <string name="portfolio_history_range_since_first">ນັບແຕ່ຊື້ຄັ້ງທຳອິດ</string>
+    <string name="portfolio_history_scaled">ປະຫວັດສຳລັບ %1$s: ປະຫວັດ Binance ປັບສັດສ່ວນຕາມລາຄາກະດານແລກປ່ຽນ</string>
+    <string name="portfolio_history_title">ປະຫວັດມູນຄ່າ</string>
+    <string name="portfolio_history_today">ມື້ນີ້</string>
+    <string name="portfolio_history_too_short">ປະຫວັດເລີ່ມຕົ້ນຫຼັງຈາກມື້ເຕັມມື້ທຳອິດຂອງທ່ານ.</string>
+    <string name="portfolio_history_unavailable">ຕອນນີ້ບໍ່ມີປະຫວັດ.</string>
+    <string name="portfolio_history_utc_days">ມື້ເປັນ UTC (ແທ່ງທຽນລາຍວັນ)</string>
+    <string name="portfolio_history_without_matching">ບໍ່ລວມ %1$s (ບໍ່ມີລາຄາລາຍວັນທີ່ກົງກັນ)</string>
+    <string name="portfolio_period_rewards">ລາງວັນ +%1$s (ບໍ່ລວມໃນກຳໄລ)</string>
+    <string name="portfolio_period_scaled">7 ມື້/1 ປີ ສຳລັບ %1$s: ປະຫວັດ Binance ປັບສັດສ່ວນຕາມລາຄາກະດານແລກປ່ຽນ</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">ສັນຍານເຕືອນ</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">ຈຳນວນ (%1$s)</string>
+    <string name="portfolio_alarm_hint">ກວດຫຼັງການໂຫຼດຄືນໃໝ່ທຸກຄັ້ງ. ຄືກັບສັນຍານເຕືອນ, ມັນເຮັດວຽກເມື່ອຂ້າມເກນ ແລະ ຈະເຮັດວຽກອີກກໍ່ຕໍ່ເມື່ອມູນຄ່າກັບຄືນມາແລ້ວ.</string>
+    <string name="portfolio_alarm_kind_above">ພອດໂຟລິໂອສູງກວ່າຈຳນວນ</string>
+    <string name="portfolio_alarm_kind_below">ພອດໂຟລິໂອຕ່ຳກວ່າຈຳນວນ</string>
+    <string name="portfolio_alarm_kind_down">ພອດໂຟລິໂອລົງ</string>
+    <string name="portfolio_alarm_kind_up">ພອດໂຟລິໂອຂຶ້ນ</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">ພອດໂຟລິໂອສູງກວ່າ %1$s</string>
+    <string name="portfolio_alarm_sentence_below">ພອດໂຟລິໂອຕ່ຳກວ່າ %1$s</string>
+    <string name="portfolio_alarm_sentence_down">ພອດໂຟລິໂອລົງ %1$s (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">ພອດໂຟລິໂອຂຶ້ນ %1$s (%2$s)</string>
+    <string name="portfolio_alarm_title">ສັນຍານເຕືອນມູນຄ່າພອດໂຟລິໂອ</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">ກະດານແລກປ່ຽນ (ບໍ່ບັງຄັບ)</string>
+    <string name="ledger_exchange_failed">%1$s: ຕອນນີ້ບໍ່ມີລາຄາຈາກ %2$s – ປະເມີນດ້ວຍ Binance.</string>
+    <string name="ledger_exchange_hint">ຫຼຽນຖືກປະເມີນຕາມລາຄາຂອງກະດານແລກປ່ຽນນີ້ (ຖ້າບໍ່ດັ່ງນັ້ນ Binance). ປະຫວັດ, 7 ມື້ ແລະ 1 ປີ ໃຊ້ລາຄາລາຍວັນ Binance ທີ່ປັບສັດສ່ວນຕາມມັນ.</string>
+    <string name="ledger_exchange_mixed">%1$s: ໃສ່ຫຼາຍກະດານແລກປ່ຽນ – ປະເມີນດ້ວຍ Binance. ຍ້າຍຫຼຽນບໍ? ບັນທຶກການຍ້າຍເປັນ “ການໂອນ”.</string>
+    <string name="ledger_exchange_none">ບໍ່ມີ (Binance)</string>
+    <string name="ledger_fee">ຄ່າທຳນຽມ (ບໍ່ບັງຄັບ)</string>
+    <string name="ledger_fee_coin">ຫຼຽນ</string>
+    <string name="ledger_fee_hint">ເປັນ USDT ມັນເພີ່ມຕົ້ນທຶນ (ຂາຍ: ຫຼຸດລາຍຮັບ); ເປັນຫຼຽນ ມັນຫຼຸດຈຳນວນ.</string>
+    <string name="ledger_fee_line">ຄ່າທຳນຽມ %1$s</string>
+    <string name="ledger_fifo_cost_note">ນັບແຕ່ຊື້: ຕົ້ນທຶນ FIFO ລວມຄ່າທຳນຽມ (ຫຼຽນທີ່ເກົ່າທີ່ສຸດຂາຍກ່ອນ).</string>
+    <string name="ledger_gain_info">ມື້ນີ້, 7 ມື້, 1 ປີ: ການປ່ຽນແປງມູນຄ່າໃນໄລຍະເວລາ – ການຊື້ ແລະ ຂາຍບໍ່ນັບເປັນກຳໄລ. ນັບແຕ່ຊື້: ມູນຄ່າປັດຈຸບັນລົບຕົ້ນທຶນ (ຕົ້ນທຶນສະເລ່ຍລວມຄ່າທຳນຽມ) ຂອງຫຼຽນທີ່ທ່ານຍັງຖືຢູ່.</string>
+    <string name="ledger_gain_info_a11y">ວິທີຄຳນວນກຳໄລ ແລະ ຂາດທຶນ</string>
+    <string name="ledger_gain_info_fifo">ມື້ນີ້, 7 ມື້, 1 ປີ: ການປ່ຽນແປງມູນຄ່າໃນໄລຍະເວລາ – ການຊື້ ແລະ ຂາຍບໍ່ນັບເປັນກຳໄລ. ນັບແຕ່ຊື້: ມູນຄ່າປັດຈຸບັນລົບຕົ້ນທຶນ (FIFO ລວມຄ່າທຳນຽມ) ຂອງຫຼຽນທີ່ທ່ານຍັງຖືຢູ່.</string>
+    <string name="ledger_gain_title">ກຳໄລ/ຂາດທຶນ</string>
+    <string name="ledger_more_toggle">ຄ່າທຳນຽມ ແລະ ກະດານແລກປ່ຽນ</string>
+    <string name="ledger_partial_cost">“ນັບແຕ່ຊື້” ນັບສະເພາະສ່ວນທີ່ມີລາຄາຊື້ – ບໍ່ລວມ %1$s ທີ່ບໍ່ມີລາຄາຊື້.</string>
+    <string name="ledger_period_without">ມື້ນີ້ / 7 ມື້ / 1 ປີ ບໍ່ລວມ %1$s – ບໍ່ມີລາຄາເລີ່ມຕົ້ນທີ່ກົງກັນ.</string>
+    <string name="ledger_since_purchase_currency">ນັບແຕ່ຊື້ (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">ກຳໄລ/ຂາດທຶນນັບແຕ່ຊື້, ຍັງບໍ່ໄດ້ຂາຍ</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="other">ບໍ່ລວມ %1$d ຫຼຽນທີ່ບໍ່ມີລາຄາຊື້ (%2$s) – ເພີ່ມລາຄາເພື່ອໃຫ້ຖືກນັບ.</item>
+    </plurals>
+
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">USDT ຕົກໜັກ – ຕະຫຼາດຢູ່ທີ່ %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">ອັດຕາໂດລາຂອງ USDT ຜ່ານ USDC/USDT – ຖ້າ USDC ລົງ, ຄ່ານີ້ຈະຜິດ</string>
+    <string name="portfolio_amount_bridged_stable">≈ ລວມ %1$s (bridged)</string>
+
+    <string name="portfolio_tx_interest">ດອກເບ້ຍ (ການໃຫ້ກູ້)</string>
+    <string name="portfolio_tx_interest_hint">ນັບເປັນລາຍຮັບເມື່ອໄດ້ຮັບ (ອອສເຕຣຍ). ບໍ່ຕ້ອງໃຊ້ສຳລັບລາງວັນ staking ແລະ airdrop.</string>
+    <string name="app_lock_no_screen_lock">ຕັ້ງລັອກໜ້າຈໍເພື່ອເປີດພອດໂຟລິໂອ.</string>
+    <string name="app_lock_turn_off_action">ປິດລັອກພອດໂຟລິໂອ</string>
+    <string name="app_lock_turn_off_confirm_title">ປິດລັອກພອດໂຟລິໂອບໍ?</string>
+    <string name="app_lock_turn_off_confirm_message">ຖ້າບໍ່ມີລັອກໜ້າຈໍ ພອດໂຟລິໂອຈະປົດລັອກບໍ່ໄດ້. ເມື່ອປິດ, ແອັບຈະສະແດງພອດໂຟລິໂອຂອງທ່ານອີກໂດຍບໍ່ຖາມ. ເມື່ອຕັ້ງລັອກໜ້າຈໍແລ້ວ, ທ່ານສາມາດເປີດລັອກຄືນໄດ້ໃນການຕັ້ງຄ່າ.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">“ນັບແຕ່ຊື້” ແລະ ຕົ້ນທຶນເປັນ %1$s: ຕົ້ນທຶນຕາມອັດຕາແລກປ່ຽນຂອງມື້ຊື້, ມູນຄ່າຕາມອັດຕາມື້ນີ້.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">ບໍ່ມີອັດຕາແລກປ່ຽນສຳລັບມື້ຊື້ (ຂາດຈາກ “ນັບແຕ່ຊື້” ແລະ ຕົ້ນທຶນ): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">ຕົ້ນທຶນໃນມື້ຊື້ທີ່ບໍ່ມີອັດຕາໂດລາຂອງ USDT ນັບເປັນ 1 ໂດລາສະຫະລັດຕໍ່ USDT.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">ຂໍ້ມູນເມື່ອ %1$s – ເຊື່ອມຕໍ່ກະດານແລກປ່ຽນບໍ່ໄດ້</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">ລາຄາລາຍວັນ: %1$s (ແທນ Binance)</string>
+
+    <string name="portfolio_footer_short">ເຄື່ອງມືຊ່ວຍວຽກ, ບໍ່ແມ່ນຄຳແນະນຳດ້ານພາສີ ຫຼື ການລົງທຶນ. ຄວາມເປັນສ່ວນຕົວ: ການຕັ້ງຄ່າ › ກ່ຽວກັບແອັບ › ນະໂຍບາຍຄວາມເປັນສ່ວນຕົວ.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">ລຶບທຸລະກຳທັງໝົດຂອງ %1$s ບໍ?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="other">%d ທຸລະກຳຈະຖືກລຶບອອກ. ທ່ານສາມາດຍົກເລີກໄດ້ທັນທີຫຼັງຈາກນັ້ນ.</item>
+    </plurals>
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">ຄ່າທຳນຽມທີ່ຈ່າຍເປັນ %1$s ກໍ່ຖືກລຶບອອກຈາກທຸລະກຳອື່ນນຳ: %2$d.</string>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="other">ລຶບ %1$s ອອກຈາກພອດໂຟລິໂອແລ້ວ (%2$d ທຸລະກຳ)</item>
+    </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="other">ລຶບ %d ທຸລະກຳອອກແລ້ວ</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="other">ສິ່ງນີ້ຍັງລຶບ %d ລັອດອອກນຳ.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="other">ສິ່ງນີ້ຍັງລຶບ %d ລັອດ ແລະ ປະຫວັດຍອດເງິນອອກນຳ.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">ສິ່ງນີ້ຍັງລຶບປະຫວັດຍອດເງິນອອກນຳ.</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">ບັນທຶກບໍ່ໄດ້ – ກະລຸນາລອງໃໝ່</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">ເກນບໍ່ຖືກຕ້ອງ – ລຶບ ແລະ ສ້າງໃໝ່</string>
+</resources>

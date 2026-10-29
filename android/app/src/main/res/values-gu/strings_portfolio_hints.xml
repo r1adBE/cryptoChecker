@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">પોર્ટફોલિયો એલર્ટ થોભાવ્યા: %1$s નો વર્તમાન ભાવ નથી</string>
+    <string name="portfolio_alarms_paused_price_generic">પોર્ટફોલિયો એલર્ટ થોભાવ્યા: દરેક કૉઇનનો વર્તમાન ભાવ ઉપલબ્ધ નથી</string>
+    <string name="portfolio_alarms_paused_addresses">પોર્ટફોલિયો એલર્ટ થોભાવ્યા: જોવાતાં સરનામાંનું બેલેન્સ હજુ લોડ થયું નથી</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">પોર્ટફોલિયો એલર્ટ થોભાવ્યા: %1$s નું ટોકન બેલેન્સ આંશિક રીતે જૂનું છે</string>
+    <string name="portfolio_alarms_paused_tokens_generic">પોર્ટફોલિયો એલર્ટ થોભાવ્યા: જોવાતાં સરનામાંનું ટોકન બેલેન્સ આંશિક રીતે જૂનું છે</string>
+    <string name="portfolio_alarms_paused_unverified">પોર્ટફોલિયો એલર્ટ થોભાવ્યા: %1$s નો ભાવ ચકાસાયેલો નથી</string>
+    <string name="portfolio_alarms_paused_unverified_generic">પોર્ટફોલિયો એલર્ટ થોભાવ્યા: કેટલાક કૉઇનનો ભાવ ચકાસાયેલો નથી</string>
+    <string name="portfolio_alarms_address_failing">પોર્ટફોલિયો એલર્ટ %1$s વગર તપાસાય છે: 24 કલાકથી વધુ સમયથી બેલેન્સ લોડ થયું નથી</string>
+    <string name="portfolio_alarms_address_failing_generic">જે સરનામાંનું બેલેન્સ 24 કલાકથી વધુ સમયથી લોડ થયું નથી, તેમના વગર પોર્ટફોલિયો એલર્ટ તપાસાય છે</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">ટોકન આંશિક રીતે જૂના</string>
+    <string name="portfolio_address_restore_failed">સરનામું પુનઃસ્થાપિત થઈ શક્યું નથી – જરૂર હોય તો ફરી ઉમેરો</string>
+    <string name="portfolio_address_remove_failed">સરનામું દૂર થઈ શક્યું નથી – કૃપા કરીને ફરી પ્રયાસ કરો</string>
+</resources>

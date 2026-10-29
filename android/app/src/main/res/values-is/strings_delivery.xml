@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">Tryggðu að viðvaranir berist</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">Í lagi</string>
+    <string name="delivery_state_warn">Athugaðu þetta</string>
+    <string name="delivery_state_info">Athugasemd</string>
+    <string name="delivery_allowed">Leyft</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">Tilkynningar</string>
+    <string name="delivery_notifications_off">Af – viðvaranir berast ekki</string>
+    <string name="delivery_notifications_not_asked">Ekki leyft enn</string>
+    <string name="delivery_channel">Viðvörunarrás</string>
+    <string name="delivery_channel_high">Mikilvægt – birtist á skjánum</string>
+    <string name="delivery_channel_low">Lítið mikilvægt – viðvaranir birtast aðeins hljóðlaust á listanum</string>
+    <string name="delivery_channel_off">Slökkt – viðvaranir berast ekki</string>
+    <string name="delivery_exact_on">Á – á um það bil 15 mínútna fresti</string>
+    <string name="delivery_exact_off">Af – Android athugar óreglulega</string>
+    <string name="delivery_battery">Rafhlöðusparnaður</string>
+    <string name="delivery_battery_unrestricted">Ótakmarkað</string>
+    <string name="delivery_battery_optimized">Sparnaður – Android getur seinkað athugunum. Forritið biður ekki um undanþágu; þú getur breytt þessu í rafhlöðustillingum forritsins.</string>
+    <string name="delivery_background">Notkun í bakgrunni</string>
+    <string name="delivery_background_restricted">Takmarkað – Android stöðvar athuganir í bakgrunni</string>
+    <string name="delivery_dnd">Ónáðið ekki</string>
+    <string name="delivery_dnd_on">Á – viðvaranir geta borist án hljóðs</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">Virkt til %1$s – viðvaranir sem eru á gjalddaga bíða þangað til</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – viðvaranir sem eru á gjalddaga bíða á þessum tíma</string>
+    <string name="delivery_last_check">Síðasta athugun í bakgrunni</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – fyrir meira en 6 klukkustundum</string>
+    <string name="delivery_last_check_never">Engin enn</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">Leyfa</string>
+    <string name="delivery_action_change">Breyta</string>
+    <string name="delivery_action_show">Sýna</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">Borðar og hljóð</string>
+    <string name="delivery_alert_off">Borðar af – viðvaranir birtast aðeins í tilkynningamiðstöðinni</string>
+    <string name="delivery_sound_off">Hljóð af – viðvaranir berast hljóðlaust</string>
+    <string name="delivery_time_sensitive">Tímanæmar tilkynningar</string>
+    <string name="delivery_time_sensitive_off">Af – Fókus getur haldið aftur viðvörunum</string>
+    <string name="delivery_background_refresh">Uppfærsla í bakgrunni</string>
+    <string name="delivery_low_power">Orkusparnaður</string>
+    <string name="delivery_swipe_away">Strokið forritinu burt?</string>
+    <string name="delivery_swipe_away_note">Ef þú strýkur forritinu burt í forritaskiptinum stöðvar iOS athuganir í bakgrunni þar til þú opnar það aftur.</string>
+    <string name="delivery_live_activity">Lifandi virkni</string>
+    <string name="delivery_live_activity_note">Sýnir verðið á lásskjánum en uppfærist aðeins þegar forritið athugar – það lætur viðvaranir ekki athuga oftar.</string>
+
+    <string name="alarm_first_check">Athugaðu að viðvaranir berist</string>
+
+    <string name="oem_battery_title">Rafhlöðusparnaður framleiðanda</string>
+    <string name="oem_battery_xiaomi">Xiaomi getur stöðvað forritið alveg – þá berast engar viðvaranir. Kveiktu á „Autostart“ og stilltu rafhlöðusparnað á „No restrictions“.</string>
+    <string name="oem_battery_samsung">Samsung getur sett forritið í djúpsvefn – þá berast engar viðvaranir. Undir Battery › Background usage limits skaltu bæta því við „Never sleeping apps“.</string>
+    <string name="oem_battery_huawei">Huawei/Honor getur stöðvað forritið – þá berast engar viðvaranir. Undir Battery › App launch skaltu velja „Manage manually“ og leyfa alla valkosti.</string>
+    <string name="oem_battery_oneplus">OnePlus getur stöðvað forritið – þá berast engar viðvaranir. Leyfðu „Auto-launch“ og, undir Battery usage, virkni í bakgrunni.</string>
+    <string name="oem_battery_oppo">Oppo/Realme getur stöðvað forritið – þá berast engar viðvaranir. Leyfðu „Auto launch“ og, undir Battery usage, virkni í bakgrunni.</string>
+    <string name="oem_battery_vivo">Vivo getur stöðvað forritið – þá berast engar viðvaranir. Leyfðu „Autostart“ og, undir Battery, mikla orkunotkun í bakgrunni.</string>
+    <string name="alarm_reliability_stale">Síðasta athugun %1$s – viðvaranir geta borist seint</string>
+    <string name="alarm_reliability_never">Viðvaranir á – engin athugun í bakgrunni enn</string>
+    <string name="alarm_reliability_notifications_off">Tilkynningar af – viðvaranir berast ekki</string>
+    <string name="alarm_reliability_battery">Rafhlöðusparnaður getur stöðvað athuganir viðvarana</string>
+    <string name="alarm_reliability_background_refresh">Uppfærsla í bakgrunni af – viðvaranir berast hugsanlega ekki</string>
+</resources>

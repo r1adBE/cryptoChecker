@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Protokoll: Titel der Seite und Name des Knopfs in «Alle Alarme» -->
+    <string name="alarm_log_title">Hoiatuste logi</string>
+    <!-- Link unter «Letzte Prüfungen» (Einstellungen › Aktualisierung) -->
+    <string name="alarm_log_open">Näita hoiatuste logi</string>
+    <string name="alarm_log_intro">Millal hoiatus käivitus – ja millal see oleks käivitunud, kuid peeti kinni. Salvestatakse ainult selles seadmes 14 päevaks.</string>
+    <string name="alarm_log_empty_title">Kirjeid veel pole</string>
+    <string name="alarm_log_empty_message">Kirjed ilmuvad siia, kui hoiatus käivitub või peetakse kinni – näiteks aegunud hinna või vaikse aja tõttu.</string>
+    <string name="alarm_log_clear">Tühjenda logi</string>
+    <string name="alarm_log_clear_title">Kas tühjendada hoiatuste logi?</string>
+    <string name="alarm_log_clear_message">Kõik kirjed eemaldatakse. Sinu hoiatused jäävad samaks.</string>
+    <!-- Screenreader: Schwelle des Alarms, z. B. «Marke Über 100’000 CHF» -->
+    <string name="alarm_log_threshold">Lävi %1$s</string>
+    <!-- Alarm-Editor: letzte Prüfung, %1$s = «14:02 · Kraken 99’800 CHF · Marke nicht erreicht» -->
+    <string name="alarm_last_check">Viimati kontrollitud: %1$s</string>
+    <!-- Ergebnisse einer Alarm-Prüfung (AlarmLogOutcome) -->
+    <string name="alarm_outcome_fired">Käivitus</string>
+    <string name="alarm_outcome_not_reached">Lävi pole saavutatud</string>
+    <string name="alarm_outcome_already_triggered">Juba teatatud – ootab, kuni hind on taas teisel pool</string>
+    <string name="alarm_outcome_cooldown">Ei käivitunud – puhkeaeg pärast viimast hoiatust</string>
+    <!-- %1$s = Zeit des Kurses laut Börse -->
+    <string name="alarm_outcome_stale">Ei käivitunud – hind aegunud (seis %1$s)</string>
+    <string name="alarm_outcome_mark_price">Ei käivitunud – märgistushind, mitte tehinguhind</string>
+    <string name="alarm_outcome_low_liquidity">Ei käivitunud – likviidsus alla 10 000 USD või teadmata</string>
+    <string name="alarm_outcome_quiet_hours">Ei käivitunud – vaikne aeg (hoiatab hiljem, kui tingimus kehtib endiselt)</string>
+    <string name="alarm_outcome_notifications_off">Ei käivitunud – märguanded väljas</string>
+    <string name="alarm_outcome_not_shown">Ei käivitunud – märguanne ei jõudnud kohale, proovitakse hiljem uuesti</string>
+    <string name="alarm_outcome_no_rate">Kontrollimata – vahetuskurss puudub</string>
+    <string name="alarm_outcome_no_price">Hind puudub – päring börsile ebaõnnestus</string>
+
+    <string name="alarm_outcome_snoozed">Kinni peetud – „1 h hiljem“ veel kehtib</string>
+    <string name="alarm_log_source_app">rakenduses</string>
+    <string name="alarm_log_source_background">taustal</string>
+    <string name="alarm_log_source_exact">täpne kontroll</string>
+    <string name="alarm_log_source_widget">vidina kaudu</string>
+    <string name="alarm_outcome_fx_stale">Kontrollimata – vahetuskurss vanem kui 36 tundi</string>
+    <string name="alarm_outcome_fx_unsure">Kontrollimata – USDT teisendus ebakindel (ainult USDC kaudu)</string>
+</resources>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">ਇਸਦੇ ਨਾਲ ਹੋਰ ਕੀ ਹਿੱਲ ਰਿਹਾ ਹੈ?</string>
+    <string name="why_all_values">ਸਾਰੇ ਮੁੱਲ ਅਤੇ ਸਰੋਤ</string>
+    <string name="why_all_values_hint">ਨਿਰੀਖਣ · ਸੰਭਾਵੀ ਵਿਆਖਿਆ · ਸਰੋਤ</string>
+    <string name="why_details">ਵੇਰਵੇ ਦਿਖਾਓ</string>
+    <string name="why_details_hide">ਵੇਰਵੇ ਲੁਕਾਓ</string>
+    <string name="why_disclaimer">ਬਾਜ਼ਾਰ ਡਾਟੇ ਤੋਂ ਆਪਣੇ-ਆਪ ਮੁਲਾਂਕਣ: ਇਹ ਦਿਖਾਉਂਦਾ ਹੈ ਕਿ ਇੱਕੋ ਸਮੇਂ ਕੀ ਹੋ ਰਿਹਾ ਹੈ, ਕਾਰਨ ਦਾ ਸਬੂਤ ਨਹੀਂ।</string>
+    <string name="why_footer_short">ਇੱਕੋ ਸਮੇਂ ਹੋਣ ਦਾ ਮਤਲਬ ਕਾਰਨ ਨਹੀਂ · ਨਿਵੇਸ਼ ਸਲਾਹ ਨਹੀਂ</string>
+    <string name="why_no_data">ਇਸ ਜੋੜੇ ਲਈ Binance ਤੋਂ ਕੋਈ ਡਾਟਾ ਨਹੀਂ</string>
+    <string name="why_no_data_hint">ਕੀਮਤ, ਵਾਲੀਅਮ ਅਤੇ ਅਸਥਿਰਤਾ Binance ਦੀਆਂ ਘੰਟੇਵਾਰ ਕੈਂਡਲਾਂ ਤੋਂ ਆਉਂਦੇ ਹਨ।</string>
+    <string name="why_ref_alts">ਆਲਟ</string>
+    <string name="why_section_context">ਸੰਭਾਵੀ ਵਿਆਖਿਆ</string>
+    <string name="why_section_observation">ਨਿਰੀਖਣ</string>
+    <string name="why_title">ਇਸਦੇ ਨਾਲ ਹੋਰ ਕੀ ਹਿੱਲ ਰਿਹਾ ਹੈ?</string>
+    <string name="why_title_coin">%1$s ਦੇ ਨਾਲ ਹੋਰ ਕੀ ਹਿੱਲ ਰਿਹਾ ਹੈ?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">ਸੰਖੇਪ ਵਿੱਚ · %1$s ਮੁਤਾਬਕ</string>
+    <string name="why_brief_label">ਸੰਖੇਪ ਵਿੱਚ:</string>
+    <string name="why_summary_against">ਕੌਇਨ ਬਾਜ਼ਾਰ ਦੇ ਉਲਟ ਚੱਲ ਰਿਹਾ ਹੈ।</string>
+    <string name="why_summary_calm">ਕੋਈ ਧਿਆਨਯੋਗ ਹਲਚਲ ਨਹੀਂ: ਬਾਜ਼ਾਰ ਅਤੇ ਕੌਇਨ ਸ਼ਾਂਤ ਹਨ।</string>
+    <string name="why_summary_coin">ਸਿਰਫ਼ ਇਹ ਕੌਇਨ ਹਿੱਲ ਰਿਹਾ ਹੈ – ਸ਼ਾਇਦ ਕੋਈ ਅਜਿਹੀ ਗੱਲ ਜੋ ਸਿਰਫ਼ ਇਸੇ ਕੌਇਨ ’ਤੇ ਅਸਰ ਪਾਉਂਦੀ ਹੈ।</string>
+    <string name="why_summary_coin_volume">ਸਿਰਫ਼ ਇਹ ਕੌਇਨ ਹਿੱਲ ਰਿਹਾ ਹੈ, ਵੱਧ ਵਾਲੀਅਮ ਨਾਲ – ਸ਼ਾਇਦ ਕੋਈ ਅਜਿਹੀ ਗੱਲ ਜੋ ਸਿਰਫ਼ ਇਸੇ ਕੌਇਨ ’ਤੇ ਅਸਰ ਪਾਉਂਦੀ ਹੈ।</string>
+    <string name="why_summary_longs">ਫਿਊਚਰਜ਼: ਬਹੁਤ ਸਾਰੀਆਂ ਲੀਵਰੇਜ ਵਾਲੀਆਂ ਲੌਂਗ ਪੁਜ਼ੀਸ਼ਨਾਂ।</string>
+    <string name="why_summary_market">ਹਲਚਲ ਸਮੇਂ ਦੇ ਪੱਖੋਂ ਸਮੁੱਚੇ ਬਾਜ਼ਾਰ ਨਾਲ ਮੇਲ ਖਾਂਦੀ ਹੈ।</string>
+    <string name="why_summary_market_volume">ਹਲਚਲ ਵੱਧ ਵਪਾਰ ਵਾਲੀਅਮ ਅਤੇ ਵਿਆਪਕ ਤੌਰ ’ਤੇ ਹਿੱਲਦੇ ਬਾਜ਼ਾਰ ਦੇ ਨਾਲ ਹੋ ਰਹੀ ਹੈ।</string>
+    <string name="why_summary_peg_near">ਕੀਮਤ ਆਪਣੇ 1:1 ਪੈੱਗ ਦੇ ਨੇੜੇ ਹੈ।</string>
+    <string name="why_summary_peg_off">ਕੀਮਤ ਆਪਣੇ 1:1 ਪੈੱਗ ਤੋਂ ਧਿਆਨਯੋਗ ਤੌਰ ’ਤੇ ਹਟੀ ਹੋਈ ਹੈ।</string>
+    <string name="why_summary_shorts">ਫਿਊਚਰਜ਼: ਬਹੁਤ ਸਾਰੀਆਂ ਸ਼ਾਰਟ ਪੁਜ਼ੀਸ਼ਨਾਂ।</string>
+    <string name="why_summary_thin">ਹਲਚਲ ਕਮਜ਼ੋਰ ਹੈ: ਇਸਦੇ ਪਿੱਛੇ ਘੱਟ ਵਾਲੀਅਮ ਹੈ।</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">ਬਾਜ਼ਾਰ ਦੇ ਉਲਟ</string>
+    <string name="why_f_coin_only">ਸਿਰਫ਼ ਇਹ ਕੌਇਨ</string>
+    <string name="why_f_leader">ਬਾਜ਼ਾਰ ਦੇ ਆਗੂ ਵਜੋਂ Bitcoin</string>
+    <string name="why_f_leverage_balanced">ਲੀਵਰੇਜ ਸੰਤੁਲਿਤ</string>
+    <string name="why_f_leverage_longs">ਲੀਵਰੇਜ: ਬਹੁਤ ਸਾਰੇ ਲੌਂਗ</string>
+    <string name="why_f_leverage_shorts">ਲੀਵਰੇਜ: ਬਹੁਤ ਸਾਰੇ ਸ਼ਾਰਟ</string>
+    <string name="why_f_market_calm">ਸ਼ਾਂਤ ਬਾਜ਼ਾਰ</string>
+    <string name="why_f_market_wide">ਪੂਰਾ ਬਾਜ਼ਾਰ ਹਿੱਲ ਰਿਹਾ ਹੈ</string>
+    <string name="why_factor_funding">ਫੰਡਿੰਗ</string>
+    <string name="why_factor_futures">ਫਿਊਚਰਜ਼</string>
+    <string name="why_factor_market">ਸਮੁੱਚਾ ਬਾਜ਼ਾਰ</string>
+    <string name="why_factor_near_high">ਸਿਖਰ ਦੇ ਨੇੜੇ</string>
+    <string name="why_factor_near_low">ਤਲ ਦੇ ਨੇੜੇ</string>
+    <string name="why_factor_peg">ਪੈੱਗ (1:1)</string>
+    <string name="why_factor_range3d">3 ਦਿਨਾਂ ਦੀ ਰੇਂਜ</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">ਅਨੁਮਾਨਿਤ</string>
+    <string name="why_fn_funding_longs">ਬਹੁਤ ਸਾਰੇ ਕੀਮਤ ਵਧਣ ’ਤੇ ਦਾਅ ਲਗਾ ਰਹੇ ਹਨ</string>
+    <string name="why_fn_funding_neutral">ਨਿਰਪੱਖ</string>
+    <string name="why_fn_funding_shorts">ਬਹੁਤ ਸਾਰੇ ਕੀਮਤ ਡਿੱਗਣ ’ਤੇ ਦਾਅ ਲਗਾ ਰਹੇ ਹਨ</string>
+    <string name="why_fn_high_at">30 ਦਿਨਾਂ ਦੇ ਸਿਖਰ ’ਤੇ</string>
+    <string name="why_fn_high_below">30 ਦਿਨਾਂ ਦੇ ਸਿਖਰ ਤੋਂ ਹੇਠਾਂ</string>
+    <string name="why_fn_leader_calm">Bitcoin ਸ਼ਾਂਤ ਹੈ</string>
+    <string name="why_fn_leader_moves">Bitcoin ਸਾਫ਼ ਤੌਰ ’ਤੇ ਹਿੱਲ ਰਿਹਾ ਹੈ</string>
+    <string name="why_fn_low_above">30 ਦਿਨਾਂ ਦੇ ਤਲ ਤੋਂ ਉੱਪਰ</string>
+    <string name="why_fn_low_at">30 ਦਿਨਾਂ ਦੇ ਤਲ ’ਤੇ</string>
+    <string name="why_fn_market_against">ਇਹ ਕੌਇਨ ਬਾਜ਼ਾਰ ਦੇ ਉਲਟ ਚੱਲ ਰਿਹਾ ਹੈ</string>
+    <string name="why_fn_market_alone">ਬਾਜ਼ਾਰ ਸ਼ਾਂਤ – ਇਹ ਕੌਇਨ ਆਪਣੇ-ਆਪ ਹਿੱਲ ਰਿਹਾ ਹੈ</string>
+    <string name="why_fn_market_calm">ਬਾਜ਼ਾਰ ਸ਼ਾਂਤ ਹੈ</string>
+    <string name="why_fn_market_lags">ਬਾਜ਼ਾਰ ਹਿੱਲ ਰਿਹਾ ਹੈ, ਇਹ ਕੌਇਨ ਮੁਸ਼ਕਿਲ ਨਾਲ</string>
+    <string name="why_fn_market_moves">ਬਾਜ਼ਾਰ ਉਸੇ ਦਿਸ਼ਾ ਵਿੱਚ ਹਿੱਲ ਰਿਹਾ ਹੈ</string>
+    <string name="why_fn_market_pulls">ਬਾਜ਼ਾਰ BTC ਦੇ ਨਾਲ ਹਿੱਲ ਰਿਹਾ ਹੈ</string>
+    <string name="why_fn_oi_down">ਓਪਨ ਇੰਟਰੈਸਟ ਹੇਠਾਂ</string>
+    <string name="why_fn_oi_flat">ਓਪਨ ਇੰਟਰੈਸਟ ਵਿੱਚ ਮੁਸ਼ਕਿਲ ਨਾਲ ਤਬਦੀਲੀ</string>
+    <string name="why_fn_oi_mixed">ਓਪਨ ਇੰਟਰੈਸਟ ਮਿਲਿਆ-ਜੁਲਿਆ</string>
+    <string name="why_fn_oi_up">ਓਪਨ ਇੰਟਰੈਸਟ ਉੱਪਰ</string>
+    <string name="why_fn_peg_above">1:1 ਪੈੱਗ ਤੋਂ %1$s ਉੱਪਰ</string>
+    <string name="why_fn_peg_below">1:1 ਪੈੱਗ ਤੋਂ %1$s ਹੇਠਾਂ</string>
+    <string name="why_fn_peg_near">1:1 ਪੈੱਗ ਦੇ ਨੇੜੇ</string>
+    <string name="why_fn_range_above_low">3 ਦਿਨਾਂ ਦੇ ਤਲ ਤੋਂ</string>
+    <string name="why_fn_range_below_high">3 ਦਿਨਾਂ ਦੇ ਸਿਖਰ ਤੋਂ</string>
+    <string name="why_fn_range_near_high">3 ਦਿਨਾਂ ਦੇ ਸਿਖਰ ਦੇ ਨੇੜੇ</string>
+    <string name="why_fn_range_near_low">3 ਦਿਨਾਂ ਦੇ ਤਲ ਦੇ ਨੇੜੇ</string>
+    <string name="why_fn_volatility_stronger">ਆਮ ਨਾਲੋਂ ਵੱਧ</string>
+    <string name="why_fn_volatility_tiny">ਨਿਰਪੇਖ ਤੌਰ ’ਤੇ ਛੋਟਾ (%1$s ਤੋਂ ਘੱਟ)</string>
+    <string name="why_fn_volatility_usual">ਆਮ ਵਾਂਗ</string>
+    <string name="why_fn_volume_higher">ਆਮ ਨਾਲੋਂ ਵੱਧ</string>
+    <string name="why_fn_volume_lower">ਆਮ ਨਾਲੋਂ ਘੱਟ</string>
+    <string name="why_fn_volume_usual">ਆਮ ਵਾਂਗ</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">24 ਘੰਟਿਆਂ ਵਿੱਚ ਇਹ ਕੌਇਨ %1$s, BTC %2$s — ਧਿਆਨਯੋਗ ਤੌਰ ’ਤੇ ਸੁਤੰਤਰ ਹਲਚਲ।</string>
+    <string name="why_against_ref_text">24 ਘੰਟਿਆਂ ਵਿੱਚ ਇਹ ਕੌਇਨ %1$s, %2$s %3$s — ਧਿਆਨਯੋਗ ਤੌਰ ’ਤੇ ਸੁਤੰਤਰ ਹਲਚਲ।</string>
+    <string name="why_btc_independent">%1$s ਇਸ ਵੇਲੇ Bitcoin ਤੋਂ ਸੁਤੰਤਰ ਤੌਰ ’ਤੇ ਚੱਲ ਰਿਹਾ ਹੈ।</string>
+    <string name="why_btc_tight">%1$s ਇਸ ਵੇਲੇ Bitcoin ਦੇ ਨਾਲ ਨੇੜਿਓਂ ਚੱਲ ਰਿਹਾ ਹੈ।</string>
+    <string name="why_change_1h">1 ਘੰਟਾ</string>
+    <string name="why_change_24h">24 ਘੰਟੇ</string>
+    <string name="why_coin_only_text">24 ਘੰਟਿਆਂ ਵਿੱਚ %1$s ਜਦਕਿ ਬਾਜ਼ਾਰ ਸ਼ਾਂਤ ਹੈ – ਸ਼ਾਇਦ ਕੋਈ ਅਜਿਹੀ ਗੱਲ ਜੋ ਸਿਰਫ਼ ਇਸੇ ਕੌਇਨ ’ਤੇ ਅਸਰ ਪਾਉਂਦੀ ਹੈ।</string>
+    <string name="why_leverage_balanced_text">ਫਿਊਚਰਜ਼ ਬਾਜ਼ਾਰ ਵਿੱਚ ਲੌਂਗ ਜਾਂ ਸ਼ਾਰਟ ਪੁਜ਼ੀਸ਼ਨਾਂ ਦੀ ਕੋਈ ਭੀੜ ਨਹੀਂ।</string>
+    <string name="why_leverage_longs_text">ਬਹੁਤ ਸਾਰੇ ਲੋਕ ਉਧਾਰ ਦੇ ਪੈਸੇ ਨਾਲ ਕੀਮਤ ਵਧਣ ’ਤੇ ਦਾਅ ਲਗਾ ਰਹੇ ਹਨ। ਲੌਂਗ ਵਾਲੇ ਸ਼ਾਰਟ ਵਾਲਿਆਂ ਨੂੰ ਭੁਗਤਾਨ ਕਰ ਰਹੇ ਹਨ — ਕੀਮਤ ਡਿੱਗਣ ’ਤੇ ਲਿਕਵਿਡੇਸ਼ਨ ਦਾ ਵੱਧ ਖਤਰਾ।</string>
+    <string name="why_leverage_shorts_text">ਬਹੁਤ ਸਾਰੇ ਲੋਕ ਉਧਾਰ ਦੇ ਪੈਸੇ ਨਾਲ ਕੀਮਤ ਡਿੱਗਣ ’ਤੇ ਦਾਅ ਲਗਾ ਰਹੇ ਹਨ। ਸ਼ਾਰਟ ਵਾਲੇ ਲੌਂਗ ਵਾਲਿਆਂ ਨੂੰ ਭੁਗਤਾਨ ਕਰ ਰਹੇ ਹਨ – ਕੀਮਤ ਵਧਣ ’ਤੇ ਸ਼ਾਰਟ ਸਕਵੀਜ਼ ਸੰਭਵ ਹੈ।</string>
+    <string name="why_market_calm_text">ਇਹ ਕੌਇਨ: 24 ਘੰਟਿਆਂ ਵਿੱਚ %1$s। ਨਾ ਬਾਜ਼ਾਰ ਜ਼ਿਆਦਾ ਹਿੱਲ ਰਿਹਾ ਹੈ ਨਾ ਕੌਇਨ।</string>
+    <string name="why_market_leader_text">ਸਭ ਤੋਂ ਵੱਡੇ ਕੌਇਨ ਵਜੋਂ BTC ਆਮ ਤੌਰ ’ਤੇ ਬਾਕੀ ਬਾਜ਼ਾਰ ਨਾਲ ਕਦਮ ਮਿਲਾ ਕੇ ਚੱਲਦਾ ਹੈ। ETH: 24 ਘੰਟਿਆਂ ਵਿੱਚ %1$s।</string>
+    <string name="why_market_leader_text_no_eth">ਸਭ ਤੋਂ ਵੱਡੇ ਕੌਇਨ ਵਜੋਂ BTC ਆਮ ਤੌਰ ’ਤੇ ਬਾਕੀ ਬਾਜ਼ਾਰ ਨਾਲ ਕਦਮ ਮਿਲਾ ਕੇ ਚੱਲਦਾ ਹੈ।</string>
+    <string name="why_market_similar_text">ਇਹ ਕੌਇਨ: 24 ਘੰਟਿਆਂ ਵਿੱਚ %1$s – ਉਸੇ ਸਮੇਂ ਬਾਜ਼ਾਰ ਵੀ ਉਸੇ ਦਿਸ਼ਾ ਵਿੱਚ ਹਿੱਲ ਰਿਹਾ ਹੈ, ਭਾਵੇਂ ਘੱਟ ਸਾਫ਼ ਤੌਰ ’ਤੇ।</string>
+    <string name="why_market_wide_text">ਇਹ ਕੌਇਨ: 24 ਘੰਟਿਆਂ ਵਿੱਚ %1$s – ਉਸੇ ਸਮੇਂ ਸਮੁੱਚਾ ਬਾਜ਼ਾਰ ਸਾਫ਼ ਤੌਰ ’ਤੇ ਹਿੱਲ ਰਿਹਾ ਹੈ।</string>
+    <string name="why_open_interest_change">ਆਖਰੀ ਜਾਂਚ ਤੋਂ ਬਾਅਦ ਓਪਨ ਇੰਟਰੈਸਟ %1$s।</string>
+    <string name="why_peg_text">ਸਟੇਬਲਕੌਇਨ: ਕੋਟ ਮੁਦਰਾ ਨਾਲ 1:1 ਪੈੱਗ ਦੇ ਮੁਕਾਬਲੇ ਵਿਚਲਨ %1$s।</string>
+    <string name="why_sentiment_text">ਪੂਰੇ ਕ੍ਰਿਪਟੋ ਬਾਜ਼ਾਰ ਦਾ Fear &amp; Greed ਸੂਚਕਾਂਕ, ਕੱਲ੍ਹ ਦੇ ਮੁਕਾਬਲੇ %1$s।</string>
+    <string name="why_sentiment_text_no_change">ਪੂਰੇ ਕ੍ਰਿਪਟੋ ਬਾਜ਼ਾਰ ਦਾ Fear &amp; Greed ਸੂਚਕਾਂਕ।</string>
+    <plurals name="why_trend_falling">
+        <item quantity="one">%1$d ਘੰਟੇ ਤੋਂ ਡਿੱਗ ਰਿਹਾ ਹੈ</item>
+        <item quantity="other">%1$d ਘੰਟਿਆਂ ਤੋਂ ਡਿੱਗ ਰਿਹਾ ਹੈ</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="one">%1$d ਘੰਟੇ ਤੋਂ ਵਧ ਰਿਹਾ ਹੈ</item>
+        <item quantity="other">%1$d ਘੰਟਿਆਂ ਤੋਂ ਵਧ ਰਿਹਾ ਹੈ</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="one">%1$d ਘੰਟੇ ਤੋਂ ਸਥਿਰ</item>
+        <item quantity="other">%1$d ਘੰਟਿਆਂ ਤੋਂ ਸਥਿਰ</item>
+    </plurals>
+    <string name="why_volatility_high_text">ਪਿਛਲਾ ਘੰਟਾ: %1$s — ਪਿਛਲੇ 24 ਘੰਟਿਆਂ ਦੇ ਆਮ ਘੰਟੇਵਾਰ ਉਤਾਰ-ਚੜ੍ਹਾਅ ਦੇ ਮੁਕਾਬਲੇ ਮਾਪਿਆ।</string>
+    <string name="why_volatility_normal_text">ਪਿਛਲਾ ਘੰਟਾ: %1$s — ਆਮ ਸੀਮਾ ਦੇ ਅੰਦਰ।</string>
+    <string name="why_volatility_tiny_text">ਪਿਛਲਾ ਘੰਟਾ: %1$s — ਇਸ ਕੌਇਨ ਲਈ ਅਸਾਧਾਰਨ, ਪਰ ਨਿਰਪੇਖ ਤੌਰ ’ਤੇ ਛੋਟਾ।</string>
+    <string name="why_volume_estimated_text">ਅਨੁਮਾਨਿਤ: ਇਹ ਸਰੋਤ ਕਾਰੋਬਾਰੀ ਰਕਮ ਨਹੀਂ ਦਿੰਦਾ, ਇਸ ਲਈ ਵਪਾਰ ਹੋਏ ਕੌਇਨਾਂ ਦੀ ਮਾਤਰਾ ਦੀ ਤੁਲਨਾ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।</string>
+    <string name="why_volume_high_text">ਪਿਛਲੇ ਘੰਟੇ ਵਿੱਚ ਆਮ ਨਾਲੋਂ ਕਿਤੇ ਵੱਧ ਵਪਾਰ – ਹਲਚਲ ਉੱਚੇ ਵਾਲੀਅਮ ਨਾਲ ਹੈ।</string>
+    <string name="why_volume_low_text">ਹਲਚਲ ਦੇ ਪਿੱਛੇ ਘੱਟ ਵਪਾਰ – ਅਜਿਹੀ ਹਲਚਲ ਅਕਸਰ ਘੱਟ ਸਥਿਰ ਹੁੰਦੀ ਹੈ।</string>
+    <string name="why_volume_normal_text">ਪਿਛਲੇ ਘੰਟੇ ਦਾ ਵਪਾਰ ਪਿਛਲੇ 24 ਘੰਟਿਆਂ ਦੇ ਮੁਤਾਬਕ ਹੈ।</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">ਵਧਿਆ ਹੋਇਆ</string>
+    <string name="why_dot_neutral">ਨਿਰਪੱਖ</string>
+    <string name="why_dot_supports">ਹਲਚਲ ਨਾਲ ਮੇਲ ਖਾਂਦਾ</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">ਡਾਟਾ %1$s ਮੁਤਾਬਕ</string>
+    <string name="why_fresh_breadth">ਬਾਜ਼ਾਰ ਦੀ ਚੌੜਾਈ: %1$s · %2$s</string>
+    <string name="why_fresh_candles">ਕੈਂਡਲਾਂ: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">ਫਿਊਚਰਜ਼: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="one">%1$d ਘੰਟਾ ਪਹਿਲਾਂ ਦੇ ਮੁਕਾਬਲੇ ਓਪਨ ਇੰਟਰੈਸਟ</item>
+        <item quantity="other">%1$d ਘੰਟੇ ਪਹਿਲਾਂ ਦੇ ਮੁਕਾਬਲੇ ਓਪਨ ਇੰਟਰੈਸਟ</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="one">%1$d ਮਿੰਟ ਪਹਿਲਾਂ ਦੇ ਮੁਕਾਬਲੇ ਓਪਨ ਇੰਟਰੈਸਟ</item>
+        <item quantity="other">%1$d ਮਿੰਟ ਪਹਿਲਾਂ ਦੇ ਮੁਕਾਬਲੇ ਓਪਨ ਇੰਟਰੈਸਟ</item>
+    </plurals>
+    <string name="why_fresh_today">ਅੱਜ</string>
+    <string name="why_fresh_yesterday">ਕੱਲ੍ਹ</string>
+    <string name="why_source_fallback">%1$s (ਬਦਲਵਾਂ)</string>
+    <string name="why_source_reference">%1$s (ਹਵਾਲਾ)</string>
+    <string name="why_sources">ਸਰੋਤ: ਐਕਸਚੇਂਜ ਦੀਆਂ ਘੰਟੇਵਾਰ ਕੈਂਡਲਾਂ (ਜ਼ਿਆਦਾਤਰ Binance), ਐਕਸਚੇਂਜਾਂ ਤੋਂ ਫਿਊਚਰਜ਼ ਡਾਟਾ, alternative.me ਤੋਂ Fear &amp; Greed।</string>
+    <string name="why_sources_list">ਸਰੋਤ: %1$s।</string>
+    <string name="why_src_breadth">%1$s (ਬਾਜ਼ਾਰ ਦੀ ਚੌੜਾਈ)</string>
+    <string name="why_src_candles">%1$s (ਕੈਂਡਲਾਂ)</string>
+    <string name="why_src_comparison">%1$s (ਬਾਜ਼ਾਰ ਤੁਲਨਾ)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (ਫਿਊਚਰਜ਼)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">ਫੰਡਿੰਗ</string>
+    <string name="factor_spoken_volatility">ਆਮ ਉਤਾਰ-ਚੜ੍ਹਾਅ ਦਾ %1$s ਗੁਣਾ</string>
+    <string name="factor_spoken_volume">ਆਮ ਦਾ %1$s ਗੁਣਾ</string>
+    <string name="factor_volatility">ਅਸਥਿਰਤਾ (1 ਘੰਟਾ)</string>
+    <string name="factor_volume">ਵਾਲੀਅਮ</string>
+</resources>

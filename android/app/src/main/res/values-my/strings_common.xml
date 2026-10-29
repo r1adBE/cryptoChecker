@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">နောက်သို့</string>
+    <string name="action_cancel">မလုပ်တော့ပါ</string>
+    <string name="action_clear">ရှင်းလင်းရန်</string>
+    <string name="action_close">ပိတ်ရန်</string>
+    <string name="action_keep">ထားရှိရန်</string>
+    <string name="action_delete">ဖျက်ရန်</string>
+    <string name="action_edit">ပြင်ဆင်ရန်</string>
+    <string name="action_more">နောက်ထပ် ရွေးစရာများ</string>
+    <string name="action_refresh">ပြန်တင်ရန်</string>
+    <string name="action_retry">ထပ်စမ်းရန်</string>
+    <string name="action_save">သိမ်းရန်</string>
+    <string name="action_sort">စီရန်</string>
+    <string name="action_sort_done">ပြီးပြီ</string>
+    <string name="action_undo">နောက်ပြန်ရန်</string>
+    <string name="action_view">ကြည့်ရန်</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">ဈေးကွက်</string>
+    <string name="tab_portfolio">ပေါ့ဖိုလီယို</string>
+    <string name="tab_settings">ဆက်တင်များ</string>
+    <string name="tab_watchlist">စောင့်ကြည့်စာရင်း</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">အမှား: %1$s</string>
+    <string name="error_exchange_unreachable">လဲလှယ်ရေးဌာနကို ယခု ချိတ်ဆက်၍မရပါ – နောက်ဆုံးဈေးနှုန်းများကို ဆက်ပြထားပါမည်။</string>
+    <string name="error_exchange_unreachable_short">လဲလှယ်ရေးဌာနကို ယခု ချိတ်ဆက်၍မရပါ</string>
+    <string name="loading_hint">ဖွင့်နေသည်…</string>
+    <string name="option_off">ပိတ်</string>
+    <string name="something_went_wrong">တစ်ခုခု မှားသွားပါသည်</string>
+    <string name="time_just_now">ယခုလေးတင်</string>
+    <string name="try_again">ထပ်စမ်းကြည့်ပါ</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">ချိတ်ဆက်မှု မရှိပါ</string>
+    <string name="offline_status_since">ချိတ်ဆက်မှု မရှိပါ · %1$s အထိ</string>
+    <string name="status_live">တိုက်ရိုက်</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">အတွဲ ထည့်ရန်</string>
+    <string name="shortcut_alarms">သတိပေးချက် အားလုံး</string>
+    <string name="shortcut_cycle">ဈေးကွက်</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">အတွဲအသစ် ထည့်ရန်</string>
+    <string name="shortcut_alarms_long">သတိပေးချက်များ ပြရန်</string>
+    <string name="shortcut_cycle_long">ဈေးကွက် အနှစ်ချုပ်</string>
+
+    <string name="log_box_title">မှတ်တမ်း</string>
+    <string name="label_value">%1$s: %2$s</string>
+</resources>

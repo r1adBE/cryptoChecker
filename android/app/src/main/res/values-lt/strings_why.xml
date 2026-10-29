@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">Kas juda kartu?</string>
+    <string name="why_all_values">Visos vertės ir šaltiniai</string>
+    <string name="why_all_values_hint">Stebėjimas · Galimas paaiškinimas · Šaltiniai</string>
+    <string name="why_details">Rodyti detales</string>
+    <string name="why_details_hide">Slėpti detales</string>
+    <string name="why_disclaimer">Automatinis vertinimas pagal rinkos duomenis: rodoma, kas vyksta tuo pačiu metu, o ne priežasties įrodymas.</string>
+    <string name="why_footer_short">Tuo pačiu metu nereiškia priežasties · Ne investavimo patarimas</string>
+    <string name="why_no_data">Šiai porai nėra Binance duomenų</string>
+    <string name="why_no_data_hint">Kaina, apimtis ir nepastovumas gaunami iš Binance valandinių žvakių.</string>
+    <string name="why_ref_alts">Altcoinai</string>
+    <string name="why_section_context">Galimas paaiškinimas</string>
+    <string name="why_section_observation">Stebėjimas</string>
+    <string name="why_title">Kas juda kartu?</string>
+    <string name="why_title_coin">Kas juda kartu su %1$s?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">Trumpai · Būsena %1$s</string>
+    <string name="why_brief_label">Trumpai:</string>
+    <string name="why_summary_against">Moneta juda prieš rinką.</string>
+    <string name="why_summary_calm">Pastebimo judėjimo nėra: rinka ir moneta ramios.</string>
+    <string name="why_summary_coin">Juda tik ši moneta – galbūt dėl kažko, kas liečia tik ją.</string>
+    <string name="why_summary_coin_volume">Juda tik ši moneta, esant didesnei apimčiai – galbūt dėl kažko, kas liečia tik ją.</string>
+    <string name="why_summary_longs">Ateities sandoriai: daug ilgųjų pozicijų su svertu.</string>
+    <string name="why_summary_market">Judėjimas laiko atžvilgiu sutampa su visa rinka.</string>
+    <string name="why_summary_market_volume">Judėjimas sutampa su didesne prekybos apimtimi ir plačiai judančia rinka.</string>
+    <string name="why_summary_peg_near">Kaina arti savo 1:1 susiejimo.</string>
+    <string name="why_summary_peg_off">Kaina pastebimai nukrypsta nuo savo 1:1 susiejimo.</string>
+    <string name="why_summary_shorts">Ateities sandoriai: daug trumpųjų pozicijų.</string>
+    <string name="why_summary_thin">Judėjimas silpnas: už jo mažai apimties.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">Prieš rinką</string>
+    <string name="why_f_coin_only">Tik ši moneta</string>
+    <string name="why_f_leader">Bitcoin kaip rinkos lyderis</string>
+    <string name="why_f_leverage_balanced">Svertas subalansuotas</string>
+    <string name="why_f_leverage_longs">Svertas: daug ilgųjų</string>
+    <string name="why_f_leverage_shorts">Svertas: daug trumpųjų</string>
+    <string name="why_f_market_calm">Rami rinka</string>
+    <string name="why_f_market_wide">Juda visa rinka</string>
+    <string name="why_factor_funding">Finansavimo norma</string>
+    <string name="why_factor_futures">Ateities sandoriai</string>
+    <string name="why_factor_market">Visa rinka</string>
+    <string name="why_factor_near_high">Arti maksimumo</string>
+    <string name="why_factor_near_low">Arti minimumo</string>
+    <string name="why_factor_peg">Susiejimas (1:1)</string>
+    <string name="why_factor_range3d">3 dienų intervalas</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">apytiksliai</string>
+    <string name="why_fn_funding_longs">daugelis stato už kylančias kainas</string>
+    <string name="why_fn_funding_neutral">neutrali</string>
+    <string name="why_fn_funding_shorts">daugelis stato už krentančias kainas</string>
+    <string name="why_fn_high_at">ties 30 dienų maksimumu</string>
+    <string name="why_fn_high_below">žemiau 30 dienų maksimumo</string>
+    <string name="why_fn_leader_calm">Bitcoin ramus</string>
+    <string name="why_fn_leader_moves">Bitcoin aiškiai juda</string>
+    <string name="why_fn_low_above">virš 30 dienų minimumo</string>
+    <string name="why_fn_low_at">ties 30 dienų minimumu</string>
+    <string name="why_fn_market_against">Ši moneta juda prieš rinką</string>
+    <string name="why_fn_market_alone">Rinka rami – ši moneta juda viena</string>
+    <string name="why_fn_market_calm">Rinka rami</string>
+    <string name="why_fn_market_lags">Rinka juda, ši moneta – vos</string>
+    <string name="why_fn_market_moves">Rinka juda ta pačia kryptimi</string>
+    <string name="why_fn_market_pulls">Rinka juda kartu su BTC</string>
+    <string name="why_fn_oi_down">Atvirosios pozicijos sumažėjo</string>
+    <string name="why_fn_oi_flat">Atvirosios pozicijos beveik nepakito</string>
+    <string name="why_fn_oi_mixed">Atvirosios pozicijos nevienodos</string>
+    <string name="why_fn_oi_up">Atvirosios pozicijos padidėjo</string>
+    <string name="why_fn_peg_above">%1$s virš 1:1 susiejimo</string>
+    <string name="why_fn_peg_below">%1$s žemiau 1:1 susiejimo</string>
+    <string name="why_fn_peg_near">arti 1:1 susiejimo</string>
+    <string name="why_fn_range_above_low">nuo 3 dienų minimumo</string>
+    <string name="why_fn_range_below_high">nuo 3 dienų maksimumo</string>
+    <string name="why_fn_range_near_high">arti 3 dienų maksimumo</string>
+    <string name="why_fn_range_near_low">arti 3 dienų minimumo</string>
+    <string name="why_fn_volatility_stronger">stipresnis nei įprastai</string>
+    <string name="why_fn_volatility_tiny">absoliučiai mažas (mažiau nei %1$s)</string>
+    <string name="why_fn_volatility_usual">kaip įprastai</string>
+    <string name="why_fn_volume_higher">didesnė nei įprastai</string>
+    <string name="why_fn_volume_lower">mažesnė nei įprastai</string>
+    <string name="why_fn_volume_usual">kaip įprastai</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">Ši moneta %1$s, BTC %2$s per 24 val. — pastebimai savarankiškas judėjimas.</string>
+    <string name="why_against_ref_text">Ši moneta %1$s, %2$s %3$s per 24 val. — pastebimai savarankiškas judėjimas.</string>
+    <string name="why_btc_independent">%1$s šiuo metu juda nepriklausomai nuo Bitcoin.</string>
+    <string name="why_btc_tight">%1$s šiuo metu juda glaudžiai kartu su Bitcoin.</string>
+    <string name="why_change_1h">1 val.</string>
+    <string name="why_change_24h">24 val.</string>
+    <string name="why_coin_only_text">%1$s per 24 val., kai rinka rami – galbūt dėl kažko, kas liečia tik šią monetą.</string>
+    <string name="why_leverage_balanced_text">Ateities sandorių rinkoje nėra ilgųjų ar trumpųjų pozicijų sankaupos.</string>
+    <string name="why_leverage_longs_text">Daugelis skolintais pinigais stato už kylančias kainas. Ilgosios pozicijos moka trumposioms — kainai krentant didesnė likvidavimų rizika.</string>
+    <string name="why_leverage_shorts_text">Daugelis skolintais pinigais stato už krentančias kainas. Trumposios pozicijos moka ilgosioms – kainai kylant galimas short squeeze.</string>
+    <string name="why_market_calm_text">Ši moneta: %1$s per 24 val. Nei rinka, nei moneta daug nejuda.</string>
+    <string name="why_market_leader_text">Kaip didžiausia moneta, BTC paprastai juda kartu su likusia rinka. ETH: %1$s per 24 val.</string>
+    <string name="why_market_leader_text_no_eth">Kaip didžiausia moneta, BTC paprastai juda kartu su likusia rinka.</string>
+    <string name="why_market_similar_text">Ši moneta: %1$s per 24 val. – tuo pačiu metu rinka juda ta pačia kryptimi, nors ir ne taip aiškiai.</string>
+    <string name="why_market_wide_text">Ši moneta: %1$s per 24 val. – tuo pačiu metu visa rinka aiškiai juda.</string>
+    <string name="why_open_interest_change">Atvirosios pozicijos %1$s nuo paskutinio tikrinimo.</string>
+    <string name="why_peg_text">Stabilioji moneta: palyginti su 1:1 susiejimu su kotiruojama valiuta, nuokrypis %1$s.</string>
+    <string name="why_sentiment_text">Visos kriptovaliutų rinkos Fear &amp; Greed indeksas, %1$s, palyginti su vakar.</string>
+    <string name="why_sentiment_text_no_change">Visos kriptovaliutų rinkos Fear &amp; Greed indeksas.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="one">krenta jau %1$d valandą</item>
+        <item quantity="few">krenta jau %1$d valandas</item>
+        <item quantity="many">krenta jau %1$d valandos</item>
+        <item quantity="other">krenta jau %1$d valandų</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="one">kyla jau %1$d valandą</item>
+        <item quantity="few">kyla jau %1$d valandas</item>
+        <item quantity="many">kyla jau %1$d valandos</item>
+        <item quantity="other">kyla jau %1$d valandų</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="one">stabili jau %1$d valandą</item>
+        <item quantity="few">stabili jau %1$d valandas</item>
+        <item quantity="many">stabili jau %1$d valandos</item>
+        <item quantity="other">stabili jau %1$d valandų</item>
+    </plurals>
+    <string name="why_volatility_high_text">Paskutinė valanda: %1$s — palyginti su įprastu valandiniu svyravimu per pastarąsias 24 valandas.</string>
+    <string name="why_volatility_normal_text">Paskutinė valanda: %1$s — įprastose ribose.</string>
+    <string name="why_volatility_tiny_text">Paskutinė valanda: %1$s — neįprasta šiai monetai, bet absoliučiai maža.</string>
+    <string name="why_volume_estimated_text">Apytiksliai: šis šaltinis nepateikia apyvartos, todėl lyginami parduotų monetų kiekiai.</string>
+    <string name="why_volume_high_text">Per paskutinę valandą prekiauta daug daugiau nei įprastai – judėjimą lydi didelė apimtis.</string>
+    <string name="why_volume_low_text">Už judėjimo mažai prekybos – tokie judėjimai dažnai mažiau stabilūs.</string>
+    <string name="why_volume_normal_text">Paskutinės valandos prekyba atitinka pastarąsias 24 valandas.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">padidėjęs</string>
+    <string name="why_dot_neutral">neutralu</string>
+    <string name="why_dot_supports">atitinka judėjimą</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">Duomenys: %1$s</string>
+    <string name="why_fresh_breadth">Rinkos plotis: %1$s · %2$s</string>
+    <string name="why_fresh_candles">Žvakės: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">Ateities sandoriai: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="one">atvirosios pozicijos palygintos su prieš %1$d valandą</item>
+        <item quantity="few">atvirosios pozicijos palygintos su prieš %1$d valandas</item>
+        <item quantity="many">atvirosios pozicijos palygintos su prieš %1$d valandos</item>
+        <item quantity="other">atvirosios pozicijos palygintos su prieš %1$d valandų</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="one">atvirosios pozicijos palygintos su prieš %1$d minutę</item>
+        <item quantity="few">atvirosios pozicijos palygintos su prieš %1$d minutes</item>
+        <item quantity="many">atvirosios pozicijos palygintos su prieš %1$d minutės</item>
+        <item quantity="other">atvirosios pozicijos palygintos su prieš %1$d minučių</item>
+    </plurals>
+    <string name="why_fresh_today">šiandien</string>
+    <string name="why_fresh_yesterday">vakar</string>
+    <string name="why_source_fallback">%1$s (atsarginis)</string>
+    <string name="why_source_reference">%1$s (orientyras)</string>
+    <string name="why_sources">Šaltiniai: biržos valandinės žvakės (dažniausiai Binance), biržų ateities sandorių duomenys, Fear &amp; Greed iš alternative.me.</string>
+    <string name="why_sources_list">Šaltiniai: %1$s.</string>
+    <string name="why_src_breadth">%1$s (rinkos plotis)</string>
+    <string name="why_src_candles">%1$s (žvakės)</string>
+    <string name="why_src_comparison">%1$s (rinkos palyginimas)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (ateities sandoriai)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Finansavimo norma</string>
+    <string name="factor_spoken_volatility">%1$s karto didesnis svyravimas nei įprastai</string>
+    <string name="factor_spoken_volume">%1$s karto daugiau nei įprastai</string>
+    <string name="factor_volatility">Nepastovumas (1 val.)</string>
+    <string name="factor_volume">Apimtis</string>
+</resources>

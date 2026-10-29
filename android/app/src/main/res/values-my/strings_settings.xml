@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">စိတ်ကြိုက်</string>
+    <string name="settings_group_general">အထွေထွေ</string>
+    <string name="settings_group_more">နောက်ထပ်</string>
+    <string name="settings_minutes">%1$d မိနစ်</string>
+    <string name="settings_row_about">အက်ပ်အကြောင်း</string>
+    <string name="settings_row_alarms">သတိပေးချက်များ</string>
+    <string name="settings_row_currency">ငွေကြေး</string>
+    <string name="settings_row_dated_futures">သက်တမ်းသတ်မှတ် Futures</string>
+    <string name="settings_row_updates">ဈေးနှုန်း အပ်ဒိတ်များ</string>
+    <string name="settings_row_watchlist">စောင့်ကြည့်စာရင်း</string>
+    <string name="settings_search_hint">ဆက်တင်များ ရှာရန်</string>
+    <string name="settings_seconds">%1$d စက္ကန့်</string>
+    <string name="settings_section_about">အကြောင်း</string>
+    <string name="settings_section_appearance">အသွင်အပြင်</string>
+    <string name="settings_section_developer">ဆော့ဖ်ဝဲရေးသူ</string>
+    <string name="settings_section_language">ဘာသာစကား</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">ဖွင့်</string>
+    <string name="settings_title">ဆက်တင်များ</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">သတိပေးချက် ထပ်မဖြစ်ပေါ်မီ နားချိန်</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">သတိပေးချက် အချက်ပြ</string>
+    <string name="settings_alarm_signal_open_system">စနစ်ဆက်တင်များတွင် ချိန်ညှိရန်</string>
+    <string name="settings_alarm_signal_system_hint">သင့်ဖုန်း၏ အကြောင်းကြားချက် ဆက်တင်များအတိုင်း လိုက်နာသည်။</string>
+    <string name="settings_alarm_sound">သတိပေးချက် အသံ</string>
+    <string name="settings_alarm_sound_custom">စိတ်ကြိုက် အသံ</string>
+    <string name="settings_alarm_sound_default">မူလ အသံ</string>
+    <string name="settings_alarm_sound_error">ဤအသံကို အသုံးပြု၍ မရပါ။</string>
+    <string name="settings_alarm_sound_file">သင့်ကိုယ်ပိုင် အသံဖိုင်…</string>
+    <string name="settings_alarm_sound_reset">မူလ အသံ သုံးရန်</string>
+    <string name="settings_alarm_sound_system">စနစ်အသံ ရွေးရန်…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">အက်ပ်အိုင်ကွန်ပေါ်ရှိ နံပါတ်</string>
+    <string name="settings_app_badge_hint">ဖွင့်ထားဆဲ သတိပေးချက် အကြောင်းကြားချက်များကို ရေတွက်သည်။ နံပါတ် သို့မဟုတ် အစက် ပေါ်မည်ဆိုသည်မှာ ပင်မမျက်နှာပြင်ပေါ် မူတည်သည် (ဥပမာ Samsung: “နံပါတ်ဖြင့် ပြရန်”)။</string>
+    <string name="settings_exact_checks">အချိန်မှန် စစ်ဆေးရန်</string>
+    <string name="settings_exact_checks_grant">နှိုးစက် &amp; သတိရစေချက်များကို ခွင့်ပြုရန်</string>
+    <string name="settings_exact_checks_hint">စက် အသုံးမပြုသည့်အခါတွင်ပင် Android သည် မိနစ် 15 ခန့် တစ်ကြိမ် စစ်ဆေးသည်။ ဘက်ထရီ အနည်းငယ် ပိုသုံးသည်။</string>
+    <string name="settings_exact_checks_nothing">အသက်ဝင်နေသော အတွဲ မရှိ – စစ်ဆေးစရာ မရှိပါ။</string>
+    <string name="settings_exact_checks_permission_missing">ခွင့်ပြုချက် မရှိ – စက် နားနေစဉ် Android သည် ပုံမှန်မဟုတ်ဘဲ စစ်ဆေးသည်၊ တစ်ခါတစ်ရံ နာရီပေါင်းများစွာအကြာမှ။</string>
+    <string name="settings_notification_change">ဈေးနှုန်း ပြောင်းလဲမှသာ အသိပေးရန်</string>
+    <string name="settings_notification_change_always">အမြဲ</string>
+    <string name="settings_percent_invalid">0 မှ 100 အထိ တန်ဖိုး ထည့်ပါ။</string>
+    <string name="settings_notification_change_hint">နောက်ဆုံး အကြောင်းကြားချက်ကတည်းက ဈေးနှုန်း အနည်းဆုံး ဤမျှ ရွေ့ပြီးမှသာ ဈေးနှုန်း အကြောင်းကြားချက် ပေါ်သည်။ ဒေတာ မရှိစဉ် ဘာမှ မပြပါ။ သတိပေးချက်များ မထိခိုက်ပါ။</string>
+    <string name="settings_ongoing_notifications">ပွတ်ဆွဲ ဖယ်၍ မရ</string>
+    <string name="settings_ongoing_notifications_hint">ဈေးနှုန်း အကြောင်းကြားချက်များကို ပင်ထိုးထားသည်။</string>
+    <string name="settings_price_notifications">ဈေးနှုန်း အကြောင်းကြားချက်များ</string>
+    <string name="settings_price_notifications_hint">ဖွင့်ထားသော အတွဲများ၏ လက်ရှိဈေးနှုန်းကို အခြေအနေဘားတွင် ပြရန်။</string>
+    <string name="settings_price_pairs">အတွဲများ</string>
+    <string name="settings_price_pairs_all_off">အားလုံး ပိတ်</string>
+    <string name="settings_price_pairs_all_on">အားလုံး ဖွင့်</string>
+    <string name="settings_price_pairs_count">%2$d အနက် %1$d</string>
+    <string name="settings_price_pairs_empty">စောင့်ကြည့်စာရင်းတွင် အတွဲ မရှိသေးပါ။</string>
+    <string name="settings_price_pairs_hint">အကြောင်းကြားချက်ဘားတွင် မည်သည့်အတွဲများ၏ ဈေးနှုန်းကို ပြမည်ကို ရွေးပါ။</string>
+    <string name="settings_quiet_hours">တိတ်ဆိတ်ချိန်</string>
+    <string name="settings_quiet_hours_from">မှ</string>
+    <string name="settings_quiet_hours_hint">%1$s နှင့် %2$s ကြားတွင် သတိပေးချက်များသည် တိတ်ဆိတ်ချိန် ပြီးဆုံးသည်အထိ စောင့်ပြီးမှ အသံဖြင့် မြည်သည်။ အခြား အကြောင်းကြားချက်များ အသံမဲ့၊ စကားပြော မပါဘဲ ရောက်သည်။</string>
+    <string name="settings_quiet_hours_to">အထိ</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">ကြားကာလ</string>
+    <string name="settings_background_updates">နောက်ခံ အပ်ဒိတ်များ</string>
+    <string name="settings_battery_hint">ကန့်သတ်ထားသည်ဆိုသည်မှာ Android က နောက်ခံ အပ်ဒိတ်များကို နာရီပေါင်းများစွာ နှောင့်နှေးစေနိုင်သည်။</string>
+    <string name="settings_battery_ok">ဘက်ထရီ အသုံးပြုမှု: ကန့်သတ်မထား</string>
+    <string name="settings_battery_restricted">ဘက်ထရီ အသုံးပြုမှု: ကန့်သတ်ထားသည်</string>
+    <string name="settings_check_runs_empty">မှတ်တမ်းတင်ထားသော စစ်ဆေးမှု မရှိသေးပါ။</string>
+    <string name="settings_check_runs_honest_android">Android က စစ်ဆေးမည့်အချိန်ကို ဆုံးဖြတ်သည် – ဤနေရာတွင် တကယ်ဖြစ်ခဲ့သည့်အချိန်ကို မြင်ရသည်။</string>
+    <string name="settings_check_runs_honest_ios">iOS က စစ်ဆေးမည့်အချိန်ကို ဆုံးဖြတ်သည် – ဤနေရာတွင် တကယ်ဖြစ်ခဲ့သည့်အချိန်ကို မြင်ရသည်။</string>
+    <string name="settings_check_runs_title">မကြာသေးမီ စစ်ဆေးမှုများ</string>
+    <string name="settings_http_log">HTTP မှတ်တမ်း ပြရန်</string>
+    <string name="settings_http_log_hint">“အတွဲ ထည့်ရန်” စာမျက်နှာ၏ အောက်ခြေတွင် လဲလှယ်ရေးဌာနများသို့ တောင်းဆိုမှုများကို ပြသည် – ပြဿနာဖြေရှင်းရန်အတွက်။</string>
+    <string name="settings_live_service">မကြာခဏ အပ်ဒိတ်လုပ်ရန်</string>
+    <string name="settings_live_websocket">တိုက်ရိုက် ဈေးနှုန်းများ</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">ထင်ရှားသည်: အသိပေးရန်</string>
+    <string name="settings_activity_alerts_hint">အတွဲတစ်ခုလျှင် တစ်နာရီ အများဆုံး တစ်ကြိမ်- ထူးခြားသော ဈေးနှုန်း လှုပ်ရှားမှု၊ ပမာဏ ရုတ်တရက်တက်မှုနှင့် Futures အစွန်းရောက်မှုများ (Binance မှ ဒေတာ)။</string>
+    <string name="settings_activity_sensitivity">အာရုံခံနိုင်စွမ်း</string>
+    <string name="settings_activity_sensitivity_hint">ဒင်္ဂါးတစ်ခုကို ထူးခြားသည်ဟု မည်မျှ လွယ်ကူစွာ သတ်မှတ်မည် – စောင့်ကြည့်စာရင်း ကတ်နှင့် ဈေးကွက် သတိပေးချက်များအတွက် အတူတူပင်။ “နည်း” ဖြင့် ကတ်သည် အပြင်းဆုံး 3 ခုကိုသာ ပြသည်။</string>
+    <string name="settings_watchlist_activity_card">ထင်ရှားသည်: စာရင်းတွင် ပြရန်</string>
+    <string name="settings_watchlist_activity_card_hint">အုပ်စုများဘေးတွင် ⚡ ချစ်ပ်ကို ပြသည်- ယခု တစ်ခုခု ဖြစ်နေသော အတွဲများကိုသာ ကြည့်ရန် ၎င်းကို တို့ပါ။ ၎င်းအတွက် အကြောင်းကြားချက်များကို ဈေးကွက် သတိပေးချက်များ အောက်တွင် သတ်မှတ်သည်။</string>
+    <string name="settings_watchlist_names">အမည်များ ပြရန်</string>
+    <string name="settings_watchlist_names_hint">အတွဲအောက်ရှိ အမည်၊ ဥပမာ Bitcoin သို့မဟုတ် NVIDIA။ လိုဂိုစာရင်းများနှင့်အတူ ပါလာပြီး ဒင်္ဂါးအားလုံးအတွက် တစ်ကြိမ် ဖွင့်သည်။</string>
+    <string name="settings_watchlist_sparkline">စောင့်ကြည့်စာရင်းတွင် ဇယားငယ်</string>
+    <string name="settings_watchlist_sparkline_hint">ဈေးနှုန်းဘေးတွင် 24 နာရီ လမ်းကြောင်း</string>
+    <string name="settings_watchlist_value_names">အမည်များ</string>
+    <string name="settings_watchlist_value_price_only">ဈေးနှုန်းသာ</string>
+    <string name="settings_watchlist_value_sparkline">ဇယားငယ်</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Alpha တိုကင်များ (α) အပါအဝင်</string>
+    <string name="settings_asset_scope_alpha_hint">Alpha တိုကင်များ- Binance Alpha စာရင်းမှ အစောပိုင်း၊ အများစု သေးငယ်သော ပရောဂျက်များ – မကြာခဏ အရောင်းအဝယ် နည်းပြီး အတက်အကျ ပြင်းထန်သည်။</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">တိုကင်များ တွင် ပါဝင်သည်။ “TradFi သာ” ရွေးထားစဉ် မရရှိနိုင်ပါ၊ သင့်စောင့်ကြည့်စာရင်းတွင် ရှိပြီးသား Alpha တိုကင်များ ကျန်ရှိမည်။</string>
+    <string name="settings_asset_scope_both">တိုကင်များနှင့် TradFi</string>
+    <string name="settings_asset_scope_both_hint">အားလုံး – crypto နှင့် TradFi</string>
+    <string name="settings_asset_scope_hint">အတွဲများ ထည့်သည့်အခါ ရွေးချယ်မှုနှင့် ရှာဖွေမှုတွင် မည်သည့်အတွဲများ ပြမည်ကို သတ်မှတ်သည်။ သင့်စောင့်ကြည့်စာရင်းတွင် ရှိပြီးသား အတွဲများ အမြဲ ကျန်ရှိမည်။</string>
+    <string name="settings_asset_scope_title">တိုကင်များ &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">တိုကင်များသာ</string>
+    <string name="settings_asset_scope_tokens_hint">Crypto: Spot နှင့် perpetual</string>
+    <string name="settings_asset_scope_tradfi">TradFi သာ</string>
+    <string name="settings_asset_scope_tradfi_hint">စတော့ရှယ်ယာ၊ ကုန်စည်၊ FX အပေါ် Futures – စာချုပ်များ ဖြစ်ပြီး တိုကင် မဟုတ်ပါ</string>
+    <string name="settings_rolling_futures">သုံးလပတ် &amp; အခြား သက်တမ်းသတ်မှတ် Futures အပါအဝင်</string>
+    <string name="settings_rolling_futures_hint">ပိတ်ထားလျှင်- လဲလှယ်ရေးဌာနစာရင်းတွင် မပါသော သက်တမ်းသတ်မှတ် Futures များကို တစ်ခုချင်း စစ်ဆေးမည့်အစား အရောင်းအဝယ် မရှိတော့ဟု အမှတ်အသားပြုသည်။ ပြန်တင်တိုင်း အချိန်ချွေတာသည်။</string>
+    <string name="settings_rolling_futures_qtly">သုံးလပတ် &amp; အခြား သက်တမ်းသတ်မှတ် Futures အပါအဝင် (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">တိုကင်များ တွင် ပါဝင်သည်။ “TradFi သာ” ရွေးထားစဉ် မရရှိနိုင်ပါ၊ သင့်စောင့်ကြည့်စာရင်းတွင် ရှိပြီးသား သက်တမ်းသတ်မှတ် Futures များအတွက် ဆက်လက် သက်ရောက်သည်။</string>
+    <string name="settings_tradfi_futures">စတော့ရှယ်ယာ၊ ကုန်စည်နှင့် FX (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">အတွဲ ရွေးသည့်အခါ စတော့ရှယ်ယာ၊ ရွှေနှင့် အခြားကုန်စည်၊ ငွေကြေးနှင့် IPO မတိုင်မီ ကုမ္ပဏီများအပေါ် Futures များကိုလည်း ပြသည်။ ၎င်းတို့သည် စာချုပ်များ ဖြစ်ပြီး တိုကင် မဟုတ်ပါ။</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">အသားပေး အရောင်</string>
+    <string name="settings_accent_hint">အက်ပ်၊ ဝီဂျက်များနှင့် အက်ပ်အိုင်ကွန်အတွက် အရောင်။ ပင်မမျက်နှာပြင် အချို့သည် အိုင်ကွန် ပြောင်းသည့်အခါ ဖယ်ရှားသည် – ထိုအခါ ပြန်ထည့်ပါ။</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">ဒင်္ဂါး လိုဂိုများ</string>
+    <string name="settings_coin_logos_app">အက်ပ်ထဲတွင်</string>
+    <string name="settings_coin_logos_app_hint">စောင့်ကြည့်စာရင်း၊ ဖွင့်ထားသော အတွဲနှင့် ဈေးကွက် ကတ်များ</string>
+    <string name="settings_coin_logos_footer">လိုဂိုများသည် CoinGecko မှ လာပြီး CoinGecko တွင် မပါသော ဒင်္ဂါးများ (ဥပမာ ရွှေ၊ ငွေ၊ စတော့ရှယ်ယာ) အတွက် Binance မှ လာသည်။ အက်ပ်သည် လိုဂိုအားလုံးကို တစ်ပြိုင်နက် ဖွင့်ပြီး ဤစက်ပေါ်တွင် သိမ်းထားသောကြောင့် မည်သည့် ဝန်ဆောင်မှုပေးသူမျှ သင် မည်သည့်ဒင်္ဂါးများကို လိုက်ကြည့်သည်ကို မသိနိုင်ပါ။ လိုဂို မရှိသော ဒင်္ဂါးများသည် ၎င်းတို့၏ အတိုကောက် စာလုံးများကို ပြသည်။ အကြိုက်ဆုံးများသည် လိုဂိုပေါ်တွင် ကြယ်ငယ်တစ်ပွင့် ရသည်။ ခလုတ် ပိတ်ထားသည့်နေရာတွင် လိုဂို သို့မဟုတ် အတိုကောက် မပေါ်ပါ၊ ခလုတ်အားလုံး ပိတ်ထားလျှင် ဘာမှ မဖွင့်ပါ။</string>
+    <string name="settings_coin_logos_portfolio">ပေါ့ဖိုလီယိုတွင်</string>
+    <string name="settings_coin_logos_portfolio_hint">ကိုင်ဆောင်ထားမှုများ၊ ဒင်္ဂါး အသေးစိတ်နှင့် ထိုးထွင်းသိမြင်မှုများ</string>
+    <string name="settings_coin_logos_value_app">အက်ပ်</string>
+    <string name="settings_coin_logos_widgets">ဝီဂျက်များတွင်</string>
+    <string name="settings_coin_logos_widgets_hint">စောင့်ကြည့်စာရင်းနှင့် ဒင်္ဂါးတစ်ခုတည်း ဝီဂျက်များ</string>
+    <string name="settings_high_contrast">အလင်းအမှောင် ကွာခြားမှု မြင့်</string>
+    <string name="settings_high_contrast_hint">ပိုပြင်းသော ဈေးနှုန်း အရောင်များနှင့် ပိုရင့်သော ဒုတိယ စာသား။ စနစ်က ကွာခြားမှု ပိုတောင်းသည့်အခါလည်း ဖွင့်သည်။</string>
+    <string name="settings_language_choose">ဘာသာစကား ရွေးရန်</string>
+    <string name="settings_language_system">စနစ် ဘာသာစကား</string>
+    <string name="settings_price_colors">ဈေးနှုန်း အရောင်များ</string>
+    <string name="settings_price_colors_hint">အပြာ / လိမ္မော်ရောင်ကို အရောင်ခွဲခြားမှု ချို့ယွင်းချက် အမျိုးအစားတိုင်း (အနီ-အစိမ်းနှင့် အပြာ-အဝါ) ဖြင့် ခွဲခြားရ လွယ်ကူသည်။ ဦးတည်ချက်ကို + / − ဖြင့်လည်း အမြဲ ပြသည်။</string>
+    <string name="settings_theme_mode">အလင်း / အမှောင်</string>
+    <string name="settings_widgets">ဝီဂျက်များ</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">%1$s ပြောင်းလဲမှု &amp; ဇယား အချိန်ဇုန်</string>
+    <string name="settings_change_basis_hint_1">ရွေးထားသော အချိန်ဇုန်သည် ရာခိုင်နှုန်း ပြောင်းလဲမှုကို မည်သည့်အချိန်မှ စတွက်မည် (စောင့်ကြည့်စာရင်း၊ သွေးခုန်နှုန်း စာကြောင်း၊ ဖွင့်ထားသော အတွဲ၊ ဝီဂျက်များ) နှင့် ဇယားများတွင် ပြသော အချိန်များကို သတ်မှတ်သည်။</string>
+    <string name="settings_change_basis_hint_2">“%1$s” သည် အတိအကျ 24 နာရီ အရင်က ဈေးနှုန်းနှင့် နှိုင်းယှဉ်သည်။ “00:00” သည် ထိုအချိန်ဇုန်ရှိ သန်းခေါင်ယံ ဖွင့်ဈေးနှင့် နှိုင်းယှဉ်သည်။</string>
+    <string name="settings_change_basis_hint_3">သတိပေးချက်များ မထိခိုက်ပါ။</string>
+    <string name="settings_change_basis_hint_since_last">“%1$s” သည် ယခင် အပ်ဒိတ်၏ ဈေးနှုန်းနှင့် နှိုင်းယှဉ်သည်။ တိုက်ရိုက်ဈေးနှုန်းများဖြင့် 0%% နီးပါး ရှိနေမည်။</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">ပြောင်းလဲတွက်ချက်သော ငွေကြေး</string>
+    <string name="settings_conversion_currency_hint">ပေါ့ဖိုလီယို၊ သင့်ငွေကြေးဖြင့် သတိပေးချက်များ၊ crypto ဈေးကွက် ကတ်နှင့် ပေါ့ဖိုလီယို ဝီဂျက်အတွက်လည်း အသုံးပြုသည်။</string>
+    <string name="settings_cost_method">ကုန်ကျစရိတ် တွက်နည်း</string>
+    <string name="settings_cost_method_average">ပျမ်းမျှ ကုန်ကျစရိတ်</string>
+    <string name="settings_cost_method_average_hint">ရောင်းချမှုများကို ရွေ့လျားပျမ်းမျှ ဝယ်ဈေးဖြင့် တန်ဖိုးဖြတ်သည်။</string>
+    <string name="settings_cost_method_fifo">FIFO (မူလ)</string>
+    <string name="settings_cost_method_fifo_hint">လဲလှယ်ရေးဌာနနှင့် ပိုက်ဆံအိတ်အားလုံးတွင် အဟောင်းဆုံး ဒင်္ဂါးများကို အရင် ရောင်းသည်။</string>
+    <string name="settings_cost_method_fifo_wallet">ပိုက်ဆံအိတ်/လဲလှယ်ရေးဌာန အလိုက် FIFO</string>
+    <string name="settings_cost_method_fifo_wallet_hint">လဲလှယ်ရေးဌာန သို့မဟုတ် ပိုက်ဆံအိတ်တစ်ခုစီအတွင်း အဟောင်းဆုံး ဒင်္ဂါးများကို အရင်၊ လွှဲပြောင်းမှုများသည် အစုများကို ၎င်းတို့၏ ဝယ်သည့်ရက်နှင့်အတူ ရွှေ့သည်။</string>
+    <string name="settings_portfolio_lock">ပေါ့ဖိုလီယို လော့ခ်</string>
+    <string name="settings_portfolio_lock_footer">လော့ခ်သည် မျက်နှာပြင်ပေါ်တွင် ပြသည်များကို ဖျောက်သည်။ သင့်ဒေတာကို ဤစက်ပေါ်တွင် သိမ်းထားပြီး စက်၏ ကုဒ်ပြောင်းဝှက်ခြင်းဖြင့် ကာကွယ်ထားသည်။ အရန်ဖိုင်များကို စကားဝှက်ဖြင့် ကာကွယ်နိုင်သည်။</string>
+    <string name="settings_portfolio_lock_hint">ပေါ့ဖိုလီယိုကိုသာ ဖျောက်သည်- လက်ဗွေ၊ မျက်နှာ သို့မဟုတ် စက် PIN ဖြင့် လော့ခ်ဖွင့်ပါ။ နောက်ခံတွင် တစ်မိနစ်ကျော်ပြီးနောက် ထပ်လော့ခ်ချသည်။ စောင့်ကြည့်စာရင်း၊ သတိပေးချက်များနှင့် အခြား ဝီဂျက်များ ဆက်ဖွင့်ထားမည်။</string>
+    <string name="settings_portfolio_lock_no_device_lock">စက် PIN သို့မဟုတ် လျှို့ဝှက်ကုဒ် မရှိလျှင် လော့ခ်က ဘာမှ မဖျောက်ပါ – မျက်နှာပြင်လော့ခ် သတ်မှတ်ပါ။</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">စနစ်အရန်သိမ်းခြင်းတွင် ပေါ့ဖိုလီယို</string>
+    <string name="settings_portfolio_system_backup_hint">ပိတ်ထားလျှင်- သင့်ငွေပေးငွေယူများသည် စက်၏ စနစ်အရန်သိမ်းခြင်းနှင့် ဖုန်းမှ ဖုန်းသို့ လွှဲပြောင်းမှုများတွင် မပါပါ။ ဖုန်းအသစ်သို့ ရွှေ့ရန် စကားဝှက်ပါသော အက်ပ်၏ ကိုယ်ပိုင် အရန်သိမ်းခြင်းကို သုံးပါ။</string>
+    <string name="settings_portfolio_system_backup_unavailable">Android 9 သို့မဟုတ် နောက်ပိုင်း လိုအပ်သည် – ဗားရှင်းဟောင်းများက ပေါ့ဖိုလီယိုကို Google အရန်သိမ်းခြင်းတွင် ကုဒ်ပြောင်းဝှက်မထားဘဲ သိမ်းမည်။</string>
+    <string name="settings_portfolio_tab">ပေါ့ဖိုလီယို တက်ဘ် ပြရန်</string>
+    <string name="settings_portfolio_value_locked">ဖွင့်၊ လော့ခ်ဖြင့်</string>
+    <string name="settings_show_converted">ပြောင်းလဲတွက်ချက်ထားသော ဈေးနှုန်းများ</string>
+    <string name="settings_show_converted_hint">စောင့်ကြည့်စာရင်းရှိ ဈေးနှုန်းများကို %1$s ဖြင့်လည်း ပြသည်</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">USDT depeg သတင်းပို့ရန်</string>
+    <string name="settings_depeg_alarm_hint">USDT သည် 1 USD မှ သတ်မှတ်ချက်အတိုင်း သွေဖည်သွားသည့်အခါ တစ်ကြိမ် အသိပေးသည် (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT)။</string>
+    <string name="settings_depeg_threshold">Depeg သတ်မှတ်ချက်</string>
+    <string name="settings_fng_above">Fear &amp; Greed: အထက်ဆိုလျှင် အသိပေးရန်</string>
+    <string name="settings_fng_below">Fear &amp; Greed: အောက်ဆိုလျှင် အသိပေးရန်</string>
+    <string name="settings_gas_alert_hint">ပုံမှန် အခကြေးငွေသည် ကန့်သတ်ချက်အောက် ကျသွားသည့်အခါ တစ်ကြိမ် အသိပေးသည်။ ဈေးနှုန်း အပ်ဒိတ်များအတွင်း အများဆုံး မိနစ် 10 တစ်ကြိမ် စစ်ဆေးသည်။</string>
+    <string name="settings_gas_btc_below">Bitcoin အခကြေးငွေ အောက် (sat/vB)</string>
+    <string name="settings_gas_eth_below">Ethereum gas အောက် (gwei)</string>
+    <string name="settings_ind_ath_within">သမိုင်းဝင် အမြင့်ဆုံးမှ ကျဆင်းမှု အများဆုံး</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple အထက်</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple အောက်</string>
+    <string name="settings_ind_mvrv_above">MVRV အထက်</string>
+    <string name="settings_ind_mvrv_below">MVRV အောက်</string>
+    <string name="settings_indicator_alerts_hint">Bitcoin ညွှန်ကိန်းများ၊ တစ်ရက်လျှင် နှစ်ကြိမ် စစ်ဆေးသည်။ ကန့်သတ်ချက်များကို သင်ရွေးသည် – အက်ပ်က တန်ဖိုးများကို အဆင့်မသတ်မှတ်ပါ။</string>
+    <string name="settings_macro_notifications">စီးပွားရေး ပြက္ခဒိန်</string>
+    <string name="settings_macro_notifications_hint">အရေးကြီးသော အမေရိကန် စီးပွားရေးဒေတာ (ငွေကြေးဖောင်းပွမှု၊ အလုပ်အကိုင် အစီရင်ခံစာ၊ Fed ဆုံးဖြတ်ချက်) ရှိသော နေ့များတွင် 08:00 နာရီ၌။ ပြက္ခဒိန်သည် အက်ပ်၏ ဝက်ဘ်ဆိုက်မှ လာပြီး တစ်ရက်လျှင် တစ်ကြိမ် ဖွင့်သည်။</string>
+    <string name="settings_market_alerts">ဈေးကွက် သတိပေးချက်များ</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="other">%1$d ခု အသက်ဝင်နေသည်</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">စကားပြော နှုန်း: %1$.1f×</string>
+    <string name="settings_tts">အသံထွက် ဖတ်ခြင်း</string>
+    <string name="settings_tts_alarms_only">သတိပေးချက်များသာ</string>
+    <string name="settings_tts_alarms_only_hint">ပိတ်ထားလျှင်- “ဈေးနှုန်း ဖတ်ရန်” အမှတ်အသားပြုထားသော အတွဲ၏ အပ်ဒိတ်တိုင်းကို အသံထွက် ဖတ်သည်။</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">ဈေးနှုန်းများနှင့် သတိပေးချက်များကို အသံထွက် ဖတ်သည်။ စက်သည် အသံတိတ် သို့မဟုတ် တုန်ခါမုဒ်တွင် ရှိစဉ် တိတ်ဆိတ်နေမည်။</string>
+    <string name="settings_tts_test">အသံ စမ်းသပ်ရန်</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">အက်ပ်ကို ပြန်လည်သတ်မှတ်ရန်</string>
+    <string name="settings_reset_app_action">အားလုံး ဖျက်ရန်</string>
+    <string name="settings_reset_app_confirm">ထည့်သွင်းပြီးစကဲ့သို့ စောင့်ကြည့်စာရင်း၊ သတိပေးချက်များ၊ ပေါ့ဖိုလီယို၊ ဆက်တင်များနှင့် သိမ်းထားသော ဒေတာအားလုံးကို ဖျက်သည်။ ၎င်းကို နောက်ပြန်၍ မရပါ။ အကြံပြုချက်- အရင် အရန်သိမ်းပါ။ စက် အရန်များ (Google အရန် သို့မဟုတ် iCloud/ကွန်ပျူတာ အရန်) သည် နောက်တစ်ကြိမ် အရန်သိမ်းသည်အထိ ယခင်ဒေတာကို ထားရှိသည်။</string>
+    <string name="settings_reset_app_title">အက်ပ်ကို ပြန်လည်သတ်မှတ်မလား။</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">ငွေကြေး ရှာရန်</string>
+    <string name="language_search">ဘာသာစကား ရှာရန်</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">အမှောင်</string>
+    <string name="theme_light">အလင်း</string>
+    <string name="theme_system">စနစ်</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">အပြာ</string>
+    <string name="accent_green">အစိမ်း</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs အစိမ်း</string>
+    <string name="accent_orange">လိမ္မော်ရောင်</string>
+    <string name="accent_red">အနီ</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">တရုတ်၊ ဂျပန်၊ ကိုရီးယားနှင့် ထိုင်ဝမ်တွင် အသုံးများသည်</string>
+    <string name="price_colors_swap">အရောင်များ လဲရန် (တက် ↔ ကျ)</string>
+    <string name="price_style_calm">ငြိမ်သက်</string>
+    <string name="price_style_calm_color_vision">ငြိမ်သက် · အရောင်ခွဲခြားမှု ချို့ယွင်းချက်</string>
+    <string name="price_style_color_vision">အရောင်ခွဲခြားမှု ချို့ယွင်းချက်</string>
+    <string name="price_style_fresh">လန်းဆန်း</string>
+    <string name="price_style_traditional">ရိုးရာ</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">လဲလှယ်ရေးဌာန ချိတ်ဆက်မှုများကို တကယ့်တုံ့ပြန်မှုများနှင့် နောက်ဆုံး စစ်ဆေးခဲ့သည်: %1$s</string>
+    <string name="about_license">ဈေးနှုန်းများသည် လဲလှယ်ရေးဌာနများမှ တိုက်ရိုက် လာသည်၊ အကောင့် မလိုဘဲ ခြေရာခံခြင်း မရှိပါ။</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">လိုင်စင်များ</string>
+    <string name="about_privacy_policy">ကိုယ်ရေးကိုယ်တာ မူဝါဒ</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">လဲလှယ်ရေးဌာန တောင်းဆိုရန်</string>
+    <string name="about_source_code">GitHub ပေါ်ရှိ ရင်းမြစ်ကုဒ်</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker သည် r1AD ၏ လွတ်လပ်သော ပရောဂျက်တစ်ခု ဖြစ်သည်- အကောင့်၊ ကြော်ငြာ သို့မဟုတ် ခြေရာခံခြင်း မပါသော ငြိမ်သက်သည့် ဈေးနှုန်း ခြုံငုံသုံးသပ်ချက်။ မေးခွန်းများနှင့် ဆန္ဒများ: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker သည် open source (MIT License) ဖြစ်သည်။</string>
+    <string name="licenses_font_title">Rubik စာလုံးပုံစံ</string>
+    <string name="licenses_icons_bundled_text">အက်ပ်နှင့်အတူ ပါဝင်သည်- Christopher Downer နှင့် ပါဝင်ကူညီသူများ၏ “Cryptocurrency Icons” မှ အိုင်ကွန်များ (github.com/spothq/cryptocurrency-icons)၊ CC0 1.0 Universal အောက်တွင် ထုတ်ဝေထားသည်။ ၎င်းတို့ကို CoinGecko သို့မဟုတ် Binance လိုဂိုများ ဖွင့်ပြီးသည်အထိ ပြသည်။ အမည်များနှင့် လိုဂိုများသည် ၎င်းတို့၏ ပရောဂျက်များ၏ ကုန်အမှတ်တံဆိပ်များ ဖြစ်နေဆဲ ဖြစ်သည်။</string>
+    <string name="licenses_icons_title">အရန် ဒင်္ဂါး အိုင်ကွန်များ</string>
+    <string name="licenses_libraries_intro">အက်ပ်သည် ဤ library များကို Apache License 2.0 အောက်တွင် အသုံးပြုသည်:</string>
+    <string name="licenses_libraries_title">Android library များ</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="other">ဆော့ဖ်ဝဲရေးသူ ရွေးစရာများကို ဖွင့်ရန် နောက်ထပ် %d ကြိမ် တို့ပါ</item>
+    </plurals>
+    <string name="developer_unlocked">ဆော့ဖ်ဝဲရေးသူ ရွေးစရာများ ဖွင့်ပြီးပါပြီ</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">တုန်ခါမှုသည် iPhone ဆက်တင်များ (Sounds &amp; Haptics) အတိုင်း လိုက်နာသည်။</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">သတိပေးချက် အသစ်များနှင့် ဈေးကွက် သတိပေးချက်များကို ရေတွက်သည်၊ အက်ပ်ကို ဖွင့်သည့်အခါ 0 သို့ ပြန်သွားသည်။</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">သင့်ဒေတာ</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">ဤစက်ပေါ်တွင်</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">သင့်စောင့်ကြည့်စာရင်း၊ သတိပေးချက်များနှင့် ပေါ့ဖိုလီယိုကို ဤစက်ပေါ်တွင် ကုဒ်ပြောင်းဝှက်၍ သိမ်းထားသည်၊ အကောင့် မလို၊ ကျွန်ုပ်တို့၏ ကိုယ်ပိုင်ဆာဗာ မရှိပါ။</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">ချိတ်ဆက်မှုများ</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">ဈေးနှုန်းများသည် သင့်အတွဲများ၏ လဲလှယ်ရေးဌာနများမှ တိုက်ရိုက် လာပြီး ငွေလဲနှုန်း၊ ဒင်္ဂါးစာရင်းနှင့် လိုဂိုများ၊ GitHub ပေါ်ရှိ ဒေတာ mirror လည်း ပါသည်၊ ၎င်းတို့သည် သင့် IP လိပ်စာကို မြင်ရပြီး သင်ကိုင်ဆောင်ထားမှုကို ဘယ်တော့မှ မမြင်ရပါ (စောင့်ကြည့်ထားသော လိပ်စာများသည် သက်ဆိုင်ရာ ကွန်ရက်၏ ဝန်ဆောင်မှုပေးသူသို့ သွားသည်)။</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">အရန်သိမ်းခြင်း</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">သင် ဖန်တီးမှသာ။ စကားဝှက်ဖြင့်ဆိုလျှင် ကုဒ်ပြောင်းဝှက်ထားသည် (Argon2id + AES-256-GCM)၊ မပါလျှင် ဖတ်နိုင်သည်။</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">စက် ပြောင်းခြင်း</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">သော့သည် စက်ဟောင်းပေါ်တွင် ကျန်ရစ်သည် – အရန်ဖိုင် အရင် ဖန်တီးပါ။</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">ရောဂါရှာဖွေမှု အချက်အလက် မျှဝေရန်</string>
+    <string name="diagnostics_share_hint">အကူအညီအတွက် စာသားဖိုင်- ဗားရှင်း၊ စက်၊ သတိပေးချက် ဆက်တင်များ၊ မကြာသေးမီ စစ်ဆေးမှုများနှင့် သတိပေးချက် မှတ်တမ်း – ပေါ့ဖိုလီယို၊ ပမာဏ၊ လိပ်စာ သို့မဟုတ် မှတ်ချက်များ မပါပါ။ သင် အရင် မြင်ရမည်၊ ဘာမှ အလိုအလျောက် မပို့ပါ။</string>
+    <string name="diagnostics_preview_title">ရောဂါရှာဖွေမှု အစမ်းကြည့်ရှုချက်</string>
+    <string name="diagnostics_action_share">မျှဝေရန်</string>
+    <string name="settings_price_overlay">ဈေးနှုန်း ထပ်ပြချက်</string>
+    <string name="settings_price_overlay_hint">အမြဲတမ်း ဈေးနှုန်း အကြောင်းကြားချက်၏ အတွဲများကို အခြားအက်ပ်များပေါ်တွင် လွင့်နေသော တံဆိပ်ငယ်အဖြစ် ပြသည်။ အက်ပ်ဖွင့်ရန် တို့ပါ၊ ပိတ်ရန် အောက်ခြေရှိ × သို့ ဆွဲပါ။</string>
+    <string name="settings_price_overlay_needs">«%1$s» နှင့်အတူသာ အလုပ်လုပ်သည်။</string>
+    <string name="settings_price_overlay_grant">အခြားအက်ပ်များပေါ်တွင် ပြသခွင့် ပေးရန်</string>
+    <string name="price_overlay_close">ထပ်ပြချက် ပိတ်ရန်</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">လိပ်စာများအတွက် ကိုယ်ပိုင်ဆာဗာ</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Bitcoin အတွက်သာ- Esplora သို့မဟုတ် mempool နှင့် ကိုက်ညီသော သင့်ကိုယ်ပိုင်ဆာဗာ (ဥပမာ https://node.example/api၊ Let\'s Encrypt ကဲ့သို့ အများယုံကြည်သော လက်မှတ် လိုအပ်သည်)။ သတ်မှတ်ထားလျှင် Bitcoin လိပ်စာများနှင့် xpub သော့များကို ထိုနေရာတွင်သာ မေးမြန်းသည် – သင့်ဆာဗာကို ချိတ်ဆက်၍မရသည့်အခါတွင်ပင် အများသုံး node များတွင် ဘယ်တော့မှ မမေးပါ။ အခြားကွန်ရက်များသည် အများသုံး node များကို ဆက်သုံးသည်။ ဗလာ = အများသုံး node များ။</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Bitcoin ဆာဗာ (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">စမ်းသပ်ရန်</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">စမ်းသပ်နေသည်…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">ဆာဗာ တုံ့ပြန်သည် – block %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">မှန်ကန်သော အဖြေ မရှိ – လိပ်စာနှင့် လက်မှတ်ကို စစ်ဆေးပါ</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">အသုံးပြုနေသည်: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">မသတ်မှတ်ရသေး – အများသုံး node များကို အသုံးပြုသည်</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">https:// လိပ်စာများကိုသာ ခွင့်ပြုသည်</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">လိပ်စာတွင် အသုံးပြုသူအမည် သို့မဟုတ် စကားဝှက် မပါရ</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">လိပ်စာတွင် ? သို့မဟုတ် # အစိတ်အပိုင်း မပါရ</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">မှန်ကန်သော ဆာဗာ လိပ်စာ မဟုတ်ပါ</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">အများသုံး node များသို့ ပြောင်းမလား။</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">ထို့နောက် သင့် Bitcoin လိပ်စာများနှင့် xpub သော့များကို အများသုံး node များတွင် မေးမြန်းမည်: %1$s။ ၎င်းတို့သည် ဤလိပ်စာများကို သင့် IP လိပ်စာနှင့်အတူ မြင်ရသည်။</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">အများသုံး node များ သုံးရန်</string>
+</resources>

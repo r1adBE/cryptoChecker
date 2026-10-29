@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Буцах</string>
+    <string name="action_cancel">Цуцлах</string>
+    <string name="action_clear">Арилгах</string>
+    <string name="action_close">Хаах</string>
+    <string name="action_keep">Үлдээх</string>
+    <string name="action_delete">Устгах</string>
+    <string name="action_edit">Засах</string>
+    <string name="action_more">Бусад сонголт</string>
+    <string name="action_refresh">Шинэчлэх</string>
+    <string name="action_retry">Дахин оролдох</string>
+    <string name="action_save">Хадгалах</string>
+    <string name="action_sort">Эрэмбэлэх</string>
+    <string name="action_sort_done">Болсон</string>
+    <string name="action_undo">Буцаах</string>
+    <string name="action_view">Харах</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Зах зээл</string>
+    <string name="tab_portfolio">Багц</string>
+    <string name="tab_settings">Тохиргоо</string>
+    <string name="tab_watchlist">Ажиглах жагсаалт</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Алдаа: %1$s</string>
+    <string name="error_exchange_unreachable">Бирж одоогоор холбогдохгүй байна – сүүлийн ханш харагдсаар байна.</string>
+    <string name="error_exchange_unreachable_short">Бирж одоогоор холбогдохгүй байна</string>
+    <string name="loading_hint">Ачаалж байна…</string>
+    <string name="option_off">Унтраалттай</string>
+    <string name="something_went_wrong">Алдаа гарлаа</string>
+    <string name="time_just_now">саяхан</string>
+    <string name="try_again">Дахин оролдоно уу</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Холболт алга</string>
+    <string name="offline_status_since">Холболт алга · %1$s байдлаар</string>
+    <string name="status_live">Шууд</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Хос нэмэх</string>
+    <string name="shortcut_alarms">Бүх дохио</string>
+    <string name="shortcut_cycle">Зах зээл</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Шинэ хос нэмэх</string>
+    <string name="shortcut_alarms_long">Бүх дохиог харуулах</string>
+    <string name="shortcut_cycle_long">Зах зээлийн тоймыг нээх</string>
+
+    <string name="log_box_title">Бүртгэл</string>
+    <string name="label_value">%1$s: %2$s</string>
+</resources>

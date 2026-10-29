@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">patērē vairāk datu un akumulatora</string>
+    <string name="update_mode_live">Tiešraidē, kamēr atvērts</string>
+    <string name="update_mode_live_hint">Kur birža nodrošina tiešraides cenu: uzreiz, kamēr vērojamo saraksts ir atvērts. Citādi – nākamajā pieprasījumā. Aizvērtā stāvoklī: ne biežāk kā ik pēc %1$s, bieži vēlāk.</string>
+    <string name="update_mode_live_hint_ios">Kur birža nodrošina tiešraides cenu: uzreiz, kamēr vērojamo saraksts ir atvērts. Citādi – nākamajā pieprasījumā. Aizvērtā stāvoklī: kad iOS atļauj, dažreiz ar vairāku stundu starpību. Ja aizvelc lietotni prom, iOS pārtrauc šīs pārbaudes, līdz to atkal atver.</string>
+    <string name="update_mode_recommended">ieteicams</string>
+    <string name="update_mode_sparsam">Taupīgi</string>
+    <string name="update_mode_sparsam_hint">Kad lietotne ir aizvērta, ne biežāk kā ik pēc %1$s, bieži vēlāk (brīdinājumi, logrīki). Atvērta: katru reizi, kad to atver.</string>
+    <string name="update_mode_sparsam_hint_ios">Kad lietotne ir aizvērta, iOS izlemj, kad pārbaudīt (brīdinājumi, logrīki), dažreiz ar vairāku stundu starpību. Atvērta: katru reizi, kad to atver.</string>
+    <string name="update_mode_title">Atjaunināšanas biežums</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">Atjaunināšana pārtraukta</string>
+    <string name="refresh_sheet_alarms">Brīdinājumi</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="zero">%1$d nostrādāja</item>
+        <item quantity="one">%1$d nostrādāja</item>
+        <item quantity="other">%1$d nostrādāja</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">Viss atjaunināts</string>
+    <string name="refresh_sheet_app_start">Lietotnes palaišana</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="zero">kopējais pieprasījums %1$s · %2$d cenas</item>
+        <item quantity="one">kopējais pieprasījums %1$s · %2$d cena</item>
+        <item quantity="other">kopējais pieprasījums %1$s · %2$d cenas</item>
+    </plurals>
+    <string name="refresh_sheet_database">Datubāze</string>
+    <string name="refresh_sheet_exchange_unreachable">%1$s nav sasniedzama</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
+        <item quantity="zero">%1$d biržas nav sasniedzamas</item>
+        <item quantity="one">%1$d birža nav sasniedzama</item>
+        <item quantity="other">%1$d biržas nav sasniedzamas</item>
+    </plurals>
+    <string name="refresh_sheet_network">Tīkls</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="zero">%1$d cenu paziņojumi</item>
+        <item quantity="one">%1$d cenas paziņojums</item>
+        <item quantity="other">%1$d cenu paziņojumi</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="zero">%1$d pāri</item>
+        <item quantity="one">%1$d pāris</item>
+        <item quantity="other">%1$d pāri</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="zero">%1$d pāri nav atjaunināti</item>
+        <item quantity="one">%1$d pāris nav atjaunināts</item>
+        <item quantity="other">%1$d pāri nav atjaunināti</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="zero">%2$d no %1$d pāriem</item>
+        <item quantity="one">%2$d no %1$d pāra</item>
+        <item quantity="other">%2$d no %1$d pāriem</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">apturēts līdz %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">apturēts līdz %1$s (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">nav datu</string>
+    <string name="refresh_sheet_reason_offline">nav savienojuma</string>
+    <string name="refresh_sheet_reason_rate_limit">pārāk daudz pieprasījumu</string>
+    <string name="refresh_sheet_reason_server">servera kļūda</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">noildze</string>
+    <string name="refresh_sheet_reason_unavailable">birža nav pieejama</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s sekundes</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_exchanges">Biržas</string>
+    <string name="refresh_sheet_section_steps">Norise</string>
+    <string name="refresh_sheet_status_failed">nav atjaunināts</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">viss atjaunināts</string>
+    <string name="refresh_sheet_status_partial">daļēji atjaunināts</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Gaida sākumu</string>
+    <string name="refresh_sheet_widgets">Logrīki</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">kopējais pieprasījums %1$s (neizdevās)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="zero">%1$d kļūdas</item>
+        <item quantity="one">%1$d kļūda</item>
+        <item quantity="other">%1$d kļūdas</item>
+    </plurals>
+    <string name="refresh_report_live">Tiešraide: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="zero">%1$d vairs netiek tirgoti</item>
+        <item quantity="one">%1$d vairs netiek tirgots</item>
+        <item quantity="other">%1$d vairs netiek tirgoti</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d atsevišķi</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">Neizdevās</string>
+    <string name="check_result_ok">Kārtībā</string>
+    <string name="check_result_partial">Daļēji</string>
+    <string name="check_result_skipped">Izlaists</string>
+    <string name="check_trigger_bgtask">Fonā</string>
+    <string name="check_trigger_exact">Laikā</string>
+    <string name="check_trigger_foreground">Lietotne</string>
+    <string name="check_trigger_widget">Logrīks</string>
+    <string name="check_trigger_widget_ios">Logrīks · cenas un cenu brīdinājumi</string>
+    <string name="check_trigger_worker">Fonā</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android var aizkavēt pārbaudi – iestati akumulatoru uz „Neierobežots“</string>
+    <string name="battery_later">Vēlāk</string>
+    <string name="battery_message">Android atliek fona darbu, lai taupītu enerģiju – tad cenas un logrīki var būt vairākas stundas veci. Iestatot neierobežotu akumulatora lietojumu, tie paliek aktuāli. To vari jebkurā laikā mainīt Android iestatījumos.</string>
+    <string name="battery_open_settings">Atvērt akumulatora iestatījumus</string>
+    <string name="battery_steps">Lietotnes informācijā pieskaries Akumulators (vai Lietotnes akumulatora lietojums) un izvēlies Neierobežots.</string>
+    <string name="battery_title">Uzturi cenas aktuālas</string>
+    <string name="ios_background_refresh_off">Šai lietotnei ir izslēgta fona lietotņu atsvaidzināšana. Bez tās brīdinājumi tiek pārbaudīti tikai tad, kad lietotne ir atvērta.</string>
+    <string name="ios_low_power_mode">Ieslēgts zema enerģijas patēriņa režīms. iOS fonā pārbauda reti, tāpēc brīdinājumi var kavēties.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Biržas ziņojums: %1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">Krātuve joprojām bloķēta – nākamais mēģinājums pēc %1$d s</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="zero">Krātuve joprojām bloķēta – nākamais mēģinājums pēc %1$d sekundēm</item>
+        <item quantity="one">Krātuve joprojām bloķēta – nākamais mēģinājums pēc %1$d sekundes</item>
+        <item quantity="other">Krātuve joprojām bloķēta – nākamais mēģinājums pēc %1$d sekundēm</item>
+    </plurals>
+    <string name="watchlist_retry_short">Nākamais mēģinājums pēc %1$s</string>
+    <string name="widget_retry_at">Nākamais mēģinājums %1$s</string>
+    <string name="refresh_sheet_wait_attempt">%1$d. mēģinājums – šifrētā krātuve pirmajā reizē vēl nebija gatava</string>
+</resources>

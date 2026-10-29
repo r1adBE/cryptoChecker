@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">Altkoini pret Bitcoin</string>
+    <string name="neutral_btc_indicators_title">Bitcoin rādītāji</string>
+    <string name="neutral_halving_last">Pēdējais halvings: %1$s</string>
+    <string name="neutral_halving_next">Nākamais halvings gaidāms ap %1$s (aprēķināts pēc kalendāra – bloka augstums pašlaik nav pieejams).</string>
+    <string name="neutral_indicators_disclaimer">Tikai izmērītas vērtības, bez novērtējuma. Nav prognoze un nav ieguldījumu padoms.</string>
+    <string name="neutral_onchain_missing">Ķēdes dati (Coin Metrics) pašlaik nav pieejami.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">Cik tālu cena ir zem iepriekšējā visu laiku maksimuma.</string>
+    <string name="neutral_explain_change_30d">Šodienas cena salīdzinājumā ar cenu pirms 30 dienām.</string>
+    <string name="neutral_explain_hashrate">30 dienu vidējā jaudas likme (hashrate) salīdzinājumā ar 60 dienu vidējo.</string>
+    <string name="neutral_explain_ma200w">Pēdējo 200 nedēļu slēgšanas cenu vidējā vērtība.</string>
+    <string name="neutral_explain_mayer">Cena, dalīta ar 200 dienu vidējo.</string>
+    <string name="neutral_explain_mvrv">Tirgus vērtība, dalīta ar realizēto vērtību (ķēdē).</string>
+    <string name="neutral_explain_pi_gap">111 dienu vidējais salīdzinājumā ar divkāršotu 350 dienu vidējo.</string>
+    <string name="neutral_explain_puell">Kalnraču dienas ieņēmumi, dalīti ar to 365 dienu vidējo.</string>
+    <string name="neutral_explain_rsi_daily">Relatīvā stipruma indekss pēdējām 14 dienām, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">Relatīvā stipruma indekss pēdējām 14 nedēļām, 0–100.</string>
+    <string name="neutral_explain_sma50_200">50 dienu vidējais salīdzinājumā ar 200 dienu vidējo.</string>
+    <string name="neutral_explain_vs_btc">Cenas izmaiņas salīdzinājumā ar Bitcoin 90 dienās.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">Lietotne rāda tikai skaitu un nesauc to par sezonu. Vērtība parasti mainās dienu, nevis stundu laikā.</string>
+    <string name="neutral_info_btc_how">Pie katras vērtības ir viens teikums par to, ko tā mēra un kur tā atrodas savā vēsturē kopš 2016. gada. Lietotne vērtības nevērtē un tirgus fāzi neizsecina; tirgus brīdinājumu robežas ir tikai tās, ko iestati tu. Agrākie modeļi nav obligāti jāatkārtojas.</string>
+    <string name="neutral_info_btc_what">Izplatīti Bitcoin rādītāji kā vienkāršas izmērītas vērtības: Mayer Multiple, 200 nedēļu vidējais, kritums no visu laiku maksimuma, izmaiņas 30 dienās, Pi Cycle atstarpe un ķēdes vērtības MVRV, Puell Multiple un hashrate.</string>
+    <string name="neutral_info_coin_how">Pie katras vērtības ir viens teikums par to, ko tā mēra, bez novērtējuma. Monētām ar īsu cenu vēsturi dažas vērtības trūkst. Ķēdes dati šeit nav iekļauti.</string>
+    <string name="neutral_info_coin_what">Tie paši vienkāršie rādītāji izvēlētai monētai, tikai no cenu datiem: Mayer Multiple, 200 nedēļu vidējais, kritums no visu laiku maksimuma, izmaiņas 30 dienās, 50/200 dienu tendence, RSI un stiprums pret Bitcoin 90 dienās.</string>
+    <string name="neutral_info_halving_how">Nākamais halvings tiek aprēķināts no pašreizējā bloka augstuma un pašreizējā sarežģītības perioda vidējā bloka laika (mempool.space); bez šiem datiem – pēc kalendāra (pēdējais halvings plus aptuveni četri gadi). Diagramma rāda iepriekšējo ciklu cenu gaitu no to halvinga – vēsture, nevis prognoze.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">Tendence 50/200 dienas</string>
+    <string name="ind_drawdown">Kritums no visu laiku maksimuma</string>
+    <string name="ind_missing">nepietiek datu</string>
+    <string name="ind_rsi_daily">RSI (dienas)</string>
+    <string name="ind_rsi_weekly">RSI (nedēļas)</string>
+    <string name="ind_vs_btc">Stiprums pret Bitcoin (90 dienas)</string>
+    <string name="neutral_ind_change_30d">Izmaiņas 30 dienās</string>
+    <string name="neutral_ind_hashrate">Hashrate 30/60 dienas</string>
+    <string name="neutral_ind_ma200w">200 nedēļu vidējais</string>
+    <string name="neutral_ind_pi_gap">Pi Cycle atstarpe</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">Augsts nozīmē, ka lielākā daļa lielo altkoinu 90 dienās pārspēja Bitcoin, zems – ka Bitcoin pārspēja lielāko daļu no tiem.</string>
+    <string name="ind_read_ath_distance">Mazs nozīmē, ka cena ir tuvu rekordam, liels – ka tālu zem tā.</string>
+    <string name="ind_read_change_30d">Pozitīvs nozīmē augstāk nekā pirms 30 dienām, negatīvs – zemāk.</string>
+    <string name="ind_read_funding">Augsts nozīmē, ka daudzi tirgotāji ar sviru liek uz cenu kāpumu, negatīvs – ka daudzi liek uz kritumu.</string>
+    <string name="ind_read_hashrate_30_60">Pozitīvs nozīmē, ka skaitļošanas jauda aug, negatīvs – ka kalnrači izslēdzas.</string>
+    <string name="ind_read_leverage">Daudz garo pozīciju nozīmē, ka daudzi ar aizņemtu naudu liek uz cenu kāpumu, daudz īso – ka uz kritumu.</string>
+    <string name="ind_read_ma200w">Cena tālu virs tā nozīmē ilgu kāpumu, cena tuvu tam – dziļu atkāpšanos.</string>
+    <string name="ind_read_mayer">Augsts nozīmē, ka cena ir tālu virs 200 dienu vidējā, zems – ka zem tā.</string>
+    <string name="ind_read_mvrv">Augsts nozīmē, ka cena ir tālu virs tā, ko turētāji vidēji samaksāja, zems – tuvu tam vai zem tā.</string>
+    <string name="ind_read_pi_cycle_gap">Tuvu nullei nozīmē, ka abi vidējie gandrīz sakrīt, stipri negatīvs – ka tie ir tālu viens no otra.</string>
+    <string name="ind_read_puell">Augsts nozīmē, ka kalnrači nopelna daudz vairāk nekā parasti, zems – daudz mazāk.</string>
+    <string name="ind_read_rsi_daily">Virs 70 nozīmē spēcīgu kāpumu pēdējās dienās, zem 30 – spēcīgu kritumu.</string>
+    <string name="ind_read_rsi_weekly">Virs 70 nozīmē spēcīgu kāpumu pēdējās nedēļās, zem 30 – spēcīgu kritumu.</string>
+    <string name="ind_read_sma50_vs_200">Pozitīvs nozīmē, ka īstermiņa vidējais ir virs ilgtermiņa, negatīvs – zem.</string>
+    <string name="ind_read_vs_btc">Pozitīvs nozīmē, ka veicās labāk nekā Bitcoin, negatīvs – sliktāk.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">Ar tādu pašu cenu 30 dienas: %1$s</string>
+    <string name="ind_context_note">Agrākās vērtības un „tādas pašas cenas“ aprēķini ir aritmētika, nevis prognoze.</string>
+    <string name="ind_context_percentile">Kopš %1$s zemāka %2$s dienu</string>
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">ඇඟවීම් සකසන්න – මිල, ප්‍රතිශතය, පරිමාව සහ අසාමාන්‍ය චලනයන්</string>
+    <string name="welcome_alert_q">ඇඟවිය යුත්තේ කවදාද?</string>
+    <string name="welcome_text">ඔබේ මිල ගණන්. ඔබේ ඇඟවීම්. ඔබේ දළ විශ්ලේෂණය.\nගිණුමක් නැත. දැන්වීම් නැත. ලුහුබැඳීමක් නැත.</string>
+    <string name="welcome_understand">තේරුම් ගන්න – මේ මොහොතේ මිලක් සමඟ චලනය වන්නේ කුමක්ද</string>
+    <string name="welcome_understand_q">ඒ සමඟ චලනය වන්නේ කුමක්ද?</string>
+    <string name="welcome_watch">නිරීක්ෂණය කරන්න – ඔබේ කාසි, මිල ගණන් සහ මිල ඉතිහාසය</string>
+    <string name="welcome_watch_q">මොකද වෙන්නේ?</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">ලැයිස්තුවට එක් කරන්න (%1$d)</string>
+    <string name="starter_loading_prices">මිල ගණන් පූරණය වෙමින්…</string>
+    <string name="starter_search_coin">වෙනත් කාසියක් සොයන්න</string>
+    <string name="starter_select_all">සියල්ල තෝරන්න</string>
+    <string name="starter_select_none">කිසිවක් තෝරන්න එපා</string>
+    <string name="starter_title">මෙම කාසිවලින් අරඹන්න</string>
+    <string name="starter_watch_alarm_hint">මිල නිරීක්ෂණය කර, ඇඟවීමක් සකසන්න</string>
+
+    <!-- Start-Auswahl: Börse und Quote der Startpaare (Binance, bei Standort-Sperre Binance.US), z. B. «Kurse von Binance in USDT. …» -->
+    <string name="starter_source_text">%1$s වෙතින් %2$s වලින් මිල ගණන්. ඔබට අවශ්‍ය නැති ඒවා ඉවත් කර ඉතිරිය එකවර එක් කරන්න. එක් එක් කාසිය සඳහා හුවමාරුව සහ යුගලය වෙනස් කළ හැක.</string>
+</resources>

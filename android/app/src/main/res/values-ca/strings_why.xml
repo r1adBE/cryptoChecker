@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">Què es mou amb ell?</string>
+    <string name="why_all_values">Tots els valors i fonts</string>
+    <string name="why_all_values_hint">Observació · Possible explicació · Fonts</string>
+    <string name="why_details">Mostra els detalls</string>
+    <string name="why_details_hide">Amaga els detalls</string>
+    <string name="why_disclaimer">Valoració automàtica a partir de dades del mercat: mostra què passa al mateix temps, no és una prova d\'una causa.</string>
+    <string name="why_footer_short">Simultani no vol dir causa · No és un assessorament d\'inversió</string>
+    <string name="why_no_data">No hi ha dades de Binance per a aquest parell</string>
+    <string name="why_no_data_hint">El preu, el volum i la volatilitat provenen d\'espelmes horàries de Binance.</string>
+    <string name="why_ref_alts">Alts</string>
+    <string name="why_section_context">Possible explicació</string>
+    <string name="why_section_observation">Observació</string>
+    <string name="why_title">Què es mou amb ell?</string>
+    <string name="why_title_coin">Què es mou amb %1$s?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">En resum · A les %1$s</string>
+    <string name="why_brief_label">En resum:</string>
+    <string name="why_summary_against">La moneda es mou en contra del mercat.</string>
+    <string name="why_summary_calm">Cap moviment destacat: el mercat i la moneda estan tranquils.</string>
+    <string name="why_summary_coin">Només es mou aquesta moneda – possiblement alguna cosa que només l\'afecta a ella.</string>
+    <string name="why_summary_coin_volume">Només es mou aquesta moneda, amb més volum – possiblement alguna cosa que només l\'afecta a ella.</string>
+    <string name="why_summary_longs">Futurs: moltes posicions long amb palanquejament.</string>
+    <string name="why_summary_market">El moviment coincideix en el temps amb el mercat general.</string>
+    <string name="why_summary_market_volume">El moviment coincideix amb un volum de negociació més alt i un mercat que es mou de manera generalitzada.</string>
+    <string name="why_summary_peg_near">El preu és a prop de la seva paritat 1:1.</string>
+    <string name="why_summary_peg_off">El preu es desvia notablement de la seva paritat 1:1.</string>
+    <string name="why_summary_shorts">Futurs: moltes posicions short.</string>
+    <string name="why_summary_thin">El moviment és feble: hi ha poc volum al darrere.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">En contra del mercat</string>
+    <string name="why_f_coin_only">Només aquesta moneda</string>
+    <string name="why_f_leader">Bitcoin com a líder del mercat</string>
+    <string name="why_f_leverage_balanced">Palanquejament equilibrat</string>
+    <string name="why_f_leverage_longs">Palanquejament: molts longs</string>
+    <string name="why_f_leverage_shorts">Palanquejament: molts shorts</string>
+    <string name="why_f_market_calm">Mercat tranquil</string>
+    <string name="why_f_market_wide">Tot el mercat es mou</string>
+    <string name="why_factor_funding">Finançament</string>
+    <string name="why_factor_futures">Futurs</string>
+    <string name="why_factor_market">Mercat general</string>
+    <string name="why_factor_near_high">A prop del màxim</string>
+    <string name="why_factor_near_low">A prop del mínim</string>
+    <string name="why_factor_peg">Paritat (1:1)</string>
+    <string name="why_factor_range3d">Rang de 3 dies</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">estimat</string>
+    <string name="why_fn_funding_longs">molts aposten per preus a l\'alça</string>
+    <string name="why_fn_funding_neutral">neutral</string>
+    <string name="why_fn_funding_shorts">molts aposten per preus a la baixa</string>
+    <string name="why_fn_high_at">al màxim de 30 dies</string>
+    <string name="why_fn_high_below">per sota del màxim de 30 dies</string>
+    <string name="why_fn_leader_calm">Bitcoin està tranquil</string>
+    <string name="why_fn_leader_moves">Bitcoin es mou clarament</string>
+    <string name="why_fn_low_above">per sobre del mínim de 30 dies</string>
+    <string name="why_fn_low_at">al mínim de 30 dies</string>
+    <string name="why_fn_market_against">Aquesta moneda es mou en contra del mercat</string>
+    <string name="why_fn_market_alone">Mercat tranquil – aquesta moneda es mou sola</string>
+    <string name="why_fn_market_calm">El mercat està tranquil</string>
+    <string name="why_fn_market_lags">El mercat es mou, aquesta moneda gairebé no</string>
+    <string name="why_fn_market_moves">El mercat es mou en la mateixa direcció</string>
+    <string name="why_fn_market_pulls">El mercat es mou amb BTC</string>
+    <string name="why_fn_oi_down">Interès obert a la baixa</string>
+    <string name="why_fn_oi_flat">Interès obert gairebé sense canvis</string>
+    <string name="why_fn_oi_mixed">Interès obert mixt</string>
+    <string name="why_fn_oi_up">Interès obert a l\'alça</string>
+    <string name="why_fn_peg_above">%1$s per sobre de la paritat 1:1</string>
+    <string name="why_fn_peg_below">%1$s per sota de la paritat 1:1</string>
+    <string name="why_fn_peg_near">a prop de la paritat 1:1</string>
+    <string name="why_fn_range_above_low">des del mínim de 3 dies</string>
+    <string name="why_fn_range_below_high">des del màxim de 3 dies</string>
+    <string name="why_fn_range_near_high">a prop del màxim de 3 dies</string>
+    <string name="why_fn_range_near_low">a prop del mínim de 3 dies</string>
+    <string name="why_fn_volatility_stronger">més fort que de costum</string>
+    <string name="why_fn_volatility_tiny">petit en termes absoluts (menys de %1$s)</string>
+    <string name="why_fn_volatility_usual">com de costum</string>
+    <string name="why_fn_volume_higher">més alt que de costum</string>
+    <string name="why_fn_volume_lower">més baix que de costum</string>
+    <string name="why_fn_volume_usual">com de costum</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">Aquesta moneda %1$s, BTC %2$s en 24 h — un moviment notablement independent.</string>
+    <string name="why_against_ref_text">Aquesta moneda %1$s, %2$s %3$s en 24 h — un moviment notablement independent.</string>
+    <string name="why_btc_independent">%1$s es mou ara mateix de manera independent de Bitcoin.</string>
+    <string name="why_btc_tight">%1$s es mou ara mateix molt lligat a Bitcoin.</string>
+    <string name="why_change_1h">1 h</string>
+    <string name="why_change_24h">24 h</string>
+    <string name="why_coin_only_text">%1$s en 24 h mentre el mercat està tranquil – possiblement alguna cosa que només afecta aquesta moneda.</string>
+    <string name="why_leverage_balanced_text">No hi ha acumulació de posicions long ni short al mercat de futurs.</string>
+    <string name="why_leverage_longs_text">Molts aposten per preus a l\'alça amb diners prestats. Els longs paguen els shorts — més risc de liquidacions si el preu baixa.</string>
+    <string name="why_leverage_shorts_text">Molts aposten per preus a la baixa amb diners prestats. Els shorts paguen els longs – si el preu puja, és possible un short squeeze.</string>
+    <string name="why_market_calm_text">Aquesta moneda: %1$s en 24 h. Ni el mercat ni la moneda es mouen gaire.</string>
+    <string name="why_market_leader_text">Com a moneda més gran, BTC sol moure\'s al mateix ritme que la resta del mercat. ETH: %1$s en 24 h.</string>
+    <string name="why_market_leader_text_no_eth">Com a moneda més gran, BTC sol moure\'s al mateix ritme que la resta del mercat.</string>
+    <string name="why_market_similar_text">Aquesta moneda: %1$s en 24 h – al mateix temps, el mercat es mou en la mateixa direcció, tot i que de manera menys clara.</string>
+    <string name="why_market_wide_text">Aquesta moneda: %1$s en 24 h – al mateix temps, el mercat general es mou clarament.</string>
+    <string name="why_open_interest_change">Interès obert %1$s des de l\'última comprovació.</string>
+    <string name="why_peg_text">Stablecoin: respecte a una paritat 1:1 amb la moneda de cotització, desviació %1$s.</string>
+    <string name="why_sentiment_text">Índex Fear &amp; Greed de tot el mercat cripto, %1$s respecte a ahir.</string>
+    <string name="why_sentiment_text_no_change">Índex Fear &amp; Greed de tot el mercat cripto.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="one">baixa des de fa %1$d hora</item>
+        <item quantity="many">baixa des de fa %1$d hores</item>
+        <item quantity="other">baixa des de fa %1$d hores</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="one">puja des de fa %1$d hora</item>
+        <item quantity="many">puja des de fa %1$d hores</item>
+        <item quantity="other">puja des de fa %1$d hores</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="one">estable des de fa %1$d hora</item>
+        <item quantity="many">estable des de fa %1$d hores</item>
+        <item quantity="other">estable des de fa %1$d hores</item>
+    </plurals>
+    <string name="why_volatility_high_text">Última hora: %1$s — mesurat respecte a l\'oscil·lació horària típica de les últimes 24 hores.</string>
+    <string name="why_volatility_normal_text">Última hora: %1$s — dins del rang habitual.</string>
+    <string name="why_volatility_tiny_text">Última hora: %1$s — inusual per a aquesta moneda, però petit en termes absoluts.</string>
+    <string name="why_volume_estimated_text">Estimat: aquesta font no proporciona el volum en valor, així que es comparen les quantitats de monedes negociades.</string>
+    <string name="why_volume_high_text">Molta més negociació que de costum en l\'última hora – el moviment ve amb un volum alt.</string>
+    <string name="why_volume_low_text">Poca negociació darrere del moviment – aquests moviments sovint són menys estables.</string>
+    <string name="why_volume_normal_text">La negociació de l\'última hora està en línia amb les últimes 24 hores.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">elevat</string>
+    <string name="why_dot_neutral">neutral</string>
+    <string name="why_dot_supports">encaixa amb el moviment</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">Dades a les %1$s</string>
+    <string name="why_fresh_breadth">Amplitud del mercat: %1$s · %2$s</string>
+    <string name="why_fresh_candles">Espelmes: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">Futurs: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="one">interès obert comparat amb fa %1$d hora</item>
+        <item quantity="many">interès obert comparat amb fa %1$d hores</item>
+        <item quantity="other">interès obert comparat amb fa %1$d hores</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="one">interès obert comparat amb fa %1$d minut</item>
+        <item quantity="many">interès obert comparat amb fa %1$d minuts</item>
+        <item quantity="other">interès obert comparat amb fa %1$d minuts</item>
+    </plurals>
+    <string name="why_fresh_today">avui</string>
+    <string name="why_fresh_yesterday">ahir</string>
+    <string name="why_source_fallback">%1$s (alternativa)</string>
+    <string name="why_source_reference">%1$s (referència)</string>
+    <string name="why_sources">Fonts: espelmes horàries d\'exchanges (sobretot Binance), dades de futurs d\'exchanges, Fear &amp; Greed d\'alternative.me.</string>
+    <string name="why_sources_list">Fonts: %1$s.</string>
+    <string name="why_src_breadth">%1$s (amplitud del mercat)</string>
+    <string name="why_src_candles">%1$s (espelmes)</string>
+    <string name="why_src_comparison">%1$s (comparació de mercat)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (futurs)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Finançament</string>
+    <string name="factor_spoken_volatility">%1$s vegades l\'oscil·lació habitual</string>
+    <string name="factor_spoken_volume">%1$s vegades el normal</string>
+    <string name="factor_volatility">Volatilitat (1 h)</string>
+    <string name="factor_volume">Volum</string>
+</resources>

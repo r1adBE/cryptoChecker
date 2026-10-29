@@ -286,4 +286,29 @@
     <string name="watchlist_not_saved_confirm_message">لا يتم حفظ قائمة المتابعة وتنبيهاتها الآن. سيضيع هذا التغيير وأي تغييرات أخرى عند إغلاق التطبيق. هل تريد التغيير رغم ذلك؟</string>
     <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
     <string name="watchlist_not_saved_confirm_action">غيّر رغم ذلك</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="zero">الأزواج: %1$d</item>
+        <item quantity="one">الأزواج: %1$d</item>
+        <item quantity="two">الأزواج: %1$d</item>
+        <item quantity="few">الأزواج: %1$d</item>
+        <item quantity="many">الأزواج: %1$d</item>
+        <item quantity="other">الأزواج: %1$d</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="zero">الأزواج: %2$d من %1$d</item>
+        <item quantity="one">الأزواج: %2$d من %1$d</item>
+        <item quantity="two">الأزواج: %2$d من %1$d</item>
+        <item quantity="few">الأزواج: %2$d من %1$d</item>
+        <item quantity="many">الأزواج: %2$d من %1$d</item>
+        <item quantity="other">الأزواج: %2$d من %1$d</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="zero">الأماكن المتبقية: %1$d</item>
+        <item quantity="one">الأماكن المتبقية: %1$d</item>
+        <item quantity="two">الأماكن المتبقية: %1$d</item>
+        <item quantity="few">الأماكن المتبقية: %1$d</item>
+        <item quantity="many">الأماكن المتبقية: %1$d</item>
+        <item quantity="other">الأماكن المتبقية: %1$d</item>
+    </plurals>
+    <string name="watchlist_footer_full">قائمة المتابعة ممتلئة</string>
 </resources>

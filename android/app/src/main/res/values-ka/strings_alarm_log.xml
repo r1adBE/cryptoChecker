@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Protokoll: Titel der Seite und Name des Knopfs in «Alle Alarme» -->
+    <string name="alarm_log_title">განგაშების ჟურნალი</string>
+    <!-- Link unter «Letzte Prüfungen» (Einstellungen › Aktualisierung) -->
+    <string name="alarm_log_open">განგაშების ჟურნალის ჩვენება</string>
+    <string name="alarm_log_intro">როდის ამოქმედდა განგაში – და როდის ამოქმედდებოდა, მაგრამ შეკავდა. ინახება მხოლოდ ამ მოწყობილობაზე, 14 დღე.</string>
+    <string name="alarm_log_empty_title">ჩანაწერები ჯერ არ არის</string>
+    <string name="alarm_log_empty_message">ჩანაწერები აქ ჩნდება, როცა განგაში ამოქმედდება ან შეკავდება – მაგალითად, მოძველებული ფასის ან მშვიდი საათების გამო.</string>
+    <string name="alarm_log_clear">ჟურნალის გასუფთავება</string>
+    <string name="alarm_log_clear_title">გავასუფთავო განგაშების ჟურნალი?</string>
+    <string name="alarm_log_clear_message">ყველა ჩანაწერი წაიშლება. შენი განგაშები უცვლელი რჩება.</string>
+    <!-- Screenreader: Schwelle des Alarms, z. B. «Marke Über 100’000 CHF» -->
+    <string name="alarm_log_threshold">ზღვარი %1$s</string>
+    <!-- Alarm-Editor: letzte Prüfung, %1$s = «14:02 · Kraken 99’800 CHF · Marke nicht erreicht» -->
+    <string name="alarm_last_check">ბოლო შემოწმება: %1$s</string>
+    <!-- Ergebnisse einer Alarm-Prüfung (AlarmLogOutcome) -->
+    <string name="alarm_outcome_fired">ამოქმედდა</string>
+    <string name="alarm_outcome_not_reached">ზღვარი არ მიღწეულა</string>
+    <string name="alarm_outcome_already_triggered">უკვე ეცნობა – ელოდება, სანამ ფასი მეორე მხარეს დაბრუნდება</string>
+    <string name="alarm_outcome_cooldown">არ ამოქმედდა – პაუზა ბოლო განგაშის შემდეგ</string>
+    <!-- %1$s = Zeit des Kurses laut Börse -->
+    <string name="alarm_outcome_stale">არ ამოქმედდა – ფასი მოძველებულია (მდგომარეობა: %1$s)</string>
+    <string name="alarm_outcome_mark_price">არ ამოქმედდა – ეს mark price-ია და არა ვაჭრობის ფასი</string>
+    <string name="alarm_outcome_low_liquidity">არ ამოქმედდა – ლიკვიდობა 10,000 USD-ზე ნაკლებია ან უცნობია</string>
+    <string name="alarm_outcome_quiet_hours">არ ამოქმედდა – მშვიდი საათები (შემდეგ გაცნობებს, თუ პირობა ისევ სრულდება)</string>
+    <string name="alarm_outcome_notifications_off">არ ამოქმედდა – შეტყობინებები გამორთულია</string>
+    <string name="alarm_outcome_not_shown">არ ამოქმედდა – შეტყობინება არ მივიდა, მოგვიანებით ვცდით ხელახლა</string>
+    <string name="alarm_outcome_no_rate">არ შემოწმდა – გაცვლითი კურსი არ არის</string>
+    <string name="alarm_outcome_no_price">ფასი არ არის – ბირჟის მოთხოვნა ვერ შესრულდა</string>
+
+    <string name="alarm_outcome_snoozed">შეკავებულია – «1 სთ-ში» ჯერ კიდევ მოქმედებს</string>
+    <string name="alarm_log_source_app">აპში</string>
+    <string name="alarm_log_source_background">ფონურ რეჟიმში</string>
+    <string name="alarm_log_source_exact">ზუსტ დროზე შემოწმება</string>
+    <string name="alarm_log_source_widget">ვიჯეტით</string>
+    <string name="alarm_outcome_fx_stale">არ შემოწმდა – გაცვლითი კურსი 36 საათზე ძველია</string>
+    <string name="alarm_outcome_fx_unsure">არ შემოწმდა – USDT-ის კონვერტაცია საეჭვოა (მხოლოდ USDC-ით)</string>
+</resources>

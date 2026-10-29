@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">አብሮ ምን እየተንቀሳቀሰ ነው?</string>
+    <string name="why_all_values">ሁሉም እሴቶችና ምንጮች</string>
+    <string name="why_all_values_hint">ምልከታ · ሊሆን የሚችል ማብራሪያ · ምንጮች</string>
+    <string name="why_details">ዝርዝሮችን ያሳዩ</string>
+    <string name="why_details_hide">ዝርዝሮችን ይደብቁ</string>
+    <string name="why_disclaimer">ከገበያ ውሂብ የተገኘ ራስ-ሰር ግምገማ፦ በተመሳሳይ ጊዜ የሚሆነውን ያሳያል እንጂ የምክንያት ማረጋገጫ አይደለም።</string>
+    <string name="why_footer_short">በአንድ ጊዜ መከሰት ምክንያት ማለት አይደለም · የኢንቨስትመንት ምክር አይደለም</string>
+    <string name="why_no_data">ለዚህ ጥንድ ከBinance ምንም ውሂብ የለም</string>
+    <string name="why_no_data_hint">ዋጋ፣ መጠንና ተለዋዋጭነት ከBinance የሰዓት ሻማዎች ይመጣሉ።</string>
+    <string name="why_ref_alts">አልትኮይኖች</string>
+    <string name="why_section_context">ሊሆን የሚችል ማብራሪያ</string>
+    <string name="why_section_observation">ምልከታ</string>
+    <string name="why_title">አብሮ ምን እየተንቀሳቀሰ ነው?</string>
+    <string name="why_title_coin">ከ%1$s ጋር አብሮ ምን እየተንቀሳቀሰ ነው?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">በአጭሩ · እስከ %1$s</string>
+    <string name="why_brief_label">በአጭሩ፦</string>
+    <string name="why_summary_against">ሳንቲሙ ከገበያው በተቃራኒ እየተንቀሳቀሰ ነው።</string>
+    <string name="why_summary_calm">ጎልቶ የሚታይ እንቅስቃሴ የለም፦ ገበያውም ሳንቲሙም የተረጋጉ ናቸው።</string>
+    <string name="why_summary_coin">እየተንቀሳቀሰ ያለው ይህ ሳንቲም ብቻ ነው – ምናልባት ይህንን ሳንቲም ብቻ የሚነካ ነገር።</string>
+    <string name="why_summary_coin_volume">እየተንቀሳቀሰ ያለው ይህ ሳንቲም ብቻ ነው፣ በከፍተኛ መጠን – ምናልባት ይህንን ሳንቲም ብቻ የሚነካ ነገር።</string>
+    <string name="why_summary_longs">ፊውቸርስ፦ ብዙ በሌቨሬጅ የተያዙ የሎንግ ቦታዎች።</string>
+    <string name="why_summary_market">እንቅስቃሴው በጊዜ ከአጠቃላይ ገበያው ጋር ይገጥማል።</string>
+    <string name="why_summary_market_volume">እንቅስቃሴው ከከፍተኛ የግብይት መጠንና በሰፊው ከሚንቀሳቀስ ገበያ ጋር ይገጣጠማል።</string>
+    <string name="why_summary_peg_near">ዋጋው ወደ 1:1 ትስስሩ ቅርብ ነው።</string>
+    <string name="why_summary_peg_off">ዋጋው ከ1:1 ትስስሩ በሚታይ ሁኔታ ይርቃል።</string>
+    <string name="why_summary_shorts">ፊውቸርስ፦ ብዙ የሾርት ቦታዎች።</string>
+    <string name="why_summary_thin">እንቅስቃሴው ቀጭን ነው፦ ከኋላው ያለው መጠን ትንሽ ነው።</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">ከገበያው በተቃራኒ</string>
+    <string name="why_f_coin_only">ይህ ሳንቲም ብቻ</string>
+    <string name="why_f_leader">Bitcoin እንደ ገበያ መሪ</string>
+    <string name="why_f_leverage_balanced">ሌቨሬጅ ሚዛናዊ</string>
+    <string name="why_f_leverage_longs">ሌቨሬጅ፦ ብዙ ሎንጎች</string>
+    <string name="why_f_leverage_shorts">ሌቨሬጅ፦ ብዙ ሾርቶች</string>
+    <string name="why_f_market_calm">የተረጋጋ ገበያ</string>
+    <string name="why_f_market_wide">መላው ገበያ እየተንቀሳቀሰ ነው</string>
+    <string name="why_factor_funding">ፈንዲንግ</string>
+    <string name="why_factor_futures">ፊውቸርስ</string>
+    <string name="why_factor_market">አጠቃላይ ገበያ</string>
+    <string name="why_factor_near_high">ከፍተኛው አጠገብ</string>
+    <string name="why_factor_near_low">ዝቅተኛው አጠገብ</string>
+    <string name="why_factor_peg">ትስስር (1:1)</string>
+    <string name="why_factor_range3d">የ3 ቀን ክልል</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">የተገመተ</string>
+    <string name="why_fn_funding_longs">ብዙዎች ዋጋ ይጨምራል ብለው እየተወራረዱ ነው</string>
+    <string name="why_fn_funding_neutral">ገለልተኛ</string>
+    <string name="why_fn_funding_shorts">ብዙዎች ዋጋ ይወርዳል ብለው እየተወራረዱ ነው</string>
+    <string name="why_fn_high_at">በ30 ቀን ከፍተኛው ላይ</string>
+    <string name="why_fn_high_below">ከ30 ቀን ከፍተኛው በታች</string>
+    <string name="why_fn_leader_calm">Bitcoin የተረጋጋ ነው</string>
+    <string name="why_fn_leader_moves">Bitcoin በግልጽ እየተንቀሳቀሰ ነው</string>
+    <string name="why_fn_low_above">ከ30 ቀን ዝቅተኛው በላይ</string>
+    <string name="why_fn_low_at">በ30 ቀን ዝቅተኛው ላይ</string>
+    <string name="why_fn_market_against">ይህ ሳንቲም ከገበያው በተቃራኒ እየተንቀሳቀሰ ነው</string>
+    <string name="why_fn_market_alone">ገበያው የተረጋጋ ነው – ይህ ሳንቲም ለብቻው ይንቀሳቀሳል</string>
+    <string name="why_fn_market_calm">ገበያው የተረጋጋ ነው</string>
+    <string name="why_fn_market_lags">ገበያው እየተንቀሳቀሰ ነው፣ ይህ ሳንቲም ግን ብዙም አይደለም</string>
+    <string name="why_fn_market_moves">ገበያው በተመሳሳይ አቅጣጫ እየተንቀሳቀሰ ነው</string>
+    <string name="why_fn_market_pulls">ገበያው ከBTC ጋር እየተንቀሳቀሰ ነው</string>
+    <string name="why_fn_oi_down">ኦፕን ኢንተረስት ቀንሷል</string>
+    <string name="why_fn_oi_flat">ኦፕን ኢንተረስት ብዙም አልተለወጠም</string>
+    <string name="why_fn_oi_mixed">ኦፕን ኢንተረስት የተደበላለቀ</string>
+    <string name="why_fn_oi_up">ኦፕን ኢንተረስት ጨምሯል</string>
+    <string name="why_fn_peg_above">ከ1:1 ትስስሩ %1$s በላይ</string>
+    <string name="why_fn_peg_below">ከ1:1 ትስስሩ %1$s በታች</string>
+    <string name="why_fn_peg_near">ወደ 1:1 ትስስሩ ቅርብ</string>
+    <string name="why_fn_range_above_low">ከ3 ቀን ዝቅተኛው ወዲህ</string>
+    <string name="why_fn_range_below_high">ከ3 ቀን ከፍተኛው ወዲህ</string>
+    <string name="why_fn_range_near_high">ከ3 ቀን ከፍተኛው አጠገብ</string>
+    <string name="why_fn_range_near_low">ከ3 ቀን ዝቅተኛው አጠገብ</string>
+    <string name="why_fn_volatility_stronger">ከወትሮው የጠነከረ</string>
+    <string name="why_fn_volatility_tiny">በፍፁም አሃዝ ትንሽ (ከ%1$s በታች)</string>
+    <string name="why_fn_volatility_usual">እንደ ወትሮው</string>
+    <string name="why_fn_volume_higher">ከወትሮው ከፍ ያለ</string>
+    <string name="why_fn_volume_lower">ከወትሮው ዝቅ ያለ</string>
+    <string name="why_fn_volume_usual">እንደ ወትሮው</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">ይህ ሳንቲም %1$s፣ BTC %2$s በ24 ሰ — ጎልቶ የሚታይ ነጻ እንቅስቃሴ።</string>
+    <string name="why_against_ref_text">ይህ ሳንቲም %1$s፣ %2$s %3$s በ24 ሰ — ጎልቶ የሚታይ ነጻ እንቅስቃሴ።</string>
+    <string name="why_btc_independent">%1$s በአሁኑ ጊዜ ከBitcoin ነጻ ሆኖ እየተንቀሳቀሰ ነው።</string>
+    <string name="why_btc_tight">%1$s በአሁኑ ጊዜ ከBitcoin ጋር በቅርበት እየተንቀሳቀሰ ነው።</string>
+    <string name="why_change_1h">1 ሰ</string>
+    <string name="why_change_24h">24 ሰ</string>
+    <string name="why_coin_only_text">ገበያው ጸጥ ባለበት %1$s በ24 ሰ – ምናልባት ይህንን ሳንቲም ብቻ የሚነካ ነገር።</string>
+    <string name="why_leverage_balanced_text">በፊውቸርስ ገበያ ውስጥ የሎንግ ወይም የሾርት ቦታዎች መጨናነቅ የለም።</string>
+    <string name="why_leverage_longs_text">ብዙዎች በተበደረ ገንዘብ ዋጋ ይጨምራል ብለው እየተወራረዱ ነው። ሎንጎች ለሾርቶች እየከፈሉ ነው — ዋጋው ከወረደ የሊኩዊዴሽን አደጋ ይጨምራል።</string>
+    <string name="why_leverage_shorts_text">ብዙዎች በተበደረ ገንዘብ ዋጋ ይወርዳል ብለው እየተወራረዱ ነው። ሾርቶች ለሎንጎች እየከፈሉ ነው – ዋጋው ከጨመረ short squeeze ሊከሰት ይችላል።</string>
+    <string name="why_market_calm_text">ይህ ሳንቲም፦ %1$s በ24 ሰ። ገበያውም ሳንቲሙም ብዙም እየተንቀሳቀሱ አይደሉም።</string>
+    <string name="why_market_leader_text">BTC ትልቁ ሳንቲም እንደመሆኑ ብዙውን ጊዜ ከቀሪው ገበያ ጋር አብሮ ይንቀሳቀሳል። ETH፦ %1$s በ24 ሰ።</string>
+    <string name="why_market_leader_text_no_eth">BTC ትልቁ ሳንቲም እንደመሆኑ ብዙውን ጊዜ ከቀሪው ገበያ ጋር አብሮ ይንቀሳቀሳል።</string>
+    <string name="why_market_similar_text">ይህ ሳንቲም፦ %1$s በ24 ሰ – በተመሳሳይ ጊዜ ገበያው በተመሳሳይ አቅጣጫ እየተንቀሳቀሰ ነው፣ ግን ያነሰ በግልጽ።</string>
+    <string name="why_market_wide_text">ይህ ሳንቲም፦ %1$s በ24 ሰ – በተመሳሳይ ጊዜ አጠቃላይ ገበያው በግልጽ እየተንቀሳቀሰ ነው።</string>
+    <string name="why_open_interest_change">ኦፕን ኢንተረስት ከመጨረሻው ፍተሻ ወዲህ %1$s።</string>
+    <string name="why_peg_text">ስቴብልኮይን፦ ከዋጋ ምንዛሪው ጋር ካለው 1:1 ትስስር ጋር ሲነጻጸር ልዩነቱ %1$s።</string>
+    <string name="why_sentiment_text">የመላው ክሪፕቶ ገበያ Fear &amp; Greed መለኪያ፣ ከትላንት አንጻር %1$s።</string>
+    <string name="why_sentiment_text_no_change">የመላው ክሪፕቶ ገበያ Fear &amp; Greed መለኪያ።</string>
+    <plurals name="why_trend_falling">
+        <item quantity="one">ለ%1$d ሰዓት እየወረደ</item>
+        <item quantity="other">ለ%1$d ሰዓታት እየወረደ</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="one">ለ%1$d ሰዓት እየጨመረ</item>
+        <item quantity="other">ለ%1$d ሰዓታት እየጨመረ</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="one">ለ%1$d ሰዓት የተረጋጋ</item>
+        <item quantity="other">ለ%1$d ሰዓታት የተረጋጋ</item>
+    </plurals>
+    <string name="why_volatility_high_text">ባለፈው ሰዓት፦ %1$s — ባለፉት 24 ሰዓታት ከነበረው የተለመደ የሰዓት መዋዠቅ አንጻር የተለካ።</string>
+    <string name="why_volatility_normal_text">ባለፈው ሰዓት፦ %1$s — በተለመደው ክልል ውስጥ።</string>
+    <string name="why_volatility_tiny_text">ባለፈው ሰዓት፦ %1$s — ለዚህ ሳንቲም ያልተለመደ፣ ግን በፍፁም አሃዝ ትንሽ።</string>
+    <string name="why_volume_estimated_text">የተገመተ፦ ይህ ምንጭ የልውውጥ ዋጋ ስለማያቀርብ የተገበያዩ የሳንቲም መጠኖች ይነጻጸራሉ።</string>
+    <string name="why_volume_high_text">ባለፈው ሰዓት ከወትሮው በጣም የበለጠ ግብይት – እንቅስቃሴው ከከፍተኛ መጠን ጋር ይመጣል።</string>
+    <string name="why_volume_low_text">ከእንቅስቃሴው ጀርባ ያለው ግብይት ትንሽ ነው – እንዲህ ያሉ እንቅስቃሴዎች ብዙውን ጊዜ ያነሰ የተረጋጉ ናቸው።</string>
+    <string name="why_volume_normal_text">ባለፈው ሰዓት ያለው ግብይት ከያለፉት 24 ሰዓታት ጋር ይስማማል።</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">ከፍ ያለ</string>
+    <string name="why_dot_neutral">ገለልተኛ</string>
+    <string name="why_dot_supports">ከእንቅስቃሴው ጋር ይስማማል</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">ውሂብ እስከ %1$s</string>
+    <string name="why_fresh_breadth">የገበያ ስፋት፦ %1$s · %2$s</string>
+    <string name="why_fresh_candles">ሻማዎች፦ %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed፦ %1$s</string>
+    <string name="why_fresh_futures">ፊውቸርስ፦ %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="one">ኦፕን ኢንተረስት ከ%1$d ሰዓት በፊት ጋር ሲነጻጸር</item>
+        <item quantity="other">ኦፕን ኢንተረስት ከ%1$d ሰዓታት በፊት ጋር ሲነጻጸር</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="one">ኦፕን ኢንተረስት ከ%1$d ደቂቃ በፊት ጋር ሲነጻጸር</item>
+        <item quantity="other">ኦፕን ኢንተረስት ከ%1$d ደቂቃዎች በፊት ጋር ሲነጻጸር</item>
+    </plurals>
+    <string name="why_fresh_today">ዛሬ</string>
+    <string name="why_fresh_yesterday">ትላንት</string>
+    <string name="why_source_fallback">%1$s (ተተኪ)</string>
+    <string name="why_source_reference">%1$s (ማጣቀሻ)</string>
+    <string name="why_sources">ምንጮች፦ የልውውጥ የሰዓት ሻማዎች (በአብዛኛው Binance)፣ ከልውውጦች የመጣ የፊውቸርስ ውሂብ፣ Fear &amp; Greed ከalternative.me።</string>
+    <string name="why_sources_list">ምንጮች፦ %1$s።</string>
+    <string name="why_src_breadth">%1$s (የገበያ ስፋት)</string>
+    <string name="why_src_candles">%1$s (ሻማዎች)</string>
+    <string name="why_src_comparison">%1$s (የገበያ ንጽጽር)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (ፊውቸርስ)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">ፈንዲንግ</string>
+    <string name="factor_spoken_volatility">ከተለመደው መዋዠቅ %1$s እጥፍ</string>
+    <string name="factor_spoken_volume">ከተለመደው %1$s እጥፍ</string>
+    <string name="factor_volatility">ተለዋዋጭነት (1 ሰ)</string>
+    <string name="factor_volume">መጠን</string>
+</resources>

@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">Энэ төхөөрөмжид дэлгэцийн түгжээ тохируулаагүй байна. Эхлээд системийн тохиргоонд тохируулна уу.</string>
+    <string name="app_lock_unlock">Түгжээ тайлах</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">Багцыг цэвэрлэх</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="one">%d гүйлгээг устгах уу? Ажиглаж буй хаягууд үлдэнэ. Үүнийг шууд буцаах боломжтой.</item>
+        <item quantity="other">Бүх %d гүйлгээг устгах уу? Ажиглаж буй хаягууд үлдэнэ. Үүнийг шууд буцаах боломжтой.</item>
+    </plurals>
+    <string name="portfolio_empty_action">Анхны худалдан авалтаа нэмэх</string>
+    <string name="portfolio_empty_address">Зөвхөн түрийвчний хаягийг ажиглах</string>
+    <string name="portfolio_empty_csv">Бирж дээр худалдаж авсан уу? Түүний файлыг импортлох</string>
+    <string name="portfolio_empty_example_plain">Жишээ нь: 3-р сарын 1-нд %1$s BTC худалдаж авсан. Апп үүний өнөөдрийн үнэ цэнэ болон та ашигтай эсвэл алдагдалтай байгааг харуулна – зөвхөн энэ төхөөрөмж дээр хадгална.</string>
+    <string name="portfolio_empty_title">Одоогоор гүйлгээ алга</string>
+    <string name="portfolio_enable_ask_text">Таны гүйлгээ хадгалагдлаа. «Багц» таб таны хөрөнгө болон үнэ цэнийг харуулна.</string>
+    <string name="portfolio_enable_ask_title">«Багц» табыг асаах уу?</string>
+    <string name="portfolio_enable_later_hint">Гүйлгээ хадгалагдлаа. «Багц» табыг Тохиргоо › Багц хэсэгт асааж болно.</string>
+    <string name="portfolio_enabled_banner">Багц асаалттай боллоо – «Багц» табаас олно.</string>
+    <string name="portfolio_lock_reason">Багцын түгжээг тайлах</string>
+    <string name="portfolio_locked_text">Хөрөнгө болон үнэ цэнээ харахын тулд түгжээг тайлна уу.</string>
+    <string name="portfolio_locked_title">Багц түгжээтэй</string>
+    <string name="portfolio_setting_hint">Заавал биш: худалдан авалт, борлуулалтаа бүртгэж, үнэ цэнэ болон ашиг/алдагдлыг тусдаа табад харах.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">Хуучирсан · %1$s байдлаар</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="one">Системийн нөөц дэх %d бичлэг буруу байсан тул сэргээгээгүй.</item>
+        <item quantity="other">Системийн нөөц дэх %d бичлэг буруу байсан тул сэргээгээгүй.</item>
+    </plurals>
+    <string name="portfolio_title">Багц</string>
+    <string name="portfolio_unassigned_fee">Шимтгэлийг хуваарилаагүй – өртгийн суурь тодорхойгүй: %1$s</string>
+    <string name="portfolio_updated">Ханш %1$s байдлаар</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">Бусад</string>
+    <string name="portfolio_allocation_title">Хуваарилалт</string>
+    <string name="portfolio_card_details">Дэлгэрэнгүй</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: хараахан алга</string>
+    <string name="portfolio_card_hints_count">Тэмдэглэл (%1$d)</string>
+    <string name="portfolio_card_today">Өнөөдөр</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">Нийт</string>
+    <string name="portfolio_hide_amounts">Дүнг нуух</string>
+    <string name="portfolio_hide_amounts_hint">Багц болон багцын виджет дэх дүн, үнэ цэнийг ••• гэж харуулна – хувь харагдсаар байна.</string>
+    <string name="portfolio_invested">Өртгийн суурь</string>
+    <string name="portfolio_total_no_fx">%1$s-ийн валютын ханш алга – дүн USDT-ээр</string>
+    <string name="portfolio_total_value">Нийт үнэ цэнэ</string>
+    <string name="portfolio_value">Үнэ цэнэ</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">Дундаж %1$s · одоо %2$s</string>
+    <string name="portfolio_avg_only">Дундаж %1$s</string>
+    <string name="portfolio_avg_open_lots">Эзэмшиж буй зоосны дундаж өртөг</string>
+    <string name="portfolio_avg_partial">Худалдан авсан ханштай %1$s-ийн дундаж</string>
+    <string name="portfolio_avg_price">Худалдан авсан дундаж ханш</string>
+    <string name="portfolio_avg_price_hint">Худалдан авсан дундаж ханш: бүх худалдан авалтын дүнгээр жигнэсэн дундаж. Борлуулалтыг энэ дунджаар үнэлнэ.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Хаагдсан позиц (%1$d)</item>
+        <item quantity="other">Хаагдсан позиц (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: борлуулалтад хамгийн хуучин зоосыг эхэлж ашиглана. Дундаж = үлдсэн өртгийн суурь ÷ худалдан авсан ханштай дүн.</string>
+    <string name="portfolio_holdings">Хөрөнгө</string>
+    <string name="portfolio_lost_fee_cost">Төлсөн лотгүй сүлжээний шимтгэлийн зардал: %1$s</string>
+    <string name="portfolio_open_lots">Нээлттэй худалдан авалтын лот (%1$d)</string>
+    <string name="portfolio_open_lots_avg">Худалдан авсан ханштай (дундаж)</string>
+    <string name="portfolio_open_lots_no_cost">Худалдан авсан ханшгүй</string>
+    <string name="portfolio_open_lots_without_price">худалдан авсан ханш алга</string>
+    <string name="portfolio_realized">Хэрэгжсэн ашиг/алдагдал</string>
+    <string name="portfolio_unrealized">Нээлттэй ашиг/алдагдал</string>
+    <string name="portfolio_unrealized_without_unpriced">худалдан авсан ханшгүй %1$s-г оруулаагүй</string>
+    <string name="portfolio_withdrawn_gain">Татан авсан: %1$s (татан авах хүртэлх үнэ цэнийн өөрчлөлт)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">Хөрвүүлэх валют</string>
+    <string name="portfolio_convert_to_value">Хөрвүүлэх валют: %1$s</string>
+    <string name="portfolio_current_missing">%1$s-ийн одоогийн ханш алга</string>
+    <string name="portfolio_current_price">Одоогийн ханш</string>
+    <string name="portfolio_price_missing">Ханш алга</string>
+    <string name="portfolio_price_missing_hint">Зарим худалдан авалтад ханш алга. Ашиг/алдагдлыг харахын тулд худалдан авсан ханшийг нэмнэ үү.</string>
+    <string name="portfolio_price_source">Ханш: Binance · USDT зах зээлийн ханшаар</string>
+    <string name="portfolio_price_source_routes">Ханш: %1$s, эс бөгөөс Binance · USDT зах зээлийн ханшаар</string>
+    <string name="portfolio_price_unavailable">Ханш одоогоор алга</string>
+    <string name="portfolio_price_unchecked">Ханшийг шалгаагүй</string>
+    <string name="portfolio_price_via_base">≈ %1$s ханш (bridged/wrapped)</string>
+    <string name="portfolio_usdt_as_usd">USDT-г USD-ийн зах зээлийн ханшаар хөрвүүлсэн</string>
+    <string name="portfolio_usdt_assumed">USDT-ийн долларын ханш алга – 1 ам.доллар гэж тооцсон</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">Багцад нэмэх</string>
+    <string name="portfolio_add_tx">Гүйлгээ нэмэх</string>
+    <string name="portfolio_buy">Худалдан авах</string>
+    <string name="portfolio_coin">Зоос</string>
+    <string name="portfolio_coin_invalid">Зоосны тэмдэгт оруулна уу</string>
+    <string name="portfolio_coin_search">Тэмдэгт хайх, жишээ нь BTC</string>
+    <string name="portfolio_discard_confirm">Хаях</string>
+    <string name="portfolio_discard_keep">Үргэлжлүүлэн засах</string>
+    <string name="portfolio_discard_title">Өөрчлөлтийг хаях уу?</string>
+    <string name="portfolio_edit_tx">Гүйлгээг засах</string>
+    <string name="portfolio_invalid">0-ээс их зөв тоо оруулна уу.</string>
+    <string name="portfolio_oversold">Борлуулалт хөрөнгөөс давсан – гүйлгээгээ шалгана уу.</string>
+    <string name="portfolio_sell">Зарах</string>
+    <string name="portfolio_sell_exceeds">Таны хөрөнгөөс их (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">Дүн ба шимтгэл таны хөрөнгөөс их (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">%2$s дахь таны хөрөнгөөс их (%1$s)</string>
+    <string name="portfolio_transactions">Гүйлгээ</string>
+    <string name="portfolio_tx_acquired_date">Анхны худалдан авсан огноо (заавал биш)</string>
+    <string name="portfolio_tx_acquired_date_hint">Татварын экспорт дахь эзэмшсэн хугацаанд</string>
+    <string name="portfolio_tx_amount">Дүн</string>
+    <string name="portfolio_tx_coin_fee">Зоосоор шимтгэл (заавал биш)</string>
+    <string name="portfolio_tx_date">Огноо</string>
+    <string name="portfolio_tx_delete_confirm">Энэ гүйлгээг багцаас устгана.</string>
+    <string name="portfolio_tx_delete_title">Гүйлгээг устгах уу?</string>
+    <string name="portfolio_tx_deposit">Орлого</string>
+    <string name="portfolio_tx_entry_currency">Оруулах валют</string>
+    <string name="portfolio_tx_explain_deposit">Арилжаагүй хөрөнгө, жишээ нь өмнөх зоос</string>
+    <string name="portfolio_tx_explain_gift">Зоос татан авалт шиг таны хөрөнгөөс гарна – зөвхөн бэлэгт татвар ногдуулдаг улсад (UK, CA, AU) зах зээлийн үнээр шилжүүлэлт болно</string>
+    <string name="portfolio_tx_explain_payment">Бараа эсвэл үйлчилгээний төлбөр – борлуулалт шиг зах зээлийн үнээр шилжүүлэлт, мөнгө хүлээн аваагүй</string>
+    <string name="portfolio_tx_explain_reward">Өртгийн суурь = хүлээн авах үеийн зах зээлийн үнэ</string>
+    <string name="portfolio_tx_explain_swap">Нэг зоосыг өөр зоосоор: өгсөн зоосыг зарж, хүлээн авсан зоосыг худалдан авна</string>
+    <string name="portfolio_tx_explain_transfer">Ашиг алга – өртгийн суурь зоостой хамт шилжинэ</string>
+    <string name="portfolio_tx_explain_withdrawal">Хөрөнгө багцаас гарна – борлуулалт биш, ашиг алга</string>
+    <string name="portfolio_tx_fee_consumes_amount">Шимтгэл хүлээн авсан дүнтэй тэнцүү – юу ч үлдэхгүй.</string>
+    <string name="portfolio_tx_fees_toggle">Шимтгэл</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s, %2$s-ийн ханшаар</string>
+    <string name="portfolio_tx_fiat_loading">Валютын ханш ачаалж байна…</string>
+    <string name="portfolio_tx_fiat_no_fx">Энэ өдрийн валютын ханш алга – дүнг USDT-ээр оруулна уу.</string>
+    <string name="portfolio_tx_gift">Бэлэг</string>
+    <string name="portfolio_tx_gift_price_hint">USDT-ээр. Хоосон = тэр өдрийн хаалтын ханш (ойролцоо).</string>
+    <string name="portfolio_tx_gift_spouse">Эхнэр нөхөр / иргэний хамтрагчид</string>
+    <string name="portfolio_tx_gift_spouse_hint">Их Британи ба Канад: ашиг ч, алдагдал ч байхгүй – хамтрагч тань таны өртгийн суурийг авна. Бусад улс үүнийг үл тооцно.</string>
+    <string name="portfolio_tx_market_value">Нэг зоосны зах зээлийн үнэ</string>
+    <string name="portfolio_tx_more_buy">Шимтгэл, бирж, тэмдэглэл</string>
+    <string name="portfolio_tx_network_fee">Зоосоор сүлжээний шимтгэл (заавал биш)</string>
+    <string name="portfolio_tx_note">Тэмдэглэл (заавал биш)</string>
+    <string name="portfolio_tx_payment">Түүгээр төлсөн</string>
+    <string name="portfolio_tx_price">Нэг зоосны ханш</string>
+    <string name="portfolio_tx_price_hint">USDT-ээр. Мэдэхгүй бол хоосон үлдээнэ үү.</string>
+    <string name="portfolio_tx_price_historic">%1$s-ийн шалгасан өдрийн хаалт – шаардлагатай бол засна уу</string>
+    <string name="portfolio_tx_price_invalid">Зөв тоо (0 буюу түүнээс их) оруулах эсвэл талбарыг хоосон үлдээнэ үү.</string>
+    <string name="portfolio_tx_price_past_hint">Худалдан авсан өдрийн ханшийг оруулна уу – мэдэхгүй бол хоосон үлдээнэ үү</string>
+    <string name="portfolio_tx_price_receipt_hint">USDT-ээр. Хоосон = өртгийн суурьгүй хөрөнгө.</string>
+    <string name="portfolio_tx_price_zero">Импортлосон гүйлгээнд 0 ханш боломжгүй – зах зээлийн ханшийн хувьд хоосон үлдээнэ үү</string>
+    <string name="portfolio_tx_removed">Гүйлгээг устгалаа</string>
+    <string name="portfolio_tx_reward">Шагнал</string>
+    <string name="portfolio_tx_save_failed">Гүйлгээг хадгалж чадсангүй. Таны оруулсан зүйл энд байна – дахин оролдоно уу.</string>
+    <string name="portfolio_tx_swap">Солилцоо</string>
+    <string name="portfolio_tx_swap_fee_received">%1$s-ээр шимтгэл: хүлээн авсан дүнг багасгана, ханш хэрэггүй.</string>
+    <string name="portfolio_tx_swap_from">%1$s-аас солилцох</string>
+    <string name="portfolio_tx_swap_given_amount">Өгсөн дүн</string>
+    <string name="portfolio_tx_swap_given_coin">Өгсөн зоос</string>
+    <string name="portfolio_tx_swap_received_amount">Хүлээн авсан дүн</string>
+    <string name="portfolio_tx_swap_received_coin">Хүлээн авсан зоос</string>
+    <string name="portfolio_tx_swap_same_coin">Өгсөнөөс өөр зоос сонгоно уу</string>
+    <string name="portfolio_tx_swap_to">%1$s руу солилцох</string>
+    <string name="portfolio_tx_swap_value">Солилцооны үнэ цэнэ (заавал биш)</string>
+    <string name="portfolio_tx_swap_value_hint">Нийт үнэ цэнэ. Хоосон = тодорхойгүй – ашиг дутуу үлдэнэ (солилцоонд USDT байвал автоматаар).</string>
+    <string name="portfolio_tx_third_fee_amount">Шимтгэлийн дүн</string>
+    <string name="portfolio_tx_third_fee_coin">Шимтгэлийн зоос</string>
+    <string name="portfolio_tx_third_fee_incomplete">Ханшгүй бол шимтгэлийг өртгийн суурь ба орлогод оруулахгүй; татварын экспорт ийм борлуулалтыг тэмдэглэнэ.</string>
+    <string name="portfolio_tx_third_fee_price">Шимтгэлийн зоосны ханш (заавал биш)</string>
+    <string name="portfolio_tx_third_fee_toggle">Өөр зоосоор шимтгэл</string>
+    <string name="portfolio_tx_total">Нийт: %1$s</string>
+    <string name="portfolio_tx_transfer">Шилжүүлэг</string>
+    <string name="portfolio_tx_transfer_from">Хаанаас (заавал биш)</string>
+    <string name="portfolio_tx_transfer_to">Хаашаа (заавал биш)</string>
+    <string name="portfolio_tx_transfer_to_hint">Бирж эсвэл түрийвч – цаашид тэнд үнэлнэ.</string>
+    <string name="portfolio_tx_type_select">Төрөл: %1$s</string>
+    <string name="portfolio_tx_value_received">Хүлээн авах үеийн нэг зоосны үнэ цэнэ (заавал биш)</string>
+    <string name="portfolio_tx_withdrawal">Татан авалт</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">Бэлэглэсэн эсвэл түүгээр төлсөн үү? «Бэлэг» эсвэл «Түүгээр төлсөн» гэж бүртгэнэ үү – улсаас хамааран татварын хувьд борлуулалт гэж тооцогдоно.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">Заавал биш: USDT дахь зах зээлийн үнэ, зөвхөн түүхэнд ашиглана (хоосон = тэр өдрийн ханш). Зоос үргэлж өртгийн суурийнхаа дагуу гарна.</string>
+    <string name="portfolio_wallet_did_you_mean">Та %1$s гэж хэлэх гэсэн үү? Өөр бичлэг нь тусдаа түрийвч гэж тооцогдоно.</string>
+    <string name="portfolio_wallet_shortfall">%1$s дахь хөрөнгө хүрэлцэхгүй байна – шилжүүлэг дутуу юу?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">Дээд %1$s</string>
+    <string name="portfolio_compare">Харьцуулах</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">%1$s ба USDT-г хувиар харьцуулах</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">Хувиар харьцуулах, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">Валютын нөлөө: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">Ханшийн өгөгдөл зөвхөн 2017 оны 8-р сараас эхэлдэг — түүх тэндээс эхэлнэ.</string>
+    <string name="portfolio_history_chip_since_first">Бүгд</string>
+    <string name="portfolio_history_collapse">Үнэ цэнийн түүхийг нуух</string>
+    <string name="portfolio_history_converted">Өнөөдрийн ханшаар хөрвүүлсэн</string>
+    <string name="portfolio_history_expand">Үнэ цэнийн түүхийг харуулах</string>
+    <string name="portfolio_history_gain_a11y">Үнэ цэнэ %1$s. Ашиг/алдагдал, %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">Ашиг/алдагдал</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">%1$s дахь үнэ цэнэ</string>
+    <string name="portfolio_history_incl_fx">Валютын ханшийг оруулаад</string>
+    <string name="portfolio_history_incl_withdrawn">Татан авсан зоосны үнэ цэнийн өөрчлөлтийг багтаасан</string>
+    <string name="portfolio_history_includes_trades">Энэ хугацааны худалдан авалт, борлуулалтыг багтаасан</string>
+    <string name="portfolio_history_loading">Үнэ цэнийн түүхийг ачаалж байна</string>
+    <string name="portfolio_history_period_1y">1 жил</string>
+    <string name="portfolio_history_period_30d">30 хоног</string>
+    <string name="portfolio_history_period_7d">7 хоног</string>
+    <string name="portfolio_history_period_since_first">анхны худалдан авалтаас хойш</string>
+    <string name="portfolio_history_pnl_needs_prices">Ашиг/алдагдлын хувьд худалдан авсан ханш дутуу – гүйлгээнд нэмнэ үү.</string>
+    <string name="portfolio_history_pnl_without">%1$s-гүй ашиг/алдагдал (ханш алга)</string>
+    <string name="portfolio_history_range_1y">1 Ж</string>
+    <string name="portfolio_history_range_30d">30 Х</string>
+    <string name="portfolio_history_range_7d">7 Х</string>
+    <string name="portfolio_history_range_a11y">%1$s-ийн түүхийг харуулах</string>
+    <string name="portfolio_history_range_since_first">1-р авалтаас хойш</string>
+    <string name="portfolio_history_scaled">%1$s-ийн түүх: Binance-ийн түүхийг биржийн ханшид тохируулсан</string>
+    <string name="portfolio_history_title">Үнэ цэнийн түүх</string>
+    <string name="portfolio_history_today">Өнөөдөр</string>
+    <string name="portfolio_history_too_short">Түүх таны анхны бүтэн өдрийн дараа эхэлнэ.</string>
+    <string name="portfolio_history_unavailable">Одоогоор түүх алга.</string>
+    <string name="portfolio_history_utc_days">UTC-ээрх өдрүүд (өдрийн лаа)</string>
+    <string name="portfolio_history_without_matching">%1$s-гүй (тохирох өдрийн ханш алга)</string>
+    <string name="portfolio_period_rewards">Шагнал +%1$s (ашигт ороогүй)</string>
+    <string name="portfolio_period_scaled">%1$s-ийн 7 Х/1 Ж: Binance-ийн түүхийг биржийн ханшид тохируулсан</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">Дохио</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">Дүн (%1$s)</string>
+    <string name="portfolio_alarm_hint">Шинэчлэл бүрийн дараа шалгана. Дохионы адилаар босгыг давахад ажиллаж, үнэ цэнэ буцаж хөдөлсний дараа л дахин ажиллана.</string>
+    <string name="portfolio_alarm_kind_above">Багц дүнгээс дээш</string>
+    <string name="portfolio_alarm_kind_below">Багц дүнгээс доош</string>
+    <string name="portfolio_alarm_kind_down">Багц буурна</string>
+    <string name="portfolio_alarm_kind_up">Багц өснө</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">Багц %1$s-аас дээш</string>
+    <string name="portfolio_alarm_sentence_below">Багц %1$s-аас доош</string>
+    <string name="portfolio_alarm_sentence_down">Багц %1$s буурсан (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">Багц %1$s өссөн (%2$s)</string>
+    <string name="portfolio_alarm_title">Багцын үнэ цэнийн дохио</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">Бирж (заавал биш)</string>
+    <string name="ledger_exchange_failed">%1$s: %2$s одоо ханш өгөхгүй байна – Binance-ээр үнэлсэн.</string>
+    <string name="ledger_exchange_hint">Зоосыг энэ биржийн ханшаар үнэлнэ (эс бөгөөс Binance). Түүх, 7 Х, 1 Ж нь түүнд тохируулсан Binance-ийн өдрийн ханшийг ашиглана.</string>
+    <string name="ledger_exchange_mixed">%1$s: хэд хэдэн бирж оруулсан – Binance-ээр үнэлсэн. Зоосоо шилжүүлсэн үү? Шилжилтийг «Шилжүүлэг» гэж бүртгэнэ үү.</string>
+    <string name="ledger_exchange_none">Байхгүй (Binance)</string>
+    <string name="ledger_fee">Шимтгэл (заавал биш)</string>
+    <string name="ledger_fee_coin">Зоос</string>
+    <string name="ledger_fee_hint">USDT-ээр бол өртгийн суурийг нэмэгдүүлнэ (борлуулалтад орлогыг бууруулна); зоосоор бол дүнг багасгана.</string>
+    <string name="ledger_fee_line">Шимтгэл %1$s</string>
+    <string name="ledger_fifo_cost_note">Худалдан авснаас хойш: шимтгэл орсон FIFO өртөг (хамгийн хуучин зоосыг эхэлж зарна).</string>
+    <string name="ledger_gain_info">Өнөөдөр, 7 Х, 1 Ж: тухайн хугацааны үнэ цэнийн өөрчлөлт – худалдан авалт, борлуулалтыг ашиг гэж тооцохгүй. Худалдан авснаас хойш: одоо эзэмшиж буй зоосны одоогийн үнэ цэнээс өртгийн суурийг (шимтгэл орсон дундаж өртөг) хассан.</string>
+    <string name="ledger_gain_info_a11y">Ашиг ба алдагдлыг хэрхэн тооцдог вэ</string>
+    <string name="ledger_gain_info_fifo">Өнөөдөр, 7 Х, 1 Ж: тухайн хугацааны үнэ цэнийн өөрчлөлт – худалдан авалт, борлуулалтыг ашиг гэж тооцохгүй. Худалдан авснаас хойш: одоо эзэмшиж буй зоосны одоогийн үнэ цэнээс өртгийн суурийг (шимтгэл орсон FIFO) хассан.</string>
+    <string name="ledger_gain_title">Ашиг/алдагдал</string>
+    <string name="ledger_more_toggle">Шимтгэл ба бирж</string>
+    <string name="ledger_partial_cost">«Худалдан авснаас хойш» нь зөвхөн худалдан авсан ханштай хэсгийг тооцно – худалдан авсан ханшгүй %1$s-г оруулаагүй.</string>
+    <string name="ledger_period_without">Өнөөдөр / 7 Х / 1 Ж: %1$s-гүй – тохирох эхлэлийн ханш алга.</string>
+    <string name="ledger_since_purchase_currency">Худалдан авснаас хойш (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">Худалдан авснаас хойших ашиг/алдагдал, хараахан зараагүй</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="one">Худалдан авсан ханшгүй %1$d зоосыг оруулаагүй (%2$s) – тооцогдохын тулд ханшийг нь нэмнэ үү.</item>
+        <item quantity="other">Худалдан авсан ханшгүй %1$d зоосыг оруулаагүй (%2$s) – тооцогдохын тулд ханшийг нь нэмнэ үү.</item>
+    </plurals>
+
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">USDT уналт – зах зээл %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">USDT-ийн долларын ханш USDC/USDT-ээр – USDC унавал энэ утга буруу</string>
+    <string name="portfolio_amount_bridged_stable">≈ %1$s орсон (bridged)</string>
+
+    <string name="portfolio_tx_interest">Хүү (зээлдүүлэлт)</string>
+    <string name="portfolio_tx_interest_hint">Хүлээн авах үед орлого гэж тооцогдоно (Австри). Стейкингийн шагнал болон airdrop-д үүнийг ашиглахгүй байна уу.</string>
+    <string name="app_lock_no_screen_lock">Багцыг нээхийн тулд дэлгэцийн түгжээ тохируулна уу.</string>
+    <string name="app_lock_turn_off_action">Багцын түгжээг унтраах</string>
+    <string name="app_lock_turn_off_confirm_title">Багцын түгжээг унтраах уу?</string>
+    <string name="app_lock_turn_off_confirm_message">Дэлгэцийн түгжээгүйгээр багцын түгжээг тайлах боломжгүй. Унтраавал апп таны багцыг асуухгүйгээр дахин харуулна. Дэлгэцийн түгжээ тохируулсны дараа Тохиргоонд түгжээг дахин асааж болно.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">«Худалдан авснаас хойш» болон %1$s дахь өртгийн суурь: өртөг нь худалдан авсан өдрийн валютын ханшаар, үнэ цэнэ нь өнөөдрийн ханшаар.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">Худалдан авсан өдрийн валютын ханш алга («Худалдан авснаас хойш» ба өртгийн суурьт ороогүй): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">USDT-ийн долларын ханшгүй худалдан авсан өдрүүдийн өртгийг 1 USDT = 1 ам.доллар гэж тооцсон.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">%1$s байдлаар – бирж холбогдохгүй байна</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">Өдрийн ханш: %1$s (Binance-ийн оронд)</string>
+
+    <string name="portfolio_footer_short">Ажлын хэрэгсэл, татварын эсвэл хөрөнгө оруулалтын зөвлөгөө биш. Нууцлал: Тохиргоо › Аппын тухай › Нууцлалын бодлого.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">%1$s-ийн бүх гүйлгээг устгах уу?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">%d гүйлгээг устгана. Үүнийг шууд буцаах боломжтой.</item>
+        <item quantity="other">%d гүйлгээг устгана. Үүнийг шууд буцаах боломжтой.</item>
+    </plurals>
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">%1$s-ээр төлсөн шимтгэлийг бусад гүйлгээнээс ч устгана: %2$d.</string>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s-г багцаас устгалаа (%2$d гүйлгээ)</item>
+        <item quantity="other">%1$s-г багцаас устгалаа (%2$d гүйлгээ)</item>
+    </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">%d гүйлгээг устгалаа</item>
+        <item quantity="other">%d гүйлгээг устгалаа</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">Энэ нь мөн %d лотыг устгана.</item>
+        <item quantity="other">Энэ нь мөн %d лотыг устгана.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">Энэ нь мөн %d лот болон үлдэгдлийн түүхийг устгана.</item>
+        <item quantity="other">Энэ нь мөн %d лот болон үлдэгдлийн түүхийг устгана.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">Энэ нь мөн үлдэгдлийн түүхийг устгана.</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">Хадгалж чадсангүй – дахин оролдоно уу</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">Босго буруу – устгаад дахин үүсгэнэ үү</string>
+</resources>

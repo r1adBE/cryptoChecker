@@ -1,0 +1,1 @@
+btc,ethereum,eth,moneda,tracker,cartera,llista,gràfic,alarma,dex,funding,ticker,notificació,preu

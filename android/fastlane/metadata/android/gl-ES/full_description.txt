@@ -1,0 +1,41 @@
+Crypto Checker comproba os prezos no teu exchange e avísate cando unha comprobación atopa o teu nivel alcanzado. Coa app pechada, Android decide cando se comproban as alarmas – como moito cada 15 minutos, a miúdo só tras horas. Podes perder picos curtos entremedias; a app dío. O prezo do teu exchange, non unha media – de balde, sen conta.
+
+QUE A FAI DISTINTA
+• O teu exchange, non unha media: cada fila mostra o último prezo do par no exchange escollido – Binance, Coinbase, Kraken, OKX, Bybit e moitos máis.
+• Unha alarma que avisa unha vez: «Avísame cando BTC supere 100.000 USDT». Soa cando unha comprobación ve o nivel cruzado, non en cada actualización – «Unha vez» desactívaa; «Cada vez» reactívaa cando o prezo volve.
+• «Que se move con el?»: lista de factores dunha moeda – mercado xeral, volume, volatilidade, financiamento e interese aberto, distancia ao máximo ou mínimo, Fear & Greed. Mostra o que se move á vez – sen causa, novas nin consellos de investimento.
+• Sen conta, anuncios nin seguimento. O desenvolvedor non recibe ningún dato teu.
+
+HONESTA COS DATOS
+• «Aforro» é o modo predeterminado: os prezos actualízanse ao abrir a app e a intervalos en segundo plano. «En directo coa app aberta» engade prezos en directo de Binance, Bybit, OKX, Coinbase e Kraken coa lista aberta.
+• A variación en % e os gráficos veñen primeiro do exchange do par; se non ten velas, a app usa Binance ou Coinbase e dío.
+• Fear & Greed, dominancia e valores on-chain de alternative.me, CoinGecko e Coin Metrics.
+• As cantidades só saen do dispositivo coa túa exportación ou a copia do sistema Android. Para os prezos, só os tickers van ao exchange de cada par; ademais, tipos de cambio (Frankfurter), datos de mercado e logotipos (CoinGecko, Binance), espellos de datos (GitHub). Se segues enderezos ou unha xpub, os nodos públicos de blockchain ven os enderezos (cunha xpub, os derivados) e a túa IP.
+
+LISTA
+• 56 mercados en 45 exchanges: spot e futuros, tokens DEX vía DexScreener, opcionalmente accións, ouro e divisas (TradFi)
+• Segunda liña «≈ valor» nunha de 31 moedas (EUR, CHF, USD …), ao tipo de cambio
+• Minigráfico e variación en % en 24 h ou desde as 00:00 no teu fuso horario
+• Grupos, favoritos, ordenar arrastrando, unha nota por moeda
+• As filas indican «desactualizado» ou «exchange non accesible»
+
+ALARMAS
+• Prezo por riba ou por debaixo dun nivel, ou subida ou baixada nunha porcentaxe – tamén na túa moeda, p. ex. 60.000 EUR nun par USDT
+• Movemento dun x % nun período, pico de volume
+• Son (tamén un ficheiro de audio propio), vibración e aviso de voz opcional
+• Horas de silencio e «Probar alarma»: escoita antes como chega; rexistro: cando se comprobou, a que prezo, por que non soou
+
+MERCADO
+• Destacado: movementos pouco habituais de prezo e volume na túa lista, opcionalmente como aviso
+• Pulso cripto, Fear & Greed, indicadores de Bitcoin, financiamento e interese aberto – como valores medidos
+• Comisións de rede de Ethereum, Bitcoin e máis, con alarma de gas
+
+MÁIS
+• Widgets: lista, total da carteira, unha moeda con gráfico
+• Carteira opcional (en Configuración): compras, vendas, intercambios, transferencias, recompensas, depósitos e retiradas; FIFO (predeterminado) ou media (Ø); enderezos só de lectura sen seed para BTC (incl. xpub), ETH e cadeas EVM, SOL, TRX, XRP, LTC, ADA e TON; importación CSV de Relai, Swissquote, Bitpanda, Kraken, Binance e Coinbase; resumo anual en CSV; bloqueo propio. Bitpanda e Swissquote: sen prezo propio, só CSV.
+• Lexible para todos: verde/vermello ou azul/laranxa, signo e frecha, non só cor; TalkBack le cada fila como unha frase
+• Copia de seguranza e restauración nun ficheiro – tamén entre Android e iPhone
+• Modo claro e escuro, cinco cores de énfase, 75 idiomas
+• Código aberto (MIT): o código é público en GitHub
+
+Nota: Crypto Checker mostra prezos e unha carteira que introduces ti. Non é un exchange nin un moedeiro, non negocia nin ofrece asesoramento de investimento.

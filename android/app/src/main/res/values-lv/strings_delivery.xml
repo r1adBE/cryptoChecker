@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">Lai brīdinājumi pienāktu</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">Kārtībā</string>
+    <string name="delivery_state_warn">Pārbaudi</string>
+    <string name="delivery_state_info">Piezīme</string>
+    <string name="delivery_allowed">Atļauts</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">Paziņojumi</string>
+    <string name="delivery_notifications_off">Izslēgti – brīdinājumi nepienāks</string>
+    <string name="delivery_notifications_not_asked">Vēl nav atļauts</string>
+    <string name="delivery_channel">Brīdinājumu kanāls</string>
+    <string name="delivery_channel_high">Augsta svarība – parādās ekrānā</string>
+    <string name="delivery_channel_low">Zema svarība – brīdinājumi tikai klusi parādās sarakstā</string>
+    <string name="delivery_channel_off">Izslēgts – brīdinājumi nepienāks</string>
+    <string name="delivery_exact_on">Ieslēgts – aptuveni ik pēc 15 minūtēm</string>
+    <string name="delivery_exact_off">Izslēgts – Android pārbauda neregulāri</string>
+    <string name="delivery_battery">Akumulatora optimizācija</string>
+    <string name="delivery_battery_unrestricted">Neierobežots</string>
+    <string name="delivery_battery_optimized">Optimizēts – Android var aizkavēt pārbaudes. Lietotne neprasa izņēmumu; to vari mainīt lietotnes akumulatora iestatījumos.</string>
+    <string name="delivery_background">Lietojums fonā</string>
+    <string name="delivery_background_restricted">Ierobežots – Android aptur pārbaudes fonā</string>
+    <string name="delivery_dnd">Netraucēt</string>
+    <string name="delivery_dnd_on">Ieslēgts – brīdinājumi var pienākt bez skaņas</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">Aktīvs līdz %1$s – gaidošie brīdinājumi gaida līdz tam</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – gaidošie brīdinājumi šajā laikā gaida</string>
+    <string name="delivery_last_check">Pēdējā pārbaude fonā</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – vairāk nekā pirms 6 stundām</string>
+    <string name="delivery_last_check_never">Vēl nav bijusi</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">Atļaut</string>
+    <string name="delivery_action_change">Mainīt</string>
+    <string name="delivery_action_show">Rādīt</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">Baneri un skaņa</string>
+    <string name="delivery_alert_off">Baneri izslēgti – brīdinājumi parādās tikai paziņojumu centrā</string>
+    <string name="delivery_sound_off">Skaņa izslēgta – brīdinājumi pienāk klusi</string>
+    <string name="delivery_time_sensitive">Laikjutīgi paziņojumi</string>
+    <string name="delivery_time_sensitive_off">Izslēgti – fokuss var aizturēt brīdinājumus</string>
+    <string name="delivery_background_refresh">Fona lietotņu atsvaidzināšana</string>
+    <string name="delivery_low_power">Zema enerģijas patēriņa režīms</string>
+    <string name="delivery_swipe_away">Lietotne aizvilkta prom?</string>
+    <string name="delivery_swipe_away_note">Ja aizvelc lietotni prom lietotņu pārslēdzējā, iOS pārtrauc pārbaudes fonā, līdz to atkal atver.</string>
+    <string name="delivery_live_activity">Tiešraides aktivitāte</string>
+    <string name="delivery_live_activity_note">Rāda cenu bloķēšanas ekrānā, bet atjauninās tikai tad, kad lietotne pārbauda – brīdinājumi tāpēc netiek pārbaudīti biežāk.</string>
+
+    <string name="alarm_first_check">Pārbaudi, vai brīdinājumi pienāk</string>
+
+    <string name="oem_battery_title">Ražotāja akumulatora taupīšana</string>
+    <string name="oem_battery_xiaomi">Xiaomi var pilnībā apturēt lietotni – tad brīdinājumi nepienāk. Ieslēdz „Autostart“ un akumulatora taupīšanai iestati „No restrictions“.</string>
+    <string name="oem_battery_samsung">Samsung var iemidzināt lietotni dziļā miegā – tad brīdinājumi nepienāk. Sadaļā Akumulators › Fona lietojuma ierobežojumi pievieno to pie „Nekad neaizmigušās lietotnes“.</string>
+    <string name="oem_battery_huawei">Huawei/Honor var apturēt lietotni – tad brīdinājumi nepienāk. Sadaļā Akumulators › Lietotņu palaišana izvēlies „Pārvaldīt manuāli“ un atļauj visas iespējas.</string>
+    <string name="oem_battery_oneplus">OnePlus var apturēt lietotni – tad brīdinājumi nepienāk. Atļauj „Automātisko palaišanu“ un sadaļā Akumulatora lietojums – darbību fonā.</string>
+    <string name="oem_battery_oppo">Oppo/Realme var apturēt lietotni – tad brīdinājumi nepienāk. Atļauj „Automātisko palaišanu“ un sadaļā Akumulatora lietojums – darbību fonā.</string>
+    <string name="oem_battery_vivo">Vivo var apturēt lietotni – tad brīdinājumi nepienāk. Atļauj „Autostart“ un sadaļā Akumulators – augstu enerģijas patēriņu fonā.</string>
+    <string name="alarm_reliability_stale">Pēdējā pārbaude %1$s – brīdinājumi var kavēties</string>
+    <string name="alarm_reliability_never">Brīdinājumi ieslēgti – pārbaudes fonā vēl nav bijis</string>
+    <string name="alarm_reliability_notifications_off">Paziņojumi izslēgti – brīdinājumi nepienāks</string>
+    <string name="alarm_reliability_battery">Akumulatora taupīšana var apturēt brīdinājumu pārbaudes</string>
+    <string name="alarm_reliability_background_refresh">Fona lietotņu atsvaidzināšana izslēgta – brīdinājumi var nepienākt</string>
+</resources>

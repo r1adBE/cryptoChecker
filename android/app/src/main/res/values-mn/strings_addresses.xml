@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">Хаяг нэмэх</string>
+    <string name="portfolio_address_count">Тооцох</string>
+    <string name="portfolio_address_error">Шинэчлэл амжилтгүй</string>
+    <string name="portfolio_address_hint">Нийтийн хаяг (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) эсвэл xpub</string>
+    <string name="portfolio_address_label">Нэр (заавал биш)</string>
+    <string name="portfolio_address_not_since_buy">Хаягаас · «Худалдан авснаас хойш»-д ороогүй: %1$s</string>
+    <string name="portfolio_address_overlap">Таны өөрийн гүйлгээнд ч бас байна: %1$s – хоёулаа нэмэгдэнэ. Ижил зоос уу? «Зөвхөн харуулах»-ыг сонгоно уу.</string>
+    <string name="portfolio_address_overlap_ask">Та %1$s-г өөрийн гүйлгээгээр аль хэдийн бүртгэсэн. Энэ хаягийн үлдэгдлийг багцад нэмэх үү, эсвэл зөвхөн харуулах уу?</string>
+    <string name="portfolio_address_overlap_auto">«%1$s» одоо зөвхөн харагдана, тооцохгүй – %2$s таны гүйлгээнд ч бас байна.</string>
+    <string name="portfolio_address_overlap_title">Таны гүйлгээнийхтэй ижил зоос уу?</string>
+    <string name="portfolio_address_overlap_tx">Таны өөрийн орлого/шилжүүлэгтэй ижил дүн (%1$s) – хоёр удаа тооцогдсон байж магадгүй.</string>
+    <string name="portfolio_address_period_observed">Ажиглаж буй хаягуудыг анх ажигласан үлдэгдлээс нь тооцно; дараагийн өөрчлөлт нь орлого/зарлага, ашиг биш.</string>
+    <string name="portfolio_address_privacy">%1$s руу зөвхөн нийтийн хаяг илгээнэ – түлхүүр эсвэл seed үгсийг хэзээ ч биш. Үйлчилгээ үзүүлэгч үүнийг таны IP хаягтай хамт харна. Хамгийн олондоо 10 минут тутам шалгана.</string>
+    <string name="portfolio_address_remove">Хаягийг устгах</string>
+    <string name="portfolio_address_show_only">Зөвхөн харуулах, багцад нэмэхгүй</string>
+    <string name="portfolio_address_show_only_short">Зөвхөн харуулах</string>
+    <string name="portfolio_address_tokens">Токеныг тооцох</string>
+    <string name="portfolio_address_xpub_privacy">xpub нь энэ түрийвчний бүх хаягийг илчилнэ. Тэдгээрийг таны төхөөрөмж дээр гаргана; %1$s руу зөвхөн тусдаа хаягуудыг илгээнэ – анхны хайлтад дор хаяж 40 хүсэлт, дараа нь цөөн. Хувийн түлхүүрийг (xprv) хэзээ ч хүлээн авахгүй.</string>
+    <string name="portfolio_address_xpub_gap">Хайлт дараалсан %1$d ашиглагдаагүй хаягийн дараа зогсоно (ихэнх түрийвчний ашигладаг BIP44 стандарт). Энэ зайнаас цааших ашигласан хаягийг тооцохгүй – түүнийг тусад нь нэмнэ үү.</string>
+    <string name="portfolio_address_xpub_used">Ашигласан хаяг: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">Шинэчлэхэд хэт олон ашигласан хаяг байна</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">Хаяг маш олон – хуучин, хоосон хаяг руу орсон шинэ төлбөр илрэхгүй байж магадгүй</string>
+    <string name="portfolio_addresses_title">Хаягууд</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Bitcoin Cash хаягийг ажиглах боломжгүй: нөхцөл нь үүнийг зөвшөөрдөг, API түлхүүргүй үнэгүй нийтийн үйлчилгээ алга.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) 2024 онд хаагдсан – үлдэгдэл одоо BNB Smart Chain (0x…) дээр байна</string>
+    <string name="address_checksum">Шалгах нийлбэр буруу – үсгийн алдааг шалгана уу</string>
+    <string name="address_doge_unsupported">Dogecoin хаягийг ажиглах боломжгүй: нөхцөл нь үүнийг зөвшөөрдөг, API түлхүүргүй үнэгүй нийтийн үйлчилгээ алга.</string>
+    <string name="address_duplicate">Энэ хаяг аль хэдийн нэмэгдсэн</string>
+    <string name="address_ens">ENS нэрийг дэмждэггүй – 0x хаягийг оруулна уу</string>
+    <string name="address_invalid">Дэмжигдсэн сүлжээний хүчинтэй хаяг биш</string>
+    <string name="address_limit">Дээд тал нь 20 хаяг</string>
+    <string name="address_secret">Энэ нь хувийн түлхүүр эсвэл seed үгс шиг харагдаж байна – үүнийг хаана ч бүү оруулаарай. Зөвхөн нийтийн хаяг.</string>
+    <string name="address_testnet">Testnet хаягийг дэмждэггүй</string>
+    <string name="address_unsupported">Энэ төрлийн хаягийг дэмждэггүй</string>
+    <string name="address_wrong_chain">Хаяг өөр сүлжээнийх байна</string>
+    <string name="address_xpub_multisig">Multisig түлхүүрийг (Ypub/Zpub) дэмждэггүй</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot данс (BIP86): bc1p… хаягуудыг энэ түлхүүрээс хүлээн авах болон хариулт мөнгөнд зориулж гаргана.</string>
+    <string name="portfolio_address_taproot_hint">Taproot түрийвч үү? Оронд нь түрийвчнийхээ tr(…) дескрипторыг буулгана уу – энгийн xpub-ийг зөвхөн Legacy болон SegWit хаягаар хайна.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">Өөрийн сервер холбогдохгүй байна</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">%1$s-ийг ажиллуулдаг этгээд энэ түрийвчний хүссэн бүх хаягийг харж, тэдгээрийг хооронд нь болон таны IP хаягтай холбож чадна.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">Үүнээс сэргийлэхийн тулд Тохиргоо › Багц › Хаягийн өөрийн сервер хэсэгт өөрийн серверээ оруулна уу.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d үл мэдэгдэх токен (тооцохгүй)</item>
+        <item quantity="other">+%1$d үл мэдэгдэх токен (тооцохгүй)</item>
+    </plurals>
+</resources>

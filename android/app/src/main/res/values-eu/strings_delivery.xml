@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">Ziurtatu alarmak iristen direla</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">Ondo</string>
+    <string name="delivery_state_warn">Begiratu hau</string>
+    <string name="delivery_state_info">Oharra</string>
+    <string name="delivery_allowed">Baimenduta</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">Jakinarazpenak</string>
+    <string name="delivery_notifications_off">Desaktibatuta – alarmak ez dira iritsiko</string>
+    <string name="delivery_notifications_not_asked">Oraindik baimendu gabe</string>
+    <string name="delivery_channel">Alarmen kanala</string>
+    <string name="delivery_channel_high">Garrantzi handia – pantailan agertzen da</string>
+    <string name="delivery_channel_low">Garrantzi txikia – alarmak isilean agertzen dira zerrendan soilik</string>
+    <string name="delivery_channel_off">Desaktibatuta – alarmak ez dira iritsiko</string>
+    <string name="delivery_exact_on">Aktibatuta – 15 minuturo gutxi gorabehera</string>
+    <string name="delivery_exact_off">Desaktibatuta – Android-ek modu irregularrean egiaztatzen du</string>
+    <string name="delivery_battery">Bateriaren optimizazioa</string>
+    <string name="delivery_battery_unrestricted">Murrizketarik gabe</string>
+    <string name="delivery_battery_optimized">Optimizatuta – Android-ek egiaztapenak atzera ditzake. Aplikazioak ez du salbuespenik eskatzen; aplikazioaren bateria-ezarpenetan alda dezakezu.</string>
+    <string name="delivery_background">Atzeko planoko erabilera</string>
+    <string name="delivery_background_restricted">Murriztuta – Android-ek atzeko planoko egiaztapenak geldiarazten ditu</string>
+    <string name="delivery_dnd">Ez molestatu</string>
+    <string name="delivery_dnd_on">Aktibatuta – alarmak soinurik gabe irits daitezke</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">Aktibo %1$s arte – alarma zain daudenak orduan arte itxarongo dute</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – alarma zain daudenak denbora horretan itxaroten dute</string>
+    <string name="delivery_last_check">Atzeko planoko azken egiaztapena</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – duela 6 ordu baino gehiago</string>
+    <string name="delivery_last_check_never">Oraindik bat ere ez</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">Baimendu</string>
+    <string name="delivery_action_change">Aldatu</string>
+    <string name="delivery_action_show">Erakutsi</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">Bannerrak eta soinua</string>
+    <string name="delivery_alert_off">Bannerrak desaktibatuta – alarmak Jakinarazpen-zentroan bakarrik agertzen dira</string>
+    <string name="delivery_sound_off">Soinua desaktibatuta – alarmak isilean iristen dira</string>
+    <string name="delivery_time_sensitive">Jakinarazpen premiazkoak</string>
+    <string name="delivery_time_sensitive_off">Desaktibatuta – kontzentrazio-modu batek alarmak atxiki ditzake</string>
+    <string name="delivery_background_refresh">Atzeko planoko eguneratzea</string>
+    <string name="delivery_low_power">Kontsumo txikiko modua</string>
+    <string name="delivery_swipe_away">Aplikazioa irristatuz itxi duzu?</string>
+    <string name="delivery_swipe_away_note">Aplikazio-hautatzailean aplikazioa irristatuz ixten baduzu, iOS-ek atzeko planoko egiaztapenak geldiarazten ditu berriro ireki arte.</string>
+    <string name="delivery_live_activity">Zuzeneko jarduera</string>
+    <string name="delivery_live_activity_note">Prezioa pantaila blokeatuan erakusten du, baina aplikazioak egiaztatzen duenean bakarrik eguneratzen da – ez du alarmak maizago egiaztatzea eragiten.</string>
+
+    <string name="alarm_first_check">Egiaztatu alarmak iristen direla</string>
+
+    <string name="oem_battery_title">Fabrikatzailearen bateria-aurrezlea</string>
+    <string name="oem_battery_xiaomi">Xiaomi-k aplikazioa guztiz geldiaraz dezake – orduan ez da alarmarik iristen. Aktibatu «Abiarazte automatikoa» eta ezarri bateria-aurrezlea «Murrizketarik gabe» aukeran.</string>
+    <string name="oem_battery_samsung">Samsung-ek aplikazioa lo sakonean jar dezake – orduan ez da alarmarik iristen. Bateria › Atzeko planoko erabilera-mugak atalean, gehitu «Inoiz lo egiten ez duten aplikazioak» zerrendara.</string>
+    <string name="oem_battery_huawei">Huawei/Honor-ek aplikazioa geldiaraz dezake – orduan ez da alarmarik iristen. Bateria › Aplikazioen abiaraztea atalean, aukeratu «Kudeatu eskuz» eta baimendu aukera guztiak.</string>
+    <string name="oem_battery_oneplus">OnePlus-ek aplikazioa geldiaraz dezake – orduan ez da alarmarik iristen. Baimendu «Abiarazte automatikoa» eta, Bateriaren erabilera atalean, atzeko planoko jarduera.</string>
+    <string name="oem_battery_oppo">Oppo/Realme-k aplikazioa geldiaraz dezake – orduan ez da alarmarik iristen. Baimendu «Abiarazte automatikoa» eta, Bateriaren erabilera atalean, atzeko planoko jarduera.</string>
+    <string name="oem_battery_vivo">Vivo-k aplikazioa geldiaraz dezake – orduan ez da alarmarik iristen. Baimendu «Abiarazte automatikoa» eta, Bateria atalean, atzeko planoko kontsumo handia.</string>
+    <string name="alarm_reliability_stale">Azken egiaztapena: %1$s – alarmak berandu irits daitezke</string>
+    <string name="alarm_reliability_never">Alarmak aktibatuta – oraindik ez da atzeko planoko egiaztapenik egin</string>
+    <string name="alarm_reliability_notifications_off">Jakinarazpenak desaktibatuta – alarmak ez dira iritsiko</string>
+    <string name="alarm_reliability_battery">Bateria aurrezteak alarmen egiaztapenak geldiaraz ditzake</string>
+    <string name="alarm_reliability_background_refresh">Atzeko planoko eguneratzea desaktibatuta – baliteke alarmak ez iristea</string>
+</resources>

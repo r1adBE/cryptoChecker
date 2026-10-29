@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">ເພີ່ມທີ່ຢູ່</string>
+    <string name="portfolio_address_count">ນັບລວມ</string>
+    <string name="portfolio_address_error">ອັບເດດບໍ່ສຳເລັດ</string>
+    <string name="portfolio_address_hint">ທີ່ຢູ່ສາທາລະນະ (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) ຫຼື xpub</string>
+    <string name="portfolio_address_label">ປ້າຍຊື່ (ບໍ່ບັງຄັບ)</string>
+    <string name="portfolio_address_not_since_buy">ຈາກທີ່ຢູ່ · ບໍ່ຢູ່ໃນ “ນັບແຕ່ຊື້”: %1$s</string>
+    <string name="portfolio_address_overlap">ມີຢູ່ໃນທຸລະກຳຂອງທ່ານເອງນຳ: %1$s – ທັງສອງຖືກບວກລວມ. ແມ່ນຫຼຽນດຽວກັນບໍ? ເລືອກ “ສະແດງເທົ່ານັ້ນ”.</string>
+    <string name="portfolio_address_overlap_ask">ທ່ານບັນທຶກ %1$s ດ້ວຍທຸລະກຳຂອງທ່ານເອງແລ້ວ. ບວກຍອດເງິນຂອງທີ່ຢູ່ນີ້ເຂົ້າໃນພອດໂຟລິໂອ ຫຼື ພຽງແຕ່ສະແດງມັນ?</string>
+    <string name="portfolio_address_overlap_auto">ຕອນນີ້ “%1$s” ສະແດງເທົ່ານັ້ນ, ບໍ່ນັບລວມ – %2$s ມີຢູ່ໃນທຸລະກຳຂອງທ່ານນຳ.</string>
+    <string name="portfolio_address_overlap_title">ຫຼຽນດຽວກັນກັບທຸລະກຳຂອງທ່ານບໍ?</string>
+    <string name="portfolio_address_overlap_tx">ຈຳນວນດຽວກັນກັບການຝາກ/ການໂອນຂອງທ່ານເອງ (%1$s) – ອາດຖືກນັບສອງເທື່ອ.</string>
+    <string name="portfolio_address_period_observed">ທີ່ຢູ່ທີ່ຕິດຕາມຈະນັບຈາກຍອດເງິນທີ່ເຫັນຄັ້ງທຳອິດ; ການປ່ຽນແປງຫຼັງຈາກນັ້ນແມ່ນເງິນເຂົ້າ/ອອກ, ບໍ່ແມ່ນກຳໄລ.</string>
+    <string name="portfolio_address_privacy">ສົ່ງພຽງແຕ່ທີ່ຢູ່ສາທາລະນະໄປຫາ %1$s – ບໍ່ສົ່ງກະແຈ ຫຼື seed phrase ເດັດຂາດ. ຜູ້ໃຫ້ບໍລິການເຫັນມັນພ້ອມກັບທີ່ຢູ່ IP ຂອງທ່ານ. ກວດສອບຫຼາຍສຸດທຸກໆ 10 ນາທີ.</string>
+    <string name="portfolio_address_remove">ລຶບທີ່ຢູ່ອອກ</string>
+    <string name="portfolio_address_show_only">ສະແດງເທົ່ານັ້ນ, ບໍ່ບວກເຂົ້າພອດໂຟລິໂອ</string>
+    <string name="portfolio_address_show_only_short">ສະແດງເທົ່ານັ້ນ</string>
+    <string name="portfolio_address_tokens">ນັບໂທເຄັນ</string>
+    <string name="portfolio_address_xpub_privacy">xpub ເປີດເຜີຍທີ່ຢູ່ທັງໝົດຂອງກະເປົາເງິນນີ້. ທີ່ຢູ່ເຫຼົ່ານັ້ນຖືກສ້າງຂຶ້ນໃນອຸປະກອນຂອງທ່ານ; ສົ່ງພຽງແຕ່ທີ່ຢູ່ແຕ່ລະອັນໄປຫາ %1$s – ຢ່າງໜ້ອຍ 40 ຄຳຂໍໃນການສະແກນຄັ້ງທຳອິດ, ຫຼັງຈາກນັ້ນໜ້ອຍລົງ. ບໍ່ຮັບກະແຈສ່ວນຕົວ (xprv) ເດັດຂາດ.</string>
+    <string name="portfolio_address_xpub_gap">ການຄົ້ນຫາຈະຢຸດຫຼັງຈາກພົບທີ່ຢູ່ທີ່ບໍ່ໄດ້ໃຊ້ %1$d ອັນຕິດກັນ (ມາດຕະຖານ BIP44 ທີ່ກະເປົາເງິນສ່ວນໃຫຍ່ໃຊ້). ທີ່ຢູ່ທີ່ໃຊ້ແລ້ວທີ່ຢູ່ເກີນຊ່ວງນັ້ນຈະບໍ່ຖືກນັບ – ໃຫ້ເພີ່ມມັນແຍກຕ່າງຫາກ.</string>
+    <string name="portfolio_address_xpub_used">ທີ່ຢູ່ທີ່ກຳລັງໃຊ້: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">ມີທີ່ຢູ່ທີ່ໃຊ້ແລ້ວຫຼາຍເກີນໄປທີ່ຈະອັບເດດ</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">ມີທີ່ຢູ່ຫຼາຍຫຼາຍ – ການຊຳລະໃໝ່ເຂົ້າທີ່ຢູ່ເກົ່າທີ່ຫວ່າງເປົ່າອາດກວດບໍ່ພົບ</string>
+    <string name="portfolio_addresses_title">ທີ່ຢູ່</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">ບໍ່ສາມາດຕິດຕາມທີ່ຢູ່ Bitcoin Cash ໄດ້: ບໍ່ມີບໍລິການສາທາລະນະຟຣີທີ່ບໍ່ຕ້ອງໃຊ້ API key ແລະ ເງື່ອນໄຂອະນຸຍາດ.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) ປິດໃນປີ 2024 – ຍອດເງິນຕອນນີ້ຢູ່ໃນ BNB Smart Chain (0x…)</string>
+    <string name="address_checksum">Checksum ບໍ່ຖືກຕ້ອງ – ກວດເບິ່ງການພິມຜິດ</string>
+    <string name="address_doge_unsupported">ບໍ່ສາມາດຕິດຕາມທີ່ຢູ່ Dogecoin ໄດ້: ບໍ່ມີບໍລິການສາທາລະນະຟຣີທີ່ບໍ່ຕ້ອງໃຊ້ API key ແລະ ເງື່ອນໄຂອະນຸຍາດ.</string>
+    <string name="address_duplicate">ທີ່ຢູ່ນີ້ຖືກເພີ່ມແລ້ວ</string>
+    <string name="address_ens">ບໍ່ຮອງຮັບຊື່ ENS – ໃສ່ທີ່ຢູ່ 0x</string>
+    <string name="address_invalid">ບໍ່ແມ່ນທີ່ຢູ່ທີ່ຖືກຕ້ອງຂອງເຄືອຂ່າຍທີ່ຮອງຮັບ</string>
+    <string name="address_limit">ສູງສຸດ 20 ທີ່ຢູ່</string>
+    <string name="address_secret">ອັນນີ້ເບິ່ງຄືກະແຈສ່ວນຕົວ ຫຼື seed phrase – ຢ່າໃສ່ມັນຢູ່ບ່ອນໃດເດັດຂາດ. ພຽງແຕ່ທີ່ຢູ່ສາທາລະນະເທົ່ານັ້ນ.</string>
+    <string name="address_testnet">ບໍ່ຮອງຮັບທີ່ຢູ່ Testnet</string>
+    <string name="address_unsupported">ບໍ່ຮອງຮັບປະເພດທີ່ຢູ່ນີ້</string>
+    <string name="address_wrong_chain">ທີ່ຢູ່ເປັນຂອງເຄືອຂ່າຍອື່ນ</string>
+    <string name="address_xpub_multisig">ບໍ່ຮອງຮັບກະແຈ Multisig (Ypub/Zpub)</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">ບັນຊີ Taproot (BIP86): ທີ່ຢູ່ bc1p… ຖືກສ້າງຈາກກະແຈນີ້, ສຳລັບການຮັບ ແລະ ເງິນທອນ.</string>
+    <string name="portfolio_address_taproot_hint">ກະເປົາເງິນ Taproot ບໍ? ໃຫ້ວາງ descriptor tr(…) ຈາກກະເປົາເງິນຂອງທ່ານແທນ – xpub ທຳມະດາຈະຖືກຄົ້ນຫາເປັນທີ່ຢູ່ Legacy ແລະ SegWit ເທົ່ານັ້ນ.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">ເຊື່ອມຕໍ່ເຊີບເວີຂອງຕົນເອງບໍ່ໄດ້</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">ຜູ້ທີ່ດຳເນີນການ %1$s ຈະເຫັນທີ່ຢູ່ທັງໝົດທີ່ສອບຖາມຂອງກະເປົາເງິນນີ້ ແລະ ສາມາດເຊື່ອມໂຍງພວກມັນເຂົ້າກັນ ແລະ ກັບທີ່ຢູ່ IP ຂອງທ່ານ.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">ເພື່ອຫຼີກລ່ຽງສິ່ງນີ້, ໃຫ້ໃສ່ເຊີບເວີຂອງທ່ານເອງໃນ ການຕັ້ງຄ່າ › ພອດໂຟລິໂອ › ເຊີບເວີຂອງຕົນເອງສຳລັບທີ່ຢູ່.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="other">+%1$d ໂທເຄັນທີ່ບໍ່ຮູ້ຈັກ (ບໍ່ນັບລວມ)</item>
+    </plurals>
+</resources>

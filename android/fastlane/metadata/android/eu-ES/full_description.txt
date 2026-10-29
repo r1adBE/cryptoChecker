@@ -1,0 +1,41 @@
+Crypto Checker-ek zure burtsako prezioak egiaztatu eta abisatzen dizu egiaztapenean zure muga iritsita badago. Aplikazioa itxita, Android-ek erabakitzen du noiz egiaztatu alarmak – gehienez 15 minuturo, askotan orduak pasata. Tarteko gailur laburrak gal daitezke, eta esaten zaizu. Zure burtsaren prezioa, ez batez bestekoa – doan, konturik gabe.
+
+ZERK BEREIZTEN DUEN
+• Zure burtsa, ez batez bestekoa: errenkadak aukeratutako burtsako azken prezioa du – Binance, Coinbase, Kraken, OKX, Bybit eta beste asko.
+• Behin abisatzen duen alarma: «Abisatu BTC 100.000 USDT gainditzen duenean». Egiaztapenean muga gaindituta badago jotzen du, ez eguneratze bakoitzean – «Behin»-ek itzaltzen du; «Aldi bakoitzean»-ek berriz armatzen prezioa itzultzean.
+• «Zer mugitzen da harekin batera?»: txanpon baten faktoreak – merkatua, bolumena, hegazkortasuna, finantzaketa, interes irekia, goi/behe-mugarako tartea, Fear & Greed. Aldi bereko mugimendua erakusten du – ez kausa, ez albiste, ez inbertsio-aholku.
+• Konturik, iragarkirik, jarraipenik ez. Garatzaileak ez du zure daturik jasotzen.
+
+DATUEKIN ZINTZO
+• «Aurrezlea» da lehenetsia: prezioak irekitzean eta tarteka atzeko planoan eguneratzen dira. «Zuzenean irekita dagoen bitartean»: Binance, Bybit, OKX, Coinbase eta Kraken-en zuzeneko prezioak zerrenda irekita.
+• % aldaketa eta diagramak parearen burtsatik datoz lehenik; kandelarik ez badu, Binance edo Coinbase, eta esaten zaizu.
+• Fear & Greed, nagusitasuna, on-chain balioak: alternative.me, CoinGecko, Coin Metrics.
+• Kopuruak zure esportazioz edo Android-en sistema-babeskopiaz bakarrik irteten dira gailutik. Prezioetarako, tickerrak bakarrik doaz parearen burtsara; gainera, truke-tasak (Frankfurter), merkatu-datuak eta logoak (CoinGecko, Binance), datu-ispiluak (GitHub). Helbideei edo xpub bati jarraituz gero, blockchain-eko nodo publikoek helbideak (xpub-ean, eratorriak) eta zure IPa ikusten dituzte.
+
+ZERRENDA
+• 56 merkatu 45 burtsatan: spot eta futuroak, DEX tokenak DexScreener bidez, aukeran akzioak, urrea eta dibisak (TradFi)
+• Bigarren lerroa «≈ balioa» 31 monetatik batean (EUR, CHF, USD …), truke-tasan
+• Minidiagrama eta % aldaketa 24 orduan edo zure ordu-zonako 00:00etatik
+• Taldeak, gogokoak, arrastatu eta ordenatu, oharra txanponeko
+• Errenkadetan: «zaharkituta» edo «burtsa eskuragarri ez»
+
+ALARMAK
+• Prezioa maila baten gainetik/azpitik, edo ehuneko bateko igoera/jaitsiera – zure monetan ere, adib. 60.000 EUR USDT pare batean
+• x %-ko mugimendua tarte batean, bolumen-gailurra
+• Soinua (zure audio-fitxategia ere), dardara eta aukerako ahots-iragarpena
+• Isiltasun-orduak eta «Probatu alarma»: entzun aurretik nola iristen den; erregistroa: noiz egiaztatu, zein preziotan, zergatik ez zuen jo
+
+MERKATUA
+• Nabarmena: zerrendako prezio/bolumen-mugimendu ezohikoak, aukeran abisu gisa
+• Kripto-pultsua, Fear & Greed, Bitcoin adierazleak, finantzaketa, interes irekia – neurtutako balio gisa
+• Ethereum, Bitcoin eta gehiagoren sare-komisioak, gas-alarmarekin
+
+GEHIAGO
+• Widgetak: zerrenda, zorroaren guztizkoa, txanpon bat diagramarekin
+• Zorroa aukeran (Ezarpenetan): erosketak, salmentak, trukeak, transferentziak, sariak, gordailuak, erretiratzeak; FIFO (lehenetsia) edo batez bestekoa (Ø); seedik gabeko irakurketa-helbideak: BTC (xpub barne), ETH eta EVM kateak, SOL, TRX, XRP, LTC, ADA, TON; CSV inportazioa: Relai, Swissquote, Bitpanda, Kraken, Binance, Coinbase; urteko laburpena CSVn; blokeo propioa. Bitpanda eta Swissquote: prezio propiorik ez, CSV soilik.
+• Guztiontzat irakurgarria: berdea/gorria edo urdina/laranja, zeinua eta gezia, ez kolorea soilik; TalkBack-ek errenkada esaldi bakar gisa irakurtzen du
+• Babeskopia eta leheneratzea fitxategi batera – Android eta iPhone artean ere
+• Modu argia eta iluna, bost kolore nagusi, 75 hizkuntza
+• Kode irekia (MIT), publikoa GitHub-en
+
+Oharra: Crypto Checker-ek prezioak eta zuk idatzitako zorroa erakusten ditu. Ez da burtsa ez kartera; ez du negoziatzen ez inbertsio-aholkurik ematen.

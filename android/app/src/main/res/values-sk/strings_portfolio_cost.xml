@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">Záznamy bez obstarávacej ceny: %1$d</string>
+    <string name="cost_gaps_card_text">Doplň obstarávaciu cenu, aby boli zisk a daň úplné.</string>
+    <string name="cost_gaps_sheet_title">Záznamy bez obstarávacej ceny</string>
+    <string name="cost_gaps_sheet_intro">Pri týchto prírastkoch chýba obstarávacia cena. Návrh je záverečný kurz daného dňa – v zázname ho môžeš upraviť.</string>
+    <string name="cost_gaps_empty">Všetky záznamy majú obstarávaciu cenu.</string>
+    <string name="cost_gap_enter">Zadať obstarávaciu cenu</string>
+    <string name="cost_gap_leave_unknown">Nechať neznáme</string>
+    <string name="cost_gap_left_unknown">Ponechané neznáme</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">Návrh: záverečný kurz %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">Pre tento dátum nie je overený záverečný kurz</string>
+    <string name="cost_gap_suggestion_loading">Načítava sa záverečný kurz…</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">Obstarávacia cena = hodnota pri prijatí (príjem)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">Obstarávacia cena = 0 (odmena bez príjmu, Rakúsko)</string>
+    <string name="cost_gap_apply">Použiť</string>
+    <string name="address_lots_action">Obstarávacia cena pre zostatok adresy</string>
+    <string name="address_lots_title">Obstarávacia cena pre zostatok adresy</string>
+    <string name="address_lots_intro">Zadaj dátum nákupu, množstvo a obstarávaciu cenu pre zostatok tejto adresy. Položky sa počítajú ako nákupy na tejto adrese; čo nie je pokryté, zostane bez obstarávacej ceny.</string>
+    <string name="address_lots_add">Pridať položku</string>
+    <string name="address_lots_new">Nová položka</string>
+    <string name="address_lots_edit">Položka</string>
+    <string name="address_lots_date">Dátum nákupu</string>
+    <string name="address_lots_amount">Množstvo</string>
+    <string name="address_lots_mode_total">Celkom</string>
+    <string name="address_lots_mode_price">Za coin</string>
+    <string name="address_lots_price">Cena za coin (USDT)</string>
+    <string name="address_lots_total">Celková obstarávacia cena (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%1$s z %2$s s obstarávacou cenou</string>
+    <string name="address_lots_unlotted">%1$s bez obstarávacej ceny</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">Položky prevyšujú zostatok o %1$s – najstaršie sa spotrebujú ako prvé.</string>
+    <string name="address_lots_not_loaded">Zostatok ešte nie je načítaný – položky sa započítajú hneď, ako bude.</string>
+    <string name="address_lots_invalid">Zadaj množstvo a obstarávaciu cenu</string>
+</resources>

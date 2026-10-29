@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">នាំចូល CSV</string>
+    <string name="portfolio_csv_import_all_transfer">ទាំងអស់ទៅកាបូបផ្ទាល់ខ្លួន</string>
+    <string name="portfolio_csv_import_all_withdrawal">ទាំងអស់ចាកចេញពីផលប័ត្រ</string>
+    <string name="portfolio_csv_import_choice_proposed">បានណែនាំ៖ ត្រូវនឹង %1$s</string>
+    <string name="portfolio_csv_import_choice_transfer">ទៅកាបូបផ្ទាល់ខ្លួន (ការផ្ទេរ)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">ចាកចេញពីផលប័ត្រ (ការដក)</string>
+    <string name="portfolio_csv_import_choose_each">សូមជ្រើសរើសសម្រាប់ការដកនីមួយៗថាវាបានទៅណា។</string>
+    <string name="portfolio_csv_import_columns">ជួរឈរដែលបានស្គាល់៖ %1$s</string>
+    <string name="portfolio_csv_import_confirm">នាំចូល (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">ថ្ងៃ/ខែ</string>
+    <string name="portfolio_csv_import_date_month_first">ខែ/ថ្ងៃ</string>
+    <string name="portfolio_csv_import_date_order">កាលបរិច្ឆេទមិនច្បាស់ (ឧ. 03/04/2024) អានជា៖</string>
+    <string name="portfolio_csv_import_decimal">លេខមិនច្បាស់ (ឧ. %1$s) អានជា៖</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="other">បាននាំចូលប្រតិបត្តិការ %d</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="other">%d បាននាំចូលរួចហើយ (បានរំលង)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">ទម្រង់៖ %1$s</string>
+    <string name="portfolio_csv_import_line">ជួរទី %1$d៖ %2$s</string>
+    <string name="portfolio_csv_import_loading">កំពុងអានឯកសារ និងអត្រាប្រចាំថ្ងៃ…</string>
+    <string name="portfolio_csv_import_progress">ជួរទី %1$s នៃ %2$s</string>
+    <string name="portfolio_csv_import_saving">កំពុងរក្សាទុកប្រតិបត្តិការ…</string>
+    <string name="portfolio_csv_import_missing_fx">គ្មានអត្រាប្រចាំថ្ងៃសម្រាប់ជួរ %1$s – បាននាំចូលដោយគ្មានតម្លៃ/កម្រៃ។</string>
+    <string name="portfolio_csv_import_missing_price">គ្មានតម្លៃនៅក្នុងឯកសារសម្រាប់ជួរ %1$s – បាននាំចូលដោយគ្មានតម្លៃ។</string>
+    <string name="portfolio_csv_import_more">+ %1$d ទៀត</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="other">ប្រតិបត្តិការថ្មី %d</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="other">បានរំលង %d ជួរ</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">ការជួញដូរទល់នឹង stablecoin (USDT, USDC …) ត្រូវបានកត់ត្រាជាការប្តូរកាក់ – stablecoin នឹងបង្ហាញក្នុងការកាន់កាប់របស់អ្នក។</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">អាចត្រូវគ្នាច្រើន – សូមជ្រើសរើសមួយដែលត្រឹមត្រូវ ឬមិនជ្រើសអ្វីទាំងអស់។</string>
+    <string name="portfolio_csv_import_transfer_fee">កម្រៃបណ្ដាញ៖ %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">កត់ត្រាជាការផ្ទេរតែមួយ</string>
+    <string name="portfolio_csv_import_transfer_stored">ផ្នែកដៃគូពីការនាំចូលមុន</string>
+    <string name="portfolio_csv_import_transfers_hint">ការដក និងការដាក់ប្រាក់ដែលត្រូវគ្នានៃកាក់ដូចគ្នា ក្លាយជាការផ្ទេរតែមួយ៖ តម្លៃទិញ និងរយៈពេលកាន់កាប់ត្រូវបានរក្សា ភាពខុសគ្នាត្រូវបានរាប់ជាកម្រៃបណ្ដាញ។</string>
+    <string name="portfolio_csv_import_transfers_title">ការផ្ទេររវាងគណនីរបស់អ្នក</string>
+    <string name="portfolio_csv_import_unreadable">រកមិនឃើញប្រតិបត្តិការដែលគាំទ្រទេ។ គាំទ្រ៖ ការនាំចេញ CSV ពី Relai, Swissquote, Kraken, Binance, Coinbase និង Bitpanda។</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
+    <string name="portfolio_csv_import_too_large">ឯកសារធំពេកសម្រាប់នាំចូល (យ៉ាងច្រើន 16 MB និង %1$s ជួរ)។ សូមនាំចេញរយៈពេលខ្លីជាង ហើយនាំចូលម្តងមួយៗ។</string>
+    <string name="portfolio_csv_import_failed">ការនាំចូលមិនដំណើរការទេ – គ្មានអ្វីត្រូវបានរក្សាទុកទេ។ សូមព្យាយាមម្តងទៀត។</string>
+    <string name="portfolio_csv_import_locked">មិនអាចនាំចូលបានទេ៖ មិនអាចអានទិន្នន័យដែលបានរក្សាទុកបាននៅពេលនេះទេ។ សូមចាប់ផ្ដើមកម្មវិធីឡើងវិញ។</string>
+    <string name="portfolio_csv_import_withdrawals_title">ការដក – តើកាក់បានទៅណា?</string>
+    <string name="portfolio_csv_import_zone">ពេលវេលាដែលគ្មានល្វែងម៉ោង អានជា៖ %1$s</string>
+    <string name="portfolio_csv_import_zone_device">ឧបករណ៍ (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">កាលបរិច្ឆេទអានមិនបាន</string>
+    <string name="portfolio_csv_skip_bad_number">លេខអានមិនបាន</string>
+    <string name="portfolio_csv_skip_fee_exceeds">កម្រៃ ≥ ចំនួនដែលបានទទួល</string>
+    <string name="portfolio_csv_skip_internal_move">ការផ្លាស់ទីរវាងគណនីផ្ទាល់ខ្លួន – គ្មានអ្វីត្រូវកត់ត្រាទេ</string>
+    <string name="portfolio_csv_skip_missing">ខ្វះវាល</string>
+    <string name="portfolio_csv_skip_ambiguous">ការជួញដូរច្រើនក្នុងវិនាទីតែមួយ ដែលមិនអាចបែងចែកបាន – សូមបញ្ចូលដោយដៃ</string>
+    <string name="portfolio_csv_skip_not_crypto">មិនមែនជាគ្រីបតូ</string>
+    <string name="portfolio_csv_skip_possible_duplicate">ប្រហែលជាបាននាំចូលរួចហើយ (ការជួញដូរស្ទើរតែដូចគ្នា) – សូមពិនិត្យដោយដៃ</string>
+    <string name="portfolio_csv_skip_two_fees">កម្រៃពីរក្នុងឯកតាខុសគ្នា – សូមបញ្ចូលការប្តូរកាក់ដោយដៃ</string>
+    <string name="portfolio_csv_skip_unsupported">ប្រភេទមិនគាំទ្រ</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">មិនធ្វើវិញ</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="other">លុបប្រតិបត្តិការ %d នៃការនាំចូលនេះមែនទេ? ធាតុដែលបញ្ចូលដោយដៃ និងការនាំចូលផ្សេងទៀតនៅដដែល។</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">មិនធ្វើការនាំចូលវិញមែនទេ?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="other">បានដកប្រតិបត្តិការដែលបាននាំចូល %d ចេញ</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="other">ប្រតិបត្តិការ %d</item>
+    </plurals>
+    <string name="portfolio_imports_empty">គ្មានការនាំចូល</string>
+    <string name="portfolio_imports_title">ការនាំចូល</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">លេខសម្គាល់ប្រតិបត្តិការដូចគ្នា ប៉ុន្តែចំនួនខុសគ្នា – សូមពិនិត្យដោយដៃ</string>
+    <string name="portfolio_csv_skip_staking_unpaired">ធាតុ staking គ្មានធាតុតបវិញ – សូមពិនិត្យការកាន់កាប់</string>
+    <string name="portfolio_csv_skip_amount_too_small">ចំនួនតូចពេក – បង្គត់ទៅ 0 នៅពេលរក្សាទុក</string>
+    <string name="portfolio_csv_skip_invalid_swap">ការប្តូរកាក់គ្មានកាក់ ឬចំនួនដែលបានទទួលត្រឹមត្រូវ</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">កំពុងអានឯកសារម្តងទៀត …</string>
+</resources>

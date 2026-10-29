@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">Алармите за портфолио се паузирани: нема тековна цена за %1$s</string>
+    <string name="portfolio_alarms_paused_price_generic">Алармите за портфолио се паузирани: не секоја монета има тековна цена</string>
+    <string name="portfolio_alarms_paused_addresses">Алармите за портфолио се паузирани: салдата на следените адреси сè уште не се вчитани</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Алармите за портфолио се паузирани: салдата на токени на %1$s делумно застарени</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Алармите за портфолио се паузирани: салдата на токени на следените адреси делумно застарени</string>
+    <string name="portfolio_alarms_paused_unverified">Алармите за портфолио се паузирани: цената не е потврдена за %1$s</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Алармите за портфолио се паузирани: цената на некои монети не е потврдена</string>
+    <string name="portfolio_alarms_address_failing">Алармите за портфолио проверуваат без %1$s: салдото не е вчитано повеќе од 24 часа</string>
+    <string name="portfolio_alarms_address_failing_generic">Алармите за портфолио проверуваат без адресите чие салдо не е вчитано повеќе од 24 часа</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">токените делумно застарени</string>
+    <string name="portfolio_address_restore_failed">Адресата не можеше да се врати – додај ја повторно ако е потребно</string>
+    <string name="portfolio_address_remove_failed">Адресата не можеше да се отстрани – обиди се повторно</string>
+</resources>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">Importovať CSV</string>
+    <string name="portfolio_csv_import_all_transfer">Všetko do vlastnej peňaženky</string>
+    <string name="portfolio_csv_import_all_withdrawal">Všetko opúšťa portfólio</string>
+    <string name="portfolio_csv_import_choice_proposed">Návrh: zodpovedá %1$s</string>
+    <string name="portfolio_csv_import_choice_transfer">Do vlastnej peňaženky (presun)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Opúšťa portfólio (výber)</string>
+    <string name="portfolio_csv_import_choose_each">Pri každom výbere zvoľ, kam išiel.</string>
+    <string name="portfolio_csv_import_columns">Rozpoznané stĺpce: %1$s</string>
+    <string name="portfolio_csv_import_confirm">Importovať (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">Deň/mesiac</string>
+    <string name="portfolio_csv_import_date_month_first">Mesiac/deň</string>
+    <string name="portfolio_csv_import_date_order">Nejednoznačné dátumy (napr. 03/04/2024) čítať ako:</string>
+    <string name="portfolio_csv_import_decimal">Nejednoznačné čísla (napr. %1$s) čítať ako:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d transakcia importovaná</item>
+        <item quantity="few">%d transakcie importované</item>
+        <item quantity="many">%d transakcie importovanej</item>
+        <item quantity="other">%d transakcií importovaných</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d už importovaná (preskočená)</item>
+        <item quantity="few">%d už importované (preskočené)</item>
+        <item quantity="many">%d už importovaných (preskočených)</item>
+        <item quantity="other">%d už importovaných (preskočených)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">Formát: %1$s</string>
+    <string name="portfolio_csv_import_line">Riadok %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">Načítava sa súbor a denné kurzy…</string>
+    <string name="portfolio_csv_import_progress">Riadok %1$s z %2$s</string>
+    <string name="portfolio_csv_import_saving">Ukladajú sa transakcie…</string>
+    <string name="portfolio_csv_import_missing_fx">Chýba denný kurz pre riadky %1$s – importované bez ceny/poplatku.</string>
+    <string name="portfolio_csv_import_missing_price">V súbore chýba cena pre riadky %1$s – importované bez ceny.</string>
+    <string name="portfolio_csv_import_more">+ ďalšie %1$d</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d nová transakcia</item>
+        <item quantity="few">%d nové transakcie</item>
+        <item quantity="many">%d novej transakcie</item>
+        <item quantity="other">%d nových transakcií</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d riadok preskočený</item>
+        <item quantity="few">%d riadky preskočené</item>
+        <item quantity="many">%d riadka preskočeného</item>
+        <item quantity="other">%d riadkov preskočených</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">Obchody proti stablecoinom (USDT, USDC …) sa účtujú ako výmeny – stablecoin sa zobrazí v držbe.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Je možných viac zhôd – vyber správnu alebo žiadnu.</string>
+    <string name="portfolio_csv_import_transfer_fee">Sieťový poplatok: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">Zaúčtovať ako jeden presun</string>
+    <string name="portfolio_csv_import_transfer_stored">Protipoložka z predchádzajúceho importu</string>
+    <string name="portfolio_csv_import_transfers_hint">Výber a zodpovedajúci vklad toho istého coinu sa stanú jedným presunom: nákupná cena a doba držby zostávajú, rozdiel sa počíta ako sieťový poplatok.</string>
+    <string name="portfolio_csv_import_transfers_title">Presuny medzi tvojimi účtami</string>
+    <string name="portfolio_csv_import_unreadable">Nenašli sa žiadne podporované transakcie. Podporované: exporty CSV z Relai, Swissquote, Kraken, Binance, Coinbase a Bitpanda.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
+    <string name="portfolio_csv_import_too_large">Súbor je na import príliš veľký (najviac 16 MB a %1$s riadkov). Exportuj kratšie obdobia a importuj ich postupne.</string>
+    <string name="portfolio_csv_import_failed">Import sa nepodaril – nič sa neuložilo. Skús to znova.</string>
+    <string name="portfolio_csv_import_locked">Import nie je možný: uložené údaje sa teraz nedajú prečítať. Reštartuj aplikáciu.</string>
+    <string name="portfolio_csv_import_withdrawals_title">Výbery – kam išli coiny?</string>
+    <string name="portfolio_csv_import_zone">Časy bez časového pásma čítať ako: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">Zariadenie (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">nečitateľný dátum</string>
+    <string name="portfolio_csv_skip_bad_number">nečitateľné číslo</string>
+    <string name="portfolio_csv_skip_fee_exceeds">poplatok ≥ prijaté množstvo</string>
+    <string name="portfolio_csv_skip_internal_move">presun medzi tvojimi vlastnými účtami – nič na zaúčtovanie</string>
+    <string name="portfolio_csv_skip_missing">chýba údaj</string>
+    <string name="portfolio_csv_skip_ambiguous">viac obchodov v tej istej sekunde, ktoré sa nedajú rozlíšiť – zadaj ich ručne</string>
+    <string name="portfolio_csv_skip_not_crypto">nie je krypto</string>
+    <string name="portfolio_csv_skip_possible_duplicate">možno už importované (takmer rovnaký obchod) – skontroluj ručne</string>
+    <string name="portfolio_csv_skip_two_fees">dva poplatky v rôznych jednotkách – výmenu zadaj ručne</string>
+    <string name="portfolio_csv_skip_unsupported">nepodporovaný typ</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">Späť</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">Odstrániť %d transakciu tohto importu? Ručné záznamy a iné importy zostanú.</item>
+        <item quantity="few">Odstrániť %d transakcie tohto importu? Ručné záznamy a iné importy zostanú.</item>
+        <item quantity="many">Odstrániť %d transakcie tohto importu? Ručné záznamy a iné importy zostanú.</item>
+        <item quantity="other">Odstrániť %d transakcií tohto importu? Ručné záznamy a iné importy zostanú.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">Vrátiť import späť?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">%d importovaná transakcia odstránená</item>
+        <item quantity="few">%d importované transakcie odstránené</item>
+        <item quantity="many">%d importovanej transakcie odstránenej</item>
+        <item quantity="other">%d importovaných transakcií odstránených</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d transakcia</item>
+        <item quantity="few">%d transakcie</item>
+        <item quantity="many">%d transakcie</item>
+        <item quantity="other">%d transakcií</item>
+    </plurals>
+    <string name="portfolio_imports_empty">Žiadne importy</string>
+    <string name="portfolio_imports_title">Importy</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">rovnaké ID transakcie s iným množstvom – skontroluj ručne</string>
+    <string name="portfolio_csv_skip_staking_unpaired">záznam stakingu bez protizápisu – skontroluj držbu</string>
+    <string name="portfolio_csv_skip_amount_too_small">množstvo je príliš malé – pri uložení sa zaokrúhli na 0</string>
+    <string name="portfolio_csv_skip_invalid_swap">výmena bez platného prijatého coinu alebo množstva</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">Súbor sa načítava znova…</string>
+</resources>

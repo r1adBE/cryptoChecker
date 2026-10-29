@@ -28,32 +28,74 @@ object AppLanguages {
         AppLanguage("fr", "Français"),
         AppLanguage("it", "Italiano"),
         AppLanguage("es", "Español"),
+        AppLanguage("ca", "Català"),
+        AppLanguage("gl", "Galego"),
+        AppLanguage("eu", "Euskara"),
         AppLanguage("pt", "Português (Portugal)"),
         AppLanguage("pt-BR", "Português (Brasil)"),
         AppLanguage("nl", "Nederlands"),
+        AppLanguage("af", "Afrikaans"),
+        AppLanguage("ga", "Gaeilge"),
         AppLanguage("pl", "Polski"),
         AppLanguage("cs", "Čeština"),
+        AppLanguage("sk", "Slovenčina"),
         AppLanguage("hu", "Magyar"),
         AppLanguage("ro", "Română"),
+        AppLanguage("sl", "Slovenščina"),
+        AppLanguage("hr", "Hrvatski"),
+        AppLanguage("bs", "Bosanski"),
+        AppLanguage("sr", "Српски"),
+        AppLanguage("sr-Latn", "Srpski (latinica)"),
+        AppLanguage("mk", "Македонски"),
+        AppLanguage("bg", "Български"),
         AppLanguage("sq", "Shqip"),
         AppLanguage("el", "Ελληνικά"),
         AppLanguage("tr", "Türkçe"),
+        AppLanguage("az", "Azərbaycan dili"),
         AppLanguage("sv", "Svenska"),
         AppLanguage("da", "Dansk"),
         AppLanguage("nb", "Norsk bokmål"),
+        AppLanguage("is", "Íslenska"),
         AppLanguage("fi", "Suomi"),
+        AppLanguage("et", "Eesti"),
+        AppLanguage("lv", "Latviešu"),
+        AppLanguage("lt", "Lietuvių"),
         AppLanguage("ru", "Русский"),
         AppLanguage("uk", "Українська"),
+        AppLanguage("kk", "Қазақ тілі"),
+        AppLanguage("uz", "Oʻzbekcha"),
+        AppLanguage("mn", "Монгол"),
+        AppLanguage("ka", "ქართული"),
+        AppLanguage("hy", "Հայերեն"),
         AppLanguage("ar", "العربية"),
         AppLanguage("he", "עברית"),
+        AppLanguage("am", "አማርኛ"),
+        AppLanguage("sw", "Kiswahili"),
+        AppLanguage("zu", "isiZulu"),
         AppLanguage("fa", "فارسی"),
+        AppLanguage("ur", "اردو"),
         AppLanguage("hi", "हिन्दी"),
+        AppLanguage("mr", "मराठी"),
+        AppLanguage("ne", "नेपाली"),
+        AppLanguage("bn", "বাংলা"),
+        AppLanguage("pa", "ਪੰਜਾਬੀ"),
+        AppLanguage("gu", "ગુજરાતી"),
+        AppLanguage("ta", "தமிழ்"),
+        AppLanguage("te", "తెలుగు"),
+        AppLanguage("kn", "ಕನ್ನಡ"),
+        AppLanguage("ml", "മലയാളം"),
+        AppLanguage("si", "සිංහල"),
         AppLanguage("th", "ไทย"),
+        AppLanguage("lo", "ລາວ"),
+        AppLanguage("km", "ខ្មែរ"),
+        AppLanguage("my", "မြန်မာ"),
         AppLanguage("vi", "Tiếng Việt"),
         AppLanguage("id", "Bahasa Indonesia"),
         AppLanguage("ms", "Bahasa Melayu"),
+        AppLanguage("fil", "Filipino"),
         AppLanguage("zh", "中文（简体）"),
         AppLanguage("zh-Hant", "中文（繁體）"),
+        AppLanguage("yue", "粵語"),
         AppLanguage("ja", "日本語"),
         AppLanguage("ko", "한국어"),
     )
@@ -123,9 +165,9 @@ object AppLanguages {
     }
 
     /**
-     * Alte Android-Codes (iw, in) auf die heutigen abbilden und nur die Sprache behalten —
-     * ausser bei Brasil-Portugiesisch (pt-BR) und traditionellem Chinesisch (zh-Hant, auch zh-TW/-HK/-MO),
-     * die als eigene Sprachen wählbar sind.
+     * Alte Android-Codes (iw, in, tl) auf die heutigen abbilden und nur die Sprache behalten —
+     * ausser bei Brasil-Portugiesisch (pt-BR), traditionellem Chinesisch (zh-Hant, auch zh-TW/-HK/-MO) und
+     * Serbisch in lateinischer Schrift (sr-Latn), die als eigene Sprachen wählbar sind.
      */
     private fun normalize(tag: String): String {
         if (tag.isEmpty()) return ""
@@ -133,8 +175,10 @@ object AppLanguages {
         return when (val lang = locale.language) {
             "iw" -> "he"
             "in" -> "id"
+            "tl" -> "fil"
             "pt" -> if (locale.country == "BR") "pt-BR" else "pt"
             "zh" -> if (locale.script == "Hant" || locale.country in TRADITIONAL_CHINESE_REGIONS) "zh-Hant" else "zh"
+            "sr" -> if (locale.script == "Latn") "sr-Latn" else "sr"
             else -> lang
         }
     }

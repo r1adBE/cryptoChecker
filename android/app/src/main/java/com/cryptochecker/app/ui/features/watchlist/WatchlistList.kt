@@ -37,7 +37,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -48,6 +51,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.watch.AutoOrder
 import com.cryptochecker.app.domain.watch.WatchPulse
+import com.cryptochecker.app.domain.watch.WatchlistFooter
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.UiTestTags
 
@@ -201,6 +205,8 @@ internal fun WatchlistList(
     /** Eigene Gruppe gewählt: Knopf «Gruppe bearbeiten» unter dem Hinweis (null = keiner, z. B. «FAV», TradFi). */
     onEditGroup: (() -> Unit)? = null,
     shown: List<WatchEntity>,
+    /** Fusszeile nach der letzten Zeile («6 von 42 Paaren · noch 5 frei»); null = keine ([WatchlistFooter.of]). */
+    footer: WatchlistFooter? = null,
     /** Zeile je Paar mit ihrer Form ([ListSegment.shape]: die Paare wirken wie eine Einheit). */
     row: @Composable LazyItemScope.(WatchEntity, Shape) -> Unit,
 ) {
@@ -274,9 +280,42 @@ internal fun WatchlistList(
                     }
                 }
                 itemsIndexed(shown, key = { _, it -> it.id }) { index, watch -> row(watch, ListSegment.shape(index, shown.size)) }
+                // Ruhig am Ende, scrollt mit (nur ganz unten zu sehen, verdeckt keinen Kurs)
+                if (footer != null) {
+                    item(key = "list_footer") { FooterLine(footer) }
+                }
             }
         }
     }
+}
+
+/**
+ * «6 Paare» bzw. «6 von 42 Paaren», nahe der Grenze «· noch 5 frei» bzw. «· Merkliste voll» ([WatchlistFooter]).
+ * Für den Screenreader ein Text, kein Knopf.
+ */
+@Composable
+private fun FooterLine(footer: WatchlistFooter) {
+    val count = if (footer.filtered) {
+        // Plural nach der Gesamtzahl (%1$d), %2$d = gezeigte Zeilen
+        pluralStringResource(R.plurals.watchlist_footer_of, footer.total, footer.total, footer.shown)
+    } else {
+        pluralStringResource(R.plurals.watchlist_footer_count, footer.shown, footer.shown)
+    }
+    val room = footer.remaining?.let { free ->
+        if (free == 0) stringResource(R.string.watchlist_footer_full)
+        else pluralStringResource(R.plurals.watchlist_footer_remaining, free, free)
+    }
+    val parts = listOfNotNull(count, room)
+    Text(
+        text = parts.joinToString(" · "),
+        style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        textAlign = TextAlign.Center,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 16.dp, top = Spacing.md, end = 16.dp, bottom = Spacing.xs)
+            .clearAndSetSemantics { contentDescription = parts.joinToString(", ") }
+    )
 }
 
 /** Ruhiger Hinweis mitten in der Liste (keine Treffer, leere Gruppe). */

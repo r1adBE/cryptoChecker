@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">தற்போதையது · %1$s</string>
+    <string name="watchlist_empty_title">இன்னும் ஜோடிகள் இல்லை</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%2$d இல் %1$d விலை இல்லாமல்</item>
+        <item quantity="other">%2$d இல் %1$d விலை இல்லாமல்</item>
+    </plurals>
+    <string name="watchlist_last_run">கடைசி ஓட்டம் %1$s</string>
+    <string name="watchlist_live_a11y">நேரலை விலைகள் ஆன்</string>
+    <string name="watchlist_offline_since">இணைப்பு இல்லை · %1$s நிலவரப்படி</string>
+    <string name="watchlist_pull_to_refresh">புதுப்பிக்கக் கீழே இழுக்கவும்</string>
+    <string name="watchlist_refresh_report">கடைசிப் புதுப்பிப்பு</string>
+    <string name="watchlist_refresh_report_empty">இன்னும் விவரம் இல்லை – இதுவரை முழுப் புதுப்பிப்பு நடக்கவில்லை. புதுப்பி என்பதைத் தட்டி வட்டம் நிற்கும் வரை காத்திருக்கவும்.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%2$d இல் %1$d காலாவதியானது</item>
+        <item quantity="other">%2$d இல் %1$d காலாவதியானவை</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">இங்குள்ள எல்லா ஜோடிகளும் முடக்கப்பட்டுள்ளன</string>
+    <string name="watchlist_status_exchange_prices">உங்கள் எக்ஸ்சேஞ்ச்களின் விலைகள் · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">எக்ஸ்சேஞ்ச் விலைகள் · %1$s</string>
+    <string name="watchlist_status_group_empty">இந்தக் குழுவில் ஜோடிகள் இல்லை</string>
+    <string name="watchlist_status_none_traded">இங்கே வர்த்தகமாகும் ஜோடிகள் இல்லை</string>
+    <string name="watchlist_updated">புதுப்பிக்கப்பட்டது: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">சராசரி %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d இறக்கம்</item>
+        <item quantity="other">%1$d இறக்கம்</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d க்கு 24 ம.நே. மதிப்பு இல்லை</item>
+        <item quantity="other">%1$d க்கு 24 ம.நே. மதிப்பு இல்லை</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d க்கு இன்றைய மதிப்பு இல்லை</item>
+        <item quantity="other">%1$d க்கு இன்றைய மதிப்பு இல்லை</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d ஏற்றம்</item>
+        <item quantity="other">%1$d ஏற்றம்</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · முடக்கப்பட்டது</string>
+    <string name="watchlist_row_outdated">%1$s · காலாவதியானது</string>
+    <string name="watchlist_row_outdated_age">காலாவதியானது · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">%1$s முதல் விலை மாறவில்லை</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s அணுக முடியவில்லை</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">இறுதிக்குச் செல்</string>
+    <string name="watchlist_jump_start">மேலே செல்</string>
+    <string name="watchlist_search_close">தேடலை மூடு</string>
+    <string name="watchlist_search_empty">“%1$s” க்குப் பொருத்தங்கள் இல்லை</string>
+    <string name="watchlist_search_hint">ஜோடி, பெயர் அல்லது எக்ஸ்சேஞ்சைத் தேடு</string>
+    <string name="watchlist_search_open">தேடு</string>
+    <string name="watchlist_sort_ascending">ஏறுவரிசை</string>
+    <string name="watchlist_sort_descending">இறங்குவரிசை</string>
+    <string name="watchlist_sort_hint">ஒரு ஜோடியைப் பிடித்து இழுக்கவும், அல்லது கைப்பிடியைப் பயன்படுத்தவும். பிடித்தவை மேலேயே இருக்கும்.</string>
+    <string name="watchlist_sort_name">பெயர்</string>
+    <string name="watchlist_sort_own">தனிப்பயன் வரிசை</string>
+    <string name="watchlist_sort_price">விலை</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">கண்காணிப்புப் பட்டியலை அழி</string>
+    <string name="watchlist_clear_confirm">கண்காணிப்புப் பட்டியலிலிருந்து எல்லா ஜோடிகளையும் அகற்றவா? அவற்றின் விழிப்பூட்டல்களும் அகற்றப்படும்.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d முடக்கப்பட்டது</item>
+        <item quantity="other">%1$d முடக்கப்பட்டன</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">அகற்று</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">அதன் எக்ஸ்சேஞ்சில் இனி வர்த்தகமாகாத %1$d ஜோடியை அகற்றவா? அதன் விழிப்பூட்டல்களும் அகற்றப்படும்.</item>
+        <item quantity="other">அவற்றின் எக்ஸ்சேஞ்சில் இனி வர்த்தகமாகாத %1$d ஜோடிகளை அகற்றவா? அவற்றின் விழிப்பூட்டல்களும் அகற்றப்படும்.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">வர்த்தகமாகாத ஜோடிகளை அகற்று (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">வர்த்தகமாகாத ஜோடிகளை அகற்று</string>
+    <string name="watchlist_removed">%1$s அகற்றப்பட்டது</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d ஜோடி அகற்றப்பட்டது</item>
+        <item quantity="other">%1$d ஜோடிகள் அகற்றப்பட்டன</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">வர்த்தகமாகாத %1$d ஜோடி அகற்றப்பட்டது</item>
+        <item quantity="other">வர்த்தகமாகாத %1$d ஜோடிகள் அகற்றப்பட்டன</item>
+    </plurals>
+    <string name="watchlist_select">தேர்ந்தெடு</string>
+    <string name="watchlist_select_all">அனைத்தையும் தேர்ந்தெடு</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d தேர்ந்தெடுக்கப்பட்டது</item>
+        <item quantity="other">%1$d தேர்ந்தெடுக்கப்பட்டன</item>
+    </plurals>
+    <string name="watchlist_show_all">அனைத்தையும் காட்டு</string>
+    <string name="watchlist_show_only_disabled">முடக்கப்பட்டவற்றை மட்டும் காட்டு</string>
+    <string name="watchlist_show_only_stale">காலாவதியானவற்றை மட்டும் காட்டு</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">விழிப்பூட்டல் (%1$d)</item>
+        <item quantity="other">விழிப்பூட்டல்கள் (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">இன்னும் பிடித்தவை இல்லை. ஒரு ஜோடியை வலப்பக்கம் ஸ்வைப் செய்யவும், அல்லது ஜோடியைத் திறந்து “பிடித்தது” என்பதைத் தட்டவும்.</string>
+    <string name="watchlist_group_empty_hint">ஒரு குழுவின் ஜோடிகளைத் தேர்ந்தெடுக்க அதை நீண்ட நேரம் அழுத்தவும்.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">உங்கள் குழுக்கள் இங்கே தோன்றும்</string>
+    <string name="watchlist_notification">விலை அறிவிப்பு</string>
+    <string name="watchlist_tts">விலையைப் படித்துக் காட்டு</string>
+    <string name="watchlist_tts_speech_on">பேச்சு வெளியீடு ஆன் செய்யப்பட்டுள்ளது. அமைப்புகள் › விழிப்பூட்டல்கள் › பேச்சு வெளியீடு என்பதில் இதை மாற்றலாம்.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">விட்ஜெட்டாகச் சேர்</string>
+    <string name="watch_action_alarm">விழிப்பூட்டல்</string>
+    <string name="watch_action_favorite">பிடித்தது</string>
+    <string name="watch_action_why">கூடவே எது நகர்கிறது?</string>
+    <string name="watch_action_why_short">கூட எது நகர்கிறது?</string>
+    <string name="watch_change_mark">மார்க்</string>
+    <string name="watch_disable">முடக்கு</string>
+    <string name="watch_disable_hint">கோரிக்கைகள் இல்லை, அறிவிப்புகள் இல்லை</string>
+    <string name="watch_disabled">முடக்கப்பட்டது</string>
+    <string name="watch_disabled_banner">%1$s முடக்கப்பட்டது</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">விழிப்பூட்டல்கள் அப்படியே இருக்கும் – அவற்றின் வரம்புகளைச் சரிபார்க்கவும்</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">ஜோடியைத் திருத்து</string>
+    <string name="watch_enable">இயக்கு</string>
+    <string name="watch_enable_hint">விலைகளும் அறிவிப்புகளும் மீண்டும் தொடங்கும்</string>
+    <string name="watch_enabled_banner">%1$s இயக்கப்பட்டது</string>
+    <string name="watch_error_offline">இணைப்பு இல்லை</string>
+    <string name="watch_gesture_hint_short">தட்டு: விழிப்பூட்டல் மற்றும் “கூடவே எது நகர்கிறது?” · தேர்ந்தெடுக்க நீண்ட அழுத்தம் · நீக்க இடப்பக்கம் ஸ்வைப் · பிடித்ததாக்க வலப்பக்கம் ஸ்வைப்</string>
+    <string name="watch_hint_tap_why">விழிப்பூட்டல்களுக்கும் “கூடவே எது நகர்கிறது?” என்பதற்கும் ஒரு காயினைத் தட்டவும்</string>
+    <string name="watch_not_traded">இந்த எக்ஸ்சேஞ்சில் இனி வர்த்தகமாகவில்லை</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">கண்காணிப்புப் பட்டியலில் இல்லை</string>
+    <string name="watch_price_mid">நடு விலை (இல்லையெனில் மார்க்)</string>
+    <string name="watch_row_source_both">மாற்றம் &amp; விளக்கப்படம்: %1$s</string>
+    <string name="watch_row_source_change">மாற்றம்: %1$s</string>
+    <string name="watch_row_source_chart">விளக்கப்படம்: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s இப்போது உங்கள் கண்காணிப்புப் பட்டியலில் உள்ளது</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s இப்போது உங்கள் கண்காணிப்புப் பட்டியலில் உள்ளன</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">பிடித்தவையில் சேர்</string>
+    <string name="favorite_added">%1$s பிடித்தவையில் சேர்க்கப்பட்டது</string>
+    <string name="favorite_remove">பிடித்தவையிலிருந்து அகற்று</string>
+    <string name="favorite_removed">%1$s பிடித்தவையிலிருந்து அகற்றப்பட்டது</string>
+    <string name="hint_favorites_list">உதவிக்குறிப்பு: ஒரு வரிசையைப் பிடித்ததாக்க வலப்பக்கம் ஸ்வைப் செய்யவும் – பிடித்தவை மேலேயே இருக்கும்.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">புதிய குழு</string>
+    <string name="group_all">அனைத்தும்</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Alpha டோக்கன்கள்</string>
+    <string name="group_delete">குழுவை நீக்கு</string>
+    <string name="group_delete_confirm">ஜோடிகள் உங்கள் கண்காணிப்புப் பட்டியலில் இருக்கும்.</string>
+    <string name="group_done">முடிந்தது</string>
+    <string name="group_edit_title">குழுவைத் திருத்து</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">பிடித்தவை</string>
+    <string name="group_in_other">%1$s இல்</string>
+    <string name="group_name">குழுவின் பெயர்</string>
+    <string name="group_new">புதிய குழு…</string>
+    <string name="group_next">அடுத்து</string>
+    <string name="group_none">குழு இல்லை</string>
+    <string name="group_rename">மறுபெயரிடு</string>
+    <string name="group_search_hint">ஜோடி, பெயர் அல்லது எக்ஸ்சேஞ்சைத் தேடு</string>
+    <string name="group_target">குழுவில்</string>
+    <string name="group_title">குழு</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">டோக்கன்கள்</string>
+    <string name="group_value">குழு: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">குறிப்பைச் சேர்</string>
+    <string name="note_edit">குறிப்பைத் திருத்து</string>
+    <string name="note_hint">எ.கா. 0.42 இல் நுழைவு, இலக்கு 0.60</string>
+    <string name="note_remove">அகற்று</string>
+    <string name="note_title">குறிப்பு</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">வரிசையை மாற்ற இழுக்கவும்</string>
+    <string name="sort_move_bottom">கடைசிக்கு நகர்த்து</string>
+    <string name="sort_move_down">கீழே நகர்த்து</string>
+    <string name="sort_move_top">முதலுக்கு நகர்த்து</string>
+    <string name="sort_move_up">மேலே நகர்த்து</string>
+
+    <string name="watchlist_first_alarm_title">உங்கள் முதல் விழிப்பூட்டலை அமைக்கவும்</string>
+    <string name="watchlist_first_alarm_text">ஒரு விலை உங்கள் குறியை எட்டும்போது அறிவிப்பைப் பெறுங்கள் – ஆப் மூடியிருக்கும்போது, Android ஒழுங்கற்ற இடைவெளிகளில் சரிபார்க்கும்.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">மார்க் விலை (நடு விலை இல்லை)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">மணிநேர விலை</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">உங்கள் முதல் விழிப்பூட்டலை அமைக்கவும் – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">புதுப்பி (%1$d)</string>
+
+    <!-- Zeile der Merkliste: Börse pausiert (zu viele Anfragen / Zeitüberschreitungen) bis zu einer Uhrzeit, ersetzt die Zeitzeile, z. B. «Binance · pausiert bis 19:45» -->
+    <string name="watchlist_row_exchange_paused">%1$s · %2$s வரை இடைநிறுத்தப்பட்டது</string>
+
+    <string name="watchlist_refresh_just_done">இப்போதுதான் புதுப்பிக்கப்பட்டது · %1$d வி. முன்பு</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">கடைசி வர்த்தகம் %1$s</string>
+
+    <string name="change_candle_source_hint">%1$s கேண்டில்களிலிருந்து கணக்கிடப்பட்டது – எக்ஸ்சேஞ்ச் இந்த மதிப்பைத் தானே வழங்குவதில்லை.</string>
+    <string name="change_candle_source_action">மாற்றத்தின் மூலத்தைக் காட்டு</string>
+
+    <string name="watchlist_sort_by_coin">காயின் வாரியாக வரிசைப்படுத்து</string>
+    <string name="watchlist_sort_by_exchange">எக்ஸ்சேஞ்ச் வாரியாக வரிசைப்படுத்து</string>
+    <string name="watchlist_limit_reached">உங்கள் கண்காணிப்புப் பட்டியலில் அதிகபட்சம் %1$s ஜோடிகள் இருக்கலாம்.</string>
+    <string name="watch_price_reference">குறிப்பு விகிதம், தினசரி</string>
+    <string name="watch_price_daily">தினசரி</string>
+    <string name="watchlist_compare">ஒப்பிடு</string>
+    <string name="watchlist_compare_hint">ஒப்பிட 2 முதல் 4 ஜோடிகளைத் தேர்ந்தெடுக்கவும்.</string>
+    <string name="compare_title">ஒப்பீடு</string>
+    <string name="compare_basis">காலத்தின் தொடக்கத்திலிருந்து சதவீத மாற்றத்தைக் கோடுகள் காட்டுகின்றன.</string>
+    <string name="compare_from_high">vs. 30 நாள் உச்சம்</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">%1$d ஜோடி மீட்டெடுக்கப்படவில்லை – கண்காணிப்புப் பட்டியல் நிரம்பியுள்ளது</item>
+        <item quantity="other">%1$d ஜோடிகள் மீட்டெடுக்கப்படவில்லை – கண்காணிப்புப் பட்டியல் நிரம்பியுள்ளது</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">கண்காணிப்புப் பட்டியலும் அதன் விழிப்பூட்டல்களும் இப்போது சேமிக்கப்படவில்லை. ஆப் மூடும்போது இந்த மாற்றமும் மேலும் வரும் மாற்றங்களும் இழக்கப்படும். இருந்தாலும் மாற்றவா?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">இருந்தாலும் மாற்று</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">%1$d ஜோடி</item>
+        <item quantity="other">%1$d ஜோடிகள்</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">%1$d ஜோடியில் %2$d</item>
+        <item quantity="other">%1$d ஜோடிகளில் %2$d</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">%1$d இடம் மீதம்</item>
+        <item quantity="other">%1$d இடங்கள் மீதம்</item>
+    </plurals>
+    <string name="watchlist_footer_full">கண்காணிப்புப் பட்டியல் நிரம்பியது</string>
+</resources>

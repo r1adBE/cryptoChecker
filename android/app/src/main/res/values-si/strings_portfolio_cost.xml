@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">පිරිවැය පදනමක් නැති ඇතුළත් කිරීම්: %1$d</string>
+    <string name="cost_gaps_card_text">ලාභ සහ බදු සම්පූර්ණ වීමට පිරිවැය පදනම එක් කරන්න.</string>
+    <string name="cost_gaps_sheet_title">පිරිවැය පදනමක් නැති ඇතුළත් කිරීම්</string>
+    <string name="cost_gaps_sheet_intro">මෙම ලැබීම්වලට පිරිවැය පදනමක් නැත. යෝජනාව දිනයේ දෛනික වසා දැමීමේ මිලයි – ඔබට එය ඇතුළත් කිරීමේදී සැකසිය හැක.</string>
+    <string name="cost_gaps_empty">සියලු ඇතුළත් කිරීම්වලට පිරිවැය පදනමක් ඇත.</string>
+    <string name="cost_gap_enter">පිරිවැය පදනම ඇතුළත් කරන්න</string>
+    <string name="cost_gap_leave_unknown">නොදන්නා ලෙස තබන්න</string>
+    <string name="cost_gap_left_unknown">නොදන්නා ලෙස තැබුවා</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">යෝජනාව: දෛනික වසා දැමීම %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">මෙම දිනය සඳහා තහවුරු කළ දෛනික වසා දැමීමේ මිලක් නැත</string>
+    <string name="cost_gap_suggestion_loading">දෛනික වසා දැමීමේ මිල පූරණය වෙමින් …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">පිරිවැය පදනම = ලැබුණු විට වටිනාකම (ආදායම)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">පිරිවැය පදනම = 0 (ලැබීමක් නැති ත්‍යාගය, ඔස්ට්‍රියාව)</string>
+    <string name="cost_gap_apply">යොදන්න</string>
+    <string name="address_lots_action">ලිපින ශේෂය සඳහා පිරිවැය පදනම</string>
+    <string name="address_lots_title">ලිපින ශේෂය සඳහා පිරිවැය පදනම</string>
+    <string name="address_lots_intro">මෙම ලිපිනයේ ශේෂය සඳහා මිලදී ගැනීමේ දිනය, ප්‍රමාණය සහ පිරිවැය පදනම ඇතුළත් කරන්න. කොටස් මෙම ලිපිනයේ මිලදී ගැනීම් මෙන් ගණන් වේ; ආවරණය නොවූ ඕනෑම කොටසක් පිරිවැය පදනමක් නොමැතිව පවතී.</string>
+    <string name="address_lots_add">කොටසක් එක් කරන්න</string>
+    <string name="address_lots_new">නව කොටස</string>
+    <string name="address_lots_edit">කොටස</string>
+    <string name="address_lots_date">මිලදී ගැනීමේ දිනය</string>
+    <string name="address_lots_amount">ප්‍රමාණය</string>
+    <string name="address_lots_mode_total">මුළු</string>
+    <string name="address_lots_mode_price">කාසියකට</string>
+    <string name="address_lots_price">කාසියකට මිල (USDT)</string>
+    <string name="address_lots_total">මුළු පිරිවැය පදනම (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%2$s න් %1$s පිරිවැය පදනම සමඟ</string>
+    <string name="address_lots_unlotted">%1$s පිරිවැය පදනමක් නොමැතිව</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">කොටස් ශේෂය %1$s කින් ඉක්මවයි – පැරණිතම ඒවා පළමුව භාවිත වේ.</string>
+    <string name="address_lots_not_loaded">ශේෂය තවම පූරණය වී නැත – එය පූරණය වූ වහාම කොටස් ගණන් වේ.</string>
+    <string name="address_lots_invalid">ප්‍රමාණය සහ පිරිවැය පදනම ඇතුළත් කරන්න</string>
+</resources>

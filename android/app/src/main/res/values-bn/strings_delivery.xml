@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">অ্যালার্ট যেন পৌঁছায় তা নিশ্চিত করুন</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">ঠিক আছে</string>
+    <string name="delivery_state_warn">এটি যাচাই করুন</string>
+    <string name="delivery_state_info">দ্রষ্টব্য</string>
+    <string name="delivery_allowed">অনুমোদিত</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">নোটিফিকেশন</string>
+    <string name="delivery_notifications_off">বন্ধ – অ্যালার্ট পৌঁছাবে না</string>
+    <string name="delivery_notifications_not_asked">এখনো অনুমোদিত নয়</string>
+    <string name="delivery_channel">অ্যালার্ট চ্যানেল</string>
+    <string name="delivery_channel_high">উচ্চ গুরুত্ব – স্ক্রিনে ভেসে ওঠে</string>
+    <string name="delivery_channel_low">কম গুরুত্ব – অ্যালার্ট শুধু নীরবে তালিকায় দেখা যায়</string>
+    <string name="delivery_channel_off">বন্ধ করা – অ্যালার্ট পৌঁছাবে না</string>
+    <string name="delivery_exact_on">চালু – প্রায় প্রতি 15 মিনিটে</string>
+    <string name="delivery_exact_off">বন্ধ – Android অনিয়মিতভাবে যাচাই করে</string>
+    <string name="delivery_battery">ব্যাটারি অপটিমাইজেশন</string>
+    <string name="delivery_battery_unrestricted">সীমাহীন</string>
+    <string name="delivery_battery_optimized">অপটিমাইজড – Android যাচাই বিলম্বিত করতে পারে। অ্যাপ কোনো ব্যতিক্রম চায় না; আপনি অ্যাপের ব্যাটারি সেটিংসে এটি বদলাতে পারেন।</string>
+    <string name="delivery_background">ব্যাকগ্রাউন্ড ব্যবহার</string>
+    <string name="delivery_background_restricted">সীমিত – Android ব্যাকগ্রাউন্ড যাচাই বন্ধ করে দেয়</string>
+    <string name="delivery_dnd">বিরক্ত করবেন না</string>
+    <string name="delivery_dnd_on">চালু – অ্যালার্ট শব্দ ছাড়া আসতে পারে</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">%1$s পর্যন্ত সক্রিয় – বাকি অ্যালার্ট ততক্ষণ অপেক্ষা করবে</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – এই সময়ে বাকি অ্যালার্ট অপেক্ষা করে</string>
+    <string name="delivery_last_check">শেষ ব্যাকগ্রাউন্ড যাচাই</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – 6 ঘণ্টারও বেশি আগে</string>
+    <string name="delivery_last_check_never">এখনো হয়নি</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">অনুমতি দিন</string>
+    <string name="delivery_action_change">বদলান</string>
+    <string name="delivery_action_show">দেখান</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">ব্যানার ও শব্দ</string>
+    <string name="delivery_alert_off">ব্যানার বন্ধ – অ্যালার্ট শুধু নোটিফিকেশন সেন্টারে দেখা যায়</string>
+    <string name="delivery_sound_off">শব্দ বন্ধ – অ্যালার্ট নীরবে আসে</string>
+    <string name="delivery_time_sensitive">সময়-সংবেদনশীল নোটিফিকেশন</string>
+    <string name="delivery_time_sensitive_off">বন্ধ – কোনো ফোকাস অ্যালার্ট আটকে রাখতে পারে</string>
+    <string name="delivery_background_refresh">ব্যাকগ্রাউন্ড অ্যাপ রিফ্রেশ</string>
+    <string name="delivery_low_power">লো পাওয়ার মোড</string>
+    <string name="delivery_swipe_away">অ্যাপটি সোয়াইপ করে সরিয়েছেন?</string>
+    <string name="delivery_swipe_away_note">অ্যাপ সুইচারে অ্যাপটি সোয়াইপ করে সরালে iOS আবার না খোলা পর্যন্ত ব্যাকগ্রাউন্ড যাচাই বন্ধ রাখে।</string>
+    <string name="delivery_live_activity">লাইভ অ্যাক্টিভিটি</string>
+    <string name="delivery_live_activity_note">লক স্ক্রিনে দাম দেখায় কিন্তু অ্যাপ যাচাই করলেই কেবল আপডেট হয় – এতে অ্যালার্ট বেশি ঘন ঘন যাচাই হয় না।</string>
+
+    <string name="alarm_first_check">অ্যালার্ট পৌঁছায় কিনা যাচাই করুন</string>
+
+    <string name="oem_battery_title">নির্মাতার ব্যাটারি সেভার</string>
+    <string name="oem_battery_xiaomi">Xiaomi অ্যাপটি পুরোপুরি বন্ধ করে দিতে পারে – তখন কোনো অ্যালার্ট আসে না। “অটোস্টার্ট” চালু করুন এবং ব্যাটারি সেভার “কোনো সীমাবদ্ধতা নেই”-এ সেট করুন।</string>
+    <string name="oem_battery_samsung">Samsung অ্যাপটিকে গভীর ঘুমে পাঠাতে পারে – তখন কোনো অ্যালার্ট আসে না। ব্যাটারি › ব্যাকগ্রাউন্ড ব্যবহারের সীমা-তে এটিকে “কখনো ঘুমায় না এমন অ্যাপ”-এ যোগ করুন।</string>
+    <string name="oem_battery_huawei">Huawei/Honor অ্যাপটি বন্ধ করে দিতে পারে – তখন কোনো অ্যালার্ট আসে না। ব্যাটারি › অ্যাপ লঞ্চ-এ “ম্যানুয়ালি পরিচালনা” বেছে সব বিকল্পের অনুমতি দিন।</string>
+    <string name="oem_battery_oneplus">OnePlus অ্যাপটি বন্ধ করে দিতে পারে – তখন কোনো অ্যালার্ট আসে না। “অটো-লঞ্চ” এবং ব্যাটারি ব্যবহার-এ ব্যাকগ্রাউন্ড অ্যাক্টিভিটির অনুমতি দিন।</string>
+    <string name="oem_battery_oppo">Oppo/Realme অ্যাপটি বন্ধ করে দিতে পারে – তখন কোনো অ্যালার্ট আসে না। “অটো লঞ্চ” এবং ব্যাটারি ব্যবহার-এ ব্যাকগ্রাউন্ড অ্যাক্টিভিটির অনুমতি দিন।</string>
+    <string name="oem_battery_vivo">Vivo অ্যাপটি বন্ধ করে দিতে পারে – তখন কোনো অ্যালার্ট আসে না। “অটোস্টার্ট” এবং ব্যাটারি-তে উচ্চ ব্যাকগ্রাউন্ড পাওয়ার ব্যবহারের অনুমতি দিন।</string>
+    <string name="alarm_reliability_stale">শেষ যাচাই %1$s – অ্যালার্ট দেরিতে আসতে পারে</string>
+    <string name="alarm_reliability_never">অ্যালার্ট চালু – এখনো কোনো ব্যাকগ্রাউন্ড যাচাই হয়নি</string>
+    <string name="alarm_reliability_notifications_off">নোটিফিকেশন বন্ধ – অ্যালার্ট পৌঁছাবে না</string>
+    <string name="alarm_reliability_battery">ব্যাটারি সাশ্রয় অ্যালার্ট যাচাই বন্ধ করে দিতে পারে</string>
+    <string name="alarm_reliability_background_refresh">ব্যাকগ্রাউন্ড অ্যাপ রিফ্রেশ বন্ধ – অ্যালার্ট নাও পৌঁছাতে পারে</string>
+</resources>

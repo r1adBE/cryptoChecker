@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">അലേർട്ട് മുഴങ്ങി</string>
+    <string name="a11y_collapsed">ചുരുക്കി</string>
+    <string name="a11y_converted">ഏകദേശം %1$s</string>
+    <string name="a11y_expanded">വികസിപ്പിച്ചു</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">ബ്രൗസറിൽ തുറക്കുന്നു</string>
+    <string name="a11y_favorite">പ്രിയപ്പെട്ടത്</string>
+    <string name="a11y_in_watchlist">ഇതിനകം വാച്ച്‌ലിസ്റ്റിലുണ്ട്</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_exchange_unreachable">%1$s-ൽ എത്താനാകുന്നില്ല</string>
+    <string name="a11y_move_down">താഴേക്ക് നീക്കുക</string>
+    <string name="a11y_move_up">മുകളിലേക്ക് നീക്കുക</string>
+    <string name="a11y_note">കുറിപ്പ്: %1$s</string>
+    <string name="a11y_price">വില %1$s</string>
+    <string name="a11y_price_notification_off">വില അറിയിപ്പ് ഓഫ്</string>
+    <string name="a11y_price_notification_on">വില അറിയിപ്പ് ഓൺ</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">വില പഴയതാണ്</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%2$s-ൽ %1$s</string>
+    <string name="a11y_stale">പഴയത്, അവസാന അപ്‌ഡേറ്റ് %1$s</string>
+    <string name="a11y_warning">മുന്നറിയിപ്പ്</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">24 മണിക്കൂറിൽ %1$s</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">24 മണിക്കൂർ മാറ്റം ലഭ്യമല്ല</string>
+    <string name="a11y_change_down">%1$s കുറഞ്ഞു</string>
+    <string name="a11y_change_flat">മാറ്റമില്ല</string>
+    <string name="a11y_change_since_last">അവസാന അപ്‌ഡേറ്റിന് ശേഷം %1$s</string>
+    <string name="a11y_change_since_last_none">അവസാന അപ്‌ഡേറ്റിന് ശേഷമുള്ള മാറ്റം ലഭ്യമല്ല</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">ഇന്ന് %1$s</string>
+    <string name="a11y_change_today_none">ഇന്നത്തെ മാറ്റം ലഭ്യമല്ല</string>
+    <string name="a11y_change_today_zone">%2$s അർദ്ധരാത്രി മുതൽ %1$s</string>
+    <string name="a11y_change_today_zone_none">%1$s അർദ്ധരാത്രി മുതലുള്ള മാറ്റം ലഭ്യമല്ല</string>
+    <string name="a11y_change_up">%1$s കൂടി</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">ചാർട്ട് %1$s: %2$s മുതൽ %3$s വരെ, %4$s. ഉയർന്നത് %5$s, താഴ്ന്നത് %6$s.</string>
+    <string name="a11y_chart_empty">ചാർട്ട്: ഡാറ്റയില്ല</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">സൈക്കിൾ %1$s: ഹാൽവിംഗിന് ശേഷം %2$s, ദിവസം %3$d.</string>
+    <string name="a11y_cycle_bottom">താഴ്ന്ന നില %1$s, ദിവസം %2$d-ൽ.</string>
+    <string name="a11y_cycle_double_bottom">ഇരട്ട താഴ്ന്ന നില %1$s, ദിവസം %2$d-ൽ.</string>
+    <string name="a11y_cycle_double_top">ഇരട്ട ഉയർന്ന നില %1$s, ദിവസം %2$d-ൽ.</string>
+    <string name="a11y_cycle_top">ഉയർന്ന നില %1$s, ദിവസം %2$d-ൽ.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">%1$s മുതൽ %2$s വരെയുള്ള സ്കെയിൽ: 100-ൽ %3$d</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, ശരാശരി %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d എണ്ണം താഴുന്നു</item>
+        <item quantity="other">%1$d എണ്ണം താഴുന്നു</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="one">%1$d ജോഡിക്ക് 24 മണിക്കൂർ മൂല്യമില്ല</item>
+        <item quantity="other">%1$d ജോഡികൾക്ക് 24 മണിക്കൂർ മൂല്യമില്ല</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d ജോഡിക്ക് ഇന്നത്തെ മൂല്യമില്ല</item>
+        <item quantity="other">%1$d ജോഡികൾക്ക് ഇന്നത്തെ മൂല്യമില്ല</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d ജോഡി ഉയരുന്നു</item>
+        <item quantity="other">%1$d ജോഡികൾ ഉയരുന്നു</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="one">%1$d ദിവസം മുമ്പ് അവസാനം പുതുക്കി</item>
+        <item quantity="other">%1$d ദിവസം മുമ്പ് അവസാനം പുതുക്കി</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="one">%1$d മണിക്കൂർ മുമ്പ് അവസാനം പുതുക്കി</item>
+        <item quantity="other">%1$d മണിക്കൂർ മുമ്പ് അവസാനം പുതുക്കി</item>
+    </plurals>
+    <string name="a11y_updated_just_now">ഇപ്പോൾ തന്നെ പുതുക്കി</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="one">%1$d മിനിറ്റ് മുമ്പ് അവസാനം പുതുക്കി</item>
+        <item quantity="other">%1$d മിനിറ്റ് മുമ്പ് അവസാനം പുതുക്കി</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">തുക മറച്ചിരിക്കുന്നു</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_entry">%1$s %2$s, ഇന്നത്തെ മൂല്യം %3$s</string>
+    <string name="a11y_portfolio_entry_in">വരവ്</string>
+    <string name="a11y_portfolio_entry_no_value">മൂല്യം ലഭ്യമല്ല</string>
+    <string name="a11y_portfolio_entry_note">കുറിപ്പ് %1$s</string>
+    <string name="a11y_portfolio_entry_out">പോക്ക്</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, പോർട്ട്ഫോളിയോയുടെ %3$s</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, പോർട്ട്ഫോളിയോയുടെ %2$s, %3$s</string>
+    <string name="a11y_portfolio_positions">ഏറ്റവും വലിയ പൊസിഷനുകൾ: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">തുകകൾ കാണിക്കുക</string>
+    <string name="a11y_compare_chart">ശതമാനത്തിലുള്ള താരതമ്യം, %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">30 ദിവസത്തെ ഉയർന്ന നിലയിൽ നിന്ന് %1$s</string>
+    <string name="a11y_price_overlay">വില ഓവർലേ: %1$s</string>
+</resources>

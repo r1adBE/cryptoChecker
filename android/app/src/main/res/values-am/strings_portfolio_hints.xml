@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">የፖርትፎሊዮ ማንቂያዎች ቆመዋል፦ ለ%1$s የአሁን ዋጋ የለም</string>
+    <string name="portfolio_alarms_paused_price_generic">የፖርትፎሊዮ ማንቂያዎች ቆመዋል፦ ሁሉም ሳንቲሞች የአሁን ዋጋ የላቸውም</string>
+    <string name="portfolio_alarms_paused_addresses">የፖርትፎሊዮ ማንቂያዎች ቆመዋል፦ የሚከታተሉ አድራሻዎች ቀሪ ሂሳቦች ገና አልተጫኑም</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">የፖርትፎሊዮ ማንቂያዎች ቆመዋል፦ የ%1$s የቶከን ቀሪ ሂሳቦች በከፊል ጊዜያቸው ያለፈ ነው</string>
+    <string name="portfolio_alarms_paused_tokens_generic">የፖርትፎሊዮ ማንቂያዎች ቆመዋል፦ የሚከታተሉ አድራሻዎች የቶከን ቀሪ ሂሳቦች በከፊል ጊዜያቸው ያለፈ ነው</string>
+    <string name="portfolio_alarms_paused_unverified">የፖርትፎሊዮ ማንቂያዎች ቆመዋል፦ የ%1$s ዋጋ አልተረጋገጠም</string>
+    <string name="portfolio_alarms_paused_unverified_generic">የፖርትፎሊዮ ማንቂያዎች ቆመዋል፦ የአንዳንድ ሳንቲሞች ዋጋ አልተረጋገጠም</string>
+    <string name="portfolio_alarms_address_failing">የፖርትፎሊዮ ማንቂያዎች ያለ %1$s ይፈትሻሉ፦ ቀሪ ሂሳቡ ከ24 ሰዓት በላይ አልተጫነም</string>
+    <string name="portfolio_alarms_address_failing_generic">የፖርትፎሊዮ ማንቂያዎች ቀሪ ሂሳባቸው ከ24 ሰዓት በላይ ያልተጫነ አድራሻዎችን ሳይጨምሩ ይፈትሻሉ</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">ቶከኖች በከፊል ጊዜያቸው ያለፈ</string>
+    <string name="portfolio_address_restore_failed">አድራሻው ሊመለስ አልቻለም – ካስፈለገ እንደገና ያክሉት</string>
+    <string name="portfolio_address_remove_failed">አድራሻው ሊወገድ አልቻለም – እባክዎ እንደገና ይሞክሩ</string>
+</resources>

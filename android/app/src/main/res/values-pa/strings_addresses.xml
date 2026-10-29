@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">ਪਤਾ ਜੋੜੋ</string>
+    <string name="portfolio_address_count">ਗਿਣਤੀ ਵਿੱਚ ਲਓ</string>
+    <string name="portfolio_address_error">ਅੱਪਡੇਟ ਨਾਕਾਮ</string>
+    <string name="portfolio_address_hint">ਜਨਤਕ ਪਤਾ (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) ਜਾਂ xpub</string>
+    <string name="portfolio_address_label">ਲੇਬਲ (ਵਿਕਲਪਿਕ)</string>
+    <string name="portfolio_address_not_since_buy">ਪਤੇ ਤੋਂ · “ਖਰੀਦ ਤੋਂ ਬਾਅਦ” ਵਿੱਚ ਨਹੀਂ: %1$s</string>
+    <string name="portfolio_address_overlap">ਤੁਹਾਡੇ ਆਪਣੇ ਲੈਣ-ਦੇਣ ਵਿੱਚ ਵੀ ਹੈ: %1$s – ਦੋਵੇਂ ਜੋੜੇ ਜਾ ਰਹੇ ਹਨ। ਉਹੀ ਕੌਇਨ? “ਸਿਰਫ਼ ਦਿਖਾਓ” ਚੁਣੋ।</string>
+    <string name="portfolio_address_overlap_ask">%1$s ਪਹਿਲਾਂ ਹੀ ਤੁਹਾਡੇ ਆਪਣੇ ਲੈਣ-ਦੇਣ ਵਿੱਚ ਦਰਜ ਹੈ। ਇਸ ਪਤੇ ਦਾ ਬੈਲੈਂਸ ਪੋਰਟਫੋਲੀਓ ਵਿੱਚ ਜੋੜਨਾ ਹੈ, ਜਾਂ ਸਿਰਫ਼ ਦਿਖਾਉਣਾ ਹੈ?</string>
+    <string name="portfolio_address_overlap_auto">“%1$s” ਹੁਣ ਸਿਰਫ਼ ਦਿਖਾਇਆ ਜਾ ਰਿਹਾ ਹੈ, ਗਿਣਿਆ ਨਹੀਂ ਜਾ ਰਿਹਾ – %2$s ਤੁਹਾਡੇ ਲੈਣ-ਦੇਣ ਵਿੱਚ ਵੀ ਹਨ।</string>
+    <string name="portfolio_address_overlap_title">ਤੁਹਾਡੇ ਲੈਣ-ਦੇਣ ਵਾਲੇ ਹੀ ਕੌਇਨ?</string>
+    <string name="portfolio_address_overlap_tx">ਤੁਹਾਡੇ ਆਪਣੇ ਜਮ੍ਹਾਂ/ਟ੍ਰਾਂਸਫਰ (%1$s) ਜਿੰਨੀ ਹੀ ਰਕਮ – ਸ਼ਾਇਦ ਦੋ ਵਾਰ ਗਿਣੀ ਗਈ।</string>
+    <string name="portfolio_address_period_observed">ਨਿਗਰਾਨੀ ਵਾਲੇ ਪਤੇ ਆਪਣੇ ਪਹਿਲੇ ਦੇਖੇ ਗਏ ਬੈਲੈਂਸ ਤੋਂ ਗਿਣੇ ਜਾਂਦੇ ਹਨ; ਬਾਅਦ ਦੀਆਂ ਤਬਦੀਲੀਆਂ ਆਮਦ/ਨਿਕਾਸੀ ਹਨ, ਮੁਨਾਫ਼ਾ ਨਹੀਂ।</string>
+    <string name="portfolio_address_privacy">%1$s ਨੂੰ ਸਿਰਫ਼ ਜਨਤਕ ਪਤਾ ਭੇਜਿਆ ਜਾਂਦਾ ਹੈ – ਕਦੇ ਵੀ ਕੀਜ਼ ਜਾਂ ਸੀਡ ਫ੍ਰੇਜ਼ ਨਹੀਂ। ਪ੍ਰਦਾਤਾ ਇਸਨੂੰ ਤੁਹਾਡੇ IP ਪਤੇ ਦੇ ਨਾਲ ਦੇਖਦਾ ਹੈ। ਵੱਧ ਤੋਂ ਵੱਧ ਹਰ 10 ਮਿੰਟ ਵਿੱਚ ਇੱਕ ਵਾਰ ਜਾਂਚਿਆ ਜਾਂਦਾ ਹੈ।</string>
+    <string name="portfolio_address_remove">ਪਤਾ ਹਟਾਓ</string>
+    <string name="portfolio_address_show_only">ਸਿਰਫ਼ ਦਿਖਾਓ, ਪੋਰਟਫੋਲੀਓ ਵਿੱਚ ਨਾ ਜੋੜੋ</string>
+    <string name="portfolio_address_show_only_short">ਸਿਰਫ਼ ਦਿਖਾਓ</string>
+    <string name="portfolio_address_tokens">ਟੋਕਨ ਗਿਣਤੀ ਵਿੱਚ ਲਓ</string>
+    <string name="portfolio_address_xpub_privacy">xpub ਇਸ ਵਾਲਿਟ ਦੇ ਸਾਰੇ ਪਤੇ ਜ਼ਾਹਰ ਕਰ ਦਿੰਦਾ ਹੈ। ਪਤੇ ਤੁਹਾਡੇ ਡਿਵਾਈਸ ’ਤੇ ਹੀ ਬਣਾਏ ਜਾਂਦੇ ਹਨ; %1$s ਨੂੰ ਸਿਰਫ਼ ਵੱਖ-ਵੱਖ ਪਤੇ ਭੇਜੇ ਜਾਂਦੇ ਹਨ – ਪਹਿਲੇ ਸਕੈਨ ’ਤੇ ਘੱਟੋ-ਘੱਟ 40 ਬੇਨਤੀਆਂ, ਬਾਅਦ ਵਿੱਚ ਘੱਟ। ਪ੍ਰਾਈਵੇਟ ਕੀਜ਼ (xprv) ਕਦੇ ਸਵੀਕਾਰ ਨਹੀਂ ਕੀਤੀਆਂ ਜਾਂਦੀਆਂ।</string>
+    <string name="portfolio_address_xpub_gap">ਲਗਾਤਾਰ %1$d ਨਾ-ਵਰਤੇ ਪਤਿਆਂ ਤੋਂ ਬਾਅਦ ਖੋਜ ਰੁਕ ਜਾਂਦੀ ਹੈ (BIP44 ਮਿਆਰ ਜੋ ਜ਼ਿਆਦਾਤਰ ਵਾਲਿਟ ਵਰਤਦੇ ਹਨ)। ਉਸ ਪਾੜੇ ਤੋਂ ਅੱਗੇ ਦਾ ਕੋਈ ਵਰਤਿਆ ਪਤਾ ਨਹੀਂ ਗਿਣਿਆ ਜਾਂਦਾ – ਉਸਨੂੰ ਵੱਖਰੇ ਤੌਰ ’ਤੇ ਜੋੜੋ।</string>
+    <string name="portfolio_address_xpub_used">ਵਰਤੋਂ ਵਿੱਚ ਪਤੇ: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">ਅੱਪਡੇਟ ਕਰਨ ਲਈ ਵਰਤੇ ਗਏ ਪਤੇ ਬਹੁਤ ਜ਼ਿਆਦਾ ਹਨ</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">ਬਹੁਤ ਜ਼ਿਆਦਾ ਪਤੇ – ਪੁਰਾਣੇ, ਖਾਲੀ ਪਤਿਆਂ ’ਤੇ ਨਵੇਂ ਭੁਗਤਾਨ ਸ਼ਾਇਦ ਨਾ ਫੜੇ ਜਾਣ</string>
+    <string name="portfolio_addresses_title">ਪਤੇ</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Bitcoin Cash ਪਤਿਆਂ ਦੀ ਨਿਗਰਾਨੀ ਨਹੀਂ ਹੋ ਸਕਦੀ: API ਕੀ ਤੋਂ ਬਿਨਾਂ ਕੋਈ ਅਜਿਹੀ ਮੁਫ਼ਤ ਜਨਤਕ ਸੇਵਾ ਨਹੀਂ ਜਿਸ ਦੀਆਂ ਸ਼ਰਤਾਂ ਇਸਦੀ ਇਜਾਜ਼ਤ ਦੇਣ।</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) 2024 ਵਿੱਚ ਬੰਦ ਹੋ ਗਈ – ਬੈਲੈਂਸ ਹੁਣ BNB Smart Chain (0x…) ’ਤੇ ਹਨ</string>
+    <string name="address_checksum">ਚੈੱਕਸਮ ਗਲਤ – ਟਾਈਪ ਦੀ ਗਲਤੀ ਦੇਖੋ</string>
+    <string name="address_doge_unsupported">Dogecoin ਪਤਿਆਂ ਦੀ ਨਿਗਰਾਨੀ ਨਹੀਂ ਹੋ ਸਕਦੀ: API ਕੀ ਤੋਂ ਬਿਨਾਂ ਕੋਈ ਅਜਿਹੀ ਮੁਫ਼ਤ ਜਨਤਕ ਸੇਵਾ ਨਹੀਂ ਜਿਸ ਦੀਆਂ ਸ਼ਰਤਾਂ ਇਸਦੀ ਇਜਾਜ਼ਤ ਦੇਣ।</string>
+    <string name="address_duplicate">ਇਹ ਪਤਾ ਪਹਿਲਾਂ ਹੀ ਜੋੜਿਆ ਹੋਇਆ ਹੈ</string>
+    <string name="address_ens">ENS ਨਾਮ ਸਮਰਥਿਤ ਨਹੀਂ – 0x ਪਤਾ ਦਰਜ ਕਰੋ</string>
+    <string name="address_invalid">ਕਿਸੇ ਸਮਰਥਿਤ ਨੈੱਟਵਰਕ ਦਾ ਵੈਧ ਪਤਾ ਨਹੀਂ</string>
+    <string name="address_limit">ਵੱਧ ਤੋਂ ਵੱਧ 20 ਪਤੇ</string>
+    <string name="address_secret">ਇਹ ਪ੍ਰਾਈਵੇਟ ਕੀ ਜਾਂ ਸੀਡ ਫ੍ਰੇਜ਼ ਵਰਗਾ ਲੱਗਦਾ ਹੈ – ਇਸਨੂੰ ਕਦੇ ਵੀ ਕਿਤੇ ਦਰਜ ਨਾ ਕਰੋ। ਸਿਰਫ਼ ਜਨਤਕ ਪਤੇ।</string>
+    <string name="address_testnet">ਟੈਸਟਨੈੱਟ ਪਤੇ ਸਮਰਥਿਤ ਨਹੀਂ</string>
+    <string name="address_unsupported">ਇਸ ਕਿਸਮ ਦਾ ਪਤਾ ਸਮਰਥਿਤ ਨਹੀਂ</string>
+    <string name="address_wrong_chain">ਪਤਾ ਕਿਸੇ ਹੋਰ ਨੈੱਟਵਰਕ ਦਾ ਹੈ</string>
+    <string name="address_xpub_multisig">ਮਲਟੀਸਿਗ ਕੀਜ਼ (Ypub/Zpub) ਸਮਰਥਿਤ ਨਹੀਂ</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot ਖਾਤਾ (BIP86): ਇਸ ਕੀ ਤੋਂ bc1p… ਪਤੇ ਬਣਾਏ ਜਾਂਦੇ ਹਨ, ਪ੍ਰਾਪਤੀ ਅਤੇ ਚੇਂਜ ਲਈ।</string>
+    <string name="portfolio_address_taproot_hint">Taproot ਵਾਲਿਟ? ਇਸਦੀ ਬਜਾਏ ਆਪਣੇ ਵਾਲਿਟ ਤੋਂ tr(…) ਡਿਸਕ੍ਰਿਪਟਰ ਪੇਸਟ ਕਰੋ – ਸਾਦਾ xpub ਸਿਰਫ਼ Legacy ਅਤੇ SegWit ਪਤਿਆਂ ਵਜੋਂ ਖੋਜਿਆ ਜਾਂਦਾ ਹੈ।</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">ਆਪਣੇ ਸਰਵਰ ਤੱਕ ਪਹੁੰਚ ਨਹੀਂ</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">ਜੋ ਵੀ %1$s ਚਲਾਉਂਦਾ ਹੈ ਉਹ ਇਸ ਵਾਲਿਟ ਦੇ ਸਾਰੇ ਪੁੱਛੇ ਗਏ ਪਤੇ ਦੇਖ ਸਕਦਾ ਹੈ ਅਤੇ ਉਨ੍ਹਾਂ ਨੂੰ ਆਪਸ ਵਿੱਚ ਅਤੇ ਤੁਹਾਡੇ IP ਪਤੇ ਨਾਲ ਜੋੜ ਸਕਦਾ ਹੈ।</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">ਇਸ ਤੋਂ ਬਚਣ ਲਈ ਸੈਟਿੰਗਾਂ › ਪੋਰਟਫੋਲੀਓ › ਪਤਿਆਂ ਲਈ ਆਪਣਾ ਸਰਵਰ ਵਿੱਚ ਆਪਣਾ ਸਰਵਰ ਦਰਜ ਕਰੋ।</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d ਅਣਜਾਣ ਟੋਕਨ (ਗਿਣਿਆ ਨਹੀਂ)</item>
+        <item quantity="other">+%1$d ਅਣਜਾਣ ਟੋਕਨ (ਗਿਣੇ ਨਹੀਂ)</item>
+    </plurals>
+</resources>

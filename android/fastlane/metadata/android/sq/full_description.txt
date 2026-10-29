@@ -34,7 +34,7 @@ GJITHASHTU
 • Portofoli sipas dëshirës (aktivizohet te Cilësimet): blerje, shitje, shkëmbime, transferime, shpërblime, depozita dhe tërheqje; FIFO (parazgjedhje) ose mesatare (Ø); adresa vetëm për lexim, pa seed, për BTC (edhe xpub), ETH dhe zinxhirë EVM, SOL, TRX, XRP, LTC, ADA dhe TON; import CSV nga Relai, Swissquote, Bitpanda, Kraken, Binance dhe Coinbase; përmbledhje vjetore në CSV; kyçje e veçantë. Bitpanda dhe Swissquote: pa çmim të vetin, vetëm me CSV.
 • E lexueshme për të gjithë: jeshile/kuqe ose blu/portokalli, shenjë dhe shigjetë në vend të vetëm ngjyrës; TalkBack lexon çdo rresht si një fjali
 • Kopje rezervë dhe rikthim në një skedar – edhe mes Android dhe iPhone
-• Modalitet i çelët dhe i errët, pesë ngjyra theksi, 33 gjuhë
+• Modalitet i çelët dhe i errët, pesë ngjyra theksi, 75 gjuhë
 • Burim i hapur (MIT) – kodi është publik në GitHub
 
 Shënim: Crypto Checker shfaq çmime dhe një portofol investimesh që e fut vetë. Nuk është bursë as portofol, nuk tregton dhe nuk jep këshilla investimi.

@@ -10,11 +10,18 @@
 * Optional portfolio (off by default): own transactions, CSV import, watched addresses and tax worksheets.
 * Watchlist, alerts and portfolio are stored encrypted on the device.
 * Backups with optional password (AES-256-GCM), interchangeable between Android and iPhone.
-* 33 languages.
+* 75 languages.
 * Full source code of both apps under the MIT license.
 * No tracking, no ads, no analytics.
 
 Detailed build history below.
+
+## 16.2.2 (build 176)
+
+* 41 more languages, 74 in total: Afrikaans, Amharic, Armenian, Azerbaijani, Basque, Bengali, Bosnian, Bulgarian, Burmese, Cantonese, Catalan, Croatian, Estonian, Filipino, Galician, Georgian, Gujarati, Icelandic, Irish, Kannada, Kazakh, Khmer, Lao, Latvian, Lithuanian, Macedonian, Malayalam, Marathi, Mongolian, Nepali, Punjabi, Serbian (Cyrillic), Sinhala, Slovak, Slovenian, Swahili, Tamil, Telugu, Urdu (right to left), Uzbek and Zulu – in the app, the widgets, the watch apps and the language picker. Hong Kong keeps Traditional Chinese unless Cantonese is chosen.
+* Store listings in the new languages where the store offers them (Google Play 36, App Store 13); all store descriptions now say 75 languages.
+* Serbian in Latin script («Srpski (latinica)») next to Cyrillic, generated from the Cyrillic texts – devices set to Serbian Latin no longer fall back to English; 75 languages in total. No separate store listing (Google Play has one Serbian listing, kept in Cyrillic; the App Store has no Serbian).
+* Watchlist footer below the last row: «6 pairs», or «6 of 42 pairs» when a group, filter or the search hides pairs; near the limit also the free slots or «Watchlist full». In all 75 languages.
 
 ## 16.2.2 (build 175)
 

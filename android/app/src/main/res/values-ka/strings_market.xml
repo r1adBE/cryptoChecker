@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="one">%d წთ წინ</item>
+        <item quantity="other">%d წთ წინ</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">დღეს %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed, Bitcoin-ის მეტრიკები, დომინაცია, ჰალვინგი</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">მეტი საბაზრო მონაცემი</string>
+    <string name="market_phase_trend_failed">ფასის მონაცემები მიუწვდომელია</string>
+    <string name="market_plain_direction_down_clear">ყველა კრიპტოვალუტის სრული ღირებულება აშკარად დაბალია, ვიდრე 24 საათის წინ (%1$s).</string>
+    <string name="market_plain_direction_down_slight">ყველა კრიპტოვალუტის სრული ღირებულება ოდნავ დაბალია, ვიდრე 24 საათის წინ (%1$s).</string>
+    <string name="market_plain_direction_flat">ყველა კრიპტოვალუტის სრული ღირებულება 24 საათში თითქმის არ შეცვლილა (%1$s).</string>
+    <string name="market_plain_direction_up_clear">ყველა კრიპტოვალუტის სრული ღირებულება აშკარად მაღალია, ვიდრე 24 საათის წინ (%1$s).</string>
+    <string name="market_plain_direction_up_slight">ყველა კრიპტოვალუტის სრული ღირებულება ოდნავ მაღალია, ვიდრე 24 საათის წინ (%1$s).</string>
+    <string name="market_plain_footnote">აღწერს ბოლო 24 საათს – არც პროგნოზი, არც საინვესტიციო რჩევა.</string>
+    <string name="market_plain_mood_extreme_fear">ინვესტორებს ახლა ძალიან ეშინიათ: განწყობის ინდექსი (Fear &amp; Greed) 100-დან %1$d-ზეა.</string>
+    <string name="market_plain_mood_extreme_greed">ინვესტორები ახლა ძალიან ხარბები არიან: განწყობის ინდექსი (Fear &amp; Greed) 100-დან %1$d-ზეა.</string>
+    <string name="market_plain_mood_fear">ინვესტორებს უფრო ეშინიათ: განწყობის ინდექსი (Fear &amp; Greed) 100-დან %1$d-ზეა.</string>
+    <string name="market_plain_mood_greed">ინვესტორები უფრო ხარბები არიან: განწყობის ინდექსი (Fear &amp; Greed) 100-დან %1$d-ზეა.</string>
+    <string name="market_plain_mood_neutral">ინვესტორების განწყობა დაბალანსებულია: განწყობის ინდექსი (Fear &amp; Greed) 100-დან %1$d-ზეა.</string>
+    <string name="market_plain_standout_above_btc">%1$s გამოირჩევა: %2$s 24 საათში, Bitcoin-ზე (%3$s) საგრძნობლად მაღლა.</string>
+    <string name="market_plain_standout_against_btc">%1$s გამოირჩევა: %2$s 24 საათში, მაშინ როცა Bitcoin საპირისპირო მიმართულებით წავიდა (%3$s).</string>
+    <string name="market_plain_standout_below_btc">%1$s გამოირჩევა: %2$s 24 საათში, Bitcoin-ზე (%3$s) საგრძნობლად დაბლა.</string>
+    <string name="market_plain_standout_futures_down">%1$s გამოირჩევა: უჩვეულოდ ბევრი ფიუჩერს-ტრეიდერი ფასის ვარდნაზე დებს.</string>
+    <string name="market_plain_standout_futures_up">%1$s გამოირჩევა: უჩვეულოდ ბევრი ფიუჩერს-ტრეიდერი ფასის ზრდაზე დებს.</string>
+    <string name="market_plain_standout_quiet">ახლა არცერთი მონეტა არ გამოირჩევა.</string>
+    <string name="market_plain_standout_volume">%1$s გამოირჩევა: ჩვეულებრივზე დაახლოებით %2$s-ჯერ მეტი ვაჭრობა.</string>
+    <string name="market_plain_title">მოკლედ</string>
+    <string name="market_section_collapse">%1$s – დამალვა</string>
+    <string name="market_section_context">განწყობა &amp; ციკლი</string>
+    <string name="market_section_data">საბაზრო მონაცემები</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">%1$s – ჩვენება</string>
+    <string name="market_section_now">ახლა</string>
+    <string name="market_source">მონაცემები: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="exchange_unavailable_error">ბირჟა მიუწვდომელია</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">ინფორმაცია: %1$s</string>
+    <string name="market_info_alt_season_source">დღიური ფასები: Binance · ხელახლა ითვლება დაახლოებით ყოველ 3 საათში</string>
+    <string name="market_info_alt_season_what">ითვლის, დაახლოებით 20 დიდი ალტქოინიდან (მაგ. Ethereum, Solana, XRP) რამდენს ჰქონდა ბოლო 90 დღეში Bitcoin-ზე უკეთესი შედეგი. მნიშვნელობა მათი წილია 0-დან 100-მდე.</string>
+    <string name="market_info_coin_source">ფასები: Binance ან Bybit · ხელახლა იტვირთება დაახლოებით ყოველ 15 წუთში</string>
+    <string name="market_info_dominance_how">თუ დომინაცია იზრდება, Bitcoin დანარჩენ ბაზარზე უკეთ გამოიყურება; თუ ეცემა, სხვა მონეტები იძენს წონას. სტეიბლქოინებიც ითვლება: თუ მათი ღირებულება იზრდება, Bitcoin-ის წილი მცირდება მაშინაც კი, როცა Bitcoin-ის ფასი უცვლელია.</string>
+    <string name="market_info_dominance_source">წყარო: CoinGecko · ხელახლა იტვირთება დაახლოებით ყოველ 30 წუთში</string>
+    <string name="market_info_dominance_what">Bitcoin-ის წილი ყველა კრიპტოვალუტის სრულ ღირებულებაში (საბაზრო კაპიტალიზაცია). მის ქვემოთ Ethereum-ის წილია.</string>
+    <string name="market_info_fear_greed_how">25-ზე ნაკლები ნიშნავს უკიდურეს შიშს, 75-ზე მეტი – უკიდურეს სიხარბეს, დაახლოებით 50 – ნეიტრალურს. გაშლისას ბარათი აჩვენებს გუშინდელ, ერთი კვირის და ერთი თვის წინანდელ მნიშვნელობებს. არ არის ყიდვის ან გაყიდვის სიგნალი.</string>
+    <string name="market_info_fear_greed_source">წყარო: alternative.me · ახალი მნიშვნელობა დღეში ერთხელ</string>
+    <string name="market_info_fear_greed_what">კრიპტობაზრის განწყობის ინდექსი 0-დან 100-მდე. alternative.me მას რამდენიმე მონაცემით ითვლის, მათ შორის ფასის რყევებით, ვაჭრობის მოცულობით, სოციალური ქსელებით და Bitcoin-ის დომინაციით.</string>
+    <string name="market_info_gas_how">მაღალი მნიშვნელობები ნიშნავს, რომ ქსელი დატვირთულია და გადარიცხვები უფრო ძვირია. ნელი, ჩვეულებრივი და სწრაფი – საკომისიოებია უფრო გვიანი ან უფრო სწრაფი დადასტურებისთვის. გაშლისას ბარათი აჩვენებს მარტივი გადარიცხვის მიახლოებით ღირებულებას.</string>
+    <string name="market_info_gas_source">საჯარო RPC კვანძები, mempool.space · ხელახლა იტვირთება ყოველ წუთს</string>
+    <string name="market_info_gas_what">რა ღირს ახლა ტრანზაქცია თითოეულ ქსელში. Ethereum-სა და მსგავს ქსელებში gwei-ში (ETH-ის ერთი მემილიარდედი gas-ის ერთეულზე), Bitcoin-ზე sat/vB-ში (სატოში ტრანზაქციის ვირტუალურ ბაიტზე).</string>
+    <string name="market_info_halving_source">თარიღი: ბლოკის სიმაღლითა და ბლოკის საშუალო დროით (mempool.space), სხვა შემთხვევაში კალენდრით · ფასის ისტორია: Coin Metrics, Binance, ხელახლა იტვირთება ყოველ 12 საათში</string>
+    <string name="market_info_halving_what">ჰალვინგისას ახალი Bitcoin ბლოკისთვის მაინერების ჯილდო ორჯერ მცირდება. ეს ხდება ყოველ 210,000 ბლოკში, დაახლოებით ყოველ ოთხ წელიწადში. ამის შემდეგ დღეში ორჯერ ნაკლები ახალი ბიტკოინი იქმნება.</string>
+    <string name="market_info_how">როგორ წავიკითხოთ</string>
+    <string name="market_info_macro_how">შენიშვნა მხოლოდ მაშინ ჩნდება, როცა ასეთი თარიღი დღეს ან ხვალაა. გამოქვეყნების გარშემო ფასები ხშირად ჩვეულებრივზე მეტად ირყევა. აპი მხოლოდ თარიღს აჩვენებს და არა თავად მაჩვენებლებს.</string>
+    <string name="market_info_macro_source">კალენდარი აპის ვებგვერდიდან · იტვირთება დღეში ერთხელ</string>
+    <string name="market_info_macro_what">აშშ-ის მნიშვნელოვანი ეკონომიკური მონაცემების თარიღები: ინფლაცია (CPI, PCE), მწარმოებლის ფასები (PPI), დასაქმების ანგარიში და აშშ-ის ფედერალური სარეზერვო სისტემის საპროცენტო განაკვეთის გადაწყვეტილებები. ასეთი მაჩვენებლები ხშირად კრიპტოფასებსაც ამოძრავებს.</string>
+    <string name="market_info_no_advice">არ არის საინვესტიციო რჩევა.</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · ფასები ყოველ საათში, on-chain მნიშვნელობები ხელახლა იტვირთება ყოველ 12 საათში</string>
+    <string name="market_info_pulse_how">სათაური მიმართულებას ასახელებს; დეტალებისთვის გაშალე ბარათი. ფართო მოძრაობა ნიშნავს, რომ დიდი მონეტების უმეტესობა ერთი მიმართულებით მოძრაობს. ბერკეტის ოპტიმისტური განწყობა ნიშნავს, რომ ბევრი ტრეიდერი ბერკეტით ფასის ზრდაზე დებს, რაც Bitcoin-ის ფიუჩერსების ფანდინგის განაკვეთით იზომება. სურათი ამ მომენტისთვის და არა პროგნოზი.</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · ხელახლა იტვირთება დაახლოებით ყოველ 5 წუთში</string>
+    <string name="market_info_pulse_what">ბაზრის მოკლე შეჯამება ბოლო 24 საათისთვის: როგორ მოძრაობს Bitcoin, Ethereum და Solana, უდიდესი მონეტებიდან რამდენი იზრდება ან ეცემა, რამდენი Bitcoin-ით ვაჭრობენ ახლა და როგორია ბერკეტის განწყობა (იზომება Bitcoin-ის ფიუჩერსების ფანდინგის განაკვეთით).</string>
+    <string name="market_info_totals_how">მარჯვნივ არის სრული ღირებულების ცვლილება 24 საათში. მაღალი მოცულობა ნიშნავს, რომ ბევრი ივაჭრება – ის არ ამბობს, რა მიმართულებით. ნაჩვენებია კონვერტაციის ვალუტაში, სადაც შესაძლებელია, სხვა შემთხვევაში აშშ დოლარში.</string>
+    <string name="market_info_totals_source">ყველა მონეტა · CoinGecko · ხელახლა იტვირთება დაახლოებით ყოველ 30 წუთში</string>
+    <string name="market_info_totals_what">ყველა კრიპტოვალუტის სრული ღირებულება (საბაზრო კაპიტალიზაცია: ფასი გამრავლებული მიმოქცევაში არსებულ მარაგზე, შეკრებილი ყველა მონეტისთვის) და ბოლო 24 საათის ვაჭრობის მოცულობა.</string>
+    <string name="market_info_unusual_how">თითოეული მონეტა აჩვენებს თავის ყველაზე საყურადღებო დაკვირვებას, მარჯვნივ 24-საათიანი ცვლილებით. 2× მოცულობა ნიშნავს ჩვეულებრივზე ორჯერ მეტ ბრუნვას. საყურადღებო არც კარგს ნიშნავს და არც ცუდს.</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · ხელახლა იტვირთება დაახლოებით ყოველ 10 წუთში</string>
+    <string name="market_info_unusual_what">დაახლოებით 30 უდიდესიდან (სტეიბლქოინების გარეშე) მაქსიმუმ ხუთი მონეტა, რომლებიც დღეს უჩვეულოდ იქცევიან: Bitcoin-ზე გაცილებით ძლიერად ან სუსტად, ბაზრის მიმართულების საწინააღმდეგოდ, უჩვეულოდ მაღალი ვაჭრობის მოცულობით ან საყურადღებო ფანდინგის განაკვეთით.</string>
+    <string name="market_info_what">რა არის ეს?</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">საბაზრო კაპ.</string>
+    <string name="market_cap_source">ყველა მონეტა · CoinGecko</string>
+    <string name="market_cap_title">კრიპტობაზარი</string>
+    <string name="market_volume_label">მოცულობა 24სთ</string>
+
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">დეტალები</string>
+    <string name="pulse_disclaimer">არ არის პროგნოზი · არ არის საინვესტიციო რჩევა</string>
+    <string name="pulse_less">ნაკლების ჩვენება</string>
+    <string name="pulse_now_title">კრიპტოპულსი</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">ცვლილება 24 საათში</string>
+    <string name="pulse_section_factors">ფაქტორები</string>
+    <string name="pulse_section_market">ბაზარი დღეს</string>
+    <string name="pulse_unavailable">საბაზრო მონაცემები ახლა მიუწვდომელია</string>
+    <string name="pulse_updated">მდგომარეობა: %1$s</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">მშვიდი ბაზარი</string>
+    <string name="pulse_headline_down">ფართო სისუსტე</string>
+    <string name="pulse_headline_mixed">შერეული სურათი</string>
+    <string name="pulse_headline_up">ფართო სიძლიერე</string>
+    <string name="pulse_lead_alts_stronger">ალტქოინები Bitcoin-ზე ძლიერია.</string>
+    <string name="pulse_lead_broad_down">ბაზარი ფართოდ ეცემა.</string>
+    <string name="pulse_lead_broad_up">ბაზარი ფართოდ იზრდება.</string>
+    <string name="pulse_lead_btc_leads">Bitcoin ყველაზე მეტად იზრდება.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin ალტქოინებზე ძლიერია.</string>
+    <string name="pulse_lead_calm">ბაზარი თითქმის არ მოძრაობს.</string>
+    <string name="pulse_lead_drift_down">ბაზარი ნელ-ნელა ეშვება.</string>
+    <string name="pulse_lead_drift_up">ბაზარი ნელ-ნელა იწევს.</string>
+    <string name="pulse_lead_mixed">დიდი მონეტები სხვადასხვა მიმართულებით მოძრაობს.</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">ბერკეტის განწყობა ოპტიმისტურია.</string>
+    <string name="pulse_detail_fund_negative">ბერკეტის განწყობა პესიმისტურია.</string>
+    <string name="pulse_detail_fund_neutral">ბერკეტის განწყობა ნეიტრალურია.</string>
+    <string name="pulse_detail_vol_above">მოცულობა ჩვეულებრივზე %1$s-ით მაღალია.</string>
+    <string name="pulse_detail_vol_above_fund_high">მოცულობა ჩვეულებრივზე %1$s-ით მაღალია, ბერკეტის განწყობა ოპტიმისტურია.</string>
+    <string name="pulse_detail_vol_above_fund_negative">მოცულობა ჩვეულებრივზე %1$s-ით მაღალია, ბერკეტის განწყობა პესიმისტურია.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">მოცულობა ჩვეულებრივზე %1$s-ით მაღალია, ბერკეტის განწყობა ნეიტრალურია.</string>
+    <string name="pulse_detail_vol_below">მოცულობა ჩვეულებრივზე %1$s-ით დაბალია.</string>
+    <string name="pulse_detail_vol_below_fund_high">მოცულობა ჩვეულებრივზე %1$s-ით დაბალია, ბერკეტის განწყობა ოპტიმისტურია.</string>
+    <string name="pulse_detail_vol_below_fund_negative">მოცულობა ჩვეულებრივზე %1$s-ით დაბალია, ბერკეტის განწყობა პესიმისტურია.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">მოცულობა ჩვეულებრივზე %1$s-ით დაბალია, ბერკეტის განწყობა ნეიტრალურია.</string>
+    <string name="pulse_detail_vol_normal">მოცულობა ჩვეულებრივია.</string>
+    <string name="pulse_detail_vol_normal_fund_high">მოცულობა ჩვეულებრივია, ბერკეტის განწყობა ოპტიმისტურია.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">მოცულობა ჩვეულებრივია, ბერკეტის განწყობა პესიმისტურია.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">მოცულობა ჩვეულებრივია, ბერკეტის განწყობა ნეიტრალურია.</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">ტოპ %1$d: უდიდესი მონეტები საბაზრო ღირებულებით, სტეიბლქოინების გარეშე; ცვლილება 24 საათში (CoinGecko).</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">ტოპ %1$d</string>
+    <string name="pulse_breadth_note_broad_down">ფართო გაყიდვა: უდიდესი მონეტების უმეტესობა ეცემა.</string>
+    <string name="pulse_breadth_note_broad_up">ფართო მოძრაობა: უდიდესი მონეტების უმეტესობა იზრდება.</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin ეცემა, მაგრამ სხვა დიდი მონეტების უმეტესობა მყარად დგას.</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin იზრდება, მაგრამ სხვა დიდი მონეტების უმეტესობა არ უერთდება.</string>
+    <string name="pulse_breadth_spoken">ტოპ %1$d: %2$d იზრდება, %3$d ეცემა</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">ალტქოინები და Bitcoin ერთნაირად მოძრაობს</string>
+    <string name="pulse_alts_stronger">ალტქოინები Bitcoin-ზე ძლიერია</string>
+    <string name="pulse_alts_weaker">Bitcoin ალტქოინებზე ძლიერია</string>
+    <string name="pulse_chip_funding_high">ბერკეტის განწყობა ოპტიმისტურია</string>
+    <string name="pulse_chip_funding_negative">ბერკეტის განწყობა პესიმისტურია</string>
+
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">ფასისა და მოქმედებების ჩვენება</string>
+    <string name="unusual_fact_against">ბაზრის საწინააღმდეგოდ მოძრაობს</string>
+    <string name="unusual_fact_funding_high">ფანდინგი მაღალია (%1$s)</string>
+    <string name="unusual_fact_funding_negative">ფანდინგი უარყოფითია (%1$s)</string>
+    <string name="unusual_fact_stronger">BTC-ზე გაცილებით ძლიერად მოძრაობს</string>
+    <string name="unusual_fact_volume">მოცულობა ჩვეულებრივზე %1$s×-ჯერ მეტია</string>
+    <string name="unusual_fact_weaker">BTC-ზე გაცილებით სუსტად მოძრაობს</string>
+    <string name="unusual_nothing">დღეს საყურადღებო არაფერია</string>
+    <string name="unusual_source">დაახლოებით 30 უდიდესი მონეტა სტეიბლქოინების გარეშე · Binance, CoinGecko</string>
+    <string name="unusual_title">საყურადღებო</string>
+
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">საყურადღებო</string>
+    <string name="activity_indicator">საყურადღებო</string>
+    <string name="activity_sensitivity_less">ნაკლები</string>
+    <string name="activity_sensitivity_more">მეტი</string>
+    <string name="activity_sensitivity_normal">ჩვეულებრივი</string>
+    <string name="activity_signal_funding_long">ფანდინგი %1$s — ბევრი ბერკეტიანი ლონგი</string>
+    <string name="activity_signal_funding_short">ფანდინგი %1$s — ბევრი შორტი</string>
+    <string name="activity_signal_open_interest">ღია ინტერესი %1$s %2$d წთ-ში</string>
+    <string name="activity_signal_open_interest_no_time">ღია ინტერესი %1$s</string>
+    <string name="activity_signal_price_move">უჩვეულო მოძრაობა: %1$s ერთ საათში (ჩვეულებრივზე %2$s×)</string>
+    <string name="activity_signal_volume">ბოლო საათში მოცულობა ჩვეულებრივზე %1$s×-ჯერ მეტია</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%2$d დიდი ალტქოინიდან %1$d-მა 90 დღეში Bitcoin-ს აჯობა</item>
+        <item quantity="other">%2$d დიდი ალტქოინიდან %1$d-მა 90 დღეში Bitcoin-ს აჯობა</item>
+    </plurals>
+    <string name="insights_chart_axis">წლები ჰალვინგიდან</string>
+    <string name="insights_chart_hint">ფასი ჰალვინგის დღის ფასის ჯერადად (ლოგარითმული სკალა). ადრინდელი ციკლები კანონზომიერებაა და არა პროგნოზი.</string>
+    <string name="insights_cycle_chart">ციკლები ჰალვინგიდან</string>
+    <string name="insights_dominance_eth">ETH მთლიანი ბაზრის %1$s</string>
+    <string name="insights_dominance_title">Bitcoin-ის დომინაცია</string>
+    <string name="insights_fng_history">გუშინ %1$s · ერთი კვირის წინ %2$s · ერთი თვის წინ %3$s</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="insights_halving_title">Bitcoin-ის ჰალვინგი</string>
+    <string name="insights_source_dominance">წყარო: CoinGecko, Binance</string>
+    <string name="insights_source_fng">წყარო: alternative.me</string>
+    <string name="insights_source_history">წყარო: Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">უკიდურესი შიში</string>
+    <string name="fng_extreme_greed">უკიდურესი სიხარბე</string>
+    <string name="fng_fear">შიში</string>
+    <string name="fng_greed">სიხარბე</string>
+    <string name="fng_neutral">ნეიტრალური</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">მონაცემები: %1$s · ახლდება…</string>
+    <string name="cycle_from_top">%1$s მწვერვალიდან</string>
+    <string name="cycle_marker_bottom">ფსკერი %1$s</string>
+    <string name="cycle_marker_double_bottom">ორმაგი ფსკერი %1$s</string>
+    <string name="cycle_marker_double_top">ორმაგი მწვერვალი %1$s</string>
+    <string name="cycle_marker_high_so_far">აქამდე მაქსიმუმი</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">მწვერვალი %1$s</string>
+    <string name="cycle_since_halving">%1$s ჰალვინგიდან</string>
+    <string name="halving_estimate_text">შემდეგი ჰალვინგი გამოთვლით დაახლოებით %1$s: დარჩა %2$s ბლოკი, საშუალოდ %3$s წთ ბლოკზე (მიმდინარე სირთულის პერიოდი). პროგნოზია და არა დაპირება – ბლოკის დრო იცვლება.</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">განგაში: %1$s</string>
+    <string name="gas_slow_fast">ნელი %1$s · სწრაფი %2$s</string>
+    <string name="gas_source">საჯარო RPC კვანძები და mempool.space · მარტივი გადარიცხვის ღირებულება, L2-ებზე L1 წილის გარეშე</string>
+    <string name="gas_title">ქსელის საკომისიოები</string>
+    <string name="gas_transfer_cost">გადარიცხვა ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">აშშ-ის ინფლაციის მონაცემები (CPI)</string>
+    <string name="macro_fomc">აშშ-ის ფედის საპროცენტო გადაწყვეტილება</string>
+    <string name="macro_hint_list">%1$s – ასეთ დღეებში ბაზრები ხშირად უფრო მეტად ირყევა.</string>
+    <string name="macro_hint_today">დღეს %1$s: %2$s – ასეთ დღეებში ბაზრები ხშირად უფრო მეტად ირყევა.</string>
+    <string name="macro_hint_today_list">დღეს: %1$s – ასეთ დღეებში ბაზრები ხშირად უფრო მეტად ირყევა.</string>
+    <string name="macro_hint_tomorrow">ხვალ %1$s: %2$s – ასეთ დღეებში ბაზრები ხშირად უფრო მეტად ირყევა.</string>
+    <string name="macro_hint_tomorrow_list">ხვალ: %1$s – ასეთ დღეებში ბაზრები ხშირად უფრო მეტად ირყევა.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">დღეს %1$s %2$s</string>
+    <string name="macro_item_tomorrow">ხვალ %1$s %2$s</string>
+    <string name="macro_nfp">აშშ-ის დასაქმების ანგარიში</string>
+    <string name="macro_pce">აშშ-ის სამომხმარებლო ხარჯების ფასები (PCE)</string>
+    <string name="macro_ppi">აშშ-ის მწარმოებლის ფასები (PPI)</string>
+    <string name="macro_released_list">დღეს გამოქვეყნდა: %1$s.</string>
+    <string name="macro_released_one">დღეს %1$s-ზე გამოქვეყნდა: %2$s.</string>
+    <string name="macro_title">ეკონომიკური მონაცემები</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">მონეტა</string>
+    <string name="coin_no_data">ამ მონეტისთვის Binance-ზე ან Bybit-ზე ფასის მონაცემები არ არის.</string>
+    <string name="coin_price_only">ეფუძნება მხოლოდ ფასს – on-chain მონაცემები (MVRV, Puell, ჰეშრეიტი) თავისუფლად ხელმისაწვდომია მხოლოდ Bitcoin-ისთვის.</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">ფასის ისტორია მხოლოდ %1$d დღეა – ზოგი ინდიკატორი აკლია.</item>
+        <item quantity="other">ფასის ისტორია მხოლოდ %1$d დღეა – ზოგი ინდიკატორი აკლია.</item>
+    </plurals>
+    <string name="coin_title">მონეტის ანალიზი</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">მონაცემები: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">მზარდები და კლებადები 24 სთ</string>
+    <string name="movers_gainers">მზარდები</string>
+    <string name="movers_losers">კლებადები</string>
+    <string name="movers_no_gainers">24 საათში არცერთი მონეტა არ გაიზარდა</string>
+    <string name="movers_no_losers">24 საათში არცერთი მონეტა არ დაეცა</string>
+    <string name="movers_source">CoinGecko, 24 სთ, ტოპ 100 სტეიბლქოინების გარეშე</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">ყველას ჩვენება</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">ნაკლების ჩვენება</string>
+</resources>

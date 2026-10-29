@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">Alarmy portfólia sú pozastavené: chýba aktuálny kurz pre %1$s</string>
+    <string name="portfolio_alarms_paused_price_generic">Alarmy portfólia sú pozastavené: nie všetky coiny majú aktuálny kurz</string>
+    <string name="portfolio_alarms_paused_addresses">Alarmy portfólia sú pozastavené: zostatky sledovaných adries ešte nie sú načítané</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Alarmy portfólia sú pozastavené: zostatky tokenov pre %1$s sú čiastočne zastarané</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Alarmy portfólia sú pozastavené: zostatky tokenov sledovaných adries sú čiastočne zastarané</string>
+    <string name="portfolio_alarms_paused_unverified">Alarmy portfólia sú pozastavené: kurz pre %1$s nie je overený</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Alarmy portfólia sú pozastavené: kurz niektorých coinov nie je overený</string>
+    <string name="portfolio_alarms_address_failing">Alarmy portfólia kontrolujú bez %1$s: zostatok sa nenačítal viac ako 24 hodín</string>
+    <string name="portfolio_alarms_address_failing_generic">Alarmy portfólia kontrolujú bez adries, ktorých zostatok sa nenačítal viac ako 24 hodín</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">tokeny čiastočne zastarané</string>
+    <string name="portfolio_address_restore_failed">Adresu sa nepodarilo obnoviť – v prípade potreby ju pridaj znova</string>
+    <string name="portfolio_address_remove_failed">Adresu sa nepodarilo odstrániť – skús to znova</string>
+</resources>

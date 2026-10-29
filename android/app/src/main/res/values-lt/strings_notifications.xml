@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">Pastebima: %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — dabar %2$s</string>
+    <string name="notification_alarm_title">Įspėjimas: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">Atidaryti biržą</string>
+    <string name="notification_depeg_text">Programėlės vertės skaičiuojamos pagal šią rinkos kainą.</string>
+    <string name="notification_depeg_title">USDT ties %1$s USD (%2$s)</string>
+    <string name="notification_fng_above">Indeksas pakilo virš %1$d – pagal šį rodiklį rinkos nuotaika gobši.</string>
+    <string name="notification_fng_below">Indeksas nukrito žemiau %1$d – pagal šį rodiklį rinkos nuotaika baiminga.</string>
+    <string name="notification_fng_title">Nuotaikų indeksas (Fear &amp; Greed): %1$d</string>
+    <string name="notification_gas_btc_text">Žemiau tavo ribos %1$s sat/vB · Pervedimas ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin komisinis mokestis: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">Žemiau tavo ribos %1$s gwei · Pervedimas ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Ethereum dujos: %1$s gwei</string>
+    <string name="notification_indicator_above">Virš tavo ribos %1$s – išmatuota vertė, ne rekomendacija.</string>
+    <string name="notification_indicator_below">Žemiau tavo ribos %1$s – išmatuota vertė, ne rekomendacija.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">Ekonominiai duomenys šiandien</string>
+    <string name="notification_permission_preprompt_continue">Tęsti</string>
+    <string name="notification_permission_preprompt_later">Vėliau</string>
+    <string name="notification_permission_preprompt_text">Kad įspėjimai ir kainų pranešimai tave pasiektų, programėlei reikia leidimo siųsti pranešimus. Programėlė juos naudoja tik tavo įspėjimams ir kainų pranešimams.</string>
+    <string name="notification_permission_preprompt_title">Leisti pranešimus?</string>
+    <string name="notification_portfolio_alarm_locked">Tavo įspėjimas suveikė – atidaryk programėlę, kad pamatytum detales.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – dabar %2$s</string>
+    <string name="notification_portfolio_alarm_title">Portfelio vertė</string>
+    <string name="notification_price_change">%1$s, nuo %2$s (prieš %3$s)</string>
+    <string name="notification_price_change_no_age">%1$s, nuo %2$s</string>
+    <string name="notification_price_first">Pirmasis šios poros kainos pranešimas</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+dar %1$d kaina</item>
+        <item quantity="few">+dar %1$d kainos</item>
+        <item quantity="many">+dar %1$d kainos</item>
+        <item quantity="other">+dar %1$d kainų</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">Atnaujinamos kainos…</string>
+    <string name="notification_volume_spike_text">Apimtis %1$s× įprastos per paskutinę valandą</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">Įspėjimai</string>
+    <string name="channel_alarms_description">Pranešimas, kai suveikia įspėjimas.</string>
+    <string name="channel_alarms_quiet">Įspėjimai (tylos laikas)</string>
+    <string name="channel_alarms_quiet_description">Tylūs įspėjimai tylos laiku.</string>
+    <string name="channel_alarms_silent">Įspėjimai (tylūs)</string>
+    <string name="channel_alarms_sound">Įspėjimai (tik garsas)</string>
+    <string name="channel_alarms_sound_vibrate">Įspėjimai (garsas ir vibracija)</string>
+    <string name="channel_alarms_vibrate">Įspėjimai (tik vibracija)</string>
+    <string name="channel_prices">Kainų pranešimai</string>
+    <string name="channel_prices_description">Tylus kainos pranešimas su dabartine poros kaina.</string>
+    <string name="channel_service">Kainų atnaujinimas</string>
+    <string name="channel_service_description">Pranešimas, kol atnaujinamos kainos.</string>
+    <string name="neutral_channel_market">Rinkos įspėjimai</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, dujų komisiniai mokesčiai, „Pastebima“ ir ekonominių duomenų datos</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">Įspėjimas. %1$s, %2$s %3$s %4$s, dabar %5$s</string>
+    <string name="tts_direction_down">nukrito</string>
+    <string name="tts_direction_funding_above">su aukšta finansavimo norma</string>
+    <string name="tts_direction_funding_below">su žema finansavimo norma</string>
+    <string name="tts_direction_move">smarkiai juda</string>
+    <string name="tts_direction_near_high">arti maksimumo</string>
+    <string name="tts_direction_near_low">arti minimumo</string>
+    <string name="tts_direction_oi_down">su mažėjančiomis atvirosiomis pozicijomis</string>
+    <string name="tts_direction_oi_up">su didėjančiomis atvirosiomis pozicijomis</string>
+    <string name="tts_direction_up">pakilo</string>
+    <string name="tts_direction_volume_spike">su apimties šuoliu</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+
+    <!-- Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+    <string name="notification_alarm_action_snooze">Po 1 val.</string>
+    <string name="notification_alarm_action_edit">Koreguoti</string>
+</resources>

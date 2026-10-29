@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">Sea hoiatus</string>
+    <string name="alarms_add">Uus hoiatus</string>
+    <string name="alarms_edit">Muuda hoiatust</string>
+    <string name="alarms_empty">Selle paari jaoks pole veel hoiatusi.</string>
+    <string name="alarms_empty_example">Näiteks: anna teada, kui BTC tõuseb üle %1$s.</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">Märguanded on väljas – hoiatused ei jõua sinuni.</string>
+    <string name="alarms_notifications_turn_on">Lülita sisse</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">%1$d aktiivne</item>
+        <item quantity="other">%1$d aktiivset</item>
+    </plurals>
+    <string name="alarms_overview_empty">Hoiatusi veel pole. Ava paar ja lisa hoiatus jaotises „Hoiatused“.</string>
+    <string name="alarms_overview_title">Kõik hoiatused</string>
+    <string name="alarms_title">Hoiatused</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">Täpsemalt</string>
+    <string name="alarm_change_updates">Muuda hinnauuendusi</string>
+    <string name="alarm_create">Loo hoiatus</string>
+    <string name="alarm_currency_label">Valuuta</string>
+    <string name="alarm_delete_confirm">See hoiatus eemaldatakse.</string>
+    <string name="alarm_delete_title">Kas kustutada hoiatus?</string>
+    <string name="alarm_field_percent">Protsent</string>
+    <string name="alarm_field_price">Hind</string>
+    <string name="alarm_fires_now_above">Hind on juba üle %1$s. Kas salvestada siiski?</string>
+    <string name="alarm_fires_now_below">Hind on juba alla %1$s. Kas salvestada siiski?</string>
+    <string name="alarm_fires_now_change">Muuda</string>
+    <string name="alarm_fires_now_save">Salvesta siiski</string>
+    <string name="alarm_fires_now_title">Hoiatus käivituks kohe</string>
+    <string name="alarm_first_battery_hint">Aku optimeerimine piirab rakendust – hoiatused võivad hilineda.</string>
+    <string name="alarm_first_title">Hoiatus salvestatud</string>
+    <string name="alarm_last_triggered">viimati %1$s</string>
+    <string name="alarm_more_conditions">Rohkem tingimusi</string>
+    <string name="alarm_new_extreme">Uus %1$s</string>
+    <string name="alarm_once">Üks kord</string>
+    <string name="alarm_option_repeating">Teavita</string>
+    <string name="alarm_option_sound">Heli</string>
+    <string name="alarm_option_speak">Loe hoiatus ette</string>
+    <string name="alarm_option_vibrate">Vibreerimine</string>
+    <string name="alarm_repeat_each">Iga kord</string>
+    <string name="alarm_repeat_once">Üks kord</string>
+    <string name="alarm_repeating">Iga kord</string>
+    <string name="alarm_threshold_error_empty">Hoiatuse salvestamiseks sisesta väärtus.</string>
+    <string name="alarm_threshold_error_funding">Rahastamismäär peab olema arv vahemikus −10 kuni +10 protsenti.</string>
+    <string name="alarm_threshold_error_invalid">Sisesta kehtiv arv, mis on suurem kui 0.</string>
+    <string name="alarm_threshold_error_oi">Avatud positsioonide muutus: kuni 1000 protsenti.</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">%1$d h jooksul</item>
+        <item quantity="other">%1$d h jooksul</item>
+    </plurals>
+    <string name="alarm_window_label">Ajavahemik</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">tõuseb üle</string>
+    <string name="alarm_simple_below">langeb alla</string>
+    <string name="alarm_simple_end"></string>
+    <string name="alarm_simple_when">Kui %1$s</string>
+    <string name="alarm_template_a11y">Loo hoiatus: %1$s</string>
+    <string name="alarm_template_a11y_down">Loo hoiatus miinus %1$s protsendi juures praegusest hinnast</string>
+    <string name="alarm_template_a11y_up">Loo hoiatus pluss %1$s protsendi juures praegusest hinnast</string>
+    <string name="alarm_template_from_now">nüüdsest</string>
+    <string name="alarm_template_volume">Maht ×%1$s</string>
+    <string name="alarm_templates_title">Kiirhoiatused</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">Hind üle</string>
+    <string name="alarm_condition_below">Hind alla</string>
+    <string name="alarm_condition_down_percent">Langeb</string>
+    <string name="alarm_condition_funding_above">Rahastamismäär üle</string>
+    <string name="alarm_condition_funding_below">Rahastamismäär alla</string>
+    <string name="alarm_condition_move_percent">Muutub</string>
+    <string name="alarm_condition_near_high">Tipu lähedal</string>
+    <string name="alarm_condition_near_low">Põhja lähedal</string>
+    <string name="alarm_condition_oi_down">Avatud positsioonid vähenevad</string>
+    <string name="alarm_condition_oi_up">Avatud positsioonid suurenevad</string>
+    <string name="alarm_condition_up_percent">Tõuseb</string>
+    <string name="alarm_condition_volume_spike">Mahu hüpe</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">Anna teada, kui %1$s tõuseb üle %2$s.</string>
+    <string name="alarm_sentence_below">Anna teada, kui %1$s langeb alla %2$s.</string>
+    <string name="alarm_sentence_down_percent">Anna teada, kui %1$s langeb %2$s allapoole salvestamisaegset hinda (või viimase hoiatuse hinda).</string>
+    <string name="alarm_sentence_funding_above">Anna teada, kui %1$s rahastamismäär tõuseb üle %2$s.</string>
+    <string name="alarm_sentence_funding_below">Anna teada, kui %1$s rahastamismäär langeb alla %2$s.</string>
+    <string name="alarm_sentence_incomplete">Sisesta väärtus, siis on hoiatus siin lausena näha.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">Anna teada, kui %1$s muutub %3$d tunni jooksul %2$s.</item>
+        <item quantity="other">Anna teada, kui %1$s muutub %3$d tunni jooksul %2$s.</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">Anna teada, kui %1$s on kuni %2$s allpool taset „%3$s“.</string>
+    <string name="alarm_sentence_near_low">Anna teada, kui %1$s on kuni %2$s ülalpool taset „%3$s“.</string>
+    <string name="alarm_sentence_new_extreme">Anna teada, kui tekib uus %1$s %2$s.</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">Anna teada, kui %1$s avatud positsioonid vähenevad %3$d tunni jooksul %2$s.</item>
+        <item quantity="other">Anna teada, kui %1$s avatud positsioonid vähenevad %3$d tunni jooksul %2$s.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">Anna teada, kui %1$s avatud positsioonid suurenevad %3$d tunni jooksul %2$s.</item>
+        <item quantity="other">Anna teada, kui %1$s avatud positsioonid suurenevad %3$d tunni jooksul %2$s.</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">Anna teada, kui %1$s tõuseb %2$s ülespoole salvestamisaegset hinda (või viimase hoiatuse hinda).</string>
+    <string name="alarm_sentence_volume">Anna teada, kui %1$s kauplemismaht on %2$s× tavapärasest suurem.</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">30 päeva tipp</string>
+    <string name="alarm_near_extreme_high_365">aasta tipp</string>
+    <string name="alarm_near_extreme_high_90">90 päeva tipp</string>
+    <string name="alarm_near_extreme_low_30">30 päeva põhi</string>
+    <string name="alarm_near_extreme_low_365">aasta põhi</string>
+    <string name="alarm_near_extreme_low_90">90 päeva põhi</string>
+    <string name="alarm_near_field_distance">Kaugus</string>
+    <string name="alarm_near_hint">Teavitab ka uue tipu või põhja korral. Aluseks on päevaküünlad, mida värskendatakse iga 6 tunni järel.</string>
+    <string name="alarm_near_new_only">Ainult uued tipud või põhjad</string>
+    <string name="alarm_near_notification_high">%1$s on %2$s allpool taset „%3$s“ (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s on %2$s ülalpool taset „%3$s“ (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">Uus %1$s – %2$s: %3$s (varem %4$s)</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d päev</item>
+        <item quantity="other">%1$d päeva</item>
+    </plurals>
+    <string name="alarm_near_window_label">Periood</string>
+    <string name="alarm_near_window_year">1 aasta</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">Rahastamismäär 8 tunni kohta. Muu intervalliga lepingud teisendatakse (1 h × 8, 4 h × 2); futuuride kaardil on näha teisendatud väärtus. Kui intervall pole teada, hoiatus ei kontrolli. Negatiivne tähendab, et lühikesed positsioonid maksavad pikkadele. ± muudab märki.</string>
+    <string name="alarm_funding_sign_a11y">Muuda märki</string>
+    <string name="alarm_oi_hint">Võrdleb avatud positsioone väärtusega, mis salvestati nii mitu tundi tagasi. Uus hoiatus teatab alles siis, kui rakendus on nii kaua andmeid kogunud; kontrollitakse kõige rohkem iga 5 minuti järel.</string>
+    <string name="alarm_volume_factor_label">Viimase tunni maht võrreldes tavapärasega</string>
+    <string name="alarm_volume_hint">Mahuandmed pärinevad Binance’ist – seal puuduvad paarid ei käivitu kunagi.</string>
+    <string name="alarm_volume_zero_hours_hint">Tehinguteta tunde arvestatakse nullmahuna, seega võib vähe kaubeldavate paaride puhul tavaline tund tunduda ebatavaline.</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">Hoiatus aktiivne</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">Hoiatus salvestatud: %1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">Märguanded väljas</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">Ilma valikuta „%1$s“ kontrollib Android puhkeolekus seadet ebaregulaarselt – mõnikord alles tundide pärast. Sellega umbes iga 15 minuti järel.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Suletud rakendusega kontrollib iOS sageli harvemini kui iga 15 minuti järel, mõnikord alles järgmisel avamisel. Lühikesed hüpped võivad jääda märkamata.</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">Millal hoiatusi kontrollitakse</string>
+    <string name="alarm_timing_where">Hindade uuendamise sagedust saad muuta jaotises %1$s.</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">Vaikne (ainult märguanne)</string>
+    <string name="alarm_signal_sound">Ainult heli</string>
+    <string name="alarm_signal_sound_vibrate">Heli ja vibreerimine</string>
+    <string name="alarm_signal_system">Süsteem</string>
+    <string name="alarm_signal_vibrate">Ainult vibreerimine</string>
+    <string name="alarm_test">Testi hoiatust</string>
+    <string name="alarm_test_action">Testi</string>
+    <string name="alarm_test_denied">Crypto Checkeri märguanded on välja lülitatud.</string>
+    <string name="alarm_test_hint">Saadab näidishoiatuse sinu heli-, vibreerimis- ja kõneseadetega.</string>
+    <string name="alarm_test_open_settings">Ava seaded</string>
+    <string name="alarm_test_quiet">Praegu on vaikne aeg: päris hoiatused ootaksid selle lõpuni ja annaksid siis heliga märku.</string>
+    <string name="alarm_test_text">Nii hoiatus välja näeb ja kõlab.</string>
+    <string name="alarm_test_title">Test: Crypto Checkeri hoiatus</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">Heli sees</string>
+    <string name="alarm_a11y_speak_on">Kõne sees</string>
+    <string name="alarm_unchecked_no_candles">Ei saanud kontrollida (küünlaandmed puuduvad)</string>
+    <string name="alarm_unchecked_no_rate">Ei saanud kontrollida (vahetuskurss puudub)</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">Märguanded väljas – see hoiatus ei jõua sinuni</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">Hoiatust pole – madal likviidsus</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">Ootab praegust hinda</string>
+    <string name="alarm_enter_amount">Sisesta väärtus</string>
+    <string name="alarm_editor_more">Rohkem</string>
+    <string name="alarm_editor_more_summary">Kiirhoiatused, muud tingimused, heli ja kõne</string>
+    <string name="alarm_reliability_storage_no_key">Hoiatused taustal peatatud – jälgimisloend pole salvestatud</string>
+    <string name="alarms_limit_reached">Paaril saab olla kuni %1$s hoiatust.</string>
+    <string name="alarms_reference_rate_hint">EKP viitekursid määratakse ainult kord päevas – nende jaoks hoiatusi pole.</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">Langus peab olema alla 100 protsendi.</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">Lävi kehtetu – palun kohanda</string>
+
+    <string name="alarm_last_checked">Viimati kontrollitud %1$s</string>
+</resources>

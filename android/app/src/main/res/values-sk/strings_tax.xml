@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
+    <string name="portfolio_cutoff_export_action">Export k rozhodnému dňu…</string>
+    <string name="portfolio_tax_worksheet_action">Pracovný podklad…</string>
+    <string name="portfolio_export_address_unobserved">adresa v tento deň nebola sledovaná – nie je zahrnutá</string>
+    <string name="portfolio_export_button">Exportovať CSV</string>
+    <string name="portfolio_export_col_amount">Množstvo</string>
+    <string name="portfolio_export_col_coin">Coin</string>
+    <string name="portfolio_export_col_note">Poznámka</string>
+    <string name="portfolio_export_col_price">Kurz USDT</string>
+    <string name="portfolio_export_col_rate">Kurz USDT→%1$s</string>
+    <string name="portfolio_export_col_value">Hodnota USDT</string>
+    <string name="portfolio_export_col_value_cur">Hodnota %1$s</string>
+    <!-- Inhalt der CSV-Datei -->
+    <string name="portfolio_export_comment"># Rozhodný deň %1$s, mena %2$s, devízový kurz z %3$s</string>
+    <string name="portfolio_export_currency">Mena: %1$s</string>
+    <string name="portfolio_export_date">Rozhodný deň</string>
+    <string name="portfolio_export_done">Export uložený</string>
+    <string name="portfolio_export_estv_note">Pre daň z majetku platia oficiálne hodnoty ku koncu roka z kurzového listu ESTV %1$s, ak sú uvedené: %2$s</string>
+    <string name="portfolio_export_failed">Export zlyhal</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">Export zlyhal: súbor sa nepodarilo zapísať – umiestnenie už neexistuje alebo je len na čítanie</string>
+    <string name="portfolio_export_failed_prices">Export zlyhal: kurzy sa nepodarilo načítať – bez pripojenia alebo burza neodpovedá</string>
+    <string name="portfolio_export_from_address">z adresy – bez nákupnej ceny</string>
+    <string name="portfolio_export_hint">Držba na konci zvoleného dňa, ocenená denným záverečným kurzom (UTC) v USDT a prepočítaná referenčným kurzom ECB z toho dňa. Menu zmeníš cez „Prepočítať na“.</string>
+    <string name="portfolio_export_incomplete">neúplné</string>
+    <string name="portfolio_export_no_fx">chýba devízový kurz</string>
+    <string name="portfolio_export_no_price">chýba kurz</string>
+    <string name="portfolio_export_running">Načítavajú sa historické kurzy…</string>
+    <string name="portfolio_export_title">Export k rozhodnému dňu</string>
+    <string name="portfolio_export_today_hint">Dnešný deň ešte neskončil: namiesto denného záverečného kurzu sa použije aktuálny kurz.</string>
+    <string name="portfolio_export_total">Celkom</string>
+    <string name="portfolio_export_unchecked">neoverené (chýba zodpovedajúci kurz)</string>
+
+    <!-- Steuer-Export (Arbeitspapier) -->
+    <string name="tax_export_adjustment">fiktívna strata (superficial loss) – pripočítaná k ACB</string>
+    <string name="tax_export_at_wallet_note">Rakúsko: kĺzavý priemer podľa coinu a peňaženky (burzy) – presuny prenášajú obstarávaciu cenu – odmeny s obstarávacou cenou 0 – držba od 1. 3. 2021 bez poplatkov (nie sú odpočítateľné) – úroky z požičiavania v hodnote pri prijatí (príjem so sadzbou 27,5 percenta).</string>
+    <string name="tax_export_avg_cost_rates">náklady podľa kurzov v dňoch nákupu (priemer)</string>
+    <string name="tax_export_ch_wealth_not_calculated">Daň z majetku nie je vypočítaná – kurzový list ESTV: %1$s</string>
+    <string name="tax_export_col_acquired">Nadobudnuté</string>
+    <string name="tax_export_col_adjustment">Neodpočítateľná strata %1$s</string>
+    <string name="tax_export_col_cost">Obstarávacia cena %1$s</string>
+    <string name="tax_export_col_date">Dátum</string>
+    <string name="tax_export_col_days">Dni držby</string>
+    <string name="tax_export_col_gain">Zisk %1$s</string>
+    <string name="tax_export_col_gross">Cena pred poplatkami %1$s</string>
+    <string name="tax_export_col_long_term">držba &gt; 1 rok</string>
+    <string name="tax_export_col_portfolio_value">Hodnota portfólia %1$s</string>
+    <string name="tax_export_col_proceeds">Výnos %1$s</string>
+    <string name="tax_export_col_sold">Predané</string>
+    <string name="tax_export_cost_incomplete">súčet obstarávacích cien neúplný</string>
+    <string name="tax_export_cost_missing">chýba nákupná cena</string>
+    <string name="tax_export_fee_consumed">Poplatok spotrebuje celý príjem</string>
+    <string name="tax_export_fee_leg">poplatok v inom coine</string>
+    <string name="tax_export_fee_row">Poplatok</string>
+    <string name="tax_export_fee_value_missing">poplatok v inom coine nemá hodnotu</string>
+    <string name="tax_export_gains">Realizované scudzenia (CSV)</string>
+    <string name="tax_export_gains_title">Realizované scudzenia %1$s</string>
+    <string name="tax_export_gift">Dar</string>
+    <string name="tax_export_holdings_cutoff">Držba k %1$s (CSV)</string>
+    <string name="tax_export_holdings_title">Držba k %1$s</string>
+    <string name="tax_export_income">Príjmy (CSV)</string>
+    <string name="tax_export_income_title">Príjmy %1$s</string>
+    <string name="tax_export_info_template">Šablóna: %1$s · Metóda: %2$s · Zdaňovacie obdobie: %3$s · Mena: %4$s · Crypto Checker %5$s</string>
+    <string name="tax_export_lost_fee_cost">obstarávacia cena sieťového poplatku bez zaplatenej položky</string>
+    <string name="tax_export_match_pool">Spoločný fond podľa Section 104 (Section 104 pool)</string>
+    <string name="tax_export_match_same_day">ten istý deň (HMRC)</string>
+    <string name="tax_export_match_thirty_day">pravidlo 30 dní (HMRC)</string>
+    <string name="tax_export_method_change_warning">Zmena metódy alebo šablóny prepočíta aj predchádzajúce roky – porovnaj s už podaným priznaním.</string>
+    <string name="tax_export_method_overridden">Šablóna počíta %1$s – nie %2$s</string>
+    <string name="tax_export_new_holding">nadobudnuté od 1. 3. 2021</string>
+    <string name="tax_export_no">nie</string>
+    <string name="tax_export_old_holding">nadobudnuté pred 1. 3. 2021</string>
+    <string name="tax_export_oversold">predané viac, ako je zaznamenané</string>
+    <string name="tax_export_payment">Platba kryptom</string>
+    <string name="tax_export_period">%1$s – %2$s</string>
+    <string name="tax_export_proceeds_missing">chýba predajná cena</string>
+    <string name="tax_export_proceeds_without_cost">Výnos bez nákupnej ceny</string>
+    <string name="tax_export_realized_differs">Daňový CSV sa môže líšiť od „realizovaného“ (daňové pravidlá krajiny).</string>
+    <string name="tax_export_rule">&gt; 1 rok: predané po dátume nákupu + 1 kalendárny rok. Dátumy v miestnom čase. Kurzy: denný kurz ECB v deň transakcie; ak chýba, posledný kurz do 7 dní predtým.</string>
+    <string name="tax_export_rules_date">Stav pravidiel: %1$s</string>
+    <string name="tax_export_rules_stale">Pravidlá sú z %1$s – pre %2$s sa sadzby a nezdaniteľné sumy mohli zmeniť. Skontroluj hodnoty.</string>
+    <string name="tax_export_spouse_gift">manželovi/partnerovi – bez zisku, bez straty</string>
+    <string name="tax_export_summary">Ročný prehľad %1$s (CSV)</string>
+    <string name="tax_export_swap">výmena</string>
+    <string name="tax_export_tax_year">Zdaňovacie obdobie</string>
+    <string name="tax_export_transfer_fee_info">Poplatok za presun v USDT/hotovosti – nie je strata, nie je v obstarávacej cene, iba informácia</string>
+    <string name="tax_export_unassigned_fee">poplatok nepriradený – obstarávacia cena neznáma</string>
+    <string name="tax_export_usdt_usd_note">USDT prepočítané denným záverečným kurzom USDT/USD; bez záverečného kurzu 1 USD (označené pri každom riadku)</string>
+    <string name="tax_export_value_estimated">Hodnota odhadnutá (denný záverečný kurz)</string>
+    <string name="tax_export_value_missing">chýba hodnota pri prijatí</string>
+    <string name="tax_export_wallet">Peňaženka: %1$s</string>
+    <string name="tax_export_wallet_unspecified">neuvedené</string>
+    <string name="tax_export_withdrawal_fee">Poplatok za výber</string>
+    <string name="tax_export_withdrawal_fee_info">Poplatok za výber v USDT/hotovosti – nie je strata, iba informácia</string>
+    <string name="tax_export_workpaper_disclaimer">Daňový pracovný podklad – nie je to daňové priznanie ani daňové poradenstvo</string>
+    <string name="tax_export_workpaper_title">Pracovný podklad</string>
+    <string name="tax_export_year_local_zone">Dátumy v miestnom čase (%1$s)</string>
+    <string name="tax_export_yes">áno</string>
+
+    <!-- Steuer-Export: Zeilen und Spalten -->
+    <string name="tax_line_at_interest">Úroky z požičiavania (hodnota pri prijatí)</string>
+    <string name="tax_line_at_old_long">Nadobudnuté pred 1. 3. 2021 – držba &gt; 1 rok: zvyčajne nepodlieha dani – skontroluj</string>
+    <string name="tax_line_at_rate">Osobitná sadzba 27,5 percenta: netto nadobudnuté od 1. 3. 2021 a predané od 1. 3. 2022 + úroky</string>
+    <string name="tax_line_au_discounted">Čistý kapitálový zisk po stratách a 50-percentnej zľave</string>
+    <string name="tax_line_ca_taxable">Zdaniteľný kapitálový zisk (miera zahrnutia 1/2)</string>
+    <string name="tax_line_ch_income">Odmeny uvedené – spôsob zdanenia pozri v pracovnom dokumente ESTV</string>
+    <string name="tax_line_ch_private">Kapitálové zisky zo súkromného majetku: nevypočítané – zaradenie pozri ESTV</string>
+    <string name="tax_line_ch_wealth">Daň z majetku: nevypočítaná – CSV držby používa burzový kurz × USD/CHF k 31. 12. – oficiálne daňové hodnoty: kurzový list ESTV</string>
+    <string name="tax_line_de_long">Držba &gt; 1 rok: podľa § 23 EStG zvyčajne nepodlieha dani – skontroluj</string>
+    <string name="tax_line_denied_loss">Neodpočítateľné straty (fiktívna strata / superficial loss)</string>
+    <string name="tax_line_fr_outflow">Odtoky bez predaja (výbery) – súčet obstarávacích cien pomerne znížený</string>
+    <string name="tax_line_fr_rate">Paušálne 12,8 percenta plus sociálne odvody (alebo progresívna sadzba na voľbu)</string>
+    <string name="tax_line_fr_threshold">Scudzenia do 305 € ročne: spravidla oslobodené (súčet predajných cien) – skontroluj</string>
+    <string name="tax_line_gains">Zisky</string>
+    <string name="tax_line_income">Príjmy (odmeny v hodnote pri prijatí)</string>
+    <string name="tax_line_jp_misc">Ostatné príjmy (雑所得): čisté zisky + príjmy</string>
+    <string name="tax_line_long_net">Netto – držba &gt; 1 rok</string>
+    <string name="tax_line_losses">Straty</string>
+    <string name="tax_line_net">Čisté zisky/straty</string>
+    <string name="tax_line_new_net">Netto – nadobudnuté od 1. 3. 2021, predané od 1. 3. 2022</string>
+    <string name="tax_line_old_long_net">Netto – nadobudnuté pred 1. 3. 2021 – držba &gt; 1 rok</string>
+    <string name="tax_line_old_short_net">Netto – špekulatívne obchody (predchádzajúca úprava): nadobudnuté pred 1. 3. 2021 a držba ≤ 1 rok, alebo predané pred 1. 3. 2022</string>
+    <string name="tax_line_proceeds">Výnosy</string>
+    <string name="tax_line_short_net">Netto – držba ≤ 1 rok</string>
+    <string name="tax_line_transfer_fees">Poplatky za presuny (vlastné peňaženky)</string>
+    <string name="tax_line_uk_after_exempt">Čisté zisky nad oslobodenou sumou (iba krypto)</string>
+    <string name="tax_line_uk_exempt">Ročná oslobodená suma (Annual Exempt Amount) – platí pre všetky scudzenia spolu, tu započítaná v plnej výške</string>
+    <string name="tax_line_us_terms">Krátkodobé (≤ 1 rok): bežné sadzby – dlhodobé (&gt; 1 rok): sadzby pre kapitálové zisky</string>
+    <string name="tax_line_withdrawal_fees">Poplatky za výbery</string>
+
+    <!-- Steuer Deutschland -->
+    <string name="tax_de_below">pod hranicou</string>
+    <string name="tax_de_col_item">Položka</string>
+    <string name="tax_de_disclaimer">Iba na orientáciu – nie je to daňové priznanie ani daňové poradenstvo.</string>
+    <string name="tax_de_explain_below">Do %1$s: pod hranicou (na orientáciu).</string>
+    <string name="tax_de_explain_loss">Čistá strata: z týchto obchodov sa daň neplatí. Straty podľa § 23 EStG sa dajú započítať iba so ziskami zo súkromných obchodov so scudzením – v tom istom roku alebo prenosom do predchádzajúceho roka či do ďalších rokov (§ 23 ods. 3 a § 10d EStG). Uveď stratu v daňovom priznaní, aby sa určila.</string>
+    <string name="tax_de_explain_reached">Od %1$s sa počíta celá suma (hranica oslobodenia – nie nezdaniteľná suma).</string>
+    <string name="tax_de_explain_unknown">Nedá sa overiť: chýbajú devízové kurzy / nákupné ceny alebo doby držby.</string>
+    <string name="tax_de_income_limit">Hranica oslobodenia pre služby (§ 22 č. 3 EStG)</string>
+    <string name="tax_de_limit_scope">Hranice platia pre všetky súkromné obchody so scudzením či služby v roku spolu – aj mimo aplikácie.</string>
+    <string name="tax_de_loading">Počíta sa…</string>
+    <string name="tax_de_long_gains">Zisky – držba &gt; 1 rok</string>
+    <string name="tax_de_long_losses">Straty – držba &gt; 1 rok</string>
+    <string name="tax_de_loss">čistá strata – započítateľná iba so ziskami zo súkromných obchodov so scudzením (§ 23 EStG)</string>
+    <string name="tax_de_private_limit">Hranica oslobodenia pre súkromné obchody so scudzením (§ 23 EStG)</string>
+    <string name="tax_de_reached">hranica dosiahnutá – zvyčajne sa počíta celá suma – skontroluj</string>
+    <string name="tax_de_short_gains">Zisky – držba ≤ 1 rok</string>
+    <string name="tax_de_short_losses">Straty – držba ≤ 1 rok</string>
+    <string name="tax_de_unclassified">Doba držby neznáma</string>
+    <string name="tax_de_unknown">nedá sa overiť</string>
+
+    <!-- Steuer-Vorlagen je Land -->
+    <string name="tax_template_at">Rakúsko</string>
+    <string name="tax_template_au">Austrália</string>
+    <string name="tax_template_beta">Beta</string>
+    <string name="tax_template_beta_note">Beta: pravidlá krajiny zjednodušené, skontroluj pred podaním daňového priznania</string>
+    <string name="tax_template_ca">Kanada</string>
+    <string name="tax_template_ch">Švajčiarsko</string>
+    <string name="tax_template_confirm_text">Beta, zjednodušené pravidlá, transakcie z iných platforiem chýbajú – skontroluj pred podaním daňového priznania.</string>
+    <string name="tax_template_confirm_title">Daňová šablóna (beta)</string>
+    <string name="tax_template_current">Šablóna: %1$s · Metóda: %2$s · Mena: %3$s</string>
+    <string name="tax_template_de">Nemecko</string>
+    <string name="tax_template_fr">Francúzsko</string>
+    <string name="tax_template_hint">Iba na orientáciu: určuje metódu, zdaňovacie obdobie a prehľad daňového pracovného podkladu. Karta portfólia zostáva neutrálna – dary a poplatky za presuny sa môžu od pracovného podkladu líšiť.</string>
+    <string name="tax_template_jp">Japonsko</string>
+    <string name="tax_template_neutral">Neutrálne (všetky krajiny)</string>
+    <string name="tax_template_suggestion">Návrh pre tvoj región: %1$s</string>
+    <string name="tax_template_title">Daňová šablóna</string>
+    <string name="tax_template_uk">Spojené kráľovstvo</string>
+    <string name="tax_template_us">USA</string>
+    <string name="tax_template_use">Použiť %1$s</string>
+
+    <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
+    <string name="tax_method_at">Stará/nová držba – kĺzavý priemer</string>
+    <string name="tax_method_ca_acb">Priemerné náklady ACB (superficial loss)</string>
+    <string name="tax_method_fr_pta">Celková obstarávacia cena (art. 150 VH bis)</string>
+    <string name="tax_method_jp_total">Celkový priemer (総平均法)</string>
+    <string name="tax_method_uk_pool">Section 104 pool (ten istý deň / 30 dní)</string>
+    <string name="tax_note_at">Kĺzavý priemer podľa coinu a peňaženky – nie naprieč všetkými peňaženkami (KryptowährungsVO § 2). Odmeny vstupujú do novej držby s obstarávacou cenou 0 (BMF: staking / airdropy) – súbor príjmov ich uvádza v hodnote pri prijatí. Poplatky pri držbe nadobudnutej od 1. 3. 2021 nie sú odpočítateľné (§ 27a ods. 4 č. 2, § 20 ods. 2 EStG): obstarávacia cena a výnos bez poplatkov. Úroky z požičiavania (typ z importu CSV alebo poznámky) sú pri prijatí príjmom so sadzbou 27,5 percenta a túto hodnotu si ponechávajú ako obstarávaciu cenu.</string>
+    <string name="tax_note_at_staking">Staking s coinmi, ktoré už držíš, a airdropy: hodnota pri prijatí nie je daňovo dôležitá – zo zákona je obstarávacia cena 0 (§ 27b ods. 2 EStG; BMF „Kryptowährungen“). Daň vzniká až pri predaji.</string>
+    <string name="tax_note_fr">Predaje a poplatky zaplatené v krypte sú scudzenia – výmeny sú odložené. Krypto poplatok pri predaji sa počíta do ceny pred poplatkami – inak je samostatným scudzením v jeho hodnote. Hodnota portfólia z denných záverečných kurzov – bez záverečného kurzu zostane obstarávacia cena prázdna.</string>
+    <string name="tax_note_network_fee">Sieťový poplatok zaplatený v krypte (presun do vlastnej peňaženky, výber) je scudzením coinov poplatku za trhovú hodnotu – zisk alebo strata iba na týchto coinoch, nie strata celého poplatku (%1$s). Bez zaznamenanej ceny: denný záverečný kurz (UTC) toho istého dňa; bez záverečného kurzu zostane výnos prázdny.</string>
+    <string name="tax_note_specific_id">Konkrétna identifikácia (specific identification) nie je podporovaná – používa sa FIFO.</string>
+    <string name="tax_note_spouse_gift">Dar označený „Manželskému / životnému partnerovi“ je bez zisku a bez straty: výnos = tvoja obstarávacia cena, ktorú partner preberá (%1$s).</string>
+    <string name="tax_note_stable_swap">Predaj krypta za stablecoin (USDT/USDC/DAI …), ktorý si ponecháš, je tu krypto za krypto a nezdaňuje sa – zaznamenaj ho ako výmenu na stablecoin. Zdaňuje sa až predaj za eurá – „Predaj“ sa počíta ako predaj za eurá.</string>
+    <string name="tax_note_transfer_fee">To isté platí pre poplatok v USDT alebo hotovosti pri presune medzi vlastnými peňaženkami: nepripočítava sa k obstarávacej cene a uvádza sa iba ako informácia.</string>
+    <string name="tax_note_uk">Párovanie podľa HMRC: ten istý deň → nasledujúcich 30 dní → Section 104 pool.</string>
+    <string name="tax_note_us_transition">Prechod 1. 1. 2025 (Rev. Proc. 2024-28 safe harbor): ak sa v predchádzajúcich rokoch používalo FIFO naprieč všetkými peňaženkami, zostávajúce položky k 31. 12. 2024 pripadnú peňaženkám, v ktorých sú coiny – peňaženka s najstaršími coinmi dostane najstaršiu obstarávaciu cenu. Toto rozdelenie je pravidlo aplikácie – porovnaj ho s vlastnými záznamami.</string>
+    <string name="tax_note_us_wallet">Od zdaňovacieho obdobia 2025 IRS vyžaduje obstarávaciu cenu podľa peňaženky alebo burzy (Rev. Proc. 2024-28): export od roku 2025 používa FIFO podľa peňaženky – pre skoršie roky FIFO naprieč všetkými peňaženkami, alebo FIFO podľa peňaženky, ak je to tvoja metóda obstarávacej ceny.</string>
+    <string name="tax_note_withdrawal_fee">Poplatok za výber v USDT alebo hotovosti nie je strata: poplatok v hotovosti nie je odpočítateľný náklad, poplatok v USDT je scudzenie v nominálnej hodnote bez zisku – uvádza sa iba ako informácia (%1$s).</string>
+    <string name="tax_summary_at_interest_income">počíta sa: príjem pri prijatí s osobitnou sadzbou 27,5 percenta (§ 27b ods. 2 č. 1 EStG / BMF) – coiny si túto hodnotu ponechajú ako obstarávaciu cenu</string>
+    <string name="tax_summary_at_reward_info">iba na informáciu – nie je v žiadnom súčte: odmeny vstupujú do novej držby s obstarávacou cenou 0 a zdaňujú sa až pri predaji (už v ziskoch) – § 27b ods. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">1. 1.–28. 2. 2022: možná voľba 27,5 percenta</string>
+    <string name="tax_summary_at_withdrawal_fee">Poplatok za výber – nezapočítaný s novou držbou (výdavky pri osobitnej sadzbe nie sú odpočítateľné, § 20 ods. 2 EStG)</string>
+    <string name="tax_summary_ch_fifo_info">iba na informáciu – výpočet FIFO aplikácie – nezaradené – pozri ESTV</string>
+    <string name="tax_summary_ch_year_end_value">hodnota k 31. 12. v CSV držby = burzový kurz × USD/CHF – nie daňové hodnoty ESTV</string>
+    <string name="tax_summary_de_withdrawal_fee">Poplatok za výber – nezapočítaný podľa § 23, prípadne over ako výdavok na dosiahnutie príjmu</string>
+    <string name="tax_summary_not_calculated_estv">nevypočítané – kurzový list ESTV: %1$s</string>
+    <string name="tax_summary_orientation">Orientácia</string>
+    <string name="tax_summary_orientation_block">Iba na orientáciu – nie je to daňové poradenstvo – nie je to vyrubenie</string>
+    <string name="tax_summary_orientation_item">Orientácia: %1$s</string>
+    <string name="tax_summary_title">Ročný prehľad %1$s %2$s</string>
+    <string name="tax_summary_transfer_fee_info">Poplatky za presuny v USDT/hotovosti – nie sú stratou ani v obstarávacej cene, iba informácia</string>
+    <string name="tax_summary_withdrawal_fee_info">Poplatky za výbery v USDT/hotovosti – nepočítajú sa ako strata, iba informácia</string>
+
+    <string name="tax_line_at_old_speculation_limit">Špekulatívne obchody (predchádzajúca úprava, držba ≤ 1 rok): hranica oslobodenia (§ 31 ods. 3 EStG v starom znení)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">Úroky z požičiavania pred 1. 3. 2022 (hodnota pri prijatí)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">Úroky pred 1. 3. 2022: predchádzajúca úprava (sadzba dane z príjmu), nie 27,5 percenta</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">pred 1. 3. 2022 – over s odborníkom</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">Úrok – zdaniteľný pri prijatí</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">Staking – iba na informáciu (obstarávacia cena 0, zdanené pri predaji)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">Úroky spolu (zdaniteľné)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">Staking spolu (informácia)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">Čistá kapitálová strata (prenos)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">bez voľby: vrátane predajov od 1. 1. do 28. 2. 2022</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">Staking pred 1. 3. 2022: obstarávacia cena stanovená na 0 – over s odborníkom</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">Pravidlo 30 dní môže tieto čísla ešte zmeniť (nákupy do %1$s)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Výnosy pred poplatkami nad hranicou hlásenia (£50,000; 2020/21–2022/23: £49,200): nahlás HMRC pri registrácii na Self Assessment, aj bez zdaniteľného zisku</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">Hodnota majetku 31. 12. %1$s (orientácia)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">Rozhodujúci je kurzový list ESTV (ictax.admin.ch). Pre coiny bez záznamu v zozname spravidla platí záverečný kurz burzy. Daň z majetku nie je vypočítaná.</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – držba %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">nevypočítané</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">Sledované adresy sa nepodarilo prečítať – ich zostatky v tomto súbore chýbajú</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">Položky sledovaných adries sa počítajú od dátumu nákupu; ak je dnešný zostatok adresy nižší, znížia sa.</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">Sledované adresy sa počítajú do celkovej hodnoty, ale nemajú obstarávaciu cenu – zisk je preto skôr príliš vysoký. Zaznamenaj obstarávaciu cenu ako nákup.</string>
+    <string name="tax_summary_fr_rewards_income">Suma predpokladá, že odmeny boli pri prijatí zdanené ako príjem (hodnota pri prijatí v obstarávacej cene) – inak by obstarávacia cena 0 bola opatrnejším výkladom.</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">Trhové hodnoty bez zaznamenanej ceny (poplatky, dary/platby, výmeny, odmeny, sieťové poplatky, hodnota portfólia) podľa denného záverečného kurzu (UTC) v deň transakcie</string>
+</resources>

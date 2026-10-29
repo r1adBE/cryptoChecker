@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
+    <string name="portfolio_cutoff_export_action">Белгіленген күнге экспорт…</string>
+    <string name="portfolio_tax_worksheet_action">Жұмыс парағы…</string>
+    <string name="portfolio_export_address_unobserved">мекенжай бұл күні бақыланбаған – қосылмаған</string>
+    <string name="portfolio_export_button">CSV экспорттау</string>
+    <string name="portfolio_export_col_amount">Сома</string>
+    <string name="portfolio_export_col_coin">Монета</string>
+    <string name="portfolio_export_col_note">Ескертпе</string>
+    <string name="portfolio_export_col_price">Баға USDT</string>
+    <string name="portfolio_export_col_rate">Бағам USDT→%1$s</string>
+    <string name="portfolio_export_col_value">Құны USDT</string>
+    <string name="portfolio_export_col_value_cur">Құны %1$s</string>
+    <!-- Inhalt der CSV-Datei -->
+    <string name="portfolio_export_comment"># Белгіленген күн %1$s, валюта %2$s, %3$s айырбас бағамы</string>
+    <string name="portfolio_export_currency">Валюта: %1$s</string>
+    <string name="portfolio_export_date">Белгіленген күн</string>
+    <string name="portfolio_export_done">Экспорт сақталды</string>
+    <string name="portfolio_export_estv_note">Мүлік салығы үшін ESTV баға тізімінде %1$s бар болса, жыл соңындағы ресми мәндері қолданылады: %2$s</string>
+    <string name="portfolio_export_failed">Экспорт сәтсіз</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">Экспорт сәтсіз: файлды жазу мүмкін болмады – сақтау орны жоқ немесе жазуға болмайды</string>
+    <string name="portfolio_export_failed_prices">Экспорт сәтсіз: бағаларды жүктеу мүмкін болмады – байланыс жоқ немесе биржа жауап бермейді</string>
+    <string name="portfolio_export_from_address">мекенжайдан – сатып алу бағасы жоқ</string>
+    <string name="portfolio_export_hint">Таңдалған күннің соңындағы активтер, USDT-дағы күндік жабылу (UTC) бағасымен бағаланып, сол күнгі ЕОБ анықтамалық бағамымен айырбасталған. Валютаны «Айырбастау валютасы» арқылы өзгертіңіз.</string>
+    <string name="portfolio_export_incomplete">толық емес</string>
+    <string name="portfolio_export_no_fx">айырбас бағамы жоқ</string>
+    <string name="portfolio_export_no_price">баға жоқ</string>
+    <string name="portfolio_export_running">Тарихи бағалар алынуда…</string>
+    <string name="portfolio_export_title">Белгіленген күнге экспорт</string>
+    <string name="portfolio_export_today_hint">Бүгін әлі аяқталған жоқ: күндік жабылудың орнына ағымдағы бағам қолданылады.</string>
+    <string name="portfolio_export_total">Барлығы</string>
+    <string name="portfolio_export_unchecked">тексерілмеген (сәйкес баға жоқ)</string>
+
+    <!-- Steuer-Export (Arbeitspapier) -->
+    <string name="tax_export_adjustment">superficial loss (ACB-ге қосылды)</string>
+    <string name="tax_export_at_wallet_note">Австрия: әр монета мен әмиян (биржа) бойынша жылжымалы орташа – аударымдар құнды бірге алып жүреді – сыйақылар 0 сатып алу құнымен – 2021 жылғы 1 наурыздан бергі активтер комиссиясыз (шегерілмейді) – несие пайызы алған кездегі құнмен (27.5 пайыз табыс).</string>
+    <string name="tax_export_avg_cost_rates">сатып алу күнгі бағамдармен құн (орташа)</string>
+    <string name="tax_export_ch_wealth_not_calculated">Мүлік салығы есептелмеген – ESTV баға тізімі: %1$s</string>
+    <string name="tax_export_col_acquired">Сатып алынды</string>
+    <string name="tax_export_col_adjustment">Есептелмейтін шығын %1$s</string>
+    <string name="tax_export_col_cost">Құны %1$s</string>
+    <string name="tax_export_col_date">Күні</string>
+    <string name="tax_export_col_days">Ұстау күндері</string>
+    <string name="tax_export_col_gain">Пайда %1$s</string>
+    <string name="tax_export_col_gross">Комиссияға дейінгі баға %1$s</string>
+    <string name="tax_export_col_long_term">&gt; 1 жыл ұсталған</string>
+    <string name="tax_export_col_portfolio_value">Портфель құны %1$s</string>
+    <string name="tax_export_col_proceeds">Түсім %1$s</string>
+    <string name="tax_export_col_sold">Сатылды</string>
+    <string name="tax_export_cost_incomplete">жалпы сатып алу құны толық емес</string>
+    <string name="tax_export_cost_missing">сатып алу бағасы жоқ</string>
+    <string name="tax_export_fee_consumed">Комиссия бүкіл түсімді жұтады</string>
+    <string name="tax_export_fee_leg">басқа монетамен комиссия</string>
+    <string name="tax_export_fee_row">Комиссия</string>
+    <string name="tax_export_fee_value_missing">басқа монетадағы комиссияның құны жоқ</string>
+    <string name="tax_export_gains">Іске асқан иеліктен шығарулар (CSV)</string>
+    <string name="tax_export_gains_title">Іске асқан иеліктен шығарулар %1$s</string>
+    <string name="tax_export_gift">Сыйлық</string>
+    <string name="tax_export_holdings_cutoff">%1$s күнгі активтер (CSV)</string>
+    <string name="tax_export_holdings_title">%1$s күнгі активтер</string>
+    <string name="tax_export_income">Табыс (CSV)</string>
+    <string name="tax_export_income_title">Табыс %1$s</string>
+    <string name="tax_export_info_template">Үлгі: %1$s · Әдіс: %2$s · Салық жылы: %3$s · Валюта: %4$s · Crypto Checker %5$s</string>
+    <string name="tax_export_lost_fee_cost">төленген лотсыз желі комиссиясының құны</string>
+    <string name="tax_export_match_pool">Section 104 pool</string>
+    <string name="tax_export_match_same_day">сол күні (HMRC)</string>
+    <string name="tax_export_match_thirty_day">30 күн ережесі (HMRC)</string>
+    <string name="tax_export_method_change_warning">Әдісті немесе үлгіні өзгерту бұрынғы жылдарды да қайта есептейді – бұрын тапсырғаныңызбен салыстырыңыз.</string>
+    <string name="tax_export_method_overridden">Үлгі %1$s бойынша есептейді – %2$s емес</string>
+    <string name="tax_export_new_holding">2021 жылғы 1 наурыздан бастап сатып алынған</string>
+    <string name="tax_export_no">жоқ</string>
+    <string name="tax_export_old_holding">2021 жылғы 1 наурызға дейін сатып алынған</string>
+    <string name="tax_export_oversold">жазылғаннан көп сатылған</string>
+    <string name="tax_export_payment">Криптомен төлем</string>
+    <string name="tax_export_period">%1$s – %2$s</string>
+    <string name="tax_export_proceeds_missing">сату бағасы жоқ</string>
+    <string name="tax_export_proceeds_without_cost">Сатып алу бағасы жоқ түсім</string>
+    <string name="tax_export_realized_differs">Салық CSV-і «іске асқан» мәннен өзгеше болуы мүмкін (елдің салық ережелері).</string>
+    <string name="tax_export_rule">&gt; 1 жыл: сатып алу күні + 1 күнтізбелік жылдан кейін сатылған. Күндер жергілікті уақытпен. Бағамдар: транзакция күнгі ЕОБ күндік бағамы; ол болмаса, 7 күн бұрынғыға дейінгі соңғы бағам.</string>
+    <string name="tax_export_rules_date">Ережелер күні: %1$s</string>
+    <string name="tax_export_rules_stale">Ережелер %1$s күнгі – %2$s үшін мөлшерлемелер мен жеңілдіктер өзгерген болуы мүмкін. Мәндерді тексеріңіз.</string>
+    <string name="tax_export_spouse_gift">жұбайға/серіктеске – пайда да, шығын да жоқ</string>
+    <string name="tax_export_summary">%1$s жылдық қорытынды (CSV)</string>
+    <string name="tax_export_swap">айырбас</string>
+    <string name="tax_export_tax_year">Салық жылы</string>
+    <string name="tax_export_transfer_fee_info">USDT/қолма-қол аударым комиссиясы – шығын емес, құн негізіне кірмейді, тек ақпарат үшін</string>
+    <string name="tax_export_unassigned_fee">комиссия тағайындалмаған – құн негізі белгісіз</string>
+    <string name="tax_export_usdt_usd_note">USDT USDT/USD күндік жабылуымен айырбасталды; жабылу болмаса 1 USD (әр жолда белгіленген)</string>
+    <string name="tax_export_value_estimated">Құн бағаланған (күндік жабылу)</string>
+    <string name="tax_export_value_missing">алған кездегі құн жоқ</string>
+    <string name="tax_export_wallet">Әмиян: %1$s</string>
+    <string name="tax_export_wallet_unspecified">көрсетілмеген</string>
+    <string name="tax_export_withdrawal_fee">Шығару комиссиясы</string>
+    <string name="tax_export_withdrawal_fee_info">USDT/қолма-қол шығару комиссиясы – шығын емес, тек ақпарат үшін</string>
+    <string name="tax_export_workpaper_disclaimer">Салық жұмыс парағы – салық декларациясы емес және салық кеңесі емес</string>
+    <string name="tax_export_workpaper_title">Жұмыс парағы</string>
+    <string name="tax_export_year_local_zone">Күндер жергілікті уақытпен (%1$s)</string>
+    <string name="tax_export_yes">иә</string>
+
+    <!-- Steuer-Export: Zeilen und Spalten -->
+    <string name="tax_line_at_interest">Несие пайызы (алған кездегі құн)</string>
+    <string name="tax_line_at_old_long">2021 жылғы 1 наурызға дейін сатып алынған – &gt; 1 жыл ұсталған: әдетте салық салынбайды – тексеріңіз</string>
+    <string name="tax_line_at_rate">Арнайы мөлшерлеме 27.5 пайыз: 2021 жылғы 1 наурыздан бастап сатып алынған және 2022 жылғы 1 наурыздан бастап сатылғандардың таза сомасы + пайыз</string>
+    <string name="tax_line_au_discounted">Шығындар мен 50 пайыз жеңілдіктен кейінгі таза капитал пайдасы</string>
+    <string name="tax_line_ca_taxable">Салық салынатын капитал пайдасы (қосу мөлшерлемесі 1/2)</string>
+    <string name="tax_line_ch_income">Сыйақылар тізімделген – оларды қарастыру үшін ESTV жұмыс құжатын қараңыз</string>
+    <string name="tax_line_ch_private">Жеке мүліктен капитал пайдасы: есептелмеген – жіктеу үшін ESTV-ні қараңыз</string>
+    <string name="tax_line_ch_wealth">Мүлік салығы: есептелмеген – активтер CSV-і 31 желтоқсандағы биржа бағасы × USD/CHF қолданады – ресми салық мәндері: ESTV баға тізімі</string>
+    <string name="tax_line_de_long">&gt; 1 жыл ұсталған: § 23 EStG бойынша әдетте салық салынбайды – тексеріңіз</string>
+    <string name="tax_line_denied_loss">Есептелмейтін шығындар (superficial loss)</string>
+    <string name="tax_line_fr_outflow">Сатусыз шығыстар (шығарулар) – жалпы сатып алу құны пропорционалды азайтылды</string>
+    <string name="tax_line_fr_rate">Біркелкі мөлшерлеме 12.8 пайыз және әлеуметтік жарналар (немесе таңдау бойынша шкала)</string>
+    <string name="tax_line_fr_threshold">Жылына €305-ке дейінгі иеліктен шығарулар: әдетте босатылған (сату бағаларының жиыны) – тексеріңіз</string>
+    <string name="tax_line_gains">Пайда</string>
+    <string name="tax_line_income">Табыс (сыйақылар алған кездегі құнмен)</string>
+    <string name="tax_line_jp_misc">Әртүрлі табыс (雑所得): таза пайда + табыс</string>
+    <string name="tax_line_long_net">Таза – &gt; 1 жыл ұсталған</string>
+    <string name="tax_line_losses">Шығындар</string>
+    <string name="tax_line_net">Таза пайда/шығын</string>
+    <string name="tax_line_new_net">Таза – 2021 жылғы 1 наурыздан бастап сатып алынған, 2022 жылғы 1 наурыздан бастап сатылған</string>
+    <string name="tax_line_old_long_net">Таза – 2021 жылғы 1 наурызға дейін сатып алынған – &gt; 1 жыл ұсталған</string>
+    <string name="tax_line_old_short_net">Таза – алыпсатарлық операциялар (бұрынғы заң): 2021 жылғы 1 наурызға дейін сатып алынып, ≤ 1 жыл ұсталған немесе 2022 жылғы 1 наурызға дейін сатылған</string>
+    <string name="tax_line_proceeds">Түсім</string>
+    <string name="tax_line_short_net">Таза – ≤ 1 жыл ұсталған</string>
+    <string name="tax_line_transfer_fees">Аударым комиссиялары (өз әмияндарыңыз)</string>
+    <string name="tax_line_uk_after_exempt">Салықтан босатылған сомадан асатын таза пайда (тек крипто)</string>
+    <string name="tax_line_uk_exempt">Жылдық салықтан босатылған сома – барлық иеліктен шығаруға бірге қолданылады, мұнда толық қолданылған</string>
+    <string name="tax_line_us_terms">Қысқа мерзімді (≤ 1 жыл): қарапайым мөлшерлемелер – ұзақ мерзімді (&gt; 1 жыл): капитал пайдасы мөлшерлемелері</string>
+    <string name="tax_line_withdrawal_fees">Шығару комиссиялары</string>
+
+    <!-- Steuer Deutschland -->
+    <string name="tax_de_below">шектен төмен</string>
+    <string name="tax_de_col_item">Бап</string>
+    <string name="tax_de_disclaimer">Тек бағдар үшін – салық декларациясы емес және салық кеңесі емес.</string>
+    <string name="tax_de_explain_below">%1$s дейін: шектен төмен (бағдар үшін).</string>
+    <string name="tax_de_explain_loss">Таза шығын: бұл сатуларға салық жоқ. § 23 EStG бойынша шығындар тек жеке сатулардан түскен пайданы өтейді – сол жылы немесе алдыңғы жылға кері аудару мен кейінгі жылдарға көшіру арқылы (§ 23 para. 3 және § 10d EStG). Шығын бағалануы үшін оны салық декларацияңызда көрсетіңіз.</string>
+    <string name="tax_de_explain_reached">%1$s бастап бүкіл сома есептеледі (босату шегі – жеңілдік емес).</string>
+    <string name="tax_de_explain_unknown">Тексеру мүмкін емес: айырбас бағамдары / сатып алу бағалары немесе ұстау мерзімдері жоқ.</string>
+    <string name="tax_de_income_limit">Қызметтер үшін босату шегі (§ 22 No. 3 EStG)</string>
+    <string name="tax_de_limit_scope">Шектер жылдың барлық жеке сатулары немесе қызметтеріне бірге қолданылады – қолданбадан тыс жасалғандарын қоса.</string>
+    <string name="tax_de_loading">Есептелуде…</string>
+    <string name="tax_de_long_gains">Пайда – &gt; 1 жыл ұсталған</string>
+    <string name="tax_de_long_losses">Шығындар – &gt; 1 жыл ұсталған</string>
+    <string name="tax_de_loss">таза шығын – тек жеке сатулардан түскен пайдамен өтеледі (§ 23 EStG)</string>
+    <string name="tax_de_private_limit">Жеке сатулар үшін босату шегі (§ 23 EStG)</string>
+    <string name="tax_de_reached">шекке жетті – әдетте бүкіл сома есептеледі – тексеріңіз</string>
+    <string name="tax_de_short_gains">Пайда – ≤ 1 жыл ұсталған</string>
+    <string name="tax_de_short_losses">Шығындар – ≤ 1 жыл ұсталған</string>
+    <string name="tax_de_unclassified">Ұстау мерзімі белгісіз</string>
+    <string name="tax_de_unknown">тексеру мүмкін емес</string>
+
+    <!-- Steuer-Vorlagen je Land -->
+    <string name="tax_template_at">Австрия</string>
+    <string name="tax_template_au">Австралия</string>
+    <string name="tax_template_beta">Бета</string>
+    <string name="tax_template_beta_note">Бета: ел ережелері жеңілдетілген, салық декларациясын тапсырмас бұрын тексеріңіз</string>
+    <string name="tax_template_ca">Канада</string>
+    <string name="tax_template_ch">Швейцария</string>
+    <string name="tax_template_confirm_text">Бета, жеңілдетілген ережелер, басқа платформалардағы транзакциялар жоқ – салық декларациясын тапсырмас бұрын тексеріңіз.</string>
+    <string name="tax_template_confirm_title">Салық үлгісі (бета)</string>
+    <string name="tax_template_current">Үлгі: %1$s · Әдіс: %2$s · Валюта: %3$s</string>
+    <string name="tax_template_de">Германия</string>
+    <string name="tax_template_fr">Франция</string>
+    <string name="tax_template_hint">Тек бағдар үшін: салық жұмыс парағының әдісін, салық жылын және қорытындысын белгілейді. Портфель картасы бейтарап қалады – сыйлықтар мен аударым комиссиялары жұмыс парағынан өзгеше болуы мүмкін.</string>
+    <string name="tax_template_jp">Жапония</string>
+    <string name="tax_template_neutral">Бейтарап (барлық елдер)</string>
+    <string name="tax_template_suggestion">Сіздің аймағыңызға ұсыныс: %1$s</string>
+    <string name="tax_template_title">Салық үлгісі</string>
+    <string name="tax_template_uk">Ұлыбритания</string>
+    <string name="tax_template_us">АҚШ</string>
+    <string name="tax_template_use">%1$s пайдалану</string>
+
+    <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
+    <string name="tax_method_at">Ескі/жаңа активтер – жылжымалы орташа</string>
+    <string name="tax_method_ca_acb">ACB орташа құны (superficial loss)</string>
+    <string name="tax_method_fr_pta">Жалпы сатып алу бағасы (art. 150 VH bis)</string>
+    <string name="tax_method_jp_total">Жалпы орташа (総平均法)</string>
+    <string name="tax_method_uk_pool">Section 104 pool (сол күні / 30 күн)</string>
+    <string name="tax_note_at">Әр монета мен әмиян бойынша жылжымалы орташа – әмияндар арасында емес (KryptowährungsVO § 2). Сыйақылар жаңа активтерге 0 сатып алу құнымен кіреді (BMF: стейкинг / airdrop) – табыс файлы оларды алған кездегі құнмен тізімдейді. 2021 жылғы 1 наурыздан бастап сатып алынған активтер үшін комиссиялар шегерілмейді (§ 27a(4) no. 2, § 20(2) EStG): құн мен түсім комиссиясыз. Несие пайызы (CSV импортындағы түрі немесе ескертпе) алған кезде 27.5 пайызбен табыс болып есептеледі және сол құнды сатып алу құны ретінде сақтайды.</string>
+    <string name="tax_note_at_staking">Бар монеталармен стейкинг және airdrop: алған кездегі құн салық үшін маңызды емес – заң бойынша сатып алу құны 0 (§ 27b Abs. 2 EStG; BMF «Kryptowährungen»). Салық тек сатқанда салынады.</string>
+    <string name="tax_note_fr">Криптомен төленген сатулар мен комиссиялар – иеліктен шығару; айырбастар кейінге қалдырылады. Сатудағы крипто комиссиясы комиссияға дейінгі бағаға кіреді – әйтпесе ол өз құнымен жеке иеліктен шығару болады. Портфель құны күндік жабылулардан – жабылу жоқ болса, құн бос қалады.</string>
+    <string name="tax_note_network_fee">Криптомен төленген желі комиссиясы (өз әмияныңызға аударым, шығару) – комиссия монеталарының нарықтық құнмен иеліктен шығарылуы – пайда немесе шығын тек сол монеталарға, бүкіл комиссияның шығыны емес (%1$s). Жазылған баға болмаса: сол күннің күндік жабылуы (UTC); жабылу болмаса, түсім бос қалады.</string>
+    <string name="tax_note_specific_id">Нақты сәйкестендіруге қолдау көрсетілмейді – FIFO қолданылады.</string>
+    <string name="tax_note_spouse_gift">«Жұбайға / азаматтық серіктеске» деп белгіленген сыйлық – пайда да, шығын да емес: түсім = сіздің құн негізіңіз, оны серіктесіңіз қабылдайды (%1$s).</string>
+    <string name="tax_note_stable_swap">Криптоны өзіңіз сақтайтын стейблкоинге (USDT/USDC/DAI …) сату мұнда криптодан криптоға саналады және салық салынбайды – оны стейблкоинге айырбас ретінде жазыңыз. Тек еуроға сатуға салық салынады – «Сату» еуроға сату болып есептеледі.</string>
+    <string name="tax_note_transfer_fee">Өз әмияндарыңыз арасындағы аударымдағы USDT немесе қолма-қол комиссияға да осы қолданылады: ол құн негізіне қосылмайды және тек ақпарат ретінде тізімделеді.</string>
+    <string name="tax_note_uk">HMRC бойынша сәйкестендіру: сол күні → келесі 30 күн → Section 104 pool.</string>
+    <string name="tax_note_us_transition">2025 жылғы 1 қаңтардағы өтпелі кезең (Rev. Proc. 2024-28 safe harbor): бұрынғы жылдары барлық әмиян бойынша FIFO қолданылса, 2024 жылғы 31 желтоқсандағы қалған лоттар монеталарды ұстайтын әмияндарға беріледі – ең ескі монеталары бар әмиян ең ескі құн негізін алады. Бұл бөлу – қолданба ережесі, оны өз жазбаларыңызбен тексеріңіз.</string>
+    <string name="tax_note_us_wallet">2025 салық жылынан бастап IRS әр әмиян немесе биржа бойынша құн негізін талап етеді (Rev. Proc. 2024-28): экспорт 2025 жылдан бастап әр әмиян бойынша FIFO қолданады – бұрынғы жылдар үшін барлық әмиян бойынша FIFO немесе құн әдісіңіз сол болса, әр әмиян бойынша FIFO.</string>
+    <string name="tax_note_withdrawal_fee">USDT немесе қолма-қол шығару комиссиясы шығын емес: қолма-қол комиссия шегерілетін шығын емес, USDT комиссиясы – пайдасыз номиналмен иеліктен шығару – тек ақпарат ретінде тізімделеді (%1$s).</string>
+    <string name="tax_summary_at_interest_income">есептеледі: алған кездегі табыс, 27.5 пайыз арнайы мөлшерлемемен (§ 27b(2) no. 1 EStG / BMF) – монеталар осы құнды сатып алу құны ретінде сақтайды</string>
+    <string name="tax_summary_at_reward_info">тек ақпарат үшін – ешбір жиынға кірмейді: сыйақылар жаңа активтерге 0 сатып алу құнымен кіреді және тек сатқанда салық салынады (пайдаға кірген) – § 27b para. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">2022 жылғы 1 қаңтар–28 ақпан: 27.5 пайызды таңдау мүмкін</string>
+    <string name="tax_summary_at_withdrawal_fee">Шығару комиссиясы – жаңа активтерге қарсы өтелмейді (арнайы мөлшерлемеде шығыстар шегерілмейді, § 20(2) EStG)</string>
+    <string name="tax_summary_ch_fifo_info">тек ақпарат үшін – қолданбаның FIFO есебі – жіктелмеген – ESTV-ні қараңыз</string>
+    <string name="tax_summary_ch_year_end_value">активтер CSV-індегі 31 желтоқсандағы құн = биржа бағасы × USD/CHF – ESTV салық мәндері емес</string>
+    <string name="tax_summary_de_withdrawal_fee">Шығару комиссиясы – § 23 бойынша өтелмейді, табысқа байланысты шығыс ретінде шегерілетінін тексеріңіз</string>
+    <string name="tax_summary_not_calculated_estv">есептелмеген – ESTV баға тізімі: %1$s</string>
+    <string name="tax_summary_orientation">Бағдар</string>
+    <string name="tax_summary_orientation_block">Тек бағдар үшін – салық кеңесі емес – бағалау емес</string>
+    <string name="tax_summary_orientation_item">Бағдар: %1$s</string>
+    <string name="tax_summary_title">%1$s %2$s жылдық қорытынды</string>
+    <string name="tax_summary_transfer_fee_info">USDT/қолма-қол аударым комиссиялары – шығын емес және құн негізіне кірмейді, тек ақпарат үшін</string>
+    <string name="tax_summary_withdrawal_fee_info">USDT/қолма-қол шығару комиссиялары – шығын болып есептелмейді, тек ақпарат үшін</string>
+
+    <string name="tax_line_at_old_speculation_limit">Алыпсатарлық операциялар (бұрынғы заң, ≤ 1 жыл ұсталған): босату шегі (§ 31 (3) EStG ескі редакция)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">2022 жылғы 1 наурызға дейінгі несие пайызы (алған кездегі құн)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">2022 жылғы 1 наурызға дейінгі пайыз: бұрынғы заң (табыс салығы мөлшерлемесі), 27.5 пайыз емес</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">2022 жылғы 1 наурызға дейін – маманмен тексеріңіз</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">Пайыз – алған кезде салық салынады</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">Стейкинг – тек ақпарат үшін (сатып алу құны 0, сатқанда салық салынады)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">Барлық пайыз (салық салынатын)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">Барлық стейкинг (ақпарат)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">Таза капитал шығыны (келесі жылдарға көшіру)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">таңдаусыз: 2022 жылғы 1 қаңтар–28 ақпандағы сатуларды қамтиды</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">2022 жылғы 1 наурызға дейінгі стейкинг: сатып алу құны 0 деп белгіленді – маманмен тексеріңіз</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">30 күн ережесі бұл сандарды әлі өзгертуі мүмкін (%1$s дейінгі сатып алулар)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Есеп беру шегінен асатын комиссияға дейінгі түсім (£50,000; 2020/21–2022/23: £49,200): Self Assessment-ке тіркелген болсаңыз, салық салынатын пайда болмаса да HMRC-ке хабарлаңыз</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">31 желтоқсан %1$s күнгі мүлік құны (бағдар)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">ESTV баға тізімі (ictax.admin.ch) шешуші болып табылады. Тізімде жоқ монеталар үшін әдетте биржаның жабылу бағасы қолданылады. Мүлік салығы есептелмеген.</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – актив %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">есептелмеген</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">Бақыланатын мекенжайларды оқу мүмкін болмады – олардың баланстары бұл файлда жоқ</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">Бақыланатын мекенжайлардың лоттары сатып алу күнінен бастап есептеледі; мекенжайдың бүгінгі балансы аз болса, олар азайтылады.</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">Бақыланатын мекенжайлар жалпы құнға кіреді, бірақ сатып алу құны жоқ – сондықтан пайда тым жоғары болуы мүмкін. Құнды сатып алу ретінде жазыңыз.</string>
+    <string name="tax_summary_fr_rewards_income">Сома сыйақыларға алған кезде табыс ретінде салық салынған деп болжайды (алған кездегі құн сатып алу құнында) – әйтпесе сақтық тұрғысынан сатып алу құны 0 болар еді.</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">Жазылған бағасы жоқ нарықтық құндар (комиссиялар, сыйлықтар/төлемдер, айырбастар, сыйақылар, желі комиссиялары, портфель құны) транзакция күнінің күндік жабылуымен (UTC)</string>
+</resources>

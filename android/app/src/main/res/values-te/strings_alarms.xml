@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">అలర్ట్ సెట్ చేయి</string>
+    <string name="alarms_add">కొత్త అలర్ట్</string>
+    <string name="alarms_edit">అలర్ట్‌ను ఎడిట్ చేయి</string>
+    <string name="alarms_empty">ఈ జతకు ఇంకా అలర్ట్‌లు లేవు.</string>
+    <string name="alarms_empty_example">ఉదాహరణకు: BTC %1$s పైకి పెరిగినప్పుడు నాకు చెప్పు.</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">నోటిఫికేషన్‌లు ఆఫ్‌లో ఉన్నాయి – అలర్ట్‌లు మీకు చేరలేవు.</string>
+    <string name="alarms_notifications_turn_on">ఆన్ చేయి</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">%1$d యాక్టివ్</item>
+        <item quantity="other">%1$d యాక్టివ్</item>
+    </plurals>
+    <string name="alarms_overview_empty">ఇంకా అలర్ట్‌లు లేవు. ఒక జతను తెరిచి అలర్ట్‌లు కింద ఒకదాన్ని జోడించండి.</string>
+    <string name="alarms_overview_title">అన్ని అలర్ట్‌లు</string>
+    <string name="alarms_title">అలర్ట్‌లు</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">అధునాతనం</string>
+    <string name="alarm_change_updates">ధర అప్‌డేట్‌లను సర్దుబాటు చేయి</string>
+    <string name="alarm_create">అలర్ట్‌ను సృష్టించు</string>
+    <string name="alarm_currency_label">కరెన్సీ</string>
+    <string name="alarm_delete_confirm">ఈ అలర్ట్ తీసివేయబడుతుంది.</string>
+    <string name="alarm_delete_title">అలర్ట్‌ను తొలగించాలా?</string>
+    <string name="alarm_field_percent">శాతం</string>
+    <string name="alarm_field_price">ధర</string>
+    <string name="alarm_fires_now_above">ధర ఇప్పటికే %1$s పైన ఉంది. అయినా సేవ్ చేయాలా?</string>
+    <string name="alarm_fires_now_below">ధర ఇప్పటికే %1$s కింద ఉంది. అయినా సేవ్ చేయాలా?</string>
+    <string name="alarm_fires_now_change">మార్చు</string>
+    <string name="alarm_fires_now_save">అయినా సేవ్ చేయి</string>
+    <string name="alarm_fires_now_title">అలర్ట్ ఇప్పుడే ట్రిగ్గర్ అవుతుంది</string>
+    <string name="alarm_first_battery_hint">బ్యాటరీ ఆప్టిమైజేషన్ యాప్‌ను పరిమితం చేస్తోంది – అలర్ట్‌లు ఆలస్యంగా రావచ్చు.</string>
+    <string name="alarm_first_title">అలర్ట్ సేవ్ అయింది</string>
+    <string name="alarm_last_triggered">చివరిగా %1$sకు</string>
+    <string name="alarm_more_conditions">మరిన్ని షరతులు</string>
+    <string name="alarm_new_extreme">కొత్త %1$s</string>
+    <string name="alarm_once">ఒకసారి</string>
+    <string name="alarm_option_repeating">తెలియజేయి</string>
+    <string name="alarm_option_sound">శబ్దం</string>
+    <string name="alarm_option_speak">అలర్ట్‌ను చదివి వినిపించు</string>
+    <string name="alarm_option_vibrate">వైబ్రేషన్</string>
+    <string name="alarm_repeat_each">ప్రతిసారీ</string>
+    <string name="alarm_repeat_once">ఒకసారి</string>
+    <string name="alarm_repeating">ప్రతిసారీ</string>
+    <string name="alarm_threshold_error_empty">అలర్ట్‌ను సేవ్ చేయడానికి విలువను నమోదు చేయండి.</string>
+    <string name="alarm_threshold_error_funding">ఫండింగ్ −10 నుండి +10 శాతం మధ్య సంఖ్య అయి ఉండాలి.</string>
+    <string name="alarm_threshold_error_invalid">0 కంటే పెద్ద చెల్లుబాటు అయ్యే సంఖ్యను నమోదు చేయండి.</string>
+    <string name="alarm_threshold_error_oi">ఓపెన్ ఇంట్రెస్ట్ మార్పు: గరిష్ఠంగా 1000 శాతం.</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">%1$d గంటలో</item>
+        <item quantity="other">%1$d గంటల్లో</item>
+    </plurals>
+    <string name="alarm_window_label">సమయ వ్యవధి</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">ఈ స్థాయి కంటే పైకి వెళ్తే:</string>
+    <string name="alarm_simple_below">ఈ స్థాయి కంటే కిందికి వెళ్తే:</string>
+    <string name="alarm_simple_end"></string>
+    <string name="alarm_simple_when">%1$s ధర</string>
+    <string name="alarm_template_a11y">అలర్ట్‌ను సృష్టించు: %1$s</string>
+    <string name="alarm_template_a11y_down">ప్రస్తుత ధర నుండి మైనస్ %1$s శాతం వద్ద అలర్ట్‌ను సృష్టించు</string>
+    <string name="alarm_template_a11y_up">ప్రస్తుత ధర నుండి ప్లస్ %1$s శాతం వద్ద అలర్ట్‌ను సృష్టించు</string>
+    <string name="alarm_template_from_now">ఇప్పటి నుండి</string>
+    <string name="alarm_template_volume">వాల్యూమ్ ×%1$s</string>
+    <string name="alarm_templates_title">త్వరిత అలర్ట్‌లు</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">ధర దీని పైన</string>
+    <string name="alarm_condition_below">ధర దీని కింద</string>
+    <string name="alarm_condition_down_percent">ఇంత తగ్గితే</string>
+    <string name="alarm_condition_funding_above">ఫండింగ్ దీని పైన</string>
+    <string name="alarm_condition_funding_below">ఫండింగ్ దీని కింద</string>
+    <string name="alarm_condition_move_percent">ఇంత కదిలితే</string>
+    <string name="alarm_condition_near_high">గరిష్ఠానికి దగ్గరగా</string>
+    <string name="alarm_condition_near_low">కనిష్ఠానికి దగ్గరగా</string>
+    <string name="alarm_condition_oi_down">ఓపెన్ ఇంట్రెస్ట్ తగ్గుదల</string>
+    <string name="alarm_condition_oi_up">ఓపెన్ ఇంట్రెస్ట్ పెరుగుదల</string>
+    <string name="alarm_condition_up_percent">ఇంత పెరిగితే</string>
+    <string name="alarm_condition_volume_spike">వాల్యూమ్ ఒక్కసారిగా పెరగడం</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">%1$s %2$s పైకి పెరిగినప్పుడు నాకు చెప్పు.</string>
+    <string name="alarm_sentence_below">%1$s %2$s కిందికి పడిపోయినప్పుడు నాకు చెప్పు.</string>
+    <string name="alarm_sentence_down_percent">%1$s సేవ్ చేసినప్పటి ధర (లేదా చివరి అలర్ట్ నాటి ధర) కంటే %2$s కిందికి పడిపోయినప్పుడు నాకు చెప్పు.</string>
+    <string name="alarm_sentence_funding_above">%1$s ఫండింగ్ %2$s పైకి పెరిగినప్పుడు నాకు చెప్పు.</string>
+    <string name="alarm_sentence_funding_below">%1$s ఫండింగ్ %2$s కిందికి పడిపోయినప్పుడు నాకు చెప్పు.</string>
+    <string name="alarm_sentence_incomplete">అలర్ట్‌ను వాక్యంగా చూడటానికి విలువను నమోదు చేయండి.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">%1$s %3$d గంటలోపు %2$s కదిలినప్పుడు నాకు చెప్పు.</item>
+        <item quantity="other">%1$s %3$d గంటల్లోపు %2$s కదిలినప్పుడు నాకు చెప్పు.</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">%1$s దాని %3$s కంటే గరిష్ఠంగా %2$s కింద ఉన్నప్పుడు నాకు చెప్పు.</string>
+    <string name="alarm_sentence_near_low">%1$s దాని %3$s కంటే గరిష్ఠంగా %2$s పైన ఉన్నప్పుడు నాకు చెప్పు.</string>
+    <string name="alarm_sentence_new_extreme">%1$s కొత్త %2$sను నమోదు చేసినప్పుడు నాకు చెప్పు.</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">%1$s ఓపెన్ ఇంట్రెస్ట్ %3$d గంటలోపు %2$s తగ్గినప్పుడు నాకు చెప్పు.</item>
+        <item quantity="other">%1$s ఓపెన్ ఇంట్రెస్ట్ %3$d గంటల్లోపు %2$s తగ్గినప్పుడు నాకు చెప్పు.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">%1$s ఓపెన్ ఇంట్రెస్ట్ %3$d గంటలోపు %2$s పెరిగినప్పుడు నాకు చెప్పు.</item>
+        <item quantity="other">%1$s ఓపెన్ ఇంట్రెస్ట్ %3$d గంటల్లోపు %2$s పెరిగినప్పుడు నాకు చెప్పు.</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">%1$s సేవ్ చేసినప్పటి ధర (లేదా చివరి అలర్ట్ నాటి ధర) కంటే %2$s పైకి పెరిగినప్పుడు నాకు చెప్పు.</string>
+    <string name="alarm_sentence_volume">%1$s దాని సాధారణ వాల్యూమ్‌కు %2$s× ట్రేడ్ అయినప్పుడు నాకు చెప్పు.</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">30 రోజుల గరిష్ఠం</string>
+    <string name="alarm_near_extreme_high_365">1 సంవత్సరం గరిష్ఠం</string>
+    <string name="alarm_near_extreme_high_90">90 రోజుల గరిష్ఠం</string>
+    <string name="alarm_near_extreme_low_30">30 రోజుల కనిష్ఠం</string>
+    <string name="alarm_near_extreme_low_365">1 సంవత్సరం కనిష్ఠం</string>
+    <string name="alarm_near_extreme_low_90">90 రోజుల కనిష్ఠం</string>
+    <string name="alarm_near_field_distance">దూరం</string>
+    <string name="alarm_near_hint">కొత్త గరిష్ఠం లేదా కనిష్ఠం నమోదైనప్పుడు కూడా తెలియజేస్తుంది. రోజువారీ క్యాండిల్‌ల ఆధారంగా, ప్రతి 6 గంటలకు రిఫ్రెష్ అవుతుంది.</string>
+    <string name="alarm_near_new_only">కొత్త గరిష్ఠాలు లేదా కనిష్ఠాలు మాత్రమే</string>
+    <string name="alarm_near_notification_high">%1$s దాని %3$s కంటే %2$s కింద ఉంది (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s దాని %3$s కంటే %2$s పైన ఉంది (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">%2$sకు కొత్త %1$s: %3$s (మునుపటిది %4$s)</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d రోజు</item>
+        <item quantity="other">%1$d రోజులు</item>
+    </plurals>
+    <string name="alarm_near_window_label">వ్యవధి</string>
+    <string name="alarm_near_window_year">1 సంవత్సరం</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">8 గంటలకు ఫండింగ్ రేటు. వేరే వ్యవధి ఉన్న కాంట్రాక్ట్‌లు మార్చబడతాయి (1 గం × 8, 4 గం × 2); ఫ్యూచర్స్ కార్డ్ మార్చిన విలువను చూపుతుంది. వ్యవధి తెలియకపోతే, అలర్ట్ తనిఖీ చేయదు. నెగెటివ్ అంటే షార్ట్‌లు లాంగ్‌లకు చెల్లిస్తాయి. ± గుర్తును మారుస్తుంది.</string>
+    <string name="alarm_funding_sign_a11y">గుర్తును మార్చు</string>
+    <string name="alarm_oi_hint">ఓపెన్ ఇంట్రెస్ట్‌ను అన్ని గంటల క్రితం నిల్వ చేసిన విలువతో పోలుస్తుంది. యాప్ అంత కాలం డేటాను సేకరించిన తర్వాతే కొత్త అలర్ట్ తెలియజేస్తుంది; గరిష్ఠంగా 5 నిమిషాలకు ఒకసారి తనిఖీ చేయబడుతుంది.</string>
+    <string name="alarm_volume_factor_label">గత గంట వాల్యూమ్ vs. సాధారణం</string>
+    <string name="alarm_volume_hint">వాల్యూమ్ డేటా Binance నుండి వస్తుంది — అక్కడ లిస్ట్ కాని జతలు ఎప్పుడూ ట్రిగ్గర్ కావు.</string>
+    <string name="alarm_volume_zero_hours_hint">ట్రేడ్‌లు లేని గంటలు సున్నా వాల్యూమ్‌గా లెక్కించబడతాయి, కాబట్టి తక్కువగా ట్రేడ్ అయ్యే జతలలో సాధారణ గంట కూడా అసాధారణంగా కనిపించవచ్చు.</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">అలర్ట్ యాక్టివ్</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">అలర్ట్ సేవ్ అయింది: %1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">నోటిఫికేషన్‌లు ఆఫ్</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">“%1$s” లేకుండా, పరికరం విశ్రాంతిలో ఉన్నప్పుడు Android క్రమరహితంగా తనిఖీ చేస్తుంది – కొన్నిసార్లు గంటల తర్వాతే. దానితో, సుమారు ప్రతి 15 నిమిషాలకు.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">యాప్ మూసి ఉన్నప్పుడు iOS తరచుగా 15 నిమిషాల కంటే ఆలస్యంగా తనిఖీ చేస్తుంది, కొన్నిసార్లు తదుపరి సారి తెరిచినప్పుడే. చిన్న ఆకస్మిక మార్పులు తప్పిపోవచ్చు.</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">అలర్ట్‌లు ఎప్పుడు తనిఖీ చేయబడతాయి</string>
+    <string name="alarm_timing_where">ధరలు ఎంత తరచుగా అప్‌డేట్ అవుతాయో %1$sలో మార్చండి.</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">నిశ్శబ్దం (నోటిఫికేషన్ మాత్రమే)</string>
+    <string name="alarm_signal_sound">శబ్దం మాత్రమే</string>
+    <string name="alarm_signal_sound_vibrate">శబ్దం, వైబ్రేషన్</string>
+    <string name="alarm_signal_system">సిస్టమ్</string>
+    <string name="alarm_signal_vibrate">వైబ్రేషన్ మాత్రమే</string>
+    <string name="alarm_test">అలర్ట్‌ను పరీక్షించు</string>
+    <string name="alarm_test_action">పరీక్షించు</string>
+    <string name="alarm_test_denied">Crypto Checkerకు నోటిఫికేషన్‌లు ఆఫ్ చేయబడ్డాయి.</string>
+    <string name="alarm_test_hint">మీ శబ్దం, వైబ్రేషన్, స్పీచ్ సెట్టింగ్‌లతో ఒక నమూనా అలర్ట్‌ను పంపుతుంది.</string>
+    <string name="alarm_test_open_settings">సెట్టింగ్‌లను తెరువు</string>
+    <string name="alarm_test_quiet">ప్రస్తుతం నిశ్శబ్ద సమయం ఆన్‌లో ఉంది: నిజమైన అలర్ట్‌లు అది ముగిసే వరకు వేచి ఉండి, ఆ తర్వాత శబ్దంతో మోగుతాయి.</string>
+    <string name="alarm_test_text">అలర్ట్ ఇలా కనిపిస్తుంది, ఇలా వినిపిస్తుంది.</string>
+    <string name="alarm_test_title">పరీక్ష: Crypto Checker అలర్ట్</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">శబ్దం ఆన్</string>
+    <string name="alarm_a11y_speak_on">స్పీచ్ ఆన్</string>
+    <string name="alarm_unchecked_no_candles">తనిఖీ చేయలేకపోయింది (క్యాండిల్ డేటా లేదు)</string>
+    <string name="alarm_unchecked_no_rate">తనిఖీ చేయలేకపోయింది (మారకపు రేటు లేదు)</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">నోటిఫికేషన్‌లు ఆఫ్ – ఈ అలర్ట్ మీకు చేరదు</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">అలర్ట్ లేదు – తక్కువ లిక్విడిటీ</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">ప్రస్తుత ధర కోసం వేచి ఉంది</string>
+    <string name="alarm_enter_amount">విలువను నమోదు చేయండి</string>
+    <string name="alarm_editor_more">మరిన్ని</string>
+    <string name="alarm_editor_more_summary">త్వరిత అలర్ట్‌లు, ఇతర షరతులు, శబ్దం, వాయిస్</string>
+    <string name="alarm_reliability_storage_no_key">బ్యాక్‌గ్రౌండ్‌లో అలర్ట్‌లు పాజ్ అయ్యాయి – వాచ్‌లిస్ట్ సేవ్ కాలేదు</string>
+    <string name="alarms_limit_reached">ఒక జతకు గరిష్ఠంగా %1$s అలర్ట్‌లు ఉండవచ్చు.</string>
+    <string name="alarms_reference_rate_hint">ECB రిఫరెన్స్ రేట్లు రోజుకు ఒకసారి మాత్రమే నిర్ణయించబడతాయి – వాటికి అలర్ట్‌లు లేవు.</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">తగ్గుదల 100 శాతం కంటే తక్కువగా ఉండాలి.</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">పరిమితి చెల్లదు – దయచేసి సర్దుబాటు చేయండి</string>
+
+    <string name="alarm_last_checked">చివరిగా తనిఖీ చేసింది %1$s</string>
+</resources>

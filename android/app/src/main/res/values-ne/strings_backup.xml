@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="backup_device_bound">डिभाइस बदल्नुअघि ब्याकअप फाइल बनाउनुहोस् – इन्क्रिप्ट गरिएको डेटा यही डिभाइसमा मात्र खोल्न सकिन्छ।</string>
+    <string name="backup_encryption_pending">इन्क्रिप्सन अझै सक्रिय छैन – एपले अर्को पटक सुरु हुँदा फेरि प्रयास गर्नेछ।</string>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">निर्यात गर्नुहोस्</string>
+    <string name="backup_exported">ब्याकअप सेभ भयो।</string>
+    <string name="backup_failed">त्यो भएन। के यो Crypto Checker ब्याकअप हो?</string>
+    <string name="backup_hint">तपाईंको वाचलिस्ट (टिप्पणी र समूहसहित), अलर्ट, मनपर्ने, पोर्टफोलियो र सेटिङहरू तपाईं आफैं राख्ने फाइलका रूपमा सेभ गर्छ – जस्तै नयाँ फोनका लागि।</string>
+    <string name="backup_import">आयात गर्नुहोस्</string>
+    <string name="backup_title">ब्याकअप &amp; पुनर्स्थापना</string>
+    <string name="backup_too_large">फाइल धेरै ठूलो छ वा मान्य ब्याकअप होइन (सीमा 64 MB)।</string>
+    <string name="backup_export_too_large">ब्याकअप 64 MB भन्दा ठूलो हुने थियो र पुनर्स्थापना गर्न सकिँदैनथ्यो, त्यसैले सेभ गरिएन।</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">पासवर्ड</string>
+    <string name="backup_password_continue">जारी राख्नुहोस्</string>
+    <string name="backup_password_hide">पासवर्ड लुकाउनुहोस्</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">कम्तीमा %1$d अक्षर</string>
+    <string name="backup_password_mismatch">पासवर्डहरू मिलेनन्</string>
+    <string name="backup_password_prompt">यो ब्याकअपको पासवर्ड लेख्नुहोस्।</string>
+    <string name="backup_password_repeat">पासवर्ड दोहोर्याउनुहोस्</string>
+    <string name="backup_password_show">पासवर्ड देखाउनुहोस्</string>
+    <string name="backup_password_title">पासवर्डले सुरक्षित ब्याकअप</string>
+    <string name="backup_password_too_weak">अनुमान गर्न धेरै सजिलो – अंक मात्र, एउटै दोहोरिएको अक्षर वा “12345678” वा “password” जस्ता सामान्य क्रम प्रयोग नगर्नुहोस्।</string>
+    <string name="backup_password_warning">पासवर्डबिना ब्याकअप पुनर्स्थापना गर्न सकिँदैन।</string>
+    <string name="backup_password_wrong">गलत पासवर्ड, वा फाइल बिग्रिएको छ। कृपया फेरि प्रयास गर्नुहोस्।</string>
+    <string name="backup_protect">पासवर्डले सुरक्षित गर्नुहोस्</string>
+    <string name="backup_protect_hint">फाइललाई इन्क्रिप्ट गर्छ (AES-256)। पोर्टफोलियो डेटा भएमा सिफारिस गरिन्छ।</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">पासवर्डबिना सेभ गर्नुहोस्</string>
+    <string name="backup_plain_confirm_text">फाइल इन्क्रिप्ट गरिएको छैन। यो पाउने जोसुकैले पढ्न सक्छ:</string>
+    <string name="backup_plain_confirm_title">पासवर्डबिना सेभ गर्ने?</string>
+    <string name="backup_plain_contents_addresses">ब्यालेन्स इतिहास र लागत आधारसहित सेभ गरिएका वालेट ठेगाना र xpub कुञ्जीहरू</string>
+    <string name="backup_plain_contents_base">टिप्पणी र समूहसहित वाचलिस्ट, अलर्ट, मनपर्ने र सेटिङहरू</string>
+    <string name="backup_plain_contents_portfolio">पोर्टफोलियो: रकम र मूल्यसहित कारोबारहरू</string>
+    <string name="backup_restore_app_lock_kept">पोर्टफोलियो लक सक्रिय नै रहन्छ – इन्क्रिप्ट नगरिएको ब्याकअपले यसलाई बन्द गर्न सक्दैन।</string>
+    <string name="backup_restore_confirm">आयात गर्दा तपाईंको हालको वाचलिस्ट (टिप्पणी र समूहसहित), अलर्ट, मनपर्ने, पोर्टफोलियो र सेटिङहरू ब्याकअपले प्रतिस्थापन हुन्छन्।</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="one">ब्याकअपमा %d प्रविष्टि (पोर्टफोलियो वा अलर्ट) अमान्य छ र आयात गरिने छैन।</item>
+        <item quantity="other">ब्याकअपमा %d प्रविष्टिहरू (पोर्टफोलियो वा अलर्ट) अमान्य छन् र आयात गरिने छैनन्।</item>
+    </plurals>
+    <string name="backup_restore_newer_version">यो ब्याकअप एपको नयाँ संस्करणको हो – पहिले एप अपडेट गर्नुहोस्। केही पनि आयात भएन।</string>
+    <string name="backup_restore_unencrypted_warning">यो ब्याकअप इन्क्रिप्ट गरिएको छैन – यो तपाईंकै हो भनी जाँच्नुहोस्। सेटिङहरू लागू हुनेछन् – सुरक्षा घटाउने परिवर्तनहरूबाहेक (पोर्टफोलियो लक, ठेगानाका लागि आफ्नो सर्भर, रकम लुकाउनुहोस्, सिस्टम ब्याकअपमा पोर्टफोलियो)।</string>
+    <string name="backup_restored">पुनर्स्थापित: %1$s, %2$s।</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d अलर्ट</item>
+        <item quantity="other">%1$d अलर्ट</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d जोडी</item>
+        <item quantity="other">%1$d जोडी</item>
+    </plurals>
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen -->
+    <string name="backup_restore_over_limits">सीमाभन्दा बढी (%3$s जोडी, प्रति जोडी %4$s अलर्ट), पुनर्स्थापना हुने छैन: %1$s, %2$s।</string>
+    <string name="backup_restored_over_limits">सीमाभन्दा बढी (%3$s जोडी, प्रति जोडी %4$s अलर्ट), पुनर्स्थापना भएन: %1$s, %2$s।</string>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren -->
+    <string name="storage_recovery_message">यो डिभाइसमा अब एपको इन्क्रिप्ट गरिएको डेटाको कुञ्जी छैन, त्यसैले एप खाली सुरु भयो। केही पनि मेटिएको छैन। आफ्नो वाचलिस्ट र पोर्टफोलियो फिर्ता पाउन सेटिङहरूमा “%1$s” अन्तर्गत ब्याकअप फाइल आयात गर्नुहोस्।</string>
+    <string name="storage_recovery_title">सेभ गरिएको डेटा अनलक गर्न सकिएन</string>
+
+    <!-- Sicherung mit Passwort (Argon2id, 64 MiB): zu wenig Arbeitsspeicher -->
+    <string name="backup_not_enough_memory">ब्याकअपलाई पासवर्डले सुरक्षित गर्न वा खोल्न पर्याप्त खाली मेमोरी छैन। अन्य एपहरू बन्द गरेर फेरि प्रयास गर्नुहोस्।</string>
+
+    <!-- Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">ब्याकअप पुनर्स्थापना गर्नुहोस्</string>
+    <string name="storage_recovery_acknowledge">बुझें</string>
+    <string name="storage_recovery_restored_title">सेभ गरिएको डेटा फेरि अनलक भयो</string>
+    <string name="storage_recovery_restored_message">यो डिभाइसको पहिलेको कुञ्जीले अलग राखिएको डेटा फेरि खोल्यो, त्यसैले यो फिर्ता आएको छ। बीचमा सेभ गरिएको डेटा त्यसको छेउमा अपरिवर्तित राखिएको छ।</string>
+    <string name="settings_reset_notice_title">सेटिङहरू रिसेट भए</string>
+    <string name="settings_reset_notice">तपाईंका सेटिङहरू पढ्न सकिएन र पूर्वनिर्धारितमा रिसेट गरिए। कृपया पोर्टफोलियो लक, अलर्ट अन्तराल र मुद्रा जाँच्नुहोस्।</string>
+    <string name="backup_restore_interrupted_title">पुनर्स्थापना अवरुद्ध भयो</string>
+    <string name="backup_restore_interrupted_rolled_back">ब्याकअप पुनर्स्थापना गर्दा एप बन्द भयो। तपाईंको अघिल्लो डेटा फिर्ता राखिएको छ; ब्याकअपबाट केही पनि राखिएको छैन।</string>
+    <string name="backup_restore_interrupted_incomplete">ब्याकअप पुनर्स्थापना गर्दा एप बन्द भयो, र अघिल्लो डेटा पूर्ण रूपमा फिर्ता राख्न सकिएन। कृपया आफ्नो वाचलिस्ट र पोर्टफोलियो जाँच्नुहोस्, वा सेटिङहरूमा “%1$s” अन्तर्गत ब्याकअप फेरि पुनर्स्थापना गर्नुहोस्।</string>
+    <string name="backup_not_verified">सेभ गरेपछि ब्याकअप फाइल प्रमाणित गर्न सकिएन – फेरि पढ्दा फरक देखियो। कृपया ब्याकअपलाई नयाँ फाइलमा सेभ गर्नुहोस्।</string>
+
+    <!-- Hinweis (nur Android): Portfolio-Kopie aus der Systemsicherung auch beim zweiten Versuch unlesbar und gelöscht -->
+    <string name="system_backup_not_imported_title">सिस्टम ब्याकअपबाट पोर्टफोलियो पुनर्स्थापना भएन</string>
+    <!-- %1$s = Name des Bereichs «Sichern &amp; Wiederherstellen» in den Einstellungen -->
+    <string name="system_backup_not_imported_message">Android सिस्टम ब्याकअपको पोर्टफोलियो प्रति दोस्रो प्रयासमा पनि पढ्न सकिएन, र मेटाइएको छ। तपाईंसँग ब्याकअप फाइल छ भने, सेटिङहरूमा “%1$s” अन्तर्गत पुनर्स्थापना गर्नुहोस्।</string>
+
+    <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
+    <string name="portfolio_storage_kept_in_memory">सेभ गरिएको डेटा अहिले पढ्न सकिँदैन, त्यसैले पोर्टफोलियो देखाइँदैन र परिवर्तन गर्न सकिँदैन। एप पुनः सुरु गर्नुहोस्।</string>
+    <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
+    <string name="watchlist_storage_kept_in_memory">सेभ गरिएको डेटा अहिले पढ्न सकिँदैन, त्यसैले वाचलिस्ट देखाइँदैन र परिवर्तन गर्न सकिँदैन। एप पुनः सुरु गर्नुहोस्।</string>
+    <string name="watchlist_storage_locked">वाचलिस्ट परिवर्तन गर्न सकिँदैन: सेभ गरिएको डेटा अहिले पढ्न सकिँदैन। एप पुनः सुरु गर्नुहोस्।</string>
+    <string name="alarm_save_storage_locked">अलर्टहरू सेभ गर्न सकिँदैन: सेभ गरिएको डेटा अहिले पढ्न सकिँदैन। एप पुनः सुरु गर्नुहोस्।</string>
+    <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
+    <string name="backup_storage_kept">ब्याकअप सम्भव छैन: सेभ गरिएको डेटा अहिले पढ्न सकिँदैन। एप पुनः सुरु गरेर फेरि प्रयास गर्नुहोस्।</string>
+    <string name="backup_restore_storage_in_memory">अहिले आयात सम्भव छैन: एपले यतिबेला डेटा सेभ गरिरहेको छैन (इन्क्रिप्सन अझै सक्रिय छैन), त्यसैले पुनः सुरु गर्दा आयात हराउनेछ। एप पुनः सुरु गरेर फेरि प्रयास गर्नुहोस्।</string>
+    <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable) -->
+    <string name="backup_restore_journal_unavailable">अहिले आयात सम्भव छैन: तपाईंको हालको डेटाको सुरक्षा प्रति सेभ गर्न सकिएन (कुञ्जी अहिले उपलब्ध छैन)। केही पनि परिवर्तन भएन। पछि फेरि प्रयास गर्नुहोस् वा एप पुनः सुरु गर्नुहोस्।</string>
+
+    <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
+    <string name="portfolio_storage_in_memory">इन्क्रिप्सन अझै सक्रिय छैन – पोर्टफोलियो सेभ भइरहेको छैन, एप बन्द हुँदा परिवर्तनहरू हराउँछन्। एपले अर्को पटक सुरु हुँदा फेरि प्रयास गर्नेछ।</string>
+
+    <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
+    <string name="portfolio_storage_locked">सेभ गरिएको डेटा अहिले पढ्न सकिँदैन, त्यसैले परिवर्तन सम्भव छैन। एप पुनः सुरु गर्नुहोस्।</string>
+    <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
+    <string name="watchlist_storage_in_memory">यो डिभाइसले अहिले कुञ्जी दिइरहेको छैन – वाचलिस्ट सेभ भइरहेको छैन, एप बन्द हुँदा परिवर्तनहरू हराउँछन्। ब्याकग्राउन्डमा अलर्टहरू रोकिएका छन्। एपले अर्को पटक सुरु हुँदा फेरि प्रयास गर्नेछ।</string>
+
+    <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
+    <string name="backup_restore_server_kept">“ठेगानाका लागि आफ्नो सर्भर” लागू गरिएन – इन्क्रिप्ट नगरिएको ब्याकअपले यसलाई परिवर्तन गर्न सक्दैन।</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
+    <string name="backup_restore_server_public">ब्याकअपमा जस्तै “ठेगानाका लागि आफ्नो सर्भर” हटाइयो – Bitcoin ठेगानाहरू फेरि सार्वजनिक नोडहरूमा सोधिन्छन्।</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
+    <string name="backup_restore_server_changed">“ठेगानाका लागि आफ्नो सर्भर” लाई ब्याकअपको सर्भरले प्रतिस्थापन गरियो।</string>
+</resources>

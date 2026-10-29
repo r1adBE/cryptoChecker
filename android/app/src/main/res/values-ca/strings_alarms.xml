@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">Configura una alarma</string>
+    <string name="alarms_add">Alarma nova</string>
+    <string name="alarms_edit">Edita l\'alarma</string>
+    <string name="alarms_empty">Encara no hi ha alarmes per a aquest parell.</string>
+    <string name="alarms_empty_example">Per exemple: Avisa\'m quan BTC pugi per sobre de %1$s.</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">Les notificacions estan desactivades – les alarmes no et poden arribar.</string>
+    <string name="alarms_notifications_turn_on">Activa</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">%1$d activa</item>
+        <item quantity="many">%1$d actives</item>
+        <item quantity="other">%1$d actives</item>
+    </plurals>
+    <string name="alarms_overview_empty">Encara no hi ha alarmes. Obre un parell i afegeix-ne una a Alarmes.</string>
+    <string name="alarms_overview_title">Totes les alarmes</string>
+    <string name="alarms_title">Alarmes</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">Avançat</string>
+    <string name="alarm_change_updates">Ajusta les actualitzacions de preu</string>
+    <string name="alarm_create">Crea l\'alarma</string>
+    <string name="alarm_currency_label">Moneda</string>
+    <string name="alarm_delete_confirm">S\'eliminarà aquesta alarma.</string>
+    <string name="alarm_delete_title">Vols suprimir l\'alarma?</string>
+    <string name="alarm_field_percent">Percentatge</string>
+    <string name="alarm_field_price">Preu</string>
+    <string name="alarm_fires_now_above">El preu ja és per sobre de %1$s. Vols desar-la igualment?</string>
+    <string name="alarm_fires_now_below">El preu ja és per sota de %1$s. Vols desar-la igualment?</string>
+    <string name="alarm_fires_now_change">Canvia</string>
+    <string name="alarm_fires_now_save">Desa igualment</string>
+    <string name="alarm_fires_now_title">L\'alarma es dispararia ara</string>
+    <string name="alarm_first_battery_hint">L\'optimització de la bateria restringeix l\'app – les alarmes poden arribar tard.</string>
+    <string name="alarm_first_title">Alarma desada</string>
+    <string name="alarm_last_triggered">última a les %1$s</string>
+    <string name="alarm_more_conditions">Més condicions</string>
+    <string name="alarm_new_extreme">Nou %1$s</string>
+    <string name="alarm_once">Un cop</string>
+    <string name="alarm_option_repeating">Avisa</string>
+    <string name="alarm_option_sound">So</string>
+    <string name="alarm_option_speak">Llegeix l\'alarma en veu alta</string>
+    <string name="alarm_option_vibrate">Vibració</string>
+    <string name="alarm_repeat_each">Cada vegada</string>
+    <string name="alarm_repeat_once">Un cop</string>
+    <string name="alarm_repeating">Cada vegada</string>
+    <string name="alarm_threshold_error_empty">Introdueix un valor per desar l\'alarma.</string>
+    <string name="alarm_threshold_error_funding">El finançament ha de ser un nombre entre −10 i +10 per cent.</string>
+    <string name="alarm_threshold_error_invalid">Introdueix un nombre vàlid més gran que 0.</string>
+    <string name="alarm_threshold_error_oi">Variació de l\'interès obert: com a màxim 1000 per cent.</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">en %1$d h</item>
+        <item quantity="many">en %1$d h</item>
+        <item quantity="other">en %1$d h</item>
+    </plurals>
+    <string name="alarm_window_label">Finestra de temps</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">superi</string>
+    <string name="alarm_simple_below">baixi de</string>
+    <string name="alarm_simple_end"></string>
+    <string name="alarm_simple_when">Quan %1$s</string>
+    <string name="alarm_template_a11y">Crea una alarma: %1$s</string>
+    <string name="alarm_template_a11y_down">Crea una alarma a menys %1$s per cent del preu actual</string>
+    <string name="alarm_template_a11y_up">Crea una alarma a més %1$s per cent del preu actual</string>
+    <string name="alarm_template_from_now">des d\'ara</string>
+    <string name="alarm_template_volume">Volum ×%1$s</string>
+    <string name="alarm_templates_title">Alarmes ràpides</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">Preu per sobre de</string>
+    <string name="alarm_condition_below">Preu per sota de</string>
+    <string name="alarm_condition_down_percent">Baixa un</string>
+    <string name="alarm_condition_funding_above">Finançament per sobre de</string>
+    <string name="alarm_condition_funding_below">Finançament per sota de</string>
+    <string name="alarm_condition_move_percent">Es mou un</string>
+    <string name="alarm_condition_near_high">A prop del màxim</string>
+    <string name="alarm_condition_near_low">A prop del mínim</string>
+    <string name="alarm_condition_oi_down">Interès obert a la baixa</string>
+    <string name="alarm_condition_oi_up">Interès obert a l\'alça</string>
+    <string name="alarm_condition_up_percent">Puja un</string>
+    <string name="alarm_condition_volume_spike">Pic de volum</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">Avisa\'m quan %1$s pugi per sobre de %2$s.</string>
+    <string name="alarm_sentence_below">Avisa\'m quan %1$s baixi per sota de %2$s.</string>
+    <string name="alarm_sentence_down_percent">Avisa\'m quan %1$s baixi un %2$s per sota del preu en desar-la (o en l\'última alarma).</string>
+    <string name="alarm_sentence_funding_above">Avisa\'m quan el finançament de %1$s pugi per sobre de %2$s.</string>
+    <string name="alarm_sentence_funding_below">Avisa\'m quan el finançament de %1$s baixi per sota de %2$s.</string>
+    <string name="alarm_sentence_incomplete">Introdueix un valor per veure l\'alarma com a frase.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">Avisa\'m quan %1$s es mogui un %2$s en %3$d hora.</item>
+        <item quantity="many">Avisa\'m quan %1$s es mogui un %2$s en %3$d hores.</item>
+        <item quantity="other">Avisa\'m quan %1$s es mogui un %2$s en %3$d hores.</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">Avisa\'m quan %1$s sigui com a màxim un %2$s per sota del seu %3$s.</string>
+    <string name="alarm_sentence_near_low">Avisa\'m quan %1$s sigui com a màxim un %2$s per sobre del seu %3$s.</string>
+    <string name="alarm_sentence_new_extreme">Avisa\'m quan %1$s marqui un nou %2$s.</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">Avisa\'m quan l\'interès obert de %1$s baixi un %2$s en %3$d hora.</item>
+        <item quantity="many">Avisa\'m quan l\'interès obert de %1$s baixi un %2$s en %3$d hores.</item>
+        <item quantity="other">Avisa\'m quan l\'interès obert de %1$s baixi un %2$s en %3$d hores.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">Avisa\'m quan l\'interès obert de %1$s pugi un %2$s en %3$d hora.</item>
+        <item quantity="many">Avisa\'m quan l\'interès obert de %1$s pugi un %2$s en %3$d hores.</item>
+        <item quantity="other">Avisa\'m quan l\'interès obert de %1$s pugi un %2$s en %3$d hores.</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">Avisa\'m quan %1$s pugi un %2$s per sobre del preu en desar-la (o en l\'última alarma).</string>
+    <string name="alarm_sentence_volume">Avisa\'m quan %1$s es negociï a %2$s× el seu volum normal.</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">màxim de 30 dies</string>
+    <string name="alarm_near_extreme_high_365">màxim d\'1 any</string>
+    <string name="alarm_near_extreme_high_90">màxim de 90 dies</string>
+    <string name="alarm_near_extreme_low_30">mínim de 30 dies</string>
+    <string name="alarm_near_extreme_low_365">mínim d\'1 any</string>
+    <string name="alarm_near_extreme_low_90">mínim de 90 dies</string>
+    <string name="alarm_near_field_distance">Distància</string>
+    <string name="alarm_near_hint">També avisa quan es marca un màxim o un mínim nou. Basat en espelmes diàries, actualitzades cada 6 hores.</string>
+    <string name="alarm_near_new_only">Només màxims o mínims nous</string>
+    <string name="alarm_near_notification_high">%1$s és un %2$s per sota del seu %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s és un %2$s per sobre del seu %3$s (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">Nou %1$s per a %2$s: %3$s (anterior %4$s)</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d dia</item>
+        <item quantity="many">%1$d dies</item>
+        <item quantity="other">%1$d dies</item>
+    </plurals>
+    <string name="alarm_near_window_label">Període</string>
+    <string name="alarm_near_window_year">1 any</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">Taxa de finançament per 8 hores. Els contractes amb un altre interval es converteixen (1 h × 8, 4 h × 2); la targeta de futurs mostra el valor convertit. Si l\'interval és desconegut, l\'alarma no comprova. Negatiu vol dir que els shorts paguen els longs. ± canvia el signe.</string>
+    <string name="alarm_funding_sign_a11y">Canvia el signe</string>
+    <string name="alarm_oi_hint">Compara l\'interès obert amb el valor desat fa aquest nombre d\'hores. Una alarma nova només avisa quan l\'app ha recollit dades durant aquest temps; es comprova com a màxim cada 5 minuts.</string>
+    <string name="alarm_volume_factor_label">Volum de l\'última hora respecte al normal</string>
+    <string name="alarm_volume_hint">Les dades de volum provenen de Binance — els parells que no hi cotitzen no es disparen mai.</string>
+    <string name="alarm_volume_zero_hours_hint">Les hores sense operacions compten com a volum zero, de manera que en parells poc negociats una hora normal pot semblar inusual.</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">Alarma activa</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">Alarma desada: %1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">Notificacions desactivades</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">Sense «%1$s», Android comprova irregularment amb el dispositiu en repòs, de vegades al cap d\'hores. Amb l\'opció, cada 15 minuts aprox.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Amb l\'app tancada, l\'iOS sovint comprova més tard de 15 minuts, de vegades només quan tornes a obrir l\'app. Els pics curts es poden perdre.</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">Quan es comproven les alarmes</string>
+    <string name="alarm_timing_where">Canvia la freqüència d\'actualització dels preus a %1$s.</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">Silenciosa (només notificació)</string>
+    <string name="alarm_signal_sound">Només so</string>
+    <string name="alarm_signal_sound_vibrate">So i vibració</string>
+    <string name="alarm_signal_system">Sistema</string>
+    <string name="alarm_signal_vibrate">Només vibració</string>
+    <string name="alarm_test">Prova l\'alarma</string>
+    <string name="alarm_test_action">Prova</string>
+    <string name="alarm_test_denied">Les notificacions estan desactivades per a Crypto Checker.</string>
+    <string name="alarm_test_hint">Envia una alarma d\'exemple amb la teva configuració de so, vibració i veu.</string>
+    <string name="alarm_test_open_settings">Obre la configuració</string>
+    <string name="alarm_test_quiet">Ara mateix hi ha hores de silenci: les alarmes reals esperarien que acabin i després sonarien.</string>
+    <string name="alarm_test_text">Així és com es veu i sona una alarma.</string>
+    <string name="alarm_test_title">Prova: alarma de Crypto Checker</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">So activat</string>
+    <string name="alarm_a11y_speak_on">Veu activada</string>
+    <string name="alarm_unchecked_no_candles">No s\'ha pogut comprovar (no hi ha dades d\'espelmes)</string>
+    <string name="alarm_unchecked_no_rate">No s\'ha pogut comprovar (no hi ha tipus de canvi)</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">Notificacions desactivades – aquesta alarma no t\'arribarà</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">Sense alarma – liquiditat baixa</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">Esperant un preu actual</string>
+    <string name="alarm_enter_amount">Introdueix un valor</string>
+    <string name="alarm_editor_more">Més</string>
+    <string name="alarm_editor_more_summary">Alarmes ràpides, altres condicions, so i veu</string>
+    <string name="alarm_reliability_storage_no_key">Alarmes en pausa en segon pla – la llista no s\'ha desat</string>
+    <string name="alarms_limit_reached">Un parell pot tenir com a màxim %1$s alarmes.</string>
+    <string name="alarms_reference_rate_hint">Els tipus de referència del BCE només es fixen un cop al dia – no hi ha alarmes per a aquests tipus.</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">Una baixada ha de ser inferior al 100 per cent.</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">Llindar no vàlid – ajusta\'l</string>
+
+    <string name="alarm_last_checked">Última comprovació %1$s</string>
+</resources>

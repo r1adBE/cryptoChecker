@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">Alle resultate</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="one">%1$d beurs</item>
+        <item quantity="other">%1$d beurse</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">Geen paar vir hierdie munt in die gelaaide lyste nie.</string>
+    <string name="explorer_coin_not_loaded">Paarlyste nog nie gelaai nie</string>
+    <string name="explorer_coin_other_pairs">Ander pare</string>
+    <string name="explorer_coin_show_pairs">Wys pare</string>
+    <string name="explorer_coin_suggested">Voorgestel</string>
+    <string name="explorer_coins_title">Munte</string>
+    <string name="explorer_lists_failed_many">%1$s reageer nou nie – paarlyste nie gelaai nie. Probeer later weer.</string>
+    <plurals name="explorer_lists_failed_more">
+        <item quantity="one">+nog %1$d</item>
+        <item quantity="other">+nog %1$d</item>
+    </plurals>
+    <string name="explorer_lists_failed_one">%1$s reageer nou nie – paarlys nie gelaai nie. Probeer later weer.</string>
+    <string name="explorer_lists_load">Laai lyste</string>
+    <string name="explorer_lists_loading">Laai paarlyste… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="one">Die paarlys van %1$d beurs is nog nie op hierdie toestel nie.</item>
+        <item quantity="other">Die paarlyste van %1$d beurse is nog nie op hierdie toestel nie.</item>
+    </plurals>
+    <string name="explorer_lists_privacy">Laai elke beurs se volledige openbare lys – dieselfde vir almal. Jou soektog bly op hierdie toestel.</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">Onlangse soektog: %1$s</string>
+    <string name="explorer_recent_clear">Maak skoon</string>
+    <string name="explorer_recent_clear_a11y">Maak onlangse soektogte skoon</string>
+    <string name="explorer_recent_title">Onlangse soektogte</string>
+    <string name="explorer_search_choose_manually">Kies self beurs en paar</string>
+    <string name="explorer_search_empty">Geen passings nie.</string>
+    <string name="explorer_search_hint">Soek munt, paar of beurs</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">Tik \'n munt se naam of simbool, bv. Bitcoin of BTC – kies dan die paar.</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">Voeg by volglys</string>
+    <string name="explorer_added_to_watchlist">By die volglys gevoeg.</string>
+    <string name="explorer_already_in_watchlist">Hierdie paar is reeds in die volglys.</string>
+    <string name="explorer_exchange_missing">Beurs ontbreek?</string>
+    <string name="explorer_loading_pairs">Laai handelspare…</string>
+    <string name="explorer_no_pair_selected">Kies eers \'n paar.</string>
+    <string name="explorer_no_pairs_yet">Nog geen pare vir hierdie beurs gelaai nie.</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$d paar · bygewerk %2$s</item>
+        <item quantity="other">%1$d pare · bygewerk %2$s</item>
+    </plurals>
+    <string name="explorer_pairs_title">Pare</string>
+    <string name="explorer_precise_title">Gevorderd / per beurs</string>
+    <string name="explorer_price_loading">Laai prys…</string>
+    <string name="explorer_select_exchange_hint">Kies \'n beurs – sy handelspare laai outomaties.</string>
+    <string name="explorer_select_placeholder">Kies asseblief</string>
+    <string name="explorer_step_pair">Kies paar</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">Stygers</string>
+    <string name="explorer_filter_losers">Dalers</string>
+    <string name="explorer_filter_volume">Volume</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">Alle %1$s-pare van hierdie beurs</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">%1$d %2$s-paar gevind</item>
+        <item quantity="other">%1$d %2$s-pare gevind</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">Geen %1$s-pare op hierdie beurs vir die gekose kontraktipe nie. Sinkroniseer eers die beurs, of probeer \'n ander kontraktipe.</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">Voeg die %1$d paar by volglys</item>
+        <item quantity="other">Voeg al %1$d pare by volglys</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">%1$d bygevoeg, %2$d reeds in die volglys.</item>
+        <item quantity="other">%1$d bygevoeg, %2$d reeds in die volglys.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">Die %1$d %2$s-paar van %3$s sal by die volglys gevoeg word, tensy dit reeds daar is.</item>
+        <item quantity="other">Al %1$d %2$s-pare van %3$s sal by die volglys gevoeg word. Pare wat reeds daarin is, word oorgeslaan.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">Voeg %1$d paar by?</item>
+        <item quantity="other">Voeg %1$d pare by?</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">Versteek lys</string>
+    <string name="explorer_bulk_show_list">Wys lys</string>
+    <string name="explorer_bulk_tap_hint">Tik op \'n paar om dit hierbo te kies.</string>
+    <string name="explorer_bulk_title">Verskeie pare tegelyk</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">Laai die huidige pare van die gekose beurs.</string>
+    <string name="explorer_no_pair_list">Geen valutapare nie</string>
+    <string name="explorer_sync_sheet_last">Laaste sinkronisasie: %1$s</string>
+    <string name="explorer_sync_never">nooit</string>
+    <string name="explorer_sync_sheet_action">Sinkroniseer nou</string>
+    <string name="explorer_sync_sheet_title">Werk valutapare by</string>
+    <string name="explorer_field_coin">Munt</string>
+    <string name="explorer_field_contract">Kontraktipe</string>
+    <string name="explorer_field_exchange">Beurs</string>
+    <string name="explorer_field_quote">Kwotasie-geldeenheid</string>
+    <string name="explorer_contract_spot">Spot</string>
+    <string name="explorer_reload_pairs">Sinkroniseer</string>
+    <string name="sync_pairs_count">Handelspare: %1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">Voeg by</string>
+    <string name="dex_added">%1$s by die volglys gevoeg.</string>
+    <string name="dex_already">%1$s is reeds in die volglys.</string>
+    <string name="dex_intro">Tokens buite die groot beurse, van gedesentraliseerde beurse (Uniswap, PancakeSwap, Raydium …) via DexScreener. Soek \'n token en voeg een van sy handelspoele by – pryse in Amerikaanse dollar.</string>
+    <string name="dex_liquidity">Likiditeit %1$s</string>
+    <string name="dex_no_results">Geen poele gevind nie.</string>
+    <string name="dex_search">Soek</string>
+    <string name="dex_search_hint">Tokennaam, simbool of adres</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">Alpha-token</string>
+    <string name="asset_kind_token">Token</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+
+    <string name="dex_low_liquidity_no_alarm">Lae likiditeit – geen alarms nie</string>
+    <string name="dex_low_liquidity_alarm_hint">Hierdie poel het minder as 10,000 USD aan likiditeit (of niks gerapporteer nie). Klein transaksies kan sy prys beweeg, daarom kan hier geen alarms gestel word nie. Bestaande alarms word gehou, maar gaan nie af totdat likiditeit weer styg nie.</string>
+
+    <string name="explorer_bulk_show_all">Wys almal (%1$d)</string>
+    <string name="dex_token_address_copy">Kopieer tokenadres</string>
+    <string name="dex_token_address_copied">Tokenadres gekopieer</string>
+    <string name="dex_token_address_label">Tokenadres wat eindig op %1$s</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="one">%1$d paar nie bygevoeg nie: jou volglys kan hoogstens %2$s pare hê.</item>
+        <item quantity="other">%1$d pare nie bygevoeg nie: jou volglys kan hoogstens %2$s pare hê.</item>
+    </plurals>
+    <string name="bulk_add_progress">Voeg pare by … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="one">Voeg %1$d nuwe paar by volglys</item>
+        <item quantity="other">Voeg %1$d nuwe pare by volglys</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="one">%1$d nuut, %2$d reeds in die volglys</item>
+        <item quantity="other">%1$d nuut, %2$d reeds in die volglys</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">Almal reeds in die volglys</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="one">Verwyder %1$d paar weer?</item>
+        <item quantity="other">Verwyder %1$d pare weer?</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">Pare waarvoor jy intussen \'n alarm gestel het, bly.</string>
+    <string name="bulk_undo_expired">Ontdoen is nie meer moontlik nie – die pare bly in die volglys.</string>
+    <string name="explorer_section_spot">Spot</string>
+    <string name="explorer_section_futures">Futures</string>
+    <string name="explorer_section_dex">DEX-poele</string>
+    <string name="explorer_section_forex">Forex (verwysingskoers)</string>
+    <string name="explorer_forex_hint">Daaglikse koers van die Europese Sentrale Bank (via Frankfurter), nie regstreeks nie – geen alarms nie.</string>
+</resources>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">ລາຍການທີ່ບໍ່ມີຕົ້ນທຶນ: %1$d</string>
+    <string name="cost_gaps_card_text">ເພີ່ມຕົ້ນທຶນເພື່ອໃຫ້ກຳໄລ ແລະ ພາສີຄົບຖ້ວນ.</string>
+    <string name="cost_gaps_sheet_title">ລາຍການທີ່ບໍ່ມີຕົ້ນທຶນ</string>
+    <string name="cost_gaps_sheet_intro">ເງິນເຂົ້າເຫຼົ່ານີ້ບໍ່ມີຕົ້ນທຶນ. ຄຳແນະນຳແມ່ນລາຄາປິດລາຍວັນຂອງວັນທີນັ້ນ – ທ່ານສາມາດປັບມັນໄດ້ໃນລາຍການ.</string>
+    <string name="cost_gaps_empty">ລາຍການທັງໝົດມີຕົ້ນທຶນ.</string>
+    <string name="cost_gap_enter">ໃສ່ຕົ້ນທຶນ</string>
+    <string name="cost_gap_leave_unknown">ປ່ອຍໄວ້ບໍ່ຮູ້</string>
+    <string name="cost_gap_left_unknown">ປ່ອຍໄວ້ບໍ່ຮູ້ແລ້ວ</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">ຄຳແນະນຳ: ລາຄາປິດລາຍວັນ %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">ບໍ່ມີລາຄາປິດລາຍວັນທີ່ຢືນຢັນແລ້ວສຳລັບວັນທີນີ້</string>
+    <string name="cost_gap_suggestion_loading">ກຳລັງໂຫຼດລາຄາປິດລາຍວັນ …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">ຕົ້ນທຶນ = ມູນຄ່າເມື່ອໄດ້ຮັບ (ລາຍຮັບ)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">ຕົ້ນທຶນ = 0 (ລາງວັນທີ່ບໍ່ມີເງິນເຂົ້າ, ອອສເຕຣຍ)</string>
+    <string name="cost_gap_apply">ນຳໃຊ້</string>
+    <string name="address_lots_action">ຕົ້ນທຶນສຳລັບຍອດເງິນຂອງທີ່ຢູ່</string>
+    <string name="address_lots_title">ຕົ້ນທຶນສຳລັບຍອດເງິນຂອງທີ່ຢູ່</string>
+    <string name="address_lots_intro">ໃສ່ວັນທີຊື້, ຈຳນວນ ແລະ ຕົ້ນທຶນສຳລັບຍອດເງິນຂອງທີ່ຢູ່ນີ້. ລັອດຈະນັບຄືກັບການຊື້ໃນທີ່ຢູ່ນີ້; ສ່ວນໃດທີ່ບໍ່ໄດ້ຄອບຄຸມຈະຍັງບໍ່ມີຕົ້ນທຶນ.</string>
+    <string name="address_lots_add">ເພີ່ມລັອດ</string>
+    <string name="address_lots_new">ລັອດໃໝ່</string>
+    <string name="address_lots_edit">ລັອດ</string>
+    <string name="address_lots_date">ວັນທີຊື້</string>
+    <string name="address_lots_amount">ຈຳນວນ</string>
+    <string name="address_lots_mode_total">ທັງໝົດ</string>
+    <string name="address_lots_mode_price">ຕໍ່ຫຼຽນ</string>
+    <string name="address_lots_price">ລາຄາຕໍ່ຫຼຽນ (USDT)</string>
+    <string name="address_lots_total">ຕົ້ນທຶນທັງໝົດ (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%1$s ຈາກ %2$s ມີຕົ້ນທຶນ</string>
+    <string name="address_lots_unlotted">%1$s ບໍ່ມີຕົ້ນທຶນ</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">ລັອດເກີນຍອດເງິນ %1$s – ລັອດທີ່ເກົ່າທີ່ສຸດຈະຖືກໃຊ້ກ່ອນ.</string>
+    <string name="address_lots_not_loaded">ຍັງບໍ່ໄດ້ໂຫຼດຍອດເງິນ – ລັອດຈະຖືກນັບທັນທີທີ່ໂຫຼດແລ້ວ.</string>
+    <string name="address_lots_invalid">ໃສ່ຈຳນວນ ແລະ ຕົ້ນທຶນ</string>
+</resources>

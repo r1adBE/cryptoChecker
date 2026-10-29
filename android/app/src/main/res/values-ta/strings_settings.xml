@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">தனிப்பயன்</string>
+    <string name="settings_group_general">பொது</string>
+    <string name="settings_group_more">மேலும்</string>
+    <string name="settings_minutes">%1$d நிமி.</string>
+    <string name="settings_row_about">ஆப் பற்றி</string>
+    <string name="settings_row_alarms">விழிப்பூட்டல்கள்</string>
+    <string name="settings_row_currency">நாணயம்</string>
+    <string name="settings_row_dated_futures">காலாவதித் தேதியுள்ள ஃபியூச்சர்ஸ்</string>
+    <string name="settings_row_updates">விலைப் புதுப்பிப்புகள்</string>
+    <string name="settings_row_watchlist">கண்காணிப்புப் பட்டியல்</string>
+    <string name="settings_search_hint">அமைப்புகளில் தேடு</string>
+    <string name="settings_seconds">%1$d வி.</string>
+    <string name="settings_section_about">பற்றி</string>
+    <string name="settings_section_appearance">தோற்றம்</string>
+    <string name="settings_section_developer">டெவலப்பர்</string>
+    <string name="settings_section_language">மொழி</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">ஆன்</string>
+    <string name="settings_title">அமைப்புகள்</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">விழிப்பூட்டல் மீண்டும் தூண்டப்படும் முன் ஓய்வு நேரம்</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">விழிப்பூட்டல் சமிக்ஞை</string>
+    <string name="settings_alarm_signal_open_system">சிஸ்டம் அமைப்புகளில் சரிசெய்</string>
+    <string name="settings_alarm_signal_system_hint">உங்கள் ஃபோனின் அறிவிப்பு அமைப்புகளைப் பின்பற்றும்.</string>
+    <string name="settings_alarm_sound">விழிப்பூட்டல் ஒலி</string>
+    <string name="settings_alarm_sound_custom">தனிப்பயன் ஒலி</string>
+    <string name="settings_alarm_sound_default">இயல்பு ஒலி</string>
+    <string name="settings_alarm_sound_error">ஒலியைப் பயன்படுத்த முடியவில்லை.</string>
+    <string name="settings_alarm_sound_file">உங்கள் சொந்த ஆடியோ கோப்பு…</string>
+    <string name="settings_alarm_sound_reset">இயல்பு ஒலியைப் பயன்படுத்து</string>
+    <string name="settings_alarm_sound_system">சிஸ்டம் ஒலியைத் தேர்ந்தெடு…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">ஆப் ஐகானில் எண்</string>
+    <string name="settings_app_badge_hint">திறந்திருக்கும் விழிப்பூட்டல் அறிவிப்புகளைக் கணக்கிடும். எண் தோன்றுமா புள்ளி தோன்றுமா என்பது முகப்புத் திரையைப் பொறுத்தது (எ.கா. Samsung: “எண்ணுடன் காட்டு”).</string>
+    <string name="settings_exact_checks">சரியான நேரத்தில் சரிபார்</string>
+    <string name="settings_exact_checks_grant">அலாரங்கள் &amp; நினைவூட்டல்களை அனுமதி</string>
+    <string name="settings_exact_checks_hint">சாதனம் செயலற்று இருந்தாலும் Android சுமார் ஒவ்வொரு 15 நிமிடத்துக்கும் சரிபார்க்கும். சற்று அதிக பேட்டரியைப் பயன்படுத்தும்.</string>
+    <string name="settings_exact_checks_nothing">செயலில் உள்ள ஜோடிகள் இல்லை – சரிபார்க்க எதுவுமில்லை.</string>
+    <string name="settings_exact_checks_permission_missing">அனுமதி இல்லை – சாதனம் ஓய்வில் இருக்கும்போது Android ஒழுங்கற்ற இடைவெளிகளில், சில நேரம் மணிநேரங்களுக்குப் பிறகே சரிபார்க்கும்.</string>
+    <string name="settings_notification_change">விலை மாறும்போது மட்டும் தெரிவி</string>
+    <string name="settings_notification_change_always">எப்போதும்</string>
+    <string name="settings_percent_invalid">0 முதல் 100 வரையிலான மதிப்பை உள்ளிடவும்.</string>
+    <string name="settings_notification_change_hint">கடைசி அறிவிப்பிலிருந்து விலை குறைந்தது இந்த அளவு நகர்ந்த பிறகே விலை அறிவிப்பு தோன்றும். தரவு இல்லாதபோது எதுவும் காட்டப்படாது. விழிப்பூட்டல்கள் பாதிக்கப்படாது.</string>
+    <string name="settings_ongoing_notifications">ஸ்வைப் செய்து அகற்ற முடியாது</string>
+    <string name="settings_ongoing_notifications_hint">விலை அறிவிப்புகளைப் பின் செய்து வைக்கும்.</string>
+    <string name="settings_price_notifications">விலை அறிவிப்புகள்</string>
+    <string name="settings_price_notifications_hint">இயக்கப்பட்ட ஜோடிகளின் தற்போதைய விலையை நிலைப் பட்டியில் காட்டு.</string>
+    <string name="settings_price_pairs">ஜோடிகள்</string>
+    <string name="settings_price_pairs_all_off">அனைத்தும் ஆஃப்</string>
+    <string name="settings_price_pairs_all_on">அனைத்தும் ஆன்</string>
+    <string name="settings_price_pairs_count">%2$d இல் %1$d</string>
+    <string name="settings_price_pairs_empty">கண்காணிப்புப் பட்டியலில் இன்னும் ஜோடிகள் இல்லை.</string>
+    <string name="settings_price_pairs_hint">எந்த ஜோடிகள் அறிவிப்புப் பட்டியில் தங்கள் விலையைக் காட்ட வேண்டும் என்பதைத் தேர்ந்தெடுக்கவும்.</string>
+    <string name="settings_quiet_hours">அமைதி நேரம்</string>
+    <string name="settings_quiet_hours_from">முதல்</string>
+    <string name="settings_quiet_hours_hint">%1$s முதல் %2$s வரை, விழிப்பூட்டல்கள் அமைதி நேரம் முடியும் வரை காத்திருந்து பின்னர் ஒலியுடன் ஒலிக்கும். பிற அறிவிப்புகள் ஒலியின்றி, பேச்சின்றி வரும்.</string>
+    <string name="settings_quiet_hours_to">வரை</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">இடைவெளி</string>
+    <string name="settings_background_updates">பின்னணிப் புதுப்பிப்புகள்</string>
+    <string name="settings_battery_hint">கட்டுப்படுத்தப்பட்டது என்றால் Android பின்னணிப் புதுப்பிப்புகளை மணிநேரக் கணக்கில் தாமதப்படுத்தலாம்.</string>
+    <string name="settings_battery_ok">பேட்டரிப் பயன்பாடு: கட்டுப்பாடற்றது</string>
+    <string name="settings_battery_restricted">பேட்டரிப் பயன்பாடு: கட்டுப்படுத்தப்பட்டது</string>
+    <string name="settings_check_runs_empty">இன்னும் சரிபார்ப்புகள் பதிவுசெய்யப்படவில்லை.</string>
+    <string name="settings_check_runs_honest_android">எப்போது சரிபார்க்க வேண்டும் என்பதை Android தீர்மானிக்கும் – உண்மையில் எப்போது நடந்தது என்பதை இங்கே காணலாம்.</string>
+    <string name="settings_check_runs_honest_ios">எப்போது சரிபார்க்க வேண்டும் என்பதை iOS தீர்மானிக்கும் – உண்மையில் எப்போது நடந்தது என்பதை இங்கே காணலாம்.</string>
+    <string name="settings_check_runs_title">சமீபத்திய சரிபார்ப்புகள்</string>
+    <string name="settings_http_log">HTTP பதிவைக் காட்டு</string>
+    <string name="settings_http_log_hint">“ஜோடியைச் சேர்” பக்கத்தின் கீழே எக்ஸ்சேஞ்ச்களுக்கான கோரிக்கைகளைக் காட்டும் – சிக்கல் தீர்ப்பதற்காக.</string>
+    <string name="settings_live_service">அடிக்கடி புதுப்பி</string>
+    <string name="settings_live_websocket">நேரலை விலைகள்</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">கவனிக்கத்தக்கது: தெரிவி</string>
+    <string name="settings_activity_alerts_hint">ஒரு ஜோடிக்கு மணிநேரத்துக்கு அதிகபட்சம் ஒருமுறை: அசாதாரண விலை நகர்வுகள், வால்யூம் திடீர் உயர்வுகள் மற்றும் ஃபியூச்சர்ஸ் தீவிரநிலைகள் (Binance தரவு).</string>
+    <string name="settings_activity_sensitivity">உணர்திறன்</string>
+    <string name="settings_activity_sensitivity_hint">ஒரு காயின் எவ்வளவு எளிதாக அசாதாரணமாகக் கணக்கிடப்படுகிறது – கண்காணிப்புப் பட்டியல் அட்டைக்கும் சந்தை விழிப்பூட்டல்களுக்கும் ஒன்றே. “குறைவு” என்பதில், அட்டை 3 வலுவானவற்றை மட்டுமே காட்டும்.</string>
+    <string name="settings_watchlist_activity_card">கவனிக்கத்தக்கது: பட்டியலில் காட்டு</string>
+    <string name="settings_watchlist_activity_card_hint">குழுக்களுக்கு அருகில் ⚡ சிப்பைக் காட்டும்: இப்போது ஏதாவது நடக்கும் ஜோடிகளை மட்டும் காண அதைத் தட்டவும். இதற்கான அறிவிப்புகள் சந்தை விழிப்பூட்டல்கள் என்பதில் அமைக்கப்படும்.</string>
+    <string name="settings_watchlist_names">பெயர்களைக் காட்டு</string>
+    <string name="settings_watchlist_names_hint">ஜோடிக்குக் கீழே பெயர், எ.கா. Bitcoin அல்லது NVIDIA. லோகோ பட்டியல்களுடன் வரும், எல்லாக் காயின்களுக்கும் ஒருமுறை ஏற்றப்படும்.</string>
+    <string name="settings_watchlist_sparkline">கண்காணிப்புப் பட்டியலில் சிறு விளக்கப்படம்</string>
+    <string name="settings_watchlist_sparkline_hint">விலைக்கு அருகில் 24 மணிநேரப் போக்கு</string>
+    <string name="settings_watchlist_value_names">பெயர்கள்</string>
+    <string name="settings_watchlist_value_price_only">விலை மட்டும்</string>
+    <string name="settings_watchlist_value_sparkline">சிறு விளக்கப்படம்</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Alpha டோக்கன்கள் உட்பட (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Alpha டோக்கன்கள்: Binance Alpha பட்டியலிலிருந்து ஆரம்பநிலை, பெரும்பாலும் சிறிய திட்டங்கள் – பெரும்பாலும் குறைவாக வர்த்தகமாகும், அதிக ஏற்ற இறக்கம் கொண்டவை.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">டோக்கன்களைச் சேர்ந்தது. “TradFi மட்டும்” தேர்ந்தெடுக்கப்பட்டிருக்கும்போது கிடைக்காது; உங்கள் கண்காணிப்புப் பட்டியலில் ஏற்கெனவே உள்ள Alpha டோக்கன்கள் அப்படியே இருக்கும்.</string>
+    <string name="settings_asset_scope_both">டோக்கன்களும் TradFi உம்</string>
+    <string name="settings_asset_scope_both_hint">அனைத்தும் – கிரிப்டோ மற்றும் TradFi</string>
+    <string name="settings_asset_scope_hint">ஜோடிகளைச் சேர்க்கும்போது தேர்வும் தேடலும் எந்த ஜோடிகளைக் காட்டும் என்பதை அமைக்கிறது. உங்கள் கண்காணிப்புப் பட்டியலில் ஏற்கெனவே உள்ள ஜோடிகள் எப்போதும் இருக்கும்.</string>
+    <string name="settings_asset_scope_title">டோக்கன்கள் &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">டோக்கன்கள் மட்டும்</string>
+    <string name="settings_asset_scope_tokens_hint">கிரிப்டோ: ஸ்பாட் மற்றும் பெர்பெச்சுவல்கள்</string>
+    <string name="settings_asset_scope_tradfi">TradFi மட்டும்</string>
+    <string name="settings_asset_scope_tradfi_hint">பங்குகள், பொருட்கள், FX மீதான ஃபியூச்சர்ஸ் – ஒப்பந்தங்கள், டோக்கன்கள் அல்ல</string>
+    <string name="settings_rolling_futures">காலாண்டு &amp; பிற காலாவதித் தேதியுள்ள ஃபியூச்சர்ஸ் உட்பட</string>
+    <string name="settings_rolling_futures_hint">ஆஃப்: எக்ஸ்சேஞ்ச் பட்டியலில் இல்லாத காலாவதித் தேதியுள்ள ஃபியூச்சர்ஸ் ஒவ்வொன்றாகச் சரிபார்க்கப்படுவதற்குப் பதிலாக இனி வர்த்தகமாகவில்லை எனக் குறிக்கப்படும். ஒவ்வொரு புதுப்பிப்பிலும் நேரம் மிச்சமாகும்.</string>
+    <string name="settings_rolling_futures_qtly">காலாண்டு &amp; பிற காலாவதித் தேதியுள்ள ஃபியூச்சர்ஸ் உட்பட (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">டோக்கன்களைச் சேர்ந்தது. “TradFi மட்டும்” தேர்ந்தெடுக்கப்பட்டிருக்கும்போது கிடைக்காது; உங்கள் கண்காணிப்புப் பட்டியலில் ஏற்கெனவே உள்ள காலாவதித் தேதியுள்ள ஃபியூச்சர்ஸுக்குத் தொடர்ந்து பொருந்தும்.</string>
+    <string name="settings_tradfi_futures">பங்குகள், பொருட்கள் மற்றும் FX (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">ஜோடியைத் தேர்ந்தெடுக்கும்போது பங்குகள், தங்கம் மற்றும் பிற பொருட்கள், நாணயங்கள் மற்றும் pre-IPO நிறுவனங்கள் மீதான ஃபியூச்சர்ஸையும் காட்டும். இவை ஒப்பந்தங்கள், டோக்கன்கள் அல்ல.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">அழுத்த நிறம்</string>
+    <string name="settings_accent_hint">ஆப், விட்ஜெட்கள் மற்றும் ஆப் ஐகானுக்கான நிறம். சில முகப்புத் திரைகள் ஐகான் மாறும்போது அதை அகற்றும் – அப்போது மீண்டும் சேர்க்கவும்.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">காயின் லோகோக்கள்</string>
+    <string name="settings_coin_logos_app">ஆப்பில்</string>
+    <string name="settings_coin_logos_app_hint">கண்காணிப்புப் பட்டியல், திறந்த ஜோடி மற்றும் சந்தை அட்டைகள்</string>
+    <string name="settings_coin_logos_footer">லோகோக்கள் CoinGecko இலிருந்தும், CoinGecko பட்டியலிடாத காயின்களுக்கு (எ.கா. தங்கம், வெள்ளி, பங்குகள்) Binance இலிருந்தும் வருகின்றன. ஆப் எல்லா லோகோக்களையும் ஒரே நேரத்தில் ஏற்றி இந்தச் சாதனத்தில் வைத்திருக்கும், எனவே நீங்கள் எந்தக் காயின்களைப் பின்தொடர்கிறீர்கள் என்பது எந்த வழங்குநருக்கும் தெரியாது. லோகோ இல்லாத காயின்கள் அவற்றின் முதலெழுத்துகளைக் காட்டும். பிடித்தவைக்கு லோகோவில் ஒரு சிறிய நட்சத்திரம் கிடைக்கும். சுவிட்ச் ஆஃப் ஆக உள்ள இடங்களில் லோகோக்களோ முதலெழுத்துகளோ தோன்றாது; எல்லா சுவிட்சுகளும் ஆஃப் என்றால், எதுவும் ஏற்றப்படாது.</string>
+    <string name="settings_coin_logos_portfolio">போர்ட்ஃபோலியோவில்</string>
+    <string name="settings_coin_logos_portfolio_hint">நிலைகள், காயின் விவரங்கள் மற்றும் நுண்ணறிவுகள்</string>
+    <string name="settings_coin_logos_value_app">ஆப்</string>
+    <string name="settings_coin_logos_widgets">விட்ஜெட்களில்</string>
+    <string name="settings_coin_logos_widgets_hint">கண்காணிப்புப் பட்டியல் மற்றும் ஒற்றைக் காயின் விட்ஜெட்கள்</string>
+    <string name="settings_high_contrast">அதிக மாறுபாடு</string>
+    <string name="settings_high_contrast_hint">வலுவான விலை நிறங்களும் அடர்த்தியான இரண்டாம்நிலை உரையும். சிஸ்டம் அதிக மாறுபாட்டைக் கேட்கும்போதும் ஆன் ஆகும்.</string>
+    <string name="settings_language_choose">மொழியைத் தேர்ந்தெடு</string>
+    <string name="settings_language_system">சிஸ்டம் மொழி</string>
+    <string name="settings_price_colors">விலை நிறங்கள்</string>
+    <string name="settings_price_colors_hint">நீலம் / ஆரஞ்சு எல்லா நிறக் குறைபாடுகளிலும் (சிவப்பு-பச்சை மற்றும் நீலம்-மஞ்சள்) எளிதில் வேறுபடுத்தக்கூடியது. திசை எப்போதும் + / − மூலமும் காட்டப்படும்.</string>
+    <string name="settings_theme_mode">ஒளி / இருள்</string>
+    <string name="settings_widgets">விட்ஜெட்கள்</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">%1$s மாற்றம் &amp; விளக்கப்பட நேர மண்டலம்</string>
+    <string name="settings_change_basis_hint_1">தேர்ந்தெடுத்த நேர மண்டலம் சதவீத மாற்றம் எப்போதிலிருந்து கணக்கிடப்படுகிறது (கண்காணிப்புப் பட்டியல், நாடித்துடிப்பு வரி, திறந்த ஜோடி, விட்ஜெட்கள்) என்பதையும் விளக்கப்படங்களில் காட்டப்படும் நேரங்களையும் அமைக்கிறது.</string>
+    <string name="settings_change_basis_hint_2">“%1$s” சரியாக 24 மணிநேரத்துக்கு முந்தைய விலையுடன் ஒப்பிடுகிறது. “00:00” அந்த நேர மண்டலத்தின் நள்ளிரவுத் தொடக்க விலையுடன் ஒப்பிடுகிறது.</string>
+    <string name="settings_change_basis_hint_3">விழிப்பூட்டல்கள் பாதிக்கப்படாது.</string>
+    <string name="settings_change_basis_hint_since_last">“%1$s” முந்தைய புதுப்பிப்பின் விலையுடன் ஒப்பிடுகிறது. நேரலை விலைகளுடன் இது 0%% க்கு அருகிலேயே இருக்கும்.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">மாற்று நாணயம்</string>
+    <string name="settings_conversion_currency_hint">போர்ட்ஃபோலியோ, உங்கள் நாணயத்திலான விழிப்பூட்டல்கள், கிரிப்டோ சந்தை அட்டை மற்றும் போர்ட்ஃபோலியோ விட்ஜெட்டுக்கும் பயன்படும்.</string>
+    <string name="settings_cost_method">செலவு முறை</string>
+    <string name="settings_cost_method_average">சராசரிச் செலவு</string>
+    <string name="settings_cost_method_average_hint">விற்பனைகள் நகரும் சராசரி வாங்கிய விலையில் மதிப்பிடப்படும்.</string>
+    <string name="settings_cost_method_fifo">FIFO (இயல்பு)</string>
+    <string name="settings_cost_method_fifo_hint">எல்லா எக்ஸ்சேஞ்ச்கள் மற்றும் வாலட்களிலும், பழைய காயின்கள் முதலில் விற்கப்படும்.</string>
+    <string name="settings_cost_method_fifo_wallet">வாலட்/எக்ஸ்சேஞ்ச் வாரியாக FIFO</string>
+    <string name="settings_cost_method_fifo_wallet_hint">ஒவ்வொரு எக்ஸ்சேஞ்ச் அல்லது வாலட்டுக்குள் பழைய காயின்கள் முதலில்; பரிமாற்றங்கள் லாட்களை அவற்றின் வாங்கிய தேதியுடன் நகர்த்தும்.</string>
+    <string name="settings_portfolio_lock">போர்ட்ஃபோலியோ பூட்டு</string>
+    <string name="settings_portfolio_lock_footer">பூட்டு திரையில் காட்டப்படுவதை மறைக்கும். உங்கள் தரவு இந்தச் சாதனத்தில் சேமிக்கப்பட்டு, சாதன மறையாக்கத்தால் பாதுகாக்கப்படுகிறது. காப்புப்பிரதிகளைக் கடவுச்சொல்லால் பாதுகாக்கலாம்.</string>
+    <string name="settings_portfolio_lock_hint">போர்ட்ஃபோலியோவை மட்டுமே மறைக்கும்: கைரேகை, முகம் அல்லது சாதன PIN மூலம் திறக்கவும். பின்னணியில் ஒரு நிமிடத்துக்கு மேல் இருந்த பிறகு மீண்டும் பூட்டப்படும். கண்காணிப்புப் பட்டியல், விழிப்பூட்டல்கள் மற்றும் பிற விட்ஜெட்கள் திறந்தே இருக்கும்.</string>
+    <string name="settings_portfolio_lock_no_device_lock">சாதன PIN அல்லது கடவுக்குறியீடு இல்லாமல் பூட்டு எதையும் மறைக்காது – திரைப் பூட்டை அமைக்கவும்.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">சிஸ்டம் காப்புப்பிரதியில் போர்ட்ஃபோலியோ</string>
+    <string name="settings_portfolio_system_backup_hint">ஆஃப்: உங்கள் பரிவர்த்தனைகள் சாதனத்தின் சிஸ்டம் காப்புப்பிரதியிலும் ஃபோன்-டு-ஃபோன் பரிமாற்றங்களிலும் சேராது. அவற்றைப் புதிய ஃபோனுக்கு நகர்த்த, கடவுச்சொல்லுடன் ஆப்பின் சொந்தக் காப்புப்பிரதியைப் பயன்படுத்தவும்.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Android 9 அல்லது அதற்குப் பிந்தையது தேவை – பழைய பதிப்புகள் போர்ட்ஃபோலியோவை Google காப்புப்பிரதியில் மறையாக்காமல் சேமிக்கும்.</string>
+    <string name="settings_portfolio_tab">போர்ட்ஃபோலியோ தாவலைக் காட்டு</string>
+    <string name="settings_portfolio_value_locked">ஆன், பூட்டுடன்</string>
+    <string name="settings_show_converted">மாற்றப்பட்ட விலைகள்</string>
+    <string name="settings_show_converted_hint">கண்காணிப்புப் பட்டியலில் விலைகளை %1$s இலும் காட்டும்</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">USDT டீபெக்கைத் தெரிவி</string>
+    <string name="settings_depeg_alarm_hint">USDT 1 USD இலிருந்து வரம்பு அளவுக்கு விலகும்போது ஒருமுறை தெரிவிக்கும் (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_threshold">டீபெக் வரம்பு</string>
+    <string name="settings_fng_above">Fear &amp; Greed: இதற்கு மேல் தெரிவி</string>
+    <string name="settings_fng_below">Fear &amp; Greed: இதற்குக் கீழ் தெரிவி</string>
+    <string name="settings_gas_alert_hint">சாதாரணக் கட்டணம் வரம்புக்குக் கீழ் குறையும்போது ஒருமுறை தெரிவிக்கும். விலைப் புதுப்பிப்புகளின்போது, அதிகபட்சம் 10 நிமிடங்களுக்கு ஒருமுறை சரிபார்க்கப்படும்.</string>
+    <string name="settings_gas_btc_below">Bitcoin கட்டணம் இதற்குக் கீழ் (sat/vB)</string>
+    <string name="settings_gas_eth_below">Ethereum gas இதற்குக் கீழ் (gwei)</string>
+    <string name="settings_ind_ath_within">எல்லா நேர உச்சத்திலிருந்து வீழ்ச்சி அதிகபட்சம்</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple இதற்கு மேல்</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple இதற்குக் கீழ்</string>
+    <string name="settings_ind_mvrv_above">MVRV இதற்கு மேல்</string>
+    <string name="settings_ind_mvrv_below">MVRV இதற்குக் கீழ்</string>
+    <string name="settings_indicator_alerts_hint">Bitcoin குறிகாட்டிகள், நாளுக்கு இருமுறை சரிபார்க்கப்படும். வரம்புகளை நீங்கள் தேர்ந்தெடுக்கிறீர்கள் – ஆப் மதிப்புகளை மதிப்பிடாது.</string>
+    <string name="settings_macro_notifications">பொருளாதார நாட்காட்டி</string>
+    <string name="settings_macro_notifications_hint">முக்கியமான அமெரிக்கப் பொருளாதாரத் தரவு உள்ள நாட்களில் 08:00 மணிக்கு (பணவீக்கம், வேலைவாய்ப்பு அறிக்கை, Fed முடிவு). நாட்காட்டி ஆப்பின் இணையதளத்திலிருந்து வருகிறது, நாளுக்கு ஒருமுறை ஏற்றப்படும்.</string>
+    <string name="settings_market_alerts">சந்தை விழிப்பூட்டல்கள்</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d செயலில்</item>
+        <item quantity="other">%1$d செயலில்</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">பேச்சு வேகம்: %1$.1f×</string>
+    <string name="settings_tts">பேச்சு வெளியீடு</string>
+    <string name="settings_tts_alarms_only">விழிப்பூட்டல்கள் மட்டும்</string>
+    <string name="settings_tts_alarms_only_hint">ஆஃப்: “விலையைப் படித்துக் காட்டு” எனக் குறிக்கப்பட்ட ஜோடியின் ஒவ்வொரு புதுப்பிப்பும் உரக்கப் படிக்கப்படும்.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">விலைகளையும் விழிப்பூட்டல்களையும் உரக்கப் படிக்கும். சாதனம் சைலன்ட் அல்லது அதிர்வு பயன்முறையில் இருக்கும்போது அமைதியாக இருக்கும்.</string>
+    <string name="settings_tts_test">குரலைச் சோதி</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">ஆப்பை மீட்டமை</string>
+    <string name="settings_reset_app_action">அனைத்தையும் நீக்கு</string>
+    <string name="settings_reset_app_confirm">நிறுவிய பின் இருப்பது போல, கண்காணிப்புப் பட்டியல், விழிப்பூட்டல்கள், போர்ட்ஃபோலியோ, அமைப்புகள் மற்றும் சேமிக்கப்பட்ட எல்லாத் தரவையும் நீக்கும். இதைச் செயல்தவிர்க்க முடியாது. உதவிக்குறிப்பு: முதலில் காப்புப்பிரதி எடுக்கவும். சாதனக் காப்புப்பிரதிகள் (Google காப்புப்பிரதி அல்லது iCloud/கணினிக் காப்புப்பிரதி) அடுத்த காப்புப்பிரதி இயங்கும் வரை முந்தைய தரவை வைத்திருக்கும்.</string>
+    <string name="settings_reset_app_title">ஆப்பை மீட்டமைக்கவா?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">நாணயத்தைத் தேடு</string>
+    <string name="language_search">மொழியைத் தேடு</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">இருள்</string>
+    <string name="theme_light">ஒளி</string>
+    <string name="theme_system">சிஸ்டம்</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">நீலம்</string>
+    <string name="accent_green">பச்சை</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs பச்சை</string>
+    <string name="accent_orange">ஆரஞ்சு</string>
+    <string name="accent_red">சிவப்பு</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">சீனா, ஜப்பான், கொரியா மற்றும் தைவானில் வழக்கமானது</string>
+    <string name="price_colors_swap">நிறங்களை மாற்று (உயர்வு ↔ சரிவு)</string>
+    <string name="price_style_calm">அமைதியான</string>
+    <string name="price_style_calm_color_vision">அமைதியான · நிறக் குறைபாடு</string>
+    <string name="price_style_color_vision">நிறக் குறைபாடு</string>
+    <string name="price_style_fresh">புதிய</string>
+    <string name="price_style_traditional">பாரம்பரிய</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">எக்ஸ்சேஞ்ச் இணைப்புகள் உண்மையான பதில்களுக்கு எதிராகக் கடைசியாகச் சரிபார்க்கப்பட்டது: %1$s</string>
+    <string name="about_license">விலைகள் நேரடியாக எக்ஸ்சேஞ்ச்களிலிருந்து வருகின்றன; கணக்கு இல்லை, கண்காணிப்பு இல்லை.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">உரிமங்கள்</string>
+    <string name="about_privacy_policy">தனியுரிமைக் கொள்கை</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">ஒரு எக்ஸ்சேஞ்சைக் கோரு</string>
+    <string name="about_source_code">GitHub இல் மூலக் குறியீடு</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker என்பது r1AD இன் ஒரு சுயாதீனத் திட்டம்: கணக்கு, விளம்பரங்கள் அல்லது கண்காணிப்பு இல்லாத அமைதியான விலை மேலோட்டம். கேள்விகளும் விருப்பங்களும்: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker திறந்த மூலமானது (MIT License).</string>
+    <string name="licenses_font_title">Rubik எழுத்துரு</string>
+    <string name="licenses_icons_bundled_text">ஆப்புடன் சேர்க்கப்பட்டவை: Christopher Downer மற்றும் பங்களிப்பாளர்களின் “Cryptocurrency Icons” இலிருந்து ஐகான்கள் (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal இன் கீழ் வெளியிடப்பட்டவை. CoinGecko அல்லது Binance லோகோக்கள் ஏற்றப்படும் வரை அவை காட்டப்படும். பெயர்களும் லோகோக்களும் அவற்றின் திட்டங்களின் வர்த்தகச் சின்னங்களாகவே இருக்கும்.</string>
+    <string name="licenses_icons_title">மாற்று காயின் ஐகான்கள்</string>
+    <string name="licenses_libraries_intro">ஆப் இந்த லைப்ரரிகளை Apache License 2.0 இன் கீழ் பயன்படுத்துகிறது:</string>
+    <string name="licenses_libraries_title">Android லைப்ரரிகள்</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">டெவலப்பர் விருப்பங்களைத் திறக்க இன்னும் %d தட்டல்</item>
+        <item quantity="other">டெவலப்பர் விருப்பங்களைத் திறக்க இன்னும் %d தட்டல்கள்</item>
+    </plurals>
+    <string name="developer_unlocked">டெவலப்பர் விருப்பங்கள் திறக்கப்பட்டன</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">அதிர்வு iPhone அமைப்புகளைப் பின்பற்றும் (ஒலிகள் &amp; ஹேப்டிக்ஸ்).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">புதிய விழிப்பூட்டல்களையும் சந்தை விழிப்பூட்டல்களையும் கணக்கிடும்; ஆப்பைத் திறக்கும்போது 0 க்குத் திரும்பும்.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">உங்கள் தரவு</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">இந்தச் சாதனத்தில்</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">உங்கள் கண்காணிப்புப் பட்டியல், விழிப்பூட்டல்கள் மற்றும் போர்ட்ஃபோலியோ இந்தச் சாதனத்தில் மறையாக்கப்பட்டுச் சேமிக்கப்படுகின்றன; கணக்கு இல்லை, எங்களுக்கென சர்வர் இல்லை.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">இணைப்புகள்</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">விலைகள் நேரடியாக உங்கள் ஜோடிகளின் எக்ஸ்சேஞ்ச்களிலிருந்து வருகின்றன, மேலும் மாற்று விகிதங்கள், காயின் பட்டியல்கள், லோகோக்கள் மற்றும் GitHub இல் உள்ள தரவு மிரர்; அவை உங்கள் IP முகவரியைப் பார்க்கும், உங்கள் இருப்புகளை ஒருபோதும் அல்ல (கண்காணிக்கப்படும் முகவரிகள் அந்தந்த நெட்வொர்க்கின் வழங்குநருக்குச் செல்லும்).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">காப்புப்பிரதி</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">நீங்கள் உருவாக்கினால் மட்டுமே. கடவுச்சொல்லுடன் அது மறையாக்கப்படும் (Argon2id + AES-256-GCM); கடவுச்சொல் இல்லாமல் படிக்கக்கூடியது.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">சாதனத்தை மாற்றுதல்</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">கீ பழைய சாதனத்திலேயே இருக்கும் – முதலில் காப்புப்பிரதிக் கோப்பை உருவாக்கவும்.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">கண்டறிதல் தகவலைப் பகிர்</string>
+    <string name="diagnostics_share_hint">ஆதரவுக்கான உரைக் கோப்பு: பதிப்பு, சாதனம், விழிப்பூட்டல் அமைப்புகள், சமீபத்திய சரிபார்ப்புகள் மற்றும் விழிப்பூட்டல் பதிவு – போர்ட்ஃபோலியோ, தொகைகள், முகவரிகள் அல்லது குறிப்புகள் இல்லாமல். நீங்கள் முதலில் பார்ப்பீர்கள்; எதுவும் தானாக அனுப்பப்படாது.</string>
+    <string name="diagnostics_preview_title">கண்டறிதல் முன்னோட்டம்</string>
+    <string name="diagnostics_action_share">பகிர்</string>
+    <string name="settings_price_overlay">விலை மேலடுக்கு</string>
+    <string name="settings_price_overlay_hint">நிரந்தர விலை அறிவிப்பின் ஜோடிகளைப் பிற ஆப்ஸின் மேல் ஒரு சிறிய மிதக்கும் பட்டையாகக் காட்டும். ஆப்பைத் திறக்கத் தட்டவும், மூட கீழே உள்ள × க்கு இழுக்கவும்.</string>
+    <string name="settings_price_overlay_needs">«%1$s» உடன் சேர்ந்து மட்டுமே வேலை செய்யும்.</string>
+    <string name="settings_price_overlay_grant">பிற ஆப்ஸின் மேல் காட்ட அனுமதி</string>
+    <string name="price_overlay_close">மேலடுக்கை மூடு</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">முகவரிகளுக்கான சொந்தச் சர்வர்</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Bitcoin மட்டும்: உங்கள் சொந்த Esplora- அல்லது mempool-இணக்கமான சர்வர் (எ.கா. https://node.example/api, Let\'s Encrypt போன்ற பொதுவாக நம்பகமான சான்றிதழ் தேவை). அமைக்கப்பட்டால், Bitcoin முகவரிகளும் xpub கீகளும் அங்கே மட்டுமே வினவப்படும் – பொது நோட்களில் ஒருபோதும் இல்லை, உங்கள் சர்வரை அணுக முடியாதபோதும் கூட. பிற நெட்வொர்க்குகள் தொடர்ந்து பொது நோட்களைப் பயன்படுத்தும். காலி = பொது நோட்கள்.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Bitcoin சர்வர் (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">சோதி</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">சோதிக்கிறது…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">சர்வர் பதிலளிக்கிறது – பிளாக் %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">சரியான பதில் இல்லை – முகவரியையும் சான்றிதழையும் சரிபார்க்கவும்</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">பயன்பாட்டில்: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">அமைக்கப்படவில்லை – பொது நோட்கள் பயன்படுத்தப்படுகின்றன</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">https:// முகவரிகள் மட்டுமே அனுமதிக்கப்படும்</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">முகவரியில் பயனர்பெயரோ கடவுச்சொல்லோ இருக்கக்கூடாது</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">முகவரியில் ? அல்லது # பகுதி இருக்கக்கூடாது</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">சரியான சர்வர் முகவரி அல்ல</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">பொது நோட்களுக்கு மாறவா?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">அப்போது உங்கள் Bitcoin முகவரிகளும் xpub கீகளும் பொது நோட்களில் வினவப்படும்: %1$s. அவை இந்த முகவரிகளை உங்கள் IP முகவரியுடன் சேர்த்துப் பார்க்கும்.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">பொது நோட்களைப் பயன்படுத்து</string>
+</resources>

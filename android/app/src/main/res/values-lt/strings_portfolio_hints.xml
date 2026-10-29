@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">Portfelio įspėjimai pristabdyti: nėra dabartinės %1$s kainos</string>
+    <string name="portfolio_alarms_paused_price_generic">Portfelio įspėjimai pristabdyti: ne visos monetos turi dabartinę kainą</string>
+    <string name="portfolio_alarms_paused_addresses">Portfelio įspėjimai pristabdyti: stebimų adresų likučiai dar neįkelti</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Portfelio įspėjimai pristabdyti: %1$s žetonų likučiai iš dalies pasenę</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Portfelio įspėjimai pristabdyti: stebimų adresų žetonų likučiai iš dalies pasenę</string>
+    <string name="portfolio_alarms_paused_unverified">Portfelio įspėjimai pristabdyti: %1$s kaina nepatikrinta</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Portfelio įspėjimai pristabdyti: kai kurių monetų kaina nepatikrinta</string>
+    <string name="portfolio_alarms_address_failing">Portfelio įspėjimai tikrina be %1$s: likutis neįkeltas daugiau nei 24 valandas</string>
+    <string name="portfolio_alarms_address_failing_generic">Portfelio įspėjimai tikrina be adresų, kurių likutis neįkeltas daugiau nei 24 valandas</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">žetonai iš dalies pasenę</string>
+    <string name="portfolio_address_restore_failed">Adreso atkurti nepavyko – jei reikia, pridėk jį iš naujo</string>
+    <string name="portfolio_address_remove_failed">Adreso pašalinti nepavyko – bandyk dar kartą</string>
+</resources>

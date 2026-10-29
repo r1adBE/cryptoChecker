@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">Déan cinnte go dtagann foláirimh</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">Ceart go leor</string>
+    <string name="delivery_state_warn">Seiceáil é seo</string>
+    <string name="delivery_state_info">Nóta</string>
+    <string name="delivery_allowed">Ceadaithe</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">Fógraí</string>
+    <string name="delivery_notifications_off">Múchta – ní thiocfaidh foláirimh</string>
+    <string name="delivery_notifications_not_asked">Gan cheadú fós</string>
+    <string name="delivery_channel">Cainéal foláireamh</string>
+    <string name="delivery_channel_high">Tábhacht ard – nochtann sé ar an scáileán</string>
+    <string name="delivery_channel_low">Tábhacht íseal – ní thaispeántar foláirimh ach go ciúin sa liosta</string>
+    <string name="delivery_channel_off">Múchta – ní thiocfaidh foláirimh</string>
+    <string name="delivery_exact_on">Ar siúl – thart ar gach 15 nóiméad</string>
+    <string name="delivery_exact_off">Múchta – seiceálann Android go mírialta</string>
+    <string name="delivery_battery">Barrfheabhsú ceallraí</string>
+    <string name="delivery_battery_unrestricted">Gan srian</string>
+    <string name="delivery_battery_optimized">Barrfheabhsaithe – d’fhéadfadh Android seiceálacha a mhoilliú. Ní iarrann an aip eisceacht; is féidir leat é seo a athrú i socruithe ceallraí na haipe.</string>
+    <string name="delivery_background">Úsáid sa chúlra</string>
+    <string name="delivery_background_restricted">Srianta – stopann Android seiceálacha sa chúlra</string>
+    <string name="delivery_dnd">Ná cuir isteach orm</string>
+    <string name="delivery_dnd_on">Ar siúl – d’fhéadfadh foláirimh teacht gan fuaim</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">Gníomhach go dtí %1$s – fanann foláirimh dlite go dtí sin</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – fanann foláirimh dlite le linn an ama seo</string>
+    <string name="delivery_last_check">Seiceáil dheireanach sa chúlra</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – breis is 6 uair an chloig ó shin</string>
+    <string name="delivery_last_check_never">Ceann ar bith fós</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">Ceadaigh</string>
+    <string name="delivery_action_change">Athraigh</string>
+    <string name="delivery_action_show">Taispeáin</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">Meirgí agus fuaim</string>
+    <string name="delivery_alert_off">Meirgí múchta – ní thaispeántar foláirimh ach san Ionad Fógraí</string>
+    <string name="delivery_sound_off">Fuaim múchta – tagann foláirimh go ciúin</string>
+    <string name="delivery_time_sensitive">Fógraí Am-íogair</string>
+    <string name="delivery_time_sensitive_off">Múchta – is féidir le Fócas foláirimh a choinneáil siar</string>
+    <string name="delivery_background_refresh">Athnuachan Aipe sa Chúlra</string>
+    <string name="delivery_low_power">Mód Ísealchumhachta</string>
+    <string name="delivery_swipe_away">Ar scuab tú an aip ar shiúl?</string>
+    <string name="delivery_swipe_away_note">Má scuabann tú an aip ar shiúl sa mhalartóir aipeanna, stopann iOS seiceálacha sa chúlra go dtí go n-osclaíonn tú arís í.</string>
+    <string name="delivery_live_activity">Gníomhaíocht Bheo</string>
+    <string name="delivery_live_activity_note">Taispeánann sé an praghas ar an Scáileán Glasála ach ní nuashonraítear é ach nuair a sheiceálann an aip – ní chuireann sé ar fholáirimh seiceáil níos minice.</string>
+
+    <string name="alarm_first_check">Seiceáil go dtagann foláirimh</string>
+
+    <string name="oem_battery_title">Coigilteoir ceallraí an déantóra</string>
+    <string name="oem_battery_xiaomi">D’fhéadfadh Xiaomi an aip a stopadh go hiomlán – ansin ní thagann foláirimh. Cas air “Autostart” agus socraigh an coigilteoir ceallraí go “No restrictions”.</string>
+    <string name="oem_battery_samsung">D’fhéadfadh Samsung an aip a chur i suan domhain – ansin ní thagann foláirimh. Faoi Battery › Background usage limits, cuir le “Never sleeping apps” í.</string>
+    <string name="oem_battery_huawei">D’fhéadfadh Huawei/Honor an aip a stopadh – ansin ní thagann foláirimh. Faoi Battery › App launch, roghnaigh “Manage manually” agus ceadaigh gach rogha.</string>
+    <string name="oem_battery_oneplus">D’fhéadfadh OnePlus an aip a stopadh – ansin ní thagann foláirimh. Ceadaigh “Auto-launch” agus, faoi Battery usage, gníomhaíocht sa chúlra.</string>
+    <string name="oem_battery_oppo">D’fhéadfadh Oppo/Realme an aip a stopadh – ansin ní thagann foláirimh. Ceadaigh “Auto launch” agus, faoi Battery usage, gníomhaíocht sa chúlra.</string>
+    <string name="oem_battery_vivo">D’fhéadfadh Vivo an aip a stopadh – ansin ní thagann foláirimh. Ceadaigh “Autostart” agus, faoi Battery, úsáid ard cumhachta sa chúlra.</string>
+    <string name="alarm_reliability_stale">Seiceáil dheireanach %1$s – d’fhéadfadh foláirimh a bheith déanach</string>
+    <string name="alarm_reliability_never">Foláirimh ar siúl – gan seiceáil sa chúlra fós</string>
+    <string name="alarm_reliability_notifications_off">Fógraí múchta – ní thiocfaidh foláirimh</string>
+    <string name="alarm_reliability_battery">D’fhéadfadh coigilt ceallraí seiceálacha foláireamh a stopadh</string>
+    <string name="alarm_reliability_background_refresh">Athnuachan sa chúlra múchta – b’fhéidir nach dtiocfaidh foláirimh</string>
+</resources>

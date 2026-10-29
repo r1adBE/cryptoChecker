@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">რა მოძრაობს მასთან ერთად?</string>
+    <string name="why_all_values">ყველა მნიშვნელობა და წყარო</string>
+    <string name="why_all_values_hint">დაკვირვება · შესაძლო ახსნა · წყაროები</string>
+    <string name="why_details">დეტალების ჩვენება</string>
+    <string name="why_details_hide">დეტალების დამალვა</string>
+    <string name="why_disclaimer">ავტომატური შეფასება საბაზრო მონაცემებიდან: აჩვენებს, რა ხდება ერთდროულად, და არა მიზეზის მტკიცებულებას.</string>
+    <string name="why_footer_short">ერთდროულობა მიზეზს არ ნიშნავს · არ არის საინვესტიციო რჩევა</string>
+    <string name="why_no_data">ამ წყვილისთვის Binance-იდან მონაცემები არ არის</string>
+    <string name="why_no_data_hint">ფასი, მოცულობა და ვოლატილობა Binance-ის საათობრივი სანთლებიდან მოდის.</string>
+    <string name="why_ref_alts">ალტები</string>
+    <string name="why_section_context">შესაძლო ახსნა</string>
+    <string name="why_section_observation">დაკვირვება</string>
+    <string name="why_title">რა მოძრაობს მასთან ერთად?</string>
+    <string name="why_title_coin">რა მოძრაობს %1$s-თან ერთად?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">მოკლედ · მდგომარეობა: %1$s</string>
+    <string name="why_brief_label">მოკლედ:</string>
+    <string name="why_summary_against">მონეტა ბაზრის საწინააღმდეგოდ მოძრაობს.</string>
+    <string name="why_summary_calm">საყურადღებო მოძრაობა არ არის: ბაზარი და მონეტა მშვიდია.</string>
+    <string name="why_summary_coin">მხოლოდ ეს მონეტა მოძრაობს – შესაძლოა რაღაც, რაც მხოლოდ ამ მონეტას ეხება.</string>
+    <string name="why_summary_coin_volume">მხოლოდ ეს მონეტა მოძრაობს, უფრო მაღალი მოცულობით – შესაძლოა რაღაც, რაც მხოლოდ ამ მონეტას ეხება.</string>
+    <string name="why_summary_longs">ფიუჩერსები: ბევრი ბერკეტიანი ლონგ პოზიცია.</string>
+    <string name="why_summary_market">მოძრაობა დროში ემთხვევა მთლიან ბაზარს.</string>
+    <string name="why_summary_market_volume">მოძრაობა ემთხვევა ვაჭრობის მაღალ მოცულობას და ფართოდ მოძრავ ბაზარს.</string>
+    <string name="why_summary_peg_near">ფასი ახლოსაა თავის 1:1 მიბმასთან.</string>
+    <string name="why_summary_peg_off">ფასი შესამჩნევად გადაიხრება თავისი 1:1 მიბმიდან.</string>
+    <string name="why_summary_shorts">ფიუჩერსები: ბევრი შორტ პოზიცია.</string>
+    <string name="why_summary_thin">მოძრაობა სუსტია: მის უკან მცირე მოცულობაა.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">ბაზრის საწინააღმდეგოდ</string>
+    <string name="why_f_coin_only">მხოლოდ ეს მონეტა</string>
+    <string name="why_f_leader">Bitcoin, როგორც ბაზრის ლიდერი</string>
+    <string name="why_f_leverage_balanced">ბერკეტი დაბალანსებულია</string>
+    <string name="why_f_leverage_longs">ბერკეტი: ბევრი ლონგი</string>
+    <string name="why_f_leverage_shorts">ბერკეტი: ბევრი შორტი</string>
+    <string name="why_f_market_calm">მშვიდი ბაზარი</string>
+    <string name="why_f_market_wide">მთელი ბაზარი მოძრაობს</string>
+    <string name="why_factor_funding">ფანდინგი</string>
+    <string name="why_factor_futures">ფიუჩერსები</string>
+    <string name="why_factor_market">მთლიანი ბაზარი</string>
+    <string name="why_factor_near_high">მაქსიმუმთან ახლოს</string>
+    <string name="why_factor_near_low">მინიმუმთან ახლოს</string>
+    <string name="why_factor_peg">მიბმა (1:1)</string>
+    <string name="why_factor_range3d">3-დღიანი დიაპაზონი</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">შეფასებული</string>
+    <string name="why_fn_funding_longs">ბევრი ფასის ზრდაზე დებს</string>
+    <string name="why_fn_funding_neutral">ნეიტრალური</string>
+    <string name="why_fn_funding_shorts">ბევრი ფასის ვარდნაზე დებს</string>
+    <string name="why_fn_high_at">30-დღიან მაქსიმუმზე</string>
+    <string name="why_fn_high_below">30-დღიან მაქსიმუმზე დაბლა</string>
+    <string name="why_fn_leader_calm">Bitcoin მშვიდია</string>
+    <string name="why_fn_leader_moves">Bitcoin მკაფიოდ მოძრაობს</string>
+    <string name="why_fn_low_above">30-დღიან მინიმუმზე მაღლა</string>
+    <string name="why_fn_low_at">30-დღიან მინიმუმზე</string>
+    <string name="why_fn_market_against">ეს მონეტა ბაზრის საწინააღმდეგოდ მოძრაობს</string>
+    <string name="why_fn_market_alone">ბაზარი მშვიდია – ეს მონეტა დამოუკიდებლად მოძრაობს</string>
+    <string name="why_fn_market_calm">ბაზარი მშვიდია</string>
+    <string name="why_fn_market_lags">ბაზარი მოძრაობს, ეს მონეტა – ძლივს</string>
+    <string name="why_fn_market_moves">ბაზარი იმავე მიმართულებით მოძრაობს</string>
+    <string name="why_fn_market_pulls">ბაზარი BTC-სთან ერთად მოძრაობს</string>
+    <string name="why_fn_oi_down">ღია ინტერესი ეცემა</string>
+    <string name="why_fn_oi_flat">ღია ინტერესი თითქმის არ შეცვლილა</string>
+    <string name="why_fn_oi_mixed">ღია ინტერესი შერეულია</string>
+    <string name="why_fn_oi_up">ღია ინტერესი იზრდება</string>
+    <string name="why_fn_peg_above">%1$s 1:1 მიბმაზე მაღლა</string>
+    <string name="why_fn_peg_below">%1$s 1:1 მიბმაზე დაბლა</string>
+    <string name="why_fn_peg_near">1:1 მიბმასთან ახლოს</string>
+    <string name="why_fn_range_above_low">3-დღიანი მინიმუმიდან</string>
+    <string name="why_fn_range_below_high">3-დღიანი მაქსიმუმიდან</string>
+    <string name="why_fn_range_near_high">3-დღიან მაქსიმუმთან ახლოს</string>
+    <string name="why_fn_range_near_low">3-დღიან მინიმუმთან ახლოს</string>
+    <string name="why_fn_volatility_stronger">ჩვეულებრივზე ძლიერი</string>
+    <string name="why_fn_volatility_tiny">აბსოლუტურად მცირე (%1$s-ზე ნაკლები)</string>
+    <string name="why_fn_volatility_usual">ჩვეულებრივი</string>
+    <string name="why_fn_volume_higher">ჩვეულებრივზე მაღალი</string>
+    <string name="why_fn_volume_lower">ჩვეულებრივზე დაბალი</string>
+    <string name="why_fn_volume_usual">ჩვეულებრივი</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">ეს მონეტა %1$s, BTC %2$s 24 საათში — შესამჩნევად დამოუკიდებელი მოძრაობა.</string>
+    <string name="why_against_ref_text">ეს მონეტა %1$s, %2$s %3$s 24 საათში — შესამჩნევად დამოუკიდებელი მოძრაობა.</string>
+    <string name="why_btc_independent">%1$s ახლა Bitcoin-ისგან დამოუკიდებლად მოძრაობს.</string>
+    <string name="why_btc_tight">%1$s ახლა Bitcoin-თან მჭიდროდ მოძრაობს.</string>
+    <string name="why_change_1h">1სთ</string>
+    <string name="why_change_24h">24სთ</string>
+    <string name="why_coin_only_text">%1$s 24 საათში, მაშინ როცა ბაზარი მშვიდია – შესაძლოა რაღაც, რაც მხოლოდ ამ მონეტას ეხება.</string>
+    <string name="why_leverage_balanced_text">ფიუჩერსების ბაზარზე ლონგ ან შორტ პოზიციების თავმოყრა არ არის.</string>
+    <string name="why_leverage_longs_text">ბევრი ნასესხები ფულით ფასის ზრდაზე დებს. ლონგები შორტებს უხდიან — ფასის ვარდნისას ლიკვიდაციების რისკი გაზრდილია.</string>
+    <string name="why_leverage_shorts_text">ბევრი ნასესხები ფულით ფასის ვარდნაზე დებს. შორტები ლონგებს უხდიან – თუ ფასი აიწევს, შესაძლებელია short squeeze.</string>
+    <string name="why_market_calm_text">ეს მონეტა: %1$s 24 საათში. არც ბაზარი და არც მონეტა დიდად არ მოძრაობს.</string>
+    <string name="why_market_leader_text">როგორც უდიდესი მონეტა, BTC ჩვეულებრივ დანარჩენ ბაზართან ერთად მოძრაობს. ETH: %1$s 24 საათში.</string>
+    <string name="why_market_leader_text_no_eth">როგორც უდიდესი მონეტა, BTC ჩვეულებრივ დანარჩენ ბაზართან ერთად მოძრაობს.</string>
+    <string name="why_market_similar_text">ეს მონეტა: %1$s 24 საათში – ამავდროულად ბაზარი იმავე მიმართულებით მოძრაობს, თუმცა ნაკლებად მკაფიოდ.</string>
+    <string name="why_market_wide_text">ეს მონეტა: %1$s 24 საათში – ამავდროულად მთლიანი ბაზარი მკაფიოდ მოძრაობს.</string>
+    <string name="why_open_interest_change">ღია ინტერესი %1$s ბოლო შემოწმების შემდეგ.</string>
+    <string name="why_peg_text">სტეიბლქოინი: კოტირების ვალუტასთან 1:1 მიბმასთან შედარებით გადახრა %1$s.</string>
+    <string name="why_sentiment_text">მთელი კრიპტობაზრის Fear &amp; Greed ინდექსი, %1$s გუშინდელთან შედარებით.</string>
+    <string name="why_sentiment_text_no_change">მთელი კრიპტობაზრის Fear &amp; Greed ინდექსი.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="one">ეცემა %1$d საათია</item>
+        <item quantity="other">ეცემა %1$d საათია</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="one">იზრდება %1$d საათია</item>
+        <item quantity="other">იზრდება %1$d საათია</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="one">სტაბილურია %1$d საათია</item>
+        <item quantity="other">სტაბილურია %1$d საათია</item>
+    </plurals>
+    <string name="why_volatility_high_text">ბოლო საათი: %1$s — გაზომილია ბოლო 24 საათის ტიპურ საათობრივ რყევასთან შედარებით.</string>
+    <string name="why_volatility_normal_text">ბოლო საათი: %1$s — ჩვეულებრივ ფარგლებში.</string>
+    <string name="why_volatility_tiny_text">ბოლო საათი: %1$s — უჩვეულოა ამ მონეტისთვის, მაგრამ აბსოლუტურად მცირე.</string>
+    <string name="why_volume_estimated_text">შეფასებული: ეს წყარო ბრუნვას არ იძლევა, ამიტომ ნავაჭრი მონეტების რაოდენობები შედარდება.</string>
+    <string name="why_volume_high_text">ბოლო საათში ჩვეულებრივზე გაცილებით მეტი ვაჭრობა – მოძრაობას მაღალი მოცულობა ახლავს.</string>
+    <string name="why_volume_low_text">მოძრაობის უკან მცირე ვაჭრობაა – ასეთი მოძრაობები ხშირად ნაკლებად მდგრადია.</string>
+    <string name="why_volume_normal_text">ბოლო საათის ვაჭრობა ბოლო 24 საათს შეესაბამება.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">მომატებული</string>
+    <string name="why_dot_neutral">ნეიტრალური</string>
+    <string name="why_dot_supports">შეესაბამება მოძრაობას</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">მონაცემები: %1$s</string>
+    <string name="why_fresh_breadth">ბაზრის სიგანე: %1$s · %2$s</string>
+    <string name="why_fresh_candles">სანთლები: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">ფიუჩერსები: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="one">ღია ინტერესი %1$d საათის წინანდელთან შედარებით</item>
+        <item quantity="other">ღია ინტერესი %1$d საათის წინანდელთან შედარებით</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="one">ღია ინტერესი %1$d წუთის წინანდელთან შედარებით</item>
+        <item quantity="other">ღია ინტერესი %1$d წუთის წინანდელთან შედარებით</item>
+    </plurals>
+    <string name="why_fresh_today">დღეს</string>
+    <string name="why_fresh_yesterday">გუშინ</string>
+    <string name="why_source_fallback">%1$s (სარეზერვო)</string>
+    <string name="why_source_reference">%1$s (ორიენტირი)</string>
+    <string name="why_sources">წყაროები: ბირჟების საათობრივი სანთლები (ძირითადად Binance), ფიუჩერსების მონაცემები ბირჟებიდან, Fear &amp; Greed alternative.me-დან.</string>
+    <string name="why_sources_list">წყაროები: %1$s.</string>
+    <string name="why_src_breadth">%1$s (ბაზრის სიგანე)</string>
+    <string name="why_src_candles">%1$s (სანთლები)</string>
+    <string name="why_src_comparison">%1$s (ბაზრის შედარება)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (ფიუჩერსები)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">ფანდინგი</string>
+    <string name="factor_spoken_volatility">ჩვეულებრივი რყევის %1$s-ჯერ</string>
+    <string name="factor_spoken_volume">ჩვეულებრივის %1$s-ჯერ</string>
+    <string name="factor_volatility">ვოლატილობა (1სთ)</string>
+    <string name="factor_volume">მოცულობა</string>
+</resources>

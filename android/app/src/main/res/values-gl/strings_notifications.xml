@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">Destacado: %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — agora %2$s</string>
+    <string name="notification_alarm_title">Alarma: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">Abrir exchange</string>
+    <string name="notification_depeg_text">Os valores da app usan este prezo de mercado.</string>
+    <string name="notification_depeg_title">USDT a %1$s USD (%2$s)</string>
+    <string name="notification_fng_above">O índice subiu por riba de %1$d – segundo esta medida, o ánimo do mercado é de cobiza.</string>
+    <string name="notification_fng_below">O índice baixou por debaixo de %1$d – segundo esta medida, o ánimo do mercado é de medo.</string>
+    <string name="notification_fng_title">Índice de ánimo (Fear &amp; Greed): %1$d</string>
+    <string name="notification_gas_btc_text">Por debaixo do teu límite de %1$s sat/vB · Transferencia ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Comisión de Bitcoin: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">Por debaixo do teu límite de %1$s gwei · Transferencia ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Gas de Ethereum: %1$s gwei</string>
+    <string name="notification_indicator_above">Por riba do teu límite %1$s – valor medido, non unha recomendación.</string>
+    <string name="notification_indicator_below">Por debaixo do teu límite %1$s – valor medido, non unha recomendación.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">Datos económicos de hoxe</string>
+    <string name="notification_permission_preprompt_continue">Continuar</string>
+    <string name="notification_permission_preprompt_later">Máis tarde</string>
+    <string name="notification_permission_preprompt_text">Para que che cheguen as alarmas e as notificacións de prezo, a app necesita permiso para enviar notificacións. A app só as usa para as túas alarmas e notificacións de prezo.</string>
+    <string name="notification_permission_preprompt_title">Queres permitir as notificacións?</string>
+    <string name="notification_portfolio_alarm_locked">Saltou a túa alarma – abre a app para ver os detalles.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – agora %2$s</string>
+    <string name="notification_portfolio_alarm_title">Valor da carteira</string>
+    <string name="notification_price_change">%1$s, desde %2$s (hai %3$s)</string>
+    <string name="notification_price_change_no_age">%1$s, desde %2$s</string>
+    <string name="notification_price_first">Primeira notificación de prezo para este par</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+%1$d prezo máis</item>
+        <item quantity="other">+%1$d prezos máis</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">Actualizando prezos…</string>
+    <string name="notification_volume_spike_text">Volume %1$s× o normal na última hora</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">Alarmas</string>
+    <string name="channel_alarms_description">Notificación cando salta unha alarma.</string>
+    <string name="channel_alarms_quiet">Alarmas (horas de silencio)</string>
+    <string name="channel_alarms_quiet_description">Alarmas silenciosas durante as horas de silencio.</string>
+    <string name="channel_alarms_silent">Alarmas (silenciosas)</string>
+    <string name="channel_alarms_sound">Alarmas (só son)</string>
+    <string name="channel_alarms_sound_vibrate">Alarmas (son e vibración)</string>
+    <string name="channel_alarms_vibrate">Alarmas (só vibración)</string>
+    <string name="channel_prices">Notificacións de prezo</string>
+    <string name="channel_prices_description">Notificación de prezo silenciosa co prezo actual dun par.</string>
+    <string name="channel_service">Actualizacións de prezos</string>
+    <string name="channel_service_description">Notificación mentres se actualizan os prezos.</string>
+    <string name="neutral_channel_market">Alarmas de mercado</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, comisións de gas, «Destacado» e datas económicas</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">Alarma. %1$s, %2$s %3$s %4$s, agora %5$s</string>
+    <string name="tts_direction_down">baixou</string>
+    <string name="tts_direction_funding_above">con financiamento alto</string>
+    <string name="tts_direction_funding_below">con financiamento baixo</string>
+    <string name="tts_direction_move">móvese con forza</string>
+    <string name="tts_direction_near_high">está preto do máximo</string>
+    <string name="tts_direction_near_low">está preto do mínimo</string>
+    <string name="tts_direction_oi_down">co interese aberto en baixa</string>
+    <string name="tts_direction_oi_up">co interese aberto en alza</string>
+    <string name="tts_direction_up">subiu</string>
+    <string name="tts_direction_volume_spike">cun pico de volume</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+
+    <!-- Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+    <string name="notification_alarm_action_snooze">1 h máis tarde</string>
+    <string name="notification_alarm_action_edit">Axustar</string>
+</resources>

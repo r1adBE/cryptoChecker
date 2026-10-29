@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">Uppfært · %1$s</string>
+    <string name="watchlist_empty_title">Engin pör enn</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%1$d af %2$d án verðs</item>
+        <item quantity="other">%1$d af %2$d án verðs</item>
+    </plurals>
+    <string name="watchlist_last_run">Síðasta keyrsla %1$s</string>
+    <string name="watchlist_live_a11y">Verð í beinni á</string>
+    <string name="watchlist_offline_since">Engin tenging · staða %1$s</string>
+    <string name="watchlist_pull_to_refresh">Dragðu niður til að endurnýja</string>
+    <string name="watchlist_refresh_report">Síðasta endurnýjun</string>
+    <string name="watchlist_refresh_report_empty">Engin sundurliðun enn – engin full endurnýjun hingað til. Ýttu á endurnýja og bíddu þar til hringurinn stöðvast.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%1$d af %2$d úrelt</item>
+        <item quantity="other">%1$d af %2$d úrelt</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">Öll pör hér eru óvirk</string>
+    <string name="watchlist_status_exchange_prices">Verð frá kauphöllunum þínum · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">Verð kauphalla · %1$s</string>
+    <string name="watchlist_status_group_empty">Engin pör í þessum hópi</string>
+    <string name="watchlist_status_none_traded">Engin pör í viðskiptum hér</string>
+    <string name="watchlist_updated">Uppfært: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">meðalt. %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d niður</item>
+        <item quantity="other">%1$d niður</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d án 24 klst. gildis</item>
+        <item quantity="other">%1$d án 24 klst. gildis</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d án gildis í dag</item>
+        <item quantity="other">%1$d án gildis í dag</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d upp</item>
+        <item quantity="other">%1$d upp</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · óvirkt</string>
+    <string name="watchlist_row_outdated">%1$s · úrelt</string>
+    <string name="watchlist_row_outdated_age">úrelt · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">Verð óbreytt frá %1$s</string>
+    <string name="watchlist_row_unreachable">%1$s · ekki næst í %2$s</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">Fara neðst</string>
+    <string name="watchlist_jump_start">Fara efst</string>
+    <string name="watchlist_search_close">Loka leit</string>
+    <string name="watchlist_search_empty">Engar niðurstöður fyrir „%1$s“</string>
+    <string name="watchlist_search_hint">Leita að pari, heiti eða kauphöll</string>
+    <string name="watchlist_search_open">Leita</string>
+    <string name="watchlist_sort_ascending">hækkandi</string>
+    <string name="watchlist_sort_descending">lækkandi</string>
+    <string name="watchlist_sort_hint">Haltu inni og dragðu par, eða notaðu handfangið. Uppáhöld haldast efst.</string>
+    <string name="watchlist_sort_name">Heiti</string>
+    <string name="watchlist_sort_own">Eigin röð</string>
+    <string name="watchlist_sort_price">Verð</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">Hreinsa vaktlista</string>
+    <string name="watchlist_clear_confirm">Fjarlægja öll pör af vaktlistanum? Viðvaranir þeirra fara með.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d óvirkt</item>
+        <item quantity="other">%1$d óvirk</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">Fjarlægja</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Fjarlægja %1$d par sem er ekki lengur í viðskiptum á sinni kauphöll? Viðvaranir þess fara með.</item>
+        <item quantity="other">Fjarlægja %1$d pör sem eru ekki lengur í viðskiptum á sinni kauphöll? Viðvaranir þeirra fara með.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">Fjarlægja pör utan viðskipta (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Fjarlægja pör utan viðskipta</string>
+    <string name="watchlist_removed">%1$s fjarlægt</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d par fjarlægt</item>
+        <item quantity="other">%1$d pör fjarlægð</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">%1$d par utan viðskipta fjarlægt</item>
+        <item quantity="other">%1$d pör utan viðskipta fjarlægð</item>
+    </plurals>
+    <string name="watchlist_select">Velja</string>
+    <string name="watchlist_select_all">Velja allt</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d valið</item>
+        <item quantity="other">%1$d valin</item>
+    </plurals>
+    <string name="watchlist_show_all">Sýna allt</string>
+    <string name="watchlist_show_only_disabled">Sýna aðeins óvirk</string>
+    <string name="watchlist_show_only_stale">Sýna aðeins úrelt</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Viðvörun (%1$d)</item>
+        <item quantity="other">Viðvaranir (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">Engin uppáhöld enn. Strjúktu pari til hægri, eða opnaðu parið og ýttu á „Uppáhald“.</string>
+    <string name="watchlist_group_empty_hint">Haltu hópi inni til að velja pör hans.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">Hóparnir þínir birtast hér</string>
+    <string name="watchlist_notification">Verðtilkynning</string>
+    <string name="watchlist_tts">Lesa verð upp</string>
+    <string name="watchlist_tts_speech_on">Kveikt er á upplestri. Þú getur breytt því í Stillingar › Viðvaranir › Upplestur.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">Bæta við sem græju</string>
+    <string name="watch_action_alarm">Viðvörun</string>
+    <string name="watch_action_favorite">Uppáhald</string>
+    <string name="watch_action_why">Hvað hreyfist með?</string>
+    <string name="watch_action_why_short">Hvað hreyfist með?</string>
+    <string name="watch_change_mark">Mark</string>
+    <string name="watch_disable">Óvirkja</string>
+    <string name="watch_disable_hint">Engar fyrirspurnir, engar tilkynningar</string>
+    <string name="watch_disabled">Óvirkt</string>
+    <string name="watch_disabled_banner">%1$s óvirkjað</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">Viðvaranir haldast – athugaðu mörk þeirra</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">Breyta pari</string>
+    <string name="watch_enable">Virkja</string>
+    <string name="watch_enable_hint">Verð og tilkynningar hefjast aftur</string>
+    <string name="watch_enabled_banner">%1$s virkjað</string>
+    <string name="watch_error_offline">Engin tenging</string>
+    <string name="watch_gesture_hint_short">Ýta: viðvörun og „Hvað hreyfist með?“ · halda inni til að velja · strjúka til vinstri til að eyða · strjúka til hægri fyrir uppáhald</string>
+    <string name="watch_hint_tap_why">Ýttu á mynt fyrir viðvaranir og „Hvað hreyfist með?“</string>
+    <string name="watch_not_traded">Ekki lengur í viðskiptum á þessari kauphöll</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">Ekki á vaktlista</string>
+    <string name="watch_price_mid">miðverð (annars mark)</string>
+    <string name="watch_row_source_both">Breyting og graf: %1$s</string>
+    <string name="watch_row_source_change">Breyting: %1$s</string>
+    <string name="watch_row_source_chart">Graf: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s er nú á vaktlistanum þínum</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s eru nú á vaktlistanum þínum</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">Bæta við uppáhöld</string>
+    <string name="favorite_added">%1$s bætt við uppáhöld</string>
+    <string name="favorite_remove">Fjarlægja úr uppáhöldum</string>
+    <string name="favorite_removed">%1$s fjarlægt úr uppáhöldum</string>
+    <string name="hint_favorites_list">Ábending: strjúktu línu til hægri til að gera hana að uppáhaldi – uppáhöld haldast efst.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">Nýr hópur</string>
+    <string name="group_all">Allt</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Alpha-tókar</string>
+    <string name="group_delete">Eyða hópi</string>
+    <string name="group_delete_confirm">Pörin haldast á vaktlistanum þínum.</string>
+    <string name="group_done">Lokið</string>
+    <string name="group_edit_title">Breyta hópi</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">Uppáhöld</string>
+    <string name="group_in_other">í %1$s</string>
+    <string name="group_name">Heiti hóps</string>
+    <string name="group_new">Nýr hópur…</string>
+    <string name="group_next">Áfram</string>
+    <string name="group_none">Enginn hópur</string>
+    <string name="group_rename">Endurnefna</string>
+    <string name="group_search_hint">Leita að pari, heiti eða kauphöll</string>
+    <string name="group_target">Í hóp</string>
+    <string name="group_title">Hópur</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">Tókar</string>
+    <string name="group_value">Hópur: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">Bæta við athugasemd</string>
+    <string name="note_edit">Breyta athugasemd</string>
+    <string name="note_hint">t.d. keypt á 0,42, markmið 0,60</string>
+    <string name="note_remove">Fjarlægja</string>
+    <string name="note_title">Athugasemd</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">Dragðu til að endurraða</string>
+    <string name="sort_move_bottom">Færa neðst</string>
+    <string name="sort_move_down">Færa niður</string>
+    <string name="sort_move_top">Færa efst</string>
+    <string name="sort_move_up">Færa upp</string>
+
+    <string name="watchlist_first_alarm_title">Stilltu fyrstu viðvörunina</string>
+    <string name="watchlist_first_alarm_text">Fáðu tilkynningu þegar verð nær þínu marki – þegar forritið er lokað athugar Android óreglulega.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">mark-verð (ekkert miðverð)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">klukkustundarverð</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">Stilltu fyrstu viðvörunina – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Endurnýja (%1$d)</string>
+
+    <!-- Zeile der Merkliste: Börse pausiert (zu viele Anfragen / Zeitüberschreitungen) bis zu einer Uhrzeit, ersetzt die Zeitzeile, z. B. «Binance · pausiert bis 19:45» -->
+    <string name="watchlist_row_exchange_paused">%1$s · í bið til %2$s</string>
+
+    <string name="watchlist_refresh_just_done">Uppfært rétt í þessu · fyrir %1$d sek.</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">síðustu viðskipti %1$s</string>
+
+    <string name="change_candle_source_hint">Reiknað út frá kertum %1$s – kauphöllin sjálf veitir ekki þetta gildi.</string>
+    <string name="change_candle_source_action">Sýna uppruna breytingar</string>
+
+    <string name="watchlist_sort_by_coin">Raða eftir mynt</string>
+    <string name="watchlist_sort_by_exchange">Raða eftir kauphöll</string>
+    <string name="watchlist_limit_reached">Vaktlistinn þinn getur haft í mesta lagi %1$s pör.</string>
+    <string name="watch_price_reference">viðmiðunargengi, daglegt</string>
+    <string name="watch_price_daily">daglegt</string>
+    <string name="watchlist_compare">Bera saman</string>
+    <string name="watchlist_compare_hint">Veldu 2 til 4 pör til að bera saman.</string>
+    <string name="compare_title">Samanburður</string>
+    <string name="compare_basis">Línurnar sýna breytinguna í prósentum frá upphafi tímabilsins.</string>
+    <string name="compare_from_high">miðað við 30 D hámark</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">%1$d par ekki endurheimt – vaktlistinn er fullur</item>
+        <item quantity="other">%1$d pör ekki endurheimt – vaktlistinn er fullur</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">Vaktlistinn og viðvaranir hans eru ekki vistuð eins og er. Þessi breyting og allar frekari glatast þegar forritinu er lokað. Breyta samt?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">Breyta samt</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">%1$d par</item>
+        <item quantity="other">%1$d pör</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">%2$d af %1$d pari</item>
+        <item quantity="other">%2$d af %1$d pörum</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">%1$d pláss eftir</item>
+        <item quantity="other">%1$d pláss eftir</item>
+    </plurals>
+    <string name="watchlist_footer_full">Vaktlistinn er fullur</string>
+</resources>

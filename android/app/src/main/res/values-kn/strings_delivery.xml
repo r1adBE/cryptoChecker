@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">ಅಲರ್ಟ್‌ಗಳು ತಲುಪುವುದನ್ನು ಖಚಿತಪಡಿಸಿ</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">ಸರಿ</string>
+    <string name="delivery_state_warn">ಇದನ್ನು ಪರಿಶೀಲಿಸಿ</string>
+    <string name="delivery_state_info">ಸೂಚನೆ</string>
+    <string name="delivery_allowed">ಅನುಮತಿಸಲಾಗಿದೆ</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">ಅಧಿಸೂಚನೆಗಳು</string>
+    <string name="delivery_notifications_off">ಆಫ್ – ಅಲರ್ಟ್‌ಗಳು ತಲುಪುವುದಿಲ್ಲ</string>
+    <string name="delivery_notifications_not_asked">ಇನ್ನೂ ಅನುಮತಿಸಿಲ್ಲ</string>
+    <string name="delivery_channel">ಅಲರ್ಟ್ ಚಾನಲ್</string>
+    <string name="delivery_channel_high">ಹೆಚ್ಚಿನ ಪ್ರಾಮುಖ್ಯತೆ – ಸ್ಕ್ರೀನ್ ಮೇಲೆ ಕಾಣಿಸುತ್ತದೆ</string>
+    <string name="delivery_channel_low">ಕಡಿಮೆ ಪ್ರಾಮುಖ್ಯತೆ – ಅಲರ್ಟ್‌ಗಳು ಪಟ್ಟಿಯಲ್ಲಿ ಶಬ್ದವಿಲ್ಲದೆ ಮಾತ್ರ ಕಾಣಿಸುತ್ತವೆ</string>
+    <string name="delivery_channel_off">ಆಫ್ ಮಾಡಲಾಗಿದೆ – ಅಲರ್ಟ್‌ಗಳು ತಲುಪುವುದಿಲ್ಲ</string>
+    <string name="delivery_exact_on">ಆನ್ – ಸುಮಾರು ಪ್ರತಿ 15 ನಿಮಿಷಕ್ಕೆ</string>
+    <string name="delivery_exact_off">ಆಫ್ – Android ಅನಿಯಮಿತವಾಗಿ ಪರಿಶೀಲಿಸುತ್ತದೆ</string>
+    <string name="delivery_battery">ಬ್ಯಾಟರಿ ಆಪ್ಟಿಮೈಸೇಶನ್</string>
+    <string name="delivery_battery_unrestricted">ನಿರ್ಬಂಧರಹಿತ</string>
+    <string name="delivery_battery_optimized">ಆಪ್ಟಿಮೈಸ್ ಮಾಡಲಾಗಿದೆ – Android ಪರಿಶೀಲನೆಗಳನ್ನು ವಿಳಂಬಗೊಳಿಸಬಹುದು. ಆ್ಯಪ್ ವಿನಾಯಿತಿ ಕೇಳುವುದಿಲ್ಲ; ಆ್ಯಪ್‌ನ ಬ್ಯಾಟರಿ ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಇದನ್ನು ಬದಲಾಯಿಸಬಹುದು.</string>
+    <string name="delivery_background">ಹಿನ್ನೆಲೆ ಬಳಕೆ</string>
+    <string name="delivery_background_restricted">ನಿರ್ಬಂಧಿಸಲಾಗಿದೆ – Android ಹಿನ್ನೆಲೆ ಪರಿಶೀಲನೆಗಳನ್ನು ನಿಲ್ಲಿಸುತ್ತದೆ</string>
+    <string name="delivery_dnd">ಅಡಚಣೆ ಮಾಡಬೇಡಿ</string>
+    <string name="delivery_dnd_on">ಆನ್ – ಅಲರ್ಟ್‌ಗಳು ಶಬ್ದವಿಲ್ಲದೆ ಬರಬಹುದು</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">%1$s ರವರೆಗೆ ಸಕ್ರಿಯ – ಬಾಕಿ ಅಲರ್ಟ್‌ಗಳು ಅಲ್ಲಿಯವರೆಗೆ ಕಾಯುತ್ತವೆ</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – ಈ ಸಮಯದಲ್ಲಿ ಬಾಕಿ ಅಲರ್ಟ್‌ಗಳು ಕಾಯುತ್ತವೆ</string>
+    <string name="delivery_last_check">ಕೊನೆಯ ಹಿನ್ನೆಲೆ ಪರಿಶೀಲನೆ</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – 6 ಗಂಟೆಗಳಿಗಿಂತ ಹಿಂದೆ</string>
+    <string name="delivery_last_check_never">ಇನ್ನೂ ಇಲ್ಲ</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">ಅನುಮತಿಸಿ</string>
+    <string name="delivery_action_change">ಬದಲಾಯಿಸಿ</string>
+    <string name="delivery_action_show">ತೋರಿಸಿ</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">ಬ್ಯಾನರ್‌ಗಳು ಮತ್ತು ಶಬ್ದ</string>
+    <string name="delivery_alert_off">ಬ್ಯಾನರ್‌ಗಳು ಆಫ್ – ಅಲರ್ಟ್‌ಗಳು ಅಧಿಸೂಚನಾ ಕೇಂದ್ರದಲ್ಲಿ ಮಾತ್ರ ಕಾಣಿಸುತ್ತವೆ</string>
+    <string name="delivery_sound_off">ಶಬ್ದ ಆಫ್ – ಅಲರ್ಟ್‌ಗಳು ಶಬ್ದವಿಲ್ಲದೆ ಬರುತ್ತವೆ</string>
+    <string name="delivery_time_sensitive">ಸಮಯ ಸೂಕ್ಷ್ಮ ಅಧಿಸೂಚನೆಗಳು</string>
+    <string name="delivery_time_sensitive_off">ಆಫ್ – ಫೋಕಸ್ ಅಲರ್ಟ್‌ಗಳನ್ನು ತಡೆಹಿಡಿಯಬಹುದು</string>
+    <string name="delivery_background_refresh">ಹಿನ್ನೆಲೆ ಆ್ಯಪ್ ರಿಫ್ರೆಶ್</string>
+    <string name="delivery_low_power">ಕಡಿಮೆ ಪವರ್ ಮೋಡ್</string>
+    <string name="delivery_swipe_away">ಆ್ಯಪ್ ಅನ್ನು ಸ್ವೈಪ್ ಮಾಡಿ ಮುಚ್ಚಿದಿರಾ?</string>
+    <string name="delivery_swipe_away_note">ಆ್ಯಪ್ ಸ್ವಿಚರ್‌ನಲ್ಲಿ ಆ್ಯಪ್ ಅನ್ನು ಸ್ವೈಪ್ ಮಾಡಿ ಮುಚ್ಚಿದರೆ, ನೀವು ಅದನ್ನು ಮತ್ತೆ ತೆರೆಯುವವರೆಗೆ iOS ಹಿನ್ನೆಲೆ ಪರಿಶೀಲನೆಗಳನ್ನು ನಿಲ್ಲಿಸುತ್ತದೆ.</string>
+    <string name="delivery_live_activity">ಲೈವ್ ಚಟುವಟಿಕೆ</string>
+    <string name="delivery_live_activity_note">ಲಾಕ್ ಸ್ಕ್ರೀನ್‌ನಲ್ಲಿ ಬೆಲೆಯನ್ನು ತೋರಿಸುತ್ತದೆ, ಆದರೆ ಆ್ಯಪ್ ಪರಿಶೀಲಿಸಿದಾಗ ಮಾತ್ರ ಅಪ್‌ಡೇಟ್ ಆಗುತ್ತದೆ – ಇದರಿಂದ ಅಲರ್ಟ್‌ಗಳು ಹೆಚ್ಚು ಬಾರಿ ಪರಿಶೀಲನೆಯಾಗುವುದಿಲ್ಲ.</string>
+
+    <string name="alarm_first_check">ಅಲರ್ಟ್‌ಗಳು ತಲುಪುತ್ತಿವೆಯೇ ಎಂದು ಪರಿಶೀಲಿಸಿ</string>
+
+    <string name="oem_battery_title">ತಯಾರಕರ ಬ್ಯಾಟರಿ ಸೇವರ್</string>
+    <string name="oem_battery_xiaomi">Xiaomi ಆ್ಯಪ್ ಅನ್ನು ಸಂಪೂರ್ಣವಾಗಿ ನಿಲ್ಲಿಸಬಹುದು – ಆಗ ಅಲರ್ಟ್‌ಗಳು ಬರುವುದಿಲ್ಲ. “ಆಟೋಸ್ಟಾರ್ಟ್” ಆನ್ ಮಾಡಿ ಮತ್ತು ಬ್ಯಾಟರಿ ಸೇವರ್ ಅನ್ನು “ನಿರ್ಬಂಧಗಳಿಲ್ಲ” ಎಂದು ಹೊಂದಿಸಿ.</string>
+    <string name="oem_battery_samsung">Samsung ಆ್ಯಪ್ ಅನ್ನು ಗಾಢ ನಿದ್ರೆಗೆ ಹಾಕಬಹುದು – ಆಗ ಅಲರ್ಟ್‌ಗಳು ಬರುವುದಿಲ್ಲ. ಬ್ಯಾಟರಿ › ಹಿನ್ನೆಲೆ ಬಳಕೆಯ ಮಿತಿಗಳು ಅಡಿಯಲ್ಲಿ, ಅದನ್ನು “ಎಂದಿಗೂ ನಿದ್ರಿಸದ ಆ್ಯಪ್‌ಗಳು” ಗೆ ಸೇರಿಸಿ.</string>
+    <string name="oem_battery_huawei">Huawei/Honor ಆ್ಯಪ್ ಅನ್ನು ನಿಲ್ಲಿಸಬಹುದು – ಆಗ ಅಲರ್ಟ್‌ಗಳು ಬರುವುದಿಲ್ಲ. ಬ್ಯಾಟರಿ › ಆ್ಯಪ್ ಲಾಂಚ್ ಅಡಿಯಲ್ಲಿ, “ಹಸ್ತಚಾಲಿತವಾಗಿ ನಿರ್ವಹಿಸಿ” ಆಯ್ಕೆಮಾಡಿ ಮತ್ತು ಎಲ್ಲಾ ಆಯ್ಕೆಗಳನ್ನು ಅನುಮತಿಸಿ.</string>
+    <string name="oem_battery_oneplus">OnePlus ಆ್ಯಪ್ ಅನ್ನು ನಿಲ್ಲಿಸಬಹುದು – ಆಗ ಅಲರ್ಟ್‌ಗಳು ಬರುವುದಿಲ್ಲ. “ಆಟೋ-ಲಾಂಚ್” ಮತ್ತು ಬ್ಯಾಟರಿ ಬಳಕೆ ಅಡಿಯಲ್ಲಿ ಹಿನ್ನೆಲೆ ಚಟುವಟಿಕೆಯನ್ನು ಅನುಮತಿಸಿ.</string>
+    <string name="oem_battery_oppo">Oppo/Realme ಆ್ಯಪ್ ಅನ್ನು ನಿಲ್ಲಿಸಬಹುದು – ಆಗ ಅಲರ್ಟ್‌ಗಳು ಬರುವುದಿಲ್ಲ. “ಆಟೋ ಲಾಂಚ್” ಮತ್ತು ಬ್ಯಾಟರಿ ಬಳಕೆ ಅಡಿಯಲ್ಲಿ ಹಿನ್ನೆಲೆ ಚಟುವಟಿಕೆಯನ್ನು ಅನುಮತಿಸಿ.</string>
+    <string name="oem_battery_vivo">Vivo ಆ್ಯಪ್ ಅನ್ನು ನಿಲ್ಲಿಸಬಹುದು – ಆಗ ಅಲರ್ಟ್‌ಗಳು ಬರುವುದಿಲ್ಲ. “ಆಟೋಸ್ಟಾರ್ಟ್” ಮತ್ತು ಬ್ಯಾಟರಿ ಅಡಿಯಲ್ಲಿ ಹೆಚ್ಚಿನ ಹಿನ್ನೆಲೆ ಪವರ್ ಬಳಕೆಯನ್ನು ಅನುಮತಿಸಿ.</string>
+    <string name="alarm_reliability_stale">ಕೊನೆಯ ಪರಿಶೀಲನೆ %1$s – ಅಲರ್ಟ್‌ಗಳು ತಡವಾಗಬಹುದು</string>
+    <string name="alarm_reliability_never">ಅಲರ್ಟ್‌ಗಳು ಆನ್ – ಇನ್ನೂ ಹಿನ್ನೆಲೆ ಪರಿಶೀಲನೆ ಆಗಿಲ್ಲ</string>
+    <string name="alarm_reliability_notifications_off">ಅಧಿಸೂಚನೆಗಳು ಆಫ್ – ಅಲರ್ಟ್‌ಗಳು ತಲುಪುವುದಿಲ್ಲ</string>
+    <string name="alarm_reliability_battery">ಬ್ಯಾಟರಿ ಉಳಿತಾಯ ಅಲರ್ಟ್ ಪರಿಶೀಲನೆಗಳನ್ನು ನಿಲ್ಲಿಸಬಹುದು</string>
+    <string name="alarm_reliability_background_refresh">ಹಿನ್ನೆಲೆ ಆ್ಯಪ್ ರಿಫ್ರೆಶ್ ಆಫ್ – ಅಲರ್ಟ್‌ಗಳು ಬರದಿರಬಹುದು</string>
+</resources>

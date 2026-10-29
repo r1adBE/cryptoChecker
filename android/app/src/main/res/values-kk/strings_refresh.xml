@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">көбірек дерек пен батарея қажет</string>
+    <string name="update_mode_live">Ашық кезде тікелей</string>
+    <string name="update_mode_live_hint">Биржа тікелей бағам берсе: бақылау тізімі ашық кезде бірден. Әйтпесе келесі сұрауда. Жабық болса: %1$s сайыннан жиі емес, көбіне кешірек.</string>
+    <string name="update_mode_live_hint_ios">Биржа тікелей бағам берсе: бақылау тізімі ашық кезде бірден. Әйтпесе келесі сұрауда. Жабық болса: iOS рұқсат еткенде, кейде бірнеше сағат аралықпен. Қолданбаны сырғытып жапсаңыз, iOS оны қайта ашқанша бұл тексерулерді тоқтатады.</string>
+    <string name="update_mode_recommended">ұсынылады</string>
+    <string name="update_mode_sparsam">Үнемді</string>
+    <string name="update_mode_sparsam_hint">Қолданба жабық болса, %1$s сайыннан жиі емес, көбіне кешірек (ескертулер, виджеттер). Ашық болса: әр ашқан сайын.</string>
+    <string name="update_mode_sparsam_hint_ios">Қолданба жабық болса, қашан тексеруді iOS шешеді (ескертулер, виджеттер), кейде бірнеше сағат аралықпен. Ашық болса: әр ашқан сайын.</string>
+    <string name="update_mode_title">Жаңарту жиілігі</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">Жаңарту тоқтатылды</string>
+    <string name="refresh_sheet_alarms">Ескертулер</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d іске қосылды</item>
+        <item quantity="other">%1$d іске қосылды</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">Барлығы жаңартылды</string>
+    <string name="refresh_sheet_app_start">Қолданбаны іске қосу</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">топтық сұрау %1$s · %2$d бағам</item>
+        <item quantity="other">топтық сұрау %1$s · %2$d бағам</item>
+    </plurals>
+    <string name="refresh_sheet_database">Дерекқор</string>
+    <string name="refresh_sheet_exchange_unreachable">%1$s қолжетімсіз</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
+        <item quantity="one">%1$d биржа қолжетімсіз</item>
+        <item quantity="other">%1$d биржа қолжетімсіз</item>
+    </plurals>
+    <string name="refresh_sheet_network">Желі</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d бағам хабарландыруы</item>
+        <item quantity="other">%1$d бағам хабарландыруы</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d жұп</item>
+        <item quantity="other">%1$d жұп</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d жұп жаңартылмады</item>
+        <item quantity="other">%1$d жұп жаңартылмады</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%1$d жұптың %2$d-і</item>
+        <item quantity="other">%1$d жұптың %2$d-і</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">%1$s дейін кідіртілді</string>
+    <string name="refresh_sheet_paused_until_reason">%1$s дейін кідіртілді (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">дерек жоқ</string>
+    <string name="refresh_sheet_reason_offline">байланыс жоқ</string>
+    <string name="refresh_sheet_reason_rate_limit">сұраулар тым көп</string>
+    <string name="refresh_sheet_reason_server">сервер қатесі</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">күту уақыты бітті</string>
+    <string name="refresh_sheet_reason_unavailable">биржа қолжетімсіз</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s секунд</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_exchanges">Биржалар</string>
+    <string name="refresh_sheet_section_steps">Толық мәлімет</string>
+    <string name="refresh_sheet_status_failed">жаңартылмады</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">барлығы жаңартылды</string>
+    <string name="refresh_sheet_status_partial">ішінара жаңартылды</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Басталуын күтуде</string>
+    <string name="refresh_sheet_widgets">Виджеттер</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">топтық сұрау %1$s (сәтсіз)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d қате</item>
+        <item quantity="other">%1$d қате</item>
+    </plurals>
+    <string name="refresh_report_live">Тікелей: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d енді саудаланбайды</item>
+        <item quantity="other">%1$d енді саудаланбайды</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d жеке</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">Сәтсіз</string>
+    <string name="check_result_ok">OK</string>
+    <string name="check_result_partial">Ішінара</string>
+    <string name="check_result_skipped">Өткізілді</string>
+    <string name="check_trigger_bgtask">Фон</string>
+    <string name="check_trigger_exact">Уақытылы</string>
+    <string name="check_trigger_foreground">Қолданба</string>
+    <string name="check_trigger_widget">Виджет</string>
+    <string name="check_trigger_widget_ios">Виджет · бағамдар мен бағам ескертулері</string>
+    <string name="check_trigger_worker">Фон</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android тексерулерді кешіктіруі мүмкін – батареяны «Шектеусіз» етіп қойыңыз</string>
+    <string name="battery_later">Кейінірек</string>
+    <string name="battery_message">Android қуат үнемдеу үшін фондық жұмысты кешіктіреді — сонда бағамдар мен виджеттер бірнеше сағат ескі болуы мүмкін. Батарея пайдалануын шектеусіз етіп қойсаңыз, олар өзекті болып қалады. Мұны Android параметрлерінде кез келген уақытта өзгертуге болады.</string>
+    <string name="battery_open_settings">Батарея параметрлерін ашу</string>
+    <string name="battery_steps">Қолданба ақпаратында Батарея (немесе Қолданбаның батарея пайдалануы) түймесін түртіп, Шектеусіз таңдаңыз.</string>
+    <string name="battery_title">Бағамдарды өзекті ұстау</string>
+    <string name="ios_background_refresh_off">Бұл қолданба үшін Фондық жаңарту өшірулі. Онсыз ескертулер тек қолданба ашық кезде тексеріледі.</string>
+    <string name="ios_low_power_mode">Қуат үнемдеу режимі қосулы. iOS фонда сирек тексереді, сондықтан ескертулер кешігуі мүмкін.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Биржа хабары: %1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">Жад әлі құлыптаулы – %1$d с кейін қайталанады</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="one">Жад әлі құлыптаулы – %1$d секундтан кейін қайталанады</item>
+        <item quantity="other">Жад әлі құлыптаулы – %1$d секундтан кейін қайталанады</item>
+    </plurals>
+    <string name="watchlist_retry_short">%1$s кейін қайталанады</string>
+    <string name="widget_retry_at">%1$s қайталанады</string>
+    <string name="refresh_sheet_wait_attempt">%1$d-әрекет – шифрланған жад біріншісінде дайын болмады</string>
+</resources>

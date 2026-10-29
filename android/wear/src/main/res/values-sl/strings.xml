@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Ni izbranih kovancev</string>
+    <string name="watch_loading">Nalaganje …</string>
+    <string name="watch_error">Borze niso dosegljive</string>
+    <string name="watch_updated">Stanje %1$s</string>
+    <string name="watch_refresh">Osveži</string>
+    <string name="watch_choose">Izberi kovance</string>
+    <string name="watch_choose_hint">Kovanci: največ %1$d</string>
+    <string name="watch_complication_label">Tečaj</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s v 24 urah</string>
+    <string name="watch_mode_phone">Seznam: kot na telefonu</string>
+    <string name="watch_mode_own">Seznam: lasten</string>
+    <string name="watch_phone_empty">Na telefonu ni priljubljenih</string>
+    <string name="a11y_watch_outdated">Tečaj je zastarel</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">nazadnje posodobljeno pred %1$d minuto</item>
+        <item quantity="two">nazadnje posodobljeno pred %1$d minutama</item>
+        <item quantity="few">nazadnje posodobljeno pred %1$d minutami</item>
+        <item quantity="other">nazadnje posodobljeno pred %1$d minutami</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">nazadnje posodobljeno pred %1$d uro</item>
+        <item quantity="two">nazadnje posodobljeno pred %1$d urama</item>
+        <item quantity="few">nazadnje posodobljeno pred %1$d urami</item>
+        <item quantity="other">nazadnje posodobljeno pred %1$d urami</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">nazadnje posodobljeno pred %1$d dnem</item>
+        <item quantity="two">nazadnje posodobljeno pred %1$d dnevoma</item>
+        <item quantity="few">nazadnje posodobljeno pred %1$d dnevi</item>
+        <item quantity="other">nazadnje posodobljeno pred %1$d dnevi</item>
+    </plurals>
+</resources>

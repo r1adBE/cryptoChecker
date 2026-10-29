@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">ນຳເຂົ້າ CSV</string>
+    <string name="portfolio_csv_import_all_transfer">ທັງໝົດໄປກະເປົາເງິນຂອງຕົນເອງ</string>
+    <string name="portfolio_csv_import_all_withdrawal">ທັງໝົດອອກຈາກພອດໂຟລິໂອ</string>
+    <string name="portfolio_csv_import_choice_proposed">ແນະນຳ: ກົງກັບ %1$s</string>
+    <string name="portfolio_csv_import_choice_transfer">ໄປກະເປົາເງິນຂອງຕົນເອງ (ການໂອນ)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">ອອກຈາກພອດໂຟລິໂອ (ການຖອນ)</string>
+    <string name="portfolio_csv_import_choose_each">ເລືອກສຳລັບການຖອນແຕ່ລະລາຍການວ່າມັນໄປໃສ.</string>
+    <string name="portfolio_csv_import_columns">ຖັນທີ່ຮູ້ຈັກ: %1$s</string>
+    <string name="portfolio_csv_import_confirm">ນຳເຂົ້າ (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">ມື້/ເດືອນ</string>
+    <string name="portfolio_csv_import_date_month_first">ເດືອນ/ມື້</string>
+    <string name="portfolio_csv_import_date_order">ວັນທີທີ່ບໍ່ຊັດເຈນ (ເຊັ່ນ 03/04/2024) ອ່ານເປັນ:</string>
+    <string name="portfolio_csv_import_decimal">ຕົວເລກທີ່ບໍ່ຊັດເຈນ (ເຊັ່ນ %1$s) ອ່ານເປັນ:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="other">ນຳເຂົ້າ %d ທຸລະກຳແລ້ວ</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="other">%d ນຳເຂົ້າແລ້ວ (ຂ້າມ)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">ຮູບແບບ: %1$s</string>
+    <string name="portfolio_csv_import_line">ແຖວ %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">ກຳລັງອ່ານໄຟລ໌ ແລະ ອັດຕາລາຍວັນ…</string>
+    <string name="portfolio_csv_import_progress">ແຖວ %1$s ຈາກ %2$s</string>
+    <string name="portfolio_csv_import_saving">ກຳລັງບັນທຶກທຸລະກຳ…</string>
+    <string name="portfolio_csv_import_missing_fx">ບໍ່ມີອັດຕາລາຍວັນສຳລັບແຖວ %1$s – ນຳເຂົ້າໂດຍບໍ່ມີລາຄາ/ຄ່າທຳນຽມ.</string>
+    <string name="portfolio_csv_import_missing_price">ບໍ່ມີລາຄາໃນໄຟລ໌ສຳລັບແຖວ %1$s – ນຳເຂົ້າໂດຍບໍ່ມີລາຄາ.</string>
+    <string name="portfolio_csv_import_more">+ ອີກ %1$d</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="other">%d ທຸລະກຳໃໝ່</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="other">ຂ້າມ %d ແຖວ</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">ການຊື້ຂາຍກັບ stablecoin (USDT, USDC …) ຖືກບັນທຶກເປັນການສະຫຼັບຫຼຽນ – stablecoin ຈະປາກົດໃນການຖືຄອງຂອງທ່ານ.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">ອາດກົງກັນຫຼາຍລາຍການ – ເລືອກອັນທີ່ຖືກຕ້ອງ ຫຼື ບໍ່ເລືອກ.</string>
+    <string name="portfolio_csv_import_transfer_fee">ຄ່າທຳນຽມເຄືອຂ່າຍ: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">ບັນທຶກເປັນການໂອນດຽວ</string>
+    <string name="portfolio_csv_import_transfer_stored">ລາຍການຄູ່ຈາກການນຳເຂົ້າກ່ອນໜ້າ</string>
+    <string name="portfolio_csv_import_transfers_hint">ການຖອນ ແລະ ການຝາກທີ່ກົງກັນຂອງຫຼຽນດຽວກັນຈະກາຍເປັນການໂອນດຽວ: ລາຄາຊື້ ແລະ ໄລຍະເວລາຖືຄອງຍັງຄົງເດີມ, ສ່ວນຕ່າງນັບເປັນຄ່າທຳນຽມເຄືອຂ່າຍ.</string>
+    <string name="portfolio_csv_import_transfers_title">ການໂອນລະຫວ່າງບັນຊີຂອງທ່ານ</string>
+    <string name="portfolio_csv_import_unreadable">ບໍ່ພົບທຸລະກຳທີ່ຮອງຮັບ. ຮອງຮັບ: ໄຟລ໌ສົ່ງອອກ CSV ຂອງ Relai, Swissquote, Kraken, Binance, Coinbase ແລະ Bitpanda.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
+    <string name="portfolio_csv_import_too_large">ໄຟລ໌ໃຫຍ່ເກີນໄປທີ່ຈະນຳເຂົ້າ (ສູງສຸດ 16 MB ແລະ %1$s ແຖວ). ສົ່ງອອກເປັນຊ່ວງເວລາສັ້ນກວ່າ ແລະ ນຳເຂົ້າເທື່ອລະອັນ.</string>
+    <string name="portfolio_csv_import_failed">ການນຳເຂົ້າບໍ່ສຳເລັດ – ບໍ່ມີຫຍັງຖືກບັນທຶກ. ກະລຸນາລອງໃໝ່.</string>
+    <string name="portfolio_csv_import_locked">ນຳເຂົ້າບໍ່ໄດ້: ຕອນນີ້ອ່ານຂໍ້ມູນທີ່ບັນທຶກໄວ້ບໍ່ໄດ້. ເປີດແອັບຄືນໃໝ່.</string>
+    <string name="portfolio_csv_import_withdrawals_title">ການຖອນ – ຫຼຽນໄປໃສ?</string>
+    <string name="portfolio_csv_import_zone">ເວລາທີ່ບໍ່ມີເຂດເວລາ ອ່ານເປັນ: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">ອຸປະກອນ (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">ວັນທີອ່ານບໍ່ໄດ້</string>
+    <string name="portfolio_csv_skip_bad_number">ຕົວເລກອ່ານບໍ່ໄດ້</string>
+    <string name="portfolio_csv_skip_fee_exceeds">ຄ່າທຳນຽມ ≥ ຈຳນວນທີ່ໄດ້ຮັບ</string>
+    <string name="portfolio_csv_skip_internal_move">ການຍ້າຍລະຫວ່າງບັນຊີຂອງຕົນເອງ – ບໍ່ມີຫຍັງຕ້ອງບັນທຶກ</string>
+    <string name="portfolio_csv_skip_missing">ຂາດຊ່ອງຂໍ້ມູນ</string>
+    <string name="portfolio_csv_skip_ambiguous">ການຊື້ຂາຍຫຼາຍລາຍການໃນວິນາທີດຽວກັນທີ່ແຍກບໍ່ອອກ – ໃສ່ດ້ວຍຕົນເອງ</string>
+    <string name="portfolio_csv_skip_not_crypto">ບໍ່ແມ່ນຄຣິບໂຕ</string>
+    <string name="portfolio_csv_skip_possible_duplicate">ອາດນຳເຂົ້າແລ້ວ (ການຊື້ຂາຍເກືອບຄືກັນ) – ກວດດ້ວຍຕົນເອງ</string>
+    <string name="portfolio_csv_skip_two_fees">ຄ່າທຳນຽມສອງລາຍການຕ່າງຫົວໜ່ວຍ – ໃສ່ການສະຫຼັບຫຼຽນດ້ວຍຕົນເອງ</string>
+    <string name="portfolio_csv_skip_unsupported">ປະເພດທີ່ບໍ່ຮອງຮັບ</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">ຍົກເລີກ</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="other">ລຶບ %d ທຸລະກຳຂອງການນຳເຂົ້ານີ້ບໍ? ລາຍການທີ່ໃສ່ດ້ວຍມື ແລະ ການນຳເຂົ້າອື່ນຍັງຄົງຢູ່.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">ຍົກເລີກການນຳເຂົ້າບໍ?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="other">ລຶບ %d ທຸລະກຳທີ່ນຳເຂົ້າອອກແລ້ວ</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="other">%d ທຸລະກຳ</item>
+    </plurals>
+    <string name="portfolio_imports_empty">ບໍ່ມີການນຳເຂົ້າ</string>
+    <string name="portfolio_imports_title">ການນຳເຂົ້າ</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">ID ທຸລະກຳດຽວກັນແຕ່ຈຳນວນຕ່າງກັນ – ກວດດ້ວຍຕົນເອງ</string>
+    <string name="portfolio_csv_skip_staking_unpaired">ລາຍການ staking ທີ່ບໍ່ມີລາຍການຄູ່ – ກວດການຖືຄອງ</string>
+    <string name="portfolio_csv_skip_amount_too_small">ຈຳນວນນ້ອຍເກີນໄປ – ປັດເປັນ 0 ເມື່ອບັນທຶກ</string>
+    <string name="portfolio_csv_skip_invalid_swap">ການສະຫຼັບຫຼຽນທີ່ບໍ່ມີຫຼຽນ ຫຼື ຈຳນວນທີ່ໄດ້ຮັບທີ່ຖືກຕ້ອງ</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">ກຳລັງອ່ານໄຟລ໌ອີກຄັ້ງ …</string>
+</resources>

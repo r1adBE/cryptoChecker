@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">သတိပေးချက် သတ်မှတ်ရန်</string>
+    <string name="alarms_add">သတိပေးချက် အသစ်</string>
+    <string name="alarms_edit">သတိပေးချက် ပြင်ဆင်ရန်</string>
+    <string name="alarms_empty">ဤအတွဲအတွက် သတိပေးချက် မရှိသေးပါ။</string>
+    <string name="alarms_empty_example">ဥပမာ- BTC သည် %1$s ထက် တက်သွားလျှင် အသိပေးပါ။</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">အကြောင်းကြားချက်များ ပိတ်ထားသည် – သတိပေးချက်များ သင့်ဆီ မရောက်နိုင်ပါ။</string>
+    <string name="alarms_notifications_turn_on">ဖွင့်ရန်</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="other">%1$d ခု အသက်ဝင်နေသည်</item>
+    </plurals>
+    <string name="alarms_overview_empty">သတိပေးချက် မရှိသေးပါ။ အတွဲတစ်ခုကို ဖွင့်ပြီး သတိပေးချက်များ အောက်တွင် ထည့်ပါ။</string>
+    <string name="alarms_overview_title">သတိပေးချက် အားလုံး</string>
+    <string name="alarms_title">သတိပေးချက်များ</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">အဆင့်မြင့်</string>
+    <string name="alarm_change_updates">ဈေးနှုန်း အပ်ဒိတ်များကို ချိန်ညှိရန်</string>
+    <string name="alarm_create">သတိပေးချက် ဖန်တီးရန်</string>
+    <string name="alarm_currency_label">ငွေကြေး</string>
+    <string name="alarm_delete_confirm">ဤသတိပေးချက်ကို ဖယ်ရှားပါမည်။</string>
+    <string name="alarm_delete_title">သတိပေးချက်ကို ဖျက်မလား။</string>
+    <string name="alarm_field_percent">ရာခိုင်နှုန်း</string>
+    <string name="alarm_field_price">ဈေးနှုန်း</string>
+    <string name="alarm_fires_now_above">ဈေးနှုန်းသည် %1$s ထက် မြင့်နေပြီ။ မည်သို့ပင်ဖြစ်စေ သိမ်းမလား။</string>
+    <string name="alarm_fires_now_below">ဈေးနှုန်းသည် %1$s ထက် နိမ့်နေပြီ။ မည်သို့ပင်ဖြစ်စေ သိမ်းမလား။</string>
+    <string name="alarm_fires_now_change">ပြောင်းရန်</string>
+    <string name="alarm_fires_now_save">မည်သို့ပင်ဖြစ်စေ သိမ်းရန်</string>
+    <string name="alarm_fires_now_title">သတိပေးချက် ယခုပင် ဖြစ်ပေါ်မည်</string>
+    <string name="alarm_first_battery_hint">ဘက်ထရီ ပိုကောင်းအောင်လုပ်ခြင်းက အက်ပ်ကို ကန့်သတ်ထားသည် – သတိပေးချက်များ နောက်ကျနိုင်သည်။</string>
+    <string name="alarm_first_title">သတိပေးချက် သိမ်းပြီးပါပြီ</string>
+    <string name="alarm_last_triggered">နောက်ဆုံး %1$s တွင်</string>
+    <string name="alarm_more_conditions">နောက်ထပ် အခြေအနေများ</string>
+    <string name="alarm_new_extreme">%1$s အသစ်</string>
+    <string name="alarm_once">တစ်ကြိမ်</string>
+    <string name="alarm_option_repeating">အသိပေးရန်</string>
+    <string name="alarm_option_sound">အသံ</string>
+    <string name="alarm_option_speak">သတိပေးချက်ကို အသံထွက်ဖတ်ရန်</string>
+    <string name="alarm_option_vibrate">တုန်ခါမှု</string>
+    <string name="alarm_repeat_each">အကြိမ်တိုင်း</string>
+    <string name="alarm_repeat_once">တစ်ကြိမ်</string>
+    <string name="alarm_repeating">အကြိမ်တိုင်း</string>
+    <string name="alarm_threshold_error_empty">သတိပေးချက်ကို သိမ်းရန် တန်ဖိုးတစ်ခု ထည့်ပါ။</string>
+    <string name="alarm_threshold_error_funding">Funding သည် −10 မှ +10 ရာခိုင်နှုန်းကြား ဂဏန်း ဖြစ်ရမည်။</string>
+    <string name="alarm_threshold_error_invalid">0 ထက်ကြီးသော မှန်ကန်သည့် ဂဏန်း ထည့်ပါ။</string>
+    <string name="alarm_threshold_error_oi">Open interest ပြောင်းလဲမှု: အများဆုံး 1000 ရာခိုင်နှုန်း။</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="other">%1$d နာရီအတွင်း</item>
+    </plurals>
+    <string name="alarm_window_label">အချိန်ကာလ</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">အောက်ပါထက် တက်လျှင်:</string>
+    <string name="alarm_simple_below">အောက်ပါထက် ကျလျှင်:</string>
+    <string name="alarm_simple_end"></string>
+    <string name="alarm_simple_when">%1$s ဈေးနှုန်းသည်</string>
+    <string name="alarm_template_a11y">သတိပေးချက် ဖန်တီးရန်: %1$s</string>
+    <string name="alarm_template_a11y_down">လက်ရှိဈေးနှုန်းမှ အနုတ် %1$s ရာခိုင်နှုန်းတွင် သတိပေးချက် ဖန်တီးရန်</string>
+    <string name="alarm_template_a11y_up">လက်ရှိဈေးနှုန်းမှ အပေါင်း %1$s ရာခိုင်နှုန်းတွင် သတိပေးချက် ဖန်တီးရန်</string>
+    <string name="alarm_template_from_now">ယခုမှစ၍</string>
+    <string name="alarm_template_volume">ပမာဏ ×%1$s</string>
+    <string name="alarm_templates_title">အမြန် သတိပေးချက်များ</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">ဈေးနှုန်း အထက်</string>
+    <string name="alarm_condition_below">ဈေးနှုန်း အောက်</string>
+    <string name="alarm_condition_down_percent">ကျဆင်းမှု</string>
+    <string name="alarm_condition_funding_above">Funding အထက်</string>
+    <string name="alarm_condition_funding_below">Funding အောက်</string>
+    <string name="alarm_condition_move_percent">လှုပ်ရှားမှု</string>
+    <string name="alarm_condition_near_high">အမြင့်ဆုံးအနီး</string>
+    <string name="alarm_condition_near_low">အနိမ့်ဆုံးအနီး</string>
+    <string name="alarm_condition_oi_down">Open interest ကျ</string>
+    <string name="alarm_condition_oi_up">Open interest တက်</string>
+    <string name="alarm_condition_up_percent">မြင့်တက်မှု</string>
+    <string name="alarm_condition_volume_spike">ပမာဏ ရုတ်တရက်တက်</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">%1$s သည် %2$s ထက် တက်သွားလျှင် အသိပေးပါ။</string>
+    <string name="alarm_sentence_below">%1$s သည် %2$s ထက် ကျသွားလျှင် အသိပေးပါ။</string>
+    <string name="alarm_sentence_down_percent">%1$s သည် သိမ်းချိန် ဈေးနှုန်း (သို့မဟုတ် နောက်ဆုံး သတိပေးချိန်) ထက် %2$s ကျသွားလျှင် အသိပေးပါ။</string>
+    <string name="alarm_sentence_funding_above">%1$s ၏ Funding သည် %2$s ထက် တက်သွားလျှင် အသိပေးပါ။</string>
+    <string name="alarm_sentence_funding_below">%1$s ၏ Funding သည် %2$s ထက် ကျသွားလျှင် အသိပေးပါ။</string>
+    <string name="alarm_sentence_incomplete">သတိပေးချက်ကို စာကြောင်းအဖြစ် မြင်ရန် တန်ဖိုးတစ်ခု ထည့်ပါ။</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="other">%1$s သည် %3$d နာရီအတွင်း %2$s လှုပ်ရှားလျှင် အသိပေးပါ။</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">%1$s သည် ၎င်း၏ %3$s အောက် အများဆုံး %2$s အတွင်း ရှိလျှင် အသိပေးပါ။</string>
+    <string name="alarm_sentence_near_low">%1$s သည် ၎င်း၏ %3$s အထက် အများဆုံး %2$s အတွင်း ရှိလျှင် အသိပေးပါ။</string>
+    <string name="alarm_sentence_new_extreme">%1$s သည် %2$s အသစ် ဖြစ်လာလျှင် အသိပေးပါ။</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="other">%1$s ၏ Open interest သည် %3$d နာရီအတွင်း %2$s ကျလျှင် အသိပေးပါ။</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="other">%1$s ၏ Open interest သည် %3$d နာရီအတွင်း %2$s တက်လျှင် အသိပေးပါ။</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">%1$s သည် သိမ်းချိန် ဈေးနှုန်း (သို့မဟုတ် နောက်ဆုံး သတိပေးချိန်) ထက် %2$s တက်သွားလျှင် အသိပေးပါ။</string>
+    <string name="alarm_sentence_volume">%1$s သည် ပုံမှန်ပမာဏ၏ %2$s× အရောင်းအဝယ်ဖြစ်လျှင် အသိပေးပါ။</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">ရက် 30 အမြင့်ဆုံး</string>
+    <string name="alarm_near_extreme_high_365">1 နှစ် အမြင့်ဆုံး</string>
+    <string name="alarm_near_extreme_high_90">ရက် 90 အမြင့်ဆုံး</string>
+    <string name="alarm_near_extreme_low_30">ရက် 30 အနိမ့်ဆုံး</string>
+    <string name="alarm_near_extreme_low_365">1 နှစ် အနိမ့်ဆုံး</string>
+    <string name="alarm_near_extreme_low_90">ရက် 90 အနိမ့်ဆုံး</string>
+    <string name="alarm_near_field_distance">အကွာအဝေး</string>
+    <string name="alarm_near_hint">အမြင့်ဆုံး သို့မဟုတ် အနိမ့်ဆုံး အသစ်ဖြစ်လာသည့်အခါလည်း အသိပေးသည်။ နေ့စဉ် ဖယောင်းတိုင်များကို အခြေခံပြီး 6 နာရီတစ်ကြိမ် ပြန်လည်တွက်သည်။</string>
+    <string name="alarm_near_new_only">အမြင့်ဆုံး သို့မဟုတ် အနိမ့်ဆုံး အသစ်များသာ</string>
+    <string name="alarm_near_notification_high">%1$s သည် ၎င်း၏ %3$s အောက် %2$s တွင် ရှိသည် (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s သည် ၎င်း၏ %3$s အထက် %2$s တွင် ရှိသည် (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">%2$s အတွက် %1$s အသစ်: %3$s (ယခင် %4$s)</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="other">%1$d ရက်</item>
+    </plurals>
+    <string name="alarm_near_window_label">ကာလ</string>
+    <string name="alarm_near_window_year">1 နှစ်</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">8 နာရီအတွက် Funding နှုန်း။ အခြားကြားကာလရှိသော စာချုပ်များကို ပြောင်းလဲတွက်ချက်သည် (1 နာရီ × 8, 4 နာရီ × 2)၊ Futures ကတ်သည် ပြောင်းလဲထားသော တန်ဖိုးကို ပြသည်။ ကြားကာလကို မသိလျှင် သတိပေးချက်က မစစ်ဆေးပါ။ အနုတ်ဆိုသည်မှာ shorts က longs ကို ပေးချေသည်။ ± သည် သင်္ကေတကို ပြောင်းသည်။</string>
+    <string name="alarm_funding_sign_a11y">သင်္ကေတ ပြောင်းရန်</string>
+    <string name="alarm_oi_hint">Open interest ကို ထိုနာရီအရေအတွက် အရင်က သိမ်းထားသော တန်ဖိုးနှင့် နှိုင်းယှဉ်သည်။ သတိပေးချက်အသစ်သည် အက်ပ်က ထိုမျှကြာ ဒေတာစုဆောင်းပြီးမှသာ သတင်းပို့သည်၊ အများဆုံး မိနစ် 5 တစ်ကြိမ် စစ်ဆေးသည်။</string>
+    <string name="alarm_volume_factor_label">နောက်ဆုံးနာရီ ပမာဏ နှင့် ပုံမှန်</string>
+    <string name="alarm_volume_hint">ပမာဏ ဒေတာသည် Binance မှ လာသည် — ထိုတွင် မရှိသော အတွဲများ ဘယ်တော့မှ မဖြစ်ပေါ်ပါ။</string>
+    <string name="alarm_volume_zero_hours_hint">အရောင်းအဝယ်မရှိသော နာရီများကို ပမာဏ သုည အဖြစ် တွက်သောကြောင့် အရောင်းအဝယ်နည်းသော အတွဲများတွင် ပုံမှန်နာရီတစ်ခုသည် ထူးခြားသည့်ပုံ ပေါ်နိုင်သည်။</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">သတိပေးချက် အသက်ဝင်နေသည်</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">သတိပေးချက် သိမ်းပြီး: %1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">အကြောင်းကြားချက်များ ပိတ်ထားသည်</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">“%1$s” မပါလျှင် စက် နားနေစဉ် Android သည် ပုံမှန်မဟုတ်ဘဲ စစ်ဆေးသည် – တစ်ခါတစ်ရံ နာရီပေါင်းများစွာအကြာမှ။ ပါလျှင် ခန့်မှန်း မိနစ် 15 တစ်ကြိမ်။</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">အက်ပ်ကို ပိတ်ထားလျှင် iOS သည် မိနစ် 15 ထက် နောက်ကျ၍ စစ်ဆေးလေ့ရှိပြီး တစ်ခါတစ်ရံ နောက်တစ်ကြိမ် ဖွင့်မှသာ စစ်ဆေးသည်။ ခဏတာ တက်ကျမှုများ လွတ်သွားနိုင်သည်။</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">သတိပေးချက်များကို စစ်ဆေးသည့်အချိန်</string>
+    <string name="alarm_timing_where">%1$s တွင် ဈေးနှုန်း အပ်ဒိတ်လုပ်သည့် အကြိမ်ရေကို ပြောင်းပါ။</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">အသံတိတ် (အကြောင်းကြားချက်သာ)</string>
+    <string name="alarm_signal_sound">အသံသာ</string>
+    <string name="alarm_signal_sound_vibrate">အသံနှင့် တုန်ခါမှု</string>
+    <string name="alarm_signal_system">စနစ်</string>
+    <string name="alarm_signal_vibrate">တုန်ခါမှုသာ</string>
+    <string name="alarm_test">သတိပေးချက် စမ်းသပ်ရန်</string>
+    <string name="alarm_test_action">စမ်းသပ်ရန်</string>
+    <string name="alarm_test_denied">Crypto Checker အတွက် အကြောင်းကြားချက်များကို ပိတ်ထားသည်။</string>
+    <string name="alarm_test_hint">သင့်အသံ၊ တုန်ခါမှုနှင့် စကားပြော ဆက်တင်များဖြင့် နမူနာ သတိပေးချက်တစ်ခု ပို့သည်။</string>
+    <string name="alarm_test_open_settings">ဆက်တင်များ ဖွင့်ရန်</string>
+    <string name="alarm_test_quiet">ယခု တိတ်ဆိတ်ချိန် ဖွင့်ထားသည်- တကယ့် သတိပေးချက်များသည် ၎င်းပြီးဆုံးသည်အထိ စောင့်ပြီးမှ အသံဖြင့် မြည်မည်။</string>
+    <string name="alarm_test_text">သတိပေးချက်တစ်ခု၏ ပုံစံနှင့် အသံသည် ဤသို့ဖြစ်သည်။</string>
+    <string name="alarm_test_title">စမ်းသပ်ချက်: Crypto Checker သတိပေးချက်</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">အသံ ဖွင့်ထားသည်</string>
+    <string name="alarm_a11y_speak_on">စကားပြော ဖွင့်ထားသည်</string>
+    <string name="alarm_unchecked_no_candles">စစ်ဆေး၍ မရပါ (ဖယောင်းတိုင် ဒေတာ မရှိ)</string>
+    <string name="alarm_unchecked_no_rate">စစ်ဆေး၍ မရပါ (ငွေလဲနှုန်း မရှိ)</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">အကြောင်းကြားချက်များ ပိတ်ထားသည် – ဤသတိပေးချက် သင့်ဆီ ရောက်မည်မဟုတ်ပါ</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">သတိပေးချက် မရှိ – ငွေဖြစ်လွယ်မှု နည်း</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">လက်ရှိဈေးနှုန်းကို စောင့်နေသည်</string>
+    <string name="alarm_enter_amount">တန်ဖိုး ထည့်ပါ</string>
+    <string name="alarm_editor_more">နောက်ထပ်</string>
+    <string name="alarm_editor_more_summary">အမြန် သတိပေးချက်များ၊ အခြား အခြေအနေများ၊ အသံနှင့် စကားပြော</string>
+    <string name="alarm_reliability_storage_no_key">နောက်ခံတွင် သတိပေးချက်များ ခေတ္တရပ်ထားသည် – စောင့်ကြည့်စာရင်း မသိမ်းရသေးပါ</string>
+    <string name="alarms_limit_reached">အတွဲတစ်ခုတွင် သတိပေးချက် အများဆုံး %1$s ခု ရှိနိုင်သည်။</string>
+    <string name="alarms_reference_rate_hint">ECB ရည်ညွှန်းနှုန်းများကို တစ်ရက်လျှင် တစ်ကြိမ်သာ သတ်မှတ်သည် – ၎င်းတို့အတွက် သတိပေးချက် မရှိပါ။</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">ကျဆင်းမှုသည် 100 ရာခိုင်နှုန်းထက် နည်းရမည်။</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">သတ်မှတ်ချက် မမှန်ကန်ပါ – ကျေးဇူးပြု၍ ချိန်ညှိပါ</string>
+
+    <string name="alarm_last_checked">နောက်ဆုံး စစ်ဆေးချိန် %1$s</string>
+</resources>

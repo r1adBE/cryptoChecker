@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">अलर्टहरू आइपुग्ने सुनिश्चित गर्नुहोस्</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">ठीक छ</string>
+    <string name="delivery_state_warn">यो जाँच्नुहोस्</string>
+    <string name="delivery_state_info">नोट</string>
+    <string name="delivery_allowed">अनुमति छ</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">सूचनाहरू</string>
+    <string name="delivery_notifications_off">बन्द – अलर्टहरू आइपुग्दैनन्</string>
+    <string name="delivery_notifications_not_asked">अझै अनुमति दिइएको छैन</string>
+    <string name="delivery_channel">अलर्ट च्यानल</string>
+    <string name="delivery_channel_high">उच्च महत्त्व – स्क्रिनमा देखा पर्छ</string>
+    <string name="delivery_channel_low">कम महत्त्व – अलर्टहरू सूचीमा चुपचाप मात्र देखिन्छन्</string>
+    <string name="delivery_channel_off">बन्द गरिएको – अलर्टहरू आइपुग्दैनन्</string>
+    <string name="delivery_exact_on">सक्रिय – लगभग हरेक 15 मिनेटमा</string>
+    <string name="delivery_exact_off">बन्द – Android ले अनियमित रूपमा जाँच गर्छ</string>
+    <string name="delivery_battery">ब्याट्री अप्टिमाइजेसन</string>
+    <string name="delivery_battery_unrestricted">असीमित</string>
+    <string name="delivery_battery_optimized">अप्टिमाइज गरिएको – Android ले जाँचहरू ढिलो गर्न सक्छ। एपले छुट माग्दैन; तपाईं एपको ब्याट्री सेटिङमा यो परिवर्तन गर्न सक्नुहुन्छ।</string>
+    <string name="delivery_background">ब्याकग्राउन्ड प्रयोग</string>
+    <string name="delivery_background_restricted">सीमित – Android ले ब्याकग्राउन्ड जाँचहरू रोक्छ</string>
+    <string name="delivery_dnd">बाधा नपुर्‍याउनुहोस्</string>
+    <string name="delivery_dnd_on">सक्रिय – अलर्टहरू ध्वनिबिना आउन सक्छन्</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">%1$s सम्म सक्रिय – बाँकी अलर्टहरू त्यतिबेलासम्म पर्खन्छन्</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – यो समयमा बाँकी अलर्टहरू पर्खन्छन्</string>
+    <string name="delivery_last_check">अन्तिम ब्याकग्राउन्ड जाँच</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – 6 घण्टाभन्दा पहिले</string>
+    <string name="delivery_last_check_never">अहिलेसम्म छैन</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">अनुमति दिनुहोस्</string>
+    <string name="delivery_action_change">परिवर्तन गर्नुहोस्</string>
+    <string name="delivery_action_show">देखाउनुहोस्</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">ब्यानर र ध्वनि</string>
+    <string name="delivery_alert_off">ब्यानर बन्द – अलर्टहरू Notification Center मा मात्र देखिन्छन्</string>
+    <string name="delivery_sound_off">ध्वनि बन्द – अलर्टहरू चुपचाप आउँछन्</string>
+    <string name="delivery_time_sensitive">Time Sensitive Notifications</string>
+    <string name="delivery_time_sensitive_off">बन्द – Focus ले अलर्टहरू रोक्न सक्छ</string>
+    <string name="delivery_background_refresh">Background App Refresh</string>
+    <string name="delivery_low_power">Low Power Mode</string>
+    <string name="delivery_swipe_away">एपलाई स्वाइप गरेर हटाउनुभयो?</string>
+    <string name="delivery_swipe_away_note">एप स्विचरमा एपलाई स्वाइप गरेर हटाउनुभयो भने, तपाईंले फेरि नखोलेसम्म iOS ले ब्याकग्राउन्ड जाँचहरू रोक्छ।</string>
+    <string name="delivery_live_activity">Live Activity</string>
+    <string name="delivery_live_activity_note">लक स्क्रिनमा मूल्य देखाउँछ तर एपले जाँच गर्दा मात्र अपडेट हुन्छ – यसले अलर्टहरूलाई धेरै पटक जाँच गराउँदैन।</string>
+
+    <string name="alarm_first_check">अलर्टहरू आइपुग्छन् कि जाँच्नुहोस्</string>
+
+    <string name="oem_battery_title">निर्माताको ब्याट्री सेभर</string>
+    <string name="oem_battery_xiaomi">Xiaomi ले एपलाई पूर्ण रूपमा रोक्न सक्छ – त्यसपछि कुनै अलर्ट आइपुग्दैन। “Autostart” सक्रिय गर्नुहोस् र ब्याट्री सेभरलाई “No restrictions” मा राख्नुहोस्।</string>
+    <string name="oem_battery_samsung">Samsung ले एपलाई गहिरो निद्रामा राख्न सक्छ – त्यसपछि कुनै अलर्ट आइपुग्दैन। ब्याट्री › ब्याकग्राउन्ड प्रयोग सीमा अन्तर्गत, यसलाई “कहिल्यै नसुत्ने एपहरू” मा थप्नुहोस्।</string>
+    <string name="oem_battery_huawei">Huawei/Honor ले एपलाई रोक्न सक्छ – त्यसपछि कुनै अलर्ट आइपुग्दैन। ब्याट्री › एप सुरुवात अन्तर्गत, “म्यानुअल रूपमा व्यवस्थापन” छानेर सबै विकल्पहरूलाई अनुमति दिनुहोस्।</string>
+    <string name="oem_battery_oneplus">OnePlus ले एपलाई रोक्न सक्छ – त्यसपछि कुनै अलर्ट आइपुग्दैन। “Auto-launch” लाई अनुमति दिनुहोस् र ब्याट्री प्रयोग अन्तर्गत ब्याकग्राउन्ड गतिविधिलाई पनि।</string>
+    <string name="oem_battery_oppo">Oppo/Realme ले एपलाई रोक्न सक्छ – त्यसपछि कुनै अलर्ट आइपुग्दैन। “Auto launch” लाई अनुमति दिनुहोस् र ब्याट्री प्रयोग अन्तर्गत ब्याकग्राउन्ड गतिविधिलाई पनि।</string>
+    <string name="oem_battery_vivo">Vivo ले एपलाई रोक्न सक्छ – त्यसपछि कुनै अलर्ट आइपुग्दैन। “Autostart” लाई अनुमति दिनुहोस् र ब्याट्री अन्तर्गत उच्च ब्याकग्राउन्ड पावर प्रयोगलाई पनि।</string>
+    <string name="alarm_reliability_stale">अन्तिम जाँच %1$s – अलर्टहरू ढिलो हुन सक्छन्</string>
+    <string name="alarm_reliability_never">अलर्टहरू सक्रिय – अहिलेसम्म ब्याकग्राउन्ड जाँच भएको छैन</string>
+    <string name="alarm_reliability_notifications_off">सूचनाहरू बन्द – अलर्टहरू आइपुग्दैनन्</string>
+    <string name="alarm_reliability_battery">ब्याट्री बचतले अलर्ट जाँचहरू रोक्न सक्छ</string>
+    <string name="alarm_reliability_background_refresh">Background App Refresh बन्द – अलर्टहरू नआउन सक्छन्</string>
+</resources>

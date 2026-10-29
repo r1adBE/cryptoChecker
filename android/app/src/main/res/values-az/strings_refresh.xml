@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">daha çox məlumat və batareya tələb edir</string>
+    <string name="update_mode_live">Açıq olanda canlı</string>
+    <string name="update_mode_live_hint">Birja canlı qiymət verirsə: izləmə siyahısı açıq olduqca dərhal. Əks halda növbəti sorğuda. Bağlı olanda: %1$s-dən tez deyil, çox vaxt daha gec.</string>
+    <string name="update_mode_live_hint_ios">Birja canlı qiymət verirsə: izləmə siyahısı açıq olduqca dərhal. Əks halda növbəti sorğuda. Bağlı olanda: iOS icazə verəndə, bəzən saatlar fasilə ilə. Tətbiqi sürüşdürüb bağlasan, iOS onu yenidən açana qədər bu yoxlamaları dayandırır.</string>
+    <string name="update_mode_recommended">tövsiyə olunur</string>
+    <string name="update_mode_sparsam">Qənaətcil</string>
+    <string name="update_mode_sparsam_hint">Tətbiq bağlı olanda %1$s-dən tez deyil, çox vaxt daha gec (alarmlar, vidcetlər). Açıq olanda: hər açanda.</string>
+    <string name="update_mode_sparsam_hint_ios">Tətbiq bağlı olanda nə vaxt yoxlamağa iOS qərar verir (alarmlar, vidcetlər), bəzən saatlar fasilə ilə. Açıq olanda: hər açanda.</string>
+    <string name="update_mode_title">Yeniləmə tezliyi</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">Yeniləmə dayandırıldı</string>
+    <string name="refresh_sheet_alarms">Alarmlar</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d işə düşdü</item>
+        <item quantity="other">%1$d işə düşdü</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">Hər şey yeniləndi</string>
+    <string name="refresh_sheet_app_start">Tətbiqin başladılması</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">toplu sorğu %1$s · %2$d qiymət</item>
+        <item quantity="other">toplu sorğu %1$s · %2$d qiymət</item>
+    </plurals>
+    <string name="refresh_sheet_database">Verilənlər bazası</string>
+    <string name="refresh_sheet_exchange_unreachable">%1$s əlçatan deyil</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
+        <item quantity="one">%1$d birja əlçatan deyil</item>
+        <item quantity="other">%1$d birja əlçatan deyil</item>
+    </plurals>
+    <string name="refresh_sheet_network">Şəbəkə</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d qiymət bildirişi</item>
+        <item quantity="other">%1$d qiymət bildirişi</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d cüt</item>
+        <item quantity="other">%1$d cüt</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d cüt yenilənmədi</item>
+        <item quantity="other">%1$d cüt yenilənmədi</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%1$d cütdən %2$d</item>
+        <item quantity="other">%1$d cütdən %2$d</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">%1$s-dək dayandırılıb</string>
+    <string name="refresh_sheet_paused_until_reason">%1$s-dək dayandırılıb (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">məlumat yoxdur</string>
+    <string name="refresh_sheet_reason_offline">bağlantı yoxdur</string>
+    <string name="refresh_sheet_reason_rate_limit">həddindən çox sorğu</string>
+    <string name="refresh_sheet_reason_server">server xətası</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">vaxt bitdi</string>
+    <string name="refresh_sheet_reason_unavailable">birja əlçatan deyil</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s saniyə</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_exchanges">Birjalar</string>
+    <string name="refresh_sheet_section_steps">Təfərrüat</string>
+    <string name="refresh_sheet_status_failed">yenilənmədi</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">hamısı yeniləndi</string>
+    <string name="refresh_sheet_status_partial">qismən yeniləndi</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Başlanğıc gözlənilir</string>
+    <string name="refresh_sheet_widgets">Vidcetlər</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">toplu sorğu %1$s (alınmadı)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d xəta</item>
+        <item quantity="other">%1$d xəta</item>
+    </plurals>
+    <string name="refresh_report_live">Canlı: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d artıq alınıb-satılmır</item>
+        <item quantity="other">%1$d artıq alınıb-satılmır</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d ayrıca</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">Alınmadı</string>
+    <string name="check_result_ok">Qaydasındadır</string>
+    <string name="check_result_partial">Qismən</string>
+    <string name="check_result_skipped">Buraxıldı</string>
+    <string name="check_trigger_bgtask">Arxa fon</string>
+    <string name="check_trigger_exact">Dəqiq vaxtda</string>
+    <string name="check_trigger_foreground">Tətbiq</string>
+    <string name="check_trigger_widget">Vidcet</string>
+    <string name="check_trigger_widget_ios">Vidcet · qiymətlər və qiymət alarmları</string>
+    <string name="check_trigger_worker">Arxa fon</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android yoxlamaları gecikdirə bilər – batareyanı «Məhdudiyyətsiz» vəziyyətinə qoy</string>
+    <string name="battery_later">Sonra</string>
+    <string name="battery_message">Android enerjiyə qənaət etmək üçün arxa fon işini gecikdirir — qiymətlər və vidcetlər saatlarla köhnə ola bilər. Batareya istifadəsini məhdudiyyətsiz etmək onları aktual saxlayır. Bunu istənilən vaxt Android ayarlarında dəyişə bilərsən.</string>
+    <string name="battery_open_settings">Batareya ayarlarını aç</string>
+    <string name="battery_steps">Tətbiq məlumatında Batareya (və ya Tətbiqin batareya istifadəsi) bölməsinə toxun və Məhdudiyyətsiz seç.</string>
+    <string name="battery_title">Qiymətləri aktual saxla</string>
+    <string name="ios_background_refresh_off">Bu tətbiq üçün arxa fonda tətbiq yeniləməsi söndürülüb. Onsuz alarmlar yalnız tətbiq açıq olanda yoxlanılır.</string>
+    <string name="ios_low_power_mode">Enerjiyə qənaət rejimi aktivdir. iOS arxa fonda nadir hallarda yoxlayır, buna görə alarmlar gecikə bilər.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Birja mesajı: %1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">Yaddaş hələ kilidlidir – %1$d san sonra yenidən cəhd</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="one">Yaddaş hələ kilidlidir – %1$d saniyə sonra yenidən cəhd</item>
+        <item quantity="other">Yaddaş hələ kilidlidir – %1$d saniyə sonra yenidən cəhd</item>
+    </plurals>
+    <string name="watchlist_retry_short">%1$s sonra yenidən cəhd</string>
+    <string name="widget_retry_at">%1$s-də yenidən cəhd</string>
+    <string name="refresh_sheet_wait_attempt">Cəhd %1$d – şifrələnmiş yaddaş birinci dəfə hazır deyildi</string>
+</resources>

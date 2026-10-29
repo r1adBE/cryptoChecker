@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="one">%d мин-ийн өмнө</item>
+        <item quantity="other">%d мин-ийн өмнө</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">өнөөдөр %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed, Bitcoin-ийн үзүүлэлт, давамгайлал, халвинг</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">Зах зээлийн нэмэлт өгөгдөл</string>
+    <string name="market_phase_trend_failed">Ханшийн өгөгдөл алга</string>
+    <string name="market_plain_direction_down_clear">Бүх криптовалютын нийт үнэ цэнэ 24 цагийн өмнөхөөс мэдэгдэхүйц бага байна (%1$s).</string>
+    <string name="market_plain_direction_down_slight">Бүх криптовалютын нийт үнэ цэнэ 24 цагийн өмнөхөөс бага зэрэг бага байна (%1$s).</string>
+    <string name="market_plain_direction_flat">Бүх криптовалютын нийт үнэ цэнэ 24 цагт бараг өөрчлөгдөөгүй (%1$s).</string>
+    <string name="market_plain_direction_up_clear">Бүх криптовалютын нийт үнэ цэнэ 24 цагийн өмнөхөөс мэдэгдэхүйц өндөр байна (%1$s).</string>
+    <string name="market_plain_direction_up_slight">Бүх криптовалютын нийт үнэ цэнэ 24 цагийн өмнөхөөс бага зэрэг өндөр байна (%1$s).</string>
+    <string name="market_plain_footnote">Сүүлийн 24 цагийг тайлбарлана – таамаглал биш, хөрөнгө оруулалтын зөвлөгөө биш.</string>
+    <string name="market_plain_mood_extreme_fear">Хөрөнгө оруулагчид яг одоо маш их айж байна: сэтгэл хандлагын индекс (Fear &amp; Greed) 100-аас %1$d байна.</string>
+    <string name="market_plain_mood_extreme_greed">Хөрөнгө оруулагчид яг одоо маш их шунаж байна: сэтгэл хандлагын индекс (Fear &amp; Greed) 100-аас %1$d байна.</string>
+    <string name="market_plain_mood_fear">Хөрөнгө оруулагчид нэлээд айж байна: сэтгэл хандлагын индекс (Fear &amp; Greed) 100-аас %1$d байна.</string>
+    <string name="market_plain_mood_greed">Хөрөнгө оруулагчид нэлээд шунаж байна: сэтгэл хандлагын индекс (Fear &amp; Greed) 100-аас %1$d байна.</string>
+    <string name="market_plain_mood_neutral">Хөрөнгө оруулагчдын сэтгэл хандлага тэнцвэртэй: сэтгэл хандлагын индекс (Fear &amp; Greed) 100-аас %1$d байна.</string>
+    <string name="market_plain_standout_above_btc">%1$s онцгойрч байна: 24 цагт %2$s, Bitcoin-оос (%3$s) хамаагүй дээр.</string>
+    <string name="market_plain_standout_against_btc">%1$s онцгойрч байна: 24 цагт %2$s, харин Bitcoin эсрэг чиглэлд хөдөлсөн (%3$s).</string>
+    <string name="market_plain_standout_below_btc">%1$s онцгойрч байна: 24 цагт %2$s, Bitcoin-оос (%3$s) хамаагүй доор.</string>
+    <string name="market_plain_standout_futures_down">%1$s онцгойрч байна: ер бусын олон фьючерсийн арилжаачин уналтад бооцоо тавьж байна.</string>
+    <string name="market_plain_standout_futures_up">%1$s онцгойрч байна: ер бусын олон фьючерсийн арилжаачин өсөлтөд бооцоо тавьж байна.</string>
+    <string name="market_plain_standout_quiet">Яг одоо онцгойрсон зоос алга.</string>
+    <string name="market_plain_standout_volume">%1$s онцгойрч байна: арилжаа ердийнхөөс ойролцоогоор %2$s дахин их.</string>
+    <string name="market_plain_title">Товчхондоо</string>
+    <string name="market_section_collapse">%1$s нуух</string>
+    <string name="market_section_context">Сэтгэл хандлага &amp; мөчлөг</string>
+    <string name="market_section_data">Зах зээлийн өгөгдөл</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">%1$s харуулах</string>
+    <string name="market_section_now">Яг одоо</string>
+    <string name="market_source">Өгөгдөл: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="exchange_unavailable_error">Бирж боломжгүй</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">Мэдээлэл: %1$s</string>
+    <string name="market_info_alt_season_source">Өдрийн ханш: Binance · ойролцоогоор 3 цаг тутам дахин тооцно</string>
+    <string name="market_info_alt_season_what">Ойролцоогоор 20 том альткойны (жишээ нь Ethereum, Solana, XRP) хэд нь сүүлийн 90 хоногт Bitcoin-оос илүү гүйцэтгэл үзүүлснийг тоолно. Утга нь тэдний 0-ээс 100 хүртэлх эзлэх хувь.</string>
+    <string name="market_info_coin_source">Ханш: Binance эсвэл Bybit · ойролцоогоор 15 минут тутам дахин ачаална</string>
+    <string name="market_info_dominance_how">Давамгайлал өсвөл Bitcoin зах зээлийн бусад хэсгээс сайн байна; буурвал бусад зоосны жин нэмэгдэнэ. Стэйблкойныг ч тооцно: тэдний үнэ цэнэ өсвөл Bitcoin-ий ханш өөрчлөгдөөгүй ч Bitcoin-ий хувь буурна.</string>
+    <string name="market_info_dominance_source">Эх сурвалж: CoinGecko · ойролцоогоор 30 минут тутам дахин ачаална</string>
+    <string name="market_info_dominance_what">Бүх криптовалютын нийт үнэ цэнэд (зах зээлийн үнэлгээ) Bitcoin-ий эзлэх хувь. Доор нь Ethereum-ийн хувь.</string>
+    <string name="market_info_fear_greed_how">25-аас доош бол хэт айдас, 75-аас дээш бол хэт шунал, 50 орчим бол төвийг сахисан. Дэлгэсэн карт өчигдөр, долоо хоногийн болон сарын өмнөх утгыг харуулна. Худалдан авах эсвэл зарах дохио биш.</string>
+    <string name="market_info_fear_greed_source">Эх сурвалж: alternative.me · шинэ утга өдөрт нэг удаа</string>
+    <string name="market_info_fear_greed_what">Крипто зах зээлийн 0-ээс 100 хүртэлх сэтгэл хандлагын индекс. alternative.me үүнийг ханшийн хэлбэлзэл, арилжааны хэмжээ, олон нийтийн сүлжээ, Bitcoin-ий давамгайлал зэрэг хэд хэдэн үзүүлэлтээс тооцдог.</string>
+    <string name="market_info_gas_how">Өндөр утга нь сүлжээ ачаалалтай, шилжүүлэг илүү үнэтэй гэсэн үг. Удаан, ердийн, хурдан нь хожуу эсвэл хурдан баталгаажуулалтын шимтгэл. Дэлгэсэн карт энгийн шилжүүлгийн ойролцоо зардлыг харуулна.</string>
+    <string name="market_info_gas_source">Нийтийн RPC зангилаа, mempool.space · минут тутам дахин ачаална</string>
+    <string name="market_info_gas_what">Сүлжээ бүрт гүйлгээ одоо ямар үнэтэй байгаа. Ethereum болон ижил төстэй сүлжээнд gwei-ээр (газын нэгжид ногдох ETH-ийн тэрбумны нэг), Bitcoin дээр sat/vB-ээр (гүйлгээний виртуал байтад ногдох сатоши).</string>
+    <string name="market_info_halving_source">Огноо: блокийн өндөр ба дундаж блокийн хугацаанаас (mempool.space), эс бөгөөс хуанлиар · ханшийн түүх: Coin Metrics, Binance, 12 цаг тутам дахин ачаална</string>
+    <string name="market_info_halving_what">Халвингийн үед майнеруудын шинэ Bitcoin блокийн төлөө авах шагнал хоёр дахин багасна. Энэ нь 210,000 блок тутамд, ойролцоогоор дөрвөн жилд нэг удаа болдог. Үүний дараа өдөрт хоёр дахин цөөн шинэ биткойн үүснэ.</string>
+    <string name="market_info_how">Хэрхэн унших вэ</string>
+    <string name="market_info_macro_how">Ийм огноо өнөөдөр эсвэл маргааш байх үед л сануулга гарна. Нийтлэгдэх үеэр ханш ихэвчлэн ердийнхөөс илүү хэлбэлздэг. Апп зөвхөн огноог харуулах ба тоонуудыг өөрсдийг нь биш.</string>
+    <string name="market_info_macro_source">Аппын вэбсайтын хуанли · өдөрт нэг удаа ачаална</string>
+    <string name="market_info_macro_what">АНУ-ын эдийн засгийн чухал мэдээллийн огноо: инфляц (CPI, PCE), үйлдвэрлэгчийн үнэ (PPI), ажлын байрны тайлан болон АНУ-ын Холбооны нөөцийн хүүгийн шийдвэр. Ийм тоо крипто ханшийг ч ихэвчлэн хөдөлгөдөг.</string>
+    <string name="market_info_no_advice">Хөрөнгө оруулалтын зөвлөгөө биш.</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · ханш цаг тутам, on-chain утга 12 цаг тутам дахин ачаална</string>
+    <string name="market_info_pulse_how">Гарчиг чиглэлийг нэрлэнэ; дэлгэрэнгүйг харахын тулд картыг дэлгэнэ үү. Өргөн хөдөлгөөн нь ихэнх том зоос нэг чиглэлд хөдөлж байна гэсэн үг. Өөдрөг хөшүүргийн сэтгэл хандлага нь олон арилжаачин хөшүүргээр өсөлтөд бооцоо тавьж байна гэсэн үг бөгөөд Bitcoin фьючерсийн фандингийн хүүгээр хэмжинэ. Агшин зуурын зураг, таамаглал биш.</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · ойролцоогоор 5 минут тутам дахин ачаална</string>
+    <string name="market_info_pulse_what">Сүүлийн 24 цагийн зах зээлийн товч тойм: Bitcoin, Ethereum, Solana хэрхэн хөдөлж байна, хамгийн том зоосны хэд нь өсөж эсвэл буурч байна, яг одоо хэдий хэмжээний Bitcoin арилжаалагдаж байна, хөшүүргийн сэтгэл хандлага ямар байна (Bitcoin фьючерсийн фандингийн хүүгээр хэмжинэ).</string>
+    <string name="market_info_totals_how">Баруун талд нь 24 цагийн нийт үнэ цэнийн өөрчлөлт. Өндөр хэмжээ нь их арилжаа хийгдэж байна гэсэн үг – аль чиглэлд гэдгийг хэлэхгүй. Боломжтой бол хөрвүүлэх валютаар, эс бөгөөс АНУ-ын доллараар харуулна.</string>
+    <string name="market_info_totals_source">Бүх зоос · CoinGecko · ойролцоогоор 30 минут тутам дахин ачаална</string>
+    <string name="market_info_totals_what">Бүх криптовалютын нийт үнэ цэнэ (зах зээлийн үнэлгээ: ханшийг эргэлтэд буй нийлүүлэлтээр үржүүлж, бүх зоосоор нэмсэн) болон сүүлийн 24 цагийн арилжааны хэмжээ.</string>
+    <string name="market_info_unusual_how">Зоос бүр өөрийн хамгийн анхаарал татах ажиглалтыг харуулж, баруун талд нь 24 цагийн өөрчлөлт байна. 2× хэмжээ нь ердийнхөөс хоёр дахин их эргэлт гэсэн үг. Анхаарал татах нь сайн ч биш, муу ч биш.</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · ойролцоогоор 10 минут тутам дахин ачаална</string>
+    <string name="market_info_unusual_what">Хамгийн том 30 орчим зоосноос (стэйблкойнгүй) өнөөдөр ер бусын байдалтай таван хүртэлх зоос: Bitcoin-оос хамаагүй хүчтэй эсвэл сул, зах зээлийн чиглэлийн эсрэг, ер бусын өндөр арилжааны хэмжээтэй эсвэл анхаарал татах фандингийн хүүтэй.</string>
+    <string name="market_info_what">Энэ юу вэ?</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">Зах зээлийн үнэлгээ</string>
+    <string name="market_cap_source">Бүх зоос · CoinGecko</string>
+    <string name="market_cap_title">Крипто зах зээл</string>
+    <string name="market_volume_label">Хэмжээ 24 ц</string>
+
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">Дэлгэрэнгүй</string>
+    <string name="pulse_disclaimer">Таамаглал биш · Хөрөнгө оруулалтын зөвлөгөө биш</string>
+    <string name="pulse_less">Цөөнийг харуулах</string>
+    <string name="pulse_now_title">Крипто импульс</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">24 цагийн өөрчлөлт</string>
+    <string name="pulse_section_factors">Хүчин зүйлс</string>
+    <string name="pulse_section_market">Өнөөдрийн зах зээл</string>
+    <string name="pulse_unavailable">Зах зээлийн өгөгдөл одоогоор алга</string>
+    <string name="pulse_updated">%1$s байдлаар</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">Тайван зах зээл</string>
+    <string name="pulse_headline_down">Өргөн сулрал</string>
+    <string name="pulse_headline_mixed">Холимог байдал</string>
+    <string name="pulse_headline_up">Өргөн хүчтэй байдал</string>
+    <string name="pulse_lead_alts_stronger">Альткойн Bitcoin-оос хүчтэй байна.</string>
+    <string name="pulse_lead_broad_down">Зах зээл өргөнөөр буурч байна.</string>
+    <string name="pulse_lead_broad_up">Зах зээл өргөнөөр өсөж байна.</string>
+    <string name="pulse_lead_btc_leads">Bitcoin хамгийн их өсөж байна.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin альткойноос хүчтэй байна.</string>
+    <string name="pulse_lead_calm">Зах зээл бараг хөдлөхгүй байна.</string>
+    <string name="pulse_lead_drift_down">Зах зээл аажмаар буурч байна.</string>
+    <string name="pulse_lead_drift_up">Зах зээл аажмаар өсөж байна.</string>
+    <string name="pulse_lead_mixed">Том зоосууд өөр өөр чиглэлд хөдөлж байна.</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">Хөшүүргийн сэтгэл хандлага өөдрөг.</string>
+    <string name="pulse_detail_fund_negative">Хөшүүргийн сэтгэл хандлага гутранги.</string>
+    <string name="pulse_detail_fund_neutral">Хөшүүргийн сэтгэл хандлага төвийг сахисан.</string>
+    <string name="pulse_detail_vol_above">Хэмжээ ердийнхөөс %1$s дээгүүр.</string>
+    <string name="pulse_detail_vol_above_fund_high">Хэмжээ ердийнхөөс %1$s дээгүүр, хөшүүргийн сэтгэл хандлага өөдрөг.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Хэмжээ ердийнхөөс %1$s дээгүүр, хөшүүргийн сэтгэл хандлага гутранги.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Хэмжээ ердийнхөөс %1$s дээгүүр, хөшүүргийн сэтгэл хандлага төвийг сахисан.</string>
+    <string name="pulse_detail_vol_below">Хэмжээ ердийнхөөс %1$s доогуур.</string>
+    <string name="pulse_detail_vol_below_fund_high">Хэмжээ ердийнхөөс %1$s доогуур, хөшүүргийн сэтгэл хандлага өөдрөг.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Хэмжээ ердийнхөөс %1$s доогуур, хөшүүргийн сэтгэл хандлага гутранги.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Хэмжээ ердийнхөөс %1$s доогуур, хөшүүргийн сэтгэл хандлага төвийг сахисан.</string>
+    <string name="pulse_detail_vol_normal">Хэмжээ ердийн.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Хэмжээ ердийн, хөшүүргийн сэтгэл хандлага өөдрөг.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Хэмжээ ердийн, хөшүүргийн сэтгэл хандлага гутранги.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Хэмжээ ердийн, хөшүүргийн сэтгэл хандлага төвийг сахисан.</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">Шилдэг %1$d: зах зээлийн үнэ цэнээрээ хамгийн том зоос, стэйблкойнгүй; 24 цагийн өөрчлөлт (CoinGecko).</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Шилдэг %1$d</string>
+    <string name="pulse_breadth_note_broad_down">Өргөн борлуулалт: хамгийн том зоосны ихэнх нь буурч байна.</string>
+    <string name="pulse_breadth_note_broad_up">Өргөн хөдөлгөөн: хамгийн том зоосны ихэнх нь өсөж байна.</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin буурч байгаа ч бусад том зоосны ихэнх нь тогтвортой байна.</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin өсөж байгаа ч бусад том зоосны ихэнх нь дагахгүй байна.</string>
+    <string name="pulse_breadth_spoken">Шилдэг %1$d: %2$d өссөн, %3$d буурсан</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">Альткойн ба Bitcoin ижил хөдөлж байна</string>
+    <string name="pulse_alts_stronger">Альткойн Bitcoin-оос хүчтэй</string>
+    <string name="pulse_alts_weaker">Bitcoin альткойноос хүчтэй</string>
+    <string name="pulse_chip_funding_high">Хөшүүргийн сэтгэл хандлага өөдрөг</string>
+    <string name="pulse_chip_funding_negative">Хөшүүргийн сэтгэл хандлага гутранги</string>
+
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">Ханш ба үйлдлийг харуулах</string>
+    <string name="unusual_fact_against">Зах зээлийн эсрэг хөдөлж байна</string>
+    <string name="unusual_fact_funding_high">Фандинг өндөр (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Фандинг сөрөг (%1$s)</string>
+    <string name="unusual_fact_stronger">BTC-ээс хамаагүй хүчтэй хөдөлж байна</string>
+    <string name="unusual_fact_volume">Хэмжээ ердийнхөөс %1$s×</string>
+    <string name="unusual_fact_weaker">BTC-ээс хамаагүй сул хөдөлж байна</string>
+    <string name="unusual_nothing">Өнөөдөр анхаарал татах зүйл алга</string>
+    <string name="unusual_source">Стэйблкойнгүй хамгийн том 30 орчим зоос · Binance, CoinGecko</string>
+    <string name="unusual_title">Анхаарал татах</string>
+
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">Анхаарал татах</string>
+    <string name="activity_indicator">Анхаарал татах</string>
+    <string name="activity_sensitivity_less">Бага</string>
+    <string name="activity_sensitivity_more">Их</string>
+    <string name="activity_sensitivity_normal">Ердийн</string>
+    <string name="activity_signal_funding_long">Фандинг %1$s — хөшүүрэгтэй лонг олон</string>
+    <string name="activity_signal_funding_short">Фандинг %1$s — шорт олон</string>
+    <string name="activity_signal_open_interest">Нээлттэй позиц %2$d минутад %1$s</string>
+    <string name="activity_signal_open_interest_no_time">Нээлттэй позиц %1$s</string>
+    <string name="activity_signal_price_move">Ер бусын хөдөлгөөн: нэг цагт %1$s (ердийнхөөс %2$s×)</string>
+    <string name="activity_signal_volume">Сүүлийн цагт хэмжээ ердийнхөөс %1$s×</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%2$d том альткойноос %1$d нь 90 хоногт Bitcoin-оос давсан</item>
+        <item quantity="other">%2$d том альткойноос %1$d нь 90 хоногт Bitcoin-оос давсан</item>
+    </plurals>
+    <string name="insights_chart_axis">Халвингаас хойших жил</string>
+    <string name="insights_chart_hint">Ханшийг халвингийн өдрийн ханшийн үржвэрээр (логарифм хэмжүүр). Өмнөх мөчлөгүүд нь хэв маяг, таамаглал биш.</string>
+    <string name="insights_cycle_chart">Халвингаас хойших мөчлөг</string>
+    <string name="insights_dominance_eth">ETH нийт зах зээлийн %1$s</string>
+    <string name="insights_dominance_title">Bitcoin-ий давамгайлал</string>
+    <string name="insights_fng_history">Өчигдөр %1$s · долоо хоногийн өмнө %2$s · сарын өмнө %3$s</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="insights_halving_title">Bitcoin халвинг</string>
+    <string name="insights_source_dominance">Эх сурвалж: CoinGecko, Binance</string>
+    <string name="insights_source_fng">Эх сурвалж: alternative.me</string>
+    <string name="insights_source_history">Эх сурвалж: Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">Хэт айдас</string>
+    <string name="fng_extreme_greed">Хэт шунал</string>
+    <string name="fng_fear">Айдас</string>
+    <string name="fng_greed">Шунал</string>
+    <string name="fng_neutral">Төвийг сахисан</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">Өгөгдөл %1$s байдлаар · шинэчилж байна…</string>
+    <string name="cycle_from_top">Оргилоос %1$s</string>
+    <string name="cycle_marker_bottom">Ёроол %1$s</string>
+    <string name="cycle_marker_double_bottom">Давхар ёроол %1$s</string>
+    <string name="cycle_marker_double_top">Давхар оргил %1$s</string>
+    <string name="cycle_marker_high_so_far">Одоогийн дээд түвшин</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">Оргил %1$s</string>
+    <string name="cycle_since_halving">Халвингаас хойш %1$s</string>
+    <string name="halving_estimate_text">Тооцоогоор дараагийн халвинг ойролцоогоор %1$s: блок тутамд дунджаар %3$s мин бол %2$s блок үлдсэн (одоогийн хүндрэлийн үе). Энэ бол таамаг, амлалт биш – блокийн хугацаа өөрчлөгддөг.</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">Дохио: %1$s</string>
+    <string name="gas_slow_fast">Удаан %1$s · Хурдан %2$s</string>
+    <string name="gas_source">Нийтийн RPC зангилаа ба mempool.space · Энгийн шилжүүлгийн зардал, L2 дээрх L1 хэсэггүй</string>
+    <string name="gas_title">Сүлжээний шимтгэл</string>
+    <string name="gas_transfer_cost">Шилжүүлэг ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">АНУ-ын инфляцын мэдээлэл (CPI)</string>
+    <string name="macro_fomc">АНУ-ын ХНС-ийн хүүгийн шийдвэр</string>
+    <string name="macro_hint_list">%1$s – ийм өдрүүдэд зах зээл ихэвчлэн илүү хэлбэлздэг.</string>
+    <string name="macro_hint_today">Өнөөдөр %1$s: %2$s – ийм өдрүүдэд зах зээл ихэвчлэн илүү хэлбэлздэг.</string>
+    <string name="macro_hint_today_list">Өнөөдөр: %1$s – ийм өдрүүдэд зах зээл ихэвчлэн илүү хэлбэлздэг.</string>
+    <string name="macro_hint_tomorrow">Маргааш %1$s: %2$s – ийм өдрүүдэд зах зээл ихэвчлэн илүү хэлбэлздэг.</string>
+    <string name="macro_hint_tomorrow_list">Маргааш: %1$s – ийм өдрүүдэд зах зээл ихэвчлэн илүү хэлбэлздэг.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Өнөөдөр %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Маргааш %1$s %2$s</string>
+    <string name="macro_nfp">АНУ-ын ажлын байрны тайлан</string>
+    <string name="macro_pce">АНУ-ын хэрэглээний зардлын үнэ (PCE)</string>
+    <string name="macro_ppi">АНУ-ын үйлдвэрлэгчийн үнэ (PPI)</string>
+    <string name="macro_released_list">Өнөөдөр нийтлэгдсэн: %1$s.</string>
+    <string name="macro_released_one">Өнөөдөр %1$s-д нийтлэгдсэн: %2$s.</string>
+    <string name="macro_title">Эдийн засгийн мэдээлэл</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">Зоос</string>
+    <string name="coin_no_data">Binance эсвэл Bybit дээр энэ зоосны ханшийн өгөгдөл алга.</string>
+    <string name="coin_price_only">Зөвхөн ханшид суурилсан – on-chain өгөгдөл (MVRV, Puell, хэшрэйт) зөвхөн Bitcoin-д үнэгүй байдаг.</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">Ханшийн түүх ердөө %1$d хоног – зарим үзүүлэлт дутуу.</item>
+        <item quantity="other">Ханшийн түүх ердөө %1$d хоног – зарим үзүүлэлт дутуу.</item>
+    </plurals>
+    <string name="coin_title">Зоосны шинжилгээ</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">Өгөгдөл: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">24 цагийн өсөгч ба бууригчид</string>
+    <string name="movers_gainers">Өсөгчид</string>
+    <string name="movers_losers">Бууригчид</string>
+    <string name="movers_no_gainers">24 цагт ямар ч зоос өсөөгүй</string>
+    <string name="movers_no_losers">24 цагт ямар ч зоос буураагүй</string>
+    <string name="movers_source">CoinGecko, 24 ц, стэйблкойнгүй шилдэг 100</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">Бүгдийг харуулах</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">Цөөнийг харуулах</string>
+</resources>

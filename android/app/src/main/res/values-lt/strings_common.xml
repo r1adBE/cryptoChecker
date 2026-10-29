@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Atgal</string>
+    <string name="action_cancel">Atšaukti</string>
+    <string name="action_clear">Išvalyti</string>
+    <string name="action_close">Uždaryti</string>
+    <string name="action_keep">Palikti</string>
+    <string name="action_delete">Ištrinti</string>
+    <string name="action_edit">Redaguoti</string>
+    <string name="action_more">Daugiau parinkčių</string>
+    <string name="action_refresh">Atnaujinti</string>
+    <string name="action_retry">Bandyti dar kartą</string>
+    <string name="action_save">Išsaugoti</string>
+    <string name="action_sort">Rikiuoti</string>
+    <string name="action_sort_done">Atlikta</string>
+    <string name="action_undo">Anuliuoti</string>
+    <string name="action_view">Peržiūrėti</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Rinka</string>
+    <string name="tab_portfolio">Portfelis</string>
+    <string name="tab_settings">Nustatymai</string>
+    <string name="tab_watchlist">Stebimi</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Klaida: %1$s</string>
+    <string name="error_exchange_unreachable">Birža šiuo metu nepasiekiama – paskutinės kainos lieka matomos.</string>
+    <string name="error_exchange_unreachable_short">Birža šiuo metu nepasiekiama</string>
+    <string name="loading_hint">Įkeliama…</string>
+    <string name="option_off">Išjungta</string>
+    <string name="something_went_wrong">Kažkas nepavyko</string>
+    <string name="time_just_now">ką tik</string>
+    <string name="try_again">Bandyti dar kartą</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Nėra ryšio</string>
+    <string name="offline_status_since">Nėra ryšio · būsena %1$s</string>
+    <string name="status_live">Tiesiogiai</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Pridėti porą</string>
+    <string name="shortcut_alarms">Visi įspėjimai</string>
+    <string name="shortcut_cycle">Rinka</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Pridėti porą į stebimus</string>
+    <string name="shortcut_alarms_long">Rodyti visus įspėjimus</string>
+    <string name="shortcut_cycle_long">Atidaryti rinkos apžvalgą</string>
+
+    <string name="log_box_title">Žurnalas</string>
+    <string name="label_value">%1$s: %2$s</string>
+</resources>

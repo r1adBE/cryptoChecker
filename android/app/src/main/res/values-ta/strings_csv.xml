@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">CSV இறக்குமதி</string>
+    <string name="portfolio_csv_import_all_transfer">அனைத்தும் சொந்த வாலட்டுக்கு</string>
+    <string name="portfolio_csv_import_all_withdrawal">அனைத்தும் போர்ட்ஃபோலியோவிலிருந்து வெளியேறும்</string>
+    <string name="portfolio_csv_import_choice_proposed">பரிந்துரை: %1$s உடன் பொருந்துகிறது</string>
+    <string name="portfolio_csv_import_choice_transfer">சொந்த வாலட்டுக்கு (பரிமாற்றம்)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">போர்ட்ஃபோலியோவிலிருந்து வெளியேறும் (திரும்பப்பெறுதல்)</string>
+    <string name="portfolio_csv_import_choose_each">ஒவ்வொரு திரும்பப்பெறுதலும் எங்கே சென்றது என்பதைத் தேர்ந்தெடுக்கவும்.</string>
+    <string name="portfolio_csv_import_columns">அடையாளம் காணப்பட்ட நெடுவரிசைகள்: %1$s</string>
+    <string name="portfolio_csv_import_confirm">இறக்குமதி செய் (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">நாள்/மாதம்</string>
+    <string name="portfolio_csv_import_date_month_first">மாதம்/நாள்</string>
+    <string name="portfolio_csv_import_date_order">தெளிவற்ற தேதிகள் (எ.கா. 03/04/2024) இவ்வாறு படிக்கப்படும்:</string>
+    <string name="portfolio_csv_import_decimal">தெளிவற்ற எண்கள் (எ.கா. %1$s) இவ்வாறு படிக்கப்படும்:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d பரிவர்த்தனை இறக்குமதி செய்யப்பட்டது</item>
+        <item quantity="other">%d பரிவர்த்தனைகள் இறக்குமதி செய்யப்பட்டன</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d ஏற்கெனவே இறக்குமதி செய்யப்பட்டது (தவிர்க்கப்பட்டது)</item>
+        <item quantity="other">%d ஏற்கெனவே இறக்குமதி செய்யப்பட்டன (தவிர்க்கப்பட்டன)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">வடிவம்: %1$s</string>
+    <string name="portfolio_csv_import_line">வரி %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">கோப்பையும் தினசரி விகிதங்களையும் படிக்கிறது…</string>
+    <string name="portfolio_csv_import_progress">%2$s இல் வரி %1$s</string>
+    <string name="portfolio_csv_import_saving">பரிவர்த்தனைகளைச் சேமிக்கிறது…</string>
+    <string name="portfolio_csv_import_missing_fx">வரிகள் %1$s க்குத் தினசரி விகிதம் இல்லை – விலை/கட்டணம் இல்லாமல் இறக்குமதி செய்யப்பட்டது.</string>
+    <string name="portfolio_csv_import_missing_price">வரிகள் %1$s க்குக் கோப்பில் விலை இல்லை – விலை இல்லாமல் இறக்குமதி செய்யப்பட்டது.</string>
+    <string name="portfolio_csv_import_more">+ மேலும் %1$d</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d புதிய பரிவர்த்தனை</item>
+        <item quantity="other">%d புதிய பரிவர்த்தனைகள்</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d வரிசை தவிர்க்கப்பட்டது</item>
+        <item quantity="other">%d வரிசைகள் தவிர்க்கப்பட்டன</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">ஸ்டேபிள்காயின்களுக்கு (USDT, USDC …) எதிரான வர்த்தகங்கள் ஸ்வாப்களாகப் பதிவுசெய்யப்படும் – ஸ்டேபிள்காயின் உங்கள் இருப்புகளில் தோன்றும்.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">பல பொருத்தங்கள் சாத்தியம் – சரியானதைத் தேர்ந்தெடுக்கவும் அல்லது எதையும் தேர்ந்தெடுக்க வேண்டாம்.</string>
+    <string name="portfolio_csv_import_transfer_fee">நெட்வொர்க் கட்டணம்: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">ஒரே பரிமாற்றமாகப் பதிவுசெய்</string>
+    <string name="portfolio_csv_import_transfer_stored">முந்தைய இறக்குமதியிலிருந்து இணைப் பதிவு</string>
+    <string name="portfolio_csv_import_transfers_hint">ஒரே காயினின் ஒரு திரும்பப்பெறுதலும் அதற்குப் பொருந்தும் வைப்பும் ஒரே பரிமாற்றமாகும்: வாங்கிய விலையும் வைத்திருக்கும் காலமும் தொடரும், வித்தியாசம் நெட்வொர்க் கட்டணமாகக் கணக்கிடப்படும்.</string>
+    <string name="portfolio_csv_import_transfers_title">உங்கள் கணக்குகளுக்கு இடையிலான பரிமாற்றங்கள்</string>
+    <string name="portfolio_csv_import_unreadable">ஆதரிக்கப்படும் பரிவர்த்தனைகள் எதுவும் கிடைக்கவில்லை. ஆதரிக்கப்படுபவை: Relai, Swissquote, Kraken, Binance, Coinbase மற்றும் Bitpanda CSV ஏற்றுமதிகள்.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
+    <string name="portfolio_csv_import_too_large">கோப்பு இறக்குமதி செய்ய மிகப் பெரியது (அதிகபட்சம் 16 MB மற்றும் %1$s வரிசைகள்). குறுகிய காலங்களை ஏற்றுமதி செய்து ஒன்றன்பின் ஒன்றாக இறக்குமதி செய்யவும்.</string>
+    <string name="portfolio_csv_import_failed">இறக்குமதி வேலை செய்யவில்லை – எதுவும் சேமிக்கப்படவில்லை. மீண்டும் முயலவும்.</string>
+    <string name="portfolio_csv_import_locked">இறக்குமதி சாத்தியமில்லை: சேமித்த தரவை இப்போது படிக்க முடியவில்லை. ஆப்பை மீண்டும் தொடங்கவும்.</string>
+    <string name="portfolio_csv_import_withdrawals_title">திரும்பப்பெறுதல்கள் – காயின்கள் எங்கே சென்றன?</string>
+    <string name="portfolio_csv_import_zone">நேர மண்டலம் இல்லாத நேரங்கள் இவ்வாறு படிக்கப்படும்: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">சாதனம் (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">படிக்க முடியாத தேதி</string>
+    <string name="portfolio_csv_skip_bad_number">படிக்க முடியாத எண்</string>
+    <string name="portfolio_csv_skip_fee_exceeds">கட்டணம் ≥ பெற்ற தொகை</string>
+    <string name="portfolio_csv_skip_internal_move">உங்கள் சொந்தக் கணக்குகளுக்கு இடையிலான நகர்வு – பதிவுசெய்ய எதுவுமில்லை</string>
+    <string name="portfolio_csv_skip_missing">புலம் இல்லை</string>
+    <string name="portfolio_csv_skip_ambiguous">ஒரே வினாடியில் வேறுபடுத்த முடியாத பல வர்த்தகங்கள் – கைமுறையாக உள்ளிடவும்</string>
+    <string name="portfolio_csv_skip_not_crypto">கிரிப்டோ அல்ல</string>
+    <string name="portfolio_csv_skip_possible_duplicate">ஏற்கெனவே இறக்குமதி செய்யப்பட்டிருக்கலாம் (கிட்டத்தட்ட அதே வர்த்தகம்) – கைமுறையாகச் சரிபார்க்கவும்</string>
+    <string name="portfolio_csv_skip_two_fees">வெவ்வேறு அலகுகளில் இரண்டு கட்டணங்கள் – ஸ்வாப்பைக் கைமுறையாக உள்ளிடவும்</string>
+    <string name="portfolio_csv_skip_unsupported">ஆதரிக்கப்படாத வகை</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">செயல்தவிர்</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">இந்த இறக்குமதியின் %d பரிவர்த்தனையை நீக்கவா? கைமுறைப் பதிவுகளும் பிற இறக்குமதிகளும் அப்படியே இருக்கும்.</item>
+        <item quantity="other">இந்த இறக்குமதியின் %d பரிவர்த்தனைகளை நீக்கவா? கைமுறைப் பதிவுகளும் பிற இறக்குமதிகளும் அப்படியே இருக்கும்.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">இறக்குமதியைச் செயல்தவிர்க்கவா?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">இறக்குமதி செய்யப்பட்ட %d பரிவர்த்தனை அகற்றப்பட்டது</item>
+        <item quantity="other">இறக்குமதி செய்யப்பட்ட %d பரிவர்த்தனைகள் அகற்றப்பட்டன</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d பரிவர்த்தனை</item>
+        <item quantity="other">%d பரிவர்த்தனைகள்</item>
+    </plurals>
+    <string name="portfolio_imports_empty">இறக்குமதிகள் இல்லை</string>
+    <string name="portfolio_imports_title">இறக்குமதிகள்</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">அதே பரிவர்த்தனை ID, வேறு தொகை – கைமுறையாகச் சரிபார்க்கவும்</string>
+    <string name="portfolio_csv_skip_staking_unpaired">எதிர்ப் பதிவு இல்லாத ஸ்டேக்கிங் பதிவு – இருப்புகளைச் சரிபார்க்கவும்</string>
+    <string name="portfolio_csv_skip_amount_too_small">தொகை மிகச் சிறியது – சேமிக்கும்போது 0 ஆக முழுமையாக்கப்படும்</string>
+    <string name="portfolio_csv_skip_invalid_swap">சரியான காயின் அல்லது பெற்ற தொகை இல்லாத ஸ்வாப்</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">கோப்பை மீண்டும் படிக்கிறது …</string>
+</resources>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">Kapansin-pansin: %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — ngayon %2$s</string>
+    <string name="notification_alarm_title">Alerto: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">Buksan ang exchange</string>
+    <string name="notification_depeg_text">Ginagamit ng mga value sa app ang market price na ito.</string>
+    <string name="notification_depeg_title">USDT sa %1$s USD (%2$s)</string>
+    <string name="notification_fng_above">Tumaas ang index nang lampas %1$d – ayon sa sukatang ito, sakim ang mood ng market.</string>
+    <string name="notification_fng_below">Bumaba ang index nang mas mababa sa %1$d – ayon sa sukatang ito, takot ang mood ng market.</string>
+    <string name="notification_fng_title">Mood index (Fear &amp; Greed): %1$d</string>
+    <string name="notification_gas_btc_text">Mas mababa sa limitasyon mong %1$s sat/vB · Transfer ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin fee: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">Mas mababa sa limitasyon mong %1$s gwei · Transfer ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Ethereum gas: %1$s gwei</string>
+    <string name="notification_indicator_above">Lampas sa limitasyon mong %1$s – sinukat na value, hindi rekomendasyon.</string>
+    <string name="notification_indicator_below">Mas mababa sa limitasyon mong %1$s – sinukat na value, hindi rekomendasyon.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">Economic data ngayon</string>
+    <string name="notification_permission_preprompt_continue">Magpatuloy</string>
+    <string name="notification_permission_preprompt_later">Mamaya</string>
+    <string name="notification_permission_preprompt_text">Para maabot ka ng mga alerto at notification ng presyo, kailangan ng app ng pahintulot na magpadala ng mga notification. Ginagamit lang ito ng app para sa mga alerto at notification ng presyo mo.</string>
+    <string name="notification_permission_preprompt_title">Payagan ang mga notification?</string>
+    <string name="notification_portfolio_alarm_locked">Na-trigger ang alerto mo – buksan ang app para sa mga detalye.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – ngayon %2$s</string>
+    <string name="notification_portfolio_alarm_title">Value ng portfolio</string>
+    <string name="notification_price_change">%1$s, mula %2$s (%3$s ang nakalipas)</string>
+    <string name="notification_price_change_no_age">%1$s, mula %2$s</string>
+    <string name="notification_price_first">Unang notification ng presyo para sa pares na ito</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+%1$d pang presyo</item>
+        <item quantity="other">+%1$d pang presyo</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">Ina-update ang mga presyo…</string>
+    <string name="notification_volume_spike_text">Volume %1$s× ng normal sa huling oras</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">Mga Alerto</string>
+    <string name="channel_alarms_description">Notification kapag nag-trigger ang isang alerto.</string>
+    <string name="channel_alarms_quiet">Mga Alerto (tahimik na oras)</string>
+    <string name="channel_alarms_quiet_description">Mga tahimik na alerto habang tahimik na oras.</string>
+    <string name="channel_alarms_silent">Mga Alerto (tahimik)</string>
+    <string name="channel_alarms_sound">Mga Alerto (tunog lang)</string>
+    <string name="channel_alarms_sound_vibrate">Mga Alerto (tunog at vibration)</string>
+    <string name="channel_alarms_vibrate">Mga Alerto (vibration lang)</string>
+    <string name="channel_prices">Mga notification ng presyo</string>
+    <string name="channel_prices_description">Tahimik na notification ng presyo na may kasalukuyang presyo ng isang pares.</string>
+    <string name="channel_service">Mga update ng presyo</string>
+    <string name="channel_service_description">Notification habang ina-update ang mga presyo.</string>
+    <string name="neutral_channel_market">Mga market alert</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, gas fee, “Kapansin-pansin” at mga petsa ng ekonomiya</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">Alerto. %1$s, %2$s %3$s %4$s, ngayon %5$s</string>
+    <string name="tts_direction_down">ay bumaba</string>
+    <string name="tts_direction_funding_above">na may mataas na funding</string>
+    <string name="tts_direction_funding_below">na may mababang funding</string>
+    <string name="tts_direction_move">ay malakas na gumagalaw</string>
+    <string name="tts_direction_near_high">ay malapit sa high nito</string>
+    <string name="tts_direction_near_low">ay malapit sa low nito</string>
+    <string name="tts_direction_oi_down">na may bumababang open interest</string>
+    <string name="tts_direction_oi_up">na may tumataas na open interest</string>
+    <string name="tts_direction_up">ay tumaas</string>
+    <string name="tts_direction_volume_spike">na may biglang taas ng volume</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+
+    <!-- Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+    <string name="notification_alarm_action_snooze">1 oras mamaya</string>
+    <string name="notification_alarm_action_edit">Ayusin</string>
+</resources>

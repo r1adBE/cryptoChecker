@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">బ్యాక్‌గ్రౌండ్</string>
+    <string name="widget_configure_hint">బ్యాక్‌గ్రౌండ్, అపారదర్శకతను ఎంచుకోండి. రంగు యాప్‌ను అనుసరిస్తుంది. విడ్జెట్ మీ మొత్తం వాచ్‌లిస్ట్‌ను చూపుతుంది; యాప్‌ను తెరవడానికి ఒక వరుసను నొక్కండి.</string>
+    <string name="widget_configure_title">విడ్జెట్‌ను సెటప్ చేయి</string>
+    <string name="widget_description">మీ వాచ్‌లిస్ట్‌లోని ఒక జత ధరను చూపుతుంది.</string>
+    <string name="widget_empty">వాచ్‌లిస్ట్‌లో ఇంకా జతలు లేవు.</string>
+    <string name="widget_group_hint">ఈ గ్రూప్‌లోని జతలను మాత్రమే చూపు.</string>
+    <string name="widget_kind_single">ఒకే కాయిన్</string>
+    <string name="widget_opacity">బ్యాక్‌గ్రౌండ్ అపారదర్శకత: %1$s</string>
+    <string name="widget_pulse_description">ప్రస్తుతం మార్కెట్‌లో ప్రత్యేకంగా కనిపిస్తున్నది: శీర్షిక, సంక్షిప్త సారాంశం, Bitcoin, Ethereum, Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">పాతది</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">పాతది · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">క్యాండిల్‌లు</string>
+    <string name="widget_chart_line">లైన్</string>
+    <string name="widget_chart_range">చార్ట్ వ్యవధి</string>
+    <string name="widget_chart_type">చార్ట్ రకం</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 సంవత్సరం</string>
+    <string name="widget_range_24h">24 గం</string>
+    <string name="widget_range_30d">30 రోజులు</string>
+    <string name="widget_range_7d">7 రోజులు</string>
+    <string name="widget_range_short_1y">1సం</string>
+    <string name="widget_range_short_24h">24గం</string>
+    <string name="widget_range_short_30d">30రో</string>
+    <string name="widget_range_short_7d">7రో</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">%1$s నాటికి</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">చరిత్ర త్వరలో వస్తుంది</string>
+    <string name="widget_portfolio_description">మీ పోర్ట్‌ఫోలియో మొత్తం విలువ, ఈరోజు మార్పు</string>
+    <string name="widget_portfolio_entries">కాయిన్‌ల కింద బుకింగ్‌లు</string>
+    <string name="widget_portfolio_entries_both">రెండూ</string>
+    <string name="widget_portfolio_entries_buys">కొనుగోళ్లు</string>
+    <string name="widget_portfolio_entries_hint">కాయిన్‌ల కింద చోటు ఉంటే మాత్రమే చూపబడుతుంది. కొనుగోళ్లలో డిపాజిట్‌లు, అమ్మకాలలో విత్‌డ్రాలు కూడా ఉంటాయి; «రెండూ»తో వరుసల మొత్తం హోల్డింగ్‌కు సమానం.</string>
+    <string name="widget_portfolio_entries_off">ఆఫ్</string>
+    <string name="widget_portfolio_entries_sells">అమ్మకాలు</string>
+    <string name="widget_portfolio_display">ప్రదర్శన</string>
+    <string name="widget_portfolio_display_conversion">మార్పిడి మాత్రమే</string>
+    <string name="widget_portfolio_display_conversion_usdt">మార్పిడి + USDT</string>
+    <string name="widget_portfolio_display_hint">మార్పిడి కరెన్సీ USD స్టేబుల్‌కాయిన్ (ఉదా. USDC) అయితే USDT వరుస దాచబడుతుంది.</string>
+    <string name="widget_portfolio_display_usdt">USDT మాత్రమే</string>
+    <string name="widget_portfolio_empty">పోర్ట్‌ఫోలియో ట్యాబ్‌లో కొనుగోళ్లను జోడించండి</string>
+    <string name="widget_portfolio_list_hint">మీ పొజిషన్‌లను ఇక్కడ చూపడానికి యాప్‌ను తెరవండి.</string>
+    <string name="widget_portfolio_locked_hint">లాక్ అయింది – యాప్‌లో అన్‌లాక్ చేయండి</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="one">%1$d కాయిన్ లేకుండా</item>
+        <item quantity="other">%1$d కాయిన్‌లు లేకుండా</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ మరో %1$d</item>
+        <item quantity="other">+ మరో %1$d</item>
+    </plurals>
+    <string name="widget_portfolio_name">పోర్ట్‌ఫోలియో</string>
+    <string name="widget_portfolio_off_hint">%1$sలో దీన్ని ఆన్ చేయండి.</string>
+    <string name="widget_portfolio_off_short">పోర్ట్‌ఫోలియో ఆఫ్</string>
+    <string name="widget_portfolio_off_title">పోర్ట్‌ఫోలియో ఆఫ్‌లో ఉంది</string>
+    <string name="widget_portfolio_partly_stale">కొన్ని ధరలు పాతవి</string>
+    <string name="widget_portfolio_period">వ్యవధి</string>
+    <string name="widget_portfolio_period_without">%2$s లేకుండా %1$s</string>
+    <string name="widget_portfolio_range_48h">48 గం</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: పోర్ట్‌ఫోలియో తెరవండి</string>
+    <string name="widget_portfolio_range_short_48h">48గం</string>
+    <string name="widget_portfolio_today_without">ఈరోజు, %1$s లేకుండా</string>
+    <string name="widget_portfolio_view">వీక్షణ</string>
+    <string name="widget_portfolio_view_chart">చార్ట్</string>
+    <string name="widget_portfolio_view_list">జాబితా</string>
+    <string name="widget_portfolio_view_overview">అవలోకనం</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">ఒక జతను ఎంచుకోండి</string>
+    <string name="single_widget_description">ఒక కాయిన్‌ను ధర, మార్పు, 24 గంటల చార్ట్‌తో పెద్దగా చూపుతుంది.</string>
+    <string name="single_widget_label">Crypto Checker – ఒకే కాయిన్</string>
+    <string name="single_widget_title">ఒకే కాయిన్ విడ్జెట్‌ను సెటప్ చేయి</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">జోడించు</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">%1$s విడ్జెట్‌ను జోడించు</string>
+    <string name="widgets_manual_text">మీ హోమ్ స్క్రీన్ యాప్ నుండి విడ్జెట్‌లను జోడించలేదు. హోమ్ స్క్రీన్‌పై ఖాళీ స్థలాన్ని తాకి పట్టుకోండి, “విడ్జెట్‌లు” ఎంచుకుని “Crypto Checker” కోసం వెతకండి.</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">విడ్జెట్‌ను మీరే జోడించండి</string>
+    <string name="widgets_sheet_title">విడ్జెట్‌ను జోడించు</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS యాప్‌లను స్వయంగా విడ్జెట్‌లు జోడించనివ్వదు. దీనికి కొద్ది క్షణాలే పడుతుంది:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">అందుబాటులో ఉన్న విడ్జెట్‌లు</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">యాప్‌లు కదిలే వరకు హోమ్ స్క్రీన్‌పై ఖాళీ స్థలాన్ని తాకి పట్టుకోండి.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">పైన “ఎడిట్ చేయి” › “విడ్జెట్‌ను జోడించు” నొక్కండి (పాత iOS వెర్షన్‌లలో “+”).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">“Crypto Checker” కోసం వెతికి, ఒక విడ్జెట్‌ను ఎంచుకుని “విడ్జెట్‌ను జోడించు” నొక్కండి.</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">రిఫ్రెష్ – %1$d సె.లో మళ్లీ సాధ్యం</string>
+    <string name="settings_watch">వాచ్</string>
+    <string name="settings_watch_hint">Wear OSలోని వాచ్ యాప్ కోసం కాయిన్‌లు (%1$d వరకు, USDTతో ధర). ఈ జాబితా మాత్రమే Google Play సేవల ద్వారా వాచ్‌కు వెళ్తుంది; వాచ్ ధరలను స్వయంగా తెచ్చుకుంటుంది.</string>
+    <string name="settings_watch_mode_phone">ఫోన్‌లో లాగే (ఇష్టమైనవి ★)</string>
+    <string name="settings_watch_mode_own">సొంత జాబితా</string>
+    <string name="settings_watch_own_title">సొంత జాబితా: %2$dలో %1$d</string>
+    <string name="settings_watch_none">ఇంకా ఇష్టమైనవి లేవు</string>
+
+    <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
+    <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">“జాబితా”లో USDT వరుస లేదు</string>
+    <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
+    <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">“అవలోకనం” బదులుగా 30 రోజులను చూపుతుంది</string>
+</resources>

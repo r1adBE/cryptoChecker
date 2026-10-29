@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">પાછળ</string>
+    <string name="action_cancel">રદ કરો</string>
+    <string name="action_clear">સાફ કરો</string>
+    <string name="action_close">બંધ કરો</string>
+    <string name="action_keep">રાખો</string>
+    <string name="action_delete">ડિલીટ કરો</string>
+    <string name="action_edit">ફેરફાર કરો</string>
+    <string name="action_more">વધુ વિકલ્પો</string>
+    <string name="action_refresh">રિફ્રેશ કરો</string>
+    <string name="action_retry">ફરી પ્રયાસ કરો</string>
+    <string name="action_save">સેવ કરો</string>
+    <string name="action_sort">ક્રમમાં ગોઠવો</string>
+    <string name="action_sort_done">થઈ ગયું</string>
+    <string name="action_undo">પૂર્વવત્ કરો</string>
+    <string name="action_view">જુઓ</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">માર્કેટ</string>
+    <string name="tab_portfolio">પોર્ટફોલિયો</string>
+    <string name="tab_settings">સેટિંગ્સ</string>
+    <string name="tab_watchlist">વૉચલિસ્ટ</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">ભૂલ: %1$s</string>
+    <string name="error_exchange_unreachable">એક્સચેન્જ સુધી અત્યારે પહોંચી શકાતું નથી – છેલ્લા ભાવ દેખાતા રહેશે.</string>
+    <string name="error_exchange_unreachable_short">એક્સચેન્જ સુધી અત્યારે પહોંચી શકાતું નથી</string>
+    <string name="loading_hint">લોડ થઈ રહ્યું છે…</string>
+    <string name="option_off">બંધ</string>
+    <string name="something_went_wrong">કંઈક ખોટું થયું</string>
+    <string name="time_just_now">હમણાં જ</string>
+    <string name="try_again">ફરી પ્રયાસ કરો</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">કનેક્શન નથી</string>
+    <string name="offline_status_since">કનેક્શન નથી · %1$s મુજબ</string>
+    <string name="status_live">લાઇવ</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">જોડી ઉમેરો</string>
+    <string name="shortcut_alarms">બધા એલર્ટ</string>
+    <string name="shortcut_cycle">માર્કેટ</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">વૉચલિસ્ટમાં જોડી ઉમેરો</string>
+    <string name="shortcut_alarms_long">બધા એલર્ટ બતાવો</string>
+    <string name="shortcut_cycle_long">માર્કેટની ઝાંખી ખોલો</string>
+
+    <string name="log_box_title">લૉગ</string>
+    <string name="label_value">%1$s: %2$s</string>
+</resources>

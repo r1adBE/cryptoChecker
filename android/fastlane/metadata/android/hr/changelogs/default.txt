@@ -1,0 +1,1 @@
+Prva verzija aplikacije Crypto Checker: cijene izravno s burze, alarmi na tvom uređaju, widgeti – bez računa, bez oglasa.

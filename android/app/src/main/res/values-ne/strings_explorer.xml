@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">सबै नतिजाहरू</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="one">%1$d एक्सचेन्ज</item>
+        <item quantity="other">%1$d एक्सचेन्जहरू</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">लोड गरिएका सूचीहरूमा यो कोइनको कुनै जोडी छैन।</string>
+    <string name="explorer_coin_not_loaded">जोडी सूचीहरू अझै लोड भएका छैनन्</string>
+    <string name="explorer_coin_other_pairs">अन्य जोडीहरू</string>
+    <string name="explorer_coin_show_pairs">जोडीहरू देखाउनुहोस्</string>
+    <string name="explorer_coin_suggested">सुझाव गरिएको</string>
+    <string name="explorer_coins_title">कोइनहरू</string>
+    <string name="explorer_lists_failed_many">%1$s ले अहिले जवाफ दिइरहेका छैनन् – जोडी सूचीहरू लोड भएनन्। पछि फेरि प्रयास गर्नुहोस्।</string>
+    <plurals name="explorer_lists_failed_more">
+        <item quantity="one">+थप %1$d</item>
+        <item quantity="other">+थप %1$d</item>
+    </plurals>
+    <string name="explorer_lists_failed_one">%1$s ले अहिले जवाफ दिइरहेको छैन – जोडी सूची लोड भएन। पछि फेरि प्रयास गर्नुहोस्।</string>
+    <string name="explorer_lists_load">सूचीहरू लोड गर्नुहोस्</string>
+    <string name="explorer_lists_loading">जोडी सूचीहरू लोड हुँदैछन्… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="one">%1$d एक्सचेन्जको जोडी सूची अझै यो डिभाइसमा छैन।</item>
+        <item quantity="other">%1$d एक्सचेन्जहरूका जोडी सूचीहरू अझै यो डिभाइसमा छैनन्।</item>
+    </plurals>
+    <string name="explorer_lists_privacy">हरेक एक्सचेन्जको पूर्ण सार्वजनिक सूची लोड गर्छ – सबैका लागि उस्तै। तपाईंको खोज यही डिभाइसमा रहन्छ।</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">हालैको खोज: %1$s</string>
+    <string name="explorer_recent_clear">खाली गर्नुहोस्</string>
+    <string name="explorer_recent_clear_a11y">हालैका खोजहरू खाली गर्नुहोस्</string>
+    <string name="explorer_recent_title">हालैका खोजहरू</string>
+    <string name="explorer_search_choose_manually">एक्सचेन्ज र जोडी आफैं छान्नुहोस्</string>
+    <string name="explorer_search_empty">कुनै मेल भेटिएन।</string>
+    <string name="explorer_search_hint">कोइन, जोडी वा एक्सचेन्ज खोज्नुहोस्</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">कोइनको नाम वा चिह्न लेख्नुहोस्, जस्तै Bitcoin वा BTC – त्यसपछि जोडी छान्नुहोस्।</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">वाचलिस्टमा थप्नुहोस्</string>
+    <string name="explorer_added_to_watchlist">वाचलिस्टमा थपियो।</string>
+    <string name="explorer_already_in_watchlist">यो जोडी पहिले नै वाचलिस्टमा छ।</string>
+    <string name="explorer_exchange_missing">एक्सचेन्ज छैन?</string>
+    <string name="explorer_loading_pairs">ट्रेडिङ जोडीहरू लोड हुँदैछन्…</string>
+    <string name="explorer_no_pair_selected">पहिले एउटा जोडी छान्नुहोस्।</string>
+    <string name="explorer_no_pairs_yet">यो एक्सचेन्जका लागि अझै कुनै जोडी लोड भएको छैन।</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$d जोडी · %2$s मा अपडेट गरिएको</item>
+        <item quantity="other">%1$d जोडीहरू · %2$s मा अपडेट गरिएको</item>
+    </plurals>
+    <string name="explorer_pairs_title">जोडीहरू</string>
+    <string name="explorer_precise_title">उन्नत / एक्सचेन्जअनुसार</string>
+    <string name="explorer_price_loading">मूल्य लोड हुँदैछ…</string>
+    <string name="explorer_select_exchange_hint">एक्सचेन्ज छान्नुहोस् – त्यसका ट्रेडिङ जोडीहरू आफैं लोड हुन्छन्।</string>
+    <string name="explorer_select_placeholder">कृपया छान्नुहोस्</string>
+    <string name="explorer_step_pair">जोडी छान्नुहोस्</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">बढ्नेहरू</string>
+    <string name="explorer_filter_losers">घट्नेहरू</string>
+    <string name="explorer_filter_volume">भोल्युम</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">यो एक्सचेन्जका सबै %1$s जोडीहरू</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">%1$d %2$s जोडी भेटियो</item>
+        <item quantity="other">%1$d %2$s जोडीहरू भेटिए</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">छानिएको कन्ट्र्याक्ट प्रकारका लागि यो एक्सचेन्जमा कुनै %1$s जोडी छैन। पहिले एक्सचेन्ज सिंक गर्नुहोस्, वा अर्को कन्ट्र्याक्ट प्रकार प्रयास गर्नुहोस्।</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">%1$d जोडी वाचलिस्टमा थप्नुहोस्</item>
+        <item quantity="other">सबै %1$d जोडीहरू वाचलिस्टमा थप्नुहोस्</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">%1$d थपियो, %2$d पहिले नै वाचलिस्टमा।</item>
+        <item quantity="other">%1$d थपिए, %2$d पहिले नै वाचलिस्टमा।</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">%3$s को %1$d %2$s जोडी वाचलिस्टमा पहिले नै नभए थपिनेछ।</item>
+        <item quantity="other">%3$s का सबै %1$d %2$s जोडीहरू वाचलिस्टमा थपिनेछन्। पहिले नै भएका जोडीहरू छोडिन्छन्।</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">%1$d जोडी थप्ने?</item>
+        <item quantity="other">%1$d जोडीहरू थप्ने?</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">सूची लुकाउनुहोस्</string>
+    <string name="explorer_bulk_show_list">सूची देखाउनुहोस्</string>
+    <string name="explorer_bulk_tap_hint">माथि छान्न जोडीमा ट्याप गर्नुहोस्।</string>
+    <string name="explorer_bulk_title">एकैपटक धेरै जोडीहरू</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">छानिएको एक्सचेन्जका हालका जोडीहरू लोड गर्छ।</string>
+    <string name="explorer_no_pair_list">कुनै मुद्रा जोडी छैन</string>
+    <string name="explorer_sync_sheet_last">अन्तिम सिंक: %1$s</string>
+    <string name="explorer_sync_never">कहिल्यै होइन</string>
+    <string name="explorer_sync_sheet_action">अहिले सिंक गर्नुहोस्</string>
+    <string name="explorer_sync_sheet_title">मुद्रा जोडीहरू अपडेट गर्नुहोस्</string>
+    <string name="explorer_field_coin">कोइन</string>
+    <string name="explorer_field_contract">कन्ट्र्याक्ट प्रकार</string>
+    <string name="explorer_field_exchange">एक्सचेन्ज</string>
+    <string name="explorer_field_quote">कोट मुद्रा</string>
+    <string name="explorer_contract_spot">स्पट</string>
+    <string name="explorer_reload_pairs">सिंक गर्नुहोस्</string>
+    <string name="sync_pairs_count">ट्रेडिङ जोडीहरू: %1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">थप्नुहोस्</string>
+    <string name="dex_added">%1$s वाचलिस्टमा थपियो।</string>
+    <string name="dex_already">%1$s पहिले नै वाचलिस्टमा छ।</string>
+    <string name="dex_intro">ठूला एक्सचेन्जबाहिरका टोकनहरू, विकेन्द्रीकृत एक्सचेन्जहरू (Uniswap, PancakeSwap, Raydium …) बाट DexScreener मार्फत। टोकन खोजेर त्यसको कुनै ट्रेडिङ पूल थप्नुहोस् – मूल्य अमेरिकी डलरमा।</string>
+    <string name="dex_liquidity">तरलता %1$s</string>
+    <string name="dex_no_results">कुनै पूल भेटिएन।</string>
+    <string name="dex_search">खोज्नुहोस्</string>
+    <string name="dex_search_hint">टोकनको नाम, चिह्न वा ठेगाना</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">Alpha टोकन</string>
+    <string name="asset_kind_token">टोकन</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+
+    <string name="dex_low_liquidity_no_alarm">कम तरलता – अलर्ट छैन</string>
+    <string name="dex_low_liquidity_alarm_hint">यो पूलमा 10,000 USD भन्दा कम तरलता छ (वा कुनै रिपोर्ट गरिएको छैन)। साना ट्रेडले यसको मूल्य हल्लाउन सक्छन्, त्यसैले यहाँ अलर्ट सेट गर्न सकिँदैन। भइरहेका अलर्टहरू राखिन्छन् तर तरलता फेरि नबढेसम्म बज्दैनन्।</string>
+
+    <string name="explorer_bulk_show_all">सबै देखाउनुहोस् (%1$d)</string>
+    <string name="dex_token_address_copy">टोकन ठेगाना कपी गर्नुहोस्</string>
+    <string name="dex_token_address_copied">टोकन ठेगाना कपी भयो</string>
+    <string name="dex_token_address_label">%1$s मा अन्त्य हुने टोकन ठेगाना</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="one">%1$d जोडी थपिएन: तपाईंको वाचलिस्टमा बढीमा %2$s जोडी हुन सक्छन्।</item>
+        <item quantity="other">%1$d जोडीहरू थपिएनन्: तपाईंको वाचलिस्टमा बढीमा %2$s जोडी हुन सक्छन्।</item>
+    </plurals>
+    <string name="bulk_add_progress">जोडीहरू थप्दै … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="one">%1$d नयाँ जोडी वाचलिस्टमा थप्नुहोस्</item>
+        <item quantity="other">%1$d नयाँ जोडीहरू वाचलिस्टमा थप्नुहोस्</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="one">%1$d नयाँ, %2$d पहिले नै वाचलिस्टमा</item>
+        <item quantity="other">%1$d नयाँ, %2$d पहिले नै वाचलिस्टमा</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">सबै पहिले नै वाचलिस्टमा छन्</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="one">%1$d जोडी फेरि हटाउने?</item>
+        <item quantity="other">%1$d जोडीहरू फेरि हटाउने?</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">बीचमा तपाईंले अलर्ट सेट गरेका जोडीहरू रहन्छन्।</string>
+    <string name="bulk_undo_expired">अब अनडू सम्भव छैन – जोडीहरू वाचलिस्टमा रहन्छन्।</string>
+    <string name="explorer_section_spot">स्पट</string>
+    <string name="explorer_section_futures">फ्युचर्स</string>
+    <string name="explorer_section_dex">DEX पूलहरू</string>
+    <string name="explorer_section_forex">फरेक्स (सन्दर्भ दर)</string>
+    <string name="explorer_forex_hint">युरोपेली केन्द्रीय बैंकको दैनिक दर (Frankfurter मार्फत), लाइभ होइन – अलर्ट छैन।</string>
+</resources>

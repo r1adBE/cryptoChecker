@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
+    <string name="portfolio_cutoff_export_action">ექსპორტი თარიღის მიხედვით…</string>
+    <string name="portfolio_tax_worksheet_action">სამუშაო ფურცელი…</string>
+    <string name="portfolio_export_address_unobserved">მისამართი ამ თარიღზე არ დაფიქსირებულა – არ შედის</string>
+    <string name="portfolio_export_button">CSV-ის ექსპორტი</string>
+    <string name="portfolio_export_col_amount">რაოდენობა</string>
+    <string name="portfolio_export_col_coin">მონეტა</string>
+    <string name="portfolio_export_col_note">შენიშვნა</string>
+    <string name="portfolio_export_col_price">ფასი USDT</string>
+    <string name="portfolio_export_col_rate">კურსი USDT→%1$s</string>
+    <string name="portfolio_export_col_value">ღირებულება USDT</string>
+    <string name="portfolio_export_col_value_cur">ღირებულება %1$s</string>
+    <!-- Inhalt der CSV-Datei -->
+    <string name="portfolio_export_comment"># საანგარიშო თარიღი %1$s, ვალუტა %2$s, გაცვლითი კურსი %3$s-ის მდგომარეობით</string>
+    <string name="portfolio_export_currency">ვალუტა: %1$s</string>
+    <string name="portfolio_export_date">საანგარიშო თარიღი</string>
+    <string name="portfolio_export_done">ექსპორტი შენახულია</string>
+    <string name="portfolio_export_estv_note">ქონების გადასახადისთვის, სადაც ჩამოთვლილია, მოქმედებს ESTV-ის ფასების სიის %1$s ოფიციალური წლის ბოლოს მნიშვნელობები: %2$s</string>
+    <string name="portfolio_export_failed">ექსპორტი ვერ მოხერხდა</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">ექსპორტი ვერ მოხერხდა: ფაილის ჩაწერა ვერ მოხერხდა – შენახვის ადგილი აღარ არსებობს ან ჩაწერადი არ არის</string>
+    <string name="portfolio_export_failed_prices">ექსპორტი ვერ მოხერხდა: ფასების ჩატვირთვა ვერ მოხერხდა – კავშირი არ არის ან ბირჟა არ პასუხობს</string>
+    <string name="portfolio_export_from_address">მისამართიდან – შეძენის ფასი არ არის</string>
+    <string name="portfolio_export_hint">აქტივები არჩეული დღის ბოლოს, შეფასებული დღიური დახურვის ფასით (UTC) USDT-ში და გადაანგარიშებული იმ დღის ევროპის ცენტრალური ბანკის საორიენტაციო კურსით. ვალუტა შეცვალე «კონვერტაციით».</string>
+    <string name="portfolio_export_incomplete">არასრული</string>
+    <string name="portfolio_export_no_fx">გაცვლითი კურსი არ არის</string>
+    <string name="portfolio_export_no_price">ფასი არ არის</string>
+    <string name="portfolio_export_running">ისტორიული ფასები იტვირთება…</string>
+    <string name="portfolio_export_title">ექსპორტი თარიღის მიხედვით</string>
+    <string name="portfolio_export_today_hint">დღევანდელი დღე ჯერ არ დასრულებულა: დღიური დახურვის ნაცვლად მიმდინარე ფასი გამოიყენება.</string>
+    <string name="portfolio_export_total">სულ</string>
+    <string name="portfolio_export_unchecked">გადაუმოწმებელი (შესაბამისი ფასი არ არის)</string>
+
+    <!-- Steuer-Export (Arbeitspapier) -->
+    <string name="tax_export_adjustment">superficial loss (დამატებულია ACB-ს)</string>
+    <string name="tax_export_at_wallet_note">ავსტრია: მცოცავი საშუალო მონეტისა და საფულის (ბირჟის) მიხედვით – გადარიცხვები ღირებულებას თან წაიღებს – ჯილდოები 0 შეძენის ღირებულებით – 2021 წლის 1 მარტიდან აქტივები საკომისიოების გარეშე (არ გამოიქვითება) – ლენდინგის პროცენტი მიღებისას არსებული ღირებულებით (შემოსავალი 27.5 პროცენტით).</string>
+    <string name="tax_export_avg_cost_rates">ღირებულება შეძენის დღის კურსებით (საშუალო)</string>
+    <string name="tax_export_ch_wealth_not_calculated">ქონების გადასახადი არ არის გამოთვლილი – ESTV-ის ფასების სია: %1$s</string>
+    <string name="tax_export_col_acquired">შეძენილია</string>
+    <string name="tax_export_col_adjustment">აკრძალული ზარალი %1$s</string>
+    <string name="tax_export_col_cost">ღირებულება %1$s</string>
+    <string name="tax_export_col_date">თარიღი</string>
+    <string name="tax_export_col_days">ფლობის დღეები</string>
+    <string name="tax_export_col_gain">მოგება %1$s</string>
+    <string name="tax_export_col_gross">ფასი საკომისიომდე %1$s</string>
+    <string name="tax_export_col_long_term">ფლობილი &gt; 1 წელი</string>
+    <string name="tax_export_col_portfolio_value">პორტფელის ღირებულება %1$s</string>
+    <string name="tax_export_col_proceeds">შემოსავალი %1$s</string>
+    <string name="tax_export_col_sold">გაყიდულია</string>
+    <string name="tax_export_cost_incomplete">შეძენის სრული ღირებულება არასრულია</string>
+    <string name="tax_export_cost_missing">შეძენის ფასი აკლია</string>
+    <string name="tax_export_fee_consumed">საკომისიო მთელ მიღებულს შთანთქავს</string>
+    <string name="tax_export_fee_leg">საკომისიო სხვა მონეტაში</string>
+    <string name="tax_export_fee_row">საკომისიო</string>
+    <string name="tax_export_fee_value_missing">სხვა მონეტაში საკომისიოს ღირებულება არ აქვს</string>
+    <string name="tax_export_gains">რეალიზებული გასხვისებები (CSV)</string>
+    <string name="tax_export_gains_title">რეალიზებული გასხვისებები %1$s</string>
+    <string name="tax_export_gift">საჩუქარი</string>
+    <string name="tax_export_holdings_cutoff">აქტივები %1$s-ის მდგომარეობით (CSV)</string>
+    <string name="tax_export_holdings_title">აქტივები %1$s-ის მდგომარეობით</string>
+    <string name="tax_export_income">შემოსავალი (CSV)</string>
+    <string name="tax_export_income_title">შემოსავალი %1$s</string>
+    <string name="tax_export_info_template">შაბლონი: %1$s · მეთოდი: %2$s · საგადასახადო წელი: %3$s · ვალუტა: %4$s · Crypto Checker %5$s</string>
+    <string name="tax_export_lost_fee_cost">ქსელის საკომისიოს ღირებულება გადახდილი ლოტის გარეშე</string>
+    <string name="tax_export_match_pool">Section 104 pool</string>
+    <string name="tax_export_match_same_day">იმავე დღეს (HMRC)</string>
+    <string name="tax_export_match_thirty_day">30-დღიანი წესი (HMRC)</string>
+    <string name="tax_export_method_change_warning">მეთოდის ან შაბლონის შეცვლა წინა წლებსაც ხელახლა ითვლის – შეადარე უკვე წარდგენილს.</string>
+    <string name="tax_export_method_overridden">შაბლონი ითვლის %1$s – და არა %2$s</string>
+    <string name="tax_export_new_holding">შეძენილია 2021 წლის 1 მარტიდან</string>
+    <string name="tax_export_no">არა</string>
+    <string name="tax_export_old_holding">შეძენილია 2021 წლის 1 მარტამდე</string>
+    <string name="tax_export_oversold">გაყიდულია აღრიცხულზე მეტი</string>
+    <string name="tax_export_payment">გადახდა კრიპტოთი</string>
+    <string name="tax_export_period">%1$s – %2$s</string>
+    <string name="tax_export_proceeds_missing">გაყიდვის ფასი აკლია</string>
+    <string name="tax_export_proceeds_without_cost">შემოსავალი შეძენის ფასის გარეშე</string>
+    <string name="tax_export_realized_differs">საგადასახადო CSV შეიძლება «რეალიზებულისგან» განსხვავდებოდეს (ქვეყნის საგადასახადო წესები).</string>
+    <string name="tax_export_rule">&gt; 1 წელი: გაყიდულია შეძენის თარიღს + 1 კალენდარული წლის შემდეგ. თარიღები ადგილობრივი დროით. კურსები: ტრანზაქციის დღის ევროპის ცენტრალური ბანკის დღიური კურსი; თუ არ არის, ბოლო კურსი 7 დღემდე ადრე.</string>
+    <string name="tax_export_rules_date">წესები: %1$s-ის მდგომარეობით</string>
+    <string name="tax_export_rules_stale">წესები %1$s-დანაა – %2$s-ისთვის განაკვეთები და შეღავათები შეიძლება შეიცვალა. შეამოწმე მნიშვნელობები.</string>
+    <string name="tax_export_spouse_gift">მეუღლეს/პარტნიორს – არც მოგება, არც ზარალი</string>
+    <string name="tax_export_summary">წლიური შეჯამება %1$s (CSV)</string>
+    <string name="tax_export_swap">გაცვლა</string>
+    <string name="tax_export_tax_year">საგადასახადო წელი</string>
+    <string name="tax_export_transfer_fee_info">გადარიცხვის საკომისიო USDT-ში/ნაღდით – არ არის ზარალი, არ შედის შეძენის ღირებულებაში, მხოლოდ ინფორმაციისთვის</string>
+    <string name="tax_export_unassigned_fee">საკომისიო არ არის მიკუთვნებული – შეძენის ღირებულება უცნობია</string>
+    <string name="tax_export_usdt_usd_note">USDT გადაანგარიშებულია USDT/USD დღიური დახურვით; 1 USD, სადაც დახურვა არ არის (მონიშნულია სტრიქონში)</string>
+    <string name="tax_export_value_estimated">ღირებულება შეფასებულია (დღიური დახურვა)</string>
+    <string name="tax_export_value_missing">მიღებისას ღირებულება აკლია</string>
+    <string name="tax_export_wallet">საფულე: %1$s</string>
+    <string name="tax_export_wallet_unspecified">არ არის მითითებული</string>
+    <string name="tax_export_withdrawal_fee">გატანის საკომისიო</string>
+    <string name="tax_export_withdrawal_fee_info">გატანის საკომისიო USDT-ში/ნაღდით – არ არის ზარალი, მხოლოდ ინფორმაციისთვის</string>
+    <string name="tax_export_workpaper_disclaimer">საგადასახადო სამუშაო ფურცელი – არ არის საგადასახადო დეკლარაცია და არც საგადასახადო რჩევა</string>
+    <string name="tax_export_workpaper_title">სამუშაო ფურცელი</string>
+    <string name="tax_export_year_local_zone">თარიღები ადგილობრივი დროით (%1$s)</string>
+    <string name="tax_export_yes">კი</string>
+
+    <!-- Steuer-Export: Zeilen und Spalten -->
+    <string name="tax_line_at_interest">ლენდინგის პროცენტი (მიღებისას არსებული ღირებულებით)</string>
+    <string name="tax_line_at_old_long">შეძენილია 2021 წლის 1 მარტამდე – ფლობილი &gt; 1 წელი: ჩვეულებრივ არ იბეგრება – შეამოწმე</string>
+    <string name="tax_line_at_rate">სპეციალური განაკვეთი 27.5 პროცენტი: წმინდა, შეძენილი 2021 წლის 1 მარტიდან და გაყიდული 2022 წლის 1 მარტიდან + პროცენტი</string>
+    <string name="tax_line_au_discounted">კაპიტალის წმინდა მოგება ზარალისა და 50 პროცენტიანი ფასდაკლების შემდეგ</string>
+    <string name="tax_line_ca_taxable">დასაბეგრი კაპიტალის მოგება (ჩართვის განაკვეთი 1/2)</string>
+    <string name="tax_line_ch_income">ჯილდოები ჩამოთვლილია – მათი მოპყრობისთვის იხილე ESTV-ის სამუშაო დოკუმენტი</string>
+    <string name="tax_line_ch_private">კერძო ქონების კაპიტალის მოგება: არ არის გამოთვლილი – კლასიფიკაციისთვის იხილე ESTV</string>
+    <string name="tax_line_ch_wealth">ქონების გადასახადი: არ არის გამოთვლილი – აქტივების CSV იყენებს ბირჟის ფასს × USD/CHF 31 დეკემბერს – ოფიციალური საგადასახადო მნიშვნელობები: ESTV-ის ფასების სია</string>
+    <string name="tax_line_de_long">ფლობილი &gt; 1 წელი: ჩვეულებრივ არ იბეგრება § 23 EStG-ის მიხედვით – შეამოწმე</string>
+    <string name="tax_line_denied_loss">აკრძალული ზარალი (superficial loss)</string>
+    <string name="tax_line_fr_outflow">გასვლები გაყიდვის გარეშე (გატანები) – შეძენის სრული ღირებულება პროპორციულად შემცირებულია</string>
+    <string name="tax_line_fr_rate">ფიქსირებული განაკვეთი 12.8 პროცენტი პლუს სოციალური შენატანები (ან შკალა არჩევით)</string>
+    <string name="tax_line_fr_threshold">წელიწადში €305-მდე გასხვისებები: ზოგადად გათავისუფლებულია (გაყიდვის ფასების ჯამი) – შეამოწმე</string>
+    <string name="tax_line_gains">მოგება</string>
+    <string name="tax_line_income">შემოსავალი (ჯილდოები მიღებისას არსებული ღირებულებით)</string>
+    <string name="tax_line_jp_misc">სხვადასხვა შემოსავალი (雑所得): წმინდა მოგება + შემოსავალი</string>
+    <string name="tax_line_long_net">წმინდა – ფლობილი &gt; 1 წელი</string>
+    <string name="tax_line_losses">ზარალი</string>
+    <string name="tax_line_net">წმინდა მოგება/ზარალი</string>
+    <string name="tax_line_new_net">წმინდა – შეძენილი 2021 წლის 1 მარტიდან, გაყიდული 2022 წლის 1 მარტიდან</string>
+    <string name="tax_line_old_long_net">წმინდა – შეძენილი 2021 წლის 1 მარტამდე – ფლობილი &gt; 1 წელი</string>
+    <string name="tax_line_old_short_net">წმინდა – სპეკულაციური ოპერაციები (ძველი კანონი): შეძენილი 2021 წლის 1 მარტამდე და ფლობილი ≤ 1 წელი, ან გაყიდული 2022 წლის 1 მარტამდე</string>
+    <string name="tax_line_proceeds">შემოსავალი</string>
+    <string name="tax_line_short_net">წმინდა – ფლობილი ≤ 1 წელი</string>
+    <string name="tax_line_transfer_fees">გადარიცხვის საკომისიოები (საკუთარი საფულეები)</string>
+    <string name="tax_line_uk_after_exempt">წმინდა მოგება გათავისუფლებული თანხის ზემოთ (მხოლოდ კრიპტო)</string>
+    <string name="tax_line_uk_exempt">წლიური გათავისუფლებული თანხა – ვრცელდება ყველა გასხვისებაზე ერთად, აქ სრულად არის გამოყენებული</string>
+    <string name="tax_line_us_terms">მოკლევადიანი (≤ 1 წელი): ჩვეულებრივი განაკვეთები – გრძელვადიანი (&gt; 1 წელი): კაპიტალის მოგების განაკვეთები</string>
+    <string name="tax_line_withdrawal_fees">გატანის საკომისიოები</string>
+
+    <!-- Steuer Deutschland -->
+    <string name="tax_de_below">ლიმიტზე დაბლა</string>
+    <string name="tax_de_col_item">პუნქტი</string>
+    <string name="tax_de_disclaimer">მხოლოდ ორიენტაციისთვის – არ არის საგადასახადო დეკლარაცია და არც საგადასახადო რჩევა.</string>
+    <string name="tax_de_explain_below">%1$s-მდე: ლიმიტზე დაბლა (ორიენტაციისთვის).</string>
+    <string name="tax_de_explain_loss">წმინდა ზარალი: ამ გაყიდვებზე გადასახადი არ არის. § 23 EStG-ის მიხედვით ზარალი მხოლოდ კერძო გაყიდვების მოგებასთან იქვითება – იმავე წელს ან წინა წელზე გადატანით და შემდგომ წლებზე გადატანით (§ 23 para. 3 და § 10d EStG). მიუთითე ზარალი საგადასახადო დეკლარაციაში, რომ შეფასდეს.</string>
+    <string name="tax_de_explain_reached">%1$s-დან მთელი თანხა ითვლება (გათავისუფლების ზღვარი – არ არის შეღავათი).</string>
+    <string name="tax_de_explain_unknown">შემოწმება შეუძლებელია: აკლია გაცვლითი კურსები / შეძენის ფასები ან ფლობის პერიოდები.</string>
+    <string name="tax_de_income_limit">მომსახურების გათავისუფლების ზღვარი (§ 22 No. 3 EStG)</string>
+    <string name="tax_de_limit_scope">ლიმიტები ვრცელდება წლის ყველა კერძო გაყიდვაზე ან მომსახურებაზე ერთად – აპის გარეთაც.</string>
+    <string name="tax_de_loading">ითვლება…</string>
+    <string name="tax_de_long_gains">მოგება – ფლობილი &gt; 1 წელი</string>
+    <string name="tax_de_long_losses">ზარალი – ფლობილი &gt; 1 წელი</string>
+    <string name="tax_de_loss">წმინდა ზარალი – იქვითება მხოლოდ კერძო გაყიდვების მოგებასთან (§ 23 EStG)</string>
+    <string name="tax_de_private_limit">კერძო გაყიდვების გათავისუფლების ზღვარი (§ 23 EStG)</string>
+    <string name="tax_de_reached">ლიმიტი მიღწეულია – ჩვეულებრივ მთელი თანხა ითვლება – შეამოწმე</string>
+    <string name="tax_de_short_gains">მოგება – ფლობილი ≤ 1 წელი</string>
+    <string name="tax_de_short_losses">ზარალი – ფლობილი ≤ 1 წელი</string>
+    <string name="tax_de_unclassified">ფლობის პერიოდი უცნობია</string>
+    <string name="tax_de_unknown">შემოწმება შეუძლებელია</string>
+
+    <!-- Steuer-Vorlagen je Land -->
+    <string name="tax_template_at">ავსტრია</string>
+    <string name="tax_template_au">ავსტრალია</string>
+    <string name="tax_template_beta">ბეტა</string>
+    <string name="tax_template_beta_note">ბეტა: ქვეყნის წესები გამარტივებულია, შეამოწმე საგადასახადო დეკლარაციის წარდგენამდე</string>
+    <string name="tax_template_ca">კანადა</string>
+    <string name="tax_template_ch">შვეიცარია</string>
+    <string name="tax_template_confirm_text">ბეტა, გამარტივებული წესები, სხვა პლატფორმების ტრანზაქციები აკლია – შეამოწმე საგადასახადო დეკლარაციის წარდგენამდე.</string>
+    <string name="tax_template_confirm_title">საგადასახადო შაბლონი (ბეტა)</string>
+    <string name="tax_template_current">შაბლონი: %1$s · მეთოდი: %2$s · ვალუტა: %3$s</string>
+    <string name="tax_template_de">გერმანია</string>
+    <string name="tax_template_fr">საფრანგეთი</string>
+    <string name="tax_template_hint">მხოლოდ ორიენტაციისთვის: განსაზღვრავს საგადასახადო სამუშაო ფურცლის მეთოდს, საგადასახადო წელს და შეჯამებას. პორტფელის ბარათი ნეიტრალური რჩება – საჩუქრები და გადარიცხვის საკომისიოები შეიძლება სამუშაო ფურცლისგან განსხვავდებოდეს.</string>
+    <string name="tax_template_jp">იაპონია</string>
+    <string name="tax_template_neutral">ნეიტრალური (ყველა ქვეყანა)</string>
+    <string name="tax_template_suggestion">შეთავაზება შენი რეგიონისთვის: %1$s</string>
+    <string name="tax_template_title">საგადასახადო შაბლონი</string>
+    <string name="tax_template_uk">გაერთიანებული სამეფო</string>
+    <string name="tax_template_us">აშშ</string>
+    <string name="tax_template_use">%1$s-ის გამოყენება</string>
+
+    <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
+    <string name="tax_method_at">ძველი/ახალი აქტივები – მცოცავი საშუალო</string>
+    <string name="tax_method_ca_acb">ACB საშუალო ღირებულება (superficial loss)</string>
+    <string name="tax_method_fr_pta">შეძენის სრული ფასი (art. 150 VH bis)</string>
+    <string name="tax_method_jp_total">მთლიანი საშუალო (総平均法)</string>
+    <string name="tax_method_uk_pool">Section 104 pool (იმავე დღეს / 30 დღე)</string>
+    <string name="tax_note_at">მცოცავი საშუალო მონეტისა და საფულის მიხედვით – არა საფულეებს შორის (KryptowährungsVO § 2). ჯილდოები ახალ აქტივებში 0 შეძენის ღირებულებით შედის (BMF: სტეიკინგი / აირდროპები) – შემოსავლის ფაილი მათ მიღებისას არსებული ღირებულებით ჩამოთვლის. 2021 წლის 1 მარტიდან შეძენილი აქტივებისთვის საკომისიოები არ გამოიქვითება (§ 27a(4) no. 2, § 20(2) EStG): ღირებულება და შემოსავალი საკომისიოების გარეშე. ლენდინგის პროცენტი (ტიპი CSV იმპორტიდან ან შენიშვნიდან) მიღებისას შემოსავალია 27.5 პროცენტით და ამ ღირებულებას შეძენის ღირებულებად ინარჩუნებს.</string>
+    <string name="tax_note_at_staking">სტეიკინგი უკვე ფლობილი მონეტებით და აირდროპები: მიღებისას ღირებულებას საგადასახადოდ მნიშვნელობა არ აქვს – კანონით შეძენის ღირებულება 0-ია (§ 27b Abs. 2 EStG; BMF «Kryptowährungen»). გადასახადი მხოლოდ გაყიდვისას მოქმედებს.</string>
+    <string name="tax_note_fr">კრიპტოთი გადახდილი გაყიდვები და საკომისიოები გასხვისებაა – გაცვლები გადავადებულია. გაყიდვის კრიპტო საკომისიო საკომისიომდე ფასში ითვლება – სხვა შემთხვევაში ის ცალკე გასხვისებაა თავისი ღირებულებით. პორტფელის ღირებულება დღიური დახურვებით – დაკარგული დახურვა ღირებულებას ცარიელს ტოვებს.</string>
+    <string name="tax_note_network_fee">კრიპტოთი გადახდილი ქსელის საკომისიო (გადარიცხვა საკუთარ საფულეში, გატანა) საკომისიოს მონეტების გასხვისებაა საბაზრო ღირებულებით – მოგება ან ზარალი მხოლოდ ამ მონეტებზე, არა მთელი საკომისიოს ზარალი (%1$s). აღრიცხული ფასის გარეშე: იმავე დღის დღიური დახურვა (UTC); დახურვის გარეშე შემოსავალი ცარიელი რჩება.</string>
+    <string name="tax_note_specific_id">Specific identification არ არის მხარდაჭერილი – გამოიყენება FIFO.</string>
+    <string name="tax_note_spouse_gift">«მეუღლეს / სამოქალაქო პარტნიორს» მონიშნული საჩუქარი არც მოგებაა, არც ზარალი: შემოსავალი = შენი შეძენის ღირებულება, რომელსაც შენი პარტნიორი იღებს (%1$s).</string>
+    <string name="tax_note_stable_swap">კრიპტოს გაყიდვა სტეიბლქოინზე (USDT/USDC/DAI …), რომელსაც ინახავ, აქ კრიპტო-კრიპტოა და არ იბეგრება – აღრიცხე ის როგორც გაცვლა სტეიბლქოინზე. იბეგრება მხოლოდ ევროზე გაყიდვა – «გაყიდვა» ევროზე გაყიდვად ითვლება.</string>
+    <string name="tax_note_transfer_fee">იგივე ეხება USDT ან ნაღდ საკომისიოს საკუთარ საფულეებს შორის გადარიცხვისას: ის შეძენის ღირებულებას არ ემატება და მხოლოდ ინფორმაციისთვის ჩამოითვლება.</string>
+    <string name="tax_note_uk">შესაბამისობა HMRC-ის მიხედვით: იმავე დღეს → მომდევნო 30 დღე → Section 104 pool.</string>
+    <string name="tax_note_us_transition">გარდამავალი პერიოდი 2025 წლის 1 იანვარს (Rev. Proc. 2024-28 safe harbor): თუ წინა წლებში FIFO ყველა საფულეზე გამოიყენებოდა, 2024 წლის 31 დეკემბრის მდგომარეობით დარჩენილი ლოტები იმ საფულეებზე გადადის, სადაც მონეტებია – ყველაზე ძველი მონეტების საფულე ყველაზე ძველ შეძენის ღირებულებას იღებს. ეს განაწილება აპის წესია – შეამოწმე შენს ჩანაწერებთან.</string>
+    <string name="tax_note_us_wallet">2025 საგადასახადო წლიდან IRS მოითხოვს შეძენის ღირებულებას საფულის ან ბირჟის მიხედვით (Rev. Proc. 2024-28): ექსპორტი 2025-დან იყენებს FIFO-ს საფულის მიხედვით – წინა წლებისთვის FIFO ყველა საფულეზე, ან FIFO საფულის მიხედვით, თუ ეს შენი ღირებულების მეთოდია.</string>
+    <string name="tax_note_withdrawal_fee">USDT-ში ან ნაღდით გატანის საკომისიო ზარალი არ არის: ნაღდი საკომისიო გამოსაქვითი ხარჯი არ არის, USDT საკომისიო ნომინალით გასხვისებაა მოგების გარეშე – ის მხოლოდ ინფორმაციისთვის ჩამოითვლება (%1$s).</string>
+    <string name="tax_summary_at_interest_income">ითვლება: შემოსავალი მიღებისას 27.5 პროცენტის სპეციალური განაკვეთით (§ 27b(2) no. 1 EStG / BMF) – მონეტები ამ ღირებულებას შეძენის ღირებულებად ინარჩუნებს</string>
+    <string name="tax_summary_at_reward_info">მხოლოდ ინფორმაციისთვის – არცერთი ჯამის ნაწილი არ არის: ჯილდოები ახალ აქტივებში 0 შეძენის ღირებულებით შედის და მხოლოდ გაყიდვისას იბეგრება (უკვე მოგებაშია) – § 27b para. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">2022 წლის 1 იანვარი–28 თებერვალი: შესაძლებელია 27.5 პროცენტის არჩევა</string>
+    <string name="tax_summary_at_withdrawal_fee">გატანის საკომისიო – ახალ აქტივებთან არ იქვითება (ხარჯები სპეციალური განაკვეთით არ გამოიქვითება, § 20(2) EStG)</string>
+    <string name="tax_summary_ch_fifo_info">მხოლოდ ინფორმაციისთვის – აპის FIFO გამოთვლა – არ არის კლასიფიცირებული – იხილე ESTV</string>
+    <string name="tax_summary_ch_year_end_value">31 დეკემბრის ღირებულება აქტივების CSV-ში = ბირჟის ფასი × USD/CHF – არა ESTV-ის საგადასახადო მნიშვნელობები</string>
+    <string name="tax_summary_de_withdrawal_fee">გატანის საკომისიო – § 23-ით არ იქვითება, შეამოწმე, გამოიქვითება თუ არა შემოსავალთან დაკავშირებულ ხარჯად</string>
+    <string name="tax_summary_not_calculated_estv">არ არის გამოთვლილი – ESTV-ის ფასების სია: %1$s</string>
+    <string name="tax_summary_orientation">ორიენტაცია</string>
+    <string name="tax_summary_orientation_block">მხოლოდ ორიენტაციისთვის – არ არის საგადასახადო რჩევა – არ არის შეფასება</string>
+    <string name="tax_summary_orientation_item">ორიენტაცია: %1$s</string>
+    <string name="tax_summary_title">წლიური შეჯამება %1$s %2$s</string>
+    <string name="tax_summary_transfer_fee_info">გადარიცხვის საკომისიოები USDT-ში/ნაღდით – არ არის ზარალი და არ შედის შეძენის ღირებულებაში, მხოლოდ ინფორმაციისთვის</string>
+    <string name="tax_summary_withdrawal_fee_info">გატანის საკომისიოები USDT-ში/ნაღდით – ზარალად არ ითვლება, მხოლოდ ინფორმაციისთვის</string>
+
+    <string name="tax_line_at_old_speculation_limit">სპეკულაციური ოპერაციები (ძველი კანონი, ფლობილი ≤ 1 წელი): გათავისუფლების ზღვარი (§ 31 (3) EStG ძველი რედაქცია)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">ლენდინგის პროცენტი 2022 წლის 1 მარტამდე (მიღებისას არსებული ღირებულებით)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">პროცენტი 2022 წლის 1 მარტამდე: ძველი კანონი (საშემოსავლო გადასახადის განაკვეთი), არა 27.5 პროცენტი</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">2022 წლის 1 მარტამდე – შეამოწმე სპეციალისტთან</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">პროცენტი – იბეგრება მიღებისას</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">სტეიკინგი – მხოლოდ ინფორმაციისთვის (შეძენის ღირებულება 0, იბეგრება გაყიდვისას)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">სულ პროცენტი (დასაბეგრი)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">სულ სტეიკინგი (ინფორმაცია)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">კაპიტალის წმინდა ზარალი (გადატანა)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">არჩევის გარეშე: მოიცავს 2022 წლის 1 იანვარი–28 თებერვლის გაყიდვებს</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">სტეიკინგი 2022 წლის 1 მარტამდე: შეძენის ღირებულება 0-ზეა დაყენებული – შეამოწმე სპეციალისტთან</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">30-დღიანმა წესმა შეიძლება ეს მაჩვენებლები ჯერ კიდევ შეცვალოს (შესყიდვები %1$s-მდე)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">შემოსავალი საკომისიომდე ანგარიშგების ლიმიტზე მეტია (£50,000; 2020/21–2022/23: £49,200): შეატყობინე HMRC-ს, თუ Self Assessment-ზე ხარ რეგისტრირებული, დასაბეგრი მოგების გარეშეც</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">ქონების ღირებულება 31 დეკემბერი %1$s (ორიენტაცია)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">ESTV-ის ფასების სია (ictax.admin.ch) გადამწყვეტია. სიაში არარსებული მონეტებისთვის ჩვეულებრივ ბირჟის დახურვის ფასი მოქმედებს. ქონების გადასახადი არ არის გამოთვლილი.</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – აქტივი %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">არ არის გამოთვლილი</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">დაკვირვებადი მისამართების წაკითხვა ვერ მოხერხდა – მათი ნაშთები ამ ფაილში აკლია</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">დაკვირვებადი მისამართების ლოტები მათი შეძენის თარიღიდან ითვლება; თუ მისამართის ნაშთი დღეს ნაკლებია, ისინი მცირდება.</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">დაკვირვებადი მისამართები სრულ ღირებულებაში ითვლება, მაგრამ შეძენის ღირებულება არ აქვს – ამიტომ მოგება სავარაუდოდ ზედმეტად მაღალია. აღრიცხე ღირებულება შესყიდვად.</string>
+    <string name="tax_summary_fr_rewards_income">თანხა ვარაუდობს, რომ ჯილდოები მიღებისას შემოსავლად დაიბეგრა (მიღებისას ღირებულება შეძენის ღირებულებაში) – სხვა შემთხვევაში ფრთხილი წაკითხვა 0 შეძენის ღირებულება იქნებოდა.</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">საბაზრო ღირებულებები აღრიცხული ფასის გარეშე (საკომისიოები, საჩუქრები/გადახდები, გაცვლები, ჯილდოები, ქსელის საკომისიოები, პორტფელის ღირებულება) ტრანზაქციის დღის დღიური დახურვით (UTC)</string>
+</resources>

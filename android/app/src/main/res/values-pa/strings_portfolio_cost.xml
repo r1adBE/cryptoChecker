@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">ਲਾਗਤ ਅਧਾਰ ਤੋਂ ਬਿਨਾਂ ਐਂਟਰੀਆਂ: %1$d</string>
+    <string name="cost_gaps_card_text">ਲਾਗਤ ਅਧਾਰ ਜੋੜੋ ਤਾਂ ਜੋ ਮੁਨਾਫ਼ਾ ਅਤੇ ਟੈਕਸ ਪੂਰੇ ਹੋਣ।</string>
+    <string name="cost_gaps_sheet_title">ਲਾਗਤ ਅਧਾਰ ਤੋਂ ਬਿਨਾਂ ਐਂਟਰੀਆਂ</string>
+    <string name="cost_gaps_sheet_intro">ਇਨ੍ਹਾਂ ਆਮਦਾਂ ਦਾ ਕੋਈ ਲਾਗਤ ਅਧਾਰ ਨਹੀਂ। ਸੁਝਾਅ ਉਸ ਤਾਰੀਖ ਦੀ ਰੋਜ਼ਾਨਾ ਬੰਦ ਕੀਮਤ ਹੈ – ਇਸਨੂੰ ਐਂਟਰੀ ਵਿੱਚ ਬਦਲਿਆ ਜਾ ਸਕਦਾ ਹੈ।</string>
+    <string name="cost_gaps_empty">ਸਾਰੀਆਂ ਐਂਟਰੀਆਂ ਦਾ ਲਾਗਤ ਅਧਾਰ ਹੈ।</string>
+    <string name="cost_gap_enter">ਲਾਗਤ ਅਧਾਰ ਦਰਜ ਕਰੋ</string>
+    <string name="cost_gap_leave_unknown">ਅਣਜਾਣ ਰਹਿਣ ਦਿਓ</string>
+    <string name="cost_gap_left_unknown">ਅਣਜਾਣ ਛੱਡਿਆ</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">ਸੁਝਾਅ: ਰੋਜ਼ਾਨਾ ਬੰਦ ਕੀਮਤ %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">ਇਸ ਤਾਰੀਖ ਦੀ ਕੋਈ ਪੁਸ਼ਟੀ ਕੀਤੀ ਰੋਜ਼ਾਨਾ ਬੰਦ ਕੀਮਤ ਨਹੀਂ</string>
+    <string name="cost_gap_suggestion_loading">ਰੋਜ਼ਾਨਾ ਬੰਦ ਕੀਮਤ ਲੋਡ ਹੋ ਰਹੀ ਹੈ …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">ਲਾਗਤ ਅਧਾਰ = ਮਿਲਣ ’ਤੇ ਮੁੱਲ (ਆਮਦਨ)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">ਲਾਗਤ ਅਧਾਰ = 0 (ਆਮਦ ਤੋਂ ਬਿਨਾਂ ਇਨਾਮ, ਆਸਟਰੀਆ)</string>
+    <string name="cost_gap_apply">ਲਾਗੂ ਕਰੋ</string>
+    <string name="address_lots_action">ਪਤੇ ਦੇ ਬੈਲੈਂਸ ਲਈ ਲਾਗਤ ਅਧਾਰ</string>
+    <string name="address_lots_title">ਪਤੇ ਦੇ ਬੈਲੈਂਸ ਲਈ ਲਾਗਤ ਅਧਾਰ</string>
+    <string name="address_lots_intro">ਇਸ ਪਤੇ ਦੇ ਬੈਲੈਂਸ ਲਈ ਖਰੀਦ ਤਾਰੀਖ, ਮਾਤਰਾ ਅਤੇ ਲਾਗਤ ਅਧਾਰ ਦਰਜ ਕਰੋ। ਲਾਟ ਇਸ ਪਤੇ ਵਿੱਚ ਖਰੀਦਾਂ ਵਾਂਗ ਗਿਣੇ ਜਾਂਦੇ ਹਨ; ਜੋ ਹਿੱਸਾ ਕਵਰ ਨਹੀਂ ਹੁੰਦਾ ਉਹ ਲਾਗਤ ਅਧਾਰ ਤੋਂ ਬਿਨਾਂ ਰਹਿੰਦਾ ਹੈ।</string>
+    <string name="address_lots_add">ਲਾਟ ਜੋੜੋ</string>
+    <string name="address_lots_new">ਨਵਾਂ ਲਾਟ</string>
+    <string name="address_lots_edit">ਲਾਟ</string>
+    <string name="address_lots_date">ਖਰੀਦ ਤਾਰੀਖ</string>
+    <string name="address_lots_amount">ਮਾਤਰਾ</string>
+    <string name="address_lots_mode_total">ਕੁੱਲ</string>
+    <string name="address_lots_mode_price">ਪ੍ਰਤੀ ਕੌਇਨ</string>
+    <string name="address_lots_price">ਪ੍ਰਤੀ ਕੌਇਨ ਕੀਮਤ (USDT)</string>
+    <string name="address_lots_total">ਕੁੱਲ ਲਾਗਤ ਅਧਾਰ (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%2$s ਵਿੱਚੋਂ %1$s ਲਾਗਤ ਅਧਾਰ ਨਾਲ</string>
+    <string name="address_lots_unlotted">%1$s ਲਾਗਤ ਅਧਾਰ ਤੋਂ ਬਿਨਾਂ</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">ਲਾਟ ਬੈਲੈਂਸ ਤੋਂ %1$s ਵੱਧ ਹਨ – ਸਭ ਤੋਂ ਪੁਰਾਣੇ ਪਹਿਲਾਂ ਵਰਤੇ ਜਾਂਦੇ ਹਨ।</string>
+    <string name="address_lots_not_loaded">ਬੈਲੈਂਸ ਹਾਲੇ ਲੋਡ ਨਹੀਂ ਹੋਇਆ – ਲੋਡ ਹੁੰਦੇ ਹੀ ਲਾਟ ਗਿਣੇ ਜਾਣਗੇ।</string>
+    <string name="address_lots_invalid">ਮਾਤਰਾ ਅਤੇ ਲਾਗਤ ਅਧਾਰ ਦਰਜ ਕਰੋ</string>
+</resources>

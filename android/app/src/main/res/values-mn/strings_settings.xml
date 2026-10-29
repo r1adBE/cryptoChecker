@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">Өөрийн</string>
+    <string name="settings_group_general">Ерөнхий</string>
+    <string name="settings_group_more">Бусад</string>
+    <string name="settings_minutes">%1$d мин</string>
+    <string name="settings_row_about">Аппын тухай</string>
+    <string name="settings_row_alarms">Дохио</string>
+    <string name="settings_row_currency">Валют</string>
+    <string name="settings_row_dated_futures">Хугацаат фьючерс</string>
+    <string name="settings_row_updates">Ханшийн шинэчлэл</string>
+    <string name="settings_row_watchlist">Ажиглах жагсаалт</string>
+    <string name="settings_search_hint">Тохиргоо хайх</string>
+    <string name="settings_seconds">%1$d с</string>
+    <string name="settings_section_about">Тухай</string>
+    <string name="settings_section_appearance">Харагдах байдал</string>
+    <string name="settings_section_developer">Хөгжүүлэгч</string>
+    <string name="settings_section_language">Хэл</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">Асаалттай</string>
+    <string name="settings_title">Тохиргоо</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">Дохио дахин ажиллахаас өмнөх чимээгүй хугацаа</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Дохионы сигнал</string>
+    <string name="settings_alarm_signal_open_system">Системийн тохиргоонд тохируулах</string>
+    <string name="settings_alarm_signal_system_hint">Утасныхаа мэдэгдлийн тохиргоог дагана.</string>
+    <string name="settings_alarm_sound">Дохионы дуу</string>
+    <string name="settings_alarm_sound_custom">Өөрийн дуу</string>
+    <string name="settings_alarm_sound_default">Үндсэн дуу</string>
+    <string name="settings_alarm_sound_error">Дууг ашиглаж чадсангүй.</string>
+    <string name="settings_alarm_sound_file">Өөрийн аудио файл…</string>
+    <string name="settings_alarm_sound_reset">Үндсэн дууг ашиглах</string>
+    <string name="settings_alarm_sound_system">Системийн дуу сонгох…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Аппын дүрс дээрх тоо</string>
+    <string name="settings_app_badge_hint">Нээлттэй дохионы мэдэгдлийг тоолно. Тоо эсвэл цэг гарах нь үндсэн дэлгэцээс хамаарна (жишээ нь Samsung: «Тоогоор харуулах»).</string>
+    <string name="settings_exact_checks">Цагтаа шалгах</string>
+    <string name="settings_exact_checks_grant">Сэрүүлэг ба сануулгыг зөвшөөрөх</string>
+    <string name="settings_exact_checks_hint">Android төхөөрөмж сул зогсож байхад ч ойролцоогоор 15 минут тутам шалгана. Батарейг бага зэрэг илүү зарцуулна.</string>
+    <string name="settings_exact_checks_nothing">Идэвхтэй хос алга – шалгах зүйл алга.</string>
+    <string name="settings_exact_checks_permission_missing">Зөвшөөрөл алга – төхөөрөмж амарч байх үед Android жигд бусаар, заримдаа хэдэн цагийн дараа л шалгадаг.</string>
+    <string name="settings_notification_change">Зөвхөн ханш өөрчлөгдөхөд мэдэгдэх</string>
+    <string name="settings_notification_change_always">Үргэлж</string>
+    <string name="settings_percent_invalid">0-ээс 100 хүртэлх утга оруулна уу.</string>
+    <string name="settings_notification_change_hint">Ханшийн мэдэгдэл нь ханш сүүлийнхээс хойш дор хаяж ийм хэмжээгээр өөрчлөгдсөн үед л гарна. Өгөгдөл дутуу үед юу ч харуулахгүй. Дохионд нөлөөлөхгүй.</string>
+    <string name="settings_ongoing_notifications">Шударч арилгах боломжгүй</string>
+    <string name="settings_ongoing_notifications_hint">Ханшийн мэдэгдлийг бэхэлсэн хэвээр байлгана.</string>
+    <string name="settings_price_notifications">Ханшийн мэдэгдэл</string>
+    <string name="settings_price_notifications_hint">Идэвхжүүлсэн хосуудын одоогийн ханшийг төлөвийн мөрөнд харуулах.</string>
+    <string name="settings_price_pairs">Хос</string>
+    <string name="settings_price_pairs_all_off">Бүгд унтраалттай</string>
+    <string name="settings_price_pairs_all_on">Бүгд асаалттай</string>
+    <string name="settings_price_pairs_count">%2$d-аас %1$d</string>
+    <string name="settings_price_pairs_empty">Ажиглах жагсаалтад хараахан хос алга.</string>
+    <string name="settings_price_pairs_hint">Мэдэгдлийн мөрөнд аль хосын ханшийг харуулахыг сонгоно уу.</string>
+    <string name="settings_quiet_hours">Чимээгүй цаг</string>
+    <string name="settings_quiet_hours_from">Эхлэх</string>
+    <string name="settings_quiet_hours_hint">%1$s-аас %2$s хооронд дохио чимээгүй цаг дуусахыг хүлээж, дараа нь дуутай ирнэ. Бусад мэдэгдэл дуугүй, ярианы уншлагагүй ирнэ.</string>
+    <string name="settings_quiet_hours_to">Дуусах</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">Интервал</string>
+    <string name="settings_background_updates">Арын горимын шинэчлэл</string>
+    <string name="settings_battery_hint">Хязгаарласан бол Android арын горимын шинэчлэлийг хэдэн цагаар хойшлуулж болно.</string>
+    <string name="settings_battery_ok">Батарейн хэрэглээ: хязгааргүй</string>
+    <string name="settings_battery_restricted">Батарейн хэрэглээ: хязгаарласан</string>
+    <string name="settings_check_runs_empty">Одоогоор шалгалт бүртгэгдээгүй.</string>
+    <string name="settings_check_runs_honest_android">Хэзээ шалгахыг Android шийддэг – энд үнэхээр хэзээ болсныг харна.</string>
+    <string name="settings_check_runs_honest_ios">Хэзээ шалгахыг iOS шийддэг – энд үнэхээр хэзээ болсныг харна.</string>
+    <string name="settings_check_runs_title">Сүүлийн шалгалт</string>
+    <string name="settings_http_log">HTTP бүртгэлийг харуулах</string>
+    <string name="settings_http_log_hint">Биржүүд рүү илгээсэн хүсэлтийг «Хос нэмэх» хуудасны доод хэсэгт харуулна – алдаа илрүүлэхэд.</string>
+    <string name="settings_live_service">Ойр ойрхон шинэчлэх</string>
+    <string name="settings_live_websocket">Шууд ханш</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">Анхаарал татах: мэдэгдэх</string>
+    <string name="settings_activity_alerts_hint">Хос бүрт цагт дээд тал нь нэг удаа: ер бусын ханшийн хөдөлгөөн, хэмжээний огцом өсөлт болон фьючерсийн туйлын утга (Binance-ийн өгөгдөл).</string>
+    <string name="settings_activity_sensitivity">Мэдрэмж</string>
+    <string name="settings_activity_sensitivity_hint">Зоосыг хэр амархан ер бусын гэж тооцох – ажиглах жагсаалтын карт болон зах зээлийн дохионд ижил. «Бага» сонговол карт зөвхөн хамгийн хүчтэй 3-ыг харуулна.</string>
+    <string name="settings_watchlist_activity_card">Анхаарал татах: жагсаалтад харуулах</string>
+    <string name="settings_watchlist_activity_card_hint">Бүлгүүдийн хажууд ⚡ тэмдгийг харуулна: яг одоо ямар нэг зүйл болж буй хосуудыг л харахын тулд түүн дээр товшино уу. Түүний мэдэгдлийг Зах зээлийн дохио хэсэгт тохируулна.</string>
+    <string name="settings_watchlist_names">Нэрийг харуулах</string>
+    <string name="settings_watchlist_names_hint">Хосын доорх нэр, жишээ нь Bitcoin эсвэл NVIDIA. Логоны жагсаалттай хамт ирж, бүх зоосонд нэг удаа ачаалагдана.</string>
+    <string name="settings_watchlist_sparkline">Ажиглах жагсаалт дахь жижиг график</string>
+    <string name="settings_watchlist_sparkline_hint">Ханшийн хажууд 24 цагийн чиг хандлага</string>
+    <string name="settings_watchlist_value_names">Нэр</string>
+    <string name="settings_watchlist_value_price_only">Зөвхөн ханш</string>
+    <string name="settings_watchlist_value_sparkline">Жижиг график</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Alpha токентой (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Alpha токен: Binance Alpha жагсаалтын эрт үеийн, ихэвчлэн жижиг төслүүд – ихэвчлэн арилжаа багатай, маш хэлбэлзэлтэй.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">Токенд хамаарна. «Зөвхөн TradFi» сонгосон үед боломжгүй; ажиглах жагсаалтад байгаа Alpha токен үлдэнэ.</string>
+    <string name="settings_asset_scope_both">Токен ба TradFi</string>
+    <string name="settings_asset_scope_both_hint">Бүгд – крипто ба TradFi</string>
+    <string name="settings_asset_scope_hint">Хос нэмэх үед сонголт ба хайлт аль хосыг харуулахыг тодорхойлно. Ажиглах жагсаалтад байгаа хос үргэлж үлдэнэ.</string>
+    <string name="settings_asset_scope_title">Токен &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">Зөвхөн токен</string>
+    <string name="settings_asset_scope_tokens_hint">Крипто: спот ба мөнхийн гэрээ</string>
+    <string name="settings_asset_scope_tradfi">Зөвхөн TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">Хувьцаа, түүхий эд, валютын фьючерс – гэрээ, токен биш</string>
+    <string name="settings_rolling_futures">Улирлын &amp; бусад хугацаат фьючерстэй</string>
+    <string name="settings_rolling_futures_hint">Унтраалттай: биржийн жагсаалтад байхгүй хугацаат фьючерсийг нэг бүрчлэн шалгахын оронд арилжаалагдахаа больсон гэж тэмдэглэнэ. Шинэчлэл бүрт цаг хэмнэнэ.</string>
+    <string name="settings_rolling_futures_qtly">Улирлын &amp; бусад хугацаат фьючерстэй (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">Токенд хамаарна. «Зөвхөн TradFi» сонгосон үед боломжгүй; ажиглах жагсаалтад байгаа хугацаат фьючерст хэрэгжсээр байна.</string>
+    <string name="settings_tradfi_futures">Хувьцаа, түүхий эд ба валют (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Хос сонгоход хувьцаа, алт болон бусад түүхий эд, валют, IPO-оос өмнөх компанийн фьючерсийг ч харуулна. Эдгээр нь гэрээ, токен биш.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">Онцлох өнгө</string>
+    <string name="settings_accent_hint">Апп, виджет болон аппын дүрсний өнгө. Зарим үндсэн дэлгэц дүрс өөрчлөгдөхөд түүнийг хасдаг – тэгвэл дахин нэмнэ үү.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Зоосны лого</string>
+    <string name="settings_coin_logos_app">Апп дотор</string>
+    <string name="settings_coin_logos_app_hint">Ажиглах жагсаалт, нээсэн хос ба зах зээлийн карт</string>
+    <string name="settings_coin_logos_footer">Логог CoinGecko-оос, CoinGecko-д байхгүй зоосны хувьд (жишээ нь алт, мөнгө, хувьцаа) Binance-ээс авна. Апп бүх логог нэг дор ачаалж энэ төхөөрөмж дээр хадгалдаг тул аль ч үйлчилгээ үзүүлэгч таныг аль зоосыг дагадгийг мэдэхгүй. Логогүй зоос эхний үсгээ харуулна. Дуртай зоосны лого дээр жижиг од гарна. Унтраалга унтраалттай газар лого ч, эхний үсэг ч гарахгүй; бүх унтраалга унтраалттай бол юу ч ачаалахгүй.</string>
+    <string name="settings_coin_logos_portfolio">Багцад</string>
+    <string name="settings_coin_logos_portfolio_hint">Позиц, зоосны дэлгэрэнгүй ба шинжилгээ</string>
+    <string name="settings_coin_logos_value_app">Апп</string>
+    <string name="settings_coin_logos_widgets">Виджетэд</string>
+    <string name="settings_coin_logos_widgets_hint">Ажиглах жагсаалт ба нэг зоосны виджет</string>
+    <string name="settings_high_contrast">Өндөр тодрол</string>
+    <string name="settings_high_contrast_hint">Ханшийн хүчтэй өнгө ба бараан туслах текст. Систем илүү тодрол хүсэх үед ч асна.</string>
+    <string name="settings_language_choose">Хэл сонгох</string>
+    <string name="settings_language_system">Системийн хэл</string>
+    <string name="settings_price_colors">Ханшийн өнгө</string>
+    <string name="settings_price_colors_hint">Цэнхэр / улбарыг өнгө ялгах ямар ч сулралтай (улаан-ногоон, цэнхэр-шар) үед амархан ялгана. Чиглэлийг үргэлж + / −-ээр ч харуулна.</string>
+    <string name="settings_theme_mode">Цайвар / Бараан</string>
+    <string name="settings_widgets">Виджет</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">%1$s өөрчлөлт &amp; графикийн цагийн бүс</string>
+    <string name="settings_change_basis_hint_1">Сонгосон цагийн бүс нь хувийн өөрчлөлтийг хэзээнээс тоолохыг (ажиглах жагсаалт, импульсийн мөр, нээсэн хос, виджет) болон график дахь цагийг тодорхойлно.</string>
+    <string name="settings_change_basis_hint_2">«%1$s» нь яг 24 цагийн өмнөх ханштай харьцуулна. «00:00» нь тэр цагийн бүсийн шөнө дундын нээлтийн ханштай харьцуулна.</string>
+    <string name="settings_change_basis_hint_3">Дохионд нөлөөлөхгүй.</string>
+    <string name="settings_change_basis_hint_since_last">«%1$s» нь өмнөх шинэчлэлийн ханштай харьцуулна. Шууд ханштай үед 0%%-д ойр байна.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">Хөрвүүлэх валют</string>
+    <string name="settings_conversion_currency_hint">Мөн багц, таны валют дахь дохио, крипто зах зээлийн карт болон багцын виджетэд ашиглана.</string>
+    <string name="settings_cost_method">Өртгийн арга</string>
+    <string name="settings_cost_method_average">Дундаж өртөг</string>
+    <string name="settings_cost_method_average_hint">Борлуулалтыг худалдан авалтын хөдөлгөөнт дундаж ханшаар үнэлнэ.</string>
+    <string name="settings_cost_method_fifo">FIFO (үндсэн)</string>
+    <string name="settings_cost_method_fifo_hint">Бүх бирж, түрийвчийн хэмжээнд хамгийн хуучин зоосыг эхэлж зарна.</string>
+    <string name="settings_cost_method_fifo_wallet">Түрийвч/биржээр FIFO</string>
+    <string name="settings_cost_method_fifo_wallet_hint">Бирж эсвэл түрийвч бүрийн дотор хамгийн хуучин зоос эхэлж; шилжүүлэг лотыг худалдан авсан огноотой нь шилжүүлнэ.</string>
+    <string name="settings_portfolio_lock">Багцын түгжээ</string>
+    <string name="settings_portfolio_lock_footer">Түгжээ дэлгэц дээр харагдаж буйг нууна. Таны өгөгдөл энэ төхөөрөмж дээр хадгалагдаж, төхөөрөмжийн шифрлэлтээр хамгаалагдана. Нөөц хуулбарыг нууц үгээр хамгаалж болно.</string>
+    <string name="settings_portfolio_lock_hint">Зөвхөн багцыг нууна: хурууны хээ, царай эсвэл төхөөрөмжийн PIN-ээр тайлна. Арын горимд нэг минутаас удвал дахин түгжинэ. Ажиглах жагсаалт, дохио болон бусад виджет нээлттэй хэвээр.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Төхөөрөмжийн PIN эсвэл нууц кодгүйгээр түгжээ юу ч нуухгүй – дэлгэцийн түгжээ тохируулна уу.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Багц системийн нөөцөд</string>
+    <string name="settings_portfolio_system_backup_hint">Унтраалттай: таны гүйлгээ төхөөрөмжийн системийн нөөц болон утаснаас утсанд шилжүүлэхэд орохгүй. Шинэ утсанд шилжүүлэхийн тулд аппын нууц үгтэй өөрийн нөөц хуулбарыг ашиглана уу.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Android 9 эсвэл түүнээс шинэ шаардлагатай – хуучин хувилбарууд багцыг Google-ийн нөөцөд шифрлэлтгүй хадгална.</string>
+    <string name="settings_portfolio_tab">«Багц» табыг харуулах</string>
+    <string name="settings_portfolio_value_locked">Асаалттай, түгжээтэй</string>
+    <string name="settings_show_converted">Хөрвүүлсэн ханш</string>
+    <string name="settings_show_converted_hint">Ажиглах жагсаалтын ханшийг %1$s-ээр ч харуулна</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">USDT-ийн депегийг мэдэгдэх</string>
+    <string name="settings_depeg_alarm_hint">USDT 1 USD-ээс босгын хэмжээгээр хазайхад нэг удаа мэдэгдэнэ (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_threshold">Депегийн босго</string>
+    <string name="settings_fng_above">Fear &amp; Greed: дээш бол мэдэгдэх</string>
+    <string name="settings_fng_below">Fear &amp; Greed: доош бол мэдэгдэх</string>
+    <string name="settings_gas_alert_hint">Ердийн шимтгэл хязгаараас доош ороход нэг удаа мэдэгдэнэ. Ханшийн шинэчлэлийн үеэр, хамгийн олондоо 10 минут тутам шалгана.</string>
+    <string name="settings_gas_btc_below">Bitcoin шимтгэл доош (sat/vB)</string>
+    <string name="settings_gas_eth_below">Ethereum газ доош (gwei)</string>
+    <string name="settings_ind_ath_within">Түүхэн дээд түвшнээс уналт дээд тал нь</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple дээш</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple доош</string>
+    <string name="settings_ind_mvrv_above">MVRV дээш</string>
+    <string name="settings_ind_mvrv_below">MVRV доош</string>
+    <string name="settings_indicator_alerts_hint">Bitcoin-ий үзүүлэлтүүд, өдөрт хоёр удаа шалгана. Хязгаарыг та сонгоно – апп утгыг үнэлдэггүй.</string>
+    <string name="settings_macro_notifications">Эдийн засгийн хуанли</string>
+    <string name="settings_macro_notifications_hint">АНУ-ын эдийн засгийн чухал мэдээлэлтэй (инфляц, ажлын байрны тайлан, ХНС-ийн шийдвэр) өдрүүдэд 08:00 цагт. Хуанлийг аппын вэбсайтаас өдөрт нэг удаа ачаална.</string>
+    <string name="settings_market_alerts">Зах зээлийн дохио</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d идэвхтэй</item>
+        <item quantity="other">%1$d идэвхтэй</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">Ярианы хурд: %1$.1f×</string>
+    <string name="settings_tts">Чангаар унших</string>
+    <string name="settings_tts_alarms_only">Зөвхөн дохио</string>
+    <string name="settings_tts_alarms_only_hint">Унтраалттай: «Ханшийг чангаар унших» тэмдэглэсэн хосын шинэчлэл бүрийг уншина.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">Ханш болон дохиог чангаар уншина. Төхөөрөмж дуугүй эсвэл чичиргээний горимд байвал чимээгүй байна.</string>
+    <string name="settings_tts_test">Хоолойг турших</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">Аппыг анхны байдалд оруулах</string>
+    <string name="settings_reset_app_action">Бүгдийг устгах</string>
+    <string name="settings_reset_app_confirm">Ажиглах жагсаалт, дохио, багц, тохиргоо болон хадгалсан бүх өгөгдлийг суулгасны дараах шиг устгана. Үүнийг буцаах боломжгүй. Зөвлөгөө: эхлээд нөөц хуулбар хийгээрэй. Төхөөрөмжийн нөөц (Google нөөц эсвэл iCloud/компьютерийн нөөц) дараагийн нөөцлөлт хүртэл өмнөх өгөгдлийг хадгална.</string>
+    <string name="settings_reset_app_title">Аппыг анхны байдалд оруулах уу?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">Валют хайх</string>
+    <string name="language_search">Хэл хайх</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">Бараан</string>
+    <string name="theme_light">Цайвар</string>
+    <string name="theme_system">Систем</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">Цэнхэр</string>
+    <string name="accent_green">Ногоон</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">Улбар шар</string>
+    <string name="accent_red">Улаан</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">Хятад, Япон, Солонгос, Тайваньд түгээмэл</string>
+    <string name="price_colors_swap">Өнгийг солих (өсөлт ↔ уналт)</string>
+    <string name="price_style_calm">Тайван</string>
+    <string name="price_style_calm_color_vision">Тайван · Өнгө ялгах сулрал</string>
+    <string name="price_style_color_vision">Өнгө ялгах сулрал</string>
+    <string name="price_style_fresh">Тод</string>
+    <string name="price_style_traditional">Уламжлалт</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">Биржийн холболтыг бодит хариутай сүүлд шалгасан: %1$s</string>
+    <string name="about_license">Ханш шууд биржүүдээс ирнэ; бүртгэлгүй, хяналтгүй.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">Лиценз</string>
+    <string name="about_privacy_policy">Нууцлалын бодлого</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">Бирж хүсэх</string>
+    <string name="about_source_code">GitHub дээрх эх код</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker бол r1AD-ийн бие даасан төсөл: бүртгэл, зар сурталчилгаа, хяналтгүй тайван ханшийн тойм. Асуулт ба хүсэлт: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker нь нээлттэй эхийн (MIT License).</string>
+    <string name="licenses_font_title">Rubik фонт</string>
+    <string name="licenses_icons_bundled_text">Апптай хамт ирдэг: Christopher Downer болон хувь нэмэр оруулагчдын «Cryptocurrency Icons» дүрс (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal лицензээр гаргасан. CoinGecko эсвэл Binance-ийн лого ачаалагдах хүртэл харагдана. Нэр болон лого нь өөрсдийн төслийн барааны тэмдэг хэвээр байна.</string>
+    <string name="licenses_icons_title">Нөөц зоосны дүрс</string>
+    <string name="licenses_libraries_intro">Апп Apache License 2.0-ийн дагуу дараах сангуудыг ашигладаг:</string>
+    <string name="licenses_libraries_title">Android сангууд</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">Хөгжүүлэгчийн сонголтыг нээхэд дахиад %d товшилт</item>
+        <item quantity="other">Хөгжүүлэгчийн сонголтыг нээхэд дахиад %d товшилт</item>
+    </plurals>
+    <string name="developer_unlocked">Хөгжүүлэгчийн сонголт нээгдлээ</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Чичиргээ iPhone-ий тохиргоог дагана (Дуу &amp; Мэдрэх хариу).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Шинэ дохио болон зах зээлийн дохиог тоолно; аппыг нээхэд 0 болно.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Таны өгөгдөл</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">Энэ төхөөрөмж дээр</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Таны ажиглах жагсаалт, дохио болон багц энэ төхөөрөмж дээр шифрлэгдэж хадгалагдана; бүртгэл алга, өөрийн сервер алга.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Холболт</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Ханш таны хосуудын биржээс шууд, мөн валютын ханш, зоосны жагсаалт, лого болон GitHub дээрх өгөгдлийн толиноос ирнэ; тэд таны IP хаягийг харна, хөрөнгийг тань хэзээ ч биш (ажиглаж буй хаягийг тухайн сүлжээний үйлчилгээ үзүүлэгч рүү илгээнэ).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Нөөц хуулбар</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Зөвхөн та үүсгэвэл. Нууц үгтэй бол шифрлэгдэнэ (Argon2id + AES-256-GCM); нууц үггүй бол уншигдана.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Төхөөрөмж солих</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">Түлхүүр хуучин төхөөрөмж дээр үлдэнэ – эхлээд нөөц хуулбар файл үүсгэнэ үү.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Оношилгоог хуваалцах</string>
+    <string name="diagnostics_share_hint">Тусламжид зориулсан текст файл: хувилбар, төхөөрөмж, дохионы тохиргоо, сүүлийн шалгалт ба дохионы бүртгэл – багц, дүн, хаяг, тэмдэглэлгүй. Та эхлээд үүнийг харна; юу ч автоматаар илгээгдэхгүй.</string>
+    <string name="diagnostics_preview_title">Оношилгооны урьдчилан харах</string>
+    <string name="diagnostics_action_share">Хуваалцах</string>
+    <string name="settings_price_overlay">Ханшийн давхарга</string>
+    <string name="settings_price_overlay_hint">Байнгын ханшийн мэдэгдлийн хосуудыг бусад аппын дээр жижиг хөвөгч тэмдэг болгон харуулна. Аппыг нээхийн тулд товшиж, хаахын тулд доод × руу чирнэ үү.</string>
+    <string name="settings_price_overlay_needs">Зөвхөн «%1$s»-тэй хамт ажиллана.</string>
+    <string name="settings_price_overlay_grant">Бусад аппын дээр харуулахыг зөвшөөрөх</string>
+    <string name="price_overlay_close">Давхаргыг хаах</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">Хаягийн өөрийн сервер</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Зөвхөн Bitcoin: таны өөрийн Esplora эсвэл mempool-тэй нийцтэй сервер (жишээ нь https://node.example/api, Let\'s Encrypt зэрэг нийтэд итгэмжлэгдсэн сертификат шаардлагатай). Тохируулсан бол Bitcoin хаяг болон xpub түлхүүрийг зөвхөн тэнд асууна – нийтийн зангилаанд хэзээ ч биш, таны сервер холбогдохгүй байсан ч. Бусад сүлжээ нийтийн зангилааг ашигласаар байна. Хоосон = нийтийн зангилаа.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Bitcoin сервер (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">Турших</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">Туршиж байна…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">Сервер хариулж байна – блок %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">Зөв хариу алга – хаяг болон сертификатыг шалгана уу</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">Ашиглаж буй: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">Тохируулаагүй – нийтийн зангилааг ашиглана</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">Зөвхөн https:// хаягийг зөвшөөрнө</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">Хаягт хэрэглэгчийн нэр эсвэл нууц үг байж болохгүй</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">Хаягт ? эсвэл # хэсэг байж болохгүй</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">Хүчинтэй серверийн хаяг биш</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">Нийтийн зангилаа руу шилжих үү?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">Тэгвэл таны Bitcoin хаяг болон xpub түлхүүрийг нийтийн зангилаанд асууна: %1$s. Тэд эдгээр хаягийг таны IP хаягтай хамт харна.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">Нийтийн зангилааг ашиглах</string>
+</resources>

@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">Pasgemaak</string>
+    <string name="settings_group_general">Algemeen</string>
+    <string name="settings_group_more">Meer</string>
+    <string name="settings_minutes">%1$d min</string>
+    <string name="settings_row_about">Oor die app</string>
+    <string name="settings_row_alarms">Alarms</string>
+    <string name="settings_row_currency">Geldeenheid</string>
+    <string name="settings_row_dated_futures">Gedateerde futures</string>
+    <string name="settings_row_updates">Prysbywerkings</string>
+    <string name="settings_row_watchlist">Volglys</string>
+    <string name="settings_search_hint">Soek instellings</string>
+    <string name="settings_seconds">%1$d s</string>
+    <string name="settings_section_about">Oor</string>
+    <string name="settings_section_appearance">Voorkoms</string>
+    <string name="settings_section_developer">Ontwikkelaar</string>
+    <string name="settings_section_language">Taal</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">Aan</string>
+    <string name="settings_title">Instellings</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">Rustyd voordat \'n alarm weer afgaan</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Alarmsein</string>
+    <string name="settings_alarm_signal_open_system">Pas aan in stelselinstellings</string>
+    <string name="settings_alarm_signal_system_hint">Volg jou foon se kennisgewinginstellings.</string>
+    <string name="settings_alarm_sound">Alarmklank</string>
+    <string name="settings_alarm_sound_custom">Pasgemaakte klank</string>
+    <string name="settings_alarm_sound_default">Verstekklank</string>
+    <string name="settings_alarm_sound_error">Die klank kon nie gebruik word nie.</string>
+    <string name="settings_alarm_sound_file">Jou eie klanklêer…</string>
+    <string name="settings_alarm_sound_reset">Gebruik verstekklank</string>
+    <string name="settings_alarm_sound_system">Kies stelselklank…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Getal op app-ikoon</string>
+    <string name="settings_app_badge_hint">Tel oop alarmkennisgewings. Of \'n getal of \'n kolletjie verskyn, hang van die tuisskerm af (bv. Samsung: “Wys met getal”).</string>
+    <string name="settings_exact_checks">Kontroleer betyds</string>
+    <string name="settings_exact_checks_grant">Laat wekkers &amp; herinneringe toe</string>
+    <string name="settings_exact_checks_hint">Android kontroleer ongeveer elke 15 minute, selfs wanneer die toestel ledig is. Gebruik \'n bietjie meer battery.</string>
+    <string name="settings_exact_checks_nothing">Geen aktiewe pare nie – niks om te kontroleer nie.</string>
+    <string name="settings_exact_checks_permission_missing">Toestemming ontbreek – terwyl die toestel rus, kontroleer Android onreëlmatig, soms eers ná ure.</string>
+    <string name="settings_notification_change">Stel net in kennis by prysverandering</string>
+    <string name="settings_notification_change_always">Altyd</string>
+    <string name="settings_percent_invalid">Voer \'n waarde van 0 tot 100 in.</string>
+    <string name="settings_notification_change_hint">\'n Pryskennisgewing verskyn eers wanneer die prys sedert die vorige een met minstens soveel beweeg het. Niks word gewys terwyl data ontbreek nie. Alarms word nie geraak nie.</string>
+    <string name="settings_ongoing_notifications">Kan nie weggeswiep word nie</string>
+    <string name="settings_ongoing_notifications_hint">Hou pryskennisgewings vasgespeld.</string>
+    <string name="settings_price_notifications">Pryskennisgewings</string>
+    <string name="settings_price_notifications_hint">Wys die huidige prys van geaktiveerde pare in die statusbalk.</string>
+    <string name="settings_price_pairs">Pare</string>
+    <string name="settings_price_pairs_all_off">Almal af</string>
+    <string name="settings_price_pairs_all_on">Almal aan</string>
+    <string name="settings_price_pairs_count">%1$d van %2$d</string>
+    <string name="settings_price_pairs_empty">Nog geen pare in die volglys nie.</string>
+    <string name="settings_price_pairs_hint">Kies watter pare hul prys in die kennisgewingbalk wys.</string>
+    <string name="settings_quiet_hours">Stil ure</string>
+    <string name="settings_quiet_hours_from">Van</string>
+    <string name="settings_quiet_hours_hint">Tussen %1$s en %2$s wag alarms totdat stil ure eindig en gaan dan met klank af. Ander kennisgewings kom stil aan, sonder spraak.</string>
+    <string name="settings_quiet_hours_to">Tot</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">Interval</string>
+    <string name="settings_background_updates">Agtergrondbywerkings</string>
+    <string name="settings_battery_hint">Beperk beteken Android kan agtergrondbywerkings ure lank vertraag.</string>
+    <string name="settings_battery_ok">Batterygebruik: onbeperk</string>
+    <string name="settings_battery_restricted">Batterygebruik: beperk</string>
+    <string name="settings_check_runs_empty">Nog geen kontroles aangeteken nie.</string>
+    <string name="settings_check_runs_honest_android">Android besluit wanneer om te kontroleer – hier sien jy wanneer dit regtig gebeur het.</string>
+    <string name="settings_check_runs_honest_ios">iOS besluit wanneer om te kontroleer – hier sien jy wanneer dit regtig gebeur het.</string>
+    <string name="settings_check_runs_title">Onlangse kontroles</string>
+    <string name="settings_http_log">Wys HTTP-log</string>
+    <string name="settings_http_log_hint">Wys die versoeke aan die beurse onderaan die “Voeg paar by”-bladsy – vir probleemoplossing.</string>
+    <string name="settings_live_service">Werk gereeld by</string>
+    <string name="settings_live_websocket">Regstreekse pryse</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">Opvallend: stel in kennis</string>
+    <string name="settings_activity_alerts_hint">Hoogstens een keer per uur per paar: ongewone prysbewegings, volumepieke en futures-uiterstes (data van Binance).</string>
+    <string name="settings_activity_sensitivity">Sensitiwiteit</string>
+    <string name="settings_activity_sensitivity_hint">Hoe maklik \'n munt as ongewoon tel – dieselfde vir die volglyskaart en markalarms. Met “Minder” wys die kaart net die 3 sterkstes.</string>
+    <string name="settings_watchlist_activity_card">Opvallend: wys in die lys</string>
+    <string name="settings_watchlist_activity_card_hint">Wys die ⚡-skyfie langs die groepe: tik daarop om net die pare te sien waar nou iets gebeur. Kennisgewings daarvoor word onder Markalarms gestel.</string>
+    <string name="settings_watchlist_names">Wys name</string>
+    <string name="settings_watchlist_names_hint">Naam onder die paar, bv. Bitcoin of NVIDIA. Kom saam met die logolyste, een keer vir alle munte gelaai.</string>
+    <string name="settings_watchlist_sparkline">Minigrafiek in volglys</string>
+    <string name="settings_watchlist_sparkline_hint">24-uur-tendens langs die prys</string>
+    <string name="settings_watchlist_value_names">Name</string>
+    <string name="settings_watchlist_value_price_only">Slegs prys</string>
+    <string name="settings_watchlist_value_sparkline">Minigrafiek</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Insl. Alpha-tokens (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Alpha-tokens: vroeë, meestal klein projekte uit die Binance Alpha-lys – dikwels dun verhandel en hoogs wisselvallig.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">Behoort aan Tokens. Nie beskikbaar terwyl “Slegs TradFi” gekies is nie; Alpha-tokens wat reeds in jou volglys is, bly.</string>
+    <string name="settings_asset_scope_both">Tokens en TradFi</string>
+    <string name="settings_asset_scope_both_hint">Alles – kripto en TradFi</string>
+    <string name="settings_asset_scope_hint">Bepaal watter pare die keuse en soektog wys wanneer jy pare byvoeg. Pare wat reeds in jou volglys is, bly altyd.</string>
+    <string name="settings_asset_scope_title">Tokens &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">Slegs tokens</string>
+    <string name="settings_asset_scope_tokens_hint">Kripto: spot en perpetuals</string>
+    <string name="settings_asset_scope_tradfi">Slegs TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">Futures op aandele, kommoditeite, FX – kontrakte, nie tokens nie</string>
+    <string name="settings_rolling_futures">Insl. kwartaallikse &amp; ander gedateerde futures</string>
+    <string name="settings_rolling_futures_hint">Af: gedateerde futures wat uit die beurslys ontbreek, word as nie meer verhandel nie gemerk in plaas daarvan om een vir een gekontroleer te word. Spaar tyd met elke herlaai.</string>
+    <string name="settings_rolling_futures_qtly">Insl. kwartaallikse &amp; ander gedateerde futures (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">Behoort aan Tokens. Nie beskikbaar terwyl “Slegs TradFi” gekies is nie; geld steeds vir gedateerde futures wat reeds in jou volglys is.</string>
+    <string name="settings_tradfi_futures">Aandele, kommoditeite en FX (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Wys ook futures op aandele, goud en ander kommoditeite, valutas en pre-IPO-maatskappye wanneer jy \'n paar kies. Dit is kontrakte, nie tokens nie.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">Aksentkleur</string>
+    <string name="settings_accent_hint">Kleur vir die app, legstukke en app-ikoon. Sommige tuisskerms verwyder die ikoon wanneer dit verander – voeg dit dan weer by.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Muntlogo\'s</string>
+    <string name="settings_coin_logos_app">In die app</string>
+    <string name="settings_coin_logos_app_hint">Volglys, oopgemaakte paar en markkaarte</string>
+    <string name="settings_coin_logos_footer">Logo\'s kom van CoinGecko, en van Binance vir munte wat CoinGecko nie lys nie (bv. goud, silwer, aandele). Die app laai alle logo\'s op een slag en hou hulle op hierdie toestel, so geen verskaffer kan agterkom watter munte jy volg nie. Munte sonder \'n logo wys hul voorletters. Gunstelinge kry \'n sterretjie op die logo. Waar \'n skakelaar af is, verskyn nóg logo\'s nóg voorletters; met alle skakelaars af word niks gelaai nie.</string>
+    <string name="settings_coin_logos_portfolio">In die portefeulje</string>
+    <string name="settings_coin_logos_portfolio_hint">Posisies, muntbesonderhede en insigte</string>
+    <string name="settings_coin_logos_value_app">App</string>
+    <string name="settings_coin_logos_widgets">In legstukke</string>
+    <string name="settings_coin_logos_widgets_hint">Volglys- en enkelmunt-legstukke</string>
+    <string name="settings_high_contrast">Hoë kontras</string>
+    <string name="settings_high_contrast_hint">Sterker pryskleure en donkerder sekondêre teks. Ook aan wanneer die stelsel meer kontras vra.</string>
+    <string name="settings_language_choose">Kies taal</string>
+    <string name="settings_language_system">Stelseltaal</string>
+    <string name="settings_price_colors">Pryskleure</string>
+    <string name="settings_price_colors_hint">Blou / oranje is maklik om uitmekaar te ken met elke kleursiendefek (rooi-groen en blou-geel). Die rigting word ook altyd met + / − gewys.</string>
+    <string name="settings_theme_mode">Lig / Donker</string>
+    <string name="settings_widgets">Legstukke</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">%1$s-verandering &amp; grafiektydsone</string>
+    <string name="settings_change_basis_hint_1">Die gekose tydsone bepaal vanaf wanneer die persentasieverandering tel (volglys, polslyn, oopgemaakte paar, legstukke) en die tye wat in die grafieke gewys word.</string>
+    <string name="settings_change_basis_hint_2">“%1$s” vergelyk met die prys presies 24 uur gelede. “00:00” vergelyk met die openingsprys om middernag in daardie tydsone.</string>
+    <string name="settings_change_basis_hint_3">Alarms word nie geraak nie.</string>
+    <string name="settings_change_basis_hint_since_last">“%1$s” vergelyk met die prys van die vorige bywerking. Met regstreekse pryse bly dit naby 0%%.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">Omskakelingsgeldeenheid</string>
+    <string name="settings_conversion_currency_hint">Word ook gebruik vir die portefeulje, alarms in jou geldeenheid, die kriptomarkkaart en die portefeulje-legstuk.</string>
+    <string name="settings_cost_method">Kostemetode</string>
+    <string name="settings_cost_method_average">Gemiddelde koste</string>
+    <string name="settings_cost_method_average_hint">Verkope word teen die bewegende gemiddelde aankoopprys gewaardeer.</string>
+    <string name="settings_cost_method_fifo">FIFO (verstek)</string>
+    <string name="settings_cost_method_fifo_hint">Oudste munte word eerste verkoop, oor alle beurse en beursies heen.</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO per beursie/beurs</string>
+    <string name="settings_cost_method_fifo_wallet_hint">Oudste munte eerste binne elke beurs of beursie; oordragte skuif lotte met hul aankoopdatum.</string>
+    <string name="settings_portfolio_lock">Portefeuljeslot</string>
+    <string name="settings_portfolio_lock_footer">Die slot versteek wat op die skerm gewys word. Jou data word op hierdie toestel gestoor en deur die toestelenkripsie beskerm. Jy kan rugsteune met \'n wagwoord beskerm.</string>
+    <string name="settings_portfolio_lock_hint">Versteek net die portefeulje: ontsluit met vingerafdruk, gesig of toestel-PIN. Sluit weer ná meer as \'n minuut in die agtergrond. Volglys, alarms en ander legstukke bly oop.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Sonder \'n toestel-PIN of wagkode versteek die slot niks – stel \'n skermslot op.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Portefeulje in stelselrugsteun</string>
+    <string name="settings_portfolio_system_backup_hint">Af: jou transaksies bly uit die toestel se stelselrugsteun en foon-na-foon-oordragte. Gebruik die app se eie rugsteun met \'n wagwoord om hulle na \'n nuwe foon te skuif.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Vereis Android 9 of later – ouer weergawes sou die portefeulje ongeënkripteer in die Google-rugsteun stoor.</string>
+    <string name="settings_portfolio_tab">Wys Portefeulje-oortjie</string>
+    <string name="settings_portfolio_value_locked">Aan, met slot</string>
+    <string name="settings_show_converted">Omgerekende pryse</string>
+    <string name="settings_show_converted_hint">Wys pryse in die volglys ook in %1$s</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">Meld USDT-depeg</string>
+    <string name="settings_depeg_alarm_hint">Stel een keer in kennis wanneer USDT met die drempel van 1 USD afwyk (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_threshold">Depeg-drempel</string>
+    <string name="settings_fng_above">Fear &amp; Greed: stel in kennis bo</string>
+    <string name="settings_fng_below">Fear &amp; Greed: stel in kennis onder</string>
+    <string name="settings_gas_alert_hint">Stel een keer in kennis wanneer die normale fooi onder die limiet daal. Tydens prysbywerkings gekontroleer, hoogstens elke 10 minute.</string>
+    <string name="settings_gas_btc_below">Bitcoin-fooi onder (sat/vB)</string>
+    <string name="settings_gas_eth_below">Ethereum-gas onder (gwei)</string>
+    <string name="settings_ind_ath_within">Daling vanaf rekordhoogte hoogstens</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple bo</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple onder</string>
+    <string name="settings_ind_mvrv_above">MVRV bo</string>
+    <string name="settings_ind_mvrv_below">MVRV onder</string>
+    <string name="settings_indicator_alerts_hint">Bitcoin-aanwysers, twee keer per dag gekontroleer. Jy kies die limiete – die app beoordeel nie die waardes nie.</string>
+    <string name="settings_macro_notifications">Ekonomiese kalender</string>
+    <string name="settings_macro_notifications_hint">Om 08:00 op dae met belangrike Amerikaanse ekonomiese data (inflasie, werksverslag, Fed-besluit). Die kalender kom van die app se webwerf, een keer per dag gelaai.</string>
+    <string name="settings_market_alerts">Markalarms</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d aktief</item>
+        <item quantity="other">%1$d aktief</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">Spraaktempo: %1$.1f×</string>
+    <string name="settings_tts">Gesproke uitvoer</string>
+    <string name="settings_tts_alarms_only">Slegs alarms</string>
+    <string name="settings_tts_alarms_only_hint">Af: elke bywerking van \'n paar wat as “Lees prys voor” gemerk is, word hardop gelees.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">Lees pryse en alarms hardop. Bly stil terwyl die toestel op stil- of vibreermodus is.</string>
+    <string name="settings_tts_test">Toets stem</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">Stel app terug</string>
+    <string name="settings_reset_app_action">Vee alles uit</string>
+    <string name="settings_reset_app_confirm">Vee volglys, alarms, portefeulje, instellings en alle gestoorde data uit, soos ná installering. Dit kan nie ontdoen word nie. Wenk: maak eers \'n rugsteun. Toestelrugsteune (Google-rugsteun of iCloud-/rekenaarrugsteun) hou die vorige data totdat die volgende rugsteun loop.</string>
+    <string name="settings_reset_app_title">Stel app terug?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">Soek geldeenheid</string>
+    <string name="language_search">Soek taal</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">Donker</string>
+    <string name="theme_light">Lig</string>
+    <string name="theme_system">Stelsel</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">Blou</string>
+    <string name="accent_green">Groen</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">Oranje</string>
+    <string name="accent_red">Rooi</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">Algemeen in China, Japan, Korea en Taiwan</string>
+    <string name="price_colors_swap">Ruil kleure om (styging ↔ daling)</string>
+    <string name="price_style_calm">Kalm</string>
+    <string name="price_style_calm_color_vision">Kalm · Kleursiendefek</string>
+    <string name="price_style_color_vision">Kleursiendefek</string>
+    <string name="price_style_fresh">Vars</string>
+    <string name="price_style_traditional">Tradisioneel</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">Beursverbindings laas teen regte antwoorde gekontroleer: %1$s</string>
+    <string name="about_license">Pryse kom direk van die beurse; geen rekening en geen nasporing nie.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">Lisensies</string>
+    <string name="about_privacy_policy">Privaatheidsbeleid</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">Versoek \'n beurs</string>
+    <string name="about_source_code">Bronkode op GitHub</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker is \'n onafhanklike projek deur r1AD: \'n kalm prysoorsig sonder rekening, advertensies of nasporing. Vrae en wense: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker is oopbron (MIT License).</string>
+    <string name="licenses_font_title">Rubik-lettertipe</string>
+    <string name="licenses_icons_bundled_text">Saam met die app ingesluit: ikone uit “Cryptocurrency Icons” deur Christopher Downer en bydraers (github.com/spothq/cryptocurrency-icons), vrygestel onder CC0 1.0 Universal. Hulle word gewys totdat CoinGecko- of Binance-logo\'s gelaai is. Name en logo\'s bly handelsmerke van hul projekte.</string>
+    <string name="licenses_icons_title">Rugsteun-muntikone</string>
+    <string name="licenses_libraries_intro">Die app gebruik hierdie biblioteke onder die Apache License 2.0:</string>
+    <string name="licenses_libraries_title">Android-biblioteke</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">Nog %d tik om ontwikkelaaropsies te ontsluit</item>
+        <item quantity="other">Nog %d tikke om ontwikkelaaropsies te ontsluit</item>
+    </plurals>
+    <string name="developer_unlocked">Ontwikkelaaropsies ontsluit</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Vibrasie volg die iPhone-instellings (Sounds &amp; Haptics).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Tel nuwe alarms en markalarms; terug na 0 wanneer jy die app oopmaak.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Jou data</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">Op hierdie toestel</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Jou volglys, alarms en portefeulje word geënkripteer op hierdie toestel gestoor; geen rekening nie, geen eie bediener nie.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Verbindings</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Pryse kom direk van die beurse van jou pare, plus wisselkoerse, muntlyste en logo\'s en die dataspieël op GitHub; hulle sien jou IP-adres, nooit jou besit nie (gevolgde adresse gaan na die verskaffer van die betrokke netwerk).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Rugsteun</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Slegs as jy een skep. Met \'n wagwoord is dit geënkripteer (Argon2id + AES-256-GCM); daarsonder is dit leesbaar.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Toestel wissel</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">Die sleutel bly op die ou toestel – skep eers \'n rugsteunlêer.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Deel diagnostiek</string>
+    <string name="diagnostics_share_hint">Tekslêer vir ondersteuning: weergawe, toestel, alarminstellings, onlangse kontroles en alarmlog – sonder portefeulje, bedrae, adresse of notas. Jy sien dit eers; niks word outomaties gestuur nie.</string>
+    <string name="diagnostics_preview_title">Diagnostiekvoorskou</string>
+    <string name="diagnostics_action_share">Deel</string>
+    <string name="settings_price_overlay">Prysoorleg</string>
+    <string name="settings_price_overlay_hint">Wys die pare van die permanente pryskennisgewing as \'n klein swewende pil oor ander apps. Tik om die app oop te maak, sleep na × onderaan om toe te maak.</string>
+    <string name="settings_price_overlay_needs">Werk slegs saam met “%1$s”.</string>
+    <string name="settings_price_overlay_grant">Laat vertoon oor ander apps toe</string>
+    <string name="price_overlay_close">Maak oorleg toe</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">Eie bediener vir adresse</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Slegs Bitcoin: jou eie Esplora- of mempool-versoenbare bediener (bv. https://node.example/api, \'n openbaar vertroude sertifikaat is nodig, soos Let\'s Encrypt). Indien gestel, word Bitcoin-adresse en xpub-sleutels slegs daar opgevra – nooit by openbare nodusse nie, selfs nie wanneer jou bediener onbereikbaar is nie. Ander netwerke gebruik steeds openbare nodusse. Leeg = openbare nodusse.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Bitcoin-bediener (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">Toets</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">Toets tans…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">Bediener reageer – blok %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">Geen geldige antwoord nie – kontroleer die adres en die sertifikaat</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">In gebruik: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">Nie gestel nie – openbare nodusse word gebruik</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">Slegs https://-adresse word toegelaat</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">Geen gebruikersnaam of wagwoord in die adres nie</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">Geen ?- of #-deel in die adres nie</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">Nie \'n geldige bedieneradres nie</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">Skakel oor na openbare nodusse?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">Jou Bitcoin-adresse en xpub-sleutels sal dan by openbare nodusse opgevra word: %1$s. Hulle sien hierdie adresse saam met jou IP-adres.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">Gebruik openbare nodusse</string>
+</resources>

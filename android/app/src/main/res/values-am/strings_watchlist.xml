@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">ወቅታዊ · %1$s</string>
+    <string name="watchlist_empty_title">እስካሁን ምንም ጥንድ የለም</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">ከ%2$d %1$d ያለ ዋጋ</item>
+        <item quantity="other">ከ%2$d %1$d ያለ ዋጋ</item>
+    </plurals>
+    <string name="watchlist_last_run">የመጨረሻ ሂደት %1$s</string>
+    <string name="watchlist_live_a11y">ቀጥታ ዋጋዎች በርተዋል</string>
+    <string name="watchlist_offline_since">ግንኙነት የለም · እስከ %1$s</string>
+    <string name="watchlist_pull_to_refresh">ለማደስ ወደ ታች ይጎትቱ</string>
+    <string name="watchlist_refresh_report">የመጨረሻ ማደስ</string>
+    <string name="watchlist_refresh_report_empty">እስካሁን ዝርዝር የለም – እስካሁን ሙሉ ማደስ አልተደረገም። ማደስን ይንኩና ክቡ እስኪቆም ይጠብቁ።</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">ከ%2$d %1$d ጊዜው ያለፈበት</item>
+        <item quantity="other">ከ%2$d %1$d ጊዜያቸው ያለፈ</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">እዚህ ያሉ ሁሉም ጥንዶች ተሰናክለዋል</string>
+    <string name="watchlist_status_exchange_prices">ከልውውጦችዎ የመጡ ዋጋዎች · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">የልውውጥ ዋጋዎች · %1$s</string>
+    <string name="watchlist_status_group_empty">በዚህ ቡድን ውስጥ ምንም ጥንድ የለም</string>
+    <string name="watchlist_status_none_traded">እዚህ የሚገበያዩ ጥንዶች የሉም</string>
+    <string name="watchlist_updated">የተዘመነ፦ %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">አማካይ %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d ወርዷል</item>
+        <item quantity="other">%1$d ወርደዋል</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d ያለ 24 ሰ እሴት</item>
+        <item quantity="other">%1$d ያለ 24 ሰ እሴት</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d ያለ የዛሬ እሴት</item>
+        <item quantity="other">%1$d ያለ የዛሬ እሴት</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d ጨምሯል</item>
+        <item quantity="other">%1$d ጨምረዋል</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · ተሰናክሏል</string>
+    <string name="watchlist_row_outdated">%1$s · ጊዜው ያለፈበት</string>
+    <string name="watchlist_row_outdated_age">ጊዜው ያለፈበት · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">ዋጋው ከ%1$s ወዲህ አልተለወጠም</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s ሊደረስበት አልቻለም</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">ወደ መጨረሻ ይዝለሉ</string>
+    <string name="watchlist_jump_start">ወደ ላይ ይዝለሉ</string>
+    <string name="watchlist_search_close">ፍለጋን ይዝጉ</string>
+    <string name="watchlist_search_empty">ለ«%1$s» ምንም ተዛማጅ የለም</string>
+    <string name="watchlist_search_hint">ጥንድ፣ ስም ወይም ልውውጥ ይፈልጉ</string>
+    <string name="watchlist_search_open">ይፈልጉ</string>
+    <string name="watchlist_sort_ascending">ከትንሽ ወደ ትልቅ</string>
+    <string name="watchlist_sort_descending">ከትልቅ ወደ ትንሽ</string>
+    <string name="watchlist_sort_hint">ጥንድ ተጭነው ይያዙና ይጎትቱ፣ ወይም መያዣውን ይጠቀሙ። ተወዳጆች ከላይ ይቆያሉ።</string>
+    <string name="watchlist_sort_name">ስም</string>
+    <string name="watchlist_sort_own">ብጁ ቅደም ተከተል</string>
+    <string name="watchlist_sort_price">ዋጋ</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">የክትትል ዝርዝሩን ያጽዱ</string>
+    <string name="watchlist_clear_confirm">ሁሉም ጥንዶች ከክትትል ዝርዝሩ ይወገዱ? ማንቂያዎቻቸውም አብረው ይወገዳሉ።</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d ተሰናክሏል</item>
+        <item quantity="other">%1$d ተሰናክለዋል</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">ያስወግዱ</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">በልውውጡ ላይ ከእንግዲህ የማይገበያይ %1$d ጥንድ ይወገድ? ማንቂያዎቹም አብረው ይወገዳሉ።</item>
+        <item quantity="other">በልውውጣቸው ላይ ከእንግዲህ የማይገበያዩ %1$d ጥንዶች ይወገዱ? ማንቂያዎቻቸውም አብረው ይወገዳሉ።</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">የማይገበያዩ ጥንዶችን ያስወግዱ (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">የማይገበያዩ ጥንዶችን ያስወግዱ</string>
+    <string name="watchlist_removed">%1$s ተወግዷል</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d ጥንድ ተወግዷል</item>
+        <item quantity="other">%1$d ጥንዶች ተወግደዋል</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">%1$d የማይገበያይ ጥንድ ተወግዷል</item>
+        <item quantity="other">%1$d የማይገበያዩ ጥንዶች ተወግደዋል</item>
+    </plurals>
+    <string name="watchlist_select">ይምረጡ</string>
+    <string name="watchlist_select_all">ሁሉንም ይምረጡ</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d ተመርጧል</item>
+        <item quantity="other">%1$d ተመርጠዋል</item>
+    </plurals>
+    <string name="watchlist_show_all">ሁሉንም ያሳዩ</string>
+    <string name="watchlist_show_only_disabled">የተሰናከሉትን ብቻ ያሳዩ</string>
+    <string name="watchlist_show_only_stale">ጊዜያቸው ያለፈውን ብቻ ያሳዩ</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">ማንቂያ (%1$d)</item>
+        <item quantity="other">ማንቂያዎች (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">እስካሁን ምንም ተወዳጅ የለም። ጥንድን ወደ ቀኝ ያንሸራትቱ፣ ወይም ጥንዱን ከፍተው «ተወዳጅ»ን ይንኩ።</string>
+    <string name="watchlist_group_empty_hint">ጥንዶቹን ለመምረጥ ቡድንን በረጅሙ ይጫኑ።</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">ቡድኖችዎ እዚህ ይታያሉ</string>
+    <string name="watchlist_notification">የዋጋ ማሳወቂያ</string>
+    <string name="watchlist_tts">ዋጋውን በድምፅ ያንብቡ</string>
+    <string name="watchlist_tts_speech_on">የድምፅ ውፅዓት በርቷል። በቅንብሮች › ማንቂያዎች › የድምፅ ውፅዓት ውስጥ መቀየር ይችላሉ።</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">እንደ ዊጀት ያክሉ</string>
+    <string name="watch_action_alarm">ማንቂያ</string>
+    <string name="watch_action_favorite">ተወዳጅ</string>
+    <string name="watch_action_why">አብሮ ምን እየተንቀሳቀሰ ነው?</string>
+    <string name="watch_action_why_short">አብሮ ምን ይንቀሳቀሳል?</string>
+    <string name="watch_change_mark">ምልክት</string>
+    <string name="watch_disable">ያሰናክሉ</string>
+    <string name="watch_disable_hint">ጥያቄዎች የሉም፣ ማሳወቂያዎች የሉም</string>
+    <string name="watch_disabled">ተሰናክሏል</string>
+    <string name="watch_disabled_banner">%1$s ተሰናክሏል</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">ማንቂያዎች ይቆያሉ – ገደቦቻቸውን ይፈትሹ</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">ጥንድ ያርትዑ</string>
+    <string name="watch_enable">ያንቁ</string>
+    <string name="watch_enable_hint">ዋጋዎችና ማሳወቂያዎች ይቀጥላሉ</string>
+    <string name="watch_enabled_banner">%1$s ነቅቷል</string>
+    <string name="watch_error_offline">ግንኙነት የለም</string>
+    <string name="watch_gesture_hint_short">ይንኩ፦ ማንቂያ እና «አብሮ ምን እየተንቀሳቀሰ ነው?» · ለመምረጥ በረጅሙ ይጫኑ · ለመሰረዝ ወደ ግራ ያንሸራትቱ · ለተወዳጅ ወደ ቀኝ ያንሸራትቱ</string>
+    <string name="watch_hint_tap_why">ለማንቂያዎችና ለ«አብሮ ምን እየተንቀሳቀሰ ነው?» ሳንቲም ይንኩ</string>
+    <string name="watch_not_traded">በዚህ ልውውጥ ላይ ከእንግዲህ አይገበያይም</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">በክትትል ዝርዝር ውስጥ የለም</string>
+    <string name="watch_price_mid">የመካከለኛ ዋጋ (አለበለዚያ የማርክ ዋጋ)</string>
+    <string name="watch_row_source_both">ለውጥ &amp; ገበታ፦ %1$s</string>
+    <string name="watch_row_source_change">ለውጥ፦ %1$s</string>
+    <string name="watch_row_source_chart">ገበታ፦ %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s አሁን በክትትል ዝርዝርዎ ውስጥ ነው</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s አሁን በክትትል ዝርዝርዎ ውስጥ ናቸው</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">ወደ ተወዳጆች ያክሉ</string>
+    <string name="favorite_added">%1$s ወደ ተወዳጆች ታክሏል</string>
+    <string name="favorite_remove">ከተወዳጆች ያስወግዱ</string>
+    <string name="favorite_removed">%1$s ከተወዳጆች ተወግዷል</string>
+    <string name="hint_favorites_list">ጠቃሚ ምክር፦ ተወዳጅ ለማድረግ ረድፍን ወደ ቀኝ ያንሸራትቱ – ተወዳጆች ከላይ ይቆያሉ።</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">አዲስ ቡድን</string>
+    <string name="group_all">ሁሉም</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Alpha ቶከኖች</string>
+    <string name="group_delete">ቡድኑን ይሰርዙ</string>
+    <string name="group_delete_confirm">ጥንዶቹ በክትትል ዝርዝርዎ ውስጥ ይቆያሉ።</string>
+    <string name="group_done">ተከናውኗል</string>
+    <string name="group_edit_title">ቡድን ያርትዑ</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">ተወዳጆች</string>
+    <string name="group_in_other">በ%1$s ውስጥ</string>
+    <string name="group_name">የቡድን ስም</string>
+    <string name="group_new">አዲስ ቡድን…</string>
+    <string name="group_next">ቀጣይ</string>
+    <string name="group_none">ቡድን የለም</string>
+    <string name="group_rename">እንደገና ይሰይሙ</string>
+    <string name="group_search_hint">ጥንድ፣ ስም ወይም ልውውጥ ይፈልጉ</string>
+    <string name="group_target">በቡድን ውስጥ</string>
+    <string name="group_title">ቡድን</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">ቶከኖች</string>
+    <string name="group_value">ቡድን፦ %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">ማስታወሻ ያክሉ</string>
+    <string name="note_edit">ማስታወሻ ያርትዑ</string>
+    <string name="note_hint">ለምሳሌ፦ መግቢያ በ0.42፣ ዒላማ 0.60</string>
+    <string name="note_remove">ያስወግዱ</string>
+    <string name="note_title">ማስታወሻ</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">ቅደም ተከተሉን ለመቀየር ይጎትቱ</string>
+    <string name="sort_move_bottom">ወደ ታች መጨረሻ ያንቀሳቅሱ</string>
+    <string name="sort_move_down">ወደ ታች ያንቀሳቅሱ</string>
+    <string name="sort_move_top">ወደ ላይ መጀመሪያ ያንቀሳቅሱ</string>
+    <string name="sort_move_up">ወደ ላይ ያንቀሳቅሱ</string>
+
+    <string name="watchlist_first_alarm_title">የመጀመሪያ ማንቂያዎን ያዘጋጁ</string>
+    <string name="watchlist_first_alarm_text">ዋጋ ምልክትዎ ላይ ሲደርስ ማሳወቂያ ያግኙ – መተግበሪያው ሲዘጋ Android መደበኛ ባልሆነ ሁኔታ ይፈትሻል።</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">የማርክ ዋጋ (የመካከለኛ ዋጋ የለም)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">የሰዓት ዋጋ</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">የመጀመሪያ ማንቂያዎን ያዘጋጁ – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">ያድሱ (%1$d)</string>
+
+    <!-- Zeile der Merkliste: Börse pausiert (zu viele Anfragen / Zeitüberschreitungen) bis zu einer Uhrzeit, ersetzt die Zeitzeile, z. B. «Binance · pausiert bis 19:45» -->
+    <string name="watchlist_row_exchange_paused">%1$s · እስከ %2$s ቆሟል</string>
+
+    <string name="watchlist_refresh_just_done">አሁን ተዘምኗል · ከ%1$d ሰ በፊት</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">የመጨረሻ ግብይት %1$s</string>
+
+    <string name="change_candle_source_hint">ከ%1$s ሻማዎች የተሰላ – ልውውጡ ራሱ ይህንን እሴት አያቀርብም።</string>
+    <string name="change_candle_source_action">የለውጡን ምንጭ ያሳዩ</string>
+
+    <string name="watchlist_sort_by_coin">በሳንቲም ይደርድሩ</string>
+    <string name="watchlist_sort_by_exchange">በልውውጥ ይደርድሩ</string>
+    <string name="watchlist_limit_reached">የክትትል ዝርዝርዎ ቢበዛ %1$s ጥንዶች ሊኖሩት ይችላል።</string>
+    <string name="watch_price_reference">የማጣቀሻ ተመን፣ ዕለታዊ</string>
+    <string name="watch_price_daily">ዕለታዊ</string>
+    <string name="watchlist_compare">ያነጻጽሩ</string>
+    <string name="watchlist_compare_hint">ለማነጻጸር ከ2 እስከ 4 ጥንዶችን ይምረጡ።</string>
+    <string name="compare_title">ንጽጽር</string>
+    <string name="compare_basis">መስመሮቹ ከጊዜው መጀመሪያ ወዲህ ያለውን ለውጥ በመቶኛ ያሳያሉ።</string>
+    <string name="compare_from_high">ከ30 ቀን ከፍተኛው አንጻር</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">%1$d ጥንድ አልተመለሰም – የክትትል ዝርዝሩ ሞልቷል</item>
+        <item quantity="other">%1$d ጥንዶች አልተመለሱም – የክትትል ዝርዝሩ ሞልቷል</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">የክትትል ዝርዝሩና ማንቂያዎቹ አሁን እየተቀመጡ አይደሉም። ይህና ማንኛውም ተጨማሪ ለውጥ መተግበሪያው ሲዘጋ ይጠፋሉ። ቢሆንም ይቀየር?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">ቢሆንም ይቀይሩ</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">%1$d ጥንድ</item>
+        <item quantity="other">%1$d ጥንዶች</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">ከ%1$d ጥንድ %2$d</item>
+        <item quantity="other">ከ%1$d ጥንዶች %2$d</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">%1$d ቦታ ቀርቷል</item>
+        <item quantity="other">%1$d ቦታዎች ቀርተዋል</item>
+    </plurals>
+    <string name="watchlist_footer_full">የክትትል ዝርዝሩ ሞልቷል</string>
+</resources>

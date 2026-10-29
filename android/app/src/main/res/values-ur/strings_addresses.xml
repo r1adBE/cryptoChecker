@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">پتہ شامل کریں</string>
+    <string name="portfolio_address_count">شمار کریں</string>
+    <string name="portfolio_address_error">اپ ڈیٹ ناکام</string>
+    <string name="portfolio_address_hint">عوامی پتہ (BTC، ETH &amp; EVM، SOL، TRX، XRP، LTC، TON، ADA) یا xpub</string>
+    <string name="portfolio_address_label">لیبل (اختیاری)</string>
+    <string name="portfolio_address_not_since_buy">پتے سے · “خریداری کے بعد سے” میں شامل نہیں: %1$s</string>
+    <string name="portfolio_address_overlap">آپ کے اپنے لین دین میں بھی ہے: %1$s – دونوں جمع ہو رہے ہیں۔ وہی کوائنز؟ “صرف دکھائیں” منتخب کریں۔</string>
+    <string name="portfolio_address_overlap_ask">%1$s پہلے سے آپ کے اپنے لین دین میں درج ہے۔ اس پتے کا بیلنس پورٹ فولیو میں شامل کریں، یا صرف دکھائیں؟</string>
+    <string name="portfolio_address_overlap_auto">“%1$s” اب صرف دکھایا جا رہا ہے، شمار نہیں ہو رہا – %2$s آپ کے لین دین میں بھی موجود ہیں۔</string>
+    <string name="portfolio_address_overlap_title">آپ کے لین دین والے ہی کوائنز؟</string>
+    <string name="portfolio_address_overlap_tx">آپ کے اپنے ڈپازٹ/ٹرانسفر (%1$s) جتنی ہی رقم – شاید دو بار شمار ہوئی ہے۔</string>
+    <string name="portfolio_address_period_observed">زیرِ نگرانی پتے اپنے پہلے دیکھے گئے بیلنس سے شمار ہوتے ہیں؛ بعد کی تبدیلیاں آمد/اخراج ہیں، منافع نہیں۔</string>
+    <string name="portfolio_address_privacy">%1$s کو صرف عوامی پتہ بھیجا جاتا ہے – کبھی کیز یا سیڈ فریز نہیں۔ فراہم کنندہ اسے آپ کے IP پتے کے ساتھ دیکھتا ہے۔ زیادہ سے زیادہ ہر 10 منٹ میں ایک بار جانچا جاتا ہے۔</string>
+    <string name="portfolio_address_remove">پتہ ہٹائیں</string>
+    <string name="portfolio_address_show_only">صرف دکھائیں، پورٹ فولیو میں شامل نہ کریں</string>
+    <string name="portfolio_address_show_only_short">صرف دکھائیں</string>
+    <string name="portfolio_address_tokens">ٹوکنز شمار کریں</string>
+    <string name="portfolio_address_xpub_privacy">xpub اس والیٹ کے تمام پتے ظاہر کر دیتا ہے۔ پتے آپ کے آلے پر ہی اخذ کیے جاتے ہیں؛ %1$s کو صرف الگ الگ پتے بھیجے جاتے ہیں – پہلے اسکین پر کم از کم 40 درخواستیں، بعد میں کم۔ پرائیویٹ کیز (xprv) کبھی قبول نہیں کی جاتیں۔</string>
+    <string name="portfolio_address_xpub_gap">تلاش لگاتار %1$d غیر استعمال شدہ پتوں کے بعد رک جاتی ہے (BIP44 معیار جو زیادہ تر والیٹس استعمال کرتے ہیں)۔ اس فاصلے کے بعد کا کوئی استعمال شدہ پتہ شمار نہیں ہوتا – اسے الگ سے شامل کریں۔</string>
+    <string name="portfolio_address_xpub_used">زیرِ استعمال پتے: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">اپ ڈیٹ کے لیے استعمال شدہ پتے بہت زیادہ ہیں</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">بہت زیادہ پتے – پرانے، خالی پتوں پر نئی ادائیگیاں شاید پکڑی نہ جائیں</string>
+    <string name="portfolio_addresses_title">پتے</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Bitcoin Cash پتوں کی نگرانی نہیں ہو سکتی: API کی کے بغیر کوئی ایسی مفت عوامی سروس نہیں جس کی شرائط اس کی اجازت دیں۔</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) 2024 میں بند ہو گئی – بیلنس اب BNB Smart Chain (0x…) پر ہیں</string>
+    <string name="address_checksum">چیک سم غلط – ٹائپنگ کی غلطی دیکھیں</string>
+    <string name="address_doge_unsupported">Dogecoin پتوں کی نگرانی نہیں ہو سکتی: API کی کے بغیر کوئی ایسی مفت عوامی سروس نہیں جس کی شرائط اس کی اجازت دیں۔</string>
+    <string name="address_duplicate">یہ پتہ پہلے سے شامل ہے</string>
+    <string name="address_ens">ENS نام معاون نہیں – 0x پتہ درج کریں</string>
+    <string name="address_invalid">کسی معاون نیٹ ورک کا درست پتہ نہیں</string>
+    <string name="address_limit">زیادہ سے زیادہ 20 پتے</string>
+    <string name="address_secret">یہ پرائیویٹ کی یا سیڈ فریز جیسا لگتا ہے – اسے کبھی کہیں درج نہ کریں۔ صرف عوامی پتے۔</string>
+    <string name="address_testnet">ٹیسٹ نیٹ پتے معاون نہیں</string>
+    <string name="address_unsupported">یہ پتے کی قسم معاون نہیں</string>
+    <string name="address_wrong_chain">پتہ کسی اور نیٹ ورک کا ہے</string>
+    <string name="address_xpub_multisig">ملٹی سگ کیز (Ypub/Zpub) معاون نہیں</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot اکاؤنٹ (BIP86): اس کی سے bc1p… پتے اخذ کیے جاتے ہیں، وصولی اور چینج کے لیے۔</string>
+    <string name="portfolio_address_taproot_hint">Taproot والیٹ؟ اس کے بجائے اپنے والیٹ سے tr(…) ڈسکرپٹر پیسٹ کریں – سادہ xpub صرف Legacy اور SegWit پتوں کے طور پر تلاش ہوتا ہے۔</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">اپنے سرور تک رسائی نہیں</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">جو بھی %1$s چلاتا ہے وہ اس والیٹ کے تمام طلب کیے گئے پتے دیکھ سکتا ہے اور انہیں آپس میں اور آپ کے IP پتے سے جوڑ سکتا ہے۔</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">اس سے بچنے کے لیے ترتیبات › پورٹ فولیو › پتوں کے لیے اپنا سرور میں اپنا سرور درج کریں۔</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d نامعلوم ٹوکن (شمار نہیں)</item>
+        <item quantity="other">+%1$d نامعلوم ٹوکنز (شمار نہیں)</item>
+    </plurals>
+</resources>

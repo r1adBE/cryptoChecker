@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">Bütün nəticələr</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="one">%1$d birja</item>
+        <item quantity="other">%1$d birja</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">Yüklənmiş siyahılarda bu koin üçün cüt yoxdur.</string>
+    <string name="explorer_coin_not_loaded">Cüt siyahıları hələ yüklənməyib</string>
+    <string name="explorer_coin_other_pairs">Digər cütlər</string>
+    <string name="explorer_coin_show_pairs">Cütləri göstər</string>
+    <string name="explorer_coin_suggested">Tövsiyə olunan</string>
+    <string name="explorer_coins_title">Koinlər</string>
+    <string name="explorer_lists_failed_many">%1$s hazırda cavab vermir – cüt siyahıları yüklənmədi. Sonra yenidən cəhd et.</string>
+    <plurals name="explorer_lists_failed_more">
+        <item quantity="one">+daha %1$d</item>
+        <item quantity="other">+daha %1$d</item>
+    </plurals>
+    <string name="explorer_lists_failed_one">%1$s hazırda cavab vermir – cüt siyahısı yüklənmədi. Sonra yenidən cəhd et.</string>
+    <string name="explorer_lists_load">Siyahıları yüklə</string>
+    <string name="explorer_lists_loading">Cüt siyahıları yüklənir… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="one">%1$d birjanın cüt siyahısı hələ bu cihazda yoxdur.</item>
+        <item quantity="other">%1$d birjanın cüt siyahıları hələ bu cihazda yoxdur.</item>
+    </plurals>
+    <string name="explorer_lists_privacy">Hər birjanın tam açıq siyahısını yükləyir – hamı üçün eynidir. Axtarışın bu cihazda qalır.</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">Son axtarış: %1$s</string>
+    <string name="explorer_recent_clear">Təmizlə</string>
+    <string name="explorer_recent_clear_a11y">Son axtarışları təmizlə</string>
+    <string name="explorer_recent_title">Son axtarışlar</string>
+    <string name="explorer_search_choose_manually">Birjanı və cütü özün seç</string>
+    <string name="explorer_search_empty">Uyğunluq yoxdur.</string>
+    <string name="explorer_search_hint">Koin, cüt və ya birja axtar</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">Koinin adını və ya simvolunu yaz, məs. Bitcoin və ya BTC – sonra cütü seç.</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">İzləmə siyahısına əlavə et</string>
+    <string name="explorer_added_to_watchlist">İzləmə siyahısına əlavə edildi.</string>
+    <string name="explorer_already_in_watchlist">Bu cüt artıq izləmə siyahısındadır.</string>
+    <string name="explorer_exchange_missing">Birja yoxdur?</string>
+    <string name="explorer_loading_pairs">Ticarət cütləri yüklənir…</string>
+    <string name="explorer_no_pair_selected">Əvvəlcə cüt seç.</string>
+    <string name="explorer_no_pairs_yet">Bu birja üçün hələ cüt yüklənməyib.</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$d cüt · yeniləndi %2$s</item>
+        <item quantity="other">%1$d cüt · yeniləndi %2$s</item>
+    </plurals>
+    <string name="explorer_pairs_title">Cütlər</string>
+    <string name="explorer_precise_title">Ətraflı / birjaya görə</string>
+    <string name="explorer_price_loading">Qiymət yüklənir…</string>
+    <string name="explorer_select_exchange_hint">Birja seç – onun ticarət cütləri avtomatik yüklənir.</string>
+    <string name="explorer_select_placeholder">Seç</string>
+    <string name="explorer_step_pair">Cüt seç</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">Yüksələnlər</string>
+    <string name="explorer_filter_losers">Düşənlər</string>
+    <string name="explorer_filter_volume">Həcm</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">Bu birjanın bütün %1$s cütləri</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">%1$d %2$s cütü tapıldı</item>
+        <item quantity="other">%1$d %2$s cütü tapıldı</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">Seçilmiş müqavilə növü üçün bu birjada %1$s cütü yoxdur. Əvvəlcə birjanı sinxronlaşdır və ya başqa müqavilə növü sına.</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">%1$d cütü izləmə siyahısına əlavə et</item>
+        <item quantity="other">Bütün %1$d cütü izləmə siyahısına əlavə et</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">%1$d əlavə edildi, %2$d artıq izləmə siyahısındadır.</item>
+        <item quantity="other">%1$d əlavə edildi, %2$d artıq izləmə siyahısındadır.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">%3$s birjasından %1$d %2$s cütü, artıq orada deyilsə, izləmə siyahısına əlavə ediləcək.</item>
+        <item quantity="other">%3$s birjasından bütün %1$d %2$s cütü izləmə siyahısına əlavə ediləcək. Artıq orada olan cütlər buraxılır.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">%1$d cüt əlavə edilsin?</item>
+        <item quantity="other">%1$d cüt əlavə edilsin?</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">Siyahını gizlət</string>
+    <string name="explorer_bulk_show_list">Siyahını göstər</string>
+    <string name="explorer_bulk_tap_hint">Yuxarıda seçmək üçün cütə toxun.</string>
+    <string name="explorer_bulk_title">Bir neçə cüt birdən</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">Seçilmiş birjanın cari cütlərini yükləyir.</string>
+    <string name="explorer_no_pair_list">Valyuta cütü yoxdur</string>
+    <string name="explorer_sync_sheet_last">Son sinxronlaşdırma: %1$s</string>
+    <string name="explorer_sync_never">heç vaxt</string>
+    <string name="explorer_sync_sheet_action">İndi sinxronlaşdır</string>
+    <string name="explorer_sync_sheet_title">Valyuta cütlərini yenilə</string>
+    <string name="explorer_field_coin">Koin</string>
+    <string name="explorer_field_contract">Müqavilə növü</string>
+    <string name="explorer_field_exchange">Birja</string>
+    <string name="explorer_field_quote">Kotirovka valyutası</string>
+    <string name="explorer_contract_spot">Spot</string>
+    <string name="explorer_reload_pairs">Sinxronlaşdır</string>
+    <string name="sync_pairs_count">Ticarət cütləri: %1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">Əlavə et</string>
+    <string name="dex_added">%1$s izləmə siyahısına əlavə edildi.</string>
+    <string name="dex_already">%1$s artıq izləmə siyahısındadır.</string>
+    <string name="dex_intro">Böyük birjalardan kənar tokenlər, mərkəzləşdirilməmiş birjalardan (Uniswap, PancakeSwap, Raydium …) DexScreener vasitəsilə. Token axtar və onun ticarət pullarından birini əlavə et – qiymətlər ABŞ dollarında.</string>
+    <string name="dex_liquidity">Likvidlik %1$s</string>
+    <string name="dex_no_results">Pul tapılmadı.</string>
+    <string name="dex_search">Axtar</string>
+    <string name="dex_search_hint">Token adı, simvolu və ya ünvanı</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">Alpha token</string>
+    <string name="asset_kind_token">Token</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+
+    <string name="dex_low_liquidity_no_alarm">Aşağı likvidlik – alarmsız</string>
+    <string name="dex_low_liquidity_alarm_hint">Bu pulun likvidliyi 10,000 USD-dən azdır (və ya bildirilmir). Kiçik əqdlər onun qiymətini dəyişə bilər, buna görə burada alarm qurmaq olmur. Mövcud alarmlar saxlanılır, amma likvidlik yenidən artana qədər işə düşmür.</string>
+
+    <string name="explorer_bulk_show_all">Hamısını göstər (%1$d)</string>
+    <string name="dex_token_address_copy">Token ünvanını kopyala</string>
+    <string name="dex_token_address_copied">Token ünvanı kopyalandı</string>
+    <string name="dex_token_address_label">Sonu %1$s olan token ünvanı</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="one">%1$d cüt əlavə edilmədi: izləmə siyahında ən çoxu %2$s cüt ola bilər.</item>
+        <item quantity="other">%1$d cüt əlavə edilmədi: izləmə siyahında ən çoxu %2$s cüt ola bilər.</item>
+    </plurals>
+    <string name="bulk_add_progress">Cütlər əlavə edilir … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="one">%1$d yeni cütü izləmə siyahısına əlavə et</item>
+        <item quantity="other">%1$d yeni cütü izləmə siyahısına əlavə et</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="one">%1$d yeni, %2$d artıq izləmə siyahısında</item>
+        <item quantity="other">%1$d yeni, %2$d artıq izləmə siyahısında</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">Hamısı artıq izləmə siyahısındadır</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="one">%1$d cüt yenidən silinsin?</item>
+        <item quantity="other">%1$d cüt yenidən silinsin?</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">Bu arada alarm qurduğun cütlər qalacaq.</string>
+    <string name="bulk_undo_expired">Geri qaytarmaq artıq mümkün deyil – cütlər izləmə siyahısında qalır.</string>
+    <string name="explorer_section_spot">Spot</string>
+    <string name="explorer_section_futures">Fyuçerslər</string>
+    <string name="explorer_section_dex">DEX pulları</string>
+    <string name="explorer_section_forex">Forex (istinad məzənnəsi)</string>
+    <string name="explorer_forex_hint">Avropa Mərkəzi Bankının günlük məzənnəsi (Frankfurter vasitəsilə), canlı deyil – alarmsız.</string>
+</resources>

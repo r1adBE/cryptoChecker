@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">Cad atá ag bogadh leis?</string>
+    <string name="why_all_values">Gach luach agus foinse</string>
+    <string name="why_all_values_hint">Breathnóireacht · Míniú féideartha · Foinsí</string>
+    <string name="why_details">Taispeáin sonraí</string>
+    <string name="why_details_hide">Folaigh sonraí</string>
+    <string name="why_disclaimer">Measúnú uathoibríoch ó shonraí margaidh: taispeánann sé cad a tharlaíonn ag an am céanna, ní cruthúnas ar chúis.</string>
+    <string name="why_footer_short">Ní chiallaíonn comhuaineach cúis · Ní comhairle infheistíochta</string>
+    <string name="why_no_data">Gan sonraí ó Binance don phéire seo</string>
+    <string name="why_no_data_hint">Tagann praghas, toirt agus luaineacht ó choinnle uaire Binance.</string>
+    <string name="why_ref_alts">Altboinn</string>
+    <string name="why_section_context">Míniú féideartha</string>
+    <string name="why_section_observation">Breathnóireacht</string>
+    <string name="why_title">Cad atá ag bogadh leis?</string>
+    <string name="why_title_coin">Cad atá ag bogadh le %1$s?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">Go hachomair · Staid %1$s</string>
+    <string name="why_brief_label">Go hachomair:</string>
+    <string name="why_summary_against">Tá an bonn ag bogadh in aghaidh an mhargaidh.</string>
+    <string name="why_summary_calm">Gan gluaiseacht shuntasach: tá an margadh agus an bonn ciúin.</string>
+    <string name="why_summary_coin">Níl ach an bonn seo ag bogadh – b’fhéidir rud éigin a bhaineann leis an mbonn seo amháin.</string>
+    <string name="why_summary_coin_volume">Níl ach an bonn seo ag bogadh, le toirt níos airde – b’fhéidir rud éigin a bhaineann leis an mbonn seo amháin.</string>
+    <string name="why_summary_longs">Todhchaíochtaí: go leor fadsuíomhanna giaráilte.</string>
+    <string name="why_summary_market">Oireann an ghluaiseacht in am don mhargadh iomlán.</string>
+    <string name="why_summary_market_volume">Tagann an ghluaiseacht le toirt trádála níos airde agus margadh atá ag bogadh go forleathan.</string>
+    <string name="why_summary_peg_near">Tá an praghas gar dá cheangal 1:1 (peg).</string>
+    <string name="why_summary_peg_off">Imíonn an praghas go suntasach óna cheangal 1:1 (peg).</string>
+    <string name="why_summary_shorts">Todhchaíochtaí: go leor gearrshuíomhanna.</string>
+    <string name="why_summary_thin">Tá an ghluaiseacht tanaí: is beag toirt taobh thiar di.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">In aghaidh an mhargaidh</string>
+    <string name="why_f_coin_only">An bonn seo amháin</string>
+    <string name="why_f_leader">Bitcoin mar cheannaire margaidh</string>
+    <string name="why_f_leverage_balanced">Giaráil chothrom</string>
+    <string name="why_f_leverage_longs">Giaráil: go leor fadsuíomhanna</string>
+    <string name="why_f_leverage_shorts">Giaráil: go leor gearrshuíomhanna</string>
+    <string name="why_f_market_calm">Margadh ciúin</string>
+    <string name="why_f_market_wide">An margadh iomlán ag bogadh</string>
+    <string name="why_factor_funding">Maoiniú</string>
+    <string name="why_factor_futures">Todhchaíochtaí</string>
+    <string name="why_factor_market">Margadh iomlán</string>
+    <string name="why_factor_near_high">Gar don bhuaic</string>
+    <string name="why_factor_near_low">Gar don íosmhéid</string>
+    <string name="why_factor_peg">Ceangal (1:1)</string>
+    <string name="why_factor_range3d">Raon 3 lá</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">measta</string>
+    <string name="why_fn_funding_longs">go leor ag geall ar phraghsanna ag ardú</string>
+    <string name="why_fn_funding_neutral">neodrach</string>
+    <string name="why_fn_funding_shorts">go leor ag geall ar phraghsanna ag titim</string>
+    <string name="why_fn_high_at">ag an mbuaic 30 lá</string>
+    <string name="why_fn_high_below">faoin mbuaic 30 lá</string>
+    <string name="why_fn_leader_calm">Tá Bitcoin ciúin</string>
+    <string name="why_fn_leader_moves">Tá Bitcoin ag bogadh go soiléir</string>
+    <string name="why_fn_low_above">os cionn an íosmhéid 30 lá</string>
+    <string name="why_fn_low_at">ag an íosmhéid 30 lá</string>
+    <string name="why_fn_market_against">Tá an bonn seo ag bogadh in aghaidh an mhargaidh</string>
+    <string name="why_fn_market_alone">Margadh ciúin – bogann an bonn seo ina aonar</string>
+    <string name="why_fn_market_calm">Tá an margadh ciúin</string>
+    <string name="why_fn_market_lags">Tá an margadh ag bogadh, an bonn seo ar éigean</string>
+    <string name="why_fn_market_moves">An margadh ag bogadh sa treo céanna</string>
+    <string name="why_fn_market_pulls">An margadh ag bogadh le BTC</string>
+    <string name="why_fn_oi_down">Ús oscailte ag titim</string>
+    <string name="why_fn_oi_flat">Ús oscailte beagnach gan athrú</string>
+    <string name="why_fn_oi_mixed">Ús oscailte measctha</string>
+    <string name="why_fn_oi_up">Ús oscailte ag ardú</string>
+    <string name="why_fn_peg_above">%1$s os cionn an cheangail 1:1</string>
+    <string name="why_fn_peg_below">%1$s faoin gceangal 1:1</string>
+    <string name="why_fn_peg_near">gar don cheangal 1:1</string>
+    <string name="why_fn_range_above_low">ón íosmhéid 3 lá</string>
+    <string name="why_fn_range_below_high">ón mbuaic 3 lá</string>
+    <string name="why_fn_range_near_high">gar don bhuaic 3 lá</string>
+    <string name="why_fn_range_near_low">gar don íosmhéid 3 lá</string>
+    <string name="why_fn_volatility_stronger">níos láidre ná mar is gnách</string>
+    <string name="why_fn_volatility_tiny">beag i dtéarmaí iomlána (faoi %1$s)</string>
+    <string name="why_fn_volatility_usual">mar is gnách</string>
+    <string name="why_fn_volume_higher">níos airde ná mar is gnách</string>
+    <string name="why_fn_volume_lower">níos ísle ná mar is gnách</string>
+    <string name="why_fn_volume_usual">mar is gnách</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">An bonn seo %1$s, BTC %2$s in 24 u — gluaiseacht neamhspleách shuntasach.</string>
+    <string name="why_against_ref_text">An bonn seo %1$s, %2$s %3$s in 24 u — gluaiseacht neamhspleách shuntasach.</string>
+    <string name="why_btc_independent">Tá %1$s ag bogadh go neamhspleách ar Bitcoin faoi láthair.</string>
+    <string name="why_btc_tight">Tá %1$s ag bogadh go dlúth le Bitcoin faoi láthair.</string>
+    <string name="why_change_1h">1 u</string>
+    <string name="why_change_24h">24 u</string>
+    <string name="why_coin_only_text">%1$s in 24 u fad atá an margadh ciúin – b’fhéidir rud éigin a bhaineann leis an mbonn seo amháin.</string>
+    <string name="why_leverage_balanced_text">Gan plódú fadsuíomhanna ná gearrshuíomhanna sa mhargadh todhchaíochtaí.</string>
+    <string name="why_leverage_longs_text">Tá go leor ag geall ar phraghsanna ag ardú le hairgead ar iasacht. Íocann fadsuíomhanna le gearrshuíomhanna — riosca méadaithe leachtaithe má thiteann an praghas.</string>
+    <string name="why_leverage_shorts_text">Tá go leor ag geall ar phraghsanna ag titim le hairgead ar iasacht. Íocann gearrshuíomhanna le fadsuíomhanna – má ardaíonn an praghas, is féidir short squeeze.</string>
+    <string name="why_market_calm_text">An bonn seo: %1$s in 24 u. Níl an margadh ná an bonn ag bogadh mórán.</string>
+    <string name="why_market_leader_text">Mar an bonn is mó, bogann BTC de ghnáth i gcomhréir leis an gcuid eile den mhargadh. ETH: %1$s in 24 u.</string>
+    <string name="why_market_leader_text_no_eth">Mar an bonn is mó, bogann BTC de ghnáth i gcomhréir leis an gcuid eile den mhargadh.</string>
+    <string name="why_market_similar_text">An bonn seo: %1$s in 24 u – ag an am céanna, tá an margadh ag bogadh sa treo céanna, cé nach chomh soiléir.</string>
+    <string name="why_market_wide_text">An bonn seo: %1$s in 24 u – ag an am céanna, tá an margadh iomlán ag bogadh go soiléir.</string>
+    <string name="why_open_interest_change">Ús oscailte %1$s ón seiceáil dheireanach.</string>
+    <string name="why_peg_text">Bonn cobhsaí: i gcomparáid le ceangal 1:1 leis an airgeadra luachana, diall %1$s.</string>
+    <string name="why_sentiment_text">Innéacs Fear &amp; Greed an mhargaidh crypto ar fad, %1$s i gcomparáid le inné.</string>
+    <string name="why_sentiment_text_no_change">Innéacs Fear &amp; Greed an mhargaidh crypto ar fad.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="one">ag titim le %1$d uair an chloig</item>
+        <item quantity="two">ag titim le %1$d uair an chloig</item>
+        <item quantity="few">ag titim le %1$d huaire an chloig</item>
+        <item quantity="many">ag titim le %1$d n-uaire an chloig</item>
+        <item quantity="other">ag titim le %1$d uair an chloig</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="one">ag ardú le %1$d uair an chloig</item>
+        <item quantity="two">ag ardú le %1$d uair an chloig</item>
+        <item quantity="few">ag ardú le %1$d huaire an chloig</item>
+        <item quantity="many">ag ardú le %1$d n-uaire an chloig</item>
+        <item quantity="other">ag ardú le %1$d uair an chloig</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="one">seasmhach le %1$d uair an chloig</item>
+        <item quantity="two">seasmhach le %1$d uair an chloig</item>
+        <item quantity="few">seasmhach le %1$d huaire an chloig</item>
+        <item quantity="many">seasmhach le %1$d n-uaire an chloig</item>
+        <item quantity="other">seasmhach le %1$d uair an chloig</item>
+    </plurals>
+    <string name="why_volatility_high_text">An uair dheireanach: %1$s — tomhaiste i gcoinne na luainithe tipiciúla in aghaidh na huaire le 24 uair an chloig anuas.</string>
+    <string name="why_volatility_normal_text">An uair dheireanach: %1$s — laistigh den ghnáthraon.</string>
+    <string name="why_volatility_tiny_text">An uair dheireanach: %1$s — neamhghnách don bhonn seo, ach beag i dtéarmaí iomlána.</string>
+    <string name="why_volume_estimated_text">Measta: ní sholáthraíonn an fhoinse seo láimhdeachas, mar sin cuirtear méideanna bonn trádáilte i gcomparáid.</string>
+    <string name="why_volume_high_text">I bhfad níos mó trádála ná mar is gnách san uair dheireanach – tagann toirt ard leis an ngluaiseacht.</string>
+    <string name="why_volume_low_text">Is beag trádáil taobh thiar den ghluaiseacht – is minic nach mbíonn gluaiseachtaí den sórt sin chomh seasmhach.</string>
+    <string name="why_volume_normal_text">Tá trádáil na huaire deireanaí ag teacht leis an 24 uair an chloig deireanach.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">ardaithe</string>
+    <string name="why_dot_neutral">neodrach</string>
+    <string name="why_dot_supports">oireann don ghluaiseacht</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">Sonraí ó %1$s</string>
+    <string name="why_fresh_breadth">Leithead an mhargaidh: %1$s · %2$s</string>
+    <string name="why_fresh_candles">Coinnle: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">Todhchaíochtaí: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="one">ús oscailte i gcomparáid le %1$d uair an chloig ó shin</item>
+        <item quantity="two">ús oscailte i gcomparáid le %1$d uair an chloig ó shin</item>
+        <item quantity="few">ús oscailte i gcomparáid le %1$d huaire an chloig ó shin</item>
+        <item quantity="many">ús oscailte i gcomparáid le %1$d n-uaire an chloig ó shin</item>
+        <item quantity="other">ús oscailte i gcomparáid le %1$d uair an chloig ó shin</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="one">ús oscailte i gcomparáid le %1$d nóiméad ó shin</item>
+        <item quantity="two">ús oscailte i gcomparáid le %1$d nóiméad ó shin</item>
+        <item quantity="few">ús oscailte i gcomparáid le %1$d nóiméad ó shin</item>
+        <item quantity="many">ús oscailte i gcomparáid le %1$d nóiméad ó shin</item>
+        <item quantity="other">ús oscailte i gcomparáid le %1$d nóiméad ó shin</item>
+    </plurals>
+    <string name="why_fresh_today">inniu</string>
+    <string name="why_fresh_yesterday">inné</string>
+    <string name="why_source_fallback">%1$s (cúltaca)</string>
+    <string name="why_source_reference">%1$s (tagairt)</string>
+    <string name="why_sources">Foinsí: coinnle uaire malartán (Binance den chuid is mó), sonraí todhchaíochtaí ó mhalartáin, Fear &amp; Greed ó alternative.me.</string>
+    <string name="why_sources_list">Foinsí: %1$s.</string>
+    <string name="why_src_breadth">%1$s (leithead an mhargaidh)</string>
+    <string name="why_src_candles">%1$s (coinnle)</string>
+    <string name="why_src_comparison">%1$s (comparáid mhargaidh)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (todhchaíochtaí)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Maoiniú</string>
+    <string name="factor_spoken_volatility">%1$s oiread na gnáthluainithe</string>
+    <string name="factor_spoken_volume">%1$s oiread an ghnáth</string>
+    <string name="factor_volatility">Luaineacht (1 u)</string>
+    <string name="factor_volume">Toirt</string>
+</resources>

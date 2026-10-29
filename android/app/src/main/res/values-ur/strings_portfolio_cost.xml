@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">لاگت کی بنیاد کے بغیر اندراجات: %1$d</string>
+    <string name="cost_gaps_card_text">لاگت کی بنیاد شامل کریں تاکہ نفع اور ٹیکس مکمل ہوں۔</string>
+    <string name="cost_gaps_sheet_title">لاگت کی بنیاد کے بغیر اندراجات</string>
+    <string name="cost_gaps_sheet_intro">ان آمدات کی کوئی لاگت کی بنیاد نہیں۔ تجویز اس تاریخ کی روزانہ بندش ہے – اسے اندراج میں بدلا جا سکتا ہے۔</string>
+    <string name="cost_gaps_empty">تمام اندراجات کی لاگت کی بنیاد موجود ہے۔</string>
+    <string name="cost_gap_enter">لاگت کی بنیاد درج کریں</string>
+    <string name="cost_gap_leave_unknown">نامعلوم رہنے دیں</string>
+    <string name="cost_gap_left_unknown">نامعلوم چھوڑا گیا</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">تجویز: روزانہ بندش %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">اس تاریخ کی کوئی تصدیق شدہ روزانہ بندش نہیں</string>
+    <string name="cost_gap_suggestion_loading">روزانہ بندش لوڈ ہو رہی ہے …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">لاگت کی بنیاد = وصولی پر مالیت (آمدنی)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">لاگت کی بنیاد = 0 (بغیر آمد کے انعام، آسٹریا)</string>
+    <string name="cost_gap_apply">لاگو کریں</string>
+    <string name="address_lots_action">پتے کے بیلنس کی لاگت کی بنیاد</string>
+    <string name="address_lots_title">پتے کے بیلنس کی لاگت کی بنیاد</string>
+    <string name="address_lots_intro">اس پتے کے بیلنس کے لیے تاریخِ خرید، مقدار اور لاگت کی بنیاد درج کریں۔ لاٹس اس پتے میں خریداریوں کی طرح شمار ہوتے ہیں؛ جو حصہ شامل نہ ہو وہ لاگت کی بنیاد کے بغیر رہتا ہے۔</string>
+    <string name="address_lots_add">لاٹ شامل کریں</string>
+    <string name="address_lots_new">نیا لاٹ</string>
+    <string name="address_lots_edit">لاٹ</string>
+    <string name="address_lots_date">تاریخِ خرید</string>
+    <string name="address_lots_amount">مقدار</string>
+    <string name="address_lots_mode_total">کل</string>
+    <string name="address_lots_mode_price">فی کوائن</string>
+    <string name="address_lots_price">فی کوائن قیمت (USDT)</string>
+    <string name="address_lots_total">کل لاگت کی بنیاد (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%2$s میں سے %1$s لاگت کی بنیاد کے ساتھ</string>
+    <string name="address_lots_unlotted">%1$s لاگت کی بنیاد کے بغیر</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">لاٹس بیلنس سے %1$s زیادہ ہیں – سب سے پرانے پہلے استعمال ہوتے ہیں۔</string>
+    <string name="address_lots_not_loaded">بیلنس ابھی لوڈ نہیں ہوا – لوڈ ہوتے ہی لاٹس شمار ہوں گے۔</string>
+    <string name="address_lots_invalid">مقدار اور لاگت کی بنیاد درج کریں</string>
+</resources>

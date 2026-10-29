@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">Et hoiatused kohale jõuaksid</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">Korras</string>
+    <string name="delivery_state_warn">Kontrolli</string>
+    <string name="delivery_state_info">Märkus</string>
+    <string name="delivery_allowed">Lubatud</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">Märguanded</string>
+    <string name="delivery_notifications_off">Väljas – hoiatused ei jõua kohale</string>
+    <string name="delivery_notifications_not_asked">Pole veel lubatud</string>
+    <string name="delivery_channel">Hoiatuste kanal</string>
+    <string name="delivery_channel_high">Kõrge tähtsus – ilmub ekraanile</string>
+    <string name="delivery_channel_low">Madal tähtsus – hoiatused ilmuvad ainult vaikselt loendisse</string>
+    <string name="delivery_channel_off">Välja lülitatud – hoiatused ei jõua kohale</string>
+    <string name="delivery_exact_on">Sees – umbes iga 15 minuti järel</string>
+    <string name="delivery_exact_off">Väljas – Android kontrollib ebaregulaarselt</string>
+    <string name="delivery_battery">Aku optimeerimine</string>
+    <string name="delivery_battery_unrestricted">Piiranguteta</string>
+    <string name="delivery_battery_optimized">Optimeeritud – Android võib kontrolle edasi lükata. Rakendus ei küsi erandit; saad seda muuta rakenduse akuseadetes.</string>
+    <string name="delivery_background">Taustakasutus</string>
+    <string name="delivery_background_restricted">Piiratud – Android peatab taustakontrollid</string>
+    <string name="delivery_dnd">Mitte segada</string>
+    <string name="delivery_dnd_on">Sees – hoiatused võivad saabuda ilma helita</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">Aktiivne kuni %1$s – ootel hoiatused ootavad seni</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – ootel hoiatused ootavad sel ajal</string>
+    <string name="delivery_last_check">Viimane taustakontroll</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – üle 6 tunni tagasi</string>
+    <string name="delivery_last_check_never">Veel pole</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">Luba</string>
+    <string name="delivery_action_change">Muuda</string>
+    <string name="delivery_action_show">Näita</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">Bännerid ja heli</string>
+    <string name="delivery_alert_off">Bännerid väljas – hoiatused ilmuvad ainult teavituskeskuses</string>
+    <string name="delivery_sound_off">Heli väljas – hoiatused saabuvad vaikselt</string>
+    <string name="delivery_time_sensitive">Ajatundlikud märguanded</string>
+    <string name="delivery_time_sensitive_off">Väljas – fookus võib hoiatusi kinni pidada</string>
+    <string name="delivery_background_refresh">Rakenduste taustal värskendamine</string>
+    <string name="delivery_low_power">Vähese energia režiim</string>
+    <string name="delivery_swipe_away">Pühkisid rakenduse ära?</string>
+    <string name="delivery_swipe_away_note">Kui pühid rakenduse rakenduste vahetajas ära, lõpetab iOS taustakontrollid, kuni avad selle uuesti.</string>
+    <string name="delivery_live_activity">Reaalajas tegevus</string>
+    <string name="delivery_live_activity_note">Näitab hinda lukustuskuval, kuid uueneb ainult siis, kui rakendus kontrollib – hoiatusi ei kontrollita seetõttu sagedamini.</string>
+
+    <string name="alarm_first_check">Kontrolli, kas hoiatused jõuavad kohale</string>
+
+    <string name="oem_battery_title">Tootja akusäästja</string>
+    <string name="oem_battery_xiaomi">Xiaomi võib rakenduse täielikult peatada – siis hoiatused ei jõua kohale. Lülita sisse „Autostart“ ja sea akusäästjaks „No restrictions“.</string>
+    <string name="oem_battery_samsung">Samsung võib panna rakenduse sügavasse unne – siis hoiatused ei jõua kohale. Lisa see jaotises Aku › Taustakasutuse piirangud loendisse „Kunagi mitte uinuvad rakendused“.</string>
+    <string name="oem_battery_huawei">Huawei/Honor võib rakenduse peatada – siis hoiatused ei jõua kohale. Vali jaotises Aku › Rakenduse käivitamine „Halda käsitsi“ ja luba kõik valikud.</string>
+    <string name="oem_battery_oneplus">OnePlus võib rakenduse peatada – siis hoiatused ei jõua kohale. Luba „Automaatne käivitamine“ ja jaotises Aku kasutus taustategevus.</string>
+    <string name="oem_battery_oppo">Oppo/Realme võib rakenduse peatada – siis hoiatused ei jõua kohale. Luba „Automaatne käivitamine“ ja jaotises Aku kasutus taustategevus.</string>
+    <string name="oem_battery_vivo">Vivo võib rakenduse peatada – siis hoiatused ei jõua kohale. Luba „Autostart“ ja jaotises Aku suur taustal energiakasutus.</string>
+    <string name="alarm_reliability_stale">Viimane kontroll %1$s – hoiatused võivad hilineda</string>
+    <string name="alarm_reliability_never">Hoiatused sees – taustakontrolli pole veel olnud</string>
+    <string name="alarm_reliability_notifications_off">Märguanded väljas – hoiatused ei jõua kohale</string>
+    <string name="alarm_reliability_battery">Akusäästmine võib hoiatuste kontrolli peatada</string>
+    <string name="alarm_reliability_background_refresh">Rakenduste taustal värskendamine väljas – hoiatused ei pruugi kohale jõuda</string>
+</resources>

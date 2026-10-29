@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">ພື້ນຫຼັງ</string>
+    <string name="widget_configure_hint">ເລືອກພື້ນຫຼັງ ແລະ ຄວາມທຶບ. ສີເຮັດຕາມແອັບ. ວິດເຈັດສະແດງລາຍການຕິດຕາມທັງໝົດຂອງທ່ານ; ແຕະແຖວເພື່ອເປີດແອັບ.</string>
+    <string name="widget_configure_title">ຕັ້ງຄ່າວິດເຈັດ</string>
+    <string name="widget_description">ສະແດງລາຄາຂອງຄູ່ເທຣດຈາກລາຍການຕິດຕາມຂອງທ່ານ.</string>
+    <string name="widget_empty">ຍັງບໍ່ມີຄູ່ເທຣດໃນລາຍການຕິດຕາມ.</string>
+    <string name="widget_group_hint">ສະແດງສະເພາະຄູ່ເທຣດຂອງກຸ່ມນີ້.</string>
+    <string name="widget_kind_single">ຫຼຽນດຽວ</string>
+    <string name="widget_opacity">ຄວາມທຶບຂອງພື້ນຫຼັງ: %1$s</string>
+    <string name="widget_pulse_description">ສິ່ງທີ່ໂດດເດັ່ນໃນຕະຫຼາດຕອນນີ້: ຫົວຂໍ້, ສະຫຼຸບສັ້ນ ແລະ Bitcoin, Ethereum ແລະ Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">ບໍ່ເປັນປັດຈຸບັນ</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">ບໍ່ເປັນປັດຈຸບັນ · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">ແທ່ງທຽນ</string>
+    <string name="widget_chart_line">ເສັ້ນ</string>
+    <string name="widget_chart_range">ຊ່ວງແຜນພູມ</string>
+    <string name="widget_chart_type">ປະເພດແຜນພູມ</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 ປີ</string>
+    <string name="widget_range_24h">24 ຊມ.</string>
+    <string name="widget_range_30d">30 ມື້</string>
+    <string name="widget_range_7d">7 ມື້</string>
+    <string name="widget_range_short_1y">1ປ</string>
+    <string name="widget_range_short_24h">24ຊມ</string>
+    <string name="widget_range_short_30d">30ມ</string>
+    <string name="widget_range_short_7d">7ມ</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">ຂໍ້ມູນເມື່ອ %1$s</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">ປະຫວັດຈະມາໃນໄວໆນີ້</string>
+    <string name="widget_portfolio_description">ມູນຄ່າທັງໝົດຂອງພອດໂຟລິໂອ ແລະ ການປ່ຽນແປງມື້ນີ້</string>
+    <string name="widget_portfolio_entries">ການບັນທຶກຢູ່ລຸ່ມຫຼຽນ</string>
+    <string name="widget_portfolio_entries_both">ທັງສອງ</string>
+    <string name="widget_portfolio_entries_buys">ການຊື້</string>
+    <string name="widget_portfolio_entries_hint">ສະແດງສະເພາະເມື່ອມີບ່ອນຫວ່າງຢູ່ລຸ່ມຫຼຽນ. ການຊື້ລວມການຝາກ, ການຂາຍລວມການຖອນ; ດ້ວຍ «ທັງສອງ» ເສັ້ນຕ່າງໆລວມກັນເທົ່າກັບການຖືຄອງ.</string>
+    <string name="widget_portfolio_entries_off">ປິດ</string>
+    <string name="widget_portfolio_entries_sells">ການຂາຍ</string>
+    <string name="widget_portfolio_display">ການສະແດງ</string>
+    <string name="widget_portfolio_display_conversion">ສະເພາະການແປງ</string>
+    <string name="widget_portfolio_display_conversion_usdt">ການແປງ + USDT</string>
+    <string name="widget_portfolio_display_hint">ເສັ້ນ USDT ຈະຖືກເຊື່ອງເມື່ອສະກຸນເງິນແປງເປັນ stablecoin USD (ເຊັ່ນ USDC).</string>
+    <string name="widget_portfolio_display_usdt">ສະເພາະ USDT</string>
+    <string name="widget_portfolio_empty">ເພີ່ມການຊື້ໃນແຖບ ພອດໂຟລິໂອ</string>
+    <string name="widget_portfolio_list_hint">ເປີດແອັບເພື່ອສະແດງການຖືຄອງຂອງທ່ານຢູ່ນີ້.</string>
+    <string name="widget_portfolio_locked_hint">ລັອກຢູ່ – ປົດລັອກໃນແອັບ</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="other">ບໍ່ລວມ %1$d ຫຼຽນ</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="other">+ ອີກ %1$d</item>
+    </plurals>
+    <string name="widget_portfolio_name">ພອດໂຟລິໂອ</string>
+    <string name="widget_portfolio_off_hint">ເປີດມັນໃນ %1$s.</string>
+    <string name="widget_portfolio_off_short">ພອດໂຟລິໂອປິດ</string>
+    <string name="widget_portfolio_off_title">ພອດໂຟລິໂອປິດຢູ່</string>
+    <string name="widget_portfolio_partly_stale">ບາງລາຄາບໍ່ເປັນປັດຈຸບັນ</string>
+    <string name="widget_portfolio_period">ໄລຍະເວລາ</string>
+    <string name="widget_portfolio_period_without">%1$s ບໍ່ລວມ %2$s</string>
+    <string name="widget_portfolio_range_48h">48 ຊມ.</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: ເປີດພອດໂຟລິໂອ</string>
+    <string name="widget_portfolio_range_short_48h">48ຊມ</string>
+    <string name="widget_portfolio_today_without">ມື້ນີ້ບໍ່ລວມ %1$s</string>
+    <string name="widget_portfolio_view">ມຸມມອງ</string>
+    <string name="widget_portfolio_view_chart">ແຜນພູມ</string>
+    <string name="widget_portfolio_view_list">ລາຍການ</string>
+    <string name="widget_portfolio_view_overview">ພາບລວມ</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">ເລືອກຄູ່ເທຣດ</string>
+    <string name="single_widget_description">ສະແດງຫຼຽນດຽວແບບໃຫຍ່ພ້ອມລາຄາ, ການປ່ຽນແປງ ແລະ ແຜນພູມ 24 ຊົ່ວໂມງ.</string>
+    <string name="single_widget_label">Crypto Checker – ຫຼຽນດຽວ</string>
+    <string name="single_widget_title">ຕັ້ງຄ່າວິດເຈັດຫຼຽນດຽວ</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">ເພີ່ມ</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">ເພີ່ມວິດເຈັດ %1$s</string>
+    <string name="widgets_manual_text">ໜ້າຈໍຫຼັກຂອງທ່ານບໍ່ສາມາດເພີ່ມວິດເຈັດຈາກແອັບໄດ້. ແຕະຄ້າງບ່ອນຫວ່າງໃນໜ້າຈໍຫຼັກ, ເລືອກ “ວິດເຈັດ” ແລ້ວຊອກຫາ “Crypto Checker”.</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">ເພີ່ມວິດເຈັດດ້ວຍຕົນເອງ</string>
+    <string name="widgets_sheet_title">ເພີ່ມວິດເຈັດ</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS ບໍ່ໃຫ້ແອັບເພີ່ມວິດເຈັດເອງ. ໃຊ້ເວລາພຽງບໍ່ດົນ:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">ວິດເຈັດທີ່ມີ</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">ແຕະຄ້າງບ່ອນຫວ່າງໃນ Home Screen ຈົນກວ່າແອັບຈະສັ່ນ.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">ແຕະ “Edit” › “Add Widget” ທາງເທິງ (ຫຼື “+” ໃນ iOS ເວີຊັນເກົ່າ).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">ຄົ້ນຫາ “Crypto Checker”, ເລືອກວິດເຈັດ ແລ້ວແຕະ “Add Widget”.</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">ໂຫຼດຄືນໃໝ່ – ເຮັດໄດ້ອີກໃນ %1$d ວິ.</string>
+    <string name="settings_watch">ໂມງ</string>
+    <string name="settings_watch_hint">ຫຼຽນສຳລັບແອັບໂມງໃນ Wear OS (ສູງສຸດ %1$d, ລາຄາທຽບກັບ USDT). ສະເພາະລາຍການນີ້ທີ່ສົ່ງໄປໂມງ, ຜ່ານ Google Play services; ໂມງດຶງລາຄາເອງ.</string>
+    <string name="settings_watch_mode_phone">ຄືກັບໂທລະສັບ (ລາຍການທີ່ມັກ ★)</string>
+    <string name="settings_watch_mode_own">ລາຍການຂອງຕົນເອງ</string>
+    <string name="settings_watch_own_title">ລາຍການຂອງຕົນເອງ: %1$d ຈາກ %2$d</string>
+    <string name="settings_watch_none">ຍັງບໍ່ມີລາຍການທີ່ມັກ</string>
+
+    <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
+    <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">ບໍ່ມີເສັ້ນ USDT ໃນ “ລາຍການ”</string>
+    <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
+    <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">“ພາບລວມ” ສະແດງ 30 ມື້ແທນ</string>
+</resources>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">ຕ້ອງການຂໍ້ມູນ ແລະ ແບັດເຕີຣີຫຼາຍຂຶ້ນ</string>
+    <string name="update_mode_live">ສົດໃນຂະນະເປີດ</string>
+    <string name="update_mode_live_hint">ບ່ອນທີ່ກະດານແລກປ່ຽນໃຫ້ລາຄາສົດ: ທັນທີໃນຂະນະທີ່ລາຍການຕິດຕາມເປີດຢູ່. ຖ້າບໍ່ດັ່ງນັ້ນ ໃນການດຶງຂໍ້ມູນຄັ້ງຕໍ່ໄປ. ເມື່ອປິດ: ບໍ່ເລື້ອຍກວ່າທຸກໆ %1$s, ມັກຊ້າກວ່ານັ້ນ.</string>
+    <string name="update_mode_live_hint_ios">ບ່ອນທີ່ກະດານແລກປ່ຽນໃຫ້ລາຄາສົດ: ທັນທີໃນຂະນະທີ່ລາຍການຕິດຕາມເປີດຢູ່. ຖ້າບໍ່ດັ່ງນັ້ນ ໃນການດຶງຂໍ້ມູນຄັ້ງຕໍ່ໄປ. ເມື່ອປິດ: ເມື່ອ iOS ອະນຸຍາດ, ບາງຄັ້ງຫ່າງກັນຫຼາຍຊົ່ວໂມງ. ຖ້າທ່ານປັດແອັບອອກ, iOS ຈະຢຸດການກວດເຫຼົ່ານີ້ຈົນກວ່າທ່ານຈະເປີດມັນອີກຄັ້ງ.</string>
+    <string name="update_mode_recommended">ແນະນຳ</string>
+    <string name="update_mode_sparsam">ປະຫຍັດ</string>
+    <string name="update_mode_sparsam_hint">ເມື່ອປິດແອັບ, ບໍ່ເລື້ອຍກວ່າທຸກໆ %1$s, ມັກຊ້າກວ່ານັ້ນ (ສັນຍານເຕືອນ, ວິດເຈັດ). ເມື່ອເປີດ: ທຸກຄັ້ງທີ່ທ່ານເປີດມັນ.</string>
+    <string name="update_mode_sparsam_hint_ios">ເມື່ອປິດແອັບ, iOS ຕັດສິນໃຈວ່າຈະກວດເມື່ອໃດ (ສັນຍານເຕືອນ, ວິດເຈັດ), ບາງຄັ້ງຫ່າງກັນຫຼາຍຊົ່ວໂມງ. ເມື່ອເປີດ: ທຸກຄັ້ງທີ່ທ່ານເປີດມັນ.</string>
+    <string name="update_mode_title">ຄວາມຖີ່ການອັບເດດ</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">ການໂຫຼດຄືນໃໝ່ຖືກຍົກເລີກ</string>
+    <string name="refresh_sheet_alarms">ສັນຍານເຕືອນ</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="other">ເຮັດວຽກ %1$d</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">ອັບເດດທຸກຢ່າງແລ້ວ</string>
+    <string name="refresh_sheet_app_start">ການເລີ່ມແອັບ</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="other">ຄຳຂໍລວມ %1$s · %2$d ລາຄາ</item>
+    </plurals>
+    <string name="refresh_sheet_database">ຖານຂໍ້ມູນ</string>
+    <string name="refresh_sheet_exchange_unreachable">ເຊື່ອມຕໍ່ %1$s ບໍ່ໄດ້</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
+        <item quantity="other">ເຊື່ອມຕໍ່ %1$d ກະດານແລກປ່ຽນບໍ່ໄດ້</item>
+    </plurals>
+    <string name="refresh_sheet_network">ເຄືອຂ່າຍ</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="other">%1$d ການແຈ້ງເຕືອນລາຄາ</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="other">%1$d ຄູ່</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="other">%1$d ຄູ່ບໍ່ໄດ້ອັບເດດ</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="other">%2$d ຈາກ %1$d ຄູ່</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">ຢຸດຊົ່ວຄາວຈົນເຖິງ %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">ຢຸດຊົ່ວຄາວຈົນເຖິງ %1$s (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">ບໍ່ມີຂໍ້ມູນ</string>
+    <string name="refresh_sheet_reason_offline">ບໍ່ມີການເຊື່ອມຕໍ່</string>
+    <string name="refresh_sheet_reason_rate_limit">ຄຳຂໍຫຼາຍເກີນໄປ</string>
+    <string name="refresh_sheet_reason_server">ຂໍ້ຜິດພາດເຊີບເວີ</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">ໝົດເວລາ</string>
+    <string name="refresh_sheet_reason_unavailable">ກະດານແລກປ່ຽນບໍ່ພ້ອມໃຊ້ງານ</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s ວິນາທີ</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_exchanges">ກະດານແລກປ່ຽນ</string>
+    <string name="refresh_sheet_section_steps">ລາຍລະອຽດ</string>
+    <string name="refresh_sheet_status_failed">ບໍ່ໄດ້ອັບເດດ</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">ອັບເດດທັງໝົດແລ້ວ</string>
+    <string name="refresh_sheet_status_partial">ອັບເດດບາງສ່ວນ</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">ກຳລັງລໍຖ້າເລີ່ມ</string>
+    <string name="refresh_sheet_widgets">ວິດເຈັດ</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">ຄຳຂໍລວມ %1$s (ລົ້ມເຫຼວ)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="other">%1$d ຂໍ້ຜິດພາດ</item>
+    </plurals>
+    <string name="refresh_report_live">ສົດ: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="other">%1$d ບໍ່ມີການຊື້ຂາຍອີກແລ້ວ</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d ແຍກທີລະອັນ</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">ລົ້ມເຫຼວ</string>
+    <string name="check_result_ok">ປົກກະຕິ</string>
+    <string name="check_result_partial">ບາງສ່ວນ</string>
+    <string name="check_result_skipped">ຂ້າມ</string>
+    <string name="check_trigger_bgtask">ພື້ນຫຼັງ</string>
+    <string name="check_trigger_exact">ຕາມເວລາ</string>
+    <string name="check_trigger_foreground">ແອັບ</string>
+    <string name="check_trigger_widget">ວິດເຈັດ</string>
+    <string name="check_trigger_widget_ios">ວິດເຈັດ · ລາຄາ ແລະ ສັນຍານເຕືອນລາຄາ</string>
+    <string name="check_trigger_worker">ພື້ນຫຼັງ</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android ອາດເລື່ອນການກວດ – ຕັ້ງແບັດເຕີຣີເປັນ “ບໍ່ຈຳກັດ”</string>
+    <string name="battery_later">ພາຍຫຼັງ</string>
+    <string name="battery_message">Android ເລື່ອນວຽກໃນພື້ນຫຼັງເພື່ອປະຢັດພະລັງງານ — ລາຄາ ແລະ ວິດເຈັດອາດເກົ່າຫຼາຍຊົ່ວໂມງ. ການຕັ້ງການໃຊ້ແບັດເຕີຣີເປັນບໍ່ຈຳກັດຈະເຮັດໃຫ້ມັນເປັນປັດຈຸບັນ. ທ່ານສາມາດປ່ຽນໄດ້ທຸກເວລາໃນການຕັ້ງຄ່າ Android.</string>
+    <string name="battery_open_settings">ເປີດການຕັ້ງຄ່າແບັດເຕີຣີ</string>
+    <string name="battery_steps">ໃນຂໍ້ມູນແອັບ, ແຕະ ແບັດເຕີຣີ (ຫຼື ການໃຊ້ແບັດເຕີຣີຂອງແອັບ) ແລ້ວເລືອກ ບໍ່ຈຳກັດ.</string>
+    <string name="battery_title">ຮັກສາລາຄາໃຫ້ເປັນປັດຈຸບັນ</string>
+    <string name="ios_background_refresh_off">Background App Refresh ປິດຢູ່ສຳລັບແອັບນີ້. ຖ້າບໍ່ມີມັນ, ສັນຍານເຕືອນຈະຖືກກວດສະເພາະເມື່ອແອັບເປີດຢູ່.</string>
+    <string name="ios_low_power_mode">Low Power Mode ເປີດຢູ່. iOS ກວດໃນພື້ນຫຼັງໜ້ອຍຫຼາຍ, ສະນັ້ນສັນຍານເຕືອນອາດມາຊ້າ.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">ຂໍ້ຄວາມຈາກກະດານແລກປ່ຽນ: %1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">ບ່ອນເກັບຂໍ້ມູນຍັງລັອກຢູ່ – ລອງໃໝ່ໃນ %1$d ວິ.</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="other">ບ່ອນເກັບຂໍ້ມູນຍັງລັອກຢູ່ – ລອງໃໝ່ໃນ %1$d ວິນາທີ</item>
+    </plurals>
+    <string name="watchlist_retry_short">ລອງໃໝ່ໃນ %1$s</string>
+    <string name="widget_retry_at">ລອງໃໝ່ເວລາ %1$s</string>
+    <string name="refresh_sheet_wait_attempt">ຄວາມພະຍາຍາມທີ %1$d – ບ່ອນເກັບຂໍ້ມູນທີ່ເຂົ້າລະຫັດຍັງບໍ່ພ້ອມໃນຄັ້ງທຳອິດ</string>
+</resources>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Није изабрана ниједна криптовалута</string>
+    <string name="watch_loading">Учитавање…</string>
+    <string name="watch_error">Берзе нису доступне</string>
+    <string name="watch_updated">Стање од %1$s</string>
+    <string name="watch_refresh">Освежи</string>
+    <string name="watch_choose">Изабери криптовалуте</string>
+    <string name="watch_choose_hint">Криптовалуте: највише %1$d</string>
+    <string name="watch_complication_label">Цена</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s у 24 сата</string>
+    <string name="watch_mode_phone">Списак: као на телефону</string>
+    <string name="watch_mode_own">Списак: сопствени</string>
+    <string name="watch_phone_empty">Нема фаворита на телефону</string>
+    <string name="a11y_watch_outdated">Цена застарела</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">последње ажурирање пре %1$d минуте</item>
+        <item quantity="few">последње ажурирање пре %1$d минуте</item>
+        <item quantity="other">последње ажурирање пре %1$d минута</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">последње ажурирање пре %1$d сата</item>
+        <item quantity="few">последње ажурирање пре %1$d сата</item>
+        <item quantity="other">последње ажурирање пре %1$d сати</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">последње ажурирање пре %1$d дана</item>
+        <item quantity="few">последње ажурирање пре %1$d дана</item>
+        <item quantity="other">последње ажурирање пре %1$d дана</item>
+    </plurals>
+</resources>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">Сите резултати</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="one">%1$d берза</item>
+        <item quantity="other">%1$d берзи</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">Нема пар за оваа монета во вчитаните листи.</string>
+    <string name="explorer_coin_not_loaded">Листите на парови сè уште не се вчитани</string>
+    <string name="explorer_coin_other_pairs">Други парови</string>
+    <string name="explorer_coin_show_pairs">Прикажи парови</string>
+    <string name="explorer_coin_suggested">Предложено</string>
+    <string name="explorer_coins_title">Монети</string>
+    <string name="explorer_lists_failed_many">%1$s моментално не одговараат – листите на парови не се вчитани. Обиди се подоцна.</string>
+    <plurals name="explorer_lists_failed_more">
+        <item quantity="one">+уште %1$d</item>
+        <item quantity="other">+уште %1$d</item>
+    </plurals>
+    <string name="explorer_lists_failed_one">%1$s моментално не одговара – листата на парови не е вчитана. Обиди се подоцна.</string>
+    <string name="explorer_lists_load">Вчитај листи</string>
+    <string name="explorer_lists_loading">Се вчитуваат листите на парови… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="one">Листата на парови на %1$d берза сè уште не е на овој уред.</item>
+        <item quantity="other">Листите на парови на %1$d берзи сè уште не се на овој уред.</item>
+    </plurals>
+    <string name="explorer_lists_privacy">Ја вчитува целосната јавна листа на секоја берза – иста за сите. Твоето пребарување останува на овој уред.</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">Неодамнешно пребарување: %1$s</string>
+    <string name="explorer_recent_clear">Исчисти</string>
+    <string name="explorer_recent_clear_a11y">Исчисти неодамнешни пребарувања</string>
+    <string name="explorer_recent_title">Неодамнешни пребарувања</string>
+    <string name="explorer_search_choose_manually">Избери берза и пар рачно</string>
+    <string name="explorer_search_empty">Нема совпаѓања.</string>
+    <string name="explorer_search_hint">Пребарај монета, пар или берза</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">Напиши име или симбол на монета, на пр. Bitcoin или BTC – потоа избери пар.</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">Додај во листата за следење</string>
+    <string name="explorer_added_to_watchlist">Додадено во листата за следење.</string>
+    <string name="explorer_already_in_watchlist">Овој пар е веќе во листата за следење.</string>
+    <string name="explorer_exchange_missing">Недостасува берза?</string>
+    <string name="explorer_loading_pairs">Се вчитуваат парови за тргување…</string>
+    <string name="explorer_no_pair_selected">Прво избери пар.</string>
+    <string name="explorer_no_pairs_yet">За оваа берза сè уште не се вчитани парови.</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$d пар · ажурирано %2$s</item>
+        <item quantity="other">%1$d пара · ажурирано %2$s</item>
+    </plurals>
+    <string name="explorer_pairs_title">Парови</string>
+    <string name="explorer_precise_title">Напредно / по берза</string>
+    <string name="explorer_price_loading">Се вчитува цената…</string>
+    <string name="explorer_select_exchange_hint">Избери берза – нејзините парови за тргување се вчитуваат автоматски.</string>
+    <string name="explorer_select_placeholder">Избери</string>
+    <string name="explorer_step_pair">Избери пар</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">Добитници</string>
+    <string name="explorer_filter_losers">Губитници</string>
+    <string name="explorer_filter_volume">Волумен</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">Сите %1$s парови на оваа берза</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">Најден е %1$d %2$s пар</item>
+        <item quantity="other">Најдени се %1$d %2$s пара</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">Нема %1$s парови на оваа берза за избраниот тип договор. Прво синхронизирај ја берзата или пробај друг тип договор.</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">Додај го %1$d пар во листата</item>
+        <item quantity="other">Додај ги сите %1$d пара во листата</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">%1$d додаден, %2$d веќе во листата за следење.</item>
+        <item quantity="other">%1$d додадени, %2$d веќе во листата за следење.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">%1$d %2$s пар од %3$s ќе се додаде во листата за следење, освен ако веќе не е таму.</item>
+        <item quantity="other">Сите %1$d %2$s пара од %3$s ќе се додадат во листата за следење. Паровите што веќе се во неа се прескокнуваат.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">Да се додаде %1$d пар?</item>
+        <item quantity="other">Да се додадат %1$d пара?</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">Скриј листа</string>
+    <string name="explorer_bulk_show_list">Прикажи листа</string>
+    <string name="explorer_bulk_tap_hint">Допри пар за да го избереш горе.</string>
+    <string name="explorer_bulk_title">Повеќе парови одеднаш</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">Ги вчитува тековните парови на избраната берза.</string>
+    <string name="explorer_no_pair_list">Нема валутни парови</string>
+    <string name="explorer_sync_sheet_last">Последна синхронизација: %1$s</string>
+    <string name="explorer_sync_never">никогаш</string>
+    <string name="explorer_sync_sheet_action">Синхронизирај сега</string>
+    <string name="explorer_sync_sheet_title">Ажурирај валутни парови</string>
+    <string name="explorer_field_coin">Монета</string>
+    <string name="explorer_field_contract">Тип договор</string>
+    <string name="explorer_field_exchange">Берза</string>
+    <string name="explorer_field_quote">Котирана валута</string>
+    <string name="explorer_contract_spot">Спот</string>
+    <string name="explorer_reload_pairs">Синхронизирај</string>
+    <string name="sync_pairs_count">Парови за тргување: %1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">Додај</string>
+    <string name="dex_added">%1$s е додаден во листата за следење.</string>
+    <string name="dex_already">%1$s е веќе во листата за следење.</string>
+    <string name="dex_intro">Токени надвор од големите берзи, од децентрализирани берзи (Uniswap, PancakeSwap, Raydium …) преку DexScreener. Пребарај токен и додај еден од неговите пулови за тргување – цени во американски долари.</string>
+    <string name="dex_liquidity">Ликвидност %1$s</string>
+    <string name="dex_no_results">Не се најдени пулови.</string>
+    <string name="dex_search">Пребарај</string>
+    <string name="dex_search_hint">Име, симбол или адреса на токен</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">Alpha-токен</string>
+    <string name="asset_kind_token">Токен</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+
+    <string name="dex_low_liquidity_no_alarm">Ниска ликвидност – нема аларми</string>
+    <string name="dex_low_liquidity_alarm_hint">Овој пул има помалку од 10.000 USD ликвидност (или не е пријавена). Мали тргувања можат да ја поместат неговата цена, па тука не може да се постават аларми. Постојните аларми се задржуваат, но нема да се активираат додека ликвидноста повторно не порасне.</string>
+
+    <string name="explorer_bulk_show_all">Прикажи сè (%1$d)</string>
+    <string name="dex_token_address_copy">Копирај адреса на токен</string>
+    <string name="dex_token_address_copied">Адресата на токенот е копирана</string>
+    <string name="dex_token_address_label">Адреса на токен што завршува на %1$s</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="one">%1$d пар не е додаден: твојата листа за следење може да има најмногу %2$s пара.</item>
+        <item quantity="other">%1$d пара не се додадени: твојата листа за следење може да има најмногу %2$s пара.</item>
+    </plurals>
+    <string name="bulk_add_progress">Се додаваат парови … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="one">Додај %1$d нов пар во листата</item>
+        <item quantity="other">Додај %1$d нови пара во листата</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="one">%1$d нов, %2$d веќе во листата за следење</item>
+        <item quantity="other">%1$d нови, %2$d веќе во листата за следење</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">Сите се веќе во листата за следење</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="one">Повторно да се отстрани %1$d пар?</item>
+        <item quantity="other">Повторно да се отстранат %1$d пара?</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">Паровите на кои во меѓувреме им е поставен аларм остануваат.</string>
+    <string name="bulk_undo_expired">Враќањето повеќе не е можно – паровите остануваат во листата за следење.</string>
+    <string name="explorer_section_spot">Спот</string>
+    <string name="explorer_section_futures">Фјучерси</string>
+    <string name="explorer_section_dex">DEX-пулови</string>
+    <string name="explorer_section_forex">Форекс (референтен курс)</string>
+    <string name="explorer_forex_hint">Дневен курс на Европската централна банка (преку Frankfurter), не во живо – нема аларми.</string>
+</resources>

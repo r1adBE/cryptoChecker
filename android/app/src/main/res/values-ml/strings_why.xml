@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">ഒപ്പം എന്താണ് നീങ്ങുന്നത്?</string>
+    <string name="why_all_values">എല്ലാ മൂല്യങ്ങളും ഉറവിടങ്ങളും</string>
+    <string name="why_all_values_hint">നിരീക്ഷണം · സാധ്യമായ വിശദീകരണം · ഉറവിടങ്ങൾ</string>
+    <string name="why_details">വിശദാംശങ്ങൾ കാണിക്കുക</string>
+    <string name="why_details_hide">വിശദാംശങ്ങൾ മറയ്ക്കുക</string>
+    <string name="why_disclaimer">മാർക്കറ്റ് ഡാറ്റയിൽ നിന്നുള്ള സ്വയമേവയുള്ള വിലയിരുത്തൽ: ഒരേ സമയം എന്ത് സംഭവിക്കുന്നു എന്ന് കാണിക്കുന്നു, കാരണത്തിന്റെ തെളിവല്ല.</string>
+    <string name="why_footer_short">ഒരേസമയം സംഭവിക്കുന്നത് കാരണമാകണമെന്നില്ല · നിക്ഷേപ ഉപദേശമല്ല</string>
+    <string name="why_no_data">ഈ ജോഡിക്ക് Binance-ൽ നിന്ന് ഡാറ്റയില്ല</string>
+    <string name="why_no_data_hint">വില, വോളിയം, ചാഞ്ചാട്ടം എന്നിവ Binance മണിക്കൂർ കാൻഡിലുകളിൽ നിന്നാണ്.</string>
+    <string name="why_ref_alts">ആൾട്ടുകൾ</string>
+    <string name="why_section_context">സാധ്യമായ വിശദീകരണം</string>
+    <string name="why_section_observation">നിരീക്ഷണം</string>
+    <string name="why_title">ഒപ്പം എന്താണ് നീങ്ങുന്നത്?</string>
+    <string name="why_title_coin">%1$s-നൊപ്പം എന്താണ് നീങ്ങുന്നത്?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">ചുരുക്കത്തിൽ · %1$s പ്രകാരം</string>
+    <string name="why_brief_label">ചുരുക്കത്തിൽ:</string>
+    <string name="why_summary_against">കോയിൻ മാർക്കറ്റിന് എതിരായി നീങ്ങുന്നു.</string>
+    <string name="why_summary_calm">ശ്രദ്ധേയമായ നീക്കമില്ല: മാർക്കറ്റും കോയിനും ശാന്തമാണ്.</string>
+    <string name="why_summary_coin">ഈ കോയിൻ മാത്രം നീങ്ങുന്നു – ഒരുപക്ഷേ ഈ കോയിനിനെ മാത്രം ബാധിക്കുന്ന എന്തോ ഒന്ന്.</string>
+    <string name="why_summary_coin_volume">ഉയർന്ന വോളിയത്തോടെ ഈ കോയിൻ മാത്രം നീങ്ങുന്നു – ഒരുപക്ഷേ ഈ കോയിനിനെ മാത്രം ബാധിക്കുന്ന എന്തോ ഒന്ന്.</string>
+    <string name="why_summary_longs">ഫ്യൂച്ചേഴ്സ്: ലിവറേജുള്ള ധാരാളം ലോംഗ് പൊസിഷനുകൾ.</string>
+    <string name="why_summary_market">ഈ നീക്കം സമയപരമായി മൊത്തം മാർക്കറ്റുമായി യോജിക്കുന്നു.</string>
+    <string name="why_summary_market_volume">ഈ നീക്കം ഉയർന്ന ട്രേഡിംഗ് വോളിയവും വ്യാപകമായി നീങ്ങുന്ന മാർക്കറ്റുമായി ഒത്തുചേരുന്നു.</string>
+    <string name="why_summary_peg_near">വില അതിന്റെ 1:1 പെഗ്ഗിന് അടുത്താണ്.</string>
+    <string name="why_summary_peg_off">വില അതിന്റെ 1:1 പെഗ്ഗിൽ നിന്ന് ശ്രദ്ധേയമായി വ്യതിചലിക്കുന്നു.</string>
+    <string name="why_summary_shorts">ഫ്യൂച്ചേഴ്സ്: ധാരാളം ഷോർട്ട് പൊസിഷനുകൾ.</string>
+    <string name="why_summary_thin">നീക്കം ദുർബലമാണ്: പിന്നിൽ കുറഞ്ഞ വോളിയം മാത്രം.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">മാർക്കറ്റിന് എതിരെ</string>
+    <string name="why_f_coin_only">ഈ കോയിൻ മാത്രം</string>
+    <string name="why_f_leader">മാർക്കറ്റ് നേതാവായി Bitcoin</string>
+    <string name="why_f_leverage_balanced">ലിവറേജ് സന്തുലിതം</string>
+    <string name="why_f_leverage_longs">ലിവറേജ്: ധാരാളം ലോംഗുകൾ</string>
+    <string name="why_f_leverage_shorts">ലിവറേജ്: ധാരാളം ഷോർട്ടുകൾ</string>
+    <string name="why_f_market_calm">ശാന്തമായ മാർക്കറ്റ്</string>
+    <string name="why_f_market_wide">മുഴുവൻ മാർക്കറ്റും നീങ്ങുന്നു</string>
+    <string name="why_factor_funding">ഫണ്ടിംഗ്</string>
+    <string name="why_factor_futures">ഫ്യൂച്ചേഴ്സ്</string>
+    <string name="why_factor_market">മൊത്തം മാർക്കറ്റ്</string>
+    <string name="why_factor_near_high">ഉയർന്ന നിലയ്ക്ക് അടുത്ത്</string>
+    <string name="why_factor_near_low">താഴ്ന്ന നിലയ്ക്ക് അടുത്ത്</string>
+    <string name="why_factor_peg">പെഗ് (1:1)</string>
+    <string name="why_factor_range3d">3 ദിവസത്തെ പരിധി</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">കണക്കാക്കിയത്</string>
+    <string name="why_fn_funding_longs">പലരും വില ഉയരുമെന്ന് പന്തയം വയ്ക്കുന്നു</string>
+    <string name="why_fn_funding_neutral">നിഷ്പക്ഷം</string>
+    <string name="why_fn_funding_shorts">പലരും വില താഴുമെന്ന് പന്തയം വയ്ക്കുന്നു</string>
+    <string name="why_fn_high_at">30 ദിവസത്തെ ഉയർന്ന നിലയിൽ</string>
+    <string name="why_fn_high_below">30 ദിവസത്തെ ഉയർന്ന നിലയ്ക്ക് താഴെ</string>
+    <string name="why_fn_leader_calm">Bitcoin ശാന്തമാണ്</string>
+    <string name="why_fn_leader_moves">Bitcoin വ്യക്തമായി നീങ്ങുന്നു</string>
+    <string name="why_fn_low_above">30 ദിവസത്തെ താഴ്ന്ന നിലയ്ക്ക് മുകളിൽ</string>
+    <string name="why_fn_low_at">30 ദിവസത്തെ താഴ്ന്ന നിലയിൽ</string>
+    <string name="why_fn_market_against">ഈ കോയിൻ മാർക്കറ്റിന് എതിരായി നീങ്ങുന്നു</string>
+    <string name="why_fn_market_alone">മാർക്കറ്റ് ശാന്തം – ഈ കോയിൻ സ്വന്തമായി നീങ്ങുന്നു</string>
+    <string name="why_fn_market_calm">മാർക്കറ്റ് ശാന്തമാണ്</string>
+    <string name="why_fn_market_lags">മാർക്കറ്റ് നീങ്ങുന്നു, ഈ കോയിൻ കഷ്ടിച്ച് മാത്രം</string>
+    <string name="why_fn_market_moves">മാർക്കറ്റ് അതേ ദിശയിൽ നീങ്ങുന്നു</string>
+    <string name="why_fn_market_pulls">മാർക്കറ്റ് BTC-യോടൊപ്പം നീങ്ങുന്നു</string>
+    <string name="why_fn_oi_down">ഓപ്പൺ ഇന്ററസ്റ്റ് കുറഞ്ഞു</string>
+    <string name="why_fn_oi_flat">ഓപ്പൺ ഇന്ററസ്റ്റ് കാര്യമായി മാറിയില്ല</string>
+    <string name="why_fn_oi_mixed">ഓപ്പൺ ഇന്ററസ്റ്റ് സമ്മിശ്രം</string>
+    <string name="why_fn_oi_up">ഓപ്പൺ ഇന്ററസ്റ്റ് കൂടി</string>
+    <string name="why_fn_peg_above">1:1 പെഗ്ഗിന് %1$s മുകളിൽ</string>
+    <string name="why_fn_peg_below">1:1 പെഗ്ഗിന് %1$s താഴെ</string>
+    <string name="why_fn_peg_near">1:1 പെഗ്ഗിന് അടുത്ത്</string>
+    <string name="why_fn_range_above_low">3 ദിവസത്തെ താഴ്ന്ന നില മുതൽ</string>
+    <string name="why_fn_range_below_high">3 ദിവസത്തെ ഉയർന്ന നില മുതൽ</string>
+    <string name="why_fn_range_near_high">3 ദിവസത്തെ ഉയർന്ന നിലയ്ക്ക് അടുത്ത്</string>
+    <string name="why_fn_range_near_low">3 ദിവസത്തെ താഴ്ന്ന നിലയ്ക്ക് അടുത്ത്</string>
+    <string name="why_fn_volatility_stronger">സാധാരണയെക്കാൾ ശക്തം</string>
+    <string name="why_fn_volatility_tiny">കേവല അളവിൽ ചെറുത് (%1$s-ൽ താഴെ)</string>
+    <string name="why_fn_volatility_usual">സാധാരണപോലെ</string>
+    <string name="why_fn_volume_higher">സാധാരണയെക്കാൾ കൂടുതൽ</string>
+    <string name="why_fn_volume_lower">സാധാരണയെക്കാൾ കുറവ്</string>
+    <string name="why_fn_volume_usual">സാധാരണപോലെ</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">ഈ കോയിൻ 24 മണിക്കൂറിൽ %1$s, BTC %2$s — ശ്രദ്ധേയമായി സ്വതന്ത്രമായ നീക്കം.</string>
+    <string name="why_against_ref_text">ഈ കോയിൻ 24 മണിക്കൂറിൽ %1$s, %2$s %3$s — ശ്രദ്ധേയമായി സ്വതന്ത്രമായ നീക്കം.</string>
+    <string name="why_btc_independent">%1$s ഇപ്പോൾ Bitcoin-ൽ നിന്ന് സ്വതന്ത്രമായി നീങ്ങുന്നു.</string>
+    <string name="why_btc_tight">%1$s ഇപ്പോൾ Bitcoin-നോട് ചേർന്ന് നീങ്ങുന്നു.</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_coin_only_text">മാർക്കറ്റ് ശാന്തമായിരിക്കെ 24 മണിക്കൂറിൽ %1$s – ഒരുപക്ഷേ ഈ കോയിനിനെ മാത്രം ബാധിക്കുന്ന എന്തോ ഒന്ന്.</string>
+    <string name="why_leverage_balanced_text">ഫ്യൂച്ചേഴ്സ് മാർക്കറ്റിൽ ലോംഗ് അല്ലെങ്കിൽ ഷോർട്ട് പൊസിഷനുകളുടെ തിരക്കില്ല.</string>
+    <string name="why_leverage_longs_text">പലരും കടമെടുത്ത പണം കൊണ്ട് വില ഉയരുമെന്ന് പന്തയം വയ്ക്കുന്നു. ലോംഗുകൾ ഷോർട്ടുകൾക്ക് നൽകുന്നു — വില താഴ്ന്നാൽ ലിക്വിഡേഷനുകളുടെ സാധ്യത കൂടുതലാണ്.</string>
+    <string name="why_leverage_shorts_text">പലരും കടമെടുത്ത പണം കൊണ്ട് വില താഴുമെന്ന് പന്തയം വയ്ക്കുന്നു. ഷോർട്ടുകൾ ലോംഗുകൾക്ക് നൽകുന്നു – വില ഉയർന്നാൽ ഷോർട്ട് സ്ക്വീസ് സാധ്യമാണ്.</string>
+    <string name="why_market_calm_text">ഈ കോയിൻ: 24 മണിക്കൂറിൽ %1$s. മാർക്കറ്റോ കോയിനോ കാര്യമായി നീങ്ങുന്നില്ല.</string>
+    <string name="why_market_leader_text">ഏറ്റവും വലിയ കോയിൻ എന്ന നിലയിൽ, BTC സാധാരണയായി ബാക്കി മാർക്കറ്റിനൊപ്പം നീങ്ങുന്നു. ETH: 24 മണിക്കൂറിൽ %1$s.</string>
+    <string name="why_market_leader_text_no_eth">ഏറ്റവും വലിയ കോയിൻ എന്ന നിലയിൽ, BTC സാധാരണയായി ബാക്കി മാർക്കറ്റിനൊപ്പം നീങ്ങുന്നു.</string>
+    <string name="why_market_similar_text">ഈ കോയിൻ: 24 മണിക്കൂറിൽ %1$s – അതേ സമയം, മാർക്കറ്റ് അതേ ദിശയിൽ നീങ്ങുന്നു, അത്ര വ്യക്തമല്ലെങ്കിലും.</string>
+    <string name="why_market_wide_text">ഈ കോയിൻ: 24 മണിക്കൂറിൽ %1$s – അതേ സമയം, മൊത്തം മാർക്കറ്റ് വ്യക്തമായി നീങ്ങുന്നു.</string>
+    <string name="why_open_interest_change">അവസാന പരിശോധനയ്ക്ക് ശേഷം ഓപ്പൺ ഇന്ററസ്റ്റ് %1$s.</string>
+    <string name="why_peg_text">സ്റ്റേബിൾകോയിൻ: ക്വോട്ട് കറൻസിയുമായുള്ള 1:1 പെഗ്ഗുമായി താരതമ്യം ചെയ്യുമ്പോൾ, വ്യതിയാനം %1$s.</string>
+    <string name="why_sentiment_text">മുഴുവൻ ക്രിപ്റ്റോ മാർക്കറ്റിന്റെയും Fear &amp; Greed സൂചിക, ഇന്നലെയുമായി താരതമ്യം %1$s.</string>
+    <string name="why_sentiment_text_no_change">മുഴുവൻ ക്രിപ്റ്റോ മാർക്കറ്റിന്റെയും Fear &amp; Greed സൂചിക.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="one">%1$d മണിക്കൂറായി താഴുന്നു</item>
+        <item quantity="other">%1$d മണിക്കൂറായി താഴുന്നു</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="one">%1$d മണിക്കൂറായി ഉയരുന്നു</item>
+        <item quantity="other">%1$d മണിക്കൂറായി ഉയരുന്നു</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="one">%1$d മണിക്കൂറായി സ്ഥിരം</item>
+        <item quantity="other">%1$d മണിക്കൂറായി സ്ഥിരം</item>
+    </plurals>
+    <string name="why_volatility_high_text">കഴിഞ്ഞ മണിക്കൂർ: %1$s — കഴിഞ്ഞ 24 മണിക്കൂറിലെ സാധാരണ മണിക്കൂർ ചാഞ്ചാട്ടവുമായി താരതമ്യം ചെയ്ത്.</string>
+    <string name="why_volatility_normal_text">കഴിഞ്ഞ മണിക്കൂർ: %1$s — സാധാരണ പരിധിക്കുള്ളിൽ.</string>
+    <string name="why_volatility_tiny_text">കഴിഞ്ഞ മണിക്കൂർ: %1$s — ഈ കോയിനിന് അസാധാരണം, പക്ഷേ കേവല അളവിൽ ചെറുത്.</string>
+    <string name="why_volume_estimated_text">കണക്കാക്കിയത്: ഈ ഉറവിടം വിറ്റുവരവ് നൽകുന്നില്ല, അതിനാൽ വ്യാപാരം ചെയ്ത കോയിൻ അളവുകൾ താരതമ്യം ചെയ്യുന്നു.</string>
+    <string name="why_volume_high_text">കഴിഞ്ഞ മണിക്കൂറിൽ സാധാരണയെക്കാൾ വളരെ കൂടുതൽ വ്യാപാരം – നീക്കം ഉയർന്ന വോളിയത്തോടെയാണ്.</string>
+    <string name="why_volume_low_text">നീക്കത്തിന് പിന്നിൽ കുറഞ്ഞ വ്യാപാരം മാത്രം – ഇത്തരം നീക്കങ്ങൾ പലപ്പോഴും സ്ഥിരത കുറഞ്ഞവയാണ്.</string>
+    <string name="why_volume_normal_text">കഴിഞ്ഞ മണിക്കൂറിലെ വ്യാപാരം കഴിഞ്ഞ 24 മണിക്കൂറിന് അനുസൃതമാണ്.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">ഉയർന്നത്</string>
+    <string name="why_dot_neutral">നിഷ്പക്ഷം</string>
+    <string name="why_dot_supports">നീക്കവുമായി യോജിക്കുന്നു</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">%1$s പ്രകാരമുള്ള ഡാറ്റ</string>
+    <string name="why_fresh_breadth">മാർക്കറ്റ് വ്യാപ്തി: %1$s · %2$s</string>
+    <string name="why_fresh_candles">കാൻഡിലുകൾ: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">ഫ്യൂച്ചേഴ്സ്: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="one">ഓപ്പൺ ഇന്ററസ്റ്റ് %1$d മണിക്കൂർ മുമ്പുമായി താരതമ്യം</item>
+        <item quantity="other">ഓപ്പൺ ഇന്ററസ്റ്റ് %1$d മണിക്കൂർ മുമ്പുമായി താരതമ്യം</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="one">ഓപ്പൺ ഇന്ററസ്റ്റ് %1$d മിനിറ്റ് മുമ്പുമായി താരതമ്യം</item>
+        <item quantity="other">ഓപ്പൺ ഇന്ററസ്റ്റ് %1$d മിനിറ്റ് മുമ്പുമായി താരതമ്യം</item>
+    </plurals>
+    <string name="why_fresh_today">ഇന്ന്</string>
+    <string name="why_fresh_yesterday">ഇന്നലെ</string>
+    <string name="why_source_fallback">%1$s (പകരം)</string>
+    <string name="why_source_reference">%1$s (റഫറൻസ്)</string>
+    <string name="why_sources">ഉറവിടങ്ങൾ: എക്സ്ചേഞ്ച് മണിക്കൂർ കാൻഡിലുകൾ (പ്രധാനമായും Binance), എക്സ്ചേഞ്ചുകളിൽ നിന്നുള്ള ഫ്യൂച്ചേഴ്സ് ഡാറ്റ, alternative.me-ൽ നിന്നുള്ള Fear &amp; Greed.</string>
+    <string name="why_sources_list">ഉറവിടങ്ങൾ: %1$s.</string>
+    <string name="why_src_breadth">%1$s (മാർക്കറ്റ് വ്യാപ്തി)</string>
+    <string name="why_src_candles">%1$s (കാൻഡിലുകൾ)</string>
+    <string name="why_src_comparison">%1$s (മാർക്കറ്റ് താരതമ്യം)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (ഫ്യൂച്ചേഴ്സ്)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">ഫണ്ടിംഗ്</string>
+    <string name="factor_spoken_volatility">സാധാരണ ചാഞ്ചാട്ടത്തിന്റെ %1$s മടങ്ങ്</string>
+    <string name="factor_spoken_volume">സാധാരണയുടെ %1$s മടങ്ങ്</string>
+    <string name="factor_volatility">ചാഞ്ചാട്ടം (1h)</string>
+    <string name="factor_volume">വോളിയം</string>
+</resources>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">ថយក្រោយ</string>
+    <string name="action_cancel">បោះបង់</string>
+    <string name="action_clear">សម្អាត</string>
+    <string name="action_close">បិទ</string>
+    <string name="action_keep">ទុកដដែល</string>
+    <string name="action_delete">លុប</string>
+    <string name="action_edit">កែសម្រួល</string>
+    <string name="action_more">ជម្រើសបន្ថែម</string>
+    <string name="action_refresh">ផ្ទុកឡើងវិញ</string>
+    <string name="action_retry">ព្យាយាមម្តងទៀត</string>
+    <string name="action_save">រក្សាទុក</string>
+    <string name="action_sort">តម្រៀប</string>
+    <string name="action_sort_done">រួចរាល់</string>
+    <string name="action_undo">មិនធ្វើវិញ</string>
+    <string name="action_view">មើល</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">ទីផ្សារ</string>
+    <string name="tab_portfolio">ផលប័ត្រ</string>
+    <string name="tab_settings">ការកំណត់</string>
+    <string name="tab_watchlist">បញ្ជីតាមដាន</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">កំហុស៖ %1$s</string>
+    <string name="error_exchange_unreachable">មិនអាចភ្ជាប់ទៅផ្សារប្តូរបានទេនៅពេលនេះ – តម្លៃចុងក្រោយនៅតែបង្ហាញ។</string>
+    <string name="error_exchange_unreachable_short">មិនអាចភ្ជាប់ទៅផ្សារប្តូរបានទេនៅពេលនេះ</string>
+    <string name="loading_hint">កំពុងផ្ទុក…</string>
+    <string name="option_off">បិទ</string>
+    <string name="something_went_wrong">មានបញ្ហាអ្វីមួយកើតឡើង</string>
+    <string name="time_just_now">អម្បាញ់មិញ</string>
+    <string name="try_again">ព្យាយាមម្តងទៀត</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">គ្មានការតភ្ជាប់</string>
+    <string name="offline_status_since">គ្មានការតភ្ជាប់ · គិតត្រឹម %1$s</string>
+    <string name="status_live">ផ្ទាល់</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">បន្ថែមគូ</string>
+    <string name="shortcut_alarms">ការដាស់តឿនទាំងអស់</string>
+    <string name="shortcut_cycle">ទីផ្សារ</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">បន្ថែមគូទៅបញ្ជីតាមដាន</string>
+    <string name="shortcut_alarms_long">បង្ហាញការដាស់តឿនទាំងអស់</string>
+    <string name="shortcut_cycle_long">បើកទិដ្ឋភាពទូទៅនៃទីផ្សារ</string>
+
+    <string name="log_box_title">កំណត់ហេតុ</string>
+    <string name="label_value">%1$s៖ %2$s</string>
+</resources>

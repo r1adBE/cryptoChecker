@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">返回</string>
+    <string name="action_cancel">取消</string>
+    <string name="action_clear">清除</string>
+    <string name="action_close">關閉</string>
+    <string name="action_keep">保留</string>
+    <string name="action_delete">刪除</string>
+    <string name="action_edit">編輯</string>
+    <string name="action_more">更多選項</string>
+    <string name="action_refresh">重新整理</string>
+    <string name="action_retry">重試</string>
+    <string name="action_save">儲存</string>
+    <string name="action_sort">排序</string>
+    <string name="action_sort_done">完成</string>
+    <string name="action_undo">復原</string>
+    <string name="action_view">查看</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">市場</string>
+    <string name="tab_portfolio">投資組合</string>
+    <string name="tab_settings">設定</string>
+    <string name="tab_watchlist">自選清單</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">錯誤：%1$s</string>
+    <string name="error_exchange_unreachable">暫時連唔到交易所 – 最後嘅價格會繼續顯示。</string>
+    <string name="error_exchange_unreachable_short">暫時連唔到交易所</string>
+    <string name="loading_hint">載入中…</string>
+    <string name="option_off">關閉</string>
+    <string name="something_went_wrong">出咗問題</string>
+    <string name="time_just_now">啱啱</string>
+    <string name="try_again">再試一次</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">冇網絡連線</string>
+    <string name="offline_status_since">冇網絡連線 · 截至 %1$s</string>
+    <string name="status_live">即時</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">新增交易對</string>
+    <string name="shortcut_alarms">所有提示</string>
+    <string name="shortcut_cycle">市場</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">新增交易對到自選清單</string>
+    <string name="shortcut_alarms_long">顯示所有提示</string>
+    <string name="shortcut_cycle_long">開啟市場概覽</string>
+
+    <string name="log_box_title">記錄</string>
+    <string name="label_value">%1$s：%2$s</string>
+</resources>

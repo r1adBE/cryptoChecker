@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">Fondo</string>
+    <string name="widget_configure_hint">Escolle o fondo e a opacidade. A cor segue a app. O widget mostra toda a túa lista; toca unha fila para abrir a app.</string>
+    <string name="widget_configure_title">Configurar widget</string>
+    <string name="widget_description">Mostra o prezo dun par da túa lista.</string>
+    <string name="widget_empty">Aínda non hai pares na lista.</string>
+    <string name="widget_group_hint">Mostrar só os pares deste grupo.</string>
+    <string name="widget_kind_single">Unha moeda</string>
+    <string name="widget_opacity">Opacidade do fondo: %1$s</string>
+    <string name="widget_pulse_description">O que destaca agora mesmo no mercado: titular, breve resumo e Bitcoin, Ethereum e Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">desactualizado</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">desactualizado · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">Velas</string>
+    <string name="widget_chart_line">Liña</string>
+    <string name="widget_chart_range">Período do gráfico</string>
+    <string name="widget_chart_type">Tipo de gráfico</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 ano</string>
+    <string name="widget_range_24h">24 h</string>
+    <string name="widget_range_30d">30 días</string>
+    <string name="widget_range_7d">7 días</string>
+    <string name="widget_range_short_1y">1A</string>
+    <string name="widget_range_short_24h">24h</string>
+    <string name="widget_range_short_30d">30D</string>
+    <string name="widget_range_short_7d">7D</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">Ás %1$s</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">Historial en breve</string>
+    <string name="widget_portfolio_description">Valor total da túa carteira e variación de hoxe</string>
+    <string name="widget_portfolio_entries">Movementos baixo as moedas</string>
+    <string name="widget_portfolio_entries_both">Ambos</string>
+    <string name="widget_portfolio_entries_buys">Compras</string>
+    <string name="widget_portfolio_entries_hint">Só se mostra se hai espazo baixo as moedas. As compras inclúen os depósitos e as vendas, as retiradas; con «Ambos», as liñas suman a tenza.</string>
+    <string name="widget_portfolio_entries_off">Desactivado</string>
+    <string name="widget_portfolio_entries_sells">Vendas</string>
+    <string name="widget_portfolio_display">Visualización</string>
+    <string name="widget_portfolio_display_conversion">Só conversión</string>
+    <string name="widget_portfolio_display_conversion_usdt">Conversión + USDT</string>
+    <string name="widget_portfolio_display_hint">A liña de USDT ocúltase cando a moeda de conversión é unha stablecoin en USD (p. ex. USDC).</string>
+    <string name="widget_portfolio_display_usdt">Só USDT</string>
+    <string name="widget_portfolio_empty">Engade compras na lapela Carteira</string>
+    <string name="widget_portfolio_list_hint">Abre a app para mostrar aquí as túas posicións.</string>
+    <string name="widget_portfolio_locked_hint">Bloqueado – desbloquéao na app</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="one">sen %1$d moeda</item>
+        <item quantity="other">sen %1$d moedas</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ %1$d máis</item>
+        <item quantity="other">+ %1$d máis</item>
+    </plurals>
+    <string name="widget_portfolio_name">Carteira</string>
+    <string name="widget_portfolio_off_hint">Actívaa en %1$s.</string>
+    <string name="widget_portfolio_off_short">Carteira desactivada</string>
+    <string name="widget_portfolio_off_title">A carteira está desactivada</string>
+    <string name="widget_portfolio_partly_stale">algúns prezos desactualizados</string>
+    <string name="widget_portfolio_period">Período</string>
+    <string name="widget_portfolio_period_without">%1$s sen %2$s</string>
+    <string name="widget_portfolio_range_48h">48 h</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: abre a Carteira</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="widget_portfolio_today_without">Hoxe sen %1$s</string>
+    <string name="widget_portfolio_view">Vista</string>
+    <string name="widget_portfolio_view_chart">Gráfico</string>
+    <string name="widget_portfolio_view_list">Lista</string>
+    <string name="widget_portfolio_view_overview">Resumo</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">Escolle un par</string>
+    <string name="single_widget_description">Mostra unha moeda en grande co prezo, a variación e un gráfico de 24 horas.</string>
+    <string name="single_widget_label">Crypto Checker – unha moeda</string>
+    <string name="single_widget_title">Configurar widget dunha moeda</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">Engadir</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">Engadir widget %1$s</string>
+    <string name="widgets_manual_text">A túa pantalla de inicio non permite engadir widgets desde a app. Mantén premido un espazo baleiro da pantalla de inicio, escolle «Widgets» e busca «Crypto Checker».</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">Engade o widget manualmente</string>
+    <string name="widgets_sheet_title">Engadir un widget</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">O iOS non deixa que as apps engadan widgets por si mesmas. Só leva un momento:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Widgets dispoñibles</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Mantén premido un espazo baleiro da pantalla de inicio ata que as apps se movan.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Toca «Editar» › «Engadir widget» arriba (ou «+» en versións antigas do iOS).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Busca «Crypto Checker», escolle un widget e toca «Engadir widget».</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">Actualizar – posible de novo en %1$d s</string>
+    <string name="settings_watch">Reloxo</string>
+    <string name="settings_watch_hint">Moedas para a app do reloxo con Wear OS (ata %1$d, cotizadas en USDT). Ao reloxo só vai esta lista, a través dos servizos de Google Play; o reloxo obtén os prezos por si mesmo.</string>
+    <string name="settings_watch_mode_phone">Como no móbil (favoritos ★)</string>
+    <string name="settings_watch_mode_own">Lista propia</string>
+    <string name="settings_watch_own_title">Lista propia: %1$d de %2$d</string>
+    <string name="settings_watch_none">Aínda non hai favoritos</string>
+
+    <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
+    <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">Sen liña de USDT en «Lista»</string>
+    <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
+    <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">«Resumo» mostra 30 días no seu lugar</string>
+</resources>

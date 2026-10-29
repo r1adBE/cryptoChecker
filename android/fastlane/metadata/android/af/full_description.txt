@@ -1,0 +1,41 @@
+Crypto Checker kontroleer die pryse op jou beurs en laat jou weet wanneer 'n kontrole jou vlak bereik vind. As die app toe is, besluit Android wanneer alarms gekontroleer word – hoogstens een keer per 15 minute, dikwels eers ná ure. Kort pieke tussenin kan gemis word; die app sê so. Jou beurs se prys, nie 'n gemiddeld nie – gratis, geen rekening.
+
+WAT DIT ANDERS MAAK
+• Jou beurs, nie 'n gemiddeld nie: elke ry wys die paar se laaste prys op jou gekose beurs – Binance, Coinbase, Kraken, OKX, Bybit en baie meer.
+• 'n Alarm wat een keer laat weet: “Laat weet my wanneer BTC bo 100,000 USDT gaan.” Dit lui wanneer 'n kontrole die vlak oorgesteek vind, nie by elke bywerking nie – “Een keer” skakel dit dan af, “Elke keer” stel dit weer wanneer die prys terugkom.
+• “Wat beweeg saam?”: 'n faktorlys vir een munt – algehele mark, volume, wisselvalligheid, befondsing en oop belang, afstand tot die hoogte- of laagtepunt, Fear & Greed. Dit wys wat terselfdertyd beweeg – geen oorsaak, geen nuus, geen beleggingsadvies nie.
+• Geen rekening, geen advertensies, geen nasporing nie. Die ontwikkelaar kry niks van jou data nie.
+
+EERLIK OOR DIE DATA
+• “Spaarsaam” is die verstek: pryse herlaai wanneer jy die app oopmaak en met tussenposes in die agtergrond. “Regstreeks terwyl oop” voeg regstreekse pryse by vir Binance, Bybit, OKX, Coinbase en Kraken terwyl die volglys oop is.
+• %-verandering en grafieke kom eers van die paar se eie beurs; as dit geen kerse het nie, gebruik die app Binance of Coinbase en sê so.
+• Fear & Greed, dominansie en on-chain-waardes van alternative.me, CoinGecko en Coin Metrics.
+• Bedrae verlaat die toestel slegs via jou uitvoer of Android-stelselrugsteun. Vir pryse gaan slegs paartickers na die betrokke paar se beurs; plus wisselkoerse (Frankfurter), markdata en logo's (CoinGecko, Binance), dataspieëls (GitHub). As jy adresse of 'n xpub volg, sien openbare blokkettingnodusse die adresse (vir 'n xpub, die afgeleides) en jou IP.
+
+VOLGLYS
+• 56 markte op 45 beurse: spot en futures, DEX-tokens via DexScreener, opsioneel aandele, goud en FX (TradFi)
+• Tweede reël “≈ waarde” in een van 31 geldeenhede (EUR, CHF, USD …), teen die FX-koers omgereken
+• Minigrafiek en %-verandering oor 24 h of sedert 00:00 in jou tydsone
+• Groepe, gunstelinge, sleep-en-los en 'n nota per munt
+• Rye merk “verouderd” of “beurs nie bereikbaar nie”
+
+ALARMS
+• Prys bo of onder 'n vlak, of 'n styging of daling met 'n persentasie – ook in jou geldeenheid, bv. 60,000 EUR op 'n USDT-paar
+• Beweging met x % binne 'n tydvenster, volumepiek
+• Klank (ook jou eie klanklêer), vibrasie en opsionele gesproke aankondiging
+• Stil ure en “Toetsalarm”: hoor vooraf hoe 'n alarm aankom; alarmlog: wanneer gekontroleer, watter prys, waarom 'n alarm nie afgegaan het nie
+
+MARK
+• Opvallend: ongewone prys- en volumebewegings in jou volglys, opsioneel as markkennisgewing
+• Crypto Pulse, Fear & Greed, Bitcoin-aanwysers, befondsing en oop belang – as blote meetwaardes
+• Netwerkfooie vir Ethereum, Bitcoin en meer, met gasalarm
+
+MEER
+• Legstukke: volglys, portefeuljetotaal, enkelmunt met grafiek
+• Portefeulje opsioneel (skakel aan in Instellings): aankope, verkope, ruilings, oordragte, belonings, deposito's en onttrekkings; FIFO (verstek) of gemiddeld (Ø); leesalleen-adresse sonder 'n seed vir BTC (insl. xpub), ETH- & EVM-kettings, SOL, TRX, XRP, LTC, ADA en TON; CSV-invoer van Relai, Swissquote, Bitpanda, Kraken, Binance en Coinbase; jaaroorsig as CSV; sy eie slot. Bitpanda en Swissquote: geen eie prys nie, slegs CSV.
+• Leesbaar vir almal: groen/rooi of blou/oranje, teken en pyl, nie net kleur nie; TalkBack lees elke ry as een sin
+• Rugsteun & herstel na 'n lêer – ook tussen Android en iPhone
+• Lig- en donkermodus, vyf aksentkleure, 75 tale
+• Oopbron (MIT) – die kode is openbaar op GitHub
+
+Let wel: Crypto Checker wys pryse en 'n portefeulje wat jy self invoer. Dit is nie 'n beurs of 'n beursie nie, handel nie en gee nie beleggingsadvies nie.

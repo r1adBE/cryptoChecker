@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">CSV-ის იმპორტი</string>
+    <string name="portfolio_csv_import_all_transfer">ყველა – საკუთარ საფულეში</string>
+    <string name="portfolio_csv_import_all_withdrawal">ყველა ტოვებს პორტფელს</string>
+    <string name="portfolio_csv_import_choice_proposed">შეთავაზებული: ემთხვევა %1$s-ს</string>
+    <string name="portfolio_csv_import_choice_transfer">საკუთარ საფულეში (გადარიცხვა)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">ტოვებს პორტფელს (გატანა)</string>
+    <string name="portfolio_csv_import_choose_each">ყოველი გატანისთვის აირჩიე, სად წავიდა.</string>
+    <string name="portfolio_csv_import_columns">ამოცნობილი სვეტები: %1$s</string>
+    <string name="portfolio_csv_import_confirm">იმპორტი (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">დღე/თვე</string>
+    <string name="portfolio_csv_import_date_month_first">თვე/დღე</string>
+    <string name="portfolio_csv_import_date_order">ორაზროვანი თარიღები (მაგ. 03/04/2024) წაიკითხოს როგორც:</string>
+    <string name="portfolio_csv_import_decimal">ორაზროვანი რიცხვები (მაგ. %1$s) წაიკითხოს როგორც:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">შემოტანილია %d ტრანზაქცია</item>
+        <item quantity="other">შემოტანილია %d ტრანზაქცია</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d უკვე შემოტანილია (გამოტოვებულია)</item>
+        <item quantity="other">%d უკვე შემოტანილია (გამოტოვებულია)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">ფორმატი: %1$s</string>
+    <string name="portfolio_csv_import_line">სტრიქონი %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">იკითხება ფაილი და დღიური კურსები…</string>
+    <string name="portfolio_csv_import_progress">სტრიქონი %1$s / %2$s</string>
+    <string name="portfolio_csv_import_saving">ტრანზაქციები ინახება…</string>
+    <string name="portfolio_csv_import_missing_fx">სტრიქონებისთვის %1$s დღიური კურსი არ არის – შემოტანილია ფასის/საკომისიოს გარეშე.</string>
+    <string name="portfolio_csv_import_missing_price">ფაილში სტრიქონებისთვის %1$s ფასი არ არის – შემოტანილია ფასის გარეშე.</string>
+    <string name="portfolio_csv_import_more">+ კიდევ %1$d</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d ახალი ტრანზაქცია</item>
+        <item quantity="other">%d ახალი ტრანზაქცია</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">გამოტოვებულია %d სტრიქონი</item>
+        <item quantity="other">გამოტოვებულია %d სტრიქონი</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">სტეიბლქოინებზე (USDT, USDC …) ვაჭრობა აღირიცხება როგორც გაცვლა – სტეიბლქოინი შენს აქტივებში ჩნდება.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">შესაძლებელია რამდენიმე დამთხვევა – აირჩიე სწორი ან არცერთი.</string>
+    <string name="portfolio_csv_import_transfer_fee">ქსელის საკომისიო: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">ერთ გადარიცხვად აღრიცხვა</string>
+    <string name="portfolio_csv_import_transfer_stored">შესაბამისი ჩანაწერი ადრინდელი იმპორტიდან</string>
+    <string name="portfolio_csv_import_transfers_hint">ერთი და იმავე მონეტის გატანა და შესაბამისი შეტანა ერთ გადარიცხვად ერთიანდება: შეძენის ფასი და ფლობის პერიოდი გადადის, სხვაობა ქსელის საკომისიოდ ითვლება.</string>
+    <string name="portfolio_csv_import_transfers_title">გადარიცხვები შენს ანგარიშებს შორის</string>
+    <string name="portfolio_csv_import_unreadable">მხარდაჭერილი ტრანზაქციები ვერ მოიძებნა. მხარდაჭერილია: Relai, Swissquote, Kraken, Binance, Coinbase და Bitpanda CSV ექსპორტები.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
+    <string name="portfolio_csv_import_too_large">ფაილი იმპორტისთვის ძალიან დიდია (მაქსიმუმ 16 MB და %1$s სტრიქონი). გააკეთე უფრო მოკლე პერიოდების ექსპორტი და შემოიტანე ისინი სათითაოდ.</string>
+    <string name="portfolio_csv_import_failed">იმპორტი ვერ მოხერხდა – არაფერი შენახულა. კიდევ სცადე.</string>
+    <string name="portfolio_csv_import_locked">იმპორტი შეუძლებელია: შენახული მონაცემების წაკითხვა ახლა ვერ ხერხდება. გადატვირთე აპი.</string>
+    <string name="portfolio_csv_import_withdrawals_title">გატანები – სად წავიდა მონეტები?</string>
+    <string name="portfolio_csv_import_zone">დრო სასაათო სარტყლის გარეშე წაიკითხოს როგორც: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">მოწყობილობა (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">წაუკითხავი თარიღი</string>
+    <string name="portfolio_csv_skip_bad_number">წაუკითხავი რიცხვი</string>
+    <string name="portfolio_csv_skip_fee_exceeds">საკომისიო ≥ მიღებული თანხა</string>
+    <string name="portfolio_csv_skip_internal_move">გადატანა შენს საკუთარ ანგარიშებს შორის – აღსარიცხი არაფერია</string>
+    <string name="portfolio_csv_skip_missing">ველი აკლია</string>
+    <string name="portfolio_csv_skip_ambiguous">ერთსა და იმავე წამში რამდენიმე გარიგება, რომელთა გარჩევა შეუძლებელია – შეიყვანე ხელით</string>
+    <string name="portfolio_csv_skip_not_crypto">კრიპტო არ არის</string>
+    <string name="portfolio_csv_skip_possible_duplicate">შესაძლოა უკვე შემოტანილია (თითქმის იგივე გარიგება) – შეამოწმე ხელით</string>
+    <string name="portfolio_csv_skip_two_fees">ორი საკომისიო სხვადასხვა ერთეულში – შეიყვანე გაცვლა ხელით</string>
+    <string name="portfolio_csv_skip_unsupported">მხარდაუჭერელი ტიპი</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">დაბრუნება</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">წავშალო ამ იმპორტის %d ტრანზაქცია? ხელით შეყვანილი ჩანაწერები და სხვა იმპორტები რჩება.</item>
+        <item quantity="other">წავშალო ამ იმპორტის %d ტრანზაქცია? ხელით შეყვანილი ჩანაწერები და სხვა იმპორტები რჩება.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">გავაუქმო იმპორტი?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">წაიშალა %d შემოტანილი ტრანზაქცია</item>
+        <item quantity="other">წაიშალა %d შემოტანილი ტრანზაქცია</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d ტრანზაქცია</item>
+        <item quantity="other">%d ტრანზაქცია</item>
+    </plurals>
+    <string name="portfolio_imports_empty">იმპორტები არ არის</string>
+    <string name="portfolio_imports_title">იმპორტები</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">იგივე ტრანზაქციის ID სხვა თანხით – შეამოწმე ხელით</string>
+    <string name="portfolio_csv_skip_staking_unpaired">სტეიკინგის ჩანაწერი საპირისპირო ჩანაწერის გარეშე – შეამოწმე აქტივები</string>
+    <string name="portfolio_csv_skip_amount_too_small">თანხა ძალიან მცირეა – შენახვისას 0-მდე მრგვალდება</string>
+    <string name="portfolio_csv_skip_invalid_swap">გაცვლა სწორი მონეტის ან მიღებული თანხის გარეშე</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">ფაილი ხელახლა იკითხება …</string>
+</resources>

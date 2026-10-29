@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">ਪੋਰਟਫੋਲੀਓ ਅਲਰਟ ਰੁਕੇ ਹੋਏ: %1$s ਦੀ ਮੌਜੂਦਾ ਕੀਮਤ ਨਹੀਂ</string>
+    <string name="portfolio_alarms_paused_price_generic">ਪੋਰਟਫੋਲੀਓ ਅਲਰਟ ਰੁਕੇ ਹੋਏ: ਹਰ ਕੌਇਨ ਦੀ ਮੌਜੂਦਾ ਕੀਮਤ ਨਹੀਂ</string>
+    <string name="portfolio_alarms_paused_addresses">ਪੋਰਟਫੋਲੀਓ ਅਲਰਟ ਰੁਕੇ ਹੋਏ: ਨਿਗਰਾਨੀ ਵਾਲੇ ਪਤਿਆਂ ਦੇ ਬੈਲੈਂਸ ਹਾਲੇ ਲੋਡ ਨਹੀਂ ਹੋਏ</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">ਪੋਰਟਫੋਲੀਓ ਅਲਰਟ ਰੁਕੇ ਹੋਏ: %1$s ਦੇ ਟੋਕਨ ਬੈਲੈਂਸ ਅੰਸ਼ਕ ਤੌਰ ’ਤੇ ਪੁਰਾਣੇ</string>
+    <string name="portfolio_alarms_paused_tokens_generic">ਪੋਰਟਫੋਲੀਓ ਅਲਰਟ ਰੁਕੇ ਹੋਏ: ਨਿਗਰਾਨੀ ਵਾਲੇ ਪਤਿਆਂ ਦੇ ਟੋਕਨ ਬੈਲੈਂਸ ਅੰਸ਼ਕ ਤੌਰ ’ਤੇ ਪੁਰਾਣੇ</string>
+    <string name="portfolio_alarms_paused_unverified">ਪੋਰਟਫੋਲੀਓ ਅਲਰਟ ਰੁਕੇ ਹੋਏ: %1$s ਦੀ ਕੀਮਤ ਅਣ-ਪੁਸ਼ਟ</string>
+    <string name="portfolio_alarms_paused_unverified_generic">ਪੋਰਟਫੋਲੀਓ ਅਲਰਟ ਰੁਕੇ ਹੋਏ: ਕੁਝ ਕੌਇਨਾਂ ਦੀ ਕੀਮਤ ਅਣ-ਪੁਸ਼ਟ</string>
+    <string name="portfolio_alarms_address_failing">ਪੋਰਟਫੋਲੀਓ ਅਲਰਟ %1$s ਤੋਂ ਬਿਨਾਂ ਜਾਂਚਦੇ ਹਨ: 24 ਘੰਟਿਆਂ ਤੋਂ ਵੱਧ ਸਮੇਂ ਤੋਂ ਬੈਲੈਂਸ ਲੋਡ ਨਹੀਂ ਹੋਇਆ</string>
+    <string name="portfolio_alarms_address_failing_generic">ਪੋਰਟਫੋਲੀਓ ਅਲਰਟ ਉਨ੍ਹਾਂ ਪਤਿਆਂ ਤੋਂ ਬਿਨਾਂ ਜਾਂਚਦੇ ਹਨ ਜਿਨ੍ਹਾਂ ਦਾ ਬੈਲੈਂਸ 24 ਘੰਟਿਆਂ ਤੋਂ ਵੱਧ ਸਮੇਂ ਤੋਂ ਲੋਡ ਨਹੀਂ ਹੋਇਆ</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">ਟੋਕਨ ਅੰਸ਼ਕ ਤੌਰ ’ਤੇ ਪੁਰਾਣੇ</string>
+    <string name="portfolio_address_restore_failed">ਪਤਾ ਬਹਾਲ ਨਹੀਂ ਹੋ ਸਕਿਆ – ਲੋੜ ਹੋਵੇ ਤਾਂ ਦੁਬਾਰਾ ਜੋੜੋ</string>
+    <string name="portfolio_address_remove_failed">ਪਤਾ ਹਟਾਇਆ ਨਹੀਂ ਜਾ ਸਕਿਆ – ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ</string>
+</resources>

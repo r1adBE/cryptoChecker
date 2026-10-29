@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Nie sú vybrané žiadne coiny</string>
+    <string name="watch_loading">Načítava sa…</string>
+    <string name="watch_error">Burzy sú nedostupné</string>
+    <string name="watch_updated">Stav %1$s</string>
+    <string name="watch_refresh">Obnoviť</string>
+    <string name="watch_choose">Vybrať coiny</string>
+    <string name="watch_choose_hint">Coiny: najviac %1$d</string>
+    <string name="watch_complication_label">Kurz</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s za 24 hodín</string>
+    <string name="watch_mode_phone">Zoznam: ako v telefóne</string>
+    <string name="watch_mode_own">Zoznam: vlastný</string>
+    <string name="watch_phone_empty">V telefóne nie sú obľúbené</string>
+    <string name="a11y_watch_outdated">Kurz je zastaraný</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">naposledy aktualizované pred %1$d minútou</item>
+        <item quantity="few">naposledy aktualizované pred %1$d minútami</item>
+        <item quantity="many">naposledy aktualizované pred %1$d minúty</item>
+        <item quantity="other">naposledy aktualizované pred %1$d minútami</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">naposledy aktualizované pred %1$d hodinou</item>
+        <item quantity="few">naposledy aktualizované pred %1$d hodinami</item>
+        <item quantity="many">naposledy aktualizované pred %1$d hodiny</item>
+        <item quantity="other">naposledy aktualizované pred %1$d hodinami</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">naposledy aktualizované pred %1$d dňom</item>
+        <item quantity="few">naposledy aktualizované pred %1$d dňami</item>
+        <item quantity="many">naposledy aktualizované pred %1$d dňa</item>
+        <item quantity="other">naposledy aktualizované pred %1$d dňami</item>
+    </plurals>
+</resources>

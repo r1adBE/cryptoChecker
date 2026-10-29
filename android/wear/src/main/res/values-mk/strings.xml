@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Не се избрани монети</string>
+    <string name="watch_loading">Се вчитува…</string>
+    <string name="watch_error">Берзите не се достапни</string>
+    <string name="watch_updated">Состојба %1$s</string>
+    <string name="watch_refresh">Освежи</string>
+    <string name="watch_choose">Избери монети</string>
+    <string name="watch_choose_hint">Монети: најмногу %1$d</string>
+    <string name="watch_complication_label">Цена</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s за 24 часа</string>
+    <string name="watch_mode_phone">Листа: како телефонот</string>
+    <string name="watch_mode_own">Листа: сопствена</string>
+    <string name="watch_phone_empty">Нема омилени на телефонот</string>
+    <string name="a11y_watch_outdated">Цената е застарена</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">последно ажурирано пред %1$d минута</item>
+        <item quantity="other">последно ажурирано пред %1$d минути</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">последно ажурирано пред %1$d час</item>
+        <item quantity="other">последно ажурирано пред %1$d часа</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">последно ажурирано пред %1$d ден</item>
+        <item quantity="other">последно ажурирано пред %1$d дена</item>
+    </plurals>
+</resources>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">விழிப்பூட்டலை அமை</string>
+    <string name="alarms_add">புதிய விழிப்பூட்டல்</string>
+    <string name="alarms_edit">விழிப்பூட்டலைத் திருத்து</string>
+    <string name="alarms_empty">இந்த ஜோடிக்கு இன்னும் விழிப்பூட்டல்கள் இல்லை.</string>
+    <string name="alarms_empty_example">எடுத்துக்காட்டாக: BTC %1$s க்கு மேல் உயரும்போது எனக்குத் தெரிவி.</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">அறிவிப்புகள் ஆஃப் – விழிப்பூட்டல்கள் உங்களை வந்தடைய முடியாது.</string>
+    <string name="alarms_notifications_turn_on">ஆன் செய்</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">%1$d செயலில்</item>
+        <item quantity="other">%1$d செயலில்</item>
+    </plurals>
+    <string name="alarms_overview_empty">இன்னும் விழிப்பூட்டல்கள் இல்லை. ஒரு ஜோடியைத் திறந்து விழிப்பூட்டல்கள் என்பதில் ஒன்றைச் சேர்க்கவும்.</string>
+    <string name="alarms_overview_title">எல்லா விழிப்பூட்டல்களும்</string>
+    <string name="alarms_title">விழிப்பூட்டல்கள்</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">மேம்பட்டது</string>
+    <string name="alarm_change_updates">விலைப் புதுப்பிப்புகளைச் சரிசெய்</string>
+    <string name="alarm_create">விழிப்பூட்டலை உருவாக்கு</string>
+    <string name="alarm_currency_label">நாணயம்</string>
+    <string name="alarm_delete_confirm">இந்த விழிப்பூட்டல் அகற்றப்படும்.</string>
+    <string name="alarm_delete_title">விழிப்பூட்டலை நீக்கவா?</string>
+    <string name="alarm_field_percent">சதவீதம்</string>
+    <string name="alarm_field_price">விலை</string>
+    <string name="alarm_fires_now_above">விலை ஏற்கெனவே %1$s க்கு மேல் உள்ளது. இருந்தாலும் சேமிக்கவா?</string>
+    <string name="alarm_fires_now_below">விலை ஏற்கெனவே %1$s க்குக் கீழ் உள்ளது. இருந்தாலும் சேமிக்கவா?</string>
+    <string name="alarm_fires_now_change">மாற்று</string>
+    <string name="alarm_fires_now_save">இருந்தாலும் சேமி</string>
+    <string name="alarm_fires_now_title">விழிப்பூட்டல் இப்போதே தூண்டப்படும்</string>
+    <string name="alarm_first_battery_hint">பேட்டரி மேம்படுத்தல் ஆப்பைக் கட்டுப்படுத்துகிறது – விழிப்பூட்டல்கள் தாமதமாக வரலாம்.</string>
+    <string name="alarm_first_title">விழிப்பூட்டல் சேமிக்கப்பட்டது</string>
+    <string name="alarm_last_triggered">கடைசியாக %1$s இல்</string>
+    <string name="alarm_more_conditions">மேலும் நிபந்தனைகள்</string>
+    <string name="alarm_new_extreme">புதிய %1$s</string>
+    <string name="alarm_once">ஒருமுறை</string>
+    <string name="alarm_option_repeating">தெரிவி</string>
+    <string name="alarm_option_sound">ஒலி</string>
+    <string name="alarm_option_speak">விழிப்பூட்டலைப் படித்துக் காட்டு</string>
+    <string name="alarm_option_vibrate">அதிர்வு</string>
+    <string name="alarm_repeat_each">ஒவ்வொரு முறையும்</string>
+    <string name="alarm_repeat_once">ஒருமுறை</string>
+    <string name="alarm_repeating">ஒவ்வொரு முறையும்</string>
+    <string name="alarm_threshold_error_empty">விழிப்பூட்டலைச் சேமிக்க ஒரு மதிப்பை உள்ளிடவும்.</string>
+    <string name="alarm_threshold_error_funding">ஃபண்டிங் −10 முதல் +10 சதவீதத்துக்கு இடைப்பட்ட எண்ணாக இருக்க வேண்டும்.</string>
+    <string name="alarm_threshold_error_invalid">0 ஐவிடப் பெரிய சரியான எண்ணை உள்ளிடவும்.</string>
+    <string name="alarm_threshold_error_oi">ஓப்பன் இன்ட்ரஸ்ட் மாற்றம்: அதிகபட்சம் 1000 சதவீதம்.</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">%1$d மணிநேரத்தில்</item>
+        <item quantity="other">%1$d மணிநேரத்தில்</item>
+    </plurals>
+    <string name="alarm_window_label">நேரச் சாளரம்</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">இந்த அளவைவிட மேலே சென்றால்:</string>
+    <string name="alarm_simple_below">இந்த அளவைவிடக் கீழே சென்றால்:</string>
+    <string name="alarm_simple_end"></string>
+    <string name="alarm_simple_when">%1$s விலை</string>
+    <string name="alarm_template_a11y">விழிப்பூட்டலை உருவாக்கு: %1$s</string>
+    <string name="alarm_template_a11y_down">தற்போதைய விலையிலிருந்து மைனஸ் %1$s சதவீதத்தில் விழிப்பூட்டலை உருவாக்கு</string>
+    <string name="alarm_template_a11y_up">தற்போதைய விலையிலிருந்து பிளஸ் %1$s சதவீதத்தில் விழிப்பூட்டலை உருவாக்கு</string>
+    <string name="alarm_template_from_now">இப்போதிலிருந்து</string>
+    <string name="alarm_template_volume">வால்யூம் ×%1$s</string>
+    <string name="alarm_templates_title">விரைவு விழிப்பூட்டல்கள்</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">விலை இதற்கு மேல்</string>
+    <string name="alarm_condition_below">விலை இதற்குக் கீழ்</string>
+    <string name="alarm_condition_down_percent">இவ்வளவு சரிந்தால்</string>
+    <string name="alarm_condition_funding_above">ஃபண்டிங் இதற்கு மேல்</string>
+    <string name="alarm_condition_funding_below">ஃபண்டிங் இதற்குக் கீழ்</string>
+    <string name="alarm_condition_move_percent">இவ்வளவு நகர்ந்தால்</string>
+    <string name="alarm_condition_near_high">உச்சத்துக்கு அருகில்</string>
+    <string name="alarm_condition_near_low">தாழ்வுக்கு அருகில்</string>
+    <string name="alarm_condition_oi_down">ஓப்பன் இன்ட்ரஸ்ட் குறைவு</string>
+    <string name="alarm_condition_oi_up">ஓப்பன் இன்ட்ரஸ்ட் உயர்வு</string>
+    <string name="alarm_condition_up_percent">இவ்வளவு உயர்ந்தால்</string>
+    <string name="alarm_condition_volume_spike">வால்யூம் திடீர் உயர்வு</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">%1$s, %2$s க்கு மேல் உயரும்போது எனக்குத் தெரிவி.</string>
+    <string name="alarm_sentence_below">%1$s, %2$s க்குக் கீழ் சரியும்போது எனக்குத் தெரிவி.</string>
+    <string name="alarm_sentence_down_percent">%1$s, சேமித்தபோது இருந்த விலையைவிட (அல்லது கடைசி விழிப்பூட்டலின்போது இருந்ததைவிட) %2$s கீழே சரியும்போது எனக்குத் தெரிவி.</string>
+    <string name="alarm_sentence_funding_above">%1$s இன் ஃபண்டிங் %2$s க்கு மேல் உயரும்போது எனக்குத் தெரிவி.</string>
+    <string name="alarm_sentence_funding_below">%1$s இன் ஃபண்டிங் %2$s க்குக் கீழ் சரியும்போது எனக்குத் தெரிவி.</string>
+    <string name="alarm_sentence_incomplete">விழிப்பூட்டலை ஒரு வாக்கியமாகக் காண ஒரு மதிப்பை உள்ளிடவும்.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">%1$s, %3$d மணிநேரத்துக்குள் %2$s நகரும்போது எனக்குத் தெரிவி.</item>
+        <item quantity="other">%1$s, %3$d மணிநேரத்துக்குள் %2$s நகரும்போது எனக்குத் தெரிவி.</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">%1$s அதன் %3$s ஐவிட அதிகபட்சம் %2$s கீழே இருக்கும்போது எனக்குத் தெரிவி.</string>
+    <string name="alarm_sentence_near_low">%1$s அதன் %3$s ஐவிட அதிகபட்சம் %2$s மேலே இருக்கும்போது எனக்குத் தெரிவி.</string>
+    <string name="alarm_sentence_new_extreme">%1$s புதிய %2$s ஐ எட்டும்போது எனக்குத் தெரிவி.</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">%1$s இன் ஓப்பன் இன்ட்ரஸ்ட் %3$d மணிநேரத்துக்குள் %2$s குறையும்போது எனக்குத் தெரிவி.</item>
+        <item quantity="other">%1$s இன் ஓப்பன் இன்ட்ரஸ்ட் %3$d மணிநேரத்துக்குள் %2$s குறையும்போது எனக்குத் தெரிவி.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">%1$s இன் ஓப்பன் இன்ட்ரஸ்ட் %3$d மணிநேரத்துக்குள் %2$s உயரும்போது எனக்குத் தெரிவி.</item>
+        <item quantity="other">%1$s இன் ஓப்பன் இன்ட்ரஸ்ட் %3$d மணிநேரத்துக்குள் %2$s உயரும்போது எனக்குத் தெரிவி.</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">%1$s, சேமித்தபோது இருந்த விலையைவிட (அல்லது கடைசி விழிப்பூட்டலின்போது இருந்ததைவிட) %2$s மேலே உயரும்போது எனக்குத் தெரிவி.</string>
+    <string name="alarm_sentence_volume">%1$s அதன் வழக்கமான வால்யூமைவிட %2$s× வர்த்தகமாகும்போது எனக்குத் தெரிவி.</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">30 நாள் உச்சம்</string>
+    <string name="alarm_near_extreme_high_365">1 ஆண்டு உச்சம்</string>
+    <string name="alarm_near_extreme_high_90">90 நாள் உச்சம்</string>
+    <string name="alarm_near_extreme_low_30">30 நாள் தாழ்வு</string>
+    <string name="alarm_near_extreme_low_365">1 ஆண்டு தாழ்வு</string>
+    <string name="alarm_near_extreme_low_90">90 நாள் தாழ்வு</string>
+    <string name="alarm_near_field_distance">இடைவெளி</string>
+    <string name="alarm_near_hint">புதிய உச்சம் அல்லது தாழ்வு எட்டப்படும்போதும் தெரிவிக்கும். தினசரி கேண்டில்களை அடிப்படையாகக் கொண்டது, ஒவ்வொரு 6 மணிநேரத்துக்கும் புதுப்பிக்கப்படும்.</string>
+    <string name="alarm_near_new_only">புதிய உச்சங்கள் அல்லது தாழ்வுகள் மட்டும்</string>
+    <string name="alarm_near_notification_high">%1$s அதன் %3$s ஐவிட %2$s கீழே உள்ளது (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s அதன் %3$s ஐவிட %2$s மேலே உள்ளது (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">%2$s க்குப் புதிய %1$s: %3$s (முந்தையது %4$s)</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d நாள்</item>
+        <item quantity="other">%1$d நாட்கள்</item>
+    </plurals>
+    <string name="alarm_near_window_label">காலம்</string>
+    <string name="alarm_near_window_year">1 ஆண்டு</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">8 மணிநேரத்துக்கான ஃபண்டிங் விகிதம். வேறு இடைவெளி உள்ள ஒப்பந்தங்கள் மாற்றப்படும் (1 ம.நே. × 8, 4 ம.நே. × 2); ஃபியூச்சர்ஸ் அட்டை மாற்றப்பட்ட மதிப்பைக் காட்டும். இடைவெளி தெரியவில்லையெனில், விழிப்பூட்டல் சரிபார்க்காது. எதிர்மறை என்றால் ஷார்ட்டுகள் லாங்குகளுக்குச் செலுத்துகின்றன. ± குறியை மாற்றும்.</string>
+    <string name="alarm_funding_sign_a11y">குறியை மாற்று</string>
+    <string name="alarm_oi_hint">ஓப்பன் இன்ட்ரஸ்டை அத்தனை மணிநேரத்துக்கு முன் சேமிக்கப்பட்ட மதிப்புடன் ஒப்பிடுகிறது. ஆப் அவ்வளவு நேரம் தரவைச் சேகரித்த பிறகே புதிய விழிப்பூட்டல் தெரிவிக்கும்; அதிகபட்சம் 5 நிமிடங்களுக்கு ஒருமுறை சரிபார்க்கப்படும்.</string>
+    <string name="alarm_volume_factor_label">கடந்த ஒரு மணிநேர வால்யூம் vs. வழக்கமானது</string>
+    <string name="alarm_volume_hint">வால்யூம் தரவு Binance இலிருந்து வருகிறது — அங்கே பட்டியலிடப்படாத ஜோடிகள் ஒருபோதும் தூண்டப்படாது.</string>
+    <string name="alarm_volume_zero_hours_hint">வர்த்தகம் இல்லாத மணிநேரங்கள் பூஜ்ஜிய வால்யூமாகக் கணக்கிடப்படும், எனவே குறைவாக வர்த்தகமாகும் ஜோடிகளில் சாதாரண மணிநேரமும் அசாதாரணமாகத் தோன்றலாம்.</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">விழிப்பூட்டல் செயலில்</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">விழிப்பூட்டல் சேமிக்கப்பட்டது: %1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">அறிவிப்புகள் ஆஃப்</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">“%1$s” இல்லையெனில், ஓய்வுநிலையில் Android ஒழுங்கின்றிச் சரிபார்க்கும் – சில நேரம் மணிநேரம் கழித்து. அதனுடன் சுமார் 15 நிமிடத்துக்கு ஒருமுறை.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">ஆப் மூடியிருந்தால், iOS பெரும்பாலும் 15 நிமிடங்களுக்குப் பிறகே சரிபார்க்கும், சில நேரம் அடுத்து திறக்கும்போது மட்டுமே. குறுகிய திடீர் மாற்றங்கள் தவறலாம்.</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">விழிப்பூட்டல்கள் எப்போது சரிபார்க்கப்படுகின்றன</string>
+    <string name="alarm_timing_where">விலைகள் எவ்வளவு அடிக்கடி புதுப்பிக்கப்படுகின்றன என்பதை %1$s இல் மாற்றவும்.</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">ஒலியில்லை (அறிவிப்பு மட்டும்)</string>
+    <string name="alarm_signal_sound">ஒலி மட்டும்</string>
+    <string name="alarm_signal_sound_vibrate">ஒலி மற்றும் அதிர்வு</string>
+    <string name="alarm_signal_system">சிஸ்டம்</string>
+    <string name="alarm_signal_vibrate">அதிர்வு மட்டும்</string>
+    <string name="alarm_test">விழிப்பூட்டலைச் சோதி</string>
+    <string name="alarm_test_action">சோதி</string>
+    <string name="alarm_test_denied">Crypto Checker க்கு அறிவிப்புகள் ஆஃப் செய்யப்பட்டுள்ளன.</string>
+    <string name="alarm_test_hint">உங்கள் ஒலி, அதிர்வு மற்றும் பேச்சு அமைப்புகளுடன் ஒரு மாதிரி விழிப்பூட்டலை அனுப்பும்.</string>
+    <string name="alarm_test_open_settings">அமைப்புகளைத் திற</string>
+    <string name="alarm_test_quiet">அமைதி நேரம் இப்போது செயலில் உள்ளது: உண்மையான விழிப்பூட்டல்கள் அது முடியும் வரை காத்திருந்து பின்னர் ஒலியுடன் ஒலிக்கும்.</string>
+    <string name="alarm_test_text">ஒரு விழிப்பூட்டல் இப்படித்தான் தோன்றும், ஒலிக்கும்.</string>
+    <string name="alarm_test_title">சோதனை: Crypto Checker விழிப்பூட்டல்</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">ஒலி ஆன்</string>
+    <string name="alarm_a11y_speak_on">பேச்சு ஆன்</string>
+    <string name="alarm_unchecked_no_candles">சரிபார்க்க முடியவில்லை (கேண்டில் தரவு இல்லை)</string>
+    <string name="alarm_unchecked_no_rate">சரிபார்க்க முடியவில்லை (மாற்று விகிதம் இல்லை)</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">அறிவிப்புகள் ஆஃப் – இந்த விழிப்பூட்டல் உங்களை வந்தடையாது</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">விழிப்பூட்டல் இல்லை – குறைந்த பணப்புழக்கம்</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">தற்போதைய விலைக்காகக் காத்திருக்கிறது</string>
+    <string name="alarm_enter_amount">ஒரு மதிப்பை உள்ளிடவும்</string>
+    <string name="alarm_editor_more">மேலும்</string>
+    <string name="alarm_editor_more_summary">விரைவு விழிப்பூட்டல்கள், பிற நிபந்தனைகள், ஒலி மற்றும் குரல்</string>
+    <string name="alarm_reliability_storage_no_key">பின்னணியில் விழிப்பூட்டல்கள் இடைநிறுத்தப்பட்டன – கண்காணிப்புப் பட்டியல் சேமிக்கப்படவில்லை</string>
+    <string name="alarms_limit_reached">ஒரு ஜோடிக்கு அதிகபட்சம் %1$s விழிப்பூட்டல்கள் இருக்கலாம்.</string>
+    <string name="alarms_reference_rate_hint">ECB குறிப்பு விகிதங்கள் ஒரு நாளைக்கு ஒருமுறை மட்டுமே நிர்ணயிக்கப்படுகின்றன – அவற்றுக்கு விழிப்பூட்டல்கள் இல்லை.</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">வீழ்ச்சி 100 சதவீதத்துக்கும் குறைவாக இருக்க வேண்டும்.</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">வரம்பு தவறானது – சரிசெய்யவும்</string>
+
+    <string name="alarm_last_checked">கடைசியாகச் சரிபார்த்தது %1$s</string>
+</resources>

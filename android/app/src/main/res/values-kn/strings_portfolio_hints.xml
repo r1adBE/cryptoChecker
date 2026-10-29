@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಅಲರ್ಟ್‌ಗಳನ್ನು ವಿರಾಮಗೊಳಿಸಲಾಗಿದೆ: %1$s ಗೆ ಪ್ರಸ್ತುತ ಬೆಲೆ ಇಲ್ಲ</string>
+    <string name="portfolio_alarms_paused_price_generic">ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಅಲರ್ಟ್‌ಗಳನ್ನು ವಿರಾಮಗೊಳಿಸಲಾಗಿದೆ: ಪ್ರತಿ ಕಾಯಿನ್‌ಗೂ ಪ್ರಸ್ತುತ ಬೆಲೆ ಇಲ್ಲ</string>
+    <string name="portfolio_alarms_paused_addresses">ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಅಲರ್ಟ್‌ಗಳನ್ನು ವಿರಾಮಗೊಳಿಸಲಾಗಿದೆ: ಗಮನಿಸುತ್ತಿರುವ ವಿಳಾಸಗಳ ಬ್ಯಾಲೆನ್ಸ್‌ಗಳು ಇನ್ನೂ ಲೋಡ್ ಆಗಿಲ್ಲ</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಅಲರ್ಟ್‌ಗಳನ್ನು ವಿರಾಮಗೊಳಿಸಲಾಗಿದೆ: %1$s ನ ಟೋಕನ್ ಬ್ಯಾಲೆನ್ಸ್‌ಗಳು ಭಾಗಶಃ ಹಳೆಯವು</string>
+    <string name="portfolio_alarms_paused_tokens_generic">ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಅಲರ್ಟ್‌ಗಳನ್ನು ವಿರಾಮಗೊಳಿಸಲಾಗಿದೆ: ಗಮನಿಸುತ್ತಿರುವ ವಿಳಾಸಗಳ ಟೋಕನ್ ಬ್ಯಾಲೆನ್ಸ್‌ಗಳು ಭಾಗಶಃ ಹಳೆಯವು</string>
+    <string name="portfolio_alarms_paused_unverified">ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಅಲರ್ಟ್‌ಗಳನ್ನು ವಿರಾಮಗೊಳಿಸಲಾಗಿದೆ: %1$s ನ ಬೆಲೆ ಪರಿಶೀಲಿಸಲಾಗಿಲ್ಲ</string>
+    <string name="portfolio_alarms_paused_unverified_generic">ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಅಲರ್ಟ್‌ಗಳನ್ನು ವಿರಾಮಗೊಳಿಸಲಾಗಿದೆ: ಕೆಲವು ಕಾಯಿನ್‌ಗಳ ಬೆಲೆ ಪರಿಶೀಲಿಸಲಾಗಿಲ್ಲ</string>
+    <string name="portfolio_alarms_address_failing">ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಅಲರ್ಟ್‌ಗಳು %1$s ಇಲ್ಲದೆ ಪರಿಶೀಲಿಸುತ್ತವೆ: 24 ಗಂಟೆಗಳಿಗೂ ಹೆಚ್ಚು ಕಾಲದಿಂದ ಬ್ಯಾಲೆನ್ಸ್ ಲೋಡ್ ಆಗಿಲ್ಲ</string>
+    <string name="portfolio_alarms_address_failing_generic">24 ಗಂಟೆಗಳಿಗೂ ಹೆಚ್ಚು ಕಾಲದಿಂದ ಬ್ಯಾಲೆನ್ಸ್ ಲೋಡ್ ಆಗದ ವಿಳಾಸಗಳಿಲ್ಲದೆ ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಅಲರ್ಟ್‌ಗಳು ಪರಿಶೀಲಿಸುತ್ತವೆ</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">ಟೋಕನ್‌ಗಳು ಭಾಗಶಃ ಹಳೆಯವು</string>
+    <string name="portfolio_address_restore_failed">ವಿಳಾಸವನ್ನು ಮರುಸ್ಥಾಪಿಸಲಾಗಲಿಲ್ಲ – ಅಗತ್ಯವಿದ್ದರೆ ಮತ್ತೆ ಸೇರಿಸಿ</string>
+    <string name="portfolio_address_remove_failed">ವಿಳಾಸವನ್ನು ತೆಗೆದುಹಾಕಲಾಗಲಿಲ್ಲ – ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ</string>
+</resources>

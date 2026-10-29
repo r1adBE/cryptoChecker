@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">Altcoin နှင့် Bitcoin</string>
+    <string name="neutral_btc_indicators_title">Bitcoin ညွှန်ကိန်းများ</string>
+    <string name="neutral_halving_last">နောက်ဆုံး halving: %1$s</string>
+    <string name="neutral_halving_next">နောက် halving ကို %1$s ဝန်းကျင်တွင် မျှော်လင့်ရသည် (ပြက္ခဒိန်မှ ခန့်မှန်းထားသည် – block height ယခု မရရှိနိုင်ပါ)။</string>
+    <string name="neutral_indicators_disclaimer">တိုင်းတာထားသော တန်ဖိုးများသာ၊ အကဲဖြတ်ချက် မပါပါ။ ခန့်မှန်းချက် မဟုတ်ဘဲ ရင်းနှီးမြှုပ်နှံမှု အကြံဉာဏ်လည်း မဟုတ်ပါ။</string>
+    <string name="neutral_onchain_missing">On-chain ဒေတာ (Coin Metrics) ယခု မရရှိနိုင်ပါ။</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">ဈေးနှုန်းသည် ၎င်း၏ ယခင် သမိုင်းဝင် အမြင့်ဆုံးအောက် မည်မျှ ရှိသည်။</string>
+    <string name="neutral_explain_change_30d">ယနေ့ ဈေးနှုန်းကို ရက် 30 အရင်နှင့် နှိုင်းယှဉ်ချက်။</string>
+    <string name="neutral_explain_hashrate">ရက် 30 ပျမ်းမျှ hashrate ကို ရက် 60 ပျမ်းမျှနှင့် နှိုင်းယှဉ်ချက်။</string>
+    <string name="neutral_explain_ma200w">နောက်ဆုံး အပတ်စဉ် ပိတ်ဈေး 200 ၏ ပျမ်းမျှ။</string>
+    <string name="neutral_explain_mayer">ဈေးနှုန်းကို ရက် 200 ပျမ်းမျှဖြင့် စားထားခြင်း။</string>
+    <string name="neutral_explain_mvrv">ဈေးကွက်တန်ဖိုးကို realized တန်ဖိုး (on-chain) ဖြင့် စားထားခြင်း။</string>
+    <string name="neutral_explain_pi_gap">ရက် 111 ပျမ်းမျှကို ရက် 350 ပျမ်းမျှ၏ နှစ်ဆနှင့် နှိုင်းယှဉ်ချက်။</string>
+    <string name="neutral_explain_puell">မိုင်းနာများ၏ နေ့စဉ်ဝင်ငွေကို ၎င်း၏ ရက် 365 ပျမ်းမျှဖြင့် စားထားခြင်း။</string>
+    <string name="neutral_explain_rsi_daily">နောက်ဆုံး ရက် 14 ၏ Relative Strength Index, 0–100။</string>
+    <string name="neutral_explain_rsi_weekly">နောက်ဆုံး ရက်သတ္တပတ် 14 ၏ Relative Strength Index, 0–100။</string>
+    <string name="neutral_explain_sma50_200">ရက် 50 ပျမ်းမျှကို ရက် 200 ပျမ်းမျှနှင့် နှိုင်းယှဉ်ချက်။</string>
+    <string name="neutral_explain_vs_btc">ရက် 90 အတွင်း Bitcoin နှင့် နှိုင်းယှဉ်ထားသော ဈေးနှုန်း ပြောင်းလဲမှု။</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">အက်ပ်သည် အရေအတွက်ကိုသာ ပြပြီး ရာသီဟု အမည်မတပ်ပါ။ တန်ဖိုးသည် များသောအားဖြင့် နာရီအလိုက် မဟုတ်ဘဲ ရက်အလိုက် ပြောင်းလဲသည်။</string>
+    <string name="neutral_info_btc_how">တန်ဖိုးတစ်ခုစီတွင် ၎င်း တိုင်းတာသည့်အရာနှင့် 2016 ကတည်းက ၎င်း၏ ကိုယ်ပိုင်သမိုင်းတွင် ရှိနေသည့်နေရာကို စာကြောင်းတစ်ကြောင်းဖြင့် ဖော်ပြထားသည်။ အက်ပ်သည် တန်ဖိုးများကို အဆင့်မသတ်မှတ်ဘဲ ဈေးကွက်အဆင့်ကိုလည်း မဆုံးဖြတ်ပါ၊ ဈေးကွက် သတိပေးချက်များအတွက် ကန့်သတ်ချက်များမှာ သင်သတ်မှတ်ထားသည်များသာ ဖြစ်သည်။ ယခင်ပုံစံများ ထပ်ဖြစ်ရန် မလိုအပ်ပါ။</string>
+    <string name="neutral_info_btc_what">အသုံးများသော Bitcoin ညွှန်ကိန်းများကို ရိုးရိုး တိုင်းတာတန်ဖိုးများအဖြစ်- Mayer Multiple၊ အပတ် 200 ပျမ်းမျှ၊ သမိုင်းဝင် အမြင့်ဆုံးမှ ကျဆင်းမှု၊ ရက် 30 အတွင်း ပြောင်းလဲမှု၊ Pi Cycle ကွာဟချက်နှင့် on-chain တန်ဖိုးများဖြစ်သော MVRV၊ Puell Multiple နှင့် hashrate။</string>
+    <string name="neutral_info_coin_how">တန်ဖိုးတစ်ခုစီတွင် ၎င်း တိုင်းတာသည့်အရာကို အကဲဖြတ်ချက်မပါဘဲ စာကြောင်းတစ်ကြောင်းဖြင့် ဖော်ပြထားသည်။ ဈေးနှုန်းသမိုင်း တိုသော ဒင်္ဂါးများအတွက် တန်ဖိုးအချို့ မပါပါ။ On-chain ဒေတာကို ဤနေရာတွင် မထည့်ထားပါ။</string>
+    <string name="neutral_info_coin_what">သင်ရွေးသော ဒင်္ဂါးအတွက် ဈေးနှုန်းဒေတာမှသာ ရယူထားသော ရိုးရိုး ညွှန်ကိန်းများ- Mayer Multiple၊ အပတ် 200 ပျမ်းမျှ၊ သမိုင်းဝင် အမြင့်ဆုံးမှ ကျဆင်းမှု၊ ရက် 30 အတွင်း ပြောင်းလဲမှု၊ ရက် 50/200 လမ်းကြောင်း၊ RSI နှင့် ရက် 90 အတွင်း Bitcoin နှင့် နှိုင်းယှဉ် အားကောင်းမှု။</string>
+    <string name="neutral_info_halving_how">နောက် halving ကို လက်ရှိ block height နှင့် လက်ရှိ difficulty ကာလ၏ ပျမ်းမျှ block time (mempool.space) မှ တွက်ချက်သည်၊ ထိုဒေတာ မရှိလျှင် ပြက္ခဒိန်မှ တွက်သည် (နောက်ဆုံး halving အပေါင်း လေးနှစ်ခန့်)။ ဇယားသည် ယခင်စက်ဝန်းများ၏ halving မှစ၍ ဈေးနှုန်းလမ်းကြောင်းကို ပြသည် – သမိုင်းသာ ဖြစ်ပြီး ခန့်မှန်းချက် မဟုတ်ပါ။</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">ရက် 50/200 လမ်းကြောင်း</string>
+    <string name="ind_drawdown">သမိုင်းဝင် အမြင့်ဆုံးမှ ကျဆင်းမှု</string>
+    <string name="ind_missing">ဒေတာ မလုံလောက်ပါ</string>
+    <string name="ind_rsi_daily">RSI (နေ့စဉ်)</string>
+    <string name="ind_rsi_weekly">RSI (အပတ်စဉ်)</string>
+    <string name="ind_vs_btc">Bitcoin နှင့် နှိုင်းယှဉ် အားကောင်းမှု (ရက် 90)</string>
+    <string name="neutral_ind_change_30d">ရက် 30 ပြောင်းလဲမှု</string>
+    <string name="neutral_ind_hashrate">Hashrate ရက် 30/60</string>
+    <string name="neutral_ind_ma200w">အပတ် 200 ပျမ်းမျှ</string>
+    <string name="neutral_ind_pi_gap">Pi Cycle ကွာဟချက်</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">မြင့်လျှင် ကြီးမားသော altcoin အများစုက ရက် 90 အတွင်း Bitcoin ကို ကျော်တက်ခဲ့သည်၊ နိမ့်လျှင် Bitcoin က ၎င်းတို့အများစုကို ကျော်တက်ခဲ့သည်။</string>
+    <string name="ind_read_ath_distance">သေးလျှင် ဈေးနှုန်းသည် ၎င်း၏ စံချိန်အနီးတွင် ရှိသည်၊ ကြီးလျှင် ၎င်းအောက် အဝေးကြီးတွင် ရှိသည်။</string>
+    <string name="ind_read_change_30d">အပေါင်းဆိုလျှင် ရက် 30 အရင်ထက် မြင့်သည်၊ အနုတ်ဆိုလျှင် နိမ့်သည်။</string>
+    <string name="ind_read_funding">မြင့်လျှင် ကုန်သည်အများအပြားက leverage ဖြင့် ဈေးတက်မည်ဟု လောင်းကြသည်၊ အနုတ်ဆိုလျှင် အများအပြားက ဈေးကျမည်ဟု လောင်းကြသည်။</string>
+    <string name="ind_read_hashrate_30_60">အပေါင်းဆိုလျှင် တွက်ချက်နိုင်စွမ်း တိုးလာနေသည်၊ အနုတ်ဆိုလျှင် မိုင်းနာများ စက်ပိတ်နေကြသည်။</string>
+    <string name="ind_read_leverage">Longs များလျှင် အများအပြားက ချေးငွေဖြင့် ဈေးတက်မည်ဟု လောင်းကြသည်၊ shorts များလျှင် အများအပြားက ဈေးကျမည်ဟု လောင်းကြသည်။</string>
+    <string name="ind_read_ma200w">ဈေးနှုန်း ၎င်းထက် အလွန်မြင့်လျှင် ကာလရှည် မြင့်တက်မှု၊ ၎င်းနှင့် နီးလျှင် နက်ရှိုင်းသော ပြန်ကျမှု ဖြစ်သည်။</string>
+    <string name="ind_read_mayer">မြင့်လျှင် ဈေးနှုန်းသည် ၎င်း၏ ရက် 200 ပျမ်းမျှထက် အလွန်မြင့်သည်၊ နိမ့်လျှင် ၎င်းအောက်တွင် ရှိသည်။</string>
+    <string name="ind_read_mvrv">မြင့်လျှင် ဈေးနှုန်းသည် ကိုင်ဆောင်သူများ ပျမ်းမျှ ပေးခဲ့သည်ထက် အလွန်မြင့်သည်၊ နိမ့်လျှင် ၎င်းနှင့် နီးသည် သို့မဟုတ် အောက်တွင် ရှိသည်။</string>
+    <string name="ind_read_pi_cycle_gap">သုညနီးလျှင် ပျမ်းမျှနှစ်ခု ထိလုနီးပါး ဖြစ်သည်၊ အနုတ် အများကြီးဆိုလျှင် ၎င်းတို့ အလွန်ဝေးကွာသည်။</string>
+    <string name="ind_read_puell">မြင့်လျှင် မိုင်းနာများ ပုံမှန်ထက် များစွာ ပိုရသည်၊ နိမ့်လျှင် များစွာ လျော့ရသည်။</string>
+    <string name="ind_read_rsi_daily">70 အထက်ဆိုလျှင် မကြာသေးမီ ရက်များတွင် အမြတ် အလွန်တက်ခဲ့သည်၊ 30 အောက်ဆိုလျှင် အရှုံး အလွန်များခဲ့သည်။</string>
+    <string name="ind_read_rsi_weekly">70 အထက်ဆိုလျှင် မကြာသေးမီ အပတ်များတွင် အမြတ် အလွန်တက်ခဲ့သည်၊ 30 အောက်ဆိုလျှင် အရှုံး အလွန်များခဲ့သည်။</string>
+    <string name="ind_read_sma50_vs_200">အပေါင်းဆိုလျှင် ကာလတို ပျမ်းမျှသည် ကာလရှည် ပျမ်းမျှထက် မြင့်သည်၊ အနုတ်ဆိုလျှင် နိမ့်သည်။</string>
+    <string name="ind_read_vs_btc">အပေါင်းဆိုလျှင် Bitcoin ထက် ပိုကောင်းခဲ့သည်၊ အနုတ်ဆိုလျှင် ပိုဆိုးခဲ့သည်။</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">ရက် 30 ကြာ ဈေးနှုန်း တူညီလျှင်: %1$s</string>
+    <string name="ind_context_note">ယခင်တန်ဖိုးများနှင့် “ဈေးနှုန်း တူညီ” တွက်ချက်မှုများသည် ဂဏန်းသင်္ချာသာ ဖြစ်ပြီး ခန့်မှန်းချက် မဟုတ်ပါ။</string>
+    <string name="ind_context_percentile">%1$s ကတည်းက ရက်များ၏ %2$s တွင် ပိုနိမ့်ခဲ့သည်</string>
+</resources>

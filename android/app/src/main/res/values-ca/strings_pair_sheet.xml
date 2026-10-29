@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s en %2$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">Tancament</string>
+    <string name="sheet_chart_converted_current">%1$s, convertit (tipus actual)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, convertit a tipus diaris</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">No hi ha dades de preu per a aquest parell</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">Obertura</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">Avui</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">Vol %1$s</string>
+    <string name="sheet_more">Més</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Venda</string>
+    <string name="ticker_bid">Compra</string>
+    <string name="explain_bid_ask">El preu de compra (bid) és el més alt que ofereixen ara mateix els compradors; el de venda (ask), el més baix que acceptaran els venedors.</string>
+    <string name="ticker_high">Màxim</string>
+    <string name="ticker_low">Mínim</string>
+    <string name="ticker_timestamp">Hora</string>
+    <string name="ticker_vol_base">Volum (en monedes)</string>
+    <string name="ticker_vol_quote">Volum (en moneda de cotització)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (fus horari del dispositiu)</string>
+    <string name="change_basis_local">Des de les 00:00 hora local</string>
+    <string name="change_basis_rolling">Últimes 24 h</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">Des de l\'última actualització</string>
+    <string name="change_basis_utc_zone">Des de les 00:00 %1$s</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">Variació a partir d\'espelmes de %1$s</string>
+    <string name="change_short_since_last">última actualització</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">avui</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">avui %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="exchange_data_empty_error">No s\'han rebut dades de l\'exchange.</string>
+    <string name="market_data_summary">Capitalització, comissions de gas, dades econòmiques, anàlisi de monedes</string>
+    <string name="market_data_tab_futures">Futurs</string>
+    <string name="market_data_title">Dades del mercat</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">Oferta en circulació</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">Capitalització</string>
+    <string name="spot_max_supply">Oferta màxima</string>
+    <string name="spot_no_data">No hi ha dades spot per a aquesta moneda</string>
+    <string name="spot_source_updated">Font: %1$s · a les %2$s</string>
+    <string name="spot_supply_of_max">%1$s de l\'oferta màxima en circulació</string>
+    <string name="spot_total_supply">Oferta total</string>
+    <string name="spot_vol_mcap">Vol/Capitalització</string>
+    <string name="spot_volume_24h">Volum (24 h)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">Referència: %1$s</string>
+    <string name="futures_funding">Taxa de finançament</string>
+    <string name="futures_funding_interval_unknown">interval desconegut</string>
+    <string name="futures_funding_per8h_equiv">= %1$s per 8 h (com a les alarmes)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">per hora</string>
+    <string name="futures_funding_per_hours">per %1$d h</string>
+    <string name="futures_next_funding">pròxim en %1$d h %2$d min</string>
+    <string name="futures_no_data">No hi ha dades de futurs per a aquesta moneda</string>
+    <string name="futures_open_interest">Interès obert</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">Referència de %1$s – el finançament i l\'interès obert varien segons l\'exchange; a %2$s poden ser diferents.</string>
+    <string name="futures_reference_spot">Referència de %1$s (el perpetu USDT de la moneda)</string>
+    <string name="futures_source">Font: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">Molts traders aposten per preus a l\'alça o a la baixa amb diners prestats. Comissió entre posicions long i short. Molt positiva vol dir que molts aposten per preus a l\'alça.</string>
+    <string name="explain_open_interest">Els futurs són apostes sobre el preu, sovint amb diners prestats. Valor de totes les posicions de futurs obertes. Si puja, hi ha més diners apostant pel moviment.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Explicació</string>
+    <string name="explain_spot_fdv">Valoració totalment diluïda: preu × oferta màxima (o oferta total si no hi ha límit).</string>
+    <string name="explain_spot_market_cap">Preu × oferta en circulació. La pastilla mostra la variació en 24 hores.</string>
+    <string name="explain_spot_source">Xifres de tots els exchanges en dòlars dels EUA, de CoinGecko.</string>
+    <string name="explain_spot_supply">En circulació: monedes al mercat ara. Total: totes les monedes creades menys les cremades. Màxima: el màxim que pot existir mai.</string>
+    <string name="explain_spot_volume">Valor negociat en 24 hores. Vol/Capitalització: volum respecte a la capitalització — alt vol dir una negociació molt activa.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · tipus %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">Gran diferència entre el preu de compra i el de venda (%1$s)</string>
+
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">Historial en %1$s, convertit a %2$s al tipus d\'avui</string>
+    <string name="converted_unsure">Conversió incerta</string>
+</resources>

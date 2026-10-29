@@ -6,7 +6,7 @@ bewegt – keine Ursache) – ohne Prognosen, keine Anlageberatung.
 
 Kursüberwachung für Kryptowährungen: Merkliste, Benachrichtigungen, Alarme,
 Sprachausgabe und Startbildschirm-Widgets über 56 Märkte: 54 auf 45 Börsen (teils mit Spot und Futures),
-dazu DexScreener für DEX-Token (GeckoTerminal als Reserve) und EZB-Referenzkurse für Devisen. 33 Sprachen, kein Konto,
+dazu DexScreener für DEX-Token (GeckoTerminal als Reserve) und EZB-Referenzkurse für Devisen. 75 Sprachen, kein Konto,
 keine Werbung, kein Tracking; die Kurse kommen direkt von den Börsen.
 
 r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Datenschutzerklärung `docs/privacy/index.html`)
@@ -227,9 +227,11 @@ Migrationstest mit Daten (`RoomSchemaRulesTest`).
   `ui/features/explorer/ExplorerViewModel.kt`), mit Schnellfiltern Gewinner / Verlierer / Volumen
   (eine Sammelabfrage der Börse beim Öffnen, höchstens einmal pro Minute).
 * Künstliche Ladeverzögerung beim Start der Börsenliste entfernt.
-* Oberfläche englisch, Übersetzungen in `values-*` (33 Sprachen insgesamt,
+* Oberfläche englisch, Übersetzungen in `values-*` (75 Sprachen insgesamt,
   Portugiesisch als `values-pt` für Portugal und `values-pt-rBR` für Brasilien, Chinesisch als `values-zh`
-  vereinfacht und `values-b+zh+Hant` traditionell);
+  vereinfacht und `values-b+zh+Hant` traditionell, Kantonesisch als `values-b+yue`, Filipino als `values-fil`,
+  Serbisch kyrillisch als `values-sr` und lateinisch als `values-b+sr+Latn` – erzeugt aus `values-sr` mit
+  `tools/sr_latn.py`, nie von Hand ändern);
   die deutsche in `values-de` ist vollständig. Jeder Ordner hat dieselben Bereichsdateien
   `strings_<bereich>.xml` (common, watchlist, explorer, onboarding, pair_sheet, why, market,
   indicators, alarms, alarm_log, delivery, notifications, refresh, portfolio, portfolio_cost,

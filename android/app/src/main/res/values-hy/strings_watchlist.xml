@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">Արդիական · %1$s</string>
+    <string name="watchlist_empty_title">Դեռ զույգեր չկան</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%2$d-ից %1$d-ը առանց գնի</item>
+        <item quantity="other">%2$d-ից %1$d-ը առանց գնի</item>
+    </plurals>
+    <string name="watchlist_last_run">Վերջին գործարկումը՝ %1$s</string>
+    <string name="watchlist_live_a11y">Live գները միացված են</string>
+    <string name="watchlist_offline_since">Կապ չկա · առ %1$s</string>
+    <string name="watchlist_pull_to_refresh">Քաշիր ներքև՝ թարմացնելու համար</string>
+    <string name="watchlist_refresh_report">Վերջին թարմացումը</string>
+    <string name="watchlist_refresh_report_empty">Մանրամասներ դեռ չկան – մինչ այժմ ամբողջական թարմացում չի եղել։ Հպիր թարմացմանը և սպասիր, մինչև շրջանը կանգնի։</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%2$d-ից %1$d-ը հնացած է</item>
+        <item quantity="other">%2$d-ից %1$d-ը հնացած են</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">Այստեղ բոլոր զույգերն անջատված են</string>
+    <string name="watchlist_status_exchange_prices">Գները՝ քո բորսաներից · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">Բորսայի գներ · %1$s</string>
+    <string name="watchlist_status_group_empty">Այս խմբում զույգեր չկան</string>
+    <string name="watchlist_status_none_traded">Այստեղ առևտրվող զույգեր չկան</string>
+    <string name="watchlist_updated">Թարմացված է՝ %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">միջ. %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">նվազում՝ %1$d</item>
+        <item quantity="other">նվազում՝ %1$d</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d առանց 24ժ արժեքի</item>
+        <item quantity="other">%1$d առանց 24ժ արժեքի</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d առանց այսօրվա արժեքի</item>
+        <item quantity="other">%1$d առանց այսօրվա արժեքի</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">աճ՝ %1$d</item>
+        <item quantity="other">աճ՝ %1$d</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · անջատված</string>
+    <string name="watchlist_row_outdated">%1$s · հնացած</string>
+    <string name="watchlist_row_outdated_age">հնացած · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">Գինն անփոփոխ է %1$s-ից ի վեր</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s-ը հասանելի չէ</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">Անցնել վերջ</string>
+    <string name="watchlist_jump_start">Անցնել սկիզբ</string>
+    <string name="watchlist_search_close">Փակել որոնումը</string>
+    <string name="watchlist_search_empty">«%1$s»-ի համար համընկնումներ չկան</string>
+    <string name="watchlist_search_hint">Որոնել զույգ, անուն կամ բորսա</string>
+    <string name="watchlist_search_open">Որոնել</string>
+    <string name="watchlist_sort_ascending">աճման կարգով</string>
+    <string name="watchlist_sort_descending">նվազման կարգով</string>
+    <string name="watchlist_sort_hint">Պահիր և քաշիր զույգը կամ օգտագործիր բռնակը։ Ընտրյալները մնում են վերևում։</string>
+    <string name="watchlist_sort_name">Անուն</string>
+    <string name="watchlist_sort_own">Սեփական կարգ</string>
+    <string name="watchlist_sort_price">Գին</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">Մաքրել դիտացանկը</string>
+    <string name="watchlist_clear_confirm">Հեռացնե՞լ բոլոր զույգերը դիտացանկից։ Դրանց ահազանգերը նույնպես կհեռացվեն։</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d անջատված</item>
+        <item quantity="other">%1$d անջատված</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">Հեռացնել</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Հեռացնե՞լ %1$d զույգը, որն այլևս չի առևտրվում իր բորսայում։ Դրա ահազանգերը նույնպես կհեռացվեն։</item>
+        <item quantity="other">Հեռացնե՞լ %1$d զույգերը, որոնք այլևս չեն առևտրվում իրենց բորսայում։ Դրանց ահազանգերը նույնպես կհեռացվեն։</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">Հեռացնել չառևտրվող զույգերը (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Հեռացնել չառևտրվող զույգերը</string>
+    <string name="watchlist_removed">%1$s-ը հեռացվեց</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d զույգ հեռացվեց</item>
+        <item quantity="other">%1$d զույգ հեռացվեց</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">%1$d չառևտրվող զույգ հեռացվեց</item>
+        <item quantity="other">%1$d չառևտրվող զույգ հեռացվեց</item>
+    </plurals>
+    <string name="watchlist_select">Ընտրել</string>
+    <string name="watchlist_select_all">Ընտրել բոլորը</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d ընտրված</item>
+        <item quantity="other">%1$d ընտրված</item>
+    </plurals>
+    <string name="watchlist_show_all">Ցույց տալ բոլորը</string>
+    <string name="watchlist_show_only_disabled">Ցույց տալ միայն անջատվածները</string>
+    <string name="watchlist_show_only_stale">Ցույց տալ միայն հնացածները</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Ահազանգ (%1$d)</item>
+        <item quantity="other">Ահազանգեր (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">Դեռ ընտրյալներ չկան։ Սահեցրու զույգը աջ կամ բացիր զույգը և հպիր «Ընտրյալ»-ին։</string>
+    <string name="watchlist_group_empty_hint">Երկար սեղմիր խումբը՝ դրա զույգերն ընտրելու համար։</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">Քո խմբերը կհայտնվեն այստեղ</string>
+    <string name="watchlist_notification">Գնի ծանուցում</string>
+    <string name="watchlist_tts">Բարձրաձայնել գինը</string>
+    <string name="watchlist_tts_speech_on">Բարձրաձայն ընթերցումը միացված է։ Կարող ես այն փոխել՝ Կարգավորումներ › Ահազանգեր › Բարձրաձայն ընթերցում։</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">Ավելացնել որպես վիջեթ</string>
+    <string name="watch_action_alarm">Ահազանգ</string>
+    <string name="watch_action_favorite">Ընտրյալ</string>
+    <string name="watch_action_why">Ի՞նչն է շարժվում դրա հետ</string>
+    <string name="watch_action_why_short">Ի՞նչ է շարժվում հետը</string>
+    <string name="watch_change_mark">Mark</string>
+    <string name="watch_disable">Անջատել</string>
+    <string name="watch_disable_hint">Առանց հարցումների, առանց ծանուցումների</string>
+    <string name="watch_disabled">Անջատված է</string>
+    <string name="watch_disabled_banner">%1$s-ն անջատված է</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">Ահազանգերը մնում են – ստուգիր դրանց շեմերը</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">Խմբագրել զույգը</string>
+    <string name="watch_enable">Միացնել</string>
+    <string name="watch_enable_hint">Գներն ու ծանուցումները վերսկսվում են</string>
+    <string name="watch_enabled_banner">%1$s-ը միացված է</string>
+    <string name="watch_error_offline">Կապ չկա</string>
+    <string name="watch_gesture_hint_short">Հպում՝ ահազանգ և «Ի՞նչն է շարժվում դրա հետ» · երկար սեղմում՝ ընտրել · սահեցրու ձախ՝ ջնջել · սահեցրու աջ՝ ընտրյալ</string>
+    <string name="watch_hint_tap_why">Հպիր կոինին՝ ահազանգերի և «Ի՞նչն է շարժվում դրա հետ»-ի համար</string>
+    <string name="watch_not_traded">Այլևս չի առևտրվում այս բորսայում</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">Դիտացանկում չէ</string>
+    <string name="watch_price_mid">միջին գին (այլապես mark)</string>
+    <string name="watch_row_source_both">Փոփոխություն &amp; գրաֆիկ՝ %1$s</string>
+    <string name="watch_row_source_change">Փոփոխություն՝ %1$s</string>
+    <string name="watch_row_source_chart">Գրաֆիկ՝ %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s-ը այժմ քո դիտացանկում է</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s-ը այժմ քո դիտացանկում են</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">Ավելացնել ընտրյալներին</string>
+    <string name="favorite_added">%1$s-ը ավելացվեց ընտրյալներին</string>
+    <string name="favorite_remove">Հեռացնել ընտրյալներից</string>
+    <string name="favorite_removed">%1$s-ը հեռացվեց ընտրյալներից</string>
+    <string name="hint_favorites_list">Խորհուրդ՝ սահեցրու տողը աջ՝ այն ընտրյալ դարձնելու համար – ընտրյալները մնում են վերևում։</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">Նոր խումբ</string>
+    <string name="group_all">Բոլորը</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Alpha տոկեններ</string>
+    <string name="group_delete">Ջնջել խումբը</string>
+    <string name="group_delete_confirm">Զույգերը մնում են քո դիտացանկում։</string>
+    <string name="group_done">Պատրաստ է</string>
+    <string name="group_edit_title">Խմբագրել խումբը</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">Ընտրյալներ</string>
+    <string name="group_in_other">%1$s-ում</string>
+    <string name="group_name">Խմբի անուն</string>
+    <string name="group_new">Նոր խումբ…</string>
+    <string name="group_next">Հաջորդը</string>
+    <string name="group_none">Առանց խմբի</string>
+    <string name="group_rename">Վերանվանել</string>
+    <string name="group_search_hint">Որոնել զույգ, անուն կամ բորսա</string>
+    <string name="group_target">Խմբում</string>
+    <string name="group_title">Խումբ</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">Տոկեններ</string>
+    <string name="group_value">Խումբ՝ %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">Ավելացնել նշում</string>
+    <string name="note_edit">Խմբագրել նշումը</string>
+    <string name="note_hint">օր.՝ մուտք 0.42-ով, թիրախ 0.60</string>
+    <string name="note_remove">Հեռացնել</string>
+    <string name="note_title">Նշում</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">Քաշիր՝ վերադասավորելու համար</string>
+    <string name="sort_move_bottom">Տեղափոխել ներքև՝ վերջ</string>
+    <string name="sort_move_down">Տեղափոխել ներքև</string>
+    <string name="sort_move_top">Տեղափոխել վերև՝ սկիզբ</string>
+    <string name="sort_move_up">Տեղափոխել վերև</string>
+
+    <string name="watchlist_first_alarm_title">Սահմանիր քո առաջին ահազանգը</string>
+    <string name="watchlist_first_alarm_text">Ստացիր ծանուցում, երբ գինը հասնի քո նշագծին – երբ հավելվածը փակ է, Android-ը ստուգում է անկանոն։</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">mark price (միջին գին չկա)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">ժամային գին</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">Սահմանիր քո առաջին ահազանգը – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Թարմացնել (%1$d)</string>
+
+    <!-- Zeile der Merkliste: Börse pausiert (zu viele Anfragen / Zeitüberschreitungen) bis zu einer Uhrzeit, ersetzt die Zeitzeile, z. B. «Binance · pausiert bis 19:45» -->
+    <string name="watchlist_row_exchange_paused">%1$s · դադարեցված է մինչև %2$s</string>
+
+    <string name="watchlist_refresh_just_done">Հենց նոր թարմացվեց · %1$d վ առաջ</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">վերջին գործարքը՝ %1$s</string>
+
+    <string name="change_candle_source_hint">Հաշվարկված է %1$s-ի մոմերից – բորսան ինքը այս արժեքը չի տրամադրում։</string>
+    <string name="change_candle_source_action">Ցույց տալ փոփոխության աղբյուրը</string>
+
+    <string name="watchlist_sort_by_coin">Դասավորել ըստ կոինի</string>
+    <string name="watchlist_sort_by_exchange">Դասավորել ըստ բորսայի</string>
+    <string name="watchlist_limit_reached">Դիտացանկը կարող է ունենալ առավելագույնը %1$s զույգ։</string>
+    <string name="watch_price_reference">հղումային փոխարժեք, օրական</string>
+    <string name="watch_price_daily">օրական</string>
+    <string name="watchlist_compare">Համեմատել</string>
+    <string name="watchlist_compare_hint">Ընտրիր 2-ից 4 զույգ՝ համեմատելու համար։</string>
+    <string name="compare_title">Համեմատություն</string>
+    <string name="compare_basis">Գծերը ցույց են տալիս փոփոխությունը տոկոսներով ժամանակահատվածի սկզբից։</string>
+    <string name="compare_from_high">30օ առավելագույնի համեմատ</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">%1$d զույգ չվերականգնվեց – դիտացանկը լիքն է</item>
+        <item quantity="other">%1$d զույգ չվերականգնվեց – դիտացանկը լիքն է</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">Դիտացանկը և դրա ահազանգերը հիմա չեն պահպանվում։ Այս և հետագա բոլոր փոփոխությունները կկորչեն հավելվածը փակելիս։ Փոխե՞լ, միևնույն է։</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">Փոխել, միևնույն է</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">%1$d զույգ</item>
+        <item quantity="other">%1$d զույգ</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">%2$d / %1$d զույգ</item>
+        <item quantity="other">%2$d / %1$d զույգ</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">մնաց %1$d տեղ</item>
+        <item quantity="other">մնաց %1$d տեղ</item>
+    </plurals>
+    <string name="watchlist_footer_full">Դիտացանկը լցված է</string>
+</resources>

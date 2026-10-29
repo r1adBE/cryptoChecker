@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">值得留意：%1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — 現價 %2$s</string>
+    <string name="notification_alarm_title">提示：%1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">開啟交易所</string>
+    <string name="notification_depeg_text">App 入面嘅數值用緊呢個市場價格。</string>
+    <string name="notification_depeg_title">USDT 報 %1$s USD（%2$s）</string>
+    <string name="notification_fng_above">指數升穿 %1$d – 按呢個量度，市場情緒偏貪婪。</string>
+    <string name="notification_fng_below">指數跌穿 %1$d – 按呢個量度，市場情緒偏恐慌。</string>
+    <string name="notification_fng_title">情緒指數（Fear &amp; Greed）：%1$d</string>
+    <string name="notification_gas_btc_text">低過你嘅上限 %1$s sat/vB · 轉賬 ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin 手續費：%1$s sat/vB</string>
+    <string name="notification_gas_eth_text">低過你嘅上限 %1$s gwei · 轉賬 ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Ethereum gas：%1$s gwei</string>
+    <string name="notification_indicator_above">高過你嘅界限 %1$s – 只係量度數值，唔係建議。</string>
+    <string name="notification_indicator_below">低過你嘅界限 %1$s – 只係量度數值，唔係建議。</string>
+    <string name="notification_indicator_title">%1$s：%2$s</string>
+    <string name="notification_macro_title">今日經濟數據</string>
+    <string name="notification_permission_preprompt_continue">繼續</string>
+    <string name="notification_permission_preprompt_later">稍後</string>
+    <string name="notification_permission_preprompt_text">為咗令提示同價格通知送到你手上，App 需要傳送通知嘅權限。App 只會用嚟發送你嘅提示同價格通知。</string>
+    <string name="notification_permission_preprompt_title">允許通知？</string>
+    <string name="notification_portfolio_alarm_locked">你嘅提示已觸發 – 開 App 睇詳情。</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – 而家 %2$s</string>
+    <string name="notification_portfolio_alarm_title">投資組合價值</string>
+    <string name="notification_price_change">%1$s，由 %2$s（%3$s 前）</string>
+    <string name="notification_price_change_no_age">%1$s，由 %2$s</string>
+    <string name="notification_price_first">呢個交易對嘅第一個價格通知</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="other">+ 另外 %1$d 個價格</item>
+    </plurals>
+    <string name="notification_price_title">%1$s：%2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">更新緊價格…</string>
+    <string name="notification_volume_spike_text">上一小時成交量係平時 %1$s×</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">提示</string>
+    <string name="channel_alarms_description">提示觸發時嘅通知。</string>
+    <string name="channel_alarms_quiet">提示（靜音時段）</string>
+    <string name="channel_alarms_quiet_description">靜音時段內嘅無聲提示。</string>
+    <string name="channel_alarms_silent">提示（靜音）</string>
+    <string name="channel_alarms_sound">提示（只有聲音）</string>
+    <string name="channel_alarms_sound_vibrate">提示（聲音同震動）</string>
+    <string name="channel_alarms_vibrate">提示（只有震動）</string>
+    <string name="channel_prices">價格通知</string>
+    <string name="channel_prices_description">顯示交易對現價嘅無聲價格通知。</string>
+    <string name="channel_service">價格更新</string>
+    <string name="channel_service_description">更新價格期間嘅通知。</string>
+    <string name="neutral_channel_market">市場提示</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed、gas 費、「值得留意」同經濟數據日期</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">提示。%1$s，%2$s %3$s %4$s，現價 %5$s</string>
+    <string name="tts_direction_down">已下跌</string>
+    <string name="tts_direction_funding_above">資金費率高</string>
+    <string name="tts_direction_funding_below">資金費率低</string>
+    <string name="tts_direction_move">大幅波動</string>
+    <string name="tts_direction_near_high">接近高位</string>
+    <string name="tts_direction_near_low">接近低位</string>
+    <string name="tts_direction_oi_down">未平倉合約減少</string>
+    <string name="tts_direction_oi_up">未平倉合約增加</string>
+    <string name="tts_direction_up">已上升</string>
+    <string name="tts_direction_volume_spike">成交量急增</string>
+    <string name="tts_price">%1$s，%2$s %3$s，%4$s</string>
+
+    <!-- Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+    <string name="notification_alarm_action_snooze">1 小時後</string>
+    <string name="notification_alarm_action_edit">調整</string>
+</resources>

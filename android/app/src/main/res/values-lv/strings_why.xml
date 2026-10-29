@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">Kas kustas līdzi?</string>
+    <string name="why_all_values">Visas vērtības un avoti</string>
+    <string name="why_all_values_hint">Novērojums · Iespējamais skaidrojums · Avoti</string>
+    <string name="why_details">Rādīt detaļas</string>
+    <string name="why_details_hide">Paslēpt detaļas</string>
+    <string name="why_disclaimer">Automātisks novērtējums no tirgus datiem: tas rāda, kas notiek vienlaikus, nevis pierāda cēloni.</string>
+    <string name="why_footer_short">Vienlaicīgi nenozīmē cēloni · Nav ieguldījumu padoms</string>
+    <string name="why_no_data">Šim pārim nav Binance datu</string>
+    <string name="why_no_data_hint">Cena, apjoms un svārstīgums nāk no Binance stundas svecēm.</string>
+    <string name="why_ref_alts">Altkoini</string>
+    <string name="why_section_context">Iespējamais skaidrojums</string>
+    <string name="why_section_observation">Novērojums</string>
+    <string name="why_title">Kas kustas līdzi?</string>
+    <string name="why_title_coin">Kas kustas līdzi %1$s?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">Īsumā · Stāvoklis %1$s</string>
+    <string name="why_brief_label">Īsumā:</string>
+    <string name="why_summary_against">Monēta virzās pret tirgu.</string>
+    <string name="why_summary_calm">Nav ievērojamas kustības: tirgus un monēta ir mierīgi.</string>
+    <string name="why_summary_coin">Kustas tikai šī monēta – iespējams, kaut kas, kas skar tikai šo monētu.</string>
+    <string name="why_summary_coin_volume">Kustas tikai šī monēta, ar lielāku apjomu – iespējams, kaut kas, kas skar tikai šo monētu.</string>
+    <string name="why_summary_longs">Nākotnes līgumi: daudz garo pozīciju ar sviru.</string>
+    <string name="why_summary_market">Kustība laikā sakrīt ar visu tirgu.</string>
+    <string name="why_summary_market_volume">Kustība sakrīt ar lielāku tirdzniecības apjomu un plaši kustīgu tirgu.</string>
+    <string name="why_summary_peg_near">Cena ir tuvu savai 1:1 piesaistei.</string>
+    <string name="why_summary_peg_off">Cena manāmi novirzās no savas 1:1 piesaistes.</string>
+    <string name="why_summary_shorts">Nākotnes līgumi: daudz īso pozīciju.</string>
+    <string name="why_summary_thin">Kustība ir vāja: aiz tās maz apjoma.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">Pret tirgu</string>
+    <string name="why_f_coin_only">Tikai šī monēta</string>
+    <string name="why_f_leader">Bitcoin kā tirgus līderis</string>
+    <string name="why_f_leverage_balanced">Svira līdzsvarota</string>
+    <string name="why_f_leverage_longs">Svira: daudz garo</string>
+    <string name="why_f_leverage_shorts">Svira: daudz īso</string>
+    <string name="why_f_market_calm">Mierīgs tirgus</string>
+    <string name="why_f_market_wide">Kustas viss tirgus</string>
+    <string name="why_factor_funding">Finansējums</string>
+    <string name="why_factor_futures">Nākotnes līgumi</string>
+    <string name="why_factor_market">Kopējais tirgus</string>
+    <string name="why_factor_near_high">Tuvu maksimumam</string>
+    <string name="why_factor_near_low">Tuvu minimumam</string>
+    <string name="why_factor_peg">Piesaiste (1:1)</string>
+    <string name="why_factor_range3d">3 dienu diapazons</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">aptuveni</string>
+    <string name="why_fn_funding_longs">daudzi liek uz cenu kāpumu</string>
+    <string name="why_fn_funding_neutral">neitrāls</string>
+    <string name="why_fn_funding_shorts">daudzi liek uz cenu kritumu</string>
+    <string name="why_fn_high_at">pie 30 dienu maksimuma</string>
+    <string name="why_fn_high_below">zem 30 dienu maksimuma</string>
+    <string name="why_fn_leader_calm">Bitcoin ir mierīgs</string>
+    <string name="why_fn_leader_moves">Bitcoin skaidri kustas</string>
+    <string name="why_fn_low_above">virs 30 dienu minimuma</string>
+    <string name="why_fn_low_at">pie 30 dienu minimuma</string>
+    <string name="why_fn_market_against">Šī monēta virzās pret tirgu</string>
+    <string name="why_fn_market_alone">Tirgus mierīgs – šī monēta kustas viena</string>
+    <string name="why_fn_market_calm">Tirgus ir mierīgs</string>
+    <string name="why_fn_market_lags">Tirgus kustas, šī monēta – tik tikko</string>
+    <string name="why_fn_market_moves">Tirgus virzās tajā pašā virzienā</string>
+    <string name="why_fn_market_pulls">Tirgus kustas līdzi BTC</string>
+    <string name="why_fn_oi_down">Atvērtās pozīcijas samazinājušās</string>
+    <string name="why_fn_oi_flat">Atvērtās pozīcijas gandrīz nemainīgas</string>
+    <string name="why_fn_oi_mixed">Atvērtās pozīcijas nevienmērīgas</string>
+    <string name="why_fn_oi_up">Atvērtās pozīcijas pieaugušas</string>
+    <string name="why_fn_peg_above">%1$s virs 1:1 piesaistes</string>
+    <string name="why_fn_peg_below">%1$s zem 1:1 piesaistes</string>
+    <string name="why_fn_peg_near">tuvu 1:1 piesaistei</string>
+    <string name="why_fn_range_above_low">kopš 3 dienu minimuma</string>
+    <string name="why_fn_range_below_high">kopš 3 dienu maksimuma</string>
+    <string name="why_fn_range_near_high">tuvu 3 dienu maksimumam</string>
+    <string name="why_fn_range_near_low">tuvu 3 dienu minimumam</string>
+    <string name="why_fn_volatility_stronger">spēcīgāks nekā parasti</string>
+    <string name="why_fn_volatility_tiny">absolūti mazs (zem %1$s)</string>
+    <string name="why_fn_volatility_usual">kā parasti</string>
+    <string name="why_fn_volume_higher">lielāks nekā parasti</string>
+    <string name="why_fn_volume_lower">mazāks nekā parasti</string>
+    <string name="why_fn_volume_usual">kā parasti</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">Šī monēta %1$s, BTC %2$s 24 h laikā — manāmi patstāvīga kustība.</string>
+    <string name="why_against_ref_text">Šī monēta %1$s, %2$s %3$s 24 h laikā — manāmi patstāvīga kustība.</string>
+    <string name="why_btc_independent">%1$s pašlaik virzās neatkarīgi no Bitcoin.</string>
+    <string name="why_btc_tight">%1$s pašlaik virzās cieši kopā ar Bitcoin.</string>
+    <string name="why_change_1h">1 h</string>
+    <string name="why_change_24h">24 h</string>
+    <string name="why_coin_only_text">%1$s 24 h laikā, kamēr tirgus ir kluss – iespējams, kaut kas, kas skar tikai šo monētu.</string>
+    <string name="why_leverage_balanced_text">Nākotnes līgumu tirgū nav garo vai īso pozīciju sablīvējuma.</string>
+    <string name="why_leverage_longs_text">Daudzi ar aizņemtu naudu liek uz cenu kāpumu. Garās pozīcijas maksā īsajām — ja cena kritīsies, palielināts likvidāciju risks.</string>
+    <string name="why_leverage_shorts_text">Daudzi ar aizņemtu naudu liek uz cenu kritumu. Īsās pozīcijas maksā garajām – ja cena kāps, iespējams short squeeze.</string>
+    <string name="why_market_calm_text">Šī monēta: %1$s 24 h laikā. Ne tirgus, ne monēta daudz nekustas.</string>
+    <string name="why_market_leader_text">Kā lielākā monēta BTC parasti virzās vienā solī ar pārējo tirgu. ETH: %1$s 24 h laikā.</string>
+    <string name="why_market_leader_text_no_eth">Kā lielākā monēta BTC parasti virzās vienā solī ar pārējo tirgu.</string>
+    <string name="why_market_similar_text">Šī monēta: %1$s 24 h laikā – vienlaikus tirgus virzās tajā pašā virzienā, lai gan mazāk izteikti.</string>
+    <string name="why_market_wide_text">Šī monēta: %1$s 24 h laikā – vienlaikus viss tirgus skaidri kustas.</string>
+    <string name="why_open_interest_change">Atvērtās pozīcijas %1$s kopš pēdējās pārbaudes.</string>
+    <string name="why_peg_text">Stabilā monēta: salīdzinot ar 1:1 piesaisti kotējuma valūtai, novirze %1$s.</string>
+    <string name="why_sentiment_text">Visa kriptovalūtu tirgus Fear &amp; Greed indekss, %1$s salīdzinājumā ar vakardienu.</string>
+    <string name="why_sentiment_text_no_change">Visa kriptovalūtu tirgus Fear &amp; Greed indekss.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="zero">krītas jau %1$d stundas</item>
+        <item quantity="one">krītas jau %1$d stundu</item>
+        <item quantity="other">krītas jau %1$d stundas</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="zero">kāpj jau %1$d stundas</item>
+        <item quantity="one">kāpj jau %1$d stundu</item>
+        <item quantity="other">kāpj jau %1$d stundas</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="zero">stabils jau %1$d stundas</item>
+        <item quantity="one">stabils jau %1$d stundu</item>
+        <item quantity="other">stabils jau %1$d stundas</item>
+    </plurals>
+    <string name="why_volatility_high_text">Pēdējā stunda: %1$s — salīdzinot ar parasto stundas svārstību pēdējās 24 stundās.</string>
+    <string name="why_volatility_normal_text">Pēdējā stunda: %1$s — parastajās robežās.</string>
+    <string name="why_volatility_tiny_text">Pēdējā stunda: %1$s — šai monētai neparasti, bet absolūti maz.</string>
+    <string name="why_volume_estimated_text">Aptuveni: šis avots nenodrošina apgrozījumu, tāpēc tiek salīdzināti tirgoto monētu daudzumi.</string>
+    <string name="why_volume_high_text">Pēdējā stundā tirgots daudz vairāk nekā parasti – kustību pavada liels apjoms.</string>
+    <string name="why_volume_low_text">Aiz kustības maz tirdzniecības – šādas kustības bieži ir mazāk stabilas.</string>
+    <string name="why_volume_normal_text">Pēdējās stundas tirdzniecība atbilst pēdējām 24 stundām.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">paaugstināts</string>
+    <string name="why_dot_neutral">neitrāls</string>
+    <string name="why_dot_supports">atbilst kustībai</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">Dati uz %1$s</string>
+    <string name="why_fresh_breadth">Tirgus plašums: %1$s · %2$s</string>
+    <string name="why_fresh_candles">Sveces: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">Nākotnes līgumi: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="zero">atvērtās pozīcijas salīdzinātas ar stāvokli pirms %1$d stundām</item>
+        <item quantity="one">atvērtās pozīcijas salīdzinātas ar stāvokli pirms %1$d stundas</item>
+        <item quantity="other">atvērtās pozīcijas salīdzinātas ar stāvokli pirms %1$d stundām</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="zero">atvērtās pozīcijas salīdzinātas ar stāvokli pirms %1$d minūtēm</item>
+        <item quantity="one">atvērtās pozīcijas salīdzinātas ar stāvokli pirms %1$d minūtes</item>
+        <item quantity="other">atvērtās pozīcijas salīdzinātas ar stāvokli pirms %1$d minūtēm</item>
+    </plurals>
+    <string name="why_fresh_today">šodien</string>
+    <string name="why_fresh_yesterday">vakar</string>
+    <string name="why_source_fallback">%1$s (rezerves)</string>
+    <string name="why_source_reference">%1$s (atsauce)</string>
+    <string name="why_sources">Avoti: biržas stundas sveces (pārsvarā Binance), biržu nākotnes līgumu dati, Fear &amp; Greed no alternative.me.</string>
+    <string name="why_sources_list">Avoti: %1$s.</string>
+    <string name="why_src_breadth">%1$s (tirgus plašums)</string>
+    <string name="why_src_candles">%1$s (sveces)</string>
+    <string name="why_src_comparison">%1$s (tirgus salīdzinājums)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (nākotnes līgumi)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Finansējums</string>
+    <string name="factor_spoken_volatility">%1$s reizes spēcīgāka svārstība nekā parasti</string>
+    <string name="factor_spoken_volume">%1$s reizes vairāk nekā parasti</string>
+    <string name="factor_volatility">Svārstīgums (1 h)</string>
+    <string name="factor_volume">Apjoms</string>
+</resources>

@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">មិនទាន់បានរៀបចំការចាក់សោអេក្រង់នៅលើឧបករណ៍នេះទេ។ សូមរៀបចំវានៅក្នុងការកំណត់ប្រព័ន្ធជាមុនសិន។</string>
+    <string name="app_lock_unlock">ដោះសោ</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">សម្អាតផលប័ត្រ</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="other">លុបប្រតិបត្តិការទាំង %d មែនទេ? អាសយដ្ឋានដែលតាមដាននៅដដែល។ អ្នកអាចមិនធ្វើវិញបានភ្លាមៗបន្ទាប់ពីនេះ។</item>
+    </plurals>
+    <string name="portfolio_empty_action">បន្ថែមការទិញដំបូងរបស់អ្នក</string>
+    <string name="portfolio_empty_address">គ្រាន់តែតាមដានអាសយដ្ឋានកាបូប</string>
+    <string name="portfolio_empty_csv">បានទិញនៅលើផ្សារប្តូរមែនទេ? នាំចូលឯកសាររបស់វា</string>
+    <string name="portfolio_empty_example_plain">ឧទាហរណ៍៖ បានទិញ %1$s BTC នៅថ្ងៃទី 1 ខែមីនា។ បន្ទាប់មកកម្មវិធីបង្ហាញថាវាមានតម្លៃប៉ុន្មានថ្ងៃនេះ និងថាអ្នកចំណេញ ឬខាត – រក្សាទុកតែនៅលើឧបករណ៍នេះប៉ុណ្ណោះ។</string>
+    <string name="portfolio_empty_title">មិនទាន់មានប្រតិបត្តិការនៅឡើយទេ</string>
+    <string name="portfolio_enable_ask_text">ប្រតិបត្តិការរបស់អ្នកត្រូវបានរក្សាទុក។ ផ្ទាំង ផលប័ត្រ បង្ហាញការកាន់កាប់ និងតម្លៃរបស់វា។</string>
+    <string name="portfolio_enable_ask_title">បើកផ្ទាំង ផលប័ត្រ មែនទេ?</string>
+    <string name="portfolio_enable_later_hint">បានរក្សាទុកប្រតិបត្តិការ។ អ្នកអាចបើកផ្ទាំង ផលប័ត្រ នៅក្នុង ការកំណត់ › ផលប័ត្រ។</string>
+    <string name="portfolio_enabled_banner">ផលប័ត្របានបើក – អ្នកនឹងរកឃើញវានៅក្នុងផ្ទាំង ផលប័ត្រ។</string>
+    <string name="portfolio_lock_reason">ដោះសោផលប័ត្រ</string>
+    <string name="portfolio_locked_text">ដោះសោ ដើម្បីមើលការកាន់កាប់ និងតម្លៃរបស់អ្នក។</string>
+    <string name="portfolio_locked_title">ផលប័ត្រត្រូវបានចាក់សោ</string>
+    <string name="portfolio_setting_hint">ស្រេចចិត្ត៖ កត់ត្រាការទិញ និងលក់ ហើយមើលតម្លៃ និងចំណេញ/ខាតនៅក្នុងផ្ទាំងដាច់ដោយឡែក។</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">ហួសសម័យ · គិតត្រឹម %1$s</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="other">ធាតុ %d ពីការបម្រុងទុកប្រព័ន្ធមិនត្រឹមត្រូវ ហើយមិនត្រូវបានស្ដារទេ។</item>
+    </plurals>
+    <string name="portfolio_title">ផលប័ត្រ</string>
+    <string name="portfolio_unassigned_fee">កម្រៃមិនបានកំណត់ – មិនស្គាល់តម្លៃដើម៖ %1$s</string>
+    <string name="portfolio_updated">តម្លៃគិតត្រឹម %1$s</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">ផ្សេងៗ</string>
+    <string name="portfolio_allocation_title">ការបែងចែក</string>
+    <string name="portfolio_card_details">ព័ត៌មានលម្អិត</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s៖ មិនទាន់មាន</string>
+    <string name="portfolio_card_hints_count">កំណត់ចំណាំ (%1$d)</string>
+    <string name="portfolio_card_today">ថ្ងៃនេះ</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">សរុប</string>
+    <string name="portfolio_hide_amounts">លាក់ចំនួន</string>
+    <string name="portfolio_hide_amounts_hint">បង្ហាញចំនួន និងតម្លៃនៅក្នុងផលប័ត្រ និងវិដជិតផលប័ត្រជា ••• – ភាគរយនៅតែមើលឃើញ។</string>
+    <string name="portfolio_invested">តម្លៃដើម</string>
+    <string name="portfolio_total_no_fx">គ្មានអត្រាប្តូរប្រាក់សម្រាប់ %1$s – ចំនួនជា USDT</string>
+    <string name="portfolio_total_value">តម្លៃសរុប</string>
+    <string name="portfolio_value">តម្លៃ</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">មធ្យម %1$s · ឥឡូវ %2$s</string>
+    <string name="portfolio_avg_only">មធ្យម %1$s</string>
+    <string name="portfolio_avg_open_lots">តម្លៃដើមមធ្យមនៃកាក់ដែលកាន់កាប់</string>
+    <string name="portfolio_avg_partial">មធ្យមនៃ %1$s ដែលមានតម្លៃទិញ</string>
+    <string name="portfolio_avg_price">តម្លៃទិញមធ្យម</string>
+    <string name="portfolio_avg_price_hint">តម្លៃទិញមធ្យម៖ មធ្យមនៃការទិញទាំងអស់ ថ្លឹងតាមចំនួន។ ការលក់ត្រូវបានវាយតម្លៃតាមមធ្យមនេះ។</string>
+    <plurals name="portfolio_closed">
+        <item quantity="other">ការកាន់កាប់ដែលបានបិទ (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO៖ ការលក់ប្រើកាក់ចាស់បំផុតរបស់អ្នកមុន។ មធ្យម = តម្លៃដើមដែលនៅសល់ ÷ ចំនួនដែលមានតម្លៃទិញ។</string>
+    <string name="portfolio_holdings">ការកាន់កាប់</string>
+    <string name="portfolio_lost_fee_cost">ថ្លៃកម្រៃបណ្ដាញដោយគ្មានឡូតិ៍ដែលបានបង់៖ %1$s</string>
+    <string name="portfolio_open_lots">ឡូតិ៍ទិញដែលនៅបើក (%1$d)</string>
+    <string name="portfolio_open_lots_avg">មានតម្លៃទិញ (មធ្យម)</string>
+    <string name="portfolio_open_lots_no_cost">គ្មានតម្លៃទិញ</string>
+    <string name="portfolio_open_lots_without_price">គ្មានតម្លៃទិញ</string>
+    <string name="portfolio_realized">ចំណេញ/ខាតដែលបានសម្រេច</string>
+    <string name="portfolio_unrealized">ចំណេញ/ខាតមិនទាន់សម្រេច</string>
+    <string name="portfolio_unrealized_without_unpriced">មិនរាប់ %1$s ដែលខ្វះតម្លៃទិញ</string>
+    <string name="portfolio_withdrawn_gain">បានដក៖ %1$s (ការប្រែប្រួលតម្លៃរហូតដល់ការដក)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">បម្លែងទៅ</string>
+    <string name="portfolio_convert_to_value">បម្លែងទៅ៖ %1$s</string>
+    <string name="portfolio_current_missing">គ្មានតម្លៃបច្ចុប្បន្នសម្រាប់ %1$s</string>
+    <string name="portfolio_current_price">តម្លៃបច្ចុប្បន្ន</string>
+    <string name="portfolio_price_missing">ខ្វះតម្លៃ</string>
+    <string name="portfolio_price_missing_hint">ការទិញខ្លះគ្មានតម្លៃ។ សូមបន្ថែមតម្លៃទិញ ដើម្បីមើលចំណេញ/ខាត។</string>
+    <string name="portfolio_price_source">តម្លៃ៖ Binance · USDT តាមតម្លៃទីផ្សារ</string>
+    <string name="portfolio_price_source_routes">តម្លៃ៖ %1$s បើមិនដូច្នោះទេ Binance · USDT តាមតម្លៃទីផ្សារ</string>
+    <string name="portfolio_price_unavailable">តម្លៃមិនមាននៅពេលនេះទេ</string>
+    <string name="portfolio_price_unchecked">តម្លៃមិនទាន់បានពិនិត្យ</string>
+    <string name="portfolio_price_via_base">≈ តម្លៃ %1$s (bridged/wrapped)</string>
+    <string name="portfolio_usdt_as_usd">USDT បានបម្លែងតាមតម្លៃទីផ្សារ USD របស់វា</string>
+    <string name="portfolio_usdt_assumed">ខ្វះអត្រាដុល្លារ USDT – រាប់ជា 1 ដុល្លារអាមេរិក</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">បន្ថែមទៅផលប័ត្រ</string>
+    <string name="portfolio_add_tx">បន្ថែមប្រតិបត្តិការ</string>
+    <string name="portfolio_buy">ទិញ</string>
+    <string name="portfolio_coin">កាក់</string>
+    <string name="portfolio_coin_invalid">បញ្ចូលនិមិត្តសញ្ញាកាក់</string>
+    <string name="portfolio_coin_search">ស្វែងរកនិមិត្តសញ្ញា ឧ. BTC</string>
+    <string name="portfolio_discard_confirm">បោះបង់</string>
+    <string name="portfolio_discard_keep">បន្តកែសម្រួល</string>
+    <string name="portfolio_discard_title">បោះបង់ការផ្លាស់ប្តូរមែនទេ?</string>
+    <string name="portfolio_edit_tx">កែសម្រួលប្រតិបត្តិការ</string>
+    <string name="portfolio_invalid">បញ្ចូលលេខត្រឹមត្រូវដែលធំជាង 0។</string>
+    <string name="portfolio_oversold">ការលក់លើសការកាន់កាប់ – សូមពិនិត្យប្រតិបត្តិការ។</string>
+    <string name="portfolio_sell">លក់</string>
+    <string name="portfolio_sell_exceeds">លើសការកាន់កាប់របស់អ្នក (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">ចំនួនបូកកម្រៃលើសការកាន់កាប់របស់អ្នក (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">លើសការកាន់កាប់របស់អ្នកក្នុង %2$s (%1$s)</string>
+    <string name="portfolio_transactions">ប្រតិបត្តិការ</string>
+    <string name="portfolio_tx_acquired_date">កាលបរិច្ឆេទទិញដើម (ស្រេចចិត្ត)</string>
+    <string name="portfolio_tx_acquired_date_hint">សម្រាប់រយៈពេលកាន់កាប់ក្នុងការនាំចេញពន្ធ</string>
+    <string name="portfolio_tx_amount">ចំនួន</string>
+    <string name="portfolio_tx_coin_fee">កម្រៃជាកាក់ (ស្រេចចិត្ត)</string>
+    <string name="portfolio_tx_date">កាលបរិច្ឆេទ</string>
+    <string name="portfolio_tx_delete_confirm">ប្រតិបត្តិការនេះនឹងត្រូវដកចេញពីផលប័ត្រ។</string>
+    <string name="portfolio_tx_delete_title">លុបប្រតិបត្តិការមែនទេ?</string>
+    <string name="portfolio_tx_deposit">ការដាក់ចូល</string>
+    <string name="portfolio_tx_entry_currency">បញ្ចូលជា</string>
+    <string name="portfolio_tx_explain_deposit">ការកាន់កាប់ដោយគ្មានការជួញដូរ ឧ. កាក់ពីមុន</string>
+    <string name="portfolio_tx_explain_gift">កាក់ចាកចេញពីការកាន់កាប់របស់អ្នកដូចការដក – ជាការលក់ចេញតាមតម្លៃទីផ្សារតែនៅប្រទេសដែលយកពន្ធលើអំណោយប៉ុណ្ណោះ (UK, CA, AU)</string>
+    <string name="portfolio_tx_explain_payment">បានបង់សម្រាប់ទំនិញ ឬសេវាកម្ម – ជាការលក់ចេញតាមតម្លៃទីផ្សារដូចការលក់ ដោយមិនបានទទួលប្រាក់</string>
+    <string name="portfolio_tx_explain_reward">តម្លៃដើម = តម្លៃទីផ្សារនៅពេលទទួល</string>
+    <string name="portfolio_tx_explain_swap">កាក់មួយសម្រាប់កាក់មួយទៀត៖ លក់កាក់ដែលបានផ្តល់ ហើយទិញកាក់ដែលបានទទួល</string>
+    <string name="portfolio_tx_explain_transfer">គ្មានចំណេញ – តម្លៃដើមផ្លាស់ទីជាមួយកាក់</string>
+    <string name="portfolio_tx_explain_withdrawal">ការកាន់កាប់ចាកចេញពីផលប័ត្រ – គ្មានការលក់ គ្មានចំណេញ</string>
+    <string name="portfolio_tx_fee_consumes_amount">កម្រៃធំស្មើនឹងចំនួនដែលបានទទួល – នឹងគ្មានអ្វីនៅសល់ទេ។</string>
+    <string name="portfolio_tx_fees_toggle">កម្រៃ</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s តាមអត្រានៃ %2$s</string>
+    <string name="portfolio_tx_fiat_loading">កំពុងផ្ទុកអត្រាប្តូរប្រាក់…</string>
+    <string name="portfolio_tx_fiat_no_fx">គ្មានអត្រាប្តូរប្រាក់សម្រាប់ថ្ងៃនេះ – សូមបញ្ចូលចំនួនជា USDT។</string>
+    <string name="portfolio_tx_gift">អំណោយ</string>
+    <string name="portfolio_tx_gift_price_hint">ជា USDT។ ទទេ = តម្លៃបិទនៃថ្ងៃនោះ (ប៉ាន់ស្មាន)។</string>
+    <string name="portfolio_tx_gift_spouse">ទៅប្តីប្រពន្ធ / ដៃគូស៊ីវិល</string>
+    <string name="portfolio_tx_gift_spouse_hint">UK និងកាណាដា៖ គ្មានចំណេញ និងគ្មានខាត – ដៃគូរបស់អ្នកទទួលយកតម្លៃដើមរបស់អ្នក។ ប្រទេសផ្សេងទៀតមិនអើពើនឹងចំណុចនេះទេ។</string>
+    <string name="portfolio_tx_market_value">តម្លៃទីផ្សារក្នុងមួយកាក់</string>
+    <string name="portfolio_tx_more_buy">កម្រៃ ផ្សារប្តូរ កំណត់ចំណាំ</string>
+    <string name="portfolio_tx_network_fee">កម្រៃបណ្ដាញជាកាក់ (ស្រេចចិត្ត)</string>
+    <string name="portfolio_tx_note">កំណត់ចំណាំ (ស្រេចចិត្ត)</string>
+    <string name="portfolio_tx_payment">បានបង់ជាមួយវា</string>
+    <string name="portfolio_tx_price">តម្លៃក្នុងមួយកាក់</string>
+    <string name="portfolio_tx_price_hint">ជា USDT។ ទុកទទេប្រសិនបើមិនស្គាល់។</string>
+    <string name="portfolio_tx_price_historic">បានពិនិត្យតម្លៃបិទប្រចាំថ្ងៃនៃ %1$s – កែតម្រូវប្រសិនបើចាំបាច់</string>
+    <string name="portfolio_tx_price_invalid">បញ្ចូលលេខត្រឹមត្រូវ (0 ឬច្រើនជាង) ឬទុកវាលទទេ។</string>
+    <string name="portfolio_tx_price_past_hint">បញ្ចូលតម្លៃនៅថ្ងៃទិញ – ទុកទទេប្រសិនបើមិនស្គាល់</string>
+    <string name="portfolio_tx_price_receipt_hint">ជា USDT។ ទទេ = ការកាន់កាប់គ្មានតម្លៃដើម។</string>
+    <string name="portfolio_tx_price_zero">តម្លៃ 0 មិនអាចប្រើសម្រាប់ប្រតិបត្តិការដែលបាននាំចូលទេ – ទុកទទេសម្រាប់តម្លៃទីផ្សារ</string>
+    <string name="portfolio_tx_removed">បានលុបប្រតិបត្តិការ</string>
+    <string name="portfolio_tx_reward">រង្វាន់</string>
+    <string name="portfolio_tx_save_failed">មិនអាចរក្សាទុកប្រតិបត្តិការបានទេ។ ទិន្នន័យដែលអ្នកបានបញ្ចូលនៅតែនៅទីនេះ – សូមព្យាយាមម្តងទៀត។</string>
+    <string name="portfolio_tx_swap">ការប្តូរកាក់</string>
+    <string name="portfolio_tx_swap_fee_received">កម្រៃជា %1$s៖ កាត់បន្ថយចំនួនដែលបានទទួល មិនត្រូវការតម្លៃទេ។</string>
+    <string name="portfolio_tx_swap_from">ប្តូរពី %1$s</string>
+    <string name="portfolio_tx_swap_given_amount">ចំនួនដែលបានផ្តល់</string>
+    <string name="portfolio_tx_swap_given_coin">កាក់ដែលបានផ្តល់</string>
+    <string name="portfolio_tx_swap_received_amount">ចំនួនដែលបានទទួល</string>
+    <string name="portfolio_tx_swap_received_coin">កាក់ដែលបានទទួល</string>
+    <string name="portfolio_tx_swap_same_coin">សូមជ្រើសរើសកាក់ខុសពីកាក់ដែលបានផ្តល់</string>
+    <string name="portfolio_tx_swap_to">ប្តូរទៅ %1$s</string>
+    <string name="portfolio_tx_swap_value">តម្លៃនៃការប្តូរកាក់ (ស្រេចចិត្ត)</string>
+    <string name="portfolio_tx_swap_value_hint">តម្លៃសរុប។ ទទេ = មិនស្គាល់ – ចំណេញនៅតែមិនពេញលេញ (ស្វ័យប្រវត្តិនៅពេលមាន USDT ក្នុងការប្តូរ)។</string>
+    <string name="portfolio_tx_third_fee_amount">ចំនួនកម្រៃ</string>
+    <string name="portfolio_tx_third_fee_coin">កាក់កម្រៃ</string>
+    <string name="portfolio_tx_third_fee_incomplete">បើគ្មានតម្លៃទេ កម្រៃនឹងមិនរាប់បញ្ចូលក្នុងតម្លៃដើម និងចំណូលពីការលក់ទេ។ ការនាំចេញពន្ធនឹងសម្គាល់ការលក់បែបនេះ។</string>
+    <string name="portfolio_tx_third_fee_price">តម្លៃក្នុងមួយកាក់កម្រៃ (ស្រេចចិត្ត)</string>
+    <string name="portfolio_tx_third_fee_toggle">កម្រៃជាកាក់ផ្សេង</string>
+    <string name="portfolio_tx_total">សរុប៖ %1$s</string>
+    <string name="portfolio_tx_transfer">ការផ្ទេរ</string>
+    <string name="portfolio_tx_transfer_from">ពី (ស្រេចចិត្ត)</string>
+    <string name="portfolio_tx_transfer_to">ទៅ (ស្រេចចិត្ត)</string>
+    <string name="portfolio_tx_transfer_to_hint">ផ្សារប្តូរ ឬកាបូប – វាយតម្លៃនៅទីនោះចាប់ពីពេលនេះតទៅ។</string>
+    <string name="portfolio_tx_type_select">ប្រភេទ៖ %1$s</string>
+    <string name="portfolio_tx_value_received">តម្លៃក្នុងមួយកាក់នៅពេលទទួល (ស្រេចចិត្ត)</string>
+    <string name="portfolio_tx_withdrawal">ការដក</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">បានឱ្យគេ ឬបង់ជាមួយវាមែនទេ? សូមកត់ត្រាវាជា «អំណោយ» ឬ «បានបង់ជាមួយវា» – អាស្រ័យលើប្រទេស វាត្រូវបានរាប់ជាការលក់សម្រាប់គោលបំណងពន្ធ។</string>
+    <string name="portfolio_tx_withdrawal_price_hint">ស្រេចចិត្ត៖ តម្លៃទីផ្សារជា USDT ប្រើតែសម្រាប់ប្រវត្តិប៉ុណ្ណោះ (ទទេ = តម្លៃនៃថ្ងៃនោះ)។ កាក់តែងតែចាកចេញតាមតម្លៃដើមរបស់វា។</string>
+    <string name="portfolio_wallet_did_you_mean">តើអ្នកចង់និយាយថា %1$s មែនទេ? ការសរសេរខុសគ្នាត្រូវបានរាប់ជាកាបូបដាច់ដោយឡែក។</string>
+    <string name="portfolio_wallet_shortfall">ការកាន់កាប់ក្នុង %1$s មិនគ្រប់គ្រាន់ – ខ្វះការផ្ទេរមែនទេ?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">ខ្ពស់ %1$s</string>
+    <string name="portfolio_compare">ប្រៀបធៀប</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">ប្រៀបធៀប %1$s និង USDT ជាភាគរយ</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">ការប្រៀបធៀបជាភាគរយ %1$s៖ %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">ឥទ្ធិពលរូបិយប័ណ្ណ៖ %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">ទិន្នន័យតម្លៃមានត្រឹមខែសីហា ឆ្នាំ 2017 ប៉ុណ្ណោះ — ប្រវត្តិចាប់ផ្ដើមនៅទីនោះ។</string>
+    <string name="portfolio_history_chip_since_first">ទាំងអស់</string>
+    <string name="portfolio_history_collapse">លាក់ប្រវត្តិតម្លៃ</string>
+    <string name="portfolio_history_converted">បានបម្លែងតាមអត្រាថ្ងៃនេះ</string>
+    <string name="portfolio_history_expand">បង្ហាញប្រវត្តិតម្លៃ</string>
+    <string name="portfolio_history_gain_a11y">តម្លៃ %1$s។ ចំណេញ/ខាត %2$s៖ %3$s</string>
+    <string name="portfolio_history_gain_label">ចំណេញ/ខាត</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">តម្លៃជា %1$s</string>
+    <string name="portfolio_history_incl_fx">រួមទាំងអត្រាប្តូរប្រាក់</string>
+    <string name="portfolio_history_incl_withdrawn">រួមទាំងការប្រែប្រួលតម្លៃនៃកាក់ដែលបានដក</string>
+    <string name="portfolio_history_includes_trades">រួមទាំងការទិញ និងលក់ក្នុងរយៈពេលនេះ</string>
+    <string name="portfolio_history_loading">កំពុងផ្ទុកប្រវត្តិតម្លៃ</string>
+    <string name="portfolio_history_period_1y">1 ឆ្នាំ</string>
+    <string name="portfolio_history_period_30d">30 ថ្ងៃ</string>
+    <string name="portfolio_history_period_7d">7 ថ្ងៃ</string>
+    <string name="portfolio_history_period_since_first">តាំងពីការទិញដំបូង</string>
+    <string name="portfolio_history_pnl_needs_prices">ខ្វះតម្លៃទិញសម្រាប់ចំណេញ/ខាត – សូមបន្ថែមវានៅក្នុងប្រតិបត្តិការ។</string>
+    <string name="portfolio_history_pnl_without">ចំណេញ/ខាតមិនរាប់ %1$s (ខ្វះតម្លៃ)</string>
+    <string name="portfolio_history_range_1y">1 ឆ្នាំ</string>
+    <string name="portfolio_history_range_30d">30 ថ្ងៃ</string>
+    <string name="portfolio_history_range_7d">7 ថ្ងៃ</string>
+    <string name="portfolio_history_range_a11y">បង្ហាញប្រវត្តិសម្រាប់ %1$s</string>
+    <string name="portfolio_history_range_since_first">តាំងពីការទិញដំបូង</string>
+    <string name="portfolio_history_scaled">ប្រវត្តិសម្រាប់ %1$s៖ ប្រវត្តិ Binance ធ្វើមាត្រដ្ឋានទៅតម្លៃផ្សារប្តូរ</string>
+    <string name="portfolio_history_title">ប្រវត្តិតម្លៃ</string>
+    <string name="portfolio_history_today">ថ្ងៃនេះ</string>
+    <string name="portfolio_history_too_short">ប្រវត្តិចាប់ផ្ដើមបន្ទាប់ពីថ្ងៃពេញដំបូងរបស់អ្នក។</string>
+    <string name="portfolio_history_unavailable">មិនមានប្រវត្តិនៅពេលនេះទេ។</string>
+    <string name="portfolio_history_utc_days">ថ្ងៃជា UTC (ទៀនប្រចាំថ្ងៃ)</string>
+    <string name="portfolio_history_without_matching">មិនរាប់ %1$s (គ្មានតម្លៃប្រចាំថ្ងៃដែលត្រូវគ្នា)</string>
+    <string name="portfolio_period_rewards">រង្វាន់ +%1$s (មិនរាប់ក្នុងចំណេញ)</string>
+    <string name="portfolio_period_scaled">7 ថ្ងៃ/1 ឆ្នាំសម្រាប់ %1$s៖ ប្រវត្តិ Binance ធ្វើមាត្រដ្ឋានទៅតម្លៃផ្សារប្តូរ</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">ការដាស់តឿន</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">ចំនួន (%1$s)</string>
+    <string name="portfolio_alarm_hint">ពិនិត្យបន្ទាប់ពីការផ្ទុកឡើងវិញនីមួយៗ។ ដូចការដាស់តឿនដែរ វាកើតឡើងនៅពេលឆ្លងកាត់កម្រិត ហើយម្តងទៀតតែបន្ទាប់ពីតម្លៃបានត្រឡប់ក្រោយវិញប៉ុណ្ណោះ។</string>
+    <string name="portfolio_alarm_kind_above">ផលប័ត្រលើសចំនួន</string>
+    <string name="portfolio_alarm_kind_below">ផលប័ត្រក្រោមចំនួន</string>
+    <string name="portfolio_alarm_kind_down">ផលប័ត្រធ្លាក់ចុះ</string>
+    <string name="portfolio_alarm_kind_up">ផលប័ត្រកើនឡើង</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">ផលប័ត្រលើស %1$s</string>
+    <string name="portfolio_alarm_sentence_below">ផលប័ត្រក្រោម %1$s</string>
+    <string name="portfolio_alarm_sentence_down">ផលប័ត្រធ្លាក់ចុះ %1$s (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">ផលប័ត្រកើនឡើង %1$s (%2$s)</string>
+    <string name="portfolio_alarm_title">ការដាស់តឿនតម្លៃផលប័ត្រ</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">ផ្សារប្តូរ (ស្រេចចិត្ត)</string>
+    <string name="ledger_exchange_failed">%1$s៖ គ្មានតម្លៃពី %2$s នៅពេលនេះទេ – វាយតម្លៃដោយ Binance។</string>
+    <string name="ledger_exchange_hint">កាក់ត្រូវបានវាយតម្លៃតាមតម្លៃរបស់ផ្សារប្តូរនេះ (បើមិនដូច្នោះទេ Binance)។ ប្រវត្តិ 7 ថ្ងៃ និង 1 ឆ្នាំ ប្រើតម្លៃប្រចាំថ្ងៃ Binance ដែលធ្វើមាត្រដ្ឋានទៅវា។</string>
+    <string name="ledger_exchange_mixed">%1$s៖ បានបញ្ចូលផ្សារប្តូរច្រើន – វាយតម្លៃដោយ Binance។ បានផ្លាស់ទីកាក់មែនទេ? សូមកត់ត្រាការផ្លាស់ទីជា «ការផ្ទេរ»។</string>
+    <string name="ledger_exchange_none">គ្មាន (Binance)</string>
+    <string name="ledger_fee">កម្រៃ (ស្រេចចិត្ត)</string>
+    <string name="ledger_fee_coin">កាក់</string>
+    <string name="ledger_fee_hint">ជា USDT វាបង្កើនតម្លៃដើម (លក់៖ បន្ថយចំណូលពីការលក់)។ ជាកាក់ វាកាត់បន្ថយចំនួន។</string>
+    <string name="ledger_fee_line">កម្រៃ %1$s</string>
+    <string name="ledger_fifo_cost_note">តាំងពីការទិញ៖ តម្លៃដើម FIFO រួមទាំងកម្រៃ (កាក់ចាស់បំផុតត្រូវបានលក់មុន)។</string>
+    <string name="ledger_gain_info">ថ្ងៃនេះ 7 ថ្ងៃ 1 ឆ្នាំ៖ ការប្រែប្រួលតម្លៃក្នុងរយៈពេល – ការទិញ និងលក់មិនរាប់ជាចំណេញទេ។ តាំងពីការទិញ៖ តម្លៃបច្ចុប្បន្នដកតម្លៃដើម (តម្លៃដើមមធ្យមរួមទាំងកម្រៃ) នៃកាក់ដែលអ្នកនៅកាន់កាប់។</string>
+    <string name="ledger_gain_info_a11y">របៀបគណនាចំណេញ និងខាត</string>
+    <string name="ledger_gain_info_fifo">ថ្ងៃនេះ 7 ថ្ងៃ 1 ឆ្នាំ៖ ការប្រែប្រួលតម្លៃក្នុងរយៈពេល – ការទិញ និងលក់មិនរាប់ជាចំណេញទេ។ តាំងពីការទិញ៖ តម្លៃបច្ចុប្បន្នដកតម្លៃដើម (FIFO រួមទាំងកម្រៃ) នៃកាក់ដែលអ្នកនៅកាន់កាប់។</string>
+    <string name="ledger_gain_title">ចំណេញ/ខាត</string>
+    <string name="ledger_more_toggle">កម្រៃ និងផ្សារប្តូរ</string>
+    <string name="ledger_partial_cost">«តាំងពីការទិញ» រាប់តែផ្នែកដែលមានតម្លៃទិញប៉ុណ្ណោះ – មិនរាប់ %1$s ដែលខ្វះតម្លៃទិញ។</string>
+    <string name="ledger_period_without">ថ្ងៃនេះ / 7 ថ្ងៃ / 1 ឆ្នាំ មិនរាប់ %1$s – គ្មានតម្លៃចាប់ផ្ដើមដែលត្រូវគ្នា។</string>
+    <string name="ledger_since_purchase_currency">តាំងពីការទិញ (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">ចំណេញ/ខាតតាំងពីការទិញ មិនទាន់លក់</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="other">មិនរាប់កាក់ %1$d ដែលខ្វះតម្លៃទិញ (%2$s) – សូមបន្ថែមតម្លៃ ដើម្បីឱ្យវាត្រូវបានរាប់។</item>
+    </plurals>
+
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">USDT ធ្លាក់ខ្លាំង – ទីផ្សារនៅ %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">អត្រាដុល្លារ USDT តាមរយៈ USDC/USDT – ប្រសិនបើ USDC ធ្លាក់ តម្លៃនេះនឹងខុស</string>
+    <string name="portfolio_amount_bridged_stable">≈ រួមទាំង %1$s (bridged)</string>
+
+    <string name="portfolio_tx_interest">ការប្រាក់ (ការឱ្យខ្ចី)</string>
+    <string name="portfolio_tx_interest_hint">រាប់ជាចំណូលនៅពេលទទួល (អូទ្រីស)។ កុំប្រើសម្រាប់រង្វាន់ staking និង airdrop។</string>
+    <string name="app_lock_no_screen_lock">សូមរៀបចំការចាក់សោអេក្រង់ ដើម្បីបើកផលប័ត្រ។</string>
+    <string name="app_lock_turn_off_action">បិទការចាក់សោផលប័ត្រ</string>
+    <string name="app_lock_turn_off_confirm_title">បិទការចាក់សោផលប័ត្រមែនទេ?</string>
+    <string name="app_lock_turn_off_confirm_message">បើគ្មានការចាក់សោអេក្រង់ទេ ផលប័ត្រមិនអាចដោះសោបានទេ។ នៅពេលបិទ កម្មវិធីបង្ហាញផលប័ត្ររបស់អ្នកម្តងទៀតដោយមិនសួរ។ នៅពេលរៀបចំការចាក់សោអេក្រង់រួច អ្នកអាចបើកការចាក់សោវិញនៅក្នុងការកំណត់។</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">«តាំងពីការទិញ» និងតម្លៃដើមជា %1$s៖ តម្លៃដើមតាមអត្រាប្តូរប្រាក់នៃថ្ងៃទិញ តម្លៃតាមអត្រាថ្ងៃនេះ។</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">គ្មានអត្រាប្តូរប្រាក់សម្រាប់ថ្ងៃទិញ (ខ្វះពី «តាំងពីការទិញ» និងតម្លៃដើម)៖ %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">តម្លៃដើមនៅថ្ងៃទិញដែលគ្មានអត្រាដុល្លារ USDT ត្រូវបានរាប់ជា 1 ដុល្លារអាមេរិកក្នុងមួយ USDT។</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">គិតត្រឹម %1$s – មិនអាចភ្ជាប់ទៅផ្សារប្តូរបានទេ</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">តម្លៃប្រចាំថ្ងៃ៖ %1$s (ជំនួស Binance)</string>
+
+    <string name="portfolio_footer_short">ជំនួយការងារ មិនមែនដំបូន្មានពន្ធ ឬវិនិយោគទេ។ ឯកជនភាព៖ ការកំណត់ › អំពីកម្មវិធី › គោលការណ៍ឯកជនភាព។</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">លុបប្រតិបត្តិការទាំងអស់នៃ %1$s មែនទេ?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="other">ប្រតិបត្តិការ %d នឹងត្រូវដកចេញ។ អ្នកអាចមិនធ្វើវិញបានភ្លាមៗបន្ទាប់ពីនេះ។</item>
+    </plurals>
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">កម្រៃដែលបានបង់ជា %1$s ក៏ត្រូវបានដកចេញពីប្រតិបត្តិការផ្សេងទៀតដែរ៖ %2$d។</string>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="other">បានដក %1$s ចេញពីផលប័ត្រ (ប្រតិបត្តិការ %2$d)</item>
+    </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="other">បានដកប្រតិបត្តិការ %d ចេញ</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="other">វាក៏ដកឡូតិ៍ %d ចេញផងដែរ។</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="other">វាក៏ដកឡូតិ៍ %d និងប្រវត្តិសមតុល្យចេញផងដែរ។</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">វាក៏ដកប្រវត្តិសមតុល្យចេញផងដែរ។</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">មិនអាចរក្សាទុកបានទេ – សូមព្យាយាមម្តងទៀត</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">កម្រិតមិនត្រឹមត្រូវ – សូមលុប ហើយបង្កើតម្តងទៀត</string>
+</resources>

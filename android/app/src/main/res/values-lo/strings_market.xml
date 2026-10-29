@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="other">%d ນາທີກ່ອນ</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">ມື້ນີ້ %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed, ຕົວວັດ Bitcoin, ການຄອບງຳ, halving</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">ຂໍ້ມູນຕະຫຼາດເພີ່ມເຕີມ</string>
+    <string name="market_phase_trend_failed">ບໍ່ມີຂໍ້ມູນລາຄາ</string>
+    <string name="market_plain_direction_down_clear">ມູນຄ່າລວມຂອງຄຣິບໂຕທັງໝົດຕ່ຳກວ່າ 24 ຊົ່ວໂມງກ່ອນຢ່າງຊັດເຈນ (%1$s).</string>
+    <string name="market_plain_direction_down_slight">ມູນຄ່າລວມຂອງຄຣິບໂຕທັງໝົດຕ່ຳກວ່າ 24 ຊົ່ວໂມງກ່ອນເລັກນ້ອຍ (%1$s).</string>
+    <string name="market_plain_direction_flat">ມູນຄ່າລວມຂອງຄຣິບໂຕທັງໝົດແທບບໍ່ປ່ຽນແປງໃນ 24 ຊົ່ວໂມງ (%1$s).</string>
+    <string name="market_plain_direction_up_clear">ມູນຄ່າລວມຂອງຄຣິບໂຕທັງໝົດສູງກວ່າ 24 ຊົ່ວໂມງກ່ອນຢ່າງຊັດເຈນ (%1$s).</string>
+    <string name="market_plain_direction_up_slight">ມູນຄ່າລວມຂອງຄຣິບໂຕທັງໝົດສູງກວ່າ 24 ຊົ່ວໂມງກ່ອນເລັກນ້ອຍ (%1$s).</string>
+    <string name="market_plain_footnote">ອະທິບາຍ 24 ຊົ່ວໂມງຫຼ້າສຸດ – ບໍ່ແມ່ນການຄາດຄະເນ, ບໍ່ແມ່ນຄຳແນະນຳການລົງທຶນ.</string>
+    <string name="market_plain_mood_extreme_fear">ຕອນນີ້ນັກລົງທຶນຢ້ານຫຼາຍ: ດັດຊະນີອາລົມ (Fear &amp; Greed) ຢູ່ທີ່ %1$d ຈາກ 100.</string>
+    <string name="market_plain_mood_extreme_greed">ຕອນນີ້ນັກລົງທຶນໂລບຫຼາຍ: ດັດຊະນີອາລົມ (Fear &amp; Greed) ຢູ່ທີ່ %1$d ຈາກ 100.</string>
+    <string name="market_plain_mood_fear">ນັກລົງທຶນຂ້ອນຂ້າງຢ້ານ: ດັດຊະນີອາລົມ (Fear &amp; Greed) ຢູ່ທີ່ %1$d ຈາກ 100.</string>
+    <string name="market_plain_mood_greed">ນັກລົງທຶນຂ້ອນຂ້າງໂລບ: ດັດຊະນີອາລົມ (Fear &amp; Greed) ຢູ່ທີ່ %1$d ຈາກ 100.</string>
+    <string name="market_plain_mood_neutral">ອາລົມຂອງນັກລົງທຶນສົມດຸນ: ດັດຊະນີອາລົມ (Fear &amp; Greed) ຢູ່ທີ່ %1$d ຈາກ 100.</string>
+    <string name="market_plain_standout_above_btc">%1$s ໂດດເດັ່ນ: %2$s ໃນ 24 ຊົ່ວໂມງ, ສູງກວ່າ Bitcoin ຫຼາຍ (%3$s).</string>
+    <string name="market_plain_standout_against_btc">%1$s ໂດດເດັ່ນ: %2$s ໃນ 24 ຊົ່ວໂມງ, ໃນຂະນະທີ່ Bitcoin ໄປທາງກົງກັນຂ້າມ (%3$s).</string>
+    <string name="market_plain_standout_below_btc">%1$s ໂດດເດັ່ນ: %2$s ໃນ 24 ຊົ່ວໂມງ, ຕ່ຳກວ່າ Bitcoin ຫຼາຍ (%3$s).</string>
+    <string name="market_plain_standout_futures_down">%1$s ໂດດເດັ່ນ: ນັກເທຣດ Futures ຈຳນວນຫຼາຍຜິດປົກກະຕິກຳລັງເດີມພັນວ່າລາຄາຈະລົງ.</string>
+    <string name="market_plain_standout_futures_up">%1$s ໂດດເດັ່ນ: ນັກເທຣດ Futures ຈຳນວນຫຼາຍຜິດປົກກະຕິກຳລັງເດີມພັນວ່າລາຄາຈະຂຶ້ນ.</string>
+    <string name="market_plain_standout_quiet">ຕອນນີ້ບໍ່ມີຫຼຽນໃດໂດດເດັ່ນ.</string>
+    <string name="market_plain_standout_volume">%1$s ໂດດເດັ່ນ: ມີການຊື້ຂາຍປະມານ %2$s ເທົ່າຂອງປົກກະຕິ.</string>
+    <string name="market_plain_title">ສະຫຼຸບສັ້ນ</string>
+    <string name="market_section_collapse">ເຊື່ອງ %1$s</string>
+    <string name="market_section_context">ອາລົມຕະຫຼາດ &amp; ຮອບວຽນ</string>
+    <string name="market_section_data">ຂໍ້ມູນຕະຫຼາດ</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">ສະແດງ %1$s</string>
+    <string name="market_section_now">ຕອນນີ້</string>
+    <string name="market_source">ຂໍ້ມູນ: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="exchange_unavailable_error">ກະດານແລກປ່ຽນບໍ່ພ້ອມໃຊ້ງານ</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">ຂໍ້ມູນ: %1$s</string>
+    <string name="market_info_alt_season_source">ລາຄາລາຍວັນ: Binance · ຄຳນວນໃໝ່ປະມານທຸກໆ 3 ຊົ່ວໂມງ</string>
+    <string name="market_info_alt_season_what">ນັບວ່າ altcoin ໃຫຍ່ປະມານ 20 ໂຕ (ເຊັ່ນ Ethereum, Solana, XRP) ມີຈັກໂຕທີ່ເຮັດໄດ້ດີກວ່າ Bitcoin ໃນ 90 ມື້ຫຼ້າສຸດ. ຄ່ານີ້ແມ່ນສັດສ່ວນຂອງພວກມັນຈາກ 0 ຫາ 100.</string>
+    <string name="market_info_coin_source">ລາຄາ: Binance ຫຼື Bybit · ໂຫຼດໃໝ່ປະມານທຸກໆ 15 ນາທີ</string>
+    <string name="market_info_dominance_how">ຖ້າການຄອບງຳເພີ່ມຂຶ້ນ, Bitcoin ເຮັດໄດ້ດີກວ່າຕະຫຼາດສ່ວນທີ່ເຫຼືອ; ຖ້າມັນລົດລົງ, ຫຼຽນອື່ນມີນ້ຳໜັກຫຼາຍຂຶ້ນ. Stablecoin ກໍ່ນັບນຳ: ຖ້າມູນຄ່າຂອງມັນເພີ່ມຂຶ້ນ, ສ່ວນແບ່ງ Bitcoin ຈະລົດລົງເຖິງແມ່ນລາຄາ Bitcoin ຈະຄືເກົ່າ.</string>
+    <string name="market_info_dominance_source">ແຫຼ່ງທີ່ມາ: CoinGecko · ໂຫຼດໃໝ່ປະມານທຸກໆ 30 ນາທີ</string>
+    <string name="market_info_dominance_what">ສ່ວນແບ່ງຂອງ Bitcoin ໃນມູນຄ່າລວມຂອງຄຣິບໂຕທັງໝົດ (ມູນຄ່າຕະຫຼາດ). ຂ້າງລຸ່ມແມ່ນສ່ວນແບ່ງຂອງ Ethereum.</string>
+    <string name="market_info_fear_greed_how">ຕ່ຳກວ່າ 25 ໝາຍເຖິງຢ້ານຫຼາຍ, ສູງກວ່າ 75 ໂລບຫຼາຍ, ປະມານ 50 ເປັນກາງ. ເມື່ອຂະຫຍາຍ, ບັດຈະສະແດງຄ່າຂອງມື້ວານ, ອາທິດກ່ອນ ແລະ ເດືອນກ່ອນ. ບໍ່ແມ່ນສັນຍານຊື້ ຫຼື ຂາຍ.</string>
+    <string name="market_info_fear_greed_source">ແຫຼ່ງທີ່ມາ: alternative.me · ຄ່າໃໝ່ມື້ລະຄັ້ງ</string>
+    <string name="market_info_fear_greed_what">ດັດຊະນີອາລົມສຳລັບຕະຫຼາດຄຣິບໂຕຈາກ 0 ຫາ 100. alternative.me ຄຳນວນມັນຈາກຂໍ້ມູນຫຼາຍຢ່າງ, ລວມທັງການແກວ່ງຂອງລາຄາ, ປະລິມານການຊື້ຂາຍ, ສື່ສັງຄົມ ແລະ ການຄອບງຳຂອງ Bitcoin.</string>
+    <string name="market_info_gas_how">ຄ່າທີ່ສູງໝາຍເຖິງເຄືອຂ່າຍຫຍຸ້ງ ແລະ ການໂອນມີລາຄາແພງຂຶ້ນ. ຊ້າ, ປົກກະຕິ ແລະ ໄວ ແມ່ນຄ່າທຳນຽມສຳລັບການຢືນຢັນທີ່ຊ້າກວ່າ ຫຼື ໄວກວ່າ. ເມື່ອຂະຫຍາຍ, ບັດຈະສະແດງຄ່າໃຊ້ຈ່າຍໂດຍປະມານຂອງການໂອນທຳມະດາ.</string>
+    <string name="market_info_gas_source">RPC node ສາທາລະນະ, mempool.space · ໂຫຼດໃໝ່ທຸກນາທີ</string>
+    <string name="market_info_gas_what">ຄ່າໃຊ້ຈ່າຍຂອງທຸລະກຳໃນແຕ່ລະເຄືອຂ່າຍໃນຕອນນີ້. ໃນ Ethereum ແລະ ເຄືອຂ່າຍທີ່ຄ້າຍກັນເປັນ gwei (ໜຶ່ງພັນລ້ານສ່ວນຂອງ ETH ຕໍ່ໜ່ວຍ gas), ໃນ Bitcoin ເປັນ sat/vB (satoshi ຕໍ່ໄບຕ໌ສະເໝືອນຂອງທຸລະກຳ).</string>
+    <string name="market_info_halving_source">ວັນທີ: ຈາກຄວາມສູງບລັອກ ແລະ ເວລາບລັອກສະເລ່ຍ (mempool.space), ຖ້າບໍ່ດັ່ງນັ້ນຕາມປະຕິທິນ · ປະຫວັດລາຄາ: Coin Metrics, Binance, ໂຫຼດໃໝ່ທຸກໆ 12 ຊົ່ວໂມງ</string>
+    <string name="market_info_halving_what">ໃນເວລາ halving, ລາງວັນທີ່ນັກຂຸດໄດ້ຮັບສຳລັບບລັອກ Bitcoin ໃໝ່ຈະຖືກຕັດລົງເຄິ່ງໜຶ່ງ. ສິ່ງນີ້ເກີດຂຶ້ນທຸກໆ 210,000 ບລັອກ, ປະມານທຸກໆສີ່ປີ. ຫຼັງຈາກນັ້ນ, bitcoin ໃໝ່ຈະຖືກສ້າງຂຶ້ນພຽງເຄິ່ງໜຶ່ງຕໍ່ມື້.</string>
+    <string name="market_info_how">ວິທີອ່ານ</string>
+    <string name="market_info_macro_how">ໝາຍເຫດຈະປາກົດສະເພາະເມື່ອວັນທີດັ່ງກ່າວແມ່ນມື້ນີ້ ຫຼື ມື້ອື່ນ. ໃນຊ່ວງເວລາປະກາດ, ລາຄາມັກແກວ່ງຫຼາຍກວ່າປົກກະຕິ. ແອັບສະແດງສະເພາະວັນທີ, ບໍ່ແມ່ນຕົວເລກເອງ.</string>
+    <string name="market_info_macro_source">ປະຕິທິນຈາກເວັບໄຊຂອງແອັບ · ໂຫຼດມື້ລະຄັ້ງ</string>
+    <string name="market_info_macro_what">ວັນທີຂອງຂໍ້ມູນເສດຖະກິດສຳຄັນຂອງສະຫະລັດ: ອັດຕາເງິນເຟີ້ (CPI, PCE), ລາຄາຜູ້ຜະລິດ (PPI), ລາຍງານການຈ້າງງານ ແລະ ການຕັດສິນໃຈອັດຕາດອກເບ້ຍຂອງທະນາຄານກາງສະຫະລັດ. ຕົວເລກເຫຼົ່ານີ້ມັກເຮັດໃຫ້ລາຄາຄຣິບໂຕເໜັງຕີງນຳ.</string>
+    <string name="market_info_no_advice">ບໍ່ແມ່ນຄຳແນະນຳການລົງທຶນ.</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · ລາຄາທຸກຊົ່ວໂມງ, ຄ່າ on-chain ໂຫຼດໃໝ່ທຸກໆ 12 ຊົ່ວໂມງ</string>
+    <string name="market_info_pulse_how">ຫົວຂໍ້ບອກທິດທາງ; ຂະຫຍາຍບັດເພື່ອເບິ່ງລາຍລະອຽດ. ການເໜັງຕີງກວ້າງໝາຍເຖິງຫຼຽນໃຫຍ່ສ່ວນຫຼາຍກຳລັງໄປທາງດຽວກັນ. ອາລົມ leverage ໃນແງ່ດີໝາຍເຖິງນັກເທຣດຫຼາຍຄົນກຳລັງເດີມພັນວ່າລາຄາຈະຂຶ້ນດ້ວຍ leverage, ວັດໂດຍອັດຕາ Funding ຂອງ Futures Bitcoin. ເປັນພາບຊົ່ວຄາວ, ບໍ່ແມ່ນການຄາດຄະເນ.</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · ໂຫຼດໃໝ່ປະມານທຸກໆ 5 ນາທີ</string>
+    <string name="market_info_pulse_what">ສະຫຼຸບສັ້ນໆຂອງຕະຫຼາດໃນ 24 ຊົ່ວໂມງຫຼ້າສຸດ: Bitcoin, Ethereum ແລະ Solana ເໜັງຕີງແນວໃດ, ຫຼຽນທີ່ໃຫຍ່ທີ່ສຸດມີຈັກໂຕທີ່ຂຶ້ນ ຫຼື ລົງ, Bitcoin ຖືກຊື້ຂາຍຫຼາຍປານໃດໃນຕອນນີ້ ແລະ ອາລົມ leverage ເປັນແນວໃດ (ວັດໂດຍອັດຕາ Funding ຂອງ Futures Bitcoin).</string>
+    <string name="market_info_totals_how">ທາງຂວາແມ່ນການປ່ຽນແປງຂອງມູນຄ່າລວມໃນ 24 ຊົ່ວໂມງ. ປະລິມານສູງໝາຍເຖິງມີການຊື້ຂາຍຫຼາຍ – ມັນບໍ່ໄດ້ບອກທິດທາງ. ສະແດງເປັນສະກຸນເງິນແປງເມື່ອເປັນໄປໄດ້, ຖ້າບໍ່ດັ່ງນັ້ນເປັນໂດລາສະຫະລັດ.</string>
+    <string name="market_info_totals_source">ຫຼຽນທັງໝົດ · CoinGecko · ໂຫຼດໃໝ່ປະມານທຸກໆ 30 ນາທີ</string>
+    <string name="market_info_totals_what">ມູນຄ່າລວມຂອງຄຣິບໂຕທັງໝົດ (ມູນຄ່າຕະຫຼາດ: ລາຄາຄູນຈຳນວນທີ່ໝູນວຽນ, ບວກລວມທຸກຫຼຽນ) ແລະ ປະລິມານການຊື້ຂາຍຂອງ 24 ຊົ່ວໂມງຫຼ້າສຸດ.</string>
+    <string name="market_info_unusual_how">ແຕ່ລະຫຼຽນສະແດງການສັງເກດທີ່ໂດດເດັ່ນທີ່ສຸດຂອງມັນ, ພ້ອມການປ່ຽນແປງ 24 ຊົ່ວໂມງທາງຂວາ. ປະລິມານ 2× ໝາຍເຖິງສອງເທົ່າຂອງການຊື້ຂາຍປົກກະຕິ. ໂດດເດັ່ນບໍ່ໄດ້ໝາຍເຖິງດີ ຫຼື ບໍ່ດີ.</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · ໂຫຼດໃໝ່ປະມານທຸກໆ 10 ນາທີ</string>
+    <string name="market_info_unusual_what">ຫຼຽນສູງສຸດຫ້າໂຕຈາກປະມານ 30 ໂຕທີ່ໃຫຍ່ທີ່ສຸດ (ບໍ່ລວມ stablecoin) ທີ່ມີພຶດຕິກຳຜິດປົກກະຕິມື້ນີ້: ແຂງແຮງ ຫຼື ອ່ອນແອກວ່າ Bitcoin ຫຼາຍ, ສວນທາງກັບຕະຫຼາດ, ມີປະລິມານການຊື້ຂາຍສູງຜິດປົກກະຕິ ຫຼື ມີອັດຕາ Funding ທີ່ໂດດເດັ່ນ.</string>
+    <string name="market_info_what">ນີ້ແມ່ນຫຍັງ?</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">ມູນຄ່າຕະຫຼາດ</string>
+    <string name="market_cap_source">ຫຼຽນທັງໝົດ · CoinGecko</string>
+    <string name="market_cap_title">ຕະຫຼາດຄຣິບໂຕ</string>
+    <string name="market_volume_label">ປະລິມານ 24 ຊມ.</string>
+
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">ລາຍລະອຽດ</string>
+    <string name="pulse_disclaimer">ບໍ່ແມ່ນການຄາດຄະເນ · ບໍ່ແມ່ນຄຳແນະນຳການລົງທຶນ</string>
+    <string name="pulse_less">ສະແດງໜ້ອຍລົງ</string>
+    <string name="pulse_now_title">ຊີບພະຈອນຄຣິບໂຕ</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">ການປ່ຽນແປງໃນ 24 ຊົ່ວໂມງ</string>
+    <string name="pulse_section_factors">ປັດໄຈ</string>
+    <string name="pulse_section_market">ຕະຫຼາດມື້ນີ້</string>
+    <string name="pulse_unavailable">ຂໍ້ມູນຕະຫຼາດບໍ່ມີໃນຕອນນີ້</string>
+    <string name="pulse_updated">ຂໍ້ມູນເມື່ອ %1$s</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">ຕະຫຼາດສະຫງົບ</string>
+    <string name="pulse_headline_down">ອ່ອນແອທົ່ວໄປ</string>
+    <string name="pulse_headline_mixed">ພາບປະສົມ</string>
+    <string name="pulse_headline_up">ແຂງແຮງທົ່ວໄປ</string>
+    <string name="pulse_lead_alts_stronger">Altcoin ແຂງແຮງກວ່າ Bitcoin.</string>
+    <string name="pulse_lead_broad_down">ຕະຫຼາດກຳລັງລົງທົ່ວໄປ.</string>
+    <string name="pulse_lead_broad_up">ຕະຫຼາດກຳລັງຂຶ້ນທົ່ວໄປ.</string>
+    <string name="pulse_lead_btc_leads">Bitcoin ກຳລັງຂຶ້ນຫຼາຍທີ່ສຸດ.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin ແຂງແຮງກວ່າ altcoin.</string>
+    <string name="pulse_lead_calm">ຕະຫຼາດແທບບໍ່ເໜັງຕີງ.</string>
+    <string name="pulse_lead_drift_down">ຕະຫຼາດກຳລັງຄ່ອຍໆລົງ.</string>
+    <string name="pulse_lead_drift_up">ຕະຫຼາດກຳລັງຄ່ອຍໆຂຶ້ນ.</string>
+    <string name="pulse_lead_mixed">ຫຼຽນໃຫຍ່ໆກຳລັງໄປຄົນລະທາງ.</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">ອາລົມ leverage ໃນແງ່ດີ.</string>
+    <string name="pulse_detail_fund_negative">ອາລົມ leverage ໃນແງ່ຮ້າຍ.</string>
+    <string name="pulse_detail_fund_neutral">ອາລົມ leverage ເປັນກາງ.</string>
+    <string name="pulse_detail_vol_above">ປະລິມານສູງກວ່າປົກກະຕິ %1$s.</string>
+    <string name="pulse_detail_vol_above_fund_high">ປະລິມານສູງກວ່າປົກກະຕິ %1$s, ອາລົມ leverage ໃນແງ່ດີ.</string>
+    <string name="pulse_detail_vol_above_fund_negative">ປະລິມານສູງກວ່າປົກກະຕິ %1$s, ອາລົມ leverage ໃນແງ່ຮ້າຍ.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">ປະລິມານສູງກວ່າປົກກະຕິ %1$s, ອາລົມ leverage ເປັນກາງ.</string>
+    <string name="pulse_detail_vol_below">ປະລິມານຕ່ຳກວ່າປົກກະຕິ %1$s.</string>
+    <string name="pulse_detail_vol_below_fund_high">ປະລິມານຕ່ຳກວ່າປົກກະຕິ %1$s, ອາລົມ leverage ໃນແງ່ດີ.</string>
+    <string name="pulse_detail_vol_below_fund_negative">ປະລິມານຕ່ຳກວ່າປົກກະຕິ %1$s, ອາລົມ leverage ໃນແງ່ຮ້າຍ.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">ປະລິມານຕ່ຳກວ່າປົກກະຕິ %1$s, ອາລົມ leverage ເປັນກາງ.</string>
+    <string name="pulse_detail_vol_normal">ປະລິມານປົກກະຕິ.</string>
+    <string name="pulse_detail_vol_normal_fund_high">ປະລິມານປົກກະຕິ, ອາລົມ leverage ໃນແງ່ດີ.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">ປະລິມານປົກກະຕິ, ອາລົມ leverage ໃນແງ່ຮ້າຍ.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">ປະລິມານປົກກະຕິ, ອາລົມ leverage ເປັນກາງ.</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">Top %1$d: ຫຼຽນທີ່ໃຫຍ່ທີ່ສຸດຕາມມູນຄ່າຕະຫຼາດ, ບໍ່ລວມ stablecoin; ການປ່ຽນແປງໃນ 24 ຊົ່ວໂມງ (CoinGecko).</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_note_broad_down">ການເທຂາຍທົ່ວໄປ: ຫຼຽນທີ່ໃຫຍ່ທີ່ສຸດສ່ວນຫຼາຍກຳລັງລົງ.</string>
+    <string name="pulse_breadth_note_broad_up">ການເໜັງຕີງທົ່ວໄປ: ຫຼຽນທີ່ໃຫຍ່ທີ່ສຸດສ່ວນຫຼາຍກຳລັງຂຶ້ນ.</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin ກຳລັງລົງ, ແຕ່ຫຼຽນໃຫຍ່ອື່ນໆສ່ວນຫຼາຍຍັງຢືນໄດ້.</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin ກຳລັງຂຶ້ນ, ແຕ່ຫຼຽນໃຫຍ່ອື່ນໆສ່ວນຫຼາຍບໍ່ໄດ້ຂຶ້ນຕາມ.</string>
+    <string name="pulse_breadth_spoken">Top %1$d: ຂຶ້ນ %2$d, ລົງ %3$d</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">Altcoin ແລະ Bitcoin ເໜັງຕີງຄືກັນ</string>
+    <string name="pulse_alts_stronger">Altcoin ແຂງແຮງກວ່າ Bitcoin</string>
+    <string name="pulse_alts_weaker">Bitcoin ແຂງແຮງກວ່າ altcoin</string>
+    <string name="pulse_chip_funding_high">ອາລົມ leverage ໃນແງ່ດີ</string>
+    <string name="pulse_chip_funding_negative">ອາລົມ leverage ໃນແງ່ຮ້າຍ</string>
+
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">ສະແດງລາຄາ ແລະ ການດຳເນີນການ</string>
+    <string name="unusual_fact_against">ເໜັງຕີງສວນທາງຕະຫຼາດ</string>
+    <string name="unusual_fact_funding_high">Funding ສູງ (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Funding ລົບ (%1$s)</string>
+    <string name="unusual_fact_stronger">ເໜັງຕີງແຮງກວ່າ BTC ຫຼາຍ</string>
+    <string name="unusual_fact_volume">ປະລິມານ %1$s× ຂອງປົກກະຕິ</string>
+    <string name="unusual_fact_weaker">ເໜັງຕີງອ່ອນກວ່າ BTC ຫຼາຍ</string>
+    <string name="unusual_nothing">ມື້ນີ້ບໍ່ມີຫຍັງໂດດເດັ່ນ</string>
+    <string name="unusual_source">ປະມານ 30 ຫຼຽນທີ່ໃຫຍ່ທີ່ສຸດ ບໍ່ລວມ stablecoin · Binance, CoinGecko</string>
+    <string name="unusual_title">ໂດດເດັ່ນ</string>
+
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">ໂດດເດັ່ນ</string>
+    <string name="activity_indicator">ໂດດເດັ່ນ</string>
+    <string name="activity_sensitivity_less">ໜ້ອຍ</string>
+    <string name="activity_sensitivity_more">ຫຼາຍ</string>
+    <string name="activity_sensitivity_normal">ປົກກະຕິ</string>
+    <string name="activity_signal_funding_long">Funding %1$s — longs ທີ່ໃຊ້ leverage ຫຼາຍ</string>
+    <string name="activity_signal_funding_short">Funding %1$s — shorts ຫຼາຍ</string>
+    <string name="activity_signal_open_interest">Open interest %1$s ພາຍໃນ %2$d ນາທີ</string>
+    <string name="activity_signal_open_interest_no_time">Open interest %1$s</string>
+    <string name="activity_signal_price_move">ການເໜັງຕີງຜິດປົກກະຕິ: %1$s ໃນໜຶ່ງຊົ່ວໂມງ (%2$s× ຂອງປົກກະຕິ)</string>
+    <string name="activity_signal_volume">ປະລິມານ %1$s× ຂອງປົກກະຕິໃນຊົ່ວໂມງຫຼ້າສຸດ</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="other">altcoin ໃຫຍ່ %1$d ຈາກ %2$d ໂຕ ເຮັດໄດ້ດີກວ່າ Bitcoin ໃນ 90 ມື້</item>
+    </plurals>
+    <string name="insights_chart_axis">ປີນັບແຕ່ halving</string>
+    <string name="insights_chart_hint">ລາຄາເປັນຕົວຄູນຂອງລາຄາມື້ halving (ມາດຕາສ່ວນ log). ຮອບວຽນກ່ອນໜ້າເປັນຮູບແບບ, ບໍ່ແມ່ນການຄາດຄະເນ.</string>
+    <string name="insights_cycle_chart">ຮອບວຽນນັບແຕ່ halving</string>
+    <string name="insights_dominance_eth">ETH %1$s ຂອງຕະຫຼາດທັງໝົດ</string>
+    <string name="insights_dominance_title">ການຄອບງຳຂອງ Bitcoin</string>
+    <string name="insights_fng_history">ມື້ວານ %1$s · ອາທິດກ່ອນ %2$s · ເດືອນກ່ອນ %3$s</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="insights_halving_title">Bitcoin halving</string>
+    <string name="insights_source_dominance">ແຫຼ່ງທີ່ມາ: CoinGecko, Binance</string>
+    <string name="insights_source_fng">ແຫຼ່ງທີ່ມາ: alternative.me</string>
+    <string name="insights_source_history">ແຫຼ່ງທີ່ມາ: Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">ຢ້ານຫຼາຍ</string>
+    <string name="fng_extreme_greed">ໂລບຫຼາຍ</string>
+    <string name="fng_fear">ຢ້ານ</string>
+    <string name="fng_greed">ໂລບ</string>
+    <string name="fng_neutral">ເປັນກາງ</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">ຂໍ້ມູນເມື່ອ %1$s · ກຳລັງອັບເດດ…</string>
+    <string name="cycle_from_top">%1$s ຈາກຈຸດສູງສຸດ</string>
+    <string name="cycle_marker_bottom">ຈຸດຕ່ຳ %1$s</string>
+    <string name="cycle_marker_double_bottom">ຈຸດຕ່ຳສອງເທື່ອ %1$s</string>
+    <string name="cycle_marker_double_top">ຈຸດສູງສອງເທື່ອ %1$s</string>
+    <string name="cycle_marker_high_so_far">ສູງສຸດຈົນເຖິງຕອນນີ້</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">ຈຸດສູງ %1$s</string>
+    <string name="cycle_since_halving">%1$s ນັບແຕ່ halving</string>
+    <string name="halving_estimate_text">Halving ຄັ້ງຕໍ່ໄປຕາມການຄຳນວນປະມານ %1$s: ເຫຼືອ %2$s ບລັອກ ໂດຍສະເລ່ຍ %3$s ນາທີຕໍ່ບລັອກ (ໄລຍະ difficulty ປັດຈຸບັນ). ເປັນການຄາດການ, ບໍ່ແມ່ນຄຳສັນຍາ – ເວລາບລັອກປ່ຽນແປງໄດ້.</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">ສັນຍານເຕືອນ: %1$s</string>
+    <string name="gas_slow_fast">ຊ້າ %1$s · ໄວ %2$s</string>
+    <string name="gas_source">RPC node ສາທາລະນະ ແລະ mempool.space · ຄ່າໃຊ້ຈ່າຍຂອງການໂອນທຳມະດາ, ບໍ່ລວມສ່ວນ L1 ໃນ L2</string>
+    <string name="gas_title">ຄ່າທຳນຽມເຄືອຂ່າຍ</string>
+    <string name="gas_transfer_cost">ການໂອນ ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">ຂໍ້ມູນເງິນເຟີ້ສະຫະລັດ (CPI)</string>
+    <string name="macro_fomc">ການຕັດສິນໃຈອັດຕາດອກເບ້ຍ Fed ສະຫະລັດ</string>
+    <string name="macro_hint_list">%1$s – ຕະຫຼາດມັກແກວ່ງຫຼາຍຂຶ້ນໃນມື້ແບບນີ້.</string>
+    <string name="macro_hint_today">ມື້ນີ້ %1$s: %2$s – ຕະຫຼາດມັກແກວ່ງຫຼາຍຂຶ້ນໃນມື້ແບບນີ້.</string>
+    <string name="macro_hint_today_list">ມື້ນີ້: %1$s – ຕະຫຼາດມັກແກວ່ງຫຼາຍຂຶ້ນໃນມື້ແບບນີ້.</string>
+    <string name="macro_hint_tomorrow">ມື້ອື່ນ %1$s: %2$s – ຕະຫຼາດມັກແກວ່ງຫຼາຍຂຶ້ນໃນມື້ແບບນີ້.</string>
+    <string name="macro_hint_tomorrow_list">ມື້ອື່ນ: %1$s – ຕະຫຼາດມັກແກວ່ງຫຼາຍຂຶ້ນໃນມື້ແບບນີ້.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">ມື້ນີ້ %1$s %2$s</string>
+    <string name="macro_item_tomorrow">ມື້ອື່ນ %1$s %2$s</string>
+    <string name="macro_nfp">ລາຍງານການຈ້າງງານສະຫະລັດ</string>
+    <string name="macro_pce">ລາຄາການໃຊ້ຈ່າຍຜູ້ບໍລິໂພກສະຫະລັດ (PCE)</string>
+    <string name="macro_ppi">ລາຄາຜູ້ຜະລິດສະຫະລັດ (PPI)</string>
+    <string name="macro_released_list">ປະກາດມື້ນີ້: %1$s.</string>
+    <string name="macro_released_one">ປະກາດມື້ນີ້ເວລາ %1$s: %2$s.</string>
+    <string name="macro_title">ຂໍ້ມູນເສດຖະກິດ</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">ຫຼຽນ</string>
+    <string name="coin_no_data">ບໍ່ມີຂໍ້ມູນລາຄາສຳລັບຫຼຽນນີ້ໃນ Binance ຫຼື Bybit.</string>
+    <string name="coin_price_only">ອີງຕາມລາຄາເທົ່ານັ້ນ – ຂໍ້ມູນ on-chain (MVRV, Puell, hashrate) ມີໃຫ້ຟຣີສຳລັບ Bitcoin ເທົ່ານັ້ນ.</string>
+    <plurals name="coin_short_history">
+        <item quantity="other">ມີປະຫວັດລາຄາພຽງ %1$d ມື້ – ຕົວຊີ້ວັດບາງອັນຂາດໄປ.</item>
+    </plurals>
+    <string name="coin_title">ການວິເຄາະຫຼຽນ</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">ຂໍ້ມູນ: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">ຂຶ້ນ ແລະ ລົງຫຼາຍສຸດ 24 ຊມ.</string>
+    <string name="movers_gainers">ຂຶ້ນຫຼາຍສຸດ</string>
+    <string name="movers_losers">ລົງຫຼາຍສຸດ</string>
+    <string name="movers_no_gainers">ບໍ່ມີຫຼຽນໃດຂຶ້ນໃນ 24 ຊມ.</string>
+    <string name="movers_no_losers">ບໍ່ມີຫຼຽນໃດລົງໃນ 24 ຊມ.</string>
+    <string name="movers_source">CoinGecko, 24 ຊມ., top 100 ບໍ່ລວມ stablecoin</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">ສະແດງທັງໝົດ</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">ສະແດງໜ້ອຍລົງ</string>
+</resources>

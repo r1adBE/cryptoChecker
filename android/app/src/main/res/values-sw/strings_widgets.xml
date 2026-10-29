@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">Mandharinyuma</string>
+    <string name="widget_configure_hint">Chagua mandharinyuma na uangavu. Rangi inafuata programu. Wijeti inaonyesha orodha yako yote ya ufuatiliaji; gusa safu ili kufungua programu.</string>
+    <string name="widget_configure_title">Weka wijeti</string>
+    <string name="widget_description">Inaonyesha bei ya jozi kutoka orodha yako ya ufuatiliaji.</string>
+    <string name="widget_empty">Bado hakuna jozi kwenye orodha ya ufuatiliaji.</string>
+    <string name="widget_group_hint">Onyesha tu jozi za kikundi hiki.</string>
+    <string name="widget_kind_single">Sarafu moja</string>
+    <string name="widget_opacity">Uangavu wa mandharinyuma: %1$s</string>
+    <string name="widget_pulse_description">Kinachojitokeza sokoni sasa hivi: kichwa, muhtasari mfupi na Bitcoin, Ethereum na Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">imepitwa na wakati</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">imepitwa na wakati · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">Mishumaa</string>
+    <string name="widget_chart_line">Mstari</string>
+    <string name="widget_chart_range">Kipindi cha chati</string>
+    <string name="widget_chart_type">Aina ya chati</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">mwaka 1</string>
+    <string name="widget_range_24h">24h</string>
+    <string name="widget_range_30d">siku 30</string>
+    <string name="widget_range_7d">siku 7</string>
+    <string name="widget_range_short_1y">M1</string>
+    <string name="widget_range_short_24h">24h</string>
+    <string name="widget_range_short_30d">S30</string>
+    <string name="widget_range_short_7d">S7</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">Hadi %1$s</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">Historia inakuja hivi karibuni</string>
+    <string name="widget_portfolio_description">Thamani ya jumla ya jalada lako na mabadiliko ya leo</string>
+    <string name="widget_portfolio_entries">Maingizo chini ya sarafu</string>
+    <string name="widget_portfolio_entries_both">Zote mbili</string>
+    <string name="widget_portfolio_entries_buys">Manunuzi</string>
+    <string name="widget_portfolio_entries_hint">Huonyeshwa tu kama kuna nafasi chini ya sarafu. Manunuzi yanajumuisha amana, mauzo yanajumuisha utoaji; kwa «Zote mbili» mistari inajumlika kuwa mali.</string>
+    <string name="widget_portfolio_entries_off">Imezimwa</string>
+    <string name="widget_portfolio_entries_sells">Mauzo</string>
+    <string name="widget_portfolio_display">Onyesho</string>
+    <string name="widget_portfolio_display_conversion">Ubadilishaji pekee</string>
+    <string name="widget_portfolio_display_conversion_usdt">Ubadilishaji + USDT</string>
+    <string name="widget_portfolio_display_hint">Mstari wa USDT umefichwa sarafu ya ubadilishaji ikiwa ni stablecoin ya USD (k.m. USDC).</string>
+    <string name="widget_portfolio_display_usdt">USDT pekee</string>
+    <string name="widget_portfolio_empty">Ongeza manunuzi kwenye kichupo cha Jalada</string>
+    <string name="widget_portfolio_list_hint">Fungua programu ili kuonyesha nafasi zako hapa.</string>
+    <string name="widget_portfolio_locked_hint">Imefungwa – fungua kwenye programu</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="one">bila sarafu %1$d</item>
+        <item quantity="other">bila sarafu %1$d</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ %1$d zaidi</item>
+        <item quantity="other">+ %1$d zaidi</item>
+    </plurals>
+    <string name="widget_portfolio_name">Jalada</string>
+    <string name="widget_portfolio_off_hint">Iwashe kwenye %1$s.</string>
+    <string name="widget_portfolio_off_short">Jalada limezimwa</string>
+    <string name="widget_portfolio_off_title">Jalada limezimwa</string>
+    <string name="widget_portfolio_partly_stale">baadhi ya bei zimepitwa na wakati</string>
+    <string name="widget_portfolio_period">Kipindi</string>
+    <string name="widget_portfolio_period_without">%1$s bila %2$s</string>
+    <string name="widget_portfolio_range_48h">48h</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: fungua Jalada</string>
+    <string name="widget_portfolio_range_short_48h">48h</string>
+    <string name="widget_portfolio_today_without">Leo bila %1$s</string>
+    <string name="widget_portfolio_view">Mwonekano</string>
+    <string name="widget_portfolio_view_chart">Chati</string>
+    <string name="widget_portfolio_view_list">Orodha</string>
+    <string name="widget_portfolio_view_overview">Muhtasari</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">Chagua jozi</string>
+    <string name="single_widget_description">Inaonyesha sarafu moja kwa ukubwa pamoja na bei, mabadiliko na chati ya saa 24.</string>
+    <string name="single_widget_label">Crypto Checker – sarafu moja</string>
+    <string name="single_widget_title">Weka wijeti ya sarafu moja</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">Ongeza</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">Ongeza wijeti %1$s</string>
+    <string name="widgets_manual_text">Skrini yako ya nyumbani haiwezi kuongeza wijeti kutoka kwenye programu. Gusa na ushikilie sehemu tupu kwenye skrini ya nyumbani, chagua “Wijeti” na utafute “Crypto Checker”.</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">Ongeza wijeti mwenyewe</string>
+    <string name="widgets_sheet_title">Ongeza wijeti</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS hairuhusu programu kuongeza wijeti zenyewe. Inachukua muda mfupi tu:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Wijeti zinazopatikana</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Gusa na ushikilie sehemu tupu kwenye Home Screen hadi programu zitikisike.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Gusa “Edit” › “Add Widget” juu (au “+” kwenye matoleo ya zamani ya iOS).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Tafuta “Crypto Checker”, chagua wijeti na uguse “Add Widget”.</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">Onyesha upya – inawezekana tena baada ya sekunde %1$d</string>
+    <string name="settings_watch">Saa</string>
+    <string name="settings_watch_hint">Sarafu za programu ya saa kwenye Wear OS (hadi %1$d, bei dhidi ya USDT). Orodha hii pekee ndiyo inaenda kwenye saa, kupitia huduma za Google Play; saa inapata bei yenyewe.</string>
+    <string name="settings_watch_mode_phone">Kama simu (vipendwa ★)</string>
+    <string name="settings_watch_mode_own">Orodha yako</string>
+    <string name="settings_watch_own_title">Orodha yako: %1$d kati ya %2$d</string>
+    <string name="settings_watch_none">Bado hakuna vipendwa</string>
+
+    <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
+    <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">Hakuna mstari wa USDT kwenye “Orodha”</string>
+    <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
+    <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">“Muhtasari” inaonyesha siku 30 badala yake</string>
+</resources>

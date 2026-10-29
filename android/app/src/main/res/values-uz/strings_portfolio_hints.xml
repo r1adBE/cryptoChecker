@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">Portfel signallari toʻxtatildi: %1$s uchun joriy kurs yoʻq</string>
+    <string name="portfolio_alarms_paused_price_generic">Portfel signallari toʻxtatildi: baʼzi tangalarning joriy kursi yoʻq</string>
+    <string name="portfolio_alarms_paused_addresses">Portfel signallari toʻxtatildi: kuzatilayotgan manzillar balansi hali yuklanmadi</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Portfel signallari toʻxtatildi: %1$s token balanslari qisman eskirgan</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Portfel signallari toʻxtatildi: kuzatilayotgan manzillarning token balanslari qisman eskirgan</string>
+    <string name="portfolio_alarms_paused_unverified">Portfel signallari toʻxtatildi: %1$s kursi tasdiqlanmagan</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Portfel signallari toʻxtatildi: baʼzi tangalarning kursi tasdiqlanmagan</string>
+    <string name="portfolio_alarms_address_failing">Portfel signallari %1$s manzilisiz tekshiriladi: balans 24 soatdan ortiq yuklanmagan</string>
+    <string name="portfolio_alarms_address_failing_generic">Portfel signallari balansi 24 soatdan ortiq yuklanmagan manzillarsiz tekshiriladi</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">tokenlar qisman eskirgan</string>
+    <string name="portfolio_address_restore_failed">Manzilni tiklab boʻlmadi – kerak boʻlsa, qayta qoʻshing</string>
+    <string name="portfolio_address_remove_failed">Manzilni oʻchirib boʻlmadi – qayta urinib koʻring</string>
+</resources>

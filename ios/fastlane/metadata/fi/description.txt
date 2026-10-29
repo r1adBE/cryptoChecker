@@ -34,7 +34,7 @@ LISÄKSI
 • Salkku valinnaisena (kytketään asetuksista): ostot, myynnit, vaihdot, siirrot, palkkiot, talletukset ja nostot; FIFO (oletus) tai keskiarvo (Ø); osoitteet vain luku -tilassa, ilman seediä: BTC (myös xpub), ETH ja EVM-ketjut, SOL, TRX, XRP, LTC, ADA ja TON; CSV-tuonti Relaista, Swissquotesta, Bitpandasta, Krakenista, Binancesta ja Coinbasesta; vuosikooste CSV-tiedostona; oma lukitus. Bitpanda ja Swissquote: ei omaa hintaa, vain CSV:llä.
 • Luettava kaikille: vihreä/punainen tai sininen/oranssi, etumerkki ja nuoli pelkän värin sijaan, Dynamic Type; VoiceOver lukee jokaisen rivin yhtenä lauseena
 • Varmuuskopiointi ja palautus Tiedostot-apin kautta
-• Vaalea ja tumma tila, viisi korostusväriä, 33 kieltä
+• Vaalea ja tumma tila, viisi korostusväriä, 75 kieltä
 • Avoin lähdekoodi (MIT) – koodi on julkisesti GitHubissa
 
 Huom: Crypto Checker näyttää hintoja ja salkun, jonka syötät itse. Se ei ole pörssi eikä lompakko, ei käy kauppaa eikä anna sijoitusneuvontaa.

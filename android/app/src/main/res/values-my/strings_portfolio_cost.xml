@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">မူလကုန်ကျစရိတ် မပါသော မှတ်တမ်းများ: %1$d</string>
+    <string name="cost_gaps_card_text">အမြတ်နှင့် အခွန်များ ပြည့်စုံစေရန် မူလကုန်ကျစရိတ်ကို ထည့်ပါ။</string>
+    <string name="cost_gaps_sheet_title">မူလကုန်ကျစရိတ် မပါသော မှတ်တမ်းများ</string>
+    <string name="cost_gaps_sheet_intro">ဤငွေဝင်များတွင် မူလကုန်ကျစရိတ် မရှိပါ။ အကြံပြုချက်မှာ ထိုရက်စွဲ၏ နေ့စဉ် ပိတ်ဈေး ဖြစ်သည် – မှတ်တမ်းထဲတွင် ချိန်ညှိနိုင်သည်။</string>
+    <string name="cost_gaps_empty">မှတ်တမ်းအားလုံးတွင် မူလကုန်ကျစရိတ် ရှိသည်။</string>
+    <string name="cost_gap_enter">မူလကုန်ကျစရိတ် ထည့်ရန်</string>
+    <string name="cost_gap_leave_unknown">မသိအဖြစ် ထားရန်</string>
+    <string name="cost_gap_left_unknown">မသိအဖြစ် ထားခဲ့သည်</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">အကြံပြုချက်: နေ့စဉ် ပိတ်ဈေး %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">ဤရက်စွဲအတွက် အတည်ပြုထားသော နေ့စဉ် ပိတ်ဈေး မရှိပါ</string>
+    <string name="cost_gap_suggestion_loading">နေ့စဉ် ပိတ်ဈေး ဖွင့်နေသည် …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">မူလကုန်ကျစရိတ် = လက်ခံချိန် တန်ဖိုး (ဝင်ငွေ)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">မူလကုန်ကျစရိတ် = 0 (ငွေဝင်မပါသော ဆုလာဘ်၊ ဩစတြီးယား)</string>
+    <string name="cost_gap_apply">အသုံးချရန်</string>
+    <string name="address_lots_action">လိပ်စာ လက်ကျန်အတွက် မူလကုန်ကျစရိတ်</string>
+    <string name="address_lots_title">လိပ်စာ လက်ကျန်အတွက် မူလကုန်ကျစရိတ်</string>
+    <string name="address_lots_intro">ဤလိပ်စာ၏ လက်ကျန်အတွက် ဝယ်သည့်ရက်၊ ပမာဏနှင့် မူလကုန်ကျစရိတ်ကို ထည့်ပါ။ အစုများကို ဤလိပ်စာရှိ ဝယ်ယူမှုများကဲ့သို့ တွက်သည်၊ မဖုံးလွှမ်းထားသော အစိတ်အပိုင်းသည် မူလကုန်ကျစရိတ် မရှိဘဲ ကျန်သည်။</string>
+    <string name="address_lots_add">အစု ထည့်ရန်</string>
+    <string name="address_lots_new">အစု အသစ်</string>
+    <string name="address_lots_edit">အစု</string>
+    <string name="address_lots_date">ဝယ်သည့်ရက်</string>
+    <string name="address_lots_amount">ပမာဏ</string>
+    <string name="address_lots_mode_total">စုစုပေါင်း</string>
+    <string name="address_lots_mode_price">ဒင်္ဂါးတစ်ခုလျှင်</string>
+    <string name="address_lots_price">ဒင်္ဂါးတစ်ခုလျှင် ဈေးနှုန်း (USDT)</string>
+    <string name="address_lots_total">စုစုပေါင်း မူလကုန်ကျစရိတ် (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%2$s အနက် %1$s တွင် မူလကုန်ကျစရိတ် ရှိသည်</string>
+    <string name="address_lots_unlotted">%1$s တွင် မူလကုန်ကျစရိတ် မရှိပါ</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">အစုများသည် လက်ကျန်ထက် %1$s ပိုနေသည် – အဟောင်းဆုံးများကို အရင် အသုံးပြုသည်။</string>
+    <string name="address_lots_not_loaded">လက်ကျန် မဖွင့်ရသေးပါ – ဖွင့်ပြီးသည်နှင့် အစုများကို တွက်မည်။</string>
+    <string name="address_lots_invalid">ပမာဏနှင့် မူလကုန်ကျစရိတ် ထည့်ပါ</string>
+</resources>

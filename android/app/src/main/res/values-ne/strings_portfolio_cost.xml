@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">लागत आधार नभएका प्रविष्टिहरू: %1$d</string>
+    <string name="cost_gaps_card_text">नाफा र कर पूर्ण होस् भन्नका लागि लागत आधार थप्नुहोस्।</string>
+    <string name="cost_gaps_sheet_title">लागत आधार नभएका प्रविष्टिहरू</string>
+    <string name="cost_gaps_sheet_intro">यी आगमनहरूको लागत आधार छैन। सुझाव भनेको मितिको दैनिक बन्द मूल्य हो – तपाईं प्रविष्टिमा यसलाई मिलाउन सक्नुहुन्छ।</string>
+    <string name="cost_gaps_empty">सबै प्रविष्टिहरूको लागत आधार छ।</string>
+    <string name="cost_gap_enter">लागत आधार लेख्नुहोस्</string>
+    <string name="cost_gap_leave_unknown">अज्ञात छोड्नुहोस्</string>
+    <string name="cost_gap_left_unknown">अज्ञात छोडियो</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">सुझाव: दैनिक बन्द मूल्य %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">यो मितिको प्रमाणित दैनिक बन्द मूल्य छैन</string>
+    <string name="cost_gap_suggestion_loading">दैनिक बन्द मूल्य लोड हुँदैछ …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">लागत आधार = प्राप्त गर्दाको मूल्य (आम्दानी)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">लागत आधार = 0 (आगमनबिनाको पुरस्कार, अस्ट्रिया)</string>
+    <string name="cost_gap_apply">लागू गर्नुहोस्</string>
+    <string name="address_lots_action">ठेगाना ब्यालेन्सको लागत आधार</string>
+    <string name="address_lots_title">ठेगाना ब्यालेन्सको लागत आधार</string>
+    <string name="address_lots_intro">यो ठेगानाको ब्यालेन्सका लागि खरिद मिति, रकम र लागत आधार लेख्नुहोस्। लटहरू यो ठेगानामा खरिदजस्तै गनिन्छन्; नसमेटिएको भाग लागत आधारबिना रहन्छ।</string>
+    <string name="address_lots_add">लट थप्नुहोस्</string>
+    <string name="address_lots_new">नयाँ लट</string>
+    <string name="address_lots_edit">लट</string>
+    <string name="address_lots_date">खरिद मिति</string>
+    <string name="address_lots_amount">रकम</string>
+    <string name="address_lots_mode_total">कुल</string>
+    <string name="address_lots_mode_price">प्रति कोइन</string>
+    <string name="address_lots_price">प्रति कोइन मूल्य (USDT)</string>
+    <string name="address_lots_total">कुल लागत आधार (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%2$s मध्ये %1$s लागत आधारसहित</string>
+    <string name="address_lots_unlotted">%1$s लागत आधारबिना</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">लटहरू ब्यालेन्सभन्दा %1$s ले बढी छन् – सबैभन्दा पुराना पहिले प्रयोग हुन्छन्।</string>
+    <string name="address_lots_not_loaded">ब्यालेन्स अझै लोड भएको छैन – लोड हुनेबित्तिकै लटहरू गनिन्छन्।</string>
+    <string name="address_lots_invalid">रकम र लागत आधार लेख्नुहोस्</string>
+</resources>

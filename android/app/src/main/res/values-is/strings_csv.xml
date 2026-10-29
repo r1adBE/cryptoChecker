@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">Flytja inn CSV</string>
+    <string name="portfolio_csv_import_all_transfer">Allt í eigið veski</string>
+    <string name="portfolio_csv_import_all_withdrawal">Allt fer úr eignasafninu</string>
+    <string name="portfolio_csv_import_choice_proposed">Tillaga: passar við %1$s</string>
+    <string name="portfolio_csv_import_choice_transfer">Í eigið veski (millifærsla)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Fer úr eignasafninu (úttekt)</string>
+    <string name="portfolio_csv_import_choose_each">Veldu fyrir hverja úttekt hvert hún fór.</string>
+    <string name="portfolio_csv_import_columns">Dálkar sem þekktust: %1$s</string>
+    <string name="portfolio_csv_import_confirm">Flytja inn (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">Dagur/Mánuður</string>
+    <string name="portfolio_csv_import_date_month_first">Mánuður/Dagur</string>
+    <string name="portfolio_csv_import_date_order">Tvíræðar dagsetningar (t.d. 03/04/2024) lesnar sem:</string>
+    <string name="portfolio_csv_import_decimal">Tvíræðar tölur (t.d. %1$s) lesnar sem:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d færsla flutt inn</item>
+        <item quantity="other">%d færslur fluttar inn</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d þegar flutt inn (sleppt)</item>
+        <item quantity="other">%d þegar fluttar inn (sleppt)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">Snið: %1$s</string>
+    <string name="portfolio_csv_import_line">Lína %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">Les skrá og dagsgengi…</string>
+    <string name="portfolio_csv_import_progress">Lína %1$s af %2$s</string>
+    <string name="portfolio_csv_import_saving">Vistar færslur…</string>
+    <string name="portfolio_csv_import_missing_fx">Ekkert dagsgengi fyrir línur %1$s – flutt inn án verðs/gjalds.</string>
+    <string name="portfolio_csv_import_missing_price">Ekkert verð í skránni fyrir línur %1$s – flutt inn án verðs.</string>
+    <string name="portfolio_csv_import_more">+ %1$d í viðbót</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d ný færsla</item>
+        <item quantity="other">%d nýjar færslur</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d línu sleppt</item>
+        <item quantity="other">%d línum sleppt</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">Viðskipti á móti stöðugleikamyntum (USDT, USDC …) eru bókuð sem skipti – stöðugleikamyntin birtist í eign þinni.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Nokkrar samsvaranir mögulegar – veldu þá réttu eða enga.</string>
+    <string name="portfolio_csv_import_transfer_fee">Netgjald: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">Bóka sem eina millifærslu</string>
+    <string name="portfolio_csv_import_transfer_stored">Mótfærsla úr fyrri innflutningi</string>
+    <string name="portfolio_csv_import_transfers_hint">Úttekt og samsvarandi innlögn sömu myntar verða að einni millifærslu: kaupverð og eignarhaldstími flytjast með, mismunurinn telst netgjald.</string>
+    <string name="portfolio_csv_import_transfers_title">Millifærslur milli reikninga þinna</string>
+    <string name="portfolio_csv_import_unreadable">Engar studdar færslur fundust. Stutt: CSV-útflutningur frá Relai, Swissquote, Kraken, Binance, Coinbase og Bitpanda.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
+    <string name="portfolio_csv_import_too_large">Skráin er of stór til innflutnings (í mesta lagi 16 MB og %1$s línur). Flyttu út styttri tímabil og flyttu þau inn hvert á eftir öðru.</string>
+    <string name="portfolio_csv_import_failed">Innflutningurinn tókst ekki – ekkert var vistað. Reyndu aftur.</string>
+    <string name="portfolio_csv_import_locked">Innflutningur er ekki mögulegur: ekki er hægt að lesa vistuð gögn núna. Endurræstu forritið.</string>
+    <string name="portfolio_csv_import_withdrawals_title">Úttektir – hvert fóru myntirnar?</string>
+    <string name="portfolio_csv_import_zone">Tímar án tímabeltis lesnir sem: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">Tæki (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">ólæsileg dagsetning</string>
+    <string name="portfolio_csv_skip_bad_number">ólæsileg tala</string>
+    <string name="portfolio_csv_skip_fee_exceeds">gjald ≥ móttekin upphæð</string>
+    <string name="portfolio_csv_skip_internal_move">tilfærsla milli eigin reikninga – ekkert að bóka</string>
+    <string name="portfolio_csv_skip_missing">reit vantar</string>
+    <string name="portfolio_csv_skip_ambiguous">nokkur viðskipti á sömu sekúndu sem ekki er hægt að greina í sundur – skráðu þau handvirkt</string>
+    <string name="portfolio_csv_skip_not_crypto">ekki rafmynt</string>
+    <string name="portfolio_csv_skip_possible_duplicate">hugsanlega þegar flutt inn (næstum sömu viðskipti) – athugaðu handvirkt</string>
+    <string name="portfolio_csv_skip_two_fees">tvö gjöld í mismunandi einingum – skráðu skiptin handvirkt</string>
+    <string name="portfolio_csv_skip_unsupported">óstudd tegund</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">Afturkalla</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">Eyða %d færslu úr þessum innflutningi? Handvirkar færslur og aðrir innflutningar haldast.</item>
+        <item quantity="other">Eyða %d færslum úr þessum innflutningi? Handvirkar færslur og aðrir innflutningar haldast.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">Afturkalla innflutning?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">%d innflutt færsla fjarlægð</item>
+        <item quantity="other">%d innfluttar færslur fjarlægðar</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d færsla</item>
+        <item quantity="other">%d færslur</item>
+    </plurals>
+    <string name="portfolio_imports_empty">Engir innflutningar</string>
+    <string name="portfolio_imports_title">Innflutningar</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">sama færsluauðkenni með annarri upphæð – athugaðu handvirkt</string>
+    <string name="portfolio_csv_skip_staking_unpaired">staking-færsla án mótfærslu – athugaðu eignina</string>
+    <string name="portfolio_csv_skip_amount_too_small">upphæð of lítil – námundast í 0 við vistun</string>
+    <string name="portfolio_csv_skip_invalid_swap">skipti án gildrar myntar eða móttekinnar upphæðar</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">Les skrána aftur …</string>
+</resources>

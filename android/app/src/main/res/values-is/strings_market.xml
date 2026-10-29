@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="one">fyrir %d mín.</item>
+        <item quantity="other">fyrir %d mín.</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">í dag %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed, Bitcoin-mælikvarðar, yfirráð, helmingun</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">Fleiri markaðsgögn</string>
+    <string name="market_phase_trend_failed">Verðgögn ekki tiltæk</string>
+    <string name="market_plain_direction_down_clear">Heildarvirði allra rafmynta er greinilega lægra en fyrir 24 klukkustundum (%1$s).</string>
+    <string name="market_plain_direction_down_slight">Heildarvirði allra rafmynta er aðeins lægra en fyrir 24 klukkustundum (%1$s).</string>
+    <string name="market_plain_direction_flat">Heildarvirði allra rafmynta hefur varla breyst á 24 klukkustundum (%1$s).</string>
+    <string name="market_plain_direction_up_clear">Heildarvirði allra rafmynta er greinilega hærra en fyrir 24 klukkustundum (%1$s).</string>
+    <string name="market_plain_direction_up_slight">Heildarvirði allra rafmynta er aðeins hærra en fyrir 24 klukkustundum (%1$s).</string>
+    <string name="market_plain_footnote">Lýsir síðustu 24 klukkustundum – engin spá, engin fjárfestingarráðgjöf.</string>
+    <string name="market_plain_mood_extreme_fear">Fjárfestar eru mjög hræddir núna: stemningsvísitalan (Fear &amp; Greed) stendur í %1$d af 100.</string>
+    <string name="market_plain_mood_extreme_greed">Fjárfestar eru mjög gráðugir núna: stemningsvísitalan (Fear &amp; Greed) stendur í %1$d af 100.</string>
+    <string name="market_plain_mood_fear">Fjárfestar eru frekar hræddir: stemningsvísitalan (Fear &amp; Greed) stendur í %1$d af 100.</string>
+    <string name="market_plain_mood_greed">Fjárfestar eru frekar gráðugir: stemningsvísitalan (Fear &amp; Greed) stendur í %1$d af 100.</string>
+    <string name="market_plain_mood_neutral">Stemning fjárfesta er í jafnvægi: stemningsvísitalan (Fear &amp; Greed) stendur í %1$d af 100.</string>
+    <string name="market_plain_standout_above_btc">%1$s sker sig úr: %2$s á 24 klukkustundum, langt yfir Bitcoin (%3$s).</string>
+    <string name="market_plain_standout_against_btc">%1$s sker sig úr: %2$s á 24 klukkustundum, meðan Bitcoin fór í hina áttina (%3$s).</string>
+    <string name="market_plain_standout_below_btc">%1$s sker sig úr: %2$s á 24 klukkustundum, langt undir Bitcoin (%3$s).</string>
+    <string name="market_plain_standout_futures_down">%1$s sker sig úr: óvenju margir á framvirkum markaði veðja á lækkandi verð.</string>
+    <string name="market_plain_standout_futures_up">%1$s sker sig úr: óvenju margir á framvirkum markaði veðja á hækkandi verð.</string>
+    <string name="market_plain_standout_quiet">Engin ein mynt sker sig úr núna.</string>
+    <string name="market_plain_standout_volume">%1$s sker sig úr: um %2$s sinnum meiri viðskipti en venjulega.</string>
+    <string name="market_plain_title">Í stuttu máli</string>
+    <string name="market_section_collapse">Fela %1$s</string>
+    <string name="market_section_context">Stemning og hringrás</string>
+    <string name="market_section_data">Markaðsgögn</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">Sýna %1$s</string>
+    <string name="market_section_now">Núna</string>
+    <string name="market_source">Gögn: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="exchange_unavailable_error">Kauphöll ekki tiltæk</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">Upplýsingar: %1$s</string>
+    <string name="market_info_alt_season_source">Dagsverð: Binance · endurreiknað á um það bil 3 klukkustunda fresti</string>
+    <string name="market_info_alt_season_what">Telur hversu margar af um 20 stórum altmyntum (t.d. Ethereum, Solana, XRP) hafa staðið sig betur en Bitcoin síðustu 90 daga. Gildið er hlutfall þeirra frá 0 til 100.</string>
+    <string name="market_info_coin_source">Verð: Binance eða Bybit · endurhlaðið á um það bil 15 mínútna fresti</string>
+    <string name="market_info_dominance_how">Ef yfirráðin aukast stendur Bitcoin sig betur en restin af markaðnum; ef þau minnka fá aðrar myntir meira vægi. Stöðugleikamyntir teljast líka: ef virði þeirra vex lækkar hlutur Bitcoin jafnvel þótt Bitcoin-verðið standi í stað.</string>
+    <string name="market_info_dominance_source">Heimild: CoinGecko · endurhlaðið á um það bil 30 mínútna fresti</string>
+    <string name="market_info_dominance_what">Hlutur Bitcoin í heildarvirði allra rafmynta (markaðsvirði). Fyrir neðan er hlutur Ethereum.</string>
+    <string name="market_info_fear_greed_how">Undir 25 þýðir mikinn ótta, yfir 75 mikla græðgi, um 50 hlutlaust. Opnað sýnir spjaldið gildin frá í gær, fyrir viku og fyrir mánuði. Ekki kaup- eða sölumerki.</string>
+    <string name="market_info_fear_greed_source">Heimild: alternative.me · nýtt gildi einu sinni á dag</string>
+    <string name="market_info_fear_greed_what">Stemningsvísitala fyrir rafmyntamarkaðinn frá 0 til 100. alternative.me reiknar hana út frá nokkrum þáttum, þar á meðal verðsveiflum, veltu, samfélagsmiðlum og yfirráðum Bitcoin.</string>
+    <string name="market_info_gas_how">Hærri gildi þýða að netið sé upptekið og millifærslur kosti meira. Hægt, venjulegt og hratt eru gjöld fyrir síðari eða fljótari staðfestingu. Opnað sýnir spjaldið áætlaðan kostnað einfaldrar millifærslu.</string>
+    <string name="market_info_gas_source">Opinberir RPC-hnútar, mempool.space · endurhlaðið á mínútu fresti</string>
+    <string name="market_info_gas_what">Hvað færsla kostar núna á hverju neti. Á Ethereum og svipuðum netum í gwei (einn milljarðasti úr ETH á hverja gaseiningu), á Bitcoin í sat/vB (satoshi á hvert sýndarbæti færslunnar).</string>
+    <string name="market_info_halving_source">Dagsetning: út frá blokkhæð og meðalblokktíma (mempool.space), annars eftir dagatali · verðsaga: Coin Metrics, Binance, endurhlaðið á 12 klukkustunda fresti</string>
+    <string name="market_info_halving_what">Við helmingun er umbunin sem námumenn fá fyrir nýja Bitcoin-blokk helminguð. Það gerist á 210.000 blokka fresti, um það bil á fjögurra ára fresti. Eftir það verða aðeins helmingi færri nýir bitcoinar til á dag.</string>
+    <string name="market_info_how">Hvernig á að lesa þetta</string>
+    <string name="market_info_macro_how">Athugasemdin birtist aðeins þegar slík dagsetning er í dag eða á morgun. Í kringum birtingu sveiflast verð oft meira en venjulega. Forritið sýnir aðeins dagsetninguna, ekki tölurnar sjálfar.</string>
+    <string name="market_info_macro_source">Dagatal af vefsíðu forritsins · hlaðið einu sinni á dag</string>
+    <string name="market_info_macro_what">Dagsetningar mikilvægra bandarískra efnahagsgagna: verðbólga (CPI, PCE), framleiðsluverð (PPI), atvinnuskýrslan og vaxtaákvarðanir Seðlabanka Bandaríkjanna. Slíkar tölur hreyfa oft líka við verði rafmynta.</string>
+    <string name="market_info_no_advice">Ekki fjárfestingarráðgjöf.</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · verð á klukkustundar fresti, on-chain gildi endurhlaðin á 12 klukkustunda fresti</string>
+    <string name="market_info_pulse_how">Fyrirsögnin nefnir áttina; opnaðu spjaldið til að sjá nánar. Víðtæk hreyfing þýðir að flestar stórar myntir hreyfast í sömu átt. Bjartsýn skuldsetningarstemning þýðir að margir veðji á hækkandi verð með skuldsetningu, mælt með fjármögnunarhlutfalli framvirkra Bitcoin-samninga. Skyndimynd, ekki spá.</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · endurhlaðið á um það bil 5 mínútna fresti</string>
+    <string name="market_info_pulse_what">Stutt samantekt á markaðnum síðustu 24 klukkustundir: hvernig Bitcoin, Ethereum og Solana hreyfast, hversu margar af stærstu myntunum hækka eða lækka, hversu mikið Bitcoin er verslað núna og hver skuldsetningarstemningin er (mæld með fjármögnunarhlutfalli framvirkra Bitcoin-samninga).</string>
+    <string name="market_info_totals_how">Til hægri er breyting heildarvirðis á 24 klukkustundum. Mikil velta þýðir að mikið sé verslað – hún segir ekki í hvaða átt. Sýnt í umreikningsgjaldmiðlinum þar sem hægt er, annars í Bandaríkjadölum.</string>
+    <string name="market_info_totals_source">Allar myntir · CoinGecko · endurhlaðið á um það bil 30 mínútna fresti</string>
+    <string name="market_info_totals_what">Heildarvirði allra rafmynta (markaðsvirði: verð sinnum magn í umferð, lagt saman yfir allar myntir) og velta síðustu 24 klukkustunda.</string>
+    <string name="market_info_unusual_how">Hver mynt sýnir eftirtektarverðustu athugun sína, með 24 klukkustunda breytingunni til hægri. Velta upp á 2× þýðir tvöfalda venjulega veltu. Eftirtektarvert þýðir hvorki gott né slæmt.</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · endurhlaðið á um það bil 10 mínútna fresti</string>
+    <string name="market_info_unusual_what">Allt að fimm myntir af um það bil 30 stærstu (án stöðugleikamynta) sem hegða sér óvenjulega í dag: mun sterkari eða veikari en Bitcoin, gegn stefnu markaðarins, með óvenju mikilli veltu eða eftirtektarverðu fjármögnunarhlutfalli.</string>
+    <string name="market_info_what">Hvað er þetta?</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">Markaðsvirði</string>
+    <string name="market_cap_source">Allar myntir · CoinGecko</string>
+    <string name="market_cap_title">Rafmyntamarkaður</string>
+    <string name="market_volume_label">Velta 24 klst.</string>
+
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">Nánar</string>
+    <string name="pulse_disclaimer">Engin spá · Engin fjárfestingarráðgjöf</string>
+    <string name="pulse_less">Sýna minna</string>
+    <string name="pulse_now_title">Rafmyntapúls</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">Breyting á 24 klukkustundum</string>
+    <string name="pulse_section_factors">Þættir</string>
+    <string name="pulse_section_market">Markaðurinn í dag</string>
+    <string name="pulse_unavailable">Markaðsgögn ekki tiltæk eins og er</string>
+    <string name="pulse_updated">Staða %1$s</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">Rólegur markaður</string>
+    <string name="pulse_headline_down">Víðtækur veikleiki</string>
+    <string name="pulse_headline_mixed">Blendin mynd</string>
+    <string name="pulse_headline_up">Víðtækur styrkur</string>
+    <string name="pulse_lead_alts_stronger">Altmyntir eru sterkari en Bitcoin.</string>
+    <string name="pulse_lead_broad_down">Markaðurinn lækkar víðtækt.</string>
+    <string name="pulse_lead_broad_up">Markaðurinn hækkar víðtækt.</string>
+    <string name="pulse_lead_btc_leads">Bitcoin hækkar mest.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin er sterkara en altmyntirnar.</string>
+    <string name="pulse_lead_calm">Markaðurinn hreyfist varla.</string>
+    <string name="pulse_lead_drift_down">Markaðurinn sígur niður.</string>
+    <string name="pulse_lead_drift_up">Markaðurinn mjakast upp.</string>
+    <string name="pulse_lead_mixed">Stóru myntirnar fara hver í sína áttina.</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">Skuldsetningarstemning bjartsýn.</string>
+    <string name="pulse_detail_fund_negative">Skuldsetningarstemning svartsýn.</string>
+    <string name="pulse_detail_fund_neutral">Skuldsetningarstemning hlutlaus.</string>
+    <string name="pulse_detail_vol_above">Velta %1$s yfir venjulegu.</string>
+    <string name="pulse_detail_vol_above_fund_high">Velta %1$s yfir venjulegu, skuldsetningarstemning bjartsýn.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Velta %1$s yfir venjulegu, skuldsetningarstemning svartsýn.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Velta %1$s yfir venjulegu, skuldsetningarstemning hlutlaus.</string>
+    <string name="pulse_detail_vol_below">Velta %1$s undir venjulegu.</string>
+    <string name="pulse_detail_vol_below_fund_high">Velta %1$s undir venjulegu, skuldsetningarstemning bjartsýn.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Velta %1$s undir venjulegu, skuldsetningarstemning svartsýn.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Velta %1$s undir venjulegu, skuldsetningarstemning hlutlaus.</string>
+    <string name="pulse_detail_vol_normal">Velta venjuleg.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Velta venjuleg, skuldsetningarstemning bjartsýn.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Velta venjuleg, skuldsetningarstemning svartsýn.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Velta venjuleg, skuldsetningarstemning hlutlaus.</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">Topp %1$d: stærstu myntirnar eftir markaðsvirði, án stöðugleikamynta; breyting á 24 klukkustundum (CoinGecko).</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Topp %1$d</string>
+    <string name="pulse_breadth_note_broad_down">Víðtæk sala: flestar af stærstu myntunum lækka.</string>
+    <string name="pulse_breadth_note_broad_up">Víðtæk hreyfing: flestar af stærstu myntunum hækka.</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin lækkar, en flestar aðrar stórar myntir halda velli.</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin hækkar, en flestar aðrar stórar myntir fylgja ekki með.</string>
+    <string name="pulse_breadth_spoken">Topp %1$d: %2$d upp, %3$d niður</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">Altmyntir og Bitcoin hreyfast svipað</string>
+    <string name="pulse_alts_stronger">Altmyntir sterkari en Bitcoin</string>
+    <string name="pulse_alts_weaker">Bitcoin sterkara en altmyntir</string>
+    <string name="pulse_chip_funding_high">Skuldsetningarstemning bjartsýn</string>
+    <string name="pulse_chip_funding_negative">Skuldsetningarstemning svartsýn</string>
+
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">Sýna verð og aðgerðir</string>
+    <string name="unusual_fact_against">Hreyfist gegn markaðnum</string>
+    <string name="unusual_fact_funding_high">Fjármögnun há (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Fjármögnun neikvæð (%1$s)</string>
+    <string name="unusual_fact_stronger">Hreyfist mun sterkar en BTC</string>
+    <string name="unusual_fact_volume">Velta %1$s× venjuleg</string>
+    <string name="unusual_fact_weaker">Hreyfist mun veikar en BTC</string>
+    <string name="unusual_nothing">Ekkert eftirtektarvert í dag</string>
+    <string name="unusual_source">Um 30 stærstu myntir án stöðugleikamynta · Binance, CoinGecko</string>
+    <string name="unusual_title">Eftirtektarvert</string>
+
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">Eftirtektarvert</string>
+    <string name="activity_indicator">Eftirtektarvert</string>
+    <string name="activity_sensitivity_less">Minna</string>
+    <string name="activity_sensitivity_more">Meira</string>
+    <string name="activity_sensitivity_normal">Venjulegt</string>
+    <string name="activity_signal_funding_long">Fjármögnun %1$s — margar skuldsettar langstöður</string>
+    <string name="activity_signal_funding_short">Fjármögnun %1$s — margar skortstöður</string>
+    <string name="activity_signal_open_interest">Opnar stöður %1$s á %2$d mín.</string>
+    <string name="activity_signal_open_interest_no_time">Opnar stöður %1$s</string>
+    <string name="activity_signal_price_move">Óvenjuleg hreyfing: %1$s á einni klukkustund (%2$s× venjulegt)</string>
+    <string name="activity_signal_volume">Velta %1$s× venjuleg síðustu klukkustund</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%1$d af %2$d stórum altmyntum slær Bitcoin við á 90 dögum</item>
+        <item quantity="other">%1$d af %2$d stórum altmyntum slá Bitcoin við á 90 dögum</item>
+    </plurals>
+    <string name="insights_chart_axis">Ár frá helmingun</string>
+    <string name="insights_chart_hint">Verð sem margfeldi af verði á helmingunardegi (lógaritmískur kvarði). Fyrri hringrásir eru mynstur, ekki spá.</string>
+    <string name="insights_cycle_chart">Hringrásir frá helmingun</string>
+    <string name="insights_dominance_eth">ETH %1$s af heildarmarkaðnum</string>
+    <string name="insights_dominance_title">Yfirráð Bitcoin</string>
+    <string name="insights_fng_history">Í gær %1$s · fyrir viku %2$s · fyrir mánuði %3$s</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="insights_halving_title">Bitcoin-helmingun</string>
+    <string name="insights_source_dominance">Heimild: CoinGecko, Binance</string>
+    <string name="insights_source_fng">Heimild: alternative.me</string>
+    <string name="insights_source_history">Heimild: Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">Mikill ótti</string>
+    <string name="fng_extreme_greed">Mikil græðgi</string>
+    <string name="fng_fear">Ótti</string>
+    <string name="fng_greed">Græðgi</string>
+    <string name="fng_neutral">Hlutlaust</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">Gögn frá %1$s · uppfærir…</string>
+    <string name="cycle_from_top">%1$s frá toppi</string>
+    <string name="cycle_marker_bottom">Botn %1$s</string>
+    <string name="cycle_marker_double_bottom">Tvöfaldur botn %1$s</string>
+    <string name="cycle_marker_double_top">Tvöfaldur toppur %1$s</string>
+    <string name="cycle_marker_high_so_far">Hámark hingað til</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">Toppur %1$s</string>
+    <string name="cycle_since_halving">%1$s frá helmingun</string>
+    <string name="halving_estimate_text">Næsta helmingun samkvæmt útreikningi um %1$s: %2$s blokkir eftir með að meðaltali %3$s mín. á blokk (núverandi erfiðleikatímabil). Áætlun, ekki loforð – blokktími er breytilegur.</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">Viðvörun: %1$s</string>
+    <string name="gas_slow_fast">Hægt %1$s · Hratt %2$s</string>
+    <string name="gas_source">Opinberir RPC-hnútar og mempool.space · Kostnaður einfaldrar millifærslu, án L1-hlutar á L2</string>
+    <string name="gas_title">Netgjöld</string>
+    <string name="gas_transfer_cost">Millifærsla ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">Verðbólgutölur í Bandaríkjunum (CPI)</string>
+    <string name="macro_fomc">Vaxtaákvörðun Fed</string>
+    <string name="macro_hint_list">%1$s – markaðir sveiflast oft meira á dögum sem þessum.</string>
+    <string name="macro_hint_today">Í dag %1$s: %2$s – markaðir sveiflast oft meira á dögum sem þessum.</string>
+    <string name="macro_hint_today_list">Í dag: %1$s – markaðir sveiflast oft meira á dögum sem þessum.</string>
+    <string name="macro_hint_tomorrow">Á morgun %1$s: %2$s – markaðir sveiflast oft meira á dögum sem þessum.</string>
+    <string name="macro_hint_tomorrow_list">Á morgun: %1$s – markaðir sveiflast oft meira á dögum sem þessum.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Í dag %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Á morgun %1$s %2$s</string>
+    <string name="macro_nfp">Atvinnuskýrsla Bandaríkjanna</string>
+    <string name="macro_pce">Neysluverð í Bandaríkjunum (PCE)</string>
+    <string name="macro_ppi">Framleiðsluverð í Bandaríkjunum (PPI)</string>
+    <string name="macro_released_list">Birt í dag: %1$s.</string>
+    <string name="macro_released_one">Birt í dag kl. %1$s: %2$s.</string>
+    <string name="macro_title">Efnahagsgögn</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">Mynt</string>
+    <string name="coin_no_data">Engin verðgögn fyrir þessa mynt á Binance eða Bybit.</string>
+    <string name="coin_price_only">Aðeins byggt á verði – on-chain gögn (MVRV, Puell, hashrate) eru aðeins ókeypis fyrir Bitcoin.</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">Aðeins %1$d dags verðsaga – suma vísa vantar.</item>
+        <item quantity="other">Aðeins %1$d daga verðsaga – suma vísa vantar.</item>
+    </plurals>
+    <string name="coin_title">Myntgreining</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">Gögn: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">Hækkanir og lækkanir 24 klst.</string>
+    <string name="movers_gainers">Hækkanir</string>
+    <string name="movers_losers">Lækkanir</string>
+    <string name="movers_no_gainers">Engin mynt hækkaði á 24 klst.</string>
+    <string name="movers_no_losers">Engin mynt lækkaði á 24 klst.</string>
+    <string name="movers_source">CoinGecko, 24 klst., topp 100 án stöðugleikamynta</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">Sýna allt</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">Sýna minna</string>
+</resources>

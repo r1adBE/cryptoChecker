@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">Персонализирано</string>
+    <string name="settings_group_general">Общи</string>
+    <string name="settings_group_more">Още</string>
+    <string name="settings_minutes">%1$d мин</string>
+    <string name="settings_row_about">За приложението</string>
+    <string name="settings_row_alarms">Аларми</string>
+    <string name="settings_row_currency">Валута</string>
+    <string name="settings_row_dated_futures">Срочни фючърси</string>
+    <string name="settings_row_updates">Обновяване на курсовете</string>
+    <string name="settings_row_watchlist">Списък</string>
+    <string name="settings_search_hint">Търси в настройките</string>
+    <string name="settings_seconds">%1$d с</string>
+    <string name="settings_section_about">Информация</string>
+    <string name="settings_section_appearance">Изглед</string>
+    <string name="settings_section_developer">Разработчик</string>
+    <string name="settings_section_language">Език</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">Вкл.</string>
+    <string name="settings_title">Настройки</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">Пауза, преди алармата да се задейства отново</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Сигнал на алармата</string>
+    <string name="settings_alarm_signal_open_system">Настрой в системните настройки</string>
+    <string name="settings_alarm_signal_system_hint">Следва настройките за известия на телефона.</string>
+    <string name="settings_alarm_sound">Звук на алармата</string>
+    <string name="settings_alarm_sound_custom">Собствен звук</string>
+    <string name="settings_alarm_sound_default">Стандартен звук</string>
+    <string name="settings_alarm_sound_error">Звукът не можа да бъде използван.</string>
+    <string name="settings_alarm_sound_file">Собствен аудиофайл…</string>
+    <string name="settings_alarm_sound_reset">Използвай стандартния звук</string>
+    <string name="settings_alarm_sound_system">Избери системен звук…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Число върху иконата на приложението</string>
+    <string name="settings_app_badge_hint">Брои отворените известия за аларми. Дали ще се появи число или точка, зависи от началния екран (напр. Samsung: „С число“).</string>
+    <string name="settings_exact_checks">Проверявай точно</string>
+    <string name="settings_exact_checks_grant">Разреши аларми и напомняния</string>
+    <string name="settings_exact_checks_hint">Android проверява приблизително на всеки 15 минути, дори когато устройството е в покой. Използва малко повече батерия.</string>
+    <string name="settings_exact_checks_nothing">Няма активни двойки – няма какво да се проверява.</string>
+    <string name="settings_exact_checks_permission_missing">Липсва разрешение – докато устройството е в покой, Android проверява нередовно, понякога едва след часове.</string>
+    <string name="settings_notification_change">Известявай само при промяна на курса</string>
+    <string name="settings_notification_change_always">Винаги</string>
+    <string name="settings_percent_invalid">Въведи стойност от 0 до 100.</string>
+    <string name="settings_notification_change_hint">Известие за курса се появява едва когато курсът се е преместил поне с толкова от последното. Когато липсват данни, нищо не се показва. Алармите не се засягат.</string>
+    <string name="settings_ongoing_notifications">Не може да се премахне с плъзгане</string>
+    <string name="settings_ongoing_notifications_hint">Известията за курсове остават закачени.</string>
+    <string name="settings_price_notifications">Известия за курсове</string>
+    <string name="settings_price_notifications_hint">Показва курса на включените двойки в лентата на състоянието.</string>
+    <string name="settings_price_pairs">Двойки</string>
+    <string name="settings_price_pairs_all_off">Всички изкл.</string>
+    <string name="settings_price_pairs_all_on">Всички вкл.</string>
+    <string name="settings_price_pairs_count">%1$d от %2$d</string>
+    <string name="settings_price_pairs_empty">Още няма двойки в списъка.</string>
+    <string name="settings_price_pairs_hint">Избери за кои двойки курсът да се показва в лентата с известия.</string>
+    <string name="settings_quiet_hours">Нощен режим</string>
+    <string name="settings_quiet_hours_from">От</string>
+    <string name="settings_quiet_hours_hint">Между %1$s и %2$s алармите изчакват края на нощния режим и след това се обаждат със звук. Другите известия пристигат безшумно, без говор.</string>
+    <string name="settings_quiet_hours_to">До</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">Интервал</string>
+    <string name="settings_background_updates">Обновяване във фонов режим</string>
+    <string name="settings_battery_hint">Ограничено означава, че Android може да забави обновяванията във фонов режим с часове.</string>
+    <string name="settings_battery_ok">Използване на батерията: неограничено</string>
+    <string name="settings_battery_restricted">Използване на батерията: ограничено</string>
+    <string name="settings_check_runs_empty">Още няма записани проверки.</string>
+    <string name="settings_check_runs_honest_android">Android решава кога да проверява – тук виждаш кога наистина се е случило.</string>
+    <string name="settings_check_runs_honest_ios">iOS решава кога да проверява – тук виждаш кога наистина се е случило.</string>
+    <string name="settings_check_runs_title">Скорошни проверки</string>
+    <string name="settings_http_log">Покажи HTTP дневника</string>
+    <string name="settings_http_log_hint">Показва заявките към борсите в долната част на страницата „Добави двойка“ – за отстраняване на проблеми.</string>
+    <string name="settings_live_service">Обновявай често</string>
+    <string name="settings_live_websocket">Курсове на живо</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">Забележимо: известявай</string>
+    <string name="settings_activity_alerts_hint">Най-много веднъж на час за двойка: необичайни движения на курса, скокове на обема и екстремни стойности при фючърсите (данни от Binance).</string>
+    <string name="settings_activity_sensitivity">Чувствителност</string>
+    <string name="settings_activity_sensitivity_hint">Колко лесно една монета се счита за необичайна – еднакво за картата в списъка и пазарните известия. При „По-малко“ картата показва само 3-те най-силни.</string>
+    <string name="settings_watchlist_activity_card">Забележимо: показвай в списъка</string>
+    <string name="settings_watchlist_activity_card_hint">Показва ⚡ до групите: докосни, за да видиш само двойките, при които в момента се случва нещо. Известията за това настройваш в „Пазарни известия“.</string>
+    <string name="settings_watchlist_names">Показвай имената</string>
+    <string name="settings_watchlist_names_hint">Име под двойката, напр. Bitcoin или NVIDIA. Идва със списъците с лога, зареждани веднъж за всички монети.</string>
+    <string name="settings_watchlist_sparkline">Мини графика в списъка</string>
+    <string name="settings_watchlist_sparkline_hint">24-часова история до курса</string>
+    <string name="settings_watchlist_value_names">Имена</string>
+    <string name="settings_watchlist_value_price_only">Само курс</string>
+    <string name="settings_watchlist_value_sparkline">Мини графика</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Вкл. Alpha токени (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Alpha токени: ранни, предимно малки проекти от списъка Binance Alpha – често слабо търгувани и силно колебливи.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">Част от „Токени“. Недостъпно, докато е избрано „Само TradFi“; Alpha токените, които вече са в списъка, остават.</string>
+    <string name="settings_asset_scope_both">Токени и TradFi</string>
+    <string name="settings_asset_scope_both_hint">Всичко – крипто и TradFi</string>
+    <string name="settings_asset_scope_hint">Определя кои двойки показват изборът и търсенето при добавяне на двойки. Двойките, които вече са в списъка, винаги остават.</string>
+    <string name="settings_asset_scope_title">Токени &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">Само токени</string>
+    <string name="settings_asset_scope_tokens_hint">Крипто: спот и перпетюъли</string>
+    <string name="settings_asset_scope_tradfi">Само TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">Фючърси върху акции, суровини, валути – договори, не токени</string>
+    <string name="settings_rolling_futures">Вкл. тримесечни &amp; други срочни фючърси</string>
+    <string name="settings_rolling_futures_hint">Изкл.: срочните фючърси, които липсват в списъка на борсата, се отбелязват като „вече не се търгува“, вместо да се проверяват поотделно. Спестява време при всяко обновяване.</string>
+    <string name="settings_rolling_futures_qtly">Вкл. тримесечни &amp; други срочни фючърси (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">Част от „Токени“. Недостъпно, докато е избрано „Само TradFi“; продължава да важи за срочните фючърси, които вече са в списъка.</string>
+    <string name="settings_tradfi_futures">Акции, суровини и валути (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">При избор на двойка показва и фючърси върху акции, злато и други суровини, валути и компании преди листване. Това са договори, не токени.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">Акцентен цвят</string>
+    <string name="settings_accent_hint">Цвят за приложението, уиджетите и иконата на приложението. Някои начални екрани премахват иконата при смяна – тогава я добави отново.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Лога на монети</string>
+    <string name="settings_coin_logos_app">В приложението</string>
+    <string name="settings_coin_logos_app_hint">Списък, отворена двойка и пазарни карти</string>
+    <string name="settings_coin_logos_footer">Логата идват от CoinGecko, а за монети, които CoinGecko не включва (напр. злато, сребро, акции) – от Binance. Приложението зарежда всички лога наведнъж и ги пази на това устройство, така че никой доставчик не разбира кои монети следиш. Монетите без лого показват инициалите си. Любимите получават малка звезда на логото. Където превключвателят е изключен, не се показват нито лога, нито инициали; когато всички са изключени, нищо не се зарежда.</string>
+    <string name="settings_coin_logos_portfolio">В портфолиото</string>
+    <string name="settings_coin_logos_portfolio_hint">Позиции, подробности за монетата и анализи</string>
+    <string name="settings_coin_logos_value_app">Приложение</string>
+    <string name="settings_coin_logos_widgets">В уиджетите</string>
+    <string name="settings_coin_logos_widgets_hint">Уиджети на списъка и на отделна монета</string>
+    <string name="settings_high_contrast">Висок контраст</string>
+    <string name="settings_high_contrast_hint">По-наситени цветове на курсовете и по-тъмен второстепенен текст. Включва се и когато системата изисква повече контраст.</string>
+    <string name="settings_language_choose">Избери език</string>
+    <string name="settings_language_system">Системен език</string>
+    <string name="settings_price_colors">Цветове на курсовете</string>
+    <string name="settings_price_colors_hint">Синьо / оранжево се различават лесно при всяко нарушение на цветовото зрение (червено-зелено и синьо-жълто). Посоката винаги се показва и с + / −.</string>
+    <string name="settings_theme_mode">Светло / тъмно</string>
+    <string name="settings_widgets">Уиджети</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">Промяна %1$s &amp; часова зона на графиката</string>
+    <string name="settings_change_basis_hint_1">Избраната часова зона определя от кога се брои процентната промяна (списък, ред на пулса, отворена двойка, уиджети) и в какво време са надписани графиките.</string>
+    <string name="settings_change_basis_hint_2">„%1$s“ сравнява с курса точно преди 24 часа. „00:00“ сравнява с курса при отваряне в полунощ в тази часова зона.</string>
+    <string name="settings_change_basis_hint_3">Алармите не се засягат.</string>
+    <string name="settings_change_basis_hint_since_last">„%1$s“ сравнява с курса от предишното обновяване. При курсове на живо остава близо до 0%%.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">Валута за превръщане</string>
+    <string name="settings_conversion_currency_hint">Важи и за портфолиото, алармите в твоята валута, картата „Криптопазар“ и уиджета на портфолиото.</string>
+    <string name="settings_cost_method">Метод за себестойност</string>
+    <string name="settings_cost_method_average">Средна цена</string>
+    <string name="settings_cost_method_average_hint">Продажбите се оценяват по плъзгащата се средна покупна цена.</string>
+    <string name="settings_cost_method_fifo">FIFO (стандартно)</string>
+    <string name="settings_cost_method_fifo_hint">Най-старите монети се продават първи, във всички борси и портфейли.</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO по портфейл/борса</string>
+    <string name="settings_cost_method_fifo_wallet_hint">Най-старите монети първи в рамките на всяка борса или портфейл; прехвърлянията местят партидите с датата на покупка.</string>
+    <string name="settings_portfolio_lock">Заключване на портфолиото</string>
+    <string name="settings_portfolio_lock_footer">Заключването скрива показаното на екрана. Данните ти се пазят на това устройство и са защитени от шифроването на устройството. Можеш да защитиш резервните копия с парола.</string>
+    <string name="settings_portfolio_lock_hint">Скрива само портфолиото: отключи с пръстов отпечатък, лице или ПИН на устройството. Заключва се отново след повече от минута във фонов режим. Списъкът, алармите и другите уиджети остават отворени.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Без ПИН или парола на устройството заключването не скрива нищо – настрой заключване на екрана.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Портфолио в системното резервно копие</string>
+    <string name="settings_portfolio_system_backup_hint">Изкл.: транзакциите ти не влизат в системното резервно копие на устройството и в прехвърлянето от телефон на телефон. За преместване на нов телефон използвай резервното копие на приложението с парола.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Изисква Android 9 или по-нова версия – по-старите версии биха запазили портфолиото нешифровано в резервното копие на Google.</string>
+    <string name="settings_portfolio_tab">Покажи раздела „Портфолио“</string>
+    <string name="settings_portfolio_value_locked">Вкл., със заключване</string>
+    <string name="settings_show_converted">Превърнати курсове</string>
+    <string name="settings_show_converted_hint">Показва курсовете в списъка и в %1$s</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">Известявай за depeg на USDT</string>
+    <string name="settings_depeg_alarm_hint">Известява веднъж, когато USDT се отклони от 1 USD с прага (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_threshold">Праг за depeg</string>
+    <string name="settings_fng_above">Fear &amp; Greed: известявай над</string>
+    <string name="settings_fng_below">Fear &amp; Greed: известявай под</string>
+    <string name="settings_gas_alert_hint">Известява веднъж, когато нормалната такса падне под границата. Проверява се при обновяването на курсовете, най-често на всеки 10 минути.</string>
+    <string name="settings_gas_btc_below">Такса Bitcoin под (sat/vB)</string>
+    <string name="settings_gas_eth_below">Газ Ethereum под (gwei)</string>
+    <string name="settings_ind_ath_within">Спад от историческия връх най-много</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple над</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple под</string>
+    <string name="settings_ind_mvrv_above">MVRV над</string>
+    <string name="settings_ind_mvrv_below">MVRV под</string>
+    <string name="settings_indicator_alerts_hint">Показатели на Bitcoin, проверявани два пъти дневно. Границите избираш ти – приложението не оценява стойностите.</string>
+    <string name="settings_macro_notifications">Икономически календар</string>
+    <string name="settings_macro_notifications_hint">В 08:00 в дни с важни икономически данни за САЩ (инфлация, доклад за заетостта, решение на Фед). Календарът идва от уебсайта на приложението и се зарежда веднъж дневно.</string>
+    <string name="settings_market_alerts">Пазарни известия</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d активно</item>
+        <item quantity="other">%1$d активни</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">Скорост на говора: %1$.1f×</string>
+    <string name="settings_tts">Гласов изход</string>
+    <string name="settings_tts_alarms_only">Само аларми</string>
+    <string name="settings_tts_alarms_only_hint">Изкл.: всяко обновяване на двойка с отметка „Прочитай курса“ се прочита на глас.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">Прочита курсове и аларми на глас. Мълчи, докато устройството е в безшумен режим или на вибрация.</string>
+    <string name="settings_tts_test">Тествай гласа</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">Нулирай приложението</string>
+    <string name="settings_reset_app_action">Изтрий всичко</string>
+    <string name="settings_reset_app_confirm">Изтрива списъка, алармите, портфолиото, настройките и всички запазени данни, както след инсталиране. Това не може да бъде отменено. Съвет: първо направи резервно копие. Резервните копия на устройството (Google или iCloud/компютър) пазят предишните данни до следващото резервно копиране.</string>
+    <string name="settings_reset_app_title">Да се нулира ли приложението?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">Търси валута</string>
+    <string name="language_search">Търси език</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">Тъмно</string>
+    <string name="theme_light">Светло</string>
+    <string name="theme_system">Системно</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">Синьо</string>
+    <string name="accent_green">Зелено</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">Оранжево</string>
+    <string name="accent_red">Червено</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">Обичайно в Китай, Япония, Корея и Тайван</string>
+    <string name="price_colors_swap">Размени цветовете (ръст ↔ спад)</string>
+    <string name="price_style_calm">Спокойно</string>
+    <string name="price_style_calm_color_vision">Спокойно · Нарушено цветово зрение</string>
+    <string name="price_style_color_vision">Нарушено цветово зрение</string>
+    <string name="price_style_fresh">Свежо</string>
+    <string name="price_style_traditional">Традиционно</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">Връзките с борсите последно проверени спрямо реални отговори: %1$s</string>
+    <string name="about_license">Курсовете идват директно от борсите; без акаунт и без проследяване.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">Лицензи</string>
+    <string name="about_privacy_policy">Политика за поверителност</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">Предложи борса</string>
+    <string name="about_source_code">Изходен код в GitHub</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker е независим проект на r1AD: спокоен преглед на курсовете без акаунт, реклами и проследяване. Въпроси и желания: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker е с отворен код (лиценз MIT).</string>
+    <string name="licenses_font_title">Шрифт Rubik</string>
+    <string name="licenses_icons_bundled_text">Включени в приложението: икони от „Cryptocurrency Icons“ на Christopher Downer и сътрудници (github.com/spothq/cryptocurrency-icons), издадени под CC0 1.0 Universal. Показват се, докато не се заредят логата от CoinGecko или Binance. Имената и логата остават търговски марки на съответните проекти.</string>
+    <string name="licenses_icons_title">Резервни икони на монети</string>
+    <string name="licenses_libraries_intro">Приложението използва тези библиотеки под Apache License 2.0:</string>
+    <string name="licenses_libraries_title">Библиотеки за Android</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">Още %d докосване до опциите за разработчици</item>
+        <item quantity="other">Още %d докосвания до опциите за разработчици</item>
+    </plurals>
+    <string name="developer_unlocked">Опциите за разработчици са отключени</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Вибрацията следва настройките на iPhone (Звуци &amp; хаптика).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Брои новите аларми и пазарните известия; при отваряне на приложението отново 0.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Твоите данни</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">На това устройство</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Списъкът, алармите и портфолиото ти се пазят шифровани на това устройство; без акаунт, без собствен сървър.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Връзки</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Курсовете идват директно от борсите на твоите двойки, плюс валутни курсове, списъци с монети и лога и огледалото с данни в GitHub; те виждат твоя IP адрес, никога наличностите ти (следените адреси отиват при доставчика на съответната мрежа).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Резервно копие</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Само ако създадеш такова. С парола е шифровано (Argon2id + AES-256-GCM); без парола е четимо.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Смяна на устройство</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">Ключът остава на старото устройство – първо създай файл с резервно копие.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Сподели диагностика</string>
+    <string name="diagnostics_share_hint">Текстов файл за поддръжката: версия, устройство, настройки на алармите, скорошни проверки и дневник на алармите – без портфолио, суми, адреси и бележки. Първо го виждаш ти; нищо не се изпраща автоматично.</string>
+    <string name="diagnostics_preview_title">Преглед на диагностиката</string>
+    <string name="diagnostics_action_share">Сподели</string>
+    <string name="settings_price_overlay">Наслагване на курса</string>
+    <string name="settings_price_overlay_hint">Показва двойките от постоянното известие за курс като малък плаващ етикет върху други приложения. Докосни, за да отвориш приложението, плъзни към × долу, за да го затвориш.</string>
+    <string name="settings_price_overlay_needs">Работи само заедно с „%1$s“.</string>
+    <string name="settings_price_overlay_grant">Разреши показване върху други приложения</string>
+    <string name="price_overlay_close">Затвори наслагването</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">Собствен сървър за адреси</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Само Bitcoin: твой собствен сървър, съвместим с Esplora или mempool (напр. https://node.example/api, нужен е публично доверен сертификат, например Let\'s Encrypt). Ако е зададен, Bitcoin адресите и xpub ключовете се проверяват само там – никога в публични възли, дори когато сървърът ти е недостъпен. Другите мрежи продължават да използват публични възли. Празно = публични възли.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Bitcoin сървър (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">Тествай</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">Тестване…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">Сървърът отговаря – блок %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">Няма валиден отговор – провери адреса и сертификата</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">Използва се: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">Не е зададен – използват се публични възли</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">Разрешени са само адреси https://</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">Без потребителско име или парола в адреса</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">Без част ? или # в адреса</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">Не е валиден адрес на сървър</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">Да се премине ли към публични възли?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">Твоите Bitcoin адреси и xpub ключове тогава ще се проверяват в публични възли: %1$s. Те виждат тези адреси заедно с твоя IP адрес.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">Използвай публични възли</string>
+</resources>

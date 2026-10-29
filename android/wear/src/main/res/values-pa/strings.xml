@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">ਕੋਈ ਕੌਇਨ ਨਹੀਂ ਚੁਣਿਆ</string>
+    <string name="watch_loading">ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ…</string>
+    <string name="watch_error">ਐਕਸਚੇਂਜਾਂ ਤੱਕ ਪਹੁੰਚ ਨਹੀਂ</string>
+    <string name="watch_updated">%1$s ਮੁਤਾਬਕ</string>
+    <string name="watch_refresh">ਤਾਜ਼ਾ ਕਰੋ</string>
+    <string name="watch_choose">ਕੌਇਨ ਚੁਣੋ</string>
+    <string name="watch_choose_hint">ਕੌਇਨ: ਵੱਧ ਤੋਂ ਵੱਧ %1$d</string>
+    <string name="watch_complication_label">ਕੀਮਤ</string>
+    <string name="a11y_watch_row">%1$s %2$s, 24 ਘੰਟਿਆਂ ਵਿੱਚ %3$s</string>
+    <string name="watch_mode_phone">ਸੂਚੀ: ਫ਼ੋਨ ਵਾਂਗ</string>
+    <string name="watch_mode_own">ਸੂਚੀ: ਆਪਣੀ</string>
+    <string name="watch_phone_empty">ਫ਼ੋਨ ’ਤੇ ਕੋਈ ਮਨਪਸੰਦ ਨਹੀਂ</string>
+    <string name="a11y_watch_outdated">ਕੀਮਤ ਪੁਰਾਣੀ ਹੈ</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">ਆਖਰੀ ਅੱਪਡੇਟ %1$d ਮਿੰਟ ਪਹਿਲਾਂ</item>
+        <item quantity="other">ਆਖਰੀ ਅੱਪਡੇਟ %1$d ਮਿੰਟ ਪਹਿਲਾਂ</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">ਆਖਰੀ ਅੱਪਡੇਟ %1$d ਘੰਟਾ ਪਹਿਲਾਂ</item>
+        <item quantity="other">ਆਖਰੀ ਅੱਪਡੇਟ %1$d ਘੰਟੇ ਪਹਿਲਾਂ</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">ਆਖਰੀ ਅੱਪਡੇਟ %1$d ਦਿਨ ਪਹਿਲਾਂ</item>
+        <item quantity="other">ਆਖਰੀ ਅੱਪਡੇਟ %1$d ਦਿਨ ਪਹਿਲਾਂ</item>
+    </plurals>
+</resources>

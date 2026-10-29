@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">ಕಸ್ಟಮ್</string>
+    <string name="settings_group_general">ಸಾಮಾನ್ಯ</string>
+    <string name="settings_group_more">ಇನ್ನಷ್ಟು</string>
+    <string name="settings_minutes">%1$d ನಿ.</string>
+    <string name="settings_row_about">ಆ್ಯಪ್ ಕುರಿತು</string>
+    <string name="settings_row_alarms">ಅಲರ್ಟ್‌ಗಳು</string>
+    <string name="settings_row_currency">ಕರೆನ್ಸಿ</string>
+    <string name="settings_row_dated_futures">ಅವಧಿ ದಿನಾಂಕವಿರುವ ಫ್ಯೂಚರ್ಸ್</string>
+    <string name="settings_row_updates">ಬೆಲೆ ಅಪ್‌ಡೇಟ್‌ಗಳು</string>
+    <string name="settings_row_watchlist">ವಾಚ್‌ಲಿಸ್ಟ್</string>
+    <string name="settings_search_hint">ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಹುಡುಕಿ</string>
+    <string name="settings_seconds">%1$d ಸೆ.</string>
+    <string name="settings_section_about">ಕುರಿತು</string>
+    <string name="settings_section_appearance">ಗೋಚರತೆ</string>
+    <string name="settings_section_developer">ಡೆವಲಪರ್</string>
+    <string name="settings_section_language">ಭಾಷೆ</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">ಆನ್</string>
+    <string name="settings_title">ಸೆಟ್ಟಿಂಗ್‌ಗಳು</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">ಅಲರ್ಟ್ ಮತ್ತೆ ಟ್ರಿಗರ್ ಆಗುವ ಮೊದಲು ವಿರಾಮ ಸಮಯ</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">ಅಲರ್ಟ್ ಸಂಕೇತ</string>
+    <string name="settings_alarm_signal_open_system">ಸಿಸ್ಟಮ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಹೊಂದಿಸಿ</string>
+    <string name="settings_alarm_signal_system_hint">ನಿಮ್ಮ ಫೋನ್‌ನ ಅಧಿಸೂಚನೆ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಅನುಸರಿಸುತ್ತದೆ.</string>
+    <string name="settings_alarm_sound">ಅಲರ್ಟ್ ಶಬ್ದ</string>
+    <string name="settings_alarm_sound_custom">ಕಸ್ಟಮ್ ಶಬ್ದ</string>
+    <string name="settings_alarm_sound_default">ಡಿಫಾಲ್ಟ್ ಶಬ್ದ</string>
+    <string name="settings_alarm_sound_error">ಶಬ್ದವನ್ನು ಬಳಸಲಾಗಲಿಲ್ಲ.</string>
+    <string name="settings_alarm_sound_file">ನಿಮ್ಮ ಸ್ವಂತ ಆಡಿಯೊ ಫೈಲ್…</string>
+    <string name="settings_alarm_sound_reset">ಡಿಫಾಲ್ಟ್ ಶಬ್ದ ಬಳಸಿ</string>
+    <string name="settings_alarm_sound_system">ಸಿಸ್ಟಮ್ ಶಬ್ದ ಆರಿಸಿ…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">ಆ್ಯಪ್ ಐಕಾನ್‌ನಲ್ಲಿ ಸಂಖ್ಯೆ</string>
+    <string name="settings_app_badge_hint">ತೆರೆದಿರುವ ಅಲರ್ಟ್ ಅಧಿಸೂಚನೆಗಳನ್ನು ಎಣಿಸುತ್ತದೆ. ಸಂಖ್ಯೆ ಕಾಣಿಸುತ್ತದೆಯೇ ಅಥವಾ ಚುಕ್ಕೆ ಕಾಣಿಸುತ್ತದೆಯೇ ಎಂಬುದು ಹೋಮ್ ಸ್ಕ್ರೀನ್‌ಗೆ ಬಿಟ್ಟದ್ದು (ಉದಾ. Samsung: “ಸಂಖ್ಯೆಯೊಂದಿಗೆ ತೋರಿಸಿ”).</string>
+    <string name="settings_exact_checks">ಸಮಯಕ್ಕೆ ಸರಿಯಾಗಿ ಪರಿಶೀಲಿಸಿ</string>
+    <string name="settings_exact_checks_grant">ಅಲಾರಾಂಗಳು &amp; ಜ್ಞಾಪನೆಗಳನ್ನು ಅನುಮತಿಸಿ</string>
+    <string name="settings_exact_checks_hint">ಸಾಧನ ನಿಷ್ಕ್ರಿಯವಾಗಿದ್ದರೂ Android ಸುಮಾರು ಪ್ರತಿ 15 ನಿಮಿಷಕ್ಕೆ ಪರಿಶೀಲಿಸುತ್ತದೆ. ಸ್ವಲ್ಪ ಹೆಚ್ಚು ಬ್ಯಾಟರಿ ಬಳಸುತ್ತದೆ.</string>
+    <string name="settings_exact_checks_nothing">ಸಕ್ರಿಯ ಜೋಡಿಗಳಿಲ್ಲ – ಪರಿಶೀಲಿಸಲು ಏನೂ ಇಲ್ಲ.</string>
+    <string name="settings_exact_checks_permission_missing">ಅನುಮತಿ ಇಲ್ಲ – ಸಾಧನ ವಿಶ್ರಾಂತಿಯಲ್ಲಿರುವಾಗ Android ಅನಿಯಮಿತವಾಗಿ, ಕೆಲವೊಮ್ಮೆ ಗಂಟೆಗಳ ನಂತರವೇ ಪರಿಶೀಲಿಸುತ್ತದೆ.</string>
+    <string name="settings_notification_change">ಬೆಲೆ ಬದಲಾದಾಗ ಮಾತ್ರ ತಿಳಿಸಿ</string>
+    <string name="settings_notification_change_always">ಯಾವಾಗಲೂ</string>
+    <string name="settings_percent_invalid">0 ರಿಂದ 100 ರವರೆಗಿನ ಮೌಲ್ಯವನ್ನು ನಮೂದಿಸಿ.</string>
+    <string name="settings_notification_change_hint">ಕೊನೆಯ ಅಧಿಸೂಚನೆಯಿಂದ ಬೆಲೆ ಕನಿಷ್ಠ ಇಷ್ಟು ಚಲಿಸಿದ ನಂತರವೇ ಬೆಲೆ ಅಧಿಸೂಚನೆ ಕಾಣಿಸುತ್ತದೆ. ಡೇಟಾ ಇಲ್ಲದಿರುವಾಗ ಏನನ್ನೂ ತೋರಿಸಲಾಗುವುದಿಲ್ಲ. ಅಲರ್ಟ್‌ಗಳ ಮೇಲೆ ಪರಿಣಾಮವಿಲ್ಲ.</string>
+    <string name="settings_ongoing_notifications">ಸ್ವೈಪ್ ಮಾಡಿ ತೆಗೆಯಲಾಗುವುದಿಲ್ಲ</string>
+    <string name="settings_ongoing_notifications_hint">ಬೆಲೆ ಅಧಿಸೂಚನೆಗಳನ್ನು ಪಿನ್ ಮಾಡಿ ಇರಿಸುತ್ತದೆ.</string>
+    <string name="settings_price_notifications">ಬೆಲೆ ಅಧಿಸೂಚನೆಗಳು</string>
+    <string name="settings_price_notifications_hint">ಸಕ್ರಿಯಗೊಳಿಸಿದ ಜೋಡಿಗಳ ಪ್ರಸ್ತುತ ಬೆಲೆಯನ್ನು ಸ್ಥಿತಿ ಪಟ್ಟಿಯಲ್ಲಿ ತೋರಿಸಿ.</string>
+    <string name="settings_price_pairs">ಜೋಡಿಗಳು</string>
+    <string name="settings_price_pairs_all_off">ಎಲ್ಲವೂ ಆಫ್</string>
+    <string name="settings_price_pairs_all_on">ಎಲ್ಲವೂ ಆನ್</string>
+    <string name="settings_price_pairs_count">%2$d ರಲ್ಲಿ %1$d</string>
+    <string name="settings_price_pairs_empty">ವಾಚ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿ ಇನ್ನೂ ಜೋಡಿಗಳಿಲ್ಲ.</string>
+    <string name="settings_price_pairs_hint">ಯಾವ ಜೋಡಿಗಳು ಅಧಿಸೂಚನಾ ಪಟ್ಟಿಯಲ್ಲಿ ತಮ್ಮ ಬೆಲೆಯನ್ನು ತೋರಿಸಬೇಕು ಎಂದು ಆರಿಸಿ.</string>
+    <string name="settings_quiet_hours">ಶಾಂತ ಸಮಯ</string>
+    <string name="settings_quiet_hours_from">ಇಂದ</string>
+    <string name="settings_quiet_hours_hint">%1$s ರಿಂದ %2$s ವರೆಗೆ, ಅಲರ್ಟ್‌ಗಳು ಶಾಂತ ಸಮಯ ಮುಗಿಯುವವರೆಗೆ ಕಾಯುತ್ತವೆ ಮತ್ತು ನಂತರ ಶಬ್ದದೊಂದಿಗೆ ಮೊಳಗುತ್ತವೆ. ಇತರ ಅಧಿಸೂಚನೆಗಳು ಶಬ್ದವಿಲ್ಲದೆ, ಧ್ವನಿಯಿಲ್ಲದೆ ಬರುತ್ತವೆ.</string>
+    <string name="settings_quiet_hours_to">ವರೆಗೆ</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">ಅಂತರ</string>
+    <string name="settings_background_updates">ಹಿನ್ನೆಲೆ ಅಪ್‌ಡೇಟ್‌ಗಳು</string>
+    <string name="settings_battery_hint">ನಿರ್ಬಂಧಿತ ಎಂದರೆ Android ಹಿನ್ನೆಲೆ ಅಪ್‌ಡೇಟ್‌ಗಳನ್ನು ಗಂಟೆಗಳಷ್ಟು ವಿಳಂಬಗೊಳಿಸಬಹುದು.</string>
+    <string name="settings_battery_ok">ಬ್ಯಾಟರಿ ಬಳಕೆ: ನಿರ್ಬಂಧರಹಿತ</string>
+    <string name="settings_battery_restricted">ಬ್ಯಾಟರಿ ಬಳಕೆ: ನಿರ್ಬಂಧಿತ</string>
+    <string name="settings_check_runs_empty">ಇನ್ನೂ ಯಾವುದೇ ಪರಿಶೀಲನೆ ದಾಖಲಾಗಿಲ್ಲ.</string>
+    <string name="settings_check_runs_honest_android">ಯಾವಾಗ ಪರಿಶೀಲಿಸಬೇಕು ಎಂದು Android ನಿರ್ಧರಿಸುತ್ತದೆ – ಅದು ನಿಜವಾಗಿ ಯಾವಾಗ ನಡೆಯಿತು ಎಂದು ಇಲ್ಲಿ ನೋಡಬಹುದು.</string>
+    <string name="settings_check_runs_honest_ios">ಯಾವಾಗ ಪರಿಶೀಲಿಸಬೇಕು ಎಂದು iOS ನಿರ್ಧರಿಸುತ್ತದೆ – ಅದು ನಿಜವಾಗಿ ಯಾವಾಗ ನಡೆಯಿತು ಎಂದು ಇಲ್ಲಿ ನೋಡಬಹುದು.</string>
+    <string name="settings_check_runs_title">ಇತ್ತೀಚಿನ ಪರಿಶೀಲನೆಗಳು</string>
+    <string name="settings_http_log">HTTP ಲಾಗ್ ತೋರಿಸಿ</string>
+    <string name="settings_http_log_hint">“ಜೋಡಿ ಸೇರಿಸಿ” ಪುಟದ ಕೆಳಭಾಗದಲ್ಲಿ ಎಕ್ಸ್‌ಚೇಂಜ್‌ಗಳಿಗೆ ವಿನಂತಿಗಳನ್ನು ತೋರಿಸುತ್ತದೆ – ದೋಷನಿವಾರಣೆಗಾಗಿ.</string>
+    <string name="settings_live_service">ಆಗಾಗ್ಗೆ ಅಪ್‌ಡೇಟ್ ಮಾಡಿ</string>
+    <string name="settings_live_websocket">ಲೈವ್ ಬೆಲೆಗಳು</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">ಗಮನಾರ್ಹ: ತಿಳಿಸಿ</string>
+    <string name="settings_activity_alerts_hint">ಪ್ರತಿ ಜೋಡಿಗೆ ಗಂಟೆಗೆ ಗರಿಷ್ಠ ಒಮ್ಮೆ: ಅಸಾಮಾನ್ಯ ಬೆಲೆ ಚಲನೆಗಳು, ವಾಲ್ಯೂಮ್ ಹಠಾತ್ ಏರಿಕೆಗಳು ಮತ್ತು ಫ್ಯೂಚರ್ಸ್ ತೀವ್ರತೆಗಳು (Binance ಡೇಟಾ).</string>
+    <string name="settings_activity_sensitivity">ಸಂವೇದನಶೀಲತೆ</string>
+    <string name="settings_activity_sensitivity_hint">ಒಂದು ಕಾಯಿನ್ ಎಷ್ಟು ಸುಲಭವಾಗಿ ಅಸಾಮಾನ್ಯ ಎಂದು ಪರಿಗಣಿಸಲ್ಪಡುತ್ತದೆ – ವಾಚ್‌ಲಿಸ್ಟ್ ಕಾರ್ಡ್ ಮತ್ತು ಮಾರುಕಟ್ಟೆ ಅಲರ್ಟ್‌ಗಳಿಗೆ ಒಂದೇ. “ಕಡಿಮೆ” ಆಯ್ಕೆಯಲ್ಲಿ, ಕಾರ್ಡ್ 3 ಬಲಿಷ್ಠವನ್ನು ಮಾತ್ರ ತೋರಿಸುತ್ತದೆ.</string>
+    <string name="settings_watchlist_activity_card">ಗಮನಾರ್ಹ: ಪಟ್ಟಿಯಲ್ಲಿ ತೋರಿಸಿ</string>
+    <string name="settings_watchlist_activity_card_hint">ಗುಂಪುಗಳ ಪಕ್ಕದಲ್ಲಿ ⚡ ಚಿಪ್ ತೋರಿಸುತ್ತದೆ: ಸದ್ಯ ಏನಾದರೂ ನಡೆಯುತ್ತಿರುವ ಜೋಡಿಗಳನ್ನು ಮಾತ್ರ ನೋಡಲು ಅದನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ. ಇದರ ಅಧಿಸೂಚನೆಗಳನ್ನು ಮಾರುಕಟ್ಟೆ ಅಲರ್ಟ್‌ಗಳು ಅಡಿಯಲ್ಲಿ ಹೊಂದಿಸಲಾಗುತ್ತದೆ.</string>
+    <string name="settings_watchlist_names">ಹೆಸರುಗಳನ್ನು ತೋರಿಸಿ</string>
+    <string name="settings_watchlist_names_hint">ಜೋಡಿಯ ಕೆಳಗೆ ಹೆಸರು, ಉದಾ. Bitcoin ಅಥವಾ NVIDIA. ಲೋಗೋ ಪಟ್ಟಿಗಳೊಂದಿಗೆ ಬರುತ್ತದೆ, ಎಲ್ಲಾ ಕಾಯಿನ್‌ಗಳಿಗೆ ಒಮ್ಮೆ ಲೋಡ್ ಆಗುತ್ತದೆ.</string>
+    <string name="settings_watchlist_sparkline">ವಾಚ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿ ಚಿಕ್ಕ ಚಾರ್ಟ್</string>
+    <string name="settings_watchlist_sparkline_hint">ಬೆಲೆಯ ಪಕ್ಕದಲ್ಲಿ 24 ಗಂಟೆಗಳ ಟ್ರೆಂಡ್</string>
+    <string name="settings_watchlist_value_names">ಹೆಸರುಗಳು</string>
+    <string name="settings_watchlist_value_price_only">ಬೆಲೆ ಮಾತ್ರ</string>
+    <string name="settings_watchlist_value_sparkline">ಚಿಕ್ಕ ಚಾರ್ಟ್</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Alpha ಟೋಕನ್‌ಗಳು ಸೇರಿದಂತೆ (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Alpha ಟೋಕನ್‌ಗಳು: Binance Alpha ಪಟ್ಟಿಯ ಆರಂಭಿಕ, ಹೆಚ್ಚಾಗಿ ಸಣ್ಣ ಯೋಜನೆಗಳು – ಹೆಚ್ಚಾಗಿ ಕಡಿಮೆ ವಹಿವಾಟಿನವು ಮತ್ತು ಹೆಚ್ಚು ಚಂಚಲ.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">ಟೋಕನ್‌ಗಳಿಗೆ ಸೇರಿದೆ. “TradFi ಮಾತ್ರ” ಆಯ್ಕೆಯಾಗಿರುವಾಗ ಲಭ್ಯವಿಲ್ಲ; ನಿಮ್ಮ ವಾಚ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿ ಈಗಾಗಲೇ ಇರುವ Alpha ಟೋಕನ್‌ಗಳು ಉಳಿಯುತ್ತವೆ.</string>
+    <string name="settings_asset_scope_both">ಟೋಕನ್‌ಗಳು ಮತ್ತು TradFi</string>
+    <string name="settings_asset_scope_both_hint">ಎಲ್ಲವೂ – ಕ್ರಿಪ್ಟೋ ಮತ್ತು TradFi</string>
+    <string name="settings_asset_scope_hint">ಜೋಡಿಗಳನ್ನು ಸೇರಿಸುವಾಗ ಆಯ್ಕೆ ಮತ್ತು ಹುಡುಕಾಟ ಯಾವ ಜೋಡಿಗಳನ್ನು ತೋರಿಸಬೇಕು ಎಂದು ಹೊಂದಿಸುತ್ತದೆ. ನಿಮ್ಮ ವಾಚ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿ ಈಗಾಗಲೇ ಇರುವ ಜೋಡಿಗಳು ಯಾವಾಗಲೂ ಉಳಿಯುತ್ತವೆ.</string>
+    <string name="settings_asset_scope_title">ಟೋಕನ್‌ಗಳು &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">ಟೋಕನ್‌ಗಳು ಮಾತ್ರ</string>
+    <string name="settings_asset_scope_tokens_hint">ಕ್ರಿಪ್ಟೋ: ಸ್ಪಾಟ್ ಮತ್ತು ಪರ್ಪೆಚುವಲ್‌ಗಳು</string>
+    <string name="settings_asset_scope_tradfi">TradFi ಮಾತ್ರ</string>
+    <string name="settings_asset_scope_tradfi_hint">ಷೇರುಗಳು, ಸರಕುಗಳು, FX ಮೇಲಿನ ಫ್ಯೂಚರ್ಸ್ – ಒಪ್ಪಂದಗಳು, ಟೋಕನ್‌ಗಳಲ್ಲ</string>
+    <string name="settings_rolling_futures">ತ್ರೈಮಾಸಿಕ &amp; ಇತರ ಅವಧಿ ದಿನಾಂಕವಿರುವ ಫ್ಯೂಚರ್ಸ್ ಸೇರಿದಂತೆ</string>
+    <string name="settings_rolling_futures_hint">ಆಫ್: ಎಕ್ಸ್‌ಚೇಂಜ್ ಪಟ್ಟಿಯಲ್ಲಿ ಇಲ್ಲದ ಅವಧಿ ದಿನಾಂಕವಿರುವ ಫ್ಯೂಚರ್ಸ್ ಅನ್ನು ಒಂದೊಂದಾಗಿ ಪರಿಶೀಲಿಸುವ ಬದಲು ಇನ್ನು ವಹಿವಾಟಾಗುವುದಿಲ್ಲ ಎಂದು ಗುರುತಿಸಲಾಗುತ್ತದೆ. ಪ್ರತಿ ರಿಫ್ರೆಶ್‌ನಲ್ಲೂ ಸಮಯ ಉಳಿಯುತ್ತದೆ.</string>
+    <string name="settings_rolling_futures_qtly">ತ್ರೈಮಾಸಿಕ &amp; ಇತರ ಅವಧಿ ದಿನಾಂಕವಿರುವ ಫ್ಯೂಚರ್ಸ್ ಸೇರಿದಂತೆ (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">ಟೋಕನ್‌ಗಳಿಗೆ ಸೇರಿದೆ. “TradFi ಮಾತ್ರ” ಆಯ್ಕೆಯಾಗಿರುವಾಗ ಲಭ್ಯವಿಲ್ಲ; ನಿಮ್ಮ ವಾಚ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿ ಈಗಾಗಲೇ ಇರುವ ಅವಧಿ ದಿನಾಂಕವಿರುವ ಫ್ಯೂಚರ್ಸ್‌ಗೆ ಇನ್ನೂ ಅನ್ವಯಿಸುತ್ತದೆ.</string>
+    <string name="settings_tradfi_futures">ಷೇರುಗಳು, ಸರಕುಗಳು ಮತ್ತು FX (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">ಜೋಡಿ ಆರಿಸುವಾಗ ಷೇರುಗಳು, ಚಿನ್ನ ಮತ್ತು ಇತರ ಸರಕುಗಳು, ಕರೆನ್ಸಿಗಳು ಮತ್ತು pre-IPO ಕಂಪನಿಗಳ ಮೇಲಿನ ಫ್ಯೂಚರ್ಸ್ ಅನ್ನೂ ತೋರಿಸುತ್ತದೆ. ಇವು ಒಪ್ಪಂದಗಳು, ಟೋಕನ್‌ಗಳಲ್ಲ.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">ಆಕ್ಸೆಂಟ್ ಬಣ್ಣ</string>
+    <string name="settings_accent_hint">ಆ್ಯಪ್, ವಿಜೆಟ್‌ಗಳು ಮತ್ತು ಆ್ಯಪ್ ಐಕಾನ್‌ಗೆ ಬಣ್ಣ. ಕೆಲವು ಹೋಮ್ ಸ್ಕ್ರೀನ್‌ಗಳು ಐಕಾನ್ ಬದಲಾದಾಗ ಅದನ್ನು ತೆಗೆದುಹಾಕುತ್ತವೆ – ಆಗ ಮತ್ತೆ ಸೇರಿಸಿ.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">ಕಾಯಿನ್ ಲೋಗೋಗಳು</string>
+    <string name="settings_coin_logos_app">ಆ್ಯಪ್‌ನಲ್ಲಿ</string>
+    <string name="settings_coin_logos_app_hint">ವಾಚ್‌ಲಿಸ್ಟ್, ತೆರೆದ ಜೋಡಿ ಮತ್ತು ಮಾರುಕಟ್ಟೆ ಕಾರ್ಡ್‌ಗಳು</string>
+    <string name="settings_coin_logos_footer">ಲೋಗೋಗಳು CoinGecko ನಿಂದ, ಮತ್ತು CoinGecko ಪಟ್ಟಿ ಮಾಡದ ಕಾಯಿನ್‌ಗಳಿಗೆ (ಉದಾ. ಚಿನ್ನ, ಬೆಳ್ಳಿ, ಷೇರುಗಳು) Binance ನಿಂದ ಬರುತ್ತವೆ. ಆ್ಯಪ್ ಎಲ್ಲಾ ಲೋಗೋಗಳನ್ನು ಒಮ್ಮೆಲೇ ಲೋಡ್ ಮಾಡಿ ಈ ಸಾಧನದಲ್ಲಿ ಇರಿಸುತ್ತದೆ, ಆದ್ದರಿಂದ ನೀವು ಯಾವ ಕಾಯಿನ್‌ಗಳನ್ನು ಅನುಸರಿಸುತ್ತೀರಿ ಎಂದು ಯಾವ ಪೂರೈಕೆದಾರರಿಗೂ ತಿಳಿಯುವುದಿಲ್ಲ. ಲೋಗೋ ಇಲ್ಲದ ಕಾಯಿನ್‌ಗಳು ತಮ್ಮ ಮೊದಲಕ್ಷರಗಳನ್ನು ತೋರಿಸುತ್ತವೆ. ಮೆಚ್ಚಿನವುಗಳಿಗೆ ಲೋಗೋ ಮೇಲೆ ಚಿಕ್ಕ ನಕ್ಷತ್ರ ಸಿಗುತ್ತದೆ. ಸ್ವಿಚ್ ಆಫ್ ಆಗಿರುವಲ್ಲಿ ಲೋಗೋಗಳಾಗಲಿ ಮೊದಲಕ್ಷರಗಳಾಗಲಿ ಕಾಣಿಸುವುದಿಲ್ಲ; ಎಲ್ಲಾ ಸ್ವಿಚ್‌ಗಳು ಆಫ್ ಆಗಿದ್ದರೆ, ಏನನ್ನೂ ಲೋಡ್ ಮಾಡಲಾಗುವುದಿಲ್ಲ.</string>
+    <string name="settings_coin_logos_portfolio">ಪೋರ್ಟ್‌ಫೋಲಿಯೊದಲ್ಲಿ</string>
+    <string name="settings_coin_logos_portfolio_hint">ಪೊಸಿಷನ್‌ಗಳು, ಕಾಯಿನ್ ವಿವರಗಳು ಮತ್ತು ಒಳನೋಟಗಳು</string>
+    <string name="settings_coin_logos_value_app">ಆ್ಯಪ್</string>
+    <string name="settings_coin_logos_widgets">ವಿಜೆಟ್‌ಗಳಲ್ಲಿ</string>
+    <string name="settings_coin_logos_widgets_hint">ವಾಚ್‌ಲಿಸ್ಟ್ ಮತ್ತು ಒಂದೇ ಕಾಯಿನ್ ವಿಜೆಟ್‌ಗಳು</string>
+    <string name="settings_high_contrast">ಹೆಚ್ಚಿನ ಕಾಂಟ್ರಾಸ್ಟ್</string>
+    <string name="settings_high_contrast_hint">ಬಲವಾದ ಬೆಲೆ ಬಣ್ಣಗಳು ಮತ್ತು ಗಾಢವಾದ ದ್ವಿತೀಯ ಪಠ್ಯ. ಸಿಸ್ಟಮ್ ಹೆಚ್ಚು ಕಾಂಟ್ರಾಸ್ಟ್ ಕೇಳಿದಾಗಲೂ ಆನ್ ಆಗುತ್ತದೆ.</string>
+    <string name="settings_language_choose">ಭಾಷೆ ಆರಿಸಿ</string>
+    <string name="settings_language_system">ಸಿಸ್ಟಮ್ ಭಾಷೆ</string>
+    <string name="settings_price_colors">ಬೆಲೆ ಬಣ್ಣಗಳು</string>
+    <string name="settings_price_colors_hint">ನೀಲಿ / ಕಿತ್ತಳೆಯನ್ನು ಪ್ರತಿಯೊಂದು ಬಣ್ಣ ದೃಷ್ಟಿ ದೋಷದಲ್ಲೂ (ಕೆಂಪು-ಹಸಿರು ಮತ್ತು ನೀಲಿ-ಹಳದಿ) ಸುಲಭವಾಗಿ ಪ್ರತ್ಯೇಕಿಸಬಹುದು. ದಿಕ್ಕನ್ನು ಯಾವಾಗಲೂ + / − ಮೂಲಕವೂ ತೋರಿಸಲಾಗುತ್ತದೆ.</string>
+    <string name="settings_theme_mode">ಲೈಟ್ / ಡಾರ್ಕ್</string>
+    <string name="settings_widgets">ವಿಜೆಟ್‌ಗಳು</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">%1$s ಬದಲಾವಣೆ &amp; ಚಾರ್ಟ್ ಸಮಯ ವಲಯ</string>
+    <string name="settings_change_basis_hint_1">ಆಯ್ಕೆಮಾಡಿದ ಸಮಯ ವಲಯವು ಶೇಕಡಾವಾರು ಬದಲಾವಣೆ ಯಾವಾಗಿನಿಂದ ಎಣಿಸಲ್ಪಡುತ್ತದೆ (ವಾಚ್‌ಲಿಸ್ಟ್, ನಾಡಿಮಿಡಿತ ಸಾಲು, ತೆರೆದ ಜೋಡಿ, ವಿಜೆಟ್‌ಗಳು) ಮತ್ತು ಚಾರ್ಟ್‌ಗಳಲ್ಲಿ ತೋರಿಸುವ ಸಮಯಗಳನ್ನು ಹೊಂದಿಸುತ್ತದೆ.</string>
+    <string name="settings_change_basis_hint_2">“%1$s” ಸರಿಯಾಗಿ 24 ಗಂಟೆಗಳ ಹಿಂದಿನ ಬೆಲೆಯೊಂದಿಗೆ ಹೋಲಿಸುತ್ತದೆ. “00:00” ಆ ಸಮಯ ವಲಯದಲ್ಲಿ ಮಧ್ಯರಾತ್ರಿಯ ಆರಂಭಿಕ ಬೆಲೆಯೊಂದಿಗೆ ಹೋಲಿಸುತ್ತದೆ.</string>
+    <string name="settings_change_basis_hint_3">ಅಲರ್ಟ್‌ಗಳ ಮೇಲೆ ಪರಿಣಾಮವಿಲ್ಲ.</string>
+    <string name="settings_change_basis_hint_since_last">“%1$s” ಹಿಂದಿನ ಅಪ್‌ಡೇಟ್‌ನ ಬೆಲೆಯೊಂದಿಗೆ ಹೋಲಿಸುತ್ತದೆ. ಲೈವ್ ಬೆಲೆಗಳೊಂದಿಗೆ ಇದು 0%% ಸಮೀಪದಲ್ಲೇ ಇರುತ್ತದೆ.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">ಪರಿವರ್ತನಾ ಕರೆನ್ಸಿ</string>
+    <string name="settings_conversion_currency_hint">ಪೋರ್ಟ್‌ಫೋಲಿಯೊ, ನಿಮ್ಮ ಕರೆನ್ಸಿಯಲ್ಲಿನ ಅಲರ್ಟ್‌ಗಳು, ಕ್ರಿಪ್ಟೋ ಮಾರುಕಟ್ಟೆ ಕಾರ್ಡ್ ಮತ್ತು ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ವಿಜೆಟ್‌ಗೂ ಬಳಸಲಾಗುತ್ತದೆ.</string>
+    <string name="settings_cost_method">ವೆಚ್ಚ ವಿಧಾನ</string>
+    <string name="settings_cost_method_average">ಸರಾಸರಿ ವೆಚ್ಚ</string>
+    <string name="settings_cost_method_average_hint">ಮಾರಾಟಗಳನ್ನು ಚಲಿಸುವ ಸರಾಸರಿ ಖರೀದಿ ಬೆಲೆಯಲ್ಲಿ ಮೌಲ್ಯಮಾಪನ ಮಾಡಲಾಗುತ್ತದೆ.</string>
+    <string name="settings_cost_method_fifo">FIFO (ಡಿಫಾಲ್ಟ್)</string>
+    <string name="settings_cost_method_fifo_hint">ಎಲ್ಲಾ ಎಕ್ಸ್‌ಚೇಂಜ್‌ಗಳು ಮತ್ತು ವ್ಯಾಲೆಟ್‌ಗಳಲ್ಲಿ ಹಳೆಯ ಕಾಯಿನ್‌ಗಳನ್ನು ಮೊದಲು ಮಾರಾಟ ಮಾಡಲಾಗುತ್ತದೆ.</string>
+    <string name="settings_cost_method_fifo_wallet">ವ್ಯಾಲೆಟ್/ಎಕ್ಸ್‌ಚೇಂಜ್ ಪ್ರಕಾರ FIFO</string>
+    <string name="settings_cost_method_fifo_wallet_hint">ಪ್ರತಿ ಎಕ್ಸ್‌ಚೇಂಜ್ ಅಥವಾ ವ್ಯಾಲೆಟ್‌ನೊಳಗೆ ಹಳೆಯ ಕಾಯಿನ್‌ಗಳು ಮೊದಲು; ವರ್ಗಾವಣೆಗಳು ಲಾಟ್‌ಗಳನ್ನು ಅವುಗಳ ಖರೀದಿ ದಿನಾಂಕದೊಂದಿಗೆ ಸರಿಸುತ್ತವೆ.</string>
+    <string name="settings_portfolio_lock">ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಲಾಕ್</string>
+    <string name="settings_portfolio_lock_footer">ಲಾಕ್ ಸ್ಕ್ರೀನ್‌ನಲ್ಲಿ ತೋರಿಸುವುದನ್ನು ಮರೆಮಾಡುತ್ತದೆ. ನಿಮ್ಮ ಡೇಟಾ ಈ ಸಾಧನದಲ್ಲಿ ಸಂಗ್ರಹವಾಗಿದ್ದು ಸಾಧನ ಎನ್‌ಕ್ರಿಪ್ಶನ್‌ನಿಂದ ರಕ್ಷಿತವಾಗಿದೆ. ಬ್ಯಾಕಪ್‌ಗಳನ್ನು ಪಾಸ್‌ವರ್ಡ್‌ನೊಂದಿಗೆ ರಕ್ಷಿಸಬಹುದು.</string>
+    <string name="settings_portfolio_lock_hint">ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಅನ್ನು ಮಾತ್ರ ಮರೆಮಾಡುತ್ತದೆ: ಬೆರಳಚ್ಚು, ಮುಖ ಅಥವಾ ಸಾಧನ PIN ನೊಂದಿಗೆ ಅನ್‌ಲಾಕ್ ಮಾಡಿ. ಹಿನ್ನೆಲೆಯಲ್ಲಿ ಒಂದು ನಿಮಿಷಕ್ಕಿಂತ ಹೆಚ್ಚು ಇದ್ದ ನಂತರ ಮತ್ತೆ ಲಾಕ್ ಆಗುತ್ತದೆ. ವಾಚ್‌ಲಿಸ್ಟ್, ಅಲರ್ಟ್‌ಗಳು ಮತ್ತು ಇತರ ವಿಜೆಟ್‌ಗಳು ತೆರೆದೇ ಇರುತ್ತವೆ.</string>
+    <string name="settings_portfolio_lock_no_device_lock">ಸಾಧನ PIN ಅಥವಾ ಪಾಸ್‌ಕೋಡ್ ಇಲ್ಲದೆ ಲಾಕ್ ಏನನ್ನೂ ಮರೆಮಾಡುವುದಿಲ್ಲ – ಸ್ಕ್ರೀನ್ ಲಾಕ್ ಹೊಂದಿಸಿ.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">ಸಿಸ್ಟಮ್ ಬ್ಯಾಕಪ್‌ನಲ್ಲಿ ಪೋರ್ಟ್‌ಫೋಲಿಯೊ</string>
+    <string name="settings_portfolio_system_backup_hint">ಆಫ್: ನಿಮ್ಮ ವಹಿವಾಟುಗಳು ಸಾಧನದ ಸಿಸ್ಟಮ್ ಬ್ಯಾಕಪ್ ಮತ್ತು ಫೋನ್-ಟು-ಫೋನ್ ವರ್ಗಾವಣೆಗಳಿಂದ ಹೊರಗಿರುತ್ತವೆ. ಅವುಗಳನ್ನು ಹೊಸ ಫೋನ್‌ಗೆ ಸರಿಸಲು, ಪಾಸ್‌ವರ್ಡ್‌ನೊಂದಿಗೆ ಆ್ಯಪ್‌ನ ಸ್ವಂತ ಬ್ಯಾಕಪ್ ಬಳಸಿ.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Android 9 ಅಥವಾ ನಂತರದ ಆವೃತ್ತಿ ಬೇಕು – ಹಳೆಯ ಆವೃತ್ತಿಗಳು ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಅನ್ನು Google ಬ್ಯಾಕಪ್‌ನಲ್ಲಿ ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡದೆ ಉಳಿಸುತ್ತವೆ.</string>
+    <string name="settings_portfolio_tab">ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಟ್ಯಾಬ್ ತೋರಿಸಿ</string>
+    <string name="settings_portfolio_value_locked">ಆನ್, ಲಾಕ್‌ನೊಂದಿಗೆ</string>
+    <string name="settings_show_converted">ಪರಿವರ್ತಿತ ಬೆಲೆಗಳು</string>
+    <string name="settings_show_converted_hint">ವಾಚ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿ ಬೆಲೆಗಳನ್ನು %1$s ನಲ್ಲಿಯೂ ತೋರಿಸುತ್ತದೆ</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">USDT ಡಿಪೆಗ್ ತಿಳಿಸಿ</string>
+    <string name="settings_depeg_alarm_hint">USDT 1 USD ನಿಂದ ಮಿತಿಯಷ್ಟು ವಿಚಲಿಸಿದಾಗ ಒಮ್ಮೆ ತಿಳಿಸುತ್ತದೆ (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_threshold">ಡಿಪೆಗ್ ಮಿತಿ</string>
+    <string name="settings_fng_above">Fear &amp; Greed: ಇದಕ್ಕಿಂತ ಮೇಲೆ ತಿಳಿಸಿ</string>
+    <string name="settings_fng_below">Fear &amp; Greed: ಇದಕ್ಕಿಂತ ಕೆಳಗೆ ತಿಳಿಸಿ</string>
+    <string name="settings_gas_alert_hint">ಸಾಮಾನ್ಯ ಶುಲ್ಕ ಮಿತಿಗಿಂತ ಕೆಳಗೆ ಇಳಿದಾಗ ಒಮ್ಮೆ ತಿಳಿಸುತ್ತದೆ. ಬೆಲೆ ಅಪ್‌ಡೇಟ್‌ಗಳ ಸಮಯದಲ್ಲಿ, ಗರಿಷ್ಠ 10 ನಿಮಿಷಕ್ಕೊಮ್ಮೆ ಪರಿಶೀಲಿಸಲಾಗುತ್ತದೆ.</string>
+    <string name="settings_gas_btc_below">Bitcoin ಶುಲ್ಕ ಇದಕ್ಕಿಂತ ಕೆಳಗೆ (sat/vB)</string>
+    <string name="settings_gas_eth_below">Ethereum gas ಇದಕ್ಕಿಂತ ಕೆಳಗೆ (gwei)</string>
+    <string name="settings_ind_ath_within">ಸಾರ್ವಕಾಲಿಕ ಗರಿಷ್ಠದಿಂದ ಕುಸಿತ ಗರಿಷ್ಠ</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple ಇದಕ್ಕಿಂತ ಮೇಲೆ</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple ಇದಕ್ಕಿಂತ ಕೆಳಗೆ</string>
+    <string name="settings_ind_mvrv_above">MVRV ಇದಕ್ಕಿಂತ ಮೇಲೆ</string>
+    <string name="settings_ind_mvrv_below">MVRV ಇದಕ್ಕಿಂತ ಕೆಳಗೆ</string>
+    <string name="settings_indicator_alerts_hint">Bitcoin ಸೂಚಕಗಳು, ದಿನಕ್ಕೆ ಎರಡು ಬಾರಿ ಪರಿಶೀಲಿಸಲಾಗುತ್ತದೆ. ಮಿತಿಗಳನ್ನು ನೀವೇ ಆರಿಸುತ್ತೀರಿ – ಆ್ಯಪ್ ಮೌಲ್ಯಗಳನ್ನು ರೇಟ್ ಮಾಡುವುದಿಲ್ಲ.</string>
+    <string name="settings_macro_notifications">ಆರ್ಥಿಕ ಕ್ಯಾಲೆಂಡರ್</string>
+    <string name="settings_macro_notifications_hint">ಪ್ರಮುಖ US ಆರ್ಥಿಕ ಡೇಟಾ ಇರುವ ದಿನಗಳಲ್ಲಿ 08:00 ಕ್ಕೆ (ಹಣದುಬ್ಬರ, ಉದ್ಯೋಗ ವರದಿ, Fed ನಿರ್ಧಾರ). ಕ್ಯಾಲೆಂಡರ್ ಆ್ಯಪ್‌ನ ವೆಬ್‌ಸೈಟ್‌ನಿಂದ ಬರುತ್ತದೆ, ದಿನಕ್ಕೆ ಒಮ್ಮೆ ಲೋಡ್ ಆಗುತ್ತದೆ.</string>
+    <string name="settings_market_alerts">ಮಾರುಕಟ್ಟೆ ಅಲರ್ಟ್‌ಗಳು</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d ಸಕ್ರಿಯ</item>
+        <item quantity="other">%1$d ಸಕ್ರಿಯ</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">ಮಾತಿನ ವೇಗ: %1$.1f×</string>
+    <string name="settings_tts">ಧ್ವನಿ ಔಟ್‌ಪುಟ್</string>
+    <string name="settings_tts_alarms_only">ಅಲರ್ಟ್‌ಗಳು ಮಾತ್ರ</string>
+    <string name="settings_tts_alarms_only_hint">ಆಫ್: “ಬೆಲೆಯನ್ನು ಓದಿ ಹೇಳಿ” ಎಂದು ಗುರುತಿಸಿದ ಜೋಡಿಯ ಪ್ರತಿ ಅಪ್‌ಡೇಟ್ ಅನ್ನು ಗಟ್ಟಿಯಾಗಿ ಓದಲಾಗುತ್ತದೆ.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">ಬೆಲೆಗಳು ಮತ್ತು ಅಲರ್ಟ್‌ಗಳನ್ನು ಗಟ್ಟಿಯಾಗಿ ಓದುತ್ತದೆ. ಸಾಧನ ಸೈಲೆಂಟ್ ಅಥವಾ ವೈಬ್ರೇಟ್ ಮೋಡ್‌ನಲ್ಲಿರುವಾಗ ಮೌನವಾಗಿರುತ್ತದೆ.</string>
+    <string name="settings_tts_test">ಧ್ವನಿ ಪರೀಕ್ಷಿಸಿ</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">ಆ್ಯಪ್ ಮರುಹೊಂದಿಸಿ</string>
+    <string name="settings_reset_app_action">ಎಲ್ಲವನ್ನೂ ಅಳಿಸಿ</string>
+    <string name="settings_reset_app_confirm">ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಿದ ನಂತರದಂತೆ, ವಾಚ್‌ಲಿಸ್ಟ್, ಅಲರ್ಟ್‌ಗಳು, ಪೋರ್ಟ್‌ಫೋಲಿಯೊ, ಸೆಟ್ಟಿಂಗ್‌ಗಳು ಮತ್ತು ಸಂಗ್ರಹಿಸಿದ ಎಲ್ಲಾ ಡೇಟಾವನ್ನು ಅಳಿಸುತ್ತದೆ. ಇದನ್ನು ರದ್ದುಗೊಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ. ಸಲಹೆ: ಮೊದಲು ಬ್ಯಾಕಪ್ ಮಾಡಿ. ಸಾಧನ ಬ್ಯಾಕಪ್‌ಗಳು (Google ಬ್ಯಾಕಪ್ ಅಥವಾ iCloud/ಕಂಪ್ಯೂಟರ್ ಬ್ಯಾಕಪ್) ಮುಂದಿನ ಬ್ಯಾಕಪ್ ನಡೆಯುವವರೆಗೆ ಹಿಂದಿನ ಡೇಟಾವನ್ನು ಇರಿಸುತ್ತವೆ.</string>
+    <string name="settings_reset_app_title">ಆ್ಯಪ್ ಮರುಹೊಂದಿಸಬೇಕೆ?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">ಕರೆನ್ಸಿ ಹುಡುಕಿ</string>
+    <string name="language_search">ಭಾಷೆ ಹುಡುಕಿ</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">ಡಾರ್ಕ್</string>
+    <string name="theme_light">ಲೈಟ್</string>
+    <string name="theme_system">ಸಿಸ್ಟಮ್</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">ನೀಲಿ</string>
+    <string name="accent_green">ಹಸಿರು</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs ಹಸಿರು</string>
+    <string name="accent_orange">ಕಿತ್ತಳೆ</string>
+    <string name="accent_red">ಕೆಂಪು</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">ಚೀನಾ, ಜಪಾನ್, ಕೊರಿಯಾ ಮತ್ತು ತೈವಾನ್‌ನಲ್ಲಿ ಸಾಮಾನ್ಯ</string>
+    <string name="price_colors_swap">ಬಣ್ಣಗಳನ್ನು ಅದಲುಬದಲು ಮಾಡಿ (ಏರಿಕೆ ↔ ಇಳಿಕೆ)</string>
+    <string name="price_style_calm">ಶಾಂತ</string>
+    <string name="price_style_calm_color_vision">ಶಾಂತ · ಬಣ್ಣ ದೃಷ್ಟಿ ದೋಷ</string>
+    <string name="price_style_color_vision">ಬಣ್ಣ ದೃಷ್ಟಿ ದೋಷ</string>
+    <string name="price_style_fresh">ತಾಜಾ</string>
+    <string name="price_style_traditional">ಸಾಂಪ್ರದಾಯಿಕ</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">ಎಕ್ಸ್‌ಚೇಂಜ್ ಸಂಪರ್ಕಗಳನ್ನು ನೈಜ ಪ್ರತಿಕ್ರಿಯೆಗಳ ವಿರುದ್ಧ ಕೊನೆಯದಾಗಿ ಪರಿಶೀಲಿಸಿದ್ದು: %1$s</string>
+    <string name="about_license">ಬೆಲೆಗಳು ನೇರವಾಗಿ ಎಕ್ಸ್‌ಚೇಂಜ್‌ಗಳಿಂದ ಬರುತ್ತವೆ; ಖಾತೆ ಇಲ್ಲ, ಟ್ರ್ಯಾಕಿಂಗ್ ಇಲ್ಲ.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">ಪರವಾನಗಿಗಳು</string>
+    <string name="about_privacy_policy">ಗೌಪ್ಯತಾ ನೀತಿ</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">ಎಕ್ಸ್‌ಚೇಂಜ್ ವಿನಂತಿಸಿ</string>
+    <string name="about_source_code">GitHub ನಲ್ಲಿ ಮೂಲ ಕೋಡ್</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker ಎಂಬುದು r1AD ಅವರ ಸ್ವತಂತ್ರ ಯೋಜನೆ: ಖಾತೆ, ಜಾಹೀರಾತು ಅಥವಾ ಟ್ರ್ಯಾಕಿಂಗ್ ಇಲ್ಲದ ಶಾಂತ ಬೆಲೆ ಅವಲೋಕನ. ಪ್ರಶ್ನೆಗಳು ಮತ್ತು ಆಶಯಗಳು: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker ಮುಕ್ತ ಮೂಲವಾಗಿದೆ (MIT License).</string>
+    <string name="licenses_font_title">Rubik ಅಕ್ಷರಶೈಲಿ</string>
+    <string name="licenses_icons_bundled_text">ಆ್ಯಪ್‌ನೊಂದಿಗೆ ಸೇರಿಸಲಾಗಿದೆ: Christopher Downer ಮತ್ತು ಕೊಡುಗೆದಾರರ “Cryptocurrency Icons” ನಿಂದ ಐಕಾನ್‌ಗಳು (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal ಅಡಿಯಲ್ಲಿ ಬಿಡುಗಡೆಯಾಗಿದೆ. CoinGecko ಅಥವಾ Binance ಲೋಗೋಗಳು ಲೋಡ್ ಆಗುವವರೆಗೆ ಅವುಗಳನ್ನು ತೋರಿಸಲಾಗುತ್ತದೆ. ಹೆಸರುಗಳು ಮತ್ತು ಲೋಗೋಗಳು ಅವುಗಳ ಯೋಜನೆಗಳ ಟ್ರೇಡ್‌ಮಾರ್ಕ್‌ಗಳಾಗಿಯೇ ಉಳಿಯುತ್ತವೆ.</string>
+    <string name="licenses_icons_title">ಪರ್ಯಾಯ ಕಾಯಿನ್ ಐಕಾನ್‌ಗಳು</string>
+    <string name="licenses_libraries_intro">ಆ್ಯಪ್ ಈ ಲೈಬ್ರರಿಗಳನ್ನು Apache License 2.0 ಅಡಿಯಲ್ಲಿ ಬಳಸುತ್ತದೆ:</string>
+    <string name="licenses_libraries_title">Android ಲೈಬ್ರರಿಗಳು</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">ಡೆವಲಪರ್ ಆಯ್ಕೆಗಳನ್ನು ಅನ್‌ಲಾಕ್ ಮಾಡಲು ಇನ್ನೂ %d ಟ್ಯಾಪ್</item>
+        <item quantity="other">ಡೆವಲಪರ್ ಆಯ್ಕೆಗಳನ್ನು ಅನ್‌ಲಾಕ್ ಮಾಡಲು ಇನ್ನೂ %d ಟ್ಯಾಪ್‌ಗಳು</item>
+    </plurals>
+    <string name="developer_unlocked">ಡೆವಲಪರ್ ಆಯ್ಕೆಗಳು ಅನ್‌ಲಾಕ್ ಆಗಿವೆ</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">ವೈಬ್ರೇಷನ್ iPhone ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು (ಶಬ್ದಗಳು &amp; ಹ್ಯಾಪ್ಟಿಕ್ಸ್) ಅನುಸರಿಸುತ್ತದೆ.</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">ಹೊಸ ಅಲರ್ಟ್‌ಗಳು ಮತ್ತು ಮಾರುಕಟ್ಟೆ ಅಲರ್ಟ್‌ಗಳನ್ನು ಎಣಿಸುತ್ತದೆ; ಆ್ಯಪ್ ತೆರೆದಾಗ 0 ಗೆ ಮರಳುತ್ತದೆ.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">ನಿಮ್ಮ ಡೇಟಾ</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">ಈ ಸಾಧನದಲ್ಲಿ</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">ನಿಮ್ಮ ವಾಚ್‌ಲಿಸ್ಟ್, ಅಲರ್ಟ್‌ಗಳು ಮತ್ತು ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಈ ಸಾಧನದಲ್ಲಿ ಎನ್‌ಕ್ರಿಪ್ಟ್ ಆಗಿ ಸಂಗ್ರಹವಾಗಿವೆ; ಖಾತೆ ಇಲ್ಲ, ನಮ್ಮದೇ ಸರ್ವರ್ ಇಲ್ಲ.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">ಸಂಪರ್ಕಗಳು</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">ಬೆಲೆಗಳು ನೇರವಾಗಿ ನಿಮ್ಮ ಜೋಡಿಗಳ ಎಕ್ಸ್‌ಚೇಂಜ್‌ಗಳಿಂದ ಬರುತ್ತವೆ, ಜೊತೆಗೆ ವಿನಿಮಯ ದರಗಳು, ಕಾಯಿನ್ ಪಟ್ಟಿಗಳು ಮತ್ತು ಲೋಗೋಗಳು ಹಾಗೂ GitHub ನಲ್ಲಿನ ಡೇಟಾ ಮಿರರ್; ಅವು ನಿಮ್ಮ IP ವಿಳಾಸವನ್ನು ನೋಡುತ್ತವೆ, ನಿಮ್ಮ ಹೋಲ್ಡಿಂಗ್‌ಗಳನ್ನು ಎಂದಿಗೂ ಅಲ್ಲ (ಗಮನಿಸುತ್ತಿರುವ ವಿಳಾಸಗಳು ಸಂಬಂಧಿತ ನೆಟ್‌ವರ್ಕ್‌ನ ಪೂರೈಕೆದಾರರಿಗೆ ಹೋಗುತ್ತವೆ).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">ಬ್ಯಾಕಪ್</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">ನೀವು ರಚಿಸಿದರೆ ಮಾತ್ರ. ಪಾಸ್‌ವರ್ಡ್‌ನೊಂದಿಗೆ ಅದು ಎನ್‌ಕ್ರಿಪ್ಟ್ ಆಗುತ್ತದೆ (Argon2id + AES-256-GCM); ಪಾಸ್‌ವರ್ಡ್ ಇಲ್ಲದೆ ಓದಬಹುದಾಗಿದೆ.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">ಸಾಧನ ಬದಲಾವಣೆ</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">ಕೀ ಹಳೆಯ ಸಾಧನದಲ್ಲೇ ಉಳಿಯುತ್ತದೆ – ಮೊದಲು ಬ್ಯಾಕಪ್ ಫೈಲ್ ರಚಿಸಿ.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">ಡಯಾಗ್ನಾಸ್ಟಿಕ್ಸ್ ಹಂಚಿಕೊಳ್ಳಿ</string>
+    <string name="diagnostics_share_hint">ಬೆಂಬಲಕ್ಕಾಗಿ ಪಠ್ಯ ಫೈಲ್: ಆವೃತ್ತಿ, ಸಾಧನ, ಅಲರ್ಟ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳು, ಇತ್ತೀಚಿನ ಪರಿಶೀಲನೆಗಳು ಮತ್ತು ಅಲರ್ಟ್ ಲಾಗ್ – ಪೋರ್ಟ್‌ಫೋಲಿಯೊ, ಮೊತ್ತಗಳು, ವಿಳಾಸಗಳು ಅಥವಾ ಟಿಪ್ಪಣಿಗಳಿಲ್ಲದೆ. ನೀವು ಮೊದಲು ನೋಡುತ್ತೀರಿ; ಏನನ್ನೂ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಕಳುಹಿಸಲಾಗುವುದಿಲ್ಲ.</string>
+    <string name="diagnostics_preview_title">ಡಯಾಗ್ನಾಸ್ಟಿಕ್ಸ್ ಪೂರ್ವವೀಕ್ಷಣೆ</string>
+    <string name="diagnostics_action_share">ಹಂಚಿಕೊಳ್ಳಿ</string>
+    <string name="settings_price_overlay">ಬೆಲೆ ಓವರ್‌ಲೇ</string>
+    <string name="settings_price_overlay_hint">ಶಾಶ್ವತ ಬೆಲೆ ಅಧಿಸೂಚನೆಯ ಜೋಡಿಗಳನ್ನು ಇತರ ಆ್ಯಪ್‌ಗಳ ಮೇಲೆ ಚಿಕ್ಕ ತೇಲುವ ಪಟ್ಟಿಯಾಗಿ ತೋರಿಸುತ್ತದೆ. ಆ್ಯಪ್ ತೆರೆಯಲು ಟ್ಯಾಪ್ ಮಾಡಿ, ಮುಚ್ಚಲು ಕೆಳಗಿನ × ಗೆ ಎಳೆಯಿರಿ.</string>
+    <string name="settings_price_overlay_needs">«%1$s» ಜೊತೆಗೆ ಮಾತ್ರ ಕೆಲಸ ಮಾಡುತ್ತದೆ.</string>
+    <string name="settings_price_overlay_grant">ಇತರ ಆ್ಯಪ್‌ಗಳ ಮೇಲೆ ಪ್ರದರ್ಶನವನ್ನು ಅನುಮತಿಸಿ</string>
+    <string name="price_overlay_close">ಓವರ್‌ಲೇ ಮುಚ್ಚಿ</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">ವಿಳಾಸಗಳಿಗಾಗಿ ಸ್ವಂತ ಸರ್ವರ್</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Bitcoin ಮಾತ್ರ: ನಿಮ್ಮ ಸ್ವಂತ Esplora- ಅಥವಾ mempool-ಹೊಂದಾಣಿಕೆಯ ಸರ್ವರ್ (ಉದಾ. https://node.example/api, Let\'s Encrypt ನಂತಹ ಸಾರ್ವಜನಿಕವಾಗಿ ವಿಶ್ವಾಸಾರ್ಹ ಪ್ರಮಾಣಪತ್ರ ಅಗತ್ಯ). ಹೊಂದಿಸಿದರೆ, Bitcoin ವಿಳಾಸಗಳು ಮತ್ತು xpub ಕೀಗಳನ್ನು ಅಲ್ಲಿ ಮಾತ್ರ ಪ್ರಶ್ನಿಸಲಾಗುತ್ತದೆ – ಸಾರ್ವಜನಿಕ ನೋಡ್‌ಗಳಲ್ಲಿ ಎಂದಿಗೂ ಅಲ್ಲ, ನಿಮ್ಮ ಸರ್ವರ್ ಲಭ್ಯವಿಲ್ಲದಿದ್ದಾಗಲೂ ಸಹ. ಇತರ ನೆಟ್‌ವರ್ಕ್‌ಗಳು ಸಾರ್ವಜನಿಕ ನೋಡ್‌ಗಳನ್ನು ಬಳಸುವುದನ್ನು ಮುಂದುವರಿಸುತ್ತವೆ. ಖಾಲಿ = ಸಾರ್ವಜನಿಕ ನೋಡ್‌ಗಳು.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Bitcoin ಸರ್ವರ್ (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">ಪರೀಕ್ಷಿಸಿ</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">ಪರೀಕ್ಷಿಸಲಾಗುತ್ತಿದೆ…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">ಸರ್ವರ್ ಪ್ರತಿಕ್ರಿಯಿಸುತ್ತಿದೆ – ಬ್ಲಾಕ್ %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">ಮಾನ್ಯ ಉತ್ತರವಿಲ್ಲ – ವಿಳಾಸ ಮತ್ತು ಪ್ರಮಾಣಪತ್ರವನ್ನು ಪರಿಶೀಲಿಸಿ</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">ಬಳಕೆಯಲ್ಲಿದೆ: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">ಹೊಂದಿಸಿಲ್ಲ – ಸಾರ್ವಜನಿಕ ನೋಡ್‌ಗಳನ್ನು ಬಳಸಲಾಗುತ್ತಿದೆ</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">https:// ವಿಳಾಸಗಳನ್ನು ಮಾತ್ರ ಅನುಮತಿಸಲಾಗಿದೆ</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">ವಿಳಾಸದಲ್ಲಿ ಬಳಕೆದಾರ ಹೆಸರು ಅಥವಾ ಪಾಸ್‌ವರ್ಡ್ ಇರಬಾರದು</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">ವಿಳಾಸದಲ್ಲಿ ? ಅಥವಾ # ಭಾಗ ಇರಬಾರದು</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">ಮಾನ್ಯ ಸರ್ವರ್ ವಿಳಾಸವಲ್ಲ</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">ಸಾರ್ವಜನಿಕ ನೋಡ್‌ಗಳಿಗೆ ಬದಲಾಯಿಸಬೇಕೆ?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">ಆಗ ನಿಮ್ಮ Bitcoin ವಿಳಾಸಗಳು ಮತ್ತು xpub ಕೀಗಳನ್ನು ಸಾರ್ವಜನಿಕ ನೋಡ್‌ಗಳಲ್ಲಿ ಪ್ರಶ್ನಿಸಲಾಗುತ್ತದೆ: %1$s. ಅವು ಈ ವಿಳಾಸಗಳನ್ನು ನಿಮ್ಮ IP ವಿಳಾಸದೊಂದಿಗೆ ನೋಡುತ್ತವೆ.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">ಸಾರ್ವಜನಿಕ ನೋಡ್‌ಗಳನ್ನು ಬಳಸಿ</string>
+</resources>

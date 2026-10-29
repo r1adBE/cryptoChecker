@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">ಹಿಂದೆ</string>
+    <string name="action_cancel">ರದ್ದುಮಾಡಿ</string>
+    <string name="action_clear">ತೆರವುಗೊಳಿಸಿ</string>
+    <string name="action_close">ಮುಚ್ಚಿ</string>
+    <string name="action_keep">ಇರಿಸಿ</string>
+    <string name="action_delete">ಅಳಿಸಿ</string>
+    <string name="action_edit">ಎಡಿಟ್ ಮಾಡಿ</string>
+    <string name="action_more">ಇನ್ನಷ್ಟು ಆಯ್ಕೆಗಳು</string>
+    <string name="action_refresh">ರಿಫ್ರೆಶ್ ಮಾಡಿ</string>
+    <string name="action_retry">ಮರುಪ್ರಯತ್ನಿಸಿ</string>
+    <string name="action_save">ಉಳಿಸಿ</string>
+    <string name="action_sort">ವಿಂಗಡಿಸಿ</string>
+    <string name="action_sort_done">ಮುಗಿದಿದೆ</string>
+    <string name="action_undo">ರದ್ದುಗೊಳಿಸಿ</string>
+    <string name="action_view">ವೀಕ್ಷಿಸಿ</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">ಮಾರುಕಟ್ಟೆ</string>
+    <string name="tab_portfolio">ಪೋರ್ಟ್‌ಫೋಲಿಯೊ</string>
+    <string name="tab_settings">ಸೆಟ್ಟಿಂಗ್‌ಗಳು</string>
+    <string name="tab_watchlist">ವಾಚ್‌ಲಿಸ್ಟ್</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">ದೋಷ: %1$s</string>
+    <string name="error_exchange_unreachable">ಎಕ್ಸ್‌ಚೇಂಜ್ ಸದ್ಯ ಲಭ್ಯವಿಲ್ಲ – ಕೊನೆಯ ಬೆಲೆಗಳು ಕಾಣಿಸುತ್ತಲೇ ಇರುತ್ತವೆ.</string>
+    <string name="error_exchange_unreachable_short">ಎಕ್ಸ್‌ಚೇಂಜ್ ಸದ್ಯ ಲಭ್ಯವಿಲ್ಲ</string>
+    <string name="loading_hint">ಲೋಡ್ ಆಗುತ್ತಿದೆ…</string>
+    <string name="option_off">ಆಫ್</string>
+    <string name="something_went_wrong">ಏನೋ ತಪ್ಪಾಗಿದೆ</string>
+    <string name="time_just_now">ಈಗಷ್ಟೇ</string>
+    <string name="try_again">ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">ಸಂಪರ್ಕವಿಲ್ಲ</string>
+    <string name="offline_status_since">ಸಂಪರ್ಕವಿಲ್ಲ · %1$s ರಂತೆ</string>
+    <string name="status_live">ಲೈವ್</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">ಜೋಡಿ ಸೇರಿಸಿ</string>
+    <string name="shortcut_alarms">ಎಲ್ಲಾ ಅಲರ್ಟ್‌ಗಳು</string>
+    <string name="shortcut_cycle">ಮಾರುಕಟ್ಟೆ</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">ಹೊಸ ಜೋಡಿ ಸೇರಿಸಿ</string>
+    <string name="shortcut_alarms_long">ಅಲರ್ಟ್‌ಗಳನ್ನು ತೋರಿಸಿ</string>
+    <string name="shortcut_cycle_long">ಮಾರುಕಟ್ಟೆ ಅವಲೋಕನ ತೆರೆಯಿರಿ</string>
+
+    <string name="log_box_title">ಲಾಗ್</string>
+    <string name="label_value">%1$s: %2$s</string>
+</resources>

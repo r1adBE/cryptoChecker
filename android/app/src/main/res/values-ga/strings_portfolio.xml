@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">Níl glas scáileáin socraithe ar an ngléas seo. Socraigh ceann i socruithe an chórais ar dtús.</string>
+    <string name="app_lock_unlock">Díghlasáil</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">Glan an phunann</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="one">Scrios %d idirbheart? Fanann seoltaí faire. Is féidir leat é seo a aisiompú díreach ina dhiaidh.</item>
+        <item quantity="two">Scrios na %d idirbheart go léir? Fanann seoltaí faire. Is féidir leat é seo a aisiompú díreach ina dhiaidh.</item>
+        <item quantity="few">Scrios na %d idirbheart go léir? Fanann seoltaí faire. Is féidir leat é seo a aisiompú díreach ina dhiaidh.</item>
+        <item quantity="many">Scrios na %d n-idirbheart go léir? Fanann seoltaí faire. Is féidir leat é seo a aisiompú díreach ina dhiaidh.</item>
+        <item quantity="other">Scrios na %d idirbheart go léir? Fanann seoltaí faire. Is féidir leat é seo a aisiompú díreach ina dhiaidh.</item>
+    </plurals>
+    <string name="portfolio_empty_action">Cuir do chéad cheannach leis</string>
+    <string name="portfolio_empty_address">Níl uait ach seoladh sparáin a fhaire</string>
+    <string name="portfolio_empty_csv">Ceannaithe ar mhalartán? Iompórtáil a chomhad</string>
+    <string name="portfolio_empty_example_plain">Sampla: %1$s BTC ceannaithe ar 1 Márta. Taispeánann an aip ansin cad is fiú é inniu agus an bhfuil tú chun tosaigh nó ar gcúl – stóráilte ar an ngléas seo amháin.</string>
+    <string name="portfolio_empty_title">Gan idirbhearta fós</string>
+    <string name="portfolio_enable_ask_text">Tá d’idirbheart sábháilte. Taispeánann an cluaisín Punann do shealúchais agus a luach.</string>
+    <string name="portfolio_enable_ask_title">Cas air an cluaisín Punann?</string>
+    <string name="portfolio_enable_later_hint">Idirbheart sábháilte. Is féidir leat an cluaisín Punann a chasadh air i Socruithe › Punann.</string>
+    <string name="portfolio_enabled_banner">Punann casta air – gheobhaidh tú é sa chluaisín Punann.</string>
+    <string name="portfolio_lock_reason">Díghlasáil an phunann</string>
+    <string name="portfolio_locked_text">Díghlasáil chun do shealúchais agus luachanna a fheiceáil.</string>
+    <string name="portfolio_locked_title">Tá an phunann faoi ghlas</string>
+    <string name="portfolio_setting_hint">Roghnach: taifead ceannacháin agus díolacháin agus féach luach agus gnóthachan/caillteanas i gcluaisín ar leith.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">As dáta · staid %1$s</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="one">Bhí %d iontráil ó chúltaca an chórais neamhbhailí agus níor athchóiríodh í.</item>
+        <item quantity="two">Bhí %d iontráil ó chúltaca an chórais neamhbhailí agus níor athchóiríodh iad.</item>
+        <item quantity="few">Bhí %d iontráil ó chúltaca an chórais neamhbhailí agus níor athchóiríodh iad.</item>
+        <item quantity="many">Bhí %d n-iontráil ó chúltaca an chórais neamhbhailí agus níor athchóiríodh iad.</item>
+        <item quantity="other">Bhí %d iontráil ó chúltaca an chórais neamhbhailí agus níor athchóiríodh iad.</item>
+    </plurals>
+    <string name="portfolio_title">Punann</string>
+    <string name="portfolio_unassigned_fee">Táille gan sannadh – bunchostas anaithnid: %1$s</string>
+    <string name="portfolio_updated">Praghsanna ó %1$s</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">Eile</string>
+    <string name="portfolio_allocation_title">Leithdháileadh</string>
+    <string name="portfolio_card_details">Sonraí</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: níl sé ar fáil fós</string>
+    <string name="portfolio_card_hints_count">Nótaí (%1$d)</string>
+    <string name="portfolio_card_today">Inniu</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">Iomlán</string>
+    <string name="portfolio_hide_amounts">Folaigh méideanna</string>
+    <string name="portfolio_hide_amounts_hint">Taispeánann sé méideanna agus luachanna sa phunann agus i ngiuirléid na punainne mar ••• – fanann céatadáin le feiceáil.</string>
+    <string name="portfolio_invested">Bunchostas</string>
+    <string name="portfolio_total_no_fx">Gan ráta malairte do %1$s – méideanna in USDT</string>
+    <string name="portfolio_total_value">Luach iomlán</string>
+    <string name="portfolio_value">Luach</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">Meán %1$s · anois %2$s</string>
+    <string name="portfolio_avg_only">Meán %1$s</string>
+    <string name="portfolio_avg_open_lots">Meánchostas na mbonn i seilbh</string>
+    <string name="portfolio_avg_partial">Meán %1$s le praghas ceannaigh</string>
+    <string name="portfolio_avg_price">Meánphraghas ceannaigh</string>
+    <string name="portfolio_avg_price_hint">Meánphraghas ceannaigh: meán gach ceannaigh, ualaithe de réir méide. Luacháiltear díolacháin ag an meán seo.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Suíomh dúnta (%1$d)</item>
+        <item quantity="two">Suíomhanna dúnta (%1$d)</item>
+        <item quantity="few">Suíomhanna dúnta (%1$d)</item>
+        <item quantity="many">Suíomhanna dúnta (%1$d)</item>
+        <item quantity="other">Suíomhanna dúnta (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: úsáideann díolacháin do bhoinn is sine ar dtús. Meán = bunchostas fágtha ÷ méid le praghas ceannaigh.</string>
+    <string name="portfolio_holdings">Sealúchais</string>
+    <string name="portfolio_lost_fee_cost">Costas táille líonra gan baisc íoctha: %1$s</string>
+    <string name="portfolio_open_lots">Baisceanna ceannaigh oscailte (%1$d)</string>
+    <string name="portfolio_open_lots_avg">Le praghas ceannaigh (meán)</string>
+    <string name="portfolio_open_lots_no_cost">Gan phraghas ceannaigh</string>
+    <string name="portfolio_open_lots_without_price">gan phraghas ceannaigh</string>
+    <string name="portfolio_realized">Gnóthachan/caillteanas réadaithe</string>
+    <string name="portfolio_unrealized">Gnóthachan/caillteanas oscailte</string>
+    <string name="portfolio_unrealized_without_unpriced">gan %1$s nach bhfuil praghas ceannaigh acu</string>
+    <string name="portfolio_withdrawn_gain">Aistarraingthe: %1$s (athrú luacha go dtí an aistarraingt)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">Tiontaigh go</string>
+    <string name="portfolio_convert_to_value">Tiontaigh go: %1$s</string>
+    <string name="portfolio_current_missing">Gan phraghas reatha do %1$s</string>
+    <string name="portfolio_current_price">Praghas reatha</string>
+    <string name="portfolio_price_missing">Praghas ar iarraidh</string>
+    <string name="portfolio_price_missing_hint">Níl praghas ag roinnt ceannachán. Cuir an praghas ceannaigh leis chun gnóthachan/caillteanas a fheiceáil.</string>
+    <string name="portfolio_price_source">Praghsanna: Binance · USDT ag praghas margaidh</string>
+    <string name="portfolio_price_source_routes">Praghsanna: %1$s, nó Binance · USDT ag praghas margaidh</string>
+    <string name="portfolio_price_unavailable">Níl an praghas ar fáil anois</string>
+    <string name="portfolio_price_unchecked">Praghas gan seiceáil</string>
+    <string name="portfolio_price_via_base">≈ praghas %1$s (bridged/wrapped)</string>
+    <string name="portfolio_usdt_as_usd">USDT tiontaithe ag a phraghas margaidh USD</string>
+    <string name="portfolio_usdt_assumed">Ráta dollair USDT ar iarraidh – comhairthe mar 1 dollar SAM</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">Cuir leis an bpunann</string>
+    <string name="portfolio_add_tx">Cuir idirbheart leis</string>
+    <string name="portfolio_buy">Ceannaigh</string>
+    <string name="portfolio_coin">Bonn</string>
+    <string name="portfolio_coin_invalid">Cuir isteach siombail boinn</string>
+    <string name="portfolio_coin_search">Cuardaigh siombail, m.sh. BTC</string>
+    <string name="portfolio_discard_confirm">Caith uait</string>
+    <string name="portfolio_discard_keep">Lean ag eagarthóireacht</string>
+    <string name="portfolio_discard_title">Caith uait na hathruithe?</string>
+    <string name="portfolio_edit_tx">Cuir an t-idirbheart in eagar</string>
+    <string name="portfolio_invalid">Cuir isteach uimhir bhailí níos mó ná 0.</string>
+    <string name="portfolio_oversold">Tá na díolacháin níos mó ná na sealúchais – seiceáil na hidirbhearta.</string>
+    <string name="portfolio_sell">Díol</string>
+    <string name="portfolio_sell_exceeds">Níos mó ná do shealúchais (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">Tá méid móide táille níos mó ná do shealúchais (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">Níos mó ná do shealúchais in %2$s (%1$s)</string>
+    <string name="portfolio_transactions">Idirbhearta</string>
+    <string name="portfolio_tx_acquired_date">Dáta bunaidh an cheannaigh (roghnach)</string>
+    <string name="portfolio_tx_acquired_date_hint">Don tréimhse sealbhaíochta san easpórtáil chánach</string>
+    <string name="portfolio_tx_amount">Méid</string>
+    <string name="portfolio_tx_coin_fee">Táille i mbonn (roghnach)</string>
+    <string name="portfolio_tx_date">Dáta</string>
+    <string name="portfolio_tx_delete_confirm">Bainfear an t-idirbheart seo den phunann.</string>
+    <string name="portfolio_tx_delete_title">An bhfuil an t-idirbheart le scriosadh?</string>
+    <string name="portfolio_tx_deposit">Taisce</string>
+    <string name="portfolio_tx_entry_currency">Cuir isteach in</string>
+    <string name="portfolio_tx_explain_deposit">Sealúchais gan trádáil, m.sh. boinn ó roimhe</string>
+    <string name="portfolio_tx_explain_gift">Fágann na boinn do shealúchais mar a bheadh aistarraingt ann – diúscairt ag luach margaidh ach amháin nuair a ghearrann an tír cáin ar bhronntanais (UK, CA, AU)</string>
+    <string name="portfolio_tx_explain_payment">Íoctha as earraí nó seirbhísí – diúscairt ag luach margaidh cosúil le díolachán, gan airgead faighte</string>
+    <string name="portfolio_tx_explain_reward">Bunchostas = luach margaidh nuair a fuarthas é</string>
+    <string name="portfolio_tx_explain_swap">Bonn amháin ar bhonn eile: díolann sé an bonn a tugadh agus ceannaíonn sé an bonn a fuarthas</string>
+    <string name="portfolio_tx_explain_transfer">Gan ghnóthachan – bogann an bunchostas leis na boinn</string>
+    <string name="portfolio_tx_explain_withdrawal">Fágann sealúchais an phunann – gan díolachán, gan ghnóthachan</string>
+    <string name="portfolio_tx_fee_consumes_amount">Tá an táille chomh mór leis an méid a fuarthas – ní bheadh aon rud fágtha.</string>
+    <string name="portfolio_tx_fees_toggle">Táillí</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s ag ráta %2$s</string>
+    <string name="portfolio_tx_fiat_loading">Ráta malairte á lódáil…</string>
+    <string name="portfolio_tx_fiat_no_fx">Gan ráta malairte don lá seo – cuir isteach an méid in USDT.</string>
+    <string name="portfolio_tx_gift">Bronntanas</string>
+    <string name="portfolio_tx_gift_price_hint">In USDT. Folamh = dúnadh an lae sin (measta).</string>
+    <string name="portfolio_tx_gift_spouse">Chuig céile / páirtí sibhialta</string>
+    <string name="portfolio_tx_gift_spouse_hint">UK agus Ceanada: gan ghnóthachan agus gan chaillteanas – glacann do pháirtí do bhunchostas. Déanann tíortha eile neamhaird de seo.</string>
+    <string name="portfolio_tx_market_value">Luach margaidh in aghaidh an bhoinn</string>
+    <string name="portfolio_tx_more_buy">Táille, malartán, nóta</string>
+    <string name="portfolio_tx_network_fee">Táille líonra i mbonn (roghnach)</string>
+    <string name="portfolio_tx_note">Nóta (roghnach)</string>
+    <string name="portfolio_tx_payment">Íoctha leis</string>
+    <string name="portfolio_tx_price">Praghas in aghaidh an bhoinn</string>
+    <string name="portfolio_tx_price_hint">In USDT. Fág folamh mura bhfuil sé ar eolas.</string>
+    <string name="portfolio_tx_price_historic">Dúnadh laethúil seiceáilte ó %1$s – coigeartaigh más gá</string>
+    <string name="portfolio_tx_price_invalid">Cuir isteach uimhir bhailí (0 nó níos mó) nó fág an réimse folamh.</string>
+    <string name="portfolio_tx_price_past_hint">Cuir isteach an praghas ar lá an cheannaigh – fág folamh mura bhfuil sé ar eolas</string>
+    <string name="portfolio_tx_price_receipt_hint">In USDT. Folamh = sealúchais gan bhunchostas.</string>
+    <string name="portfolio_tx_price_zero">Níl praghas 0 indéanta d’idirbhearta iompórtáilte – fág folamh le haghaidh praghas margaidh</string>
+    <string name="portfolio_tx_removed">Idirbheart scriosta</string>
+    <string name="portfolio_tx_reward">Luach saothair</string>
+    <string name="portfolio_tx_save_failed">Níorbh fhéidir an t-idirbheart a shábháil. Tá na rudaí a chuir tú isteach fós anseo – bain triail eile as.</string>
+    <string name="portfolio_tx_swap">Babhtáil</string>
+    <string name="portfolio_tx_swap_fee_received">Táille in %1$s: laghdaíonn sí an méid a fuarthas, níl praghas ag teastáil.</string>
+    <string name="portfolio_tx_swap_from">Babhtáil ó %1$s</string>
+    <string name="portfolio_tx_swap_given_amount">Méid tugtha</string>
+    <string name="portfolio_tx_swap_given_coin">Bonn tugtha</string>
+    <string name="portfolio_tx_swap_received_amount">Méid faighte</string>
+    <string name="portfolio_tx_swap_received_coin">Bonn faighte</string>
+    <string name="portfolio_tx_swap_same_coin">Roghnaigh bonn difriúil ón gceann a tugadh</string>
+    <string name="portfolio_tx_swap_to">Babhtáil go %1$s</string>
+    <string name="portfolio_tx_swap_value">Luach na babhtála (roghnach)</string>
+    <string name="portfolio_tx_swap_value_hint">Luach iomlán. Folamh = anaithnid – fanann an gnóthachan neamhiomlán (go huathoibríoch le USDT sa bhabhtáil).</string>
+    <string name="portfolio_tx_third_fee_amount">Méid na táille</string>
+    <string name="portfolio_tx_third_fee_coin">Bonn na táille</string>
+    <string name="portfolio_tx_third_fee_incomplete">Gan phraghas, fágtar an táille as an mbunchostas agus as an bhfáltas; marcálann an easpórtáil chánach díolacháin den sórt sin.</string>
+    <string name="portfolio_tx_third_fee_price">Praghas in aghaidh bhonn na táille (roghnach)</string>
+    <string name="portfolio_tx_third_fee_toggle">Táille i mbonn eile</string>
+    <string name="portfolio_tx_total">Iomlán: %1$s</string>
+    <string name="portfolio_tx_transfer">Aistriú</string>
+    <string name="portfolio_tx_transfer_from">Ó (roghnach)</string>
+    <string name="portfolio_tx_transfer_to">Go (roghnach)</string>
+    <string name="portfolio_tx_transfer_to_hint">Malartán nó sparán – luacháilte ansin as seo amach.</string>
+    <string name="portfolio_tx_type_select">Cineál: %1$s</string>
+    <string name="portfolio_tx_value_received">Luach in aghaidh an bhoinn nuair a fuarthas é (roghnach)</string>
+    <string name="portfolio_tx_withdrawal">Aistarraingt</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">Ar thug tú uait é nó ar íoc tú leis? Taifead é mar “Bronntanas” nó “Íoctha leis” – ag brath ar an tír, áirítear é sin mar dhíolachán chun críocha cánach.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">Roghnach: luach margaidh in USDT, úsáidte don stair amháin (folamh = praghas an lae sin). Fágann na boinn i gcónaí ag a mbunchostas.</string>
+    <string name="portfolio_wallet_did_you_mean">An é %1$s a bhí i gceist agat? Comhairtear litriú difriúil mar sparán ar leith.</string>
+    <string name="portfolio_wallet_shortfall">Níl dóthain sealúchas in %1$s – aistriú ar iarraidh?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">Buaic %1$s</string>
+    <string name="portfolio_compare">Cuir i gcomparáid</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">Cuir %1$s agus USDT i gcomparáid i gcéatadáin</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">Comparáid i gcéatadáin, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">Éifeacht airgeadra: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">Ní théann sonraí praghais siar ach go Lúnasa 2017 — tosaíonn an stair ansin.</string>
+    <string name="portfolio_history_chip_since_first">Gach</string>
+    <string name="portfolio_history_collapse">Folaigh stair an luacha</string>
+    <string name="portfolio_history_converted">Tiontaithe ag ráta an lae inniu</string>
+    <string name="portfolio_history_expand">Taispeáin stair an luacha</string>
+    <string name="portfolio_history_gain_a11y">Luach %1$s. Gnóthachan/caillteanas, %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">Gnóthachan/caillteanas</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">Luach in %1$s</string>
+    <string name="portfolio_history_incl_fx">Ráta malairte san áireamh</string>
+    <string name="portfolio_history_incl_withdrawn">Áirítear athrú luacha na mbonn aistarraingthe</string>
+    <string name="portfolio_history_includes_trades">Áirítear ceannacháin agus díolacháin sa tréimhse seo</string>
+    <string name="portfolio_history_loading">Stair an luacha á lódáil</string>
+    <string name="portfolio_history_period_1y">1 bhliain</string>
+    <string name="portfolio_history_period_30d">30 lá</string>
+    <string name="portfolio_history_period_7d">7 lá</string>
+    <string name="portfolio_history_period_since_first">ón gcéad cheannach</string>
+    <string name="portfolio_history_pnl_needs_prices">Tá praghsanna ceannaigh ar iarraidh do ghnóthachan/caillteanas – cuir leis na hidirbhearta iad.</string>
+    <string name="portfolio_history_pnl_without">Gnóthachan/caillteanas gan %1$s (praghas ar iarraidh)</string>
+    <string name="portfolio_history_range_1y">1 B</string>
+    <string name="portfolio_history_range_30d">30 L</string>
+    <string name="portfolio_history_range_7d">7 L</string>
+    <string name="portfolio_history_range_a11y">Taispeáin stair do %1$s</string>
+    <string name="portfolio_history_range_since_first">Ón 1ú ceannach</string>
+    <string name="portfolio_history_scaled">Stair do %1$s: stair Binance scálaithe go praghas an mhalartáin</string>
+    <string name="portfolio_history_title">Stair an luacha</string>
+    <string name="portfolio_history_today">Inniu</string>
+    <string name="portfolio_history_too_short">Tosaíonn an stair tar éis do chéad lá iomláin.</string>
+    <string name="portfolio_history_unavailable">Níl stair ar fáil anois.</string>
+    <string name="portfolio_history_utc_days">Laethanta in UTC (coinnle laethúla)</string>
+    <string name="portfolio_history_without_matching">Gan %1$s (gan praghsanna laethúla meaitseála)</string>
+    <string name="portfolio_period_rewards">Luach saothair +%1$s (ní sa ghnóthachan)</string>
+    <string name="portfolio_period_scaled">7 L/1 B do %1$s: stair Binance scálaithe go praghas an mhalartáin</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">Foláireamh</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">Méid (%1$s)</string>
+    <string name="portfolio_alarm_hint">Seiceáilte tar éis gach athnuachana. Cosúil le foláirimh, spreagtar é nuair a thrasnaítear an marc agus arís ach amháin tar éis don luach bogadh ar ais.</string>
+    <string name="portfolio_alarm_kind_above">Punann os cionn méide</string>
+    <string name="portfolio_alarm_kind_below">Punann faoi mhéid</string>
+    <string name="portfolio_alarm_kind_down">Punann ag titim</string>
+    <string name="portfolio_alarm_kind_up">Punann ag ardú</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">Punann os cionn %1$s</string>
+    <string name="portfolio_alarm_sentence_below">Punann faoi %1$s</string>
+    <string name="portfolio_alarm_sentence_down">Punann síos %1$s (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">Punann suas %1$s (%2$s)</string>
+    <string name="portfolio_alarm_title">Foláireamh luacha punainne</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">Malartán (roghnach)</string>
+    <string name="ledger_exchange_failed">%1$s: gan phraghas ó %2$s anois – luacháilte le Binance.</string>
+    <string name="ledger_exchange_hint">Luacháiltear an bonn ag praghas an mhalartáin seo (nó Binance). Úsáideann stair, 7 L agus 1 B praghsanna laethúla Binance scálaithe chuige.</string>
+    <string name="ledger_exchange_mixed">%1$s: roinnt malartán curtha isteach – luacháilte le Binance. Ar bhog tú boinn? Taifead an bogadh mar “Aistriú”.</string>
+    <string name="ledger_exchange_none">Dada (Binance)</string>
+    <string name="ledger_fee">Táille (roghnach)</string>
+    <string name="ledger_fee_coin">Bonn</string>
+    <string name="ledger_fee_hint">In USDT ardaíonn sí an bunchostas (díol: laghdaíonn sí an fáltas); sa bhonn laghdaíonn sí an méid.</string>
+    <string name="ledger_fee_line">Táille %1$s</string>
+    <string name="ledger_fifo_cost_note">Ón gceannach: costas FIFO lena n-áirítear táillí (díoltar na boinn is sine ar dtús).</string>
+    <string name="ledger_gain_info">Inniu, 7 L, 1 B: athrú luacha thar an tréimhse – ní áirítear ceannacháin agus díolacháin mar ghnóthachan. Ón gceannach: luach reatha lúide bunchostas (meánchostas lena n-áirítear táillí) na mbonn atá agat fós.</string>
+    <string name="ledger_gain_info_a11y">Conas a ríomhtar gnóthachan agus caillteanas</string>
+    <string name="ledger_gain_info_fifo">Inniu, 7 L, 1 B: athrú luacha thar an tréimhse – ní áirítear ceannacháin agus díolacháin mar ghnóthachan. Ón gceannach: luach reatha lúide bunchostas (FIFO lena n-áirítear táillí) na mbonn atá agat fós.</string>
+    <string name="ledger_gain_title">Gnóthachan/caillteanas</string>
+    <string name="ledger_more_toggle">Táille agus malartán</string>
+    <string name="ledger_partial_cost">Ní chomhaireann “Ón gceannach” ach an chuid le praghas ceannaigh – gan %1$s nach bhfuil praghas ceannaigh acu.</string>
+    <string name="ledger_period_without">Inniu / 7 L / 1 B gan %1$s – gan phraghas tosaigh meaitseála.</string>
+    <string name="ledger_since_purchase_currency">Ón gceannach (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">Gnóthachan/caillteanas ón gceannach, gan díol fós</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="one">Gan %1$d bhonn nach bhfuil praghas ceannaigh aige (%2$s) – cuir an praghas leis ionas go gcomhairfear é.</item>
+        <item quantity="two">Gan %1$d bhonn nach bhfuil praghas ceannaigh acu (%2$s) – cuir na praghsanna leis ionas go gcomhairfear iad.</item>
+        <item quantity="few">Gan %1$d bhonn nach bhfuil praghas ceannaigh acu (%2$s) – cuir na praghsanna leis ionas go gcomhairfear iad.</item>
+        <item quantity="many">Gan %1$d mbonn nach bhfuil praghas ceannaigh acu (%2$s) – cuir na praghsanna leis ionas go gcomhairfear iad.</item>
+        <item quantity="other">Gan %1$d bonn nach bhfuil praghas ceannaigh acu (%2$s) – cuir na praghsanna leis ionas go gcomhairfear iad.</item>
+    </plurals>
+
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">Titim USDT – margadh ag %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">Ráta dollair USDT trí USDC/USDT – má thiteann USDC, tá an luach seo mícheart</string>
+    <string name="portfolio_amount_bridged_stable">≈ %1$s san áireamh (bridged)</string>
+
+    <string name="portfolio_tx_interest">Ús (iasachtú)</string>
+    <string name="portfolio_tx_interest_hint">Comhairtear mar ioncam é nuair a fhaightear é (an Ostair). Ná húsáid do luach saothair gealltóireachta ná do airdrops.</string>
+    <string name="app_lock_no_screen_lock">Socraigh glas scáileáin chun an phunann a oscailt.</string>
+    <string name="app_lock_turn_off_action">Múch glas na punainne</string>
+    <string name="app_lock_turn_off_confirm_title">Múch glas na punainne?</string>
+    <string name="app_lock_turn_off_confirm_message">Gan glas scáileáin ní féidir an phunann a dhíghlasáil. Nuair atá sé múchta, taispeánann an aip do phunann arís gan fiafraí. Nuair a bheidh glas scáileáin socraithe, is féidir leat an glas a chasadh air arís sna Socruithe.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">“Ón gceannach” agus bunchostas in %1$s: costas ag ráta malairte lá an cheannaigh, luach ag ráta an lae inniu.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">Gan ráta malairte do lá an cheannaigh (ar iarraidh ó “Ón gceannach” agus ón mbunchostas): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">Costas ar laethanta ceannaigh gan ráta dollair USDT comhairthe mar 1 dollar SAM in aghaidh an USDT.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">Staid %1$s – ní féidir an malartán a bhaint amach</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">Praghsanna laethúla: %1$s (in ionad Binance)</string>
+
+    <string name="portfolio_footer_short">Áis oibre, ní comhairle chánach ná infheistíochta. Príobháideachas: Socruithe › Maidir leis an aip › Polasaí príobháideachais.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">Scrios gach idirbheart de %1$s?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">Bainfear %d idirbheart. Is féidir leat é seo a aisiompú díreach ina dhiaidh.</item>
+        <item quantity="two">Bainfear %d idirbheart. Is féidir leat é seo a aisiompú díreach ina dhiaidh.</item>
+        <item quantity="few">Bainfear %d idirbheart. Is féidir leat é seo a aisiompú díreach ina dhiaidh.</item>
+        <item quantity="many">Bainfear %d n-idirbheart. Is féidir leat é seo a aisiompú díreach ina dhiaidh.</item>
+        <item quantity="other">Bainfear %d idirbheart. Is féidir leat é seo a aisiompú díreach ina dhiaidh.</item>
+    </plurals>
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">Baintear táillí a íocadh in %1$s d’idirbhearta eile freisin: %2$d.</string>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s bainte den phunann (%2$d idirbheart)</item>
+        <item quantity="two">%1$s bainte den phunann (%2$d idirbheart)</item>
+        <item quantity="few">%1$s bainte den phunann (%2$d idirbheart)</item>
+        <item quantity="many">%1$s bainte den phunann (%2$d n-idirbheart)</item>
+        <item quantity="other">%1$s bainte den phunann (%2$d idirbheart)</item>
+    </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">%d idirbheart bainte</item>
+        <item quantity="two">%d idirbheart bainte</item>
+        <item quantity="few">%d idirbheart bainte</item>
+        <item quantity="many">%d n-idirbheart bainte</item>
+        <item quantity="other">%d idirbheart bainte</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">Baineann sé seo %d bhaisc freisin.</item>
+        <item quantity="two">Baineann sé seo %d bhaisc freisin.</item>
+        <item quantity="few">Baineann sé seo %d bhaisc freisin.</item>
+        <item quantity="many">Baineann sé seo %d mbaisc freisin.</item>
+        <item quantity="other">Baineann sé seo %d baisc freisin.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">Baineann sé seo %d bhaisc agus an stair iarmhéide freisin.</item>
+        <item quantity="two">Baineann sé seo %d bhaisc agus an stair iarmhéide freisin.</item>
+        <item quantity="few">Baineann sé seo %d bhaisc agus an stair iarmhéide freisin.</item>
+        <item quantity="many">Baineann sé seo %d mbaisc agus an stair iarmhéide freisin.</item>
+        <item quantity="other">Baineann sé seo %d baisc agus an stair iarmhéide freisin.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">Baineann sé seo an stair iarmhéide freisin.</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">Níorbh fhéidir sábháil – bain triail eile as</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">Tairseach neamhbhailí – scrios agus cruthaigh arís</string>
+</resources>

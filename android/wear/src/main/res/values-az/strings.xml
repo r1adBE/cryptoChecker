@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Koin seçilməyib</string>
+    <string name="watch_loading">Yüklənir…</string>
+    <string name="watch_error">Birjalar əlçatan deyil</string>
+    <string name="watch_updated">Vəziyyət: %1$s</string>
+    <string name="watch_refresh">Yenilə</string>
+    <string name="watch_choose">Koin seç</string>
+    <string name="watch_choose_hint">Koinlər: maks. %1$d</string>
+    <string name="watch_complication_label">Qiymət</string>
+    <string name="a11y_watch_row">%1$s %2$s, 24 saatda %3$s</string>
+    <string name="watch_mode_phone">Siyahı: telefondakı kimi</string>
+    <string name="watch_mode_own">Siyahı: öz siyahın</string>
+    <string name="watch_phone_empty">Telefonda seçilmişlər yoxdur</string>
+    <string name="a11y_watch_outdated">Qiymət köhnəlib</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">son yenilənmə %1$d dəqiqə əvvəl</item>
+        <item quantity="other">son yenilənmə %1$d dəqiqə əvvəl</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">son yenilənmə %1$d saat əvvəl</item>
+        <item quantity="other">son yenilənmə %1$d saat əvvəl</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">son yenilənmə %1$d gün əvvəl</item>
+        <item quantity="other">son yenilənmə %1$d gün əvvəl</item>
+    </plurals>
+</resources>

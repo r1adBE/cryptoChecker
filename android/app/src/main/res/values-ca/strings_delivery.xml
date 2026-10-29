@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">Assegura\'t que arribin les alarmes</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">Correcte</string>
+    <string name="delivery_state_warn">Revisa-ho</string>
+    <string name="delivery_state_info">Nota</string>
+    <string name="delivery_allowed">Permès</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">Notificacions</string>
+    <string name="delivery_notifications_off">Desactivades – les alarmes no arribaran</string>
+    <string name="delivery_notifications_not_asked">Encara no permeses</string>
+    <string name="delivery_channel">Canal d\'alarmes</string>
+    <string name="delivery_channel_high">Importància alta – apareix a la pantalla</string>
+    <string name="delivery_channel_low">Importància baixa – les alarmes només apareixen en silenci a la llista</string>
+    <string name="delivery_channel_off">Desactivat – les alarmes no arribaran</string>
+    <string name="delivery_exact_on">Activat – aproximadament cada 15 minuts</string>
+    <string name="delivery_exact_off">Desactivat – Android comprova de manera irregular</string>
+    <string name="delivery_battery">Optimització de la bateria</string>
+    <string name="delivery_battery_unrestricted">Sense restriccions</string>
+    <string name="delivery_battery_optimized">Optimitzada – Android pot endarrerir les comprovacions. L\'app no demana cap excepció; ho pots canviar a la configuració de bateria de l\'app.</string>
+    <string name="delivery_background">Ús en segon pla</string>
+    <string name="delivery_background_restricted">Restringit – Android atura les comprovacions en segon pla</string>
+    <string name="delivery_dnd">No molestis</string>
+    <string name="delivery_dnd_on">Activat – les alarmes poden arribar sense so</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">Actiu fins a les %1$s – les alarmes pendents esperen fins llavors</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – les alarmes pendents esperen durant aquest temps</string>
+    <string name="delivery_last_check">Última comprovació en segon pla</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – fa més de 6 hores</string>
+    <string name="delivery_last_check_never">Encara cap</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">Permet</string>
+    <string name="delivery_action_change">Canvia</string>
+    <string name="delivery_action_show">Mostra</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">Bàners i so</string>
+    <string name="delivery_alert_off">Bàners desactivats – les alarmes només apareixen al Centre de notificacions</string>
+    <string name="delivery_sound_off">So desactivat – les alarmes arriben en silenci</string>
+    <string name="delivery_time_sensitive">Notificacions urgents</string>
+    <string name="delivery_time_sensitive_off">Desactivades – un mode de concentració pot retenir les alarmes</string>
+    <string name="delivery_background_refresh">Actualització en segon pla</string>
+    <string name="delivery_low_power">Mode de consum baix</string>
+    <string name="delivery_swipe_away">Has tancat l\'app lliscant?</string>
+    <string name="delivery_swipe_away_note">Si tanques l\'app lliscant-la al selector d\'apps, l\'iOS atura les comprovacions en segon pla fins que la tornis a obrir.</string>
+    <string name="delivery_live_activity">Activitat en directe</string>
+    <string name="delivery_live_activity_note">Mostra el preu a la pantalla de bloqueig, però només s\'actualitza quan l\'app comprova – no fa que les alarmes es comprovin més sovint.</string>
+
+    <string name="alarm_first_check">Comprova que arribin les alarmes</string>
+
+    <string name="oem_battery_title">Estalvi de bateria del fabricant</string>
+    <string name="oem_battery_xiaomi">Xiaomi pot aturar l\'app completament – llavors no arriba cap alarma. Activa «Inici automàtic» i posa l\'estalvi de bateria a «Sense restriccions».</string>
+    <string name="oem_battery_samsung">Samsung pot posar l\'app en suspensió profunda – llavors no arriba cap alarma. A Bateria › Límits d\'ús en segon pla, afegeix-la a «Aplicacions que no entren mai en repòs».</string>
+    <string name="oem_battery_huawei">Huawei/Honor pot aturar l\'app – llavors no arriba cap alarma. A Bateria › Inici d\'aplicacions, tria «Gestiona manualment» i permet totes les opcions.</string>
+    <string name="oem_battery_oneplus">OnePlus pot aturar l\'app – llavors no arriba cap alarma. Permet «Inici automàtic» i, a Ús de la bateria, l\'activitat en segon pla.</string>
+    <string name="oem_battery_oppo">Oppo/Realme pot aturar l\'app – llavors no arriba cap alarma. Permet «Inici automàtic» i, a Ús de la bateria, l\'activitat en segon pla.</string>
+    <string name="oem_battery_vivo">Vivo pot aturar l\'app – llavors no arriba cap alarma. Permet «Inici automàtic» i, a Bateria, un consum alt en segon pla.</string>
+    <string name="alarm_reliability_stale">Última comprovació %1$s – les alarmes poden arribar tard</string>
+    <string name="alarm_reliability_never">Alarmes activades – encara no hi ha hagut cap comprovació en segon pla</string>
+    <string name="alarm_reliability_notifications_off">Notificacions desactivades – les alarmes no arribaran</string>
+    <string name="alarm_reliability_battery">L\'estalvi de bateria pot aturar les comprovacions d\'alarmes</string>
+    <string name="alarm_reliability_background_refresh">Actualització en segon pla desactivada – és possible que no arribin les alarmes</string>
+</resources>

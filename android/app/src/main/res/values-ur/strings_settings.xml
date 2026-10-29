@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">حسبِ منشا</string>
+    <string name="settings_group_general">عمومی</string>
+    <string name="settings_group_more">مزید</string>
+    <string name="settings_minutes">%1$d منٹ</string>
+    <string name="settings_row_about">ایپ کے بارے میں</string>
+    <string name="settings_row_alarms">الرٹس</string>
+    <string name="settings_row_currency">کرنسی</string>
+    <string name="settings_row_dated_futures">میعادی فیوچرز</string>
+    <string name="settings_row_updates">قیمت کی اپ ڈیٹس</string>
+    <string name="settings_row_watchlist">واچ لسٹ</string>
+    <string name="settings_search_hint">ترتیبات تلاش کریں</string>
+    <string name="settings_seconds">%1$d سیکنڈ</string>
+    <string name="settings_section_about">بارے میں</string>
+    <string name="settings_section_appearance">ظاہری شکل</string>
+    <string name="settings_section_developer">ڈیولپر</string>
+    <string name="settings_section_language">زبان</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">آن</string>
+    <string name="settings_title">ترتیبات</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">الرٹ دوبارہ چلنے سے پہلے وقفہ</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">الرٹ کا سگنل</string>
+    <string name="settings_alarm_signal_open_system">سسٹم کی ترتیبات میں بدلیں</string>
+    <string name="settings_alarm_signal_system_hint">آپ کے فون کی اطلاعات کی ترتیبات کی پیروی کرتا ہے۔</string>
+    <string name="settings_alarm_sound">الرٹ کی آواز</string>
+    <string name="settings_alarm_sound_custom">حسبِ منشا آواز</string>
+    <string name="settings_alarm_sound_default">ڈیفالٹ آواز</string>
+    <string name="settings_alarm_sound_error">آواز استعمال نہیں ہو سکی۔</string>
+    <string name="settings_alarm_sound_file">آپ کی اپنی آڈیو فائل…</string>
+    <string name="settings_alarm_sound_reset">ڈیفالٹ آواز استعمال کریں</string>
+    <string name="settings_alarm_sound_system">سسٹم کی آواز منتخب کریں…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">ایپ آئیکن پر نمبر</string>
+    <string name="settings_app_badge_hint">کھلی الرٹ اطلاعات گنتا ہے۔ نمبر دکھے یا نقطہ، یہ ہوم اسکرین پر منحصر ہے (مثلاً Samsung: “نمبر کے ساتھ دکھائیں”)۔</string>
+    <string name="settings_exact_checks">بروقت جانچ</string>
+    <string name="settings_exact_checks_grant">الارمز اور یاد دہانیوں کی اجازت دیں</string>
+    <string name="settings_exact_checks_hint">آلہ بیکار ہو تب بھی Android تقریباً ہر 15 منٹ میں جانچتا ہے۔ تھوڑی زیادہ بیٹری استعمال ہوتی ہے۔</string>
+    <string name="settings_exact_checks_nothing">کوئی فعال جوڑا نہیں – جانچنے کو کچھ نہیں۔</string>
+    <string name="settings_exact_checks_permission_missing">اجازت نہیں – آلہ آرام میں ہو تو Android بے قاعدگی سے جانچتا ہے، کبھی کبھی گھنٹوں بعد۔</string>
+    <string name="settings_notification_change">صرف قیمت بدلنے پر اطلاع دیں</string>
+    <string name="settings_notification_change_always">ہمیشہ</string>
+    <string name="settings_percent_invalid">0 سے 100 تک کوئی قدر درج کریں۔</string>
+    <string name="settings_notification_change_hint">قیمت کی اطلاع صرف تب آتی ہے جب پچھلی اطلاع کے بعد قیمت کم از کم اتنی بدلی ہو۔ ڈیٹا موجود نہ ہو تو کچھ نہیں دکھایا جاتا۔ الرٹس پر اثر نہیں۔</string>
+    <string name="settings_ongoing_notifications">سوائپ کر کے نہیں ہٹائی جا سکتیں</string>
+    <string name="settings_ongoing_notifications_hint">قیمت کی اطلاعات کو پن رکھتا ہے۔</string>
+    <string name="settings_price_notifications">قیمت کی اطلاعات</string>
+    <string name="settings_price_notifications_hint">فعال جوڑوں کی موجودہ قیمت اسٹیٹس بار میں دکھائیں۔</string>
+    <string name="settings_price_pairs">جوڑے</string>
+    <string name="settings_price_pairs_all_off">سب بند</string>
+    <string name="settings_price_pairs_all_on">سب آن</string>
+    <string name="settings_price_pairs_count">%2$d میں سے %1$d</string>
+    <string name="settings_price_pairs_empty">واچ لسٹ میں ابھی کوئی جوڑا نہیں۔</string>
+    <string name="settings_price_pairs_hint">منتخب کریں کہ کون سے جوڑے اپنی قیمت نوٹیفکیشن بار میں دکھائیں۔</string>
+    <string name="settings_quiet_hours">خاموش اوقات</string>
+    <string name="settings_quiet_hours_from">سے</string>
+    <string name="settings_quiet_hours_hint">%1$s اور %2$s کے درمیان الرٹس خاموش اوقات ختم ہونے تک انتظار کرتے ہیں اور پھر آواز کے ساتھ بجتے ہیں۔ دیگر اطلاعات خاموشی سے آتی ہیں، بغیر بولے۔</string>
+    <string name="settings_quiet_hours_to">تک</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">وقفہ</string>
+    <string name="settings_background_updates">پس منظر میں اپ ڈیٹس</string>
+    <string name="settings_battery_hint">محدود کا مطلب ہے Android پس منظر کی اپ ڈیٹس میں گھنٹوں کی تاخیر کر سکتا ہے۔</string>
+    <string name="settings_battery_ok">بیٹری کا استعمال: غیر محدود</string>
+    <string name="settings_battery_restricted">بیٹری کا استعمال: محدود</string>
+    <string name="settings_check_runs_empty">ابھی تک کوئی جانچ ریکارڈ نہیں ہوئی۔</string>
+    <string name="settings_check_runs_honest_android">کب جانچنا ہے یہ Android طے کرتا ہے – یہاں نظر آتا ہے کہ اصل میں کب ہوا۔</string>
+    <string name="settings_check_runs_honest_ios">کب جانچنا ہے یہ iOS طے کرتا ہے – یہاں نظر آتا ہے کہ اصل میں کب ہوا۔</string>
+    <string name="settings_check_runs_title">حالیہ جانچیں</string>
+    <string name="settings_http_log">HTTP لاگ دکھائیں</string>
+    <string name="settings_http_log_hint">“جوڑا شامل کریں” صفحے کے نیچے ایکسچینجز کو بھیجی گئی درخواستیں دکھاتا ہے – خرابی دور کرنے کے لیے۔</string>
+    <string name="settings_live_service">کثرت سے اپ ڈیٹ کریں</string>
+    <string name="settings_live_websocket">لائیو قیمتیں</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">قابلِ ذکر: اطلاع دیں</string>
+    <string name="settings_activity_alerts_hint">فی جوڑا زیادہ سے زیادہ گھنٹے میں ایک بار: غیر معمولی قیمت کی حرکتیں، والیوم میں اچانک اضافہ اور فیوچرز کی انتہائیں (Binance کا ڈیٹا)۔</string>
+    <string name="settings_activity_sensitivity">حساسیت</string>
+    <string name="settings_activity_sensitivity_hint">کوئی کوائن کتنی آسانی سے غیر معمولی شمار ہو – واچ لسٹ کارڈ اور مارکیٹ الرٹس دونوں کے لیے یکساں۔ “کم” کے ساتھ کارڈ صرف سب سے نمایاں 3 دکھاتا ہے۔</string>
+    <string name="settings_watchlist_activity_card">قابلِ ذکر: فہرست میں دکھائیں</string>
+    <string name="settings_watchlist_activity_card_hint">گروپس کے ساتھ ⚡ چپ دکھاتا ہے: ٹیپ کرنے پر صرف وہ جوڑے نظر آتے ہیں جہاں ابھی کچھ ہو رہا ہے۔ اس کی اطلاعات مارکیٹ الرٹس کے تحت سیٹ ہوتی ہیں۔</string>
+    <string name="settings_watchlist_names">نام دکھائیں</string>
+    <string name="settings_watchlist_names_hint">جوڑے کے نیچے نام، مثلاً Bitcoin یا NVIDIA۔ لوگو فہرستوں کے ساتھ آتا ہے، تمام کوائنز کے لیے ایک بار لوڈ ہوتا ہے۔</string>
+    <string name="settings_watchlist_sparkline">واچ لسٹ میں منی چارٹ</string>
+    <string name="settings_watchlist_sparkline_hint">قیمت کے ساتھ 24 گھنٹے کا رجحان</string>
+    <string name="settings_watchlist_value_names">نام</string>
+    <string name="settings_watchlist_value_price_only">صرف قیمت</string>
+    <string name="settings_watchlist_value_sparkline">منی چارٹ</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Alpha ٹوکنز سمیت (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Alpha ٹوکنز: Binance Alpha فہرست کے ابتدائی، زیادہ تر چھوٹے منصوبے – اکثر کم ٹریڈ ہونے والے اور بہت غیر مستحکم۔</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">ٹوکنز کا حصہ ہے۔ “صرف TradFi” منتخب ہو تو دستیاب نہیں؛ آپ کی واچ لسٹ میں پہلے سے موجود Alpha ٹوکنز باقی رہتے ہیں۔</string>
+    <string name="settings_asset_scope_both">ٹوکنز اور TradFi</string>
+    <string name="settings_asset_scope_both_hint">سب کچھ – کرپٹو اور TradFi</string>
+    <string name="settings_asset_scope_hint">طے کرتا ہے کہ جوڑے شامل کرتے وقت انتخاب اور تلاش میں کون سے جوڑے نظر آئیں۔ آپ کی واچ لسٹ میں پہلے سے موجود جوڑے ہمیشہ رہتے ہیں۔</string>
+    <string name="settings_asset_scope_title">ٹوکنز اور TradFi</string>
+    <string name="settings_asset_scope_tokens">صرف ٹوکنز</string>
+    <string name="settings_asset_scope_tokens_hint">کرپٹو: اسپاٹ اور پرپیچوئلز</string>
+    <string name="settings_asset_scope_tradfi">صرف TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">حصص، اجناس، FX پر فیوچرز – کنٹریکٹس، ٹوکنز نہیں</string>
+    <string name="settings_rolling_futures">سہ ماہی اور دیگر میعادی فیوچرز سمیت</string>
+    <string name="settings_rolling_futures_hint">بند: ایکسچینج کی فہرست سے غائب میعادی فیوچرز کو ایک ایک کر کے جانچنے کے بجائے اب ٹریڈ نہ ہونے والے کے طور پر نشان زد کیا جاتا ہے۔ ہر ریفریش پر وقت بچاتا ہے۔</string>
+    <string name="settings_rolling_futures_qtly">سہ ماہی اور دیگر میعادی فیوچرز سمیت (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">ٹوکنز کا حصہ ہے۔ “صرف TradFi” منتخب ہو تو دستیاب نہیں؛ آپ کی واچ لسٹ میں پہلے سے موجود میعادی فیوچرز پر پھر بھی لاگو ہوتا ہے۔</string>
+    <string name="settings_tradfi_futures">حصص، اجناس اور FX (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">جوڑا منتخب کرتے وقت حصص، سونا اور دیگر اجناس، کرنسیوں اور پری IPO کمپنیوں کے فیوچرز بھی دکھاتا ہے۔ یہ کنٹریکٹس ہیں، ٹوکنز نہیں۔</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">نمایاں رنگ</string>
+    <string name="settings_accent_hint">ایپ، ویجیٹس اور ایپ آئیکن کا رنگ۔ کچھ ہوم اسکرینز بدلنے پر آئیکن ہٹا دیتی ہیں – پھر اسے دوبارہ شامل کریں۔</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">کوائن لوگوز</string>
+    <string name="settings_coin_logos_app">ایپ میں</string>
+    <string name="settings_coin_logos_app_hint">واچ لسٹ، کھلا جوڑا اور مارکیٹ کارڈز</string>
+    <string name="settings_coin_logos_footer">لوگوز CoinGecko سے آتے ہیں، اور جو کوائنز CoinGecko پر نہیں (مثلاً سونا، چاندی، حصص) ان کے لیے Binance سے۔ ایپ تمام لوگوز ایک ساتھ لوڈ کر کے اس آلے پر رکھتی ہے، اس لیے کوئی فراہم کنندہ نہیں جان سکتا کہ کون سے کوائنز فالو کیے جا رہے ہیں۔ بغیر لوگو والے کوائنز اپنے ابتدائی حروف دکھاتے ہیں۔ پسندیدہ کوائنز کے لوگو پر ایک چھوٹا ستارہ ہوتا ہے۔ جہاں سوئچ بند ہو وہاں نہ لوگو نظر آتا ہے نہ ابتدائی حروف؛ تمام سوئچ بند ہوں تو کچھ بھی لوڈ نہیں ہوتا۔</string>
+    <string name="settings_coin_logos_portfolio">پورٹ فولیو میں</string>
+    <string name="settings_coin_logos_portfolio_hint">پوزیشنز، کوائن کی تفصیلات اور جائزے</string>
+    <string name="settings_coin_logos_value_app">ایپ</string>
+    <string name="settings_coin_logos_widgets">ویجیٹس میں</string>
+    <string name="settings_coin_logos_widgets_hint">واچ لسٹ اور ایک کوائن والے ویجیٹس</string>
+    <string name="settings_high_contrast">زیادہ کنٹراسٹ</string>
+    <string name="settings_high_contrast_hint">قیمت کے زیادہ گہرے رنگ اور زیادہ گہرا ثانوی متن۔ سسٹم زیادہ کنٹراسٹ مانگے تو بھی آن ہوتا ہے۔</string>
+    <string name="settings_language_choose">زبان منتخب کریں</string>
+    <string name="settings_language_system">سسٹم کی زبان</string>
+    <string name="settings_price_colors">قیمت کے رنگ</string>
+    <string name="settings_price_colors_hint">نیلا / نارنجی ہر قسم کی رنگ کوری (سرخ سبز اور نیلا پیلا) میں آسانی سے الگ پہچانا جاتا ہے۔ سمت ہمیشہ + / − سے بھی دکھائی جاتی ہے۔</string>
+    <string name="settings_theme_mode">روشن / تاریک</string>
+    <string name="settings_widgets">ویجیٹس</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">%1$s تبدیلی اور چارٹ کا ٹائم زون</string>
+    <string name="settings_change_basis_hint_1">منتخب ٹائم زون طے کرتا ہے کہ فیصد تبدیلی کب سے شمار ہو (واچ لسٹ، پلس لائن، کھلا جوڑا، ویجیٹس) اور چارٹس میں دکھائے گئے اوقات۔</string>
+    <string name="settings_change_basis_hint_2">“%1$s” بالکل 24 گھنٹے پہلے کی قیمت سے موازنہ کرتا ہے۔ “00:00” اس ٹائم زون میں آدھی رات کی ابتدائی قیمت سے موازنہ کرتا ہے۔</string>
+    <string name="settings_change_basis_hint_3">الرٹس پر اثر نہیں۔</string>
+    <string name="settings_change_basis_hint_since_last">“%1$s” پچھلی اپ ڈیٹ کی قیمت سے موازنہ کرتا ہے۔ لائیو قیمتوں کے ساتھ یہ 0%% کے قریب رہتا ہے۔</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">تبادلے کی کرنسی</string>
+    <string name="settings_conversion_currency_hint">پورٹ فولیو، آپ کی کرنسی میں الرٹس، کرپٹو مارکیٹ کارڈ اور پورٹ فولیو ویجیٹ کے لیے بھی استعمال ہوتی ہے۔</string>
+    <string name="settings_cost_method">لاگت کا طریقہ</string>
+    <string name="settings_cost_method_average">اوسط لاگت</string>
+    <string name="settings_cost_method_average_hint">فروخت متحرک اوسط قیمتِ خرید پر جانچی جاتی ہے۔</string>
+    <string name="settings_cost_method_fifo">FIFO (ڈیفالٹ)</string>
+    <string name="settings_cost_method_fifo_hint">تمام ایکسچینجز اور والیٹس میں سب سے پرانے کوائنز پہلے فروخت ہوتے ہیں۔</string>
+    <string name="settings_cost_method_fifo_wallet">فی والیٹ/ایکسچینج FIFO</string>
+    <string name="settings_cost_method_fifo_wallet_hint">ہر ایکسچینج یا والیٹ کے اندر سب سے پرانے کوائنز پہلے؛ ٹرانسفرز لاٹس کو ان کی تاریخِ خرید کے ساتھ منتقل کرتے ہیں۔</string>
+    <string name="settings_portfolio_lock">پورٹ فولیو لاک</string>
+    <string name="settings_portfolio_lock_footer">لاک اسکرین پر نظر آنے والی چیزیں چھپاتا ہے۔ آپ کا ڈیٹا اس آلے پر محفوظ ہے اور آلے کی انکرپشن سے محفوظ ہے۔ بیک اپس کو پاس ورڈ سے محفوظ کیا جا سکتا ہے۔</string>
+    <string name="settings_portfolio_lock_hint">صرف پورٹ فولیو چھپاتا ہے: فنگر پرنٹ، چہرے یا آلے کے PIN سے ان لاک کریں۔ پس منظر میں ایک منٹ سے زیادہ رہنے پر دوبارہ لاک ہو جاتا ہے۔ واچ لسٹ، الرٹس اور دیگر ویجیٹس کھلے رہتے ہیں۔</string>
+    <string name="settings_portfolio_lock_no_device_lock">آلے کے PIN یا پاس کوڈ کے بغیر لاک کچھ نہیں چھپاتا – اسکرین لاک سیٹ کریں۔</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">سسٹم بیک اپ میں پورٹ فولیو</string>
+    <string name="settings_portfolio_system_backup_hint">بند: آپ کے لین دین آلے کے سسٹم بیک اپ اور فون سے فون منتقلی سے باہر رہتے ہیں۔ انہیں نئے فون پر لے جانے کے لیے پاس ورڈ کے ساتھ ایپ کا اپنا بیک اپ استعمال کریں۔</string>
+    <string name="settings_portfolio_system_backup_unavailable">Android 9 یا بعد کا درکار – پرانے ورژن پورٹ فولیو کو Google بیک اپ میں بغیر انکرپشن کے محفوظ کرتے۔</string>
+    <string name="settings_portfolio_tab">پورٹ فولیو ٹیب دکھائیں</string>
+    <string name="settings_portfolio_value_locked">آن، لاک کے ساتھ</string>
+    <string name="settings_show_converted">تبدیل شدہ قیمتیں</string>
+    <string name="settings_show_converted_hint">واچ لسٹ میں قیمتیں %1$s میں بھی دکھاتا ہے</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">USDT ڈی پیگ کی اطلاع دیں</string>
+    <string name="settings_depeg_alarm_hint">جب USDT حد کے مطابق 1 USD سے ہٹے تو ایک بار اطلاع دیتا ہے (Kraken USDT/USD، Coinbase USDT/USD، Binance USDC/USDT)۔</string>
+    <string name="settings_depeg_threshold">ڈی پیگ کی حد</string>
+    <string name="settings_fng_above">Fear &amp; Greed: اس سے اوپر اطلاع دیں</string>
+    <string name="settings_fng_below">Fear &amp; Greed: اس سے نیچے اطلاع دیں</string>
+    <string name="settings_gas_alert_hint">جب عام فیس حد سے نیچے آئے تو ایک بار اطلاع دیتا ہے۔ قیمت کی اپ ڈیٹس کے دوران جانچا جاتا ہے، زیادہ سے زیادہ ہر 10 منٹ میں۔</string>
+    <string name="settings_gas_btc_below">Bitcoin فیس اس سے نیچے (sat/vB)</string>
+    <string name="settings_gas_eth_below">Ethereum گیس اس سے نیچے (gwei)</string>
+    <string name="settings_ind_ath_within">ہمہ وقتی بلند ترین سطح سے کمی زیادہ سے زیادہ</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple اس سے اوپر</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple اس سے نیچے</string>
+    <string name="settings_ind_mvrv_above">MVRV اس سے اوپر</string>
+    <string name="settings_ind_mvrv_below">MVRV اس سے نیچے</string>
+    <string name="settings_indicator_alerts_hint">Bitcoin اشاریے، دن میں دو بار جانچے جاتے ہیں۔ حدیں آپ خود منتخب کریں – ایپ قدروں کی درجہ بندی نہیں کرتی۔</string>
+    <string name="settings_macro_notifications">معاشی کیلنڈر</string>
+    <string name="settings_macro_notifications_hint">اہم امریکی معاشی ڈیٹا والے دنوں میں 08:00 بجے (افراطِ زر، روزگار رپورٹ، فیڈ کا فیصلہ)۔ کیلنڈر ایپ کی ویب سائٹ سے آتا ہے، دن میں ایک بار لوڈ ہوتا ہے۔</string>
+    <string name="settings_market_alerts">مارکیٹ الرٹس</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d فعال</item>
+        <item quantity="other">%1$d فعال</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">بولنے کی رفتار: %1$.1f×</string>
+    <string name="settings_tts">بول کر سنانا</string>
+    <string name="settings_tts_alarms_only">صرف الرٹس</string>
+    <string name="settings_tts_alarms_only_hint">بند: “قیمت بول کر سنائیں” والے جوڑے کی ہر اپ ڈیٹ بلند آواز میں پڑھی جاتی ہے۔</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">قیمتیں اور الرٹس بلند آواز میں پڑھتا ہے۔ آلہ خاموش یا وائبریٹ موڈ میں ہو تو خاموش رہتا ہے۔</string>
+    <string name="settings_tts_test">آواز آزمائیں</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">ایپ ری سیٹ کریں</string>
+    <string name="settings_reset_app_action">سب کچھ حذف کریں</string>
+    <string name="settings_reset_app_confirm">واچ لسٹ، الرٹس، پورٹ فولیو، ترتیبات اور تمام محفوظ ڈیٹا حذف کر دیتا ہے، جیسے انسٹال کرنے کے بعد۔ یہ کالعدم نہیں ہو سکتا۔ مشورہ: پہلے بیک اپ بنائیں۔ آلے کے بیک اپس (Google بیک اپ یا iCloud/کمپیوٹر بیک اپ) اگلا بیک اپ چلنے تک پچھلا ڈیٹا رکھتے ہیں۔</string>
+    <string name="settings_reset_app_title">ایپ ری سیٹ کریں؟</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">کرنسی تلاش کریں</string>
+    <string name="language_search">زبان تلاش کریں</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">تاریک</string>
+    <string name="theme_light">روشن</string>
+    <string name="theme_system">سسٹم</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">نیلا</string>
+    <string name="accent_green">سبز</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">مارز گرین</string>
+    <string name="accent_orange">نارنجی</string>
+    <string name="accent_red">سرخ</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">چین، جاپان، کوریا اور تائیوان میں عام</string>
+    <string name="price_colors_swap">رنگ بدلیں (اضافہ ↔ کمی)</string>
+    <string name="price_style_calm">پرسکون</string>
+    <string name="price_style_calm_color_vision">پرسکون · رنگ کوری</string>
+    <string name="price_style_color_vision">رنگ کوری</string>
+    <string name="price_style_fresh">تازہ</string>
+    <string name="price_style_traditional">روایتی</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">ایکسچینج کنکشنز آخری بار اصل جوابات کے مقابلے میں جانچے گئے: %1$s</string>
+    <string name="about_license">قیمتیں براہِ راست ایکسچینجز سے آتی ہیں؛ کوئی اکاؤنٹ نہیں اور کوئی ٹریکنگ نہیں۔</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">لائسنس</string>
+    <string name="about_privacy_policy">رازداری کی پالیسی</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">کسی ایکسچینج کی درخواست کریں</string>
+    <string name="about_source_code">GitHub پر سورس کوڈ</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker، r1AD کا ایک آزاد منصوبہ ہے: اکاؤنٹ، اشتہارات یا ٹریکنگ کے بغیر قیمتوں کا ایک پرسکون جائزہ۔ سوالات اور خواہشات: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker اوپن سورس ہے (MIT License)۔</string>
+    <string name="licenses_font_title">Rubik ٹائپ فیس</string>
+    <string name="licenses_icons_bundled_text">ایپ کے ساتھ شامل: Christopher Downer اور معاونین کے “Cryptocurrency Icons” سے آئیکنز (github.com/spothq/cryptocurrency-icons)، CC0 1.0 Universal کے تحت جاری۔ یہ تب تک دکھائے جاتے ہیں جب تک CoinGecko یا Binance کے لوگوز لوڈ نہ ہوں۔ نام اور لوگوز اپنے منصوبوں کے ٹریڈ مارکس رہتے ہیں۔</string>
+    <string name="licenses_icons_title">متبادل کوائن آئیکنز</string>
+    <string name="licenses_libraries_intro">ایپ یہ لائبریریاں Apache License 2.0 کے تحت استعمال کرتی ہے:</string>
+    <string name="licenses_libraries_title">Android لائبریریاں</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">ڈیولپر آپشنز ان لاک کرنے کے لیے %d مزید ٹیپ</item>
+        <item quantity="other">ڈیولپر آپشنز ان لاک کرنے کے لیے %d مزید ٹیپس</item>
+    </plurals>
+    <string name="developer_unlocked">ڈیولپر آپشنز ان لاک ہو گئے</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">وائبریشن iPhone کی ترتیبات کی پیروی کرتی ہے (آوازیں اور ہیپٹکس)۔</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">نئے الرٹس اور مارکیٹ الرٹس گنتا ہے؛ ایپ کھولنے پر واپس 0 ہو جاتا ہے۔</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">آپ کا ڈیٹا</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">اس آلے پر</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">آپ کی واچ لسٹ، الرٹس اور پورٹ فولیو اس آلے پر انکرپٹ کر کے محفوظ ہیں؛ کوئی اکاؤنٹ نہیں، ہمارا اپنا کوئی سرور نہیں۔</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">کنکشنز</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">قیمتیں براہِ راست آپ کے جوڑوں کے ایکسچینجز سے آتی ہیں، ساتھ ہی شرح تبادلہ، کوائن فہرستیں اور لوگوز اور GitHub پر ڈیٹا مرر؛ یہ آپ کا IP پتہ دیکھتے ہیں، کبھی آپ کی ہولڈنگز نہیں (زیرِ نگرانی پتے متعلقہ نیٹ ورک کے فراہم کنندہ کو جاتے ہیں)۔</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">بیک اپ</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">صرف اگر آپ بنائیں۔ پاس ورڈ کے ساتھ یہ انکرپٹ شدہ ہے (Argon2id + AES-256-GCM)؛ اس کے بغیر پڑھا جا سکتا ہے۔</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">آلہ بدلنا</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">کی پرانے آلے پر ہی رہتی ہے – پہلے بیک اپ فائل بنائیں۔</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">تشخیصی معلومات شیئر کریں</string>
+    <string name="diagnostics_share_hint">سپورٹ کے لیے ٹیکسٹ فائل: ورژن، آلہ، الرٹ کی ترتیبات، حالیہ جانچیں اور الرٹ لاگ – پورٹ فولیو، رقوم، پتوں یا نوٹس کے بغیر۔ یہ پہلے آپ کو دکھائی جاتی ہے؛ کچھ بھی خودکار طور پر نہیں بھیجا جاتا۔</string>
+    <string name="diagnostics_preview_title">تشخیصی معلومات کا پیش منظر</string>
+    <string name="diagnostics_action_share">شیئر کریں</string>
+    <string name="settings_price_overlay">قیمت اوورلے</string>
+    <string name="settings_price_overlay_hint">مستقل قیمت کی اطلاع والے جوڑوں کو دوسری ایپس کے اوپر ایک چھوٹی تیرتی پِل کے طور پر دکھاتا ہے۔ ایپ کھولنے کے لیے ٹیپ کریں، بند کرنے کے لیے نیچے × تک گھسیٹیں۔</string>
+    <string name="settings_price_overlay_needs">صرف «%1$s» کے ساتھ کام کرتا ہے۔</string>
+    <string name="settings_price_overlay_grant">دوسری ایپس کے اوپر دکھانے کی اجازت دیں</string>
+    <string name="price_overlay_close">اوورلے بند کریں</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">پتوں کے لیے اپنا سرور</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">صرف Bitcoin: آپ کا اپنا Esplora یا mempool سے مطابقت رکھنے والا سرور (مثلاً https://node.example/api، عوامی طور پر قابلِ اعتماد سرٹیفکیٹ درکار، جیسے Let\'s Encrypt)۔ سیٹ ہو تو Bitcoin پتے اور xpub کیز صرف وہیں طلب کی جاتی ہیں – کبھی عوامی نوڈز پر نہیں، تب بھی نہیں جب آپ کا سرور دستیاب نہ ہو۔ دوسرے نیٹ ورکس عوامی نوڈز ہی استعمال کرتے ہیں۔ خالی = عوامی نوڈز۔</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Bitcoin سرور (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">ٹیسٹ</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">ٹیسٹ ہو رہا ہے…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">سرور جواب دے رہا ہے – بلاک %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">کوئی درست جواب نہیں – پتہ اور سرٹیفکیٹ چیک کریں</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">زیرِ استعمال: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">سیٹ نہیں – عوامی نوڈز استعمال ہوتے ہیں</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">صرف https:// پتوں کی اجازت ہے</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">پتے میں صارف نام یا پاس ورڈ نہ ہو</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">پتے میں ? یا # والا حصہ نہ ہو</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">درست سرور پتہ نہیں</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">عوامی نوڈز پر جائیں؟</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">آپ کے Bitcoin پتے اور xpub کیز پھر عوامی نوڈز پر طلب کی جائیں گی: %1$s۔ وہ یہ پتے آپ کے IP پتے کے ساتھ دیکھتے ہیں۔</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">عوامی نوڈز استعمال کریں</string>
+</resources>

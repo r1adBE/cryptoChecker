@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">ያለ የወጪ መሠረት ያሉ ግቤቶች፦ %1$d</string>
+    <string name="cost_gaps_card_text">ትርፎችና ግብሮች የተሟሉ እንዲሆኑ የወጪ መሠረቱን ያክሉ።</string>
+    <string name="cost_gaps_sheet_title">ያለ የወጪ መሠረት ያሉ ግቤቶች</string>
+    <string name="cost_gaps_sheet_intro">እነዚህ ገቢዎች የወጪ መሠረት የላቸውም። ጥቆማው የቀኑ ዕለታዊ መዝጊያ ነው – በግቤቱ ውስጥ ማስተካከል ይችላሉ።</string>
+    <string name="cost_gaps_empty">ሁሉም ግቤቶች የወጪ መሠረት አላቸው።</string>
+    <string name="cost_gap_enter">የወጪ መሠረት ያስገቡ</string>
+    <string name="cost_gap_leave_unknown">ሳይታወቅ ይተዉት</string>
+    <string name="cost_gap_left_unknown">ሳይታወቅ ቀርቷል</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">ጥቆማ፦ ዕለታዊ መዝጊያ %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">ለዚህ ቀን የተረጋገጠ ዕለታዊ መዝጊያ የለም</string>
+    <string name="cost_gap_suggestion_loading">ዕለታዊ መዝጊያን በመጫን ላይ …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">የወጪ መሠረት = ሲቀበሉ የነበረው ዋጋ (ገቢ)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">የወጪ መሠረት = 0 (ያለ ገቢ ሽልማት፣ ኦስትሪያ)</string>
+    <string name="cost_gap_apply">ይተግብሩ</string>
+    <string name="address_lots_action">ለአድራሻ ቀሪ ሂሳብ የወጪ መሠረት</string>
+    <string name="address_lots_title">ለአድራሻ ቀሪ ሂሳብ የወጪ መሠረት</string>
+    <string name="address_lots_intro">ለዚህ አድራሻ ቀሪ ሂሳብ የግዢ ቀን፣ መጠንና የወጪ መሠረት ያስገቡ። ሎቶቹ በዚህ አድራሻ ውስጥ እንደ ግዢዎች ይቆጠራሉ፤ ያልተሸፈነ ማንኛውም ክፍል ያለ የወጪ መሠረት ይቆያል።</string>
+    <string name="address_lots_add">ሎት ያክሉ</string>
+    <string name="address_lots_new">አዲስ ሎት</string>
+    <string name="address_lots_edit">ሎት</string>
+    <string name="address_lots_date">የግዢ ቀን</string>
+    <string name="address_lots_amount">መጠን</string>
+    <string name="address_lots_mode_total">ጠቅላላ</string>
+    <string name="address_lots_mode_price">በአንድ ሳንቲም</string>
+    <string name="address_lots_price">ዋጋ በአንድ ሳንቲም (USDT)</string>
+    <string name="address_lots_total">ጠቅላላ የወጪ መሠረት (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">ከ%2$s %1$s ከወጪ መሠረት ጋር</string>
+    <string name="address_lots_unlotted">%1$s ያለ የወጪ መሠረት</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">ሎቶቹ ከቀሪ ሂሳቡ በ%1$s ይበልጣሉ – በጣም ያረጁት መጀመሪያ ይጠቀማሉ።</string>
+    <string name="address_lots_not_loaded">ቀሪ ሂሳቡ ገና አልተጫነም – ሎቶቹ እንደተጫነ ወዲያውኑ ይቆጠራሉ።</string>
+    <string name="address_lots_invalid">መጠንና የወጪ መሠረት ያስገቡ</string>
+</resources>

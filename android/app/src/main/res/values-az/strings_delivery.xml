@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">Alarmların çatdığına əmin ol</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">Qaydasındadır</string>
+    <string name="delivery_state_warn">Bunu yoxla</string>
+    <string name="delivery_state_info">Qeyd</string>
+    <string name="delivery_allowed">İcazə verilib</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">Bildirişlər</string>
+    <string name="delivery_notifications_off">Söndürülüb – alarmlar çatmayacaq</string>
+    <string name="delivery_notifications_not_asked">Hələ icazə verilməyib</string>
+    <string name="delivery_channel">Alarm kanalı</string>
+    <string name="delivery_channel_high">Yüksək vaciblik – ekranda açılır</string>
+    <string name="delivery_channel_low">Aşağı vaciblik – alarmlar yalnız səssizcə siyahıda görünür</string>
+    <string name="delivery_channel_off">Söndürülüb – alarmlar çatmayacaq</string>
+    <string name="delivery_exact_on">Aktiv – təxminən hər 15 dəqiqədən bir</string>
+    <string name="delivery_exact_off">Söndürülüb – Android qeyri-müntəzəm yoxlayır</string>
+    <string name="delivery_battery">Batareya optimallaşdırması</string>
+    <string name="delivery_battery_unrestricted">Məhdudiyyətsiz</string>
+    <string name="delivery_battery_optimized">Optimallaşdırılıb – Android yoxlamaları gecikdirə bilər. Tətbiq istisna istəmir; bunu tətbiqin batareya ayarlarında dəyişə bilərsən.</string>
+    <string name="delivery_background">Arxa fonda istifadə</string>
+    <string name="delivery_background_restricted">Məhdudlaşdırılıb – Android arxa fon yoxlamalarını dayandırır</string>
+    <string name="delivery_dnd">Narahat etməyin</string>
+    <string name="delivery_dnd_on">Aktiv – alarmlar səssiz çata bilər</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">%1$s-dək aktivdir – vaxtı çatan alarmlar o vaxta qədər gözləyir</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – vaxtı çatan alarmlar bu müddətdə gözləyir</string>
+    <string name="delivery_last_check">Son arxa fon yoxlaması</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – 6 saatdan çox əvvəl</string>
+    <string name="delivery_last_check_never">Hələ olmayıb</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">İcazə ver</string>
+    <string name="delivery_action_change">Dəyiş</string>
+    <string name="delivery_action_show">Göstər</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">Bannerlər və səs</string>
+    <string name="delivery_alert_off">Bannerlər söndürülüb – alarmlar yalnız Bildiriş Mərkəzində görünür</string>
+    <string name="delivery_sound_off">Səs söndürülüb – alarmlar səssiz çatır</string>
+    <string name="delivery_time_sensitive">Vaxta həssas bildirişlər</string>
+    <string name="delivery_time_sensitive_off">Söndürülüb – Fokus rejimi alarmları saxlaya bilər</string>
+    <string name="delivery_background_refresh">Arxa fonda tətbiq yeniləməsi</string>
+    <string name="delivery_low_power">Enerjiyə qənaət rejimi</string>
+    <string name="delivery_swipe_away">Tətbiqi sürüşdürüb bağlamısan?</string>
+    <string name="delivery_swipe_away_note">Tətbiqi tətbiq dəyişdiricisində sürüşdürüb bağlasan, iOS onu yenidən açana qədər arxa fon yoxlamalarını dayandırır.</string>
+    <string name="delivery_live_activity">Live Activity</string>
+    <string name="delivery_live_activity_note">Qiyməti kilid ekranında göstərir, amma yalnız tətbiq yoxlayanda yenilənir – alarmların daha tez-tez yoxlanmasına səbəb olmur.</string>
+
+    <string name="alarm_first_check">Alarmların çatdığını yoxla</string>
+
+    <string name="oem_battery_title">İstehsalçının batareya qənaəti</string>
+    <string name="oem_battery_xiaomi">Xiaomi tətbiqi tamamilə dayandıra bilər – onda alarmlar çatmır. «Avtomatik başlatma»nı aktiv et və Batareya qənaətini «Məhdudiyyət yoxdur» vəziyyətinə qoy.</string>
+    <string name="oem_battery_samsung">Samsung tətbiqi dərin yuxuya keçirə bilər – onda alarmlar çatmır. Batareya › Arxa fonda istifadə limitləri bölməsində onu «Heç vaxt yatmayan tətbiqlər»ə əlavə et.</string>
+    <string name="oem_battery_huawei">Huawei/Honor tətbiqi dayandıra bilər – onda alarmlar çatmır. Batareya › Tətbiqin başladılması bölməsində «Əl ilə idarə et» seç və bütün seçimlərə icazə ver.</string>
+    <string name="oem_battery_oneplus">OnePlus tətbiqi dayandıra bilər – onda alarmlar çatmır. «Avtomatik başlatma»ya, Batareya istifadəsi bölməsində isə arxa fon fəaliyyətinə icazə ver.</string>
+    <string name="oem_battery_oppo">Oppo/Realme tətbiqi dayandıra bilər – onda alarmlar çatmır. «Avtomatik başlatma»ya, Batareya istifadəsi bölməsində isə arxa fon fəaliyyətinə icazə ver.</string>
+    <string name="oem_battery_vivo">Vivo tətbiqi dayandıra bilər – onda alarmlar çatmır. «Avtomatik başlatma»ya, Batareya bölməsində isə arxa fonda yüksək enerji istifadəsinə icazə ver.</string>
+    <string name="alarm_reliability_stale">Son yoxlama %1$s – alarmlar gecikə bilər</string>
+    <string name="alarm_reliability_never">Alarmlar aktivdir – hələ arxa fon yoxlaması olmayıb</string>
+    <string name="alarm_reliability_notifications_off">Bildirişlər söndürülüb – alarmlar çatmayacaq</string>
+    <string name="alarm_reliability_battery">Batareya qənaəti alarm yoxlamalarını dayandıra bilər</string>
+    <string name="alarm_reliability_background_refresh">Arxa fonda tətbiq yeniləməsi söndürülüb – alarmlar çatmaya bilər</string>
+</resources>

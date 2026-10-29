@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">Ieraksti bez iegādes vērtības: %1$d</string>
+    <string name="cost_gaps_card_text">Pievieno iegādes vērtību, lai peļņa un nodokļi būtu pilnīgi.</string>
+    <string name="cost_gaps_sheet_title">Ieraksti bez iegādes vērtības</string>
+    <string name="cost_gaps_sheet_intro">Šiem ienākumiem nav iegādes vērtības. Ieteikums ir datuma dienas slēgšanas cena – vari to pielāgot ierakstā.</string>
+    <string name="cost_gaps_empty">Visiem ierakstiem ir iegādes vērtība.</string>
+    <string name="cost_gap_enter">Ievadīt iegādes vērtību</string>
+    <string name="cost_gap_leave_unknown">Atstāt nezināmu</string>
+    <string name="cost_gap_left_unknown">Atstāts nezināms</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">Ieteikums: dienas slēgšanas cena %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">Šim datumam nav pārbaudītas dienas slēgšanas cenas</string>
+    <string name="cost_gap_suggestion_loading">Ielādē dienas slēgšanas cenu…</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">Iegādes vērtība = vērtība saņemšanas brīdī (ienākumi)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">Iegādes vērtība = 0 (atlīdzība bez ienākuma, Austrija)</string>
+    <string name="cost_gap_apply">Lietot</string>
+    <string name="address_lots_action">Adreses atlikuma iegādes vērtība</string>
+    <string name="address_lots_title">Adreses atlikuma iegādes vērtība</string>
+    <string name="address_lots_intro">Ievadi šīs adreses atlikuma pirkuma datumu, daudzumu un iegādes vērtību. Partijas skaitās kā pirkumi šajā adresē; nesegtā daļa paliek bez iegādes vērtības.</string>
+    <string name="address_lots_add">Pievienot partiju</string>
+    <string name="address_lots_new">Jauna partija</string>
+    <string name="address_lots_edit">Partija</string>
+    <string name="address_lots_date">Pirkuma datums</string>
+    <string name="address_lots_amount">Daudzums</string>
+    <string name="address_lots_mode_total">Kopā</string>
+    <string name="address_lots_mode_price">Par monētu</string>
+    <string name="address_lots_price">Cena par monētu (USDT)</string>
+    <string name="address_lots_total">Kopējā iegādes vērtība (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%1$s no %2$s ar iegādes vērtību</string>
+    <string name="address_lots_unlotted">%1$s bez iegādes vērtības</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">Partijas pārsniedz atlikumu par %1$s – vispirms tiek izlietotas vecākās.</string>
+    <string name="address_lots_not_loaded">Atlikums vēl nav ielādēts – partijas tiks ieskaitītas, tiklīdz tas būs.</string>
+    <string name="address_lots_invalid">Ievadi daudzumu un iegādes vērtību</string>
+</resources>

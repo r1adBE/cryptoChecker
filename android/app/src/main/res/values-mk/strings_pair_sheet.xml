@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s за %2$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">Затворање</string>
+    <string name="sheet_chart_converted_current">%1$s, конвертирано (тековен курс)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, конвертирано по дневни курсеви</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">Нема податоци за цената на овој пар</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">Отворање</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">Денес</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">Вол. %1$s</string>
+    <string name="sheet_more">Повеќе</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Понуда</string>
+    <string name="ticker_bid">Побарувачка</string>
+    <string name="explain_bid_ask">Побарувачка (bid) е највисоката цена што купувачите ја нудат во моментов, понуда (ask) е најниската цена што продавачите ја прифаќаат.</string>
+    <string name="ticker_high">Максимум</string>
+    <string name="ticker_low">Минимум</string>
+    <string name="ticker_timestamp">Време</string>
+    <string name="ticker_vol_base">Волумен (во монети)</string>
+    <string name="ticker_vol_quote">Волумен (во котирана валута)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (временска зона на уредот)</string>
+    <string name="change_basis_local">Од 00:00 локално време</string>
+    <string name="change_basis_rolling">Последни 24 ч</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">Од последното ажурирање</string>
+    <string name="change_basis_utc_zone">Од 00:00 %1$s</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">Промена од свеќи на %1$s</string>
+    <string name="change_short_since_last">последно ажурирање</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">денес</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">денес %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="exchange_data_empty_error">Не се примени податоци од берзата.</string>
+    <string name="market_data_summary">Пазарна кап., провизии за гас, економски податоци, анализа на монета</string>
+    <string name="market_data_tab_futures">Фјучерси</string>
+    <string name="market_data_title">Пазарни податоци</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">Циркулирачка понуда</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">Пазарна кап.</string>
+    <string name="spot_max_supply">Максимална понуда</string>
+    <string name="spot_no_data">Нема спот-податоци за оваа монета</string>
+    <string name="spot_source_updated">Извор: %1$s · состојба %2$s</string>
+    <string name="spot_supply_of_max">%1$s од максималната понуда во оптек</string>
+    <string name="spot_total_supply">Вкупна понуда</string>
+    <string name="spot_vol_mcap">Вол./Пазарна кап.</string>
+    <string name="spot_volume_24h">Волумен (24 ч)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">Референца: %1$s</string>
+    <string name="futures_funding">Стапка на фандинг</string>
+    <string name="futures_funding_interval_unknown">непознат интервал</string>
+    <string name="futures_funding_per8h_equiv">= %1$s на 8 ч (како кај алармите)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">на час</string>
+    <string name="futures_funding_per_hours">на %1$d ч</string>
+    <string name="futures_next_funding">следно за %1$d ч %2$d мин</string>
+    <string name="futures_no_data">Нема податоци за фјучерси за оваа монета</string>
+    <string name="futures_open_interest">Отворен интерес</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">Референца од %1$s – фандингот и отворениот интерес се разликуваат по берзи; на %2$s може да се разликуваат.</string>
+    <string name="futures_reference_spot">Референца од %1$s (USDT-перпетуалот на монетата)</string>
+    <string name="futures_source">Извор: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">Многу трговци облогуваат на раст или пад на цените со позајмени пари. Провизија помеѓу лонг- и шорт-позиции. Силно позитивно значи дека многумина облогуваат на раст на цените.</string>
+    <string name="explain_open_interest">Фјучерсите се облози за цената, често со позајмени пари. Вредност на сите отворени фјучерс-позиции. Ако расте, повеќе пари облогуваат на движењето.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Објаснување</string>
+    <string name="explain_spot_fdv">Целосно разводнета вредност: цена × максимална понуда (или вкупна понуда ако нема граница).</string>
+    <string name="explain_spot_market_cap">Цена × циркулирачка понуда. Ознаката ја прикажува нејзината промена за 24 часа.</string>
+    <string name="explain_spot_source">Бројки од сите берзи во американски долари, од CoinGecko.</string>
+    <string name="explain_spot_supply">Циркулирачка: монети што се сега на пазарот. Вкупна: сите создадени монети минус изгорените. Максимална: најмногу што некогаш може да постои.</string>
+    <string name="explain_spot_volume">Вредност тргувана за 24 часа. Вол./Пазарна кап.: волуменот во однос на пазарната капитализација — високо значи многу активно тргување.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · курс %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s сатоши</string>
+
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">Голема разлика меѓу куповната и продажната цена (%1$s)</string>
+
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">Историја во %1$s, конвертирана во %2$s по денешниот курс</string>
+    <string name="converted_unsure">Конверзијата е несигурна</string>
+</resources>

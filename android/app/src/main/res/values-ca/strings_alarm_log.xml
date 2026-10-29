@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Protokoll: Titel der Seite und Name des Knopfs in «Alle Alarme» -->
+    <string name="alarm_log_title">Registre d\'alarmes</string>
+    <!-- Link unter «Letzte Prüfungen» (Einstellungen › Aktualisierung) -->
+    <string name="alarm_log_open">Mostra el registre d\'alarmes</string>
+    <string name="alarm_log_intro">Quan s\'ha disparat una alarma – i quan s\'hauria disparat però s\'ha retingut. Només es desa en aquest dispositiu, durant 14 dies.</string>
+    <string name="alarm_log_empty_title">Encara no hi ha entrades</string>
+    <string name="alarm_log_empty_message">Les entrades apareixen aquí quan una alarma es dispara o es reté – per exemple perquè el preu és antic o durant les hores de silenci.</string>
+    <string name="alarm_log_clear">Buida el registre</string>
+    <string name="alarm_log_clear_title">Vols buidar el registre d\'alarmes?</string>
+    <string name="alarm_log_clear_message">S\'eliminen totes les entrades. Les teves alarmes es queden com estan.</string>
+    <!-- Screenreader: Schwelle des Alarms, z. B. «Marke Über 100’000 CHF» -->
+    <string name="alarm_log_threshold">Llindar %1$s</string>
+    <!-- Alarm-Editor: letzte Prüfung, %1$s = «14:02 · Kraken 99’800 CHF · Marke nicht erreicht» -->
+    <string name="alarm_last_check">Última comprovació: %1$s</string>
+    <!-- Ergebnisse einer Alarm-Prüfung (AlarmLogOutcome) -->
+    <string name="alarm_outcome_fired">Disparada</string>
+    <string name="alarm_outcome_not_reached">Llindar no assolit</string>
+    <string name="alarm_outcome_already_triggered">Ja s\'ha avisat – espera que el preu torni a l\'altre costat</string>
+    <string name="alarm_outcome_cooldown">No disparada – temps de repòs després de l\'última alarma</string>
+    <!-- %1$s = Zeit des Kurses laut Börse -->
+    <string name="alarm_outcome_stale">No disparada – preu antic (a les %1$s)</string>
+    <string name="alarm_outcome_mark_price">No disparada – preu de marca, no un preu negociat</string>
+    <string name="alarm_outcome_low_liquidity">No disparada – liquiditat inferior a 10.000 USD o desconeguda</string>
+    <string name="alarm_outcome_quiet_hours">No disparada – hores de silenci (avisa després si encara es compleix)</string>
+    <string name="alarm_outcome_notifications_off">No disparada – notificacions desactivades</string>
+    <string name="alarm_outcome_not_shown">No disparada – la notificació no ha arribat, es tornarà a provar més tard</string>
+    <string name="alarm_outcome_no_rate">No comprovada – no hi ha tipus de canvi</string>
+    <string name="alarm_outcome_no_price">Sense preu – ha fallat la consulta a l\'exchange</string>
+
+    <string name="alarm_outcome_snoozed">Retinguda – «1 h més tard» encara actiu</string>
+    <string name="alarm_log_source_app">a l\'app</string>
+    <string name="alarm_log_source_background">en segon pla</string>
+    <string name="alarm_log_source_exact">comprovació puntual</string>
+    <string name="alarm_log_source_widget">des del widget</string>
+    <string name="alarm_outcome_fx_stale">No comprovada – tipus de canvi de fa més de 36 hores</string>
+    <string name="alarm_outcome_fx_unsure">No comprovada – conversió a USDT incerta (només via USDC)</string>
+</resources>

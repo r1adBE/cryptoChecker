@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">CSV ઇમ્પોર્ટ કરો</string>
+    <string name="portfolio_csv_import_all_transfer">બધું પોતાના વૉલેટમાં</string>
+    <string name="portfolio_csv_import_all_withdrawal">બધું પોર્ટફોલિયોમાંથી બહાર જાય છે</string>
+    <string name="portfolio_csv_import_choice_proposed">સૂચન: %1$s સાથે મેળ ખાય છે</string>
+    <string name="portfolio_csv_import_choice_transfer">પોતાના વૉલેટમાં (ટ્રાન્સફર)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">પોર્ટફોલિયોમાંથી બહાર જાય છે (ઉપાડ)</string>
+    <string name="portfolio_csv_import_choose_each">દરેક ઉપાડ માટે તે ક્યાં ગયો તે પસંદ કરો.</string>
+    <string name="portfolio_csv_import_columns">ઓળખાયેલી કૉલમ: %1$s</string>
+    <string name="portfolio_csv_import_confirm">ઇમ્પોર્ટ કરો (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">દિવસ/મહિનો</string>
+    <string name="portfolio_csv_import_date_month_first">મહિનો/દિવસ</string>
+    <string name="portfolio_csv_import_date_order">અસ્પષ્ટ તારીખો (દા.ત. 03/04/2024) આ રીતે વાંચો:</string>
+    <string name="portfolio_csv_import_decimal">અસ્પષ્ટ સંખ્યાઓ (દા.ત. %1$s) આ રીતે વાંચો:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d વ્યવહાર ઇમ્પોર્ટ થયો</item>
+        <item quantity="other">%d વ્યવહાર ઇમ્પોર્ટ થયા</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d પહેલેથી ઇમ્પોર્ટ થયેલો (છોડી દીધો)</item>
+        <item quantity="other">%d પહેલેથી ઇમ્પોર્ટ થયેલા (છોડી દીધા)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">ફૉર્મેટ: %1$s</string>
+    <string name="portfolio_csv_import_line">લાઇન %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">ફાઇલ અને દૈનિક દરો વાંચી રહ્યા છીએ…</string>
+    <string name="portfolio_csv_import_progress">%2$s માંથી લાઇન %1$s</string>
+    <string name="portfolio_csv_import_saving">વ્યવહારો સેવ થઈ રહ્યા છે…</string>
+    <string name="portfolio_csv_import_missing_fx">લાઇન %1$s માટે દૈનિક દર નથી – ભાવ/ફી વગર ઇમ્પોર્ટ કર્યું.</string>
+    <string name="portfolio_csv_import_missing_price">લાઇન %1$s માટે ફાઇલમાં ભાવ નથી – ભાવ વગર ઇમ્પોર્ટ કર્યું.</string>
+    <string name="portfolio_csv_import_more">+ %1$d વધુ</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d નવો વ્યવહાર</item>
+        <item quantity="other">%d નવા વ્યવહાર</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d લાઇન છોડી દીધી</item>
+        <item quantity="other">%d લાઇન છોડી દીધી</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">સ્ટેબલકૉઇન સામેના ટ્રેડ (USDT, USDC …) સ્વૉપ તરીકે નોંધાય છે – સ્ટેબલકૉઇન તમારા હોલ્ડિંગમાં દેખાય છે.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">અનેક મેળ શક્ય છે – સાચો પસંદ કરો અથવા એક પણ નહીં.</string>
+    <string name="portfolio_csv_import_transfer_fee">નેટવર્ક ફી: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">એક ટ્રાન્સફર તરીકે નોંધો</string>
+    <string name="portfolio_csv_import_transfer_stored">અગાઉના ઇમ્પોર્ટમાંથી સામેની એન્ટ્રી</string>
+    <string name="portfolio_csv_import_transfers_hint">એક જ કૉઇનનો ઉપાડ અને તેને મળતી ડિપોઝિટ એક ટ્રાન્સફર બને છે: ખરીદ ભાવ અને હોલ્ડિંગ સમયગાળો આગળ જાય છે, તફાવત નેટવર્ક ફી તરીકે ગણાય છે.</string>
+    <string name="portfolio_csv_import_transfers_title">તમારાં એકાઉન્ટ વચ્ચેનાં ટ્રાન્સફર</string>
+    <string name="portfolio_csv_import_unreadable">કોઈ સપોર્ટેડ વ્યવહાર મળ્યા નથી. સપોર્ટેડ: Relai, Swissquote, Kraken, Binance, Coinbase અને Bitpanda CSV એક્સપોર્ટ.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
+    <string name="portfolio_csv_import_too_large">ઇમ્પોર્ટ માટે ફાઇલ ઘણી મોટી છે (વધુમાં વધુ 16 MB અને %1$s લાઇન). ટૂંકા સમયગાળા એક્સપોર્ટ કરો અને એક પછી એક ઇમ્પોર્ટ કરો.</string>
+    <string name="portfolio_csv_import_failed">ઇમ્પોર્ટ ન થયું – કંઈ સેવ થયું નથી. કૃપા કરીને ફરી પ્રયાસ કરો.</string>
+    <string name="portfolio_csv_import_locked">ઇમ્પોર્ટ શક્ય નથી: સેવ કરેલો ડેટા અત્યારે વાંચી શકાતો નથી. ઍપ ફરી શરૂ કરો.</string>
+    <string name="portfolio_csv_import_withdrawals_title">ઉપાડ – કૉઇન ક્યાં ગયા?</string>
+    <string name="portfolio_csv_import_zone">ટાઇમ ઝોન વગરના સમય આ રીતે વાંચો: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">ડિવાઇસ (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">ન વાંચી શકાય તેવી તારીખ</string>
+    <string name="portfolio_csv_skip_bad_number">ન વાંચી શકાય તેવી સંખ્યા</string>
+    <string name="portfolio_csv_skip_fee_exceeds">ફી ≥ મળેલી રકમ</string>
+    <string name="portfolio_csv_skip_internal_move">તમારાં પોતાનાં એકાઉન્ટ વચ્ચેની હેરફેર – નોંધવા જેવું કંઈ નથી</string>
+    <string name="portfolio_csv_skip_missing">ફીલ્ડ ખૂટે છે</string>
+    <string name="portfolio_csv_skip_ambiguous">એક જ સેકન્ડમાં અનેક ટ્રેડ જેમને અલગ પાડી શકાતા નથી – તેમને જાતે દાખલ કરો</string>
+    <string name="portfolio_csv_skip_not_crypto">ક્રિપ્ટો નથી</string>
+    <string name="portfolio_csv_skip_possible_duplicate">કદાચ પહેલેથી ઇમ્પોર્ટ થયેલું (લગભગ એ જ ટ્રેડ) – જાતે તપાસો</string>
+    <string name="portfolio_csv_skip_two_fees">અલગ એકમોમાં બે ફી – સ્વૉપ જાતે દાખલ કરો</string>
+    <string name="portfolio_csv_skip_unsupported">અસમર્થિત પ્રકાર</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">પૂર્વવત્ કરો</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">આ ઇમ્પોર્ટનો %d વ્યવહાર ડિલીટ કરવો છે? જાતે કરેલી એન્ટ્રીઓ અને બીજા ઇમ્પોર્ટ રહેશે.</item>
+        <item quantity="other">આ ઇમ્પોર્ટના %d વ્યવહાર ડિલીટ કરવા છે? જાતે કરેલી એન્ટ્રીઓ અને બીજા ઇમ્પોર્ટ રહેશે.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">ઇમ્પોર્ટ પૂર્વવત્ કરવું છે?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">ઇમ્પોર્ટ થયેલો %d વ્યવહાર દૂર કર્યો</item>
+        <item quantity="other">ઇમ્પોર્ટ થયેલા %d વ્યવહાર દૂર કર્યા</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d વ્યવહાર</item>
+        <item quantity="other">%d વ્યવહાર</item>
+    </plurals>
+    <string name="portfolio_imports_empty">કોઈ ઇમ્પોર્ટ નથી</string>
+    <string name="portfolio_imports_title">ઇમ્પોર્ટ</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">એ જ વ્યવહાર ID, અલગ રકમ – જાતે તપાસો</string>
+    <string name="portfolio_csv_skip_staking_unpaired">સામેની એન્ટ્રી વગરની સ્ટેકિંગ એન્ટ્રી – હોલ્ડિંગ તપાસો</string>
+    <string name="portfolio_csv_skip_amount_too_small">રકમ ઘણી નાની – સેવ કરતી વખતે 0 થઈ જાય છે</string>
+    <string name="portfolio_csv_skip_invalid_swap">માન્ય કૉઇન કે મળેલી રકમ વગરનો સ્વૉપ</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">ફાઇલ ફરી વાંચી રહ્યા છીએ …</string>
+</resources>

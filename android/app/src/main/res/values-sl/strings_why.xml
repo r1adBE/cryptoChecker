@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">Kaj se giblje zraven?</string>
+    <string name="why_all_values">Vse vrednosti in viri</string>
+    <string name="why_all_values_hint">Opažanje · Možna razlaga · Viri</string>
+    <string name="why_details">Prikaži podrobnosti</string>
+    <string name="why_details_hide">Skrij podrobnosti</string>
+    <string name="why_disclaimer">Samodejna ocena iz tržnih podatkov: prikazuje, kaj se dogaja ob istem času, ni pa dokaz za vzrok.</string>
+    <string name="why_footer_short">Sočasno ne pomeni vzrok · Ni naložbeni nasvet</string>
+    <string name="why_no_data">Za ta par ni podatkov z Binance</string>
+    <string name="why_no_data_hint">Tečaj, volumen in nestanovitnost so iz urnih sveč Binance.</string>
+    <string name="why_ref_alts">Alti</string>
+    <string name="why_section_context">Možna razlaga</string>
+    <string name="why_section_observation">Opažanje</string>
+    <string name="why_title">Kaj se giblje zraven?</string>
+    <string name="why_title_coin">Kaj se giblje skupaj s %1$s?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">Na kratko · stanje %1$s</string>
+    <string name="why_brief_label">Na kratko:</string>
+    <string name="why_summary_against">Kovanec se giblje proti trgu.</string>
+    <string name="why_summary_calm">Ni opaznega gibanja: trg in kovanec sta mirna.</string>
+    <string name="why_summary_coin">Giblje se samo ta kovanec – morda nekaj, kar zadeva samo ta kovanec.</string>
+    <string name="why_summary_coin_volume">Giblje se samo ta kovanec, ob višjem volumnu – morda nekaj, kar zadeva samo ta kovanec.</string>
+    <string name="why_summary_longs">Futures: veliko pozicij long z vzvodom.</string>
+    <string name="why_summary_market">Gibanje se časovno ujema s celotnim trgom.</string>
+    <string name="why_summary_market_volume">Gibanje sovpada z višjim volumnom trgovanja in široko gibajočim se trgom.</string>
+    <string name="why_summary_peg_near">Tečaj je blizu svoje vezave 1:1.</string>
+    <string name="why_summary_peg_off">Tečaj opazno odstopa od svoje vezave 1:1.</string>
+    <string name="why_summary_shorts">Futures: veliko pozicij short.</string>
+    <string name="why_summary_thin">Gibanje je šibko: za njim je malo volumna.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">Proti trgu</string>
+    <string name="why_f_coin_only">Samo ta kovanec</string>
+    <string name="why_f_leader">Bitcoin kot vodilni na trgu</string>
+    <string name="why_f_leverage_balanced">Vzvod uravnotežen</string>
+    <string name="why_f_leverage_longs">Vzvod: veliko longov</string>
+    <string name="why_f_leverage_shorts">Vzvod: veliko shortov</string>
+    <string name="why_f_market_calm">Miren trg</string>
+    <string name="why_f_market_wide">Giblje se celoten trg</string>
+    <string name="why_factor_funding">Funding</string>
+    <string name="why_factor_futures">Futures</string>
+    <string name="why_factor_market">Celoten trg</string>
+    <string name="why_factor_near_high">Blizu vrha</string>
+    <string name="why_factor_near_low">Blizu dna</string>
+    <string name="why_factor_peg">Vezava (1:1)</string>
+    <string name="why_factor_range3d">3-dnevni razpon</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">ocenjeno</string>
+    <string name="why_fn_funding_longs">veliko jih stavi na rast tečajev</string>
+    <string name="why_fn_funding_neutral">nevtralno</string>
+    <string name="why_fn_funding_shorts">veliko jih stavi na padec tečajev</string>
+    <string name="why_fn_high_at">na 30-dnevnem vrhu</string>
+    <string name="why_fn_high_below">pod 30-dnevnim vrhom</string>
+    <string name="why_fn_leader_calm">Bitcoin je miren</string>
+    <string name="why_fn_leader_moves">Bitcoin se izrazito giblje</string>
+    <string name="why_fn_low_above">nad 30-dnevnim dnom</string>
+    <string name="why_fn_low_at">na 30-dnevnem dnu</string>
+    <string name="why_fn_market_against">Ta kovanec se giblje proti trgu</string>
+    <string name="why_fn_market_alone">Trg miren – ta kovanec se giblje sam</string>
+    <string name="why_fn_market_calm">Trg je miren</string>
+    <string name="why_fn_market_lags">Trg se giblje, ta kovanec komaj</string>
+    <string name="why_fn_market_moves">Trg se giblje v isto smer</string>
+    <string name="why_fn_market_pulls">Trg se giblje z BTC</string>
+    <string name="why_fn_oi_down">Open interest upadel</string>
+    <string name="why_fn_oi_flat">Open interest skoraj nespremenjen</string>
+    <string name="why_fn_oi_mixed">Open interest neenoten</string>
+    <string name="why_fn_oi_up">Open interest zrasel</string>
+    <string name="why_fn_peg_above">%1$s nad vezavo 1:1</string>
+    <string name="why_fn_peg_below">%1$s pod vezavo 1:1</string>
+    <string name="why_fn_peg_near">blizu vezave 1:1</string>
+    <string name="why_fn_range_above_low">od 3-dnevnega dna</string>
+    <string name="why_fn_range_below_high">od 3-dnevnega vrha</string>
+    <string name="why_fn_range_near_high">blizu 3-dnevnega vrha</string>
+    <string name="why_fn_range_near_low">blizu 3-dnevnega dna</string>
+    <string name="why_fn_volatility_stronger">močnejša kot običajno</string>
+    <string name="why_fn_volatility_tiny">v absolutnem smislu majhna (pod %1$s)</string>
+    <string name="why_fn_volatility_usual">kot običajno</string>
+    <string name="why_fn_volume_higher">višji kot običajno</string>
+    <string name="why_fn_volume_lower">nižji kot običajno</string>
+    <string name="why_fn_volume_usual">kot običajno</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">Ta kovanec %1$s, BTC %2$s v 24 h — opazno samostojno gibanje.</string>
+    <string name="why_against_ref_text">Ta kovanec %1$s, %2$s %3$s v 24 h — opazno samostojno gibanje.</string>
+    <string name="why_btc_independent">%1$s se trenutno giblje neodvisno od Bitcoina.</string>
+    <string name="why_btc_tight">%1$s se trenutno giblje tesno z Bitcoinom.</string>
+    <string name="why_change_1h">1 h</string>
+    <string name="why_change_24h">24 h</string>
+    <string name="why_coin_only_text">%1$s v 24 h ob mirnem trgu – morda nekaj, kar zadeva samo ta kovanec.</string>
+    <string name="why_leverage_balanced_text">Na trgu futures ni kopičenja pozicij long ali short.</string>
+    <string name="why_leverage_longs_text">Veliko jih z izposojenim denarjem stavi na rast tečajev. Longi plačujejo shortom — večje tveganje likvidacij, če tečaj pade.</string>
+    <string name="why_leverage_shorts_text">Veliko jih z izposojenim denarjem stavi na padec tečajev. Shorti plačujejo longom – če tečaj zraste, je mogoč short squeeze.</string>
+    <string name="why_market_calm_text">Ta kovanec: %1$s v 24 h. Niti trg niti kovanec se ne gibljeta močno.</string>
+    <string name="why_market_leader_text">Kot največji kovanec se BTC običajno giblje usklajeno s preostalim trgom. ETH: %1$s v 24 h.</string>
+    <string name="why_market_leader_text_no_eth">Kot največji kovanec se BTC običajno giblje usklajeno s preostalim trgom.</string>
+    <string name="why_market_similar_text">Ta kovanec: %1$s v 24 h – hkrati se trg giblje v isto smer, a manj izrazito.</string>
+    <string name="why_market_wide_text">Ta kovanec: %1$s v 24 h – hkrati se celoten trg izrazito giblje.</string>
+    <string name="why_open_interest_change">Open interest %1$s od zadnje meritve.</string>
+    <string name="why_peg_text">Stablecoin: glede na vezavo 1:1 na kotirno valuto, odstopanje %1$s.</string>
+    <string name="why_sentiment_text">Indeks Fear &amp; Greed celotnega kriptotrga, %1$s glede na včeraj.</string>
+    <string name="why_sentiment_text_no_change">Indeks Fear &amp; Greed celotnega kriptotrga.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="one">pada že %1$d uro</item>
+        <item quantity="two">pada že %1$d uri</item>
+        <item quantity="few">pada že %1$d ure</item>
+        <item quantity="other">pada že %1$d ur</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="one">raste že %1$d uro</item>
+        <item quantity="two">raste že %1$d uri</item>
+        <item quantity="few">raste že %1$d ure</item>
+        <item quantity="other">raste že %1$d ur</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="one">stabilen že %1$d uro</item>
+        <item quantity="two">stabilen že %1$d uri</item>
+        <item quantity="few">stabilen že %1$d ure</item>
+        <item quantity="other">stabilen že %1$d ur</item>
+    </plurals>
+    <string name="why_volatility_high_text">Zadnja ura: %1$s — merjeno glede na običajno urno nihanje v zadnjih 24 urah.</string>
+    <string name="why_volatility_normal_text">Zadnja ura: %1$s — v običajnem okviru.</string>
+    <string name="why_volatility_tiny_text">Zadnja ura: %1$s — za ta kovanec nenavadno, a v absolutnem smislu majhno.</string>
+    <string name="why_volume_estimated_text">Ocenjeno: ta vir ne ponuja prometa, zato se primerjajo trgovane količine kovancev.</string>
+    <string name="why_volume_high_text">V zadnji uri se je trgovalo veliko več kot običajno – gibanje spremlja visok volumen.</string>
+    <string name="why_volume_low_text">Za gibanjem je malo trgovanja – takšna gibanja so pogosto manj stabilna.</string>
+    <string name="why_volume_normal_text">Trgovanje v zadnji uri je v skladu z zadnjimi 24 urami.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">povišano</string>
+    <string name="why_dot_neutral">nevtralno</string>
+    <string name="why_dot_supports">se ujema z gibanjem</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">Stanje podatkov %1$s</string>
+    <string name="why_fresh_breadth">Širina trga: %1$s · %2$s</string>
+    <string name="why_fresh_candles">Sveče: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">Futures: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="one">open interest primerjan s stanjem pred %1$d uro</item>
+        <item quantity="two">open interest primerjan s stanjem pred %1$d urama</item>
+        <item quantity="few">open interest primerjan s stanjem pred %1$d urami</item>
+        <item quantity="other">open interest primerjan s stanjem pred %1$d urami</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="one">open interest primerjan s stanjem pred %1$d minuto</item>
+        <item quantity="two">open interest primerjan s stanjem pred %1$d minutama</item>
+        <item quantity="few">open interest primerjan s stanjem pred %1$d minutami</item>
+        <item quantity="other">open interest primerjan s stanjem pred %1$d minutami</item>
+    </plurals>
+    <string name="why_fresh_today">danes</string>
+    <string name="why_fresh_yesterday">včeraj</string>
+    <string name="why_source_fallback">%1$s (nadomestni vir)</string>
+    <string name="why_source_reference">%1$s (referenca)</string>
+    <string name="why_sources">Viri: urne sveče borze (večinoma Binance), podatki futures z borz, Fear &amp; Greed z alternative.me.</string>
+    <string name="why_sources_list">Viri: %1$s.</string>
+    <string name="why_src_breadth">%1$s (širina trga)</string>
+    <string name="why_src_candles">%1$s (sveče)</string>
+    <string name="why_src_comparison">%1$s (primerjava s trgom)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (futures)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Funding</string>
+    <string name="factor_spoken_volatility">%1$s-krat močnejše nihanje kot običajno</string>
+    <string name="factor_spoken_volume">%1$s-krat več kot običajno</string>
+    <string name="factor_volatility">Nihanje (1 h)</string>
+    <string name="factor_volume">Volumen</string>
+</resources>

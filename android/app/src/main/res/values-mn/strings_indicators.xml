@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">Альткойн ба Bitcoin</string>
+    <string name="neutral_btc_indicators_title">Bitcoin-ийн үзүүлэлтүүд</string>
+    <string name="neutral_halving_last">Сүүлийн халвинг: %1$s</string>
+    <string name="neutral_halving_next">Дараагийн халвинг ойролцоогоор %1$s болно гэж таамаглаж байна (хуанлиар тооцсон – блокийн өндөр одоогоор алга).</string>
+    <string name="neutral_indicators_disclaimer">Зөвхөн хэмжсэн утга, үнэлгээгүй. Таамаглал биш, хөрөнгө оруулалтын зөвлөгөө биш.</string>
+    <string name="neutral_onchain_missing">On-chain өгөгдөл (Coin Metrics) одоогоор алга.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">Ханш өмнөх түүхэн дээд түвшнээсээ хэр доор байгаа.</string>
+    <string name="neutral_explain_change_30d">Өнөөдрийн ханшийг 30 хоногийн өмнөхтэй харьцуулсан.</string>
+    <string name="neutral_explain_hashrate">30 хоногийн дундаж хэшрэйтийг 60 хоногийн дундажтай харьцуулсан.</string>
+    <string name="neutral_explain_ma200w">Сүүлийн 200 долоо хоногийн хаалтын дундаж.</string>
+    <string name="neutral_explain_mayer">Ханшийг 200 хоногийн дундажид хуваасан.</string>
+    <string name="neutral_explain_mvrv">Зах зээлийн үнэ цэнийг хэрэгжсэн үнэ цэнэд хуваасан (on-chain).</string>
+    <string name="neutral_explain_pi_gap">111 хоногийн дунджийг 350 хоногийн дунджийн хоёр дахин ихтэй харьцуулсан.</string>
+    <string name="neutral_explain_puell">Майнеруудын өдрийн орлогыг түүний 365 хоногийн дундажид хуваасан.</string>
+    <string name="neutral_explain_rsi_daily">Сүүлийн 14 хоногийн харьцангуй хүчний индекс, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">Сүүлийн 14 долоо хоногийн харьцангуй хүчний индекс, 0–100.</string>
+    <string name="neutral_explain_sma50_200">50 хоногийн дунджийг 200 хоногийн дундажтай харьцуулсан.</string>
+    <string name="neutral_explain_vs_btc">90 хоногийн ханшийн өөрчлөлтийг Bitcoin-тэй харьцуулсан.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">Апп зөвхөн тоог харуулж, үүнийг улирал гэж нэрлэдэггүй. Утга ихэвчлэн цаг биш, хоногоор өөрчлөгддөг.</string>
+    <string name="neutral_info_btc_how">Утга бүрийг юуг хэмждэг, 2016 оноос хойших өөрийн түүхэнд хаана байгааг тайлбарласан нэг өгүүлбэртэй хамт харуулна. Апп утгыг үнэлдэггүй, зах зээлийн үе шат гаргадаггүй; зах зээлийн дохионы хязгаар нь зөвхөн таны тохируулсан. Өнгөрсөн хэв маяг давтагдах албагүй.</string>
+    <string name="neutral_info_btc_what">Түгээмэл Bitcoin үзүүлэлтүүдийг энгийн хэмжсэн утгаар: Mayer Multiple, 200 долоо хоногийн дундаж, түүхэн дээд түвшнээс уналт, 30 хоногийн өөрчлөлт, Pi Cycle зай болон on-chain утга MVRV, Puell Multiple, хэшрэйт.</string>
+    <string name="neutral_info_coin_how">Утга бүрийг юуг хэмждэг тухай нэг өгүүлбэртэй хамт, үнэлгээгүй харуулна. Ханшийн түүх богино зоосны зарим утга дутуу. On-chain өгөгдөл энд ороогүй.</string>
+    <string name="neutral_info_coin_what">Таны сонгосон зоосны ижил энгийн үзүүлэлтүүд, зөвхөн ханшийн өгөгдлөөс: Mayer Multiple, 200 долоо хоногийн дундаж, түүхэн дээд түвшнээс уналт, 30 хоногийн өөрчлөлт, 50/200 хоногийн чиг хандлага, RSI болон 90 хоногт Bitcoin-ий эсрэг хүч.</string>
+    <string name="neutral_info_halving_how">Дараагийн халвингийг одоогийн блокийн өндөр болон одоогийн хүндрэлийн үеийн дундаж блокийн хугацаагаар тооцно (mempool.space); тэр өгөгдөлгүй бол хуанлиар (сүүлийн халвинг дээр ойролцоогоор дөрвөн жил). График өнгөрсөн мөчлөгүүдийн халвингаас хойших ханшийн замыг харуулна – түүх, таамаглал биш.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">Чиг хандлага 50/200 хоног</string>
+    <string name="ind_drawdown">Түүхэн дээд түвшнээс уналт</string>
+    <string name="ind_missing">өгөгдөл хүрэлцэхгүй</string>
+    <string name="ind_rsi_daily">RSI (өдрийн)</string>
+    <string name="ind_rsi_weekly">RSI (долоо хоногийн)</string>
+    <string name="ind_vs_btc">Bitcoin-ий эсрэг хүч (90 хоног)</string>
+    <string name="neutral_ind_change_30d">30 хоногийн өөрчлөлт</string>
+    <string name="neutral_ind_hashrate">Хэшрэйт 30/60 хоног</string>
+    <string name="neutral_ind_ma200w">200 долоо хоногийн дундаж</string>
+    <string name="neutral_ind_pi_gap">Pi Cycle зай</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">Өндөр бол ихэнх том альткойн 90 хоногт Bitcoin-оос давсан, бага бол Bitcoin тэдний ихэнхээс давсан гэсэн үг.</string>
+    <string name="ind_read_ath_distance">Бага бол ханш дээд амжилтдаа ойр, их бол түүнээс нэлээд доор гэсэн үг.</string>
+    <string name="ind_read_change_30d">Эерэг бол 30 хоногийн өмнөхөөс өндөр, сөрөг бол бага гэсэн үг.</string>
+    <string name="ind_read_funding">Өндөр бол олон арилжаачин хөшүүргээр өсөлтөд бооцоо тавьж, сөрөг бол олонх нь уналтад бооцоо тавьж байна гэсэн үг.</string>
+    <string name="ind_read_hashrate_30_60">Эерэг бол тооцоолох хүчин чадал өсөж, сөрөг бол майнерууд унтрааж байна гэсэн үг.</string>
+    <string name="ind_read_leverage">Лонг олон бол олонх нь зээлсэн мөнгөөр өсөлтөд бооцоо тавьж, шорт олон бол олонх нь уналтад бооцоо тавьж байна гэсэн үг.</string>
+    <string name="ind_read_ma200w">Ханш түүнээс нэлээд дээр бол удаан өсөлт, ойр бол гүн засвар гэсэн үг.</string>
+    <string name="ind_read_mayer">Өндөр бол ханш 200 хоногийн дунджаасаа нэлээд дээр, бага бол доор гэсэн үг.</string>
+    <string name="ind_read_mvrv">Өндөр бол ханш эзэмшигчдийн дунджаар төлсөн үнээс нэлээд дээр, бага бол ойр эсвэл доор гэсэн үг.</string>
+    <string name="ind_read_pi_cycle_gap">Тэгтэй ойр бол хоёр дундаж бараг нийлж, хүчтэй сөрөг бол хол зөрүүтэй гэсэн үг.</string>
+    <string name="ind_read_puell">Өндөр бол майнерууд ердийнхөөс хамаагүй их, бага бол хамаагүй бага олж байна гэсэн үг.</string>
+    <string name="ind_read_rsi_daily">70-аас дээш бол сүүлийн өдрүүдэд хүчтэй өсөлт, 30-аас доош бол хүчтэй уналт гэсэн үг.</string>
+    <string name="ind_read_rsi_weekly">70-аас дээш бол сүүлийн долоо хоногуудад хүчтэй өсөлт, 30-аас доош бол хүчтэй уналт гэсэн үг.</string>
+    <string name="ind_read_sma50_vs_200">Эерэг бол богино хугацааны дундаж урт хугацааныхаас дээр, сөрөг бол доор гэсэн үг.</string>
+    <string name="ind_read_vs_btc">Эерэг бол Bitcoin-оос сайн, сөрөг бол муу байсан гэсэн үг.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">30 хоног ижил ханш: %1$s</string>
+    <string name="ind_context_note">Өнгөрсөн утга болон «ижил ханш»-ийн тооцоо нь арифметик, таамаглал биш.</string>
+    <string name="ind_context_percentile">%1$s-аас хойш өдрүүдийн %2$s-д бага байсан</string>
+</resources>

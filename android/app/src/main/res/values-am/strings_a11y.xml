@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">ማንቂያ ተቀስቅሷል</string>
+    <string name="a11y_collapsed">ተሰብስቧል</string>
+    <string name="a11y_converted">በግምት %1$s</string>
+    <string name="a11y_expanded">ተዘርግቷል</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">በአሳሹ ውስጥ ይከፈታል</string>
+    <string name="a11y_favorite">ተወዳጅ</string>
+    <string name="a11y_in_watchlist">አስቀድሞ በክትትል ዝርዝር ውስጥ አለ</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_exchange_unreachable">%1$s ሊደረስበት አልቻለም</string>
+    <string name="a11y_move_down">ወደ ታች ያንቀሳቅሱ</string>
+    <string name="a11y_move_up">ወደ ላይ ያንቀሳቅሱ</string>
+    <string name="a11y_note">ማስታወሻ፦ %1$s</string>
+    <string name="a11y_price">ዋጋ %1$s</string>
+    <string name="a11y_price_notification_off">የዋጋ ማሳወቂያ ጠፍቷል</string>
+    <string name="a11y_price_notification_on">የዋጋ ማሳወቂያ በርቷል</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">ዋጋው ጊዜው ያለፈበት ነው</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s በ%2$s</string>
+    <string name="a11y_stale">ጊዜው ያለፈበት፣ የመጨረሻ ዝማኔ %1$s</string>
+    <string name="a11y_warning">ማስጠንቀቂያ</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">%1$s በ24 ሰዓት ውስጥ</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">የ24 ሰዓት ለውጥ አይገኝም</string>
+    <string name="a11y_change_down">በ%1$s ቀንሷል</string>
+    <string name="a11y_change_flat">አልተለወጠም</string>
+    <string name="a11y_change_since_last">%1$s ከመጨረሻው ዝማኔ ወዲህ</string>
+    <string name="a11y_change_since_last_none">ከመጨረሻው ዝማኔ ወዲህ ያለው ለውጥ አይገኝም</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">%1$s ዛሬ</string>
+    <string name="a11y_change_today_none">የዛሬ ለውጥ አይገኝም</string>
+    <string name="a11y_change_today_zone">%1$s ከእኩለ ሌሊት %2$s ወዲህ</string>
+    <string name="a11y_change_today_zone_none">ከእኩለ ሌሊት %1$s ወዲህ ያለው ለውጥ አይገኝም</string>
+    <string name="a11y_change_up">በ%1$s ጨምሯል</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">ገበታ %1$s፦ ከ%2$s እስከ %3$s፣ %4$s። ከፍተኛ %5$s፣ ዝቅተኛ %6$s።</string>
+    <string name="a11y_chart_empty">ገበታ፦ ምንም ውሂብ የለም</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">ዑደት %1$s፦ ከሃልቪንጉ ወዲህ %2$s፣ ቀን %3$d።</string>
+    <string name="a11y_cycle_bottom">ዝቅተኛ ነጥብ %1$s በቀን %2$d።</string>
+    <string name="a11y_cycle_double_bottom">ድርብ ዝቅተኛ ነጥብ %1$s በቀን %2$d።</string>
+    <string name="a11y_cycle_double_top">ድርብ ከፍተኛ ነጥብ %1$s በቀን %2$d።</string>
+    <string name="a11y_cycle_top">ከፍተኛ ነጥብ %1$s በቀን %2$d።</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">ከ%1$s እስከ %2$s ያለ መለኪያ፦ %3$d ከ100</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s፣ %2$s፣ በአማካይ %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s። %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d እየወረደ ነው</item>
+        <item quantity="other">%1$d እየወረዱ ናቸው</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="one">%1$d ጥንድ የ24 ሰዓት ዋጋ የለውም</item>
+        <item quantity="other">%1$d ጥንዶች የ24 ሰዓት ዋጋ የላቸውም</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d ጥንድ የዛሬ ዋጋ የለውም</item>
+        <item quantity="other">%1$d ጥንዶች የዛሬ ዋጋ የላቸውም</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d ጥንድ እየጨመረ ነው</item>
+        <item quantity="other">%1$d ጥንዶች እየጨመሩ ናቸው</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="one">ከ%1$d ቀን በፊት ተዘምኗል</item>
+        <item quantity="other">ከ%1$d ቀናት በፊት ተዘምኗል</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="one">ከ%1$d ሰዓት በፊት ተዘምኗል</item>
+        <item quantity="other">ከ%1$d ሰዓታት በፊት ተዘምኗል</item>
+    </plurals>
+    <string name="a11y_updated_just_now">አሁን ተዘምኗል</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="one">ከ%1$d ደቂቃ በፊት ተዘምኗል</item>
+        <item quantity="other">ከ%1$d ደቂቃዎች በፊት ተዘምኗል</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">መጠኑ ተደብቋል</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_entry">%1$s %2$s፣ ዛሬ ዋጋው %3$s</string>
+    <string name="a11y_portfolio_entry_in">ገቢ</string>
+    <string name="a11y_portfolio_entry_no_value">ዋጋው አይገኝም</string>
+    <string name="a11y_portfolio_entry_note">ማስታወሻ %1$s</string>
+    <string name="a11y_portfolio_entry_out">ወጪ</string>
+    <string name="a11y_portfolio_position">%1$s %2$s፣ ከፖርትፎሊዮው %3$s</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s፣ ከፖርትፎሊዮው %2$s፣ %3$s</string>
+    <string name="a11y_portfolio_positions">ትልልቅ ይዞታዎች፦ %1$s</string>
+    <string name="a11y_portfolio_show_amounts">መጠኖችን ያሳዩ</string>
+    <string name="a11y_compare_chart">በመቶኛ ንጽጽር፣ %1$s፦ %2$s</string>
+    <string name="a11y_compare_from_high">%1$s ከ30 ቀን ከፍተኛው</string>
+    <string name="a11y_price_overlay">የዋጋ ተደራቢ፦ %1$s</string>
+</resources>

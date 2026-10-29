@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">Aby alarmy prišli</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">V poriadku</string>
+    <string name="delivery_state_warn">Skontroluj</string>
+    <string name="delivery_state_info">Poznámka</string>
+    <string name="delivery_allowed">Povolené</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">Upozornenia</string>
+    <string name="delivery_notifications_off">Vypnuté – alarmy neprídu</string>
+    <string name="delivery_notifications_not_asked">Zatiaľ nepovolené</string>
+    <string name="delivery_channel">Kanál alarmov</string>
+    <string name="delivery_channel_high">Vysoká dôležitosť – zobrazí sa navrchu obrazovky</string>
+    <string name="delivery_channel_low">Nízka dôležitosť – alarmy sa zobrazia iba potichu v zozname</string>
+    <string name="delivery_channel_off">Vypnutý – alarmy neprídu</string>
+    <string name="delivery_exact_on">Zapnuté – približne každých 15 minút</string>
+    <string name="delivery_exact_off">Vypnuté – Android kontroluje nepravidelne</string>
+    <string name="delivery_battery">Optimalizácia batérie</string>
+    <string name="delivery_battery_unrestricted">Neobmedzené</string>
+    <string name="delivery_battery_optimized">Optimalizované – Android môže kontroly oneskoriť. Aplikácia nežiada o výnimku; zmeniť to môžeš v nastaveniach batérie aplikácie.</string>
+    <string name="delivery_background">Využitie na pozadí</string>
+    <string name="delivery_background_restricted">Obmedzené – Android zastaví kontroly na pozadí</string>
+    <string name="delivery_dnd">Nerušiť</string>
+    <string name="delivery_dnd_on">Zapnuté – alarmy môžu prísť bez zvuku</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">Aktívne do %1$s – splatné alarmy dovtedy čakajú</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – splatné alarmy v tomto čase čakajú</string>
+    <string name="delivery_last_check">Posledná kontrola na pozadí</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – pred viac ako 6 hodinami</string>
+    <string name="delivery_last_check_never">Zatiaľ žiadna</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">Povoliť</string>
+    <string name="delivery_action_change">Zmeniť</string>
+    <string name="delivery_action_show">Zobraziť</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">Bannery a zvuk</string>
+    <string name="delivery_alert_off">Bannery vypnuté – alarmy sa zobrazia iba v Centre hlásení</string>
+    <string name="delivery_sound_off">Zvuk vypnutý – alarmy prídu potichu</string>
+    <string name="delivery_time_sensitive">Časovo citlivé hlásenia</string>
+    <string name="delivery_time_sensitive_off">Vypnuté – režim sústredenia môže alarmy zadržať</string>
+    <string name="delivery_background_refresh">Obnova aplikácií na pozadí</string>
+    <string name="delivery_low_power">Režim nízkej spotreby</string>
+    <string name="delivery_swipe_away">Aplikácia zatvorená potiahnutím?</string>
+    <string name="delivery_swipe_away_note">Ak aplikáciu v prepínači aplikácií zatvoríš potiahnutím, iOS zastaví kontroly na pozadí, kým ju znova neotvoríš.</string>
+    <string name="delivery_live_activity">Živá aktivita</string>
+    <string name="delivery_live_activity_note">Zobrazuje kurz na zamknutej obrazovke, ale aktualizuje sa iba pri kontrole aplikácie – alarmy sa vďaka tomu nekontrolujú častejšie.</string>
+
+    <string name="alarm_first_check">Skontrolovať, či alarmy prichádzajú</string>
+
+    <string name="oem_battery_title">Šetrič batérie výrobcu</string>
+    <string name="oem_battery_xiaomi">Xiaomi môže aplikáciu úplne zastaviť – potom alarmy neprídu. Zapni „Automatické spustenie“ a šetrič batérie nastav na „Bez obmedzení“.</string>
+    <string name="oem_battery_samsung">Samsung môže aplikáciu uspať do hlbokého spánku – potom alarmy neprídu. V časti Batéria › Limity využitia na pozadí ju pridaj do „Aplikácie, ktoré nikdy nespia“.</string>
+    <string name="oem_battery_huawei">Huawei/Honor môže aplikáciu zastaviť – potom alarmy neprídu. V časti Batéria › Spúšťanie aplikácií vyber „Spravovať ručne“ a povoľ všetky možnosti.</string>
+    <string name="oem_battery_oneplus">OnePlus môže aplikáciu zastaviť – potom alarmy neprídu. Povoľ „Automatické spustenie“ a v časti Využitie batérie aktivitu na pozadí.</string>
+    <string name="oem_battery_oppo">Oppo/Realme môže aplikáciu zastaviť – potom alarmy neprídu. Povoľ „Automatické spustenie“ a v časti Využitie batérie aktivitu na pozadí.</string>
+    <string name="oem_battery_vivo">Vivo môže aplikáciu zastaviť – potom alarmy neprídu. Povoľ „Automatické spustenie“ a v časti Batéria vysokú spotrebu na pozadí.</string>
+    <string name="alarm_reliability_stale">Posledná kontrola %1$s – alarmy môžu meškať</string>
+    <string name="alarm_reliability_never">Alarmy zapnuté – zatiaľ žiadna kontrola na pozadí</string>
+    <string name="alarm_reliability_notifications_off">Upozornenia vypnuté – alarmy neprídu</string>
+    <string name="alarm_reliability_battery">Šetrenie batérie môže zastaviť kontrolu alarmov</string>
+    <string name="alarm_reliability_background_refresh">Obnova na pozadí vypnutá – alarmy nemusia prísť</string>
+</resources>

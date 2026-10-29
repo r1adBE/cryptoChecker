@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">V tej napravi ni nastavljenega zaklepanja zaslona. Najprej ga nastavi v sistemskih nastavitvah.</string>
+    <string name="app_lock_unlock">Odkleni</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">Izprazni portfelj</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="one">Izbrišem %d transakcijo? Spremljani naslovi ostanejo. To lahko razveljaviš takoj zatem.</item>
+        <item quantity="two">Izbrišem obe %d transakciji? Spremljani naslovi ostanejo. To lahko razveljaviš takoj zatem.</item>
+        <item quantity="few">Izbrišem vse %d transakcije? Spremljani naslovi ostanejo. To lahko razveljaviš takoj zatem.</item>
+        <item quantity="other">Izbrišem vseh %d transakcij? Spremljani naslovi ostanejo. To lahko razveljaviš takoj zatem.</item>
+    </plurals>
+    <string name="portfolio_empty_action">Vnesi prvi nakup</string>
+    <string name="portfolio_empty_address">Samo spremljaj naslov denarnice</string>
+    <string name="portfolio_empty_csv">Kupljeno na borzi? Uvozi njeno datoteko</string>
+    <string name="portfolio_empty_example_plain">Primer: %1$s BTC, kupljeno 1. marca. Aplikacija nato prikaže, koliko je to vredno danes in ali si v plusu ali minusu – shranjeno samo v tej napravi.</string>
+    <string name="portfolio_empty_title">Še ni transakcij</string>
+    <string name="portfolio_enable_ask_text">Tvoja transakcija je shranjena. Zavihek Portfelj prikazuje tvoje imetje in njegovo vrednost.</string>
+    <string name="portfolio_enable_ask_title">Vklopim zavihek Portfelj?</string>
+    <string name="portfolio_enable_later_hint">Transakcija shranjena. Zavihek Portfelj vklopiš v Nastavitve › Portfelj.</string>
+    <string name="portfolio_enabled_banner">Portfelj vklopljen – najdeš ga v zavihku „Portfelj“.</string>
+    <string name="portfolio_lock_reason">Odkleni portfelj</string>
+    <string name="portfolio_locked_text">Odkleni ga, da vidiš imetje in vrednosti.</string>
+    <string name="portfolio_locked_title">Portfelj je zaklenjen</string>
+    <string name="portfolio_setting_hint">Neobvezno: beleži nakupe in prodaje ter v ločenem zavihku glej vrednost in dobiček/izgubo.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">Zastarelo · stanje %1$s</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="one">%d vnos iz sistemske varnostne kopije ni bil veljaven in ni bil obnovljen.</item>
+        <item quantity="two">%d vnosa iz sistemske varnostne kopije nista bila veljavna in nista bila obnovljena.</item>
+        <item quantity="few">%d vnosi iz sistemske varnostne kopije niso bili veljavni in niso bili obnovljeni.</item>
+        <item quantity="other">%d vnosov iz sistemske varnostne kopije ni bilo veljavnih in niso bili obnovljeni.</item>
+    </plurals>
+    <string name="portfolio_title">Portfelj</string>
+    <string name="portfolio_unassigned_fee">Provizija ni dodeljena – nabavna vrednost neznana: %1$s</string>
+    <string name="portfolio_updated">Tečaji od %1$s</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">Drugo</string>
+    <string name="portfolio_allocation_title">Razporeditev</string>
+    <string name="portfolio_card_details">Podrobnosti</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: še ni na voljo</string>
+    <string name="portfolio_card_hints_count">Opombe (%1$d)</string>
+    <string name="portfolio_card_today">Danes</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">Skupaj</string>
+    <string name="portfolio_hide_amounts">Skrij zneske</string>
+    <string name="portfolio_hide_amounts_hint">Zneske in vrednosti v portfelju in pripomočku portfelja prikaže kot ••• – odstotki ostanejo vidni.</string>
+    <string name="portfolio_invested">Nabavna vrednost</string>
+    <string name="portfolio_total_no_fx">Ni deviznega tečaja za %1$s – zneski v USDT</string>
+    <string name="portfolio_total_value">Skupna vrednost</string>
+    <string name="portfolio_value">Vrednost</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">Povpr. %1$s · zdaj %2$s</string>
+    <string name="portfolio_avg_only">Povpr. %1$s</string>
+    <string name="portfolio_avg_open_lots">Povpr. nabavna vrednost imetih kovancev</string>
+    <string name="portfolio_avg_partial">Povpr. od %1$s z nakupno ceno</string>
+    <string name="portfolio_avg_price">Povpr. nakupna cena</string>
+    <string name="portfolio_avg_price_hint">Povpr. nakupna cena: povprečje vseh nakupov, uteženo s količino. Prodaje se vrednotijo po tem povprečju.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Zaprta pozicija (%1$d)</item>
+        <item quantity="two">Zaprti poziciji (%1$d)</item>
+        <item quantity="few">Zaprte pozicije (%1$d)</item>
+        <item quantity="other">Zaprte pozicije (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: prodaje najprej porabijo tvoje najstarejše kovance. Povpr. = preostala nabavna vrednost ÷ količina z nakupno ceno.</string>
+    <string name="portfolio_holdings">Imetje</string>
+    <string name="portfolio_lost_fee_cost">Nabavna vrednost omrežnine brez plačane postavke: %1$s</string>
+    <string name="portfolio_open_lots">Odprte nakupne postavke (%1$d)</string>
+    <string name="portfolio_open_lots_avg">Z nakupno ceno (povpr.)</string>
+    <string name="portfolio_open_lots_no_cost">Brez nakupne cene</string>
+    <string name="portfolio_open_lots_without_price">brez nakupne cene</string>
+    <string name="portfolio_realized">Realiziran dobiček/izguba</string>
+    <string name="portfolio_unrealized">Odprt dobiček/izguba</string>
+    <string name="portfolio_unrealized_without_unpriced">brez %1$s brez nakupne cene</string>
+    <string name="portfolio_withdrawn_gain">Izknjiženo: %1$s (sprememba vrednosti do dviga)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">Pretvori v</string>
+    <string name="portfolio_convert_to_value">Pretvori v: %1$s</string>
+    <string name="portfolio_current_missing">Ni trenutnega tečaja za %1$s</string>
+    <string name="portfolio_current_price">Trenutni tečaj</string>
+    <string name="portfolio_price_missing">Manjka cena</string>
+    <string name="portfolio_price_missing_hint">Pri nekaterih nakupih manjka cena. Dodaj nakupno ceno, da vidiš dobiček/izgubo.</string>
+    <string name="portfolio_price_source">Tečaji: Binance · USDT po tržni ceni</string>
+    <string name="portfolio_price_source_routes">Tečaji: %1$s, sicer Binance · USDT po tržni ceni</string>
+    <string name="portfolio_price_unavailable">Tečaj trenutno ni na voljo</string>
+    <string name="portfolio_price_unchecked">Tečaj ni preverjen</string>
+    <string name="portfolio_price_via_base">≈ tečaj %1$s (premoščeno/ovito)</string>
+    <string name="portfolio_usdt_as_usd">USDT pretvorjen po svoji tržni ceni v USD</string>
+    <string name="portfolio_usdt_assumed">Manjka dolarski tečaj USDT – računano kot 1 ameriški dolar</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">Dodaj v portfelj</string>
+    <string name="portfolio_add_tx">Dodaj transakcijo</string>
+    <string name="portfolio_buy">Nakup</string>
+    <string name="portfolio_coin">Kovanec</string>
+    <string name="portfolio_coin_invalid">Vnesi simbol kovanca</string>
+    <string name="portfolio_coin_search">Išči simbol, npr. BTC</string>
+    <string name="portfolio_discard_confirm">Zavrzi</string>
+    <string name="portfolio_discard_keep">Nadaljuj z urejanjem</string>
+    <string name="portfolio_discard_title">Zavržem spremembe?</string>
+    <string name="portfolio_edit_tx">Uredi transakcijo</string>
+    <string name="portfolio_invalid">Vnesi veljavno število, večje od 0.</string>
+    <string name="portfolio_oversold">Prodaje presegajo imetje – preveri transakcije.</string>
+    <string name="portfolio_sell">Prodaja</string>
+    <string name="portfolio_sell_exceeds">Več kot tvoje imetje (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">Količina s provizijo presega tvoje imetje (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">Več kot tvoje imetje v %2$s (%1$s)</string>
+    <string name="portfolio_transactions">Transakcije</string>
+    <string name="portfolio_tx_acquired_date">Prvotni datum nakupa (neobvezno)</string>
+    <string name="portfolio_tx_acquired_date_hint">Za čas imetja v davčnem izvozu</string>
+    <string name="portfolio_tx_amount">Količina</string>
+    <string name="portfolio_tx_coin_fee">Provizija v kovancu (neobvezno)</string>
+    <string name="portfolio_tx_date">Datum</string>
+    <string name="portfolio_tx_delete_confirm">Ta transakcija bo odstranjena iz portfelja.</string>
+    <string name="portfolio_tx_delete_title">Izbrišem transakcijo?</string>
+    <string name="portfolio_tx_deposit">Polog</string>
+    <string name="portfolio_tx_entry_currency">Vnos v</string>
+    <string name="portfolio_tx_explain_deposit">Imetje brez trgovanja, npr. kovanci od prej</string>
+    <string name="portfolio_tx_explain_gift">Kovanci zapustijo imetje kot pri dvigu – odsvojitev po tržni vrednosti samo tam, kjer država tako obdavčuje darila (UK, CA, AU)</string>
+    <string name="portfolio_tx_explain_payment">Plačano za blago ali storitve – odsvojitev po tržni vrednosti kot pri prodaji, brez prejetega denarja</string>
+    <string name="portfolio_tx_explain_reward">Nabavna vrednost = tržna vrednost ob prejemu</string>
+    <string name="portfolio_tx_explain_swap">Kovanec za kovanec: prodaja oddanega in nakup prejetega kovanca</string>
+    <string name="portfolio_tx_explain_transfer">Brez dobička – nabavna vrednost gre s kovanci</string>
+    <string name="portfolio_tx_explain_withdrawal">Imetje zapusti portfelj – brez prodaje, brez dobička</string>
+    <string name="portfolio_tx_fee_consumes_amount">Provizija je enaka prejeti količini – nič ne bi ostalo.</string>
+    <string name="portfolio_tx_fees_toggle">Provizije</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s po tečaju z dne %2$s</string>
+    <string name="portfolio_tx_fiat_loading">Nalaganje deviznega tečaja …</string>
+    <string name="portfolio_tx_fiat_no_fx">Za ta dan ni deviznega tečaja – vnesi znesek v USDT.</string>
+    <string name="portfolio_tx_gift">Podarjeno</string>
+    <string name="portfolio_tx_gift_price_hint">V USDT. Prazno = zaključni tečaj tistega dne (ocena).</string>
+    <string name="portfolio_tx_gift_spouse">Zakoncu / partnerju</string>
+    <string name="portfolio_tx_gift_spouse_hint">UK in Kanada: brez dobička in brez izgube – partner prevzame tvojo nabavno vrednost. Druge države tega ne upoštevajo.</string>
+    <string name="portfolio_tx_market_value">Tržna vrednost na kovanec</string>
+    <string name="portfolio_tx_more_buy">Provizija, borza, opomba</string>
+    <string name="portfolio_tx_network_fee">Omrežnina v kovancu (neobvezno)</string>
+    <string name="portfolio_tx_note">Opomba (neobvezno)</string>
+    <string name="portfolio_tx_payment">Plačano s tem</string>
+    <string name="portfolio_tx_price">Cena na kovanec</string>
+    <string name="portfolio_tx_price_hint">V USDT. Pusti prazno, če ni znana.</string>
+    <string name="portfolio_tx_price_historic">Preverjen zaključni tečaj z dne %1$s – po potrebi prilagodi</string>
+    <string name="portfolio_tx_price_invalid">Vnesi veljavno število (0 ali več) ali pusti polje prazno.</string>
+    <string name="portfolio_tx_price_past_hint">Vnesi tečaj na dan nakupa – pusti prazno, če ni znan</string>
+    <string name="portfolio_tx_price_receipt_hint">V USDT. Prazno = imetje brez nabavne vrednosti.</string>
+    <string name="portfolio_tx_price_zero">Cena 0 ni mogoča pri uvoženih transakcijah – pusti prazno za tržni tečaj</string>
+    <string name="portfolio_tx_removed">Transakcija izbrisana</string>
+    <string name="portfolio_tx_reward">Nagrada</string>
+    <string name="portfolio_tx_save_failed">Transakcije ni bilo mogoče shraniti. Tvoji vnosi so še tu – poskusi znova.</string>
+    <string name="portfolio_tx_swap">Zamenjava</string>
+    <string name="portfolio_tx_swap_fee_received">Provizija v %1$s: zmanjša prejeto količino, cena ni potrebna.</string>
+    <string name="portfolio_tx_swap_from">Zamenjava iz %1$s</string>
+    <string name="portfolio_tx_swap_given_amount">Oddana količina</string>
+    <string name="portfolio_tx_swap_given_coin">Oddani kovanec</string>
+    <string name="portfolio_tx_swap_received_amount">Prejeta količina</string>
+    <string name="portfolio_tx_swap_received_coin">Prejeti kovanec</string>
+    <string name="portfolio_tx_swap_same_coin">Izberi drug kovanec kot oddanega</string>
+    <string name="portfolio_tx_swap_to">Zamenjava v %1$s</string>
+    <string name="portfolio_tx_swap_value">Vrednost zamenjave (neobvezno)</string>
+    <string name="portfolio_tx_swap_value_hint">Skupna vrednost. Prazno = neznano – dobiček ostane nepopoln (z USDT v zamenjavi samodejno).</string>
+    <string name="portfolio_tx_third_fee_amount">Količina provizije</string>
+    <string name="portfolio_tx_third_fee_coin">Kovanec provizije</string>
+    <string name="portfolio_tx_third_fee_incomplete">Brez cene provizija ni upoštevana v nabavni vrednosti oz. izkupičku; davčni izvoz takšne prodaje označi.</string>
+    <string name="portfolio_tx_third_fee_price">Cena na kovanec provizije (neobvezno)</string>
+    <string name="portfolio_tx_third_fee_toggle">Provizija v drugem kovancu</string>
+    <string name="portfolio_tx_total">Skupaj: %1$s</string>
+    <string name="portfolio_tx_transfer">Prenos</string>
+    <string name="portfolio_tx_transfer_from">Od (neobvezno)</string>
+    <string name="portfolio_tx_transfer_to">Na (neobvezno)</string>
+    <string name="portfolio_tx_transfer_to_hint">Borza ali denarnica – od zdaj vrednoteno tam.</string>
+    <string name="portfolio_tx_type_select">Vrsta: %1$s</string>
+    <string name="portfolio_tx_value_received">Vrednost na kovanec ob prejemu (neobvezno)</string>
+    <string name="portfolio_tx_withdrawal">Dvig</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">Podarjeno ali plačano s tem? Vnesi kot „Podarjeno“ oz. „Plačano s tem“ – odvisno od države to davčno šteje kot prodaja.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">Neobvezno: tržna vrednost v USDT, samo za izračun poteka (prazno = dnevni tečaj). Kovanci vedno odidejo po nabavni vrednosti.</string>
+    <string name="portfolio_wallet_did_you_mean">Morda %1$s? Drugačen zapis šteje kot ločena denarnica.</string>
+    <string name="portfolio_wallet_shortfall">Imetje v %1$s ne zadošča – manjka prenos?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">Najvišje %1$s</string>
+    <string name="portfolio_compare">Primerjava</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">Primerjaj %1$s in USDT v odstotkih</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">Primerjava v odstotkih, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">Valutni učinek: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">Podatki o tečajih segajo le do avgusta 2017 — potek se začne tam.</string>
+    <string name="portfolio_history_chip_since_first">Vse</string>
+    <string name="portfolio_history_collapse">Skrij potek vrednosti</string>
+    <string name="portfolio_history_converted">Pretvorjeno po današnjem tečaju</string>
+    <string name="portfolio_history_expand">Prikaži potek vrednosti</string>
+    <string name="portfolio_history_gain_a11y">Vrednost %1$s. Dobiček/izguba, %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">Dobiček/izguba</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">Vrednost v %1$s</string>
+    <string name="portfolio_history_incl_fx">Vklj. devizni tečaj</string>
+    <string name="portfolio_history_incl_withdrawn">Vključuje spremembo vrednosti izknjiženih kovancev</string>
+    <string name="portfolio_history_includes_trades">Vključuje nakupe in prodaje v tem obdobju</string>
+    <string name="portfolio_history_loading">Nalaganje poteka vrednosti</string>
+    <string name="portfolio_history_period_1y">1 leto</string>
+    <string name="portfolio_history_period_30d">30 dni</string>
+    <string name="portfolio_history_period_7d">7 dni</string>
+    <string name="portfolio_history_period_since_first">od prvega nakupa</string>
+    <string name="portfolio_history_pnl_needs_prices">Za dobiček/izgubo manjkajo nakupne cene – dodaj jih v transakcijah.</string>
+    <string name="portfolio_history_pnl_without">Dobiček/izguba brez %1$s (manjka cena)</string>
+    <string name="portfolio_history_range_1y">1 L</string>
+    <string name="portfolio_history_range_30d">30 D</string>
+    <string name="portfolio_history_range_7d">7 D</string>
+    <string name="portfolio_history_range_a11y">Prikaži potek za %1$s</string>
+    <string name="portfolio_history_range_since_first">Od 1. nakupa</string>
+    <string name="portfolio_history_scaled">Potek za %1$s: potek Binance, prilagojen tečaju borze</string>
+    <string name="portfolio_history_title">Potek vrednosti</string>
+    <string name="portfolio_history_today">Danes</string>
+    <string name="portfolio_history_too_short">Potek se začne po tvojem prvem celem dnevu.</string>
+    <string name="portfolio_history_unavailable">Potek trenutno ni na voljo.</string>
+    <string name="portfolio_history_utc_days">Dnevi v UTC (dnevne sveče)</string>
+    <string name="portfolio_history_without_matching">Brez %1$s (ni ustreznih dnevnih tečajev)</string>
+    <string name="portfolio_period_rewards">Nagrade +%1$s (niso v dobičku)</string>
+    <string name="portfolio_period_scaled">7 D/1 L za %1$s: potek Binance, prilagojen tečaju borze</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">Alarm</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">Znesek (%1$s)</string>
+    <string name="portfolio_alarm_hint">Preverja se po vsaki osvežitvi. Kot pri alarmih: sporoči ob prečkanju meje in znova šele, ko se vrednost vrne.</string>
+    <string name="portfolio_alarm_kind_above">Portfelj nad zneskom</string>
+    <string name="portfolio_alarm_kind_below">Portfelj pod zneskom</string>
+    <string name="portfolio_alarm_kind_down">Portfelj pada</string>
+    <string name="portfolio_alarm_kind_up">Portfelj raste</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">Portfelj nad %1$s</string>
+    <string name="portfolio_alarm_sentence_below">Portfelj pod %1$s</string>
+    <string name="portfolio_alarm_sentence_down">Portfelj pade za %1$s (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">Portfelj naraste za %1$s (%2$s)</string>
+    <string name="portfolio_alarm_title">Alarm vrednosti portfelja</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">Borza (neobvezno)</string>
+    <string name="ledger_exchange_failed">%1$s: trenutno ni tečaja z %2$s – vrednoteno z Binance.</string>
+    <string name="ledger_exchange_hint">Kovanec se vrednoti po tečaju te borze (sicer Binance). Potek, 7 D in 1 L uporabljajo dnevne tečaje Binance, prilagojene temu.</string>
+    <string name="ledger_exchange_mixed">%1$s: vnesenih več borz – vrednoteno z Binance. Kovanci premaknjeni? Premik vnesi kot „Prenos“.</string>
+    <string name="ledger_exchange_none">Nobena (Binance)</string>
+    <string name="ledger_fee">Provizija (neobvezno)</string>
+    <string name="ledger_fee_coin">Kovanec</string>
+    <string name="ledger_fee_hint">V USDT poveča nabavno vrednost (prodaja: zmanjša izkupiček); v kovancu zmanjša količino.</string>
+    <string name="ledger_fee_line">Provizija %1$s</string>
+    <string name="ledger_fifo_cost_note">Od nakupa: nabavna vrednost po FIFO vklj. provizije (najstarejši kovanci prodani najprej).</string>
+    <string name="ledger_gain_info">Danes, 7 D, 1 L: sprememba vrednosti v obdobju – nakupi in prodaje ne štejejo kot dobiček. Od nakupa: trenutna vrednost minus nabavna vrednost (povprečni strošek vklj. provizije) kovancev, ki jih še imaš.</string>
+    <string name="ledger_gain_info_a11y">Kako se izračuna dobiček in izguba</string>
+    <string name="ledger_gain_info_fifo">Danes, 7 D, 1 L: sprememba vrednosti v obdobju – nakupi in prodaje ne štejejo kot dobiček. Od nakupa: trenutna vrednost minus nabavna vrednost (FIFO vklj. provizije) kovancev, ki jih še imaš.</string>
+    <string name="ledger_gain_title">Dobiček/izguba</string>
+    <string name="ledger_more_toggle">Provizija in borza</string>
+    <string name="ledger_partial_cost">„Od nakupa“ upošteva samo del z nakupno ceno – brez %1$s brez nakupne cene.</string>
+    <string name="ledger_period_without">Danes / 7 D / 1 L brez %1$s – ni ustreznega začetnega tečaja.</string>
+    <string name="ledger_since_purchase_currency">Od nakupa (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">Dobiček/izguba od nakupa, še ne prodano</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="one">Brez %1$d kovanca brez nakupne cene (%2$s) – dodaj ceno, da se upošteva.</item>
+        <item quantity="two">Brez %1$d kovancev brez nakupne cene (%2$s) – dodaj ceni, da se upoštevata.</item>
+        <item quantity="few">Brez %1$d kovancev brez nakupne cene (%2$s) – dodaj cene, da se upoštevajo.</item>
+        <item quantity="other">Brez %1$d kovancev brez nakupne cene (%2$s) – dodaj cene, da se upoštevajo.</item>
+    </plurals>
+
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">Zlom USDT – trg pri %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">Dolarski tečaj USDT prek USDC/USDT – če USDC pade, ta vrednost ni pravilna</string>
+    <string name="portfolio_amount_bridged_stable">≈ vklj. %1$s (premoščeno)</string>
+
+    <string name="portfolio_tx_interest">Obresti (posojanje)</string>
+    <string name="portfolio_tx_interest_hint">Ob prejemu šteje kot dohodek (Avstrija). Za nagrade stakinga in airdrope pusti izklopljeno.</string>
+    <string name="app_lock_no_screen_lock">Nastavi zaklepanje zaslona, da odpreš portfelj.</string>
+    <string name="app_lock_turn_off_action">Izklopi zaklep portfelja</string>
+    <string name="app_lock_turn_off_confirm_title">Izklopim zaklep portfelja?</string>
+    <string name="app_lock_turn_off_confirm_message">Brez zaklepanja zaslona portfelja ni mogoče odkleniti. Ko je zaklep izklopljen, aplikacija spet prikaže portfelj brez vprašanja. Ko nastaviš zaklepanje zaslona, lahko zaklep znova vklopiš v nastavitvah.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">„Od nakupa“ in nabavna vrednost v %1$s: strošek po deviznem tečaju na dan nakupa, vrednost po današnjem tečaju.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">Ni deviznega tečaja za dan nakupa (manjka v „Od nakupa“ in nabavni vrednosti): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">Strošek na dneve nakupa brez dolarskega tečaja USDT je računan kot 1 ameriški dolar na USDT.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">Stanje %1$s – borza ni dosegljiva</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">Dnevni tečaji: %1$s (namesto Binance)</string>
+
+    <string name="portfolio_footer_short">Delovni pripomoček, ne davčni ali naložbeni nasvet. Zasebnost: Nastavitve › O aplikaciji › Pravilnik o zasebnosti.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">Izbrišem vse transakcije za %1$s?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">%d transakcija bo odstranjena. To lahko razveljaviš takoj zatem.</item>
+        <item quantity="two">%d transakciji bosta odstranjeni. To lahko razveljaviš takoj zatem.</item>
+        <item quantity="few">%d transakcije bodo odstranjene. To lahko razveljaviš takoj zatem.</item>
+        <item quantity="other">%d transakcij bo odstranjenih. To lahko razveljaviš takoj zatem.</item>
+    </plurals>
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">Provizije, plačane v %1$s, bodo odstranjene tudi iz drugih transakcij: %2$d.</string>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s odstranjen iz portfelja (%2$d transakcija)</item>
+        <item quantity="two">%1$s odstranjen iz portfelja (%2$d transakciji)</item>
+        <item quantity="few">%1$s odstranjen iz portfelja (%2$d transakcije)</item>
+        <item quantity="other">%1$s odstranjen iz portfelja (%2$d transakcij)</item>
+    </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">%d transakcija odstranjena</item>
+        <item quantity="two">%d transakciji odstranjeni</item>
+        <item quantity="few">%d transakcije odstranjene</item>
+        <item quantity="other">%d transakcij odstranjenih</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">S tem se odstrani tudi %d postavka.</item>
+        <item quantity="two">S tem se odstranita tudi %d postavki.</item>
+        <item quantity="few">S tem se odstranijo tudi %d postavke.</item>
+        <item quantity="other">S tem se odstrani tudi %d postavk.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">S tem se odstranita tudi %d postavka in zgodovina stanj.</item>
+        <item quantity="two">S tem se odstranijo tudi %d postavki in zgodovina stanj.</item>
+        <item quantity="few">S tem se odstranijo tudi %d postavke in zgodovina stanj.</item>
+        <item quantity="other">S tem se odstrani tudi %d postavk in zgodovina stanj.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">S tem se odstrani tudi zgodovina stanj.</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">Ni bilo mogoče shraniti – poskusi znova</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">Meja ni veljavna – izbriši in ustvari znova</string>
+</resources>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">Ozadje</string>
+    <string name="widget_configure_hint">Izberi ozadje in neprosojnost. Barva sledi aplikaciji. Pripomoček prikaže celoten seznam; tapni vrstico, da odpreš aplikacijo.</string>
+    <string name="widget_configure_title">Nastavi pripomoček</string>
+    <string name="widget_description">Prikaže tečaj para s tvojega seznama.</string>
+    <string name="widget_empty">Na seznamu še ni parov.</string>
+    <string name="widget_group_hint">Prikaži samo pare te skupine.</string>
+    <string name="widget_kind_single">Posamezen kovanec</string>
+    <string name="widget_opacity">Neprosojnost ozadja: %1$s</string>
+    <string name="widget_pulse_description">Kaj trenutno izstopa na trgu: naslov, kratek povzetek ter Bitcoin, Ethereum in Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">zastarelo</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">zastarelo · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">Sveče</string>
+    <string name="widget_chart_line">Črta</string>
+    <string name="widget_chart_range">Obdobje grafa</string>
+    <string name="widget_chart_type">Vrsta grafa</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 leto</string>
+    <string name="widget_range_24h">24 h</string>
+    <string name="widget_range_30d">30 dni</string>
+    <string name="widget_range_7d">7 dni</string>
+    <string name="widget_range_short_1y">1 L</string>
+    <string name="widget_range_short_24h">24 h</string>
+    <string name="widget_range_short_30d">30 D</string>
+    <string name="widget_range_short_7d">7 D</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">Stanje %1$s</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">Potek sledi kmalu</string>
+    <string name="widget_portfolio_description">Skupna vrednost tvojega portfelja in današnja sprememba</string>
+    <string name="widget_portfolio_entries">Knjižbe pod kovanci</string>
+    <string name="widget_portfolio_entries_both">Oboje</string>
+    <string name="widget_portfolio_entries_buys">Nakupi</string>
+    <string name="widget_portfolio_entries_hint">Prikazano samo, če je pod kovanci prostor. Nakupi vključujejo pologe, prodaje dvige; pri „Oboje“ se vrstice seštejejo v imetje.</string>
+    <string name="widget_portfolio_entries_off">Izklopljeno</string>
+    <string name="widget_portfolio_entries_sells">Prodaje</string>
+    <string name="widget_portfolio_display">Prikaz</string>
+    <string name="widget_portfolio_display_conversion">Samo pretvorba</string>
+    <string name="widget_portfolio_display_conversion_usdt">Pretvorba + USDT</string>
+    <string name="widget_portfolio_display_hint">Vrstica USDT je skrita, ko je valuta za pretvorbo stablecoin v USD (npr. USDC).</string>
+    <string name="widget_portfolio_display_usdt">Samo USDT</string>
+    <string name="widget_portfolio_empty">Dodaj nakupe v zavihku Portfelj</string>
+    <string name="widget_portfolio_list_hint">Odpri aplikacijo, da se tukaj prikažejo pozicije.</string>
+    <string name="widget_portfolio_locked_hint">Zaklenjeno – odkleni v aplikaciji</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="one">brez %1$d kovanca</item>
+        <item quantity="two">brez %1$d kovancev</item>
+        <item quantity="few">brez %1$d kovancev</item>
+        <item quantity="other">brez %1$d kovancev</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="one">+ še %1$d</item>
+        <item quantity="two">+ še %1$d</item>
+        <item quantity="few">+ še %1$d</item>
+        <item quantity="other">+ še %1$d</item>
+    </plurals>
+    <string name="widget_portfolio_name">Portfelj</string>
+    <string name="widget_portfolio_off_hint">Vklopi ga v %1$s.</string>
+    <string name="widget_portfolio_off_short">Portfelj izklopljen</string>
+    <string name="widget_portfolio_off_title">Portfelj je izklopljen</string>
+    <string name="widget_portfolio_partly_stale">nekateri tečaji zastareli</string>
+    <string name="widget_portfolio_period">Obdobje</string>
+    <string name="widget_portfolio_period_without">%1$s brez %2$s</string>
+    <string name="widget_portfolio_range_48h">48 h</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: odpri portfelj</string>
+    <string name="widget_portfolio_range_short_48h">48 h</string>
+    <string name="widget_portfolio_today_without">Danes brez %1$s</string>
+    <string name="widget_portfolio_view">Pogled</string>
+    <string name="widget_portfolio_view_chart">Graf</string>
+    <string name="widget_portfolio_view_list">Seznam</string>
+    <string name="widget_portfolio_view_overview">Pregled</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">Izberi par</string>
+    <string name="single_widget_description">Prikaže en kovanec v velikem s tečajem, spremembo in 24-urnim grafom.</string>
+    <string name="single_widget_label">Crypto Checker – en kovanec</string>
+    <string name="single_widget_title">Nastavi pripomoček za en kovanec</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">Dodaj</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">Dodaj pripomoček %1$s</string>
+    <string name="widgets_manual_text">Tvoj začetni zaslon ne more dodajati pripomočkov iz aplikacije. Pridrži prazno mesto na začetnem zaslonu, izberi „Pripomočki“ in poišči „Crypto Checker“.</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">Ročno dodajanje pripomočka</string>
+    <string name="widgets_sheet_title">Dodaj pripomoček</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS aplikacijam ne dovoli, da same dodajajo pripomočke. Vzame le trenutek:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Razpoložljivi pripomočki</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Pridrži prazno mesto na domačem zaslonu, dokler se aplikacije ne zatresejo.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Zgoraj tapni „Uredi“ › „Dodaj pripomoček“ (ali „+“ v starejših različicah iOS).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Poišči „Crypto Checker“, izberi pripomoček in tapni „Dodaj pripomoček“.</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">Osveži – spet mogoče čez %1$d s</string>
+    <string name="settings_watch">Ura</string>
+    <string name="settings_watch_hint">Kovanci za aplikacijo na uri Wear OS (do %1$d, tečaj proti USDT). Na uro gre samo ta seznam, prek storitev Google Play; tečaje ura pridobi sama.</string>
+    <string name="settings_watch_mode_phone">Kot na telefonu (priljubljeni ★)</string>
+    <string name="settings_watch_mode_own">Lasten seznam</string>
+    <string name="settings_watch_own_title">Lasten seznam: %1$d od %2$d</string>
+    <string name="settings_watch_none">Še ni priljubljenih</string>
+
+    <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
+    <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">Pri „Seznam“ brez vrstice USDT</string>
+    <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
+    <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">„Pregled“ namesto tega prikaže 30 dni</string>
+</resources>

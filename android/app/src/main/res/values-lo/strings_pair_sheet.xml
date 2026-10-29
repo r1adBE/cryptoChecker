@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s ໃນ %2$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">ລາຄາປິດ</string>
+    <string name="sheet_chart_converted_current">%1$s, ແປງແລ້ວ (ອັດຕາປັດຈຸບັນ)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, ແປງຕາມອັດຕາລາຍວັນ</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">ບໍ່ມີຂໍ້ມູນລາຄາສຳລັບຄູ່ເທຣດນີ້</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">ລາຄາເປີດ</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">ມື້ນີ້</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">ປະລິມານ %1$s</string>
+    <string name="sheet_more">ເພີ່ມເຕີມ</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Ask</string>
+    <string name="ticker_bid">Bid</string>
+    <string name="explain_bid_ask">Bid ແມ່ນລາຄາສູງສຸດທີ່ຜູ້ຊື້ສະເໜີໃນຕອນນີ້, ask ແມ່ນລາຄາຕ່ຳສຸດທີ່ຜູ້ຂາຍຈະຍອມຮັບ.</string>
+    <string name="ticker_high">ສູງ</string>
+    <string name="ticker_low">ຕ່ຳ</string>
+    <string name="ticker_timestamp">ເວລາ</string>
+    <string name="ticker_vol_base">ປະລິມານ (ເປັນຫຼຽນ)</string>
+    <string name="ticker_vol_quote">ປະລິມານ (ເປັນສະກຸນເງິນອ້າງອີງ)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (ເຂດເວລາຂອງອຸປະກອນ)</string>
+    <string name="change_basis_local">ນັບແຕ່ 00:00 ເວລາທ້ອງຖິ່ນ</string>
+    <string name="change_basis_rolling">24 ຊມ. ຫຼ້າສຸດ</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">ນັບແຕ່ການອັບເດດຫຼ້າສຸດ</string>
+    <string name="change_basis_utc_zone">ນັບແຕ່ 00:00 %1$s</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">ການປ່ຽນແປງຈາກແທ່ງທຽນ %1$s</string>
+    <string name="change_short_since_last">ອັບເດດຫຼ້າສຸດ</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">ມື້ນີ້</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">ມື້ນີ້ %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="exchange_data_empty_error">ບໍ່ໄດ້ຮັບຂໍ້ມູນຈາກກະດານແລກປ່ຽນ.</string>
+    <string name="market_data_summary">ມູນຄ່າຕະຫຼາດ, ຄ່າ gas, ຂໍ້ມູນເສດຖະກິດ, ການວິເຄາະຫຼຽນ</string>
+    <string name="market_data_tab_futures">Futures</string>
+    <string name="market_data_title">ຂໍ້ມູນຕະຫຼາດ</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">ຈຳນວນທີ່ໝູນວຽນ</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">ມູນຄ່າຕະຫຼາດ</string>
+    <string name="spot_max_supply">ຈຳນວນສູງສຸດ</string>
+    <string name="spot_no_data">ບໍ່ມີຂໍ້ມູນ Spot ສຳລັບຫຼຽນນີ້</string>
+    <string name="spot_source_updated">ແຫຼ່ງທີ່ມາ: %1$s · ຂໍ້ມູນເມື່ອ %2$s</string>
+    <string name="spot_supply_of_max">%1$s ຂອງຈຳນວນສູງສຸດກຳລັງໝູນວຽນ</string>
+    <string name="spot_total_supply">ຈຳນວນທັງໝົດ</string>
+    <string name="spot_vol_mcap">ປະລິມານ/ມູນຄ່າຕະຫຼາດ</string>
+    <string name="spot_volume_24h">ປະລິມານ (24 ຊມ.)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">ອ້າງອີງ: %1$s</string>
+    <string name="futures_funding">ອັດຕາ Funding</string>
+    <string name="futures_funding_interval_unknown">ບໍ່ຮູ້ຊ່ວງເວລາ</string>
+    <string name="futures_funding_per8h_equiv">= %1$s ຕໍ່ 8 ຊມ. (ຄືໃນສັນຍານເຕືອນ)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">ຕໍ່ຊົ່ວໂມງ</string>
+    <string name="futures_funding_per_hours">ຕໍ່ %1$d ຊມ.</string>
+    <string name="futures_next_funding">ຄັ້ງຕໍ່ໄປໃນ %1$d ຊມ. %2$d ນາທີ</string>
+    <string name="futures_no_data">ບໍ່ມີຂໍ້ມູນ Futures ສຳລັບຫຼຽນນີ້</string>
+    <string name="futures_open_interest">Open interest</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">ອ້າງອີງຈາກ %1$s – Funding ແລະ Open interest ແຕກຕ່າງກັນຕາມກະດານແລກປ່ຽນ; ໃນ %2$s ອາດແຕກຕ່າງ.</string>
+    <string name="futures_reference_spot">ອ້າງອີງຈາກ %1$s (USDT perpetual ຂອງຫຼຽນ)</string>
+    <string name="futures_source">ແຫຼ່ງທີ່ມາ: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">ນັກເທຣດຫຼາຍຄົນເດີມພັນວ່າລາຄາຈະຂຶ້ນ ຫຼື ລົງດ້ວຍເງິນກູ້. ຄ່າທຳນຽມລະຫວ່າງສະຖານະ long ແລະ short. ບວກຫຼາຍໝາຍເຖິງຫຼາຍຄົນກຳລັງເດີມພັນວ່າລາຄາຈະຂຶ້ນ.</string>
+    <string name="explain_open_interest">Futures ແມ່ນການເດີມພັນກ່ຽວກັບລາຄາ, ມັກໃຊ້ເງິນກູ້. ມູນຄ່າຂອງສະຖານະ Futures ທີ່ເປີດຢູ່ທັງໝົດ. ຖ້າມັນເພີ່ມຂຶ້ນ, ມີເງິນຫຼາຍຂຶ້ນກຳລັງເດີມພັນກັບການເໜັງຕີງ.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">ຄຳອະທິບາຍ</string>
+    <string name="explain_spot_fdv">ມູນຄ່າເຕັມ (Fully diluted valuation): ລາຄາ × ຈຳນວນສູງສຸດ (ຫຼື ຈຳນວນທັງໝົດ ຖ້າບໍ່ມີຂີດຈຳກັດ).</string>
+    <string name="explain_spot_market_cap">ລາຄາ × ຈຳນວນທີ່ໝູນວຽນ. ປ້າຍສະແດງການປ່ຽນແປງຂອງມັນໃນ 24 ຊົ່ວໂມງ.</string>
+    <string name="explain_spot_source">ຕົວເລກຈາກທຸກກະດານແລກປ່ຽນເປັນໂດລາສະຫະລັດ, ຈາກ CoinGecko.</string>
+    <string name="explain_spot_supply">ໝູນວຽນ: ຫຼຽນໃນຕະຫຼາດຕອນນີ້. ທັງໝົດ: ຫຼຽນທັງໝົດທີ່ສ້າງຂຶ້ນລົບດ້ວຍທີ່ຖືກເຜົາ. ສູງສຸດ: ຈຳນວນຫຼາຍທີ່ສຸດທີ່ຈະມີໄດ້.</string>
+    <string name="explain_spot_volume">ມູນຄ່າທີ່ຊື້ຂາຍໃນ 24 ຊົ່ວໂມງ. ປະລິມານ/ມູນຄ່າຕະຫຼາດ: ປະລິມານທຽບກັບມູນຄ່າຕະຫຼາດ — ສູງໝາຍເຖິງການຊື້ຂາຍຄຶກຄັກຫຼາຍ.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · ອັດຕາ %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">ຊ່ອງຫ່າງກວ້າງລະຫວ່າງລາຄາຊື້ ແລະ ຂາຍ (%1$s)</string>
+
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">ປະຫວັດເປັນ %1$s, ແປງເປັນ %2$s ຕາມອັດຕາມື້ນີ້</string>
+    <string name="converted_unsure">ການແປງບໍ່ແນ່ນອນ</string>
+</resources>

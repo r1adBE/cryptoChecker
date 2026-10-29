@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s á %2$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">Lokaverð</string>
+    <string name="sheet_chart_converted_current">%1$s, umreiknað (núverandi gengi)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, umreiknað á dagsgengi</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">Engin verðgögn fyrir þetta par</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">Opnunarverð</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">Í dag</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">Velta %1$s</string>
+    <string name="sheet_more">Meira</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Sölutilboð</string>
+    <string name="ticker_bid">Kauptilboð</string>
+    <string name="explain_bid_ask">Kauptilboð (bid) er hæsta verð sem kaupendur bjóða núna, sölutilboð (ask) lægsta verð sem seljendur samþykkja.</string>
+    <string name="ticker_high">Hæst</string>
+    <string name="ticker_low">Lægst</string>
+    <string name="ticker_timestamp">Tími</string>
+    <string name="ticker_vol_base">Velta (í myntum)</string>
+    <string name="ticker_vol_quote">Velta (í verðgjaldmiðli)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (tímabelti tækis)</string>
+    <string name="change_basis_local">Frá 00:00 að staðartíma</string>
+    <string name="change_basis_rolling">Síðustu 24 klst.</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">Frá síðustu uppfærslu</string>
+    <string name="change_basis_utc_zone">Frá 00:00 %1$s</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">Breyting út frá kertum %1$s</string>
+    <string name="change_short_since_last">síðasta uppfærsla</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">í dag</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">í dag %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="exchange_data_empty_error">Engin gögn bárust frá kauphöllinni.</string>
+    <string name="market_data_summary">Markaðsvirði, gasgjöld, efnahagsgögn, myntgreining</string>
+    <string name="market_data_tab_futures">Framvirkt</string>
+    <string name="market_data_title">Markaðsgögn</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">Magn í umferð</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">Markaðsvirði</string>
+    <string name="spot_max_supply">Hámarksmagn</string>
+    <string name="spot_no_data">Engin spot-gögn fyrir þessa mynt</string>
+    <string name="spot_source_updated">Heimild: %1$s · staða %2$s</string>
+    <string name="spot_supply_of_max">%1$s af hámarksmagni í umferð</string>
+    <string name="spot_total_supply">Heildarmagn</string>
+    <string name="spot_vol_mcap">Velta/markaðsvirði</string>
+    <string name="spot_volume_24h">Velta (24 klst.)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">Viðmið: %1$s</string>
+    <string name="futures_funding">Fjármögnunarhlutfall</string>
+    <string name="futures_funding_interval_unknown">bil óþekkt</string>
+    <string name="futures_funding_per8h_equiv">= %1$s á 8 klst. (eins og í viðvörunum)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">á klukkustund</string>
+    <string name="futures_funding_per_hours">á %1$d klst.</string>
+    <string name="futures_next_funding">næst eftir %1$d klst. %2$d mín.</string>
+    <string name="futures_no_data">Engin gögn um framvirka samninga fyrir þessa mynt</string>
+    <string name="futures_open_interest">Opnar stöður</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">Viðmið frá %1$s – fjármögnun og opnar stöður eru mismunandi eftir kauphöllum; á %2$s geta þær verið aðrar.</string>
+    <string name="futures_reference_spot">Viðmið frá %1$s (USDT-perpetual myntarinnar)</string>
+    <string name="futures_source">Heimild: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">Margir veðja á hækkandi eða lækkandi verð með lánsfé. Gjald milli lang- og skortstaða. Mjög jákvætt þýðir að margir veðji á hækkandi verð.</string>
+    <string name="explain_open_interest">Framvirkir samningar eru veðmál um verðið, oft með lánsfé. Virði allra opinna framvirkra staða. Ef það hækkar veðja meiri peningar á hreyfinguna.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Útskýring</string>
+    <string name="explain_spot_fdv">Fullþynnt verðmat: verð × hámarksmagn (eða heildarmagn ef ekkert hámark er).</string>
+    <string name="explain_spot_market_cap">Verð × magn í umferð. Merkið sýnir breytingu þess á 24 klukkustundum.</string>
+    <string name="explain_spot_source">Tölur yfir allar kauphallir í Bandaríkjadölum, frá CoinGecko.</string>
+    <string name="explain_spot_supply">Í umferð: myntir á markaðnum núna. Heildar: allar myntir sem hafa orðið til, að frádregnum brenndum. Hámark: mesta sem nokkurn tíma getur verið til.</string>
+    <string name="explain_spot_volume">Virði viðskipta á 24 klukkustundum. Velta/markaðsvirði: velta miðað við markaðsvirði — hátt þýðir mjög lífleg viðskipti.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · gengi %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">Mikill munur á kaup- og söluverði (%1$s)</string>
+
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">Saga í %1$s, umreiknuð í %2$s á gengi dagsins</string>
+    <string name="converted_unsure">Umreikningur óviss</string>
+</resources>

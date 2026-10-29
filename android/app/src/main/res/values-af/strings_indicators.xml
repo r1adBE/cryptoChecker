@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">Altcoins teenoor Bitcoin</string>
+    <string name="neutral_btc_indicators_title">Bitcoin-aanwysers</string>
+    <string name="neutral_halving_last">Laaste halvering: %1$s</string>
+    <string name="neutral_halving_next">Volgende halvering verwag rondom %1$s (beraam volgens die kalender – blokhoogte tans nie beskikbaar nie).</string>
+    <string name="neutral_indicators_disclaimer">Slegs gemete waardes, sonder beoordeling. Nie \'n voorspelling nie en geen beleggingsadvies nie.</string>
+    <string name="neutral_onchain_missing">On-chain-data (Coin Metrics) tans nie beskikbaar nie.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">Hoe ver die prys onder sy vorige rekordhoogte is.</string>
+    <string name="neutral_explain_change_30d">Prys vandag vergeleke met 30 dae gelede.</string>
+    <string name="neutral_explain_hashrate">30-dae-gemiddelde hashrate vergeleke met die 60-dae-gemiddelde.</string>
+    <string name="neutral_explain_ma200w">Gemiddeld van die laaste 200 weeklikse slotpryse.</string>
+    <string name="neutral_explain_mayer">Prys gedeel deur die 200-dae-gemiddelde.</string>
+    <string name="neutral_explain_mvrv">Markwaarde gedeel deur gerealiseerde waarde (on-chain).</string>
+    <string name="neutral_explain_pi_gap">111-dae-gemiddelde vergeleke met twee keer die 350-dae-gemiddelde.</string>
+    <string name="neutral_explain_puell">Daaglikse mynwerkersinkomste gedeel deur sy 365-dae-gemiddelde.</string>
+    <string name="neutral_explain_rsi_daily">Relative Strength Index van die laaste 14 dae, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">Relative Strength Index van die laaste 14 weke, 0–100.</string>
+    <string name="neutral_explain_sma50_200">50-dae-gemiddelde vergeleke met die 200-dae-gemiddelde.</string>
+    <string name="neutral_explain_vs_btc">Prysverandering vergeleke met Bitcoin oor 90 dae.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">Die app wys net die getal en noem dit nie \'n seisoen nie. Die waarde verander gewoonlik oor dae, nie ure nie.</string>
+    <string name="neutral_info_btc_how">Elke waarde kom met een sin oor wat dit meet en waar dit in sy eie geskiedenis sedert 2016 staan. Die app beoordeel nie die waardes nie en lei geen markfase af nie; limiete vir markalarms is slegs dié wat jy stel. Patrone uit die verlede hoef nie te herhaal nie.</string>
+    <string name="neutral_info_btc_what">Algemene Bitcoin-aanwysers as gewone gemete waardes: Mayer Multiple, 200-week-gemiddelde, daling vanaf die rekordhoogte, verandering oor 30 dae, Pi Cycle-gaping en die on-chain-waardes MVRV, Puell Multiple en hashrate.</string>
+    <string name="neutral_info_coin_how">Elke waarde kom met een sin oor wat dit meet, sonder beoordeling. Vir munte met \'n kort prysgeskiedenis ontbreek sommige waardes. On-chain-data is nie hier ingesluit nie.</string>
+    <string name="neutral_info_coin_what">Dieselfde gewone aanwysers vir \'n munt van jou keuse, slegs uit prysdata: Mayer Multiple, 200-week-gemiddelde, daling vanaf die rekordhoogte, verandering oor 30 dae, 50/200-dae-tendens, RSI en sterkte teenoor Bitcoin oor 90 dae.</string>
+    <string name="neutral_info_halving_how">Die volgende halvering word bereken uit die huidige blokhoogte en die gemiddelde bloktyd van die huidige moeilikheidstydperk (mempool.space); sonder daardie data volgens die kalender (laaste halvering plus ongeveer vier jaar). Die grafiek wys die prysverloop van vorige siklusse vanaf hul halvering – geskiedenis, nie \'n voorspelling nie.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">Tendens 50/200 dae</string>
+    <string name="ind_drawdown">Daling vanaf rekordhoogte</string>
+    <string name="ind_missing">nie genoeg data nie</string>
+    <string name="ind_rsi_daily">RSI (daagliks)</string>
+    <string name="ind_rsi_weekly">RSI (weekliks)</string>
+    <string name="ind_vs_btc">Sterkte teenoor Bitcoin (90 dae)</string>
+    <string name="neutral_ind_change_30d">Verandering 30 dae</string>
+    <string name="neutral_ind_hashrate">Hashrate 30/60 dae</string>
+    <string name="neutral_ind_ma200w">200-week-gemiddelde</string>
+    <string name="neutral_ind_pi_gap">Pi Cycle-gaping</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">Hoog beteken die meeste groot altcoins het Bitcoin oor 90 dae geklop, laag beteken Bitcoin het die meeste van hulle geklop.</string>
+    <string name="ind_read_ath_distance">Klein beteken die prys is naby sy rekord, groot beteken dit is ver daaronder.</string>
+    <string name="ind_read_change_30d">Positief beteken hoër as 30 dae gelede, negatief beteken laer.</string>
+    <string name="ind_read_funding">Hoog beteken baie handelaars wed met hefboom op stygende pryse, negatief beteken baie wed op dalende pryse.</string>
+    <string name="ind_read_hashrate_30_60">Positief beteken rekenkrag groei, negatief beteken mynwerkers skakel af.</string>
+    <string name="ind_read_leverage">Baie longs beteken baie wed met geleende geld op stygende pryse, baie shorts beteken baie wed op dalende pryse.</string>
+    <string name="ind_read_ma200w">Prys ver daarbo beteken \'n lang styging, prys naby daaraan beteken \'n diep terugval.</string>
+    <string name="ind_read_mayer">Hoog beteken die prys is ver bo sy 200-dae-gemiddelde, laag beteken dit is daaronder.</string>
+    <string name="ind_read_mvrv">Hoog beteken die prys is ver bo wat houers gemiddeld betaal het, laag beteken naby of daaronder.</string>
+    <string name="ind_read_pi_cycle_gap">Naby nul beteken die twee gemiddeldes ontmoet amper, sterk negatief beteken hulle is ver uitmekaar.</string>
+    <string name="ind_read_puell">Hoog beteken mynwerkers verdien baie meer as gewoonlik, laag beteken baie minder.</string>
+    <string name="ind_read_rsi_daily">Bo 70 beteken sterk winste in die afgelope dae, onder 30 beteken sterk verliese.</string>
+    <string name="ind_read_rsi_weekly">Bo 70 beteken sterk winste in die afgelope weke, onder 30 beteken sterk verliese.</string>
+    <string name="ind_read_sma50_vs_200">Positief beteken die korttermyn-gemiddelde is bo die langtermyn-een, negatief beteken daaronder.</string>
+    <string name="ind_read_vs_btc">Positief beteken dit het beter as Bitcoin gevaar, negatief beteken slegter.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">Dieselfde prys vir 30 dae: %1$s</string>
+    <string name="ind_context_note">Vorige waardes en “dieselfde prys”-berekeninge is rekenkunde, nie \'n voorspelling nie.</string>
+    <string name="ind_context_percentile">Sedert %1$s laer op %2$s van die dae</string>
+</resources>

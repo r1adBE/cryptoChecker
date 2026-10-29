@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">Inskrywings sonder kostebasis: %1$d</string>
+    <string name="cost_gaps_card_text">Voeg die kostebasis by sodat winste en belasting volledig is.</string>
+    <string name="cost_gaps_sheet_title">Inskrywings sonder kostebasis</string>
+    <string name="cost_gaps_sheet_intro">Hierdie invloeie het geen kostebasis nie. Die voorstel is die daaglikse slotprys van die datum – jy kan dit in die inskrywing aanpas.</string>
+    <string name="cost_gaps_empty">Alle inskrywings het \'n kostebasis.</string>
+    <string name="cost_gap_enter">Voer kostebasis in</string>
+    <string name="cost_gap_leave_unknown">Laat onbekend</string>
+    <string name="cost_gap_left_unknown">Onbekend gelaat</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">Voorstel: daaglikse slotprys %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">Geen geverifieerde daaglikse slotprys vir hierdie datum nie</string>
+    <string name="cost_gap_suggestion_loading">Laai daaglikse slotprys …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">Kostebasis = waarde by ontvangs (inkomste)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">Kostebasis = 0 (beloning sonder invloei, Oostenryk)</string>
+    <string name="cost_gap_apply">Pas toe</string>
+    <string name="address_lots_action">Kostebasis vir adressaldo</string>
+    <string name="address_lots_title">Kostebasis vir adressaldo</string>
+    <string name="address_lots_intro">Voer aankoopdatum, bedrag en kostebasis vir die saldo van hierdie adres in. Die lotte tel soos aankope in hierdie adres; enige deel wat nie gedek is nie, bly sonder kostebasis.</string>
+    <string name="address_lots_add">Voeg lot by</string>
+    <string name="address_lots_new">Nuwe lot</string>
+    <string name="address_lots_edit">Lot</string>
+    <string name="address_lots_date">Aankoopdatum</string>
+    <string name="address_lots_amount">Bedrag</string>
+    <string name="address_lots_mode_total">Totaal</string>
+    <string name="address_lots_mode_price">Per munt</string>
+    <string name="address_lots_price">Prys per munt (USDT)</string>
+    <string name="address_lots_total">Totale kostebasis (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%1$s van %2$s met kostebasis</string>
+    <string name="address_lots_unlotted">%1$s sonder kostebasis</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">Die lotte oorskry die saldo met %1$s – die oudstes word eerste opgebruik.</string>
+    <string name="address_lots_not_loaded">Saldo nog nie gelaai nie – die lotte tel sodra dit is.</string>
+    <string name="address_lots_invalid">Voer bedrag en kostebasis in</string>
+</resources>

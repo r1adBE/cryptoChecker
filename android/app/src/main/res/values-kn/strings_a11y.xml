@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">ಅಲರ್ಟ್ ಟ್ರಿಗರ್ ಆಗಿದೆ</string>
+    <string name="a11y_collapsed">ಕುಗ್ಗಿಸಲಾಗಿದೆ</string>
+    <string name="a11y_converted">ಸುಮಾರು %1$s</string>
+    <string name="a11y_expanded">ವಿಸ್ತರಿಸಲಾಗಿದೆ</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">ಬ್ರೌಸರ್‌ನಲ್ಲಿ ತೆರೆಯುತ್ತದೆ</string>
+    <string name="a11y_favorite">ಮೆಚ್ಚಿನದು</string>
+    <string name="a11y_in_watchlist">ಈಗಾಗಲೇ ವಾಚ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿದೆ</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_exchange_unreachable">%1$s ಲಭ್ಯವಿಲ್ಲ</string>
+    <string name="a11y_move_down">ಕೆಳಗೆ ಸರಿಸಿ</string>
+    <string name="a11y_move_up">ಮೇಲೆ ಸರಿಸಿ</string>
+    <string name="a11y_note">ಟಿಪ್ಪಣಿ: %1$s</string>
+    <string name="a11y_price">ಬೆಲೆ %1$s</string>
+    <string name="a11y_price_notification_off">ಬೆಲೆ ಅಧಿಸೂಚನೆ ಆಫ್</string>
+    <string name="a11y_price_notification_on">ಬೆಲೆ ಅಧಿಸೂಚನೆ ಆನ್</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">ಬೆಲೆ ಹಳೆಯದು</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%2$s ನಲ್ಲಿ %1$s</string>
+    <string name="a11y_stale">ಹಳೆಯದು, ಕೊನೆಯ ಅಪ್‌ಡೇಟ್ %1$s</string>
+    <string name="a11y_warning">ಎಚ್ಚರಿಕೆ</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">24 ಗಂಟೆಗಳಲ್ಲಿ %1$s</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">24 ಗಂಟೆಗಳ ಬದಲಾವಣೆ ಲಭ್ಯವಿಲ್ಲ</string>
+    <string name="a11y_change_down">%1$s ಇಳಿಕೆ</string>
+    <string name="a11y_change_flat">ಬದಲಾವಣೆ ಇಲ್ಲ</string>
+    <string name="a11y_change_since_last">ಕೊನೆಯ ಅಪ್‌ಡೇಟ್‌ನಿಂದ %1$s</string>
+    <string name="a11y_change_since_last_none">ಕೊನೆಯ ಅಪ್‌ಡೇಟ್‌ನಿಂದ ಬದಲಾವಣೆ ಲಭ್ಯವಿಲ್ಲ</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">ಇಂದು %1$s</string>
+    <string name="a11y_change_today_none">ಇಂದಿನ ಬದಲಾವಣೆ ಲಭ್ಯವಿಲ್ಲ</string>
+    <string name="a11y_change_today_zone">ಮಧ್ಯರಾತ್ರಿ %2$s ರಿಂದ %1$s</string>
+    <string name="a11y_change_today_zone_none">ಮಧ್ಯರಾತ್ರಿ %1$s ರಿಂದ ಬದಲಾವಣೆ ಲಭ್ಯವಿಲ್ಲ</string>
+    <string name="a11y_change_up">%1$s ಏರಿಕೆ</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">ಚಾರ್ಟ್ %1$s: %2$s ರಿಂದ %3$s ವರೆಗೆ, %4$s. ಗರಿಷ್ಠ %5$s, ಕನಿಷ್ಠ %6$s.</string>
+    <string name="a11y_chart_empty">ಚಾರ್ಟ್: ಡೇಟಾ ಇಲ್ಲ</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">ಸೈಕಲ್ %1$s: ಹಾಲ್ವಿಂಗ್‌ನಿಂದ %2$s, ದಿನ %3$d.</string>
+    <string name="a11y_cycle_bottom">ದಿನ %2$d ರಂದು ತಳಮಟ್ಟ %1$s.</string>
+    <string name="a11y_cycle_double_bottom">ದಿನ %2$d ರಂದು ಡಬಲ್ ಬಾಟಮ್ %1$s.</string>
+    <string name="a11y_cycle_double_top">ದಿನ %2$d ರಂದು ಡಬಲ್ ಟಾಪ್ %1$s.</string>
+    <string name="a11y_cycle_top">ದಿನ %2$d ರಂದು ಶಿಖರ %1$s.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">%1$s ರಿಂದ %2$s ವರೆಗಿನ ಮಾಪಕ: 100 ರಲ್ಲಿ %3$d</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, ಸರಾಸರಿ %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d ಇಳಿಯುತ್ತಿದೆ</item>
+        <item quantity="other">%1$d ಇಳಿಯುತ್ತಿವೆ</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="one">%1$d ಜೋಡಿಗೆ 24 ಗಂಟೆಗಳ ಮೌಲ್ಯವಿಲ್ಲ</item>
+        <item quantity="other">%1$d ಜೋಡಿಗಳಿಗೆ 24 ಗಂಟೆಗಳ ಮೌಲ್ಯವಿಲ್ಲ</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d ಜೋಡಿಗೆ ಇಂದಿನ ಮೌಲ್ಯವಿಲ್ಲ</item>
+        <item quantity="other">%1$d ಜೋಡಿಗಳಿಗೆ ಇಂದಿನ ಮೌಲ್ಯವಿಲ್ಲ</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d ಜೋಡಿ ಏರುತ್ತಿದೆ</item>
+        <item quantity="other">%1$d ಜೋಡಿಗಳು ಏರುತ್ತಿವೆ</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="one">%1$d ದಿನದ ಹಿಂದೆ ಕೊನೆಯದಾಗಿ ಅಪ್‌ಡೇಟ್ ಆಗಿದೆ</item>
+        <item quantity="other">%1$d ದಿನಗಳ ಹಿಂದೆ ಕೊನೆಯದಾಗಿ ಅಪ್‌ಡೇಟ್ ಆಗಿದೆ</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="one">%1$d ಗಂಟೆಯ ಹಿಂದೆ ಕೊನೆಯದಾಗಿ ಅಪ್‌ಡೇಟ್ ಆಗಿದೆ</item>
+        <item quantity="other">%1$d ಗಂಟೆಗಳ ಹಿಂದೆ ಕೊನೆಯದಾಗಿ ಅಪ್‌ಡೇಟ್ ಆಗಿದೆ</item>
+    </plurals>
+    <string name="a11y_updated_just_now">ಈಗಷ್ಟೇ ಅಪ್‌ಡೇಟ್ ಆಗಿದೆ</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="one">%1$d ನಿಮಿಷದ ಹಿಂದೆ ಕೊನೆಯದಾಗಿ ಅಪ್‌ಡೇಟ್ ಆಗಿದೆ</item>
+        <item quantity="other">%1$d ನಿಮಿಷಗಳ ಹಿಂದೆ ಕೊನೆಯದಾಗಿ ಅಪ್‌ಡೇಟ್ ಆಗಿದೆ</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">ಮೊತ್ತ ಮರೆಮಾಡಲಾಗಿದೆ</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_entry">%1$s %2$s, ಇಂದಿನ ಮೌಲ್ಯ %3$s</string>
+    <string name="a11y_portfolio_entry_in">ಒಳಬರುವ</string>
+    <string name="a11y_portfolio_entry_no_value">ಮೌಲ್ಯ ಲಭ್ಯವಿಲ್ಲ</string>
+    <string name="a11y_portfolio_entry_note">ಟಿಪ್ಪಣಿ %1$s</string>
+    <string name="a11y_portfolio_entry_out">ಹೊರಹೋಗುವ</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, ಪೋರ್ಟ್‌ಫೋಲಿಯೊದ %3$s</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, ಪೋರ್ಟ್‌ಫೋಲಿಯೊದ %2$s, %3$s</string>
+    <string name="a11y_portfolio_positions">ಅತಿದೊಡ್ಡ ಪೊಸಿಷನ್‌ಗಳು: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">ಮೊತ್ತಗಳನ್ನು ತೋರಿಸಿ</string>
+    <string name="a11y_compare_chart">ಶೇಕಡಾವಾರು ಹೋಲಿಕೆ, %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">30 ದಿನಗಳ ಗರಿಷ್ಠದಿಂದ %1$s</string>
+    <string name="a11y_price_overlay">ಬೆಲೆ ಓವರ್‌ಲೇ: %1$s</string>
+</resources>

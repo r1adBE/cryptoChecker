@@ -234,4 +234,17 @@
     <string name="watchlist_not_saved_confirm_message">Overvåkingslisten med alarmer lagres ikke akkurat nå. Denne og flere endringer går tapt når appen lukkes. Endre likevel?</string>
     <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
     <string name="watchlist_not_saved_confirm_action">Endre likevel</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">%1$d par</item>
+        <item quantity="other">%1$d par</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">%2$d av %1$d par</item>
+        <item quantity="other">%2$d av %1$d par</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">%1$d plass igjen</item>
+        <item quantity="other">%1$d plasser igjen</item>
+    </plurals>
+    <string name="watchlist_footer_full">Overvåkingslisten er full</string>
 </resources>

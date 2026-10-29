@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Монета таңдалмаған</string>
+    <string name="watch_loading">Жүктелуде…</string>
+    <string name="watch_error">Биржалар қолжетімсіз</string>
+    <string name="watch_updated">%1$s жағдайы бойынша</string>
+    <string name="watch_refresh">Жаңарту</string>
+    <string name="watch_choose">Монета таңдау</string>
+    <string name="watch_choose_hint">Монеталар: ең көбі %1$d</string>
+    <string name="watch_complication_label">Бағам</string>
+    <string name="a11y_watch_row">%1$s %2$s, 24 сағатта %3$s</string>
+    <string name="watch_mode_phone">Тізім: телефондағыдай</string>
+    <string name="watch_mode_own">Тізім: жеке</string>
+    <string name="watch_phone_empty">Телефонда таңдаулылар жоқ</string>
+    <string name="a11y_watch_outdated">Бағам ескірген</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">соңғы жаңарту %1$d минут бұрын</item>
+        <item quantity="other">соңғы жаңарту %1$d минут бұрын</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">соңғы жаңарту %1$d сағат бұрын</item>
+        <item quantity="other">соңғы жаңарту %1$d сағат бұрын</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">соңғы жаңарту %1$d күн бұрын</item>
+        <item quantity="other">соңғы жаңарту %1$d күн бұрын</item>
+    </plurals>
+</resources>

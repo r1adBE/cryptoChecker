@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Protokoll: Titel der Seite und Name des Knopfs in «Alle Alarme» -->
+    <string name="alarm_log_title">Kumbukumbu ya kengele</string>
+    <!-- Link unter «Letzte Prüfungen» (Einstellungen › Aktualisierung) -->
+    <string name="alarm_log_open">Onyesha kumbukumbu ya kengele</string>
+    <string name="alarm_log_intro">Kengele ilipolia – na ilipopaswa kulia lakini ikazuiwa. Huhifadhiwa kwenye kifaa hiki pekee, kwa siku 14.</string>
+    <string name="alarm_log_empty_title">Bado hakuna maingizo</string>
+    <string name="alarm_log_empty_message">Maingizo yanaonekana hapa kengele inapolia au inapozuiwa – kwa mfano kwa sababu bei imepitwa na wakati au wakati wa saa za utulivu.</string>
+    <string name="alarm_log_clear">Futa kumbukumbu</string>
+    <string name="alarm_log_clear_title">Ufute kumbukumbu ya kengele?</string>
+    <string name="alarm_log_clear_message">Maingizo yote yataondolewa. Kengele zako zitabaki kama zilivyo.</string>
+    <!-- Screenreader: Schwelle des Alarms, z. B. «Marke Über 100’000 CHF» -->
+    <string name="alarm_log_threshold">Kiwango %1$s</string>
+    <!-- Alarm-Editor: letzte Prüfung, %1$s = «14:02 · Kraken 99’800 CHF · Marke nicht erreicht» -->
+    <string name="alarm_last_check">Ilikaguliwa mwisho: %1$s</string>
+    <!-- Ergebnisse einer Alarm-Prüfung (AlarmLogOutcome) -->
+    <string name="alarm_outcome_fired">Imelia</string>
+    <string name="alarm_outcome_not_reached">Kiwango hakijafikiwa</string>
+    <string name="alarm_outcome_already_triggered">Tayari imeripotiwa – inasubiri hadi bei irudi upande mwingine</string>
+    <string name="alarm_outcome_cooldown">Haikulia – muda wa utulivu baada ya kengele ya mwisho</string>
+    <!-- %1$s = Zeit des Kurses laut Börse -->
+    <string name="alarm_outcome_stale">Haikulia – bei imepitwa na wakati (hadi %1$s)</string>
+    <string name="alarm_outcome_mark_price">Haikulia – mark price, si bei ya biashara halisi</string>
+    <string name="alarm_outcome_low_liquidity">Haikulia – ukwasi chini ya USD 10,000 au haujulikani</string>
+    <string name="alarm_outcome_quiet_hours">Haikulia – saa za utulivu (italia baadaye ikiwa bado imetimia)</string>
+    <string name="alarm_outcome_notifications_off">Haikulia – arifa zimezimwa</string>
+    <string name="alarm_outcome_not_shown">Haikulia – arifa haikufika, itajaribu tena baadaye</string>
+    <string name="alarm_outcome_no_rate">Haikukaguliwa – hakuna kiwango cha ubadilishaji</string>
+    <string name="alarm_outcome_no_price">Hakuna bei – ombi kwa jukwaa limeshindwa</string>
+
+    <string name="alarm_outcome_snoozed">Imezuiwa – «Saa 1 baadaye» bado inaendelea</string>
+    <string name="alarm_log_source_app">kwenye programu</string>
+    <string name="alarm_log_source_background">chinichini</string>
+    <string name="alarm_log_source_exact">ukaguzi kwa wakati</string>
+    <string name="alarm_log_source_widget">kupitia wijeti</string>
+    <string name="alarm_outcome_fx_stale">Haikukaguliwa – kiwango cha ubadilishaji kina zaidi ya saa 36</string>
+    <string name="alarm_outcome_fx_unsure">Haikukaguliwa – ubadilishaji wa USDT hauna uhakika (kupitia USDC pekee)</string>
+</resources>

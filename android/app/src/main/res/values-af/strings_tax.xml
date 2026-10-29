@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
+    <string name="portfolio_cutoff_export_action">Afsnydatum-uitvoer…</string>
+    <string name="portfolio_tax_worksheet_action">Werkblad…</string>
+    <string name="portfolio_export_address_unobserved">adres nie op hierdie datum gevolg nie – nie ingesluit nie</string>
+    <string name="portfolio_export_button">Voer CSV uit</string>
+    <string name="portfolio_export_col_amount">Bedrag</string>
+    <string name="portfolio_export_col_coin">Munt</string>
+    <string name="portfolio_export_col_note">Nota</string>
+    <string name="portfolio_export_col_price">Prys USDT</string>
+    <string name="portfolio_export_col_rate">Koers USDT→%1$s</string>
+    <string name="portfolio_export_col_value">Waarde USDT</string>
+    <string name="portfolio_export_col_value_cur">Waarde %1$s</string>
+    <!-- Inhalt der CSV-Datei -->
+    <string name="portfolio_export_comment"># Afsnydatum %1$s, geldeenheid %2$s, FX-koers van %3$s</string>
+    <string name="portfolio_export_currency">Geldeenheid: %1$s</string>
+    <string name="portfolio_export_date">Afsnydatum</string>
+    <string name="portfolio_export_done">Uitvoer gestoor</string>
+    <string name="portfolio_export_estv_note">Vir vermoënsbelasting geld die amptelike jaareindwaardes van die ESTV-pryslys %1$s waar gelys: %2$s</string>
+    <string name="portfolio_export_failed">Uitvoer het misluk</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">Uitvoer het misluk: die lêer kon nie geskryf word nie – die stoorplek is weg of nie skryfbaar nie</string>
+    <string name="portfolio_export_failed_prices">Uitvoer het misluk: pryse kon nie gelaai word nie – geen verbinding nie of die beurs reageer nie</string>
+    <string name="portfolio_export_from_address">vanaf adres – geen aankoopprys nie</string>
+    <string name="portfolio_export_hint">Besit aan die einde van die gekose dag, gewaardeer teen die daaglikse slotprys (UTC) in USDT en omgereken met die ECB-verwysingskoers van daardie dag. Verander die geldeenheid met “Skakel om na”.</string>
+    <string name="portfolio_export_incomplete">onvolledig</string>
+    <string name="portfolio_export_no_fx">geen FX-koers nie</string>
+    <string name="portfolio_export_no_price">geen prys nie</string>
+    <string name="portfolio_export_running">Haal historiese pryse…</string>
+    <string name="portfolio_export_title">Afsnydatum-uitvoer</string>
+    <string name="portfolio_export_today_hint">Vandag is nog nie verby nie: die huidige prys word in plaas van die daaglikse slotprys gebruik.</string>
+    <string name="portfolio_export_total">Totaal</string>
+    <string name="portfolio_export_unchecked">ongekontroleer (geen passende prys nie)</string>
+
+    <!-- Steuer-Export (Arbeitspapier) -->
+    <string name="tax_export_adjustment">superficial loss (by ACB gevoeg)</string>
+    <string name="tax_export_at_wallet_note">Oostenryk: bewegende gemiddeld per munt en beursie (beurs) – oordragte dra die koste saam – belonings teen verkrygingskoste 0 – besit vanaf 1 Mar 2021 sonder fooie (nie aftrekbaar nie) – uitleenrente teen waarde by ontvangs (inkomste teen 27.5 persent).</string>
+    <string name="tax_export_avg_cost_rates">koste teen aankoopdatumkoerse (gemiddeld)</string>
+    <string name="tax_export_ch_wealth_not_calculated">Vermoënsbelasting nie bereken nie – ESTV-pryslys: %1$s</string>
+    <string name="tax_export_col_acquired">Verkry</string>
+    <string name="tax_export_col_adjustment">Afgekeurde verlies %1$s</string>
+    <string name="tax_export_col_cost">Koste %1$s</string>
+    <string name="tax_export_col_date">Datum</string>
+    <string name="tax_export_col_days">Dae gehou</string>
+    <string name="tax_export_col_gain">Wins %1$s</string>
+    <string name="tax_export_col_gross">Prys voor fooie %1$s</string>
+    <string name="tax_export_col_long_term">gehou &gt; 1 jaar</string>
+    <string name="tax_export_col_portfolio_value">Portefeuljewaarde %1$s</string>
+    <string name="tax_export_col_proceeds">Opbrengs %1$s</string>
+    <string name="tax_export_col_sold">Verkoop</string>
+    <string name="tax_export_cost_incomplete">totale verkrygingskoste onvolledig</string>
+    <string name="tax_export_cost_missing">aankoopprys ontbreek</string>
+    <string name="tax_export_fee_consumed">Fooi verbruik die hele ontvangs</string>
+    <string name="tax_export_fee_leg">fooi in ander munt</string>
+    <string name="tax_export_fee_row">Fooi</string>
+    <string name="tax_export_fee_value_missing">fooi in \'n ander munt het geen waarde nie</string>
+    <string name="tax_export_gains">Gerealiseerde vervreemdings (CSV)</string>
+    <string name="tax_export_gains_title">Gerealiseerde vervreemdings %1$s</string>
+    <string name="tax_export_gift">Geskenk</string>
+    <string name="tax_export_holdings_cutoff">Besit op %1$s (CSV)</string>
+    <string name="tax_export_holdings_title">Besit op %1$s</string>
+    <string name="tax_export_income">Inkomste (CSV)</string>
+    <string name="tax_export_income_title">Inkomste %1$s</string>
+    <string name="tax_export_info_template">Sjabloon: %1$s · Metode: %2$s · Belastingjaar: %3$s · Geldeenheid: %4$s · Crypto Checker %5$s</string>
+    <string name="tax_export_lost_fee_cost">netwerkfooikoste sonder \'n betaalde lot</string>
+    <string name="tax_export_match_pool">Section 104 pool</string>
+    <string name="tax_export_match_same_day">dieselfde dag (HMRC)</string>
+    <string name="tax_export_match_thirty_day">30-dae-reël (HMRC)</string>
+    <string name="tax_export_method_change_warning">As jy die metode of sjabloon verander, word vroeëre jare ook herbereken – vergelyk met wat jy reeds ingedien het.</string>
+    <string name="tax_export_method_overridden">Sjabloon bereken %1$s – nie %2$s nie</string>
+    <string name="tax_export_new_holding">verkry vanaf 1 Mar 2021</string>
+    <string name="tax_export_no">nee</string>
+    <string name="tax_export_old_holding">verkry voor 1 Mar 2021</string>
+    <string name="tax_export_oversold">meer verkoop as aangeteken</string>
+    <string name="tax_export_payment">Betaling met kripto</string>
+    <string name="tax_export_period">%1$s – %2$s</string>
+    <string name="tax_export_proceeds_missing">verkoopprys ontbreek</string>
+    <string name="tax_export_proceeds_without_cost">Opbrengs sonder aankoopprys</string>
+    <string name="tax_export_realized_differs">Die belasting-CSV kan van ‘gerealiseer’ verskil (die land se belastingreëls).</string>
+    <string name="tax_export_rule">&gt; 1 jaar: verkoop ná aankoopdatum + 1 kalenderjaar. Datums in plaaslike tyd. Koerse: ECB-daagkoers van die transaksiedag; as daar geen is nie, die laaste koers tot 7 dae vroeër.</string>
+    <string name="tax_export_rules_date">Reëls soos op: %1$s</string>
+    <string name="tax_export_rules_stale">Die reëls is van %1$s – vir %2$s kan koerse en toelaes verander het. Kontroleer die waardes.</string>
+    <string name="tax_export_spouse_gift">aan eggenoot/maat – geen wins nie, geen verlies nie</string>
+    <string name="tax_export_summary">Jaarlikse opsomming %1$s (CSV)</string>
+    <string name="tax_export_swap">ruil</string>
+    <string name="tax_export_tax_year">Belastingjaar</string>
+    <string name="tax_export_transfer_fee_info">Oordragfooi in USDT/kontant – nie \'n verlies nie, nie in die kostebasis nie, slegs inligting</string>
+    <string name="tax_export_unassigned_fee">fooi nie toegewys nie – kostebasis onbekend</string>
+    <string name="tax_export_usdt_usd_note">USDT omgereken teen die USDT/USD-daaglikse slotprys; 1 USD waar daar geen slotprys is nie (per ry gemerk)</string>
+    <string name="tax_export_value_estimated">Waarde beraam (daaglikse slotprys)</string>
+    <string name="tax_export_value_missing">waarde by ontvangs ontbreek</string>
+    <string name="tax_export_wallet">Beursie: %1$s</string>
+    <string name="tax_export_wallet_unspecified">nie gespesifiseer nie</string>
+    <string name="tax_export_withdrawal_fee">Onttrekkingsfooi</string>
+    <string name="tax_export_withdrawal_fee_info">Onttrekkingsfooi in USDT/kontant – nie \'n verlies nie, slegs inligting</string>
+    <string name="tax_export_workpaper_disclaimer">Belastingwerkblad – nie \'n belastingopgawe nie en nie belastingadvies nie</string>
+    <string name="tax_export_workpaper_title">Werkblad</string>
+    <string name="tax_export_year_local_zone">Datums in plaaslike tyd (%1$s)</string>
+    <string name="tax_export_yes">ja</string>
+
+    <!-- Steuer-Export: Zeilen und Spalten -->
+    <string name="tax_line_at_interest">Uitleenrente (waarde by ontvangs)</string>
+    <string name="tax_line_at_old_long">Verkry voor 1 Mar 2021 – gehou &gt; 1 jaar: gewoonlik nie belasbaar nie – kontroleer</string>
+    <string name="tax_line_at_rate">Spesiale koers 27.5 persent: netto verkry vanaf 1 Mar 2021 en verkoop vanaf 1 Mar 2022 + rente</string>
+    <string name="tax_line_au_discounted">Netto kapitaalwins ná verliese en 50 persent korting</string>
+    <string name="tax_line_ca_taxable">Belasbare kapitaalwins (insluitingskoers 1/2)</string>
+    <string name="tax_line_ch_income">Belonings gelys – sien die ESTV-werkdokument vir hul hantering</string>
+    <string name="tax_line_ch_private">Kapitaalwinste op private bates: nie bereken nie – sien ESTV vir klassifikasie</string>
+    <string name="tax_line_ch_wealth">Vermoënsbelasting: nie bereken nie – besit-CSV gebruik beursprys × USD/CHF op 31 Dec – amptelike belastingwaardes: ESTV-pryslys</string>
+    <string name="tax_line_de_long">Gehou &gt; 1 jaar: gewoonlik nie belasbaar onder § 23 EStG nie – kontroleer</string>
+    <string name="tax_line_denied_loss">Afgekeurde verliese (superficial loss)</string>
+    <string name="tax_line_fr_outflow">Uitvloei sonder verkoping (onttrekkings) – totale verkrygingskoste proporsioneel verminder</string>
+    <string name="tax_line_fr_rate">Vaste koers 12.8 persent plus sosiale bydraes (of skaal op keuse)</string>
+    <string name="tax_line_fr_threshold">Vervreemdings tot €305 per jaar: gewoonlik vrygestel (totaal van verkooppryse) – kontroleer</string>
+    <string name="tax_line_gains">Winste</string>
+    <string name="tax_line_income">Inkomste (belonings teen waarde by ontvangs)</string>
+    <string name="tax_line_jp_misc">Diverse inkomste (雑所得): netto winste + inkomste</string>
+    <string name="tax_line_long_net">Netto – gehou &gt; 1 jaar</string>
+    <string name="tax_line_losses">Verliese</string>
+    <string name="tax_line_net">Netto winste/verliese</string>
+    <string name="tax_line_new_net">Netto – verkry vanaf 1 Mar 2021, verkoop vanaf 1 Mar 2022</string>
+    <string name="tax_line_old_long_net">Netto – verkry voor 1 Mar 2021 – gehou &gt; 1 jaar</string>
+    <string name="tax_line_old_short_net">Netto – spekulatiewe transaksies (vorige wet): verkry voor 1 Mar 2021 en gehou ≤ 1 jaar, of verkoop voor 1 Mar 2022</string>
+    <string name="tax_line_proceeds">Opbrengs</string>
+    <string name="tax_line_short_net">Netto – gehou ≤ 1 jaar</string>
+    <string name="tax_line_transfer_fees">Oordragfooie (eie beursies)</string>
+    <string name="tax_line_uk_after_exempt">Netto winste bo die vrygestelde bedrag (slegs kripto)</string>
+    <string name="tax_line_uk_exempt">Jaarlikse vrygestelde bedrag – geld vir alle vervreemdings saam, hier volledig toegepas</string>
+    <string name="tax_line_us_terms">Korttermyn (≤ 1 jaar): gewone koerse – langtermyn (&gt; 1 jaar): kapitaalwinskoerse</string>
+    <string name="tax_line_withdrawal_fees">Onttrekkingsfooie</string>
+
+    <!-- Steuer Deutschland -->
+    <string name="tax_de_below">onder die limiet</string>
+    <string name="tax_de_col_item">Item</string>
+    <string name="tax_de_disclaimer">Slegs vir oriëntering – nie \'n belastingopgawe nie en nie belastingadvies nie.</string>
+    <string name="tax_de_explain_below">Tot %1$s: onder die limiet (vir oriëntering).</string>
+    <string name="tax_de_explain_loss">Netto verlies: geen belasting op hierdie verkope nie. Verliese onder § 23 EStG verreken slegs teen winste uit private verkope – in dieselfde jaar of deur terugdra na die vorige jaar en vorentoe dra na latere jare (§ 23 para. 3 en § 10d EStG). Verklaar die verlies in jou belastingopgawe sodat dit aangeslaan word.</string>
+    <string name="tax_de_explain_reached">Vanaf %1$s tel die hele bedrag (vrystellingsgrens – nie \'n toelae nie).</string>
+    <string name="tax_de_explain_unknown">Nie kontroleerbaar nie: ontbrekende wisselkoerse / aankooppryse of houtydperke.</string>
+    <string name="tax_de_income_limit">Vrystellingsgrens vir dienste (§ 22 No. 3 EStG)</string>
+    <string name="tax_de_limit_scope">Limiete geld vir alle private verkope of dienste van die jaar saam – ook buite die app.</string>
+    <string name="tax_de_loading">Bereken tans…</string>
+    <string name="tax_de_long_gains">Winste – gehou &gt; 1 jaar</string>
+    <string name="tax_de_long_losses">Verliese – gehou &gt; 1 jaar</string>
+    <string name="tax_de_loss">netto verlies – slegs verrekenbaar teen winste uit private verkope (§ 23 EStG)</string>
+    <string name="tax_de_private_limit">Vrystellingsgrens vir private verkope (§ 23 EStG)</string>
+    <string name="tax_de_reached">limiet bereik – die hele bedrag tel gewoonlik – kontroleer</string>
+    <string name="tax_de_short_gains">Winste – gehou ≤ 1 jaar</string>
+    <string name="tax_de_short_losses">Verliese – gehou ≤ 1 jaar</string>
+    <string name="tax_de_unclassified">Houtydperk onbekend</string>
+    <string name="tax_de_unknown">nie kontroleerbaar nie</string>
+
+    <!-- Steuer-Vorlagen je Land -->
+    <string name="tax_template_at">Oostenryk</string>
+    <string name="tax_template_au">Australië</string>
+    <string name="tax_template_beta">Beta</string>
+    <string name="tax_template_beta_note">Beta: landreëls vereenvoudig, kontroleer voordat jy jou belastingopgawe indien</string>
+    <string name="tax_template_ca">Kanada</string>
+    <string name="tax_template_ch">Switserland</string>
+    <string name="tax_template_confirm_text">Beta, vereenvoudigde reëls, transaksies van ander platforms ontbreek – kontroleer voordat jy jou belastingopgawe indien.</string>
+    <string name="tax_template_confirm_title">Belastingsjabloon (beta)</string>
+    <string name="tax_template_current">Sjabloon: %1$s · Metode: %2$s · Geldeenheid: %3$s</string>
+    <string name="tax_template_de">Duitsland</string>
+    <string name="tax_template_fr">Frankryk</string>
+    <string name="tax_template_hint">Slegs vir oriëntering: stel die metode, belastingjaar en opsomming van die belastingwerkblad. Die Portefeulje-kaart bly neutraal – geskenke en oordragfooie kan van die werkblad verskil.</string>
+    <string name="tax_template_jp">Japan</string>
+    <string name="tax_template_neutral">Neutraal (alle lande)</string>
+    <string name="tax_template_suggestion">Voorstel vir jou streek: %1$s</string>
+    <string name="tax_template_title">Belastingsjabloon</string>
+    <string name="tax_template_uk">Verenigde Koninkryk</string>
+    <string name="tax_template_us">VSA</string>
+    <string name="tax_template_use">Gebruik %1$s</string>
+
+    <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
+    <string name="tax_method_at">Ou/nuwe besit – bewegende gemiddeld</string>
+    <string name="tax_method_ca_acb">ACB-gemiddelde koste (superficial loss)</string>
+    <string name="tax_method_fr_pta">Totale verkrygingsprys (art. 150 VH bis)</string>
+    <string name="tax_method_jp_total">Totale gemiddeld (総平均法)</string>
+    <string name="tax_method_uk_pool">Section 104 pool (dieselfde dag / 30 dae)</string>
+    <string name="tax_note_at">Bewegende gemiddeld per munt en beursie – nie oor beursies heen nie (KryptowährungsVO § 2). Belonings kom teen verkrygingskoste 0 in nuwe besit (BMF: staking / airdrops) – die inkomstelêer lys hulle teen waarde by ontvangs. Fooie is nie aftrekbaar vir besit verkry vanaf 1 Mar 2021 nie (§ 27a(4) no. 2, § 20(2) EStG): koste en opbrengs sonder fooie. Uitleenrente (tipe uit die CSV-invoer of nota) is inkomste by ontvangs teen 27.5 persent en behou daardie waarde as verkrygingskoste.</string>
+    <string name="tax_note_at_staking">Staking met munte wat jy reeds besit en airdrops: die waarde by ontvangs maak nie saak vir belasting nie – volgens wet is die verkrygingskoste 0 (§ 27b Abs. 2 EStG; BMF “Kryptowährungen”). Belasting geld eers wanneer jy verkoop.</string>
+    <string name="tax_note_fr">Verkope en fooie wat in kripto betaal is, is vervreemdings – ruilings word uitgestel. \'n Kriptofooi op \'n verkoping tel in die prys voor fooie – andersins is dit sy eie vervreemding teen sy waarde. Portefeuljewaarde uit daaglikse slotpryse – \'n ontbrekende slotprys laat die koste leeg.</string>
+    <string name="tax_note_network_fee">\'n Netwerkfooi wat in kripto betaal is (oordrag na jou eie beursie, onttrekking), is \'n vervreemding van die fooimunte teen markwaarde – wins of verlies slegs op daardie munte, nie \'n verlies van die hele fooi nie (%1$s). Sonder \'n aangetekende prys: daaglikse slotprys (UTC) van dieselfde dag; sonder \'n slotprys bly die opbrengs leeg.</string>
+    <string name="tax_note_specific_id">Specific identification word nie ondersteun nie – FIFO word gebruik.</string>
+    <string name="tax_note_spouse_gift">\'n Geskenk gemerk “aan eggenoot / lewensmaat” is geen wins en geen verlies nie: opbrengs = jou kostebasis, wat jou maat oorneem (%1$s).</string>
+    <string name="tax_note_stable_swap">Om kripto te verkoop vir \'n stablecoin (USDT/USDC/DAI …) wat jy hou, is hier kripto-na-kripto en word nie belas nie – teken dit aan as \'n ruil na die stablecoin. Slegs \'n verkoping vir euro word belas – “Verkoop” tel as \'n verkoping vir euro.</string>
+    <string name="tax_note_transfer_fee">Dieselfde geld vir \'n USDT- of kontantfooi op \'n oordrag tussen jou eie beursies: dit word nie by die kostebasis gevoeg nie en slegs as inligting gelys.</string>
+    <string name="tax_note_uk">Passing volgens HMRC: dieselfde dag → volgende 30 dae → Section 104 pool.</string>
+    <string name="tax_note_us_transition">Oorgang 1 Jan 2025 (Rev. Proc. 2024-28 safe harbor): as vroeëre jare FIFO oor alle beursies gebruik het, gaan die oorblywende lotte soos op 31 Dec 2024 na die beursies wat die munte hou – die beursie met die oudste munte kry die oudste kostebasis. Hierdie toewysing is \'n app-reël – kontroleer dit teen jou eie rekords.</string>
+    <string name="tax_note_us_wallet">Vanaf belastingjaar 2025 vereis die IRS kostebasis per beursie of beurs (Rev. Proc. 2024-28): die uitvoer gebruik FIFO per beursie vanaf 2025 – vir vroeëre jare FIFO oor alle beursies, of FIFO per beursie as dit jou kostemetode is.</string>
+    <string name="tax_note_withdrawal_fee">\'n Onttrekkingsfooi in USDT of kontant is nie \'n verlies nie: \'n kontantfooi is nie \'n aftrekbare koste nie, \'n USDT-fooi is \'n vervreemding teen pari sonder wins – dit word slegs as inligting gelys (%1$s).</string>
+    <string name="tax_summary_at_interest_income">tel: inkomste by ontvangs teen die spesiale koers van 27.5 persent (§ 27b(2) no. 1 EStG / BMF) – die munte behou hierdie waarde as verkrygingskoste</string>
+    <string name="tax_summary_at_reward_info">slegs vir inligting – nie deel van enige totaal nie: belonings kom teen verkrygingskoste 0 in die nuwe besit en word eers met verkoop belas (reeds in die winste) – § 27b para. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">1 Jan–28 Feb 2022: keuse vir 27.5 persent moontlik</string>
+    <string name="tax_summary_at_withdrawal_fee">Onttrekkingsfooi – nie teen nuwe besit verreken nie (uitgawes nie aftrekbaar teen die spesiale koers nie, § 20(2) EStG)</string>
+    <string name="tax_summary_ch_fifo_info">slegs vir inligting – die app se FIFO-berekening – nie geklassifiseer nie – sien ESTV</string>
+    <string name="tax_summary_ch_year_end_value">waarde op 31 Dec in die besit-CSV = beursprys × USD/CHF – nie die ESTV-belastingwaardes nie</string>
+    <string name="tax_summary_de_withdrawal_fee">Onttrekkingsfooi – nie onder § 23 verreken nie, kontroleer of dit as inkomsteverwante uitgawes aftrekbaar is</string>
+    <string name="tax_summary_not_calculated_estv">nie bereken nie – ESTV-pryslys: %1$s</string>
+    <string name="tax_summary_orientation">Oriëntering</string>
+    <string name="tax_summary_orientation_block">Slegs vir oriëntering – nie belastingadvies nie – nie \'n aanslag nie</string>
+    <string name="tax_summary_orientation_item">Oriëntering: %1$s</string>
+    <string name="tax_summary_title">Jaarlikse opsomming %1$s %2$s</string>
+    <string name="tax_summary_transfer_fee_info">Oordragfooie in USDT/kontant – nie \'n verlies nie en nie in die kostebasis nie, slegs inligting</string>
+    <string name="tax_summary_withdrawal_fee_info">Onttrekkingsfooie in USDT/kontant – nie as \'n verlies getel nie, slegs inligting</string>
+
+    <string name="tax_line_at_old_speculation_limit">Spekulatiewe transaksies (vorige wet, gehou ≤ 1 jaar): vrystellingsgrens (§ 31 (3) EStG ou weergawe)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">Uitleenrente voor 1 Mar 2022 (waarde by ontvangs)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">Rente voor 1 Mar 2022: ou wet (inkomstebelastingkoers), nie 27.5 persent nie</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">voor 1 Mar 2022 – kontroleer met \'n kenner</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">Rente – belasbaar by ontvangs</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">Staking – slegs vir inligting (verkrygingskoste 0, met verkoop belas)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">Totale rente (belasbaar)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">Totale staking (inligting)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">Netto kapitaalverlies (vorentoe dra)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">sonder keuse: sluit verkope van 1 Jan–28 Feb 2022 in</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">Staking voor 1 Mar 2022: verkrygingskoste op 0 gestel – kontroleer met \'n kenner</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">Die 30-dae-reël kan hierdie syfers nog verander (aankope tot %1$s)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Opbrengs voor fooie oor die rapporteringslimiet (£50,000; 2020/21–2022/23: £49,200): rapporteer aan HMRC as jy vir Self Assessment geregistreer is, selfs sonder \'n belasbare wins</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">Vermoënswaarde 31 Dec %1$s (oriëntering)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">Die ESTV-pryslys (ictax.admin.ch) is gesaghebbend. Vir munte wat nie op die lys is nie, geld gewoonlik die beurs se slotprys. Vermoënsbelasting nie bereken nie.</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – besit %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">nie bereken nie</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">Gevolgde adresse kon nie gelees word nie – hul saldo\'s ontbreek in hierdie lêer</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">Lotte van gevolgde adresse tel vanaf hul aankoopdatum; as die adres se saldo vandag laer is, word hulle verminder.</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">Gevolgde adresse tel by die totale waarde maar het geen verkrygingskoste nie – die wins is dus waarskynlik te hoog. Teken die koste as \'n aankoop aan.</string>
+    <string name="tax_summary_fr_rewards_income">Die bedrag neem aan dat belonings by ontvangs as inkomste belas is (waarde by ontvangs in die verkrygingskoste) – andersins sou verkrygingskoste 0 die versigtige lesing wees.</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">Markwaardes sonder \'n aangetekende prys (fooie, geskenke/betalings, ruilings, belonings, netwerkfooie, portefeuljewaarde) teen die daaglikse slotprys (UTC) van die transaksiedag</string>
+</resources>

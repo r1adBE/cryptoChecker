@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">Kad įspėjimai pasiektų</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">Gerai</string>
+    <string name="delivery_state_warn">Patikrink</string>
+    <string name="delivery_state_info">Pastaba</string>
+    <string name="delivery_allowed">Leidžiama</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">Pranešimai</string>
+    <string name="delivery_notifications_off">Išjungta – įspėjimai nepasieks</string>
+    <string name="delivery_notifications_not_asked">Dar neleista</string>
+    <string name="delivery_channel">Įspėjimų kanalas</string>
+    <string name="delivery_channel_high">Didelė svarba – iššoka ekrane</string>
+    <string name="delivery_channel_low">Maža svarba – įspėjimai tik tyliai atsiranda sąraše</string>
+    <string name="delivery_channel_off">Išjungta – įspėjimai nepasieks</string>
+    <string name="delivery_exact_on">Įjungta – maždaug kas 15 minučių</string>
+    <string name="delivery_exact_off">Išjungta – Android tikrina nereguliariai</string>
+    <string name="delivery_battery">Akumuliatoriaus optimizavimas</string>
+    <string name="delivery_battery_unrestricted">Neribojama</string>
+    <string name="delivery_battery_optimized">Optimizuota – Android gali atidėti tikrinimus. Programėlė neprašo išimties; tai gali pakeisti programėlės akumuliatoriaus nustatymuose.</string>
+    <string name="delivery_background">Naudojimas fone</string>
+    <string name="delivery_background_restricted">Ribojama – Android sustabdo tikrinimus fone</string>
+    <string name="delivery_dnd">Netrukdyti</string>
+    <string name="delivery_dnd_on">Įjungta – įspėjimai gali pasiekti be garso</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">Aktyvu iki %1$s – laukiantys įspėjimai lauks iki tada</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – laukiantys įspėjimai šiuo metu laukia</string>
+    <string name="delivery_last_check">Paskutinis tikrinimas fone</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – daugiau nei prieš 6 valandas</string>
+    <string name="delivery_last_check_never">Dar nebuvo</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">Leisti</string>
+    <string name="delivery_action_change">Keisti</string>
+    <string name="delivery_action_show">Rodyti</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">Reklamjuostės ir garsas</string>
+    <string name="delivery_alert_off">Reklamjuostės išjungtos – įspėjimai rodomi tik pranešimų centre</string>
+    <string name="delivery_sound_off">Garsas išjungtas – įspėjimai ateina tyliai</string>
+    <string name="delivery_time_sensitive">Laiko atžvilgiu svarbūs pranešimai</string>
+    <string name="delivery_time_sensitive_off">Išjungta – fokusavimo režimas gali sulaikyti įspėjimus</string>
+    <string name="delivery_background_refresh">Programų naujinimas fone</string>
+    <string name="delivery_low_power">Mažos galios režimas</string>
+    <string name="delivery_swipe_away">Programėlė nubraukta?</string>
+    <string name="delivery_swipe_away_note">Jei programėlę nubrauki programų perjungiklyje, iOS nustoja tikrinti fone, kol vėl ją atidarysi.</string>
+    <string name="delivery_live_activity">Tiesioginė veikla</string>
+    <string name="delivery_live_activity_note">Rodo kainą užrakinimo ekrane, bet atnaujinama tik programėlei tikrinant – įspėjimai dėl to netikrinami dažniau.</string>
+
+    <string name="alarm_first_check">Patikrink, ar įspėjimai pasiekia</string>
+
+    <string name="oem_battery_title">Gamintojo akumuliatoriaus taupymas</string>
+    <string name="oem_battery_xiaomi">Xiaomi gali visiškai sustabdyti programėlę – tada įspėjimai nepasieks. Įjunk „Autostart“ ir akumuliatoriaus taupymą nustatyk į „No restrictions“.</string>
+    <string name="oem_battery_samsung">Samsung gali užmigdyti programėlę giliu miegu – tada įspėjimai nepasieks. Skiltyje Akumuliatorius › Naudojimo fone apribojimai pridėk ją prie „Niekada neužmiegančios programos“.</string>
+    <string name="oem_battery_huawei">Huawei/Honor gali sustabdyti programėlę – tada įspėjimai nepasieks. Skiltyje Akumuliatorius › Programų paleidimas pasirink „Tvarkyti rankiniu būdu“ ir leisk visas parinktis.</string>
+    <string name="oem_battery_oneplus">OnePlus gali sustabdyti programėlę – tada įspėjimai nepasieks. Leisk „Automatinį paleidimą“, o skiltyje Akumuliatoriaus naudojimas – veiklą fone.</string>
+    <string name="oem_battery_oppo">Oppo/Realme gali sustabdyti programėlę – tada įspėjimai nepasieks. Leisk „Automatinį paleidimą“, o skiltyje Akumuliatoriaus naudojimas – veiklą fone.</string>
+    <string name="oem_battery_vivo">Vivo gali sustabdyti programėlę – tada įspėjimai nepasieks. Leisk „Autostart“, o skiltyje Akumuliatorius – didelį energijos naudojimą fone.</string>
+    <string name="alarm_reliability_stale">Paskutinis tikrinimas %1$s – įspėjimai gali vėluoti</string>
+    <string name="alarm_reliability_never">Įspėjimai įjungti – tikrinimo fone dar nebuvo</string>
+    <string name="alarm_reliability_notifications_off">Pranešimai išjungti – įspėjimai nepasieks</string>
+    <string name="alarm_reliability_battery">Akumuliatoriaus taupymas gali sustabdyti įspėjimų tikrinimą</string>
+    <string name="alarm_reliability_background_refresh">Programų naujinimas fone išjungtas – įspėjimai gali nepasiekti</string>
+</resources>

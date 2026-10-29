@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">Nini kinasonga pamoja nayo?</string>
+    <string name="why_all_values">Thamani zote na vyanzo</string>
+    <string name="why_all_values_hint">Uchunguzi · Maelezo yanayowezekana · Vyanzo</string>
+    <string name="why_details">Onyesha maelezo</string>
+    <string name="why_details_hide">Ficha maelezo</string>
+    <string name="why_disclaimer">Tathmini ya kiotomatiki kutoka data ya soko: inaonyesha kinachotokea wakati huo huo, si uthibitisho wa chanzo.</string>
+    <string name="why_footer_short">Wakati mmoja haimaanishi chanzo · Si ushauri wa uwekezaji</string>
+    <string name="why_no_data">Hakuna data kutoka Binance kwa jozi hii</string>
+    <string name="why_no_data_hint">Bei, kiasi na tete vinatoka kwenye mishumaa ya kila saa ya Binance.</string>
+    <string name="why_ref_alts">Alts</string>
+    <string name="why_section_context">Maelezo yanayowezekana</string>
+    <string name="why_section_observation">Uchunguzi</string>
+    <string name="why_title">Nini kinasonga pamoja nayo?</string>
+    <string name="why_title_coin">Nini kinasonga pamoja na %1$s?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">Kwa ufupi · Hadi %1$s</string>
+    <string name="why_brief_label">Kwa ufupi:</string>
+    <string name="why_summary_against">Sarafu inaenda kinyume na soko.</string>
+    <string name="why_summary_calm">Hakuna mwenendo unaojitokeza: soko na sarafu viko tulivu.</string>
+    <string name="why_summary_coin">Sarafu hii pekee ndiyo inasonga – huenda ni jambo linaloihusu sarafu hii pekee.</string>
+    <string name="why_summary_coin_volume">Sarafu hii pekee ndiyo inasonga, kwa kiasi kikubwa zaidi – huenda ni jambo linaloihusu sarafu hii pekee.</string>
+    <string name="why_summary_longs">Futures: nafasi nyingi za long zenye leverage.</string>
+    <string name="why_summary_market">Mwenendo unaendana kwa wakati na soko lote.</string>
+    <string name="why_summary_market_volume">Mwenendo unaambatana na kiasi kikubwa zaidi cha biashara na soko linalosonga kwa upana.</string>
+    <string name="why_summary_peg_near">Bei iko karibu na kiunganishi chake cha 1:1.</string>
+    <string name="why_summary_peg_off">Bei inatofautiana waziwazi na kiunganishi chake cha 1:1.</string>
+    <string name="why_summary_shorts">Futures: nafasi nyingi za short.</string>
+    <string name="why_summary_thin">Mwenendo ni mwembamba: kiasi kidogo nyuma yake.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">Kinyume na soko</string>
+    <string name="why_f_coin_only">Sarafu hii pekee</string>
+    <string name="why_f_leader">Bitcoin kama kiongozi wa soko</string>
+    <string name="why_f_leverage_balanced">Leverage iko sawa</string>
+    <string name="why_f_leverage_longs">Leverage: longs nyingi</string>
+    <string name="why_f_leverage_shorts">Leverage: shorts nyingi</string>
+    <string name="why_f_market_calm">Soko tulivu</string>
+    <string name="why_f_market_wide">Soko lote linasonga</string>
+    <string name="why_factor_funding">Funding</string>
+    <string name="why_factor_futures">Futures</string>
+    <string name="why_factor_market">Soko lote</string>
+    <string name="why_factor_near_high">Karibu na kilele</string>
+    <string name="why_factor_near_low">Karibu na kiwango cha chini</string>
+    <string name="why_factor_peg">Kiunganishi (1:1)</string>
+    <string name="why_factor_range3d">Kiwango cha siku 3</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">imekadiriwa</string>
+    <string name="why_fn_funding_longs">wengi wanaweka dau kwenye bei kupanda</string>
+    <string name="why_fn_funding_neutral">ya kati</string>
+    <string name="why_fn_funding_shorts">wengi wanaweka dau kwenye bei kushuka</string>
+    <string name="why_fn_high_at">kwenye kilele cha siku 30</string>
+    <string name="why_fn_high_below">chini ya kilele cha siku 30</string>
+    <string name="why_fn_leader_calm">Bitcoin iko tulivu</string>
+    <string name="why_fn_leader_moves">Bitcoin inasonga waziwazi</string>
+    <string name="why_fn_low_above">juu ya kiwango cha chini cha siku 30</string>
+    <string name="why_fn_low_at">kwenye kiwango cha chini cha siku 30</string>
+    <string name="why_fn_market_against">Sarafu hii inaenda kinyume na soko</string>
+    <string name="why_fn_market_alone">Soko tulivu – sarafu hii inasonga yenyewe</string>
+    <string name="why_fn_market_calm">Soko liko tulivu</string>
+    <string name="why_fn_market_lags">Soko linasonga, sarafu hii karibu haisongi</string>
+    <string name="why_fn_market_moves">Soko linasonga upande ule ule</string>
+    <string name="why_fn_market_pulls">Soko linasonga pamoja na BTC</string>
+    <string name="why_fn_oi_down">Open interest imeshuka</string>
+    <string name="why_fn_oi_flat">Open interest karibu haijabadilika</string>
+    <string name="why_fn_oi_mixed">Open interest mchanganyiko</string>
+    <string name="why_fn_oi_up">Open interest imepanda</string>
+    <string name="why_fn_peg_above">%1$s juu ya kiunganishi cha 1:1</string>
+    <string name="why_fn_peg_below">%1$s chini ya kiunganishi cha 1:1</string>
+    <string name="why_fn_peg_near">karibu na kiunganishi cha 1:1</string>
+    <string name="why_fn_range_above_low">tangu kiwango cha chini cha siku 3</string>
+    <string name="why_fn_range_below_high">tangu kilele cha siku 3</string>
+    <string name="why_fn_range_near_high">karibu na kilele cha siku 3</string>
+    <string name="why_fn_range_near_low">karibu na kiwango cha chini cha siku 3</string>
+    <string name="why_fn_volatility_stronger">kubwa kuliko kawaida</string>
+    <string name="why_fn_volatility_tiny">ndogo kwa kiasi halisi (chini ya %1$s)</string>
+    <string name="why_fn_volatility_usual">kama kawaida</string>
+    <string name="why_fn_volume_higher">juu kuliko kawaida</string>
+    <string name="why_fn_volume_lower">chini kuliko kawaida</string>
+    <string name="why_fn_volume_usual">kama kawaida</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">Sarafu hii %1$s, BTC %2$s katika 24h — mwenendo huru unaojitokeza.</string>
+    <string name="why_against_ref_text">Sarafu hii %1$s, %2$s %3$s katika 24h — mwenendo huru unaojitokeza.</string>
+    <string name="why_btc_independent">%1$s kwa sasa inasonga bila kutegemea Bitcoin.</string>
+    <string name="why_btc_tight">%1$s kwa sasa inasonga karibu sana na Bitcoin.</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_coin_only_text">%1$s katika 24h wakati soko liko kimya – huenda ni jambo linaloihusu sarafu hii pekee.</string>
+    <string name="why_leverage_balanced_text">Hakuna msongamano wa nafasi za long au short kwenye soko la futures.</string>
+    <string name="why_leverage_longs_text">Wengi wanaweka dau kwenye bei kupanda kwa pesa za mkopo. Longs wanalipa shorts — hatari kubwa zaidi ya liquidation bei ikishuka.</string>
+    <string name="why_leverage_shorts_text">Wengi wanaweka dau kwenye bei kushuka kwa pesa za mkopo. Shorts wanalipa longs – bei ikipanda, short squeeze inawezekana.</string>
+    <string name="why_market_calm_text">Sarafu hii: %1$s katika 24h. Soko wala sarafu havisongi sana.</string>
+    <string name="why_market_leader_text">Kama sarafu kubwa zaidi, kwa kawaida BTC husonga sambamba na soko lingine. ETH: %1$s katika 24h.</string>
+    <string name="why_market_leader_text_no_eth">Kama sarafu kubwa zaidi, kwa kawaida BTC husonga sambamba na soko lingine.</string>
+    <string name="why_market_similar_text">Sarafu hii: %1$s katika 24h – wakati huo huo, soko linasonga upande ule ule, ingawa si kwa uwazi sana.</string>
+    <string name="why_market_wide_text">Sarafu hii: %1$s katika 24h – wakati huo huo, soko lote linasonga waziwazi.</string>
+    <string name="why_open_interest_change">Open interest %1$s tangu ukaguzi wa mwisho.</string>
+    <string name="why_peg_text">Stablecoin: ikilinganishwa na kiunganishi cha 1:1 na sarafu ya bei, tofauti %1$s.</string>
+    <string name="why_sentiment_text">Kielezo cha Fear &amp; Greed cha soko lote la crypto, %1$s dhidi ya jana.</string>
+    <string name="why_sentiment_text_no_change">Kielezo cha Fear &amp; Greed cha soko lote la crypto.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="one">inashuka kwa saa %1$d</item>
+        <item quantity="other">inashuka kwa saa %1$d</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="one">inapanda kwa saa %1$d</item>
+        <item quantity="other">inapanda kwa saa %1$d</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="one">imetulia kwa saa %1$d</item>
+        <item quantity="other">imetulia kwa saa %1$d</item>
+    </plurals>
+    <string name="why_volatility_high_text">Saa iliyopita: %1$s — ikipimwa dhidi ya mabadiliko ya kawaida ya kila saa ya saa 24 zilizopita.</string>
+    <string name="why_volatility_normal_text">Saa iliyopita: %1$s — ndani ya kiwango cha kawaida.</string>
+    <string name="why_volatility_tiny_text">Saa iliyopita: %1$s — si kawaida kwa sarafu hii, lakini ni ndogo kwa kiasi halisi.</string>
+    <string name="why_volume_estimated_text">Imekadiriwa: chanzo hiki hakitoi mauzo, kwa hiyo kiasi cha sarafu zilizouzwa kinalinganishwa.</string>
+    <string name="why_volume_high_text">Biashara nyingi zaidi sana kuliko kawaida katika saa iliyopita – mwenendo unakuja na kiasi kikubwa.</string>
+    <string name="why_volume_low_text">Biashara kidogo nyuma ya mwenendo – mienendo kama hii mara nyingi haina uthabiti.</string>
+    <string name="why_volume_normal_text">Biashara katika saa iliyopita inaendana na saa 24 zilizopita.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">imeongezeka</string>
+    <string name="why_dot_neutral">ya kati</string>
+    <string name="why_dot_supports">inaendana na mwenendo</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">Data hadi %1$s</string>
+    <string name="why_fresh_breadth">Upana wa soko: %1$s · %2$s</string>
+    <string name="why_fresh_candles">Mishumaa: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">Futures: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="one">open interest ikilinganishwa na saa %1$d iliyopita</item>
+        <item quantity="other">open interest ikilinganishwa na saa %1$d zilizopita</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="one">open interest ikilinganishwa na dakika %1$d iliyopita</item>
+        <item quantity="other">open interest ikilinganishwa na dakika %1$d zilizopita</item>
+    </plurals>
+    <string name="why_fresh_today">leo</string>
+    <string name="why_fresh_yesterday">jana</string>
+    <string name="why_source_fallback">%1$s (mbadala)</string>
+    <string name="why_source_reference">%1$s (marejeleo)</string>
+    <string name="why_sources">Vyanzo: mishumaa ya kila saa ya majukwaa (hasa Binance), data ya futures kutoka majukwaa, Fear &amp; Greed kutoka alternative.me.</string>
+    <string name="why_sources_list">Vyanzo: %1$s.</string>
+    <string name="why_src_breadth">%1$s (upana wa soko)</string>
+    <string name="why_src_candles">%1$s (mishumaa)</string>
+    <string name="why_src_comparison">%1$s (ulinganisho wa soko)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (futures)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Funding</string>
+    <string name="factor_spoken_volatility">mara %1$s ya mabadiliko ya kawaida</string>
+    <string name="factor_spoken_volume">mara %1$s ya kawaida</string>
+    <string name="factor_volatility">Tete (1h)</string>
+    <string name="factor_volume">Kiasi</string>
+</resources>

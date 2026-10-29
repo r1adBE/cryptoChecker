@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">मागे</string>
+    <string name="action_cancel">रद्द करा</string>
+    <string name="action_clear">साफ करा</string>
+    <string name="action_close">बंद करा</string>
+    <string name="action_keep">ठेवा</string>
+    <string name="action_delete">हटवा</string>
+    <string name="action_edit">संपादित करा</string>
+    <string name="action_more">अधिक पर्याय</string>
+    <string name="action_refresh">रिफ्रेश करा</string>
+    <string name="action_retry">पुन्हा प्रयत्न करा</string>
+    <string name="action_save">सेव्ह करा</string>
+    <string name="action_sort">क्रम लावा</string>
+    <string name="action_sort_done">झाले</string>
+    <string name="action_undo">पूर्ववत करा</string>
+    <string name="action_view">पहा</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">मार्केट</string>
+    <string name="tab_portfolio">पोर्टफोलिओ</string>
+    <string name="tab_settings">सेटिंग्ज</string>
+    <string name="tab_watchlist">वॉचलिस्ट</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">त्रुटी: %1$s</string>
+    <string name="error_exchange_unreachable">एक्सचेंजशी सध्या संपर्क होत नाही – शेवटच्या किमती दिसत राहतील.</string>
+    <string name="error_exchange_unreachable_short">एक्सचेंजशी सध्या संपर्क होत नाही</string>
+    <string name="loading_hint">लोड होत आहे…</string>
+    <string name="option_off">बंद</string>
+    <string name="something_went_wrong">काहीतरी चुकले</string>
+    <string name="time_just_now">आत्ताच</string>
+    <string name="try_again">पुन्हा प्रयत्न करा</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">कनेक्शन नाही</string>
+    <string name="offline_status_since">कनेक्शन नाही · %1$s नुसार</string>
+    <string name="status_live">लाइव्ह</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">जोडी जोडा</string>
+    <string name="shortcut_alarms">सर्व अलर्ट</string>
+    <string name="shortcut_cycle">मार्केट</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">वॉचलिस्टमध्ये जोडी जोडा</string>
+    <string name="shortcut_alarms_long">सर्व अलर्ट दाखवा</string>
+    <string name="shortcut_cycle_long">मार्केटचा आढावा उघडा</string>
+
+    <string name="log_box_title">लॉग</string>
+    <string name="label_value">%1$s: %2$s</string>
+</resources>

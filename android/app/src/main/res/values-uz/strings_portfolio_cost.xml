@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">Tannarxsiz yozuvlar: %1$d</string>
+    <string name="cost_gaps_card_text">Foyda va soliqlar toʻliq boʻlishi uchun tannarxni qoʻshing.</string>
+    <string name="cost_gaps_sheet_title">Tannarxsiz yozuvlar</string>
+    <string name="cost_gaps_sheet_intro">Bu kirimlarda tannarx yoʻq. Taklif – shu sananing kunlik yopilish narxi; uni yozuvda tuzatishingiz mumkin.</string>
+    <string name="cost_gaps_empty">Barcha yozuvlarda tannarx bor.</string>
+    <string name="cost_gap_enter">Tannarxni kiritish</string>
+    <string name="cost_gap_leave_unknown">Nomaʼlum qoldirish</string>
+    <string name="cost_gap_left_unknown">Nomaʼlum qoldirildi</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">Taklif: kunlik yopilish %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">Bu sana uchun tasdiqlangan kunlik yopilish yoʻq</string>
+    <string name="cost_gap_suggestion_loading">Kunlik yopilish yuklanmoqda …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">Tannarx = olingan paytdagi qiymat (daromad)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">Tannarx = 0 (kirimsiz mukofot, Avstriya)</string>
+    <string name="cost_gap_apply">Qoʻllash</string>
+    <string name="address_lots_action">Manzil balansi uchun tannarx</string>
+    <string name="address_lots_title">Manzil balansi uchun tannarx</string>
+    <string name="address_lots_intro">Bu manzil balansi uchun xarid sanasi, miqdor va tannarxni kiriting. Lotlar shu manzildagi xaridlar kabi hisoblanadi; qoplanmagan qismi tannarxsiz qoladi.</string>
+    <string name="address_lots_add">Lot qoʻshish</string>
+    <string name="address_lots_new">Yangi lot</string>
+    <string name="address_lots_edit">Lot</string>
+    <string name="address_lots_date">Xarid sanasi</string>
+    <string name="address_lots_amount">Miqdor</string>
+    <string name="address_lots_mode_total">Jami</string>
+    <string name="address_lots_mode_price">Har bir tanga uchun</string>
+    <string name="address_lots_price">Bir tanga narxi (USDT)</string>
+    <string name="address_lots_total">Jami tannarx (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%2$s dan %1$s tannarx bilan</string>
+    <string name="address_lots_unlotted">%1$s tannarxsiz</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">Lotlar balansdan %1$s ortiq – avval eng eskilari ishlatiladi.</string>
+    <string name="address_lots_not_loaded">Balans hali yuklanmagan – yuklanishi bilan lotlar hisoblanadi.</string>
+    <string name="address_lots_invalid">Miqdor va tannarxni kiriting</string>
+</resources>

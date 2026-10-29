@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">საკუთარი</string>
+    <string name="settings_group_general">ზოგადი</string>
+    <string name="settings_group_more">მეტი</string>
+    <string name="settings_minutes">%1$d წთ</string>
+    <string name="settings_row_about">აპის შესახებ</string>
+    <string name="settings_row_alarms">განგაშები</string>
+    <string name="settings_row_currency">ვალუტა</string>
+    <string name="settings_row_dated_futures">ვადიანი ფიუჩერსები</string>
+    <string name="settings_row_updates">ფასების განახლება</string>
+    <string name="settings_row_watchlist">დაკვირვების სია</string>
+    <string name="settings_search_hint">პარამეტრების ძებნა</string>
+    <string name="settings_seconds">%1$d წმ</string>
+    <string name="settings_section_about">შესახებ</string>
+    <string name="settings_section_appearance">იერსახე</string>
+    <string name="settings_section_developer">დეველოპერი</string>
+    <string name="settings_section_language">ენა</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">ჩართულია</string>
+    <string name="settings_title">პარამეტრები</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">პაუზა განგაშის ხელახლა ამოქმედებამდე</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">განგაშის სიგნალი</string>
+    <string name="settings_alarm_signal_open_system">მორგება სისტემის პარამეტრებში</string>
+    <string name="settings_alarm_signal_system_hint">მიჰყვება შენი ტელეფონის შეტყობინებების პარამეტრებს.</string>
+    <string name="settings_alarm_sound">განგაშის ხმა</string>
+    <string name="settings_alarm_sound_custom">საკუთარი ხმა</string>
+    <string name="settings_alarm_sound_default">ნაგულისხმევი ხმა</string>
+    <string name="settings_alarm_sound_error">ხმის გამოყენება ვერ მოხერხდა.</string>
+    <string name="settings_alarm_sound_file">შენი საკუთარი აუდიოფაილი…</string>
+    <string name="settings_alarm_sound_reset">ნაგულისხმევი ხმის გამოყენება</string>
+    <string name="settings_alarm_sound_system">სისტემური ხმის არჩევა…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">რიცხვი აპის ხატულაზე</string>
+    <string name="settings_app_badge_hint">ითვლის განგაშების ღია შეტყობინებებს. რიცხვი გამოჩნდება თუ წერტილი, მთავარ ეკრანზეა დამოკიდებული (მაგ. Samsung: «რიცხვით ჩვენება»).</string>
+    <string name="settings_exact_checks">შემოწმება ზუსტ დროზე</string>
+    <string name="settings_exact_checks_grant">მაღვიძარებისა &amp; შეხსენებების დაშვება</string>
+    <string name="settings_exact_checks_hint">Android ამოწმებს დაახლოებით ყოველ 15 წუთში, მაშინაც კი, როცა მოწყობილობა უმოქმედოა. ცოტა მეტ ბატარეას ხარჯავს.</string>
+    <string name="settings_exact_checks_nothing">აქტიური წყვილები არ არის – შესამოწმებელი არაფერია.</string>
+    <string name="settings_exact_checks_permission_missing">ნებართვა აკლია – როცა მოწყობილობა უმოქმედოა, Android არარეგულარულად ამოწმებს, ზოგჯერ მხოლოდ საათების შემდეგ.</string>
+    <string name="settings_notification_change">შეტყობინება მხოლოდ ფასის ცვლილებისას</string>
+    <string name="settings_notification_change_always">ყოველთვის</string>
+    <string name="settings_percent_invalid">შეიყვანე მნიშვნელობა 0-დან 100-მდე.</string>
+    <string name="settings_notification_change_hint">ფასის შეტყობინება ჩნდება მხოლოდ მაშინ, როცა ფასი წინას შემდეგ მინიმუმ ამდენით შეიცვალა. სანამ მონაცემები აკლია, არაფერი ჩანს. განგაშებზე გავლენა არ აქვს.</string>
+    <string name="settings_ongoing_notifications">გადაფურცვლით ვერ მოიხსნება</string>
+    <string name="settings_ongoing_notifications_hint">ფასის შეტყობინებებს მიმაგრებულს ტოვებს.</string>
+    <string name="settings_price_notifications">ფასის შეტყობინებები</string>
+    <string name="settings_price_notifications_hint">ჩართული წყვილების მიმდინარე ფასის ჩვენება სტატუსის ზოლში.</string>
+    <string name="settings_price_pairs">წყვილები</string>
+    <string name="settings_price_pairs_all_off">ყველა გამორთული</string>
+    <string name="settings_price_pairs_all_on">ყველა ჩართული</string>
+    <string name="settings_price_pairs_count">%1$d / %2$d</string>
+    <string name="settings_price_pairs_empty">დაკვირვების სიაში წყვილები ჯერ არ არის.</string>
+    <string name="settings_price_pairs_hint">აირჩიე, რომელმა წყვილებმა აჩვენონ ფასი შეტყობინებების ზოლში.</string>
+    <string name="settings_quiet_hours">მშვიდი საათები</string>
+    <string name="settings_quiet_hours_from">დასაწყისი</string>
+    <string name="settings_quiet_hours_hint">%1$s-დან %2$s-მდე განგაშები მშვიდი საათების დასრულებას ელოდება და შემდეგ ხმით ამოქმედდება. სხვა შეტყობინებები უხმოდ მოდის, მეტყველების გარეშე.</string>
+    <string name="settings_quiet_hours_to">დასასრული</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">ინტერვალი</string>
+    <string name="settings_background_updates">ფონური განახლებები</string>
+    <string name="settings_battery_hint">შეზღუდული ნიშნავს, რომ Android-მა შეიძლება ფონური განახლებები საათობით გადადოს.</string>
+    <string name="settings_battery_ok">ბატარეის გამოყენება: შეზღუდვის გარეშე</string>
+    <string name="settings_battery_restricted">ბატარეის გამოყენება: შეზღუდული</string>
+    <string name="settings_check_runs_empty">შემოწმებები ჯერ არ დაფიქსირებულა.</string>
+    <string name="settings_check_runs_honest_android">Android წყვეტს, როდის შეამოწმოს – აქ ხედავ, როდის მოხდა ეს სინამდვილეში.</string>
+    <string name="settings_check_runs_honest_ios">iOS წყვეტს, როდის შეამოწმოს – აქ ხედავ, როდის მოხდა ეს სინამდვილეში.</string>
+    <string name="settings_check_runs_title">ბოლო შემოწმებები</string>
+    <string name="settings_http_log">HTTP ჟურნალის ჩვენება</string>
+    <string name="settings_http_log_hint">აჩვენებს ბირჟებისადმი მოთხოვნებს «წყვილის დამატება» გვერდის ბოლოში – პრობლემების მოსაგვარებლად.</string>
+    <string name="settings_live_service">ხშირი განახლება</string>
+    <string name="settings_live_websocket">Live ფასები</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">საყურადღებო: შეტყობინება</string>
+    <string name="settings_activity_alerts_hint">მაქსიმუმ საათში ერთხელ თითო წყვილზე: ფასის უჩვეულო მოძრაობები, მოცულობის ნახტომები და ფიუჩერსების უკიდურესობები (მონაცემები Binance-იდან).</string>
+    <string name="settings_activity_sensitivity">მგრძნობელობა</string>
+    <string name="settings_activity_sensitivity_hint">რამდენად ადვილად ითვლება მონეტა უჩვეულოდ – ერთნაირად დაკვირვების სიის ბარათისთვის და საბაზრო განგაშებისთვის. «ნაკლები»-ს შემთხვევაში ბარათი მხოლოდ 3 უძლიერესს აჩვენებს.</string>
+    <string name="settings_watchlist_activity_card">საყურადღებო: სიაში ჩვენება</string>
+    <string name="settings_watchlist_activity_card_hint">აჩვენებს ⚡ ნიშნულს ჯგუფების გვერდით: შეეხე მას, რომ ნახო მხოლოდ ის წყვილები, სადაც ახლა რაღაც ხდება. მისი შეტყობინებები საბაზრო განგაშებში ყენდება.</string>
+    <string name="settings_watchlist_names">სახელების ჩვენება</string>
+    <string name="settings_watchlist_names_hint">სახელი წყვილის ქვეშ, მაგ. Bitcoin ან NVIDIA. მოდის ლოგოების სიებთან ერთად, ერთხელ ჩატვირთული ყველა მონეტისთვის.</string>
+    <string name="settings_watchlist_sparkline">მინი დიაგრამა დაკვირვების სიაში</string>
+    <string name="settings_watchlist_sparkline_hint">24-საათიანი ტრენდი ფასის გვერდით</string>
+    <string name="settings_watchlist_value_names">სახელები</string>
+    <string name="settings_watchlist_value_price_only">მხოლოდ ფასი</string>
+    <string name="settings_watchlist_value_sparkline">მინი დიაგრამა</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Alpha ტოკენების ჩათვლით (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Alpha ტოკენები: ადრეული, ძირითადად მცირე პროექტები Binance Alpha-ს სიიდან – ხშირად იშვიათად ვაჭრობადი და ძლიერ ვოლატილური.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">ეკუთვნის ტოკენებს. მიუწვდომელია, სანამ არჩეულია «მხოლოდ TradFi»; დაკვირვების სიაში უკვე არსებული Alpha ტოკენები რჩება.</string>
+    <string name="settings_asset_scope_both">ტოკენები და TradFi</string>
+    <string name="settings_asset_scope_both_hint">ყველაფერი – კრიპტო და TradFi</string>
+    <string name="settings_asset_scope_hint">განსაზღვრავს, რომელ წყვილებს აჩვენებს არჩევანი და ძებნა წყვილების დამატებისას. დაკვირვების სიაში უკვე არსებული წყვილები ყოველთვის რჩება.</string>
+    <string name="settings_asset_scope_title">ტოკენები &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">მხოლოდ ტოკენები</string>
+    <string name="settings_asset_scope_tokens_hint">კრიპტო: სპოტი და perpetual-ები</string>
+    <string name="settings_asset_scope_tradfi">მხოლოდ TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">ფიუჩერსები აქციებზე, საქონელზე, FX-ზე – კონტრაქტები და არა ტოკენები</string>
+    <string name="settings_rolling_futures">კვარტალური &amp; სხვა ვადიანი ფიუჩერსების ჩათვლით</string>
+    <string name="settings_rolling_futures_hint">გამორთულია: ბირჟის სიიდან დაკარგული ვადიანი ფიუჩერსები მოინიშნება, როგორც აღარ ვაჭრობადი, ნაცვლად იმისა, რომ სათითაოდ შემოწმდეს. ყოველ განახლებაზე დროს ზოგავს.</string>
+    <string name="settings_rolling_futures_qtly">კვარტალური &amp; სხვა ვადიანი ფიუჩერსების ჩათვლით (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">ეკუთვნის ტოკენებს. მიუწვდომელია, სანამ არჩეულია «მხოლოდ TradFi»; კვლავ ვრცელდება დაკვირვების სიაში უკვე არსებულ ვადიან ფიუჩერსებზე.</string>
+    <string name="settings_tradfi_futures">აქციები, საქონელი და FX (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">წყვილის არჩევისას ასევე აჩვენებს ფიუჩერსებს აქციებზე, ოქროსა და სხვა საქონელზე, ვალუტებზე და pre-IPO კომპანიებზე. ეს კონტრაქტებია და არა ტოკენები.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">აქცენტის ფერი</string>
+    <string name="settings_accent_hint">ფერი აპისთვის, ვიჯეტებისა და აპის ხატულისთვის. ზოგი მთავარი ეკრანი ხატულას შლის, როცა ის იცვლება – მაშინ ხელახლა დაამატე.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">მონეტების ლოგოები</string>
+    <string name="settings_coin_logos_app">აპში</string>
+    <string name="settings_coin_logos_app_hint">დაკვირვების სია, გახსნილი წყვილი და საბაზრო ბარათები</string>
+    <string name="settings_coin_logos_footer">ლოგოები მოდის CoinGecko-დან, ხოლო იმ მონეტებისთვის, რომლებიც CoinGecko-ში არ არის (მაგ. ოქრო, ვერცხლი, აქციები) – Binance-იდან. აპი ყველა ლოგოს ერთდროულად ტვირთავს და ამ მოწყობილობაზე ინახავს, ამიტომ ვერცერთი მომწოდებელი ვერ გაიგებს, რომელ მონეტებს ადევნებ თვალს. ლოგოს გარეშე მონეტები თავიანთ ინიციალებს აჩვენებს. რჩეულები ლოგოზე პატარა ვარსკვლავს იღებს. სადაც გადამრთველი გამორთულია, არც ლოგოები ჩანს და არც ინიციალები; ყველა გადამრთველის გამორთვისას არაფერი იტვირთება.</string>
+    <string name="settings_coin_logos_portfolio">პორტფელში</string>
+    <string name="settings_coin_logos_portfolio_hint">პოზიციები, მონეტის დეტალები და ანალიზი</string>
+    <string name="settings_coin_logos_value_app">აპი</string>
+    <string name="settings_coin_logos_widgets">ვიჯეტებში</string>
+    <string name="settings_coin_logos_widgets_hint">დაკვირვების სიის და ერთი მონეტის ვიჯეტები</string>
+    <string name="settings_high_contrast">მაღალი კონტრასტი</string>
+    <string name="settings_high_contrast_hint">ფასის უფრო მკვეთრი ფერები და უფრო მუქი მეორეხარისხოვანი ტექსტი. ასევე ირთვება, როცა სისტემა მეტ კონტრასტს ითხოვს.</string>
+    <string name="settings_language_choose">ენის არჩევა</string>
+    <string name="settings_language_system">სისტემის ენა</string>
+    <string name="settings_price_colors">ფასის ფერები</string>
+    <string name="settings_price_colors_hint">ლურჯი / ნარინჯისფერი ადვილად გასარჩევია ფერთა აღქმის ნებისმიერი დარღვევისას (წითელ-მწვანე და ლურჯ-ყვითელი). მიმართულება ყოველთვის + / −-ითაც არის ნაჩვენები.</string>
+    <string name="settings_theme_mode">ღია / მუქი</string>
+    <string name="settings_widgets">ვიჯეტები</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">%1$s ცვლილება &amp; დიაგრამის სასაათო სარტყელი</string>
+    <string name="settings_change_basis_hint_1">არჩეული სასაათო სარტყელი განსაზღვრავს, საიდან ითვლება პროცენტული ცვლილება (დაკვირვების სია, პულსის ხაზი, გახსნილი წყვილი, ვიჯეტები) და დიაგრამებში ნაჩვენებ დროს.</string>
+    <string name="settings_change_basis_hint_2">«%1$s» ადარებს ზუსტად 24 საათის წინანდელ ფასს. «00:00» ადარებს იმ სასაათო სარტყელში შუაღამის გახსნის ფასს.</string>
+    <string name="settings_change_basis_hint_3">განგაშებზე გავლენა არ აქვს.</string>
+    <string name="settings_change_basis_hint_since_last">«%1$s» ადარებს წინა განახლების ფასს. Live ფასებისას ის 0%%-თან ახლოს რჩება.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">კონვერტაციის ვალუტა</string>
+    <string name="settings_conversion_currency_hint">ასევე გამოიყენება პორტფელისთვის, შენს ვალუტაში განგაშებისთვის, კრიპტობაზრის ბარათისა და პორტფელის ვიჯეტისთვის.</string>
+    <string name="settings_cost_method">ღირებულების მეთოდი</string>
+    <string name="settings_cost_method_average">საშუალო ღირებულება</string>
+    <string name="settings_cost_method_average_hint">გაყიდვები შეძენის მცოცავი საშუალო ფასით ფასდება.</string>
+    <string name="settings_cost_method_fifo">FIFO (ნაგულისხმევი)</string>
+    <string name="settings_cost_method_fifo_hint">ჯერ ყველაზე ძველი მონეტები იყიდება, ყველა ბირჟასა და საფულეში.</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO საფულის/ბირჟის მიხედვით</string>
+    <string name="settings_cost_method_fifo_wallet_hint">ჯერ ყველაზე ძველი მონეტები თითოეული ბირჟის ან საფულის ფარგლებში; გადარიცხვები ლოტებს შეძენის თარიღთან ერთად გადაიტანს.</string>
+    <string name="settings_portfolio_lock">პორტფელის დაბლოკვა</string>
+    <string name="settings_portfolio_lock_footer">დაბლოკვა ეკრანზე ნაჩვენებს მალავს. შენი მონაცემები ამ მოწყობილობაზე ინახება და მოწყობილობის დაშიფვრით არის დაცული. სარეზერვო ასლების დაცვა პაროლით შეგიძლია.</string>
+    <string name="settings_portfolio_lock_hint">მალავს მხოლოდ პორტფელს: განბლოკე თითის ანაბეჭდით, სახით ან მოწყობილობის PIN-ით. ფონში ერთ წუთზე მეტი ხნის შემდეგ ისევ იბლოკება. დაკვირვების სია, განგაშები და სხვა ვიჯეტები ღია რჩება.</string>
+    <string name="settings_portfolio_lock_no_device_lock">მოწყობილობის PIN-ის ან კოდის გარეშე დაბლოკვა არაფერს მალავს – დააყენე ეკრანის დაბლოკვა.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">პორტფელი სისტემურ სარეზერვო ასლში</string>
+    <string name="settings_portfolio_system_backup_hint">გამორთულია: შენი ტრანზაქციები მოწყობილობის სისტემურ სარეზერვო ასლსა და ტელეფონიდან ტელეფონზე გადატანაში არ შედის. ახალ ტელეფონზე გადასატანად გამოიყენე აპის საკუთარი სარეზერვო ასლი პაროლით.</string>
+    <string name="settings_portfolio_system_backup_unavailable">საჭიროა Android 9 ან უფრო ახალი – ძველი ვერსიები პორტფელს Google-ის სარეზერვო ასლში დაუშიფრავად შეინახავდა.</string>
+    <string name="settings_portfolio_tab">პორტფელის ჩანართის ჩვენება</string>
+    <string name="settings_portfolio_value_locked">ჩართულია, დაბლოკვით</string>
+    <string name="settings_show_converted">გადაანგარიშებული ფასები</string>
+    <string name="settings_show_converted_hint">დაკვირვების სიაში ფასებს %1$s-შიც აჩვენებს</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">USDT-ის depeg-ის შეტყობინება</string>
+    <string name="settings_depeg_alarm_hint">ერთხელ გაცნობებს, როცა USDT 1 USD-ს ზღვრის ოდენობით გადაიხრება (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_threshold">Depeg-ის ზღვარი</string>
+    <string name="settings_fng_above">Fear &amp; Greed: შეტყობინება ზემოთ</string>
+    <string name="settings_fng_below">Fear &amp; Greed: შეტყობინება ქვემოთ</string>
+    <string name="settings_gas_alert_hint">ერთხელ გაცნობებს, როცა ჩვეულებრივი საკომისიო ლიმიტზე დაბლა ჩამოვა. მოწმდება ფასების განახლებისას, მაქსიმუმ ყოველ 10 წუთში.</string>
+    <string name="settings_gas_btc_below">Bitcoin-ის საკომისიო ქვემოთ (sat/vB)</string>
+    <string name="settings_gas_eth_below">Ethereum gas ქვემოთ (gwei)</string>
+    <string name="settings_ind_ath_within">ვარდნა ისტორიული მაქსიმუმიდან მაქსიმუმ</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple ზემოთ</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple ქვემოთ</string>
+    <string name="settings_ind_mvrv_above">MVRV ზემოთ</string>
+    <string name="settings_ind_mvrv_below">MVRV ქვემოთ</string>
+    <string name="settings_indicator_alerts_hint">Bitcoin-ის ინდიკატორები, მოწმდება დღეში ორჯერ. ლიმიტებს შენ ირჩევ – აპი მნიშვნელობებს არ აფასებს.</string>
+    <string name="settings_macro_notifications">ეკონომიკური კალენდარი</string>
+    <string name="settings_macro_notifications_hint">08:00-ზე იმ დღეებში, როცა აშშ-ის მნიშვნელოვანი ეკონომიკური მონაცემები ქვეყნდება (ინფლაცია, დასაქმების ანგარიში, ფედის გადაწყვეტილება). კალენდარი მოდის აპის ვებგვერდიდან, იტვირთება დღეში ერთხელ.</string>
+    <string name="settings_market_alerts">საბაზრო განგაშები</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d აქტიური</item>
+        <item quantity="other">%1$d აქტიური</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">მეტყველების სიჩქარე: %1$.1f×</string>
+    <string name="settings_tts">ხმოვანი გამოტანა</string>
+    <string name="settings_tts_alarms_only">მხოლოდ განგაშები</string>
+    <string name="settings_tts_alarms_only_hint">გამორთულია: «ფასის ხმამაღლა წაკითხვით» მონიშნული წყვილის ყოველი განახლება ხმამაღლა იკითხება.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">ფასებსა და განგაშებს ხმამაღლა კითხულობს. ჩუმდება, როცა მოწყობილობა უხმო ან ვიბრაციის რეჟიმშია.</string>
+    <string name="settings_tts_test">ხმის ტესტი</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">აპის ჩამოყრა</string>
+    <string name="settings_reset_app_action">ყველაფრის წაშლა</string>
+    <string name="settings_reset_app_confirm">შლის დაკვირვების სიას, განგაშებს, პორტფელს, პარამეტრებს და ყველა შენახულ მონაცემს, როგორც ინსტალაციის შემდეგ. ამის დაბრუნება შეუძლებელია. რჩევა: ჯერ სარეზერვო ასლი შექმენი. მოწყობილობის სარეზერვო ასლები (Google-ის სარეზერვო ასლი ან iCloud/კომპიუტერის სარეზერვო ასლი) წინა მონაცემებს შემდეგ სარეზერვო ასლამდე ინახავს.</string>
+    <string name="settings_reset_app_title">ჩამოვყარო აპი?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">ვალუტის ძებნა</string>
+    <string name="language_search">ენის ძებნა</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">მუქი</string>
+    <string name="theme_light">ღია</string>
+    <string name="theme_system">სისტემური</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">ლურჯი</string>
+    <string name="accent_green">მწვანე</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs მწვანე</string>
+    <string name="accent_orange">ნარინჯისფერი</string>
+    <string name="accent_red">წითელი</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">გავრცელებულია ჩინეთში, იაპონიაში, კორეასა და ტაივანში</string>
+    <string name="price_colors_swap">ფერების გაცვლა (ზრდა ↔ ვარდნა)</string>
+    <string name="price_style_calm">მშვიდი</string>
+    <string name="price_style_calm_color_vision">მშვიდი · ფერთა აღქმის დარღვევა</string>
+    <string name="price_style_color_vision">ფერთა აღქმის დარღვევა</string>
+    <string name="price_style_fresh">ცოცხალი</string>
+    <string name="price_style_traditional">ტრადიციული</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">ბირჟებთან კავშირები ბოლოს რეალურ პასუხებზე შემოწმდა: %1$s</string>
+    <string name="about_license">ფასები პირდაპირ ბირჟებიდან მოდის; ანგარიშის და თვალთვალის გარეშე.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">ლიცენზიები</string>
+    <string name="about_privacy_policy">კონფიდენციალურობის პოლიტიკა</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">ბირჟის მოთხოვნა</string>
+    <string name="about_source_code">წყაროს კოდი GitHub-ზე</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker r1AD-ის დამოუკიდებელი პროექტია: ფასების მშვიდი მიმოხილვა ანგარიშის, რეკლამისა და თვალთვალის გარეშე. კითხვები და სურვილები: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker ღია კოდისაა (MIT ლიცენზია).</string>
+    <string name="licenses_font_title">შრიფტი Rubik</string>
+    <string name="licenses_icons_bundled_text">აპს თან ახლავს: ხატულები «Cryptocurrency Icons»-იდან, ავტორები Christopher Downer და მონაწილეები (github.com/spothq/cryptocurrency-icons), გამოქვეყნებული CC0 1.0 Universal-ით. ისინი ჩანს, სანამ CoinGecko-ს ან Binance-ის ლოგოები ჩაიტვირთება. სახელები და ლოგოები მათი პროექტების სავაჭრო ნიშნებად რჩება.</string>
+    <string name="licenses_icons_title">მონეტების სარეზერვო ხატულები</string>
+    <string name="licenses_libraries_intro">აპი ამ ბიბლიოთეკებს Apache License 2.0-ით იყენებს:</string>
+    <string name="licenses_libraries_title">Android ბიბლიოთეკები</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">კიდევ %d შეხება დეველოპერის პარამეტრების განსაბლოკად</item>
+        <item quantity="other">კიდევ %d შეხება დეველოპერის პარამეტრების განსაბლოკად</item>
+    </plurals>
+    <string name="developer_unlocked">დეველოპერის პარამეტრები განბლოკილია</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">ვიბრაცია iPhone-ის პარამეტრებს მიჰყვება (ხმები &amp; ჰაპტიკა).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">ითვლის ახალ განგაშებს და საბაზრო განგაშებს; აპის გახსნისას 0-ზე ბრუნდება.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">შენი მონაცემები</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">ამ მოწყობილობაზე</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">შენი დაკვირვების სია, განგაშები და პორტფელი ამ მოწყობილობაზე დაშიფრულად ინახება; ანგარიშის გარეშე, ჩვენი საკუთარი სერვერის გარეშე.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">კავშირები</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">ფასები პირდაპირ შენი წყვილების ბირჟებიდან მოდის, ასევე გაცვლითი კურსები, მონეტების სიები და ლოგოები და მონაცემთა სარკე GitHub-ზე; ისინი ხედავენ შენს IP მისამართს, არასოდეს – შენს აქტივებს (დაკვირვებადი მისამართები შესაბამისი ქსელის მომწოდებელთან მიდის).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">სარეზერვო ასლი</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">მხოლოდ მაშინ, თუ შექმნი. პაროლით ის დაშიფრულია (Argon2id + AES-256-GCM); მის გარეშე – წაკითხვადი.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">მოწყობილობის შეცვლა</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">გასაღები ძველ მოწყობილობაზე რჩება – ჯერ სარეზერვო ფაილი შექმენი.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">დიაგნოსტიკის გაზიარება</string>
+    <string name="diagnostics_share_hint">ტექსტური ფაილი მხარდაჭერისთვის: ვერსია, მოწყობილობა, განგაშების პარამეტრები, ბოლო შემოწმებები და განგაშების ჟურნალი – პორტფელის, თანხების, მისამართებისა და შენიშვნების გარეშე. ჯერ შენ ნახავ; ავტომატურად არაფერი იგზავნება.</string>
+    <string name="diagnostics_preview_title">დიაგნოსტიკის წინასწარი ნახვა</string>
+    <string name="diagnostics_action_share">გაზიარება</string>
+    <string name="settings_price_overlay">ფასის გადაფარვა</string>
+    <string name="settings_price_overlay_hint">მუდმივი ფასის შეტყობინების წყვილებს აჩვენებს პატარა მცურავ ნიშნულად სხვა აპების ზემოთ. შეეხე აპის გასახსნელად, ჩაათრიე ქვემოთ ×-ზე დასახურად.</string>
+    <string name="settings_price_overlay_needs">მუშაობს მხოლოდ «%1$s»-თან ერთად.</string>
+    <string name="settings_price_overlay_grant">სხვა აპების ზემოთ ჩვენების დაშვება</string>
+    <string name="price_overlay_close">გადაფარვის დახურვა</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">საკუთარი სერვერი მისამართებისთვის</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">მხოლოდ Bitcoin: შენი საკუთარი Esplora- ან mempool-თავსებადი სერვერი (მაგ. https://node.example/api, საჭიროა საჯაროდ სანდო სერტიფიკატი, მაგალითად Let\'s Encrypt). თუ მითითებულია, Bitcoin მისამართები და xpub გასაღებები მხოლოდ იქ მოწმდება – არასოდეს საჯარო კვანძებში, მაშინაც კი, როცა შენი სერვერი მიუწვდომელია. სხვა ქსელები საჯარო კვანძებს იყენებს. ცარიელი = საჯარო კვანძები.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Bitcoin სერვერი (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">ტესტი</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">მოწმდება…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">სერვერი პასუხობს – ბლოკი %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">სწორი პასუხი არ არის – შეამოწმე მისამართი და სერტიფიკატი</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">გამოიყენება: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">არ არის მითითებული – გამოიყენება საჯარო კვანძები</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">დაშვებულია მხოლოდ https:// მისამართები</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">მისამართში არ უნდა იყოს მომხმარებლის სახელი ან პაროლი</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">მისამართში არ უნდა იყოს ? ან # ნაწილი</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">სერვერის სწორი მისამართი არ არის</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">გადავიდე საჯარო კვანძებზე?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">შენი Bitcoin მისამართები და xpub გასაღებები მაშინ საჯარო კვანძებში მოწმდება: %1$s. ისინი ამ მისამართებს შენს IP მისამართთან ერთად ხედავენ.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">საჯარო კვანძების გამოყენება</string>
+</resources>

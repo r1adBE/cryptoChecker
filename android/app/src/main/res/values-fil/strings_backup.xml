@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="backup_device_bound">Bago lumipat ng device, gumawa ng backup file – sa device lang na ito mabubuksan ang naka-encrypt na data.</string>
+    <string name="backup_encryption_pending">Hindi pa aktibo ang encryption – susubukan ulit ng app sa susunod na pagbukas.</string>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">I-export</string>
+    <string name="backup_exported">Na-save ang backup.</string>
+    <string name="backup_failed">Hindi iyon gumana. Backup ba ito ng Crypto Checker?</string>
+    <string name="backup_hint">Sine-save ang watchlist mo kasama ang mga tala at grupo, mga alerto, paborito, portfolio at setting bilang file na ikaw mismo ang may hawak – halimbawa para sa bagong phone.</string>
+    <string name="backup_import">I-import</string>
+    <string name="backup_title">Backup &amp; restore</string>
+    <string name="backup_too_large">Masyadong malaki ang file o hindi ito valid na backup (limitasyon 64 MB).</string>
+    <string name="backup_export_too_large">Lalampas sa 64 MB ang backup at hindi ito mare-restore, kaya hindi ito na-save.</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">Password</string>
+    <string name="backup_password_continue">Magpatuloy</string>
+    <string name="backup_password_hide">Itago ang password</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">Hindi bababa sa %1$d character</string>
+    <string name="backup_password_mismatch">Hindi magkatugma ang mga password</string>
+    <string name="backup_password_prompt">Ilagay ang password para sa backup na ito.</string>
+    <string name="backup_password_repeat">Ulitin ang password</string>
+    <string name="backup_password_show">Ipakita ang password</string>
+    <string name="backup_password_title">Backup na may password</string>
+    <string name="backup_password_too_weak">Masyadong madaling hulaan – iwasan ang puro numero, iisang inulit na character o karaniwang sunod-sunod tulad ng “12345678” o “password”.</string>
+    <string name="backup_password_warning">Kung wala ang password, hindi mare-restore ang backup.</string>
+    <string name="backup_password_wrong">Maling password, o sira ang file. Pakisubukan ulit.</string>
+    <string name="backup_protect">Protektahan ng password</string>
+    <string name="backup_protect_hint">Ine-encrypt ang file (AES-256). Inirerekomenda kapag may laman itong data ng portfolio.</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">I-save nang walang password</string>
+    <string name="backup_plain_confirm_text">Hindi naka-encrypt ang file. Kahit sino na makakuha nito ay mababasa ang:</string>
+    <string name="backup_plain_confirm_title">I-save nang walang password?</string>
+    <string name="backup_plain_contents_addresses">Mga naka-save na wallet address at xpub key kasama ang kasaysayan ng balanse at cost basis</string>
+    <string name="backup_plain_contents_base">Watchlist kasama ang mga tala at grupo, mga alerto, paborito at setting</string>
+    <string name="backup_plain_contents_portfolio">Portfolio: mga transaksyon kasama ang mga halaga at presyo</string>
+    <string name="backup_restore_app_lock_kept">Mananatiling naka-on ang lock ng portfolio – hindi ito ma-o-off ng hindi naka-encrypt na backup.</string>
+    <string name="backup_restore_confirm">Papalitan ng pag-import ang kasalukuyan mong watchlist (kasama ang mga tala at grupo), mga alerto, paborito, portfolio at setting ng laman ng backup.</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="one">%d entry sa backup (portfolio o alerto) ang hindi valid at hindi ii-import.</item>
+        <item quantity="other">%d entry sa backup (portfolio o mga alerto) ang hindi valid at hindi ii-import.</item>
+    </plurals>
+    <string name="backup_restore_newer_version">Mula sa mas bagong bersyon ng app ang backup na ito – i-update muna ang app. Walang na-import.</string>
+    <string name="backup_restore_unencrypted_warning">Hindi naka-encrypt ang backup na ito – tiyaking galing ito sa iyo. Ilalapat ang mga setting – maliban sa mga pagbabagong nagpapababa ng proteksyon (Lock ng portfolio, Sariling server para sa mga address, Itago ang mga halaga, Portfolio sa system backup).</string>
+    <string name="backup_restored">Na-restore: %1$s, %2$s.</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d alerto</item>
+        <item quantity="other">%1$d alerto</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d pares</item>
+        <item quantity="other">%1$d pares</item>
+    </plurals>
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen -->
+    <string name="backup_restore_over_limits">Lampas sa limitasyon (%3$s pares, %4$s alerto bawat pares), hindi mare-restore: %1$s, %2$s.</string>
+    <string name="backup_restored_over_limits">Lampas sa limitasyon (%3$s pares, %4$s alerto bawat pares), hindi na-restore: %1$s, %2$s.</string>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren -->
+    <string name="storage_recovery_message">Wala na sa device na ito ang key sa naka-encrypt na data ng app, kaya nagsimulang walang laman ang app. Walang na-delete. Para maibalik ang watchlist at portfolio mo, mag-import ng backup file sa “%1$s” sa Mga Setting.</string>
+    <string name="storage_recovery_title">Hindi ma-unlock ang naka-save na data</string>
+
+    <!-- Sicherung mit Passwort (Argon2id, 64 MiB): zu wenig Arbeitsspeicher -->
+    <string name="backup_not_enough_memory">Kulang ang libreng memory para protektahan o buksan ang backup gamit ang password. Isara ang ibang app at subukan ulit.</string>
+
+    <!-- Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">I-restore ang backup</string>
+    <string name="storage_recovery_acknowledge">Sige</string>
+    <string name="storage_recovery_restored_title">Na-unlock ulit ang naka-save na data</string>
+    <string name="storage_recovery_restored_message">Nabuksan ulit ng isang naunang key sa device na ito ang itinabing data, kaya bumalik na ito. Ang data na na-save sa pagitan ay pinanatiling hindi binago, katabi nito.</string>
+    <string name="settings_reset_notice_title">Na-reset ang mga setting</string>
+    <string name="settings_reset_notice">Hindi mabasa ang mga setting mo at na-reset ang mga ito sa default. Pakitingnan ang lock ng portfolio, ang interval ng mga alerto at ang currency.</string>
+    <string name="backup_restore_interrupted_title">Naputol ang pag-restore</string>
+    <string name="backup_restore_interrupted_rolled_back">Naisara ang app habang nire-restore ang backup. Ibinalik na ang dati mong data; walang itinabi mula sa backup.</string>
+    <string name="backup_restore_interrupted_incomplete">Naisara ang app habang nire-restore ang backup, at hindi naibalik nang buo ang dating data. Pakitingnan ang watchlist at portfolio mo, o i-restore ulit ang backup sa “%1$s” sa Mga Setting.</string>
+    <string name="backup_not_verified">Hindi ma-verify ang backup file pagkatapos i-save – iba ang nababasa rito. Pakisave ang backup sa bagong file.</string>
+
+    <!-- Hinweis (nur Android): Portfolio-Kopie aus der Systemsicherung auch beim zweiten Versuch unlesbar und gelöscht -->
+    <string name="system_backup_not_imported_title">Hindi na-restore ang portfolio mula sa system backup</string>
+    <!-- %1$s = Name des Bereichs «Sichern &amp; Wiederherstellen» in den Einstellungen -->
+    <string name="system_backup_not_imported_message">Hindi mabasa ang kopya ng portfolio mula sa Android system backup, kahit sa ikalawang subok, at na-delete na ito. Kung may backup file ka, i-restore ito sa “%1$s” sa Mga Setting.</string>
+
+    <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
+    <string name="portfolio_storage_kept_in_memory">Hindi mabasa ang naka-save na data ngayon, kaya hindi ipinapakita at hindi mababago ang portfolio. I-restart ang app.</string>
+    <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
+    <string name="watchlist_storage_kept_in_memory">Hindi mabasa ang naka-save na data ngayon, kaya hindi ipinapakita at hindi mababago ang watchlist. I-restart ang app.</string>
+    <string name="watchlist_storage_locked">Hindi mababago ang watchlist: hindi mabasa ang naka-save na data ngayon. I-restart ang app.</string>
+    <string name="alarm_save_storage_locked">Hindi ma-save ang mga alerto: hindi mabasa ang naka-save na data ngayon. I-restart ang app.</string>
+    <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
+    <string name="backup_storage_kept">Hindi puwede ang backup: hindi mabasa ang naka-save na data ngayon. I-restart ang app at subukan ulit.</string>
+    <string name="backup_restore_storage_in_memory">Hindi puwede ang pag-import ngayon: hindi nagse-save ng data ang app sa ngayon (hindi pa aktibo ang encryption), kaya mawawala ang import kapag nag-restart. I-restart ang app at subukan ulit.</string>
+    <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable) -->
+    <string name="backup_restore_journal_unavailable">Hindi puwede ang pag-import ngayon: hindi ma-save ang safety copy ng kasalukuyan mong data (hindi available ang key sa ngayon). Walang binago. Subukan ulit mamaya o i-restart ang app.</string>
+
+    <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
+    <string name="portfolio_storage_in_memory">Hindi pa aktibo ang encryption – hindi sine-save ang portfolio, mawawala ang mga pagbabago kapag nagsara ang app. Susubukan ulit ng app sa susunod na pagbukas.</string>
+
+    <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
+    <string name="portfolio_storage_locked">Hindi mabasa ang naka-save na data ngayon, kaya hindi puwede ang mga pagbabago. I-restart ang app.</string>
+    <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
+    <string name="watchlist_storage_in_memory">Hindi nagbibigay ng key ang device na ito ngayon – hindi sine-save ang watchlist, mawawala ang mga pagbabago kapag nagsara ang app. Naka-pause ang mga alerto sa background. Susubukan ulit ng app sa susunod na pagbukas.</string>
+
+    <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
+    <string name="backup_restore_server_kept">Hindi inilapat ang “Sariling server para sa mga address” – hindi ito mababago ng hindi naka-encrypt na backup.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
+    <string name="backup_restore_server_public">Inalis ang “Sariling server para sa mga address” gaya ng nasa backup – muling tinatanong sa mga pampublikong node ang mga Bitcoin address.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
+    <string name="backup_restore_server_changed">Pinalitan ang “Sariling server para sa mga address” ng nasa backup.</string>
+</resources>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">සැලකිය යුතු: %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — දැන් %2$s</string>
+    <string name="notification_alarm_title">ඇඟවීම: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">හුවමාරුව විවෘත කරන්න</string>
+    <string name="notification_depeg_text">යෙදුමේ අගයන් මෙම වෙළඳපොළ මිල භාවිත කරයි.</string>
+    <string name="notification_depeg_title">USDT %1$s USD (%2$s)</string>
+    <string name="notification_fng_above">දර්ශකය %1$d ට වඩා ඉහළ ගියේය – මෙම මිනුම අනුව වෙළඳපොළ මනෝභාවය කෑදරයි.</string>
+    <string name="notification_fng_below">දර්ශකය %1$d ට වඩා පහළ වැටුණි – මෙම මිනුම අනුව වෙළඳපොළ මනෝභාවය බියෙන් පිරී ඇත.</string>
+    <string name="notification_fng_title">මනෝභාව දර්ශකය (Fear &amp; Greed): %1$d</string>
+    <string name="notification_gas_btc_text">ඔබේ %1$s sat/vB සීමාවට පහළින් · මාරුව ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin ගාස්තුව: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">ඔබේ %1$s gwei සීමාවට පහළින් · මාරුව ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Ethereum ගෑස්: %1$s gwei</string>
+    <string name="notification_indicator_above">ඔබේ සීමාව %1$s ට ඉහළින් – මනින ලද අගයකි, නිර්දේශයක් නොවේ.</string>
+    <string name="notification_indicator_below">ඔබේ සීමාව %1$s ට පහළින් – මනින ලද අගයකි, නිර්දේශයක් නොවේ.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">අද ආර්ථික දත්ත</string>
+    <string name="notification_permission_preprompt_continue">ඉදිරියට</string>
+    <string name="notification_permission_preprompt_later">පසුව</string>
+    <string name="notification_permission_preprompt_text">ඇඟවීම් සහ මිල දැනුම්දීම් ඔබට ළඟා වීමට, යෙදුමට දැනුම්දීම් යැවීමට අවසරය අවශ්‍යයි. යෙදුම ඒවා භාවිත කරන්නේ ඔබේ ඇඟවීම් සහ මිල දැනුම්දීම් සඳහා පමණි.</string>
+    <string name="notification_permission_preprompt_title">දැනුම්දීම්වලට ඉඩ දෙන්නද?</string>
+    <string name="notification_portfolio_alarm_locked">ඔබේ ඇඟවීම ක්‍රියාත්මක විය – විස්තර සඳහා යෙදුම විවෘත කරන්න.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – දැන් %2$s</string>
+    <string name="notification_portfolio_alarm_title">කළඹ වටිනාකම</string>
+    <string name="notification_price_change">%1$s, %2$s සිට (%3$s කට පෙර)</string>
+    <string name="notification_price_change_no_age">%1$s, %2$s සිට</string>
+    <string name="notification_price_first">මෙම යුගලය සඳහා පළමු මිල දැනුම්දීම</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+තවත් මිල %1$d</item>
+        <item quantity="other">+තවත් මිල %1$d</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">මිල ගණන් යාවත්කාලීන කරමින්…</string>
+    <string name="notification_volume_spike_text">අවසන් පැයේ පරිමාව සාමාන්‍යයේ %1$s×</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">ඇඟවීම්</string>
+    <string name="channel_alarms_description">ඇඟවීමක් ක්‍රියාත්මක වූ විට දැනුම්දීම.</string>
+    <string name="channel_alarms_quiet">ඇඟවීම් (නිහඬ පැය)</string>
+    <string name="channel_alarms_quiet_description">නිහඬ පැය තුළ නිහඬ ඇඟවීම්.</string>
+    <string name="channel_alarms_silent">ඇඟවීම් (නිහඬ)</string>
+    <string name="channel_alarms_sound">ඇඟවීම් (ශබ්දය පමණි)</string>
+    <string name="channel_alarms_sound_vibrate">ඇඟවීම් (ශබ්දය සහ කම්පනය)</string>
+    <string name="channel_alarms_vibrate">ඇඟවීම් (කම්පනය පමණි)</string>
+    <string name="channel_prices">මිල දැනුම්දීම්</string>
+    <string name="channel_prices_description">යුගලයක වත්මන් මිල සමඟ නිහඬ මිල දැනුම්දීම.</string>
+    <string name="channel_service">මිල යාවත්කාලීන</string>
+    <string name="channel_service_description">මිල ගණන් යාවත්කාලීන වන අතරතුර දැනුම්දීම.</string>
+    <string name="neutral_channel_market">වෙළඳපොළ ඇඟවීම්</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, ගෑස් ගාස්තු, “සැලකිය යුතු” සහ ආර්ථික දින</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">ඇඟවීම. %1$s, %2$s %3$s %4$s, දැන් %5$s</string>
+    <string name="tts_direction_down">පහත වැටී ඇත</string>
+    <string name="tts_direction_funding_above">ඉහළ ෆන්ඩිං සමඟ</string>
+    <string name="tts_direction_funding_below">අඩු ෆන්ඩිං සමඟ</string>
+    <string name="tts_direction_move">දැඩි ලෙස චලනය වෙමින්</string>
+    <string name="tts_direction_near_high">එහි ඉහළම අගය අසල ඇත</string>
+    <string name="tts_direction_near_low">එහි පහළම අගය අසල ඇත</string>
+    <string name="tts_direction_oi_down">පහත වැටෙන විවෘත පොලිය සමඟ</string>
+    <string name="tts_direction_oi_up">ඉහළ යන විවෘත පොලිය සමඟ</string>
+    <string name="tts_direction_up">ඉහළ ගොස් ඇත</string>
+    <string name="tts_direction_volume_spike">පරිමා උල්පතක් සමඟ</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+
+    <!-- Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+    <string name="notification_alarm_action_snooze">පැය 1 කින්</string>
+    <string name="notification_alarm_action_edit">සකසන්න</string>
+</resources>

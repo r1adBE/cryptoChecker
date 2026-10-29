@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Protokoll: Titel der Seite und Name des Knopfs in «Alle Alarme» -->
+    <string name="alarm_log_title">விழிப்பூட்டல் பதிவு</string>
+    <!-- Link unter «Letzte Prüfungen» (Einstellungen › Aktualisierung) -->
+    <string name="alarm_log_open">விழிப்பூட்டல் பதிவைக் காட்டு</string>
+    <string name="alarm_log_intro">ஒரு விழிப்பூட்டல் எப்போது தூண்டப்பட்டது – எப்போது தூண்டப்பட்டிருக்கும் ஆனால் நிறுத்திவைக்கப்பட்டது. இந்தச் சாதனத்தில் மட்டும், 14 நாட்களுக்குச் சேமிக்கப்படும்.</string>
+    <string name="alarm_log_empty_title">இன்னும் பதிவுகள் இல்லை</string>
+    <string name="alarm_log_empty_message">ஒரு விழிப்பூட்டல் தூண்டப்படும்போது அல்லது நிறுத்திவைக்கப்படும்போது பதிவுகள் இங்கே தோன்றும் – எடுத்துக்காட்டாக விலை காலாவதியானதால் அல்லது அமைதி நேரத்தில்.</string>
+    <string name="alarm_log_clear">பதிவை அழி</string>
+    <string name="alarm_log_clear_title">விழிப்பூட்டல் பதிவை அழிக்கவா?</string>
+    <string name="alarm_log_clear_message">எல்லாப் பதிவுகளும் அகற்றப்படும். உங்கள் விழிப்பூட்டல்கள் அப்படியே இருக்கும்.</string>
+    <!-- Screenreader: Schwelle des Alarms, z. B. «Marke Über 100’000 CHF» -->
+    <string name="alarm_log_threshold">வரம்பு %1$s</string>
+    <!-- Alarm-Editor: letzte Prüfung, %1$s = «14:02 · Kraken 99’800 CHF · Marke nicht erreicht» -->
+    <string name="alarm_last_check">கடைசியாகச் சரிபார்த்தது: %1$s</string>
+    <!-- Ergebnisse einer Alarm-Prüfung (AlarmLogOutcome) -->
+    <string name="alarm_outcome_fired">தூண்டப்பட்டது</string>
+    <string name="alarm_outcome_not_reached">வரம்பை எட்டவில்லை</string>
+    <string name="alarm_outcome_already_triggered">ஏற்கெனவே தெரிவிக்கப்பட்டது – விலை மறுபக்கம் திரும்பும் வரை காத்திருக்கிறது</string>
+    <string name="alarm_outcome_cooldown">தூண்டப்படவில்லை – கடைசி விழிப்பூட்டலுக்குப் பிந்தைய ஓய்வு நேரம்</string>
+    <!-- %1$s = Zeit des Kurses laut Börse -->
+    <string name="alarm_outcome_stale">தூண்டப்படவில்லை – விலை காலாவதியானது (%1$s நிலவரப்படி)</string>
+    <string name="alarm_outcome_mark_price">தூண்டப்படவில்லை – மார்க் விலை, வர்த்தகமான விலை அல்ல</string>
+    <string name="alarm_outcome_low_liquidity">தூண்டப்படவில்லை – பணப்புழக்கம் 10,000 USD க்குக் கீழ் அல்லது தெரியவில்லை</string>
+    <string name="alarm_outcome_quiet_hours">தூண்டப்படவில்லை – அமைதி நேரம் (இன்னும் நிபந்தனை பூர்த்தியானால் பின்னர் விழிப்பூட்டும்)</string>
+    <string name="alarm_outcome_notifications_off">தூண்டப்படவில்லை – அறிவிப்புகள் ஆஃப்</string>
+    <string name="alarm_outcome_not_shown">தூண்டப்படவில்லை – அறிவிப்பு வந்துசேரவில்லை, பின்னர் மீண்டும் முயலும்</string>
+    <string name="alarm_outcome_no_rate">சரிபார்க்கப்படவில்லை – மாற்று விகிதம் இல்லை</string>
+    <string name="alarm_outcome_no_price">விலை இல்லை – எக்ஸ்சேஞ்ச் வினவல் தோல்வியடைந்தது</string>
+
+    <string name="alarm_outcome_snoozed">நிறுத்திவைக்கப்பட்டது – «1 மணி கழித்து» இன்னும் இயங்குகிறது</string>
+    <string name="alarm_log_source_app">ஆப்பில்</string>
+    <string name="alarm_log_source_background">பின்னணியில்</string>
+    <string name="alarm_log_source_exact">சரியான நேரச் சரிபார்ப்பு</string>
+    <string name="alarm_log_source_widget">விட்ஜெட் வழியாக</string>
+    <string name="alarm_outcome_fx_stale">சரிபார்க்கப்படவில்லை – மாற்று விகிதம் 36 மணிநேரத்துக்கும் பழையது</string>
+    <string name="alarm_outcome_fx_unsure">சரிபார்க்கப்படவில்லை – USDT மாற்றம் உறுதியில்லை (USDC வழியாக மட்டும்)</string>
+</resources>

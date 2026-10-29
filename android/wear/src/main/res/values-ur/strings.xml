@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">کوئی کوائن منتخب نہیں</string>
+    <string name="watch_loading">لوڈ ہو رہا ہے…</string>
+    <string name="watch_error">ایکسچینجز تک رسائی نہیں</string>
+    <string name="watch_updated">بمطابق %1$s</string>
+    <string name="watch_refresh">ریفریش کریں</string>
+    <string name="watch_choose">کوائنز منتخب کریں</string>
+    <string name="watch_choose_hint">کوائنز: زیادہ سے زیادہ %1$d</string>
+    <string name="watch_complication_label">قیمت</string>
+    <string name="a11y_watch_row">%1$s %2$s، 24 گھنٹوں میں %3$s</string>
+    <string name="watch_mode_phone">فہرست: فون کی طرح</string>
+    <string name="watch_mode_own">فہرست: اپنی</string>
+    <string name="watch_phone_empty">فون پر کوئی پسندیدہ نہیں</string>
+    <string name="a11y_watch_outdated">قیمت پرانی ہے</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">آخری اپ ڈیٹ %1$d منٹ پہلے</item>
+        <item quantity="other">آخری اپ ڈیٹ %1$d منٹ پہلے</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">آخری اپ ڈیٹ %1$d گھنٹہ پہلے</item>
+        <item quantity="other">آخری اپ ڈیٹ %1$d گھنٹے پہلے</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">آخری اپ ڈیٹ %1$d دن پہلے</item>
+        <item quantity="other">آخری اپ ڈیٹ %1$d دن پہلے</item>
+    </plurals>
+</resources>

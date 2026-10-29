@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">គួរកត់សម្គាល់៖ %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — ឥឡូវ %2$s</string>
+    <string name="notification_alarm_title">ការដាស់តឿន៖ %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">បើកផ្សារប្តូរ</string>
+    <string name="notification_depeg_text">តម្លៃនៅក្នុងកម្មវិធីប្រើតម្លៃទីផ្សារនេះ។</string>
+    <string name="notification_depeg_title">USDT នៅ %1$s USD (%2$s)</string>
+    <string name="notification_fng_above">សន្ទស្សន៍បានឡើងលើស %1$d – តាមរង្វាស់នេះ អារម្មណ៍ទីផ្សារគឺលោភលន់។</string>
+    <string name="notification_fng_below">សន្ទស្សន៍បានធ្លាក់ក្រោម %1$d – តាមរង្វាស់នេះ អារម្មណ៍ទីផ្សារគឺភ័យខ្លាច។</string>
+    <string name="notification_fng_title">សន្ទស្សន៍អារម្មណ៍ (Fear &amp; Greed)៖ %1$d</string>
+    <string name="notification_gas_btc_text">ក្រោមដែនកំណត់របស់អ្នក %1$s sat/vB · ការផ្ទេរ ≈ %2$s</string>
+    <string name="notification_gas_btc_title">កម្រៃ Bitcoin៖ %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">ក្រោមដែនកំណត់របស់អ្នក %1$s gwei · ការផ្ទេរ ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Ethereum gas៖ %1$s gwei</string>
+    <string name="notification_indicator_above">លើសដែនកំណត់របស់អ្នក %1$s – តម្លៃដែលបានវាស់ មិនមែនជាការណែនាំទេ។</string>
+    <string name="notification_indicator_below">ក្រោមដែនកំណត់របស់អ្នក %1$s – តម្លៃដែលបានវាស់ មិនមែនជាការណែនាំទេ។</string>
+    <string name="notification_indicator_title">%1$s៖ %2$s</string>
+    <string name="notification_macro_title">ទិន្នន័យសេដ្ឋកិច្ចថ្ងៃនេះ</string>
+    <string name="notification_permission_preprompt_continue">បន្ត</string>
+    <string name="notification_permission_preprompt_later">ពេលក្រោយ</string>
+    <string name="notification_permission_preprompt_text">ដើម្បីឱ្យការដាស់តឿន និងការជូនដំណឹងតម្លៃមកដល់អ្នក កម្មវិធីត្រូវការការអនុញ្ញាតដើម្បីផ្ញើការជូនដំណឹង។ កម្មវិធីប្រើវាតែសម្រាប់ការដាស់តឿន និងការជូនដំណឹងតម្លៃរបស់អ្នកប៉ុណ្ណោះ។</string>
+    <string name="notification_permission_preprompt_title">អនុញ្ញាតការជូនដំណឹងមែនទេ?</string>
+    <string name="notification_portfolio_alarm_locked">ការដាស់តឿនរបស់អ្នកបានកើតឡើង – សូមបើកកម្មវិធីដើម្បីមើលព័ត៌មានលម្អិត។</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – ឥឡូវ %2$s</string>
+    <string name="notification_portfolio_alarm_title">តម្លៃផលប័ត្រ</string>
+    <string name="notification_price_change">%1$s ពី %2$s (%3$s មុន)</string>
+    <string name="notification_price_change_no_age">%1$s ពី %2$s</string>
+    <string name="notification_price_first">ការជូនដំណឹងតម្លៃដំបូងសម្រាប់គូនេះ</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="other">+%1$d តម្លៃទៀត</item>
+    </plurals>
+    <string name="notification_price_title">%1$s៖ %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">កំពុងធ្វើបច្ចុប្បន្នភាពតម្លៃ…</string>
+    <string name="notification_volume_spike_text">បរិមាណ %1$s× នៃធម្មតាក្នុងម៉ោងចុងក្រោយ</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">ការដាស់តឿន</string>
+    <string name="channel_alarms_description">ការជូនដំណឹងនៅពេលការដាស់តឿនកើតឡើង។</string>
+    <string name="channel_alarms_quiet">ការដាស់តឿន (ម៉ោងស្ងាត់)</string>
+    <string name="channel_alarms_quiet_description">ការដាស់តឿនស្ងាត់ក្នុងម៉ោងស្ងាត់។</string>
+    <string name="channel_alarms_silent">ការដាស់តឿន (ស្ងាត់)</string>
+    <string name="channel_alarms_sound">ការដាស់តឿន (តែសំឡេង)</string>
+    <string name="channel_alarms_sound_vibrate">ការដាស់តឿន (សំឡេង និងការញ័រ)</string>
+    <string name="channel_alarms_vibrate">ការដាស់តឿន (តែការញ័រ)</string>
+    <string name="channel_prices">ការជូនដំណឹងតម្លៃ</string>
+    <string name="channel_prices_description">ការជូនដំណឹងតម្លៃស្ងាត់ជាមួយតម្លៃបច្ចុប្បន្ននៃគូមួយ។</string>
+    <string name="channel_service">ការធ្វើបច្ចុប្បន្នភាពតម្លៃ</string>
+    <string name="channel_service_description">ការជូនដំណឹងខណៈពេលកំពុងធ្វើបច្ចុប្បន្នភាពតម្លៃ។</string>
+    <string name="neutral_channel_market">ការដាស់តឿនទីផ្សារ</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed កម្រៃ gas «គួរកត់សម្គាល់» និងកាលបរិច្ឆេទសេដ្ឋកិច្ច</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">ការដាស់តឿន។ %1$s, %2$s %3$s %4$s, ឥឡូវ %5$s</string>
+    <string name="tts_direction_down">បានធ្លាក់ចុះ</string>
+    <string name="tts_direction_funding_above">ជាមួយ Funding ខ្ពស់</string>
+    <string name="tts_direction_funding_below">ជាមួយ Funding ទាប</string>
+    <string name="tts_direction_move">កំពុងផ្លាស់ទីខ្លាំង</string>
+    <string name="tts_direction_near_high">នៅជិតកម្រិតខ្ពស់របស់វា</string>
+    <string name="tts_direction_near_low">នៅជិតកម្រិតទាបរបស់វា</string>
+    <string name="tts_direction_oi_down">ជាមួយ Open interest កំពុងធ្លាក់ចុះ</string>
+    <string name="tts_direction_oi_up">ជាមួយ Open interest កំពុងកើនឡើង</string>
+    <string name="tts_direction_up">បានកើនឡើង</string>
+    <string name="tts_direction_volume_spike">ជាមួយបរិមាណកើនខ្លាំង</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+
+    <!-- Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+    <string name="notification_alarm_action_snooze">1 ម៉ោងក្រោយ</string>
+    <string name="notification_alarm_action_edit">កែតម្រូវ</string>
+</resources>

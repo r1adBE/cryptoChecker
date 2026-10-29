@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">Brīdini – par cenu, procentiem, apjomu un neparastām kustībām</string>
+    <string name="welcome_alert_q">Kad brīdināt?</string>
+    <string name="welcome_text">Tavas cenas. Tavi brīdinājumi. Tavs pārskats.\nBez konta. Bez reklāmām. Bez izsekošanas.</string>
+    <string name="welcome_understand">Saproti – kas pašlaik kustas līdzi cenai</string>
+    <string name="welcome_understand_q">Kas kustas līdzi?</string>
+    <string name="welcome_watch">Vēro – savas monētas, cenas un cenu vēsturi</string>
+    <string name="welcome_watch_q">Kas notiek?</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">Pievienot vērojamajiem (%1$d)</string>
+    <string name="starter_loading_prices">Ielādē cenas…</string>
+    <string name="starter_search_coin">Meklēt citu monētu</string>
+    <string name="starter_select_all">Atlasīt visas</string>
+    <string name="starter_select_none">Neatlasīt nevienu</string>
+    <string name="starter_title">Sāc ar šīm monētām</string>
+    <string name="starter_watch_alarm_hint">Vēro cenu, iestati brīdinājumu</string>
+
+    <!-- Start-Auswahl: Börse und Quote der Startpaare (Binance, bei Standort-Sperre Binance.US), z. B. «Kurse von Binance in USDT. …» -->
+    <string name="starter_source_text">Cenas no %1$s valūtā %2$s. Noņem atzīmi tam, ko nevēlies, un pārējo pievieno vienā solī. Katrai monētai vari mainīt biržu un pāri.</string>
+</resources>

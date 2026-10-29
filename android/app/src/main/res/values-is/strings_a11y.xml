@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">Viðvörun virkjuð</string>
+    <string name="a11y_collapsed">Fellt saman</string>
+    <string name="a11y_converted">um það bil %1$s</string>
+    <string name="a11y_expanded">Opnað</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">opnast í vafranum</string>
+    <string name="a11y_favorite">Uppáhald</string>
+    <string name="a11y_in_watchlist">Þegar á vaktlista</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_exchange_unreachable">Ekki næst í %1$s</string>
+    <string name="a11y_move_down">Færa niður</string>
+    <string name="a11y_move_up">Færa upp</string>
+    <string name="a11y_note">athugasemd: %1$s</string>
+    <string name="a11y_price">verð %1$s</string>
+    <string name="a11y_price_notification_off">Verðtilkynning af</string>
+    <string name="a11y_price_notification_on">Verðtilkynning á</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">Verð úrelt</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s á %2$s</string>
+    <string name="a11y_stale">úrelt, síðast uppfært %1$s</string>
+    <string name="a11y_warning">Viðvörun</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">%1$s á 24 klukkustundum</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">Breyting á 24 klukkustundum ekki tiltæk</string>
+    <string name="a11y_change_down">niður %1$s</string>
+    <string name="a11y_change_flat">óbreytt</string>
+    <string name="a11y_change_since_last">%1$s frá síðustu uppfærslu</string>
+    <string name="a11y_change_since_last_none">Breyting frá síðustu uppfærslu ekki tiltæk</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">%1$s í dag</string>
+    <string name="a11y_change_today_none">Breyting í dag ekki tiltæk</string>
+    <string name="a11y_change_today_zone">%1$s frá miðnætti %2$s</string>
+    <string name="a11y_change_today_zone_none">Breyting frá miðnætti %1$s ekki tiltæk</string>
+    <string name="a11y_change_up">upp %1$s</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Graf %1$s: frá %2$s til %3$s, %4$s. Hæst %5$s, lægst %6$s.</string>
+    <string name="a11y_chart_empty">Graf: engin gögn</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Hringrás %1$s: %2$s frá helmingun, dagur %3$d.</string>
+    <string name="a11y_cycle_bottom">Botn %1$s á degi %2$d.</string>
+    <string name="a11y_cycle_double_bottom">Tvöfaldur botn %1$s á degi %2$d.</string>
+    <string name="a11y_cycle_double_top">Tvöfaldur toppur %1$s á degi %2$d.</string>
+    <string name="a11y_cycle_top">Toppur %1$s á degi %2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">Kvarði frá %1$s til %2$s: %3$d af 100</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, að meðaltali %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d lækkar</item>
+        <item quantity="other">%1$d lækka</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="one">%1$d par hefur ekkert 24 klukkustunda gildi</item>
+        <item quantity="other">%1$d pör hafa ekkert 24 klukkustunda gildi</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d par hefur ekkert gildi fyrir daginn í dag</item>
+        <item quantity="other">%1$d pör hafa ekkert gildi fyrir daginn í dag</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d par hækkar</item>
+        <item quantity="other">%1$d pör hækka</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="one">síðast uppfært fyrir %1$d degi</item>
+        <item quantity="other">síðast uppfært fyrir %1$d dögum</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="one">síðast uppfært fyrir %1$d klukkustund</item>
+        <item quantity="other">síðast uppfært fyrir %1$d klukkustundum</item>
+    </plurals>
+    <string name="a11y_updated_just_now">síðast uppfært rétt í þessu</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="one">síðast uppfært fyrir %1$d mínútu</item>
+        <item quantity="other">síðast uppfært fyrir %1$d mínútum</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">upphæð falin</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_entry">%1$s %2$s, virði %3$s í dag</string>
+    <string name="a11y_portfolio_entry_in">Inn</string>
+    <string name="a11y_portfolio_entry_no_value">virði ekki tiltækt</string>
+    <string name="a11y_portfolio_entry_note">athugasemd %1$s</string>
+    <string name="a11y_portfolio_entry_out">Út</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, %3$s af eignasafninu</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, %2$s af eignasafninu, %3$s</string>
+    <string name="a11y_portfolio_positions">Stærstu stöður: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">Sýna upphæðir</string>
+    <string name="a11y_compare_chart">Samanburður í prósentum, %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">%1$s frá 30 daga hámarki</string>
+    <string name="a11y_price_overlay">Fljótandi verð: %1$s</string>
+</resources>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">Voer CSV in</string>
+    <string name="portfolio_csv_import_all_transfer">Almal na eie beursie</string>
+    <string name="portfolio_csv_import_all_withdrawal">Almal verlaat die portefeulje</string>
+    <string name="portfolio_csv_import_choice_proposed">Voorgestel: pas by %1$s</string>
+    <string name="portfolio_csv_import_choice_transfer">Na eie beursie (oordrag)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Verlaat die portefeulje (onttrekking)</string>
+    <string name="portfolio_csv_import_choose_each">Kies vir elke onttrekking waarheen dit gegaan het.</string>
+    <string name="portfolio_csv_import_columns">Herkende kolomme: %1$s</string>
+    <string name="portfolio_csv_import_confirm">Voer in (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">Dag/Maand</string>
+    <string name="portfolio_csv_import_date_month_first">Maand/Dag</string>
+    <string name="portfolio_csv_import_date_order">Dubbelsinnige datums (bv. 03/04/2024) lees as:</string>
+    <string name="portfolio_csv_import_decimal">Dubbelsinnige getalle (bv. %1$s) lees as:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d transaksie ingevoer</item>
+        <item quantity="other">%d transaksies ingevoer</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d reeds ingevoer (oorgeslaan)</item>
+        <item quantity="other">%d reeds ingevoer (oorgeslaan)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">Formaat: %1$s</string>
+    <string name="portfolio_csv_import_line">Reël %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">Lees lêer en daaglikse koerse…</string>
+    <string name="portfolio_csv_import_progress">Reël %1$s van %2$s</string>
+    <string name="portfolio_csv_import_saving">Stoor transaksies…</string>
+    <string name="portfolio_csv_import_missing_fx">Geen daaglikse koers vir reëls %1$s nie – sonder prys/fooi ingevoer.</string>
+    <string name="portfolio_csv_import_missing_price">Geen prys in die lêer vir reëls %1$s nie – sonder prys ingevoer.</string>
+    <string name="portfolio_csv_import_more">+ nog %1$d</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d nuwe transaksie</item>
+        <item quantity="other">%d nuwe transaksies</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d ry oorgeslaan</item>
+        <item quantity="other">%d rye oorgeslaan</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">Transaksies teen stablecoins (USDT, USDC …) word as ruilings geboek – die stablecoin verskyn in jou besit.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Verskeie passings moontlik – kies die regte een of geen.</string>
+    <string name="portfolio_csv_import_transfer_fee">Netwerkfooi: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">Boek as een oordrag</string>
+    <string name="portfolio_csv_import_transfer_stored">Teenhanger uit \'n vroeëre invoer</string>
+    <string name="portfolio_csv_import_transfers_hint">\'n Onttrekking en die passende deposito van dieselfde munt word een oordrag: aankoopprys en houtydperk word oorgedra, die verskil tel as netwerkfooi.</string>
+    <string name="portfolio_csv_import_transfers_title">Oordragte tussen jou rekeninge</string>
+    <string name="portfolio_csv_import_unreadable">Geen ondersteunde transaksies gevind nie. Ondersteun: Relai-, Swissquote-, Kraken-, Binance-, Coinbase- en Bitpanda-CSV-uitvoere.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
+    <string name="portfolio_csv_import_too_large">Die lêer is te groot om in te voer (hoogstens 16 MB en %1$s rye). Voer korter tydperke uit en voer hulle een na die ander in.</string>
+    <string name="portfolio_csv_import_failed">Die invoer het nie gewerk nie – niks is gestoor nie. Probeer asseblief weer.</string>
+    <string name="portfolio_csv_import_locked">Invoer is nie moontlik nie: gestoorde data kan nou nie gelees word nie. Herbegin die app.</string>
+    <string name="portfolio_csv_import_withdrawals_title">Onttrekkings – waarheen het die munte gegaan?</string>
+    <string name="portfolio_csv_import_zone">Tye sonder tydsone lees as: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">Toestel (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">onleesbare datum</string>
+    <string name="portfolio_csv_skip_bad_number">onleesbare getal</string>
+    <string name="portfolio_csv_skip_fee_exceeds">fooi ≥ ontvangde bedrag</string>
+    <string name="portfolio_csv_skip_internal_move">skuif tussen jou eie rekeninge – niks om te boek nie</string>
+    <string name="portfolio_csv_skip_missing">veld ontbreek</string>
+    <string name="portfolio_csv_skip_ambiguous">verskeie transaksies in dieselfde sekonde wat nie onderskei kan word nie – voer hulle met die hand in</string>
+    <string name="portfolio_csv_skip_not_crypto">nie kripto nie</string>
+    <string name="portfolio_csv_skip_possible_duplicate">moontlik reeds ingevoer (byna dieselfde transaksie) – kontroleer met die hand</string>
+    <string name="portfolio_csv_skip_two_fees">twee fooie in verskillende eenhede – voer die ruiling met die hand in</string>
+    <string name="portfolio_csv_skip_unsupported">nie-ondersteunde tipe</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">Ontdoen</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">Vee die %d transaksie van hierdie invoer uit? Handmatige inskrywings en ander invoere bly.</item>
+        <item quantity="other">Vee die %d transaksies van hierdie invoer uit? Handmatige inskrywings en ander invoere bly.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">Ontdoen invoer?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">%d ingevoerde transaksie verwyder</item>
+        <item quantity="other">%d ingevoerde transaksies verwyder</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d transaksie</item>
+        <item quantity="other">%d transaksies</item>
+    </plurals>
+    <string name="portfolio_imports_empty">Geen invoere nie</string>
+    <string name="portfolio_imports_title">Invoere</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">dieselfde transaksie-ID met \'n ander bedrag – kontroleer met die hand</string>
+    <string name="portfolio_csv_skip_staking_unpaired">staking-inskrywing sonder teeninskrywing – kontroleer besit</string>
+    <string name="portfolio_csv_skip_amount_too_small">bedrag te klein – rond af na 0 wanneer dit gestoor word</string>
+    <string name="portfolio_csv_skip_invalid_swap">ruiling sonder \'n geldige munt of ontvangde bedrag</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">Lees die lêer weer …</string>
+</resources>

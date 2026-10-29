@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">Осигурај се дека алармите стигнуваат</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">Во ред</string>
+    <string name="delivery_state_warn">Провери го ова</string>
+    <string name="delivery_state_info">Забелешка</string>
+    <string name="delivery_allowed">Дозволено</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">Известувања</string>
+    <string name="delivery_notifications_off">Исклучено – алармите нема да стигнат</string>
+    <string name="delivery_notifications_not_asked">Сè уште не е дозволено</string>
+    <string name="delivery_channel">Канал за аларми</string>
+    <string name="delivery_channel_high">Висока важност – се појавува на екранот</string>
+    <string name="delivery_channel_low">Ниска важност – алармите се појавуваат само тивко во листата</string>
+    <string name="delivery_channel_off">Исклучен – алармите нема да стигнат</string>
+    <string name="delivery_exact_on">Вклучено – приближно на секои 15 минути</string>
+    <string name="delivery_exact_off">Исклучено – Android проверува неправилно</string>
+    <string name="delivery_battery">Оптимизација на батеријата</string>
+    <string name="delivery_battery_unrestricted">Неограничено</string>
+    <string name="delivery_battery_optimized">Оптимизирано – Android може да ги одложи проверките. Апликацијата не бара исклучок; можеш да го промениш ова во поставките за батерија на апликацијата.</string>
+    <string name="delivery_background">Користење во позадина</string>
+    <string name="delivery_background_restricted">Ограничено – Android ги запира проверките во позадина</string>
+    <string name="delivery_dnd">Не вознемирувај</string>
+    <string name="delivery_dnd_on">Вклучено – алармите може да стигнат без звук</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">Активно до %1$s – алармите што доспеваат чекаат дотогаш</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – алармите што доспеваат чекаат во ова време</string>
+    <string name="delivery_last_check">Последна проверка во позадина</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – пред повеќе од 6 часа</string>
+    <string name="delivery_last_check_never">Сè уште нема</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">Дозволи</string>
+    <string name="delivery_action_change">Промени</string>
+    <string name="delivery_action_show">Прикажи</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">Банери и звук</string>
+    <string name="delivery_alert_off">Банерите се исклучени – алармите се појавуваат само во Центарот за известувања</string>
+    <string name="delivery_sound_off">Звукот е исклучен – алармите стигнуваат тивко</string>
+    <string name="delivery_time_sensitive">Временски чувствителни известувања</string>
+    <string name="delivery_time_sensitive_off">Исклучено – режим Фокус може да задржи аларми</string>
+    <string name="delivery_background_refresh">Освежување во позадина</string>
+    <string name="delivery_low_power">Режим на мала потрошувачка</string>
+    <string name="delivery_swipe_away">Ја повлече апликацијата настрана?</string>
+    <string name="delivery_swipe_away_note">Ако ја повлечеш апликацијата настрана во менувачот на апликации, iOS ги запира проверките во позадина додека повторно не ја отвориш.</string>
+    <string name="delivery_live_activity">Активност во живо</string>
+    <string name="delivery_live_activity_note">Ја прикажува цената на заклучениот екран, но се ажурира само кога апликацијата проверува – не прави алармите да проверуваат почесто.</string>
+
+    <string name="alarm_first_check">Провери дали алармите стигнуваат</string>
+
+    <string name="oem_battery_title">Штедење батерија од производителот</string>
+    <string name="oem_battery_xiaomi">Xiaomi може целосно да ја запре апликацијата – тогаш не стигнуваат аларми. Вклучи „Autostart“ и постави го штедачот на батерија на „No restrictions“.</string>
+    <string name="oem_battery_samsung">Samsung може да ја стави апликацијата во длабок сон – тогаш не стигнуваат аларми. Во Battery › Background usage limits додај ја во „Never sleeping apps“.</string>
+    <string name="oem_battery_huawei">Huawei/Honor може да ја запре апликацијата – тогаш не стигнуваат аларми. Во Battery › App launch избери „Manage manually“ и дозволи ги сите опции.</string>
+    <string name="oem_battery_oneplus">OnePlus може да ја запре апликацијата – тогаш не стигнуваат аларми. Дозволи „Auto-launch“ и, во Battery usage, активност во позадина.</string>
+    <string name="oem_battery_oppo">Oppo/Realme може да ја запре апликацијата – тогаш не стигнуваат аларми. Дозволи „Auto launch“ и, во Battery usage, активност во позадина.</string>
+    <string name="oem_battery_vivo">Vivo може да ја запре апликацијата – тогаш не стигнуваат аларми. Дозволи „Autostart“ и, во Battery, висока потрошувачка во позадина.</string>
+    <string name="alarm_reliability_stale">Последна проверка %1$s – алармите може да доцнат</string>
+    <string name="alarm_reliability_never">Алармите се вклучени – сè уште нема проверка во позадина</string>
+    <string name="alarm_reliability_notifications_off">Известувањата се исклучени – алармите нема да стигнат</string>
+    <string name="alarm_reliability_battery">Штедењето батерија може да ги запре проверките на аларми</string>
+    <string name="alarm_reliability_background_refresh">Освежувањето во позадина е исклучено – алармите можеби нема да стигнат</string>
+</resources>

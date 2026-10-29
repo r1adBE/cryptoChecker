@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">ការដាស់តឿនផលប័ត្របានផ្អាក៖ គ្មានតម្លៃបច្ចុប្បន្នសម្រាប់ %1$s</string>
+    <string name="portfolio_alarms_paused_price_generic">ការដាស់តឿនផលប័ត្របានផ្អាក៖ មិនមែនគ្រប់កាក់ទាំងអស់មានតម្លៃបច្ចុប្បន្នទេ</string>
+    <string name="portfolio_alarms_paused_addresses">ការដាស់តឿនផលប័ត្របានផ្អាក៖ សមតុល្យនៃអាសយដ្ឋានដែលតាមដានមិនទាន់បានផ្ទុកនៅឡើយទេ</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">ការដាស់តឿនផលប័ត្របានផ្អាក៖ សមតុល្យថូខឹននៃ %1$s ហួសសម័យមួយផ្នែក</string>
+    <string name="portfolio_alarms_paused_tokens_generic">ការដាស់តឿនផលប័ត្របានផ្អាក៖ សមតុល្យថូខឹននៃអាសយដ្ឋានដែលតាមដានហួសសម័យមួយផ្នែក</string>
+    <string name="portfolio_alarms_paused_unverified">ការដាស់តឿនផលប័ត្របានផ្អាក៖ តម្លៃមិនទាន់បានផ្ទៀងផ្ទាត់សម្រាប់ %1$s</string>
+    <string name="portfolio_alarms_paused_unverified_generic">ការដាស់តឿនផលប័ត្របានផ្អាក៖ តម្លៃនៃកាក់ខ្លះមិនទាន់បានផ្ទៀងផ្ទាត់</string>
+    <string name="portfolio_alarms_address_failing">ការដាស់តឿនផលប័ត្រពិនិត្យដោយគ្មាន %1$s៖ សមតុល្យមិនបានផ្ទុកអស់រយៈពេលជាង 24 ម៉ោង</string>
+    <string name="portfolio_alarms_address_failing_generic">ការដាស់តឿនផលប័ត្រពិនិត្យដោយគ្មានអាសយដ្ឋានដែលសមតុល្យមិនបានផ្ទុកអស់រយៈពេលជាង 24 ម៉ោង</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">ថូខឹនហួសសម័យមួយផ្នែក</string>
+    <string name="portfolio_address_restore_failed">មិនអាចស្ដារអាសយដ្ឋានបានទេ – សូមបន្ថែមវាម្តងទៀតប្រសិនបើចាំបាច់</string>
+    <string name="portfolio_address_remove_failed">មិនអាចដកអាសយដ្ឋានចេញបានទេ – សូមព្យាយាមម្តងទៀត</string>
+</resources>

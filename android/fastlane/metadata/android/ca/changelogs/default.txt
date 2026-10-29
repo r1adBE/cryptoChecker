@@ -1,0 +1,1 @@
+Primera versió de Crypto Checker: preus directes de l'exchange, alarmes al teu dispositiu, widgets – sense compte, sense anuncis.

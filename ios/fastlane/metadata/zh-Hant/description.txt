@@ -35,7 +35,7 @@ Crypto Checker 會檢查你所用交易所的價格，並在檢查時發現已�
 • 投資組合為可選功能（在設定中開啟）：買入、賣出、兌換、轉帳、獎勵、儲值和提領；FIFO（預設）或平均成本（Ø）；唯讀地址，無需助記詞：BTC（含 xpub）、ETH 和 EVM 鏈、SOL、TRX、XRP、LTC、ADA 和 TON；從 Relai、Swissquote、Bitpanda、Kraken、Binance 和 Coinbase 匯入 CSV；年度彙總（CSV）；獨立鎖定。Bitpanda 和 Swissquote 沒有自己的價格，僅可透過 CSV 匯入。
 • 人人易讀：綠/紅或藍/橘，不只靠顏色，還有正負號和箭頭，支援動態字型；VoiceOver 把每行讀成一句話
 • 透過「檔案」App 備份和還原
-• 淺色和深色模式，五種強調色，33 種語言
+• 淺色和深色模式，五種強調色，75 種語言
 • 開源（MIT）——程式碼公開在 GitHub 上
 
 提示：Crypto Checker 顯示價格和你自己輸入的投資組合。它不是交易所，也不是錢包，不進行交易，不提供投資建議。

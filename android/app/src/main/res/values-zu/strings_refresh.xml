@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">kudinga idatha nebhethri eyengeziwe</string>
+    <string name="update_mode_live">Bukhoma uma ivuliwe</string>
+    <string name="update_mode_live_hint">Lapho i-exchange inikeza intengo ebukhoma: ngokushesha ngesikhathi uhlu lokubuka luvuliwe. Uma kungenjalo ekulandeni okulandelayo. Uma ivaliwe: hhayi kaningi kunokuthi kanye ku-%1$s, kaningi kamuva.</string>
+    <string name="update_mode_live_hint_ios">Lapho i-exchange inikeza intengo ebukhoma: ngokushesha ngesikhathi uhlu lokubuka luvuliwe. Uma kungenjalo ekulandeni okulandelayo. Uma ivaliwe: lapho i-iOS ivumela, ngezinye izikhathi amahora ehlukene. Uma usula i-app ngokuswayipha, i-iOS imisa lokhu kuhlola uze uyivule futhi.</string>
+    <string name="update_mode_recommended">kunconyiwe</string>
+    <string name="update_mode_sparsam">Konga</string>
+    <string name="update_mode_sparsam_hint">Uma i-app ivaliwe, hhayi kaningi kunokuthi kanye ku-%1$s, kaningi kamuva (ama-alamu, amawijethi). Uma ivuliwe: njalo lapho uyivula.</string>
+    <string name="update_mode_sparsam_hint_ios">Uma i-app ivaliwe, i-iOS inquma ukuthi ihlole nini (ama-alamu, amawijethi), ngezinye izikhathi amahora ehlukene. Uma ivuliwe: njalo lapho uyivula.</string>
+    <string name="update_mode_title">Ukuvama kokubuyekeza</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">Ukuvuselela kumisiwe</string>
+    <string name="refresh_sheet_alarms">Ama-alamu</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d ikhalile</item>
+        <item quantity="other">%1$d akhalile</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">Konke kubuyekeziwe</string>
+    <string name="refresh_sheet_app_start">Ukuqala kwe-app</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">isicelo esiqoqiwe %1$s · intengo engu-%2$d</item>
+        <item quantity="other">isicelo esiqoqiwe %1$s · izintengo ezingu-%2$d</item>
+    </plurals>
+    <string name="refresh_sheet_database">Isizindalwazi</string>
+    <string name="refresh_sheet_exchange_unreachable">I-%1$s ayitholakali</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
+        <item quantity="one">I-exchange engu-%1$d ayitholakali</item>
+        <item quantity="other">Ama-exchange angu-%1$d awatholakali</item>
+    </plurals>
+    <string name="refresh_sheet_network">Inethiwekhi</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">isaziso sentengo esingu-%1$d</item>
+        <item quantity="other">izaziso zentengo ezingu-%1$d</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">ipheya elingu-%1$d</item>
+        <item quantity="other">amapheya angu-%1$d</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">Ipheya elingu-%1$d alibuyekezwanga</item>
+        <item quantity="other">Amapheya angu-%1$d awabuyekezwanga</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d kwipheya elingu-%1$d</item>
+        <item quantity="other">%2$d kumapheya angu-%1$d</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">kumisiwe kuze kube ngu-%1$s</string>
+    <string name="refresh_sheet_paused_until_reason">kumisiwe kuze kube ngu-%1$s (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">ayikho idatha</string>
+    <string name="refresh_sheet_reason_offline">akukho ukuxhumana</string>
+    <string name="refresh_sheet_reason_rate_limit">izicelo eziningi kakhulu</string>
+    <string name="refresh_sheet_reason_server">iphutha leseva</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">isikhathi siphelile</string>
+    <string name="refresh_sheet_reason_unavailable">i-exchange ayitholakali</string>
+    <string name="refresh_sheet_seconds_a11y">amasekhondi angu-%1$s</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_exchanges">Ama-exchange</string>
+    <string name="refresh_sheet_section_steps">Ukuhlukaniswa</string>
+    <string name="refresh_sheet_status_failed">akubuyekezwanga</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">konke kubuyekeziwe</string>
+    <string name="refresh_sheet_status_partial">kubuyekezwe ngokwengxenye</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Ilinde ukuqala</string>
+    <string name="refresh_sheet_widgets">Amawijethi</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">isicelo esiqoqiwe %1$s (sehlulekile)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">iphutha elingu-%1$d</item>
+        <item quantity="other">amaphutha angu-%1$d</item>
+    </plurals>
+    <string name="refresh_report_live">Bukhoma: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d akusahwebelwana ngalo</item>
+        <item quantity="other">%1$d akusahwebelwana ngawo</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d ngamunye</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">Kwehlulekile</string>
+    <string name="check_result_ok">KULUNGILE</string>
+    <string name="check_result_partial">Ngokwengxenye</string>
+    <string name="check_result_skipped">Kweqiwe</string>
+    <string name="check_trigger_bgtask">Ngemuva</string>
+    <string name="check_trigger_exact">Ngesikhathi</string>
+    <string name="check_trigger_foreground">I-app</string>
+    <string name="check_trigger_widget">Iwijethi</string>
+    <string name="check_trigger_widget_ios">Iwijethi · izintengo nama-alamu entengo</string>
+    <string name="check_trigger_worker">Ngemuva</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">I-Android ingabambezela ukuhlola – setha ibhethri ibe “Akukhawulelwe”</string>
+    <string name="battery_later">Kamuva</string>
+    <string name="battery_message">I-Android ibambezela umsebenzi ongemuva ukuze yonge amandla — izintengo namawijethi bese kungaba ngokwamahora adlule. Ukusetha ukusetshenziswa kwebhethri kungakhawulelwa kukugcina kusesikhathini. Ungakushintsha lokhu noma nini kuzilungiselelo ze-Android.</string>
+    <string name="battery_open_settings">Vula izilungiselelo zebhethri</string>
+    <string name="battery_steps">Kulwazi lwe-app, thepha i-Bhethri (noma Ukusetshenziswa kwebhethri ye-app) bese ukhetha Akukhawulelwe.</string>
+    <string name="battery_title">Gcina izintengo zisesikhathini</string>
+    <string name="ios_background_refresh_off">I-Background App Refresh ivaliwe kule app. Ngaphandle kwayo, ama-alamu ahlolwa kuphela lapho i-app ivuliwe.</string>
+    <string name="ios_low_power_mode">I-Low Power Mode ivuliwe. I-iOS ihlola ngemuva kancane kakhulu, ngakho ama-alamu angase afike sekwephuzile.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Umlayezo we-exchange: %1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">Isitoreji sisakhiyiwe – izama futhi ngemuva kuka-%1$d s</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="one">Isitoreji sisakhiyiwe – izama futhi ngemuva komzuzwana ongu-%1$d</item>
+        <item quantity="other">Isitoreji sisakhiyiwe – izama futhi ngemuva kwemizuzwana engu-%1$d</item>
+    </plurals>
+    <string name="watchlist_retry_short">Izama futhi ngemuva kuka-%1$s</string>
+    <string name="widget_retry_at">Izama futhi ngo-%1$s</string>
+    <string name="refresh_sheet_wait_attempt">Umzamo %1$d – isitoreji esibethelwe besingakalungi emzamweni wokuqala</string>
+</resources>

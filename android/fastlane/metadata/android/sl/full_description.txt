@@ -1,0 +1,41 @@
+Crypto Checker preverja tečaje na tvoji borzi in ti sporoči, ko preverjanje ugotovi, da je tvoja meja dosežena. Ko je aplikacija zaprta, Android odloča, kdaj se alarmi preverjajo – največ enkrat na 15 minut, pogosto šele po urah. Kratki skoki vmes lahko manjkajo; aplikacija to pove. Tečaj tvoje borze, ne povprečje – brezplačno, brez računa.
+
+V ČEM JE DRUGAČNA
+• Tvoja borza, ne povprečje: vsaka vrstica prikaže zadnji tečaj para na borzi, ki jo izbereš – Binance, Coinbase, Kraken, OKX, Bybit in mnoge druge.
+• Alarm, ki sporoči enkrat: „Sporoči mi, ko BTC naraste nad 100.000 USDT.“ Oglasi se, ko preverjanje ugotovi, da je meja prečkana, ne ob vsaki posodobitvi – „Enkrat“ ga nato izklopi, „Vsakič“ ga znova pripravi, ko se tečaj vrne.
+• „Kaj se giblje zraven?“: seznam dejavnikov za en kovanec – celoten trg, volumen, nestanovitnost, funding in open interest, razdalja do vrha ali dna, Fear & Greed. Pokaže, kaj se giblje ob istem času – ni vzrok, ni novica, ni naložbeni nasvet.
+• Brez računa, brez oglasov, brez sledenja. Razvijalec ne prejme tvojih podatkov.
+
+POŠTENO O PODATKIH
+• „Varčno“ je privzeto: tečaji se osvežijo, ko odpreš aplikacijo, in v presledkih v ozadju. „V živo, dokler je odprto“ doda tečaje v živo za Binance, Bybit, OKX, Coinbase in Kraken, dokler je seznam odprt.
+• Sprememba v % in grafi najprej prihajajo z lastne borze para; če ta nima sveč, aplikacija uporabi Binance ali Coinbase in ti to pove.
+• Fear & Greed, dominanca in vrednosti on-chain z alternative.me, CoinGecko in Coin Metrics.
+• Zneski zapustijo napravo samo prek tvojega izvoza ali sistemske varnostne kopije Android. Za tečaje gredo na borzo posameznega para samo oznake parov; poleg tega devizni tečaji (Frankfurter), tržni podatki in logotipi (CoinGecko, Binance), zrcala podatkov (GitHub). Če spremljaš naslove ali xpub, javna vozlišča verige blokov vidijo naslove (pri xpub izpeljane) in tvoj naslov IP.
+
+SEZNAM
+• 56 trgov na 45 borzah: spot in futures, žetoni DEX prek DexScreener, po želji delnice, zlato in devize (TradFi)
+• Druga vrstica „≈ vrednost“ v eni od 31 valut (EUR, CHF, USD …), pretvorjeno po deviznem tečaju
+• Mini graf in sprememba v % v 24 h ali od 00:00 v tvojem časovnem pasu
+• Skupine, priljubljeni, povleci in spusti ter opomba za vsak kovanec
+• Vrstice označijo „zastarelo“ ali „borza ni dosegljiva“
+
+ALARMI
+• Tečaj nad ali pod mejo ali rast oziroma padec za odstotek – tudi v tvoji valuti, npr. 60.000 EUR pri paru USDT
+• Gibanje za x % v časovnem oknu, skok volumna
+• Zvok (tudi lastna zvočna datoteka), vibriranje in po želji govorna napoved
+• Nočni mir in „Preizkusi alarm“: vnaprej slišiš, kako alarm pride; dnevnik alarmov: kdaj je bilo preverjeno, kateri tečaj, zakaj se alarm ni sprožil
+
+TRG
+• Opazno: nenavadna gibanja tečaja in volumna na tvojem seznamu, po želji kot tržno obvestilo
+• Kripto utrip, Fear & Greed, kazalniki Bitcoina, funding in open interest – kot čiste izmerjene vrednosti
+• Omrežnine za Ethereum, Bitcoin in druge, z alarmom za gas
+
+ŠE VEČ
+• Pripomočki: seznam, skupna vrednost portfelja, posamezen kovanec z grafom
+• Portfelj neobvezno (vklopi ga v nastavitvah): nakupi, prodaje, zamenjave, prenosi, nagrade, pologi in dvigi; FIFO (privzeto) ali povprečje (Ø); naslovi samo za branje brez semena za BTC (vklj. xpub), ETH in verige EVM, SOL, TRX, XRP, LTC, ADA in TON; uvoz CSV iz Relai, Swissquote, Bitpanda, Kraken, Binance in Coinbase; letni pregled kot CSV; lasten zaklep. Bitpanda in Swissquote: brez lastnega tečaja, samo CSV.
+• Berljivo za vse: zeleno/rdeče ali modro/oranžno, predznak in puščica namesto same barve; TalkBack vsako vrstico prebere kot en stavek
+• Varnostna kopija in obnovitev v datoteko – tudi med Androidom in iPhonom
+• Svetli in temni način, pet barv poudarka, 75 jezikov
+• Odprta koda (MIT) – koda je javna na GitHubu
+
+Opomba: Crypto Checker prikazuje tečaje in portfelj, ki ga vneseš ti. Ni borza ali denarnica, ne trguje in ne daje naložbenih nasvetov.

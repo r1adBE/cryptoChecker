@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">Hakuna kufuli ya skrini iliyowekwa kwenye kifaa hiki. Iweke kwanza kwenye mipangilio ya mfumo.</string>
+    <string name="app_lock_unlock">Fungua</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">Futa jalada</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="one">Ufute muamala %d? Anwani zinazofuatiliwa zinabaki. Unaweza kutendua hili mara baada ya hapo.</item>
+        <item quantity="other">Ufute miamala yote %d? Anwani zinazofuatiliwa zinabaki. Unaweza kutendua hili mara baada ya hapo.</item>
+    </plurals>
+    <string name="portfolio_empty_action">Ongeza ununuzi wako wa kwanza</string>
+    <string name="portfolio_empty_address">Fuatilia tu anwani ya wallet</string>
+    <string name="portfolio_empty_csv">Umenunua kwenye jukwaa? Leta faili yake</string>
+    <string name="portfolio_empty_example_plain">Mfano: %1$s BTC zilizonunuliwa tarehe 1 Machi. Kisha programu inaonyesha thamani yake leo na kama uko kwenye faida au hasara – imehifadhiwa kwenye kifaa hiki pekee.</string>
+    <string name="portfolio_empty_title">Bado hakuna miamala</string>
+    <string name="portfolio_enable_ask_text">Muamala wako umehifadhiwa. Kichupo cha Jalada kinaonyesha mali zako na thamani yake.</string>
+    <string name="portfolio_enable_ask_title">Uwashe kichupo cha Jalada?</string>
+    <string name="portfolio_enable_later_hint">Muamala umehifadhiwa. Unaweza kuwasha kichupo cha Jalada kwenye Mipangilio › Jalada.</string>
+    <string name="portfolio_enabled_banner">Jalada limewashwa – utalipata kwenye kichupo cha Jalada.</string>
+    <string name="portfolio_lock_reason">Fungua jalada</string>
+    <string name="portfolio_locked_text">Fungua ili kuona mali zako na thamani.</string>
+    <string name="portfolio_locked_title">Jalada limefungwa</string>
+    <string name="portfolio_setting_hint">Si lazima: rekodi manunuzi na mauzo na uone thamani na faida/hasara kwenye kichupo tofauti.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">Imepitwa na wakati · hadi %1$s</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="one">Ingizo %d kutoka nakala rudufu ya mfumo halikuwa halali na halikurejeshwa.</item>
+        <item quantity="other">Maingizo %d kutoka nakala rudufu ya mfumo hayakuwa halali na hayakurejeshwa.</item>
+    </plurals>
+    <string name="portfolio_title">Jalada</string>
+    <string name="portfolio_unassigned_fee">Ada haijapangiwa – gharama ya msingi haijulikani: %1$s</string>
+    <string name="portfolio_updated">Bei hadi %1$s</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">Nyingine</string>
+    <string name="portfolio_allocation_title">Mgawanyo</string>
+    <string name="portfolio_card_details">Maelezo</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: bado haipatikani</string>
+    <string name="portfolio_card_hints_count">Madokezo (%1$d)</string>
+    <string name="portfolio_card_today">Leo</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">Jumla</string>
+    <string name="portfolio_hide_amounts">Ficha kiasi</string>
+    <string name="portfolio_hide_amounts_hint">Huonyesha kiasi na thamani kwenye jalada na wijeti ya jalada kama ••• – asilimia zinabaki kuonekana.</string>
+    <string name="portfolio_invested">Gharama ya msingi</string>
+    <string name="portfolio_total_no_fx">Hakuna kiwango cha ubadilishaji cha %1$s – kiasi kwa USDT</string>
+    <string name="portfolio_total_value">Thamani ya jumla</string>
+    <string name="portfolio_value">Thamani</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">Wastani %1$s · sasa %2$s</string>
+    <string name="portfolio_avg_only">Wastani %1$s</string>
+    <string name="portfolio_avg_open_lots">Wastani wa gharama ya sarafu unazomiliki</string>
+    <string name="portfolio_avg_partial">Wastani wa %1$s zenye bei ya ununuzi</string>
+    <string name="portfolio_avg_price">Wastani wa bei ya ununuzi</string>
+    <string name="portfolio_avg_price_hint">Wastani wa bei ya ununuzi: wastani wa manunuzi yote, uliopimwa kwa kiasi. Mauzo yanathaminiwa kwa wastani huu.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Nafasi iliyofungwa (%1$d)</item>
+        <item quantity="other">Nafasi zilizofungwa (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: mauzo yanatumia sarafu zako za zamani zaidi kwanza. Wastani = gharama ya msingi iliyobaki ÷ kiasi chenye bei ya ununuzi.</string>
+    <string name="portfolio_holdings">Mali</string>
+    <string name="portfolio_lost_fee_cost">Gharama ya ada ya mtandao bila fungu lililolipiwa: %1$s</string>
+    <string name="portfolio_open_lots">Mafungu ya ununuzi yaliyo wazi (%1$d)</string>
+    <string name="portfolio_open_lots_avg">Yenye bei ya ununuzi (wastani)</string>
+    <string name="portfolio_open_lots_no_cost">Bila bei ya ununuzi</string>
+    <string name="portfolio_open_lots_without_price">hakuna bei ya ununuzi</string>
+    <string name="portfolio_realized">Faida/hasara iliyopatikana</string>
+    <string name="portfolio_unrealized">Faida/hasara iliyo wazi</string>
+    <string name="portfolio_unrealized_without_unpriced">bila %1$s zisizo na bei ya ununuzi</string>
+    <string name="portfolio_withdrawn_gain">Zilizotolewa: %1$s (mabadiliko ya thamani hadi utoaji)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">Badilisha kuwa</string>
+    <string name="portfolio_convert_to_value">Badilisha kuwa: %1$s</string>
+    <string name="portfolio_current_missing">Hakuna bei ya sasa ya %1$s</string>
+    <string name="portfolio_current_price">Bei ya sasa</string>
+    <string name="portfolio_price_missing">Bei haipo</string>
+    <string name="portfolio_price_missing_hint">Baadhi ya manunuzi hayana bei. Ongeza bei ya ununuzi ili kuona faida/hasara.</string>
+    <string name="portfolio_price_source">Bei: Binance · USDT kwa bei ya soko</string>
+    <string name="portfolio_price_source_routes">Bei: %1$s, vinginevyo Binance · USDT kwa bei ya soko</string>
+    <string name="portfolio_price_unavailable">Bei haipatikani sasa hivi</string>
+    <string name="portfolio_price_unchecked">Bei haijakaguliwa</string>
+    <string name="portfolio_price_via_base">≈ bei ya %1$s (bridged/wrapped)</string>
+    <string name="portfolio_usdt_as_usd">USDT imebadilishwa kwa bei yake ya soko ya USD</string>
+    <string name="portfolio_usdt_assumed">Kiwango cha dola cha USDT hakipo – kimehesabiwa kama dola 1 ya Marekani</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">Ongeza kwenye jalada</string>
+    <string name="portfolio_add_tx">Ongeza muamala</string>
+    <string name="portfolio_buy">Nunua</string>
+    <string name="portfolio_coin">Sarafu</string>
+    <string name="portfolio_coin_invalid">Weka alama ya sarafu</string>
+    <string name="portfolio_coin_search">Tafuta alama, k.m. BTC</string>
+    <string name="portfolio_discard_confirm">Tupa</string>
+    <string name="portfolio_discard_keep">Endelea kuhariri</string>
+    <string name="portfolio_discard_title">Utupe mabadiliko?</string>
+    <string name="portfolio_edit_tx">Badilisha muamala</string>
+    <string name="portfolio_invalid">Weka namba halali iliyo kubwa kuliko 0.</string>
+    <string name="portfolio_oversold">Mauzo yanazidi mali – tafadhali angalia miamala.</string>
+    <string name="portfolio_sell">Uza</string>
+    <string name="portfolio_sell_exceeds">Zaidi ya mali zako (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">Kiasi pamoja na ada ni zaidi ya mali zako (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">Zaidi ya mali zako kwenye %2$s (%1$s)</string>
+    <string name="portfolio_transactions">Miamala</string>
+    <string name="portfolio_tx_acquired_date">Tarehe ya awali ya ununuzi (si lazima)</string>
+    <string name="portfolio_tx_acquired_date_hint">Kwa muda wa kumiliki kwenye uhamishaji wa kodi</string>
+    <string name="portfolio_tx_amount">Kiasi</string>
+    <string name="portfolio_tx_coin_fee">Ada kwa sarafu (si lazima)</string>
+    <string name="portfolio_tx_date">Tarehe</string>
+    <string name="portfolio_tx_delete_confirm">Muamala huu utaondolewa kwenye jalada.</string>
+    <string name="portfolio_tx_delete_title">Ufute muamala?</string>
+    <string name="portfolio_tx_deposit">Amana</string>
+    <string name="portfolio_tx_entry_currency">Weka kwa</string>
+    <string name="portfolio_tx_explain_deposit">Mali bila biashara, k.m. sarafu za zamani</string>
+    <string name="portfolio_tx_explain_gift">Sarafu zinatoka kwenye mali zako kama utoaji – uondoaji kwa thamani ya soko pale tu nchi inapotoza kodi zawadi (UK, CA, AU)</string>
+    <string name="portfolio_tx_explain_payment">Zimelipia bidhaa au huduma – uondoaji kwa thamani ya soko kama mauzo, bila pesa kupokelewa</string>
+    <string name="portfolio_tx_explain_reward">Gharama ya msingi = thamani ya soko wakati wa kupokea</string>
+    <string name="portfolio_tx_explain_swap">Sarafu moja kwa nyingine: inauza sarafu iliyotolewa na kununua sarafu iliyopokelewa</string>
+    <string name="portfolio_tx_explain_transfer">Hakuna faida – gharama ya msingi inahamia pamoja na sarafu</string>
+    <string name="portfolio_tx_explain_withdrawal">Mali zinatoka kwenye jalada – hakuna mauzo, hakuna faida</string>
+    <string name="portfolio_tx_fee_consumes_amount">Ada ni kubwa kama kiasi kilichopokelewa – hakuna kitakachobaki.</string>
+    <string name="portfolio_tx_fees_toggle">Ada</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s kwa kiwango cha %2$s</string>
+    <string name="portfolio_tx_fiat_loading">Inapakia kiwango cha ubadilishaji…</string>
+    <string name="portfolio_tx_fiat_no_fx">Hakuna kiwango cha ubadilishaji kwa siku hii – weka kiasi kwa USDT.</string>
+    <string name="portfolio_tx_gift">Zawadi</string>
+    <string name="portfolio_tx_gift_price_hint">Kwa USDT. Tupu = bei ya kufunga ya siku hiyo (imekadiriwa).</string>
+    <string name="portfolio_tx_gift_spouse">Kwa mwenzi / mshirika wa kiraia</string>
+    <string name="portfolio_tx_gift_spouse_hint">UK na Canada: hakuna faida wala hasara – mwenzi wako anachukua gharama yako ya msingi. Nchi nyingine hupuuza hili.</string>
+    <string name="portfolio_tx_market_value">Thamani ya soko kwa kila sarafu</string>
+    <string name="portfolio_tx_more_buy">Ada, jukwaa, dokezo</string>
+    <string name="portfolio_tx_network_fee">Ada ya mtandao kwa sarafu (si lazima)</string>
+    <string name="portfolio_tx_note">Dokezo (si lazima)</string>
+    <string name="portfolio_tx_payment">Imelipiwa nayo</string>
+    <string name="portfolio_tx_price">Bei kwa kila sarafu</string>
+    <string name="portfolio_tx_price_hint">Kwa USDT. Acha tupu ikiwa haijulikani.</string>
+    <string name="portfolio_tx_price_historic">Bei ya kufunga ya siku iliyokaguliwa ya %1$s – rekebisha ikihitajika</string>
+    <string name="portfolio_tx_price_invalid">Weka namba halali (0 au zaidi) au acha sehemu tupu.</string>
+    <string name="portfolio_tx_price_past_hint">Weka bei ya siku ya ununuzi – acha tupu ikiwa haijulikani</string>
+    <string name="portfolio_tx_price_receipt_hint">Kwa USDT. Tupu = mali bila gharama ya msingi.</string>
+    <string name="portfolio_tx_price_zero">Bei 0 haiwezekani kwa miamala iliyoletwa – acha tupu kwa bei ya soko</string>
+    <string name="portfolio_tx_removed">Muamala umefutwa</string>
+    <string name="portfolio_tx_reward">Tuzo</string>
+    <string name="portfolio_tx_save_failed">Muamala haukuweza kuhifadhiwa. Maingizo yako bado yako hapa – tafadhali jaribu tena.</string>
+    <string name="portfolio_tx_swap">Swap</string>
+    <string name="portfolio_tx_swap_fee_received">Ada kwa %1$s: inapunguza kiasi kilichopokelewa, hakuna bei inayohitajika.</string>
+    <string name="portfolio_tx_swap_from">Swap kutoka %1$s</string>
+    <string name="portfolio_tx_swap_given_amount">Kiasi kilichotolewa</string>
+    <string name="portfolio_tx_swap_given_coin">Sarafu iliyotolewa</string>
+    <string name="portfolio_tx_swap_received_amount">Kiasi kilichopokelewa</string>
+    <string name="portfolio_tx_swap_received_coin">Sarafu iliyopokelewa</string>
+    <string name="portfolio_tx_swap_same_coin">Chagua sarafu tofauti na iliyotolewa</string>
+    <string name="portfolio_tx_swap_to">Swap kwenda %1$s</string>
+    <string name="portfolio_tx_swap_value">Thamani ya swap (si lazima)</string>
+    <string name="portfolio_tx_swap_value_hint">Thamani ya jumla. Tupu = haijulikani – faida inabaki pungufu (kiotomatiki ikiwa USDT iko kwenye swap).</string>
+    <string name="portfolio_tx_third_fee_amount">Kiasi cha ada</string>
+    <string name="portfolio_tx_third_fee_coin">Sarafu ya ada</string>
+    <string name="portfolio_tx_third_fee_incomplete">Bila bei ada haijumuishwi kwenye gharama ya msingi na mapato; uhamishaji wa kodi huweka alama kwenye mauzo kama hayo.</string>
+    <string name="portfolio_tx_third_fee_price">Bei kwa kila sarafu ya ada (si lazima)</string>
+    <string name="portfolio_tx_third_fee_toggle">Ada kwa sarafu nyingine</string>
+    <string name="portfolio_tx_total">Jumla: %1$s</string>
+    <string name="portfolio_tx_transfer">Uhamisho</string>
+    <string name="portfolio_tx_transfer_from">Kutoka (si lazima)</string>
+    <string name="portfolio_tx_transfer_to">Kwenda (si lazima)</string>
+    <string name="portfolio_tx_transfer_to_hint">Jukwaa au wallet – inathaminiwa hapo kuanzia sasa.</string>
+    <string name="portfolio_tx_type_select">Aina: %1$s</string>
+    <string name="portfolio_tx_value_received">Thamani kwa kila sarafu wakati wa kupokea (si lazima)</string>
+    <string name="portfolio_tx_withdrawal">Utoaji</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">Umeitoa kama zawadi au umelipia nayo? Irekodi kama “Zawadi” au “Imelipiwa nayo” – kulingana na nchi, hiyo inahesabiwa kama mauzo kwa ajili ya kodi.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">Si lazima: thamani ya soko kwa USDT, inatumika tu kwa historia (tupu = bei ya siku hiyo). Sarafu daima zinatoka kwa gharama yake ya msingi.</string>
+    <string name="portfolio_wallet_did_you_mean">Ulimaanisha %1$s? Tahajia tofauti inahesabiwa kama wallet tofauti.</string>
+    <string name="portfolio_wallet_shortfall">Mali kwenye %1$s hazitoshi – kuna uhamisho unaokosekana?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">Juu %1$s</string>
+    <string name="portfolio_compare">Linganisha</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">Linganisha %1$s na USDT kwa asilimia</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">Ulinganisho kwa asilimia, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">Athari ya sarafu ya fedha: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">Data ya bei inaanzia Agosti 2017 tu — historia inaanzia hapo.</string>
+    <string name="portfolio_history_chip_since_first">Zote</string>
+    <string name="portfolio_history_collapse">Ficha historia ya thamani</string>
+    <string name="portfolio_history_converted">Imebadilishwa kwa kiwango cha leo</string>
+    <string name="portfolio_history_expand">Onyesha historia ya thamani</string>
+    <string name="portfolio_history_gain_a11y">Thamani %1$s. Faida/hasara, %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">Faida/hasara</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">Thamani kwa %1$s</string>
+    <string name="portfolio_history_incl_fx">Pamoja na kiwango cha ubadilishaji</string>
+    <string name="portfolio_history_incl_withdrawn">Inajumuisha mabadiliko ya thamani ya sarafu zilizotolewa</string>
+    <string name="portfolio_history_includes_trades">Inajumuisha manunuzi na mauzo katika kipindi hiki</string>
+    <string name="portfolio_history_loading">Inapakia historia ya thamani</string>
+    <string name="portfolio_history_period_1y">mwaka 1</string>
+    <string name="portfolio_history_period_30d">siku 30</string>
+    <string name="portfolio_history_period_7d">siku 7</string>
+    <string name="portfolio_history_period_since_first">tangu ununuzi wa kwanza</string>
+    <string name="portfolio_history_pnl_needs_prices">Bei za ununuzi hazipo kwa faida/hasara – ziongeze kwenye miamala.</string>
+    <string name="portfolio_history_pnl_without">Faida/hasara bila %1$s (bei haipo)</string>
+    <string name="portfolio_history_range_1y">Mwaka 1</string>
+    <string name="portfolio_history_range_30d">Siku 30</string>
+    <string name="portfolio_history_range_7d">Siku 7</string>
+    <string name="portfolio_history_range_a11y">Onyesha historia ya %1$s</string>
+    <string name="portfolio_history_range_since_first">Tangu ununuzi wa 1</string>
+    <string name="portfolio_history_scaled">Historia ya %1$s: historia ya Binance iliyolinganishwa na bei ya jukwaa</string>
+    <string name="portfolio_history_title">Historia ya thamani</string>
+    <string name="portfolio_history_today">Leo</string>
+    <string name="portfolio_history_too_short">Historia inaanza baada ya siku yako kamili ya kwanza.</string>
+    <string name="portfolio_history_unavailable">Hakuna historia inayopatikana sasa hivi.</string>
+    <string name="portfolio_history_utc_days">Siku kwa UTC (mishumaa ya kila siku)</string>
+    <string name="portfolio_history_without_matching">Bila %1$s (hakuna bei za kila siku zinazolingana)</string>
+    <string name="portfolio_period_rewards">Tuzo +%1$s (si sehemu ya faida)</string>
+    <string name="portfolio_period_scaled">Siku 7/Mwaka 1 kwa %1$s: historia ya Binance iliyolinganishwa na bei ya jukwaa</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">Kengele</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">Kiasi (%1$s)</string>
+    <string name="portfolio_alarm_hint">Hukaguliwa baada ya kila uonyeshaji upya. Kama kengele nyingine, inalia alama inapovukwa na tena tu baada ya thamani kurudi nyuma.</string>
+    <string name="portfolio_alarm_kind_above">Jalada juu ya kiasi</string>
+    <string name="portfolio_alarm_kind_below">Jalada chini ya kiasi</string>
+    <string name="portfolio_alarm_kind_down">Jalada linashuka</string>
+    <string name="portfolio_alarm_kind_up">Jalada linapanda</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">Jalada juu ya %1$s</string>
+    <string name="portfolio_alarm_sentence_below">Jalada chini ya %1$s</string>
+    <string name="portfolio_alarm_sentence_down">Jalada limeshuka %1$s (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">Jalada limepanda %1$s (%2$s)</string>
+    <string name="portfolio_alarm_title">Kengele ya thamani ya jalada</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">Jukwaa (si lazima)</string>
+    <string name="ledger_exchange_failed">%1$s: hakuna bei kutoka %2$s sasa hivi – imethaminiwa kwa Binance.</string>
+    <string name="ledger_exchange_hint">Sarafu inathaminiwa kwa bei ya jukwaa hili (vinginevyo Binance). Historia, Siku 7 na Mwaka 1 zinatumia bei za kila siku za Binance zilizolinganishwa nayo.</string>
+    <string name="ledger_exchange_mixed">%1$s: majukwaa kadhaa yamewekwa – imethaminiwa kwa Binance. Umehamisha sarafu? Rekodi uhamisho kama “Uhamisho”.</string>
+    <string name="ledger_exchange_none">Hakuna (Binance)</string>
+    <string name="ledger_fee">Ada (si lazima)</string>
+    <string name="ledger_fee_coin">Sarafu</string>
+    <string name="ledger_fee_hint">Kwa USDT inaongeza gharama ya msingi (mauzo: inapunguza mapato); kwa sarafu inapunguza kiasi.</string>
+    <string name="ledger_fee_line">Ada %1$s</string>
+    <string name="ledger_fifo_cost_note">Tangu ununuzi: gharama ya FIFO pamoja na ada (sarafu za zamani zaidi zinauzwa kwanza).</string>
+    <string name="ledger_gain_info">Leo, Siku 7, Mwaka 1: mabadiliko ya thamani katika kipindi – manunuzi na mauzo hayahesabiwi kama faida. Tangu ununuzi: thamani ya sasa ukiondoa gharama ya msingi (wastani wa gharama pamoja na ada) ya sarafu ambazo bado unamiliki.</string>
+    <string name="ledger_gain_info_a11y">Jinsi faida na hasara zinavyokokotolewa</string>
+    <string name="ledger_gain_info_fifo">Leo, Siku 7, Mwaka 1: mabadiliko ya thamani katika kipindi – manunuzi na mauzo hayahesabiwi kama faida. Tangu ununuzi: thamani ya sasa ukiondoa gharama ya msingi (FIFO pamoja na ada) ya sarafu ambazo bado unamiliki.</string>
+    <string name="ledger_gain_title">Faida/hasara</string>
+    <string name="ledger_more_toggle">Ada na jukwaa</string>
+    <string name="ledger_partial_cost">“Tangu ununuzi” inahesabu sehemu yenye bei ya ununuzi pekee – bila %1$s zisizo na bei ya ununuzi.</string>
+    <string name="ledger_period_without">Leo / Siku 7 / Mwaka 1 bila %1$s – hakuna bei ya kuanzia inayolingana.</string>
+    <string name="ledger_since_purchase_currency">Tangu ununuzi (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">Faida/hasara tangu ununuzi, bado haijauzwa</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="one">Bila sarafu %1$d isiyo na bei ya ununuzi (%2$s) – ongeza bei ili ihesabiwe.</item>
+        <item quantity="other">Bila sarafu %1$d zisizo na bei ya ununuzi (%2$s) – ongeza bei ili zihesabiwe.</item>
+    </plurals>
+
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">Anguko la USDT – soko kwa USD %1$s</string>
+    <string name="portfolio_usdt_via_usdc">Kiwango cha dola cha USDT kupitia USDC/USDT – USDC ikishuka, thamani hii si sahihi</string>
+    <string name="portfolio_amount_bridged_stable">≈ pamoja na %1$s (bridged)</string>
+
+    <string name="portfolio_tx_interest">Riba (ukopeshaji)</string>
+    <string name="portfolio_tx_interest_hint">Inahesabiwa kama mapato wakati wa kupokea (Austria). Usitumie kwa tuzo za staking na airdrops.</string>
+    <string name="app_lock_no_screen_lock">Weka kufuli ya skrini ili kufungua jalada.</string>
+    <string name="app_lock_turn_off_action">Zima kufuli ya jalada</string>
+    <string name="app_lock_turn_off_confirm_title">Uzime kufuli ya jalada?</string>
+    <string name="app_lock_turn_off_confirm_message">Bila kufuli ya skrini jalada haliwezi kufunguliwa. Ikizimwa, programu inaonyesha jalada lako tena bila kuuliza. Kufuli ya skrini ikishawekwa, unaweza kuwasha kufuli tena kwenye Mipangilio.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">“Tangu ununuzi” na gharama ya msingi kwa %1$s: gharama kwa kiwango cha ubadilishaji cha siku ya ununuzi, thamani kwa kiwango cha leo.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">Hakuna kiwango cha ubadilishaji kwa siku ya ununuzi (haimo kwenye “Tangu ununuzi” na gharama ya msingi): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">Gharama katika siku za ununuzi bila kiwango cha dola cha USDT imehesabiwa kama dola 1 ya Marekani kwa kila USDT.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">Hadi %1$s – jukwaa halipatikani</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">Bei za kila siku: %1$s (badala ya Binance)</string>
+
+    <string name="portfolio_footer_short">Kifaa cha kusaidia kazi, si ushauri wa kodi wala uwekezaji. Faragha: Mipangilio › Kuhusu programu › Sera ya faragha.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">Ufute miamala yote ya %1$s?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">Muamala %d utaondolewa. Unaweza kutendua hili mara baada ya hapo.</item>
+        <item quantity="other">Miamala %d itaondolewa. Unaweza kutendua hili mara baada ya hapo.</item>
+    </plurals>
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">Ada zilizolipwa kwa %1$s pia zinaondolewa kwenye miamala mingine: %2$d.</string>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s imeondolewa kwenye jalada (muamala %2$d)</item>
+        <item quantity="other">%1$s imeondolewa kwenye jalada (miamala %2$d)</item>
+    </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">Muamala %d umeondolewa</item>
+        <item quantity="other">Miamala %d imeondolewa</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">Hii pia inaondoa fungu %d.</item>
+        <item quantity="other">Hii pia inaondoa mafungu %d.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">Hii pia inaondoa fungu %d na historia ya salio.</item>
+        <item quantity="other">Hii pia inaondoa mafungu %d na historia ya salio.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">Hii pia inaondoa historia ya salio.</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">Haikuweza kuhifadhiwa – tafadhali jaribu tena</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">Kiwango si sahihi – futa na uunde tena</string>
+</resources>

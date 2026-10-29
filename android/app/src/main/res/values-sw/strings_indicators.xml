@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">Altcoins dhidi ya Bitcoin</string>
+    <string name="neutral_btc_indicators_title">Viashiria vya Bitcoin</string>
+    <string name="neutral_halving_last">Halving ya mwisho: %1$s</string>
+    <string name="neutral_halving_next">Halving inayofuata inatarajiwa karibu %1$s (imekadiriwa kwa kalenda – urefu wa block haupatikani kwa sasa).</string>
+    <string name="neutral_indicators_disclaimer">Thamani zilizopimwa pekee, bila tathmini. Si utabiri wala ushauri wa uwekezaji.</string>
+    <string name="neutral_onchain_missing">Data ya on-chain (Coin Metrics) haipatikani kwa sasa.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">Bei iko chini kiasi gani ya kilele chake cha wakati wote cha awali.</string>
+    <string name="neutral_explain_change_30d">Bei ya leo ikilinganishwa na siku 30 zilizopita.</string>
+    <string name="neutral_explain_hashrate">Wastani wa hashrate wa siku 30 ukilinganishwa na wastani wa siku 60.</string>
+    <string name="neutral_explain_ma200w">Wastani wa bei 200 za mwisho za kufunga za kila wiki.</string>
+    <string name="neutral_explain_mayer">Bei ikigawanywa kwa wastani wa siku 200.</string>
+    <string name="neutral_explain_mvrv">Thamani ya soko ikigawanywa kwa thamani halisi (on-chain).</string>
+    <string name="neutral_explain_pi_gap">Wastani wa siku 111 ukilinganishwa na mara mbili ya wastani wa siku 350.</string>
+    <string name="neutral_explain_puell">Mapato ya kila siku ya wachimbaji yakigawanywa kwa wastani wake wa siku 365.</string>
+    <string name="neutral_explain_rsi_daily">Relative Strength Index ya siku 14 za mwisho, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">Relative Strength Index ya wiki 14 za mwisho, 0–100.</string>
+    <string name="neutral_explain_sma50_200">Wastani wa siku 50 ukilinganishwa na wastani wa siku 200.</string>
+    <string name="neutral_explain_vs_btc">Mabadiliko ya bei ikilinganishwa na Bitcoin katika siku 90.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">Programu inaonyesha idadi tu na haiiiti msimu. Kwa kawaida thamani hubadilika kwa siku, si kwa saa.</string>
+    <string name="neutral_info_btc_how">Kila thamani inakuja na sentensi moja kuhusu inachopima, na ilipo katika historia yake yenyewe tangu 2016. Programu haitathmini thamani na haitoi awamu ya soko; viwango vya kengele za soko ni vile tu unavyoweka wewe. Mifumo ya zamani si lazima ijirudie.</string>
+    <string name="neutral_info_btc_what">Viashiria vya kawaida vya Bitcoin kama thamani zilizopimwa tu: Mayer Multiple, wastani wa wiki 200, kushuka kutoka kilele cha wakati wote, mabadiliko katika siku 30, pengo la Pi Cycle na thamani za on-chain MVRV, Puell Multiple na hashrate.</string>
+    <string name="neutral_info_coin_how">Kila thamani inakuja na sentensi moja kuhusu inachopima, bila tathmini. Kwa sarafu zenye historia fupi ya bei baadhi ya thamani hazipo. Data ya on-chain haijajumuishwa hapa.</string>
+    <string name="neutral_info_coin_what">Viashiria vile vile rahisi kwa sarafu unayochagua, kutoka data ya bei pekee: Mayer Multiple, wastani wa wiki 200, kushuka kutoka kilele cha wakati wote, mabadiliko katika siku 30, mwelekeo wa siku 50/200, RSI na nguvu dhidi ya Bitcoin katika siku 90.</string>
+    <string name="neutral_info_halving_how">Halving inayofuata inakokotolewa kutoka urefu wa sasa wa block na wastani wa muda wa block katika kipindi cha sasa cha difficulty (mempool.space); bila data hiyo, kutoka kalenda (halving ya mwisho pamoja na takriban miaka minne). Chati inaonyesha mwenendo wa bei wa mizunguko iliyopita kuanzia halving yake – historia, si utabiri.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">Mwelekeo siku 50/200</string>
+    <string name="ind_drawdown">Kushuka kutoka kilele cha wakati wote</string>
+    <string name="ind_missing">data haitoshi</string>
+    <string name="ind_rsi_daily">RSI (kila siku)</string>
+    <string name="ind_rsi_weekly">RSI (kila wiki)</string>
+    <string name="ind_vs_btc">Nguvu dhidi ya Bitcoin (siku 90)</string>
+    <string name="neutral_ind_change_30d">Mabadiliko siku 30</string>
+    <string name="neutral_ind_hashrate">Hashrate siku 30/60</string>
+    <string name="neutral_ind_ma200w">Wastani wa wiki 200</string>
+    <string name="neutral_ind_pi_gap">Pengo la Pi Cycle</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">Juu inamaanisha altcoins nyingi kubwa zimeishinda Bitcoin katika siku 90, chini inamaanisha Bitcoin imezishinda nyingi kati yake.</string>
+    <string name="ind_read_ath_distance">Ndogo inamaanisha bei iko karibu na rekodi yake, kubwa inamaanisha iko chini yake sana.</string>
+    <string name="ind_read_change_30d">Chanya inamaanisha juu kuliko siku 30 zilizopita, hasi inamaanisha chini.</string>
+    <string name="ind_read_funding">Juu inamaanisha wafanyabiashara wengi wanaweka dau kwenye bei kupanda kwa leverage, hasi inamaanisha wengi wanaweka dau kwenye bei kushuka.</string>
+    <string name="ind_read_hashrate_30_60">Chanya inamaanisha nguvu ya kompyuta inaongezeka, hasi inamaanisha wachimbaji wanazima mashine.</string>
+    <string name="ind_read_leverage">Longs nyingi inamaanisha wengi wanaweka dau kwenye bei kupanda kwa pesa za mkopo, shorts nyingi inamaanisha wengi wanaweka dau kwenye bei kushuka.</string>
+    <string name="ind_read_ma200w">Bei ikiwa juu yake sana inamaanisha kupanda kwa muda mrefu, bei ikiwa karibu nayo inamaanisha kurudi nyuma kwa kina.</string>
+    <string name="ind_read_mayer">Juu inamaanisha bei iko juu sana ya wastani wake wa siku 200, chini inamaanisha iko chini yake.</string>
+    <string name="ind_read_mvrv">Juu inamaanisha bei iko juu sana ya kile wamiliki walicholipa kwa wastani, chini inamaanisha karibu nacho au chini yake.</string>
+    <string name="ind_read_pi_cycle_gap">Karibu na sifuri inamaanisha wastani hizo mbili karibu zinakutana, hasi sana inamaanisha ziko mbali.</string>
+    <string name="ind_read_puell">Juu inamaanisha wachimbaji wanapata zaidi sana kuliko kawaida, chini inamaanisha kidogo sana.</string>
+    <string name="ind_read_rsi_daily">Juu ya 70 inamaanisha faida kubwa siku za karibuni, chini ya 30 inamaanisha hasara kubwa.</string>
+    <string name="ind_read_rsi_weekly">Juu ya 70 inamaanisha faida kubwa wiki za karibuni, chini ya 30 inamaanisha hasara kubwa.</string>
+    <string name="ind_read_sma50_vs_200">Chanya inamaanisha wastani wa muda mfupi uko juu ya ule wa muda mrefu, hasi inamaanisha chini.</string>
+    <string name="ind_read_vs_btc">Chanya inamaanisha imefanya vizuri kuliko Bitcoin, hasi inamaanisha vibaya zaidi.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">Bei ile ile kwa siku 30: %1$s</string>
+    <string name="ind_context_note">Thamani za zamani na hesabu za “bei ile ile” ni hesabu tu, si utabiri.</string>
+    <string name="ind_context_percentile">Tangu %1$s chini katika %2$s ya siku</string>
+</resources>

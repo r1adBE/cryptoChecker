@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">Entradas sen custo de adquisición: %1$d</string>
+    <string name="cost_gaps_card_text">Engade o custo de adquisición para que as ganancias e os impostos estean completos.</string>
+    <string name="cost_gaps_sheet_title">Entradas sen custo de adquisición</string>
+    <string name="cost_gaps_sheet_intro">Estas entradas non teñen custo de adquisición. A suxestión é o peche diario da data – podes axustalo na entrada.</string>
+    <string name="cost_gaps_empty">Todas as entradas teñen custo de adquisición.</string>
+    <string name="cost_gap_enter">Introducir custo de adquisición</string>
+    <string name="cost_gap_leave_unknown">Deixar como descoñecido</string>
+    <string name="cost_gap_left_unknown">Deixado como descoñecido</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">Suxestión: peche diario %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">Non hai ningún peche diario verificado para esta data</string>
+    <string name="cost_gap_suggestion_loading">Cargando o peche diario …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">Custo de adquisición = valor ao recibilo (ingreso)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">Custo de adquisición = 0 (recompensa sen entrada, Austria)</string>
+    <string name="cost_gap_apply">Aplicar</string>
+    <string name="address_lots_action">Custo de adquisición do saldo do enderezo</string>
+    <string name="address_lots_title">Custo de adquisición do saldo do enderezo</string>
+    <string name="address_lots_intro">Introduce a data de compra, a cantidade e o custo de adquisición do saldo deste enderezo. Os lotes contan como compras neste enderezo; a parte non cuberta queda sen custo de adquisición.</string>
+    <string name="address_lots_add">Engadir lote</string>
+    <string name="address_lots_new">Lote novo</string>
+    <string name="address_lots_edit">Lote</string>
+    <string name="address_lots_date">Data de compra</string>
+    <string name="address_lots_amount">Cantidade</string>
+    <string name="address_lots_mode_total">Total</string>
+    <string name="address_lots_mode_price">Por moeda</string>
+    <string name="address_lots_price">Prezo por moeda (USDT)</string>
+    <string name="address_lots_total">Custo de adquisición total (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%1$s de %2$s con custo de adquisición</string>
+    <string name="address_lots_unlotted">%1$s sen custo de adquisición</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">Os lotes superan o saldo en %1$s – consúmense primeiro os máis antigos.</string>
+    <string name="address_lots_not_loaded">O saldo aínda non se cargou – os lotes contarán en canto se cargue.</string>
+    <string name="address_lots_invalid">Introduce a cantidade e o custo de adquisición</string>
+</resources>

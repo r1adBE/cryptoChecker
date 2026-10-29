@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">Ngokwezifiso</string>
+    <string name="settings_group_general">Okuvamile</string>
+    <string name="settings_group_more">Okuningi</string>
+    <string name="settings_minutes">%1$d imiz</string>
+    <string name="settings_row_about">Mayelana ne-app</string>
+    <string name="settings_row_alarms">Ama-alamu</string>
+    <string name="settings_row_currency">Uhlobo lwemali</string>
+    <string name="settings_row_dated_futures">Ama-futures anosuku</string>
+    <string name="settings_row_updates">Ukubuyekezwa kwentengo</string>
+    <string name="settings_row_watchlist">Uhlu lokubuka</string>
+    <string name="settings_search_hint">Sesha izilungiselelo</string>
+    <string name="settings_seconds">%1$d s</string>
+    <string name="settings_section_about">Mayelana</string>
+    <string name="settings_section_appearance">Ukubukeka</string>
+    <string name="settings_section_developer">Unjiniyela</string>
+    <string name="settings_section_language">Ulimi</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">Kuvuliwe</string>
+    <string name="settings_title">Izilungiselelo</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">Isikhathi sokuthula ngaphambi kokuthi i-alamu iphinde ikhale</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Isignali ye-alamu</string>
+    <string name="settings_alarm_signal_open_system">Lungisa kuzilungiselelo zesistimu</string>
+    <string name="settings_alarm_signal_system_hint">Ilandela izilungiselelo zezaziso zocingo lwakho.</string>
+    <string name="settings_alarm_sound">Umsindo we-alamu</string>
+    <string name="settings_alarm_sound_custom">Umsindo wokwezifiso</string>
+    <string name="settings_alarm_sound_default">Umsindo ozenzakalelayo</string>
+    <string name="settings_alarm_sound_error">Umsindo awukwazanga ukusetshenziswa.</string>
+    <string name="settings_alarm_sound_file">Ifayela lakho lomsindo…</string>
+    <string name="settings_alarm_sound_reset">Sebenzisa umsindo ozenzakalelayo</string>
+    <string name="settings_alarm_sound_system">Khetha umsindo wesistimu…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Inombolo kusithonjana se-app</string>
+    <string name="settings_app_badge_hint">Ibala izaziso zama-alamu ezivulekile. Ukuthi kuvela inombolo noma ichashazi kuncike esikrinini sasekhaya (isb. Samsung: “Show with number”).</string>
+    <string name="settings_exact_checks">Hlola ngesikhathi</string>
+    <string name="settings_exact_checks_grant">Vumela ama-alamu &amp; izikhumbuzi</string>
+    <string name="settings_exact_checks_hint">I-Android ihlola cishe njalo emizuzwini engu-15, ngisho noma idivayisi ingasebenzi. Isebenzisa ibhethri elincane elengeziwe.</string>
+    <string name="settings_exact_checks_nothing">Awekho amapheya asebenzayo – akukho okuzohlolwa.</string>
+    <string name="settings_exact_checks_permission_missing">Imvume ayikho – lapho idivayisi iphumule, i-Android ihlola ngokungahlelekile, ngezinye izikhathi ngemuva kwamahora kuphela.</string>
+    <string name="settings_notification_change">Yazisa kuphela uma intengo ishintsha</string>
+    <string name="settings_notification_change_always">Njalo</string>
+    <string name="settings_percent_invalid">Faka inani kusuka ku-0 kuya ku-100.</string>
+    <string name="settings_notification_change_hint">Isaziso sentengo sivela kuphela uma intengo isinyakaze okungenani lokhu kusukela kwesokugcina. Akukho okuboniswayo lapho idatha ingekho. Ama-alamu awathinteki.</string>
+    <string name="settings_ongoing_notifications">Azikwazi ukususwa ngokuswayipha</string>
+    <string name="settings_ongoing_notifications_hint">Igcina izaziso zentengo ziphiniwe.</string>
+    <string name="settings_price_notifications">Izaziso zentengo</string>
+    <string name="settings_price_notifications_hint">Bonisa intengo yamanje yamapheya avuliwe kubha yesimo.</string>
+    <string name="settings_price_pairs">Amapheya</string>
+    <string name="settings_price_pairs_all_off">Konke kuvaliwe</string>
+    <string name="settings_price_pairs_all_on">Konke kuvuliwe</string>
+    <string name="settings_price_pairs_count">%1$d kwangu-%2$d</string>
+    <string name="settings_price_pairs_empty">Awekho amapheya ohlwini lokubuka okwamanje.</string>
+    <string name="settings_price_pairs_hint">Khetha ukuthi yimaphi amapheya abonisa intengo yawo kubha yezaziso.</string>
+    <string name="settings_quiet_hours">Amahora athule</string>
+    <string name="settings_quiet_hours_from">Kusuka</string>
+    <string name="settings_quiet_hours_hint">Phakathi kuka-%1$s no-%2$s, ama-alamu alinda kuze kuphele amahora athule bese ekhala ngomsindo. Ezinye izaziso zifika ngokuthula, ngaphandle kokukhuluma.</string>
+    <string name="settings_quiet_hours_to">Kuya</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">Isikhawu</string>
+    <string name="settings_background_updates">Ukubuyekezwa ngemuva</string>
+    <string name="settings_battery_hint">Kukhawulelwe kusho ukuthi i-Android ingabambezela ukubuyekezwa okungemuva ngamahora.</string>
+    <string name="settings_battery_ok">Ukusetshenziswa kwebhethri: akukhawulelwe</string>
+    <string name="settings_battery_restricted">Ukusetshenziswa kwebhethri: kukhawulelwe</string>
+    <string name="settings_check_runs_empty">Akukabi khona ukuhlola okubhaliwe.</string>
+    <string name="settings_check_runs_honest_android">I-Android inquma ukuthi ihlole nini – lapha ubona ukuthi kwenzeke nini ngempela.</string>
+    <string name="settings_check_runs_honest_ios">I-iOS inquma ukuthi ihlole nini – lapha ubona ukuthi kwenzeke nini ngempela.</string>
+    <string name="settings_check_runs_title">Ukuhlola kwakamuva</string>
+    <string name="settings_http_log">Bonisa ilogi ye-HTTP</string>
+    <string name="settings_http_log_hint">Ibonisa izicelo kuma-exchange ngezansi kwekhasi elithi “Engeza ipheya” – ukuze kuxazululwe izinkinga.</string>
+    <string name="settings_live_service">Buyekeza kaningi</string>
+    <string name="settings_live_websocket">Izintengo ezibukhoma</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">Okuphawulekayo: yazisa</string>
+    <string name="settings_activity_alerts_hint">Kanye ngehora ubuningi ngepheya ngalinye: ukunyakaza kwentengo okungajwayelekile, ukweqa kwevolumu nokweqisa kwe-futures (idatha evela ku-Binance).</string>
+    <string name="settings_activity_sensitivity">Ukuzwela</string>
+    <string name="settings_activity_sensitivity_hint">Ukuthi i-coin ibalwa kalula kangakanani njengengajwayelekile – kuyafana kukhadi lohlu lokubuka nakuma-alamu emakethe. Ngo-“Okuncane”, ikhadi libonisa ezi-3 ezinamandla kakhulu kuphela.</string>
+    <string name="settings_watchlist_activity_card">Okuphawulekayo: bonisa ohlwini</string>
+    <string name="settings_watchlist_activity_card_hint">Ibonisa i-chip ethi ⚡ eduze namaqembu: yithephe ukuze ubone kuphela amapheya lapho kukhona okwenzekayo njengamanje. Izaziso zakho zisethwa ngaphansi kwe-Ama-alamu emakethe.</string>
+    <string name="settings_watchlist_names">Bonisa amagama</string>
+    <string name="settings_watchlist_names_hint">Igama ngaphansi kwepheya, isb. Bitcoin noma NVIDIA. Liza nohlu lwamalogo, olulayishwa kanye kuwo wonke ama-coin.</string>
+    <string name="settings_watchlist_sparkline">Ishadi elincane ohlwini lokubuka</string>
+    <string name="settings_watchlist_sparkline_hint">Umkhuba wamahora angu-24 eduze nentengo</string>
+    <string name="settings_watchlist_value_names">Amagama</string>
+    <string name="settings_watchlist_value_price_only">Intengo kuphela</string>
+    <string name="settings_watchlist_value_sparkline">Ishadi elincane</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Kufaka amathokheni e-Alpha (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Amathokheni e-Alpha: amaphrojekthi asekuqaleni, ikakhulukazi amancane avela ohlwini lwe-Binance Alpha – avame ukuhwebelwana kancane futhi aguquguquka kakhulu.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">Kungokwe-Amathokheni. Akutholakali ngesikhathi kukhethwe “I-TradFi kuphela”; amathokheni e-Alpha asevele esohlwini lwakho lokubuka ayahlala.</string>
+    <string name="settings_asset_scope_both">Amathokheni ne-TradFi</string>
+    <string name="settings_asset_scope_both_hint">Konke – i-crypto ne-TradFi</string>
+    <string name="settings_asset_scope_hint">Isetha ukuthi yimaphi amapheya aboniswa ukukhetha nokusesha lapho wengeza amapheya. Amapheya asevele esohlwini lwakho lokubuka ahlala njalo.</string>
+    <string name="settings_asset_scope_title">Amathokheni &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">Amathokheni kuphela</string>
+    <string name="settings_asset_scope_tokens_hint">I-crypto: i-spot nama-perpetual</string>
+    <string name="settings_asset_scope_tradfi">I-TradFi kuphela</string>
+    <string name="settings_asset_scope_tradfi_hint">Ama-futures ezitoko, izimpahla, i-FX – izinkontileka, hhayi amathokheni</string>
+    <string name="settings_rolling_futures">Kufaka ama-futures ekota &amp; amanye anosuku</string>
+    <string name="settings_rolling_futures_hint">Kuvaliwe: ama-futures anosuku angekho ohlwini lwe-exchange amakwa njengangasahwebelwana esikhundleni sokuhlolwa ngamunye. Konga isikhathi kukho konke ukuvuselela.</string>
+    <string name="settings_rolling_futures_qtly">Kufaka ama-futures ekota &amp; amanye anosuku (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">Kungokwe-Amathokheni. Akutholakali ngesikhathi kukhethwe “I-TradFi kuphela”; kusasebenza kuma-futures anosuku asevele esohlwini lwakho lokubuka.</string>
+    <string name="settings_tradfi_futures">Izitoko, izimpahla ne-FX (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Iphinde ibonise ama-futures ezitoko, igolide nezinye izimpahla, izinhlobo zemali nezinkampani zangaphambi kwe-IPO lapho ukhetha ipheya. Lezi yizinkontileka, hhayi amathokheni.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">Umbala wokugqamisa</string>
+    <string name="settings_accent_hint">Umbala we-app, amawijethi nesithonjana se-app. Ezinye izikrini zasekhaya zisusa isithonjana uma sishintsha – sengeze futhi uma kunjalo.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Amalogo ama-coin</string>
+    <string name="settings_coin_logos_app">Ku-app</string>
+    <string name="settings_coin_logos_app_hint">Uhlu lokubuka, ipheya elivuliwe namakhadi emakethe</string>
+    <string name="settings_coin_logos_footer">Amalogo avela ku-CoinGecko, nase-Binance kuma-coin i-CoinGecko engawabhali (isb. igolide, isiliva, izitoko). I-app ilayisha wonke amalogo kanyekanye futhi iwagcine kule divayisi, ngakho akekho umhlinzeki ongathola ukuthi yimaphi ama-coin owalandelayo. Ama-coin angenalo ilogo abonisa izinhlamvu zawo zokuqala. Izintandokazi zithola inkanyezi encane kulogo. Lapho iswishi ivaliwe, akuveli amalogo noma izinhlamvu zokuqala; uma wonke amaswishi evaliwe, akukho okulayishwayo.</string>
+    <string name="settings_coin_logos_portfolio">Ku-portfolio</string>
+    <string name="settings_coin_logos_portfolio_hint">Izikhundla, imininingwane ye-coin nemibono</string>
+    <string name="settings_coin_logos_value_app">I-app</string>
+    <string name="settings_coin_logos_widgets">Kumawijethi</string>
+    <string name="settings_coin_logos_widgets_hint">Amawijethi ohlu lokubuka ne-coin eyodwa</string>
+    <string name="settings_high_contrast">Umehluko ophezulu</string>
+    <string name="settings_high_contrast_hint">Imibala yentengo eqinile kanye nombhalo wesibili omnyama kakhulu. Kuyavuleka futhi lapho isistimu icela umehluko owengeziwe.</string>
+    <string name="settings_language_choose">Khetha ulimi</string>
+    <string name="settings_language_system">Ulimi lwesistimu</string>
+    <string name="settings_price_colors">Imibala yentengo</string>
+    <string name="settings_price_colors_hint">Okuluhlaza okwesibhakabhaka / okusawolintshi kulula ukukuhlukanisa nakuluphi uhlobo lokungaboni kahle imibala (okubomvu-okuluhlaza nokuluhlaza okwesibhakabhaka-okuphuzi). Indlela ihlala iboniswa futhi ngo-+ / −.</string>
+    <string name="settings_theme_mode">Ukukhanya / Ubumnyama</string>
+    <string name="settings_widgets">Amawijethi</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">Ushintsho lwe-%1$s &amp; indawo yesikhathi yeshadi</string>
+    <string name="settings_change_basis_hint_1">Indawo yesikhathi ekhethiwe isetha ukuthi ushintsho lwamaphesenti lubalwa kusukela nini (uhlu lokubuka, umugqa wokushaya, ipheya elivuliwe, amawijethi) nezikhathi eziboniswa emashadini.</string>
+    <string name="settings_change_basis_hint_2">“%1$s” iqhathanisa nentengo yamahora angu-24 ngqo adlule. “00:00” iqhathanisa nentengo yokuvula phakathi kwamabili kuleyo ndawo yesikhathi.</string>
+    <string name="settings_change_basis_hint_3">Ama-alamu awathinteki.</string>
+    <string name="settings_change_basis_hint_since_last">“%1$s” iqhathanisa nentengo yokubuyekezwa kwangaphambilini. Ngezintengo ezibukhoma ihlala iseduze no-0%%.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">Imali yokuguqula</string>
+    <string name="settings_conversion_currency_hint">Iphinde isetshenziselwe i-portfolio, ama-alamu ngemali yakho, ikhadi lemakethe ye-crypto newijethi ye-portfolio.</string>
+    <string name="settings_cost_method">Indlela yezindleko</string>
+    <string name="settings_cost_method_average">Isilinganiso sezindleko</string>
+    <string name="settings_cost_method_average_hint">Ukuthengisa kubalwa ngesilinganiso esinyakazayo sentengo yokuthenga.</string>
+    <string name="settings_cost_method_fifo">FIFO (ezenzakalelayo)</string>
+    <string name="settings_cost_method_fifo_hint">Ama-coin amadala kakhulu athengiswa kuqala, kuwo wonke ama-exchange nama-wallet.</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO nge-wallet/exchange ngayinye</string>
+    <string name="settings_cost_method_fifo_wallet_hint">Ama-coin amadala kakhulu kuqala ngaphakathi kwe-exchange noma i-wallet ngayinye; ukudlulisa kuhambisa ama-lot nosuku lwawo lokuthenga.</string>
+    <string name="settings_portfolio_lock">Ukhiye we-portfolio</string>
+    <string name="settings_portfolio_lock_footer">Ukhiye ufihla okuboniswa esikrinini. Idatha yakho igcinwe kule divayisi futhi ivikelwe ukubethela kwedivayisi. Ungavikela izipele ngephasiwedi.</string>
+    <string name="settings_portfolio_lock_hint">Ifihla i-portfolio kuphela: vula ngezigxivizo zeminwe, ubuso noma i-PIN yedivayisi. Iyaphinda ikhiye ngemuva komzuzu ongaphezulu ngemuva. Uhlu lokubuka, ama-alamu namanye amawijethi ahlala evuliwe.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Ngaphandle kwe-PIN noma iphasikhodi yedivayisi ukhiye awufihli lutho – setha ukukhiya kwesikrini.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">I-portfolio esipeleni sesistimu</string>
+    <string name="settings_portfolio_system_backup_hint">Kuvaliwe: imisebenzi yakho ayifakwa esipeleni sesistimu yedivayisi nasekudluliseni kusuka ocingweni kuya ocingweni. Ukuyihambisa ocingweni olusha, sebenzisa isipele se-app ngokwayo esinephasiwedi.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Kudinga i-Android 9 noma entsha – izinguqulo ezindala bezizolondoloza i-portfolio ingabethelwe esipeleni se-Google.</string>
+    <string name="settings_portfolio_tab">Bonisa ithebhu ye-Portfolio</string>
+    <string name="settings_portfolio_value_locked">Kuvuliwe, nokhiye</string>
+    <string name="settings_show_converted">Izintengo eziguquliwe</string>
+    <string name="settings_show_converted_hint">Ibonisa izintengo ohlwini lokubuka nange-%1$s</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">Bika ukuphambuka kwe-USDT</string>
+    <string name="settings_depeg_alarm_hint">Yazisa kanye lapho i-USDT iphambuka ku-1 USD ngomkhawulo (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_threshold">Umkhawulo wokuphambuka</string>
+    <string name="settings_fng_above">Fear &amp; Greed: yazisa uma ingaphezulu</string>
+    <string name="settings_fng_below">Fear &amp; Greed: yazisa uma ingaphansi</string>
+    <string name="settings_gas_alert_hint">Yazisa kanye lapho imali evamile yehla ngaphansi komkhawulo. Kuhlolwa ngesikhathi sokubuyekezwa kwentengo, kungadluli kanye emizuzwini engu-10.</string>
+    <string name="settings_gas_btc_below">Imali ye-Bitcoin ngaphansi (sat/vB)</string>
+    <string name="settings_gas_eth_below">I-gas ye-Ethereum ngaphansi (gwei)</string>
+    <string name="settings_ind_ath_within">Ukwehla kusuka kokuphezulu kwesikhathi sonke ubuningi</string>
+    <string name="settings_ind_mayer_above">I-Mayer Multiple ngaphezulu</string>
+    <string name="settings_ind_mayer_below">I-Mayer Multiple ngaphansi</string>
+    <string name="settings_ind_mvrv_above">I-MVRV ngaphezulu</string>
+    <string name="settings_ind_mvrv_below">I-MVRV ngaphansi</string>
+    <string name="settings_indicator_alerts_hint">Izinkomba ze-Bitcoin, zihlolwa kabili ngosuku. Wena ukhetha imikhawulo – i-app ayiwahloli amanani.</string>
+    <string name="settings_macro_notifications">Ikhalenda yomnotho</string>
+    <string name="settings_macro_notifications_hint">Ngo-08:00 ezinsukwini ezinedatha ebalulekile yomnotho wase-US (ukwehla kwenani lemali, umbiko wemisebenzi, isinqumo se-Fed). Ikhalenda ivela kuwebhusayithi ye-app, ilayishwa kanye ngosuku.</string>
+    <string name="settings_market_alerts">Ama-alamu emakethe</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d iyasebenza</item>
+        <item quantity="other">%1$d ayasebenza</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">Ijubane lokukhuluma: %1$.1f×</string>
+    <string name="settings_tts">Ukufunda ngokuzwakalayo</string>
+    <string name="settings_tts_alarms_only">Ama-alamu kuphela</string>
+    <string name="settings_tts_alarms_only_hint">Kuvaliwe: konke ukubuyekezwa kwepheya elimakwe ngokuthi “Funda intengo ngokuzwakalayo” kuyafundwa ngokuzwakalayo.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">Ifunda izintengo nama-alamu ngokuzwakalayo. Ihlala ithule uma idivayisi isesimweni sokuthula noma sokudlidliza.</string>
+    <string name="settings_tts_test">Hlola izwi</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">Setha kabusha i-app</string>
+    <string name="settings_reset_app_action">Susa konke</string>
+    <string name="settings_reset_app_confirm">Isusa uhlu lokubuka, ama-alamu, i-portfolio, izilungiselelo nayo yonke idatha egciniwe, njengangemuva kokufaka. Lokhu akunakuhlehliswa. Ithiphu: yenza isipele kuqala. Izipele zedivayisi (isipele se-Google noma isipele se-iCloud/sekhompyutha) zigcina idatha yangaphambilini kuze kwenziwe isipele esilandelayo.</string>
+    <string name="settings_reset_app_title">Setha kabusha i-app?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">Sesha uhlobo lwemali</string>
+    <string name="language_search">Sesha ulimi</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">Kumnyama</string>
+    <string name="theme_light">Kukhanyayo</string>
+    <string name="theme_system">Isistimu</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">Okuluhlaza okwesibhakabhaka</string>
+    <string name="accent_green">Okuluhlaza</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Okuluhlaza kwe-Marrs</string>
+    <string name="accent_orange">Okusawolintshi</string>
+    <string name="accent_red">Okubomvu</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">Kuvamile e-China, Japan, Korea nase-Taiwan</string>
+    <string name="price_colors_swap">Shintshanisa imibala (ukwenyuka ↔ ukwehla)</string>
+    <string name="price_style_calm">Ezolile</string>
+    <string name="price_style_calm_color_vision">Ezolile · Ukungaboni kahle imibala</string>
+    <string name="price_style_color_vision">Ukungaboni kahle imibala</string>
+    <string name="price_style_fresh">Entsha</string>
+    <string name="price_style_traditional">Yendabuko</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">Ukuxhumana kwama-exchange kuhlolwe ekugcineni ngezimpendulo zangempela: %1$s</string>
+    <string name="about_license">Izintengo zivela ngqo kuma-exchange; ayikho i-akhawunti futhi akukho ukulandelelwa.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">Amalayisensi</string>
+    <string name="about_privacy_policy">Inqubomgomo yobumfihlo</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">Cela i-exchange</string>
+    <string name="about_source_code">Ikhodi yomthombo ku-GitHub</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">I-Crypto Checker iyiphrojekthi ezimele ka-r1AD: ukubuka izintengo ngokuzolile ngaphandle kwe-akhawunti, izikhangiso noma ukulandelelwa. Imibuzo nezifiso: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">I-Crypto Checker iyimithombo evulekile (MIT License).</string>
+    <string name="licenses_font_title">Uhlobo lwamafonti i-Rubik</string>
+    <string name="licenses_icons_bundled_text">Kuhlanganiswe ne-app: izithonjana ezivela ku-“Cryptocurrency Icons” zika-Christopher Downer nabanikeli (github.com/spothq/cryptocurrency-icons), ezikhishwe ngaphansi kwe-CC0 1.0 Universal. Ziboniswa kuze kulayishwe amalogo e-CoinGecko noma e-Binance. Amagama namalogo ahlala engama-trademark amaphrojekthi awo.</string>
+    <string name="licenses_icons_title">Izithonjana zama-coin ezisekelayo</string>
+    <string name="licenses_libraries_intro">I-app isebenzisa lezi zinqolobane ngaphansi kwe-Apache License 2.0:</string>
+    <string name="licenses_libraries_title">Izinqolobane ze-Android</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">Thepha kanye kwengeziwe (%d) ukuze uvule izinketho zonjiniyela</item>
+        <item quantity="other">Thepha izikhathi ezingu-%d ezengeziwe ukuze uvule izinketho zonjiniyela</item>
+    </plurals>
+    <string name="developer_unlocked">Izinketho zonjiniyela zivuliwe</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Ukudlidliza kulandela izilungiselelo ze-iPhone (Sounds &amp; Haptics).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Ibala ama-alamu amasha nama-alamu emakethe; ibuyela ku-0 lapho uvula i-app.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Idatha yakho</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">Kule divayisi</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Uhlu lwakho lokubuka, ama-alamu ne-portfolio kugcinwe kubethelwe kule divayisi; ayikho i-akhawunti, ayikho iseva yethu.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Ukuxhumana</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Izintengo zivela ngqo kuma-exchange amapheya akho, kanye namazinga okushintshisana, uhlu lwama-coin namalogo nesibuko sedatha ku-GitHub; babona ikheli lakho le-IP, hhayi izimpahla zakho (amakheli abukwayo aya kumhlinzeki wenethiwekhi ethintekayo).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Isipele</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Kuphela uma usidala. Ngephasiwedi sibethelwe (Argon2id + AES-256-GCM); ngaphandle kwayo siyafundeka.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Ukushintsha idivayisi</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">Ukhiye uhlala kudivayisi endala – dala ifayela lesipele kuqala.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Yabelana ngokuhlonzwa</string>
+    <string name="diagnostics_share_hint">Ifayela lombhalo lokusekela: inguqulo, idivayisi, izilungiselelo zama-alamu, ukuhlola kwakamuva nelogi yama-alamu – ngaphandle kwe-portfolio, amanani, amakheli noma amanothi. Ulibona kuqala; akukho okuthunyelwa ngokuzenzakalelayo.</string>
+    <string name="diagnostics_preview_title">Ukubuka kuqala ukuhlonzwa</string>
+    <string name="diagnostics_action_share">Yabelana</string>
+    <string name="settings_price_overlay">Intengo phezu kwama-app</string>
+    <string name="settings_price_overlay_hint">Ibonisa amapheya esaziso sentengo esihlala njalo njengephilisi elincane elintantayo phezu kwamanye ama-app. Thepha ukuze uvule i-app, hudula uye ku-× ngezansi ukuze uvale.</string>
+    <string name="settings_price_overlay_needs">Isebenza kuphela kanye no-«%1$s».</string>
+    <string name="settings_price_overlay_grant">Vumela ukubonisa phezu kwamanye ama-app</string>
+    <string name="price_overlay_close">Vala iphilisi lentengo</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">Iseva yakho yamakheli</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">I-Bitcoin kuphela: iseva yakho ehambisana ne-Esplora noma ne-mempool (isb. https://node.example/api, kudingeka isitifiketi esithenjwa emphakathini, njenge-Let\'s Encrypt). Uma isethiwe, amakheli e-Bitcoin nokhiye be-xpub kubuzwa lapho kuphela – hhayi kuma-node omphakathi, ngisho noma iseva yakho ingatholakali. Amanye amanethiwekhi aqhubeka nokusebenzisa ama-node omphakathi. Akunalutho = ama-node omphakathi.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Iseva ye-Bitcoin (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">Hlola</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">Iyahlola…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">Iseva iyaphendula – i-block %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">Ayikho impendulo evumelekile – hlola ikheli nesitifiketi</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">Iyasetshenziswa: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">Akusethiwe – kusetshenziswa ama-node omphakathi</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">Kuvunyelwe amakheli e-https:// kuphela</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">Akukho gama lomsebenzisi noma iphasiwedi ekhelini</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">Ayikho ingxenye ka-? noma # ekhelini</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">Akulona ikheli leseva elivumelekile</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">Shintshela kuma-node omphakathi?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">Amakheli akho e-Bitcoin nokhiye be-xpub bese kubuzwa kuma-node omphakathi: %1$s. Abona lawa makheli kanye nekheli lakho le-IP.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">Sebenzisa ama-node omphakathi</string>
+</resources>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="backup_device_bound">Пред да смениш уред, создај датотека со резервна копија – шифрираните податоци може да се отворат само на овој уред.</string>
+    <string name="backup_encryption_pending">Шифрирањето сè уште не е активно – апликацијата ќе се обиде повторно при следното стартување.</string>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">Извези</string>
+    <string name="backup_exported">Резервната копија е зачувана.</string>
+    <string name="backup_failed">Тоа не успеа. Дали е ова резервна копија од Crypto Checker?</string>
+    <string name="backup_hint">Ги зачувува твојата листа за следење со белешки и групи, алармите, омилените, портфолиото и поставките како датотека што ја чуваш кај себе – на пр. за нов телефон.</string>
+    <string name="backup_import">Увези</string>
+    <string name="backup_title">Резервна копија и враќање</string>
+    <string name="backup_too_large">Датотеката е преголема или не е валидна резервна копија (граница 64 MB).</string>
+    <string name="backup_export_too_large">Резервната копија би била поголема од 64 MB и не би можела да се врати, па не е зачувана.</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">Лозинка</string>
+    <string name="backup_password_continue">Продолжи</string>
+    <string name="backup_password_hide">Скриј лозинка</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">Најмалку %1$d знаци</string>
+    <string name="backup_password_mismatch">Лозинките не се совпаѓаат</string>
+    <string name="backup_password_prompt">Внеси ја лозинката за оваа резервна копија.</string>
+    <string name="backup_password_repeat">Повтори лозинка</string>
+    <string name="backup_password_show">Прикажи лозинка</string>
+    <string name="backup_password_title">Резервна копија заштитена со лозинка</string>
+    <string name="backup_password_too_weak">Прелесно за погодување – избегнувај само цифри, еден повторен знак или вообичаени низи како „12345678“ или „password“.</string>
+    <string name="backup_password_warning">Без лозинката, резервната копија не може да се врати.</string>
+    <string name="backup_password_wrong">Погрешна лозинка или датотеката е оштетена. Обиди се повторно.</string>
+    <string name="backup_protect">Заштити со лозинка</string>
+    <string name="backup_protect_hint">Ја шифрира датотеката (AES-256). Препорачано кога содржи податоци од портфолиото.</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">Зачувај без лозинка</string>
+    <string name="backup_plain_confirm_text">Датотеката не е шифрирана. Секој што ќе ја добие може да прочита:</string>
+    <string name="backup_plain_confirm_title">Да се зачува без лозинка?</string>
+    <string name="backup_plain_contents_addresses">Зачувани адреси на паричници и xpub-клучеви со историја на салдо и набавна вредност</string>
+    <string name="backup_plain_contents_base">Листа за следење со белешки и групи, аларми, омилени и поставки</string>
+    <string name="backup_plain_contents_portfolio">Портфолио: трансакции со износи и цени</string>
+    <string name="backup_restore_app_lock_kept">„Заклучување на портфолиото“ останува вклучено – нешифрирана резервна копија не може да го исклучи.</string>
+    <string name="backup_restore_confirm">Увозот ги заменува твојата тековна листа за следење (со белешки и групи), алармите, омилените, портфолиото и поставките со резервната копија.</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="one">%d запис во резервната копија (портфолио или аларм) е невалиден и нема да се увезе.</item>
+        <item quantity="other">%d записи во резервната копија (портфолио или аларми) се невалидни и нема да се увезат.</item>
+    </plurals>
+    <string name="backup_restore_newer_version">Оваа резервна копија е од понова верзија на апликацијата – прво ажурирај ја апликацијата. Ништо не е увезено.</string>
+    <string name="backup_restore_unencrypted_warning">Оваа резервна копија не е шифрирана – провери дали е од тебе. Поставките ќе се применат – освен промените што ја намалуваат заштитата (заклучување на портфолиото, сопствен сервер за адреси, скриј износи, портфолио во системската резервна копија).</string>
+    <string name="backup_restored">Вратено: %1$s, %2$s.</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d аларм</item>
+        <item quantity="other">%1$d аларми</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d пар</item>
+        <item quantity="other">%1$d пара</item>
+    </plurals>
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen -->
+    <string name="backup_restore_over_limits">Над границите (%3$s пара, %4$s аларми по пар), нема да се вратат: %1$s, %2$s.</string>
+    <string name="backup_restored_over_limits">Над границите (%3$s пара, %4$s аларми по пар), не се вратени: %1$s, %2$s.</string>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren -->
+    <string name="storage_recovery_message">Овој уред повеќе го нема клучот за шифрираните податоци на апликацијата, па апликацијата стартуваше празна. Ништо не е избришано. За да ги вратиш листата за следење и портфолиото, увези датотека со резервна копија под „%1$s“ во Поставки.</string>
+    <string name="storage_recovery_title">Зачуваните податоци не можеа да се отклучат</string>
+
+    <!-- Sicherung mit Passwort (Argon2id, 64 MiB): zu wenig Arbeitsspeicher -->
+    <string name="backup_not_enough_memory">Нема доволно слободна меморија за да се заштити или отвори резервната копија со лозинка. Затвори други апликации и обиди се повторно.</string>
+
+    <!-- Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">Врати резервна копија</string>
+    <string name="storage_recovery_acknowledge">Разбрав</string>
+    <string name="storage_recovery_restored_title">Зачуваните податоци се повторно отклучени</string>
+    <string name="storage_recovery_restored_message">Поранешен клуч на овој уред повторно ги отвори оставените настрана податоци, па тие се вратени. Податоците зачувани во меѓувреме се задржани непроменети покрај нив.</string>
+    <string name="settings_reset_notice_title">Поставките се ресетирани</string>
+    <string name="settings_reset_notice">Твоите поставки не можеа да се прочитаат и се вратени на стандардните. Провери го заклучувањето на портфолиото, интервалот на алармите и валутата.</string>
+    <string name="backup_restore_interrupted_title">Враќањето беше прекинато</string>
+    <string name="backup_restore_interrupted_rolled_back">Апликацијата беше затворена додека се враќаше резервна копија. Твоите претходни податоци се вратени; ништо од резервната копија не е задржано.</string>
+    <string name="backup_restore_interrupted_incomplete">Апликацијата беше затворена додека се враќаше резервна копија, а претходните податоци не можеа целосно да се вратат. Провери ги листата за следење и портфолиото или врати ја резервната копија повторно под „%1$s“ во Поставки.</string>
+    <string name="backup_not_verified">Датотеката со резервна копија не можеше да се потврди по зачувувањето – се чита поинаку. Зачувај ја резервната копија во нова датотека.</string>
+
+    <!-- Hinweis (nur Android): Portfolio-Kopie aus der Systemsicherung auch beim zweiten Versuch unlesbar und gelöscht -->
+    <string name="system_backup_not_imported_title">Портфолиото не е вратено од системската резервна копија</string>
+    <!-- %1$s = Name des Bereichs «Sichern &amp; Wiederherstellen» in den Einstellungen -->
+    <string name="system_backup_not_imported_message">Копијата на портфолиото од системската резервна копија на Android не можеше да се прочита ни при втор обид и е избришана. Ако имаш датотека со резервна копија, врати ја под „%1$s“ во Поставки.</string>
+
+    <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
+    <string name="portfolio_storage_kept_in_memory">Зачуваните податоци моментално не може да се прочитаат, па портфолиото не се прикажува и не може да се менува. Рестартирај ја апликацијата.</string>
+    <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
+    <string name="watchlist_storage_kept_in_memory">Зачуваните податоци моментално не може да се прочитаат, па листата за следење не се прикажува и не може да се менува. Рестартирај ја апликацијата.</string>
+    <string name="watchlist_storage_locked">Листата за следење не може да се менува: зачуваните податоци моментално не може да се прочитаат. Рестартирај ја апликацијата.</string>
+    <string name="alarm_save_storage_locked">Алармите не може да се зачуваат: зачуваните податоци моментално не може да се прочитаат. Рестартирај ја апликацијата.</string>
+    <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
+    <string name="backup_storage_kept">Резервна копија не е можна: зачуваните податоци моментално не може да се прочитаат. Рестартирај ја апликацијата и обиди се повторно.</string>
+    <string name="backup_restore_storage_in_memory">Увозот моментално не е можен: апликацијата во моментов не зачувува податоци (шифрирањето сè уште не е активно), па увозот би се изгубил при рестартирање. Рестартирај ја апликацијата и обиди се повторно.</string>
+    <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable) -->
+    <string name="backup_restore_journal_unavailable">Увозот моментално не е можен: безбедносната копија на твоите тековни податоци не можеше да се зачува (клучот моментално не е достапен). Ништо не е променето. Обиди се подоцна или рестартирај ја апликацијата.</string>
+
+    <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
+    <string name="portfolio_storage_in_memory">Шифрирањето сè уште не е активно – портфолиото не се зачувува, промените се губат кога апликацијата ќе се затвори. Апликацијата ќе се обиде повторно при следното стартување.</string>
+
+    <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
+    <string name="portfolio_storage_locked">Зачуваните податоци моментално не може да се прочитаат, па промени не се можни. Рестартирај ја апликацијата.</string>
+    <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
+    <string name="watchlist_storage_in_memory">Овој уред моментално не дава клуч – листата за следење не се зачувува, промените се губат кога апликацијата ќе се затвори. Алармите во позадина се паузирани. Апликацијата ќе се обиде повторно при следното стартување.</string>
+
+    <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
+    <string name="backup_restore_server_kept">„Сопствен сервер за адреси“ не е применет – нешифрирана резервна копија не може да го промени.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
+    <string name="backup_restore_server_public">„Сопствен сервер за адреси“ е отстранет како во резервната копија – Bitcoin-адресите повторно се бараат на јавни јазли.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
+    <string name="backup_restore_server_changed">„Сопствен сервер за адреси“ е заменет со оној од резервната копија.</string>
+</resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Protokoll: Titel der Seite und Name des Knopfs in «Alle Alarme» -->
+    <string name="alarm_log_title">သတိပေးချက် မှတ်တမ်း</string>
+    <!-- Link unter «Letzte Prüfungen» (Einstellungen › Aktualisierung) -->
+    <string name="alarm_log_open">သတိပေးချက် မှတ်တမ်းကို ပြရန်</string>
+    <string name="alarm_log_intro">သတိပေးချက် ဖြစ်ပေါ်ခဲ့ချိန် – နှင့် ဖြစ်ပေါ်သင့်သော်လည်း ဆိုင်းငံ့ထားခဲ့ချိန်။ ဤစက်ပေါ်တွင်သာ ရက် 14 ကြာ သိမ်းဆည်းသည်။</string>
+    <string name="alarm_log_empty_title">မှတ်တမ်း မရှိသေးပါ</string>
+    <string name="alarm_log_empty_message">သတိပေးချက် ဖြစ်ပေါ်သည့်အခါ သို့မဟုတ် ဆိုင်းငံ့ထားသည့်အခါ ဤနေရာတွင် ပေါ်လာမည် – ဥပမာ ဈေးနှုန်း ခေတ်မမီသောကြောင့် သို့မဟုတ် တိတ်ဆိတ်ချိန်အတွင်း။</string>
+    <string name="alarm_log_clear">မှတ်တမ်း ရှင်းရန်</string>
+    <string name="alarm_log_clear_title">သတိပေးချက် မှတ်တမ်းကို ရှင်းမလား။</string>
+    <string name="alarm_log_clear_message">မှတ်တမ်းအားလုံးကို ဖယ်ရှားပါမည်။ သင့်သတိပေးချက်များ မပြောင်းလဲပါ။</string>
+    <!-- Screenreader: Schwelle des Alarms, z. B. «Marke Über 100’000 CHF» -->
+    <string name="alarm_log_threshold">သတ်မှတ်ချက် %1$s</string>
+    <!-- Alarm-Editor: letzte Prüfung, %1$s = «14:02 · Kraken 99’800 CHF · Marke nicht erreicht» -->
+    <string name="alarm_last_check">နောက်ဆုံး စစ်ဆေးချိန်: %1$s</string>
+    <!-- Ergebnisse einer Alarm-Prüfung (AlarmLogOutcome) -->
+    <string name="alarm_outcome_fired">ဖြစ်ပေါ်ခဲ့သည်</string>
+    <string name="alarm_outcome_not_reached">သတ်မှတ်ချက် မရောက်သေးပါ</string>
+    <string name="alarm_outcome_already_triggered">သတင်းပို့ပြီးဖြစ်သည် – ဈေးနှုန်း တစ်ဖက်သို့ ပြန်ရောက်သည်အထိ စောင့်သည်</string>
+    <string name="alarm_outcome_cooldown">မဖြစ်ပေါ်ပါ – နောက်ဆုံး သတိပေးချက်အပြီး နားချိန်</string>
+    <!-- %1$s = Zeit des Kurses laut Börse -->
+    <string name="alarm_outcome_stale">မဖြစ်ပေါ်ပါ – ဈေးနှုန်း ခေတ်မမီ (%1$s အထိ)</string>
+    <string name="alarm_outcome_mark_price">မဖြစ်ပေါ်ပါ – mark price ဖြစ်ပြီး အရောင်းအဝယ်ဖြစ်သော ဈေးနှုန်း မဟုတ်ပါ</string>
+    <string name="alarm_outcome_low_liquidity">မဖြစ်ပေါ်ပါ – ငွေဖြစ်လွယ်မှု 10,000 USD အောက် သို့မဟုတ် မသိ</string>
+    <string name="alarm_outcome_quiet_hours">မဖြစ်ပေါ်ပါ – တိတ်ဆိတ်ချိန် (အခြေအနေ ကိုက်ညီနေဆဲဆိုလျှင် နောက်မှ သတိပေးမည်)</string>
+    <string name="alarm_outcome_notifications_off">မဖြစ်ပေါ်ပါ – အကြောင်းကြားချက်များ ပိတ်ထားသည်</string>
+    <string name="alarm_outcome_not_shown">မဖြစ်ပေါ်ပါ – အကြောင်းကြားချက် မရောက်ပါ၊ နောက်မှ ထပ်ကြိုးစားမည်</string>
+    <string name="alarm_outcome_no_rate">မစစ်ဆေးရပါ – ငွေလဲနှုန်း မရှိပါ</string>
+    <string name="alarm_outcome_no_price">ဈေးနှုန်း မရှိပါ – လဲလှယ်ရေးဌာန မေးမြန်းမှု မအောင်မြင်ပါ</string>
+
+    <string name="alarm_outcome_snoozed">ဆိုင်းငံ့ထားသည် – «1 နာရီ နောက်မှ» ဆက်လည်ပတ်နေဆဲ</string>
+    <string name="alarm_log_source_app">အက်ပ်ထဲတွင်</string>
+    <string name="alarm_log_source_background">နောက်ခံတွင်</string>
+    <string name="alarm_log_source_exact">အချိန်မှန် စစ်ဆေးမှု</string>
+    <string name="alarm_log_source_widget">ဝီဂျက်မှတစ်ဆင့်</string>
+    <string name="alarm_outcome_fx_stale">မစစ်ဆေးရပါ – ငွေလဲနှုန်း 36 နာရီထက် ဟောင်းသည်</string>
+    <string name="alarm_outcome_fx_unsure">မစစ်ဆေးရပါ – USDT ပြောင်းလဲတွက်ချက်မှု မသေချာပါ (USDC မှတစ်ဆင့်သာ)</string>
+</resources>

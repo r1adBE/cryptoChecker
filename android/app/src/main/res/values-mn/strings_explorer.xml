@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">Бүх үр дүн</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="one">%1$d бирж</item>
+        <item quantity="other">%1$d бирж</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">Ачаалсан жагсаалтад энэ зоосны хос алга.</string>
+    <string name="explorer_coin_not_loaded">Хосын жагсаалт хараахан ачаалагдаагүй</string>
+    <string name="explorer_coin_other_pairs">Бусад хос</string>
+    <string name="explorer_coin_show_pairs">Хосыг харуулах</string>
+    <string name="explorer_coin_suggested">Санал болгосон</string>
+    <string name="explorer_coins_title">Зоос</string>
+    <string name="explorer_lists_failed_many">%1$s одоо хариу өгөхгүй байна – хосын жагсаалт ачаалагдсангүй. Дараа дахин оролдоно уу.</string>
+    <plurals name="explorer_lists_failed_more">
+        <item quantity="one">+ өөр %1$d</item>
+        <item quantity="other">+ өөр %1$d</item>
+    </plurals>
+    <string name="explorer_lists_failed_one">%1$s одоо хариу өгөхгүй байна – хосын жагсаалт ачаалагдсангүй. Дараа дахин оролдоно уу.</string>
+    <string name="explorer_lists_load">Жагсаалт ачаалах</string>
+    <string name="explorer_lists_loading">Хосын жагсаалт ачаалж байна… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="one">%1$d биржийн хосын жагсаалт энэ төхөөрөмжид хараахан алга.</item>
+        <item quantity="other">%1$d биржийн хосын жагсаалт энэ төхөөрөмжид хараахан алга.</item>
+    </plurals>
+    <string name="explorer_lists_privacy">Бирж бүрийн бүрэн нийтийн жагсаалтыг ачаална – хүн бүрт ижил. Таны хайлт энэ төхөөрөмж дээр үлдэнэ.</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">Сүүлийн хайлт: %1$s</string>
+    <string name="explorer_recent_clear">Арилгах</string>
+    <string name="explorer_recent_clear_a11y">Сүүлийн хайлтыг арилгах</string>
+    <string name="explorer_recent_title">Сүүлийн хайлт</string>
+    <string name="explorer_search_choose_manually">Бирж болон хосоо өөрөө сонгох</string>
+    <string name="explorer_search_empty">Тохирох зүйл алга.</string>
+    <string name="explorer_search_hint">Зоос, хос эсвэл бирж хайх</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">Зоосны нэр эсвэл тэмдэгтийг бичнэ үү, жишээ нь Bitcoin эсвэл BTC – дараа нь хосоо сонгоно уу.</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">Ажиглах жагсаалтад нэмэх</string>
+    <string name="explorer_added_to_watchlist">Ажиглах жагсаалтад нэмэгдлээ.</string>
+    <string name="explorer_already_in_watchlist">Энэ хос ажиглах жагсаалтад аль хэдийн байна.</string>
+    <string name="explorer_exchange_missing">Бирж дутуу байна уу?</string>
+    <string name="explorer_loading_pairs">Арилжааны хос ачаалж байна…</string>
+    <string name="explorer_no_pair_selected">Эхлээд хосоо сонгоно уу.</string>
+    <string name="explorer_no_pairs_yet">Энэ биржид хараахан хос ачаалагдаагүй.</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$d хос · шинэчилсэн %2$s</item>
+        <item quantity="other">%1$d хос · шинэчилсэн %2$s</item>
+    </plurals>
+    <string name="explorer_pairs_title">Хос</string>
+    <string name="explorer_precise_title">Нарийвчилсан / биржээр</string>
+    <string name="explorer_price_loading">Ханш ачаалж байна…</string>
+    <string name="explorer_select_exchange_hint">Бирж сонгоно уу – түүний арилжааны хос автоматаар ачаалагдана.</string>
+    <string name="explorer_select_placeholder">Сонгоно уу</string>
+    <string name="explorer_step_pair">Хос сонгох</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">Өсөгчид</string>
+    <string name="explorer_filter_losers">Бууригчид</string>
+    <string name="explorer_filter_volume">Хэмжээ</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">Энэ биржийн бүх %1$s хос</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">%1$d %2$s хос олдлоо</item>
+        <item quantity="other">%1$d %2$s хос олдлоо</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">Сонгосон гэрээний төрөлд энэ биржид %1$s хос алга. Эхлээд биржийг синк хийх эсвэл өөр гэрээний төрөл туршина уу.</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">%1$d хосыг ажиглах жагсаалтад нэмэх</item>
+        <item quantity="other">Бүх %1$d хосыг ажиглах жагсаалтад нэмэх</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">%1$d нэмэгдсэн, %2$d ажиглах жагсаалтад аль хэдийн байна.</item>
+        <item quantity="other">%1$d нэмэгдсэн, %2$d ажиглах жагсаалтад аль хэдийн байна.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">%3$s-ийн %1$d %2$s хос ажиглах жагсаалтад байхгүй бол нэмэгдэнэ.</item>
+        <item quantity="other">%3$s-ийн бүх %1$d %2$s хос ажиглах жагсаалтад нэмэгдэнэ. Аль хэдийн байгаа хосыг алгасна.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">%1$d хос нэмэх үү?</item>
+        <item quantity="other">%1$d хос нэмэх үү?</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">Жагсаалтыг нуух</string>
+    <string name="explorer_bulk_show_list">Жагсаалтыг харуулах</string>
+    <string name="explorer_bulk_tap_hint">Хосыг дээр сонгохын тулд түүн дээр товшино уу.</string>
+    <string name="explorer_bulk_title">Нэг дор хэд хэдэн хос</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">Сонгосон биржийн одоогийн хосыг ачаална.</string>
+    <string name="explorer_no_pair_list">Валютын хос алга</string>
+    <string name="explorer_sync_sheet_last">Сүүлийн синк: %1$s</string>
+    <string name="explorer_sync_never">хэзээ ч</string>
+    <string name="explorer_sync_sheet_action">Одоо синк хийх</string>
+    <string name="explorer_sync_sheet_title">Валютын хосыг шинэчлэх</string>
+    <string name="explorer_field_coin">Зоос</string>
+    <string name="explorer_field_contract">Гэрээний төрөл</string>
+    <string name="explorer_field_exchange">Бирж</string>
+    <string name="explorer_field_quote">Үнэлгээний валют</string>
+    <string name="explorer_contract_spot">Спот</string>
+    <string name="explorer_reload_pairs">Синк хийх</string>
+    <string name="sync_pairs_count">Арилжааны хос: %1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">Нэмэх</string>
+    <string name="dex_added">%1$s ажиглах жагсаалтад нэмэгдлээ.</string>
+    <string name="dex_already">%1$s ажиглах жагсаалтад аль хэдийн байна.</string>
+    <string name="dex_intro">Том биржүүдээс гадуурх токен, төвлөрсөн бус биржүүдээс (Uniswap, PancakeSwap, Raydium …) DexScreener-ээр. Токен хайж, түүний арилжааны пулуудын нэгийг нэмнэ үү – ханш АНУ-ын доллараар.</string>
+    <string name="dex_liquidity">Хөрвөх чадвар %1$s</string>
+    <string name="dex_no_results">Пул олдсонгүй.</string>
+    <string name="dex_search">Хайх</string>
+    <string name="dex_search_hint">Токены нэр, тэмдэгт эсвэл хаяг</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">Alpha токен</string>
+    <string name="asset_kind_token">Токен</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+
+    <string name="dex_low_liquidity_no_alarm">Хөрвөх чадвар бага – дохио алга</string>
+    <string name="dex_low_liquidity_alarm_hint">Энэ пулын хөрвөх чадвар 10,000 USD-ээс бага (эсвэл мэдээлээгүй). Жижиг арилжаа ханшийг нь хөдөлгөж чадах тул энд дохио тохируулах боломжгүй. Одоо байгаа дохио хадгалагдах ч хөрвөх чадвар дахин өсөх хүртэл ажиллахгүй.</string>
+
+    <string name="explorer_bulk_show_all">Бүгдийг харуулах (%1$d)</string>
+    <string name="dex_token_address_copy">Токены хаягийг хуулах</string>
+    <string name="dex_token_address_copied">Токены хаяг хуулагдлаа</string>
+    <string name="dex_token_address_label">%1$s-ээр төгсдөг токены хаяг</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="one">%1$d хос нэмэгдсэнгүй: таны ажиглах жагсаалт дээд тал нь %2$s хостой байж болно.</item>
+        <item quantity="other">%1$d хос нэмэгдсэнгүй: таны ажиглах жагсаалт дээд тал нь %2$s хостой байж болно.</item>
+    </plurals>
+    <string name="bulk_add_progress">Хос нэмж байна … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="one">%1$d шинэ хосыг ажиглах жагсаалтад нэмэх</item>
+        <item quantity="other">%1$d шинэ хосыг ажиглах жагсаалтад нэмэх</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="one">%1$d шинэ, %2$d ажиглах жагсаалтад аль хэдийн байна</item>
+        <item quantity="other">%1$d шинэ, %2$d ажиглах жагсаалтад аль хэдийн байна</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">Бүгд ажиглах жагсаалтад аль хэдийн байна</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="one">%1$d хосыг дахин хасах уу?</item>
+        <item quantity="other">%1$d хосыг дахин хасах уу?</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">Энэ хооронд дохио тохируулсан хосууд үлдэнэ.</string>
+    <string name="bulk_undo_expired">Буцаах боломжгүй болсон – хосууд ажиглах жагсаалтад үлдэнэ.</string>
+    <string name="explorer_section_spot">Спот</string>
+    <string name="explorer_section_futures">Фьючерс</string>
+    <string name="explorer_section_dex">DEX пул</string>
+    <string name="explorer_section_forex">Forex (лавлах ханш)</string>
+    <string name="explorer_forex_hint">Европын Төв Банкны өдрийн ханш (Frankfurter-ээр), шууд биш – дохио алга.</string>
+</resources>

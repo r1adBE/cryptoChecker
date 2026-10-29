@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">Altcoini v primerjavi z Bitcoinom</string>
+    <string name="neutral_btc_indicators_title">Kazalniki Bitcoina</string>
+    <string name="neutral_halving_last">Zadnji halving: %1$s</string>
+    <string name="neutral_halving_next">Naslednji halving pričakovan okoli %1$s (ocenjeno po koledarju – višina bloka trenutno ni na voljo).</string>
+    <string name="neutral_indicators_disclaimer">Samo izmerjene vrednosti, brez ocene. Ni napoved in ni naložbeni nasvet.</string>
+    <string name="neutral_onchain_missing">Podatki on-chain (Coin Metrics) trenutno niso na voljo.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">Kako daleč je tečaj pod dosedanjim najvišjim vrhom vseh časov.</string>
+    <string name="neutral_explain_change_30d">Današnji tečaj v primerjavi s tečajem pred 30 dnevi.</string>
+    <string name="neutral_explain_hashrate">30-dnevno povprečje hashrate v primerjavi s 60-dnevnim povprečjem.</string>
+    <string name="neutral_explain_ma200w">Povprečje zadnjih 200 tedenskih zaključnih tečajev.</string>
+    <string name="neutral_explain_mayer">Tečaj, deljen z 200-dnevnim povprečjem.</string>
+    <string name="neutral_explain_mvrv">Tržna vrednost, deljena z realizirano vrednostjo (on-chain).</string>
+    <string name="neutral_explain_pi_gap">111-dnevno povprečje v primerjavi z dvakratnikom 350-dnevnega povprečja.</string>
+    <string name="neutral_explain_puell">Dnevni prihodki rudarjev, deljeni z njihovim 365-dnevnim povprečjem.</string>
+    <string name="neutral_explain_rsi_daily">Indeks relativne moči zadnjih 14 dni, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">Indeks relativne moči zadnjih 14 tednov, 0–100.</string>
+    <string name="neutral_explain_sma50_200">50-dnevno povprečje v primerjavi z 200-dnevnim povprečjem.</string>
+    <string name="neutral_explain_vs_btc">Sprememba tečaja v primerjavi z Bitcoinom v 90 dneh.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">Aplikacija prikaže samo štetje in ga ne imenuje sezona. Vrednost se običajno spreminja v dneh, ne v urah.</string>
+    <string name="neutral_info_btc_how">Ob vsaki vrednosti je stavek o tem, kaj meri, in kje je v svoji lastni zgodovini od leta 2016. Aplikacija vrednosti ne ocenjuje in ne izpeljuje tržne faze; meje za tržna obvestila so samo tiste, ki jih nastaviš ti. Pretekli vzorci se ne bodo nujno ponovili.</string>
+    <string name="neutral_info_btc_what">Običajni kazalniki Bitcoina kot čiste izmerjene vrednosti: Mayer Multiple, 200-tedensko povprečje, padec od vrha vseh časov, sprememba v 30 dneh, razmik Pi Cycle in vrednosti on-chain MVRV, Puell Multiple in hashrate.</string>
+    <string name="neutral_info_coin_how">Ob vsaki vrednosti je stavek o tem, kaj meri, brez ocene. Pri kovancih s kratko zgodovino tečaja nekatere vrednosti manjkajo. Podatki on-chain tu niso vključeni.</string>
+    <string name="neutral_info_coin_what">Isti čisti kazalniki za kovanec po izbiri, samo iz podatkov o tečaju: Mayer Multiple, 200-tedensko povprečje, padec od vrha vseh časov, sprememba v 30 dneh, trend 50/200 dni, RSI in moč v primerjavi z Bitcoinom v 90 dneh.</string>
+    <string name="neutral_info_halving_how">Naslednji halving se izračuna iz trenutne višine bloka in povprečnega časa bloka v tekočem obdobju težavnosti (mempool.space); brez teh podatkov po koledarju (zadnji halving plus približno štiri leta). Graf prikazuje potek tečaja preteklih ciklov od njihovega halvinga – zgodovina, ne napoved.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">Trend 50/200 dni</string>
+    <string name="ind_drawdown">Padec od vrha vseh časov</string>
+    <string name="ind_missing">premalo podatkov</string>
+    <string name="ind_rsi_daily">RSI (dnevni)</string>
+    <string name="ind_rsi_weekly">RSI (tedenski)</string>
+    <string name="ind_vs_btc">Moč v primerjavi z Bitcoinom (90 dni)</string>
+    <string name="neutral_ind_change_30d">Sprememba 30 dni</string>
+    <string name="neutral_ind_hashrate">Hashrate 30/60 dni</string>
+    <string name="neutral_ind_ma200w">200-tedensko povprečje</string>
+    <string name="neutral_ind_pi_gap">Razmik Pi Cycle</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">Visoko pomeni, da je večina velikih altcoinov v 90 dneh premagala Bitcoin, nizko pomeni, da je Bitcoin premagal večino njih.</string>
+    <string name="ind_read_ath_distance">Majhno pomeni, da je tečaj blizu rekorda, veliko pomeni, da je daleč pod njim.</string>
+    <string name="ind_read_change_30d">Pozitivno pomeni višje kot pred 30 dnevi, negativno pomeni nižje.</string>
+    <string name="ind_read_funding">Visoko pomeni, da veliko trgovcev z vzvodom stavi na rast tečajev, negativno pomeni, da jih veliko stavi na padec.</string>
+    <string name="ind_read_hashrate_30_60">Pozitivno pomeni, da računska moč raste, negativno pomeni, da rudarji izklapljajo.</string>
+    <string name="ind_read_leverage">Veliko longov pomeni, da jih veliko z izposojenim denarjem stavi na rast tečajev, veliko shortov pomeni, da jih veliko stavi na padec.</string>
+    <string name="ind_read_ma200w">Tečaj daleč nad njim pomeni dolgo rast, tečaj blizu njega pomeni globok popravek.</string>
+    <string name="ind_read_mayer">Visoko pomeni, da je tečaj daleč nad svojim 200-dnevnim povprečjem, nizko pomeni, da je pod njim.</string>
+    <string name="ind_read_mvrv">Visoko pomeni, da je tečaj daleč nad tem, kar so imetniki v povprečju plačali, nizko pomeni blizu tega ali pod tem.</string>
+    <string name="ind_read_pi_cycle_gap">Blizu nič pomeni, da se povprečji skoraj srečata, močno negativno pomeni, da sta daleč narazen.</string>
+    <string name="ind_read_puell">Visoko pomeni, da rudarji zaslužijo veliko več kot običajno, nizko pomeni veliko manj.</string>
+    <string name="ind_read_rsi_daily">Nad 70 pomeni močne dobičke v zadnjih dneh, pod 30 pomeni močne izgube.</string>
+    <string name="ind_read_rsi_weekly">Nad 70 pomeni močne dobičke v zadnjih tednih, pod 30 pomeni močne izgube.</string>
+    <string name="ind_read_sma50_vs_200">Pozitivno pomeni, da je kratkoročno povprečje nad dolgoročnim, negativno pomeni pod njim.</string>
+    <string name="ind_read_vs_btc">Pozitivno pomeni boljši rezultat od Bitcoina, negativno pomeni slabši.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">Pri enakem tečaju v 30 dneh: %1$s</string>
+    <string name="ind_context_note">Pretekle vrednosti in izračuni „pri enakem tečaju“ so aritmetika, ne napoved.</string>
+    <string name="ind_context_percentile">Od %1$s nižje v %2$s dni</string>
+</resources>

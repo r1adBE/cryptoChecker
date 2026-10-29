@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">በዚህ መሣሪያ ላይ የማያ ገጽ መቆለፊያ አልተዘጋጀም። መጀመሪያ በሲስተም ቅንብሮች ውስጥ ያዘጋጁ።</string>
+    <string name="app_lock_unlock">ይክፈቱ</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">ፖርትፎሊዮውን ያጽዱ</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="one">%d ግብይት ይሰረዝ? የሚከታተሉ አድራሻዎች ይቆያሉ። ይህንን ወዲያውኑ መቀልበስ ይችላሉ።</item>
+        <item quantity="other">ሁሉም %d ግብይቶች ይሰረዙ? የሚከታተሉ አድራሻዎች ይቆያሉ። ይህንን ወዲያውኑ መቀልበስ ይችላሉ።</item>
+    </plurals>
+    <string name="portfolio_empty_action">የመጀመሪያ ግዢዎን ያክሉ</string>
+    <string name="portfolio_empty_address">የቦርሳ አድራሻ ብቻ ይከታተሉ</string>
+    <string name="portfolio_empty_csv">በልውውጥ ላይ ገዝተዋል? ፋይሉን ያስመጡ</string>
+    <string name="portfolio_empty_example_plain">ምሳሌ፦ %1$s BTC በማርች 1 ተገዝቷል። መተግበሪያው ዛሬ ምን ያህል ዋጋ እንዳለውና ትርፍ ወይም ኪሳራ ላይ መሆንዎን ያሳያል – በዚህ መሣሪያ ላይ ብቻ ይቀመጣል።</string>
+    <string name="portfolio_empty_title">እስካሁን ምንም ግብይት የለም</string>
+    <string name="portfolio_enable_ask_text">ግብይትዎ ተቀምጧል። የፖርትፎሊዮ ትር ይዞታዎችዎንና ዋጋቸውን ያሳያል።</string>
+    <string name="portfolio_enable_ask_title">የፖርትፎሊዮ ትር ይብራ?</string>
+    <string name="portfolio_enable_later_hint">ግብይቱ ተቀምጧል። የፖርትፎሊዮ ትርን በቅንብሮች › ፖርትፎሊዮ ውስጥ ማብራት ይችላሉ።</string>
+    <string name="portfolio_enabled_banner">ፖርትፎሊዮ በርቷል – በፖርትፎሊዮ ትር ውስጥ ያገኙታል።</string>
+    <string name="portfolio_lock_reason">ፖርትፎሊዮውን ይክፈቱ</string>
+    <string name="portfolio_locked_text">ይዞታዎችዎንና እሴቶቻቸውን ለማየት ይክፈቱ።</string>
+    <string name="portfolio_locked_title">ፖርትፎሊዮው ተቆልፏል</string>
+    <string name="portfolio_setting_hint">አማራጭ፦ ግዢዎችንና ሽያጮችን ይመዝግቡ፤ ዋጋንና ትርፍ/ኪሳራን በተለየ ትር ይመልከቱ።</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">ጊዜው ያለፈበት · እስከ %1$s</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="one">ከሲስተም ምትኬው %d ግቤት ትክክል ስላልነበረ አልተመለሰም።</item>
+        <item quantity="other">ከሲስተም ምትኬው %d ግቤቶች ትክክል ስላልነበሩ አልተመለሱም።</item>
+    </plurals>
+    <string name="portfolio_title">ፖርትፎሊዮ</string>
+    <string name="portfolio_unassigned_fee">ክፍያው አልተመደበም – የወጪ መሠረቱ አይታወቅም፦ %1$s</string>
+    <string name="portfolio_updated">ዋጋዎች እስከ %1$s</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">ሌላ</string>
+    <string name="portfolio_allocation_title">ድልድል</string>
+    <string name="portfolio_card_details">ዝርዝሮች</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s፦ ገና አይገኝም</string>
+    <string name="portfolio_card_hints_count">ማስታወሻዎች (%1$d)</string>
+    <string name="portfolio_card_today">ዛሬ</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">ጠቅላላ</string>
+    <string name="portfolio_hide_amounts">መጠኖችን ይደብቁ</string>
+    <string name="portfolio_hide_amounts_hint">በፖርትፎሊዮውና በፖርትፎሊዮ ዊጀቱ ውስጥ መጠኖችንና እሴቶችን እንደ ••• ያሳያል – መቶኛዎች እንደሚታዩ ይቆያሉ።</string>
+    <string name="portfolio_invested">የወጪ መሠረት</string>
+    <string name="portfolio_total_no_fx">ለ%1$s የምንዛሪ ተመን የለም – መጠኖች በUSDT</string>
+    <string name="portfolio_total_value">ጠቅላላ ዋጋ</string>
+    <string name="portfolio_value">ዋጋ</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">አማካይ %1$s · አሁን %2$s</string>
+    <string name="portfolio_avg_only">አማካይ %1$s</string>
+    <string name="portfolio_avg_open_lots">የተያዙ ሳንቲሞች አማካይ ወጪ</string>
+    <string name="portfolio_avg_partial">የግዢ ዋጋ ያላቸው %1$s አማካይ</string>
+    <string name="portfolio_avg_price">አማካይ የግዢ ዋጋ</string>
+    <string name="portfolio_avg_price_hint">አማካይ የግዢ ዋጋ፦ በመጠን የተመዘነ የሁሉም ግዢዎች አማካይ። ሽያጮች በዚህ አማካይ ይገመገማሉ።</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">የተዘጋ ቦታ (%1$d)</item>
+        <item quantity="other">የተዘጉ ቦታዎች (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO፦ ሽያጮች መጀመሪያ በጣም ያረጁ ሳንቲሞችዎን ይጠቀማሉ። አማካይ = ቀሪ የወጪ መሠረት ÷ የግዢ ዋጋ ያለው መጠን።</string>
+    <string name="portfolio_holdings">ይዞታዎች</string>
+    <string name="portfolio_lost_fee_cost">የተከፈለበት ሎት የሌለው የአውታረ መረብ ክፍያ ወጪ፦ %1$s</string>
+    <string name="portfolio_open_lots">ክፍት የግዢ ሎቶች (%1$d)</string>
+    <string name="portfolio_open_lots_avg">ከግዢ ዋጋ ጋር (አማካይ)</string>
+    <string name="portfolio_open_lots_no_cost">ያለ ግዢ ዋጋ</string>
+    <string name="portfolio_open_lots_without_price">የግዢ ዋጋ የለም</string>
+    <string name="portfolio_realized">የተረጋገጠ ትርፍ/ኪሳራ</string>
+    <string name="portfolio_unrealized">ክፍት ትርፍ/ኪሳራ</string>
+    <string name="portfolio_unrealized_without_unpriced">የግዢ ዋጋ የሌላቸውን %1$s ሳይጨምር</string>
+    <string name="portfolio_withdrawn_gain">የወጣ፦ %1$s (እስከ ማውጣቱ ድረስ ያለ የዋጋ ለውጥ)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">ልወጣ ወደ</string>
+    <string name="portfolio_convert_to_value">ልወጣ ወደ፦ %1$s</string>
+    <string name="portfolio_current_missing">ለ%1$s የአሁን ዋጋ የለም</string>
+    <string name="portfolio_current_price">የአሁኑ ዋጋ</string>
+    <string name="portfolio_price_missing">ዋጋ ጎድሏል</string>
+    <string name="portfolio_price_missing_hint">አንዳንድ ግዢዎች ዋጋ የላቸውም። ትርፍ/ኪሳራን ለማየት የግዢ ዋጋውን ያክሉ።</string>
+    <string name="portfolio_price_source">ዋጋዎች፦ Binance · USDT በገበያ ዋጋ</string>
+    <string name="portfolio_price_source_routes">ዋጋዎች፦ %1$s፣ አለበለዚያ Binance · USDT በገበያ ዋጋ</string>
+    <string name="portfolio_price_unavailable">ዋጋው አሁን አይገኝም</string>
+    <string name="portfolio_price_unchecked">ዋጋው አልተረጋገጠም</string>
+    <string name="portfolio_price_via_base">≈ የ%1$s ዋጋ (bridged/wrapped)</string>
+    <string name="portfolio_usdt_as_usd">USDT በUSD የገበያ ዋጋው ተለውጧል</string>
+    <string name="portfolio_usdt_assumed">የUSDT የዶላር ተመን ጎድሏል – እንደ 1 የአሜሪካ ዶላር ተቆጥሯል</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">ወደ ፖርትፎሊዮ ያክሉ</string>
+    <string name="portfolio_add_tx">ግብይት ያክሉ</string>
+    <string name="portfolio_buy">ግዢ</string>
+    <string name="portfolio_coin">ሳንቲም</string>
+    <string name="portfolio_coin_invalid">የሳንቲም ምልክት ያስገቡ</string>
+    <string name="portfolio_coin_search">ምልክት ይፈልጉ፣ ለምሳሌ BTC</string>
+    <string name="portfolio_discard_confirm">ይተዉ</string>
+    <string name="portfolio_discard_keep">ማርትዕ ይቀጥሉ</string>
+    <string name="portfolio_discard_title">ለውጦቹ ይጣሉ?</string>
+    <string name="portfolio_edit_tx">ግብይት ያርትዑ</string>
+    <string name="portfolio_invalid">ከ0 የሚበልጥ ትክክለኛ ቁጥር ያስገቡ።</string>
+    <string name="portfolio_oversold">ሽያጮች ከይዞታዎቹ ይበልጣሉ – እባክዎ ግብይቶቹን ይፈትሹ።</string>
+    <string name="portfolio_sell">ሽያጭ</string>
+    <string name="portfolio_sell_exceeds">ከይዞታዎችዎ (%1$s) ይበልጣል</string>
+    <string name="portfolio_sell_exceeds_fee">መጠን ከክፍያ ጋር ከይዞታዎችዎ (%1$s) ይበልጣል</string>
+    <string name="portfolio_sell_exceeds_wallet">በ%2$s ካሉ ይዞታዎችዎ (%1$s) ይበልጣል</string>
+    <string name="portfolio_transactions">ግብይቶች</string>
+    <string name="portfolio_tx_acquired_date">የመጀመሪያው የግዢ ቀን (አማራጭ)</string>
+    <string name="portfolio_tx_acquired_date_hint">በግብር ወጪ ፋይል ውስጥ ላለው የይዞታ ጊዜ</string>
+    <string name="portfolio_tx_amount">መጠን</string>
+    <string name="portfolio_tx_coin_fee">ክፍያ በሳንቲም (አማራጭ)</string>
+    <string name="portfolio_tx_date">ቀን</string>
+    <string name="portfolio_tx_delete_confirm">ይህ ግብይት ከፖርትፎሊዮው ይወገዳል።</string>
+    <string name="portfolio_tx_delete_title">ግብይቱ ይሰረዝ?</string>
+    <string name="portfolio_tx_deposit">ገቢ</string>
+    <string name="portfolio_tx_entry_currency">የሚያስገቡበት</string>
+    <string name="portfolio_tx_explain_deposit">ያለ ግብይት የተገኙ ይዞታዎች፣ ለምሳሌ ከቀድሞ የነበሩ ሳንቲሞች</string>
+    <string name="portfolio_tx_explain_gift">ሳንቲሞች እንደ ማውጣት ከይዞታዎችዎ ይወጣሉ – ሀገሪቱ ስጦታዎችን በምትቀረጥበት ቦታ ብቻ (UK፣ CA፣ AU) በገበያ ዋጋ እንደ መሸጥ ይቆጠራል</string>
+    <string name="portfolio_tx_explain_payment">ለዕቃዎች ወይም ለአገልግሎቶች የተከፈለ – እንደ ሽያጭ በገበያ ዋጋ ይቆጠራል፣ ምንም ገንዘብ አልተቀበለም</string>
+    <string name="portfolio_tx_explain_reward">የወጪ መሠረት = ሲቀበሉ የነበረው የገበያ ዋጋ</string>
+    <string name="portfolio_tx_explain_swap">አንድ ሳንቲም በሌላ፦ የተሰጠውን ሳንቲም ይሸጣል፣ የተቀበለውን ሳንቲም ይገዛል</string>
+    <string name="portfolio_tx_explain_transfer">ትርፍ የለም – የወጪ መሠረቱ ከሳንቲሞቹ ጋር ይሄዳል</string>
+    <string name="portfolio_tx_explain_withdrawal">ይዞታዎች ከፖርትፎሊዮው ይወጣሉ – ሽያጭ የለም፣ ትርፍ የለም</string>
+    <string name="portfolio_tx_fee_consumes_amount">ክፍያው ከተቀበለው መጠን ጋር እኩል ነው – ምንም አይቀርም።</string>
+    <string name="portfolio_tx_fees_toggle">ክፍያዎች</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s በ%2$s ተመን</string>
+    <string name="portfolio_tx_fiat_loading">የምንዛሪ ተመን በመጫን ላይ…</string>
+    <string name="portfolio_tx_fiat_no_fx">ለዚህ ቀን የምንዛሪ ተመን የለም – መጠኑን በUSDT ያስገቡ።</string>
+    <string name="portfolio_tx_gift">ስጦታ</string>
+    <string name="portfolio_tx_gift_price_hint">በUSDT። ባዶ = የዚያን ቀን መዝጊያ (የተገመተ)።</string>
+    <string name="portfolio_tx_gift_spouse">ለትዳር አጋር / ለሲቪል አጋር</string>
+    <string name="portfolio_tx_gift_spouse_hint">UK እና ካናዳ፦ ትርፍም ኪሳራም የለም – አጋርዎ የወጪ መሠረትዎን ይረከባል። ሌሎች ሀገሮች ይህንን ችላ ይላሉ።</string>
+    <string name="portfolio_tx_market_value">የገበያ ዋጋ በአንድ ሳንቲም</string>
+    <string name="portfolio_tx_more_buy">ክፍያ፣ ልውውጥ፣ ማስታወሻ</string>
+    <string name="portfolio_tx_network_fee">የአውታረ መረብ ክፍያ በሳንቲም (አማራጭ)</string>
+    <string name="portfolio_tx_note">ማስታወሻ (አማራጭ)</string>
+    <string name="portfolio_tx_payment">በእሱ ተከፍሏል</string>
+    <string name="portfolio_tx_price">ዋጋ በአንድ ሳንቲም</string>
+    <string name="portfolio_tx_price_hint">በUSDT። ካልታወቀ ባዶ ይተዉት።</string>
+    <string name="portfolio_tx_price_historic">የ%1$s የተረጋገጠ ዕለታዊ መዝጊያ – ካስፈለገ ያስተካክሉ</string>
+    <string name="portfolio_tx_price_invalid">ትክክለኛ ቁጥር (0 ወይም ከዚያ በላይ) ያስገቡ ወይም መስኩን ባዶ ይተዉት።</string>
+    <string name="portfolio_tx_price_past_hint">የግዢውን ቀን ዋጋ ያስገቡ – ካልታወቀ ባዶ ይተዉት</string>
+    <string name="portfolio_tx_price_receipt_hint">በUSDT። ባዶ = ያለ የወጪ መሠረት ይዞታዎች።</string>
+    <string name="portfolio_tx_price_zero">ለመጡ ግብይቶች ዋጋ 0 አይቻልም – ለገበያ ዋጋ ባዶ ይተዉት</string>
+    <string name="portfolio_tx_removed">ግብይቱ ተሰርዟል</string>
+    <string name="portfolio_tx_reward">ሽልማት</string>
+    <string name="portfolio_tx_save_failed">ግብይቱን ማስቀመጥ አልተቻለም። ያስገቡት አሁንም እዚህ አለ – እባክዎ እንደገና ይሞክሩ።</string>
+    <string name="portfolio_tx_swap">ስዋፕ</string>
+    <string name="portfolio_tx_swap_fee_received">ክፍያ በ%1$s፦ የተቀበለውን መጠን ይቀንሳል፣ ዋጋ አያስፈልግም።</string>
+    <string name="portfolio_tx_swap_from">ስዋፕ ከ%1$s</string>
+    <string name="portfolio_tx_swap_given_amount">የተሰጠ መጠን</string>
+    <string name="portfolio_tx_swap_given_coin">የተሰጠ ሳንቲም</string>
+    <string name="portfolio_tx_swap_received_amount">የተቀበለው መጠን</string>
+    <string name="portfolio_tx_swap_received_coin">የተቀበለው ሳንቲም</string>
+    <string name="portfolio_tx_swap_same_coin">ከተሰጠው የተለየ ሳንቲም ይምረጡ</string>
+    <string name="portfolio_tx_swap_to">ስዋፕ ወደ %1$s</string>
+    <string name="portfolio_tx_swap_value">የስዋፑ ዋጋ (አማራጭ)</string>
+    <string name="portfolio_tx_swap_value_hint">ጠቅላላ ዋጋ። ባዶ = ያልታወቀ – ትርፉ ያልተሟላ ይሆናል (በስዋፑ ውስጥ USDT ካለ በራስ-ሰር)።</string>
+    <string name="portfolio_tx_third_fee_amount">የክፍያ መጠን</string>
+    <string name="portfolio_tx_third_fee_coin">የክፍያ ሳንቲም</string>
+    <string name="portfolio_tx_third_fee_incomplete">ያለ ዋጋ ክፍያው ከወጪ መሠረትና ከገቢው ውጪ ይሆናል፤ የግብር ወጪ ፋይሉ እንዲህ ያሉ ሽያጮችን ምልክት ያደርጋል።</string>
+    <string name="portfolio_tx_third_fee_price">ዋጋ በአንድ የክፍያ ሳንቲም (አማራጭ)</string>
+    <string name="portfolio_tx_third_fee_toggle">ክፍያ በሌላ ሳንቲም</string>
+    <string name="portfolio_tx_total">ጠቅላላ፦ %1$s</string>
+    <string name="portfolio_tx_transfer">ዝውውር</string>
+    <string name="portfolio_tx_transfer_from">ከ (አማራጭ)</string>
+    <string name="portfolio_tx_transfer_to">ወደ (አማራጭ)</string>
+    <string name="portfolio_tx_transfer_to_hint">ልውውጥ ወይም ቦርሳ – ከአሁን ጀምሮ እዚያ ይገመገማል።</string>
+    <string name="portfolio_tx_type_select">ዓይነት፦ %1$s</string>
+    <string name="portfolio_tx_value_received">ሲቀበሉ የነበረው ዋጋ በአንድ ሳንቲም (አማራጭ)</string>
+    <string name="portfolio_tx_withdrawal">ማውጣት</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">ሰጥተውታል ወይም በእሱ ከፍለዋል? እንደ «ስጦታ» ወይም «በእሱ ተከፍሏል» ይመዝግቡት – እንደ ሀገሩ ይህ ለግብር ዓላማ እንደ ሽያጭ ይቆጠራል።</string>
+    <string name="portfolio_tx_withdrawal_price_hint">አማራጭ፦ የገበያ ዋጋ በUSDT፣ ለታሪኩ ብቻ የሚያገለግል (ባዶ = የዚያን ቀን ዋጋ)። ሳንቲሞቹ ሁልጊዜ በወጪ መሠረታቸው ይወጣሉ።</string>
+    <string name="portfolio_wallet_did_you_mean">%1$s ማለትዎ ነው? የተለየ አጻጻፍ እንደ የተለየ ቦርሳ ይቆጠራል።</string>
+    <string name="portfolio_wallet_shortfall">በ%1$s ያሉ ይዞታዎች በቂ አይደሉም – ዝውውር ጎድሏል?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">ከፍተኛ %1$s</string>
+    <string name="portfolio_compare">ያነጻጽሩ</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">%1$sን እና USDTን በመቶኛ ያነጻጽሩ</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">በመቶኛ ንጽጽር፣ %1$s፦ %2$s %3$s፣ USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">የምንዛሪ ተጽዕኖ፦ %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">የዋጋ ውሂብ የሚዘልቀው እስከ ኦገስት 2017 ብቻ ነው — ታሪኩ ከዚያ ይጀምራል።</string>
+    <string name="portfolio_history_chip_since_first">ሁሉም</string>
+    <string name="portfolio_history_collapse">የዋጋ ታሪክን ይደብቁ</string>
+    <string name="portfolio_history_converted">በዛሬው ተመን ተለውጧል</string>
+    <string name="portfolio_history_expand">የዋጋ ታሪክን ያሳዩ</string>
+    <string name="portfolio_history_gain_a11y">ዋጋ %1$s። ትርፍ/ኪሳራ፣ %2$s፦ %3$s</string>
+    <string name="portfolio_history_gain_label">ትርፍ/ኪሳራ</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">ዋጋ በ%1$s</string>
+    <string name="portfolio_history_incl_fx">የምንዛሪ ተመንን ጨምሮ</string>
+    <string name="portfolio_history_incl_withdrawn">የወጡ ሳንቲሞችን የዋጋ ለውጥ ያካትታል</string>
+    <string name="portfolio_history_includes_trades">በዚህ ጊዜ ውስጥ ያሉ ግዢዎችንና ሽያጮችን ያካትታል</string>
+    <string name="portfolio_history_loading">የዋጋ ታሪክን በመጫን ላይ</string>
+    <string name="portfolio_history_period_1y">1 ዓመት</string>
+    <string name="portfolio_history_period_30d">30 ቀናት</string>
+    <string name="portfolio_history_period_7d">7 ቀናት</string>
+    <string name="portfolio_history_period_since_first">ከመጀመሪያው ግዢ ወዲህ</string>
+    <string name="portfolio_history_pnl_needs_prices">ለትርፍ/ኪሳራ የግዢ ዋጋዎች ጎድለዋል – በግብይቶቹ ውስጥ ያክሏቸው።</string>
+    <string name="portfolio_history_pnl_without">ትርፍ/ኪሳራ ያለ %1$s (ዋጋ ጎድሏል)</string>
+    <string name="portfolio_history_range_1y">1 ዓ</string>
+    <string name="portfolio_history_range_30d">30 ቀ</string>
+    <string name="portfolio_history_range_7d">7 ቀ</string>
+    <string name="portfolio_history_range_a11y">ለ%1$s ታሪክን ያሳዩ</string>
+    <string name="portfolio_history_range_since_first">ከ1ኛው ግዢ ወዲህ</string>
+    <string name="portfolio_history_scaled">ለ%1$s ታሪክ፦ የBinance ታሪክ ወደ ልውውጡ ዋጋ ተመጣጥኗል</string>
+    <string name="portfolio_history_title">የዋጋ ታሪክ</string>
+    <string name="portfolio_history_today">ዛሬ</string>
+    <string name="portfolio_history_too_short">ታሪኩ የሚጀምረው ከመጀመሪያው ሙሉ ቀንዎ በኋላ ነው።</string>
+    <string name="portfolio_history_unavailable">አሁን ምንም ታሪክ አይገኝም።</string>
+    <string name="portfolio_history_utc_days">ቀናት በUTC (ዕለታዊ ሻማዎች)</string>
+    <string name="portfolio_history_without_matching">ያለ %1$s (ተዛማጅ ዕለታዊ ዋጋዎች የሉም)</string>
+    <string name="portfolio_period_rewards">ሽልማቶች +%1$s (በትርፍ ውስጥ አይደሉም)</string>
+    <string name="portfolio_period_scaled">7 ቀ/1 ዓ ለ%1$s፦ የBinance ታሪክ ወደ ልውውጡ ዋጋ ተመጣጥኗል</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">ማንቂያ</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">መጠን (%1$s)</string>
+    <string name="portfolio_alarm_hint">ከእያንዳንዱ ማደስ በኋላ ይፈተሻል። እንደ ማንቂያዎች፣ ምልክቱ ሲሻገር ይቀሰቀሳል፣ እንደገና የሚቀሰቀሰውም እሴቱ ወደኋላ ከተመለሰ በኋላ ብቻ ነው።</string>
+    <string name="portfolio_alarm_kind_above">ፖርትፎሊዮ ከመጠን በላይ</string>
+    <string name="portfolio_alarm_kind_below">ፖርትፎሊዮ ከመጠን በታች</string>
+    <string name="portfolio_alarm_kind_down">ፖርትፎሊዮ ሲወርድ</string>
+    <string name="portfolio_alarm_kind_up">ፖርትፎሊዮ ሲጨምር</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">ፖርትፎሊዮ ከ%1$s በላይ</string>
+    <string name="portfolio_alarm_sentence_below">ፖርትፎሊዮ ከ%1$s በታች</string>
+    <string name="portfolio_alarm_sentence_down">ፖርትፎሊዮ በ%1$s ወርዷል (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">ፖርትፎሊዮ በ%1$s ጨምሯል (%2$s)</string>
+    <string name="portfolio_alarm_title">የፖርትፎሊዮ ዋጋ ማንቂያ</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">ልውውጥ (አማራጭ)</string>
+    <string name="ledger_exchange_failed">%1$s፦ ከ%2$s አሁን ዋጋ የለም – በBinance ተገምግሟል።</string>
+    <string name="ledger_exchange_hint">ሳንቲሙ በዚህ ልውውጥ ዋጋ ይገመገማል (አለበለዚያ Binance)። ታሪክ፣ 7 ቀ እና 1 ዓ ወደሱ የተመጣጠኑ የBinance ዕለታዊ ዋጋዎችን ይጠቀማሉ።</string>
+    <string name="ledger_exchange_mixed">%1$s፦ ብዙ ልውውጦች ገብተዋል – በBinance ተገምግሟል። ሳንቲሞችን አንቀሳቅሰዋል? እንቅስቃሴውን እንደ «ዝውውር» ይመዝግቡ።</string>
+    <string name="ledger_exchange_none">ምንም (Binance)</string>
+    <string name="ledger_fee">ክፍያ (አማራጭ)</string>
+    <string name="ledger_fee_coin">ሳንቲም</string>
+    <string name="ledger_fee_hint">በUSDT ከሆነ የወጪ መሠረቱን ይጨምራል (ሽያጭ፦ ገቢውን ይቀንሳል)፤ በሳንቲሙ ከሆነ መጠኑን ይቀንሳል።</string>
+    <string name="ledger_fee_line">ክፍያ %1$s</string>
+    <string name="ledger_fifo_cost_note">ከግዢ ወዲህ፦ ክፍያዎችን ጨምሮ የFIFO ወጪ (በጣም ያረጁ ሳንቲሞች መጀመሪያ ይሸጣሉ)።</string>
+    <string name="ledger_gain_info">ዛሬ፣ 7 ቀ፣ 1 ዓ፦ በጊዜው ውስጥ ያለ የዋጋ ለውጥ – ግዢዎችና ሽያጮች እንደ ትርፍ አይቆጠሩም። ከግዢ ወዲህ፦ አሁንም የያዟቸው ሳንቲሞች የአሁን ዋጋ ሲቀነስ የወጪ መሠረታቸው (ክፍያዎችን ጨምሮ አማካይ ወጪ)።</string>
+    <string name="ledger_gain_info_a11y">ትርፍና ኪሳራ እንዴት እንደሚሰሉ</string>
+    <string name="ledger_gain_info_fifo">ዛሬ፣ 7 ቀ፣ 1 ዓ፦ በጊዜው ውስጥ ያለ የዋጋ ለውጥ – ግዢዎችና ሽያጮች እንደ ትርፍ አይቆጠሩም። ከግዢ ወዲህ፦ አሁንም የያዟቸው ሳንቲሞች የአሁን ዋጋ ሲቀነስ የወጪ መሠረታቸው (ክፍያዎችን ጨምሮ FIFO)።</string>
+    <string name="ledger_gain_title">ትርፍ/ኪሳራ</string>
+    <string name="ledger_more_toggle">ክፍያና ልውውጥ</string>
+    <string name="ledger_partial_cost">«ከግዢ ወዲህ» የሚቆጥረው የግዢ ዋጋ ያለውን ክፍል ብቻ ነው – የግዢ ዋጋ የሌላቸውን %1$s ሳይጨምር።</string>
+    <string name="ledger_period_without">ዛሬ / 7 ቀ / 1 ዓ ያለ %1$s – ተዛማጅ የመነሻ ዋጋ የለም።</string>
+    <string name="ledger_since_purchase_currency">ከግዢ ወዲህ (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">ከግዢ ወዲህ ያለ ትርፍ/ኪሳራ፣ ገና ያልተሸጠ</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="one">የግዢ ዋጋ የሌለውን %1$d ሳንቲም (%2$s) ሳይጨምር – እንዲቆጠር ዋጋውን ያክሉ።</item>
+        <item quantity="other">የግዢ ዋጋ የሌላቸውን %1$d ሳንቲሞች (%2$s) ሳይጨምር – እንዲቆጠሩ ዋጋዎቹን ያክሉ።</item>
+    </plurals>
+
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">የUSDT ውድቀት – ገበያው በ%1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">የUSDT የዶላር ተመን በUSDC/USDT በኩል – USDC ከወረደ ይህ እሴት የተሳሳተ ነው</string>
+    <string name="portfolio_amount_bridged_stable">≈ %1$sን ጨምሮ (bridged)</string>
+
+    <string name="portfolio_tx_interest">ወለድ (ብድር)</string>
+    <string name="portfolio_tx_interest_hint">ሲቀበሉ እንደ ገቢ ይቆጠራል (ኦስትሪያ)። ለስቴኪንግ ሽልማቶችና ለኤርድሮፖች አይጠቀሙበት።</string>
+    <string name="app_lock_no_screen_lock">ፖርትፎሊዮውን ለመክፈት የማያ ገጽ መቆለፊያ ያዘጋጁ።</string>
+    <string name="app_lock_turn_off_action">የፖርትፎሊዮ መቆለፊያን ያጥፉ</string>
+    <string name="app_lock_turn_off_confirm_title">የፖርትፎሊዮ መቆለፊያ ይጥፋ?</string>
+    <string name="app_lock_turn_off_confirm_message">ያለ የማያ ገጽ መቆለፊያ ፖርትፎሊዮው ሊከፈት አይችልም። ሲጠፋ፣ መተግበሪያው ሳይጠይቅ ፖርትፎሊዮዎን እንደገና ያሳያል። የማያ ገጽ መቆለፊያ ከተዘጋጀ በኋላ መቆለፊያውን በቅንብሮች ውስጥ እንደገና ማብራት ይችላሉ።</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">«ከግዢ ወዲህ» እና የወጪ መሠረት በ%1$s፦ ወጪ በግዢው ቀን የምንዛሪ ተመን፣ ዋጋ በዛሬው ተመን።</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">ለግዢው ቀን የምንዛሪ ተመን የለም (ከ«ከግዢ ወዲህ» እና ከወጪ መሠረት ጎድሏል)፦ %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">የUSDT የዶላር ተመን በሌላቸው የግዢ ቀናት ያለ ወጪ በአንድ USDT 1 የአሜሪካ ዶላር ሆኖ ተቆጥሯል።</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">እስከ %1$s – ልውውጡ ሊደረስበት አልቻለም</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">ዕለታዊ ዋጋዎች፦ %1$s (በBinance ምትክ)</string>
+
+    <string name="portfolio_footer_short">የሥራ ማገዣ ነው እንጂ የግብር ወይም የኢንቨስትመንት ምክር አይደለም። ግላዊነት፦ ቅንብሮች › ስለ መተግበሪያው › የግላዊነት መመሪያ።</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">የ%1$s ሁሉም ግብይቶች ይሰረዙ?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">%d ግብይት ይወገዳል። ይህንን ወዲያውኑ መቀልበስ ይችላሉ።</item>
+        <item quantity="other">%d ግብይቶች ይወገዳሉ። ይህንን ወዲያውኑ መቀልበስ ይችላሉ።</item>
+    </plurals>
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">በ%1$s የተከፈሉ ክፍያዎች ከሌሎች ግብይቶችም ይወገዳሉ፦ %2$d።</string>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s ከፖርትፎሊዮው ተወግዷል (%2$d ግብይት)</item>
+        <item quantity="other">%1$s ከፖርትፎሊዮው ተወግዷል (%2$d ግብይቶች)</item>
+    </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">%d ግብይት ተወግዷል</item>
+        <item quantity="other">%d ግብይቶች ተወግደዋል</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">ይህ %d ሎትንም ያስወግዳል።</item>
+        <item quantity="other">ይህ %d ሎቶችንም ያስወግዳል።</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">ይህ %d ሎትንና የቀሪ ሂሳብ ታሪኩንም ያስወግዳል።</item>
+        <item quantity="other">ይህ %d ሎቶችንና የቀሪ ሂሳብ ታሪኩንም ያስወግዳል።</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">ይህ የቀሪ ሂሳብ ታሪኩንም ያስወግዳል።</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">ማስቀመጥ አልተቻለም – እባክዎ እንደገና ይሞክሩ</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">ገደቡ ትክክል አይደለም – ይሰርዙና እንደገና ይፍጠሩ</string>
+</resources>

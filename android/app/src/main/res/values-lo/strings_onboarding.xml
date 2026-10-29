@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">ຕັ້ງສັນຍານເຕືອນ – ລາຄາ, ເປີເຊັນ, ປະລິມານ ແລະ ການເໜັງຕີງຜິດປົກກະຕິ</string>
+    <string name="welcome_alert_q">ເຕືອນເມື່ອໃດ?</string>
+    <string name="welcome_text">ລາຄາຂອງທ່ານ. ສັນຍານເຕືອນຂອງທ່ານ. ພາບລວມຂອງທ່ານ.\nບໍ່ມີບັນຊີ. ບໍ່ມີໂຄສະນາ. ບໍ່ມີການຕິດຕາມ.</string>
+    <string name="welcome_understand">ເຂົ້າໃຈ – ສິ່ງທີ່ກຳລັງເໜັງຕີງໄປພ້ອມກັບລາຄາໃນຕອນນີ້</string>
+    <string name="welcome_understand_q">ມີຫຍັງເໜັງຕີງນຳ?</string>
+    <string name="welcome_watch">ຕິດຕາມ – ຫຼຽນ, ລາຄາ ແລະ ປະຫວັດລາຄາຂອງທ່ານ</string>
+    <string name="welcome_watch_q">ມີຫຍັງເກີດຂຶ້ນ?</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">ເພີ່ມໃສ່ລາຍການຕິດຕາມ (%1$d)</string>
+    <string name="starter_loading_prices">ກຳລັງໂຫຼດລາຄາ…</string>
+    <string name="starter_search_coin">ຄົ້ນຫາຫຼຽນອື່ນ</string>
+    <string name="starter_select_all">ເລືອກທັງໝົດ</string>
+    <string name="starter_select_none">ບໍ່ເລືອກ</string>
+    <string name="starter_title">ເລີ່ມຕົ້ນດ້ວຍຫຼຽນເຫຼົ່ານີ້</string>
+    <string name="starter_watch_alarm_hint">ຕິດຕາມລາຄາ, ຕັ້ງສັນຍານເຕືອນ</string>
+
+    <!-- Start-Auswahl: Börse und Quote der Startpaare (Binance, bei Standort-Sperre Binance.US), z. B. «Kurse von Binance in USDT. …» -->
+    <string name="starter_source_text">ລາຄາຈາກ %1$s ເປັນ %2$s. ຍົກເລີກການເລືອກສິ່ງທີ່ທ່ານບໍ່ຕ້ອງການ ແລະ ເພີ່ມສ່ວນທີ່ເຫຼືອໃນເທື່ອດຽວ. ທ່ານສາມາດປ່ຽນກະດານແລກປ່ຽນ ແລະ ຄູ່ເທຣດສຳລັບແຕ່ລະຫຼຽນໄດ້.</string>
+</resources>

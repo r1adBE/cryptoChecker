@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s in %2$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">Slot</string>
+    <string name="sheet_chart_converted_current">%1$s, omgereken (huidige koers)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, teen daaglikse koerse omgereken</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">Geen prysdata vir hierdie paar nie</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">Opening</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">Vandag</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">Vol %1$s</string>
+    <string name="sheet_more">Meer</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Vra</string>
+    <string name="ticker_bid">Bod</string>
+    <string name="explain_bid_ask">Bod is die hoogste prys wat kopers nou bied, vra die laagste prys wat verkopers sal aanvaar.</string>
+    <string name="ticker_high">Hoog</string>
+    <string name="ticker_low">Laag</string>
+    <string name="ticker_timestamp">Tyd</string>
+    <string name="ticker_vol_base">Volume (in munte)</string>
+    <string name="ticker_vol_quote">Volume (in kwotasie-geldeenheid)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (toesteltydsone)</string>
+    <string name="change_basis_local">Sedert 00:00 plaaslike tyd</string>
+    <string name="change_basis_rolling">Laaste 24 uur</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">Sedert laaste bywerking</string>
+    <string name="change_basis_utc_zone">Sedert 00:00 %1$s</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">Verandering uit %1$s-kerse</string>
+    <string name="change_short_since_last">laaste bywerking</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">vandag</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">vandag %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="exchange_data_empty_error">Geen data van die beurs ontvang nie.</string>
+    <string name="market_data_summary">Markkapitalisasie, gasfooie, ekonomiese data, muntanalise</string>
+    <string name="market_data_tab_futures">Futures</string>
+    <string name="market_data_title">Markdata</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">Sirkulerende aanbod</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">Markkapitalisasie</string>
+    <string name="spot_max_supply">Maksimum aanbod</string>
+    <string name="spot_no_data">Geen spotdata vir hierdie munt nie</string>
+    <string name="spot_source_updated">Bron: %1$s · soos op %2$s</string>
+    <string name="spot_supply_of_max">%1$s van maksimum aanbod in sirkulasie</string>
+    <string name="spot_total_supply">Totale aanbod</string>
+    <string name="spot_vol_mcap">Vol/Markkap</string>
+    <string name="spot_volume_24h">Volume (24h)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">Verwysing: %1$s</string>
+    <string name="futures_funding">Befondsingskoers</string>
+    <string name="futures_funding_interval_unknown">interval onbekend</string>
+    <string name="futures_funding_per8h_equiv">= %1$s per 8 h (soos in alarms)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">per uur</string>
+    <string name="futures_funding_per_hours">per %1$d h</string>
+    <string name="futures_next_funding">volgende oor %1$d h %2$d min</string>
+    <string name="futures_no_data">Geen futures-data vir hierdie munt nie</string>
+    <string name="futures_open_interest">Oop belang</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">Verwysing van %1$s – befondsing en oop belang verskil per beurs; op %2$s kan dit verskil.</string>
+    <string name="futures_reference_spot">Verwysing van %1$s (die munt se USDT-perpetual)</string>
+    <string name="futures_source">Bron: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">Baie handelaars wed met geleende geld op stygende of dalende pryse. Fooi tussen long- en short-posisies. Sterk positief beteken baie wed op stygende pryse.</string>
+    <string name="explain_open_interest">Futures is weddenskappe op die prys, dikwels met geleende geld. Waarde van alle oop futures-posisies. As dit styg, wed meer geld op die beweging.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Verduideliking</string>
+    <string name="explain_spot_fdv">Volledig verwaterde waardasie: prys × maksimum aanbod (of totale aanbod as daar geen limiet is nie).</string>
+    <string name="explain_spot_market_cap">Prys × sirkulerende aanbod. Die pil wys sy verandering oor 24 uur.</string>
+    <string name="explain_spot_source">Syfers oor alle beurse in Amerikaanse dollar, van CoinGecko.</string>
+    <string name="explain_spot_supply">Sirkulerend: munte nou op die mark. Totaal: alle geskepte munte minus verbrande. Maksimum: die meeste wat ooit kan bestaan.</string>
+    <string name="explain_spot_volume">Waarde verhandel in 24 uur. Vol/Markkap: volume relatief tot markkapitalisasie — hoog beteken baie aktiewe handel.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · koers %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">Groot gaping tussen koop- en verkoopprys (%1$s)</string>
+
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">Geskiedenis in %1$s, teen vandag se koers na %2$s omgereken</string>
+    <string name="converted_unsure">Omskakeling onseker</string>
+</resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Protokoll: Titel der Seite und Name des Knopfs in «Alle Alarme» -->
+    <string name="alarm_log_title">Signallar jurnali</string>
+    <!-- Link unter «Letzte Prüfungen» (Einstellungen › Aktualisierung) -->
+    <string name="alarm_log_open">Signallar jurnalini koʻrsatish</string>
+    <string name="alarm_log_intro">Signal qachon ishga tushgani – va qachon ishga tushishi kerak boʻlib, ushlab qolingani. Faqat shu qurilmada 14 kun saqlanadi.</string>
+    <string name="alarm_log_empty_title">Hozircha yozuv yoʻq</string>
+    <string name="alarm_log_empty_message">Signal ishga tushganda yoki ushlab qolinganda yozuvlar shu yerda paydo boʻladi – masalan, kurs eskirganda yoki sokin soatlarda.</string>
+    <string name="alarm_log_clear">Jurnalni tozalash</string>
+    <string name="alarm_log_clear_title">Signallar jurnali tozalansinmi?</string>
+    <string name="alarm_log_clear_message">Barcha yozuvlar oʻchiriladi. Signallaringiz oʻzgarmaydi.</string>
+    <!-- Screenreader: Schwelle des Alarms, z. B. «Marke Über 100’000 CHF» -->
+    <string name="alarm_log_threshold">Chegara %1$s</string>
+    <!-- Alarm-Editor: letzte Prüfung, %1$s = «14:02 · Kraken 99’800 CHF · Marke nicht erreicht» -->
+    <string name="alarm_last_check">Oxirgi tekshiruv: %1$s</string>
+    <!-- Ergebnisse einer Alarm-Prüfung (AlarmLogOutcome) -->
+    <string name="alarm_outcome_fired">Ishga tushdi</string>
+    <string name="alarm_outcome_not_reached">Chegaraga yetmadi</string>
+    <string name="alarm_outcome_already_triggered">Allaqachon xabar berilgan – kurs yana narigi tomonga oʻtguncha kutadi</string>
+    <string name="alarm_outcome_cooldown">Ishga tushmadi – oxirgi signaldan keyingi sokin vaqt</string>
+    <!-- %1$s = Zeit des Kurses laut Börse -->
+    <string name="alarm_outcome_stale">Ishga tushmadi – kurs eskirgan (%1$s holatiga)</string>
+    <string name="alarm_outcome_mark_price">Ishga tushmadi – bu belgi narxi, savdo narxi emas</string>
+    <string name="alarm_outcome_low_liquidity">Ishga tushmadi – likvidlik 10,000 USD dan past yoki nomaʼlum</string>
+    <string name="alarm_outcome_quiet_hours">Ishga tushmadi – sokin soatlar (shart saqlansa, keyin ogohlantiradi)</string>
+    <string name="alarm_outcome_notifications_off">Ishga tushmadi – bildirishnomalar oʻchiq</string>
+    <string name="alarm_outcome_not_shown">Ishga tushmadi – bildirishnoma yetib bormadi, keyinroq qayta uriniladi</string>
+    <string name="alarm_outcome_no_rate">Tekshirilmadi – valyuta kursi yoʻq</string>
+    <string name="alarm_outcome_no_price">Kurs yoʻq – birjaga soʻrov muvaffaqiyatsiz</string>
+
+    <string name="alarm_outcome_snoozed">Ushlab turilibdi – «1 soatdan keyin» hali ishlamoqda</string>
+    <string name="alarm_log_source_app">ilovada</string>
+    <string name="alarm_log_source_background">fonda</string>
+    <string name="alarm_log_source_exact">oʻz vaqtidagi tekshiruv</string>
+    <string name="alarm_log_source_widget">vidjet orqali</string>
+    <string name="alarm_outcome_fx_stale">Tekshirilmadi – valyuta kursi 36 soatdan eski</string>
+    <string name="alarm_outcome_fx_unsure">Tekshirilmadi – USDT konvertatsiyasi noaniq (faqat USDC orqali)</string>
+</resources>

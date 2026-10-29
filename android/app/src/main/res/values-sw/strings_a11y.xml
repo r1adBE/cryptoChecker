@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">Kengele imelia</string>
+    <string name="a11y_collapsed">Imekunjwa</string>
+    <string name="a11y_converted">takriban %1$s</string>
+    <string name="a11y_expanded">Imepanuliwa</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">inafunguka kwenye kivinjari</string>
+    <string name="a11y_favorite">Kipendwa</string>
+    <string name="a11y_in_watchlist">Tayari iko kwenye orodha ya ufuatiliaji</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_exchange_unreachable">%1$s haipatikani</string>
+    <string name="a11y_move_down">Sogeza chini</string>
+    <string name="a11y_move_up">Sogeza juu</string>
+    <string name="a11y_note">dokezo: %1$s</string>
+    <string name="a11y_price">bei %1$s</string>
+    <string name="a11y_price_notification_off">Arifa ya bei imezimwa</string>
+    <string name="a11y_price_notification_on">Arifa ya bei imewashwa</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">Bei imepitwa na wakati</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s kwenye %2$s</string>
+    <string name="a11y_stale">imepitwa na wakati, sasisho la mwisho %1$s</string>
+    <string name="a11y_warning">Onyo</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">%1$s katika saa 24</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">Mabadiliko ya saa 24 hayapatikani</string>
+    <string name="a11y_change_down">chini kwa %1$s</string>
+    <string name="a11y_change_flat">bila mabadiliko</string>
+    <string name="a11y_change_since_last">%1$s tangu sasisho la mwisho</string>
+    <string name="a11y_change_since_last_none">Mabadiliko tangu sasisho la mwisho hayapatikani</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">%1$s leo</string>
+    <string name="a11y_change_today_none">Mabadiliko ya leo hayapatikani</string>
+    <string name="a11y_change_today_zone">%1$s tangu saa sita usiku %2$s</string>
+    <string name="a11y_change_today_zone_none">Mabadiliko tangu saa sita usiku %1$s hayapatikani</string>
+    <string name="a11y_change_up">juu kwa %1$s</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Chati %1$s: kutoka %2$s hadi %3$s, %4$s. Juu zaidi %5$s, chini zaidi %6$s.</string>
+    <string name="a11y_chart_empty">Chati: hakuna data</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Mzunguko %1$s: %2$s tangu halving, siku %3$d.</string>
+    <string name="a11y_cycle_bottom">Kilele cha chini %1$s siku %2$d.</string>
+    <string name="a11y_cycle_double_bottom">Chini mara mbili %1$s siku %2$d.</string>
+    <string name="a11y_cycle_double_top">Juu mara mbili %1$s siku %2$d.</string>
+    <string name="a11y_cycle_top">Kilele %1$s siku %2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">Kipimo kutoka %1$s hadi %2$s: %3$d kati ya 100</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, kwa wastani %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d inashuka</item>
+        <item quantity="other">%1$d zinashuka</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="one">Jozi %1$d haina thamani ya saa 24</item>
+        <item quantity="other">Jozi %1$d hazina thamani ya saa 24</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">Jozi %1$d haina thamani ya leo</item>
+        <item quantity="other">Jozi %1$d hazina thamani ya leo</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">Jozi %1$d inapanda</item>
+        <item quantity="other">Jozi %1$d zinapanda</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="one">ilisasishwa mara ya mwisho siku %1$d iliyopita</item>
+        <item quantity="other">ilisasishwa mara ya mwisho siku %1$d zilizopita</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="one">ilisasishwa mara ya mwisho saa %1$d iliyopita</item>
+        <item quantity="other">ilisasishwa mara ya mwisho saa %1$d zilizopita</item>
+    </plurals>
+    <string name="a11y_updated_just_now">imesasishwa sasa hivi</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="one">ilisasishwa mara ya mwisho dakika %1$d iliyopita</item>
+        <item quantity="other">ilisasishwa mara ya mwisho dakika %1$d zilizopita</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">kiasi kimefichwa</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_entry">%1$s %2$s, thamani ya %3$s leo</string>
+    <string name="a11y_portfolio_entry_in">Inayoingia</string>
+    <string name="a11y_portfolio_entry_no_value">thamani haipatikani</string>
+    <string name="a11y_portfolio_entry_note">dokezo %1$s</string>
+    <string name="a11y_portfolio_entry_out">Inayotoka</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, %3$s ya jalada</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, %2$s ya jalada, %3$s</string>
+    <string name="a11y_portfolio_positions">Nafasi kubwa zaidi: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">Onyesha kiasi</string>
+    <string name="a11y_compare_chart">Ulinganisho kwa asilimia, %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">%1$s kutoka juu zaidi ya siku 30</string>
+    <string name="a11y_price_overlay">Bei juu ya chati: %1$s</string>
+</resources>

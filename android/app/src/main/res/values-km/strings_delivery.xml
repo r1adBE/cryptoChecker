@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">ធានាថាការដាស់តឿនមកដល់</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">ល្អ</string>
+    <string name="delivery_state_warn">សូមពិនិត្យ</string>
+    <string name="delivery_state_info">ចំណាំ</string>
+    <string name="delivery_allowed">បានអនុញ្ញាត</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">ការជូនដំណឹង</string>
+    <string name="delivery_notifications_off">បិទ – ការដាស់តឿននឹងមិនមកដល់ទេ</string>
+    <string name="delivery_notifications_not_asked">មិនទាន់អនុញ្ញាត</string>
+    <string name="delivery_channel">ឆានែលការដាស់តឿន</string>
+    <string name="delivery_channel_high">សំខាន់ខ្លាំង – លេចឡើងលើអេក្រង់</string>
+    <string name="delivery_channel_low">សំខាន់តិច – ការដាស់តឿនបង្ហាញតែក្នុងបញ្ជីដោយស្ងាត់ៗ</string>
+    <string name="delivery_channel_off">បានបិទ – ការដាស់តឿននឹងមិនមកដល់ទេ</string>
+    <string name="delivery_exact_on">បើក – ប្រហែលរៀងរាល់ 15 នាទីម្តង</string>
+    <string name="delivery_exact_off">បិទ – Android ពិនិត្យមិនទៀងទាត់</string>
+    <string name="delivery_battery">ការបង្កើនប្រសិទ្ធភាពថ្ម</string>
+    <string name="delivery_battery_unrestricted">គ្មានការរឹតត្បិត</string>
+    <string name="delivery_battery_optimized">បានបង្កើនប្រសិទ្ធភាព – Android អាចពន្យារការពិនិត្យ។ កម្មវិធីមិនស្នើសុំការលើកលែងទេ។ អ្នកអាចផ្លាស់ប្តូរវានៅក្នុងការកំណត់ថ្មរបស់កម្មវិធី។</string>
+    <string name="delivery_background">ការប្រើនៅផ្ទៃខាងក្រោយ</string>
+    <string name="delivery_background_restricted">បានរឹតត្បិត – Android បញ្ឈប់ការពិនិត្យនៅផ្ទៃខាងក្រោយ</string>
+    <string name="delivery_dnd">កុំរំខាន</string>
+    <string name="delivery_dnd_on">បើក – ការដាស់តឿនអាចមកដល់ដោយគ្មានសំឡេង</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">សកម្មរហូតដល់ %1$s – ការដាស់តឿនដែលដល់ពេលរង់ចាំរហូតដល់ពេលនោះ</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – ការដាស់តឿនដែលដល់ពេលរង់ចាំក្នុងអំឡុងពេលនេះ</string>
+    <string name="delivery_last_check">ការពិនិត្យចុងក្រោយនៅផ្ទៃខាងក្រោយ</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – ច្រើនជាង 6 ម៉ោងមុន</string>
+    <string name="delivery_last_check_never">មិនទាន់មាន</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">អនុញ្ញាត</string>
+    <string name="delivery_action_change">ផ្លាស់ប្តូរ</string>
+    <string name="delivery_action_show">បង្ហាញ</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">បដា និងសំឡេង</string>
+    <string name="delivery_alert_off">បដាបានបិទ – ការដាស់តឿនបង្ហាញតែក្នុង Notification Center</string>
+    <string name="delivery_sound_off">សំឡេងបានបិទ – ការដាស់តឿនមកដល់ដោយស្ងាត់</string>
+    <string name="delivery_time_sensitive">Time Sensitive Notifications</string>
+    <string name="delivery_time_sensitive_off">បិទ – Focus អាចទប់ការដាស់តឿន</string>
+    <string name="delivery_background_refresh">Background App Refresh</string>
+    <string name="delivery_low_power">Low Power Mode</string>
+    <string name="delivery_swipe_away">បានអូសកម្មវិធីចោលមែនទេ?</string>
+    <string name="delivery_swipe_away_note">ប្រសិនបើអ្នកអូសកម្មវិធីចោលនៅក្នុងកម្មវិធីប្តូរកម្មវិធី iOS នឹងបញ្ឈប់ការពិនិត្យនៅផ្ទៃខាងក្រោយ រហូតដល់អ្នកបើកវាម្តងទៀត។</string>
+    <string name="delivery_live_activity">Live Activity</string>
+    <string name="delivery_live_activity_note">បង្ហាញតម្លៃនៅលើ Lock Screen ប៉ុន្តែធ្វើបច្ចុប្បន្នភាពតែនៅពេលកម្មវិធីពិនិត្យប៉ុណ្ណោះ – វាមិនធ្វើឱ្យការដាស់តឿនពិនិត្យញឹកញាប់ជាងមុនទេ។</string>
+
+    <string name="alarm_first_check">ពិនិត្យថាការដាស់តឿនមកដល់</string>
+
+    <string name="oem_battery_title">កម្មវិធីសន្សំថ្មរបស់ក្រុមហ៊ុនផលិត</string>
+    <string name="oem_battery_xiaomi">Xiaomi អាចបញ្ឈប់កម្មវិធីទាំងស្រុង – បន្ទាប់មកគ្មានការដាស់តឿនមកដល់ទេ។ សូមបើក «ចាប់ផ្ដើមដោយស្វ័យប្រវត្តិ» ហើយកំណត់ការសន្សំថ្មទៅ «គ្មានការរឹតត្បិត»។</string>
+    <string name="oem_battery_samsung">Samsung អាចដាក់កម្មវិធីឱ្យដេកលង់ – បន្ទាប់មកគ្មានការដាស់តឿនមកដល់ទេ។ នៅក្រោម ថ្ម › ដែនកំណត់ការប្រើនៅផ្ទៃខាងក្រោយ សូមបន្ថែមវាទៅ «កម្មវិធីដែលមិនដែលដេក»។</string>
+    <string name="oem_battery_huawei">Huawei/Honor អាចបញ្ឈប់កម្មវិធី – បន្ទាប់មកគ្មានការដាស់តឿនមកដល់ទេ។ នៅក្រោម ថ្ម › ការបើកកម្មវិធី សូមជ្រើស «គ្រប់គ្រងដោយដៃ» ហើយអនុញ្ញាតជម្រើសទាំងអស់។</string>
+    <string name="oem_battery_oneplus">OnePlus អាចបញ្ឈប់កម្មវិធី – បន្ទាប់មកគ្មានការដាស់តឿនមកដល់ទេ។ សូមអនុញ្ញាត «បើកដោយស្វ័យប្រវត្តិ» និងសកម្មភាពនៅផ្ទៃខាងក្រោយ នៅក្រោម ការប្រើថ្ម។</string>
+    <string name="oem_battery_oppo">Oppo/Realme អាចបញ្ឈប់កម្មវិធី – បន្ទាប់មកគ្មានការដាស់តឿនមកដល់ទេ។ សូមអនុញ្ញាត «បើកដោយស្វ័យប្រវត្តិ» និងសកម្មភាពនៅផ្ទៃខាងក្រោយ នៅក្រោម ការប្រើថ្ម។</string>
+    <string name="oem_battery_vivo">Vivo អាចបញ្ឈប់កម្មវិធី – បន្ទាប់មកគ្មានការដាស់តឿនមកដល់ទេ។ សូមអនុញ្ញាត «ចាប់ផ្ដើមដោយស្វ័យប្រវត្តិ» និងការប្រើថាមពលខ្ពស់នៅផ្ទៃខាងក្រោយ នៅក្រោម ថ្ម។</string>
+    <string name="alarm_reliability_stale">ការពិនិត្យចុងក្រោយ %1$s – ការដាស់តឿនអាចយឺត</string>
+    <string name="alarm_reliability_never">ការដាស់តឿនបើក – មិនទាន់មានការពិនិត្យនៅផ្ទៃខាងក្រោយទេ</string>
+    <string name="alarm_reliability_notifications_off">ការជូនដំណឹងបានបិទ – ការដាស់តឿននឹងមិនមកដល់ទេ</string>
+    <string name="alarm_reliability_battery">ការសន្សំថ្មអាចបញ្ឈប់ការពិនិត្យការដាស់តឿន</string>
+    <string name="alarm_reliability_background_refresh">Background App Refresh បានបិទ – ការដាស់តឿនប្រហែលជាមិនមកដល់ទេ</string>
+</resources>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">Սահմանել ահազանգ</string>
+    <string name="alarms_add">Նոր ահազանգ</string>
+    <string name="alarms_edit">Խմբագրել ահազանգը</string>
+    <string name="alarms_empty">Այս զույգի համար դեռ ահազանգեր չկան։</string>
+    <string name="alarms_empty_example">Օրինակ՝ տեղեկացրու ինձ, երբ BTC-ն բարձրանա %1$s-ից վեր։</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">Ծանուցումներն անջատված են – ահազանգերը չեն կարող հասնել քեզ։</string>
+    <string name="alarms_notifications_turn_on">Միացնել</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">%1$d ակտիվ</item>
+        <item quantity="other">%1$d ակտիվ</item>
+    </plurals>
+    <string name="alarms_overview_empty">Դեռ ահազանգեր չկան։ Բացիր զույգը և ավելացրու ահազանգ «Ահազանգեր» բաժնում։</string>
+    <string name="alarms_overview_title">Բոլոր ահազանգերը</string>
+    <string name="alarms_title">Ահազանգեր</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">Ընդլայնված</string>
+    <string name="alarm_change_updates">Կարգավորել գնի թարմացումները</string>
+    <string name="alarm_create">Ստեղծել ահազանգ</string>
+    <string name="alarm_currency_label">Արժույթ</string>
+    <string name="alarm_delete_confirm">Այս ահազանգը կհեռացվի։</string>
+    <string name="alarm_delete_title">Ջնջե՞լ ահազանգը</string>
+    <string name="alarm_field_percent">Տոկոս</string>
+    <string name="alarm_field_price">Գին</string>
+    <string name="alarm_fires_now_above">Գինն արդեն %1$s-ից բարձր է։ Պահպանե՞լ, միևնույն է։</string>
+    <string name="alarm_fires_now_below">Գինն արդեն %1$s-ից ցածր է։ Պահպանե՞լ, միևնույն է։</string>
+    <string name="alarm_fires_now_change">Փոխել</string>
+    <string name="alarm_fires_now_save">Պահպանել, միևնույն է</string>
+    <string name="alarm_fires_now_title">Ահազանգը հիմա կգործարկվեր</string>
+    <string name="alarm_first_battery_hint">Մարտկոցի օպտիմալացումը սահմանափակում է հավելվածը – ահազանգերը կարող են ուշ հասնել։</string>
+    <string name="alarm_first_title">Ահազանգը պահպանված է</string>
+    <string name="alarm_last_triggered">վերջինը՝ %1$s</string>
+    <string name="alarm_more_conditions">Այլ պայմաններ</string>
+    <string name="alarm_new_extreme">Նոր %1$s</string>
+    <string name="alarm_once">Մեկ անգամ</string>
+    <string name="alarm_option_repeating">Ծանուցել</string>
+    <string name="alarm_option_sound">Ձայն</string>
+    <string name="alarm_option_speak">Բարձրաձայն կարդալ ահազանգը</string>
+    <string name="alarm_option_vibrate">Թրթռում</string>
+    <string name="alarm_repeat_each">Ամեն անգամ</string>
+    <string name="alarm_repeat_once">Մեկ անգամ</string>
+    <string name="alarm_repeating">Ամեն անգամ</string>
+    <string name="alarm_threshold_error_empty">Մուտքագրիր արժեք՝ ահազանգը պահպանելու համար։</string>
+    <string name="alarm_threshold_error_funding">Ֆանդինգը պետք է լինի −10-ից +10 տոկոսի միջև թիվ։</string>
+    <string name="alarm_threshold_error_invalid">Մուտքագրիր 0-ից մեծ վավեր թիվ։</string>
+    <string name="alarm_threshold_error_oi">Բաց հետաքրքրության փոփոխություն՝ առավելագույնը 1000 տոկոս։</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">%1$d ժ-ում</item>
+        <item quantity="other">%1$d ժ-ում</item>
+    </plurals>
+    <string name="alarm_window_label">Ժամանակային պատուհան</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">բարձրանա այս մակարդակից՝</string>
+    <string name="alarm_simple_below">իջնի այս մակարդակից՝</string>
+    <string name="alarm_simple_end"></string>
+    <string name="alarm_simple_when">Երբ %1$s-ի գինը</string>
+    <string name="alarm_template_a11y">Ստեղծել ահազանգ՝ %1$s</string>
+    <string name="alarm_template_a11y_down">Ստեղծել ահազանգ ընթացիկ գնից մինուս %1$s տոկոսի վրա</string>
+    <string name="alarm_template_a11y_up">Ստեղծել ահազանգ ընթացիկ գնից պլյուս %1$s տոկոսի վրա</string>
+    <string name="alarm_template_from_now">ներկա պահից</string>
+    <string name="alarm_template_volume">Ծավալ ×%1$s</string>
+    <string name="alarm_templates_title">Արագ ահազանգեր</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">Գինը բարձր է</string>
+    <string name="alarm_condition_below">Գինը ցածր է</string>
+    <string name="alarm_condition_down_percent">Նվազում է</string>
+    <string name="alarm_condition_funding_above">Ֆանդինգը բարձր է</string>
+    <string name="alarm_condition_funding_below">Ֆանդինգը ցածր է</string>
+    <string name="alarm_condition_move_percent">Շարժվում է</string>
+    <string name="alarm_condition_near_high">Առավելագույնի մոտ</string>
+    <string name="alarm_condition_near_low">Նվազագույնի մոտ</string>
+    <string name="alarm_condition_oi_down">Բաց հետաքրքրությունը նվազում է</string>
+    <string name="alarm_condition_oi_up">Բաց հետաքրքրությունն աճում է</string>
+    <string name="alarm_condition_up_percent">Աճում է</string>
+    <string name="alarm_condition_volume_spike">Ծավալի ցատկ</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">Տեղեկացրու ինձ, երբ %1$s-ի գինը բարձրանա %2$s-ից վեր։</string>
+    <string name="alarm_sentence_below">Տեղեկացրու ինձ, երբ %1$s-ի գինը իջնի %2$s-ից ցած։</string>
+    <string name="alarm_sentence_down_percent">Տեղեկացրու ինձ, երբ %1$s-ի գինը իջնի %2$s-ով պահպանման պահի (կամ վերջին ահազանգի) գնից։</string>
+    <string name="alarm_sentence_funding_above">Տեղեկացրու ինձ, երբ %1$s-ի ֆանդինգը բարձրանա %2$s-ից վեր։</string>
+    <string name="alarm_sentence_funding_below">Տեղեկացրու ինձ, երբ %1$s-ի ֆանդինգը իջնի %2$s-ից ցած։</string>
+    <string name="alarm_sentence_incomplete">Մուտքագրիր արժեք՝ ահազանգը որպես նախադասություն տեսնելու համար։</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">Տեղեկացրու ինձ, երբ %1$s-ի գինը %3$d ժամվա ընթացքում շարժվի %2$s-ով։</item>
+        <item quantity="other">Տեղեկացրու ինձ, երբ %1$s-ի գինը %3$d ժամվա ընթացքում շարժվի %2$s-ով։</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">Տեղեկացրու ինձ, երբ %1$s-ի գինը իր %3$s-ից ցածր լինի առավելագույնը %2$s-ով։</string>
+    <string name="alarm_sentence_near_low">Տեղեկացրու ինձ, երբ %1$s-ի գինը իր %3$s-ից բարձր լինի առավելագույնը %2$s-ով։</string>
+    <string name="alarm_sentence_new_extreme">Տեղեկացրու ինձ, երբ %1$s-ը սահմանի նոր %2$s։</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">Տեղեկացրու ինձ, երբ %1$s-ի բաց հետաքրքրությունը %3$d ժամվա ընթացքում նվազի %2$s-ով։</item>
+        <item quantity="other">Տեղեկացրու ինձ, երբ %1$s-ի բաց հետաքրքրությունը %3$d ժամվա ընթացքում նվազի %2$s-ով։</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">Տեղեկացրու ինձ, երբ %1$s-ի բաց հետաքրքրությունը %3$d ժամվա ընթացքում աճի %2$s-ով։</item>
+        <item quantity="other">Տեղեկացրու ինձ, երբ %1$s-ի բաց հետաքրքրությունը %3$d ժամվա ընթացքում աճի %2$s-ով։</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">Տեղեկացրու ինձ, երբ %1$s-ի գինը բարձրանա %2$s-ով պահպանման պահի (կամ վերջին ահազանգի) գնից։</string>
+    <string name="alarm_sentence_volume">Տեղեկացրու ինձ, երբ %1$s-ի առևտրի ծավալը լինի իր սովորական ծավալի %2$s×-ը։</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">30-օրյա առավելագույն</string>
+    <string name="alarm_near_extreme_high_365">1-տարվա առավելագույն</string>
+    <string name="alarm_near_extreme_high_90">90-օրյա առավելագույն</string>
+    <string name="alarm_near_extreme_low_30">30-օրյա նվազագույն</string>
+    <string name="alarm_near_extreme_low_365">1-տարվա նվազագույն</string>
+    <string name="alarm_near_extreme_low_90">90-օրյա նվազագույն</string>
+    <string name="alarm_near_field_distance">Հեռավորություն</string>
+    <string name="alarm_near_hint">Ծանուցում է նաև, երբ սահմանվում է նոր առավելագույն կամ նվազագույն։ Հիմնված է օրական մոմերի վրա, թարմացվում է 6 ժամը մեկ։</string>
+    <string name="alarm_near_new_only">Միայն նոր առավելագույններ կամ նվազագույններ</string>
+    <string name="alarm_near_notification_high">%1$s-ը իր %3$s-ից %2$s-ով ցածր է (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s-ը իր %3$s-ից %2$s-ով բարձր է (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">Նոր %1$s %2$s-ի համար՝ %3$s (նախորդը՝ %4$s)</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d օր</item>
+        <item quantity="other">%1$d օր</item>
+    </plurals>
+    <string name="alarm_near_window_label">Ժամանակահատված</string>
+    <string name="alarm_near_window_year">1 տարի</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">Ֆանդինգի դրույքը 8 ժամվա համար։ Այլ միջակայքով պայմանագրերը փոխարկվում են (1 ժ × 8, 4 ժ × 2). ֆյուչերսների քարտը ցույց է տալիս փոխարկված արժեքը։ Եթե միջակայքն անհայտ է, ահազանգը չի ստուգում։ Բացասականը նշանակում է, որ շորթերը վճարում են լոնգերին։ ±-ը փոխում է նշանը։</string>
+    <string name="alarm_funding_sign_a11y">Փոխել նշանը</string>
+    <string name="alarm_oi_hint">Համեմատում է բաց հետաքրքրությունը այդքան ժամ առաջ պահված արժեքի հետ։ Նոր ահազանգը հաղորդում է միայն այն բանից հետո, երբ հավելվածը այդքան ժամանակ տվյալներ է հավաքել. ստուգվում է առավելագույնը 5 րոպեն մեկ։</string>
+    <string name="alarm_volume_factor_label">Վերջին ժամվա ծավալը սովորականի համեմատ</string>
+    <string name="alarm_volume_hint">Ծավալի տվյալները գալիս են Binance-ից — այնտեղ չցուցակված զույգերը երբեք չեն գործարկվում։</string>
+    <string name="alarm_volume_zero_hours_hint">Առանց գործարքների ժամերը հաշվվում են որպես զրո ծավալ, ուստի քիչ առևտրվող զույգերում սովորական ժամը կարող է անսովոր թվալ։</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">Ահազանգը ակտիվ է</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">Ահազանգը պահպանված է՝ %1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">Ծանուցումներն անջատված են</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">Առանց «%1$s»-ի Android-ը ստուգում է անկանոն, երբ սարքը հանգստի վիճակում է – երբեմն միայն ժամեր անց։ Դրանով՝ մոտավորապես 15 րոպեն մեկ։</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Երբ հավելվածը փակ է, iOS-ը հաճախ ստուգում է 15 րոպեից ուշ, երբեմն միայն երբ հաջորդ անգամ բացես հավելվածը։ Կարճ ցատկերը կարող են բաց թողնվել։</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">Երբ են ստուգվում ահազանգերը</string>
+    <string name="alarm_timing_where">Փոխիր գների թարմացման հաճախականությունը %1$s-ում։</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">Անձայն (միայն ծանուցում)</string>
+    <string name="alarm_signal_sound">Միայն ձայն</string>
+    <string name="alarm_signal_sound_vibrate">Ձայն և թրթռում</string>
+    <string name="alarm_signal_system">Համակարգային</string>
+    <string name="alarm_signal_vibrate">Միայն թրթռում</string>
+    <string name="alarm_test">Փորձնական ահազանգ</string>
+    <string name="alarm_test_action">Փորձել</string>
+    <string name="alarm_test_denied">Crypto Checker-ի ծանուցումներն անջատված են։</string>
+    <string name="alarm_test_hint">Ուղարկում է օրինակելի ահազանգ՝ քո ձայնի, թրթռման և խոսքի կարգավորումներով։</string>
+    <string name="alarm_test_open_settings">Բացել կարգավորումները</string>
+    <string name="alarm_test_quiet">Լուռ ժամերը հիմա միացված են. իրական ահազանգերը կսպասեն մինչև դրանց ավարտը, ապա կհնչեն ձայնով։</string>
+    <string name="alarm_test_text">Ահա թե ինչպես է ահազանգը երևում և հնչում։</string>
+    <string name="alarm_test_title">Փորձ՝ Crypto Checker-ի ահազանգ</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">Ձայնը միացված է</string>
+    <string name="alarm_a11y_speak_on">Խոսքը միացված է</string>
+    <string name="alarm_unchecked_no_candles">Չհաջողվեց ստուգել (մոմերի տվյալներ չկան)</string>
+    <string name="alarm_unchecked_no_rate">Չհաջողվեց ստուգել (փոխարժեք չկա)</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">Ծանուցումներն անջատված են – այս ահազանգը չի հասնի քեզ</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">Ահազանգ չկա – ցածր իրացվելիություն</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">Սպասում է ընթացիկ գնի</string>
+    <string name="alarm_enter_amount">Մուտքագրիր արժեք</string>
+    <string name="alarm_editor_more">Ավելին</string>
+    <string name="alarm_editor_more_summary">Արագ ահազանգեր, այլ պայմաններ, ձայն և խոսք</string>
+    <string name="alarm_reliability_storage_no_key">Ահազանգերը ֆոնում դադարեցված են – դիտացանկը պահպանված չէ</string>
+    <string name="alarms_limit_reached">Զույգը կարող է ունենալ առավելագույնը %1$s ահազանգ։</string>
+    <string name="alarms_reference_rate_hint">ԵԿԲ-ի հղումային փոխարժեքները սահմանվում են օրը միայն մեկ անգամ – դրանց համար ահազանգեր չկան։</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">Անկումը պետք է լինի 100 տոկոսից պակաս։</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">Շեմն անվավեր է – խնդրում ենք ճշգրտել</string>
+
+    <string name="alarm_last_checked">Վերջին ստուգումը՝ %1$s</string>
+</resources>

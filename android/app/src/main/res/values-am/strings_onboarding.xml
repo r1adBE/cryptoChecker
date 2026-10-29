@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">ማንቂያዎችን ያዘጋጁ – ዋጋ፣ መቶኛ፣ መጠን እና ያልተለመዱ እንቅስቃሴዎች</string>
+    <string name="welcome_alert_q">መቼ ይንቃ?</string>
+    <string name="welcome_text">የእርስዎ ዋጋዎች። የእርስዎ ማንቂያዎች። የእርስዎ አጠቃላይ እይታ።\nመለያ የለም። ማስታወቂያ የለም። ክትትል የለም።</string>
+    <string name="welcome_understand">ይረዱ – አሁን ከአንድ ዋጋ ጋር አብሮ ምን እየተንቀሳቀሰ እንደሆነ</string>
+    <string name="welcome_understand_q">አብሮ ምን እየተንቀሳቀሰ ነው?</string>
+    <string name="welcome_watch">ይከታተሉ – ሳንቲሞችዎን፣ ዋጋዎችንና የዋጋ ታሪክን</string>
+    <string name="welcome_watch_q">ምን እየሆነ ነው?</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">ወደ ክትትል ዝርዝር ያክሉ (%1$d)</string>
+    <string name="starter_loading_prices">ዋጋዎችን በመጫን ላይ…</string>
+    <string name="starter_search_coin">ሌላ ሳንቲም ይፈልጉ</string>
+    <string name="starter_select_all">ሁሉንም ይምረጡ</string>
+    <string name="starter_select_none">ምንም አይምረጡ</string>
+    <string name="starter_title">በእነዚህ ሳንቲሞች ይጀምሩ</string>
+    <string name="starter_watch_alarm_hint">ዋጋውን ይከታተሉ፣ ማንቂያ ያዘጋጁ</string>
+
+    <!-- Start-Auswahl: Börse und Quote der Startpaare (Binance, bei Standort-Sperre Binance.US), z. B. «Kurse von Binance in USDT. …» -->
+    <string name="starter_source_text">ዋጋዎች ከ%1$s በ%2$s። የማይፈልጉትን ምርጫ ያንሱና የቀረውን በአንድ ጊዜ ያክሉ። ለእያንዳንዱ ሳንቲም ልውውጡንና ጥንዱን መቀየር ይችላሉ።</string>
+</resources>

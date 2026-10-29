@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">აქტუალურია · %1$s</string>
+    <string name="watchlist_empty_title">წყვილები ჯერ არ არის</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%2$d-დან %1$d ფასის გარეშე</item>
+        <item quantity="other">%2$d-დან %1$d ფასის გარეშე</item>
+    </plurals>
+    <string name="watchlist_last_run">ბოლო გაშვება %1$s</string>
+    <string name="watchlist_live_a11y">Live ფასები ჩართულია</string>
+    <string name="watchlist_offline_since">კავშირი არ არის · მდგომარეობა: %1$s</string>
+    <string name="watchlist_pull_to_refresh">ჩამოწიე განახლებისთვის</string>
+    <string name="watchlist_refresh_report">ბოლო განახლება</string>
+    <string name="watchlist_refresh_report_empty">დეტალები ჯერ არ არის – სრული განახლება ჯერ არ ყოფილა. შეეხე განახლებას და დაელოდე, სანამ წრე გაჩერდება.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%2$d-დან %1$d მოძველებულია</item>
+        <item quantity="other">%2$d-დან %1$d მოძველებულია</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">აქ ყველა წყვილი გამორთულია</string>
+    <string name="watchlist_status_exchange_prices">ფასები შენი ბირჟებიდან · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">ბირჟის ფასები · %1$s</string>
+    <string name="watchlist_status_group_empty">ამ ჯგუფში წყვილები არ არის</string>
+    <string name="watchlist_status_none_traded">აქ სავაჭრო წყვილები არ არის</string>
+    <string name="watchlist_updated">განახლდა: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">საშ. %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d კლებაში</item>
+        <item quantity="other">%1$d კლებაში</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d 24სთ მნიშვნელობის გარეშე</item>
+        <item quantity="other">%1$d 24სთ მნიშვნელობის გარეშე</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d დღევანდელი მნიშვნელობის გარეშე</item>
+        <item quantity="other">%1$d დღევანდელი მნიშვნელობის გარეშე</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d ზრდაში</item>
+        <item quantity="other">%1$d ზრდაში</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · გამორთულია</string>
+    <string name="watchlist_row_outdated">%1$s · მოძველებულია</string>
+    <string name="watchlist_row_outdated_age">მოძველებულია · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">ფასი უცვლელია %1$s-დან</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s მიუწვდომელია</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">ბოლოში გადასვლა</string>
+    <string name="watchlist_jump_start">თავში გადასვლა</string>
+    <string name="watchlist_search_close">ძებნის დახურვა</string>
+    <string name="watchlist_search_empty">«%1$s»-ზე დამთხვევები არ არის</string>
+    <string name="watchlist_search_hint">მოძებნე წყვილი, სახელი ან ბირჟა</string>
+    <string name="watchlist_search_open">ძებნა</string>
+    <string name="watchlist_sort_ascending">ზრდადობით</string>
+    <string name="watchlist_sort_descending">კლებადობით</string>
+    <string name="watchlist_sort_hint">დააჭირე და გადაათრიე წყვილი ან გამოიყენე სახელური. რჩეულები ზემოთ რჩება.</string>
+    <string name="watchlist_sort_name">სახელი</string>
+    <string name="watchlist_sort_own">საკუთარი თანმიმდევრობა</string>
+    <string name="watchlist_sort_price">ფასი</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">დაკვირვების სიის გასუფთავება</string>
+    <string name="watchlist_clear_confirm">წავშალო ყველა წყვილი დაკვირვების სიიდან? მათი განგაშებიც წაიშლება.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d გამორთულია</item>
+        <item quantity="other">%1$d გამორთულია</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">წაშლა</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">წავშალო %1$d წყვილი, რომლითაც თავის ბირჟაზე აღარ ვაჭრობენ? მისი განგაშებიც წაიშლება.</item>
+        <item quantity="other">წავშალო %1$d წყვილი, რომლებითაც თავიანთ ბირჟაზე აღარ ვაჭრობენ? მათი განგაშებიც წაიშლება.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">არასავაჭრო წყვილების წაშლა (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">არასავაჭრო წყვილების წაშლა</string>
+    <string name="watchlist_removed">%1$s წაიშალა</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">წაიშალა %1$d წყვილი</item>
+        <item quantity="other">წაიშალა %1$d წყვილი</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">წაიშალა %1$d არასავაჭრო წყვილი</item>
+        <item quantity="other">წაიშალა %1$d არასავაჭრო წყვილი</item>
+    </plurals>
+    <string name="watchlist_select">მონიშვნა</string>
+    <string name="watchlist_select_all">ყველას მონიშვნა</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">მონიშნულია %1$d</item>
+        <item quantity="other">მონიშნულია %1$d</item>
+    </plurals>
+    <string name="watchlist_show_all">ყველას ჩვენება</string>
+    <string name="watchlist_show_only_disabled">მხოლოდ გამორთულების ჩვენება</string>
+    <string name="watchlist_show_only_stale">მხოლოდ მოძველებულების ჩვენება</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">განგაში (%1$d)</item>
+        <item quantity="other">განგაშები (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">რჩეულები ჯერ არ არის. გადაფურცლე წყვილი მარჯვნივ ან გახსენი წყვილი და შეეხე «რჩეული»-ს.</string>
+    <string name="watchlist_group_empty_hint">ხანგრძლივად დააჭირე ჯგუფს მისი წყვილების ასარჩევად.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">შენი ჯგუფები აქ გამოჩნდება</string>
+    <string name="watchlist_notification">ფასის შეტყობინება</string>
+    <string name="watchlist_tts">ფასის ხმამაღლა წაკითხვა</string>
+    <string name="watchlist_tts_speech_on">ხმოვანი გამოტანა ჩართულია. შეცვლა შეგიძლია აქ: პარამეტრები › განგაშები › ხმოვანი გამოტანა.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">ვიჯეტად დამატება</string>
+    <string name="watch_action_alarm">განგაში</string>
+    <string name="watch_action_favorite">რჩეული</string>
+    <string name="watch_action_why">რა მოძრაობს მასთან ერთად?</string>
+    <string name="watch_action_why_short">რა მოძრაობს მასთან?</string>
+    <string name="watch_change_mark">Mark</string>
+    <string name="watch_disable">გამორთვა</string>
+    <string name="watch_disable_hint">მოთხოვნების გარეშე, შეტყობინებების გარეშე</string>
+    <string name="watch_disabled">გამორთულია</string>
+    <string name="watch_disabled_banner">%1$s გამორთულია</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">განგაშები რჩება – შეამოწმე მათი ზღვრები</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">წყვილის რედაქტირება</string>
+    <string name="watch_enable">ჩართვა</string>
+    <string name="watch_enable_hint">ფასები და შეტყობინებები განახლდება</string>
+    <string name="watch_enabled_banner">%1$s ჩართულია</string>
+    <string name="watch_error_offline">კავშირი არ არის</string>
+    <string name="watch_gesture_hint_short">შეხება: განგაში და «რა მოძრაობს მასთან ერთად?» · ხანგრძლივი დაჭერა მოსანიშნად · გადაფურცლე მარცხნივ წასაშლელად · მარჯვნივ რჩეულისთვის</string>
+    <string name="watch_hint_tap_why">შეეხე მონეტას განგაშებისა და «რა მოძრაობს მასთან ერთად?»-ისთვის</string>
+    <string name="watch_not_traded">ამ ბირჟაზე აღარ ივაჭრება</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">დაკვირვების სიაში არ არის</string>
+    <string name="watch_price_mid">საშუალო ფასი (სხვა შემთხვევაში mark)</string>
+    <string name="watch_row_source_both">ცვლილება &amp; დიაგრამა: %1$s</string>
+    <string name="watch_row_source_change">ცვლილება: %1$s</string>
+    <string name="watch_row_source_chart">დიაგრამა: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s ახლა შენს დაკვირვების სიაშია</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s ახლა შენს დაკვირვების სიაშია</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">რჩეულებში დამატება</string>
+    <string name="favorite_added">%1$s დაემატა რჩეულებს</string>
+    <string name="favorite_remove">რჩეულებიდან ამოშლა</string>
+    <string name="favorite_removed">%1$s ამოიშალა რჩეულებიდან</string>
+    <string name="hint_favorites_list">რჩევა: გადაფურცლე სტრიქონი მარჯვნივ, რომ რჩეული გახდეს – რჩეულები ზემოთ რჩება.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">ახალი ჯგუფი</string>
+    <string name="group_all">ყველა</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Alpha ტოკენები</string>
+    <string name="group_delete">ჯგუფის წაშლა</string>
+    <string name="group_delete_confirm">წყვილები შენს დაკვირვების სიაში რჩება.</string>
+    <string name="group_done">მზადაა</string>
+    <string name="group_edit_title">ჯგუფის რედაქტირება</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">რჩეულები</string>
+    <string name="group_in_other">%1$s-ში</string>
+    <string name="group_name">ჯგუფის სახელი</string>
+    <string name="group_new">ახალი ჯგუფი…</string>
+    <string name="group_next">შემდეგი</string>
+    <string name="group_none">ჯგუფის გარეშე</string>
+    <string name="group_rename">გადარქმევა</string>
+    <string name="group_search_hint">მოძებნე წყვილი, სახელი ან ბირჟა</string>
+    <string name="group_target">ჯგუფში</string>
+    <string name="group_title">ჯგუფი</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">ტოკენები</string>
+    <string name="group_value">ჯგუფი: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">შენიშვნის დამატება</string>
+    <string name="note_edit">შენიშვნის რედაქტირება</string>
+    <string name="note_hint">მაგ. შესვლა 0.42-ზე, მიზანი 0.60</string>
+    <string name="note_remove">წაშლა</string>
+    <string name="note_title">შენიშვნა</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">გადაათრიე თანმიმდევრობის შესაცვლელად</string>
+    <string name="sort_move_bottom">ბოლოში გადატანა</string>
+    <string name="sort_move_down">ქვემოთ გადატანა</string>
+    <string name="sort_move_top">თავში გადატანა</string>
+    <string name="sort_move_up">ზემოთ გადატანა</string>
+
+    <string name="watchlist_first_alarm_title">დააყენე შენი პირველი განგაში</string>
+    <string name="watchlist_first_alarm_text">მიიღე შეტყობინება, როცა ფასი შენს ნიშნულს მიაღწევს – დახურული აპის დროს Android არარეგულარულად ამოწმებს.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">mark price (საშუალო ფასი არ არის)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">საათობრივი ფასი</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">დააყენე შენი პირველი განგაში – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">განახლება (%1$d)</string>
+
+    <!-- Zeile der Merkliste: Börse pausiert (zu viele Anfragen / Zeitüberschreitungen) bis zu einer Uhrzeit, ersetzt die Zeitzeile, z. B. «Binance · pausiert bis 19:45» -->
+    <string name="watchlist_row_exchange_paused">%1$s · შეჩერებულია %2$s-მდე</string>
+
+    <string name="watchlist_refresh_just_done">ახლახან განახლდა · %1$d წმ წინ</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">ბოლო გარიგება %1$s</string>
+
+    <string name="change_candle_source_hint">გამოთვლილია %1$s-ის სანთლებიდან – ბირჟა თავად ამ მნიშვნელობას არ იძლევა.</string>
+    <string name="change_candle_source_action">ცვლილების წყაროს ჩვენება</string>
+
+    <string name="watchlist_sort_by_coin">დალაგება მონეტის მიხედვით</string>
+    <string name="watchlist_sort_by_exchange">დალაგება ბირჟის მიხედვით</string>
+    <string name="watchlist_limit_reached">დაკვირვების სიაში მაქსიმუმ %1$s წყვილი შეიძლება იყოს.</string>
+    <string name="watch_price_reference">საორიენტაციო კურსი, დღიური</string>
+    <string name="watch_price_daily">დღიური</string>
+    <string name="watchlist_compare">შედარება</string>
+    <string name="watchlist_compare_hint">შესადარებლად აირჩიე 2-დან 4-მდე წყვილი.</string>
+    <string name="compare_title">შედარება</string>
+    <string name="compare_basis">ხაზები აჩვენებს ცვლილებას პროცენტებში პერიოდის დასაწყისიდან.</string>
+    <string name="compare_from_high">30დ მაქსიმუმთან შედარებით</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">%1$d წყვილი არ აღდგა – დაკვირვების სია სავსეა</item>
+        <item quantity="other">%1$d წყვილი არ აღდგა – დაკვირვების სია სავსეა</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">დაკვირვების სია და მისი განგაშები ახლა არ ინახება. ეს და ყველა შემდგომი ცვლილება აპის დახურვისას დაიკარგება. მაინც შევცვალო?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">მაინც შეცვლა</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">%1$d წყვილი</item>
+        <item quantity="other">%1$d წყვილი</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">%1$d-დან %2$d წყვილი</item>
+        <item quantity="other">%1$d-დან %2$d წყვილი</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">დარჩა %1$d ადგილი</item>
+        <item quantity="other">დარჩა %1$d ადგილი</item>
+    </plurals>
+    <string name="watchlist_footer_full">დაკვირვების სია სავსეა</string>
+</resources>

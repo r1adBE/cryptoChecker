@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Atpakaļ</string>
+    <string name="action_cancel">Atcelt</string>
+    <string name="action_clear">Notīrīt</string>
+    <string name="action_close">Aizvērt</string>
+    <string name="action_keep">Paturēt</string>
+    <string name="action_delete">Dzēst</string>
+    <string name="action_edit">Rediģēt</string>
+    <string name="action_more">Citas iespējas</string>
+    <string name="action_refresh">Atsvaidzināt</string>
+    <string name="action_retry">Mēģināt vēlreiz</string>
+    <string name="action_save">Saglabāt</string>
+    <string name="action_sort">Kārtot</string>
+    <string name="action_sort_done">Gatavs</string>
+    <string name="action_undo">Atsaukt</string>
+    <string name="action_view">Skatīt</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Tirgus</string>
+    <string name="tab_portfolio">Portfelis</string>
+    <string name="tab_settings">Iestatījumi</string>
+    <string name="tab_watchlist">Vērojamie</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Kļūda: %1$s</string>
+    <string name="error_exchange_unreachable">Birža pašlaik nav sasniedzama – pēdējās cenas paliek redzamas.</string>
+    <string name="error_exchange_unreachable_short">Birža pašlaik nav sasniedzama</string>
+    <string name="loading_hint">Notiek ielāde…</string>
+    <string name="option_off">Izslēgts</string>
+    <string name="something_went_wrong">Kaut kas nogāja greizi</string>
+    <string name="time_just_now">tikko</string>
+    <string name="try_again">Mēģināt vēlreiz</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Nav savienojuma</string>
+    <string name="offline_status_since">Nav savienojuma · stāvoklis %1$s</string>
+    <string name="status_live">Tiešraide</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Pievienot pāri</string>
+    <string name="shortcut_alarms">Visi brīdinājumi</string>
+    <string name="shortcut_cycle">Tirgus</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Pievienot pāri sarakstam</string>
+    <string name="shortcut_alarms_long">Rādīt visus brīdinājumus</string>
+    <string name="shortcut_cycle_long">Atvērt tirgus pārskatu</string>
+
+    <string name="log_box_title">Žurnāls</string>
+    <string name="label_value">%1$s: %2$s</string>
+</resources>

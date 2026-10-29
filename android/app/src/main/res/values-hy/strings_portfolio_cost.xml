@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">Գրառումներ առանց ձեռքբերման արժեքի՝ %1$d</string>
+    <string name="cost_gaps_card_text">Լրացրու ձեռքբերման արժեքը, որպեսզի շահույթն ու հարկերը ամբողջական լինեն։</string>
+    <string name="cost_gaps_sheet_title">Գրառումներ առանց ձեռքբերման արժեքի</string>
+    <string name="cost_gaps_sheet_intro">Այս մուտքերը ձեռքբերման արժեք չունեն։ Առաջարկը տվյալ ամսաթվի օրվա փակման գինն է – կարող ես այն ճշգրտել գրառման մեջ։</string>
+    <string name="cost_gaps_empty">Բոլոր գրառումներն ունեն ձեռքբերման արժեք։</string>
+    <string name="cost_gap_enter">Մուտքագրել ձեռքբերման արժեքը</string>
+    <string name="cost_gap_leave_unknown">Թողնել անհայտ</string>
+    <string name="cost_gap_left_unknown">Թողնված է անհայտ</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">Առաջարկ՝ օրվա փակում %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">Այս ամսաթվի համար ստուգված օրվա փակում չկա</string>
+    <string name="cost_gap_suggestion_loading">Օրվա փակումը բեռնվում է …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">Ձեռքբերման արժեք = արժեքը ստանալու պահին (եկամուտ)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">Ձեռքբերման արժեք = 0 (պարգև առանց մուտքի, Ավստրիա)</string>
+    <string name="cost_gap_apply">Կիրառել</string>
+    <string name="address_lots_action">Ձեռքբերման արժեք հասցեի մնացորդի համար</string>
+    <string name="address_lots_title">Ձեռքբերման արժեք հասցեի մնացորդի համար</string>
+    <string name="address_lots_intro">Մուտքագրիր գնման ամսաթիվը, քանակը և ձեռքբերման արժեքը այս հասցեի մնացորդի համար։ Լոտերը հաշվվում են որպես գնումներ այս հասցեում. չծածկված մասը մնում է առանց ձեռքբերման արժեքի։</string>
+    <string name="address_lots_add">Ավելացնել լոտ</string>
+    <string name="address_lots_new">Նոր լոտ</string>
+    <string name="address_lots_edit">Լոտ</string>
+    <string name="address_lots_date">Գնման ամսաթիվ</string>
+    <string name="address_lots_amount">Քանակ</string>
+    <string name="address_lots_mode_total">Ընդամենը</string>
+    <string name="address_lots_mode_price">Մեկ կոինի համար</string>
+    <string name="address_lots_price">Գինը մեկ կոինի համար (USDT)</string>
+    <string name="address_lots_total">Ընդհանուր ձեռքբերման արժեք (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%2$s-ից %1$s-ը՝ ձեռքբերման արժեքով</string>
+    <string name="address_lots_unlotted">%1$s՝ առանց ձեռքբերման արժեքի</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">Լոտերը գերազանցում են մնացորդը %1$s-ով – ամենահները սպառվում են առաջինը։</string>
+    <string name="address_lots_not_loaded">Մնացորդը դեռ բեռնված չէ – լոտերը կհաշվվեն, հենց այն բեռնվի։</string>
+    <string name="address_lots_invalid">Մուտքագրիր քանակը և ձեռքբերման արժեքը</string>
+</resources>

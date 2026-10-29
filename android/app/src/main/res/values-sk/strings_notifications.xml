@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">Výrazné: %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — teraz %2$s</string>
+    <string name="notification_alarm_title">Alarm: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">Otvoriť burzu</string>
+    <string name="notification_depeg_text">Hodnoty v aplikácii počítajú s touto trhovou cenou.</string>
+    <string name="notification_depeg_title">USDT na %1$s USD (%2$s)</string>
+    <string name="notification_fng_above">Index stúpol nad %1$d – podľa tohto meradla je nálada na trhu chamtivá.</string>
+    <string name="notification_fng_below">Index klesol pod %1$d – podľa tohto meradla je nálada na trhu ustráchaná.</string>
+    <string name="notification_fng_title">Index nálady (Fear &amp; Greed): %1$d</string>
+    <string name="notification_gas_btc_text">Pod tvojou hranicou %1$s sat/vB · Prevod ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Poplatok Bitcoin: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">Pod tvojou hranicou %1$s gwei · Prevod ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Gas Ethereum: %1$s gwei</string>
+    <string name="notification_indicator_above">Nad tvojou hranicou %1$s – nameraná hodnota, nie odporúčanie.</string>
+    <string name="notification_indicator_below">Pod tvojou hranicou %1$s – nameraná hodnota, nie odporúčanie.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">Dnes ekonomické údaje</string>
+    <string name="notification_permission_preprompt_continue">Pokračovať</string>
+    <string name="notification_permission_preprompt_later">Neskôr</string>
+    <string name="notification_permission_preprompt_text">Aby k tebe prišli alarmy a upozornenia na kurzy, aplikácia potrebuje povolenie na upozornenia. Aplikácia ich používa iba na tvoje alarmy a upozornenia na kurzy.</string>
+    <string name="notification_permission_preprompt_title">Povoliť upozornenia?</string>
+    <string name="notification_portfolio_alarm_locked">Tvoj alarm sa spustil – podrobnosti nájdeš v aplikácii.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – teraz %2$s</string>
+    <string name="notification_portfolio_alarm_title">Hodnota portfólia</string>
+    <string name="notification_price_change">%1$s, z %2$s (pred %3$s)</string>
+    <string name="notification_price_change_no_age">%1$s, z %2$s</string>
+    <string name="notification_price_first">Prvé upozornenie na kurz pre tento pár</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+ ďalší %1$d kurz</item>
+        <item quantity="few">+ ďalšie %1$d kurzy</item>
+        <item quantity="many">+ ďalšieho %1$d kurzu</item>
+        <item quantity="other">+ ďalších %1$d kurzov</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">Aktualizujú sa kurzy…</string>
+    <string name="notification_volume_spike_text">Objem %1$s× normálu za poslednú hodinu</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">Alarmy</string>
+    <string name="channel_alarms_description">Upozornenie, keď sa spustí alarm.</string>
+    <string name="channel_alarms_quiet">Alarmy (nočný pokoj)</string>
+    <string name="channel_alarms_quiet_description">Tiché alarmy počas nočného pokoja.</string>
+    <string name="channel_alarms_silent">Alarmy (tiché)</string>
+    <string name="channel_alarms_sound">Alarmy (iba zvuk)</string>
+    <string name="channel_alarms_sound_vibrate">Alarmy (zvuk a vibrácie)</string>
+    <string name="channel_alarms_vibrate">Alarmy (iba vibrácie)</string>
+    <string name="channel_prices">Upozornenia na kurzy</string>
+    <string name="channel_prices_description">Tiché upozornenie s aktuálnym kurzom páru.</string>
+    <string name="channel_service">Aktualizácia kurzov</string>
+    <string name="channel_service_description">Upozornenie počas aktualizácie kurzov.</string>
+    <string name="neutral_channel_market">Trhové upozornenia</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, poplatky za gas, „Výrazné“ a ekonomické termíny</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">Alarm. %1$s, %2$s %3$s %4$s, teraz %5$s</string>
+    <string name="tts_direction_down">klesol</string>
+    <string name="tts_direction_funding_above">s vysokým fundingom</string>
+    <string name="tts_direction_funding_below">s nízkym fundingom</string>
+    <string name="tts_direction_move">sa silno hýbe</string>
+    <string name="tts_direction_near_high">blízko maxima</string>
+    <string name="tts_direction_near_low">blízko minima</string>
+    <string name="tts_direction_oi_down">s klesajúcim open interestom</string>
+    <string name="tts_direction_oi_up">s rastúcim open interestom</string>
+    <string name="tts_direction_up">stúpol</string>
+    <string name="tts_direction_volume_spike">so skokom objemu</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+
+    <!-- Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+    <string name="notification_alarm_action_snooze">O 1 h neskôr</string>
+    <string name="notification_alarm_action_edit">Upraviť</string>
+</resources>

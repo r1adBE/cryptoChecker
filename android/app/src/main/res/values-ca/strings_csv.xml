@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">Importa un CSV</string>
+    <string name="portfolio_csv_import_all_transfer">Tot a un moneder propi</string>
+    <string name="portfolio_csv_import_all_withdrawal">Tot surt de la cartera</string>
+    <string name="portfolio_csv_import_choice_proposed">Suggeriment: coincideix amb %1$s</string>
+    <string name="portfolio_csv_import_choice_transfer">A un moneder propi (transferència)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Surt de la cartera (retirada)</string>
+    <string name="portfolio_csv_import_choose_each">Tria per a cada retirada on ha anat.</string>
+    <string name="portfolio_csv_import_columns">Columnes reconegudes: %1$s</string>
+    <string name="portfolio_csv_import_confirm">Importa (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">Dia/Mes</string>
+    <string name="portfolio_csv_import_date_month_first">Mes/Dia</string>
+    <string name="portfolio_csv_import_date_order">Dates ambigües (p. ex. 03/04/2024) llegides com a:</string>
+    <string name="portfolio_csv_import_decimal">Nombres ambigus (p. ex. %1$s) llegits com a:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d transacció importada</item>
+        <item quantity="many">%d transaccions importades</item>
+        <item quantity="other">%d transaccions importades</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d ja importada (omesa)</item>
+        <item quantity="many">%d ja importades (omeses)</item>
+        <item quantity="other">%d ja importades (omeses)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">Format: %1$s</string>
+    <string name="portfolio_csv_import_line">Línia %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">S\'estan llegint el fitxer i els tipus diaris…</string>
+    <string name="portfolio_csv_import_progress">Línia %1$s de %2$s</string>
+    <string name="portfolio_csv_import_saving">S\'estan desant les transaccions…</string>
+    <string name="portfolio_csv_import_missing_fx">No hi ha tipus diari per a les línies %1$s – importades sense preu/comissió.</string>
+    <string name="portfolio_csv_import_missing_price">No hi ha preu al fitxer per a les línies %1$s – importades sense preu.</string>
+    <string name="portfolio_csv_import_more">+ %1$d més</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d transacció nova</item>
+        <item quantity="many">%d transaccions noves</item>
+        <item quantity="other">%d transaccions noves</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d fila omesa</item>
+        <item quantity="many">%d files omeses</item>
+        <item quantity="other">%d files omeses</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">Les operacions contra stablecoins (USDT, USDC …) es comptabilitzen com a intercanvis – la stablecoin apareix a les teves tinences.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Hi ha diverses coincidències possibles – tria la correcta o cap.</string>
+    <string name="portfolio_csv_import_transfer_fee">Comissió de xarxa: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">Comptabilitza com una sola transferència</string>
+    <string name="portfolio_csv_import_transfer_stored">Contrapartida d\'una importació anterior</string>
+    <string name="portfolio_csv_import_transfers_hint">Una retirada i el dipòsit corresponent de la mateixa moneda es converteixen en una sola transferència: el preu de compra i el període de tinença es mantenen, i la diferència compta com a comissió de xarxa.</string>
+    <string name="portfolio_csv_import_transfers_title">Transferències entre els teus comptes</string>
+    <string name="portfolio_csv_import_unreadable">No s\'ha trobat cap transacció compatible. Compatibles: exportacions CSV de Relai, Swissquote, Kraken, Binance, Coinbase i Bitpanda.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
+    <string name="portfolio_csv_import_too_large">El fitxer és massa gran per importar-lo (com a màxim 16 MB i %1$s files). Exporta períodes més curts i importa\'ls un darrere l\'altre.</string>
+    <string name="portfolio_csv_import_failed">La importació no ha funcionat – no s\'ha desat res. Torna-ho a provar.</string>
+    <string name="portfolio_csv_import_locked">No es pot importar: ara mateix no es poden llegir les dades desades. Reinicia l\'app.</string>
+    <string name="portfolio_csv_import_withdrawals_title">Retirades – on han anat les monedes?</string>
+    <string name="portfolio_csv_import_zone">Hores sense fus horari llegides com a: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">Dispositiu (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">data il·legible</string>
+    <string name="portfolio_csv_skip_bad_number">nombre il·legible</string>
+    <string name="portfolio_csv_skip_fee_exceeds">comissió ≥ quantitat rebuda</string>
+    <string name="portfolio_csv_skip_internal_move">moviment entre els teus propis comptes – no hi ha res a comptabilitzar</string>
+    <string name="portfolio_csv_skip_missing">falta un camp</string>
+    <string name="portfolio_csv_skip_ambiguous">diverses operacions en el mateix segon que no es poden distingir – introdueix-les a mà</string>
+    <string name="portfolio_csv_skip_not_crypto">no és cripto</string>
+    <string name="portfolio_csv_skip_possible_duplicate">possiblement ja importada (operació gairebé idèntica) – revisa-ho a mà</string>
+    <string name="portfolio_csv_skip_two_fees">dues comissions en unitats diferents – introdueix l\'intercanvi a mà</string>
+    <string name="portfolio_csv_skip_unsupported">tipus no compatible</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">Desfés</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">Vols suprimir la %d transacció d\'aquesta importació? Les entrades manuals i les altres importacions es mantenen.</item>
+        <item quantity="many">Vols suprimir les %d transaccions d\'aquesta importació? Les entrades manuals i les altres importacions es mantenen.</item>
+        <item quantity="other">Vols suprimir les %d transaccions d\'aquesta importació? Les entrades manuals i les altres importacions es mantenen.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">Vols desfer la importació?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">S\'ha eliminat %d transacció importada</item>
+        <item quantity="many">S\'han eliminat %d transaccions importades</item>
+        <item quantity="other">S\'han eliminat %d transaccions importades</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d transacció</item>
+        <item quantity="many">%d transaccions</item>
+        <item quantity="other">%d transaccions</item>
+    </plurals>
+    <string name="portfolio_imports_empty">No hi ha importacions</string>
+    <string name="portfolio_imports_title">Importacions</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">mateix ID de transacció amb una quantitat diferent – revisa-ho a mà</string>
+    <string name="portfolio_csv_skip_staking_unpaired">entrada de staking sense contrapartida – revisa les tinences</string>
+    <string name="portfolio_csv_skip_amount_too_small">quantitat massa petita – s\'arrodoneix a 0 en desar-la</string>
+    <string name="portfolio_csv_skip_invalid_swap">intercanvi sense moneda o quantitat rebuda vàlida</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">S\'està tornant a llegir el fitxer …</string>
+</resources>

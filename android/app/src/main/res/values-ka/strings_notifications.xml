@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">საყურადღებო: %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — ახლა %2$s</string>
+    <string name="notification_alarm_title">განგაში: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">ბირჟის გახსნა</string>
+    <string name="notification_depeg_text">აპის მნიშვნელობები ამ საბაზრო ფასს იყენებს.</string>
+    <string name="notification_depeg_title">USDT %1$s USD-ზეა (%2$s)</string>
+    <string name="notification_fng_above">ინდექსი %1$d-ს გადააჭარბა – ამ საზომით ბაზრის განწყობა ხარბია.</string>
+    <string name="notification_fng_below">ინდექსი %1$d-ზე დაბლა ჩამოვიდა – ამ საზომით ბაზრის განწყობა შიშიანია.</string>
+    <string name="notification_fng_title">განწყობის ინდექსი (Fear &amp; Greed): %1$d</string>
+    <string name="notification_gas_btc_text">შენს ლიმიტზე %1$s sat/vB დაბლა · გადარიცხვა ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin-ის საკომისიო: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">შენს ლიმიტზე %1$s gwei დაბლა · გადარიცხვა ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Ethereum gas: %1$s gwei</string>
+    <string name="notification_indicator_above">შენს ლიმიტზე %1$s მაღლა – გაზომილი მნიშვნელობა და არა რეკომენდაცია.</string>
+    <string name="notification_indicator_below">შენს ლიმიტზე %1$s დაბლა – გაზომილი მნიშვნელობა და არა რეკომენდაცია.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">ეკონომიკური მონაცემები დღეს</string>
+    <string name="notification_permission_preprompt_continue">გაგრძელება</string>
+    <string name="notification_permission_preprompt_later">მოგვიანებით</string>
+    <string name="notification_permission_preprompt_text">იმისთვის, რომ განგაშები და ფასის შეტყობინებები მოგივიდეს, აპს შეტყობინებების გაგზავნის ნებართვა სჭირდება. აპი მათ მხოლოდ შენი განგაშებისა და ფასის შეტყობინებებისთვის იყენებს.</string>
+    <string name="notification_permission_preprompt_title">დავუშვა შეტყობინებები?</string>
+    <string name="notification_portfolio_alarm_locked">შენი განგაში ამოქმედდა – დეტალებისთვის გახსენი აპი.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – ახლა %2$s</string>
+    <string name="notification_portfolio_alarm_title">პორტფელის ღირებულება</string>
+    <string name="notification_price_change">%1$s, %2$s-დან (%3$s წინ)</string>
+    <string name="notification_price_change_no_age">%1$s, %2$s-დან</string>
+    <string name="notification_price_first">პირველი ფასის შეტყობინება ამ წყვილისთვის</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+კიდევ %1$d ფასი</item>
+        <item quantity="other">+კიდევ %1$d ფასი</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">ფასები ახლდება…</string>
+    <string name="notification_volume_spike_text">ბოლო საათში მოცულობა ჩვეულებრივზე %1$s×-ჯერ მეტია</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">განგაშები</string>
+    <string name="channel_alarms_description">შეტყობინება, როცა განგაში ამოქმედდება.</string>
+    <string name="channel_alarms_quiet">განგაშები (მშვიდი საათები)</string>
+    <string name="channel_alarms_quiet_description">უხმო განგაშები მშვიდ საათებში.</string>
+    <string name="channel_alarms_silent">განგაშები (უხმო)</string>
+    <string name="channel_alarms_sound">განგაშები (მხოლოდ ხმა)</string>
+    <string name="channel_alarms_sound_vibrate">განგაშები (ხმა და ვიბრაცია)</string>
+    <string name="channel_alarms_vibrate">განგაშები (მხოლოდ ვიბრაცია)</string>
+    <string name="channel_prices">ფასის შეტყობინებები</string>
+    <string name="channel_prices_description">უხმო ფასის შეტყობინება წყვილის მიმდინარე ფასით.</string>
+    <string name="channel_service">ფასების განახლება</string>
+    <string name="channel_service_description">შეტყობინება ფასების განახლებისას.</string>
+    <string name="neutral_channel_market">საბაზრო განგაშები</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, gas საკომისიოები, «საყურადღებო» და ეკონომიკური თარიღები</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">განგაში. %1$s, %2$s %3$s %4$s, ახლა %5$s</string>
+    <string name="tts_direction_down">დაეცა</string>
+    <string name="tts_direction_funding_above">მაღალი ფანდინგით</string>
+    <string name="tts_direction_funding_below">დაბალი ფანდინგით</string>
+    <string name="tts_direction_move">ძლიერად მოძრაობს</string>
+    <string name="tts_direction_near_high">მაქსიმუმთან ახლოსაა</string>
+    <string name="tts_direction_near_low">მინიმუმთან ახლოსაა</string>
+    <string name="tts_direction_oi_down">კლებადი ღია ინტერესით</string>
+    <string name="tts_direction_oi_up">მზარდი ღია ინტერესით</string>
+    <string name="tts_direction_up">აიწია</string>
+    <string name="tts_direction_volume_spike">მოცულობის ნახტომით</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+
+    <!-- Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+    <string name="notification_alarm_action_snooze">1 სთ-ში</string>
+    <string name="notification_alarm_action_edit">მორგება</string>
+</resources>

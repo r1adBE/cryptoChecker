@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">ສັນຍານເຕືອນພອດໂຟລິໂອຢຸດຊົ່ວຄາວ: ບໍ່ມີລາຄາປັດຈຸບັນສຳລັບ %1$s</string>
+    <string name="portfolio_alarms_paused_price_generic">ສັນຍານເຕືອນພອດໂຟລິໂອຢຸດຊົ່ວຄາວ: ບໍ່ແມ່ນທຸກຫຼຽນມີລາຄາປັດຈຸບັນ</string>
+    <string name="portfolio_alarms_paused_addresses">ສັນຍານເຕືອນພອດໂຟລິໂອຢຸດຊົ່ວຄາວ: ຍັງບໍ່ໄດ້ໂຫຼດຍອດເງິນຂອງທີ່ຢູ່ທີ່ຕິດຕາມ</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">ສັນຍານເຕືອນພອດໂຟລິໂອຢຸດຊົ່ວຄາວ: ຍອດໂທເຄັນຂອງ %1$s ບໍ່ເປັນປັດຈຸບັນບາງສ່ວນ</string>
+    <string name="portfolio_alarms_paused_tokens_generic">ສັນຍານເຕືອນພອດໂຟລິໂອຢຸດຊົ່ວຄາວ: ຍອດໂທເຄັນຂອງທີ່ຢູ່ທີ່ຕິດຕາມບໍ່ເປັນປັດຈຸບັນບາງສ່ວນ</string>
+    <string name="portfolio_alarms_paused_unverified">ສັນຍານເຕືອນພອດໂຟລິໂອຢຸດຊົ່ວຄາວ: ລາຄາຍັງບໍ່ໄດ້ຢືນຢັນສຳລັບ %1$s</string>
+    <string name="portfolio_alarms_paused_unverified_generic">ສັນຍານເຕືອນພອດໂຟລິໂອຢຸດຊົ່ວຄາວ: ລາຄາຂອງບາງຫຼຽນຍັງບໍ່ໄດ້ຢືນຢັນ</string>
+    <string name="portfolio_alarms_address_failing">ສັນຍານເຕືອນພອດໂຟລິໂອກວດໂດຍບໍ່ມີ %1$s: ບໍ່ໄດ້ໂຫຼດຍອດເງິນເປັນເວລາຫຼາຍກວ່າ 24 ຊົ່ວໂມງ</string>
+    <string name="portfolio_alarms_address_failing_generic">ສັນຍານເຕືອນພອດໂຟລິໂອກວດໂດຍບໍ່ມີທີ່ຢູ່ທີ່ບໍ່ໄດ້ໂຫຼດຍອດເງິນເປັນເວລາຫຼາຍກວ່າ 24 ຊົ່ວໂມງ</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">ໂທເຄັນບໍ່ເປັນປັດຈຸບັນບາງສ່ວນ</string>
+    <string name="portfolio_address_restore_failed">ກູ້ຄືນທີ່ຢູ່ບໍ່ໄດ້ – ເພີ່ມມັນອີກຄັ້ງຖ້າຈຳເປັນ</string>
+    <string name="portfolio_address_remove_failed">ລຶບທີ່ຢູ່ອອກບໍ່ໄດ້ – ກະລຸນາລອງໃໝ່</string>
+</resources>

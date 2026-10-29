@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">Ескерту іске қосылды</string>
+    <string name="a11y_collapsed">Жиылған</string>
+    <string name="a11y_converted">шамамен %1$s</string>
+    <string name="a11y_expanded">Ашылған</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">браузерде ашылады</string>
+    <string name="a11y_favorite">Таңдаулы</string>
+    <string name="a11y_in_watchlist">Бақылау тізімінде бар</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_exchange_unreachable">%1$s қолжетімсіз</string>
+    <string name="a11y_move_down">Төмен жылжыту</string>
+    <string name="a11y_move_up">Жоғары жылжыту</string>
+    <string name="a11y_note">ескертпе: %1$s</string>
+    <string name="a11y_price">бағам %1$s</string>
+    <string name="a11y_price_notification_off">Бағам хабарландыруы өшірулі</string>
+    <string name="a11y_price_notification_on">Бағам хабарландыруы қосулы</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">Бағам ескірген</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s, %2$s биржасында</string>
+    <string name="a11y_stale">ескірген, соңғы жаңарту %1$s</string>
+    <string name="a11y_warning">Назар аударыңыз</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">24 сағатта %1$s</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">24 сағаттық өзгеріс қолжетімсіз</string>
+    <string name="a11y_change_down">%1$s төмендеді</string>
+    <string name="a11y_change_flat">өзгеріссіз</string>
+    <string name="a11y_change_since_last">соңғы жаңартудан бері %1$s</string>
+    <string name="a11y_change_since_last_none">Соңғы жаңартудан бергі өзгеріс қолжетімсіз</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">бүгін %1$s</string>
+    <string name="a11y_change_today_none">Бүгінгі өзгеріс қолжетімсіз</string>
+    <string name="a11y_change_today_zone">%2$s түн ортасынан бері %1$s</string>
+    <string name="a11y_change_today_zone_none">%1$s түн ортасынан бергі өзгеріс қолжетімсіз</string>
+    <string name="a11y_change_up">%1$s өсті</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">%1$s графигі: %2$s бастап %3$s дейін, %4$s. Ең жоғары %5$s, ең төмен %6$s.</string>
+    <string name="a11y_chart_empty">График: дерек жоқ</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">%1$s циклі: халвингтен бері %2$s, %3$d-күн.</string>
+    <string name="a11y_cycle_bottom">Түп %1$s, %2$d-күн.</string>
+    <string name="a11y_cycle_double_bottom">Қос түп %1$s, %2$d-күн.</string>
+    <string name="a11y_cycle_double_top">Қос шың %1$s, %2$d-күн.</string>
+    <string name="a11y_cycle_top">Шың %1$s, %2$d-күн.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">%1$s мен %2$s аралығындағы шкала: 100-ден %3$d</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, орташа есеппен %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d төмендеуде</item>
+        <item quantity="other">%1$d төмендеуде</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="one">%1$d жұпта 24 сағаттық мән жоқ</item>
+        <item quantity="other">%1$d жұпта 24 сағаттық мән жоқ</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d жұпта бүгінгі мән жоқ</item>
+        <item quantity="other">%1$d жұпта бүгінгі мән жоқ</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d жұп өсуде</item>
+        <item quantity="other">%1$d жұп өсуде</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="one">соңғы жаңарту %1$d күн бұрын</item>
+        <item quantity="other">соңғы жаңарту %1$d күн бұрын</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="one">соңғы жаңарту %1$d сағат бұрын</item>
+        <item quantity="other">соңғы жаңарту %1$d сағат бұрын</item>
+    </plurals>
+    <string name="a11y_updated_just_now">жаңа ғана жаңартылды</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="one">соңғы жаңарту %1$d минут бұрын</item>
+        <item quantity="other">соңғы жаңарту %1$d минут бұрын</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">сома жасырылған</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_entry">%1$s %2$s, бүгінгі құны %3$s</string>
+    <string name="a11y_portfolio_entry_in">Кіріс</string>
+    <string name="a11y_portfolio_entry_no_value">құны қолжетімсіз</string>
+    <string name="a11y_portfolio_entry_note">ескертпе %1$s</string>
+    <string name="a11y_portfolio_entry_out">Шығыс</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, портфельдің %3$s</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, портфельдің %2$s, %3$s</string>
+    <string name="a11y_portfolio_positions">Ең ірі позициялар: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">Сомаларды көрсету</string>
+    <string name="a11y_compare_chart">Пайызбен салыстыру, %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">30 күндік ең жоғары деңгейден %1$s</string>
+    <string name="a11y_price_overlay">Бағам қабаты: %1$s</string>
+</resources>

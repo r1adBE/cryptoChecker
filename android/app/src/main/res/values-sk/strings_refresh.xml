@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">spotrebuje viac dát a batérie</string>
+    <string name="update_mode_live">Naživo, kým je otvorené</string>
+    <string name="update_mode_live_hint">Kde burza poskytuje kurz naživo: okamžite, kým je zoznam otvorený. Inak pri ďalšom načítaní. Zatvorené: nie častejšie ako každých %1$s, často neskôr.</string>
+    <string name="update_mode_live_hint_ios">Kde burza poskytuje kurz naživo: okamžite, kým je zoznam otvorený. Inak pri ďalšom načítaní. Zatvorené: keď to iOS dovolí, niekedy s odstupom hodín. Ak aplikáciu zatvoríš potiahnutím, iOS zastaví tieto kontroly, kým ju znova neotvoríš.</string>
+    <string name="update_mode_recommended">odporúčané</string>
+    <string name="update_mode_sparsam">Úsporne</string>
+    <string name="update_mode_sparsam_hint">Pri zatvorenej aplikácii nie častejšie ako každých %1$s, často neskôr (alarmy, miniaplikácie). Otvorená: pri každom otvorení.</string>
+    <string name="update_mode_sparsam_hint_ios">Pri zatvorenej aplikácii rozhoduje iOS, kedy sa kontroluje (alarmy, miniaplikácie), niekedy s odstupom hodín. Otvorená: pri každom otvorení.</string>
+    <string name="update_mode_title">Frekvencia aktualizácie</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">Obnovenie prerušené</string>
+    <string name="refresh_sheet_alarms">Alarmy</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d spustený</item>
+        <item quantity="few">%1$d spustené</item>
+        <item quantity="many">%1$d spusteného</item>
+        <item quantity="other">%1$d spustených</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">Všetko aktualizované</string>
+    <string name="refresh_sheet_app_start">Spustenie aplikácie</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">hromadný dopyt %1$s · %2$d kurz</item>
+        <item quantity="few">hromadný dopyt %1$s · %2$d kurzy</item>
+        <item quantity="many">hromadný dopyt %1$s · %2$d kurzu</item>
+        <item quantity="other">hromadný dopyt %1$s · %2$d kurzov</item>
+    </plurals>
+    <string name="refresh_sheet_database">Databáza</string>
+    <string name="refresh_sheet_exchange_unreachable">%1$s je nedostupná</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
+        <item quantity="one">%1$d burza je nedostupná</item>
+        <item quantity="few">%1$d burzy sú nedostupné</item>
+        <item quantity="many">%1$d burzy je nedostupných</item>
+        <item quantity="other">%1$d búrz je nedostupných</item>
+    </plurals>
+    <string name="refresh_sheet_network">Sieť</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d upozornenie na kurz</item>
+        <item quantity="few">%1$d upozornenia na kurz</item>
+        <item quantity="many">%1$d upozornenia na kurz</item>
+        <item quantity="other">%1$d upozornení na kurz</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d pár</item>
+        <item quantity="few">%1$d páry</item>
+        <item quantity="many">%1$d páru</item>
+        <item quantity="other">%1$d párov</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d pár nebol aktualizovaný</item>
+        <item quantity="few">%1$d páry neboli aktualizované</item>
+        <item quantity="many">%1$d páru nebolo aktualizovaných</item>
+        <item quantity="other">%1$d párov nebolo aktualizovaných</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d z %1$d páru</item>
+        <item quantity="few">%2$d z %1$d párov</item>
+        <item quantity="many">%2$d z %1$d páru</item>
+        <item quantity="other">%2$d z %1$d párov</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">pozastavené do %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">pozastavené do %1$s (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">žiadne údaje</string>
+    <string name="refresh_sheet_reason_offline">bez pripojenia</string>
+    <string name="refresh_sheet_reason_rate_limit">príliš veľa požiadaviek</string>
+    <string name="refresh_sheet_reason_server">chyba servera</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">časový limit</string>
+    <string name="refresh_sheet_reason_unavailable">burza nie je dostupná</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s sekúnd</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_exchanges">Burzy</string>
+    <string name="refresh_sheet_section_steps">Priebeh</string>
+    <string name="refresh_sheet_status_failed">neaktualizované</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">všetko aktualizované</string>
+    <string name="refresh_sheet_status_partial">čiastočne aktualizované</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Čaká sa na spustenie</string>
+    <string name="refresh_sheet_widgets">Miniaplikácie</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">hromadný dopyt %1$s (zlyhal)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d chyba</item>
+        <item quantity="few">%1$d chyby</item>
+        <item quantity="many">%1$d chyby</item>
+        <item quantity="other">%1$d chýb</item>
+    </plurals>
+    <string name="refresh_report_live">Naživo: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d sa už neobchoduje</item>
+        <item quantity="few">%1$d sa už neobchodujú</item>
+        <item quantity="many">%1$d sa už neobchoduje</item>
+        <item quantity="other">%1$d sa už neobchoduje</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d jednotlivo</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">Zlyhalo</string>
+    <string name="check_result_ok">OK</string>
+    <string name="check_result_partial">Čiastočne</string>
+    <string name="check_result_skipped">Preskočené</string>
+    <string name="check_trigger_bgtask">Pozadie</string>
+    <string name="check_trigger_exact">Presne</string>
+    <string name="check_trigger_foreground">Aplikácia</string>
+    <string name="check_trigger_widget">Miniaplikácia</string>
+    <string name="check_trigger_widget_ios">Miniaplikácia · kurzy a cenové alarmy</string>
+    <string name="check_trigger_worker">Pozadie</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android môže kontroly oneskoriť – batériu nastav na „Neobmedzené“</string>
+    <string name="battery_later">Neskôr</string>
+    <string name="battery_message">Android odkladá prácu na pozadí, aby šetril energiu — kurzy a miniaplikácie potom môžu byť staré aj niekoľko hodín. S neobmedzeným využitím batérie zostanú aktuálne. Môžeš to kedykoľvek zmeniť v nastaveniach Androidu.</string>
+    <string name="battery_open_settings">Otvoriť nastavenia batérie</string>
+    <string name="battery_steps">V informáciách o aplikácii ťukni na Batéria (alebo Využitie batérie aplikáciou) a vyber Neobmedzené.</string>
+    <string name="battery_title">Udržiavať kurzy aktuálne</string>
+    <string name="ios_background_refresh_off">Obnova na pozadí je pre túto aplikáciu vypnutá. Bez nej sa alarmy kontrolujú iba pri otvorenej aplikácii.</string>
+    <string name="ios_low_power_mode">Režim nízkej spotreby je zapnutý. iOS na pozadí kontroluje len zriedka, alarmy môžu meškať.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Správa burzy: %1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">Úložisko je ešte zamknuté – ďalší pokus o %1$d s</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="one">Úložisko je ešte zamknuté – ďalší pokus o %1$d sekundu</item>
+        <item quantity="few">Úložisko je ešte zamknuté – ďalší pokus o %1$d sekundy</item>
+        <item quantity="many">Úložisko je ešte zamknuté – ďalší pokus o %1$d sekundy</item>
+        <item quantity="other">Úložisko je ešte zamknuté – ďalší pokus o %1$d sekúnd</item>
+    </plurals>
+    <string name="watchlist_retry_short">Ďalší pokus o %1$s</string>
+    <string name="widget_retry_at">Ďalší pokus o %1$s</string>
+    <string name="refresh_sheet_wait_attempt">%1$d. pokus – šifrované úložisko pri prvom ešte nebolo pripravené</string>
+</resources>

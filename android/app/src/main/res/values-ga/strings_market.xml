@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="one">%d nóim ó shin</item>
+        <item quantity="two">%d nóim ó shin</item>
+        <item quantity="few">%d nóim ó shin</item>
+        <item quantity="many">%d nóim ó shin</item>
+        <item quantity="other">%d nóim ó shin</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">inniu %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed, méadrachtaí Bitcoin, ceannas, leathú</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">Tuilleadh sonraí margaidh</string>
+    <string name="market_phase_trend_failed">Níl sonraí praghais ar fáil</string>
+    <string name="market_plain_direction_down_clear">Tá luach iomlán na gcriptea-airgeadraí go léir i bhfad níos ísle ná 24 uair an chloig ó shin (%1$s).</string>
+    <string name="market_plain_direction_down_slight">Tá luach iomlán na gcriptea-airgeadraí go léir beagán níos ísle ná 24 uair an chloig ó shin (%1$s).</string>
+    <string name="market_plain_direction_flat">Is ar éigean a d’athraigh luach iomlán na gcriptea-airgeadraí go léir in 24 uair an chloig (%1$s).</string>
+    <string name="market_plain_direction_up_clear">Tá luach iomlán na gcriptea-airgeadraí go léir i bhfad níos airde ná 24 uair an chloig ó shin (%1$s).</string>
+    <string name="market_plain_direction_up_slight">Tá luach iomlán na gcriptea-airgeadraí go léir beagán níos airde ná 24 uair an chloig ó shin (%1$s).</string>
+    <string name="market_plain_footnote">Déanann sé cur síos ar an 24 uair an chloig deireanach – ní réamhaisnéis, ní comhairle infheistíochta.</string>
+    <string name="market_plain_mood_extreme_fear">Tá an-eagla ar infheisteoirí faoi láthair: tá an t-innéacs meoin (Fear &amp; Greed) ag %1$d as 100.</string>
+    <string name="market_plain_mood_extreme_greed">Tá an-saint ar infheisteoirí faoi láthair: tá an t-innéacs meoin (Fear &amp; Greed) ag %1$d as 100.</string>
+    <string name="market_plain_mood_fear">Tá eagla éigin ar infheisteoirí: tá an t-innéacs meoin (Fear &amp; Greed) ag %1$d as 100.</string>
+    <string name="market_plain_mood_greed">Tá saint éigin ar infheisteoirí: tá an t-innéacs meoin (Fear &amp; Greed) ag %1$d as 100.</string>
+    <string name="market_plain_mood_neutral">Tá meon na n-infheisteoirí cothrom: tá an t-innéacs meoin (Fear &amp; Greed) ag %1$d as 100.</string>
+    <string name="market_plain_standout_above_btc">Seasann %1$s amach: %2$s in 24 uair an chloig, i bhfad os cionn Bitcoin (%3$s).</string>
+    <string name="market_plain_standout_against_btc">Seasann %1$s amach: %2$s in 24 uair an chloig, agus Bitcoin ag dul an treo eile (%3$s).</string>
+    <string name="market_plain_standout_below_btc">Seasann %1$s amach: %2$s in 24 uair an chloig, i bhfad faoi Bitcoin (%3$s).</string>
+    <string name="market_plain_standout_futures_down">Seasann %1$s amach: tá líon neamhghnách trádálaithe todhchaíochtaí ag geall ar phraghsanna ag titim.</string>
+    <string name="market_plain_standout_futures_up">Seasann %1$s amach: tá líon neamhghnách trádálaithe todhchaíochtaí ag geall ar phraghsanna ag ardú.</string>
+    <string name="market_plain_standout_quiet">Níl aon bhonn ar leith ag seasamh amach faoi láthair.</string>
+    <string name="market_plain_standout_volume">Seasann %1$s amach: thart ar %2$s oiread trádála agus is gnách.</string>
+    <string name="market_plain_title">Go hachomair</string>
+    <string name="market_section_collapse">Folaigh %1$s</string>
+    <string name="market_section_context">Meon agus timthriall</string>
+    <string name="market_section_data">Sonraí margaidh</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">Taispeáin %1$s</string>
+    <string name="market_section_now">Faoi láthair</string>
+    <string name="market_source">Sonraí: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="exchange_unavailable_error">Níl an malartán ar fáil</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">Eolas: %1$s</string>
+    <string name="market_info_alt_season_source">Praghsanna laethúla: Binance · athríomhtha thart ar gach 3 uair an chloig</string>
+    <string name="market_info_alt_season_what">Comhaireann sé cé mhéad de thart ar 20 altbhonn mór (m.sh. Ethereum, Solana, XRP) a d’éirigh níos fearr leo ná le Bitcoin le 90 lá anuas. Is é an luach a sciar ó 0 go 100.</string>
+    <string name="market_info_coin_source">Praghsanna: Binance nó Bybit · athlódáilte thart ar gach 15 nóiméad</string>
+    <string name="market_info_dominance_how">Má ardaíonn an ceannas, tá ag éirí níos fearr le Bitcoin ná leis an gcuid eile den mhargadh; má thiteann sé, faigheann boinn eile níos mó meáchain. Comhairtear boinn chobhsaí freisin: má fhásann a luach, titeann sciar Bitcoin fiú nuair a fhanann praghas Bitcoin mar an gcéanna.</string>
+    <string name="market_info_dominance_source">Foinse: CoinGecko · athlódáilte thart ar gach 30 nóiméad</string>
+    <string name="market_info_dominance_what">Sciar Bitcoin de luach iomlán na gcriptea-airgeadraí go léir (caipitliú margaidh). Faoi sin tá sciar Ethereum.</string>
+    <string name="market_info_fear_greed_how">Ciallaíonn faoi 25 an-eagla, os cionn 75 an-saint, thart ar 50 neodrach. Nuair atá sé leathnaithe, taispeánann an cárta na luachanna ó inné, seachtain ó shin agus mí ó shin. Ní comhartha ceannaigh ná díola é.</string>
+    <string name="market_info_fear_greed_source">Foinse: alternative.me · luach nua uair sa lá</string>
+    <string name="market_info_fear_greed_what">Innéacs meoin don mhargadh crypto ó 0 go 100. Ríomhann alternative.me é ó roinnt ionchur, lena n-áirítear luaineacht praghais, toirt trádála, na meáin shóisialta agus ceannas Bitcoin.</string>
+    <string name="market_info_gas_how">Ciallaíonn luachanna níos airde go bhfuil an líonra gnóthach agus go gcosnaíonn aistrithe níos mó. Is táillí iad mall, gnáth agus tapa le haghaidh deimhniú níos déanaí nó níos tapúla. Nuair atá sé leathnaithe, taispeánann an cárta costas measta aistrithe shimplí.</string>
+    <string name="market_info_gas_source">Nóid RPC phoiblí, mempool.space · athlódáilte gach nóiméad</string>
+    <string name="market_info_gas_what">Cad a chosnaíonn idirbheart faoi láthair ar gach líonra. Ar Ethereum agus líonraí cosúil leis in gwei (an billiúnú cuid de ETH in aghaidh aonad gáis), ar Bitcoin in sat/vB (satoshis in aghaidh beart fíorúil den idirbheart).</string>
+    <string name="market_info_halving_source">Dáta: ó airde an bhloic agus meán-am bloic (mempool.space), nó de réir an fhéilire · stair praghais: Coin Metrics, Binance, athlódáilte gach 12 uair an chloig</string>
+    <string name="market_info_halving_what">Ag an leathú, laghdaítear go leath an luach saothair a fhaigheann mianadóirí as bloc nua Bitcoin. Tarlaíonn sé seo gach 210,000 bloc, thart ar gach ceithre bliana. Ina dhiaidh sin, ní chruthaítear ach leath an oiread bitcoin nua in aghaidh an lae.</string>
+    <string name="market_info_how">Conas é a léamh</string>
+    <string name="market_info_macro_how">Ní thaispeántar an nóta ach nuair atá dáta den sórt sin inniu nó amárach. Timpeall an fhoilsithe, is minic a luainíonn praghsanna níos mó ná mar is gnách. Ní thaispeánann an aip ach an dáta, ní na figiúirí féin.</string>
+    <string name="market_info_macro_source">Féilire ó shuíomh gréasáin na haipe · lódáilte uair sa lá</string>
+    <string name="market_info_macro_what">Dátaí sonraí eacnamaíocha tábhachtacha SAM: boilsciú (CPI, PCE), praghsanna táirgeoirí (PPI), an tuarascáil fostaíochta agus cinntí rátaí úis Chúlchiste Feidearálach SAM. Is minic a bhogann figiúirí den sórt sin praghsanna crypto freisin.</string>
+    <string name="market_info_no_advice">Ní comhairle infheistíochta é.</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · praghsanna gach uair an chloig, luachanna on-chain athlódáilte gach 12 uair an chloig</string>
+    <string name="market_info_pulse_how">Ainmníonn an ceannlíne an treo; leathnaigh an cárta le haghaidh sonraí. Ciallaíonn gluaiseacht leathan go bhfuil formhór na mbonn mór ag bogadh sa treo céanna. Ciallaíonn meon giarála dóchasach go bhfuil go leor trádálaithe ag geall ar phraghsanna ag ardú le giaráil, tomhaiste le ráta maoinithe todhchaíochtaí Bitcoin. Léargas tapa, ní réamhaisnéis.</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · athlódáilte thart ar gach 5 nóiméad</string>
+    <string name="market_info_pulse_what">Achoimre ghearr ar an margadh le 24 uair an chloig anuas: conas atá Bitcoin, Ethereum agus Solana ag bogadh, cé mhéad de na boinn is mó atá ag ardú nó ag titim, cé mhéad Bitcoin atá á thrádáil faoi láthair agus cén meon giarála atá ann (tomhaiste le ráta maoinithe todhchaíochtaí Bitcoin).</string>
+    <string name="market_info_totals_how">Ar dheis tá an t-athrú ar an luach iomlán thar 24 uair an chloig. Ciallaíonn toirt ard go bhfuil go leor á thrádáil – ní insíonn sé cén treo. Taispeánta san airgeadra tiontaithe nuair is féidir, nó i ndollair SAM.</string>
+    <string name="market_info_totals_source">Gach bonn · CoinGecko · athlódáilte thart ar gach 30 nóiméad</string>
+    <string name="market_info_totals_what">Luach iomlán na gcriptea-airgeadraí go léir (caipitliú margaidh: praghas faoi sholáthar i gcúrsaíocht, suimithe thar gach bonn) agus toirt trádála an 24 uair an chloig deireanach.</string>
+    <string name="market_info_unusual_how">Taispeánann gach bonn an bhreathnóireacht is suntasaí atá aige, leis an athrú 24 uair an chloig ar dheis. Ciallaíonn toirt 2× dhá oiread an ghnáth-láimhdeachais. Ní chiallaíonn suntasach maith ná olc.</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · athlódáilte thart ar gach 10 nóiméad</string>
+    <string name="market_info_unusual_what">Suas le cúig bhonn as an 30 is mó, nó mar sin (gan boinn chobhsaí), atá ag iompar go neamhghnách inniu: i bhfad níos láidre nó níos laige ná Bitcoin, in aghaidh threo an mhargaidh, le toirt trádála neamhghnách ard nó le ráta maoinithe suntasach.</string>
+    <string name="market_info_what">Cad é seo?</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">Caip. mhargaidh</string>
+    <string name="market_cap_source">Gach bonn · CoinGecko</string>
+    <string name="market_cap_title">Margadh crypto</string>
+    <string name="market_volume_label">Toirt 24 u</string>
+
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">Sonraí</string>
+    <string name="pulse_disclaimer">Ní réamhaisnéis · Ní comhairle infheistíochta</string>
+    <string name="pulse_less">Taispeáin níos lú</string>
+    <string name="pulse_now_title">Cuisle crypto</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">Athrú thar 24 uair an chloig</string>
+    <string name="pulse_section_factors">Fachtóirí</string>
+    <string name="pulse_section_market">An margadh inniu</string>
+    <string name="pulse_unavailable">Níl sonraí margaidh ar fáil faoi láthair</string>
+    <string name="pulse_updated">Staid %1$s</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">Margadh ciúin</string>
+    <string name="pulse_headline_down">Laige fhorleathan</string>
+    <string name="pulse_headline_mixed">Pictiúr measctha</string>
+    <string name="pulse_headline_up">Neart forleathan</string>
+    <string name="pulse_lead_alts_stronger">Tá altboinn níos láidre ná Bitcoin.</string>
+    <string name="pulse_lead_broad_down">Tá an margadh ag titim go forleathan.</string>
+    <string name="pulse_lead_broad_up">Tá an margadh ag ardú go forleathan.</string>
+    <string name="pulse_lead_btc_leads">Is é Bitcoin is mó atá ag ardú.</string>
+    <string name="pulse_lead_btc_stronger">Tá Bitcoin níos láidre ná na haltboinn.</string>
+    <string name="pulse_lead_calm">Is ar éigean atá an margadh ag bogadh.</string>
+    <string name="pulse_lead_drift_down">Tá an margadh ag sleamhnú síos.</string>
+    <string name="pulse_lead_drift_up">Tá an margadh ag druidim suas.</string>
+    <string name="pulse_lead_mixed">Tá na boinn mhóra ag bogadh i dtreonna éagsúla.</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">Meon giarála dóchasach.</string>
+    <string name="pulse_detail_fund_negative">Meon giarála duairc.</string>
+    <string name="pulse_detail_fund_neutral">Meon giarála neodrach.</string>
+    <string name="pulse_detail_vol_above">Toirt %1$s os cionn an ghnáth.</string>
+    <string name="pulse_detail_vol_above_fund_high">Toirt %1$s os cionn an ghnáth, meon giarála dóchasach.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Toirt %1$s os cionn an ghnáth, meon giarála duairc.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Toirt %1$s os cionn an ghnáth, meon giarála neodrach.</string>
+    <string name="pulse_detail_vol_below">Toirt %1$s faoin ngnáth.</string>
+    <string name="pulse_detail_vol_below_fund_high">Toirt %1$s faoin ngnáth, meon giarála dóchasach.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Toirt %1$s faoin ngnáth, meon giarála duairc.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Toirt %1$s faoin ngnáth, meon giarála neodrach.</string>
+    <string name="pulse_detail_vol_normal">Toirt ghnáth.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Toirt ghnáth, meon giarála dóchasach.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Toirt ghnáth, meon giarála duairc.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Toirt ghnáth, meon giarála neodrach.</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">Barr %1$d: na boinn is mó de réir luach margaidh, gan boinn chobhsaí; athrú thar 24 uair an chloig (CoinGecko).</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Barr %1$d</string>
+    <string name="pulse_breadth_note_broad_down">Díolachán forleathan: tá formhór na mbonn is mó ag titim.</string>
+    <string name="pulse_breadth_note_broad_up">Gluaiseacht fhorleathan: tá formhór na mbonn is mó ag ardú.</string>
+    <string name="pulse_breadth_note_narrow_down">Tá Bitcoin ag titim, ach tá formhór na mbonn mór eile ag coinneáil a seasaimh.</string>
+    <string name="pulse_breadth_note_narrow_up">Tá Bitcoin ag ardú, ach níl formhór na mbonn mór eile ag teacht leis.</string>
+    <string name="pulse_breadth_spoken">Barr %1$d: %2$d suas, %3$d síos</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">Bogann altboinn agus Bitcoin mar an gcéanna</string>
+    <string name="pulse_alts_stronger">Altboinn níos láidre ná Bitcoin</string>
+    <string name="pulse_alts_weaker">Bitcoin níos láidre ná altboinn</string>
+    <string name="pulse_chip_funding_high">Meon giarála dóchasach</string>
+    <string name="pulse_chip_funding_negative">Meon giarála duairc</string>
+
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">Taispeáin praghas agus gníomhartha</string>
+    <string name="unusual_fact_against">Ag bogadh in aghaidh an mhargaidh</string>
+    <string name="unusual_fact_funding_high">Maoiniú ard (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Maoiniú diúltach (%1$s)</string>
+    <string name="unusual_fact_stronger">Ag bogadh i bhfad níos láidre ná BTC</string>
+    <string name="unusual_fact_volume">Toirt %1$s× an ghnáth</string>
+    <string name="unusual_fact_weaker">Ag bogadh i bhfad níos laige ná BTC</string>
+    <string name="unusual_nothing">Níl aon rud suntasach inniu</string>
+    <string name="unusual_source">Thart ar 30 bonn is mó gan boinn chobhsaí · Binance, CoinGecko</string>
+    <string name="unusual_title">Suntasach</string>
+
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">Suntasach</string>
+    <string name="activity_indicator">Suntasach</string>
+    <string name="activity_sensitivity_less">Níos lú</string>
+    <string name="activity_sensitivity_more">Níos mó</string>
+    <string name="activity_sensitivity_normal">Gnáth</string>
+    <string name="activity_signal_funding_long">Maoiniú %1$s — go leor fadsuíomhanna giaráilte</string>
+    <string name="activity_signal_funding_short">Maoiniú %1$s — go leor gearrshuíomhanna</string>
+    <string name="activity_signal_open_interest">Ús oscailte %1$s laistigh de %2$d nóim</string>
+    <string name="activity_signal_open_interest_no_time">Ús oscailte %1$s</string>
+    <string name="activity_signal_price_move">Gluaiseacht neamhghnách: %1$s in uair an chloig (%2$s× an ghnáth)</string>
+    <string name="activity_signal_volume">Toirt %1$s× an ghnáth san uair dheireanach</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="one">Sáraíonn %1$d as %2$d altbhonn mór Bitcoin thar 90 lá</item>
+        <item quantity="two">Sáraíonn %1$d as %2$d altbhonn mór Bitcoin thar 90 lá</item>
+        <item quantity="few">Sáraíonn %1$d as %2$d altbhonn mór Bitcoin thar 90 lá</item>
+        <item quantity="many">Sáraíonn %1$d as %2$d altbhonn mór Bitcoin thar 90 lá</item>
+        <item quantity="other">Sáraíonn %1$d as %2$d altbhonn mór Bitcoin thar 90 lá</item>
+    </plurals>
+    <string name="insights_chart_axis">Blianta ón leathú</string>
+    <string name="insights_chart_hint">Praghas mar iolraí de phraghas lá an leathaithe (scála logartamach). Is patrún iad timthriallta roimhe seo, ní réamhaisnéis.</string>
+    <string name="insights_cycle_chart">Timthriallta ón leathú</string>
+    <string name="insights_dominance_eth">ETH %1$s den mhargadh iomlán</string>
+    <string name="insights_dominance_title">Ceannas Bitcoin</string>
+    <string name="insights_fng_history">Inné %1$s · seachtain ó shin %2$s · mí ó shin %3$s</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="insights_halving_title">Leathú Bitcoin</string>
+    <string name="insights_source_dominance">Foinse: CoinGecko, Binance</string>
+    <string name="insights_source_fng">Foinse: alternative.me</string>
+    <string name="insights_source_history">Foinse: Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">An-eagla</string>
+    <string name="fng_extreme_greed">An-saint</string>
+    <string name="fng_fear">Eagla</string>
+    <string name="fng_greed">Saint</string>
+    <string name="fng_neutral">Neodrach</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">Sonraí ó %1$s · á nuashonrú…</string>
+    <string name="cycle_from_top">%1$s ón mbarr</string>
+    <string name="cycle_marker_bottom">Grinneall %1$s</string>
+    <string name="cycle_marker_double_bottom">Grinneall dúbailte %1$s</string>
+    <string name="cycle_marker_double_top">Barr dúbailte %1$s</string>
+    <string name="cycle_marker_high_so_far">Buaic go dtí seo</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">Barr %1$s</string>
+    <string name="cycle_since_halving">%1$s ón leathú</string>
+    <string name="halving_estimate_text">An chéad leathú eile de réir ríomha thart ar %1$s: %2$s bloc fágtha ag meán %3$s nóim in aghaidh an bhloic (tréimhse deacrachta reatha). Teilgean, ní gealltanas – athraíonn am an bhloic.</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">Foláireamh: %1$s</string>
+    <string name="gas_slow_fast">Mall %1$s · Tapa %2$s</string>
+    <string name="gas_source">Nóid RPC phoiblí agus mempool.space · Costas aistrithe shimplí, gan sciar L1 ar L2anna</string>
+    <string name="gas_title">Táillí líonra</string>
+    <string name="gas_transfer_cost">Aistriú ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">Sonraí boilscithe SAM (CPI)</string>
+    <string name="macro_fomc">Cinneadh ráta Fed SAM</string>
+    <string name="macro_hint_list">%1$s – is minic a luainíonn margaí níos mó ar laethanta mar seo.</string>
+    <string name="macro_hint_today">Inniu %1$s: %2$s – is minic a luainíonn margaí níos mó ar laethanta mar seo.</string>
+    <string name="macro_hint_today_list">Inniu: %1$s – is minic a luainíonn margaí níos mó ar laethanta mar seo.</string>
+    <string name="macro_hint_tomorrow">Amárach %1$s: %2$s – is minic a luainíonn margaí níos mó ar laethanta mar seo.</string>
+    <string name="macro_hint_tomorrow_list">Amárach: %1$s – is minic a luainíonn margaí níos mó ar laethanta mar seo.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Inniu %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Amárach %1$s %2$s</string>
+    <string name="macro_nfp">Tuarascáil fostaíochta SAM</string>
+    <string name="macro_pce">Praghsanna caiteachais tomhaltóirí SAM (PCE)</string>
+    <string name="macro_ppi">Praghsanna táirgeoirí SAM (PPI)</string>
+    <string name="macro_released_list">Foilsithe inniu: %1$s.</string>
+    <string name="macro_released_one">Foilsithe inniu ag %1$s: %2$s.</string>
+    <string name="macro_title">Sonraí eacnamaíocha</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">Bonn</string>
+    <string name="coin_no_data">Gan sonraí praghais don bhonn seo ar Binance ná Bybit.</string>
+    <string name="coin_price_only">Bunaithe ar phraghas amháin – níl sonraí on-chain (MVRV, Puell, hashrate) ar fáil saor in aisce ach do Bitcoin.</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">Níl ach %1$d lá de stair phraghais – tá roinnt táscairí ar iarraidh.</item>
+        <item quantity="two">Níl ach %1$d lá de stair phraghais – tá roinnt táscairí ar iarraidh.</item>
+        <item quantity="few">Níl ach %1$d lá de stair phraghais – tá roinnt táscairí ar iarraidh.</item>
+        <item quantity="many">Níl ach %1$d lá de stair phraghais – tá roinnt táscairí ar iarraidh.</item>
+        <item quantity="other">Níl ach %1$d lá de stair phraghais – tá roinnt táscairí ar iarraidh.</item>
+    </plurals>
+    <string name="coin_title">Anailís boinn</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">Sonraí: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">Gnóthaí agus caillteanais 24 u</string>
+    <string name="movers_gainers">Gnóthaí</string>
+    <string name="movers_losers">Caillteanais</string>
+    <string name="movers_no_gainers">Níor ardaigh aon bhonn in 24 u</string>
+    <string name="movers_no_losers">Níor thit aon bhonn in 24 u</string>
+    <string name="movers_source">CoinGecko, 24 u, barr 100 gan boinn chobhsaí</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">Taispeáin gach rud</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">Taispeáin níos lú</string>
+</resources>

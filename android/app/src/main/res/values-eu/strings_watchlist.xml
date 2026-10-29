@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">Eguneratuta · %1$s</string>
+    <string name="watchlist_empty_title">Oraindik ez dago parerik</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%2$d-(e)tik %1$d preziorik gabe</item>
+        <item quantity="other">%2$d-(e)tik %1$d preziorik gabe</item>
+    </plurals>
+    <string name="watchlist_last_run">Azken exekuzioa: %1$s</string>
+    <string name="watchlist_live_a11y">Zuzeneko prezioak aktibatuta</string>
+    <string name="watchlist_offline_since">Konexiorik ez · eguneratua: %1$s</string>
+    <string name="watchlist_pull_to_refresh">Pasatu hatza behera eguneratzeko</string>
+    <string name="watchlist_refresh_report">Azken eguneratzea</string>
+    <string name="watchlist_refresh_report_empty">Oraindik ez dago xehakapenik – orain arte ez da eguneratze osorik egin. Sakatu Eguneratu eta itxaron zirkulua gelditu arte.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%2$d-(e)tik %1$d zaharkituta</item>
+        <item quantity="other">%2$d-(e)tik %1$d zaharkituta</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">Hemengo pare guztiak desaktibatuta daude</string>
+    <string name="watchlist_status_exchange_prices">Zure burtsetako prezioak · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">Burtsetako prezioak · %1$s</string>
+    <string name="watchlist_status_group_empty">Ez dago parerik talde honetan</string>
+    <string name="watchlist_status_none_traded">Hemen ez dago negoziatutako parerik</string>
+    <string name="watchlist_updated">Eguneratua: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">batez beste %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d behera</item>
+        <item quantity="other">%1$d behera</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d 24 orduko baliorik gabe</item>
+        <item quantity="other">%1$d 24 orduko baliorik gabe</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d gaurko baliorik gabe</item>
+        <item quantity="other">%1$d gaurko baliorik gabe</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d gora</item>
+        <item quantity="other">%1$d gora</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · desaktibatuta</string>
+    <string name="watchlist_row_outdated">%1$s · zaharkituta</string>
+    <string name="watchlist_row_outdated_age">zaharkituta · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">Prezioa aldatu gabe ordu honetatik: %1$s</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s ez dago eskuragarri</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">Joan amaierara</string>
+    <string name="watchlist_jump_start">Joan hasierara</string>
+    <string name="watchlist_search_close">Itxi bilaketa</string>
+    <string name="watchlist_search_empty">Ez dago bat-etortzerik honetarako: «%1$s»</string>
+    <string name="watchlist_search_hint">Bilatu parea, izena edo burtsa</string>
+    <string name="watchlist_search_open">Bilatu</string>
+    <string name="watchlist_sort_ascending">gorantz</string>
+    <string name="watchlist_sort_descending">beherantz</string>
+    <string name="watchlist_sort_hint">Eduki sakatuta eta arrastatu pare bat, edo erabili heldulekua. Gogokoak goian geratzen dira.</string>
+    <string name="watchlist_sort_name">Izena</string>
+    <string name="watchlist_sort_own">Ordena pertsonalizatua</string>
+    <string name="watchlist_sort_price">Prezioa</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">Garbitu zerrenda</string>
+    <string name="watchlist_clear_confirm">Pare guztiak zerrendatik kendu nahi dituzu? Haien alarmak ere kenduko dira.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d desaktibatuta</item>
+        <item quantity="other">%1$d desaktibatuta</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">Kendu</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Bere burtsan jada negoziatzen ez den %1$d pare kendu nahi duzu? Haren alarmak ere kenduko dira.</item>
+        <item quantity="other">Beren burtsan jada negoziatzen ez diren %1$d pare kendu nahi dituzu? Haien alarmak ere kenduko dira.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">Kendu negoziatzen ez diren pareak (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Kendu negoziatzen ez diren pareak</string>
+    <string name="watchlist_removed">Kendu da: %1$s</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d pare kendu da</item>
+        <item quantity="other">%1$d pare kendu dira</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">Negoziatzen ez den %1$d pare kendu da</item>
+        <item quantity="other">Negoziatzen ez diren %1$d pare kendu dira</item>
+    </plurals>
+    <string name="watchlist_select">Hautatu</string>
+    <string name="watchlist_select_all">Hautatu guztiak</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d hautatuta</item>
+        <item quantity="other">%1$d hautatuta</item>
+    </plurals>
+    <string name="watchlist_show_all">Erakutsi guztiak</string>
+    <string name="watchlist_show_only_disabled">Erakutsi desaktibatuak soilik</string>
+    <string name="watchlist_show_only_stale">Erakutsi zaharkituak soilik</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Alarma (%1$d)</item>
+        <item quantity="other">Alarmak (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">Oraindik ez dago gogokorik. Pasatu hatza pare baten gainetik eskuinera, edo ireki parea eta sakatu «Gogokoa».</string>
+    <string name="watchlist_group_empty_hint">Sakatu luze talde bat haren pareak aukeratzeko.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">Zure taldeak hemen agertuko dira</string>
+    <string name="watchlist_notification">Prezio-jakinarazpena</string>
+    <string name="watchlist_tts">Irakurri prezioa ozen</string>
+    <string name="watchlist_tts_speech_on">Ahots-irteera aktibatuta dago. Hemen alda dezakezu: Ezarpenak › Alarmak › Ahots-irteera.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">Gehitu widget gisa</string>
+    <string name="watch_action_alarm">Alarma</string>
+    <string name="watch_action_favorite">Gogokoa</string>
+    <string name="watch_action_why">Zer mugitzen da harekin batera?</string>
+    <string name="watch_action_why_short">Zer mugitzen da harekin?</string>
+    <string name="watch_change_mark">Marka</string>
+    <string name="watch_disable">Desaktibatu</string>
+    <string name="watch_disable_hint">Eskaerarik eta jakinarazpenik ez</string>
+    <string name="watch_disabled">Desaktibatuta</string>
+    <string name="watch_disabled_banner">Desaktibatu da: %1$s</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">Alarmak mantendu egiten dira – begiratu haien mugak</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">Editatu parea</string>
+    <string name="watch_enable">Aktibatu</string>
+    <string name="watch_enable_hint">Prezioak eta jakinarazpenak berriro hasten dira</string>
+    <string name="watch_enabled_banner">Aktibatu da: %1$s</string>
+    <string name="watch_error_offline">Konexiorik ez</string>
+    <string name="watch_gesture_hint_short">Sakatu: alarma eta «Zer mugitzen da harekin batera?» · sakatu luze hautatzeko · pasatu ezkerrera ezabatzeko · pasatu eskuinera gogokoetarako</string>
+    <string name="watch_hint_tap_why">Sakatu txanpon bat alarmetarako eta «Zer mugitzen da harekin batera?» ikusteko</string>
+    <string name="watch_not_traded">Ez da jada negoziatzen burtsa honetan</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">Ez dago zerrendan</string>
+    <string name="watch_price_mid">erdiko prezioa (bestela, marka-prezioa)</string>
+    <string name="watch_row_source_both">Aldaketa eta diagrama: %1$s</string>
+    <string name="watch_row_source_change">Aldaketa: %1$s</string>
+    <string name="watch_row_source_chart">Diagrama: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">Zure zerrendan dago orain: %1$s</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">Zure zerrendan daude orain: %1$s</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">Gehitu gogokoetara</string>
+    <string name="favorite_added">Gogokoetara gehitu da: %1$s</string>
+    <string name="favorite_remove">Kendu gogokoetatik</string>
+    <string name="favorite_removed">Gogokoetatik kendu da: %1$s</string>
+    <string name="hint_favorites_list">Aholkua: pasatu hatza errenkada baten gainetik eskuinera gogoko bihurtzeko – gogokoak goian geratzen dira.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">Talde berria</string>
+    <string name="group_all">Guztiak</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Alpha tokenak</string>
+    <string name="group_delete">Ezabatu taldea</string>
+    <string name="group_delete_confirm">Pareak zure zerrendan geratzen dira.</string>
+    <string name="group_done">Eginda</string>
+    <string name="group_edit_title">Editatu taldea</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">Gogokoak</string>
+    <string name="group_in_other">hemen: %1$s</string>
+    <string name="group_name">Taldearen izena</string>
+    <string name="group_new">Talde berria…</string>
+    <string name="group_next">Hurrengoa</string>
+    <string name="group_none">Talderik ez</string>
+    <string name="group_rename">Aldatu izena</string>
+    <string name="group_search_hint">Bilatu parea, izena edo burtsa</string>
+    <string name="group_target">Taldean</string>
+    <string name="group_title">Taldea</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">Tokenak</string>
+    <string name="group_value">Taldea: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">Gehitu oharra</string>
+    <string name="note_edit">Editatu oharra</string>
+    <string name="note_hint">adib. sarrera 0,42an, helburua 0,60</string>
+    <string name="note_remove">Kendu</string>
+    <string name="note_title">Oharra</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">Arrastatu ordena aldatzeko</string>
+    <string name="sort_move_bottom">Eraman amaierara</string>
+    <string name="sort_move_down">Eraman behera</string>
+    <string name="sort_move_top">Eraman hasierara</string>
+    <string name="sort_move_up">Eraman gora</string>
+
+    <string name="watchlist_first_alarm_title">Ezarri zure lehen alarma</string>
+    <string name="watchlist_first_alarm_text">Jaso abisu bat prezio batek zure mugara iristen denean – aplikazioa itxita dagoela, Android-ek modu irregularrean egiaztatzen du.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">marka-prezioa (erdiko preziorik gabe)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">orduko prezioa</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">Ezarri zure lehen alarma – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Eguneratu (%1$d)</string>
+
+    <!-- Zeile der Merkliste: Börse pausiert (zu viele Anfragen / Zeitüberschreitungen) bis zu einer Uhrzeit, ersetzt die Zeitzeile, z. B. «Binance · pausiert bis 19:45» -->
+    <string name="watchlist_row_exchange_paused">%1$s · pausatuta ordu honetara arte: %2$s</string>
+
+    <string name="watchlist_refresh_just_done">Oraintxe eguneratua · duela %1$d s</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">azken eragiketa: %1$s</string>
+
+    <string name="change_candle_source_hint">%1$s-(e)ko kandeletatik kalkulatua – burtsak berak ez du balio hau ematen.</string>
+    <string name="change_candle_source_action">Erakutsi aldaketaren iturria</string>
+
+    <string name="watchlist_sort_by_coin">Ordenatu txanponaren arabera</string>
+    <string name="watchlist_sort_by_exchange">Ordenatu burtsaren arabera</string>
+    <string name="watchlist_limit_reached">Zure zerrendak gehienez %1$s pare izan ditzake.</string>
+    <string name="watch_price_reference">erreferentzia-tasa, egunekoa</string>
+    <string name="watch_price_daily">egunekoa</string>
+    <string name="watchlist_compare">Konparatu</string>
+    <string name="watchlist_compare_hint">Hautatu 2 eta 4 pare artean konparatzeko.</string>
+    <string name="compare_title">Konparazioa</string>
+    <string name="compare_basis">Lerroek aldiaren hasieratik izandako aldaketa erakusten dute ehunekotan.</string>
+    <string name="compare_from_high">vs. 30 eguneko gehienezkoa</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">%1$d pare ez da leheneratu – zerrenda beteta dago</item>
+        <item quantity="other">%1$d pare ez dira leheneratu – zerrenda beteta dago</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">Zerrenda eta haren alarmak ez dira gordetzen ari une honetan. Aldaketa hau eta hurrengoak galdu egingo dira aplikazioa ixtean. Aldatu hala ere?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">Aldatu hala ere</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">%1$d pare</item>
+        <item quantity="other">%1$d pare</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">%1$d paretik %2$d</item>
+        <item quantity="other">%1$d paretik %2$d</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">%1$d leku geratzen da</item>
+        <item quantity="other">%1$d leku geratzen dira</item>
+    </plurals>
+    <string name="watchlist_footer_full">Zerrenda beteta</string>
+</resources>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">નોંધપાત્ર: %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — હવે %2$s</string>
+    <string name="notification_alarm_title">એલર્ટ: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">એક્સચેન્જ ખોલો</string>
+    <string name="notification_depeg_text">ઍપમાંનાં મૂલ્યો આ માર્કેટ ભાવ વાપરે છે.</string>
+    <string name="notification_depeg_title">USDT %1$s USD પર (%2$s)</string>
+    <string name="notification_fng_above">ઇન્ડેક્સ %1$d થી ઉપર ગયો – આ માપ મુજબ માર્કેટનો મૂડ લાલચુ છે.</string>
+    <string name="notification_fng_below">ઇન્ડેક્સ %1$d થી નીચે ગયો – આ માપ મુજબ માર્કેટનો મૂડ ભયભીત છે.</string>
+    <string name="notification_fng_title">મૂડ ઇન્ડેક્સ (Fear &amp; Greed): %1$d</string>
+    <string name="notification_gas_btc_text">તમારી %1$s sat/vB ની મર્યાદાથી નીચે · ટ્રાન્સફર ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin ફી: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">તમારી %1$s gwei ની મર્યાદાથી નીચે · ટ્રાન્સફર ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Ethereum ગૅસ: %1$s gwei</string>
+    <string name="notification_indicator_above">તમારી મર્યાદા %1$s થી ઉપર – માપેલું મૂલ્ય, ભલામણ નથી.</string>
+    <string name="notification_indicator_below">તમારી મર્યાદા %1$s થી નીચે – માપેલું મૂલ્ય, ભલામણ નથી.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">આજનો આર્થિક ડેટા</string>
+    <string name="notification_permission_preprompt_continue">આગળ વધો</string>
+    <string name="notification_permission_preprompt_later">પછી</string>
+    <string name="notification_permission_preprompt_text">એલર્ટ અને ભાવ સૂચનાઓ તમારા સુધી પહોંચે તે માટે ઍપને સૂચનાઓ મોકલવાની મંજૂરી જોઈએ. ઍપ તેનો ઉપયોગ ફક્ત તમારા એલર્ટ અને ભાવ સૂચનાઓ માટે કરે છે.</string>
+    <string name="notification_permission_preprompt_title">સૂચનાઓને મંજૂરી આપવી છે?</string>
+    <string name="notification_portfolio_alarm_locked">તમારો એલર્ટ વાગ્યો – વિગતો માટે ઍપ ખોલો.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – હવે %2$s</string>
+    <string name="notification_portfolio_alarm_title">પોર્ટફોલિયો મૂલ્ય</string>
+    <string name="notification_price_change">%1$s, %2$s થી (%3$s પહેલાં)</string>
+    <string name="notification_price_change_no_age">%1$s, %2$s થી</string>
+    <string name="notification_price_first">આ જોડી માટે પહેલી ભાવ સૂચના</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+%1$d વધુ ભાવ</item>
+        <item quantity="other">+%1$d વધુ ભાવ</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">ભાવ અપડેટ થઈ રહ્યા છે…</string>
+    <string name="notification_volume_spike_text">છેલ્લા કલાકમાં વૉલ્યુમ સામાન્ય કરતાં %1$s×</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">એલર્ટ</string>
+    <string name="channel_alarms_description">એલર્ટ વાગે ત્યારે સૂચના.</string>
+    <string name="channel_alarms_quiet">એલર્ટ (શાંત સમય)</string>
+    <string name="channel_alarms_quiet_description">શાંત સમય દરમિયાન અવાજ વગરના એલર્ટ.</string>
+    <string name="channel_alarms_silent">એલર્ટ (અવાજ વગર)</string>
+    <string name="channel_alarms_sound">એલર્ટ (ફક્ત અવાજ)</string>
+    <string name="channel_alarms_sound_vibrate">એલર્ટ (અવાજ અને વાઇબ્રેશન)</string>
+    <string name="channel_alarms_vibrate">એલર્ટ (ફક્ત વાઇબ્રેશન)</string>
+    <string name="channel_prices">ભાવ સૂચનાઓ</string>
+    <string name="channel_prices_description">જોડીના વર્તમાન ભાવ સાથે અવાજ વગરની ભાવ સૂચના.</string>
+    <string name="channel_service">ભાવ અપડેટ</string>
+    <string name="channel_service_description">ભાવ અપડેટ થતા હોય ત્યારે સૂચના.</string>
+    <string name="neutral_channel_market">માર્કેટ એલર્ટ</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, ગૅસ ફી, “નોંધપાત્ર” અને આર્થિક તારીખો</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">એલર્ટ. %1$s, %2$s %3$s %4$s, હવે %5$s</string>
+    <string name="tts_direction_down">ઘટ્યો છે</string>
+    <string name="tts_direction_funding_above">ઊંચા ફંડિંગ સાથે</string>
+    <string name="tts_direction_funding_below">નીચા ફંડિંગ સાથે</string>
+    <string name="tts_direction_move">જોરથી હલી રહ્યો છે</string>
+    <string name="tts_direction_near_high">તેના ઊંચા સ્તરની નજીક છે</string>
+    <string name="tts_direction_near_low">તેના નીચા સ્તરની નજીક છે</string>
+    <string name="tts_direction_oi_down">ઘટતા ઓપન ઇન્ટરેસ્ટ સાથે</string>
+    <string name="tts_direction_oi_up">વધતા ઓપન ઇન્ટરેસ્ટ સાથે</string>
+    <string name="tts_direction_up">વધ્યો છે</string>
+    <string name="tts_direction_volume_spike">વૉલ્યુમમાં ઉછાળા સાથે</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+
+    <!-- Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+    <string name="notification_alarm_action_snooze">1 કલાક પછી</string>
+    <string name="notification_alarm_action_edit">ગોઠવો</string>
+</resources>

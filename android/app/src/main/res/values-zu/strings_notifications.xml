@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">Okuphawulekayo: %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — manje %2$s</string>
+    <string name="notification_alarm_title">I-alamu: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">Vula i-exchange</string>
+    <string name="notification_depeg_text">Amanani ku-app asebenzisa le ntengo yemakethe.</string>
+    <string name="notification_depeg_title">USDT ku-%1$s USD (%2$s)</string>
+    <string name="notification_fng_above">Inkomba yenyuke ngaphezu kuka-%1$d – ngalesi silinganiso, umoya wemakethe unomhawu.</string>
+    <string name="notification_fng_below">Inkomba yehle ngaphansi kuka-%1$d – ngalesi silinganiso, umoya wemakethe uyesaba.</string>
+    <string name="notification_fng_title">Inkomba yomoya (Fear &amp; Greed): %1$d</string>
+    <string name="notification_gas_btc_text">Ngaphansi komkhawulo wakho we-%1$s sat/vB · Ukudlulisa ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Imali ye-Bitcoin: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">Ngaphansi komkhawulo wakho we-%1$s gwei · Ukudlulisa ≈ %2$s</string>
+    <string name="notification_gas_eth_title">I-gas ye-Ethereum: %1$s gwei</string>
+    <string name="notification_indicator_above">Ngaphezu komkhawulo wakho %1$s – inani elilinganisiwe, hhayi isincomo.</string>
+    <string name="notification_indicator_below">Ngaphansi komkhawulo wakho %1$s – inani elilinganisiwe, hhayi isincomo.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">Idatha yomnotho namuhla</string>
+    <string name="notification_permission_preprompt_continue">Qhubeka</string>
+    <string name="notification_permission_preprompt_later">Kamuva</string>
+    <string name="notification_permission_preprompt_text">Ukuze ama-alamu nezaziso zentengo zifike kuwe, i-app idinga imvume yokuthumela izaziso. I-app izisebenzisela kuphela ama-alamu akho nezaziso zentengo.</string>
+    <string name="notification_permission_preprompt_title">Vumela izaziso?</string>
+    <string name="notification_portfolio_alarm_locked">I-alamu yakho ikhalile – vula i-app ukuze uthole imininingwane.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – manje %2$s</string>
+    <string name="notification_portfolio_alarm_title">Inani le-portfolio</string>
+    <string name="notification_price_change">%1$s, kusuka ku-%2$s (%3$s edlule)</string>
+    <string name="notification_price_change_no_age">%1$s, kusuka ku-%2$s</string>
+    <string name="notification_price_first">Isaziso sokuqala sentengo saleli pheya</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+%1$d enye intengo</item>
+        <item quantity="other">+%1$d ezinye izintengo</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">Ibuyekeza izintengo…</string>
+    <string name="notification_volume_spike_text">Ivolumu %1$s× yokuvamile ehoreni eledlule</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">Ama-alamu</string>
+    <string name="channel_alarms_description">Isaziso lapho i-alamu ikhala.</string>
+    <string name="channel_alarms_quiet">Ama-alamu (amahora athule)</string>
+    <string name="channel_alarms_quiet_description">Ama-alamu athule ngamahora athule.</string>
+    <string name="channel_alarms_silent">Ama-alamu (athule)</string>
+    <string name="channel_alarms_sound">Ama-alamu (umsindo kuphela)</string>
+    <string name="channel_alarms_sound_vibrate">Ama-alamu (umsindo nokudlidliza)</string>
+    <string name="channel_alarms_vibrate">Ama-alamu (ukudlidliza kuphela)</string>
+    <string name="channel_prices">Izaziso zentengo</string>
+    <string name="channel_prices_description">Isaziso sentengo esithule esinentengo yamanje yepheya.</string>
+    <string name="channel_service">Ukubuyekezwa kwentengo</string>
+    <string name="channel_service_description">Isaziso ngesikhathi izintengo zibuyekezwa.</string>
+    <string name="neutral_channel_market">Ama-alamu emakethe</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, izimali ze-gas, “Okuphawulekayo” nezinsuku zomnotho</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">I-alamu. %1$s, %2$s %3$s %4$s, manje %5$s</string>
+    <string name="tts_direction_down">yehlile</string>
+    <string name="tts_direction_funding_above">ene-funding ephezulu</string>
+    <string name="tts_direction_funding_below">ene-funding ephansi</string>
+    <string name="tts_direction_move">inyakaza kakhulu</string>
+    <string name="tts_direction_near_high">iseduze nokuphezulu kwayo</string>
+    <string name="tts_direction_near_low">iseduze nokuphansi kwayo</string>
+    <string name="tts_direction_oi_down">ene-open interest eyehlayo</string>
+    <string name="tts_direction_oi_up">ene-open interest enyukayo</string>
+    <string name="tts_direction_up">yenyukile</string>
+    <string name="tts_direction_volume_spike">enevolumu eyeqe ngokuzumayo</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+
+    <!-- Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+    <string name="notification_alarm_action_snooze">Ihora eli-1 kamuva</string>
+    <string name="notification_alarm_action_edit">Lungisa</string>
+</resources>

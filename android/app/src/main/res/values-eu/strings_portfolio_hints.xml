@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">Zorroaren alarmak pausatuta: ez dago uneko preziorik: %1$s</string>
+    <string name="portfolio_alarms_paused_price_generic">Zorroaren alarmak pausatuta: txanpon guztiek ez dute uneko preziorik</string>
+    <string name="portfolio_alarms_paused_addresses">Zorroaren alarmak pausatuta: jarraitutako helbideen saldoak ez dira kargatu oraindik</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Zorroaren alarmak pausatuta: token-saldoak partzialki zaharkituta: %1$s</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Zorroaren alarmak pausatuta: jarraitutako helbideen token-saldoak partzialki zaharkituta</string>
+    <string name="portfolio_alarms_paused_unverified">Zorroaren alarmak pausatuta: prezioa egiaztatu gabe: %1$s</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Zorroaren alarmak pausatuta: txanpon batzuen prezioa egiaztatu gabe</string>
+    <string name="portfolio_alarms_address_failing">Zorroaren alarmak hau gabe egiaztatzen dira: %1$s (saldoa 24 ordu baino gehiagoan ez da kargatu)</string>
+    <string name="portfolio_alarms_address_failing_generic">Zorroaren alarmak 24 ordu baino gehiagoan saldoa kargatu ez duten helbiderik gabe egiaztatzen dira</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">tokenak partzialki zaharkituta</string>
+    <string name="portfolio_address_restore_failed">Ezin izan da helbidea leheneratu – gehitu berriro behar izanez gero</string>
+    <string name="portfolio_address_remove_failed">Ezin izan da helbidea kendu – saiatu berriro</string>
+</resources>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="backup_device_bound">ກ່ອນປ່ຽນອຸປະກອນ, ໃຫ້ສ້າງໄຟລ໌ສຳຮອງ – ຂໍ້ມູນທີ່ເຂົ້າລະຫັດສາມາດເປີດໄດ້ໃນອຸປະກອນນີ້ເທົ່ານັ້ນ.</string>
+    <string name="backup_encryption_pending">ການເຂົ້າລະຫັດຍັງບໍ່ເຮັດວຽກ – ແອັບຈະລອງໃໝ່ໃນການເປີດຄັ້ງຕໍ່ໄປ.</string>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">ສົ່ງອອກ</string>
+    <string name="backup_exported">ບັນທຶກການສຳຮອງແລ້ວ.</string>
+    <string name="backup_failed">ບໍ່ສຳເລັດ. ນີ້ແມ່ນການສຳຮອງຂອງ Crypto Checker ບໍ?</string>
+    <string name="backup_hint">ບັນທຶກລາຍການຕິດຕາມພ້ອມໝາຍເຫດ ແລະ ກຸ່ມ, ສັນຍານເຕືອນ, ລາຍການທີ່ມັກ, ພອດໂຟລິໂອ ແລະ ການຕັ້ງຄ່າ ເປັນໄຟລ໌ທີ່ທ່ານເກັບໄວ້ເອງ – ເຊັ່ນ ສຳລັບໂທລະສັບໃໝ່.</string>
+    <string name="backup_import">ນຳເຂົ້າ</string>
+    <string name="backup_title">ສຳຮອງ &amp; ກູ້ຄືນ</string>
+    <string name="backup_too_large">ໄຟລ໌ໃຫຍ່ເກີນໄປ ຫຼື ບໍ່ແມ່ນການສຳຮອງທີ່ຖືກຕ້ອງ (ຈຳກັດ 64 MB).</string>
+    <string name="backup_export_too_large">ການສຳຮອງຈະໃຫຍ່ກວ່າ 64 MB ແລະ ກູ້ຄືນບໍ່ໄດ້, ສະນັ້ນຈຶ່ງບໍ່ໄດ້ບັນທຶກ.</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">ລະຫັດຜ່ານ</string>
+    <string name="backup_password_continue">ສືບຕໍ່</string>
+    <string name="backup_password_hide">ເຊື່ອງລະຫັດຜ່ານ</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">ຢ່າງໜ້ອຍ %1$d ຕົວອັກສອນ</string>
+    <string name="backup_password_mismatch">ລະຫັດຜ່ານບໍ່ກົງກັນ</string>
+    <string name="backup_password_prompt">ໃສ່ລະຫັດຜ່ານສຳລັບການສຳຮອງນີ້.</string>
+    <string name="backup_password_repeat">ໃສ່ລະຫັດຜ່ານອີກຄັ້ງ</string>
+    <string name="backup_password_show">ສະແດງລະຫັດຜ່ານ</string>
+    <string name="backup_password_title">ການສຳຮອງທີ່ປ້ອງກັນດ້ວຍລະຫັດຜ່ານ</string>
+    <string name="backup_password_too_weak">ເດົາງ່າຍເກີນໄປ – ຫຼີກລ່ຽງການໃຊ້ຕົວເລກຢ່າງດຽວ, ຕົວອັກສອນດຽວຊ້ຳໆ ຫຼື ລຳດັບທົ່ວໄປເຊັ່ນ “12345678” ຫຼື “password”.</string>
+    <string name="backup_password_warning">ຖ້າບໍ່ມີລະຫັດຜ່ານ, ການສຳຮອງຈະກູ້ຄືນບໍ່ໄດ້.</string>
+    <string name="backup_password_wrong">ລະຫັດຜ່ານຜິດ ຫຼື ໄຟລ໌ເສຍຫາຍ. ກະລຸນາລອງໃໝ່.</string>
+    <string name="backup_protect">ປ້ອງກັນດ້ວຍລະຫັດຜ່ານ</string>
+    <string name="backup_protect_hint">ເຂົ້າລະຫັດໄຟລ໌ (AES-256). ແນະນຳເມື່ອມີຂໍ້ມູນພອດໂຟລິໂອ.</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">ບັນທຶກໂດຍບໍ່ມີລະຫັດຜ່ານ</string>
+    <string name="backup_plain_confirm_text">ໄຟລ໌ບໍ່ໄດ້ເຂົ້າລະຫັດ. ໃຜກໍ່ຕາມທີ່ໄດ້ຮັບມັນສາມາດອ່ານ:</string>
+    <string name="backup_plain_confirm_title">ບັນທຶກໂດຍບໍ່ມີລະຫັດຜ່ານບໍ?</string>
+    <string name="backup_plain_contents_addresses">ທີ່ຢູ່ກະເປົາເງິນ ແລະ ກະແຈ xpub ທີ່ບັນທຶກໄວ້ ພ້ອມປະຫວັດຍອດເງິນ ແລະ ຕົ້ນທຶນ</string>
+    <string name="backup_plain_contents_base">ລາຍການຕິດຕາມພ້ອມໝາຍເຫດ ແລະ ກຸ່ມ, ສັນຍານເຕືອນ, ລາຍການທີ່ມັກ ແລະ ການຕັ້ງຄ່າ</string>
+    <string name="backup_plain_contents_portfolio">ພອດໂຟລິໂອ: ທຸລະກຳພ້ອມຈຳນວນ ແລະ ລາຄາ</string>
+    <string name="backup_restore_app_lock_kept">ລັອກພອດໂຟລິໂອຍັງເປີດຢູ່ – ການສຳຮອງທີ່ບໍ່ເຂົ້າລະຫັດບໍ່ສາມາດປິດມັນໄດ້.</string>
+    <string name="backup_restore_confirm">ການນຳເຂົ້າຈະແທນທີ່ລາຍການຕິດຕາມປັດຈຸບັນຂອງທ່ານ (ພ້ອມໝາຍເຫດ ແລະ ກຸ່ມ), ສັນຍານເຕືອນ, ລາຍການທີ່ມັກ, ພອດໂຟລິໂອ ແລະ ການຕັ້ງຄ່າ ດ້ວຍການສຳຮອງ.</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="other">%d ລາຍການໃນການສຳຮອງ (ພອດໂຟລິໂອ ຫຼື ສັນຍານເຕືອນ) ບໍ່ຖືກຕ້ອງ ແລະ ຈະບໍ່ຖືກນຳເຂົ້າ.</item>
+    </plurals>
+    <string name="backup_restore_newer_version">ການສຳຮອງນີ້ມາຈາກແອັບເວີຊັນໃໝ່ກວ່າ – ໃຫ້ອັບເດດແອັບກ່ອນ. ບໍ່ມີຫຍັງຖືກນຳເຂົ້າ.</string>
+    <string name="backup_restore_unencrypted_warning">ການສຳຮອງນີ້ບໍ່ໄດ້ເຂົ້າລະຫັດ – ກວດເບິ່ງວ່າມັນມາຈາກທ່ານ. ການຕັ້ງຄ່າຈະຖືກນຳໃຊ້ – ຍົກເວັ້ນການປ່ຽນແປງທີ່ຫຼຸດການປ້ອງກັນ (ລັອກພອດໂຟລິໂອ, ເຊີບເວີຂອງຕົນເອງສຳລັບທີ່ຢູ່, ເຊື່ອງຈຳນວນ, ພອດໂຟລິໂອໃນການສຳຮອງລະບົບ).</string>
+    <string name="backup_restored">ກູ້ຄືນແລ້ວ: %1$s, %2$s.</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="other">%1$d ສັນຍານເຕືອນ</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="other">%1$d ຄູ່ເທຣດ</item>
+    </plurals>
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen -->
+    <string name="backup_restore_over_limits">ເກີນຂີດຈຳກັດ (%3$s ຄູ່ເທຣດ, %4$s ສັນຍານເຕືອນຕໍ່ຄູ່), ຈະບໍ່ຖືກກູ້ຄືນ: %1$s, %2$s.</string>
+    <string name="backup_restored_over_limits">ເກີນຂີດຈຳກັດ (%3$s ຄູ່ເທຣດ, %4$s ສັນຍານເຕືອນຕໍ່ຄູ່), ບໍ່ໄດ້ກູ້ຄືນ: %1$s, %2$s.</string>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren -->
+    <string name="storage_recovery_message">ອຸປະກອນນີ້ບໍ່ມີກະແຈສຳລັບຂໍ້ມູນທີ່ເຂົ້າລະຫັດຂອງແອັບອີກແລ້ວ, ສະນັ້ນແອັບຈຶ່ງເລີ່ມຕົ້ນແບບຫວ່າງເປົ່າ. ບໍ່ມີຫຍັງຖືກລຶບ. ເພື່ອເອົາລາຍການຕິດຕາມ ແລະ ພອດໂຟລິໂອຄືນ, ໃຫ້ນຳເຂົ້າໄຟລ໌ສຳຮອງໃນ “%1$s” ໃນການຕັ້ງຄ່າ.</string>
+    <string name="storage_recovery_title">ບໍ່ສາມາດປົດລັອກຂໍ້ມູນທີ່ບັນທຶກໄວ້ໄດ້</string>
+
+    <!-- Sicherung mit Passwort (Argon2id, 64 MiB): zu wenig Arbeitsspeicher -->
+    <string name="backup_not_enough_memory">ໜ່ວຍຄວາມຈຳຫວ່າງບໍ່ພໍທີ່ຈະປ້ອງກັນ ຫຼື ເປີດການສຳຮອງດ້ວຍລະຫັດຜ່ານ. ປິດແອັບອື່ນ ແລ້ວລອງໃໝ່.</string>
+
+    <!-- Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">ກູ້ຄືນການສຳຮອງ</string>
+    <string name="storage_recovery_acknowledge">ເຂົ້າໃຈແລ້ວ</string>
+    <string name="storage_recovery_restored_title">ປົດລັອກຂໍ້ມູນທີ່ບັນທຶກໄວ້ອີກຄັ້ງແລ້ວ</string>
+    <string name="storage_recovery_restored_message">ກະແຈເກົ່າໃນອຸປະກອນນີ້ເປີດຂໍ້ມູນທີ່ແຍກໄວ້ໄດ້ອີກຄັ້ງ, ສະນັ້ນມັນຈຶ່ງກັບມາແລ້ວ. ຂໍ້ມູນທີ່ບັນທຶກໃນລະຫວ່າງນັ້ນຖືກເກັບໄວ້ໂດຍບໍ່ປ່ຽນແປງຢູ່ຂ້າງມັນ.</string>
+    <string name="settings_reset_notice_title">ການຕັ້ງຄ່າຖືກຣີເຊັດ</string>
+    <string name="settings_reset_notice">ອ່ານການຕັ້ງຄ່າຂອງທ່ານບໍ່ໄດ້ ແລະ ຖືກຣີເຊັດເປັນຄ່າເລີ່ມຕົ້ນ. ກະລຸນາກວດລັອກພອດໂຟລິໂອ, ຊ່ວງເວລາຂອງສັນຍານເຕືອນ ແລະ ສະກຸນເງິນ.</string>
+    <string name="backup_restore_interrupted_title">ການກູ້ຄືນຖືກຂັດຈັງຫວະ</string>
+    <string name="backup_restore_interrupted_rolled_back">ແອັບຖືກປິດໃນຂະນະກູ້ຄືນການສຳຮອງ. ຂໍ້ມູນກ່ອນໜ້າຂອງທ່ານຖືກນຳກັບຄືນແລ້ວ; ບໍ່ມີຫຍັງຈາກການສຳຮອງຖືກເກັບໄວ້.</string>
+    <string name="backup_restore_interrupted_incomplete">ແອັບຖືກປິດໃນຂະນະກູ້ຄືນການສຳຮອງ ແລະ ບໍ່ສາມາດນຳຂໍ້ມູນກ່ອນໜ້າກັບຄືນໄດ້ຄົບຖ້ວນ. ກະລຸນາກວດລາຍການຕິດຕາມ ແລະ ພອດໂຟລິໂອຂອງທ່ານ ຫຼື ກູ້ຄືນການສຳຮອງອີກຄັ້ງໃນ “%1$s” ໃນການຕັ້ງຄ່າ.</string>
+    <string name="backup_not_verified">ບໍ່ສາມາດຢືນຢັນໄຟລ໌ສຳຮອງຫຼັງຈາກບັນທຶກ – ອ່ານກັບຄືນມາແລ້ວບໍ່ຄືກັນ. ກະລຸນາບັນທຶກການສຳຮອງເປັນໄຟລ໌ໃໝ່.</string>
+
+    <!-- Hinweis (nur Android): Portfolio-Kopie aus der Systemsicherung auch beim zweiten Versuch unlesbar und gelöscht -->
+    <string name="system_backup_not_imported_title">ພອດໂຟລິໂອບໍ່ໄດ້ຖືກກູ້ຄືນຈາກການສຳຮອງລະບົບ</string>
+    <!-- %1$s = Name des Bereichs «Sichern &amp; Wiederherstellen» in den Einstellungen -->
+    <string name="system_backup_not_imported_message">ສຳເນົາພອດໂຟລິໂອຈາກການສຳຮອງລະບົບ Android ອ່ານບໍ່ໄດ້, ເຖິງແມ່ນໃນຄວາມພະຍາຍາມຄັ້ງທີສອງ, ແລະ ຖືກລຶບແລ້ວ. ຖ້າທ່ານມີໄຟລ໌ສຳຮອງ, ໃຫ້ກູ້ຄືນມັນໃນ “%1$s” ໃນການຕັ້ງຄ່າ.</string>
+
+    <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
+    <string name="portfolio_storage_kept_in_memory">ຕອນນີ້ອ່ານຂໍ້ມູນທີ່ບັນທຶກໄວ້ບໍ່ໄດ້, ສະນັ້ນພອດໂຟລິໂອຈຶ່ງບໍ່ສະແດງ ແລະ ປ່ຽນແປງບໍ່ໄດ້. ເປີດແອັບຄືນໃໝ່.</string>
+    <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
+    <string name="watchlist_storage_kept_in_memory">ຕອນນີ້ອ່ານຂໍ້ມູນທີ່ບັນທຶກໄວ້ບໍ່ໄດ້, ສະນັ້ນລາຍການຕິດຕາມຈຶ່ງບໍ່ສະແດງ ແລະ ປ່ຽນແປງບໍ່ໄດ້. ເປີດແອັບຄືນໃໝ່.</string>
+    <string name="watchlist_storage_locked">ປ່ຽນລາຍການຕິດຕາມບໍ່ໄດ້: ຕອນນີ້ອ່ານຂໍ້ມູນທີ່ບັນທຶກໄວ້ບໍ່ໄດ້. ເປີດແອັບຄືນໃໝ່.</string>
+    <string name="alarm_save_storage_locked">ບັນທຶກສັນຍານເຕືອນບໍ່ໄດ້: ຕອນນີ້ອ່ານຂໍ້ມູນທີ່ບັນທຶກໄວ້ບໍ່ໄດ້. ເປີດແອັບຄືນໃໝ່.</string>
+    <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
+    <string name="backup_storage_kept">ສຳຮອງບໍ່ໄດ້: ຕອນນີ້ອ່ານຂໍ້ມູນທີ່ບັນທຶກໄວ້ບໍ່ໄດ້. ເປີດແອັບຄືນໃໝ່ ແລ້ວລອງອີກຄັ້ງ.</string>
+    <string name="backup_restore_storage_in_memory">ຕອນນີ້ນຳເຂົ້າບໍ່ໄດ້: ແອັບບໍ່ໄດ້ບັນທຶກຂໍ້ມູນໃນຕອນນີ້ (ການເຂົ້າລະຫັດຍັງບໍ່ເຮັດວຽກ), ສະນັ້ນການນຳເຂົ້າຈະສູນຫາຍເມື່ອເປີດຄືນໃໝ່. ເປີດແອັບຄືນໃໝ່ ແລ້ວລອງອີກຄັ້ງ.</string>
+    <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable) -->
+    <string name="backup_restore_journal_unavailable">ຕອນນີ້ນຳເຂົ້າບໍ່ໄດ້: ບັນທຶກສຳເນົາຄວາມປອດໄພຂອງຂໍ້ມູນປັດຈຸບັນຂອງທ່ານບໍ່ໄດ້ (ກະແຈບໍ່ພ້ອມໃນຕອນນີ້). ບໍ່ມີຫຍັງຖືກປ່ຽນແປງ. ລອງໃໝ່ພາຍຫຼັງ ຫຼື ເປີດແອັບຄືນໃໝ່.</string>
+
+    <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
+    <string name="portfolio_storage_in_memory">ການເຂົ້າລະຫັດຍັງບໍ່ເຮັດວຽກ – ພອດໂຟລິໂອບໍ່ໄດ້ຖືກບັນທຶກ, ການປ່ຽນແປງຈະສູນຫາຍເມື່ອແອັບປິດ. ແອັບຈະລອງໃໝ່ໃນການເປີດຄັ້ງຕໍ່ໄປ.</string>
+
+    <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
+    <string name="portfolio_storage_locked">ຕອນນີ້ອ່ານຂໍ້ມູນທີ່ບັນທຶກໄວ້ບໍ່ໄດ້, ສະນັ້ນຈຶ່ງປ່ຽນແປງບໍ່ໄດ້. ເປີດແອັບຄືນໃໝ່.</string>
+    <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
+    <string name="watchlist_storage_in_memory">ຕອນນີ້ອຸປະກອນນີ້ບໍ່ໃຫ້ກະແຈ – ລາຍການຕິດຕາມບໍ່ໄດ້ຖືກບັນທຶກ, ການປ່ຽນແປງຈະສູນຫາຍເມື່ອແອັບປິດ. ສັນຍານເຕືອນຢຸດຊົ່ວຄາວໃນພື້ນຫຼັງ. ແອັບຈະລອງໃໝ່ໃນການເປີດຄັ້ງຕໍ່ໄປ.</string>
+
+    <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
+    <string name="backup_restore_server_kept">“ເຊີບເວີຂອງຕົນເອງສຳລັບທີ່ຢູ່” ບໍ່ໄດ້ຖືກນຳໃຊ້ – ການສຳຮອງທີ່ບໍ່ເຂົ້າລະຫັດບໍ່ສາມາດປ່ຽນມັນໄດ້.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
+    <string name="backup_restore_server_public">“ເຊີບເວີຂອງຕົນເອງສຳລັບທີ່ຢູ່” ຖືກລຶບອອກຕາມການສຳຮອງ – ທີ່ຢູ່ Bitcoin ຈະຖືກສອບຖາມທີ່ node ສາທາລະນະອີກຄັ້ງ.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
+    <string name="backup_restore_server_changed">“ເຊີບເວີຂອງຕົນເອງສຳລັບທີ່ຢູ່” ຖືກແທນທີ່ດ້ວຍເຊີບເວີຈາກການສຳຮອງ.</string>
+</resources>

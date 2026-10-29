@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">သတိပေးချက်များ ရောက်ရှိကြောင်း သေချာစေရန်</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">အဆင်ပြေ</string>
+    <string name="delivery_state_warn">စစ်ဆေးပါ</string>
+    <string name="delivery_state_info">မှတ်ချက်</string>
+    <string name="delivery_allowed">ခွင့်ပြုထားသည်</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">အကြောင်းကြားချက်များ</string>
+    <string name="delivery_notifications_off">ပိတ် – သတိပေးချက်များ ရောက်မည်မဟုတ်ပါ</string>
+    <string name="delivery_notifications_not_asked">ခွင့်မပြုရသေးပါ</string>
+    <string name="delivery_channel">သတိပေးချက် ချန်နယ်</string>
+    <string name="delivery_channel_high">အရေးကြီးမှု မြင့် – မျက်နှာပြင်ပေါ်တွင် ပေါ်လာသည်</string>
+    <string name="delivery_channel_low">အရေးကြီးမှု နိမ့် – သတိပေးချက်များ စာရင်းထဲတွင် အသံမဲ့သာ ပေါ်သည်</string>
+    <string name="delivery_channel_off">ပိတ်ထားသည် – သတိပေးချက်များ ရောက်မည်မဟုတ်ပါ</string>
+    <string name="delivery_exact_on">ဖွင့် – ခန့်မှန်း မိနစ် 15 တစ်ကြိမ်</string>
+    <string name="delivery_exact_off">ပိတ် – Android သည် ပုံမှန်မဟုတ်ဘဲ စစ်ဆေးသည်</string>
+    <string name="delivery_battery">ဘက်ထရီ ပိုကောင်းအောင်လုပ်ခြင်း</string>
+    <string name="delivery_battery_unrestricted">ကန့်သတ်မထား</string>
+    <string name="delivery_battery_optimized">ပိုကောင်းအောင်လုပ်ထားသည် – Android က စစ်ဆေးမှုများကို နှောင့်နှေးစေနိုင်သည်။ အက်ပ်က ခြွင်းချက် မတောင်းပါ၊ အက်ပ်၏ ဘက်ထရီ ဆက်တင်များတွင် ပြောင်းနိုင်သည်။</string>
+    <string name="delivery_background">နောက်ခံ အသုံးပြုမှု</string>
+    <string name="delivery_background_restricted">ကန့်သတ်ထားသည် – Android က နောက်ခံ စစ်ဆေးမှုများကို ရပ်သည်</string>
+    <string name="delivery_dnd">မနှောင့်ယှက်ရ</string>
+    <string name="delivery_dnd_on">ဖွင့် – သတိပေးချက်များ အသံမပါဘဲ ရောက်နိုင်သည်</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">%1$s အထိ အသက်ဝင်နေသည် – အချိန်တန်သော သတိပေးချက်များ ထိုအချိန်အထိ စောင့်မည်</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – အချိန်တန်သော သတိပေးချက်များ ဤအချိန်အတွင်း စောင့်မည်</string>
+    <string name="delivery_last_check">နောက်ဆုံး နောက်ခံ စစ်ဆေးမှု</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – 6 နာရီထက် ပိုကြာပြီ</string>
+    <string name="delivery_last_check_never">မရှိသေးပါ</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">ခွင့်ပြုရန်</string>
+    <string name="delivery_action_change">ပြောင်းရန်</string>
+    <string name="delivery_action_show">ပြရန်</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">ဘန်နာနှင့် အသံ</string>
+    <string name="delivery_alert_off">ဘန်နာ ပိတ် – သတိပေးချက်များ Notification Center တွင်သာ ပေါ်သည်</string>
+    <string name="delivery_sound_off">အသံ ပိတ် – သတိပေးချက်များ အသံမဲ့ ရောက်သည်</string>
+    <string name="delivery_time_sensitive">Time Sensitive Notifications</string>
+    <string name="delivery_time_sensitive_off">ပိတ် – Focus က သတိပေးချက်များကို ဆိုင်းငံ့နိုင်သည်</string>
+    <string name="delivery_background_refresh">Background App Refresh</string>
+    <string name="delivery_low_power">Low Power Mode</string>
+    <string name="delivery_swipe_away">အက်ပ်ကို ပွတ်ဆွဲ ပိတ်လိုက်ပါသလား။</string>
+    <string name="delivery_swipe_away_note">အက်ပ်ပြောင်းစနစ်တွင် အက်ပ်ကို ပွတ်ဆွဲ ပိတ်လိုက်လျှင် ပြန်ဖွင့်သည်အထိ iOS က နောက်ခံ စစ်ဆေးမှုများကို ရပ်သည်။</string>
+    <string name="delivery_live_activity">Live Activity</string>
+    <string name="delivery_live_activity_note">Lock Screen ပေါ်တွင် ဈေးနှုန်းကို ပြသော်လည်း အက်ပ် စစ်ဆေးသည့်အခါမှသာ အပ်ဒိတ်ဖြစ်သည် – သတိပေးချက်များကို ပိုမကြာခဏ စစ်ဆေးစေပါ။</string>
+
+    <string name="alarm_first_check">သတိပေးချက်များ ရောက်ကြောင်း စစ်ဆေးရန်</string>
+
+    <string name="oem_battery_title">ထုတ်လုပ်သူ၏ ဘက်ထရီ ချွေတာစနစ်</string>
+    <string name="oem_battery_xiaomi">Xiaomi သည် အက်ပ်ကို လုံးဝ ရပ်တန့်နိုင်သည် – ထိုအခါ သတိပေးချက်များ မရောက်ပါ။ “အလိုအလျောက် စတင်ခြင်း” ကို ဖွင့်ပြီး ဘက်ထရီ ချွေတာစနစ်ကို “ကန့်သတ်ချက် မရှိ” သို့ သတ်မှတ်ပါ။</string>
+    <string name="oem_battery_samsung">Samsung သည် အက်ပ်ကို နက်ရှိုင်းစွာ အိပ်စေနိုင်သည် – ထိုအခါ သတိပေးချက်များ မရောက်ပါ။ ဘက်ထရီ › နောက်ခံ အသုံးပြုမှု ကန့်သတ်ချက်များ အောက်တွင် ၎င်းကို “ဘယ်တော့မှ မအိပ်သော အက်ပ်များ” သို့ ထည့်ပါ။</string>
+    <string name="oem_battery_huawei">Huawei/Honor သည် အက်ပ်ကို ရပ်တန့်နိုင်သည် – ထိုအခါ သတိပေးချက်များ မရောက်ပါ။ ဘက်ထရီ › အက်ပ်ဖွင့်ခြင်း အောက်တွင် “ကိုယ်တိုင် စီမံရန်” ကို ရွေးပြီး ရွေးစရာအားလုံးကို ခွင့်ပြုပါ။</string>
+    <string name="oem_battery_oneplus">OnePlus သည် အက်ပ်ကို ရပ်တန့်နိုင်သည် – ထိုအခါ သတိပေးချက်များ မရောက်ပါ။ “အလိုအလျောက် ဖွင့်ခြင်း” ကို ခွင့်ပြုပြီး ဘက်ထရီ အသုံးပြုမှု အောက်တွင် နောက်ခံ လုပ်ဆောင်ချက်ကို ခွင့်ပြုပါ။</string>
+    <string name="oem_battery_oppo">Oppo/Realme သည် အက်ပ်ကို ရပ်တန့်နိုင်သည် – ထိုအခါ သတိပေးချက်များ မရောက်ပါ။ “အလိုအလျောက် ဖွင့်ခြင်း” ကို ခွင့်ပြုပြီး ဘက်ထရီ အသုံးပြုမှု အောက်တွင် နောက်ခံ လုပ်ဆောင်ချက်ကို ခွင့်ပြုပါ။</string>
+    <string name="oem_battery_vivo">Vivo သည် အက်ပ်ကို ရပ်တန့်နိုင်သည် – ထိုအခါ သတိပေးချက်များ မရောက်ပါ။ “အလိုအလျောက် စတင်ခြင်း” ကို ခွင့်ပြုပြီး ဘက်ထရီ အောက်တွင် နောက်ခံ စွမ်းအင်မြင့် အသုံးပြုမှုကို ခွင့်ပြုပါ။</string>
+    <string name="alarm_reliability_stale">နောက်ဆုံး စစ်ဆေးမှု %1$s – သတိပေးချက်များ နောက်ကျနိုင်သည်</string>
+    <string name="alarm_reliability_never">သတိပေးချက်များ ဖွင့်ထားသည် – နောက်ခံ စစ်ဆေးမှု မရှိသေးပါ</string>
+    <string name="alarm_reliability_notifications_off">အကြောင်းကြားချက်များ ပိတ်ထားသည် – သတိပေးချက်များ ရောက်မည်မဟုတ်ပါ</string>
+    <string name="alarm_reliability_battery">ဘက်ထရီ ချွေတာခြင်းက သတိပေးချက် စစ်ဆေးမှုများကို ရပ်စေနိုင်သည်</string>
+    <string name="alarm_reliability_background_refresh">Background App Refresh ပိတ်ထားသည် – သတိပေးချက်များ မရောက်နိုင်ပါ</string>
+</resources>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">notar meiri gögn og rafhlöðu</string>
+    <string name="update_mode_live">Í beinni meðan opið</string>
+    <string name="update_mode_live_hint">Þar sem kauphöllin býður beint verð: samstundis meðan vaktlistinn er opinn. Annars við næstu sókn. Lokað: ekki oftar en á %1$s fresti, oft síðar.</string>
+    <string name="update_mode_live_hint_ios">Þar sem kauphöllin býður beint verð: samstundis meðan vaktlistinn er opinn. Annars við næstu sókn. Lokað: þegar iOS leyfir, stundum með klukkustunda millibili. Ef þú strýkur forritinu burt stöðvar iOS þessar athuganir þar til þú opnar það aftur.</string>
+    <string name="update_mode_recommended">mælt með</string>
+    <string name="update_mode_sparsam">Sparneytið</string>
+    <string name="update_mode_sparsam_hint">Þegar forritið er lokað, ekki oftar en á %1$s fresti, oft síðar (viðvaranir, græjur). Opið: í hvert sinn sem þú opnar það.</string>
+    <string name="update_mode_sparsam_hint_ios">Þegar forritið er lokað ákveður iOS hvenær athugað er (viðvaranir, græjur), stundum með klukkustunda millibili. Opið: í hvert sinn sem þú opnar það.</string>
+    <string name="update_mode_title">Tíðni uppfærslna</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">Endurnýjun hætt</string>
+    <string name="refresh_sheet_alarms">Viðvaranir</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d fór af stað</item>
+        <item quantity="other">%1$d fóru af stað</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">Allt uppfært</string>
+    <string name="refresh_sheet_app_start">Ræsing forrits</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">hópfyrirspurn %1$s · %2$d verð</item>
+        <item quantity="other">hópfyrirspurn %1$s · %2$d verð</item>
+    </plurals>
+    <string name="refresh_sheet_database">Gagnagrunnur</string>
+    <string name="refresh_sheet_exchange_unreachable">Ekki næst í %1$s</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
+        <item quantity="one">Ekki næst í %1$d kauphöll</item>
+        <item quantity="other">Ekki næst í %1$d kauphallir</item>
+    </plurals>
+    <string name="refresh_sheet_network">Net</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d verðtilkynning</item>
+        <item quantity="other">%1$d verðtilkynningar</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d par</item>
+        <item quantity="other">%1$d pör</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d par ekki uppfært</item>
+        <item quantity="other">%1$d pör ekki uppfærð</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d af %1$d pari</item>
+        <item quantity="other">%2$d af %1$d pörum</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">í bið til %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">í bið til %1$s (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">engin gögn</string>
+    <string name="refresh_sheet_reason_offline">engin tenging</string>
+    <string name="refresh_sheet_reason_rate_limit">of margar fyrirspurnir</string>
+    <string name="refresh_sheet_reason_server">villa á netþjóni</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">tímamörk runnu út</string>
+    <string name="refresh_sheet_reason_unavailable">kauphöll ekki tiltæk</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s sekúndur</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_exchanges">Kauphallir</string>
+    <string name="refresh_sheet_section_steps">Sundurliðun</string>
+    <string name="refresh_sheet_status_failed">ekki uppfært</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">allt uppfært</string>
+    <string name="refresh_sheet_status_partial">uppfært að hluta</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Bíður eftir ræsingu</string>
+    <string name="refresh_sheet_widgets">Græjur</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">hópfyrirspurn %1$s (mistókst)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d villa</item>
+        <item quantity="other">%1$d villur</item>
+    </plurals>
+    <string name="refresh_report_live">Í beinni: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d ekki lengur í viðskiptum</item>
+        <item quantity="other">%1$d ekki lengur í viðskiptum</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d stakar</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">Mistókst</string>
+    <string name="check_result_ok">Í lagi</string>
+    <string name="check_result_partial">Að hluta</string>
+    <string name="check_result_skipped">Sleppt</string>
+    <string name="check_trigger_bgtask">Bakgrunnur</string>
+    <string name="check_trigger_exact">Stundvíst</string>
+    <string name="check_trigger_foreground">Forrit</string>
+    <string name="check_trigger_widget">Græja</string>
+    <string name="check_trigger_widget_ios">Græja · verð og verðviðvaranir</string>
+    <string name="check_trigger_worker">Bakgrunnur</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android getur seinkað athugunum – stilltu rafhlöðu á „Ótakmarkað“</string>
+    <string name="battery_later">Síðar</string>
+    <string name="battery_message">Android seinkar bakgrunnsvinnslu til að spara orku — verð og græjur geta þá verið margra klukkustunda gömul. Ótakmörkuð rafhlöðunotkun heldur þeim uppfærðum. Þú getur breytt þessu hvenær sem er í stillingum Android.</string>
+    <string name="battery_open_settings">Opna rafhlöðustillingar</string>
+    <string name="battery_steps">Í upplýsingum um forritið skaltu ýta á Rafhlaða (eða Rafhlöðunotkun forrits) og velja Ótakmarkað.</string>
+    <string name="battery_title">Haltu verðum uppfærðum</string>
+    <string name="ios_background_refresh_off">Slökkt er á uppfærslu í bakgrunni fyrir þetta forrit. Án hennar eru viðvaranir aðeins athugaðar meðan forritið er opið.</string>
+    <string name="ios_low_power_mode">Kveikt er á orkusparnaði. iOS athugar sjaldan í bakgrunni, svo viðvaranir geta borist seint.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Skilaboð kauphallar: %1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">Geymsla enn læst – reynt aftur eftir %1$d sek.</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="one">Geymsla enn læst – reynt aftur eftir %1$d sekúndu</item>
+        <item quantity="other">Geymsla enn læst – reynt aftur eftir %1$d sekúndur</item>
+    </plurals>
+    <string name="watchlist_retry_short">Reynt aftur eftir %1$s</string>
+    <string name="widget_retry_at">Reynt aftur kl. %1$s</string>
+    <string name="refresh_sheet_wait_attempt">Tilraun %1$d – dulkóðaða geymslan var ekki tilbúin í fyrstu tilraun</string>
+</resources>

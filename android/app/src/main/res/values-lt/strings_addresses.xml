@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">Pridėti adresą</string>
+    <string name="portfolio_address_count">Įskaičiuoti</string>
+    <string name="portfolio_address_error">Atnaujinti nepavyko</string>
+    <string name="portfolio_address_hint">Viešas adresas (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) arba xpub</string>
+    <string name="portfolio_address_label">Pavadinimas (neprivaloma)</string>
+    <string name="portfolio_address_not_since_buy">Iš adreso · neįtraukta į „Nuo pirkimo“: %1$s</string>
+    <string name="portfolio_address_overlap">Taip pat yra tavo transakcijose: %1$s – sumuojama abu. Tos pačios monetos? Pasirink „Tik rodyti“.</string>
+    <string name="portfolio_address_overlap_ask">%1$s jau registruoji savo transakcijomis. Įtraukti šio adreso likutį į portfelį ar tik jį rodyti?</string>
+    <string name="portfolio_address_overlap_auto">„%1$s“ dabar tik rodomas, neįskaičiuojamas – %2$s yra ir tavo transakcijose.</string>
+    <string name="portfolio_address_overlap_title">Tos pačios monetos kaip tavo transakcijose?</string>
+    <string name="portfolio_address_overlap_tx">Toks pat kiekis kaip tavo įnašo / pervedimo (%1$s) – tikriausiai skaičiuojama dukart.</string>
+    <string name="portfolio_address_period_observed">Stebimi adresai skaičiuojami nuo pirmojo pastebėto likučio; vėlesni pokyčiai yra įplaukos / išmokos, ne pelnas.</string>
+    <string name="portfolio_address_privacy">Į %1$s siunčiamas tik viešas adresas – niekada ne raktai ar atkūrimo frazės. Teikėjas jį mato kartu su tavo IP adresu. Tikrinama ne dažniau kaip kas 10 minučių.</string>
+    <string name="portfolio_address_remove">Pašalinti adresą</string>
+    <string name="portfolio_address_show_only">Tik rodyti, neįtraukti į portfelį</string>
+    <string name="portfolio_address_show_only_short">Tik rodyti</string>
+    <string name="portfolio_address_tokens">Įskaičiuoti žetonus</string>
+    <string name="portfolio_address_xpub_privacy">xpub atskleidžia visus šios piniginės adresus. Jie išvedami tavo įrenginyje; į %1$s siunčiami tik pavieniai adresai – pirmą kartą ieškant bent 40 užklausų, vėliau mažiau. Privatūs raktai (xprv) niekada nepriimami.</string>
+    <string name="portfolio_address_xpub_gap">Paieška sustoja po %1$d nenaudotų adresų iš eilės (BIP44 standartas, kurį naudoja dauguma piniginių). Naudotas adresas už šio tarpo neįskaičiuojamas – pridėk jį atskirai.</string>
+    <string name="portfolio_address_xpub_used">Naudojami adresai: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">Per daug naudotų adresų, kad būtų galima atnaujinti</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">Labai daug adresų – nauji mokėjimai į senus, tuščius adresus gali būti neaptikti</string>
+    <string name="portfolio_addresses_title">Adresai</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Bitcoin Cash adresų stebėti negalima: nėra nemokamos viešos paslaugos be API rakto, kurios sąlygos tai leistų.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) išjungta 2024 m. – likučiai dabar yra BNB Smart Chain (0x…)</string>
+    <string name="address_checksum">Neteisinga kontrolinė suma – patikrink, ar nėra rašybos klaidų</string>
+    <string name="address_doge_unsupported">Dogecoin adresų stebėti negalima: nėra nemokamos viešos paslaugos be API rakto, kurios sąlygos tai leistų.</string>
+    <string name="address_duplicate">Šis adresas jau pridėtas</string>
+    <string name="address_ens">ENS vardai nepalaikomi – įvesk 0x adresą</string>
+    <string name="address_invalid">Netinkamas palaikomo tinklo adresas</string>
+    <string name="address_limit">Daugiausia 20 adresų</string>
+    <string name="address_secret">Panašu į privatų raktą ar atkūrimo frazę – niekur jo neįvesk. Tik viešus adresus.</string>
+    <string name="address_testnet">Testnet adresai nepalaikomi</string>
+    <string name="address_unsupported">Šis adreso tipas nepalaikomas</string>
+    <string name="address_wrong_chain">Adresas priklauso kitam tinklui</string>
+    <string name="address_xpub_multisig">Multisig raktai (Ypub/Zpub) nepalaikomi</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot paskyra (BIP86): iš šio rakto išvedami bc1p… adresai gavimui ir grąžai.</string>
+    <string name="portfolio_address_taproot_hint">Taproot piniginė? Verčiau įklijuok deskriptorių tr(…) iš savo piniginės – paprastas xpub ieškomas tik kaip Legacy ir SegWit adresai.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">Savas serveris nepasiekiamas</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">Kas valdo %1$s, mato visus užklaustus šios piniginės adresus ir gali juos susieti tarpusavyje bei su tavo IP adresu.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">To išvengsi, nurodžius savą serverį skiltyje Nustatymai › Portfelis › Savas serveris adresams.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d nežinomas žetonas (neįskaičiuotas)</item>
+        <item quantity="few">+%1$d nežinomi žetonai (neįskaičiuoti)</item>
+        <item quantity="many">+%1$d nežinomo žetono (neįskaičiuota)</item>
+        <item quantity="other">+%1$d nežinomų žetonų (neįskaičiuota)</item>
+    </plurals>
+</resources>

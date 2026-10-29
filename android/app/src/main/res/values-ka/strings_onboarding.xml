@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">განგაში – ფასი, პროცენტი, მოცულობა და უჩვეულო მოძრაობები</string>
+    <string name="welcome_alert_q">როდის შეგატყობინო?</string>
+    <string name="welcome_text">შენი ფასები. შენი განგაშები. შენი მიმოხილვა.\nანგარიშის გარეშე. რეკლამის გარეშე. თვალთვალის გარეშე.</string>
+    <string name="welcome_understand">გაიგე – რა მოძრაობს ახლა ფასთან ერთად</string>
+    <string name="welcome_understand_q">რა მოძრაობს მასთან ერთად?</string>
+    <string name="welcome_watch">ადევნე თვალი – შენი მონეტები, ფასები და ფასის ისტორია</string>
+    <string name="welcome_watch_q">რა ხდება?</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">სიაში დამატება (%1$d)</string>
+    <string name="starter_loading_prices">ფასები იტვირთება…</string>
+    <string name="starter_search_coin">სხვა მონეტის ძებნა</string>
+    <string name="starter_select_all">ყველას მონიშვნა</string>
+    <string name="starter_select_none">მონიშვნის მოხსნა</string>
+    <string name="starter_title">დაიწყე ამ მონეტებით</string>
+    <string name="starter_watch_alarm_hint">ადევნე თვალი ფასს, დააყენე განგაში</string>
+
+    <!-- Start-Auswahl: Börse und Quote der Startpaare (Binance, bei Standort-Sperre Binance.US), z. B. «Kurse von Binance in USDT. …» -->
+    <string name="starter_source_text">ფასები: %1$s, ვალუტა: %2$s. მოხსენი მონიშვნა იმას, რაც არ გჭირდება, დანარჩენი კი ერთბაშად დაამატე. ყოველი მონეტისთვის შეგიძლია ბირჟა და წყვილი შეცვალო.</string>
+</resources>

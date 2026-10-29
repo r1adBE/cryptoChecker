@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Geri</string>
+    <string name="action_cancel">Ləğv et</string>
+    <string name="action_clear">Təmizlə</string>
+    <string name="action_close">Bağla</string>
+    <string name="action_keep">Saxla</string>
+    <string name="action_delete">Sil</string>
+    <string name="action_edit">Redaktə et</string>
+    <string name="action_more">Digər seçimlər</string>
+    <string name="action_refresh">Yenilə</string>
+    <string name="action_retry">Yenidən cəhd et</string>
+    <string name="action_save">Yadda saxla</string>
+    <string name="action_sort">Sırala</string>
+    <string name="action_sort_done">Hazırdır</string>
+    <string name="action_undo">Geri qaytar</string>
+    <string name="action_view">Bax</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Bazar</string>
+    <string name="tab_portfolio">Portfel</string>
+    <string name="tab_settings">Ayarlar</string>
+    <string name="tab_watchlist">İzləmə siyahısı</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Xəta: %1$s</string>
+    <string name="error_exchange_unreachable">Birja hazırda əlçatan deyil – son qiymətlər görünməyə davam edir.</string>
+    <string name="error_exchange_unreachable_short">Birja hazırda əlçatan deyil</string>
+    <string name="loading_hint">Yüklənir…</string>
+    <string name="option_off">Söndürülüb</string>
+    <string name="something_went_wrong">Nəsə səhv getdi</string>
+    <string name="time_just_now">indicə</string>
+    <string name="try_again">Yenidən cəhd et</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Bağlantı yoxdur</string>
+    <string name="offline_status_since">Bağlantı yoxdur · vəziyyət: %1$s</string>
+    <string name="status_live">Canlı</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Cüt əlavə et</string>
+    <string name="shortcut_alarms">Bütün alarmlar</string>
+    <string name="shortcut_cycle">Bazar</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Siyahıya cüt əlavə et</string>
+    <string name="shortcut_alarms_long">Bütün alarmları göstər</string>
+    <string name="shortcut_cycle_long">Bazar icmalını aç</string>
+
+    <string name="log_box_title">Jurnal</string>
+    <string name="label_value">%1$s: %2$s</string>
+</resources>

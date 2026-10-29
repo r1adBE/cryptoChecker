@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">કોઈ કૉઇન પસંદ કર્યો નથી</string>
+    <string name="watch_loading">લોડ થઈ રહ્યું છે…</string>
+    <string name="watch_error">એક્સચેન્જ સુધી પહોંચી શકાતું નથી</string>
+    <string name="watch_updated">%1$s મુજબ</string>
+    <string name="watch_refresh">રિફ્રેશ કરો</string>
+    <string name="watch_choose">કૉઇન પસંદ કરો</string>
+    <string name="watch_choose_hint">કૉઇન: વધુમાં વધુ %1$d</string>
+    <string name="watch_complication_label">ભાવ</string>
+    <string name="a11y_watch_row">%1$s %2$s, 24 કલાકમાં %3$s</string>
+    <string name="watch_mode_phone">યાદી: ફોન જેવી</string>
+    <string name="watch_mode_own">યાદી: પોતાની</string>
+    <string name="watch_phone_empty">ફોન પર કોઈ મનપસંદ નથી</string>
+    <string name="a11y_watch_outdated">ભાવ જૂનો છે</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">છેલ્લે %1$d મિનિટ પહેલાં અપડેટ થયું</item>
+        <item quantity="other">છેલ્લે %1$d મિનિટ પહેલાં અપડેટ થયું</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">છેલ્લે %1$d કલાક પહેલાં અપડેટ થયું</item>
+        <item quantity="other">છેલ્લે %1$d કલાક પહેલાં અપડેટ થયું</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">છેલ્લે %1$d દિવસ પહેલાં અપડેટ થયું</item>
+        <item quantity="other">છેલ્લે %1$d દિવસ પહેલાં અપડેટ થયું</item>
+    </plurals>
+</resources>

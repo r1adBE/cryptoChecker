@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">Багцын дохио түр зогссон: %1$s-ийн одоогийн ханш алга</string>
+    <string name="portfolio_alarms_paused_price_generic">Багцын дохио түр зогссон: зарим зоосны одоогийн ханш алга</string>
+    <string name="portfolio_alarms_paused_addresses">Багцын дохио түр зогссон: ажиглаж буй хаягуудын үлдэгдэл хараахан ачаалагдаагүй</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Багцын дохио түр зогссон: %1$s-ийн токены үлдэгдэл хэсэгчлэн хуучирсан</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Багцын дохио түр зогссон: ажиглаж буй хаягуудын токены үлдэгдэл хэсэгчлэн хуучирсан</string>
+    <string name="portfolio_alarms_paused_unverified">Багцын дохио түр зогссон: %1$s-ийн ханш баталгаажаагүй</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Багцын дохио түр зогссон: зарим зоосны ханш баталгаажаагүй</string>
+    <string name="portfolio_alarms_address_failing">Багцын дохиог %1$s хаяггүйгээр шалгаж байна: үлдэгдэл 24 цагаас дээш ачаалагдаагүй</string>
+    <string name="portfolio_alarms_address_failing_generic">Багцын дохиог үлдэгдэл нь 24 цагаас дээш ачаалагдаагүй хаяггүйгээр шалгаж байна</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">токен хэсэгчлэн хуучирсан</string>
+    <string name="portfolio_address_restore_failed">Хаягийг сэргээж чадсангүй – шаардлагатай бол дахин нэмнэ үү</string>
+    <string name="portfolio_address_remove_failed">Хаягийг устгаж чадсангүй – дахин оролдоно уу</string>
+</resources>

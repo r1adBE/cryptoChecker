@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">पोर्टफोलिओ अलर्ट थांबवले: %1$s ची सध्याची किंमत नाही</string>
+    <string name="portfolio_alarms_paused_price_generic">पोर्टफोलिओ अलर्ट थांबवले: प्रत्येक कॉइनची सध्याची किंमत उपलब्ध नाही</string>
+    <string name="portfolio_alarms_paused_addresses">पोर्टफोलिओ अलर्ट थांबवले: पाहिल्या जाणाऱ्या पत्त्यांची शिल्लक अजून लोड झालेली नाही</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">पोर्टफोलिओ अलर्ट थांबवले: %1$s ची टोकन शिल्लक अंशतः जुनी आहे</string>
+    <string name="portfolio_alarms_paused_tokens_generic">पोर्टफोलिओ अलर्ट थांबवले: पाहिल्या जाणाऱ्या पत्त्यांची टोकन शिल्लक अंशतः जुनी आहे</string>
+    <string name="portfolio_alarms_paused_unverified">पोर्टफोलिओ अलर्ट थांबवले: %1$s ची किंमत पडताळलेली नाही</string>
+    <string name="portfolio_alarms_paused_unverified_generic">पोर्टफोलिओ अलर्ट थांबवले: काही कॉइनची किंमत पडताळलेली नाही</string>
+    <string name="portfolio_alarms_address_failing">पोर्टफोलिओ अलर्ट %1$s शिवाय तपासले जातात: 24 तासांहून अधिक काळ शिल्लक लोड झालेली नाही</string>
+    <string name="portfolio_alarms_address_failing_generic">ज्या पत्त्यांची शिल्लक 24 तासांहून अधिक काळ लोड झालेली नाही, त्यांच्याशिवाय पोर्टफोलिओ अलर्ट तपासले जातात</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">टोकन अंशतः जुने</string>
+    <string name="portfolio_address_restore_failed">पत्ता पुनर्संचयित करता आला नाही – गरज असल्यास तो पुन्हा जोडा</string>
+    <string name="portfolio_address_remove_failed">पत्ता काढता आला नाही – कृपया पुन्हा प्रयत्न करा</string>
+</resources>

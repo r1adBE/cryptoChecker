@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
+    <string name="portfolio_cutoff_export_action">Easpórtáil dáta scoite…</string>
+    <string name="portfolio_tax_worksheet_action">Bileog oibre…</string>
+    <string name="portfolio_export_address_unobserved">seoladh gan breathnú air ar an dáta seo – níl sé san áireamh</string>
+    <string name="portfolio_export_button">Easpórtáil CSV</string>
+    <string name="portfolio_export_col_amount">Méid</string>
+    <string name="portfolio_export_col_coin">Bonn</string>
+    <string name="portfolio_export_col_note">Nóta</string>
+    <string name="portfolio_export_col_price">Praghas USDT</string>
+    <string name="portfolio_export_col_rate">Ráta USDT→%1$s</string>
+    <string name="portfolio_export_col_value">Luach USDT</string>
+    <string name="portfolio_export_col_value_cur">Luach %1$s</string>
+    <!-- Inhalt der CSV-Datei -->
+    <string name="portfolio_export_comment"># Dáta scoite %1$s, airgeadra %2$s, ráta malairte ó %3$s</string>
+    <string name="portfolio_export_currency">Airgeadra: %1$s</string>
+    <string name="portfolio_export_date">Dáta scoite</string>
+    <string name="portfolio_export_done">Easpórtáil sábháilte</string>
+    <string name="portfolio_export_estv_note">I gcás cáin rachmais, baineann luachanna oifigiúla deireadh bliana liosta praghsanna ESTV %1$s nuair atá siad liostaithe: %2$s</string>
+    <string name="portfolio_export_failed">Theip ar an easpórtáil</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">Theip ar an easpórtáil: níorbh fhéidir an comhad a scríobh – tá an suíomh stórála imithe nó ní féidir scríobh air</string>
+    <string name="portfolio_export_failed_prices">Theip ar an easpórtáil: níorbh fhéidir praghsanna a lódáil – gan cheangal nó níl an malartán ag freagairt</string>
+    <string name="portfolio_export_from_address">ó sheoladh – gan phraghas ceannaigh</string>
+    <string name="portfolio_export_hint">Sealúchais ag deireadh an lae roghnaithe, luacháilte ag an dúnadh laethúil (UTC) in USDT agus tiontaithe le ráta tagartha an BCE don lá sin. Athraigh an t-airgeadra le “Tiontaigh go”.</string>
+    <string name="portfolio_export_incomplete">neamhiomlán</string>
+    <string name="portfolio_export_no_fx">gan ráta malairte</string>
+    <string name="portfolio_export_no_price">gan phraghas</string>
+    <string name="portfolio_export_running">Praghsanna stairiúla á n-aisghabháil…</string>
+    <string name="portfolio_export_title">Easpórtáil dáta scoite</string>
+    <string name="portfolio_export_today_hint">Níl an lá inniu críochnaithe fós: úsáidtear an praghas reatha in ionad an dúnta laethúil.</string>
+    <string name="portfolio_export_total">Iomlán</string>
+    <string name="portfolio_export_unchecked">gan seiceáil (gan phraghas meaitseála)</string>
+
+    <!-- Steuer-Export (Arbeitspapier) -->
+    <string name="tax_export_adjustment">superficial loss (curtha le ACB)</string>
+    <string name="tax_export_at_wallet_note">An Ostair: meán gluaiste in aghaidh an bhoinn agus an sparáin (malartán) – iompraíonn aistrithe an costas leo – luach saothair ag costas fála 0 – sealúchais ó 1 Már 2021 gan táillí (ní in-asbhainte) – ús iasachta ag luach nuair a fhaightear é (ioncam ag 27.5 faoin gcéad).</string>
+    <string name="tax_export_avg_cost_rates">costas ag rátaí dháta an cheannaigh (meán)</string>
+    <string name="tax_export_ch_wealth_not_calculated">Cáin rachmais gan ríomh – liosta praghsanna ESTV: %1$s</string>
+    <string name="tax_export_col_acquired">Faighte</string>
+    <string name="tax_export_col_adjustment">Caillteanas dícheadaithe %1$s</string>
+    <string name="tax_export_col_cost">Costas %1$s</string>
+    <string name="tax_export_col_date">Dáta</string>
+    <string name="tax_export_col_days">Laethanta i seilbh</string>
+    <string name="tax_export_col_gain">Gnóthachan %1$s</string>
+    <string name="tax_export_col_gross">Praghas roimh tháillí %1$s</string>
+    <string name="tax_export_col_long_term">i seilbh &gt; 1 bhliain</string>
+    <string name="tax_export_col_portfolio_value">Luach na punainne %1$s</string>
+    <string name="tax_export_col_proceeds">Fáltas %1$s</string>
+    <string name="tax_export_col_sold">Díolta</string>
+    <string name="tax_export_cost_incomplete">costas fála iomlán neamhiomlán</string>
+    <string name="tax_export_cost_missing">praghas ceannaigh ar iarraidh</string>
+    <string name="tax_export_fee_consumed">Ídíonn an táille an fáltas ar fad</string>
+    <string name="tax_export_fee_leg">táille i mbonn eile</string>
+    <string name="tax_export_fee_row">Táille</string>
+    <string name="tax_export_fee_value_missing">níl luach ag táille i mbonn eile</string>
+    <string name="tax_export_gains">Diúscairtí réadaithe (CSV)</string>
+    <string name="tax_export_gains_title">Diúscairtí réadaithe %1$s</string>
+    <string name="tax_export_gift">Bronntanas</string>
+    <string name="tax_export_holdings_cutoff">Sealúchais ar %1$s (CSV)</string>
+    <string name="tax_export_holdings_title">Sealúchais ar %1$s</string>
+    <string name="tax_export_income">Ioncam (CSV)</string>
+    <string name="tax_export_income_title">Ioncam %1$s</string>
+    <string name="tax_export_info_template">Teimpléad: %1$s · Modh: %2$s · Bliain chánach: %3$s · Airgeadra: %4$s · Crypto Checker %5$s</string>
+    <string name="tax_export_lost_fee_cost">costas táille líonra gan baisc íoctha</string>
+    <string name="tax_export_match_pool">Section 104 pool</string>
+    <string name="tax_export_match_same_day">an lá céanna (HMRC)</string>
+    <string name="tax_export_match_thirty_day">riail 30 lá (HMRC)</string>
+    <string name="tax_export_method_change_warning">Má athraítear an modh nó an teimpléad, athríomhtar blianta níos luaithe freisin – cuir i gcomparáid leis an méid atá comhdaithe cheana.</string>
+    <string name="tax_export_method_overridden">Ríomhann an teimpléad %1$s – ní %2$s</string>
+    <string name="tax_export_new_holding">faighte ó 1 Már 2021</string>
+    <string name="tax_export_no">níl</string>
+    <string name="tax_export_old_holding">faighte roimh 1 Már 2021</string>
+    <string name="tax_export_oversold">díolta níos mó ná a taifeadadh</string>
+    <string name="tax_export_payment">Íocaíocht le crypto</string>
+    <string name="tax_export_period">%1$s – %2$s</string>
+    <string name="tax_export_proceeds_missing">praghas díola ar iarraidh</string>
+    <string name="tax_export_proceeds_without_cost">Fáltas gan phraghas ceannaigh</string>
+    <string name="tax_export_realized_differs">Féadfaidh an CSV cánach a bheith difriúil ó ‘réadaithe’ (rialacha cánach na tíre).</string>
+    <string name="tax_export_rule">&gt; 1 bhliain: díolta tar éis dháta an cheannaigh + 1 bhliain féilire. Dátaí in am áitiúil. Rátaí: ráta laethúil BCE ar lá an idirbhirt; mura bhfuil ceann ann, an ráta deireanach suas le 7 lá roimhe.</string>
+    <string name="tax_export_rules_date">Rialacha amhail: %1$s</string>
+    <string name="tax_export_rules_stale">Is ó %1$s na rialacha – do %2$s d’fhéadfadh rátaí agus liúntais a bheith athraithe. Seiceáil na luachanna.</string>
+    <string name="tax_export_spouse_gift">chuig céile/páirtí – gan ghnóthachan, gan chaillteanas</string>
+    <string name="tax_export_summary">Achoimre bhliantúil %1$s (CSV)</string>
+    <string name="tax_export_swap">babhtáil</string>
+    <string name="tax_export_tax_year">Bliain chánach</string>
+    <string name="tax_export_transfer_fee_info">Táille aistrithe in USDT/airgead tirim – ní caillteanas, ní sa bhunchostas, eolas amháin</string>
+    <string name="tax_export_unassigned_fee">táille gan sannadh – bunchostas anaithnid</string>
+    <string name="tax_export_usdt_usd_note">USDT tiontaithe ag dúnadh laethúil USDT/USD; 1 USD nuair nach bhfuil dúnadh ann (marcáilte in aghaidh na líne)</string>
+    <string name="tax_export_value_estimated">Luach measta (dúnadh laethúil)</string>
+    <string name="tax_export_value_missing">luach nuair a fuarthas é ar iarraidh</string>
+    <string name="tax_export_wallet">Sparán: %1$s</string>
+    <string name="tax_export_wallet_unspecified">gan sonrú</string>
+    <string name="tax_export_withdrawal_fee">Táille aistarraingthe</string>
+    <string name="tax_export_withdrawal_fee_info">Táille aistarraingthe in USDT/airgead tirim – ní caillteanas, eolas amháin</string>
+    <string name="tax_export_workpaper_disclaimer">Bileog oibre chánach – ní tuairisceán cánach é agus ní comhairle chánach é</string>
+    <string name="tax_export_workpaper_title">Bileog oibre</string>
+    <string name="tax_export_year_local_zone">Dátaí in am áitiúil (%1$s)</string>
+    <string name="tax_export_yes">tá</string>
+
+    <!-- Steuer-Export: Zeilen und Spalten -->
+    <string name="tax_line_at_interest">Ús iasachta (luach nuair a fuarthas é)</string>
+    <string name="tax_line_at_old_long">Faighte roimh 1 Már 2021 – i seilbh &gt; 1 bhliain: de ghnáth ní inchánach – seiceáil</string>
+    <string name="tax_line_at_rate">Ráta speisialta 27.5 faoin gcéad: glan faighte ó 1 Már 2021 agus díolta ó 1 Már 2022 + ús</string>
+    <string name="tax_line_au_discounted">Gnóthachan caipitiúil glan tar éis caillteanas agus lascaine 50 faoin gcéad</string>
+    <string name="tax_line_ca_taxable">Gnóthachan caipitiúil inchánach (ráta cuimsithe 1/2)</string>
+    <string name="tax_line_ch_income">Luach saothair liostaithe – féach páipéar oibre ESTV maidir lena láimhseáil</string>
+    <string name="tax_line_ch_private">Gnóthachain chaipitiúla ar shócmhainní príobháideacha: gan ríomh – féach ESTV maidir le haicmiú</string>
+    <string name="tax_line_ch_wealth">Cáin rachmais: gan ríomh – úsáideann CSV na sealúchas praghas malartáin × USD/CHF ar 31 Noll – luachanna oifigiúla cánach: liosta praghsanna ESTV</string>
+    <string name="tax_line_de_long">I seilbh &gt; 1 bhliain: de ghnáth ní inchánach faoi § 23 EStG – seiceáil</string>
+    <string name="tax_line_denied_loss">Caillteanais dícheadaithe (superficial loss)</string>
+    <string name="tax_line_fr_outflow">Eis-sreafaí gan díolachán (aistarraingtí) – costas fála iomlán laghdaithe go comhréireach</string>
+    <string name="tax_line_fr_rate">Ráta comhréidh 12.8 faoin gcéad móide ranníocaíochtaí sóisialta (nó scála de réir rogha)</string>
+    <string name="tax_line_fr_threshold">Diúscairtí suas le €305 sa bhliain: díolmhaithe go ginearálta (iomlán na bpraghsanna díola) – seiceáil</string>
+    <string name="tax_line_gains">Gnóthachain</string>
+    <string name="tax_line_income">Ioncam (luach saothair ag luach nuair a fuarthas é)</string>
+    <string name="tax_line_jp_misc">Ioncam ilghnéitheach (雑所得): glanghnóthachain + ioncam</string>
+    <string name="tax_line_long_net">Glan – i seilbh &gt; 1 bhliain</string>
+    <string name="tax_line_losses">Caillteanais</string>
+    <string name="tax_line_net">Glanghnóthachain/caillteanais</string>
+    <string name="tax_line_new_net">Glan – faighte ó 1 Már 2021, díolta ó 1 Már 2022</string>
+    <string name="tax_line_old_long_net">Glan – faighte roimh 1 Már 2021 – i seilbh &gt; 1 bhliain</string>
+    <string name="tax_line_old_short_net">Glan – idirbhearta amhantracha (seandlí): faighte roimh 1 Már 2021 agus i seilbh ≤ 1 bhliain, nó díolta roimh 1 Már 2022</string>
+    <string name="tax_line_proceeds">Fáltas</string>
+    <string name="tax_line_short_net">Glan – i seilbh ≤ 1 bhliain</string>
+    <string name="tax_line_transfer_fees">Táillí aistrithe (sparáin féin)</string>
+    <string name="tax_line_uk_after_exempt">Glanghnóthachain os cionn na suime díolmhaithe (crypto amháin)</string>
+    <string name="tax_line_uk_exempt">Suim dhíolmhaithe bhliantúil – baineann sí le gach diúscairt le chéile, curtha i bhfeidhm go hiomlán anseo</string>
+    <string name="tax_line_us_terms">Gearrthéarma (≤ 1 bhliain): gnáthrátaí – fadtéarma (&gt; 1 bhliain): rátaí gnóthachan caipitiúil</string>
+    <string name="tax_line_withdrawal_fees">Táillí aistarraingthe</string>
+
+    <!-- Steuer Deutschland -->
+    <string name="tax_de_below">faoin teorainn</string>
+    <string name="tax_de_col_item">Mír</string>
+    <string name="tax_de_disclaimer">Mar threoir amháin – ní tuairisceán cánach é agus ní comhairle chánach é.</string>
+    <string name="tax_de_explain_below">Suas le %1$s: faoin teorainn (mar threoir).</string>
+    <string name="tax_de_explain_loss">Glanchaillteanas: gan cháin ar na díolacháin seo. Ní fhritháireamh caillteanais faoi § 23 EStG ach gnóthachain ó dhíolacháin phríobháideacha – sa bhliain chéanna nó trína dtabhairt siar go dtí an bhliain roimhe agus ar aghaidh go blianta ina dhiaidh (§ 23 alt 3 agus § 10d EStG). Dearbhaigh an caillteanas i do thuairisceán cánach ionas go measúnófar é.</string>
+    <string name="tax_de_explain_reached">Ó %1$s comhairtear an tsuim ar fad (teorainn díolúine – ní liúntas é).</string>
+    <string name="tax_de_explain_unknown">Ní féidir seiceáil: rátaí malairte / praghsanna ceannaigh nó tréimhsí sealbhaíochta ar iarraidh.</string>
+    <string name="tax_de_income_limit">Teorainn díolúine do sheirbhísí (§ 22 Uimh. 3 EStG)</string>
+    <string name="tax_de_limit_scope">Baineann na teorainneacha le gach díolachán nó seirbhís phríobháideach sa bhliain le chéile – lasmuigh den aip freisin.</string>
+    <string name="tax_de_loading">Á ríomh…</string>
+    <string name="tax_de_long_gains">Gnóthachain – i seilbh &gt; 1 bhliain</string>
+    <string name="tax_de_long_losses">Caillteanais – i seilbh &gt; 1 bhliain</string>
+    <string name="tax_de_loss">glanchaillteanas – is féidir é a fhritháireamh i gcoinne gnóthachan ó dhíolacháin phríobháideacha amháin (§ 23 EStG)</string>
+    <string name="tax_de_private_limit">Teorainn díolúine do dhíolacháin phríobháideacha (§ 23 EStG)</string>
+    <string name="tax_de_reached">teorainn sroichte – comhairtear an tsuim ar fad de ghnáth – seiceáil</string>
+    <string name="tax_de_short_gains">Gnóthachain – i seilbh ≤ 1 bhliain</string>
+    <string name="tax_de_short_losses">Caillteanais – i seilbh ≤ 1 bhliain</string>
+    <string name="tax_de_unclassified">Tréimhse sealbhaíochta anaithnid</string>
+    <string name="tax_de_unknown">ní féidir seiceáil</string>
+
+    <!-- Steuer-Vorlagen je Land -->
+    <string name="tax_template_at">An Ostair</string>
+    <string name="tax_template_au">An Astráil</string>
+    <string name="tax_template_beta">Béite</string>
+    <string name="tax_template_beta_note">Béite: rialacha tíre simplithe, seiceáil sula gcomhdaíonn tú do thuairisceán cánach</string>
+    <string name="tax_template_ca">Ceanada</string>
+    <string name="tax_template_ch">An Eilvéis</string>
+    <string name="tax_template_confirm_text">Béite, rialacha simplithe, tá idirbhearta ó ardáin eile ar iarraidh – seiceáil sula gcomhdaíonn tú do thuairisceán cánach.</string>
+    <string name="tax_template_confirm_title">Teimpléad cánach (béite)</string>
+    <string name="tax_template_current">Teimpléad: %1$s · Modh: %2$s · Airgeadra: %3$s</string>
+    <string name="tax_template_de">An Ghearmáin</string>
+    <string name="tax_template_fr">An Fhrainc</string>
+    <string name="tax_template_hint">Mar threoir amháin: socraíonn sé modh, bliain chánach agus achoimre na bileoige oibre cánach. Fanann cárta na Punainne neodrach – d’fhéadfadh bronntanais agus táillí aistrithe a bheith difriúil ón mbileog oibre.</string>
+    <string name="tax_template_jp">An tSeapáin</string>
+    <string name="tax_template_neutral">Neodrach (gach tír)</string>
+    <string name="tax_template_suggestion">Moladh do do réigiún: %1$s</string>
+    <string name="tax_template_title">Teimpléad cánach</string>
+    <string name="tax_template_uk">An Ríocht Aontaithe</string>
+    <string name="tax_template_us">SAM</string>
+    <string name="tax_template_use">Úsáid %1$s</string>
+
+    <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
+    <string name="tax_method_at">Sealúchais sean/nua – meán gluaiste</string>
+    <string name="tax_method_ca_acb">Meánchostas ACB (superficial loss)</string>
+    <string name="tax_method_fr_pta">Praghas fála iomlán (art. 150 VH bis)</string>
+    <string name="tax_method_jp_total">Meán iomlán (総平均法)</string>
+    <string name="tax_method_uk_pool">Section 104 pool (an lá céanna / 30 lá)</string>
+    <string name="tax_note_at">Meán gluaiste in aghaidh an bhoinn agus an sparáin – ní thar sparáin (KryptowährungsVO § 2). Téann luach saothair isteach i sealúchais nua ag costas fála 0 (BMF: gealltóireacht / airdrops) – liostaíonn an comhad ioncaim iad ag luach nuair a fuarthas iad. Ní in-asbhainte táillí do shealúchais a fuarthas ó 1 Már 2021 (§ 27a(4) uimh. 2, § 20(2) EStG): costas agus fáltas gan táillí. Is ioncam nuair a fhaightear é ús iasachta (cineál ó iompórtáil CSV nó ó nóta) ag 27.5 faoin gcéad agus coinníonn sé an luach sin mar chostas fála.</string>
+    <string name="tax_note_at_staking">Gealltóireacht le boinn atá agat cheana agus airdrops: níl tábhacht cánach ag an luach nuair a fhaightear é – de réir dlí is é 0 an costas fála (§ 27b Abs. 2 EStG; BMF “Kryptowährungen”). Ní bhíonn cáin ann ach nuair a dhíolann tú.</string>
+    <string name="tax_note_fr">Is diúscairtí iad díolacháin agus táillí a íoctar i crypto – cuirtear babhtálacha siar. Comhairtear táille crypto ar dhíolachán sa phraghas roimh tháillí – seachas sin is diúscairt ar leith í ag a luach féin. Luach na punainne ó dhúntaí laethúla – má tá dúnadh ar iarraidh, fágtar an costas folamh.</string>
+    <string name="tax_note_network_fee">Is diúscairt de bhoinn na táille ag luach margaidh í táille líonra a íoctar i crypto (aistriú chuig do sparán féin, aistarraingt) – gnóthachan nó caillteanas ar na boinn sin amháin, ní caillteanas na táille ar fad (%1$s). Gan phraghas taifeadta: dúnadh laethúil (UTC) an lae chéanna; gan dúnadh fanann an fáltas folamh.</string>
+    <string name="tax_note_specific_id">Ní thacaítear le sainaithint – úsáidtear FIFO.</string>
+    <string name="tax_note_spouse_gift">Níl gnóthachan ná caillteanas ar bhronntanas atá marcáilte “chuig céile / páirtí sibhialta”: fáltas = do bhunchostas, a ghlacann do pháirtí chuige (%1$s).</string>
+    <string name="tax_note_stable_swap">Is crypto-go-crypto anseo é crypto a dhíol ar bhonn cobhsaí (USDT/USDC/DAI …) a choinníonn tú agus ní ghearrtar cáin air – taifead é mar bhabhtáil isteach sa bhonn cobhsaí. Ní ghearrtar cáin ach ar dhíolachán ar euro – áirítear “Díol” mar dhíolachán ar euro.</string>
+    <string name="tax_note_transfer_fee">Baineann an rud céanna le táille USDT nó airgid thirim ar aistriú idir do sparáin féin: ní chuirtear leis an mbunchostas í agus ní liostaítear í ach mar eolas.</string>
+    <string name="tax_note_uk">Meaitseáil de réir HMRC: an lá céanna → an 30 lá ina dhiaidh → Section 104 pool.</string>
+    <string name="tax_note_us_transition">Aistriú 1 Ean 2025 (Rev. Proc. 2024-28 safe harbor): má úsáideadh FIFO thar gach sparán i mblianta níos luaithe, téann na baisceanna fágtha amhail 31 Noll 2024 chuig na sparáin ina bhfuil na boinn – faigheann an sparán leis na boinn is sine an bunchostas is sine. Is riail de chuid na haipe an leithdháileadh seo – seiceáil i gcoinne do thaifead féin é.</string>
+    <string name="tax_note_us_wallet">Ón mbliain chánach 2025 éilíonn an IRS bunchostas in aghaidh an sparáin nó an mhalartáin (Rev. Proc. 2024-28): úsáideann an easpórtáil FIFO in aghaidh an sparáin ó 2025 – do bhlianta níos luaithe FIFO thar gach sparán, nó FIFO in aghaidh an sparáin más é sin do mhodh costais.</string>
+    <string name="tax_note_withdrawal_fee">Ní caillteanas í táille aistarraingthe in USDT nó in airgead tirim: ní costas in-asbhainte í táille airgid thirim, is diúscairt ar par gan ghnóthachan í táille USDT – ní liostaítear í ach mar eolas (%1$s).</string>
+    <string name="tax_summary_at_interest_income">comhairtear: ioncam nuair a fhaightear é ag an ráta speisialta 27.5 faoin gcéad (§ 27b(2) uimh. 1 EStG / BMF) – coinníonn na boinn an luach seo mar chostas fála</string>
+    <string name="tax_summary_at_reward_info">mar eolas amháin – ní cuid d’aon iomlán: téann luach saothair isteach sna sealúchais nua ag costas fála 0 agus ní ghearrtar cáin air go dtí an díolachán (sna gnóthachain cheana) – § 27b alt 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">1 Ean–28 Feabh 2022: rogha do 27.5 faoin gcéad indéanta</string>
+    <string name="tax_summary_at_withdrawal_fee">Táille aistarraingthe – gan fritháireamh i gcoinne sealúchas nua (caiteachais nach bhfuil in-asbhainte ag an ráta speisialta, § 20(2) EStG)</string>
+    <string name="tax_summary_ch_fifo_info">mar eolas amháin – ríomh FIFO na haipe – gan aicmiú – féach ESTV</string>
+    <string name="tax_summary_ch_year_end_value">luach ar 31 Noll i CSV na sealúchas = praghas malartáin × USD/CHF – ní luachanna cánach ESTV</string>
+    <string name="tax_summary_de_withdrawal_fee">Táille aistarraingthe – gan fritháireamh faoi § 23, seiceáil an bhfuil sí in-asbhainte mar chostas a bhaineann le hioncam</string>
+    <string name="tax_summary_not_calculated_estv">gan ríomh – liosta praghsanna ESTV: %1$s</string>
+    <string name="tax_summary_orientation">Treoir</string>
+    <string name="tax_summary_orientation_block">Mar threoir amháin – ní comhairle chánach – ní measúnú</string>
+    <string name="tax_summary_orientation_item">Treoir: %1$s</string>
+    <string name="tax_summary_title">Achoimre bhliantúil %1$s %2$s</string>
+    <string name="tax_summary_transfer_fee_info">Táillí aistrithe in USDT/airgead tirim – ní caillteanas agus ní sa bhunchostas, eolas amháin</string>
+    <string name="tax_summary_withdrawal_fee_info">Táillí aistarraingthe in USDT/airgead tirim – gan comhaireamh mar chaillteanas, eolas amháin</string>
+
+    <string name="tax_line_at_old_speculation_limit">Idirbhearta amhantracha (seandlí, i seilbh ≤ 1 bhliain): teorainn díolúine (§ 31 (3) EStG seanleagan)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">Ús iasachta roimh 1 Már 2022 (luach nuair a fuarthas é)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">Ús roimh 1 Már 2022: seandlí (ráta cánach ioncaim), ní 27.5 faoin gcéad</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">roimh 1 Már 2022 – seiceáil le gairmí</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">Ús – inchánach nuair a fhaightear é</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">Gealltóireacht – mar eolas amháin (costas fála 0, cáin ar dhíolachán)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">Ús iomlán (inchánach)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">Gealltóireacht iomlán (eolas)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">Glanchaillteanas caipitiúil (tugtha ar aghaidh)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">gan rogha: áirítear díolacháin 1 Ean–28 Feabh 2022</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">Gealltóireacht roimh 1 Már 2022: costas fála socraithe ag 0 – seiceáil le gairmí</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">D’fhéadfadh an riail 30 lá na figiúirí seo a athrú fós (ceannacháin go dtí %1$s)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Fáltas roimh tháillí os cionn na teorann tuairiscithe (£50,000; 2020/21–2022/23: £49,200): tuairiscigh do HMRC má tá clárú agat le haghaidh Self Assessment, fiú gan gnóthachan inchánach</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">Luach rachmais 31 Noll %1$s (treoir)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">Is é liosta praghsanna ESTV (ictax.admin.ch) atá údarásach. I gcás bonn nach bhfuil ar an liosta, baineann praghas dúnta an mhalartáin go ginearálta. Cáin rachmais gan ríomh.</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – sealúchas %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">gan ríomh</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">Níorbh fhéidir seoltaí faire a léamh – tá a n-iarmhéideanna ar iarraidh ón gcomhad seo</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">Comhairtear baisceanna seoltaí faire óna ndáta ceannaigh; má tá iarmhéid an tseolta níos ísle inniu, laghdaítear iad.</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">Comhairtear seoltaí faire sa luach iomlán ach níl costas fála acu – is dócha mar sin go bhfuil an gnóthachan ró-ard. Taifead an costas mar cheannach.</string>
+    <string name="tax_summary_fr_rewards_income">Glacann an tsuim leis gur gearradh cáin ar luach saothair mar ioncam nuair a fuarthas é (luach nuair a fuarthas é sa chostas fála) – seachas sin ba é costas fála 0 an léamh aireach.</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">Luachanna margaidh gan phraghas taifeadta (táillí, bronntanais/íocaíochtaí, babhtálacha, luach saothair, táillí líonra, luach na punainne) ag dúnadh laethúil (UTC) lá an idirbhirt</string>
+</resources>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%1$s in %2$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">Dúnadh</string>
+    <string name="sheet_chart_converted_current">%1$s, tiontaithe (ráta reatha)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, tiontaithe ag rátaí laethúla</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">Gan sonraí praghais don phéire seo</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">Oscailt</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">Inniu</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">Toirt %1$s</string>
+    <string name="sheet_more">Tuilleadh</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Tairiscint díola</string>
+    <string name="ticker_bid">Tairiscint cheannaigh</string>
+    <string name="explain_bid_ask">Is í an tairiscint cheannaigh (bid) an praghas is airde atá ceannaitheoirí ag tairiscint faoi láthair, an tairiscint díola (ask) an praghas is ísle a ghlacfaidh díoltóirí.</string>
+    <string name="ticker_high">Buaic</string>
+    <string name="ticker_low">Íosmhéid</string>
+    <string name="ticker_timestamp">Am</string>
+    <string name="ticker_vol_base">Toirt (i mboinn)</string>
+    <string name="ticker_vol_quote">Toirt (in airgeadra luachana)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (crios ama an ghléis)</string>
+    <string name="change_basis_local">Ó 00:00 am áitiúil</string>
+    <string name="change_basis_rolling">An 24 u deireanach</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">Ón nuashonrú deireanach</string>
+    <string name="change_basis_utc_zone">Ó 00:00 %1$s</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">Athrú ó choinnle %1$s</string>
+    <string name="change_short_since_last">nuashonrú deireanach</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">inniu</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">inniu %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="exchange_data_empty_error">Níor fuarthas sonraí ón malartán.</string>
+    <string name="market_data_summary">Caip. mhargaidh, táillí gáis, sonraí eacnamaíocha, anailís boinn</string>
+    <string name="market_data_tab_futures">Todhchaíochtaí</string>
+    <string name="market_data_title">Sonraí margaidh</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">Soláthar i gcúrsaíocht</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">Caip. mhargaidh</string>
+    <string name="spot_max_supply">Uasoláthar</string>
+    <string name="spot_no_data">Gan sonraí spot don bhonn seo</string>
+    <string name="spot_source_updated">Foinse: %1$s · staid %2$s</string>
+    <string name="spot_supply_of_max">%1$s den uasoláthar i gcúrsaíocht</string>
+    <string name="spot_total_supply">Soláthar iomlán</string>
+    <string name="spot_vol_mcap">Toirt/Caip. mhargaidh</string>
+    <string name="spot_volume_24h">Toirt (24 u)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">Tagairt: %1$s</string>
+    <string name="futures_funding">Ráta maoinithe</string>
+    <string name="futures_funding_interval_unknown">eatramh anaithnid</string>
+    <string name="futures_funding_per8h_equiv">= %1$s in aghaidh 8 u (mar atá i bhfoláirimh)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">in aghaidh na huaire</string>
+    <string name="futures_funding_per_hours">in aghaidh %1$d u</string>
+    <string name="futures_next_funding">an chéad cheann eile i gceann %1$d u %2$d nóim</string>
+    <string name="futures_no_data">Gan sonraí todhchaíochtaí don bhonn seo</string>
+    <string name="futures_open_interest">Ús oscailte</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">Tagairt ó %1$s – bíonn maoiniú agus ús oscailte difriúil ó mhalartán go malartán; ar %2$s d’fhéadfaidís a bheith difriúil.</string>
+    <string name="futures_reference_spot">Tagairt ó %1$s (perpetual USDT an bhoinn)</string>
+    <string name="futures_source">Foinse: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">Bíonn go leor trádálaithe ag geall ar phraghsanna ag ardú nó ag titim le hairgead ar iasacht. Táille idir fadsuíomhanna agus gearrshuíomhanna. Ciallaíonn an-dearfach go bhfuil go leor ag geall ar phraghsanna ag ardú.</string>
+    <string name="explain_open_interest">Is geallta ar an bpraghas iad todhchaíochtaí, go minic le hairgead ar iasacht. Luach gach suímh todhchaíochta oscailte. Má ardaíonn sé, tá níos mó airgid ag geall ar an ngluaiseacht.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Míniú</string>
+    <string name="explain_spot_fdv">Luacháil iomlán chaolaithe: praghas × uasoláthar (nó soláthar iomlán mura bhfuil teorainn ann).</string>
+    <string name="explain_spot_market_cap">Praghas × soláthar i gcúrsaíocht. Taispeánann an phiollaire a athrú thar 24 uair an chloig.</string>
+    <string name="explain_spot_source">Figiúirí thar gach malartán i ndollair SAM, ó CoinGecko.</string>
+    <string name="explain_spot_supply">I gcúrsaíocht: boinn ar an margadh anois. Iomlán: gach bonn a cruthaíodh lúide na cinn a dódh. Uas: an méid is mó a d’fhéadfadh a bheith ann riamh.</string>
+    <string name="explain_spot_volume">Luach a trádáladh in 24 uair an chloig. Toirt/Caip. mhargaidh: toirt i gcoibhneas le caipitliú margaidh — ciallaíonn ard trádáil an-ghníomhach.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · ráta %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">Bearna leathan idir praghas ceannaigh agus díola (%1$s)</string>
+
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">Stair in %1$s, tiontaithe go %2$s ag ráta an lae inniu</string>
+    <string name="converted_unsure">Tiontú éiginnte</string>
+</resources>

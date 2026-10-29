@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">ထင်ရှားသည်: %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — ယခု %2$s</string>
+    <string name="notification_alarm_title">သတိပေးချက်: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">လဲလှယ်ရေးဌာန ဖွင့်ရန်</string>
+    <string name="notification_depeg_text">အက်ပ်ရှိ တန်ဖိုးများသည် ဤဈေးကွက်ဈေးနှုန်းကို အသုံးပြုသည်။</string>
+    <string name="notification_depeg_title">USDT သည် %1$s USD (%2$s)</string>
+    <string name="notification_fng_above">ညွှန်းကိန်းသည် %1$d ထက် တက်သွားသည် – ဤတိုင်းတာချက်အရ ဈေးကွက်စိတ်ခံစားမှုသည် လောဘကြီးနေသည်။</string>
+    <string name="notification_fng_below">ညွှန်းကိန်းသည် %1$d အောက် ကျသွားသည် – ဤတိုင်းတာချက်အရ ဈေးကွက်စိတ်ခံစားမှုသည် ကြောက်ရွံ့နေသည်။</string>
+    <string name="notification_fng_title">စိတ်ခံစားမှု ညွှန်းကိန်း (Fear &amp; Greed): %1$d</string>
+    <string name="notification_gas_btc_text">သင့်ကန့်သတ်ချက် %1$s sat/vB အောက် · လွှဲပြောင်းမှု ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin အခကြေးငွေ: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">သင့်ကန့်သတ်ချက် %1$s gwei အောက် · လွှဲပြောင်းမှု ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Ethereum gas: %1$s gwei</string>
+    <string name="notification_indicator_above">သင့်ကန့်သတ်ချက် %1$s အထက် – တိုင်းတာတန်ဖိုးသာ ဖြစ်ပြီး အကြံပြုချက် မဟုတ်ပါ။</string>
+    <string name="notification_indicator_below">သင့်ကန့်သတ်ချက် %1$s အောက် – တိုင်းတာတန်ဖိုးသာ ဖြစ်ပြီး အကြံပြုချက် မဟုတ်ပါ။</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">ယနေ့ စီးပွားရေး ဒေတာ</string>
+    <string name="notification_permission_preprompt_continue">ဆက်လုပ်ရန်</string>
+    <string name="notification_permission_preprompt_later">နောက်မှ</string>
+    <string name="notification_permission_preprompt_text">သတိပေးချက်များနှင့် ဈေးနှုန်း အကြောင်းကြားချက်များ သင့်ဆီ ရောက်စေရန် အက်ပ်သည် အကြောင်းကြားချက် ပို့ရန် ခွင့်ပြုချက် လိုအပ်သည်။ အက်ပ်သည် ၎င်းတို့ကို သင့်သတိပေးချက်များနှင့် ဈေးနှုန်း အကြောင်းကြားချက်များအတွက်သာ အသုံးပြုသည်။</string>
+    <string name="notification_permission_preprompt_title">အကြောင်းကြားချက်များကို ခွင့်ပြုမလား။</string>
+    <string name="notification_portfolio_alarm_locked">သင့်သတိပေးချက် ဖြစ်ပေါ်ခဲ့သည် – အသေးစိတ်အတွက် အက်ပ်ကို ဖွင့်ပါ။</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – ယခု %2$s</string>
+    <string name="notification_portfolio_alarm_title">ပေါ့ဖိုလီယို တန်ဖိုး</string>
+    <string name="notification_price_change">%1$s, %2$s မှ (%3$s က)</string>
+    <string name="notification_price_change_no_age">%1$s, %2$s မှ</string>
+    <string name="notification_price_first">ဤအတွဲအတွက် ပထမဆုံး ဈေးနှုန်း အကြောင်းကြားချက်</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="other">+နောက်ထပ် ဈေးနှုန်း %1$d ခု</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">ဈေးနှုန်းများ အပ်ဒိတ်လုပ်နေသည်…</string>
+    <string name="notification_volume_spike_text">နောက်ဆုံးနာရီတွင် ပမာဏ ပုံမှန်၏ %1$s×</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">သတိပေးချက်များ</string>
+    <string name="channel_alarms_description">သတိပေးချက် ဖြစ်ပေါ်သည့်အခါ အကြောင်းကြားချက်။</string>
+    <string name="channel_alarms_quiet">သတိပေးချက်များ (တိတ်ဆိတ်ချိန်)</string>
+    <string name="channel_alarms_quiet_description">တိတ်ဆိတ်ချိန်အတွင်း အသံမဲ့ သတိပေးချက်များ။</string>
+    <string name="channel_alarms_silent">သတိပေးချက်များ (အသံမဲ့)</string>
+    <string name="channel_alarms_sound">သတိပေးချက်များ (အသံသာ)</string>
+    <string name="channel_alarms_sound_vibrate">သတိပေးချက်များ (အသံနှင့် တုန်ခါမှု)</string>
+    <string name="channel_alarms_vibrate">သတိပေးချက်များ (တုန်ခါမှုသာ)</string>
+    <string name="channel_prices">ဈေးနှုန်း အကြောင်းကြားချက်များ</string>
+    <string name="channel_prices_description">အတွဲတစ်ခု၏ လက်ရှိဈေးနှုန်းပါသော အသံမဲ့ ဈေးနှုန်း အကြောင်းကြားချက်။</string>
+    <string name="channel_service">ဈေးနှုန်း အပ်ဒိတ်များ</string>
+    <string name="channel_service_description">ဈေးနှုန်းများ အပ်ဒိတ်လုပ်နေစဉ် အကြောင်းကြားချက်။</string>
+    <string name="neutral_channel_market">ဈေးကွက် သတိပေးချက်များ</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed၊ gas အခကြေးငွေ၊ “ထင်ရှားသည်” နှင့် စီးပွားရေး ရက်စွဲများ</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">သတိပေးချက်။ %1$s, %2$s %3$s %4$s, ယခု %5$s</string>
+    <string name="tts_direction_down">ကျသွားပြီ</string>
+    <string name="tts_direction_funding_above">Funding မြင့်ဖြင့်</string>
+    <string name="tts_direction_funding_below">Funding နိမ့်ဖြင့်</string>
+    <string name="tts_direction_move">ပြင်းပြင်းထန်ထန် လှုပ်ရှားနေသည်</string>
+    <string name="tts_direction_near_high">၎င်း၏ အမြင့်ဆုံးအနီးတွင် ရှိသည်</string>
+    <string name="tts_direction_near_low">၎င်း၏ အနိမ့်ဆုံးအနီးတွင် ရှိသည်</string>
+    <string name="tts_direction_oi_down">ကျဆင်းနေသော Open interest ဖြင့်</string>
+    <string name="tts_direction_oi_up">မြင့်တက်နေသော Open interest ဖြင့်</string>
+    <string name="tts_direction_up">တက်သွားပြီ</string>
+    <string name="tts_direction_volume_spike">ပမာဏ ရုတ်တရက်တက်မှုဖြင့်</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+
+    <!-- Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+    <string name="notification_alarm_action_snooze">1 နာရီ နောက်မှ</string>
+    <string name="notification_alarm_action_edit">ချိန်ညှိရန်</string>
+</resources>

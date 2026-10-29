@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">Додај адреса</string>
+    <string name="portfolio_address_count">Вброј</string>
+    <string name="portfolio_address_error">Ажурирањето не успеа</string>
+    <string name="portfolio_address_hint">Јавна адреса (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) или xpub</string>
+    <string name="portfolio_address_label">Ознака (опционално)</string>
+    <string name="portfolio_address_not_since_buy">Од адреса · не е во „Од купувањето“: %1$s</string>
+    <string name="portfolio_address_overlap">И во твоите трансакции: %1$s – се додаваат двете. Исти монети? Избери „Само прикажи“.</string>
+    <string name="portfolio_address_overlap_ask">%1$s веќе го водиш со свои трансакции. Да го додадам салдото на оваа адреса во портфолиото или само да го прикажам?</string>
+    <string name="portfolio_address_overlap_auto">„%1$s“ сега само се прикажува, не се вбројува – %2$s се појавуваат и во твоите трансакции.</string>
+    <string name="portfolio_address_overlap_title">Исти монети како во твоите трансакции?</string>
+    <string name="portfolio_address_overlap_tx">Ист износ како твојот уплата/трансфер (%1$s) – веројатно е вброено двапати.</string>
+    <string name="portfolio_address_period_observed">Следените адреси се бројат од првото забележано салдо; подоцнежните промени се приливи/одливи, не добивка.</string>
+    <string name="portfolio_address_privacy">До %1$s се испраќа само јавната адреса – никогаш клучеви или seed-фрази. Давателот ја гледа заедно со твојата IP-адреса. Се проверува најмногу на секои 10 минути.</string>
+    <string name="portfolio_address_remove">Отстрани адреса</string>
+    <string name="portfolio_address_show_only">Само прикажи, не додавај во портфолиото</string>
+    <string name="portfolio_address_show_only_short">Само прикажи</string>
+    <string name="portfolio_address_tokens">Вброј токени</string>
+    <string name="portfolio_address_xpub_privacy">xpub ги открива сите адреси на овој паричник. Тие се изведуваат на твојот уред; до %1$s се испраќаат само поединечни адреси – најмалку 40 барања при првото скенирање, подоцна помалку. Приватни клучеви (xprv) никогаш не се прифаќаат.</string>
+    <string name="portfolio_address_xpub_gap">Пребарувањето застанува по %1$d неискористени адреси по ред (стандардот BIP44 што го користат повеќето паричници). Искористена адреса по таа празнина не се вбројува – додај ја посебно.</string>
+    <string name="portfolio_address_xpub_used">Адреси во употреба: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">Премногу искористени адреси за ажурирање</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">Многу адреси – нови уплати на стари, празни адреси можеби нема да се забележат</string>
+    <string name="portfolio_addresses_title">Адреси</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Адресите на Bitcoin Cash не може да се следат: нема бесплатна јавна услуга без API-клуч чии услови тоа го дозволуваат.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) беше исклучен во 2024 – салдата сега се на BNB Smart Chain (0x…)</string>
+    <string name="address_checksum">Погрешна контролна сума – провери за печатни грешки</string>
+    <string name="address_doge_unsupported">Адресите на Dogecoin не може да се следат: нема бесплатна јавна услуга без API-клуч чии услови тоа го дозволуваат.</string>
+    <string name="address_duplicate">Оваа адреса е веќе додадена</string>
+    <string name="address_ens">ENS-имиња не се поддржани – внеси ја 0x-адресата</string>
+    <string name="address_invalid">Не е валидна адреса на поддржана мрежа</string>
+    <string name="address_limit">Најмногу 20 адреси</string>
+    <string name="address_secret">Ова личи на приватен клуч или seed-фраза – никогаш не ги внесувај никаде. Само јавни адреси.</string>
+    <string name="address_testnet">Testnet-адреси не се поддржани</string>
+    <string name="address_unsupported">Овој тип адреса не е поддржан</string>
+    <string name="address_wrong_chain">Адресата припаѓа на друга мрежа</string>
+    <string name="address_xpub_multisig">Multisig-клучеви (Ypub/Zpub) не се поддржани</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot-сметка (BIP86): од овој клуч се изведуваат bc1p…-адреси, за примање и кусур.</string>
+    <string name="portfolio_address_taproot_hint">Taproot-паричник? Наместо тоа, вметни го дескрипторот tr(…) од твојот паричник – обичен xpub се пребарува само како Legacy и SegWit адреси.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">Сопствениот сервер не е достапен</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">Кој и да го води %1$s ги гледа сите побарани адреси на овој паричник и може да ги поврзе меѓусебно и со твојата IP-адреса.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">За да го избегнеш ова, внеси свој сервер во Поставки › Портфолио › Сопствен сервер за адреси.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d непознат токен (не е вброен)</item>
+        <item quantity="other">+%1$d непознати токени (не се вброени)</item>
+    </plurals>
+</resources>

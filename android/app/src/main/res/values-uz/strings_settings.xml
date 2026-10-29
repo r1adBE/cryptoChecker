@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">Maxsus</string>
+    <string name="settings_group_general">Umumiy</string>
+    <string name="settings_group_more">Qoʻshimcha</string>
+    <string name="settings_minutes">%1$d daq</string>
+    <string name="settings_row_about">Ilova haqida</string>
+    <string name="settings_row_alarms">Signallar</string>
+    <string name="settings_row_currency">Valyuta</string>
+    <string name="settings_row_dated_futures">Muddatli fyucherslar</string>
+    <string name="settings_row_updates">Kurs yangilanishlari</string>
+    <string name="settings_row_watchlist">Kuzatuv roʻyxati</string>
+    <string name="settings_search_hint">Sozlamalarni qidirish</string>
+    <string name="settings_seconds">%1$d s</string>
+    <string name="settings_section_about">Haqida</string>
+    <string name="settings_section_appearance">Koʻrinish</string>
+    <string name="settings_section_developer">Dasturchi</string>
+    <string name="settings_section_language">Til</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">Yoqiq</string>
+    <string name="settings_title">Sozlamalar</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">Signal qayta ishga tushishidan oldingi sokin vaqt</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Signal ovozi turi</string>
+    <string name="settings_alarm_signal_open_system">Tizim sozlamalarida sozlash</string>
+    <string name="settings_alarm_signal_system_hint">Telefoningizning bildirishnoma sozlamalariga amal qiladi.</string>
+    <string name="settings_alarm_sound">Signal ovozi</string>
+    <string name="settings_alarm_sound_custom">Maxsus ovoz</string>
+    <string name="settings_alarm_sound_default">Standart ovoz</string>
+    <string name="settings_alarm_sound_error">Ovozdan foydalanib boʻlmadi.</string>
+    <string name="settings_alarm_sound_file">Oʻz audio faylingiz…</string>
+    <string name="settings_alarm_sound_reset">Standart ovozdan foydalanish</string>
+    <string name="settings_alarm_sound_system">Tizim ovozini tanlash…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Ilova belgisidagi raqam</string>
+    <string name="settings_app_badge_hint">Ochiq signal bildirishnomalarini sanaydi. Raqam yoki nuqta chiqishi bosh ekranga bogʻliq (masalan, Samsung: «Raqam bilan koʻrsatish»).</string>
+    <string name="settings_exact_checks">Oʻz vaqtida tekshirish</string>
+    <string name="settings_exact_checks_grant">Budilnik va eslatmalarga ruxsat berish</string>
+    <string name="settings_exact_checks_hint">Android qurilma boʻsh turganda ham taxminan har 15 daqiqada tekshiradi. Batareyani biroz koʻproq sarflaydi.</string>
+    <string name="settings_exact_checks_nothing">Faol juftliklar yoʻq – tekshiriladigan narsa yoʻq.</string>
+    <string name="settings_exact_checks_permission_missing">Ruxsat yoʻq – qurilma tinch turganda Android notekis tekshiradi, baʼzan faqat bir necha soatdan keyin.</string>
+    <string name="settings_notification_change">Faqat kurs oʻzgarganda xabar berish</string>
+    <string name="settings_notification_change_always">Har doim</string>
+    <string name="settings_percent_invalid">0 dan 100 gacha qiymat kiriting.</string>
+    <string name="settings_notification_change_hint">Kurs bildirishnomasi faqat kurs oxirgisidan beri kamida shuncha oʻzgarganda chiqadi. Maʼlumot yoʻq paytda hech narsa koʻrsatilmaydi. Signallarga taʼsir qilmaydi.</string>
+    <string name="settings_ongoing_notifications">Surib yopib boʻlmaydi</string>
+    <string name="settings_ongoing_notifications_hint">Kurs bildirishnomalarini mahkamlangan holda saqlaydi.</string>
+    <string name="settings_price_notifications">Kurs bildirishnomalari</string>
+    <string name="settings_price_notifications_hint">Yoqilgan juftliklarning joriy kursini holat qatorida koʻrsatish.</string>
+    <string name="settings_price_pairs">Juftliklar</string>
+    <string name="settings_price_pairs_all_off">Hammasi oʻchiq</string>
+    <string name="settings_price_pairs_all_on">Hammasi yoqiq</string>
+    <string name="settings_price_pairs_count">%2$d tadan %1$d ta</string>
+    <string name="settings_price_pairs_empty">Kuzatuv roʻyxatida hali juftliklar yoʻq.</string>
+    <string name="settings_price_pairs_hint">Bildirishnoma panelida qaysi juftliklar kursi koʻrsatilishini tanlang.</string>
+    <string name="settings_quiet_hours">Sokin soatlar</string>
+    <string name="settings_quiet_hours_from">Dan</string>
+    <string name="settings_quiet_hours_hint">%1$s va %2$s oraligʻida signallar sokin soatlar tugaguncha kutadi va keyin ovoz bilan keladi. Boshqa bildirishnomalar ovozsiz, nutqsiz keladi.</string>
+    <string name="settings_quiet_hours_to">Gacha</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">Interval</string>
+    <string name="settings_background_updates">Fondagi yangilanishlar</string>
+    <string name="settings_battery_hint">Cheklangan boʻlsa, Android fondagi yangilanishlarni bir necha soatga kechiktirishi mumkin.</string>
+    <string name="settings_battery_ok">Batareya sarfi: cheklanmagan</string>
+    <string name="settings_battery_restricted">Batareya sarfi: cheklangan</string>
+    <string name="settings_check_runs_empty">Hozircha tekshiruvlar qayd etilmagan.</string>
+    <string name="settings_check_runs_honest_android">Qachon tekshirishni Android hal qiladi – bu yerda u haqiqatda qachon boʻlganini koʻrasiz.</string>
+    <string name="settings_check_runs_honest_ios">Qachon tekshirishni iOS hal qiladi – bu yerda u haqiqatda qachon boʻlganini koʻrasiz.</string>
+    <string name="settings_check_runs_title">Soʻnggi tekshiruvlar</string>
+    <string name="settings_http_log">HTTP jurnalini koʻrsatish</string>
+    <string name="settings_http_log_hint">Birjalarga soʻrovlarni «Juftlik qoʻshish» sahifasining pastida koʻrsatadi – nosozliklarni aniqlash uchun.</string>
+    <string name="settings_live_service">Tez-tez yangilash</string>
+    <string name="settings_live_websocket">Jonli kurslar</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">Diqqatga sazovor: xabar berish</string>
+    <string name="settings_activity_alerts_hint">Har bir juftlik uchun soatiga koʻpi bilan bir marta: gʻayrioddiy narx harakatlari, hajm sakrashlari va fyuchers chekkalari (Binance maʼlumotlari).</string>
+    <string name="settings_activity_sensitivity">Sezgirlik</string>
+    <string name="settings_activity_sensitivity_hint">Tanga qanchalik oson gʻayrioddiy hisoblanishi – kuzatuv roʻyxati kartasi va bozor signallari uchun bir xil. «Kamroq» tanlansa, karta faqat eng kuchli 3 tasini koʻrsatadi.</string>
+    <string name="settings_watchlist_activity_card">Diqqatga sazovor: roʻyxatda koʻrsatish</string>
+    <string name="settings_watchlist_activity_card_hint">Guruhlar yonida ⚡ belgisini koʻrsatadi: hozir biror narsa boʻlayotgan juftliklarnigina koʻrish uchun unga bosing. Uning bildirishnomalari Bozor signallari boʻlimida sozlanadi.</string>
+    <string name="settings_watchlist_names">Nomlarni koʻrsatish</string>
+    <string name="settings_watchlist_names_hint">Juftlik ostidagi nom, masalan Bitcoin yoki NVIDIA. Logotip roʻyxatlari bilan birga keladi, barcha tangalar uchun bir marta yuklanadi.</string>
+    <string name="settings_watchlist_sparkline">Kuzatuv roʻyxatida mini grafik</string>
+    <string name="settings_watchlist_sparkline_hint">Kurs yonida 24 soatlik trend</string>
+    <string name="settings_watchlist_value_names">Nomlar</string>
+    <string name="settings_watchlist_value_price_only">Faqat kurs</string>
+    <string name="settings_watchlist_value_sparkline">Mini grafik</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Alpha tokenlari bilan (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Alpha tokenlari: Binance Alpha roʻyxatidagi erta, asosan kichik loyihalar – koʻpincha kam savdoli va juda volatil.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">Tokenlarga tegishli. «Faqat TradFi» tanlanganda mavjud emas; kuzatuv roʻyxatingizdagi Alpha tokenlari qoladi.</string>
+    <string name="settings_asset_scope_both">Tokenlar va TradFi</string>
+    <string name="settings_asset_scope_both_hint">Hammasi – kripto va TradFi</string>
+    <string name="settings_asset_scope_hint">Juftlik qoʻshganda tanlov va qidiruv qaysi juftliklarni koʻrsatishini belgilaydi. Kuzatuv roʻyxatingizdagi juftliklar har doim qoladi.</string>
+    <string name="settings_asset_scope_title">Tokenlar &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">Faqat tokenlar</string>
+    <string name="settings_asset_scope_tokens_hint">Kripto: spot va perpetual kontraktlar</string>
+    <string name="settings_asset_scope_tradfi">Faqat TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">Aksiyalar, xomashyo, valyutaga fyucherslar – kontraktlar, tokenlar emas</string>
+    <string name="settings_rolling_futures">Choraklik &amp; boshqa muddatli fyucherslar bilan</string>
+    <string name="settings_rolling_futures_hint">Oʻchiq: birja roʻyxatida yoʻq muddatli fyucherslar birma-bir tekshirilish oʻrniga endi savdoda emas deb belgilanadi. Har bir yangilanishda vaqtni tejaydi.</string>
+    <string name="settings_rolling_futures_qtly">Choraklik &amp; boshqa muddatli fyucherslar bilan (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">Tokenlarga tegishli. «Faqat TradFi» tanlanganda mavjud emas; kuzatuv roʻyxatingizdagi muddatli fyucherslarga baribir qoʻllanadi.</string>
+    <string name="settings_tradfi_futures">Aksiyalar, xomashyo va valyuta (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Juftlik tanlaganda aksiyalar, oltin va boshqa xomashyo, valyutalar hamda IPO’gacha boʻlgan kompaniyalarga fyucherslarni ham koʻrsatadi. Bular kontraktlar, tokenlar emas.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">Urgʻu rangi</string>
+    <string name="settings_accent_hint">Ilova, vidjetlar va ilova belgisi uchun rang. Baʼzi bosh ekranlar belgi oʻzgarganda uni olib tashlaydi – unda uni qayta qoʻshing.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Tanga logotiplari</string>
+    <string name="settings_coin_logos_app">Ilovada</string>
+    <string name="settings_coin_logos_app_hint">Kuzatuv roʻyxati, ochilgan juftlik va bozor kartalari</string>
+    <string name="settings_coin_logos_footer">Logotiplar CoinGecko’dan, CoinGecko roʻyxatida yoʻq tangalar uchun esa (masalan, oltin, kumush, aksiyalar) Binance’dan olinadi. Ilova barcha logotiplarni birdaniga yuklaydi va shu qurilmada saqlaydi, shuning uchun provayderlarning hech biri qaysi tangalarni kuzatayotganingizni bila olmaydi. Logotipi yoʻq tangalar bosh harflarini koʻrsatadi. Sevimlilar logotipida kichik yulduzcha boʻladi. Kalit oʻchiq joyda logotip ham, bosh harflar ham koʻrsatilmaydi; barcha kalitlar oʻchiq boʻlsa, hech narsa yuklanmaydi.</string>
+    <string name="settings_coin_logos_portfolio">Portfelda</string>
+    <string name="settings_coin_logos_portfolio_hint">Pozitsiyalar, tanga tafsilotlari va tahlillar</string>
+    <string name="settings_coin_logos_value_app">Ilova</string>
+    <string name="settings_coin_logos_widgets">Vidjetlarda</string>
+    <string name="settings_coin_logos_widgets_hint">Kuzatuv roʻyxati va bitta tanga vidjetlari</string>
+    <string name="settings_high_contrast">Yuqori kontrast</string>
+    <string name="settings_high_contrast_hint">Kuchliroq kurs ranglari va toʻqroq ikkinchi darajali matn. Tizim koʻproq kontrast soʻraganda ham yoqiladi.</string>
+    <string name="settings_language_choose">Tilni tanlash</string>
+    <string name="settings_language_system">Tizim tili</string>
+    <string name="settings_price_colors">Kurs ranglari</string>
+    <string name="settings_price_colors_hint">Koʻk / toʻq sariqni rang koʻrishning har qanday buzilishida (qizil-yashil va koʻk-sariq) oson ajratish mumkin. Yoʻnalish har doim + / − bilan ham koʻrsatiladi.</string>
+    <string name="settings_theme_mode">Yorugʻ / Qorongʻi</string>
+    <string name="settings_widgets">Vidjetlar</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">%1$s oʻzgarishi &amp; grafik vaqt mintaqasi</string>
+    <string name="settings_change_basis_hint_1">Tanlangan vaqt mintaqasi foiz oʻzgarishi qachondan hisoblanishini (kuzatuv roʻyxati, puls qatori, ochilgan juftlik, vidjetlar) va grafiklarda koʻrsatiladigan vaqtni belgilaydi.</string>
+    <string name="settings_change_basis_hint_2">«%1$s» aynan 24 soat oldingi kurs bilan solishtiradi. «00:00» shu vaqt mintaqasidagi yarim tundagi ochilish narxi bilan solishtiradi.</string>
+    <string name="settings_change_basis_hint_3">Signallarga taʼsir qilmaydi.</string>
+    <string name="settings_change_basis_hint_since_last">«%1$s» oldingi yangilanishdagi kurs bilan solishtiradi. Jonli kurslar bilan u 0%% ga yaqin qoladi.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">Konvertatsiya valyutasi</string>
+    <string name="settings_conversion_currency_hint">Shuningdek portfel, valyutangizdagi signallar, kripto bozori kartasi va portfel vidjeti uchun ishlatiladi.</string>
+    <string name="settings_cost_method">Tannarx usuli</string>
+    <string name="settings_cost_method_average">Oʻrtacha tannarx</string>
+    <string name="settings_cost_method_average_hint">Sotuvlar oʻzgaruvchan oʻrtacha xarid narxida baholanadi.</string>
+    <string name="settings_cost_method_fifo">FIFO (standart)</string>
+    <string name="settings_cost_method_fifo_hint">Barcha birja va hamyonlar boʻyicha avval eng eski tangalar sotiladi.</string>
+    <string name="settings_cost_method_fifo_wallet">Hamyon/birja boʻyicha FIFO</string>
+    <string name="settings_cost_method_fifo_wallet_hint">Har bir birja yoki hamyon ichida avval eng eski tangalar; oʻtkazmalar lotlarni xarid sanasi bilan koʻchiradi.</string>
+    <string name="settings_portfolio_lock">Portfel qulfi</string>
+    <string name="settings_portfolio_lock_footer">Qulf ekranda koʻrsatilganni yashiradi. Maʼlumotlaringiz shu qurilmada saqlanadi va qurilma shifrlashi bilan himoyalangan. Zaxira nusxalarni parol bilan himoyalashingiz mumkin.</string>
+    <string name="settings_portfolio_lock_hint">Faqat portfelni yashiradi: barmoq izi, yuz yoki qurilma PIN kodi bilan ochiladi. Fonda bir daqiqadan koʻproq boʻlgach yana qulflanadi. Kuzatuv roʻyxati, signallar va boshqa vidjetlar ochiq qoladi.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Qurilma PIN kodi yoki parolisiz qulf hech narsani yashirmaydi – ekran qulfini oʻrnating.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Portfel tizim zaxirasida</string>
+    <string name="settings_portfolio_system_backup_hint">Oʻchiq: tranzaksiyalaringiz qurilmaning tizim zaxirasiga va telefondan telefonga koʻchirishga kirmaydi. Ularni yangi telefonga koʻchirish uchun ilovaning parolli oʻz zaxira nusxasidan foydalaning.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Android 9 yoki undan yangisi kerak – eski versiyalar portfelni Google zaxirasida shifrlanmagan holda saqlardi.</string>
+    <string name="settings_portfolio_tab">«Portfel» yorligʻini koʻrsatish</string>
+    <string name="settings_portfolio_value_locked">Yoqiq, qulf bilan</string>
+    <string name="settings_show_converted">Konvertatsiya qilingan kurslar</string>
+    <string name="settings_show_converted_hint">Kuzatuv roʻyxatidagi kurslarni %1$s da ham koʻrsatadi</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">USDT depegi haqida xabar berish</string>
+    <string name="settings_depeg_alarm_hint">USDT 1 USD dan chegara miqdorida chetlashganda bir marta xabar beradi (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_threshold">Depeg chegarasi</string>
+    <string name="settings_fng_above">Fear &amp; Greed: yuqori boʻlsa xabar berish</string>
+    <string name="settings_fng_below">Fear &amp; Greed: past boʻlsa xabar berish</string>
+    <string name="settings_gas_alert_hint">Oddiy komissiya chegaradan tushganda bir marta xabar beradi. Kurs yangilanishlari paytida, koʻpi bilan har 10 daqiqada tekshiriladi.</string>
+    <string name="settings_gas_btc_below">Bitcoin komissiyasi past (sat/vB)</string>
+    <string name="settings_gas_eth_below">Ethereum gazi past (gwei)</string>
+    <string name="settings_ind_ath_within">Tarixiy maksimumdan tushish koʻpi bilan</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple yuqori</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple past</string>
+    <string name="settings_ind_mvrv_above">MVRV yuqori</string>
+    <string name="settings_ind_mvrv_below">MVRV past</string>
+    <string name="settings_indicator_alerts_hint">Bitcoin indikatorlari, kuniga ikki marta tekshiriladi. Chegaralarni siz tanlaysiz – ilova qiymatlarni baholamaydi.</string>
+    <string name="settings_macro_notifications">Iqtisodiy kalendar</string>
+    <string name="settings_macro_notifications_hint">AQSHning muhim iqtisodiy maʼlumotlari (inflyatsiya, bandlik hisoboti, FZT qarori) boʻlgan kunlarda soat 08:00 da. Kalendar ilova saytidan olinadi, kuniga bir marta yuklanadi.</string>
+    <string name="settings_market_alerts">Bozor signallari</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d ta faol</item>
+        <item quantity="other">%1$d ta faol</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">Nutq tezligi: %1$.1f×</string>
+    <string name="settings_tts">Ovozli oʻqish</string>
+    <string name="settings_tts_alarms_only">Faqat signallar</string>
+    <string name="settings_tts_alarms_only_hint">Oʻchiq: «Kursni ovoz chiqarib oʻqish» belgilangan juftlikning har bir yangilanishi oʻqiladi.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">Kurslar va signallarni ovoz chiqarib oʻqiydi. Qurilma ovozsiz yoki tebranish rejimida boʻlsa, jim turadi.</string>
+    <string name="settings_tts_test">Ovozni sinash</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">Ilovani tiklash</string>
+    <string name="settings_reset_app_action">Hammasini oʻchirish</string>
+    <string name="settings_reset_app_confirm">Kuzatuv roʻyxati, signallar, portfel, sozlamalar va barcha saqlangan maʼlumotlarni oʻrnatishdan keyingi holatdagidek oʻchiradi. Buni bekor qilib boʻlmaydi. Maslahat: avval zaxira nusxa oling. Qurilma zaxiralari (Google zaxirasi yoki iCloud/kompyuter zaxirasi) keyingi zaxiralashgacha avvalgi maʼlumotlarni saqlaydi.</string>
+    <string name="settings_reset_app_title">Ilova tiklansinmi?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">Valyutani qidirish</string>
+    <string name="language_search">Tilni qidirish</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">Qorongʻi</string>
+    <string name="theme_light">Yorugʻ</string>
+    <string name="theme_system">Tizim</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">Koʻk</string>
+    <string name="accent_green">Yashil</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">Toʻq sariq</string>
+    <string name="accent_red">Qizil</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">Xitoy, Yaponiya, Koreya va Tayvanda keng tarqalgan</string>
+    <string name="price_colors_swap">Ranglarni almashtirish (oʻsish ↔ tushish)</string>
+    <string name="price_style_calm">Sokin</string>
+    <string name="price_style_calm_color_vision">Sokin · Rang koʻrish buzilishi</string>
+    <string name="price_style_color_vision">Rang koʻrish buzilishi</string>
+    <string name="price_style_fresh">Yorqin</string>
+    <string name="price_style_traditional">Anʼanaviy</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">Birja ulanishlari haqiqiy javoblar bilan oxirgi marta tekshirilgan: %1$s</string>
+    <string name="about_license">Kurslar toʻgʻridan-toʻgʻri birjalardan keladi; hisobsiz va kuzatuvsiz.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">Litsenziyalar</string>
+    <string name="about_privacy_policy">Maxfiylik siyosati</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">Birja soʻrash</string>
+    <string name="about_source_code">GitHub’dagi manba kodi</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker – r1AD’ning mustaqil loyihasi: hisobsiz, reklamasiz va kuzatuvsiz sokin kurs sharhi. Savol va istaklar: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker ochiq manbali (MIT License).</string>
+    <string name="licenses_font_title">Rubik shrifti</string>
+    <string name="licenses_icons_bundled_text">Ilova bilan birga keladi: Christopher Downer va hissa qoʻshuvchilarning «Cryptocurrency Icons» belgilari (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal litsenziyasi ostida chiqarilgan. Ular CoinGecko yoki Binance logotiplari yuklanguncha koʻrsatiladi. Nomlar va logotiplar oʻz loyihalarining tovar belgilari boʻlib qoladi.</string>
+    <string name="licenses_icons_title">Zaxira tanga belgilari</string>
+    <string name="licenses_libraries_intro">Ilova Apache License 2.0 ostida quyidagi kutubxonalardan foydalanadi:</string>
+    <string name="licenses_libraries_title">Android kutubxonalari</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">Dasturchi parametrlarini ochish uchun yana %d marta bosing</item>
+        <item quantity="other">Dasturchi parametrlarini ochish uchun yana %d marta bosing</item>
+    </plurals>
+    <string name="developer_unlocked">Dasturchi parametrlari ochildi</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Tebranish iPhone sozlamalariga amal qiladi (Ovozlar &amp; Taktil signallar).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Yangi signallar va bozor signallarini sanaydi; ilovani ochganingizda 0 ga qaytadi.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Maʼlumotlaringiz</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">Shu qurilmada</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Kuzatuv roʻyxati, signallar va portfel shu qurilmada shifrlangan holda saqlanadi; hisob yoʻq, oʻz serverimiz yoʻq.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Ulanishlar</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Kurslar toʻgʻridan-toʻgʻri juftliklaringiz birjalaridan, shuningdek valyuta kurslari, tanga roʻyxatlari va logotiplar hamda GitHub’dagi maʼlumotlar oynasidan keladi; ular IP manzilingizni koʻradi, hech qachon aktivlaringizni emas (kuzatilayotgan manzillar tegishli tarmoq provayderiga yuboriladi).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Zaxira nusxa</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Faqat oʻzingiz yaratsangiz. Parol bilan shifrlanadi (Argon2id + AES-256-GCM); parolsiz oʻqish mumkin.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Qurilmani almashtirish</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">Kalit eski qurilmada qoladi – avval zaxira nusxa faylini yarating.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Diagnostikani ulashish</string>
+    <string name="diagnostics_share_hint">Qoʻllab-quvvatlash uchun matnli fayl: versiya, qurilma, signal sozlamalari, soʻnggi tekshiruvlar va signallar jurnali – portfel, miqdorlar, manzillar va izohlarsiz. Avval uni oʻzingiz koʻrasiz; hech narsa avtomatik yuborilmaydi.</string>
+    <string name="diagnostics_preview_title">Diagnostikani oldindan koʻrish</string>
+    <string name="diagnostics_action_share">Ulashish</string>
+    <string name="settings_price_overlay">Kurs qatlami</string>
+    <string name="settings_price_overlay_hint">Doimiy kurs bildirishnomasidagi juftliklarni boshqa ilovalar ustida kichik suzuvchi belgi sifatida koʻrsatadi. Ilovani ochish uchun bosing, yopish uchun pastdagi × ga torting.</string>
+    <string name="settings_price_overlay_needs">Faqat «%1$s» bilan birga ishlaydi.</string>
+    <string name="settings_price_overlay_grant">Boshqa ilovalar ustidan koʻrsatishga ruxsat berish</string>
+    <string name="price_overlay_close">Qatlamni yopish</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">Manzillar uchun shaxsiy server</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Faqat Bitcoin: Esplora yoki mempool bilan mos oʻz serveringiz (masalan, https://node.example/api, Let\'s Encrypt kabi ommaviy ishonchli sertifikat kerak). Oʻrnatilsa, Bitcoin manzillari va xpub kalitlari faqat oʻsha yerda soʻraladi – hech qachon ochiq tugunlarda emas, hatto serveringiz javob bermasa ham. Boshqa tarmoqlar ochiq tugunlardan foydalanishda davom etadi. Boʻsh = ochiq tugunlar.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Bitcoin serveri (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">Sinash</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">Sinalmoqda…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">Server javob bermoqda – blok %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">Yaroqli javob yoʻq – manzil va sertifikatni tekshiring</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">Foydalanilmoqda: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">Oʻrnatilmagan – ochiq tugunlardan foydalaniladi</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">Faqat https:// manzillariga ruxsat beriladi</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">Manzilda foydalanuvchi nomi yoki parol boʻlmasligi kerak</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">Manzilda ? yoki # qismi boʻlmasligi kerak</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">Yaroqli server manzili emas</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">Ochiq tugunlarga oʻtilsinmi?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">Shunda Bitcoin manzillaringiz va xpub kalitlaringiz ochiq tugunlarda soʻraladi: %1$s. Ular bu manzillarni IP manzilingiz bilan birga koʻradi.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">Ochiq tugunlardan foydalanish</string>
+</resources>

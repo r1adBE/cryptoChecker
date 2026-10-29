@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">úsáideann sé níos mó sonraí agus ceallraí</string>
+    <string name="update_mode_live">Beo fad atá sí oscailte</string>
+    <string name="update_mode_live_hint">Nuair a sholáthraíonn an malartán praghas beo: láithreach fad atá an liosta faire oscailte. Seachas sin ag an gcéad aisghabháil eile. Dúnta: ní níos minice ná gach %1$s, go minic níos déanaí.</string>
+    <string name="update_mode_live_hint_ios">Nuair a sholáthraíonn an malartán praghas beo: láithreach fad atá an liosta faire oscailte. Seachas sin ag an gcéad aisghabháil eile. Dúnta: nuair a cheadaíonn iOS é, uaireanta le huaireanta eatarthu. Má scuabann tú an aip ar shiúl, stopann iOS na seiceálacha seo go dtí go n-osclaíonn tú arís í.</string>
+    <string name="update_mode_recommended">molta</string>
+    <string name="update_mode_sparsam">Spárálach</string>
+    <string name="update_mode_sparsam_hint">Agus an aip dúnta, ní níos minice ná gach %1$s, go minic níos déanaí (foláirimh, giuirléidí). Oscailte: gach uair a osclaíonn tú í.</string>
+    <string name="update_mode_sparsam_hint_ios">Agus an aip dúnta, cinneann iOS cathain a sheiceáiltear (foláirimh, giuirléidí), uaireanta le huaireanta eatarthu. Oscailte: gach uair a osclaíonn tú í.</string>
+    <string name="update_mode_title">Minicíocht nuashonraithe</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">Athnuachan tobscortha</string>
+    <string name="refresh_sheet_alarms">Foláirimh</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d spreagtha</item>
+        <item quantity="two">%1$d spreagtha</item>
+        <item quantity="few">%1$d spreagtha</item>
+        <item quantity="many">%1$d spreagtha</item>
+        <item quantity="other">%1$d spreagtha</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">Gach rud nuashonraithe</string>
+    <string name="refresh_sheet_app_start">Tosú na haipe</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">iarratas mórdhíola %1$s · %2$d phraghas</item>
+        <item quantity="two">iarratas mórdhíola %1$s · %2$d phraghas</item>
+        <item quantity="few">iarratas mórdhíola %1$s · %2$d phraghas</item>
+        <item quantity="many">iarratas mórdhíola %1$s · %2$d bpraghas</item>
+        <item quantity="other">iarratas mórdhíola %1$s · %2$d praghas</item>
+    </plurals>
+    <string name="refresh_sheet_database">Bunachar sonraí</string>
+    <string name="refresh_sheet_exchange_unreachable">Ní féidir %1$s a bhaint amach</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
+        <item quantity="one">Ní féidir %1$d mhalartán a bhaint amach</item>
+        <item quantity="two">Ní féidir %1$d mhalartán a bhaint amach</item>
+        <item quantity="few">Ní féidir %1$d mhalartán a bhaint amach</item>
+        <item quantity="many">Ní féidir %1$d malartán a bhaint amach</item>
+        <item quantity="other">Ní féidir %1$d malartán a bhaint amach</item>
+    </plurals>
+    <string name="refresh_sheet_network">Líonra</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d fhógra praghais</item>
+        <item quantity="two">%1$d fhógra praghais</item>
+        <item quantity="few">%1$d fhógra praghais</item>
+        <item quantity="many">%1$d bhfógra praghais</item>
+        <item quantity="other">%1$d fógra praghais</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d phéire</item>
+        <item quantity="two">%1$d phéire</item>
+        <item quantity="few">%1$d phéire</item>
+        <item quantity="many">%1$d bpéire</item>
+        <item quantity="other">%1$d péire</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d phéire gan nuashonrú</item>
+        <item quantity="two">%1$d phéire gan nuashonrú</item>
+        <item quantity="few">%1$d phéire gan nuashonrú</item>
+        <item quantity="many">%1$d bpéire gan nuashonrú</item>
+        <item quantity="other">%1$d péire gan nuashonrú</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d as %1$d phéire</item>
+        <item quantity="two">%2$d as %1$d phéire</item>
+        <item quantity="few">%2$d as %1$d phéire</item>
+        <item quantity="many">%2$d as %1$d bpéire</item>
+        <item quantity="other">%2$d as %1$d péire</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">ar sos go dtí %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">ar sos go dtí %1$s (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">gan sonraí</string>
+    <string name="refresh_sheet_reason_offline">gan cheangal</string>
+    <string name="refresh_sheet_reason_rate_limit">an iomarca iarratas</string>
+    <string name="refresh_sheet_reason_server">earráid freastalaí</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">thar am</string>
+    <string name="refresh_sheet_reason_unavailable">malartán gan bheith ar fáil</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s soicind</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_exchanges">Malartáin</string>
+    <string name="refresh_sheet_section_steps">Miondealú</string>
+    <string name="refresh_sheet_status_failed">gan nuashonrú</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">gach rud nuashonraithe</string>
+    <string name="refresh_sheet_status_partial">nuashonraithe i bpáirt</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Ag fanacht le tosú</string>
+    <string name="refresh_sheet_widgets">Giuirléidí</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">iarratas mórdhíola %1$s (theip air)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d earráid</item>
+        <item quantity="two">%1$d earráid</item>
+        <item quantity="few">%1$d earráid</item>
+        <item quantity="many">%1$d n-earráid</item>
+        <item quantity="other">%1$d earráid</item>
+    </plurals>
+    <string name="refresh_report_live">Beo: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d nach dtrádáiltear a thuilleadh</item>
+        <item quantity="two">%1$d nach dtrádáiltear a thuilleadh</item>
+        <item quantity="few">%1$d nach dtrádáiltear a thuilleadh</item>
+        <item quantity="many">%1$d nach dtrádáiltear a thuilleadh</item>
+        <item quantity="other">%1$d nach dtrádáiltear a thuilleadh</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d ina n-aonar</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">Theip air</string>
+    <string name="check_result_ok">Ceart go leor</string>
+    <string name="check_result_partial">I bpáirt</string>
+    <string name="check_result_skipped">Scipeáilte</string>
+    <string name="check_trigger_bgtask">Cúlra</string>
+    <string name="check_trigger_exact">In am</string>
+    <string name="check_trigger_foreground">Aip</string>
+    <string name="check_trigger_widget">Giuirléid</string>
+    <string name="check_trigger_widget_ios">Giuirléid · praghsanna agus foláirimh phraghais</string>
+    <string name="check_trigger_worker">Cúlra</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Is féidir le Android seiceálacha a mhoilliú – socraigh an ceallra go “Gan srian”</string>
+    <string name="battery_later">Ar ball</string>
+    <string name="battery_message">Moillíonn Android obair sa chúlra chun cumhacht a spáráil — d’fhéadfadh praghsanna agus giuirléidí a bheith uaireanta d’aois ansin. Coinníonn úsáid ceallraí gan srian cothrom le dáta iad. Is féidir leat é seo a athrú am ar bith i socruithe Android.</string>
+    <string name="battery_open_settings">Oscail socruithe an cheallra</string>
+    <string name="battery_steps">San fhaisnéis faoin aip, tapáil Ceallra (nó Úsáid ceallraí na haipe) agus roghnaigh Gan srian.</string>
+    <string name="battery_title">Coinnigh praghsanna cothrom le dáta</string>
+    <string name="ios_background_refresh_off">Tá Athnuachan Aipe sa Chúlra múchta don aip seo. Gan í, ní sheiceáiltear foláirimh ach fad atá an aip oscailte.</string>
+    <string name="ios_low_power_mode">Tá Mód Ísealchumhachta ar siúl. Is annamh a sheiceálann iOS sa chúlra, mar sin d’fhéadfadh foláirimh teacht go déanach.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Teachtaireacht an mhalartáin: %1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">Stóras fós faoi ghlas – triail eile i gceann %1$d s</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="one">Stóras fós faoi ghlas – triail eile i gceann %1$d soicind</item>
+        <item quantity="two">Stóras fós faoi ghlas – triail eile i gceann %1$d shoicind</item>
+        <item quantity="few">Stóras fós faoi ghlas – triail eile i gceann %1$d shoicind</item>
+        <item quantity="many">Stóras fós faoi ghlas – triail eile i gceann %1$d soicind</item>
+        <item quantity="other">Stóras fós faoi ghlas – triail eile i gceann %1$d soicind</item>
+    </plurals>
+    <string name="watchlist_retry_short">Triail eile i gceann %1$s</string>
+    <string name="widget_retry_at">Triail eile ag %1$s</string>
+    <string name="refresh_sheet_wait_attempt">Iarracht %1$d – ní raibh an stóras criptithe réidh ar an gcéad cheann</string>
+</resources>

@@ -73,7 +73,7 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
 
-        versionCode = 175
+        versionCode = 176
         versionName = "16.2.2"
 
         // Quell-Commit für «Diagnose teilen» (Berechnung siehe gitCommit oben).
@@ -189,15 +189,18 @@ android {
         }
     }
 
-    // Nur die 33 App-Sprachen (res/xml/locales_config.xml) ins APK — Übersetzungen der Bibliotheken in weiteren Sprachen
-    // fallen weg. Ordnernamen wie in res/ (iw, in, nb, pt-rBR, b+zh+Hant) und dazu die neuen Codes «he»/«id», damit keine
-    // Sprache je nach Schreibweise wegfällt; zh-rTW/zh-rHK für die traditionell-chinesischen Texte der Bibliotheken.
-    // LocaleFiltersTest (androidTest) prüft das auf dem Gerät.
+    // Nur die 75 App-Sprachen (res/xml/locales_config.xml) ins APK — Übersetzungen der Bibliotheken in weiteren Sprachen
+    // fallen weg. Ordnernamen wie in res/ (iw, in, nb, pt-rBR, b+zh+Hant, fil, b+yue, b+sr+Latn) und die neuen Codes
+    // «he»/«id», damit keine Sprache je nach Schreibweise wegfällt; zh-rTW/zh-rHK für die traditionell-chinesischen Texte
+    // der Bibliotheken, «tl» für deren Filipino-Texte (AndroidX nennt den Ordner values-tl; Android behandelt tl und fil
+    // als dieselbe Sprache). LocaleFiltersTest (androidTest) prüft das auf dem Gerät.
     androidResources {
         localeFilters += listOf(
-            "en", "de", "fr", "it", "es", "pt", "pt-rBR", "nl", "pl", "cs", "hu", "ro", "sq", "el", "tr", "sv", "da",
-            "nb", "fi", "ru", "uk", "ar", "iw", "he", "fa", "hi", "th", "vi", "in", "id", "ms", "zh", "b+zh+Hant",
-            "zh-rTW", "zh-rHK", "ja", "ko",
+            "en", "de", "fr", "it", "es", "ca", "gl", "eu", "pt", "pt-rBR", "nl", "af", "ga", "pl", "cs", "sk", "hu",
+            "ro", "sl", "hr", "bs", "sr", "b+sr+Latn", "mk", "bg", "sq", "el", "tr", "az", "sv", "da", "nb", "is", "fi",
+            "et", "lv", "lt", "ru", "uk", "kk", "uz", "mn", "ka", "hy", "ar", "iw", "he", "am", "sw", "zu", "fa", "ur",
+            "hi", "mr", "ne", "bn", "pa", "gu", "ta", "te", "kn", "ml", "si", "th", "lo", "km", "my", "vi", "in", "id",
+            "ms", "fil", "tl", "zh", "b+zh+Hant", "zh-rTW", "zh-rHK", "b+yue", "ja", "ko",
         )
     }
 

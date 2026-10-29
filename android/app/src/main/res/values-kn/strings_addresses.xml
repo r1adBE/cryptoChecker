@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">ವಿಳಾಸ ಸೇರಿಸಿ</string>
+    <string name="portfolio_address_count">ಎಣಿಸಿ</string>
+    <string name="portfolio_address_error">ಅಪ್‌ಡೇಟ್ ವಿಫಲವಾಗಿದೆ</string>
+    <string name="portfolio_address_hint">ಸಾರ್ವಜನಿಕ ವಿಳಾಸ (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) ಅಥವಾ xpub</string>
+    <string name="portfolio_address_label">ಲೇಬಲ್ (ಐಚ್ಛಿಕ)</string>
+    <string name="portfolio_address_not_since_buy">ವಿಳಾಸದಿಂದ · “ಖರೀದಿಯಿಂದ” ದಲ್ಲಿ ಇಲ್ಲ: %1$s</string>
+    <string name="portfolio_address_overlap">ನಿಮ್ಮ ಸ್ವಂತ ವಹಿವಾಟುಗಳಲ್ಲೂ ಇದೆ: %1$s – ಎರಡನ್ನೂ ಕೂಡಿಸಲಾಗುತ್ತದೆ. ಅದೇ ಕಾಯಿನ್‌ಗಳೇ? “ತೋರಿಸಿ ಮಾತ್ರ” ಆಯ್ಕೆಮಾಡಿ.</string>
+    <string name="portfolio_address_overlap_ask">ನೀವು ಈಗಾಗಲೇ %1$s ಅನ್ನು ನಿಮ್ಮ ಸ್ವಂತ ವಹಿವಾಟುಗಳೊಂದಿಗೆ ದಾಖಲಿಸುತ್ತಿದ್ದೀರಿ. ಈ ವಿಳಾಸದ ಬ್ಯಾಲೆನ್ಸ್ ಅನ್ನು ಪೋರ್ಟ್‌ಫೋಲಿಯೊಗೆ ಸೇರಿಸಬೇಕೆ, ಅಥವಾ ತೋರಿಸಿದರೆ ಸಾಕೆ?</string>
+    <string name="portfolio_address_overlap_auto">“%1$s” ಈಗ ತೋರಿಸಲಾಗುತ್ತದೆ ಮಾತ್ರ, ಎಣಿಸಲಾಗುವುದಿಲ್ಲ – %2$s ನಿಮ್ಮ ವಹಿವಾಟುಗಳಲ್ಲೂ ಇವೆ.</string>
+    <string name="portfolio_address_overlap_title">ನಿಮ್ಮ ವಹಿವಾಟುಗಳಲ್ಲಿರುವ ಅದೇ ಕಾಯಿನ್‌ಗಳೇ?</string>
+    <string name="portfolio_address_overlap_tx">ನಿಮ್ಮ ಸ್ವಂತ ಠೇವಣಿ/ವರ್ಗಾವಣೆಯ (%1$s) ಅದೇ ಮೊತ್ತ – ಬಹುಶಃ ಎರಡು ಬಾರಿ ಎಣಿಸಲಾಗಿದೆ.</string>
+    <string name="portfolio_address_period_observed">ಗಮನಿಸುತ್ತಿರುವ ವಿಳಾಸಗಳನ್ನು ಮೊದಲು ಗಮನಿಸಿದ ಬ್ಯಾಲೆನ್ಸ್‌ನಿಂದ ಎಣಿಸಲಾಗುತ್ತದೆ; ನಂತರದ ಬದಲಾವಣೆಗಳು ಒಳಹರಿವು/ಹೊರಹರಿವು, ಲಾಭವಲ್ಲ.</string>
+    <string name="portfolio_address_privacy">ಸಾರ್ವಜನಿಕ ವಿಳಾಸವನ್ನು ಮಾತ್ರ %1$s ಗೆ ಕಳುಹಿಸಲಾಗುತ್ತದೆ – ಕೀಗಳು ಅಥವಾ ಸೀಡ್ ಫ್ರೇಸ್‌ಗಳನ್ನು ಎಂದಿಗೂ ಅಲ್ಲ. ಪೂರೈಕೆದಾರರು ಅದನ್ನು ನಿಮ್ಮ IP ವಿಳಾಸದೊಂದಿಗೆ ನೋಡುತ್ತಾರೆ. ಗರಿಷ್ಠ 10 ನಿಮಿಷಕ್ಕೊಮ್ಮೆ ಪರಿಶೀಲಿಸಲಾಗುತ್ತದೆ.</string>
+    <string name="portfolio_address_remove">ವಿಳಾಸ ತೆಗೆದುಹಾಕಿ</string>
+    <string name="portfolio_address_show_only">ತೋರಿಸಿ ಮಾತ್ರ, ಪೋರ್ಟ್‌ಫೋಲಿಯೊಗೆ ಸೇರಿಸಬೇಡಿ</string>
+    <string name="portfolio_address_show_only_short">ತೋರಿಸಿ ಮಾತ್ರ</string>
+    <string name="portfolio_address_tokens">ಟೋಕನ್‌ಗಳನ್ನು ಎಣಿಸಿ</string>
+    <string name="portfolio_address_xpub_privacy">xpub ಈ ವ್ಯಾಲೆಟ್‌ನ ಎಲ್ಲಾ ವಿಳಾಸಗಳನ್ನು ಬಹಿರಂಗಪಡಿಸುತ್ತದೆ. ಅವುಗಳನ್ನು ನಿಮ್ಮ ಸಾಧನದಲ್ಲೇ ಪಡೆಯಲಾಗುತ್ತದೆ; ಪ್ರತ್ಯೇಕ ವಿಳಾಸಗಳನ್ನು ಮಾತ್ರ %1$s ಗೆ ಕಳುಹಿಸಲಾಗುತ್ತದೆ – ಮೊದಲ ಸ್ಕ್ಯಾನ್‌ನಲ್ಲಿ ಕನಿಷ್ಠ 40 ವಿನಂತಿಗಳು, ನಂತರ ಕಡಿಮೆ. ಖಾಸಗಿ ಕೀಗಳನ್ನು (xprv) ಎಂದಿಗೂ ಸ್ವೀಕರಿಸುವುದಿಲ್ಲ.</string>
+    <string name="portfolio_address_xpub_gap">ಸತತ %1$d ಬಳಸದ ವಿಳಾಸಗಳ ನಂತರ ಹುಡುಕಾಟ ನಿಲ್ಲುತ್ತದೆ (ಹೆಚ್ಚಿನ ವ್ಯಾಲೆಟ್‌ಗಳು ಬಳಸುವ BIP44 ಮಾನದಂಡ). ಆ ಅಂತರದ ಆಚೆಗಿನ ಬಳಸಿದ ವಿಳಾಸವನ್ನು ಎಣಿಸಲಾಗುವುದಿಲ್ಲ – ಅದನ್ನು ಪ್ರತ್ಯೇಕವಾಗಿ ಸೇರಿಸಿ.</string>
+    <string name="portfolio_address_xpub_used">ಬಳಕೆಯಲ್ಲಿರುವ ವಿಳಾಸಗಳು: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">ಅಪ್‌ಡೇಟ್ ಮಾಡಲು ತುಂಬಾ ಹೆಚ್ಚು ಬಳಸಿದ ವಿಳಾಸಗಳು</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">ತುಂಬಾ ಹೆಚ್ಚು ವಿಳಾಸಗಳು – ಹಳೆಯ, ಖಾಲಿ ವಿಳಾಸಗಳಿಗೆ ಬರುವ ಹೊಸ ಪಾವತಿಗಳು ಪತ್ತೆಯಾಗದಿರಬಹುದು</string>
+    <string name="portfolio_addresses_title">ವಿಳಾಸಗಳು</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Bitcoin Cash ವಿಳಾಸಗಳನ್ನು ಗಮನಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ: API ಕೀ ಇಲ್ಲದೆ, ನಿಯಮಗಳು ಅನುಮತಿಸುವ ಉಚಿತ ಸಾರ್ವಜನಿಕ ಸೇವೆ ಯಾವುದೂ ಇಲ್ಲ.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) 2024 ರಲ್ಲಿ ಸ್ಥಗಿತಗೊಂಡಿದೆ – ಬ್ಯಾಲೆನ್ಸ್‌ಗಳು ಈಗ BNB Smart Chain (0x…) ನಲ್ಲಿವೆ</string>
+    <string name="address_checksum">ಚೆಕ್‌ಸಮ್ ತಪ್ಪಾಗಿದೆ – ಅಕ್ಷರ ತಪ್ಪುಗಳನ್ನು ಪರಿಶೀಲಿಸಿ</string>
+    <string name="address_doge_unsupported">Dogecoin ವಿಳಾಸಗಳನ್ನು ಗಮನಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ: API ಕೀ ಇಲ್ಲದೆ, ನಿಯಮಗಳು ಅನುಮತಿಸುವ ಉಚಿತ ಸಾರ್ವಜನಿಕ ಸೇವೆ ಯಾವುದೂ ಇಲ್ಲ.</string>
+    <string name="address_duplicate">ಈ ವಿಳಾಸವನ್ನು ಈಗಾಗಲೇ ಸೇರಿಸಲಾಗಿದೆ</string>
+    <string name="address_ens">ENS ಹೆಸರುಗಳಿಗೆ ಬೆಂಬಲವಿಲ್ಲ – 0x ವಿಳಾಸವನ್ನು ನಮೂದಿಸಿ</string>
+    <string name="address_invalid">ಬೆಂಬಲಿತ ನೆಟ್‌ವರ್ಕ್‌ನ ಮಾನ್ಯ ವಿಳಾಸವಲ್ಲ</string>
+    <string name="address_limit">ಗರಿಷ್ಠ 20 ವಿಳಾಸಗಳು</string>
+    <string name="address_secret">ಇದು ಖಾಸಗಿ ಕೀ ಅಥವಾ ಸೀಡ್ ಫ್ರೇಸ್‌ನಂತೆ ಕಾಣುತ್ತದೆ – ಇದನ್ನು ಎಲ್ಲಿಯೂ ಎಂದಿಗೂ ನಮೂದಿಸಬೇಡಿ. ಸಾರ್ವಜನಿಕ ವಿಳಾಸಗಳು ಮಾತ್ರ.</string>
+    <string name="address_testnet">ಟೆಸ್ಟ್‌ನೆಟ್ ವಿಳಾಸಗಳಿಗೆ ಬೆಂಬಲವಿಲ್ಲ</string>
+    <string name="address_unsupported">ಈ ವಿಳಾಸ ಪ್ರಕಾರಕ್ಕೆ ಬೆಂಬಲವಿಲ್ಲ</string>
+    <string name="address_wrong_chain">ವಿಳಾಸ ಬೇರೊಂದು ನೆಟ್‌ವರ್ಕ್‌ಗೆ ಸೇರಿದೆ</string>
+    <string name="address_xpub_multisig">ಮಲ್ಟಿಸಿಗ್ ಕೀಗಳಿಗೆ (Ypub/Zpub) ಬೆಂಬಲವಿಲ್ಲ</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot ಖಾತೆ (BIP86): bc1p… ವಿಳಾಸಗಳನ್ನು ಸ್ವೀಕರಿಸಲು ಮತ್ತು ಚೇಂಜ್‌ಗಾಗಿ ಈ ಕೀಯಿಂದ ಪಡೆಯಲಾಗುತ್ತದೆ.</string>
+    <string name="portfolio_address_taproot_hint">Taproot ವ್ಯಾಲೆಟ್ ಆಗಿದೆಯೇ? ಬದಲಿಗೆ ನಿಮ್ಮ ವ್ಯಾಲೆಟ್‌ನಿಂದ tr(…) ಡಿಸ್ಕ್ರಿಪ್ಟರ್ ಅನ್ನು ಅಂಟಿಸಿ – ಸಾಮಾನ್ಯ xpub ಅನ್ನು Legacy ಮತ್ತು SegWit ವಿಳಾಸಗಳಾಗಿ ಮಾತ್ರ ಹುಡುಕಲಾಗುತ್ತದೆ.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">ಸ್ವಂತ ಸರ್ವರ್ ಲಭ್ಯವಿಲ್ಲ</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">%1$s ಅನ್ನು ನಡೆಸುವವರು ಈ ವ್ಯಾಲೆಟ್‌ನ ಪ್ರಶ್ನಿಸಿದ ಎಲ್ಲಾ ವಿಳಾಸಗಳನ್ನು ನೋಡಬಹುದು ಮತ್ತು ಅವುಗಳನ್ನು ಪರಸ್ಪರ ಹಾಗೂ ನಿಮ್ಮ IP ವಿಳಾಸದೊಂದಿಗೆ ಜೋಡಿಸಬಹುದು.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">ಇದನ್ನು ತಪ್ಪಿಸಲು, ಸೆಟ್ಟಿಂಗ್‌ಗಳು › ಪೋರ್ಟ್‌ಫೋಲಿಯೊ › ವಿಳಾಸಗಳಿಗಾಗಿ ಸ್ವಂತ ಸರ್ವರ್ ಅಡಿಯಲ್ಲಿ ನಿಮ್ಮ ಸ್ವಂತ ಸರ್ವರ್ ನಮೂದಿಸಿ.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d ಅಜ್ಞಾತ ಟೋಕನ್ (ಎಣಿಸಿಲ್ಲ)</item>
+        <item quantity="other">+%1$d ಅಜ್ಞಾತ ಟೋಕನ್‌ಗಳು (ಎಣಿಸಿಲ್ಲ)</item>
+    </plurals>
+</resources>

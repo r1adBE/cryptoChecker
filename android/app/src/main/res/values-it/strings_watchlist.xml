@@ -247,4 +247,20 @@
     <string name="watchlist_not_saved_confirm_message">La lista con i suoi allarmi al momento non viene salvata. Questa e le altre modifiche andranno perse alla chiusura dell\'app. Vuoi modificare comunque?</string>
     <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
     <string name="watchlist_not_saved_confirm_action">Modifica comunque</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">%1$d coppia</item>
+        <item quantity="many">%1$d coppie</item>
+        <item quantity="other">%1$d coppie</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">%2$d di %1$d coppia</item>
+        <item quantity="many">%2$d di %1$d coppie</item>
+        <item quantity="other">%2$d di %1$d coppie</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">ancora %1$d posto libero</item>
+        <item quantity="many">ancora %1$d posti liberi</item>
+        <item quantity="other">ancora %1$d posti liberi</item>
+    </plurals>
+    <string name="watchlist_footer_full">Lista di osservazione piena</string>
 </resources>

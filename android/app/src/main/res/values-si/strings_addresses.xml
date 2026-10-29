@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">ලිපිනය එක් කරන්න</string>
+    <string name="portfolio_address_count">ගණනය කරන්න</string>
+    <string name="portfolio_address_error">යාවත්කාලීනය අසාර්ථක විය</string>
+    <string name="portfolio_address_hint">පොදු ලිපිනය (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) හෝ xpub</string>
+    <string name="portfolio_address_label">ලේබලය (විකල්ප)</string>
+    <string name="portfolio_address_not_since_buy">ලිපිනයෙන් · “මිලදී ගැනීමේ සිට” හි නැත: %1$s</string>
+    <string name="portfolio_address_overlap">ඔබේම ගනුදෙනුවලද ඇත: %1$s – දෙකම එකතු කෙරේ. එකම කාසිද? “පෙන්වීම පමණක්” තෝරන්න.</string>
+    <string name="portfolio_address_overlap_ask">ඔබ දැනටමත් %1$s ඔබේම ගනුදෙනු සමඟ සටහන් කරයි. මෙම ලිපිනයේ ශේෂය කළඹට එක් කරන්නද, නැතහොත් පෙන්වීම පමණක්ද?</string>
+    <string name="portfolio_address_overlap_auto">“%1$s” දැන් පෙන්වනු පමණි, ගණනය නොකෙරේ – %2$s ඔබේ ගනුදෙනුවලද ඇත.</string>
+    <string name="portfolio_address_overlap_title">ඔබේ ගනුදෙනුවල ඇති කාසිම ද?</string>
+    <string name="portfolio_address_overlap_tx">ඔබේම තැන්පතුව/මාරුව (%1$s) හා සමාන ප්‍රමාණය – බොහෝ විට දෙවරක් ගණනය වී ඇත.</string>
+    <string name="portfolio_address_period_observed">නිරීක්ෂිත ලිපින ගණනය වන්නේ ඒවායේ මුලින්ම දුටු ශේෂයේ සිටය; පසු වෙනස්කම් ලැබීම්/යැවීම් වේ, ලාභ නොවේ.</string>
+    <string name="portfolio_address_privacy">%1$s වෙත යවන්නේ පොදු ලිපිනය පමණි – කිසිවිටෙක යතුරු හෝ සීඩ් වාක්‍ය නොවේ. සපයන්නා එය ඔබේ IP ලිපිනය සමඟ දකී. උපරිම වශයෙන් සෑම මිනිත්තු 10 කට වරක් පරීක්ෂා කෙරේ.</string>
+    <string name="portfolio_address_remove">ලිපිනය ඉවත් කරන්න</string>
+    <string name="portfolio_address_show_only">පෙන්වීම පමණක්, කළඹට එක් නොකරන්න</string>
+    <string name="portfolio_address_show_only_short">පෙන්වීම පමණක්</string>
+    <string name="portfolio_address_tokens">ටෝකන ගණනය කරන්න</string>
+    <string name="portfolio_address_xpub_privacy">xpub එකක් මෙම පසුම්බියේ සියලු ලිපින හෙළි කරයි. ඒවා ඔබේ උපාංගයේ ව්‍යුත්පන්න කෙරේ; %1$s වෙත යවන්නේ තනි ලිපින පමණි – පළමු ස්කෑන් කිරීමේදී අවම වශයෙන් ඉල්ලීම් 40 ක්, පසුව අඩුවෙන්. පුද්ගලික යතුරු (xprv) කිසිවිටෙක පිළිගනු නොලැබේ.</string>
+    <string name="portfolio_address_xpub_gap">භාවිත නොකළ ලිපින %1$d ක් අඛණ්ඩව ආවාට පසු සෙවීම නතර වේ (බොහෝ පසුම්බි භාවිත කරන BIP44 සම්මතය). එම පරතරයෙන් ඔබ්බට ඇති භාවිත කළ ලිපිනයක් ගණනය නොකෙරේ – එය වෙනම එක් කරන්න.</string>
+    <string name="portfolio_address_xpub_used">භාවිතයේ ඇති ලිපින: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">යාවත්කාලීන කිරීමට භාවිත කළ ලිපින ඕනෑවට වඩා</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">ලිපින ඉතා බොහෝය – පැරණි, හිස් ලිපින වෙත නව ගෙවීම් හඳුනා නොගත හැක</string>
+    <string name="portfolio_addresses_title">ලිපින</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Bitcoin Cash ලිපින නිරීක්ෂණය කළ නොහැක: API යතුරක් නොමැතිව, කොන්දේසි මගින් එයට ඉඩ දෙන නොමිලේ පොදු සේවාවක් නැත.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) 2024 දී වසා දමන ලදී – ශේෂ දැන් BNB Smart Chain (0x…) හි ඇත</string>
+    <string name="address_checksum">චෙක්සම් වැරදියි – අකුරු වැරදි පරීක්ෂා කරන්න</string>
+    <string name="address_doge_unsupported">Dogecoin ලිපින නිරීක්ෂණය කළ නොහැක: API යතුරක් නොමැතිව, කොන්දේසි මගින් එයට ඉඩ දෙන නොමිලේ පොදු සේවාවක් නැත.</string>
+    <string name="address_duplicate">මෙම ලිපිනය දැනටමත් එක් කර ඇත</string>
+    <string name="address_ens">ENS නම් සහාය නොදක්වයි – 0x ලිපිනය ඇතුළත් කරන්න</string>
+    <string name="address_invalid">සහාය දක්වන ජාලයක වලංගු ලිපිනයක් නොවේ</string>
+    <string name="address_limit">උපරිම ලිපින 20 යි</string>
+    <string name="address_secret">මෙය පුද්ගලික යතුරක් හෝ සීඩ් වාක්‍යයක් ලෙස පෙනේ – එය කිසිවිටෙක කොතැනකවත් ඇතුළත් නොකරන්න. පොදු ලිපින පමණක්.</string>
+    <string name="address_testnet">ටෙස්ට්නෙට් ලිපින සහාය නොදක්වයි</string>
+    <string name="address_unsupported">මෙම ලිපින වර්ගය සහාය නොදක්වයි</string>
+    <string name="address_wrong_chain">ලිපිනය වෙනත් ජාලයකට අයත්ය</string>
+    <string name="address_xpub_multisig">මල්ටිසිග් යතුරු (Ypub/Zpub) සහාය නොදක්වයි</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot ගිණුම (BIP86): ලැබීම සහ ඉතිරිය සඳහා bc1p… ලිපින මෙම යතුරෙන් ව්‍යුත්පන්න කෙරේ.</string>
+    <string name="portfolio_address_taproot_hint">Taproot පසුම්බියක්ද? ඒ වෙනුවට ඔබේ පසුම්බියෙන් tr(…) විස්තරකය අලවන්න – සාමාන්‍ය xpub එකක් Legacy සහ SegWit ලිපින ලෙස පමණක් සොයනු ලැබේ.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">ඔබේම සේවාදායකයට ළඟා විය නොහැක</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">%1$s ධාවනය කරන ඕනෑම අයෙකුට මෙම පසුම්බියේ විමසූ සියලු ලිපින දැකිය හැකි අතර ඒවා එකිනෙකට සහ ඔබේ IP ලිපිනයට සම්බන්ධ කළ හැක.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">මෙය වළක්වා ගැනීමට, සැකසීම් › කළඹ › ලිපින සඳහා ඔබේම සේවාදායකය යටතේ ඔබේම සේවාදායකයක් ඇතුළත් කරන්න.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">නොදන්නා ටෝකන +%1$d (ගණනය නොකළ)</item>
+        <item quantity="other">නොදන්නා ටෝකන +%1$d (ගණනය නොකළ)</item>
+    </plurals>
+</resources>

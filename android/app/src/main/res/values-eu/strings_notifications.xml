@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">Nabarmena: %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — orain %2$s</string>
+    <string name="notification_alarm_title">Alarma: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">Ireki burtsa</string>
+    <string name="notification_depeg_text">Aplikazioko balioek merkatu-prezio hau erabiltzen dute.</string>
+    <string name="notification_depeg_title">USDT: %1$s USD (%2$s)</string>
+    <string name="notification_fng_above">Indizea %1$d baino gorago igo da – neurri honen arabera, merkatuaren aldartea gutiziatsua da.</string>
+    <string name="notification_fng_below">Indizea %1$d baino beherago jaitsi da – neurri honen arabera, merkatuaren aldartea beldurtia da.</string>
+    <string name="notification_fng_title">Aldarte-indizea (Fear &amp; Greed): %1$d</string>
+    <string name="notification_gas_btc_text">Zure mugaren azpitik (%1$s sat/vB) · Transferentzia ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Bitcoin komisioa: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">Zure mugaren azpitik (%1$s gwei) · Transferentzia ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Ethereum gasa: %1$s gwei</string>
+    <string name="notification_indicator_above">Zure mugaren gainetik (%1$s) – neurtutako balioa, ez gomendioa.</string>
+    <string name="notification_indicator_below">Zure mugaren azpitik (%1$s) – neurtutako balioa, ez gomendioa.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">Gaurko datu ekonomikoak</string>
+    <string name="notification_permission_preprompt_continue">Jarraitu</string>
+    <string name="notification_permission_preprompt_later">Geroago</string>
+    <string name="notification_permission_preprompt_text">Alarmak eta prezio-jakinarazpenak irits dakizkizun, aplikazioak jakinarazpenak bidaltzeko baimena behar du. Aplikazioak zure alarmetarako eta prezio-jakinarazpenetarako bakarrik erabiltzen ditu.</string>
+    <string name="notification_permission_preprompt_title">Jakinarazpenak baimendu nahi dituzu?</string>
+    <string name="notification_portfolio_alarm_locked">Zure alarmak jo du – ireki aplikazioa xehetasunak ikusteko.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – orain %2$s</string>
+    <string name="notification_portfolio_alarm_title">Zorroaren balioa</string>
+    <string name="notification_price_change">%1$s, %2$s-(e)tik (duela %3$s)</string>
+    <string name="notification_price_change_no_age">%1$s, %2$s-(e)tik</string>
+    <string name="notification_price_first">Pare honen lehen prezio-jakinarazpena</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+%1$d prezio gehiago</item>
+        <item quantity="other">+%1$d prezio gehiago</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">Prezioak eguneratzen…</string>
+    <string name="notification_volume_spike_text">Bolumena ohikoa baino %1$s× handiagoa azken orduan</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">Alarmak</string>
+    <string name="channel_alarms_description">Jakinarazpena alarma batek jotzen duenean.</string>
+    <string name="channel_alarms_quiet">Alarmak (isiltasun-orduak)</string>
+    <string name="channel_alarms_quiet_description">Alarma isilak isiltasun-orduetan.</string>
+    <string name="channel_alarms_silent">Alarmak (isilak)</string>
+    <string name="channel_alarms_sound">Alarmak (soinua soilik)</string>
+    <string name="channel_alarms_sound_vibrate">Alarmak (soinua eta dardara)</string>
+    <string name="channel_alarms_vibrate">Alarmak (dardara soilik)</string>
+    <string name="channel_prices">Prezio-jakinarazpenak</string>
+    <string name="channel_prices_description">Pare baten uneko prezioa duen prezio-jakinarazpen isila.</string>
+    <string name="channel_service">Prezio-eguneratzeak</string>
+    <string name="channel_service_description">Jakinarazpena prezioak eguneratzen diren bitartean.</string>
+    <string name="neutral_channel_market">Merkatu-alarmak</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, gas-komisioak, «Nabarmena» eta data ekonomikoak</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">Alarma. %1$s, %2$s %3$s %4$s, orain %5$s</string>
+    <string name="tts_direction_down">jaitsi da</string>
+    <string name="tts_direction_funding_above">finantzaketa altuarekin</string>
+    <string name="tts_direction_funding_below">finantzaketa baxuarekin</string>
+    <string name="tts_direction_move">indartsu mugitzen ari da</string>
+    <string name="tts_direction_near_high">gehienezkotik gertu dago</string>
+    <string name="tts_direction_near_low">gutxienezkotik gertu dago</string>
+    <string name="tts_direction_oi_down">interes ireki jaisten ari denarekin</string>
+    <string name="tts_direction_oi_up">interes ireki igotzen ari denarekin</string>
+    <string name="tts_direction_up">igo da</string>
+    <string name="tts_direction_volume_spike">bolumen-gailur batekin</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+
+    <!-- Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+    <string name="notification_alarm_action_snooze">1 h geroago</string>
+    <string name="notification_alarm_action_edit">Doitu</string>
+</resources>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">បន្ថែមអាសយដ្ឋាន</string>
+    <string name="portfolio_address_count">រាប់បញ្ចូល</string>
+    <string name="portfolio_address_error">ការធ្វើបច្ចុប្បន្នភាពបានបរាជ័យ</string>
+    <string name="portfolio_address_hint">អាសយដ្ឋានសាធារណៈ (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) ឬ xpub</string>
+    <string name="portfolio_address_label">ស្លាក (ស្រេចចិត្ត)</string>
+    <string name="portfolio_address_not_since_buy">ពីអាសយដ្ឋាន · មិននៅក្នុង «តាំងពីការទិញ»៖ %1$s</string>
+    <string name="portfolio_address_overlap">ក៏មាននៅក្នុងប្រតិបត្តិការផ្ទាល់ខ្លួនដែរ៖ %1$s – ទាំងពីរត្រូវបានបូកបញ្ចូល។ កាក់ដូចគ្នាមែនទេ? សូមជ្រើស «បង្ហាញតែប៉ុណ្ណោះ»។</string>
+    <string name="portfolio_address_overlap_ask">អ្នកបានកត់ត្រា %1$s ជាមួយប្រតិបត្តិការផ្ទាល់ខ្លួនរួចហើយ។ បូកសមតុល្យនៃអាសយដ្ឋាននេះទៅក្នុងផលប័ត្រ ឬគ្រាន់តែបង្ហាញវា?</string>
+    <string name="portfolio_address_overlap_auto">«%1$s» ឥឡូវគ្រាន់តែបង្ហាញ មិនរាប់បញ្ចូលទេ – %2$s ក៏មាននៅក្នុងប្រតិបត្តិការរបស់អ្នកដែរ។</string>
+    <string name="portfolio_address_overlap_title">កាក់ដូចគ្នានឹងប្រតិបត្តិការរបស់អ្នកមែនទេ?</string>
+    <string name="portfolio_address_overlap_tx">ចំនួនដូចគ្នានឹងការដាក់ប្រាក់/ការផ្ទេររបស់អ្នក (%1$s) – ទំនងជារាប់ពីរដង។</string>
+    <string name="portfolio_address_period_observed">អាសយដ្ឋានដែលតាមដានត្រូវបានរាប់ចាប់ពីសមតុល្យដែលឃើញដំបូង។ ការប្រែប្រួលក្រោយៗគឺជាលំហូរចូល/ចេញ មិនមែនជាប្រាក់ចំណេញទេ។</string>
+    <string name="portfolio_address_privacy">មានតែអាសយដ្ឋានសាធារណៈប៉ុណ្ណោះត្រូវបានផ្ញើទៅ %1$s – មិនដែលផ្ញើសោ ឬ seed phrase ទេ។ អ្នកផ្តល់សេវាឃើញវារួមជាមួយអាសយដ្ឋាន IP របស់អ្នក។ ពិនិត្យយ៉ាងច្រើនរៀងរាល់ 10 នាទីម្តង។</string>
+    <string name="portfolio_address_remove">ដកអាសយដ្ឋានចេញ</string>
+    <string name="portfolio_address_show_only">បង្ហាញតែប៉ុណ្ណោះ កុំបូកចូលផលប័ត្រ</string>
+    <string name="portfolio_address_show_only_short">បង្ហាញតែប៉ុណ្ណោះ</string>
+    <string name="portfolio_address_tokens">រាប់ថូខឹន</string>
+    <string name="portfolio_address_xpub_privacy">xpub បង្ហាញអាសយដ្ឋានទាំងអស់នៃកាបូបនេះ។ អាសយដ្ឋានទាំងនោះត្រូវបានបង្កើតនៅលើឧបករណ៍របស់អ្នក។ មានតែអាសយដ្ឋាននីមួយៗប៉ុណ្ណោះត្រូវបានផ្ញើទៅ %1$s – យ៉ាងហោចណាស់ 40 សំណើនៅពេលស្កេនលើកដំបូង ក្រោយមកតិចជាងនេះ។ សោឯកជន (xprv) មិនដែលត្រូវបានទទួលយកទេ។</string>
+    <string name="portfolio_address_xpub_gap">ការស្វែងរកឈប់បន្ទាប់ពីអាសយដ្ឋានមិនបានប្រើ %1$d ជាប់ៗគ្នា (ស្តង់ដារ BIP44 ដែលកាបូបភាគច្រើនប្រើ)។ អាសយដ្ឋានដែលបានប្រើហួសចន្លោះនោះមិនត្រូវបានរាប់ទេ – សូមបន្ថែមវាដោយឡែក។</string>
+    <string name="portfolio_address_xpub_used">អាសយដ្ឋានកំពុងប្រើ៖ %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">អាសយដ្ឋានដែលបានប្រើច្រើនពេកសម្រាប់ធ្វើបច្ចុប្បន្នភាព</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">អាសយដ្ឋានច្រើនណាស់ – ការទូទាត់ថ្មីទៅអាសយដ្ឋានចាស់ដែលទទេ ប្រហែលជាមិនត្រូវបានរកឃើញទេ</string>
+    <string name="portfolio_addresses_title">អាសយដ្ឋាន</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">មិនអាចតាមដានអាសយដ្ឋាន Bitcoin Cash បានទេ៖ មិនមានសេវាសាធារណៈឥតគិតថ្លៃដែលគ្មាន API key ហើយលក្ខខណ្ឌរបស់វាអនុញ្ញាតឡើយ។</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) ត្រូវបានបិទនៅឆ្នាំ 2024 – សមតុល្យឥឡូវនៅលើ BNB Smart Chain (0x…)</string>
+    <string name="address_checksum">Checksum មិនត្រឹមត្រូវ – សូមពិនិត្យកំហុសអក្ខរាវិរុទ្ធ</string>
+    <string name="address_doge_unsupported">មិនអាចតាមដានអាសយដ្ឋាន Dogecoin បានទេ៖ មិនមានសេវាសាធារណៈឥតគិតថ្លៃដែលគ្មាន API key ហើយលក្ខខណ្ឌរបស់វាអនុញ្ញាតឡើយ។</string>
+    <string name="address_duplicate">អាសយដ្ឋាននេះត្រូវបានបន្ថែមរួចហើយ</string>
+    <string name="address_ens">មិនគាំទ្រឈ្មោះ ENS ទេ – សូមបញ្ចូលអាសយដ្ឋាន 0x</string>
+    <string name="address_invalid">មិនមែនជាអាសយដ្ឋានត្រឹមត្រូវនៃបណ្ដាញដែលគាំទ្រទេ</string>
+    <string name="address_limit">យ៉ាងច្រើន 20 អាសយដ្ឋាន</string>
+    <string name="address_secret">នេះមើលទៅដូចជាសោឯកជន ឬ seed phrase – កុំបញ្ចូលវានៅកន្លែងណាមួយឡើយ។ មានតែអាសយដ្ឋានសាធារណៈប៉ុណ្ណោះ។</string>
+    <string name="address_testnet">មិនគាំទ្រអាសយដ្ឋាន Testnet ទេ</string>
+    <string name="address_unsupported">មិនគាំទ្រប្រភេទអាសយដ្ឋាននេះទេ</string>
+    <string name="address_wrong_chain">អាសយដ្ឋានជារបស់បណ្ដាញផ្សេង</string>
+    <string name="address_xpub_multisig">មិនគាំទ្រសោ Multisig (Ypub/Zpub) ទេ</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">គណនី Taproot (BIP86)៖ អាសយដ្ឋាន bc1p… ត្រូវបានបង្កើតពីសោនេះ សម្រាប់ទទួល និងប្រាក់អាប់។</string>
+    <string name="portfolio_address_taproot_hint">កាបូប Taproot មែនទេ? សូមបិទភ្ជាប់ descriptor tr(…) ពីកាបូបរបស់អ្នកជំនួសវិញ – xpub ធម្មតាត្រូវបានស្វែងរកតែជាអាសយដ្ឋាន Legacy និង SegWit ប៉ុណ្ណោះ។</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">មិនអាចភ្ជាប់ទៅម៉ាស៊ីនមេផ្ទាល់ខ្លួនបានទេ</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">អ្នកណាដែលដំណើរការ %1$s ឃើញអាសយដ្ឋានដែលបានសួរទាំងអស់នៃកាបូបនេះ ហើយអាចភ្ជាប់វាទៅគ្នាទៅវិញទៅមក និងទៅអាសយដ្ឋាន IP របស់អ្នក។</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">ដើម្បីជៀសវាងបញ្ហានេះ សូមបញ្ចូលម៉ាស៊ីនមេផ្ទាល់ខ្លួននៅក្រោម ការកំណត់ › ផលប័ត្រ › ម៉ាស៊ីនមេផ្ទាល់ខ្លួនសម្រាប់អាសយដ្ឋាន។</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="other">+%1$d ថូខឹនមិនស្គាល់ (មិនរាប់បញ្ចូល)</item>
+    </plurals>
+</resources>

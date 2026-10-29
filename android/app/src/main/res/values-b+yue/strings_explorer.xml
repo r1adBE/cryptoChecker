@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">所有結果</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="other">%1$d 個交易所</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">已載入嘅清單入面冇呢隻幣嘅交易對。</string>
+    <string name="explorer_coin_not_loaded">交易對清單未載入</string>
+    <string name="explorer_coin_other_pairs">其他交易對</string>
+    <string name="explorer_coin_show_pairs">顯示交易對</string>
+    <string name="explorer_coin_suggested">建議</string>
+    <string name="explorer_coins_title">幣種</string>
+    <string name="explorer_lists_failed_many">%1$s 暫時冇回應 – 交易對清單未載入。請稍後再試。</string>
+    <plurals name="explorer_lists_failed_more">
+        <item quantity="other">+ 另外 %1$d 個</item>
+    </plurals>
+    <string name="explorer_lists_failed_one">%1$s 暫時冇回應 – 交易對清單未載入。請稍後再試。</string>
+    <string name="explorer_lists_load">載入清單</string>
+    <string name="explorer_lists_loading">載入緊交易對清單… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="other">%1$d 個交易所嘅交易對清單未喺呢部裝置。</item>
+    </plurals>
+    <string name="explorer_lists_privacy">會載入每個交易所完整嘅公開清單 – 人人都一樣。你嘅搜尋只會留喺呢部裝置。</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">最近搜尋：%1$s</string>
+    <string name="explorer_recent_clear">清除</string>
+    <string name="explorer_recent_clear_a11y">清除最近搜尋</string>
+    <string name="explorer_recent_title">最近搜尋</string>
+    <string name="explorer_search_choose_manually">自己揀交易所同交易對</string>
+    <string name="explorer_search_empty">冇相符結果。</string>
+    <string name="explorer_search_hint">搜尋幣種、交易對或交易所</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">輸入幣種名稱或代號，例如 Bitcoin 或 BTC – 然後揀交易對。</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">加入自選清單</string>
+    <string name="explorer_added_to_watchlist">已加入自選清單。</string>
+    <string name="explorer_already_in_watchlist">呢個交易對已經喺自選清單。</string>
+    <string name="explorer_exchange_missing">搵唔到交易所？</string>
+    <string name="explorer_loading_pairs">載入緊交易對…</string>
+    <string name="explorer_no_pair_selected">請先揀一個交易對。</string>
+    <string name="explorer_no_pairs_yet">呢個交易所暫時未載入交易對。</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="other">%1$d 個交易對 · 更新於 %2$s</item>
+    </plurals>
+    <string name="explorer_pairs_title">交易對</string>
+    <string name="explorer_precise_title">進階／按交易所</string>
+    <string name="explorer_price_loading">載入緊價格…</string>
+    <string name="explorer_select_exchange_hint">揀一個交易所 – 佢嘅交易對會自動載入。</string>
+    <string name="explorer_select_placeholder">請選擇</string>
+    <string name="explorer_step_pair">揀交易對</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">升幅榜</string>
+    <string name="explorer_filter_losers">跌幅榜</string>
+    <string name="explorer_filter_volume">成交量</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">呢個交易所所有 %1$s 交易對</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="other">搵到 %1$d 個 %2$s 交易對</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">呢個交易所喺所選合約類型冇 %1$s 交易對。請先同步交易所，或者試另一種合約類型。</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="other">將 %1$d 個交易對加入自選清單</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="other">已加入 %1$d 個，%2$d 個已經喺自選清單。</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="other">來自 %3$s 嘅 %1$d 個 %2$s 交易對會加入自選清單。已經喺入面嘅會略過。</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="other">加入 %1$d 個交易對？</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">隱藏清單</string>
+    <string name="explorer_bulk_show_list">顯示清單</string>
+    <string name="explorer_bulk_tap_hint">撳一個交易對就可以喺上面選取。</string>
+    <string name="explorer_bulk_title">一次過加多個交易對</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">載入所選交易所目前嘅交易對。</string>
+    <string name="explorer_no_pair_list">冇貨幣對</string>
+    <string name="explorer_sync_sheet_last">最後同步：%1$s</string>
+    <string name="explorer_sync_never">從未</string>
+    <string name="explorer_sync_sheet_action">立即同步</string>
+    <string name="explorer_sync_sheet_title">更新貨幣對</string>
+    <string name="explorer_field_coin">幣種</string>
+    <string name="explorer_field_contract">合約類型</string>
+    <string name="explorer_field_exchange">交易所</string>
+    <string name="explorer_field_quote">報價貨幣</string>
+    <string name="explorer_contract_spot">現貨</string>
+    <string name="explorer_reload_pairs">同步</string>
+    <string name="sync_pairs_count">交易對：%1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">加入</string>
+    <string name="dex_added">已將 %1$s 加入自選清單。</string>
+    <string name="dex_already">%1$s 已經喺自選清單。</string>
+    <string name="dex_intro">大型交易所以外嘅代幣，來自去中心化交易所（Uniswap、PancakeSwap、Raydium …），經 DexScreener 提供。搜尋代幣，再加入佢其中一個交易池 – 價格以美元計。</string>
+    <string name="dex_liquidity">流動性 %1$s</string>
+    <string name="dex_no_results">搵唔到交易池。</string>
+    <string name="dex_search">搜尋</string>
+    <string name="dex_search_hint">代幣名稱、代號或地址</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">Alpha 代幣</string>
+    <string name="asset_kind_token">代幣</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+
+    <string name="dex_low_liquidity_no_alarm">流動性低 – 冇提示</string>
+    <string name="dex_low_liquidity_alarm_hint">呢個交易池嘅流動性少過 10,000 USD（或者冇公布）。細額交易都可以推動價格，所以呢度唔可以設定提示。現有提示會保留，但要等流動性回升先會觸發。</string>
+
+    <string name="explorer_bulk_show_all">顯示全部（%1$d）</string>
+    <string name="dex_token_address_copy">複製代幣地址</string>
+    <string name="dex_token_address_copied">已複製代幣地址</string>
+    <string name="dex_token_address_label">尾數 %1$s 嘅代幣地址</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="other">%1$d 個交易對未加入：你嘅自選清單最多可以有 %2$s 個交易對。</item>
+    </plurals>
+    <string name="bulk_add_progress">加入緊交易對 … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="other">將 %1$d 個新交易對加入自選清單</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="other">%1$d 個新，%2$d 個已經喺自選清單</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">全部已經喺自選清單</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="other">再移除 %1$d 個交易對？</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">期間你設定咗提示嘅交易對會保留。</string>
+    <string name="bulk_undo_expired">已經無法復原 – 交易對會留喺自選清單。</string>
+    <string name="explorer_section_spot">現貨</string>
+    <string name="explorer_section_futures">期貨</string>
+    <string name="explorer_section_dex">DEX 交易池</string>
+    <string name="explorer_section_forex">外匯（參考匯率）</string>
+    <string name="explorer_forex_hint">歐洲中央銀行嘅每日匯率（經 Frankfurter），唔係即時 – 冇提示。</string>
+</resources>

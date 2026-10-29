@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">പോർട്ട്ഫോളിയോ അലേർട്ടുകൾ താൽക്കാലികമായി നിർത്തി: %1$s-ന് നിലവിലെ വിലയില്ല</string>
+    <string name="portfolio_alarms_paused_price_generic">പോർട്ട്ഫോളിയോ അലേർട്ടുകൾ താൽക്കാലികമായി നിർത്തി: എല്ലാ കോയിനുകൾക്കും നിലവിലെ വിലയില്ല</string>
+    <string name="portfolio_alarms_paused_addresses">പോർട്ട്ഫോളിയോ അലേർട്ടുകൾ താൽക്കാലികമായി നിർത്തി: നിരീക്ഷിക്കുന്ന വിലാസങ്ങളുടെ ബാലൻസ് ഇതുവരെ ലോഡ് ആയിട്ടില്ല</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">പോർട്ട്ഫോളിയോ അലേർട്ടുകൾ താൽക്കാലികമായി നിർത്തി: %1$s-ന്റെ ടോക്കൺ ബാലൻസുകൾ ഭാഗികമായി പഴയതാണ്</string>
+    <string name="portfolio_alarms_paused_tokens_generic">പോർട്ട്ഫോളിയോ അലേർട്ടുകൾ താൽക്കാലികമായി നിർത്തി: നിരീക്ഷിക്കുന്ന വിലാസങ്ങളുടെ ടോക്കൺ ബാലൻസുകൾ ഭാഗികമായി പഴയതാണ്</string>
+    <string name="portfolio_alarms_paused_unverified">പോർട്ട്ഫോളിയോ അലേർട്ടുകൾ താൽക്കാലികമായി നിർത്തി: %1$s-ന്റെ വില സ്ഥിരീകരിച്ചിട്ടില്ല</string>
+    <string name="portfolio_alarms_paused_unverified_generic">പോർട്ട്ഫോളിയോ അലേർട്ടുകൾ താൽക്കാലികമായി നിർത്തി: ചില കോയിനുകളുടെ വില സ്ഥിരീകരിച്ചിട്ടില്ല</string>
+    <string name="portfolio_alarms_address_failing">പോർട്ട്ഫോളിയോ അലേർട്ടുകൾ %1$s ഇല്ലാതെ പരിശോധിക്കുന്നു: 24 മണിക്കൂറിലേറെയായി ബാലൻസ് ലോഡ് ആയിട്ടില്ല</string>
+    <string name="portfolio_alarms_address_failing_generic">24 മണിക്കൂറിലേറെയായി ബാലൻസ് ലോഡ് ആകാത്ത വിലാസങ്ങൾ ഒഴിവാക്കിയാണ് പോർട്ട്ഫോളിയോ അലേർട്ടുകൾ പരിശോധിക്കുന്നത്</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">ടോക്കണുകൾ ഭാഗികമായി പഴയത്</string>
+    <string name="portfolio_address_restore_failed">വിലാസം പുനഃസ്ഥാപിക്കാനായില്ല – ആവശ്യമെങ്കിൽ വീണ്ടും ചേർക്കുക</string>
+    <string name="portfolio_address_remove_failed">വിലാസം നീക്കം ചെയ്യാനായില്ല – ദയവായി വീണ്ടും ശ്രമിക്കുക</string>
+</resources>

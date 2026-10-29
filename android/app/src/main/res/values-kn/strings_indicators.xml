@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">ಆಲ್ಟ್‌ಕಾಯಿನ್‌ಗಳು vs. Bitcoin</string>
+    <string name="neutral_btc_indicators_title">Bitcoin ಸೂಚಕಗಳು</string>
+    <string name="neutral_halving_last">ಕೊನೆಯ ಹಾಲ್ವಿಂಗ್: %1$s</string>
+    <string name="neutral_halving_next">ಮುಂದಿನ ಹಾಲ್ವಿಂಗ್ ಸುಮಾರು %1$s ರಂದು ನಿರೀಕ್ಷಿತ (ಕ್ಯಾಲೆಂಡರ್‌ನಿಂದ ಅಂದಾಜು – ಬ್ಲಾಕ್ ಎತ್ತರ ಸದ್ಯ ಲಭ್ಯವಿಲ್ಲ).</string>
+    <string name="neutral_indicators_disclaimer">ಅಳೆದ ಮೌಲ್ಯಗಳು ಮಾತ್ರ, ಮೌಲ್ಯಮಾಪನವಿಲ್ಲದೆ. ಇದು ಮುನ್ಸೂಚನೆಯಲ್ಲ, ಹೂಡಿಕೆ ಸಲಹೆಯೂ ಅಲ್ಲ.</string>
+    <string name="neutral_onchain_missing">ಆನ್-ಚೈನ್ ಡೇಟಾ (Coin Metrics) ಸದ್ಯ ಲಭ್ಯವಿಲ್ಲ.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">ಬೆಲೆ ತನ್ನ ಹಿಂದಿನ ಸಾರ್ವಕಾಲಿಕ ಗರಿಷ್ಠಕ್ಕಿಂತ ಎಷ್ಟು ಕೆಳಗಿದೆ.</string>
+    <string name="neutral_explain_change_30d">30 ದಿನಗಳ ಹಿಂದಿನದಕ್ಕೆ ಹೋಲಿಸಿದರೆ ಇಂದಿನ ಬೆಲೆ.</string>
+    <string name="neutral_explain_hashrate">60 ದಿನಗಳ ಸರಾಸರಿಗೆ ಹೋಲಿಸಿದರೆ 30 ದಿನಗಳ ಸರಾಸರಿ ಹ್ಯಾಶ್‌ರೇಟ್.</string>
+    <string name="neutral_explain_ma200w">ಕೊನೆಯ 200 ವಾರದ ಮುಕ್ತಾಯ ಬೆಲೆಗಳ ಸರಾಸರಿ.</string>
+    <string name="neutral_explain_mayer">ಬೆಲೆಯನ್ನು 200 ದಿನಗಳ ಸರಾಸರಿಯಿಂದ ಭಾಗಿಸಿದ್ದು.</string>
+    <string name="neutral_explain_mvrv">ಮಾರುಕಟ್ಟೆ ಮೌಲ್ಯವನ್ನು ರಿಯಲೈಸ್ಡ್ ಮೌಲ್ಯದಿಂದ ಭಾಗಿಸಿದ್ದು (ಆನ್-ಚೈನ್).</string>
+    <string name="neutral_explain_pi_gap">350 ದಿನಗಳ ಸರಾಸರಿಯ ದ್ವಿಗುಣಕ್ಕೆ ಹೋಲಿಸಿದರೆ 111 ದಿನಗಳ ಸರಾಸರಿ.</string>
+    <string name="neutral_explain_puell">ದೈನಂದಿನ ಮೈನರ್ ಆದಾಯವನ್ನು ಅದರ 365 ದಿನಗಳ ಸರಾಸರಿಯಿಂದ ಭಾಗಿಸಿದ್ದು.</string>
+    <string name="neutral_explain_rsi_daily">ಕೊನೆಯ 14 ದಿನಗಳ Relative Strength Index, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">ಕೊನೆಯ 14 ವಾರಗಳ Relative Strength Index, 0–100.</string>
+    <string name="neutral_explain_sma50_200">200 ದಿನಗಳ ಸರಾಸರಿಗೆ ಹೋಲಿಸಿದರೆ 50 ದಿನಗಳ ಸರಾಸರಿ.</string>
+    <string name="neutral_explain_vs_btc">90 ದಿನಗಳಲ್ಲಿ Bitcoin ಗೆ ಹೋಲಿಸಿದರೆ ಬೆಲೆ ಬದಲಾವಣೆ.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">ಆ್ಯಪ್ ಎಣಿಕೆಯನ್ನು ಮಾತ್ರ ತೋರಿಸುತ್ತದೆ ಮತ್ತು ಅದನ್ನು ಸೀಸನ್ ಎಂದು ಗುರುತಿಸುವುದಿಲ್ಲ. ಮೌಲ್ಯ ಸಾಮಾನ್ಯವಾಗಿ ಗಂಟೆಗಳಲ್ಲಲ್ಲ, ದಿನಗಳಲ್ಲಿ ಬದಲಾಗುತ್ತದೆ.</string>
+    <string name="neutral_info_btc_how">ಪ್ರತಿ ಮೌಲ್ಯದೊಂದಿಗೆ ಅದು ಏನನ್ನು ಅಳೆಯುತ್ತದೆ ಮತ್ತು 2016 ರಿಂದ ತನ್ನದೇ ಇತಿಹಾಸದಲ್ಲಿ ಎಲ್ಲಿದೆ ಎಂಬುದರ ಬಗ್ಗೆ ಒಂದು ವಾಕ್ಯವಿದೆ. ಆ್ಯಪ್ ಮೌಲ್ಯಗಳನ್ನು ರೇಟ್ ಮಾಡುವುದಿಲ್ಲ ಮತ್ತು ಮಾರುಕಟ್ಟೆ ಹಂತವನ್ನು ನಿರ್ಧರಿಸುವುದಿಲ್ಲ; ಮಾರುಕಟ್ಟೆ ಅಲರ್ಟ್‌ಗಳ ಮಿತಿಗಳು ನೀವು ಹೊಂದಿಸಿದವು ಮಾತ್ರ. ಹಿಂದಿನ ಮಾದರಿಗಳು ಪುನರಾವರ್ತನೆಯಾಗಬೇಕಿಲ್ಲ.</string>
+    <string name="neutral_info_btc_what">ಸಾಮಾನ್ಯ Bitcoin ಸೂಚಕಗಳು ಸರಳ ಅಳತೆ ಮೌಲ್ಯಗಳಾಗಿ: Mayer Multiple, 200 ವಾರಗಳ ಸರಾಸರಿ, ಸಾರ್ವಕಾಲಿಕ ಗರಿಷ್ಠದಿಂದ ಕುಸಿತ, 30 ದಿನಗಳ ಬದಲಾವಣೆ, Pi Cycle ಅಂತರ ಮತ್ತು ಆನ್-ಚೈನ್ ಮೌಲ್ಯಗಳಾದ MVRV, Puell Multiple ಮತ್ತು ಹ್ಯಾಶ್‌ರೇಟ್.</string>
+    <string name="neutral_info_coin_how">ಪ್ರತಿ ಮೌಲ್ಯದೊಂದಿಗೆ ಅದು ಏನನ್ನು ಅಳೆಯುತ್ತದೆ ಎಂಬುದರ ಬಗ್ಗೆ ಒಂದು ವಾಕ್ಯವಿದೆ, ರೇಟಿಂಗ್ ಇಲ್ಲದೆ. ಕಡಿಮೆ ಬೆಲೆ ಇತಿಹಾಸವಿರುವ ಕಾಯಿನ್‌ಗಳಿಗೆ ಕೆಲವು ಮೌಲ್ಯಗಳು ಇರುವುದಿಲ್ಲ. ಆನ್-ಚೈನ್ ಡೇಟಾವನ್ನು ಇಲ್ಲಿ ಸೇರಿಸಲಾಗಿಲ್ಲ.</string>
+    <string name="neutral_info_coin_what">ನೀವು ಆರಿಸಿದ ಕಾಯಿನ್‌ಗೆ ಅದೇ ಸರಳ ಸೂಚಕಗಳು, ಬೆಲೆ ಡೇಟಾದಿಂದ ಮಾತ್ರ: Mayer Multiple, 200 ವಾರಗಳ ಸರಾಸರಿ, ಸಾರ್ವಕಾಲಿಕ ಗರಿಷ್ಠದಿಂದ ಕುಸಿತ, 30 ದಿನಗಳ ಬದಲಾವಣೆ, 50/200 ದಿನಗಳ ಟ್ರೆಂಡ್, RSI ಮತ್ತು 90 ದಿನಗಳಲ್ಲಿ Bitcoin ವಿರುದ್ಧದ ಬಲ.</string>
+    <string name="neutral_info_halving_how">ಮುಂದಿನ ಹಾಲ್ವಿಂಗ್ ಅನ್ನು ಪ್ರಸ್ತುತ ಬ್ಲಾಕ್ ಎತ್ತರ ಮತ್ತು ಪ್ರಸ್ತುತ ಡಿಫಿಕಲ್ಟಿ ಅವಧಿಯ ಸರಾಸರಿ ಬ್ಲಾಕ್ ಸಮಯದಿಂದ (mempool.space) ಲೆಕ್ಕಹಾಕಲಾಗುತ್ತದೆ; ಆ ಡೇಟಾ ಇಲ್ಲದಿದ್ದರೆ, ಕ್ಯಾಲೆಂಡರ್‌ನಿಂದ (ಕೊನೆಯ ಹಾಲ್ವಿಂಗ್ ಜೊತೆಗೆ ಸುಮಾರು ನಾಲ್ಕು ವರ್ಷಗಳು). ಚಾರ್ಟ್ ಹಿಂದಿನ ಸೈಕಲ್‌ಗಳ ಬೆಲೆ ಮಾರ್ಗವನ್ನು ಅವುಗಳ ಹಾಲ್ವಿಂಗ್‌ನಿಂದ ತೋರಿಸುತ್ತದೆ – ಇತಿಹಾಸ, ಮುನ್ಸೂಚನೆಯಲ್ಲ.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">ಟ್ರೆಂಡ್ 50/200 ದಿನಗಳು</string>
+    <string name="ind_drawdown">ಸಾರ್ವಕಾಲಿಕ ಗರಿಷ್ಠದಿಂದ ಕುಸಿತ</string>
+    <string name="ind_missing">ಸಾಕಷ್ಟು ಡೇಟಾ ಇಲ್ಲ</string>
+    <string name="ind_rsi_daily">RSI (ದೈನಂದಿನ)</string>
+    <string name="ind_rsi_weekly">RSI (ವಾರದ)</string>
+    <string name="ind_vs_btc">Bitcoin ವಿರುದ್ಧ ಬಲ (90 ದಿನಗಳು)</string>
+    <string name="neutral_ind_change_30d">30 ದಿನಗಳ ಬದಲಾವಣೆ</string>
+    <string name="neutral_ind_hashrate">ಹ್ಯಾಶ್‌ರೇಟ್ 30/60 ದಿನಗಳು</string>
+    <string name="neutral_ind_ma200w">200 ವಾರಗಳ ಸರಾಸರಿ</string>
+    <string name="neutral_ind_pi_gap">Pi Cycle ಅಂತರ</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">ಹೆಚ್ಚು ಎಂದರೆ ಹೆಚ್ಚಿನ ದೊಡ್ಡ ಆಲ್ಟ್‌ಕಾಯಿನ್‌ಗಳು 90 ದಿನಗಳಲ್ಲಿ Bitcoin ಅನ್ನು ಮೀರಿಸಿವೆ, ಕಡಿಮೆ ಎಂದರೆ Bitcoin ಅವುಗಳಲ್ಲಿ ಹೆಚ್ಚಿನವನ್ನು ಮೀರಿಸಿದೆ.</string>
+    <string name="ind_read_ath_distance">ಚಿಕ್ಕದು ಎಂದರೆ ಬೆಲೆ ತನ್ನ ದಾಖಲೆಯ ಸಮೀಪದಲ್ಲಿದೆ, ದೊಡ್ಡದು ಎಂದರೆ ಅದಕ್ಕಿಂತ ತುಂಬಾ ಕೆಳಗಿದೆ.</string>
+    <string name="ind_read_change_30d">ಧನಾತ್ಮಕ ಎಂದರೆ 30 ದಿನಗಳ ಹಿಂದಿಗಿಂತ ಹೆಚ್ಚು, ಋಣಾತ್ಮಕ ಎಂದರೆ ಕಡಿಮೆ.</string>
+    <string name="ind_read_funding">ಹೆಚ್ಚು ಎಂದರೆ ಅನೇಕ ಟ್ರೇಡರ್‌ಗಳು ಲೀವರೇಜ್‌ನೊಂದಿಗೆ ಬೆಲೆ ಏರುತ್ತದೆ ಎಂದು ಬಾಜಿ ಕಟ್ಟುತ್ತಿದ್ದಾರೆ, ಋಣಾತ್ಮಕ ಎಂದರೆ ಅನೇಕರು ಬೆಲೆ ಇಳಿಯುತ್ತದೆ ಎಂದು ಬಾಜಿ ಕಟ್ಟುತ್ತಿದ್ದಾರೆ.</string>
+    <string name="ind_read_hashrate_30_60">ಧನಾತ್ಮಕ ಎಂದರೆ ಕಂಪ್ಯೂಟಿಂಗ್ ಶಕ್ತಿ ಬೆಳೆಯುತ್ತಿದೆ, ಋಣಾತ್ಮಕ ಎಂದರೆ ಮೈನರ್‌ಗಳು ಸ್ಥಗಿತಗೊಳಿಸುತ್ತಿದ್ದಾರೆ.</string>
+    <string name="ind_read_leverage">ಹೆಚ್ಚು ಲಾಂಗ್‌ಗಳು ಎಂದರೆ ಅನೇಕರು ಸಾಲದ ಹಣದೊಂದಿಗೆ ಬೆಲೆ ಏರುತ್ತದೆ ಎಂದು ಬಾಜಿ ಕಟ್ಟುತ್ತಿದ್ದಾರೆ, ಹೆಚ್ಚು ಶಾರ್ಟ್‌ಗಳು ಎಂದರೆ ಅನೇಕರು ಬೆಲೆ ಇಳಿಯುತ್ತದೆ ಎಂದು ಬಾಜಿ ಕಟ್ಟುತ್ತಿದ್ದಾರೆ.</string>
+    <string name="ind_read_ma200w">ಬೆಲೆ ಅದಕ್ಕಿಂತ ತುಂಬಾ ಮೇಲಿದ್ದರೆ ದೀರ್ಘ ಏರಿಕೆ, ಅದರ ಸಮೀಪದಲ್ಲಿದ್ದರೆ ಆಳವಾದ ಹಿನ್ನಡೆ.</string>
+    <string name="ind_read_mayer">ಹೆಚ್ಚು ಎಂದರೆ ಬೆಲೆ ತನ್ನ 200 ದಿನಗಳ ಸರಾಸರಿಗಿಂತ ತುಂಬಾ ಮೇಲಿದೆ, ಕಡಿಮೆ ಎಂದರೆ ಅದಕ್ಕಿಂತ ಕೆಳಗಿದೆ.</string>
+    <string name="ind_read_mvrv">ಹೆಚ್ಚು ಎಂದರೆ ಹೋಲ್ಡರ್‌ಗಳು ಸರಾಸರಿ ಪಾವತಿಸಿದ್ದಕ್ಕಿಂತ ಬೆಲೆ ತುಂಬಾ ಮೇಲಿದೆ, ಕಡಿಮೆ ಎಂದರೆ ಅದರ ಸಮೀಪದಲ್ಲಿ ಅಥವಾ ಕೆಳಗೆ.</string>
+    <string name="ind_read_pi_cycle_gap">ಸೊನ್ನೆಯ ಸಮೀಪ ಎಂದರೆ ಎರಡು ಸರಾಸರಿಗಳು ಬಹುತೇಕ ಸಂಧಿಸುತ್ತವೆ, ಬಲವಾಗಿ ಋಣಾತ್ಮಕ ಎಂದರೆ ಅವು ತುಂಬಾ ದೂರದಲ್ಲಿವೆ.</string>
+    <string name="ind_read_puell">ಹೆಚ್ಚು ಎಂದರೆ ಮೈನರ್‌ಗಳು ಸಾಮಾನ್ಯಕ್ಕಿಂತ ತುಂಬಾ ಹೆಚ್ಚು ಗಳಿಸುತ್ತಿದ್ದಾರೆ, ಕಡಿಮೆ ಎಂದರೆ ತುಂಬಾ ಕಡಿಮೆ.</string>
+    <string name="ind_read_rsi_daily">70 ಕ್ಕಿಂತ ಮೇಲೆ ಎಂದರೆ ಇತ್ತೀಚಿನ ದಿನಗಳಲ್ಲಿ ಬಲವಾದ ಏರಿಕೆ, 30 ಕ್ಕಿಂತ ಕೆಳಗೆ ಎಂದರೆ ಬಲವಾದ ನಷ್ಟ.</string>
+    <string name="ind_read_rsi_weekly">70 ಕ್ಕಿಂತ ಮೇಲೆ ಎಂದರೆ ಇತ್ತೀಚಿನ ವಾರಗಳಲ್ಲಿ ಬಲವಾದ ಏರಿಕೆ, 30 ಕ್ಕಿಂತ ಕೆಳಗೆ ಎಂದರೆ ಬಲವಾದ ನಷ್ಟ.</string>
+    <string name="ind_read_sma50_vs_200">ಧನಾತ್ಮಕ ಎಂದರೆ ಅಲ್ಪಾವಧಿ ಸರಾಸರಿ ದೀರ್ಘಾವಧಿ ಸರಾಸರಿಗಿಂತ ಮೇಲಿದೆ, ಋಣಾತ್ಮಕ ಎಂದರೆ ಕೆಳಗಿದೆ.</string>
+    <string name="ind_read_vs_btc">ಧನಾತ್ಮಕ ಎಂದರೆ Bitcoin ಗಿಂತ ಉತ್ತಮವಾಗಿ ಸಾಗಿದೆ, ಋಣಾತ್ಮಕ ಎಂದರೆ ಕಳಪೆಯಾಗಿ.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">30 ದಿನಗಳವರೆಗೆ ಅದೇ ಬೆಲೆ: %1$s</string>
+    <string name="ind_context_note">ಹಿಂದಿನ ಮೌಲ್ಯಗಳು ಮತ್ತು “ಅದೇ ಬೆಲೆ” ಲೆಕ್ಕಾಚಾರಗಳು ಗಣಿತೀಯ, ಮುನ್ಸೂಚನೆಯಲ್ಲ.</string>
+    <string name="ind_context_percentile">%1$s ರಿಂದ %2$s ದಿನಗಳಲ್ಲಿ ಕಡಿಮೆ ಇತ್ತು</string>
+</resources>

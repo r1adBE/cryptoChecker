@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">Signal ishga tushdi</string>
+    <string name="a11y_collapsed">Yigʻilgan</string>
+    <string name="a11y_converted">taxminan %1$s</string>
+    <string name="a11y_expanded">Yoyilgan</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">brauzerda ochiladi</string>
+    <string name="a11y_favorite">Sevimli</string>
+    <string name="a11y_in_watchlist">Kuzatuv roʻyxatida bor</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_exchange_unreachable">%1$s javob bermayapti</string>
+    <string name="a11y_move_down">Pastga surish</string>
+    <string name="a11y_move_up">Yuqoriga surish</string>
+    <string name="a11y_note">izoh: %1$s</string>
+    <string name="a11y_price">kurs %1$s</string>
+    <string name="a11y_price_notification_off">Kurs bildirishnomasi oʻchiq</string>
+    <string name="a11y_price_notification_on">Kurs bildirishnomasi yoqiq</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">Kurs eskirgan</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s, %2$s birjasida</string>
+    <string name="a11y_stale">eskirgan, oxirgi yangilanish %1$s</string>
+    <string name="a11y_warning">Diqqat</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">24 soatda %1$s</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">24 soatlik oʻzgarish mavjud emas</string>
+    <string name="a11y_change_down">%1$s pasaydi</string>
+    <string name="a11y_change_flat">oʻzgarmagan</string>
+    <string name="a11y_change_since_last">oxirgi yangilanishdan beri %1$s</string>
+    <string name="a11y_change_since_last_none">Oxirgi yangilanishdan beri oʻzgarish mavjud emas</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">bugun %1$s</string>
+    <string name="a11y_change_today_none">Bugungi oʻzgarish mavjud emas</string>
+    <string name="a11y_change_today_zone">%2$s yarim tundan beri %1$s</string>
+    <string name="a11y_change_today_zone_none">%1$s yarim tundan beri oʻzgarish mavjud emas</string>
+    <string name="a11y_change_up">%1$s oshdi</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">%1$s grafigi: %2$s dan %3$s gacha, %4$s. Eng yuqori %5$s, eng past %6$s.</string>
+    <string name="a11y_chart_empty">Grafik: maʼlumot yoʻq</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">%1$s sikli: halvingdan beri %2$s, %3$d-kun.</string>
+    <string name="a11y_cycle_bottom">Tub %1$s, %2$d-kun.</string>
+    <string name="a11y_cycle_double_bottom">Ikki karra tub %1$s, %2$d-kun.</string>
+    <string name="a11y_cycle_double_top">Ikki karra choʻqqi %1$s, %2$d-kun.</string>
+    <string name="a11y_cycle_top">Choʻqqi %1$s, %2$d-kun.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">%1$s dan %2$s gacha shkala: 100 dan %3$d</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, oʻrtacha %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="one">%1$d ta pasaymoqda</item>
+        <item quantity="other">%1$d ta pasaymoqda</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="one">%1$d ta juftlikda 24 soatlik qiymat yoʻq</item>
+        <item quantity="other">%1$d ta juftlikda 24 soatlik qiymat yoʻq</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="one">%1$d ta juftlikda bugungi qiymat yoʻq</item>
+        <item quantity="other">%1$d ta juftlikda bugungi qiymat yoʻq</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="one">%1$d ta juftlik oshmoqda</item>
+        <item quantity="other">%1$d ta juftlik oshmoqda</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="one">oxirgi yangilanish %1$d kun oldin</item>
+        <item quantity="other">oxirgi yangilanish %1$d kun oldin</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="one">oxirgi yangilanish %1$d soat oldin</item>
+        <item quantity="other">oxirgi yangilanish %1$d soat oldin</item>
+    </plurals>
+    <string name="a11y_updated_just_now">hozirgina yangilandi</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="one">oxirgi yangilanish %1$d daqiqa oldin</item>
+        <item quantity="other">oxirgi yangilanish %1$d daqiqa oldin</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">miqdor yashirilgan</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_entry">%1$s %2$s, bugungi qiymati %3$s</string>
+    <string name="a11y_portfolio_entry_in">Kirim</string>
+    <string name="a11y_portfolio_entry_no_value">qiymat mavjud emas</string>
+    <string name="a11y_portfolio_entry_note">izoh %1$s</string>
+    <string name="a11y_portfolio_entry_out">Chiqim</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, portfelning %3$s</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, portfelning %2$s, %3$s</string>
+    <string name="a11y_portfolio_positions">Eng katta pozitsiyalar: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">Miqdorlarni koʻrsatish</string>
+    <string name="a11y_compare_chart">Foizda solishtirish, %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">30 kunlik eng yuqori darajadan %1$s</string>
+    <string name="a11y_price_overlay">Kurs qatlami: %1$s</string>
+</resources>

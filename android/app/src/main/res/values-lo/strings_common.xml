@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">ກັບຄືນ</string>
+    <string name="action_cancel">ຍົກເລີກ</string>
+    <string name="action_clear">ລ້າງ</string>
+    <string name="action_close">ປິດ</string>
+    <string name="action_keep">ເກັບໄວ້</string>
+    <string name="action_delete">ລຶບ</string>
+    <string name="action_edit">ແກ້ໄຂ</string>
+    <string name="action_more">ຕົວເລືອກເພີ່ມເຕີມ</string>
+    <string name="action_refresh">ໂຫຼດຄືນໃໝ່</string>
+    <string name="action_retry">ລອງໃໝ່</string>
+    <string name="action_save">ບັນທຶກ</string>
+    <string name="action_sort">ຈັດລຽງ</string>
+    <string name="action_sort_done">ສຳເລັດ</string>
+    <string name="action_undo">ຍົກເລີກການກະທຳ</string>
+    <string name="action_view">ເບິ່ງ</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">ຕະຫຼາດ</string>
+    <string name="tab_portfolio">ພອດໂຟລິໂອ</string>
+    <string name="tab_settings">ການຕັ້ງຄ່າ</string>
+    <string name="tab_watchlist">ລາຍການຕິດຕາມ</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">ຂໍ້ຜິດພາດ: %1$s</string>
+    <string name="error_exchange_unreachable">ຕອນນີ້ເຊື່ອມຕໍ່ກະດານແລກປ່ຽນບໍ່ໄດ້ – ລາຄາຫຼ້າສຸດຍັງສະແດງຢູ່.</string>
+    <string name="error_exchange_unreachable_short">ຕອນນີ້ເຊື່ອມຕໍ່ກະດານແລກປ່ຽນບໍ່ໄດ້</string>
+    <string name="loading_hint">ກຳລັງໂຫຼດ…</string>
+    <string name="option_off">ປິດ</string>
+    <string name="something_went_wrong">ມີບາງຢ່າງຜິດພາດ</string>
+    <string name="time_just_now">ຫາກໍ່ນີ້</string>
+    <string name="try_again">ລອງອີກຄັ້ງ</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">ບໍ່ມີການເຊື່ອມຕໍ່</string>
+    <string name="offline_status_since">ບໍ່ມີການເຊື່ອມຕໍ່ · ຂໍ້ມູນເມື່ອ %1$s</string>
+    <string name="status_live">ສົດ</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">ເພີ່ມຄູ່ເທຣດ</string>
+    <string name="shortcut_alarms">ສັນຍານເຕືອນທັງໝົດ</string>
+    <string name="shortcut_cycle">ຕະຫຼາດ</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">ເພີ່ມຄູ່ເທຣດໃໝ່</string>
+    <string name="shortcut_alarms_long">ສະແດງສັນຍານເຕືອນທັງໝົດ</string>
+    <string name="shortcut_cycle_long">ເປີດພາບລວມຕະຫຼາດ</string>
+
+    <string name="log_box_title">ບັນທຶກ</string>
+    <string name="label_value">%1$s: %2$s</string>
+</resources>

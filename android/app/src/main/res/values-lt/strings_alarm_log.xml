@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Protokoll: Titel der Seite und Name des Knopfs in «Alle Alarme» -->
+    <string name="alarm_log_title">Įspėjimų žurnalas</string>
+    <!-- Link unter «Letzte Prüfungen» (Einstellungen › Aktualisierung) -->
+    <string name="alarm_log_open">Rodyti įspėjimų žurnalą</string>
+    <string name="alarm_log_intro">Kada įspėjimas suveikė – ir kada būtų suveikęs, bet buvo sulaikytas. Saugoma tik šiame įrenginyje 14 dienų.</string>
+    <string name="alarm_log_empty_title">Įrašų dar nėra</string>
+    <string name="alarm_log_empty_message">Įrašai atsiras čia, kai įspėjimas suveiks arba bus sulaikytas – pavyzdžiui, dėl pasenusios kainos ar tylos laiko.</string>
+    <string name="alarm_log_clear">Išvalyti žurnalą</string>
+    <string name="alarm_log_clear_title">Išvalyti įspėjimų žurnalą?</string>
+    <string name="alarm_log_clear_message">Visi įrašai bus pašalinti. Tavo įspėjimai liks tokie, kokie yra.</string>
+    <!-- Screenreader: Schwelle des Alarms, z. B. «Marke Über 100’000 CHF» -->
+    <string name="alarm_log_threshold">Riba %1$s</string>
+    <!-- Alarm-Editor: letzte Prüfung, %1$s = «14:02 · Kraken 99’800 CHF · Marke nicht erreicht» -->
+    <string name="alarm_last_check">Paskutinį kartą tikrinta: %1$s</string>
+    <!-- Ergebnisse einer Alarm-Prüfung (AlarmLogOutcome) -->
+    <string name="alarm_outcome_fired">Suveikė</string>
+    <string name="alarm_outcome_not_reached">Riba nepasiekta</string>
+    <string name="alarm_outcome_already_triggered">Jau pranešta – laukiama, kol kaina grįš į kitą pusę</string>
+    <string name="alarm_outcome_cooldown">Nesuveikė – ramybės laikas po paskutinio įspėjimo</string>
+    <!-- %1$s = Zeit des Kurses laut Börse -->
+    <string name="alarm_outcome_stale">Nesuveikė – kaina pasenusi (būsena %1$s)</string>
+    <string name="alarm_outcome_mark_price">Nesuveikė – žymėjimo kaina, ne sandorio kaina</string>
+    <string name="alarm_outcome_low_liquidity">Nesuveikė – likvidumas mažesnis nei 10 000 USD arba nežinomas</string>
+    <string name="alarm_outcome_quiet_hours">Nesuveikė – tylos laikas (įspės vėliau, jei sąlyga vis dar tenkinama)</string>
+    <string name="alarm_outcome_notifications_off">Nesuveikė – pranešimai išjungti</string>
+    <string name="alarm_outcome_not_shown">Nesuveikė – pranešimas nepasiekė, bus bandoma vėliau</string>
+    <string name="alarm_outcome_no_rate">Netikrinta – nėra valiutos kurso</string>
+    <string name="alarm_outcome_no_price">Nėra kainos – biržos užklausa nepavyko</string>
+
+    <string name="alarm_outcome_snoozed">Sulaikyta – „Po 1 val.“ dar galioja</string>
+    <string name="alarm_log_source_app">programėlėje</string>
+    <string name="alarm_log_source_background">fone</string>
+    <string name="alarm_log_source_exact">tikslus tikrinimas</string>
+    <string name="alarm_log_source_widget">per valdiklį</string>
+    <string name="alarm_outcome_fx_stale">Netikrinta – valiutos kursas senesnis nei 36 valandos</string>
+    <string name="alarm_outcome_fx_unsure">Netikrinta – USDT perskaičiavimas nepatikimas (tik per USDC)</string>
+</resources>

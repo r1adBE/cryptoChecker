@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">ဒေတာနှင့် ဘက်ထရီ ပိုလိုအပ်သည်</string>
+    <string name="update_mode_live">ဖွင့်ထားစဉ် တိုက်ရိုက်</string>
+    <string name="update_mode_live_hint">လဲလှယ်ရေးဌာနက တိုက်ရိုက်ဈေးနှုန်း ပေးသည့်နေရာတွင်- စောင့်ကြည့်စာရင်း ဖွင့်ထားစဉ် ချက်ချင်း။ မဟုတ်လျှင် နောက်တစ်ကြိမ် ရယူချိန်တွင်။ ပိတ်ထားလျှင်- %1$s တစ်ကြိမ်ထက် ပိုမကြာခဏ၊ မကြာခဏ ပိုနောက်ကျသည်။</string>
+    <string name="update_mode_live_hint_ios">လဲလှယ်ရေးဌာနက တိုက်ရိုက်ဈေးနှုန်း ပေးသည့်နေရာတွင်- စောင့်ကြည့်စာရင်း ဖွင့်ထားစဉ် ချက်ချင်း။ မဟုတ်လျှင် နောက်တစ်ကြိမ် ရယူချိန်တွင်။ ပိတ်ထားလျှင်- iOS ခွင့်ပြုသည့်အခါ၊ တစ်ခါတစ်ရံ နာရီပေါင်းများစွာ ခြားသည်။ အက်ပ်ကို ပွတ်ဆွဲ ပိတ်လိုက်လျှင် ပြန်ဖွင့်သည်အထိ iOS က ဤစစ်ဆေးမှုများကို ရပ်သည်။</string>
+    <string name="update_mode_recommended">အကြံပြုထားသည်</string>
+    <string name="update_mode_sparsam">ချွေတာ</string>
+    <string name="update_mode_sparsam_hint">အက်ပ်ကို ပိတ်ထားလျှင် %1$s တစ်ကြိမ်ထက် ပိုမကြာခဏ၊ မကြာခဏ ပိုနောက်ကျသည် (သတိပေးချက်များ၊ ဝီဂျက်များ)။ ဖွင့်ထားလျှင်- ဖွင့်တိုင်း။</string>
+    <string name="update_mode_sparsam_hint_ios">အက်ပ်ကို ပိတ်ထားလျှင် iOS က စစ်ဆေးမည့်အချိန်ကို ဆုံးဖြတ်သည် (သတိပေးချက်များ၊ ဝီဂျက်များ)၊ တစ်ခါတစ်ရံ နာရီပေါင်းများစွာ ခြားသည်။ ဖွင့်ထားလျှင်- ဖွင့်တိုင်း။</string>
+    <string name="update_mode_title">အပ်ဒိတ် အကြိမ်ရေ</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">ပြန်တင်ခြင်း ရပ်ဆိုင်းခဲ့သည်</string>
+    <string name="refresh_sheet_alarms">သတိပေးချက်များ</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="other">%1$d ခု ဖြစ်ပေါ်ခဲ့သည်</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">အားလုံး အပ်ဒိတ်ဖြစ်ပြီ</string>
+    <string name="refresh_sheet_app_start">အက်ပ် စတင်ခြင်း</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="other">အစုလိုက် တောင်းဆိုမှု %1$s · ဈေးနှုန်း %2$d ခု</item>
+    </plurals>
+    <string name="refresh_sheet_database">ဒေတာဘေ့စ်</string>
+    <string name="refresh_sheet_exchange_unreachable">%1$s ကို ချိတ်ဆက်၍မရပါ</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
+        <item quantity="other">လဲလှယ်ရေးဌာန %1$d ခုကို ချိတ်ဆက်၍မရပါ</item>
+    </plurals>
+    <string name="refresh_sheet_network">ကွန်ရက်</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="other">ဈေးနှုန်း အကြောင်းကြားချက် %1$d ခု</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="other">အတွဲ %1$d ခု</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="other">အတွဲ %1$d ခု အပ်ဒိတ် မဖြစ်ပါ</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="other">အတွဲ %1$d ခုအနက် %2$d ခု</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">%1$s အထိ ခေတ္တရပ်ထားသည်</string>
+    <string name="refresh_sheet_paused_until_reason">%1$s အထိ ခေတ္တရပ်ထားသည် (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">ဒေတာ မရှိ</string>
+    <string name="refresh_sheet_reason_offline">ချိတ်ဆက်မှု မရှိ</string>
+    <string name="refresh_sheet_reason_rate_limit">တောင်းဆိုမှု များလွန်းသည်</string>
+    <string name="refresh_sheet_reason_server">ဆာဗာ အမှား</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">အချိန်ကုန်သွားသည်</string>
+    <string name="refresh_sheet_reason_unavailable">လဲလှယ်ရေးဌာန မရရှိနိုင်</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s စက္ကန့်</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_exchanges">လဲလှယ်ရေးဌာနများ</string>
+    <string name="refresh_sheet_section_steps">အသေးစိတ် ခွဲခြမ်းချက်</string>
+    <string name="refresh_sheet_status_failed">အပ်ဒိတ် မဖြစ်ပါ</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">အားလုံး အပ်ဒိတ်ဖြစ်ပြီ</string>
+    <string name="refresh_sheet_status_partial">တစ်စိတ်တစ်ပိုင်း အပ်ဒိတ်ဖြစ်ပြီ</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">စတင်ရန် စောင့်နေသည်</string>
+    <string name="refresh_sheet_widgets">ဝီဂျက်များ</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">အစုလိုက် တောင်းဆိုမှု %1$s (မအောင်မြင်)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="other">အမှား %1$d ခု</item>
+    </plurals>
+    <string name="refresh_report_live">တိုက်ရိုက်: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="other">%1$d ခု အရောင်းအဝယ် မရှိတော့ပါ</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d ခု တစ်ခုချင်းစီ</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">မအောင်မြင်</string>
+    <string name="check_result_ok">အဆင်ပြေ</string>
+    <string name="check_result_partial">တစ်စိတ်တစ်ပိုင်း</string>
+    <string name="check_result_skipped">ကျော်ခဲ့သည်</string>
+    <string name="check_trigger_bgtask">နောက်ခံ</string>
+    <string name="check_trigger_exact">အချိန်မှန်</string>
+    <string name="check_trigger_foreground">အက်ပ်</string>
+    <string name="check_trigger_widget">ဝီဂျက်</string>
+    <string name="check_trigger_widget_ios">ဝီဂျက် · ဈေးနှုန်းများနှင့် ဈေးနှုန်း သတိပေးချက်များ</string>
+    <string name="check_trigger_worker">နောက်ခံ</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android က စစ်ဆေးမှုများကို နှောင့်နှေးစေနိုင်သည် – ဘက်ထရီကို “ကန့်သတ်မထား” သို့ သတ်မှတ်ပါ</string>
+    <string name="battery_later">နောက်မှ</string>
+    <string name="battery_message">Android သည် စွမ်းအင်ချွေတာရန် နောက်ခံအလုပ်များကို နှောင့်နှေးစေသည် — ထိုအခါ ဈေးနှုန်းများနှင့် ဝီဂျက်များ နာရီပေါင်းများစွာ ဟောင်းနေနိုင်သည်။ ဘက်ထရီ အသုံးပြုမှုကို ကန့်သတ်မထား သို့ သတ်မှတ်ခြင်းက ၎င်းတို့ကို နောက်ဆုံးအခြေအနေအတိုင်း ထားပေးသည်။ Android ဆက်တင်များတွင် အချိန်မရွေး ပြောင်းနိုင်သည်။</string>
+    <string name="battery_open_settings">ဘက်ထရီ ဆက်တင်များ ဖွင့်ရန်</string>
+    <string name="battery_steps">အက်ပ်အချက်အလက်တွင် ဘက်ထရီ (သို့မဟုတ် အက်ပ် ဘက်ထရီ အသုံးပြုမှု) ကို တို့ပြီး ကန့်သတ်မထား ကို ရွေးပါ။</string>
+    <string name="battery_title">ဈေးနှုန်းများကို နောက်ဆုံးအခြေအနေအတိုင်း ထားရန်</string>
+    <string name="ios_background_refresh_off">ဤအက်ပ်အတွက် Background App Refresh ပိတ်ထားသည်။ ၎င်းမပါလျှင် အက်ပ် ဖွင့်ထားစဉ်သာ သတိပေးချက်များကို စစ်ဆေးသည်။</string>
+    <string name="ios_low_power_mode">Low Power Mode ဖွင့်ထားသည်။ iOS သည် နောက်ခံတွင် ရှားရှားပါးပါးသာ စစ်ဆေးသောကြောင့် သတိပေးချက်များ နောက်ကျနိုင်သည်။</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">လဲလှယ်ရေးဌာန စာ: %1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">သိုလှောင်မှု လော့ခ်ကျနေဆဲ – %1$d စက္ကန့်အတွင်း ထပ်ကြိုးစားမည်</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="other">သိုလှောင်မှု လော့ခ်ကျနေဆဲ – %1$d စက္ကန့်အတွင်း ထပ်ကြိုးစားမည်</item>
+    </plurals>
+    <string name="watchlist_retry_short">%1$s အတွင်း ထပ်ကြိုးစားမည်</string>
+    <string name="widget_retry_at">%1$s တွင် ထပ်ကြိုးစားမည်</string>
+    <string name="refresh_sheet_wait_attempt">ကြိုးစားမှု %1$d – ကုဒ်ပြောင်းဝှက်ထားသော သိုလှောင်မှုသည် ပထမအကြိမ်တွင် အဆင်သင့် မဖြစ်သေးပါ</string>
+</resources>

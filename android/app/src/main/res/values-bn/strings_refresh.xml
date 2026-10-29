@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">বেশি ডেটা ও ব্যাটারি লাগে</string>
+    <string name="update_mode_live">খোলা থাকলে লাইভ</string>
+    <string name="update_mode_live_hint">যেখানে এক্সচেঞ্জ লাইভ দাম দেয়: ওয়াচলিস্ট খোলা থাকলে সঙ্গে সঙ্গে। নইলে পরের বার তথ্য আনার সময়। বন্ধ থাকলে: %1$s-এর চেয়ে ঘন ঘন নয়, প্রায়ই আরও পরে।</string>
+    <string name="update_mode_live_hint_ios">যেখানে এক্সচেঞ্জ লাইভ দাম দেয়: ওয়াচলিস্ট খোলা থাকলে সঙ্গে সঙ্গে। নইলে পরের বার তথ্য আনার সময়। বন্ধ থাকলে: iOS যখন অনুমতি দেয়, কখনো কয়েক ঘণ্টা পরপর। অ্যাপটি সোয়াইপ করে সরালে iOS আবার না খোলা পর্যন্ত এই যাচাই বন্ধ রাখে।</string>
+    <string name="update_mode_recommended">সুপারিশকৃত</string>
+    <string name="update_mode_sparsam">সাশ্রয়ী</string>
+    <string name="update_mode_sparsam_hint">অ্যাপ বন্ধ থাকলে %1$s-এর চেয়ে ঘন ঘন নয়, প্রায়ই আরও পরে (অ্যালার্ট, উইজেট)। খোলা থাকলে: প্রতিবার খোলার সময়।</string>
+    <string name="update_mode_sparsam_hint_ios">অ্যাপ বন্ধ থাকলে iOS ঠিক করে কখন যাচাই হবে (অ্যালার্ট, উইজেট), কখনো কয়েক ঘণ্টা পরপর। খোলা থাকলে: প্রতিবার খোলার সময়।</string>
+    <string name="update_mode_title">আপডেটের হার</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">রিফ্রেশ বাতিল হয়েছে</string>
+    <string name="refresh_sheet_alarms">অ্যালার্ট</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$dটি চালু হয়েছে</item>
+        <item quantity="other">%1$dটি চালু হয়েছে</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">সব আপডেট হয়েছে</string>
+    <string name="refresh_sheet_app_start">অ্যাপ শুরু</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">একসঙ্গে অনুরোধ %1$s · %2$dটি দাম</item>
+        <item quantity="other">একসঙ্গে অনুরোধ %1$s · %2$dটি দাম</item>
+    </plurals>
+    <string name="refresh_sheet_database">ডেটাবেস</string>
+    <string name="refresh_sheet_exchange_unreachable">%1$s-এ পৌঁছানো যাচ্ছে না</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
+        <item quantity="one">%1$dটি এক্সচেঞ্জে পৌঁছানো যাচ্ছে না</item>
+        <item quantity="other">%1$dটি এক্সচেঞ্জে পৌঁছানো যাচ্ছে না</item>
+    </plurals>
+    <string name="refresh_sheet_network">নেটওয়ার্ক</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$dটি দামের নোটিফিকেশন</item>
+        <item quantity="other">%1$dটি দামের নোটিফিকেশন</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$dটি পেয়ার</item>
+        <item quantity="other">%1$dটি পেয়ার</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$dটি পেয়ার আপডেট হয়নি</item>
+        <item quantity="other">%1$dটি পেয়ার আপডেট হয়নি</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%1$dটি পেয়ারের মধ্যে %2$dটি</item>
+        <item quantity="other">%1$dটি পেয়ারের মধ্যে %2$dটি</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">%1$s পর্যন্ত বিরত</string>
+    <string name="refresh_sheet_paused_until_reason">%1$s পর্যন্ত বিরত (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">কোনো ডেটা নেই</string>
+    <string name="refresh_sheet_reason_offline">সংযোগ নেই</string>
+    <string name="refresh_sheet_reason_rate_limit">অনেক বেশি অনুরোধ</string>
+    <string name="refresh_sheet_reason_server">সার্ভার ত্রুটি</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">সময় শেষ</string>
+    <string name="refresh_sheet_reason_unavailable">এক্সচেঞ্জ পাওয়া যাচ্ছে না</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s সেকেন্ড</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_exchanges">এক্সচেঞ্জ</string>
+    <string name="refresh_sheet_section_steps">বিবরণ</string>
+    <string name="refresh_sheet_status_failed">আপডেট হয়নি</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">সব আপডেট হয়েছে</string>
+    <string name="refresh_sheet_status_partial">আংশিক আপডেট হয়েছে</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">শুরুর অপেক্ষায়</string>
+    <string name="refresh_sheet_widgets">উইজেট</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">একসঙ্গে অনুরোধ %1$s (ব্যর্থ)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$dটি ত্রুটি</item>
+        <item quantity="other">%1$dটি ত্রুটি</item>
+    </plurals>
+    <string name="refresh_report_live">লাইভ: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$dটি আর লেনদেন হয় না</item>
+        <item quantity="other">%1$dটি আর লেনদেন হয় না</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$dটি আলাদাভাবে</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">ব্যর্থ</string>
+    <string name="check_result_ok">ঠিক আছে</string>
+    <string name="check_result_partial">আংশিক</string>
+    <string name="check_result_skipped">বাদ দেওয়া</string>
+    <string name="check_trigger_bgtask">ব্যাকগ্রাউন্ড</string>
+    <string name="check_trigger_exact">সময়মতো</string>
+    <string name="check_trigger_foreground">অ্যাপ</string>
+    <string name="check_trigger_widget">উইজেট</string>
+    <string name="check_trigger_widget_ios">উইজেট · দাম ও দামের অ্যালার্ট</string>
+    <string name="check_trigger_worker">ব্যাকগ্রাউন্ড</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android যাচাই বিলম্বিত করতে পারে – ব্যাটারি “সীমাহীন”-এ সেট করুন</string>
+    <string name="battery_later">পরে</string>
+    <string name="battery_message">Android শক্তি বাঁচাতে ব্যাকগ্রাউন্ডের কাজ বিলম্বিত করে — তখন দাম ও উইজেট কয়েক ঘণ্টা পুরোনো হতে পারে। ব্যাটারি ব্যবহার সীমাহীন করলে এগুলো হালনাগাদ থাকে। Android সেটিংসে যেকোনো সময় এটি বদলানো যায়।</string>
+    <string name="battery_open_settings">ব্যাটারি সেটিংস খুলুন</string>
+    <string name="battery_steps">অ্যাপের তথ্যে ব্যাটারি (বা অ্যাপের ব্যাটারি ব্যবহার)-এ ট্যাপ করে সীমাহীন বেছে নিন।</string>
+    <string name="battery_title">দাম হালনাগাদ রাখুন</string>
+    <string name="ios_background_refresh_off">এই অ্যাপের জন্য ব্যাকগ্রাউন্ড অ্যাপ রিফ্রেশ বন্ধ। এটি ছাড়া অ্যালার্ট শুধু অ্যাপ খোলা থাকলে যাচাই হয়।</string>
+    <string name="ios_low_power_mode">লো পাওয়ার মোড চালু। iOS ব্যাকগ্রাউন্ডে কদাচিৎ যাচাই করে, তাই অ্যালার্ট দেরিতে আসতে পারে।</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">এক্সচেঞ্জের বার্তা: %1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">স্টোরেজ এখনো লক – %1$d সে.-এ আবার চেষ্টা</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="one">স্টোরেজ এখনো লক – %1$d সেকেন্ডে আবার চেষ্টা</item>
+        <item quantity="other">স্টোরেজ এখনো লক – %1$d সেকেন্ডে আবার চেষ্টা</item>
+    </plurals>
+    <string name="watchlist_retry_short">%1$s-এ আবার চেষ্টা</string>
+    <string name="widget_retry_at">%1$s-এ আবার চেষ্টা</string>
+    <string name="refresh_sheet_wait_attempt">চেষ্টা %1$d – প্রথমবার এনক্রিপ্ট করা স্টোরেজ প্রস্তুত ছিল না</string>
+</resources>

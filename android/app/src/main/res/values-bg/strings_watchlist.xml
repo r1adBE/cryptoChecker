@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">Актуално · %1$s</string>
+    <string name="watchlist_empty_title">Още няма двойки</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%1$d от %2$d без курс</item>
+        <item quantity="other">%1$d от %2$d без курс</item>
+    </plurals>
+    <string name="watchlist_last_run">Последно изпълнение %1$s</string>
+    <string name="watchlist_live_a11y">Курсовете на живо са включени</string>
+    <string name="watchlist_offline_since">Няма връзка · към %1$s</string>
+    <string name="watchlist_pull_to_refresh">Дръпни надолу за обновяване</string>
+    <string name="watchlist_refresh_report">Последно обновяване</string>
+    <string name="watchlist_refresh_report_empty">Още няма разбивка – досега не е имало пълно обновяване. Докосни „Обнови“ и изчакай кръгът да спре.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%1$d от %2$d остарял</item>
+        <item quantity="other">%1$d от %2$d остарели</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">Всички двойки тук са деактивирани</string>
+    <string name="watchlist_status_exchange_prices">Курсове от твоите борси · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">Борсови курсове · %1$s</string>
+    <string name="watchlist_status_group_empty">Няма двойки в тази група</string>
+    <string name="watchlist_status_none_traded">Тук няма търгувани двойки</string>
+    <string name="watchlist_updated">Обновено: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">ср. %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d пада</item>
+        <item quantity="other">%1$d падат</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d без 24ч стойност</item>
+        <item quantity="other">%1$d без 24ч стойност</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d без стойност днес</item>
+        <item quantity="other">%1$d без стойност днес</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d расте</item>
+        <item quantity="other">%1$d растат</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · деактивирана</string>
+    <string name="watchlist_row_outdated">%1$s · остаряло</string>
+    <string name="watchlist_row_outdated_age">остаряло · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">Курсът е непроменен от %1$s</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s е недостъпна</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">Към края</string>
+    <string name="watchlist_jump_start">Към началото</string>
+    <string name="watchlist_search_close">Затвори търсенето</string>
+    <string name="watchlist_search_empty">Няма резултати за „%1$s“</string>
+    <string name="watchlist_search_hint">Търси двойка, име или борса</string>
+    <string name="watchlist_search_open">Търси</string>
+    <string name="watchlist_sort_ascending">възходящо</string>
+    <string name="watchlist_sort_descending">низходящо</string>
+    <string name="watchlist_sort_hint">Задръж и плъзни двойка или използвай дръжката. Любимите остават най-горе.</string>
+    <string name="watchlist_sort_name">Име</string>
+    <string name="watchlist_sort_own">Собствен ред</string>
+    <string name="watchlist_sort_price">Курс</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">Изпразни списъка</string>
+    <string name="watchlist_clear_confirm">Да се премахнат ли всички двойки от списъка? Алармите им също се изтриват.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d деактивирана</item>
+        <item quantity="other">%1$d деактивирани</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">Премахни</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Да се премахне ли %1$d двойка, която вече не се търгува на борсата си? Алармите ѝ също се изтриват.</item>
+        <item quantity="other">Да се премахнат ли %1$d двойки, които вече не се търгуват на борсата си? Алармите им също се изтриват.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">Премахни нетъргуваните двойки (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Премахни нетъргуваните двойки</string>
+    <string name="watchlist_removed">%1$s е премахната</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d двойка е премахната</item>
+        <item quantity="other">%1$d двойки са премахнати</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">%1$d нетъргувана двойка е премахната</item>
+        <item quantity="other">%1$d нетъргувани двойки са премахнати</item>
+    </plurals>
+    <string name="watchlist_select">Избери</string>
+    <string name="watchlist_select_all">Избери всички</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d избрана</item>
+        <item quantity="other">%1$d избрани</item>
+    </plurals>
+    <string name="watchlist_show_all">Покажи всички</string>
+    <string name="watchlist_show_only_disabled">Покажи само деактивираните</string>
+    <string name="watchlist_show_only_stale">Покажи само остарелите</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Аларма (%1$d)</item>
+        <item quantity="other">Аларми (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">Още няма любими. Плъзни двойка надясно или отвори двойката и докосни „Любими“.</string>
+    <string name="watchlist_group_empty_hint">Натисни продължително група, за да избереш двойките ѝ.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">Тук ще се появят групите ти</string>
+    <string name="watchlist_notification">Известие за курса</string>
+    <string name="watchlist_tts">Прочитай курса</string>
+    <string name="watchlist_tts_speech_on">Гласовият изход е включен. Можеш да го промениш в Настройки › Аларми › Гласов изход.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">Добави като уиджет</string>
+    <string name="watch_action_alarm">Аларма</string>
+    <string name="watch_action_favorite">Любими</string>
+    <string name="watch_action_why">Какво се движи заедно?</string>
+    <string name="watch_action_why_short">Какво се движи заедно?</string>
+    <string name="watch_change_mark">Mark</string>
+    <string name="watch_disable">Деактивирай</string>
+    <string name="watch_disable_hint">Без заявки, без известия</string>
+    <string name="watch_disabled">Деактивирана</string>
+    <string name="watch_disabled_banner">%1$s е деактивирана</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">Алармите остават – провери праговете им</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">Редактирай двойката</string>
+    <string name="watch_enable">Активирай</string>
+    <string name="watch_enable_hint">Курсовете и известията се възобновяват</string>
+    <string name="watch_enabled_banner">%1$s е активирана</string>
+    <string name="watch_error_offline">Няма връзка</string>
+    <string name="watch_gesture_hint_short">Докосване: аларма и „Какво се движи заедно?“ · продължително натискане избира · плъзгане наляво изтрива · плъзгане надясно = любими</string>
+    <string name="watch_hint_tap_why">Докосни монета за аларми и „Какво се движи заедно?“</string>
+    <string name="watch_not_traded">Вече не се търгува на тази борса</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">Не е в списъка</string>
+    <string name="watch_price_mid">среден курс (иначе mark)</string>
+    <string name="watch_row_source_both">Промяна &amp; графика: %1$s</string>
+    <string name="watch_row_source_change">Промяна: %1$s</string>
+    <string name="watch_row_source_chart">Графика: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s вече е в списъка ти</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s вече са в списъка ти</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">Добави към любими</string>
+    <string name="favorite_added">%1$s е добавена към любими</string>
+    <string name="favorite_remove">Премахни от любими</string>
+    <string name="favorite_removed">%1$s е премахната от любими</string>
+    <string name="hint_favorites_list">Съвет: плъзни ред надясно, за да стане любим – любимите остават най-горе.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">Нова група</string>
+    <string name="group_all">Всички</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Alpha токени</string>
+    <string name="group_delete">Изтрий групата</string>
+    <string name="group_delete_confirm">Двойките остават в списъка ти.</string>
+    <string name="group_done">Готово</string>
+    <string name="group_edit_title">Редактирай групата</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">Любими</string>
+    <string name="group_in_other">в %1$s</string>
+    <string name="group_name">Име на групата</string>
+    <string name="group_new">Нова група…</string>
+    <string name="group_next">Напред</string>
+    <string name="group_none">Без група</string>
+    <string name="group_rename">Преименувай</string>
+    <string name="group_search_hint">Търси двойка, име или борса</string>
+    <string name="group_target">В група</string>
+    <string name="group_title">Група</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">Токени</string>
+    <string name="group_value">Група: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">Добави бележка</string>
+    <string name="note_edit">Редактирай бележката</string>
+    <string name="note_hint">напр. вход при 0.42, цел 0.60</string>
+    <string name="note_remove">Премахни</string>
+    <string name="note_title">Бележка</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">Плъзни за преместване</string>
+    <string name="sort_move_bottom">Премести най-долу</string>
+    <string name="sort_move_down">Премести надолу</string>
+    <string name="sort_move_top">Премести най-горе</string>
+    <string name="sort_move_up">Премести нагоре</string>
+
+    <string name="watchlist_first_alarm_title">Задай първата си аларма</string>
+    <string name="watchlist_first_alarm_text">Получи известие, когато курсът достигне прага ти – при затворено приложение Android проверява нередовно.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">маркировъчна цена (няма среден курс)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">часов курс</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">Задай първата си аларма – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Обнови (%1$d)</string>
+
+    <!-- Zeile der Merkliste: Börse pausiert (zu viele Anfragen / Zeitüberschreitungen) bis zu einer Uhrzeit, ersetzt die Zeitzeile, z. B. «Binance · pausiert bis 19:45» -->
+    <string name="watchlist_row_exchange_paused">%1$s · на пауза до %2$s</string>
+
+    <string name="watchlist_refresh_just_done">Току-що обновено · преди %1$d с</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">последна сделка %1$s</string>
+
+    <string name="change_candle_source_hint">Изчислено от свещи %1$s – борсата сама не предоставя тази стойност.</string>
+    <string name="change_candle_source_action">Покажи източника на промяната</string>
+
+    <string name="watchlist_sort_by_coin">Подреди по монета</string>
+    <string name="watchlist_sort_by_exchange">Подреди по борса</string>
+    <string name="watchlist_limit_reached">Списъкът ти може да има най-много %1$s двойки.</string>
+    <string name="watch_price_reference">референтен курс, дневен</string>
+    <string name="watch_price_daily">дневно</string>
+    <string name="watchlist_compare">Сравни</string>
+    <string name="watchlist_compare_hint">За сравнение маркирай 2 до 4 двойки.</string>
+    <string name="compare_title">Сравнение</string>
+    <string name="compare_basis">Линиите показват промяната в проценти от началото на периода.</string>
+    <string name="compare_from_high">спрямо 30-дневния връх</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">%1$d двойка не е възстановена – списъкът е пълен</item>
+        <item quantity="other">%1$d двойки не са възстановени – списъкът е пълен</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">Списъкът и алармите му в момента не се запазват. Тази и следващите промени ще се загубят при затваряне на приложението. Да се промени ли въпреки това?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">Промени въпреки това</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">%1$d двойка</item>
+        <item quantity="other">%1$d двойки</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">%2$d от %1$d двойка</item>
+        <item quantity="other">%2$d от %1$d двойки</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">остава %1$d място</item>
+        <item quantity="other">остават %1$d места</item>
+    </plurals>
+    <string name="watchlist_footer_full">Списъкът е пълен</string>
+</resources>

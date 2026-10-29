@@ -221,4 +221,14 @@
     <string name="watchlist_not_saved_confirm_message">現在、ウォッチリストとアラームは保存されていません。この変更とこの後の変更は、アプリを閉じると失われます。変更しますか？</string>
     <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
     <string name="watchlist_not_saved_confirm_action">変更する</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="other">%1$d 件のペア</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="other">%1$d 件中 %2$d 件のペア</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="other">残り %1$d 件</item>
+    </plurals>
+    <string name="watchlist_footer_full">ウォッチリストは上限です</string>
 </resources>

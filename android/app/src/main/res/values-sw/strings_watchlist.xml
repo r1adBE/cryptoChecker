@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">Za sasa · %1$s</string>
+    <string name="watchlist_empty_title">Bado hakuna jozi</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%1$d kati ya %2$d bila bei</item>
+        <item quantity="other">%1$d kati ya %2$d bila bei</item>
+    </plurals>
+    <string name="watchlist_last_run">Mzunguko wa mwisho %1$s</string>
+    <string name="watchlist_live_a11y">Bei za moja kwa moja zimewashwa</string>
+    <string name="watchlist_offline_since">Hakuna muunganisho · hadi %1$s</string>
+    <string name="watchlist_pull_to_refresh">Vuta chini ili kuonyesha upya</string>
+    <string name="watchlist_refresh_report">Uonyeshaji upya wa mwisho</string>
+    <string name="watchlist_refresh_report_empty">Bado hakuna uchanganuzi – hakuna uonyeshaji upya kamili hadi sasa. Gusa onyesha upya na usubiri hadi duara isimame.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%1$d kati ya %2$d imepitwa na wakati</item>
+        <item quantity="other">%1$d kati ya %2$d zimepitwa na wakati</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">Jozi zote hapa zimezimwa</string>
+    <string name="watchlist_status_exchange_prices">Bei kutoka majukwaa yako · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">Bei za jukwaa · %1$s</string>
+    <string name="watchlist_status_group_empty">Hakuna jozi kwenye kikundi hiki</string>
+    <string name="watchlist_status_none_traded">Hakuna jozi zinazouzwa hapa</string>
+    <string name="watchlist_updated">Imesasishwa: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">wastani %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d imeshuka</item>
+        <item quantity="other">%1$d zimeshuka</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d bila thamani ya 24h</item>
+        <item quantity="other">%1$d bila thamani ya 24h</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d bila thamani ya leo</item>
+        <item quantity="other">%1$d bila thamani ya leo</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d imepanda</item>
+        <item quantity="other">%1$d zimepanda</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · imezimwa</string>
+    <string name="watchlist_row_outdated">%1$s · imepitwa na wakati</string>
+    <string name="watchlist_row_outdated_age">imepitwa na wakati · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">Bei haijabadilika tangu %1$s</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s haipatikani</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">Ruka hadi mwisho</string>
+    <string name="watchlist_jump_start">Ruka hadi juu</string>
+    <string name="watchlist_search_close">Funga utafutaji</string>
+    <string name="watchlist_search_empty">Hakuna yanayolingana na “%1$s”</string>
+    <string name="watchlist_search_hint">Tafuta jozi, jina au jukwaa</string>
+    <string name="watchlist_search_open">Tafuta</string>
+    <string name="watchlist_sort_ascending">kupanda</string>
+    <string name="watchlist_sort_descending">kushuka</string>
+    <string name="watchlist_sort_hint">Shikilia na uburute jozi, au tumia kishikio. Vipendwa vinabaki juu.</string>
+    <string name="watchlist_sort_name">Jina</string>
+    <string name="watchlist_sort_own">Mpangilio wako</string>
+    <string name="watchlist_sort_price">Bei</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">Futa orodha ya ufuatiliaji</string>
+    <string name="watchlist_clear_confirm">Uondoe jozi zote kwenye orodha ya ufuatiliaji? Kengele zake zinaondoka pamoja nazo.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d imezimwa</item>
+        <item quantity="other">%1$d zimezimwa</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">Ondoa</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Uondoe jozi %1$d ambayo haiuzwi tena kwenye jukwaa lake? Kengele zake zinaondoka pamoja nayo.</item>
+        <item quantity="other">Uondoe jozi %1$d ambazo haziuzwi tena kwenye majukwaa yake? Kengele zake zinaondoka pamoja nazo.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">Ondoa jozi zisizouzwa (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Ondoa jozi zisizouzwa</string>
+    <string name="watchlist_removed">%1$s imeondolewa</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">Jozi %1$d imeondolewa</item>
+        <item quantity="other">Jozi %1$d zimeondolewa</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">Jozi %1$d isiyouzwa imeondolewa</item>
+        <item quantity="other">Jozi %1$d zisizouzwa zimeondolewa</item>
+    </plurals>
+    <string name="watchlist_select">Chagua</string>
+    <string name="watchlist_select_all">Chagua zote</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d imechaguliwa</item>
+        <item quantity="other">%1$d zimechaguliwa</item>
+    </plurals>
+    <string name="watchlist_show_all">Onyesha zote</string>
+    <string name="watchlist_show_only_disabled">Onyesha zilizozimwa pekee</string>
+    <string name="watchlist_show_only_stale">Onyesha zilizopitwa na wakati pekee</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Kengele (%1$d)</item>
+        <item quantity="other">Kengele (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">Bado hakuna vipendwa. Telezesha jozi kulia, au fungua jozi na uguse “Kipendwa”.</string>
+    <string name="watchlist_group_empty_hint">Bonyeza kwa muda mrefu kikundi ili kuchagua jozi zake.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">Vikundi vyako vitaonekana hapa</string>
+    <string name="watchlist_notification">Arifa ya bei</string>
+    <string name="watchlist_tts">Soma bei kwa sauti</string>
+    <string name="watchlist_tts_speech_on">Usomaji kwa sauti umewashwa. Unaweza kuubadilisha kwenye Mipangilio › Kengele › Usomaji kwa sauti.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">Ongeza kama wijeti</string>
+    <string name="watch_action_alarm">Kengele</string>
+    <string name="watch_action_favorite">Kipendwa</string>
+    <string name="watch_action_why">Nini kinasonga pamoja nayo?</string>
+    <string name="watch_action_why_short">Kinachosonga nayo?</string>
+    <string name="watch_change_mark">Mark</string>
+    <string name="watch_disable">Zima</string>
+    <string name="watch_disable_hint">Hakuna maombi, hakuna arifa</string>
+    <string name="watch_disabled">Imezimwa</string>
+    <string name="watch_disabled_banner">%1$s imezimwa</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">Kengele zinabaki – angalia viwango vyake</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">Badilisha jozi</string>
+    <string name="watch_enable">Washa</string>
+    <string name="watch_enable_hint">Bei na arifa zinaendelea</string>
+    <string name="watch_enabled_banner">%1$s imewashwa</string>
+    <string name="watch_error_offline">Hakuna muunganisho</string>
+    <string name="watch_gesture_hint_short">Gusa: kengele na “Nini kinasonga pamoja nayo?” · bonyeza kwa muda mrefu ili kuchagua · telezesha kushoto ili kufuta · telezesha kulia kwa kipendwa</string>
+    <string name="watch_hint_tap_why">Gusa sarafu kwa kengele na “Nini kinasonga pamoja nayo?”</string>
+    <string name="watch_not_traded">Haiuzwi tena kwenye jukwaa hili</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">Haimo kwenye orodha ya ufuatiliaji</string>
+    <string name="watch_price_mid">bei ya kati (vinginevyo mark)</string>
+    <string name="watch_row_source_both">Mabadiliko &amp; chati: %1$s</string>
+    <string name="watch_row_source_change">Mabadiliko: %1$s</string>
+    <string name="watch_row_source_chart">Chati: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s sasa iko kwenye orodha yako ya ufuatiliaji</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s sasa ziko kwenye orodha yako ya ufuatiliaji</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">Ongeza kwenye vipendwa</string>
+    <string name="favorite_added">%1$s imeongezwa kwenye vipendwa</string>
+    <string name="favorite_remove">Ondoa kwenye vipendwa</string>
+    <string name="favorite_removed">%1$s imeondolewa kwenye vipendwa</string>
+    <string name="hint_favorites_list">Kidokezo: telezesha safu kulia ili kuifanya kipendwa – vipendwa vinabaki juu.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">Kikundi kipya</string>
+    <string name="group_all">Zote</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Tokeni za Alpha</string>
+    <string name="group_delete">Futa kikundi</string>
+    <string name="group_delete_confirm">Jozi zinabaki kwenye orodha yako ya ufuatiliaji.</string>
+    <string name="group_done">Nimemaliza</string>
+    <string name="group_edit_title">Badilisha kikundi</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">Vipendwa</string>
+    <string name="group_in_other">kwenye %1$s</string>
+    <string name="group_name">Jina la kikundi</string>
+    <string name="group_new">Kikundi kipya…</string>
+    <string name="group_next">Inayofuata</string>
+    <string name="group_none">Hakuna kikundi</string>
+    <string name="group_rename">Badilisha jina</string>
+    <string name="group_search_hint">Tafuta jozi, jina au jukwaa</string>
+    <string name="group_target">Kwenye kikundi</string>
+    <string name="group_title">Kikundi</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">Tokeni</string>
+    <string name="group_value">Kikundi: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">Ongeza dokezo</string>
+    <string name="note_edit">Badilisha dokezo</string>
+    <string name="note_hint">k.m. kuingia kwa 0.42, lengo 0.60</string>
+    <string name="note_remove">Ondoa</string>
+    <string name="note_title">Dokezo</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">Buruta ili kupanga upya</string>
+    <string name="sort_move_bottom">Sogeza hadi chini kabisa</string>
+    <string name="sort_move_down">Sogeza chini</string>
+    <string name="sort_move_top">Sogeza hadi juu kabisa</string>
+    <string name="sort_move_up">Sogeza juu</string>
+
+    <string name="watchlist_first_alarm_title">Weka kengele yako ya kwanza</string>
+    <string name="watchlist_first_alarm_text">Pata arifa bei inapofikia alama yako – programu ikiwa imefungwa, Android hukagua bila mpangilio.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">mark price (hakuna bei ya kati)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">bei ya kila saa</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">Weka kengele yako ya kwanza – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Onyesha upya (%1$d)</string>
+
+    <!-- Zeile der Merkliste: Börse pausiert (zu viele Anfragen / Zeitüberschreitungen) bis zu einer Uhrzeit, ersetzt die Zeitzeile, z. B. «Binance · pausiert bis 19:45» -->
+    <string name="watchlist_row_exchange_paused">%1$s · imesitishwa hadi %2$s</string>
+
+    <string name="watchlist_refresh_just_done">Imesasishwa sasa hivi · sekunde %1$d zilizopita</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">biashara ya mwisho %1$s</string>
+
+    <string name="change_candle_source_hint">Imekokotolewa kutoka mishumaa ya %1$s – jukwaa lenyewe halitoi thamani hii.</string>
+    <string name="change_candle_source_action">Onyesha chanzo cha mabadiliko</string>
+
+    <string name="watchlist_sort_by_coin">Panga kwa sarafu</string>
+    <string name="watchlist_sort_by_exchange">Panga kwa jukwaa</string>
+    <string name="watchlist_limit_reached">Orodha yako ya ufuatiliaji inaweza kuwa na jozi %1$s zaidi.</string>
+    <string name="watch_price_reference">kiwango cha marejeleo, kila siku</string>
+    <string name="watch_price_daily">kila siku</string>
+    <string name="watchlist_compare">Linganisha</string>
+    <string name="watchlist_compare_hint">Chagua jozi 2 hadi 4 ili kulinganisha.</string>
+    <string name="compare_title">Ulinganisho</string>
+    <string name="compare_basis">Mistari inaonyesha mabadiliko kwa asilimia tangu mwanzo wa kipindi.</string>
+    <string name="compare_from_high">dhidi ya kilele cha siku 30</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">Jozi %1$d haikurejeshwa – orodha ya ufuatiliaji imejaa</item>
+        <item quantity="other">Jozi %1$d hazikurejeshwa – orodha ya ufuatiliaji imejaa</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">Orodha ya ufuatiliaji na kengele zake hazihifadhiwi sasa hivi. Badiliko hili na mengine yoyote yatapotea programu ikifungwa. Ubadilishe hata hivyo?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">Badilisha hata hivyo</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">Jozi %1$d</item>
+        <item quantity="other">Jozi %1$d</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">Jozi %2$d kati ya %1$d</item>
+        <item quantity="other">Jozi %2$d kati ya %1$d</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">Nafasi %1$d imebaki</item>
+        <item quantity="other">Nafasi %1$d zimebaki</item>
+    </plurals>
+    <string name="watchlist_footer_full">Orodha ya ufuatiliaji imejaa</string>
+</resources>

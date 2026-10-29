@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="one">%d min tagasi</item>
+        <item quantity="other">%d min tagasi</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">täna %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed, Bitcoini näitajad, dominants, halving</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">Rohkem turuandmeid</string>
+    <string name="market_phase_trend_failed">Hinnaandmed pole saadaval</string>
+    <string name="market_plain_direction_down_clear">Kõigi krüptovaluutade koguväärtus on selgelt madalam kui 24 tundi tagasi (%1$s).</string>
+    <string name="market_plain_direction_down_slight">Kõigi krüptovaluutade koguväärtus on veidi madalam kui 24 tundi tagasi (%1$s).</string>
+    <string name="market_plain_direction_flat">Kõigi krüptovaluutade koguväärtus on 24 tunniga vaevu muutunud (%1$s).</string>
+    <string name="market_plain_direction_up_clear">Kõigi krüptovaluutade koguväärtus on selgelt kõrgem kui 24 tundi tagasi (%1$s).</string>
+    <string name="market_plain_direction_up_slight">Kõigi krüptovaluutade koguväärtus on veidi kõrgem kui 24 tundi tagasi (%1$s).</string>
+    <string name="market_plain_footnote">Kirjeldab viimast 24 tundi – ei ole prognoos ega investeerimisnõuanne.</string>
+    <string name="market_plain_mood_extreme_fear">Investorid on praegu väga hirmul: meeleoluindeks (Fear &amp; Greed) on %1$d 100-st.</string>
+    <string name="market_plain_mood_extreme_greed">Investorid on praegu väga ahned: meeleoluindeks (Fear &amp; Greed) on %1$d 100-st.</string>
+    <string name="market_plain_mood_fear">Investorid on pigem hirmul: meeleoluindeks (Fear &amp; Greed) on %1$d 100-st.</string>
+    <string name="market_plain_mood_greed">Investorid on pigem ahned: meeleoluindeks (Fear &amp; Greed) on %1$d 100-st.</string>
+    <string name="market_plain_mood_neutral">Investorite meeleolu on tasakaalus: meeleoluindeks (Fear &amp; Greed) on %1$d 100-st.</string>
+    <string name="market_plain_standout_above_btc">Silma paistab %1$s: %2$s 24 tunniga, tublisti üle Bitcoini (%3$s).</string>
+    <string name="market_plain_standout_against_btc">Silma paistab %1$s: %2$s 24 tunniga, samal ajal kui Bitcoin liikus vastupidi (%3$s).</string>
+    <string name="market_plain_standout_below_btc">Silma paistab %1$s: %2$s 24 tunniga, tublisti alla Bitcoini (%3$s).</string>
+    <string name="market_plain_standout_futures_down">Silma paistab %1$s: ebatavaliselt paljud futuuridega kauplejad panustavad hinnalangusele.</string>
+    <string name="market_plain_standout_futures_up">Silma paistab %1$s: ebatavaliselt paljud futuuridega kauplejad panustavad hinnatõusule.</string>
+    <string name="market_plain_standout_quiet">Praegu ei paista ükski münt silma.</string>
+    <string name="market_plain_standout_volume">Silma paistab %1$s: kauplemist umbes %2$s korda rohkem kui tavaliselt.</string>
+    <string name="market_plain_title">Lühidalt</string>
+    <string name="market_section_collapse">Peida %1$s</string>
+    <string name="market_section_context">Meeleolu ja tsükkel</string>
+    <string name="market_section_data">Turuandmed</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">Näita %1$s</string>
+    <string name="market_section_now">Praegu</string>
+    <string name="market_source">Andmed: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="exchange_unavailable_error">Börs pole saadaval</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">Teave: %1$s</string>
+    <string name="market_info_alt_season_source">Päevahinnad: Binance · arvutatakse uuesti umbes iga 3 tunni järel</string>
+    <string name="market_info_alt_season_what">Loeb kokku, kui paljudel umbes 20 suurest altcoinist (nt Ethereum, Solana, XRP) on viimase 90 päeva jooksul läinud paremini kui Bitcoinil. Väärtus on nende osakaal 0 kuni 100.</string>
+    <string name="market_info_coin_source">Hinnad: Binance või Bybit · laaditakse uuesti umbes iga 15 minuti järel</string>
+    <string name="market_info_dominance_how">Kui dominants kasvab, läheb Bitcoinil paremini kui ülejäänud turul; kui see langeb, koguvad teised mündid kaalu. Arvesse lähevad ka stabiilsed mündid: kui nende väärtus kasvab, langeb Bitcoini osakaal isegi siis, kui Bitcoini hind jääb samaks.</string>
+    <string name="market_info_dominance_source">Allikas: CoinGecko · laaditakse uuesti umbes iga 30 minuti järel</string>
+    <string name="market_info_dominance_what">Bitcoini osakaal kõigi krüptovaluutade koguväärtusest (turukapitalisatsioonist). Selle all on Ethereumi osakaal.</string>
+    <string name="market_info_fear_greed_how">Alla 25 tähendab äärmist hirmu, üle 75 äärmist ahnust, umbes 50 neutraalset. Laiendatud kaardil on eilsed, nädala ja kuu tagused väärtused. Ei ole ostu- ega müügisignaal.</string>
+    <string name="market_info_fear_greed_source">Allikas: alternative.me · uus väärtus kord päevas</string>
+    <string name="market_info_fear_greed_what">Krüptoturu meeleoluindeks vahemikus 0 kuni 100. alternative.me arvutab selle mitme sisendi põhjal, sh hinnakõikumised, kauplemismaht, sotsiaalmeedia ja Bitcoini dominants.</string>
+    <string name="market_info_gas_how">Kõrgemad väärtused tähendavad, et võrk on koormatud ja ülekanded maksavad rohkem. Aeglane, tavaline ja kiire on tasud hilisema või kiirema kinnituse eest. Laiendatud kaardil on lihtsa ülekande ligikaudne hind.</string>
+    <string name="market_info_gas_source">Avalikud RPC-sõlmed, mempool.space · laaditakse uuesti iga minut</string>
+    <string name="market_info_gas_what">Kui palju tehing praegu igas võrgus maksab. Ethereumis ja sarnastes võrkudes gwei’des (üks miljardik ETH-d gaasiühiku kohta), Bitcoinis sat/vB (satoshit tehingu virtuaalse baidi kohta).</string>
+    <string name="market_info_halving_source">Kuupäev: ploki kõrguse ja keskmise plokiaja põhjal (mempool.space), muidu kalendri järgi · hinnaajalugu: Coin Metrics, Binance, laaditakse uuesti iga 12 tunni järel</string>
+    <string name="market_info_halving_what">Halvingu ajal vähendatakse tasu, mida kaevurid uue Bitcoini ploki eest saavad, poole võrra. See toimub iga 210 000 ploki järel, umbes iga nelja aasta tagant. Seejärel tekib päevas ainult pool sama palju uusi bitcoine.</string>
+    <string name="market_info_how">Kuidas seda lugeda</string>
+    <string name="market_info_macro_how">Märkus ilmub ainult siis, kui selline kuupäev on täna või homme. Avaldamise paiku kõiguvad hinnad sageli rohkem kui tavaliselt. Rakendus näitab ainult kuupäeva, mitte arve endid.</string>
+    <string name="market_info_macro_source">Kalender rakenduse veebilehelt · laaditakse kord päevas</string>
+    <string name="market_info_macro_what">Oluliste USA majandusandmete kuupäevad: inflatsioon (CPI, PCE), tootjahinnad (PPI), tööturuaruanne ja USA Föderaalreservi intressiotsused. Sellised arvud liigutavad sageli ka krüptovaluutade hindu.</string>
+    <string name="market_info_no_advice">Ei ole investeerimisnõuanne.</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · hinnad iga tund, ahelasisesed väärtused laaditakse uuesti iga 12 tunni järel</string>
+    <string name="market_info_pulse_how">Pealkiri nimetab suuna; detailide nägemiseks laienda kaarti. Lai liikumine tähendab, et enamik suuri münte liigub samas suunas. Optimistlik võimenduse meeleolu tähendab, et paljud kauplejad panustavad võimendusega tõusvatele hindadele, mõõdetuna Bitcoini futuuride rahastamismääraga. Hetkeseis, mitte prognoos.</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · laaditakse uuesti umbes iga 5 minuti järel</string>
+    <string name="market_info_pulse_what">Lühike kokkuvõte turust viimase 24 tunni kohta: kuidas liiguvad Bitcoin, Ethereum ja Solana, kui paljud suurimad mündid tõusevad või langevad, kui palju Bitcoini praegu kaubeldakse ja milline on võimenduse meeleolu (mõõdetuna Bitcoini futuuride rahastamismääraga).</string>
+    <string name="market_info_totals_how">Paremal on koguväärtuse muutus 24 tunniga. Suur maht tähendab, et kaubeldakse palju – see ei ütle, mis suunas. Võimalusel näidatakse teisendusvaluutas, muidu USA dollarites.</string>
+    <string name="market_info_totals_source">Kõik mündid · CoinGecko · laaditakse uuesti umbes iga 30 minuti järel</string>
+    <string name="market_info_totals_what">Kõigi krüptovaluutade koguväärtus (turukapitalisatsioon: hind korda ringluses olev kogus, liidetud kõigi müntide kohta) ja viimase 24 tunni kauplemismaht.</string>
+    <string name="market_info_unusual_how">Iga mündi juures on selle silmapaistvaim tähelepanek, paremal 24 tunni muutus. Maht 2× tähendab kaks korda suuremat käivet kui tavaliselt. Silmapaistev ei tähenda head ega halba.</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · laaditakse uuesti umbes iga 10 minuti järel</string>
+    <string name="market_info_unusual_what">Kuni viis münti umbes 30 suurima hulgast (ilma stabiilsete müntideta), mis käituvad täna ebatavaliselt: palju tugevamalt või nõrgemalt kui Bitcoin, turusuunale vastu, ebatavaliselt suure kauplemismahuga või silmapaistva rahastamismääraga.</string>
+    <string name="market_info_what">Mis see on?</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">Turukapitalisatsioon</string>
+    <string name="market_cap_source">Kõik mündid · CoinGecko</string>
+    <string name="market_cap_title">Krüptoturg</string>
+    <string name="market_volume_label">Maht 24 h</string>
+
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">Üksikasjad</string>
+    <string name="pulse_disclaimer">Ei ole prognoos · Ei ole investeerimisnõuanne</string>
+    <string name="pulse_less">Näita vähem</string>
+    <string name="pulse_now_title">Krüptopulss</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">Muutus 24 tunniga</string>
+    <string name="pulse_section_factors">Tegurid</string>
+    <string name="pulse_section_market">Turg täna</string>
+    <string name="pulse_unavailable">Turuandmed pole praegu saadaval</string>
+    <string name="pulse_updated">Seis %1$s</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">Rahulik turg</string>
+    <string name="pulse_headline_down">Lai nõrkus</string>
+    <string name="pulse_headline_mixed">Segane pilt</string>
+    <string name="pulse_headline_up">Lai tugevus</string>
+    <string name="pulse_lead_alts_stronger">Altcoinid on Bitcoinist tugevamad.</string>
+    <string name="pulse_lead_broad_down">Turg langeb laialt.</string>
+    <string name="pulse_lead_broad_up">Turg tõuseb laialt.</string>
+    <string name="pulse_lead_btc_leads">Bitcoin tõuseb kõige rohkem.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin on altcoinidest tugevam.</string>
+    <string name="pulse_lead_calm">Turg vaevu liigub.</string>
+    <string name="pulse_lead_drift_down">Turg vajub tasapisi allapoole.</string>
+    <string name="pulse_lead_drift_up">Turg liigub tasapisi ülespoole.</string>
+    <string name="pulse_lead_mixed">Suured mündid liiguvad eri suundades.</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">Võimenduse meeleolu optimistlik.</string>
+    <string name="pulse_detail_fund_negative">Võimenduse meeleolu pessimistlik.</string>
+    <string name="pulse_detail_fund_neutral">Võimenduse meeleolu neutraalne.</string>
+    <string name="pulse_detail_vol_above">Maht %1$s üle tavalise.</string>
+    <string name="pulse_detail_vol_above_fund_high">Maht %1$s üle tavalise, võimenduse meeleolu optimistlik.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Maht %1$s üle tavalise, võimenduse meeleolu pessimistlik.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Maht %1$s üle tavalise, võimenduse meeleolu neutraalne.</string>
+    <string name="pulse_detail_vol_below">Maht %1$s alla tavalise.</string>
+    <string name="pulse_detail_vol_below_fund_high">Maht %1$s alla tavalise, võimenduse meeleolu optimistlik.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Maht %1$s alla tavalise, võimenduse meeleolu pessimistlik.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Maht %1$s alla tavalise, võimenduse meeleolu neutraalne.</string>
+    <string name="pulse_detail_vol_normal">Maht tavaline.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Maht tavaline, võimenduse meeleolu optimistlik.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Maht tavaline, võimenduse meeleolu pessimistlik.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Maht tavaline, võimenduse meeleolu neutraalne.</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">Top %1$d: suurimad mündid turuväärtuse järgi, ilma stabiilsete müntideta; muutus 24 tunniga (CoinGecko).</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_note_broad_down">Lai väljamüük: enamik suurimaid münte langeb.</string>
+    <string name="pulse_breadth_note_broad_up">Lai liikumine: enamik suurimaid münte tõuseb.</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin langeb, kuid enamik teisi suuri münte peab vastu.</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin tõuseb, kuid enamik teisi suuri münte ei liitu.</string>
+    <string name="pulse_breadth_spoken">Top %1$d: %2$d tõuseb, %3$d langeb</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">Altcoinid ja Bitcoin liiguvad sarnaselt</string>
+    <string name="pulse_alts_stronger">Altcoinid Bitcoinist tugevamad</string>
+    <string name="pulse_alts_weaker">Bitcoin altcoinidest tugevam</string>
+    <string name="pulse_chip_funding_high">Võimenduse meeleolu optimistlik</string>
+    <string name="pulse_chip_funding_negative">Võimenduse meeleolu pessimistlik</string>
+
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">Näita hinda ja toiminguid</string>
+    <string name="unusual_fact_against">Liigub turule vastu</string>
+    <string name="unusual_fact_funding_high">Rahastamismäär kõrge (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Rahastamismäär negatiivne (%1$s)</string>
+    <string name="unusual_fact_stronger">Liigub palju tugevamalt kui BTC</string>
+    <string name="unusual_fact_volume">Maht %1$s× tavalisest</string>
+    <string name="unusual_fact_weaker">Liigub palju nõrgemalt kui BTC</string>
+    <string name="unusual_nothing">Täna pole midagi silmapaistvat</string>
+    <string name="unusual_source">Umbes 30 suurimat münti ilma stabiilsete müntideta · Binance, CoinGecko</string>
+    <string name="unusual_title">Silmapaistev</string>
+
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">Silmapaistev</string>
+    <string name="activity_indicator">Silmapaistev</string>
+    <string name="activity_sensitivity_less">Vähem</string>
+    <string name="activity_sensitivity_more">Rohkem</string>
+    <string name="activity_sensitivity_normal">Tavaline</string>
+    <string name="activity_signal_funding_long">Rahastamismäär %1$s – palju võimendusega pikki positsioone</string>
+    <string name="activity_signal_funding_short">Rahastamismäär %1$s – palju lühikesi positsioone</string>
+    <string name="activity_signal_open_interest">Avatud positsioonid %1$s %2$d min jooksul</string>
+    <string name="activity_signal_open_interest_no_time">Avatud positsioonid %1$s</string>
+    <string name="activity_signal_price_move">Ebatavaline liikumine: %1$s ühe tunniga (%2$s× tavalisest)</string>
+    <string name="activity_signal_volume">Maht %1$s× tavalisest viimase tunni jooksul</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%1$d suurest altcoinist %2$d-st edestab 90 päeva jooksul Bitcoini</item>
+        <item quantity="other">%1$d suurt altcoini %2$d-st edestavad 90 päeva jooksul Bitcoini</item>
+    </plurals>
+    <string name="insights_chart_axis">Aastaid pärast halvingut</string>
+    <string name="insights_chart_hint">Hind halvingupäeva hinna kordsena (logaritmiline skaala). Varasemad tsüklid on muster, mitte prognoos.</string>
+    <string name="insights_cycle_chart">Tsüklid pärast halvingut</string>
+    <string name="insights_dominance_eth">ETH %1$s koguturust</string>
+    <string name="insights_dominance_title">Bitcoini dominants</string>
+    <string name="insights_fng_history">Eile %1$s · nädal tagasi %2$s · kuu tagasi %3$s</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="insights_halving_title">Bitcoini halving</string>
+    <string name="insights_source_dominance">Allikas: CoinGecko, Binance</string>
+    <string name="insights_source_fng">Allikas: alternative.me</string>
+    <string name="insights_source_history">Allikas: Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">Äärmine hirm</string>
+    <string name="fng_extreme_greed">Äärmine ahnus</string>
+    <string name="fng_fear">Hirm</string>
+    <string name="fng_greed">Ahnus</string>
+    <string name="fng_neutral">Neutraalne</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">Seis %1$s · uuendamine…</string>
+    <string name="cycle_from_top">%1$s tipust</string>
+    <string name="cycle_marker_bottom">Põhi %1$s</string>
+    <string name="cycle_marker_double_bottom">Topeltpõhi %1$s</string>
+    <string name="cycle_marker_double_top">Topelttipp %1$s</string>
+    <string name="cycle_marker_high_so_far">Senine tipp</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">Tipp %1$s</string>
+    <string name="cycle_since_halving">%1$s pärast halvingut</string>
+    <string name="halving_estimate_text">Järgmine halving arvutuslikult umbes %1$s: jäänud %2$s plokki, keskmiselt %3$s min ploki kohta (jooksev raskusperiood). Prognoos, mitte lubadus – plokiaeg kõigub.</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">Hoiatus: %1$s</string>
+    <string name="gas_slow_fast">Aeglane %1$s · Kiire %2$s</string>
+    <string name="gas_source">Avalikud RPC-sõlmed ja mempool.space · Lihtsa ülekande hind, L2-del ilma L1 osata</string>
+    <string name="gas_title">Võrgutasud</string>
+    <string name="gas_transfer_cost">Ülekanne ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">USA inflatsiooniandmed (CPI)</string>
+    <string name="macro_fomc">USA Föderaalreservi intressiotsus</string>
+    <string name="macro_hint_list">%1$s – sellistel päevadel kõiguvad turud sageli rohkem.</string>
+    <string name="macro_hint_today">Täna %1$s: %2$s – sellistel päevadel kõiguvad turud sageli rohkem.</string>
+    <string name="macro_hint_today_list">Täna: %1$s – sellistel päevadel kõiguvad turud sageli rohkem.</string>
+    <string name="macro_hint_tomorrow">Homme %1$s: %2$s – sellistel päevadel kõiguvad turud sageli rohkem.</string>
+    <string name="macro_hint_tomorrow_list">Homme: %1$s – sellistel päevadel kõiguvad turud sageli rohkem.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Täna %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Homme %1$s %2$s</string>
+    <string name="macro_nfp">USA tööturuaruanne</string>
+    <string name="macro_pce">USA tarbimiskulutuste hinnad (PCE)</string>
+    <string name="macro_ppi">USA tootjahinnad (PPI)</string>
+    <string name="macro_released_list">Avaldatud täna: %1$s.</string>
+    <string name="macro_released_one">Avaldatud täna kell %1$s: %2$s.</string>
+    <string name="macro_title">Majandusandmed</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">Münt</string>
+    <string name="coin_no_data">Selle mündi kohta pole Binance’is ega Bybitis hinnaandmeid.</string>
+    <string name="coin_price_only">Põhineb ainult hinnal – ahelasisesed andmed (MVRV, Puell, räsikiirus) on vabalt saadaval ainult Bitcoini kohta.</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">Ainult %1$d päev hinnaajalugu – mõned näitajad puuduvad.</item>
+        <item quantity="other">Ainult %1$d päeva hinnaajalugu – mõned näitajad puuduvad.</item>
+    </plurals>
+    <string name="coin_title">Mündi analüüs</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">Andmed: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">Tõusjad ja langejad 24 h</string>
+    <string name="movers_gainers">Tõusjad</string>
+    <string name="movers_losers">Langejad</string>
+    <string name="movers_no_gainers">Ükski münt pole 24 h jooksul tõusnud</string>
+    <string name="movers_no_losers">Ükski münt pole 24 h jooksul langenud</string>
+    <string name="movers_source">CoinGecko, 24 h, top 100 ilma stabiilsete müntideta</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">Näita kõiki</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">Näita vähem</string>
+</resources>

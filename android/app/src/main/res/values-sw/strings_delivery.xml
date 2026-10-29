@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">Hakikisha kengele zinafika</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">Sawa</string>
+    <string name="delivery_state_warn">Angalia hili</string>
+    <string name="delivery_state_info">Kumbuka</string>
+    <string name="delivery_allowed">Imeruhusiwa</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">Arifa</string>
+    <string name="delivery_notifications_off">Zimezimwa – kengele hazitafika</string>
+    <string name="delivery_notifications_not_asked">Bado hazijaruhusiwa</string>
+    <string name="delivery_channel">Kituo cha kengele</string>
+    <string name="delivery_channel_high">Umuhimu wa juu – inaibuka kwenye skrini</string>
+    <string name="delivery_channel_low">Umuhimu wa chini – kengele zinaonekana kimya kwenye orodha tu</string>
+    <string name="delivery_channel_off">Kimezimwa – kengele hazitafika</string>
+    <string name="delivery_exact_on">Imewashwa – takriban kila dakika 15</string>
+    <string name="delivery_exact_off">Imezimwa – Android hukagua bila mpangilio</string>
+    <string name="delivery_battery">Uboreshaji wa betri</string>
+    <string name="delivery_battery_unrestricted">Bila vikwazo</string>
+    <string name="delivery_battery_optimized">Imeboreshwa – Android inaweza kuchelewesha ukaguzi. Programu haiombi kuondolewa kwenye uboreshaji; unaweza kubadilisha hili kwenye mipangilio ya betri ya programu.</string>
+    <string name="delivery_background">Matumizi ya chinichini</string>
+    <string name="delivery_background_restricted">Yamezuiliwa – Android inasimamisha ukaguzi wa chinichini</string>
+    <string name="delivery_dnd">Usinisumbue</string>
+    <string name="delivery_dnd_on">Imewashwa – kengele zinaweza kufika bila sauti</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">Inatumika hadi %1$s – kengele zinazostahili zinasubiri hadi wakati huo</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – kengele zinazostahili zinasubiri katika muda huu</string>
+    <string name="delivery_last_check">Ukaguzi wa mwisho wa chinichini</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – zaidi ya saa 6 zilizopita</string>
+    <string name="delivery_last_check_never">Bado hakuna</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">Ruhusu</string>
+    <string name="delivery_action_change">Badilisha</string>
+    <string name="delivery_action_show">Onyesha</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">Mabango na sauti</string>
+    <string name="delivery_alert_off">Mabango yamezimwa – kengele zinaonekana tu kwenye Notification Center</string>
+    <string name="delivery_sound_off">Sauti imezimwa – kengele zinafika kimya</string>
+    <string name="delivery_time_sensitive">Time Sensitive Notifications</string>
+    <string name="delivery_time_sensitive_off">Imezimwa – Focus inaweza kuzuia kengele</string>
+    <string name="delivery_background_refresh">Background App Refresh</string>
+    <string name="delivery_low_power">Low Power Mode</string>
+    <string name="delivery_swipe_away">Umeiondoa programu kwa kutelezesha?</string>
+    <string name="delivery_swipe_away_note">Ukiiondoa programu kwa kutelezesha kwenye kibadilishaji cha programu, iOS inasimamisha ukaguzi wa chinichini hadi utakapoifungua tena.</string>
+    <string name="delivery_live_activity">Live Activity</string>
+    <string name="delivery_live_activity_note">Inaonyesha bei kwenye Lock Screen lakini inasasishwa tu programu inapokagua – haifanyi kengele zikaguliwe mara nyingi zaidi.</string>
+
+    <string name="alarm_first_check">Hakikisha kengele zinafika</string>
+
+    <string name="oem_battery_title">Kiokoa betri cha mtengenezaji</string>
+    <string name="oem_battery_xiaomi">Xiaomi inaweza kusimamisha programu kabisa – basi hakuna kengele zitakazofika. Washa “Autostart” na uweke Battery saver kuwa “No restrictions”.</string>
+    <string name="oem_battery_samsung">Samsung inaweza kuweka programu kwenye usingizi mzito – basi hakuna kengele zitakazofika. Chini ya Battery › Background usage limits, iongeze kwenye “Never sleeping apps”.</string>
+    <string name="oem_battery_huawei">Huawei/Honor inaweza kusimamisha programu – basi hakuna kengele zitakazofika. Chini ya Battery › App launch, chagua “Manage manually” na uruhusu chaguo zote.</string>
+    <string name="oem_battery_oneplus">OnePlus inaweza kusimamisha programu – basi hakuna kengele zitakazofika. Ruhusu “Auto-launch” na, chini ya Battery usage, shughuli za chinichini.</string>
+    <string name="oem_battery_oppo">Oppo/Realme inaweza kusimamisha programu – basi hakuna kengele zitakazofika. Ruhusu “Auto launch” na, chini ya Battery usage, shughuli za chinichini.</string>
+    <string name="oem_battery_vivo">Vivo inaweza kusimamisha programu – basi hakuna kengele zitakazofika. Ruhusu “Autostart” na, chini ya Battery, matumizi makubwa ya nishati chinichini.</string>
+    <string name="alarm_reliability_stale">Ukaguzi wa mwisho %1$s – kengele zinaweza kuchelewa</string>
+    <string name="alarm_reliability_never">Kengele zimewashwa – bado hakuna ukaguzi wa chinichini</string>
+    <string name="alarm_reliability_notifications_off">Arifa zimezimwa – kengele hazitafika</string>
+    <string name="alarm_reliability_battery">Uokoaji wa betri unaweza kusimamisha ukaguzi wa kengele</string>
+    <string name="alarm_reliability_background_refresh">Background App Refresh imezimwa – kengele huenda zisifike</string>
+</resources>

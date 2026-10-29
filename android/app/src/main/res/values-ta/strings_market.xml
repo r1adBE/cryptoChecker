@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="one">%d நிமி. முன்பு</item>
+        <item quantity="other">%d நிமி. முன்பு</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">இன்று %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed, Bitcoin அளவீடுகள், ஆதிக்கம், ஹால்விங்</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">மேலும் சந்தைத் தரவு</string>
+    <string name="market_phase_trend_failed">விலைத் தரவு கிடைக்கவில்லை</string>
+    <string name="market_plain_direction_down_clear">எல்லாக் கிரிப்டோகரன்சிகளின் மொத்த மதிப்பு 24 மணிநேரத்துக்கு முன்பைவிடத் தெளிவாகக் குறைவு (%1$s).</string>
+    <string name="market_plain_direction_down_slight">எல்லாக் கிரிப்டோகரன்சிகளின் மொத்த மதிப்பு 24 மணிநேரத்துக்கு முன்பைவிடச் சற்றுக் குறைவு (%1$s).</string>
+    <string name="market_plain_direction_flat">எல்லாக் கிரிப்டோகரன்சிகளின் மொத்த மதிப்பு 24 மணிநேரத்தில் அரிதாகவே மாறியது (%1$s).</string>
+    <string name="market_plain_direction_up_clear">எல்லாக் கிரிப்டோகரன்சிகளின் மொத்த மதிப்பு 24 மணிநேரத்துக்கு முன்பைவிடத் தெளிவாக அதிகம் (%1$s).</string>
+    <string name="market_plain_direction_up_slight">எல்லாக் கிரிப்டோகரன்சிகளின் மொத்த மதிப்பு 24 மணிநேரத்துக்கு முன்பைவிடச் சற்று அதிகம் (%1$s).</string>
+    <string name="market_plain_footnote">கடந்த 24 மணிநேரத்தை விவரிக்கிறது – முன்கணிப்பு அல்ல, முதலீட்டு ஆலோசனை அல்ல.</string>
+    <string name="market_plain_mood_extreme_fear">முதலீட்டாளர்கள் இப்போது மிகவும் அச்சத்தில் உள்ளனர்: மனநிலைக் குறியீடு (Fear &amp; Greed) 100 இல் %1$d.</string>
+    <string name="market_plain_mood_extreme_greed">முதலீட்டாளர்கள் இப்போது மிகவும் பேராசையில் உள்ளனர்: மனநிலைக் குறியீடு (Fear &amp; Greed) 100 இல் %1$d.</string>
+    <string name="market_plain_mood_fear">முதலீட்டாளர்கள் ஓரளவு அச்சத்தில் உள்ளனர்: மனநிலைக் குறியீடு (Fear &amp; Greed) 100 இல் %1$d.</string>
+    <string name="market_plain_mood_greed">முதலீட்டாளர்கள் ஓரளவு பேராசையில் உள்ளனர்: மனநிலைக் குறியீடு (Fear &amp; Greed) 100 இல் %1$d.</string>
+    <string name="market_plain_mood_neutral">முதலீட்டாளர் மனநிலை சமநிலையில் உள்ளது: மனநிலைக் குறியீடு (Fear &amp; Greed) 100 இல் %1$d.</string>
+    <string name="market_plain_standout_above_btc">%1$s தனித்துத் தெரிகிறது: 24 மணிநேரத்தில் %2$s, Bitcoin ஐவிட (%3$s) வெகுவாக மேலே.</string>
+    <string name="market_plain_standout_against_btc">%1$s தனித்துத் தெரிகிறது: 24 மணிநேரத்தில் %2$s, Bitcoin எதிர்த் திசையில் சென்றபோது (%3$s).</string>
+    <string name="market_plain_standout_below_btc">%1$s தனித்துத் தெரிகிறது: 24 மணிநேரத்தில் %2$s, Bitcoin ஐவிட (%3$s) வெகுவாகக் கீழே.</string>
+    <string name="market_plain_standout_futures_down">%1$s தனித்துத் தெரிகிறது: வழக்கத்துக்கு மாறாகப் பல ஃபியூச்சர்ஸ் டிரேடர்கள் விலை இறங்கும் என்று பந்தயம் கட்டுகின்றனர்.</string>
+    <string name="market_plain_standout_futures_up">%1$s தனித்துத் தெரிகிறது: வழக்கத்துக்கு மாறாகப் பல ஃபியூச்சர்ஸ் டிரேடர்கள் விலை ஏறும் என்று பந்தயம் கட்டுகின்றனர்.</string>
+    <string name="market_plain_standout_quiet">இப்போது எந்தக் காயினும் தனித்துத் தெரியவில்லை.</string>
+    <string name="market_plain_standout_volume">%1$s தனித்துத் தெரிகிறது: வழக்கத்தைவிடச் சுமார் %2$s மடங்கு வர்த்தகம்.</string>
+    <string name="market_plain_title">சுருக்கமாக</string>
+    <string name="market_section_collapse">%1$s ஐ மறை</string>
+    <string name="market_section_context">மனநிலை &amp; சுழற்சி</string>
+    <string name="market_section_data">சந்தைத் தரவு</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">%1$s ஐக் காட்டு</string>
+    <string name="market_section_now">இப்போது</string>
+    <string name="market_source">தரவு: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="exchange_unavailable_error">எக்ஸ்சேஞ்ச் கிடைக்கவில்லை</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">தகவல்: %1$s</string>
+    <string name="market_info_alt_season_source">தினசரி விலைகள்: Binance · சுமார் ஒவ்வொரு 3 மணிநேரத்துக்கும் மீண்டும் கணக்கிடப்படும்</string>
+    <string name="market_info_alt_season_what">சுமார் 20 பெரிய ஆல்ட்காயின்களில் (எ.கா. Ethereum, Solana, XRP) எத்தனை கடந்த 90 நாட்களில் Bitcoin ஐவிடச் சிறப்பாகச் செயல்பட்டன என்பதைக் கணக்கிடுகிறது. மதிப்பு என்பது 0 முதல் 100 வரையிலான அவற்றின் பங்கு.</string>
+    <string name="market_info_coin_source">விலைகள்: Binance அல்லது Bybit · சுமார் ஒவ்வொரு 15 நிமிடத்துக்கும் மீண்டும் ஏற்றப்படும்</string>
+    <string name="market_info_dominance_how">ஆதிக்கம் உயர்ந்தால், Bitcoin மற்ற சந்தையைவிடச் சிறப்பாகச் செயல்படுகிறது; குறைந்தால், பிற காயின்கள் எடை பெறுகின்றன. ஸ்டேபிள்காயின்களும் கணக்கில் சேரும்: அவற்றின் மதிப்பு வளர்ந்தால், Bitcoin விலை மாறாவிட்டாலும் Bitcoin பங்கு குறையும்.</string>
+    <string name="market_info_dominance_source">மூலம்: CoinGecko · சுமார் ஒவ்வொரு 30 நிமிடத்துக்கும் மீண்டும் ஏற்றப்படும்</string>
+    <string name="market_info_dominance_what">எல்லாக் கிரிப்டோகரன்சிகளின் மொத்த மதிப்பில் (சந்தை மூலதனம்) Bitcoin இன் பங்கு. அதன் கீழே Ethereum இன் பங்கு.</string>
+    <string name="market_info_fear_greed_how">25 க்குக் கீழ் என்றால் தீவிர அச்சம், 75 க்கு மேல் தீவிர பேராசை, சுமார் 50 நடுநிலை. விரிக்கப்பட்டால், அட்டை நேற்று, ஒரு வாரம் முன்பு மற்றும் ஒரு மாதம் முன்பு இருந்த மதிப்புகளைக் காட்டும். வாங்க அல்லது விற்கும் சமிக்ஞை அல்ல.</string>
+    <string name="market_info_fear_greed_source">மூலம்: alternative.me · நாளுக்கு ஒருமுறை புதிய மதிப்பு</string>
+    <string name="market_info_fear_greed_what">கிரிப்டோ சந்தைக்கான 0 முதல் 100 வரையிலான மனநிலைக் குறியீடு. விலை ஏற்ற இறக்கங்கள், வர்த்தக வால்யூம், சமூக ஊடகங்கள் மற்றும் Bitcoin ஆதிக்கம் உள்ளிட்ட பல உள்ளீடுகளிலிருந்து alternative.me இதைக் கணக்கிடுகிறது.</string>
+    <string name="market_info_gas_how">அதிக மதிப்புகள் என்றால் நெட்வொர்க் நெரிசலாக உள்ளது, பரிமாற்றங்களுக்கு அதிகச் செலவாகும். மெதுவான, சாதாரண மற்றும் வேகமான என்பவை தாமதமான அல்லது விரைவான உறுதிப்படுத்தலுக்கான கட்டணங்கள். விரிக்கப்பட்டால், அட்டை ஒரு எளிய பரிமாற்றத்தின் தோராயச் செலவைக் காட்டும்.</string>
+    <string name="market_info_gas_source">பொது RPC நோட்கள், mempool.space · ஒவ்வொரு நிமிடமும் மீண்டும் ஏற்றப்படும்</string>
+    <string name="market_info_gas_what">ஒவ்வொரு நெட்வொர்க்கிலும் ஒரு பரிவர்த்தனைக்குத் தற்போது ஆகும் செலவு. Ethereum மற்றும் ஒத்த நெட்வொர்க்குகளில் gwei இல் (ஒரு gas அலகுக்கு ETH இன் நூறு கோடியில் ஒரு பங்கு), Bitcoin இல் sat/vB இல் (பரிவர்த்தனையின் ஒரு மெய்நிகர் பைட்டுக்கு சடோஷிகள்).</string>
+    <string name="market_info_halving_source">தேதி: பிளாக் உயரம் மற்றும் சராசரி பிளாக் நேரத்திலிருந்து (mempool.space), இல்லையெனில் நாட்காட்டிப்படி · விலை வரலாறு: Coin Metrics, Binance, ஒவ்வொரு 12 மணிநேரத்துக்கும் மீண்டும் ஏற்றப்படும்</string>
+    <string name="market_info_halving_what">ஹால்விங்கின்போது, ஒரு புதிய Bitcoin பிளாக்குக்கு மைனர்கள் பெறும் வெகுமதி பாதியாகக் குறைக்கப்படுகிறது. இது ஒவ்வொரு 210,000 பிளாக்குகளுக்கும், தோராயமாக நான்கு ஆண்டுகளுக்கு ஒருமுறை நிகழ்கிறது. அதன் பிறகு, ஒரு நாளைக்குப் பாதி அளவு புதிய பிட்காயின்களே உருவாகின்றன.</string>
+    <string name="market_info_how">இதை எப்படிப் படிப்பது</string>
+    <string name="market_info_macro_how">அத்தகைய தேதி இன்று அல்லது நாளை இருந்தால் மட்டுமே குறிப்பு தோன்றும். வெளியீட்டை ஒட்டி, விலைகள் பெரும்பாலும் வழக்கத்தைவிட அதிகமாக ஏற்ற இறக்கம் காணும். ஆப் தேதியை மட்டுமே காட்டும், புள்ளிவிவரங்களை அல்ல.</string>
+    <string name="market_info_macro_source">ஆப் இணையதளத்திலிருந்து நாட்காட்டி · நாளுக்கு ஒருமுறை ஏற்றப்படும்</string>
+    <string name="market_info_macro_what">முக்கியமான அமெரிக்கப் பொருளாதாரத் தரவின் தேதிகள்: பணவீக்கம் (CPI, PCE), உற்பத்தியாளர் விலைகள் (PPI), வேலைவாய்ப்பு அறிக்கை மற்றும் அமெரிக்க ஃபெடரல் ரிசர்வின் வட்டி விகித முடிவுகள். இத்தகைய புள்ளிவிவரங்கள் பெரும்பாலும் கிரிப்டோ விலைகளையும் நகர்த்துகின்றன.</string>
+    <string name="market_info_no_advice">முதலீட்டு ஆலோசனை அல்ல.</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · விலைகள் ஒவ்வொரு மணிநேரமும், ஆன்-செயின் மதிப்புகள் ஒவ்வொரு 12 மணிநேரத்துக்கும் மீண்டும் ஏற்றப்படும்</string>
+    <string name="market_info_pulse_how">தலைப்பு திசையைக் குறிப்பிடுகிறது; விவரங்களுக்கு அட்டையை விரிக்கவும். பரவலான நகர்வு என்றால் பெரும்பாலான பெரிய காயின்கள் ஒரே திசையில் நகர்கின்றன. நம்பிக்கையான லீவரேஜ் மனநிலை என்றால் பல டிரேடர்கள் லீவரேஜுடன் விலை ஏறும் என்று பந்தயம் கட்டுகின்றனர், Bitcoin ஃபியூச்சர்ஸின் ஃபண்டிங் விகிதத்தால் அளவிடப்படுகிறது. ஒரு கணநிலை, முன்கணிப்பு அல்ல.</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · சுமார் ஒவ்வொரு 5 நிமிடத்துக்கும் மீண்டும் ஏற்றப்படும்</string>
+    <string name="market_info_pulse_what">கடந்த 24 மணிநேரச் சந்தையின் சுருக்கம்: Bitcoin, Ethereum மற்றும் Solana எப்படி நகர்கின்றன, மிகப்பெரிய காயின்களில் எத்தனை ஏறுகின்றன அல்லது இறங்குகின்றன, இப்போது எவ்வளவு Bitcoin வர்த்தகமாகிறது மற்றும் லீவரேஜ் மனநிலை என்ன (Bitcoin ஃபியூச்சர்ஸின் ஃபண்டிங் விகிதத்தால் அளவிடப்படுகிறது).</string>
+    <string name="market_info_totals_how">வலப்பக்கம் 24 மணிநேரத்தில் மொத்த மதிப்பின் மாற்றம் உள்ளது. அதிக வால்யூம் என்றால் அதிகம் வர்த்தகமாகிறது – எந்தத் திசையில் என்று அது சொல்லாது. முடிந்தவரை மாற்று நாணயத்தில், இல்லையெனில் அமெரிக்க டாலரில் காட்டப்படும்.</string>
+    <string name="market_info_totals_source">எல்லாக் காயின்களும் · CoinGecko · சுமார் ஒவ்வொரு 30 நிமிடத்துக்கும் மீண்டும் ஏற்றப்படும்</string>
+    <string name="market_info_totals_what">எல்லாக் கிரிப்டோகரன்சிகளின் மொத்த மதிப்பு (சந்தை மூலதனம்: விலை × புழக்கத்திலுள்ள விநியோகம், எல்லாக் காயின்களுக்கும் கூட்டப்பட்டது) மற்றும் கடந்த 24 மணிநேர வர்த்தக வால்யூம்.</string>
+    <string name="market_info_unusual_how">ஒவ்வொரு காயினும் அதன் மிகக் குறிப்பிடத்தக்க கவனிப்பைக் காட்டுகிறது, வலப்பக்கம் 24 மணிநேர மாற்றத்துடன். 2× வால்யூம் என்றால் வழக்கமான வர்த்தகத் தொகையின் இரு மடங்கு. கவனிக்கத்தக்கது என்றால் நல்லதும் அல்ல, கெட்டதும் அல்ல.</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · சுமார் ஒவ்வொரு 10 நிமிடத்துக்கும் மீண்டும் ஏற்றப்படும்</string>
+    <string name="market_info_unusual_what">இன்று அசாதாரணமாகச் செயல்படும், சுமார் 30 மிகப்பெரிய காயின்களிலிருந்து (ஸ்டேபிள்காயின்கள் இல்லாமல்) ஐந்து காயின்கள் வரை: Bitcoin ஐவிட மிக வலுவாக அல்லது பலவீனமாக, சந்தைத் திசைக்கு எதிராக, அசாதாரணமாக அதிக வர்த்தக வால்யூமுடன் அல்லது குறிப்பிடத்தக்க ஃபண்டிங் விகிதத்துடன்.</string>
+    <string name="market_info_what">இது என்ன?</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">சந்தை மதிப்பு</string>
+    <string name="market_cap_source">எல்லாக் காயின்களும் · CoinGecko</string>
+    <string name="market_cap_title">கிரிப்டோ சந்தை</string>
+    <string name="market_volume_label">வால்யூம் 24 ம.நே.</string>
+
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">விவரங்கள்</string>
+    <string name="pulse_disclaimer">முன்கணிப்பு அல்ல · முதலீட்டு ஆலோசனை அல்ல</string>
+    <string name="pulse_less">குறைவாகக் காட்டு</string>
+    <string name="pulse_now_title">கிரிப்டோ நாடித்துடிப்பு</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">24 மணிநேரத்தில் மாற்றம்</string>
+    <string name="pulse_section_factors">காரணிகள்</string>
+    <string name="pulse_section_market">இன்றைய சந்தை</string>
+    <string name="pulse_unavailable">சந்தைத் தரவு தற்போது கிடைக்கவில்லை</string>
+    <string name="pulse_updated">%1$s நிலவரப்படி</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">அமைதியான சந்தை</string>
+    <string name="pulse_headline_down">பரவலான பலவீனம்</string>
+    <string name="pulse_headline_mixed">கலவையான நிலை</string>
+    <string name="pulse_headline_up">பரவலான வலிமை</string>
+    <string name="pulse_lead_alts_stronger">ஆல்ட்காயின்கள் Bitcoin ஐவிட வலுவாக உள்ளன.</string>
+    <string name="pulse_lead_broad_down">சந்தை பரவலாக இறங்குகிறது.</string>
+    <string name="pulse_lead_broad_up">சந்தை பரவலாக ஏறுகிறது.</string>
+    <string name="pulse_lead_btc_leads">Bitcoin மிக அதிகமாக ஏறுகிறது.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin ஆல்ட்காயின்களைவிட வலுவாக உள்ளது.</string>
+    <string name="pulse_lead_calm">சந்தை அரிதாகவே நகர்கிறது.</string>
+    <string name="pulse_lead_drift_down">சந்தை மெல்லக் கீழிறங்குகிறது.</string>
+    <string name="pulse_lead_drift_up">சந்தை மெல்ல மேலேறுகிறது.</string>
+    <string name="pulse_lead_mixed">பெரிய காயின்கள் வெவ்வேறு திசைகளில் நகர்கின்றன.</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">லீவரேஜ் மனநிலை நம்பிக்கையானது.</string>
+    <string name="pulse_detail_fund_negative">லீவரேஜ் மனநிலை அவநம்பிக்கையானது.</string>
+    <string name="pulse_detail_fund_neutral">லீவரேஜ் மனநிலை நடுநிலை.</string>
+    <string name="pulse_detail_vol_above">வால்யூம் வழக்கத்தைவிட %1$s அதிகம்.</string>
+    <string name="pulse_detail_vol_above_fund_high">வால்யூம் வழக்கத்தைவிட %1$s அதிகம், லீவரேஜ் மனநிலை நம்பிக்கையானது.</string>
+    <string name="pulse_detail_vol_above_fund_negative">வால்யூம் வழக்கத்தைவிட %1$s அதிகம், லீவரேஜ் மனநிலை அவநம்பிக்கையானது.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">வால்யூம் வழக்கத்தைவிட %1$s அதிகம், லீவரேஜ் மனநிலை நடுநிலை.</string>
+    <string name="pulse_detail_vol_below">வால்யூம் வழக்கத்தைவிட %1$s குறைவு.</string>
+    <string name="pulse_detail_vol_below_fund_high">வால்யூம் வழக்கத்தைவிட %1$s குறைவு, லீவரேஜ் மனநிலை நம்பிக்கையானது.</string>
+    <string name="pulse_detail_vol_below_fund_negative">வால்யூம் வழக்கத்தைவிட %1$s குறைவு, லீவரேஜ் மனநிலை அவநம்பிக்கையானது.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">வால்யூம் வழக்கத்தைவிட %1$s குறைவு, லீவரேஜ் மனநிலை நடுநிலை.</string>
+    <string name="pulse_detail_vol_normal">வால்யூம் வழக்கமானது.</string>
+    <string name="pulse_detail_vol_normal_fund_high">வால்யூம் வழக்கமானது, லீவரேஜ் மனநிலை நம்பிக்கையானது.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">வால்யூம் வழக்கமானது, லீவரேஜ் மனநிலை அவநம்பிக்கையானது.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">வால்யூம் வழக்கமானது, லீவரேஜ் மனநிலை நடுநிலை.</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">Top %1$d: சந்தை மதிப்பின்படி மிகப்பெரிய காயின்கள், ஸ்டேபிள்காயின்கள் இல்லாமல்; 24 மணிநேர மாற்றம் (CoinGecko).</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_note_broad_down">பரவலான விற்பனை: மிகப்பெரிய காயின்களில் பெரும்பாலானவை இறங்குகின்றன.</string>
+    <string name="pulse_breadth_note_broad_up">பரவலான நகர்வு: மிகப்பெரிய காயின்களில் பெரும்பாலானவை ஏறுகின்றன.</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin இறங்குகிறது, ஆனால் பிற பெரிய காயின்களில் பெரும்பாலானவை நிலைத்து நிற்கின்றன.</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin ஏறுகிறது, ஆனால் பிற பெரிய காயின்களில் பெரும்பாலானவை இணையவில்லை.</string>
+    <string name="pulse_breadth_spoken">Top %1$d: %2$d ஏற்றம், %3$d இறக்கம்</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">ஆல்ட்காயின்களும் Bitcoin உம் ஒரே மாதிரி நகர்கின்றன</string>
+    <string name="pulse_alts_stronger">ஆல்ட்காயின்கள் Bitcoin ஐவிட வலுவாக</string>
+    <string name="pulse_alts_weaker">Bitcoin ஆல்ட்காயின்களைவிட வலுவாக</string>
+    <string name="pulse_chip_funding_high">லீவரேஜ் மனநிலை நம்பிக்கையானது</string>
+    <string name="pulse_chip_funding_negative">லீவரேஜ் மனநிலை அவநம்பிக்கையானது</string>
+
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">விலையையும் செயல்களையும் காட்டு</string>
+    <string name="unusual_fact_against">சந்தைக்கு எதிராக நகர்கிறது</string>
+    <string name="unusual_fact_funding_high">ஃபண்டிங் அதிகம் (%1$s)</string>
+    <string name="unusual_fact_funding_negative">ஃபண்டிங் எதிர்மறை (%1$s)</string>
+    <string name="unusual_fact_stronger">BTC ஐவிட மிக வலுவாக நகர்கிறது</string>
+    <string name="unusual_fact_volume">வால்யூம் வழக்கத்தைவிட %1$s×</string>
+    <string name="unusual_fact_weaker">BTC ஐவிட மிகப் பலவீனமாக நகர்கிறது</string>
+    <string name="unusual_nothing">இன்று குறிப்பிடத்தக்கது எதுவும் இல்லை</string>
+    <string name="unusual_source">ஸ்டேபிள்காயின்கள் இல்லாமல் சுமார் 30 மிகப்பெரிய காயின்கள் · Binance, CoinGecko</string>
+    <string name="unusual_title">கவனிக்கத்தக்கது</string>
+
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">கவனிக்கத்தக்கது</string>
+    <string name="activity_indicator">கவனிக்கத்தக்கது</string>
+    <string name="activity_sensitivity_less">குறைவு</string>
+    <string name="activity_sensitivity_more">அதிகம்</string>
+    <string name="activity_sensitivity_normal">சாதாரணம்</string>
+    <string name="activity_signal_funding_long">ஃபண்டிங் %1$s — லீவரேஜுடன் பல லாங்குகள்</string>
+    <string name="activity_signal_funding_short">ஃபண்டிங் %1$s — பல ஷார்ட்டுகள்</string>
+    <string name="activity_signal_open_interest">%2$d நிமி. இல் ஓப்பன் இன்ட்ரஸ்ட் %1$s</string>
+    <string name="activity_signal_open_interest_no_time">ஓப்பன் இன்ட்ரஸ்ட் %1$s</string>
+    <string name="activity_signal_price_move">அசாதாரண நகர்வு: ஒரு மணிநேரத்தில் %1$s (வழக்கத்தைவிட %2$s×)</string>
+    <string name="activity_signal_volume">கடந்த ஒரு மணிநேரத்தில் வால்யூம் வழக்கத்தைவிட %1$s×</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%2$d பெரிய ஆல்ட்காயின்களில் %1$d, 90 நாட்களில் Bitcoin ஐ விஞ்சுகிறது</item>
+        <item quantity="other">%2$d பெரிய ஆல்ட்காயின்களில் %1$d, 90 நாட்களில் Bitcoin ஐ விஞ்சுகின்றன</item>
+    </plurals>
+    <string name="insights_chart_axis">ஹால்விங்கிலிருந்து ஆண்டுகள்</string>
+    <string name="insights_chart_hint">ஹால்விங் நாள் விலையின் மடங்காக விலை (லாக் அளவுகோல்). முந்தைய சுழற்சிகள் ஒரு முறை, முன்கணிப்பு அல்ல.</string>
+    <string name="insights_cycle_chart">ஹால்விங்கிலிருந்து சுழற்சிகள்</string>
+    <string name="insights_dominance_eth">மொத்தச் சந்தையில் ETH %1$s</string>
+    <string name="insights_dominance_title">Bitcoin ஆதிக்கம்</string>
+    <string name="insights_fng_history">நேற்று %1$s · ஒரு வாரம் முன்பு %2$s · ஒரு மாதம் முன்பு %3$s</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="insights_halving_title">Bitcoin ஹால்விங்</string>
+    <string name="insights_source_dominance">மூலம்: CoinGecko, Binance</string>
+    <string name="insights_source_fng">மூலம்: alternative.me</string>
+    <string name="insights_source_history">மூலம்: Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">தீவிர அச்சம்</string>
+    <string name="fng_extreme_greed">தீவிர பேராசை</string>
+    <string name="fng_fear">அச்சம்</string>
+    <string name="fng_greed">பேராசை</string>
+    <string name="fng_neutral">நடுநிலை</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">%1$s நிலவரப்படி தரவு · புதுப்பிக்கிறது…</string>
+    <string name="cycle_from_top">உச்சத்திலிருந்து %1$s</string>
+    <string name="cycle_marker_bottom">அடிமட்டம் %1$s</string>
+    <string name="cycle_marker_double_bottom">இரட்டை அடிமட்டம் %1$s</string>
+    <string name="cycle_marker_double_top">இரட்டை உச்சம் %1$s</string>
+    <string name="cycle_marker_high_so_far">இதுவரையிலான உச்சம்</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">உச்சம் %1$s</string>
+    <string name="cycle_since_halving">ஹால்விங்கிலிருந்து %1$s</string>
+    <string name="halving_estimate_text">கணக்கீட்டின்படி அடுத்த ஹால்விங் சுமார் %1$s: ஒரு பிளாக்குக்குச் சராசரியாக %3$s நிமி. (தற்போதைய டிஃபிகல்டி காலம்) என்ற அளவில் %2$s பிளாக்குகள் மீதம். ஒரு கணிப்பு, உறுதிமொழி அல்ல – பிளாக் நேரம் மாறுபடும்.</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">விழிப்பூட்டல்: %1$s</string>
+    <string name="gas_slow_fast">மெதுவான %1$s · வேகமான %2$s</string>
+    <string name="gas_source">பொது RPC நோட்கள் மற்றும் mempool.space · ஒரு எளிய பரிமாற்றத்தின் செலவு, L2 களில் L1 பங்கு இல்லாமல்</string>
+    <string name="gas_title">நெட்வொர்க் கட்டணங்கள்</string>
+    <string name="gas_transfer_cost">பரிமாற்றம் ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">அமெரிக்கப் பணவீக்கத் தரவு (CPI)</string>
+    <string name="macro_fomc">அமெரிக்க Fed வட்டி விகித முடிவு</string>
+    <string name="macro_hint_list">%1$s – இதுபோன்ற நாட்களில் சந்தைகள் பெரும்பாலும் அதிகமாக ஏற்ற இறக்கம் காணும்.</string>
+    <string name="macro_hint_today">இன்று %1$s: %2$s – இதுபோன்ற நாட்களில் சந்தைகள் பெரும்பாலும் அதிகமாக ஏற்ற இறக்கம் காணும்.</string>
+    <string name="macro_hint_today_list">இன்று: %1$s – இதுபோன்ற நாட்களில் சந்தைகள் பெரும்பாலும் அதிகமாக ஏற்ற இறக்கம் காணும்.</string>
+    <string name="macro_hint_tomorrow">நாளை %1$s: %2$s – இதுபோன்ற நாட்களில் சந்தைகள் பெரும்பாலும் அதிகமாக ஏற்ற இறக்கம் காணும்.</string>
+    <string name="macro_hint_tomorrow_list">நாளை: %1$s – இதுபோன்ற நாட்களில் சந்தைகள் பெரும்பாலும் அதிகமாக ஏற்ற இறக்கம் காணும்.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">இன்று %1$s %2$s</string>
+    <string name="macro_item_tomorrow">நாளை %1$s %2$s</string>
+    <string name="macro_nfp">அமெரிக்க வேலைவாய்ப்பு அறிக்கை</string>
+    <string name="macro_pce">அமெரிக்க நுகர்வோர் செலவின விலைகள் (PCE)</string>
+    <string name="macro_ppi">அமெரிக்க உற்பத்தியாளர் விலைகள் (PPI)</string>
+    <string name="macro_released_list">இன்று வெளியிடப்பட்டது: %1$s.</string>
+    <string name="macro_released_one">இன்று %1$s மணிக்கு வெளியிடப்பட்டது: %2$s.</string>
+    <string name="macro_title">பொருளாதாரத் தரவு</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">காயின்</string>
+    <string name="coin_no_data">Binance அல்லது Bybit இல் இந்தக் காயினுக்கு விலைத் தரவு இல்லை.</string>
+    <string name="coin_price_only">விலையை மட்டுமே அடிப்படையாகக் கொண்டது – ஆன்-செயின் தரவு (MVRV, Puell, ஹாஷ்ரேட்) Bitcoin க்கு மட்டுமே இலவசமாகக் கிடைக்கிறது.</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">%1$d நாள் விலை வரலாறு மட்டுமே – சில குறிகாட்டிகள் இல்லை.</item>
+        <item quantity="other">%1$d நாட்கள் விலை வரலாறு மட்டுமே – சில குறிகாட்டிகள் இல்லை.</item>
+    </plurals>
+    <string name="coin_title">காயின் பகுப்பாய்வு</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">தரவு: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">24 ம.நே. ஏற்றம் கண்டவை, இறக்கம் கண்டவை</string>
+    <string name="movers_gainers">ஏற்றம் கண்டவை</string>
+    <string name="movers_losers">இறக்கம் கண்டவை</string>
+    <string name="movers_no_gainers">24 ம.நே. இல் எந்தக் காயினும் ஏறவில்லை</string>
+    <string name="movers_no_losers">24 ம.நே. இல் எந்தக் காயினும் இறங்கவில்லை</string>
+    <string name="movers_source">CoinGecko, 24 ம.நே., ஸ்டேபிள்காயின்கள் இல்லாமல் top 100</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">அனைத்தையும் காட்டு</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">குறைவாகக் காட்டு</string>
+</resources>

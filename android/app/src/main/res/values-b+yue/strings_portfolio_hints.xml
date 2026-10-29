@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">投資組合提示已暫停：冇 %1$s 嘅現價</string>
+    <string name="portfolio_alarms_paused_price_generic">投資組合提示已暫停：唔係每隻幣都有現價</string>
+    <string name="portfolio_alarms_paused_addresses">投資組合提示已暫停：觀察中地址嘅結餘未載入</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">投資組合提示已暫停：%1$s 嘅代幣結餘部分過時</string>
+    <string name="portfolio_alarms_paused_tokens_generic">投資組合提示已暫停：觀察中地址嘅代幣結餘部分過時</string>
+    <string name="portfolio_alarms_paused_unverified">投資組合提示已暫停：%1$s 嘅價格未經核實</string>
+    <string name="portfolio_alarms_paused_unverified_generic">投資組合提示已暫停：部分幣嘅價格未經核實</string>
+    <string name="portfolio_alarms_address_failing">投資組合提示檢查時唔計 %1$s：結餘超過 24 小時未能載入</string>
+    <string name="portfolio_alarms_address_failing_generic">投資組合提示檢查時唔計結餘超過 24 小時未能載入嘅地址</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">代幣部分過時</string>
+    <string name="portfolio_address_restore_failed">無法還原地址 – 有需要請重新加入</string>
+    <string name="portfolio_address_remove_failed">無法移除地址 – 請再試一次</string>
+</resources>

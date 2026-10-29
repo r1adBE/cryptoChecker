@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explorer_coin_back">ಎಲ್ಲಾ ಫಲಿತಾಂಶಗಳು</string>
+    <plurals name="explorer_coin_exchanges">
+        <item quantity="one">%1$d ಎಕ್ಸ್‌ಚೇಂಜ್</item>
+        <item quantity="other">%1$d ಎಕ್ಸ್‌ಚೇಂಜ್‌ಗಳು</item>
+    </plurals>
+    <string name="explorer_coin_no_pairs">ಲೋಡ್ ಮಾಡಿದ ಪಟ್ಟಿಗಳಲ್ಲಿ ಈ ಕಾಯಿನ್‌ಗೆ ಜೋಡಿ ಇಲ್ಲ.</string>
+    <string name="explorer_coin_not_loaded">ಜೋಡಿ ಪಟ್ಟಿಗಳು ಇನ್ನೂ ಲೋಡ್ ಆಗಿಲ್ಲ</string>
+    <string name="explorer_coin_other_pairs">ಇತರ ಜೋಡಿಗಳು</string>
+    <string name="explorer_coin_show_pairs">ಜೋಡಿಗಳನ್ನು ತೋರಿಸಿ</string>
+    <string name="explorer_coin_suggested">ಸೂಚಿಸಿದವು</string>
+    <string name="explorer_coins_title">ಕಾಯಿನ್‌ಗಳು</string>
+    <string name="explorer_lists_failed_many">%1$s ಸದ್ಯ ಪ್ರತಿಕ್ರಿಯಿಸುತ್ತಿಲ್ಲ – ಜೋಡಿ ಪಟ್ಟಿಗಳು ಲೋಡ್ ಆಗಿಲ್ಲ. ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
+    <plurals name="explorer_lists_failed_more">
+        <item quantity="one">+ಇನ್ನೂ %1$d</item>
+        <item quantity="other">+ಇನ್ನೂ %1$d</item>
+    </plurals>
+    <string name="explorer_lists_failed_one">%1$s ಸದ್ಯ ಪ್ರತಿಕ್ರಿಯಿಸುತ್ತಿಲ್ಲ – ಜೋಡಿ ಪಟ್ಟಿ ಲೋಡ್ ಆಗಿಲ್ಲ. ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
+    <string name="explorer_lists_load">ಪಟ್ಟಿಗಳನ್ನು ಲೋಡ್ ಮಾಡಿ</string>
+    <string name="explorer_lists_loading">ಜೋಡಿ ಪಟ್ಟಿಗಳು ಲೋಡ್ ಆಗುತ್ತಿವೆ… %1$d/%2$d</string>
+    <plurals name="explorer_lists_missing">
+        <item quantity="one">%1$d ಎಕ್ಸ್‌ಚೇಂಜ್‌ನ ಜೋಡಿ ಪಟ್ಟಿ ಇನ್ನೂ ಈ ಸಾಧನದಲ್ಲಿಲ್ಲ.</item>
+        <item quantity="other">%1$d ಎಕ್ಸ್‌ಚೇಂಜ್‌ಗಳ ಜೋಡಿ ಪಟ್ಟಿಗಳು ಇನ್ನೂ ಈ ಸಾಧನದಲ್ಲಿಲ್ಲ.</item>
+    </plurals>
+    <string name="explorer_lists_privacy">ಪ್ರತಿ ಎಕ್ಸ್‌ಚೇಂಜ್‌ನ ಸಂಪೂರ್ಣ ಸಾರ್ವಜನಿಕ ಪಟ್ಟಿಯನ್ನು ಲೋಡ್ ಮಾಡುತ್ತದೆ – ಎಲ್ಲರಿಗೂ ಒಂದೇ. ನಿಮ್ಮ ಹುಡುಕಾಟ ಈ ಸಾಧನದಲ್ಲೇ ಉಳಿಯುತ್ತದೆ.</string>
+    <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
+    <string name="explorer_recent_a11y">ಇತ್ತೀಚಿನ ಹುಡುಕಾಟ: %1$s</string>
+    <string name="explorer_recent_clear">ತೆರವುಗೊಳಿಸಿ</string>
+    <string name="explorer_recent_clear_a11y">ಇತ್ತೀಚಿನ ಹುಡುಕಾಟಗಳನ್ನು ತೆರವುಗೊಳಿಸಿ</string>
+    <string name="explorer_recent_title">ಇತ್ತೀಚಿನ ಹುಡುಕಾಟಗಳು</string>
+    <string name="explorer_search_choose_manually">ಎಕ್ಸ್‌ಚೇಂಜ್ ಮತ್ತು ಜೋಡಿಯನ್ನು ನೀವೇ ಆರಿಸಿ</string>
+    <string name="explorer_search_empty">ಹೊಂದಾಣಿಕೆಗಳಿಲ್ಲ.</string>
+    <string name="explorer_search_hint">ಕಾಯಿನ್, ಜೋಡಿ ಅಥವಾ ಎಕ್ಸ್‌ಚೇಂಜ್ ಹುಡುಕಿ</string>
+    <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
+    <string name="explorer_search_intro">ಕಾಯಿನ್‌ನ ಹೆಸರು ಅಥವಾ ಚಿಹ್ನೆಯನ್ನು ಟೈಪ್ ಮಾಡಿ, ಉದಾ. Bitcoin ಅಥವಾ BTC – ನಂತರ ಜೋಡಿಯನ್ನು ಆರಿಸಿ.</string>
+
+    <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
+    <string name="explorer_add_to_watchlist">ವಾಚ್‌ಲಿಸ್ಟ್‌ಗೆ ಸೇರಿಸಿ</string>
+    <string name="explorer_added_to_watchlist">ವಾಚ್‌ಲಿಸ್ಟ್‌ಗೆ ಸೇರಿಸಲಾಗಿದೆ.</string>
+    <string name="explorer_already_in_watchlist">ಈ ಜೋಡಿ ಈಗಾಗಲೇ ವಾಚ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿದೆ.</string>
+    <string name="explorer_exchange_missing">ಎಕ್ಸ್‌ಚೇಂಜ್ ಕಾಣೆಯಾಗಿದೆಯೇ?</string>
+    <string name="explorer_loading_pairs">ಟ್ರೇಡಿಂಗ್ ಜೋಡಿಗಳು ಲೋಡ್ ಆಗುತ್ತಿವೆ…</string>
+    <string name="explorer_no_pair_selected">ಮೊದಲು ಒಂದು ಜೋಡಿಯನ್ನು ಆರಿಸಿ.</string>
+    <string name="explorer_no_pairs_yet">ಈ ಎಕ್ಸ್‌ಚೇಂಜ್‌ಗೆ ಇನ್ನೂ ಜೋಡಿಗಳು ಲೋಡ್ ಆಗಿಲ್ಲ.</string>
+    <plurals name="explorer_pairs_status">
+        <item quantity="one">%1$d ಜೋಡಿ · %2$s ಅಪ್‌ಡೇಟ್ ಆಗಿದೆ</item>
+        <item quantity="other">%1$d ಜೋಡಿಗಳು · %2$s ಅಪ್‌ಡೇಟ್ ಆಗಿವೆ</item>
+    </plurals>
+    <string name="explorer_pairs_title">ಜೋಡಿಗಳು</string>
+    <string name="explorer_precise_title">ಸುಧಾರಿತ / ಎಕ್ಸ್‌ಚೇಂಜ್ ಪ್ರಕಾರ</string>
+    <string name="explorer_price_loading">ಬೆಲೆ ಲೋಡ್ ಆಗುತ್ತಿದೆ…</string>
+    <string name="explorer_select_exchange_hint">ಒಂದು ಎಕ್ಸ್‌ಚೇಂಜ್ ಆರಿಸಿ – ಅದರ ಟ್ರೇಡಿಂಗ್ ಜೋಡಿಗಳು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಲೋಡ್ ಆಗುತ್ತವೆ.</string>
+    <string name="explorer_select_placeholder">ದಯವಿಟ್ಟು ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="explorer_step_pair">ಜೋಡಿ ಆರಿಸಿ</string>
+
+    <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
+    <string name="explorer_filter_gainers">ಏರಿದವು</string>
+    <string name="explorer_filter_losers">ಇಳಿದವು</string>
+    <string name="explorer_filter_volume">ವಾಲ್ಯೂಮ್</string>
+
+    <!-- Paar hinzufügen: mehrere Paare auf einmal -->
+    <string name="bulk_all_pairs">ಈ ಎಕ್ಸ್‌ಚೇಂಜ್‌ನ ಎಲ್ಲಾ %1$s ಜೋಡಿಗಳು</string>
+    <plurals name="bulk_all_pairs_applied">
+        <item quantity="one">%1$d %2$s ಜೋಡಿ ಕಂಡುಬಂದಿದೆ</item>
+        <item quantity="other">%1$d %2$s ಜೋಡಿಗಳು ಕಂಡುಬಂದಿವೆ</item>
+    </plurals>
+    <string name="bulk_all_pairs_empty">ಆಯ್ಕೆಮಾಡಿದ ಒಪ್ಪಂದ ಪ್ರಕಾರಕ್ಕೆ ಈ ಎಕ್ಸ್‌ಚೇಂಜ್‌ನಲ್ಲಿ %1$s ಜೋಡಿಗಳಿಲ್ಲ. ಮೊದಲು ಎಕ್ಸ್‌ಚೇಂಜ್ ಅನ್ನು ಸಿಂಕ್ ಮಾಡಿ, ಅಥವಾ ಬೇರೆ ಒಪ್ಪಂದ ಪ್ರಕಾರವನ್ನು ಪ್ರಯತ್ನಿಸಿ.</string>
+    <plurals name="explorer_add_all_pairs">
+        <item quantity="one">%1$d ಜೋಡಿಯನ್ನು ವಾಚ್‌ಲಿಸ್ಟ್‌ಗೆ ಸೇರಿಸಿ</item>
+        <item quantity="other">ಎಲ್ಲಾ %1$d ಜೋಡಿಗಳನ್ನು ವಾಚ್‌ಲಿಸ್ಟ್‌ಗೆ ಸೇರಿಸಿ</item>
+    </plurals>
+    <plurals name="explorer_bulk_added">
+        <item quantity="one">%1$d ಸೇರಿಸಲಾಗಿದೆ, %2$d ಈಗಾಗಲೇ ವಾಚ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿವೆ.</item>
+        <item quantity="other">%1$d ಸೇರಿಸಲಾಗಿದೆ, %2$d ಈಗಾಗಲೇ ವಾಚ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿವೆ.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_text">
+        <item quantity="one">%3$s ನಿಂದ %1$d %2$s ಜೋಡಿಯನ್ನು, ಈಗಾಗಲೇ ಇಲ್ಲದಿದ್ದರೆ, ವಾಚ್‌ಲಿಸ್ಟ್‌ಗೆ ಸೇರಿಸಲಾಗುತ್ತದೆ.</item>
+        <item quantity="other">%3$s ನಿಂದ ಎಲ್ಲಾ %1$d %2$s ಜೋಡಿಗಳನ್ನು ವಾಚ್‌ಲಿಸ್ಟ್‌ಗೆ ಸೇರಿಸಲಾಗುತ್ತದೆ. ಈಗಾಗಲೇ ಇರುವ ಜೋಡಿಗಳನ್ನು ಸ್ಕಿಪ್ ಮಾಡಲಾಗುತ್ತದೆ.</item>
+    </plurals>
+    <plurals name="explorer_bulk_confirm_title">
+        <item quantity="one">%1$d ಜೋಡಿಯನ್ನು ಸೇರಿಸಬೇಕೆ?</item>
+        <item quantity="other">%1$d ಜೋಡಿಗಳನ್ನು ಸೇರಿಸಬೇಕೆ?</item>
+    </plurals>
+    <string name="explorer_bulk_hide_list">ಪಟ್ಟಿ ಮರೆಮಾಡಿ</string>
+    <string name="explorer_bulk_show_list">ಪಟ್ಟಿ ತೋರಿಸಿ</string>
+    <string name="explorer_bulk_tap_hint">ಮೇಲೆ ಆಯ್ಕೆಮಾಡಲು ಜೋಡಿಯನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ.</string>
+    <string name="explorer_bulk_title">ಒಂದೇ ಬಾರಿಗೆ ಹಲವು ಜೋಡಿಗಳು</string>
+
+    <!-- Handelspaare einer Börse laden und wählen -->
+    <string name="explorer_sync_sheet_text">ಆಯ್ಕೆಮಾಡಿದ ಎಕ್ಸ್‌ಚೇಂಜ್‌ನ ಪ್ರಸ್ತುತ ಜೋಡಿಗಳನ್ನು ಲೋಡ್ ಮಾಡುತ್ತದೆ.</string>
+    <string name="explorer_no_pair_list">ಕರೆನ್ಸಿ ಜೋಡಿಗಳಿಲ್ಲ</string>
+    <string name="explorer_sync_sheet_last">ಕೊನೆಯ ಸಿಂಕ್: %1$s</string>
+    <string name="explorer_sync_never">ಎಂದಿಗೂ ಇಲ್ಲ</string>
+    <string name="explorer_sync_sheet_action">ಈಗ ಸಿಂಕ್ ಮಾಡಿ</string>
+    <string name="explorer_sync_sheet_title">ಕರೆನ್ಸಿ ಜೋಡಿಗಳನ್ನು ಅಪ್‌ಡೇಟ್ ಮಾಡಿ</string>
+    <string name="explorer_field_coin">ಕಾಯಿನ್</string>
+    <string name="explorer_field_contract">ಒಪ್ಪಂದ ಪ್ರಕಾರ</string>
+    <string name="explorer_field_exchange">ಎಕ್ಸ್‌ಚೇಂಜ್</string>
+    <string name="explorer_field_quote">ಕೋಟ್ ಕರೆನ್ಸಿ</string>
+    <string name="explorer_contract_spot">ಸ್ಪಾಟ್</string>
+    <string name="explorer_reload_pairs">ಸಿಂಕ್ ಮಾಡಿ</string>
+    <string name="sync_pairs_count">ಟ್ರೇಡಿಂಗ್ ಜೋಡಿಗಳು: %1$d</string>
+
+    <!-- Token von dezentralen Börsen (DEX) -->
+    <string name="dex_add">ಸೇರಿಸಿ</string>
+    <string name="dex_added">%1$s ಅನ್ನು ವಾಚ್‌ಲಿಸ್ಟ್‌ಗೆ ಸೇರಿಸಲಾಗಿದೆ.</string>
+    <string name="dex_already">%1$s ಈಗಾಗಲೇ ವಾಚ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿದೆ.</string>
+    <string name="dex_intro">ದೊಡ್ಡ ಎಕ್ಸ್‌ಚೇಂಜ್‌ಗಳ ಹೊರಗಿನ ಟೋಕನ್‌ಗಳು, ವಿಕೇಂದ್ರೀಕೃತ ಎಕ್ಸ್‌ಚೇಂಜ್‌ಗಳಿಂದ (Uniswap, PancakeSwap, Raydium …) DexScreener ಮೂಲಕ. ಟೋಕನ್ ಹುಡುಕಿ ಮತ್ತು ಅದರ ಟ್ರೇಡಿಂಗ್ ಪೂಲ್‌ಗಳಲ್ಲಿ ಒಂದನ್ನು ಸೇರಿಸಿ – ಬೆಲೆಗಳು ಅಮೆರಿಕನ್ ಡಾಲರ್‌ಗಳಲ್ಲಿ.</string>
+    <string name="dex_liquidity">ಲಿಕ್ವಿಡಿಟಿ %1$s</string>
+    <string name="dex_no_results">ಯಾವುದೇ ಪೂಲ್‌ಗಳು ಕಂಡುಬಂದಿಲ್ಲ.</string>
+    <string name="dex_search">ಹುಡುಕಿ</string>
+    <string name="dex_search_hint">ಟೋಕನ್ ಹೆಸರು, ಚಿಹ್ನೆ ಅಥವಾ ವಿಳಾಸ</string>
+
+    <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
+    <string name="asset_kind_alpha">Alpha ಟೋಕನ್</string>
+    <string name="asset_kind_token">ಟೋಕನ್</string>
+    <string name="asset_kind_tradfi">TradFi</string>
+
+    <string name="dex_low_liquidity_no_alarm">ಕಡಿಮೆ ಲಿಕ್ವಿಡಿಟಿ – ಅಲರ್ಟ್‌ಗಳಿಲ್ಲ</string>
+    <string name="dex_low_liquidity_alarm_hint">ಈ ಪೂಲ್‌ನಲ್ಲಿ 10,000 USD ಗಿಂತ ಕಡಿಮೆ ಲಿಕ್ವಿಡಿಟಿ ಇದೆ (ಅಥವಾ ಯಾವುದೂ ವರದಿಯಾಗಿಲ್ಲ). ಸಣ್ಣ ವಹಿವಾಟುಗಳು ಅದರ ಬೆಲೆಯನ್ನು ಚಲಿಸಬಹುದು, ಆದ್ದರಿಂದ ಇಲ್ಲಿ ಅಲರ್ಟ್‌ಗಳನ್ನು ಹೊಂದಿಸಲಾಗುವುದಿಲ್ಲ. ಈಗಿರುವ ಅಲರ್ಟ್‌ಗಳನ್ನು ಉಳಿಸಲಾಗುತ್ತದೆ, ಆದರೆ ಲಿಕ್ವಿಡಿಟಿ ಮತ್ತೆ ಏರುವವರೆಗೆ ಟ್ರಿಗರ್ ಆಗುವುದಿಲ್ಲ.</string>
+
+    <string name="explorer_bulk_show_all">ಎಲ್ಲವನ್ನೂ ತೋರಿಸಿ (%1$d)</string>
+    <string name="dex_token_address_copy">ಟೋಕನ್ ವಿಳಾಸ ನಕಲಿಸಿ</string>
+    <string name="dex_token_address_copied">ಟೋಕನ್ ವಿಳಾಸ ನಕಲಿಸಲಾಗಿದೆ</string>
+    <string name="dex_token_address_label">%1$s ನಲ್ಲಿ ಕೊನೆಗೊಳ್ಳುವ ಟೋಕನ್ ವಿಳಾಸ</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="one">%1$d ಜೋಡಿಯನ್ನು ಸೇರಿಸಲಾಗಿಲ್ಲ: ನಿಮ್ಮ ವಾಚ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿ ಗರಿಷ್ಠ %2$s ಜೋಡಿಗಳು ಇರಬಹುದು.</item>
+        <item quantity="other">%1$d ಜೋಡಿಗಳನ್ನು ಸೇರಿಸಲಾಗಿಲ್ಲ: ನಿಮ್ಮ ವಾಚ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿ ಗರಿಷ್ಠ %2$s ಜೋಡಿಗಳು ಇರಬಹುದು.</item>
+    </plurals>
+    <string name="bulk_add_progress">ಜೋಡಿಗಳನ್ನು ಸೇರಿಸಲಾಗುತ್ತಿದೆ … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="one">%1$d ಹೊಸ ಜೋಡಿಯನ್ನು ವಾಚ್‌ಲಿಸ್ಟ್‌ಗೆ ಸೇರಿಸಿ</item>
+        <item quantity="other">%1$d ಹೊಸ ಜೋಡಿಗಳನ್ನು ವಾಚ್‌ಲಿಸ್ಟ್‌ಗೆ ಸೇರಿಸಿ</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="one">%1$d ಹೊಸದು, %2$d ಈಗಾಗಲೇ ವಾಚ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿ</item>
+        <item quantity="other">%1$d ಹೊಸವು, %2$d ಈಗಾಗಲೇ ವಾಚ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿ</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">ಎಲ್ಲವೂ ಈಗಾಗಲೇ ವಾಚ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿವೆ</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="one">%1$d ಜೋಡಿಯನ್ನು ಮತ್ತೆ ತೆಗೆದುಹಾಕಬೇಕೆ?</item>
+        <item quantity="other">%1$d ಜೋಡಿಗಳನ್ನು ಮತ್ತೆ ತೆಗೆದುಹಾಕಬೇಕೆ?</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">ಈ ನಡುವೆ ನೀವು ಅಲರ್ಟ್ ಹೊಂದಿಸಿದ ಜೋಡಿಗಳು ಹಾಗೆಯೇ ಉಳಿಯುತ್ತವೆ.</string>
+    <string name="bulk_undo_expired">ಇನ್ನು ರದ್ದುಗೊಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ – ಜೋಡಿಗಳು ವಾಚ್‌ಲಿಸ್ಟ್‌ನಲ್ಲೇ ಉಳಿಯುತ್ತವೆ.</string>
+    <string name="explorer_section_spot">ಸ್ಪಾಟ್</string>
+    <string name="explorer_section_futures">ಫ್ಯೂಚರ್ಸ್</string>
+    <string name="explorer_section_dex">DEX ಪೂಲ್‌ಗಳು</string>
+    <string name="explorer_section_forex">Forex (ಉಲ್ಲೇಖ ದರ)</string>
+    <string name="explorer_forex_hint">ಯುರೋಪಿಯನ್ ಸೆಂಟ್ರಲ್ ಬ್ಯಾಂಕ್‌ನ ದೈನಂದಿನ ದರ (Frankfurter ಮೂಲಕ), ಲೈವ್ ಅಲ್ಲ – ಅಲರ್ಟ್‌ಗಳಿಲ್ಲ.</string>
+</resources>

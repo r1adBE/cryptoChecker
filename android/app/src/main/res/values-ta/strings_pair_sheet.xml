@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%2$s இல் %1$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">இறுதி</string>
+    <string name="sheet_chart_converted_current">%1$s, மாற்றப்பட்டது (தற்போதைய விகிதம்)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, தினசரி விகிதங்களில் மாற்றப்பட்டது</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">இந்த ஜோடிக்கு விலைத் தரவு இல்லை</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">தொடக்கம்</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">இன்று</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">வால். %1$s</string>
+    <string name="sheet_more">மேலும்</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Ask</string>
+    <string name="ticker_bid">Bid</string>
+    <string name="explain_bid_ask">Bid என்பது வாங்குபவர்கள் இப்போது வழங்கும் அதிகபட்ச விலை, Ask என்பது விற்பவர்கள் ஏற்கும் குறைந்தபட்ச விலை.</string>
+    <string name="ticker_high">அதிகபட்சம்</string>
+    <string name="ticker_low">குறைந்தபட்சம்</string>
+    <string name="ticker_timestamp">நேரம்</string>
+    <string name="ticker_vol_base">வால்யூம் (காயின்களில்)</string>
+    <string name="ticker_vol_quote">வால்யூம் (மேற்கோள் நாணயத்தில்)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (சாதன நேர மண்டலம்)</string>
+    <string name="change_basis_local">உள்ளூர் நேரம் 00:00 முதல்</string>
+    <string name="change_basis_rolling">கடந்த 24 மணிநேரம்</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">கடைசிப் புதுப்பிப்பிலிருந்து</string>
+    <string name="change_basis_utc_zone">00:00 %1$s முதல்</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">%1$s கேண்டில்களிலிருந்து மாற்றம்</string>
+    <string name="change_short_since_last">கடைசிப் புதுப்பிப்பு</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">இன்று</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">இன்று %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="exchange_data_empty_error">எக்ஸ்சேஞ்சிலிருந்து தரவு எதுவும் பெறப்படவில்லை.</string>
+    <string name="market_data_summary">சந்தை மதிப்பு, gas கட்டணங்கள், பொருளாதாரத் தரவு, காயின் பகுப்பாய்வு</string>
+    <string name="market_data_tab_futures">ஃபியூச்சர்ஸ்</string>
+    <string name="market_data_title">சந்தைத் தரவு</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">புழக்கத்திலுள்ள விநியோகம்</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">சந்தை மதிப்பு</string>
+    <string name="spot_max_supply">அதிகபட்ச விநியோகம்</string>
+    <string name="spot_no_data">இந்தக் காயினுக்கு ஸ்பாட் தரவு இல்லை</string>
+    <string name="spot_source_updated">மூலம்: %1$s · %2$s நிலவரப்படி</string>
+    <string name="spot_supply_of_max">அதிகபட்ச விநியோகத்தில் %1$s புழக்கத்தில் உள்ளது</string>
+    <string name="spot_total_supply">மொத்த விநியோகம்</string>
+    <string name="spot_vol_mcap">வால்./சந்தை மதிப்பு</string>
+    <string name="spot_volume_24h">வால்யூம் (24 ம.நே.)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">குறிப்பு: %1$s</string>
+    <string name="futures_funding">ஃபண்டிங் விகிதம்</string>
+    <string name="futures_funding_interval_unknown">இடைவெளி தெரியவில்லை</string>
+    <string name="futures_funding_per8h_equiv">= 8 மணிநேரத்துக்கு %1$s (விழிப்பூட்டல்களில் உள்ளபடி)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">ஒரு மணிநேரத்துக்கு</string>
+    <string name="futures_funding_per_hours">%1$d மணிநேரத்துக்கு</string>
+    <string name="futures_next_funding">அடுத்தது %1$d ம.நே. %2$d நிமி. இல்</string>
+    <string name="futures_no_data">இந்தக் காயினுக்கு ஃபியூச்சர்ஸ் தரவு இல்லை</string>
+    <string name="futures_open_interest">ஓப்பன் இன்ட்ரஸ்ட்</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">%1$s இலிருந்து குறிப்பு – ஃபண்டிங்கும் ஓப்பன் இன்ட்ரஸ்டும் ஒவ்வொரு எக்ஸ்சேஞ்சிலும் வேறுபடும்; %2$s இல் அவை வேறுபடலாம்.</string>
+    <string name="futures_reference_spot">%1$s இலிருந்து குறிப்பு (காயினின் USDT பெர்பெச்சுவல்)</string>
+    <string name="futures_source">மூலம்: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">பல டிரேடர்கள் கடன் வாங்கிய பணத்துடன் விலை ஏறும் அல்லது இறங்கும் என்று பந்தயம் கட்டுகின்றனர். லாங் மற்றும் ஷார்ட் நிலைகளுக்கு இடையிலான கட்டணம். வலுவாக நேர்மறை என்றால் பலர் விலை ஏறும் என்று பந்தயம் கட்டுகின்றனர்.</string>
+    <string name="explain_open_interest">ஃபியூச்சர்ஸ் என்பவை விலை மீதான பந்தயங்கள், பெரும்பாலும் கடன் வாங்கிய பணத்துடன். திறந்திருக்கும் எல்லா ஃபியூச்சர்ஸ் நிலைகளின் மதிப்பு. இது உயர்ந்தால், அதிகப் பணம் அந்த நகர்வின் மீது பந்தயம் கட்டுகிறது.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">விளக்கம்</string>
+    <string name="explain_spot_fdv">முழுமையாக நீர்த்த மதிப்பீடு: விலை × அதிகபட்ச விநியோகம் (வரம்பு இல்லையெனில் மொத்த விநியோகம்).</string>
+    <string name="explain_spot_market_cap">விலை × புழக்கத்திலுள்ள விநியோகம். 24 மணிநேரத்தில் அதன் மாற்றத்தை இந்தக் குறி காட்டுகிறது.</string>
+    <string name="explain_spot_source">எல்லா எக்ஸ்சேஞ்ச்களிலுமான அமெரிக்க டாலர் புள்ளிவிவரங்கள், CoinGecko இலிருந்து.</string>
+    <string name="explain_spot_supply">புழக்கத்தில்: இப்போது சந்தையில் உள்ள காயின்கள். மொத்தம்: உருவாக்கப்பட்ட எல்லாக் காயின்களும், எரிக்கப்பட்டவை நீங்கலாக. அதிகபட்சம்: எப்போதும் இருக்கக்கூடிய அதிகபட்ச எண்ணிக்கை.</string>
+    <string name="explain_spot_volume">24 மணிநேரத்தில் வர்த்தகமான மதிப்பு. வால்./சந்தை மதிப்பு: சந்தை மதிப்புடன் ஒப்பிடும் வால்யூம் — அதிகம் என்றால் மிகவும் சுறுசுறுப்பான வர்த்தகம்.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · விகிதம் %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">வாங்கும் மற்றும் விற்கும் விலைக்கு இடையே பெரிய இடைவெளி (%1$s)</string>
+
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">%1$s இல் வரலாறு, இன்றைய விகிதத்தில் %2$s க்கு மாற்றப்பட்டது</string>
+    <string name="converted_unsure">மாற்றம் உறுதியில்லை</string>
+</resources>

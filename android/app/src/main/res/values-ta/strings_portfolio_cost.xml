@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">அடக்க விலை இல்லாத பதிவுகள்: %1$d</string>
+    <string name="cost_gaps_card_text">லாபங்களும் வரிகளும் முழுமையாக இருக்க அடக்க விலையைச் சேர்க்கவும்.</string>
+    <string name="cost_gaps_sheet_title">அடக்க விலை இல்லாத பதிவுகள்</string>
+    <string name="cost_gaps_sheet_intro">இந்த உள்வரவுகளுக்கு அடக்க விலை இல்லை. பரிந்துரை என்பது அந்தத் தேதியின் தினசரி இறுதி விலை – பதிவில் அதைச் சரிசெய்யலாம்.</string>
+    <string name="cost_gaps_empty">எல்லாப் பதிவுகளுக்கும் அடக்க விலை உள்ளது.</string>
+    <string name="cost_gap_enter">அடக்க விலையை உள்ளிடு</string>
+    <string name="cost_gap_leave_unknown">தெரியாததாக விடு</string>
+    <string name="cost_gap_left_unknown">தெரியாததாக விடப்பட்டது</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">பரிந்துரை: தினசரி இறுதி விலை %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">இந்தத் தேதிக்குச் சரிபார்க்கப்பட்ட தினசரி இறுதி விலை இல்லை</string>
+    <string name="cost_gap_suggestion_loading">தினசரி இறுதி விலையை ஏற்றுகிறது …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">அடக்க விலை = பெற்றபோது இருந்த மதிப்பு (வருமானம்)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">அடக்க விலை = 0 (உள்வரவு இல்லாத வெகுமதி, ஆஸ்திரியா)</string>
+    <string name="cost_gap_apply">பயன்படுத்து</string>
+    <string name="address_lots_action">முகவரி இருப்புக்கான அடக்க விலை</string>
+    <string name="address_lots_title">முகவரி இருப்புக்கான அடக்க விலை</string>
+    <string name="address_lots_intro">இந்த முகவரியின் இருப்புக்கு வாங்கிய தேதி, அளவு மற்றும் அடக்க விலையை உள்ளிடவும். லாட்கள் இந்த முகவரியில் வாங்கியவை போலக் கணக்கிடப்படும்; ஈடுசெய்யப்படாத பகுதி அடக்க விலை இல்லாமல் இருக்கும்.</string>
+    <string name="address_lots_add">லாட்டைச் சேர்</string>
+    <string name="address_lots_new">புதிய லாட்</string>
+    <string name="address_lots_edit">லாட்</string>
+    <string name="address_lots_date">வாங்கிய தேதி</string>
+    <string name="address_lots_amount">அளவு</string>
+    <string name="address_lots_mode_total">மொத்தம்</string>
+    <string name="address_lots_mode_price">ஒரு காயினுக்கு</string>
+    <string name="address_lots_price">ஒரு காயினுக்கான விலை (USDT)</string>
+    <string name="address_lots_total">மொத்த அடக்க விலை (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%2$s இல் %1$s அடக்க விலையுடன்</string>
+    <string name="address_lots_unlotted">%1$s அடக்க விலை இல்லாமல்</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">லாட்கள் இருப்பை %1$s அளவுக்கு மீறுகின்றன – பழையவை முதலில் பயன்படுத்தப்படும்.</string>
+    <string name="address_lots_not_loaded">இருப்பு இன்னும் ஏற்றப்படவில்லை – ஏற்றப்பட்டதும் லாட்கள் கணக்கில் சேரும்.</string>
+    <string name="address_lots_invalid">அளவையும் அடக்க விலையையும் உள்ளிடவும்</string>
+</resources>

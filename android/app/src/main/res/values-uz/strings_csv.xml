@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">CSV import qilish</string>
+    <string name="portfolio_csv_import_all_transfer">Hammasi oʻz hamyonimga</string>
+    <string name="portfolio_csv_import_all_withdrawal">Hammasi portfeldan chiqadi</string>
+    <string name="portfolio_csv_import_choice_proposed">Taklif: %1$s ga mos</string>
+    <string name="portfolio_csv_import_choice_transfer">Oʻz hamyonimga (oʻtkazma)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Portfeldan chiqadi (yechib olish)</string>
+    <string name="portfolio_csv_import_choose_each">Har bir yechib olish qayerga ketganini tanlang.</string>
+    <string name="portfolio_csv_import_columns">Aniqlangan ustunlar: %1$s</string>
+    <string name="portfolio_csv_import_confirm">Import qilish (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">Kun/Oy</string>
+    <string name="portfolio_csv_import_date_month_first">Oy/Kun</string>
+    <string name="portfolio_csv_import_date_order">Noaniq sanalar (masalan, 03/04/2024) shunday oʻqiladi:</string>
+    <string name="portfolio_csv_import_decimal">Noaniq sonlar (masalan, %1$s) shunday oʻqiladi:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d ta tranzaksiya import qilindi</item>
+        <item quantity="other">%d ta tranzaksiya import qilindi</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d tasi avval import qilingan (oʻtkazib yuborildi)</item>
+        <item quantity="other">%d tasi avval import qilingan (oʻtkazib yuborildi)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">Format: %1$s</string>
+    <string name="portfolio_csv_import_line">%1$d-qator: %2$s</string>
+    <string name="portfolio_csv_import_loading">Fayl va kunlik kurslar oʻqilmoqda…</string>
+    <string name="portfolio_csv_import_progress">%2$s qatordan %1$s-qator</string>
+    <string name="portfolio_csv_import_saving">Tranzaksiyalar saqlanmoqda…</string>
+    <string name="portfolio_csv_import_missing_fx">%1$s qatorlar uchun kunlik kurs yoʻq – narx/komissiyasiz import qilindi.</string>
+    <string name="portfolio_csv_import_missing_price">Faylda %1$s qatorlar uchun narx yoʻq – narxsiz import qilindi.</string>
+    <string name="portfolio_csv_import_more">+ yana %1$d ta</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d ta yangi tranzaksiya</item>
+        <item quantity="other">%d ta yangi tranzaksiya</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d ta qator oʻtkazib yuborildi</item>
+        <item quantity="other">%d ta qator oʻtkazib yuborildi</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">Steyblkoinlarga (USDT, USDC …) qarshi savdolar almashuv sifatida yoziladi – steyblkoin aktivlaringizda paydo boʻladi.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Bir nechta moslik boʻlishi mumkin – toʻgʻrisini tanlang yoki hech birini tanlamang.</string>
+    <string name="portfolio_csv_import_transfer_fee">Tarmoq komissiyasi: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">Bitta oʻtkazma sifatida yozish</string>
+    <string name="portfolio_csv_import_transfer_stored">Avvalgi importdagi qarshi yozuv</string>
+    <string name="portfolio_csv_import_transfers_hint">Bir tanganing yechib olinishi va unga mos depoziti bitta oʻtkazmaga aylanadi: xarid narxi va saqlash muddati oʻtadi, farq tarmoq komissiyasi hisoblanadi.</string>
+    <string name="portfolio_csv_import_transfers_title">Hisoblaringiz orasidagi oʻtkazmalar</string>
+    <string name="portfolio_csv_import_unreadable">Qoʻllab-quvvatlanadigan tranzaksiyalar topilmadi. Qoʻllab-quvvatlanadi: Relai, Swissquote, Kraken, Binance, Coinbase va Bitpanda CSV eksportlari.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
+    <string name="portfolio_csv_import_too_large">Fayl import uchun juda katta (koʻpi bilan 16 MB va %1$s qator). Qisqaroq davrlarni eksport qiling va ularni birin-ketin import qiling.</string>
+    <string name="portfolio_csv_import_failed">Import ishlamadi – hech narsa saqlanmadi. Qayta urinib koʻring.</string>
+    <string name="portfolio_csv_import_locked">Import imkonsiz: saqlangan maʼlumotlarni hozir oʻqib boʻlmaydi. Ilovani qayta ishga tushiring.</string>
+    <string name="portfolio_csv_import_withdrawals_title">Yechib olishlar – tangalar qayerga ketdi?</string>
+    <string name="portfolio_csv_import_zone">Vaqt mintaqasiz vaqtlar shunday oʻqiladi: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">Qurilma (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">sanani oʻqib boʻlmadi</string>
+    <string name="portfolio_csv_skip_bad_number">sonni oʻqib boʻlmadi</string>
+    <string name="portfolio_csv_skip_fee_exceeds">komissiya ≥ olingan miqdor</string>
+    <string name="portfolio_csv_skip_internal_move">oʻz hisoblaringiz orasidagi koʻchirish – yoziladigan narsa yoʻq</string>
+    <string name="portfolio_csv_skip_missing">maydon yoʻq</string>
+    <string name="portfolio_csv_skip_ambiguous">bir soniyada ajratib boʻlmaydigan bir nechta savdo – ularni qoʻlda kiriting</string>
+    <string name="portfolio_csv_skip_not_crypto">kripto emas</string>
+    <string name="portfolio_csv_skip_possible_duplicate">ehtimol avval import qilingan (deyarli bir xil savdo) – qoʻlda tekshiring</string>
+    <string name="portfolio_csv_skip_two_fees">turli birliklardagi ikki komissiya – almashuvni qoʻlda kiriting</string>
+    <string name="portfolio_csv_skip_unsupported">qoʻllab-quvvatlanmaydigan tur</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">Bekor qilish</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">Bu importning %d ta tranzaksiyasi oʻchirilsinmi? Qoʻlda kiritilganlar va boshqa importlar qoladi.</item>
+        <item quantity="other">Bu importning %d ta tranzaksiyasi oʻchirilsinmi? Qoʻlda kiritilganlar va boshqa importlar qoladi.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">Import bekor qilinsinmi?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">%d ta import qilingan tranzaksiya oʻchirildi</item>
+        <item quantity="other">%d ta import qilingan tranzaksiya oʻchirildi</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d ta tranzaksiya</item>
+        <item quantity="other">%d ta tranzaksiya</item>
+    </plurals>
+    <string name="portfolio_imports_empty">Importlar yoʻq</string>
+    <string name="portfolio_imports_title">Importlar</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">tranzaksiya ID bir xil, miqdori boshqa – qoʻlda tekshiring</string>
+    <string name="portfolio_csv_skip_staking_unpaired">qarshi yozuvsiz steyking yozuvi – aktivlarni tekshiring</string>
+    <string name="portfolio_csv_skip_amount_too_small">miqdor juda kichik – saqlanganda 0 gacha yaxlitlanadi</string>
+    <string name="portfolio_csv_skip_invalid_swap">yaroqli tanga yoki olingan miqdorsiz almashuv</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">Fayl qayta oʻqilmoqda …</string>
+</resources>

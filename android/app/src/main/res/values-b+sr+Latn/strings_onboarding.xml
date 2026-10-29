@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generated from values-sr by android/tools/sr_latn.py - do not edit, run the script instead -->
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">Postavi alarme – cena, procenat, volumen i neobična kretanja</string>
+    <string name="welcome_alert_q">Kada upozoriti?</string>
+    <string name="welcome_text">Tvoje cene. Tvoji alarmi. Tvoj pregled.\nBez naloga. Bez oglasa. Bez praćenja.</string>
+    <string name="welcome_understand">Razumi – što se upravo kreće zajedno s cenom</string>
+    <string name="welcome_understand_q">Šta se kreće s njom?</string>
+    <string name="welcome_watch">Prati – svoje kriptovalute, cene i istoriju cena</string>
+    <string name="welcome_watch_q">Šta se događa?</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">Dodaj na spisak praćenja (%1$d)</string>
+    <string name="starter_loading_prices">Učitavanje cena…</string>
+    <string name="starter_search_coin">Potraži drugu kriptovalutu</string>
+    <string name="starter_select_all">Izaberi sve</string>
+    <string name="starter_select_none">Poništi izbor</string>
+    <string name="starter_title">Započni s ovim kriptovalutama</string>
+    <string name="starter_watch_alarm_hint">Prati cenu, postavi alarm</string>
+
+    <!-- Start-Auswahl: Börse und Quote der Startpaare (Binance, bei Standort-Sperre Binance.US), z. B. «Kurse von Binance in USDT. …» -->
+    <string name="starter_source_text">Cene s berze %1$s u %2$s. Poništi izbor onoga što ne želiš, a ostalo dodaj odjednom. Berzu i par možeš promeniti za svaku kriptovalutu.</string>
+</resources>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">ჩანაწერები შეძენის ღირებულების გარეშე: %1$d</string>
+    <string name="cost_gaps_card_text">დაამატე შეძენის ღირებულება, რომ მოგება და გადასახადები სრული იყოს.</string>
+    <string name="cost_gaps_sheet_title">ჩანაწერები შეძენის ღირებულების გარეშე</string>
+    <string name="cost_gaps_sheet_intro">ამ შემოსავლებს შეძენის ღირებულება არ აქვს. შეთავაზება ამ თარიღის დღიური დახურვის ფასია – შეგიძლია ჩანაწერში შეცვალო.</string>
+    <string name="cost_gaps_empty">ყველა ჩანაწერს აქვს შეძენის ღირებულება.</string>
+    <string name="cost_gap_enter">შეძენის ღირებულების შეყვანა</string>
+    <string name="cost_gap_leave_unknown">უცნობად დატოვება</string>
+    <string name="cost_gap_left_unknown">დატოვებულია უცნობად</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">შეთავაზება: დღიური დახურვა %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">ამ თარიღისთვის გადამოწმებული დღიური დახურვა არ არის</string>
+    <string name="cost_gap_suggestion_loading">დღიური დახურვა იტვირთება …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">შეძენის ღირებულება = ღირებულება მიღებისას (შემოსავალი)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">შეძენის ღირებულება = 0 (ჯილდო შემოსვლის გარეშე, ავსტრია)</string>
+    <string name="cost_gap_apply">გამოყენება</string>
+    <string name="address_lots_action">შეძენის ღირებულება მისამართის ნაშთისთვის</string>
+    <string name="address_lots_title">შეძენის ღირებულება მისამართის ნაშთისთვის</string>
+    <string name="address_lots_intro">შეიყვანე ამ მისამართის ნაშთის შეძენის თარიღი, რაოდენობა და შეძენის ღირებულება. ლოტები ითვლება როგორც შესყიდვები ამ მისამართზე; დაუფარავი ნაწილი შეძენის ღირებულების გარეშე რჩება.</string>
+    <string name="address_lots_add">ლოტის დამატება</string>
+    <string name="address_lots_new">ახალი ლოტი</string>
+    <string name="address_lots_edit">ლოტი</string>
+    <string name="address_lots_date">შეძენის თარიღი</string>
+    <string name="address_lots_amount">რაოდენობა</string>
+    <string name="address_lots_mode_total">სულ</string>
+    <string name="address_lots_mode_price">ერთ მონეტაზე</string>
+    <string name="address_lots_price">ფასი ერთ მონეტაზე (USDT)</string>
+    <string name="address_lots_total">შეძენის სრული ღირებულება (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%2$s-დან %1$s შეძენის ღირებულებით</string>
+    <string name="address_lots_unlotted">%1$s შეძენის ღირებულების გარეშე</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">ლოტები ნაშთს %1$s-ით აღემატება – ჯერ ყველაზე ძველები იხარჯება.</string>
+    <string name="address_lots_not_loaded">ნაშთი ჯერ არ ჩატვირთულა – ლოტები ჩაითვლება, როგორც კი ჩაიტვირთება.</string>
+    <string name="address_lots_invalid">შეიყვანე რაოდენობა და შეძენის ღირებულება</string>
+</resources>

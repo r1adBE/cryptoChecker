@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">Voeg adres by</string>
+    <string name="portfolio_address_count">Tel</string>
+    <string name="portfolio_address_error">Bywerking het misluk</string>
+    <string name="portfolio_address_hint">Openbare adres (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) of xpub</string>
+    <string name="portfolio_address_label">Etiket (opsioneel)</string>
+    <string name="portfolio_address_not_since_buy">Vanaf adres · nie in “Sedert aankoop” nie: %1$s</string>
+    <string name="portfolio_address_overlap">Ook in jou eie transaksies: %1$s – albei word bygetel. Dieselfde munte? Kies “Wys slegs”.</string>
+    <string name="portfolio_address_overlap_ask">Jy teken %1$s reeds met jou eie transaksies aan. Voeg hierdie adres se saldo by die portefeulje, of wys dit slegs?</string>
+    <string name="portfolio_address_overlap_auto">“%1$s” word nou slegs gewys, nie getel nie – %2$s kom ook in jou transaksies voor.</string>
+    <string name="portfolio_address_overlap_title">Dieselfde munte as jou transaksies?</string>
+    <string name="portfolio_address_overlap_tx">Dieselfde bedrag as jou eie deposito/oordrag (%1$s) – waarskynlik twee keer getel.</string>
+    <string name="portfolio_address_period_observed">Gevolgde adresse tel vanaf hul eerste waargenome saldo; latere veranderinge is in- en uitvloei, nie wins nie.</string>
+    <string name="portfolio_address_privacy">Slegs die openbare adres word na %1$s gestuur – nooit sleutels of saadfrases nie. Die verskaffer sien dit saam met jou IP-adres. Hoogstens elke 10 minute gekontroleer.</string>
+    <string name="portfolio_address_remove">Verwyder adres</string>
+    <string name="portfolio_address_show_only">Wys slegs, moenie by portefeulje voeg nie</string>
+    <string name="portfolio_address_show_only_short">Wys slegs</string>
+    <string name="portfolio_address_tokens">Tel tokens</string>
+    <string name="portfolio_address_xpub_privacy">\'n xpub onthul alle adresse van hierdie beursie. Hulle word op jou toestel afgelei; slegs individuele adresse word na %1$s gestuur – minstens 40 versoeke met die eerste skandering, later minder. Privaat sleutels (xprv) word nooit aanvaar nie.</string>
+    <string name="portfolio_address_xpub_gap">Die soektog stop ná %1$d ongebruikte adresse agter mekaar (die BIP44-standaard wat die meeste beursies gebruik). \'n Gebruikte adres anderkant daardie gaping word nie getel nie – voeg dit apart by.</string>
+    <string name="portfolio_address_xpub_used">Adresse in gebruik: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">Te veel gebruikte adresse om by te werk</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">Baie adresse – nuwe betalings na ou, leë adresse word dalk nie bespeur nie</string>
+    <string name="portfolio_addresses_title">Adresse</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Bitcoin Cash-adresse kan nie gevolg word nie: daar is geen gratis openbare diens sonder \'n API-sleutel wie se bepalings dit toelaat nie.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) is in 2024 gesluit – saldo\'s is nou op BNB Smart Chain (0x…)</string>
+    <string name="address_checksum">Kontrolesom verkeerd – kyk vir tikfoute</string>
+    <string name="address_doge_unsupported">Dogecoin-adresse kan nie gevolg word nie: daar is geen gratis openbare diens sonder \'n API-sleutel wie se bepalings dit toelaat nie.</string>
+    <string name="address_duplicate">Hierdie adres is reeds bygevoeg</string>
+    <string name="address_ens">ENS-name word nie ondersteun nie – voer die 0x-adres in</string>
+    <string name="address_invalid">Nie \'n geldige adres van \'n ondersteunde netwerk nie</string>
+    <string name="address_limit">Hoogstens 20 adresse</string>
+    <string name="address_secret">Dit lyk soos \'n privaat sleutel of saadfrase – voer dit nooit êrens in nie. Slegs openbare adresse.</string>
+    <string name="address_testnet">Testnet-adresse word nie ondersteun nie</string>
+    <string name="address_unsupported">Hierdie adrestipe word nie ondersteun nie</string>
+    <string name="address_wrong_chain">Adres behoort aan \'n ander netwerk</string>
+    <string name="address_xpub_multisig">Multisig-sleutels (Ypub/Zpub) word nie ondersteun nie</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot-rekening (BIP86): bc1p…-adresse word van hierdie sleutel afgelei, vir ontvangs en kleingeld.</string>
+    <string name="portfolio_address_taproot_hint">Taproot-beursie? Plak eerder die beskrywer tr(…) uit jou beursie – \'n gewone xpub word slegs as Legacy- en SegWit-adresse deursoek.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">Eie bediener nie bereikbaar nie</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">Wie ook al %1$s bedryf, sien alle opgevraagde adresse van hierdie beursie en kan hulle aan mekaar en aan jou IP-adres koppel.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">Om dit te vermy, voer jou eie bediener in onder Instellings › Portefeulje › Eie bediener vir adresse.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d onbekende token (nie getel nie)</item>
+        <item quantity="other">+%1$d onbekende tokens (nie getel nie)</item>
+    </plurals>
+</resources>

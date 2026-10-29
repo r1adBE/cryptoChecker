@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">Портфель ескертулері кідіртілді: %1$s үшін ағымдағы бағам жоқ</string>
+    <string name="portfolio_alarms_paused_price_generic">Портфель ескертулері кідіртілді: кейбір монеталардың ағымдағы бағамы жоқ</string>
+    <string name="portfolio_alarms_paused_addresses">Портфель ескертулері кідіртілді: бақыланатын мекенжайлардың балансы әлі жүктелмеді</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Портфель ескертулері кідіртілді: %1$s токен баланстары ішінара ескірген</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Портфель ескертулері кідіртілді: бақыланатын мекенжайлардың токен баланстары ішінара ескірген</string>
+    <string name="portfolio_alarms_paused_unverified">Портфель ескертулері кідіртілді: %1$s бағамы тексерілмеген</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Портфель ескертулері кідіртілді: кейбір монеталардың бағамы тексерілмеген</string>
+    <string name="portfolio_alarms_address_failing">Портфель ескертулері %1$s мекенжайынсыз тексеріледі: балансы 24 сағаттан астам жүктелмеген</string>
+    <string name="portfolio_alarms_address_failing_generic">Портфель ескертулері балансы 24 сағаттан астам жүктелмеген мекенжайларсыз тексеріледі</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">токендер ішінара ескірген</string>
+    <string name="portfolio_address_restore_failed">Мекенжайды қалпына келтіру мүмкін болмады – қажет болса, қайта қосыңыз</string>
+    <string name="portfolio_address_remove_failed">Мекенжайды жою мүмкін болмады – қайталап көріңіз</string>
+</resources>

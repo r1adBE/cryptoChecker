@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Bumalik</string>
+    <string name="action_cancel">Kanselahin</string>
+    <string name="action_clear">I-clear</string>
+    <string name="action_close">Isara</string>
+    <string name="action_keep">Panatilihin</string>
+    <string name="action_delete">I-delete</string>
+    <string name="action_edit">I-edit</string>
+    <string name="action_more">Higit pang opsyon</string>
+    <string name="action_refresh">I-refresh</string>
+    <string name="action_retry">Subukan ulit</string>
+    <string name="action_save">I-save</string>
+    <string name="action_sort">Ayusin</string>
+    <string name="action_sort_done">Tapos na</string>
+    <string name="action_undo">I-undo</string>
+    <string name="action_view">Tingnan</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Market</string>
+    <string name="tab_portfolio">Portfolio</string>
+    <string name="tab_settings">Mga Setting</string>
+    <string name="tab_watchlist">Watchlist</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Error: %1$s</string>
+    <string name="error_exchange_unreachable">Hindi maabot ang exchange ngayon – makikita pa rin ang mga huling presyo.</string>
+    <string name="error_exchange_unreachable_short">Hindi maabot ang exchange ngayon</string>
+    <string name="loading_hint">Naglo-load…</string>
+    <string name="option_off">Naka-off</string>
+    <string name="something_went_wrong">Nagkaproblema</string>
+    <string name="time_just_now">ngayon lang</string>
+    <string name="try_again">Subukan ulit</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Walang koneksyon</string>
+    <string name="offline_status_since">Walang koneksyon · noong %1$s</string>
+    <string name="status_live">Live</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Magdagdag ng pares</string>
+    <string name="shortcut_alarms">Lahat ng alerto</string>
+    <string name="shortcut_cycle">Market</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Magdagdag ng bagong pares</string>
+    <string name="shortcut_alarms_long">Ipakita ang mga alerto</string>
+    <string name="shortcut_cycle_long">Buksan ang buod ng market</string>
+
+    <string name="log_box_title">Log</string>
+    <string name="label_value">%1$s: %2$s</string>
+</resources>

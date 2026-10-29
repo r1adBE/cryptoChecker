@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">Signal qoʻyish</string>
+    <string name="alarms_add">Yangi signal</string>
+    <string name="alarms_edit">Signalni tahrirlash</string>
+    <string name="alarms_empty">Bu juftlik uchun hozircha signal yoʻq.</string>
+    <string name="alarms_empty_example">Masalan: BTC %1$s dan oshganda xabar bering.</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">Bildirishnomalar oʻchiq – signallar sizga yetib bormaydi.</string>
+    <string name="alarms_notifications_turn_on">Yoqish</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">%1$d ta faol</item>
+        <item quantity="other">%1$d ta faol</item>
+    </plurals>
+    <string name="alarms_overview_empty">Hozircha signal yoʻq. Juftlikni oching va «Signallar» boʻlimida qoʻshing.</string>
+    <string name="alarms_overview_title">Barcha signallar</string>
+    <string name="alarms_title">Signallar</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">Kengaytirilgan</string>
+    <string name="alarm_change_updates">Kurs yangilanishini sozlash</string>
+    <string name="alarm_create">Signal yaratish</string>
+    <string name="alarm_currency_label">Valyuta</string>
+    <string name="alarm_delete_confirm">Bu signal oʻchiriladi.</string>
+    <string name="alarm_delete_title">Signal oʻchirilsinmi?</string>
+    <string name="alarm_field_percent">Foiz</string>
+    <string name="alarm_field_price">Narx</string>
+    <string name="alarm_fires_now_above">Kurs allaqachon %1$s dan yuqori. Baribir saqlansinmi?</string>
+    <string name="alarm_fires_now_below">Kurs allaqachon %1$s dan past. Baribir saqlansinmi?</string>
+    <string name="alarm_fires_now_change">Oʻzgartirish</string>
+    <string name="alarm_fires_now_save">Baribir saqlash</string>
+    <string name="alarm_fires_now_title">Signal hoziroq ishga tushadi</string>
+    <string name="alarm_first_battery_hint">Batareya optimallashuvi ilovani cheklaydi – signallar kechikishi mumkin.</string>
+    <string name="alarm_first_title">Signal saqlandi</string>
+    <string name="alarm_last_triggered">oxirgisi: %1$s</string>
+    <string name="alarm_more_conditions">Boshqa shartlar</string>
+    <string name="alarm_new_extreme">Yangi %1$s</string>
+    <string name="alarm_once">Bir marta</string>
+    <string name="alarm_option_repeating">Xabar berish</string>
+    <string name="alarm_option_sound">Ovoz</string>
+    <string name="alarm_option_speak">Signalni ovoz chiqarib oʻqish</string>
+    <string name="alarm_option_vibrate">Tebranish</string>
+    <string name="alarm_repeat_each">Har safar</string>
+    <string name="alarm_repeat_once">Bir marta</string>
+    <string name="alarm_repeating">Har safar</string>
+    <string name="alarm_threshold_error_empty">Signalni saqlash uchun qiymat kiriting.</string>
+    <string name="alarm_threshold_error_funding">Funding −10 va +10 foiz oraligʻidagi son boʻlishi kerak.</string>
+    <string name="alarm_threshold_error_invalid">0 dan katta yaroqli son kiriting.</string>
+    <string name="alarm_threshold_error_oi">Ochiq pozitsiyalar oʻzgarishi: koʻpi bilan 1000 foiz.</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">%1$d soat ichida</item>
+        <item quantity="other">%1$d soat ichida</item>
+    </plurals>
+    <string name="alarm_window_label">Vaqt oraligʻi</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">quyidagidan oshganda:</string>
+    <string name="alarm_simple_below">quyidagidan tushganda:</string>
+    <string name="alarm_simple_end"></string>
+    <string name="alarm_simple_when">%1$s kursi</string>
+    <string name="alarm_template_a11y">Signal yaratish: %1$s</string>
+    <string name="alarm_template_a11y_down">Joriy kursdan minus %1$s foizda signal yaratish</string>
+    <string name="alarm_template_a11y_up">Joriy kursdan plyus %1$s foizda signal yaratish</string>
+    <string name="alarm_template_from_now">hozirgidan</string>
+    <string name="alarm_template_volume">Hajm ×%1$s</string>
+    <string name="alarm_templates_title">Tezkor signallar</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">Kurs yuqori</string>
+    <string name="alarm_condition_below">Kurs past</string>
+    <string name="alarm_condition_down_percent">Pasayishi</string>
+    <string name="alarm_condition_funding_above">Funding yuqori</string>
+    <string name="alarm_condition_funding_below">Funding past</string>
+    <string name="alarm_condition_move_percent">Harakati</string>
+    <string name="alarm_condition_near_high">Choʻqqiga yaqin</string>
+    <string name="alarm_condition_near_low">Tubga yaqin</string>
+    <string name="alarm_condition_oi_down">Ochiq pozitsiyalar kamaydi</string>
+    <string name="alarm_condition_oi_up">Ochiq pozitsiyalar oshdi</string>
+    <string name="alarm_condition_up_percent">Oshishi</string>
+    <string name="alarm_condition_volume_spike">Hajm sakrashi</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">%1$s kursi %2$s dan oshganda xabar bering.</string>
+    <string name="alarm_sentence_below">%1$s kursi %2$s dan tushganda xabar bering.</string>
+    <string name="alarm_sentence_down_percent">%1$s kursi saqlangan paytdagi (yoki oxirgi signaldagi) kursdan %2$s pasayganda xabar bering.</string>
+    <string name="alarm_sentence_funding_above">%1$s fundingi %2$s dan oshganda xabar bering.</string>
+    <string name="alarm_sentence_funding_below">%1$s fundingi %2$s dan tushganda xabar bering.</string>
+    <string name="alarm_sentence_incomplete">Signalni gap shaklida koʻrish uchun qiymat kiriting.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">%1$s kursi %3$d soat ichida %2$s oʻzgarganda xabar bering.</item>
+        <item quantity="other">%1$s kursi %3$d soat ichida %2$s oʻzgarganda xabar bering.</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">%1$s kursi oʻzining %3$s darajasidan koʻpi bilan %2$s past boʻlganda xabar bering.</string>
+    <string name="alarm_sentence_near_low">%1$s kursi oʻzining %3$s darajasidan koʻpi bilan %2$s yuqori boʻlganda xabar bering.</string>
+    <string name="alarm_sentence_new_extreme">%1$s yangi %2$s qayd etganda xabar bering.</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">%1$s ochiq pozitsiyalari %3$d soat ichida %2$s kamayganda xabar bering.</item>
+        <item quantity="other">%1$s ochiq pozitsiyalari %3$d soat ichida %2$s kamayganda xabar bering.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">%1$s ochiq pozitsiyalari %3$d soat ichida %2$s oshganda xabar bering.</item>
+        <item quantity="other">%1$s ochiq pozitsiyalari %3$d soat ichida %2$s oshganda xabar bering.</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">%1$s kursi saqlangan paytdagi (yoki oxirgi signaldagi) kursdan %2$s oshganda xabar bering.</string>
+    <string name="alarm_sentence_volume">%1$s savdo hajmi odatdagidan %2$s barobar oshganda xabar bering.</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">30 kunlik choʻqqi</string>
+    <string name="alarm_near_extreme_high_365">1 yillik choʻqqi</string>
+    <string name="alarm_near_extreme_high_90">90 kunlik choʻqqi</string>
+    <string name="alarm_near_extreme_low_30">30 kunlik tub</string>
+    <string name="alarm_near_extreme_low_365">1 yillik tub</string>
+    <string name="alarm_near_extreme_low_90">90 kunlik tub</string>
+    <string name="alarm_near_field_distance">Masofa</string>
+    <string name="alarm_near_hint">Yangi choʻqqi yoki tub qayd etilganda ham xabar beradi. Kunlik shamlarga asoslanadi, har 6 soatda yangilanadi.</string>
+    <string name="alarm_near_new_only">Faqat yangi choʻqqi yoki tublar</string>
+    <string name="alarm_near_notification_high">%1$s oʻzining %3$s darajasidan %2$s past (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s oʻzining %3$s darajasidan %2$s yuqori (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">%2$s uchun yangi %1$s: %3$s (oldingisi %4$s)</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d kun</item>
+        <item quantity="other">%1$d kun</item>
+    </plurals>
+    <string name="alarm_near_window_label">Davr</string>
+    <string name="alarm_near_window_year">1 yil</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">8 soatlik funding stavkasi. Boshqa intervalli kontraktlar qayta hisoblanadi (1 soat × 8, 4 soat × 2); fyuchers kartasi qayta hisoblangan qiymatni koʻrsatadi. Interval nomaʼlum boʻlsa, signal tekshirmaydi. Manfiy qiymat – shortlar longlarga toʻlaydi. ± ishorani almashtiradi.</string>
+    <string name="alarm_funding_sign_a11y">Ishorani almashtirish</string>
+    <string name="alarm_oi_hint">Ochiq pozitsiyalarni shuncha soat oldin saqlangan qiymat bilan solishtiradi. Yangi signal ilova shuncha vaqt maʼlumot yiqqandan keyingina xabar beradi; koʻpi bilan har 5 daqiqada tekshiriladi.</string>
+    <string name="alarm_volume_factor_label">Oxirgi soat hajmi odatdagiga nisbatan</string>
+    <string name="alarm_volume_hint">Hajm maʼlumotlari Binance’dan olinadi — u yerda boʻlmagan juftliklar hech qachon ishga tushmaydi.</string>
+    <string name="alarm_volume_zero_hours_hint">Savdosiz soatlar nol hajm hisoblanadi, shuning uchun kam savdoli juftliklarda oddiy soat gʻayrioddiy koʻrinishi mumkin.</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">Signal faol</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">Signal saqlandi: %1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">Bildirishnomalar oʻchiq</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">«%1$s» boʻlmasa, qurilma tinch turganda Android notekis tekshiradi – baʼzan faqat bir necha soatdan keyin. U bilan taxminan har 15 daqiqada.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Ilova yopiq boʻlsa, iOS koʻpincha 15 daqiqadan kechroq, baʼzan faqat ilovani keyingi ochganingizda tekshiradi. Qisqa sakrashlar oʻtkazib yuborilishi mumkin.</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">Signallar qachon tekshiriladi</string>
+    <string name="alarm_timing_where">Kurslar qanchalik tez-tez yangilanishini %1$s boʻlimida oʻzgartiring.</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">Ovozsiz (faqat bildirishnoma)</string>
+    <string name="alarm_signal_sound">Faqat ovoz</string>
+    <string name="alarm_signal_sound_vibrate">Ovoz va tebranish</string>
+    <string name="alarm_signal_system">Tizim</string>
+    <string name="alarm_signal_vibrate">Faqat tebranish</string>
+    <string name="alarm_test">Sinov signali</string>
+    <string name="alarm_test_action">Sinash</string>
+    <string name="alarm_test_denied">Crypto Checker uchun bildirishnomalar oʻchirilgan.</string>
+    <string name="alarm_test_hint">Ovoz, tebranish va nutq sozlamalaringiz bilan namuna signal yuboradi.</string>
+    <string name="alarm_test_open_settings">Sozlamalarni ochish</string>
+    <string name="alarm_test_quiet">Hozir sokin soatlar yoqiq: haqiqiy signallar ular tugaguncha kutib, keyin ovoz bilan keladi.</string>
+    <string name="alarm_test_text">Signal shunday koʻrinadi va eshitiladi.</string>
+    <string name="alarm_test_title">Sinov: Crypto Checker signali</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">Ovoz yoqiq</string>
+    <string name="alarm_a11y_speak_on">Nutq yoqiq</string>
+    <string name="alarm_unchecked_no_candles">Tekshirib boʻlmadi (sham maʼlumotlari yoʻq)</string>
+    <string name="alarm_unchecked_no_rate">Tekshirib boʻlmadi (valyuta kursi yoʻq)</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">Bildirishnomalar oʻchiq – bu signal sizga yetib bormaydi</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">Signal yoʻq – likvidlik past</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">Joriy kurs kutilmoqda</string>
+    <string name="alarm_enter_amount">Qiymat kiriting</string>
+    <string name="alarm_editor_more">Qoʻshimcha</string>
+    <string name="alarm_editor_more_summary">Tezkor signallar, boshqa shartlar, ovoz va nutq</string>
+    <string name="alarm_reliability_storage_no_key">Fondagi signallar toʻxtatildi – kuzatuv roʻyxati saqlanmadi</string>
+    <string name="alarms_limit_reached">Bir juftlikda koʻpi bilan %1$s ta signal boʻlishi mumkin.</string>
+    <string name="alarms_reference_rate_hint">YeMB maʼlumotnoma kurslari kuniga faqat bir marta belgilanadi – ular uchun signallar yoʻq.</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">Pasayish 100 foizdan kam boʻlishi kerak.</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">Chegara yaroqsiz – tuzating</string>
+
+    <string name="alarm_last_checked">Oxirgi tekshiruv %1$s</string>
+</resources>

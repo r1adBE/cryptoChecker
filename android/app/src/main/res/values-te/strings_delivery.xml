@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">అలర్ట్‌లు చేరేలా చూసుకోండి</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">సరే</string>
+    <string name="delivery_state_warn">దీన్ని తనిఖీ చేయండి</string>
+    <string name="delivery_state_info">గమనిక</string>
+    <string name="delivery_allowed">అనుమతించబడింది</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">నోటిఫికేషన్‌లు</string>
+    <string name="delivery_notifications_off">ఆఫ్ – అలర్ట్‌లు చేరవు</string>
+    <string name="delivery_notifications_not_asked">ఇంకా అనుమతించలేదు</string>
+    <string name="delivery_channel">అలర్ట్ ఛానెల్</string>
+    <string name="delivery_channel_high">అధిక ప్రాధాన్యత – స్క్రీన్‌పై కనిపిస్తుంది</string>
+    <string name="delivery_channel_low">తక్కువ ప్రాధాన్యత – అలర్ట్‌లు జాబితాలో నిశ్శబ్దంగా మాత్రమే కనిపిస్తాయి</string>
+    <string name="delivery_channel_off">ఆఫ్ చేయబడింది – అలర్ట్‌లు చేరవు</string>
+    <string name="delivery_exact_on">ఆన్ – సుమారు ప్రతి 15 నిమిషాలకు</string>
+    <string name="delivery_exact_off">ఆఫ్ – Android క్రమరహితంగా తనిఖీ చేస్తుంది</string>
+    <string name="delivery_battery">బ్యాటరీ ఆప్టిమైజేషన్</string>
+    <string name="delivery_battery_unrestricted">పరిమితి లేదు</string>
+    <string name="delivery_battery_optimized">ఆప్టిమైజ్ చేయబడింది – Android తనిఖీలను ఆలస్యం చేయవచ్చు. యాప్ మినహాయింపు అడగదు; యాప్ బ్యాటరీ సెట్టింగ్‌లలో దీన్ని మార్చవచ్చు.</string>
+    <string name="delivery_background">బ్యాక్‌గ్రౌండ్ వినియోగం</string>
+    <string name="delivery_background_restricted">పరిమితం – Android బ్యాక్‌గ్రౌండ్ తనిఖీలను ఆపివేస్తుంది</string>
+    <string name="delivery_dnd">అంతరాయం కలిగించవద్దు</string>
+    <string name="delivery_dnd_on">ఆన్ – అలర్ట్‌లు శబ్దం లేకుండా రావచ్చు</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">%1$s వరకు యాక్టివ్ – పెండింగ్ అలర్ట్‌లు అప్పటి వరకు వేచి ఉంటాయి</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – ఈ సమయంలో పెండింగ్ అలర్ట్‌లు వేచి ఉంటాయి</string>
+    <string name="delivery_last_check">చివరి బ్యాక్‌గ్రౌండ్ తనిఖీ</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – 6 గంటల కంటే ముందు</string>
+    <string name="delivery_last_check_never">ఇంకా లేదు</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">అనుమతించు</string>
+    <string name="delivery_action_change">మార్చు</string>
+    <string name="delivery_action_show">చూపు</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">బ్యానర్‌లు, శబ్దం</string>
+    <string name="delivery_alert_off">బ్యానర్‌లు ఆఫ్ – అలర్ట్‌లు నోటిఫికేషన్ సెంటర్‌లో మాత్రమే కనిపిస్తాయి</string>
+    <string name="delivery_sound_off">శబ్దం ఆఫ్ – అలర్ట్‌లు నిశ్శబ్దంగా వస్తాయి</string>
+    <string name="delivery_time_sensitive">సమయ సున్నిత నోటిఫికేషన్‌లు</string>
+    <string name="delivery_time_sensitive_off">ఆఫ్ – ఫోకస్ అలర్ట్‌లను ఆపి ఉంచవచ్చు</string>
+    <string name="delivery_background_refresh">బ్యాక్‌గ్రౌండ్ యాప్ రిఫ్రెష్</string>
+    <string name="delivery_low_power">తక్కువ పవర్ మోడ్</string>
+    <string name="delivery_swipe_away">యాప్‌ను స్వైప్ చేసి మూసివేశారా?</string>
+    <string name="delivery_swipe_away_note">యాప్ స్విచర్‌లో యాప్‌ను స్వైప్ చేసి మూసివేస్తే, మీరు దాన్ని మళ్లీ తెరిచే వరకు iOS బ్యాక్‌గ్రౌండ్ తనిఖీలను ఆపివేస్తుంది.</string>
+    <string name="delivery_live_activity">లైవ్ యాక్టివిటీ</string>
+    <string name="delivery_live_activity_note">లాక్ స్క్రీన్‌పై ధరను చూపుతుంది, కానీ యాప్ తనిఖీ చేసినప్పుడు మాత్రమే అప్‌డేట్ అవుతుంది – దీని వల్ల అలర్ట్‌లు తరచుగా తనిఖీ కావు.</string>
+
+    <string name="alarm_first_check">అలర్ట్‌లు చేరుతున్నాయో తనిఖీ చేయండి</string>
+
+    <string name="oem_battery_title">తయారీదారు బ్యాటరీ సేవర్</string>
+    <string name="oem_battery_xiaomi">Xiaomi యాప్‌ను పూర్తిగా ఆపివేయవచ్చు – అప్పుడు అలర్ట్‌లు రావు. “ఆటోస్టార్ట్”ను ఆన్ చేసి, బ్యాటరీ సేవర్‌ను “పరిమితులు లేవు”కు సెట్ చేయండి.</string>
+    <string name="oem_battery_samsung">Samsung యాప్‌ను డీప్ స్లీప్‌లో ఉంచవచ్చు – అప్పుడు అలర్ట్‌లు రావు. బ్యాటరీ › బ్యాక్‌గ్రౌండ్ వినియోగ పరిమితులు కింద, దాన్ని “ఎప్పుడూ నిద్రపోని యాప్‌లు”కు జోడించండి.</string>
+    <string name="oem_battery_huawei">Huawei/Honor యాప్‌ను ఆపివేయవచ్చు – అప్పుడు అలర్ట్‌లు రావు. బ్యాటరీ › యాప్ లాంచ్ కింద, “మాన్యువల్‌గా నిర్వహించు” ఎంచుకుని అన్ని ఆప్షన్‌లను అనుమతించండి.</string>
+    <string name="oem_battery_oneplus">OnePlus యాప్‌ను ఆపివేయవచ్చు – అప్పుడు అలర్ట్‌లు రావు. “ఆటో-లాంచ్”ను, బ్యాటరీ వినియోగం కింద బ్యాక్‌గ్రౌండ్ యాక్టివిటీని అనుమతించండి.</string>
+    <string name="oem_battery_oppo">Oppo/Realme యాప్‌ను ఆపివేయవచ్చు – అప్పుడు అలర్ట్‌లు రావు. “ఆటో లాంచ్”ను, బ్యాటరీ వినియోగం కింద బ్యాక్‌గ్రౌండ్ యాక్టివిటీని అనుమతించండి.</string>
+    <string name="oem_battery_vivo">Vivo యాప్‌ను ఆపివేయవచ్చు – అప్పుడు అలర్ట్‌లు రావు. “ఆటోస్టార్ట్”ను, బ్యాటరీ కింద అధిక బ్యాక్‌గ్రౌండ్ పవర్ వినియోగాన్ని అనుమతించండి.</string>
+    <string name="alarm_reliability_stale">చివరి తనిఖీ %1$s – అలర్ట్‌లు ఆలస్యం కావచ్చు</string>
+    <string name="alarm_reliability_never">అలర్ట్‌లు ఆన్ – ఇంకా బ్యాక్‌గ్రౌండ్ తనిఖీ జరగలేదు</string>
+    <string name="alarm_reliability_notifications_off">నోటిఫికేషన్‌లు ఆఫ్ – అలర్ట్‌లు చేరవు</string>
+    <string name="alarm_reliability_battery">బ్యాటరీ ఆదా అలర్ట్ తనిఖీలను ఆపివేయవచ్చు</string>
+    <string name="alarm_reliability_background_refresh">బ్యాక్‌గ్రౌండ్ యాప్ రిఫ్రెష్ ఆఫ్ – అలర్ట్‌లు రాకపోవచ్చు</string>
+</resources>

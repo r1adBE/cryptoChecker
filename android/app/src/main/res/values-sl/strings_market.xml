@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="one">pred %d min</item>
+        <item quantity="two">pred %d min</item>
+        <item quantity="few">pred %d min</item>
+        <item quantity="other">pred %d min</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">danes %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed, kazalniki Bitcoina, dominanca, halving</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">Več tržnih podatkov</string>
+    <string name="market_phase_trend_failed">Podatki o tečaju niso na voljo</string>
+    <string name="market_plain_direction_down_clear">Skupna vrednost vseh kriptovalut je izrazito nižja kot pred 24 urami (%1$s).</string>
+    <string name="market_plain_direction_down_slight">Skupna vrednost vseh kriptovalut je nekoliko nižja kot pred 24 urami (%1$s).</string>
+    <string name="market_plain_direction_flat">Skupna vrednost vseh kriptovalut se v 24 urah skoraj ni spremenila (%1$s).</string>
+    <string name="market_plain_direction_up_clear">Skupna vrednost vseh kriptovalut je izrazito višja kot pred 24 urami (%1$s).</string>
+    <string name="market_plain_direction_up_slight">Skupna vrednost vseh kriptovalut je nekoliko višja kot pred 24 urami (%1$s).</string>
+    <string name="market_plain_footnote">Opisuje zadnjih 24 ur – ni napoved, ni naložbeni nasvet.</string>
+    <string name="market_plain_mood_extreme_fear">Vlagatelji so trenutno zelo prestrašeni: indeks razpoloženja (Fear &amp; Greed) je na %1$d od 100.</string>
+    <string name="market_plain_mood_extreme_greed">Vlagatelji so trenutno zelo pohlepni: indeks razpoloženja (Fear &amp; Greed) je na %1$d od 100.</string>
+    <string name="market_plain_mood_fear">Vlagatelji so precej prestrašeni: indeks razpoloženja (Fear &amp; Greed) je na %1$d od 100.</string>
+    <string name="market_plain_mood_greed">Vlagatelji so precej pohlepni: indeks razpoloženja (Fear &amp; Greed) je na %1$d od 100.</string>
+    <string name="market_plain_mood_neutral">Razpoloženje vlagateljev je uravnoteženo: indeks razpoloženja (Fear &amp; Greed) je na %1$d od 100.</string>
+    <string name="market_plain_standout_above_btc">Izstopa %1$s: %2$s v 24 urah, precej nad Bitcoinom (%3$s).</string>
+    <string name="market_plain_standout_against_btc">Izstopa %1$s: %2$s v 24 urah, medtem ko je šel Bitcoin v drugo smer (%3$s).</string>
+    <string name="market_plain_standout_below_btc">Izstopa %1$s: %2$s v 24 urah, precej pod Bitcoinom (%3$s).</string>
+    <string name="market_plain_standout_futures_down">Izstopa %1$s: nenavadno veliko trgovcev s futures stavi na padec tečajev.</string>
+    <string name="market_plain_standout_futures_up">Izstopa %1$s: nenavadno veliko trgovcev s futures stavi na rast tečajev.</string>
+    <string name="market_plain_standout_quiet">Trenutno ne izstopa noben posamezen kovanec.</string>
+    <string name="market_plain_standout_volume">Izstopa %1$s: približno %2$s-krat več trgovanja kot običajno.</string>
+    <string name="market_plain_title">Na kratko</string>
+    <string name="market_section_collapse">Skrij %1$s</string>
+    <string name="market_section_context">Razpoloženje &amp; cikel</string>
+    <string name="market_section_data">Tržni podatki</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">Prikaži %1$s</string>
+    <string name="market_section_now">Zdaj</string>
+    <string name="market_source">Podatki: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="exchange_unavailable_error">Borza ni na voljo</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">Informacije: %1$s</string>
+    <string name="market_info_alt_season_source">Dnevni tečaji: Binance · na novo izračunano približno vsake 3 ure</string>
+    <string name="market_info_alt_season_what">Šteje, koliko od približno 20 velikih altcoinov (npr. Ethereum, Solana, XRP) se je v zadnjih 90 dneh odrezalo bolje od Bitcoina. Vrednost je njihov delež od 0 do 100.</string>
+    <string name="market_info_coin_source">Tečaji: Binance ali Bybit · na novo naloženo približno vsakih 15 minut</string>
+    <string name="market_info_dominance_how">Če dominanca raste, se Bitcoin odreže bolje od preostalega trga; če pada, drugi kovanci pridobivajo težo. Šteti so tudi stablecoini: če njihova vrednost raste, delež Bitcoina pada, tudi ko tečaj Bitcoina ostane enak.</string>
+    <string name="market_info_dominance_source">Vir: CoinGecko · na novo naloženo približno vsakih 30 minut</string>
+    <string name="market_info_dominance_what">Delež Bitcoina v skupni vrednosti vseh kriptovalut (tržna kapitalizacija). Pod njim je delež Ethereuma.</string>
+    <string name="market_info_fear_greed_how">Pod 25 pomeni izjemen strah, nad 75 izjemen pohlep, okoli 50 nevtralno. Razširjena kartica prikaže vrednosti od včeraj, pred tednom in pred mesecem. Ni signal za nakup ali prodajo.</string>
+    <string name="market_info_fear_greed_source">Vir: alternative.me · nova vrednost enkrat na dan</string>
+    <string name="market_info_fear_greed_what">Indeks razpoloženja za kriptotrg od 0 do 100. alternative.me ga izračuna iz več podatkov, med drugim iz nihanj tečajev, volumna trgovanja, družbenih omrežij in dominance Bitcoina.</string>
+    <string name="market_info_gas_how">Višje vrednosti pomenijo, da je omrežje obremenjeno in prenosi stanejo več. Počasi, običajno in hitro so provizije za poznejšo ali hitrejšo potrditev. Razširjena kartica prikaže približen strošek preprostega prenosa.</string>
+    <string name="market_info_gas_source">Javna vozlišča RPC, mempool.space · na novo naloženo vsako minuto</string>
+    <string name="market_info_gas_what">Koliko trenutno stane transakcija v posameznem omrežju. Pri Ethereumu in podobnih omrežjih v gwei (milijardinka ETH na enoto gasa), pri Bitcoinu v sat/vB (satoshiji na virtualni bajt transakcije).</string>
+    <string name="market_info_halving_source">Datum: iz višine bloka in povprečnega časa bloka (mempool.space), sicer po koledarju · potek tečaja: Coin Metrics, Binance, na novo naloženo vsakih 12 ur</string>
+    <string name="market_info_halving_what">Ob halvingu se nagrada, ki jo rudarji prejmejo za nov blok Bitcoina, prepolovi. To se zgodi vsakih 210.000 blokov, približno vsaka štiri leta. Nato na dan nastane le še pol toliko novih bitcoinov.</string>
+    <string name="market_info_how">Kako brati</string>
+    <string name="market_info_macro_how">Opomba se prikaže samo, če je tak datum danes ali jutri. Okoli objave tečaji pogosto nihajo bolj kot običajno. Aplikacija prikaže samo datum, ne pa samih številk.</string>
+    <string name="market_info_macro_source">Koledar s spletne strani aplikacije · naložen enkrat na dan</string>
+    <string name="market_info_macro_what">Datumi pomembnih ameriških gospodarskih podatkov: inflacija (CPI, PCE), cene proizvajalcev (PPI), poročilo o trgu dela in odločitve ameriške centralne banke o obrestnih merah. Takšne številke pogosto premikajo tudi tečaje kriptovalut.</string>
+    <string name="market_info_no_advice">Ni naložbeni nasvet.</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · tečaji vsako uro, vrednosti on-chain na novo naložene vsakih 12 ur</string>
+    <string name="market_info_pulse_how">Naslov pove smer, razširjena kartica pokaže podrobnosti. Široko gibanje pomeni, da se večina velikih kovancev giblje v isto smer. Optimistično razpoloženje vzvoda pomeni, da veliko trgovcev z vzvodom stavi na rast tečajev, merjeno s stopnjo fundinga futures za Bitcoin. Trenutni posnetek, ne napoved.</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · na novo naloženo približno vsakih 5 minut</string>
+    <string name="market_info_pulse_what">Kratek povzetek trga v zadnjih 24 urah: kako se gibljejo Bitcoin, Ethereum in Solana, koliko največjih kovancev raste ali pada, koliko Bitcoina se trenutno trguje in kakšno je razpoloženje vzvoda (merjeno s stopnjo fundinga futures za Bitcoin).</string>
+    <string name="market_info_totals_how">Desno je sprememba skupne vrednosti v 24 urah. Visok volumen pomeni, da se veliko trguje – ne pove pa, v katero smer. Prikazano v valuti za pretvorbo, kjer je mogoče, sicer v ameriških dolarjih.</string>
+    <string name="market_info_totals_source">Vsi kovanci · CoinGecko · na novo naloženo približno vsakih 30 minut</string>
+    <string name="market_info_totals_what">Skupna vrednost vseh kriptovalut (tržna kapitalizacija: tečaj krat količina v obtoku, seštevek vseh kovancev) in volumen trgovanja v zadnjih 24 urah.</string>
+    <string name="market_info_unusual_how">Pri vsakem kovancu je njegovo najbolj opazno opažanje, desno sprememba v 24 urah. Volumen 2× pomeni dvakrat večji promet kot običajno. Opazno ne pomeni ne dobro ne slabo.</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · na novo naloženo približno vsakih 10 minut</string>
+    <string name="market_info_unusual_what">Do pet kovancev izmed približno 30 največjih (brez stablecoinov), ki se danes obnašajo nenavadno: precej močneje ali šibkeje od Bitcoina, proti smeri trga, z nenavadno visokim volumnom trgovanja ali z opazno stopnjo fundinga.</string>
+    <string name="market_info_what">Kaj je to?</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">Tržna kapitalizacija</string>
+    <string name="market_cap_source">Vsi kovanci · CoinGecko</string>
+    <string name="market_cap_title">Kriptotrg</string>
+    <string name="market_volume_label">Volumen 24 h</string>
+
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">Podrobnosti</string>
+    <string name="pulse_disclaimer">Ni napoved · Ni naložbeni nasvet</string>
+    <string name="pulse_less">Prikaži manj</string>
+    <string name="pulse_now_title">Kripto utrip</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">Sprememba v 24 urah</string>
+    <string name="pulse_section_factors">Dejavniki</string>
+    <string name="pulse_section_market">Trg danes</string>
+    <string name="pulse_unavailable">Tržni podatki trenutno niso na voljo</string>
+    <string name="pulse_updated">Stanje %1$s</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">Miren trg</string>
+    <string name="pulse_headline_down">Široka šibkost</string>
+    <string name="pulse_headline_mixed">Mešana slika</string>
+    <string name="pulse_headline_up">Široka moč</string>
+    <string name="pulse_lead_alts_stronger">Altcoini so močnejši od Bitcoina.</string>
+    <string name="pulse_lead_broad_down">Trg široko pada.</string>
+    <string name="pulse_lead_broad_up">Trg široko raste.</string>
+    <string name="pulse_lead_btc_leads">Bitcoin raste najbolj.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin je močnejši od altcoinov.</string>
+    <string name="pulse_lead_calm">Trg se skoraj ne premika.</string>
+    <string name="pulse_lead_drift_down">Trg rahlo pada.</string>
+    <string name="pulse_lead_drift_up">Trg rahlo raste.</string>
+    <string name="pulse_lead_mixed">Veliki kovanci se razhajajo.</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">Razpoloženje vzvoda optimistično.</string>
+    <string name="pulse_detail_fund_negative">Razpoloženje vzvoda pesimistično.</string>
+    <string name="pulse_detail_fund_neutral">Razpoloženje vzvoda nevtralno.</string>
+    <string name="pulse_detail_vol_above">Volumen %1$s nad običajnim.</string>
+    <string name="pulse_detail_vol_above_fund_high">Volumen %1$s nad običajnim, razpoloženje vzvoda optimistično.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Volumen %1$s nad običajnim, razpoloženje vzvoda pesimistično.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Volumen %1$s nad običajnim, razpoloženje vzvoda nevtralno.</string>
+    <string name="pulse_detail_vol_below">Volumen %1$s pod običajnim.</string>
+    <string name="pulse_detail_vol_below_fund_high">Volumen %1$s pod običajnim, razpoloženje vzvoda optimistično.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Volumen %1$s pod običajnim, razpoloženje vzvoda pesimistično.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Volumen %1$s pod običajnim, razpoloženje vzvoda nevtralno.</string>
+    <string name="pulse_detail_vol_normal">Volumen običajen.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Volumen običajen, razpoloženje vzvoda optimistično.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Volumen običajen, razpoloženje vzvoda pesimistično.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Volumen običajen, razpoloženje vzvoda nevtralno.</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">Top %1$d: največji kovanci po tržni vrednosti, brez stablecoinov; sprememba v 24 urah (CoinGecko).</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_note_broad_down">Široka razprodaja: večina največjih kovancev pada.</string>
+    <string name="pulse_breadth_note_broad_up">Široko gibanje: večina največjih kovancev raste.</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin pada, a večina drugih velikih kovancev se drži.</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin raste, a večina drugih velikih kovancev mu ne sledi.</string>
+    <string name="pulse_breadth_spoken">Top %1$d: %2$d raste, %3$d pada</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">Altcoini in Bitcoin se gibljejo enako</string>
+    <string name="pulse_alts_stronger">Altcoini močnejši od Bitcoina</string>
+    <string name="pulse_alts_weaker">Bitcoin močnejši od altcoinov</string>
+    <string name="pulse_chip_funding_high">Razpoloženje vzvoda optimistično</string>
+    <string name="pulse_chip_funding_negative">Razpoloženje vzvoda pesimistično</string>
+
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">Prikaži tečaj in dejanja</string>
+    <string name="unusual_fact_against">Giblje se proti trgu</string>
+    <string name="unusual_fact_funding_high">Funding visok (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Funding negativen (%1$s)</string>
+    <string name="unusual_fact_stronger">Giblje se precej močneje od BTC</string>
+    <string name="unusual_fact_volume">Volumen %1$s× običajnega</string>
+    <string name="unusual_fact_weaker">Giblje se precej šibkeje od BTC</string>
+    <string name="unusual_nothing">Danes nič opaznega</string>
+    <string name="unusual_source">Približno 30 največjih kovancev brez stablecoinov · Binance, CoinGecko</string>
+    <string name="unusual_title">Opazno</string>
+
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">Opazno</string>
+    <string name="activity_indicator">Opazno</string>
+    <string name="activity_sensitivity_less">Manj</string>
+    <string name="activity_sensitivity_more">Več</string>
+    <string name="activity_sensitivity_normal">Običajno</string>
+    <string name="activity_signal_funding_long">Funding %1$s – veliko longov z vzvodom</string>
+    <string name="activity_signal_funding_short">Funding %1$s – veliko shortov</string>
+    <string name="activity_signal_open_interest">Open interest %1$s v %2$d min</string>
+    <string name="activity_signal_open_interest_no_time">Open interest %1$s</string>
+    <string name="activity_signal_price_move">Nenavadno gibanje: %1$s v eni uri (%2$s× običajno)</string>
+    <string name="activity_signal_volume">Volumen %1$s× običajnega v zadnji uri</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%1$d od %2$d velikih altcoinov premaga Bitcoin v 90 dneh</item>
+        <item quantity="two">%1$d od %2$d velikih altcoinov premagata Bitcoin v 90 dneh</item>
+        <item quantity="few">%1$d od %2$d velikih altcoinov premagajo Bitcoin v 90 dneh</item>
+        <item quantity="other">%1$d od %2$d velikih altcoinov premaga Bitcoin v 90 dneh</item>
+    </plurals>
+    <string name="insights_chart_axis">Leta od halvinga</string>
+    <string name="insights_chart_hint">Tečaj kot večkratnik tečaja na dan halvinga (logaritemsko). Pretekli cikli so vzorec, ne napoved.</string>
+    <string name="insights_cycle_chart">Cikli od halvinga</string>
+    <string name="insights_dominance_eth">ETH %1$s celotnega trga</string>
+    <string name="insights_dominance_title">Dominanca Bitcoina</string>
+    <string name="insights_fng_history">Včeraj %1$s · pred tednom %2$s · pred mesecem %3$s</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="insights_halving_title">Halving Bitcoina</string>
+    <string name="insights_source_dominance">Vir: CoinGecko, Binance</string>
+    <string name="insights_source_fng">Vir: alternative.me</string>
+    <string name="insights_source_history">Vir: Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">Izjemen strah</string>
+    <string name="fng_extreme_greed">Izjemen pohlep</string>
+    <string name="fng_fear">Strah</string>
+    <string name="fng_greed">Pohlep</string>
+    <string name="fng_neutral">Nevtralno</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">Stanje %1$s · posodabljanje …</string>
+    <string name="cycle_from_top">%1$s od vrha</string>
+    <string name="cycle_marker_bottom">Dno %1$s</string>
+    <string name="cycle_marker_double_bottom">Dvojno dno %1$s</string>
+    <string name="cycle_marker_double_top">Dvojni vrh %1$s</string>
+    <string name="cycle_marker_high_so_far">Dosedanji vrh</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">Vrh %1$s</string>
+    <string name="cycle_since_halving">%1$s od halvinga</string>
+    <string name="halving_estimate_text">Naslednji halving po izračunu okoli %1$s: še %2$s blokov pri povprečno %3$s min na blok (tekoče obdobje težavnosti). Projekcija, ne obljuba – čas bloka niha.</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">Alarm: %1$s</string>
+    <string name="gas_slow_fast">Počasi %1$s · Hitro %2$s</string>
+    <string name="gas_source">Javna vozlišča RPC in mempool.space · strošek preprostega prenosa, pri L2 brez deleža L1</string>
+    <string name="gas_title">Omrežnine</string>
+    <string name="gas_transfer_cost">Prenos ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">Podatki o inflaciji v ZDA (CPI)</string>
+    <string name="macro_fomc">Odločitev Fed o obrestni meri</string>
+    <string name="macro_hint_list">%1$s – na takšne dni trgi pogosto bolj nihajo.</string>
+    <string name="macro_hint_today">Danes %1$s: %2$s – na takšne dni trgi pogosto bolj nihajo.</string>
+    <string name="macro_hint_today_list">Danes: %1$s – na takšne dni trgi pogosto bolj nihajo.</string>
+    <string name="macro_hint_tomorrow">Jutri %1$s: %2$s – na takšne dni trgi pogosto bolj nihajo.</string>
+    <string name="macro_hint_tomorrow_list">Jutri: %1$s – na takšne dni trgi pogosto bolj nihajo.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Danes %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Jutri %1$s %2$s</string>
+    <string name="macro_nfp">Poročilo o trgu dela v ZDA</string>
+    <string name="macro_pce">Cene potrošnje v ZDA (PCE)</string>
+    <string name="macro_ppi">Cene proizvajalcev v ZDA (PPI)</string>
+    <string name="macro_released_list">Objavljeno danes: %1$s.</string>
+    <string name="macro_released_one">Objavljeno danes ob %1$s: %2$s.</string>
+    <string name="macro_title">Gospodarski podatki</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">Kovanec</string>
+    <string name="coin_no_data">Za ta kovanec na Binance ali Bybit ni podatkov o tečaju.</string>
+    <string name="coin_price_only">Samo na podlagi tečaja – podatki on-chain (MVRV, Puell, hashrate) so prosto na voljo samo za Bitcoin.</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">Samo %1$d dan zgodovine tečaja – nekateri kazalniki manjkajo.</item>
+        <item quantity="two">Samo %1$d dneva zgodovine tečaja – nekateri kazalniki manjkajo.</item>
+        <item quantity="few">Samo %1$d dnevi zgodovine tečaja – nekateri kazalniki manjkajo.</item>
+        <item quantity="other">Samo %1$d dni zgodovine tečaja – nekateri kazalniki manjkajo.</item>
+    </plurals>
+    <string name="coin_title">Analiza kovanca</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">Podatki: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">Rastoči in padajoči 24 h</string>
+    <string name="movers_gainers">Rastoči</string>
+    <string name="movers_losers">Padajoči</string>
+    <string name="movers_no_gainers">Noben kovanec v 24 h ni zrasel</string>
+    <string name="movers_no_losers">Noben kovanec v 24 h ni padel</string>
+    <string name="movers_source">CoinGecko, 24 h, top 100 brez stablecoinov</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">Prikaži vse</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">Prikaži manj</string>
+</resources>

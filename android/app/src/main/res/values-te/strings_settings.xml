@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">అనుకూలం</string>
+    <string name="settings_group_general">సాధారణం</string>
+    <string name="settings_group_more">మరిన్ని</string>
+    <string name="settings_minutes">%1$d ని.</string>
+    <string name="settings_row_about">యాప్ గురించి</string>
+    <string name="settings_row_alarms">అలర్ట్‌లు</string>
+    <string name="settings_row_currency">కరెన్సీ</string>
+    <string name="settings_row_dated_futures">గడువు తేదీ ఉన్న ఫ్యూచర్స్</string>
+    <string name="settings_row_updates">ధర అప్‌డేట్‌లు</string>
+    <string name="settings_row_watchlist">వాచ్‌లిస్ట్</string>
+    <string name="settings_search_hint">సెట్టింగ్‌లలో వెతకండి</string>
+    <string name="settings_seconds">%1$d సె.</string>
+    <string name="settings_section_about">గురించి</string>
+    <string name="settings_section_appearance">రూపం</string>
+    <string name="settings_section_developer">డెవలపర్</string>
+    <string name="settings_section_language">భాష</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">ఆన్</string>
+    <string name="settings_title">సెట్టింగ్‌లు</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">అలర్ట్ మళ్లీ ట్రిగ్గర్ అయ్యే ముందు విరామ సమయం</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">అలర్ట్ సిగ్నల్</string>
+    <string name="settings_alarm_signal_open_system">సిస్టమ్ సెట్టింగ్‌లలో సర్దుబాటు చేయి</string>
+    <string name="settings_alarm_signal_system_hint">మీ ఫోన్ నోటిఫికేషన్ సెట్టింగ్‌లను అనుసరిస్తుంది.</string>
+    <string name="settings_alarm_sound">అలర్ట్ శబ్దం</string>
+    <string name="settings_alarm_sound_custom">అనుకూల శబ్దం</string>
+    <string name="settings_alarm_sound_default">డిఫాల్ట్ శబ్దం</string>
+    <string name="settings_alarm_sound_error">శబ్దాన్ని ఉపయోగించలేకపోయాం.</string>
+    <string name="settings_alarm_sound_file">మీ సొంత ఆడియో ఫైల్…</string>
+    <string name="settings_alarm_sound_reset">డిఫాల్ట్ శబ్దాన్ని ఉపయోగించు</string>
+    <string name="settings_alarm_sound_system">సిస్టమ్ శబ్దాన్ని ఎంచుకో…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">యాప్ ఐకాన్‌పై సంఖ్య</string>
+    <string name="settings_app_badge_hint">ఓపెన్‌గా ఉన్న అలర్ట్ నోటిఫికేషన్‌లను లెక్కిస్తుంది. సంఖ్య కనిపిస్తుందా లేక చుక్క కనిపిస్తుందా అనేది హోమ్ స్క్రీన్‌పై ఆధారపడి ఉంటుంది (ఉదా. Samsung: “సంఖ్యతో చూపు”).</string>
+    <string name="settings_exact_checks">సమయానికి తనిఖీ చేయి</string>
+    <string name="settings_exact_checks_grant">అలారాలు &amp; రిమైండర్‌లను అనుమతించు</string>
+    <string name="settings_exact_checks_hint">పరికరం నిష్క్రియంగా ఉన్నా కూడా Android సుమారు ప్రతి 15 నిమిషాలకు తనిఖీ చేస్తుంది. కొంచెం ఎక్కువ బ్యాటరీ వినియోగిస్తుంది.</string>
+    <string name="settings_exact_checks_nothing">యాక్టివ్ జతలు లేవు – తనిఖీ చేయడానికి ఏమీ లేదు.</string>
+    <string name="settings_exact_checks_permission_missing">అనుమతి లేదు – పరికరం విశ్రాంతిలో ఉన్నప్పుడు Android క్రమరహితంగా, కొన్నిసార్లు గంటల తర్వాతే తనిఖీ చేస్తుంది.</string>
+    <string name="settings_notification_change">ధర మారినప్పుడు మాత్రమే తెలియజేయి</string>
+    <string name="settings_notification_change_always">ఎల్లప్పుడూ</string>
+    <string name="settings_percent_invalid">0 నుండి 100 వరకు విలువను నమోదు చేయండి.</string>
+    <string name="settings_notification_change_hint">చివరి నోటిఫికేషన్ నుండి ధర కనీసం ఇంత కదిలిన తర్వాతే ధర నోటిఫికేషన్ కనిపిస్తుంది. డేటా లేనప్పుడు ఏమీ చూపబడదు. అలర్ట్‌లపై ప్రభావం ఉండదు.</string>
+    <string name="settings_ongoing_notifications">స్వైప్ చేసి తీసివేయలేరు</string>
+    <string name="settings_ongoing_notifications_hint">ధర నోటిఫికేషన్‌లను పిన్ చేసి ఉంచుతుంది.</string>
+    <string name="settings_price_notifications">ధర నోటిఫికేషన్‌లు</string>
+    <string name="settings_price_notifications_hint">ఎనేబుల్ చేసిన జతల ప్రస్తుత ధరను స్టేటస్ బార్‌లో చూపు.</string>
+    <string name="settings_price_pairs">జతలు</string>
+    <string name="settings_price_pairs_all_off">అన్నీ ఆఫ్</string>
+    <string name="settings_price_pairs_all_on">అన్నీ ఆన్</string>
+    <string name="settings_price_pairs_count">%2$dలో %1$d</string>
+    <string name="settings_price_pairs_empty">వాచ్‌లిస్ట్‌లో ఇంకా జతలు లేవు.</string>
+    <string name="settings_price_pairs_hint">ఏ జతలు నోటిఫికేషన్ బార్‌లో తమ ధరను చూపాలో ఎంచుకోండి.</string>
+    <string name="settings_quiet_hours">నిశ్శబ్ద సమయం</string>
+    <string name="settings_quiet_hours_from">నుండి</string>
+    <string name="settings_quiet_hours_hint">%1$s నుండి %2$s వరకు, అలర్ట్‌లు నిశ్శబ్ద సమయం ముగిసే వరకు వేచి ఉండి, ఆ తర్వాత శబ్దంతో మోగుతాయి. ఇతర నోటిఫికేషన్‌లు శబ్దం లేకుండా, స్పీచ్ లేకుండా వస్తాయి.</string>
+    <string name="settings_quiet_hours_to">వరకు</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">వ్యవధి</string>
+    <string name="settings_background_updates">బ్యాక్‌గ్రౌండ్ అప్‌డేట్‌లు</string>
+    <string name="settings_battery_hint">పరిమితం అంటే Android బ్యాక్‌గ్రౌండ్ అప్‌డేట్‌లను గంటల తరబడి ఆలస్యం చేయవచ్చు.</string>
+    <string name="settings_battery_ok">బ్యాటరీ వినియోగం: పరిమితి లేదు</string>
+    <string name="settings_battery_restricted">బ్యాటరీ వినియోగం: పరిమితం</string>
+    <string name="settings_check_runs_empty">ఇంకా తనిఖీలు నమోదు కాలేదు.</string>
+    <string name="settings_check_runs_honest_android">ఎప్పుడు తనిఖీ చేయాలో Android నిర్ణయిస్తుంది – అది నిజంగా ఎప్పుడు జరిగిందో ఇక్కడ చూడవచ్చు.</string>
+    <string name="settings_check_runs_honest_ios">ఎప్పుడు తనిఖీ చేయాలో iOS నిర్ణయిస్తుంది – అది నిజంగా ఎప్పుడు జరిగిందో ఇక్కడ చూడవచ్చు.</string>
+    <string name="settings_check_runs_title">ఇటీవలి తనిఖీలు</string>
+    <string name="settings_http_log">HTTP లాగ్‌ను చూపు</string>
+    <string name="settings_http_log_hint">“జతను జోడించు” పేజీ దిగువన ఎక్స్ఛేంజ్‌లకు రిక్వెస్ట్‌లను చూపుతుంది – ట్రబుల్‌షూటింగ్ కోసం.</string>
+    <string name="settings_live_service">తరచుగా అప్‌డేట్ చేయి</string>
+    <string name="settings_live_websocket">లైవ్ ధరలు</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">గమనించదగినవి: తెలియజేయి</string>
+    <string name="settings_activity_alerts_hint">ఒక్కో జతకు గంటకు గరిష్ఠంగా ఒకసారి: అసాధారణ ధర కదలికలు, వాల్యూమ్ ఆకస్మిక పెరుగుదలలు, ఫ్యూచర్స్ తీవ్రతలు (Binance డేటా).</string>
+    <string name="settings_activity_sensitivity">సున్నితత్వం</string>
+    <string name="settings_activity_sensitivity_hint">ఒక కాయిన్ ఎంత సులభంగా అసాధారణంగా పరిగణించబడుతుంది – వాచ్‌లిస్ట్ కార్డ్‌కు, మార్కెట్ అలర్ట్‌లకు ఒకటే. “తక్కువ”తో, కార్డ్ 3 బలమైనవాటిని మాత్రమే చూపుతుంది.</string>
+    <string name="settings_watchlist_activity_card">గమనించదగినవి: జాబితాలో చూపు</string>
+    <string name="settings_watchlist_activity_card_hint">గ్రూప్‌ల పక్కన ⚡ చిప్‌ను చూపుతుంది: ప్రస్తుతం ఏదైనా జరుగుతున్న జతలను మాత్రమే చూడటానికి దాన్ని నొక్కండి. దీని నోటిఫికేషన్‌లు మార్కెట్ అలర్ట్‌లు కింద సెట్ చేయబడతాయి.</string>
+    <string name="settings_watchlist_names">పేర్లను చూపు</string>
+    <string name="settings_watchlist_names_hint">జత కింద పేరు, ఉదా. Bitcoin లేదా NVIDIA. లోగో జాబితాలతో వస్తుంది, అన్ని కాయిన్‌లకు ఒకసారి లోడ్ అవుతుంది.</string>
+    <string name="settings_watchlist_sparkline">వాచ్‌లిస్ట్‌లో చిన్న చార్ట్</string>
+    <string name="settings_watchlist_sparkline_hint">ధర పక్కన 24 గంటల ట్రెండ్</string>
+    <string name="settings_watchlist_value_names">పేర్లు</string>
+    <string name="settings_watchlist_value_price_only">ధర మాత్రమే</string>
+    <string name="settings_watchlist_value_sparkline">చిన్న చార్ట్</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Alpha టోకెన్‌లతో సహా (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Alpha టోకెన్‌లు: Binance Alpha జాబితా నుండి ప్రారంభ దశ, ఎక్కువగా చిన్న ప్రాజెక్ట్‌లు – తరచుగా తక్కువగా ట్రేడ్ అవుతాయి, చాలా ఒడిదుడుకులు ఉంటాయి.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">టోకెన్‌లకు చెందినది. “TradFi మాత్రమే” ఎంచుకున్నప్పుడు అందుబాటులో ఉండదు; మీ వాచ్‌లిస్ట్‌లో ఇప్పటికే ఉన్న Alpha టోకెన్‌లు అలాగే ఉంటాయి.</string>
+    <string name="settings_asset_scope_both">టోకెన్‌లు, TradFi</string>
+    <string name="settings_asset_scope_both_hint">అన్నీ – క్రిప్టో, TradFi</string>
+    <string name="settings_asset_scope_hint">జతలను జోడించేటప్పుడు ఎంపిక, శోధన ఏ జతలను చూపాలో సెట్ చేస్తుంది. మీ వాచ్‌లిస్ట్‌లో ఇప్పటికే ఉన్న జతలు ఎల్లప్పుడూ ఉంటాయి.</string>
+    <string name="settings_asset_scope_title">టోకెన్‌లు &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">టోకెన్‌లు మాత్రమే</string>
+    <string name="settings_asset_scope_tokens_hint">క్రిప్టో: స్పాట్, పెర్పెచువల్‌లు</string>
+    <string name="settings_asset_scope_tradfi">TradFi మాత్రమే</string>
+    <string name="settings_asset_scope_tradfi_hint">స్టాక్‌లు, కమోడిటీలు, FXపై ఫ్యూచర్స్ – కాంట్రాక్ట్‌లు, టోకెన్‌లు కాదు</string>
+    <string name="settings_rolling_futures">త్రైమాసిక &amp; ఇతర గడువు తేదీ ఉన్న ఫ్యూచర్స్‌తో సహా</string>
+    <string name="settings_rolling_futures_hint">ఆఫ్: ఎక్స్ఛేంజ్ జాబితాలో లేని గడువు తేదీ ఉన్న ఫ్యూచర్స్ ఒక్కొక్కటిగా తనిఖీ చేయడానికి బదులుగా ఇకపై ట్రేడ్ కానివిగా గుర్తించబడతాయి. ప్రతి రిఫ్రెష్‌లో సమయం ఆదా అవుతుంది.</string>
+    <string name="settings_rolling_futures_qtly">త్రైమాసిక &amp; ఇతర గడువు తేదీ ఉన్న ఫ్యూచర్స్‌తో సహా (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">టోకెన్‌లకు చెందినది. “TradFi మాత్రమే” ఎంచుకున్నప్పుడు అందుబాటులో ఉండదు; మీ వాచ్‌లిస్ట్‌లో ఇప్పటికే ఉన్న గడువు తేదీ ఉన్న ఫ్యూచర్స్‌కు ఇంకా వర్తిస్తుంది.</string>
+    <string name="settings_tradfi_futures">స్టాక్‌లు, కమోడిటీలు, FX (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">జతను ఎంచుకునేటప్పుడు స్టాక్‌లు, బంగారం, ఇతర కమోడిటీలు, కరెన్సీలు, pre-IPO కంపెనీలపై ఫ్యూచర్స్‌ను కూడా చూపుతుంది. ఇవి కాంట్రాక్ట్‌లు, టోకెన్‌లు కాదు.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">యాక్సెంట్ రంగు</string>
+    <string name="settings_accent_hint">యాప్, విడ్జెట్‌లు, యాప్ ఐకాన్ కోసం రంగు. కొన్ని హోమ్ స్క్రీన్‌లు ఐకాన్ మారినప్పుడు దాన్ని తీసివేస్తాయి – అప్పుడు మళ్లీ జోడించండి.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">కాయిన్ లోగోలు</string>
+    <string name="settings_coin_logos_app">యాప్‌లో</string>
+    <string name="settings_coin_logos_app_hint">వాచ్‌లిస్ట్, తెరిచిన జత, మార్కెట్ కార్డ్‌లు</string>
+    <string name="settings_coin_logos_footer">లోగోలు CoinGecko నుండి, CoinGecko లిస్ట్ చేయని కాయిన్‌లకు (ఉదా. బంగారం, వెండి, స్టాక్‌లు) Binance నుండి వస్తాయి. యాప్ అన్ని లోగోలను ఒకేసారి లోడ్ చేసి ఈ పరికరంలో ఉంచుతుంది, కాబట్టి మీరు ఏ కాయిన్‌లను ఫాలో అవుతున్నారో ఏ ప్రొవైడర్‌కూ తెలియదు. లోగో లేని కాయిన్‌లు వాటి మొదటి అక్షరాలను చూపుతాయి. ఇష్టమైనవాటికి లోగోపై చిన్న నక్షత్రం వస్తుంది. స్విచ్ ఆఫ్‌లో ఉన్న చోట లోగోలు గానీ మొదటి అక్షరాలు గానీ కనిపించవు; అన్ని స్విచ్‌లు ఆఫ్‌లో ఉంటే, ఏదీ లోడ్ కాదు.</string>
+    <string name="settings_coin_logos_portfolio">పోర్ట్‌ఫోలియోలో</string>
+    <string name="settings_coin_logos_portfolio_hint">పొజిషన్‌లు, కాయిన్ వివరాలు, అంతర్దృష్టులు</string>
+    <string name="settings_coin_logos_value_app">యాప్</string>
+    <string name="settings_coin_logos_widgets">విడ్జెట్‌లలో</string>
+    <string name="settings_coin_logos_widgets_hint">వాచ్‌లిస్ట్, ఒకే కాయిన్ విడ్జెట్‌లు</string>
+    <string name="settings_high_contrast">అధిక కాంట్రాస్ట్</string>
+    <string name="settings_high_contrast_hint">బలమైన ధర రంగులు, ముదురు ద్వితీయ టెక్స్ట్. సిస్టమ్ ఎక్కువ కాంట్రాస్ట్ కోరినప్పుడు కూడా ఆన్ అవుతుంది.</string>
+    <string name="settings_language_choose">భాషను ఎంచుకో</string>
+    <string name="settings_language_system">సిస్టమ్ భాష</string>
+    <string name="settings_price_colors">ధర రంగులు</string>
+    <string name="settings_price_colors_hint">నీలం / నారింజ ప్రతి రంగు దృష్టి లోపంలోనూ (ఎరుపు-ఆకుపచ్చ, నీలం-పసుపు) సులభంగా వేరు చేయవచ్చు. దిశ ఎల్లప్పుడూ + / − తో కూడా చూపబడుతుంది.</string>
+    <string name="settings_theme_mode">లైట్ / డార్క్</string>
+    <string name="settings_widgets">విడ్జెట్‌లు</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">%1$s మార్పు &amp; చార్ట్ టైమ్ జోన్</string>
+    <string name="settings_change_basis_hint_1">ఎంచుకున్న టైమ్ జోన్ శాతం మార్పు ఎప్పటి నుండి లెక్కించబడుతుందో (వాచ్‌లిస్ట్, పల్స్ లైన్, తెరిచిన జత, విడ్జెట్‌లు), చార్ట్‌లలో చూపే సమయాలను సెట్ చేస్తుంది.</string>
+    <string name="settings_change_basis_hint_2">“%1$s” సరిగ్గా 24 గంటల క్రితం ధరతో పోలుస్తుంది. “00:00” ఆ టైమ్ జోన్‌లో అర్ధరాత్రి ప్రారంభ ధరతో పోలుస్తుంది.</string>
+    <string name="settings_change_basis_hint_3">అలర్ట్‌లపై ప్రభావం ఉండదు.</string>
+    <string name="settings_change_basis_hint_since_last">“%1$s” మునుపటి అప్‌డేట్ ధరతో పోలుస్తుంది. లైవ్ ధరలతో ఇది 0%%కు దగ్గరగా ఉంటుంది.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">మార్పిడి కరెన్సీ</string>
+    <string name="settings_conversion_currency_hint">పోర్ట్‌ఫోలియో, మీ కరెన్సీలో అలర్ట్‌లు, క్రిప్టో మార్కెట్ కార్డ్, పోర్ట్‌ఫోలియో విడ్జెట్ కోసం కూడా ఉపయోగించబడుతుంది.</string>
+    <string name="settings_cost_method">వ్యయ పద్ధతి</string>
+    <string name="settings_cost_method_average">సగటు వ్యయం</string>
+    <string name="settings_cost_method_average_hint">అమ్మకాలు కదిలే సగటు కొనుగోలు ధర వద్ద విలువ కట్టబడతాయి.</string>
+    <string name="settings_cost_method_fifo">FIFO (డిఫాల్ట్)</string>
+    <string name="settings_cost_method_fifo_hint">అన్ని ఎక్స్ఛేంజ్‌లు, వాలెట్‌లలో పాత కాయిన్‌లు ముందుగా అమ్మబడతాయి.</string>
+    <string name="settings_cost_method_fifo_wallet">వాలెట్/ఎక్స్ఛేంజ్ వారీగా FIFO</string>
+    <string name="settings_cost_method_fifo_wallet_hint">ప్రతి ఎక్స్ఛేంజ్ లేదా వాలెట్‌లో పాత కాయిన్‌లు ముందుగా; బదిలీలు లాట్‌లను వాటి కొనుగోలు తేదీతో తరలిస్తాయి.</string>
+    <string name="settings_portfolio_lock">పోర్ట్‌ఫోలియో లాక్</string>
+    <string name="settings_portfolio_lock_footer">లాక్ స్క్రీన్‌పై చూపేదాన్ని దాచుతుంది. మీ డేటా ఈ పరికరంలో నిల్వ చేయబడి, పరికర ఎన్‌క్రిప్షన్‌తో రక్షించబడుతుంది. బ్యాకప్‌లను పాస్‌వర్డ్‌తో రక్షించవచ్చు.</string>
+    <string name="settings_portfolio_lock_hint">పోర్ట్‌ఫోలియోను మాత్రమే దాచుతుంది: వేలిముద్ర, ముఖం లేదా పరికర PINతో అన్‌లాక్ చేయండి. బ్యాక్‌గ్రౌండ్‌లో ఒక నిమిషం కంటే ఎక్కువ ఉన్న తర్వాత మళ్లీ లాక్ అవుతుంది. వాచ్‌లిస్ట్, అలర్ట్‌లు, ఇతర విడ్జెట్‌లు తెరిచే ఉంటాయి.</string>
+    <string name="settings_portfolio_lock_no_device_lock">పరికర PIN లేదా పాస్‌కోడ్ లేకుండా లాక్ ఏమీ దాచదు – స్క్రీన్ లాక్‌ను సెటప్ చేయండి.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">సిస్టమ్ బ్యాకప్‌లో పోర్ట్‌ఫోలియో</string>
+    <string name="settings_portfolio_system_backup_hint">ఆఫ్: మీ లావాదేవీలు పరికర సిస్టమ్ బ్యాకప్‌లో, ఫోన్-టు-ఫోన్ బదిలీలలో చేరవు. వాటిని కొత్త ఫోన్‌కు తరలించడానికి, పాస్‌వర్డ్‌తో యాప్ సొంత బ్యాకప్‌ను ఉపయోగించండి.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Android 9 లేదా తర్వాతి వెర్షన్ అవసరం – పాత వెర్షన్‌లు పోర్ట్‌ఫోలియోను Google బ్యాకప్‌లో ఎన్‌క్రిప్ట్ చేయకుండా సేవ్ చేస్తాయి.</string>
+    <string name="settings_portfolio_tab">పోర్ట్‌ఫోలియో ట్యాబ్‌ను చూపు</string>
+    <string name="settings_portfolio_value_locked">ఆన్, లాక్‌తో</string>
+    <string name="settings_show_converted">మార్చిన ధరలు</string>
+    <string name="settings_show_converted_hint">వాచ్‌లిస్ట్‌లో ధరలను %1$sలో కూడా చూపుతుంది</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">USDT డీపెగ్‌ను తెలియజేయి</string>
+    <string name="settings_depeg_alarm_hint">USDT 1 USD నుండి పరిమితి మేర వైదొలిగినప్పుడు ఒకసారి తెలియజేస్తుంది (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_threshold">డీపెగ్ పరిమితి</string>
+    <string name="settings_fng_above">Fear &amp; Greed: దీని పైన తెలియజేయి</string>
+    <string name="settings_fng_below">Fear &amp; Greed: దీని కింద తెలియజేయి</string>
+    <string name="settings_gas_alert_hint">సాధారణ ఫీజు పరిమితి కంటే తగ్గినప్పుడు ఒకసారి తెలియజేస్తుంది. ధర అప్‌డేట్‌ల సమయంలో, గరిష్ఠంగా 10 నిమిషాలకు ఒకసారి తనిఖీ చేయబడుతుంది.</string>
+    <string name="settings_gas_btc_below">Bitcoin ఫీజు దీని కింద (sat/vB)</string>
+    <string name="settings_gas_eth_below">Ethereum gas దీని కింద (gwei)</string>
+    <string name="settings_ind_ath_within">ఆల్-టైమ్ గరిష్ఠం నుండి పతనం గరిష్ఠంగా</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple దీని పైన</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple దీని కింద</string>
+    <string name="settings_ind_mvrv_above">MVRV దీని పైన</string>
+    <string name="settings_ind_mvrv_below">MVRV దీని కింద</string>
+    <string name="settings_indicator_alerts_hint">Bitcoin సూచికలు, రోజుకు రెండుసార్లు తనిఖీ చేయబడతాయి. పరిమితులను మీరే ఎంచుకుంటారు – యాప్ విలువలను రేట్ చేయదు.</string>
+    <string name="settings_macro_notifications">ఆర్థిక క్యాలెండర్</string>
+    <string name="settings_macro_notifications_hint">ముఖ్యమైన US ఆర్థిక డేటా ఉన్న రోజుల్లో 08:00కు (ద్రవ్యోల్బణం, ఉద్యోగాల నివేదిక, Fed నిర్ణయం). క్యాలెండర్ యాప్ వెబ్‌సైట్ నుండి వస్తుంది, రోజుకు ఒకసారి లోడ్ అవుతుంది.</string>
+    <string name="settings_market_alerts">మార్కెట్ అలర్ట్‌లు</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d యాక్టివ్</item>
+        <item quantity="other">%1$d యాక్టివ్</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">స్పీచ్ వేగం: %1$.1f×</string>
+    <string name="settings_tts">వాయిస్ అవుట్‌పుట్</string>
+    <string name="settings_tts_alarms_only">అలర్ట్‌లు మాత్రమే</string>
+    <string name="settings_tts_alarms_only_hint">ఆఫ్: “ధరను చదివి వినిపించు”గా గుర్తించిన జత ప్రతి అప్‌డేట్ బిగ్గరగా చదవబడుతుంది.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">ధరలు, అలర్ట్‌లను బిగ్గరగా చదువుతుంది. పరికరం సైలెంట్ లేదా వైబ్రేట్ మోడ్‌లో ఉన్నప్పుడు నిశ్శబ్దంగా ఉంటుంది.</string>
+    <string name="settings_tts_test">వాయిస్‌ను పరీక్షించు</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">యాప్‌ను రీసెట్ చేయి</string>
+    <string name="settings_reset_app_action">అన్నీ తొలగించు</string>
+    <string name="settings_reset_app_confirm">ఇన్‌స్టాల్ చేసిన తర్వాతి లాగా, వాచ్‌లిస్ట్, అలర్ట్‌లు, పోర్ట్‌ఫోలియో, సెట్టింగ్‌లు, నిల్వ చేసిన మొత్తం డేటాను తొలగిస్తుంది. దీన్ని రద్దు చేయలేరు. చిట్కా: ముందుగా బ్యాకప్ చేయండి. పరికర బ్యాకప్‌లు (Google బ్యాకప్ లేదా iCloud/కంప్యూటర్ బ్యాకప్) తదుపరి బ్యాకప్ జరిగే వరకు మునుపటి డేటాను ఉంచుతాయి.</string>
+    <string name="settings_reset_app_title">యాప్‌ను రీసెట్ చేయాలా?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">కరెన్సీ కోసం వెతకండి</string>
+    <string name="language_search">భాష కోసం వెతకండి</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">డార్క్</string>
+    <string name="theme_light">లైట్</string>
+    <string name="theme_system">సిస్టమ్</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">నీలం</string>
+    <string name="accent_green">ఆకుపచ్చ</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs ఆకుపచ్చ</string>
+    <string name="accent_orange">నారింజ</string>
+    <string name="accent_red">ఎరుపు</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">చైనా, జపాన్, కొరియా, తైవాన్‌లలో సాధారణం</string>
+    <string name="price_colors_swap">రంగులను మార్చు (పెరుగుదల ↔ తగ్గుదల)</string>
+    <string name="price_style_calm">ప్రశాంతం</string>
+    <string name="price_style_calm_color_vision">ప్రశాంతం · రంగు దృష్టి లోపం</string>
+    <string name="price_style_color_vision">రంగు దృష్టి లోపం</string>
+    <string name="price_style_fresh">తాజా</string>
+    <string name="price_style_traditional">సాంప్రదాయ</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">ఎక్స్ఛేంజ్ కనెక్షన్‌లు నిజమైన ప్రతిస్పందనలతో చివరిగా తనిఖీ చేసింది: %1$s</string>
+    <string name="about_license">ధరలు నేరుగా ఎక్స్ఛేంజ్‌ల నుండి వస్తాయి; ఖాతా లేదు, ట్రాకింగ్ లేదు.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">లైసెన్స్‌లు</string>
+    <string name="about_privacy_policy">గోప్యతా విధానం</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">ఎక్స్ఛేంజ్‌ను అభ్యర్థించండి</string>
+    <string name="about_source_code">GitHubలో సోర్స్ కోడ్</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker అనేది r1AD యొక్క స్వతంత్ర ప్రాజెక్ట్: ఖాతా, ప్రకటనలు లేదా ట్రాకింగ్ లేని ప్రశాంతమైన ధర అవలోకనం. ప్రశ్నలు, కోరికలు: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker ఓపెన్ సోర్స్ (MIT License).</string>
+    <string name="licenses_font_title">Rubik టైప్‌ఫేస్</string>
+    <string name="licenses_icons_bundled_text">యాప్‌తో పాటు వచ్చేవి: Christopher Downer, సహకారుల “Cryptocurrency Icons” నుండి ఐకాన్‌లు (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal కింద విడుదలయ్యాయి. CoinGecko లేదా Binance లోగోలు లోడ్ అయ్యే వరకు అవి చూపబడతాయి. పేర్లు, లోగోలు వాటి ప్రాజెక్ట్‌ల ట్రేడ్‌మార్క్‌లుగానే ఉంటాయి.</string>
+    <string name="licenses_icons_title">ప్రత్యామ్నాయ కాయిన్ ఐకాన్‌లు</string>
+    <string name="licenses_libraries_intro">యాప్ ఈ లైబ్రరీలను Apache License 2.0 కింద ఉపయోగిస్తుంది:</string>
+    <string name="licenses_libraries_title">Android లైబ్రరీలు</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">డెవలపర్ ఆప్షన్‌లను అన్‌లాక్ చేయడానికి మరో %d ట్యాప్</item>
+        <item quantity="other">డెవలపర్ ఆప్షన్‌లను అన్‌లాక్ చేయడానికి మరో %d ట్యాప్‌లు</item>
+    </plurals>
+    <string name="developer_unlocked">డెవలపర్ ఆప్షన్‌లు అన్‌లాక్ అయ్యాయి</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">వైబ్రేషన్ iPhone సెట్టింగ్‌లను (శబ్దాలు &amp; హాప్టిక్స్) అనుసరిస్తుంది.</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">కొత్త అలర్ట్‌లు, మార్కెట్ అలర్ట్‌లను లెక్కిస్తుంది; యాప్‌ను తెరిచినప్పుడు 0కు తిరిగి వస్తుంది.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">మీ డేటా</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">ఈ పరికరంలో</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">మీ వాచ్‌లిస్ట్, అలర్ట్‌లు, పోర్ట్‌ఫోలియో ఈ పరికరంలో ఎన్‌క్రిప్ట్ చేసి నిల్వ చేయబడతాయి; ఖాతా లేదు, మా సొంత సర్వర్ లేదు.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">కనెక్షన్‌లు</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">ధరలు నేరుగా మీ జతల ఎక్స్ఛేంజ్‌ల నుండి వస్తాయి, అదనంగా మారకపు రేట్లు, కాయిన్ జాబితాలు, లోగోలు, GitHubలోని డేటా మిర్రర్; అవి మీ IP అడ్రస్‌ను చూస్తాయి, మీ హోల్డింగ్‌లను ఎప్పుడూ కాదు (పర్యవేక్షిస్తున్న అడ్రస్‌లు సంబంధిత నెట్‌వర్క్ ప్రొవైడర్‌కు వెళ్తాయి).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">బ్యాకప్</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">మీరు సృష్టిస్తేనే. పాస్‌వర్డ్‌తో అది ఎన్‌క్రిప్ట్ చేయబడుతుంది (Argon2id + AES-256-GCM); పాస్‌వర్డ్ లేకుండా చదవగలిగేలా ఉంటుంది.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">పరికరం మార్చడం</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">కీ పాత పరికరంలోనే ఉంటుంది – ముందుగా బ్యాకప్ ఫైల్‌ను సృష్టించండి.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">డయాగ్నస్టిక్స్‌ను షేర్ చేయి</string>
+    <string name="diagnostics_share_hint">సపోర్ట్ కోసం టెక్స్ట్ ఫైల్: వెర్షన్, పరికరం, అలర్ట్ సెట్టింగ్‌లు, ఇటీవలి తనిఖీలు, అలర్ట్‌ల లాగ్ – పోర్ట్‌ఫోలియో, మొత్తాలు, అడ్రస్‌లు లేదా గమనికలు లేకుండా. మీరు ముందుగా చూస్తారు; ఏదీ ఆటోమేటిక్‌గా పంపబడదు.</string>
+    <string name="diagnostics_preview_title">డయాగ్నస్టిక్స్ ప్రివ్యూ</string>
+    <string name="diagnostics_action_share">షేర్ చేయి</string>
+    <string name="settings_price_overlay">ధర ఓవర్‌లే</string>
+    <string name="settings_price_overlay_hint">శాశ్వత ధర నోటిఫికేషన్ జతలను ఇతర యాప్‌లపై చిన్న తేలియాడే పట్టీగా చూపుతుంది. యాప్‌ను తెరవడానికి నొక్కండి, మూసివేయడానికి దిగువన ఉన్న ×కు లాగండి.</string>
+    <string name="settings_price_overlay_needs">«%1$s»తో కలిపి మాత్రమే పని చేస్తుంది.</string>
+    <string name="settings_price_overlay_grant">ఇతర యాప్‌లపై ప్రదర్శనను అనుమతించు</string>
+    <string name="price_overlay_close">ఓవర్‌లేను మూసివేయి</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">అడ్రస్‌ల కోసం సొంత సర్వర్</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Bitcoin మాత్రమే: మీ సొంత Esplora- లేదా mempool-అనుకూల సర్వర్ (ఉదా. https://node.example/api, Let\'s Encrypt వంటి పబ్లిక్‌గా విశ్వసనీయ సర్టిఫికెట్ అవసరం). సెట్ చేస్తే, Bitcoin అడ్రస్‌లు, xpub కీలు అక్కడ మాత్రమే క్వెరీ చేయబడతాయి – పబ్లిక్ నోడ్‌లలో ఎప్పుడూ కాదు, మీ సర్వర్ అందుబాటులో లేనప్పుడు కూడా. ఇతర నెట్‌వర్క్‌లు పబ్లిక్ నోడ్‌లను ఉపయోగిస్తూనే ఉంటాయి. ఖాళీ = పబ్లిక్ నోడ్‌లు.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Bitcoin సర్వర్ (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">పరీక్షించు</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">పరీక్షిస్తోంది…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">సర్వర్ స్పందిస్తోంది – బ్లాక్ %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">చెల్లుబాటు అయ్యే సమాధానం లేదు – అడ్రస్, సర్టిఫికెట్‌ను తనిఖీ చేయండి</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">ఉపయోగంలో: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">సెట్ చేయలేదు – పబ్లిక్ నోడ్‌లు ఉపయోగించబడుతున్నాయి</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">https:// అడ్రస్‌లు మాత్రమే అనుమతించబడతాయి</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">అడ్రస్‌లో యూజర్ పేరు లేదా పాస్‌వర్డ్ ఉండకూడదు</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">అడ్రస్‌లో ? లేదా # భాగం ఉండకూడదు</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">చెల్లుబాటు అయ్యే సర్వర్ అడ్రస్ కాదు</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">పబ్లిక్ నోడ్‌లకు మారాలా?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">అప్పుడు మీ Bitcoin అడ్రస్‌లు, xpub కీలు పబ్లిక్ నోడ్‌లలో క్వెరీ చేయబడతాయి: %1$s. అవి ఈ అడ్రస్‌లను మీ IP అడ్రస్‌తో కలిపి చూస్తాయి.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">పబ్లిక్ నోడ్‌లను ఉపయోగించు</string>
+</resources>

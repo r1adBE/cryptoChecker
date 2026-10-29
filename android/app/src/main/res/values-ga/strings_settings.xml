@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">Saincheaptha</string>
+    <string name="settings_group_general">Ginearálta</string>
+    <string name="settings_group_more">Tuilleadh</string>
+    <string name="settings_minutes">%1$d nóim</string>
+    <string name="settings_row_about">Maidir leis an aip</string>
+    <string name="settings_row_alarms">Foláirimh</string>
+    <string name="settings_row_currency">Airgeadra</string>
+    <string name="settings_row_dated_futures">Todhchaíochtaí dátaithe</string>
+    <string name="settings_row_updates">Nuashonruithe praghais</string>
+    <string name="settings_row_watchlist">Liosta faire</string>
+    <string name="settings_search_hint">Cuardaigh socruithe</string>
+    <string name="settings_seconds">%1$d s</string>
+    <string name="settings_section_about">Maidir le</string>
+    <string name="settings_section_appearance">Cuma</string>
+    <string name="settings_section_developer">Forbróir</string>
+    <string name="settings_section_language">Teanga</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">Ar siúl</string>
+    <string name="settings_title">Socruithe</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">Tréimhse chiúin sula spreagtar foláireamh arís</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Comhartha foláirimh</string>
+    <string name="settings_alarm_signal_open_system">Coigeartaigh i socruithe an chórais</string>
+    <string name="settings_alarm_signal_system_hint">Leanann sé socruithe fógraí do ghutháin.</string>
+    <string name="settings_alarm_sound">Fuaim foláirimh</string>
+    <string name="settings_alarm_sound_custom">Fuaim shaincheaptha</string>
+    <string name="settings_alarm_sound_default">Fuaim réamhshocraithe</string>
+    <string name="settings_alarm_sound_error">Níorbh fhéidir an fhuaim a úsáid.</string>
+    <string name="settings_alarm_sound_file">Do chomhad fuaime féin…</string>
+    <string name="settings_alarm_sound_reset">Úsáid an fhuaim réamhshocraithe</string>
+    <string name="settings_alarm_sound_system">Roghnaigh fuaim chórais…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Uimhir ar dheilbhín na haipe</string>
+    <string name="settings_app_badge_hint">Comhaireann sé fógraí foláirimh oscailte. Is ag an scáileán baile atá sé an dtaispeántar uimhir nó ponc (m.sh. Samsung: “Show with number”).</string>
+    <string name="settings_exact_checks">Seiceáil in am</string>
+    <string name="settings_exact_checks_grant">Ceadaigh aláraim agus meabhrúcháin</string>
+    <string name="settings_exact_checks_hint">Seiceálann Android thart ar gach 15 nóiméad, fiú nuair atá an gléas díomhaoin. Úsáideann sé beagán níos mó ceallraí.</string>
+    <string name="settings_exact_checks_nothing">Gan péirí gníomhacha – níl aon rud le seiceáil.</string>
+    <string name="settings_exact_checks_permission_missing">Cead ar iarraidh – fad atá an gléas ina scíth, seiceálann Android go mírialta, uaireanta tar éis uaireanta fada.</string>
+    <string name="settings_notification_change">Cuir in iúl ach amháin nuair a athraíonn an praghas</string>
+    <string name="settings_notification_change_always">I gcónaí</string>
+    <string name="settings_percent_invalid">Cuir isteach luach ó 0 go 100.</string>
+    <string name="settings_notification_change_hint">Ní thaispeántar fógra praghais ach nuair a bhog an praghas an méid seo ar a laghad ón gceann deireanach. Ní thaispeántar aon rud fad atá sonraí ar iarraidh. Ní théann sé i bhfeidhm ar fholáirimh.</string>
+    <string name="settings_ongoing_notifications">Ní féidir iad a scuabadh ar shiúl</string>
+    <string name="settings_ongoing_notifications_hint">Coinníonn sé fógraí praghais greamaithe.</string>
+    <string name="settings_price_notifications">Fógraí praghais</string>
+    <string name="settings_price_notifications_hint">Taispeáin praghas reatha na bpéirí cumasaithe sa bharra stádais.</string>
+    <string name="settings_price_pairs">Péirí</string>
+    <string name="settings_price_pairs_all_off">Gach ceann múchta</string>
+    <string name="settings_price_pairs_all_on">Gach ceann ar siúl</string>
+    <string name="settings_price_pairs_count">%1$d as %2$d</string>
+    <string name="settings_price_pairs_empty">Gan péirí sa liosta faire fós.</string>
+    <string name="settings_price_pairs_hint">Roghnaigh na péirí a thaispeánann a bpraghas sa bharra fógraí.</string>
+    <string name="settings_quiet_hours">Uaireanta ciúnais</string>
+    <string name="settings_quiet_hours_from">Ó</string>
+    <string name="settings_quiet_hours_hint">Idir %1$s agus %2$s, fanann foláirimh go deireadh na n-uaireanta ciúnais agus ansin buaileann siad le fuaim. Tagann fógraí eile go ciúin, gan chaint.</string>
+    <string name="settings_quiet_hours_to">Go</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">Eatramh</string>
+    <string name="settings_background_updates">Nuashonruithe sa chúlra</string>
+    <string name="settings_battery_hint">Ciallaíonn srianta go bhféadfadh Android nuashonruithe sa chúlra a mhoilliú ar feadh uaireanta.</string>
+    <string name="settings_battery_ok">Úsáid ceallraí: gan srian</string>
+    <string name="settings_battery_restricted">Úsáid ceallraí: srianta</string>
+    <string name="settings_check_runs_empty">Gan seiceálacha taifeadta fós.</string>
+    <string name="settings_check_runs_honest_android">Cinneann Android cathain a sheiceáiltear – feiceann tú anseo cathain a tharla sé i ndáiríre.</string>
+    <string name="settings_check_runs_honest_ios">Cinneann iOS cathain a sheiceáiltear – feiceann tú anseo cathain a tharla sé i ndáiríre.</string>
+    <string name="settings_check_runs_title">Seiceálacha le déanaí</string>
+    <string name="settings_http_log">Taispeáin logáil HTTP</string>
+    <string name="settings_http_log_hint">Taispeánann sé na hiarratais chuig na malartáin ag bun an leathanaigh “Cuir péire leis” – le haghaidh fabhtcheartaithe.</string>
+    <string name="settings_live_service">Nuashonraigh go minic</string>
+    <string name="settings_live_websocket">Praghsanna beo</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">Suntasach: cuir in iúl</string>
+    <string name="settings_activity_alerts_hint">Uair san uair ar a mhéad in aghaidh an phéire: gluaiseachtaí neamhghnácha praghais, spící toirte agus foircinn todhchaíochtaí (sonraí ó Binance).</string>
+    <string name="settings_activity_sensitivity">Íogaireacht</string>
+    <string name="settings_activity_sensitivity_hint">Cé chomh héasca is a áirítear bonn neamhghnách – mar an gcéanna do chárta an liosta faire agus d’fholáirimh mhargaidh. Le “Níos lú”, ní thaispeánann an cárta ach na 3 cinn is láidre.</string>
+    <string name="settings_watchlist_activity_card">Suntasach: taispeáin sa liosta</string>
+    <string name="settings_watchlist_activity_card_hint">Taispeánann sé an sliseog ⚡ in aice leis na grúpaí: tapáil í chun na péirí ina bhfuil rud éigin ag tarlú faoi láthair amháin a fheiceáil. Socraítear fógraí dó faoi Foláirimh mhargaidh.</string>
+    <string name="settings_watchlist_names">Taispeáin ainmneacha</string>
+    <string name="settings_watchlist_names_hint">Ainm faoin bpéire, m.sh. Bitcoin nó NVIDIA. Tagann sé leis na liostaí lógó, lódáilte uair amháin do gach bonn.</string>
+    <string name="settings_watchlist_sparkline">Mionchairt sa liosta faire</string>
+    <string name="settings_watchlist_sparkline_hint">Treocht 24 uair an chloig in aice leis an bpraghas</string>
+    <string name="settings_watchlist_value_names">Ainmneacha</string>
+    <string name="settings_watchlist_value_price_only">Praghas amháin</string>
+    <string name="settings_watchlist_value_sparkline">Mionchairt</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Comharthaí Alpha san áireamh (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Comharthaí Alpha: tionscadail luatha, beaga den chuid is mó ó liosta Binance Alpha – is minic gur beag a dtrádáil agus go bhfuil siad an-luaineach.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">Baineann sé le Comharthaí. Níl sé ar fáil fad atá “TradFi amháin” roghnaithe; fanann comharthaí Alpha atá i do liosta faire cheana.</string>
+    <string name="settings_asset_scope_both">Comharthaí agus TradFi</string>
+    <string name="settings_asset_scope_both_hint">Gach rud – crypto agus TradFi</string>
+    <string name="settings_asset_scope_hint">Socraíonn sé cé na péirí a thaispeánann an rogha agus an cuardach nuair a chuireann tú péirí leis. Fanann péirí atá i do liosta faire cheana i gcónaí.</string>
+    <string name="settings_asset_scope_title">Comharthaí agus TradFi</string>
+    <string name="settings_asset_scope_tokens">Comharthaí amháin</string>
+    <string name="settings_asset_scope_tokens_hint">Crypto: spot agus perpetuals</string>
+    <string name="settings_asset_scope_tradfi">TradFi amháin</string>
+    <string name="settings_asset_scope_tradfi_hint">Todhchaíochtaí ar scaireanna, tráchtearraí, malairt eachtrach – conarthaí, ní comharthaí</string>
+    <string name="settings_rolling_futures">Todhchaíochtaí ráithiúla agus dátaithe eile san áireamh</string>
+    <string name="settings_rolling_futures_hint">Múchta: marcáiltear todhchaíochtaí dátaithe atá ar iarraidh ó liosta an mhalartáin mar nach dtrádáiltear a thuilleadh in ionad iad a sheiceáil ceann ar cheann. Sábhálann sé am ag gach athnuachan.</string>
+    <string name="settings_rolling_futures_qtly">Todhchaíochtaí ráithiúla agus dátaithe eile san áireamh (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">Baineann sé le Comharthaí. Níl sé ar fáil fad atá “TradFi amháin” roghnaithe; baineann sé fós le todhchaíochtaí dátaithe atá i do liosta faire cheana.</string>
+    <string name="settings_tradfi_futures">Scaireanna, tráchtearraí agus malairt eachtrach (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Taispeánann sé freisin todhchaíochtaí ar scaireanna, ór agus tráchtearraí eile, airgeadraí agus cuideachtaí réamh-IPO nuair a roghnaíonn tú péire. Is conarthaí iad seo, ní comharthaí.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">Dath béime</string>
+    <string name="settings_accent_hint">Dath don aip, do ghiuirléidí agus do dheilbhín na haipe. Baineann roinnt scáileán baile an deilbhín nuair a athraíonn sé – cuir leis arís é ansin.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Lógónna bonn</string>
+    <string name="settings_coin_logos_app">San aip</string>
+    <string name="settings_coin_logos_app_hint">Liosta faire, péire oscailte agus cártaí margaidh</string>
+    <string name="settings_coin_logos_footer">Tagann na lógónna ó CoinGecko, agus ó Binance do bhoinn nach liostaíonn CoinGecko (m.sh. ór, airgead, scaireanna). Lódálann an aip na lógónna go léir d’aon iarraidh agus coinníonn sí ar an ngléas seo iad, mar sin ní féidir le ceachtar soláthraí a fheiceáil cé na boinn a leanann tú. Taispeánann boinn gan lógó a gcuid ceannlitreacha. Faigheann ceanáin réalta bheag ar an lógó. Nuair atá lasc múchta, ní thaispeántar lógónna ná ceannlitreacha; le gach lasc múchta, ní lódáiltear aon rud.</string>
+    <string name="settings_coin_logos_portfolio">Sa phunann</string>
+    <string name="settings_coin_logos_portfolio_hint">Suíomhanna, sonraí bonn agus léargais</string>
+    <string name="settings_coin_logos_value_app">Aip</string>
+    <string name="settings_coin_logos_widgets">I ngiuirléidí</string>
+    <string name="settings_coin_logos_widgets_hint">Giuirléidí liosta faire agus boinn aonair</string>
+    <string name="settings_high_contrast">Codarsnacht ard</string>
+    <string name="settings_high_contrast_hint">Dathanna praghais níos láidre agus téacs tánaisteach níos dorcha. Ar siúl freisin nuair a iarrann an córas níos mó codarsnachta.</string>
+    <string name="settings_language_choose">Roghnaigh teanga</string>
+    <string name="settings_language_system">Teanga an chórais</string>
+    <string name="settings_price_colors">Dathanna praghais</string>
+    <string name="settings_price_colors_hint">Is furasta gorm / oráiste a aithint óna chéile le gach easnamh radhairc datha (dearg-glas agus gorm-buí). Taispeántar an treo i gcónaí le + / − freisin.</string>
+    <string name="settings_theme_mode">Geal / Dorcha</string>
+    <string name="settings_widgets">Giuirléidí</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">Crios ama d’athrú %1$s agus don chairt</string>
+    <string name="settings_change_basis_hint_1">Socraíonn an crios ama roghnaithe ó cathain a chomhairtear an t-athrú céatadáin (liosta faire, líne chuisle, péire oscailte, giuirléidí) agus na hamanna a thaispeántar sna cairteacha.</string>
+    <string name="settings_change_basis_hint_2">Cuireann “%1$s” i gcomparáid leis an bpraghas go díreach 24 uair an chloig ó shin. Cuireann “00:00” i gcomparáid leis an bpraghas oscailte ag meán oíche sa chrios ama sin.</string>
+    <string name="settings_change_basis_hint_3">Ní théann sé i bhfeidhm ar fholáirimh.</string>
+    <string name="settings_change_basis_hint_since_last">Cuireann “%1$s” i gcomparáid le praghas an nuashonraithe roimhe seo. Le praghsanna beo fanann sé gar do 0%%.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">Airgeadra tiontaithe</string>
+    <string name="settings_conversion_currency_hint">Úsáidtear é freisin don phunann, d’fholáirimh i d’airgeadra, do chárta an mhargaidh crypto agus do ghiuirléid na punainne.</string>
+    <string name="settings_cost_method">Modh costais</string>
+    <string name="settings_cost_method_average">Meánchostas</string>
+    <string name="settings_cost_method_average_hint">Luacháiltear díolacháin ag an meánphraghas ceannaigh gluaiste.</string>
+    <string name="settings_cost_method_fifo">FIFO (réamhshocrú)</string>
+    <string name="settings_cost_method_fifo_hint">Díoltar na boinn is sine ar dtús, thar gach malartán agus sparán.</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO in aghaidh an sparáin/malartáin</string>
+    <string name="settings_cost_method_fifo_wallet_hint">Na boinn is sine ar dtús laistigh de gach malartán nó sparán; bogann aistrithe baisceanna lena ndáta ceannaigh.</string>
+    <string name="settings_portfolio_lock">Glas na punainne</string>
+    <string name="settings_portfolio_lock_footer">Folaíonn an glas a bhfuil ar an scáileán. Stóráiltear do shonraí ar an ngléas seo agus cosnaíonn criptiú an ghléis iad. Is féidir leat cúltacaí a chosaint le pasfhocal.</string>
+    <string name="settings_portfolio_lock_hint">Ní fholaíonn sé ach an phunann: díghlasáil le méarlorg, aghaidh nó UAP an ghléis. Glasálann sé arís tar éis níos mó ná nóiméad sa chúlra. Fanann an liosta faire, foláirimh agus giuirléidí eile oscailte.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Gan UAP nó paschód ar an ngléas ní fholaíonn an glas aon rud – socraigh glas scáileáin.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Punann i gcúltaca an chórais</string>
+    <string name="settings_portfolio_system_backup_hint">Múchta: fanann d’idirbhearta lasmuigh de chúltaca córais an ghléis agus d’aistrithe ó fhón go fón. Chun iad a bhogadh chuig fón nua, úsáid cúltaca na haipe féin le pasfhocal.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Teastaíonn Android 9 nó níos déanaí – shábhálfadh leaganacha níos sine an phunann gan chriptiú i gcúltaca Google.</string>
+    <string name="settings_portfolio_tab">Taispeáin an cluaisín Punann</string>
+    <string name="settings_portfolio_value_locked">Ar siúl, le glas</string>
+    <string name="settings_show_converted">Praghsanna tiontaithe</string>
+    <string name="settings_show_converted_hint">Taispeánann sé praghsanna sa liosta faire in %1$s freisin</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">Tuairiscigh depeg USDT</string>
+    <string name="settings_depeg_alarm_hint">Cuireann sé in iúl uair amháin nuair a imíonn USDT ó 1 USD faoin tairseach (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_threshold">Tairseach depeg</string>
+    <string name="settings_fng_above">Fear &amp; Greed: cuir in iúl os cionn</string>
+    <string name="settings_fng_below">Fear &amp; Greed: cuir in iúl faoi</string>
+    <string name="settings_gas_alert_hint">Cuireann sé in iúl uair amháin nuair a thiteann an ghnáth-tháille faoin teorainn. Seiceáilte le linn nuashonruithe praghais, uair sa 10 nóiméad ar a mhéad.</string>
+    <string name="settings_gas_btc_below">Táille Bitcoin faoi (sat/vB)</string>
+    <string name="settings_gas_eth_below">Gás Ethereum faoi (gwei)</string>
+    <string name="settings_ind_ath_within">Titim ón mbuaic uile-ama ar a mhéad</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple os cionn</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple faoi</string>
+    <string name="settings_ind_mvrv_above">MVRV os cionn</string>
+    <string name="settings_ind_mvrv_below">MVRV faoi</string>
+    <string name="settings_indicator_alerts_hint">Táscairí Bitcoin, seiceáilte faoi dhó sa lá. Is tusa a roghnaíonn na teorainneacha – ní dhéanann an aip na luachanna a rátáil.</string>
+    <string name="settings_macro_notifications">Féilire eacnamaíoch</string>
+    <string name="settings_macro_notifications_hint">Ag 08:00 ar laethanta le sonraí eacnamaíocha tábhachtacha SAM (boilsciú, tuarascáil fostaíochta, cinneadh Fed). Tagann an féilire ó shuíomh gréasáin na haipe, lódáilte uair sa lá.</string>
+    <string name="settings_market_alerts">Foláirimh mhargaidh</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d gníomhach</item>
+        <item quantity="two">%1$d gníomhach</item>
+        <item quantity="few">%1$d gníomhach</item>
+        <item quantity="many">%1$d gníomhach</item>
+        <item quantity="other">%1$d gníomhach</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">Luas cainte: %1$.1f×</string>
+    <string name="settings_tts">Aschur cainte</string>
+    <string name="settings_tts_alarms_only">Foláirimh amháin</string>
+    <string name="settings_tts_alarms_only_hint">Múchta: léitear os ard gach nuashonrú de phéire atá marcáilte “Léigh an praghas os ard”.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">Léann sé praghsanna agus foláirimh os ard. Fanann sé ciúin fad atá an gléas i mód ciúin nó creatha.</string>
+    <string name="settings_tts_test">Tástáil an guth</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">Athshocraigh an aip</string>
+    <string name="settings_reset_app_action">Scrios gach rud</string>
+    <string name="settings_reset_app_confirm">Scriosann sé an liosta faire, foláirimh, punann, socruithe agus gach sonra stóráilte, mar a bheadh tar éis suiteála. Ní féidir é seo a aisiompú. Leid: déan cúltaca ar dtús. Coinníonn cúltacaí an ghléis (cúltaca Google nó cúltaca iCloud/ríomhaire) na sonraí roimhe sin go dtí an chéad chúltaca eile.</string>
+    <string name="settings_reset_app_title">Athshocraigh an aip?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">Cuardaigh airgeadra</string>
+    <string name="language_search">Cuardaigh teanga</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">Dorcha</string>
+    <string name="theme_light">Geal</string>
+    <string name="theme_system">Córas</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">Gorm</string>
+    <string name="accent_green">Glas</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">Oráiste</string>
+    <string name="accent_red">Dearg</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">Coitianta sa tSín, sa tSeapáin, sa Chóiré agus sa Téaváin</string>
+    <string name="price_colors_swap">Malartaigh na dathanna (ardú ↔ titim)</string>
+    <string name="price_style_calm">Suaimhneach</string>
+    <string name="price_style_calm_color_vision">Suaimhneach · Easnamh radhairc datha</string>
+    <string name="price_style_color_vision">Easnamh radhairc datha</string>
+    <string name="price_style_fresh">Úr</string>
+    <string name="price_style_traditional">Traidisiúnta</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">Naisc mhalartán seiceáilte go deireanach i gcoinne fíorfhreagraí: %1$s</string>
+    <string name="about_license">Tagann praghsanna díreach ó na malartáin; gan chuntas agus gan rianú.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">Ceadúnais</string>
+    <string name="about_privacy_policy">Polasaí príobháideachais</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">Iarr malartán</string>
+    <string name="about_source_code">Cód foinse ar GitHub</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Is tionscadal neamhspleách le r1AD é Crypto Checker: forbhreathnú suaimhneach ar phraghsanna gan chuntas, fógráin ná rianú. Ceisteanna agus mianta: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Is foinse oscailte é Crypto Checker (MIT License).</string>
+    <string name="licenses_font_title">Cló Rubik</string>
+    <string name="licenses_icons_bundled_text">Pacáilte leis an aip: deilbhíní ó “Cryptocurrency Icons” le Christopher Downer agus rannpháirtithe (github.com/spothq/cryptocurrency-icons), eisithe faoi CC0 1.0 Universal. Taispeántar iad go dtí go lódáiltear lógónna CoinGecko nó Binance. Fanann ainmneacha agus lógónna ina dtrádmharcanna dá dtionscadail.</string>
+    <string name="licenses_icons_title">Deilbhíní bonn cúltaca</string>
+    <string name="licenses_libraries_intro">Úsáideann an aip na leabharlanna seo faoi Apache License 2.0:</string>
+    <string name="licenses_libraries_title">Leabharlanna Android</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">%d tapáil eile chun roghanna forbróra a dhíghlasáil</item>
+        <item quantity="two">%d thapáil eile chun roghanna forbróra a dhíghlasáil</item>
+        <item quantity="few">%d thapáil eile chun roghanna forbróra a dhíghlasáil</item>
+        <item quantity="many">%d dtapáil eile chun roghanna forbróra a dhíghlasáil</item>
+        <item quantity="other">%d tapáil eile chun roghanna forbróra a dhíghlasáil</item>
+    </plurals>
+    <string name="developer_unlocked">Roghanna forbróra díghlasáilte</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Leanann creathadh socruithe an iPhone (Fuaimeanna agus Haptaic).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Comhaireann sé foláirimh nua agus foláirimh mhargaidh; ar ais go 0 nuair a osclaíonn tú an aip.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Do shonraí</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">Ar an ngléas seo</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Stóráiltear do liosta faire, foláirimh agus punann criptithe ar an ngléas seo; gan chuntas, gan freastalaí dár gcuid féin.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Naisc</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Tagann praghsanna díreach ó mhalartáin do phéirí, móide rátaí malairte, liostaí bonn agus lógónna agus an scáthán sonraí ar GitHub; feiceann siad do sheoladh IP, ach ní fheiceann siad do shealúchais riamh (téann seoltaí faire chuig soláthraí an líonra ábhartha).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Cúltaca</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Ach amháin má chruthaíonn tú ceann. Le pasfhocal tá sé criptithe (Argon2id + AES-256-GCM); gan é tá sé inléite.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Gléas a athrú</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">Fanann an eochair ar an seanghléas – cruthaigh comhad cúltaca ar dtús.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Comhroinn diagnóisic</string>
+    <string name="diagnostics_share_hint">Comhad téacs don tacaíocht: leagan, gléas, socruithe foláireamh, seiceálacha le déanaí agus logáil na bhfoláireamh – gan punann, méideanna, seoltaí ná nótaí. Feiceann tusa é ar dtús; ní sheoltar aon rud go huathoibríoch.</string>
+    <string name="diagnostics_preview_title">Réamhamharc diagnóisice</string>
+    <string name="diagnostics_action_share">Comhroinn</string>
+    <string name="settings_price_overlay">Praghas ar foluain</string>
+    <string name="settings_price_overlay_hint">Taispeánann sé péirí an fhógra praghais bhuain mar phiollaire beag ar foluain os cionn aipeanna eile. Tapáil chun an aip a oscailt, tarraing go × ag an mbun chun é a dhúnadh.</string>
+    <string name="settings_price_overlay_needs">Ní oibríonn sé ach in éineacht le «%1$s».</string>
+    <string name="settings_price_overlay_grant">Ceadaigh taispeáint os cionn aipeanna eile</string>
+    <string name="price_overlay_close">Dún an praghas ar foluain</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">Freastalaí féin do sheoltaí</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Bitcoin amháin: do fhreastalaí féin atá comhoiriúnach le Esplora nó mempool (m.sh. https://node.example/api, teastaíonn teastas a bhfuil muinín phoiblí as, mar Let\'s Encrypt). Má tá sé socraithe, ní fhiosraítear seoltaí Bitcoin agus eochracha xpub ach ansin – riamh ag nóid phoiblí, fiú nuair nach féidir do fhreastalaí a bhaint amach. Leanann líonraí eile orthu ag úsáid nód poiblí. Folamh = nóid phoiblí.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Freastalaí Bitcoin (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">Tástáil</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">Á thástáil…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">Freagraíonn an freastalaí – bloc %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">Gan freagra bailí – seiceáil an seoladh agus an teastas</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">In úsáid: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">Gan socrú – úsáidtear nóid phoiblí</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">Ní cheadaítear ach seoltaí https://</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">Gan ainm úsáideora ná pasfhocal sa seoladh</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">Gan cuid ? nó # sa seoladh</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">Ní seoladh freastalaí bailí é</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">Athraigh go nóid phoiblí?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">Fiosrófar do sheoltaí Bitcoin agus d’eochracha xpub ansin ag nóid phoiblí: %1$s. Feiceann siad na seoltaí seo in éineacht le do sheoladh IP.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">Úsáid nóid phoiblí</string>
+</resources>

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">Өзекті · %1$s</string>
+    <string name="watchlist_empty_title">Әзірге жұп жоқ</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%2$d ішінен %1$d бағамсыз</item>
+        <item quantity="other">%2$d ішінен %1$d бағамсыз</item>
+    </plurals>
+    <string name="watchlist_last_run">Соңғы іске қосу %1$s</string>
+    <string name="watchlist_live_a11y">Тікелей бағамдар қосулы</string>
+    <string name="watchlist_offline_since">Байланыс жоқ · %1$s жағдайы бойынша</string>
+    <string name="watchlist_pull_to_refresh">Жаңарту үшін төмен тартыңыз</string>
+    <string name="watchlist_refresh_report">Соңғы жаңарту</string>
+    <string name="watchlist_refresh_report_empty">Әзірге толық мәлімет жоқ – толық жаңарту әлі болған жоқ. Жаңартуды түртіп, шеңбер тоқтағанша күтіңіз.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%2$d ішінен %1$d ескірген</item>
+        <item quantity="other">%2$d ішінен %1$d ескірген</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">Мұндағы барлық жұп өшірілген</string>
+    <string name="watchlist_status_exchange_prices">Биржаларыңыздың бағамдары · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">Биржа бағамдары · %1$s</string>
+    <string name="watchlist_status_group_empty">Бұл топта жұп жоқ</string>
+    <string name="watchlist_status_none_traded">Мұнда саудаланатын жұп жоқ</string>
+    <string name="watchlist_updated">Жаңартылды: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">орт. %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d төмен</item>
+        <item quantity="other">%1$d төмен</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d 24 сағ мәнсіз</item>
+        <item quantity="other">%1$d 24 сағ мәнсіз</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d бүгінгі мәнсіз</item>
+        <item quantity="other">%1$d бүгінгі мәнсіз</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d жоғары</item>
+        <item quantity="other">%1$d жоғары</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · өшірілген</string>
+    <string name="watchlist_row_outdated">%1$s · ескірген</string>
+    <string name="watchlist_row_outdated_age">ескірген · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">Бағам %1$s бері өзгерген жоқ</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s қолжетімсіз</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">Соңына өту</string>
+    <string name="watchlist_jump_start">Басына өту</string>
+    <string name="watchlist_search_close">Іздеуді жабу</string>
+    <string name="watchlist_search_empty">«%1$s» бойынша сәйкестік жоқ</string>
+    <string name="watchlist_search_hint">Жұп, атау немесе биржа іздеу</string>
+    <string name="watchlist_search_open">Іздеу</string>
+    <string name="watchlist_sort_ascending">өсу ретімен</string>
+    <string name="watchlist_sort_descending">кему ретімен</string>
+    <string name="watchlist_sort_hint">Жұпты басып тұрып сүйреңіз немесе тұтқаны пайдаланыңыз. Таңдаулылар жоғарыда қалады.</string>
+    <string name="watchlist_sort_name">Атауы</string>
+    <string name="watchlist_sort_own">Өз ретіңіз</string>
+    <string name="watchlist_sort_price">Бағам</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">Бақылау тізімін тазалау</string>
+    <string name="watchlist_clear_confirm">Барлық жұпты бақылау тізімінен алып тастау керек пе? Олардың ескертулері де жойылады.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d өшірілген</item>
+        <item quantity="other">%1$d өшірілген</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">Алып тастау</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Өз биржасында енді саудаланбайтын %1$d жұпты алып тастау керек пе? Оның ескертулері де жойылады.</item>
+        <item quantity="other">Өз биржасында енді саудаланбайтын %1$d жұпты алып тастау керек пе? Олардың ескертулері де жойылады.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">Саудаланбайтын жұптарды алып тастау (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Саудаланбайтын жұптарды алып тастау</string>
+    <string name="watchlist_removed">%1$s алып тасталды</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d жұп алып тасталды</item>
+        <item quantity="other">%1$d жұп алып тасталды</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">Саудаланбайтын %1$d жұп алып тасталды</item>
+        <item quantity="other">Саудаланбайтын %1$d жұп алып тасталды</item>
+    </plurals>
+    <string name="watchlist_select">Таңдау</string>
+    <string name="watchlist_select_all">Барлығын таңдау</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d таңдалды</item>
+        <item quantity="other">%1$d таңдалды</item>
+    </plurals>
+    <string name="watchlist_show_all">Барлығын көрсету</string>
+    <string name="watchlist_show_only_disabled">Тек өшірілгендерді көрсету</string>
+    <string name="watchlist_show_only_stale">Тек ескіргендерді көрсету</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Ескерту (%1$d)</item>
+        <item quantity="other">Ескертулер (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">Әзірге таңдаулылар жоқ. Жұпты оңға сырғытыңыз немесе жұпты ашып, «Таңдаулы» түймесін түртіңіз.</string>
+    <string name="watchlist_group_empty_hint">Топтың жұптарын таңдау үшін оны ұзақ басыңыз.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">Топтарыңыз осында пайда болады</string>
+    <string name="watchlist_notification">Бағам хабарландыруы</string>
+    <string name="watchlist_tts">Бағамды дауыстап оқу</string>
+    <string name="watchlist_tts_speech_on">Дауыстап оқу қосулы. Оны Параметрлер › Ескертулер › Дауыстап оқу бөлімінде өзгертуге болады.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">Виджет ретінде қосу</string>
+    <string name="watch_action_alarm">Ескерту</string>
+    <string name="watch_action_favorite">Таңдаулы</string>
+    <string name="watch_action_why">Онымен бірге не қозғалады?</string>
+    <string name="watch_action_why_short">Бірге не қозғалады?</string>
+    <string name="watch_change_mark">Шекті өзгерту</string>
+    <string name="watch_disable">Өшіру</string>
+    <string name="watch_disable_hint">Сұраусыз, хабарландырусыз</string>
+    <string name="watch_disabled">Өшірілген</string>
+    <string name="watch_disabled_banner">%1$s өшірілді</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">Ескертулер қалады – олардың шектерін тексеріңіз</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">Жұпты өңдеу</string>
+    <string name="watch_enable">Қосу</string>
+    <string name="watch_enable_hint">Бағамдар мен хабарландырулар қайта жалғасады</string>
+    <string name="watch_enabled_banner">%1$s қосылды</string>
+    <string name="watch_error_offline">Байланыс жоқ</string>
+    <string name="watch_gesture_hint_short">Түрту: ескерту және «Онымен бірге не қозғалады?» · таңдау үшін ұзақ басу · жою үшін солға сырғыту · таңдаулы үшін оңға сырғыту</string>
+    <string name="watch_hint_tap_why">Ескертулер мен «Онымен бірге не қозғалады?» үшін монетаны түртіңіз</string>
+    <string name="watch_not_traded">Бұл биржада енді саудаланбайды</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">Бақылау тізімінде жоқ</string>
+    <string name="watch_price_mid">орташа баға (әйтпесе белгі бағасы)</string>
+    <string name="watch_row_source_both">Өзгеріс &amp; график: %1$s</string>
+    <string name="watch_row_source_change">Өзгеріс: %1$s</string>
+    <string name="watch_row_source_chart">График: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s енді бақылау тізіміңізде</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s енді бақылау тізіміңізде</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">Таңдаулыларға қосу</string>
+    <string name="favorite_added">%1$s таңдаулыларға қосылды</string>
+    <string name="favorite_remove">Таңдаулылардан алып тастау</string>
+    <string name="favorite_removed">%1$s таңдаулылардан алып тасталды</string>
+    <string name="hint_favorites_list">Кеңес: жолды таңдаулы ету үшін оны оңға сырғытыңыз – таңдаулылар жоғарыда қалады.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">Жаңа топ</string>
+    <string name="group_all">Барлығы</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Alpha токендері</string>
+    <string name="group_delete">Топты жою</string>
+    <string name="group_delete_confirm">Жұптар бақылау тізіміңізде қалады.</string>
+    <string name="group_done">Дайын</string>
+    <string name="group_edit_title">Топты өңдеу</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">Таңдаулылар</string>
+    <string name="group_in_other">%1$s ішінде</string>
+    <string name="group_name">Топ атауы</string>
+    <string name="group_new">Жаңа топ…</string>
+    <string name="group_next">Келесі</string>
+    <string name="group_none">Топсыз</string>
+    <string name="group_rename">Атауын өзгерту</string>
+    <string name="group_search_hint">Жұп, атау немесе биржа іздеу</string>
+    <string name="group_target">Топқа</string>
+    <string name="group_title">Топ</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">Токендер</string>
+    <string name="group_value">Топ: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">Ескертпе қосу</string>
+    <string name="note_edit">Ескертпені өңдеу</string>
+    <string name="note_hint">мысалы, кіру 0.42, мақсат 0.60</string>
+    <string name="note_remove">Алып тастау</string>
+    <string name="note_title">Ескертпе</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">Ретін өзгерту үшін сүйреңіз</string>
+    <string name="sort_move_bottom">Ең төменге жылжыту</string>
+    <string name="sort_move_down">Төмен жылжыту</string>
+    <string name="sort_move_top">Ең жоғарыға жылжыту</string>
+    <string name="sort_move_up">Жоғары жылжыту</string>
+
+    <string name="watchlist_first_alarm_title">Алғашқы ескертуіңізді орнатыңыз</string>
+    <string name="watchlist_first_alarm_text">Бағам сіздің шегіңізге жеткенде хабар алыңыз – қолданба жабық болса, Android тұрақсыз тексереді.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">белгі бағасы (орташа баға жоқ)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">сағаттық бағам</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">Алғашқы ескертуіңізді орнатыңыз – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Жаңарту (%1$d)</string>
+
+    <!-- Zeile der Merkliste: Börse pausiert (zu viele Anfragen / Zeitüberschreitungen) bis zu einer Uhrzeit, ersetzt die Zeitzeile, z. B. «Binance · pausiert bis 19:45» -->
+    <string name="watchlist_row_exchange_paused">%1$s · %2$s дейін кідіртілді</string>
+
+    <string name="watchlist_refresh_just_done">Жаңа ғана жаңартылды · %1$d с бұрын</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">соңғы сауда %1$s</string>
+
+    <string name="change_candle_source_hint">%1$s шамдарынан есептелген – биржаның өзі бұл мәнді бермейді.</string>
+    <string name="change_candle_source_action">Өзгеріс дереккөзін көрсету</string>
+
+    <string name="watchlist_sort_by_coin">Монета бойынша сұрыптау</string>
+    <string name="watchlist_sort_by_exchange">Биржа бойынша сұрыптау</string>
+    <string name="watchlist_limit_reached">Бақылау тізімінде ең көбі %1$s жұп болуы мүмкін.</string>
+    <string name="watch_price_reference">анықтамалық бағам, күндік</string>
+    <string name="watch_price_daily">күндік</string>
+    <string name="watchlist_compare">Салыстыру</string>
+    <string name="watchlist_compare_hint">Салыстыру үшін 2-ден 4-ке дейін жұп таңдаңыз.</string>
+    <string name="compare_title">Салыстыру</string>
+    <string name="compare_basis">Сызықтар кезең басынан бергі өзгерісті пайызбен көрсетеді.</string>
+    <string name="compare_from_high">30 К шыңымен салыстырғанда</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">%1$d жұп қалпына келтірілмеді – бақылау тізімі толы</item>
+        <item quantity="other">%1$d жұп қалпына келтірілмеді – бақылау тізімі толы</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">Бақылау тізімі мен оның ескертулері қазір сақталмайды. Бұл және кейінгі өзгерістер қолданба жабылғанда жоғалады. Бәрібір өзгерту керек пе?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">Бәрібір өзгерту</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">%1$d жұп</item>
+        <item quantity="other">%1$d жұп</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">%2$d / %1$d жұп</item>
+        <item quantity="other">%2$d / %1$d жұп</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">%1$d орын қалды</item>
+        <item quantity="other">%1$d орын қалды</item>
+    </plurals>
+    <string name="watchlist_footer_full">Бақылау тізімі толы</string>
+</resources>

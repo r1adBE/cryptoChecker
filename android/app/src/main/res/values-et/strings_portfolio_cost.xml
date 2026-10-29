@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">Soetusmaksumuseta kirjed: %1$d</string>
+    <string name="cost_gaps_card_text">Lisa soetusmaksumus, et kasum ja maksud oleksid täielikud.</string>
+    <string name="cost_gaps_sheet_title">Soetusmaksumuseta kirjed</string>
+    <string name="cost_gaps_sheet_intro">Nendel sissetulekutel puudub soetusmaksumus. Soovitus on selle kuupäeva sulgemishind – saad seda kirjes kohandada.</string>
+    <string name="cost_gaps_empty">Kõigil kirjetel on soetusmaksumus.</string>
+    <string name="cost_gap_enter">Sisesta soetusmaksumus</string>
+    <string name="cost_gap_leave_unknown">Jäta teadmata</string>
+    <string name="cost_gap_left_unknown">Jäetud teadmata</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">Soovitus: sulgemishind %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">Selle kuupäeva kohta pole kontrollitud sulgemishinda</string>
+    <string name="cost_gap_suggestion_loading">Sulgemishinna laadimine…</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">Soetusmaksumus = väärtus saamise hetkel (tulu)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">Soetusmaksumus = 0 (preemia ilma sissetulekuta, Austria)</string>
+    <string name="cost_gap_apply">Rakenda</string>
+    <string name="address_lots_action">Aadressi saldo soetusmaksumus</string>
+    <string name="address_lots_title">Aadressi saldo soetusmaksumus</string>
+    <string name="address_lots_intro">Sisesta selle aadressi saldo ostukuupäev, kogus ja soetusmaksumus. Partiid loetakse selle aadressi ostudeks; katmata osa jääb soetusmaksumuseta.</string>
+    <string name="address_lots_add">Lisa partii</string>
+    <string name="address_lots_new">Uus partii</string>
+    <string name="address_lots_edit">Partii</string>
+    <string name="address_lots_date">Ostukuupäev</string>
+    <string name="address_lots_amount">Kogus</string>
+    <string name="address_lots_mode_total">Kokku</string>
+    <string name="address_lots_mode_price">Mündi kohta</string>
+    <string name="address_lots_price">Hind mündi kohta (USDT)</string>
+    <string name="address_lots_total">Soetusmaksumus kokku (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%1$s / %2$s soetusmaksumusega</string>
+    <string name="address_lots_unlotted">%1$s soetusmaksumuseta</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">Partiid ületavad saldot %1$s võrra – esmalt kasutatakse ära vanimad.</string>
+    <string name="address_lots_not_loaded">Saldo pole veel laaditud – partiid lähevad arvesse kohe, kui see on olemas.</string>
+    <string name="address_lots_invalid">Sisesta kogus ja soetusmaksumus</string>
+</resources>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%2$s အတွင်း %1$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">ပိတ်ဈေး</string>
+    <string name="sheet_chart_converted_current">%1$s, ပြောင်းလဲတွက်ချက်ထားသည် (လက်ရှိနှုန်း)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, နေ့စဉ်နှုန်းများဖြင့် ပြောင်းလဲတွက်ချက်ထားသည်</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">ဤအတွဲအတွက် ဈေးနှုန်း ဒေတာ မရှိပါ</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">ဖွင့်ဈေး</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">ယနေ့</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">ပမာဏ %1$s</string>
+    <string name="sheet_more">နောက်ထပ်</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Ask</string>
+    <string name="ticker_bid">Bid</string>
+    <string name="explain_bid_ask">Bid သည် ဝယ်သူများ ယခု ပေးနေသော အမြင့်ဆုံးဈေးနှုန်း ဖြစ်ပြီး ask သည် ရောင်းသူများ လက်ခံမည့် အနိမ့်ဆုံးဈေးနှုန်း ဖြစ်သည်။</string>
+    <string name="ticker_high">အမြင့်</string>
+    <string name="ticker_low">အနိမ့်</string>
+    <string name="ticker_timestamp">အချိန်</string>
+    <string name="ticker_vol_base">ပမာဏ (ဒင်္ဂါးဖြင့်)</string>
+    <string name="ticker_vol_quote">ပမာဏ (ဈေးနှုန်းသတ်မှတ် ငွေကြေးဖြင့်)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (စက်၏ အချိန်ဇုန်)</string>
+    <string name="change_basis_local">ဒေသစံတော်ချိန် 00:00 ကတည်းက</string>
+    <string name="change_basis_rolling">နောက်ဆုံး 24 နာရီ</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">နောက်ဆုံး အပ်ဒိတ်ကတည်းက</string>
+    <string name="change_basis_utc_zone">00:00 %1$s ကတည်းက</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">%1$s ဖယောင်းတိုင်များမှ ပြောင်းလဲမှု</string>
+    <string name="change_short_since_last">နောက်ဆုံး အပ်ဒိတ်</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">ယနေ့</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">ယနေ့ %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="exchange_data_empty_error">လဲလှယ်ရေးဌာနမှ ဒေတာ မရရှိပါ။</string>
+    <string name="market_data_summary">ဈေးကွက်အရင်းအနှီး၊ gas အခကြေးငွေ၊ စီးပွားရေး ဒေတာ၊ ဒင်္ဂါး ခွဲခြမ်းစိတ်ဖြာမှု</string>
+    <string name="market_data_tab_futures">Futures</string>
+    <string name="market_data_title">ဈေးကွက်ဒေတာ</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">လည်ပတ်နေသော ပမာဏ</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">ဈေးကွက်အရင်းအနှီး</string>
+    <string name="spot_max_supply">အများဆုံး ပမာဏ</string>
+    <string name="spot_no_data">ဤဒင်္ဂါးအတွက် Spot ဒေတာ မရှိပါ</string>
+    <string name="spot_source_updated">ရင်းမြစ်: %1$s · %2$s အထိ</string>
+    <string name="spot_supply_of_max">အများဆုံး ပမာဏ၏ %1$s လည်ပတ်နေသည်</string>
+    <string name="spot_total_supply">စုစုပေါင်း ပမာဏ</string>
+    <string name="spot_vol_mcap">ပမာဏ/ဈေးကွက်အရင်းအနှီး</string>
+    <string name="spot_volume_24h">ပမာဏ (24 နာရီ)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">ရည်ညွှန်း: %1$s</string>
+    <string name="futures_funding">Funding နှုန်း</string>
+    <string name="futures_funding_interval_unknown">ကြားကာလ မသိ</string>
+    <string name="futures_funding_per8h_equiv">= 8 နာရီလျှင် %1$s (သတိပေးချက်များတွင်ကဲ့သို့)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">တစ်နာရီလျှင်</string>
+    <string name="futures_funding_per_hours">%1$d နာရီလျှင်</string>
+    <string name="futures_next_funding">နောက်တစ်ကြိမ် %1$d နာရီ %2$d မိနစ်အတွင်း</string>
+    <string name="futures_no_data">ဤဒင်္ဂါးအတွက် Futures ဒေတာ မရှိပါ</string>
+    <string name="futures_open_interest">Open interest</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">%1$s မှ ရည်ညွှန်းချက် – Funding နှင့် Open interest သည် လဲလှယ်ရေးဌာနအလိုက် ကွဲပြားသည်၊ %2$s တွင် ကွဲပြားနိုင်သည်။</string>
+    <string name="futures_reference_spot">%1$s မှ ရည်ညွှန်းချက် (ဒင်္ဂါး၏ USDT perpetual)</string>
+    <string name="futures_source">ရင်းမြစ်: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">ကုန်သည်အများအပြားသည် ချေးငွေဖြင့် ဈေးတက်မည် သို့မဟုတ် ကျမည်ဟု လောင်းကြသည်။ long နှင့် short positions ကြား အခကြေးငွေ။ အပေါင်း အလွန်များလျှင် အများအပြားက ဈေးတက်မည်ဟု လောင်းနေကြသည်။</string>
+    <string name="explain_open_interest">Futures များသည် ဈေးနှုန်းအပေါ် လောင်းကြေးများ ဖြစ်ပြီး ချေးငွေဖြင့် ဖြစ်လေ့ရှိသည်။ ဖွင့်ထားသော Futures positions အားလုံး၏ တန်ဖိုး။ ၎င်း မြင့်တက်လျှင် လှုပ်ရှားမှုအပေါ် ငွေ ပိုများများ လောင်းနေသည်။</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">ရှင်းလင်းချက်</string>
+    <string name="explain_spot_fdv">အပြည့်အဝ တန်ဖိုးဖြတ်ချက် (Fully diluted valuation)- ဈေးနှုန်း × အများဆုံး ပမာဏ (ကန့်သတ်ချက် မရှိလျှင် စုစုပေါင်း ပမာဏ)။</string>
+    <string name="explain_spot_market_cap">ဈေးနှုန်း × လည်ပတ်နေသော ပမာဏ။ တံဆိပ်သည် 24 နာရီအတွင်း ၎င်း၏ ပြောင်းလဲမှုကို ပြသည်။</string>
+    <string name="explain_spot_source">လဲလှယ်ရေးဌာနအားလုံးမှ ကိန်းဂဏန်းများကို US ဒေါ်လာဖြင့်၊ CoinGecko မှ။</string>
+    <string name="explain_spot_supply">လည်ပတ်နေသည်- ယခု ဈေးကွက်ထဲရှိ ဒင်္ဂါးများ။ စုစုပေါင်း- ဖန်တီးထားသော ဒင်္ဂါးအားလုံး အနုတ် မီးရှို့ထားသည်များ။ အများဆုံး- ရှိနိုင်သမျှ အများဆုံး။</string>
+    <string name="explain_spot_volume">24 နာရီအတွင်း အရောင်းအဝယ်ဖြစ်သော တန်ဖိုး။ ပမာဏ/ဈေးကွက်အရင်းအနှီး- ဈေးကွက်အရင်းအနှီးနှင့် နှိုင်းယှဉ်ထားသော ပမာဏ — မြင့်လျှင် အရောင်းအဝယ် အလွန်တက်ကြွသည်။</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · နှုန်း %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">ဝယ်ဈေးနှင့် ရောင်းဈေးကြား ကွာဟချက် ကြီးသည် (%1$s)</string>
+
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">%1$s ဖြင့် သမိုင်း၊ ယနေ့နှုန်းဖြင့် %2$s သို့ ပြောင်းလဲတွက်ချက်ထားသည်</string>
+    <string name="converted_unsure">ပြောင်းလဲတွက်ချက်မှု မသေချာပါ</string>
+</resources>

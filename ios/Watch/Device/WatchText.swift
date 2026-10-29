@@ -1,6 +1,6 @@
 import Foundation
 
-/// Texte der Uhr aus `Localizable.xcstrings` (Android-Schlüssel, 33 Sprachen) und Zahlen kurz formatiert — wie
+/// Texte der Uhr aus `Localizable.xcstrings` (Android-Schlüssel, 75 Sprachen) und Zahlen kurz formatiert — wie
 /// Android `WatchFormat`; Alter veralteter Kurse wie Android `WatchAge`.
 enum WatchText {
     static func t(_ key: String, _ args: CVarArg...) -> String {

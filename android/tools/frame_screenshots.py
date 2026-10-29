@@ -8,8 +8,9 @@ Each output gets the brand background (Crypto Checker orange), the caption and
 subline from captions.json on top and the screenshot below it, scaled to fit,
 with rounded corners and a soft shadow. No device frames of real brands.
 
-Only needs Python 3 and Pillow (with libraqm for Arabic, Persian, Hebrew, Hindi
-and Thai shaping – Pillow wheels from PyPI include it).
+Only needs Python 3 and Pillow (with libraqm for the shaping of Arabic, Persian, Urdu,
+Hebrew, the Indic scripts, Sinhala, Thai, Lao, Khmer, Myanmar, Ethiopic, Armenian and
+Georgian – Pillow wheels from PyPI include it). Fonts come from fontconfig (Noto families).
 
 Examples
   python3 tools/frame_screenshots.py                         # all locales in raw/, phone + iPhone 6.9"
@@ -54,8 +55,14 @@ ALIASES = {
     "nb-NO": "no-NO", "nl": "nl-NL", "pl": "pl-PL", "pt": "pt-PT", "ro-RO": "ro", "ru": "ru-RU",
     "sq-AL": "sq", "sv": "sv-SE", "th-TH": "th", "tr": "tr-TR", "uk-UA": "uk", "vi-VN": "vi",
     "zh": "zh-CN", "zh-Hans": "zh-CN", "fa-IR": "fa", "zh-Hant": "zh-TW", "zh-HK": "zh-TW", "ms-MY": "ms",
+    # Android/iOS codes -> caption keys (Play folder names); yue-Hant = Cantonese on iOS
+    "az": "az-AZ", "bn": "bn-BD", "eu": "eu-ES", "gl": "gl-ES", "hy": "hy-AM", "is": "is-IS", "ka": "ka-GE",
+    "km": "km-KH", "kn": "kn-IN", "lo": "lo-LA", "mk": "mk-MK", "ml": "ml-IN", "mn": "mn-MN", "mr": "mr-IN",
+    "my": "my-MM", "ne": "ne-NP", "si": "si-LK", "ta": "ta-IN", "te": "te-IN", "gu-IN": "gu", "pa-IN": "pa",
+    "sl-SI": "sl", "ur-PK": "ur", "fil-PH": "fil", "tl": "fil", "yue-Hant": "yue", "yue-HK": "yue",
+    "b+yue": "yue", "sr-Cyrl": "sr", "uz-Latn": "uz", "bs-Latn": "bs", "zu-ZA": "zu", "sw-KE": "sw",
 }
-RTL = {"ar", "fa", "iw", "he"}
+RTL = {"ar", "fa", "iw", "he", "ur"}
 
 # Frame gradient #FC9F79 -> #ED835E (brand orange) -> #C96444; the app accent is #A64827 (light, darker step of the same orange) / #ED835E (dark)
 BG_TOP = (252, 159, 121)
@@ -83,6 +90,23 @@ SCRIPT_FAMILIES = {
     "he": ["Noto Sans Hebrew", "Rubik", "DejaVu Sans", "FreeSans"],
     "hi": ["Noto Sans Devanagari", "Mukta", "Lohit Devanagari", "FreeSans", "FreeSerif"],
     "th": ["Noto Sans Thai", "Noto Sans Thai Looped", "Sarabun", "Loma", "Garuda"],
+    "ur": ["Noto Nastaliq Urdu", "Noto Naskh Arabic", "Noto Sans Arabic", "DejaVu Sans", "FreeSerif"],
+    "mr": ["Noto Sans Devanagari", "Mukta", "Lohit Devanagari", "FreeSans", "FreeSerif"],
+    "ne": ["Noto Sans Devanagari", "Mukta", "Lohit Devanagari", "FreeSans", "FreeSerif"],
+    "bn": ["Noto Sans Bengali", "Hind Siliguri", "Lohit Bengali", "FreeSans", "FreeSerif"],
+    "pa": ["Noto Sans Gurmukhi", "Lohit Gurmukhi", "FreeSans", "FreeSerif"],
+    "gu": ["Noto Sans Gujarati", "Lohit Gujarati", "FreeSans", "FreeSerif"],
+    "ta": ["Noto Sans Tamil", "Lohit Tamil", "FreeSans", "FreeSerif"],
+    "te": ["Noto Sans Telugu", "Lohit Telugu", "FreeSans", "FreeSerif"],
+    "kn": ["Noto Sans Kannada", "Lohit Kannada", "FreeSans", "FreeSerif"],
+    "ml": ["Noto Sans Malayalam", "Lohit Malayalam", "FreeSans", "FreeSerif"],
+    "si": ["Noto Sans Sinhala", "Iskoola Pota", "FreeSans", "FreeSerif"],
+    "lo": ["Noto Sans Lao", "Noto Sans Lao Looped", "Phetsarath OT", "Saysettha OT"],
+    "km": ["Noto Sans Khmer", "Khmer OS", "Khmer OS System"],
+    "my": ["Noto Sans Myanmar", "Padauk", "Myanmar Text"],
+    "am": ["Noto Sans Ethiopic", "Abyssinica SIL", "FreeSerif"],
+    "hy": ["Noto Sans Armenian", "DejaVu Sans", "FreeSans"],
+    "ka": ["Noto Sans Georgian", "DejaVu Sans", "FreeSans"],
 }
 LATIN_FAMILIES = ["Inter", "Noto Sans", "Roboto", "DejaVu Sans", "Liberation Sans", "FreeSans"]
 
@@ -120,8 +144,8 @@ def resolve_fonts(locale: str, font: str | None, font_bold: str | None):
         b = font_bold or font
         r = font or font_bold
         return (b, 0), (r, 0)
-    # Traditional Chinese (zh-TW, zh-Hant, zh-HK) uses the TC fonts, everything else the language
-    trad = locale.replace("_", "-") in ("zh-TW", "zh-Hant", "zh-HK")
+    # Traditional Chinese (zh-TW, zh-Hant, zh-HK) and Cantonese (yue) use the TC fonts, everything else the language
+    trad = locale.replace("_", "-") in ("zh-TW", "zh-Hant", "zh-HK") or _lang(locale) == "yue"
     fams = SCRIPT_FAMILIES.get("zh-Hant" if trad else _lang(locale), []) + LATIN_FAMILIES
     for fam in fams:
         bold = _fc_match(fam, "bold") or _fc_match(fam, "semibold")
@@ -163,7 +187,7 @@ def wrap(draw, s, font, max_w, kw, lang):
     """Greedy wrap; CJK breaks between characters, other scripts at spaces."""
     if text_width(draw, s, font, kw) <= max_w:
         return [s]
-    cjk = lang in ("ja", "zh")
+    cjk = lang in ("ja", "zh", "yue")
     tokens = list(s) if cjk else s.split(" ")
     sep = "" if cjk else " "
     lines, cur = [], ""
@@ -314,8 +338,8 @@ def main(argv=None):
         sys.exit(f"Ordner fehlt: {a.raw}")
     locales = a.locales or sorted(d.name for d in a.raw.iterdir() if d.is_dir())
     if not RAQM:
-        print("Hinweis: Pillow ohne libraqm – Arabisch/Persisch/Hebräisch/Hindi/Thai werden falsch gesetzt.",
-              file=sys.stderr)
+        print("Hinweis: Pillow ohne libraqm – Arabisch/Persisch/Urdu/Hebräisch, indische Schriften, Singhalesisch, "
+              "Thai/Lao/Khmer/Birmanisch, Amharisch, Armenisch und Georgisch werden falsch gesetzt.", file=sys.stderr)
 
     count = 0
     for loc in locales:

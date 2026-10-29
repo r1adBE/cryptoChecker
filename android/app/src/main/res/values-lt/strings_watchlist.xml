@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">Aktualu · %1$s</string>
+    <string name="watchlist_empty_title">Porų dar nėra</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%1$d iš %2$d be kainos</item>
+        <item quantity="few">%1$d iš %2$d be kainos</item>
+        <item quantity="many">%1$d iš %2$d be kainos</item>
+        <item quantity="other">%1$d iš %2$d be kainos</item>
+    </plurals>
+    <string name="watchlist_last_run">Paskutinis paleidimas %1$s</string>
+    <string name="watchlist_live_a11y">Tiesioginės kainos įjungtos</string>
+    <string name="watchlist_offline_since">Nėra ryšio · būsena %1$s</string>
+    <string name="watchlist_pull_to_refresh">Patrauk žemyn, kad atnaujintum</string>
+    <string name="watchlist_refresh_report">Paskutinis atnaujinimas</string>
+    <string name="watchlist_refresh_report_empty">Išklotinės dar nėra – iki šiol nebuvo pilno atnaujinimo. Bakstelėk atnaujinti ir palauk, kol ratas sustos.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%1$d iš %2$d pasenusi</item>
+        <item quantity="few">%1$d iš %2$d pasenusios</item>
+        <item quantity="many">%1$d iš %2$d pasenusios</item>
+        <item quantity="other">%1$d iš %2$d pasenusių</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">Visos čia esančios poros išjungtos</string>
+    <string name="watchlist_status_exchange_prices">Tavo biržų kainos · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">Biržų kainos · %1$s</string>
+    <string name="watchlist_status_group_empty">Šioje grupėje porų nėra</string>
+    <string name="watchlist_status_none_traded">Čia nėra prekiaujamų porų</string>
+    <string name="watchlist_updated">Atnaujinta: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">vid. %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d krenta</item>
+        <item quantity="few">%1$d krenta</item>
+        <item quantity="many">%1$d krenta</item>
+        <item quantity="other">%1$d krenta</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d be 24 val. vertės</item>
+        <item quantity="few">%1$d be 24 val. vertės</item>
+        <item quantity="many">%1$d be 24 val. vertės</item>
+        <item quantity="other">%1$d be 24 val. vertės</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d be šiandienos vertės</item>
+        <item quantity="few">%1$d be šiandienos vertės</item>
+        <item quantity="many">%1$d be šiandienos vertės</item>
+        <item quantity="other">%1$d be šiandienos vertės</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d kyla</item>
+        <item quantity="few">%1$d kyla</item>
+        <item quantity="many">%1$d kyla</item>
+        <item quantity="other">%1$d kyla</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · išjungta</string>
+    <string name="watchlist_row_outdated">%1$s · pasenusi</string>
+    <string name="watchlist_row_outdated_age">pasenusi · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">Kaina nepasikeitė nuo %1$s</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s nepasiekiama</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">Į pabaigą</string>
+    <string name="watchlist_jump_start">Į viršų</string>
+    <string name="watchlist_search_close">Uždaryti paiešką</string>
+    <string name="watchlist_search_empty">Nėra atitikmenų pagal „%1$s“</string>
+    <string name="watchlist_search_hint">Ieškoti poros, pavadinimo ar biržos</string>
+    <string name="watchlist_search_open">Ieškoti</string>
+    <string name="watchlist_sort_ascending">didėjančiai</string>
+    <string name="watchlist_sort_descending">mažėjančiai</string>
+    <string name="watchlist_sort_hint">Palaikyk ir vilk porą arba naudok rankenėlę. Mėgstamos lieka viršuje.</string>
+    <string name="watchlist_sort_name">Pavadinimas</string>
+    <string name="watchlist_sort_own">Sava tvarka</string>
+    <string name="watchlist_sort_price">Kaina</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">Išvalyti stebimų sąrašą</string>
+    <string name="watchlist_clear_confirm">Pašalinti visas poras iš stebimų sąrašo? Kartu bus pašalinti ir jų įspėjimai.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d išjungta</item>
+        <item quantity="few">%1$d išjungtos</item>
+        <item quantity="many">%1$d išjungtos</item>
+        <item quantity="other">%1$d išjungtų</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">Pašalinti</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Pašalinti %1$d porą, kuria jos biržoje nebeprekiaujama? Kartu bus pašalinti ir jos įspėjimai.</item>
+        <item quantity="few">Pašalinti %1$d poras, kuriomis jų biržose nebeprekiaujama? Kartu bus pašalinti ir jų įspėjimai.</item>
+        <item quantity="many">Pašalinti %1$d poros, kuriomis jų biržose nebeprekiaujama? Kartu bus pašalinti ir jų įspėjimai.</item>
+        <item quantity="other">Pašalinti %1$d porų, kuriomis jų biržose nebeprekiaujama? Kartu bus pašalinti ir jų įspėjimai.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">Pašalinti neprekiaujamas poras (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Pašalinti neprekiaujamas poras</string>
+    <string name="watchlist_removed">%1$s pašalinta</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">Pašalinta %1$d pora</item>
+        <item quantity="few">Pašalintos %1$d poros</item>
+        <item quantity="many">Pašalinta %1$d poros</item>
+        <item quantity="other">Pašalinta %1$d porų</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">Pašalinta %1$d neprekiaujama pora</item>
+        <item quantity="few">Pašalintos %1$d neprekiaujamos poros</item>
+        <item quantity="many">Pašalinta %1$d neprekiaujamos poros</item>
+        <item quantity="other">Pašalinta %1$d neprekiaujamų porų</item>
+    </plurals>
+    <string name="watchlist_select">Pasirinkti</string>
+    <string name="watchlist_select_all">Pasirinkti visas</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">Pasirinkta %1$d</item>
+        <item quantity="few">Pasirinktos %1$d</item>
+        <item quantity="many">Pasirinkta %1$d</item>
+        <item quantity="other">Pasirinkta %1$d</item>
+    </plurals>
+    <string name="watchlist_show_all">Rodyti visas</string>
+    <string name="watchlist_show_only_disabled">Rodyti tik išjungtas</string>
+    <string name="watchlist_show_only_stale">Rodyti tik pasenusias</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">Įspėjimas (%1$d)</item>
+        <item quantity="few">Įspėjimai (%1$d)</item>
+        <item quantity="many">Įspėjimai (%1$d)</item>
+        <item quantity="other">Įspėjimai (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">Mėgstamų dar nėra. Perbrauk porą į dešinę arba atidaryk porą ir bakstelėk „Mėgstama“.</string>
+    <string name="watchlist_group_empty_hint">Ilgai paspausk grupę, kad pasirinktum jos poras.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">Čia atsiras tavo grupės</string>
+    <string name="watchlist_notification">Kainos pranešimas</string>
+    <string name="watchlist_tts">Skaityti kainą</string>
+    <string name="watchlist_tts_speech_on">Balso išvestis įjungta. Tai gali pakeisti skiltyje Nustatymai › Įspėjimai › Balso išvestis.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">Pridėti kaip valdiklį</string>
+    <string name="watch_action_alarm">Įspėjimas</string>
+    <string name="watch_action_favorite">Mėgstama</string>
+    <string name="watch_action_why">Kas juda kartu?</string>
+    <string name="watch_action_why_short">Kas juda kartu?</string>
+    <string name="watch_change_mark">Mark</string>
+    <string name="watch_disable">Išjungti</string>
+    <string name="watch_disable_hint">Jokių užklausų, jokių pranešimų</string>
+    <string name="watch_disabled">Išjungta</string>
+    <string name="watch_disabled_banner">%1$s išjungta</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">Įspėjimai lieka – patikrink jų ribas</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">Redaguoti porą</string>
+    <string name="watch_enable">Įjungti</string>
+    <string name="watch_enable_hint">Kainos ir pranešimai atnaujinami</string>
+    <string name="watch_enabled_banner">%1$s įjungta</string>
+    <string name="watch_error_offline">Nėra ryšio</string>
+    <string name="watch_gesture_hint_short">Bakstelėk: įspėjimas ir „Kas juda kartu?“ · ilgai paspausk, kad pasirinktum · perbrauk kairėn, kad ištrintum · perbrauk dešinėn – mėgstama</string>
+    <string name="watch_hint_tap_why">Bakstelėk monetą, kad matytum įspėjimus ir „Kas juda kartu?“</string>
+    <string name="watch_not_traded">Šioje biržoje nebeprekiaujama</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">Ne stebimų sąraše</string>
+    <string name="watch_price_mid">vidutinė kaina (kitaip žymėjimo)</string>
+    <string name="watch_row_source_both">Pokytis ir diagrama: %1$s</string>
+    <string name="watch_row_source_change">Pokytis: %1$s</string>
+    <string name="watch_row_source_chart">Diagrama: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s dabar yra tavo stebimų sąraše</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s dabar yra tavo stebimų sąraše</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">Pridėti prie mėgstamų</string>
+    <string name="favorite_added">%1$s pridėta prie mėgstamų</string>
+    <string name="favorite_remove">Pašalinti iš mėgstamų</string>
+    <string name="favorite_removed">%1$s pašalinta iš mėgstamų</string>
+    <string name="hint_favorites_list">Patarimas: perbrauk eilutę į dešinę, kad ji taptų mėgstama – mėgstamos lieka viršuje.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">Nauja grupė</string>
+    <string name="group_all">Visos</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Alpha žetonai</string>
+    <string name="group_delete">Ištrinti grupę</string>
+    <string name="group_delete_confirm">Poros lieka tavo stebimų sąraše.</string>
+    <string name="group_done">Atlikta</string>
+    <string name="group_edit_title">Redaguoti grupę</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">Mėgstami</string>
+    <string name="group_in_other">grupėje %1$s</string>
+    <string name="group_name">Grupės pavadinimas</string>
+    <string name="group_new">Nauja grupė…</string>
+    <string name="group_next">Toliau</string>
+    <string name="group_none">Be grupės</string>
+    <string name="group_rename">Pervadinti</string>
+    <string name="group_search_hint">Ieškoti poros, pavadinimo ar biržos</string>
+    <string name="group_target">Į grupę</string>
+    <string name="group_title">Grupė</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">Žetonai</string>
+    <string name="group_value">Grupė: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">Pridėti pastabą</string>
+    <string name="note_edit">Redaguoti pastabą</string>
+    <string name="note_hint">pvz., įėjimas ties 0.42, tikslas 0.60</string>
+    <string name="note_remove">Pašalinti</string>
+    <string name="note_title">Pastaba</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">Vilk, kad pakeistum tvarką</string>
+    <string name="sort_move_bottom">Perkelti į apačią</string>
+    <string name="sort_move_down">Perkelti žemyn</string>
+    <string name="sort_move_top">Perkelti į viršų</string>
+    <string name="sort_move_up">Perkelti aukštyn</string>
+
+    <string name="watchlist_first_alarm_title">Nustatyk pirmą įspėjimą</string>
+    <string name="watchlist_first_alarm_text">Gauk pranešimą, kai kaina pasieks tavo ribą – kai programėlė uždaryta, Android tikrina nereguliariai.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">žymėjimo kaina (nėra vidutinės kainos)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">valandinė kaina</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">Nustatyk pirmą įspėjimą – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Atnaujinti (%1$d)</string>
+
+    <!-- Zeile der Merkliste: Börse pausiert (zu viele Anfragen / Zeitüberschreitungen) bis zu einer Uhrzeit, ersetzt die Zeitzeile, z. B. «Binance · pausiert bis 19:45» -->
+    <string name="watchlist_row_exchange_paused">%1$s · pristabdyta iki %2$s</string>
+
+    <string name="watchlist_refresh_just_done">Ką tik atnaujinta · prieš %1$d s</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">paskutinis sandoris %1$s</string>
+
+    <string name="change_candle_source_hint">Apskaičiuota pagal %1$s žvakes – pati birža šios vertės nepateikia.</string>
+    <string name="change_candle_source_action">Rodyti pokyčio šaltinį</string>
+
+    <string name="watchlist_sort_by_coin">Rikiuoti pagal monetą</string>
+    <string name="watchlist_sort_by_exchange">Rikiuoti pagal biržą</string>
+    <string name="watchlist_limit_reached">Tavo stebimų sąraše gali būti daugiausia %1$s porų.</string>
+    <string name="watch_price_reference">orientacinis kursas, kasdien</string>
+    <string name="watch_price_daily">kasdien</string>
+    <string name="watchlist_compare">Palyginti</string>
+    <string name="watchlist_compare_hint">Pažymėk nuo 2 iki 4 porų palyginimui.</string>
+    <string name="compare_title">Palyginimas</string>
+    <string name="compare_basis">Linijos rodo pokytį procentais nuo laikotarpio pradžios.</string>
+    <string name="compare_from_high">nuo 30 d. maksimumo</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">%1$d pora neatkurta – stebimų sąrašas pilnas</item>
+        <item quantity="few">%1$d poros neatkurtos – stebimų sąrašas pilnas</item>
+        <item quantity="many">%1$d poros neatkurta – stebimų sąrašas pilnas</item>
+        <item quantity="other">%1$d porų neatkurta – stebimų sąrašas pilnas</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">Stebimų sąrašas ir jo įspėjimai šiuo metu neišsaugomi. Šis ir visi kiti pakeitimai dings uždarius programėlę. Vis tiek keisti?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">Vis tiek keisti</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">Poros: %1$d</item>
+        <item quantity="few">Poros: %1$d</item>
+        <item quantity="many">Poros: %1$d</item>
+        <item quantity="other">Poros: %1$d</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">Poros: %2$d iš %1$d</item>
+        <item quantity="few">Poros: %2$d iš %1$d</item>
+        <item quantity="many">Poros: %2$d iš %1$d</item>
+        <item quantity="other">Poros: %2$d iš %1$d</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">Laisvos vietos: %1$d</item>
+        <item quantity="few">Laisvos vietos: %1$d</item>
+        <item quantity="many">Laisvos vietos: %1$d</item>
+        <item quantity="other">Laisvos vietos: %1$d</item>
+    </plurals>
+    <string name="watchlist_footer_full">Stebimų sąrašas pilnas</string>
+</resources>

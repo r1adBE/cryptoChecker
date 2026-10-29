@@ -15,10 +15,52 @@
     "NSFaceIDUsageDescription" : {
       "extractionState" : "manual",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ontsluit jou portefeulje met Face ID."
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ፖርትፎሊዮዎን በFace ID ይክፈቱ።"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "افتح قفل محفظتك باستخدام Face ID."
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfelinin kilidini Face ID ilə aç."
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отключи портфолиото си с Face ID."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Face ID দিয়ে আপনার পোর্টফোলিও আনলক করুন।"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Otključaj svoj portfolio pomoću Face ID-a."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desbloqueja la teva cartera amb Face ID."
           }
         },
         "cs" : {
@@ -57,6 +99,18 @@
             "value" : "Desbloquea tu cartera con Face ID."
           }
         },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ava oma portfelli lukk Face ID-ga."
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desblokeatu zure zorroa Face ID bidez."
+          }
+        },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
@@ -69,10 +123,34 @@
             "value" : "Avaa salkkusi lukitus Face ID:llä."
           }
         },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I-unlock ang portfolio mo gamit ang Face ID."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Déverrouille ton portefeuille avec Face ID."
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Díghlasáil do phunann le Face ID."
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desbloquea a túa carteira con Face ID."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Face ID થી તમારો પોર્ટફોલિયો અનલૉક કરો."
           }
         },
         "he" : {
@@ -87,16 +165,34 @@
             "value" : "Face ID से अपना पोर्टफ़ोलियो अनलॉक करो।"
           }
         },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Otključaj svoj portfelj pomoću Face ID-a."
+          }
+        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "A portfóliód feloldása Face ID-val."
           }
         },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ապակողպիր քո պորտֆելը Face ID-ով։"
+          }
+        },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Buka kunci portofoliomu dengan Face ID."
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opnaðu eignasafnið þitt með Face ID."
           }
         },
         "it" : {
@@ -111,10 +207,76 @@
             "value" : "Face ID でポートフォリオのロックを解除します。"
           }
         },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "განბლოკე შენი პორტფელი Face ID-ით."
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Портфельдің құлпын Face ID арқылы ашу."
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ដោះសោផលប័ត្ររបស់អ្នកដោយ Face ID។"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Face ID ಮೂಲಕ ನಿಮ್ಮ ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಅನ್‌ಲಾಕ್ ಮಾಡಿ."
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Face ID로 포트폴리오 잠금을 해제합니다."
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ປົດລັອກພອດໂຟລິໂອຂອງທ່ານດ້ວຍ Face ID."
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atrakink savo portfelį su Face ID."
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atbloķē savu portfeli ar Face ID."
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отклучи го своето портфолио со Face ID."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Face ID ഉപയോഗിച്ച് നിങ്ങളുടെ പോർട്ട്ഫോളിയോ അൺലോക്ക് ചെയ്യുക."
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Багцынхаа түгжээг Face ID-ээр тайлах."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Face ID ने तुमचा पोर्टफोलिओ अनलॉक करा."
           }
         },
         "ms" : {
@@ -123,16 +285,34 @@
             "value" : "Buka kunci portfolio anda dengan Face ID."
           }
         },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "သင့်ပေါ့ဖိုလီယိုကို Face ID ဖြင့် လော့ခ်ဖွင့်ပါ။"
+          }
+        },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lås opp porteføljen din med Face ID."
           }
         },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Face ID ले आफ्नो पोर्टफोलियो अनलक गर्नुहोस्।"
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ontgrendel je portfolio met Face ID."
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Face ID ਨਾਲ ਆਪਣਾ ਪੋਰਟਫੋਲੀਓ ਅਨਲੌਕ ਕਰੋ।"
           }
         },
         "pl" : {
@@ -165,16 +345,64 @@
             "value" : "Разблокировать портфель с помощью Face ID."
           }
         },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Face ID මගින් ඔබේ කළඹ අගුළු හරින්න."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odomkni svoje portfólio pomocou Face ID."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odkleni svoj portfelj s Face ID."
+          }
+        },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Shkyç portofolin tënd me Face ID."
           }
         },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Откључај свој портфолио помоћу Face ID-а."
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Otključaj svoj portfolio pomoću Face ID-a."
+          }
+        },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lås upp din portfölj med Face ID."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fungua jalada lako kwa Face ID."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Face ID மூலம் உங்கள் போர்ட்ஃபோலியோவைத் திறக்கவும்."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Face IDతో మీ పోర్ట్‌ఫోలియోను అన్‌లాక్ చేయండి."
           }
         },
         "th" : {
@@ -195,10 +423,28 @@
             "value" : "Розблокувати портфель за допомогою Face ID."
           }
         },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Face ID سے اپنا پورٹ فولیو ان لاک کریں۔"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfelingizni Face ID bilan qulfdan chiqarish."
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mở khóa danh mục đầu tư của bạn bằng Face ID."
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用 Face ID 解鎖你嘅投資組合。"
           }
         },
         "zh-Hans" : {
@@ -212,16 +458,64 @@
             "state" : "translated",
             "value" : "使用 Face ID 解鎖你的投資組合。"
           }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vula i-portfolio yakho nge-Face ID."
+          }
         }
       }
     },
     "NSLocalNetworkUsageDescription" : {
       "extractionState" : "manual",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Slegs nodig as jou eie bediener vir adresse in jou tuisnetwerk is."
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "የሚያስፈልገው ለአድራሻዎች የራስዎ አገልጋይ በቤትዎ አውታረ መረብ ውስጥ ከሆነ ብቻ ነው።"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "مطلوب فقط إذا كان خادمك الخاص للعناوين موجودًا في شبكتك المنزلية."
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yalnız ünvanlar üçün öz serverin ev şəbəkəndə olduqda lazımdır."
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нужно е само ако собственият ти сървър за адреси е в домашната ти мрежа."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "শুধু তখনই দরকার যদি ঠিকানার জন্য আপনার নিজের সার্ভার আপনার হোম নেটওয়ার্কে থাকে।"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Potrebno samo ako je tvoj vlastiti server za adrese u tvojoj kućnoj mreži."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Només cal si el teu propi servidor per a adreces és a la teva xarxa domèstica."
           }
         },
         "cs" : {
@@ -260,6 +554,18 @@
             "value" : "Solo es necesario si tu propio servidor para direcciones está en tu red doméstica."
           }
         },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vajalik ainult siis, kui sinu oma server aadresside jaoks asub sinu koduvõrgus."
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Helbideetarako zure zerbitzari propioa zure etxeko sarean badago bakarrik behar da."
+          }
+        },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
@@ -272,10 +578,34 @@
             "value" : "Tarvitaan vain, jos oma osoitepalvelimesi on kotiverkossasi."
           }
         },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kailangan lang kung nasa home network mo ang sarili mong server para sa mga address."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nécessaire uniquement si ton propre serveur pour les adresses se trouve sur ton réseau domestique."
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ní theastaíonn ach amháin má tá do fhreastalaí féin do sheoltaí ar do líonra baile."
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Só fai falta se o teu propio servidor para enderezos está na túa rede doméstica."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "સરનામાં માટેનું તમારું પોતાનું સર્વર તમારા ઘરના નેટવર્કમાં હોય તો જ જરૂરી."
           }
         },
         "he" : {
@@ -290,16 +620,34 @@
             "value" : "केवल तब ज़रूरी है जब पतों के लिए तुम्हारा अपना सर्वर तुम्हारे होम नेटवर्क में हो।"
           }
         },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Potrebno samo ako je tvoj vlastiti poslužitelj za adrese u tvojoj kućnoj mreži."
+          }
+        },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Csak akkor szükséges, ha a címekhez használt saját szervered az otthoni hálózatodban van."
           }
         },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Պետք է միայն, եթե հասցեների համար քո սեփական սերվերը գտնվում է քո տնային ցանցում։"
+          }
+        },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hanya diperlukan jika server pribadimu untuk alamat ada di jaringan rumahmu."
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aðeins nauðsynlegt ef eigin netþjónn þinn fyrir vistföng er á heimanetinu þínu."
           }
         },
         "it" : {
@@ -314,10 +662,76 @@
             "value" : "アドレス用の自分のサーバーが自宅のネットワーク内にある場合にのみ必要です。"
           }
         },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "საჭიროა მხოლოდ მაშინ, თუ მისამართებისთვის შენი საკუთარი სერვერი შენს სახლის ქსელშია."
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Мекенжайларға арналған жеке серверіңіз үй желісінде болса ғана қажет."
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ត្រូវការតែប្រសិនបើម៉ាស៊ីនមេផ្ទាល់ខ្លួនរបស់អ្នកសម្រាប់អាសយដ្ឋាននៅក្នុងបណ្ដាញផ្ទះរបស់អ្នក។"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ವಿಳಾಸಗಳಿಗಾಗಿ ನಿಮ್ಮ ಸ್ವಂತ ಸರ್ವರ್ ನಿಮ್ಮ ಮನೆಯ ನೆಟ್‌ವರ್ಕ್‌ನಲ್ಲಿದ್ದರೆ ಮಾತ್ರ ಅಗತ್ಯ."
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "주소용 개인 서버가 홈 네트워크에 있는 경우에만 필요합니다."
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ຕ້ອງການສະເພາະຖ້າເຊີບເວີຂອງທ່ານເອງສຳລັບທີ່ຢູ່ຢູ່ໃນເຄືອຂ່າຍເຮືອນຂອງທ່ານ."
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reikia tik tada, jei tavo savas serveris adresams yra tavo namų tinkle."
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nepieciešams tikai tad, ja tavs savs serveris adresēm atrodas tavā mājas tīklā."
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Потребно е само ако твојот сопствен сервер за адреси е во твојата домашна мрежа."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "വിലാസങ്ങൾക്കുള്ള നിങ്ങളുടെ സ്വന്തം സെർവർ നിങ്ങളുടെ ഹോം നെറ്റ്‌വർക്കിലാണെങ്കിൽ മാത്രം ആവശ്യം."
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Хаягийн өөрийн сервер тань гэрийн сүлжээнд байгаа үед л шаардлагатай."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पत्त्यांसाठीचा तुमचा स्वतःचा सर्व्हर तुमच्या घरच्या नेटवर्कमध्ये असेल तरच आवश्यक."
           }
         },
         "ms" : {
@@ -326,16 +740,34 @@
             "value" : "Hanya diperlukan jika pelayan sendiri untuk alamat anda berada dalam rangkaian rumah anda."
           }
         },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "လိပ်စာများအတွက် သင့်ကိုယ်ပိုင်ဆာဗာသည် သင့်အိမ်ကွန်ရက်တွင် ရှိမှသာ လိုအပ်သည်။"
+          }
+        },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Bare nødvendig hvis din egen server for adresser står i hjemmenettverket ditt."
           }
         },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ठेगानाका लागि तपाईंको आफ्नो सर्भर घरको नेटवर्कमा भए मात्र आवश्यक।"
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Alleen nodig als je eigen server voor adressen in je thuisnetwerk staat."
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਸਿਰਫ਼ ਤਾਂ ਹੀ ਲੋੜੀਂਦਾ ਜੇ ਪਤਿਆਂ ਲਈ ਤੁਹਾਡਾ ਆਪਣਾ ਸਰਵਰ ਤੁਹਾਡੇ ਘਰੇਲੂ ਨੈੱਟਵਰਕ ਵਿੱਚ ਹੈ।"
           }
         },
         "pl" : {
@@ -368,16 +800,64 @@
             "value" : "Нужно, только если твой собственный сервер для адресов находится в твоей домашней сети."
           }
         },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ලිපින සඳහා ඔබේම සේවාදායකය ඔබේ නිවසේ ජාලයේ ඇත්නම් පමණක් අවශ්‍යයි."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Potrebné iba vtedy, ak je tvoj vlastný server pre adresy v domácej sieti."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Potrebno samo, če je tvoj lasten strežnik za naslove v domačem omrežju."
+          }
+        },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nevojitet vetëm nëse serveri yt për adresat është në rrjetin tënd të shtëpisë."
           }
         },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Потребно само ако је твој сопствени сервер за адресе у твојој кућној мрежи."
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Potrebno samo ako je tvoj sopstveni server za adrese u tvojoj kućnoj mreži."
+          }
+        },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Behövs bara om din egen server för adresser finns i ditt hemnätverk."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inahitajika tu ikiwa seva yako ya anwani iko kwenye mtandao wako wa nyumbani."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "முகவரிகளுக்கான உங்கள் சொந்தச் சர்வர் உங்கள் வீட்டு நெட்வொர்க்கில் இருந்தால் மட்டுமே தேவை."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "అడ్రస్‌ల కోసం మీ సొంత సర్వర్ మీ ఇంటి నెట్‌వర్క్‌లో ఉంటే మాత్రమే అవసరం."
           }
         },
         "th" : {
@@ -398,10 +878,28 @@
             "value" : "Потрібно, лише якщо твій власний сервер для адрес у твоїй домашній мережі."
           }
         },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "صرف تب درکار جب پتوں کے لیے آپ کا اپنا سرور آپ کے ہوم نیٹ ورک میں ہو۔"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Faqat manzillar uchun shaxsiy serveringiz uy tarmogʻingizda boʻlsa kerak."
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Chỉ cần khi máy chủ riêng cho địa chỉ nằm trong mạng gia đình."
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "只有當你地址用嘅自家伺服器喺屋企網絡入面先需要。"
           }
         },
         "zh-Hans" : {
@@ -414,6 +912,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "僅當你自己的地址伺服器位於家用網路中時才需要。"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kudingeka kuphela uma iseva yakho yamakheli isenethiwekhini yakho yasekhaya."
           }
         }
       }

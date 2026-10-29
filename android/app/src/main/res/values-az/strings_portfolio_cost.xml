@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">Maya dəyəri olmayan qeydlər: %1$d</string>
+    <string name="cost_gaps_card_text">Gəlir və vergilər tam olsun deyə maya dəyərini əlavə et.</string>
+    <string name="cost_gaps_sheet_title">Maya dəyəri olmayan qeydlər</string>
+    <string name="cost_gaps_sheet_intro">Bu daxilolmaların maya dəyəri yoxdur. Təklif həmin tarixin günlük bağlanış qiymətidir – onu qeyddə dəyişə bilərsən.</string>
+    <string name="cost_gaps_empty">Bütün qeydlərin maya dəyəri var.</string>
+    <string name="cost_gap_enter">Maya dəyərini daxil et</string>
+    <string name="cost_gap_leave_unknown">Naməlum saxla</string>
+    <string name="cost_gap_left_unknown">Naməlum saxlanılıb</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">Təklif: günlük bağlanış %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">Bu tarix üçün təsdiqlənmiş günlük bağlanış yoxdur</string>
+    <string name="cost_gap_suggestion_loading">Günlük bağlanış yüklənir …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">Maya dəyəri = alınma anındakı dəyər (gəlir)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">Maya dəyəri = 0 (daxilolmasız mükafat, Avstriya)</string>
+    <string name="cost_gap_apply">Tətbiq et</string>
+    <string name="address_lots_action">Ünvan balansı üçün maya dəyəri</string>
+    <string name="address_lots_title">Ünvan balansı üçün maya dəyəri</string>
+    <string name="address_lots_intro">Bu ünvanın balansı üçün alış tarixini, miqdarı və maya dəyərini daxil et. Lotlar bu ünvanda alış kimi hesablanır; örtülməyən hissə maya dəyərsiz qalır.</string>
+    <string name="address_lots_add">Lot əlavə et</string>
+    <string name="address_lots_new">Yeni lot</string>
+    <string name="address_lots_edit">Lot</string>
+    <string name="address_lots_date">Alış tarixi</string>
+    <string name="address_lots_amount">Miqdar</string>
+    <string name="address_lots_mode_total">Cəmi</string>
+    <string name="address_lots_mode_price">Hər koin üçün</string>
+    <string name="address_lots_price">Hər koinin qiyməti (USDT)</string>
+    <string name="address_lots_total">Ümumi maya dəyəri (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%2$s-dən %1$s maya dəyəri ilə</string>
+    <string name="address_lots_unlotted">%1$s maya dəyərsiz</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">Lotlar balansı %1$s qədər aşır – əvvəlcə ən köhnələri istifadə olunur.</string>
+    <string name="address_lots_not_loaded">Balans hələ yüklənməyib – yüklənən kimi lotlar hesablanacaq.</string>
+    <string name="address_lots_invalid">Miqdarı və maya dəyərini daxil et</string>
+</resources>

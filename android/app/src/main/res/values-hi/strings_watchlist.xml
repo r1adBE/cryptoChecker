@@ -234,4 +234,17 @@
     <string name="watchlist_not_saved_confirm_message">वॉचलिस्ट और उसके अलार्म अभी सहेजे नहीं जा रहे। यह और आगे के बदलाव ऐप बंद होने पर खो जाएँगे। फिर भी बदलो?</string>
     <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
     <string name="watchlist_not_saved_confirm_action">फिर भी बदलो</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">%1$d पेयर</item>
+        <item quantity="other">%1$d पेयर</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">%1$d में से %2$d पेयर</item>
+        <item quantity="other">%1$d में से %2$d पेयर</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">%1$d जगह बाकी</item>
+        <item quantity="other">%1$d जगह बाकी</item>
+    </plurals>
+    <string name="watchlist_footer_full">वॉचलिस्ट भरी है</string>
 </resources>

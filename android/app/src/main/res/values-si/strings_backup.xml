@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="backup_device_bound">උපාංග මාරු කිරීමට පෙර, උපස්ථ ගොනුවක් සාදන්න – සංකේතනය කළ දත්ත විවෘත කළ හැක්කේ මෙම උපාංගයේ පමණි.</string>
+    <string name="backup_encryption_pending">සංකේතනය තවම සක්‍රිය නැත – ඊළඟ ආරම්භයේදී යෙදුම යළි උත්සාහ කරයි.</string>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">නිර්යාත කරන්න</string>
+    <string name="backup_exported">උපස්ථය සුරකින ලදී.</string>
+    <string name="backup_failed">එය සාර්ථක වූයේ නැත. මෙය Crypto Checker උපස්ථයක්ද?</string>
+    <string name="backup_hint">ඔබේ නිරීක්ෂණ ලැයිස්තුව සටහන් සහ කණ්ඩායම් සමඟ, ඇඟවීම්, ප්‍රියතම, කළඹ සහ සැකසීම් ඔබ විසින්ම තබා ගන්නා ගොනුවක් ලෙස සුරකියි – උදා. නව දුරකථනයක් සඳහා.</string>
+    <string name="backup_import">ආයාත කරන්න</string>
+    <string name="backup_title">උපස්ථය &amp; ප්‍රතිසාධනය</string>
+    <string name="backup_too_large">ගොනුව ඉතා විශාලයි හෝ වලංගු උපස්ථයක් නොවේ (සීමාව 64 MB).</string>
+    <string name="backup_export_too_large">උපස්ථය 64 MB ට වඩා විශාල වන අතර ප්‍රතිසාධනය කළ නොහැකි වනු ඇත, එබැවින් එය සුරැකුවේ නැත.</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">මුරපදය</string>
+    <string name="backup_password_continue">ඉදිරියට</string>
+    <string name="backup_password_hide">මුරපදය සඟවන්න</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">අවම වශයෙන් අක්ෂර %1$d</string>
+    <string name="backup_password_mismatch">මුරපද නොගැළපේ</string>
+    <string name="backup_password_prompt">මෙම උපස්ථයේ මුරපදය ඇතුළත් කරන්න.</string>
+    <string name="backup_password_repeat">මුරපදය නැවත ඇතුළත් කරන්න</string>
+    <string name="backup_password_show">මුරපදය පෙන්වන්න</string>
+    <string name="backup_password_title">මුරපදයෙන් ආරක්ෂිත උපස්ථය</string>
+    <string name="backup_password_too_weak">අනුමාන කිරීමට ඉතා පහසුයි – ඉලක්කම් පමණක්, එකම අක්ෂරය නැවත නැවත, හෝ “12345678” හෝ “password” වැනි පොදු අනුපිළිවෙළ වළක්වන්න.</string>
+    <string name="backup_password_warning">මුරපදය නොමැතිව උපස්ථය ප්‍රතිසාධනය කළ නොහැක.</string>
+    <string name="backup_password_wrong">වැරදි මුරපදය, නැතහොත් ගොනුව හානි වී ඇත. කරුණාකර යළි උත්සාහ කරන්න.</string>
+    <string name="backup_protect">මුරපදයෙන් ආරක්ෂා කරන්න</string>
+    <string name="backup_protect_hint">ගොනුව සංකේතනය කරයි (AES-256). කළඹ දත්ත අඩංගු නම් නිර්දේශිතයි.</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">මුරපදය නොමැතිව සුරකින්න</string>
+    <string name="backup_plain_confirm_text">ගොනුව සංකේතනය කර නැත. එය ලබා ගන්නා ඕනෑම අයෙකුට කියවිය හැක:</string>
+    <string name="backup_plain_confirm_title">මුරපදය නොමැතිව සුරකින්නද?</string>
+    <string name="backup_plain_contents_addresses">ශේෂ ඉතිහාසය සහ පිරිවැය පදනම සමඟ සුරැකි පසුම්බි ලිපින සහ xpub යතුරු</string>
+    <string name="backup_plain_contents_base">සටහන් සහ කණ්ඩායම් සහිත නිරීක්ෂණ ලැයිස්තුව, ඇඟවීම්, ප්‍රියතම සහ සැකසීම්</string>
+    <string name="backup_plain_contents_portfolio">කළඹ: ප්‍රමාණ සහ මිල ගණන් සහිත ගනුදෙනු</string>
+    <string name="backup_restore_app_lock_kept">කළඹ අගුල සක්‍රියව පවතී – සංකේතනය නොකළ උපස්ථයකට එය අක්‍රිය කළ නොහැක.</string>
+    <string name="backup_restore_confirm">ආයාත කිරීමෙන් ඔබේ වත්මන් නිරීක්ෂණ ලැයිස්තුව (සටහන් සහ කණ්ඩායම් සමඟ), ඇඟවීම්, ප්‍රියතම, කළඹ සහ සැකසීම් උපස්ථයෙන් ප්‍රතිස්ථාපනය වේ.</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="one">උපස්ථයේ ඇතුළත් කිරීම් %d ක් (කළඹ හෝ ඇඟවීම්) වලංගු නොවන අතර ආයාත නොකෙරේ.</item>
+        <item quantity="other">උපස්ථයේ ඇතුළත් කිරීම් %d ක් (කළඹ හෝ ඇඟවීම්) වලංගු නොවන අතර ආයාත නොකෙරේ.</item>
+    </plurals>
+    <string name="backup_restore_newer_version">මෙම උපස්ථය නවතම යෙදුම් අනුවාදයකින්ය – පළමුව යෙදුම යාවත්කාලීන කරන්න. කිසිවක් ආයාත නොකළා.</string>
+    <string name="backup_restore_unencrypted_warning">මෙම උපස්ථය සංකේතනය කර නැත – එය ඔබෙන් පැමිණි බව පරීක්ෂා කරන්න. සැකසීම් යෙදේ – ආරක්ෂාව අඩු කරන වෙනස්කම් හැර (කළඹ අගුල, ලිපින සඳහා ඔබේම සේවාදායකය, ප්‍රමාණ සඟවන්න, පද්ධති උපස්ථයේ කළඹ).</string>
+    <string name="backup_restored">ප්‍රතිසාධනය කළා: %1$s, %2$s.</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">ඇඟවීම් %1$d</item>
+        <item quantity="other">ඇඟවීම් %1$d</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">යුගල %1$d</item>
+        <item quantity="other">යුගල %1$d</item>
+    </plurals>
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen -->
+    <string name="backup_restore_over_limits">සීමාවන් ඉක්මවා ඇත (යුගල %3$s, යුගලයකට ඇඟවීම් %4$s), ප්‍රතිසාධනය නොකෙරේ: %1$s, %2$s.</string>
+    <string name="backup_restored_over_limits">සීමාවන් ඉක්මවා ඇත (යුගල %3$s, යුගලයකට ඇඟවීම් %4$s), ප්‍රතිසාධනය නොකළා: %1$s, %2$s.</string>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren -->
+    <string name="storage_recovery_message">මෙම උපාංගයේ තවදුරටත් යෙදුමේ සංකේතිත දත්තවල යතුර නැත, එබැවින් යෙදුම හිස්ව ආරම්භ විය. කිසිවක් මකා නැත. ඔබේ නිරීක්ෂණ ලැයිස්තුව සහ කළඹ නැවත ලබා ගැනීමට, සැකසීම් හි “%1$s” යටතේ උපස්ථ ගොනුවක් ආයාත කරන්න.</string>
+    <string name="storage_recovery_title">සුරැකි දත්ත අගුළු හැරිය නොහැකි විය</string>
+
+    <!-- Sicherung mit Passwort (Argon2id, 64 MiB): zu wenig Arbeitsspeicher -->
+    <string name="backup_not_enough_memory">මුරපදයකින් උපස්ථය ආරක්ෂා කිරීමට හෝ විවෘත කිරීමට ප්‍රමාණවත් නිදහස් මතකයක් නැත. වෙනත් යෙදුම් වසා යළි උත්සාහ කරන්න.</string>
+
+    <!-- Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">උපස්ථය ප්‍රතිසාධනය කරන්න</string>
+    <string name="storage_recovery_acknowledge">තේරුණා</string>
+    <string name="storage_recovery_restored_title">සුරැකි දත්ත නැවත අගුළු හැරිණි</string>
+    <string name="storage_recovery_restored_message">මෙම උපාංගයේ පෙර යතුරක් මගින් පසෙකට තැබූ දත්ත නැවත විවෘත කළ නිසා ඒවා ආපසු පැමිණ ඇත. මේ අතරතුර සුරැකි දත්ත ඒ අසලම නොවෙනස්ව තබා ඇත.</string>
+    <string name="settings_reset_notice_title">සැකසීම් යළි පිහිටුවන ලදී</string>
+    <string name="settings_reset_notice">ඔබේ සැකසීම් කියවිය නොහැකි වූ අතර පෙරනිමි වෙත යළි පිහිටුවන ලදී. කරුණාකර කළඹ අගුල, ඇඟවීම් අන්තරය සහ මුදල් ඒකකය පරීක්ෂා කරන්න.</string>
+    <string name="backup_restore_interrupted_title">ප්‍රතිසාධනයට බාධා විය</string>
+    <string name="backup_restore_interrupted_rolled_back">උපස්ථයක් ප්‍රතිසාධනය කරන අතරතුර යෙදුම වසා දමන ලදී. ඔබේ පෙර දත්ත නැවත තබා ඇත; උපස්ථයෙන් කිසිවක් තබා නැත.</string>
+    <string name="backup_restore_interrupted_incomplete">උපස්ථයක් ප්‍රතිසාධනය කරන අතරතුර යෙදුම වසා දැමූ අතර, පෙර දත්ත සම්පූර්ණයෙන් නැවත තැබිය නොහැකි විය. කරුණාකර ඔබේ නිරීක්ෂණ ලැයිස්තුව සහ කළඹ පරීක්ෂා කරන්න, නැතහොත් සැකසීම් හි “%1$s” යටතේ උපස්ථය නැවත ප්‍රතිසාධනය කරන්න.</string>
+    <string name="backup_not_verified">සුරැකීමෙන් පසු උපස්ථ ගොනුව සත්‍යාපනය කළ නොහැකි විය – නැවත කියවන විට වෙනස් ලෙස පෙනේ. කරුණාකර උපස්ථය නව ගොනුවකට සුරකින්න.</string>
+
+    <!-- Hinweis (nur Android): Portfolio-Kopie aus der Systemsicherung auch beim zweiten Versuch unlesbar und gelöscht -->
+    <string name="system_backup_not_imported_title">පද්ධති උපස්ථයෙන් කළඹ ප්‍රතිසාධනය නොකළා</string>
+    <!-- %1$s = Name des Bereichs «Sichern &amp; Wiederherstellen» in den Einstellungen -->
+    <string name="system_backup_not_imported_message">Android පද්ධති උපස්ථයේ කළඹ පිටපත දෙවන උත්සාහයේදීද කියවිය නොහැකි වූ අතර එය මකා දමා ඇත. ඔබට උපස්ථ ගොනුවක් තිබේ නම්, සැකසීම් හි “%1$s” යටතේ එය ප්‍රතිසාධනය කරන්න.</string>
+
+    <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
+    <string name="portfolio_storage_kept_in_memory">සුරැකි දත්ත දැන් කියවිය නොහැක, එබැවින් කළඹ පෙන්වන්නේ නැති අතර වෙනස් කළ නොහැක. යෙදුම යළි ආරම්භ කරන්න.</string>
+    <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
+    <string name="watchlist_storage_kept_in_memory">සුරැකි දත්ත දැන් කියවිය නොහැක, එබැවින් නිරීක්ෂණ ලැයිස්තුව පෙන්වන්නේ නැති අතර වෙනස් කළ නොහැක. යෙදුම යළි ආරම්භ කරන්න.</string>
+    <string name="watchlist_storage_locked">නිරීක්ෂණ ලැයිස්තුව වෙනස් කළ නොහැක: සුරැකි දත්ත දැන් කියවිය නොහැක. යෙදුම යළි ආරම්භ කරන්න.</string>
+    <string name="alarm_save_storage_locked">ඇඟවීම් සුරැකිය නොහැක: සුරැකි දත්ත දැන් කියවිය නොහැක. යෙදුම යළි ආරම්භ කරන්න.</string>
+    <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
+    <string name="backup_storage_kept">උපස්ථය කළ නොහැක: සුරැකි දත්ත දැන් කියවිය නොහැක. යෙදුම යළි ආරම්භ කර යළි උත්සාහ කරන්න.</string>
+    <string name="backup_restore_storage_in_memory">දැන් ආයාත කළ නොහැක: යෙදුම මේ මොහොතේ දත්ත සුරකින්නේ නැත (සංකේතනය තවම සක්‍රිය නැත), එබැවින් යළි ආරම්භයේදී ආයාතය නැති වේ. යෙදුම යළි ආරම්භ කර යළි උත්සාහ කරන්න.</string>
+    <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable) -->
+    <string name="backup_restore_journal_unavailable">දැන් ආයාත කළ නොහැක: ඔබේ වත්මන් දත්තවල ආරක්ෂිත පිටපත සුරැකිය නොහැකි විය (යතුර මේ මොහොතේ ලබා ගත නොහැක). කිසිවක් වෙනස් නොකළා. පසුව යළි උත්සාහ කරන්න හෝ යෙදුම යළි ආරම්භ කරන්න.</string>
+
+    <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
+    <string name="portfolio_storage_in_memory">සංකේතනය තවම සක්‍රිය නැත – කළඹ සුරැකෙන්නේ නැත, යෙදුම වසන විට වෙනස්කම් නැති වේ. ඊළඟ ආරම්භයේදී යෙදුම යළි උත්සාහ කරයි.</string>
+
+    <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
+    <string name="portfolio_storage_locked">සුරැකි දත්ත දැන් කියවිය නොහැක, එබැවින් වෙනස්කම් කළ නොහැක. යෙදුම යළි ආරම්භ කරන්න.</string>
+    <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
+    <string name="watchlist_storage_in_memory">මෙම උපාංගය දැන් යතුරක් ලබා දෙන්නේ නැත – නිරීක්ෂණ ලැයිස්තුව සුරැකෙන්නේ නැත, යෙදුම වසන විට වෙනස්කම් නැති වේ. පසුබිමේ ඇඟවීම් නවතා ඇත. ඊළඟ ආරම්භයේදී යෙදුම යළි උත්සාහ කරයි.</string>
+
+    <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
+    <string name="backup_restore_server_kept">“ලිපින සඳහා ඔබේම සේවාදායකය” යෙදුවේ නැත – සංකේතනය නොකළ උපස්ථයකට එය වෙනස් කළ නොහැක.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
+    <string name="backup_restore_server_public">උපස්ථයේ මෙන් “ලිපින සඳහා ඔබේම සේවාදායකය” ඉවත් කරන ලදී – Bitcoin ලිපින නැවත පොදු නෝඩ් වලින් විමසනු ලැබේ.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
+    <string name="backup_restore_server_changed">“ලිපින සඳහා ඔබේම සේවාදායකය” උපස්ථයේ ඇති එකෙන් ප්‍රතිස්ථාපනය කරන ලදී.</string>
+</resources>

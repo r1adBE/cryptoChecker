@@ -2,7 +2,7 @@ import Foundation
 
 /// Übersetzter Text zum Android-Schlüssel (`R.string.<key>`).
 /// Die Texte stehen in `Localizable.xcstrings`, erzeugt aus den `strings_*.xml`
-/// der Android-Fassung (33 Sprachen). Platzhalter: `%@` für Text, `%ld` für
+/// der Android-Fassung (75 Sprachen). Platzhalter: `%@` für Text, `%ld` für
 /// ganze Zahlen, `%.1f` usw. für Kommazahlen — wie bei `String(format:)`.
 ///
 /// Ganze Zahlen immer als `Int` übergeben, Text als `String`.

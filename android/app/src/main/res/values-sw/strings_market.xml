@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="one">dakika %d iliyopita</item>
+        <item quantity="other">dakika %d zilizopita</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">leo %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed, vipimo vya Bitcoin, utawala, halving</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">Data zaidi ya soko</string>
+    <string name="market_phase_trend_failed">Data ya bei haipatikani</string>
+    <string name="market_plain_direction_down_clear">Thamani ya jumla ya sarafu zote za kidijitali iko chini waziwazi kuliko saa 24 zilizopita (%1$s).</string>
+    <string name="market_plain_direction_down_slight">Thamani ya jumla ya sarafu zote za kidijitali iko chini kidogo kuliko saa 24 zilizopita (%1$s).</string>
+    <string name="market_plain_direction_flat">Thamani ya jumla ya sarafu zote za kidijitali haijabadilika sana katika saa 24 (%1$s).</string>
+    <string name="market_plain_direction_up_clear">Thamani ya jumla ya sarafu zote za kidijitali iko juu waziwazi kuliko saa 24 zilizopita (%1$s).</string>
+    <string name="market_plain_direction_up_slight">Thamani ya jumla ya sarafu zote za kidijitali iko juu kidogo kuliko saa 24 zilizopita (%1$s).</string>
+    <string name="market_plain_footnote">Inaeleza saa 24 zilizopita – si utabiri, si ushauri wa uwekezaji.</string>
+    <string name="market_plain_mood_extreme_fear">Wawekezaji wana hofu kubwa sana sasa hivi: kielezo cha hisia (Fear &amp; Greed) kiko %1$d kati ya 100.</string>
+    <string name="market_plain_mood_extreme_greed">Wawekezaji wana tamaa kubwa sana sasa hivi: kielezo cha hisia (Fear &amp; Greed) kiko %1$d kati ya 100.</string>
+    <string name="market_plain_mood_fear">Wawekezaji wana hofu kiasi: kielezo cha hisia (Fear &amp; Greed) kiko %1$d kati ya 100.</string>
+    <string name="market_plain_mood_greed">Wawekezaji wana tamaa kiasi: kielezo cha hisia (Fear &amp; Greed) kiko %1$d kati ya 100.</string>
+    <string name="market_plain_mood_neutral">Hisia za wawekezaji ziko sawa: kielezo cha hisia (Fear &amp; Greed) kiko %1$d kati ya 100.</string>
+    <string name="market_plain_standout_above_btc">%1$s inajitokeza: %2$s katika saa 24, juu sana ya Bitcoin (%3$s).</string>
+    <string name="market_plain_standout_against_btc">%1$s inajitokeza: %2$s katika saa 24, wakati Bitcoin ilielekea upande mwingine (%3$s).</string>
+    <string name="market_plain_standout_below_btc">%1$s inajitokeza: %2$s katika saa 24, chini sana ya Bitcoin (%3$s).</string>
+    <string name="market_plain_standout_futures_down">%1$s inajitokeza: wafanyabiashara wengi isivyo kawaida wa futures wanaweka dau kwenye bei kushuka.</string>
+    <string name="market_plain_standout_futures_up">%1$s inajitokeza: wafanyabiashara wengi isivyo kawaida wa futures wanaweka dau kwenye bei kupanda.</string>
+    <string name="market_plain_standout_quiet">Hakuna sarafu moja inayojitokeza sasa hivi.</string>
+    <string name="market_plain_standout_volume">%1$s inajitokeza: takriban mara %2$s ya biashara ya kawaida.</string>
+    <string name="market_plain_title">Kwa ufupi</string>
+    <string name="market_section_collapse">Ficha %1$s</string>
+    <string name="market_section_context">Hisia &amp; mzunguko</string>
+    <string name="market_section_data">Data ya soko</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">Onyesha %1$s</string>
+    <string name="market_section_now">Sasa hivi</string>
+    <string name="market_source">Data: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="exchange_unavailable_error">Jukwaa halipatikani</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">Maelezo: %1$s</string>
+    <string name="market_info_alt_season_source">Bei za kila siku: Binance · hukokotolewa upya takriban kila saa 3</string>
+    <string name="market_info_alt_season_what">Inahesabu ni ngapi kati ya takriban altcoins 20 kubwa (k.m. Ethereum, Solana, XRP) zimefanya vizuri kuliko Bitcoin katika siku 90 zilizopita. Thamani ni sehemu yao kutoka 0 hadi 100.</string>
+    <string name="market_info_coin_source">Bei: Binance au Bybit · hupakiwa upya takriban kila dakika 15</string>
+    <string name="market_info_dominance_how">Utawala ukipanda, Bitcoin inafanya vizuri kuliko soko lingine; ukishuka, sarafu nyingine zinapata uzito. Stablecoins pia zinahesabiwa: thamani yake ikikua, sehemu ya Bitcoin inashuka hata kama bei ya Bitcoin haibadiliki.</string>
+    <string name="market_info_dominance_source">Chanzo: CoinGecko · hupakiwa upya takriban kila dakika 30</string>
+    <string name="market_info_dominance_what">Sehemu ya Bitcoin katika thamani ya jumla ya sarafu zote za kidijitali (mtaji wa soko). Chini yake ni sehemu ya Ethereum.</string>
+    <string name="market_info_fear_greed_how">Chini ya 25 inamaanisha hofu kubwa, juu ya 75 tamaa kubwa, karibu 50 hali ya kati. Ikipanuliwa, kadi inaonyesha thamani za jana, wiki moja iliyopita na mwezi mmoja uliopita. Si ishara ya kununua au kuuza.</string>
+    <string name="market_info_fear_greed_source">Chanzo: alternative.me · thamani mpya mara moja kwa siku</string>
+    <string name="market_info_fear_greed_what">Kielezo cha hisia cha soko la crypto kutoka 0 hadi 100. alternative.me hukikokotoa kutoka vyanzo kadhaa, vikiwemo mabadiliko ya bei, kiasi cha biashara, mitandao ya kijamii na utawala wa Bitcoin.</string>
+    <string name="market_info_gas_how">Thamani za juu zinamaanisha mtandao una shughuli nyingi na uhamisho unagharimu zaidi. Polepole, kawaida na haraka ni ada za uthibitisho wa baadaye au wa haraka zaidi. Ikipanuliwa, kadi inaonyesha gharama ya takriban ya uhamisho rahisi.</string>
+    <string name="market_info_gas_source">Nodi za umma za RPC, mempool.space · hupakiwa upya kila dakika</string>
+    <string name="market_info_gas_what">Muamala unagharimu kiasi gani sasa kwenye kila mtandao. Kwenye Ethereum na mitandao inayofanana kwa gwei (sehemu moja ya bilioni ya ETH kwa kila kipimo cha gas), kwenye Bitcoin kwa sat/vB (satoshi kwa kila baiti pepe ya muamala).</string>
+    <string name="market_info_halving_source">Tarehe: kutoka urefu wa block na wastani wa muda wa block (mempool.space), vinginevyo kwa kalenda · historia ya bei: Coin Metrics, Binance, hupakiwa upya kila saa 12</string>
+    <string name="market_info_halving_what">Wakati wa halving, zawadi wanayopata wachimbaji kwa block mpya ya Bitcoin inakatwa nusu. Hii hutokea kila block 210,000, takriban kila miaka minne. Baada ya hapo, bitcoins mpya nusu tu ndizo huundwa kwa siku.</string>
+    <string name="market_info_how">Jinsi ya kusoma</string>
+    <string name="market_info_macro_how">Dokezo linaonekana tu tarehe kama hiyo ikiwa leo au kesho. Karibu na wakati wa kutolewa, mara nyingi bei hubadilika zaidi kuliko kawaida. Programu inaonyesha tarehe tu, si takwimu zenyewe.</string>
+    <string name="market_info_macro_source">Kalenda kutoka tovuti ya programu · hupakiwa mara moja kwa siku</string>
+    <string name="market_info_macro_what">Tarehe za data muhimu za uchumi wa Marekani: mfumuko wa bei (CPI, PCE), bei za wazalishaji (PPI), ripoti ya ajira na maamuzi ya riba ya Benki Kuu ya Marekani (Federal Reserve). Takwimu kama hizo mara nyingi husogeza bei za crypto pia.</string>
+    <string name="market_info_no_advice">Si ushauri wa uwekezaji.</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · bei kila saa, thamani za on-chain hupakiwa upya kila saa 12</string>
+    <string name="market_info_pulse_how">Kichwa kinataja mwelekeo; panua kadi kwa maelezo. Mwenendo mpana unamaanisha sarafu nyingi kubwa zinaelekea upande mmoja. Hisia ya leverage yenye matumaini inamaanisha wafanyabiashara wengi wanaweka dau kwenye bei kupanda kwa leverage, inayopimwa kwa kiwango cha funding cha futures za Bitcoin. Picha ya muda mfupi, si utabiri.</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · hupakiwa upya takriban kila dakika 5</string>
+    <string name="market_info_pulse_what">Muhtasari mfupi wa soko katika saa 24 zilizopita: jinsi Bitcoin, Ethereum na Solana zinavyosonga, ni ngapi kati ya sarafu kubwa zaidi zinapanda au kushuka, kiasi gani cha Bitcoin kinauzwa sasa hivi na hisia ya leverage ikoje (inayopimwa kwa kiwango cha funding cha futures za Bitcoin).</string>
+    <string name="market_info_totals_how">Upande wa kulia ni mabadiliko ya thamani ya jumla katika saa 24. Kiasi kikubwa kinamaanisha biashara nyingi zinafanyika – hakisemi ni kuelekea upande gani. Huonyeshwa kwa sarafu ya ubadilishaji inapowezekana, vinginevyo kwa dola za Marekani.</string>
+    <string name="market_info_totals_source">Sarafu zote · CoinGecko · hupakiwa upya takriban kila dakika 30</string>
+    <string name="market_info_totals_what">Thamani ya jumla ya sarafu zote za kidijitali (mtaji wa soko: bei mara idadi inayozunguka, iliyojumlishwa kwa sarafu zote) na kiasi cha biashara cha saa 24 zilizopita.</string>
+    <string name="market_info_unusual_how">Kila sarafu inaonyesha jambo lake linalojitokeza zaidi, pamoja na mabadiliko ya saa 24 upande wa kulia. Kiasi cha 2× kinamaanisha mara mbili ya mauzo ya kawaida. Kujitokeza hakumaanishi vizuri wala vibaya.</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · hupakiwa upya takriban kila dakika 10</string>
+    <string name="market_info_unusual_what">Hadi sarafu tano kati ya takriban 30 kubwa zaidi (bila stablecoins) zinazoenda isivyo kawaida leo: kwa nguvu zaidi sana au dhaifu zaidi sana kuliko Bitcoin, kinyume na mwelekeo wa soko, zikiwa na kiasi kikubwa isivyo kawaida cha biashara au kiwango cha funding kinachojitokeza.</string>
+    <string name="market_info_what">Hii ni nini?</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">Mtaji wa soko</string>
+    <string name="market_cap_source">Sarafu zote · CoinGecko</string>
+    <string name="market_cap_title">Soko la crypto</string>
+    <string name="market_volume_label">Kiasi 24h</string>
+
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">Maelezo</string>
+    <string name="pulse_disclaimer">Si utabiri · Si ushauri wa uwekezaji</string>
+    <string name="pulse_less">Onyesha kidogo</string>
+    <string name="pulse_now_title">Mapigo ya crypto</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">Mabadiliko katika saa 24</string>
+    <string name="pulse_section_factors">Vipengele</string>
+    <string name="pulse_section_market">Soko leo</string>
+    <string name="pulse_unavailable">Data ya soko haipatikani kwa sasa</string>
+    <string name="pulse_updated">Hadi %1$s</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">Soko tulivu</string>
+    <string name="pulse_headline_down">Udhaifu mpana</string>
+    <string name="pulse_headline_mixed">Picha mchanganyiko</string>
+    <string name="pulse_headline_up">Nguvu pana</string>
+    <string name="pulse_lead_alts_stronger">Altcoins zina nguvu kuliko Bitcoin.</string>
+    <string name="pulse_lead_broad_down">Soko linashuka kwa upana.</string>
+    <string name="pulse_lead_broad_up">Soko linapanda kwa upana.</string>
+    <string name="pulse_lead_btc_leads">Bitcoin inapanda zaidi.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin ina nguvu kuliko altcoins.</string>
+    <string name="pulse_lead_calm">Soko halisongi sana.</string>
+    <string name="pulse_lead_drift_down">Soko linashuka polepole.</string>
+    <string name="pulse_lead_drift_up">Soko linapanda polepole.</string>
+    <string name="pulse_lead_mixed">Sarafu kubwa zinaelekea pande tofauti.</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">Hisia ya leverage ina matumaini.</string>
+    <string name="pulse_detail_fund_negative">Hisia ya leverage haina matumaini.</string>
+    <string name="pulse_detail_fund_neutral">Hisia ya leverage ya kati.</string>
+    <string name="pulse_detail_vol_above">Kiasi %1$s juu ya kawaida.</string>
+    <string name="pulse_detail_vol_above_fund_high">Kiasi %1$s juu ya kawaida, hisia ya leverage ina matumaini.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Kiasi %1$s juu ya kawaida, hisia ya leverage haina matumaini.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Kiasi %1$s juu ya kawaida, hisia ya leverage ya kati.</string>
+    <string name="pulse_detail_vol_below">Kiasi %1$s chini ya kawaida.</string>
+    <string name="pulse_detail_vol_below_fund_high">Kiasi %1$s chini ya kawaida, hisia ya leverage ina matumaini.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Kiasi %1$s chini ya kawaida, hisia ya leverage haina matumaini.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Kiasi %1$s chini ya kawaida, hisia ya leverage ya kati.</string>
+    <string name="pulse_detail_vol_normal">Kiasi cha kawaida.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Kiasi cha kawaida, hisia ya leverage ina matumaini.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Kiasi cha kawaida, hisia ya leverage haina matumaini.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Kiasi cha kawaida, hisia ya leverage ya kati.</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">Top %1$d: sarafu kubwa zaidi kwa thamani ya soko, bila stablecoins; mabadiliko katika saa 24 (CoinGecko).</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_note_broad_down">Uuzaji mpana: sarafu nyingi kubwa zaidi zinashuka.</string>
+    <string name="pulse_breadth_note_broad_up">Mwenendo mpana: sarafu nyingi kubwa zaidi zinapanda.</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin inashuka, lakini sarafu nyingine nyingi kubwa zinastahimili.</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin inapanda, lakini sarafu nyingine nyingi kubwa hazifuati.</string>
+    <string name="pulse_breadth_spoken">Top %1$d: %2$d zimepanda, %3$d zimeshuka</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">Altcoins na Bitcoin zinasonga sawa</string>
+    <string name="pulse_alts_stronger">Altcoins zina nguvu kuliko Bitcoin</string>
+    <string name="pulse_alts_weaker">Bitcoin ina nguvu kuliko altcoins</string>
+    <string name="pulse_chip_funding_high">Hisia ya leverage ina matumaini</string>
+    <string name="pulse_chip_funding_negative">Hisia ya leverage haina matumaini</string>
+
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">Onyesha bei na vitendo</string>
+    <string name="unusual_fact_against">Inaenda kinyume na soko</string>
+    <string name="unusual_fact_funding_high">Funding juu (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Funding hasi (%1$s)</string>
+    <string name="unusual_fact_stronger">Inasonga kwa nguvu zaidi sana kuliko BTC</string>
+    <string name="unusual_fact_volume">Kiasi %1$s× ya kawaida</string>
+    <string name="unusual_fact_weaker">Inasonga kwa udhaifu zaidi sana kuliko BTC</string>
+    <string name="unusual_nothing">Hakuna kinachojitokeza leo</string>
+    <string name="unusual_source">Takriban sarafu 30 kubwa zaidi bila stablecoins · Binance, CoinGecko</string>
+    <string name="unusual_title">Zinazojitokeza</string>
+
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">Zinazojitokeza</string>
+    <string name="activity_indicator">Zinazojitokeza</string>
+    <string name="activity_sensitivity_less">Kidogo</string>
+    <string name="activity_sensitivity_more">Zaidi</string>
+    <string name="activity_sensitivity_normal">Kawaida</string>
+    <string name="activity_signal_funding_long">Funding %1$s — longs nyingi zenye leverage</string>
+    <string name="activity_signal_funding_short">Funding %1$s — shorts nyingi</string>
+    <string name="activity_signal_open_interest">Open interest %1$s ndani ya dakika %2$d</string>
+    <string name="activity_signal_open_interest_no_time">Open interest %1$s</string>
+    <string name="activity_signal_price_move">Mwenendo usio wa kawaida: %1$s ndani ya saa moja (%2$s× ya kawaida)</string>
+    <string name="activity_signal_volume">Kiasi %1$s× ya kawaida katika saa iliyopita</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="one">%1$d kati ya altcoins %2$d kubwa inaishinda Bitcoin katika siku 90</item>
+        <item quantity="other">%1$d kati ya altcoins %2$d kubwa zinaishinda Bitcoin katika siku 90</item>
+    </plurals>
+    <string name="insights_chart_axis">Miaka tangu halving</string>
+    <string name="insights_chart_hint">Bei kama kizidisho cha bei ya siku ya halving (kipimo cha log). Mizunguko ya awali ni mfumo, si utabiri.</string>
+    <string name="insights_cycle_chart">Mizunguko tangu halving</string>
+    <string name="insights_dominance_eth">ETH %1$s ya soko lote</string>
+    <string name="insights_dominance_title">Utawala wa Bitcoin</string>
+    <string name="insights_fng_history">Jana %1$s · wiki moja iliyopita %2$s · mwezi mmoja uliopita %3$s</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="insights_halving_title">Halving ya Bitcoin</string>
+    <string name="insights_source_dominance">Chanzo: CoinGecko, Binance</string>
+    <string name="insights_source_fng">Chanzo: alternative.me</string>
+    <string name="insights_source_history">Chanzo: Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">Hofu kubwa</string>
+    <string name="fng_extreme_greed">Tamaa kubwa</string>
+    <string name="fng_fear">Hofu</string>
+    <string name="fng_greed">Tamaa</string>
+    <string name="fng_neutral">Kati</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">Data hadi %1$s · inasasishwa…</string>
+    <string name="cycle_from_top">%1$s kutoka kilele</string>
+    <string name="cycle_marker_bottom">Chini %1$s</string>
+    <string name="cycle_marker_double_bottom">Chini mara mbili %1$s</string>
+    <string name="cycle_marker_double_top">Juu mara mbili %1$s</string>
+    <string name="cycle_marker_high_so_far">Juu zaidi hadi sasa</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">Kilele %1$s</string>
+    <string name="cycle_since_halving">%1$s tangu halving</string>
+    <string name="halving_estimate_text">Kwa hesabu, halving inayofuata karibu %1$s: block %2$s zimebaki kwa wastani wa dakika %3$s kwa kila block (kipindi cha sasa cha difficulty). Makadirio, si ahadi – muda wa block hubadilika.</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">Kengele: %1$s</string>
+    <string name="gas_slow_fast">Polepole %1$s · Haraka %2$s</string>
+    <string name="gas_source">Nodi za umma za RPC na mempool.space · Gharama ya uhamisho rahisi, bila sehemu ya L1 kwenye L2</string>
+    <string name="gas_title">Ada za mtandao</string>
+    <string name="gas_transfer_cost">Uhamisho ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">Data ya mfumuko wa bei Marekani (CPI)</string>
+    <string name="macro_fomc">Uamuzi wa riba wa Fed ya Marekani</string>
+    <string name="macro_hint_list">%1$s – mara nyingi masoko hubadilika zaidi siku kama hizi.</string>
+    <string name="macro_hint_today">Leo %1$s: %2$s – mara nyingi masoko hubadilika zaidi siku kama hizi.</string>
+    <string name="macro_hint_today_list">Leo: %1$s – mara nyingi masoko hubadilika zaidi siku kama hizi.</string>
+    <string name="macro_hint_tomorrow">Kesho %1$s: %2$s – mara nyingi masoko hubadilika zaidi siku kama hizi.</string>
+    <string name="macro_hint_tomorrow_list">Kesho: %1$s – mara nyingi masoko hubadilika zaidi siku kama hizi.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Leo %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Kesho %1$s %2$s</string>
+    <string name="macro_nfp">Ripoti ya ajira ya Marekani</string>
+    <string name="macro_pce">Bei za matumizi ya walaji Marekani (PCE)</string>
+    <string name="macro_ppi">Bei za wazalishaji Marekani (PPI)</string>
+    <string name="macro_released_list">Imetolewa leo: %1$s.</string>
+    <string name="macro_released_one">Imetolewa leo saa %1$s: %2$s.</string>
+    <string name="macro_title">Data ya uchumi</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">Sarafu</string>
+    <string name="coin_no_data">Hakuna data ya bei ya sarafu hii kwenye Binance au Bybit.</string>
+    <string name="coin_price_only">Inategemea bei pekee – data ya on-chain (MVRV, Puell, hashrate) inapatikana bure kwa Bitcoin pekee.</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">Historia ya bei ya siku %1$d tu – baadhi ya viashiria havipo.</item>
+        <item quantity="other">Historia ya bei ya siku %1$d tu – baadhi ya viashiria havipo.</item>
+    </plurals>
+    <string name="coin_title">Uchambuzi wa sarafu</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">Data: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">Zilizopanda na zilizoshuka 24 h</string>
+    <string name="movers_gainers">Zilizopanda</string>
+    <string name="movers_losers">Zilizoshuka</string>
+    <string name="movers_no_gainers">Hakuna sarafu iliyopanda katika 24 h</string>
+    <string name="movers_no_losers">Hakuna sarafu iliyoshuka katika 24 h</string>
+    <string name="movers_source">CoinGecko, 24 h, top 100 bila stablecoins</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">Onyesha zote</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">Onyesha kidogo</string>
+</resources>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">Ի՞նչն է շարժվում դրա հետ</string>
+    <string name="why_all_values">Բոլոր արժեքները և աղբյուրները</string>
+    <string name="why_all_values_hint">Դիտարկում · Հնարավոր բացատրություն · Աղբյուրներ</string>
+    <string name="why_details">Ցույց տալ մանրամասները</string>
+    <string name="why_details_hide">Թաքցնել մանրամասները</string>
+    <string name="why_disclaimer">Ավտոմատ գնահատում շուկայական տվյալներից՝ ցույց է տալիս, թե ինչ է կատարվում միաժամանակ, ոչ թե պատճառի ապացույց։</string>
+    <string name="why_footer_short">Միաժամանակ չի նշանակում պատճառ · Ներդրումային խորհուրդ չէ</string>
+    <string name="why_no_data">Այս զույգի համար Binance-ից տվյալներ չկան</string>
+    <string name="why_no_data_hint">Գինը, ծավալը և տատանողականությունը գալիս են Binance-ի ժամային մոմերից։</string>
+    <string name="why_ref_alts">Ալթեր</string>
+    <string name="why_section_context">Հնարավոր բացատրություն</string>
+    <string name="why_section_observation">Դիտարկում</string>
+    <string name="why_title">Ի՞նչն է շարժվում դրա հետ</string>
+    <string name="why_title_coin">Ի՞նչն է շարժվում %1$s-ի հետ</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">Կարճ ասած · առ %1$s</string>
+    <string name="why_brief_label">Կարճ ասած՝</string>
+    <string name="why_summary_against">Կոինը շարժվում է շուկային հակառակ։</string>
+    <string name="why_summary_calm">Ուշագրավ շարժում չկա՝ շուկան և կոինը հանգիստ են։</string>
+    <string name="why_summary_coin">Շարժվում է միայն այս կոինը – հնարավոր է՝ մի բան, որը վերաբերում է միայն այս կոինին։</string>
+    <string name="why_summary_coin_volume">Շարժվում է միայն այս կոինը, ավելի մեծ ծավալով – հնարավոր է՝ մի բան, որը վերաբերում է միայն այս կոինին։</string>
+    <string name="why_summary_longs">Ֆյուչերսներ՝ շատ լծակային լոնգ դիրքեր։</string>
+    <string name="why_summary_market">Շարժումը ժամանակով համընկնում է ընդհանուր շուկայի հետ։</string>
+    <string name="why_summary_market_volume">Շարժումը համընկնում է առևտրի ավելի մեծ ծավալի և լայնորեն շարժվող շուկայի հետ։</string>
+    <string name="why_summary_peg_near">Գինը մոտ է իր 1:1 կապին։</string>
+    <string name="why_summary_peg_off">Գինը նկատելիորեն շեղվում է իր 1:1 կապից։</string>
+    <string name="why_summary_shorts">Ֆյուչերսներ՝ շատ շորթ դիրքեր։</string>
+    <string name="why_summary_thin">Շարժումը թույլ է՝ դրա հետևում քիչ ծավալ կա։</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">Շուկային հակառակ</string>
+    <string name="why_f_coin_only">Միայն այս կոինը</string>
+    <string name="why_f_leader">Bitcoin-ը որպես շուկայի առաջատար</string>
+    <string name="why_f_leverage_balanced">Լծակը հավասարակշռված է</string>
+    <string name="why_f_leverage_longs">Լծակ՝ շատ լոնգեր</string>
+    <string name="why_f_leverage_shorts">Լծակ՝ շատ շորթեր</string>
+    <string name="why_f_market_calm">Հանգիստ շուկա</string>
+    <string name="why_f_market_wide">Ամբողջ շուկան շարժվում է</string>
+    <string name="why_factor_funding">Ֆանդինգ</string>
+    <string name="why_factor_futures">Ֆյուչերսներ</string>
+    <string name="why_factor_market">Ընդհանուր շուկա</string>
+    <string name="why_factor_near_high">Առավելագույնի մոտ</string>
+    <string name="why_factor_near_low">Նվազագույնի մոտ</string>
+    <string name="why_factor_peg">Կապ (1:1)</string>
+    <string name="why_factor_range3d">3-օրյա միջակայք</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">գնահատված</string>
+    <string name="why_fn_funding_longs">շատերը խաղադրույք են անում գնի աճի վրա</string>
+    <string name="why_fn_funding_neutral">չեզոք</string>
+    <string name="why_fn_funding_shorts">շատերը խաղադրույք են անում գնի անկման վրա</string>
+    <string name="why_fn_high_at">30-օրյա առավելագույնի վրա</string>
+    <string name="why_fn_high_below">30-օրյա առավելագույնից ցածր</string>
+    <string name="why_fn_leader_calm">Bitcoin-ը հանգիստ է</string>
+    <string name="why_fn_leader_moves">Bitcoin-ը հստակ շարժվում է</string>
+    <string name="why_fn_low_above">30-օրյա նվազագույնից բարձր</string>
+    <string name="why_fn_low_at">30-օրյա նվազագույնի վրա</string>
+    <string name="why_fn_market_against">Այս կոինը շարժվում է շուկային հակառակ</string>
+    <string name="why_fn_market_alone">Շուկան հանգիստ է – այս կոինը շարժվում է ինքնուրույն</string>
+    <string name="why_fn_market_calm">Շուկան հանգիստ է</string>
+    <string name="why_fn_market_lags">Շուկան շարժվում է, այս կոինը՝ հազիվ</string>
+    <string name="why_fn_market_moves">Շուկան շարժվում է նույն ուղղությամբ</string>
+    <string name="why_fn_market_pulls">Շուկան շարժվում է BTC-ի հետ</string>
+    <string name="why_fn_oi_down">Բաց հետաքրքրությունը նվազում է</string>
+    <string name="why_fn_oi_flat">Բաց հետաքրքրությունը գրեթե չի փոխվել</string>
+    <string name="why_fn_oi_mixed">Բաց հետաքրքրությունը խառն է</string>
+    <string name="why_fn_oi_up">Բաց հետաքրքրությունն աճում է</string>
+    <string name="why_fn_peg_above">%1$s՝ 1:1 կապից բարձր</string>
+    <string name="why_fn_peg_below">%1$s՝ 1:1 կապից ցածր</string>
+    <string name="why_fn_peg_near">մոտ է 1:1 կապին</string>
+    <string name="why_fn_range_above_low">3-օրյա նվազագույնից ի վեր</string>
+    <string name="why_fn_range_below_high">3-օրյա առավելագույնից ի վեր</string>
+    <string name="why_fn_range_near_high">3-օրյա առավելագույնի մոտ</string>
+    <string name="why_fn_range_near_low">3-օրյա նվազագույնի մոտ</string>
+    <string name="why_fn_volatility_stronger">սովորականից ուժեղ</string>
+    <string name="why_fn_volatility_tiny">բացարձակ առումով փոքր (%1$s-ից պակաս)</string>
+    <string name="why_fn_volatility_usual">ինչպես սովորաբար</string>
+    <string name="why_fn_volume_higher">սովորականից բարձր</string>
+    <string name="why_fn_volume_lower">սովորականից ցածր</string>
+    <string name="why_fn_volume_usual">ինչպես սովորաբար</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">Այս կոինը՝ %1$s, BTC-ն՝ %2$s 24 ժամում — նկատելիորեն ինքնուրույն շարժում։</string>
+    <string name="why_against_ref_text">Այս կոինը՝ %1$s, %2$s-ը՝ %3$s 24 ժամում — նկատելիորեն ինքնուրույն շարժում։</string>
+    <string name="why_btc_independent">%1$s-ը հիմա շարժվում է Bitcoin-ից անկախ։</string>
+    <string name="why_btc_tight">%1$s-ը հիմա շարժվում է Bitcoin-ի հետ սերտորեն։</string>
+    <string name="why_change_1h">1ժ</string>
+    <string name="why_change_24h">24ժ</string>
+    <string name="why_coin_only_text">%1$s 24 ժամում, մինչդեռ շուկան հանգիստ է – հնարավոր է՝ մի բան, որը վերաբերում է միայն այս կոինին։</string>
+    <string name="why_leverage_balanced_text">Ֆյուչերսների շուկայում լոնգ կամ շորթ դիրքերի կուտակում չկա։</string>
+    <string name="why_leverage_longs_text">Շատերը փոխառու գումարով խաղադրույք են անում գնի աճի վրա։ Լոնգերը վճարում են շորթերին — գնի անկման դեպքում լիկվիդացիաների ռիսկն ավելի բարձր է։</string>
+    <string name="why_leverage_shorts_text">Շատերը փոխառու գումարով խաղադրույք են անում գնի անկման վրա։ Շորթերը վճարում են լոնգերին – եթե գինը բարձրանա, հնարավոր է short squeeze։</string>
+    <string name="why_market_calm_text">Այս կոինը՝ %1$s 24 ժամում։ Ո՛չ շուկան, ո՛չ կոինը շատ չեն շարժվում։</string>
+    <string name="why_market_leader_text">Որպես ամենամեծ կոին՝ BTC-ն սովորաբար շարժվում է շուկայի մնացած մասի հետ համաքայլ։ ETH՝ %1$s 24 ժամում։</string>
+    <string name="why_market_leader_text_no_eth">Որպես ամենամեծ կոին՝ BTC-ն սովորաբար շարժվում է շուկայի մնացած մասի հետ համաքայլ։</string>
+    <string name="why_market_similar_text">Այս կոինը՝ %1$s 24 ժամում – միաժամանակ շուկան շարժվում է նույն ուղղությամբ, թեև պակաս հստակ։</string>
+    <string name="why_market_wide_text">Այս կոինը՝ %1$s 24 ժամում – միաժամանակ ընդհանուր շուկան հստակ շարժվում է։</string>
+    <string name="why_open_interest_change">Բաց հետաքրքրությունը՝ %1$s վերջին ստուգումից ի վեր։</string>
+    <string name="why_peg_text">Ստեյբլքոին՝ գնանշման արժույթի հետ 1:1 կապի համեմատ շեղումը՝ %1$s։</string>
+    <string name="why_sentiment_text">Ամբողջ կրիպտո շուկայի Fear &amp; Greed ինդեքսը, %1$s երեկվա համեմատ։</string>
+    <string name="why_sentiment_text_no_change">Ամբողջ կրիպտո շուկայի Fear &amp; Greed ինդեքսը։</string>
+    <plurals name="why_trend_falling">
+        <item quantity="one">նվազում է %1$d ժամ</item>
+        <item quantity="other">նվազում է %1$d ժամ</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="one">աճում է %1$d ժամ</item>
+        <item quantity="other">աճում է %1$d ժամ</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="one">կայուն է %1$d ժամ</item>
+        <item quantity="other">կայուն է %1$d ժամ</item>
+    </plurals>
+    <string name="why_volatility_high_text">Վերջին ժամը՝ %1$s — չափված անցած 24 ժամվա բնորոշ ժամային տատանման համեմատ։</string>
+    <string name="why_volatility_normal_text">Վերջին ժամը՝ %1$s — սովորական սահմաններում։</string>
+    <string name="why_volatility_tiny_text">Վերջին ժամը՝ %1$s — անսովոր այս կոինի համար, բայց բացարձակ առումով փոքր։</string>
+    <string name="why_volume_estimated_text">Գնահատված՝ այս աղբյուրը շրջանառություն չի տրամադրում, ուստի համեմատվում են առևտրված կոինների քանակները։</string>
+    <string name="why_volume_high_text">Վերջին ժամում սովորականից շատ ավելի առևտուր – շարժումն ուղեկցվում է բարձր ծավալով։</string>
+    <string name="why_volume_low_text">Շարժման հետևում քիչ առևտուր կա – նման շարժումները հաճախ ավելի քիչ կայուն են։</string>
+    <string name="why_volume_normal_text">Վերջին ժամի առևտուրը համապատասխանում է անցած 24 ժամին։</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">բարձրացված</string>
+    <string name="why_dot_neutral">չեզոք</string>
+    <string name="why_dot_supports">համապատասխանում է շարժմանը</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">Տվյալներն՝ առ %1$s</string>
+    <string name="why_fresh_breadth">Շուկայի լայնություն՝ %1$s · %2$s</string>
+    <string name="why_fresh_candles">Մոմեր՝ %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed՝ %1$s</string>
+    <string name="why_fresh_futures">Ֆյուչերսներ՝ %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="one">բաց հետաքրքրությունը %1$d ժամ առաջվա համեմատ</item>
+        <item quantity="other">բաց հետաքրքրությունը %1$d ժամ առաջվա համեմատ</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="one">բաց հետաքրքրությունը %1$d րոպե առաջվա համեմատ</item>
+        <item quantity="other">բաց հետաքրքրությունը %1$d րոպե առաջվա համեմատ</item>
+    </plurals>
+    <string name="why_fresh_today">այսօր</string>
+    <string name="why_fresh_yesterday">երեկ</string>
+    <string name="why_source_fallback">%1$s (պահուստային)</string>
+    <string name="why_source_reference">%1$s (հղում)</string>
+    <string name="why_sources">Աղբյուրներ՝ բորսաների ժամային մոմեր (հիմնականում Binance), ֆյուչերսների տվյալներ բորսաներից, Fear &amp; Greed՝ alternative.me-ից։</string>
+    <string name="why_sources_list">Աղբյուրներ՝ %1$s։</string>
+    <string name="why_src_breadth">%1$s (շուկայի լայնություն)</string>
+    <string name="why_src_candles">%1$s (մոմեր)</string>
+    <string name="why_src_comparison">%1$s (շուկայի համեմատություն)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (ֆյուչերսներ)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Ֆանդինգ</string>
+    <string name="factor_spoken_volatility">սովորական տատանման %1$s անգամ</string>
+    <string name="factor_spoken_volume">սովորականի %1$s անգամ</string>
+    <string name="factor_volatility">Տատանողականություն (1ժ)</string>
+    <string name="factor_volume">Ծավալ</string>
+</resources>

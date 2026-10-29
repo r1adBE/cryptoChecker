@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">അലേർട്ട് സജ്ജമാക്കുക</string>
+    <string name="alarms_add">പുതിയ അലേർട്ട്</string>
+    <string name="alarms_edit">അലേർട്ട് എഡിറ്റ് ചെയ്യുക</string>
+    <string name="alarms_empty">ഈ ജോഡിക്ക് ഇതുവരെ അലേർട്ടുകളൊന്നുമില്ല.</string>
+    <string name="alarms_empty_example">ഉദാഹരണത്തിന്: BTC %1$s-ന് മുകളിൽ ഉയരുമ്പോൾ എന്നെ അറിയിക്കുക.</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">അറിയിപ്പുകൾ ഓഫാണ് – അലേർട്ടുകൾ നിങ്ങളിലേക്ക് എത്തില്ല.</string>
+    <string name="alarms_notifications_turn_on">ഓണാക്കുക</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="one">%1$d സജീവം</item>
+        <item quantity="other">%1$d സജീവം</item>
+    </plurals>
+    <string name="alarms_overview_empty">ഇതുവരെ അലേർട്ടുകളൊന്നുമില്ല. ഒരു ജോഡി തുറന്ന് അലേർട്ടുകൾ എന്നതിൽ ഒന്ന് ചേർക്കുക.</string>
+    <string name="alarms_overview_title">എല്ലാ അലേർട്ടുകളും</string>
+    <string name="alarms_title">അലേർട്ടുകൾ</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">വിപുലമായത്</string>
+    <string name="alarm_change_updates">വില അപ്‌ഡേറ്റുകൾ ക്രമീകരിക്കുക</string>
+    <string name="alarm_create">അലേർട്ട് സൃഷ്ടിക്കുക</string>
+    <string name="alarm_currency_label">കറൻസി</string>
+    <string name="alarm_delete_confirm">ഈ അലേർട്ട് നീക്കം ചെയ്യും.</string>
+    <string name="alarm_delete_title">അലേർട്ട് ഇല്ലാതാക്കണോ?</string>
+    <string name="alarm_field_percent">ശതമാനം</string>
+    <string name="alarm_field_price">വില</string>
+    <string name="alarm_fires_now_above">വില ഇതിനകം %1$s-ന് മുകളിലാണ്. എന്നാലും സംരക്ഷിക്കണോ?</string>
+    <string name="alarm_fires_now_below">വില ഇതിനകം %1$s-ന് താഴെയാണ്. എന്നാലും സംരക്ഷിക്കണോ?</string>
+    <string name="alarm_fires_now_change">മാറ്റുക</string>
+    <string name="alarm_fires_now_save">എന്നാലും സംരക്ഷിക്കുക</string>
+    <string name="alarm_fires_now_title">അലേർട്ട് ഇപ്പോൾ തന്നെ മുഴങ്ങും</string>
+    <string name="alarm_first_battery_hint">ബാറ്ററി ഒപ്റ്റിമൈസേഷൻ ആപ്പിനെ നിയന്ത്രിക്കുന്നു – അലേർട്ടുകൾ വൈകിയേക്കാം.</string>
+    <string name="alarm_first_title">അലേർട്ട് സംരക്ഷിച്ചു</string>
+    <string name="alarm_last_triggered">അവസാനം %1$s-ന്</string>
+    <string name="alarm_more_conditions">കൂടുതൽ വ്യവസ്ഥകൾ</string>
+    <string name="alarm_new_extreme">പുതിയ %1$s</string>
+    <string name="alarm_once">ഒരിക്കൽ</string>
+    <string name="alarm_option_repeating">അറിയിക്കുക</string>
+    <string name="alarm_option_sound">ശബ്ദം</string>
+    <string name="alarm_option_speak">അലേർട്ട് വായിച്ചുകേൾപ്പിക്കുക</string>
+    <string name="alarm_option_vibrate">വൈബ്രേഷൻ</string>
+    <string name="alarm_repeat_each">ഓരോ തവണയും</string>
+    <string name="alarm_repeat_once">ഒരിക്കൽ</string>
+    <string name="alarm_repeating">ഓരോ തവണയും</string>
+    <string name="alarm_threshold_error_empty">അലേർട്ട് സംരക്ഷിക്കാൻ ഒരു മൂല്യം നൽകുക.</string>
+    <string name="alarm_threshold_error_funding">ഫണ്ടിംഗ് −10-നും +10-നും ഇടയിലുള്ള ശതമാനമായിരിക്കണം.</string>
+    <string name="alarm_threshold_error_invalid">0-നെക്കാൾ വലിയ സാധുവായ സംഖ്യ നൽകുക.</string>
+    <string name="alarm_threshold_error_oi">ഓപ്പൺ ഇന്ററസ്റ്റ് മാറ്റം: പരമാവധി 1000 ശതമാനം.</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="one">%1$d മണിക്കൂറിനുള്ളിൽ</item>
+        <item quantity="other">%1$d മണിക്കൂറിനുള്ളിൽ</item>
+    </plurals>
+    <string name="alarm_window_label">സമയപരിധി</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">ഈ നിലയ്ക്ക് മുകളിൽ പോയാൽ:</string>
+    <string name="alarm_simple_below">ഈ നിലയ്ക്ക് താഴെ പോയാൽ:</string>
+    <string name="alarm_simple_end"></string>
+    <string name="alarm_simple_when">%1$s വില</string>
+    <string name="alarm_template_a11y">അലേർട്ട് സൃഷ്ടിക്കുക: %1$s</string>
+    <string name="alarm_template_a11y_down">നിലവിലെ വിലയിൽ നിന്ന് മൈനസ് %1$s ശതമാനത്തിൽ അലേർട്ട് സൃഷ്ടിക്കുക</string>
+    <string name="alarm_template_a11y_up">നിലവിലെ വിലയിൽ നിന്ന് പ്ലസ് %1$s ശതമാനത്തിൽ അലേർട്ട് സൃഷ്ടിക്കുക</string>
+    <string name="alarm_template_from_now">ഇപ്പോൾ മുതൽ</string>
+    <string name="alarm_template_volume">വോളിയം ×%1$s</string>
+    <string name="alarm_templates_title">ദ്രുത അലേർട്ടുകൾ</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">വില മുകളിൽ</string>
+    <string name="alarm_condition_below">വില താഴെ</string>
+    <string name="alarm_condition_down_percent">ഇത്രയും താഴുന്നു</string>
+    <string name="alarm_condition_funding_above">ഫണ്ടിംഗ് മുകളിൽ</string>
+    <string name="alarm_condition_funding_below">ഫണ്ടിംഗ് താഴെ</string>
+    <string name="alarm_condition_move_percent">ഇത്രയും നീങ്ങുന്നു</string>
+    <string name="alarm_condition_near_high">ഉയർന്ന നിലയ്ക്ക് അടുത്ത്</string>
+    <string name="alarm_condition_near_low">താഴ്ന്ന നിലയ്ക്ക് അടുത്ത്</string>
+    <string name="alarm_condition_oi_down">ഓപ്പൺ ഇന്ററസ്റ്റ് കുറയുന്നു</string>
+    <string name="alarm_condition_oi_up">ഓപ്പൺ ഇന്ററസ്റ്റ് കൂടുന്നു</string>
+    <string name="alarm_condition_up_percent">ഇത്രയും ഉയരുന്നു</string>
+    <string name="alarm_condition_volume_spike">വോളിയം കുതിപ്പ്</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">%1$s %2$s-ന് മുകളിൽ ഉയരുമ്പോൾ എന്നെ അറിയിക്കുക.</string>
+    <string name="alarm_sentence_below">%1$s %2$s-ന് താഴെ വീഴുമ്പോൾ എന്നെ അറിയിക്കുക.</string>
+    <string name="alarm_sentence_down_percent">സംരക്ഷിച്ചപ്പോഴുള്ള (അല്ലെങ്കിൽ അവസാന അലേർട്ടിലെ) വിലയെക്കാൾ %1$s %2$s താഴുമ്പോൾ എന്നെ അറിയിക്കുക.</string>
+    <string name="alarm_sentence_funding_above">%1$s-ന്റെ ഫണ്ടിംഗ് %2$s-ന് മുകളിൽ ഉയരുമ്പോൾ എന്നെ അറിയിക്കുക.</string>
+    <string name="alarm_sentence_funding_below">%1$s-ന്റെ ഫണ്ടിംഗ് %2$s-ന് താഴെ വീഴുമ്പോൾ എന്നെ അറിയിക്കുക.</string>
+    <string name="alarm_sentence_incomplete">അലേർട്ട് ഒരു വാക്യമായി കാണാൻ ഒരു മൂല്യം നൽകുക.</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="one">%1$s %3$d മണിക്കൂറിനുള്ളിൽ %2$s നീങ്ങുമ്പോൾ എന്നെ അറിയിക്കുക.</item>
+        <item quantity="other">%1$s %3$d മണിക്കൂറിനുള്ളിൽ %2$s നീങ്ങുമ്പോൾ എന്നെ അറിയിക്കുക.</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">%1$s അതിന്റെ %3$s-നെക്കാൾ പരമാവധി %2$s താഴെയാകുമ്പോൾ എന്നെ അറിയിക്കുക.</string>
+    <string name="alarm_sentence_near_low">%1$s അതിന്റെ %3$s-നെക്കാൾ പരമാവധി %2$s മുകളിലാകുമ്പോൾ എന്നെ അറിയിക്കുക.</string>
+    <string name="alarm_sentence_new_extreme">%1$s ഒരു പുതിയ %2$s കുറിക്കുമ്പോൾ എന്നെ അറിയിക്കുക.</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="one">%1$s-ന്റെ ഓപ്പൺ ഇന്ററസ്റ്റ് %3$d മണിക്കൂറിനുള്ളിൽ %2$s കുറയുമ്പോൾ എന്നെ അറിയിക്കുക.</item>
+        <item quantity="other">%1$s-ന്റെ ഓപ്പൺ ഇന്ററസ്റ്റ് %3$d മണിക്കൂറിനുള്ളിൽ %2$s കുറയുമ്പോൾ എന്നെ അറിയിക്കുക.</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="one">%1$s-ന്റെ ഓപ്പൺ ഇന്ററസ്റ്റ് %3$d മണിക്കൂറിനുള്ളിൽ %2$s കൂടുമ്പോൾ എന്നെ അറിയിക്കുക.</item>
+        <item quantity="other">%1$s-ന്റെ ഓപ്പൺ ഇന്ററസ്റ്റ് %3$d മണിക്കൂറിനുള്ളിൽ %2$s കൂടുമ്പോൾ എന്നെ അറിയിക്കുക.</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">സംരക്ഷിച്ചപ്പോഴുള്ള (അല്ലെങ്കിൽ അവസാന അലേർട്ടിലെ) വിലയെക്കാൾ %1$s %2$s ഉയരുമ്പോൾ എന്നെ അറിയിക്കുക.</string>
+    <string name="alarm_sentence_volume">%1$s സാധാരണ വോളിയത്തിന്റെ %2$s× വ്യാപാരം ചെയ്യുമ്പോൾ എന്നെ അറിയിക്കുക.</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">30 ദിവസത്തെ ഉയർന്ന നില</string>
+    <string name="alarm_near_extreme_high_365">1 വർഷത്തെ ഉയർന്ന നില</string>
+    <string name="alarm_near_extreme_high_90">90 ദിവസത്തെ ഉയർന്ന നില</string>
+    <string name="alarm_near_extreme_low_30">30 ദിവസത്തെ താഴ്ന്ന നില</string>
+    <string name="alarm_near_extreme_low_365">1 വർഷത്തെ താഴ്ന്ന നില</string>
+    <string name="alarm_near_extreme_low_90">90 ദിവസത്തെ താഴ്ന്ന നില</string>
+    <string name="alarm_near_field_distance">അകലം</string>
+    <string name="alarm_near_hint">പുതിയ ഉയർന്ന നിലയോ താഴ്ന്ന നിലയോ കുറിക്കുമ്പോഴും അറിയിക്കും. പ്രതിദിന കാൻഡിലുകൾ അടിസ്ഥാനമാക്കി, ഓരോ 6 മണിക്കൂറിലും പുതുക്കുന്നു.</string>
+    <string name="alarm_near_new_only">പുതിയ ഉയർന്ന/താഴ്ന്ന നിലകൾ മാത്രം</string>
+    <string name="alarm_near_notification_high">%1$s അതിന്റെ %3$s-നെക്കാൾ %2$s താഴെയാണ് (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_low">%1$s അതിന്റെ %3$s-നെക്കാൾ %2$s മുകളിലാണ് (%4$s / %5$s)</string>
+    <string name="alarm_near_notification_new">%2$s-ന് പുതിയ %1$s: %3$s (മുമ്പ് %4$s)</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="one">%1$d ദിവസം</item>
+        <item quantity="other">%1$d ദിവസം</item>
+    </plurals>
+    <string name="alarm_near_window_label">കാലയളവ്</string>
+    <string name="alarm_near_window_year">1 വർഷം</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">8 മണിക്കൂറിനുള്ള ഫണ്ടിംഗ് നിരക്ക്. മറ്റൊരു ഇടവേളയുള്ള കോൺട്രാക്റ്റുകൾ പരിവർത്തനം ചെയ്യുന്നു (1 മ. × 8, 4 മ. × 2); ഫ്യൂച്ചേഴ്സ് കാർഡ് പരിവർത്തനം ചെയ്ത മൂല്യം കാണിക്കുന്നു. ഇടവേള അജ്ഞാതമെങ്കിൽ, അലേർട്ട് പരിശോധിക്കില്ല. നെഗറ്റീവ് എങ്കിൽ ഷോർട്ടുകൾ ലോംഗുകൾക്ക് നൽകുന്നു. ± ചിഹ്നം മാറ്റുന്നു.</string>
+    <string name="alarm_funding_sign_a11y">ചിഹ്നം മാറ്റുക</string>
+    <string name="alarm_oi_hint">ഓപ്പൺ ഇന്ററസ്റ്റിനെ അത്രയും മണിക്കൂർ മുമ്പ് സൂക്ഷിച്ച മൂല്യവുമായി താരതമ്യം ചെയ്യുന്നു. ആപ്പ് അത്രയും നേരത്തെ ഡാറ്റ ശേഖരിച്ച ശേഷമേ പുതിയ അലേർട്ട് അറിയിക്കൂ; പരമാവധി 5 മിനിറ്റിലൊരിക്കൽ പരിശോധിക്കുന്നു.</string>
+    <string name="alarm_volume_factor_label">കഴിഞ്ഞ മണിക്കൂറിലെ വോളിയം സാധാരണയുമായി താരതമ്യം</string>
+    <string name="alarm_volume_hint">വോളിയം ഡാറ്റ Binance-ൽ നിന്നാണ് — അവിടെ ലിസ്റ്റ് ചെയ്യാത്ത ജോഡികൾ ഒരിക്കലും മുഴങ്ങില്ല.</string>
+    <string name="alarm_volume_zero_hours_hint">ട്രേഡുകളില്ലാത്ത മണിക്കൂറുകൾ പൂജ്യം വോളിയമായി കണക്കാക്കുന്നു, അതിനാൽ കുറച്ച് മാത്രം വ്യാപാരം നടക്കുന്ന ജോഡികളിൽ സാധാരണ മണിക്കൂറും അസാധാരണമായി തോന്നാം.</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">അലേർട്ട് സജീവം</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">അലേർട്ട് സംരക്ഷിച്ചു: %1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">അറിയിപ്പുകൾ ഓഫ്</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">“%1$s” ഇല്ലെങ്കിൽ, വിശ്രമവേളയിൽ Android ക്രമമില്ലാതെ പരിശോധിക്കും – ചിലപ്പോൾ മണിക്കൂറുകൾ കഴിഞ്ഞ്. ഇതോടെ ഏകദേശം 15 മിനിറ്റിലൊരിക്കൽ.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">ആപ്പ് അടച്ചിരിക്കുമ്പോൾ iOS പലപ്പോഴും 15 മിനിറ്റിലും വൈകി പരിശോധിക്കുന്നു, ചിലപ്പോൾ അടുത്ത തവണ ആപ്പ് തുറക്കുമ്പോൾ മാത്രം. ഹ്രസ്വമായ കുതിപ്പുകൾ നഷ്ടമായേക്കാം.</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">അലേർട്ടുകൾ എപ്പോൾ പരിശോധിക്കുന്നു</string>
+    <string name="alarm_timing_where">വിലകൾ എത്ര തവണ പുതുക്കണമെന്ന് %1$s-ൽ മാറ്റുക.</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">നിശബ്ദം (അറിയിപ്പ് മാത്രം)</string>
+    <string name="alarm_signal_sound">ശബ്ദം മാത്രം</string>
+    <string name="alarm_signal_sound_vibrate">ശബ്ദവും വൈബ്രേഷനും</string>
+    <string name="alarm_signal_system">സിസ്റ്റം</string>
+    <string name="alarm_signal_vibrate">വൈബ്രേഷൻ മാത്രം</string>
+    <string name="alarm_test">ടെസ്റ്റ് അലേർട്ട്</string>
+    <string name="alarm_test_action">പരീക്ഷിക്കുക</string>
+    <string name="alarm_test_denied">Crypto Checker-ന് അറിയിപ്പുകൾ ഓഫാക്കിയിരിക്കുന്നു.</string>
+    <string name="alarm_test_hint">നിങ്ങളുടെ ശബ്ദം, വൈബ്രേഷൻ, സംഭാഷണ ക്രമീകരണങ്ങളോടെ ഒരു സാമ്പിൾ അലേർട്ട് അയയ്ക്കുന്നു.</string>
+    <string name="alarm_test_open_settings">ക്രമീകരണം തുറക്കുക</string>
+    <string name="alarm_test_quiet">നിശബ്ദ സമയം ഇപ്പോൾ ഓണാണ്: യഥാർത്ഥ അലേർട്ടുകൾ അത് അവസാനിക്കുന്നതുവരെ കാത്തിരുന്ന് പിന്നീട് ശബ്ദത്തോടെ മുഴങ്ങും.</string>
+    <string name="alarm_test_text">ഒരു അലേർട്ട് ഇങ്ങനെയാണ് കാണുന്നതും കേൾക്കുന്നതും.</string>
+    <string name="alarm_test_title">ടെസ്റ്റ്: Crypto Checker അലേർട്ട്</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">ശബ്ദം ഓൺ</string>
+    <string name="alarm_a11y_speak_on">സംഭാഷണം ഓൺ</string>
+    <string name="alarm_unchecked_no_candles">പരിശോധിക്കാനായില്ല (കാൻഡിൽ ഡാറ്റയില്ല)</string>
+    <string name="alarm_unchecked_no_rate">പരിശോധിക്കാനായില്ല (വിനിമയ നിരക്കില്ല)</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">അറിയിപ്പുകൾ ഓഫ് – ഈ അലേർട്ട് നിങ്ങളിലേക്ക് എത്തില്ല</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">അലേർട്ടില്ല – കുറഞ്ഞ ലിക്വിഡിറ്റി</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">നിലവിലെ വിലയ്ക്കായി കാത്തിരിക്കുന്നു</string>
+    <string name="alarm_enter_amount">ഒരു മൂല്യം നൽകുക</string>
+    <string name="alarm_editor_more">കൂടുതൽ</string>
+    <string name="alarm_editor_more_summary">ദ്രുത അലേർട്ടുകൾ, മറ്റ് വ്യവസ്ഥകൾ, ശബ്ദവും സംഭാഷണവും</string>
+    <string name="alarm_reliability_storage_no_key">പശ്ചാത്തലത്തിൽ അലേർട്ടുകൾ താൽക്കാലികമായി നിർത്തി – വാച്ച്‌ലിസ്റ്റ് സംരക്ഷിച്ചിട്ടില്ല</string>
+    <string name="alarms_limit_reached">ഒരു ജോഡിക്ക് പരമാവധി %1$s അലേർട്ടുകൾ.</string>
+    <string name="alarms_reference_rate_hint">ECB റഫറൻസ് നിരക്കുകൾ ദിവസത്തിൽ ഒരിക്കൽ മാത്രമേ നിശ്ചയിക്കൂ – അവയ്ക്ക് അലേർട്ടുകളില്ല.</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">ഇടിവ് 100 ശതമാനത്തിൽ കുറവായിരിക്കണം.</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">പരിധി അസാധുവാണ് – ദയവായി ക്രമീകരിക്കുക</string>
+
+    <string name="alarm_last_checked">അവസാനം പരിശോധിച്ചത് %1$s</string>
+</resources>

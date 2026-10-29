@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">Wat beweeg saam?</string>
+    <string name="why_all_values">Alle waardes en bronne</string>
+    <string name="why_all_values_hint">Waarneming · Moontlike verklaring · Bronne</string>
+    <string name="why_details">Wys besonderhede</string>
+    <string name="why_details_hide">Versteek besonderhede</string>
+    <string name="why_disclaimer">Outomatiese beoordeling uit markdata: dit wys wat terselfdertyd gebeur, nie bewys van \'n oorsaak nie.</string>
+    <string name="why_footer_short">Gelyktydig beteken nie oorsaak nie · Geen beleggingsadvies nie</string>
+    <string name="why_no_data">Geen data van Binance vir hierdie paar nie</string>
+    <string name="why_no_data_hint">Prys, volume en wisselvalligheid kom van Binance se uurkerse.</string>
+    <string name="why_ref_alts">Alts</string>
+    <string name="why_section_context">Moontlike verklaring</string>
+    <string name="why_section_observation">Waarneming</string>
+    <string name="why_title">Wat beweeg saam?</string>
+    <string name="why_title_coin">Wat beweeg saam met %1$s?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">Kortliks · Soos op %1$s</string>
+    <string name="why_brief_label">Kortliks:</string>
+    <string name="why_summary_against">Die munt beweeg teen die mark.</string>
+    <string name="why_summary_calm">Geen opvallende beweging nie: mark en munt is kalm.</string>
+    <string name="why_summary_coin">Net hierdie munt beweeg – moontlik iets wat net hierdie munt raak.</string>
+    <string name="why_summary_coin_volume">Net hierdie munt beweeg, met hoër volume – moontlik iets wat net hierdie munt raak.</string>
+    <string name="why_summary_longs">Futures: baie long-posisies met hefboom.</string>
+    <string name="why_summary_market">Die beweging pas in tyd by die algehele mark.</string>
+    <string name="why_summary_market_volume">Die beweging val saam met hoër handelsvolume en \'n breed bewegende mark.</string>
+    <string name="why_summary_peg_near">Die prys is naby sy 1:1-koppeling.</string>
+    <string name="why_summary_peg_off">Die prys wyk merkbaar van sy 1:1-koppeling af.</string>
+    <string name="why_summary_shorts">Futures: baie short-posisies.</string>
+    <string name="why_summary_thin">Die beweging is dun: min volume daaragter.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">Teen die mark</string>
+    <string name="why_f_coin_only">Net hierdie munt</string>
+    <string name="why_f_leader">Bitcoin as markleier</string>
+    <string name="why_f_leverage_balanced">Hefboom gebalanseerd</string>
+    <string name="why_f_leverage_longs">Hefboom: baie longs</string>
+    <string name="why_f_leverage_shorts">Hefboom: baie shorts</string>
+    <string name="why_f_market_calm">Kalm mark</string>
+    <string name="why_f_market_wide">Hele mark beweeg</string>
+    <string name="why_factor_funding">Befondsing</string>
+    <string name="why_factor_futures">Futures</string>
+    <string name="why_factor_market">Algehele mark</string>
+    <string name="why_factor_near_high">Naby die hoogtepunt</string>
+    <string name="why_factor_near_low">Naby die laagtepunt</string>
+    <string name="why_factor_peg">Koppeling (1:1)</string>
+    <string name="why_factor_range3d">3-dae-reeks</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">beraam</string>
+    <string name="why_fn_funding_longs">baie wed op stygende pryse</string>
+    <string name="why_fn_funding_neutral">neutraal</string>
+    <string name="why_fn_funding_shorts">baie wed op dalende pryse</string>
+    <string name="why_fn_high_at">by die 30-dae-hoogtepunt</string>
+    <string name="why_fn_high_below">onder die 30-dae-hoogtepunt</string>
+    <string name="why_fn_leader_calm">Bitcoin is kalm</string>
+    <string name="why_fn_leader_moves">Bitcoin beweeg duidelik</string>
+    <string name="why_fn_low_above">bo die 30-dae-laagtepunt</string>
+    <string name="why_fn_low_at">by die 30-dae-laagtepunt</string>
+    <string name="why_fn_market_against">Hierdie munt beweeg teen die mark</string>
+    <string name="why_fn_market_alone">Mark kalm – hierdie munt beweeg op sy eie</string>
+    <string name="why_fn_market_calm">Mark is kalm</string>
+    <string name="why_fn_market_lags">Mark beweeg, hierdie munt skaars</string>
+    <string name="why_fn_market_moves">Mark beweeg in dieselfde rigting</string>
+    <string name="why_fn_market_pulls">Mark beweeg saam met BTC</string>
+    <string name="why_fn_oi_down">Oop belang af</string>
+    <string name="why_fn_oi_flat">Oop belang skaars verander</string>
+    <string name="why_fn_oi_mixed">Oop belang gemeng</string>
+    <string name="why_fn_oi_up">Oop belang op</string>
+    <string name="why_fn_peg_above">%1$s bo die 1:1-koppeling</string>
+    <string name="why_fn_peg_below">%1$s onder die 1:1-koppeling</string>
+    <string name="why_fn_peg_near">naby die 1:1-koppeling</string>
+    <string name="why_fn_range_above_low">sedert die 3-dae-laagtepunt</string>
+    <string name="why_fn_range_below_high">sedert die 3-dae-hoogtepunt</string>
+    <string name="why_fn_range_near_high">naby die 3-dae-hoogtepunt</string>
+    <string name="why_fn_range_near_low">naby die 3-dae-laagtepunt</string>
+    <string name="why_fn_volatility_stronger">sterker as gewoonlik</string>
+    <string name="why_fn_volatility_tiny">klein in absolute terme (onder %1$s)</string>
+    <string name="why_fn_volatility_usual">soos gewoonlik</string>
+    <string name="why_fn_volume_higher">hoër as gewoonlik</string>
+    <string name="why_fn_volume_lower">laer as gewoonlik</string>
+    <string name="why_fn_volume_usual">soos gewoonlik</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">Hierdie munt %1$s, BTC %2$s in 24h — \'n opvallend onafhanklike beweging.</string>
+    <string name="why_against_ref_text">Hierdie munt %1$s, %2$s %3$s in 24h — \'n opvallend onafhanklike beweging.</string>
+    <string name="why_btc_independent">%1$s beweeg tans onafhanklik van Bitcoin.</string>
+    <string name="why_btc_tight">%1$s beweeg tans nou saam met Bitcoin.</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_coin_only_text">%1$s in 24h terwyl die mark stil is – moontlik iets wat net hierdie munt raak.</string>
+    <string name="why_leverage_balanced_text">Geen ophoping van long- of short-posisies in die futures-mark nie.</string>
+    <string name="why_leverage_longs_text">Baie wed met geleende geld op stygende pryse. Longs betaal shorts — verhoogde risiko van likwidasies as die prys daal.</string>
+    <string name="why_leverage_shorts_text">Baie wed met geleende geld op dalende pryse. Shorts betaal longs – as die prys styg, is \'n short squeeze moontlik.</string>
+    <string name="why_market_calm_text">Hierdie munt: %1$s in 24h. Nóg die mark nóg die munt beweeg veel.</string>
+    <string name="why_market_leader_text">As die grootste munt beweeg BTC gewoonlik in pas met die res van die mark. ETH: %1$s in 24h.</string>
+    <string name="why_market_leader_text_no_eth">As die grootste munt beweeg BTC gewoonlik in pas met die res van die mark.</string>
+    <string name="why_market_similar_text">Hierdie munt: %1$s in 24h – terselfdertyd beweeg die mark in dieselfde rigting, hoewel minder duidelik.</string>
+    <string name="why_market_wide_text">Hierdie munt: %1$s in 24h – terselfdertyd beweeg die algehele mark duidelik.</string>
+    <string name="why_open_interest_change">Oop belang %1$s sedert die laaste kontrole.</string>
+    <string name="why_peg_text">Stablecoin: vergeleke met \'n 1:1-koppeling aan die kwotasie-geldeenheid, afwyking %1$s.</string>
+    <string name="why_sentiment_text">Fear &amp; Greed-indeks van die hele kriptomark, %1$s teenoor gister.</string>
+    <string name="why_sentiment_text_no_change">Fear &amp; Greed-indeks van die hele kriptomark.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="one">daal al %1$d uur</item>
+        <item quantity="other">daal al %1$d uur</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="one">styg al %1$d uur</item>
+        <item quantity="other">styg al %1$d uur</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="one">stabiel al %1$d uur</item>
+        <item quantity="other">stabiel al %1$d uur</item>
+    </plurals>
+    <string name="why_volatility_high_text">Laaste uur: %1$s — gemeet teen die tipiese uurlikse skommeling van die afgelope 24 uur.</string>
+    <string name="why_volatility_normal_text">Laaste uur: %1$s — binne die gewone reeks.</string>
+    <string name="why_volatility_tiny_text">Laaste uur: %1$s — ongewoon vir hierdie munt, maar klein in absolute terme.</string>
+    <string name="why_volume_estimated_text">Beraam: hierdie bron verskaf geen omset nie, so verhandelde munthoeveelhede word vergelyk.</string>
+    <string name="why_volume_high_text">Baie meer handel as gewoonlik in die laaste uur – die beweging kom met hoë volume.</string>
+    <string name="why_volume_low_text">Min handel agter die beweging – sulke bewegings is dikwels minder stabiel.</string>
+    <string name="why_volume_normal_text">Handel in die laaste uur is in lyn met die afgelope 24 uur.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">verhoog</string>
+    <string name="why_dot_neutral">neutraal</string>
+    <string name="why_dot_supports">pas by die beweging</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">Data soos op %1$s</string>
+    <string name="why_fresh_breadth">Markbreedte: %1$s · %2$s</string>
+    <string name="why_fresh_candles">Kerse: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">Futures: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="one">oop belang vergeleke met %1$d uur gelede</item>
+        <item quantity="other">oop belang vergeleke met %1$d uur gelede</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="one">oop belang vergeleke met %1$d minuut gelede</item>
+        <item quantity="other">oop belang vergeleke met %1$d minute gelede</item>
+    </plurals>
+    <string name="why_fresh_today">vandag</string>
+    <string name="why_fresh_yesterday">gister</string>
+    <string name="why_source_fallback">%1$s (rugsteun)</string>
+    <string name="why_source_reference">%1$s (verwysing)</string>
+    <string name="why_sources">Bronne: beurse se uurkerse (meestal Binance), futures-data van beurse, Fear &amp; Greed van alternative.me.</string>
+    <string name="why_sources_list">Bronne: %1$s.</string>
+    <string name="why_src_breadth">%1$s (markbreedte)</string>
+    <string name="why_src_candles">%1$s (kerse)</string>
+    <string name="why_src_comparison">%1$s (markvergelyking)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (futures)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Befondsing</string>
+    <string name="factor_spoken_volatility">%1$s keer die gewone skommeling</string>
+    <string name="factor_spoken_volume">%1$s keer normaal</string>
+    <string name="factor_volatility">Wisselvalligheid (1h)</string>
+    <string name="factor_volume">Volume</string>
+</resources>

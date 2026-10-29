@@ -164,6 +164,13 @@ extension WatchlistScreen {
             }
             .onMove(perform: moveOthers)
 
+            // Ruhig am Ende, scrollt mit (nur ganz unten zu sehen, verdeckt keinen Kurs); gezeigte Zeilen von der
+            // ganzen Merkliste, in der Mehrfachauswahl keine (unten steht die Leiste) — wie Android
+            if let footer = WatchlistFooter.of(shown: rows.count, total: data.watches.count, selecting: selecting) {
+                WatchlistFooterLine(footer: footer)
+                    .plainRow(top: Spacing.md, bottom: Spacing.xs)
+            }
+
             // Mit Sprungknopf bzw. Auswahl-Leiste unten mehr Platz, damit sie die letzte Zeile nicht verdeckt
             Color.clear
                 .frame(height: jumpEligible || selecting ? 12 + WatchlistJump.buttonSize + WatchlistJump.margin : 12)
@@ -311,6 +318,30 @@ extension WatchlistScreen {
         .buttonStyle(.borderless)
         .padding(.horizontal, 4)
         .frame(minHeight: 44)
+    }
+}
+
+/// «6 Paare» bzw. «6 von 42 Paaren», nahe der Grenze «· noch 5 frei» bzw. «· Merkliste voll» (`WatchlistFooter`) —
+/// wie `FooterLine` (Android). Für VoiceOver ein Text, kein Knopf.
+private struct WatchlistFooterLine: View {
+    let footer: WatchlistFooter
+
+    var body: some View {
+        // Plural nach der Gesamtzahl (%1$d), %2$d = gezeigte Zeilen
+        let count = footer.filtered
+            ? L("watchlist_footer_of", count: footer.total, footer.total, footer.shown)
+            : L("watchlist_footer_count", count: footer.shown)
+        let room = footer.remaining.map { free in
+            free == 0 ? L("watchlist_footer_full") : L("watchlist_footer_remaining", count: free)
+        }
+        let parts = [count, room].compactMap { $0 }
+        Text(parts.joined(separator: " · "))
+            .font(.footnote)
+            .foregroundStyle(AppColors.onSurfaceVariant)
+            .multilineTextAlignment(.center)
+            .frame(maxWidth: .infinity)
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(parts.joined(separator: ", "))
     }
 }
 

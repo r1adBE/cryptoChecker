@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">முகவரியைச் சேர்</string>
+    <string name="portfolio_address_count">கணக்கில் சேர்</string>
+    <string name="portfolio_address_error">புதுப்பிப்பு தோல்வியடைந்தது</string>
+    <string name="portfolio_address_hint">பொது முகவரி (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) அல்லது xpub</string>
+    <string name="portfolio_address_label">லேபிள் (விருப்பத்தேர்வு)</string>
+    <string name="portfolio_address_not_since_buy">முகவரியிலிருந்து · “வாங்கியதிலிருந்து” இல் இல்லை: %1$s</string>
+    <string name="portfolio_address_overlap">உங்கள் சொந்தப் பரிவர்த்தனைகளிலும் உள்ளது: %1$s – இரண்டும் கூட்டப்படும். அதே காயின்களா? “காட்டு மட்டும்” என்பதைத் தேர்ந்தெடுக்கவும்.</string>
+    <string name="portfolio_address_overlap_ask">%1$s ஐ ஏற்கெனவே உங்கள் சொந்தப் பரிவர்த்தனைகளுடன் பதிவுசெய்கிறீர்கள். இந்த முகவரியின் இருப்பைப் போர்ட்ஃபோலியோவில் சேர்க்கவா, அல்லது காட்ட மட்டுமா?</string>
+    <string name="portfolio_address_overlap_auto">“%1$s” இப்போது காட்டப்படுகிறது மட்டும், கணக்கிடப்படவில்லை – %2$s உங்கள் பரிவர்த்தனைகளிலும் உள்ளன.</string>
+    <string name="portfolio_address_overlap_title">உங்கள் பரிவர்த்தனைகளில் உள்ள அதே காயின்களா?</string>
+    <string name="portfolio_address_overlap_tx">உங்கள் சொந்த வைப்பு/பரிமாற்றத்தின் அதே தொகை (%1$s) – இரண்டு முறை கணக்கிடப்பட்டிருக்கலாம்.</string>
+    <string name="portfolio_address_period_observed">கண்காணிக்கப்படும் முகவரிகள் முதலில் கவனிக்கப்பட்ட இருப்பிலிருந்து கணக்கிடப்படும்; பிந்தைய மாற்றங்கள் உள்வரவு/வெளிச்செலவு, லாபம் அல்ல.</string>
+    <string name="portfolio_address_privacy">பொது முகவரி மட்டுமே %1$s க்கு அனுப்பப்படும் – கீகளோ சீட் சொற்றொடர்களோ ஒருபோதும் இல்லை. வழங்குநர் அதை உங்கள் IP முகவரியுடன் சேர்த்துப் பார்ப்பார். அதிகபட்சம் 10 நிமிடங்களுக்கு ஒருமுறை சரிபார்க்கப்படும்.</string>
+    <string name="portfolio_address_remove">முகவரியை அகற்று</string>
+    <string name="portfolio_address_show_only">காட்டு மட்டும், போர்ட்ஃபோலியோவில் சேர்க்காதே</string>
+    <string name="portfolio_address_show_only_short">காட்டு மட்டும்</string>
+    <string name="portfolio_address_tokens">டோக்கன்களைக் கணக்கிடு</string>
+    <string name="portfolio_address_xpub_privacy">ஒரு xpub இந்த வாலட்டின் எல்லா முகவரிகளையும் வெளிப்படுத்தும். அவை உங்கள் சாதனத்திலேயே பெறப்படுகின்றன; தனித்தனி முகவரிகள் மட்டுமே %1$s க்கு அனுப்பப்படும் – முதல் ஸ்கேனில் குறைந்தது 40 கோரிக்கைகள், பின்னர் குறைவாக. தனிப்பட்ட கீகள் (xprv) ஒருபோதும் ஏற்கப்படாது.</string>
+    <string name="portfolio_address_xpub_gap">தொடர்ச்சியாக %1$d பயன்படுத்தப்படாத முகவரிகளுக்குப் பிறகு தேடல் நிற்கும் (பெரும்பாலான வாலட்கள் பயன்படுத்தும் BIP44 தரநிலை). அந்த இடைவெளிக்கு அப்பாலுள்ள பயன்படுத்தப்பட்ட முகவரி கணக்கிடப்படாது – அதைத் தனியாகச் சேர்க்கவும்.</string>
+    <string name="portfolio_address_xpub_used">பயன்பாட்டிலுள்ள முகவரிகள்: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">புதுப்பிக்க மிக அதிகமான பயன்படுத்தப்பட்ட முகவரிகள்</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">மிக அதிகமான முகவரிகள் – பழைய, காலியான முகவரிகளுக்கு வரும் புதிய பணம் கண்டறியப்படாமல் போகலாம்</string>
+    <string name="portfolio_addresses_title">முகவரிகள்</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Bitcoin Cash முகவரிகளைக் கண்காணிக்க முடியாது: API கீ இல்லாமல், அதன் விதிமுறைகள் அனுமதிக்கும் இலவசப் பொதுச் சேவை எதுவும் இல்லை.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) 2024 இல் நிறுத்தப்பட்டது – இருப்புகள் இப்போது BNB Smart Chain (0x…) இல் உள்ளன</string>
+    <string name="address_checksum">செக்சம் தவறு – எழுத்துப்பிழைகளைச் சரிபார்க்கவும்</string>
+    <string name="address_doge_unsupported">Dogecoin முகவரிகளைக் கண்காணிக்க முடியாது: API கீ இல்லாமல், அதன் விதிமுறைகள் அனுமதிக்கும் இலவசப் பொதுச் சேவை எதுவும் இல்லை.</string>
+    <string name="address_duplicate">இந்த முகவரி ஏற்கெனவே சேர்க்கப்பட்டுள்ளது</string>
+    <string name="address_ens">ENS பெயர்கள் ஆதரிக்கப்படவில்லை – 0x முகவரியை உள்ளிடவும்</string>
+    <string name="address_invalid">ஆதரிக்கப்படும் நெட்வொர்க்கின் சரியான முகவரி அல்ல</string>
+    <string name="address_limit">அதிகபட்சம் 20 முகவரிகள்</string>
+    <string name="address_secret">இது ஒரு தனிப்பட்ட கீ அல்லது சீட் சொற்றொடர் போலத் தெரிகிறது – இதை எங்கும் ஒருபோதும் உள்ளிட வேண்டாம். பொது முகவரிகள் மட்டும்.</string>
+    <string name="address_testnet">டெஸ்ட்நெட் முகவரிகள் ஆதரிக்கப்படவில்லை</string>
+    <string name="address_unsupported">இந்த முகவரி வகை ஆதரிக்கப்படவில்லை</string>
+    <string name="address_wrong_chain">முகவரி வேறொரு நெட்வொர்க்கைச் சேர்ந்தது</string>
+    <string name="address_xpub_multisig">மல்டிசிக் கீகள் (Ypub/Zpub) ஆதரிக்கப்படவில்லை</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot கணக்கு (BIP86): bc1p… முகவரிகள் இந்தக் கீயிலிருந்து பெறுவதற்கும் மீதித்தொகைக்கும் உருவாக்கப்படுகின்றன.</string>
+    <string name="portfolio_address_taproot_hint">Taproot வாலட்டா? அதற்குப் பதிலாக உங்கள் வாலட்டிலிருந்து tr(…) டிஸ்கிரிப்டரை ஒட்டவும் – சாதாரண xpub, Legacy மற்றும் SegWit முகவரிகளாக மட்டுமே தேடப்படும்.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">சொந்தச் சர்வரை அணுக முடியவில்லை</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">%1$s ஐ இயக்குபவர் இந்த வாலட்டின் வினவப்பட்ட எல்லா முகவரிகளையும் பார்க்க முடியும், அவற்றை ஒன்றோடொன்றும் உங்கள் IP முகவரியுடனும் இணைக்க முடியும்.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">இதைத் தவிர்க்க, அமைப்புகள் › போர்ட்ஃபோலியோ › முகவரிகளுக்கான சொந்தச் சர்வர் என்பதில் உங்கள் சொந்தச் சர்வரை உள்ளிடவும்.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d அறியப்படாத டோக்கன் (கணக்கிடப்படவில்லை)</item>
+        <item quantity="other">+%1$d அறியப்படாத டோக்கன்கள் (கணக்கிடப்படவில்லை)</item>
+    </plurals>
+</resources>

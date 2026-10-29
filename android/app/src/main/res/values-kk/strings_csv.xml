@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">CSV импорттау</string>
+    <string name="portfolio_csv_import_all_transfer">Барлығы өз әмиянға</string>
+    <string name="portfolio_csv_import_all_withdrawal">Барлығы портфельден шығады</string>
+    <string name="portfolio_csv_import_choice_proposed">Ұсыныс: %1$s сәйкес келеді</string>
+    <string name="portfolio_csv_import_choice_transfer">Өз әмиянға (аударым)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Портфельден шығады (шығару)</string>
+    <string name="portfolio_csv_import_choose_each">Әр шығару қайда кеткенін таңдаңыз.</string>
+    <string name="portfolio_csv_import_columns">Танылған бағандар: %1$s</string>
+    <string name="portfolio_csv_import_confirm">Импорттау (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">Күн/Ай</string>
+    <string name="portfolio_csv_import_date_month_first">Ай/Күн</string>
+    <string name="portfolio_csv_import_date_order">Екіұшты күндер (мысалы, 03/04/2024) былай оқылады:</string>
+    <string name="portfolio_csv_import_decimal">Екіұшты сандар (мысалы, %1$s) былай оқылады:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d транзакция импортталды</item>
+        <item quantity="other">%d транзакция импортталды</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d бұрын импортталған (өткізілді)</item>
+        <item quantity="other">%d бұрын импортталған (өткізілді)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">Формат: %1$s</string>
+    <string name="portfolio_csv_import_line">%1$d-жол: %2$s</string>
+    <string name="portfolio_csv_import_loading">Файл мен күндік бағамдар оқылуда…</string>
+    <string name="portfolio_csv_import_progress">%2$s жолдың %1$s-і</string>
+    <string name="portfolio_csv_import_saving">Транзакциялар сақталуда…</string>
+    <string name="portfolio_csv_import_missing_fx">%1$s жолдары үшін күндік бағам жоқ – бағасыз/комиссиясыз импортталды.</string>
+    <string name="portfolio_csv_import_missing_price">Файлда %1$s жолдары үшін баға жоқ – бағасыз импортталды.</string>
+    <string name="portfolio_csv_import_more">+ тағы %1$d</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d жаңа транзакция</item>
+        <item quantity="other">%d жаңа транзакция</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d жол өткізілді</item>
+        <item quantity="other">%d жол өткізілді</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">Стейблкоиндерге (USDT, USDC …) қарсы сауда айырбас ретінде жазылады – стейблкоин активтеріңізде пайда болады.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Бірнеше сәйкестік мүмкін – дұрысын таңдаңыз немесе ешқайсысын таңдамаңыз.</string>
+    <string name="portfolio_csv_import_transfer_fee">Желі комиссиясы: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">Бір аударым ретінде жазу</string>
+    <string name="portfolio_csv_import_transfer_stored">Бұрынғы импорттағы қарсы жазба</string>
+    <string name="portfolio_csv_import_transfers_hint">Бір монетаның шығаруы мен сәйкес депозиті бір аударымға айналады: сатып алу бағасы мен ұстау мерзімі сақталады, айырма желі комиссиясы болып есептеледі.</string>
+    <string name="portfolio_csv_import_transfers_title">Шоттарыңыз арасындағы аударымдар</string>
+    <string name="portfolio_csv_import_unreadable">Қолдау көрсетілетін транзакциялар табылмады. Қолдау көрсетілетіндер: Relai, Swissquote, Kraken, Binance, Coinbase және Bitpanda CSV экспорттары.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
+    <string name="portfolio_csv_import_too_large">Файл импорттау үшін тым үлкен (ең көбі 16 MB және %1$s жол). Қысқарақ кезеңдерді экспорттап, оларды бірінен соң бірін импорттаңыз.</string>
+    <string name="portfolio_csv_import_failed">Импорттау орындалмады – ештеңе сақталмады. Қайталап көріңіз.</string>
+    <string name="portfolio_csv_import_locked">Импорттау мүмкін емес: сақталған деректерді қазір оқу мүмкін емес. Қолданбаны қайта іске қосыңыз.</string>
+    <string name="portfolio_csv_import_withdrawals_title">Шығарулар – монеталар қайда кетті?</string>
+    <string name="portfolio_csv_import_zone">Уақыт белдеуі жоқ уақыттар былай оқылады: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">Құрылғы (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">күнді оқу мүмкін емес</string>
+    <string name="portfolio_csv_skip_bad_number">санды оқу мүмкін емес</string>
+    <string name="portfolio_csv_skip_fee_exceeds">комиссия ≥ алынған сома</string>
+    <string name="portfolio_csv_skip_internal_move">өз шоттарыңыз арасындағы ауыстыру – жазатын ештеңе жоқ</string>
+    <string name="portfolio_csv_skip_missing">өріс жоқ</string>
+    <string name="portfolio_csv_skip_ambiguous">бір секундтағы ажыратуға болмайтын бірнеше сауда – оларды қолмен енгізіңіз</string>
+    <string name="portfolio_csv_skip_not_crypto">крипто емес</string>
+    <string name="portfolio_csv_skip_possible_duplicate">бұрын импортталған болуы мүмкін (дерлік бірдей сауда) – қолмен тексеріңіз</string>
+    <string name="portfolio_csv_skip_two_fees">әртүрлі бірліктегі екі комиссия – айырбасты қолмен енгізіңіз</string>
+    <string name="portfolio_csv_skip_unsupported">қолдау көрсетілмейтін түр</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">Болдырмау</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">Осы импорттың %d транзакциясын жою керек пе? Қолмен енгізілгендер мен басқа импорттар қалады.</item>
+        <item quantity="other">Осы импорттың %d транзакциясын жою керек пе? Қолмен енгізілгендер мен басқа импорттар қалады.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">Импортты болдырмау керек пе?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">%d импортталған транзакция жойылды</item>
+        <item quantity="other">%d импортталған транзакция жойылды</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d транзакция</item>
+        <item quantity="other">%d транзакция</item>
+    </plurals>
+    <string name="portfolio_imports_empty">Импорт жоқ</string>
+    <string name="portfolio_imports_title">Импорттар</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">транзакция ID бірдей, сомасы басқа – қолмен тексеріңіз</string>
+    <string name="portfolio_csv_skip_staking_unpaired">қарсы жазбасыз стейкинг жазбасы – активтерді тексеріңіз</string>
+    <string name="portfolio_csv_skip_amount_too_small">сома тым аз – сақтағанда 0-ге дейін дөңгелектенеді</string>
+    <string name="portfolio_csv_skip_invalid_swap">жарамды монетасыз немесе алынған сомасыз айырбас</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">Файл қайта оқылуда …</string>
+</resources>

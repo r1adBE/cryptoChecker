@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Protokoll: Titel der Seite und Name des Knopfs in «Alle Alarme» -->
+    <string name="alarm_log_title">अलर्ट लग</string>
+    <!-- Link unter «Letzte Prüfungen» (Einstellungen › Aktualisierung) -->
+    <string name="alarm_log_open">अलर्ट लग देखाउनुहोस्</string>
+    <string name="alarm_log_intro">अलर्ट कहिले बज्यो – र कहिले बज्नुपर्ने थियो तर रोकियो। यो डिभाइसमा मात्र 14 दिनसम्म राखिन्छ।</string>
+    <string name="alarm_log_empty_title">अहिलेसम्म कुनै प्रविष्टि छैन</string>
+    <string name="alarm_log_empty_message">अलर्ट बज्दा वा रोकिँदा यहाँ प्रविष्टिहरू देखिन्छन् – उदाहरणका लागि मूल्य पुरानो हुँदा वा शान्त समयमा।</string>
+    <string name="alarm_log_clear">लग खाली गर्नुहोस्</string>
+    <string name="alarm_log_clear_title">अलर्ट लग खाली गर्ने?</string>
+    <string name="alarm_log_clear_message">सबै प्रविष्टिहरू हटाइन्छन्। तपाईंका अलर्टहरू जस्ताको तस्तै रहन्छन्।</string>
+    <!-- Screenreader: Schwelle des Alarms, z. B. «Marke Über 100’000 CHF» -->
+    <string name="alarm_log_threshold">सीमा %1$s</string>
+    <!-- Alarm-Editor: letzte Prüfung, %1$s = «14:02 · Kraken 99’800 CHF · Marke nicht erreicht» -->
+    <string name="alarm_last_check">अन्तिम जाँच: %1$s</string>
+    <!-- Ergebnisse einer Alarm-Prüfung (AlarmLogOutcome) -->
+    <string name="alarm_outcome_fired">बज्यो</string>
+    <string name="alarm_outcome_not_reached">सीमामा पुगेन</string>
+    <string name="alarm_outcome_already_triggered">पहिले नै सूचित – मूल्य फेरि अर्को पट्टि नआएसम्म पर्खन्छ</string>
+    <string name="alarm_outcome_cooldown">बजेन – अन्तिम अलर्टपछिको विश्राम समय</string>
+    <!-- %1$s = Zeit des Kurses laut Börse -->
+    <string name="alarm_outcome_stale">बजेन – मूल्य पुरानो (%1$s सम्मको)</string>
+    <string name="alarm_outcome_mark_price">बजेन – मार्क मूल्य, कारोबार भएको मूल्य होइन</string>
+    <string name="alarm_outcome_low_liquidity">बजेन – तरलता 10,000 USD भन्दा कम वा अज्ञात</string>
+    <string name="alarm_outcome_quiet_hours">बजेन – शान्त समय (शर्त कायमै रहे पछि अलर्ट गर्छ)</string>
+    <string name="alarm_outcome_notifications_off">बजेन – सूचनाहरू बन्द छन्</string>
+    <string name="alarm_outcome_not_shown">बजेन – सूचना आइपुगेन, पछि फेरि प्रयास गरिन्छ</string>
+    <string name="alarm_outcome_no_rate">जाँच भएन – विनिमय दर छैन</string>
+    <string name="alarm_outcome_no_price">मूल्य छैन – एक्सचेन्ज क्वेरी असफल भयो</string>
+
+    <string name="alarm_outcome_snoozed">रोकिएको – “1 घण्टापछि” अझै चलिरहेको छ</string>
+    <string name="alarm_log_source_app">एपमा</string>
+    <string name="alarm_log_source_background">ब्याकग्राउन्डमा</string>
+    <string name="alarm_log_source_exact">समयमै जाँच</string>
+    <string name="alarm_log_source_widget">विजेटमार्फत</string>
+    <string name="alarm_outcome_fx_stale">जाँच भएन – विनिमय दर 36 घण्टाभन्दा पुरानो</string>
+    <string name="alarm_outcome_fx_unsure">जाँच भएन – USDT रूपान्तरण अनिश्चित (USDC मार्फत मात्र)</string>
+</resources>

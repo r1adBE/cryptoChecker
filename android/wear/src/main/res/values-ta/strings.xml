@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">காயின்கள் எதுவும் தேர்ந்தெடுக்கப்படவில்லை</string>
+    <string name="watch_loading">ஏற்றுகிறது…</string>
+    <string name="watch_error">எக்ஸ்சேஞ்ச்களை அணுக முடியவில்லை</string>
+    <string name="watch_updated">%1$s நிலவரப்படி</string>
+    <string name="watch_refresh">புதுப்பி</string>
+    <string name="watch_choose">காயின்களைத் தேர்ந்தெடு</string>
+    <string name="watch_choose_hint">காயின்கள்: அதிகபட்சம் %1$d</string>
+    <string name="watch_complication_label">விலை</string>
+    <string name="a11y_watch_row">%1$s %2$s, 24 மணிநேரத்தில் %3$s</string>
+    <string name="watch_mode_phone">பட்டியல்: ஃபோனில் உள்ளபடி</string>
+    <string name="watch_mode_own">பட்டியல்: தனிப்பட்டது</string>
+    <string name="watch_phone_empty">ஃபோனில் பிடித்தவை இல்லை</string>
+    <string name="a11y_watch_outdated">விலை காலாவதியானது</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">%1$d நிமிடத்துக்கு முன் கடைசியாகப் புதுப்பிக்கப்பட்டது</item>
+        <item quantity="other">%1$d நிமிடங்களுக்கு முன் கடைசியாகப் புதுப்பிக்கப்பட்டது</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">%1$d மணிநேரத்துக்கு முன் கடைசியாகப் புதுப்பிக்கப்பட்டது</item>
+        <item quantity="other">%1$d மணிநேரத்துக்கு முன் கடைசியாகப் புதுப்பிக்கப்பட்டது</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">%1$d நாளுக்கு முன் கடைசியாகப் புதுப்பிக்கப்பட்டது</item>
+        <item quantity="other">%1$d நாட்களுக்கு முன் கடைசியாகப் புதுப்பிக்கப்பட்டது</item>
+    </plurals>
+</resources>

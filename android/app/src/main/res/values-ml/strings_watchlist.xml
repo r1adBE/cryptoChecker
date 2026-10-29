@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">നിലവിലുള്ളത് · %1$s</string>
+    <string name="watchlist_empty_title">ഇതുവരെ ജോഡികളൊന്നുമില്ല</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%2$d-ൽ %1$d വിലയില്ലാതെ</item>
+        <item quantity="other">%2$d-ൽ %1$d വിലയില്ലാതെ</item>
+    </plurals>
+    <string name="watchlist_last_run">അവസാന റൺ %1$s</string>
+    <string name="watchlist_live_a11y">ലൈവ് വിലകൾ ഓൺ</string>
+    <string name="watchlist_offline_since">കണക്ഷനില്ല · %1$s പ്രകാരം</string>
+    <string name="watchlist_pull_to_refresh">പുതുക്കാൻ താഴേക്ക് വലിക്കുക</string>
+    <string name="watchlist_refresh_report">അവസാന പുതുക്കൽ</string>
+    <string name="watchlist_refresh_report_empty">ഇതുവരെ വിശദാംശമില്ല – ഇതുവരെ പൂർണ്ണ പുതുക്കൽ നടന്നിട്ടില്ല. പുതുക്കുക ടാപ്പ് ചെയ്ത് വൃത്തം നിൽക്കുന്നതുവരെ കാത്തിരിക്കുക.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%2$d-ൽ %1$d പഴയത്</item>
+        <item quantity="other">%2$d-ൽ %1$d പഴയത്</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">ഇവിടെയുള്ള എല്ലാ ജോഡികളും പ്രവർത്തനരഹിതമാണ്</string>
+    <string name="watchlist_status_exchange_prices">നിങ്ങളുടെ എക്സ്ചേഞ്ചുകളിൽ നിന്നുള്ള വിലകൾ · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">എക്സ്ചേഞ്ച് വിലകൾ · %1$s</string>
+    <string name="watchlist_status_group_empty">ഈ ഗ്രൂപ്പിൽ ജോഡികളില്ല</string>
+    <string name="watchlist_status_none_traded">ഇവിടെ വ്യാപാരം ചെയ്യുന്ന ജോഡികളില്ല</string>
+    <string name="watchlist_updated">പുതുക്കിയത്: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">ശരാശരി %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d താഴെ</item>
+        <item quantity="other">%1$d താഴെ</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d 24 മ. മൂല്യമില്ലാതെ</item>
+        <item quantity="other">%1$d 24 മ. മൂല്യമില്ലാതെ</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d ഇന്നത്തെ മൂല്യമില്ലാതെ</item>
+        <item quantity="other">%1$d ഇന്നത്തെ മൂല്യമില്ലാതെ</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d മുകളിൽ</item>
+        <item quantity="other">%1$d മുകളിൽ</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · പ്രവർത്തനരഹിതം</string>
+    <string name="watchlist_row_outdated">%1$s · പഴയത്</string>
+    <string name="watchlist_row_outdated_age">പഴയത് · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">%1$s മുതൽ വിലയിൽ മാറ്റമില്ല</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s-ൽ എത്താനാകുന്നില്ല</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">അവസാനത്തേക്ക് പോകുക</string>
+    <string name="watchlist_jump_start">മുകളിലേക്ക് പോകുക</string>
+    <string name="watchlist_search_close">തിരയൽ അടയ്ക്കുക</string>
+    <string name="watchlist_search_empty">“%1$s” എന്നതിന് പൊരുത്തങ്ങളൊന്നുമില്ല</string>
+    <string name="watchlist_search_hint">ജോഡി, പേര് അല്ലെങ്കിൽ എക്സ്ചേഞ്ച് തിരയുക</string>
+    <string name="watchlist_search_open">തിരയുക</string>
+    <string name="watchlist_sort_ascending">ആരോഹണം</string>
+    <string name="watchlist_sort_descending">അവരോഹണം</string>
+    <string name="watchlist_sort_hint">ഒരു ജോഡി അമർത്തിപ്പിടിച്ച് വലിക്കുക, അല്ലെങ്കിൽ ഹാൻഡിൽ ഉപയോഗിക്കുക. പ്രിയപ്പെട്ടവ മുകളിൽ തന്നെ തുടരും.</string>
+    <string name="watchlist_sort_name">പേര്</string>
+    <string name="watchlist_sort_own">ഇഷ്ടാനുസൃത ക്രമം</string>
+    <string name="watchlist_sort_price">വില</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">വാച്ച്‌ലിസ്റ്റ് മായ്ക്കുക</string>
+    <string name="watchlist_clear_confirm">വാച്ച്‌ലിസ്റ്റിൽ നിന്ന് എല്ലാ ജോഡികളും നീക്കം ചെയ്യണോ? അവയുടെ അലേർട്ടുകളും ഒപ്പം പോകും.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d പ്രവർത്തനരഹിതം</item>
+        <item quantity="other">%1$d പ്രവർത്തനരഹിതം</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">നീക്കം ചെയ്യുക</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">അതിന്റെ എക്സ്ചേഞ്ചിൽ ഇനി വ്യാപാരം ചെയ്യാത്ത %1$d ജോഡി നീക്കം ചെയ്യണോ? അതിന്റെ അലേർട്ടുകളും ഒപ്പം പോകും.</item>
+        <item quantity="other">അവയുടെ എക്സ്ചേഞ്ചിൽ ഇനി വ്യാപാരം ചെയ്യാത്ത %1$d ജോഡികൾ നീക്കം ചെയ്യണോ? അവയുടെ അലേർട്ടുകളും ഒപ്പം പോകും.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">വ്യാപാരം ചെയ്യാത്ത ജോഡികൾ നീക്കം ചെയ്യുക (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">വ്യാപാരം ചെയ്യാത്ത ജോഡികൾ നീക്കം ചെയ്യുക</string>
+    <string name="watchlist_removed">%1$s നീക്കം ചെയ്തു</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d ജോഡി നീക്കം ചെയ്തു</item>
+        <item quantity="other">%1$d ജോഡികൾ നീക്കം ചെയ്തു</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">വ്യാപാരം ചെയ്യാത്ത %1$d ജോഡി നീക്കം ചെയ്തു</item>
+        <item quantity="other">വ്യാപാരം ചെയ്യാത്ത %1$d ജോഡികൾ നീക്കം ചെയ്തു</item>
+    </plurals>
+    <string name="watchlist_select">തിരഞ്ഞെടുക്കുക</string>
+    <string name="watchlist_select_all">എല്ലാം തിരഞ്ഞെടുക്കുക</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d തിരഞ്ഞെടുത്തു</item>
+        <item quantity="other">%1$d തിരഞ്ഞെടുത്തു</item>
+    </plurals>
+    <string name="watchlist_show_all">എല്ലാം കാണിക്കുക</string>
+    <string name="watchlist_show_only_disabled">പ്രവർത്തനരഹിതമായവ മാത്രം കാണിക്കുക</string>
+    <string name="watchlist_show_only_stale">പഴയവ മാത്രം കാണിക്കുക</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">അലേർട്ട് (%1$d)</item>
+        <item quantity="other">അലേർട്ടുകൾ (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">ഇതുവരെ പ്രിയപ്പെട്ടവയൊന്നുമില്ല. ഒരു ജോഡി വലത്തോട്ട് സ്വൈപ്പ് ചെയ്യുക, അല്ലെങ്കിൽ ജോഡി തുറന്ന് “പ്രിയപ്പെട്ടത്” ടാപ്പ് ചെയ്യുക.</string>
+    <string name="watchlist_group_empty_hint">ഒരു ഗ്രൂപ്പിന്റെ ജോഡികൾ തിരഞ്ഞെടുക്കാൻ അതിൽ ദീർഘനേരം അമർത്തുക.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">നിങ്ങളുടെ ഗ്രൂപ്പുകൾ ഇവിടെ കാണും</string>
+    <string name="watchlist_notification">വില അറിയിപ്പ്</string>
+    <string name="watchlist_tts">വില വായിച്ചുകേൾപ്പിക്കുക</string>
+    <string name="watchlist_tts_speech_on">സംഭാഷണ ഔട്ട്‌പുട്ട് ഓണാണ്. ക്രമീകരണം › അലേർട്ടുകൾ › സംഭാഷണ ഔട്ട്‌പുട്ട് എന്നതിൽ നിങ്ങൾക്ക് ഇത് മാറ്റാം.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">വിജറ്റായി ചേർക്കുക</string>
+    <string name="watch_action_alarm">അലേർട്ട്</string>
+    <string name="watch_action_favorite">പ്രിയപ്പെട്ടത്</string>
+    <string name="watch_action_why">ഒപ്പം എന്താണ് നീങ്ങുന്നത്?</string>
+    <string name="watch_action_why_short">ഒപ്പം എന്ത് നീങ്ങുന്നു?</string>
+    <string name="watch_change_mark">മാർക്ക്</string>
+    <string name="watch_disable">പ്രവർത്തനരഹിതമാക്കുക</string>
+    <string name="watch_disable_hint">അഭ്യർത്ഥനകളില്ല, അറിയിപ്പുകളില്ല</string>
+    <string name="watch_disabled">പ്രവർത്തനരഹിതം</string>
+    <string name="watch_disabled_banner">%1$s പ്രവർത്തനരഹിതമാക്കി</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">അലേർട്ടുകൾ നിലനിൽക്കും – അവയുടെ പരിധികൾ പരിശോധിക്കുക</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">ജോഡി എഡിറ്റ് ചെയ്യുക</string>
+    <string name="watch_enable">പ്രവർത്തനക്ഷമമാക്കുക</string>
+    <string name="watch_enable_hint">വിലകളും അറിയിപ്പുകളും പുനരാരംഭിക്കും</string>
+    <string name="watch_enabled_banner">%1$s പ്രവർത്തനക്ഷമമാക്കി</string>
+    <string name="watch_error_offline">കണക്ഷനില്ല</string>
+    <string name="watch_gesture_hint_short">ടാപ്പ്: അലേർട്ടും “ഒപ്പം എന്താണ് നീങ്ങുന്നത്?” · തിരഞ്ഞെടുക്കാൻ ദീർഘനേരം അമർത്തുക · ഇല്ലാതാക്കാൻ ഇടത്തോട്ട് സ്വൈപ്പ് · പ്രിയപ്പെട്ടതാക്കാൻ വലത്തോട്ട് സ്വൈപ്പ്</string>
+    <string name="watch_hint_tap_why">അലേർട്ടുകൾക്കും “ഒപ്പം എന്താണ് നീങ്ങുന്നത്?” എന്നതിനും ഒരു കോയിനിൽ ടാപ്പ് ചെയ്യുക</string>
+    <string name="watch_not_traded">ഈ എക്സ്ചേഞ്ചിൽ ഇനി വ്യാപാരം ചെയ്യുന്നില്ല</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">വാച്ച്‌ലിസ്റ്റിലില്ല</string>
+    <string name="watch_price_mid">മധ്യ വില (അല്ലെങ്കിൽ മാർക്ക്)</string>
+    <string name="watch_row_source_both">മാറ്റവും ചാർട്ടും: %1$s</string>
+    <string name="watch_row_source_change">മാറ്റം: %1$s</string>
+    <string name="watch_row_source_chart">ചാർട്ട്: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s ഇപ്പോൾ നിങ്ങളുടെ വാച്ച്‌ലിസ്റ്റിലുണ്ട്</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s ഇപ്പോൾ നിങ്ങളുടെ വാച്ച്‌ലിസ്റ്റിലുണ്ട്</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">പ്രിയപ്പെട്ടവയിലേക്ക് ചേർക്കുക</string>
+    <string name="favorite_added">%1$s പ്രിയപ്പെട്ടവയിലേക്ക് ചേർത്തു</string>
+    <string name="favorite_remove">പ്രിയപ്പെട്ടവയിൽ നിന്ന് നീക്കം ചെയ്യുക</string>
+    <string name="favorite_removed">%1$s പ്രിയപ്പെട്ടവയിൽ നിന്ന് നീക്കം ചെയ്തു</string>
+    <string name="hint_favorites_list">നുറുങ്ങ്: ഒരു വരി പ്രിയപ്പെട്ടതാക്കാൻ അത് വലത്തോട്ട് സ്വൈപ്പ് ചെയ്യുക – പ്രിയപ്പെട്ടവ മുകളിൽ തന്നെ തുടരും.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">പുതിയ ഗ്രൂപ്പ്</string>
+    <string name="group_all">എല്ലാം</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">ആൽഫ ടോക്കണുകൾ</string>
+    <string name="group_delete">ഗ്രൂപ്പ് ഇല്ലാതാക്കുക</string>
+    <string name="group_delete_confirm">ജോഡികൾ നിങ്ങളുടെ വാച്ച്‌ലിസ്റ്റിൽ തുടരും.</string>
+    <string name="group_done">പൂർത്തിയായി</string>
+    <string name="group_edit_title">ഗ്രൂപ്പ് എഡിറ്റ് ചെയ്യുക</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">പ്രിയപ്പെട്ടവ</string>
+    <string name="group_in_other">%1$s-ൽ</string>
+    <string name="group_name">ഗ്രൂപ്പിന്റെ പേര്</string>
+    <string name="group_new">പുതിയ ഗ്രൂപ്പ്…</string>
+    <string name="group_next">അടുത്തത്</string>
+    <string name="group_none">ഗ്രൂപ്പില്ല</string>
+    <string name="group_rename">പേര് മാറ്റുക</string>
+    <string name="group_search_hint">ജോഡി, പേര് അല്ലെങ്കിൽ എക്സ്ചേഞ്ച് തിരയുക</string>
+    <string name="group_target">ഗ്രൂപ്പിൽ</string>
+    <string name="group_title">ഗ്രൂപ്പ്</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">ടോക്കണുകൾ</string>
+    <string name="group_value">ഗ്രൂപ്പ്: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">കുറിപ്പ് ചേർക്കുക</string>
+    <string name="note_edit">കുറിപ്പ് എഡിറ്റ് ചെയ്യുക</string>
+    <string name="note_hint">ഉദാ. 0.42-ൽ പ്രവേശനം, ലക്ഷ്യം 0.60</string>
+    <string name="note_remove">നീക്കം ചെയ്യുക</string>
+    <string name="note_title">കുറിപ്പ്</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">ക്രമം മാറ്റാൻ വലിക്കുക</string>
+    <string name="sort_move_bottom">ഏറ്റവും താഴേക്ക് നീക്കുക</string>
+    <string name="sort_move_down">താഴേക്ക് നീക്കുക</string>
+    <string name="sort_move_top">ഏറ്റവും മുകളിലേക്ക് നീക്കുക</string>
+    <string name="sort_move_up">മുകളിലേക്ക് നീക്കുക</string>
+
+    <string name="watchlist_first_alarm_title">നിങ്ങളുടെ ആദ്യ അലേർട്ട് സജ്ജമാക്കുക</string>
+    <string name="watchlist_first_alarm_text">ഒരു വില നിങ്ങളുടെ ലക്ഷ്യത്തിലെത്തുമ്പോൾ അറിയിപ്പ് നേടുക – ആപ്പ് അടച്ചിരിക്കുമ്പോൾ Android ക്രമരഹിതമായി പരിശോധിക്കുന്നു.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">മാർക്ക് വില (മധ്യ വിലയില്ല)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">മണിക്കൂർ വില</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">നിങ്ങളുടെ ആദ്യ അലേർട്ട് സജ്ജമാക്കുക – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">പുതുക്കുക (%1$d)</string>
+
+    <!-- Zeile der Merkliste: Börse pausiert (zu viele Anfragen / Zeitüberschreitungen) bis zu einer Uhrzeit, ersetzt die Zeitzeile, z. B. «Binance · pausiert bis 19:45» -->
+    <string name="watchlist_row_exchange_paused">%1$s · %2$s വരെ താൽക്കാലികമായി നിർത്തി</string>
+
+    <string name="watchlist_refresh_just_done">ഇപ്പോൾ പുതുക്കി · %1$d സെ. മുമ്പ്</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">അവസാന ട്രേഡ് %1$s</string>
+
+    <string name="change_candle_source_hint">%1$s കാൻഡിലുകളിൽ നിന്ന് കണക്കാക്കിയത് – എക്സ്ചേഞ്ച് തന്നെ ഈ മൂല്യം നൽകുന്നില്ല.</string>
+    <string name="change_candle_source_action">മാറ്റത്തിന്റെ ഉറവിടം കാണിക്കുക</string>
+
+    <string name="watchlist_sort_by_coin">കോയിൻ പ്രകാരം അടുക്കുക</string>
+    <string name="watchlist_sort_by_exchange">എക്സ്ചേഞ്ച് പ്രകാരം അടുക്കുക</string>
+    <string name="watchlist_limit_reached">നിങ്ങളുടെ വാച്ച്‌ലിസ്റ്റിൽ പരമാവധി %1$s ജോഡികൾ മാത്രം.</string>
+    <string name="watch_price_reference">റഫറൻസ് നിരക്ക്, പ്രതിദിനം</string>
+    <string name="watch_price_daily">പ്രതിദിനം</string>
+    <string name="watchlist_compare">താരതമ്യം ചെയ്യുക</string>
+    <string name="watchlist_compare_hint">താരതമ്യം ചെയ്യാൻ 2 മുതൽ 4 വരെ ജോഡികൾ തിരഞ്ഞെടുക്കുക.</string>
+    <string name="compare_title">താരതമ്യം</string>
+    <string name="compare_basis">കാലയളവിന്റെ തുടക്കം മുതലുള്ള ശതമാന മാറ്റം വരകൾ കാണിക്കുന്നു.</string>
+    <string name="compare_from_high">30 ദിവസ ഉയർന്ന നിലയുമായി</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">%1$d ജോഡി പുനഃസ്ഥാപിച്ചില്ല – വാച്ച്‌ലിസ്റ്റ് നിറഞ്ഞു</item>
+        <item quantity="other">%1$d ജോഡികൾ പുനഃസ്ഥാപിച്ചില്ല – വാച്ച്‌ലിസ്റ്റ് നിറഞ്ഞു</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">വാച്ച്‌ലിസ്റ്റും അതിന്റെ അലേർട്ടുകളും ഇപ്പോൾ സംരക്ഷിക്കുന്നില്ല. ഇതും തുടർന്നുള്ള മാറ്റങ്ങളും ആപ്പ് അടയ്ക്കുമ്പോൾ നഷ്ടപ്പെടും. എന്നാലും മാറ്റണോ?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">എന്നാലും മാറ്റുക</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">%1$d ജോഡി</item>
+        <item quantity="other">%1$d ജോഡികൾ</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">%1$d ജോഡിയിൽ %2$d</item>
+        <item quantity="other">%1$d ജോഡികളിൽ %2$d</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">%1$d ഇടം ബാക്കി</item>
+        <item quantity="other">%1$d ഇടം ബാക്കി</item>
+    </plurals>
+    <string name="watchlist_footer_full">വാച്ച്‌ലിസ്റ്റ് നിറഞ്ഞു</string>
+</resources>

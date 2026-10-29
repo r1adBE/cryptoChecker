@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Protokoll: Titel der Seite und Name des Knopfs in «Alle Alarme» -->
+    <string name="alarm_log_title">Viðvörunaskrá</string>
+    <!-- Link unter «Letzte Prüfungen» (Einstellungen › Aktualisierung) -->
+    <string name="alarm_log_open">Sýna viðvörunaskrá</string>
+    <string name="alarm_log_intro">Hvenær viðvörun fór af stað – og hvenær hún hefði farið af stað en var haldið aftur. Aðeins geymt á þessu tæki, í 14 daga.</string>
+    <string name="alarm_log_empty_title">Engar færslur enn</string>
+    <string name="alarm_log_empty_message">Færslur birtast hér þegar viðvörun fer af stað eða er haldið aftur – til dæmis vegna úrelts verðs eða á kyrrðartíma.</string>
+    <string name="alarm_log_clear">Hreinsa skrá</string>
+    <string name="alarm_log_clear_title">Hreinsa viðvörunaskrá?</string>
+    <string name="alarm_log_clear_message">Allar færslur eru fjarlægðar. Viðvaranirnar þínar haldast óbreyttar.</string>
+    <!-- Screenreader: Schwelle des Alarms, z. B. «Marke Über 100’000 CHF» -->
+    <string name="alarm_log_threshold">Mörk %1$s</string>
+    <!-- Alarm-Editor: letzte Prüfung, %1$s = «14:02 · Kraken 99’800 CHF · Marke nicht erreicht» -->
+    <string name="alarm_last_check">Síðast athugað: %1$s</string>
+    <!-- Ergebnisse einer Alarm-Prüfung (AlarmLogOutcome) -->
+    <string name="alarm_outcome_fired">Fór af stað</string>
+    <string name="alarm_outcome_not_reached">Mörkum ekki náð</string>
+    <string name="alarm_outcome_already_triggered">Þegar tilkynnt – bíður þar til verðið er aftur hinum megin</string>
+    <string name="alarm_outcome_cooldown">Fór ekki af stað – hvíldartími eftir síðustu viðvörun</string>
+    <!-- %1$s = Zeit des Kurses laut Börse -->
+    <string name="alarm_outcome_stale">Fór ekki af stað – verð úrelt (staða %1$s)</string>
+    <string name="alarm_outcome_mark_price">Fór ekki af stað – merkt verð (mark), ekki viðskiptaverð</string>
+    <string name="alarm_outcome_low_liquidity">Fór ekki af stað – lausafé undir 10.000 USD eða óþekkt</string>
+    <string name="alarm_outcome_quiet_hours">Fór ekki af stað – kyrrðartími (viðvörun á eftir ef skilyrðið gildir enn)</string>
+    <string name="alarm_outcome_notifications_off">Fór ekki af stað – tilkynningar af</string>
+    <string name="alarm_outcome_not_shown">Fór ekki af stað – tilkynning barst ekki, reynt aftur síðar</string>
+    <string name="alarm_outcome_no_rate">Ekki athugað – ekkert gengi</string>
+    <string name="alarm_outcome_no_price">Ekkert verð – fyrirspurn til kauphallar mistókst</string>
+
+    <string name="alarm_outcome_snoozed">Haldið aftur – „1 klst. síðar“ er enn í gangi</string>
+    <string name="alarm_log_source_app">í forritinu</string>
+    <string name="alarm_log_source_background">í bakgrunni</string>
+    <string name="alarm_log_source_exact">stundvís athugun</string>
+    <string name="alarm_log_source_widget">með græju</string>
+    <string name="alarm_outcome_fx_stale">Ekki athugað – gengi eldra en 36 klukkustundir</string>
+    <string name="alarm_outcome_fx_unsure">Ekki athugað – umreikningur USDT óviss (aðeins í gegnum USDC)</string>
+</resources>

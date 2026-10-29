@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">Увези CSV</string>
+    <string name="portfolio_csv_import_all_transfer">Све у сопствени новчаник</string>
+    <string name="portfolio_csv_import_all_withdrawal">Све напушта портфолио</string>
+    <string name="portfolio_csv_import_choice_proposed">Предлог: одговара %1$s</string>
+    <string name="portfolio_csv_import_choice_transfer">У сопствени новчаник (пренос)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Напушта портфолио (исплата)</string>
+    <string name="portfolio_csv_import_choose_each">За сваку исплату изабери куда је отишла.</string>
+    <string name="portfolio_csv_import_columns">Препознате колоне: %1$s</string>
+    <string name="portfolio_csv_import_confirm">Увези (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">Дан/месец</string>
+    <string name="portfolio_csv_import_date_month_first">Месец/дан</string>
+    <string name="portfolio_csv_import_date_order">Двосмислени датуми (нпр. 03/04/2024) читају се као:</string>
+    <string name="portfolio_csv_import_decimal">Двосмислени бројеви (нпр. %1$s) читају се као:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d трансакција увезена</item>
+        <item quantity="few">%d трансакције увезене</item>
+        <item quantity="other">%d трансакција увезено</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d већ увезена (прескочена)</item>
+        <item quantity="few">%d већ увезене (прескочене)</item>
+        <item quantity="other">%d већ увезених (прескочено)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">Формат: %1$s</string>
+    <string name="portfolio_csv_import_line">Ред %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">Читање датотеке и дневних курсева…</string>
+    <string name="portfolio_csv_import_progress">Ред %1$s од %2$s</string>
+    <string name="portfolio_csv_import_saving">Чување трансакција…</string>
+    <string name="portfolio_csv_import_missing_fx">Нема дневног курса за редове %1$s – увезено без цене/накнаде.</string>
+    <string name="portfolio_csv_import_missing_price">У датотеци нема цене за редове %1$s – увезено без цене.</string>
+    <string name="portfolio_csv_import_more">+ још %1$d</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d нова трансакција</item>
+        <item quantity="few">%d нове трансакције</item>
+        <item quantity="other">%d нових трансакција</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d ред прескочен</item>
+        <item quantity="few">%d реда прескочена</item>
+        <item quantity="other">%d редова прескочено</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">Трговине за стејблкоине (USDT, USDC …) књиже се као замене – стејблкоин се појављује у твојим средствима.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Могуће је више подударања – изабери право или ниједно.</string>
+    <string name="portfolio_csv_import_transfer_fee">Мрежна накнада: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">Књижи као један пренос</string>
+    <string name="portfolio_csv_import_transfer_stored">Противставка из ранијег увоза</string>
+    <string name="portfolio_csv_import_transfers_hint">Исплата и одговарајућа уплата исте криптовалуте постају један пренос: набавна цена и период држања преносе се, а разлика се рачуна као мрежна накнада.</string>
+    <string name="portfolio_csv_import_transfers_title">Преноси између твојих налога</string>
+    <string name="portfolio_csv_import_unreadable">Нису пронађене подржане трансакције. Подржано: CSV извози из Relai, Swissquote, Kraken, Binance, Coinbase и Bitpanda.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
+    <string name="portfolio_csv_import_too_large">Датотека је превелика за увоз (највише 16 MB и %1$s редова). Извези краће периоде и увези их једно за другим.</string>
+    <string name="portfolio_csv_import_failed">Увоз није успео – ништа није сачувано. Покушај поново.</string>
+    <string name="portfolio_csv_import_locked">Увоз није могућ: сачувани подаци тренутно се не могу прочитати. Поново покрени апликацију.</string>
+    <string name="portfolio_csv_import_withdrawals_title">Исплате – куда су отишле криптовалуте?</string>
+    <string name="portfolio_csv_import_zone">Времена без временске зоне читају се као: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">Уређај (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">нечитљив датум</string>
+    <string name="portfolio_csv_skip_bad_number">нечитљив број</string>
+    <string name="portfolio_csv_skip_fee_exceeds">накнада ≥ примљени износ</string>
+    <string name="portfolio_csv_skip_internal_move">премештање између твојих налога – нема шта да се књижи</string>
+    <string name="portfolio_csv_skip_missing">недостаје поље</string>
+    <string name="portfolio_csv_skip_ambiguous">више трговина у истој секунди које се не могу разликовати – унеси их ручно</string>
+    <string name="portfolio_csv_skip_not_crypto">није криптовалута</string>
+    <string name="portfolio_csv_skip_possible_duplicate">можда већ увезено (готово иста трговина) – провери ручно</string>
+    <string name="portfolio_csv_skip_two_fees">две накнаде у различитим јединицама – унеси замену ручно</string>
+    <string name="portfolio_csv_skip_unsupported">неподржана врста</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">Поништи</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">Избрисати %d трансакцију овог увоза? Ручни уноси и други увози остају.</item>
+        <item quantity="few">Избрисати %d трансакције овог увоза? Ручни уноси и други увози остају.</item>
+        <item quantity="other">Избрисати %d трансакција овог увоза? Ручни уноси и други увози остају.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">Поништити увоз?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">%d увезена трансакција уклоњена</item>
+        <item quantity="few">%d увезене трансакције уклоњене</item>
+        <item quantity="other">%d увезених трансакција уклоњено</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d трансакција</item>
+        <item quantity="few">%d трансакције</item>
+        <item quantity="other">%d трансакција</item>
+    </plurals>
+    <string name="portfolio_imports_empty">Нема увоза</string>
+    <string name="portfolio_imports_title">Увози</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">исти ID трансакције с другачијим износом – провери ручно</string>
+    <string name="portfolio_csv_skip_staking_unpaired">стејкинг унос без противставке – провери средства</string>
+    <string name="portfolio_csv_skip_amount_too_small">износ премален – при чувању се заокружује на 0</string>
+    <string name="portfolio_csv_skip_invalid_swap">замена без важеће криптовалуте или примљеног износа</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">Поновно читање датотеке …</string>
+</resources>

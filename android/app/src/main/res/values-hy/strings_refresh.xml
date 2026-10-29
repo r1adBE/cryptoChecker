@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">պահանջում է ավելի շատ տվյալներ և մարտկոց</string>
+    <string name="update_mode_live">Live՝ բաց ժամանակ</string>
+    <string name="update_mode_live_hint">Որտեղ բորսան տրամադրում է live գին՝ անմիջապես, քանի դեռ դիտացանկը բաց է։ Այլապես՝ հաջորդ հարցման ժամանակ։ Փակ վիճակում՝ ոչ ավելի հաճախ, քան %1$s-ը մեկ, հաճախ ավելի ուշ։</string>
+    <string name="update_mode_live_hint_ios">Որտեղ բորսան տրամադրում է live գին՝ անմիջապես, քանի դեռ դիտացանկը բաց է։ Այլապես՝ հաջորդ հարցման ժամանակ։ Փակ վիճակում՝ երբ iOS-ը թույլ է տալիս, երբեմն ժամեր անց։ Եթե հավելվածը սահեցնելով փակես, iOS-ը դադարեցնում է այս ստուգումները, մինչև այն նորից բացես։</string>
+    <string name="update_mode_recommended">խորհուրդ է տրվում</string>
+    <string name="update_mode_sparsam">Խնայողական</string>
+    <string name="update_mode_sparsam_hint">Երբ հավելվածը փակ է՝ ոչ ավելի հաճախ, քան %1$s-ը մեկ, հաճախ ավելի ուշ (ահազանգեր, վիջեթներ)։ Բաց վիճակում՝ ամեն անգամ, երբ բացում ես։</string>
+    <string name="update_mode_sparsam_hint_ios">Երբ հավելվածը փակ է, iOS-ն է որոշում, թե երբ ստուգել (ահազանգեր, վիջեթներ), երբեմն ժամեր անց։ Բաց վիճակում՝ ամեն անգամ, երբ բացում ես։</string>
+    <string name="update_mode_title">Թարմացման հաճախականություն</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">Թարմացումն ընդհատվեց</string>
+    <string name="refresh_sheet_alarms">Ահազանգեր</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="one">%1$d գործարկվեց</item>
+        <item quantity="other">%1$d գործարկվեց</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">Ամեն ինչ թարմացված է</string>
+    <string name="refresh_sheet_app_start">Հավելվածի գործարկում</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="one">խմբային հարցում %1$s · %2$d գին</item>
+        <item quantity="other">խմբային հարցում %1$s · %2$d գին</item>
+    </plurals>
+    <string name="refresh_sheet_database">Տվյալների բազա</string>
+    <string name="refresh_sheet_exchange_unreachable">%1$s-ը հասանելի չէ</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
+        <item quantity="one">%1$d բորսա հասանելի չէ</item>
+        <item quantity="other">%1$d բորսա հասանելի չէ</item>
+    </plurals>
+    <string name="refresh_sheet_network">Ցանց</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="one">%1$d գնի ծանուցում</item>
+        <item quantity="other">%1$d գնի ծանուցում</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="one">%1$d զույգ</item>
+        <item quantity="other">%1$d զույգ</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="one">%1$d զույգ չի թարմացվել</item>
+        <item quantity="other">%1$d զույգ չի թարմացվել</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="one">%2$d՝ %1$d զույգից</item>
+        <item quantity="other">%2$d՝ %1$d զույգից</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">դադարեցված է մինչև %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">դադարեցված է մինչև %1$s (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">տվյալներ չկան</string>
+    <string name="refresh_sheet_reason_offline">կապ չկա</string>
+    <string name="refresh_sheet_reason_rate_limit">չափազանց շատ հարցումներ</string>
+    <string name="refresh_sheet_reason_server">սերվերի սխալ</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">ժամանակը սպառվեց</string>
+    <string name="refresh_sheet_reason_unavailable">բորսան անհասանելի է</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s վայրկյան</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_exchanges">Բորսաներ</string>
+    <string name="refresh_sheet_section_steps">Մանրամասներ</string>
+    <string name="refresh_sheet_status_failed">չի թարմացվել</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">ամբողջը թարմացված է</string>
+    <string name="refresh_sheet_status_partial">մասամբ թարմացված է</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Սպասում է մեկնարկին</string>
+    <string name="refresh_sheet_widgets">Վիջեթներ</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">խմբային հարցում %1$s (ձախողվեց)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="one">%1$d սխալ</item>
+        <item quantity="other">%1$d սխալ</item>
+    </plurals>
+    <string name="refresh_report_live">Live՝ %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="one">%1$d-ն այլևս չի առևտրվում</item>
+        <item quantity="other">%1$d-ն այլևս չեն առևտրվում</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d առանձին</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">Ձախողվեց</string>
+    <string name="check_result_ok">Լավ է</string>
+    <string name="check_result_partial">Մասնակի</string>
+    <string name="check_result_skipped">Բաց թողնված</string>
+    <string name="check_trigger_bgtask">Ֆոն</string>
+    <string name="check_trigger_exact">Ճշգրիտ ժամին</string>
+    <string name="check_trigger_foreground">Հավելված</string>
+    <string name="check_trigger_widget">Վիջեթ</string>
+    <string name="check_trigger_widget_ios">Վիջեթ · գներ և գնի ահազանգեր</string>
+    <string name="check_trigger_worker">Ֆոն</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android-ը կարող է հետաձգել ստուգումները – մարտկոցը դիր «Առանց սահմանափակման»</string>
+    <string name="battery_later">Ավելի ուշ</string>
+    <string name="battery_message">Android-ը հետաձգում է ֆոնային աշխատանքը էներգիա խնայելու համար — գներն ու վիջեթները կարող են ժամերով հնացած լինել։ Մարտկոցի օգտագործումը «առանց սահմանափակման» դնելով՝ դրանք արդիական են մնում։ Դա կարող ես ցանկացած պահի փոխել Android-ի կարգավորումներում։</string>
+    <string name="battery_open_settings">Բացել մարտկոցի կարգավորումները</string>
+    <string name="battery_steps">Հավելվածի տեղեկություններում հպիր Մարտկոց (կամ Հավելվածի մարտկոցի օգտագործում) և ընտրիր Առանց սահմանափակման։</string>
+    <string name="battery_title">Պահիր գները արդիական</string>
+    <string name="ios_background_refresh_off">Ֆոնային թարմացումն այս հավելվածի համար անջատված է։ Առանց դրա ահազանգերը ստուգվում են միայն, երբ հավելվածը բաց է։</string>
+    <string name="ios_low_power_mode">Էներգախնայողության ռեժիմը միացված է։ iOS-ը ֆոնում հազվադեպ է ստուգում, ուստի ահազանգերը կարող են ուշանալ։</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Բորսայի հաղորդագրություն՝ %1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">Պահոցը դեռ կողպված է – նոր փորձ %1$d վ-ից</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="one">Պահոցը դեռ կողպված է – նոր փորձ %1$d վայրկյանից</item>
+        <item quantity="other">Պահոցը դեռ կողպված է – նոր փորձ %1$d վայրկյանից</item>
+    </plurals>
+    <string name="watchlist_retry_short">Նոր փորձ %1$s-ից</string>
+    <string name="widget_retry_at">Նոր փորձ ժամը %1$s-ին</string>
+    <string name="refresh_sheet_wait_attempt">Փորձ %1$d – գաղտնագրված պահոցը առաջին անգամ պատրաստ չէր</string>
+</resources>

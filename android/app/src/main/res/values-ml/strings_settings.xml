@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">ഇഷ്ടാനുസൃതം</string>
+    <string name="settings_group_general">പൊതുവായവ</string>
+    <string name="settings_group_more">കൂടുതൽ</string>
+    <string name="settings_minutes">%1$d മിനിറ്റ്</string>
+    <string name="settings_row_about">ആപ്പിനെക്കുറിച്ച്</string>
+    <string name="settings_row_alarms">അലേർട്ടുകൾ</string>
+    <string name="settings_row_currency">കറൻസി</string>
+    <string name="settings_row_dated_futures">കാലാവധിയുള്ള ഫ്യൂച്ചേഴ്സ്</string>
+    <string name="settings_row_updates">വില അപ്‌ഡേറ്റുകൾ</string>
+    <string name="settings_row_watchlist">വാച്ച്‌ലിസ്റ്റ്</string>
+    <string name="settings_search_hint">ക്രമീകരണങ്ങൾ തിരയുക</string>
+    <string name="settings_seconds">%1$d സെ.</string>
+    <string name="settings_section_about">വിവരം</string>
+    <string name="settings_section_appearance">രൂപഭാവം</string>
+    <string name="settings_section_developer">ഡെവലപ്പർ</string>
+    <string name="settings_section_language">ഭാഷ</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">ഓൺ</string>
+    <string name="settings_title">ക്രമീകരണം</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">ഒരു അലേർട്ട് വീണ്ടും മുഴങ്ങുന്നതിന് മുമ്പുള്ള വിശ്രമ സമയം</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">അലേർട്ട് സിഗ്നൽ</string>
+    <string name="settings_alarm_signal_open_system">സിസ്റ്റം ക്രമീകരണങ്ങളിൽ ക്രമീകരിക്കുക</string>
+    <string name="settings_alarm_signal_system_hint">നിങ്ങളുടെ ഫോണിന്റെ അറിയിപ്പ് ക്രമീകരണങ്ങൾ പിന്തുടരുന്നു.</string>
+    <string name="settings_alarm_sound">അലേർട്ട് ശബ്ദം</string>
+    <string name="settings_alarm_sound_custom">ഇഷ്ടാനുസൃത ശബ്ദം</string>
+    <string name="settings_alarm_sound_default">ഡിഫോൾട്ട് ശബ്ദം</string>
+    <string name="settings_alarm_sound_error">ശബ്ദം ഉപയോഗിക്കാനായില്ല.</string>
+    <string name="settings_alarm_sound_file">നിങ്ങളുടെ സ്വന്തം ഓഡിയോ ഫയൽ…</string>
+    <string name="settings_alarm_sound_reset">ഡിഫോൾട്ട് ശബ്ദം ഉപയോഗിക്കുക</string>
+    <string name="settings_alarm_sound_system">സിസ്റ്റം ശബ്ദം തിരഞ്ഞെടുക്കുക…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">ആപ്പ് ഐക്കണിലെ എണ്ണം</string>
+    <string name="settings_app_badge_hint">തുറന്ന അലേർട്ട് അറിയിപ്പുകൾ എണ്ണുന്നു. ഒരു സംഖ്യയോ ഒരു കുത്തോ കാണിക്കുന്നത് ഹോം സ്ക്രീനിനെ ആശ്രയിച്ചിരിക്കുന്നു (ഉദാ. Samsung: “Show with number”).</string>
+    <string name="settings_exact_checks">കൃത്യസമയത്ത് പരിശോധിക്കുക</string>
+    <string name="settings_exact_checks_grant">അലാറങ്ങളും റിമൈൻഡറുകളും അനുവദിക്കുക</string>
+    <string name="settings_exact_checks_hint">ഉപകരണം നിഷ്‌ക്രിയമായിരിക്കുമ്പോഴും Android ഏകദേശം ഓരോ 15 മിനിറ്റിലും പരിശോധിക്കുന്നു. അൽപ്പം കൂടുതൽ ബാറ്ററി ഉപയോഗിക്കുന്നു.</string>
+    <string name="settings_exact_checks_nothing">സജീവ ജോഡികളില്ല – പരിശോധിക്കാൻ ഒന്നുമില്ല.</string>
+    <string name="settings_exact_checks_permission_missing">അനുമതിയില്ല – ഉപകരണം വിശ്രമിക്കുമ്പോൾ Android ക്രമരഹിതമായി പരിശോധിക്കുന്നു, ചിലപ്പോൾ മണിക്കൂറുകൾക്ക് ശേഷം മാത്രം.</string>
+    <string name="settings_notification_change">വില മാറുമ്പോൾ മാത്രം അറിയിക്കുക</string>
+    <string name="settings_notification_change_always">എല്ലായ്പ്പോഴും</string>
+    <string name="settings_percent_invalid">0 മുതൽ 100 വരെയുള്ള ഒരു മൂല്യം നൽകുക.</string>
+    <string name="settings_notification_change_hint">അവസാനത്തേതിന് ശേഷം വില കുറഞ്ഞത് ഇത്രയും നീങ്ങിയാൽ മാത്രമേ വില അറിയിപ്പ് കാണിക്കൂ. ഡാറ്റ ഇല്ലാത്തപ്പോൾ ഒന്നും കാണിക്കില്ല. അലേർട്ടുകളെ ബാധിക്കില്ല.</string>
+    <string name="settings_ongoing_notifications">സ്വൈപ്പ് ചെയ്ത് മാറ്റാനാകില്ല</string>
+    <string name="settings_ongoing_notifications_hint">വില അറിയിപ്പുകൾ പിൻ ചെയ്ത് നിലനിർത്തുന്നു.</string>
+    <string name="settings_price_notifications">വില അറിയിപ്പുകൾ</string>
+    <string name="settings_price_notifications_hint">പ്രവർത്തനക്ഷമമായ ജോഡികളുടെ നിലവിലെ വില സ്റ്റാറ്റസ് ബാറിൽ കാണിക്കുക.</string>
+    <string name="settings_price_pairs">ജോഡികൾ</string>
+    <string name="settings_price_pairs_all_off">എല്ലാം ഓഫ്</string>
+    <string name="settings_price_pairs_all_on">എല്ലാം ഓൺ</string>
+    <string name="settings_price_pairs_count">%2$d-ൽ %1$d</string>
+    <string name="settings_price_pairs_empty">വാച്ച്‌ലിസ്റ്റിൽ ഇതുവരെ ജോഡികളൊന്നുമില്ല.</string>
+    <string name="settings_price_pairs_hint">ഏതൊക്കെ ജോഡികൾ അറിയിപ്പ് ബാറിൽ വില കാണിക്കണമെന്ന് തിരഞ്ഞെടുക്കുക.</string>
+    <string name="settings_quiet_hours">നിശബ്ദ സമയം</string>
+    <string name="settings_quiet_hours_from">മുതൽ</string>
+    <string name="settings_quiet_hours_hint">%1$s-നും %2$s-നും ഇടയിൽ, അലേർട്ടുകൾ നിശബ്ദ സമയം അവസാനിക്കുന്നതുവരെ കാത്തിരുന്ന് പിന്നീട് ശബ്ദത്തോടെ മുഴങ്ങും. മറ്റ് അറിയിപ്പുകൾ ശബ്ദമില്ലാതെ, സംഭാഷണമില്ലാതെ എത്തും.</string>
+    <string name="settings_quiet_hours_to">വരെ</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">ഇടവേള</string>
+    <string name="settings_background_updates">പശ്ചാത്തല അപ്‌ഡേറ്റുകൾ</string>
+    <string name="settings_battery_hint">നിയന്ത്രിതം എന്നാൽ Android പശ്ചാത്തല അപ്‌ഡേറ്റുകൾ മണിക്കൂറുകളോളം വൈകിപ്പിച്ചേക്കാം.</string>
+    <string name="settings_battery_ok">ബാറ്ററി ഉപയോഗം: നിയന്ത്രണമില്ല</string>
+    <string name="settings_battery_restricted">ബാറ്ററി ഉപയോഗം: നിയന്ത്രിതം</string>
+    <string name="settings_check_runs_empty">ഇതുവരെ പരിശോധനകളൊന്നും രേഖപ്പെടുത്തിയിട്ടില്ല.</string>
+    <string name="settings_check_runs_honest_android">എപ്പോൾ പരിശോധിക്കണമെന്ന് Android തീരുമാനിക്കുന്നു – യഥാർത്ഥത്തിൽ അത് എപ്പോൾ സംഭവിച്ചു എന്ന് ഇവിടെ കാണാം.</string>
+    <string name="settings_check_runs_honest_ios">എപ്പോൾ പരിശോധിക്കണമെന്ന് iOS തീരുമാനിക്കുന്നു – യഥാർത്ഥത്തിൽ അത് എപ്പോൾ സംഭവിച്ചു എന്ന് ഇവിടെ കാണാം.</string>
+    <string name="settings_check_runs_title">സമീപകാല പരിശോധനകൾ</string>
+    <string name="settings_http_log">HTTP ലോഗ് കാണിക്കുക</string>
+    <string name="settings_http_log_hint">“ജോഡി ചേർക്കുക” പേജിന്റെ താഴെ എക്സ്ചേഞ്ചുകളിലേക്കുള്ള അഭ്യർത്ഥനകൾ കാണിക്കുന്നു – പ്രശ്നപരിഹാരത്തിനായി.</string>
+    <string name="settings_live_service">ഇടയ്ക്കിടെ അപ്‌ഡേറ്റ് ചെയ്യുക</string>
+    <string name="settings_live_websocket">ലൈവ് വിലകൾ</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">ശ്രദ്ധേയം: അറിയിക്കുക</string>
+    <string name="settings_activity_alerts_hint">ഒരു ജോഡിക്ക് മണിക്കൂറിൽ പരമാവധി ഒരിക്കൽ: അസാധാരണ വില നീക്കങ്ങൾ, വോളിയം കുതിപ്പുകൾ, ഫ്യൂച്ചേഴ്സ് തീവ്രതകൾ (Binance-ൽ നിന്നുള്ള ഡാറ്റ).</string>
+    <string name="settings_activity_sensitivity">സംവേദനക്ഷമത</string>
+    <string name="settings_activity_sensitivity_hint">ഒരു കോയിൻ എത്ര എളുപ്പത്തിൽ അസാധാരണമായി കണക്കാക്കപ്പെടുന്നു – വാച്ച്‌ലിസ്റ്റ് കാർഡിനും മാർക്കറ്റ് അലേർട്ടുകൾക്കും ഒരുപോലെ. “കുറവ്” എങ്കിൽ, കാർഡ് ഏറ്റവും ശക്തമായ 3 എണ്ണം മാത്രം കാണിക്കുന്നു.</string>
+    <string name="settings_watchlist_activity_card">ശ്രദ്ധേയം: ലിസ്റ്റിൽ കാണിക്കുക</string>
+    <string name="settings_watchlist_activity_card_hint">ഗ്രൂപ്പുകൾക്ക് അടുത്ത് ⚡ ചിപ്പ് കാണിക്കുന്നു: ഇപ്പോൾ എന്തെങ്കിലും സംഭവിക്കുന്ന ജോഡികൾ മാത്രം കാണാൻ അതിൽ ടാപ്പ് ചെയ്യുക. ഇതിനുള്ള അറിയിപ്പുകൾ മാർക്കറ്റ് അലേർട്ടുകൾ എന്നതിൽ സജ്ജമാക്കുന്നു.</string>
+    <string name="settings_watchlist_names">പേരുകൾ കാണിക്കുക</string>
+    <string name="settings_watchlist_names_hint">ജോഡിക്ക് താഴെ പേര്, ഉദാ. Bitcoin അല്ലെങ്കിൽ NVIDIA. ലോഗോ ലിസ്റ്റുകൾക്കൊപ്പം വരുന്നു, എല്ലാ കോയിനുകൾക്കുമായി ഒരിക്കൽ ലോഡ് ചെയ്യുന്നു.</string>
+    <string name="settings_watchlist_sparkline">വാച്ച്‌ലിസ്റ്റിലെ മിനി ചാർട്ട്</string>
+    <string name="settings_watchlist_sparkline_hint">വിലയ്ക്ക് അടുത്ത് 24 മണിക്കൂർ ട്രെൻഡ്</string>
+    <string name="settings_watchlist_value_names">പേരുകൾ</string>
+    <string name="settings_watchlist_value_price_only">വില മാത്രം</string>
+    <string name="settings_watchlist_value_sparkline">മിനി ചാർട്ട്</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">ആൽഫ ടോക്കണുകൾ ഉൾപ്പെടെ (α)</string>
+    <string name="settings_asset_scope_alpha_hint">ആൽഫ ടോക്കണുകൾ: Binance Alpha ലിസ്റ്റിൽ നിന്നുള്ള ആദ്യഘട്ട, മിക്കവാറും ചെറിയ പ്രോജക്റ്റുകൾ – പലപ്പോഴും കുറച്ച് മാത്രം വ്യാപാരം ചെയ്യപ്പെടുന്നതും വളരെ ചാഞ്ചാട്ടമുള്ളതും.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">ടോക്കണുകളുടെ ഭാഗമാണ്. “TradFi മാത്രം” തിരഞ്ഞെടുത്തിരിക്കുമ്പോൾ ലഭ്യമല്ല; ഇതിനകം നിങ്ങളുടെ വാച്ച്‌ലിസ്റ്റിലുള്ള ആൽഫ ടോക്കണുകൾ നിലനിൽക്കും.</string>
+    <string name="settings_asset_scope_both">ടോക്കണുകളും TradFi-യും</string>
+    <string name="settings_asset_scope_both_hint">എല്ലാം – ക്രിപ്റ്റോയും TradFi-യും</string>
+    <string name="settings_asset_scope_hint">ജോഡികൾ ചേർക്കുമ്പോൾ തിരഞ്ഞെടുപ്പും തിരയലും ഏതൊക്കെ ജോഡികൾ കാണിക്കണമെന്ന് നിശ്ചയിക്കുന്നു. ഇതിനകം നിങ്ങളുടെ വാച്ച്‌ലിസ്റ്റിലുള്ള ജോഡികൾ എല്ലായ്പ്പോഴും നിലനിൽക്കും.</string>
+    <string name="settings_asset_scope_title">ടോക്കണുകളും TradFi-യും</string>
+    <string name="settings_asset_scope_tokens">ടോക്കണുകൾ മാത്രം</string>
+    <string name="settings_asset_scope_tokens_hint">ക്രിപ്റ്റോ: സ്പോട്ടും പെർപെച്വലുകളും</string>
+    <string name="settings_asset_scope_tradfi">TradFi മാത്രം</string>
+    <string name="settings_asset_scope_tradfi_hint">ഓഹരികൾ, ചരക്കുകൾ, FX എന്നിവയിലെ ഫ്യൂച്ചേഴ്സ് – കോൺട്രാക്റ്റുകൾ, ടോക്കണുകളല്ല</string>
+    <string name="settings_rolling_futures">ത്രൈമാസ, മറ്റ് കാലാവധിയുള്ള ഫ്യൂച്ചേഴ്സ് ഉൾപ്പെടെ</string>
+    <string name="settings_rolling_futures_hint">ഓഫ്: എക്സ്ചേഞ്ച് ലിസ്റ്റിൽ ഇല്ലാത്ത കാലാവധിയുള്ള ഫ്യൂച്ചേഴ്സ് ഓരോന്നായി പരിശോധിക്കുന്നതിന് പകരം ഇനി വ്യാപാരം ചെയ്യുന്നില്ല എന്ന് അടയാളപ്പെടുത്തുന്നു. ഓരോ പുതുക്കലിലും സമയം ലാഭിക്കുന്നു.</string>
+    <string name="settings_rolling_futures_qtly">ത്രൈമാസ, മറ്റ് കാലാവധിയുള്ള ഫ്യൂച്ചേഴ്സ് ഉൾപ്പെടെ (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">ടോക്കണുകളുടെ ഭാഗമാണ്. “TradFi മാത്രം” തിരഞ്ഞെടുത്തിരിക്കുമ്പോൾ ലഭ്യമല്ല; ഇതിനകം നിങ്ങളുടെ വാച്ച്‌ലിസ്റ്റിലുള്ള കാലാവധിയുള്ള ഫ്യൂച്ചേഴ്സിന് ഇപ്പോഴും ബാധകം.</string>
+    <string name="settings_tradfi_futures">ഓഹരികൾ, ചരക്കുകൾ, FX (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">ഒരു ജോഡി തിരഞ്ഞെടുക്കുമ്പോൾ ഓഹരികൾ, സ്വർണ്ണം, മറ്റ് ചരക്കുകൾ, കറൻസികൾ, പ്രീ-IPO കമ്പനികൾ എന്നിവയിലെ ഫ്യൂച്ചേഴ്സും കാണിക്കുന്നു. ഇവ കോൺട്രാക്റ്റുകളാണ്, ടോക്കണുകളല്ല.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">ആക്സന്റ് നിറം</string>
+    <string name="settings_accent_hint">ആപ്പ്, വിജറ്റുകൾ, ആപ്പ് ഐക്കൺ എന്നിവയുടെ നിറം. ചില ഹോം സ്ക്രീനുകൾ ഐക്കൺ മാറുമ്പോൾ അത് നീക്കം ചെയ്യും – അപ്പോൾ അത് വീണ്ടും ചേർക്കുക.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">കോയിൻ ലോഗോകൾ</string>
+    <string name="settings_coin_logos_app">ആപ്പിൽ</string>
+    <string name="settings_coin_logos_app_hint">വാച്ച്‌ലിസ്റ്റ്, തുറന്ന ജോഡി, മാർക്കറ്റ് കാർഡുകൾ</string>
+    <string name="settings_coin_logos_footer">ലോഗോകൾ CoinGecko-ൽ നിന്നും, CoinGecko ലിസ്റ്റ് ചെയ്യാത്ത കോയിനുകൾക്ക് (ഉദാ. സ്വർണ്ണം, വെള്ളി, ഓഹരികൾ) Binance-ൽ നിന്നുമാണ്. ആപ്പ് എല്ലാ ലോഗോകളും ഒറ്റയടിക്ക് ലോഡ് ചെയ്ത് ഈ ഉപകരണത്തിൽ സൂക്ഷിക്കുന്നു, അതിനാൽ നിങ്ങൾ ഏതൊക്കെ കോയിനുകൾ പിന്തുടരുന്നുവെന്ന് ഒരു ദാതാവിനും അറിയാനാകില്ല. ലോഗോ ഇല്ലാത്ത കോയിനുകൾ അവയുടെ ആദ്യാക്ഷരങ്ങൾ കാണിക്കുന്നു. പ്രിയപ്പെട്ടവയ്ക്ക് ലോഗോയിൽ ഒരു ചെറിയ നക്ഷത്രം ലഭിക്കും. ഒരു സ്വിച്ച് ഓഫായിരിക്കുന്നിടത്ത് ലോഗോകളോ ആദ്യാക്ഷരങ്ങളോ കാണിക്കില്ല; എല്ലാ സ്വിച്ചുകളും ഓഫെങ്കിൽ ഒന്നും ലോഡ് ചെയ്യില്ല.</string>
+    <string name="settings_coin_logos_portfolio">പോർട്ട്ഫോളിയോയിൽ</string>
+    <string name="settings_coin_logos_portfolio_hint">പൊസിഷനുകൾ, കോയിൻ വിശദാംശങ്ങൾ, ഉൾക്കാഴ്ചകൾ</string>
+    <string name="settings_coin_logos_value_app">ആപ്പ്</string>
+    <string name="settings_coin_logos_widgets">വിജറ്റുകളിൽ</string>
+    <string name="settings_coin_logos_widgets_hint">വാച്ച്‌ലിസ്റ്റ്, ഒറ്റ കോയിൻ വിജറ്റുകൾ</string>
+    <string name="settings_high_contrast">ഉയർന്ന കോൺട്രാസ്റ്റ്</string>
+    <string name="settings_high_contrast_hint">കൂടുതൽ ശക്തമായ വില നിറങ്ങളും ഇരുണ്ട ദ്വിതീയ ടെക്സ്റ്റും. സിസ്റ്റം കൂടുതൽ കോൺട്രാസ്റ്റ് ആവശ്യപ്പെടുമ്പോഴും ഓണാകും.</string>
+    <string name="settings_language_choose">ഭാഷ തിരഞ്ഞെടുക്കുക</string>
+    <string name="settings_language_system">സിസ്റ്റം ഭാഷ</string>
+    <string name="settings_price_colors">വില നിറങ്ങൾ</string>
+    <string name="settings_price_colors_hint">നീല / ഓറഞ്ച് എല്ലാ വർണ്ണാന്ധതയിലും (ചുവപ്പ്-പച്ച, നീല-മഞ്ഞ) എളുപ്പത്തിൽ വേർതിരിച്ചറിയാം. ദിശ എല്ലായ്പ്പോഴും + / − ഉപയോഗിച്ചും കാണിക്കുന്നു.</string>
+    <string name="settings_theme_mode">ലൈറ്റ് / ഡാർക്ക്</string>
+    <string name="settings_widgets">വിജറ്റുകൾ</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">%1$s മാറ്റവും ചാർട്ട് സമയമേഖലയും</string>
+    <string name="settings_change_basis_hint_1">തിരഞ്ഞെടുത്ത സമയമേഖല ശതമാന മാറ്റം എപ്പോൾ മുതൽ കണക്കാക്കണമെന്നും (വാച്ച്‌ലിസ്റ്റ്, പൾസ് ലൈൻ, തുറന്ന ജോഡി, വിജറ്റുകൾ) ചാർട്ടുകളിൽ കാണിക്കുന്ന സമയങ്ങളും നിശ്ചയിക്കുന്നു.</string>
+    <string name="settings_change_basis_hint_2">“%1$s” കൃത്യം 24 മണിക്കൂർ മുമ്പുള്ള വിലയുമായി താരതമ്യം ചെയ്യുന്നു. “00:00” ആ സമയമേഖലയിലെ അർദ്ധരാത്രിയിലെ ഓപ്പണിംഗ് വിലയുമായി താരതമ്യം ചെയ്യുന്നു.</string>
+    <string name="settings_change_basis_hint_3">അലേർട്ടുകളെ ബാധിക്കില്ല.</string>
+    <string name="settings_change_basis_hint_since_last">“%1$s” മുമ്പത്തെ അപ്‌ഡേറ്റിലെ വിലയുമായി താരതമ്യം ചെയ്യുന്നു. ലൈവ് വിലകളിൽ ഇത് 0%%-ന് അടുത്ത് തുടരും.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">പരിവർത്തന കറൻസി</string>
+    <string name="settings_conversion_currency_hint">പോർട്ട്ഫോളിയോ, നിങ്ങളുടെ കറൻസിയിലുള്ള അലേർട്ടുകൾ, ക്രിപ്റ്റോ മാർക്കറ്റ് കാർഡ്, പോർട്ട്ഫോളിയോ വിജറ്റ് എന്നിവയ്ക്കും ഉപയോഗിക്കുന്നു.</string>
+    <string name="settings_cost_method">ചെലവ് രീതി</string>
+    <string name="settings_cost_method_average">ശരാശരി ചെലവ്</string>
+    <string name="settings_cost_method_average_hint">വിൽപ്പനകൾ ചലിക്കുന്ന ശരാശരി വാങ്ങൽ വിലയിൽ മൂല്യനിർണ്ണയം ചെയ്യുന്നു.</string>
+    <string name="settings_cost_method_fifo">FIFO (ഡിഫോൾട്ട്)</string>
+    <string name="settings_cost_method_fifo_hint">എല്ലാ എക്സ്ചേഞ്ചുകളിലും വാലറ്റുകളിലുമായി ഏറ്റവും പഴയ കോയിനുകൾ ആദ്യം വിൽക്കുന്നു.</string>
+    <string name="settings_cost_method_fifo_wallet">ഓരോ വാലറ്റ്/എക്സ്ചേഞ്ചിനും FIFO</string>
+    <string name="settings_cost_method_fifo_wallet_hint">ഓരോ എക്സ്ചേഞ്ചിലോ വാലറ്റിലോ ഏറ്റവും പഴയ കോയിനുകൾ ആദ്യം; കൈമാറ്റങ്ങൾ ലോട്ടുകളെ അവയുടെ വാങ്ങൽ തീയതിയോടൊപ്പം നീക്കുന്നു.</string>
+    <string name="settings_portfolio_lock">പോർട്ട്ഫോളിയോ ലോക്ക്</string>
+    <string name="settings_portfolio_lock_footer">ലോക്ക് സ്ക്രീനിൽ കാണിക്കുന്നത് മറയ്ക്കുന്നു. നിങ്ങളുടെ ഡാറ്റ ഈ ഉപകരണത്തിൽ സൂക്ഷിക്കുകയും ഉപകരണ എൻക്രിപ്ഷൻ വഴി സംരക്ഷിക്കുകയും ചെയ്യുന്നു. ബാക്കപ്പുകൾ പാസ്‌വേഡ് ഉപയോഗിച്ച് സംരക്ഷിക്കാം.</string>
+    <string name="settings_portfolio_lock_hint">പോർട്ട്ഫോളിയോ മാത്രം മറയ്ക്കുന്നു: വിരലടയാളം, മുഖം അല്ലെങ്കിൽ ഉപകരണ PIN ഉപയോഗിച്ച് അൺലോക്ക് ചെയ്യുക. ഒരു മിനിറ്റിലധികം പശ്ചാത്തലത്തിലായാൽ വീണ്ടും ലോക്ക് ആകും. വാച്ച്‌ലിസ്റ്റ്, അലേർട്ടുകൾ, മറ്റ് വിജറ്റുകൾ എന്നിവ തുറന്നുതന്നെ നിലനിൽക്കും.</string>
+    <string name="settings_portfolio_lock_no_device_lock">ഉപകരണ PIN അല്ലെങ്കിൽ പാസ്‌കോഡ് ഇല്ലാതെ ലോക്ക് ഒന്നും മറയ്ക്കില്ല – ഒരു സ്ക്രീൻ ലോക്ക് സജ്ജമാക്കുക.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">സിസ്റ്റം ബാക്കപ്പിൽ പോർട്ട്ഫോളിയോ</string>
+    <string name="settings_portfolio_system_backup_hint">ഓഫ്: നിങ്ങളുടെ ഇടപാടുകൾ ഉപകരണത്തിന്റെ സിസ്റ്റം ബാക്കപ്പിൽ നിന്നും ഫോണിൽ നിന്ന് ഫോണിലേക്കുള്ള കൈമാറ്റങ്ങളിൽ നിന്നും ഒഴിവാക്കപ്പെടും. അവ ഒരു പുതിയ ഫോണിലേക്ക് മാറ്റാൻ, പാസ്‌വേഡോടെ ആപ്പിന്റെ സ്വന്തം ബാക്കപ്പ് ഉപയോഗിക്കുക.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Android 9 അല്ലെങ്കിൽ പുതിയത് ആവശ്യമാണ് – പഴയ പതിപ്പുകൾ പോർട്ട്ഫോളിയോ എൻക്രിപ്റ്റ് ചെയ്യാതെ Google ബാക്കപ്പിൽ സംരക്ഷിക്കും.</string>
+    <string name="settings_portfolio_tab">പോർട്ട്ഫോളിയോ ടാബ് കാണിക്കുക</string>
+    <string name="settings_portfolio_value_locked">ഓൺ, ലോക്കോടെ</string>
+    <string name="settings_show_converted">പരിവർത്തനം ചെയ്ത വിലകൾ</string>
+    <string name="settings_show_converted_hint">വാച്ച്‌ലിസ്റ്റിലെ വിലകൾ %1$s-ലും കാണിക്കുന്നു</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">USDT ഡിപെഗ് റിപ്പോർട്ട് ചെയ്യുക</string>
+    <string name="settings_depeg_alarm_hint">USDT 1 USD-ൽ നിന്ന് പരിധിയോളം വ്യതിചലിക്കുമ്പോൾ ഒരിക്കൽ അറിയിക്കുന്നു (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_threshold">ഡിപെഗ് പരിധി</string>
+    <string name="settings_fng_above">Fear &amp; Greed: ഇതിന് മുകളിൽ അറിയിക്കുക</string>
+    <string name="settings_fng_below">Fear &amp; Greed: ഇതിന് താഴെ അറിയിക്കുക</string>
+    <string name="settings_gas_alert_hint">സാധാരണ ഫീസ് പരിധിക്ക് താഴെ വരുമ്പോൾ ഒരിക്കൽ അറിയിക്കുന്നു. വില അപ്‌ഡേറ്റുകൾക്കിടെ, പരമാവധി 10 മിനിറ്റിലൊരിക്കൽ പരിശോധിക്കുന്നു.</string>
+    <string name="settings_gas_btc_below">Bitcoin ഫീസ് ഇതിന് താഴെ (sat/vB)</string>
+    <string name="settings_gas_eth_below">Ethereum ഗ്യാസ് ഇതിന് താഴെ (gwei)</string>
+    <string name="settings_ind_ath_within">സർവകാല ഉയർന്ന നിലയിൽ നിന്നുള്ള ഇടിവ് പരമാവധി</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple ഇതിന് മുകളിൽ</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple ഇതിന് താഴെ</string>
+    <string name="settings_ind_mvrv_above">MVRV ഇതിന് മുകളിൽ</string>
+    <string name="settings_ind_mvrv_below">MVRV ഇതിന് താഴെ</string>
+    <string name="settings_indicator_alerts_hint">Bitcoin സൂചകങ്ങൾ, ദിവസത്തിൽ രണ്ടുതവണ പരിശോധിക്കുന്നു. പരിധികൾ നിങ്ങൾ തിരഞ്ഞെടുക്കുന്നു – ആപ്പ് മൂല്യങ്ങളെ വിലയിരുത്തുന്നില്ല.</string>
+    <string name="settings_macro_notifications">സാമ്പത്തിക കലണ്ടർ</string>
+    <string name="settings_macro_notifications_hint">പ്രധാന US സാമ്പത്തിക ഡാറ്റയുള്ള ദിവസങ്ങളിൽ 08:00-ന് (പണപ്പെരുപ്പം, തൊഴിൽ റിപ്പോർട്ട്, ഫെഡ് തീരുമാനം). കലണ്ടർ ആപ്പിന്റെ വെബ്സൈറ്റിൽ നിന്നാണ്, ദിവസത്തിൽ ഒരിക്കൽ ലോഡ് ചെയ്യുന്നു.</string>
+    <string name="settings_market_alerts">മാർക്കറ്റ് അലേർട്ടുകൾ</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d സജീവം</item>
+        <item quantity="other">%1$d സജീവം</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">സംഭാഷണ വേഗം: %1$.1f×</string>
+    <string name="settings_tts">സംഭാഷണ ഔട്ട്‌പുട്ട്</string>
+    <string name="settings_tts_alarms_only">അലേർട്ടുകൾ മാത്രം</string>
+    <string name="settings_tts_alarms_only_hint">ഓഫ്: “വില വായിച്ചുകേൾപ്പിക്കുക” അടയാളപ്പെടുത്തിയ ജോഡിയുടെ ഓരോ അപ്‌ഡേറ്റും ഉറക്കെ വായിക്കും.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">വിലകളും അലേർട്ടുകളും ഉറക്കെ വായിക്കുന്നു. ഉപകരണം സൈലന്റ് അല്ലെങ്കിൽ വൈബ്രേറ്റ് മോഡിലായിരിക്കുമ്പോൾ നിശബ്ദമായിരിക്കും.</string>
+    <string name="settings_tts_test">ശബ്ദം പരീക്ഷിക്കുക</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">ആപ്പ് പുനഃസജ്ജമാക്കുക</string>
+    <string name="settings_reset_app_action">എല്ലാം ഇല്ലാതാക്കുക</string>
+    <string name="settings_reset_app_confirm">വാച്ച്‌ലിസ്റ്റ്, അലേർട്ടുകൾ, പോർട്ട്ഫോളിയോ, ക്രമീകരണങ്ങൾ, സംരക്ഷിച്ച എല്ലാ ഡാറ്റയും ഇൻസ്റ്റാൾ ചെയ്ത ശേഷമെന്നപോലെ ഇല്ലാതാക്കുന്നു. ഇത് പഴയപടിയാക്കാനാകില്ല. നുറുങ്ങ്: ആദ്യം ഒരു ബാക്കപ്പ് എടുക്കുക. ഉപകരണ ബാക്കപ്പുകൾ (Google ബാക്കപ്പ് അല്ലെങ്കിൽ iCloud/കമ്പ്യൂട്ടർ ബാക്കപ്പ്) അടുത്ത ബാക്കപ്പ് നടക്കുന്നതുവരെ മുൻ ഡാറ്റ നിലനിർത്തും.</string>
+    <string name="settings_reset_app_title">ആപ്പ് പുനഃസജ്ജമാക്കണോ?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">കറൻസി തിരയുക</string>
+    <string name="language_search">ഭാഷ തിരയുക</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">ഡാർക്ക്</string>
+    <string name="theme_light">ലൈറ്റ്</string>
+    <string name="theme_system">സിസ്റ്റം</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">നീല</string>
+    <string name="accent_green">പച്ച</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">ഓറഞ്ച്</string>
+    <string name="accent_red">ചുവപ്പ്</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">ചൈന, ജപ്പാൻ, കൊറിയ, തായ്‌വാൻ എന്നിവിടങ്ങളിൽ സാധാരണം</string>
+    <string name="price_colors_swap">നിറങ്ങൾ മാറ്റുക (ഉയർച്ച ↔ താഴ്ച)</string>
+    <string name="price_style_calm">ശാന്തം</string>
+    <string name="price_style_calm_color_vision">ശാന്തം · വർണ്ണാന്ധത</string>
+    <string name="price_style_color_vision">വർണ്ണാന്ധത</string>
+    <string name="price_style_fresh">പുതുമയുള്ളത്</string>
+    <string name="price_style_traditional">പരമ്പരാഗതം</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">എക്സ്ചേഞ്ച് കണക്ഷനുകൾ യഥാർത്ഥ പ്രതികരണങ്ങളുമായി അവസാനം പരിശോധിച്ചത്: %1$s</string>
+    <string name="about_license">വിലകൾ എക്സ്ചേഞ്ചുകളിൽ നിന്ന് നേരിട്ട് വരുന്നു; അക്കൗണ്ടില്ല, ട്രാക്കിംഗില്ല.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">ലൈസൻസുകൾ</string>
+    <string name="about_privacy_policy">സ്വകാര്യതാ നയം</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">ഒരു എക്സ്ചേഞ്ച് അഭ്യർത്ഥിക്കുക</string>
+    <string name="about_source_code">GitHub-ലെ സോഴ്സ് കോഡ്</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker, r1AD-ന്റെ ഒരു സ്വതന്ത്ര പ്രോജക്റ്റാണ്: അക്കൗണ്ടോ പരസ്യങ്ങളോ ട്രാക്കിംഗോ ഇല്ലാത്ത ശാന്തമായ വില അവലോകനം. ചോദ്യങ്ങളും ആഗ്രഹങ്ങളും: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker ഓപ്പൺ സോഴ്സാണ് (MIT License).</string>
+    <string name="licenses_font_title">Rubik ടൈപ്പ്ഫേസ്</string>
+    <string name="licenses_icons_bundled_text">ആപ്പിനൊപ്പം ഉൾപ്പെടുത്തിയത്: Christopher Downer-ന്റെയും സംഭാവന ചെയ്തവരുടെയും “Cryptocurrency Icons”-ൽ നിന്നുള്ള ഐക്കണുകൾ (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal പ്രകാരം പ്രസിദ്ധീകരിച്ചത്. CoinGecko അല്ലെങ്കിൽ Binance ലോഗോകൾ ലോഡ് ആകുന്നതുവരെ ഇവ കാണിക്കുന്നു. പേരുകളും ലോഗോകളും അവയുടെ പ്രോജക്റ്റുകളുടെ വ്യാപാരമുദ്രകളായി തുടരുന്നു.</string>
+    <string name="licenses_icons_title">പകരം ഉപയോഗിക്കുന്ന കോയിൻ ഐക്കണുകൾ</string>
+    <string name="licenses_libraries_intro">ആപ്പ് Apache License 2.0 പ്രകാരം ഈ ലൈബ്രറികൾ ഉപയോഗിക്കുന്നു:</string>
+    <string name="licenses_libraries_title">Android ലൈബ്രറികൾ</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">ഡെവലപ്പർ ഓപ്ഷനുകൾ അൺലോക്ക് ചെയ്യാൻ %d ടാപ്പ് കൂടി</item>
+        <item quantity="other">ഡെവലപ്പർ ഓപ്ഷനുകൾ അൺലോക്ക് ചെയ്യാൻ %d ടാപ്പുകൾ കൂടി</item>
+    </plurals>
+    <string name="developer_unlocked">ഡെവലപ്പർ ഓപ്ഷനുകൾ അൺലോക്ക് ചെയ്തു</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">വൈബ്രേഷൻ iPhone ക്രമീകരണങ്ങൾ (ശബ്ദങ്ങളും ഹാപ്റ്റിക്സും) പിന്തുടരുന്നു.</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">പുതിയ അലേർട്ടുകളും മാർക്കറ്റ് അലേർട്ടുകളും എണ്ണുന്നു; ആപ്പ് തുറക്കുമ്പോൾ 0-ലേക്ക് തിരികെ.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">നിങ്ങളുടെ ഡാറ്റ</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">ഈ ഉപകരണത്തിൽ</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">നിങ്ങളുടെ വാച്ച്‌ലിസ്റ്റ്, അലേർട്ടുകൾ, പോർട്ട്ഫോളിയോ എന്നിവ ഈ ഉപകരണത്തിൽ എൻക്രിപ്റ്റ് ചെയ്ത് സൂക്ഷിക്കുന്നു; അക്കൗണ്ടില്ല, ഞങ്ങളുടെ സ്വന്തം സെർവറില്ല.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">കണക്ഷനുകൾ</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">വിലകൾ നിങ്ങളുടെ ജോഡികളുടെ എക്സ്ചേഞ്ചുകളിൽ നിന്ന് നേരിട്ട് വരുന്നു, കൂടാതെ വിനിമയ നിരക്കുകൾ, കോയിൻ ലിസ്റ്റുകൾ, ലോഗോകൾ, GitHub-ലെ ഡാറ്റ മിറർ എന്നിവയും; അവർ നിങ്ങളുടെ IP വിലാസം കാണുന്നു, ഒരിക്കലും നിങ്ങളുടെ ഹോൾഡിംഗുകൾ കാണുന്നില്ല (നിരീക്ഷിക്കുന്ന വിലാസങ്ങൾ ബന്ധപ്പെട്ട നെറ്റ്‌വർക്കിന്റെ ദാതാവിലേക്ക് പോകുന്നു).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">ബാക്കപ്പ്</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">നിങ്ങൾ ഒന്ന് സൃഷ്ടിച്ചാൽ മാത്രം. പാസ്‌വേഡോടെ അത് എൻക്രിപ്റ്റ് ചെയ്യപ്പെടുന്നു (Argon2id + AES-256-GCM); പാസ്‌വേഡില്ലെങ്കിൽ വായിക്കാവുന്നതാണ്.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">ഉപകരണം മാറുമ്പോൾ</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">കീ പഴയ ഉപകരണത്തിൽ തന്നെ നിലനിൽക്കും – ആദ്യം ഒരു ബാക്കപ്പ് ഫയൽ സൃഷ്ടിക്കുക.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">ഡയഗ്നോസ്റ്റിക്സ് പങ്കിടുക</string>
+    <string name="diagnostics_share_hint">പിന്തുണയ്ക്കുള്ള ടെക്സ്റ്റ് ഫയൽ: പതിപ്പ്, ഉപകരണം, അലേർട്ട് ക്രമീകരണങ്ങൾ, സമീപകാല പരിശോധനകൾ, അലേർട്ട് ലോഗ് – പോർട്ട്ഫോളിയോ, തുകകൾ, വിലാസങ്ങൾ, കുറിപ്പുകൾ എന്നിവ ഇല്ലാതെ. നിങ്ങൾ ആദ്യം അത് കാണും; ഒന്നും സ്വയമേവ അയയ്ക്കില്ല.</string>
+    <string name="diagnostics_preview_title">ഡയഗ്നോസ്റ്റിക്സ് പ്രിവ്യൂ</string>
+    <string name="diagnostics_action_share">പങ്കിടുക</string>
+    <string name="settings_price_overlay">വില ഓവർലേ</string>
+    <string name="settings_price_overlay_hint">സ്ഥിരമായ വില അറിയിപ്പിലെ ജോഡികളെ മറ്റ് ആപ്പുകൾക്ക് മുകളിൽ ഒഴുകുന്ന ഒരു ചെറിയ പിൽ ആയി കാണിക്കുന്നു. ആപ്പ് തുറക്കാൻ ടാപ്പ് ചെയ്യുക, അടയ്ക്കാൻ താഴെയുള്ള ×-ലേക്ക് വലിക്കുക.</string>
+    <string name="settings_price_overlay_needs">«%1$s»-നൊപ്പം മാത്രമേ പ്രവർത്തിക്കൂ.</string>
+    <string name="settings_price_overlay_grant">മറ്റ് ആപ്പുകൾക്ക് മുകളിൽ കാണിക്കാൻ അനുവദിക്കുക</string>
+    <string name="price_overlay_close">ഓവർലേ അടയ്ക്കുക</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">വിലാസങ്ങൾക്കുള്ള സ്വന്തം സെർവർ</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Bitcoin മാത്രം: നിങ്ങളുടെ സ്വന്തം Esplora- അല്ലെങ്കിൽ mempool-അനുയോജ്യ സെർവർ (ഉദാ. https://node.example/api, Let\'s Encrypt പോലുള്ള പൊതുവായി വിശ്വസനീയമായ സർട്ടിഫിക്കറ്റ് ആവശ്യമാണ്). സജ്ജമാക്കിയാൽ, Bitcoin വിലാസങ്ങളും xpub കീകളും അവിടെ മാത്രം അന്വേഷിക്കും – ഒരിക്കലും പൊതു നോഡുകളിൽ ഇല്ല, നിങ്ങളുടെ സെർവറിൽ എത്താനാകാത്തപ്പോൾ പോലും. മറ്റ് നെറ്റ്‌വർക്കുകൾ പൊതു നോഡുകൾ ഉപയോഗിക്കുന്നത് തുടരും. ശൂന്യം = പൊതു നോഡുകൾ.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Bitcoin സെർവർ (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">പരീക്ഷിക്കുക</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">പരീക്ഷിക്കുന്നു…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">സെർവർ പ്രതികരിക്കുന്നു – ബ്ലോക്ക് %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">സാധുവായ മറുപടിയില്ല – വിലാസവും സർട്ടിഫിക്കറ്റും പരിശോധിക്കുക</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">ഉപയോഗത്തിൽ: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">സജ്ജമാക്കിയിട്ടില്ല – പൊതു നോഡുകൾ ഉപയോഗിക്കുന്നു</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">https:// വിലാസങ്ങൾ മാത്രമേ അനുവദിക്കൂ</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">വിലാസത്തിൽ ഉപയോക്തൃനാമമോ പാസ്‌വേഡോ പാടില്ല</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">വിലാസത്തിൽ ? അല്ലെങ്കിൽ # ഭാഗം പാടില്ല</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">സാധുവായ സെർവർ വിലാസമല്ല</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">പൊതു നോഡുകളിലേക്ക് മാറണോ?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">അപ്പോൾ നിങ്ങളുടെ Bitcoin വിലാസങ്ങളും xpub കീകളും പൊതു നോഡുകളിൽ അന്വേഷിക്കും: %1$s. അവർ ഈ വിലാസങ്ങൾ നിങ്ങളുടെ IP വിലാസത്തോടൊപ്പം കാണുന്നു.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">പൊതു നോഡുകൾ ഉപയോഗിക്കുക</string>
+</resources>

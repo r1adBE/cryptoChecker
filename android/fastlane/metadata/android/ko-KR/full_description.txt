@@ -35,7 +35,7 @@ Crypto Checker는 내 거래소의 시세를 확인하고, 확인 시점에 설�
 • 포트폴리오는 선택 사항(설정에서 켜기): 매수, 매도, 스왑, 이체, 리워드, 입금과 출금, FIFO(기본) 또는 평균(Ø), 시드 없이 읽기 전용 주소: BTC(xpub 포함), ETH 및 EVM 체인, SOL, TRX, XRP, LTC, ADA, TON, Relai·Swissquote·Bitpanda·Kraken·Binance·Coinbase CSV 가져오기, CSV 연간 요약, 별도 잠금. Bitpanda와 Swissquote는 자체 가격 없이 CSV로만 추가합니다.
 • 누구나 읽기 쉽게: 초록/빨강 또는 파랑/주황, 색만이 아니라 부호와 화살표, TalkBack은 각 행을 한 문장으로 읽어 줌
 • 파일로 백업 및 복원 – Android와 iPhone 사이에서도 가능
-• 라이트·다크 모드, 강조 색상 5가지, 33개 언어
+• 라이트·다크 모드, 강조 색상 5가지, 75개 언어
 • 오픈 소스(MIT) – 코드는 GitHub에 공개
 
 참고: Crypto Checker는 가격과 직접 입력한 포트폴리오를 표시합니다. 거래소나 지갑이 아니며, 거래하지 않고 투자 조언을 하지 않습니다.

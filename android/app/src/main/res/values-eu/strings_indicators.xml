@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">Altcoinak vs. Bitcoin</string>
+    <string name="neutral_btc_indicators_title">Bitcoin adierazleak</string>
+    <string name="neutral_halving_last">Azken halvinga: %1$s</string>
+    <string name="neutral_halving_next">Hurrengo halvinga gutxi gorabehera noiz espero den: %1$s (egutegiaren arabera kalkulatua – bloke-altuera ez dago erabilgarri une honetan).</string>
+    <string name="neutral_indicators_disclaimer">Neurtutako balioak soilik, balorazio gabe. Ez da iragarpena, ezta inbertsio-aholkularitza ere.</string>
+    <string name="neutral_onchain_missing">On-chain datuak (Coin Metrics) ez daude erabilgarri une honetan.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">Prezioa bere aurreko gehienezko historikoaren azpitik zenbat dagoen.</string>
+    <string name="neutral_explain_change_30d">Gaurko prezioa, duela 30 egunekoarekin alderatuta.</string>
+    <string name="neutral_explain_hashrate">30 eguneko batez besteko hashratea, 60 eguneko batez bestekoarekin alderatuta.</string>
+    <string name="neutral_explain_ma200w">Azken 200 asteko itxieren batez bestekoa.</string>
+    <string name="neutral_explain_mayer">Prezioa zati 200 eguneko batez bestekoa.</string>
+    <string name="neutral_explain_mvrv">Merkatu-balioa zati balio errealizatua (on-chain).</string>
+    <string name="neutral_explain_pi_gap">111 eguneko batez bestekoa, 350 eguneko batez bestekoaren bikoitzarekin alderatuta.</string>
+    <string name="neutral_explain_puell">Meatzarien eguneko diru-sarrerak zati haien 365 eguneko batez bestekoa.</string>
+    <string name="neutral_explain_rsi_daily">Azken 14 egunetako indar erlatiboaren indizea, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">Azken 14 asteetako indar erlatiboaren indizea, 0–100.</string>
+    <string name="neutral_explain_sma50_200">50 eguneko batez bestekoa, 200 eguneko batez bestekoarekin alderatuta.</string>
+    <string name="neutral_explain_vs_btc">Prezio-aldaketa, Bitcoinekin alderatuta, 90 egunetan.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">Aplikazioak kopurua bakarrik erakusten du, eta ez du denboraldi gisa etiketatzen. Balioa egunetan aldatu ohi da, ez ordutan.</string>
+    <string name="neutral_info_btc_how">Balio bakoitzak esaldi bat dakar zer neurtzen duen eta 2016tik bere historian non dagoen azaltzeko. Aplikazioak ez ditu balioak baloratzen, eta ez du merkatu-faserik ondorioztatzen; merkatu-alarmen mugak zuk ezartzen dituzunak bakarrik dira. Iraganeko ereduek ez dute zertan errepikatu.</string>
+    <string name="neutral_info_btc_what">Bitcoin adierazle ohikoak neurtutako balio soil gisa: Mayer Multiple, 200 asteko batez bestekoa, gehienezko historikotik jaitsiera, 30 eguneko aldaketa, Pi Cycle tartea eta MVRV, Puell Multiple eta hashrate on-chain balioak.</string>
+    <string name="neutral_info_coin_how">Balio bakoitzak esaldi bat dakar zer neurtzen duen azaltzeko, balorazio gabe. Prezio-historia laburra duten txanponetan balio batzuk falta dira. On-chain datuak ez daude hemen sartuta.</string>
+    <string name="neutral_info_coin_what">Adierazle soil berberak zuk aukeratutako txanpon baterako, prezio-datuetatik soilik: Mayer Multiple, 200 asteko batez bestekoa, gehienezko historikotik jaitsiera, 30 eguneko aldaketa, 50/200 eguneko joera, RSI eta Bitcoinekiko indarra 90 egunetan.</string>
+    <string name="neutral_info_halving_how">Hurrengo halvinga uneko bloke-altueratik eta uneko zailtasun-aldiko batez besteko bloke-denboratik kalkulatzen da (mempool.space); datu horiek gabe, egutegiaren arabera (azken halvinga gehi lau urte inguru). Diagramak aurreko zikloen prezio-bilakaera erakusten du haien halvingetik – historia, ez iragarpena.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">Joera 50/200 egun</string>
+    <string name="ind_drawdown">Jaitsiera gehienezko historikotik</string>
+    <string name="ind_missing">ez dago datu nahikorik</string>
+    <string name="ind_rsi_daily">RSI (egunekoa)</string>
+    <string name="ind_rsi_weekly">RSI (astekoa)</string>
+    <string name="ind_vs_btc">Indarra vs. Bitcoin (90 egun)</string>
+    <string name="neutral_ind_change_30d">Aldaketa 30 egun</string>
+    <string name="neutral_ind_hashrate">Hashratea 30/60 egun</string>
+    <string name="neutral_ind_ma200w">200 asteko batez bestekoa</string>
+    <string name="neutral_ind_pi_gap">Pi Cycle tartea</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">Altuak esan nahi du altcoin handi gehienek Bitcoin gainditu dutela 90 egunetan; baxuak, Bitcoinek gehienak gainditu dituela.</string>
+    <string name="ind_read_ath_distance">Txikiak esan nahi du prezioa errekorretik gertu dagoela; handiak, askoz azpitik dagoela.</string>
+    <string name="ind_read_change_30d">Positiboak esan nahi du duela 30 egun baino altuagoa dela; negatiboak, baxuagoa.</string>
+    <string name="ind_read_funding">Altuak esan nahi du trader askok palankarekin prezioen igoeraren alde egiten dutela apustu; negatiboak, askok jaitsieraren alde egiten dutela.</string>
+    <string name="ind_read_hashrate_30_60">Positiboak esan nahi du konputazio-ahalmena hazten ari dela; negatiboak, meatzariak deskonektatzen ari direla.</string>
+    <string name="ind_read_leverage">Long askok esan nahi du askok mailegatutako diruarekin igoeraren alde egiten dutela apustu; short askok, askok jaitsieraren alde egiten dutela.</string>
+    <string name="ind_read_ma200w">Prezioa askoz gainetik egoteak igoera luzea esan nahi du; gertu egoteak, atzerakada sakona.</string>
+    <string name="ind_read_mayer">Altuak esan nahi du prezioa 200 eguneko batez bestekoaren askoz gainetik dagoela; baxuak, azpitik dagoela.</string>
+    <string name="ind_read_mvrv">Altuak esan nahi du prezioa edukitzaileek batez beste ordaindu zutenaren askoz gainetik dagoela; baxuak, gertu edo azpitik.</string>
+    <string name="ind_read_pi_cycle_gap">Zerotik gertu egoteak esan nahi du bi batez bestekoak ia elkartzen direla; oso negatiboa izateak, oso urrun daudela.</string>
+    <string name="ind_read_puell">Altuak esan nahi du meatzariek ohi baino askoz gehiago irabazten dutela; baxuak, askoz gutxiago.</string>
+    <string name="ind_read_rsi_daily">70etik gora egoteak azken egunetako irabazi handiak esan nahi ditu; 30etik behera, galera handiak.</string>
+    <string name="ind_read_rsi_weekly">70etik gora egoteak azken asteetako irabazi handiak esan nahi ditu; 30etik behera, galera handiak.</string>
+    <string name="ind_read_sma50_vs_200">Positiboak esan nahi du epe laburreko batez bestekoa epe luzekoaren gainetik dagoela; negatiboak, azpitik.</string>
+    <string name="ind_read_vs_btc">Positiboak esan nahi du Bitcoinek baino hobeto egin duela; negatiboak, okerrago.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">Prezio bera 30 egunez: %1$s</string>
+    <string name="ind_context_note">Iraganeko balioak eta «prezio bera» kalkuluak aritmetika dira, ez iragarpena.</string>
+    <string name="ind_context_percentile">%1$s-(e)z geroztik baxuagoa egunen %2$s-(e)an</string>
+</resources>

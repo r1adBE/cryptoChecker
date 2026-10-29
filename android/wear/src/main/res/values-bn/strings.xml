@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">কোনো কয়েন বেছে নেওয়া হয়নি</string>
+    <string name="watch_loading">লোড হচ্ছে…</string>
+    <string name="watch_error">এক্সচেঞ্জে পৌঁছানো যাচ্ছে না</string>
+    <string name="watch_updated">%1$s অনুযায়ী</string>
+    <string name="watch_refresh">রিফ্রেশ</string>
+    <string name="watch_choose">কয়েন বেছে নিন</string>
+    <string name="watch_choose_hint">কয়েন: সর্বোচ্চ %1$d</string>
+    <string name="watch_complication_label">দাম</string>
+    <string name="a11y_watch_row">%1$s %2$s, 24 ঘণ্টায় %3$s</string>
+    <string name="watch_mode_phone">তালিকা: ফোনের মতো</string>
+    <string name="watch_mode_own">তালিকা: নিজস্ব</string>
+    <string name="watch_phone_empty">ফোনে কোনো প্রিয় নেই</string>
+    <string name="a11y_watch_outdated">দাম পুরোনো</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">শেষ আপডেট %1$d মিনিট আগে</item>
+        <item quantity="other">শেষ আপডেট %1$d মিনিট আগে</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">শেষ আপডেট %1$d ঘণ্টা আগে</item>
+        <item quantity="other">শেষ আপডেট %1$d ঘণ্টা আগে</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">শেষ আপডেট %1$d দিন আগে</item>
+        <item quantity="other">শেষ আপডেট %1$d দিন আগে</item>
+    </plurals>
+</resources>

@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">Bu qurilmada ekran qulfi oʻrnatilmagan. Avval uni tizim sozlamalarida oʻrnating.</string>
+    <string name="app_lock_unlock">Qulfdan chiqarish</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">Portfelni tozalash</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="one">%d ta tranzaksiya oʻchirilsinmi? Kuzatilayotgan manzillar qoladi. Buni darhol bekor qilishingiz mumkin.</item>
+        <item quantity="other">Barcha %d ta tranzaksiya oʻchirilsinmi? Kuzatilayotgan manzillar qoladi. Buni darhol bekor qilishingiz mumkin.</item>
+    </plurals>
+    <string name="portfolio_empty_action">Birinchi xaridingizni qoʻshing</string>
+    <string name="portfolio_empty_address">Shunchaki hamyon manzilini kuzatish</string>
+    <string name="portfolio_empty_csv">Birjada sotib oldingizmi? Uning faylini import qiling</string>
+    <string name="portfolio_empty_example_plain">Masalan: 1-mart kuni %1$s BTC sotib olindi. Ilova uning bugun qancha turishini va foydadamisiz yoki zarardamisiz – koʻrsatadi, faqat shu qurilmada saqlanadi.</string>
+    <string name="portfolio_empty_title">Hozircha tranzaksiya yoʻq</string>
+    <string name="portfolio_enable_ask_text">Tranzaksiyangiz saqlandi. «Portfel» yorligʻi aktivlaringiz va ularning qiymatini koʻrsatadi.</string>
+    <string name="portfolio_enable_ask_title">«Portfel» yorligʻi yoqilsinmi?</string>
+    <string name="portfolio_enable_later_hint">Tranzaksiya saqlandi. «Portfel» yorligʻini Sozlamalar › Portfel boʻlimida yoqishingiz mumkin.</string>
+    <string name="portfolio_enabled_banner">Portfel yoqildi – uni «Portfel» yorligʻida topasiz.</string>
+    <string name="portfolio_lock_reason">Portfelni qulfdan chiqarish</string>
+    <string name="portfolio_locked_text">Aktivlaringiz va qiymatlarini koʻrish uchun qulfdan chiqaring.</string>
+    <string name="portfolio_locked_title">Portfel qulflangan</string>
+    <string name="portfolio_setting_hint">Ixtiyoriy: xarid va sotuvlarni yozib boring, qiymat va foyda/zararni alohida yorliqda koʻring.</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">Eskirgan · %1$s holatiga</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="one">Tizim zaxirasidagi %d ta yozuv yaroqsiz boʻlgani uchun tiklanmadi.</item>
+        <item quantity="other">Tizim zaxirasidagi %d ta yozuv yaroqsiz boʻlgani uchun tiklanmadi.</item>
+    </plurals>
+    <string name="portfolio_title">Portfel</string>
+    <string name="portfolio_unassigned_fee">Komissiya biriktirilmagan – tannarx nomaʼlum: %1$s</string>
+    <string name="portfolio_updated">Kurslar %1$s holatiga</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">Boshqa</string>
+    <string name="portfolio_allocation_title">Taqsimot</string>
+    <string name="portfolio_card_details">Tafsilotlar</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s: hali mavjud emas</string>
+    <string name="portfolio_card_hints_count">Eslatmalar (%1$d)</string>
+    <string name="portfolio_card_today">Bugun</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">Jami</string>
+    <string name="portfolio_hide_amounts">Miqdorlarni yashirish</string>
+    <string name="portfolio_hide_amounts_hint">Portfel va portfel vidjetidagi miqdor va qiymatlarni ••• koʻrinishida koʻrsatadi – foizlar koʻrinib turadi.</string>
+    <string name="portfolio_invested">Tannarx</string>
+    <string name="portfolio_total_no_fx">%1$s uchun valyuta kursi yoʻq – miqdorlar USDT’da</string>
+    <string name="portfolio_total_value">Umumiy qiymat</string>
+    <string name="portfolio_value">Qiymat</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">Oʻrt. %1$s · hozir %2$s</string>
+    <string name="portfolio_avg_only">Oʻrt. %1$s</string>
+    <string name="portfolio_avg_open_lots">Saqlanayotgan tangalarning oʻrtacha tannarxi</string>
+    <string name="portfolio_avg_partial">Xarid narxi bor %1$s boʻyicha oʻrtacha</string>
+    <string name="portfolio_avg_price">Oʻrtacha xarid narxi</string>
+    <string name="portfolio_avg_price_hint">Oʻrtacha xarid narxi: barcha xaridlarning miqdorga qarab tortilgan oʻrtachasi. Sotuvlar shu oʻrtacha bilan baholanadi.</string>
+    <plurals name="portfolio_closed">
+        <item quantity="one">Yopilgan pozitsiya (%1$d)</item>
+        <item quantity="other">Yopilgan pozitsiyalar (%1$d)</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO: sotuvlarda avval eng eski tangalaringiz ishlatiladi. Oʻrt. = qolgan tannarx ÷ xarid narxi bor miqdor.</string>
+    <string name="portfolio_holdings">Aktivlar</string>
+    <string name="portfolio_lost_fee_cost">Toʻlangan lotsiz tarmoq komissiyasi xarajati: %1$s</string>
+    <string name="portfolio_open_lots">Ochiq xarid lotlari (%1$d)</string>
+    <string name="portfolio_open_lots_avg">Xarid narxi bilan (oʻrt.)</string>
+    <string name="portfolio_open_lots_no_cost">Xarid narxisiz</string>
+    <string name="portfolio_open_lots_without_price">xarid narxi yoʻq</string>
+    <string name="portfolio_realized">Amalga oshgan foyda/zarar</string>
+    <string name="portfolio_unrealized">Ochiq foyda/zarar</string>
+    <string name="portfolio_unrealized_without_unpriced">xarid narxi yoʻq %1$s hisobga olinmagan</string>
+    <string name="portfolio_withdrawn_gain">Yechib olingan: %1$s (yechib olishgacha qiymat oʻzgarishi)</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">Konvertatsiya valyutasi</string>
+    <string name="portfolio_convert_to_value">Konvertatsiya valyutasi: %1$s</string>
+    <string name="portfolio_current_missing">%1$s uchun joriy kurs yoʻq</string>
+    <string name="portfolio_current_price">Joriy kurs</string>
+    <string name="portfolio_price_missing">Narx yoʻq</string>
+    <string name="portfolio_price_missing_hint">Baʼzi xaridlarda narx yoʻq. Foyda/zararni koʻrish uchun xarid narxini qoʻshing.</string>
+    <string name="portfolio_price_source">Kurslar: Binance · USDT bozor narxida</string>
+    <string name="portfolio_price_source_routes">Kurslar: %1$s, aks holda Binance · USDT bozor narxida</string>
+    <string name="portfolio_price_unavailable">Kurs hozir mavjud emas</string>
+    <string name="portfolio_price_unchecked">Kurs tekshirilmagan</string>
+    <string name="portfolio_price_via_base">≈ %1$s kursi (bridged/wrapped)</string>
+    <string name="portfolio_usdt_as_usd">USDT oʻzining USD bozor narxida konvertatsiya qilindi</string>
+    <string name="portfolio_usdt_assumed">USDT dollar kursi yoʻq – 1 AQSH dollari deb hisoblandi</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">Portfelga qoʻshish</string>
+    <string name="portfolio_add_tx">Tranzaksiya qoʻshish</string>
+    <string name="portfolio_buy">Sotib olish</string>
+    <string name="portfolio_coin">Tanga</string>
+    <string name="portfolio_coin_invalid">Tanga belgisini kiriting</string>
+    <string name="portfolio_coin_search">Belgini qidiring, masalan BTC</string>
+    <string name="portfolio_discard_confirm">Bekor qilish</string>
+    <string name="portfolio_discard_keep">Tahrirlashni davom ettirish</string>
+    <string name="portfolio_discard_title">Oʻzgarishlar bekor qilinsinmi?</string>
+    <string name="portfolio_edit_tx">Tranzaksiyani tahrirlash</string>
+    <string name="portfolio_invalid">0 dan katta yaroqli son kiriting.</string>
+    <string name="portfolio_oversold">Sotuvlar aktivlardan oshib ketdi – tranzaksiyalarni tekshiring.</string>
+    <string name="portfolio_sell">Sotish</string>
+    <string name="portfolio_sell_exceeds">Aktivlaringizdan koʻp (%1$s)</string>
+    <string name="portfolio_sell_exceeds_fee">Miqdor va komissiya aktivlaringizdan koʻp (%1$s)</string>
+    <string name="portfolio_sell_exceeds_wallet">%2$s dagi aktivlaringizdan koʻp (%1$s)</string>
+    <string name="portfolio_transactions">Tranzaksiyalar</string>
+    <string name="portfolio_tx_acquired_date">Dastlabki xarid sanasi (ixtiyoriy)</string>
+    <string name="portfolio_tx_acquired_date_hint">Soliq eksportidagi saqlash muddati uchun</string>
+    <string name="portfolio_tx_amount">Miqdor</string>
+    <string name="portfolio_tx_coin_fee">Tangadagi komissiya (ixtiyoriy)</string>
+    <string name="portfolio_tx_date">Sana</string>
+    <string name="portfolio_tx_delete_confirm">Bu tranzaksiya portfeldan oʻchiriladi.</string>
+    <string name="portfolio_tx_delete_title">Tranzaksiya oʻchirilsinmi?</string>
+    <string name="portfolio_tx_deposit">Depozit</string>
+    <string name="portfolio_tx_entry_currency">Kiritish valyutasi</string>
+    <string name="portfolio_tx_explain_deposit">Savdosiz aktivlar, masalan avvalgi tangalar</string>
+    <string name="portfolio_tx_explain_gift">Tangalar yechib olish kabi aktivlaringizdan chiqadi – faqat mamlakat sovgʻaga soliq soladigan joyda (UK, CA, AU) bozor qiymatida begonalashtirish</string>
+    <string name="portfolio_tx_explain_payment">Tovar yoki xizmat uchun toʻlandi – sotuv kabi bozor qiymatida begonalashtirish, pul olinmaydi</string>
+    <string name="portfolio_tx_explain_reward">Tannarx = olingan paytdagi bozor qiymati</string>
+    <string name="portfolio_tx_explain_swap">Bir tangani boshqasiga: berilgan tangani sotadi va olingan tangani sotib oladi</string>
+    <string name="portfolio_tx_explain_transfer">Foyda yoʻq – tannarx tangalar bilan birga koʻchadi</string>
+    <string name="portfolio_tx_explain_withdrawal">Aktivlar portfeldan chiqadi – sotuv emas, foyda yoʻq</string>
+    <string name="portfolio_tx_fee_consumes_amount">Komissiya olingan miqdor bilan teng – hech narsa qolmaydi.</string>
+    <string name="portfolio_tx_fees_toggle">Komissiyalar</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s, %2$s kursi boʻyicha</string>
+    <string name="portfolio_tx_fiat_loading">Valyuta kursi yuklanmoqda…</string>
+    <string name="portfolio_tx_fiat_no_fx">Bu kun uchun valyuta kursi yoʻq – miqdorni USDT’da kiriting.</string>
+    <string name="portfolio_tx_gift">Sovgʻa</string>
+    <string name="portfolio_tx_gift_price_hint">USDT’da. Boʻsh = oʻsha kunning yopilish narxi (taxminiy).</string>
+    <string name="portfolio_tx_gift_spouse">Turmush oʻrtogʻiga / fuqarolik sherigiga</string>
+    <string name="portfolio_tx_gift_spouse_hint">Buyuk Britaniya va Kanada: foyda ham, zarar ham yoʻq – sherigingiz tannarxingizni oladi. Boshqa mamlakatlar buni hisobga olmaydi.</string>
+    <string name="portfolio_tx_market_value">Bir tanganing bozor qiymati</string>
+    <string name="portfolio_tx_more_buy">Komissiya, birja, izoh</string>
+    <string name="portfolio_tx_network_fee">Tangadagi tarmoq komissiyasi (ixtiyoriy)</string>
+    <string name="portfolio_tx_note">Izoh (ixtiyoriy)</string>
+    <string name="portfolio_tx_payment">U bilan toʻlandi</string>
+    <string name="portfolio_tx_price">Bir tanga narxi</string>
+    <string name="portfolio_tx_price_hint">USDT’da. Nomaʼlum boʻlsa, boʻsh qoldiring.</string>
+    <string name="portfolio_tx_price_historic">%1$s ning tekshirilgan kunlik yopilishi – kerak boʻlsa tuzating</string>
+    <string name="portfolio_tx_price_invalid">Yaroqli son (0 yoki undan koʻp) kiriting yoki maydonni boʻsh qoldiring.</string>
+    <string name="portfolio_tx_price_past_hint">Xarid kunidagi narxni kiriting – nomaʼlum boʻlsa, boʻsh qoldiring</string>
+    <string name="portfolio_tx_price_receipt_hint">USDT’da. Boʻsh = tannarxsiz aktivlar.</string>
+    <string name="portfolio_tx_price_zero">Import qilingan tranzaksiyalar uchun 0 narx mumkin emas – bozor narxi uchun boʻsh qoldiring</string>
+    <string name="portfolio_tx_removed">Tranzaksiya oʻchirildi</string>
+    <string name="portfolio_tx_reward">Mukofot</string>
+    <string name="portfolio_tx_save_failed">Tranzaksiyani saqlab boʻlmadi. Kiritganlaringiz shu yerda – qayta urinib koʻring.</string>
+    <string name="portfolio_tx_swap">Almashuv</string>
+    <string name="portfolio_tx_swap_fee_received">%1$s dagi komissiya: olingan miqdorni kamaytiradi, narx kerak emas.</string>
+    <string name="portfolio_tx_swap_from">%1$s dan almashuv</string>
+    <string name="portfolio_tx_swap_given_amount">Berilgan miqdor</string>
+    <string name="portfolio_tx_swap_given_coin">Berilgan tanga</string>
+    <string name="portfolio_tx_swap_received_amount">Olingan miqdor</string>
+    <string name="portfolio_tx_swap_received_coin">Olingan tanga</string>
+    <string name="portfolio_tx_swap_same_coin">Berilgandan boshqa tangani tanlang</string>
+    <string name="portfolio_tx_swap_to">%1$s ga almashuv</string>
+    <string name="portfolio_tx_swap_value">Almashuv qiymati (ixtiyoriy)</string>
+    <string name="portfolio_tx_swap_value_hint">Umumiy qiymat. Boʻsh = nomaʼlum – foyda toʻliq boʻlmay qoladi (almashuvda USDT boʻlsa, avtomatik).</string>
+    <string name="portfolio_tx_third_fee_amount">Komissiya miqdori</string>
+    <string name="portfolio_tx_third_fee_coin">Komissiya tangasi</string>
+    <string name="portfolio_tx_third_fee_incomplete">Narxsiz komissiya tannarx va tushumga kirmaydi; soliq eksporti bunday sotuvlarni belgilaydi.</string>
+    <string name="portfolio_tx_third_fee_price">Komissiya tangasi narxi (ixtiyoriy)</string>
+    <string name="portfolio_tx_third_fee_toggle">Boshqa tangadagi komissiya</string>
+    <string name="portfolio_tx_total">Jami: %1$s</string>
+    <string name="portfolio_tx_transfer">Oʻtkazma</string>
+    <string name="portfolio_tx_transfer_from">Qayerdan (ixtiyoriy)</string>
+    <string name="portfolio_tx_transfer_to">Qayerga (ixtiyoriy)</string>
+    <string name="portfolio_tx_transfer_to_hint">Birja yoki hamyon – bundan buyon oʻsha yerda baholanadi.</string>
+    <string name="portfolio_tx_type_select">Turi: %1$s</string>
+    <string name="portfolio_tx_value_received">Olingan paytdagi bir tanga qiymati (ixtiyoriy)</string>
+    <string name="portfolio_tx_withdrawal">Yechib olish</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">Sovgʻa qildingizmi yoki u bilan toʻladingizmi? Uni «Sovgʻa» yoki «U bilan toʻlandi» sifatida yozing – mamlakatga qarab bu soliq maqsadida sotuv hisoblanadi.</string>
+    <string name="portfolio_tx_withdrawal_price_hint">Ixtiyoriy: USDT’dagi bozor qiymati, faqat tarix uchun ishlatiladi (boʻsh = oʻsha kungi kurs). Tangalar har doim tannarxida chiqadi.</string>
+    <string name="portfolio_wallet_did_you_mean">%1$s demoqchimisiz? Boshqacha yozilishi alohida hamyon hisoblanadi.</string>
+    <string name="portfolio_wallet_shortfall">%1$s dagi aktivlar yetarli emas – oʻtkazma yetishmayaptimi?</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">Eng yuqori %1$s</string>
+    <string name="portfolio_compare">Solishtirish</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">%1$s va USDT’ni foizda solishtirish</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">Foizda solishtirish, %1$s: %2$s %3$s, USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">Valyuta taʼsiri: %1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">Narx maʼlumotlari faqat 2017-yil avgustidan boshlanadi — tarix shu yerdan boshlanadi.</string>
+    <string name="portfolio_history_chip_since_first">Hammasi</string>
+    <string name="portfolio_history_collapse">Qiymat tarixini yashirish</string>
+    <string name="portfolio_history_converted">Bugungi kurs boʻyicha konvertatsiya qilindi</string>
+    <string name="portfolio_history_expand">Qiymat tarixini koʻrsatish</string>
+    <string name="portfolio_history_gain_a11y">Qiymat %1$s. Foyda/zarar, %2$s: %3$s</string>
+    <string name="portfolio_history_gain_label">Foyda/zarar</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">%1$s dagi qiymat</string>
+    <string name="portfolio_history_incl_fx">Valyuta kursi bilan</string>
+    <string name="portfolio_history_incl_withdrawn">Yechib olingan tangalarning qiymat oʻzgarishini oʻz ichiga oladi</string>
+    <string name="portfolio_history_includes_trades">Bu davrdagi xarid va sotuvlarni oʻz ichiga oladi</string>
+    <string name="portfolio_history_loading">Qiymat tarixi yuklanmoqda</string>
+    <string name="portfolio_history_period_1y">1 yil</string>
+    <string name="portfolio_history_period_30d">30 kun</string>
+    <string name="portfolio_history_period_7d">7 kun</string>
+    <string name="portfolio_history_period_since_first">birinchi xariddan beri</string>
+    <string name="portfolio_history_pnl_needs_prices">Foyda/zarar uchun xarid narxlari yoʻq – ularni tranzaksiyalarga qoʻshing.</string>
+    <string name="portfolio_history_pnl_without">%1$s hisobga olinmagan foyda/zarar (narx yoʻq)</string>
+    <string name="portfolio_history_range_1y">1 Y</string>
+    <string name="portfolio_history_range_30d">30 K</string>
+    <string name="portfolio_history_range_7d">7 K</string>
+    <string name="portfolio_history_range_a11y">%1$s tarixini koʻrsatish</string>
+    <string name="portfolio_history_range_since_first">1-xariddan beri</string>
+    <string name="portfolio_history_scaled">%1$s tarixi: Binance tarixi birja kursiga moslashtirilgan</string>
+    <string name="portfolio_history_title">Qiymat tarixi</string>
+    <string name="portfolio_history_today">Bugun</string>
+    <string name="portfolio_history_too_short">Tarix birinchi toʻliq kuningizdan keyin boshlanadi.</string>
+    <string name="portfolio_history_unavailable">Hozir tarix mavjud emas.</string>
+    <string name="portfolio_history_utc_days">UTC boʻyicha kunlar (kunlik shamlar)</string>
+    <string name="portfolio_history_without_matching">%1$s hisobga olinmagan (mos kunlik kurslar yoʻq)</string>
+    <string name="portfolio_period_rewards">Mukofotlar +%1$s (foydaga kirmaydi)</string>
+    <string name="portfolio_period_scaled">%1$s uchun 7 K/1 Y: Binance tarixi birja kursiga moslashtirilgan</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">Signal</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">Miqdor (%1$s)</string>
+    <string name="portfolio_alarm_hint">Har bir yangilanishdan keyin tekshiriladi. Signallar kabi chegaradan oʻtganda ishga tushadi va qiymat orqaga qaytgandan keyingina yana ishga tushadi.</string>
+    <string name="portfolio_alarm_kind_above">Portfel miqdordan yuqori</string>
+    <string name="portfolio_alarm_kind_below">Portfel miqdordan past</string>
+    <string name="portfolio_alarm_kind_down">Portfel pasayadi</string>
+    <string name="portfolio_alarm_kind_up">Portfel oshadi</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">Portfel %1$s dan yuqori</string>
+    <string name="portfolio_alarm_sentence_below">Portfel %1$s dan past</string>
+    <string name="portfolio_alarm_sentence_down">Portfel %1$s pasaydi (%2$s)</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">Portfel %1$s oshdi (%2$s)</string>
+    <string name="portfolio_alarm_title">Portfel qiymati signali</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">Birja (ixtiyoriy)</string>
+    <string name="ledger_exchange_failed">%1$s: %2$s hozir kurs bermayapti – Binance boʻyicha baholandi.</string>
+    <string name="ledger_exchange_hint">Tanga shu birja kursida baholanadi (aks holda Binance). Tarix, 7 K va 1 Y unga moslashtirilgan Binance kunlik kurslaridan foydalanadi.</string>
+    <string name="ledger_exchange_mixed">%1$s: bir nechta birja kiritilgan – Binance boʻyicha baholandi. Tangalarni koʻchirdingizmi? Koʻchirishni «Oʻtkazma» sifatida yozing.</string>
+    <string name="ledger_exchange_none">Yoʻq (Binance)</string>
+    <string name="ledger_fee">Komissiya (ixtiyoriy)</string>
+    <string name="ledger_fee_coin">Tanga</string>
+    <string name="ledger_fee_hint">USDT’da boʻlsa, tannarxni oshiradi (sotuvda tushumni kamaytiradi); tangada boʻlsa, miqdorni kamaytiradi.</string>
+    <string name="ledger_fee_line">Komissiya %1$s</string>
+    <string name="ledger_fifo_cost_note">Xariddan beri: komissiyalar bilan FIFO tannarxi (avval eng eski tangalar sotiladi).</string>
+    <string name="ledger_gain_info">Bugun, 7 K, 1 Y: davr davomidagi qiymat oʻzgarishi – xarid va sotuvlar foyda hisoblanmaydi. Xariddan beri: hali saqlayotgan tangalaringizning joriy qiymatidan tannarx (komissiyalar bilan oʻrtacha tannarx) ayirilgani.</string>
+    <string name="ledger_gain_info_a11y">Foyda va zarar qanday hisoblanadi</string>
+    <string name="ledger_gain_info_fifo">Bugun, 7 K, 1 Y: davr davomidagi qiymat oʻzgarishi – xarid va sotuvlar foyda hisoblanmaydi. Xariddan beri: hali saqlayotgan tangalaringizning joriy qiymatidan tannarx (komissiyalar bilan FIFO) ayirilgani.</string>
+    <string name="ledger_gain_title">Foyda/zarar</string>
+    <string name="ledger_more_toggle">Komissiya va birja</string>
+    <string name="ledger_partial_cost">«Xariddan beri» faqat xarid narxi bor qismni hisoblaydi – xarid narxi yoʻq %1$s hisobga olinmagan.</string>
+    <string name="ledger_period_without">Bugun / 7 K / 1 Y: %1$s hisobga olinmagan – mos boshlangʻich narx yoʻq.</string>
+    <string name="ledger_since_purchase_currency">Xariddan beri (%1$s)</string>
+    <string name="ledger_since_purchase_spoken">Xariddan beri foyda/zarar, hali sotilmagan</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="one">Xarid narxi yoʻq %1$d ta tanga hisobga olinmagan (%2$s) – hisobga olinishi uchun narxini qoʻshing.</item>
+        <item quantity="other">Xarid narxi yoʻq %1$d ta tanga hisobga olinmagan (%2$s) – hisobga olinishi uchun narxlarini qoʻshing.</item>
+    </plurals>
+
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">USDT qulashi – bozor %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">USDT dollar kursi USDC/USDT orqali – USDC tushsa, bu qiymat notoʻgʻri</string>
+    <string name="portfolio_amount_bridged_stable">≈ %1$s bilan (bridged)</string>
+
+    <string name="portfolio_tx_interest">Foiz (qarz berish)</string>
+    <string name="portfolio_tx_interest_hint">Olingan paytda daromad hisoblanadi (Avstriya). Steyking mukofotlari va airdroplar uchun ishlatmang.</string>
+    <string name="app_lock_no_screen_lock">Portfelni ochish uchun ekran qulfini oʻrnating.</string>
+    <string name="app_lock_turn_off_action">Portfel qulfini oʻchirish</string>
+    <string name="app_lock_turn_off_confirm_title">Portfel qulfi oʻchirilsinmi?</string>
+    <string name="app_lock_turn_off_confirm_message">Ekran qulfisiz portfelni qulfdan chiqarib boʻlmaydi. Oʻchirilsa, ilova portfelingizni soʻramasdan yana koʻrsatadi. Ekran qulfi oʻrnatilgach, qulfni Sozlamalarda qayta yoqishingiz mumkin.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">«Xariddan beri» va %1$s dagi tannarx: tannarx xarid kunidagi valyuta kursida, qiymat bugungi kursda.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">Xarid kuni uchun valyuta kursi yoʻq («Xariddan beri» va tannarxga kirmaydi): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">USDT dollar kursi yoʻq xarid kunlaridagi tannarx 1 USDT uchun 1 AQSH dollari deb hisoblandi.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">%1$s holatiga – birja javob bermayapti</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">Kunlik kurslar: %1$s (Binance oʻrniga)</string>
+
+    <string name="portfolio_footer_short">Ishchi vosita, soliq yoki investitsiya maslahati emas. Maxfiylik: Sozlamalar › Ilova haqida › Maxfiylik siyosati.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">%1$s ning barcha tranzaksiyalari oʻchirilsinmi?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">%d ta tranzaksiya oʻchiriladi. Buni darhol bekor qilishingiz mumkin.</item>
+        <item quantity="other">%d ta tranzaksiya oʻchiriladi. Buni darhol bekor qilishingiz mumkin.</item>
+    </plurals>
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">%1$s da toʻlangan komissiyalar boshqa tranzaksiyalardan ham oʻchiriladi: %2$d.</string>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s portfeldan oʻchirildi (%2$d ta tranzaksiya)</item>
+        <item quantity="other">%1$s portfeldan oʻchirildi (%2$d ta tranzaksiya)</item>
+    </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">%d ta tranzaksiya oʻchirildi</item>
+        <item quantity="other">%d ta tranzaksiya oʻchirildi</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">Bu %d ta lotni ham oʻchiradi.</item>
+        <item quantity="other">Bu %d ta lotni ham oʻchiradi.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">Bu %d ta lot va balans tarixini ham oʻchiradi.</item>
+        <item quantity="other">Bu %d ta lot va balans tarixini ham oʻchiradi.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">Bu balans tarixini ham oʻchiradi.</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">Saqlab boʻlmadi – qayta urinib koʻring</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">Chegara yaroqsiz – oʻchiring va qayta yarating</string>
+</resources>

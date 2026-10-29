@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
+    <string name="portfolio_cutoff_export_action">នាំចេញតាមកាលបរិច្ឆេទកំណត់…</string>
+    <string name="portfolio_tax_worksheet_action">សន្លឹកកិច្ចការ…</string>
+    <string name="portfolio_export_address_unobserved">អាសយដ្ឋានមិនត្រូវបានតាមដាននៅកាលបរិច្ឆេទនេះទេ – មិនរួមបញ្ចូល</string>
+    <string name="portfolio_export_button">នាំចេញ CSV</string>
+    <string name="portfolio_export_col_amount">ចំនួន</string>
+    <string name="portfolio_export_col_coin">កាក់</string>
+    <string name="portfolio_export_col_note">កំណត់ចំណាំ</string>
+    <string name="portfolio_export_col_price">តម្លៃ USDT</string>
+    <string name="portfolio_export_col_rate">អត្រា USDT→%1$s</string>
+    <string name="portfolio_export_col_value">តម្លៃសរុប USDT</string>
+    <string name="portfolio_export_col_value_cur">តម្លៃសរុប %1$s</string>
+    <!-- Inhalt der CSV-Datei -->
+    <string name="portfolio_export_comment"># កាលបរិច្ឆេទកំណត់ %1$s, រូបិយប័ណ្ណ %2$s, អត្រាប្តូរប្រាក់នៃ %3$s</string>
+    <string name="portfolio_export_currency">រូបិយប័ណ្ណ៖ %1$s</string>
+    <string name="portfolio_export_date">កាលបរិច្ឆេទកំណត់</string>
+    <string name="portfolio_export_done">បានរក្សាទុកការនាំចេញ</string>
+    <string name="portfolio_export_estv_note">សម្រាប់ពន្ធលើទ្រព្យសម្បត្តិ តម្លៃចុងឆ្នាំផ្លូវការនៃបញ្ជីតម្លៃ ESTV %1$s អនុវត្តចំពោះកាក់ដែលមានក្នុងបញ្ជី៖ %2$s</string>
+    <string name="portfolio_export_failed">ការនាំចេញបានបរាជ័យ</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">ការនាំចេញបានបរាជ័យ៖ មិនអាចសរសេរឯកសារបានទេ – ទីតាំងផ្ទុកបាត់ ឬមិនអាចសរសេរបាន</string>
+    <string name="portfolio_export_failed_prices">ការនាំចេញបានបរាជ័យ៖ មិនអាចផ្ទុកតម្លៃបានទេ – គ្មានការតភ្ជាប់ ឬផ្សារប្តូរមិនឆ្លើយតប</string>
+    <string name="portfolio_export_from_address">ពីអាសយដ្ឋាន – គ្មានតម្លៃទិញ</string>
+    <string name="portfolio_export_hint">ការកាន់កាប់នៅចុងបញ្ចប់នៃថ្ងៃដែលបានជ្រើស វាយតម្លៃតាមតម្លៃបិទប្រចាំថ្ងៃ (UTC) ជា USDT ហើយបម្លែងដោយអត្រាយោង ECB នៃថ្ងៃនោះ។ ផ្លាស់ប្តូររូបិយប័ណ្ណដោយ «បម្លែងទៅ»។</string>
+    <string name="portfolio_export_incomplete">មិនពេញលេញ</string>
+    <string name="portfolio_export_no_fx">គ្មានអត្រាប្តូរប្រាក់</string>
+    <string name="portfolio_export_no_price">គ្មានតម្លៃ</string>
+    <string name="portfolio_export_running">កំពុងទាញយកតម្លៃប្រវត្តិ…</string>
+    <string name="portfolio_export_title">នាំចេញតាមកាលបរិច្ឆេទកំណត់</string>
+    <string name="portfolio_export_today_hint">ថ្ងៃនេះមិនទាន់ចប់នៅឡើយទេ៖ តម្លៃបច្ចុប្បន្នត្រូវបានប្រើជំនួសតម្លៃបិទប្រចាំថ្ងៃ។</string>
+    <string name="portfolio_export_total">សរុប</string>
+    <string name="portfolio_export_unchecked">មិនបានពិនិត្យ (គ្មានតម្លៃត្រូវគ្នា)</string>
+
+    <!-- Steuer-Export (Arbeitspapier) -->
+    <string name="tax_export_adjustment">superficial loss (បូកចូល ACB)</string>
+    <string name="tax_export_at_wallet_note">អូទ្រីស៖ មធ្យមផ្លាស់ទីក្នុងមួយកាក់ និងកាបូប (ផ្សារប្តូរ) – ការផ្ទេរនាំតម្លៃដើមទៅជាមួយ – រង្វាន់តាមតម្លៃទិញ 0 – ការកាន់កាប់ចាប់ពី 1 មីនា 2021 គ្មានកម្រៃ (មិនអាចកាត់កង) – ការប្រាក់ពីការឱ្យខ្ចីតាមតម្លៃនៅពេលទទួល (ចំណូលក្នុងអត្រា 27.5 ភាគរយ)។</string>
+    <string name="tax_export_avg_cost_rates">តម្លៃដើមតាមអត្រានៃកាលបរិច្ឆេទទិញ (មធ្យម)</string>
+    <string name="tax_export_ch_wealth_not_calculated">ពន្ធលើទ្រព្យសម្បត្តិមិនត្រូវបានគណនា – បញ្ជីតម្លៃ ESTV៖ %1$s</string>
+    <string name="tax_export_col_acquired">បានទិញ</string>
+    <string name="tax_export_col_adjustment">ការខាតដែលមិនអនុញ្ញាត %1$s</string>
+    <string name="tax_export_col_cost">តម្លៃដើម %1$s</string>
+    <string name="tax_export_col_date">កាលបរិច្ឆេទ</string>
+    <string name="tax_export_col_days">ថ្ងៃកាន់កាប់</string>
+    <string name="tax_export_col_gain">ចំណេញ %1$s</string>
+    <string name="tax_export_col_gross">តម្លៃមុនកម្រៃ %1$s</string>
+    <string name="tax_export_col_long_term">កាន់កាប់ &gt; 1 ឆ្នាំ</string>
+    <string name="tax_export_col_portfolio_value">តម្លៃផលប័ត្រ %1$s</string>
+    <string name="tax_export_col_proceeds">ចំណូលពីការលក់ %1$s</string>
+    <string name="tax_export_col_sold">បានលក់</string>
+    <string name="tax_export_cost_incomplete">តម្លៃទិញសរុបមិនពេញលេញ</string>
+    <string name="tax_export_cost_missing">ខ្វះតម្លៃទិញ</string>
+    <string name="tax_export_fee_consumed">កម្រៃស៊ីចំនួនដែលទទួលបានទាំងអស់</string>
+    <string name="tax_export_fee_leg">កម្រៃជាកាក់ផ្សេង</string>
+    <string name="tax_export_fee_row">កម្រៃ</string>
+    <string name="tax_export_fee_value_missing">កម្រៃជាកាក់ផ្សេងគ្មានតម្លៃ</string>
+    <string name="tax_export_gains">ការលក់ចេញដែលបានសម្រេច (CSV)</string>
+    <string name="tax_export_gains_title">ការលក់ចេញដែលបានសម្រេច %1$s</string>
+    <string name="tax_export_gift">អំណោយ</string>
+    <string name="tax_export_holdings_cutoff">ការកាន់កាប់នៅ %1$s (CSV)</string>
+    <string name="tax_export_holdings_title">ការកាន់កាប់នៅ %1$s</string>
+    <string name="tax_export_income">ចំណូល (CSV)</string>
+    <string name="tax_export_income_title">ចំណូល %1$s</string>
+    <string name="tax_export_info_template">គំរូ៖ %1$s · វិធីសាស្ត្រ៖ %2$s · ឆ្នាំពន្ធ៖ %3$s · រូបិយប័ណ្ណ៖ %4$s · Crypto Checker %5$s</string>
+    <string name="tax_export_lost_fee_cost">ថ្លៃកម្រៃបណ្ដាញដោយគ្មានឡូតិ៍ដែលបានបង់</string>
+    <string name="tax_export_match_pool">Section 104 pool</string>
+    <string name="tax_export_match_same_day">ថ្ងៃដដែល (HMRC)</string>
+    <string name="tax_export_match_thirty_day">ច្បាប់ 30 ថ្ងៃ (HMRC)</string>
+    <string name="tax_export_method_change_warning">ការផ្លាស់ប្តូរវិធីសាស្ត្រ ឬគំរូ គណនាឆ្នាំមុនៗឡើងវិញផងដែរ – សូមប្រៀបធៀបជាមួយអ្វីដែលអ្នកបានដាក់រួចហើយ។</string>
+    <string name="tax_export_method_overridden">គំរូគណនា %1$s – មិនមែន %2$s</string>
+    <string name="tax_export_new_holding">បានទិញចាប់ពី 1 មីនា 2021</string>
+    <string name="tax_export_no">ទេ</string>
+    <string name="tax_export_old_holding">បានទិញមុន 1 មីនា 2021</string>
+    <string name="tax_export_oversold">បានលក់ច្រើនជាងដែលបានកត់ត្រា</string>
+    <string name="tax_export_payment">ការទូទាត់ដោយគ្រីបតូ</string>
+    <string name="tax_export_period">%1$s – %2$s</string>
+    <string name="tax_export_proceeds_missing">ខ្វះតម្លៃលក់</string>
+    <string name="tax_export_proceeds_without_cost">ចំណូលពីការលក់ដោយគ្មានតម្លៃទិញ</string>
+    <string name="tax_export_realized_differs">CSV ពន្ធអាចខុសពី «ដែលបានសម្រេច» (ច្បាប់ពន្ធរបស់ប្រទេស)។</string>
+    <string name="tax_export_rule">&gt; 1 ឆ្នាំ៖ បានលក់បន្ទាប់ពីកាលបរិច្ឆេទទិញ + 1 ឆ្នាំប្រតិទិន។ កាលបរិច្ឆេទតាមម៉ោងក្នុងស្រុក។ អត្រា៖ អត្រាប្រចាំថ្ងៃ ECB នៃថ្ងៃប្រតិបត្តិការ។ ប្រសិនបើគ្មាន អត្រាចុងក្រោយរហូតដល់ 7 ថ្ងៃមុន។</string>
+    <string name="tax_export_rules_date">ច្បាប់គិតត្រឹម៖ %1$s</string>
+    <string name="tax_export_rules_stale">ច្បាប់មកពី %1$s – សម្រាប់ %2$s អត្រា និងការលើកលែងអាចបានផ្លាស់ប្តូរ។ សូមពិនិត្យតម្លៃ។</string>
+    <string name="tax_export_spouse_gift">ទៅប្តីប្រពន្ធ/ដៃគូ – គ្មានចំណេញ គ្មានខាត</string>
+    <string name="tax_export_summary">សេចក្តីសង្ខេបប្រចាំឆ្នាំ %1$s (CSV)</string>
+    <string name="tax_export_swap">ការប្តូរកាក់</string>
+    <string name="tax_export_tax_year">ឆ្នាំពន្ធ</string>
+    <string name="tax_export_transfer_fee_info">កម្រៃផ្ទេរជា USDT/សាច់ប្រាក់ – មិនមែនការខាត មិននៅក្នុងតម្លៃដើម សម្រាប់ព័ត៌មានតែប៉ុណ្ណោះ</string>
+    <string name="tax_export_unassigned_fee">កម្រៃមិនបានកំណត់ – មិនស្គាល់តម្លៃដើម</string>
+    <string name="tax_export_usdt_usd_note">USDT បានបម្លែងតាមតម្លៃបិទប្រចាំថ្ងៃ USDT/USD។ 1 USD នៅកន្លែងដែលគ្មានតម្លៃបិទ (សម្គាល់ក្នុងជួរនីមួយៗ)</string>
+    <string name="tax_export_value_estimated">តម្លៃប៉ាន់ស្មាន (តម្លៃបិទប្រចាំថ្ងៃ)</string>
+    <string name="tax_export_value_missing">ខ្វះតម្លៃនៅពេលទទួល</string>
+    <string name="tax_export_wallet">កាបូប៖ %1$s</string>
+    <string name="tax_export_wallet_unspecified">មិនបានបញ្ជាក់</string>
+    <string name="tax_export_withdrawal_fee">កម្រៃដក</string>
+    <string name="tax_export_withdrawal_fee_info">កម្រៃដកជា USDT/សាច់ប្រាក់ – មិនមែនការខាត សម្រាប់ព័ត៌មានតែប៉ុណ្ណោះ</string>
+    <string name="tax_export_workpaper_disclaimer">សន្លឹកកិច្ចការពន្ធ – មិនមែនជាលិខិតប្រកាសពន្ធ និងមិនមែនដំបូន្មានពន្ធទេ</string>
+    <string name="tax_export_workpaper_title">សន្លឹកកិច្ចការ</string>
+    <string name="tax_export_year_local_zone">កាលបរិច្ឆេទតាមម៉ោងក្នុងស្រុក (%1$s)</string>
+    <string name="tax_export_yes">បាទ/ចាស</string>
+
+    <!-- Steuer-Export: Zeilen und Spalten -->
+    <string name="tax_line_at_interest">ការប្រាក់ពីការឱ្យខ្ចី (តម្លៃនៅពេលទទួល)</string>
+    <string name="tax_line_at_old_long">បានទិញមុន 1 មីនា 2021 – កាន់កាប់ &gt; 1 ឆ្នាំ៖ ជាធម្មតាមិនជាប់ពន្ធ – សូមពិនិត្យ</string>
+    <string name="tax_line_at_rate">អត្រាពិសេស 27.5 ភាគរយ៖ សុទ្ធដែលបានទិញចាប់ពី 1 មីនា 2021 និងលក់ចាប់ពី 1 មីនា 2022 + ការប្រាក់</string>
+    <string name="tax_line_au_discounted">ចំណេញមូលធនសុទ្ធបន្ទាប់ពីការខាត និងការបញ្ចុះ 50 ភាគរយ</string>
+    <string name="tax_line_ca_taxable">ចំណេញមូលធនជាប់ពន្ធ (អត្រារួមបញ្ចូល 1/2)</string>
+    <string name="tax_line_ch_income">រង្វាន់ដែលបានរាយ – សូមមើលឯកសារការងារ ESTV សម្រាប់ការចាត់ចែងរបស់វា</string>
+    <string name="tax_line_ch_private">ចំណេញមូលធនលើទ្រព្យសម្បត្តិឯកជន៖ មិនបានគណនា – សូមមើល ESTV សម្រាប់ការចាត់ថ្នាក់</string>
+    <string name="tax_line_ch_wealth">ពន្ធលើទ្រព្យសម្បត្តិ៖ មិនបានគណនា – CSV ការកាន់កាប់ប្រើតម្លៃផ្សារប្តូរ × USD/CHF នៅ 31 ធ្នូ – តម្លៃពន្ធផ្លូវការ៖ បញ្ជីតម្លៃ ESTV</string>
+    <string name="tax_line_de_long">កាន់កាប់ &gt; 1 ឆ្នាំ៖ ជាធម្មតាមិនជាប់ពន្ធក្រោម § 23 EStG – សូមពិនិត្យ</string>
+    <string name="tax_line_denied_loss">ការខាតដែលមិនអនុញ្ញាត (superficial loss)</string>
+    <string name="tax_line_fr_outflow">លំហូរចេញដោយគ្មានការលក់ (ការដក) – តម្លៃទិញសរុបត្រូវបានកាត់បន្ថយតាមសមាមាត្រ</string>
+    <string name="tax_line_fr_rate">អត្រាថេរ 12.8 ភាគរយ បូកនឹងវិភាគទានសង្គម (ឬតារាងអត្រាតាមជម្រើស)</string>
+    <string name="tax_line_fr_threshold">ការលក់ចេញរហូតដល់ €305 ក្នុងមួយឆ្នាំ៖ ជាទូទៅត្រូវបានលើកលែង (សរុបនៃតម្លៃលក់) – សូមពិនិត្យ</string>
+    <string name="tax_line_gains">ចំណេញ</string>
+    <string name="tax_line_income">ចំណូល (រង្វាន់តាមតម្លៃនៅពេលទទួល)</string>
+    <string name="tax_line_jp_misc">ចំណូលផ្សេងៗ (雑所得)៖ ចំណេញសុទ្ធ + ចំណូល</string>
+    <string name="tax_line_long_net">សុទ្ធ – កាន់កាប់ &gt; 1 ឆ្នាំ</string>
+    <string name="tax_line_losses">ការខាត</string>
+    <string name="tax_line_net">ចំណេញ/ខាតសុទ្ធ</string>
+    <string name="tax_line_new_net">សុទ្ធ – បានទិញចាប់ពី 1 មីនា 2021 លក់ចាប់ពី 1 មីនា 2022</string>
+    <string name="tax_line_old_long_net">សុទ្ធ – បានទិញមុន 1 មីនា 2021 – កាន់កាប់ &gt; 1 ឆ្នាំ</string>
+    <string name="tax_line_old_short_net">សុទ្ធ – ប្រតិបត្តិការប៉ាន់ស្មាន (ច្បាប់ចាស់)៖ បានទិញមុន 1 មីនា 2021 ហើយកាន់កាប់ ≤ 1 ឆ្នាំ ឬលក់មុន 1 មីនា 2022</string>
+    <string name="tax_line_proceeds">ចំណូលពីការលក់</string>
+    <string name="tax_line_short_net">សុទ្ធ – កាន់កាប់ ≤ 1 ឆ្នាំ</string>
+    <string name="tax_line_transfer_fees">កម្រៃផ្ទេរ (កាបូបផ្ទាល់ខ្លួន)</string>
+    <string name="tax_line_uk_after_exempt">ចំណេញសុទ្ធលើសចំនួនលើកលែង (គ្រីបតូតែប៉ុណ្ណោះ)</string>
+    <string name="tax_line_uk_exempt">ចំនួនលើកលែងប្រចាំឆ្នាំ – អនុវត្តចំពោះការលក់ចេញទាំងអស់រួមគ្នា អនុវត្តពេញលេញនៅទីនេះ</string>
+    <string name="tax_line_us_terms">រយៈពេលខ្លី (≤ 1 ឆ្នាំ)៖ អត្រាធម្មតា – រយៈពេលវែង (&gt; 1 ឆ្នាំ)៖ អត្រាចំណេញមូលធន</string>
+    <string name="tax_line_withdrawal_fees">កម្រៃដក</string>
+
+    <!-- Steuer Deutschland -->
+    <string name="tax_de_below">ក្រោមដែនកំណត់</string>
+    <string name="tax_de_col_item">ធាតុ</string>
+    <string name="tax_de_disclaimer">សម្រាប់ជាការណែនាំតែប៉ុណ្ណោះ – មិនមែនជាលិខិតប្រកាសពន្ធ និងមិនមែនដំបូន្មានពន្ធទេ។</string>
+    <string name="tax_de_explain_below">រហូតដល់ %1$s៖ ក្រោមដែនកំណត់ (សម្រាប់ជាការណែនាំ)។</string>
+    <string name="tax_de_explain_loss">ការខាតសុទ្ធ៖ គ្មានពន្ធលើការលក់ទាំងនេះទេ។ ការខាតក្រោម § 23 EStG អាចទូទាត់តែជាមួយចំណេញពីការលក់ឯកជនប៉ុណ្ណោះ – ក្នុងឆ្នាំដដែល ឬដោយការផ្ទេរត្រឡប់ទៅឆ្នាំមុន និងផ្ទេរទៅឆ្នាំក្រោយៗ (§ 23 កថាខណ្ឌ 3 និង § 10d EStG)។ សូមប្រកាសការខាតក្នុងលិខិតប្រកាសពន្ធរបស់អ្នក ដើម្បីឱ្យវាត្រូវបានវាយតម្លៃ។</string>
+    <string name="tax_de_explain_reached">ចាប់ពី %1$s ចំនួនទាំងមូលត្រូវបានរាប់ (ដែនកំណត់លើកលែង – មិនមែនការកាត់កងទេ)។</string>
+    <string name="tax_de_explain_unknown">មិនអាចពិនិត្យបាន៖ ខ្វះអត្រាប្តូរប្រាក់ / តម្លៃទិញ ឬរយៈពេលកាន់កាប់។</string>
+    <string name="tax_de_income_limit">ដែនកំណត់លើកលែងសម្រាប់សេវាកម្ម (§ 22 No. 3 EStG)</string>
+    <string name="tax_de_limit_scope">ដែនកំណត់អនុវត្តចំពោះការលក់ឯកជន ឬសេវាកម្មទាំងអស់នៃឆ្នាំរួមគ្នា – រួមទាំងនៅក្រៅកម្មវិធី។</string>
+    <string name="tax_de_loading">កំពុងគណនា…</string>
+    <string name="tax_de_long_gains">ចំណេញ – កាន់កាប់ &gt; 1 ឆ្នាំ</string>
+    <string name="tax_de_long_losses">ការខាត – កាន់កាប់ &gt; 1 ឆ្នាំ</string>
+    <string name="tax_de_loss">ការខាតសុទ្ធ – អាចទូទាត់តែជាមួយចំណេញពីការលក់ឯកជនប៉ុណ្ណោះ (§ 23 EStG)</string>
+    <string name="tax_de_private_limit">ដែនកំណត់លើកលែងសម្រាប់ការលក់ឯកជន (§ 23 EStG)</string>
+    <string name="tax_de_reached">ដល់ដែនកំណត់ – ជាធម្មតាចំនួនទាំងមូលត្រូវបានរាប់ – សូមពិនិត្យ</string>
+    <string name="tax_de_short_gains">ចំណេញ – កាន់កាប់ ≤ 1 ឆ្នាំ</string>
+    <string name="tax_de_short_losses">ការខាត – កាន់កាប់ ≤ 1 ឆ្នាំ</string>
+    <string name="tax_de_unclassified">មិនស្គាល់រយៈពេលកាន់កាប់</string>
+    <string name="tax_de_unknown">មិនអាចពិនិត្យបាន</string>
+
+    <!-- Steuer-Vorlagen je Land -->
+    <string name="tax_template_at">អូទ្រីស</string>
+    <string name="tax_template_au">អូស្ត្រាលី</string>
+    <string name="tax_template_beta">បេតា</string>
+    <string name="tax_template_beta_note">បេតា៖ ច្បាប់ប្រទេសត្រូវបានធ្វើឱ្យសាមញ្ញ សូមពិនិត្យមុនពេលដាក់លិខិតប្រកាសពន្ធរបស់អ្នក</string>
+    <string name="tax_template_ca">កាណាដា</string>
+    <string name="tax_template_ch">ស្វីស</string>
+    <string name="tax_template_confirm_text">បេតា ច្បាប់សាមញ្ញ ប្រតិបត្តិការពីវេទិកាផ្សេងទៀតខ្វះ – សូមពិនិត្យមុនពេលដាក់លិខិតប្រកាសពន្ធរបស់អ្នក។</string>
+    <string name="tax_template_confirm_title">គំរូពន្ធ (បេតា)</string>
+    <string name="tax_template_current">គំរូ៖ %1$s · វិធីសាស្ត្រ៖ %2$s · រូបិយប័ណ្ណ៖ %3$s</string>
+    <string name="tax_template_de">អាល្លឺម៉ង់</string>
+    <string name="tax_template_fr">បារាំង</string>
+    <string name="tax_template_hint">សម្រាប់ជាការណែនាំតែប៉ុណ្ណោះ៖ កំណត់វិធីសាស្ត្រ ឆ្នាំពន្ធ និងសេចក្តីសង្ខេបនៃសន្លឹកកិច្ចការពន្ធ។ កាតផលប័ត្រនៅតែអព្យាក្រឹត – អំណោយ និងកម្រៃផ្ទេរអាចខុសពីសន្លឹកកិច្ចការ។</string>
+    <string name="tax_template_jp">ជប៉ុន</string>
+    <string name="tax_template_neutral">អព្យាក្រឹត (គ្រប់ប្រទេស)</string>
+    <string name="tax_template_suggestion">ការណែនាំសម្រាប់តំបន់របស់អ្នក៖ %1$s</string>
+    <string name="tax_template_title">គំរូពន្ធ</string>
+    <string name="tax_template_uk">ចក្រភពអង់គ្លេស</string>
+    <string name="tax_template_us">សហរដ្ឋអាមេរិក</string>
+    <string name="tax_template_use">ប្រើ %1$s</string>
+
+    <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
+    <string name="tax_method_at">ការកាន់កាប់ចាស់/ថ្មី – មធ្យមផ្លាស់ទី</string>
+    <string name="tax_method_ca_acb">តម្លៃដើមមធ្យម ACB (superficial loss)</string>
+    <string name="tax_method_fr_pta">តម្លៃទិញសរុប (art. 150 VH bis)</string>
+    <string name="tax_method_jp_total">មធ្យមសរុប (総平均法)</string>
+    <string name="tax_method_uk_pool">Section 104 pool (ថ្ងៃដដែល / 30 ថ្ងៃ)</string>
+    <string name="tax_note_at">មធ្យមផ្លាស់ទីក្នុងមួយកាក់ និងកាបូប – មិនមែនឆ្លងកាត់កាបូបទេ (KryptowährungsVO § 2)។ រង្វាន់ចូលក្នុងការកាន់កាប់ថ្មីតាមតម្លៃទិញ 0 (BMF៖ staking / airdrop) – ឯកសារចំណូលរាយវាតាមតម្លៃនៅពេលទទួល។ កម្រៃមិនអាចកាត់កងបានសម្រាប់ការកាន់កាប់ដែលបានទិញចាប់ពី 1 មីនា 2021 (§ 27a(4) no. 2, § 20(2) EStG)៖ តម្លៃដើម និងចំណូលពីការលក់ដោយគ្មានកម្រៃ។ ការប្រាក់ពីការឱ្យខ្ចី (ប្រភេទពីការនាំចូល CSV ឬកំណត់ចំណាំ) គឺជាចំណូលនៅពេលទទួលក្នុងអត្រា 27.5 ភាគរយ ហើយរក្សាតម្លៃនោះជាតម្លៃទិញ។</string>
+    <string name="tax_note_at_staking">Staking ជាមួយកាក់ដែលអ្នកកាន់កាប់រួចហើយ និង airdrop៖ តម្លៃនៅពេលទទួលមិនសំខាន់សម្រាប់ពន្ធទេ – តាមច្បាប់ តម្លៃទិញគឺ 0 (§ 27b Abs. 2 EStG; BMF «Kryptowährungen»)។ ពន្ធអនុវត្តតែនៅពេលអ្នកលក់ប៉ុណ្ណោះ។</string>
+    <string name="tax_note_fr">ការលក់ និងកម្រៃដែលបានបង់ជាគ្រីបតូគឺជាការលក់ចេញ – ការប្តូរកាក់ត្រូវបានពន្យារ។ កម្រៃគ្រីបតូលើការលក់ត្រូវបានរាប់ក្នុងតម្លៃមុនកម្រៃ – បើមិនដូច្នោះទេ វាជាការលក់ចេញដោយខ្លួនវាតាមតម្លៃរបស់វា។ តម្លៃផលប័ត្រពីតម្លៃបិទប្រចាំថ្ងៃ – តម្លៃបិទដែលខ្វះធ្វើឱ្យតម្លៃដើមទទេ។</string>
+    <string name="tax_note_network_fee">កម្រៃបណ្ដាញដែលបានបង់ជាគ្រីបតូ (ការផ្ទេរទៅកាបូបផ្ទាល់ខ្លួន ការដក) គឺជាការលក់ចេញនៃកាក់កម្រៃតាមតម្លៃទីផ្សារ – ចំណេញ ឬខាតតែលើកាក់ទាំងនោះប៉ុណ្ណោះ មិនមែនការខាតនៃកម្រៃទាំងមូលទេ (%1$s)។ បើគ្មានតម្លៃដែលបានកត់ត្រា៖ តម្លៃបិទប្រចាំថ្ងៃ (UTC) នៃថ្ងៃដដែល។ បើគ្មានតម្លៃបិទ ចំណូលពីការលក់នៅតែទទេ។</string>
+    <string name="tax_note_specific_id">មិនគាំទ្រការកំណត់អត្តសញ្ញាណជាក់លាក់ (specific identification) ទេ – ប្រើ FIFO។</string>
+    <string name="tax_note_spouse_gift">អំណោយដែលបានសម្គាល់ «ទៅប្តីប្រពន្ធ / ដៃគូស៊ីវិល» គ្មានចំណេញ និងគ្មានខាត៖ ចំណូលពីការលក់ = តម្លៃដើមរបស់អ្នក ដែលដៃគូរបស់អ្នកទទួលយក (%1$s)។</string>
+    <string name="tax_note_stable_swap">ការលក់គ្រីបតូដើម្បីយក stablecoin (USDT/USDC/DAI …) ដែលអ្នករក្សាទុក គឺជាគ្រីបតូទៅគ្រីបតូនៅទីនេះ ហើយមិនជាប់ពន្ធទេ – សូមកត់ត្រាវាជាការប្តូរកាក់ទៅ stablecoin។ មានតែការលក់យកប្រាក់អឺរ៉ូប៉ុណ្ណោះដែលជាប់ពន្ធ – «លក់» ត្រូវបានរាប់ជាការលក់យកប្រាក់អឺរ៉ូ។</string>
+    <string name="tax_note_transfer_fee">ដូចគ្នានេះដែរ ចំពោះកម្រៃ USDT ឬសាច់ប្រាក់លើការផ្ទេររវាងកាបូបផ្ទាល់ខ្លួនរបស់អ្នក៖ វាមិនត្រូវបានបូកចូលតម្លៃដើមទេ ហើយត្រូវបានរាយសម្រាប់ព័ត៌មានតែប៉ុណ្ណោះ។</string>
+    <string name="tax_note_uk">ការផ្គូផ្គងតាម HMRC៖ ថ្ងៃដដែល → 30 ថ្ងៃបន្ទាប់ → Section 104 pool។</string>
+    <string name="tax_note_us_transition">ការផ្លាស់ប្តូរ 1 មករា 2025 (Rev. Proc. 2024-28 safe harbor)៖ ប្រសិនបើឆ្នាំមុនៗបានប្រើ FIFO ឆ្លងកាត់កាបូបទាំងអស់ ឡូតិ៍ដែលនៅសល់គិតត្រឹម 31 ធ្នូ 2024 ទៅកាន់កាបូបដែលកាន់កាក់ – កាបូបដែលមានកាក់ចាស់បំផុតទទួលបានតម្លៃដើមចាស់បំផុត។ ការបែងចែកនេះជាច្បាប់របស់កម្មវិធី – សូមពិនិត្យវាជាមួយកំណត់ត្រាផ្ទាល់ខ្លួនរបស់អ្នក។</string>
+    <string name="tax_note_us_wallet">ចាប់ពីឆ្នាំពន្ធ 2025 IRS តម្រូវឱ្យមានតម្លៃដើមតាមកាបូប ឬផ្សារប្តូរ (Rev. Proc. 2024-28)៖ ការនាំចេញប្រើ FIFO តាមកាបូបចាប់ពី 2025 – សម្រាប់ឆ្នាំមុនៗ FIFO ឆ្លងកាត់កាបូបទាំងអស់ ឬ FIFO តាមកាបូប ប្រសិនបើនោះជាវិធីសាស្ត្រតម្លៃដើមរបស់អ្នក។</string>
+    <string name="tax_note_withdrawal_fee">កម្រៃដកជា USDT ឬសាច់ប្រាក់មិនមែនជាការខាតទេ៖ កម្រៃសាច់ប្រាក់មិនមែនជាចំណាយដែលអាចកាត់កងបានទេ កម្រៃ USDT គឺជាការលក់ចេញតាមតម្លៃស្មើដោយគ្មានចំណេញ – វាត្រូវបានរាយសម្រាប់ព័ត៌មានតែប៉ុណ្ណោះ (%1$s)។</string>
+    <string name="tax_summary_at_interest_income">រាប់៖ ចំណូលនៅពេលទទួលក្នុងអត្រាពិសេស 27.5 ភាគរយ (§ 27b(2) no. 1 EStG / BMF) – កាក់រក្សាតម្លៃនេះជាតម្លៃទិញ</string>
+    <string name="tax_summary_at_reward_info">សម្រាប់ព័ត៌មានតែប៉ុណ្ណោះ – មិនមែនជាផ្នែកនៃសរុបណាមួយទេ៖ រង្វាន់ចូលក្នុងការកាន់កាប់ថ្មីតាមតម្លៃទិញ 0 ហើយជាប់ពន្ធតែនៅពេលលក់ (មាននៅក្នុងចំណេញរួចហើយ) – § 27b para. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">1 មករា–28 កុម្ភៈ 2022៖ អាចជ្រើសរើសអត្រា 27.5 ភាគរយ</string>
+    <string name="tax_summary_at_withdrawal_fee">កម្រៃដក – មិនទូទាត់ជាមួយការកាន់កាប់ថ្មីទេ (ចំណាយមិនអាចកាត់កងបានក្នុងអត្រាពិសេស § 20(2) EStG)</string>
+    <string name="tax_summary_ch_fifo_info">សម្រាប់ព័ត៌មានតែប៉ុណ្ណោះ – ការគណនា FIFO របស់កម្មវិធី – មិនបានចាត់ថ្នាក់ – សូមមើល ESTV</string>
+    <string name="tax_summary_ch_year_end_value">តម្លៃនៅ 31 ធ្នូ ក្នុង CSV ការកាន់កាប់ = តម្លៃផ្សារប្តូរ × USD/CHF – មិនមែនតម្លៃពន្ធ ESTV ទេ</string>
+    <string name="tax_summary_de_withdrawal_fee">កម្រៃដក – មិនទូទាត់ក្រោម § 23 ទេ សូមពិនិត្យថាតើអាចកាត់កងជាចំណាយទាក់ទងនឹងចំណូលបានឬទេ</string>
+    <string name="tax_summary_not_calculated_estv">មិនបានគណនា – បញ្ជីតម្លៃ ESTV៖ %1$s</string>
+    <string name="tax_summary_orientation">ការណែនាំ</string>
+    <string name="tax_summary_orientation_block">សម្រាប់ជាការណែនាំតែប៉ុណ្ណោះ – មិនមែនដំបូន្មានពន្ធ – មិនមែនការវាយតម្លៃពន្ធទេ</string>
+    <string name="tax_summary_orientation_item">ការណែនាំ៖ %1$s</string>
+    <string name="tax_summary_title">សេចក្តីសង្ខេបប្រចាំឆ្នាំ %1$s %2$s</string>
+    <string name="tax_summary_transfer_fee_info">កម្រៃផ្ទេរជា USDT/សាច់ប្រាក់ – មិនមែនការខាត និងមិននៅក្នុងតម្លៃដើម សម្រាប់ព័ត៌មានតែប៉ុណ្ណោះ</string>
+    <string name="tax_summary_withdrawal_fee_info">កម្រៃដកជា USDT/សាច់ប្រាក់ – មិនរាប់ជាការខាតទេ សម្រាប់ព័ត៌មានតែប៉ុណ្ណោះ</string>
+
+    <string name="tax_line_at_old_speculation_limit">ប្រតិបត្តិការប៉ាន់ស្មាន (ច្បាប់ចាស់ កាន់កាប់ ≤ 1 ឆ្នាំ)៖ ដែនកំណត់លើកលែង (§ 31 (3) EStG កំណែចាស់)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">ការប្រាក់ពីការឱ្យខ្ចីមុន 1 មីនា 2022 (តម្លៃនៅពេលទទួល)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">ការប្រាក់មុន 1 មីនា 2022៖ ច្បាប់ចាស់ (អត្រាពន្ធលើប្រាក់ចំណូល) មិនមែន 27.5 ភាគរយទេ</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">មុន 1 មីនា 2022 – សូមពិនិត្យជាមួយអ្នកជំនាញ</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">ការប្រាក់ – ជាប់ពន្ធនៅពេលទទួល</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">Staking – សម្រាប់ព័ត៌មានតែប៉ុណ្ណោះ (តម្លៃទិញ 0 ជាប់ពន្ធនៅពេលលក់)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">ការប្រាក់សរុប (ជាប់ពន្ធ)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">Staking សរុប (ព័ត៌មាន)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">ការខាតមូលធនសុទ្ធ (ផ្ទេរទៅមុខ)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">ដោយគ្មានជម្រើស៖ រួមទាំងការលក់នៃ 1 មករា–28 កុម្ភៈ 2022</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">Staking មុន 1 មីនា 2022៖ តម្លៃទិញកំណត់ជា 0 – សូមពិនិត្យជាមួយអ្នកជំនាញ</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">ច្បាប់ 30 ថ្ងៃអាចនៅតែផ្លាស់ប្តូរតួលេខទាំងនេះ (ការទិញរហូតដល់ %1$s)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">ចំណូលពីការលក់មុនកម្រៃលើសដែនកំណត់រាយការណ៍ (£50,000; 2020/21–2022/23: £49,200)៖ រាយការណ៍ទៅ HMRC ប្រសិនបើអ្នកបានចុះឈ្មោះសម្រាប់ Self Assessment សូម្បីតែគ្មានចំណេញជាប់ពន្ធក៏ដោយ</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">តម្លៃទ្រព្យសម្បត្តិ 31 ធ្នូ %1$s (ការណែនាំ)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">បញ្ជីតម្លៃ ESTV (ictax.admin.ch) មានសិទ្ធិអំណាច។ សម្រាប់កាក់ដែលមិនមានក្នុងបញ្ជី ជាទូទៅតម្លៃបិទរបស់ផ្សារប្តូរត្រូវបានអនុវត្ត។ ពន្ធលើទ្រព្យសម្បត្តិមិនត្រូវបានគណនាទេ។</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – ការកាន់កាប់ %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">មិនបានគណនា</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">មិនអាចអានអាសយដ្ឋានដែលតាមដានបានទេ – សមតុល្យរបស់វាខ្វះពីឯកសារនេះ</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">ឡូតិ៍នៃអាសយដ្ឋានដែលតាមដានត្រូវបានរាប់ចាប់ពីកាលបរិច្ឆេទទិញរបស់វា។ ប្រសិនបើសមតុល្យនៃអាសយដ្ឋានថ្ងៃនេះទាបជាង វានឹងត្រូវកាត់បន្ថយ។</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">អាសយដ្ឋានដែលតាមដានត្រូវបានរាប់ក្នុងតម្លៃសរុប ប៉ុន្តែគ្មានតម្លៃទិញ – ដូច្នេះចំណេញទំនងជាខ្ពស់ពេក។ សូមកត់ត្រាតម្លៃដើមជាការទិញ។</string>
+    <string name="tax_summary_fr_rewards_income">ចំនួននេះសន្មតថារង្វាន់ត្រូវបានយកពន្ធជាចំណូលនៅពេលទទួល (តម្លៃនៅពេលទទួលក្នុងតម្លៃទិញ) – បើមិនដូច្នោះទេ តម្លៃទិញ 0 នឹងជាការបកស្រាយប្រុងប្រយ័ត្ន។</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">តម្លៃទីផ្សារដោយគ្មានតម្លៃដែលបានកត់ត្រា (កម្រៃ អំណោយ/ការទូទាត់ ការប្តូរកាក់ រង្វាន់ កម្រៃបណ្ដាញ តម្លៃផលប័ត្រ) តាមតម្លៃបិទប្រចាំថ្ងៃ (UTC) នៃថ្ងៃប្រតិបត្តិការ</string>
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">Viðvaranir eignasafns í bið: ekkert núverandi verð fyrir %1$s</string>
+    <string name="portfolio_alarms_paused_price_generic">Viðvaranir eignasafns í bið: ekki hafa allar myntir núverandi verð</string>
+    <string name="portfolio_alarms_paused_addresses">Viðvaranir eignasafns í bið: stöður vaktaðra vistfanga ekki hlaðnar enn</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Viðvaranir eignasafns í bið: tókastöður %1$s að hluta úreltar</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Viðvaranir eignasafns í bið: tókastöður vaktaðra vistfanga að hluta úreltar</string>
+    <string name="portfolio_alarms_paused_unverified">Viðvaranir eignasafns í bið: verð óstaðfest fyrir %1$s</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Viðvaranir eignasafns í bið: verð sumra mynta óstaðfest</string>
+    <string name="portfolio_alarms_address_failing">Viðvaranir eignasafns athuga án %1$s: staða ekki hlaðin í meira en 24 klukkustundir</string>
+    <string name="portfolio_alarms_address_failing_generic">Viðvaranir eignasafns athuga án vistfanga sem hafa ekki hlaðið stöðu í meira en 24 klukkustundir</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">tókar að hluta úreltir</string>
+    <string name="portfolio_address_restore_failed">Ekki tókst að endurheimta vistfang – bættu því við aftur ef þarf</string>
+    <string name="portfolio_address_remove_failed">Ekki tókst að fjarlægja vistfang – reyndu aftur</string>
+</resources>

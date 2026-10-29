@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">CSV ഇമ്പോർട്ട് ചെയ്യുക</string>
+    <string name="portfolio_csv_import_all_transfer">എല്ലാം സ്വന്തം വാലറ്റിലേക്ക്</string>
+    <string name="portfolio_csv_import_all_withdrawal">എല്ലാം പോർട്ട്ഫോളിയോയിൽ നിന്ന് പുറത്തേക്ക്</string>
+    <string name="portfolio_csv_import_choice_proposed">നിർദ്ദേശം: %1$s-മായി യോജിക്കുന്നു</string>
+    <string name="portfolio_csv_import_choice_transfer">സ്വന്തം വാലറ്റിലേക്ക് (കൈമാറ്റം)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">പോർട്ട്ഫോളിയോയിൽ നിന്ന് പുറത്തുപോകുന്നു (പിൻവലിക്കൽ)</string>
+    <string name="portfolio_csv_import_choose_each">ഓരോ പിൻവലിക്കലും എങ്ങോട്ട് പോയെന്ന് തിരഞ്ഞെടുക്കുക.</string>
+    <string name="portfolio_csv_import_columns">തിരിച്ചറിഞ്ഞ കോളങ്ങൾ: %1$s</string>
+    <string name="portfolio_csv_import_confirm">ഇമ്പോർട്ട് ചെയ്യുക (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">ദിവസം/മാസം</string>
+    <string name="portfolio_csv_import_date_month_first">മാസം/ദിവസം</string>
+    <string name="portfolio_csv_import_date_order">അവ്യക്തമായ തീയതികൾ (ഉദാ. 03/04/2024) ഇങ്ങനെ വായിക്കുക:</string>
+    <string name="portfolio_csv_import_decimal">അവ്യക്തമായ സംഖ്യകൾ (ഉദാ. %1$s) ഇങ്ങനെ വായിക്കുക:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">%d ഇടപാട് ഇമ്പോർട്ട് ചെയ്തു</item>
+        <item quantity="other">%d ഇടപാടുകൾ ഇമ്പോർട്ട് ചെയ്തു</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d ഇതിനകം ഇമ്പോർട്ട് ചെയ്തത് (ഒഴിവാക്കി)</item>
+        <item quantity="other">%d ഇതിനകം ഇമ്പോർട്ട് ചെയ്തവ (ഒഴിവാക്കി)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">ഫോർമാറ്റ്: %1$s</string>
+    <string name="portfolio_csv_import_line">വരി %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">ഫയലും പ്രതിദിന നിരക്കുകളും വായിക്കുന്നു…</string>
+    <string name="portfolio_csv_import_progress">%2$s-ൽ വരി %1$s</string>
+    <string name="portfolio_csv_import_saving">ഇടപാടുകൾ സംരക്ഷിക്കുന്നു…</string>
+    <string name="portfolio_csv_import_missing_fx">%1$s വരികൾക്ക് പ്രതിദിന നിരക്കില്ല – വില/ഫീസ് ഇല്ലാതെ ഇമ്പോർട്ട് ചെയ്തു.</string>
+    <string name="portfolio_csv_import_missing_price">%1$s വരികൾക്ക് ഫയലിൽ വിലയില്ല – വിലയില്ലാതെ ഇമ്പോർട്ട് ചെയ്തു.</string>
+    <string name="portfolio_csv_import_more">+ %1$d കൂടി</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">%d പുതിയ ഇടപാട്</item>
+        <item quantity="other">%d പുതിയ ഇടപാടുകൾ</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">%d വരി ഒഴിവാക്കി</item>
+        <item quantity="other">%d വരികൾ ഒഴിവാക്കി</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">സ്റ്റേബിൾകോയിനുകൾക്കെതിരായ ട്രേഡുകൾ (USDT, USDC …) സ്വാപ്പുകളായി രേഖപ്പെടുത്തുന്നു – സ്റ്റേബിൾകോയിൻ നിങ്ങളുടെ ഹോൾഡിംഗുകളിൽ കാണും.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">ഒന്നിലധികം പൊരുത്തങ്ങൾ സാധ്യമാണ് – ശരിയായത് തിരഞ്ഞെടുക്കുക, അല്ലെങ്കിൽ ഒന്നും വേണ്ട.</string>
+    <string name="portfolio_csv_import_transfer_fee">നെറ്റ്‌വർക്ക് ഫീസ്: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">ഒരു കൈമാറ്റമായി രേഖപ്പെടുത്തുക</string>
+    <string name="portfolio_csv_import_transfer_stored">മുമ്പത്തെ ഇമ്പോർട്ടിൽ നിന്നുള്ള മറുഭാഗം</string>
+    <string name="portfolio_csv_import_transfers_hint">ഒരേ കോയിനിന്റെ ഒരു പിൻവലിക്കലും അതിനോട് യോജിക്കുന്ന നിക്ഷേപവും ഒരു കൈമാറ്റമാകുന്നു: വാങ്ങൽ വിലയും കൈവശ കാലയളവും തുടരും, വ്യത്യാസം നെറ്റ്‌വർക്ക് ഫീസായി കണക്കാക്കും.</string>
+    <string name="portfolio_csv_import_transfers_title">നിങ്ങളുടെ അക്കൗണ്ടുകൾക്കിടയിലെ കൈമാറ്റങ്ങൾ</string>
+    <string name="portfolio_csv_import_unreadable">പിന്തുണയുള്ള ഇടപാടുകളൊന്നും കണ്ടെത്തിയില്ല. പിന്തുണയുള്ളവ: Relai, Swissquote, Kraken, Binance, Coinbase, Bitpanda CSV എക്സ്പോർട്ടുകൾ.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
+    <string name="portfolio_csv_import_too_large">ഇമ്പോർട്ട് ചെയ്യാൻ ഫയൽ വളരെ വലുതാണ് (പരമാവധി 16 MB, %1$s വരികൾ). ചെറിയ കാലയളവുകൾ എക്സ്പോർട്ട് ചെയ്ത് ഒന്നിനുപുറകെ ഒന്നായി ഇമ്പോർട്ട് ചെയ്യുക.</string>
+    <string name="portfolio_csv_import_failed">ഇമ്പോർട്ട് വിജയിച്ചില്ല – ഒന്നും സംരക്ഷിച്ചിട്ടില്ല. ദയവായി വീണ്ടും ശ്രമിക്കുക.</string>
+    <string name="portfolio_csv_import_locked">ഇമ്പോർട്ട് സാധ്യമല്ല: സംരക്ഷിച്ച ഡാറ്റ ഇപ്പോൾ വായിക്കാനാകുന്നില്ല. ആപ്പ് പുനരാരംഭിക്കുക.</string>
+    <string name="portfolio_csv_import_withdrawals_title">പിൻവലിക്കലുകൾ – കോയിനുകൾ എങ്ങോട്ട് പോയി?</string>
+    <string name="portfolio_csv_import_zone">സമയമേഖലയില്ലാത്ത സമയങ്ങൾ ഇങ്ങനെ വായിക്കുക: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">ഉപകരണം (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">വായിക്കാനാകാത്ത തീയതി</string>
+    <string name="portfolio_csv_skip_bad_number">വായിക്കാനാകാത്ത സംഖ്യ</string>
+    <string name="portfolio_csv_skip_fee_exceeds">ഫീസ് ≥ ലഭിച്ച തുക</string>
+    <string name="portfolio_csv_skip_internal_move">നിങ്ങളുടെ സ്വന്തം അക്കൗണ്ടുകൾക്കിടയിലെ നീക്കം – രേഖപ്പെടുത്താൻ ഒന്നുമില്ല</string>
+    <string name="portfolio_csv_skip_missing">ഫീൽഡ് ഇല്ല</string>
+    <string name="portfolio_csv_skip_ambiguous">ഒരേ സെക്കൻഡിൽ വേർതിരിക്കാനാകാത്ത ഒന്നിലധികം ട്രേഡുകൾ – അവ കൈകൊണ്ട് നൽകുക</string>
+    <string name="portfolio_csv_skip_not_crypto">ക്രിപ്റ്റോ അല്ല</string>
+    <string name="portfolio_csv_skip_possible_duplicate">ഒരുപക്ഷേ ഇതിനകം ഇമ്പോർട്ട് ചെയ്തത് (ഏതാണ്ട് അതേ ട്രേഡ്) – കൈകൊണ്ട് പരിശോധിക്കുക</string>
+    <string name="portfolio_csv_skip_two_fees">വ്യത്യസ്ത യൂണിറ്റുകളിൽ രണ്ട് ഫീസുകൾ – സ്വാപ്പ് കൈകൊണ്ട് നൽകുക</string>
+    <string name="portfolio_csv_skip_unsupported">പിന്തുണയില്ലാത്ത തരം</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">പഴയപടിയാക്കുക</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">ഈ ഇമ്പോർട്ടിലെ %d ഇടപാട് ഇല്ലാതാക്കണോ? കൈകൊണ്ട് നൽകിയ എൻട്രികളും മറ്റ് ഇമ്പോർട്ടുകളും നിലനിൽക്കും.</item>
+        <item quantity="other">ഈ ഇമ്പോർട്ടിലെ %d ഇടപാടുകൾ ഇല്ലാതാക്കണോ? കൈകൊണ്ട് നൽകിയ എൻട്രികളും മറ്റ് ഇമ്പോർട്ടുകളും നിലനിൽക്കും.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">ഇമ്പോർട്ട് പഴയപടിയാക്കണോ?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">ഇമ്പോർട്ട് ചെയ്ത %d ഇടപാട് നീക്കം ചെയ്തു</item>
+        <item quantity="other">ഇമ്പോർട്ട് ചെയ്ത %d ഇടപാടുകൾ നീക്കം ചെയ്തു</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">%d ഇടപാട്</item>
+        <item quantity="other">%d ഇടപാടുകൾ</item>
+    </plurals>
+    <string name="portfolio_imports_empty">ഇമ്പോർട്ടുകളൊന്നുമില്ല</string>
+    <string name="portfolio_imports_title">ഇമ്പോർട്ടുകൾ</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">അതേ ഇടപാട് ID, വ്യത്യസ്ത തുക – കൈകൊണ്ട് പരിശോധിക്കുക</string>
+    <string name="portfolio_csv_skip_staking_unpaired">മറു എൻട്രിയില്ലാത്ത സ്റ്റേക്കിംഗ് എൻട്രി – ഹോൾഡിംഗുകൾ പരിശോധിക്കുക</string>
+    <string name="portfolio_csv_skip_amount_too_small">തുക വളരെ ചെറുതാണ് – സംരക്ഷിക്കുമ്പോൾ 0 ആയി റൗണ്ട് ചെയ്യും</string>
+    <string name="portfolio_csv_skip_invalid_swap">സാധുവായ കോയിനോ ലഭിച്ച തുകയോ ഇല്ലാത്ത സ്വാപ്പ്</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">ഫയൽ വീണ്ടും വായിക്കുന്നു …</string>
+</resources>

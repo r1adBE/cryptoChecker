@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Awekho ama-coin akhethiwe</string>
+    <string name="watch_loading">Iyalayisha…</string>
+    <string name="watch_error">Ama-exchange awatholakali</string>
+    <string name="watch_updated">Kusukela ku-%1$s</string>
+    <string name="watch_refresh">Vuselela</string>
+    <string name="watch_choose">Khetha ama-coin</string>
+    <string name="watch_choose_hint">Ama-coin: angu-%1$d ubuningi</string>
+    <string name="watch_complication_label">Intengo</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s emahoreni angu-24</string>
+    <string name="watch_mode_phone">Uhlu: njengocingo</string>
+    <string name="watch_mode_own">Uhlu: olwakho</string>
+    <string name="watch_phone_empty">Azikho izintandokazi ocingweni</string>
+    <string name="a11y_watch_outdated">Intengo indala</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">kubuyekezwe ekugcineni umzuzu ongu-%1$d odlule</item>
+        <item quantity="other">kubuyekezwe ekugcineni imizuzu engu-%1$d edlule</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">kubuyekezwe ekugcineni ihora elingu-%1$d eledlule</item>
+        <item quantity="other">kubuyekezwe ekugcineni amahora angu-%1$d edlule</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">kubuyekezwe ekugcineni usuku olungu-%1$d olwedlule</item>
+        <item quantity="other">kubuyekezwe ekugcineni izinsuku ezingu-%1$d ezedlule</item>
+    </plurals>
+</resources>

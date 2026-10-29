@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%2$s內 %1$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">收市</string>
+    <string name="sheet_chart_converted_current">%1$s，已換算（現時匯率）</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s，按每日匯率換算</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">呢個交易對冇價格資料</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">開市</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">今日</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">量 %1$s</string>
+    <string name="sheet_more">更多</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">賣價</string>
+    <string name="ticker_bid">買價</string>
+    <string name="explain_bid_ask">買價係買家而家出嘅最高價，賣價係賣家願意接受嘅最低價。</string>
+    <string name="ticker_high">最高</string>
+    <string name="ticker_low">最低</string>
+    <string name="ticker_timestamp">時間</string>
+    <string name="ticker_vol_base">成交量（以幣計）</string>
+    <string name="ticker_vol_quote">成交量（以報價貨幣計）</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s，00:00（裝置時區）</string>
+    <string name="change_basis_local">本地時間 00:00 起</string>
+    <string name="change_basis_rolling">過去 24 小時</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">上次更新起</string>
+    <string name="change_basis_utc_zone">%1$s 00:00 起</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">按 %1$s K 線計算嘅變動</string>
+    <string name="change_short_since_last">上次更新</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">今日</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">今日 %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="exchange_data_empty_error">冇收到交易所嘅資料。</string>
+    <string name="market_data_summary">市值、gas 費、經濟數據、幣種分析</string>
+    <string name="market_data_tab_futures">期貨</string>
+    <string name="market_data_title">市場數據</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">流通量</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">市值</string>
+    <string name="spot_max_supply">最大供應量</string>
+    <string name="spot_no_data">呢隻幣冇現貨資料</string>
+    <string name="spot_source_updated">來源：%1$s · 截至 %2$s</string>
+    <string name="spot_supply_of_max">最大供應量之中有 %1$s 流通緊</string>
+    <string name="spot_total_supply">總供應量</string>
+    <string name="spot_vol_mcap">成交量／市值</string>
+    <string name="spot_volume_24h">成交量（24 小時）</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">參考：%1$s</string>
+    <string name="futures_funding">資金費率</string>
+    <string name="futures_funding_interval_unknown">間隔未知</string>
+    <string name="futures_funding_per8h_equiv">= 每 8 小時 %1$s（同提示一樣）</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">每小時</string>
+    <string name="futures_funding_per_hours">每 %1$d 小時</string>
+    <string name="futures_next_funding">下次喺 %1$d 小時 %2$d 分鐘後</string>
+    <string name="futures_no_data">呢隻幣冇期貨資料</string>
+    <string name="futures_open_interest">未平倉合約</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">參考來自 %1$s – 資金費率同未平倉合約每個交易所都唔同；喺 %2$s 可能有出入。</string>
+    <string name="futures_reference_spot">參考來自 %1$s（呢隻幣嘅 USDT 永續合約）</string>
+    <string name="futures_source">來源：%1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">好多交易者借錢押注價格升或跌。多頭同空頭倉位之間支付嘅費用。大幅正數代表好多人押注價格上升。</string>
+    <string name="explain_open_interest">期貨係押注價格嘅合約，通常用借嚟嘅錢。所有未平倉期貨倉位嘅價值。如果上升，代表更多資金押注呢個走勢。</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">解釋</string>
+    <string name="explain_spot_fdv">完全攤薄估值：價格 × 最大供應量（冇上限就用總供應量）。</string>
+    <string name="explain_spot_market_cap">價格 × 流通量。標籤顯示 24 小時變動。</string>
+    <string name="explain_spot_source">所有交易所嘅數據，以美元計，來自 CoinGecko。</string>
+    <string name="explain_spot_supply">流通量：而家市場上嘅幣。總量：所有已發行嘅幣減去已銷毀嘅。最大：最多可以存在嘅數量。</string>
+    <string name="explain_spot_volume">24 小時內嘅成交額。成交量／市值：成交量相對市值 — 高代表交易非常活躍。</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · 匯率 %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">買賣價差距大（%1$s）</string>
+
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">%1$s 歷史，按今日匯率換算做 %2$s</string>
+    <string name="converted_unsure">換算唔確定</string>
+</resources>

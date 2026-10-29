@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">Custom</string>
+    <string name="settings_group_general">Pangkalahatan</string>
+    <string name="settings_group_more">Higit pa</string>
+    <string name="settings_minutes">%1$d min</string>
+    <string name="settings_row_about">Tungkol sa app</string>
+    <string name="settings_row_alarms">Mga Alerto</string>
+    <string name="settings_row_currency">Currency</string>
+    <string name="settings_row_dated_futures">Dated futures</string>
+    <string name="settings_row_updates">Mga update ng presyo</string>
+    <string name="settings_row_watchlist">Watchlist</string>
+    <string name="settings_search_hint">Maghanap sa mga setting</string>
+    <string name="settings_seconds">%1$d s</string>
+    <string name="settings_section_about">Tungkol</string>
+    <string name="settings_section_appearance">Hitsura</string>
+    <string name="settings_section_developer">Developer</string>
+    <string name="settings_section_language">Wika</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">Naka-on</string>
+    <string name="settings_title">Mga Setting</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">Tahimik na panahon bago muling mag-trigger ang alerto</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Signal ng alerto</string>
+    <string name="settings_alarm_signal_open_system">Ayusin sa mga setting ng system</string>
+    <string name="settings_alarm_signal_system_hint">Sumusunod sa mga setting ng notification ng phone mo.</string>
+    <string name="settings_alarm_sound">Tunog ng alerto</string>
+    <string name="settings_alarm_sound_custom">Custom na tunog</string>
+    <string name="settings_alarm_sound_default">Default na tunog</string>
+    <string name="settings_alarm_sound_error">Hindi magamit ang tunog.</string>
+    <string name="settings_alarm_sound_file">Sarili mong audio file…</string>
+    <string name="settings_alarm_sound_reset">Gamitin ang default na tunog</string>
+    <string name="settings_alarm_sound_system">Pumili ng tunog ng system…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Numero sa icon ng app</string>
+    <string name="settings_app_badge_hint">Binibilang ang mga bukas na notification ng alerto. Ang home screen ang nagpapasya kung numero o tuldok ang lalabas (hal. Samsung: “Show with number”).</string>
+    <string name="settings_exact_checks">Sumuri sa takdang oras</string>
+    <string name="settings_exact_checks_grant">Payagan ang mga alarm &amp; paalala</string>
+    <string name="settings_exact_checks_hint">Sumusuri ang Android mga bawat 15 minuto, kahit idle ang device. Gumagamit ng bahagyang mas maraming baterya.</string>
+    <string name="settings_exact_checks_nothing">Walang aktibong pares – walang susuriin.</string>
+    <string name="settings_exact_checks_permission_missing">Walang pahintulot – habang nagpapahinga ang device, hindi regular ang pagsusuri ng Android, minsan pagkalipas lang ng ilang oras.</string>
+    <string name="settings_notification_change">Mag-notify lang kapag nagbago ang presyo</string>
+    <string name="settings_notification_change_always">Palagi</string>
+    <string name="settings_percent_invalid">Maglagay ng value mula 0 hanggang 100.</string>
+    <string name="settings_notification_change_hint">Lumalabas lang ang notification ng presyo kapag gumalaw ang presyo nang kahit ganito kalaki mula sa huli. Walang ipinapakita habang kulang ang data. Hindi apektado ang mga alerto.</string>
+    <string name="settings_ongoing_notifications">Hindi ma-swipe palayo</string>
+    <string name="settings_ongoing_notifications_hint">Pinapanatiling naka-pin ang mga notification ng presyo.</string>
+    <string name="settings_price_notifications">Mga notification ng presyo</string>
+    <string name="settings_price_notifications_hint">Ipakita sa status bar ang kasalukuyang presyo ng mga naka-enable na pares.</string>
+    <string name="settings_price_pairs">Mga pares</string>
+    <string name="settings_price_pairs_all_off">Lahat naka-off</string>
+    <string name="settings_price_pairs_all_on">Lahat naka-on</string>
+    <string name="settings_price_pairs_count">%1$d sa %2$d</string>
+    <string name="settings_price_pairs_empty">Wala pang pares sa watchlist.</string>
+    <string name="settings_price_pairs_hint">Piliin kung aling mga pares ang magpapakita ng presyo sa notification bar.</string>
+    <string name="settings_quiet_hours">Tahimik na oras</string>
+    <string name="settings_quiet_hours_from">Mula</string>
+    <string name="settings_quiet_hours_hint">Sa pagitan ng %1$s at %2$s, maghihintay ang mga alerto hanggang matapos ang tahimik na oras at saka tutunog. Tahimik na dumarating ang ibang notification, nang walang pagsasalita.</string>
+    <string name="settings_quiet_hours_to">Hanggang</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">Interval</string>
+    <string name="settings_background_updates">Mga update sa background</string>
+    <string name="settings_battery_hint">Ang limitado ay nangangahulugang maaaring iantala ng Android nang ilang oras ang mga update sa background.</string>
+    <string name="settings_battery_ok">Paggamit ng baterya: walang limitasyon</string>
+    <string name="settings_battery_restricted">Paggamit ng baterya: limitado</string>
+    <string name="settings_check_runs_empty">Wala pang naitalang pagsusuri.</string>
+    <string name="settings_check_runs_honest_android">Ang Android ang nagpapasya kung kailan susuri – makikita mo rito kung kailan talaga ito nangyari.</string>
+    <string name="settings_check_runs_honest_ios">Ang iOS ang nagpapasya kung kailan susuri – makikita mo rito kung kailan talaga ito nangyari.</string>
+    <string name="settings_check_runs_title">Mga kamakailang pagsusuri</string>
+    <string name="settings_http_log">Ipakita ang HTTP log</string>
+    <string name="settings_http_log_hint">Ipinapakita ang mga request sa mga exchange sa ibaba ng page na “Magdagdag ng pares” – para sa troubleshooting.</string>
+    <string name="settings_live_service">Madalas na mag-update</string>
+    <string name="settings_live_websocket">Mga live price</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">Kapansin-pansin: mag-notify</string>
+    <string name="settings_activity_alerts_hint">Hanggang isang beses kada oras bawat pares: kakaibang galaw ng presyo, biglang taas ng volume at mga extreme sa futures (data mula sa Binance).</string>
+    <string name="settings_activity_sensitivity">Sensitivity</string>
+    <string name="settings_activity_sensitivity_hint">Gaano kadaling ituring na kakaiba ang isang coin – pareho para sa watchlist card at mga market alert. Sa “Mas kaunti”, ang 3 pinakamalakas lang ang ipinapakita ng card.</string>
+    <string name="settings_watchlist_activity_card">Kapansin-pansin: ipakita sa listahan</string>
+    <string name="settings_watchlist_activity_card_hint">Ipinapakita ang ⚡ chip sa tabi ng mga grupo: i-tap ito para makita lang ang mga pares na may nangyayari ngayon. Itinatakda ang mga notification para dito sa ilalim ng Mga market alert.</string>
+    <string name="settings_watchlist_names">Ipakita ang mga pangalan</string>
+    <string name="settings_watchlist_names_hint">Pangalan sa ilalim ng pares, hal. Bitcoin o NVIDIA. Kasama ng mga listahan ng logo, nilo-load nang isang beses para sa lahat ng coin.</string>
+    <string name="settings_watchlist_sparkline">Mini chart sa watchlist</string>
+    <string name="settings_watchlist_sparkline_hint">Trend sa 24 na oras sa tabi ng presyo</string>
+    <string name="settings_watchlist_value_names">Mga pangalan</string>
+    <string name="settings_watchlist_value_price_only">Presyo lang</string>
+    <string name="settings_watchlist_value_sparkline">Mini chart</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Kasama ang mga Alpha token (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Mga Alpha token: mga maaga at karaniwang maliliit na proyekto mula sa listahan ng Binance Alpha – madalas madalang i-trade at lubhang pabago-bago.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">Bahagi ng Mga token. Hindi available habang napili ang “TradFi lang”; mananatili ang mga Alpha token na nasa watchlist mo na.</string>
+    <string name="settings_asset_scope_both">Mga token at TradFi</string>
+    <string name="settings_asset_scope_both_hint">Lahat – crypto at TradFi</string>
+    <string name="settings_asset_scope_hint">Itinatakda kung aling mga pares ang ipinapakita ng pagpili at paghahanap kapag nagdadagdag ka ng pares. Laging mananatili ang mga pares na nasa watchlist mo na.</string>
+    <string name="settings_asset_scope_title">Mga token &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">Mga token lang</string>
+    <string name="settings_asset_scope_tokens_hint">Crypto: spot at perpetual</string>
+    <string name="settings_asset_scope_tradfi">TradFi lang</string>
+    <string name="settings_asset_scope_tradfi_hint">Futures sa stocks, commodities, FX – mga kontrata, hindi token</string>
+    <string name="settings_rolling_futures">Kasama ang quarterly &amp; ibang dated futures</string>
+    <string name="settings_rolling_futures_hint">Naka-off: ang mga dated futures na wala sa listahan ng exchange ay minamarkahang hindi na tine-trade sa halip na isa-isang suriin. Nakakatipid ng oras sa bawat refresh.</string>
+    <string name="settings_rolling_futures_qtly">Kasama ang quarterly &amp; ibang dated futures (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">Bahagi ng Mga token. Hindi available habang napili ang “TradFi lang”; nalalapat pa rin sa mga dated futures na nasa watchlist mo na.</string>
+    <string name="settings_tradfi_futures">Stocks, commodities at FX (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Ipinapakita rin ang futures sa stocks, ginto at ibang commodities, mga currency at mga pre-IPO na kumpanya kapag pumipili ka ng pares. Mga kontrata ang mga ito, hindi token.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">Accent color</string>
+    <string name="settings_accent_hint">Kulay para sa app, mga widget at icon ng app. May mga home screen na nag-aalis ng icon kapag nagbago ito – idagdag ito ulit kung ganoon.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Mga logo ng coin</string>
+    <string name="settings_coin_logos_app">Sa app</string>
+    <string name="settings_coin_logos_app_hint">Watchlist, binuksang pares at mga market card</string>
+    <string name="settings_coin_logos_footer">Galing ang mga logo sa CoinGecko, at sa Binance para sa mga coin na wala sa CoinGecko (hal. ginto, pilak, stocks). Nilo-load ng app ang lahat ng logo nang sabay at itinatago ang mga ito sa device na ito, kaya walang provider na makakaalam kung aling mga coin ang sinusundan mo. Ipinapakita ng mga coin na walang logo ang kanilang mga inisyal. May maliit na bituin sa logo ang mga paborito. Kung saan naka-off ang switch, walang lalabas na logo o inisyal; kapag naka-off lahat ng switch, walang nilo-load.</string>
+    <string name="settings_coin_logos_portfolio">Sa portfolio</string>
+    <string name="settings_coin_logos_portfolio_hint">Mga posisyon, detalye ng coin at insight</string>
+    <string name="settings_coin_logos_value_app">App</string>
+    <string name="settings_coin_logos_widgets">Sa mga widget</string>
+    <string name="settings_coin_logos_widgets_hint">Mga widget ng watchlist at ng iisang coin</string>
+    <string name="settings_high_contrast">Mataas na contrast</string>
+    <string name="settings_high_contrast_hint">Mas matitingkad na kulay ng presyo at mas madilim na secondary text. Naka-on din kapag humiling ang system ng mas mataas na contrast.</string>
+    <string name="settings_language_choose">Pumili ng wika</string>
+    <string name="settings_language_system">Wika ng system</string>
+    <string name="settings_price_colors">Mga kulay ng presyo</string>
+    <string name="settings_price_colors_hint">Madaling makilala ang asul / orange sa anumang color vision deficiency (pula-berde at asul-dilaw). Laging ipinapakita rin ang direksyon gamit ang + / −.</string>
+    <string name="settings_theme_mode">Light / Dark</string>
+    <string name="settings_widgets">Mga widget</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">Pagbabago sa %1$s &amp; time zone ng chart</string>
+    <string name="settings_change_basis_hint_1">Itinatakda ng napiling time zone kung mula kailan binibilang ang pagbabago sa porsiyento (watchlist, pulse line, binuksang pares, widget) at ang mga oras na ipinapakita sa mga chart.</string>
+    <string name="settings_change_basis_hint_2">Inihahambing ng “%1$s” sa presyo eksaktong 24 na oras ang nakalipas. Inihahambing ng “00:00” sa opening price sa hatinggabi sa time zone na iyon.</string>
+    <string name="settings_change_basis_hint_3">Hindi apektado ang mga alerto.</string>
+    <string name="settings_change_basis_hint_since_last">Inihahambing ng “%1$s” sa presyo ng nakaraang update. Sa mga live price, nananatili itong malapit sa 0%%.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">Conversion currency</string>
+    <string name="settings_conversion_currency_hint">Ginagamit din para sa portfolio, mga alerto sa currency mo, crypto market card at portfolio widget.</string>
+    <string name="settings_cost_method">Paraan ng gastos</string>
+    <string name="settings_cost_method_average">Average na gastos</string>
+    <string name="settings_cost_method_average_hint">Pinapahalagahan ang mga pagbenta sa moving average na presyo ng pagbili.</string>
+    <string name="settings_cost_method_fifo">FIFO (default)</string>
+    <string name="settings_cost_method_fifo_hint">Ang pinakalumang mga coin ang unang ibinebenta, sa lahat ng exchange at wallet.</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO bawat wallet/exchange</string>
+    <string name="settings_cost_method_fifo_wallet_hint">Pinakalumang mga coin muna sa loob ng bawat exchange o wallet; inililipat ng mga transfer ang mga lot kasama ang petsa ng pagbili nila.</string>
+    <string name="settings_portfolio_lock">Lock ng portfolio</string>
+    <string name="settings_portfolio_lock_footer">Itinatago ng lock ang ipinapakita sa screen. Naka-store sa device na ito ang data mo at protektado ng encryption ng device. Mapoprotektahan mo ng password ang mga backup.</string>
+    <string name="settings_portfolio_lock_hint">Ang portfolio lang ang itinatago: i-unlock gamit ang fingerprint, mukha o PIN ng device. Muling nagla-lock pagkatapos ng mahigit isang minuto sa background. Mananatiling bukas ang watchlist, mga alerto at ibang widget.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Kung walang PIN o passcode ang device, walang itinatago ang lock – mag-set up ng screen lock.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Portfolio sa system backup</string>
+    <string name="settings_portfolio_system_backup_hint">Naka-off: hindi kasama ang mga transaksyon mo sa system backup ng device at sa paglipat mula phone papunta sa phone. Para ilipat ang mga ito sa bagong phone, gamitin ang sariling backup ng app na may password.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Kailangan ng Android 9 o mas bago – sine-save ng mas lumang bersyon ang portfolio nang hindi naka-encrypt sa Google backup.</string>
+    <string name="settings_portfolio_tab">Ipakita ang tab na Portfolio</string>
+    <string name="settings_portfolio_value_locked">Naka-on, may lock</string>
+    <string name="settings_show_converted">Mga na-convert na presyo</string>
+    <string name="settings_show_converted_hint">Ipinapakita rin ang mga presyo sa watchlist sa %1$s</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">Iulat ang depeg ng USDT</string>
+    <string name="settings_depeg_alarm_hint">Nagno-notify nang isang beses kapag lumihis ang USDT mula 1 USD nang ayon sa threshold (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_threshold">Threshold ng depeg</string>
+    <string name="settings_fng_above">Fear &amp; Greed: mag-notify kapag lampas</string>
+    <string name="settings_fng_below">Fear &amp; Greed: mag-notify kapag mababa sa</string>
+    <string name="settings_gas_alert_hint">Nagno-notify nang isang beses kapag bumaba ang normal na fee sa ilalim ng limitasyon. Sinusuri sa mga update ng presyo, hindi hihigit sa isang beses kada 10 minuto.</string>
+    <string name="settings_gas_btc_below">Bitcoin fee mababa sa (sat/vB)</string>
+    <string name="settings_gas_eth_below">Ethereum gas mababa sa (gwei)</string>
+    <string name="settings_ind_ath_within">Pagbaba mula all-time high na hindi hihigit sa</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple lampas</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple mababa sa</string>
+    <string name="settings_ind_mvrv_above">MVRV lampas</string>
+    <string name="settings_ind_mvrv_below">MVRV mababa sa</string>
+    <string name="settings_indicator_alerts_hint">Mga indicator ng Bitcoin, sinusuri dalawang beses kada araw. Ikaw ang pipili ng mga limitasyon – hindi nire-rate ng app ang mga value.</string>
+    <string name="settings_macro_notifications">Economic calendar</string>
+    <string name="settings_macro_notifications_hint">Sa 08:00 sa mga araw na may mahalagang economic data ng US (inflation, jobs report, desisyon ng Fed). Galing ang kalendaryo sa website ng app, nilo-load isang beses kada araw.</string>
+    <string name="settings_market_alerts">Mga market alert</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d aktibo</item>
+        <item quantity="other">%1$d aktibo</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">Bilis ng pagsasalita: %1$.1f×</string>
+    <string name="settings_tts">Pagbasa nang malakas</string>
+    <string name="settings_tts_alarms_only">Mga alerto lang</string>
+    <string name="settings_tts_alarms_only_hint">Naka-off: binabasa nang malakas ang bawat update ng pares na may markang “Basahin ang presyo”.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">Binabasa nang malakas ang mga presyo at alerto. Tahimik habang naka-silent o vibrate mode ang device.</string>
+    <string name="settings_tts_test">Subukan ang boses</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">I-reset ang app</string>
+    <string name="settings_reset_app_action">I-delete lahat</string>
+    <string name="settings_reset_app_confirm">Dine-delete ang watchlist, mga alerto, portfolio, mga setting at lahat ng naka-store na data, gaya pagkatapos mag-install. Hindi ito maa-undo. Tip: gumawa muna ng backup. Pinapanatili ng mga device backup (Google backup o iCloud/computer backup) ang dating data hanggang sa susunod na backup.</string>
+    <string name="settings_reset_app_title">I-reset ang app?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">Maghanap ng currency</string>
+    <string name="language_search">Maghanap ng wika</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">Dark</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_system">System</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">Asul</string>
+    <string name="accent_green">Berde</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">Orange</string>
+    <string name="accent_red">Pula</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">Karaniwan sa China, Japan, Korea at Taiwan</string>
+    <string name="price_colors_swap">Pagpalitin ang mga kulay (taas ↔ baba)</string>
+    <string name="price_style_calm">Kalmado</string>
+    <string name="price_style_calm_color_vision">Kalmado · Color vision deficiency</string>
+    <string name="price_style_color_vision">Color vision deficiency</string>
+    <string name="price_style_fresh">Sariwa</string>
+    <string name="price_style_traditional">Tradisyonal</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">Huling sinuri ang mga koneksyon sa exchange laban sa mga totoong tugon: %1$s</string>
+    <string name="about_license">Direktang galing sa mga exchange ang mga presyo; walang account at walang tracking.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">Mga lisensya</string>
+    <string name="about_privacy_policy">Patakaran sa privacy</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">Humiling ng exchange</string>
+    <string name="about_source_code">Source code sa GitHub</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Ang Crypto Checker ay isang independiyenteng proyekto ni r1AD: isang kalmadong overview ng presyo na walang account, ad o tracking. Mga tanong at kahilingan: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Open source ang Crypto Checker (MIT License).</string>
+    <string name="licenses_font_title">Typeface na Rubik</string>
+    <string name="licenses_icons_bundled_text">Kasama sa app: mga icon mula sa “Cryptocurrency Icons” ni Christopher Downer at mga kontribyutor (github.com/spothq/cryptocurrency-icons), inilabas sa ilalim ng CC0 1.0 Universal. Ipinapakita ang mga ito hanggang ma-load ang mga logo ng CoinGecko o Binance. Nananatiling trademark ng kanilang mga proyekto ang mga pangalan at logo.</string>
+    <string name="licenses_icons_title">Mga fallback na icon ng coin</string>
+    <string name="licenses_libraries_intro">Ginagamit ng app ang mga library na ito sa ilalim ng Apache License 2.0:</string>
+    <string name="licenses_libraries_title">Mga Android library</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">%d tap pa para i-unlock ang developer options</item>
+        <item quantity="other">%d tap pa para i-unlock ang developer options</item>
+    </plurals>
+    <string name="developer_unlocked">Na-unlock ang developer options</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Sumusunod ang vibration sa mga setting ng iPhone (Sounds &amp; Haptics).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Binibilang ang mga bagong alerto at market alert; babalik sa 0 kapag binuksan mo ang app.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Ang data mo</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">Sa device na ito</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Naka-store nang naka-encrypt sa device na ito ang watchlist, mga alerto at portfolio mo; walang account, walang sariling server.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Mga koneksyon</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Direktang galing ang mga presyo sa mga exchange ng mga pares mo, pati ang mga exchange rate, listahan ng coin at logo at ang data mirror sa GitHub; nakikita nila ang IP address mo, hindi kailanman ang mga hawak mo (ang mga binabantayang address ay napupunta sa provider ng kaukulang network).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Backup</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Kung gagawa ka lang. Kapag may password, naka-encrypt ito (Argon2id + AES-256-GCM); kung wala, nababasa ito.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Paglipat ng device</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">Nananatili ang key sa lumang device – gumawa muna ng backup file.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Ibahagi ang diagnostics</string>
+    <string name="diagnostics_share_hint">Text file para sa support: bersyon, device, mga setting ng alerto, mga kamakailang pagsusuri at log ng alerto – walang portfolio, halaga, address o tala. Makikita mo muna ito; walang awtomatikong ipinapadala.</string>
+    <string name="diagnostics_preview_title">Preview ng diagnostics</string>
+    <string name="diagnostics_action_share">Ibahagi</string>
+    <string name="settings_price_overlay">Overlay ng presyo</string>
+    <string name="settings_price_overlay_hint">Ipinapakita ang mga pares ng permanenteng notification ng presyo bilang maliit na lumulutang na pill sa ibabaw ng ibang app. I-tap para buksan ang app, i-drag sa × sa ibaba para isara.</string>
+    <string name="settings_price_overlay_needs">Gumagana lang kasabay ng «%1$s».</string>
+    <string name="settings_price_overlay_grant">Payagang magpakita sa ibabaw ng ibang app</string>
+    <string name="price_overlay_close">Isara ang overlay</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">Sariling server para sa mga address</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Bitcoin lang: ang sarili mong server na compatible sa Esplora o mempool (hal. https://node.example/api, kailangan ng pampublikong pinagkakatiwalaang certificate, gaya ng Let\'s Encrypt). Kapag nakatakda, doon lang tinatanong ang mga Bitcoin address at xpub key – hindi kailanman sa mga pampublikong node, kahit hindi maabot ang server mo. Patuloy na gumagamit ng mga pampublikong node ang ibang network. Walang laman = mga pampublikong node.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Bitcoin server (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">Subukan</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">Sinusubukan…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">Tumutugon ang server – block %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">Walang valid na sagot – tingnan ang address at ang certificate</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">Ginagamit: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">Hindi nakatakda – mga pampublikong node ang ginagamit</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">Mga https:// address lang ang pinapayagan</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">Walang user name o password sa address</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">Walang ? o # na bahagi sa address</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">Hindi valid na address ng server</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">Lumipat sa mga pampublikong node?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">Tatanungin na sa mga pampublikong node ang mga Bitcoin address at xpub key mo: %1$s. Nakikita nila ang mga address na ito kasama ng IP address mo.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">Gamitin ang mga pampublikong node</string>
+</resources>

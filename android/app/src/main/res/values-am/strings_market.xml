@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="one">ከ%d ደቂቃ በፊት</item>
+        <item quantity="other">ከ%d ደቂቃ በፊት</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">ዛሬ %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed፣ የBitcoin መለኪያዎች፣ የበላይነት፣ ሃልቪንግ</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">ተጨማሪ የገበያ ውሂብ</string>
+    <string name="market_phase_trend_failed">የዋጋ ውሂብ አይገኝም</string>
+    <string name="market_plain_direction_down_clear">የሁሉም ክሪፕቶከረንሲዎች ጠቅላላ ዋጋ ከ24 ሰዓት በፊት ከነበረው በግልጽ ዝቅ ያለ ነው (%1$s)።</string>
+    <string name="market_plain_direction_down_slight">የሁሉም ክሪፕቶከረንሲዎች ጠቅላላ ዋጋ ከ24 ሰዓት በፊት ከነበረው በትንሹ ዝቅ ያለ ነው (%1$s)።</string>
+    <string name="market_plain_direction_flat">የሁሉም ክሪፕቶከረንሲዎች ጠቅላላ ዋጋ በ24 ሰዓት ውስጥ ብዙም አልተለወጠም (%1$s)።</string>
+    <string name="market_plain_direction_up_clear">የሁሉም ክሪፕቶከረንሲዎች ጠቅላላ ዋጋ ከ24 ሰዓት በፊት ከነበረው በግልጽ ከፍ ያለ ነው (%1$s)።</string>
+    <string name="market_plain_direction_up_slight">የሁሉም ክሪፕቶከረንሲዎች ጠቅላላ ዋጋ ከ24 ሰዓት በፊት ከነበረው በትንሹ ከፍ ያለ ነው (%1$s)።</string>
+    <string name="market_plain_footnote">ያለፉትን 24 ሰዓታት ይገልጻል – ትንበያ አይደለም፣ የኢንቨስትመንት ምክርም አይደለም።</string>
+    <string name="market_plain_mood_extreme_fear">ኢንቨስተሮች አሁን በጣም ፈርተዋል፦ የስሜት መለኪያው (Fear &amp; Greed) ከ100 %1$d ላይ ነው።</string>
+    <string name="market_plain_mood_extreme_greed">ኢንቨስተሮች አሁን በጣም ስግብግብ ናቸው፦ የስሜት መለኪያው (Fear &amp; Greed) ከ100 %1$d ላይ ነው።</string>
+    <string name="market_plain_mood_fear">ኢንቨስተሮች በመጠኑ ፈርተዋል፦ የስሜት መለኪያው (Fear &amp; Greed) ከ100 %1$d ላይ ነው።</string>
+    <string name="market_plain_mood_greed">ኢንቨስተሮች በመጠኑ ስግብግብ ናቸው፦ የስሜት መለኪያው (Fear &amp; Greed) ከ100 %1$d ላይ ነው።</string>
+    <string name="market_plain_mood_neutral">የኢንቨስተሮች ስሜት ሚዛናዊ ነው፦ የስሜት መለኪያው (Fear &amp; Greed) ከ100 %1$d ላይ ነው።</string>
+    <string name="market_plain_standout_above_btc">%1$s ጎልቶ ይታያል፦ በ24 ሰዓት %2$s፣ ከBitcoin (%3$s) በጣም በላይ።</string>
+    <string name="market_plain_standout_against_btc">%1$s ጎልቶ ይታያል፦ በ24 ሰዓት %2$s፣ Bitcoin ደግሞ በተቃራኒው አቅጣጫ ሄዷል (%3$s)።</string>
+    <string name="market_plain_standout_below_btc">%1$s ጎልቶ ይታያል፦ በ24 ሰዓት %2$s፣ ከBitcoin (%3$s) በጣም በታች።</string>
+    <string name="market_plain_standout_futures_down">%1$s ጎልቶ ይታያል፦ ባልተለመደ ሁኔታ ብዙ የፊውቸርስ ነጋዴዎች ዋጋ ይወርዳል ብለው እየተወራረዱ ነው።</string>
+    <string name="market_plain_standout_futures_up">%1$s ጎልቶ ይታያል፦ ባልተለመደ ሁኔታ ብዙ የፊውቸርስ ነጋዴዎች ዋጋ ይጨምራል ብለው እየተወራረዱ ነው።</string>
+    <string name="market_plain_standout_quiet">አሁን ጎልቶ የሚታይ አንድም ሳንቲም የለም።</string>
+    <string name="market_plain_standout_volume">%1$s ጎልቶ ይታያል፦ ከወትሮው በግምት %2$s እጥፍ ግብይት።</string>
+    <string name="market_plain_title">በአጭሩ</string>
+    <string name="market_section_collapse">%1$sን ይደብቁ</string>
+    <string name="market_section_context">ስሜት &amp; ዑደት</string>
+    <string name="market_section_data">የገበያ ውሂብ</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">%1$sን ያሳዩ</string>
+    <string name="market_section_now">አሁን</string>
+    <string name="market_source">ውሂብ፦ Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="exchange_unavailable_error">ልውውጡ አይገኝም</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">መረጃ፦ %1$s</string>
+    <string name="market_info_alt_season_source">ዕለታዊ ዋጋዎች፦ Binance · በግምት በየ3 ሰዓቱ እንደገና ይሰላል</string>
+    <string name="market_info_alt_season_what">ከ20 ገደማ ትልልቅ አልትኮይኖች (ለምሳሌ Ethereum፣ Solana፣ XRP) ምን ያህሉ ባለፉት 90 ቀናት ከBitcoin የተሻለ እንደሠሩ ይቆጥራል። እሴቱ ከ0 እስከ 100 ያለ ድርሻቸው ነው።</string>
+    <string name="market_info_coin_source">ዋጋዎች፦ Binance ወይም Bybit · በግምት በየ15 ደቂቃው እንደገና ይጫናል</string>
+    <string name="market_info_dominance_how">የበላይነቱ ከጨመረ Bitcoin ከቀሪው ገበያ የተሻለ እየሠራ ነው፤ ከቀነሰ ሌሎች ሳንቲሞች ክብደት ያገኛሉ። ስቴብልኮይኖችም ይቆጠራሉ፦ ዋጋቸው ካደገ የBitcoin ዋጋ ባይለወጥም የBitcoin ድርሻ ይቀንሳል።</string>
+    <string name="market_info_dominance_source">ምንጭ፦ CoinGecko · በግምት በየ30 ደቂቃው እንደገና ይጫናል</string>
+    <string name="market_info_dominance_what">በሁሉም ክሪፕቶከረንሲዎች ጠቅላላ ዋጋ (የገበያ ካፒታላይዜሽን) ውስጥ ያለው የBitcoin ድርሻ። ከሱ በታች የEthereum ድርሻ አለ።</string>
+    <string name="market_info_fear_greed_how">ከ25 በታች ከፍተኛ ፍርሃት፣ ከ75 በላይ ከፍተኛ ስግብግብነት፣ በ50 አካባቢ ገለልተኛ ማለት ነው። ሲዘረጋ ካርዱ የትላንትን፣ የአንድ ሳምንት በፊትንና የአንድ ወር በፊትን እሴቶች ያሳያል። የመግዛት ወይም የመሸጥ ምልክት አይደለም።</string>
+    <string name="market_info_fear_greed_source">ምንጭ፦ alternative.me · በቀን አንድ ጊዜ አዲስ እሴት</string>
+    <string name="market_info_fear_greed_what">ለክሪፕቶ ገበያ ከ0 እስከ 100 ያለ የስሜት መለኪያ። alternative.me የሚያሰላው ከበርካታ ግብዓቶች ነው፤ ከእነዚህም የዋጋ መዋዠቅ፣ የግብይት መጠን፣ ማኅበራዊ ሚዲያ እና የBitcoin የበላይነት ይገኙበታል።</string>
+    <string name="market_info_gas_how">ከፍ ያሉ እሴቶች አውታረ መረቡ ሥራ እንደበዛበትና ዝውውሮች የበለጠ እንደሚያስከፍሉ ያሳያሉ። ቀርፋፋ፣ መደበኛ እና ፈጣን ለዘገየ ወይም ለፈጠነ ማረጋገጫ የሚከፈሉ ክፍያዎች ናቸው። ሲዘረጋ ካርዱ የቀላል ዝውውርን ግምታዊ ወጪ ያሳያል።</string>
+    <string name="market_info_gas_source">ይፋዊ የRPC ኖዶች፣ mempool.space · በየደቂቃው እንደገና ይጫናል</string>
+    <string name="market_info_gas_what">አንድ ግብይት አሁን በእያንዳንዱ አውታረ መረብ ላይ ምን ያህል እንደሚያስከፍል። በEthereum እና መሰል አውታረ መረቦች በgwei (ለአንድ የgas አሃድ የአንድ ETH አንድ ቢሊዮንኛ)፣ በBitcoin በsat/vB (ለግብይቱ አንድ ምናባዊ ባይት ሳቶሺዎች)።</string>
+    <string name="market_info_halving_source">ቀን፦ ከብሎክ ከፍታና ከአማካይ የብሎክ ጊዜ (mempool.space)፣ አለበለዚያ በቀን መቁጠሪያ · የዋጋ ታሪክ፦ Coin Metrics፣ Binance፣ በየ12 ሰዓቱ እንደገና ይጫናል</string>
+    <string name="market_info_halving_what">በሃልቪንግ ወቅት የማዕድን አውጪዎች ለአዲስ የBitcoin ብሎክ የሚያገኙት ሽልማት በግማሽ ይቀንሳል። ይህ በየ210,000 ብሎኮች፣ በግምት በየአራት ዓመቱ ይከሰታል። ከዚያ በኋላ በቀን የሚፈጠሩት አዳዲስ ቢትኮይኖች ግማሽ ብቻ ናቸው።</string>
+    <string name="market_info_how">እንዴት እንደሚነበብ</string>
+    <string name="market_info_macro_how">ማስታወሻው የሚታየው እንዲህ ያለ ቀን ዛሬ ወይም ነገ ሲሆን ብቻ ነው። ይፋ በሚሆንበት አካባቢ ዋጋዎች ብዙውን ጊዜ ከወትሮው በላይ ይዋዥቃሉ። መተግበሪያው ቀኑን ብቻ ያሳያል፣ አሃዞቹን ራሳቸውን አያሳይም።</string>
+    <string name="market_info_macro_source">ከመተግበሪያው ድረ ገጽ የመጣ የቀን መቁጠሪያ · በቀን አንድ ጊዜ ይጫናል</string>
+    <string name="market_info_macro_what">የአስፈላጊ የአሜሪካ ኢኮኖሚ ውሂብ ቀኖች፦ የዋጋ ግሽበት (CPI፣ PCE)፣ የአምራች ዋጋዎች (PPI)፣ የሥራ ሪፖርቱ እና የአሜሪካ ፌዴራል ሪዘርቭ የወለድ ተመን ውሳኔዎች። እንዲህ ያሉ አሃዞች ብዙውን ጊዜ የክሪፕቶ ዋጋዎችንም ያንቀሳቅሳሉ።</string>
+    <string name="market_info_no_advice">የኢንቨስትመንት ምክር አይደለም።</string>
+    <string name="market_info_phase_source">Binance፣ Coin Metrics · ዋጋዎች በየሰዓቱ፣ የኦን-ቼይን እሴቶች በየ12 ሰዓቱ እንደገና ይጫናሉ</string>
+    <string name="market_info_pulse_how">ርዕሱ አቅጣጫውን ይጠቅሳል፤ ለዝርዝሮች ካርዱን ይዘርጉ። ሰፊ እንቅስቃሴ ማለት አብዛኞቹ ትልልቅ ሳንቲሞች በአንድ አቅጣጫ እየተንቀሳቀሱ ነው ማለት ነው። ብሩህ ተስፋ ያለው የሌቨሬጅ ስሜት ማለት ብዙ ነጋዴዎች በሌቨሬጅ ዋጋ ይጨምራል ብለው እየተወራረዱ ነው ማለት ነው፤ የሚለካው በBitcoin ፊውቸርስ የፈንዲንግ ተመን ነው። ቅጽበታዊ እይታ እንጂ ትንበያ አይደለም።</string>
+    <string name="market_info_pulse_source">Binance፣ CoinGecko · በግምት በየ5 ደቂቃው እንደገና ይጫናል</string>
+    <string name="market_info_pulse_what">ያለፉት 24 ሰዓታት የገበያ አጭር ማጠቃለያ፦ Bitcoin፣ Ethereum እና Solana እንዴት እየተንቀሳቀሱ እንደሆነ፣ ከትልልቆቹ ሳንቲሞች ምን ያህሉ እየጨመሩ ወይም እየወረዱ እንደሆነ፣ አሁን ምን ያህል Bitcoin እየተገበያየ እንደሆነ እና የሌቨሬጅ ስሜቱ ምን እንደሆነ (በBitcoin ፊውቸርስ የፈንዲንግ ተመን የሚለካ)።</string>
+    <string name="market_info_totals_how">በቀኝ በኩል በ24 ሰዓት ውስጥ ያለው የጠቅላላ ዋጋ ለውጥ አለ። ከፍተኛ መጠን ማለት ብዙ እየተገበያየ ነው ማለት ነው – በየትኛው አቅጣጫ እንደሆነ አይናገርም። በተቻለ መጠን በልወጣ ምንዛሪው፣ አለበለዚያ በአሜሪካ ዶላር ይታያል።</string>
+    <string name="market_info_totals_source">ሁሉም ሳንቲሞች · CoinGecko · በግምት በየ30 ደቂቃው እንደገና ይጫናል</string>
+    <string name="market_info_totals_what">የሁሉም ክሪፕቶከረንሲዎች ጠቅላላ ዋጋ (የገበያ ካፒታላይዜሽን፦ ዋጋ ጊዜ የሚዘዋወር አቅርቦት፣ በሁሉም ሳንቲሞች ላይ የተደመረ) እና ያለፉት 24 ሰዓታት የግብይት መጠን።</string>
+    <string name="market_info_unusual_how">እያንዳንዱ ሳንቲም በጣም ጎልቶ የሚታየውን ምልከታውን ያሳያል፣ በቀኝ በኩል የ24 ሰዓት ለውጥ አለ። 2× መጠን ማለት ከተለመደው እጥፍ ልውውጥ ማለት ነው። ጎልቶ የሚታይ ማለት ጥሩም መጥፎም አይደለም።</string>
+    <string name="market_info_unusual_source">Binance፣ CoinGecko · በግምት በየ10 ደቂቃው እንደገና ይጫናል</string>
+    <string name="market_info_unusual_what">ከ30 ገደማ ትልልቅ ሳንቲሞች (ያለ ስቴብልኮይኖች) ዛሬ ባልተለመደ ሁኔታ የሚያሳዩ እስከ አምስት ሳንቲሞች፦ ከBitcoin በጣም የጠነከሩ ወይም የደከሙ፣ ከገበያው አቅጣጫ በተቃራኒ፣ ባልተለመደ ከፍተኛ የግብይት መጠን ወይም ጎልቶ በሚታይ የፈንዲንግ ተመን።</string>
+    <string name="market_info_what">ይህ ምንድን ነው?</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">የገበያ ካፒታል</string>
+    <string name="market_cap_source">ሁሉም ሳንቲሞች · CoinGecko</string>
+    <string name="market_cap_title">የክሪፕቶ ገበያ</string>
+    <string name="market_volume_label">መጠን 24 ሰ</string>
+
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">ዝርዝሮች</string>
+    <string name="pulse_disclaimer">ትንበያ አይደለም · የኢንቨስትመንት ምክር አይደለም</string>
+    <string name="pulse_less">ያነሰ ያሳዩ</string>
+    <string name="pulse_now_title">የክሪፕቶ ምት</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">በ24 ሰዓት ውስጥ ያለ ለውጥ</string>
+    <string name="pulse_section_factors">ምክንያቶች</string>
+    <string name="pulse_section_market">የዛሬው ገበያ</string>
+    <string name="pulse_unavailable">የገበያ ውሂብ አሁን አይገኝም</string>
+    <string name="pulse_updated">እስከ %1$s</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">የተረጋጋ ገበያ</string>
+    <string name="pulse_headline_down">ሰፊ ድክመት</string>
+    <string name="pulse_headline_mixed">የተደበላለቀ ገጽታ</string>
+    <string name="pulse_headline_up">ሰፊ ጥንካሬ</string>
+    <string name="pulse_lead_alts_stronger">አልትኮይኖች ከBitcoin ጠንካራ ናቸው።</string>
+    <string name="pulse_lead_broad_down">ገበያው በሰፊው እየወረደ ነው።</string>
+    <string name="pulse_lead_broad_up">ገበያው በሰፊው እየጨመረ ነው።</string>
+    <string name="pulse_lead_btc_leads">Bitcoin በብዛት እየጨመረ ነው።</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin ከአልትኮይኖች ጠንካራ ነው።</string>
+    <string name="pulse_lead_calm">ገበያው ብዙም እየተንቀሳቀሰ አይደለም።</string>
+    <string name="pulse_lead_drift_down">ገበያው በትንሹ እየወረደ ነው።</string>
+    <string name="pulse_lead_drift_up">ገበያው በትንሹ እየጨመረ ነው።</string>
+    <string name="pulse_lead_mixed">ትልልቆቹ ሳንቲሞች በተለያየ አቅጣጫ እየተንቀሳቀሱ ነው።</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">የሌቨሬጅ ስሜት ብሩህ ተስፋ ያለው።</string>
+    <string name="pulse_detail_fund_negative">የሌቨሬጅ ስሜት ተስፋ ያጣ።</string>
+    <string name="pulse_detail_fund_neutral">የሌቨሬጅ ስሜት ገለልተኛ።</string>
+    <string name="pulse_detail_vol_above">መጠን ከተለመደው %1$s በላይ።</string>
+    <string name="pulse_detail_vol_above_fund_high">መጠን ከተለመደው %1$s በላይ፣ የሌቨሬጅ ስሜት ብሩህ ተስፋ ያለው።</string>
+    <string name="pulse_detail_vol_above_fund_negative">መጠን ከተለመደው %1$s በላይ፣ የሌቨሬጅ ስሜት ተስፋ ያጣ።</string>
+    <string name="pulse_detail_vol_above_fund_neutral">መጠን ከተለመደው %1$s በላይ፣ የሌቨሬጅ ስሜት ገለልተኛ።</string>
+    <string name="pulse_detail_vol_below">መጠን ከተለመደው %1$s በታች።</string>
+    <string name="pulse_detail_vol_below_fund_high">መጠን ከተለመደው %1$s በታች፣ የሌቨሬጅ ስሜት ብሩህ ተስፋ ያለው።</string>
+    <string name="pulse_detail_vol_below_fund_negative">መጠን ከተለመደው %1$s በታች፣ የሌቨሬጅ ስሜት ተስፋ ያጣ።</string>
+    <string name="pulse_detail_vol_below_fund_neutral">መጠን ከተለመደው %1$s በታች፣ የሌቨሬጅ ስሜት ገለልተኛ።</string>
+    <string name="pulse_detail_vol_normal">መጠን መደበኛ።</string>
+    <string name="pulse_detail_vol_normal_fund_high">መጠን መደበኛ፣ የሌቨሬጅ ስሜት ብሩህ ተስፋ ያለው።</string>
+    <string name="pulse_detail_vol_normal_fund_negative">መጠን መደበኛ፣ የሌቨሬጅ ስሜት ተስፋ ያጣ።</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">መጠን መደበኛ፣ የሌቨሬጅ ስሜት ገለልተኛ።</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">ምርጥ %1$d፦ በገበያ ዋጋ ትልልቆቹ ሳንቲሞች፣ ያለ ስቴብልኮይኖች፤ በ24 ሰዓት ውስጥ ያለ ለውጥ (CoinGecko)።</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">ምርጥ %1$d</string>
+    <string name="pulse_breadth_note_broad_down">ሰፊ ሽያጭ፦ አብዛኞቹ ትልልቅ ሳንቲሞች እየወረዱ ነው።</string>
+    <string name="pulse_breadth_note_broad_up">ሰፊ እንቅስቃሴ፦ አብዛኞቹ ትልልቅ ሳንቲሞች እየጨመሩ ነው።</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin እየወረደ ነው፣ ግን አብዛኞቹ ሌሎች ትልልቅ ሳንቲሞች ጸንተዋል።</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin እየጨመረ ነው፣ ግን አብዛኞቹ ሌሎች ትልልቅ ሳንቲሞች አልተከተሉም።</string>
+    <string name="pulse_breadth_spoken">ምርጥ %1$d፦ %2$d ጨምረዋል፣ %3$d ወርደዋል</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">አልትኮይኖችና Bitcoin በተመሳሳይ ይንቀሳቀሳሉ</string>
+    <string name="pulse_alts_stronger">አልትኮይኖች ከBitcoin ጠንካራ</string>
+    <string name="pulse_alts_weaker">Bitcoin ከአልትኮይኖች ጠንካራ</string>
+    <string name="pulse_chip_funding_high">የሌቨሬጅ ስሜት ብሩህ ተስፋ ያለው</string>
+    <string name="pulse_chip_funding_negative">የሌቨሬጅ ስሜት ተስፋ ያጣ</string>
+
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s፣ %2$s። %3$s።</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">ዋጋና ድርጊቶችን ያሳዩ</string>
+    <string name="unusual_fact_against">ከገበያው በተቃራኒ እየተንቀሳቀሰ</string>
+    <string name="unusual_fact_funding_high">ፈንዲንግ ከፍተኛ (%1$s)</string>
+    <string name="unusual_fact_funding_negative">ፈንዲንግ አሉታዊ (%1$s)</string>
+    <string name="unusual_fact_stronger">ከBTC በጣም በጠነከረ ሁኔታ እየተንቀሳቀሰ</string>
+    <string name="unusual_fact_volume">መጠን ከተለመደው %1$s×</string>
+    <string name="unusual_fact_weaker">ከBTC በጣም በደከመ ሁኔታ እየተንቀሳቀሰ</string>
+    <string name="unusual_nothing">ዛሬ ጎልቶ የሚታይ ነገር የለም</string>
+    <string name="unusual_source">30 ገደማ ትልልቅ ሳንቲሞች ያለ ስቴብልኮይኖች · Binance፣ CoinGecko</string>
+    <string name="unusual_title">ጎልቶ የሚታይ</string>
+
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">ጎልቶ የሚታይ</string>
+    <string name="activity_indicator">ጎልቶ የሚታይ</string>
+    <string name="activity_sensitivity_less">ያነሰ</string>
+    <string name="activity_sensitivity_more">የበለጠ</string>
+    <string name="activity_sensitivity_normal">መደበኛ</string>
+    <string name="activity_signal_funding_long">ፈንዲንግ %1$s — ብዙ በሌቨሬጅ የተያዙ ሎንጎች</string>
+    <string name="activity_signal_funding_short">ፈንዲንግ %1$s — ብዙ ሾርቶች</string>
+    <string name="activity_signal_open_interest">ኦፕን ኢንተረስት %1$s በ%2$d ደቂቃ ውስጥ</string>
+    <string name="activity_signal_open_interest_no_time">ኦፕን ኢንተረስት %1$s</string>
+    <string name="activity_signal_price_move">ያልተለመደ እንቅስቃሴ፦ %1$s በአንድ ሰዓት (ከተለመደው %2$s×)</string>
+    <string name="activity_signal_volume">ባለፈው ሰዓት መጠን ከተለመደው %1$s×</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="one">ከ%2$d ትልልቅ አልትኮይኖች %1$d በ90 ቀናት ውስጥ ከBitcoin በልጧል</item>
+        <item quantity="other">ከ%2$d ትልልቅ አልትኮይኖች %1$d በ90 ቀናት ውስጥ ከBitcoin በልጠዋል</item>
+    </plurals>
+    <string name="insights_chart_axis">ከሃልቪንግ ወዲህ ያሉ ዓመታት</string>
+    <string name="insights_chart_hint">ዋጋ እንደ የሃልቪንግ ቀን ዋጋ ብዜት (ሎጋሪዝማዊ መለኪያ)። ቀደምት ዑደቶች ቅጥ ናቸው እንጂ ትንበያ አይደሉም።</string>
+    <string name="insights_cycle_chart">ከሃልቪንግ ወዲህ ያሉ ዑደቶች</string>
+    <string name="insights_dominance_eth">ETH ከጠቅላላው ገበያ %1$s</string>
+    <string name="insights_dominance_title">የBitcoin የበላይነት</string>
+    <string name="insights_fng_history">ትላንት %1$s · ከሳምንት በፊት %2$s · ከወር በፊት %3$s</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="insights_halving_title">የBitcoin ሃልቪንግ</string>
+    <string name="insights_source_dominance">ምንጭ፦ CoinGecko፣ Binance</string>
+    <string name="insights_source_fng">ምንጭ፦ alternative.me</string>
+    <string name="insights_source_history">ምንጭ፦ Coin Metrics (CC BY-NC 4.0)፣ Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">ከፍተኛ ፍርሃት</string>
+    <string name="fng_extreme_greed">ከፍተኛ ስግብግብነት</string>
+    <string name="fng_fear">ፍርሃት</string>
+    <string name="fng_greed">ስግብግብነት</string>
+    <string name="fng_neutral">ገለልተኛ</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">ውሂብ እስከ %1$s · በማዘመን ላይ…</string>
+    <string name="cycle_from_top">ከከፍተኛው %1$s</string>
+    <string name="cycle_marker_bottom">ዝቅተኛ ነጥብ %1$s</string>
+    <string name="cycle_marker_double_bottom">ድርብ ዝቅተኛ ነጥብ %1$s</string>
+    <string name="cycle_marker_double_top">ድርብ ከፍተኛ ነጥብ %1$s</string>
+    <string name="cycle_marker_high_so_far">እስካሁን ያለ ከፍተኛ</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">ከፍተኛ ነጥብ %1$s</string>
+    <string name="cycle_since_halving">ከሃልቪንግ ወዲህ %1$s</string>
+    <string name="halving_estimate_text">ቀጣዩ ሃልቪንግ በስሌት %1$s አካባቢ፦ በአንድ ብሎክ በአማካይ %3$s ደቂቃ (የአሁኑ የችግር ደረጃ ጊዜ) %2$s ብሎኮች ቀርተዋል። ትንበያ ነው እንጂ ቃል ኪዳን አይደለም – የብሎክ ጊዜ ይለያያል።</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">ማንቂያ፦ %1$s</string>
+    <string name="gas_slow_fast">ቀርፋፋ %1$s · ፈጣን %2$s</string>
+    <string name="gas_source">ይፋዊ የRPC ኖዶችና mempool.space · የቀላል ዝውውር ወጪ፣ በL2ዎች ላይ ያለውን የL1 ድርሻ ሳይጨምር</string>
+    <string name="gas_title">የአውታረ መረብ ክፍያዎች</string>
+    <string name="gas_transfer_cost">ዝውውር ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">የአሜሪካ የዋጋ ግሽበት ውሂብ (CPI)</string>
+    <string name="macro_fomc">የአሜሪካ ፌድ የወለድ ተመን ውሳኔ</string>
+    <string name="macro_hint_list">%1$s – በእንዲህ ያሉ ቀናት ገበያዎች ብዙውን ጊዜ የበለጠ ይዋዥቃሉ።</string>
+    <string name="macro_hint_today">ዛሬ %1$s፦ %2$s – በእንዲህ ያሉ ቀናት ገበያዎች ብዙውን ጊዜ የበለጠ ይዋዥቃሉ።</string>
+    <string name="macro_hint_today_list">ዛሬ፦ %1$s – በእንዲህ ያሉ ቀናት ገበያዎች ብዙውን ጊዜ የበለጠ ይዋዥቃሉ።</string>
+    <string name="macro_hint_tomorrow">ነገ %1$s፦ %2$s – በእንዲህ ያሉ ቀናት ገበያዎች ብዙውን ጊዜ የበለጠ ይዋዥቃሉ።</string>
+    <string name="macro_hint_tomorrow_list">ነገ፦ %1$s – በእንዲህ ያሉ ቀናት ገበያዎች ብዙውን ጊዜ የበለጠ ይዋዥቃሉ።</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">ዛሬ %1$s %2$s</string>
+    <string name="macro_item_tomorrow">ነገ %1$s %2$s</string>
+    <string name="macro_nfp">የአሜሪካ የሥራ ሪፖርት</string>
+    <string name="macro_pce">የአሜሪካ የሸማቾች ወጪ ዋጋዎች (PCE)</string>
+    <string name="macro_ppi">የአሜሪካ የአምራች ዋጋዎች (PPI)</string>
+    <string name="macro_released_list">ዛሬ ይፋ የሆነ፦ %1$s።</string>
+    <string name="macro_released_one">ዛሬ በ%1$s ይፋ የሆነ፦ %2$s።</string>
+    <string name="macro_title">የኢኮኖሚ ውሂብ</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">ሳንቲም</string>
+    <string name="coin_no_data">በBinance ወይም Bybit ላይ ለዚህ ሳንቲም የዋጋ ውሂብ የለም።</string>
+    <string name="coin_price_only">በዋጋ ላይ ብቻ የተመሠረተ – የኦን-ቼይን ውሂብ (MVRV፣ Puell፣ ሃሽሬት) በነፃ የሚገኘው ለBitcoin ብቻ ነው።</string>
+    <plurals name="coin_short_history">
+        <item quantity="one">የ%1$d ቀን የዋጋ ታሪክ ብቻ – አንዳንድ አመላካቾች ይጎድላሉ።</item>
+        <item quantity="other">የ%1$d ቀናት የዋጋ ታሪክ ብቻ – አንዳንድ አመላካቾች ይጎድላሉ።</item>
+    </plurals>
+    <string name="coin_title">የሳንቲም ትንተና</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">ውሂብ፦ %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">ያተረፉና የከሰሩ 24 ሰ</string>
+    <string name="movers_gainers">ያተረፉ</string>
+    <string name="movers_losers">የከሰሩ</string>
+    <string name="movers_no_gainers">በ24 ሰ ውስጥ የጨመረ ሳንቲም የለም</string>
+    <string name="movers_no_losers">በ24 ሰ ውስጥ የወረደ ሳንቲም የለም</string>
+    <string name="movers_source">CoinGecko፣ 24 ሰ፣ ምርጥ 100 ያለ ስቴብልኮይኖች</string>
+    <string name="movers_a11y_row">%1$s (%2$s)፣ %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">ሁሉንም ያሳዩ</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">ያነሰ ያሳዩ</string>
+</resources>

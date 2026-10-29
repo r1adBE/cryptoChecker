@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">ඇඟවීම් ලැබෙන බව සහතික කරන්න</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">හරි</string>
+    <string name="delivery_state_warn">මෙය පරීක්ෂා කරන්න</string>
+    <string name="delivery_state_info">සටහන</string>
+    <string name="delivery_allowed">ඉඩ දී ඇත</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">දැනුම්දීම්</string>
+    <string name="delivery_notifications_off">අක්‍රියයි – ඇඟවීම් නොලැබේ</string>
+    <string name="delivery_notifications_not_asked">තවම ඉඩ දී නැත</string>
+    <string name="delivery_channel">ඇඟවීම් නාලිකාව</string>
+    <string name="delivery_channel_high">ඉහළ වැදගත්කම – තිරය මත උත්පතනය වේ</string>
+    <string name="delivery_channel_low">අඩු වැදගත්කම – ඇඟවීම් ලැයිස්තුවේ නිහඬව පමණක් දිස් වේ</string>
+    <string name="delivery_channel_off">අක්‍රිය කර ඇත – ඇඟවීම් නොලැබේ</string>
+    <string name="delivery_exact_on">සක්‍රියයි – ආසන්න වශයෙන් සෑම මිනිත්තු 15 කට වරක්</string>
+    <string name="delivery_exact_off">අක්‍රියයි – Android අක්‍රමවත්ව පරීක්ෂා කරයි</string>
+    <string name="delivery_battery">බැටරි ප්‍රශස්තකරණය</string>
+    <string name="delivery_battery_unrestricted">සීමා නොකළ</string>
+    <string name="delivery_battery_optimized">ප්‍රශස්ත කර ඇත – Android පරීක්ෂා ප්‍රමාද කළ හැක. යෙදුම ව්‍යතිරේකයක් ඉල්ලන්නේ නැත; ඔබට මෙය යෙදුමේ බැටරි සැකසීම් තුළ වෙනස් කළ හැක.</string>
+    <string name="delivery_background">පසුබිම් භාවිතය</string>
+    <string name="delivery_background_restricted">සීමා කර ඇත – Android පසුබිම් පරීක්ෂා නවත්වයි</string>
+    <string name="delivery_dnd">බාධා නොකරන්න</string>
+    <string name="delivery_dnd_on">සක්‍රියයි – ඇඟවීම් ශබ්දය නොමැතිව ලැබිය හැක</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">%1$s දක්වා සක්‍රියයි – නියමිත ඇඟවීම් එතෙක් රැඳී සිටී</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – මෙම කාලය තුළ නියමිත ඇඟවීම් රැඳී සිටී</string>
+    <string name="delivery_last_check">අවසන් පසුබිම් පරීක්ෂාව</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – පැය 6 කට වඩා පෙර</string>
+    <string name="delivery_last_check_never">තවම නැත</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">ඉඩ දෙන්න</string>
+    <string name="delivery_action_change">වෙනස් කරන්න</string>
+    <string name="delivery_action_show">පෙන්වන්න</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">බැනර් සහ ශබ්දය</string>
+    <string name="delivery_alert_off">බැනර් අක්‍රියයි – ඇඟවීම් Notification Center හි පමණක් දිස් වේ</string>
+    <string name="delivery_sound_off">ශබ්දය අක්‍රියයි – ඇඟවීම් නිහඬව ලැබේ</string>
+    <string name="delivery_time_sensitive">Time Sensitive Notifications</string>
+    <string name="delivery_time_sensitive_off">අක්‍රියයි – Focus එකකට ඇඟවීම් රඳවා ගත හැක</string>
+    <string name="delivery_background_refresh">Background App Refresh</string>
+    <string name="delivery_low_power">Low Power Mode</string>
+    <string name="delivery_swipe_away">යෙදුම ස්වයිප් කර ඉවත් කළාද?</string>
+    <string name="delivery_swipe_away_note">ඔබ යෙදුම් මාරුකරණයේදී යෙදුම ස්වයිප් කර ඉවත් කළහොත්, ඔබ එය නැවත විවෘත කරන තුරු iOS පසුබිම් පරීක්ෂා නවත්වයි.</string>
+    <string name="delivery_live_activity">Live Activity</string>
+    <string name="delivery_live_activity_note">අගුළු තිරයේ මිල පෙන්වන නමුත් යාවත්කාලීන වන්නේ යෙදුම පරීක්ෂා කරන විට පමණි – එය ඇඟවීම් වැඩි වාර ගණනක් පරීක්ෂා කිරීමට හේතු නොවේ.</string>
+
+    <string name="alarm_first_check">ඇඟවීම් ලැබෙන බව පරීක්ෂා කරන්න</string>
+
+    <string name="oem_battery_title">නිෂ්පාදකයාගේ බැටරි සුරැකුම</string>
+    <string name="oem_battery_xiaomi">Xiaomi යෙදුම සම්පූර්ණයෙන්ම නැවැත්විය හැක – එවිට ඇඟවීම් නොලැබේ. “Autostart” සක්‍රිය කර බැටරි සුරැකුම “No restrictions” ලෙස සකසන්න.</string>
+    <string name="oem_battery_samsung">Samsung යෙදුම ගැඹුරු නින්දට දැමිය හැක – එවිට ඇඟවීම් නොලැබේ. බැටරිය › පසුබිම් භාවිත සීමා යටතේ, එය “කිසි විටෙක නොනිදන යෙදුම්” වෙත එක් කරන්න.</string>
+    <string name="oem_battery_huawei">Huawei/Honor යෙදුම නැවැත්විය හැක – එවිට ඇඟවීම් නොලැබේ. බැටරිය › යෙදුම් දියත් කිරීම යටතේ, “අතින් කළමනාකරණය” තෝරා සියලු විකල්පවලට ඉඩ දෙන්න.</string>
+    <string name="oem_battery_oneplus">OnePlus යෙදුම නැවැත්විය හැක – එවිට ඇඟවීම් නොලැබේ. “Auto-launch” සඳහා ඉඩ දී, බැටරි භාවිතය යටතේ පසුබිම් ක්‍රියාකාරකම්වලටද ඉඩ දෙන්න.</string>
+    <string name="oem_battery_oppo">Oppo/Realme යෙදුම නැවැත්විය හැක – එවිට ඇඟවීම් නොලැබේ. “Auto launch” සඳහා ඉඩ දී, බැටරි භාවිතය යටතේ පසුබිම් ක්‍රියාකාරකම්වලටද ඉඩ දෙන්න.</string>
+    <string name="oem_battery_vivo">Vivo යෙදුම නැවැත්විය හැක – එවිට ඇඟවීම් නොලැබේ. “Autostart” සඳහා ඉඩ දී, බැටරිය යටතේ ඉහළ පසුබිම් බල භාවිතයටද ඉඩ දෙන්න.</string>
+    <string name="alarm_reliability_stale">අවසන් පරීක්ෂාව %1$s – ඇඟවීම් ප්‍රමාද විය හැක</string>
+    <string name="alarm_reliability_never">ඇඟවීම් සක්‍රියයි – තවම පසුබිම් පරීක්ෂාවක් නැත</string>
+    <string name="alarm_reliability_notifications_off">දැනුම්දීම් අක්‍රියයි – ඇඟවීම් නොලැබේ</string>
+    <string name="alarm_reliability_battery">බැටරි සුරැකීම ඇඟවීම් පරීක්ෂා නැවැත්විය හැක</string>
+    <string name="alarm_reliability_background_refresh">Background App Refresh අක්‍රියයි – ඇඟවීම් නොලැබිය හැක</string>
+</resources>

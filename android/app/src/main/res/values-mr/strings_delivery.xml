@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">अलर्ट पोहोचतील याची खात्री करा</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">ठीक</string>
+    <string name="delivery_state_warn">हे तपासा</string>
+    <string name="delivery_state_info">टीप</string>
+    <string name="delivery_allowed">परवानगी आहे</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">सूचना</string>
+    <string name="delivery_notifications_off">बंद – अलर्ट पोहोचणार नाहीत</string>
+    <string name="delivery_notifications_not_asked">अजून परवानगी दिलेली नाही</string>
+    <string name="delivery_channel">अलर्ट चॅनल</string>
+    <string name="delivery_channel_high">उच्च महत्त्व – स्क्रीनवर दिसतो</string>
+    <string name="delivery_channel_low">कमी महत्त्व – अलर्ट फक्त यादीत शांतपणे दिसतात</string>
+    <string name="delivery_channel_off">बंद केलेले – अलर्ट पोहोचणार नाहीत</string>
+    <string name="delivery_exact_on">चालू – साधारण दर 15 मिनिटांनी</string>
+    <string name="delivery_exact_off">बंद – Android अनियमितपणे तपासतो</string>
+    <string name="delivery_battery">बॅटरी ऑप्टिमायझेशन</string>
+    <string name="delivery_battery_unrestricted">अनिर्बंधित</string>
+    <string name="delivery_battery_optimized">ऑप्टिमाइझ केलेले – Android तपासण्या उशिरा करू शकतो. ॲप सवलत मागत नाही; ॲपच्या बॅटरी सेटिंग्जमध्ये तुम्ही हे बदलू शकता.</string>
+    <string name="delivery_background">पार्श्वभूमीतील वापर</string>
+    <string name="delivery_background_restricted">प्रतिबंधित – Android पार्श्वभूमीतील तपासण्या थांबवतो</string>
+    <string name="delivery_dnd">व्यत्यय आणू नका</string>
+    <string name="delivery_dnd_on">चालू – अलर्ट आवाजाशिवाय येऊ शकतात</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">%1$s पर्यंत सक्रिय – देय अलर्ट तोपर्यंत थांबतात</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – या वेळेत देय अलर्ट थांबतात</string>
+    <string name="delivery_last_check">शेवटची पार्श्वभूमी तपासणी</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – 6 तासांहून अधिक पूर्वी</string>
+    <string name="delivery_last_check_never">अजून नाही</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">परवानगी द्या</string>
+    <string name="delivery_action_change">बदला</string>
+    <string name="delivery_action_show">दाखवा</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">बॅनर आणि आवाज</string>
+    <string name="delivery_alert_off">बॅनर बंद – अलर्ट फक्त सूचना केंद्रात दिसतात</string>
+    <string name="delivery_sound_off">आवाज बंद – अलर्ट शांतपणे येतात</string>
+    <string name="delivery_time_sensitive">वेळ-संवेदनशील सूचना</string>
+    <string name="delivery_time_sensitive_off">बंद – फोकस अलर्ट रोखू शकतो</string>
+    <string name="delivery_background_refresh">पार्श्वभूमी ॲप रिफ्रेश</string>
+    <string name="delivery_low_power">लो पॉवर मोड</string>
+    <string name="delivery_swipe_away">ॲप स्वाइप करून काढले?</string>
+    <string name="delivery_swipe_away_note">ॲप स्विचरमध्ये ॲप स्वाइप करून काढल्यास, तुम्ही ते पुन्हा उघडेपर्यंत iOS पार्श्वभूमीतील तपासण्या थांबवतो.</string>
+    <string name="delivery_live_activity">लाइव्ह ॲक्टिव्हिटी</string>
+    <string name="delivery_live_activity_note">लॉक स्क्रीनवर किंमत दाखवते, पण ॲप तपासते तेव्हाच अपडेट होते – यामुळे अलर्ट जास्त वेळा तपासले जात नाहीत.</string>
+
+    <string name="alarm_first_check">अलर्ट पोहोचतात का ते तपासा</string>
+
+    <string name="oem_battery_title">उत्पादकाचा बॅटरी सेव्हर</string>
+    <string name="oem_battery_xiaomi">Xiaomi ॲप पूर्णपणे थांबवू शकतो – मग अलर्ट पोहोचत नाहीत. “Autostart” चालू करा आणि बॅटरी सेव्हर “No restrictions” वर ठेवा.</string>
+    <string name="oem_battery_samsung">Samsung ॲपला डीप स्लीपमध्ये टाकू शकतो – मग अलर्ट पोहोचत नाहीत. बॅटरी › पार्श्वभूमी वापर मर्यादा येथे ते “Never sleeping apps” मध्ये जोडा.</string>
+    <string name="oem_battery_huawei">Huawei/Honor ॲप थांबवू शकतो – मग अलर्ट पोहोचत नाहीत. बॅटरी › ॲप लाँच येथे “Manage manually” निवडा आणि सर्व पर्यायांना परवानगी द्या.</string>
+    <string name="oem_battery_oneplus">OnePlus ॲप थांबवू शकतो – मग अलर्ट पोहोचत नाहीत. “Auto-launch” ला परवानगी द्या आणि बॅटरी वापर येथे पार्श्वभूमी क्रियाकलापालाही.</string>
+    <string name="oem_battery_oppo">Oppo/Realme ॲप थांबवू शकतो – मग अलर्ट पोहोचत नाहीत. “Auto launch” ला परवानगी द्या आणि बॅटरी वापर येथे पार्श्वभूमी क्रियाकलापालाही.</string>
+    <string name="oem_battery_vivo">Vivo ॲप थांबवू शकतो – मग अलर्ट पोहोचत नाहीत. “Autostart” ला परवानगी द्या आणि बॅटरी येथे पार्श्वभूमीतील जास्त ऊर्जा वापरालाही.</string>
+    <string name="alarm_reliability_stale">शेवटची तपासणी %1$s – अलर्ट उशिरा येऊ शकतात</string>
+    <string name="alarm_reliability_never">अलर्ट चालू – अजून पार्श्वभूमी तपासणी नाही</string>
+    <string name="alarm_reliability_notifications_off">सूचना बंद – अलर्ट पोहोचणार नाहीत</string>
+    <string name="alarm_reliability_battery">बॅटरी बचतीमुळे अलर्ट तपासण्या थांबू शकतात</string>
+    <string name="alarm_reliability_background_refresh">पार्श्वभूमी ॲप रिफ्रेश बंद – अलर्ट कदाचित पोहोचणार नाहीत</string>
+</resources>

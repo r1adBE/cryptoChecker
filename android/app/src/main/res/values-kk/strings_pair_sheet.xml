@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aktionsblatt: Kurs-Chart (Zeitraum, Kerzenwerte beim Ziehen, Umrechnung) und «Mehr» -->
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s Zeitraum kurz (widget_range_short_24h/7d/30d) -->
+    <string name="sheet_chart_change">%2$s ішінде %1$s</string>
+    <!-- %1$s Veränderung mit Pfeil («↗ +2.31%»), %2$s change_short_today(_zone) -->
+    <string name="sheet_chart_change_since">%1$s %2$s</string>
+    <string name="sheet_chart_close">Жабылу</string>
+    <string name="sheet_chart_converted_current">%1$s, айырбасталған (ағымдағы бағам)</string>
+    <!-- Zeile unter dem Chart, %1$s = umgerechnete Reihe («BTC/USDT») -->
+    <string name="sheet_chart_converted_daily">%1$s, күндік бағамдармен айырбасталған</string>
+    <!-- Keine Kerzen für das Paar -->
+    <string name="sheet_chart_no_data">Бұл жұп үшін баға деректері жоқ</string>
+    <!-- Kerzenwerte beim Ziehen (Hoch/Tief: ticker_high/ticker_low) -->
+    <string name="sheet_chart_open">Ашылу</string>
+    <!-- Zeitraum-Chip statt «24h» bei Tages-Basis -->
+    <string name="sheet_chart_today">Бүгін</string>
+    <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
+    <string name="sheet_chart_volume">Көлем %1$s</string>
+    <string name="sheet_more">Қосымша</string>
+
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
+    <string name="ticker_ask">Ask</string>
+    <string name="ticker_bid">Bid</string>
+    <string name="explain_bid_ask">Bid – сатып алушылар дәл қазір ұсынып отырған ең жоғары баға, ask – сатушылар келісетін ең төмен баға.</string>
+    <string name="ticker_high">Ең жоғары</string>
+    <string name="ticker_low">Ең төмен</string>
+    <string name="ticker_timestamp">Уақыт</string>
+    <string name="ticker_vol_base">Көлем (монетамен)</string>
+    <string name="ticker_vol_quote">Көлем (котировка валютасымен)</string>
+
+    <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
+    <string name="change_basis_device">%1$s, 00:00 (құрылғы уақыт белдеуі)</string>
+    <string name="change_basis_local">Жергілікті уақытпен 00:00-ден бері</string>
+    <string name="change_basis_rolling">Соңғы 24 сағ</string>
+    <!-- Letzter gegen vorherigen Kurs des Paars; ausgeschrieben (Auswahl). Kurz neben Pille und Widgets: change_short_since_last -->
+    <string name="change_basis_since_last">Соңғы жаңартудан бері</string>
+    <string name="change_basis_utc_zone">%1$s 00:00-ден бері</string>
+    <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
+    <string name="change_candle_source">%1$s шамдары бойынша өзгеріс</string>
+    <string name="change_short_since_last">соңғы жаңарту</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
+    <string name="change_short_today">бүгін</string>
+    <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->
+    <string name="change_short_today_zone">бүгін %1$s</string>
+
+    <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
+    <string name="exchange_data_empty_error">Биржадан дерек келмеді.</string>
+    <string name="market_data_summary">Нарықтық капитализация, газ комиссиялары, экономикалық деректер, монета талдауы</string>
+    <string name="market_data_tab_futures">Фьючерстер</string>
+    <string name="market_data_title">Нарық деректері</string>
+
+    <!-- Marktdaten Spot (Marktkapitalisierung, Angebot, Volumen) -->
+    <string name="spot_circulating">Айналымдағы көлем</string>
+    <string name="spot_fdv">FDV</string>
+    <string name="spot_market_cap">Нарықтық капитализация</string>
+    <string name="spot_max_supply">Ең жоғары көлем</string>
+    <string name="spot_no_data">Бұл монета үшін спот деректері жоқ</string>
+    <string name="spot_source_updated">Дереккөз: %1$s · %2$s жағдайы бойынша</string>
+    <string name="spot_supply_of_max">Ең жоғары көлемнің %1$s айналымда</string>
+    <string name="spot_total_supply">Жалпы көлем</string>
+    <string name="spot_vol_mcap">Көлем/Нарық. кап.</string>
+    <string name="spot_volume_24h">Көлем (24 сағ)</string>
+
+    <!-- Futures-Kennzahlen (Funding, Open Interest, Referenzbörse) -->
+    <string name="futures_alarm_reference">Анықтама: %1$s</string>
+    <string name="futures_funding">Фандинг мөлшерлемесі</string>
+    <string name="futures_funding_interval_unknown">аралық белгісіз</string>
+    <string name="futures_funding_per8h_equiv">= 8 сағатқа %1$s (ескертулердегідей)</string>
+    <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
+    <string name="futures_funding_per_hour">сағатына</string>
+    <string name="futures_funding_per_hours">%1$d сағатқа</string>
+    <string name="futures_next_funding">келесісі %1$d сағ %2$d мин кейін</string>
+    <string name="futures_no_data">Бұл монета үшін фьючерс деректері жоқ</string>
+    <string name="futures_open_interest">Ашық позициялар</string>
+    <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
+    <string name="futures_reference_hint">Анықтама %1$s биржасынан – фандинг пен ашық позициялар биржаға қарай әртүрлі; %2$s биржасында олар өзгеше болуы мүмкін.</string>
+    <string name="futures_reference_spot">Анықтама %1$s биржасынан (монетаның USDT мәңгілік келісімшарты)</string>
+    <string name="futures_source">Дереккөз: %1$s</string>
+
+    <!-- Erklärungen hinter dem ⓘ-Knopf -->
+    <string name="explain_funding">Көп трейдер қарызға алған ақшамен бағаның өсуіне немесе төмендеуіне бәс тігеді. Лонг пен шорт позициялары арасындағы төлем. Қатты оң мән көбінің өсуге бәс тігіп жатқанын білдіреді.</string>
+    <string name="explain_open_interest">Фьючерстер – бағаға жасалған бәс, көбіне қарызға алған ақшамен. Барлық ашық фьючерс позицияларының құны. Өссе, қозғалысқа көбірек ақша тігілуде.</string>
+    <!-- Inhaltsbeschreibung des ⓘ-Knopfs, der eine Erklärung einblendet -->
+    <string name="explain_show">Түсіндірме</string>
+    <string name="explain_spot_fdv">Толық сұйылтылған бағалау: баға × ең жоғары көлем (шек болмаса, жалпы көлем).</string>
+    <string name="explain_spot_market_cap">Баға × айналымдағы көлем. Белгі оның 24 сағаттағы өзгерісін көрсетеді.</string>
+    <string name="explain_spot_source">Барлық биржа бойынша АҚШ долларындағы көрсеткіштер, CoinGecko-дан.</string>
+    <string name="explain_spot_supply">Айналымда: қазір нарықтағы монеталар. Жалпы: жасалған барлық монета, өртелгендерін шегергенде. Ең жоғары: ешқашан болуы мүмкін ең көп саны.</string>
+    <string name="explain_spot_volume">24 сағатта саудаланған құн. Көлем/Нарық. кап.: көлемнің нарықтық капитализацияға қатынасы — жоғары болса, сауда өте белсенді.</string>
+
+    <!-- Umrechnung und Sats -->
+    <string name="converted_fx_stale">%1$s · бағам %2$s</string>
+    <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
+
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">Сатып алу мен сату бағасы арасындағы алшақтық үлкен (%1$s)</string>
+
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">%1$s тарихы, бүгінгі бағаммен %2$s валютасына айырбасталған</string>
+    <string name="converted_unsure">Айырбастау күмәнді</string>
+</resources>

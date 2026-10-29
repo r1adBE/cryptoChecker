@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">Hvað hreyfist með?</string>
+    <string name="why_all_values">Öll gildi og heimildir</string>
+    <string name="why_all_values_hint">Athugun · Möguleg skýring · Heimildir</string>
+    <string name="why_details">Sýna nánar</string>
+    <string name="why_details_hide">Fela nánar</string>
+    <string name="why_disclaimer">Sjálfvirkt mat út frá markaðsgögnum: það sýnir hvað gerist á sama tíma, ekki sönnun á orsök.</string>
+    <string name="why_footer_short">Samtímis þýðir ekki orsök · Engin fjárfestingarráðgjöf</string>
+    <string name="why_no_data">Engin gögn frá Binance fyrir þetta par</string>
+    <string name="why_no_data_hint">Verð, velta og sveiflur koma úr klukkustundarkertum Binance.</string>
+    <string name="why_ref_alts">Altmyntir</string>
+    <string name="why_section_context">Möguleg skýring</string>
+    <string name="why_section_observation">Athugun</string>
+    <string name="why_title">Hvað hreyfist með?</string>
+    <string name="why_title_coin">Hvað hreyfist með %1$s?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">Í stuttu máli · Staða %1$s</string>
+    <string name="why_brief_label">Í stuttu máli:</string>
+    <string name="why_summary_against">Myntin hreyfist gegn markaðnum.</string>
+    <string name="why_summary_calm">Engin eftirtektarverð hreyfing: markaður og mynt eru róleg.</string>
+    <string name="why_summary_coin">Aðeins þessi mynt hreyfist – hugsanlega eitthvað sem varðar aðeins þessa mynt.</string>
+    <string name="why_summary_coin_volume">Aðeins þessi mynt hreyfist, með meiri veltu – hugsanlega eitthvað sem varðar aðeins þessa mynt.</string>
+    <string name="why_summary_longs">Framvirkt: margar skuldsettar langstöður.</string>
+    <string name="why_summary_market">Hreyfingin fellur í tíma að öllum markaðnum.</string>
+    <string name="why_summary_market_volume">Hreyfingin fer saman við meiri veltu og víðtæka markaðshreyfingu.</string>
+    <string name="why_summary_peg_near">Verðið er nálægt 1:1 tengingu sinni (peg).</string>
+    <string name="why_summary_peg_off">Verðið víkur greinilega frá 1:1 tengingu sinni (peg).</string>
+    <string name="why_summary_shorts">Framvirkt: margar skortstöður.</string>
+    <string name="why_summary_thin">Hreyfingin er þunn: lítil velta á bak við hana.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">Gegn markaðnum</string>
+    <string name="why_f_coin_only">Aðeins þessi mynt</string>
+    <string name="why_f_leader">Bitcoin sem markaðsleiðtogi</string>
+    <string name="why_f_leverage_balanced">Skuldsetning í jafnvægi</string>
+    <string name="why_f_leverage_longs">Skuldsetning: margar langstöður</string>
+    <string name="why_f_leverage_shorts">Skuldsetning: margar skortstöður</string>
+    <string name="why_f_market_calm">Rólegur markaður</string>
+    <string name="why_f_market_wide">Allur markaðurinn hreyfist</string>
+    <string name="why_factor_funding">Fjármögnun</string>
+    <string name="why_factor_futures">Framvirkt</string>
+    <string name="why_factor_market">Heildarmarkaður</string>
+    <string name="why_factor_near_high">Nálægt hámarki</string>
+    <string name="why_factor_near_low">Nálægt lágmarki</string>
+    <string name="why_factor_peg">Tenging (1:1)</string>
+    <string name="why_factor_range3d">3 daga bil</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">áætlað</string>
+    <string name="why_fn_funding_longs">margir veðja á hækkandi verð</string>
+    <string name="why_fn_funding_neutral">hlutlaust</string>
+    <string name="why_fn_funding_shorts">margir veðja á lækkandi verð</string>
+    <string name="why_fn_high_at">við 30 daga hámark</string>
+    <string name="why_fn_high_below">undir 30 daga hámarki</string>
+    <string name="why_fn_leader_calm">Bitcoin er rólegt</string>
+    <string name="why_fn_leader_moves">Bitcoin hreyfist greinilega</string>
+    <string name="why_fn_low_above">yfir 30 daga lágmarki</string>
+    <string name="why_fn_low_at">við 30 daga lágmark</string>
+    <string name="why_fn_market_against">Þessi mynt hreyfist gegn markaðnum</string>
+    <string name="why_fn_market_alone">Markaður rólegur – þessi mynt hreyfist ein</string>
+    <string name="why_fn_market_calm">Markaðurinn er rólegur</string>
+    <string name="why_fn_market_lags">Markaðurinn hreyfist, þessi mynt varla</string>
+    <string name="why_fn_market_moves">Markaðurinn hreyfist í sömu átt</string>
+    <string name="why_fn_market_pulls">Markaðurinn hreyfist með BTC</string>
+    <string name="why_fn_oi_down">Opnum stöðum fækkar</string>
+    <string name="why_fn_oi_flat">Opnar stöður nánast óbreyttar</string>
+    <string name="why_fn_oi_mixed">Opnar stöður blendnar</string>
+    <string name="why_fn_oi_up">Opnum stöðum fjölgar</string>
+    <string name="why_fn_peg_above">%1$s yfir 1:1 tengingu</string>
+    <string name="why_fn_peg_below">%1$s undir 1:1 tengingu</string>
+    <string name="why_fn_peg_near">nálægt 1:1 tengingu</string>
+    <string name="why_fn_range_above_low">frá 3 daga lágmarki</string>
+    <string name="why_fn_range_below_high">frá 3 daga hámarki</string>
+    <string name="why_fn_range_near_high">nálægt 3 daga hámarki</string>
+    <string name="why_fn_range_near_low">nálægt 3 daga lágmarki</string>
+    <string name="why_fn_volatility_stronger">sterkari en venjulega</string>
+    <string name="why_fn_volatility_tiny">lítil í beinum tölum (undir %1$s)</string>
+    <string name="why_fn_volatility_usual">eins og venjulega</string>
+    <string name="why_fn_volume_higher">hærri en venjulega</string>
+    <string name="why_fn_volume_lower">lægri en venjulega</string>
+    <string name="why_fn_volume_usual">eins og venjulega</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">Þessi mynt %1$s, BTC %2$s á 24 klst. — áberandi sjálfstæð hreyfing.</string>
+    <string name="why_against_ref_text">Þessi mynt %1$s, %2$s %3$s á 24 klst. — áberandi sjálfstæð hreyfing.</string>
+    <string name="why_btc_independent">%1$s hreyfist núna óháð Bitcoin.</string>
+    <string name="why_btc_tight">%1$s hreyfist núna náið með Bitcoin.</string>
+    <string name="why_change_1h">1 klst.</string>
+    <string name="why_change_24h">24 klst.</string>
+    <string name="why_coin_only_text">%1$s á 24 klst. meðan markaðurinn er rólegur – hugsanlega eitthvað sem varðar aðeins þessa mynt.</string>
+    <string name="why_leverage_balanced_text">Engin þröng í lang- eða skortstöðum á framvirkum markaði.</string>
+    <string name="why_leverage_longs_text">Margir veðja á hækkandi verð með lánsfé. Langstöður greiða skortstöðum — aukin hætta á nauðungarlokunum ef verðið lækkar.</string>
+    <string name="why_leverage_shorts_text">Margir veðja á lækkandi verð með lánsfé. Skortstöður greiða langstöðum – ef verðið hækkar er short squeeze mögulegt.</string>
+    <string name="why_market_calm_text">Þessi mynt: %1$s á 24 klst. Hvorki markaðurinn né myntin hreyfast mikið.</string>
+    <string name="why_market_leader_text">Sem stærsta myntin hreyfist BTC yfirleitt í takt við restina af markaðnum. ETH: %1$s á 24 klst.</string>
+    <string name="why_market_leader_text_no_eth">Sem stærsta myntin hreyfist BTC yfirleitt í takt við restina af markaðnum.</string>
+    <string name="why_market_similar_text">Þessi mynt: %1$s á 24 klst. – á sama tíma hreyfist markaðurinn í sömu átt, þó síður greinilega.</string>
+    <string name="why_market_wide_text">Þessi mynt: %1$s á 24 klst. – á sama tíma hreyfist heildarmarkaðurinn greinilega.</string>
+    <string name="why_open_interest_change">Opnar stöður %1$s frá síðustu athugun.</string>
+    <string name="why_peg_text">Stöðugleikamynt: miðað við 1:1 tengingu við verðgjaldmiðilinn, frávik %1$s.</string>
+    <string name="why_sentiment_text">Fear &amp; Greed-vísitala alls rafmyntamarkaðarins, %1$s miðað við í gær.</string>
+    <string name="why_sentiment_text_no_change">Fear &amp; Greed-vísitala alls rafmyntamarkaðarins.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="one">lækkar í %1$d klukkustund</item>
+        <item quantity="other">lækkar í %1$d klukkustundir</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="one">hækkar í %1$d klukkustund</item>
+        <item quantity="other">hækkar í %1$d klukkustundir</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="one">stöðugt í %1$d klukkustund</item>
+        <item quantity="other">stöðugt í %1$d klukkustundir</item>
+    </plurals>
+    <string name="why_volatility_high_text">Síðasta klukkustund: %1$s — mælt miðað við dæmigerða sveiflu á klukkustund síðustu 24 klukkustundir.</string>
+    <string name="why_volatility_normal_text">Síðasta klukkustund: %1$s — innan venjulegs bils.</string>
+    <string name="why_volatility_tiny_text">Síðasta klukkustund: %1$s — óvenjulegt fyrir þessa mynt, en lítið í beinum tölum.</string>
+    <string name="why_volume_estimated_text">Áætlað: þessi heimild gefur enga veltu upp, svo magn mynta í viðskiptum er borið saman.</string>
+    <string name="why_volume_high_text">Mun meiri viðskipti en venjulega síðustu klukkustund – hreyfingunni fylgir mikil velta.</string>
+    <string name="why_volume_low_text">Lítil viðskipti á bak við hreyfinguna – slíkar hreyfingar eru oft óstöðugri.</string>
+    <string name="why_volume_normal_text">Viðskipti síðustu klukkustund eru í samræmi við síðustu 24 klukkustundir.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">hækkað</string>
+    <string name="why_dot_neutral">hlutlaust</string>
+    <string name="why_dot_supports">passar við hreyfinguna</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">Gögn frá %1$s</string>
+    <string name="why_fresh_breadth">Breidd markaðar: %1$s · %2$s</string>
+    <string name="why_fresh_candles">Kerti: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">Framvirkt: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="one">opnar stöður miðað við fyrir %1$d klukkustund</item>
+        <item quantity="other">opnar stöður miðað við fyrir %1$d klukkustundum</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="one">opnar stöður miðað við fyrir %1$d mínútu</item>
+        <item quantity="other">opnar stöður miðað við fyrir %1$d mínútum</item>
+    </plurals>
+    <string name="why_fresh_today">í dag</string>
+    <string name="why_fresh_yesterday">í gær</string>
+    <string name="why_source_fallback">%1$s (varaleið)</string>
+    <string name="why_source_reference">%1$s (viðmið)</string>
+    <string name="why_sources">Heimildir: klukkustundarkerti kauphalla (aðallega Binance), gögn um framvirka samninga frá kauphöllum, Fear &amp; Greed frá alternative.me.</string>
+    <string name="why_sources_list">Heimildir: %1$s.</string>
+    <string name="why_src_breadth">%1$s (breidd markaðar)</string>
+    <string name="why_src_candles">%1$s (kerti)</string>
+    <string name="why_src_comparison">%1$s (markaðssamanburður)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (framvirkt)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Fjármögnun</string>
+    <string name="factor_spoken_volatility">%1$s sinnum venjuleg sveifla</string>
+    <string name="factor_spoken_volume">%1$s sinnum venjulegt</string>
+    <string name="factor_volatility">Sveiflur (1 klst.)</string>
+    <string name="factor_volume">Velta</string>
+</resources>

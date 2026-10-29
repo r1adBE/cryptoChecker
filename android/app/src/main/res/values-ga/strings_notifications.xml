@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">Suntasach: %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — anois %2$s</string>
+    <string name="notification_alarm_title">Foláireamh: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">Oscail an malartán</string>
+    <string name="notification_depeg_text">Úsáideann luachanna san aip an praghas margaidh seo.</string>
+    <string name="notification_depeg_title">USDT ag %1$s USD (%2$s)</string>
+    <string name="notification_fng_above">D’ardaigh an t-innéacs os cionn %1$d – de réir an tomhais seo, tá meon an mhargaidh santach.</string>
+    <string name="notification_fng_below">Thit an t-innéacs faoi %1$d – de réir an tomhais seo, tá meon an mhargaidh eaglach.</string>
+    <string name="notification_fng_title">Innéacs meoin (Fear &amp; Greed): %1$d</string>
+    <string name="notification_gas_btc_text">Faoi do theorainn de %1$s sat/vB · Aistriú ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Táille Bitcoin: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">Faoi do theorainn de %1$s gwei · Aistriú ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Gás Ethereum: %1$s gwei</string>
+    <string name="notification_indicator_above">Os cionn do theorann %1$s – luach tomhaiste, ní moladh.</string>
+    <string name="notification_indicator_below">Faoi do theorainn %1$s – luach tomhaiste, ní moladh.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">Sonraí eacnamaíocha inniu</string>
+    <string name="notification_permission_preprompt_continue">Lean ar aghaidh</string>
+    <string name="notification_permission_preprompt_later">Ar ball</string>
+    <string name="notification_permission_preprompt_text">Ionas go dtiocfaidh foláirimh agus fógraí praghais chugat, teastaíonn cead ón aip fógraí a sheoladh. Ní úsáideann an aip iad ach do d’fholáirimh agus d’fhógraí praghais.</string>
+    <string name="notification_permission_preprompt_title">Ceadaigh fógraí?</string>
+    <string name="notification_portfolio_alarm_locked">Spreagadh d’fholáireamh – oscail an aip le haghaidh sonraí.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – anois %2$s</string>
+    <string name="notification_portfolio_alarm_title">Luach na punainne</string>
+    <string name="notification_price_change">%1$s, ó %2$s (%3$s ó shin)</string>
+    <string name="notification_price_change_no_age">%1$s, ó %2$s</string>
+    <string name="notification_price_first">An chéad fhógra praghais don phéire seo</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="one">+%1$d phraghas eile</item>
+        <item quantity="two">+%1$d phraghas eile</item>
+        <item quantity="few">+%1$d phraghas eile</item>
+        <item quantity="many">+%1$d bpraghas eile</item>
+        <item quantity="other">+%1$d praghas eile</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">Praghsanna á nuashonrú…</string>
+    <string name="notification_volume_spike_text">Toirt %1$s× an ghnáth san uair dheireanach</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">Foláirimh</string>
+    <string name="channel_alarms_description">Fógra nuair a spreagtar foláireamh.</string>
+    <string name="channel_alarms_quiet">Foláirimh (uaireanta ciúnais)</string>
+    <string name="channel_alarms_quiet_description">Foláirimh chiúine le linn uaireanta ciúnais.</string>
+    <string name="channel_alarms_silent">Foláirimh (ciúin)</string>
+    <string name="channel_alarms_sound">Foláirimh (fuaim amháin)</string>
+    <string name="channel_alarms_sound_vibrate">Foláirimh (fuaim agus creathadh)</string>
+    <string name="channel_alarms_vibrate">Foláirimh (creathadh amháin)</string>
+    <string name="channel_prices">Fógraí praghais</string>
+    <string name="channel_prices_description">Fógra praghais ciúin le praghas reatha péire.</string>
+    <string name="channel_service">Nuashonruithe praghais</string>
+    <string name="channel_service_description">Fógra fad atá praghsanna á nuashonrú.</string>
+    <string name="neutral_channel_market">Foláirimh mhargaidh</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, táillí gáis, “Suntasach” agus dátaí eacnamaíocha</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">Foláireamh. %1$s, %2$s %3$s %4$s, anois %5$s</string>
+    <string name="tts_direction_down">tar éis titim</string>
+    <string name="tts_direction_funding_above">le maoiniú ard</string>
+    <string name="tts_direction_funding_below">le maoiniú íseal</string>
+    <string name="tts_direction_move">ag bogadh go láidir</string>
+    <string name="tts_direction_near_high">gar dá bhuaic</string>
+    <string name="tts_direction_near_low">gar dá íosmhéid</string>
+    <string name="tts_direction_oi_down">le hús oscailte ag titim</string>
+    <string name="tts_direction_oi_up">le hús oscailte ag ardú</string>
+    <string name="tts_direction_up">tar éis ardú</string>
+    <string name="tts_direction_volume_spike">le spíce toirte</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+
+    <!-- Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+    <string name="notification_alarm_action_snooze">1 u níos déanaí</string>
+    <string name="notification_alarm_action_edit">Coigeartaigh</string>
+</resources>

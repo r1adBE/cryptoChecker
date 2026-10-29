@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">CSV ආයාත කරන්න</string>
+    <string name="portfolio_csv_import_all_transfer">සියල්ල ඔබේම පසුම්බියට</string>
+    <string name="portfolio_csv_import_all_withdrawal">සියල්ල කළඹෙන් ඉවත් වේ</string>
+    <string name="portfolio_csv_import_choice_proposed">යෝජිත: %1$s සමඟ ගැළපේ</string>
+    <string name="portfolio_csv_import_choice_transfer">ඔබේම පසුම්බියට (මාරුව)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">කළඹෙන් ඉවත් වේ (ආපසු ගැනීම)</string>
+    <string name="portfolio_csv_import_choose_each">එක් එක් ආපසු ගැනීම ගියේ කොතැනටදැයි තෝරන්න.</string>
+    <string name="portfolio_csv_import_columns">හඳුනාගත් තීරු: %1$s</string>
+    <string name="portfolio_csv_import_confirm">ආයාත කරන්න (%1$d)</string>
+    <string name="portfolio_csv_import_date_day_first">දිනය/මාසය</string>
+    <string name="portfolio_csv_import_date_month_first">මාසය/දිනය</string>
+    <string name="portfolio_csv_import_date_order">අපැහැදිලි දින (උදා. 03/04/2024) කියවන ආකාරය:</string>
+    <string name="portfolio_csv_import_decimal">අපැහැදිලි සංඛ්‍යා (උදා. %1$s) කියවන ආකාරය:</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="one">ගනුදෙනු %d ක් ආයාත කළා</item>
+        <item quantity="other">ගනුදෙනු %d ක් ආයාත කළා</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="one">%d ක් දැනටමත් ආයාත කර ඇත (මඟ හැරිණි)</item>
+        <item quantity="other">%d ක් දැනටමත් ආයාත කර ඇත (මඟ හැරිණි)</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">ආකෘතිය: %1$s</string>
+    <string name="portfolio_csv_import_line">පේළිය %1$d: %2$s</string>
+    <string name="portfolio_csv_import_loading">ගොනුව සහ දෛනික අනුපාත කියවමින්…</string>
+    <string name="portfolio_csv_import_progress">පේළිය %1$s / %2$s</string>
+    <string name="portfolio_csv_import_saving">ගනුදෙනු සුරකිමින්…</string>
+    <string name="portfolio_csv_import_missing_fx">පේළි %1$s සඳහා දෛනික අනුපාතයක් නැත – මිල/ගාස්තුව නොමැතිව ආයාත කළා.</string>
+    <string name="portfolio_csv_import_missing_price">පේළි %1$s සඳහා ගොනුවේ මිලක් නැත – මිල නොමැතිව ආයාත කළා.</string>
+    <string name="portfolio_csv_import_more">+ තවත් %1$d</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="one">නව ගනුදෙනු %d</item>
+        <item quantity="other">නව ගනුදෙනු %d</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="one">පේළි %d ක් මඟ හැරිණි</item>
+        <item quantity="other">පේළි %d ක් මඟ හැරිණි</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">ස්ථායි කාසි (USDT, USDC …) එදිරිව වෙළඳාම් හුවමාරු ලෙස සටහන් වේ – ස්ථායි කාසිය ඔබේ හිමිකම්වල දිස් වේ.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">ගැළපීම් කිහිපයක් විය හැක – නිවැරදි එක තෝරන්න නැතහොත් කිසිවක් නොතෝරන්න.</string>
+    <string name="portfolio_csv_import_transfer_fee">ජාල ගාස්තුව: %1$s</string>
+    <string name="portfolio_csv_import_transfer_link">එක් මාරුවක් ලෙස සටහන් කරන්න</string>
+    <string name="portfolio_csv_import_transfer_stored">පෙර ආයාතයකින් ගැළපෙන ඇතුළත් කිරීම</string>
+    <string name="portfolio_csv_import_transfers_hint">එකම කාසියේ ආපසු ගැනීමක් සහ ගැළපෙන තැන්පතුව එක් මාරුවක් බවට පත් වේ: මිලදී ගැනීමේ මිල සහ රඳවා ගැනීමේ කාලය ඉදිරියට යයි, වෙනස ජාල ගාස්තුව ලෙස ගණනය වේ.</string>
+    <string name="portfolio_csv_import_transfers_title">ඔබේ ගිණුම් අතර මාරු</string>
+    <string name="portfolio_csv_import_unreadable">සහාය දක්වන ගනුදෙනු හමු නොවීය. සහාය දක්වන්නේ: Relai, Swissquote, Kraken, Binance, Coinbase සහ Bitpanda CSV නිර්යාත.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
+    <string name="portfolio_csv_import_too_large">ආයාත කිරීමට ගොනුව ඉතා විශාලයි (උපරිම 16 MB සහ පේළි %1$s). කෙටි කාලපරිච්ඡේද නිර්යාත කර ඒවා එකින් එක ආයාත කරන්න.</string>
+    <string name="portfolio_csv_import_failed">ආයාතය සාර්ථක වූයේ නැත – කිසිවක් සුරැකුවේ නැත. කරුණාකර යළි උත්සාහ කරන්න.</string>
+    <string name="portfolio_csv_import_locked">ආයාත කළ නොහැක: සුරැකි දත්ත දැන් කියවිය නොහැක. යෙදුම යළි ආරම්භ කරන්න.</string>
+    <string name="portfolio_csv_import_withdrawals_title">ආපසු ගැනීම් – කාසි ගියේ කොහේද?</string>
+    <string name="portfolio_csv_import_zone">වේලා කලාපයක් නැති වේලාවන් කියවන ආකාරය: %1$s</string>
+    <string name="portfolio_csv_import_zone_device">උපාංගය (%1$s)</string>
+    <string name="portfolio_csv_skip_bad_date">කියවිය නොහැකි දිනය</string>
+    <string name="portfolio_csv_skip_bad_number">කියවිය නොහැකි සංඛ්‍යාව</string>
+    <string name="portfolio_csv_skip_fee_exceeds">ගාස්තුව ≥ ලැබුණු ප්‍රමාණය</string>
+    <string name="portfolio_csv_skip_internal_move">ඔබේම ගිණුම් අතර චලනය – සටහන් කිරීමට කිසිවක් නැත</string>
+    <string name="portfolio_csv_skip_missing">ක්ෂේත්‍රය නැත</string>
+    <string name="portfolio_csv_skip_ambiguous">වෙන්කර හඳුනාගත නොහැකි එකම තත්පරයේ වෙළඳාම් කිහිපයක් – ඒවා අතින් ඇතුළත් කරන්න</string>
+    <string name="portfolio_csv_skip_not_crypto">ක්‍රිප්ටෝ නොවේ</string>
+    <string name="portfolio_csv_skip_possible_duplicate">දැනටමත් ආයාත කර ඇති විය හැක (බොහෝ දුරට එකම වෙළඳාම) – අතින් පරීක්ෂා කරන්න</string>
+    <string name="portfolio_csv_skip_two_fees">විවිධ ඒකකවලින් ගාස්තු දෙකක් – හුවමාරුව අතින් ඇතුළත් කරන්න</string>
+    <string name="portfolio_csv_skip_unsupported">සහාය නොදක්වන වර්ගය</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">පසුගමනය කරන්න</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="one">මෙම ආයාතයේ ගනුදෙනු %d මකන්නද? අතින් ඇතුළත් කළ දෑ සහ වෙනත් ආයාත පවතී.</item>
+        <item quantity="other">මෙම ආයාතයේ ගනුදෙනු %d මකන්නද? අතින් ඇතුළත් කළ දෑ සහ වෙනත් ආයාත පවතී.</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">ආයාතය පසුගමනය කරන්නද?</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="one">ආයාත කළ ගනුදෙනු %d ක් ඉවත් කළා</item>
+        <item quantity="other">ආයාත කළ ගනුදෙනු %d ක් ඉවත් කළා</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="one">ගනුදෙනු %d</item>
+        <item quantity="other">ගනුදෙනු %d</item>
+    </plurals>
+    <string name="portfolio_imports_empty">ආයාත නැත</string>
+    <string name="portfolio_imports_title">ආයාත</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">එකම ගනුදෙනු ID එක වෙනස් ප්‍රමාණයක් සමඟ – අතින් පරීක්ෂා කරන්න</string>
+    <string name="portfolio_csv_skip_staking_unpaired">ප්‍රති-ඇතුළත් කිරීමක් නැති ස්ටේකිං ඇතුළත් කිරීම – හිමිකම් පරීක්ෂා කරන්න</string>
+    <string name="portfolio_csv_skip_amount_too_small">ප්‍රමාණය ඉතා කුඩායි – සුරැකීමේදී 0 ට වටයයි</string>
+    <string name="portfolio_csv_skip_invalid_swap">වලංගු කාසියක් හෝ ලැබුණු ප්‍රමාණයක් නැති හුවමාරුව</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">ගොනුව නැවත කියවමින් …</string>
+</resources>

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">ಪ್ರಸ್ತುತ · %1$s</string>
+    <string name="watchlist_empty_title">ಇನ್ನೂ ಜೋಡಿಗಳಿಲ್ಲ</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%2$d ರಲ್ಲಿ %1$d ಬೆಲೆ ಇಲ್ಲದೆ</item>
+        <item quantity="other">%2$d ರಲ್ಲಿ %1$d ಬೆಲೆ ಇಲ್ಲದೆ</item>
+    </plurals>
+    <string name="watchlist_last_run">ಕೊನೆಯ ರನ್ %1$s</string>
+    <string name="watchlist_live_a11y">ಲೈವ್ ಬೆಲೆಗಳು ಆನ್</string>
+    <string name="watchlist_offline_since">ಸಂಪರ್ಕವಿಲ್ಲ · %1$s ರಂತೆ</string>
+    <string name="watchlist_pull_to_refresh">ರಿಫ್ರೆಶ್ ಮಾಡಲು ಕೆಳಗೆ ಎಳೆಯಿರಿ</string>
+    <string name="watchlist_refresh_report">ಕೊನೆಯ ರಿಫ್ರೆಶ್</string>
+    <string name="watchlist_refresh_report_empty">ಇನ್ನೂ ವಿವರವಿಲ್ಲ – ಇಲ್ಲಿಯವರೆಗೆ ಪೂರ್ಣ ರಿಫ್ರೆಶ್ ಆಗಿಲ್ಲ. ರಿಫ್ರೆಶ್ ಟ್ಯಾಪ್ ಮಾಡಿ ಮತ್ತು ವೃತ್ತ ನಿಲ್ಲುವವರೆಗೆ ಕಾಯಿರಿ.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%2$d ರಲ್ಲಿ %1$d ಹಳೆಯದು</item>
+        <item quantity="other">%2$d ರಲ್ಲಿ %1$d ಹಳೆಯವು</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">ಇಲ್ಲಿನ ಎಲ್ಲಾ ಜೋಡಿಗಳನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ</string>
+    <string name="watchlist_status_exchange_prices">ನಿಮ್ಮ ಎಕ್ಸ್‌ಚೇಂಜ್‌ಗಳ ಬೆಲೆಗಳು · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">ಎಕ್ಸ್‌ಚೇಂಜ್ ಬೆಲೆಗಳು · %1$s</string>
+    <string name="watchlist_status_group_empty">ಈ ಗುಂಪಿನಲ್ಲಿ ಜೋಡಿಗಳಿಲ್ಲ</string>
+    <string name="watchlist_status_none_traded">ಇಲ್ಲಿ ವಹಿವಾಟಾಗುವ ಜೋಡಿಗಳಿಲ್ಲ</string>
+    <string name="watchlist_updated">ಅಪ್‌ಡೇಟ್ ಆಗಿದೆ: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">ಸರಾಸರಿ %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d ಇಳಿಕೆ</item>
+        <item quantity="other">%1$d ಇಳಿಕೆ</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d ಕ್ಕೆ 24 ಗಂ ಮೌಲ್ಯವಿಲ್ಲ</item>
+        <item quantity="other">%1$d ಕ್ಕೆ 24 ಗಂ ಮೌಲ್ಯವಿಲ್ಲ</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d ಕ್ಕೆ ಇಂದಿನ ಮೌಲ್ಯವಿಲ್ಲ</item>
+        <item quantity="other">%1$d ಕ್ಕೆ ಇಂದಿನ ಮೌಲ್ಯವಿಲ್ಲ</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d ಏರಿಕೆ</item>
+        <item quantity="other">%1$d ಏರಿಕೆ</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · ನಿಷ್ಕ್ರಿಯ</string>
+    <string name="watchlist_row_outdated">%1$s · ಹಳೆಯದು</string>
+    <string name="watchlist_row_outdated_age">ಹಳೆಯದು · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">%1$s ರಿಂದ ಬೆಲೆ ಬದಲಾಗಿಲ್ಲ</string>
+    <string name="watchlist_row_unreachable">%1$s · %2$s ಲಭ್ಯವಿಲ್ಲ</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">ಕೊನೆಗೆ ಹೋಗಿ</string>
+    <string name="watchlist_jump_start">ಮೇಲಕ್ಕೆ ಹೋಗಿ</string>
+    <string name="watchlist_search_close">ಹುಡುಕಾಟ ಮುಚ್ಚಿ</string>
+    <string name="watchlist_search_empty">“%1$s” ಗೆ ಹೊಂದಾಣಿಕೆಗಳಿಲ್ಲ</string>
+    <string name="watchlist_search_hint">ಜೋಡಿ, ಹೆಸರು ಅಥವಾ ಎಕ್ಸ್‌ಚೇಂಜ್ ಹುಡುಕಿ</string>
+    <string name="watchlist_search_open">ಹುಡುಕಿ</string>
+    <string name="watchlist_sort_ascending">ಆರೋಹಣ</string>
+    <string name="watchlist_sort_descending">ಅವರೋಹಣ</string>
+    <string name="watchlist_sort_hint">ಜೋಡಿಯನ್ನು ಹಿಡಿದು ಎಳೆಯಿರಿ, ಅಥವಾ ಹ್ಯಾಂಡಲ್ ಬಳಸಿ. ಮೆಚ್ಚಿನವು ಮೇಲೆಯೇ ಇರುತ್ತವೆ.</string>
+    <string name="watchlist_sort_name">ಹೆಸರು</string>
+    <string name="watchlist_sort_own">ಕಸ್ಟಮ್ ಕ್ರಮ</string>
+    <string name="watchlist_sort_price">ಬೆಲೆ</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">ವಾಚ್‌ಲಿಸ್ಟ್ ತೆರವುಗೊಳಿಸಿ</string>
+    <string name="watchlist_clear_confirm">ವಾಚ್‌ಲಿಸ್ಟ್‌ನಿಂದ ಎಲ್ಲಾ ಜೋಡಿಗಳನ್ನು ತೆಗೆದುಹಾಕಬೇಕೆ? ಅವುಗಳ ಅಲರ್ಟ್‌ಗಳೂ ತೆಗೆದುಹಾಕಲ್ಪಡುತ್ತವೆ.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d ನಿಷ್ಕ್ರಿಯ</item>
+        <item quantity="other">%1$d ನಿಷ್ಕ್ರಿಯ</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">ತೆಗೆದುಹಾಕಿ</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">ತನ್ನ ಎಕ್ಸ್‌ಚೇಂಜ್‌ನಲ್ಲಿ ಇನ್ನು ವಹಿವಾಟಾಗದ %1$d ಜೋಡಿಯನ್ನು ತೆಗೆದುಹಾಕಬೇಕೆ? ಅದರ ಅಲರ್ಟ್‌ಗಳೂ ತೆಗೆದುಹಾಕಲ್ಪಡುತ್ತವೆ.</item>
+        <item quantity="other">ತಮ್ಮ ಎಕ್ಸ್‌ಚೇಂಜ್‌ನಲ್ಲಿ ಇನ್ನು ವಹಿವಾಟಾಗದ %1$d ಜೋಡಿಗಳನ್ನು ತೆಗೆದುಹಾಕಬೇಕೆ? ಅವುಗಳ ಅಲರ್ಟ್‌ಗಳೂ ತೆಗೆದುಹಾಕಲ್ಪಡುತ್ತವೆ.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">ವಹಿವಾಟಾಗದ ಜೋಡಿಗಳನ್ನು ತೆಗೆದುಹಾಕಿ (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">ವಹಿವಾಟಾಗದ ಜೋಡಿಗಳನ್ನು ತೆಗೆದುಹಾಕಿ</string>
+    <string name="watchlist_removed">%1$s ತೆಗೆದುಹಾಕಲಾಗಿದೆ</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">%1$d ಜೋಡಿ ತೆಗೆದುಹಾಕಲಾಗಿದೆ</item>
+        <item quantity="other">%1$d ಜೋಡಿಗಳನ್ನು ತೆಗೆದುಹಾಕಲಾಗಿದೆ</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">ವಹಿವಾಟಾಗದ %1$d ಜೋಡಿ ತೆಗೆದುಹಾಕಲಾಗಿದೆ</item>
+        <item quantity="other">ವಹಿವಾಟಾಗದ %1$d ಜೋಡಿಗಳನ್ನು ತೆಗೆದುಹಾಕಲಾಗಿದೆ</item>
+    </plurals>
+    <string name="watchlist_select">ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="watchlist_select_all">ಎಲ್ಲವನ್ನೂ ಆಯ್ಕೆಮಾಡಿ</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d ಆಯ್ಕೆಯಾಗಿದೆ</item>
+        <item quantity="other">%1$d ಆಯ್ಕೆಯಾಗಿವೆ</item>
+    </plurals>
+    <string name="watchlist_show_all">ಎಲ್ಲವನ್ನೂ ತೋರಿಸಿ</string>
+    <string name="watchlist_show_only_disabled">ನಿಷ್ಕ್ರಿಯವನ್ನು ಮಾತ್ರ ತೋರಿಸಿ</string>
+    <string name="watchlist_show_only_stale">ಹಳೆಯವನ್ನು ಮಾತ್ರ ತೋರಿಸಿ</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">ಅಲರ್ಟ್ (%1$d)</item>
+        <item quantity="other">ಅಲರ್ಟ್‌ಗಳು (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">ಇನ್ನೂ ಮೆಚ್ಚಿನವುಗಳಿಲ್ಲ. ಜೋಡಿಯನ್ನು ಬಲಕ್ಕೆ ಸ್ವೈಪ್ ಮಾಡಿ, ಅಥವಾ ಜೋಡಿಯನ್ನು ತೆರೆದು “ಮೆಚ್ಚಿನದು” ಟ್ಯಾಪ್ ಮಾಡಿ.</string>
+    <string name="watchlist_group_empty_hint">ಗುಂಪಿನ ಜೋಡಿಗಳನ್ನು ಆರಿಸಲು ಅದನ್ನು ದೀರ್ಘವಾಗಿ ಒತ್ತಿರಿ.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">ನಿಮ್ಮ ಗುಂಪುಗಳು ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತವೆ</string>
+    <string name="watchlist_notification">ಬೆಲೆ ಅಧಿಸೂಚನೆ</string>
+    <string name="watchlist_tts">ಬೆಲೆಯನ್ನು ಓದಿ ಹೇಳಿ</string>
+    <string name="watchlist_tts_speech_on">ಧ್ವನಿ ಔಟ್‌ಪುಟ್ ಆನ್ ಆಗಿದೆ. ಸೆಟ್ಟಿಂಗ್‌ಗಳು › ಅಲರ್ಟ್‌ಗಳು › ಧ್ವನಿ ಔಟ್‌ಪುಟ್ ನಲ್ಲಿ ಇದನ್ನು ಬದಲಾಯಿಸಬಹುದು.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">ವಿಜೆಟ್ ಆಗಿ ಸೇರಿಸಿ</string>
+    <string name="watch_action_alarm">ಅಲರ್ಟ್</string>
+    <string name="watch_action_favorite">ಮೆಚ್ಚಿನದು</string>
+    <string name="watch_action_why">ಜೊತೆಗೆ ಏನು ಚಲಿಸುತ್ತಿದೆ?</string>
+    <string name="watch_action_why_short">ಜೊತೆಗೆ ಏನು ಚಲಿಸುತ್ತಿದೆ?</string>
+    <string name="watch_change_mark">ಮಾರ್ಕ್</string>
+    <string name="watch_disable">ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ</string>
+    <string name="watch_disable_hint">ವಿನಂತಿಗಳಿಲ್ಲ, ಅಧಿಸೂಚನೆಗಳಿಲ್ಲ</string>
+    <string name="watch_disabled">ನಿಷ್ಕ್ರಿಯ</string>
+    <string name="watch_disabled_banner">%1$s ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">ಅಲರ್ಟ್‌ಗಳು ಉಳಿಯುತ್ತವೆ – ಅವುಗಳ ಮಿತಿಗಳನ್ನು ಪರಿಶೀಲಿಸಿ</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">ಜೋಡಿ ಎಡಿಟ್ ಮಾಡಿ</string>
+    <string name="watch_enable">ಸಕ್ರಿಯಗೊಳಿಸಿ</string>
+    <string name="watch_enable_hint">ಬೆಲೆಗಳು ಮತ್ತು ಅಧಿಸೂಚನೆಗಳು ಮತ್ತೆ ಆರಂಭವಾಗುತ್ತವೆ</string>
+    <string name="watch_enabled_banner">%1$s ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ</string>
+    <string name="watch_error_offline">ಸಂಪರ್ಕವಿಲ್ಲ</string>
+    <string name="watch_gesture_hint_short">ಟ್ಯಾಪ್: ಅಲರ್ಟ್ ಮತ್ತು “ಜೊತೆಗೆ ಏನು ಚಲಿಸುತ್ತಿದೆ?” · ಆಯ್ಕೆಮಾಡಲು ದೀರ್ಘವಾಗಿ ಒತ್ತಿ · ಅಳಿಸಲು ಎಡಕ್ಕೆ ಸ್ವೈಪ್ · ಮೆಚ್ಚಿನದಾಗಿಸಲು ಬಲಕ್ಕೆ ಸ್ವೈಪ್</string>
+    <string name="watch_hint_tap_why">ಅಲರ್ಟ್‌ಗಳು ಮತ್ತು “ಜೊತೆಗೆ ಏನು ಚಲಿಸುತ್ತಿದೆ?” ಗಾಗಿ ಕಾಯಿನ್ ಟ್ಯಾಪ್ ಮಾಡಿ</string>
+    <string name="watch_not_traded">ಈ ಎಕ್ಸ್‌ಚೇಂಜ್‌ನಲ್ಲಿ ಇನ್ನು ವಹಿವಾಟಾಗುತ್ತಿಲ್ಲ</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">ವಾಚ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿಲ್ಲ</string>
+    <string name="watch_price_mid">ಮಧ್ಯ ಬೆಲೆ (ಇಲ್ಲದಿದ್ದರೆ ಮಾರ್ಕ್)</string>
+    <string name="watch_row_source_both">ಬದಲಾವಣೆ &amp; ಚಾರ್ಟ್: %1$s</string>
+    <string name="watch_row_source_change">ಬದಲಾವಣೆ: %1$s</string>
+    <string name="watch_row_source_chart">ಚಾರ್ಟ್: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s ಈಗ ನಿಮ್ಮ ವಾಚ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿದೆ</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s ಈಗ ನಿಮ್ಮ ವಾಚ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿವೆ</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">ಮೆಚ್ಚಿನವುಗಳಿಗೆ ಸೇರಿಸಿ</string>
+    <string name="favorite_added">%1$s ಅನ್ನು ಮೆಚ್ಚಿನವುಗಳಿಗೆ ಸೇರಿಸಲಾಗಿದೆ</string>
+    <string name="favorite_remove">ಮೆಚ್ಚಿನವುಗಳಿಂದ ತೆಗೆದುಹಾಕಿ</string>
+    <string name="favorite_removed">%1$s ಅನ್ನು ಮೆಚ್ಚಿನವುಗಳಿಂದ ತೆಗೆದುಹಾಕಲಾಗಿದೆ</string>
+    <string name="hint_favorites_list">ಸಲಹೆ: ಸಾಲನ್ನು ಮೆಚ್ಚಿನದಾಗಿಸಲು ಬಲಕ್ಕೆ ಸ್ವೈಪ್ ಮಾಡಿ – ಮೆಚ್ಚಿನವು ಮೇಲೆಯೇ ಇರುತ್ತವೆ.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">ಹೊಸ ಗುಂಪು</string>
+    <string name="group_all">ಎಲ್ಲಾ</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Alpha ಟೋಕನ್‌ಗಳು</string>
+    <string name="group_delete">ಗುಂಪು ಅಳಿಸಿ</string>
+    <string name="group_delete_confirm">ಜೋಡಿಗಳು ನಿಮ್ಮ ವಾಚ್‌ಲಿಸ್ಟ್‌ನಲ್ಲೇ ಉಳಿಯುತ್ತವೆ.</string>
+    <string name="group_done">ಮುಗಿದಿದೆ</string>
+    <string name="group_edit_title">ಗುಂಪು ಎಡಿಟ್ ಮಾಡಿ</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">ಮೆಚ್ಚಿನವು</string>
+    <string name="group_in_other">%1$s ನಲ್ಲಿ</string>
+    <string name="group_name">ಗುಂಪಿನ ಹೆಸರು</string>
+    <string name="group_new">ಹೊಸ ಗುಂಪು…</string>
+    <string name="group_next">ಮುಂದೆ</string>
+    <string name="group_none">ಗುಂಪು ಇಲ್ಲ</string>
+    <string name="group_rename">ಮರುಹೆಸರಿಸಿ</string>
+    <string name="group_search_hint">ಜೋಡಿ, ಹೆಸರು ಅಥವಾ ಎಕ್ಸ್‌ಚೇಂಜ್ ಹುಡುಕಿ</string>
+    <string name="group_target">ಗುಂಪಿನಲ್ಲಿ</string>
+    <string name="group_title">ಗುಂಪು</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">ಟೋಕನ್‌ಗಳು</string>
+    <string name="group_value">ಗುಂಪು: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">ಟಿಪ್ಪಣಿ ಸೇರಿಸಿ</string>
+    <string name="note_edit">ಟಿಪ್ಪಣಿ ಎಡಿಟ್ ಮಾಡಿ</string>
+    <string name="note_hint">ಉದಾ. 0.42 ರಲ್ಲಿ ಪ್ರವೇಶ, ಗುರಿ 0.60</string>
+    <string name="note_remove">ತೆಗೆದುಹಾಕಿ</string>
+    <string name="note_title">ಟಿಪ್ಪಣಿ</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">ಕ್ರಮ ಬದಲಾಯಿಸಲು ಎಳೆಯಿರಿ</string>
+    <string name="sort_move_bottom">ಕೊನೆಗೆ ಸರಿಸಿ</string>
+    <string name="sort_move_down">ಕೆಳಗೆ ಸರಿಸಿ</string>
+    <string name="sort_move_top">ಮೊದಲಿಗೆ ಸರಿಸಿ</string>
+    <string name="sort_move_up">ಮೇಲೆ ಸರಿಸಿ</string>
+
+    <string name="watchlist_first_alarm_title">ನಿಮ್ಮ ಮೊದಲ ಅಲರ್ಟ್ ಹೊಂದಿಸಿ</string>
+    <string name="watchlist_first_alarm_text">ಬೆಲೆ ನಿಮ್ಮ ಗುರುತನ್ನು ತಲುಪಿದಾಗ ಅಧಿಸೂಚನೆ ಪಡೆಯಿರಿ – ಆ್ಯಪ್ ಮುಚ್ಚಿದಾಗ, Android ಅನಿಯಮಿತವಾಗಿ ಪರಿಶೀಲಿಸುತ್ತದೆ.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">ಮಾರ್ಕ್ ಬೆಲೆ (ಮಧ್ಯ ಬೆಲೆ ಇಲ್ಲ)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">ಗಂಟೆಯ ಬೆಲೆ</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">ನಿಮ್ಮ ಮೊದಲ ಅಲರ್ಟ್ ಹೊಂದಿಸಿ – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">ರಿಫ್ರೆಶ್ (%1$d)</string>
+
+    <!-- Zeile der Merkliste: Börse pausiert (zu viele Anfragen / Zeitüberschreitungen) bis zu einer Uhrzeit, ersetzt die Zeitzeile, z. B. «Binance · pausiert bis 19:45» -->
+    <string name="watchlist_row_exchange_paused">%1$s · %2$s ರವರೆಗೆ ವಿರಾಮಗೊಳಿಸಲಾಗಿದೆ</string>
+
+    <string name="watchlist_refresh_just_done">ಈಗಷ್ಟೇ ಅಪ್‌ಡೇಟ್ ಆಗಿದೆ · %1$d ಸೆ. ಹಿಂದೆ</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">ಕೊನೆಯ ವಹಿವಾಟು %1$s</string>
+
+    <string name="change_candle_source_hint">%1$s ಕ್ಯಾಂಡಲ್‌ಗಳಿಂದ ಲೆಕ್ಕಹಾಕಲಾಗಿದೆ – ಎಕ್ಸ್‌ಚೇಂಜ್ ಈ ಮೌಲ್ಯವನ್ನು ತಾನೇ ನೀಡುವುದಿಲ್ಲ.</string>
+    <string name="change_candle_source_action">ಬದಲಾವಣೆಯ ಮೂಲ ತೋರಿಸಿ</string>
+
+    <string name="watchlist_sort_by_coin">ಕಾಯಿನ್ ಪ್ರಕಾರ ವಿಂಗಡಿಸಿ</string>
+    <string name="watchlist_sort_by_exchange">ಎಕ್ಸ್‌ಚೇಂಜ್ ಪ್ರಕಾರ ವಿಂಗಡಿಸಿ</string>
+    <string name="watchlist_limit_reached">ನಿಮ್ಮ ವಾಚ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿ ಗರಿಷ್ಠ %1$s ಜೋಡಿಗಳು ಇರಬಹುದು.</string>
+    <string name="watch_price_reference">ಉಲ್ಲೇಖ ದರ, ದೈನಂದಿನ</string>
+    <string name="watch_price_daily">ದೈನಂದಿನ</string>
+    <string name="watchlist_compare">ಹೋಲಿಸಿ</string>
+    <string name="watchlist_compare_hint">ಹೋಲಿಸಲು 2 ರಿಂದ 4 ಜೋಡಿಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ.</string>
+    <string name="compare_title">ಹೋಲಿಕೆ</string>
+    <string name="compare_basis">ಅವಧಿಯ ಆರಂಭದಿಂದ ಶೇಕಡಾವಾರು ಬದಲಾವಣೆಯನ್ನು ರೇಖೆಗಳು ತೋರಿಸುತ್ತವೆ.</string>
+    <string name="compare_from_high">vs. 30 ದಿನಗಳ ಗರಿಷ್ಠ</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">%1$d ಜೋಡಿಯನ್ನು ಮರುಸ್ಥಾಪಿಸಲಾಗಿಲ್ಲ – ವಾಚ್‌ಲಿಸ್ಟ್ ತುಂಬಿದೆ</item>
+        <item quantity="other">%1$d ಜೋಡಿಗಳನ್ನು ಮರುಸ್ಥಾಪಿಸಲಾಗಿಲ್ಲ – ವಾಚ್‌ಲಿಸ್ಟ್ ತುಂಬಿದೆ</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">ವಾಚ್‌ಲಿಸ್ಟ್ ಮತ್ತು ಅದರ ಅಲರ್ಟ್‌ಗಳು ಸದ್ಯ ಉಳಿಸಲ್ಪಡುತ್ತಿಲ್ಲ. ಆ್ಯಪ್ ಮುಚ್ಚಿದಾಗ ಈ ಬದಲಾವಣೆ ಮತ್ತು ಮುಂದಿನ ಬದಲಾವಣೆಗಳು ಕಳೆದುಹೋಗುತ್ತವೆ. ಆದರೂ ಬದಲಾಯಿಸಬೇಕೆ?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">ಆದರೂ ಬದಲಾಯಿಸಿ</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">%1$d ಜೋಡಿ</item>
+        <item quantity="other">%1$d ಜೋಡಿಗಳು</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">%1$d ಜೋಡಿಯಲ್ಲಿ %2$d</item>
+        <item quantity="other">%1$d ಜೋಡಿಗಳಲ್ಲಿ %2$d</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">%1$d ಸ್ಥಳ ಬಾಕಿ</item>
+        <item quantity="other">%1$d ಸ್ಥಳಗಳು ಬಾಕಿ</item>
+    </plurals>
+    <string name="watchlist_footer_full">ವಾಚ್‌ಲಿಸ್ಟ್ ತುಂಬಿದೆ</string>
+</resources>

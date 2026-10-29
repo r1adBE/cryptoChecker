@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">Kwamanje · %1$s</string>
+    <string name="watchlist_empty_title">Awekho amapheya okwamanje</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="one">%1$d kwangu-%2$d ngaphandle kwentengo</item>
+        <item quantity="other">%1$d kwangu-%2$d ngaphandle kwentengo</item>
+    </plurals>
+    <string name="watchlist_last_run">Ukusebenza kokugcina %1$s</string>
+    <string name="watchlist_live_a11y">Izintengo ezibukhoma zivuliwe</string>
+    <string name="watchlist_offline_since">Akukho ukuxhumana · kusukela ku-%1$s</string>
+    <string name="watchlist_pull_to_refresh">Donsela phansi ukuze uvuselele</string>
+    <string name="watchlist_refresh_report">Ukuvuselela kokugcina</string>
+    <string name="watchlist_refresh_report_empty">Akukabi khona ukuhlukaniswa – akukabi khona ukuvuselela okuphelele kuze kube manje. Thepha ukuvuselela bese ulinda kuze kume indingilizi.</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="one">%1$d kwangu-%2$d kudala</item>
+        <item quantity="other">%1$d kwangu-%2$d kudala</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">Wonke amapheya lapha akhutshaziwe</string>
+    <string name="watchlist_status_exchange_prices">Izintengo ezivela kuma-exchange akho · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">Izintengo ze-exchange · %1$s</string>
+    <string name="watchlist_status_group_empty">Awekho amapheya kuleli qembu</string>
+    <string name="watchlist_status_none_traded">Awekho amapheya ahwebelwanayo lapha</string>
+    <string name="watchlist_updated">Kubuyekeziwe: %1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">isilinganiso %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="one">%1$d yehlile</item>
+        <item quantity="other">%1$d ehlile</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="one">%1$d ngaphandle kwenani le-24h</item>
+        <item quantity="other">%1$d ngaphandle kwenani le-24h</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="one">%1$d ngaphandle kwenani lanamuhla</item>
+        <item quantity="other">%1$d ngaphandle kwenani lanamuhla</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="one">%1$d yenyukile</item>
+        <item quantity="other">%1$d enyukile</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · kukhutshaziwe</string>
+    <string name="watchlist_row_outdated">%1$s · kudala</string>
+    <string name="watchlist_row_outdated_age">kudala · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">Intengo ayishintshile kusukela ku-%1$s</string>
+    <string name="watchlist_row_unreachable">%1$s · i-%2$s ayitholakali</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">Yeqa uye ekugcineni</string>
+    <string name="watchlist_jump_start">Yeqa uye phezulu</string>
+    <string name="watchlist_search_close">Vala ukusesha</string>
+    <string name="watchlist_search_empty">Akukho okufana no-“%1$s”</string>
+    <string name="watchlist_search_hint">Sesha ipheya, igama noma i-exchange</string>
+    <string name="watchlist_search_open">Sesha</string>
+    <string name="watchlist_sort_ascending">ukwenyuka</string>
+    <string name="watchlist_sort_descending">ukwehla</string>
+    <string name="watchlist_sort_hint">Bamba bese uhudula ipheya, noma usebenzise isibambo. Izintandokazi zihlala phezulu.</string>
+    <string name="watchlist_sort_name">Igama</string>
+    <string name="watchlist_sort_own">Uhlelo lwakho</string>
+    <string name="watchlist_sort_price">Intengo</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">Sula uhlu lokubuka</string>
+    <string name="watchlist_clear_confirm">Susa wonke amapheya ohlwini lokubuka? Ama-alamu awo ahamba nawo.</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="one">%1$d ikhutshaziwe</item>
+        <item quantity="other">%1$d akhutshaziwe</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">Susa</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="one">Susa ipheya elingu-%1$d elingasahwebelwana ku-exchange yalo? Ama-alamu alo ahamba nalo.</item>
+        <item quantity="other">Susa amapheya angu-%1$d angasahwebelwana kuma-exchange awo? Ama-alamu awo ahamba nawo.</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">Susa amapheya angahwebelwana (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">Susa amapheya angahwebelwana</string>
+    <string name="watchlist_removed">I-%1$s isusiwe</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="one">Ipheya elingu-%1$d lisusiwe</item>
+        <item quantity="other">Amapheya angu-%1$d asusiwe</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="one">Ipheya elingu-%1$d elingahwebelwana lisusiwe</item>
+        <item quantity="other">Amapheya angu-%1$d angahwebelwana asusiwe</item>
+    </plurals>
+    <string name="watchlist_select">Khetha</string>
+    <string name="watchlist_select_all">Khetha konke</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="one">%1$d kukhethiwe</item>
+        <item quantity="other">%1$d kukhethiwe</item>
+    </plurals>
+    <string name="watchlist_show_all">Bonisa konke</string>
+    <string name="watchlist_show_only_disabled">Bonisa okukhutshaziwe kuphela</string>
+    <string name="watchlist_show_only_stale">Bonisa okudala kuphela</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="one">I-alamu (%1$d)</item>
+        <item quantity="other">Ama-alamu (%1$d)</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">Azikho izintandokazi okwamanje. Swayiphela ipheya kwesokudla, noma uvule ipheya bese uthepha “Intandokazi”.</string>
+    <string name="watchlist_group_empty_hint">Cindezela isikhathi eside iqembu ukuze ukhethe amapheya alo.</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">Amaqembu akho azovela lapha</string>
+    <string name="watchlist_notification">Isaziso sentengo</string>
+    <string name="watchlist_tts">Funda intengo ngokuzwakalayo</string>
+    <string name="watchlist_tts_speech_on">Ukufunda ngokuzwakalayo kuvuliwe. Ungakushintsha ku-Izilungiselelo › Ama-alamu › Ukufunda ngokuzwakalayo.</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">Engeza njengewijethi</string>
+    <string name="watch_action_alarm">I-alamu</string>
+    <string name="watch_action_favorite">Intandokazi</string>
+    <string name="watch_action_why">Yini enyakaza kanye nayo?</string>
+    <string name="watch_action_why_short">Okunyakaza nayo?</string>
+    <string name="watch_change_mark">Mark</string>
+    <string name="watch_disable">Khubaza</string>
+    <string name="watch_disable_hint">Azikho izicelo, azikho izaziso</string>
+    <string name="watch_disabled">Kukhutshaziwe</string>
+    <string name="watch_disabled_banner">I-%1$s ikhutshaziwe</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">Ama-alamu ayahlala – hlola imikhawulo yawo</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">Hlela ipheya</string>
+    <string name="watch_enable">Vula</string>
+    <string name="watch_enable_hint">Izintengo nezaziso ziyaqhubeka</string>
+    <string name="watch_enabled_banner">I-%1$s ivuliwe</string>
+    <string name="watch_error_offline">Akukho ukuxhumana</string>
+    <string name="watch_gesture_hint_short">Thepha: i-alamu no-“Yini enyakaza kanye nayo?” · cindezela isikhathi eside ukuze ukhethe · swayiphela kwesobunxele ukuze ususe · swayiphela kwesokudla kuntandokazi</string>
+    <string name="watch_hint_tap_why">Thepha i-coin ukuze uthole ama-alamu no-“Yini enyakaza kanye nayo?”</string>
+    <string name="watch_not_traded">Akusahwebelwana ngayo kule exchange</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">Akukho ohlwini lokubuka</string>
+    <string name="watch_price_mid">intengo emaphakathi (uma kungenjalo i-mark)</string>
+    <string name="watch_row_source_both">Ushintsho &amp; ishadi: %1$s</string>
+    <string name="watch_row_source_change">Ushintsho: %1$s</string>
+    <string name="watch_row_source_chart">Ishadi: %1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">I-%1$s manje isohlwini lwakho lokubuka</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s manje kusohlwini lwakho lokubuka</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">Engeza ezintandokazini</string>
+    <string name="favorite_added">I-%1$s yengeziwe ezintandokazini</string>
+    <string name="favorite_remove">Susa ezintandokazini</string>
+    <string name="favorite_removed">I-%1$s isusiwe ezintandokazini</string>
+    <string name="hint_favorites_list">Ithiphu: swayiphela umugqa kwesokudla ukuze ube yintandokazi – izintandokazi zihlala phezulu.</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">Iqembu elisha</string>
+    <string name="group_all">Konke</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Amathokheni e-Alpha</string>
+    <string name="group_delete">Susa iqembu</string>
+    <string name="group_delete_confirm">Amapheya ahlala ohlwini lwakho lokubuka.</string>
+    <string name="group_done">Kwenziwe</string>
+    <string name="group_edit_title">Hlela iqembu</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">Izintandokazi</string>
+    <string name="group_in_other">ku-%1$s</string>
+    <string name="group_name">Igama leqembu</string>
+    <string name="group_new">Iqembu elisha…</string>
+    <string name="group_next">Okulandelayo</string>
+    <string name="group_none">Alikho iqembu</string>
+    <string name="group_rename">Qamba kabusha</string>
+    <string name="group_search_hint">Sesha ipheya, igama noma i-exchange</string>
+    <string name="group_target">Eqenjini</string>
+    <string name="group_title">Iqembu</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">Amathokheni</string>
+    <string name="group_value">Iqembu: %1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">Engeza inothi</string>
+    <string name="note_edit">Hlela inothi</string>
+    <string name="note_hint">isb. ukungena ku-0.42, okuhlosiwe 0.60</string>
+    <string name="note_remove">Susa</string>
+    <string name="note_title">Inothi</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">Hudula ukuze uhlele kabusha</string>
+    <string name="sort_move_bottom">Yisa ezansi</string>
+    <string name="sort_move_down">Yisa phansi</string>
+    <string name="sort_move_top">Yisa phezulu kakhulu</string>
+    <string name="sort_move_up">Yisa phezulu</string>
+
+    <string name="watchlist_first_alarm_title">Setha i-alamu yakho yokuqala</string>
+    <string name="watchlist_first_alarm_text">Yaziswa lapho intengo ifinyelela umkhawulo wakho – uma i-app ivaliwe, i-Android ihlola ngokungahlelekile.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">i-mark price (ayikho intengo emaphakathi)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">intengo yehora ngalinye</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">Setha i-alamu yakho yokuqala – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Vuselela (%1$d)</string>
+
+    <!-- Zeile der Merkliste: Börse pausiert (zu viele Anfragen / Zeitüberschreitungen) bis zu einer Uhrzeit, ersetzt die Zeitzeile, z. B. «Binance · pausiert bis 19:45» -->
+    <string name="watchlist_row_exchange_paused">%1$s · kumisiwe kuze kube ngu-%2$s</string>
+
+    <string name="watchlist_refresh_just_done">Kusanda kubuyekezwa · %1$d s edlule</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">ukuhweba kokugcina %1$s</string>
+
+    <string name="change_candle_source_hint">Kubalwe kusukela kuma-candle e-%1$s – i-exchange ngokwayo ayilinikezi leli nani.</string>
+    <string name="change_candle_source_action">Bonisa umthombo woshintsho</string>
+
+    <string name="watchlist_sort_by_coin">Hlunga nge-coin</string>
+    <string name="watchlist_sort_by_exchange">Hlunga nge-exchange</string>
+    <string name="watchlist_limit_reached">Uhlu lwakho lokubuka lungaba namapheya angu-%1$s ubuningi.</string>
+    <string name="watch_price_reference">izinga lereferensi, nsuku zonke</string>
+    <string name="watch_price_daily">nsuku zonke</string>
+    <string name="watchlist_compare">Qhathanisa</string>
+    <string name="watchlist_compare_hint">Khetha amapheya angu-2 kuya ku-4 ukuze uqhathanise.</string>
+    <string name="compare_title">Ukuqhathanisa</string>
+    <string name="compare_basis">Imigqa ibonisa ushintsho ngamaphesenti kusukela ekuqaleni kwesikhathi.</string>
+    <string name="compare_from_high">vs. okuphezulu kwezinsuku ezingu-30</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">Ipheya elingu-%1$d alibuyiselwanga – uhlu lokubuka lugcwele</item>
+        <item quantity="other">Amapheya angu-%1$d awabuyiselwanga – uhlu lokubuka lugcwele</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">Uhlu lokubuka nama-alamu alo akulondolozwa okwamanje. Lolu shintsho nezinye ezilandelayo zizolahleka lapho i-app ivalwa. Shintsha noma kunjalo?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">Shintsha noma kunjalo</string>
+    <plurals name="watchlist_footer_count">
+        <item quantity="one">Ipheya elingu-%1$d</item>
+        <item quantity="other">Amapheya angu-%1$d</item>
+    </plurals>
+    <plurals name="watchlist_footer_of">
+        <item quantity="one">Amapheya: %2$d kokungu-%1$d</item>
+        <item quantity="other">Amapheya: %2$d kokungu-%1$d</item>
+    </plurals>
+    <plurals name="watchlist_footer_remaining">
+        <item quantity="one">Izikhala ezisele: %1$d</item>
+        <item quantity="other">Izikhala ezisele: %1$d</item>
+    </plurals>
+    <string name="watchlist_footer_full">Uhlu lokubuka lugcwele</string>
+</resources>

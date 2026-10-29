@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">Maak seker alarms kom aan</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">OK</string>
+    <string name="delivery_state_warn">Kontroleer dit</string>
+    <string name="delivery_state_info">Nota</string>
+    <string name="delivery_allowed">Toegelaat</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">Kennisgewings</string>
+    <string name="delivery_notifications_off">Af – alarms sal nie aankom nie</string>
+    <string name="delivery_notifications_not_asked">Nog nie toegelaat nie</string>
+    <string name="delivery_channel">Alarmkanaal</string>
+    <string name="delivery_channel_high">Hoë belangrikheid – verskyn op die skerm</string>
+    <string name="delivery_channel_low">Lae belangrikheid – alarms verskyn net stil in die lys</string>
+    <string name="delivery_channel_off">Afgeskakel – alarms sal nie aankom nie</string>
+    <string name="delivery_exact_on">Aan – ongeveer elke 15 minute</string>
+    <string name="delivery_exact_off">Af – Android kontroleer onreëlmatig</string>
+    <string name="delivery_battery">Batteryoptimalisering</string>
+    <string name="delivery_battery_unrestricted">Onbeperk</string>
+    <string name="delivery_battery_optimized">Geoptimaliseer – Android kan kontroles vertraag. Die app vra nie vir \'n uitsondering nie; jy kan dit in die app se batteryinstellings verander.</string>
+    <string name="delivery_background">Agtergrondgebruik</string>
+    <string name="delivery_background_restricted">Beperk – Android stop agtergrondkontroles</string>
+    <string name="delivery_dnd">Moenie steur nie</string>
+    <string name="delivery_dnd_on">Aan – alarms kan sonder klank aankom</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">Aktief tot %1$s – alarms wat aan die beurt is, wag tot dan</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – alarms wat aan die beurt is, wag gedurende hierdie tyd</string>
+    <string name="delivery_last_check">Laaste agtergrondkontrole</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – meer as 6 uur gelede</string>
+    <string name="delivery_last_check_never">Nog geen nie</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">Laat toe</string>
+    <string name="delivery_action_change">Verander</string>
+    <string name="delivery_action_show">Wys</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">Baniere en klank</string>
+    <string name="delivery_alert_off">Baniere af – alarms verskyn net in Notification Center</string>
+    <string name="delivery_sound_off">Klank af – alarms kom stil aan</string>
+    <string name="delivery_time_sensitive">Time Sensitive Notifications</string>
+    <string name="delivery_time_sensitive_off">Af – \'n Focus kan alarms terughou</string>
+    <string name="delivery_background_refresh">Background App Refresh</string>
+    <string name="delivery_low_power">Low Power Mode</string>
+    <string name="delivery_swipe_away">Die app weggeswiep?</string>
+    <string name="delivery_swipe_away_note">As jy die app in die app-wisselaar wegswiep, stop iOS agtergrondkontroles totdat jy dit weer oopmaak.</string>
+    <string name="delivery_live_activity">Live Activity</string>
+    <string name="delivery_live_activity_note">Wys die prys op die sluitskerm, maar werk net by wanneer die app kontroleer – dit laat alarms nie meer gereeld kontroleer nie.</string>
+
+    <string name="alarm_first_check">Kontroleer dat alarms aankom</string>
+
+    <string name="oem_battery_title">Vervaardiger se batterybespaarder</string>
+    <string name="oem_battery_xiaomi">Xiaomi kan die app heeltemal stop – dan kom geen alarms aan nie. Skakel “Autostart” aan en stel die batterybespaarder op “No restrictions”.</string>
+    <string name="oem_battery_samsung">Samsung kan die app in diep slaap sit – dan kom geen alarms aan nie. Voeg dit onder Battery › Agtergrondgebruiklimiete by “Programme wat nooit slaap nie”.</string>
+    <string name="oem_battery_huawei">Huawei/Honor kan die app stop – dan kom geen alarms aan nie. Kies onder Battery › Programbegin “Bestuur handmatig” en laat alle opsies toe.</string>
+    <string name="oem_battery_oneplus">OnePlus kan die app stop – dan kom geen alarms aan nie. Laat “Auto-launch” toe en, onder Batterygebruik, agtergrondaktiwiteit.</string>
+    <string name="oem_battery_oppo">Oppo/Realme kan die app stop – dan kom geen alarms aan nie. Laat “Auto launch” toe en, onder Batterygebruik, agtergrondaktiwiteit.</string>
+    <string name="oem_battery_vivo">Vivo kan die app stop – dan kom geen alarms aan nie. Laat “Autostart” toe en, onder Battery, hoë agtergrondkraggebruik.</string>
+    <string name="alarm_reliability_stale">Laaste kontrole %1$s – alarms kan laat wees</string>
+    <string name="alarm_reliability_never">Alarms aan – nog geen agtergrondkontrole nie</string>
+    <string name="alarm_reliability_notifications_off">Kennisgewings af – alarms sal nie aankom nie</string>
+    <string name="alarm_reliability_battery">Batterybesparing kan alarmkontroles stop</string>
+    <string name="alarm_reliability_background_refresh">Background App Refresh af – alarms kom dalk nie aan nie</string>
+</resources>

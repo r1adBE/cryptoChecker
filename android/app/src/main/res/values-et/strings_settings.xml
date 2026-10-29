@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">Kohandatud</string>
+    <string name="settings_group_general">Üldine</string>
+    <string name="settings_group_more">Rohkem</string>
+    <string name="settings_minutes">%1$d min</string>
+    <string name="settings_row_about">Rakenduse teave</string>
+    <string name="settings_row_alarms">Hoiatused</string>
+    <string name="settings_row_currency">Valuuta</string>
+    <string name="settings_row_dated_futures">Tähtajalised futuurid</string>
+    <string name="settings_row_updates">Hinnauuendused</string>
+    <string name="settings_row_watchlist">Jälgimisloend</string>
+    <string name="settings_search_hint">Otsi seadetest</string>
+    <string name="settings_seconds">%1$d s</string>
+    <string name="settings_section_about">Teave</string>
+    <string name="settings_section_appearance">Välimus</string>
+    <string name="settings_section_developer">Arendaja</string>
+    <string name="settings_section_language">Keel</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">Sees</string>
+    <string name="settings_title">Seaded</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">Puhkeaeg enne, kui hoiatus uuesti käivitub</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Hoiatuse signaal</string>
+    <string name="settings_alarm_signal_open_system">Kohanda süsteemi seadetes</string>
+    <string name="settings_alarm_signal_system_hint">Järgib telefoni märguandeseadeid.</string>
+    <string name="settings_alarm_sound">Hoiatuse heli</string>
+    <string name="settings_alarm_sound_custom">Kohandatud heli</string>
+    <string name="settings_alarm_sound_default">Vaikeheli</string>
+    <string name="settings_alarm_sound_error">Heli ei saanud kasutada.</string>
+    <string name="settings_alarm_sound_file">Oma helifail…</string>
+    <string name="settings_alarm_sound_reset">Kasuta vaikeheli</string>
+    <string name="settings_alarm_sound_system">Vali süsteemi heli…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Arv rakenduse ikoonil</string>
+    <string name="settings_app_badge_hint">Loeb avatud hoiatusmärguandeid. Kas kuvatakse arv või punkt, otsustab avakuva (nt Samsung: „Näita numbriga“).</string>
+    <string name="settings_exact_checks">Kontrolli õigel ajal</string>
+    <string name="settings_exact_checks_grant">Luba alarmid ja meeldetuletused</string>
+    <string name="settings_exact_checks_hint">Android kontrollib umbes iga 15 minuti järel, isegi kui seade on jõude. Kasutab veidi rohkem akut.</string>
+    <string name="settings_exact_checks_nothing">Aktiivseid paare pole – pole midagi kontrollida.</string>
+    <string name="settings_exact_checks_permission_missing">Luba puudub – kui seade on puhkeolekus, kontrollib Android ebaregulaarselt, mõnikord alles tundide pärast.</string>
+    <string name="settings_notification_change">Teavita ainult hinnamuutusel</string>
+    <string name="settings_notification_change_always">Alati</string>
+    <string name="settings_percent_invalid">Sisesta väärtus vahemikus 0 kuni 100.</string>
+    <string name="settings_notification_change_hint">Hinnamärguanne ilmub alles siis, kui hind on pärast eelmist liikunud vähemalt nii palju. Andmete puudumisel ei näidata midagi. Hoiatusi see ei mõjuta.</string>
+    <string name="settings_ongoing_notifications">Ei saa ära pühkida</string>
+    <string name="settings_ongoing_notifications_hint">Hinnamärguanded jäävad kinnitatuks.</string>
+    <string name="settings_price_notifications">Hinnamärguanded</string>
+    <string name="settings_price_notifications_hint">Näitab sisselülitatud paaride praegust hinda olekuribal.</string>
+    <string name="settings_price_pairs">Paarid</string>
+    <string name="settings_price_pairs_all_off">Kõik väljas</string>
+    <string name="settings_price_pairs_all_on">Kõik sees</string>
+    <string name="settings_price_pairs_count">%1$d / %2$d</string>
+    <string name="settings_price_pairs_empty">Jälgimisloendis pole veel paare.</string>
+    <string name="settings_price_pairs_hint">Vali, milliste paaride hinda märguanderibal näidatakse.</string>
+    <string name="settings_quiet_hours">Vaikne aeg</string>
+    <string name="settings_quiet_hours_from">Alates</string>
+    <string name="settings_quiet_hours_hint">Kella %1$s ja %2$s vahel ootavad hoiatused vaikse aja lõpuni ja annavad siis heliga märku. Muud märguanded saabuvad vaikselt, ilma kõneta.</string>
+    <string name="settings_quiet_hours_to">Kuni</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">Intervall</string>
+    <string name="settings_background_updates">Taustauuendused</string>
+    <string name="settings_battery_hint">Piiratud tähendab, et Android võib taustauuendusi tundide kaupa edasi lükata.</string>
+    <string name="settings_battery_ok">Akukasutus: piiranguteta</string>
+    <string name="settings_battery_restricted">Akukasutus: piiratud</string>
+    <string name="settings_check_runs_empty">Kontrolle pole veel salvestatud.</string>
+    <string name="settings_check_runs_honest_android">Android otsustab, millal kontrollida – siin näed, millal see tegelikult toimus.</string>
+    <string name="settings_check_runs_honest_ios">iOS otsustab, millal kontrollida – siin näed, millal see tegelikult toimus.</string>
+    <string name="settings_check_runs_title">Hiljutised kontrollid</string>
+    <string name="settings_http_log">Näita HTTP-logi</string>
+    <string name="settings_http_log_hint">Näitab lehe „Lisa paar“ allosas päringuid börsidele – veaotsinguks.</string>
+    <string name="settings_live_service">Uuenda sageli</string>
+    <string name="settings_live_websocket">Reaalajas hinnad</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">Silmapaistev: teavita</string>
+    <string name="settings_activity_alerts_hint">Kõige rohkem kord tunnis paari kohta: ebatavalised hinnaliikumised, mahuhüpped ja futuuride äärmused (andmed Binance’ilt).</string>
+    <string name="settings_activity_sensitivity">Tundlikkus</string>
+    <string name="settings_activity_sensitivity_hint">Kui kergesti münti peetakse ebatavaliseks – jälgimisloendi kaardi ja turuhoiatuste jaoks sama. Valikuga „Vähem“ näitab kaart ainult 3 tugevaimat.</string>
+    <string name="settings_watchlist_activity_card">Silmapaistev: näita loendis</string>
+    <string name="settings_watchlist_activity_card_hint">Näitab rühmade kõrval ⚡: puudutamisel näed ainult paare, kus praegu midagi toimub. Selle märguandeid seadistatakse jaotises „Turuhoiatused“.</string>
+    <string name="settings_watchlist_names">Näita nimesid</string>
+    <string name="settings_watchlist_names_hint">Nimi paari all, nt Bitcoin või NVIDIA. Tuleb koos logoloenditega, laaditakse kõigi müntide jaoks üks kord.</string>
+    <string name="settings_watchlist_sparkline">Minigraafik jälgimisloendis</string>
+    <string name="settings_watchlist_sparkline_hint">24 tunni trend hinna kõrval</string>
+    <string name="settings_watchlist_value_names">Nimed</string>
+    <string name="settings_watchlist_value_price_only">Ainult hind</string>
+    <string name="settings_watchlist_value_sparkline">Minigraafik</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Sh Alpha-tokenid (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Alpha-tokenid: varajased, enamasti väikesed projektid Binance Alpha loendist – sageli vähe kaubeldud ja väga volatiilsed.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">Kuulub tokenite alla. Pole saadaval, kui valitud on „Ainult TradFi“; jälgimisloendis juba olevad Alpha-tokenid jäävad alles.</string>
+    <string name="settings_asset_scope_both">Tokenid ja TradFi</string>
+    <string name="settings_asset_scope_both_hint">Kõik – krüpto ja TradFi</string>
+    <string name="settings_asset_scope_hint">Määrab, milliseid paare valik ja otsing paaride lisamisel näitavad. Jälgimisloendis juba olevad paarid jäävad alati alles.</string>
+    <string name="settings_asset_scope_title">Tokenid ja TradFi</string>
+    <string name="settings_asset_scope_tokens">Ainult tokenid</string>
+    <string name="settings_asset_scope_tokens_hint">Krüpto: spot ja tähtajatud lepingud</string>
+    <string name="settings_asset_scope_tradfi">Ainult TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">Futuurid aktsiatele, toorainetele, valuutadele – lepingud, mitte tokenid</string>
+    <string name="settings_rolling_futures">Sh kvartali- ja muud tähtajalised futuurid</string>
+    <string name="settings_rolling_futures_hint">Väljas: börsi loendist puuduvad tähtajalised futuurid märgitakse enam mitte kaubeldavaks, selle asemel et neid ükshaaval kontrollida. Säästab aega igal värskendamisel.</string>
+    <string name="settings_rolling_futures_qtly">Sh kvartali- ja muud tähtajalised futuurid (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">Kuulub tokenite alla. Pole saadaval, kui valitud on „Ainult TradFi“; kehtib endiselt jälgimisloendis juba olevatele tähtajalistele futuuridele.</string>
+    <string name="settings_tradfi_futures">Aktsiad, toorained ja valuutad (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Paari valimisel näitab ka futuure aktsiatele, kullale ja muudele toorainetele, valuutadele ning ettevõtetele enne IPO-t. Need on lepingud, mitte tokenid.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">Rõhuvärv</string>
+    <string name="settings_accent_hint">Rakenduse, vidinate ja rakenduse ikooni värv. Mõni avakuva eemaldab ikooni muutmisel – siis lisa see uuesti.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Müntide logod</string>
+    <string name="settings_coin_logos_app">Rakenduses</string>
+    <string name="settings_coin_logos_app_hint">Jälgimisloend, avatud paar ja turukaardid</string>
+    <string name="settings_coin_logos_footer">Logod pärinevad CoinGeckost ning müntide puhul, mida CoinGecko ei loetle (nt kuld, hõbe, aktsiad), Binance’ilt. Rakendus laadib kõik logod korraga ja hoiab neid selles seadmes, nii et ükski teenusepakkuja ei saa teada, milliseid münte sa jälgid. Logota müntidel kuvatakse initsiaalid. Lemmikud saavad logole väikese tärni. Kus lüliti on väljas, ei kuvata logosid ega initsiaale; kui kõik on väljas, ei laadita midagi.</string>
+    <string name="settings_coin_logos_portfolio">Portfellis</string>
+    <string name="settings_coin_logos_portfolio_hint">Positsioonid, mündi üksikasjad ja ülevaated</string>
+    <string name="settings_coin_logos_value_app">Rakendus</string>
+    <string name="settings_coin_logos_widgets">Vidinates</string>
+    <string name="settings_coin_logos_widgets_hint">Jälgimisloendi ja ühe mündi vidinad</string>
+    <string name="settings_high_contrast">Kõrge kontrastsus</string>
+    <string name="settings_high_contrast_hint">Tugevamad hinnavärvid ja tumedam lisatekst. Lülitub sisse ka siis, kui süsteem nõuab suuremat kontrastsust.</string>
+    <string name="settings_language_choose">Vali keel</string>
+    <string name="settings_language_system">Süsteemi keel</string>
+    <string name="settings_price_colors">Hinnavärvid</string>
+    <string name="settings_price_colors_hint">Sinist / oranži on lihtne eristada iga värvinägemise häire korral (puna-roheline ja sini-kollane). Suunda näidatakse alati ka märkidega + / −.</string>
+    <string name="settings_theme_mode">Hele / tume</string>
+    <string name="settings_widgets">Vidinad</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">%1$s muutus ja graafikute ajavöönd</string>
+    <string name="settings_change_basis_hint_1">Valitud ajavöönd määrab, millest alates protsentuaalset muutust arvestatakse (jälgimisloend, pulsirida, avatud paar, vidinad), ja graafikutel kuvatava aja.</string>
+    <string name="settings_change_basis_hint_2">„%1$s“ võrdleb täpselt 24 tunni taguse hinnaga. „00:00“ võrdleb selle ajavööndi kesköö avamishinnaga.</string>
+    <string name="settings_change_basis_hint_3">Hoiatusi see ei mõjuta.</string>
+    <string name="settings_change_basis_hint_since_last">„%1$s“ võrdleb eelmise uuenduse hinnaga. Reaalajas hindade korral jääb väärtus 0%% lähedale.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">Teisendusvaluuta</string>
+    <string name="settings_conversion_currency_hint">Kasutatakse ka portfelli, sinu valuutas hoiatuste, krüptoturu kaardi ja portfelli vidina jaoks.</string>
+    <string name="settings_cost_method">Kulumeetod</string>
+    <string name="settings_cost_method_average">Keskmine kulu</string>
+    <string name="settings_cost_method_average_hint">Müüke hinnatakse libiseva keskmise ostuhinnaga.</string>
+    <string name="settings_cost_method_fifo">FIFO (vaikimisi)</string>
+    <string name="settings_cost_method_fifo_hint">Esmalt müüakse vanimad mündid, kõigil börsidel ja rahakottides.</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO rahakoti/börsi kaupa</string>
+    <string name="settings_cost_method_fifo_wallet_hint">Vanimad mündid esmalt igal börsil või rahakotis; ülekanded liigutavad partiisid koos nende ostukuupäevaga.</string>
+    <string name="settings_portfolio_lock">Portfelli lukk</string>
+    <string name="settings_portfolio_lock_footer">Lukk peidab ekraanil kuvatava. Sinu andmed on salvestatud selles seadmes ja kaitstud seadme krüpteeringuga. Varukoopiaid saad kaitsta parooliga.</string>
+    <string name="settings_portfolio_lock_hint">Peidab ainult portfelli: ava sõrmejälje, näo või seadme PIN-koodiga. Lukustub uuesti pärast üle minuti taustal olemist. Jälgimisloend, hoiatused ja muud vidinad jäävad avatuks.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Ilma seadme PIN-koodi või pääsukoodita ei peida lukk midagi – seadista ekraanilukk.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Portfell süsteemi varukoopias</string>
+    <string name="settings_portfolio_system_backup_hint">Väljas: sinu tehingud ei lähe seadme süsteemi varukoopiasse ega telefonist telefoni ülekandesse. Uude telefoni viimiseks kasuta rakenduse enda parooliga varukoopiat.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Vajab Android 9 või uuemat – vanemad versioonid salvestaksid portfelli Google’i varukoopiasse krüpteerimata.</string>
+    <string name="settings_portfolio_tab">Näita portfelli vahekaarti</string>
+    <string name="settings_portfolio_value_locked">Sees, lukuga</string>
+    <string name="settings_show_converted">Teisendatud hinnad</string>
+    <string name="settings_show_converted_hint">Näitab jälgimisloendi hindu lisaks valuutas %1$s</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">Teata USDT sidumise kaotusest</string>
+    <string name="settings_depeg_alarm_hint">Teavitab üks kord, kui USDT kaldub 1 USD-st läve võrra kõrvale (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_threshold">Sidumise kaotuse lävi</string>
+    <string name="settings_fng_above">Fear &amp; Greed: teavita üle</string>
+    <string name="settings_fng_below">Fear &amp; Greed: teavita alla</string>
+    <string name="settings_gas_alert_hint">Teavitab üks kord, kui tavaline tasu langeb alla piiri. Kontrollitakse hinnauuenduste ajal, kõige rohkem iga 10 minuti järel.</string>
+    <string name="settings_gas_btc_below">Bitcoini tasu alla (sat/vB)</string>
+    <string name="settings_gas_eth_below">Ethereumi gaas alla (gwei)</string>
+    <string name="settings_ind_ath_within">Langus kõigi aegade tipust kuni</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple üle</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple alla</string>
+    <string name="settings_ind_mvrv_above">MVRV üle</string>
+    <string name="settings_ind_mvrv_below">MVRV alla</string>
+    <string name="settings_indicator_alerts_hint">Bitcoini näitajad, kontrollitakse kaks korda päevas. Piirid valid ise – rakendus väärtusi ei hinda.</string>
+    <string name="settings_macro_notifications">Majanduskalender</string>
+    <string name="settings_macro_notifications_hint">Kell 08:00 päevadel, mil avaldatakse olulisi USA majandusandmeid (inflatsioon, tööturuaruanne, Föderaalreservi otsus). Kalender pärineb rakenduse veebilehelt ja laaditakse kord päevas.</string>
+    <string name="settings_market_alerts">Turuhoiatused</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="one">%1$d aktiivne</item>
+        <item quantity="other">%1$d aktiivset</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">Kõnekiirus: %1$.1f×</string>
+    <string name="settings_tts">Kõneväljund</string>
+    <string name="settings_tts_alarms_only">Ainult hoiatused</string>
+    <string name="settings_tts_alarms_only_hint">Väljas: iga „Loe hind ette“ märgitud paari uuendus loetakse ette.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">Loeb hinnad ja hoiatused ette. Vaikib, kuni seade on hääletus või vibreerimisrežiimis.</string>
+    <string name="settings_tts_test">Testi häält</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">Lähtesta rakendus</string>
+    <string name="settings_reset_app_action">Kustuta kõik</string>
+    <string name="settings_reset_app_confirm">Kustutab jälgimisloendi, hoiatused, portfelli, seaded ja kõik salvestatud andmed nagu pärast installimist. Seda ei saa tagasi võtta. Vihje: loo enne varukoopia. Seadme varukoopiad (Google’i varukoopia või iCloudi/arvuti varukoopia) säilitavad varasemaid andmeid kuni järgmise varundamiseni.</string>
+    <string name="settings_reset_app_title">Kas lähtestada rakendus?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">Otsi valuutat</string>
+    <string name="language_search">Otsi keelt</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">Tume</string>
+    <string name="theme_light">Hele</string>
+    <string name="theme_system">Süsteem</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">Sinine</string>
+    <string name="accent_green">Roheline</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">Oranž</string>
+    <string name="accent_red">Punane</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">Tavaline Hiinas, Jaapanis, Koreas ja Taiwanis</string>
+    <string name="price_colors_swap">Vaheta värvid (tõus ↔ langus)</string>
+    <string name="price_style_calm">Rahulik</string>
+    <string name="price_style_calm_color_vision">Rahulik · värvinägemise häire</string>
+    <string name="price_style_color_vision">Värvinägemise häire</string>
+    <string name="price_style_fresh">Värske</string>
+    <string name="price_style_traditional">Traditsiooniline</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">Börsiühendusi kontrolliti viimati päris vastuste põhjal: %1$s</string>
+    <string name="about_license">Hinnad tulevad otse börsidelt; ilma kontota ja ilma jälitamiseta.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">Litsentsid</string>
+    <string name="about_privacy_policy">Privaatsuspoliitika</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">Soovi börsi</string>
+    <string name="about_source_code">Lähtekood GitHubis</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker on r1AD sõltumatu projekt: rahulik hinnaülevaade ilma kontota, reklaamideta ja jälitamiseta. Küsimused ja soovid: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker on avatud lähtekoodiga (MIT-litsents).</string>
+    <string name="licenses_font_title">Kirjatüüp Rubik</string>
+    <string name="licenses_icons_bundled_text">Rakendusega kaasas: ikoonid kogumikust „Cryptocurrency Icons“, autorid Christopher Downer ja kaasautorid (github.com/spothq/cryptocurrency-icons), avaldatud litsentsiga CC0 1.0 Universal. Neid näidatakse, kuni CoinGecko või Binance’i logod on laaditud. Nimed ja logod jäävad vastavate projektide kaubamärkideks.</string>
+    <string name="licenses_icons_title">Varumüntide ikoonid</string>
+    <string name="licenses_libraries_intro">Rakendus kasutab neid teeke Apache License 2.0 alusel:</string>
+    <string name="licenses_libraries_title">Androidi teegid</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="one">Veel %d puudutus arendaja valikuteni</item>
+        <item quantity="other">Veel %d puudutust arendaja valikuteni</item>
+    </plurals>
+    <string name="developer_unlocked">Arendaja valikud avatud</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Vibreerimine järgib iPhone’i seadeid (Helid ja haptika).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Loeb uusi hoiatusi ja turuhoiatusi; rakenduse avamisel jälle 0.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Sinu andmed</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">Selles seadmes</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Sinu jälgimisloend, hoiatused ja portfell on krüpteeritult salvestatud selles seadmes; kontot ega oma serverit pole.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Ühendused</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Hinnad tulevad otse sinu paaride börsidelt, lisaks vahetuskursid, müntide loendid ja logod ning andmepeegel GitHubis; nad näevad sinu IP-aadressi, mitte kunagi sinu varasid (jälgitavad aadressid lähevad vastava võrgu teenusepakkujale).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Varukoopia</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Ainult siis, kui selle lood. Parooliga on see krüpteeritud (Argon2id + AES-256-GCM); ilma paroolita on see loetav.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Seadme vahetus</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">Võti jääb vanasse seadmesse – loo enne varukoopiafail.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Jaga diagnostikat</string>
+    <string name="diagnostics_share_hint">Tekstifail toe jaoks: versioon, seade, hoiatuste seaded, hiljutised kontrollid ja hoiatuste logi – ilma portfelli, summade, aadresside ja märkusteta. Näed seda esmalt ise; automaatselt ei saadeta midagi.</string>
+    <string name="diagnostics_preview_title">Diagnostika eelvaade</string>
+    <string name="diagnostics_action_share">Jaga</string>
+    <string name="settings_price_overlay">Hinna ülekate</string>
+    <string name="settings_price_overlay_hint">Näitab püsiva hinnamärguande paare väikese hõljuva märgina teiste rakenduste kohal. Puudutus avab rakenduse, alla ×-ile lohistamine sulgeb selle.</string>
+    <string name="settings_price_overlay_needs">Töötab ainult koos valikuga „%1$s“.</string>
+    <string name="settings_price_overlay_grant">Luba kuvamine teiste rakenduste peal</string>
+    <string name="price_overlay_close">Sulge ülekate</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">Oma server aadresside jaoks</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Ainult Bitcoin: sinu enda Esplora- või mempool-ühilduv server (nt https://node.example/api, vajalik on avalikult usaldatav sertifikaat, näiteks Let\'s Encrypt). Kui see on seatud, päritakse Bitcoini aadresse ja xpub-võtmeid ainult sealt – mitte kunagi avalikest sõlmedest, isegi mitte siis, kui sinu server pole kättesaadav. Muud võrgud kasutavad edasi avalikke sõlmi. Tühi = avalikud sõlmed.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Bitcoini server (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">Testi</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">Testimine…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">Server vastab – plokk %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">Kehtiv vastus puudub – kontrolli aadressi ja sertifikaati</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">Kasutusel: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">Pole seatud – kasutatakse avalikke sõlmi</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">Lubatud on ainult https://-aadressid</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">Aadressis ei tohi olla kasutajanime ega parooli</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">Aadressis ei tohi olla ?- ega #-osa</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">Pole kehtiv serveri aadress</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">Kas lülituda avalikele sõlmedele?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">Sinu Bitcoini aadresse ja xpub-võtmeid päritakse siis avalikest sõlmedest: %1$s. Need näevad neid aadresse koos sinu IP-aadressiga.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">Kasuta avalikke sõlmi</string>
+</resources>

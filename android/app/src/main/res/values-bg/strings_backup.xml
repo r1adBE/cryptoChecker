@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="backup_device_bound">Преди смяна на устройството създай файл с резервно копие – шифрованите данни могат да се отворят само на това устройство.</string>
+    <string name="backup_encryption_pending">Шифроването още не е активно – приложението ще опита отново при следващото стартиране.</string>
+    <!-- Sicherung exportieren und wiederherstellen -->
+    <string name="backup_export">Експортирай</string>
+    <string name="backup_exported">Резервното копие е запазено.</string>
+    <string name="backup_failed">Не се получи. Това резервно копие от Crypto Checker ли е?</string>
+    <string name="backup_hint">Запазва списъка с бележки и групи, алармите, любимите, портфолиото и настройките като файл, който пазиш при себе си – напр. за нов телефон.</string>
+    <string name="backup_import">Импортирай</string>
+    <string name="backup_title">Резервно копие &amp; възстановяване</string>
+    <string name="backup_too_large">Файлът е твърде голям или не е валидно резервно копие (най-много 64 MB).</string>
+    <string name="backup_export_too_large">Резервното копие щеше да е над 64 MB и нямаше да може да се възстанови, затова не беше запазено.</string>
+
+    <!-- Passwort der Sicherungsdatei -->
+    <string name="backup_password">Парола</string>
+    <string name="backup_password_continue">Напред</string>
+    <string name="backup_password_hide">Скрий паролата</string>
+    <!-- %1$d = Mindestlänge des Passworts (8) -->
+    <string name="backup_password_min">Поне %1$d знака</string>
+    <string name="backup_password_mismatch">Паролите не съвпадат</string>
+    <string name="backup_password_prompt">Въведи паролата за това резервно копие.</string>
+    <string name="backup_password_repeat">Повтори паролата</string>
+    <string name="backup_password_show">Покажи паролата</string>
+    <string name="backup_password_title">Резервно копие с парола</string>
+    <string name="backup_password_too_weak">Твърде лесна за отгатване – не само цифри, не един повтарящ се знак, не обичайни поредици като „12345678“ или „парола“.</string>
+    <string name="backup_password_warning">Без паролата резервното копие не може да бъде възстановено.</string>
+    <string name="backup_password_wrong">Грешна парола или файлът е повреден. Опитай отново.</string>
+    <string name="backup_protect">Защити с парола</string>
+    <string name="backup_protect_hint">Шифрова файла (AES-256). Препоръчва се, ако съдържа данни за портфолиото.</string>
+
+    <!-- Sicherung ohne Passwort, Wiederherstellen -->
+    <string name="backup_plain_confirm">Запази без парола</string>
+    <string name="backup_plain_confirm_text">Файлът не е шифрован. Всеки, който го получи, може да прочете:</string>
+    <string name="backup_plain_confirm_title">Да се запази ли без парола?</string>
+    <string name="backup_plain_contents_addresses">Запазени адреси на портфейли и xpub ключове с история на салдата и себестойност</string>
+    <string name="backup_plain_contents_base">Списък с бележки и групи, аларми, любими и настройки</string>
+    <string name="backup_plain_contents_portfolio">Портфолио: транзакции с количества и цени</string>
+    <string name="backup_restore_app_lock_kept">„Заключване на портфолиото“ остава включено – нешифровано резервно копие не може да го изключи.</string>
+    <string name="backup_restore_confirm">Импортирането заменя текущия ти списък (с бележки и групи), аларми, любими, портфолио и настройки с резервното копие.</string>
+    <plurals name="backup_restore_invalid">
+        <item quantity="one">%d запис в резервното копие (портфолио или аларма) е невалиден и няма да бъде импортиран.</item>
+        <item quantity="other">%d записа в резервното копие (портфолио или аларми) са невалидни и няма да бъдат импортирани.</item>
+    </plurals>
+    <string name="backup_restore_newer_version">Това резервно копие е от по-нова версия на приложението – първо обнови приложението. Нищо не беше импортирано.</string>
+    <string name="backup_restore_unencrypted_warning">Това резервно копие не е шифровано – провери дали е от теб. Настройките ще бъдат приложени – с изключение на промени, които намаляват защитата (Заключване на портфолиото, Собствен сървър за адреси, Скрий сумите, Портфолио в системното резервно копие).</string>
+    <string name="backup_restored">Възстановено: %1$s, %2$s.</string>
+    <plurals name="backup_restored_alarms">
+        <item quantity="one">%1$d аларма</item>
+        <item quantity="other">%1$d аларми</item>
+    </plurals>
+    <plurals name="backup_restored_pairs">
+        <item quantity="one">%1$d двойка</item>
+        <item quantity="other">%1$d двойки</item>
+    </plurals>
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen -->
+    <string name="backup_restore_over_limits">Над ограниченията (%3$s двойки, %4$s аларми на двойка), няма да бъдат възстановени: %1$s, %2$s.</string>
+    <string name="backup_restored_over_limits">Над ограниченията (%3$s двойки, %4$s аларми на двойка), не са възстановени: %1$s, %2$s.</string>
+
+    <!-- Verschlüsselter Speicher: Schlüssel verloren -->
+    <string name="storage_recovery_message">Това устройство вече няма ключа за шифрованите данни на приложението, затова то стартира празно. Нищо не е изтрито. Списъка и портфолиото си ще върнеш, като импортираш файл с резервно копие в настройките под „%1$s“.</string>
+    <string name="storage_recovery_title">Запазените данни не можаха да бъдат отключени</string>
+
+    <!-- Sicherung mit Passwort (Argon2id, 64 MiB): zu wenig Arbeitsspeicher -->
+    <string name="backup_not_enough_memory">Няма достатъчно свободна памет, за да се защити или отвори резервното копие с парола. Затвори други приложения и опитай отново.</string>
+
+    <!-- Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">Възстанови резервно копие</string>
+    <string name="storage_recovery_acknowledge">Разбрах</string>
+    <string name="storage_recovery_restored_title">Запазените данни отново са отключени</string>
+    <string name="storage_recovery_restored_message">По-ранен ключ на това устройство отново отвори отделените данни, така че те са обратно. Данните, запазени междувременно, са оставени непроменени до тях.</string>
+    <string name="settings_reset_notice_title">Настройките са нулирани</string>
+    <string name="settings_reset_notice">Настройките не можаха да бъдат прочетени и бяха върнати към стандартните. Провери заключването на портфолиото, интервала на алармите и валутата.</string>
+    <string name="backup_restore_interrupted_title">Възстановяването беше прекъснато</string>
+    <string name="backup_restore_interrupted_rolled_back">Приложението беше затворено по време на възстановяване на резервно копие. Предишните данни са върнати; от резервното копие не е взето нищо.</string>
+    <string name="backup_restore_interrupted_incomplete">Приложението беше затворено по време на възстановяване на резервно копие и предишните данни не можаха да бъдат върнати изцяло. Провери списъка и портфолиото или възстанови резервното копие отново в настройките под „%1$s“.</string>
+    <string name="backup_not_verified">Файлът с резервното копие не можа да бъде потвърден след запазването – прочита се различно. Запази резервното копие в нов файл.</string>
+
+    <!-- Hinweis (nur Android): Portfolio-Kopie aus der Systemsicherung auch beim zweiten Versuch unlesbar und gelöscht -->
+    <string name="system_backup_not_imported_title">Портфолиото не е възстановено от системното резервно копие</string>
+    <!-- %1$s = Name des Bereichs «Sichern &amp; Wiederherstellen» in den Einstellungen -->
+    <string name="system_backup_not_imported_message">Копието на портфолиото от системното резервно копие на Android не можа да бъде прочетено дори при втори опит и беше изтрито. Ако имаш файл с резервно копие, възстанови го в настройките под „%1$s“.</string>
+
+    <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
+    <string name="portfolio_storage_kept_in_memory">Запазените данни в момента не могат да бъдат прочетени, затова портфолиото не се показва и не може да се променя. Рестартирай приложението.</string>
+    <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
+    <string name="watchlist_storage_kept_in_memory">Запазените данни в момента не могат да бъдат прочетени, затова списъкът не се показва и не може да се променя. Рестартирай приложението.</string>
+    <string name="watchlist_storage_locked">Списъкът не може да се променя: запазените данни в момента не могат да бъдат прочетени. Рестартирай приложението.</string>
+    <string name="alarm_save_storage_locked">Алармите не могат да бъдат запазени: запазените данни в момента не могат да бъдат прочетени. Рестартирай приложението.</string>
+    <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
+    <string name="backup_storage_kept">Резервното копиране не е възможно: запазените данни в момента не могат да бъдат прочетени. Рестартирай приложението и опитай отново.</string>
+    <string name="backup_restore_storage_in_memory">Импортирането в момента не е възможно: приложението сега не запазва данни (шифроването още не е активно), така че импортът ще се загуби при рестартиране. Рестартирай приложението и опитай отново.</string>
+    <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable) -->
+    <string name="backup_restore_journal_unavailable">Импортирането в момента не е възможно: предпазното копие на текущите ти данни не можа да бъде запазено (ключът в момента не е наличен). Нищо не е променено. Опитай по-късно или рестартирай приложението.</string>
+
+    <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
+    <string name="portfolio_storage_in_memory">Шифроването още не е активно – портфолиото не се запазва, промените се губят при затваряне на приложението. Приложението ще опита отново при следващото стартиране.</string>
+
+    <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
+    <string name="portfolio_storage_locked">Запазените данни в момента не могат да бъдат прочетени, затова промени не са възможни. Рестартирай приложението.</string>
+    <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
+    <string name="watchlist_storage_in_memory">Това устройство в момента не предоставя ключ – списъкът не се запазва, промените се губят при затваряне на приложението. Алармите във фонов режим са на пауза. Приложението ще опита отново при следващото стартиране.</string>
+
+    <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
+    <string name="backup_restore_server_kept">„Собствен сървър за адреси“ не беше приложен – нешифровано резервно копие не може да го промени.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
+    <string name="backup_restore_server_public">„Собствен сървър за адреси“ беше премахнат като в резервното копие – Bitcoin адресите отново се проверяват в публични възли.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
+    <string name="backup_restore_server_changed">„Собствен сървър за адреси“ беше заменен с този от резервното копие.</string>
+</resources>

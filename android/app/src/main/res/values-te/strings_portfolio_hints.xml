@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">పోర్ట్‌ఫోలియో అలర్ట్‌లు పాజ్ అయ్యాయి: %1$sకు ప్రస్తుత ధర లేదు</string>
+    <string name="portfolio_alarms_paused_price_generic">పోర్ట్‌ఫోలియో అలర్ట్‌లు పాజ్ అయ్యాయి: ప్రతి కాయిన్‌కు ప్రస్తుత ధర లేదు</string>
+    <string name="portfolio_alarms_paused_addresses">పోర్ట్‌ఫోలియో అలర్ట్‌లు పాజ్ అయ్యాయి: పర్యవేక్షిస్తున్న అడ్రస్‌ల బ్యాలెన్స్‌లు ఇంకా లోడ్ కాలేదు</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">పోర్ట్‌ఫోలియో అలర్ట్‌లు పాజ్ అయ్యాయి: %1$s టోకెన్ బ్యాలెన్స్‌లు పాక్షికంగా పాతవి</string>
+    <string name="portfolio_alarms_paused_tokens_generic">పోర్ట్‌ఫోలియో అలర్ట్‌లు పాజ్ అయ్యాయి: పర్యవేక్షిస్తున్న అడ్రస్‌ల టోకెన్ బ్యాలెన్స్‌లు పాక్షికంగా పాతవి</string>
+    <string name="portfolio_alarms_paused_unverified">పోర్ట్‌ఫోలియో అలర్ట్‌లు పాజ్ అయ్యాయి: %1$s ధర ధృవీకరించబడలేదు</string>
+    <string name="portfolio_alarms_paused_unverified_generic">పోర్ట్‌ఫోలియో అలర్ట్‌లు పాజ్ అయ్యాయి: కొన్ని కాయిన్‌ల ధర ధృవీకరించబడలేదు</string>
+    <string name="portfolio_alarms_address_failing">పోర్ట్‌ఫోలియో అలర్ట్‌లు %1$s లేకుండా తనిఖీ చేస్తాయి: 24 గంటలకు పైగా బ్యాలెన్స్ లోడ్ కాలేదు</string>
+    <string name="portfolio_alarms_address_failing_generic">24 గంటలకు పైగా బ్యాలెన్స్ లోడ్ కాని అడ్రస్‌లు లేకుండా పోర్ట్‌ఫోలియో అలర్ట్‌లు తనిఖీ చేస్తాయి</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">టోకెన్‌లు పాక్షికంగా పాతవి</string>
+    <string name="portfolio_address_restore_failed">అడ్రస్‌ను పునరుద్ధరించలేకపోయాం – అవసరమైతే మళ్లీ జోడించండి</string>
+    <string name="portfolio_address_remove_failed">అడ్రస్‌ను తీసివేయలేకపోయాం – దయచేసి మళ్లీ ప్రయత్నించండి</string>
+</resources>

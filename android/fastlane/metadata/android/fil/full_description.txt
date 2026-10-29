@@ -1,0 +1,41 @@
+Sinusuri ng Crypto Checker ang presyo sa exchange mo at nag-aalerto kapag nakitang naabot ang level mo. Kapag sarado ang app, Android ang nagpapasya kung kailan susuriin ang alerto – hanggang 1 beses kada 15 minuto, madalas pagkalipas ng ilang oras. Puwedeng makaligtaan ang maiikling spike; sinasabi iyon ng app. Presyo ng exchange mo, hindi average – libre, walang account.
+
+ANO ANG PINAGKAIBA
+• Exchange mo, hindi average: huling presyo ng pares sa piniling exchange sa bawat row – Binance, Coinbase, Kraken, OKX, Bybit at marami pa.
+• Alertong isang beses nagno-notify: “Sabihan ako kapag lumampas ang BTC sa 100,000 USDT.” Tumutunog kapag nakitang nalampasan ang level, hindi sa bawat update – ino-off ito ng “Isang beses”, muling ina-arm ng “Sa bawat pagkakataon” kapag bumalik ang presyo.
+• “Ano ang gumagalaw kasabay nito?”: mga salik ng isang coin – buong market, volume, volatility, funding at open interest, layo sa high o low, Fear & Greed. Ipinapakita ang sabay na gumagalaw – walang sanhi, walang balita, walang investment advice.
+• Walang account, ad o tracking. Walang natatanggap na data mo ang developer.
+
+TAPAT SA DATA
+• Default ang “Matipid”: nagre-refresh ang presyo pagbukas ng app at paminsan-minsan sa background. May live price ang “Live habang bukas” para sa Binance, Bybit, OKX, Coinbase at Kraken habang bukas ang watchlist.
+• Ang % change at chart ay mula muna sa sariling exchange ng pares; kung walang candle, Binance o Coinbase ang gamit at sinasabi iyon ng app.
+• Fear & Greed, dominance at on-chain value mula sa alternative.me, CoinGecko at Coin Metrics.
+• Umaalis lang sa device ang mga halaga sa export mo o Android system backup. Para sa presyo, ticker lang ng pares ang napupunta sa exchange nito; dagdag ang exchange rate (Frankfurter), market data at logo (CoinGecko, Binance), data mirror (GitHub). Kung nagbabantay ka ng address o xpub, nakikita ng pampublikong blockchain node ang mga address (sa xpub, ang hinango) at IP mo.
+
+WATCHLIST
+• 56 na market sa 45 exchange: spot at futures, DEX token sa DexScreener, opsyonal na stocks, ginto at FX (TradFi)
+• Ikalawang linyang “≈ value” sa 1 sa 31 currency (EUR, CHF, USD …), ayon sa FX rate
+• Mini chart at % change sa 24 h o mula 00:00 sa time zone mo
+• Mga grupo, paborito, drag & drop at tala bawat coin
+• May markang “luma na” o “hindi maabot ang exchange” ang mga row
+
+MGA ALERTO
+• Presyo lampas o mababa sa level, o pagtaas o pagbaba nang porsiyento – pati sa currency mo, hal. 60,000 EUR sa USDT na pares
+• Galaw nang x % sa time window, volume spike
+• Tunog (pati sariling audio file), vibration at opsyonal na pagbasa nang malakas
+• Tahimik na oras at “Subukan ang alerto”: marinig muna ang pagdating ng alerto; log ng alerto: kailan sinuri, anong presyo, bakit hindi nag-trigger
+
+MARKET
+• Kapansin-pansin: kakaibang galaw ng presyo at volume sa watchlist, opsyonal bilang market notice
+• Crypto Pulse, Fear & Greed, Bitcoin indicator, funding at open interest – simpleng sinukat na value
+• Network fee ng Ethereum, Bitcoin at iba pa, may gas alert
+
+IBA PA
+• Widget: watchlist, kabuuang portfolio, iisang coin na may chart
+• Opsyonal na portfolio (i-on sa Mga Setting): bili, benta, swap, transfer, reward, deposit at withdrawal; FIFO (default) o average (Ø); read-only na address na walang seed para sa BTC (pati xpub), ETH & EVM chain, SOL, TRX, XRP, LTC, ADA at TON; CSV import ng Relai, Swissquote, Bitpanda, Kraken, Binance at Coinbase; taunang buod sa CSV; sariling lock. Bitpanda at Swissquote: walang sariling presyo, CSV lang.
+• Nababasa ng lahat: berde/pula o asul/orange, sign at arrow sa halip na kulay lang; binabasa ng TalkBack ang bawat row bilang isang pangungusap
+• Backup & restore sa file – pati Android ↔ iPhone
+• Light at dark mode, limang accent color, 75 wika
+• Open source (MIT) – publiko ang code sa GitHub
+
+Paalala: Ipinapakita ng Crypto Checker ang presyo at portfolio na ikaw ang naglagay. Hindi ito exchange o wallet, hindi nagte-trade at walang investment advice.

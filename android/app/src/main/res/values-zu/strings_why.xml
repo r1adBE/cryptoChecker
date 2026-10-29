@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">Yini enyakaza kanye nayo?</string>
+    <string name="why_all_values">Wonke amanani nemithombo</string>
+    <string name="why_all_values_hint">Okubonwayo · Incazelo engaba khona · Imithombo</string>
+    <string name="why_details">Bonisa imininingwane</string>
+    <string name="why_details_hide">Fihla imininingwane</string>
+    <string name="why_disclaimer">Ukuhlola okuzenzakalelayo kusukela kudatha yemakethe: kubonisa okwenzeka ngesikhathi esifanayo, hhayi ubufakazi bembangela.</string>
+    <string name="why_footer_short">Ngesikhathi esisodwa akusho imbangela · Akusona iseluleko sokutshala imali</string>
+    <string name="why_no_data">Ayikho idatha evela ku-Binance yaleli pheya</string>
+    <string name="why_no_data_hint">Intengo, ivolumu nokuguquguquka kuvela kuma-candle ehora ngalinye e-Binance.</string>
+    <string name="why_ref_alts">Ama-alt</string>
+    <string name="why_section_context">Incazelo engaba khona</string>
+    <string name="why_section_observation">Okubonwayo</string>
+    <string name="why_title">Yini enyakaza kanye nayo?</string>
+    <string name="why_title_coin">Yini enyakaza kanye ne-%1$s?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">Ngamafuphi · Kusukela ku-%1$s</string>
+    <string name="why_brief_label">Ngamafuphi:</string>
+    <string name="why_summary_against">I-coin inyakaza iphambene nemakethe.</string>
+    <string name="why_summary_calm">Akukho ukunyakaza okuphawulekayo: imakethe ne-coin kuzolile.</string>
+    <string name="why_summary_coin">Yile coin kuphela enyakazayo – kungenzeka into ethinta le coin kuphela.</string>
+    <string name="why_summary_coin_volume">Yile coin kuphela enyakazayo, nevolumu ephezulu – kungenzeka into ethinta le coin kuphela.</string>
+    <string name="why_summary_longs">Futures: izikhundla eziningi ze-long ezine-leverage.</string>
+    <string name="why_summary_market">Ukunyakaza kuhambisana ngesikhathi nemakethe yonke.</string>
+    <string name="why_summary_market_volume">Ukunyakaza kuqondana nevolumu yokuhweba ephezulu nemakethe enyakaza kabanzi.</string>
+    <string name="why_summary_peg_near">Intengo iseduze nokuxhumana kwayo kuka-1:1.</string>
+    <string name="why_summary_peg_off">Intengo iphambuka ngokuphawulekayo ekuxhumaneni kwayo kuka-1:1.</string>
+    <string name="why_summary_shorts">Futures: izikhundla eziningi ze-short.</string>
+    <string name="why_summary_thin">Ukunyakaza kuncane: ivolumu encane ngemuva kwakho.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">Kuphambene nemakethe</string>
+    <string name="why_f_coin_only">Yile coin kuphela</string>
+    <string name="why_f_leader">I-Bitcoin njengomholi wemakethe</string>
+    <string name="why_f_leverage_balanced">I-leverage ilinganiselwe</string>
+    <string name="why_f_leverage_longs">I-leverage: ama-long amaningi</string>
+    <string name="why_f_leverage_shorts">I-leverage: ama-short amaningi</string>
+    <string name="why_f_market_calm">Imakethe ezolile</string>
+    <string name="why_f_market_wide">Imakethe yonke iyanyakaza</string>
+    <string name="why_factor_funding">I-funding</string>
+    <string name="why_factor_futures">Futures</string>
+    <string name="why_factor_market">Imakethe yonke</string>
+    <string name="why_factor_near_high">Eduze nokuphezulu</string>
+    <string name="why_factor_near_low">Eduze nokuphansi</string>
+    <string name="why_factor_peg">Ukuxhumana (1:1)</string>
+    <string name="why_factor_range3d">Ububanzi bezinsuku ezi-3</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">kulinganiselwe</string>
+    <string name="why_fn_funding_longs">abaningi babheja ngokwenyuka kwezintengo</string>
+    <string name="why_fn_funding_neutral">akuchemile</string>
+    <string name="why_fn_funding_shorts">abaningi babheja ngokwehla kwezintengo</string>
+    <string name="why_fn_high_at">kokuphezulu kwezinsuku ezingu-30</string>
+    <string name="why_fn_high_below">ngaphansi kokuphezulu kwezinsuku ezingu-30</string>
+    <string name="why_fn_leader_calm">I-Bitcoin izolile</string>
+    <string name="why_fn_leader_moves">I-Bitcoin inyakaza ngokucacile</string>
+    <string name="why_fn_low_above">ngaphezu kokuphansi kwezinsuku ezingu-30</string>
+    <string name="why_fn_low_at">kokuphansi kwezinsuku ezingu-30</string>
+    <string name="why_fn_market_against">Le coin inyakaza iphambene nemakethe</string>
+    <string name="why_fn_market_alone">Imakethe izolile – le coin inyakaza yodwa</string>
+    <string name="why_fn_market_calm">Imakethe izolile</string>
+    <string name="why_fn_market_lags">Imakethe iyanyakaza, le coin icishe inganyakazi</string>
+    <string name="why_fn_market_moves">Imakethe inyakaza ngendlela efanayo</string>
+    <string name="why_fn_market_pulls">Imakethe inyakaza kanye ne-BTC</string>
+    <string name="why_fn_oi_down">I-open interest yehlile</string>
+    <string name="why_fn_oi_flat">I-open interest icishe ingashintshi</string>
+    <string name="why_fn_oi_mixed">I-open interest ixubile</string>
+    <string name="why_fn_oi_up">I-open interest yenyukile</string>
+    <string name="why_fn_peg_above">%1$s ngaphezu kokuxhumana kuka-1:1</string>
+    <string name="why_fn_peg_below">%1$s ngaphansi kokuxhumana kuka-1:1</string>
+    <string name="why_fn_peg_near">eduze nokuxhumana kuka-1:1</string>
+    <string name="why_fn_range_above_low">kusukela kokuphansi kwezinsuku ezi-3</string>
+    <string name="why_fn_range_below_high">kusukela kokuphezulu kwezinsuku ezi-3</string>
+    <string name="why_fn_range_near_high">eduze nokuphezulu kwezinsuku ezi-3</string>
+    <string name="why_fn_range_near_low">eduze nokuphansi kwezinsuku ezi-3</string>
+    <string name="why_fn_volatility_stronger">kunamandla kunokuvamile</string>
+    <string name="why_fn_volatility_tiny">kuncane ngenani eliqondile (ngaphansi kuka-%1$s)</string>
+    <string name="why_fn_volatility_usual">njengokuvamile</string>
+    <string name="why_fn_volume_higher">iphezulu kunokuvamile</string>
+    <string name="why_fn_volume_lower">iphansi kunokuvamile</string>
+    <string name="why_fn_volume_usual">njengokuvamile</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">Le coin %1$s, BTC %2$s ku-24h — ukunyakaza okuzimele okuphawulekayo.</string>
+    <string name="why_against_ref_text">Le coin %1$s, %2$s %3$s ku-24h — ukunyakaza okuzimele okuphawulekayo.</string>
+    <string name="why_btc_independent">I-%1$s njengamanje inyakaza ngokuzimela ku-Bitcoin.</string>
+    <string name="why_btc_tight">I-%1$s njengamanje inyakaza eduze ne-Bitcoin.</string>
+    <string name="why_change_1h">1h</string>
+    <string name="why_change_24h">24h</string>
+    <string name="why_coin_only_text">%1$s ku-24h ngesikhathi imakethe ithule – kungenzeka into ethinta le coin kuphela.</string>
+    <string name="why_leverage_balanced_text">Akukho ukuminyana kwezikhundla ze-long noma ze-short emakethe ye-futures.</string>
+    <string name="why_leverage_longs_text">Abaningi babheja ngokwenyuka kwezintengo ngemali ebolekiwe. Ama-long akhokhela ama-short — ingozi enkulu yama-liquidation uma intengo yehla.</string>
+    <string name="why_leverage_shorts_text">Abaningi babheja ngokwehla kwezintengo ngemali ebolekiwe. Ama-short akhokhela ama-long – uma intengo yenyuka, i-short squeeze ingenzeka.</string>
+    <string name="why_market_calm_text">Le coin: %1$s ku-24h. Imakethe noma i-coin akunyakazi kakhulu.</string>
+    <string name="why_market_leader_text">Njenge-coin enkulu kunazo zonke, i-BTC ivamise ukunyakaza ngokuhambisana nemakethe esele. ETH: %1$s ku-24h.</string>
+    <string name="why_market_leader_text_no_eth">Njenge-coin enkulu kunazo zonke, i-BTC ivamise ukunyakaza ngokuhambisana nemakethe esele.</string>
+    <string name="why_market_similar_text">Le coin: %1$s ku-24h – ngesikhathi esifanayo, imakethe inyakaza ngendlela efanayo, nakuba kungacaci kangako.</string>
+    <string name="why_market_wide_text">Le coin: %1$s ku-24h – ngesikhathi esifanayo, imakethe yonke inyakaza ngokucacile.</string>
+    <string name="why_open_interest_change">I-open interest %1$s kusukela ekuhloleni kokugcina.</string>
+    <string name="why_peg_text">I-stablecoin: uma kuqhathaniswa nokuxhumana kuka-1:1 nemali yokukala, ukuphambuka %1$s.</string>
+    <string name="why_sentiment_text">Inkomba ye-Fear &amp; Greed yemakethe yonke ye-crypto, %1$s uma kuqhathaniswa nezolo.</string>
+    <string name="why_sentiment_text_no_change">Inkomba ye-Fear &amp; Greed yemakethe yonke ye-crypto.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="one">yehla ihora elingu-%1$d</item>
+        <item quantity="other">yehla amahora angu-%1$d</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="one">yenyuka ihora elingu-%1$d</item>
+        <item quantity="other">yenyuka amahora angu-%1$d</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="one">izinzile ihora elingu-%1$d</item>
+        <item quantity="other">izinzile amahora angu-%1$d</item>
+    </plurals>
+    <string name="why_volatility_high_text">Ihora eledlule: %1$s — kulinganiswe nokuguquguquka okuvamile kwehora ngalinye kwamahora angu-24 adlule.</string>
+    <string name="why_volatility_normal_text">Ihora eledlule: %1$s — ngaphakathi kobubanzi obuvamile.</string>
+    <string name="why_volatility_tiny_text">Ihora eledlule: %1$s — akuvamile kule coin, kodwa kuncane ngenani eliqondile.</string>
+    <string name="why_volume_estimated_text">Kulinganiselwe: lo mthombo awunikezi inani lokuhweba, ngakho kuqhathaniswa amanani ama-coin ahwebelwanayo.</string>
+    <string name="why_volume_high_text">Ukuhweba okuningi kakhulu kunokuvamile ehoreni eledlule – ukunyakaza kuza nevolumu ephezulu.</string>
+    <string name="why_volume_low_text">Ukuhweba okuncane ngemuva kokunyakaza – ukunyakaza okunjalo kuvame ukungazinzi.</string>
+    <string name="why_volume_normal_text">Ukuhweba ehoreni eledlule kuhambisana namahora angu-24 adlule.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">kuphakeme</string>
+    <string name="why_dot_neutral">akuchemile</string>
+    <string name="why_dot_supports">kuhambisana nokunyakaza</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">Idatha kusukela ku-%1$s</string>
+    <string name="why_fresh_breadth">Ububanzi bemakethe: %1$s · %2$s</string>
+    <string name="why_fresh_candles">Ama-candle: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">Futures: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="one">i-open interest iqhathaniswa nehora elingu-%1$d eledlule</item>
+        <item quantity="other">i-open interest iqhathaniswa namahora angu-%1$d edlule</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="one">i-open interest iqhathaniswa nomzuzu ongu-%1$d odlule</item>
+        <item quantity="other">i-open interest iqhathaniswa nemizuzu engu-%1$d edlule</item>
+    </plurals>
+    <string name="why_fresh_today">namuhla</string>
+    <string name="why_fresh_yesterday">izolo</string>
+    <string name="why_source_fallback">%1$s (okusekelayo)</string>
+    <string name="why_source_reference">%1$s (ireferensi)</string>
+    <string name="why_sources">Imithombo: ama-candle ehora ngalinye ama-exchange (ikakhulukazi Binance), idatha ye-futures evela kuma-exchange, i-Fear &amp; Greed evela ku-alternative.me.</string>
+    <string name="why_sources_list">Imithombo: %1$s.</string>
+    <string name="why_src_breadth">%1$s (ububanzi bemakethe)</string>
+    <string name="why_src_candles">%1$s (ama-candle)</string>
+    <string name="why_src_comparison">%1$s (ukuqhathanisa kwemakethe)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (futures)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">I-funding</string>
+    <string name="factor_spoken_volatility">izikhathi ezingu-%1$s zokuguquguquka okuvamile</string>
+    <string name="factor_spoken_volume">izikhathi ezingu-%1$s zokuvamile</string>
+    <string name="factor_volatility">Ukuguquguquka (1h)</string>
+    <string name="factor_volume">Ivolumu</string>
+</resources>
