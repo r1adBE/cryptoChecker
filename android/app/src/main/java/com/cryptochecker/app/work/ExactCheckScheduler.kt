@@ -119,11 +119,6 @@ class ExactCheckScheduler @Inject constructor(
             return runCatching { manager.canScheduleExactAlarms() }.getOrDefault(false)
         }
 
-        /** Ist gerade ein Wecker gestellt (für den Hinweis unter dem Alarm)? */
-        fun isArmed(context: Context): Boolean =
-            context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).getLong(KEY_ARMED_FOR, 0L) > 0L &&
-                canScheduleExact(context) && pendingIntentExists(context)
-
         /** Öffnet «Wecker und Erinnerungen» für diese App (Android 12+); sonst nichts. */
         fun openPermissionSettings(context: Context) {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) return

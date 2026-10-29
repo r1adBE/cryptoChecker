@@ -50,6 +50,7 @@ interface Ticker {
      */
     var liquidityUsd: Double?
         get() = null
+        // Standard ohne Speicher: nur DEX-Ticker überschreiben die Eigenschaft, alle anderen verwerfen den Wert
         set(@Suppress("UNUSED_PARAMETER") value) {}
 
     /**
@@ -59,6 +60,7 @@ interface Ticker {
      */
     var markFallback: Boolean
         get() = false
+        // Standard ohne Speicher: nur Ticker mit Markpreis-Ersatz überschreiben die Eigenschaft
         set(@Suppress("UNUSED_PARAMETER") value) {}
 
     companion object {

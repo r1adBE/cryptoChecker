@@ -4,7 +4,11 @@ import SwiftUI
 /// - Nebentexte (Uhrzeit, Börse, Fusszeilen): mindestens 12 pt (wie Android 12 sp), mit `@ScaledMetric` zu
 ///   `.caption2`, höchstens `maxScale` × gross, damit das Widget nicht überläuft.
 /// - Haupttexte (Coin-Name, Kurs): wachsen mit `@ScaledMetric` zu `.body` bis höchstens `maxPrimaryScale` ×
-///   (`WidgetPrimaryFit`); passt die gewachsene Fassung nicht, gilt die Grundgrösse.
+///   (`WidgetPrimaryFit`); passt die gewachsene Fassung nicht, gilt die Grundgrösse. Nebenzeilen in derselben
+///   Fassung (Börse, Anteil, Kennzahlen) wachsen mit demselben Faktor.
+/// - Hinweise ohne eigenen Faktor (leer, gesperrt, «Coin wählen»): `widgetSecondaryFont`.
+/// Fest bleiben nur Symbole, Beschriftungen in Plaketten und im Chart, Kopfzeilen neben dem Logo und die
+/// kompakten Bereiche der Dynamic Island (vom System begrenzt).
 enum WidgetTextSize {
     static let minSecondary: CGFloat = 12
     static let maxScale: CGFloat = 1.25

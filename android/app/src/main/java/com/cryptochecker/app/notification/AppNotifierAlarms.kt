@@ -159,25 +159,28 @@ fun AppNotifier.canShowPortfolioAlarm(): Boolean {
  * Alarm «Portfolio-Wert» ([measured] = Gesamtwert in der Alarmwährung bzw. Veränderung in
  * Prozent). Gleicher Kanal wie die Paar-Alarme («Alarm-Signal»; in der Nachtruhe löst
  * PortfolioAlarmChecker gar nicht aus, lautlos nur als Rückfall an der Grenze); Tipp
- * öffnet den Portfolio-Tab. «Beträge verbergen» gilt auch hier; mit Portfolio-Sperre zeigt
- * der Sperrbildschirm nur den Titel.
+ * öffnet den Portfolio-Tab. «Beträge verbergen» gilt auch hier; mit Portfolio-Sperre steht wie
+ * auf iOS nur ein neutraler Satz ohne Schwelle, Beträge und Prozente da.
  * @return true erst, wenn die Meldung unter den offenen Mitteilungen steht ([awaitActive]) —
  *   sonst bleibt der Alarm scharf (PortfolioAlarmChecker), wie bei [showAlarm].
  */
 suspend fun AppNotifier.showPortfolioAlarm(alarm: PortfolioAlarmEntity, measured: Double, usdtAssumed: Boolean = false): Boolean {
     val settings = settingsRepository.cached
-    // Mit Portfolio-Sperre auch ohne «Beträge verbergen» keine Beträge (Sperrbildschirm) — wie iOS
-    val hidden = settings.hidePortfolioAmounts || settings.appLock
     val title = context.getString(R.string.notification_portfolio_alarm_title)
-    // Alarm in anderer Währung, umgerechnet mit USDT = 1: Vermerk dahinter ([PortfolioAlarmLogic.usdtAssumed])
-    val body = AlarmTextNote.join(
-        context.getString(
-            R.string.notification_portfolio_alarm_text,
-            PortfolioAlarmTexts.sentence(context, alarm, settings.changeBasis.storage, hidden),
-            PortfolioAlarmTexts.measured(alarm, measured, hidden)
-        ),
-        listOf(if (usdtAssumed) context.getString(R.string.portfolio_usdt_assumed) else null),
-    )
+    val locked = context.getString(R.string.notification_portfolio_alarm_locked)
+    val body = if (settings.appLock) {
+        locked
+    } else {
+        // Alarm in anderer Währung, umgerechnet mit USDT = 1: Vermerk dahinter ([PortfolioAlarmLogic.usdtAssumed])
+        AlarmTextNote.join(
+            context.getString(
+                R.string.notification_portfolio_alarm_text,
+                PortfolioAlarmTexts.sentence(context, alarm, settings.changeBasis.storage, settings.hidePortfolioAmounts),
+                PortfolioAlarmTexts.measured(alarm, measured, settings.hidePortfolioAmounts)
+            ),
+            listOf(if (usdtAssumed) context.getString(R.string.portfolio_usdt_assumed) else null),
+        )
+    }
     val quiet = isQuietNow()
     val channelId = channelIdFor(AppNotifierDeliveryPlan.alarmChannel(quiet), settings.alarmSignal)
     val builder = NotificationCompat.Builder(context, channelId)
@@ -199,6 +202,7 @@ suspend fun AppNotifier.showPortfolioAlarm(alarm: PortfolioAlarmEntity, measured
                     .setSmallIcon(R.drawable.ic_stat_logo)
                     .setColor(settings.accentColor.seed)
                     .setContentTitle(title)
+                    .setContentText(locked)
                     .build()
             )
     }

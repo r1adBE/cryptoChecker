@@ -1,5 +1,5 @@
 {
-  "description": "Live prices via WebSocket (Android domain/live/LiveFeed.kt / iOS App/Services/LiveFeed.swift): parser per exchange (sample messages -> ticks; change24h in percent, null = not in the message), stream symbol per pair, subscribe messages, connection plan, reconnect backoff (attempt counter reset only after a stable connection, ±20 % jitter), which 24 h change is kept and when REST may skip a live pair; tick times in s/ms/µs/ns become ms (like REST), and tickTime: an exchange time more than 5 min ahead of the device clock (or missing) is replaced by now.",
+  "description": "Live prices via WebSocket (Android domain/live/LiveFeed.kt / iOS App/Services/LiveFeed.swift): parser per exchange (sample messages -> ticks; change24h in percent, null = not in the message), stream symbol per pair, subscribe messages, connection plan, reconnect backoff (attempt counter reset only after a stable connection, ±20 % jitter), which 24 h change is kept and when REST may skip a live pair; tick times in s/ms/µs/ns become ms (like REST), and tickTime: an exchange time more than 5 min ahead of the device clock (or missing) is replaced by now. liveIds: the 'Live' pill per pair from its own last tick (fresh = at most 30 s old, not in the future), not per exchange. silentSubscription: no price tick 180 s after subscribing (pongs only, rejected subscription) -> reconnect. samePair: a buffered tick is saved only for the pair it was subscribed for (after 'edit pair' the old symbol is dropped whatever time it carries); no subscribed pair -> dropped.",
   "parse": [
     {
       "name": "binance spot 24hrTicker",
@@ -809,6 +809,173 @@
       "reported": 0,
       "now": 1700000000000,
       "expected": 1700000000000
+    }
+  ],
+  "liveIds": [
+    {
+      "name": "pairs of one exchange on two connections, the second silent",
+      "now": 1700000100000,
+      "lastTickAt": {
+        "1": 1700000099000,
+        "2": 1700000070000,
+        "3": 1700000069999,
+        "4": 1699999980000
+      },
+      "expected": [
+        1,
+        2
+      ]
+    },
+    {
+      "name": "tick time in the future is not fresh",
+      "now": 1700000100000,
+      "lastTickAt": {
+        "5": 1700000100001,
+        "6": 1700000100000
+      },
+      "expected": [
+        6
+      ]
+    },
+    {
+      "name": "no ticks",
+      "now": 1700000100000,
+      "lastTickAt": {},
+      "expected": []
+    }
+  ],
+  "silentSubscription": [
+    {
+      "name": "not subscribed yet",
+      "subscribedAt": 0,
+      "receivedData": false,
+      "now": 1700000100000,
+      "silent": false
+    },
+    {
+      "name": "just under 3 minutes without a tick",
+      "subscribedAt": 1699999920001,
+      "receivedData": false,
+      "now": 1700000100000,
+      "silent": false
+    },
+    {
+      "name": "3 minutes without a tick: rejected subscription",
+      "subscribedAt": 1699999920000,
+      "receivedData": false,
+      "now": 1700000100000,
+      "silent": true
+    },
+    {
+      "name": "prices came: a quiet pair is not dead",
+      "subscribedAt": 1699996500000,
+      "receivedData": true,
+      "now": 1700000100000,
+      "silent": false
+    }
+  ],
+  "samePair": [
+    {
+      "name": "same pair",
+      "subscribed": {
+        "exchangeKey": "BinanceFutures",
+        "base": "BTC",
+        "quote": "USDT",
+        "contract": "QUARTERLY",
+        "pairId": "BTCUSDT_251226"
+      },
+      "current": {
+        "exchangeKey": "BinanceFutures",
+        "base": "BTC",
+        "quote": "USDT",
+        "contract": "QUARTERLY",
+        "pairId": "BTCUSDT_251226"
+      },
+      "expected": true
+    },
+    {
+      "name": "edited to another contract (old symbol still ticking)",
+      "subscribed": {
+        "exchangeKey": "BinanceFutures",
+        "base": "BTC",
+        "quote": "USDT",
+        "contract": "QUARTERLY",
+        "pairId": "BTCUSDT_251226"
+      },
+      "current": {
+        "exchangeKey": "BinanceFutures",
+        "base": "BTC",
+        "quote": "USDT",
+        "contract": "BIQUARTERLY",
+        "pairId": "BTCUSDT_260327"
+      },
+      "expected": false
+    },
+    {
+      "name": "edited to another exchange",
+      "subscribed": {
+        "exchangeKey": "BinanceFutures",
+        "base": "BTC",
+        "quote": "USDT",
+        "contract": "QUARTERLY",
+        "pairId": "BTCUSDT_251226"
+      },
+      "current": {
+        "exchangeKey": "Bybit",
+        "base": "BTC",
+        "quote": "USDT",
+        "contract": "QUARTERLY",
+        "pairId": "BTCUSDT_251226"
+      },
+      "expected": false
+    },
+    {
+      "name": "pair id case differs: different pair",
+      "subscribed": {
+        "exchangeKey": "BinanceFutures",
+        "base": "BTC",
+        "quote": "USDT",
+        "contract": "QUARTERLY",
+        "pairId": "BTCUSDT_251226"
+      },
+      "current": {
+        "exchangeKey": "BinanceFutures",
+        "base": "BTC",
+        "quote": "USDT",
+        "contract": "QUARTERLY",
+        "pairId": "btcusdt_251226"
+      },
+      "expected": false
+    },
+    {
+      "name": "spot without pair id",
+      "subscribed": {
+        "exchangeKey": "Kraken",
+        "base": "BTC",
+        "quote": "USDT",
+        "contract": "NONE",
+        "pairId": null
+      },
+      "current": {
+        "exchangeKey": "Kraken",
+        "base": "BTC",
+        "quote": "USDT",
+        "contract": "NONE",
+        "pairId": null
+      },
+      "expected": true
+    },
+    {
+      "name": "no subscribed pair",
+      "subscribed": null,
+      "current": {
+        "exchangeKey": "BinanceFutures",
+        "base": "BTC",
+        "quote": "USDT",
+        "contract": "QUARTERLY",
+        "pairId": "BTCUSDT_251226"
+      },
+      "expected": false
     }
   ]
 }

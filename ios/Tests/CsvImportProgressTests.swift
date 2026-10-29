@@ -170,14 +170,21 @@ final class CsvImportProgressTests: XCTestCase {
         report(CsvImportProgress(step: .SAVE, done: 1_000, total: 1_000))
         try await waitUntil { run.progress?.done == 1_000 }
         run.end()
-        report(CsvImportProgress(step: .SAVE, done: 1_000, total: 1_000))
-        try await Task.sleep(nanoseconds: 50_000_000)
         XCTAssertNil(run.phase)
-        XCTAssertNil(run.progress, "späte Meldung nach dem Ende zählt nicht")
+        XCTAssertNil(run.progress)
+        // Späte Meldung des beendeten Schritts, danach eine kleinere des nächsten: Die Meldungen laufen der Reihe nach
+        // über den MainActor; zählte die späte (1000 von 1000), würde die kleinere (1 von 1000) verworfen.
+        report(CsvImportProgress(step: .SAVE, done: 1_000, total: 1_000))
+        let next = run.begin(.saving)
+        let marker = CsvImportProgress(step: .SAVE, done: 1, total: 1_000)
+        next(marker)
+        try await waitUntil { run.progress == marker }
+        XCTAssertEqual(run.progress, marker, "späte Meldung nach dem Ende zählt nicht")
     }
 
+    /// Wartet höchstens 5 s (langsame CI-Runner).
     private func waitUntil(_ condition: () -> Bool) async throws {
-        for _ in 0..<200 where !condition() {
+        for _ in 0..<1_000 where !condition() {
             try await Task.sleep(nanoseconds: 5_000_000)
         }
         XCTAssertTrue(condition())

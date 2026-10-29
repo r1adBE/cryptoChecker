@@ -142,16 +142,6 @@
     <string name="pulse_alts_weaker">Bitcoin silnější než altcoiny</string>
     <string name="pulse_chip_funding_high">Nálada obchodníků s pákou optimistická</string>
     <string name="pulse_chip_funding_negative">Nálada obchodníků s pákou pesimistická</string>
-    <string name="pulse_funding_high">Funding výrazně kladný: mnoho pákových longů</string>
-    <string name="pulse_funding_negative">Funding záporný: mnoho shortů</string>
-    <string name="pulse_funding_neutral">Funding neutrální</string>
-    <string name="pulse_funding_slight">Funding mírně kladný</string>
-    <string name="pulse_gas_high">Ethereum gas vysoký (%1$s gwei)</string>
-    <string name="pulse_gas_low">Ethereum gas nízký (%1$s gwei)</string>
-    <string name="pulse_gas_normal">Ethereum gas běžný (%1$s gwei)</string>
-    <string name="pulse_volume_high">Objem obchodů neobvykle vysoký (%1$s× běžného)</string>
-    <string name="pulse_volume_low">Objem obchodů nízký (%1$s× běžného)</string>
-    <string name="pulse_volume_normal">Objem obchodů běžný</string>
 
     <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>

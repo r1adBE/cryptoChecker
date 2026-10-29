@@ -618,7 +618,7 @@ class WhyAnalysisTest {
         assertTrue(BroadMarket.parse(null).isEmpty())
     }
 
-    // ---------------- Herkunft (W3) ----------------
+    // ---------------- Herkunft ----------------
 
     @Test
     fun freshness_sourcesAndAges() {

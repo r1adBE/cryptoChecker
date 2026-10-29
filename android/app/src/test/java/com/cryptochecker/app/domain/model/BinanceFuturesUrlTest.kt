@@ -3,8 +3,10 @@ package com.cryptochecker.app.domain.model
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.exchange.BinanceFutures
+import com.cryptochecker.marketdata.exceptions.ExchangeParseException
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertThrows
 import org.junit.Test
 
 /**
@@ -22,6 +24,18 @@ class BinanceFuturesUrlTest {
             m.tickerAddress(0, PairQuery("BTC", "USD", "2:BTCUSD_260327", FuturesContractType.BIQUARTERLY)))
         assertEquals("https://fapi.binance.com/fapi/v1/ticker/24hr?symbol=BTCUSDT",
             m.tickerAddress(0, PairQuery("BTC", "USDT", "BTCUSDT", FuturesContractType.PERPETUAL)))
+    }
+
+    /** Ohne Paar-Kennung (fehlt oder leer) keine Anfrage, sondern ein Fehler. Wie iOS (`tickerQueryError`). */
+    @Test
+    fun missingPairIdIsAnErrorWithoutRequest() {
+        val m = BinanceFutures()
+        for (pairId in listOf(null, "", " ")) {
+            val err = assertThrows(ExchangeParseException::class.java) {
+                m.tickerAddress(0, PairQuery("BTC", "USDT", pairId, FuturesContractType.PERPETUAL))
+            }
+            assertEquals("Missing pair id", err.message)
+        }
     }
 
     /** Nur «TRADING»-Kontrakte sind wählbar (USD-M «status», COIN-M «contractStatus»). Wie iOS `BinanceFuturesPairsTests`. */

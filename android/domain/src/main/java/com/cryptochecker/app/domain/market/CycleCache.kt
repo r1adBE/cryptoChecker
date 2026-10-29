@@ -4,7 +4,7 @@ package com.cryptochecker.app.domain.market
  * Bereiche des Markt-Tabs mit eigenem Zwischenspeicher auf dem Gerät.
  * [ttlMillis] = so lange gilt ein gespeicherter Wert als frisch (danach wird im
  * Hintergrund neu geladen, der alte Wert bleibt bis dahin sichtbar);
- * [timeoutMillis] = harte Obergrenze für einen Abruf dieses Bereichs.
+ * [timeoutMillis] = harte Obergrenze für einen Abruf dieses Bereichs (iOS gleich, `CycleCachePolicy.timeoutMillis`).
  */
 enum class CycleSource(val key: String, val ttlMillis: Long, val timeoutMillis: Long) {
     PULSE("pulse", 5 * MINUTE, 12_000L),
@@ -34,8 +34,8 @@ enum class CycleSource(val key: String, val ttlMillis: Long, val timeoutMillis: 
     /** Zyklus-Vergleich seit 2016; im Notfall mehrere Abrufe nacheinander. */
     HISTORY("history", 12 * HOUR, 20_000L),
 
-    /** Coin-Karte, je Coin ein eigener Eintrag ([CycleCachePolicy.coinName]). */
-    COIN("coin", 15 * MINUTE, 12_000L),
+    /** Coin-Karte, je Coin ein eigener Eintrag ([CycleCachePolicy.coinName]); Kerzen mit Ausweich-Kette. */
+    COIN("coin", 15 * MINUTE, 20_000L),
     GAS("gas", MINUTE, 12_000L),
 }
 

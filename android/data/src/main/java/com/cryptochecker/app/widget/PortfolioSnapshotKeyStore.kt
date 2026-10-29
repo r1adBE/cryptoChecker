@@ -3,6 +3,7 @@ package com.cryptochecker.app.widget
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyPermanentlyInvalidatedException
 import android.security.keystore.KeyProperties
+import com.cryptochecker.app.data.local.DatabaseKeyRetry
 import com.cryptochecker.app.widget.PortfolioSnapshotSeal.KeyLookup
 import timber.log.Timber
 import java.security.KeyStore
@@ -17,8 +18,17 @@ import javax.crypto.SecretKey
  *
  * Ohne Nutzer-Bestätigung (wie DatabaseKeyStore): Widgets und WorkManager lesen im Hintergrund, ab dem ersten
  * Entsperren nach dem Start. Der Schlüssel verlässt den Keystore nie und geht in keine Sicherung.
+ *
+ * Gleiche Klasse für Journal des Wiederherstellens und Alarm-Protokoll (eigene Aliase, mit [suspects]): Daran hängen
+ * Daten, die sich nicht neu berechnen lassen. Dort gilt die Regel der Datenbank-Schlüssel ([DatabaseKeyRetry]): Nur ein
+ * ungültig gemachter Schlüssel ist sofort verloren; `UnrecoverableKeyException` erst, wenn sie auch in einem späteren
+ * Lauf wieder auftritt, und ein vorhandener Eintrag, den der Keystore gerade nicht herausgibt, nie.
  */
-class PortfolioSnapshotKeyStore(private val alias: String = ALIAS) : PortfolioSnapshotSeal.Keys {
+class PortfolioSnapshotKeyStore(
+    private val alias: String = ALIAS,
+    /** Verdachts-Merker (Journal, Alarm-Protokoll); null = Widget-Aufnahme, ein kaputter Eintrag wird sofort ersetzt. */
+    private val suspects: DatabaseKeyRetry.SuspectMarker? = null,
+) : PortfolioSnapshotSeal.Keys {
 
     override fun lookup(): KeyLookup {
         var lastError: Exception? = null
@@ -27,11 +37,12 @@ class PortfolioSnapshotKeyStore(private val alias: String = ALIAS) : PortfolioSn
             try {
                 // Prozessweit gesperrt: zwei gleichzeitige erste Zugriffe (Widget, Aktualisierung) erzeugten sonst je
                 // einen Schlüssel unter demselben Alias, und die eben versiegelte Aufnahme wäre nicht mehr lesbar
-                val key = synchronized(KEY_LOCK) { existing() ?: generate() }
+                val key = synchronized(KEY_LOCK) { existing() ?: withheld() ?: generate() }
+                suspects?.clear(alias)
                 return KeyLookup.Found(key)
             } catch (e: Exception) {
-                // Endgültig kaputter Eintrag: ersetzen — daran hängt nur die Aufnahme (Zwischenspeicher)
-                if (e.isPermanent()) deleteEntry()
+                // Endgültig kaputter Eintrag: ersetzen ([discardIfBroken])
+                discardIfBroken(e)
                 lastError = e
                 if (attempt < ATTEMPTS - 1) Thread.sleep(RETRY_DELAY_MILLIS)
             }
@@ -41,7 +52,23 @@ class PortfolioSnapshotKeyStore(private val alias: String = ALIAS) : PortfolioSn
     }
 
     override fun discardIfBroken(error: Throwable) {
-        if (error.isPermanent()) deleteEntry()
+        if (!error.isPermanent()) return
+        val marker = suspects
+        // Widget-Aufnahme (Zwischenspeicher) oder ungültig gemacht: sofort ersetzen; sonst erst im nächsten Lauf — ein
+        // vorübergehender Fehler ist bis dahin meist vorbei
+        if (marker == null || error.isInvalidated() || marker.escalate(alias)) deleteEntry()
+    }
+
+    /**
+     * Eintrag vorhanden, aber vom Keystore gerade nicht herausgegeben: mit [suspects] nie überschreiben (Fehler, nichts
+     * lesen und schreiben); null = keiner da oder Widget-Aufnahme, neu erzeugen.
+     */
+    private fun withheld(): SecretKey? {
+        if (suspects == null) return null
+        // Verzeichnis nicht lesbar: unbekannt, also ebenfalls nicht überschreiben
+        val present = runCatching { keyStore().containsAlias(alias) }.getOrDefault(true)
+        if (!present) return null
+        throw IllegalStateException("Keystore gibt den Schlüssel gerade nicht heraus")
     }
 
     private fun deleteEntry() {
@@ -67,6 +94,9 @@ class PortfolioSnapshotKeyStore(private val alias: String = ALIAS) : PortfolioSn
 
     private fun Throwable.isPermanent(): Boolean =
         this is KeyPermanentlyInvalidatedException || this is UnrecoverableKeyException || cause?.isPermanent() == true
+
+    private fun Throwable.isInvalidated(): Boolean =
+        this is KeyPermanentlyInvalidatedException || cause?.isInvalidated() == true
 
     companion object {
         const val ALIAS = "cryptochecker_widget_key"

@@ -128,29 +128,30 @@ enum Notifier {
         }
     }
 
-    /// Alarm-Mitteilung prüfen: so oft, im Abstand von `verifyStepNanos` (zusammen höchstens rund 1 s).
-    private static let verifyAttempts = 10
-    private static let verifyStepNanos: UInt64 = 100_000_000
-
     /// Wie `postChecked`, true aber erst, wenn die Mitteilung unter den zugestellten steht — wie Android
     /// `awaitActive`. Für Alarme: unbestätigt bleiben sie scharf (`AlarmDelivery`).
     private static func postConfirmed(id: String, content: UNMutableNotificationContent) async -> Bool {
-        // Eine Sekunde Spielraum: `date` der Mitteilung setzt das System, nicht dieser Prozess
-        let postedAt = Date().addingTimeInterval(-1)
+        let postedAt = EpochTime.nowMillis
         guard await postChecked(id: id, content: content) else { return false }
-        return await awaitDelivered(id, since: postedAt)
+        return await awaitDelivered(id, postedAt: postedAt)
     }
 
-    /// Steht die Mitteilung `id` (zugestellt ab `since`) unter den zugestellten? Das System führt eine eben
-    /// angenommene evtl. erst kurz danach — darum einige Male kurz nachsehen. Das Datum zählt, weil eine
-    /// ältere Mitteilung desselben Alarms noch in der Mitteilungszentrale stehen kann. Ist die
-    /// Mitteilungszentrale für die App aus, listet iOS dort nichts: dann gilt die Annahme durch das System.
-    private static func awaitDelivered(_ id: String, since: Date) async -> Bool {
+    /// Steht die Mitteilung `id` (gemeldet ab `postedAt`) unter den zugestellten? Das System führt eine eben
+    /// angenommene evtl. erst kurz danach — darum bis rund 1 s nachsehen (`NotificationBudget.verifyAttempts`, wie
+    /// Android). Das Datum zählt (`NotificationBudget.confirmedPost`), weil eine ältere Mitteilung desselben Alarms noch
+    /// in der Mitteilungszentrale stehen kann. Ist die Mitteilungszentrale für die App aus, listet iOS dort nichts: dann
+    /// gilt die Annahme durch das System.
+    private static func awaitDelivered(_ id: String, postedAt: Int64) async -> Bool {
         guard await center.notificationSettings().notificationCenterSetting == .enabled else { return true }
-        for attempt in 0..<verifyAttempts {
+        let attempts = NotificationBudget.verifyAttempts
+        for attempt in 0..<attempts {
             let delivered = await center.deliveredNotifications()
-            if delivered.contains(where: { $0.request.identifier == id && $0.date >= since }) { return true }
-            if attempt < verifyAttempts - 1 { try? await Task.sleep(nanoseconds: verifyStepNanos) }
+            let times = delivered.filter { $0.request.identifier == id }
+                .map { Int64(($0.date.timeIntervalSince1970 * 1000).rounded()) }
+            if NotificationBudget.confirmedPost(postTimes: times, postedAt: postedAt) { return true }
+            if attempt < attempts - 1 {
+                try? await Task.sleep(nanoseconds: UInt64(NotificationBudget.verifyStepMillis) * 1_000_000)
+            }
         }
         return false
     }
@@ -341,8 +342,8 @@ enum Notifier {
     }
 }
 
-/// Text eines Portfolio-Alarms (rein, testbar): mit Portfolio-Sperre neutral (wie Android öffentlich: nichts
-/// ausser dem Titel), sonst Satz und Messwert — mit «Beträge verbergen» ohne Beträge.
+/// Text eines Portfolio-Alarms (rein, testbar): mit Portfolio-Sperre nur ein neutraler Satz (wie Android), sonst
+/// Satz und Messwert — mit «Beträge verbergen» ohne Beträge.
 enum PortfolioAlarmNotice {
     static func body(_ alarm: PortfolioAlarm, measured: Double, settings: AppSettings, usdtAssumed: Bool = false) -> String {
         if settings.appLock { return L("notification_portfolio_alarm_locked") }

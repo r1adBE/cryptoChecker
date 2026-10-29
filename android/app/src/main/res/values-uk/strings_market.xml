@@ -142,16 +142,6 @@
     <string name="pulse_alts_weaker">Біткоїн сильніший за альткоїни</string>
     <string name="pulse_chip_funding_high">Настрій трейдерів із плечем оптимістичний</string>
     <string name="pulse_chip_funding_negative">Настрій трейдерів із плечем песимістичний</string>
-    <string name="pulse_funding_high">Фандинг помітно додатний: багато лонгів із плечем</string>
-    <string name="pulse_funding_negative">Фандинг від\'ємний: багато шортів</string>
-    <string name="pulse_funding_neutral">Фандинг нейтральний</string>
-    <string name="pulse_funding_slight">Фандинг трохи додатний</string>
-    <string name="pulse_gas_high">Газ Ethereum високий (%1$s gwei)</string>
-    <string name="pulse_gas_low">Газ Ethereum низький (%1$s gwei)</string>
-    <string name="pulse_gas_normal">Газ Ethereum звичайний (%1$s gwei)</string>
-    <string name="pulse_volume_high">Обсяг торгів незвично високий (%1$s× від звичайного)</string>
-    <string name="pulse_volume_low">Обсяг торгів низький (%1$s× від звичайного)</string>
-    <string name="pulse_volume_normal">Обсяг торгів звичайний</string>
 
     <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>

@@ -45,7 +45,7 @@ EXPECTED = {
     "android.permission.POST_NOTIFICATIONS": "price alarms and price notifications (Android 13+)",
     "android.permission.RECEIVE_BOOT_COMPLETED": "re-plan alarms and background updates after a reboot",
     "android.permission.SCHEDULE_EXACT_ALARM": "opt-in «check punctually» exact alarm (user-granted, revocable)",
-    "android.permission.SYSTEM_ALERT_WINDOW": "opt-in price overlay over other apps (build 150, user-granted, revocable)",
+    "android.permission.SYSTEM_ALERT_WINDOW": "opt-in price overlay over other apps (user-granted, revocable)",
     "android.permission.USE_BIOMETRIC": "app lock with biometrics (androidx.biometric)",
     "android.permission.USE_FINGERPRINT": "app lock on Android 8/9 (androidx.biometric)",
     "android.permission.VIBRATE": "vibration of alarm notifications",
@@ -57,7 +57,7 @@ EXPECTED = {
 ALLOWED_EXPORTED = {
     "com.cryptochecker.app.ui.MainActivity",
     "com.cryptochecker.app.work.BootReceiver",
-    # Wear data layer (build 154): Google Play services bind it; WearableListenerService accepts calls from Play
+    # Wear data layer: Google Play services bind it; WearableListenerService accepts calls from Play
     # services only and the service reads nothing but the coin list of the own watch app (path /cc/watch)
     "com.cryptochecker.app.wearable.PhoneWatchListener",
 }

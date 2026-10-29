@@ -87,8 +87,6 @@ struct CoinPosition: Sendable, Equatable, Identifiable {
     var unrealizedPartial: Bool { unrealizedExact != nil && priceMissing && unpricedHoldingsExact > 0 }
     /// Bestand aus den eigenen Transaktionen (ohne Adress-Guthaben) — nur er hat Einstand und Posten.
     var ledgerHoldingsExact: Decimal { max(0, holdingsExact - addressHoldingsExact) }
-    /// Ein Teil (oder alles) stammt aus beobachteten Adressen.
-    var hasAddressPart: Bool { addressHoldingsExact > 0 }
     /// Ø gilt nur für einen Teil des Bestands (ein Teil ohne Kaufpreis) — Anzeige «Ø von … mit Kaufpreis».
     var avgCostPartial: Bool { avgCost != nil && priceMissing && pricedHoldingsExact > 0 }
     var isOpen: Bool { holdingsExact > 0 || (holdingsExact == 0 && holdings > PortfolioCalculator.eps) }

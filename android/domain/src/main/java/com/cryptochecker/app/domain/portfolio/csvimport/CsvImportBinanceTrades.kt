@@ -19,13 +19,23 @@ fun CsvImportBinance.splitPair(pair: String): Pair<String, String>? {
     return p.removeSuffix(quote) to quote
 }
 
+/** Gebühr-Coins neben Basis und Quote des Paars (Binance zieht die Gebühr wahlweise in BNB ab). */
+private val FEE_COINS = listOf("BNB")
+
 /**
- * «0.00100000BTC» → (0.001, BTC); ohne Einheit (früherer Aufbau) → (Zahl, null); unlesbar = null. Die Einheit beginnt beim
- * ersten Buchstaben nach der Zahl; ein Exponent gehört zur Zahl («1E-8BNB» → 0.00000001 BNB, «1.5ETH» → 1.5 ETH):
- * «E»/«e» nach einer Ziffer, gefolgt von Ziffern (mit Vorzeichen davor). Wie iOS.
+ * «0.00100000BTC» → (0.001, BTC); ohne Einheit (früherer Aufbau) → (Zahl, null); unlesbar = null. Zuerst die bekannten
+ * Kürzel [known] (Basis und Quote des Paars, bei der Gebühr auch [FEE_COINS]) am Ende des Feldes, längstes zuerst, mit
+ * lesbarer Zahl davor — so bleiben Ziffern am Anfang des Kürzels beim Kürzel («10.51INCH» → 10.5 1INCH,
+ * «350000.001000SATS» → 350000 1000SATS). Sonst beginnt die Einheit beim ersten Buchstaben nach der Zahl; ein
+ * Exponent gehört zur Zahl («1E-8BNB» → 0.00000001 BNB, «1.5ETH» → 1.5 ETH): «E»/«e» nach einer Ziffer, gefolgt von
+ * Ziffern (mit Vorzeichen davor). Kürzel ohne Buchstaben zählen nicht (früherer Aufbau ohne Einheit). Wie iOS.
  */
-private fun CsvImportBinance.withUnit(text: String): Pair<BigDecimal, String?>? {
+private fun CsvImportBinance.withUnit(text: String, known: List<String>): Pair<BigDecimal, String?>? {
     val t = text.trim()
+    for (unit in known.filter { s -> s.any { it in 'A'..'Z' } }.distinct().sortedByDescending { it.length }) {
+        if (t.length <= unit.length || !t.endsWith(unit, ignoreCase = true)) continue
+        decimal(t.dropLast(unit.length))?.let { return it to unit }
+    }
     val cut = unitStart(t)
     if (cut < 0) return decimal(t)?.let { it to null }
     val number = decimal(t.substring(0, cut)) ?: return null
@@ -87,11 +97,12 @@ fun CsvImportBinance.trades(names: List<String>, data: List<CsvImportParser.Reco
         val time = CsvImportParser.parseTime(timeText, zone)
         if (time == null) { skipped += CsvImportSkip(rec.line, CsvImportSkipReason.BAD_DATE); continue }
         val pair = splitPair(cell(iPair))
-        val executed = withUnit(cell(iAmount))
-        val total = withUnit(cell(iTotal))
+        val known = pair?.toList().orEmpty()
+        val executed = withUnit(cell(iAmount), known)
+        val total = withUnit(cell(iTotal), known)
         val price = decimal(cell(iPrice))?.abs()
         val feeText = cell(iFee)
-        val fee = if (feeText.isEmpty() || feeText == "-") null to null else withUnit(feeText)
+        val fee = if (feeText.isEmpty() || feeText == "-") null to null else withUnit(feeText, known + FEE_COINS)
         if (executed == null || total == null || price == null || fee == null) {
             skipped += CsvImportSkip(rec.line, CsvImportSkipReason.BAD_NUMBER)
             continue

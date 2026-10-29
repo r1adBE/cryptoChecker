@@ -40,19 +40,20 @@ extension HistoricPriceSource {
     /// dem heutigen) in USDT. Prüfung wie Binance-Spot (1/3…3). Ist die Börse zugleich ein Glied der Kette und hat keinen
     /// Schluss, folgt deren Kettenabfrage (Coinbase: jedes Alter).
     static func ownOutcome(_ own: CandlePair, base b: String, day: CutoffDay, start: Int64, reference: Double,
-                           ownName: String?) async -> HistoricCloseChain.Outcome {
+                           ownName: String?, fetch: any HistoricCloseFetch) async -> HistoricCloseChain.Outcome {
         let names = TokenIdentityStore.shared
         let nameOk = HistoricCloseChain.nameAllowed(base: b, own: true, exchangeKey: own.exchangeKey, ownName: ownName,
                                                     binanceName: names.binanceName(b),
                                                     providerName: names.pairName(exchangeKey: own.exchangeKey, base: b))
         var outcome = HistoricCloseChain.Outcome(price: nil, rejected: true)
-        if nameOk { outcome = await ownDayClose(own, day: day, start: start, reference: reference) }
+        if nameOk { outcome = await ownDayClose(own, day: day, start: start, reference: reference, fetch: fetch) }
         if outcome.price == nil, HistoricCloseChain.chain.contains(own.exchangeKey), own.exchangeKey != HistoricCloseChain.binance {
             var chained: HistoricCloseChain.Outcome
             if own.exchangeKey == HistoricCloseChain.coinbase {
-                chained = await coinbaseOutcome(b, day: day, start: start, reference: reference)
+                chained = await coinbaseOutcome(b, day: day, start: start, reference: reference, fetch: fetch)
             } else {
-                chained = await chainOutcome(own.exchangeKey, base: b, start: start, reference: reference, ownName: ownName)
+                chained = await chainOutcome(own.exchangeKey, base: b, start: start, reference: reference, ownName: ownName,
+                                             fetch: fetch)
             }
             chained.rejected = chained.rejected || outcome.rejected
             outcome = chained
@@ -60,20 +61,20 @@ extension HistoricPriceSource {
         return outcome
     }
 
-    private static func ownDayClose(_ own: CandlePair, day: CutoffDay, start: Int64,
-                                    reference: Double) async -> HistoricCloseChain.Outcome {
-        guard let raw = await seriesClose(own, start: start) else { return HistoricCloseChain.Outcome(price: nil) }
+    private static func ownDayClose(_ own: CandlePair, day: CutoffDay, start: Int64, reference: Double,
+                                    fetch: any HistoricCloseFetch) async -> HistoricCloseChain.Outcome {
+        guard let raw = await fetch.seriesClose(own, start: start) else { return HistoricCloseChain.Outcome(price: nil) }
         let quote = own.quote.trimmingCharacters(in: .whitespaces).uppercased()
         var close = raw.close
         var latest = raw.latest
         if quote != "USDT" && quote != "USD" && quote != "USDC" {
             // Fiat-Paar: Devisenkurs DES Tags (Wochenende → letzter Geschäftstag) bzw. heute für den jüngsten Schluss
-            guard let dayFx = await usdTo(quote, day: day)?.rate, dayFx > 0, dayFx.isFinite else {
+            guard let dayFx = await fetch.usdTo(quote, day: day)?.rate, dayFx > 0, dayFx.isFinite else {
                 return HistoricCloseChain.Outcome(price: nil)
             }
             var utc = Calendar(identifier: .gregorian)
             utc.timeZone = TimeZone(identifier: "UTC") ?? .current
-            let nowFx = await usdTo(quote, day: CutoffDay(Date(), calendar: utc))?.rate
+            let nowFx = await fetch.usdTo(quote, day: CutoffDay(Date(), calendar: utc))?.rate
             close = raw.close / dayFx
             if let l = raw.latest, let nowFx, nowFx > 0, nowFx.isFinite { latest = l / nowFx } else { latest = nil }
         }
@@ -86,8 +87,8 @@ extension HistoricPriceSource {
 
     /// Kettenquelle `source` (Kraken, OKX, Bybit): Paare nach `HistoricCloseChain.pairs`, Name nach
     /// `HistoricCloseChain.nameAllowed`, Schluss nur mit ±25 % gegen den aktuellen Kurs (`HistoricCloseChain.decide`).
-    static func chainOutcome(_ source: String, base b: String, start: Int64, reference: Double,
-                             ownName: String?) async -> HistoricCloseChain.Outcome {
+    static func chainOutcome(_ source: String, base b: String, start: Int64, reference: Double, ownName: String?,
+                             fetch: any HistoricCloseFetch) async -> HistoricCloseChain.Outcome {
         let pairs = HistoricCloseChain.pairs(source, base: b)
         guard !pairs.isEmpty else { return HistoricCloseChain.Outcome(price: nil) }
         let names = TokenIdentityStore.shared
@@ -98,7 +99,7 @@ extension HistoricPriceSource {
         guard nameOk else { return HistoricCloseChain.Outcome(price: nil, rejected: true) }
         var rejected = false
         for p in pairs {
-            guard let v = await seriesClose(chainCandlePair(source, base: b, p), start: start) else { continue }
+            guard let v = await fetch.seriesClose(chainCandlePair(source, base: b, p), start: start) else { continue }
             switch HistoricCloseChain.decide(close: v.close, latest: v.latest, current: reference, primary: false, nameOk: true) {
             case .accept: return HistoricCloseChain.Outcome(price: v.close)
             case .reject: rejected = true

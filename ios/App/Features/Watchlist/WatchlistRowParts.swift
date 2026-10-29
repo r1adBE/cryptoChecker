@@ -23,7 +23,7 @@ extension WatchlistRow {
     private var pairRest: String {
         let name = watch.displayName
         if name.hasPrefix(watch.baseAsset) { return String(name.dropFirst(watch.baseAsset.count)) }
-        if let contract = watch.contractType.shortName { return "/" + watch.quoteAsset + " " + contract }
+        if let contract = watch.contractShortName { return "/" + watch.quoteAsset + " " + contract }
         return "/" + watch.quoteAsset
     }
 

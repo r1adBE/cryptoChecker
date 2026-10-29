@@ -13,7 +13,7 @@ time, object IDs are derived from hashes, so the output is deterministic (same t
                 scheme's test action; App/Components/UiTestTags.swift is compiled into it as well (same
                 identifiers in app and tests). Run one bundle with `-only-testing:CryptoCheckerTests` etc.
   App/PrivacyInfo.xcprivacy -> resource in the app, the widgets and both watch targets (privacy manifest per bundle)
-  WatchCore/**     -> app, watch app and watch widgets (list choice shared by iPhone and Apple Watch, build 155)
+  WatchCore/**     -> app, watch app and watch widgets (list choice shared by iPhone and Apple Watch)
   Watch/**         -> watchOS app "CryptoCheckerWatch" (embedded in the app under Watch/); Watch/Device/** also in
                       the watch widgets
   WatchWidgets/**  -> watchOS widget extension "CryptoCheckerWatchWidgets" (complication, embedded in the watch app)
@@ -41,7 +41,7 @@ PROJECT_NAME = "CryptoChecker"
 PROJ_DIR = os.path.join(ROOT, PROJECT_NAME + ".xcodeproj")
 
 MARKETING_VERSION = "16.2.2"
-CURRENT_PROJECT_VERSION = "167"
+CURRENT_PROJECT_VERSION = "168"
 DEPLOYMENT_TARGET = "17.0"
 APP_ID = "com.cryptochecker.app"
 WIDGET_ID = "com.cryptochecker.app.widgets"
@@ -438,7 +438,7 @@ def widget_settings():
 
 
 def watch_settings(widget):
-    """watchOS-Ziele (Build 155): eigene Plattform, Gerätefamilie 4 (Uhr), watchOS 10."""
+    """watchOS-Ziele: eigene Plattform, Gerätefamilie 4 (Uhr), watchOS 10."""
     s = common_target_settings()
     s.update({
         "ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME": "AccentColor",

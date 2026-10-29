@@ -21,6 +21,11 @@ package com.cryptochecker.app.data.local
  * 5. Frühere Schlüssel bleiben (nummeriert, [Keys.previous]), solange eine beiseitegelegte Datei auf einen warten kann.
  *    Öffnet beim nächsten Start einer davon eine beiseitegelegte Datei («endgültig» war doch nur vorübergehend), kommt sie
  *    zurück; die inzwischen neu begonnene Datei bleibt samt Schlüssel daneben ([Decision.Encrypted.restored]).
+ *    Beiseitegelegte und ersetzte Dateien bleiben nicht für immer: gleiche Frist ([AsideRetention], [pruneAside],
+ *    [pruneReplaced]).
+ * 6. Nur lesen ([readOnly], Systemsicherung): nichts beiseitelegen, zurückholen, löschen oder anlegen. Öffnet der
+ *    gespeicherte Schlüssel die Datei nicht, gilt der Schlüssel als gerade nicht lesbar ([Decision.KeyUnavailable]) — die
+ *    Sicherung bricht ab, statt ein leeres Portfolio zu sichern; die App entscheidet beim nächsten eigenen Öffnen.
  */
 class DatabaseOpenPlanner(
     val files: Files,
@@ -28,6 +33,13 @@ class DatabaseOpenPlanner(
     val log: (message: String, error: Throwable?) -> Unit = { _, _ -> },
     /** Welche beiseitegelegten Kopien weg dürfen ([pruneAside], [AsideRetention]); Standard keine. */
     val asideExpired: (database: String, copies: List<String>) -> List<String> = { _, _ -> emptyList() },
+    /**
+     * Welche durch eine zurückgeholte Datei ersetzten Dateien weg dürfen ([pruneReplaced], gleiche Frist wie
+     * [asideExpired]); Standard keine.
+     */
+    val replacedExpired: (database: String, copies: List<String>) -> List<String> = { _, _ -> emptyList() },
+    /** Nur lesen (Regel 6): Datei und Schlüssel bleiben unverändert. */
+    val readOnly: Boolean = false,
 ) {
 
     /** Zustand einer Datenbankdatei auf dem Speicher. */
@@ -71,6 +83,9 @@ class DatabaseOpenPlanner(
         fun promote(database: String, id: String) {
             throw UnsupportedOperationException("promote")
         }
+
+        /** Als «ersetzt» behaltene Schlüssel löschen — nur, wenn keine ersetzte Datei mehr auf einen wartet; Fehler werfen. */
+        fun discardReplaced(database: String) {}
     }
 
     /** Früherer Schlüssel ([Keys.previous]): Kennung (Dateiname) und Passphrase wie [KeyLookup.Found]. */
@@ -97,7 +112,8 @@ class DatabaseOpenPlanner(
 
         /**
          * Beiseitegelegte Datei [copy] samt `-wal`/`-shm` wieder auf den Dateinamen; die bisherige Datei bleibt unter
-         * neuem Namen erhalten (nie gelöscht). Scheitert das zweite Umbenennen, kommt die bisherige zurück.
+         * neuem Namen erhalten (gelöscht erst nach Frist, [pruneReplaced]). Scheitert das zweite Umbenennen, kommt die
+         * bisherige zurück.
          */
         fun restoreAside(database: String, copy: String) {
             throw UnsupportedOperationException("restoreAside")
@@ -106,6 +122,14 @@ class DatabaseOpenPlanner(
         /** Beiseitegelegte Kopie [copy] samt Nebendateien löschen (nur über [pruneAside], nie die aktuelle Datei). */
         fun deleteAside(database: String, copy: String) {
             throw UnsupportedOperationException("deleteAside")
+        }
+
+        /** Von [restoreAside] ersetzte, inzwischen neu begonnene Dateien (`<db>.replaced…`), neueste zuerst. */
+        fun replacedCopies(database: String): List<String> = emptyList()
+
+        /** Ersetzte Datei [copy] samt Nebendateien löschen (nur über [pruneReplaced]). */
+        fun deleteReplaced(database: String, copy: String) {
+            throw UnsupportedOperationException("deleteReplaced")
         }
 
         /** Liegt für [database] eine wiederhergestellte, unverschlüsselte Kopie der Systemsicherung bereit? */
@@ -147,9 +171,15 @@ class DatabaseOpenPlanner(
     /** Vor dem ersten Öffnen von [database]: Datei vorbereiten und sagen, wie sie zu öffnen ist. */
     fun prepare(database: String): Decision =
         when (files.kind(database)) {
-            FileKind.ABSENT -> newDatabase(database)
+            FileKind.ABSENT -> if (readOnly) readOnlyRefusal(database, "keine Datei") else newDatabase(database)
             FileKind.ENCRYPTED -> openEncrypted(database)
         }
+
+    /** Nur lesen, aber die Datei liesse sich nicht unverändert öffnen: wie ein gerade nicht lesbarer Schlüssel. */
+    private fun readOnlyRefusal(database: String, reason: String): Decision {
+        log("$database: $reason, nur lesen — nichts verändert", null)
+        return Decision.KeyUnavailable(IllegalStateException("$database: $reason (nur lesen)"))
+    }
 
     /**
      * Noch keine Datei: Room legt sie verschlüsselt an — aus einer wiederhergestellten Kopie, falls eine bereitliegt.
@@ -184,10 +214,12 @@ class DatabaseOpenPlanner(
                 } catch (e: Exception) {
                     return Decision.KeyUnavailable(e)
                 }
+                if (opens && readOnly) return Decision.Encrypted(lookup.passphrase)
                 if (opens) {
                     // Wartet eine beiseitegelegte Datei auf einen früheren Schlüssel, der sie doch öffnet: zurückholen
                     restoreFromAside(database)?.let { return it }
                     pruneAside(database)
+                    pruneReplaced(database)
                     // Gespeicherter Schlüssel öffnet die Datei: frühere nur löschen, wenn keine beiseitegelegte Datei mehr
                     // auf einen warten kann
                     if (runCatching { files.asideCopies(database).isEmpty() }.getOrDefault(false)) {
@@ -200,6 +232,7 @@ class DatabaseOpenPlanner(
             }
             KeyLookup.Absent -> log("$database: Schlüssel verloren", null)
         }
+        if (readOnly) return readOnlyRefusal(database, "kein passender Schlüssel")
         // Vor dem Beiseitelegen: öffnet ein früherer Schlüssel die Datei, gilt wieder er (nichts beiseitelegen)
         previousOpening(database)?.let { return it }
         return try {

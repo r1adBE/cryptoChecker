@@ -138,7 +138,8 @@ class ListWidgetRenderer @Inject constructor(
         }
 
         // Fordert die Liste an, ihre Daten neu zu laden (nur Zeilen aus dem Dienst).
-        // Seit API 31 zugunsten von RemoteCollectionItems abgekündigt — die nutzen wir dort.
+        // Seit API 31 zugunsten von RemoteCollectionItems abgekündigt — die nutzen wir dort; der Dienst-Weg (unter
+        // Android 12, minSdk 26) braucht den Aufruf weiter.
         if (viaService.isNotEmpty()) {
             @Suppress("DEPRECATION")
             runCatchingCancellable { manager.notifyAppWidgetViewDataChanged(viaService.toIntArray(), R.id.widget_list) }
@@ -214,6 +215,7 @@ class ListWidgetRenderer @Inject constructor(
                 // Ohne eigene data-Uri teilen sich mehrere Widgets eine Fabrik.
                 data = Uri.parse(toUri(Intent.URI_INTENT_SCHEME))
             }
+            // Adapter-Dienst: unter Android 12 (minSdk 26) der einzige Weg, ab Android 12 nur ohne inline-Zeilen
             @Suppress("DEPRECATION")
             views.setRemoteAdapter(R.id.widget_list, adapterIntent)
         }

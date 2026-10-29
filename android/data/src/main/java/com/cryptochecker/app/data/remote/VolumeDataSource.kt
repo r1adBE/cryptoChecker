@@ -11,7 +11,6 @@ import com.cryptochecker.app.domain.activity.CandleSeries
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.market.Sourced
 import com.cryptochecker.app.domain.watch.DayChange
-import org.json.JSONArray
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -139,26 +138,10 @@ class VolumeDataSource @Inject constructor(
             return symbol.takeIf { base.isNotEmpty() && quote.isNotEmpty() && symbol.all { it.isLetterOrDigit() } }
         }
 
-        /** Binance-Kerze: [openTime, open, high, low, close, volume, ...], älteste zuerst. */
-        fun parseCandles(json: String): List<HourCandle> {
-            val array = JSONArray(json)
-            return (0 until array.length()).map { i ->
-                val k = array.getJSONArray(i)
-                HourCandle(
-                    openTime = k.getLong(0),
-                    open = k.getString(1).toDouble(),
-                    high = k.getString(2).toDouble(),
-                    low = k.getString(3).toDouble(),
-                    close = k.getString(4).toDouble(),
-                    volume = k.getString(5).toDouble(),
-                )
-            }
-        }
-
         /**
          * Bewertet wird die letzte ABGESCHLOSSENE Stunde gegen die 24 davor — nach Uhrzeit, nicht nach
          * Position: Kerzen werden je Stunde (`openTime / 1 h`) zusammengefasst, fehlende Stunden (Börsen
-         * lassen Stunden ohne Handel aus) zählen mit Volumen 0. Vorher war bei Lücken «die vorletzte Kerze»
+         * lassen Stunden ohne Handel aus) zählen mit Volumen 0. Nach Position wäre bei Lücken «die vorletzte Kerze»
          * womöglich Stunden alt und der Schnitt über mehr als 24 Stunden gerechnet.
          *
          * Laufende Stunde = die spätere aus Uhr ([now]) und neuester Kerze (Uhr des Geräts etwas nach).
@@ -194,8 +177,5 @@ class VolumeDataSource @Inject constructor(
 
         /** Vergleichsstunden vor der bewerteten. */
         private const val COMPARE_HOURS = 24
-
-        /** Wie früher: Spike direkt aus der Binance-Antwort. */
-        fun parse(json: String, now: Long = System.currentTimeMillis()): VolumeSpike? = spikeOf(parseCandles(json), now)
     }
 }

@@ -113,12 +113,3 @@ struct CoinBadge: View {
             .offset(x: 3, y: 3)
     }
 }
-
-extension String {
-    /// Stabiler Hash (anders als `hashValue` gleich bei jedem Start).
-    var hashValueStable: Int {
-        var h = 5381
-        for b in utf8 { h = (h &* 33) &+ Int(b) }
-        return h
-    }
-}

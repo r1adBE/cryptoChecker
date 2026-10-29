@@ -1,0 +1,108 @@
+{
+  "_comment": "Frist für beiseitegelegte (Android <db>.unreadable…, iOS *.locked) und ersetzte Dateien (*.replaced): weg erst nach bestätigtem Hinweis «nicht entsperrt» (allowed) und frühestens 30 Tage (maxAgeMillis) nach dem ersten Start, der sie sah (seen, ms). Neue Kopien und Zeiten in der Zukunft beginnen mit now; verschwundene fallen aus dem Merker. Android: AsideRetentionParityTest.kt (AsideRetention.select), iOS: AsideRetentionTests.swift (AsideRetention.select). Mit Python nachgerechnet.",
+  "maxAgeMillis": 2592000000,
+  "cases": [
+    {
+      "name": "neue Kopie: Frist beginnt jetzt",
+      "copies": [
+        "a"
+      ],
+      "seen": {},
+      "now": 1000,
+      "allowed": true,
+      "delete": [],
+      "seenAfter": {
+        "a": 1000
+      }
+    },
+    {
+      "name": "genau 30 Tage: weg",
+      "copies": [
+        "a",
+        "b"
+      ],
+      "seen": {
+        "a": 0,
+        "b": 1728000000
+      },
+      "now": 2592000000,
+      "allowed": true,
+      "delete": [
+        "a"
+      ],
+      "seenAfter": {
+        "a": 0,
+        "b": 1728000000
+      }
+    },
+    {
+      "name": "Hinweis noch offen: nichts weg",
+      "copies": [
+        "a",
+        "b"
+      ],
+      "seen": {
+        "a": 0,
+        "b": 1728000000
+      },
+      "now": 2592000000,
+      "allowed": false,
+      "delete": [],
+      "seenAfter": {
+        "a": 0,
+        "b": 1728000000
+      }
+    },
+    {
+      "name": "1 ms vor der Frist: bleibt",
+      "copies": [
+        "a"
+      ],
+      "seen": {
+        "a": 0
+      },
+      "now": 2591999999,
+      "allowed": true,
+      "delete": [],
+      "seenAfter": {
+        "a": 0
+      }
+    },
+    {
+      "name": "verschwunden fällt aus dem Merker, Zukunft zählt als jetzt",
+      "copies": [
+        "b"
+      ],
+      "seen": {
+        "a": 0,
+        "b": 8553600000
+      },
+      "now": 864000000,
+      "allowed": true,
+      "delete": [],
+      "seenAfter": {
+        "b": 864000000
+      }
+    },
+    {
+      "name": "ersetzte Datei: gleiche Regel",
+      "copies": [
+        "portfolio.json.replaced",
+        "portfolio.json.17.replaced"
+      ],
+      "seen": {
+        "portfolio.json.replaced": 5,
+        "portfolio.json.17.replaced": 518400000
+      },
+      "now": 2592000005,
+      "allowed": true,
+      "delete": [
+        "portfolio.json.replaced"
+      ],
+      "seenAfter": {
+        "portfolio.json.replaced": 5,
+        "portfolio.json.17.replaced": 518400000
+      }
+    }
+  ]
+}

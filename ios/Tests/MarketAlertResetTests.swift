@@ -55,6 +55,36 @@ final class MarketAlertResetTests: XCTestCase {
         XCTAssertNil(defaults.object(forKey: GasAlertCheck.keyBtcThreshold))
     }
 
+    /// Depeg-Alarm bei −0.8 % gemeldet, aus- und wieder eingeschaltet, Abweichung hält an: wieder scharf. Wie Android.
+    func testDepegOffThenOnWithSameThresholdIsArmedAgain() {
+        defaults.set(false, forKey: DepegAlarmCheck.keyArmed)
+        defaults.set(5, forKey: DepegAlarmCheck.keyArmedTenths)
+        XCTAssertFalse(DepegAlarm.armedFor(storedArmed: false, storedTenths: 5, tenths: 5))
+        var old = AppSettings()
+        old.depegAlarm = true
+        var off = old
+        off.depegAlarm = false
+        let generation = defaults.integer(forKey: DepegAlarmCheck.keyResetGeneration)
+        MarketAlertReset.settingsChanged(from: old, to: off, defaults: defaults)
+        let stored = defaults.object(forKey: DepegAlarmCheck.keyArmedTenths) as? Int
+        XCTAssertEqual(stored, 0)
+        XCTAssertTrue(DepegAlarm.armedFor(storedArmed: false, storedTenths: stored, tenths: 5))
+        // Eine während des «Aus» laufende Prüfung schreibt ihren Stand nicht mehr
+        XCTAssertFalse(DepegAlarmCheck.mayStore(generation: generation, defaults: defaults))
+    }
+
+    /// «Aus» während einer laufenden Zonen-Prüfung: Sie schreibt danach ihren Stand nicht mehr (wie die Sperre auf Android).
+    func testZoneOffStopsARunningCheckFromStoring() {
+        let generation = defaults.integer(forKey: ZoneCheck.keyResetGeneration)
+        XCTAssertTrue(ZoneCheck.mayStore(generation: generation, defaults: defaults))
+        // Auch ohne gemerkten Stand: eine gerade laufende Prüfung könnte einen ersten schreiben
+        MarketAlertReset.fearGreedOff(below: true, defaults: defaults)
+        XCTAssertFalse(ZoneCheck.mayStore(generation: generation, defaults: defaults))
+        let next = defaults.integer(forKey: ZoneCheck.keyResetGeneration)
+        MarketAlertReset.indicatorOff(.MAYER_ABOVE, defaults: defaults)
+        XCTAssertFalse(ZoneCheck.mayStore(generation: next, defaults: defaults))
+    }
+
     func testIndicatorOffForgetsCrossedStateAndBound() {
         let kind = IndicatorAlertKind.MAYER_ABOVE
         defaults.set(true, forKey: ZoneCheck.crossedKey(kind))

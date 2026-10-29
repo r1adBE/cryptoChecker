@@ -139,16 +139,6 @@
     <string name="pulse_alts_weaker">Bitcoin แข็งแกร่งกว่าอัลต์คอยน์</string>
     <string name="pulse_chip_funding_high">อารมณ์การเทรดเลเวอเรจมองบวก</string>
     <string name="pulse_chip_funding_negative">อารมณ์การเทรดเลเวอเรจมองลบ</string>
-    <string name="pulse_funding_high">Funding เป็นบวกชัดเจน: มี Long ใช้เลเวอเรจจำนวนมาก</string>
-    <string name="pulse_funding_negative">Funding เป็นลบ: มี Short จำนวนมาก</string>
-    <string name="pulse_funding_neutral">Funding เป็นกลาง</string>
-    <string name="pulse_funding_slight">Funding เป็นบวกเล็กน้อย</string>
-    <string name="pulse_gas_high">ค่า Gas Ethereum สูง (%1$s gwei)</string>
-    <string name="pulse_gas_low">ค่า Gas Ethereum ต่ำ (%1$s gwei)</string>
-    <string name="pulse_gas_normal">ค่า Gas Ethereum ปกติ (%1$s gwei)</string>
-    <string name="pulse_volume_high">ปริมาณการซื้อขายสูงผิดปกติ (%1$s× ของปกติ)</string>
-    <string name="pulse_volume_low">ปริมาณการซื้อขายต่ำ (%1$s× ของปกติ)</string>
-    <string name="pulse_volume_normal">ปริมาณการซื้อขายปกติ</string>
 
     <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>

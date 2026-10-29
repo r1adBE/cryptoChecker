@@ -5,6 +5,7 @@
 * Last price straight from the exchange that lists the pair – 56 markets on 45 exchanges, including futures and DEX pools.
 * Alerts run locally on the device when the app checks prices (with the app closed, often only after hours) – no account, no server.
 * Home-screen widgets for the watchlist, single pairs, the portfolio and the market pulse.
+* Watch apps for Wear OS and Apple Watch with a complication: prices of your favourite coins straight from the exchange; on Android an optional price overlay above other apps.
 * «What is moving with it?»: a checklist that puts a price move in context (market, Bitcoin and other factors).
 * Optional portfolio (off by default): own transactions, CSV import, watched addresses and tax worksheets.
 * Watchlist, alerts and portfolio are stored encrypted on the device.
@@ -14,6 +15,15 @@
 * No tracking, no ads, no analytics.
 
 Detailed build history below.
+
+## 16.2.2 (build 168)
+
+* Watchlist and live prices: an expired dated futures contract is marked «no longer traded» even with only one or two pairs of that exchange; «1Q», «2Q» … follow the date in the contract, so after the quarter roll «2Q» shows «1Q»; «Live» is shown per pair and only while that pair receives data; a live subscription silent for 3 minutes reconnects; after editing a pair its old price is no longer shown.
+* Alerts: the depeg alert keeps its threshold and is armed again after off/on; switching a market alert off during a running check stays off; a failed Fear & Greed or indicator check is retried up to 3 times; indicator alerts accept only the values offered in the settings; the alert editor on Android shows «Last checked» as on iPhone; delivery of a notification is confirmed more reliably.
+* Market tab: data sources wait 12 or 20 seconds, the coin analysis 20 seconds everywhere; iOS reports a pair without id as an error instead of asking the exchange.
+* Portfolio and tax export: day closes are loaded in batches (far fewer requests for long histories); clearing the portfolio while prices load keeps nothing; on iPhone, editing transactions and creating or restoring a backup no longer block the screen; Binance symbols starting with digits (1INCH, 1000SATS) are read correctly; a French withdrawal or gift valued at a day close shows «value estimated»; Coinbase amounts accept only ASCII digits on Android; very small amounts on iPhone are multiplied exactly.
+* Security and backups: the Android system backup never saves an empty portfolio and never creates a key; a single unreadable key no longer deletes the stored key; set-aside copies of unreadable storage on iPhone are removed 30 days after the notice was confirmed; backups are read strictly on both platforms; address queries follow redirects only to the same host and never from https to http; TON addresses are hidden in the diagnostic report; the contract address of a DEX pair is copied the same way on both platforms.
+* Display: amounts below half a cent have no sign (never «-0.00»), signs stay in front in right-to-left languages, also on the watch apps; widget texts grow with the system text size up to a limit; with the app lock the portfolio alert shows only a neutral sentence; the price overlay stays on screen after a rotation and tries again when it cannot be shown; the Wear OS complication waits at most 20 seconds for a price, then shows the stored one.
 
 ## 16.2.2 (build 167)
 

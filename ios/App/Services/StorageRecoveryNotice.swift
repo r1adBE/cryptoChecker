@@ -35,6 +35,12 @@ enum StorageRecoveryNotice {
         defaults.set(true, forKey: pendingKey)
     }
 
+    /// Wartet der Hinweis «nicht entsperrt» noch auf Bestätigung? Dann bleiben beiseitegelegte Kopien (`AsideRetention`)
+    /// — wie Android `isSetAsidePending`.
+    static func isSetAsidePending(defaults: UserDefaults = .standard) -> Bool {
+        defaults.bool(forKey: pendingKey)
+    }
+
     /// Beiseitegelegte Daten zurückgeholt: nicht mehr «nicht entsperrt», sondern einmal «wieder entsperrt».
     static func recordRestored(defaults: UserDefaults = .standard) {
         defaults.removeObject(forKey: pendingKey)

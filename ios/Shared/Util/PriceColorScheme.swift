@@ -289,6 +289,4 @@ enum PriceColors {
     /// «Alles in Ordnung» (z. B. aktuelle Kurse, schon in der Merkliste) — keine
     /// Kursrichtung, deshalb nie getauscht.
     static var ok: Color { scheme.up }
-
-    static func forChange(_ change: Double?) -> Color { scheme.forChange(change, inverted: inverted) }
 }

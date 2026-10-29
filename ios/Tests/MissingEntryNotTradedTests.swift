@@ -70,19 +70,43 @@ final class MissingEntryNotTradedTests: XCTestCase {
         }
     }
 
-    /// Ohne Sammelabfrage (1–2 Paare): nur wo die Einzelabfrage die vollständige Liste liest (Lighter, Hyperliquid).
-    func testConfirmWithoutBulk() throws {
-        let cases = TestSupport.list(try TestSupport.fixture("not_traded")["confirmWithoutBulk"])
+    /// Ausserhalb des Sammelpfads: nur wo die Einzelabfrage die vollständige Liste liest (Lighter, Hyperliquid) oder der
+    /// Laufzeit-Kontrakt abgelaufen ist. Wie Android.
+    func testSingleConfirms() throws {
+        let cases = TestSupport.list(try TestSupport.fixture("not_traded")["singleConfirms"])
         XCTAssertFalse(cases.isEmpty)
         for c in cases {
-            let actual = NotTraded.confirmWithoutBulk(bulkTried: c["bulkTried"] as? Bool ?? true,
-                                                      singleReadsFullList: c["singleReadsFullList"] as? Bool ?? false)
+            let actual = NotTraded.singleConfirms(bulkTried: c["bulkTried"] as? Bool ?? true,
+                                                  singleReadsFullList: c["singleReadsFullList"] as? Bool ?? false,
+                                                  contractExpired: c["contractExpired"] as? Bool ?? false)
             XCTAssertEqual(actual, c["confirm"] as? Bool, c["name"] as? String ?? "")
         }
         let flagged = ExchangesConfig.all.filter(\.singleTickerReadsFullList)
         XCTAssertEqual(Set(flagged.map(\.key)), ["Lighter", "Hyperliquid"])
         // Nur sinnvoll, wo die Liste vollständig ist
         XCTAssertTrue(flagged.allSatisfy(\.bulkTickersComplete))
+    }
+
+    /// Abgelaufen ab dem Verfallstag in der Kennung, 08:00 UTC; ohne bzw. mit unmöglichem Datum nie. Wie Android.
+    func testContractExpired() throws {
+        let cases = TestSupport.list(try TestSupport.fixture("not_traded")["contractExpired"])
+        XCTAssertFalse(cases.isEmpty)
+        for c in cases {
+            let actual = NotTraded.contractExpired(pairId: c["pairId"] as? String, now: TestSupport.millis(c["now"]))
+            XCTAssertEqual(actual, c["expired"] as? Bool, c["name"] as? String ?? "")
+        }
+    }
+
+    /// Kurzform eines Laufzeit-Kontrakts nach dem Datum in der Kennung (Quartalswechsel: «2Q» wird «1Q»). Wie Android.
+    func testShownContract() throws {
+        let cases = TestSupport.list(try TestSupport.fixture("not_traded")["shownContract"])
+        XCTAssertFalse(cases.isEmpty)
+        for c in cases {
+            let now = Date(timeIntervalSince1970: Double(TestSupport.millis(c["now"])) / 1000)
+            let actual = FuturesContractType.shown(stored: FuturesContractType(backupName: c["stored"] as? String ?? ""),
+                                                   pairId: c["pairId"] as? String, now: now)
+            XCTAssertEqual(actual.backupName, c["shown"] as? String, c["name"] as? String ?? "")
+        }
     }
 
     func testHyperliquidValidAnswerHasNoErrorText() throws {

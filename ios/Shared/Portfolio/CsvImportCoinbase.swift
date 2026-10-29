@@ -138,7 +138,8 @@ enum CsvImportCoinbase {
 
     /// Betrag ohne Währungszeichen («€40,000.00», «-$12.50», «CHF 3.00», «EUR 3.00»); Punkt = Dezimalzeichen; leer/unlesbar
     /// = nil. Wissenschaftliche Schreibweise bleibt (`exponentAt`), wie Excel grosse und kleine Mengen speichert
-    /// («1.23457E+11», «1.5E-05»): `CsvImportParser.parseNumber` liest sie wie in jedem anderen Format. Wie Android.
+    /// («1.23457E+11», «1.5E-05»): `CsvImportParser.parseNumber` liest sie wie in jedem anderen Format. Ziffern nur 0–9
+    /// (andere Schriften fallen weg wie Währungszeichen) — wie Android.
     private static func money(_ text: String) -> Decimal? {
         let chars = Array(text)
         var t = ""

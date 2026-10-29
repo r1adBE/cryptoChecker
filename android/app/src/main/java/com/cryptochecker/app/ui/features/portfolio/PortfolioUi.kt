@@ -58,6 +58,16 @@ internal object PortfolioFormat {
     }
 
     /**
+     * Betrag mit Vorzeichen nur bei Verlust («−1’234.56 CHF», sonst «1’234.56 CHF»; Steuer-Summen): echtes Minus
+     * U+2212, praktisch 0 ([isZero]) ohne Vorzeichen statt «-0.00»; Vorzeichen und Zahl als links-nach-rechts-Insel
+     * (RTL). Wie iOS.
+     */
+    fun signedMoney(value: Double, unit: String): String {
+        val sign = if (isZero(value) || value > 0) "" else "−"
+        return BidiText.ltr(sign + PriceFormat.valueFormat().format(abs(value))) + " " + unit
+    }
+
+    /**
      * Realisiert mit unbekanntem Teil ([incomplete], Verkäufe ohne Kaufpreis/Verkaufspreis):
      * nur unbekannt «—», sonst «+12.00 USDT (unvollständig)» ([incompleteLabel]). Vollständig: wie [signedUsdt]. Wie iOS.
      */

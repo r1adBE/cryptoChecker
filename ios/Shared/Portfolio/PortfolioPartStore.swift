@@ -3,6 +3,13 @@ import Foundation
 /// Speicher eines `PortfolioCostPartPool` (nur Anhängen, damit Ansichten gültig bleiben): Teile (Zeitpunkt, Zugänge
 /// verkettet), Zugänge (Betrag, Zahl der Abgänge davor) und die Anteile der Abgänge als Baum — Ebene 0 je Abgang,
 /// Ebene h das Produkt von 2^h aufeinanderfolgenden (auf 34 Stellen). Wie `PortfolioPartStore` (Android).
+///
+/// `@unchecked Sendable`, weil abgegebene Teile (`PortfolioScaledParts` in einer `PortfolioCostPartList`) den Speicher
+/// über Aufgaben hinweg lesen dürfen: Lesen nach dem Abgang (`weightedSum`, `anyTime`, Teile auslesen) nur unter `lock`
+/// bzw. auf dem bis zur Marke unveränderlichen Teil (nur Anhängen). Die ändernden Aufrufe (`newSlot`, `contribute`,
+/// `take` …) sind NICHT gesperrt: sicher, solange ein Speicher nur in EINER Rechnung lebt, die ihn allein schreibt —
+/// heute je Pool lokal in einer Rechnung (`PortfolioCalculatorAverage`, `TaxEngineCore`). Wer einen Pool zwischen
+/// Aufgaben teilt und weiter schreibt, braucht eine eigene Sperre.
 final class PortfolioPartStore: @unchecked Sendable {
     /// Umfang: Teile, Zugänge, Abgänge.
     struct Mark: Equatable, Sendable {

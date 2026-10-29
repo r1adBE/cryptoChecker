@@ -46,9 +46,18 @@ keys or other secrets never belong in this repository.
     authentication), not tied to the database keys. Without the key the widget shows
     its empty state; the app never writes the snapshot in plaintext. Only the
     remembered exchange rate (currency and USD rate, no holdings) stays readable.
+  * Android alarm log (`alarm_log.sealed`, pairs and thresholds) and the restore
+    journal (`restore_journal.sealed`, the state before a backup file is restored,
+    deleted when the restore is done): AES-256-GCM in `noBackupFilesDir`, each with
+    its own Android Keystore key (`cryptochecker_alarm_log`,
+    `cryptochecker_restore_journal`). Unlike the widget key, these keys count as
+    lost only when the Keystore error repeats on a later start (same rule as the
+    database keys), so a transient error never makes the journal unreadable.
   * iOS: the files with user data in the App Group (`watchlist.json`,
-    `portfolio_alarms.json`, `portfolio.json`, `watched_addresses.json`, the
-    portfolio widget snapshot and the copies of unreadable files) are sealed with
+    `portfolio_alarms.json`, `portfolio.json`, `watched_addresses.json`,
+    `alarm_log.json`, the portfolio widget snapshot and the copies of unreadable
+    files) and the restore journal in the app's container
+    (`restore_journal.sealed`, never in a device backup) are sealed with
     AES-256-GCM (CryptoKit, versioned header). The 256-bit key lives in the
     keychain, shared with the widgets through the App Group
     (created with `kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly`, not synced
@@ -56,7 +65,9 @@ keys or other secrets never belong in this repository.
     transfer – a device backup holds the sealed files but never their key). After a
     restore on a new iPhone the files are set aside and the app asks for a backup
     file; Settings › Backup says so up front on both platforms (Android Keystore
-    keys are device-bound too). File protection stays the system default.
+    keys are device-bound too). File protection stays the system default. The
+    keychain item (`com.cryptochecker.storage-key`) can survive deleting the app;
+    no data it could open remains, and a later installation uses it for new files.
   * If no key can be created, the app never writes the watchlist or the
     portfolio in plaintext (the same on Android and iOS): nothing is created on
     disk, the app works from memory and every start tries again. Changes are kept
@@ -91,10 +102,20 @@ keys or other secrets never belong in this repository.
     is permanently lost (e.g. Keystore reset, or an unencrypted iOS computer
     backup restored on another iPhone), the file is set aside unchanged
     (`*.unreadable` / `*.locked`), the app starts empty and tells the user to
-    restore a backup file. Details: DEVELOPMENT.md, «Storage encryption».
+    restore a backup file. Files set aside, and files replaced when a set-aside
+    file comes back (`*.replaced`), are never in a backup and are deleted no
+    earlier than 30 days after the app first saw them and only once the notice is
+    confirmed (both platforms). During a system backup, Android never sets the
+    portfolio database aside or creates a key: without its matching key the backup
+    is aborted (the previous one stays) instead of backing up an empty portfolio. Details: DEVELOPMENT.md, «Storage encryption».
 * **Encrypted connections only.** All market data is fetched over HTTPS, live
   prices in the open watchlist over secure WebSockets (`wss://`) (Android:
   cleartext traffic disabled; iOS: App Transport Security without exceptions). Standard system certificate checks, no custom trust rules.
+  An own Bitcoin server with a certificate from a private CA therefore works on
+  iOS only if that CA is installed as a profile and fully trusted (Settings ›
+  General › About › Certificate Trust Settings); on Android it does not work,
+  because the app trusts only the system CAs, not CAs added by the user (no
+  `network_security_config`). Use a certificate from a public CA there.
 * **Portfolio lock.** Optional biometric / device-credential lock for the
   portfolio. While it is on, the portfolio is hidden in the app switcher
   (Android: FLAG_SECURE and no recents preview; iOS: privacy cover), portfolio
@@ -133,13 +154,17 @@ keys or other secrets never belong in this repository.
   Android 8/8.1 ignore `requireFlags="clientSideEncryption"`, so there the
   copy is not in the backup rules and the agent does not create it: the watchlist and alarms are neither backed up nor restored on
   those versions, and neither are the settings (they hold the address of an own
-  Bitcoin server), only the app language and favorites. The portfolio (transactions and portfolio alarms) lives in its own
+  Bitcoin server), only the app language and favorites. The portfolio (transactions, portfolio alarms, watched
+  addresses and xpubs) lives in its own
   database file that is never in the backup rules; only with the switch
   «Portfolio in system backup» (default off) does the app keep a plain JSON copy
-  in a backed-up file. The main database runs with `secure_delete` (deleted content
-  is overwritten with zeros). On iOS, portfolio.json is excluded from device backups by
-  default (isExcludedFromBackup), and so is portfolio_alarms.json (same switch; portfolio
-  alarm thresholds are never stored in watchlist.json)
+  in a backed-up file. The main database runs with `secure_delete`: deleted content
+  is overwritten with zeros, so deleted rows do not linger in the database file on
+  the device (the backup copy is made logically, row by row, and never contains
+  free pages). On iOS, portfolio.json is excluded from device backups by
+  default (isExcludedFromBackup), and so are portfolio_alarms.json and
+  watched_addresses.json (same switch; portfolio alarm thresholds are never stored
+  in watchlist.json)
   and the portfolio widget file (always excluded and always sealed; a snapshot
   that cannot be written sealed is not stored at all – never in the App Group
   defaults).
@@ -161,7 +186,9 @@ keys or other secrets never belong in this repository.
   Esplora/mempool-compatible server instead (Settings › Portfolio; https only, no user
   name or password in the address): then only
   that server is asked, with no fallback to the public nodes, so they never see these
-  addresses. Other networks stay with the public nodes.
+  addresses. Other networks stay with the public nodes. Address queries follow a
+  redirect only to the same host (never from https to http); a redirect to another
+  host is treated as an error, so the address never reaches a third party that way.
 * **Integrity of the data mirror.** Market data that is the same for everyone comes
   from the release «data» on GitHub (README, «Market data mirror»). The apps use a
   mirror file only if it matches `manifest.json` (SHA-256 per file), whose ECDSA P-256
@@ -189,9 +216,12 @@ keys or other secrets never belong in this repository.
   WebView, no clipboard use for your data.
 * **Links and shortcuts** (`cryptochecker://…`, app shortcuts, notification and
   widget taps) can only open fixed screens; they never change data. The Android
-  boot receiver accepts only the protected system broadcasts `BOOT_COMPLETED` and
-  `MY_PACKAGE_REPLACED` (no `QUICKBOOT_POWERON`, which any app could send) and only
-  reschedules the background update. The widget setup screens are exported (launchers
+  boot receiver accepts only protected system broadcasts, which no other app can
+  send: `BOOT_COMPLETED`, `MY_PACKAGE_REPLACED` and
+  `SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED` reschedule the background update
+  and the exact-check alarm; `TIMEZONE_CHANGED` and `TIME_SET` re-plan the
+  economic-calendar notification and re-check the exact alarm. No
+  `QUICKBOOT_POWERON`, which any app could send. The widget setup screens are exported (launchers
   open them, also for «reconfigure» on Android 12+), but each works only with the id of
   one of the app's own widgets of its kind and closes otherwise.
 

@@ -42,9 +42,13 @@ suspend fun PortfolioPriceSource.stored(coins: Collection<String>): PortfolioPri
     )
 }
 
-/** «Portfolio leeren»: gemerkte Kurse (nennen die gehaltenen Coins) und Zwischenspeicher weg. */
+/**
+ * «Portfolio leeren»: gemerkte Kurse (nennen die gehaltenen Coins) und Zwischenspeicher weg. Eine gerade laufende
+ * Abfrage übernimmt danach nichts mehr ([PortfolioPriceSource.clearGeneration]).
+ */
 suspend fun PortfolioPriceSource.clearStored() = withContext(Dispatchers.IO) {
     storeMutex.withLock {
+        clearGeneration++
         cache.clear()
         uncheckedCoins.clear()
         unverifiedCoins.clear()
@@ -77,11 +81,12 @@ suspend fun PortfolioPriceSource.loadStored(): Map<String, StoredPrice> {
  * Nach jedem erfolgreichen Abruf: gemerkter Stand und Zwischenspeicher (je Coin der neuere) als
  * letzten Stand schreiben. Datei in `noBackupFilesDir` — nie in einer Sicherung (wie die
  * Momentaufnahme des Portfolio-Widgets), denn sie nennt die gehaltenen Coins. Über eine
- * Hilfsdatei und Umbenennen geschrieben.
+ * Hilfsdatei und Umbenennen geschrieben. Nicht mehr, wenn seit Beginn der Abfrage ([generation]) geleert wurde.
  */
-suspend fun PortfolioPriceSource.persist() {
+suspend fun PortfolioPriceSource.persist(generation: Int) {
     val stored = loadStored()
     storeMutex.withLock {
+        if (generation != clearGeneration) return@withLock
         val entries = PortfolioPriceFallback.prune(
             PortfolioPriceFallback.merge(currentEntries(), storedEntries ?: stored),
             System.currentTimeMillis(),

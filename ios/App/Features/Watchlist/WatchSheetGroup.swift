@@ -7,11 +7,10 @@ extension WatchActionsSheet {
     /// Gruppe, Notiz, «Zum Portfolio hinzufügen» (auch mit Portfolio aus) und Aktualisieren.
     func groupCard(_ watch: Watch, refreshing: Bool) -> some View {
         VStack(spacing: 0) {
-            WatchValueRow(
+            // «Gruppe: Langfristig» bzw. «Gruppe» — wie Android
+            WatchActionRow(
                 icon: "folder",
-                title: L("group_title"),
-                value: watch.groupName,
-                detail: nil
+                title: watch.groupName.map { L("group_value", $0) } ?? L("group_title")
             ) { editGroup = true }
             RowDivider()
             noteRow(watch)
@@ -171,9 +170,11 @@ extension WatchActionsSheet {
         }, cancelled: cancelled)
     }
 
-    /// Eigene Notiz (#233): ganzer Text unter dem Titel, Tippen bearbeitet.
+    /// Eigene Notiz (#233): «Notiz bearbeiten» und der ganze Text darunter, ohne Notiz (auch leer) «Notiz
+    /// hinzufügen» — Texte wie Android. Tippen bearbeitet.
     private func noteRow(_ watch: Watch) -> some View {
-        Button {
+        let note = watch.note.flatMap { $0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? nil : $0 }
+        return Button {
             Haptics.play(.selection)
             editNote = true
         } label: {
@@ -183,10 +184,10 @@ extension WatchActionsSheet {
                     .foregroundStyle(accent.primary)
                     .frame(width: 26)
                 VStack(alignment: .leading, spacing: 3) {
-                    Text(L(watch.note == nil ? "note_add" : "note_title"))
+                    Text(L(note == nil ? "note_add" : "note_edit"))
                         .font(.body)
                         .foregroundStyle(AppColors.onSurface)
-                    if let note = watch.note {
+                    if let note {
                         Text(note)
                             .font(.subheadline)
                             .foregroundStyle(AppColors.onSurfaceVariant)
@@ -207,14 +208,10 @@ extension WatchActionsSheet {
     }
 }
 
-/// Zeile mit Titel links und aktuellem Wert rechts (Gruppe).
-private struct WatchValueRow: View {
+/// Aktionszeile mit Symbol, Titel und Pfeil (Gruppe).
+private struct WatchActionRow: View {
     let icon: String
     let title: String
-    /// nil = noch nicht gesetzt.
-    let value: String?
-    /// Zweite, kleinere Zeile unter dem Wert (optional).
-    let detail: String?
     let action: () -> Void
     @Environment(\.appAccent) var accent
 
@@ -229,21 +226,8 @@ private struct WatchValueRow: View {
                     .font(.body)
                     .foregroundStyle(AppColors.onSurface)
                     .lineLimit(1)
-                    .layoutPriority(1)
+                    .truncationMode(.middle)
                 Spacer(minLength: 8)
-                VStack(alignment: .trailing, spacing: 1) {
-                    Text(value ?? "—")
-                        .font(.subheadline.weight(value == nil ? .regular : .medium).monospacedDigit())
-                        .foregroundStyle(value == nil ? AppColors.outline : AppColors.onSurface)
-                        .lineLimit(1)
-                        .truncationMode(.middle)
-                    if let detail {
-                        Text(detail)
-                            .font(.caption.monospacedDigit())
-                            .foregroundStyle(AppColors.onSurfaceVariant)
-                            .lineLimit(1)
-                    }
-                }
                 Image(systemName: "chevron.forward")
                     .font(.footnote.weight(.semibold))
                     .foregroundStyle(AppColors.outline)

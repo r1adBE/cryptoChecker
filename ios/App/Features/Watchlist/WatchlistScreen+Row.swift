@@ -32,7 +32,6 @@ extension WatchlistScreen {
                 kind: kinds[watch.id] ?? .TOKEN,
                 now: now,
                 staleAfter: staleAfter,
-                outdatedAfter: staleAfter,
                 exchangePausedUntil: pausedUntil,
                 loading: status.loading,
                 highlighted: highlightedId == watch.id || (selecting && selectedIds.contains(watch.id)),

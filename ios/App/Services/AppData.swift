@@ -130,8 +130,6 @@ final class AppData: ObservableObject {
     // `refreshState` — ein Tick veröffentlicht hier nichts, sonst würden Markt, Portfolio und Einstellungen neu aufgebaut.
     /// Letzter Live-Kurs je Watch-Id (ms) — Paare mit frischem Kurs lässt die REST-Abfrage aus.
     var liveTickAt: [Int64: Int64] = [:]
-    /// «Paar bearbeiten» je Watch-Id (ms): Live-Kurse von davor gehören zum alten Paar (`applyLive` verwirft sie).
-    var pairChangedAt: [Int64: Int64] = [:]
     /// Schreib-Gate der Kurse (geteilt mit der Hintergrund-Aufgabe im App-Prozess): Aktualisierungen und Live-Kurse
     /// übernehmen ihre Ergebnisse nacheinander (`PriceWriteGate`).
     var priceWriteGate: PriceWriteGate { .shared }
@@ -257,7 +255,7 @@ final class AppData: ObservableObject {
         guard encryptionPending || portfolioUnreadable || !watchedAddressIntact else { return }
         // Zuerst verschlüsseln (wie beim Start vor dem ersten Lesen), dann neu lesen
         if encryptionPending {
-            let protection = ProtectedStorage.prepareAtLaunch()
+            let protection = ProtectedStorage.prepareAtLaunch(asideDeletionAllowed: !StorageRecoveryNotice.isSetAsidePending())
             if !protection.setAside.isEmpty { StorageRecoveryNotice.record(); AlarmDelivery.removeAllMarkers() }
             encryptionPending = protection.encryptionPending
         }

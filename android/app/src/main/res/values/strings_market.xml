@@ -143,16 +143,6 @@
     <string name="pulse_chip_funding_high">Leverage mood optimistic</string>
     <string name="pulse_chip_funding_negative">Leverage mood pessimistic</string>
     <!-- Nur iOS: Android nutzt diese Texte nicht -->
-    <string name="pulse_funding_high" tools:ignore="UnusedResources">Funding clearly positive: many leveraged longs</string>
-    <string name="pulse_funding_negative" tools:ignore="UnusedResources">Funding negative: many shorts</string>
-    <string name="pulse_funding_neutral" tools:ignore="UnusedResources">Funding neutral</string>
-    <string name="pulse_funding_slight" tools:ignore="UnusedResources">Funding slightly positive</string>
-    <string name="pulse_gas_high" tools:ignore="UnusedResources">Ethereum gas high (%1$s gwei)</string>
-    <string name="pulse_gas_low" tools:ignore="UnusedResources">Ethereum gas low (%1$s gwei)</string>
-    <string name="pulse_gas_normal" tools:ignore="UnusedResources">Ethereum gas normal (%1$s gwei)</string>
-    <string name="pulse_volume_high" tools:ignore="UnusedResources">Trading volume unusually high (%1$s× normal)</string>
-    <string name="pulse_volume_low" tools:ignore="UnusedResources">Trading volume low (%1$s× normal)</string>
-    <string name="pulse_volume_normal" tools:ignore="UnusedResources">Trading volume normal</string>
 
     <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>

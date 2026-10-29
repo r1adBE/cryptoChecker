@@ -59,6 +59,18 @@ object MarketNoticeGate {
      */
     fun boundChanged(stored: Int?, current: Int): Boolean = stored != current
 
+    /**
+     * Abruf gescheitert: so oft erneut je Lauf (WorkManager-Backoff des ZoneCheckWorker), danach erst der nächste
+     * 12-h-Lauf. Keine Doppelmeldung: Gemeldetes ist vermerkt. iOS gleich (`BackgroundRefresh.runZoneCheckIfDue`).
+     */
+    const val MAX_RETRIES = 3
+
+    /** Erste Pause vor einem erneuten Versuch; jede weitere doppelt so lang (30 s, 1 Min., 2 Min.). */
+    const val RETRY_BASE_MILLIS = 30_000L
+
+    /** Pause vor dem erneuten Versuch Nummer [attempt] (ab 1). */
+    fun retryDelayMillis(attempt: Int): Long = RETRY_BASE_MILLIS shl (attempt.coerceIn(1, MAX_RETRIES) - 1)
+
     /** Neuen Stand speichern? [posted] = die Meldung wurde abgesetzt (nur bei [Step.NOTIFY] von Belang). */
     fun storeAfterNotify(step: Step, posted: Boolean): Boolean = when (step) {
         Step.STORE -> true

@@ -100,8 +100,8 @@ internal fun WatchlistBody(
     val alarmCounts = state.content.alarmCounts
     val alarmTotal = state.content.alarmTotal
     val alarmFiredAt = state.content.alarmFiredAt
+    // Eine Frische-Schwelle für Änderung, Zeile und Screenreader
     val staleAfter = display.staleAfterMillis
-    val outdatedAfter = display.staleAfterMillis
     val liveIds = live.liveWatchIds
     val columnSort = display.columnSort
     val changeBasis = display.changeBasis
@@ -261,7 +261,6 @@ internal fun WatchlistBody(
                         now = now,
                         // Am Live-Strom: veraltet schon nach 2 Min. ohne Kurs (wie die Status-Pille)
                         staleAfter = LiveStatus.staleAfterMillis(watch.id in liveIds, staleAfter),
-                        outdatedAfter = LiveStatus.staleAfterMillis(watch.id in liveIds, outdatedAfter),
                         convertTarget = display.convertTarget,
                         convertRates = live.convertRates,
                         convertFxTimes = live.convertFxTimes,

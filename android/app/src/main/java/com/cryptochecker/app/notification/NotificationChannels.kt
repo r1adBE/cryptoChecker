@@ -21,9 +21,6 @@ object NotificationChannels {
      */
     const val ALARMS = AlarmSignal.SYSTEM_BASE
 
-    /** Kanal-ID für eine Version des Alarmtons (0 = ursprünglicher Kanal mit Standardton). */
-    fun alarmsId(version: Int): String = AlarmSignal.channelId(AlarmSignal.SYSTEM, version)
-
     /**
      * Legt den Alarm-Kanal für den gewählten Ton an (falls nötig) und räumt alte
      * Alarm-Kanäle weg. Android lässt den Ton eines bestehenden Kanals nicht mehr

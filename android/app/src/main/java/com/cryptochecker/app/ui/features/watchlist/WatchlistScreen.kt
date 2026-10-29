@@ -106,7 +106,6 @@ fun WatchlistScreen(
     val refreshing = live.refreshing
     // Eine Frische-Schwelle für Änderung, Zeile und Screenreader
     val staleAfter = display.staleAfterMillis
-    val outdatedAfter = display.staleAfterMillis
     // Mini-Chart nur mit genug Breite, damit der Paarname nicht gequetscht wird ([sparklinesFit])
     // Bewusst die Bildschirmbreite aus der Configuration; ein Umbau auf containerSize wäre eine eigene Änderung
     @SuppressLint("ConfigurationScreenWidthHeight")

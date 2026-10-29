@@ -7,11 +7,12 @@ import com.cryptochecker.app.domain.market.IndicatorAlertKind
 import kotlinx.coroutines.sync.withLock
 
 /**
- * Gemerkten Stand einer Markt-Meldung (Fear & Greed, eigene Grenzen der Bitcoin-Kennzahlen, Gas) vergessen, sobald ihre
- * Grenze in den Einstellungen ausgeschaltet wird. Sind alle aus, ist die Prüfung abgesagt (ZoneCheckWorker, keine
- * Hintergrund-Aktualisierung) — ohne Lauf während «Aus» bliebe der alte Stand liegen, und nach dem Wiedereinschalten
- * mit derselben Grenze bliebe die Meldung stumm. Aufgerufen von [SettingsRepository] (auch beim Wiederherstellen einer
- * Sicherung). Wie iOS `MarketAlertReset`.
+ * Gemerkten Stand einer Markt-Meldung (Fear & Greed, eigene Grenzen der Bitcoin-Kennzahlen, Gas, USDT-Depeg) vergessen,
+ * sobald ihre Grenze bzw. ihr Schalter in den Einstellungen ausgeschaltet wird. Ist alles aus, läuft keine Prüfung
+ * (ZoneCheckWorker abgesagt, keine Hintergrund-Aktualisierung bzw. Depeg-Prüfung) — ohne Lauf während «Aus» bliebe der
+ * alte Stand liegen, und nach dem Wiedereinschalten mit derselben Grenze bliebe die Meldung stumm. Jeweils unter der
+ * Sperre der Prüfung: eine laufende Prüfung schreibt danach nicht den alten Stand zurück. Aufgerufen von
+ * [SettingsRepository] (auch beim Wiederherstellen einer Sicherung). Wie iOS `MarketAlertReset`.
  */
 object MarketAlertReset {
 
@@ -33,9 +34,16 @@ object MarketAlertReset {
         prefs.edit { putLong(key, 0.0.toRawBits()) }
     }
 
-    fun fearGreedOff(context: Context, below: Boolean) = fearGreedOff(zonePrefs(context), below)
+    /** USDT-Depeg-Alarm aus: Schwelle «aus» (0) merken — beim Wiedereinschalten ist er scharf (`DepegAlarm.armedFor`). */
+    fun depegOff(prefs: SharedPreferences) {
+        prefs.edit { putInt(DepegAlarmPrefs.KEY_ARMED_TENTHS, 0) }
+    }
 
-    fun indicatorOff(context: Context, kind: IndicatorAlertKind) = indicatorOff(zonePrefs(context), kind)
+    suspend fun fearGreedOff(context: Context, below: Boolean) =
+        ZoneCheckPrefs.lock.withLock { fearGreedOff(zonePrefs(context), below) }
+
+    suspend fun indicatorOff(context: Context, kind: IndicatorAlertKind) =
+        ZoneCheckPrefs.lock.withLock { indicatorOff(zonePrefs(context), kind) }
 
     suspend fun gasOff(context: Context, eth: Boolean) =
         gasOffLocked(context.getSharedPreferences(GasAlertPrefs.PREFS, Context.MODE_PRIVATE), eth)
@@ -43,6 +51,9 @@ object MarketAlertReset {
     /** Unter der Sperre der Gas-Prüfung ([GasAlertPrefs.lock]): eine laufende Prüfung überschreibt das «Aus» nicht. */
     suspend fun gasOffLocked(prefs: SharedPreferences, eth: Boolean) =
         GasAlertPrefs.lock.withLock { gasOff(prefs, eth) }
+
+    suspend fun depegOff(context: Context) =
+        DepegAlarmPrefs.lock.withLock { depegOff(context.getSharedPreferences(DepegAlarmPrefs.PREFS, Context.MODE_PRIVATE)) }
 
     private fun zonePrefs(context: Context) = context.getSharedPreferences(ZoneCheckPrefs.PREFS, Context.MODE_PRIVATE)
 }

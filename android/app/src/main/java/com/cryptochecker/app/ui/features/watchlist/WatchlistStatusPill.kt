@@ -164,7 +164,7 @@ internal fun WatchlistStatusPill(
                 color = MaterialTheme.colorScheme.onSurface
             )
         }
-        // Kurse per WebSocket: steht jetzt als Wort «Live» im Status (D3), kein zweites Abzeichen
+        // Kurse per WebSocket: als Wort «Live» im Status, kein zweites Abzeichen
         if (staleOnly) {
             Icon(
                 painterResource(R.drawable.ic_close),

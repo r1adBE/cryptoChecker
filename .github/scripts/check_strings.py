@@ -5,7 +5,7 @@ Run from the repository root (no dependencies besides Python 3.9+):
 
     python3 .github/scripts/check_strings.py [--root PATH]
 
-Android (android/app/src/main/res):
+Android (android/app/src/main/res and the watch app android/wear/src/main/res):
   * every values-xx/strings*.xml parses and has every translatable key of values/
   * same printf placeholders (%s, %1$d, ...) as English
   * <plurals>: at least the CLDR integer quantities of the language, same placeholders
@@ -101,30 +101,21 @@ def check_plural(label, key, value, want):
             problem("PLURAL PLACEHOLDER", label, key, q, repr(t))
 
 
-def check_android(android):
-    main = os.path.join(android, "app", "src", "main")
-    res = os.path.join(main, "res")
-    if not os.path.isdir(res):
-        problem("MISSING", res)
-        return 0
+def check_res(res, label):
+    """Translations of one module (values/ against values-xx/); returns (base, locale count)."""
     base = {}
     for f in sorted(glob.glob(os.path.join(res, "values", "*.xml"))):
         base.update(load_xml(f))
-    # resources of library modules (e.g. marketdata) for the reference check
-    all_res = dict(base)
-    for f in sorted(glob.glob(os.path.join(android, "*", "src", "main", "res", "values", "*.xml"))):
-        if not f.startswith(res + os.sep):
-            all_res.update(load_xml(f))
     for f in sorted(glob.glob(os.path.join(res, "values", "strings*.xml"))):
-        raw_apostrophes(f, "values")
+        raw_apostrophes(f, label + "values")
     # English plurals: one + other, identical placeholders
     for k, (kind, val, _) in base.items():
         if kind == "plurals":
             if not {"one", "other"} <= set(val):
-                problem("PLURAL QUANTITIES values", k, sorted(val))
+                problem("PLURAL QUANTITIES", label + "values", k, sorted(val))
             want = phs(val.get("other", ""))
             if any(phs(t) != want for t in val.values()):
-                problem("PLURAL PLACEHOLDER values", k)
+                problem("PLURAL PLACEHOLDER", label + "values", k)
 
     string_files = {os.path.basename(p) for p in glob.glob(os.path.join(res, "values", "strings*.xml"))}
     base_strings = {}
@@ -137,40 +128,74 @@ def check_android(android):
         tr = {}
         for f in sorted(glob.glob(os.path.join(res, loc, "strings*.xml"))):
             tr.update(load_xml(f))
-            raw_apostrophes(f, loc)
+            raw_apostrophes(f, label + loc)
             for k in load_xml(f):
                 if k not in base:
-                    problem("EXTRA KEY", loc, os.path.basename(f), k)
+                    problem("EXTRA KEY", label + loc, os.path.basename(f), k)
         for k, (kind, val, translatable) in base_strings.items():
             if not translatable or k == "app_name":
                 continue
             if k not in tr:
-                problem("MISSING TRANSLATION", loc, k)
+                problem("MISSING TRANSLATION", label + loc, k)
                 continue
             tkind, tval, _ = tr[k]
             if kind == "string":
                 if tkind != "string":
-                    problem("PLURALS INSTEAD OF STRING", loc, k)
+                    problem("PLURALS INSTEAD OF STRING", label + loc, k)
                 elif phs(val) != phs(tval):
-                    problem("PLACEHOLDER", loc, k, phs(val), phs(tval))
+                    problem("PLACEHOLDER", label + loc, k, phs(val), phs(tval))
             elif kind == "plurals":
                 check_plural(loc, k, tval if tkind == "plurals" else None, phs(val.get("other", "")))
             elif kind == "array" and tkind == "array" and len(val) != len(tval):
-                problem("ARRAY LENGTH", loc, k, len(val), len(tval))
+                problem("ARRAY LENGTH", label + loc, k, len(val), len(tval))
+    return base, len(locales)
 
-    # References from code and layouts
-    for kt in glob.glob(os.path.join(android, "**", "src", "main", "java", "**", "*.kt"), recursive=True):
+
+def module_values(android, module):
+    out = {}
+    for f in sorted(glob.glob(os.path.join(android, module, "src", "main", "res", "values", "*.xml"))):
+        out.update(load_xml(f))
+    return out
+
+
+def check_references(android, module, known):
+    """R.string / R.plurals / R.array in the module's Kotlin and @string/ in its XML (layouts, manifest, xml/)."""
+    main = os.path.join(android, module, "src", "main")
+    for kt in glob.glob(os.path.join(main, "java", "**", "*.kt"), recursive=True):
         src = open(kt, encoding="utf-8").read()
         for kind, name in re.findall(r"(?<![\w.])R\.(string|plurals|array)\.(\w+)", src):
-            if name not in all_res or all_res[name][0] != kind:
+            if name not in known or known[name][0] != kind:
                 problem("MISSING RESOURCE", f"R.{kind}.{name}", os.path.relpath(kt, android))
     for x in glob.glob(os.path.join(main, "**", "*.xml"), recursive=True):
         if os.sep + "values" in x:
             continue
         for name in re.findall(r"@string/(\w+)", open(x, encoding="utf-8").read()):
-            if name not in all_res:
+            if name not in known:
                 problem("MISSING @string", name, os.path.relpath(x, android))
-    return len(locales)
+
+
+def check_android(android):
+    res = os.path.join(android, "app", "src", "main", "res")
+    if not os.path.isdir(res):
+        problem("MISSING", res)
+        return 0
+    _, locales = check_res(res, "")
+    # The watch app (:wear) has its own texts in the same 31 languages
+    wear_res = os.path.join(android, "wear", "src", "main", "res")
+    if os.path.isdir(wear_res):
+        check_res(wear_res, "wear/")
+    # References: every module sees its own resources and those of the library modules (marketdata, domain,
+    # data); :wear only its own and :marketdata (it does not depend on :app, :domain or :data)
+    modules = sorted(m for m in os.listdir(android) if os.path.isdir(os.path.join(android, m, "src", "main")))
+    values = {m: module_values(android, m) for m in modules}
+    phone = {}
+    for m in modules:
+        if m != "wear":
+            phone.update(values[m])
+    for m in modules:
+        known = {**values.get("marketdata", {}), **values["wear"]} if m == "wear" else phone
+        check_references(android, m, known)
+    return locales
 
 
 def check_ios(ios, android):

@@ -12,9 +12,19 @@ object EpochTime {
      * bis es passt (µs einmal, ns wie bei Phemex zweimal). Wie iOS.
      */
     fun parseTimeToMillis(time: Long): Long {
-        if (time < YEAR_MS) return time * SECOND_MS
+        // Unplausibel klein (× 1000 liefe über): keine Zeit
+        if (time < YEAR_MS) return if (time < Long.MIN_VALUE / SECOND_MS) 0L else time * SECOND_MS
         var millis = time
         while (millis > 5000 * YEAR_MS) millis /= 1000
         return millis
     }
+
+    /** Höchste plausible Sekundenangabe eines Servers (10¹³ s, rund 317 000 Jahre; × 1000 passt sicher in Long). */
+    const val MAX_PLAUSIBLE_SECONDS = 10_000_000_000_000L
+
+    /**
+     * Sekunden eines Servers (z. B. Kerzen-Beginn, Zeitstempel) → ms; null bei ≤ 0 oder ab [MAX_PLAUSIBLE_SECONDS] —
+     * nie ein übergelaufener Wert. Wie iOS `EpochTime.secondsToMillis`; Testfälle `server_values.json`.
+     */
+    fun secondsToMillis(seconds: Long): Long? = if (seconds in 1 until MAX_PLAUSIBLE_SECONDS) seconds * SECOND_MS else null
 }

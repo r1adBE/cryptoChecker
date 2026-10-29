@@ -249,9 +249,9 @@ enum SharedStorage {
         lastFullRefreshAt = now
     }
 
-    /// Letzte Prüfung MIT allen Alarmen (App, Live-Strom, Hintergrund-Aufgabe), ms; 0 = noch nie. Das Widget
-    /// prüft nur Kursalarme (setzt `lastRefreshAt`) — die Hintergrund-Aufgabe darf sich darum nur hiernach
-    /// überspringen.
+    /// Letzte volle Prüfung MIT allen Alarmen (App, Hintergrund-Aufgabe), ms; 0 = noch nie. Live-Takte setzen sie nicht
+    /// (`AppData.applyLive`), das Widget prüft nur Kursalarme (setzt `lastRefreshAt`) — die Hintergrund-Aufgabe darf
+    /// sich darum nur hiernach überspringen. Wie Android `RefreshStats.lastFullCheck`.
     static var lastAlarmCheckAt: Int64 {
         get { Int64(defaults.double(forKey: "last_alarm_check_at")) }
         set { defaults.set(Double(newValue), forKey: "last_alarm_check_at") }

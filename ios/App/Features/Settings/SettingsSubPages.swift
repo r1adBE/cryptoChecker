@@ -7,9 +7,6 @@ import SwiftUI
 
 /// Kurzwerte für die Zeilen der Unterseiten — wie `SettingsSummary.kt` (Android, mit Unit-Tests).
 enum SettingsSummary {
-    /// Themen der Markt-Meldungen, die gezählt werden.
-    static let marketAlertTopics = 5
-
     /// Wie viele Themen eingeschaltet sind: Fear & Greed (unter oder über einer Grenze), Gas (ETH oder BTC),
     /// ungewöhnliche Aktivität, Wirtschaftstermine, eigene Grenzen der Bitcoin-Kennzahlen — wie Android.
     static func marketAlertCount(

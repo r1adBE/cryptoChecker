@@ -64,10 +64,14 @@ struct Watch: Codable, Identifiable, Hashable, Sendable {
 
     var displayPair: String { "\(baseAsset)/\(quoteAsset)" }
 
+    /// Paar mit Kurzform des Kontrakts (`contractShortName`).
     var displayName: String {
-        if let c = contractType.shortName { return "\(displayPair) \(c)" }
+        if let c = contractShortName { return "\(displayPair) \(c)" }
         return displayPair
     }
+
+    /// Kurzform des Kontrakts; Laufzeit-Kontrakte nach dem Datum in der Kennung (`FuturesContractType.shown`).
+    var contractShortName: String? { FuturesContractType.shown(stored: contractType, pairId: pairId).shortName }
 
     var pairInfo: ExchangePair { ExchangePair(baseAsset, quoteAsset, pairId, contractType) }
 

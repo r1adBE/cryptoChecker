@@ -70,6 +70,7 @@ object AppLockAuth {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             builder.setAllowedAuthenticators(authenticators)
         } else {
+            // Android 8–10: BIOMETRIC_STRONG | DEVICE_CREDENTIAL ist dort nicht erlaubt, nur dieser Weg zur Geräte-PIN
             @Suppress("DEPRECATION")
             builder.setDeviceCredentialAllowed(true)
         }

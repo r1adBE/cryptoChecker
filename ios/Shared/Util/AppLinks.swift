@@ -15,6 +15,4 @@ enum AppLinks {
 
     /// Quellcode der App, öffentlich unter der MIT-Lizenz (gleich wie Android `SOURCE_CODE_URL`).
     static let sourceCode = "https://github.com/r1adBE/cryptoChecker"
-
-    static var privacyPolicyURL: URL? { URL(string: privacyPolicy) }
 }

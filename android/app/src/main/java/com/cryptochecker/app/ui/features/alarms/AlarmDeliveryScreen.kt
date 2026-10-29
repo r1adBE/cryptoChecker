@@ -368,9 +368,9 @@ private fun oemBatteryNote(vendor: OemBattery.Vendor?): Int = when (vendor) {
     OemBattery.Vendor.VIVO -> R.string.oem_battery_vivo
 }
 
-/** Heute nur die Uhrzeit, sonst mit Datum — wie «Letzte Prüfungen». */
+/** Heute nur die Uhrzeit, sonst mit Datum — wie «Letzte Prüfungen» (auch «Zuletzt geprüft» im Alarm-Editor). */
 @Composable
-private fun checkTime(at: Long): String {
+internal fun checkTime(at: Long): String {
     val context = LocalContext.current
     val flags = if (DateUtils.isToday(at)) DateUtils.FORMAT_SHOW_TIME
     else DateUtils.FORMAT_SHOW_TIME or DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_ABBREV_MONTH

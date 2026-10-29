@@ -199,4 +199,6 @@
 
     <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
     <string name="alarm_threshold_invalid_fix">Недійсний поріг – зміни його</string>
+
+    <string name="alarm_last_checked">Остання перевірка %1$s</string>
 </resources>

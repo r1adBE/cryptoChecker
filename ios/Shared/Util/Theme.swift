@@ -121,9 +121,6 @@ enum AccentColor: String, CaseIterable, Codable, Identifiable, Sendable {
     /// Schrift auf der grauen Auswahlfläche: die Akzentfarbe (≥ 4.5:1 auf #333333).
     private var onContainerDark: UInt32 { primaryDark }
 
-    /// Grundfarbe als Farbe (Vorschau in der Auswahl).
-    var seedColor: Color { Color(hex: seed) }
-
     var primary: Color { Color(uiColor: primaryUI) }
     var primaryUI: UIColor {
         .contrastDynamic(light: primaryLight, dark: primaryDark, highLight: primaryHighLight, highDark: primaryHighDark)

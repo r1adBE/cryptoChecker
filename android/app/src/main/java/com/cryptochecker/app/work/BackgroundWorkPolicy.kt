@@ -138,22 +138,21 @@ object BackgroundWorkPolicy {
     enum class WorkOutcome { SUCCESS, RETRY, FAILURE }
 
     /**
-     * Nach einem Lauf. [checked]/[failed] = null: übersprungen (eben erst geprüft, läuft bereits).
-     * Immer Erfolg, auch wenn alle Paare scheiterten ([allFailed]): Ein Retry des periodischen
-     * Auftrags verschöbe mit dem Backoff von WorkManager (exponentiell, bis 5 h) den nächsten Lauf
-     * und damit die Alarme um Stunden nach einem Börsenausfall. Der nächste Lauf kommt im normalen
-     * Takt (bzw. über den Wecker «Pünktlich prüfen»); der Fehlschlag steht in «Letzte Prüfungen» und
-     * im Log. Knopfdruck ([manual]): soll sofort fertig sein, sonst dreht die Anzeige weiter.
+     * Nach einem Lauf, auch einem übersprungenen (eben erst geprüft, läuft bereits), geplant wie per Knopfdruck:
+     * immer Erfolg, auch wenn alle Paare scheiterten ([allFailed]). Ein Retry des periodischen Auftrags verschöbe
+     * mit dem Backoff von WorkManager (exponentiell, bis 5 h) den nächsten Lauf und damit die Alarme um Stunden
+     * nach einem Börsenausfall. Der nächste Lauf kommt im normalen Takt (bzw. über den Wecker «Pünktlich prüfen»);
+     * der Fehlschlag steht in «Letzte Prüfungen» und im Log. Ein Knopfdruck soll sofort fertig sein, sonst dreht
+     * die Anzeige weiter.
      */
-    @Suppress("UNUSED_PARAMETER")
-    fun outcome(manual: Boolean, checked: Int?, failed: Int?): WorkOutcome = WorkOutcome.SUCCESS
+    val outcomeAfterRun: WorkOutcome = WorkOutcome.SUCCESS
 
     /** Alle geprüften Paare gescheitert (nur fürs Log, ändert das Ergebnis nicht). */
     fun allFailed(checked: Int, failed: Int): Boolean = checked > 0 && failed == checked
 
     /**
      * Ausnahme im Lauf: Knopfdruck scheitert sofort, geplanter Lauf wartet auf den nächsten Takt
-     * (kein Retry — gleicher Grund wie bei [outcome]; eine bleibende Ausnahme liefe sonst in
+     * (kein Retry — gleicher Grund wie bei [outcomeAfterRun]; eine bleibende Ausnahme liefe sonst in
      * immer neue Versuche).
      */
     fun outcomeOnError(manual: Boolean): WorkOutcome = if (manual) WorkOutcome.FAILURE else WorkOutcome.SUCCESS

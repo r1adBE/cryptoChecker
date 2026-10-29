@@ -80,7 +80,7 @@ TARGETS = [
 
 
 def located(path):
-    """Since R step 1 (build 136) part of the domain logic lives in android/domain; same package path there."""
+    """Part of the domain logic lives in android/domain; same package path there."""
     if os.path.exists(path):
         return path
     for module in ("domain", "data"):

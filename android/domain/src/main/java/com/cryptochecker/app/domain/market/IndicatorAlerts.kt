@@ -67,7 +67,7 @@ object IndicatorAlertRules {
     fun wasCrossed(storedCrossed: Boolean, storedThreshold: Int?, current: Int): Boolean =
         storedCrossed && !MarketNoticeGate.boundChanged(storedThreshold, current)
 
-    /** Eingeschaltete Grenzen aus den Einstellungen. */
+    /** Eingeschaltete Grenzen aus den Einstellungen; nur wählbare Werte ([IndicatorAlertKind.choices]), wie iOS. */
     fun active(stored: Map<IndicatorAlertKind, Int>): Map<IndicatorAlertKind, Double> =
-        stored.mapNotNull { (kind, v) -> threshold(kind, v)?.let { kind to it } }.toMap()
+        stored.mapNotNull { (kind, v) -> v.takeIf { it in kind.choices }?.let { threshold(kind, it) }?.let { kind to it } }.toMap()
 }

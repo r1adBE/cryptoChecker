@@ -198,8 +198,9 @@ data class TaxSummaryLine(
     /** An einem Tag ohne USDT/USD-Schluss mit USDT = 1 umgerechnet ([TaxExport.usdtApproximateOn]); zählt in [TaxYearSummary.usdtApproximate]. */
     val usdtApproximate: Boolean = false,
     /**
-     * Ein Wert darin ist zum Tagesschluss geschätzt (DE § 22 Nr. 3: Einkünfte mit [TaxIncomeRow.estimated]) — Vermerk
-     * [TaxSummaryTexts.estimated] an der Grenzzeile, damit «unter der Grenze» nicht wie ein belegter Betrag aussieht.
+     * Ein Wert darin ist geschätzt — Vermerk [TaxSummaryTexts.estimated]: DE § 22 Nr. 3 an der Grenzzeile (Einkünfte mit
+     * [TaxIncomeRow.estimated]), damit «unter der Grenze» nicht wie ein belegter Betrag aussieht; FR an [TaxLine.FR_OUTFLOW]
+     * (eine Kürzung mit [TaxOutflow.estimated]).
      */
     val estimated: Boolean = false,
 )

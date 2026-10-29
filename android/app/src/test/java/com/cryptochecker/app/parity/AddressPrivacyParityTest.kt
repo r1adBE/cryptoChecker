@@ -5,6 +5,7 @@ import com.cryptochecker.app.data.portfolio.WatchedAddressSource
 import com.cryptochecker.app.data.remote.HttpUserAgent
 import com.cryptochecker.app.data.remote.UserAgentInterceptor
 import com.cryptochecker.app.data.remote.callExchange
+import com.cryptochecker.app.domain.portfolio.AddressRedirect
 import kotlinx.coroutines.runBlocking
 import mockwebserver3.MockResponse
 import mockwebserver3.MockWebServer
@@ -13,9 +14,11 @@ import okhttp3.Request
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotSame
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.net.InetSocketAddress
 import java.net.Proxy
+import java.net.URI
 
 /**
  * Neutraler User-Agent der Adressabfragen (`testdata/parity/address_privacy.json`): gleicher Wert wie
@@ -80,6 +83,41 @@ class AddressPrivacyParityTest {
             assertEquals(HttpUserAgent.NEUTRAL, send("http://ethereum-rpc.publicnode.com/", own = "eigener/1"))
             assertEquals("cryptoChecker-Android/1.0", send("http://cloudflare-eth.com/"))
             assertEquals("eigener/1", send("http://api.binance.com/x", own = "eigener/1"))
+        } finally {
+            server.close()
+        }
+    }
+
+    /** Weiterleitungen nur auf denselben Host, nie von HTTPS auf HTTP — wie iOS. */
+    @Test
+    fun weiterleitungNurAufDenselbenHost() {
+        for (case in fixture["redirectCases"].list()) {
+            val c = case as Map<*, *>
+            val from = URI(c["from"] as String)
+            val to = URI(c["to"] as String)
+            assertEquals("${c["from"]} → ${c["to"]}", c["follow"], AddressRedirect.allowed(from.scheme, from.host, to.scheme, to.host))
+        }
+    }
+
+    /** Der Adress-Client folgt einer Weiterleitung auf denselben Host, aber nie auf einen anderen. */
+    @Test
+    fun adressClientFolgtKeinerWeiterleitungZuEinemAnderenHost() {
+        val server = MockWebServer()
+        server.start()
+        try {
+            val source = WatchedAddressSource(OkHttpClient())
+            // Gleicher Host: gefolgt
+            server.enqueue(MockResponse.Builder().code(302).addHeader("Location", "/api/address/y").build())
+            server.enqueue(MockResponse.Builder().code(200).body("{}").build())
+            assertEquals("{}", runBlocking { source.client.callExchange(server.url("/api/address/x").toString(), null) })
+            assertEquals(2, server.requestCount)
+            // Anderer Host (127.0.0.1 statt des Namens): nicht gefolgt, die Weiterleitung ist die Antwort
+            val other = "http://127.0.0.1:${server.port}/api/address/z"
+            server.enqueue(MockResponse.Builder().code(302).addHeader("Location", other).build())
+            val url = server.url("/api/address/x").newBuilder().host("localhost").build().toString()
+            val failure = runCatching { runBlocking { source.client.callExchange(url, null) } }.exceptionOrNull()
+            assertTrue(failure is com.cryptochecker.app.domain.exceptions.HttpExchangeError)
+            assertEquals(3, server.requestCount)
         } finally {
             server.close()
         }

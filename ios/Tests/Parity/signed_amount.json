@@ -1,0 +1,101 @@
+{
+  "description": "Signed portfolio amounts (Android PortfolioFormat.signedMoney / signedValue / signedAxisValue, iOS PortfolioFormat.signedMoney / PortfolioHistoryCard.signedValue / PortfolioChartRenderer.signedAxisValue). Below half a cent no sign (never '-0.00'), minus is U+2212. 'money' (tax sums): sign only for a loss, BidiText.ltr(sign + number) + ' ' + unit. 'value' (value history gain/loss, chart label): '+' or minus, BidiText.ltr(sign + number + ' ' + unit). 'axis' (chart axis): 'zero' -> '0', else BidiText.ltr(sign + PriceFormat.price(magnitude)). Number = the platform's two-decimal value format of 'magnitude' (locale of the device), so the cases pin sign, zero threshold and isolate, not digits.",
+  "cases": [
+    {
+      "kind": "money",
+      "value": -1234.5,
+      "unit": "CHF",
+      "sign": "\u2212",
+      "zero": false,
+      "magnitude": 1234.5
+    },
+    {
+      "kind": "money",
+      "value": 12.5,
+      "unit": "CHF",
+      "sign": "",
+      "zero": false,
+      "magnitude": 12.5
+    },
+    {
+      "kind": "money",
+      "value": -0.004,
+      "unit": "CHF",
+      "sign": "",
+      "zero": false,
+      "magnitude": 0.004
+    },
+    {
+      "kind": "money",
+      "value": 0.0,
+      "unit": "CHF",
+      "sign": "",
+      "zero": false,
+      "magnitude": 0.0
+    },
+    {
+      "kind": "money",
+      "value": -0.0049,
+      "unit": "CHF",
+      "sign": "",
+      "zero": false,
+      "magnitude": 0.0049
+    },
+    {
+      "kind": "money",
+      "value": -0.01,
+      "unit": "CHF",
+      "sign": "\u2212",
+      "zero": false,
+      "magnitude": 0.01
+    },
+    {
+      "kind": "value",
+      "value": 2340.0,
+      "unit": "CHF",
+      "sign": "+",
+      "zero": false,
+      "magnitude": 2340.0
+    },
+    {
+      "kind": "value",
+      "value": -12.0,
+      "unit": "CHF",
+      "sign": "\u2212",
+      "zero": false,
+      "magnitude": 12.0
+    },
+    {
+      "kind": "value",
+      "value": -0.001,
+      "unit": "CHF",
+      "sign": "",
+      "zero": false,
+      "magnitude": 0.001
+    },
+    {
+      "kind": "axis",
+      "value": 1234.0,
+      "unit": "CHF",
+      "sign": "+",
+      "zero": false,
+      "magnitude": 1234.0
+    },
+    {
+      "kind": "axis",
+      "value": -56.3,
+      "unit": "CHF",
+      "sign": "\u2212",
+      "zero": false,
+      "magnitude": 56.3
+    },
+    {
+      "kind": "axis",
+      "value": 0.004,
+      "unit": "CHF",
+      "sign": "",
+      "zero": true,
+      "magnitude": 0.004
+    }
+  ]
+}

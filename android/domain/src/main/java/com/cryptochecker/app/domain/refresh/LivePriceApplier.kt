@@ -105,7 +105,7 @@ class LivePriceApplier constructor(
             val watches = watchRepository.getWatches().filter {
                 it.id in quotes && !it.isNotTraded && !it.disabled &&
                     // Abo für ein anderes Paar (Eintrag inzwischen bearbeitet): alter Kurs, verwerfen
-                    (pairs == null || pairs[it.id] == it.pairIdentity)
+                    (pairs == null || LiveRules.samePair(pairs[it.id], it.pairIdentity))
             }
             val fetched = HashMap<Long, Fetched>()
             for (watch in watches) {

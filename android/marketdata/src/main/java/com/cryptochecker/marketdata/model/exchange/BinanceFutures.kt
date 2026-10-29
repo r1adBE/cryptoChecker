@@ -27,6 +27,9 @@ private const val BINANCE_DAPI_DAY_TICKER = "$BINANCE_DAPI/ticker/24hr"
 /** Vorsatz der COIN-M-Kennungen. */
 private const val BINANCE_COIN_M_MARK = "2:"
 
+/** Fehlertext ohne Paar-Kennung (keine Anfrage); iOS gleich. */
+private const val MISSING_PAIR_ID = "Missing pair id"
+
 /**
  * Binance Futures: USDⓈ-M (fapi, Kennung = Symbol) und COIN-M (dapi, Kennung «2:» + Symbol). Zwei Endpunkte,
  * die ohne `symbol` je alle Kontrakte liefern — darum kein `SimpleExchange`.
@@ -153,9 +156,9 @@ class BinanceFutures : Exchange("Binance Futures", "Binance Futures") {
         else -> null
     }
 
-    /** Ohne Paar-Kennung gibt es keine Kursabfrage. */
+    /** Ohne Paar-Kennung (fehlt oder leer) gibt es keine Kursabfrage; iOS gleich (`tickerQueryError`). */
     private fun pairIdOf(info: PairQuery): String =
-        info.pairId ?: throw ExchangeParseException("Missing pair id")
+        info.pairId?.takeIf { it.isNotBlank() } ?: throw ExchangeParseException(MISSING_PAIR_ID)
 
     private fun dayTickerOf(pairId: String): String = if (isCoinM(pairId)) BINANCE_DAPI_DAY_TICKER else BINANCE_FAPI_DAY_TICKER
 

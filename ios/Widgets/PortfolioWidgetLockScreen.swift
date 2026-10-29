@@ -6,7 +6,7 @@ import WidgetKit
 struct PortfolioRectangularView: View {
     let entry: PortfolioEntry
 
-    /// Titel und Gesamtwert wachsen mit Dynamic Type, solange sie in der Höhe Platz haben (`WidgetPrimaryFit`).
+    /// Alle Texte wachsen mit Dynamic Type, solange sie in der Höhe Platz haben (`WidgetPrimaryFit`).
     var body: some View {
         WidgetPrimaryFit(in: .vertical) { scale in content(scale: scale) }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -26,10 +26,10 @@ struct PortfolioRectangularView: View {
             } else if entry.locked {
                 HStack(alignment: .firstTextBaseline, spacing: 4) {
                     Image(systemName: "lock.fill")
-                        .font(.system(size: 10, weight: .semibold))
+                        .font(.system(size: 10 * scale, weight: .semibold))
                         .accessibilityHidden(true)
                     Text(L("widget_portfolio_locked_hint"))
-                        .font(.system(size: 12))
+                        .font(.system(size: 12 * scale))
                         .lineLimit(2)
                 }
                 .foregroundStyle(.secondary)
@@ -46,8 +46,8 @@ struct PortfolioRectangularView: View {
                 if let line = PortfolioWidgetText.changeLine(plan, s, hidden: entry.hideAmounts) {
                     HStack(spacing: 2) {
                         ChangeArrowIcon(change: PortfolioWidgetText.directionValue(plan))
-                            .font(.system(size: 8, weight: .bold))
-                        Text.quoted(line, quote: s.currency, size: 12, weight: .regular, quoteColor: .secondary)
+                            .font(.system(size: 8 * scale, weight: .bold))
+                        Text.quoted(line, quote: s.currency, size: 12 * scale, weight: .regular, quoteColor: .secondary)
                             .monospacedDigit()
                             .lineLimit(1)
                             .minimumScaleFactor(0.7)
@@ -57,7 +57,7 @@ struct PortfolioRectangularView: View {
                 }
             } else {
                 Text(L("widget_portfolio_empty"))
-                    .font(.system(size: 12))
+                    .font(.system(size: 12 * scale))
                     .foregroundStyle(.secondary)
                     .lineLimit(2)
             }

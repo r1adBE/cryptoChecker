@@ -40,9 +40,9 @@ extension CoinLogoStore {
         guard let url = Bundle.main.url(forResource: CoinLogos.iconPackName, withExtension: CoinLogos.iconPackExtension),
               let data = try? Data(contentsOf: url, options: .mappedIfSafe)
         else { return nil }
-        let bytes = [UInt8](data)
-        guard let index = CoinLogos.parseIconPack(bytes) else { return nil }
-        return IconPack(bytes: bytes, index: index)
+        // Nur das Inhaltsverzeichnis kopiert; die Icons werden aus den gemappten Bytes geschnitten
+        guard let index = CoinLogos.parseIconPack(data) else { return nil }
+        return IconPack(bytes: data, index: index)
     }()
 
     /// Mitgeliefertes Icon (CC0) für `symbol`; nil, wenn das Paket es nicht kennt.
@@ -51,7 +51,8 @@ extension CoinLogoStore {
         let key = bundledMemoryPrefix + name
         if let image = memory.object(forKey: key as NSString) { return image }
         guard let pack = iconPack, let slice = pack.index[name] else { return nil }
-        let data = Data(pack.bytes[slice.offset..<(slice.offset + slice.length)])
+        let start = pack.bytes.startIndex + slice.offset
+        let data = pack.bytes.subdata(in: start..<(start + slice.length))
         guard let image = UIImage(data: data) else { return nil }
         memory.setObject(image, forKey: key as NSString)
         return image
@@ -72,7 +73,8 @@ extension CoinLogoStore {
 
 /// Mitgeliefertes Icon-Paket im Speicher (`CoinLogos.parseIconPack`).
 private struct IconPack {
-    let bytes: [UInt8]
+    /// Gemappte Datei (`mappedIfSafe`), nicht kopiert.
+    let bytes: Data
     let index: [String: CoinLogos.IconSlice]
 }
 

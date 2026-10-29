@@ -16,6 +16,7 @@ import com.cryptochecker.app.domain.market.GlobalMarket
 import com.cryptochecker.app.domain.market.MarketTotals
 import com.cryptochecker.app.domain.market.Indicators
 import com.cryptochecker.app.domain.market.Sourced
+import com.cryptochecker.marketdata.util.EpochTime
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
@@ -167,9 +168,9 @@ class InsightsDataSource @Inject constructor(
             yesterday = valueAt(1),
             weekAgo = valueAt(7),
             monthAgo = valueAt(30),
-            // «timestamp» in Sekunden (Text); für die Herkunftsangabe im «Warum?»-Blatt
+            // «timestamp» in Sekunden (Text); für die Herkunftsangabe im «Warum?»-Blatt (unplausibel: keine)
             time = if (data.length() > 0) {
-                data.getJSONObject(0).optString("timestamp").trim().toLongOrNull()?.takeIf { it > 0 }?.times(1000L)
+                data.getJSONObject(0).optString("timestamp").trim().toLongOrNull()?.let { EpochTime.secondsToMillis(it) }
             } else {
                 null
             },

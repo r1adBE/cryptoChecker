@@ -140,16 +140,6 @@
     <string name="pulse_alts_weaker">Bitcoin stärker als Altcoins</string>
     <string name="pulse_chip_funding_high">Hebel-Stimmung optimistisch</string>
     <string name="pulse_chip_funding_negative">Hebel-Stimmung pessimistisch</string>
-    <string name="pulse_funding_high">Funding deutlich positiv: viele setzen mit Hebel auf steigende Kurse</string>
-    <string name="pulse_funding_negative">Funding negativ: viele setzen auf fallende Kurse</string>
-    <string name="pulse_funding_neutral">Funding ausgeglichen</string>
-    <string name="pulse_funding_slight">Funding leicht positiv</string>
-    <string name="pulse_gas_high">Ethereum-Gas hoch (%1$s gwei)</string>
-    <string name="pulse_gas_low">Ethereum-Gas niedrig (%1$s gwei)</string>
-    <string name="pulse_gas_normal">Ethereum-Gas üblich (%1$s gwei)</string>
-    <string name="pulse_volume_high">Handelsvolumen ungewöhnlich hoch (%1$s× üblich)</string>
-    <string name="pulse_volume_low">Handelsvolumen gering (%1$s× üblich)</string>
-    <string name="pulse_volume_normal">Handelsvolumen üblich</string>
 
     <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>

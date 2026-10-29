@@ -38,8 +38,6 @@ enum FuturesContractType: Int, Codable, CaseIterable, Comparable, Sendable {
         self = Self.allCases.first(where: { $0.backupName == backupName }) ?? .none
     }
 
-    static func fromInt(_ v: Int) -> Self { Self(rawValue: v) ?? .none }
-
     /// Kurzform für Anzeige und Beschreibung; nil bei Spot.
     var shortName: String? {
         switch self {
@@ -144,6 +142,53 @@ enum FuturesContractType: Int, Codable, CaseIterable, Comparable, Sendable {
         case .quarterly: return currentQuarterly()
         case .biquarterly: return quarterEnd(adding(months: 3, to: monthStart(currentQuarterly())))
         }
+    }
+
+    /// Abrechnung des Kontrakts laut Kennung: Verfallstag aus `deliveryCode(of:)` um 08:00 UTC (Binance, OKX), in ms.
+    /// nil ohne Datum in der Kennung oder bei unmöglichem Datum (z. B. Monat 13). Wie Android `settlementMillisOf`.
+    static func settlementMillis(of pairId: String?) -> Int64? {
+        guard let day = deliveryEpochDay(of: pairId) else { return nil }
+        return day * 86_400_000 + 8 * 3_600_000
+    }
+
+    /// Kurzform zur Anzeige: Bei Laufzeit-Kontrakten zählt das Datum in der Kennung, nicht die beim Hinzufügen
+    /// gespeicherte Art — ein als «2Q» gespeichertes BTCUSDT_260327 ist nach der Quartalsabrechnung das laufende
+    /// Quartal («1Q»). Passt das Datum zu keinem Kontrakt derselben Familie (Woche, Monat, Quartal) oder fehlt es,
+    /// bleibt `stored`. Wie Android `FuturesContractType.shownContract`.
+    static func shown(stored: FuturesContractType, pairId: String?, now: Date = Date()) -> FuturesContractType {
+        let family: (near: FuturesContractType, far: FuturesContractType)
+        switch stored {
+        case .weekly, .biweekly: family = (.weekly, .biweekly)
+        case .monthly, .bimonthly: family = (.monthly, .bimonthly)
+        case .quarterly, .biquarterly: family = (.quarterly, .biquarterly)
+        default: return stored
+        }
+        guard let day = deliveryEpochDay(of: pairId) else { return stored }
+        func epochDay(_ date: Date?) -> Int64? {
+            date.map { Int64(($0.timeIntervalSince1970 / 86_400).rounded(.down)) }
+        }
+        if epochDay(family.near.delivery(asOf: now)) == day { return family.near }
+        if epochDay(family.far.delivery(asOf: now)) == day { return family.far }
+        return stored
+    }
+
+    /// Verfallstag aus der Kennung («yyMMdd» = 20yy) als Tage seit 1970-01-01 (UTC); nil ohne bzw. mit unmöglichem Datum.
+    private static func deliveryEpochDay(of pairId: String?) -> Int64? {
+        guard let code = deliveryCode(of: pairId), let value = Int(code) else { return nil }
+        let year = 2000 + value / 10_000
+        let month = value / 100 % 100
+        let day = value % 100
+        guard (1...12).contains(month), day >= 1 else { return nil }
+        let leap = (year % 4 == 0 && year % 100 != 0) || year % 400 == 0
+        let lengths = [31, leap ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        guard day <= lengths[month - 1] else { return nil }
+        // Tage seit der Epoche nach dem gregorianischen Kalender (Jahr ab März gezählt)
+        let y = month <= 2 ? year - 1 : year
+        let era = y / 400
+        let yearOfEra = y - era * 400
+        let dayOfYear = (153 * ((month + 9) % 12) + 2) / 5 + day - 1
+        let dayOfEra = yearOfEra * 365 + yearOfEra / 4 - yearOfEra / 100 + dayOfYear
+        return Int64(era * 146_097 + dayOfEra - 719_468)
     }
 }
 
@@ -291,13 +336,26 @@ enum EpochTime {
 
     /// Zeitangabe unbekannter Einheit → ms, geschätzt an der Grösse: Sekunden, ms, µs oder ns. Wie Android.
     static func parseTimeToMillis(_ time: Int64) -> Int64 {
-        // Kleiner als ein Jahr in ms: das waren Sekunden
-        guard time >= millisInYear else { return time * millisInSecond }
+        // Kleiner als ein Jahr in ms: das waren Sekunden (unplausibel klein, × 1000 liefe über: keine Zeit)
+        guard time >= millisInYear else {
+            let (millis, overflow) = time.multipliedReportingOverflow(by: millisInSecond)
+            return overflow ? 0 : millis
+        }
         // Zu gross für ms: so oft durch 1000, bis es passt (µs einmal, ns wie Phemex «timestamp» zweimal)
         var value = time
         let ceiling = millisInYear * 5000
         while value > ceiling { value /= 1000 }
         return value
+    }
+
+    /// Höchste plausible Sekundenangabe eines Servers (10¹³ s, rund 317 000 Jahre; × 1000 passt sicher in Int64).
+    static let maxPlausibleSeconds: Int64 = 10_000_000_000_000
+
+    /// Sekunden eines Servers (z. B. Kerzen-Beginn, Zeitstempel) → ms; nil bei ≤ 0 oder ab `maxPlausibleSeconds` — nie
+    /// ein Überlauf (der hier abstürzen liesse). Wie Android `EpochTime.secondsToMillis`; Testfälle `server_values.json`.
+    static func secondsToMillis(_ seconds: Int64) -> Int64? {
+        guard seconds > 0, seconds < maxPlausibleSeconds else { return nil }
+        return seconds * millisInSecond
     }
 
     /// ISO-8601-Zeitpunkt → ms (auf ganze Sekunden), 0, wenn er sich nicht lesen lässt.

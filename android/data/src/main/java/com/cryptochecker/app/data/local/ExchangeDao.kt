@@ -16,11 +16,9 @@ abstract class ExchangeDao {
 
     // «Börse» — Kennung ohne Gross-/Kleinschreibung (wie die Spalte)
 
-    @Suppress("SpellCheckingInspection")
     @Query("SELECT id FROM exchanges WHERE exchangeKey = :exchangeKey COLLATE NOCASE")
     abstract suspend fun getExchangeId(exchangeKey: String): Long?
 
-    @Suppress("SpellCheckingInspection")
     @Transaction
     @Query("SELECT * FROM exchanges WHERE exchangeKey = :exchangeKey COLLATE NOCASE")
     abstract suspend fun getExchangeWithPairs(exchangeKey: String): ExchangeWithPairs?

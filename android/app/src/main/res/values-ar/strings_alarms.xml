@@ -211,4 +211,6 @@
 
     <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
     <string name="alarm_threshold_invalid_fix">الحد غير صالح – يرجى تعديله</string>
+
+    <string name="alarm_last_checked">آخر تحقق %1$s</string>
 </resources>

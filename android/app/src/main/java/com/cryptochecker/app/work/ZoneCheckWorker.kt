@@ -1,5 +1,6 @@
 package com.cryptochecker.app.work
 
+import com.cryptochecker.app.settings.MarketAlertReset
 import com.cryptochecker.app.settings.ZoneCheckPrefs
 import androidx.core.content.edit
 import android.content.Context
@@ -16,6 +17,7 @@ import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.settings.SettingsRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.sync.withLock
 import timber.log.Timber
 import com.cryptochecker.app.notification.canShowMarketNotice
 import com.cryptochecker.app.notification.showIndicatorAlert
@@ -38,13 +40,18 @@ class ZoneCheckWorker @AssistedInject constructor(
 
     override suspend fun doWork(): Result {
         val prefs = applicationContext.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
-        val settings = settingsRepository.current()
-        val fearGreedFailed = !checkFearGreed(settings.fearGreedBelow, settings.fearGreedAbove, prefs)
-        val indicatorsFailed = !checkIndicators(settings.indicatorAlerts, prefs)
-        // Abruf gescheitert: mit dem Backoff von WorkManager (exponentiell ab 30 s) erneut statt
+        // Unter der Sperre des Zurücksetzens (MarketAlertReset): Wird eine Grenze während des Abrufs ausgeschaltet,
+        // wartet das «Aus», bis diese Prüfung geschrieben hat — sie überschreibt es also nicht mit dem alten Stand
+        val failed = ZoneCheckPrefs.lock.withLock {
+            val settings = settingsRepository.current()
+            val fearGreedFailed = !checkFearGreed(settings.fearGreedBelow, settings.fearGreedAbove, prefs)
+            val indicatorsFailed = !checkIndicators(settings.indicatorAlerts, prefs)
+            fearGreedFailed || indicatorsFailed
+        }
+        // Abruf gescheitert: mit dem Backoff von WorkManager (MarketNoticeGate.retryDelayMillis) erneut statt
         // erst in 12 h. Keine Doppelmeldung: Gemeldetes ist in den Prefs vermerkt (KEY_FNG bzw.
         // «crossed»), der nächste Versuch meldet es nicht noch einmal.
-        if ((fearGreedFailed || indicatorsFailed) && runAttemptCount < MAX_RETRIES) {
+        if (failed && runAttemptCount < MarketNoticeGate.MAX_RETRIES) {
             Timber.i("Marktmeldungen: Abruf gescheitert, Versuch %d — erneut mit Backoff", runAttemptCount + 1)
             return Result.retry()
         }
@@ -59,9 +66,7 @@ class ZoneCheckWorker @AssistedInject constructor(
     private suspend fun checkIndicators(stored: Map<IndicatorAlertKind, Int>, prefs: android.content.SharedPreferences): Boolean {
         val active = IndicatorAlertRules.active(stored)
         // Ausgeschaltete Grenzen vergessen (beim Wiedereinschalten neu bewerten)
-        IndicatorAlertKind.entries.filter { it !in active }.forEach { kind ->
-            prefs.edit { remove(crossedKey(kind)); remove(thresholdKey(kind)) }
-        }
+        IndicatorAlertKind.entries.filter { it !in active }.forEach { kind -> MarketAlertReset.indicatorOff(prefs, kind) }
         if (active.isEmpty()) return true
         val report = runCatching { BitcoinIndicatorModel.evaluate(cycleDataSource.fetch()) }
             .onFailure { if (it is kotlinx.coroutines.CancellationException) throw it }
@@ -145,8 +150,5 @@ class ZoneCheckWorker @AssistedInject constructor(
 
         /** Grenze (gespeicherte Ganzzahl), zu der der gemerkte Zustand «jenseits» gehört. */
         internal fun thresholdKey(kind: IndicatorAlertKind) = ZoneCheckPrefs.thresholdKey(kind)
-
-        /** Höchstens so viele erneute Versuche je 12-h-Lauf (30 s, 1 Min., 2 Min. …). */
-        private const val MAX_RETRIES = 3
     }
 }

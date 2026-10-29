@@ -193,32 +193,7 @@ extension View {
     }
 }
 
-extension View {
-    /// Platzhalter für mehrzeiligen Text (Android: `SkeletonText`): Auf einen unsichtbar
-    /// gesetzten Text (der echte feste Text oder ein Beispiel mit typischen Zahlen) in der
-    /// Schrift `style` angewendet, reserviert er genau dessen Höhe und zeichnet je Zeile
-    /// einen grauen Balken (die letzte kürzer). Folgt Dynamic Type.
-    func cycleSkeletonLines(_ style: UIFont.TextStyle) -> some View {
-        hidden()
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background {
-                GeometryReader { geo in
-                    let lineHeight = UIFont.preferredFont(forTextStyle: style).lineHeight
-                    let lines = max(1, Int((geo.size.height / lineHeight).rounded()))
-                    let step = geo.size.height / CGFloat(lines)
-                    ForEach(0..<lines, id: \.self) { line in
-                        let width = line == lines - 1 && lines > 1 ? geo.size.width * 0.6 : geo.size.width
-                        Capsule(style: .continuous)
-                            .fill(AppColors.containerHighest)
-                            .frame(width: width, height: step * 0.72)
-                            .position(x: width / 2, y: step * (CGFloat(line) + 0.5))
-                    }
-                }
-            }
-    }
-}
-
-/// Graue Pille in Etiketten-Höhe — Text in `font` mit Innenabstand (Android: `SkeletonPill`).
+/// Graue Pille in Etiketten-Höhe — Text in `font` mit Innenabstand.
 /// `width` nil = ganze verfügbare Breite.
 struct CycleSkeletonPill: View {
     let font: Font

@@ -31,9 +31,4 @@ enum Indicators {
         let rs = avgGain / avgLoss
         return 100 - 100 / (1 + rs)
     }
-
-    /// `"%.2f".format(x)` mit der Sprache des Geräts (wie Kotlins `String.format`).
-    static func fmt(_ format: String, _ args: CVarArg...) -> String {
-        String(format: format, locale: Locale.current, arguments: args)
-    }
 }

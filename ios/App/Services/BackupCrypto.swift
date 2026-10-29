@@ -110,13 +110,14 @@ enum BackupCrypto {
     }
 
     /// Felder aus dem JSON prüfen und dekodieren (Argon2id mit «m», «t», «p»).
+    /// Wie Android `BackupFormat.parse`: Zahlen der Hülle nur als ganze JSON-Zahlen (`integral`), Texte nur als JSON-Texte.
     static func envelope(from root: [String: Any]) throws -> Envelope {
-        guard let v = root["v"] as? Int else { throw Failure.unsupported("version") }
+        guard let v = integral(root["v"]) else { throw Failure.unsupported("version") }
         // Neuere Hülle: klare Meldung «neuere App-Version» statt «fehlgeschlagen» (wie Android)
         if v > version { throw BackupVersion.Failure.newer(v) }
         guard v == version else { throw Failure.unsupported("version") }
         guard root["kdf"] as? String == kdf, root["enc"] as? String == enc else { throw Failure.unsupported("enc/kdf") }
-        guard let m = root["m"] as? Int, let t = root["t"] as? Int, let p = root["p"] as? Int else {
+        guard let m = integral(root["m"]), let t = integral(root["t"]), let p = integral(root["p"]) else {
             throw Failure.unsupported("argon2")
         }
         let parsed = Kdf.argon2(memoryKiB: m, time: t, parallelism: p)
@@ -127,6 +128,13 @@ enum BackupCrypto {
         let envelope = Envelope(kdf: parsed, salt: salt, iv: iv, data: data)
         try validate(envelope)
         return envelope
+    }
+
+    /// Ganze JSON-Zahl (auch `65536.0`, wie Android `BackupFormat.integral`); Text, Wahrheitswert oder Bruch → nil.
+    /// `as? Int` allein nähme `true` als 1.
+    static func integral(_ value: Any?) -> Int? {
+        guard let number = value as? NSNumber, CFGetTypeID(number) != CFBooleanGetTypeID() else { return nil }
+        return Int(exactly: number.doubleValue)
     }
 
     /// JSON der verschlüsselten Sicherung — gleiche Felder und Reihenfolge wie unter Android.

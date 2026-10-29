@@ -258,15 +258,19 @@ fun TaxEngines.frPta(
                     val value = portfolioValue(coin, unit, t.time)?.let { it - spent }
                     var reduction: BigDecimal? = null
                     var reductionParts: List<PortfolioCostPart> = emptyList()
+                    var reductionEstimated = false
                     if (v != null && value != null && value.signum() > 0) {
-                        val (c, parts) = reduce(v, value)
+                        val (c, parts, e) = reduce(v, value)
                         reduction = c
                         reductionParts = parts
+                        // Kürzung aus einem geschätzten Teil der Summe oder zum Wert beim Abgang am Tagesschluss (wie die
+                        // Netzwerkgebühr im Coin)
+                        reductionEstimated = c.signum() != 0 && (e || coinFeeEstimated)
                     } else {
                         // Kurs fehlt: Kürzung unbekannt, die PTA danach nicht mehr gesichert
                         incomplete = true
                     }
-                    outflows += TaxOutflow(coin, t.id, t.time, qty, v, reduction, reductionParts)
+                    outflows += TaxOutflow(coin, t.id, t.time, qty, v, reduction, reductionParts, reductionEstimated)
                 }
                 // Tausch Krypto↔Krypto: aufgeschoben (sursis d'imposition), PTA unverändert — auch in einen Stablecoin
                 // (USDT, USDC …): er bleibt im Gesamtwert, steuerbar erst sein Verkauf gegen Euro. Gebühren in Krypto
@@ -304,7 +308,9 @@ fun TaxEngines.frHeldBefore(own: List<PortfolioTrade>, t: PortfolioTrade): Set<S
  * erfassten Bestand, der Rest macht die Erwerbspreis-Summe danach unvollständig), Wert beim Abgang und
  * Kürzung der Erwerbspreis-Summe (USDT); null = Kurs fehlt (Kürzung unbekannt). [ptaReductionParts] = Herkunft der Kürzung
  * (Anteil der Erwerbspreis-Summe je Kaufdatum, Summe = [ptaReductionUsdt]) — in der Steuerwährung zum Kurs der Kaufdaten
- * wie der Einstand einer Abtretung, nicht zum Kurs des Abgangs.
+ * wie der Einstand einer Abtretung, nicht zum Kurs des Abgangs. [estimated] = die Kürzung beruht auf einem geschätzten
+ * Wert (Teil der Summe mit [PortfolioTrade.costEstimated] oder Wert beim Abgang zum Tagesschluss) — Vermerk «Wert geschätzt»
+ * am Posten [TaxLine.FR_OUTFLOW].
  */
 data class TaxOutflow(
     val coin: String,
@@ -313,5 +319,6 @@ data class TaxOutflow(
     val amount: BigDecimal,
     val valueUsdt: BigDecimal?,
     val ptaReductionUsdt: BigDecimal?,
-    val ptaReductionParts: List<PortfolioCostPart> = emptyList(),
+    val ptaReductionParts: List<PortfolioCostPart>,
+    val estimated: Boolean,
 )

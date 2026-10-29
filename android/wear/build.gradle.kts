@@ -2,6 +2,8 @@
 // (Favoriten) oder «Eigene Liste» — nur diese Wahl kommt über die Wear-Daten-Schicht vom/zum Handy. Liste und
 // Komplikation. Gleiches Paket wie die Handy-App (eine Store-Eintragung, Wear-Formfaktor); Versionscode 90 000 +
 // Build-Nummer der Handy-App.
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
@@ -13,6 +15,22 @@ val phoneBuild: Int = Regex("""versionCode = (\d+)""").find(phoneGradle)
     ?.groupValues?.get(1)?.toInt() ?: error("versionCode der Handy-App nicht gefunden")
 val phoneVersion: String = Regex("""versionName = "([^"]+)"""").find(phoneGradle)
     ?.groupValues?.get(1) ?: error("versionName der Handy-App nicht gefunden")
+
+// Gleicher Upload-Schlüssel wie :app (gleiches Paket, eine Store-Eintragung): keystore.properties im
+// Projektwurzelverzeichnis (Vorlage keystore.properties.example). «-PrequireReleaseSigning=true» bricht ohne die Datei
+// ab — der Store-Build (bundleRelease für alle Module) baut sonst still ein unsigniertes Uhr-Bundle.
+val keystorePropertiesFile = rootProject.file("keystore.properties")
+val keystoreProperties = Properties()
+if (keystorePropertiesFile.exists()) {
+    keystorePropertiesFile.inputStream().use { keystoreProperties.load(it) }
+}
+val keystore: Map<String, String> =
+    keystoreProperties.stringPropertyNames().associateWith { keystoreProperties.getProperty(it) }
+if (providers.gradleProperty("requireReleaseSigning").orNull == "true" && !keystorePropertiesFile.exists()) {
+    throw GradleException(
+        "requireReleaseSigning=true, aber ${keystorePropertiesFile.path} fehlt (Vorlage: keystore.properties.example)",
+    )
+}
 
 // Wie :app – keine Compose-Zuordnung in proguard.map (wechselnde Reihenfolge, reproduzierbarer Build)
 composeCompiler {
@@ -31,11 +49,27 @@ android {
         versionName = phoneVersion
     }
 
+    signingConfigs {
+        create("release") {
+            if (keystorePropertiesFile.exists()) {
+                // Relativ wie in :app (dort vom Ordner app/ aus); empfohlen ist ein absoluter Pfad
+                storeFile = rootProject.file("app").resolve(keystore.getValue("storeFile"))
+                storePassword = keystore["storePassword"]
+                keyAlias = keystore["keyAlias"]
+                keyPassword = keystore["keyPassword"]
+            }
+        }
+    }
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"))
+            // Ohne keystore.properties bleibt der Build unsigniert, statt zu scheitern (wie :app)
+            if (keystorePropertiesFile.exists()) {
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
     }
 

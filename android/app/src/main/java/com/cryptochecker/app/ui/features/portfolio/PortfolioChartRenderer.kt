@@ -32,6 +32,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioChartAxis
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.LocalHighContrast
 import com.cryptochecker.app.ui.theme.amountNumbers
+import com.cryptochecker.app.util.BidiText
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.app.widget.LevelKind
 import com.cryptochecker.app.widget.PlacedLabel
@@ -251,11 +252,14 @@ internal fun linePath(frame: ChartFrame, values: List<Double>): Path = Path().ap
 /** Beschriftung der Achse: kompakt wie im Aktionsblatt («12’345», «0.2576»); 0 als «0». */
 internal fun axisValue(value: Double): String = if (value > 0.0) PriceFormat.price(value) else "0"
 
-/** Gewinn/Verlust auf der Achse: mit Vorzeichen («+1’234», «−56.3»); praktisch 0 als «0». */
+/**
+ * Gewinn/Verlust auf der Achse: mit Vorzeichen («+1’234», «−56.3») als links-nach-rechts-Insel
+ * (RTL: Vorzeichen vor der Zahl); praktisch 0 als «0». Wie iOS.
+ */
 internal fun signedAxisValue(value: Double): String = when {
     PortfolioFormat.isZero(value) -> "0"
-    value > 0.0 -> "+" + PriceFormat.price(value)
-    else -> "−" + PriceFormat.price(abs(value))
+    value > 0.0 -> BidiText.ltr("+" + PriceFormat.price(value))
+    else -> BidiText.ltr("−" + PriceFormat.price(abs(value)))
 }
 
 /** Gestrichelte Nulllinie über die ganze Zeichenfläche (Gewinn/Verlust). */

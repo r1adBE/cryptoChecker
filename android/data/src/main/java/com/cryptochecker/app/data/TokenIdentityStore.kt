@@ -87,19 +87,24 @@ class TokenIdentityStore @Inject constructor(
      * Name des Coins [coin] laut den aktiven Paaren der Merkliste (alle Börsen mit Namen); widersprechen
      * sie sich, null ([TokenIdentity.consensus]) — dann nur Kürzel + Kursband.
      */
-    suspend fun watchName(coin: String): String? {
-        val key = TokenIdentity.key(coin)
+    suspend fun watchName(coin: String): String? = watchNames(listOf(coin))[coin]
+
+    /** Wie [watchName] für mehrere Coins, die Merkliste einmal gelesen (Steuer-Export: viele Tage je Coin). */
+    suspend fun watchNames(coins: Collection<String>): Map<String, String?> {
         val watches = try {
             watchDao.getWatches()
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
             Timber.d(e, "Coin-Namen: Merkliste nicht lesbar")
-            return null
+            return emptyMap()
         }
-        val names = watches.filter { !it.disabled && TokenIdentity.key(it.baseAsset) == key }
-            .map { pairName(it.exchangeKey, it.baseAsset) }
-        return TokenIdentity.consensus(key, names)
+        return coins.distinct().associateWith { coin ->
+            val key = TokenIdentity.key(coin)
+            val names = watches.filter { !it.disabled && TokenIdentity.key(it.baseAsset) == key }
+                .map { pairName(it.exchangeKey, it.baseAsset) }
+            TokenIdentity.consensus(key, names)
+        }
     }
 
     /**

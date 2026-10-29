@@ -59,7 +59,8 @@ jobs:
           persist-credentials: false
 
       # Escape hatches of the strict concurrency checks (@unchecked Sendable, nonisolated(unsafe),
-      # DispatchSemaphore) in ios/App, ios/Shared, ios/Widgets: more than the ceiling in the script is red, so a new one
+      # DispatchSemaphore) in ios/App, ios/Shared, ios/Widgets and the watch folders (ios/Watch, ios/WatchCore,
+      # ios/WatchWidgets): more than the ceiling in the script is red, so a new one
       # needs a deliberate raise there; fewer is a notice to lower it. Fails fast, before Xcode is needed.
       - name: Swift escape hatches
         run: |
@@ -165,9 +166,8 @@ jobs:
           xcodebuild -version
           xcodebuild -version | head -n1 | grep -qE '^Xcode 26(\.|$)' || { echo "::error::Xcode 26 required"; exit 1; }
 
-      # The whole log goes to a file (it used to be «| tail -n 200», which cut off the error
-      # lines). Compiler errors are printed at the end and turned into annotations, so they
-      # show on the run page even without signing in.
+      # The whole log goes to a file (a shortened log would cut off the error lines). Compiler errors are printed at
+      # the end and turned into annotations, so they show on the run page even without signing in.
       - name: Build for iOS Simulator (no signing)
         working-directory: ios
         run: |
@@ -337,7 +337,7 @@ jobs:
       # second attempt is a failure there. The result bundle (screenshots, logs) is uploaded on failure.
       - name: UI tests (iOS Simulator)
         working-directory: ios
-        # 45 min: the accessibility audit runs in three groups of audit types per screen (build 149)
+        # 45 min: the accessibility audit runs in three groups of audit types per screen
         timeout-minutes: 45
         run: |
           LOG="$RUNNER_TEMP/xcode-uitest.log"

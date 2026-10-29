@@ -264,7 +264,7 @@ private struct SingleChooseView: View {
             HStack(spacing: 4) {
                 WidgetLogo(accent: accent, dark: palette.dark, size: 16)
                 Text(WidgetData.appName)
-                    .font(.system(size: 12, weight: .bold))
+                    .widgetSecondaryFont(12, weight: .bold)
                     .foregroundStyle(palette.text)
                     .lineLimit(1)
             }
@@ -274,8 +274,9 @@ private struct SingleChooseView: View {
                 .foregroundStyle(palette.accent)
                 .accessibilityHidden(true)
             Text(L("single_widget_choose"))
-                .font(.system(size: 13, weight: .semibold))
+                .widgetSecondaryFont(13, weight: .semibold)
                 .foregroundStyle(palette.text)
+                .minimumScaleFactor(0.8)
             Text("—")
                 .font(.system(size: 22, weight: .bold, design: .rounded))
                 .foregroundStyle(palette.secondary)
@@ -303,7 +304,8 @@ private struct SingleRectangularView: View {
                 .modifier(SingleSummaryA11y(watch: watch, outdated: outdated, date: date, outdatedAfter: outdatedAfter))
         } else {
             Text(L("single_widget_choose"))
-                .font(.system(size: 13, weight: .semibold))
+                .widgetSecondaryFont(13, weight: .semibold)
+                .minimumScaleFactor(0.8)
         }
     }
 
@@ -318,9 +320,9 @@ private struct SingleRectangularView: View {
                 if let change = PriceFormat.changePercent(watch.shownChange24h) {
                     HStack(spacing: 2) {
                         ChangeArrowIcon(change: watch.shownChange24h)
-                            .font(.system(size: 9, weight: .bold))
+                            .font(.system(size: 9 * scale, weight: .bold))
                         Text(change)
-                            .font(.system(size: 12, weight: .semibold))
+                            .font(.system(size: 12 * scale, weight: .semibold))
                             .monospacedDigit()
                             .lineLimit(1)
                     }
@@ -336,18 +338,18 @@ private struct SingleRectangularView: View {
             // Stehender Kurs: «Kraken · Kurs unverändert seit 11:02», passt das nicht, die Zeit der
             // letzten Änderung statt der frischen Abrufzeit
             ViewThatFits(in: .horizontal) {
-                rectangularMeta(watch, hint: true)
+                rectangularMeta(watch, hint: true, scale: scale)
                     .fixedSize(horizontal: true, vertical: false)
-                rectangularMeta(watch, hint: false)
+                rectangularMeta(watch, hint: false, scale: scale)
             }
         }
     }
 
-    private func rectangularMeta(_ watch: Watch, hint: Bool) -> some View {
+    private func rectangularMeta(_ watch: Watch, hint: Bool, scale: CGFloat) -> some View {
         Text(verbatim: watch.disabled ? singleExchangeLine(watch)
              : "\(BidiText.isolate(watch.exchangeName)) · "
                 + WidgetOutdated.timeText(watch, outdated: outdated, at: date, afterMillis: outdatedAfter, allowsHint: hint))
-            .font(.system(size: 12))
+            .font(.system(size: 12 * scale))
             .monospacedDigit()
             .foregroundStyle(.secondary)
             .lineLimit(1)

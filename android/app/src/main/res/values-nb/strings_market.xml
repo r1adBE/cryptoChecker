@@ -140,16 +140,6 @@
     <string name="pulse_alts_weaker">Bitcoin sterkere enn altcoins</string>
     <string name="pulse_chip_funding_high">Giringsstemning optimistisk</string>
     <string name="pulse_chip_funding_negative">Giringsstemning pessimistisk</string>
-    <string name="pulse_funding_high">Funding tydelig positiv: mange belånte longs</string>
-    <string name="pulse_funding_negative">Funding negativ: mange shorts</string>
-    <string name="pulse_funding_neutral">Funding nøytral</string>
-    <string name="pulse_funding_slight">Funding litt positiv</string>
-    <string name="pulse_gas_high">Ethereum-gass høy (%1$s gwei)</string>
-    <string name="pulse_gas_low">Ethereum-gass lav (%1$s gwei)</string>
-    <string name="pulse_gas_normal">Ethereum-gass normal (%1$s gwei)</string>
-    <string name="pulse_volume_high">Handelsvolum uvanlig høyt (%1$s× normalt)</string>
-    <string name="pulse_volume_low">Handelsvolum lavt (%1$s× normalt)</string>
-    <string name="pulse_volume_normal">Handelsvolum normalt</string>
 
     <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>

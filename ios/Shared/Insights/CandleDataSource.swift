@@ -274,14 +274,16 @@ enum CandleDataSource {
         return out.sorted { $0.openTime < $1.openTime }
     }
 
-    /// Coinbase: [time (s), low, high, open, close, volume], NEUESTE zuerst → aufsteigend sortieren.
+    /// Coinbase: [time (s), low, high, open, close, volume], NEUESTE zuerst → aufsteigend sortieren. Unplausible Zeit
+    /// (`EpochTime.secondsToMillis`): Kerze fällt weg.
     static func parseCoinbase(_ text: String) throws -> [MarketCandle] {
         let array = try JArray(string: text)
         var byTime: [Int64: MarketCandle] = [:]
         for i in 0..<array.count {
             let k = try array.array(i)
+            guard let openTime = EpochTime.secondsToMillis(try k.long(0)) else { continue }
             let candle = MarketCandle(
-                openTime: try k.long(0) * 1000,
+                openTime: openTime,
                 open: try k.double(3),
                 high: try k.double(2),
                 low: try k.double(1),

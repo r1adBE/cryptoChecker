@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 // Letzter Stand der Portfolio-Kurse auf dem Gerät (Teil von `PortfolioPriceSource`) — wie
 // `PortfolioPriceSourceStore.kt` (Android).
@@ -55,9 +56,12 @@ extension PortfolioPriceSource {
         return out
     }
 
-    /// «Portfolio leeren»: gemerkte Kurse (nennen die gehaltenen Coins) und Zwischenspeicher weg.
+    /// «Portfolio leeren»: gemerkte Kurse (nennen die gehaltenen Coins) und Zwischenspeicher weg. Eine gerade laufende
+    /// Abfrage übernimmt danach nichts mehr (`clearGeneration`); die Datei fällt unter der Sperre weg wie `persist` sie
+    /// schreibt — sie entsteht danach nicht neu.
     static func clearStored() {
         lock.lock()
+        clearGeneration.withLock { $0 += 1 }
         cache = [:]
         uncheckedCoins = []
         unverifiedCoins = []
@@ -68,9 +72,9 @@ extension PortfolioPriceSource {
         failedOf = [:]
         binanceOf = [:]
         mixedCoins = []
+        try? FileManager.default.removeItem(at: storeURL)
         lock.unlock()
         PortfolioExchangeRouteStore.clear()
-        try? FileManager.default.removeItem(at: storeURL)
     }
 
     /// Gemerkter Stand (einmal je Prozess aus der Datei gelesen).
@@ -89,22 +93,20 @@ extension PortfolioPriceSource {
 
     /// Nach jedem erfolgreichen Abruf (innerhalb von `priceGate`, also nacheinander): gemerkter Stand und
     /// Zwischenspeicher (je Coin der neuere) schreiben, danach aus dem Backup nehmen (das atomare
-    /// Schreiben verliert das Merkmal).
-    static func persist() {
+    /// Schreiben verliert das Merkmal). Unter `lock` (kleine Datei), damit `clearStored` sie nicht dazwischen löscht;
+    /// nicht mehr, wenn seit Beginn der Abfrage (`generation`) geleert wurde.
+    static func persist(generation: Int) {
         let stored = loadStored()
-        lock.lock()
+        lock.lock(); defer { lock.unlock() }
+        guard clearGeneration.withLock({ $0 }) == generation else { return }
         let entries = PortfolioPriceFallback.prune(
             PortfolioPriceFallback.merge(current: currentEntriesLocked(), stored: storedEntries ?? stored),
             now: EpochTime.nowMillis
         )
         storedEntries = entries
-        lock.unlock()
-        guard let data = PortfolioPriceFallback.encode(entries).data(using: .utf8) else { return }
-        do {
-            try data.write(to: storeURL, options: [.atomic])
-        } catch {
-            return
-        }
+        guard let data = PortfolioPriceFallback.encode(entries).data(using: .utf8),
+              (try? data.write(to: storeURL, options: [.atomic])) != nil
+        else { return }
         BackupExclusion.set(excluded: true, for: storeURL)
     }
 

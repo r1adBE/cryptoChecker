@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
@@ -188,12 +189,25 @@ private fun RollingRow(shown: String, up: Boolean, style: TextStyle, color: Colo
 }
 
 /**
+ * Einmal oben im Baum beobachtete Einstellung «Animationen entfernen» ([CryptoCheckerTheme][com.cryptochecker.app.ui.theme.CryptoCheckerTheme]
+ * stellt sie bereit); null = keine bereitgestellt, dann beobachtet [rememberReduceMotion] selbst.
+ */
+val LocalReduceMotion = compositionLocalOf<Boolean?> { null }
+
+/**
  * Animationen im System ausgeschaltet (Entwickleroption bzw. Bedienungshilfe
- * «Animationen entfernen»: Animator-Dauer 0)? Beobachtet die Einstellung, damit ein Wechsel bei
- * laufender App sofort gilt (nicht erst nach dem Neuaufbau des Bildschirms).
+ * «Animationen entfernen»: Animator-Dauer 0)? Aus [LocalReduceMotion] — nicht je Kurs und Pille einer Zeile einen
+ * eigenen Beobachter (Anmelden beim System auf dem Haupt-Thread beim Scrollen); ohne Bereitstellung selbst beobachtet.
  */
 @Composable
-fun rememberReduceMotion(): Boolean {
+fun rememberReduceMotion(): Boolean = LocalReduceMotion.current ?: observeReduceMotion()
+
+/**
+ * Beobachtet die Einstellung, damit ein Wechsel bei laufender App sofort gilt (nicht erst nach dem Neuaufbau des
+ * Bildschirms). Einmal je Baum ([LocalReduceMotion]).
+ */
+@Composable
+fun observeReduceMotion(): Boolean {
     val context = LocalContext.current
     val resolver = context.contentResolver
     var reduce by remember(resolver) { mutableStateOf(readReduceMotion(resolver)) }

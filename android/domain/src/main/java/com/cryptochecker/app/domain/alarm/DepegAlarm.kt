@@ -148,6 +148,15 @@ object DepegAlarm {
         if (fire && !posted) armedBefore else next
 
     /**
+     * Gespeicherter Zustand für die aktuelle Schwelle (Zehntelprozent): Wurde er bei einer anderen Schwelle gemerkt
+     * (geändert oder zwischendurch ausgeschaltet = 0, `MarketAlertReset.depegOff`), ist der Alarm wieder scharf — sonst
+     * bliebe er nach einer neuen Schwelle bzw. dem Wiedereinschalten stumm, solange die Abweichung anhält.
+     * [storedTenths] null = keine Schwelle gemerkt: scharf. Wie der Gas-Alarm (`GasAlertLogic.armedFor`).
+     */
+    fun armedFor(storedArmed: Boolean, storedTenths: Int?, tenths: Int): Boolean =
+        if (storedTenths != tenths) true else storedArmed
+
+    /**
      * Letzte Messung der Prüfung (USDT in USD, Zeitpunkt) — gespeichert, damit Karte und Alarm übereinstimmen.
      * [viaUsdc]: nur aus Binance USDC/USDT abgeleitet ([Measurement.viaUsdc]).
      */

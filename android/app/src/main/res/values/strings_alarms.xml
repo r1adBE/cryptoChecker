@@ -190,4 +190,7 @@
 
     <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
     <string name="alarm_threshold_invalid_fix">Threshold invalid – please adjust</string>
+
+    <!-- Alarm-Editor und Portfolio-Alarm unter «Wann Alarme geprüft werden»: letzte volle Prüfung aller Alarme (Uhrzeit, sonst Datum und Uhrzeit) -->
+    <string name="alarm_last_checked">Last checked %1$s</string>
 </resources>

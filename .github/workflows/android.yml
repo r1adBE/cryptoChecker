@@ -13,11 +13,14 @@ on:
     tags: ['v*']
     paths:
       - 'android/**'
-      # The source guards in the unit tests (FileLengthTest, HapticsUsageTest, licences, typography, …) also
-      # check the Swift sources: a push to main that only touches iOS must run them too
+      # The source guards (line_limit.py, build-number guard, unit tests like FileLengthTest, HapticsUsageTest,
+      # licences, typography, …) also check the Swift sources: a push to main that only touches iOS must run them too
       - 'ios/App/**'
       - 'ios/Shared/**'
       - 'ios/Widgets/**'
+      - 'ios/Watch/**'
+      - 'ios/WatchCore/**'
+      - 'ios/WatchWidgets/**'
       - '.github/workflows/android.yml'
       - '.github/scripts/android_release_audit.sh'
       - '.github/scripts/manifest_policy.py'
@@ -83,8 +86,8 @@ jobs:
         run: python3 -I "$GITHUB_WORKSPACE/android/tools/check_theme_contrast.py"
 
       # Size of the Hilt-wired Kotlin classes (android/*/src/main), next to the line limit: constructor dependencies of
-      # @HiltViewModel / @Inject classes (warning from 15, red above the ceiling 20) and private/internal properties
-      # in a ViewModel body (red above the ceiling) — ceilings = today's maximum, so no class grows past it.
+      # @HiltViewModel / @Inject classes (red above the ceiling 14, no warning tier) and private/internal properties
+      # in a ViewModel body (red above the ceiling 35) — ceilings = today's maximum, so no class grows past it.
       - name: Code metrics
         run: |
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/code_metrics.py" --self-test
@@ -128,10 +131,11 @@ jobs:
           set -o pipefail
           ./gradlew :app:testDebugUnitTest -PperformanceTests=only --stacktrace 2>&1 | tee -a "$RUNNER_TEMP/gradle-test.log"
 
-      # Kotlin compiler warnings in the app and library sources: ceiling 0 (like lint and the iOS release build).
-      # A fresh checkout compiles every changed module in full, so all warnings of that module appear in the log; a
-      # module whose compile output comes from the Gradle build cache prints none (it was unchanged and checked when it
-      # was compiled). Test sources are not counted.
+      # Kotlin compiler warnings in the app and library sources: ceiling 0. The main gate is allWarningsAsErrors
+      # (android/build.gradle.kts: app, domain, marketdata, wear; it also holds for modules from the Gradle build
+      # cache). This step is the second check and covers :data, whose compile task also builds Room's generated code
+      # (only src/main lines count). It sees only modules compiled in this run; cached modules print nothing. Test
+      # sources are not counted.
       - name: Kotlin warnings
         run: |
           W=$(grep -E '^w: (file://)?[^ ]*/src/main/' "$RUNNER_TEMP/gradle-test.log" | sort -u || true)

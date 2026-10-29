@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.WatchRepository
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.lock.AppLockState
 import com.cryptochecker.app.lock.PortfolioLockPolicy
 import com.cryptochecker.app.notification.AppNotifier
@@ -24,6 +25,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -380,7 +382,13 @@ class SettingsViewModel @Inject constructor(
         settingsRepository.setCostMethod(method)
     }
 
+    /**
+     * Schreibweg der Einstellungen im ViewModel-Bereich. Ein Fehler (z. B. DataStore-IOException bei vollem Speicher)
+     * beendet die App nicht: protokolliert, der Schalter zeigt weiter den gespeicherten Stand ([settings]).
+     */
     internal fun update(block: suspend () -> Unit) {
-        viewModelScope.launch { block() }
+        viewModelScope.launch {
+            runCatchingCancellable { block() }.onFailure { Timber.w(it, "Einstellungen: nicht gespeichert") }
+        }
     }
 }

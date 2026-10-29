@@ -1,5 +1,5 @@
 {
-  "_comment": "Adressabfragen (beobachtete Adressen, xpub) senden einen neutralen User-Agent ohne App-Name und -Version, damit Blockchain-Knoten die Adresse nicht der App zuordnen. Verbreiteter vollständiger Browser-Wert (Firefox 159, Release Oktober 2026) und Host-Regel – jeder Host, der Adressen sieht (AddressBalance.PRIVACY_HOSTS / privacyHosts), bekommt ihn bei JEDER Anfrage, auch Gebühren und Halving; alle anderen Hosts den App-User-Agent. Android: AddressPrivacyParityTest.kt (HttpUserAgent.NEUTRAL/forHost, UserAgentInterceptor, Client von WatchedAddressSource), iOS: AddressPrivacyParityTests (HttpUserAgent.neutral/forHost, MarketHTTP.sessionFor(host:requested:)).",
+  "_comment": "Adressabfragen (beobachtete Adressen, xpub) senden einen neutralen User-Agent ohne App-Name und -Version, damit Blockchain-Knoten die Adresse nicht der App zuordnen. Verbreiteter vollständiger Browser-Wert (Firefox 159, Release Oktober 2026) und Host-Regel – jeder Host, der Adressen sieht (AddressBalance.PRIVACY_HOSTS / privacyHosts), bekommt ihn bei JEDER Anfrage, auch Gebühren und Halving; alle anderen Hosts den App-User-Agent. Android: AddressPrivacyParityTest.kt (HttpUserAgent.NEUTRAL/forHost, UserAgentInterceptor, Client von WatchedAddressSource), iOS: AddressPrivacyParityTests (HttpUserAgent.neutral/forHost, ExchangeHTTP.sessionFor(host:requested:)).",
   "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:159.0) Gecko/20100101 Firefox/159.0",
   "forbiddenParts": ["cryptoChecker", "CryptoChecker", "Crypto Checker", "okhttp", "CFNetwork", "Darwin"],
   "_appVersionComment": "Weder App-Name noch App-Version: der neutrale Wert enthält weder den App-User-Agent (HttpUserAgent.android / HttpUserAgent.ios) noch die Versionsnummer – für diese Beispiele und für die Version der laufenden App (Android BuildConfig.VERSION_NAME, iOS HttpUserAgent.value). Gleiche Regel prüft .github/scripts/user_agent_check.py (versionName aus android/app/build.gradle.kts).",
@@ -29,5 +29,15 @@
     { "host": "api.coinbase.com", "neutral": false },
     { "host": "space", "neutral": false },
     { "host": "evil-mempool.space", "neutral": false, "_why": "nur genaue Hosts" }
+  ],
+  "_redirectComment": "Weiterleitungen der Adressabfragen (Client von WatchedAddressSource bzw. dessen Sitzung): nur auf denselben Host und nie von HTTPS auf HTTP, sonst gilt die Weiterleitung als Antwort (HTTP-Fehler) — die Adresse ginge sonst samt IP an einen Dritten. Android: AddressRedirect / SameHostRedirectInterceptor, iOS: AddressRedirect / SameHostRedirectDelegate.",
+  "redirectCases": [
+    { "from": "https://mempool.space/api/address/bc1qexample", "to": "https://mempool.space/api/address/bc1qexample/", "follow": true },
+    { "from": "https://mempool.space/api/address/a", "to": "https://MEMPOOL.space/api/address/a", "follow": true, "_why": "Gross-/Kleinschreibung egal" },
+    { "from": "http://192.168.1.10:3002/api/address/a", "to": "https://192.168.1.10:3002/api/address/a", "follow": true, "_why": "eigener Server: HTTP auf HTTPS" },
+    { "from": "https://mempool.space/api/address/a", "to": "http://mempool.space/api/address/a", "follow": false, "_why": "nie von HTTPS auf HTTP" },
+    { "from": "https://mempool.space/api/address/a", "to": "https://tracker.example/api/address/a", "follow": false, "_why": "anderer Host" },
+    { "from": "https://mempool.space/api/address/a", "to": "https://api.mempool.space/api/address/a", "follow": false, "_why": "auch kein Unter-Host" },
+    { "from": "https://toncenter.com/api/v2/getAddressBalance", "to": "ftp://toncenter.com/x", "follow": false, "_why": "nur HTTP(S)" }
   ]
 }

@@ -40,6 +40,23 @@ struct LivePair: Equatable, Hashable, Sendable {
     var notTraded = false
 }
 
+/// Paar eines Eintrags, wie es abonniert bzw. gespeichert ist (Börse, Basis, Quote, Kontrakt, Kennung) — wie
+/// `PairIdentity` (Android). Ohne Watch-Id, Namen und «nicht gehandelt».
+struct LivePairKey: Hashable, Sendable {
+    var exchangeKey: String
+    var base: String
+    var quote: String
+    /// «NONE», «PERPETUAL», … (Name von `FuturesContractType` in Kotlin).
+    var contract: String
+    var pairId: String?
+}
+
+extension LivePair {
+    var key: LivePairKey {
+        LivePairKey(exchangeKey: exchangeKey, base: base, quote: quote, contract: contract, pairId: pairId)
+    }
+}
+
 /// Eine Verbindung: Börse, Nummer, Symbole (sortiert).
 struct LiveConnectionSpec: Equatable, Sendable {
     var exchange: LiveExchange
@@ -179,6 +196,30 @@ enum LiveRules {
     static func skipRest(lastTickAt: Int64?, now: Int64, rollingBasis: Bool, stampUnchanged: Bool,
                          exchangeRolling: Bool) -> Bool {
         rollingBasis && stampUnchanged && exchangeRolling && isFresh(lastTickAt: lastTickAt, now: now)
+    }
+
+    /// Paare mit «Live» in der Pille: je Paar der eigene letzte Kurs aus dem Strom frisch (`isFresh`) — nicht je Börse.
+    /// Bei vielen Paaren hat eine Börse mehrere Verbindungen; ist eine davon getrennt oder ihr Abo abgelehnt, sind nur
+    /// ihre Paare nicht mehr live. Wie Android.
+    static func liveIds(lastTickAt: [Int64: Int64], now: Int64) -> Set<Int64> {
+        Set(lastTickAt.filter { isFresh(lastTickAt: $0.value, now: now) }.keys)
+    }
+
+    /// So lange nach dem Abonnieren ohne einen einzigen Kurs: Abo abgelehnt bzw. ins Leere — Börsen ohne Text-Ping
+    /// (Binance, Coinbase) halten die Verbindung mit Ping-Frames trotzdem offen. Dann wie getrennt neu verbinden
+    /// (ohne Kurse wächst die Pause, `LiveBackoff.nextAttempt`). Wie Android.
+    static let silentSubscriptionMillis: Int64 = 180_000
+
+    /// Verbindung seit `subscribedAt` (0 = noch nicht abonniert) ohne Kurs (`receivedData`) zu lange still?
+    static func silentSubscription(subscribedAt: Int64, receivedData: Bool, now: Int64) -> Bool {
+        !receivedData && subscribedAt > 0 && now - subscribedAt >= silentSubscriptionMillis
+    }
+
+    /// Gehört ein gepufferter Kurs noch zum Eintrag? Nur, wenn das Paar, für das er abonniert war (`subscribed`), das
+    /// aktuelle des Eintrags ist (`current`) — nach «Paar bearbeiten» trägt ein Takt des alten Symbols das alte Paar
+    /// und wird verworfen, egal welche Zeit die Börse meldet. Ohne Zuordnung (nil): verwerfen. Wie Android.
+    static func samePair(subscribed: LivePairKey?, current: LivePairKey) -> Bool {
+        subscribed == current
     }
 }
 

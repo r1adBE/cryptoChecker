@@ -140,6 +140,13 @@ class DatabaseKeyStore(
         }
     }
 
+    /** Als «ersetzt» behaltene Schlüssel löschen ([REPLACED_SUFFIX]); die zugehörige ersetzte Datei ist weg. */
+    override fun discardReplaced(database: String) {
+        for (replaced in slotFiles(database, REPLACED_SUFFIX)) {
+            if (replaced.exists() && !replaced.delete()) throw IOException("$database: ersetzter Schlüssel nicht gelöscht")
+        }
+    }
+
     override fun previous(database: String): List<DatabaseOpenPlanner.PreviousKey> {
         val files = previousKeyFiles(database)
         if (files.isEmpty()) return emptyList()
@@ -226,6 +233,13 @@ class DatabaseKeyStore(
             else -> database
         }
         const val DIRECTORY = "db_keys"
+
+        /**
+         * Verdachts-Merker für weitere Keystore-Schlüssel, an denen nicht neu berechenbare Daten hängen (Journal des
+         * Wiederherstellens, Alarm-Protokoll; [com.cryptochecker.app.widget.PortfolioSnapshotKeyStore]): gleicher Ordner,
+         * Merker je Alias.
+         */
+        fun suspectMarker(context: Context) = DatabaseKeyRetry.SuspectMarker(File(context.noBackupFilesDir, DIRECTORY))
 
         /** Endung der von [create] beiseitegelegten früheren Schlüssel (weitere mit «.1», «.2» …). */
         const val PREVIOUS_SUFFIX = ".previous"

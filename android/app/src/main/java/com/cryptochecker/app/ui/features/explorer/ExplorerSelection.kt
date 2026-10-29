@@ -97,13 +97,11 @@ enum class AddResult {
     WATCHLIST_FULL,
 }
 
-/** Laden der Börsenliste: läuft, bereit (mit der Auswahl) oder gescheitert. */
+/** Laden der Börsenliste: läuft oder bereit (mit der Auswahl). */
 sealed interface ExplorerLoad {
     data object Loading : ExplorerLoad
 
     data class Ready(val selection: ExplorerSelection) : ExplorerLoad
-
-    data class Failed(val error: Throwable) : ExplorerLoad
 }
 
 /**

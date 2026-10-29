@@ -8,25 +8,38 @@ enum ZoneCheck {
     /// Grenzen, zu denen der gemerkte Stand gehört (wie Android).
     static let keyFearGreedBelow = "last_fear_greed_below"
     static let keyFearGreedAbove = "last_fear_greed_above"
+    /// Zähler der «Aus»-Schaltungen (`MarketAlertReset`): Eine laufende Prüfung schreibt danach ihren Stand nicht mehr —
+    /// sonst überschriebe sie das «Aus» mit der alten Grenze (Android: gemeinsame Sperre `ZoneCheckPrefs.lock`).
+    static let keyResetGeneration = "zone_reset_generation"
 
-    /// - Returns: immer true (Fear & Greed ohne Netz wird beim nächsten Lauf nachgeholt).
+    /// - Returns: false, wenn Fear & Greed oder die Kennzahlen nicht abrufbar waren — dann erneut versuchen
+    ///   (`BackgroundRefresh`, wie `Result.retry()` von `ZoneCheckWorker`). Keine Doppelmeldung: Gemeldetes ist vermerkt.
     @discardableResult
     static func run(settings: AppSettings) async -> Bool {
         let defaults = SharedStorage.defaults
-        await checkFearGreed(below: settings.fearGreedBelow, above: settings.fearGreedAbove, defaults: defaults)
-        await checkIndicators(settings.indicatorAlerts, defaults: defaults)
-        return true
+        let generation = defaults.integer(forKey: keyResetGeneration)
+        let fearGreedOk = await checkFearGreed(below: settings.fearGreedBelow, above: settings.fearGreedAbove,
+                                               defaults: defaults, generation: generation)
+        let indicatorsOk = await checkIndicators(settings.indicatorAlerts, defaults: defaults, generation: generation)
+        return fearGreedOk && indicatorsOk
+    }
+
+    /// Seit Beginn der Prüfung (`generation`) kein «Aus»? Sonst den Stand nicht schreiben; der nächste Lauf bewertet neu.
+    static func mayStore(generation: Int, defaults: UserDefaults) -> Bool {
+        defaults.integer(forKey: keyResetGeneration) == generation
     }
 
     /// Eigene Grenzen der Bitcoin-Kennzahlen (`IndicatorAlertRules`): einmal melden, wenn ein Wert die Grenze
     /// erreicht; wieder scharf, sobald er zurück ist. Kam die Meldung nicht an, bleibt sie offen — wie Android.
-    private static func checkIndicators(_ stored: [String: Int], defaults: UserDefaults) async {
+    /// - Returns: false, wenn die Kennzahlen nicht abrufbar waren.
+    private static func checkIndicators(_ stored: [String: Int], defaults: UserDefaults, generation: Int) async -> Bool {
         let active = IndicatorAlertRules.active(stored)
         for kind in IndicatorAlertKind.allCases where active[kind] == nil {
             defaults.removeObject(forKey: crossedKey(kind))
             defaults.removeObject(forKey: thresholdKey(kind))
         }
-        guard !active.isEmpty, let inputs = try? await CycleDataSource.fetch() else { return }
+        guard !active.isEmpty else { return true }
+        guard let inputs = try? await CycleDataSource.fetch() else { return false }
         let report = BitcoinIndicatorModel.evaluate(inputs)
         for (kind, threshold) in active {
             let value = report.indicators.first { $0.id == kind.indicator }?.value
@@ -46,11 +59,13 @@ enum ZoneCheck {
                 }
                 if !posted { crossed = nil }
             }
-            if let crossed {
+            // Seit Beginn ausgeschaltet: den Stand nicht schreiben, das «Aus» bleibt
+            if let crossed, mayStore(generation: generation, defaults: defaults) {
                 defaults.set(crossed, forKey: crossedKey(kind))
                 defaults.set(storedThreshold, forKey: thresholdKey(kind))
             }
         }
+        return true
     }
 
     static func crossedKey(_ kind: IndicatorAlertKind) -> String { "indicator_crossed_" + kind.rawValue.lowercased() }
@@ -60,14 +75,15 @@ enum ZoneCheck {
 
     /// Fear & Greed: einmal melden, wenn der Index die eingestellte Grenze
     /// unter- bzw. überschreitet — nicht bei jedem Lauf erneut.
-    private static func checkFearGreed(below: Int, above: Int, defaults: UserDefaults) async {
+    /// - Returns: false, wenn der Index nicht abrufbar war.
+    private static func checkFearGreed(below: Int, above: Int, defaults: UserDefaults, generation: Int) async -> Bool {
         if below <= 0 && above <= 0 {
             defaults.removeObject(forKey: keyFearGreed)
             defaults.removeObject(forKey: keyFearGreedBelow)
             defaults.removeObject(forKey: keyFearGreedAbove)
-            return
+            return true
         }
-        guard let value = try? await InsightsDataSource.fearGreed().value else { return }
+        guard let value = try? await InsightsDataSource.fearGreed().value else { return false }
         let last: Int? = defaults.object(forKey: keyFearGreed) != nil ? defaults.integer(forKey: keyFearGreed) : nil
         // Grenze seit dem gemerkten Stand geändert: für sie zählt der alte Stand nicht
         let belowChanged = MarketNoticeGate.boundChanged(stored: defaults.object(forKey: keyFearGreedBelow) as? Int, current: below)
@@ -90,12 +106,14 @@ enum ZoneCheck {
             case nil: posted = false
             }
         }
-        // Nicht angekommen: alten Wert behalten, damit die Grenze später noch gemeldet wird
-        if MarketNoticeGate.storeAfterNotify(decision.step, posted: posted) {
+        // Nicht angekommen: alten Wert behalten, damit die Grenze später noch gemeldet wird; seit Beginn
+        // ausgeschaltet: nicht schreiben, das «Aus» bleibt
+        if MarketNoticeGate.storeAfterNotify(decision.step, posted: posted) && mayStore(generation: generation, defaults: defaults) {
             defaults.set(value, forKey: keyFearGreed)
             defaults.set(below, forKey: keyFearGreedBelow)
             defaults.set(above, forKey: keyFearGreedAbove)
         }
+        return true
     }
 }
 
@@ -174,5 +192,17 @@ enum MarketNoticeGate {
         case .notify: return posted
         case .hold: return false
         }
+    }
+
+    /// Abruf gescheitert: so oft erneut (`BackgroundRefresh.runZoneCheckIfDue`), danach holen das nächste Öffnen bzw.
+    /// die Hintergrund-Aufgabe nach. Keine Doppelmeldung: Gemeldetes ist vermerkt. Wie Android (`ZoneCheckWorker`).
+    static let maxRetries = 3
+
+    /// Erste Pause vor einem erneuten Versuch; jede weitere doppelt so lang (30 s, 1 Min., 2 Min.).
+    static let retryBaseMillis: Int64 = 30_000
+
+    /// Pause vor dem erneuten Versuch Nummer `attempt` (ab 1).
+    static func retryDelayMillis(attempt: Int) -> Int64 {
+        retryBaseMillis << Int64(min(max(attempt, 1), maxRetries) - 1)
     }
 }

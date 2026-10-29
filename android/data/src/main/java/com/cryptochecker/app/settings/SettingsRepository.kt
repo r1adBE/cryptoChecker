@@ -48,9 +48,6 @@ class SettingsRepository @Inject constructor(
     /** Was die Merkliste liest ([WatchlistSettings]). */
     val watchlistSettings: Flow<WatchlistSettings> = settings.map { WatchlistSettings.of(it) }.distinctUntilChanged()
 
-    /** Aussehen ([AppearanceSettings]). */
-    val appearanceSettings: Flow<AppearanceSettings> = settings.map { AppearanceSettings.of(it) }.distinctUntilChanged()
-
     /** Alarme, Mitteilungen und Sprachausgabe ([AlarmSettings]). */
     val alarmSettings: Flow<AlarmSettings> = settings.map { AlarmSettings.of(it) }.distinctUntilChanged()
 
@@ -171,7 +168,10 @@ class SettingsRepository @Inject constructor(
         if (satPerVb <= 0) MarketAlertReset.gasOff(context, eth = false)
     }
 
-    override suspend fun setDepegAlarm(enabled: Boolean) = edit { it[SettingsKeys.depegAlarm] = enabled }
+    override suspend fun setDepegAlarm(enabled: Boolean) {
+        edit { it[SettingsKeys.depegAlarm] = enabled }
+        if (!enabled) MarketAlertReset.depegOff(context)
+    }
 
     /** Nur Werte aus [DepegAlarm.THRESHOLD_CHOICES], sonst Standard. */
     override suspend fun setDepegThreshold(tenths: Int) = edit { it[SettingsKeys.depegThreshold] = DepegAlarm.threshold(tenths) }
@@ -338,9 +338,6 @@ class SettingsRepository @Inject constructor(
 
     /** Hinweis zu den Länder-Vorlagen (Beta) bestätigt (nicht in der Sicherung). */
     suspend fun setTaxTemplateConfirmed() = edit { it[SettingsKeys.taxTemplateConfirmed] = true }
-
-    /** Markt-Tab einmal gesehen — «Einordnung» und «Daten» beginnen danach zugeklappt (nicht in der Sicherung). */
-    suspend fun setMarketTabSeen(seen: Boolean) = edit { it[SettingsKeys.marketTabSeen] = seen }
 
     /** «Mehr Marktdaten» im Markt-Tab auf- oder zugeklappt (nicht in der Sicherung). */
     suspend fun setMarketMoreExpanded(expanded: Boolean) = edit { it[SettingsKeys.marketMoreExpanded] = expanded }

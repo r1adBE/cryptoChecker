@@ -140,16 +140,6 @@
     <string name="pulse_alts_weaker">Bitcoin ऑल्टकॉइन से मज़बूत</string>
     <string name="pulse_chip_funding_high">लीवरेज ट्रेडरों का मूड आशावादी</string>
     <string name="pulse_chip_funding_negative">लीवरेज ट्रेडरों का मूड निराशावादी</string>
-    <string name="pulse_funding_high">फ़ंडिंग साफ़ तौर पर पॉज़िटिव: कई लीवरेज्ड लॉन्ग</string>
-    <string name="pulse_funding_negative">फ़ंडिंग नेगेटिव: कई शॉर्ट</string>
-    <string name="pulse_funding_neutral">फ़ंडिंग न्यूट्रल</string>
-    <string name="pulse_funding_slight">फ़ंडिंग थोड़ा पॉज़िटिव</string>
-    <string name="pulse_gas_high">Ethereum गैस ऊँचा (%1$s gwei)</string>
-    <string name="pulse_gas_low">Ethereum गैस कम (%1$s gwei)</string>
-    <string name="pulse_gas_normal">Ethereum गैस सामान्य (%1$s gwei)</string>
-    <string name="pulse_volume_high">ट्रेडिंग वॉल्यूम असामान्य रूप से ऊँचा (सामान्य का %1$s×)</string>
-    <string name="pulse_volume_low">ट्रेडिंग वॉल्यूम कम (सामान्य का %1$s×)</string>
-    <string name="pulse_volume_normal">ट्रेडिंग वॉल्यूम सामान्य</string>
 
     <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s, %2$s। %3$s।</string>

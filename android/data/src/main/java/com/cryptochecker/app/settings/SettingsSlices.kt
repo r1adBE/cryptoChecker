@@ -52,33 +52,6 @@ data class WatchlistSettings(
     }
 }
 
-/** Aussehen: Farben, Kontrast, Logos und Namen. */
-data class AppearanceSettings(
-    val accentColor: AccentColor,
-    val darkMode: Boolean?,
-    val highContrast: Boolean,
-    val priceColorScheme: PriceColorScheme,
-    val priceColorsInverted: Boolean,
-    val coinLogos: Boolean,
-    val widgetCoinLogos: Boolean,
-    val portfolioCoinLogos: Boolean,
-    val watchlistNames: Boolean,
-) {
-    companion object {
-        fun of(s: AppSettings) = AppearanceSettings(
-            accentColor = s.accentColor,
-            darkMode = s.darkMode,
-            highContrast = s.highContrast,
-            priceColorScheme = s.priceColorScheme,
-            priceColorsInverted = s.priceColorsInverted,
-            coinLogos = s.coinLogos,
-            widgetCoinLogos = s.widgetCoinLogos,
-            portfolioCoinLogos = s.portfolioCoinLogos,
-            watchlistNames = s.watchlistNames,
-        )
-    }
-}
-
 /** Alarme und Mitteilungen: Schwellen, Ton, Ruhezeit und Sprachausgabe. */
 data class AlarmSettings(
     val priceNotifications: Boolean,

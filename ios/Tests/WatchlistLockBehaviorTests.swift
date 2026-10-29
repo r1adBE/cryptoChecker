@@ -99,12 +99,12 @@ final class WatchlistLockBehaviorTests: XCTestCase {
         let data = AppData.shared
         data.watchlistLocked = false
         let portfolioAlarms = original?.portfolioAlarms, nextPortfolioAlarmId = original?.nextPortfolioAlarmId
-        // Schreibvorgänge der vorigen Prüfung (ungesperrt) erst abwarten, sonst überschreiben sie die Testdaten
-        await SharedStorage.snapshotWritesSettled()
-        await data.waitForLiveApply()
-        for attempt in 0..<3 {
+        // Schreibvorgänge der vorigen Prüfung (ungesperrt) erst abwarten, sonst überschreiben sie die Testdaten; vor einem
+        // neuen Versuch ebenso (auf die Schreibvorgänge selbst warten statt auf eine feste Zeit)
+        for _ in 0..<3 {
+            await SharedStorage.snapshotWritesSettled()
+            await data.waitForLiveApply()
             if try await writeTestData(portfolioAlarms, nextPortfolioAlarmId, prepare) { return }
-            if attempt < 2 { try await Task.sleep(nanoseconds: 200_000_000) }
         }
         XCTFail("Testdaten nicht übernommen")
         throw HostStorageKey.NotReady()

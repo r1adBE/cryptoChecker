@@ -79,11 +79,10 @@ internal fun WatchRow(
     watch: WatchEntity,
     alarmCount: Int,
     now: Long,
+    /** Frische-Schwelle: Änderung grau und ohne Fehler «veraltet» statt der normalen Zeitzeile. */
     staleAfter: Long,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    /** Ohne Fehler, aber älter als das: «veraltet» statt der normalen Zeitzeile. */
-    outdatedAfter: Long = Long.MAX_VALUE,
     elevation: Dp = 0.dp,
     highlighted: Boolean = false,
     sortMode: Boolean = false,
@@ -157,7 +156,7 @@ internal fun WatchRow(
     val flash = rememberPriceFlash(watch.id, watch.lastPrice)
     // Börse pausiert: «Binance · pausiert bis 19:45» statt der Zeitzeile ([RowPause])
     val pausedUntil = RowPause.shownUntil(off, LocalExchangePauses.current[watch.exchangeKey], now)
-    val status = watchRowStatus(watch, now, stale, outdatedAfter, pausedUntil)
+    val status = watchRowStatus(watch, now, stale, staleAfter, pausedUntil)
 
     // Screenreader: die ganze Zeile als ein Satz (Paar, Kurs, Änderung, ≈, Verlauf, Notiz,
     // Alarme, Zustand). ⚡ und Menü bleiben eigene Knöpfe, Favorit als Screenreader-Aktion; Tippen bleibt.
@@ -195,7 +194,7 @@ internal fun WatchRow(
         failed = watch.lastError != null && !notTraded,
         lastUpdate = watch.lastUpdate,
         now = now,
-        outdatedAfter = minOf(staleAfter, outdatedAfter),
+        outdatedAfter = staleAfter,
     )
     val priceNotificationOn = A11ySpeech.priceNotificationOn(
         pairOn = watch.notificationEnabled,

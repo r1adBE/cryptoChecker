@@ -35,7 +35,7 @@ class PriceUpdateWorker @AssistedInject constructor(
     /**
      * Pflicht für bevorzugte Aufgaben: Bis Android 11 laufen sie als
      * Vordergrunddienst und brauchen eine Benachrichtigung. Fehlt sie,
-     * scheitert die Aufgabe dort. Ohne Diensttyp: Die App deklariert seit 1.0
+     * scheitert die Aufgabe dort. Ohne Diensttyp: Die App deklariert
      * keinen Vordergrunddienst-Typ (kein dataSync); ab Android 12 läuft die
      * bevorzugte Aufgabe als Job und ruft das hier nicht auf.
      */
@@ -57,7 +57,7 @@ class PriceUpdateWorker @AssistedInject constructor(
             val summary = backgroundCheck.run(trigger, networkGuaranteed = true, ttsWaitMillis = TTS_WAIT_MILLIS)
             // Netz unter dem Wecker «Pünktlich prüfen»: fehlt er (z. B. Paare neu hinzugefügt), neu stellen
             if (BackgroundWorkPolicy.syncsExactAfterRun(manual)) syncExact()
-            if (summary == null) return BackgroundWorkPolicy.outcome(manual, null, null).toResult()
+            if (summary == null) return BackgroundWorkPolicy.outcomeAfterRun.toResult()
 
             // Zeit zwischen Knopfdruck und Start (samt Wartezeit früherer Versuche): Die zählt nicht zur Dauer,
             // verlängert aber, wie lange der Kreis in der App dreht. Dazu die Nummer des Versuchs für den Bericht.
@@ -73,7 +73,7 @@ class PriceUpdateWorker @AssistedInject constructor(
                 Timber.w("Hintergrund-Aktualisierung: alle %d Paare fehlgeschlagen, nächster Lauf im normalen Takt", summary.checked)
             }
             // Kein Retry, auch wenn alles scheiterte: Der Backoff verschöbe den nächsten Lauf um Stunden
-            BackgroundWorkPolicy.outcome(manual, summary.checked, summary.failed).toResult()
+            BackgroundWorkPolicy.outcomeAfterRun.toResult()
         } catch (ex: CancellationException) {
             // Abbruch (Bedingung weg, Auftrag ersetzt/abgebrochen) nicht als Fehlschlag melden
             throw ex

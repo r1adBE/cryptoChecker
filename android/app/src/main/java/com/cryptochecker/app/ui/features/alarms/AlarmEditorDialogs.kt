@@ -1,4 +1,5 @@
-// Hinweise des Alarm-Editors: «Bei geschlossener App», der Satz «Wann Alarme geprüft werden» und sein Dialog.
+// Hinweise des Alarm-Editors: «Bei geschlossener App», der Satz «Wann Alarme geprüft werden» mit «Zuletzt geprüft» und
+// sein Dialog.
 // Eigene Datei, weil `AlarmEditorSheet` sonst zu lang würde.
 package com.cryptochecker.app.ui.features.alarms
 
@@ -10,7 +11,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -19,14 +22,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
+import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.ui.theme.Spacing
+import kotlinx.coroutines.delay
 
 /**
  * Kleine graue Zeile unter dem Alarm-Satz: der eine Satz «Wann Alarme geprüft werden»
  * ([alarmTimingHintText]) — vollständig sichtbar, darum ohne (i), das ihn nur wiederholen würde.
- * Auch im Portfolio-Alarm. Darunter der Akku-Hinweis, der Knopf «Aktualisierung ändern»
- * direkt zur Wahl «Wie aktuell?» und der Weg zu «Damit Alarme ankommen».
+ * Auch im Portfolio-Alarm. Darunter «Zuletzt geprüft» ([AlarmLastCheckedLine]), der Akku-Hinweis, der Knopf
+ * «Aktualisierung ändern» direkt zur Wahl «Wie aktuell?» und der Weg zu «Damit Alarme ankommen». Wie iOS `ClosedAppHintRow`.
  */
 @Composable
 internal fun ClosedAppHint(modifier: Modifier = Modifier) {
@@ -44,6 +49,7 @@ internal fun ClosedAppHint(modifier: Modifier = Modifier) {
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
+        AlarmLastCheckedLine(Modifier.padding(top = 2.dp))
         // Ein Alarm ist da, also wird im Hintergrund geprüft (hasWork)
         com.cryptochecker.app.ui.features.settings.BatteryDelayHint(batteryRestricted = batteryRestricted, hasWork = true)
         if (openUpdates != null) {
@@ -65,6 +71,37 @@ internal fun ClosedAppHint(modifier: Modifier = Modifier) {
         }
     }
 }
+
+/**
+ * «Zuletzt geprüft 14:32»: wann die Alarme zuletzt wirklich geprüft wurden — volle Prüfung in App, Hintergrund oder
+ * «Pünktlich prüfen» ([RefreshStats.lastFullCheck]); Live-Takte zählen nicht (keine Prüfung aller Alarme). Noch nie:
+ * keine Zeile. Liest den Stand jede Minute neu (heute nur die Uhrzeit, sonst mit Datum). Wie iOS `AlarmLastCheckedLine`.
+ */
+@Composable
+internal fun AlarmLastCheckedLine(modifier: Modifier = Modifier) {
+    val context = LocalContext.current
+    var at by remember { mutableLongStateOf(RefreshStats.storedLastFullCheck(context)) }
+    // Minutentakt: neuer Stand und der Wechsel «heute» → mit Datum um Mitternacht
+    var minute by remember { mutableLongStateOf(System.currentTimeMillis() / MINUTE_MILLIS) }
+    LaunchedEffect(Unit) {
+        while (true) {
+            delay(MINUTE_MILLIS - System.currentTimeMillis() % MINUTE_MILLIS)
+            at = RefreshStats.storedLastFullCheck(context)
+            minute = System.currentTimeMillis() / MINUTE_MILLIS
+        }
+    }
+    if (at <= 0) return
+    // Neu formatieren, sobald eine Minute vergangen ist (heute ↔ mit Datum)
+    val text = androidx.compose.runtime.key(minute) { checkTime(at) }
+    Text(
+        stringResource(R.string.alarm_last_checked, text),
+        modifier = modifier,
+        style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+    )
+}
+
+private const val MINUTE_MILLIS = 60_000L
 
 /**
  * Der eine Satz «Wann Alarme geprüft werden» ([com.cryptochecker.app.domain.alarm.AlarmTimingHint]):

@@ -158,6 +158,13 @@ enum DepegAlarm {
         (fire && !posted) ? armedBefore : next
     }
 
+    /// Gespeicherter Zustand für die aktuelle Schwelle (Zehntelprozent): Wurde er bei einer anderen Schwelle gemerkt
+    /// (geändert oder zwischendurch ausgeschaltet = 0, `MarketAlertReset.depegOff`), ist der Alarm wieder scharf.
+    /// `storedTenths` nil = keine Schwelle gemerkt: scharf. Wie Android und der Gas-Alarm (`GasAlertCheck.armedFor`).
+    static func armedFor(storedArmed: Bool, storedTenths: Int?, tenths: Int) -> Bool {
+        storedTenths != tenths ? true : storedArmed
+    }
+
     /// Letzte Messung der Prüfung (USDT in USD, Zeitpunkt) — gespeichert, damit Karte und Alarm übereinstimmen.
     /// `viaUsdc`: nur aus Binance USDC/USDT abgeleitet (`Measurement.viaUsdc`).
     struct Reading: Equatable {

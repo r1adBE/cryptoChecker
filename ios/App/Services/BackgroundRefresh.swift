@@ -51,13 +51,25 @@ enum BackgroundRefresh {
     }
 
     /// Beim Öffnen der App: Prüfung nachholen, wenn die letzte 12 h oder länger her ist (oder noch nie
-    /// lief) — iOS startet die Hintergrund-Aufgabe oft spät oder gar nicht.
+    /// lief) — iOS startet die Hintergrund-Aufgabe oft spät oder gar nicht. Abruf gescheitert: erneut mit wachsender
+    /// Pause (`MarketNoticeGate.retryDelayMillis`, wie der Backoff von `ZoneCheckWorker`), danach beim nächsten Öffnen.
     @MainActor
     static func runZoneCheckIfDue(settings: AppSettings) {
         guard zoneWanted(settings),
               ZoneSchedule.isDue(lastRunMillis: lastZoneCheckAt, now: EpochTime.nowMillis),
               !zoneRunning else { return }
-        Task { @MainActor in _ = await runZoneCheck(settings: settings) }
+        Task { @MainActor in
+            var current = settings
+            var attempt = 0
+            // nil = es lief schon eine (zählt als erledigt)
+            while await runZoneCheck(settings: current) == false, attempt < MarketNoticeGate.maxRetries {
+                attempt += 1
+                let delay = UInt64(MarketNoticeGate.retryDelayMillis(attempt: attempt))
+                try? await Task.sleep(nanoseconds: delay * 1_000_000)
+                current = SharedStorage.loadSettings()
+                guard zoneWanted(current) else { return }
+            }
+        }
     }
 
     /// Läuft gerade eine Prüfung (Hintergrund-Aufgabe oder Nachholen)? Nur eine zur Zeit, sonst

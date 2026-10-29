@@ -206,6 +206,7 @@ extension PortfolioTxSheet {
     private static func roundForInput(_ value: Decimal) -> Decimal { PortfolioDecimal.roundSignificant(value, digits: 8) }
 
     func save() {
+        guard !saving else { return }
         tried = true
         // Unvollständige Gebühr im dritten Coin: Abschnitt öffnen, damit der Fehler sichtbar ist
         if thirdFee == .invalid || feeConsumes {
@@ -277,17 +278,23 @@ extension PortfolioTxSheet {
         let askEnable: Bool = PortfolioOff.askEnableOnSave(isNew: !initial.isEdit,
                                                            portfolioEnabled: data.settings.portfolioEnabled,
                                                            hadTransactions: !data.portfolio.isEmpty)
-        // Nicht geschrieben: nie still verwerfen — Meldung, Eingaben bleiben
-        guard data.savePortfolioTx(tx) != nil else {
-            Haptics.play(.error)
-            saveFailed = true
-            return
+        // Geschrieben wird abseits des Haupt-Threads; solange nicht doppelt speichern (neue Transaktion zweimal)
+        saving = true
+        Task { @MainActor in
+            let saved = await data.savePortfolioTx(tx)
+            saving = false
+            // Nicht geschrieben: nie still verwerfen — Meldung, Eingaben bleiben
+            guard saved != nil else {
+                Haptics.play(.error)
+                saveFailed = true
+                return
+            }
+            Haptics.play(.success)
+            if askEnable {
+                onAskEnablePortfolio()
+            }
+            dismiss()
         }
-        Haptics.play(.success)
-        if askEnable {
-            onAskEnablePortfolio()
-        }
-        dismiss()
     }
 
     /// Zeitpunkt für das gewählte Datum: unverändertes Datum behält die Uhrzeit,

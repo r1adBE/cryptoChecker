@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 /// Kurse und Coin-Liste für das Portfolio, immer in USDT — wie `PortfolioPriceSource.kt`.
 ///
@@ -55,6 +56,11 @@ enum PortfolioPriceSource {
 
     private static let priceGate = PortfolioSerialGate()
     static let coinGate = PortfolioSerialGate()
+    /// Zähler von «Portfolio leeren» (`clearStored`, unter `lock` erhöht): eine Abfrage, die davor begann, übernimmt ihre
+    /// Kurse nicht mehr und schreibt die Datei nicht neu (`persist`) — sonst kämen die gelöschten Coins zurück. Wie Android.
+    static let clearGeneration = OSAllocatedUnfairLock(initialState: 0)
+    /// Höchstens so viele Kerzen-Abfragen zugleich für Coins ohne Binance-Kurs (wie `HistoricPriceSource.parallel`).
+    private static let candleParallel = 4
 
     /// Gültiges Symbol: 1–15 Buchstaben oder Ziffern.
     static func isSymbol(_ s: String) -> Bool {
@@ -72,6 +78,7 @@ enum PortfolioPriceSource {
     static func prices(_ coins: [String], force: Bool = false) async -> PortfolioPrices {
         let wanted = normalized(coins)
         await priceGate.run { () async -> Void in
+            let generation = Self.clearGeneration.withLock { $0 }
             let now = EpochTime.nowMillis
             // Dazu die Basis gekapselter Coins (Ersatzkurs, `ChainAssets.priceViaBase`); nur abfragbare Kürzel
             let toFetch = ChainAssets.withBases(wanted).filter { coin in
@@ -115,14 +122,20 @@ enum PortfolioPriceSource {
                 let identityNames = missing.map { TokenIdentityStore.shared.watchName($0, watches: watches) }
                 let results = await withTaskGroup(of: (String, Double?).self,
                                                   returning: [(String, Double?)].self) { group in
-                    for (coin, identityName) in zip(missing, identityNames) {
-                        group.addTask {
-                            let price = await Self.candlePrice(coin, identityName: identityName)
-                            return (coin, price)
-                        }
+                    // Höchstens `candleParallel` zugleich, auch bei vielen Coins (wie Android)
+                    var pending = zip(missing, identityNames).makeIterator()
+                    for _ in 0..<Self.candleParallel {
+                        guard let next = pending.next() else { break }
+                        let (coin, identityName) = next
+                        group.addTask { (coin, await Self.candlePrice(coin, identityName: identityName)) }
                     }
                     var out: [(String, Double?)] = []
-                    for await r in group { out.append(r) }
+                    for await r in group {
+                        out.append(r)
+                        guard let next = pending.next() else { continue }
+                        let (coin, identityName) = next
+                        group.addTask { (coin, await Self.candlePrice(coin, identityName: identityName)) }
+                    }
                     return out
                 }
                 let sourcesBlocked = Self.candleHosts.allSatisfy { BlockedSources.isBlocked($0) }
@@ -147,11 +160,13 @@ enum PortfolioPriceSource {
             // Binance ohne prüfbare Identität ausgelassen und kein anderer Kurs: «ungeprüft» (nicht abgelehnte)
             unchecked.formUnion(split.unchecked.subtracting(rejected))
             // Eingetragene Börse: deren Kurs gilt, sonst bleibt Binance (PortfolioExchangeRoute)
-            fetched = await Self.applyRoutes(toFetch, fetched)
-            Self.store(fetched, at: EpochTime.nowMillis, unchecked: unchecked, rejected: rejected,
-                       requested: toFetch, unavailable: unavailable, unverified: binanceUnverified)
+            fetched = await Self.applyRoutes(toFetch, fetched, generation: generation)
+            // «Portfolio leeren» lief während der Abfrage: nichts übernehmen, keine Datei neu anlegen
+            let kept = Self.store(fetched, at: EpochTime.nowMillis, unchecked: unchecked, rejected: rejected,
+                                  requested: toFetch, unavailable: unavailable, unverified: binanceUnverified,
+                                  generation: generation)
             // Letzten guten Stand merken (für ohne Netz und nach einem Neustart)
-            if !fetched.isEmpty { Self.persist() }
+            if kept && !fetched.isEmpty { Self.persist(generation: generation) }
         }
         return collect(wanted)
     }
@@ -161,7 +176,8 @@ enum PortfolioPriceSource {
     /// Wege aus der App Group (`PortfolioExchangeRouteStore`, von der App aufgelöst): Kurs über den Adapter der
     /// Börse, in USDT umgerechnet; ersetzt den Binance-Kurs. Scheitert es, bleibt Binance (`failedOf`).
     /// Abfragen gehen nur an die Börse, die der Nutzer selbst eingetragen hat — wie Android.
-    private static func applyRoutes(_ coins: [String], _ binancePrices: [String: Double]) async -> [String: Double] {
+    private static func applyRoutes(_ coins: [String], _ binancePrices: [String: Double],
+                                    generation: Int) async -> [String: Double] {
         let stored = PortfolioExchangeRouteStore.load()
         var fetched = binancePrices
         var sources: [String: String] = [:]
@@ -188,6 +204,8 @@ enum PortfolioPriceSource {
             }
         }
         lock.withLock {
+            // Inzwischen geleert: die Herkunft gelöschter Coins nicht wieder eintragen
+            guard clearGeneration.withLock({ $0 }) == generation else { return }
             for coin in coins {
                 sourceOf[coin] = sources[coin]
                 failedOf[coin] = failed[coin]
@@ -243,9 +261,12 @@ enum PortfolioPriceSource {
     /// Coin «ungeprüft»; `rejected` (Kerze passt nicht zum Bezug): nicht mehr «ungeprüft».
     /// `unavailable` (Abfrage gescheitert): unter den angefragten Coins ohne Kurs «nicht abrufbar», die übrigen nicht mehr.
     /// `unverified` (Binance-Kurs mit unbestätigtem Token): «Kurs ungeprüft», solange keine eingetragene Börse gilt.
+    /// false = seit `generation` geleert (`clearStored`): nichts übernommen.
     private static func store(_ fetched: [String: Double], at time: Int64, unchecked: Set<String>, rejected: Set<String>,
-                              requested: [String] = [], unavailable: Set<String> = [], unverified: Set<String> = []) {
+                              requested: [String] = [], unavailable: Set<String> = [], unverified: Set<String> = [],
+                              generation: Int) -> Bool {
         lock.lock(); defer { lock.unlock() }
+        guard clearGeneration.withLock({ $0 }) == generation else { return false }
         for (coin, price) in fetched {
             cache[coin] = (price: price, at: time)
             uncheckedCoins.remove(coin)
@@ -265,6 +286,7 @@ enum PortfolioPriceSource {
             cache[coin] = nil
             uncheckedCoins.insert(coin)
         }
+        return true
     }
 
     /// Unabhängige Bezüge für Kerzenkurse (`PricePlausibility.candleReference`): Kurse aktiver

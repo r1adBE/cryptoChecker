@@ -142,16 +142,6 @@
     <string name="pulse_alts_weaker">Bitcoin silniejszy niż altcoiny</string>
     <string name="pulse_chip_funding_high">Nastroje na dźwigni optymistyczne</string>
     <string name="pulse_chip_funding_negative">Nastroje na dźwigni pesymistyczne</string>
-    <string name="pulse_funding_high">Funding wyraźnie dodatni: wiele lewarowanych longów</string>
-    <string name="pulse_funding_negative">Funding ujemny: wiele shortów</string>
-    <string name="pulse_funding_neutral">Funding neutralny</string>
-    <string name="pulse_funding_slight">Funding lekko dodatni</string>
-    <string name="pulse_gas_high">Gas Ethereum wysoki (%1$s gwei)</string>
-    <string name="pulse_gas_low">Gas Ethereum niski (%1$s gwei)</string>
-    <string name="pulse_gas_normal">Gas Ethereum normalny (%1$s gwei)</string>
-    <string name="pulse_volume_high">Wolumen obrotu nietypowo wysoki (%1$s× normy)</string>
-    <string name="pulse_volume_low">Wolumen obrotu niski (%1$s× normy)</string>
-    <string name="pulse_volume_normal">Wolumen obrotu normalny</string>
 
     <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>

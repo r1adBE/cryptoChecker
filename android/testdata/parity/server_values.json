@@ -1,0 +1,102 @@
+{
+  "_comment": "Server-Werte plausibel statt Überlauf: Sekunden → ms (EpochTime.secondsToMillis), Zeitangabe unbekannter Einheit (EpochTime.parseTimeToMillis), nächstes Halving aus der Blockhöhe (HalvingMath.estimate, Blockzeit 600 s). Zahlen als Text (Int64-Grenzen). Erwartet mit Python gerechnet (money/fix-robust/server_values.py).",
+  "secondsToMillis": [
+    {
+      "seconds": "0",
+      "expected": null
+    },
+    {
+      "seconds": "-5",
+      "expected": null
+    },
+    {
+      "seconds": "1",
+      "expected": "1000"
+    },
+    {
+      "seconds": "1700000000",
+      "expected": "1700000000000"
+    },
+    {
+      "seconds": "9999999999999",
+      "expected": "9999999999999000"
+    },
+    {
+      "seconds": "10000000000000",
+      "expected": null
+    },
+    {
+      "seconds": "9223372036854775807",
+      "expected": null
+    },
+    {
+      "seconds": "-9223372036854775808",
+      "expected": null
+    }
+  ],
+  "parseTimeToMillis": [
+    {
+      "time": "-9223372036854775808",
+      "expected": "0"
+    },
+    {
+      "time": "-9223372036854775",
+      "expected": "-9223372036854775000"
+    },
+    {
+      "time": "-9223372036854776",
+      "expected": "0"
+    },
+    {
+      "time": "-5",
+      "expected": "-5000"
+    },
+    {
+      "time": "1700000000",
+      "expected": "1700000000000"
+    },
+    {
+      "time": "1700000000000",
+      "expected": "1700000000000"
+    }
+  ],
+  "halving": [
+    {
+      "tipHeight": 0,
+      "expected": null
+    },
+    {
+      "tipHeight": -1,
+      "expected": null
+    },
+    {
+      "tipHeight": 840000,
+      "expected": {
+        "height": 1050000,
+        "remaining": 210000
+      }
+    },
+    {
+      "tipHeight": 875123,
+      "expected": {
+        "height": 1050000,
+        "remaining": 174877
+      }
+    },
+    {
+      "tipHeight": 9999999,
+      "expected": {
+        "height": 10080000,
+        "remaining": 80001
+      }
+    },
+    {
+      "tipHeight": 10000000,
+      "expected": null
+    },
+    {
+      "tipHeight": 2147483647,
+      "expected": null
+    }
+  ]
+}

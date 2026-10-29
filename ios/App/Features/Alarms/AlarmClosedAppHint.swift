@@ -3,9 +3,10 @@ import SwiftUI
 // «Wann Alarme geprüft werden»: Zeile «Zuletzt geprüft», Hinweis bei geschlossener App und die Meldung nach dem
 // Speichern — genutzt im Alarm-Blatt (`AlarmEditorSheet`) und im Portfolio-Alarm.
 
-/// «Zuletzt geprüft 14:32»: wann die Alarme zuletzt wirklich geprüft wurden (App, Live-Strom oder
-/// Hintergrund-Aufgabe, `SharedStorage.lastAlarmCheckAt` — das Widget zählt nicht). Noch nie: keine Zeile.
-/// Liest den Stand jede Minute neu (UserDefaults meldet keine Änderung).
+/// «Zuletzt geprüft 14:32»: wann die Alarme zuletzt wirklich geprüft wurden — volle Prüfung in der App oder der
+/// Hintergrund-Aufgabe (`SharedStorage.lastAlarmCheckAt`); Live-Takte (keine Prüfung aller Alarme) und das Widget zählen
+/// nicht. Noch nie: keine Zeile. Liest den Stand jede Minute neu (UserDefaults meldet keine Änderung). Wie Android
+/// `AlarmLastCheckedLine`.
 @MainActor
 struct AlarmLastCheckedLine: View {
     var body: some View {

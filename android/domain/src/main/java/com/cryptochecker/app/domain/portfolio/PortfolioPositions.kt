@@ -116,9 +116,6 @@ data class CoinPosition(
     /** Bestand aus den eigenen Transaktionen (ohne Adress-Guthaben) — nur er hat Einstand und Posten. */
     val ledgerHoldingsExact: BigDecimal get() = (holdingsExact - addressHoldingsExact).max(BigDecimal.ZERO)
 
-    /** Ein Teil (oder alles) stammt aus beobachteten Adressen. */
-    val hasAddressPart: Boolean get() = addressHoldingsExact.signum() > 0
-
     /**
      * Ein Teil des realisierten Gewinns/Verlusts ist unbekannt ([realizedUnknownAmount], [realizedFeeMissing],
      * [disposalsIncomplete]) — gleiche Regel wie «unvollständig» im Steuer-Export.

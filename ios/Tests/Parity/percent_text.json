@@ -176,5 +176,65 @@
       "decimals": 1,
       "expected": "58.4%"
     }
-  ]
+  ],
+  "watch_change": {
+    "description": "Change on the watch (Android wear WatchFormat.change / iOS WatchPercent.change): like PercentText.signed with 2 decimals in the locale's notation, value null -> '\u2014'; in RTL languages (ar, fa, he ...) wrapped as LTR isolate (U+2066 ... U+2069) like BidiText.ltr on the phone.",
+    "cases": [
+      {
+        "locale": "en_US",
+        "value": 1.234,
+        "expected": "+1.23%"
+      },
+      {
+        "locale": "en_US",
+        "value": -0.5,
+        "expected": "\u22120.50%"
+      },
+      {
+        "locale": "en_US",
+        "value": 0.004,
+        "expected": "0.00%"
+      },
+      {
+        "locale": "en_US",
+        "value": -0.005,
+        "expected": "\u22120.01%"
+      },
+      {
+        "locale": "en_US",
+        "value": null,
+        "expected": "\u2014"
+      },
+      {
+        "locale": "de_DE",
+        "value": 2.4,
+        "expected": "+2,40\u00a0%"
+      },
+      {
+        "locale": "de_CH",
+        "value": 2.4,
+        "expected": "+2.40%"
+      },
+      {
+        "locale": "fr_FR",
+        "value": -12.345,
+        "expected": "\u221212,35\u00a0%"
+      },
+      {
+        "locale": "tr_TR",
+        "value": 2.4,
+        "expected": "+%2,40"
+      },
+      {
+        "locale": "ar_EG",
+        "value": 2.4,
+        "expected": "\u2066+\u0662\u066b\u0664\u0660\u066a\u2069"
+      },
+      {
+        "locale": "he_IL",
+        "value": -1.5,
+        "expected": "\u2066\u22121.50%\u2069"
+      }
+    ]
+  }
 }

@@ -196,8 +196,6 @@ actor PairCache {
         return ExchangePairsInfo(lastSyncDate: base.lastSyncDate, pairs: (base.pairs + extra).sorted())
     }
 
-    func hasSynced(_ key: String) -> Bool { storedPairs(for: key).lastSyncDate > 0 }
-
     /// Schlüssel (`CoinLogos.pairKey`) aller TradFi-Paare der gespeicherten Liste, unabhängig vom
     /// TradFi-Schalter; nil, wenn noch nie geladen.
     func tradFiPairKeys(for key: String) -> Set<String>? {

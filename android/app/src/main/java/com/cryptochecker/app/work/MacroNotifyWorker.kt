@@ -17,6 +17,8 @@ import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.ui.MainActivity
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.CancellationException
+import timber.log.Timber
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -28,7 +30,7 @@ import com.cryptochecker.app.notification.showGas
  * wichtigen US-Wirtschaftsdaten des Tages (z. B. «Heute 14:30: US-Inflationsdaten (CPI) – …»).
  * Ohne Termin keine Meldung. Höchstens eine Meldung am Tag; kommt die Aufgabe erst nach
  * 12:00 dran (Doze), entfällt sie für diesen Tag. Nachtruhe gilt wie bei den übrigen
- * Markt-Meldungen (lautlos). Danach plant sie sich für den nächsten Morgen neu.
+ * Markt-Meldungen (lautlos). Danach plant sie sich für den nächsten Morgen neu — auch nach einem Fehler.
  * Kalender: [MacroCalendarRepository] (Zwischenspeicher bzw. mitgelieferte Datei, wenn offline).
  */
 @HiltWorker
@@ -41,7 +43,23 @@ class MacroNotifyWorker @AssistedInject constructor(
 ) : CoroutineWorker(appContext, params) {
 
     override suspend fun doWork(): Result {
-        if (!settingsRepository.current().macroNotifications) return Result.success()
+        try {
+            if (!settingsRepository.current().macroNotifications) return Result.success()
+            notifyIfDue()
+        } catch (e: CancellationException) {
+            // Abgebrochen (z. B. ausgeschaltet): nicht neu planen
+            throw e
+        } catch (e: Exception) {
+            // Fehler (Kalender, Einstellungen, Mitteilung): der nächste Morgen gilt trotzdem
+            Timber.w(e, "Wirtschaftsdaten-Hinweis gescheitert")
+        }
+        // Nächster Morgen (an die laufende Aufgabe angehängt, damit sie sich nicht selbst abbricht)
+        schedule(applicationContext, ExistingWorkPolicy.APPEND_OR_REPLACE)
+        return Result.success()
+    }
+
+    /** Im Morgenfenster einmal je Tag die Termine von heute melden. */
+    private suspend fun notifyIfDue() {
         val zone = ZoneId.systemDefault()
         val now = System.currentTimeMillis()
         val local = LocalDateTime.now(zone)
@@ -62,9 +80,6 @@ class MacroNotifyWorker @AssistedInject constructor(
             }
             prefs.edit { putLong(KEY_LAST_DAY, today) }
         }
-        // Nächster Morgen (an die laufende Aufgabe angehängt, damit sie sich nicht selbst abbricht)
-        schedule(applicationContext, ExistingWorkPolicy.APPEND_OR_REPLACE)
-        return Result.success()
     }
 
     companion object {

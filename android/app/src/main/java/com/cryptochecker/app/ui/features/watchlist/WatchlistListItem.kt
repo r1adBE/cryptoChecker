@@ -70,7 +70,6 @@ internal fun LazyItemScope.WatchlistItem(
     alarmCount: Int,
     now: Long,
     staleAfter: Long,
-    outdatedAfter: Long,
     convertTarget: String?,
     /** Letzte Alarm-Auslösung des Paars (Epoch-ms, 0 = nie), für «Alarm ausgelöst» im Screenreader. */
     alarmFiredAt: Long = 0L,
@@ -201,7 +200,6 @@ internal fun LazyItemScope.WatchlistItem(
                 kind = kind,
                 now = now,
                 staleAfter = staleAfter,
-                outdatedAfter = outdatedAfter,
                 converted = converted,
                 convertedA11y = convertedA11y,
                 // Im Sortiermodus ausgeblendet (Platz für Griff und Menü)

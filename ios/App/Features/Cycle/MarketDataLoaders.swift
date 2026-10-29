@@ -26,7 +26,7 @@ extension CycleViewModel {
 
     /// - Parameter force: Zwischenspeicher übergehen («Erneut», Ziehen nach unten).
     func loadPulse(force: Bool = false) {
-        load(Self.pulseKey, ttl: CycleCachePolicy.pulse, timeout: Self.timeout, force: force,
+        load(Self.pulseKey, ttl: CycleCachePolicy.pulse, timeout: CycleCachePolicy.timeoutSeconds("pulse"), force: force,
              shown: pulse.value != nil, apply: { [weak self] in self?.pulse = $0 }) {
             Sourced(value: try await CryptoPulseSource.shared.fetch(force: force), provider: nil)
         }
@@ -36,7 +36,7 @@ extension CycleViewModel {
 
     /// - Parameter force: Zwischenspeicher (10 Min.) übergehen («Erneut», Ziehen nach unten).
     func loadUnusual(force: Bool = false) {
-        load(Self.unusualKey, ttl: Self.unusualTTL, timeout: Self.longTimeout, force: force,
+        load(Self.unusualKey, ttl: Self.unusualTTL, timeout: CycleCachePolicy.timeoutSeconds("unusual"), force: force,
              shown: unusual.value != nil,
              apply: { [weak self] (state: CycleLoad<UnusualInput>) in
                  guard let self else { return }
@@ -68,7 +68,7 @@ extension CycleViewModel {
     /// - Parameter force: Zwischenspeicher übergehen (Ziehen nach unten, «Erneut»).
     func loadGas(force: Bool = false) {
         let maxAge: Int64 = force ? 0 : CycleCachePolicy.gas
-        load(Self.gasKey, ttl: CycleCachePolicy.gas, timeout: Self.timeout, force: force,
+        load(Self.gasKey, ttl: CycleCachePolicy.gas, timeout: CycleCachePolicy.timeoutSeconds("gas"), force: force,
              shown: gas.value != nil, apply: { [weak self] in self?.gas = $0 }) {
             try await GasDataSource.shared.fetchSourced(maxAge: maxAge)
         }
@@ -80,7 +80,7 @@ extension CycleViewModel {
     func loadMarket() { loadMarket(force: true) }
 
     func loadMarket(force: Bool) {
-        load(Self.marketKey, ttl: CycleCachePolicy.market, timeout: Self.longTimeout, force: force,
+        load(Self.marketKey, ttl: CycleCachePolicy.market, timeout: CycleCachePolicy.timeoutSeconds("market"), force: force,
              minForce: CycleCachePolicy.manualMinInterval,
              shown: market.value != nil,
              apply: { [weak self] (state: CycleLoad<BitcoinReport>) in self?.market = state }) {
@@ -91,16 +91,14 @@ extension CycleViewModel {
 
     // MARK: Fear & Greed, Dominanz, Altcoin-Saison, Zyklus-Vergleich
 
-    func retryInsights() { loadInsights(force: true) }
-
     func loadInsights(force: Bool) {
-        load(Self.fearGreedKey, ttl: CycleCachePolicy.fearGreed, timeout: Self.timeout, force: force,
+        load(Self.fearGreedKey, ttl: CycleCachePolicy.fearGreed, timeout: CycleCachePolicy.timeoutSeconds("fear_greed"), force: force,
              shown: fearGreed.value != nil, apply: { [weak self] in self?.fearGreed = $0 }) {
             Sourced(value: try await InsightsDataSource.fearGreed(), provider: DataFreshness.alternativeMe)
         }
         loadGlobal(force: force)
         loadAltSeason(force: force)
-        load(Self.historyKey, ttl: CycleCachePolicy.history, timeout: Self.longTimeout, force: force,
+        load(Self.historyKey, ttl: CycleCachePolicy.history, timeout: CycleCachePolicy.timeoutSeconds("history"), force: force,
              minForce: CycleCachePolicy.manualMinInterval,
              shown: history.value != nil, apply: { [weak self] in self?.history = $0 }) {
             Sourced(value: try await InsightsDataSource.cycleHistory(), provider: nil)
@@ -109,7 +107,7 @@ extension CycleViewModel {
 
     /// Altcoin-Saison: 3 h zwischengespeichert, von Hand frühestens alle 5 Min. neu.
     func loadAltSeason(force: Bool) {
-        load(Self.altSeasonKey, ttl: CycleCachePolicy.altSeason, timeout: Self.longTimeout, force: force,
+        load(Self.altSeasonKey, ttl: CycleCachePolicy.altSeason, timeout: CycleCachePolicy.timeoutSeconds("alt_season"), force: force,
              minForce: CycleCachePolicy.manualMinInterval,
              shown: altSeason.value != nil, apply: { [weak self] in self?.altSeason = $0 }) {
             try await InsightsDataSource.altSeason()
@@ -119,7 +117,7 @@ extension CycleViewModel {
     /// Dominanz und Gesamtmarkt aus einer einzigen CoinGecko-Abfrage (`/global`).
     /// Fehlt ein Teil in der Antwort, gilt nur er als gescheitert.
     private func loadGlobal(force: Bool) {
-        load(Self.globalKey, ttl: CycleCachePolicy.global, timeout: Self.timeout, force: force,
+        load(Self.globalKey, ttl: CycleCachePolicy.global, timeout: CycleCachePolicy.timeoutSeconds("global"), force: force,
              shown: dominance.value != nil || globalMarket.value != nil,
              apply: { [weak self] (state: CycleLoad<CoinGeckoGlobal>) in
                  guard let self else { return }
@@ -145,7 +143,7 @@ extension CycleViewModel {
     /// Je Coin eigener Stand (15 Min.); ein anderer Coin zeigt sofort seinen gespeicherten Stand.
     func loadCoin(force: Bool) {
         let symbol = selectedCoin
-        load(Self.coinKey(symbol), ttl: CycleCachePolicy.coin, timeout: Self.longTimeout, force: force,
+        load(Self.coinKey(symbol), ttl: CycleCachePolicy.coin, timeout: CycleCachePolicy.timeoutSeconds("coin"), force: force,
              shown: coin.value?.symbol == symbol, apply: { [weak self] (state: CycleLoad<CoinReport>) in
                  // Inzwischen anderer Coin gewählt: Ergebnis nicht zeigen
                  guard let self, self.selectedCoin == symbol else { return }

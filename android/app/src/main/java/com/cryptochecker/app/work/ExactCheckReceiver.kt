@@ -129,7 +129,8 @@ class ExactCheckReceiver : BroadcastReceiver() {
         const val ACTION_CHECK = "com.cryptochecker.app.action.EXACT_CHECK"
 
         /**
-         * Höchstens so lange läuft die Prüfung im Empfänger (Android erlaubt im Hintergrund rund 60 s);
+         * Höchstens so lange läuft die Prüfung im Empfänger: der Wecker kommt als Hintergrund-Broadcast (ANR erst nach
+         * 60 s ohne finish(); Widget-Empfänger rechnen mit 10 s, siehe [com.cryptochecker.app.util.ReceiverAsync.TIMEOUT_MILLIS]);
          * im Ruhemodus kürzer, siehe [CheckBudget.exactTimeoutMillis] (15 s, davon 9 s Netz).
          */
         private const val TIMEOUT_MILLIS = 20_000L

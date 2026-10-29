@@ -25,17 +25,11 @@ object ActivityAnalyzer {
 
     // --- Signale ---
     const val PRICE_Z_THRESHOLD = 3.0
-    /** Mindestbewegung, damit ruhige Coins (Stablecoins) nicht bei Kleinigkeiten melden. */
-    const val PRICE_MIN_MOVE_PERCENT = 1.5
-    const val PRICE_STRONG_Z = 5.0
-    const val PRICE_STRONG_MOVE_PERCENT = 5.0
     const val VOLUME_SPIKE_RATIO = 3.0
-    const val VOLUME_STRONG_RATIO = 6.0
     /** Funding in % je 8 Stunden (stündliches Funding wird umgerechnet: [fundingPer8h]). */
     const val FUNDING_EXTREME_PERCENT = 0.05
     const val FUNDING_STRONG_PERCENT = 0.1
     const val OI_JUMP_PERCENT = 10.0
-    const val OI_STRONG_PERCENT = 20.0
 
     /**
      * Höchstens so viele der 24 Vergleichsstunden dürfen ganz ohne Handel sein (ein Viertel),
@@ -88,7 +82,6 @@ object ActivityAnalyzer {
     // --- Gründe ---
     const val MARKET_MOVE_PERCENT = 1.5
     const val COIN_MOVE_PERCENT = 3.0
-    const val MARKET_STRONG_PERCENT = 3.0
     const val VOLUME_HIGH_RATIO = 2.0
     const val VOLUME_LOW_RATIO = 0.6
     const val VOLATILITY_HIGH_Z = 2.0

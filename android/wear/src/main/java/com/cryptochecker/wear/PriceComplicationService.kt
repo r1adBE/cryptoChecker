@@ -12,6 +12,8 @@ import androidx.wear.watchface.complications.data.ShortTextComplicationData
 import androidx.wear.watchface.complications.datasource.ComplicationRequest
 import androidx.wear.watchface.complications.datasource.SuspendingComplicationDataSourceService
 import com.cryptochecker.marketdata.watch.WatchFreshness
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.withTimeoutOrNull
 
 /**
  * Komplikation: der erste Favorit — kurz «BTC / +1.2%», lang «BTC 67’420.00 +1.2%». Ist sein gespeicherter Kurs
@@ -32,7 +34,14 @@ class PriceComplicationService : SuspendingComplicationDataSourceService() {
         var cached = store.quotes()[coin]
         if (cached == null || System.currentTimeMillis() - cached.time > MAX_AGE_MS) {
             val startedAt = System.currentTimeMillis()
-            val fresh = runCatching { WatchPriceSource.fetch(favorites) }.getOrNull().orEmpty()
+            // Abbruch des Aufrufs nicht schlucken; höchstens [FETCH_TIMEOUT_MS], danach der gespeicherte Kurs
+            val fresh = try {
+                withTimeoutOrNull(FETCH_TIMEOUT_MS) { WatchPriceSource.fetch(favorites) }.orEmpty()
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                emptyMap()
+            }
             // Je Coin zusammengeführt: fehlt der erste Coin im neuen Ergebnis oder hat ein später gestarteter Abruf
             // schon geschrieben, bleibt der gespeicherte Kurs samt Zeit
             if (fresh.isNotEmpty()) cached = store.mergeQuotes(fresh, startedAt)[coin] ?: cached
@@ -84,5 +93,8 @@ class PriceComplicationService : SuspendingComplicationDataSourceService() {
 
     private companion object {
         const val MAX_AGE_MS = 10 * 60_000L
+
+        /** Abruf für die Komplikation höchstens so lange (das Zifferblatt wartet nicht beliebig). */
+        const val FETCH_TIMEOUT_MS = 20_000L
     }
 }

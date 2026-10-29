@@ -174,20 +174,20 @@ struct PortfolioCoinDetail: View {
         banner = WatchlistBannerMessage(
             text: text,
             action: WatchlistBannerAction.undo {
-                var saved = true
-                withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { saved = data.restorePortfolioTxs([tx]) }
-                if !saved { banner = .portfolioNotWritten(data) }
+                Task { @MainActor in
+                    let saved = await data.restorePortfolioTxs([tx], present: portfolioSpring(reduceMotion))
+                    if !saved { banner = .portfolioNotWritten(data) }
+                }
             }
         )
-        var deleted = true
-        withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { deleted = data.deletePortfolioTx(tx.id) }
-        // Nicht geschrieben: Transaktion bleibt, statt «entfernt / Rückgängig» der Hinweis
-        guard deleted else {
-            banner = .portfolioNotWritten(data)
-            return
-        }
-        deleteTick += 1
         Task { @MainActor in
+            let deleted = await data.deletePortfolioTx(tx.id, present: portfolioSpring(reduceMotion))
+            // Nicht geschrieben: Transaktion bleibt, statt «entfernt / Rückgängig» der Hinweis
+            guard deleted else {
+                banner = .portfolioNotWritten(data)
+                return
+            }
+            deleteTick += 1
             try? await Task.sleep(nanoseconds: 300_000_000)
             AccessibilityNotification.Announcement(text).post()
         }

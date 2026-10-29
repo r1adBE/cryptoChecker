@@ -103,7 +103,7 @@ extension PortfolioHomeView {
         HStack(spacing: 4) {
             listTotalLabel(scale: scale)
                 .frame(minWidth: 38, alignment: .leading)
-            listTotalShare()
+            listTotalShare(scale: scale)
             Spacer(minLength: 4)
             listTotalValue(s, scale: scale)
             // Ohne Betrag kein Platzhalter (Android: pl_change ausgeblendet)
@@ -121,7 +121,7 @@ extension PortfolioHomeView {
         HStack(spacing: 4) {
             VStack(alignment: .leading, spacing: 1) {
                 listTotalLabel(scale: scale)
-                listTotalShare()
+                listTotalShare(scale: scale)
             }
             .layoutPriority(1)
             Spacer(minLength: 2)
@@ -144,9 +144,9 @@ extension PortfolioHomeView {
             .minimumScaleFactor(WidgetTextSize.minimumFactor(0.7, primaryScale: scale))
     }
 
-    private func listTotalShare() -> some View {
+    private func listTotalShare(scale: CGFloat) -> some View {
         Text(PortfolioWidgetText.share(PortfolioWidgetViews.listTotalShare))
-            .font(.system(size: 12, weight: .medium))
+            .font(.system(size: 12 * scale, weight: .medium))
             .monospacedDigit()
             .foregroundStyle(palette.secondary)
             .lineLimit(1)
@@ -239,11 +239,11 @@ extension PortfolioHomeView {
         if wide {
             HStack(spacing: 4) {
                 listBadge(p, size: 20)
-                quantityPrefixed(p, size: 12) {
+                quantityPrefixed(p, size: 12 * scale) {
                     listSymbol(p, scale: scale)
                         .frame(minWidth: 38, alignment: .leading)
                 }
-                listShare(p)
+                listShare(p, scale: scale)
                 Spacer(minLength: 4)
                 listValue(p, currency: currency, scale: scale)
                 WidgetPnlLabel(change: PortfolioWidgetViews.rowPnl(p), currency: currency, palette: palette,
@@ -254,8 +254,8 @@ extension PortfolioHomeView {
             HStack(spacing: 4) {
                 listBadge(p, size: 22)
                 VStack(alignment: .leading, spacing: 1) {
-                    quantityPrefixed(p, size: 12) { listSymbol(p, scale: scale) }
-                    listShare(p)
+                    quantityPrefixed(p, size: 12 * scale) { listSymbol(p, scale: scale) }
+                    listShare(p, scale: scale)
                 }
                 .layoutPriority(1)
                 Spacer(minLength: 2)
@@ -301,9 +301,9 @@ extension PortfolioHomeView {
         }
     }
 
-    private func listShare(_ p: PortfolioWidgetPosition) -> some View {
+    private func listShare(_ p: PortfolioWidgetPosition, scale: CGFloat) -> some View {
         Text(PortfolioWidgetText.share(p.sharePercent))
-            .font(.system(size: 12, weight: .medium))
+            .font(.system(size: 12 * scale, weight: .medium))
             .monospacedDigit()
             .foregroundStyle(palette.secondary)
             .lineLimit(1)

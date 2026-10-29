@@ -146,11 +146,12 @@ object CsvImportCoinbase {
     /**
      * Betrag ohne Währungszeichen («€40,000.00», «-$12.50», «CHF 3.00», «EUR 3.00»); Punkt = Dezimalzeichen; leer/unlesbar
      * = null. Wissenschaftliche Schreibweise bleibt ([exponentAt]), wie Excel grosse und kleine Mengen speichert
-     * («1.23457E+11», «1.5E-05»): [CsvImportParser.parseNumber] liest sie wie in jedem anderen Format.
+     * («1.23457E+11», «1.5E-05»): [CsvImportParser.parseNumber] liest sie wie in jedem anderen Format. Ziffern nur 0–9
+     * (andere Schriften fallen weg wie Währungszeichen) — wie iOS.
      */
     private fun money(text: String): BigDecimal? {
         val t = text.filterIndexed { i, c ->
-            c.isDigit() || c == '.' || c == ',' || c == '-' || c == '−' || c == '+' || ((c == 'e' || c == 'E') && exponentAt(text, i))
+            c in '0'..'9' || c == '.' || c == ',' || c == '-' || c == '−' || c == '+' || ((c == 'e' || c == 'E') && exponentAt(text, i))
         }
         return if (t.isEmpty()) null else CsvImportParser.parseNumber(t, '.')
     }

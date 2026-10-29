@@ -57,6 +57,8 @@ extension PortfolioHistorySource {
     /// Reihen der Kette für `coins` (höchstens `chainParallel` gleichzeitig); Coins ohne Reihe fehlen.
     static func chainSeries(_ coins: [String], span: Int, usdtUsd: [Int: Double]) async -> [String: PortfolioOwnCloses] {
         var out: [String: PortfolioOwnCloses] = [:]
+        // Namen der Merkliste einmal für alle Coins (nicht je Coin den ganzen Stand lesen)
+        let names = coins.isEmpty ? [:] : HistoricPriceSource.watchNames(coins)
         var index = 0
         while index < coins.count {
             let batch = coins[index..<min(index + chainParallel, coins.count)]
@@ -64,7 +66,7 @@ extension PortfolioHistorySource {
             await withTaskGroup(of: (String, PortfolioOwnCloses?).self) { group in
                 for coin in batch {
                     group.addTask {
-                        let value = await chainCloses(of: coin, span: span, usdtUsd: usdtUsd)
+                        let value = await chainCloses(of: coin, span: span, usdtUsd: usdtUsd, ownName: names[coin])
                         return (coin, value)
                     }
                 }
@@ -79,7 +81,8 @@ extension PortfolioHistorySource {
 
     /// Reihe der Kette für `coin`: Speicher, Gerät (12 h), sonst Abfrage. Neu geholt wird nur mit aktuellem Kurs als
     /// Bezug (`chainReference`) — sonst höchstens ein älterer Stand (den der Verlauf noch gegen den Kurs prüft).
-    private static func chainCloses(of coin: String, span: Int, usdtUsd: [Int: Double]) async -> PortfolioOwnCloses? {
+    private static func chainCloses(of coin: String, span: Int, usdtUsd: [Int: Double],
+                                    ownName: String?) async -> PortfolioOwnCloses? {
         let now = EpochTime.nowMillis
         let hit: (entry: PortfolioOwnCloses, at: Int64)? = chainMemory.withLock { $0.series.get(coin) }
         if let hit, hit.entry.entry.span >= span, CycleCachePolicy.isFresh(savedAt: hit.at, now: now, ttl: ttl) {
@@ -95,7 +98,8 @@ extension PortfolioHistorySource {
         let missAt: Int64? = chainMemory.withLock { $0.misses.get(coin) }
         if let missAt, now - missAt >= 0, now - missAt < chainMissMillis { return older }
         guard let reference = await chainReference(coin) else { return older }
-        guard let fresh = await fetchChain(coin, span: span, now: now, usdtUsd: usdtUsd, reference: reference) else {
+        guard let fresh = await fetchChain(coin, span: span, now: now, usdtUsd: usdtUsd, reference: reference,
+                                           ownName: ownName) else {
             chainMemory.withLock { $0.misses.set(coin, now) }
             return older
         }
@@ -122,9 +126,8 @@ extension PortfolioHistorySource {
     /// Quellen der Kette der Reihe nach: erste Reihe mit passendem Namen (`HistoricCloseChain.nameAllowed`) und jüngstem
     /// Schluss ±25 % am aktuellen Kurs (`HistoricCloseChain.acceptSeries`); USD-Kerzen durch USDT/USD des Tags.
     private static func fetchChain(_ coin: String, span: Int, now: Int64, usdtUsd: [Int: Double],
-                                   reference: Double) async -> PortfolioOwnCloses? {
+                                   reference: Double, ownName: String?) async -> PortfolioOwnCloses? {
         let names = TokenIdentityStore.shared
-        let ownName = names.watchName(coin, watches: SharedStorage.loadSnapshot().watches)
         let binanceName = names.binanceName(coin)
         for source in HistoricCloseChain.seriesChain {
             let nameOk = HistoricCloseChain.nameAllowed(base: coin, own: false, exchangeKey: source, ownName: ownName,

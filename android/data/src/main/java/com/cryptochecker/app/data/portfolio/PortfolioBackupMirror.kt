@@ -84,8 +84,9 @@ object PortfolioBackupMirror {
     }
 
     /**
-     * Im Sicherungs-Agenten: Kopie aus der Portfolio-Datenbank schreiben (geöffnet wie in der App, verschlüsselt). Ohne Datenbank keine Kopie. Fehler werfen — der Agent bricht die Sicherung dann ab, die vorige (mit
-     * Portfolio) bleibt bestehen.
+     * Im Sicherungs-Agenten: Kopie aus der Portfolio-Datenbank schreiben (verschlüsselt geöffnet, nur lesen). Ohne
+     * Datenbank keine Kopie. Ohne passenden Schlüssel nie beiseitelegen und neu beginnen (sonst sicherte sie ein leeres
+     * Portfolio): Fehler werfen — der Agent bricht die Sicherung dann ab, die vorige (mit Portfolio) bleibt bestehen.
      */
     fun writeForBackup(context: Context) {
         // Noch nicht übernommene Wiederherstellung: die Kopie IST das Portfolio — nicht anfassen
@@ -93,7 +94,7 @@ object PortfolioBackupMirror {
         delete(context)
         if (!context.getDatabasePath(PortfolioDatabase.DB_NAME).exists()) return
         val db = androidx.room.Room.databaseBuilder(context, PortfolioDatabase::class.java, PortfolioDatabase.DB_NAME)
-            .openHelperFactory(com.cryptochecker.app.data.local.EncryptingOpenHelperFactory(context))
+            .openHelperFactory(com.cryptochecker.app.data.local.EncryptingOpenHelperFactory(context, readOnly = true))
             .build()
         try {
             val text = kotlinx.coroutines.runBlocking {

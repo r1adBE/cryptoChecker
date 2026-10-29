@@ -45,6 +45,29 @@ final class PortfolioWriteOrder: @unchecked Sendable { // @unchecked: `generatio
     }
 }
 
+/// Reihenfolge der Schreibwege im Hintergrund (Ändern, Löschen, Zurücklegen, Leeren: `AppData.editPortfolio`; Schreiben
+/// des Imports): wer es hält, liest den Stand, schreibt und übernimmt ihn, bevor der nächste dran ist — kein Schreibweg
+/// baut auf einem Stand, dessen Schreiben noch läuft. Wartende der Reihe nach (FIFO); nicht wiedereintrittsfähig.
+@MainActor
+final class PortfolioEditGate {
+    private var busy = false
+    private var waiters: [CheckedContinuation<Void, Never>] = []
+
+    /// Wartet, bis das Gate an der Reihe frei ist, und belegt es; danach `release()`.
+    func acquire() async {
+        guard busy else {
+            busy = true
+            return
+        }
+        await withCheckedContinuation { waiters.append($0) }
+    }
+
+    /// Gibt frei bzw. direkt an den nächsten Wartenden weiter.
+    func release() {
+        if waiters.isEmpty { busy = false } else { waiters.removeFirst().resume() }
+    }
+}
+
 /// Ablauf von `AppData.insertImportedPortfolioTxs` mit austauschbarem Stand und Schreiben (Tests: Fake-Speicher).
 @MainActor
 struct PortfolioImportSave {

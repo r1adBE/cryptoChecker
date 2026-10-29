@@ -127,9 +127,9 @@ extension AppData {
         Notifier.cancelActivity(watchId)
         activityReports[watchId] = nil
         ActivityRepository.forget(watchId)
-        // Live-Kurse und laufende Abfragen des alten Paars nicht mehr in die Zeile schreiben (`applyLive`,
-        // `Outcome.apply` prüft das abgefragte Paar)
-        pairChangedAt[watchId] = EpochTime.nowMillis
+        // Live-Kurse und laufende Abfragen des alten Paars schreibt nichts mehr in die Zeile: `applyLive` prüft das
+        // abonnierte, `Outcome.apply` das abgefragte Paar. Der Live-Stand des alten Paars deckt das neue nicht (REST)
+        liveTickAt[watchId] = nil
         mutate { s in
             guard let i = s.watches.firstIndex(where: { $0.id == watchId }) else { return }
             s.watches[i].exchangeKey = exchange.key

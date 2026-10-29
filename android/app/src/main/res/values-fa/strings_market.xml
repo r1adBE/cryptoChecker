@@ -140,16 +140,6 @@
     <string name="pulse_alts_weaker">Bitcoin قوی‌تر از آلت‌کوین‌ها</string>
     <string name="pulse_chip_funding_high">حال‌وهوای معاملات اهرمی خوش‌بین</string>
     <string name="pulse_chip_funding_negative">حال‌وهوای معاملات اهرمی بدبین</string>
-    <string name="pulse_funding_high">نرخ تأمین مالی به‌وضوح مثبت: لانگ‌های اهرمی زیاد</string>
-    <string name="pulse_funding_negative">نرخ تأمین مالی منفی: شورت‌های زیاد</string>
-    <string name="pulse_funding_neutral">نرخ تأمین مالی خنثی</string>
-    <string name="pulse_funding_slight">نرخ تأمین مالی کمی مثبت</string>
-    <string name="pulse_gas_high">گس Ethereum بالا (%1$s gwei)</string>
-    <string name="pulse_gas_low">گس Ethereum پایین (%1$s gwei)</string>
-    <string name="pulse_gas_normal">گس Ethereum معمول (%1$s gwei)</string>
-    <string name="pulse_volume_high">حجم معاملات به‌طور غیرعادی بالا (%1$s برابر حالت معمول)</string>
-    <string name="pulse_volume_low">حجم معاملات پایین (%1$s برابر حالت معمول)</string>
-    <string name="pulse_volume_normal">حجم معاملات معمول</string>
 
     <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s، %2$s. %3$s.</string>

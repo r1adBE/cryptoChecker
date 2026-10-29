@@ -38,6 +38,7 @@ import com.cryptochecker.app.ui.components.chartPointSemantics
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.app.util.A11yText
+import com.cryptochecker.app.util.BidiText
 import com.cryptochecker.app.util.PriceFormat
 import java.time.LocalDate
 import java.time.ZoneId
@@ -69,14 +70,17 @@ internal fun rangeSpoken(range: PortfolioHistoryRange): String =
         stringResource(R.string.portfolio_history_range_a11y, stringResource(range.longRes))
     }
 
-/** «+1’234.56 CHF» / «−12.00 CHF» / «0.00 CHF» (bei praktisch 0 ohne Vorzeichen). */
+/**
+ * «+1’234.56 CHF» / «−12.00 CHF» / «0.00 CHF» (bei praktisch 0 ohne Vorzeichen); auch das Etikett
+ * beim Ziehen im Diagramm. Als links-nach-rechts-Insel (RTL: Vorzeichen bleibt vor der Zahl) — wie iOS.
+ */
 internal fun signedValue(value: Double, unit: String): String {
     val sign = when {
         PortfolioFormat.isZero(value) -> ""
         value > 0 -> "+"
         else -> "−"
     }
-    return sign + PriceFormat.valueWithCurrency(abs(value), unit)
+    return BidiText.ltr(sign + PriceFormat.valueWithCurrency(abs(value), unit))
 }
 
 /** In USDT: derselbe Verlauf unumgerechnet (Umschalter, Vergleich und Hinweise bleiben). */

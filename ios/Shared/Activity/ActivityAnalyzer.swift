@@ -17,17 +17,11 @@ enum ActivityAnalyzer {
 
     // MARK: Schwellen der Einordnung («Warum»-Blatt)
     static let priceZThreshold = 3.0
-    /// Mindestbewegung, damit ruhige Coins (Stablecoins) nicht bei Kleinigkeiten melden.
-    static let priceMinMovePercent = 1.5
-    static let priceStrongZ = 5.0
-    static let priceStrongMovePercent = 5.0
     static let volumeSpikeRatio = 3.0
-    static let volumeStrongRatio = 6.0
     /// Funding in % je 8 Stunden (stündliches Funding wird umgerechnet: `fundingPer8h`).
     static let fundingExtremePercent = 0.05
     static let fundingStrongPercent = 0.1
     static let oiJumpPercent = 10.0
-    static let oiStrongPercent = 20.0
 
     /// Höchstens so viele der 24 Vergleichsstunden dürfen ganz ohne Handel sein (ein Viertel),
     /// sonst ist das Volumen-Verhältnis unzuverlässig und entfällt.
@@ -74,7 +68,6 @@ enum ActivityAnalyzer {
     // MARK: Gründe
     static let marketMovePercent = 1.5
     static let coinMovePercent = 3.0
-    static let marketStrongPercent = 3.0
     static let volumeHighRatio = 2.0
     static let volumeLowRatio = 0.6
     static let volatilityHighZ = 2.0

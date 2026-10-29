@@ -58,7 +58,10 @@ class WatchedAddressSource @Inject constructor(
             networkInterceptors().clear()
             // Neutraler User-Agent statt «okhttp/…» bzw. App-Kennung, gleich wie iOS
             addInterceptor(UserAgentInterceptor(HttpUserAgent.NEUTRAL))
+            // Weiterleitungen nur auf denselben Host ([SameHostRedirectInterceptor]): sonst ginge die Adresse an Dritte
+            addInterceptor(SameHostRedirectInterceptor())
         }
+        .followRedirects(false).followSslRedirects(false)
         // Eigene Verbindungen und Warteschlange: keine Wiederverwendung von Verbindungen der App-Anfragen
         .connectionPool(ConnectionPool())
         .dispatcher(Dispatcher())

@@ -10,8 +10,9 @@
 # ios: ScreenshotTourTests (XCUITest, app started with -uiTesting and UITEST_MARKET_DATA=1, demo backup restored); it
 # only runs with TEST_RUNNER_SCREENSHOT_TOUR=1, so the regular UI test job skips it. The screenshots are XCTest
 # attachments, exported from the result bundle with xcresulttool.
-# publish: the only job with contents: write; checks the images (names, PNG header, size) and force-pushes the
-# branch «screenshots» – never main. A platform whose job failed keeps its images from the previous set.
+# publish (main only; a manual run on another branch leaves its images as run artifacts): the only job with
+# contents: write; checks the images (names, PNG header, size) and force-pushes the branch «screenshots» – never main.
+# A platform whose job failed keeps its images from the previous set (checked by the same rules before the push).
 name: Screenshots
 
 on:
@@ -246,10 +247,11 @@ jobs:
           retention-days: 7
 
   # Publishes whatever the two jobs produced, also when one of them failed (not when the run was cancelled: a newer
-  # run is on its way). No checkout of the repository and nothing from the artifacts is executed.
+  # run is on its way). Only for main: a manual run on another branch keeps its images as artifacts of the run.
+  # No checkout of the repository and nothing from the artifacts is executed.
   publish:
     needs: [android, ios]
-    if: ${{ !cancelled() }}
+    if: ${{ !cancelled() && github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-24.04
     permissions:
       contents: write   # force-push the branch «screenshots» (only that branch)
@@ -349,6 +351,42 @@ jobs:
             echo
             echo 'Layout: `android/<light|dark>/NN_name.png`, `ios/<light|dark>/NN_name.png`.'
           } > "$SITE/README.md"
+          # Kept folders come from the previous branch: same rules as «Check screenshots» before anything is pushed
+          python3 -I - "$SITE" <<'PY'
+          import os, re, stat, sys
+          site = sys.argv[1]
+          name_re = re.compile(r"\d{2}_[a-z0-9_]{1,40}\.png\Z")
+          for entry in os.listdir(site):
+              if entry not in ("android", "ios", "README.md"):
+                  sys.exit(f"::error title=Screenshots::unexpected entry {entry}")
+          for platform in ("android", "ios"):
+              root = os.path.join(site, platform)
+              if not os.path.isdir(root):
+                  continue
+              if os.path.islink(root):
+                  sys.exit(f"::error title=Screenshots::{platform} is a link")
+              n = 0
+              for dirpath, dirs, files in os.walk(root):
+                  rel = os.path.relpath(dirpath, root)
+                  if rel != "." and rel not in ("light", "dark"):
+                      sys.exit(f"::error title=Screenshots::unexpected folder {platform}/{rel}")
+                  for name in dirs:
+                      if os.path.islink(os.path.join(dirpath, name)):
+                          sys.exit(f"::error title=Screenshots::link {platform}/{rel}/{name}")
+                  for name in files:
+                      path = os.path.join(dirpath, name)
+                      st = os.lstat(path)
+                      if rel not in ("light", "dark") or not name_re.match(name) or not stat.S_ISREG(st.st_mode):
+                          sys.exit(f"::error title=Screenshots::unexpected file {platform}/{rel}/{name}")
+                      if not 0 < st.st_size <= 8 * 1024 * 1024:
+                          sys.exit(f"::error title=Screenshots::bad size {platform}/{rel}/{name}")
+                      with open(path, "rb") as f:
+                          if f.read(8) != b"\x89PNG\r\n\x1a\n":
+                              sys.exit(f"::error title=Screenshots::not a PNG {platform}/{rel}/{name}")
+                      n += 1
+              if n > 60:
+                  sys.exit(f"::error title=Screenshots::too many files for {platform}: {n}")
+          PY
           cd "$SITE"
           git init -q -b screenshots
           git config user.name 'r1AD'

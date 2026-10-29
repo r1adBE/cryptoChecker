@@ -14,6 +14,8 @@ import java.io.File
  *  - die App kennt die Kopie seit mindestens [MAX_AGE_DAYS] Tagen ([seen]; gezählt ab dem ersten Start, der sie sah —
  *    die Änderungszeit der Datei taugt nicht, Umbenennen behält die des letzten Schreibens).
  * Danach dürfen auch die früheren Schlüssel weg (sobald keine beiseitegelegte Datei mehr wartet).
+ * Gleiche Regel für die durch eine zurückgeholte Datei ersetzten Dateien (`<db>.replaced…`, eigene Merkdatei;
+ * [DatabaseOpenPlanner.pruneReplaced]) und danach ihre «ersetzt»-Schlüssel. iOS: `AsideRetention.swift`.
  * Reines Kotlin bis auf die kleine Merkdatei ([SeenStore]).
  */
 object AsideRetention {

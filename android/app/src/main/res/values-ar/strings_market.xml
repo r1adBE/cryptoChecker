@@ -144,16 +144,6 @@
     <string name="pulse_alts_weaker">Bitcoin أقوى من العملات البديلة</string>
     <string name="pulse_chip_funding_high">مزاج التداول بالرافعة متفائل</string>
     <string name="pulse_chip_funding_negative">مزاج التداول بالرافعة متشائم</string>
-    <string name="pulse_funding_high">التمويل إيجابي بوضوح: كثير من مراكز الشراء بالرافعة</string>
-    <string name="pulse_funding_negative">التمويل سلبي: كثير من مراكز البيع</string>
-    <string name="pulse_funding_neutral">التمويل محايد</string>
-    <string name="pulse_funding_slight">التمويل إيجابي قليلًا</string>
-    <string name="pulse_gas_high">غاز Ethereum مرتفع (%1$s gwei)</string>
-    <string name="pulse_gas_low">غاز Ethereum منخفض (%1$s gwei)</string>
-    <string name="pulse_gas_normal">غاز Ethereum معتاد (%1$s gwei)</string>
-    <string name="pulse_volume_high">حجم التداول مرتفع على غير العادة (%1$s× المعتاد)</string>
-    <string name="pulse_volume_low">حجم التداول منخفض (%1$s× المعتاد)</string>
-    <string name="pulse_volume_normal">حجم التداول معتاد</string>
 
     <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s، %2$s. %3$s.</string>

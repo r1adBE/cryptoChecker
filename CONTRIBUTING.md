@@ -27,8 +27,9 @@ python3 .github/scripts/check_strings.py
 
 GitHub runs the same checks on every pull request: **Android**, **iOS** (build, unit and UI tests in the
 Simulator), **Strings**, **Parity** and **Release readiness**. The Android
-device tests (emulator) run on every push to `main`; they can also be started
-by hand under *Actions › Android device tests*.
+device tests (emulator) run on every push to `main` that changes `android/**`, on
+every release tag and on pull requests that touch the databases (migration tests
+only); they can also be started by hand under *Actions › Android device tests*.
 
 ## Add an exchange
 

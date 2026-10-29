@@ -10,6 +10,7 @@ import okhttp3.Interceptor
  * (debugImplementation, Gegenstück in src/debug).
  */
 internal object HttpLogInterceptorProvider {
+    // Gleiche Signatur wie in src/debug (ein Aufrufer für alle Build-Typen); hier ohne Mitschnitt nicht gebraucht
     @Suppress("UNUSED_PARAMETER")
     fun create(httpLogger: HttpLogger): Interceptor? = null
 }

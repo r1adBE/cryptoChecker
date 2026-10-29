@@ -274,10 +274,11 @@ struct PortfolioHistoryCard: View {
         return "\(amount) (\(PortfolioFormat.signedPercent(percent)))"
     }
 
-    /// «+1’234.56 CHF» / «−12.00 CHF» / «0.00 CHF». Ohne Akteur, damit auch der Audio Graph ihn nutzen kann.
+    /// «+1’234.56 CHF» / «−12.00 CHF» / «0.00 CHF» als links-nach-rechts-Insel (RTL: Vorzeichen vor der Zahl) —
+    /// wie Android. Ohne Akteur, damit auch der Audio Graph ihn nutzen kann.
     nonisolated static func signedValue(_ value: Double, unit: String) -> String {
         let sign = PortfolioFormat.isZero(value) ? "" : (value > 0 ? "+" : "−")
-        return sign + PriceFormat.valueWithCurrency(abs(value), unit)
+        return BidiText.ltr(sign + PriceFormat.valueWithCurrency(abs(value), unit))
     }
 
     /// «Wert 93’818.00 CHF. Gewinn, 30 Tage: gestiegen um 2’340.00 CHF, gestiegen um 2.40%»; ohne Gewinn/Verlust

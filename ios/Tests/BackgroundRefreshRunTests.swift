@@ -46,6 +46,8 @@ final class BackgroundRefreshRunTests: XCTestCase {
         var checkRuns: Data?
         /// Vorgemerkte Anfrage: nil = keine; sonst ihr frühester Beginn (innen nil = ohne).
         var pendingBegin: Date??
+        /// Einstellungen mit eingeschalteter Nachtruhe (für die Dauer des Tests aus); nil = Nachtruhe war aus.
+        var quietSettings: AppSettings?
     }
 
     nonisolated private static let watchId: Int64 = 990_001
@@ -71,6 +73,13 @@ final class BackgroundRefreshRunTests: XCTestCase {
                            lastRefreshReport: SharedStorage.lastRefreshReport, changeStamp: SharedStorage.changeStamp,
                            checkRuns: try? Data(contentsOf: CheckRunStore.url),
                            pendingBegin: pending.map { $0.earliestBeginDate })
+        // Nachtruhe der Test-App aus: sonst hielte sie je nach Uhrzeit die Alarme zurück, und die Tests liefen nicht
+        var settings = SharedStorage.loadSettings()
+        if settings.quietHoursEnabled {
+            saved?.quietSettings = settings
+            settings.quietHoursEnabled = false
+            SharedStorage.saveSettings(settings)
+        }
         // Sonst endete der Lauf als «Alarme eben erst geprüft», ohne Arbeits-Task
         SharedStorage.lastAlarmCheckAt = 0
         // Vermerk «wird gemeldet» eines früheren Laufs hielte die Meldung zurück
@@ -90,6 +99,7 @@ final class BackgroundRefreshRunTests: XCTestCase {
         SharedStorage.lastRefreshDuration = saved.lastRefreshDuration
         SharedStorage.lastRefreshReport = saved.lastRefreshReport
         SharedStorage.changeStamp = saved.changeStamp
+        if let settings = saved.quietSettings { SharedStorage.saveSettings(settings) }
         if let data = saved.checkRuns {
             try? data.write(to: CheckRunStore.url, options: .atomic)
         } else {
@@ -241,9 +251,6 @@ final class BackgroundRefreshRunTests: XCTestCase {
 
     /// Gegenprobe: gleicher gefälschter Lauf ohne Ablauf meldet den Alarm genau einmal (der Test oben prüft also etwas).
     func testSameRunWithoutExpiryShowsOnce() async throws {
-        guard !QuietHours.holdsAlarmsNow(SharedStorage.loadSettings()) else {
-            throw XCTSkip("Nachtruhe der Test-App hält Alarme zurück")
-        }
         try insertArmedAlarm()
         let task = FakeTask()
         let shows = LockedBox(0)
@@ -277,9 +284,6 @@ final class BackgroundRefreshRunTests: XCTestCase {
 
     /// Gegenprobe zum Zusatzdaten-Pfad: ohne Ablauf über `seams.notifier` genau einmal gemeldet.
     func testExtraAlarmsWithoutExpiryShowOnce() async throws {
-        guard !QuietHours.holdsAlarmsNow(SharedStorage.loadSettings()) else {
-            throw XCTSkip("Nachtruhe der Test-App hält Alarme zurück")
-        }
         try insertArmedAlarm()
         let task = FakeTask()
         let shows = LockedBox(0)
@@ -296,9 +300,6 @@ final class BackgroundRefreshRunTests: XCTestCase {
     /// Ablauf während der Melde-Schleife — die Meldung des ersten Alarms löst ihn
     /// aus, der zweite wird nicht mehr gemeldet und bleibt scharf (wie Android `ensureActive` je Alarm).
     func testExpiryDuringDeliveryLoopStopsBeforeSecondAlarm() async throws {
-        guard !QuietHours.holdsAlarmsNow(SharedStorage.loadSettings()) else {
-            throw XCTSkip("Nachtruhe der Test-App hält Alarme zurück")
-        }
         try insertArmedAlarm(second: true)
         let task = FakeTask()
         let shows = LockedBox(0)

@@ -18,8 +18,7 @@ import kotlinx.coroutines.flow.Flow
  * Beobachtete öffentliche Adresse (nur lesen) in der PORTFOLIO-Datenbank — gehört zu den
  * Portfolio-Daten (gleiche Regel für die Systemsicherung, [PortfolioBackupMirror]).
  *
- * Registriert in [PortfolioDatabase]. Spalten, Typen und NOT NULL müssen exakt zu [CREATE_SQL] passen (Room prüft beim
- * Öffnen).
+ * Registriert in [PortfolioDatabase]; das Schema steht in `app/schemas` (Room prüft es beim Öffnen).
  * [chain] als Text (Name von [AddressChain]) — so braucht die Datenbank keinen neuen TypeConverter.
  */
 @Entity(
@@ -55,16 +54,6 @@ data class WatchedAddressEntity(
 ) {
     companion object {
         const val TABLE = "watched_addresses"
-
-        /** Tabelle (Spalten exakt wie die Entity). */
-        const val CREATE_SQL = "CREATE TABLE IF NOT EXISTS `watched_addresses` (" +
-            "`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `chain` TEXT NOT NULL, `address` TEXT NOT NULL, " +
-            "`label` TEXT, `lastBalance` TEXT, `lastUpdated` INTEGER NOT NULL, `lastAttempt` INTEGER NOT NULL, " +
-            "`lastError` TEXT, `lastProvider` TEXT, `addedAt` INTEGER NOT NULL, `observations` TEXT, `costLots` TEXT)"
-
-        /** Name nach Room-Konvention (`index_<Tabelle>_<Spalten>`). */
-        const val INDEX_SQL =
-            "CREATE UNIQUE INDEX IF NOT EXISTS `index_watched_addresses_chain_address` ON `watched_addresses` (`chain`, `address`)"
 
         fun from(a: WatchedAddress) = WatchedAddressEntity(
             id = a.id,
@@ -131,13 +120,6 @@ interface WatchedAddressDao {
 
     @Query("UPDATE watched_addresses SET label = :label WHERE id = :id")
     suspend fun setLabel(id: Long, label: String?)
-
-    /** Erfolgreicher Abruf: Guthaben, Zeit, Anbieter; Fehler gelöscht. */
-    @Query(
-        "UPDATE watched_addresses SET lastBalance = :balance, lastUpdated = :time, lastAttempt = :time, " +
-            "lastError = NULL, lastProvider = :provider WHERE id = :id"
-    )
-    suspend fun saveBalance(id: Long, balance: String, time: Long, provider: String?)
 
     @Query("SELECT observations FROM watched_addresses WHERE id = :id")
     suspend fun getObservations(id: Long): String?

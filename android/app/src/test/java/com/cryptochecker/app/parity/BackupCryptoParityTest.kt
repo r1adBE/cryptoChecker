@@ -2,7 +2,9 @@ package com.cryptochecker.app.parity
 
 import com.cryptochecker.app.data.Argon2id
 import com.cryptochecker.app.data.BackupCrypto
+import com.cryptochecker.app.data.BackupFormat
 import com.cryptochecker.app.data.BackupVersion
+import org.json.JSONException
 import org.json.JSONObject
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
@@ -27,17 +29,17 @@ class BackupCryptoParityTest {
 
     private fun hex(value: String): ByteArray = ByteArray(value.length / 2) { value.substring(2 * it, 2 * it + 2).toInt(16).toByte() }
 
-    /** Wie `BackupManager.read`: Felder mit optInt/optString lesen. */
+    /** Wie [BackupFormat.parse]: Zahlen nur als ganze JSON-Zahlen, Texte nur als JSON-Texte. */
     private fun envelope(f: JSONObject): BackupCrypto.Envelope = BackupCrypto.envelope(
-        version = f.optInt("v"),
-        enc = f.optString("enc"),
-        kdf = f.optString("kdf"),
-        salt = f.optString("salt"),
-        iv = f.optString("iv"),
-        data = f.optString("data"),
-        memoryKiB = f.optInt("m"),
-        time = f.optInt("t"),
-        parallelism = f.optInt("p"),
+        version = BackupFormat.integral(f.opt("v")) ?: 0,
+        enc = f.opt("enc") as? String,
+        kdf = f.opt("kdf") as? String,
+        salt = f.opt("salt") as? String,
+        iv = f.opt("iv") as? String,
+        data = f.opt("data") as? String,
+        memoryKiB = BackupFormat.integral(f.opt("m")) ?: 0,
+        time = BackupFormat.integral(f.opt("t")) ?: 0,
+        parallelism = BackupFormat.integral(f.opt("p")) ?: 0,
     )
 
     @Test
@@ -95,6 +97,26 @@ class BackupCryptoParityTest {
                 "unsupported"
             } catch (_: BackupVersion.NewerVersionException) {
                 "newer"
+            }
+            assertEquals(name, c.getString("result"), result)
+        }
+    }
+
+    /** Hülle als Text wie aus der Datei ([BackupFormat.parse]): streng wie iOS `JSONSerialization`. */
+    @Test
+    fun envelopeTextIsReadStrictly() {
+        val cases = root.getJSONArray("envelopeText")
+        for (i in 0 until cases.length()) {
+            val c = cases.getJSONObject(i)
+            val name = c.getString("name")
+            val result = try {
+                if (BackupFormat.parse(c.getString("text")) is BackupFormat.BackupFile.Encrypted) "envelope" else "plain"
+            } catch (_: BackupCrypto.UnsupportedException) {
+                "unsupported"
+            } catch (_: BackupVersion.NewerVersionException) {
+                "newer"
+            } catch (_: JSONException) {
+                "invalid"
             }
             assertEquals(name, c.getString("result"), result)
         }

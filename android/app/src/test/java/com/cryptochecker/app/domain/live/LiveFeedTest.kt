@@ -1,5 +1,6 @@
 package com.cryptochecker.app.domain.live
 
+import com.cryptochecker.app.data.PairIdentity
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
@@ -156,6 +157,46 @@ class LiveFeedTest {
             assertEquals(
                 "tickTime ${c["name"]}", c["expected"].num()!!.toLong(),
                 LiveRules.tickTime(c["reported"].num()?.toLong(), c["now"].num()!!.toLong()),
+            )
+        }
+    }
+
+    /** «Live» je Paar nach dessen letztem Kurs, nicht je Börse. */
+    @Test
+    fun liveIdsMatchFixtures() {
+        data["liveIds"].list().map { it.obj() }.forEach { c ->
+            val ticks = c["lastTickAt"].obj().entries.associate { (id, at) -> id.toLong() to at.num()!!.toLong() }
+            val expected = c["expected"].list().map { it.num()!!.toLong() }.toSet()
+            assertEquals("liveIds ${c["name"]}", expected, LiveRules.liveIds(ticks, c["now"].num()!!.toLong()))
+        }
+    }
+
+    /** Abo ohne einen Kurs nach 3 Minuten: neu verbinden. */
+    @Test
+    fun silentSubscriptionMatchesFixtures() {
+        data["silentSubscription"].list().map { it.obj() }.forEach { c ->
+            assertEquals(
+                "silentSubscription ${c["name"]}", c["silent"],
+                LiveRules.silentSubscription(
+                    c["subscribedAt"].num()!!.toLong(), c["receivedData"] as Boolean, c["now"].num()!!.toLong(),
+                ),
+            )
+        }
+    }
+
+    /** Ein Kurs zählt nur für das Paar, für das er abonniert war. */
+    @Test
+    fun samePairMatchesFixtures() {
+        fun identity(value: Any?): PairIdentity? = value?.obj()?.let {
+            PairIdentity(
+                it["exchangeKey"] as String, it["base"] as String, it["quote"] as String, it["contract"] as String,
+                it["pairId"] as String?,
+            )
+        }
+        data["samePair"].list().map { it.obj() }.forEach { c ->
+            assertEquals(
+                "samePair ${c["name"]}", c["expected"],
+                LiveRules.samePair(identity(c["subscribed"]), identity(c["current"])!!),
             )
         }
     }

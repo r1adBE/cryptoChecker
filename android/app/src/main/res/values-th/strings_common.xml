@@ -28,11 +28,9 @@
     <string name="error_exchange_unreachable">ตอนนี้เชื่อมต่อกระดานเทรดไม่ได้ – ราคาล่าสุดยังแสดงอยู่</string>
     <string name="error_exchange_unreachable_short">ตอนนี้เชื่อมต่อกระดานเทรดไม่ได้</string>
     <string name="loading_hint">กำลังโหลด…</string>
-    <string name="no_internet_connection">ไม่มีการเชื่อมต่ออินเทอร์เน็ต ตรวจสอบ Wi-Fi หรืออินเทอร์เน็ตมือถือ แล้วลองอีกครั้ง</string>
     <string name="option_off">ปิด</string>
     <string name="something_went_wrong">เกิดข้อผิดพลาดบางอย่าง</string>
     <string name="time_just_now">เมื่อสักครู่</string>
-    <string name="timeout_error_message">กระดานเทรดไม่ตอบสนองในขณะนี้ ลองอีกครั้งในอีกสักครู่</string>
     <string name="try_again">ลองอีกครั้ง</string>
 
     <!-- Verbindungsstatus (Status-Pille) -->

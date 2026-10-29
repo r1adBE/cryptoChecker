@@ -33,6 +33,8 @@ struct BackupSettingsPage: View {
     @State private var exportChoice: ExportChoice?
     /// Verschlüsselte Sicherung gewählt: Datei bis zur Passwort-Eingabe.
     @State private var encryptedFile: EncryptedFile?
+    /// Datei wird gelesen, geprüft bzw. gebaut (abseits des Haupt-Threads, `BackupFileWork`): Fortschritt, Knöpfe aus.
+    @State private var working = false
 
     init() {}
 
@@ -66,12 +68,15 @@ struct BackupSettingsPage: View {
                     case .success(let url):
                         // Zurücklesen und vergleichen (wie Android): ein Speicher-Anbieter, der die Datei kürzt, zeigte
                         // sich sonst erst beim Wiederherstellen
-                        if let written, BackupManager.verifyWritten(url, expected: written) != nil {
-                            fail("backup_not_verified")
-                            return
+                        Task {
+                            working = true
+                            var ok = true
+                            if let written { ok = await BackupFileWork.verified(url, expected: written) }
+                            working = false
+                            guard ok else { return fail("backup_not_verified") }
+                            Haptics.play(.success)
+                            show("backup_exported", kind: .success)
                         }
-                        Haptics.play(.success)
-                        show("backup_exported", kind: .success)
                     case .failure(let error):
                         if !Self.isCancel(error) { fail("backup_failed") }
                     }
@@ -90,21 +95,20 @@ struct BackupSettingsPage: View {
                                       testFile: .backup) { result in
                     switch result {
                     case .success(let url):
-                        let scoped = url.startAccessingSecurityScopedResource()
-                        defer { if scoped { url.stopAccessingSecurityScopedResource() } }
-                        do {
-                            // Höchstens 64 MB (`BackupLimits`)
-                            picked(try BackupManager.readFile(url))
-                        } catch BackupLimits.Failure.tooLarge {
-                            fail("backup_too_large")
-                        } catch {
-                            fail("backup_failed")
+                        Task {
+                            working = true
+                            // Höchstens 64 MB (`BackupLimits`), gelesen und geprüft abseits des Haupt-Threads
+                            let checked = await BackupFileWork.pick(url)
+                            working = false
+                            picked(checked)
                         }
                     case .failure(let error):
                         if !Self.isCancel(error) { fail("backup_failed") }
                     }
                 }
             }
+            .disabled(working)
+            .overlay { if working { ProgressView() } }
             .settingsAnchor("backup.actions")
             .padding(.bottom, 12)
         }
@@ -131,12 +135,9 @@ struct BackupSettingsPage: View {
             sheetClosed()
         }) { file in
             BackupImportPasswordSheet { password in
-                // Schlüsselableitung (Argon2id 64 MiB, bis wenige s) im Hintergrund — die Oberfläche bleibt bedienbar
-                let encrypted = file.data
+                // Schlüsselableitung (Argon2id 64 MiB, bis wenige s) und Prüfen im Hintergrund — die Oberfläche bleibt bedienbar
                 let backgroundTask = BackgroundTaskGuard.begin("backupDecrypt")
-                let result = await Task.detached(priority: .userInitiated) {
-                    Result { try BackupManager.plainJSON(encrypted, password: password) }
-                }.value
+                let result = await BackupFileWork.decrypt(file.data, password: password)
                 backgroundTask.end()
                 // Während der Prüfung wieder gesperrt: Blatt ist schon zu, keine Rückfrage
                 if lock.locked {
@@ -144,12 +145,11 @@ struct BackupSettingsPage: View {
                     return .handled
                 }
                 do {
-                    let plain = try result.get()
-                    // Sicherung einer neueren App-Version: vor der Rückfrage ablehnen (wie Android)
-                    try BackupManager.checkVersion(plain)
-                    pendingPreview = (try? BackupManager.preview(plain)) ?? BackupManager.RestorePreview()
+                    // Sicherung einer neueren App-Version: schon dort abgelehnt, vor der Rückfrage (wie Android)
+                    let checked = try result.get()
+                    pendingPreview = checked.preview
                     pendingEncrypted = true
-                    pendingRestore = plain
+                    pendingRestore = checked.plain
                     return .accepted
                 } catch BackupCrypto.Failure.wrongPassword {
                     return .wrongPassword
@@ -207,32 +207,18 @@ struct BackupSettingsPage: View {
         }
     }
 
-    /// Nach dem Blatt «Sichern»: Datei bauen (mit Passwort verschlüsselt) und ablegen lassen.
-    /// Verschlüsselt wird im Hintergrund (Argon2id mit 64 MiB, einige 100 ms bis wenige Sekunden).
+    /// Nach dem Blatt «Sichern»: Datei bauen (mit Passwort verschlüsselt) und ablegen lassen. Auf dem MainActor nur die
+    /// Wertkopie des Stands; Bauen, Kodieren und Verschlüsseln (Argon2id mit 64 MiB, einige 100 ms bis wenige Sekunden)
+    /// im Hintergrund (`BackupFileWork.build`; nie eine Datei, die sich danach nicht mehr einlesen lässt, wie Android).
     private func export(password: String?) {
-        let plain: Data
-        do {
-            plain = try BackupManager.plainExportData(data)
-            // Nie eine Datei schreiben, die sich danach nicht mehr einlesen lässt (wie Android)
-            try BackupLimits.checkWritable(plain)
-        } catch BackupLimits.Failure.exportTooLarge {
-            fail("backup_export_too_large")
-            return
-        } catch {
-            fail("backup_failed")
-            return
-        }
-        guard let password else {
-            presentExport(plain)
-            return
-        }
+        let input = BackupManager.exportInput(data)
         Task {
-            // Verschlüsseln zu Ende führen, auch wenn die App währenddessen in den Hintergrund geht
+            // Zu Ende führen, auch wenn die App währenddessen in den Hintergrund geht
             let backgroundTask = BackgroundTaskGuard.begin("backupExport")
             defer { backgroundTask.end() }
-            let result = await Task.detached(priority: .userInitiated) {
-                Result { try BackupManager.encryptedFile(plain, password: password) }
-            }.value
+            working = true
+            let result = await BackupFileWork.build(input, password: password)
+            working = false
             switch result {
             case .success(let file):
                 presentExport(file)
@@ -258,22 +244,24 @@ struct BackupSettingsPage: View {
         exporting = true
     }
 
-    /// Datei gewählt: verschlüsselt → Passwort, sonst (unverschlüsselte Sicherung) gleich die Rückfrage.
-    private func picked(_ file: Data) {
+    /// Datei gelesen und geprüft (`BackupFileWork.pick`): verschlüsselt → Passwort, sonst (unverschlüsselte Sicherung)
+    /// gleich die Rückfrage.
+    private func picked(_ result: Result<BackupFileWork.Picked, BackupFileWork.PickFailure>) {
         // Unterwegs wieder gesperrt: verwerfen (Wiederherstellen verlangt Entsperren)
         guard !lock.locked else { return }
-        do {
-            if try BackupManager.needsPassword(file) {
-                pendingRestore = nil
-                sheetShown = true
-                encryptedFile = EncryptedFile(data: file)
-            } else {
-                pendingPreview = try BackupManager.preview(file)
-                pendingEncrypted = false
-                pendingRestore = file
-                confirmRestore = true
-            }
-        } catch {
+        switch result {
+        case .success(.encrypted(let file)):
+            pendingRestore = nil
+            sheetShown = true
+            encryptedFile = EncryptedFile(data: file)
+        case .success(.plain(let file, let preview)):
+            pendingPreview = preview
+            pendingEncrypted = false
+            pendingRestore = file
+            confirmRestore = true
+        case .failure(.read(let error)):
+            fail(error as? BackupLimits.Failure == .tooLarge ? "backup_too_large" : "backup_failed")
+        case .failure(.check(let error)):
             // Zu gross, Sicherung einer neueren App-Version (nichts übernommen) oder unlesbar (`failureKey`)
             fail(Self.failureKey(error))
         }

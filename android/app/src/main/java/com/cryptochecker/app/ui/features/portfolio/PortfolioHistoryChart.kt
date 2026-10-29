@@ -157,7 +157,7 @@ internal fun HistoryChart(
             } else {
                 values[index] to PortfolioFormat.date(dayMillis(points[index].epochDay))
             }
-            val amount = if (pnl) signedChartValue(value, unit) else PriceFormat.valueWithCurrency(value, unit)
+            val amount = if (pnl) signedValue(value, unit) else PriceFormat.valueWithCurrency(value, unit)
             ScrubLabel(
                 centerX = { holder.frame?.x(index) ?: 0f },
                 title = withSmallQuote(BidiText.isolate(maskAmount(amount))) + AnnotatedString(" · $date"),
@@ -176,16 +176,6 @@ internal fun CacheDrawScope.drawContent(
 ): DrawResult = onDrawBehind {
     drawGrid(frame, paint)
     body()
-}
-
-/** «+1’234.56 CHF» / «−12.00 CHF» / «0.00 CHF» für das Etikett beim Ziehen (Gewinn/Verlust). */
-private fun signedChartValue(value: Double, unit: String): String {
-    val sign = when {
-        PortfolioFormat.isZero(value) -> ""
-        value > 0 -> "+"
-        else -> "−"
-    }
-    return sign + PriceFormat.valueWithCurrency(abs(value), unit)
 }
 
 /** Datum einer Kerze: Tag, Woche («6.–12. Okt. 2026») bzw. Monat («Okt. 2026»), Format der Sprache. */

@@ -139,6 +139,50 @@ final class LiveFeedTests: XCTestCase {
         }
     }
 
+    /// «Live» je Paar nach dessen letztem Kurs, nicht je Börse. Wie Android.
+    func testLiveIdsMatchFixtures() throws {
+        let cases = S.list(try S.fixture("live_feed")["liveIds"])
+        XCTAssertFalse(cases.isEmpty)
+        for c in cases {
+            var ticks: [Int64: Int64] = [:]
+            for (id, at) in c["lastTickAt"] as? [String: Any] ?? [:] {
+                if let key = Int64(id) { ticks[key] = S.millis(at) }
+            }
+            let expected = Set((c["expected"] as? [Any] ?? []).compactMap { S.number($0).map { Int64($0) } })
+            XCTAssertEqual(LiveRules.liveIds(lastTickAt: ticks, now: S.millis(c["now"])), expected,
+                           "liveIds \(c["name"] ?? "")")
+        }
+    }
+
+    /// Abo ohne einen Kurs nach 3 Minuten: neu verbinden. Wie Android.
+    func testSilentSubscriptionMatchesFixtures() throws {
+        let cases = S.list(try S.fixture("live_feed")["silentSubscription"])
+        XCTAssertFalse(cases.isEmpty)
+        for c in cases {
+            XCTAssertEqual(LiveRules.silentSubscription(subscribedAt: S.millis(c["subscribedAt"]),
+                                                        receivedData: c["receivedData"] as? Bool ?? false,
+                                                        now: S.millis(c["now"])),
+                           c["silent"] as? Bool, "silentSubscription \(c["name"] ?? "")")
+        }
+    }
+
+    /// Ein Kurs zählt nur für das Paar, für das er abonniert war. Wie Android.
+    func testSamePairMatchesFixtures() throws {
+        func key(_ value: Any?) -> LivePairKey? {
+            guard let spec = value as? [String: Any] else { return nil }
+            return LivePairKey(exchangeKey: spec["exchangeKey"] as? String ?? "", base: spec["base"] as? String ?? "",
+                               quote: spec["quote"] as? String ?? "", contract: spec["contract"] as? String ?? "",
+                               pairId: spec["pairId"] as? String)
+        }
+        let cases = S.list(try S.fixture("live_feed")["samePair"])
+        XCTAssertFalse(cases.isEmpty)
+        for c in cases {
+            let current = try XCTUnwrap(key(c["current"]))
+            XCTAssertEqual(LiveRules.samePair(subscribed: key(c["subscribed"]), current: current),
+                           c["expected"] as? Bool, "samePair \(c["name"] ?? "")")
+        }
+    }
+
     func testRulesMatchFixtures() throws {
         let data = try S.fixture("live_feed")
         for c in S.list(data["chooseChange"]) {

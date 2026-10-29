@@ -11,7 +11,7 @@ final class NetworkStatus: @unchecked Sendable { // @unchecked: veränderlicher 
     private let monitor = NWPathMonitor()
     private let lock = NSLock()
     private var known: Bool?
-    private var observers: [UUID: @Sendable (Bool) -> Void] = [:]
+    private var observers: [@Sendable (Bool) -> Void] = []
 
     private init() {
         monitor.pathUpdateHandler = { [weak self] path in
@@ -34,19 +34,10 @@ final class NetworkStatus: @unchecked Sendable { // @unchecked: veränderlicher 
         return monitor.currentPath.status == .satisfied
     }
 
-    /// Meldet jede Änderung (auf einer Hintergrund-Warteschlange); Rückgabe zum Abmelden.
-    @discardableResult
-    func observe(_ handler: @escaping @Sendable (Bool) -> Void) -> UUID {
-        let id = UUID()
+    /// Meldet jede Änderung (auf einer Hintergrund-Warteschlange), solange der Prozess läuft.
+    func observe(_ handler: @escaping @Sendable (Bool) -> Void) {
         lock.lock()
-        observers[id] = handler
-        lock.unlock()
-        return id
-    }
-
-    func removeObserver(_ id: UUID) {
-        lock.lock()
-        observers[id] = nil
+        observers.append(handler)
         lock.unlock()
     }
 
@@ -54,7 +45,7 @@ final class NetworkStatus: @unchecked Sendable { // @unchecked: veränderlicher 
         lock.lock()
         let changed = known != online
         known = online
-        let handlers = Array(observers.values)
+        let handlers = observers
         lock.unlock()
         if changed { handlers.forEach { $0(online) } }
     }

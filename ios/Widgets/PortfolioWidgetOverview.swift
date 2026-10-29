@@ -45,7 +45,7 @@ extension PortfolioHomeView {
             if change { changeLine(s, plan: plan) }
             if usdt != nil { usdtLine(usdt, missing: missing) }
             Spacer(minLength: 4)
-            figuresView(figures, currency: s.currency, amounts: amounts)
+            figuresView(figures, currency: s.currency, amounts: amounts, scale: scale)
             if showsFooter {
                 Spacer(minLength: 4)
                 footer(s, period: nil, hint: PortfolioWidgetText.fallbackHint(plan), extra: footerMissing)
@@ -54,32 +54,33 @@ extension PortfolioHomeView {
     }
 
     /// Klein: drei Zeilen (Beschriftung links, Wert rechtsbündig); sonst drei Spalten (Beschriftung, Wert, Betrag).
+    /// `scale`: Dynamic Type der gewachsenen Fassung (passt sie nicht, nimmt `overviewBody` die Grundgrösse).
     @ViewBuilder
-    private func figuresView(_ figures: [PortfolioFigure], currency: String, amounts: Bool) -> some View {
+    private func figuresView(_ figures: [PortfolioFigure], currency: String, amounts: Bool, scale: CGFloat) -> some View {
         if family == .systemSmall {
             VStack(alignment: .leading, spacing: 2) {
                 ForEach(figures, id: \.kind) { f in
                     HStack(spacing: 4) {
-                        figureLabel(f, currency: currency, size: 12)
+                        figureLabel(f, currency: currency, size: 12 * scale)
                         Spacer(minLength: 4)
-                        figureValue(f)
+                        figureValue(f, scale: scale)
                     }
                 }
             }
         } else {
             HStack(alignment: .top, spacing: 8) {
                 ForEach(figures, id: \.kind) { f in
-                    figureColumn(f, currency: currency, amounts: amounts)
+                    figureColumn(f, currency: currency, amounts: amounts, scale: scale)
                 }
             }
         }
     }
 
-    private func figureColumn(_ f: PortfolioFigure, currency: String, amounts: Bool) -> some View {
+    private func figureColumn(_ f: PortfolioFigure, currency: String, amounts: Bool, scale: CGFloat) -> some View {
         VStack(alignment: .leading, spacing: 2) {
-            figureLabel(f, currency: currency, size: family == .systemLarge ? 11 : 10)
-            figureValue(f)
-            if amounts { figureAmount(f, currency: currency) }
+            figureLabel(f, currency: currency, size: (family == .systemLarge ? 11 : 10) * scale)
+            figureValue(f, scale: scale)
+            if amounts { figureAmount(f, currency: currency, scale: scale) }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
@@ -94,15 +95,15 @@ extension PortfolioHomeView {
     /// Wert «↗ +1.50%» als Text in der Kursfarbe nach dem Vorzeichen (Betrag, sonst Prozent; keine Pille,
     /// 0 grau ohne Pfeil); ohne Wert grau «—».
     @ViewBuilder
-    private func figureValue(_ f: PortfolioFigure) -> some View {
+    private func figureValue(_ f: PortfolioFigure, scale: CGFloat) -> some View {
         if let percent = f.percent {
             let direction = PortfolioWidgetViews.figureDirection(f)
             HStack(spacing: 2) {
                 ChangeArrowIcon(change: direction)
-                    .font(.system(size: 8.5, weight: .bold))
+                    .font(.system(size: 8.5 * scale, weight: .bold))
                 // Ein Coin fehlt (kein Devisenkurs am Kauftag, seither gekauft/verkauft): «*» wie «unvollständig» der Karte
                 Text(PriceFormat.signedPercent(percent, decimals: 2) + (f.incomplete ? "*" : ""))
-                    .font(.system(size: 12, weight: .bold))
+                    .font(.system(size: 12 * scale, weight: .bold))
                     .monospacedDigit()
                     .lineLimit(1)
             }
@@ -110,19 +111,19 @@ extension PortfolioHomeView {
             .fixedSize()
         } else {
             Text(verbatim: "—")
-                .font(.system(size: 12, weight: .bold))
+                .font(.system(size: 12 * scale, weight: .bold))
                 .foregroundStyle(palette.secondary)
         }
     }
 
     /// Betrag unter dem Wert «+182.40 CHF» (Währung klein und grau); verborgen «•••», ohne Wert «—».
-    private func figureAmount(_ f: PortfolioFigure, currency: String) -> some View {
+    private func figureAmount(_ f: PortfolioFigure, currency: String, scale: CGFloat) -> some View {
         // Einheit des Betrags: «7 T» ohne Tageskurse der Anzeigewährung in USDT (nie USDT × heutiger Kurs)
         let unit = f.unit ?? currency
         let text = f.amount.map {
             entry.hideAmounts ? PortfolioInsights.hidden : PortfolioWidgetText.signedAmount($0, currency: unit)
         } ?? "—"
-        return Text.quoted(text, quote: unit, size: 12, quoteColor: palette.secondary)
+        return Text.quoted(text, quote: unit, size: 12 * scale, quoteColor: palette.secondary)
             .monospacedDigit()
             .foregroundStyle(palette.text)
             .lineLimit(1)

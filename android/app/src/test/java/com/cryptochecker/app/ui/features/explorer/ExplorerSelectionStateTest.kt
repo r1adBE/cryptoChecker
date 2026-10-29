@@ -112,10 +112,6 @@ class ExplorerSelectionStateTest {
 
     @Test
     fun explorerLoadVariants() {
-        val error = IllegalStateException("offline")
-        val failed: ExplorerLoad = ExplorerLoad.Failed(error)
-        assertTrue(failed is ExplorerLoad.Failed)
-        assertEquals(error, (failed as ExplorerLoad.Failed).error)
         assertEquals(ExplorerLoad.Loading, ExplorerLoad.Loading)
         assertEquals(4, AddResult.entries.size)
     }

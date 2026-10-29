@@ -131,6 +131,28 @@ class PortfolioPriceSourceTest {
         assertNull(prices.stored(listOf("BTC")).prices["BTC"])
     }
 
+    /** «Portfolio leeren» während einer laufenden Abfrage: deren Kurse kommen nicht zurück, die Datei entsteht nicht neu. */
+    @Test
+    fun clearDuringFetchKeepsNothing() = runBlocking {
+        lateinit var prices: PortfolioPriceSource
+        var cleared = false
+        val http = RouteHttp { url ->
+            if (!url.startsWith(tickers)) return@RouteHttp null
+            // Die Antwort kommt erst nach dem Leeren (nur bei der ersten Abfrage)
+            if (!cleared) {
+                cleared = true
+                runBlocking { prices.clearStored() }
+            }
+            binanceReply
+        }
+        prices = source(http)
+        assertNull(prices.prices(listOf("BTC")).prices["BTC"])
+        assertNull(prices.cached(listOf("BTC")).prices["BTC"])
+        assertFalse(File(root, "no_backup/portfolio_last_prices.txt").exists())
+        // Eine danach begonnene Abfrage gilt wieder
+        assertEquals(60000.5, prices.prices(listOf("BTC"), force = true).prices["BTC"]!!, 0.0)
+    }
+
     @Test
     fun watchPairPriceStepsInForUnknownNames() = runBlocking {
         watches = listOf(watch("XYZ", 10.0))

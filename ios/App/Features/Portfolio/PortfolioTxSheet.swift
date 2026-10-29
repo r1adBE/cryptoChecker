@@ -71,8 +71,9 @@ struct PortfolioTxSheet: View {
     @State var decimalSeparator: Character
     @State var askDelete = false
     @State private var askDiscard = false
-    /// Speichern fehlgeschlagen: Meldung, Blatt bleibt offen mit den Eingaben (wie Android).
+    /// Speichern fehlgeschlagen: Meldung, Blatt bleibt offen mit den Eingaben (wie Android). `saving`: Schreiben läuft.
     @State var saveFailed = false
+    @State var saving = false
     /// Löschen nicht geschrieben (gesperrte Datei): Blatt bleibt offen, Hinweis statt still geschlossen.
     @State private var deleteFailed = false
     @FocusState var focusedField: PortfolioTxField?
@@ -334,7 +335,7 @@ struct PortfolioTxSheet: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button(L("action_save"), action: save)
-                        .fontWeight(.semibold)
+                        .fontWeight(.semibold).disabled(saving)
                 }
             }
         }
@@ -361,13 +362,13 @@ struct PortfolioTxSheet: View {
         }
         .alert(L("portfolio_tx_delete_title"), isPresented: $askDelete) {
             Button(L("action_delete"), role: .destructive) {
+                saving = true
                 // Haptik nach dem Ergebnis: gelöscht = destruktiv, nicht geschrieben = Fehler, Hinweis gesperrt/Fehler
-                if data.deletePortfolioTx(initial.txId) {
-                    Haptics.play(.destructive)
-                    dismiss()
-                } else {
-                    Haptics.play(.error)
-                    deleteFailed = true
+                Task { @MainActor in
+                    let deleted = await data.deletePortfolioTx(initial.txId)
+                    saving = false
+                    Haptics.play(deleted ? .destructive : .error)
+                    if deleted { dismiss() } else { deleteFailed = true }
                 }
             }
             Button(L("action_cancel"), role: .cancel) {}
@@ -378,7 +379,6 @@ struct PortfolioTxSheet: View {
             Button(L("action_close"), role: .cancel) {}
         }
     }
-
 }
 
 /// Eingabefeld-Fläche mit Fokus- und Fehlerrand.

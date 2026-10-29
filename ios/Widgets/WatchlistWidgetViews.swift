@@ -55,9 +55,10 @@ struct WatchlistListView: View {
                 .foregroundStyle(palette.accent)
                 .accessibilityHidden(true)
             Text(L("widget_empty"))
-                .font(.system(size: 12, weight: .medium))
+                .widgetSecondaryFont(12, weight: .medium)
                 .foregroundStyle(palette.secondary)
                 .multilineTextAlignment(.center)
+                .minimumScaleFactor(0.8)
             Spacer(minLength: 0)
         }
         .frame(maxWidth: .infinity)
@@ -224,7 +225,7 @@ private struct WatchlistWidgetRow: View {
                     .lineLimit(1)
                     .minimumScaleFactor(WidgetTextSize.minimumFactor(1, primaryScale: scale))
                 Text(exchangeLine)
-                    .font(.system(size: 12))
+                    .font(.system(size: 12 * scale))
                     .foregroundStyle(palette.secondary)
                     .lineLimit(1)
             }
@@ -285,8 +286,9 @@ struct WatchlistSmallView: View {
                                                   changeView: entry.changeView))
             } else {
                 Text(L("widget_empty"))
-                    .font(.system(size: 12, weight: .medium))
+                    .widgetSecondaryFont(12, weight: .medium)
                     .foregroundStyle(palette.secondary)
+                    .minimumScaleFactor(0.8)
                 Spacer(minLength: 0)
             }
         }

@@ -30,7 +30,7 @@ struct PulseHomeView: View {
             } else {
                 Spacer(minLength: 4)
                 Text(L("pulse_unavailable"))
-                    .font(.system(size: 13, weight: .semibold))
+                    .widgetSecondaryFont(13, weight: .semibold)
                     .foregroundStyle(palette.secondary)
                     .fixedSize(horizontal: false, vertical: true)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -156,7 +156,7 @@ struct PulseHomeView: View {
             HStack(alignment: .firstTextBaseline, spacing: 4) {
                 if let glyph {
                     Text(glyph)
-                        .font(.system(size: WidgetFont.label, weight: .bold))
+                        .font(.system(size: WidgetFont.label * scale, weight: .bold))
                         .foregroundStyle(direction > 0 ? palette.up : palette.down)
                 }
                 // Erst kleiner (bis 14 pt), dann zweizeilig — nie «Breite Stä…»

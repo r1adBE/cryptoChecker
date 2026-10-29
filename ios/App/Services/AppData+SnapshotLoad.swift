@@ -29,7 +29,8 @@ struct LaunchRead: Sendable {
         let signposter = OSSignposter(subsystem: AppLog.subsystem, category: "launch")
         let interval = signposter.beginInterval("launchRead")
         defer { signposter.endInterval("launchRead", interval) }
-        let protection = ProtectedStorage.prepareAtLaunch()
+        // Beiseitegelegte Kopien erst nach bestätigtem Hinweis «nicht entsperrt» und Frist löschen (`AsideRetention`)
+        let protection = ProtectedStorage.prepareAtLaunch(asideDeletionAllowed: !StorageRecoveryNotice.isSetAsidePending())
         let read = SharedStorage.readSnapshot()
         let keyAvailable = StorageKey.shared.isAvailable
         let watched = WatchedAddressStore.loadChecked()

@@ -62,7 +62,7 @@ internal class TxFormState(val initial: TxDraft, val decimalSeparator: Char) {
     var acquiredTime by mutableStateOf(initial.acquiredTime)
     // Höchstens 120 Zeichen wie die Notiz in der Merkliste (eine längere alte Notiz wird beim Speichern gekürzt)
     var note by mutableStateOf(TextLimit.takeGraphemes(initial.note.orEmpty(), NOTE_MAX))
-    // Gebühr und Börse (D1): zugeklappt, ausser beim Bearbeiten mit Angaben
+    // Gebühr und Börse: zugeklappt, ausser beim Bearbeiten mit Angaben
     var feeText by mutableStateOf(PriceFormat.amountForInput(initial.fee, decimalSeparator))
     var feeUnit by mutableStateOf(initial.feeUnit)
     var exchange by mutableStateOf(initial.exchange.orEmpty())

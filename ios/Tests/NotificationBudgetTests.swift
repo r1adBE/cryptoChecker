@@ -14,6 +14,24 @@ final class NotificationBudgetTests: XCTestCase {
         XCTAssertEqual(NotificationBudget.maxPrice, Int(S.number(try S.fixture("notification_budget")["maxPrice"]) ?? 0))
     }
 
+    func testVerifyWait() throws {
+        let verify = try XCTUnwrap(try S.fixture("notification_budget")["verify"] as? [String: Any])
+        XCTAssertEqual(Int(S.number(verify["attempts"]) ?? 0), NotificationBudget.verifyAttempts)
+        XCTAssertEqual(Int64(S.number(verify["stepMillis"]) ?? 0), NotificationBudget.verifyStepMillis)
+        XCTAssertEqual(Int64(S.number(verify["toleranceMillis"]) ?? 0), NotificationBudget.postTimeToleranceMillis)
+    }
+
+    func testConfirmedPost() throws {
+        let cases = S.list(try S.fixture("notification_budget")["confirmedPost"])
+        XCTAssertFalse(cases.isEmpty)
+        for c in cases {
+            let postTime = S.number(c["postTime"]).map { Int64($0) }
+            let times: [Int64]? = c["queryable"] as? Bool == true ? (postTime.map { [$0] } ?? []) : nil
+            XCTAssertEqual(NotificationBudget.confirmedPost(postTimes: times, postedAt: S.millis(c["postedAt"])),
+                           c["confirmed"] as? Bool, c["name"] as? String ?? "")
+        }
+    }
+
     func testPriceSlots() throws {
         for c in S.list(try S.fixture("notification_budget")["priceSlots"]) {
             XCTAssertEqual(NotificationBudget.priceSlots(otherActive: Int(S.number(c["other"]) ?? 0)),

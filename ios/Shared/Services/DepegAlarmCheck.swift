@@ -8,7 +8,12 @@ import Foundation
 /// Pausierte Börsen (Backoff, gemeinsame Binance-Pause) werden nicht abgefragt. Wie `DepegAlarmChecker` (Android).
 enum DepegAlarmCheck {
     private static let keyLastCheck = "depeg_last_check"
-    private static let keyArmed = "depeg_armed"
+    static let keyArmed = "depeg_armed"
+    /// Schwelle (Zehntelprozent), zu der `keyArmed` gehört; 0 = zwischendurch ausgeschaltet (`MarketAlertReset.depegOff`).
+    static let keyArmedTenths = "depeg_armed_tenths"
+    /// Zähler der «Aus»-Schaltungen (`MarketAlertReset.depegOff`): Eine laufende Prüfung schreibt danach ihren Stand
+    /// nicht mehr — sonst überschriebe sie das «Aus» mit der alten Schwelle (Android: gemeinsame Sperre `DepegAlarmPrefs.lock`).
+    static let keyResetGeneration = "depeg_reset_generation"
     private static let keyLastPrice = "depeg_last_price"
     private static let keyLastPriceAt = "depeg_last_price_at"
     /// Messung nur aus Binance USDC/USDT (`DepegAlarm.Measurement.viaUsdc`); mit jeder Messung gespeichert.
@@ -34,6 +39,7 @@ enum DepegAlarmCheck {
         let last = Int64(defaults.double(forKey: keyLastCheck))
         guard isDue(now: now, lastCheck: last) else { return }
         defaults.set(Double(now), forKey: keyLastCheck)
+        let generation = defaults.integer(forKey: keyResetGeneration)
 
         guard let measurement = await fetchUsdt(now: now) else {
             defaults.set(Double(now - minInterval + retryAfterFailure), forKey: keyLastCheck)
@@ -52,13 +58,24 @@ enum DepegAlarmCheck {
         // Wie Kursalarme: in der Nachtruhe nicht auslösen, ohne zustellbare Mitteilung scharf bleiben
         let deliverable = await Notifier.isAuthorized()
         let mayFire = QuietHours.mayFire(holdAlarms: QuietHours.holdsAlarmsNow(settings), deliverable: deliverable)
-        let armed = defaults.object(forKey: keyArmed) as? Bool ?? true
+        // Gemerkter Zustand gilt nur für die Schwelle, zu der er gehört (geändert oder zwischendurch aus: scharf)
+        let tenths = DepegAlarm.threshold(settings.depegThresholdTenths)
+        let armed = DepegAlarm.armedFor(storedArmed: defaults.object(forKey: keyArmed) as? Bool ?? true,
+                                        storedTenths: defaults.object(forKey: keyArmedTenths) as? Int, tenths: tenths)
         let result = DepegAlarm.evaluate(deviationPercent: deviation,
-                                         thresholdPercent: DepegAlarm.thresholdPercent(settings.depegThresholdTenths),
+                                         thresholdPercent: DepegAlarm.thresholdPercent(tenths),
                                          armed: armed, mayFire: mayFire)
         let posted = result.fire ? await notify(price: price, deviation: deviation, settings: settings) : false
+        // Seit Beginn ausgeschaltet: den Stand nicht schreiben, das «Aus» bleibt (`mayStore`)
+        guard mayStore(generation: generation, defaults: defaults) else { return }
         defaults.set(DepegAlarm.armedAfter(fire: result.fire, posted: posted, armedBefore: armed, next: result.armed),
                      forKey: keyArmed)
+        defaults.set(tenths, forKey: keyArmedTenths)
+    }
+
+    /// Seit Beginn der Prüfung (`generation`) kein «Aus»? Sonst den Stand nicht schreiben; der nächste Lauf bewertet neu.
+    static func mayStore(generation: Int, defaults: UserDefaults) -> Bool {
+        defaults.integer(forKey: keyResetGeneration) == generation
     }
 
     /// Letzte Messung (USDT in USD, Zeitpunkt); nil = noch keine — wie `DepegReadingStore` (Android).

@@ -209,6 +209,8 @@ class TaxTemplatesParityTest {
                     assertEquals("$name outflow amount", r8(dec(e["amount"])), r8(o.amount))
                     assertEquals("$name outflow value", r8(dec(e["value"])), r8(o.valueUsdt))
                     assertEquals("$name outflow reduction", r8(dec(e["reduction"])), r8(o.ptaReductionUsdt))
+                    // Kürzung aus geschätztem Wert (Tagesschluss), optional
+                    (e["estimated"] as Boolean?)?.let { assertEquals("$name outflow estimated", it, o.estimated) }
                 }
             }
             // Gebühr in Krypto als eigene Veräusserung (UK Netzwerkgebühr, FR Gebühr-Abtretung): Vermerk «Gebühr» im Export
@@ -376,6 +378,10 @@ class TaxTemplatesParityTest {
             // Posten «unvollständig» (optional): z. B. FR Gewinn aus unvollständiger Erwerbspreis-Summe
             c["incompleteLines"]?.let { raw ->
                 assertEquals("$tpl incomplete", raw.list().map { it as String }, s.lines.filter { it.incomplete }.map { it.line.name })
+            }
+            // Posten «Wert geschätzt» (optional): z. B. FR-Abgang mit Kürzung aus geschätztem Wert
+            c["estimatedLines"]?.let { raw ->
+                assertEquals("$tpl estimated", raw.list().map { it as String }, s.lines.filter { it.estimated }.map { it.line.name })
             }
             assertTrue(s.fxAvailable)
             assertEquals(tpl.period(year), s.period)

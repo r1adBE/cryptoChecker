@@ -140,16 +140,6 @@
     <string name="pulse_alts_weaker">Bitcoin altcoineja vahvempi</string>
     <string name="pulse_chip_funding_high">Vipukaupan tunnelma optimistinen</string>
     <string name="pulse_chip_funding_negative">Vipukaupan tunnelma pessimistinen</string>
-    <string name="pulse_funding_high">Funding selvästi positiivinen: paljon vipuvoimalla otettuja longeja</string>
-    <string name="pulse_funding_negative">Funding negatiivinen: paljon shortteja</string>
-    <string name="pulse_funding_neutral">Funding neutraali</string>
-    <string name="pulse_funding_slight">Funding hieman positiivinen</string>
-    <string name="pulse_gas_high">Ethereum-gas korkea (%1$s gwei)</string>
-    <string name="pulse_gas_low">Ethereum-gas matala (%1$s gwei)</string>
-    <string name="pulse_gas_normal">Ethereum-gas tavallinen (%1$s gwei)</string>
-    <string name="pulse_volume_high">Kaupankäyntivolyymi poikkeuksellisen suuri (%1$s× tavallinen)</string>
-    <string name="pulse_volume_low">Kaupankäyntivolyymi pieni (%1$s× tavallinen)</string>
-    <string name="pulse_volume_normal">Kaupankäyntivolyymi tavallinen</string>
 
     <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>

@@ -14,9 +14,9 @@ struct WatchlistRow: View {
     /// Art des Paars: kleines Symbol vor der Glocke (Token, TradFi, α), im Zeilensatz gesprochen.
     var kind: AssetKind = .TOKEN
     let now: Int64
+    /// Frische-Schwelle (3 × Intervall, mind. 15 Min.; am Live-Strom 2 Min.): Änderung grau und ohne Fehler
+    /// «veraltet» in der Zeitzeile — wie Android.
     let staleAfter: Int64
-    /// Ab diesem Alter «veraltet» in der Zeitzeile (3 × Intervall, mind. 15 Min.); 0 = nie.
-    var outdatedAfter: Int64 = 0
     /// Gespeichertes Ende einer Pause der Börse (`AppData.exchangePauses`); nil = keine. Läuft sie noch
     /// (`RowPause.shownUntil`), steht «Binance · pausiert bis 19:45» statt der Zeitzeile.
     var exchangePausedUntil: Int64? = nil

@@ -133,6 +133,17 @@ final class BinanceFuturesUrlTests: XCTestCase {
                        "https://fapi.binance.com/fapi/v1/ticker/24hr?symbol=BTCUSDT")
     }
 
+    /// Ohne Paar-Kennung keine Anfrage («…?symbol=»), sondern ein Fehler — wie Android (`pairIdOf` wirft).
+    func testMissingPairIdIsAnErrorWithoutRequest() {
+        let m = BinanceFutures()
+        for pairId in [nil, "", " "] as [String?] {
+            let error = m.tickerQueryError(call: 0, info: PairQuery("BTC", "USDT", pairId, .perpetual))
+            XCTAssertEqual((error as? JSONError)?.message, "Missing pair id", "\(String(describing: pairId))")
+            XCTAssertEqual(m.tickerAddress(call: 0, info: PairQuery("BTC", "USDT", pairId, .perpetual)), "")
+        }
+        XCTAssertNil(m.tickerQueryError(call: 0, info: PairQuery("BTC", "USDT", "BTCUSDT", .perpetual)))
+    }
+
     func testDeliveryCodeOfPairId() {
         XCTAssertEqual(FuturesContractType.deliveryCode(of: "BTCUSDT_251226"), "251226")
         XCTAssertEqual(FuturesContractType.deliveryCode(of: "2:BTCUSD_260327"), "260327")

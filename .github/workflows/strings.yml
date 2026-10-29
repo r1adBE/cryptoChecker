@@ -9,7 +9,8 @@ on:
     # evaluate the paths filter for tag pushes, so every workflow runs for the tagged commit
     tags: ['v*']
     paths:
-      - 'android/app/src/main/res/**'
+      # check_strings.py reads the values of every module (app, wear, …)
+      - 'android/*/src/main/res/**'
       - 'android/**/*.kt'
       - 'ios/tools/**'
       - 'ios/Shared/Resources/*.xcstrings'

@@ -76,6 +76,33 @@ final class BackupCryptoParityTests: XCTestCase {
         }
     }
 
+    /// Hülle als Text wie aus der Datei (`BackupManager.needsPassword`, dann `BackupCrypto.envelope(from:)`) — gleiche
+    /// Fälle wie Android `BackupFormat.parse`.
+    func testEnvelopeTextIsReadStrictly() throws {
+        let root = try TestSupport.fixture("backup_crypto")
+        for c in TestSupport.list(root["envelopeText"]) {
+            let name = c["name"] as? String ?? ""
+            let data = Data(try XCTUnwrap(c["text"] as? String, name).utf8)
+            let result: String
+            do {
+                guard try BackupManager.needsPassword(data),
+                      let object = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+                    XCTFail(name)
+                    continue
+                }
+                _ = try BackupCrypto.envelope(from: object)
+                result = "envelope"
+            } catch BackupCrypto.Failure.unsupported {
+                result = "unsupported"
+            } catch BackupVersion.Failure.newer {
+                result = "newer"
+            } catch {
+                result = "invalid"
+            }
+            XCTAssertEqual(result, c["result"] as? String, name)
+        }
+    }
+
     func testArgon2idMatchesRfc9106() throws {
         let root = try TestSupport.fixture("backup_crypto")
         let v = try XCTUnwrap(root["rfc9106"] as? [String: Any])

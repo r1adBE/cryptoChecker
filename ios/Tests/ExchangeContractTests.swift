@@ -128,6 +128,11 @@ final class ExchangeContractTests: XCTestCase {
         let requestId = Int(S.number(c["requestId"]) ?? 0)
         let body = c["body"] as? String ?? ""
         let expect = c["expect"] as? [String: Any] ?? [:]
+        // Adresse der Einzelabfrage (optional): Laufzeit-Kontrakte mit dem Symbol der Paarliste, nie aus dem Kalender
+        if let url = c["url"] as? String {
+            let actual = exchange.tickerAddress(call: requestId, info: info)
+            if actual != url { return "url: expected '\(url)', got '\(actual)'" }
+        }
 
         var ticker = Ticker()
         var failure: Error?
@@ -147,6 +152,18 @@ final class ExchangeContractTests: XCTestCase {
         if let thrown = expect["thrown"] as? String {
             let message = (failure as? JSONError)?.message
             if message != thrown { return "thrown: expected '\(thrown)', got '\(message ?? "\(failure)")'" }
+        }
+        // Abgelaufener Laufzeit-Kontrakt (optional): ab der Abrechnung bestätigt diese Antwort allein «nicht mehr
+        // gehandelt» (`NotTraded.contractExpired` + `singleConfirms`), auch ohne Sammelabfrage — wie Android
+        if let expiry = c["contractExpiry"] as? [String: Any] {
+            let before = S.millis(expiry["before"])
+            let after = S.millis(expiry["after"])
+            if NotTraded.contractExpired(pairId: info.pairId, now: before) { return "contractExpiry: expired at \(before)" }
+            if !NotTraded.contractExpired(pairId: info.pairId, now: after) { return "contractExpiry: not expired at \(after)" }
+            let confirms = NotTraded.singleConfirms(bulkTried: false, singleReadsFullList: false, contractExpired: true)
+                && NotTraded.confirmedBySingle(gotPrice: false, error: ConnectionErrors.describe(failure),
+                                               failure: ExchangeFailure.of(failure))
+            if !confirms { return "contractExpiry: '\(failure)' does not confirm 'no longer traded'" }
         }
         let message: String?
         do {

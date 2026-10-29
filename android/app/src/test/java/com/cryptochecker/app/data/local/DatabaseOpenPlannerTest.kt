@@ -269,6 +269,61 @@ class DatabaseOpenPlannerTest {
         assertEquals(1, files.setAsideCount)
     }
 
+    // ── Nur lesen (Systemsicherung) ──
+
+    /** Schlüssel verloren oder passt nicht: nie beiseitelegen und neu beginnen — die Sicherung bricht ab. */
+    @Test
+    fun readOnlyNeverSetsAsideOrCreatesKey() {
+        fun readOnly(files: FakeFiles, keys: FakeKeys) = DatabaseOpenPlanner(files, keys, readOnly = true).prepare(db)
+        for (setup in listOf(
+            FakeFiles(FileKind.ENCRYPTED) to FakeKeys(KeyLookup.Absent),
+            FakeFiles(FileKind.ENCRYPTED).apply { keyMatches = false } to FakeKeys(found),
+            FakeFiles(FileKind.ABSENT) to FakeKeys(found),
+        )) {
+            val (files, keys) = setup
+            assertTrue(readOnly(files, keys) is Decision.KeyUnavailable)
+            assertEquals(0, files.setAsideCount)
+            assertEquals(0, keys.created)
+            assertEquals(0, keys.discarded)
+        }
+        // Passender Schlüssel: öffnen, sonst nichts (kein Aufräumen früherer Schlüssel)
+        val files = FakeFiles(FileKind.ENCRYPTED)
+        val keys = FakeKeys(found)
+        assertArrayEquals("alt".toByteArray(), (readOnly(files, keys) as Decision.Encrypted).passphrase)
+        assertEquals(listOf("opens"), files.calls)
+        assertEquals(0, keys.discarded)
+    }
+
+    // ── Ersetzte Dateien ──
+
+    /** Ersetzte Dateien nach Frist weg; ersetzte Schlüssel erst, wenn keine ersetzte Datei mehr wartet. */
+    @Test
+    fun replacedCopiesFollowRetentionThenKeysGo() {
+        val replaced = mutableListOf("$db.replaced", "$db.replaced-1")
+        val files = object : DatabaseOpenPlanner.Files by FakeFiles(FileKind.ENCRYPTED) {
+            override fun replacedCopies(database: String) = replaced.toList()
+            override fun deleteReplaced(database: String, copy: String) { replaced -= copy }
+        }
+        var discardedReplaced = 0
+        val keys = object : DatabaseOpenPlanner.Keys by FakeKeys(found) {
+            override fun discardReplaced(database: String) { discardedReplaced++ }
+        }
+        var expire = listOf("$db.replaced-1", "fremd.db.replaced")
+        val planner = DatabaseOpenPlanner(files, keys, replacedExpired = { _, _ -> expire })
+        assertTrue(planner.prepare(db) is Decision.Encrypted)
+        // Nur freigegebene und vorhandene; eine ersetzte Datei wartet noch → Schlüssel bleiben
+        assertEquals(listOf("$db.replaced"), replaced)
+        assertEquals(0, discardedReplaced)
+        expire = replaced.toList()
+        planner.prepare(db)
+        assertTrue(replaced.isEmpty())
+        assertEquals(1, discardedReplaced)
+        // Nur lesen: nichts gelöscht
+        replaced += "$db.replaced"
+        DatabaseOpenPlanner(files, keys, replacedExpired = { _, c -> c }, readOnly = true).prepare(db)
+        assertEquals(listOf("$db.replaced"), replaced)
+    }
+
     // ── Hilfen ──
 
     @Test

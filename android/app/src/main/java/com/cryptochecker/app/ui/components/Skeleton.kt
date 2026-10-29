@@ -21,10 +21,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -32,7 +28,6 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.ProgressBarRangeInfo
@@ -40,7 +35,6 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.progressBarRangeInfo
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -146,28 +140,6 @@ fun SkeletonLine(style: TextStyle, modifier: Modifier = Modifier) {
     )
 }
 
-/**
- * Graue Pille in der Höhe einer Etikette mit Text in [style] und Innenabstand
- * [horizontal]/[vertical] (z. B. Zonen-Etikett, Hinweis-Pillen); die Breite bestimmt
- * [modifier]. Für Screenreader unsichtbar.
- */
-@Composable
-fun SkeletonPill(
-    style: TextStyle,
-    modifier: Modifier = Modifier,
-    horizontal: Dp = Spacing.sm,
-    vertical: Dp = Spacing.sm,
-) {
-    Box(
-        modifier = modifier
-            .clip(RoundedCornerShape(50))
-            .background(MaterialTheme.colorScheme.surfaceContainerHighest)
-            .padding(horizontal = horizontal, vertical = vertical)
-    ) {
-        Text(" ", style = style, maxLines = 1, modifier = Modifier.clearAndSetSemantics { })
-    }
-}
-
 /** Grauer Block fester Höhe (Skala, Balken, Chart-Fläche); Breite und Höhe bestimmt [modifier]. */
 @Composable
 fun SkeletonBlock(modifier: Modifier = Modifier, corner: Dp = 50.dp) {
@@ -176,42 +148,5 @@ fun SkeletonBlock(modifier: Modifier = Modifier, corner: Dp = 50.dp) {
             .clip(RoundedCornerShape(corner))
             .background(MaterialTheme.colorScheme.surfaceContainerHighest)
             .clearAndSetSemantics { }
-    )
-}
-
-/**
- * Platzhalter für mehrzeiligen Text: [text] (z. B. der echte feste Text oder ein Beispiel
- * mit typischen Zahlen) wird unsichtbar gesetzt und je Zeile ein grauer Balken gezeichnet —
- * so ist der Platzhalter genau so hoch wie der spätere Text (auch bei Umbruch und
- * Schriftgrösse). Für Screenreader unsichtbar.
- */
-@Composable
-fun SkeletonText(text: String, style: TextStyle, modifier: Modifier = Modifier) {
-    val block = MaterialTheme.colorScheme.surfaceContainerHighest
-    var layout by remember { mutableStateOf<TextLayoutResult?>(null) }
-    Text(
-        text = text,
-        style = style,
-        color = Color.Transparent,
-        onTextLayout = { layout = it },
-        modifier = modifier
-            .clearAndSetSemantics { }
-            .drawBehind {
-                // Erst beim Zeichnen gelesen: neue Zeilen zeichnen nur neu
-                val result = layout ?: return@drawBehind
-                for (line in 0 until result.lineCount) {
-                    val top = result.getLineTop(line)
-                    val bottom = result.getLineBottom(line)
-                    val left = result.getLineLeft(line)
-                    val right = result.getLineRight(line)
-                    val h = (bottom - top) * 0.72f
-                    drawRoundRect(
-                        color = block,
-                        topLeft = Offset(minOf(left, right), top + (bottom - top - h) / 2f),
-                        size = Size(kotlin.math.abs(right - left), h),
-                        cornerRadius = CornerRadius(h / 2f)
-                    )
-                }
-            }
     )
 }

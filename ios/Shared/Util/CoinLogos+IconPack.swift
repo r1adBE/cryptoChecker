@@ -30,6 +30,17 @@ extension CoinLogos {
     /// Leerzeile, dann die PNG-Bytes in derselben Reihenfolge. Ergebnis: Name → `IconSlice` (ab
     /// Anfang von `bytes`); nil = kein Paket oder kaputt — wie Android `parseIconPack`.
     static func parseIconPack(_ bytes: [UInt8]) -> [String: IconSlice]? {
+        parseIconPack(header: bytes, totalCount: bytes.count)
+    }
+
+    /// Wie `parseIconPack(_:)` aus dem gemappten Paket `data`: nur der Anfang (Inhaltsverzeichnis) wird kopiert, die
+    /// PNG-Bytes bleiben in der Datei (nicht je Prozess, auch je Widget, das ganze Paket auf dem Heap).
+    static func parseIconPack(_ data: Data) -> [String: IconSlice]? {
+        parseIconPack(header: [UInt8](data.prefix(iconPackHeaderMax)), totalCount: data.count)
+    }
+
+    /// Inhaltsverzeichnis aus dem Anfang `header` eines Pakets mit `totalCount` Bytes.
+    private static func parseIconPack(header bytes: [UInt8], totalCount: Int) -> [String: IconSlice]? {
         let limit = min(bytes.count, iconPackHeaderMax)
         var end = -1
         var i = 0
@@ -51,7 +62,7 @@ extension CoinLogos {
             guard parts.count == 2, let length = Int(parts[1]), length > 0 else { return nil }
             let name = String(parts[0])
             guard !name.isEmpty, name.unicodeScalars.allSatisfy({ isIconNameScalar($0) }) else { return nil }
-            guard length <= bytes.count - offset else { return nil }
+            guard length <= totalCount - offset else { return nil }
             if out[name] == nil { out[name] = IconSlice(offset: offset, length: length) }
             offset += length
         }

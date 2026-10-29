@@ -187,4 +187,6 @@
 
     <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
     <string name="alarm_threshold_invalid_fix">Ogiltig gräns – justera den</string>
+
+    <string name="alarm_last_checked">Senast kontrollerat %1$s</string>
 </resources>

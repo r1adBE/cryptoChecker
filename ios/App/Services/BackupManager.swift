@@ -55,17 +55,6 @@ enum BackupManager {
 
     // MARK: Sichern
 
-    /// Sicherung als Datei; mit `password` verschlüsselt (`BackupCrypto`, gleiches Format wie
-    /// unter Android), sonst als lesbares JSON. Die App nimmt den Weg über
-    /// `plainExportData` + `encryptedFile` (Schlüsselableitung im Hintergrund).
-    @MainActor
-    static func exportData(_ data: AppData, password: String?) throws -> Data {
-        let plain = try plainExportData(data)
-        try BackupLimits.checkWritable(plain)
-        guard let password else { return plain }
-        return try encryptedFile(plain, password: password)
-    }
-
     /// Klartext verschlüsseln (`BackupCrypto` v3, Argon2id mit 64 MiB — einige 100 ms bis wenige Sekunden):
     /// nicht auf dem Main-Thread aufrufen. Die Passwort-Bytes werden danach überschrieben.
     /// - Throws: `BackupCrypto.Failure.notEnoughMemory`, wenn der Speicher für Argon2id nicht reicht;
@@ -79,35 +68,41 @@ enum BackupManager {
     }
 
     /// Lesbares JSON der Sicherung (Merkliste, Alarme, Favoriten, Einstellungen, Portfolio). Ein Stand: alles wird in einem
-    /// Durchgang auf dem Main Actor aus `AppData` gelesen — keine Änderung kann dazwischen kommen (wie Android, dort je
-    /// Datenbank eine Lesetransaktion). Vor dem Schreiben als Datei `BackupLimits.checkWritable` (das Journal braucht es nicht).
+    /// Durchgang auf dem Main Actor aus `AppData` gelesen (`exportInput`) — keine Änderung kann dazwischen kommen (wie
+    /// Android, dort je Datenbank eine Lesetransaktion). Die Seite «Sichern» baut und kodiert danach abseits des
+    /// Haupt-Threads (`plainExportData(_ input:)`). Vor dem Schreiben als Datei `BackupLimits.checkWritable` (das Journal
+    /// braucht es nicht).
     @MainActor
     static func plainExportData(_ data: AppData) throws -> Data {
-        let snapshot = data.snapshot
-        let watches = snapshot.watches.sorted {
+        try plainExportData(exportInput(data))
+    }
+
+    /// Wie `plainExportData(_ data:)` aus der Wertkopie `input` — auch abseits des Haupt-Threads.
+    static func plainExportData(_ input: ExportInput) throws -> Data {
+        let watches = input.watches.sorted {
             $0.sortOrder != $1.sortOrder ? $0.sortOrder < $1.sortOrder : $0.id < $1.id
         }
-        let alarms = snapshot.alarms.sorted { $0.id < $1.id }
+        let alarms = input.alarms.sorted { $0.id < $1.id }
 
         var favorites: [String: Any] = [:]
         for kind in FavoriteKind.allCases {
-            favorites[kind.rawValue] = Array(data.favorites[kind] ?? []).sorted()
+            favorites[kind.rawValue] = Array(input.favorites[kind] ?? []).sorted()
         }
 
         let root: [String: Any] = [
             "format": format,
             "version": version,
-            "createdAt": NSNumber(value: EpochTime.nowMillis),
+            "createdAt": NSNumber(value: input.createdAt),
             "watches": watches.map(watchToJson),
             "alarms": alarms.map(alarmToJson),
             "favorites": favorites,
-            "settings": settingsJson(data.settings),
+            "settings": settingsJson(input.settings),
             // Neueste zuerst — wie `portfolioDao.getAll()`
-            "portfolio": data.portfolio.map(txToJson),
+            "portfolio": input.portfolio.map(txToJson),
             // Alarme «Portfolio-Wert», nach Id — wie Android
-            "portfolioAlarms": data.portfolioAlarms.map(portfolioAlarmToJson),
+            "portfolioAlarms": input.portfolioAlarms.map(portfolioAlarmToJson),
             // Beobachtete Adressen (Netz, Adresse, Bezeichnung, Datum, Guthaben-Verlauf und Einstandsposten)
-            WatchedAddressRules.backupKey: watchedToJson(WatchedAddressRules.backupEntries(data.watchedAddresses)),
+            WatchedAddressRules.backupKey: watchedToJson(WatchedAddressRules.backupEntries(input.watchedAddresses)),
         ]
         return try encode(root)
     }
@@ -153,7 +148,7 @@ enum BackupManager {
 
     /// Was die Rückfrage vor dem Wiederherstellen nennt (wie Android `RestorePreview`): `invalid` = ungültige Einträge
     /// (zu bestätigen, `acceptInvalid`), `droppedPairs`/`droppedAlarms` = über den Grenzen (`BackupRestoreLimits`).
-    struct RestorePreview: Equatable {
+    struct RestorePreview: Equatable, Sendable {
         var invalid = 0
         var droppedPairs = 0
         var droppedAlarms = 0
