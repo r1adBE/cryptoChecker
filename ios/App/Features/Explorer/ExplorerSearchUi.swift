@@ -105,8 +105,6 @@ extension ExplorerScreen {
         let pairs = vm.showPairHits ? vm.pairHits : []
         let busy = vm.searchLists.reading || vm.searchLists.progress != nil
         return VStack(alignment: .leading, spacing: 8) {
-            listsOffer
-
             if vm.coinHits.isEmpty && pairs.isEmpty && !busy {
                 VStack(spacing: Spacing.sm) {
                     HStack(spacing: Spacing.sm) {
@@ -137,6 +135,8 @@ extension ExplorerScreen {
                     }
                 }
             }
+            // Unter den Coins (nicht darüber): eine lange Karte schob die Treffer sonst unter die Tastatur — wie Android
+            listsOffer
 
             if !pairs.isEmpty {
                 sectionLabel(L("explorer_pairs_title"))
@@ -226,55 +226,9 @@ extension ExplorerScreen {
             .accessibilityAddTraits(.isHeader)
     }
 
-    /// Fehlende Paarlisten mit «Listen laden» (stumme Börsen mit Namen und «Erneut versuchen»), beim Laden der
-    /// Fortschritt. Geladen wird nur auf Tippen, je Börse die ganze öffentliche Liste. Wie `ListsOffer` in Android.
-    @ViewBuilder
+    /// Fehlende Paarlisten mit «Listen laden», beim Laden der Fortschritt (`ExplorerListsOffer`).
     private var listsOffer: some View {
-        let lists = vm.searchLists
-        if let progress = lists.progress {
-            VStack(alignment: .leading, spacing: Spacing.xs) {
-                ProgressView(value: Double(progress.done), total: Double(max(progress.total, 1)))
-                    .tint(accent.primary)
-                Text(L("explorer_lists_loading", progress.done, progress.total))
-                    .font(.footnote)
-                    .foregroundStyle(AppColors.onSurfaceVariant)
-                    .monospacedDigit()
-            }
-            .padding(.vertical, Spacing.sm)
-        } else if lists.reading {
-            VStack(alignment: .leading, spacing: Spacing.xs) {
-                ProgressView().progressViewStyle(.linear).tint(accent.primary)
-                Text(L("explorer_loading_pairs"))
-                    .font(.footnote)
-                    .foregroundStyle(AppColors.onSurfaceVariant)
-            }
-            .padding(.vertical, Spacing.sm)
-        } else if lists.missing > 0 {
-            VStack(alignment: .leading, spacing: Spacing.xs) {
-                // Nach einem Fehlschlag zuerst die Börsen ohne Antwort, dann die übrigen fehlenden Listen
-                let others = lists.missing - lists.failed.count
-                Text([lists.failed.isEmpty ? nil : L(lists.failed.count == 1 ? "explorer_lists_failed_one"
-                                                     : "explorer_lists_failed_many", lists.failed.joined(separator: ", ")),
-                      lists.failed.isEmpty || others > 0 ? L("explorer_lists_missing", count: others, others) : nil]
-                    .compactMap { $0 }.joined(separator: "\n"))
-                    .font(.subheadline)
-                    .foregroundStyle(AppColors.onSurface)
-                Text(L("explorer_lists_privacy"))
-                    .font(.footnote)
-                    .foregroundStyle(AppColors.onSurfaceVariant)
-                HStack {
-                    Spacer()
-                    Button(L(lists.failed.isEmpty ? "explorer_lists_load" : "action_retry")) { vm.loadMissingLists() }
-                        .accessibilityIdentifier(UiTestTags.explorerListsLoad)
-                        .font(.subheadline.weight(.semibold))
-                        .tint(accent.primary)
-                        .buttonStyle(.borderless)
-                }
-            }
-            .fixedSize(horizontal: false, vertical: true)
-            .padding(Spacing.md)
-            .background(AppColors.container, in: RoundedRectangle(cornerRadius: Radius.card, style: .continuous))
-        }
+        ExplorerListsOffer(lists: vm.searchLists) { vm.loadMissingLists() }
     }
 
     /// Ein Coin: Plakette, Name und Kürzel, darunter an wie vielen Börsen (oder «noch nicht geladen»).

@@ -140,6 +140,7 @@ extension WatchlistRow {
                     .font(.caption)
                     .foregroundStyle(ConnectionErrors.isNotTraded(error) ? AppColors.onSurfaceVariant : AppColors.error)
                     .lineLimit(1)
+                    .frame(minWidth: 0, idealWidth: 0, maxWidth: .infinity, alignment: .leading)
             }
 
             // Eigene Notiz (#233), dezent unter dem Paar
@@ -155,6 +156,8 @@ extension WatchlistRow {
                         .foregroundStyle(AppColors.onSurfaceVariant)
                         .lineLimit(2)
                 }
+                // Eigenbreite 0: eine lange Notiz verdrängt das Mini-Chart nicht (`WatchlistSparklineSlot`)
+                .frame(minWidth: 0, idealWidth: 0, maxWidth: .infinity, alignment: .leading)
                 .accessibilityElement(children: .combine)
                 .accessibilityLabel(Text(verbatim: L("label_value", L("note_title"), note)))
             }

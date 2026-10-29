@@ -30,6 +30,13 @@ class CoinLogosParityTest {
     }
 
     @Test
+    fun stripMultiplier() {
+        data["multiplier"].list().map { it.obj() }.forEach { c ->
+            assertEquals("multiplier: $c", c["expected"], CoinLogos.stripMultiplier(c["symbol"] as String))
+        }
+    }
+
+    @Test
     fun initials() {
         data["initials"].list().map { it.obj() }.forEach { c ->
             assertEquals("initials: $c", c["expected"], CoinLogos.initials(c["symbol"] as String))

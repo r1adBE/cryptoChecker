@@ -149,8 +149,10 @@ internal fun DiagnosticsCard(viewModel: DiagnosticsViewModel = hiltViewModel()) 
     val preview by viewModel.preview.collectAsStateWithLifecycle()
     GroupCard {
         SettingsAnchor("about.diagnostics") {
+            // In der Karte mit Innenabstand: ohne eigenen seitlichen Abstand (sonst doppelt eingerückt)
             SettingsNavRow(
                 title = stringResource(R.string.diagnostics_share),
+                horizontalPadding = 0.dp,
                 onClick = {
                     scope.launch {
                         runCatchingCancellable { viewModel.build(context.applicationContext) }

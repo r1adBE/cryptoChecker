@@ -47,12 +47,15 @@ extension CoinLogoStore {
     fileprivate struct DownloadJob: Sendable {
         let name: String
         let url: String
+        /// Ersatz-Adressen desselben Kürzels (`CoinMeta.alternates`), wenn `url` scheitert.
+        var alternates: [String] = []
     }
 
     /// Lädt alle Logos aus `wanted`, die noch fehlen (nicht fehlgeschlagen, keine Datei): je Server
     /// `perHostParallel` gleichzeitig. Bremst ein Server nur kurz (bis `shortPauseMaxMillis`), werden
-    /// seine Bilder nach der Pause gleich nachgeholt — wie Android `downloadMissing`.
-    static func downloadMissing(_ all: [String: String]) async -> DownloadResult {
+    /// seine Bilder nach der Pause gleich nachgeholt; scheitert ein Bild, kommen die Ersatz-Adressen desselben
+    /// Kürzels dran (`alternates`, `CoinMeta.alternates`) — wie Android `downloadMissing`.
+    static func downloadMissing(_ all: [String: String], alternates: [String: [String]] = [:]) async -> DownloadResult {
         // Mobile Daten: Logos, die nur die Zusatzseiten der Rangliste bringen, erst im WLAN
         let extraOnly = Set(SharedStorage.defaults.stringArray(forKey: extraOnlyKey) ?? [])
         let unmetered = await UnmeteredNetwork.shared.isUnmetered()
@@ -61,10 +64,12 @@ extension CoinLogoStore {
         let now = EpochTime.nowMillis
         let failedBefore = loadFailures(now: now)
         let fm = FileManager.default
+        let altByFile = Dictionary(alternates.compactMap { e in CoinLogos.fileName(e.key).map { ($0, e.value) } },
+                                   uniquingKeysWith: { first, _ in first })
         // Je Datei höchstens ein Abruf (zwei Kürzel, eine Datei: nie gleichzeitig dieselbe Datei schreiben)
         var pending = CoinLogos.downloadJobs(wanted.map { ($0.key, $0.value) }) { name in
             failedBefore[name] != nil || fm.fileExists(atPath: directory.appendingPathComponent(name).path)
-        }.map { DownloadJob(name: $0.name, url: $0.url) }
+        }.map { DownloadJob(name: $0.name, url: $0.url, alternates: altByFile[$0.name] ?? []) }
         guard !pending.isEmpty else { return DownloadResult() }
         let attempted = pending.count
         var added = 0
@@ -115,7 +120,7 @@ extension CoinLogoStore {
         await withTaskGroup(of: (job: DownloadJob, result: Fetched).self) { group in
             for _ in 0..<perHostParallel {
                 guard let job = iterator.next() else { break }
-                group.addTask { (job, await CoinLogoStore.download(name: job.name, url: job.url, streaks: streaks)) }
+                group.addTask { (job, await CoinLogoStore.downloadWithAlternates(job, streaks: streaks)) }
             }
             while let done = await group.next() {
                 switch done.result {
@@ -129,11 +134,25 @@ extension CoinLogoStore {
                     out.paused.append(done.job)
                 }
                 if let job = iterator.next() {
-                    group.addTask { (job, await CoinLogoStore.download(name: job.name, url: job.url, streaks: streaks)) }
+                    group.addTask { (job, await CoinLogoStore.downloadWithAlternates(job, streaks: streaks)) }
                 }
             }
         }
         return out
+    }
+
+    /// Erst `job.url`, scheitert es, die Ersatz-Adressen der Reihe nach; bremst dabei ein Server, gilt das Bild als
+    /// gebremst — wie Android `fetchWithAlternates`.
+    private static func downloadWithAlternates(_ job: DownloadJob, streaks: ForbiddenStreaks) async -> Fetched {
+        var result = await download(name: job.name, url: job.url, streaks: streaks)
+        guard result == .failed else { return result }
+        var paused = false
+        for alt in job.alternates where alt != job.url {
+            result = await download(name: job.name, url: alt, streaks: streaks)
+            if result == .ok { return .ok }
+            if result == .paused { paused = true }
+        }
+        return paused ? .paused : .failed
     }
 
     /// Kürzeste verbleibende Pause der Server von `jobs` (ms); nil = keiner (mehr) pausiert — wie Android.

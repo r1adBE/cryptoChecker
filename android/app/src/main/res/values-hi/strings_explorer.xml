@@ -12,6 +12,10 @@
     <string name="explorer_coin_suggested">सुझाव</string>
     <string name="explorer_coins_title">कॉइन</string>
     <string name="explorer_lists_failed_many">%1$s अभी जवाब नहीं दे रहे – जोड़ी सूचियाँ लोड नहीं हुईं। बाद में फिर कोशिश करो।</string>
+    <plurals name="explorer_lists_failed_more">
+        <item quantity="one">+%1$d और</item>
+        <item quantity="other">+%1$d और</item>
+    </plurals>
     <string name="explorer_lists_failed_one">%1$s अभी जवाब नहीं दे रहा – जोड़ी सूची लोड नहीं हुई। बाद में फिर कोशिश करो।</string>
     <string name="explorer_lists_load">सूचियाँ लोड करो</string>
     <string name="explorer_lists_loading">पेयर सूचियाँ लोड हो रही हैं… %1$d/%2$d</string>

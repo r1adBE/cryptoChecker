@@ -118,6 +118,10 @@ suspend fun CoinListSync.withListsMerged(known: Map<String, String>): Map<String
     return out
 }
 
+/** Ersatz-Adressen je Kürzel aus den gespeicherten Binance-Listen ([CoinMeta.alternates]); ohne Listen leer. */
+suspend fun CoinListSync.logoAlternates(): Map<String, List<String>> =
+    savedLists()?.let { CoinMeta.alternates(it.binance, it.alpha) }.orEmpty()
+
 /** Eine Seite der Rangliste; bei «429» einmal nach der verlangten Pause wiederholen. */
 suspend fun CoinListSync.marketsPage(page: Int): String = try {
     apiClient.callExchange(CoinLogos.marketsUrl(page), null)

@@ -11,11 +11,8 @@ enum Spacing {
     static let lg: CGFloat = 16
     static let xl: CGFloat = 24
     static let xxl: CGFloat = 32
-
-    /// Freiraum unter der letzten Zeile einer Liste mit schwebendem «+»-Knopf (58 pt + Rand + Schatten):
-    /// 3 × `xxl`, damit der Knopf nichts verdeckt. Keine Rasterstufe, sondern daraus abgeleitet (darum
-    /// nicht als eigene Zahl) — wie `Spacing.fabClearance` (Android).
-    static let fabClearance: CGFloat = Spacing.xxl * 3
+    // Kein eigener Freiraum für den «+»-Knopf (Android `Spacing.fabClearance`): iOS setzt den Knopf per
+    // `safeAreaInset` unter die Liste, die dadurch unten von selbst Platz bekommt.
 }
 
 /// Eckenradien — eine Formstufe wie Android `appShapes` (Shape.kt): Felder und Menüs 12, Karten auf dem

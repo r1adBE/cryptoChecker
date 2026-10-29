@@ -98,8 +98,6 @@ struct PortfolioCoinDetail: View {
 
             PortfolioDisclaimer()
                 .portfolioListRow(top: 0, bottom: 0)
-            // Platz für den «+»-Knopf
-            Color.clear.frame(height: Spacing.fabClearance).portfolioListRow(top: 0, bottom: 0)
         }
         .listStyle(.plain)
         .scrollContentBackground(.hidden)
@@ -110,7 +108,8 @@ struct PortfolioCoinDetail: View {
         .background(AppColors.background.ignoresSafeArea())
         .refreshable { await model.refresh(force: true) }
         .animation(.spring(duration: 0.35), value: own.map(\.id))
-        .overlay(alignment: .bottomTrailing) {
+        // «+»-Knopf über der Tableiste; der Einschub gibt der Liste unten Platz (wie die Übersicht)
+        .safeAreaInset(edge: .bottom, alignment: .trailing, spacing: 0) {
             PortfolioAddButton { sheet = PortfolioTxDraft(coin: coin) }
         }
         .navigationTitle(coin)

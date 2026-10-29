@@ -14,6 +14,12 @@
     <string name="explorer_coin_suggested">Рекомендуем</string>
     <string name="explorer_coins_title">Монеты</string>
     <string name="explorer_lists_failed_many">%1$s сейчас не отвечают – списки пар не загружены. Попробуй позже.</string>
+    <plurals name="explorer_lists_failed_more">
+        <item quantity="one">ещё %1$d</item>
+        <item quantity="few">ещё %1$d</item>
+        <item quantity="many">ещё %1$d</item>
+        <item quantity="other">ещё %1$d</item>
+    </plurals>
     <string name="explorer_lists_failed_one">%1$s сейчас не отвечает – список пар не загружен. Попробуй позже.</string>
     <string name="explorer_lists_load">Загрузить списки</string>
     <string name="explorer_lists_loading">Загрузка списков пар… %1$d/%2$d</string>

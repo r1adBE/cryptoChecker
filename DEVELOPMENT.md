@@ -2978,6 +2978,24 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   `OSAllocatedUnfairLock`; `PortfolioPartStore`: all state in one lock, weights/tests of the caller called outside it
   (identified by `PortfolioPartIds`); formatter caches, `AlarmDelivery`, `MoveHistoryCore`, `BackgroundTaskCompletion`,
   `NotificationCompletion`: the non-`Sendable` object only inside `OSAllocatedUnfairLock(uncheckedState:)`.
+* Build 171: layout fixes from the screenshot review (CI shots of build 161). Android: `AppNavHost` consumes the outer
+  Scaffold's insets (`consumeWindowInsets(innerPadding)` after the IME padding), so pages with their own
+  Scaffold/TopAppBar no longer add the status bar a second time; `SettingsNavRow(horizontalPadding = 0.dp)` inside a
+  `GroupCard` («Pairs», «Share diagnostics»), spacer between the cards of Settings › Alerts; the «Custom» segment of
+  `PercentChoiceRow` uses `FittingSegmentLabel` (custom `Layout`, not `BoxWithConstraints` – the segment row asks for
+  intrinsics): label shrinks to 80 % (`TextAutoSize`), else `ic_edit` with the word as description. Alert sentence:
+  «When BTC» and the direction in one text (both platforms). iOS: `PortfolioAddButton` via
+  `safeAreaInset(edge: .bottom, alignment: .trailing)` instead of an overlay under the custom tab bar (list end spacer
+  and `Spacing.fabClearance` on iOS removed; `SpacingUsageTest` adapted); watchlist header: add button `fixedSize`
+  + `layoutPriority(2)`, status `layoutPriority(1)`, «Last run» pill `ViewThatFits` (icon only);
+  `WatchlistSparklineSlot` shows the chart only if the info column keeps its ideal width (error and note lines count
+  0). Add pair: `ListsOffer`/`ExplorerListsOffer` (new file) below the coin results, failed exchanges sorted
+  case-insensitively, collapsed to 3 names + `explorer_lists_failed_more` (new plural, 31 languages), tap expands.
+  Notification pre-prompt: one app-wide instance (`PrePromptSlot`; Android `NotificationPrePromptHost` in `MainActivity`
+  instead of a `rememberSaveable` dialog per screen, which the watchlist saved as open when its starter banner was cut by
+  «+» and reopened in every predictive-back preview, swallowing Back); stage written when shown; the starter ask is
+  skipped when the banner ends off screen (iOS: explorer open); `NotificationPrePromptTest`/`NotificationPrePromptTests`.
+  Logos: `CoinLogos.stripMultiplier` (shared by `normalize` and `initials`, TradFi unchanged; parity `coin_logos.json` › `multiplier`); `CoinMeta.alternates` (Binance list without futures-only/bStocks, then Alpha) is tried by the bulk download when the mapped image fails (parity `coin_meta.json` › `alternates`).
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

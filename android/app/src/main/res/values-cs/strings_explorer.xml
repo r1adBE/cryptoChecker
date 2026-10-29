@@ -14,6 +14,12 @@
     <string name="explorer_coin_suggested">Návrh</string>
     <string name="explorer_coins_title">Mince</string>
     <string name="explorer_lists_failed_many">%1$s teď neodpovídají – seznamy párů se nenačetly. Zkus to později.</string>
+    <plurals name="explorer_lists_failed_more">
+        <item quantity="one">+%1$d další</item>
+        <item quantity="few">+%1$d další</item>
+        <item quantity="many">+%1$d dalších</item>
+        <item quantity="other">+%1$d dalších</item>
+    </plurals>
     <string name="explorer_lists_failed_one">%1$s teď neodpovídá – seznam párů se nenačetl. Zkus to později.</string>
     <string name="explorer_lists_load">Načíst seznamy</string>
     <string name="explorer_lists_loading">Načítání seznamů párů… %1$d/%2$d</string>

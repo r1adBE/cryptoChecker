@@ -97,7 +97,31 @@
     },
     {
       "symbol": "1000PEPE",
+      "expected": "PEPE"
+    },
+    {
+      "symbol": "1000000MOG",
+      "expected": "MOG"
+    },
+    {
+      "symbol": "1000CHEEMS",
+      "expected": "CHE"
+    },
+    {
+      "symbol": "1MBABYDOGE",
+      "expected": "BAB"
+    },
+    {
+      "symbol": "1000X",
       "expected": "100"
+    },
+    {
+      "symbol": "1INCH",
+      "expected": "1IN"
+    },
+    {
+      "symbol": "XBT",
+      "expected": "XBT"
     },
     {
       "symbol": "X",
@@ -110,6 +134,73 @@
     {
       "symbol": "TRADFI:GOOGL",
       "expected": "GOO"
+    },
+    {
+      "symbol": "TRADFI:1000PEPE",
+      "expected": "100"
+    }
+  ],
+  "_multiplierComment": "stripMultiplier: gemeinsame Hebel-Regel (normalize, initials, fileName, SpotMarket.lookupSymbol): gross, ohne Leerraum, Hebel-Präfix 1000000/100000/10000/1000/1M nur, wenn danach mindestens zwei Zeichen mit Buchstabe vorne folgen; ohne Aliase (XBT, LUNA2 bleiben). initials: Krypto ohne Hebel-Präfix (bis vier Zeichen ganz, sonst drei), TradFi unverändert.",
+  "multiplier": [
+    {
+      "symbol": "1000000MOG",
+      "expected": "MOG"
+    },
+    {
+      "symbol": "1000CHEEMS",
+      "expected": "CHEEMS"
+    },
+    {
+      "symbol": "10000LADYS",
+      "expected": "LADYS"
+    },
+    {
+      "symbol": "100000AB",
+      "expected": "AB"
+    },
+    {
+      "symbol": "1MBABYDOGE",
+      "expected": "BABYDOGE"
+    },
+    {
+      "symbol": " 1000bonk ",
+      "expected": "BONK"
+    },
+    {
+      "symbol": "1000",
+      "expected": "1000"
+    },
+    {
+      "symbol": "1000X",
+      "expected": "1000X"
+    },
+    {
+      "symbol": "10000001X",
+      "expected": "10000001X"
+    },
+    {
+      "symbol": "1INCH",
+      "expected": "1INCH"
+    },
+    {
+      "symbol": "1MX",
+      "expected": "1MX"
+    },
+    {
+      "symbol": "0G",
+      "expected": "0G"
+    },
+    {
+      "symbol": "XBT",
+      "expected": "XBT"
+    },
+    {
+      "symbol": "LUNA2",
+      "expected": "LUNA2"
+    },
+    {
+      "symbol": "",
+      "expected": ""
     }
   ],
   "allowedUrl": [

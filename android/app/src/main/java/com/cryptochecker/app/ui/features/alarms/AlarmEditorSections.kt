@@ -199,15 +199,15 @@ internal fun SimpleSentence(
         verticalArrangement = Arrangement.spacedBy(Spacing.sm),
         modifier = Modifier.fillMaxWidth().padding(top = Spacing.lg)
     ) {
-        // Wörter und Knopf mittig zur Eingabezeile des Felds (nicht zu Feld samt Fehlertext darunter)
-        Text(
-            stringResource(R.string.alarm_simple_when, BidiText.isolate(symbol)),
-            style = MaterialTheme.typography.titleMedium,
-            modifier = Modifier.align(Alignment.Top).alignToInputLine()
+        // Wörter mittig zur Eingabezeile des Felds (nicht zu Feld samt Fehlertext darunter). «Wenn BTC» und die
+        // Richtung stehen in einem Text mit normalem Wortabstand (zwei Elemente mit Spacing.sm wirkten wie ein
+        // doppelter Leerschlag). Richtung nur als Wort im Satz: gewählt wird sie oben mit «Kurs über/unter».
+        val whenText = stringResource(R.string.alarm_simple_when, BidiText.isolate(symbol))
+        val direction = stringResource(
+            if (draft.condition == AlarmCondition.PRICE_ABOVE) R.string.alarm_simple_above else R.string.alarm_simple_below
         )
-        // Richtung nur als Wort im Satz: gewählt wird sie oben mit den Chips «Kurs über/unter» (ein Bedienelement)
         Text(
-            stringResource(if (draft.condition == AlarmCondition.PRICE_ABOVE) R.string.alarm_simple_above else R.string.alarm_simple_below),
+            listOf(whenText, direction).filter { it.isNotBlank() }.joinToString(" "),
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.align(Alignment.Top).alignToInputLine()
         )

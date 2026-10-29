@@ -123,28 +123,33 @@ enum CoinLogos {
     // «LUNA2»: Terra 2.0 heisst bei den Futures-Börsen so (LUNA2USDT) — wie Android
     private static let aliases = ["XBT": "BTC", "XDG": "DOGE", "LUNA2": "LUNA"]
 
-    /// Symbol, unter dem das Logo gesucht wird: gross, ohne Leerraum, ohne Hebel-Präfix
-    /// («1000PEPE» → «PEPE»), Börsen-Kürzel vereinheitlicht («XBT» → «BTC»).
-    /// Geprüft (Parity-Fälle): Auch «1000SATS» und «1000CAT» sind bei Binance Hebel-Kürzel
-    /// (1000 × SATS (Ordinals) bzw. 1000 × Simon's Cat, CoinGecko-Kürzel SATS bzw. CAT) — die
-    /// Zuordnung zu SATS/CAT ist richtig. Ein echter Token «1000…» ohne Hebel ist nicht bekannt;
-    /// nach dem Präfix müssen mindestens zwei Zeichen mit Buchstabe vorne folgen («1000X» bleibt).
+    /// Symbol, unter dem das Logo gesucht wird: `stripMultiplier`, dann Börsen-Kürzel vereinheitlicht
+    /// («XBT» → «BTC»). Geprüft (Parity-Fälle): Auch «1000SATS» und «1000CAT» sind bei Binance Hebel-Kürzel
+    /// (1000 × SATS (Ordinals) bzw. 1000 × Simon's Cat) — die Zuordnung zu SATS/CAT ist richtig.
     /// Dieselbe Regel nutzt `SpotMarket.lookupSymbol` — wie Android.
     static func normalize(_ symbol: String) -> String {
-        var s = symbol.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-        for prefix in multiplierPrefixes where s.hasPrefix(prefix) {
-            let rest = s.dropFirst(prefix.count)
-            if rest.count >= 2, let first = rest.first, first.isLetter {
-                s = String(rest)
-                break
-            }
-        }
+        let s = stripMultiplier(symbol)
         return aliases[s] ?? s
     }
 
-    /// Initialen für den Ersatz-Kreis: bis vier Zeichen ganz, sonst die ersten drei.
+    /// Gemeinsame Hebel-Regel (Parity `coin_logos.json` › `multiplier`): gross, ohne Leerraum, ohne Hebel-Präfix
+    /// der Futures («1000000MOG» → «MOG», «1MBABYDOGE» → «BABYDOGE»), sonst unverändert. Ein echter Token «1000…»
+    /// ohne Hebel ist nicht bekannt; nach dem Präfix müssen mindestens zwei Zeichen mit Buchstabe vorne folgen
+    /// («1000X», «1INCH» bleiben). Ohne Aliase (`normalize`) — wie Android.
+    static func stripMultiplier(_ symbol: String) -> String {
+        let s = symbol.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        guard let prefix = multiplierPrefixes.first(where: { s.hasPrefix($0) }) else { return s }
+        let rest = s.dropFirst(prefix.count)
+        guard rest.count >= 2, let first = rest.first, first.isLetter else { return s }
+        return String(rest)
+    }
+
+    /// Initialen für den Ersatz-Kreis: bis vier Zeichen ganz, sonst die ersten drei. Krypto ohne Hebel-Präfix
+    /// (`stripMultiplier`: «1000000MOG» → «MOG»), aber ohne Aliase; TradFi unverändert — wie Android.
     static func initials(_ symbol: String) -> String {
-        let s = displaySymbol(symbol).trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        let s = symbol.hasPrefix(tradFiPrefix)
+            ? displaySymbol(symbol).trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+            : stripMultiplier(symbol)
         return s.count <= 4 ? s : String(s.prefix(3))
     }
 

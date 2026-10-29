@@ -5,7 +5,9 @@ import com.cryptochecker.app.ui.components.CardPadding
 import com.cryptochecker.app.ui.components.AppCard
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Text
@@ -95,6 +97,8 @@ internal fun AlarmsPage(
                 }
             }
         }
+        // Abstand zwischen den Karten wie auf den anderen Unterseiten (z. B. «Hell / Dunkel»)
+        Spacer(Modifier.height(12.dp))
         GroupCard {
             SettingsAnchor("alarms.price") {
                 SwitchRow(
@@ -111,8 +115,10 @@ internal fun AlarmsPage(
                 // Welche Paare: Zahl aktiv/alle, Tipp öffnet die Liste mit «Alle an / Alle aus»
                 val watches by viewModel.watches.collectAsStateWithLifecycle()
                 SettingsAnchor("alarms.price_pairs") {
+                    // In der Karte mit Innenabstand: ohne eigenen seitlichen Abstand (sonst doppelt eingerückt)
                     SettingsNavRow(
                         title = stringResource(R.string.settings_price_pairs),
+                        horizontalPadding = 0.dp,
                         value = stringResource(
                             R.string.settings_price_pairs_count,
                             watches.count { it.notificationEnabled }, watches.size

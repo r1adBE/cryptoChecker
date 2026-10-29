@@ -16,6 +16,12 @@ final class CoinLogosTests: XCTestCase {
         }
     }
 
+    func testStripMultiplier() throws {
+        for c in S.list(try S.fixture("coin_logos")["multiplier"]) {
+            XCTAssertEqual(CoinLogos.stripMultiplier(c["symbol"] as? String ?? ""), string(c["expected"]), "multiplier: \(c)")
+        }
+    }
+
     func testInitials() throws {
         for c in S.list(try S.fixture("coin_logos")["initials"]) {
             XCTAssertEqual(CoinLogos.initials(c["symbol"] as? String ?? ""), string(c["expected"]), "initials: \(c)")

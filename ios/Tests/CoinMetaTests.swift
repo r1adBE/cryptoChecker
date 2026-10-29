@@ -58,6 +58,16 @@ final class CoinMetaTests: XCTestCase {
         try assertUiReads(CoinMeta.merge(geckoTop: [], binance: meta.binance, alpha: meta.alpha), expected)
     }
 
+    func testAlternatesFromBinanceListsOnly() throws {
+        let data = try S.fixture("coin_meta")
+        let binance = try XCTUnwrap(CoinMeta.parseBinanceList(try Self.raw(data, "alternatesBinance")))
+        let alpha = try XCTUnwrap(CoinLogos.parseAlpha(try Self.raw(data, "alternatesAlpha")))
+        let section = try XCTUnwrap(data["alternates"] as? [String: Any])
+        let expected = try XCTUnwrap(section["expected"] as? [String: [String]])
+        XCTAssertEqual(CoinMeta.alternates(binance: binance, alpha: alpha), expected)
+        XCTAssertEqual(CoinMeta.alternates(binance: nil, alpha: nil), [:])
+    }
+
     func testInvalidMeta() throws {
         let data = try S.fixture("coin_meta")
         for item in try XCTUnwrap(data["invalidMeta"] as? [Any]) {

@@ -294,6 +294,9 @@ extension WatchlistScreen {
             .contentShape(Capsule().inset(by: -(44 - WatchlistSearch.buttonSize) / 2))
         }
         .buttonStyle(.borderless)
+        // Nie gekürzt («+ Paar hinz…»): volle Breite, Status und «Letzter Lauf» weichen
+        .fixedSize()
+        .layoutPriority(2)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(L("shortcut_add"))
         .accessibilityAddTraits(.isButton)

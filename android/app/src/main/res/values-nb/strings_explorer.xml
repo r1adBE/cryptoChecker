@@ -12,6 +12,10 @@
     <string name="explorer_coin_suggested">Forslag</string>
     <string name="explorer_coins_title">Mynter</string>
     <string name="explorer_lists_failed_many">%1$s svarer ikke akkurat nå – parlistene er ikke hentet. Prøv igjen senere.</string>
+    <plurals name="explorer_lists_failed_more">
+        <item quantity="one">+%1$d til</item>
+        <item quantity="other">+%1$d til</item>
+    </plurals>
     <string name="explorer_lists_failed_one">%1$s svarer ikke akkurat nå – parlisten er ikke hentet. Prøv igjen senere.</string>
     <string name="explorer_lists_load">Hent lister</string>
     <string name="explorer_lists_loading">Henter parlister… %1$d/%2$d</string>

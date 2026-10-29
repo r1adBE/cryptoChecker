@@ -202,10 +202,14 @@ fun WatchlistScreen(
     // Alarm löst bei offener App aus: Glocke im Kopf pulsiert einmal (ohne Bewegung: nicht)
     val bellScale = rememberBellPulse(latestAlarmTrigger, reduceMotion)
     // Erst-Moment (Start-Merkliste, allererstes Paar), siehe [rememberAddMoment]
+    val lifecycle = androidx.lifecycle.compose.LocalLifecycleOwner.current.lifecycle
     val moment = rememberAddMoment(viewModel, watches, loaded, alarmCounts, banner, onOpenAlarms) { alarmTapped ->
         if (askNotificationsAfterHint) {
             askNotificationsAfterHint = false
-            if (!alarmTapped) requestNotifications()
+            // Banner nur weg, weil die Merkliste verlassen wird («+», App zu): nicht fragen — sonst stünde die
+            // Erklärung über dem nächsten Bildschirm (Explorer) bzw. ginge bei der Zurück-Geste wieder auf
+            val onScreen = lifecycle.currentState.isAtLeast(androidx.lifecycle.Lifecycle.State.RESUMED)
+            if (!alarmTapped && onScreen) requestNotifications()
         }
     }
 

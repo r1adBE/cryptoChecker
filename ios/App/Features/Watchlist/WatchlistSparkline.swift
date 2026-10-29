@@ -182,8 +182,10 @@ struct WatchlistSparkline: View {
 
 /// Platz für Paar-Spalte und Mini-Chart: Das Chart (56 × 28 pt, in schmalen Zeilen 48 × 28 pt —
 /// `DenseRowText.sparklineWidth`) erscheint nur,
-/// wenn danach für die Paar-Spalte noch `minInfoWidth` bleibt — sonst wird es
-/// ausgeblendet (Grösse null). Die Kurs-Spalte daneben bleibt immer unberührt.
+/// wenn danach die Paar-Spalte ungekürzt Platz hat (ihre Eigenbreite, mindestens `minInfoWidth`) — sonst
+/// wird es ausgeblendet (Grösse null): erst fällt das Chart weg, dann wird gekürzt («B…», «Bin…» neben
+/// dem Chart). Mehrzeilige Zusätze (Fehler, Notiz) zählen dabei nicht (Eigenbreite 0, `WatchlistRowParts`).
+/// Die Kurs-Spalte daneben bleibt immer unberührt.
 /// Erstes Kind: Paar-Spalte; zweites (optional): Mini-Chart.
 struct WatchlistSparklineSlot: Layout {
     var minInfoWidth: CGFloat
@@ -196,7 +198,8 @@ struct WatchlistSparklineSlot: Layout {
     private func showsSpark(width: CGFloat?, subviews: Subviews) -> Bool {
         guard subviews.count >= 2 else { return false }
         guard let width else { return true }
-        return width - sparkWidth - gap >= minInfoWidth
+        let needed = max(minInfoWidth, subviews[0].sizeThatFits(.unspecified).width)
+        return width - sparkWidth - gap >= needed
     }
 
     func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {

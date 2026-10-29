@@ -16,6 +16,14 @@
     <string name="explorer_coin_suggested">مقترح</string>
     <string name="explorer_coins_title">العملات</string>
     <string name="explorer_lists_failed_many">%1$s لا تستجيب حاليًا – لم تُحمَّل قوائم الأزواج. حاول مرة أخرى لاحقًا.</string>
+    <plurals name="explorer_lists_failed_more">
+        <item quantity="zero">+%1$d أخرى</item>
+        <item quantity="one">+%1$d أخرى</item>
+        <item quantity="two">+%1$d أخرى</item>
+        <item quantity="few">+%1$d أخرى</item>
+        <item quantity="many">+%1$d أخرى</item>
+        <item quantity="other">+%1$d أخرى</item>
+    </plurals>
     <string name="explorer_lists_failed_one">%1$s لا تستجيب حاليًا – لم تُحمَّل قائمة الأزواج. حاول مرة أخرى لاحقًا.</string>
     <string name="explorer_lists_load">تحميل القوائم</string>
     <string name="explorer_lists_loading">جارٍ تحميل قوائم الأزواج… %1$d/%2$d</string>

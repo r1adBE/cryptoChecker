@@ -99,8 +99,9 @@ class SpacingUsageTest {
     }
 
     /**
-     * Freiraum unter Listen mit schwebendem «+»-Knopf: auf beiden Plattformen 3 × xxl (96) und
-     * nur über `Spacing.fabClearance` — keine nackte 96 mehr als Listenende (Portfolio, Coin, Alarme).
+     * Freiraum unter Listen mit schwebendem «+»-Knopf: Android 3 × xxl (96) nur über `Spacing.fabClearance` —
+     * keine nackte 96 mehr als Listenende (Portfolio, Coin, Alarme). iOS setzt den Knopf per `safeAreaInset`
+     * unter die Liste (über der eigenen Tableiste), die dadurch selbst Platz bekommt: kein leerer Füllblock.
      */
     @Test
     fun fabClearanceIsDerivedFromGrid() {
@@ -111,11 +112,14 @@ class SpacingUsageTest {
             .filter { literal.containsMatchIn(it.readText(Charsets.UTF_8)) }.map { it.name }.toList()
         assertEquals(emptyList<String>(), androidHits)
         val iosRoot = SourceGuard.ios(iosRoot(), "ios/App")
-        val swift = File(iosRoot, "Shared/Util/Spacing.swift").readText(Charsets.UTF_8)
-        assertTrue(swift.contains("static let fabClearance: CGFloat = Spacing.xxl * 3"))
-        val iosHits = File(iosRoot, "App").walkTopDown().filter { it.isFile && it.extension == "swift" }
-            .filter { it.readText(Charsets.UTF_8).contains("Color.clear.frame(height: 96)") }.map { it.name }.toList()
+        val iosFiles = File(iosRoot, "App").walkTopDown().filter { it.isFile && it.extension == "swift" }.toList()
+        val iosHits = iosFiles
+            .filter { it.readText(Charsets.UTF_8).contains("Color.clear.frame(height: 96)") }.map { it.name }
         assertEquals(emptyList<String>(), iosHits)
+        // «+»-Knopf als Einschub unten, nicht als Overlay (das lag unter der eigenen Tableiste)
+        val overlay = Regex("\\.overlay\\(alignment: \\.bottomTrailing\\) \\{\\s*PortfolioAddButton")
+        val overlayHits = iosFiles.filter { overlay.containsMatchIn(it.readText(Charsets.UTF_8)) }.map { it.name }
+        assertEquals(emptyList<String>(), overlayHits)
     }
 
     /**

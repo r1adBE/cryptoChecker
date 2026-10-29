@@ -12,6 +12,10 @@
     <string name="explorer_coin_suggested">Javaslat</string>
     <string name="explorer_coins_title">Érmék</string>
     <string name="explorer_lists_failed_many">%1$s jelenleg nem válaszolnak – a párlisták nem töltődtek be. Próbáld újra később.</string>
+    <plurals name="explorer_lists_failed_more">
+        <item quantity="one">+%1$d további</item>
+        <item quantity="other">+%1$d további</item>
+    </plurals>
     <string name="explorer_lists_failed_one">%1$s jelenleg nem válaszol – a párlista nem töltődött be. Próbáld újra később.</string>
     <string name="explorer_lists_load">Listák betöltése</string>
     <string name="explorer_lists_loading">Párlisták betöltése… %1$d/%2$d</string>

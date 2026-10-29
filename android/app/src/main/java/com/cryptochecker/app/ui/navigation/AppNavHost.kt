@@ -6,6 +6,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.padding
@@ -58,6 +59,8 @@ import com.cryptochecker.app.ui.lock.SecureWindowEffect
 /** Überblendung beim Wechsel von Tab oder Seite (ms). */
 private const val NAV_FADE_MILLIS = 200
 
+// consumeWindowInsets war in älteren Compose-Versionen experimentell
+@OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
 @Composable
 fun AppNavHost(
     navigation: NavHostController = rememberNavController(),
@@ -214,12 +217,15 @@ fun AppNavHost(
                 // Tastatur: Die Tableiste bleibt unten und verschwindet hinter der Tastatur
                 // (adjustResize, randlos – das Fenster wird weder verschoben noch verkleinert). Der Inhalt
                 // bekommt nur den Teil der Tastatur, der über die Tableiste hinausragt, als Abstand –
-                // so bleibt das fokussierte Feld sichtbar.
+                // so bleibt das fokussierte Feld sichtbar. Danach gelten die Ränder dieses Scaffolds
+                // (Statusleiste oben, Tableiste bzw. Navigationsleiste unten) als verbraucht: Die Seiten
+                // mit eigenem Scaffold/TopAppBar setzen sie sonst ein zweites Mal (doppelter Abstand oben).
                 modifier = Modifier
                     .padding(innerPadding)
                     .windowInsetsPadding(
                         WindowInsets.ime.exclude(WindowInsets(bottom = innerPadding.calculateBottomPadding()))
-                    ),
+                    )
+                    .consumeWindowInsets(innerPadding),
                 enterTransition = { if (reduceMotion) EnterTransition.None else fadeIn(tween(NAV_FADE_MILLIS)) },
                 exitTransition = { if (reduceMotion) ExitTransition.None else fadeOut(tween(NAV_FADE_MILLIS)) },
             ) {

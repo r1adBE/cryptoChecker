@@ -16,6 +16,15 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 171)
+
+* Android: tabs and pages no longer leave a large gap between the status bar and the title; Settings › Alerts has the usual space between its cards, «Pairs» and «Share diagnostics» line up with the other rows, and the last choice of «Notify only on price change» is no longer cut off (where the word is too long, a pencil icon stands in).
+* Alert editor: «When BTC goes below» with a normal word space.
+* iPhone: the «+» button in Portfolio and in a coin's page sits above the tab bar; in the watchlist «Add pair» is never shortened, «Last run» shrinks to its icon when space is short, and the mini chart gives way before the exchange name is shortened.
+* Add pair: when lists cannot load (e.g. offline), the card sits below the coins and names at most 3 exchanges, alphabetically, with «+N more» to show all.
+* Notifications: the short explanation before the system question («Allow notifications?») appears at most once when pairs are added and once more at the first alarm, also after back, leaving the screen or closing the app; on Android, Back in «Add pair» no longer brings it up and leaves the page like the arrow.
+* Logos: futures with a multiplier show the coin's initials («1000000MOG» → «MOG» instead of «100»), and when a logo image fails to load, the logo of the same coin from the Binance symbol list or the Binance Alpha list is tried.
+
 ## 16.2.2 (build 170)
 
 * iPhone and Apple Watch: the compiler now checks the thread safety of all shared state, including every exchange adapter (0 `@unchecked Sendable`); prices, pair lists, alerts and exports behave as before.

@@ -36,6 +36,7 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.stringResource
 import com.cryptochecker.app.R
@@ -160,6 +161,8 @@ internal fun SettingsNavRow(
     valueContent: (@Composable () -> Unit)? = null,
     /** Öffnet eine Website (Browser): Pfeil nach oben rechts statt «›», vorgelesen mit «Link». */
     external: Boolean = false,
+    /** Seitlicher Innenabstand; 0 in einer Karte, die ihn schon hat ([GroupCard]). */
+    horizontalPadding: Dp = 16.dp,
     onClick: () -> Unit,
 ) {
     val linkLabel = stringResource(R.string.a11y_external_link)
@@ -176,7 +179,7 @@ internal fun SettingsNavRow(
                     linkLabel.takeIf { external },
                 ).joinToString(", ")
             }
-            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .padding(horizontal = horizontalPadding, vertical = 8.dp)
     ) {
         if (icon != null) SettingsLeadingIcon(icon, MaterialTheme.colorScheme.onSurface)
         // Titel oben, Wert darunter (klein, grau) — beide nutzen die ganze Breite bis zum Pfeil

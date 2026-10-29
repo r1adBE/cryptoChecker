@@ -167,8 +167,6 @@ extension PortfolioScreen {
 
             PortfolioDisclaimer()
                 .portfolioListRow(top: 0, bottom: 0)
-            // Unten Platz für den «+»-Knopf (verdeckt nichts — wie Android)
-            Color.clear.frame(height: Spacing.fabClearance).portfolioListRow(top: 0, bottom: 0)
         }
         .listStyle(.plain)
         .scrollContentBackground(.hidden)
@@ -177,7 +175,9 @@ extension PortfolioScreen {
         .animation(reduceMotion ? nil : .spring(duration: 0.35), value: summary.open.map(\.coin))
         .animation(.easeInOut(duration: 0.25), value: showClosed)
         .refreshable { await model.refresh(force: true) }
-        .overlay(alignment: .bottomTrailing) {
+        // «+»-Knopf über der eigenen Tableiste (als Overlay lag er darunter); der Einschub gibt der Liste unten
+        // Platz, die letzte Zeile rollt über den Knopf (verdeckt nichts — wie Android)
+        .safeAreaInset(edge: .bottom, alignment: .trailing, spacing: 0) {
             PortfolioAddButton { sheet = PortfolioTxDraft() }
         }
     }

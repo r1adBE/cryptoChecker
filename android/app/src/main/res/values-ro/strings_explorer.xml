@@ -13,6 +13,11 @@
     <string name="explorer_coin_suggested">Sugestie</string>
     <string name="explorer_coins_title">Monede</string>
     <string name="explorer_lists_failed_many">%1$s nu răspund momentan – listele de perechi nu s-au încărcat. Încearcă mai târziu.</string>
+    <plurals name="explorer_lists_failed_more">
+        <item quantity="one">+%1$d în plus</item>
+        <item quantity="few">+%1$d în plus</item>
+        <item quantity="other">+%1$d în plus</item>
+    </plurals>
     <string name="explorer_lists_failed_one">%1$s nu răspunde momentan – lista de perechi nu s-a încărcat. Încearcă mai târziu.</string>
     <string name="explorer_lists_load">Încarcă listele</string>
     <string name="explorer_lists_loading">Se încarcă listele de perechi… %1$d/%2$d</string>

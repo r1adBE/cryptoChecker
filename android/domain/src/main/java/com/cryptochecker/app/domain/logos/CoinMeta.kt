@@ -179,6 +179,28 @@ object CoinMeta {
             .filter { e -> !e.onlyFutures && e.tags.none { it.equals(CoinLogos.STOCK_TAG, ignoreCase = true) } }
             .mapTo(LinkedHashSet()) { it.name.trim().uppercase() }
 
+    /**
+     * Ersatz-Adressen je Kürzel ([CoinLogos.normalize]) aus den Binance-Listen, die die App ohnehin lädt: erst die
+     * Symbolliste (ohne Futures-only- und Aktien-Einträge wie [listCrypto] — nie ein TradFi-Logo für einen
+     * Krypto-Token), dann die Alpha-Liste (Kürzel ohne Hebel-Präfix, Gross/klein egal: «Mog» für «1000000MOG»).
+     * Nur freigegebene Adressen, ohne Doppelte. Scheitert das Bild der Zuordnung (z. B. CoinGecko), lädt der
+     * Sammel-Abruf diese der Reihe nach, bevor das Kürzel einen Tag gesperrt wird.
+     */
+    fun alternates(binance: List<CoinLogos.BinanceEntry>?, alpha: List<CoinLogos.AlphaEntry>?): Map<String, List<String>> {
+        val out = LinkedHashMap<String, MutableList<String>>()
+        val crypto = binance.orEmpty().filter { e ->
+            !e.onlyFutures && e.tags.none { it.equals(CoinLogos.STOCK_TAG, ignoreCase = true) }
+        }
+        val rows = crypto.map { it.name to it.logo } + alpha.orEmpty().map { it.symbol to it.icon }
+        for ((symbol, url) in rows) {
+            val key = CoinLogos.normalize(symbol)
+            if (url == null || key.isEmpty() || !CoinLogos.isAllowedUrl(url)) continue
+            val list = out.getOrPut(key) { ArrayList() }
+            if (url.trim() !in list) list += url.trim()
+        }
+        return out
+    }
+
     /** Namen nur aus den Binance-Listen (ohne Rangliste), Vorrang wie [merge]. */
     fun listNames(binance: List<CoinLogos.BinanceEntry>?, alpha: List<CoinLogos.AlphaEntry>?): Map<String, String> =
         merge(emptyList(), binance, alpha, crypto = listCrypto(binance)).names

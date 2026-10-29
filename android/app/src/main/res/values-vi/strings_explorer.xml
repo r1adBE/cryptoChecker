@@ -11,6 +11,9 @@
     <string name="explorer_coin_suggested">Gợi ý</string>
     <string name="explorer_coins_title">Coin</string>
     <string name="explorer_lists_failed_many">%1$s hiện không phản hồi – chưa tải được danh sách cặp. Vui lòng thử lại sau.</string>
+    <plurals name="explorer_lists_failed_more">
+        <item quantity="other">+%1$d sàn khác</item>
+    </plurals>
     <string name="explorer_lists_failed_one">%1$s hiện không phản hồi – chưa tải được danh sách cặp. Vui lòng thử lại sau.</string>
     <string name="explorer_lists_load">Tải danh sách</string>
     <string name="explorer_lists_loading">Đang tải danh sách cặp… %1$d/%2$d</string>

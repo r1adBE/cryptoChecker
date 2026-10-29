@@ -12,6 +12,10 @@
     <string name="explorer_coin_suggested">Vorschlag</string>
     <string name="explorer_coins_title">Coins</string>
     <string name="explorer_lists_failed_many">%1$s antworten zurzeit nicht – Paarlisten nicht geladen. Versuch es später nochmals.</string>
+    <plurals name="explorer_lists_failed_more">
+        <item quantity="one">+%1$d weitere</item>
+        <item quantity="other">+%1$d weitere</item>
+    </plurals>
     <string name="explorer_lists_failed_one">%1$s antwortet zurzeit nicht – Paarliste nicht geladen. Versuch es später nochmals.</string>
     <string name="explorer_lists_load">Listen laden</string>
     <string name="explorer_lists_loading">Paarlisten werden geladen… %1$d/%2$d</string>

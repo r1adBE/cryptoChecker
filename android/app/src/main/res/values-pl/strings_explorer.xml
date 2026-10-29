@@ -14,6 +14,12 @@
     <string name="explorer_coin_suggested">Propozycja</string>
     <string name="explorer_coins_title">Monety</string>
     <string name="explorer_lists_failed_many">%1$s nie odpowiadają w tej chwili – listy par nie zostały wczytane. Spróbuj później.</string>
+    <plurals name="explorer_lists_failed_more">
+        <item quantity="one">+%1$d więcej</item>
+        <item quantity="few">+%1$d więcej</item>
+        <item quantity="many">+%1$d więcej</item>
+        <item quantity="other">+%1$d więcej</item>
+    </plurals>
     <string name="explorer_lists_failed_one">%1$s nie odpowiada w tej chwili – lista par nie została wczytana. Spróbuj później.</string>
     <string name="explorer_lists_load">Wczytaj listy</string>
     <string name="explorer_lists_loading">Wczytywanie list par… %1$d/%2$d</string>

@@ -13,6 +13,11 @@
     <string name="explorer_coin_suggested">Sugerencia</string>
     <string name="explorer_coins_title">Monedas</string>
     <string name="explorer_lists_failed_many">%1$s no responden ahora mismo – listas de pares no cargadas. Inténtalo más tarde.</string>
+    <plurals name="explorer_lists_failed_more">
+        <item quantity="one">+%1$d más</item>
+        <item quantity="many">+%1$d más</item>
+        <item quantity="other">+%1$d más</item>
+    </plurals>
     <string name="explorer_lists_failed_one">%1$s no responde ahora mismo – lista de pares no cargada. Inténtalo más tarde.</string>
     <string name="explorer_lists_load">Cargar listas</string>
     <string name="explorer_lists_loading">Cargando listas de pares… %1$d/%2$d</string>

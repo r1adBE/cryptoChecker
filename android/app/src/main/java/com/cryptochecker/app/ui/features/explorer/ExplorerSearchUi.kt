@@ -15,6 +15,7 @@ import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -22,9 +23,13 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -152,7 +157,6 @@ internal fun SearchResults(
         modifier = modifier.fillMaxWidth().padding(bottom = 24.dp),
         verticalArrangement = Arrangement.spacedBy(Spacing.xs)
     ) {
-        ListsOffer(search.lists, search.onLoadLists)
         val busy = search.lists.reading || search.lists.progress != null
         if (search.coins.isEmpty() && pairs.isEmpty() && !busy) {
             Text(
@@ -172,6 +176,8 @@ internal fun SearchResults(
             SectionLabel(stringResource(R.string.explorer_coins_title))
             search.coins.forEach { coin -> CoinRow(coin, onClick = { search.onPickCoin(coin) }) }
         }
+        // Unter den Coins (nicht darüber): eine lange Karte schob die Treffer sonst unter die Tastatur
+        ListsOffer(search.lists, search.onLoadLists)
         if (pairs.isNotEmpty()) {
             SectionLabel(stringResource(R.string.explorer_pairs_title), Modifier.padding(top = Spacing.sm))
             // Ziel-Gruppe gilt für jeden angetippten Treffer
@@ -232,17 +238,7 @@ internal fun ListsOffer(lists: SearchLists, onLoad: () -> Unit) {
         ) {
             // Nach einem Fehlschlag zuerst die Börsen ohne Antwort, dann die übrigen fehlenden Listen
             val others = lists.missing - lists.failed.size
-            if (lists.failed.isNotEmpty()) {
-                Text(
-                    // Zwei Texte statt Plural: die Zahl steht nicht im Satz (Xcode verlangt sie in Plural-Varianten)
-                    text = stringResource(
-                        if (lists.failed.size == 1) R.string.explorer_lists_failed_one
-                        else R.string.explorer_lists_failed_many,
-                        lists.failed.joinToString(", ")
-                    ),
-                    style = MaterialTheme.typography.bodyMedium
-                )
-            }
+            if (lists.failed.isNotEmpty()) FailedListsText(lists.failed)
             if (lists.failed.isEmpty() || others > 0) {
                 Text(
                     text = pluralStringResource(R.plurals.explorer_lists_missing, others, others),
@@ -261,6 +257,51 @@ internal fun ListsOffer(lists: SearchLists, onLoad: () -> Unit) {
             }
         }
     }
+}
+
+/**
+ * «Binance, Bybit, Coinbase, +47 weitere antworten zurzeit nicht …»: Börsen ohne Antwort alphabetisch, eingeklappt
+ * höchstens [FAILED_NAMES_SHOWN] (ohne Netz wären es sonst rund 50 Namen); Tipp auf den Satz zeigt alle. Wie iOS.
+ */
+@Composable
+private fun FailedListsText(failed: List<String>) {
+    var expanded by rememberSaveable(failed) { mutableStateOf(false) }
+    val (names, hidden) = failedNamesShown(failed, expanded)
+    val more = if (hidden > 0) pluralStringResource(R.plurals.explorer_lists_failed_more, hidden, hidden) else null
+    // Zwei Texte statt Plural: die Zahl steht nicht im Satz (Xcode verlangt sie in Plural-Varianten)
+    val sentence = stringResource(
+        if (failed.size == 1) R.string.explorer_lists_failed_one else R.string.explorer_lists_failed_many,
+        (names + listOfNotNull(more)).joinToString(", ")
+    )
+    val accent = MaterialTheme.colorScheme.primary
+    val text = remember(sentence, more, accent) {
+        buildAnnotatedString {
+            append(sentence)
+            val start = more?.let { sentence.lastIndexOf(it) } ?: -1
+            if (more != null && start >= 0) {
+                addStyle(SpanStyle(color = accent, fontWeight = FontWeight.SemiBold), start, start + more.length)
+            }
+        }
+    }
+    Text(
+        text = text,
+        style = MaterialTheme.typography.bodyMedium,
+        modifier = if (more == null) Modifier else Modifier.clickable(
+            role = Role.Button,
+            onClickLabel = stringResource(R.string.watchlist_show_all),
+            onClick = { expanded = true }
+        )
+    )
+}
+
+/** Eingeklappt so viele Börsennamen im Satz «… antworten zurzeit nicht». */
+internal const val FAILED_NAMES_SHOWN = 3
+
+/** Gezeigte Namen (alphabetisch) und wie viele dahinter als «+N weitere» stehen. Wie iOS `ExplorerListsOffer.shown`. */
+internal fun failedNamesShown(failed: List<String>, expanded: Boolean): Pair<List<String>, Int> {
+    val sorted = failed.sortedWith(String.CASE_INSENSITIVE_ORDER)
+    if (expanded || sorted.size <= FAILED_NAMES_SHOWN) return sorted to 0
+    return sorted.take(FAILED_NAMES_SHOWN) to sorted.size - FAILED_NAMES_SHOWN
 }
 
 /** Ein Coin: Plakette, Name und Kürzel, darunter an wie vielen Börsen (oder «noch nicht geladen»). */

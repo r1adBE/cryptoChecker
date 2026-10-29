@@ -82,7 +82,8 @@ struct WatchlistRow: View {
     /// Börse der Kerzen hinter der %-Änderung, falls nicht die eigene (`PriceRefresher.foreignCandleSource`);
     /// nil = eigene Börse bzw. Ticker. Nur aus dem Speicher.
     @State private var changeSource: String?
-    /// Mindestbreite der Paar-Spalte, damit das Mini-Chart erscheint (wächst mit der Schrift).
+    /// Mindestbreite der Paar-Spalte, damit das Mini-Chart erscheint (wächst mit der Schrift); braucht die
+    /// Spalte ungekürzt mehr, fällt das Chart schon vorher weg (`WatchlistSparklineSlot`).
     @ScaledMetric(relativeTo: .headline) private var minInfoWidth: CGFloat = 84
     /// «Erst-Hinzufügen»: Zeile schon eingeblendet, Fortschritt des Mini-Charts, Häkchen sichtbar.
     @State private var celebrationEntered = false

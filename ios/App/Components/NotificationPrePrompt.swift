@@ -53,6 +53,8 @@ final class NotificationPrePrompt {
         set { UserDefaults.standard.set(newValue, forKey: Self.stageKey) }
     }
 
+    /// Steht die Erklärung, und die Stufe beim Zeigen — wie `PrePromptSlot` (Android).
+    private var slot = PrePromptSlot(stage: NotificationPrePrompt.stageNew)
     private var window: UIWindow?
     private weak var previousKeyWindow: UIWindow?
 
@@ -64,23 +66,34 @@ final class NotificationPrePrompt {
     }
 
     private func ask(_ reason: NotificationAsk) async {
-        guard window == nil else { return }
+        guard !slot.showing else { return }
         let status = await UNUserNotificationCenter.current().notificationSettings().authorizationStatus
-        switch Self.action(notDetermined: status == .notDetermined, stage: stage, reason: reason) {
+        // Nach dem Warten neu lesen: eine zweite Anfrage kann die Erklärung inzwischen gezeigt haben
+        let before = stage
+        slot.stage = before
+        let action = slot.request(notDetermined: status == .notDetermined, reason: reason)
+        stage = slot.stage
+        switch action {
         case .system: _ = await Notifier.requestPermission()
-        case .explain: show()
+        case .explain:
+            // Kein Fenster möglich (keine aktive Szene): nicht gezeigt, also auch nicht gezählt
+            if !show() {
+                _ = slot.answer(proceed: false)
+                stage = before
+            }
         case .nothing: break
         }
     }
 
     // MARK: Fenster über allem
 
-    private func show() {
+    /// true = gezeigt.
+    private func show() -> Bool {
         guard window == nil,
               let scene = UIApplication.shared.connectedScenes
                 .compactMap({ $0 as? UIWindowScene })
                 .first(where: { $0.activationState == .foregroundActive })
-        else { return }
+        else { return false }
         previousKeyWindow = scene.windows.first(where: \.isKeyWindow)
         let window = UIWindow(windowScene: scene)
         window.windowLevel = .alert
@@ -92,14 +105,45 @@ final class NotificationPrePrompt {
         window.rootViewController = host
         self.window = window
         window.makeKeyAndVisible()
+        return true
     }
 
     private func finish(proceed: Bool) {
-        stage = proceed ? Self.stageContinued : Self.afterLater(stage)
+        // «Später»: Stufe schon beim Zeigen weiter (`PrePromptSlot`); nur «Weiter» ändert noch etwas
+        let first = slot.answer(proceed: proceed)
+        stage = slot.stage
         window?.isHidden = true
         window = nil
         previousKeyWindow?.makeKey()
-        if proceed { Task { _ = await Notifier.requestPermission() } }
+        if first && proceed { Task { _ = await Notifier.requestPermission() } }
+    }
+}
+
+/// Die eine Erklärung der App — wie `PrePromptSlot` (Android). Die Stufe geht schon beim Zeigen weiter, als wäre
+/// «Später» getippt: Verschwindet die Erklärung ohne Antwort (App beendet), zählt das als «Später». Solange sie
+/// steht, kommt keine zweite. Ohne UIKit, damit ein Unit-Test die Regel samt Zeitpunkt des Speicherns prüft.
+struct PrePromptSlot: Sendable, Equatable {
+    var stage: Int
+    private(set) var showing = false
+
+    /// Anfrage aus `reason`; `.system` startet der Aufrufer selbst, bei `.explain` steht die Erklärung jetzt.
+    mutating func request(notDetermined: Bool, reason: NotificationAsk) -> NotificationPrePrompt.Action {
+        // Schon offen: kein zweites Mal, auch keine System-Abfrage darüber
+        if showing { return .nothing }
+        let action = NotificationPrePrompt.action(notDetermined: notDetermined, stage: stage, reason: reason)
+        if action == .explain {
+            stage = NotificationPrePrompt.afterLater(stage)
+            showing = true
+        }
+        return action
+    }
+
+    /// Antwort: «Weiter» merkt `stageContinued`; «Später» ändert nichts mehr. true = erste Antwort.
+    mutating func answer(proceed: Bool) -> Bool {
+        guard showing else { return false }
+        showing = false
+        if proceed { stage = NotificationPrePrompt.stageContinued }
+        return true
     }
 }
 

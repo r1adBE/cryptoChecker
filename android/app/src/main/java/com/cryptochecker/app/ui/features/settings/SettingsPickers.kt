@@ -16,10 +16,14 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
@@ -37,6 +41,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -44,8 +49,11 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.rememberTextMeasurer
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.settings.labelRes
 import com.cryptochecker.app.ui.components.DialogText
@@ -232,10 +240,14 @@ internal fun PercentChoiceRow(label: String, selected: Double, onSelected: (Doub
                 shape = SegmentedButtonDefaults.itemShape(index = count - 1, count = count),
                 icon = {}
             ) {
-                Text(
-                    if (isCustom) percentLabel(selected) else stringResource(R.string.settings_custom_value),
-                    maxLines = 1
-                )
+                // Fünf gleich breite Segmente: «Custom» passte nicht («Custo»), «Προσαρμοσμένο» erst recht nicht.
+                // Wert bzw. Wort verkleinert sich bis 80 %; passt das Wort auch so nicht, steht der Stift
+                // (vorgelesen als «Eigener Wert»)
+                if (isCustom) {
+                    FittingSegmentLabel(percentLabel(selected), iconFallback = false)
+                } else {
+                    FittingSegmentLabel(stringResource(R.string.settings_custom_value), iconFallback = true)
+                }
             }
         }
     }
@@ -281,3 +293,42 @@ internal fun PercentChoiceRow(label: String, selected: Double, onSelected: (Doub
 }
 
 private val PERCENT_CHOICES = listOf(0.0, 3.0, 5.0, 7.0)
+
+/** Kleinster Faktor für eine Segment-Beschriftung (wie die Tab-Beschriftung, [com.cryptochecker.app.ui.navigation.TabLabelFit]). */
+private const val SEGMENT_LABEL_MIN_FACTOR = 0.8f
+
+/**
+ * Beschriftung eines schmalen Segments: einzeilig in der Schrift des Knopfs; ist sie zu breit, kleiner bis
+ * [SEGMENT_LABEL_MIN_FACTOR]. Reicht das nicht: mit [iconFallback] der Stift, sonst der Text in der kleinsten
+ * Grösse («…»). Vorgelesen wird immer [text]. Eigenes Layout statt BoxWithConstraints: die Segmentzeile fragt
+ * nach der Eigenbreite (IntrinsicSize), das kann ein SubcomposeLayout nicht.
+ */
+@Composable
+private fun FittingSegmentLabel(text: String, iconFallback: Boolean) {
+    val style = LocalTextStyle.current.copy(color = LocalContentColor.current)
+    val minStyle = if (style.fontSize.isSp) style.copy(fontSize = style.fontSize * SEGMENT_LABEL_MIN_FACTOR) else style
+    val measurer = rememberTextMeasurer()
+    Layout(
+        content = {
+            BasicText(
+                text,
+                style = style,
+                maxLines = 1,
+                softWrap = false,
+                overflow = TextOverflow.Ellipsis,
+                autoSize = if (style.fontSize.isSp) {
+                    TextAutoSize.StepBased(minFontSize = minStyle.fontSize, maxFontSize = style.fontSize, stepSize = 0.5.sp)
+                } else {
+                    null
+                }
+            )
+            Icon(painterResource(R.drawable.ic_edit), contentDescription = null, modifier = Modifier.size(18.dp))
+        },
+        modifier = Modifier.clearAndSetSemantics { contentDescription = text }
+    ) { measurables, constraints ->
+        val tooWide = iconFallback && constraints.hasBoundedWidth &&
+            measurer.measure(text, minStyle, maxLines = 1, softWrap = false).size.width > constraints.maxWidth
+        val placeable = measurables[if (tooWide) 1 else 0].measure(constraints.copy(minWidth = 0, minHeight = 0))
+        layout(placeable.width, placeable.height) { placeable.place(0, 0) }
+    }
+}

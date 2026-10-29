@@ -72,6 +72,17 @@ class CoinMetaParityTest {
     }
 
     @Test
+    fun alternates_fromBinanceListsOnly() {
+        val binance = CoinMeta.parseBinanceList(raw("alternatesBinance"))
+        val alpha = CoinLogos.parseAlpha(raw("alternatesAlpha"))
+        assertNotNull(binance)
+        assertNotNull(alpha)
+        val expected = data["alternates"].obj()["expected"].obj().mapValues { (_, v) -> v.list() }
+        assertEquals(expected, CoinMeta.alternates(binance, alpha))
+        assertEquals(emptyMap<String, List<String>>(), CoinMeta.alternates(null, null))
+    }
+
+    @Test
     fun invalidMeta() {
         data["invalidMeta"].list().forEach { text -> assertNull("invalid: $text", CoinMeta.parse(text as String?)) }
         assertNull(CoinMeta.parseBinanceList("{\"data\":1}"))

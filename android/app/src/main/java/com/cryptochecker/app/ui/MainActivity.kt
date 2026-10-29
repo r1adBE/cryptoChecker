@@ -122,6 +122,8 @@ class MainActivity : AppCompatActivity() {
                         )
                         // Rückfrage «nicht gespeichert» vor der ersten Änderung, solange die Merkliste nicht gespeichert wird
                         com.cryptochecker.app.ui.components.WatchlistNotSavedGateHost()
+                        // Die eine Erklärung vor der Mitteilungs-Abfrage (nie je Bildschirm eine eigene)
+                        com.cryptochecker.app.ui.components.NotificationPrePromptHost()
                     }
                 }
             }

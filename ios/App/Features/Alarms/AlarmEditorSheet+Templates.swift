@@ -80,15 +80,16 @@ extension AlarmEditorSheet {
     var simpleSentence: some View {
         let above = draft.condition == .PRICE_ABOVE
         let direction = L(above ? "alarm_simple_above" : "alarm_simple_below")
+        let whenText = L("alarm_simple_when", BidiText.isolate(watch?.baseAsset ?? ""))
         // Satzende («geht»); in vielen Sprachen leer — ein leerer Katalogwert darf nicht als Schlüssel erscheinen
         let endText = L("alarm_simple_end")
         let end = endText == "alarm_simple_end" ? "" : endText
         return VStack(alignment: .leading, spacing: Spacing.sm) {
-            HStack(spacing: 8) {
-                Text(L("alarm_simple_when", BidiText.isolate(watch?.baseAsset ?? "")))
-                    .font(.title3.weight(.semibold))
-                // Richtung nur als Wort im Satz: gewählt wird sie oben mit «Kurs über/unter» (ein Bedienelement, wie Android)
-                Text(direction)
+            // «Wenn BTC» und die Richtung in einem Text mit normalem Wortabstand (zwei Texte mit 8 pt Abstand wirkten
+            // wie ein doppelter Leerschlag) — wie Android. Richtung nur als Wort im Satz: gewählt wird sie oben
+            // mit «Kurs über/unter» (ein Bedienelement).
+            HStack(spacing: 0) {
+                Text([whenText, direction].filter { !$0.isEmpty }.joined(separator: " "))
                     .font(.title3.weight(.semibold))
                 Spacer(minLength: 0)
             }

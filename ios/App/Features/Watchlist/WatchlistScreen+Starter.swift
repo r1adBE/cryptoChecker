@@ -198,7 +198,9 @@ extension WatchlistScreen {
     func askNotificationsAfterHint() {
         guard notificationAskPending, banner?.action == nil else { return }
         notificationAskPending = false
-        if alarmsFor == nil {
+        // «Paar hinzufügen» offen: nicht fragen, sonst stünde die Erklärung über jener Seite — wie Android
+        // (`WatchlistScreen.kt`, Banner endet beim Verlassen der Merkliste)
+        if alarmsFor == nil && !router.showExplorer {
             NotificationPrePrompt.request(.pairsAdded)
         }
     }

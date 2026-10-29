@@ -165,8 +165,10 @@ class LogoImageStore @Inject constructor(
      * Lädt alle Logos aus [all], die noch fehlen (nicht fehlgeschlagen, keine Datei): mehrere
      * gleichzeitig je Server ([PER_HOST_PARALLEL], insgesamt [MAX_PARALLEL_DOWNLOADS]). Bremst ein Server
      * nur kurz (Pause bis [SHORT_PAUSE_MAX_MILLIS]), werden seine Bilder nach der Pause gleich nachgeholt.
+     * Scheitert ein Bild, kommen die Ersatz-Adressen desselben Kürzels dran ([alternates],
+     * [com.cryptochecker.app.domain.logos.CoinMeta.alternates]).
      */
-    suspend fun downloadMissing(all: Map<String, String>): Downloads {
+    suspend fun downloadMissing(all: Map<String, String>, alternates: Map<String, List<String>> = emptyMap()): Downloads {
         // Mobile Daten: Logos, die nur die Zusatzseiten der Rangliste bringen, erst im WLAN
         val wanted = CoinLogos.downloadable(all, loadExtraOnly(), CoinLogoStorage.isUnmetered(context))
         if (wanted.isEmpty()) return Downloads()
@@ -177,6 +179,7 @@ class LogoImageStore @Inject constructor(
             CoinLogos.downloadJobs(wanted.toList()) { name -> name in failed || File(imageDir, name).isFile }
         }
         if (pending.isEmpty()) return Downloads()
+        val altByFile = alternates.entries.mapNotNull { (key, urls) -> CoinLogos.fileName(key)?.let { it to urls } }.toMap()
         val attempted = pending.size
         val added = AtomicInteger()
         val newFailures = ConcurrentHashMap<String, Long>()
@@ -188,7 +191,7 @@ class LogoImageStore @Inject constructor(
             coroutineScope {
                 pending.map { job ->
                     async(Dispatchers.IO) {
-                        when (fetchLimited(job.first, job.second, streaks)) {
+                        when (fetchWithAlternates(job.first, job.second, altByFile[job.first].orEmpty(), streaks)) {
                             Fetched.OK -> {
                                 added.incrementAndGet()
                                 bumpRevision()
@@ -218,6 +221,25 @@ class LogoImageStore @Inject constructor(
         // Gebremste Bilder übrig, Pause aber schon vorbei: gleich nachholen (Ende = jetzt)
         val pausedUntil = if (paused.isEmpty()) null else pauses.earliestPauseEnd(paused) ?: System.currentTimeMillis()
         return Downloads(added.get(), network, pausedUntil)
+    }
+
+    /** Erst [url], scheitert es, die Ersatz-Adressen der Reihe nach; bremst dabei ein Server, gilt das Bild als gebremst. */
+    private suspend fun fetchWithAlternates(
+        name: String,
+        url: String,
+        alternates: List<String>,
+        streaks: LogoImagePauses.ForbiddenStreaks,
+    ): Fetched {
+        var result = fetchLimited(name, url, streaks)
+        if (result != Fetched.FAILED) return result
+        var paused = false
+        for (alt in alternates) {
+            if (alt == url) continue
+            result = fetchLimited(name, alt, streaks)
+            if (result == Fetched.OK) return result
+            if (result == Fetched.PAUSED) paused = true
+        }
+        return if (paused) Fetched.PAUSED else Fetched.FAILED
     }
 
     /** Ein Bild mit den Grenzen je Server und insgesamt (erst Server, dann gesamt — nie gesamt blockieren). */

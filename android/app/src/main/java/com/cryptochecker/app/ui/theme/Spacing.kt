@@ -18,7 +18,8 @@ object Spacing {
     /**
      * Freiraum unter der letzten Zeile einer Liste mit schwebendem «+»-Knopf (`AppFab`, 56 dp
      * + Rand + Schatten): 3 × [xxl], damit der Knopf nichts verdeckt. Keine Rasterstufe, sondern
-     * daraus abgeleitet (darum nicht als eigene dp-Zahl) — wie `Spacing.fabClearance` (iOS).
+     * daraus abgeleitet (darum nicht als eigene dp-Zahl). iOS braucht ihn nicht: dort gibt `safeAreaInset`
+     * mit dem Knopf der Liste unten Platz.
      */
     val fabClearance = xxl * 3
 }

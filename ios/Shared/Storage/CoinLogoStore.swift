@@ -178,11 +178,16 @@ actor CoinLogoStore {
         defer { syncing = false }
 
         let tradFiBases = Self.tradFiBases
+        // Ersatz-Adressen aus den gespeicherten Binance-Listen, falls ein Bild der Zuordnung scheitert
+        let lists = savedLists()
+        let alternates = CoinMeta.alternates(binance: lists?.binance, alpha: lists?.alpha)
         var earlyTask: Task<DownloadResult, Never>?
         let current = await symbolMap { partial in
             guard images else { return }
             let wanted = CoinLogos.withStockLogos(partial, tradFiBases: tradFiBases)
-            earlyTask = Task.detached(priority: .utility) { await CoinLogoStore.downloadMissing(wanted) }
+            earlyTask = Task.detached(priority: .utility) {
+                await CoinLogoStore.downloadMissing(wanted, alternates: alternates)
+            }
         }
         guard images else {
             retryPending = listsNetworkFailed || mapNetworkFailed
@@ -193,7 +198,7 @@ actor CoinLogoStore {
         let wanted = CoinLogos.withStockLogos(current, tradFiBases: Self.tradFiBases)
         var result = DownloadResult()
         if let earlyTask { result = await earlyTask.value }
-        let rest = await Self.downloadMissing(wanted)
+        let rest = await Self.downloadMissing(wanted, alternates: alternates)
         result.added += rest.added
         result.network = result.network || rest.network
         retryPending = listsNetworkFailed || mapNetworkFailed || result.network

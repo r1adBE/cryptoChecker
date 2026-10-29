@@ -175,31 +175,31 @@ object CoinLogos {
     private val ALIASES = mapOf("XBT" to "BTC", "XDG" to "DOGE", "LUNA2" to "LUNA")
 
     /**
-     * Symbol, unter dem das Logo gesucht wird: gross, ohne Leerraum, ohne Hebel-Präfix
-     * («1000PEPE» → «PEPE»), Börsen-Kürzel vereinheitlicht («XBT» → «BTC»). Leer → leer.
-     * Geprüft (Parity-Fälle): Auch «1000SATS» und «1000CAT» sind bei Binance Hebel-Kürzel
-     * (1000 × SATS (Ordinals) bzw. 1000 × Simon's Cat, CoinGecko-Kürzel SATS bzw. CAT) — die
-     * Zuordnung zu SATS/CAT ist richtig. Ein echter Token «1000…» ohne Hebel ist nicht bekannt;
-     * nach dem Präfix müssen mindestens zwei Zeichen mit Buchstabe vorne folgen («1000X» bleibt).
+     * Symbol, unter dem das Logo gesucht wird: [stripMultiplier], dann Börsen-Kürzel vereinheitlicht
+     * («XBT» → «BTC»). Leer → leer. Geprüft (Parity-Fälle): Auch «1000SATS» und «1000CAT» sind bei Binance
+     * Hebel-Kürzel (1000 × SATS (Ordinals) bzw. 1000 × Simon's Cat) — die Zuordnung zu SATS/CAT ist richtig.
      * Dieselbe Regel nutzt [com.cryptochecker.app.domain.spot.SpotMarket.lookupSymbol].
      */
-    fun normalize(symbol: String): String {
-        var s = symbol.trim().uppercase()
-        for (prefix in MULTIPLIER_PREFIXES) {
-            if (s.startsWith(prefix) && s.length - prefix.length >= 2 && s[prefix.length].isLetter()) {
-                s = s.removePrefix(prefix)
-                break
-            }
-        }
-        return ALIASES[s] ?: s
+    fun normalize(symbol: String): String = stripMultiplier(symbol).let { ALIASES[it] ?: it }
+
+    /**
+     * Gemeinsame Hebel-Regel (Parity `coin_logos.json` › `multiplier`): gross, ohne Leerraum, ohne Hebel-Präfix
+     * der Futures («1000000MOG» → «MOG», «1MBABYDOGE» → «BABYDOGE»), sonst unverändert. Ein echter Token «1000…»
+     * ohne Hebel ist nicht bekannt; nach dem Präfix müssen mindestens zwei Zeichen mit Buchstabe vorne folgen
+     * («1000X», «1INCH» bleiben). Ohne Aliase ([normalize]).
+     */
+    fun stripMultiplier(symbol: String): String {
+        val s = symbol.trim().uppercase()
+        val prefix = MULTIPLIER_PREFIXES.firstOrNull { s.startsWith(it) } ?: return s
+        return if (s.length - prefix.length >= 2 && s[prefix.length].isLetter()) s.substring(prefix.length) else s
     }
 
     /**
-     * Initialen für den Ersatz-Kreis: bis vier Zeichen ganz, sonst die ersten drei
-     * (für CoinBadge). Bewusst vom Original-Symbol, nicht von [normalize].
+     * Initialen für den Ersatz-Kreis: bis vier Zeichen ganz, sonst die ersten drei (für CoinBadge). Krypto ohne
+     * Hebel-Präfix ([stripMultiplier]: «1000000MOG» → «MOG»), aber ohne Aliase; TradFi unverändert.
      */
     fun initials(symbol: String): String {
-        val s = displaySymbol(symbol).trim().uppercase()
+        val s = if (symbol.startsWith(TRADFI_PREFIX)) displaySymbol(symbol).trim().uppercase() else stripMultiplier(symbol)
         return if (s.length <= 4) s else s.take(3)
     }
 

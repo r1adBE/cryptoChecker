@@ -124,6 +124,8 @@ extension WatchlistScreen {
             .modifier(WatchlistStatusSpeech(label: spokenLabel, announcement: spokenText, kind: kind))
             // Nach einer Aktualisierung wechseln Farbe und Text weich (nicht hart)
             .animation(reduceMotion ? nil : .easeInOut(duration: 0.2), value: text)
+            // Vor «Letzter Lauf»: der Status bekommt zuerst Platz, die Lauf-Pille schrumpft aufs Symbol
+            .layoutPriority(1)
 
             // «3 deaktiviert» neben dem Status (deaktivierte Paare der Gruppen-Ansicht)
             disabledChip
@@ -132,11 +134,16 @@ extension WatchlistScreen {
 
             if lastRunMillis > 0 {
                 Button { showReport = true } label: {
-                    HStack(spacing: 4) {
-                        Image(systemName: "timer").scaledFont(size: 11, weight: .semibold, relativeTo: .caption)
-                        Text(L("watchlist_last_run", PriceFormat.duration(lastRunMillis)))
-                            .font(.caption.monospacedDigit())
-                            .lineLimit(1)
+                    // Zu eng (statt «Letzter Lauf 3…»): nur das Symbol; vorgelesen wird ohnehin «Prüfbericht»
+                    ViewThatFits(in: .horizontal) {
+                        HStack(spacing: 4) {
+                            lastRunIcon
+                            Text(L("watchlist_last_run", PriceFormat.duration(lastRunMillis)))
+                                .font(.caption.monospacedDigit())
+                                .lineLimit(1)
+                        }
+                        .fixedSize()
+                        lastRunIcon
                     }
                     .foregroundStyle(AppColors.onSurfaceVariant)
                     .padding(.horizontal, Spacing.sm)
@@ -204,6 +211,11 @@ extension WatchlistScreen {
             .font(.caption.weight(.medium).monospacedDigit())
             .foregroundStyle(AppColors.onSurface)
             .lineLimit(1)
+    }
+
+    /// Symbol der Pille «Letzter Lauf» (mit Text und allein, wenn der Platz fehlt).
+    private var lastRunIcon: some View {
+        Image(systemName: "timer").scaledFont(size: 11, weight: .semibold, relativeTo: .caption)
     }
 
     /// Tippfläche über und unter der Status-Pille.

@@ -4,7 +4,7 @@
 Marke erreicht ist – ohne Konto.** Dazu Marktüberblick und als Zusatz «Was bewegt sich mit?» (was sich gleichzeitig
 bewegt – keine Ursache) – ohne Prognosen, keine Anlageberatung.
 
-Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 170 – die Build-Nummer steigt mit jedem Stand um eins).
+Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 171 – die Build-Nummer steigt mit jedem Stand um eins).
 Mindestens iOS 17. Die App enthält eine Widget-Erweiterung (WidgetKit) und eine Apple-Watch-App (watchOS 10, `Watch/`,
 Komplikation in `WatchWidgets/`, gemeinsame Listenwahl in `WatchCore/`).
 
@@ -126,10 +126,8 @@ Regeln für neuen Code:
 
 - Kein `nonisolated(unsafe)` (Obergrenze 0). Globale Einstellungen und Merker gehören in
   `LockedBox` (`Shared/Util/Theme.swift`) oder ein `OSAllocatedUnfairLock`, nicht in ein nacktes `static var`.
-- Kein `@unchecked Sendable` im App-Code (Obergrenze 0) und kein `withLockUnchecked`. Ein nicht `Sendable`-Objekt,
-  das geteilt werden muss (Formatter, `UserDefaults`, `BGTask`, Rückruf des SDK), liegt nur in einem
-  `OSAllocatedUnfairLock(uncheckedState:)` und wird nur in `withLock` angefasst (gezählt, Obergrenze 7). In den Tests trägt jedes
-  `@unchecked Sendable` auf derselben Zeile einen Kommentar, welche Sperre den Zustand schützt.
+- Jedes `@unchecked Sendable` trägt auf derselben Zeile einen Kommentar, welche Sperre den Zustand schützt (auch in
+  den Tests).
 - Kein `@MainActor` nachträglich auf Typen, die aus Hintergrund-Aufgaben, Widgets oder UIKit-Farb-Closures
   gelesen werden — dort lieber `LockedBox`.
 - Synchrone Rückrufe des Systems, die nicht garantiert auf dem Haupt-Thread kommen (`BGTaskScheduler`,
@@ -143,10 +141,11 @@ Regeln für neuen Code:
   (`ios_release_audit.py`, `WatchlistConfirmCallGuard`) exakt bleiben.
 
 Die CI (Workflow «iOS», `.github/workflows/ios.yml`) baut die App im Swift-6-Modus und führt Unit- und UI-Tests bei
-jedem Pull Request und jedem Push auf `main`, der die iOS-App betrifft, aus; Isolationsfehler zur Laufzeit fallen dort auf.
-`@unchecked Sendable` gibt es im App-Code keines mehr (Obergrenze 0 in `swift_escape_hatches.py`): Die Börsen-Adapter
-sind Protokolle mit `struct`s, alle Sperr-Boxen halten ihren Zustand in `OSAllocatedUnfairLock<State>` und sind
-geprüft `Sendable`; die Stellen mit `uncheckedState` nennt `DEVELOPMENT.md` «Known warnings».
+jedem Pull Request und jedem Push auf `main`, der die iOS-App betrifft, aus; Isolationsfehler zur Laufzeit fallen dort auf. Die
+`@unchecked Sendable`-Stellen (Obergrenze in `swift_escape_hatches.py`, derzeit 76 – davon 67 die Börsen-Adapter ohne
+veränderlichen Zustand, die übrigen 9 mit Grund in `DEVELOPMENT.md` «Known warnings») sind kommentiert bzw. mit einer
+Sperre geschützt – das kann der Compiler nicht nachprüfen. Die übrigen Sperr-Boxen halten ihren Zustand in
+`OSAllocatedUnfairLock<State>` und sind geprüft `Sendable`.
 
 ## Falls sich das Projekt nicht öffnen lässt
 

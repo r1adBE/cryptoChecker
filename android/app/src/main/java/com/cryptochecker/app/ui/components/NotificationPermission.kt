@@ -14,11 +14,9 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
@@ -80,6 +78,20 @@ object NotificationPrePrompt {
 
     fun setStage(context: Context, stage: Int) = prefs(context).edit { putInt(KEY_STAGE, stage) }
 
+    @Volatile
+    private var appSlot: PrePromptSlot? = null
+
+    /**
+     * Die eine Erklärung der App (gezeigt von [NotificationPrePromptHost] in der MainActivity): kein Bildschirm hat eine
+     * eigene, die nach dem Verlassen gespeichert und beim Zurückkehren (auch nur in der Vorschau der Zurück-Geste)
+     * wieder aufginge. Lebt so lange wie der Prozess — übersteht Drehen, nicht das Beenden (Stufe ist dann schon weiter).
+     */
+    fun slot(context: Context): PrePromptSlot = appSlot ?: synchronized(this) {
+        appSlot ?: context.applicationContext.let { app ->
+            PrePromptSlot(readStage = { stage(app) }, writeStage = { setStage(app, it) })
+        }.also { appSlot = it }
+    }
+
     /** Die System-Abfrage wurde gestartet (auch aus dem Probe-Alarm, [rememberAlarmTest]). */
     fun markSystemAsked(context: Context) = prefs(context).edit { putBoolean(KEY_SYSTEM_ASKED, true) }
 
@@ -117,37 +129,6 @@ fun rememberNotificationPermissionRequest(reason: NotificationAsk = Notification
 
     val context = LocalContext.current
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { }
-    // Saveable: die Erklärung muss Drehen überstehen
-    var explaining by rememberSaveable { mutableStateOf(false) }
-
-    fun launchSystem() {
-        launchOrSkip(launcher) { NotificationPrePrompt.markSystemAsked(context) }
-    }
-
-    if (explaining) {
-        val later = {
-            explaining = false
-            NotificationPrePrompt.setStage(context, NotificationPrePrompt.afterLater(NotificationPrePrompt.stage(context)))
-        }
-        AlertDialog(
-            onDismissRequest = later,
-            title = { Text(stringResource(R.string.notification_permission_preprompt_title)) },
-            text = { DialogText { Text(stringResource(R.string.notification_permission_preprompt_text)) } },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        explaining = false
-                        NotificationPrePrompt.setStage(context, NotificationPrePrompt.STAGE_CONTINUED)
-                        launchSystem()
-                    },
-                    modifier = Modifier.testTag(UiTestTags.NOTIFICATION_PREPROMPT_CONTINUE),
-                ) { Text(stringResource(R.string.notification_permission_preprompt_continue)) }
-            },
-            dismissButton = {
-                TextButton(onClick = later) { Text(stringResource(R.string.notification_permission_preprompt_later)) }
-            }
-        )
-    }
 
     return remember(launcher, reason) {
         {
@@ -155,17 +136,49 @@ fun rememberNotificationPermissionRequest(reason: NotificationAsk = Notification
                 context, Manifest.permission.POST_NOTIFICATIONS
             ) == PackageManager.PERMISSION_GRANTED
             if (!granted) {
-                val action = NotificationPrePrompt.action(
-                    NotificationPrePrompt.notDetermined(context), NotificationPrePrompt.stage(context), reason
-                )
-                when (action) {
-                    NotificationPrePrompt.Action.EXPLAIN -> explaining = true
-                    NotificationPrePrompt.Action.SYSTEM -> launchSystem()
-                    NotificationPrePrompt.Action.NOTHING -> Unit
+                // Erklären übernimmt die eine Erklärung der App (Stufe schon beim Zeigen fortgeschrieben)
+                when (NotificationPrePrompt.slot(context).request(NotificationPrePrompt.notDetermined(context), reason)) {
+                    NotificationPrePrompt.Action.SYSTEM ->
+                        launchOrSkip(launcher) { NotificationPrePrompt.markSystemAsked(context) }
+                    NotificationPrePrompt.Action.EXPLAIN, NotificationPrePrompt.Action.NOTHING -> Unit
                 }
             }
         }
     }
+}
+
+/**
+ * Die Erklärung vor der System-Abfrage ([NotificationPrePrompt.slot]); einmal in der MainActivity, neben
+ * [WatchlistNotSavedGateHost]. «Weiter» startet die System-Abfrage über den Launcher der Activity (solange sie lebt
+ * angemeldet). Zurück, Tippen daneben und «Später» zählen gleich: die Stufe ist schon beim Zeigen weiter.
+ */
+@Composable
+fun NotificationPrePromptHost() {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return
+    val context = LocalContext.current
+    val slot = remember(context) { NotificationPrePrompt.slot(context) }
+    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { }
+    val showing by slot.showing.collectAsState()
+    if (!showing) return
+    val later: () -> Unit = { slot.answer(proceed = false) }
+    AlertDialog(
+        onDismissRequest = later,
+        title = { Text(stringResource(R.string.notification_permission_preprompt_title)) },
+        text = { DialogText { Text(stringResource(R.string.notification_permission_preprompt_text)) } },
+        confirmButton = {
+            TextButton(
+                onClick = {
+                    if (slot.answer(proceed = true)) {
+                        launchOrSkip(launcher) { NotificationPrePrompt.markSystemAsked(context) }
+                    }
+                },
+                modifier = Modifier.testTag(UiTestTags.NOTIFICATION_PREPROMPT_CONTINUE),
+            ) { Text(stringResource(R.string.notification_permission_preprompt_continue)) }
+        },
+        dismissButton = {
+            TextButton(onClick = later) { Text(stringResource(R.string.notification_permission_preprompt_later)) }
+        }
+    )
 }
 
 /**

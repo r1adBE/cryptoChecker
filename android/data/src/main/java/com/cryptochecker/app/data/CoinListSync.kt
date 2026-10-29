@@ -317,11 +317,11 @@ class CoinListSync @Inject constructor(
     /**
      * Rangliste holen und alle fehlenden Logos laden. Die Bilder der grössten 1000 (Rangliste Seiten 1–4
      * mit Binance- und Alpha-Liste) beginnen schon, während die übrigen Seiten laden; danach nur noch,
-     * was die übrigen Seiten dazubringen.
+     * was die übrigen Seiten dazubringen. Scheitert ein Bild: Ersatz-Adressen ([logoAlternates]).
      */
     private suspend fun syncAll(): Int = coroutineScope {
         val early = CompletableDeferred<Map<String, String>>()
-        val first = async { imageStore.downloadMissing(early.await()) }
+        val first = async { imageStore.downloadMissing(early.await(), logoAlternates()) }
         var usedEarly = false
         val current = try {
             symbolMap { partial ->
@@ -336,7 +336,7 @@ class CoinListSync @Inject constructor(
         val wanted = CoinLogos.withStockLogos(current, names.tradFiBases)
         if (!usedEarly) early.complete(wanted)
         var result = first.await()
-        if (usedEarly) result += imageStore.downloadMissing(wanted)
+        if (usedEarly) result += imageStore.downloadMissing(wanted, logoAlternates())
         _retryPending.value = listsNetworkFailed || mapNetworkFailed || result.network
         imagesPausedUntil = result.pausedUntil
         result.added

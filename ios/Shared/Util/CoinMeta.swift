@@ -153,6 +153,25 @@ enum CoinMeta {
         return out
     }
 
+    /// Ersatz-Adressen je Kürzel (`CoinLogos.normalize`) aus den Binance-Listen: erst die Symbolliste (ohne
+    /// Futures-only- und Aktien-Einträge wie `listCrypto`), dann die Alpha-Liste («Mog» für «1000000MOG»). Nur
+    /// freigegebene Adressen, ohne Doppelte; der Sammel-Abruf lädt sie, wenn das Bild der Zuordnung scheitert —
+    /// wie Android `alternates`.
+    static func alternates(binance: [CoinLogos.BinanceEntry]?, alpha: [CoinLogos.AlphaEntry]?) -> [String: [String]] {
+        var out: [String: [String]] = [:]
+        let crypto = (binance ?? []).filter { e in
+            !e.onlyFutures && !e.tags.contains { $0.caseInsensitiveCompare(CoinLogos.stockTag) == .orderedSame }
+        }
+        let rows = crypto.map { (symbol: $0.name, url: $0.logo) } + (alpha ?? []).map { (symbol: $0.symbol, url: $0.icon) }
+        for (symbol, url) in rows {
+            let key = CoinLogos.normalize(symbol)
+            guard !key.isEmpty, CoinLogos.isAllowedURL(url), let url else { continue }
+            let trimmed = url.trimmingCharacters(in: .whitespacesAndNewlines)
+            if !(out[key] ?? []).contains(trimmed) { out[key, default: []].append(trimmed) }
+        }
+        return out
+    }
+
     /// Namen nur aus den Binance-Listen (ohne Rangliste), Vorrang wie `merge` — wie Android `listNames`.
     static func listNames(binance: [CoinLogos.BinanceEntry]?, alpha: [CoinLogos.AlphaEntry]?) -> Lists {
         merge(geckoTop: [], binance: binance, alpha: alpha, crypto: listCrypto(binance))
