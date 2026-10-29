@@ -156,7 +156,7 @@
     <string name="tax_template_at">Austria</string>
     <string name="tax_template_au">Austraalia</string>
     <string name="tax_template_beta">Beeta</string>
-    <string name="tax_template_beta_note">Beeta: riigi reeglid lihtsustatud, kontrolli enne maksudeklaratsiooni esitamist</string>
+    <string name="tax_template_beta_note">Beeta: riigi reeglid lihtsustatud, maksuspetsialist pole neid veel kontrollinud, kontrolli enne maksudeklaratsiooni esitamist</string>
     <string name="tax_template_ca">Kanada</string>
     <string name="tax_template_ch">Šveits</string>
     <string name="tax_template_confirm_text">Beeta, lihtsustatud reeglid, teiste platvormide tehingud puuduvad – kontrolli enne maksudeklaratsiooni esitamist.</string>

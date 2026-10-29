@@ -156,7 +156,7 @@
     <string name="tax_template_at">اتریش</string>
     <string name="tax_template_au">استرالیا</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">بتا: قواعد کشور ساده شده‌اند، پیش از ارائهٔ اظهارنامهٔ مالیاتی بررسی کن</string>
+    <string name="tax_template_beta_note">بتا: قواعد کشور ساده شده‌اند و هنوز کارشناس مالیاتی آن‌ها را بررسی نکرده است، پیش از ارائهٔ اظهارنامهٔ مالیاتی بررسی کن</string>
     <string name="tax_template_ca">کانادا</string>
     <string name="tax_template_ch">سوئیس</string>
     <string name="tax_template_confirm_text">بتا، قواعد ساده‌شده، تراکنش‌های پلتفرم‌های دیگر نیست – پیش از اظهارنامه بررسی کن.</string>

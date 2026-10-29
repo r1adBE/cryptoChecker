@@ -156,7 +156,7 @@
     <string name="tax_template_at">Austria</string>
     <string name="tax_template_au">Australia</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">Beta: pinasimple ang mga patakaran ng bansa, tingnan bago isampa ang tax return mo</string>
+    <string name="tax_template_beta_note">Beta: pinasimple ang mga patakaran ng bansa, hindi pa nasusuri ng eksperto sa buwis, tingnan bago isampa ang tax return mo</string>
     <string name="tax_template_ca">Canada</string>
     <string name="tax_template_ch">Switzerland</string>
     <string name="tax_template_confirm_text">Beta, pinasimpleng mga patakaran, kulang ang mga transaksyon mula sa ibang platform – tingnan bago isampa ang tax return mo.</string>

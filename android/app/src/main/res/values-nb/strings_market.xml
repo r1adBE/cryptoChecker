@@ -250,6 +250,7 @@
     <string name="movers_no_gainers">Ingen coin steg på 24 t</string>
     <string name="movers_no_losers">Ingen coin falt på 24 t</string>
     <string name="movers_source">CoinGecko, 24 t, topp 100 uten stablecoins</string>
+    <string name="movers_price_note">Prosent fra CoinGecko (snitt på tvers av børser), kurs fra valgt børs – tallene kan avvike.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

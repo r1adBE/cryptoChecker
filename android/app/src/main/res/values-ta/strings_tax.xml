@@ -156,7 +156,7 @@
     <string name="tax_template_at">ஆஸ்திரியா</string>
     <string name="tax_template_au">ஆஸ்திரேலியா</string>
     <string name="tax_template_beta">பீட்டா</string>
-    <string name="tax_template_beta_note">பீட்டா: நாட்டு விதிகள் எளிமைப்படுத்தப்பட்டவை, உங்கள் வரி அறிக்கையைத் தாக்கல் செய்யும் முன் சரிபார்க்கவும்</string>
+    <string name="tax_template_beta_note">பீட்டா: நாட்டு விதிகள் எளிமைப்படுத்தப்பட்டவை, இன்னும் வரி நிபுணரால் சரிபார்க்கப்படவில்லை, உங்கள் வரி அறிக்கையைத் தாக்கல் செய்யும் முன் சரிபார்க்கவும்</string>
     <string name="tax_template_ca">கனடா</string>
     <string name="tax_template_ch">சுவிட்சர்லாந்து</string>
     <string name="tax_template_confirm_text">பீட்டா, எளிமைப்படுத்தப்பட்ட விதிகள், பிற தளங்களின் பரிவர்த்தனைகள் இல்லை – உங்கள் வரி அறிக்கையைத் தாக்கல் செய்யும் முன் சரிபார்க்கவும்.</string>

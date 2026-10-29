@@ -250,6 +250,7 @@
     <string name="movers_no_gainers">هیچ کوینی در ۲۴ ساعت بالا نرفت</string>
     <string name="movers_no_losers">هیچ کوینی در ۲۴ ساعت پایین نیامد</string>
     <string name="movers_source">CoinGecko، ۲۴ ساعت، ۱۰۰ برتر بدون استیبل‌کوین‌ها</string>
+    <string name="movers_price_note">درصد از CoinGecko (میانگین صرافی‌ها)، قیمت از صرافی انتخاب‌شده – اعداد ممکن است متفاوت باشند.</string>
     <string name="movers_a11y_row">%1$s (%2$s)، %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

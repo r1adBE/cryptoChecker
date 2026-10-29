@@ -156,7 +156,7 @@
     <string name="tax_template_at">آسٹریا</string>
     <string name="tax_template_au">آسٹریلیا</string>
     <string name="tax_template_beta">بیٹا</string>
-    <string name="tax_template_beta_note">بیٹا: ملکی قواعد آسان کیے گئے، ٹیکس ریٹرن جمع کرانے سے پہلے چیک کریں</string>
+    <string name="tax_template_beta_note">بیٹا: ملکی قواعد آسان کیے گئے، ابھی کسی ٹیکس ماہر نے ان کی جانچ نہیں کی، ٹیکس ریٹرن جمع کرانے سے پہلے چیک کریں</string>
     <string name="tax_template_ca">کینیڈا</string>
     <string name="tax_template_ch">سوئٹزرلینڈ</string>
     <string name="tax_template_confirm_text">بیٹا، آسان قواعد، دوسرے پلیٹ فارمز کے لین دین شامل نہیں – ٹیکس ریٹرن جمع کرانے سے پہلے چیک کریں۔</string>

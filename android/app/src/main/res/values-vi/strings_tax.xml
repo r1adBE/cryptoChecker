@@ -156,7 +156,7 @@
     <string name="tax_template_at">Áo</string>
     <string name="tax_template_au">Úc</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">Beta: quy tắc quốc gia đã được đơn giản hóa, hãy kiểm tra trước khi khai thuế</string>
+    <string name="tax_template_beta_note">Beta: quy tắc quốc gia đã được đơn giản hóa và chưa được chuyên gia thuế kiểm tra, hãy kiểm tra trước khi khai thuế</string>
     <string name="tax_template_ca">Canada</string>
     <string name="tax_template_ch">Thụy Sĩ</string>
     <string name="tax_template_confirm_text">Beta, quy tắc đơn giản hóa, thiếu giao dịch từ nền tảng khác – hãy kiểm tra trước khi khai thuế.</string>

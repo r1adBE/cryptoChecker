@@ -156,7 +156,7 @@
     <string name="tax_template_at">Avusturya</string>
     <string name="tax_template_au">Avustralya</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">Beta: ülke kuralları basitleştirildi, vergi beyannamesinden önce kontrol et</string>
+    <string name="tax_template_beta_note">Beta: ülke kuralları basitleştirildi, henüz bir vergi uzmanınca kontrol edilmedi, vergi beyannamesinden önce kontrol et</string>
     <string name="tax_template_ca">Kanada</string>
     <string name="tax_template_ch">İsviçre</string>
     <string name="tax_template_confirm_text">Beta, basitleştirilmiş kurallar, diğer platformlardaki işlemler eksik – beyannameden önce kontrol et.</string>

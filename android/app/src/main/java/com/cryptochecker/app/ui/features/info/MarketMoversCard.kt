@@ -83,6 +83,8 @@ internal fun MarketMoversCard(state: LoadState<PulseReport>, onOpen: (MoverCoin)
             )
         }
         SourceText(stringResource(R.string.movers_source))
+        // Tipp öffnet das Paar mit dem Kurs einer Börse: sagt, warum Prozent und Kurs abweichen können
+        SourceText(stringResource(R.string.movers_price_note))
         CoinGeckoAttribution()
     }
 }
@@ -118,6 +120,8 @@ private fun MoversSkeleton() {
             }
         }
         SourceText(stringResource(R.string.movers_source))
+        // Tipp öffnet das Paar mit dem Kurs einer Börse: sagt, warum Prozent und Kurs abweichen können
+        SourceText(stringResource(R.string.movers_price_note))
         CoinGeckoAttribution()
     }
 }

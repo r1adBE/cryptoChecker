@@ -156,7 +156,7 @@
     <string name="tax_template_at">오스트리아</string>
     <string name="tax_template_au">호주</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">베타: 국가별 규칙이 단순화되어 있습니다. 세금 신고 전에 확인하세요</string>
+    <string name="tax_template_beta_note">베타: 국가별 규칙이 단순화되어 있으며 아직 세무 전문가의 검토를 받지 않았습니다. 세금 신고 전에 확인하세요</string>
     <string name="tax_template_ca">캐나다</string>
     <string name="tax_template_ch">스위스</string>
     <string name="tax_template_confirm_text">베타, 단순화된 규칙, 다른 플랫폼의 거래는 빠져 있습니다 – 세금 신고 전에 확인하세요.</string>

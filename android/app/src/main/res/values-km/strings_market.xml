@@ -247,6 +247,7 @@
     <string name="movers_no_gainers">គ្មានកាក់ណាឡើងក្នុង 24 ម៉ោងទេ</string>
     <string name="movers_no_losers">គ្មានកាក់ណាធ្លាក់ក្នុង 24 ម៉ោងទេ</string>
     <string name="movers_source">CoinGecko, 24 ម៉ោង, top 100 មិនរាប់ stablecoin</string>
+    <string name="movers_price_note">ភាគរយពី CoinGecko (មធ្យមលើផ្សារប្តូរប្រាក់) តម្លៃពីផ្សារប្តូរប្រាក់ដែលបានជ្រើស – តួលេខអាចខុសគ្នា។</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

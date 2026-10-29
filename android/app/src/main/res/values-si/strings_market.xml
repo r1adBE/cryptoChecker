@@ -250,6 +250,7 @@
     <string name="movers_no_gainers">24 h තුළ කිසිදු කාසියක් ඉහළ ගියේ නැත</string>
     <string name="movers_no_losers">24 h තුළ කිසිදු කාසියක් පහළ ගියේ නැත</string>
     <string name="movers_source">CoinGecko, 24 h, ස්ථායි කාසි නොමැතිව ඉහළම 100</string>
+    <string name="movers_price_note">ප්‍රතිශතය CoinGecko වෙතින් (හුවමාරු වල සාමාන්‍යය), මිල තෝරාගත් හුවමාරුවෙන් – අංක වෙනස් විය හැක.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

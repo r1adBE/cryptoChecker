@@ -253,6 +253,7 @@
     <string name="movers_no_gainers">Ниједна криптовалута није порасла у 24 ч</string>
     <string name="movers_no_losers">Ниједна криптовалута није пала у 24 ч</string>
     <string name="movers_source">CoinGecko, 24 ч, топ 100 без стејблкоина</string>
+    <string name="movers_price_note">Проценат са CoinGecko-а (просек преко берзи), цена са изабране берзе – бројеви се могу разликовати.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

@@ -54,7 +54,7 @@
     <string name="settings_price_pairs_all_off">Tutte disattive</string>
     <string name="settings_price_pairs_all_on">Tutte attive</string>
     <string name="settings_price_pairs_count">%1$d di %2$d</string>
-    <string name="settings_price_pairs_empty">Ancora nessuna coppia nella watchlist.</string>
+    <string name="settings_price_pairs_empty">Ancora nessuna coppia nella lista di osservazione.</string>
     <string name="settings_price_pairs_hint">Scegli per quali coppie il prezzo appare nella barra delle notifiche.</string>
     <string name="settings_quiet_hours">Ore di silenzio</string>
     <string name="settings_quiet_hours_from">Inizio</string>

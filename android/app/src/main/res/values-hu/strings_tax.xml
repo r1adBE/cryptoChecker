@@ -156,7 +156,7 @@
     <string name="tax_template_at">Ausztria</string>
     <string name="tax_template_au">Ausztrália</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">Béta: egyszerűsített országos szabályok, ellenőrizd az adóbevallás előtt</string>
+    <string name="tax_template_beta_note">Béta: egyszerűsített országos szabályok, adószakértő még nem ellenőrizte, ellenőrizd az adóbevallás előtt</string>
     <string name="tax_template_ca">Kanada</string>
     <string name="tax_template_ch">Svájc</string>
     <string name="tax_template_confirm_text">Béta, egyszerűsített szabályok, más platformok tranzakciói hiányoznak – ellenőrizd az adóbevallás előtt.</string>

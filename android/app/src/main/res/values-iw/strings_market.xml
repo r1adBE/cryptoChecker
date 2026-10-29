@@ -253,6 +253,7 @@
     <string name="movers_no_gainers">אף מטבע לא עלה ב-24 ש׳</string>
     <string name="movers_no_losers">אף מטבע לא ירד ב-24 ש׳</string>
     <string name="movers_source">CoinGecko, ‏24 ש׳, 100 המובילים ללא מטבעות יציבים</string>
+    <string name="movers_price_note">האחוז מ-CoinGecko (ממוצע בין בורסות), המחיר מהבורסה שנבחרה – המספרים עשויים להיות שונים.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

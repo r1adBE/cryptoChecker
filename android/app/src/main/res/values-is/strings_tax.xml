@@ -156,7 +156,7 @@
     <string name="tax_template_at">Austurríki</string>
     <string name="tax_template_au">Ástralía</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">Beta: einfaldaðar reglur landsins, athugaðu áður en þú skilar skattframtali</string>
+    <string name="tax_template_beta_note">Beta: einfaldaðar reglur landsins, skattasérfræðingur hefur ekki enn yfirfarið þær, athugaðu áður en þú skilar skattframtali</string>
     <string name="tax_template_ca">Kanada</string>
     <string name="tax_template_ch">Sviss</string>
     <string name="tax_template_confirm_text">Beta, einfaldaðar reglur, færslur frá öðrum vettvöngum vantar – athugaðu áður en þú skilar skattframtali.</string>

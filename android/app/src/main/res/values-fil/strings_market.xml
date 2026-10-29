@@ -250,6 +250,7 @@
     <string name="movers_no_gainers">Walang coin na tumaas sa 24 h</string>
     <string name="movers_no_losers">Walang coin na bumaba sa 24 h</string>
     <string name="movers_source">CoinGecko, 24 h, top 100 na walang stablecoin</string>
+    <string name="movers_price_note">Porsiyento mula sa CoinGecko (average sa mga exchange), presyo mula sa napiling exchange – maaaring magkaiba ang mga numero.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

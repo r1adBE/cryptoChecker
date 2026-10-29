@@ -250,6 +250,7 @@
     <string name="movers_no_gainers">Asnjë monedhë nuk u rrit në 24 orë</string>
     <string name="movers_no_losers">Asnjë monedhë nuk ra në 24 orë</string>
     <string name="movers_source">CoinGecko, 24 orë, top 100 pa stablecoin</string>
+    <string name="movers_price_note">Përqindja nga CoinGecko (mesatare mes bursave), çmimi nga bursa e zgjedhur – shifrat mund të ndryshojnë.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

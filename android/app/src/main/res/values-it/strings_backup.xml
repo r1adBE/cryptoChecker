@@ -76,7 +76,7 @@
     <string name="settings_reset_notice">Non è stato possibile leggere le impostazioni, che sono state riportate ai valori predefiniti. Controlla il blocco portafoglio, l’intervallo degli allarmi e la valuta.</string>
     <string name="backup_restore_interrupted_title">Il ripristino è stato interrotto</string>
     <string name="backup_restore_interrupted_rolled_back">L\'app è stata chiusa durante il ripristino di un backup. I dati precedenti sono stati ripristinati; dal backup non è stato mantenuto nulla.</string>
-    <string name="backup_restore_interrupted_incomplete">L\'app è stata chiusa durante il ripristino di un backup e non è stato possibile ripristinare completamente i dati precedenti. Controlla watchlist e portafoglio oppure ripristina di nuovo il backup in «%1$s» nelle Impostazioni.</string>
+    <string name="backup_restore_interrupted_incomplete">L\'app è stata chiusa durante il ripristino di un backup e non è stato possibile ripristinare completamente i dati precedenti. Controlla la lista di osservazione e il portafoglio oppure ripristina di nuovo il backup in «%1$s» nelle Impostazioni.</string>
     <string name="backup_not_verified">Non è stato possibile verificare il file di backup dopo il salvataggio: riletto risulta diverso. Salva il backup in un nuovo file.</string>
 
     <!-- Hinweis (nur Android): Portfolio-Kopie aus der Systemsicherung auch beim zweiten Versuch unlesbar und gelöscht -->

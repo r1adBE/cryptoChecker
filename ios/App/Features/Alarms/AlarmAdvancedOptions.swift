@@ -311,10 +311,11 @@ extension AlarmEditorSheet {
         if let rate { rates[other] = rate }
     }
 
-    /// Kursalarm: aktueller Kurs als Vorschlag im leeren Feld.
+    /// Kursalarm: aktueller Kurs in der Währung des Schwellwerts (`draft.priceHint`) als Vorschlag im
+    /// leeren Feld — wie Android `pricePlaceholder`.
     private var placeholder: String {
         if draft.condition.isPercent || draft.condition.isNearExtreme || draft.condition.isDerivatives { return "0" }
-        guard let price = watch?.lastPrice, price > 0 else { return "0" }
+        guard let price = draft.priceHint, price.isFinite, price > 0 else { return "0" }
         return PriceFormat.price(price)
     }
 }

@@ -19,8 +19,8 @@ extension WatchlistScreen {
         }.count
         let newest = traded.map(\.lastUpdate).max() ?? 0
         let allLive = LiveStatus.allLive(tradedIds: traded.map(\.id), liveIds: liveIds, stale: staleCount)
-        // «vor X Min.» bei «Kurse der gewählten Börsen»: gemischt die Zeit der abgefragten Paare
-        let shownTime = LiveStatus.shownTime(updates: traded.map { (id: $0.id, time: $0.lastUpdate) }, liveIds: liveIds)
+        // «vor X Min.» bei «Kurse der gewählten Börsen»: der älteste gezeigte Kurs
+        let shownTime = LiveStatus.shownTime(updateTimes: traded.map(\.lastUpdate))
         // Keine Verbindung: der letzte Durchlauf scheiterte bei ALLEN Paaren am Netz
         let offline = !traded.isEmpty && traded.allSatisfy { ConnectionErrors.isOffline($0.lastError) }
         let failed = traded.filter { $0.lastError != nil }.count
@@ -62,7 +62,7 @@ extension WatchlistScreen {
             text = L("watchlist_failed_count", count: failed, failed, traded.count)
         } else if newest > 0 && allLive {
             // Ein Wort vorne — «Live» nur, wenn ALLE Paare frisch am Strom sind, sonst
-            // «Kurse der gewählten Börsen · vor 2 Min.» (gemischt mit der Zeit der abgefragten Paare):
+            // «Kurse der gewählten Börsen · vor 2 Min.» (mit der Zeit des ältesten Kurses):
             // sagt wie der Store-Text, woher der Kurs kommt und wie alt er ist
             text = L("status_live")
             showsLive = true

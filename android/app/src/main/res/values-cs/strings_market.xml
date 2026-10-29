@@ -256,6 +256,7 @@
     <string name="movers_no_gainers">Žádná mince za 24 h nestoupla</string>
     <string name="movers_no_losers">Žádná mince za 24 h neklesla</string>
     <string name="movers_source">CoinGecko, 24 h, top 100 bez stablecoinů</string>
+    <string name="movers_price_note">Procenta z CoinGecko (průměr napříč burzami), cena ze zvolené burzy – čísla se mohou lišit.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

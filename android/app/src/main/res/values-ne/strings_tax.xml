@@ -156,7 +156,7 @@
     <string name="tax_template_at">अस्ट्रिया</string>
     <string name="tax_template_au">अस्ट्रेलिया</string>
     <string name="tax_template_beta">बिटा</string>
-    <string name="tax_template_beta_note">बिटा: देशका नियमहरू सरलीकृत, कर विवरण बुझाउनुअघि जाँच्नुहोस्</string>
+    <string name="tax_template_beta_note">बिटा: देशका नियमहरू सरलीकृत, अझै कर विशेषज्ञले जाँच गरेका छैनन्, कर विवरण बुझाउनुअघि जाँच्नुहोस्</string>
     <string name="tax_template_ca">क्यानडा</string>
     <string name="tax_template_ch">स्विट्जरल्यान्ड</string>
     <string name="tax_template_confirm_text">बिटा, सरलीकृत नियम, अन्य प्लेटफर्मका कारोबारहरू छैनन् – कर विवरण बुझाउनुअघि जाँच्नुहोस्।</string>

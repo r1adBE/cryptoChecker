@@ -156,7 +156,7 @@
     <string name="tax_template_at">Austria</string>
     <string name="tax_template_au">Australia</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">Beta: rregullat e vendit të thjeshtuara, kontrolloji para deklaratës tatimore</string>
+    <string name="tax_template_beta_note">Beta: rregullat e vendit të thjeshtuara, ende të pakontrolluara nga një ekspert tatimor, kontrolloji para deklaratës tatimore</string>
     <string name="tax_template_ca">Kanadaja</string>
     <string name="tax_template_ch">Zvicra</string>
     <string name="tax_template_confirm_text">Beta, rregulla të thjeshtuara, mungojnë transaksionet nga platforma të tjera – kontrollo para deklaratës.</string>

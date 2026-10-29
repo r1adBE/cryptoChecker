@@ -156,7 +156,7 @@
     <string name="tax_template_at">Австрија</string>
     <string name="tax_template_au">Австралија</string>
     <string name="tax_template_beta">Бета</string>
-    <string name="tax_template_beta_note">Бета: поедноставени правила на државата, провери пред да поднесеш даночна пријава</string>
+    <string name="tax_template_beta_note">Бета: поедноставени правила на државата, сè уште непроверени од даночен стручњак, провери пред да поднесеш даночна пријава</string>
     <string name="tax_template_ca">Канада</string>
     <string name="tax_template_ch">Швајцарија</string>
     <string name="tax_template_confirm_text">Бета, поедноставени правила, недостасуваат трансакции од други платформи – провери пред да поднесеш даночна пријава.</string>

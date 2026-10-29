@@ -253,6 +253,7 @@
     <string name="movers_no_gainers">Nessuna moneta è salita in 24 h</string>
     <string name="movers_no_losers">Nessuna moneta è scesa in 24 h</string>
     <string name="movers_source">CoinGecko, 24 h, top 100 senza stablecoin</string>
+    <string name="movers_price_note">Percentuale da CoinGecko (media tra gli exchange), prezzo dall’exchange scelto: i numeri possono differire.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

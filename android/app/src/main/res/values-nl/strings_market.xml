@@ -250,6 +250,7 @@
     <string name="movers_no_gainers">Geen coin is in 24 u gestegen</string>
     <string name="movers_no_losers">Geen coin is in 24 u gedaald</string>
     <string name="movers_source">CoinGecko, 24 u, top 100 zonder stablecoins</string>
+    <string name="movers_price_note">Percentage van CoinGecko (gemiddelde over beurzen), koers van de gekozen beurs – de cijfers kunnen afwijken.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

@@ -156,7 +156,7 @@
     <string name="tax_template_at">Avstriya</string>
     <string name="tax_template_au">Avstraliya</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">Beta: mamlakat qoidalari soddalashtirilgan, soliq deklaratsiyasini topshirishdan oldin tekshiring</string>
+    <string name="tax_template_beta_note">Beta: mamlakat qoidalari soddalashtirilgan, hali soliq mutaxassisi tomonidan tekshirilmagan, soliq deklaratsiyasini topshirishdan oldin tekshiring</string>
     <string name="tax_template_ca">Kanada</string>
     <string name="tax_template_ch">Shveytsariya</string>
     <string name="tax_template_confirm_text">Beta, soddalashtirilgan qoidalar, boshqa platformalardagi tranzaksiyalar yoʻq – soliq deklaratsiyasini topshirishdan oldin tekshiring.</string>

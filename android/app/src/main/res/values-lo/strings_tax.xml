@@ -156,7 +156,7 @@
     <string name="tax_template_at">ອອສເຕຣຍ</string>
     <string name="tax_template_au">ອອສເຕຣເລຍ</string>
     <string name="tax_template_beta">ເບຕ້າ</string>
-    <string name="tax_template_beta_note">ເບຕ້າ: ກົດລະບຽບຂອງປະເທດຖືກເຮັດໃຫ້ງ່າຍ, ກວດກ່ອນຍື່ນແບບພາສີຂອງທ່ານ</string>
+    <string name="tax_template_beta_note">ເບຕ້າ: ກົດລະບຽບຂອງປະເທດຖືກເຮັດໃຫ້ງ່າຍ, ຍັງບໍ່ໄດ້ຮັບການກວດຈາກຜູ້ຊ່ຽວຊານດ້ານພາສີ, ກວດກ່ອນຍື່ນແບບພາສີຂອງທ່ານ</string>
     <string name="tax_template_ca">ການາດາ</string>
     <string name="tax_template_ch">ສະວິດເຊີແລນ</string>
     <string name="tax_template_confirm_text">ເບຕ້າ, ກົດລະບຽບແບບງ່າຍ, ຂາດທຸລະກຳຈາກແພລດຟອມອື່ນ – ກວດກ່ອນຍື່ນແບບພາສີຂອງທ່ານ.</string>

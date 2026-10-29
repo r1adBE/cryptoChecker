@@ -156,7 +156,7 @@
     <string name="tax_template_at">Австри</string>
     <string name="tax_template_au">Австрали</string>
     <string name="tax_template_beta">Бета</string>
-    <string name="tax_template_beta_note">Бета: улсын дүрмийг хялбарчилсан, татварын тайлан тушаахаас өмнө шалгана уу</string>
+    <string name="tax_template_beta_note">Бета: улсын дүрмийг хялбарчилсан, татварын мэргэжилтэн хараахан шалгаагүй, татварын тайлан тушаахаас өмнө шалгана уу</string>
     <string name="tax_template_ca">Канад</string>
     <string name="tax_template_ch">Швейцари</string>
     <string name="tax_template_confirm_text">Бета, хялбарчилсан дүрэм, бусад платформын гүйлгээ ороогүй – татварын тайлан тушаахаас өмнө шалгана уу.</string>

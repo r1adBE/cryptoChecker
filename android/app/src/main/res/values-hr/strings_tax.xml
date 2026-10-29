@@ -156,7 +156,7 @@
     <string name="tax_template_at">Austrija</string>
     <string name="tax_template_au">Australija</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">Beta: pojednostavljena pravila zemlje, provjeri prije podnošenja porezne prijave</string>
+    <string name="tax_template_beta_note">Beta: pojednostavljena pravila zemlje, porezni stručnjak ih još nije provjerio, provjeri prije podnošenja porezne prijave</string>
     <string name="tax_template_ca">Kanada</string>
     <string name="tax_template_ch">Švicarska</string>
     <string name="tax_template_confirm_text">Beta, pojednostavljena pravila, transakcije s drugih platformi nedostaju – provjeri prije podnošenja porezne prijave.</string>

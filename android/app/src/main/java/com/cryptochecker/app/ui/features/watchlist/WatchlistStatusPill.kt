@@ -108,8 +108,8 @@ internal fun WatchlistStatusPill(
             status.stale > 0 -> pluralStringResource(R.plurals.watchlist_stale_count, status.stale, status.stale, status.traded)
             status.failed > 0 -> pluralStringResource(R.plurals.watchlist_failed_count, status.failed, status.failed, status.traded)
             // Ein Wort vorne — «Live» nur, wenn ALLE Paare frisch am Strom sind, sonst
-            // «Kurse der gewählten Börsen · vor 2 Min.» (Zeit wie [LiveStatus.shownTime]: bei gemischten
-            // Paaren die der abgefragten): sagt wie der Store-Text, woher der Kurs kommt und wie alt er ist
+            // «Kurse der gewählten Börsen · vor 2 Min.» (Zeit wie [LiveStatus.shownTime]: der älteste
+            // gezeigte Kurs): sagt wie der Store-Text, woher der Kurs kommt und wie alt er ist
             newest > 0 && status.allLive -> stringResource(R.string.status_live)
             newest > 0 -> {
                 val age = ago(status.shownTime, now)

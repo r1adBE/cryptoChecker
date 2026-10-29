@@ -156,7 +156,7 @@
     <string name="tax_template_at">ඔස්ට්‍රියාව</string>
     <string name="tax_template_au">ඕස්ට්‍රේලියාව</string>
     <string name="tax_template_beta">බීටා</string>
-    <string name="tax_template_beta_note">බීටා: රටේ නීති සරල කර ඇත, ඔබේ බදු ප්‍රකාශය ගොනු කිරීමට පෙර පරීක්ෂා කරන්න</string>
+    <string name="tax_template_beta_note">බීටා: රටේ නීති සරල කර ඇත, තවම බදු විශේෂඥයෙකු විසින් පරීක්ෂා කර නැත, ඔබේ බදු ප්‍රකාශය ගොනු කිරීමට පෙර පරීක්ෂා කරන්න</string>
     <string name="tax_template_ca">කැනඩාව</string>
     <string name="tax_template_ch">ස්විට්සර්ලන්තය</string>
     <string name="tax_template_confirm_text">බීටා, සරල කළ නීති, වෙනත් වේදිකාවල ගනුදෙනු නැත – ඔබේ බදු ප්‍රකාශය ගොනු කිරීමට පෙර පරීක්ෂා කරන්න.</string>

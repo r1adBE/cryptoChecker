@@ -156,7 +156,7 @@
     <string name="tax_template_at">オーストリア</string>
     <string name="tax_template_au">オーストラリア</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">ベータ版：国別ルールは簡略化されています。確定申告の前に確認してください</string>
+    <string name="tax_template_beta_note">ベータ版：国別ルールは簡略化されており、税務の専門家による確認はまだです。確定申告の前に確認してください</string>
     <string name="tax_template_ca">カナダ</string>
     <string name="tax_template_ch">スイス</string>
     <string name="tax_template_confirm_text">ベータ版・簡略化したルール・他のプラットフォームの取引は含まれません – 確定申告の前に確認してください。</string>

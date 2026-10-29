@@ -156,7 +156,7 @@
     <string name="tax_template_at">النمسا</string>
     <string name="tax_template_au">أستراليا</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">تجريبي: قواعد البلد مبسّطة، تحقّق منها قبل تقديم الإقرار الضريبي</string>
+    <string name="tax_template_beta_note">تجريبي: قواعد البلد مبسّطة ولم يراجعها خبير ضرائب بعد، تحقّق منها قبل تقديم الإقرار الضريبي</string>
     <string name="tax_template_ca">كندا</string>
     <string name="tax_template_ch">سويسرا</string>
     <string name="tax_template_confirm_text">تجريبي، قواعد مبسّطة، تنقص معاملات المنصات الأخرى – تحقّق قبل تقديم الإقرار الضريبي.</string>

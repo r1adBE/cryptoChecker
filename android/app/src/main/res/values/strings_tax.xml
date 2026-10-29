@@ -156,7 +156,7 @@
     <string name="tax_template_at">Austria</string>
     <string name="tax_template_au">Australia</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">Beta: country rules simplified, check before filing your tax return</string>
+    <string name="tax_template_beta_note">Beta: country rules simplified, not yet checked by a tax professional – check before filing your tax return</string>
     <string name="tax_template_ca">Canada</string>
     <string name="tax_template_ch">Switzerland</string>
     <string name="tax_template_confirm_text">Beta, simplified rules, transactions from other platforms are missing – check before filing your tax return.</string>

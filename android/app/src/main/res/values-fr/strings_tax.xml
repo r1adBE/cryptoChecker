@@ -156,7 +156,7 @@
     <string name="tax_template_at">Autriche</string>
     <string name="tax_template_au">Australie</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">Bêta : règles nationales simplifiées, à vérifier avant ta déclaration d’impôts</string>
+    <string name="tax_template_beta_note">Bêta : règles nationales simplifiées, pas encore vérifiées par un fiscaliste, à vérifier avant ta déclaration d’impôts</string>
     <string name="tax_template_ca">Canada</string>
     <string name="tax_template_ch">Suisse</string>
     <string name="tax_template_confirm_text">Bêta, règles simplifiées, les transactions d’autres plateformes manquent – à vérifier avant ta déclaration d’impôts.</string>

@@ -156,7 +156,7 @@
     <string name="tax_template_at">Austria</string>
     <string name="tax_template_au">Australia</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">Beta: zasady krajowe uproszczone, sprawdź przed złożeniem zeznania podatkowego</string>
+    <string name="tax_template_beta_note">Beta: zasady krajowe uproszczone, jeszcze niesprawdzone przez doradcę podatkowego, sprawdź przed złożeniem zeznania podatkowego</string>
     <string name="tax_template_ca">Kanada</string>
     <string name="tax_template_ch">Szwajcaria</string>
     <string name="tax_template_confirm_text">Beta, uproszczone zasady, brakuje transakcji z innych platform – sprawdź przed złożeniem zeznania.</string>

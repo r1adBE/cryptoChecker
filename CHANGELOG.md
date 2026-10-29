@@ -16,6 +16,14 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 180)
+
+* Watchlist: the header names the time of the oldest visible price instead of the newest.
+* Gainers and losers: a note explains that the percentages come from CoinGecko (average across exchanges) and the price from the chosen exchange, so the numbers can differ.
+* Tax templates: the beta note says the figures are not yet checked by a tax professional.
+* iOS: the alarm editor placeholder shows the price in the chosen display currency, as on Android.
+* Text fixes in German, English and Italian.
+
 ## 16.2.2 (build 179)
 
 * Portfolio: if the price request for a coin without any market fails (e.g. offline), the row says «Price unavailable right now» instead of «Price unchecked».

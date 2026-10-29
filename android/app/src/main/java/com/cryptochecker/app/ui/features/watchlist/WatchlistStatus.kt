@@ -145,7 +145,7 @@ internal data class WatchlistStatus(
     val deviceOffline: Boolean,
     /** Alle gehandelten Paare am Live-Strom und frisch: «Live» ([LiveStatus.allLive]). */
     val allLive: Boolean = false,
-    /** Zeit für «vor X Min.» ([LiveStatus.shownTime]; gemischt: die der abgefragten Paare). */
+    /** Zeit für «vor X Min.» ([LiveStatus.shownTime]: der älteste gezeigte Kurs). */
     val shownTime: Long = newest,
 ) {
     /** Kein gehandeltes Paar in der Ansicht (leere Gruppe, alle nicht mehr gehandelt). */
@@ -179,7 +179,7 @@ internal data class WatchlistStatus(
                 offline = traded.isNotEmpty() && traded.all { isConnectionError(it.lastError) },
                 deviceOffline = !online && traded.isNotEmpty(),
                 allLive = LiveStatus.allLive(traded.map { it.id }, liveIds, stale),
-                shownTime = LiveStatus.shownTime(traded.map { it.id to it.lastUpdate }, liveIds),
+                shownTime = LiveStatus.shownTime(traded.map { it.lastUpdate }),
             )
         }
     }

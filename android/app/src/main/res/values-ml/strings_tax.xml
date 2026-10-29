@@ -156,7 +156,7 @@
     <string name="tax_template_at">ഓസ്ട്രിയ</string>
     <string name="tax_template_au">ഓസ്ട്രേലിയ</string>
     <string name="tax_template_beta">ബീറ്റ</string>
-    <string name="tax_template_beta_note">ബീറ്റ: രാജ്യ നിയമങ്ങൾ ലളിതമാക്കിയത്, നികുതി റിട്ടേൺ സമർപ്പിക്കുന്നതിന് മുമ്പ് പരിശോധിക്കുക</string>
+    <string name="tax_template_beta_note">ബീറ്റ: രാജ്യ നിയമങ്ങൾ ലളിതമാക്കിയത്, ഇതുവരെ ഒരു നികുതി വിദഗ്ധൻ പരിശോധിച്ചിട്ടില്ല, നികുതി റിട്ടേൺ സമർപ്പിക്കുന്നതിന് മുമ്പ് പരിശോധിക്കുക</string>
     <string name="tax_template_ca">കാനഡ</string>
     <string name="tax_template_ch">സ്വിറ്റ്സർലൻഡ്</string>
     <string name="tax_template_confirm_text">ബീറ്റ, ലളിതമാക്കിയ നിയമങ്ങൾ, മറ്റ് പ്ലാറ്റ്‌ഫോമുകളിൽ നിന്നുള്ള ഇടപാടുകൾ ഇല്ല – നികുതി റിട്ടേൺ സമർപ്പിക്കുന്നതിന് മുമ്പ് പരിശോധിക്കുക.</string>

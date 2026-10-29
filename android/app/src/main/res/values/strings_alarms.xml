@@ -142,7 +142,7 @@
     <string name="alarm_saved_notifications_off">Notifications off</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">Without “%1$s”, Android checks irregularly while the device rests – sometimes only after hours. With it, about every 15 minutes.</string>
+    <string name="alarm_timing_hint_android">Without “%1$s”, Android checks irregularly while the device is idle – sometimes only after hours. With it, about every 15 minutes.</string>
     <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">With the app closed, iOS often checks later than 15 minutes, sometimes only when you next open the app. Short spikes can be missed.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">When alerts are checked</string>

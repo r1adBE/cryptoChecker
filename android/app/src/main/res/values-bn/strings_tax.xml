@@ -156,7 +156,7 @@
     <string name="tax_template_at">অস্ট্রিয়া</string>
     <string name="tax_template_au">অস্ট্রেলিয়া</string>
     <string name="tax_template_beta">বেটা</string>
-    <string name="tax_template_beta_note">বেটা: দেশের নিয়ম সরলীকৃত, কর রিটার্ন জমার আগে যাচাই করুন</string>
+    <string name="tax_template_beta_note">বেটা: দেশের নিয়ম সরলীকৃত, এখনও কোনো কর বিশেষজ্ঞ যাচাই করেননি, কর রিটার্ন জমার আগে যাচাই করুন</string>
     <string name="tax_template_ca">কানাডা</string>
     <string name="tax_template_ch">সুইজারল্যান্ড</string>
     <string name="tax_template_confirm_text">বেটা, সরলীকৃত নিয়ম, অন্য প্ল্যাটফর্মের লেনদেন নেই – কর রিটার্ন জমার আগে যাচাই করুন।</string>

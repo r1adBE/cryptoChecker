@@ -262,6 +262,7 @@
     <string name="movers_no_gainers">لم ترتفع أي عملة خلال 24 س</string>
     <string name="movers_no_losers">لم تنخفض أي عملة خلال 24 س</string>
     <string name="movers_source">CoinGecko، 24 س، أكبر 100 بدون العملات المستقرة</string>
+    <string name="movers_price_note">النسبة من CoinGecko (متوسط عبر المنصات)، والسعر من المنصة المختارة – قد تختلف الأرقام.</string>
     <string name="movers_a11y_row">%1$s (%2$s)، %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

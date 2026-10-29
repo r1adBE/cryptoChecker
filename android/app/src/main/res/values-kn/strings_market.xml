@@ -250,6 +250,7 @@
     <string name="movers_no_gainers">24 ಗಂಟೆಗಳಲ್ಲಿ ಯಾವುದೇ ಕಾಯಿನ್ ಏರಿಲ್ಲ</string>
     <string name="movers_no_losers">24 ಗಂಟೆಗಳಲ್ಲಿ ಯಾವುದೇ ಕಾಯಿನ್ ಇಳಿದಿಲ್ಲ</string>
     <string name="movers_source">CoinGecko, 24 ಗಂ, ಸ್ಟೇಬಲ್‌ಕಾಯಿನ್‌ಗಳಿಲ್ಲದೆ top 100</string>
+    <string name="movers_price_note">ಶೇಕಡಾ CoinGecko ಯಿಂದ (ಎಕ್ಸ್‌ಚೇಂಜ್‌ಗಳ ಸರಾಸರಿ), ಬೆಲೆ ಆಯ್ಕೆಮಾಡಿದ ಎಕ್ಸ್‌ಚೇಂಜ್‌ನಿಂದ – ಸಂಖ್ಯೆಗಳು ಬೇರೆಯಾಗಿರಬಹುದು.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

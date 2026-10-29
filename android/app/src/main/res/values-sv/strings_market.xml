@@ -250,6 +250,7 @@
     <string name="movers_no_gainers">Inget mynt steg på 24 h</string>
     <string name="movers_no_losers">Inget mynt föll på 24 h</string>
     <string name="movers_source">CoinGecko, 24 h, topp 100 utan stablecoins</string>
+    <string name="movers_price_note">Procent från CoinGecko (snitt över börser), kurs från vald börs – siffrorna kan skilja sig.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

@@ -156,7 +156,7 @@
     <string name="tax_template_at">Austria</string>
     <string name="tax_template_au">Australia</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">Beta: herrialdeko arau sinplifikatuak, egiaztatu zerga-aitorpena aurkeztu aurretik</string>
+    <string name="tax_template_beta_note">Beta: herrialdeko arau sinplifikatuak, zerga-aholkulari batek oraindik berrikusi gabeak, egiaztatu zerga-aitorpena aurkeztu aurretik</string>
     <string name="tax_template_ca">Kanada</string>
     <string name="tax_template_ch">Suitza</string>
     <string name="tax_template_confirm_text">Beta, arau sinplifikatuak, beste plataforma batzuetako transakzioak falta dira – egiaztatu zerga-aitorpena aurkeztu aurretik.</string>

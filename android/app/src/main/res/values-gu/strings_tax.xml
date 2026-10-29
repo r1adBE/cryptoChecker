@@ -156,7 +156,7 @@
     <string name="tax_template_at">ઑસ્ટ્રિયા</string>
     <string name="tax_template_au">ઑસ્ટ્રેલિયા</string>
     <string name="tax_template_beta">બીટા</string>
-    <string name="tax_template_beta_note">બીટા: દેશના નિયમો સરળ બનાવેલા, કર રિટર્ન ભરતાં પહેલાં તપાસો</string>
+    <string name="tax_template_beta_note">બીટા: દેશના નિયમો સરળ બનાવેલા, હજી કર નિષ્ણાતે તપાસ્યા નથી, કર રિટર્ન ભરતાં પહેલાં તપાસો</string>
     <string name="tax_template_ca">કૅનેડા</string>
     <string name="tax_template_ch">સ્વિટ્ઝરલૅન્ડ</string>
     <string name="tax_template_confirm_text">બીટા, સરળ બનાવેલા નિયમો, બીજાં પ્લેટફૉર્મના વ્યવહારો ખૂટે છે – કર રિટર્ન ભરતાં પહેલાં તપાસો.</string>

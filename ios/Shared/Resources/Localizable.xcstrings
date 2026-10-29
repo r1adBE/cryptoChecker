@@ -153720,7 +153720,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ohne «%1$@» prüft Android bei ruhendem Gerät unregelmässig, manchmal erst nach Stunden. Damit etwa alle 15 Minuten."
+            "value" : "Ohne «%1$@» prüft Android bei ruhendem Gerät unregelmässig, manchmal erst nach Stunden. Mit dem Schalter etwa alle 15 Minuten."
           }
         },
         "el" : {
@@ -153732,7 +153732,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Without “%1$@”, Android checks irregularly while the device rests – sometimes only after hours. With it, about every 15 minutes."
+            "value" : "Without “%1$@”, Android checks irregularly while the device is idle – sometimes only after hours. With it, about every 15 minutes."
           }
         },
         "es" : {
@@ -185036,7 +185036,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "L'app è stata chiusa durante il ripristino di un backup e non è stato possibile ripristinare completamente i dati precedenti. Controlla watchlist e portafoglio oppure ripristina di nuovo il backup in «%1$@» nelle Impostazioni."
+            "value" : "L'app è stata chiusa durante il ripristino di un backup e non è stato possibile ripristinare completamente i dati precedenti. Controlla la lista di osservazione e il portafoglio oppure ripristina di nuovo il backup in «%1$@» nelle Impostazioni."
           }
         },
         "ja" : {
@@ -430463,6 +430463,461 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ayikho i-coin ehlile ku-24 h"
+          }
+        }
+      }
+    },
+    "movers_price_note" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Persentasie van CoinGecko (gemiddeld oor beurse), prys van die gekose beurs – die syfers kan verskil."
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "መቶኛው ከCoinGecko (የልውውጦች አማካይ)፣ ዋጋው ከተመረጠው ልውውጥ ነው – ቁጥሮቹ ሊለያዩ ይችላሉ።"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "النسبة من CoinGecko (متوسط عبر المنصات)، والسعر من المنصة المختارة – قد تختلف الأرقام."
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Faiz CoinGecko-dan (birjalar üzrə orta), qiymət seçilmiş birjadan – rəqəmlər fərqlənə bilər."
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Процентът е от CoinGecko (средно за борсите), цената – от избраната борса; числата може да се различават."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "শতাংশ CoinGecko থেকে (এক্সচেঞ্জগুলোর গড়), দাম বেছে নেওয়া এক্সচেঞ্জ থেকে – সংখ্যাগুলো আলাদা হতে পারে।"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Postotak s CoinGecka (prosjek preko berzi), cijena s odabrane berze – brojevi se mogu razlikovati."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Percentatge de CoinGecko (mitjana entre exchanges), preu de l’exchange triat – les xifres poden diferir."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Procenta z CoinGecko (průměr napříč burzami), cena ze zvolené burzy – čísla se mohou lišit."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Procent fra CoinGecko (gennemsnit på tværs af børser), kurs fra den valgte børs – tallene kan afvige."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prozent von CoinGecko (Mittel über Börsen), Kurs von der gewählten Börse – die Zahlen können abweichen."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ποσοστό από το CoinGecko (μέσος όρος ανταλλακτηρίων), τιμή από το επιλεγμένο ανταλλακτήριο – τα νούμερα μπορεί να διαφέρουν."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Percent from CoinGecko (average across exchanges), price from the chosen exchange – the figures can differ."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Porcentaje de CoinGecko (media entre exchanges), precio del exchange elegido: las cifras pueden variar."
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Protsent CoinGeckost (börside keskmine), hind valitud börsilt – numbrid võivad erineda."
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ehunekoa CoinGeckotik (trukeen batez bestekoa), prezioa aukeratutako truketik – zifrak desberdinak izan daitezke."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "درصد از CoinGecko (میانگین صرافی‌ها)، قیمت از صرافی انتخاب‌شده – اعداد ممکن است متفاوت باشند."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prosentti CoinGeckosta (pörssien keskiarvo), hinta valitusta pörssistä – luvut voivat poiketa toisistaan."
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Porsiyento mula sa CoinGecko (average sa mga exchange), presyo mula sa napiling exchange – maaaring magkaiba ang mga numero."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pourcentage de CoinGecko (moyenne des plateformes), cours de la plateforme choisie – les chiffres peuvent différer."
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Céatadán ó CoinGecko (meán thar mhalartáin), praghas ón malartán roghnaithe – d’fhéadfadh na figiúirí a bheith difriúil."
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Porcentaxe de CoinGecko (media entre exchanges), prezo do exchange escollido: as cifras poden variar."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ટકા CoinGecko પરથી (એક્સચેન્જોની સરેરાશ), ભાવ પસંદ કરેલા એક્સચેન્જ પરથી – આંકડા અલગ હોઈ શકે છે."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "האחוז מ-CoinGecko (ממוצע בין בורסות), המחיר מהבורסה שנבחרה – המספרים עשויים להיות שונים."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "प्रतिशत CoinGecko से (एक्सचेंजों का औसत), भाव चुने गए एक्सचेंज से – आँकड़े अलग हो सकते हैं।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Postotak s CoinGecka (prosjek preko burzi), cijena s odabrane burze – brojke se mogu razlikovati."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Százalék a CoinGeckótól (tőzsdék átlaga), árfolyam a választott tőzsdéről – a számok eltérhetnek."
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Տոկոսը CoinGecko-ից է (բորսաների միջին), գինը՝ ընտրված բորսայից – թվերը կարող են տարբերվել։"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Persentase dari CoinGecko (rata-rata antarbursa), harga dari bursa yang dipilih – angkanya bisa berbeda."
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prósenta frá CoinGecko (meðaltal kauphalla), verð frá valinni kauphöll – tölurnar geta verið ólíkar."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Percentuale da CoinGecko (media tra gli exchange), prezzo dall’exchange scelto: i numeri possono differire."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "変動率は CoinGecko（取引所の平均）、価格は選択した取引所のものです。数値が異なる場合があります。"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "პროცენტი CoinGecko-დან (ბირჟების საშუალო), ფასი არჩეული ბირჟიდან – რიცხვები შეიძლება განსხვავდებოდეს."
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пайыз CoinGecko-дан (биржалар бойынша орташа), баға таңдалған биржадан – сандар өзгеше болуы мүмкін."
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ភាគរយពី CoinGecko (មធ្យមលើផ្សារប្តូរប្រាក់) តម្លៃពីផ្សារប្តូរប្រាក់ដែលបានជ្រើស – តួលេខអាចខុសគ្នា។"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಶೇಕಡಾ CoinGecko ಯಿಂದ (ಎಕ್ಸ್‌ಚೇಂಜ್‌ಗಳ ಸರಾಸರಿ), ಬೆಲೆ ಆಯ್ಕೆಮಾಡಿದ ಎಕ್ಸ್‌ಚೇಂಜ್‌ನಿಂದ – ಸಂಖ್ಯೆಗಳು ಬೇರೆಯಾಗಿರಬಹುದು."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "변동률은 CoinGecko(거래소 평균), 가격은 선택한 거래소 기준입니다. 수치가 다를 수 있습니다."
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ເປີເຊັນຈາກ CoinGecko (ສະເລ່ຍລະຫວ່າງຕະຫຼາດແລກປ່ຽນ), ລາຄາຈາກຕະຫຼາດແລກປ່ຽນທີ່ເລືອກ – ຕົວເລກອາດແຕກຕ່າງກັນ."
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Procentai iš CoinGecko (biržų vidurkis), kaina iš pasirinktos biržos – skaičiai gali skirtis."
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Procenti no CoinGecko (biržu vidējais), cena no izvēlētās biržas – skaitļi var atšķirties."
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Процентот е од CoinGecko (просек низ берзите), цената од избраната берза – бројките може да се разликуваат."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ശതമാനം CoinGecko-യിൽ നിന്ന് (എക്സ്ചേഞ്ചുകളുടെ ശരാശരി), വില തിരഞ്ഞെടുത്ത എക്സ്ചേഞ്ചിൽ നിന്ന് – സംഖ്യകൾ വ്യത്യാസപ്പെടാം."
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Хувь нь CoinGecko-оос (биржүүдийн дундаж), үнэ нь сонгосон биржээс – тоонууд зөрж болно."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "टक्केवारी CoinGecko कडून (एक्सचेंजांची सरासरी), भाव निवडलेल्या एक्सचेंजकडून – आकडे वेगळे असू शकतात."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Peratus daripada CoinGecko (purata merentas bursa), harga daripada bursa yang dipilih – angka mungkin berbeza."
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ရာခိုင်နှုန်းသည် CoinGecko (ဒိုင်များ၏ ပျမ်းမျှ) မှဖြစ်ပြီး ဈေးနှုန်းသည် ရွေးထားသော ဒိုင်မှ ဖြစ်သည် – ကိန်းဂဏန်းများ ကွာခြားနိုင်ပါသည်။"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prosent fra CoinGecko (snitt på tvers av børser), kurs fra valgt børs – tallene kan avvike."
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "प्रतिशत CoinGecko बाट (एक्सचेन्जहरूको औसत), मूल्य छानिएको एक्सचेन्जबाट – अङ्कहरू फरक हुन सक्छन्।"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Percentage van CoinGecko (gemiddelde over beurzen), koers van de gekozen beurs – de cijfers kunnen afwijken."
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਪ੍ਰਤੀਸ਼ਤ CoinGecko ਤੋਂ (ਐਕਸਚੇਂਜਾਂ ਦੀ ਔਸਤ), ਭਾਅ ਚੁਣੀ ਗਈ ਐਕਸਚੇਂਜ ਤੋਂ – ਅੰਕੜੇ ਵੱਖਰੇ ਹੋ ਸਕਦੇ ਹਨ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Procent z CoinGecko (średnia z giełd), kurs z wybranej giełdy – liczby mogą się różnić."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Percentagem do CoinGecko (média entre plataformas), preço da plataforma escolhida – os números podem diferir."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Porcentagem do CoinGecko (média entre corretoras), preço da corretora escolhida – os números podem diferir."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Procentul de la CoinGecko (media între burse), prețul de la bursa aleasă – cifrele pot diferi."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Процент от CoinGecko (среднее по биржам), цена с выбранной биржи – числа могут отличаться."
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ප්‍රතිශතය CoinGecko වෙතින් (හුවමාරු වල සාමාන්‍යය), මිල තෝරාගත් හුවමාරුවෙන් – අංක වෙනස් විය හැක."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Percentá z CoinGecko (priemer naprieč burzami), cena zo zvolenej burzy – čísla sa môžu líšiť."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odstotek iz CoinGecka (povprečje borz), cena z izbrane borze – številke se lahko razlikujejo."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Përqindja nga CoinGecko (mesatare mes bursave), çmimi nga bursa e zgjedhur – shifrat mund të ndryshojnë."
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Проценат са CoinGecko-а (просек преко берзи), цена са изабране берзе – бројеви се могу разликовати."
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Procenat sa CoinGecko-a (prosek preko berzi), cena sa izabrane berze – brojevi se mogu razlikovati."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Procent från CoinGecko (snitt över börser), kurs från vald börs – siffrorna kan skilja sig."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Asilimia kutoka CoinGecko (wastani wa masoko), bei kutoka soko lililochaguliwa – takwimu zinaweza kutofautiana."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "சதவீதம் CoinGecko-விலிருந்து (பரிமாற்றங்களின் சராசரி), விலை தேர்ந்தெடுத்த பரிமாற்றத்திலிருந்து – எண்கள் மாறுபடலாம்."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "శాతం CoinGecko నుండి (ఎక్స్ఛేంజ్‌ల సగటు), ధర ఎంచుకున్న ఎక్స్ఛేంజ్ నుండి – సంఖ్యలు వేరుగా ఉండవచ్చు."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เปอร์เซ็นต์จาก CoinGecko (ค่าเฉลี่ยจากหลายกระดาน) ราคาจากกระดานที่เลือก – ตัวเลขอาจต่างกัน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yüzde CoinGecko'dan (borsaların ortalaması), fiyat seçilen borsadan – rakamlar farklı olabilir."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Відсоток від CoinGecko (середнє за біржами), ціна з вибраної біржі – числа можуть відрізнятися."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فیصد CoinGecko سے (ایکسچینجز کا اوسط)، قیمت منتخب ایکسچینج سے – اعداد مختلف ہو سکتے ہیں۔"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Foiz CoinGecko’dan (birjalar o‘rtachasi), narx tanlangan birjadan – raqamlar farq qilishi mumkin."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Phần trăm từ CoinGecko (trung bình các sàn), giá từ sàn đã chọn – các con số có thể khác nhau."
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "百分比來自 CoinGecko（各交易所平均），價格來自所選交易所 – 數字可能有出入。"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "百分比来自 CoinGecko（各交易所平均），价格来自所选交易所 – 数字可能不同。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "百分比來自 CoinGecko（各交易所平均），價格來自所選交易所 – 數字可能不同。"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iphesenti livela ku-CoinGecko (isilinganiso sezinkundla zokuhweba), intengo ivela enkundleni ekhethiwe – izinombolo zingahluka."
           }
         }
       }
@@ -742194,7 +742649,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Permission missing – while the device rests, Android checks irregularly, sometimes only after hours."
+            "value" : "Permission missing – while the device is idle, Android checks irregularly, sometimes only after hours."
           }
         },
         "es" : {
@@ -768814,7 +769269,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ancora nessuna coppia nella watchlist."
+            "value" : "Ancora nessuna coppia nella lista di osservazione."
           }
         },
         "ja" : {
@@ -896944,451 +897399,451 @@
         "af" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: landreëls vereenvoudig, kontroleer voordat jy jou belastingopgawe indien"
+            "value" : "Beta: landreëls vereenvoudig, nog nie deur 'n belastingkenner nagegaan nie, kontroleer voordat jy jou belastingopgawe indien"
           }
         },
         "am" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ቤታ፦ የሀገር ደንቦች ቀለል ተደርገዋል፤ የግብር ማስታወቂያዎን ከማስገባትዎ በፊት ይፈትሹ"
+            "value" : "ቤታ፦ የሀገር ደንቦች ቀለል ተደርገዋል፤ ገና በግብር ባለሙያ አልተረጋገጡም፤ የግብር ማስታወቂያዎን ከማስገባትዎ በፊት ይፈትሹ"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "تجريبي: قواعد البلد مبسّطة، تحقّق منها قبل تقديم الإقرار الضريبي"
+            "value" : "تجريبي: قواعد البلد مبسّطة ولم يراجعها خبير ضرائب بعد، تحقّق منها قبل تقديم الإقرار الضريبي"
           }
         },
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: ölkə qaydaları sadələşdirilib, vergi bəyannaməsini təqdim etməzdən əvvəl yoxla"
+            "value" : "Beta: ölkə qaydaları sadələşdirilib, hələ vergi mütəxəssisi tərəfindən yoxlanılmayıb, vergi bəyannaməsini təqdim etməzdən əvvəl yoxla"
           }
         },
         "bg" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Бета: опростени правила за държавата, провери преди подаване на данъчната декларация"
+            "value" : "Бета: опростени правила за държавата, още непроверени от данъчен специалист, провери преди подаване на данъчната декларация"
           }
         },
         "bn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "বেটা: দেশের নিয়ম সরলীকৃত, কর রিটার্ন জমার আগে যাচাই করুন"
+            "value" : "বেটা: দেশের নিয়ম সরলীকৃত, এখনও কোনো কর বিশেষজ্ঞ যাচাই করেননি, কর রিটার্ন জমার আগে যাচাই করুন"
           }
         },
         "bs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: pojednostavljena pravila zemlje, provjeri prije podnošenja porezne prijave"
+            "value" : "Beta: pojednostavljena pravila zemlje, porezni stručnjak ih još nije provjerio, provjeri prije podnošenja porezne prijave"
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: normes del país simplificades, revisa-ho abans de presentar la declaració"
+            "value" : "Beta: normes del país simplificades, encara no revisades per cap assessor fiscal, revisa-ho abans de presentar la declaració"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: pravidla země zjednodušena, ověř je před podáním daňového přiznání"
+            "value" : "Beta: pravidla země zjednodušena, zatím je neověřil daňový odborník, ověř je před podáním daňového přiznání"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: landeregler forenklet, tjek dem før selvangivelsen"
+            "value" : "Beta: landeregler forenklet, endnu ikke gennemgået af en skatteekspert, tjek dem før selvangivelsen"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: Länderregeln vereinfacht, vor der Steuererklärung prüfen"
+            "value" : "Beta: Länderregeln vereinfacht, noch nicht von einer Steuerfachperson geprüft – vor der Steuererklärung kontrollieren"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: απλοποιημένοι κανόνες χώρας, έλεγξέ τους πριν από τη φορολογική δήλωση"
+            "value" : "Beta: απλοποιημένοι κανόνες χώρας, δεν έχουν ελεγχθεί ακόμη από φοροτεχνικό, έλεγξέ τους πριν από τη φορολογική δήλωση"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: country rules simplified, check before filing your tax return"
+            "value" : "Beta: country rules simplified, not yet checked by a tax professional – check before filing your tax return"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: normas del país simplificadas, revísalas antes de presentar la declaración"
+            "value" : "Beta: normas del país simplificadas, aún sin revisar por un asesor fiscal, revísalas antes de presentar la declaración"
           }
         },
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beeta: riigi reeglid lihtsustatud, kontrolli enne maksudeklaratsiooni esitamist"
+            "value" : "Beeta: riigi reeglid lihtsustatud, maksuspetsialist pole neid veel kontrollinud, kontrolli enne maksudeklaratsiooni esitamist"
           }
         },
         "eu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: herrialdeko arau sinplifikatuak, egiaztatu zerga-aitorpena aurkeztu aurretik"
+            "value" : "Beta: herrialdeko arau sinplifikatuak, zerga-aholkulari batek oraindik berrikusi gabeak, egiaztatu zerga-aitorpena aurkeztu aurretik"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "بتا: قواعد کشور ساده شده‌اند، پیش از ارائهٔ اظهارنامهٔ مالیاتی بررسی کن"
+            "value" : "بتا: قواعد کشور ساده شده‌اند و هنوز کارشناس مالیاتی آن‌ها را بررسی نکرده است، پیش از ارائهٔ اظهارنامهٔ مالیاتی بررسی کن"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: maakohtaiset säännöt yksinkertaistettu, tarkista ennen veroilmoitusta"
+            "value" : "Beta: maakohtaiset säännöt yksinkertaistettu, veroasiantuntija ei ole vielä tarkistanut niitä, tarkista ennen veroilmoitusta"
           }
         },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: pinasimple ang mga patakaran ng bansa, tingnan bago isampa ang tax return mo"
+            "value" : "Beta: pinasimple ang mga patakaran ng bansa, hindi pa nasusuri ng eksperto sa buwis, tingnan bago isampa ang tax return mo"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bêta : règles nationales simplifiées, à vérifier avant ta déclaration d’impôts"
+            "value" : "Bêta : règles nationales simplifiées, pas encore vérifiées par un fiscaliste, à vérifier avant ta déclaration d’impôts"
           }
         },
         "ga" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Béite: rialacha tíre simplithe, seiceáil sula gcomhdaíonn tú do thuairisceán cánach"
+            "value" : "Béite: rialacha tíre simplithe, níor sheiceáil saineolaí cánach fós iad, seiceáil sula gcomhdaíonn tú do thuairisceán cánach"
           }
         },
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: normas do país simplificadas, revísao antes de presentar a declaración"
+            "value" : "Beta: normas do país simplificadas, aínda sen revisar por un asesor fiscal, revísao antes de presentar a declaración"
           }
         },
         "gu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "બીટા: દેશના નિયમો સરળ બનાવેલા, કર રિટર્ન ભરતાં પહેલાં તપાસો"
+            "value" : "બીટા: દેશના નિયમો સરળ બનાવેલા, હજી કર નિષ્ણાતે તપાસ્યા નથી, કર રિટર્ન ભરતાં પહેલાં તપાસો"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "בטא: כללי המדינה מפושטים, בדקו לפני הגשת הדוח למס"
+            "value" : "בטא: כללי המדינה מפושטים ועדיין לא נבדקו על ידי מומחה מס, בדקו לפני הגשת הדוח למס"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "बीटा: देश के नियम सरल किए गए हैं, टैक्स रिटर्न भरने से पहले जाँचें"
+            "value" : "बीटा: देश के नियम सरल किए गए हैं, अभी किसी कर विशेषज्ञ ने इनकी जाँच नहीं की है, टैक्स रिटर्न भरने से पहले जाँचें"
           }
         },
         "hr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: pojednostavljena pravila zemlje, provjeri prije podnošenja porezne prijave"
+            "value" : "Beta: pojednostavljena pravila zemlje, porezni stručnjak ih još nije provjerio, provjeri prije podnošenja porezne prijave"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Béta: egyszerűsített országos szabályok, ellenőrizd az adóbevallás előtt"
+            "value" : "Béta: egyszerűsített országos szabályok, adószakértő még nem ellenőrizte, ellenőrizd az adóbevallás előtt"
           }
         },
         "hy" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Բետա՝ երկրի կանոնները պարզեցված են, ստուգիր նախքան հարկային հայտարարագիր ներկայացնելը"
+            "value" : "Բետա՝ երկրի կանոնները պարզեցված են, դեռ չեն ստուգվել հարկային մասնագետի կողմից, ստուգիր նախքան հարկային հայտարարագիր ներկայացնելը"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: aturan negara disederhanakan, periksa sebelum mengisi SPT"
+            "value" : "Beta: aturan negara disederhanakan, belum diperiksa oleh ahli pajak, periksa sebelum mengisi SPT"
           }
         },
         "is" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: einfaldaðar reglur landsins, athugaðu áður en þú skilar skattframtali"
+            "value" : "Beta: einfaldaðar reglur landsins, skattasérfræðingur hefur ekki enn yfirfarið þær, athugaðu áður en þú skilar skattframtali"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: regole nazionali semplificate, verificale prima della dichiarazione dei redditi"
+            "value" : "Beta: regole nazionali semplificate, non ancora verificate da un esperto fiscale, verificale prima della dichiarazione dei redditi"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ベータ版：国別ルールは簡略化されています。確定申告の前に確認してください"
+            "value" : "ベータ版：国別ルールは簡略化されており、税務の専門家による確認はまだです。確定申告の前に確認してください"
           }
         },
         "ka" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ბეტა: ქვეყნის წესები გამარტივებულია, შეამოწმე საგადასახადო დეკლარაციის წარდგენამდე"
+            "value" : "ბეტა: ქვეყნის წესები გამარტივებულია და ჯერ არ შეუმოწმებია საგადასახადო სპეციალისტს, შეამოწმე საგადასახადო დეკლარაციის წარდგენამდე"
           }
         },
         "kk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Бета: ел ережелері жеңілдетілген, салық декларациясын тапсырмас бұрын тексеріңіз"
+            "value" : "Бета: ел ережелері жеңілдетілген, әлі салық маманы тексермеген, салық декларациясын тапсырмас бұрын тексеріңіз"
           }
         },
         "km" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "បេតា៖ ច្បាប់ប្រទេសត្រូវបានធ្វើឱ្យសាមញ្ញ សូមពិនិត្យមុនពេលដាក់លិខិតប្រកាសពន្ធរបស់អ្នក"
+            "value" : "បេតា៖ ច្បាប់ប្រទេសត្រូវបានធ្វើឱ្យសាមញ្ញ ហើយមិនទាន់ត្រូវបានពិនិត្យដោយអ្នកជំនាញពន្ធនៅឡើយ សូមពិនិត្យមុនពេលដាក់លិខិតប្រកាសពន្ធរបស់អ្នក"
           }
         },
         "kn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ಬೀಟಾ: ದೇಶದ ನಿಯಮಗಳನ್ನು ಸರಳೀಕರಿಸಲಾಗಿದೆ, ನಿಮ್ಮ ತೆರಿಗೆ ರಿಟರ್ನ್ ಸಲ್ಲಿಸುವ ಮೊದಲು ಪರಿಶೀಲಿಸಿ"
+            "value" : "ಬೀಟಾ: ದೇಶದ ನಿಯಮಗಳನ್ನು ಸರಳೀಕರಿಸಲಾಗಿದೆ, ಇನ್ನೂ ತೆರಿಗೆ ತಜ್ಞರು ಪರಿಶೀಲಿಸಿಲ್ಲ, ನಿಮ್ಮ ತೆರಿಗೆ ರಿಟರ್ನ್ ಸಲ್ಲಿಸುವ ಮೊದಲು ಪರಿಶೀಲಿಸಿ"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "베타: 국가별 규칙이 단순화되어 있습니다. 세금 신고 전에 확인하세요"
+            "value" : "베타: 국가별 규칙이 단순화되어 있으며 아직 세무 전문가의 검토를 받지 않았습니다. 세금 신고 전에 확인하세요"
           }
         },
         "lo" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ເບຕ້າ: ກົດລະບຽບຂອງປະເທດຖືກເຮັດໃຫ້ງ່າຍ, ກວດກ່ອນຍື່ນແບບພາສີຂອງທ່ານ"
+            "value" : "ເບຕ້າ: ກົດລະບຽບຂອງປະເທດຖືກເຮັດໃຫ້ງ່າຍ, ຍັງບໍ່ໄດ້ຮັບການກວດຈາກຜູ້ຊ່ຽວຊານດ້ານພາສີ, ກວດກ່ອນຍື່ນແບບພາສີຂອງທ່ານ"
           }
         },
         "lt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: šalies taisyklės supaprastintos, patikrink prieš teikiant mokesčių deklaraciją"
+            "value" : "Beta: šalies taisyklės supaprastintos, mokesčių specialistas jų dar nepatikrino, patikrink prieš teikiant mokesčių deklaraciją"
           }
         },
         "lv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: valsts noteikumi vienkāršoti, pārbaudi pirms nodokļu deklarācijas iesniegšanas"
+            "value" : "Beta: valsts noteikumi vienkāršoti, nodokļu speciālists tos vēl nav pārbaudījis, pārbaudi pirms nodokļu deklarācijas iesniegšanas"
           }
         },
         "mk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Бета: поедноставени правила на државата, провери пред да поднесеш даночна пријава"
+            "value" : "Бета: поедноставени правила на државата, сè уште непроверени од даночен стручњак, провери пред да поднесеш даночна пријава"
           }
         },
         "ml" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ബീറ്റ: രാജ്യ നിയമങ്ങൾ ലളിതമാക്കിയത്, നികുതി റിട്ടേൺ സമർപ്പിക്കുന്നതിന് മുമ്പ് പരിശോധിക്കുക"
+            "value" : "ബീറ്റ: രാജ്യ നിയമങ്ങൾ ലളിതമാക്കിയത്, ഇതുവരെ ഒരു നികുതി വിദഗ്ധൻ പരിശോധിച്ചിട്ടില്ല, നികുതി റിട്ടേൺ സമർപ്പിക്കുന്നതിന് മുമ്പ് പരിശോധിക്കുക"
           }
         },
         "mn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Бета: улсын дүрмийг хялбарчилсан, татварын тайлан тушаахаас өмнө шалгана уу"
+            "value" : "Бета: улсын дүрмийг хялбарчилсан, татварын мэргэжилтэн хараахан шалгаагүй, татварын тайлан тушаахаас өмнө шалгана уу"
           }
         },
         "mr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "बीटा: देशाचे नियम सोपे केलेले, कर विवरणपत्र भरण्यापूर्वी तपासा"
+            "value" : "बीटा: देशाचे नियम सोपे केलेले, अजून कर तज्ज्ञाने तपासलेले नाहीत, कर विवरणपत्र भरण्यापूर्वी तपासा"
           }
         },
         "ms" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: peraturan negara dipermudahkan, semak sebelum memfailkan penyata cukai anda"
+            "value" : "Beta: peraturan negara dipermudahkan, belum disemak oleh pakar cukai, semak sebelum memfailkan penyata cukai anda"
           }
         },
         "my" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ဘီတာ- နိုင်ငံ စည်းမျဉ်းများကို ရိုးရှင်းအောင် ပြုလုပ်ထားသည်၊ သင့်အခွန်ပြန်တမ်း မတင်မီ စစ်ဆေးပါ"
+            "value" : "ဘီတာ- နိုင်ငံ စည်းမျဉ်းများကို ရိုးရှင်းအောင် ပြုလုပ်ထားပြီး အခွန်ကျွမ်းကျင်သူ မစစ်ဆေးရသေးပါ၊ သင့်အခွန်ပြန်တမ်း မတင်မီ စစ်ဆေးပါ"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: landsregler forenklet, sjekk før skattemeldingen"
+            "value" : "Beta: landsregler forenklet, ennå ikke kontrollert av en skatteekspert, sjekk før skattemeldingen"
           }
         },
         "ne" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "बिटा: देशका नियमहरू सरलीकृत, कर विवरण बुझाउनुअघि जाँच्नुहोस्"
+            "value" : "बिटा: देशका नियमहरू सरलीकृत, अझै कर विशेषज्ञले जाँच गरेका छैनन्, कर विवरण बुझाउनुअघि जाँच्नुहोस्"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bèta: landregels vereenvoudigd, controleer ze vóór je belastingaangifte"
+            "value" : "Bèta: landregels vereenvoudigd, nog niet gecontroleerd door een belastingadviseur, controleer ze vóór je belastingaangifte"
           }
         },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ਬੀਟਾ: ਦੇਸ਼ ਦੇ ਨਿਯਮ ਸਰਲ ਕੀਤੇ, ਟੈਕਸ ਰਿਟਰਨ ਭਰਨ ਤੋਂ ਪਹਿਲਾਂ ਜਾਂਚੋ"
+            "value" : "ਬੀਟਾ: ਦੇਸ਼ ਦੇ ਨਿਯਮ ਸਰਲ ਕੀਤੇ, ਹਾਲੇ ਕਿਸੇ ਟੈਕਸ ਮਾਹਰ ਨੇ ਜਾਂਚੇ ਨਹੀਂ, ਟੈਕਸ ਰਿਟਰਨ ਭਰਨ ਤੋਂ ਪਹਿਲਾਂ ਜਾਂਚੋ"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: zasady krajowe uproszczone, sprawdź przed złożeniem zeznania podatkowego"
+            "value" : "Beta: zasady krajowe uproszczone, jeszcze niesprawdzone przez doradcę podatkowego, sprawdź przed złożeniem zeznania podatkowego"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: regras do país simplificadas, verifica antes de entregar a declaração de impostos"
+            "value" : "Beta: regras do país simplificadas, ainda não verificadas por um especialista fiscal, verifica antes de entregar a declaração de impostos"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: regras do país simplificadas, confira antes de enviar a declaração de imposto"
+            "value" : "Beta: regras do país simplificadas, ainda não revisadas por um especialista em impostos, confira antes de enviar a declaração de imposto"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: reguli naționale simplificate, verifică înainte de declarația fiscală"
+            "value" : "Beta: reguli naționale simplificate, încă neverificate de un consultant fiscal, verifică înainte de declarația fiscală"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Бета: правила страны упрощены, проверь перед подачей налоговой декларации"
+            "value" : "Бета: правила страны упрощены и ещё не проверены налоговым специалистом, проверь перед подачей налоговой декларации"
           }
         },
         "si" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "බීටා: රටේ නීති සරල කර ඇත, ඔබේ බදු ප්‍රකාශය ගොනු කිරීමට පෙර පරීක්ෂා කරන්න"
+            "value" : "බීටා: රටේ නීති සරල කර ඇත, තවම බදු විශේෂඥයෙකු විසින් පරීක්ෂා කර නැත, ඔබේ බදු ප්‍රකාශය ගොනු කිරීමට පෙර පරීක්ෂා කරන්න"
           }
         },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: pravidlá krajiny zjednodušené, skontroluj pred podaním daňového priznania"
+            "value" : "Beta: pravidlá krajiny zjednodušené, zatiaľ ich neoveril daňový odborník, skontroluj pred podaním daňového priznania"
           }
         },
         "sl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: pravila države poenostavljena, preveri pred oddajo davčne napovedi"
+            "value" : "Beta: pravila države poenostavljena, davčni strokovnjak jih še ni preveril, preveri pred oddajo davčne napovedi"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: rregullat e vendit të thjeshtuara, kontrolloji para deklaratës tatimore"
+            "value" : "Beta: rregullat e vendit të thjeshtuara, ende të pakontrolluara nga një ekspert tatimor, kontrolloji para deklaratës tatimore"
           }
         },
         "sr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Бета: поједностављена правила земље, провери пре подношења пореске пријаве"
+            "value" : "Бета: поједностављена правила земље, још их није проверио порески стручњак, провери пре подношења пореске пријаве"
           }
         },
         "sr-Latn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: pojednostavljena pravila zemlje, proveri pre podnošenja poreske prijave"
+            "value" : "Beta: pojednostavljena pravila zemlje, još ih nije proverio poreski stručnjak, proveri pre podnošenja poreske prijave"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: landsregler förenklade, kontrollera före deklarationen"
+            "value" : "Beta: landsregler förenklade, ännu inte granskade av en skatteexpert, kontrollera före deklarationen"
           }
         },
         "sw" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: kanuni za nchi zimerahisishwa, angalia kabla ya kuwasilisha ritani yako ya kodi"
+            "value" : "Beta: kanuni za nchi zimerahisishwa, bado hazijakaguliwa na mtaalamu wa kodi, angalia kabla ya kuwasilisha ritani yako ya kodi"
           }
         },
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "பீட்டா: நாட்டு விதிகள் எளிமைப்படுத்தப்பட்டவை, உங்கள் வரி அறிக்கையைத் தாக்கல் செய்யும் முன் சரிபார்க்கவும்"
+            "value" : "பீட்டா: நாட்டு விதிகள் எளிமைப்படுத்தப்பட்டவை, இன்னும் வரி நிபுணரால் சரிபார்க்கப்படவில்லை, உங்கள் வரி அறிக்கையைத் தாக்கல் செய்யும் முன் சரிபார்க்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "బీటా: దేశ నియమాలు సరళీకరించబడ్డాయి, మీ పన్ను రిటర్న్ దాఖలు చేసే ముందు తనిఖీ చేయండి"
+            "value" : "బీటా: దేశ నియమాలు సరళీకరించబడ్డాయి, ఇంకా పన్ను నిపుణులు తనిఖీ చేయలేదు, మీ పన్ను రిటర్న్ దాఖలు చేసే ముందు తనిఖీ చేయండి"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "เบต้า: กฎของประเทศถูกทำให้ง่ายขึ้น ตรวจสอบก่อนยื่นภาษี"
+            "value" : "เบต้า: กฎของประเทศถูกทำให้ง่ายขึ้น และยังไม่ได้ผ่านการตรวจสอบจากผู้เชี่ยวชาญด้านภาษี ตรวจสอบก่อนยื่นภาษี"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: ülke kuralları basitleştirildi, vergi beyannamesinden önce kontrol et"
+            "value" : "Beta: ülke kuralları basitleştirildi, henüz bir vergi uzmanınca kontrol edilmedi, vergi beyannamesinden önce kontrol et"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Бета: правила країни спрощено, перевір перед поданням податкової декларації"
+            "value" : "Бета: правила країни спрощено, їх ще не перевірив податковий фахівець, перевір перед поданням податкової декларації"
           }
         },
         "ur" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "بیٹا: ملکی قواعد آسان کیے گئے، ٹیکس ریٹرن جمع کرانے سے پہلے چیک کریں"
+            "value" : "بیٹا: ملکی قواعد آسان کیے گئے، ابھی کسی ٹیکس ماہر نے ان کی جانچ نہیں کی، ٹیکس ریٹرن جمع کرانے سے پہلے چیک کریں"
           }
         },
         "uz" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: mamlakat qoidalari soddalashtirilgan, soliq deklaratsiyasini topshirishdan oldin tekshiring"
+            "value" : "Beta: mamlakat qoidalari soddalashtirilgan, hali soliq mutaxassisi tomonidan tekshirilmagan, soliq deklaratsiyasini topshirishdan oldin tekshiring"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: quy tắc quốc gia đã được đơn giản hóa, hãy kiểm tra trước khi khai thuế"
+            "value" : "Beta: quy tắc quốc gia đã được đơn giản hóa và chưa được chuyên gia thuế kiểm tra, hãy kiểm tra trước khi khai thuế"
           }
         },
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "測試版：國家規則已簡化，報稅前請檢查"
+            "value" : "測試版：國家規則已簡化，仲未經稅務專業人士核實，報稅前請檢查"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "测试版：各国规则已简化，报税前请核实"
+            "value" : "测试版：各国规则已简化，尚未经税务专业人士审核，报税前请核实"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "測試版：各國規則已簡化，報稅前請核實"
+            "value" : "測試版：各國規則已簡化，尚未經稅務專業人士審核，報稅前請核實"
           }
         },
         "zu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: imithetho yezwe yenziwe lula, hlola ngaphambi kokufaka isimemezelo sakho sentela"
+            "value" : "Beta: imithetho yezwe yenziwe lula, ayikahlolwa uchwepheshe wentela, hlola ngaphambi kokufaka isimemezelo sakho sentela"
           }
         }
       }

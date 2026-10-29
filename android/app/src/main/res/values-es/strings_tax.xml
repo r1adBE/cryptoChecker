@@ -156,7 +156,7 @@
     <string name="tax_template_at">Austria</string>
     <string name="tax_template_au">Australia</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">Beta: normas del país simplificadas, revísalas antes de presentar la declaración</string>
+    <string name="tax_template_beta_note">Beta: normas del país simplificadas, aún sin revisar por un asesor fiscal, revísalas antes de presentar la declaración</string>
     <string name="tax_template_ca">Canadá</string>
     <string name="tax_template_ch">Suiza</string>
     <string name="tax_template_confirm_text">Beta, normas simplificadas, faltan las transacciones de otras plataformas; revísalo antes de presentar la declaración.</string>

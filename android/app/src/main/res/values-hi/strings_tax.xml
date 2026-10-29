@@ -156,7 +156,7 @@
     <string name="tax_template_at">ऑस्ट्रिया</string>
     <string name="tax_template_au">ऑस्ट्रेलिया</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">बीटा: देश के नियम सरल किए गए हैं, टैक्स रिटर्न भरने से पहले जाँचें</string>
+    <string name="tax_template_beta_note">बीटा: देश के नियम सरल किए गए हैं, अभी किसी कर विशेषज्ञ ने इनकी जाँच नहीं की है, टैक्स रिटर्न भरने से पहले जाँचें</string>
     <string name="tax_template_ca">कनाडा</string>
     <string name="tax_template_ch">स्विट्ज़रलैंड</string>
     <string name="tax_template_confirm_text">बीटा, सरल नियम, दूसरे प्लेटफ़ॉर्म के लेनदेन शामिल नहीं – टैक्स रिटर्न से पहले जाँचें।</string>

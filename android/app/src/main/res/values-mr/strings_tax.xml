@@ -156,7 +156,7 @@
     <string name="tax_template_at">ऑस्ट्रिया</string>
     <string name="tax_template_au">ऑस्ट्रेलिया</string>
     <string name="tax_template_beta">बीटा</string>
-    <string name="tax_template_beta_note">बीटा: देशाचे नियम सोपे केलेले, कर विवरणपत्र भरण्यापूर्वी तपासा</string>
+    <string name="tax_template_beta_note">बीटा: देशाचे नियम सोपे केलेले, अजून कर तज्ज्ञाने तपासलेले नाहीत, कर विवरणपत्र भरण्यापूर्वी तपासा</string>
     <string name="tax_template_ca">कॅनडा</string>
     <string name="tax_template_ch">स्वित्झर्लंड</string>
     <string name="tax_template_confirm_text">बीटा, सोपे केलेले नियम, इतर प्लॅटफॉर्मवरील व्यवहार नाहीत – कर विवरणपत्र भरण्यापूर्वी तपासा.</string>

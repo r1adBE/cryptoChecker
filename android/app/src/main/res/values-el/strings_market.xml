@@ -250,6 +250,7 @@
     <string name="movers_no_gainers">Κανένα νόμισμα δεν ανέβηκε σε 24 ω</string>
     <string name="movers_no_losers">Κανένα νόμισμα δεν έπεσε σε 24 ω</string>
     <string name="movers_source">CoinGecko, 24 ω, top 100 χωρίς stablecoins</string>
+    <string name="movers_price_note">Ποσοστό από το CoinGecko (μέσος όρος ανταλλακτηρίων), τιμή από το επιλεγμένο ανταλλακτήριο – τα νούμερα μπορεί να διαφέρουν.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

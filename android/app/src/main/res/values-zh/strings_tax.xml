@@ -156,7 +156,7 @@
     <string name="tax_template_at">奥地利</string>
     <string name="tax_template_au">澳大利亚</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">测试版：各国规则已简化，报税前请核实</string>
+    <string name="tax_template_beta_note">测试版：各国规则已简化，尚未经税务专业人士审核，报税前请核实</string>
     <string name="tax_template_ca">加拿大</string>
     <string name="tax_template_ch">瑞士</string>
     <string name="tax_template_confirm_text">测试版，规则已简化，缺少其他平台的交易——报税前请核实。</string>

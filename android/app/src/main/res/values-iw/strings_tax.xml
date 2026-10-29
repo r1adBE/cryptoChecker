@@ -156,7 +156,7 @@
     <string name="tax_template_at">אוסטריה</string>
     <string name="tax_template_au">אוסטרליה</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">בטא: כללי המדינה מפושטים, בדקו לפני הגשת הדוח למס</string>
+    <string name="tax_template_beta_note">בטא: כללי המדינה מפושטים ועדיין לא נבדקו על ידי מומחה מס, בדקו לפני הגשת הדוח למס</string>
     <string name="tax_template_ca">קנדה</string>
     <string name="tax_template_ch">שווייץ</string>
     <string name="tax_template_confirm_text">בטא, כללים מפושטים, חסרות עסקאות מפלטפורמות אחרות – בדקו לפני הגשת הדוח.</string>

@@ -156,7 +156,7 @@
     <string name="tax_template_at">Αυστρία</string>
     <string name="tax_template_au">Αυστραλία</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">Beta: απλοποιημένοι κανόνες χώρας, έλεγξέ τους πριν από τη φορολογική δήλωση</string>
+    <string name="tax_template_beta_note">Beta: απλοποιημένοι κανόνες χώρας, δεν έχουν ελεγχθεί ακόμη από φοροτεχνικό, έλεγξέ τους πριν από τη φορολογική δήλωση</string>
     <string name="tax_template_ca">Καναδάς</string>
     <string name="tax_template_ch">Ελβετία</string>
     <string name="tax_template_confirm_text">Beta, απλοποιημένοι κανόνες, λείπουν συναλλαγές άλλων πλατφορμών – έλεγξε πριν από τη δήλωση.</string>

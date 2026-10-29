@@ -156,7 +156,7 @@
     <string name="tax_template_at">Австрія</string>
     <string name="tax_template_au">Австралія</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">Бета: правила країни спрощено, перевір перед поданням податкової декларації</string>
+    <string name="tax_template_beta_note">Бета: правила країни спрощено, їх ще не перевірив податковий фахівець, перевір перед поданням податкової декларації</string>
     <string name="tax_template_ca">Канада</string>
     <string name="tax_template_ch">Швейцарія</string>
     <string name="tax_template_confirm_text">Бета, спрощені правила, транзакцій з інших платформ немає – перевір перед поданням декларації.</string>

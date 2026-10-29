@@ -156,7 +156,7 @@
     <string name="tax_template_at">Austrija</string>
     <string name="tax_template_au">Australija</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">Beta: šalies taisyklės supaprastintos, patikrink prieš teikiant mokesčių deklaraciją</string>
+    <string name="tax_template_beta_note">Beta: šalies taisyklės supaprastintos, mokesčių specialistas jų dar nepatikrino, patikrink prieš teikiant mokesčių deklaraciją</string>
     <string name="tax_template_ca">Kanada</string>
     <string name="tax_template_ch">Šveicarija</string>
     <string name="tax_template_confirm_text">Beta, supaprastintos taisyklės, trūksta kitų platformų transakcijų – patikrink prieš teikiant mokesčių deklaraciją.</string>

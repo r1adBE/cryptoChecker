@@ -156,7 +156,7 @@
     <string name="tax_template_at">An Ostair</string>
     <string name="tax_template_au">An Astráil</string>
     <string name="tax_template_beta">Béite</string>
-    <string name="tax_template_beta_note">Béite: rialacha tíre simplithe, seiceáil sula gcomhdaíonn tú do thuairisceán cánach</string>
+    <string name="tax_template_beta_note">Béite: rialacha tíre simplithe, níor sheiceáil saineolaí cánach fós iad, seiceáil sula gcomhdaíonn tú do thuairisceán cánach</string>
     <string name="tax_template_ca">Ceanada</string>
     <string name="tax_template_ch">An Eilvéis</string>
     <string name="tax_template_confirm_text">Béite, rialacha simplithe, tá idirbhearta ó ardáin eile ar iarraidh – seiceáil sula gcomhdaíonn tú do thuairisceán cánach.</string>

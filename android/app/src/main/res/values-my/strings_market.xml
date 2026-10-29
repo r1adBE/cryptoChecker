@@ -247,6 +247,7 @@
     <string name="movers_no_gainers">24 နာရီအတွင်း မည်သည့်ကွိုင်မှ မတက်ပါ</string>
     <string name="movers_no_losers">24 နာရီအတွင်း မည်သည့်ကွိုင်မှ မကျပါ</string>
     <string name="movers_source">CoinGecko၊ 24 နာရီ၊ stablecoin မပါ top 100</string>
+    <string name="movers_price_note">ရာခိုင်နှုန်းသည် CoinGecko (ဒိုင်များ၏ ပျမ်းမျှ) မှဖြစ်ပြီး ဈေးနှုန်းသည် ရွေးထားသော ဒိုင်မှ ဖြစ်သည် – ကိန်းဂဏန်းများ ကွာခြားနိုင်ပါသည်။</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

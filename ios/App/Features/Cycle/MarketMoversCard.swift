@@ -43,6 +43,8 @@ struct CycleMoversCard: View {
                     .padding(.top, Spacing.xs)
                 }
                 CycleSourceText(text: L("movers_source"))
+                // Tipp öffnet das Paar mit dem Kurs einer Börse: sagt, warum Prozent und Kurs abweichen können
+                CycleSourceText(text: L("movers_price_note"))
                 CoinGeckoAttribution()
             }
             .animation(reduceMotion ? nil : .easeInOut(duration: 0.25), value: expanded)
@@ -68,6 +70,8 @@ struct CycleMoversCard: View {
                 }
             }
             CycleSourceText(text: L("movers_source"))
+            // Tipp öffnet das Paar mit dem Kurs einer Börse: sagt, warum Prozent und Kurs abweichen können
+            CycleSourceText(text: L("movers_price_note"))
             CoinGeckoAttribution()
         }
     }

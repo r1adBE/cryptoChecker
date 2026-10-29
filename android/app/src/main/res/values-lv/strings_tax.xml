@@ -156,7 +156,7 @@
     <string name="tax_template_at">Austrija</string>
     <string name="tax_template_au">Austrālija</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">Beta: valsts noteikumi vienkāršoti, pārbaudi pirms nodokļu deklarācijas iesniegšanas</string>
+    <string name="tax_template_beta_note">Beta: valsts noteikumi vienkāršoti, nodokļu speciālists tos vēl nav pārbaudījis, pārbaudi pirms nodokļu deklarācijas iesniegšanas</string>
     <string name="tax_template_ca">Kanāda</string>
     <string name="tax_template_ch">Šveice</string>
     <string name="tax_template_confirm_text">Beta, vienkāršoti noteikumi, trūkst darījumu no citām platformām – pārbaudi pirms nodokļu deklarācijas iesniegšanas.</string>

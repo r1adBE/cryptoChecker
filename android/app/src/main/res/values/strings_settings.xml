@@ -41,7 +41,7 @@
     <string name="settings_exact_checks_grant">Allow alarms &amp; reminders</string>
     <string name="settings_exact_checks_hint">Android checks about every 15 minutes, even when the device is idle. Uses a little more battery.</string>
     <string name="settings_exact_checks_nothing">No active pairs – nothing to check.</string>
-    <string name="settings_exact_checks_permission_missing">Permission missing – while the device rests, Android checks irregularly, sometimes only after hours.</string>
+    <string name="settings_exact_checks_permission_missing">Permission missing – while the device is idle, Android checks irregularly, sometimes only after hours.</string>
     <string name="settings_notification_change">Notify only on price change</string>
     <!-- Nur iOS: Android nutzt diesen Text nicht -->
     <string name="settings_notification_change_always" tools:ignore="UnusedResources">Always</string>

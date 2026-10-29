@@ -156,7 +156,7 @@
     <string name="tax_template_at">ავსტრია</string>
     <string name="tax_template_au">ავსტრალია</string>
     <string name="tax_template_beta">ბეტა</string>
-    <string name="tax_template_beta_note">ბეტა: ქვეყნის წესები გამარტივებულია, შეამოწმე საგადასახადო დეკლარაციის წარდგენამდე</string>
+    <string name="tax_template_beta_note">ბეტა: ქვეყნის წესები გამარტივებულია და ჯერ არ შეუმოწმებია საგადასახადო სპეციალისტს, შეამოწმე საგადასახადო დეკლარაციის წარდგენამდე</string>
     <string name="tax_template_ca">კანადა</string>
     <string name="tax_template_ch">შვეიცარია</string>
     <string name="tax_template_confirm_text">ბეტა, გამარტივებული წესები, სხვა პლატფორმების ტრანზაქციები აკლია – შეამოწმე საგადასახადო დეკლარაციის წარდგენამდე.</string>

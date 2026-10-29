@@ -259,6 +259,7 @@
     <string name="movers_no_gainers">Níor ardaigh aon bhonn in 24 u</string>
     <string name="movers_no_losers">Níor thit aon bhonn in 24 u</string>
     <string name="movers_source">CoinGecko, 24 u, barr 100 gan boinn chobhsaí</string>
+    <string name="movers_price_note">Céatadán ó CoinGecko (meán thar mhalartáin), praghas ón malartán roghnaithe – d’fhéadfadh na figiúirí a bheith difriúil.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

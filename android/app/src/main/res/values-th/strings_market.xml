@@ -247,6 +247,7 @@
     <string name="movers_no_gainers">ไม่มีเหรียญใดขึ้นใน 24 ชม.</string>
     <string name="movers_no_losers">ไม่มีเหรียญใดลงใน 24 ชม.</string>
     <string name="movers_source">CoinGecko, 24 ชม., 100 อันดับแรกไม่รวมสเตเบิลคอยน์</string>
+    <string name="movers_price_note">เปอร์เซ็นต์จาก CoinGecko (ค่าเฉลี่ยจากหลายกระดาน) ราคาจากกระดานที่เลือก – ตัวเลขอาจต่างกัน</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

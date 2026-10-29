@@ -156,7 +156,7 @@
     <string name="tax_template_at">Itävalta</string>
     <string name="tax_template_au">Australia</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">Beta: maakohtaiset säännöt yksinkertaistettu, tarkista ennen veroilmoitusta</string>
+    <string name="tax_template_beta_note">Beta: maakohtaiset säännöt yksinkertaistettu, veroasiantuntija ei ole vielä tarkistanut niitä, tarkista ennen veroilmoitusta</string>
     <string name="tax_template_ca">Kanada</string>
     <string name="tax_template_ch">Sveitsi</string>
     <string name="tax_template_confirm_text">Beta, yksinkertaistetut säännöt, muiden alustojen tapahtumat puuttuvat – tarkista ennen veroilmoitusta.</string>

@@ -156,7 +156,7 @@
     <string name="tax_template_at">ఆస్ట్రియా</string>
     <string name="tax_template_au">ఆస్ట్రేలియా</string>
     <string name="tax_template_beta">బీటా</string>
-    <string name="tax_template_beta_note">బీటా: దేశ నియమాలు సరళీకరించబడ్డాయి, మీ పన్ను రిటర్న్ దాఖలు చేసే ముందు తనిఖీ చేయండి</string>
+    <string name="tax_template_beta_note">బీటా: దేశ నియమాలు సరళీకరించబడ్డాయి, ఇంకా పన్ను నిపుణులు తనిఖీ చేయలేదు, మీ పన్ను రిటర్న్ దాఖలు చేసే ముందు తనిఖీ చేయండి</string>
     <string name="tax_template_ca">కెనడా</string>
     <string name="tax_template_ch">స్విట్జర్లాండ్</string>
     <string name="tax_template_confirm_text">బీటా, సరళీకృత నియమాలు, ఇతర ప్లాట్‌ఫామ్‌ల లావాదేవీలు లేవు – మీ పన్ను రిటర్న్ దాఖలు చేసే ముందు తనిఖీ చేయండి.</string>

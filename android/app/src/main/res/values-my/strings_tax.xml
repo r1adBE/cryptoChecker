@@ -156,7 +156,7 @@
     <string name="tax_template_at">ဩစတြီးယား</string>
     <string name="tax_template_au">ဩစတြေးလျ</string>
     <string name="tax_template_beta">ဘီတာ</string>
-    <string name="tax_template_beta_note">ဘီတာ- နိုင်ငံ စည်းမျဉ်းများကို ရိုးရှင်းအောင် ပြုလုပ်ထားသည်၊ သင့်အခွန်ပြန်တမ်း မတင်မီ စစ်ဆေးပါ</string>
+    <string name="tax_template_beta_note">ဘီတာ- နိုင်ငံ စည်းမျဉ်းများကို ရိုးရှင်းအောင် ပြုလုပ်ထားပြီး အခွန်ကျွမ်းကျင်သူ မစစ်ဆေးရသေးပါ၊ သင့်အခွန်ပြန်တမ်း မတင်မီ စစ်ဆေးပါ</string>
     <string name="tax_template_ca">ကနေဒါ</string>
     <string name="tax_template_ch">ဆွစ်ဇာလန်</string>
     <string name="tax_template_confirm_text">ဘီတာ၊ ရိုးရှင်းသော စည်းမျဉ်းများ၊ အခြား platform များမှ ငွေပေးငွေယူများ မပါ – သင့်အခွန်ပြန်တမ်း မတင်မီ စစ်ဆေးပါ။</string>

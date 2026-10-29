@@ -247,6 +247,7 @@
     <string name="movers_no_gainers">24時間で上昇した銘柄はありません</string>
     <string name="movers_no_losers">24時間で下落した銘柄はありません</string>
     <string name="movers_source">CoinGecko、24時間、ステーブルコインを除く上位100</string>
+    <string name="movers_price_note">変動率は CoinGecko（取引所の平均）、価格は選択した取引所のものです。数値が異なる場合があります。</string>
     <string name="movers_a11y_row">%1$s（%2$s）、%3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

@@ -250,6 +250,7 @@
     <string name="movers_no_gainers">24 soatda birorta tanga oʻsmadi</string>
     <string name="movers_no_losers">24 soatda birorta tanga tushmadi</string>
     <string name="movers_source">CoinGecko, 24 soat, steyblkoinlarsiz top 100</string>
+    <string name="movers_price_note">Foiz CoinGecko’dan (birjalar o‘rtachasi), narx tanlangan birjadan – raqamlar farq qilishi mumkin.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

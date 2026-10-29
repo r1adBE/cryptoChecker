@@ -156,7 +156,7 @@
     <string name="tax_template_at">Oostenrijk</string>
     <string name="tax_template_au">Australië</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">Bèta: landregels vereenvoudigd, controleer ze vóór je belastingaangifte</string>
+    <string name="tax_template_beta_note">Bèta: landregels vereenvoudigd, nog niet gecontroleerd door een belastingadviseur, controleer ze vóór je belastingaangifte</string>
     <string name="tax_template_ca">Canada</string>
     <string name="tax_template_ch">Zwitserland</string>
     <string name="tax_template_confirm_text">Bèta, vereenvoudigde regels, transacties van andere platforms ontbreken – controleer vóór je aangifte.</string>

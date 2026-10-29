@@ -156,7 +156,7 @@
     <string name="tax_template_at">Ավստրիա</string>
     <string name="tax_template_au">Ավստրալիա</string>
     <string name="tax_template_beta">Բետա</string>
-    <string name="tax_template_beta_note">Բետա՝ երկրի կանոնները պարզեցված են, ստուգիր նախքան հարկային հայտարարագիր ներկայացնելը</string>
+    <string name="tax_template_beta_note">Բետա՝ երկրի կանոնները պարզեցված են, դեռ չեն ստուգվել հարկային մասնագետի կողմից, ստուգիր նախքան հարկային հայտարարագիր ներկայացնելը</string>
     <string name="tax_template_ca">Կանադա</string>
     <string name="tax_template_ch">Շվեյցարիա</string>
     <string name="tax_template_confirm_text">Բետա, պարզեցված կանոններ, այլ հարթակների գործարքները բացակայում են – ստուգիր նախքան հարկային հայտարարագիր ներկայացնելը։</string>

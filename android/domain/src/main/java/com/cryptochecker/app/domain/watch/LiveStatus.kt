@@ -12,8 +12,8 @@ import com.cryptochecker.app.domain.refresh.OutdatedRule
  *    Börsen ohne WebSocket bei offener Merkliste nicht selbst im Takt ab (nur Hintergrund oder
  *    von Hand).
  *  - «Live» in der Pille nur, wenn ALLE gehandelten, aktiven Paare der Ansicht am Strom und
- *    frisch sind; gemischt steht der gewohnte Satz («Alle Kurse aktuell · vor 12 Min.» mit der
- *    Zeit der abgefragten Paare, [shownTime]).
+ *    frisch sind; sonst steht der gewohnte Satz («Kurse der gewählten Börsen · vor 12 Min.» mit
+ *    der Zeit des ältesten Kurses, [shownTime]).
  *
  * Reine Logik ohne Android (LiveStatusTest), Swift-Spiegel LiveStatus.swift.
  */
@@ -38,14 +38,8 @@ object LiveStatus {
         tradedIds.isNotEmpty() && stale == 0 && tradedIds.all { it in liveIds }
 
     /**
-     * Zeit hinter «vor X Min.»: Sind einige Paare live und andere abgefragt, die jüngste der
-     * abgefragten (sonst wirkte die letzte Abfrage dank der Live-Paare «gerade eben»); sonst
-     * die jüngste aller. 0 = nie.
+     * Zeit hinter «vor X Min.»: der älteste Kurs der gezeigten Paare (Zeiten > 0), damit der Kopf
+     * nicht «vor 1 Min.» sagt, während einzelne Zeilen fast 15 Min. alt sind. 0 = nie.
      */
-    fun shownTime(updates: List<Pair<Long, Long>>, liveIds: Set<Long>): Long {
-        val newest = updates.maxOfOrNull { it.second } ?: 0L
-        if (liveIds.isEmpty()) return newest
-        val polled = updates.filter { it.first !in liveIds }.maxOfOrNull { it.second } ?: 0L
-        return if (polled > 0) polled else newest
-    }
+    fun shownTime(updateTimes: List<Long>): Long = updateTimes.filter { it > 0 }.minOrNull() ?: 0L
 }

@@ -250,6 +250,7 @@
     <string name="movers_no_gainers">24 કલાકમાં કોઈ કૉઇન વધ્યો નથી</string>
     <string name="movers_no_losers">24 કલાકમાં કોઈ કૉઇન ઘટ્યો નથી</string>
     <string name="movers_source">CoinGecko, 24 કલાક, સ્ટેબલકૉઇન વગર ટૉપ 100</string>
+    <string name="movers_price_note">ટકા CoinGecko પરથી (એક્સચેન્જોની સરેરાશ), ભાવ પસંદ કરેલા એક્સચેન્જ પરથી – આંકડા અલગ હોઈ શકે છે.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

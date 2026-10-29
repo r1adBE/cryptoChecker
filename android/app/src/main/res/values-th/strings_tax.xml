@@ -156,7 +156,7 @@
     <string name="tax_template_at">ออสเตรีย</string>
     <string name="tax_template_au">ออสเตรเลีย</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">เบต้า: กฎของประเทศถูกทำให้ง่ายขึ้น ตรวจสอบก่อนยื่นภาษี</string>
+    <string name="tax_template_beta_note">เบต้า: กฎของประเทศถูกทำให้ง่ายขึ้น และยังไม่ได้ผ่านการตรวจสอบจากผู้เชี่ยวชาญด้านภาษี ตรวจสอบก่อนยื่นภาษี</string>
     <string name="tax_template_ca">แคนาดา</string>
     <string name="tax_template_ch">สวิตเซอร์แลนด์</string>
     <string name="tax_template_confirm_text">เบต้า กฎแบบย่อ ไม่มีธุรกรรมจากแพลตฟอร์มอื่น – ตรวจสอบก่อนยื่นภาษี</string>

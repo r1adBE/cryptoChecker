@@ -156,7 +156,7 @@
     <string name="tax_template_at">Austria</string>
     <string name="tax_template_au">Australia</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">Beta: peraturan negara dipermudahkan, semak sebelum memfailkan penyata cukai anda</string>
+    <string name="tax_template_beta_note">Beta: peraturan negara dipermudahkan, belum disemak oleh pakar cukai, semak sebelum memfailkan penyata cukai anda</string>
     <string name="tax_template_ca">Kanada</string>
     <string name="tax_template_ch">Switzerland</string>
     <string name="tax_template_confirm_text">Beta, peraturan dipermudahkan, transaksi daripada platform lain tiada – semak sebelum memfailkan penyata cukai anda.</string>

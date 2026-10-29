@@ -41,16 +41,12 @@ class LiveStatusTest {
     }
 
     @Test
-    fun shownTimeUsesPolledPairsWhenMixed() {
-        val updates = listOf(1L to 10_000L, 2L to 4_000L, 3L to 6_000L)
-        // Ohne Strom: die jüngste
-        assertEquals(10_000L, LiveStatus.shownTime(updates, emptySet()))
-        // Paar 1 live: die jüngste der abgefragten (3)
-        assertEquals(6_000L, LiveStatus.shownTime(updates, setOf(1L)))
-        // Alle live: die jüngste
-        assertEquals(10_000L, LiveStatus.shownTime(updates, setOf(1L, 2L, 3L)))
-        // Abgefragte nie aktualisiert: die jüngste
-        assertEquals(10_000L, LiveStatus.shownTime(listOf(1L to 10_000L, 2L to 0L), setOf(1L)))
-        assertEquals(0L, LiveStatus.shownTime(emptyList(), setOf(1L)))
+    fun shownTimeIsOldestShownPrice() {
+        // Der älteste Kurs, nicht der jüngste
+        assertEquals(4_000L, LiveStatus.shownTime(listOf(10_000L, 4_000L, 6_000L)))
+        // Nie aktualisierte Paare (0) zählen nicht
+        assertEquals(10_000L, LiveStatus.shownTime(listOf(10_000L, 0L)))
+        assertEquals(0L, LiveStatus.shownTime(listOf(0L)))
+        assertEquals(0L, LiveStatus.shownTime(emptyList()))
     }
 }

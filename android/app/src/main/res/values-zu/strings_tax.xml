@@ -156,7 +156,7 @@
     <string name="tax_template_at">I-Austria</string>
     <string name="tax_template_au">I-Australia</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">Beta: imithetho yezwe yenziwe lula, hlola ngaphambi kokufaka isimemezelo sakho sentela</string>
+    <string name="tax_template_beta_note">Beta: imithetho yezwe yenziwe lula, ayikahlolwa uchwepheshe wentela, hlola ngaphambi kokufaka isimemezelo sakho sentela</string>
     <string name="tax_template_ca">I-Canada</string>
     <string name="tax_template_ch">I-Switzerland</string>
     <string name="tax_template_confirm_text">Beta, imithetho eyenziwe lula, imisebenzi evela kwezinye izinkundla ayikho – hlola ngaphambi kokufaka isimemezelo sakho sentela.</string>

@@ -250,6 +250,7 @@
     <string name="movers_no_gainers">24 घंटे में कोई कॉइन नहीं बढ़ा</string>
     <string name="movers_no_losers">24 घंटे में कोई कॉइन नहीं गिरा</string>
     <string name="movers_source">CoinGecko, 24 घंटे, स्टेबलकॉइन के बिना शीर्ष 100</string>
+    <string name="movers_price_note">प्रतिशत CoinGecko से (एक्सचेंजों का औसत), भाव चुने गए एक्सचेंज से – आँकड़े अलग हो सकते हैं।</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

@@ -253,6 +253,7 @@
     <string name="movers_no_gainers">Aucune crypto n\'a monté en 24 h</string>
     <string name="movers_no_losers">Aucune crypto n\'a baissé en 24 h</string>
     <string name="movers_source">CoinGecko, 24 h, top 100 sans stablecoins</string>
+    <string name="movers_price_note">Pourcentage de CoinGecko (moyenne des plateformes), cours de la plateforme choisie – les chiffres peuvent différer.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

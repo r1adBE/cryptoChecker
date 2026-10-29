@@ -33,16 +33,12 @@ final class LiveStatusTests: XCTestCase {
         XCTAssertFalse(LiveStatus.allLive(tradedIds: [1], liveIds: [], stale: 0))
     }
 
-    func testShownTimeUsesPolledPairsWhenMixed() {
-        let updates: [(id: Int64, time: Int64)] = [(1, 10_000), (2, 4_000), (3, 6_000)]
-        // Ohne Strom: die jüngste
-        XCTAssertEqual(10_000, LiveStatus.shownTime(updates: updates, liveIds: []))
-        // Paar 1 live: die jüngste der abgefragten (3)
-        XCTAssertEqual(6_000, LiveStatus.shownTime(updates: updates, liveIds: [1]))
-        // Alle live: die jüngste
-        XCTAssertEqual(10_000, LiveStatus.shownTime(updates: updates, liveIds: [1, 2, 3]))
-        // Abgefragte nie aktualisiert: die jüngste
-        XCTAssertEqual(10_000, LiveStatus.shownTime(updates: [(1, 10_000), (2, 0)], liveIds: [1]))
-        XCTAssertEqual(0, LiveStatus.shownTime(updates: [], liveIds: [1]))
+    func testShownTimeIsOldestShownPrice() {
+        // Der älteste Kurs, nicht der jüngste
+        XCTAssertEqual(4_000, LiveStatus.shownTime(updateTimes: [10_000, 4_000, 6_000]))
+        // Nie aktualisierte Paare (0) zählen nicht
+        XCTAssertEqual(10_000, LiveStatus.shownTime(updateTimes: [10_000, 0]))
+        XCTAssertEqual(0, LiveStatus.shownTime(updateTimes: [0]))
+        XCTAssertEqual(0, LiveStatus.shownTime(updateTimes: []))
     }
 }

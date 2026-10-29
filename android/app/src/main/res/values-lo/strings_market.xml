@@ -247,6 +247,7 @@
     <string name="movers_no_gainers">ບໍ່ມີຫຼຽນໃດຂຶ້ນໃນ 24 ຊມ.</string>
     <string name="movers_no_losers">ບໍ່ມີຫຼຽນໃດລົງໃນ 24 ຊມ.</string>
     <string name="movers_source">CoinGecko, 24 ຊມ., top 100 ບໍ່ລວມ stablecoin</string>
+    <string name="movers_price_note">ເປີເຊັນຈາກ CoinGecko (ສະເລ່ຍລະຫວ່າງຕະຫຼາດແລກປ່ຽນ), ລາຄາຈາກຕະຫຼາດແລກປ່ຽນທີ່ເລືອກ – ຕົວເລກອາດແຕກຕ່າງກັນ.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

@@ -9,8 +9,8 @@ import Foundation
 ///    (`OutdatedRule`). Das gilt in beiden Modi — auch bei «Live, solange offen» fragt die App Börsen
 ///    ohne WebSocket bei offener Merkliste nicht selbst im Takt ab (nur Hintergrund oder von Hand).
 ///  - «Live» in der Pille nur, wenn ALLE gehandelten, aktiven Paare der Ansicht am Strom und frisch
-///    sind; gemischt steht der gewohnte Satz («Alle Kurse aktuell · vor 12 Min.» mit der Zeit der
-///    abgefragten Paare, `shownTime`).
+///    sind; sonst steht der gewohnte Satz («Kurse der gewählten Börsen · vor 12 Min.» mit der Zeit
+///    des ältesten Kurses, `shownTime`).
 enum LiveStatus {
     /// Ohne neuen Kurs aus dem Strom so lange frisch.
     static let liveStaleMillis: Int64 = OutdatedRule.liveMillis
@@ -31,13 +31,9 @@ enum LiveStatus {
         !tradedIds.isEmpty && stale == 0 && tradedIds.allSatisfy { liveIds.contains($0) }
     }
 
-    /// Zeit hinter «vor X Min.»: Sind einige Paare live und andere abgefragt, die jüngste der
-    /// abgefragten (sonst wirkte die letzte Abfrage dank der Live-Paare «gerade eben»); sonst die
-    /// jüngste aller. 0 = nie.
-    static func shownTime(updates: [(id: Int64, time: Int64)], liveIds: Set<Int64>) -> Int64 {
-        let newest = updates.map(\.time).max() ?? 0
-        if liveIds.isEmpty { return newest }
-        let polled = updates.filter { !liveIds.contains($0.id) }.map(\.time).max() ?? 0
-        return polled > 0 ? polled : newest
+    /// Zeit hinter «vor X Min.»: der älteste Kurs der gezeigten Paare (Zeiten > 0), damit der Kopf
+    /// nicht «vor 1 Min.» sagt, während einzelne Zeilen fast 15 Min. alt sind. 0 = nie.
+    static func shownTime(updateTimes: [Int64]) -> Int64 {
+        updateTimes.filter { $0 > 0 }.min() ?? 0
     }
 }

@@ -156,7 +156,7 @@
     <string name="tax_template_at">Austria</string>
     <string name="tax_template_au">Australia</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">Beta: kanuni za nchi zimerahisishwa, angalia kabla ya kuwasilisha ritani yako ya kodi</string>
+    <string name="tax_template_beta_note">Beta: kanuni za nchi zimerahisishwa, bado hazijakaguliwa na mtaalamu wa kodi, angalia kabla ya kuwasilisha ritani yako ya kodi</string>
     <string name="tax_template_ca">Kanada</string>
     <string name="tax_template_ch">Uswisi</string>
     <string name="tax_template_confirm_text">Beta, kanuni zilizorahisishwa, miamala kutoka majukwaa mengine haipo – angalia kabla ya kuwasilisha ritani yako ya kodi.</string>

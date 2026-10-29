@@ -156,7 +156,7 @@
     <string name="tax_template_at">ਆਸਟਰੀਆ</string>
     <string name="tax_template_au">ਆਸਟ੍ਰੇਲੀਆ</string>
     <string name="tax_template_beta">ਬੀਟਾ</string>
-    <string name="tax_template_beta_note">ਬੀਟਾ: ਦੇਸ਼ ਦੇ ਨਿਯਮ ਸਰਲ ਕੀਤੇ, ਟੈਕਸ ਰਿਟਰਨ ਭਰਨ ਤੋਂ ਪਹਿਲਾਂ ਜਾਂਚੋ</string>
+    <string name="tax_template_beta_note">ਬੀਟਾ: ਦੇਸ਼ ਦੇ ਨਿਯਮ ਸਰਲ ਕੀਤੇ, ਹਾਲੇ ਕਿਸੇ ਟੈਕਸ ਮਾਹਰ ਨੇ ਜਾਂਚੇ ਨਹੀਂ, ਟੈਕਸ ਰਿਟਰਨ ਭਰਨ ਤੋਂ ਪਹਿਲਾਂ ਜਾਂਚੋ</string>
     <string name="tax_template_ca">ਕੈਨੇਡਾ</string>
     <string name="tax_template_ch">ਸਵਿਟਜ਼ਰਲੈਂਡ</string>
     <string name="tax_template_confirm_text">ਬੀਟਾ, ਸਰਲ ਨਿਯਮ, ਹੋਰ ਪਲੇਟਫਾਰਮਾਂ ਦੇ ਲੈਣ-ਦੇਣ ਸ਼ਾਮਲ ਨਹੀਂ – ਟੈਕਸ ਰਿਟਰਨ ਭਰਨ ਤੋਂ ਪਹਿਲਾਂ ਜਾਂਚੋ।</string>

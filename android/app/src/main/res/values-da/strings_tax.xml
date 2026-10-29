@@ -156,7 +156,7 @@
     <string name="tax_template_at">Østrig</string>
     <string name="tax_template_au">Australien</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">Beta: landeregler forenklet, tjek dem før selvangivelsen</string>
+    <string name="tax_template_beta_note">Beta: landeregler forenklet, endnu ikke gennemgået af en skatteekspert, tjek dem før selvangivelsen</string>
     <string name="tax_template_ca">Canada</string>
     <string name="tax_template_ch">Schweiz</string>
     <string name="tax_template_confirm_text">Beta, forenklede regler, transaktioner fra andre platforme mangler – tjek før selvangivelsen.</string>

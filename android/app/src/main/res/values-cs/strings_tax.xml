@@ -156,7 +156,7 @@
     <string name="tax_template_at">Rakousko</string>
     <string name="tax_template_au">Austrálie</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">Beta: pravidla země zjednodušena, ověř je před podáním daňového přiznání</string>
+    <string name="tax_template_beta_note">Beta: pravidla země zjednodušena, zatím je neověřil daňový odborník, ověř je před podáním daňového přiznání</string>
     <string name="tax_template_ca">Kanada</string>
     <string name="tax_template_ch">Švýcarsko</string>
     <string name="tax_template_confirm_text">Beta, zjednodušená pravidla, chybí transakce z jiných platforem – ověř před podáním přiznání.</string>

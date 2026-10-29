@@ -156,7 +156,7 @@
     <string name="tax_template_at">Austria</string>
     <string name="tax_template_au">Australia</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">Beta: aturan negara disederhanakan, periksa sebelum mengisi SPT</string>
+    <string name="tax_template_beta_note">Beta: aturan negara disederhanakan, belum diperiksa oleh ahli pajak, periksa sebelum mengisi SPT</string>
     <string name="tax_template_ca">Kanada</string>
     <string name="tax_template_ch">Swiss</string>
     <string name="tax_template_confirm_text">Beta, aturan disederhanakan, transaksi dari platform lain tidak ada – periksa sebelum mengisi SPT.</string>

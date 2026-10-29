@@ -250,6 +250,7 @@
     <string name="movers_no_gainers">Egyetlen coin sem emelkedett 24 ó alatt</string>
     <string name="movers_no_losers">Egyetlen coin sem esett 24 ó alatt</string>
     <string name="movers_source">CoinGecko, 24 ó, top 100 stablecoinok nélkül</string>
+    <string name="movers_price_note">Százalék a CoinGeckótól (tőzsdék átlaga), árfolyam a választott tőzsdéről – a számok eltérhetnek.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

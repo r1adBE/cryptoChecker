@@ -250,6 +250,7 @@
     <string name="movers_no_gainers">24 മണിക്കൂറിൽ ഒരു കോയിനും ഉയർന്നില്ല</string>
     <string name="movers_no_losers">24 മണിക്കൂറിൽ ഒരു കോയിനും താഴ്ന്നില്ല</string>
     <string name="movers_source">CoinGecko, 24 മ., സ്റ്റേബിൾകോയിനുകൾ ഇല്ലാതെ ടോപ്പ് 100</string>
+    <string name="movers_price_note">ശതമാനം CoinGecko-യിൽ നിന്ന് (എക്സ്ചേഞ്ചുകളുടെ ശരാശരി), വില തിരഞ്ഞെടുത്ത എക്സ്ചേഞ്ചിൽ നിന്ന് – സംഖ്യകൾ വ്യത്യാസപ്പെടാം.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

@@ -156,7 +156,7 @@
     <string name="tax_template_at">អូទ្រីស</string>
     <string name="tax_template_au">អូស្ត្រាលី</string>
     <string name="tax_template_beta">បេតា</string>
-    <string name="tax_template_beta_note">បេតា៖ ច្បាប់ប្រទេសត្រូវបានធ្វើឱ្យសាមញ្ញ សូមពិនិត្យមុនពេលដាក់លិខិតប្រកាសពន្ធរបស់អ្នក</string>
+    <string name="tax_template_beta_note">បេតា៖ ច្បាប់ប្រទេសត្រូវបានធ្វើឱ្យសាមញ្ញ ហើយមិនទាន់ត្រូវបានពិនិត្យដោយអ្នកជំនាញពន្ធនៅឡើយ សូមពិនិត្យមុនពេលដាក់លិខិតប្រកាសពន្ធរបស់អ្នក</string>
     <string name="tax_template_ca">កាណាដា</string>
     <string name="tax_template_ch">ស្វីស</string>
     <string name="tax_template_confirm_text">បេតា ច្បាប់សាមញ្ញ ប្រតិបត្តិការពីវេទិកាផ្សេងទៀតខ្វះ – សូមពិនិត្យមុនពេលដាក់លិខិតប្រកាសពន្ធរបស់អ្នក។</string>

@@ -156,7 +156,7 @@
     <string name="tax_template_at">ኦስትሪያ</string>
     <string name="tax_template_au">አውስትራሊያ</string>
     <string name="tax_template_beta">ቤታ</string>
-    <string name="tax_template_beta_note">ቤታ፦ የሀገር ደንቦች ቀለል ተደርገዋል፤ የግብር ማስታወቂያዎን ከማስገባትዎ በፊት ይፈትሹ</string>
+    <string name="tax_template_beta_note">ቤታ፦ የሀገር ደንቦች ቀለል ተደርገዋል፤ ገና በግብር ባለሙያ አልተረጋገጡም፤ የግብር ማስታወቂያዎን ከማስገባትዎ በፊት ይፈትሹ</string>
     <string name="tax_template_ca">ካናዳ</string>
     <string name="tax_template_ch">ስዊዘርላንድ</string>
     <string name="tax_template_confirm_text">ቤታ፣ ቀለል ያሉ ደንቦች፣ ከሌሎች መድረኮች የመጡ ግብይቶች የሉም – የግብር ማስታወቂያዎን ከማስገባትዎ በፊት ይፈትሹ።</string>

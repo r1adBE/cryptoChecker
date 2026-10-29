@@ -156,7 +156,7 @@
     <string name="tax_template_at">Austria</string>
     <string name="tax_template_au">Australia</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">Beta: reguli naționale simplificate, verifică înainte de declarația fiscală</string>
+    <string name="tax_template_beta_note">Beta: reguli naționale simplificate, încă neverificate de un consultant fiscal, verifică înainte de declarația fiscală</string>
     <string name="tax_template_ca">Canada</string>
     <string name="tax_template_ch">Elveția</string>
     <string name="tax_template_confirm_text">Beta, reguli simplificate, lipsesc tranzacțiile de pe alte platforme – verifică înainte de declarația fiscală.</string>
