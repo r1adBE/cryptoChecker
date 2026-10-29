@@ -213,7 +213,9 @@ class AlarmToggleParityTest {
         fun source(path: String) = listOf(File(path), File("app/$path"), File("../data/$path"), File("data/$path"), File("../domain/$path"), File("domain/$path")).first { it.exists() }.readText()
         val base = "src/main/java/com/cryptochecker/app"
         assertTrue(source("$base/ui/features/alarms/AlarmCard.kt").contains("enabled = AlarmJson.toggleAllowed("))
-        val overview = source("$base/ui/features/alarms/AlarmsOverviewScreen.kt")
+        // Übersicht: Bildschirm und Karten (AlarmsOverviewCards.kt)
+        val overview = source("$base/ui/features/alarms/AlarmsOverviewScreen.kt") +
+            source("$base/ui/features/alarms/AlarmsOverviewCards.kt")
         assertTrue(overview.contains("AlarmJson.toggleAllowed(") && overview.contains("enabled = canToggle"))
         val repo = source("$base/data/WatchRepository.kt").substringAfter("suspend fun setAlarmEnabled(")
         assertTrue(repo.substringBefore("watchDao.setAlarmEnabled(").contains("AlarmJson.toggleAllowed("))

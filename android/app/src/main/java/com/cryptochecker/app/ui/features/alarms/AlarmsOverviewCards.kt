@@ -202,7 +202,7 @@ internal fun PortfolioAlarmsCard(
                     .padding(end = 12.dp)
                     .size(OVERVIEW_BADGE_SIZE)
                     .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.14f), CircleShape)
-                    .padding(9.dp)
+                    .padding(8.dp)
             )
             Text(
                 stringResource(R.string.portfolio_title),

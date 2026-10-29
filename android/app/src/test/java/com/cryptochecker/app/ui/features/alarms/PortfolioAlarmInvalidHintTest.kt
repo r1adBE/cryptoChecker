@@ -17,8 +17,9 @@ class PortfolioAlarmInvalidHintTest {
 
     @Test
     fun androidPortfolioZeileNenntLoeschenUndNeuAnlegen() {
+        // Die Portfolio-Karte der Übersicht steht in AlarmsOverviewCards.kt
         val text = SourceGuard.android(
-            file("src/main/java/com/cryptochecker/app/ui/features/alarms/AlarmsOverviewScreen.kt"), "AlarmsOverviewScreen.kt"
+            file("src/main/java/com/cryptochecker/app/ui/features/alarms/AlarmsOverviewCards.kt"), "AlarmsOverviewCards.kt"
         ).readText()
         val portfolio = text.substringAfter("PortfolioAlarmLogic.exceedsFall(alarm.kind, alarm.threshold)")
         assertTrue(portfolio.contains("R.string.portfolio_alarm_threshold_invalid_recreate"))
