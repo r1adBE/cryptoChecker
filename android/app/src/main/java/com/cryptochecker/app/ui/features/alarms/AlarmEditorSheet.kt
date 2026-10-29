@@ -114,10 +114,11 @@ internal fun AlarmEditorSheet(
                     AlarmEditorPairHeader(watch)
                 }
                 // «Zuletzt geprüft: 14:02 · Kraken 99’800 CHF · Marke nicht erreicht» — nur beim Bearbeiten
-                val lastCheckDetail = draft.id != 0L && lastCheck != null
-                if (lastCheckDetail && lastCheck != null) {
+                val detailCheck = lastCheck?.takeIf { draft.id != 0L }
+                val lastCheckDetail = detailCheck != null
+                if (detailCheck != null) {
                     Text(
-                        AlarmLogTexts.lastCheckLine(context, lastCheck),
+                        AlarmLogTexts.lastCheckLine(context, detailCheck),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.padding(top = Spacing.sm)
