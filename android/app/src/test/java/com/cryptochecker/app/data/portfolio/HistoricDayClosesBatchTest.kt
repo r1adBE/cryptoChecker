@@ -167,9 +167,12 @@ class HistoricDayClosesBatchTest {
         assertTrue(perDay.getValue("NOREF").values.all { it.unchecked })
         assertTrue(perDay.getValue("USDT").values.all { it.price == 1.0 })
         // Je Coin und Quelle wenige Stücke statt je Tag zwei Abfragen
-        val binanceSpot = { h: RouteHttp -> h.count("data-api.binance.vision/api/v3/klines?symbol=ETHUSDT") }
-        // ETH und eth: je zwei Stücke (mehr als 1000 Tage) und ein jüngster Schluss
-        assertEquals(6, binanceSpot(batchHttp))
+        val ethSpot = batchHttp.requested.filter { "data-api.binance.vision/api/v3/klines?symbol=ETHUSDT" in it }
+        // ETH und eth: je zwei Stücke (mehr als 1000 Tage) und ein jüngster Schluss, je Coin dieselben drei Adressen.
+        // Beide laufen gleichzeitig: gleiche Anfragen zur selben Zeit gehen nur einmal ins Netz (InFlightRequests),
+        // daher 3 bis 6 Abfragen je nach Takt (Spiegel ohne HTTP-Schicht: genau 6)
+        assertEquals(ethSpot.toString(), 3, ethSpot.toSet().size)
+        assertTrue(ethSpot.toString(), ethSpot.size in 3..6)
         // Binance und Coinbase (die Kettenbörsen dahinter fragen beide Wege gleich über die eigenen Kerzen)
         val marketRequests = { h: RouteHttp -> h.requested.count { "binance" in it || "coinbase" in it } }
         assertTrue("${marketRequests(batchHttp)} / ${marketRequests(perDayHttp)}", marketRequests(batchHttp) * 10 < marketRequests(perDayHttp))
