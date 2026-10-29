@@ -343,8 +343,14 @@ jobs:
           python3 - <<'PY'
           import glob, os, re, sys, xml.etree.ElementTree as ET
           ran = {}
-          for f in glob.glob('app/build/outputs/androidTest-results/connected/**/*.xml', recursive=True):
-              for tc in ET.parse(f).getroot().iter('testcase'):
+          files = glob.glob('app/build/outputs/androidTest-results/**/*.xml', recursive=True)
+          # Fundort und Inhalt sichtbar machen (die Job-Logs sind nicht immer zugänglich)
+          print(f"::notice title=Migration tests::result XML files: {files or 'none'}")
+          for f in files:
+              cases = list(ET.parse(f).getroot().iter('testcase'))
+              names = sorted({tc.get('classname') for tc in cases})
+              print(f"::notice title=Migration tests::{f}: {len(cases)} test cases in {names}")
+              for tc in cases:
                   bad = any(tc.find(t) is not None for t in ('failure', 'error', 'skipped'))
                   ran.setdefault(tc.get('classname'), {})[tc.get('name')] = not bad
           missing = [c for c in os.environ['MIGRATION_CLASSES'].split(',') if not any(ran.get(c, {}).values())]
