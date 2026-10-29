@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Builds docs/macro/events.json: dates of high-impact US economic releases.
+"""Builds the macro calendar events.json: dates of high-impact US economic releases.
 
 Sources (official, public, no key):
   - BLS release schedule (CPI, PPI, Employment Situation = NFP), 08:30 ET
@@ -11,7 +11,9 @@ Sources (official, public, no key):
   - BEA release schedule (Personal Income and Outlays = PCE), 08:30 ET
       https://www.bea.gov/news/schedule
 
-The file is read by the Crypto Checker apps once a day. Schema:
+The workflow macro-calendar.yml writes it to the branch «macro» (pages.yml serves it at
+https://r1adbe.github.io/cryptoChecker/macro/events.json); the default --output docs/macro/events.json is
+for local runs. The file is read by the Crypto Checker apps once a day. Schema:
   {"version": 1, "generated": "...Z", "source": "...",
    "events": [{"type": "CPI", "time": "2026-10-14T12:30:00Z"}, ...]}
 
@@ -23,7 +25,7 @@ Behaviour:
   - Keeps events from 7 days ago up to about 15 months ahead, sorted, unique.
   - Writes the file only if the event list changed.
   - Health check: a source that failed on 2 or more consecutive runs (counters in
-    docs/macro/status.json next to the output, committed by the workflow), or an event
+    status.json next to the output, pushed to the branch macro by the workflow), or an event
     type whose newest event is older than 14 days, prints ::error:: and opens or
     updates ONE issue "Macro calendar check failed" (gh CLI, like the exchange API
     check); once everything is healthy again the issue is closed. The job stays green

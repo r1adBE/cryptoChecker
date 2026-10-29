@@ -6,7 +6,7 @@ fetch job talks to third-party servers without write permissions and uploads its
 publish job (write permissions, no third-party requests) checks out github.sha afresh, downloads the artifact and
 runs this script before it commits, uploads or manages an issue. Nothing from the artifact is executed.
 
-Usage: python3 -I artifact_check.py --dir DIR --profile macro|mirror|mirror_manifest|exchange
+Usage: python3 -I artifact_check.py --dir DIR --profile macro|pages_macro|mirror|mirror_manifest|exchange
        python3 -I artifact_check.py --self-test
 
 Checks: only expected file names (no subdirectories, no links, regular files), required files present, size per
@@ -14,6 +14,10 @@ file, content shape (JSON, rough schema). Exit 1 with an annotation on the first
 Profile mirror_manifest: the signed manifest that the publish job of market-data.yml writes itself (mirror_data.py
 --manifest) into a separate directory, checked once more before the upload; the artifact of the fetch job may not
 contain manifest.json or its signature (profile mirror).
+Profile pages_macro: the calendar that pages.yml deploys (events.json, same checks as profile macro) plus source.txt
+(«macro <commit>» = branch macro, «main <commit>» = fallback docs/macro of main). pages.yml checks it before the
+deploy and keeps it as the artifact «pages-macro»; market-data.yml checks the copy of the live deployment again
+before it signs the hash.
 """
 import argparse
 import json
@@ -69,6 +73,10 @@ def macro_status(data, name):
     for key, value in failures.items():
         need(re.fullmatch(r"[A-Z]{2,10}", key) is not None, f"{name}: unexpected source")
         need(isinstance(value, int) and not isinstance(value, bool) and 0 <= value < 100000, f"{name}: unexpected count")
+
+
+def pages_source(data, name):
+    need(re.fullmatch(rb"(macro|main) [0-9a-f]{40}\n", data) is not None, f"{name}: unexpected source")
 
 
 def mirror_wrapped(data, name):
@@ -130,6 +138,10 @@ PROFILES = {
     "macro": {
         "events.json": (1 * MB, True, macro_events),
         "status.json": (64 * 1024, True, macro_status),
+    },
+    "pages_macro": {
+        "events.json": (1 * MB, True, macro_events),
+        "source.txt": (64, True, pages_source),
     },
     "mirror": {
         "fng.txt": (2 * MB, False, mirror_wrapped),
@@ -196,6 +208,30 @@ def self_test():
         try:
             check(d, "macro")
             raise AssertionError("bad event accepted")
+        except Invalid:
+            pass
+    with tempfile.TemporaryDirectory() as d:
+        write(d, "events.json", events)
+        write(d, "source.txt", b"macro " + b"a" * 40 + b"\n")
+        assert check(d, "pages_macro") == ["events.json", "source.txt"]
+        for bad in (b"macro " + b"a" * 40, b"other " + b"a" * 40 + b"\n", b"main " + b"A" * 40 + b"\n"):
+            write(d, "source.txt", bad)
+            try:
+                check(d, "pages_macro")
+                raise AssertionError(f"bad source accepted: {bad!r}")
+            except Invalid:
+                pass
+        write(d, "source.txt", b"main " + b"0" * 40 + b"\n")
+        write(d, "events.json", b"[]")
+        try:
+            check(d, "pages_macro")
+            raise AssertionError("empty calendar accepted")
+        except Invalid:
+            pass
+        os.remove(os.path.join(d, "events.json"))
+        try:
+            check(d, "pages_macro")
+            raise AssertionError("missing calendar accepted")
         except Invalid:
             pass
     with tempfile.TemporaryDirectory() as d:

@@ -1,0 +1,125 @@
+# Deploys the GitHub Pages site https://r1adbe.github.io/cryptoChecker/ with actions/deploy-pages:
+#   docs/ of main (index.html, privacy/ …) plus macro/events.json from the branch «macro» (written by macro-calendar.yml;
+#   main is protected by required checks, so the weekly calendar no longer lives there).
+# Requires Settings › Pages › Build and deployment › Source: «GitHub Actions» (set once by the owner, see ROADMAP).
+# Fail-safe: branch «macro» or its events.json missing -> docs/macro/events.json of main (bootstrap seed) with a warning;
+# neither there -> the run fails and the site stays as it is. The calendar is checked like the macro artifact
+# (artifact_check.py, profile pages_macro) before anything is deployed; an empty or invalid file is never deployed.
+# The deployed calendar is kept as the artifact «pages-macro» (events.json + source.txt, 90 days): market-data.yml looks
+# up the live github-pages deployment and signs the hash of exactly these bytes (entry macro_events.json).
+# Always builds from the current tips of main and macro (not github.sha), so a re-run of an old run cannot bring back
+# old pages; one job with a concurrency group, so builds and deployments never overlap or overtake each other.
+name: Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+  # macro-calendar.yml calls this workflow after a push to the branch «macro»
+  workflow_call:
+
+permissions: {}
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read    # checkout of main, fetch of the branch macro
+      pages: write      # deploy
+      id-token: write   # deploy (OIDC token of the deployment)
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    # Job level (also valid when called from macro-calendar.yml): one deployment at a time, none cancelled midway
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          sparse-checkout: |
+            .github/scripts
+            docs
+          persist-credentials: false
+
+      # The public repository is fetched without a token. ls-remote exit 2 = branch missing (fallback); any other
+      # error fails the run instead of silently deploying the older seed of main.
+      - name: Calendar from branch macro
+        run: |
+          set -uo pipefail
+          OUT="$RUNNER_TEMP/pages-macro"
+          mkdir -p "$OUT"
+          URL="https://github.com/$GITHUB_REPOSITORY.git"
+          git ls-remote --exit-code "$URL" refs/heads/macro > /dev/null
+          rc=$?
+          if [ "$rc" = 0 ]; then
+            git fetch -q --no-tags --depth 1 "$URL" refs/heads/macro || exit 1
+            SHA=$(git rev-parse FETCH_HEAD)
+            if git cat-file -e "$SHA:events.json" 2>/dev/null; then
+              git cat-file blob "$SHA:events.json" > "$OUT/events.json"
+              printf 'macro %s\n' "$SHA" > "$OUT/source.txt"
+              echo "Calendar: branch macro, commit $SHA"
+              exit 0
+            fi
+            echo "::warning title=Pages::branch macro has no events.json"
+          elif [ "$rc" = 2 ]; then
+            echo "::warning title=Pages::branch macro does not exist yet"
+          else
+            echo "::error title=Pages::could not read the branch macro (git ls-remote exit $rc)"
+            exit 1
+          fi
+          if [ -f docs/macro/events.json ] && [ ! -L docs/macro/events.json ]; then
+            cp docs/macro/events.json "$OUT/events.json"
+            printf 'main %s\n' "$(git rev-parse HEAD)" > "$OUT/source.txt"
+            echo "::warning title=Pages::using docs/macro/events.json of main (seed) instead"
+          else
+            echo "::error title=Pages::no calendar: neither branch macro nor docs/macro/events.json of main"
+            exit 1
+          fi
+
+      # Same strict checks as the calendar artifact of macro-calendar.yml (schema, event types, size)
+      - name: Check calendar
+        run: python3 -I .github/scripts/artifact_check.py --dir "$RUNNER_TEMP/pages-macro" --profile pages_macro
+
+      # docs/ of main without docs/macro, plus the checked calendar; links are refused (the upload dereferences them)
+      - name: Assemble site
+        run: |
+          set -euo pipefail
+          SITE="$RUNNER_TEMP/site"
+          if [ -n "$(find docs -type l)" ]; then echo "::error title=Pages::symbolic link in docs/"; exit 1; fi
+          for f in docs/index.html docs/privacy/index.html; do
+            [ -s "$f" ] || { echo "::error title=Pages::$f missing"; exit 1; }
+          done
+          mkdir -p "$SITE"
+          cp -R docs/. "$SITE/"
+          rm -rf "$SITE/macro"
+          mkdir -p "$SITE/macro"
+          cp "$RUNNER_TEMP/pages-macro/events.json" "$SITE/macro/events.json"
+          cmp "$RUNNER_TEMP/pages-macro/events.json" "$SITE/macro/events.json"
+          {
+            echo '### Pages'
+            echo "main: $(git rev-parse HEAD)"
+            echo "calendar: $(cat "$RUNNER_TEMP/pages-macro/source.txt"), sha256 $(sha256sum "$SITE/macro/events.json" | cut -d' ' -f1)"
+          } >> "$GITHUB_STEP_SUMMARY"
+          find "$SITE" -type f | sort
+
+      - name: Keep deployed calendar
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: pages-macro
+          path: ${{ runner.temp }}/pages-macro
+          if-no-files-found: error
+          retention-days: 90
+
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: ${{ runner.temp }}/site
+
+      - id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

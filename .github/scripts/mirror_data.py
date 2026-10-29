@@ -47,9 +47,11 @@ PUBLIC_KEY, the age of "created" (at most 7 days) and the SHA-256 of every mirro
 ignore the mirror and ask the sources directly. Files not renewed in this run keep their hash from the
 previous manifest, but only if that one is validly signed (--previous DIR).
 --signed-extra NAME=PATH adds the hash of a file that is published elsewhere and not uploaded to the release: the
-macro calendar «macro_events.json» = docs/macro/events.json of the checked-out commit, served by GitHub Pages
-(MacroCalendar.kt / MacroCalendar.swift accept it only if its hash is in a valid manifest). A missing file is
-left out with a warning (the apps then keep their cache or the built-in calendar). Without the secret the
+macro calendar «macro_events.json» = the events.json of the live GitHub Pages deployment (market-data.yml looks it
+up; pages.yml deploys it from the branch «macro»), so the signed hash is that of the bytes Pages serves
+(MacroCalendar.kt / MacroCalendar.swift accept it only if its hash is in a valid manifest). A missing file keeps
+the hash of the previous validly signed manifest, else it is left out with a warning (the apps then keep their
+cache or the built-in calendar). Without the secret the
 manifest is published unsigned with a warning (the apps then use the sources directly).
 Python 3.9+ standard library only (plus the openssl command line tool for the manifest).
 """
@@ -339,7 +341,7 @@ PUBLIC_KEYS = (PUBLIC_KEY, RESERVE_PUBLIC_KEY)
 # switch MIRROR_SIGNING_KEY to the other key and add the id of the leaked key here (DEVELOPMENT.md, "Reserve key")
 REVOKED_KEY_IDS = ()
 MANIFEST_MAX_AGE_MILLIS = 7 * 24 * 60 * 60 * 1000
-# Macro calendar (GitHub Pages docs/macro/events.json) in the manifest: same name as MacroCalendar.MANIFEST_FILE
+# Macro calendar (GitHub Pages macro/events.json) in the manifest: same name as MacroCalendar.MANIFEST_FILE
 MACRO_FILE = "macro_events.json"
 MANIFEST_MAX_BYTES = 64 * 1024
 # Files whose hash may be carried over from the previous signed manifest (old asset stays on the release)
@@ -450,18 +452,28 @@ def build_manifest(data_dir, out_dir, key_pem, public_b64=PUBLIC_KEYS, previous_
     now_millis = now_millis if now_millis is not None else int(time.time() * 1000)
     files = {name: sha256_file(os.path.join(data_dir, name)) for name in sorted(os.listdir(data_dir))
              if name not in (MANIFEST, SIGNATURE) and os.path.isfile(os.path.join(data_dir, name))}
+    missing = []
     for name, path in sorted((extra or {}).items()):
         if not FILE_NAME.match(name) or name in files or name in (MANIFEST, SIGNATURE):
             raise ValueError(f"invalid extra manifest entry: {name}")
         if os.path.isfile(path):
             files[name] = sha256_file(path)
         else:
-            print(f"::warning title=Mirror manifest::{name}: {path} not found, left out of the manifest")
+            missing.append(name)
     previous = previous_hashes(previous_dir, public_b64, now_millis)
     for name in CARRIED:
         if name not in files and name in previous:
             files[name] = previous[name]
             print(f"{name}: not renewed, hash carried over from the previous manifest")
+    # Extra file not available in this run (e.g. the live Pages calendar could not be looked up): the last signed hash
+    # stays (it belongs to the file served so far); without one the entry is left out
+    for name in missing:
+        if name in previous:
+            files[name] = previous[name]
+            print(f"::warning title=Mirror manifest::{name}: {extra[name]} not found, hash carried over from the "
+                  "previous manifest")
+        else:
+            print(f"::warning title=Mirror manifest::{name}: {extra[name]} not found, left out of the manifest")
     data = manifest_bytes(files, now_millis, revoked)
     os.makedirs(out_dir, exist_ok=True)
     with open(os.path.join(out_dir, MANIFEST), "wb") as f:
@@ -524,7 +536,8 @@ def _selftest_manifest():
         assert raw.endswith(b',"revoked":[],"v":1}') and doc["revoked"] == []
         assert doc["files"]["coin_meta.json"] == hashlib.sha256('{"binance":[{"name":"Ä"}]}'.encode()).hexdigest()
         assert sorted(doc["files"]) == ["coin_meta.json", "fng.txt", "status.json"]
-        # Macro calendar from the checkout: hashed into the manifest, not part of the uploaded data; missing = left out
+        # Macro calendar (live Pages file): hashed into the manifest, not part of the uploaded data; missing = hash of the
+        # previous signed manifest, without one left out
         events = os.path.join(d, "events.json")
         with open(events, "w", encoding="utf-8") as f:
             f.write('{"version":1,"events":[]}\n')
@@ -535,6 +548,11 @@ def _selftest_manifest():
         assert MACRO_FILE not in os.listdir(data)
         assert build_manifest(data, out_extra, key, pub, None, now, extra={MACRO_FILE: events + ".x"}) == "signed"
         assert MACRO_FILE not in parse_manifest(open(os.path.join(out_extra, MANIFEST), "rb").read())["files"]
+        assert build_manifest(data, out_extra, key, pub, None, now, extra={MACRO_FILE: events}) == "signed"
+        out_carry = os.path.join(d, "out_carry")
+        assert build_manifest(data, out_carry, key, pub, out_extra, now + 1, extra={MACRO_FILE: events + ".x"}) == "signed"
+        assert parse_manifest(open(os.path.join(out_carry, MANIFEST), "rb").read())["files"][MACRO_FILE] == \
+            extra_doc["files"][MACRO_FILE]
         for bad in ({"a/b": events}, {"fng.txt": events}, {MANIFEST: events}):
             try:
                 build_manifest(data, out_extra, key, pub, None, now, extra=bad)

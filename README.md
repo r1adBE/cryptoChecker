@@ -34,7 +34,7 @@ themselves contain no donation feature.
 | [`android/`](android) | Android app (Kotlin, Jetpack Compose) with the modules [`android/app`](android/app) (screens, notifications, widgets, background work), [`android/domain`](android/domain) (rules, calculations, models and the refresh flow), [`android/data`](android/data) (databases, repositories, data sources) and the exchange library [`android/marketdata`](android/marketdata) |
 | [`ios/`](ios) | iOS (iPhone) app with widgets (Swift, SwiftUI), Xcode project `CryptoChecker.xcodeproj` |
 | [`docs/`](docs) | Website and privacy policy (GitHub Pages) |
-| [`docs/macro/`](docs/macro) | Calendar of major US economic releases (CPI, PPI, jobs report, Fed decisions, PCE) used by the app's economic-data hint |
+| [`docs/macro/`](docs/macro) | Initial copy of the calendar of major US economic releases (CPI, PPI, jobs report, Fed decisions, PCE) used by the app's economic-data hint; the current calendar lives on the branch `macro` |
 | [`DEVELOPMENT.md`](DEVELOPMENT.md) | Development guide: exchange adapters (how to add an exchange), tests, CI and app rules |
 | [`.github/`](.github) | Issue templates, CI workflows and scripts |
 
@@ -111,9 +111,10 @@ The Android build keeps only these 31 languages (`androidResources.localeFilters
 
 ## Economic calendar
 
-[`docs/macro/events.json`](docs/macro/events.json) lists upcoming release times
+[`events.json` on the branch `macro`](https://github.com/r1adBE/cryptoChecker/blob/macro/events.json) lists upcoming release times
 (UTC) of major US economic data and is served at
-<https://r1adbe.github.io/cryptoChecker/macro/events.json>. The workflow
+<https://r1adbe.github.io/cryptoChecker/macro/events.json> (deployed by
+[`.github/workflows/pages.yml`](.github/workflows/pages.yml) together with `docs/`). The workflow
 [`.github/workflows/macro-calendar.yml`](.github/workflows/macro-calendar.yml)
 updates it every Monday (and on demand) with the dependency-free script
 [`.github/scripts/macro_calendar.py`](.github/scripts/macro_calendar.py), which

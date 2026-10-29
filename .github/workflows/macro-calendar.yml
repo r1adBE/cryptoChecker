@@ -1,12 +1,18 @@
-# Updates docs/macro/events.json (US economic release dates for the app's
-# "Wirtschaftsdaten" hint) from the official BLS, Federal Reserve and BEA pages.
-# Served by GitHub Pages at https://r1adbe.github.io/cryptoChecker/macro/events.json
-# Health check: a source failing on 2+ consecutive runs (counters in docs/macro/status.json) or an
-# event type without dates newer than 14 days opens/updates ONE issue "Macro calendar check failed"
-# (closed again once healthy). The run stays green for that; red only if a script or the artifact check fails.
+# Updates the macro calendar (US economic release dates for the app's "Wirtschaftsdaten" hint) from the official BLS,
+# Federal Reserve and BEA pages. The data lives on its own branch «macro» (events.json and status.json at its root),
+# never on main: main is protected by required status checks, a push with GITHUB_TOKEN would be refused there.
+# Served by GitHub Pages at https://r1adbe.github.io/cryptoChecker/macro/events.json; pages.yml (called here after the
+# push) deploys docs/ of main plus events.json of the branch macro.
+# First run: the branch macro does not exist yet -> it is created as an orphan branch whose first commit is the current
+# docs/macro of main (seed: events.json, status.json), the new calendar follows as the next commit.
+# Health check: a source failing on 2+ consecutive runs (counters in status.json on the branch macro) or an event
+# type without dates newer than 14 days opens/updates ONE issue "Macro calendar check failed"
+# (closed again once healthy). The run stays green for that; red only if a script, the artifact check, the push or
+# the Pages deployment fails.
 # Signed: the apps accept events.json only if its SHA-256 is in the signed mirror manifest (entry macro_events.json,
-# written by market-data.yml from the committed file); after a commit this workflow starts «Market data» so the
-# manifest follows within minutes (until then the apps keep their cache or the built-in calendar).
+# written by market-data.yml from the live Pages deployment); after a changed calendar is deployed this workflow
+# starts «Market data» so the manifest follows within minutes (until then the apps keep their cache or the built-in
+# calendar).
 name: Macro calendar
 
 on:
@@ -14,9 +20,10 @@ on:
     - cron: '17 5 * * 1'   # Mondays 05:17 UTC
   workflow_dispatch:
 
-# Least privilege (two jobs): «fetch» reads the third-party pages without any write permission and
-# hands its result over as an artifact; «publish» (write permissions, no third-party requests) checks out github.sha
-# afresh, downloads and strictly checks the artifact (artifact_check.py), then manages the issue and commits.
+# Least privilege: «fetch» reads the third-party pages without any write permission and hands its result over as an
+# artifact; «publish» (contents: write, no third-party requests) checks out github.sha afresh, downloads and strictly
+# checks the artifact (artifact_check.py), manages the issue and pushes the branch macro (only that branch, never
+# with --force); «pages» deploys (reusable pages.yml); «manifest» starts «Market data».
 permissions: {}
 
 concurrency:
@@ -29,23 +36,55 @@ jobs:
     permissions:
       contents: read    # checkout only
     timeout-minutes: 10
+    outputs:
+      base: ${{ steps.previous.outputs.base }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          sparse-checkout: |
+            .github/scripts
+            docs/macro
           persist-credentials: false
 
       # Parsers against stored markup (BEA inline spans, BLS tables) before touching the pages
       - name: Parser self-test
         run: python3 -I .github/scripts/macro_calendar.py --self-test
 
-      # Third-party web pages; no write token exists in this job
+      # Previous calendar and failure counters: tip of the branch macro (public, fetched without a token); branch missing
+      # (ls-remote exit 2) -> docs/macro of main as the seed. Any other error fails instead of starting from the seed.
+      - name: Previous calendar
+        id: previous
+        run: |
+          set -uo pipefail
+          W="$RUNNER_TEMP/macro"
+          mkdir -p "$W"
+          URL="https://github.com/$GITHUB_REPOSITORY.git"
+          git ls-remote --exit-code "$URL" refs/heads/macro > /dev/null
+          rc=$?
+          if [ "$rc" = 0 ]; then
+            git fetch -q --no-tags --depth 1 "$URL" refs/heads/macro || exit 1
+            BASE=$(git rev-parse FETCH_HEAD)
+            for f in events.json status.json; do
+              if git cat-file -e "$BASE:$f" 2>/dev/null; then git cat-file blob "$BASE:$f" > "$W/$f"; fi
+            done
+            echo "Previous calendar: branch macro, commit $BASE"
+          elif [ "$rc" = 2 ]; then
+            BASE=none
+            for f in events.json status.json; do
+              if [ -f "docs/macro/$f" ] && [ ! -L "docs/macro/$f" ]; then cp "docs/macro/$f" "$W/$f"; fi
+            done
+            echo "::notice title=Macro calendar::branch macro does not exist yet; starting from docs/macro of main (seed)"
+          else
+            echo "::error title=Macro calendar::could not read the branch macro (git ls-remote exit $rc)"
+            exit 1
+          fi
+          echo "base=$BASE" >> "$GITHUB_OUTPUT"
+
+      # Third-party web pages; no write token exists in this job. status.json is written next to events.json.
       - name: Build events.json
         env:
           PYTHONDONTWRITEBYTECODE: '1'
-        run: |
-          python3 .github/scripts/macro_calendar.py --output docs/macro/events.json --skip-health
-          mkdir -p "$RUNNER_TEMP/macro"
-          cp docs/macro/events.json docs/macro/status.json "$RUNNER_TEMP/macro/"
+        run: python3 .github/scripts/macro_calendar.py --output "$RUNNER_TEMP/macro/events.json" --skip-health
 
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
@@ -56,18 +95,24 @@ jobs:
 
   publish:
     needs: fetch
+    # Only main writes the shared branch macro; a manual run on another branch only fetches (artifact of the run)
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
     permissions:
-      contents: write   # commit and push docs/macro
-      pages: write      # request a Pages build
+      contents: write   # push the branch macro (only that branch)
       issues: write     # health-check issue (macro_calendar.py)
-      actions: write    # download the artifact of this run (gh run download); start «Market data» after a commit
+      actions: read     # download the artifact of this run (gh run download)
     timeout-minutes: 10
+    outputs:
+      changed: ${{ steps.push.outputs.changed }}
     steps:
-      # Fresh checkout of the tested commit; the token is not stored in .git/config
+      # Fresh checkout of the tested commit (scripts, seed docs/macro); the token is not stored in .git/config
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ github.sha }}
+          sparse-checkout: |
+            .github/scripts
+            docs/macro
           persist-credentials: false
 
       # gh (preinstalled) downloads this run's artifact
@@ -78,9 +123,7 @@ jobs:
 
       # Only events.json and status.json, size and rough schema; nothing from the artifact is executed
       - name: Check artifact
-        run: |
-          python3 -I .github/scripts/artifact_check.py --dir "$RUNNER_TEMP/macro" --profile macro
-          cp "$RUNNER_TEMP/macro/events.json" "$RUNNER_TEMP/macro/status.json" docs/macro/
+        run: python3 -I .github/scripts/artifact_check.py --dir "$RUNNER_TEMP/macro" --profile macro
 
       # Downloads nothing: reads events.json and status.json, opens/closes the issue
       - name: Health check
@@ -88,45 +131,89 @@ jobs:
           PYTHONDONTWRITEBYTECODE: '1'
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
-        run: python3 .github/scripts/macro_calendar.py --output docs/macro/events.json --health-only
+        run: python3 .github/scripts/macro_calendar.py --output "$RUNNER_TEMP/macro/events.json" --health-only
 
-      - name: Commit if changed
-        id: commit
+      # New commit on top of the tip the fetch job started from (BASE), pushed to refs/heads/macro only and without
+      # --force: GitHub accepts only a fast-forward of BASE (or the creation of the branch when BASE is none), so a
+      # branch that moved meanwhile fails the run instead of being overwritten. Tree: exactly events.json and status.json.
+      - name: Push branch macro
+        id: push
         env:
           GH_TOKEN: ${{ github.token }}
+          BASE: ${{ needs.fetch.outputs.base }}
         run: |
-          if [ -z "$(git status --porcelain -- docs/macro)" ]; then
+          set -euo pipefail
+          [[ "$BASE" =~ ^([0-9a-f]{40}|none)$ ]] || { echo "::error title=Macro calendar::unexpected base $BASE"; exit 1; }
+          URL="https://github.com/$GITHUB_REPOSITORY.git"
+          SEED="$GITHUB_WORKSPACE/docs/macro"
+          # The token is passed to the push only, never stored in .git/config
+          AUTH=$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)
+          echo "::add-mask::$AUTH"
+          GIT_AUTH=(-c "http.https://github.com/.extraheader=AUTHORIZATION: basic $AUTH")
+          B="$RUNNER_TEMP/branch"
+          git init -q -b macro "$B"
+          cd "$B"
+          # Public commit identity: GitHub noreply address only, never a private email.
+          git config user.name 'r1AD'
+          git config user.email '68864596+r1adBE@users.noreply.github.com'
+          if [ "$BASE" = none ]; then
+            # Orphan branch; first commit = docs/macro of main as it was served so far (if present)
+            seeded=false
+            for f in events.json status.json; do
+              if [ -f "$SEED/$f" ] && [ ! -L "$SEED/$f" ]; then cp "$SEED/$f" "$f"; seeded=true; fi
+            done
+            if [ "$seeded" = true ]; then
+              git add -A
+              git commit -q -m "Seed macro calendar from docs/macro of main (${GITHUB_SHA:0:12})"
+            fi
+          else
+            git fetch -q --no-tags --depth 1 "$URL" refs/heads/macro
+            if [ "$(git rev-parse FETCH_HEAD)" != "$BASE" ]; then
+              echo "::error title=Macro calendar::branch macro moved since the fetch job; run the workflow again"
+              exit 1
+            fi
+            git checkout -q -B macro FETCH_HEAD
+          fi
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          cp "$RUNNER_TEMP/macro/events.json" "$RUNNER_TEMP/macro/status.json" .
+          git add -A
+          if ! git rev-parse -q --verify HEAD > /dev/null || ! git diff --cached --quiet; then
+            git commit -q -m "Update macro calendar ($(date -u +%Y-%m-%d))"
+          elif [ "$BASE" != none ]; then
             echo "No changes."
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          # Public commit identity: GitHub noreply address only, never a private email.
-          git config user.name 'r1AD'
-          git config user.email '68864596+r1adBE@users.noreply.github.com'
-          # events.json and the failure counters status.json (health check)
-          git add -A docs/macro
-          git commit -m "Update macro calendar ($(date -u +%Y-%m-%d))"
-          # checkout ran with persist-credentials: false, so pass the token for this step only
-          AUTH=$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)
-          echo "::add-mask::$AUTH"
-          GIT_AUTH=(-c "http.https://github.com/.extraheader=AUTHORIZATION: basic $AUTH")
-          for i in 1 2 3; do
-            if git "${GIT_AUTH[@]}" push origin HEAD:"$GITHUB_REF_NAME"; then break; fi
-            git "${GIT_AUTH[@]}" pull --rebase origin "$GITHUB_REF_NAME"
-            if [ "$i" = 3 ]; then exit 1; fi
-          done
+          # (BASE none and the new calendar equals the seed: the seed commit alone creates the branch)
+          git ls-files
+          git "${GIT_AUTH[@]}" push "$URL" HEAD:refs/heads/macro
+          echo "::notice title=Macro calendar::pushed $(git rev-parse HEAD) to the branch macro"
           echo "changed=true" >> "$GITHUB_OUTPUT"
 
-      - name: Request Pages build
-        if: steps.commit.outputs.changed == 'true'
-        continue-on-error: true
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: gh api -X POST "repos/${{ github.repository }}/pages/builds" --silent || echo "Pages build request skipped."
+  # Every run (also without changes): the deployment then always matches the tip of macro, a failed deployment is
+  # retried a week later at the latest, and the artifact «pages-macro» that market-data.yml signs from stays fresh.
+  # Reusable workflow instead of «gh workflow run»: it runs inside this run, «manifest» waits for its result, and no
+  # actions: write token is needed for it.
+  pages:
+    needs: publish
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/pages.yml
 
-      # New hash into the signed manifest (market-data.yml checks out main and signs docs/macro/events.json)
+  # New hash into the signed manifest. A dispatch (GITHUB_TOKEN pushes and workflow runs start no other workflow;
+  # workflow_dispatch is the exception): market-data.yml keeps its own concurrency group, environment and secret.
+  # Not started if the deployment failed; the hourly run signs whatever Pages serves in any case.
+  manifest:
+    needs: [publish, pages]
+    if: needs.publish.outputs.changed == 'true'
+    runs-on: ubuntu-24.04
+    permissions:
+      actions: write    # gh workflow run market-data.yml
+    timeout-minutes: 5
+    steps:
       - name: Renew mirror manifest
-        if: steps.commit.outputs.changed == 'true' && github.ref == 'refs/heads/main'
         continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}

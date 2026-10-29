@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 172)
+
+* Economic calendar: the weekly update of US release dates works again. The calendar now lives on its own branch of the repository and is published to the same web address as before; apps keep checking it against the signed data manifest. No change in the apps.
+
 ## 16.2.2 (build 171)
 
 * Android: tabs and pages no longer leave a large gap between the status bar and the title; Settings › Alerts has the usual space between its cards, «Pairs» and «Share diagnostics» line up with the other rows, and the last choice of «Notify only on price change» is no longer cut off (where the word is too long, a pencil icon stands in).

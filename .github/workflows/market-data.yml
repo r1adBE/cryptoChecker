@@ -7,9 +7,11 @@
 # Nothing is committed. The apps fall back to the providers when a file is too old.
 # Signed: the publish job adds manifest.json (SHA-256 of every file, creation time) and manifest.json.sig (ECDSA P-256,
 # secret MIRROR_SIGNING_KEY, environment mirror-signing, main only); the apps use mirror files only with a valid signature (DEVELOPMENT.md, «Data mirror»).
-# The manifest also signs the hash of the macro calendar docs/macro/events.json of the checked-out commit (entry
-# «macro_events.json»; the file itself is served by GitHub Pages, not uploaded here). macro-calendar.yml starts this
-# workflow after committing a new calendar, so the manifest follows within minutes.
+# The manifest also signs the hash of the macro calendar (entry «macro_events.json»; the file itself is served by GitHub
+# Pages, not uploaded here): exactly the events.json of the live github-pages deployment – the artifact «pages-macro»
+# of the run that deployed it (pages.yml, content of the branch «macro»), or docs/macro/events.json of the deployed
+# commit while Pages still deploys from a branch. Lookup failed: the hash of the previous signed manifest stays.
+# macro-calendar.yml starts this workflow after deploying a new calendar, so the manifest follows within minutes.
 # CoinGecko data is never mirrored (CoinGecko API terms); the apps ask CoinGecko directly.
 name: Market data
 
@@ -66,17 +68,15 @@ jobs:
     environment: mirror-signing
     runs-on: ubuntu-24.04
     permissions:
-      contents: write   # gh release create/edit/upload
-      actions: read     # download this run's artifact (gh run download)
+      contents: write     # gh release create/edit/upload; docs/macro of a deployed commit (legacy Pages)
+      actions: read       # download this run's artifact and «pages-macro» of the Pages run (gh run download)
+      deployments: read   # live github-pages deployment (macro calendar)
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ github.sha }}
-          # docs/macro: hash of the economic calendar for the manifest (GitHub Pages serves the file itself)
-          sparse-checkout: |
-            .github/scripts
-            docs/macro
+          sparse-checkout: .github/scripts
           # Upload uses GH_TOKEN from env; leave no token in .git/config
           persist-credentials: false
 
@@ -89,6 +89,48 @@ jobs:
       # Only expected file names, size, rough header/JSON check; nothing from the artifact is executed
       - name: Check artifact
         run: python3 -I .github/scripts/artifact_check.py --dir "$RUNNER_TEMP/data" --profile mirror
+
+      # The calendar Pages serves right now (GitHub API only): the newest github-pages deployment whose latest status is
+      # «success» (older ones turn «inactive», failed ones are skipped), its run from the status log URL, then the
+      # artifact «pages-macro» of that run (pages.yml, also when called from macro-calendar.yml) or, for the branch
+      # build «pages-build-deployment», docs/macro/events.json of the deployed commit. Checked like in pages.yml.
+      # Any failure: no file -> mirror_data.py keeps the hash of the previous signed manifest (warning).
+      - name: Calendar served by Pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -uo pipefail
+          OUT="$RUNNER_TEMP/pages-macro"
+          R="repos/$GITHUB_REPOSITORY"
+          live() {
+            local id state log run path sha
+            for id in $(gh api "$R/deployments?environment=github-pages&per_page=10" --jq '.[].id'); do
+              state=$(gh api "$R/deployments/$id/statuses?per_page=1" --jq '.[0].state // ""') || return 1
+              [ "$state" = success ] || continue
+              log=$(gh api "$R/deployments/$id/statuses?per_page=1" --jq '.[0].log_url // .[0].target_url // ""') || return 1
+              run=$(printf '%s' "$log" | sed -nE 's#^https://github\.com/[^/]+/[^/]+/actions/runs/([0-9]+)(/.*)?$#\1#p')
+              [ -n "$run" ] || { echo "no run in the deployment status: $log"; return 1; }
+              path=$(gh api "$R/actions/runs/$run" --jq .path) || return 1
+              if [ "$path" = dynamic/pages/pages-build-deployment ]; then
+                sha=$(gh api "$R/deployments/$id" --jq .sha) || return 1
+                [[ "$sha" =~ ^[0-9a-f]{40}$ ]] || return 1
+                mkdir -p "$OUT"
+                gh api -H 'Accept: application/vnd.github.raw' "$R/contents/docs/macro/events.json?ref=$sha" > "$OUT/events.json" || return 1
+                printf 'main %s\n' "$sha" > "$OUT/source.txt"
+              else
+                gh run download "$run" --repo "$GITHUB_REPOSITORY" --name pages-macro --dir "$OUT" || return 1
+              fi
+              echo "Live deployment $id (run $run, $path): $(cat "$OUT/source.txt")"
+              return 0
+            done
+            echo "no successful github-pages deployment found"
+            return 1
+          }
+          if ! { live && python3 -I .github/scripts/artifact_check.py --dir "$OUT" --profile pages_macro; }; then
+            rm -rf "$OUT"
+            echo "::warning title=Macro calendar::live Pages calendar not determined; the previous signed hash stays"
+          fi
+          echo "MACRO_EVENTS=$OUT/events.json" >> "$GITHUB_ENV"
 
       # Manifest (SHA-256 per file) in its own folder, signed with MIRROR_SIGNING_KEY (openssl, preinstalled; no
       # package installation in this job). Files not refreshed keep their hash only from a validly signed previous
@@ -103,7 +145,7 @@ jobs:
           gh release download data --repo "$GITHUB_REPOSITORY" --pattern manifest.json --pattern manifest.json.sig \
             --dir "$RUNNER_TEMP/previous" || echo "No previous manifest"
           python3 -I .github/scripts/mirror_data.py --output "$RUNNER_TEMP/data" --manifest "$RUNNER_TEMP/manifest" \
-            --previous "$RUNNER_TEMP/previous" --signed-extra macro_events.json=docs/macro/events.json
+            --previous "$RUNNER_TEMP/previous" --signed-extra "macro_events.json=$MACRO_EVENTS"
           python3 -I .github/scripts/artifact_check.py --dir "$RUNNER_TEMP/manifest" --profile mirror_manifest
 
       - name: Upload

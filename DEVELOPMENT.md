@@ -721,10 +721,10 @@ closes the issue. HTTP 451 (and 403 for exchanges that block US cloud IPs) count
 since GitHub's runners are in the US. The scheduled data workflows (`exchange-live-check.yml`,
 `macro-calendar.yml`, `market-data.yml`) run in two jobs: the fetch job (`contents: read` only) talks to third-party
 servers and uploads its result as an artifact; the publish job (write/issue permissions, no third-party requests)
-checks out `github.sha` afresh, downloads the artifact with `gh run download` (`actions: read`; `macro-calendar.yml`
-has `actions: write` to start «Market data» after a commit) and checks it with
-`.github/scripts/artifact_check.py` (expected file names, size, rough JSON schema; `--self-test`) before committing,
-uploading or managing the issue. Locally, without
+checks out `github.sha` afresh, downloads the artifact with `gh run download` (`actions: read`) and checks it with
+`.github/scripts/artifact_check.py` (expected file names, size, rough JSON schema; `--self-test`) before pushing,
+uploading or managing the issue (`macro-calendar.yml` then calls `pages.yml` and starts «Market data» from a job of its
+own with `actions: write`; see *Macro calendar* under «Data mirror»). Locally, without
 touching GitHub: `python3 -I .github/scripts/exchange_live_check.py --dry-run` (optionally
 `--only kraken,okx`).
 
@@ -967,14 +967,45 @@ providers directly; the run then ends red (error annotation after the upload) so
 repository.
 
 *Macro calendar* (`MacroCalendar.kt` / `MacroCalendar.swift`, parity cases `macro_calendar_signature.json`): the
-economic calendar is not a release asset but `docs/macro/events.json` on GitHub Pages (written weekly by
-`macro-calendar.yml`). The publish job of `market-data.yml` checks out `docs/macro` and signs its hash as the entry
-`macro_events.json` (`mirror_data.py --signed-extra macro_events.json=docs/macro/events.json`; the same manifest
-and keys, no second secret). The apps accept a downloaded calendar only if that hash is in a valid manifest
+economic calendar is not a release asset but `macro/events.json` on GitHub Pages
+(<https://r1adbe.github.io/cryptoChecker/macro/events.json>, unchanged URL). Its data lives on the branch **`macro`**
+(`events.json` and `status.json` at the root, nothing else), not on `main`: `main` has required status checks, so the
+weekly push with `GITHUB_TOKEN` would be refused there (no bypass by decision of the owner).
+
+* `macro-calendar.yml` (Mondays, by hand): *fetch* starts from the tip of `macro` (public, no token), builds the new
+  calendar and hands it over with that tip as `base`; *publish* (main only) checks the artifact, runs the health check
+  and pushes one commit on top of `base` to `refs/heads/macro` – never to `main`, never with `--force`, so a branch
+  that moved meanwhile fails the run instead of being overwritten. First run: the branch is missing (`git ls-remote`
+  exit 2), so it is created as an orphan whose first commit is `docs/macro` of `main` (seed), the new calendar
+  follows; any other error reading the branch fails the run. Then *pages* calls `pages.yml` (reusable workflow:
+  runs inside the same run, the next job waits for the deployment, no extra token permission), every week, also
+  without changes; *manifest* starts «Market data» with `gh workflow run` (`actions: write`; pushes and runs with
+  `GITHUB_TOKEN` start no other workflow, a dispatch does) only when the calendar changed and was deployed.
+* `pages.yml` (push to `main` touching `docs/**`, by hand, called by `macro-calendar.yml`) deploys with
+  `actions/deploy-pages` (`pages: write`, `id-token: write`, environment `github-pages`): `docs/` of the current
+  `main` without `docs/macro`, plus `events.json` of the current tip of `macro`. Branch or file missing → `docs/macro/events.json`
+  of `main` with a warning; neither → the run fails and the site stays. The calendar is checked by
+  `artifact_check.py --profile pages_macro` (same schema checks as the calendar artifact; empty or invalid is never
+  deployed) and kept as the artifact `pages-macro` (`events.json` plus `source.txt` = `macro <commit>` or
+  `main <commit>`, 90 days). One job with the job-level concurrency group `pages`: builds and deployments never
+  overlap or overtake each other; it reads the tips, not `github.sha`, so a re-run of an old run brings back nothing old.
+  Needs *Settings › Pages › Source: GitHub Actions* (owner, once; ROADMAP).
+* `market-data.yml` signs exactly what Pages serves: the newest `github-pages` deployment whose latest status is
+  `success`, its run (from the status log URL), and from that run the artifact `pages-macro`; for the old branch
+  build (`pages-build-deployment`, before the switch) `docs/macro/events.json` of the deployed commit
+  (`deployments: read`, GitHub API only). Checked again with the profile `pages_macro`, then
+  `mirror_data.py --signed-extra macro_events.json=<file>` (same manifest and keys, no second secret). Lookup failed:
+  the hash of the previous signed manifest stays (warning).
+* `main` keeps `docs/macro/events.json` as the bootstrap seed and fallback (`setup-github-public.ps1` copies it from
+  `android/docs/macro`, and keeps the GitHub copy once it exists); it is no longer updated and Pages serves it only
+  while the branch `macro` is missing.
+
+Remaining window: after a deployment the manifest follows within minutes (macro-calendar's *manifest* job, else the
+next hourly run), and the Pages CDN may serve the previous file for up to about 10 minutes; in both cases hash and file
+differ briefly and the apps keep their cache. A deployment never signs bytes it did not deploy.
+The apps accept a downloaded calendar only if that hash is in a valid manifest
 (`MacroCalendar.parseVerified` with `MirrorTrust`); a changed, unlisted or unverifiable file counts as a download
-error: the cache (also expired) or else the built-in `macro_events.json` is used, as before. After committing a new
-calendar `macro-calendar.yml` starts «Market data» (`actions: write`), so the manifest follows within minutes;
-until then (and while Pages deploys) the apps keep their cache.
+error: the cache (also expired) or else the built-in `macro_events.json` is used, as before.
 
 *Reserve key*: the apps and `mirror_data.py` (`PUBLIC_KEYS`) accept a second public key,
 `RESERVE_PUBLIC_KEY` (`productionReservePublicKey` in `mirror_signature.json`). Its private key is not a secret on
@@ -2996,6 +3027,16 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   «+» and reopened in every predictive-back preview, swallowing Back); stage written when shown; the starter ask is
   skipped when the banner ends off screen (iOS: explorer open); `NotificationPrePromptTest`/`NotificationPrePromptTests`.
   Logos: `CoinLogos.stripMultiplier` (shared by `normalize` and `initials`, TradFi unchanged; parity `coin_logos.json` › `multiplier`); `CoinMeta.alternates` (Binance list without futures-only/bStocks, then Alpha) is tried by the bulk download when the mapped image fails (parity `coin_meta.json` › `alternates`).
+* Build 172: macro calendar on its own branch. Since 24.10. `main` has required status checks, so the push of
+  `macro-calendar.yml` with `GITHUB_TOKEN` failed («Commit if changed», run of 26.10.); no bypass (owner). The data
+  moves to the orphan branch `macro` (`events.json`, `status.json`; created on the first run from `docs/macro` of
+  `main`, pushed without `--force` on top of the tip the fetch job read). New `pages.yml` (`actions/upload-pages-artifact`
+  v5.0.0, `actions/deploy-pages` v5.0.1, pinned): `docs/` of `main` plus `events.json` of `macro`, fallback to the seed
+  on `main`, checked with the new `artifact_check.py` profile `pages_macro`, kept as artifact `pages-macro`;
+  called by `macro-calendar.yml` (reusable workflow), then «Market data» by dispatch. `market-data.yml` signs the
+  calendar of the live `github-pages` deployment (`deployments: read`), no longer `docs/macro` of its checkout;
+  `mirror_data.py` keeps the previous signed hash of an extra file it cannot read. Pages source must be switched to
+  «GitHub Actions» once (ROADMAP). App code unchanged.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).
