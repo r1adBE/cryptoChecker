@@ -1,16 +1,15 @@
 import Foundation
+import os
 
 // Coin-Liste für die Suche (Teil von `PortfolioPriceSource`) — wie `PortfolioPriceSourceCoins.kt` (Android).
 
 extension PortfolioPriceSource {
     static func knownCoins() -> [String]? {
-        lock.lock(); defer { lock.unlock() }
-        return coinList
+        state.withLock { $0.coinList }
     }
 
     private static func setKnownCoins(_ list: [String]) {
-        lock.lock(); defer { lock.unlock() }
-        coinList = list
+        state.withLock { $0.coinList = list }
     }
 
     /// Alle wählbaren Coins (alphabetisch); leer, wenn keine Quelle antwortet.

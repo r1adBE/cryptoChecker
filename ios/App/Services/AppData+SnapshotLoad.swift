@@ -42,9 +42,8 @@ struct LaunchRead: Sendable {
 
 /// Einmaliges Lesen beim Start: Der erste Aufruf liest, jeder weitere — auch gleichzeitig, z. B. der Haupt-Thread
 /// während des Lesens im Hintergrund — wartet und bekommt dasselbe Ergebnis. Nie zweimal verschlüsseln oder lesen.
-final class LaunchStorageLoader: @unchecked Sendable { // @unchecked: `cached` nur unter `lock`
-    private let lock = NSLock()
-    private var cached: LaunchRead?
+final class LaunchStorageLoader: Sendable {
+    private let cached = OSAllocatedUnfairLock<LaunchRead?>(initialState: nil)
     private let reader: @Sendable () -> LaunchRead
 
     init(reader: @escaping @Sendable () -> LaunchRead = { LaunchRead.read() }) {
@@ -53,10 +52,10 @@ final class LaunchStorageLoader: @unchecked Sendable { // @unchecked: `cached` n
 
     /// Ergebnis des einen Lesens (liest beim ersten Aufruf).
     func value() -> LaunchRead {
-        lock.withLock {
-            if let cached { return cached }
+        cached.withLock { state in
+            if let known = state { return known }
             let read = reader()
-            cached = read
+            state = read
             return read
         }
     }

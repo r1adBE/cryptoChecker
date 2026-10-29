@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 /// Nicht mehr gehandelte Paare aus der GEFILTERTEN Sammelabfrage heraushalten. Binance verwirft `symbols=[…]` mit
 /// einem delisteten Symbol ganz (HTTP 400 «Invalid symbol») — dann lud jede Aktualisierung die ungefilterte Liste
@@ -85,21 +86,21 @@ enum BulkDelisted {
 /// Stand von `BulkDelisted` je Börse, dauerhaft in den Einstellungen der App-Gruppe (App, Hintergrund und Widget).
 /// Nur im Speicher hätte jeder Prozess-Start keinen Stand — bei lauter «nicht mehr gehandelt»-Paaren folgte dann
 /// jedes Mal eine Neuprüfung, bei Binance mit der ungefilterten Liste (~2 MB). Wie `BulkDelistedStore.kt`.
-final class BulkDelistedMemory: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
+final class BulkDelistedMemory: Sendable {
     static let shared = BulkDelistedMemory()
 
     static let defaultsKey = "bulk_delisted"
 
-    private let lock = NSLock()
-    private let defaults: () -> UserDefaults
+    private let defaults: @Sendable () -> UserDefaults
     /// Beim ersten Zugriff aus den Einstellungen geladen; danach massgebend für diesen Prozess.
-    private var states: [String: BulkDelisted.State]?
+    private let states = OSAllocatedUnfairLock<[String: BulkDelisted.State]?>(initialState: nil)
 
-    init(defaults: @escaping () -> UserDefaults = { SharedStorage.defaults }) {
+    init(defaults: @escaping @Sendable () -> UserDefaults = { SharedStorage.defaults }) {
         self.defaults = defaults
     }
 
-    private func loaded() -> [String: BulkDelisted.State] {
+    /// Nur mit gehaltener Sperre (aus `states.withLock`) aufrufen.
+    private func loaded(_ states: inout [String: BulkDelisted.State]?) -> [String: BulkDelisted.State] {
         if let states { return states }
         let decoded = BulkDelisted.decode(defaults().string(forKey: Self.defaultsKey))
         states = decoded
@@ -108,21 +109,23 @@ final class BulkDelistedMemory: @unchecked Sendable { // @unchecked: veränderli
 
     func plan(_ exchangeKey: String, pairIds: [String], notTraded: Set<String>, now: Int64,
               lowMemory: Bool = false) -> BulkDelisted.Plan {
-        lock.lock(); defer { lock.unlock() }
-        return BulkDelisted.plan(state: loaded()[exchangeKey], pairIds: pairIds, notTraded: notTraded, now: now,
-                                 lowMemory: lowMemory)
+        states.withLock { states in
+            BulkDelisted.plan(state: loaded(&states)[exchangeKey], pairIds: pairIds, notTraded: notTraded, now: now,
+                              lowMemory: lowMemory)
+        }
     }
 
     func learn(_ exchangeKey: String, plan: BulkDelisted.Plan, result: BulkTickers, now: Int64) {
-        lock.lock(); defer { lock.unlock() }
-        var all = loaded()
-        let next = BulkDelisted.learn(state: all[exchangeKey], plan: plan, tickers: Set(result.tickers.keys),
-                                      failed: result.failed, complete: result.complete, now: now,
-                                      incomplete: result.incomplete)
-        // Nur bei einer Änderung schreiben
-        guard all[exchangeKey] != next else { return }
-        all[exchangeKey] = next
-        states = all
-        defaults().set(BulkDelisted.encode(all), forKey: Self.defaultsKey)
+        states.withLock { states in
+            var all = loaded(&states)
+            let next = BulkDelisted.learn(state: all[exchangeKey], plan: plan, tickers: Set(result.tickers.keys),
+                                          failed: result.failed, complete: result.complete, now: now,
+                                          incomplete: result.incomplete)
+            // Nur bei einer Änderung schreiben
+            guard all[exchangeKey] != next else { return }
+            all[exchangeKey] = next
+            states = all
+            defaults().set(BulkDelisted.encode(all), forKey: Self.defaultsKey)
+        }
     }
 }

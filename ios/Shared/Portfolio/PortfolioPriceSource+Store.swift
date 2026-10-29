@@ -10,10 +10,6 @@ extension PortfolioPriceSource {
     /// `noBackupFilesDir`). Getrennt vom Zwischenspeicher: `cached` und `prices` (auch Widget und
     /// Hintergrund) sehen nur Kurse dieses Prozesses.
     static var storeURL: URL { SharedStorage.directory.appendingPathComponent("portfolio_last_prices.txt") }
-    /// Gemerkte Kurse; nil = Datei noch nicht gelesen.
-    // nonisolated(unsafe): jeder Zugriff nur unter `lock` (NSLock)
-    nonisolated(unsafe) private static var storedEntries: [String: StoredPrice]?
-
     /// Wie `cached`, ergänzt um den letzten gemerkten Stand (einmal je Prozess gelesen; je Coin gewinnt
     /// der neuere Kurs) — nur für die Anzeige im Portfolio-Tab nach einem Neustart oder ohne Netz:
     /// lieber der letzte Wert mit «Stand …» als «0.00». `updatedAt` ist dann alt; ob der Stand veraltet
@@ -26,9 +22,7 @@ extension PortfolioPriceSource {
     /// Zwischenspeicher und gemerkter Stand für `wanted` (synchron, abseits des Hauptthreads aufgerufen).
     private static func collectStored(_ wanted: [String]) -> PortfolioPrices {
         let stored = loadStored()
-        lock.lock()
-        let merged = PortfolioPriceFallback.merge(current: currentEntriesLocked(), stored: stored)
-        lock.unlock()
+        let merged = PortfolioPriceFallback.merge(current: state.withLock { $0.currentEntries() }, stored: stored)
         // Gekapselte Coins ohne eigenen Kurs: Kurs der Basis, markiert (`PortfolioPrices.viaBase`) — wie Android
         let via = ChainAssets.priceViaBase(wanted, available: Set(merged.keys))
         var result: [String: Double] = [:]
@@ -43,80 +37,72 @@ extension PortfolioPriceSource {
         result[stable] = 1
         var out = PortfolioPrices(prices: result, updatedAt: oldest ?? 0, times: times)
         out.viaBase = via
-        lock.lock()
-        decorateLocked(&out, coins: wanted)
-        // «Kurs ungeprüft» aus dem gemerkten Stand (auch nach einem Neustart); gekapselte Coins erben ihn von der Basis
-        out.unverified = PortfolioPriceFallback.unverified(wanted, entries: merged, via: via)
-        // Ungeprüft = ohne Kurs (zählt nicht als Geld)
-        out.unchecked = Set(wanted.filter { uncheckedCoins.contains($0) && merged[$0] == nil && via[$0] == nil })
-        out.unavailable = Set(wanted.filter {
-            unavailableCoins.contains($0) && merged[$0] == nil && !uncheckedCoins.contains($0) && via[$0] == nil
-        })
-        lock.unlock()
-        return out
+        let partial = out
+        return state.withLock { s in
+            var out = partial
+            s.decorate(&out, coins: wanted)
+            // «Kurs ungeprüft» aus dem gemerkten Stand (auch nach einem Neustart); gekapselte Coins erben ihn von der
+            // Basis
+            out.unverified = PortfolioPriceFallback.unverified(wanted, entries: merged, via: via)
+            // Ungeprüft = ohne Kurs (zählt nicht als Geld)
+            out.unchecked = Set(wanted.filter { s.uncheckedCoins.contains($0) && merged[$0] == nil && via[$0] == nil })
+            out.unavailable = Set(wanted.filter {
+                s.unavailableCoins.contains($0) && merged[$0] == nil && !s.uncheckedCoins.contains($0) && via[$0] == nil
+            })
+            return out
+        }
     }
 
     /// «Portfolio leeren»: gemerkte Kurse (nennen die gehaltenen Coins) und Zwischenspeicher weg. Eine gerade laufende
     /// Abfrage übernimmt danach nichts mehr (`clearGeneration`); die Datei fällt unter der Sperre weg wie `persist` sie
     /// schreibt — sie entsteht danach nicht neu.
     static func clearStored() {
-        lock.lock()
-        clearGeneration.withLock { $0 += 1 }
-        cache = [:]
-        uncheckedCoins = []
-        unverifiedCoins = []
-        // Auch «Kurs nicht verfügbar» (wie Android) — nennt gehaltene Coins
-        unavailableCoins = []
-        storedEntries = [:]
-        sourceOf = [:]
-        failedOf = [:]
-        binanceOf = [:]
-        mixedCoins = []
-        try? FileManager.default.removeItem(at: storeURL)
-        lock.unlock()
+        state.withLock { s in
+            s.clearGeneration += 1
+            s.cache = [:]
+            s.uncheckedCoins = []
+            s.unverifiedCoins = []
+            // Auch «Kurs nicht verfügbar» (wie Android) — nennt gehaltene Coins
+            s.unavailableCoins = []
+            s.storedEntries = [:]
+            s.sourceOf = [:]
+            s.failedOf = [:]
+            s.binanceOf = [:]
+            s.mixedCoins = []
+            try? FileManager.default.removeItem(at: storeURL)
+        }
         PortfolioExchangeRouteStore.clear()
     }
 
     /// Gemerkter Stand (einmal je Prozess aus der Datei gelesen).
     static func loadStored() -> [String: StoredPrice] {
-        lock.lock()
-        let known = storedEntries
-        lock.unlock()
-        if let known { return known }
+        if let known = state.withLock({ $0.storedEntries }) { return known }
         let text = try? String(contentsOf: storeURL, encoding: .utf8)
         let usable = PortfolioPriceFallback.prune(PortfolioPriceFallback.decode(text), now: EpochTime.nowMillis)
-        lock.lock(); defer { lock.unlock() }
-        if let raced = storedEntries { return raced }
-        storedEntries = usable
-        return usable
+        return state.withLock { s in
+            if let raced = s.storedEntries { return raced }
+            s.storedEntries = usable
+            return usable
+        }
     }
 
     /// Nach jedem erfolgreichen Abruf (innerhalb von `priceGate`, also nacheinander): gemerkter Stand und
     /// Zwischenspeicher (je Coin der neuere) schreiben, danach aus dem Backup nehmen (das atomare
-    /// Schreiben verliert das Merkmal). Unter `lock` (kleine Datei), damit `clearStored` sie nicht dazwischen löscht;
+    /// Schreiben verliert das Merkmal). Unter `state` (kleine Datei), damit `clearStored` sie nicht dazwischen löscht;
     /// nicht mehr, wenn seit Beginn der Abfrage (`generation`) geleert wurde.
     static func persist(generation: Int) {
         let stored = loadStored()
-        lock.lock(); defer { lock.unlock() }
-        guard clearGeneration.withLock({ $0 }) == generation else { return }
-        let entries = PortfolioPriceFallback.prune(
-            PortfolioPriceFallback.merge(current: currentEntriesLocked(), stored: storedEntries ?? stored),
-            now: EpochTime.nowMillis
-        )
-        storedEntries = entries
-        guard let data = PortfolioPriceFallback.encode(entries).data(using: .utf8),
-              (try? data.write(to: storeURL, options: [.atomic])) != nil
-        else { return }
-        BackupExclusion.set(excluded: true, for: storeURL)
-    }
-
-    /// Zwischenspeicher als gemerkte Kurse; nur mit gehaltenem `lock` aufrufen.
-    static func currentEntriesLocked() -> [String: StoredPrice] {
-        var out: [String: StoredPrice] = [:]
-        // «Kurs ungeprüft» wird mitgemerkt (`StoredPrice.unverified`)
-        for (coin, entry) in cache {
-            out[coin] = StoredPrice(price: entry.price, at: entry.at, unverified: unverifiedCoins.contains(coin))
+        state.withLock { s in
+            guard s.clearGeneration == generation else { return }
+            let entries = PortfolioPriceFallback.prune(
+                PortfolioPriceFallback.merge(current: s.currentEntries(), stored: s.storedEntries ?? stored),
+                now: EpochTime.nowMillis
+            )
+            s.storedEntries = entries
+            guard let data = PortfolioPriceFallback.encode(entries).data(using: .utf8),
+                  (try? data.write(to: storeURL, options: [.atomic])) != nil
+            else { return }
+            BackupExclusion.set(excluded: true, for: storeURL)
         }
-        return out
     }
 }

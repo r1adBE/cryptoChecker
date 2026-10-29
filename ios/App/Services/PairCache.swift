@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 /// Gespeicherte Paarliste einer Börse samt Zeitpunkt des letzten Abgleichs (Gegenstück zu
 /// `ExchangePairsInfo.kt`). Für die Auswahl im Explorer braucht es Coins, Gegenwährungen, Kontrakte
@@ -128,20 +129,21 @@ private struct PairLookup: Sendable {
 }
 
 /// Baut die Tabellen einer Liste beim ersten Lesen und hält sie fest; gesperrt für parallele Zugriffe.
-private final class PairLookupHolder: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `guardLock` (NSLock)
+private final class PairLookupHolder: Sendable {
     private let source: [ExchangePair]
-    private let guardLock = NSLock()
-    private var ready: PairLookup?
+    private let ready = OSAllocatedUnfairLock<PairLookup?>(initialState: nil)
 
     init(_ source: [ExchangePair]) {
         self.source = source
     }
 
     var tables: PairLookup {
-        guardLock.lock()
-        defer { guardLock.unlock() }
-        if ready == nil { ready = PairLookup(source) }
-        return ready!
+        ready.withLock { ready in
+            if let built = ready { return built }
+            let built = PairLookup(source)
+            ready = built
+            return built
+        }
     }
 }
 

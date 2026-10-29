@@ -4,7 +4,7 @@
 Marke erreicht ist – ohne Konto.** Dazu Marktüberblick und als Zusatz «Was bewegt sich mit?» (was sich gleichzeitig
 bewegt – keine Ursache) – ohne Prognosen, keine Anlageberatung.
 
-Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 168 – die Build-Nummer steigt mit jedem Stand um eins).
+Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 169 – die Build-Nummer steigt mit jedem Stand um eins).
 Mindestens iOS 17. Die App enthält eine Widget-Erweiterung (WidgetKit) und eine Apple-Watch-App (watchOS 10, `Watch/`,
 Komplikation in `WatchWidgets/`, gemeinsame Listenwahl in `WatchCore/`).
 
@@ -124,9 +124,8 @@ Fehler, nicht mehr Warnungen; dazu prüft Swift 6 die Isolation auch zur Laufzei
 
 Regeln für neuen Code:
 
-- Kein neues `nonisolated(unsafe)` ohne Sperre. Globale Einstellungen und Merker gehören in
-  `LockedBox` (`Shared/Util/Theme.swift`), nicht in ein nacktes `static var`. Jede verbleibende Stelle trägt
-  einen Kommentar, welche Sperre sie schützt.
+- Kein `nonisolated(unsafe)` (Obergrenze 0). Globale Einstellungen und Merker gehören in
+  `LockedBox` (`Shared/Util/Theme.swift`) oder ein `OSAllocatedUnfairLock`, nicht in ein nacktes `static var`.
 - Jedes `@unchecked Sendable` trägt auf derselben Zeile einen Kommentar, welche Sperre den Zustand schützt (auch in
   den Tests).
 - Kein `@MainActor` nachträglich auf Typen, die aus Hintergrund-Aufgaben, Widgets oder UIKit-Farb-Closures
@@ -143,9 +142,10 @@ Regeln für neuen Code:
 
 Die CI (Workflow «iOS», `.github/workflows/ios.yml`) baut die App im Swift-6-Modus und führt Unit- und UI-Tests bei
 jedem Pull Request und jedem Push auf `main`, der die iOS-App betrifft, aus; Isolationsfehler zur Laufzeit fallen dort auf. Die
-`@unchecked Sendable`-Stellen (Obergrenze in `swift_escape_hatches.py`, derzeit 103 – davon die meisten die
-Börsen-Adapter ohne veränderlichen Zustand) sind kommentiert bzw. mit einer Sperre geschützt – das kann der Compiler
-nicht nachprüfen; ein späterer Ersatz ist `OSAllocatedUnfairLock` oder `Mutex` (ab iOS 18).
+`@unchecked Sendable`-Stellen (Obergrenze in `swift_escape_hatches.py`, derzeit 76 – davon 67 die Börsen-Adapter ohne
+veränderlichen Zustand, die übrigen 9 mit Grund in `DEVELOPMENT.md` «Known warnings») sind kommentiert bzw. mit einer
+Sperre geschützt – das kann der Compiler nicht nachprüfen. Die übrigen Sperr-Boxen halten ihren Zustand in
+`OSAllocatedUnfairLock<State>` und sind geprüft `Sendable`.
 
 ## Falls sich das Projekt nicht öffnen lässt
 

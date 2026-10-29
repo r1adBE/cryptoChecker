@@ -827,9 +827,11 @@ shrinks, raise it only deliberately with the reason in the same pull request).
   split (use case, helper, state holder) instead of growing.
 * *Swift escape hatches* (`ios.yml`, job «iOS release build», first step, `.github/scripts/swift_escape_hatches.py`):
   `@unchecked Sendable`, `nonisolated(unsafe)` and `DispatchSemaphore` in `ios/App`, `ios/Shared`, `ios/Widgets`,
-  `ios/Watch`, `ios/WatchCore` and `ios/WatchWidgets` (not `ios/Tests`) against `CEILINGS`; above is red, below is a notice to lower it. Shared mutable state goes into
-  `OSAllocatedUnfairLock<State>` (module `os`, `withLock { state in … }`, the state type `Sendable`) or an actor
-  instead of `NSLock` + `nonisolated(unsafe)` / `@unchecked Sendable`.
+  `ios/Watch`, `ios/WatchCore` and `ios/WatchWidgets` (not `ios/Tests`) against `CEILINGS` (`@unchecked Sendable` 76,
+  `nonisolated(unsafe)` 0, `DispatchSemaphore` 0); above is red, below is a notice to lower it. Shared mutable state
+  goes into `OSAllocatedUnfairLock<State>` (module `os`, `withLock { state in … }`, the state type `Sendable`) or an
+  actor instead of `NSLock` + `nonisolated(unsafe)` / `@unchecked Sendable`; a non-`Sendable` formatter is created per
+  call.
 
 **Coverage (logic gate).** Both platforms report line coverage of the unit tests as ONE notice on the run page, each
 with two numbers: *total* (every measured source file) and *logic* – the share that tests are expected to cover. The
@@ -1605,7 +1607,8 @@ the tests named here.
   alarm checks (`mayRecord`). The file names the held coins: never put it into the app backup file or a
   system backup, and delete it with «Clear portfolio» (`clearStored`). A price fetch that started before the clear
   must not bring them back: `clearGeneration` is bumped under the store lock, a fetch keeps its prices and writes the
-  file only if the generation is unchanged (iOS writes the file under `lock`).
+  file only if the generation is unchanged (iOS: `clearGeneration` is part of `CacheState`, the file is written
+  inside `state.withLock`).
 * **Status pill for Market and Portfolio.** Both tabs use the shared `DataStatusPill` (Android
   `ui/components/DataStatusPill.kt`, iOS `App/Components/DataStatusPill.swift`) with the watchlist's tones:
   green up to date, grey offline/loading, red outdated («Prices outdated · as of HH:MM», «Offline · as of
@@ -2945,6 +2948,14 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   without «-0.00» in an LTR isolate (`PortfolioFormat.signedMoney`, `WatchFormat`/`WatchPercent`, fixtures
   `signed_amount.json`, `percent_text.json`), widget text size capped (`WidgetTextSize`), portfolio alarm with app lock
   only `notification_portfolio_alarm_locked`; `LoadErrorScreen` removed (the exchange list is fixed and cannot fail).
+* Build 169: iOS lock boxes moved to `final class …: Sendable` with `OSAllocatedUnfairLock<State>` (module `os`):
+  `PortfolioPriceSource.CacheState` (cache, hints, stored prices and the clear counter `clearGeneration` behind one
+  `state` lock; the price file is written inside it), `LiveClock` (last message, subscription time, first price),
+  `NetworkStatus` (`@Sendable` observers), `StorageKey`, `TokenIdentityStore`, `SheetChartStore`, `AlarmLease`,
+  `AlarmCheckStatus`, `PriceRunGate`, `FirstResult<T: Sendable>`, `BulkDelistedMemory`, `MirrorRevocations`, logo boxes
+  and others. `nonisolated(unsafe)` 13 → 0, `@unchecked Sendable` 96 → 76 (`CEILINGS` 76/0/0). Logo memory cache is a
+  `BoundedCache` of 300 images instead of `NSCache` (not emptied under memory pressure); `RelativeDateTimeFormatter`
+  created per call, so relative times follow a language change at once.
   iOS `PortfolioDecimal` exact ops no longer fall back to Decimal `*` below 1e-128 (8-bit exponent overflow in
   Foundation), with a fast path (`plainProduct`).
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
@@ -3537,10 +3548,14 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
 
 Warnings that are not fixed, each with the reason. Everything else is fixed; CI keeps compiler warnings at 0.
 
-* **Swift `@unchecked Sendable` (96, counted against a ceiling, not compiler warnings).** 66 belong to the exchange
-  adapters: `Exchange` is a class hierarchy without mutable state, and Swift cannot check a non-final class – removing
-  them needs a protocol-based adapter design. About 25 guard state with `NSLock` where the state or a closure run under
-  the lock is not `Sendable` (e.g. `NWPathMonitor` observers, generic `write<T>(_ body:)`, user callbacks under the
-  lock); moving them to `OSAllocatedUnfairLock` would need `withLockUnchecked`, the same trust in a different
-  spelling. The rest are Apple delegate classes (WatchConnectivity, BGTask) whose callbacks arrive on arbitrary
-  threads, and two value boxes holding non-`Sendable` system objects.
+* **Swift `@unchecked Sendable` (76, counted against a ceiling, not compiler warnings; `nonisolated(unsafe)` 0).** 67
+  belong to the exchange adapters: `Exchange` is a class hierarchy without mutable state, and Swift cannot check a
+  non-final class – removing them needs a protocol-based adapter design. The other 9, each with the reason:
+  `LockedBox` (generic, caller closures run under the lock; checked needs `Value: Sendable` and `@Sendable` closures
+  at every call site), `PortfolioWriteOrder` and `OrderedSerialRunner` (generic `write`/`run` bodies, not `Sendable`,
+  run under the lock), `BackgroundDemandGate` (the action under the lock writes a local of the caller),
+  `MoveHistoryCore` (storage protocol, not `Sendable`, called under the lock), `AlarmDelivery` (holds `UserDefaults`,
+  which is not `Sendable`), `PortfolioPartStore` (append-only arrays read without the lock), `BackgroundTaskCompletion`
+  (holds the `BGTask`) and `NotificationCompletion` (completion handler of the SDK, not `@Sendable`). Moving the
+  lock-based ones to `OSAllocatedUnfairLock` would need `withLockUnchecked`, the same trust in a different spelling.
+  All other lock boxes keep their state in `OSAllocatedUnfairLock<State>` and are checked `Sendable`.

@@ -1,3 +1,4 @@
+import os
 import XCTest
 @testable import CryptoChecker
 
@@ -278,28 +279,25 @@ final class PortfolioOpenLotItemTests: XCTestCase {
 final class PortfolioPriceSourceClearTests: XCTestCase {
 
     override func tearDown() {
-        PortfolioPriceSource.lock.lock()
-        PortfolioPriceSource.unavailableCoins = []
-        PortfolioPriceSource.uncheckedCoins = []
-        PortfolioPriceSource.lock.unlock()
+        PortfolioPriceSource.state.withLock { s in
+            s.unavailableCoins = []
+            s.uncheckedCoins = []
+        }
         super.tearDown()
     }
 
     func testClearStoredForgetsUnavailableCoins() {
-        PortfolioPriceSource.lock.lock()
-        PortfolioPriceSource.unavailableCoins = ["ZZTESTA", "ZZTESTB"]
-        PortfolioPriceSource.uncheckedCoins = ["ZZTESTC"]
-        PortfolioPriceSource.lock.unlock()
+        PortfolioPriceSource.state.withLock { s in
+            s.unavailableCoins = ["ZZTESTA", "ZZTESTB"]
+            s.uncheckedCoins = ["ZZTESTC"]
+        }
         // Gegenprobe: vor dem Leeren gesetzt (gelesen unter der Sperre wie jeder Zugriff)
-        let before = PortfolioPriceSource.lock.withLock { PortfolioPriceSource.unavailableCoins }
+        let before = PortfolioPriceSource.state.withLock { $0.unavailableCoins }
         XCTAssertEqual(before, ["ZZTESTA", "ZZTESTB"])
 
         PortfolioPriceSource.clearStored()
 
-        PortfolioPriceSource.lock.lock()
-        let unavailable = PortfolioPriceSource.unavailableCoins
-        let unchecked = PortfolioPriceSource.uncheckedCoins
-        PortfolioPriceSource.lock.unlock()
+        let (unavailable, unchecked) = PortfolioPriceSource.state.withLock { ($0.unavailableCoins, $0.uncheckedCoins) }
         XCTAssertTrue(unavailable.isEmpty, "unavailableCoins nach clearStored: \(unavailable)")
         XCTAssertTrue(unchecked.isEmpty, "uncheckedCoins nach clearStored: \(unchecked)")
     }

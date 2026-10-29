@@ -1,5 +1,6 @@
 import Combine
 import Foundation
+import os
 import UIKit
 
 // Logos anzeigen (Teil von `CoinLogoStore`): aus Speicher, Datei oder mitgeliefertem Icon-Paket — nie Netz, auch
@@ -14,9 +15,10 @@ extension CoinLogoStore {
     /// Sofort aus dem Speicher; nil = noch nicht geladen (mitgeliefertes Icon, falls nur das da ist).
     static func cached(_ symbol: String) -> UIImage? {
         guard let name = CoinLogos.fileName(symbol) else { return nil }
-        if let image = memory.object(forKey: name as NSString) { return image }
+        if let image = memory.withLock({ $0.get(name) }) { return image }
         guard let icon = CoinLogos.bundledIconName(symbol) else { return nil }
-        return memory.object(forKey: (bundledMemoryPrefix + icon) as NSString)
+        let key = bundledMemoryPrefix + icon
+        return memory.withLock { $0.get(key) }
     }
 
     /// Aus Speicher oder Datei. Vorrang hat das geladene Logo der Listen (CoinGecko, Binance, Alpha),
@@ -29,9 +31,9 @@ extension CoinLogoStore {
 
     /// Bild aus Datei in den Speicher (`key`).
     private static func readImage(_ url: URL, key: String) -> UIImage? {
-        if let image = memory.object(forKey: key as NSString) { return image }
+        if let image = memory.withLock({ $0.get(key) }) { return image }
         guard let data = try? Data(contentsOf: url), let image = UIImage(data: data) else { return nil }
-        memory.setObject(image, forKey: key as NSString)
+        memory.withLock { $0.set(key, image) }
         return image
     }
 
@@ -49,12 +51,12 @@ extension CoinLogoStore {
     static func bundled(_ symbol: String) -> UIImage? {
         guard let name = CoinLogos.bundledIconName(symbol) else { return nil }
         let key = bundledMemoryPrefix + name
-        if let image = memory.object(forKey: key as NSString) { return image }
+        if let image = memory.withLock({ $0.get(key) }) { return image }
         guard let pack = iconPack, let slice = pack.index[name] else { return nil }
         let start = pack.bytes.startIndex + slice.offset
         let data = pack.bytes.subdata(in: start..<(start + slice.length))
         guard let image = UIImage(data: data) else { return nil }
-        memory.setObject(image, forKey: key as NSString)
+        memory.withLock { $0.set(key, image) }
         return image
     }
 

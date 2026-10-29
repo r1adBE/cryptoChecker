@@ -18,7 +18,7 @@ import os
 /// Ablauf (siehe `PriceRefresher.refresh`): Kurse holen → Lease nehmen → Alarme frisch von
 /// der Platte lesen und auswerten → Aufrufer speichert die Kurse → `Outcome.deliverAlarms` meldet,
 /// speichert je bestätigter Mitteilung den Alarm und gibt die Lease frei.
-final class AlarmLease: @unchecked Sendable { // @unchecked: `held` nur unter `lock` (NSLock); `takenOver` nur vor der Herausgabe in `tryAcquire` gesetzt
+final class AlarmLease: Sendable {
     /// Älter als das → verwaist (Auswertung in Millisekunden, Melden je Alarm höchstens rund 1 s).
     static let staleAfterSeconds: TimeInterval = 30
 
@@ -37,18 +37,18 @@ final class AlarmLease: @unchecked Sendable { // @unchecked: `held` nur unter `l
 
     private let url: URL
     private let token: String
-    private let lock = NSLock()
-    private var held = true
+    private let held: OSAllocatedUnfairLock<Bool>
     /// Ohne Datei (Container nicht beschreibbar): Auswertung ohne Lease — gilt nie als verloren.
     private let failOpen: Bool
-    /// Als verwaist übernommen: vor dem Gebrauch nachprüfen (`acquire`).
-    private(set) var takenOver = false
+    /// Als verwaist übernommen: vor dem Gebrauch nachprüfen (`acquire`). Nie bei Fail-open.
+    let takenOver: Bool
 
-    private init(url: URL, token: String, held: Bool = true) {
+    private init(url: URL, token: String, held: Bool = true, takenOver: Bool = false) {
         self.url = url
         self.token = token
-        self.held = held
+        self.held = OSAllocatedUnfairLock(initialState: held)
         self.failOpen = !held
+        self.takenOver = takenOver && held
     }
 
     deinit { release() }
@@ -68,8 +68,7 @@ final class AlarmLease: @unchecked Sendable { // @unchecked: `held` nur unter `l
         // Inzwischen von einem anderen Prozess übernommen (anderer Inhalt)? Dann nicht dessen Lease löschen
         guard (try? String(contentsOf: url, encoding: .utf8)) == staleToken else { return nil }
         _ = Darwin.unlink(url.path)
-        guard let lease = create(url: url, token: token) else { return nil }
-        lease.takenOver = !lease.failOpen
+        guard let lease = create(url: url, token: token, takenOver: true) else { return nil }
         AppLog.lease.notice("Verwaiste Lease übernommen")
         return lease
     }
@@ -110,18 +109,18 @@ final class AlarmLease: @unchecked Sendable { // @unchecked: `held` nur unter `l
         }
     }
 
-    private static func create(url: URL, token: String) -> AlarmLease? {
+    private static func create(url: URL, token: String, takenOver: Bool = false) -> AlarmLease? {
         let fd = Darwin.open(url.path, O_CREAT | O_EXCL | O_WRONLY, 0o644)
         guard fd >= 0 else {
             // Nur «gibt es schon» heisst: ein anderer Prozess wertet aus. Jeder andere Fehler
             // (Container nicht beschreibbar o. Ä.) darf die Alarme nicht dauerhaft abschalten:
             // dann ohne Lease auswerten.
-            return errno == EEXIST ? nil : AlarmLease(url: url, token: token, held: false)
+            return errno == EEXIST ? nil : AlarmLease(url: url, token: token, held: false, takenOver: takenOver)
         }
         let bytes = Array(token.utf8)
         _ = bytes.withUnsafeBytes { buffer in Darwin.write(fd, buffer.baseAddress, buffer.count) }
         _ = Darwin.close(fd)
-        return AlarmLease(url: url, token: token)
+        return AlarmLease(url: url, token: token, takenOver: takenOver)
     }
 
     /// Lease auffrischen (Änderungsdatum der Datei = jetzt), z. B. vor jedem gemeldeten Alarm: Das
@@ -132,15 +131,10 @@ final class AlarmLease: @unchecked Sendable { // @unchecked: `held` nur unter `l
     @discardableResult
     func refresh() -> Bool {
         if failOpen { return true }
-        lock.lock()
-        let isHeld = held
-        lock.unlock()
-        guard isHeld else { return false }
+        guard held.withLock({ $0 }) else { return false }
         guard let content = try? String(contentsOf: url, encoding: .utf8), content == token else {
             // Verloren: nicht mehr als gehalten führen (`release` löscht ohnehin nur die eigene Datei)
-            lock.lock()
-            held = false
-            lock.unlock()
+            held.withLock { $0 = false }
             return false
         }
         _ = Darwin.utimes(url.path, nil)
@@ -150,10 +144,10 @@ final class AlarmLease: @unchecked Sendable { // @unchecked: `held` nur unter `l
     /// Freigeben (mehrfach aufrufbar). Löscht nur die eigene Lease — wurde sie als verwaist
     /// übernommen, gehört die Datei inzwischen einem anderen Prozess.
     func release() {
-        lock.lock()
-        let wasHeld = held
-        held = false
-        lock.unlock()
+        let wasHeld = held.withLock { held -> Bool in
+            defer { held = false }
+            return held
+        }
         guard wasHeld else { return }
         if let content = try? String(contentsOf: url, encoding: .utf8), content == token {
             _ = Darwin.unlink(url.path)

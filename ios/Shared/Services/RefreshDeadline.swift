@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 /// Feste Endzeit eines Durchlaufs (Hintergrund-Aktualisierung: iOS gibt rund 30 s). Wird an alle
 /// Schritte weitergereicht — Kurse, Tages-Bezüge, Alarm-Daten, Lease, Nebenprüfungen —, damit keiner
@@ -99,36 +100,36 @@ enum AlarmDataStage: CaseIterable, Hashable, Sendable {
 }
 
 /// Erstes Ergebnis gewinnt (Ende der Arbeit, Zeitgrenze oder Abbruch); setzt die Fortsetzung genau einmal fort.
-final class FirstResult<T>: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
-    private let lock = NSLock()
-    private var continuation: CheckedContinuation<Void, Never>?
-    private var done = false
-    private var stored: T?
+final class FirstResult<T: Sendable>: Sendable {
+    private struct State: Sendable {
+        var continuation: CheckedContinuation<Void, Never>?
+        var done = false
+        var stored: T?
+    }
+
+    private let state = OSAllocatedUnfairLock(initialState: State())
 
     var value: T? {
-        lock.lock(); defer { lock.unlock() }
-        return stored
+        state.withLock { $0.stored }
     }
 
     func set(_ continuation: CheckedContinuation<Void, Never>) {
-        lock.lock()
-        if done {
-            lock.unlock()
-            continuation.resume()
-            return
+        let resumeNow = state.withLock { s -> Bool in
+            if s.done { return true }
+            s.continuation = continuation
+            return false
         }
-        self.continuation = continuation
-        lock.unlock()
+        if resumeNow { continuation.resume() }
     }
 
     func finish(_ value: T?) {
-        lock.lock()
-        guard !done else { lock.unlock(); return }
-        done = true
-        stored = value
-        let pending = continuation
-        continuation = nil
-        lock.unlock()
+        let pending = state.withLock { s -> CheckedContinuation<Void, Never>? in
+            guard !s.done else { return nil }
+            s.done = true
+            s.stored = value
+            defer { s.continuation = nil }
+            return s.continuation
+        }
         pending?.resume()
     }
 }

@@ -1,11 +1,12 @@
 import Combine
 import Foundation
+import os
 
 /// Alarme, die bei der Prüfung ausgelassen werden mussten (kein Devisenkurs für die Alarmwährung,
 /// keine Kerzen für «Nahe am Hoch/Tief» bzw. den Volumen-Spike): «nicht geprüft seit …» je Alarm-Id —
 /// wie `AlarmCheckStatus.kt`. Bewusst nur im Speicher dieses Prozesses (nur dieses Gerät, nicht in der
 /// Sicherung, nicht im Snapshot); prüft das Widget, sieht die App das nicht. Nach einem Neustart leer.
-final class AlarmCheckStatus: ObservableObject, @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
+final class AlarmCheckStatus: ObservableObject, Sendable {
     static let shared = AlarmCheckStatus()
 
     enum Reason: Equatable, Sendable {
@@ -23,48 +24,46 @@ final class AlarmCheckStatus: ObservableObject, @unchecked Sendable { // @unchec
         var since: Int64
     }
 
-    private let lock = NSLock()
-    private var map: [Int64: Unchecked] = [:]
+    private struct State: Sendable {
+        var map: [Int64: Unchecked] = [:]
+        /// Benachrichtigung der Ansicht schon unterwegs: viele Änderungen in einem Durchlauf ergeben eine.
+        var notifyPending = false
+    }
+
+    private let state = OSAllocatedUnfairLock(initialState: State())
 
     /// Nicht geprüft? nil = zuletzt geprüft (oder noch nie ausgelassen).
     func unchecked(_ alarmId: Int64) -> Unchecked? {
-        lock.lock(); defer { lock.unlock() }
-        return map[alarmId]
+        state.withLock { $0.map[alarmId] }
     }
 
-    /// Benachrichtigung der Ansicht schon unterwegs (unter `lock`): viele Änderungen in einem Durchlauf ergeben eine.
-    private var notifyPending = false
-
     func markUnchecked(_ alarmId: Int64, reason: Reason, now: Int64) {
-        lock.lock()
-        let old = map[alarmId]
-        let next = Unchecked(reason: reason, since: old?.since ?? now)
-        let changed = old != next
-        if changed { map[alarmId] = next }
-        lock.unlock()
+        let changed = state.withLock { s -> Bool in
+            let old = s.map[alarmId]
+            let next = Unchecked(reason: reason, since: old?.since ?? now)
+            let changed = old != next
+            if changed { s.map[alarmId] = next }
+            return changed
+        }
         if changed { notify() }
     }
 
     func markChecked(_ alarmId: Int64) {
-        lock.lock()
-        let changed = map.removeValue(forKey: alarmId) != nil
-        lock.unlock()
+        let changed = state.withLock { $0.map.removeValue(forKey: alarmId) != nil }
         if changed { notify() }
     }
 
     /// Nur einzelne Einträge ändern (keine Kopie und kein Vergleich der ganzen Karte je Alarm – bei 2000 Paaren
     /// sonst Alarme × Einträge je Prüfung); die Ansicht (Alarmliste) auf dem Main-Thread einmal benachrichtigen.
     private func notify() {
-        lock.lock()
-        let schedule = !notifyPending
-        notifyPending = true
-        lock.unlock()
+        let schedule = state.withLock { s -> Bool in
+            defer { s.notifyPending = true }
+            return !s.notifyPending
+        }
         guard schedule else { return }
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            self.lock.lock()
-            self.notifyPending = false
-            self.lock.unlock()
+            self.state.withLock { $0.notifyPending = false }
             self.objectWillChange.send()
         }
     }

@@ -4,7 +4,7 @@ import WatchConnectivity
 /// Abgleich der Wahl mit dem iPhone über WatchConnectivity (direkt zwischen iPhone und Uhr, kein Server):
 /// je Seite der Anwendungskontext `["json": WatchSettings]` — nur Coin-Kürzel und Wahl, keine Kurse oder Beträge.
 /// Gegenstück auf dem iPhone: `PhoneWatchLink`. Ohne gekoppeltes iPhone: nichts (die Uhr nutzt ihre eigene Liste).
-final class WatchLink: NSObject, WCSessionDelegate, @unchecked Sendable {
+final class WatchLink: NSObject, WCSessionDelegate, Sendable {
     static let shared = WatchLink()
     private static let key = "json"
 

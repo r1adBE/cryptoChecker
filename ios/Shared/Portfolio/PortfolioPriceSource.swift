@@ -34,31 +34,56 @@ enum PortfolioPriceSource {
     static let keyCoins = "portfolio_coin_list"
     static let keyCoinsAt = "portfolio_coin_list_at"
 
-    static let lock = NSLock()
-    // nonisolated(unsafe) (alle Zwischenspeicher hier und in den Erweiterungen): jeder Zugriff nur unter `lock`
-    // (NSLock); `…Locked`-Funktionen nur mit gehaltener Sperre aufrufen. Nicht privat nur für die Tests.
-    /// Coin → (Kurs, Abfragezeit).
-    nonisolated(unsafe) static var cache: [String: (price: Double, at: Int64)] = [:]
-    /// Coins ohne Kurs, weil nur ein ungeprüfter Kerzenkurs da war (kein Bezug vorhanden).
-    nonisolated(unsafe) static var uncheckedCoins: Set<String> = []
-    /// Coins mit Binance-Kurs, dessen Token nicht bestätigt ist (`PortfolioPrices.unverified`).
-    nonisolated(unsafe) static var unverifiedCoins: Set<String> = []
-    /// Coins ohne Kurs, weil die letzte Abfrage scheiterte (`PortfolioPriceIssue.unavailable`).
-    nonisolated(unsafe) static var unavailableCoins: Set<String> = []
+    /// Zwischenspeicher der Kurse (auch für die Erweiterungen) — alles hinter einer Sperre (`state`). Nicht privat nur
+    /// für die Tests.
+    struct CacheState: Sendable {
+        /// Coin → (Kurs, Abfragezeit).
+        var cache: [String: (price: Double, at: Int64)] = [:]
+        /// Coins ohne Kurs, weil nur ein ungeprüfter Kerzenkurs da war (kein Bezug vorhanden).
+        var uncheckedCoins: Set<String> = []
+        /// Coins mit Binance-Kurs, dessen Token nicht bestätigt ist (`PortfolioPrices.unverified`).
+        var unverifiedCoins: Set<String> = []
+        /// Coins ohne Kurs, weil die letzte Abfrage scheiterte (`PortfolioPriceIssue.unavailable`).
+        var unavailableCoins: Set<String> = []
+        var coinList: [String]?
+        /// Coin → Börse, deren Kurs im Zwischenspeicher steht; Coin → eingetragene Börse ohne Kurs; Binance-Bezug.
+        var sourceOf: [String: String] = [:]
+        var failedOf: [String: String] = [:]
+        var binanceOf: [String: Double] = [:]
+        var mixedCoins: Set<String> = []
+        /// Gemerkte Kurse (`PortfolioPriceSource+Store.swift`); nil = Datei noch nicht gelesen.
+        var storedEntries: [String: StoredPrice]?
+        /// Zähler von «Portfolio leeren» (`clearStored`): eine Abfrage, die davor begann, übernimmt ihre Kurse nicht mehr
+        /// und schreibt die Datei nicht neu (`persist`) — sonst kämen die gelöschten Coins zurück. Wie Android.
+        var clearGeneration = 0
+
+        /// Zwischenspeicher als gemerkte Kurse.
+        func currentEntries() -> [String: StoredPrice] {
+            var out: [String: StoredPrice] = [:]
+            // «Kurs ungeprüft» wird mitgemerkt (`StoredPrice.unverified`)
+            for (coin, entry) in cache {
+                out[coin] = StoredPrice(price: entry.price, at: entry.at, unverified: unverifiedCoins.contains(coin))
+            }
+            return out
+        }
+
+        /// Zusatzfelder (Börse, Hinweise) für die gefundenen Coins.
+        func decorate(_ p: inout PortfolioPrices, coins: [String]) {
+            for coin in coins where p.prices[coin] != nil {
+                if let s = sourceOf[coin] { p.sources[coin] = s }
+                if let f = failedOf[coin] { p.exchangeFailed[coin] = f }
+                if let b = binanceOf[coin] { p.binance[coin] = b }
+                if mixedCoins.contains(coin) { p.mixedExchange.insert(coin) }
+            }
+        }
+    }
+
+    static let state = OSAllocatedUnfairLock(initialState: CacheState())
     /// Quellen der Kerzen-Kette (`CandleDataSource`) — Binance, Binance.US, Coinbase.
     private static let candleHosts = ["data-api.binance.vision", "api.binance.com", "api.binance.us", "api.exchange.coinbase.com"]
-    nonisolated(unsafe) static var coinList: [String]?
-    /// Coin → Börse, deren Kurs im Zwischenspeicher steht; Coin → eingetragene Börse ohne Kurs; Binance-Bezug.
-    nonisolated(unsafe) static var sourceOf: [String: String] = [:]
-    nonisolated(unsafe) static var failedOf: [String: String] = [:]
-    nonisolated(unsafe) static var binanceOf: [String: Double] = [:]
-    nonisolated(unsafe) static var mixedCoins: Set<String> = []
 
     private static let priceGate = PortfolioSerialGate()
     static let coinGate = PortfolioSerialGate()
-    /// Zähler von «Portfolio leeren» (`clearStored`, unter `lock` erhöht): eine Abfrage, die davor begann, übernimmt ihre
-    /// Kurse nicht mehr und schreibt die Datei nicht neu (`persist`) — sonst kämen die gelöschten Coins zurück. Wie Android.
-    static let clearGeneration = OSAllocatedUnfairLock(initialState: 0)
     /// Höchstens so viele Kerzen-Abfragen zugleich für Coins ohne Binance-Kurs (wie `HistoricPriceSource.parallel`).
     private static let candleParallel = 4
 
@@ -78,7 +103,7 @@ enum PortfolioPriceSource {
     static func prices(_ coins: [String], force: Bool = false) async -> PortfolioPrices {
         let wanted = normalized(coins)
         await priceGate.run { () async -> Void in
-            let generation = Self.clearGeneration.withLock { $0 }
+            let generation = Self.state.withLock { $0.clearGeneration }
             let now = EpochTime.nowMillis
             // Dazu die Basis gekapselter Coins (Ersatzkurs, `ChainAssets.priceViaBase`); nur abfragbare Kürzel
             let toFetch = ChainAssets.withBases(wanted).filter { coin in
@@ -203,27 +228,17 @@ enum PortfolioPriceSource {
                 failed[coin] = route.exchangeName
             }
         }
-        lock.withLock {
+        state.withLock { [sources, failed, refs, mixed = stored.mixed] s in
             // Inzwischen geleert: die Herkunft gelöschter Coins nicht wieder eintragen
-            guard clearGeneration.withLock({ $0 }) == generation else { return }
+            guard s.clearGeneration == generation else { return }
             for coin in coins {
-                sourceOf[coin] = sources[coin]
-                failedOf[coin] = failed[coin]
-                binanceOf[coin] = refs[coin]
+                s.sourceOf[coin] = sources[coin]
+                s.failedOf[coin] = failed[coin]
+                s.binanceOf[coin] = refs[coin]
             }
-            mixedCoins = stored.mixed
+            s.mixedCoins = mixed
         }
         return fetched
-    }
-
-    /// Zusatzfelder (Börse, Hinweise) für die gefundenen Coins; nur mit gehaltenem `lock` aufrufen.
-    static func decorateLocked(_ p: inout PortfolioPrices, coins: [String]) {
-        for coin in coins where p.prices[coin] != nil {
-            if let s = sourceOf[coin] { p.sources[coin] = s }
-            if let f = failedOf[coin] { p.exchangeFailed[coin] = f }
-            if let b = binanceOf[coin] { p.binance[coin] = b }
-            if mixedCoins.contains(coin) { p.mixedExchange.insert(coin) }
-        }
     }
 
     // MARK: Letzter Stand auf dem Gerät
@@ -246,15 +261,15 @@ enum PortfolioPriceSource {
 
     /// Kurs im Zwischenspeicher (ohne Altersgrenze); nil = keiner.
     private static func cachedPrice(_ coin: String) -> Double? {
-        lock.lock(); defer { lock.unlock() }
-        return cache[coin]?.price
+        state.withLock { $0.cache[coin]?.price }
     }
 
     private static func isFresh(_ coin: String, now: Int64) -> Bool {
-        lock.lock(); defer { lock.unlock() }
-        guard let entry = cache[coin] else { return false }
-        let age = now - entry.at
-        return age >= 0 && age < priceTtlMillis
+        state.withLock { s in
+            guard let entry = s.cache[coin] else { return false }
+            let age = now - entry.at
+            return age >= 0 && age < priceTtlMillis
+        }
     }
 
     /// Neue Kurse in den Zwischenspeicher; `unchecked` (nur ungeprüfte Kerze, sonst kein Kurs): kein Wert,
@@ -265,28 +280,29 @@ enum PortfolioPriceSource {
     private static func store(_ fetched: [String: Double], at time: Int64, unchecked: Set<String>, rejected: Set<String>,
                               requested: [String] = [], unavailable: Set<String> = [], unverified: Set<String> = [],
                               generation: Int) -> Bool {
-        lock.lock(); defer { lock.unlock() }
-        guard clearGeneration.withLock({ $0 }) == generation else { return false }
-        for (coin, price) in fetched {
-            cache[coin] = (price: price, at: time)
-            uncheckedCoins.remove(coin)
-            unavailableCoins.remove(coin)
-            // Ungeprüft nur, solange der Kurs von Binance stammt (eine eingetragene Börse nennt ihren Token)
-            if unverified.contains(coin) && sourceOf[coin] == nil {
-                unverifiedCoins.insert(coin)
-            } else {
-                unverifiedCoins.remove(coin)
+        state.withLock { s in
+            guard s.clearGeneration == generation else { return false }
+            for (coin, price) in fetched {
+                s.cache[coin] = (price: price, at: time)
+                s.uncheckedCoins.remove(coin)
+                s.unavailableCoins.remove(coin)
+                // Ungeprüft nur, solange der Kurs von Binance stammt (eine eingetragene Börse nennt ihren Token)
+                if unverified.contains(coin) && s.sourceOf[coin] == nil {
+                    s.unverifiedCoins.insert(coin)
+                } else {
+                    s.unverifiedCoins.remove(coin)
+                }
             }
+            for coin in requested where fetched[coin] == nil {
+                if unavailable.contains(coin) { s.unavailableCoins.insert(coin) } else { s.unavailableCoins.remove(coin) }
+            }
+            for coin in rejected { s.uncheckedCoins.remove(coin) }
+            for coin in unchecked where fetched[coin] == nil {
+                s.cache[coin] = nil
+                s.uncheckedCoins.insert(coin)
+            }
+            return true
         }
-        for coin in requested where fetched[coin] == nil {
-            if unavailable.contains(coin) { unavailableCoins.insert(coin) } else { unavailableCoins.remove(coin) }
-        }
-        for coin in rejected { uncheckedCoins.remove(coin) }
-        for coin in unchecked where fetched[coin] == nil {
-            cache[coin] = nil
-            uncheckedCoins.insert(coin)
-        }
-        return true
     }
 
     /// Unabhängige Bezüge für Kerzenkurse (`PricePlausibility.candleReference`): Kurse aktiver
@@ -295,11 +311,12 @@ enum PortfolioPriceSource {
     /// ungeprüfte Kerzenkurse, dazu der gemerkte Stand). Coins ohne Bezug fehlen.
     private static func candleReferences(_ coins: [String]) -> [String: Double] {
         let stored = loadStored()
-        lock.lock()
-        var checked = currentEntriesLocked()
-        // Auch kein Binance-Kurs mit ungeprüftem Token als Bezug (`PortfolioPrices.unverified`)
-        for coin in uncheckedCoins.union(unverifiedCoins) { checked[coin] = nil }
-        lock.unlock()
+        let checked: [String: StoredPrice] = state.withLock { s in
+            var current = s.currentEntries()
+            // Auch kein Binance-Kurs mit ungeprüftem Token als Bezug (`PortfolioPrices.unverified`)
+            for coin in s.uncheckedCoins.union(s.unverifiedCoins) { current[coin] = nil }
+            return current
+        }
         // Ein gemerkter Kurs mit «Kurs ungeprüft» ist ebenso kein Bezug (`PortfolioPriceFallback.confirmed`)
         let merged = PortfolioPriceFallback.confirmed(PortfolioPriceFallback.merge(current: checked, stored: stored))
         let watches = SharedStorage.loadSnapshot().watches
@@ -327,32 +344,33 @@ enum PortfolioPriceSource {
     }
 
     private static func collect(_ coins: [String]) -> PortfolioPrices {
-        lock.lock(); defer { lock.unlock() }
-        var result: [String: Double] = [:]
-        var times: [String: Int64] = [:]
-        var oldest: Int64?
-        var unchecked = Set<String>()
-        var unavailable = Set<String>()
-        // Gekapselte Coins ohne eigenen Kurs: Kurs (und Zeit) der Basis, markiert (`PortfolioPrices.viaBase`)
-        let via = ChainAssets.priceViaBase(coins, available: Set(cache.keys))
-        for coin in coins {
-            guard let entry = cache[coin] ?? via[coin].flatMap({ cache[$0] }) else {
-                // Ungeprüft = ohne Kurs (zählt nicht als Geld); Abfrage gescheitert: «Kurs gerade nicht abrufbar»
-                if uncheckedCoins.contains(coin) { unchecked.insert(coin) }
-                else if unavailableCoins.contains(coin) { unavailable.insert(coin) }
-                continue
+        state.withLock { s in
+            var result: [String: Double] = [:]
+            var times: [String: Int64] = [:]
+            var oldest: Int64?
+            var unchecked = Set<String>()
+            var unavailable = Set<String>()
+            // Gekapselte Coins ohne eigenen Kurs: Kurs (und Zeit) der Basis, markiert (`PortfolioPrices.viaBase`)
+            let via = ChainAssets.priceViaBase(coins, available: Set(s.cache.keys))
+            for coin in coins {
+                guard let entry = s.cache[coin] ?? via[coin].flatMap({ s.cache[$0] }) else {
+                    // Ungeprüft = ohne Kurs (zählt nicht als Geld); Abfrage gescheitert: «Kurs gerade nicht abrufbar»
+                    if s.uncheckedCoins.contains(coin) { unchecked.insert(coin) }
+                    else if s.unavailableCoins.contains(coin) { unavailable.insert(coin) }
+                    continue
+                }
+                result[coin] = entry.price
+                times[coin] = entry.at
+                oldest = min(oldest ?? entry.at, entry.at)
             }
-            result[coin] = entry.price
-            times[coin] = entry.at
-            oldest = min(oldest ?? entry.at, entry.at)
+            result[stable] = 1
+            var out = PortfolioPrices(prices: result, updatedAt: oldest ?? 0, unchecked: unchecked, times: times)
+            out.unavailable = unavailable
+            out.viaBase = via
+            s.decorate(&out, coins: coins)
+            // «Kurs ungeprüft»; gekapselte Coins über die Basis erben ihn (wie Android)
+            out.unverified = PortfolioPriceFallback.unverified(coins, entries: s.currentEntries(), via: via)
+            return out
         }
-        result[stable] = 1
-        var out = PortfolioPrices(prices: result, updatedAt: oldest ?? 0, unchecked: unchecked, times: times)
-        out.unavailable = unavailable
-        out.viaBase = via
-        decorateLocked(&out, coins: coins)
-        // «Kurs ungeprüft»; gekapselte Coins über die Basis erben ihn (wie Android)
-        out.unverified = PortfolioPriceFallback.unverified(coins, entries: currentEntriesLocked(), via: via)
-        return out
     }
 }

@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 /// Live-Kurse per WebSocket für die SICHTBARE Merkliste — wie `LivePriceStream.kt`.
 /// Nur solange die App aktiv ist (scenePhase), die Merkliste zu sehen ist, das Gerät online ist
@@ -353,47 +354,33 @@ actor LivePriceStream {
 
 /// Zeitpunkt der letzten Nachricht einer Verbindung, des Abonnierens und ob schon ein Kurs kam (threadsicher;
 /// Empfang und Wächter, `LiveRules.silentSubscription`).
-private final class LiveClock: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
-    private let lock = NSLock()
-    private var value = EpochTime.nowMillis
-    private var subscribed: Int64 = 0
-    private var gotPrice = false
-
-    var last: Int64 {
-        lock.lock()
-        defer { lock.unlock() }
-        return value
+private final class LiveClock: Sendable {
+    private struct State: Sendable {
+        var last = EpochTime.nowMillis
+        /// Zeit des Abonnierens; 0 = noch nicht abonniert.
+        var subscribedAt: Int64 = 0
+        var priced = false
     }
+
+    private let state = OSAllocatedUnfairLock(initialState: State())
+
+    var last: Int64 { state.withLock { $0.last } }
 
     /// Zeit des Abonnierens; 0 = noch nicht abonniert.
-    var subscribedAt: Int64 {
-        lock.lock()
-        defer { lock.unlock() }
-        return subscribed
-    }
+    var subscribedAt: Int64 { state.withLock { $0.subscribedAt } }
 
     /// Mindestens ein Kurs für ein sichtbares Paar seit dem Verbinden.
-    var priced: Bool {
-        lock.lock()
-        defer { lock.unlock() }
-        return gotPrice
-    }
+    var priced: Bool { state.withLock { $0.priced } }
 
     func touch() {
-        lock.lock()
-        value = EpochTime.nowMillis
-        lock.unlock()
+        state.withLock { $0.last = EpochTime.nowMillis }
     }
 
     func markSubscribed() {
-        lock.lock()
-        subscribed = EpochTime.nowMillis
-        lock.unlock()
+        state.withLock { $0.subscribedAt = EpochTime.nowMillis }
     }
 
     func markPriced() {
-        lock.lock()
-        gotPrice = true
-        lock.unlock()
+        state.withLock { $0.priced = true }
     }
 }

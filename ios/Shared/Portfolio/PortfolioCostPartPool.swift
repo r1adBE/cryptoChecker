@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 /// Herkunftsteile eines Durchschnitts-Einstands (`PortfolioCostPart`) mit anteiligen Abgängen in O(1): ein Abgang
 /// schreibt nicht jeden Teil neu, er merkt sich nur den verbleibenden Anteil (Rest ÷ Einstand davor). Der Wert eines
@@ -209,15 +210,14 @@ struct PortfolioCostPartList: RandomAccessCollection, ExpressibleByArrayLiteral,
 /// Abgegebene Teile eines `PortfolioCostPartPool.take`: die ersten `len` Teile von `store` nach `takes` Abgängen mit
 /// den Zugängen vor `seq`, davon der Anteil `removed` ÷ `total` (gleich: alle). Gerechnet beim ersten Auslesen, dann
 /// behalten.
-final class PortfolioScaledParts: @unchecked Sendable {
+final class PortfolioScaledParts: Sendable {
     let store: PortfolioPartStore
     let len: Int
     let takes: Int
     let seq: Int
     let removed: Decimal
     let total: Decimal
-    private let lock = NSLock()
-    private var cached: [PortfolioCostPart]?
+    private let cached = OSAllocatedUnfairLock<[PortfolioCostPart]?>(initialState: nil)
 
     init(store: PortfolioPartStore, len: Int, takes: Int, seq: Int, removed: Decimal, total: Decimal) {
         self.store = store
@@ -229,8 +229,8 @@ final class PortfolioScaledParts: @unchecked Sendable {
     }
 
     var items: [PortfolioCostPart] {
-        lock.withLock {
-            if let cached { return cached }
+        cached.withLock { cached in
+            if let known = cached { return known }
             let parts = store.read(len: len, takes: takes, seq: seq, removed: removed, total: total)
             cached = parts
             return parts

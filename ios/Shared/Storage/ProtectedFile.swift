@@ -1,5 +1,6 @@
 import CryptoKit
 import Foundation
+import os
 import Security
 
 // Verschlüsselte Dateien mit Nutzerdaten in der App Group (Android: SQLCipher-Datenbanken, ohne Überführung
@@ -121,10 +122,10 @@ struct SystemStorageKeychain: StorageKeychain {
 
 /// Der Schlüssel der verschlüsselten Dateien (256 Bit), je Prozess einmal gelesen. Anlegen nur durch die App beim Start
 /// (`ProtectedStorage.prepareAtLaunch`) — Widgets lesen nur.
-final class StorageKey: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
+final class StorageKey: Sendable {
     static let shared = StorageKey(keychain: SystemStorageKeychain())
 
-    enum Lookup {
+    enum Lookup: Sendable {
         case key(SymmetricKey)
         /// Keiner gespeichert.
         case absent
@@ -137,28 +138,31 @@ final class StorageKey: @unchecked Sendable { // @unchecked: veränderlicher Zus
     /// dem gelöschten Schlüssel, und die App könnte diese Dateien nie mehr öffnen.
     static let generationKey = "storage_key_generation"
 
-    /// Nur unter `lock` gelesen; ersetzt nur in Unit-Tests (`replaceKeychainForTesting`, Debug-Build).
-    private var keychain: StorageKeychain
+    /// Zustand hinter der Sperre; Schlüsselbund-Zugriffe laufen unter ihr.
+    private struct State: Sendable {
+        /// Ersetzt nur in Unit-Tests (`replaceKeychainForTesting`, Debug-Build).
+        var keychain: any StorageKeychain
+        /// Nur ein gefundener Schlüssel wird gemerkt: Legt die App ihn später an, findet ihn das Widget beim nächsten
+        /// Lesen.
+        var cached: SymmetricKey?
+        /// `generationKey` beim Merken von `cached`.
+        var cachedGeneration: String?
+    }
+
     private let readGeneration: @Sendable () -> String?
     private let writeGeneration: @Sendable (String) -> Void
-    private let lock = NSLock()
-    /// Nur ein gefundener Schlüssel wird gemerkt: Legt die App ihn später an, findet ihn das Widget beim nächsten Lesen.
-    private var cached: SymmetricKey?
-    /// `generationKey` beim Merken von `cached`.
-    private var cachedGeneration: String?
+    private let state: OSAllocatedUnfairLock<State>
 
     init(keychain: StorageKeychain,
          readGeneration: @escaping @Sendable () -> String? = { SharedStorage.defaults.string(forKey: StorageKey.generationKey) },
          writeGeneration: @escaping @Sendable (String) -> Void = { SharedStorage.defaults.set($0, forKey: StorageKey.generationKey) }) {
-        self.keychain = keychain
+        self.state = OSAllocatedUnfairLock(initialState: State(keychain: keychain))
         self.readGeneration = readGeneration
         self.writeGeneration = writeGeneration
     }
 
     func lookup() -> Lookup {
-        lock.lock()
-        defer { lock.unlock() }
-        return lookupLocked()
+        state.withLock { s in lookupLocked(&s) }
     }
 
     /// Gibt es einen lesbaren Schlüssel (zum Versiegeln)? Wie `ProtectedFile.write`: nur dann wird geschrieben.
@@ -169,26 +173,26 @@ final class StorageKey: @unchecked Sendable { // @unchecked: veränderlicher Zus
 
     /// Gespeicherter Schlüssel, sonst ein neuer. nil = keiner möglich (Schlüsselbund gerade nicht verfügbar).
     func createIfAbsent() -> SymmetricKey? {
-        lock.lock()
-        defer { lock.unlock() }
-        switch lookupLocked() {
-        case .key(let key): return key
-        case .unavailable: return nil
-        case .absent: break
-        }
-        let fresh = SymmetricKey(size: .bits256)
-        do {
-            if try keychain.add(fresh.withUnsafeBytes { Data($0) }) {
-                cached = fresh
-                cachedGeneration = readGeneration()
-                return fresh
+        state.withLock { s -> SymmetricKey? in
+            switch lookupLocked(&s) {
+            case .key(let key): return key
+            case .unavailable: return nil
+            case .absent: break
             }
-        } catch {
+            let fresh = SymmetricKey(size: .bits256)
+            do {
+                if try s.keychain.add(fresh.withUnsafeBytes { Data($0) }) {
+                    s.cached = fresh
+                    s.cachedGeneration = readGeneration()
+                    return fresh
+                }
+            } catch {
+                return nil
+            }
+            // Gleichzeitig von einem anderen Prozess angelegt: der gespeicherte gilt
+            if case .key(let stored) = lookupLocked(&s) { return stored }
             return nil
         }
-        // Gleichzeitig von einem anderen Prozess angelegt: der gespeicherte gilt
-        if case .key(let stored) = lookupLocked() { return stored }
-        return nil
     }
 
     /// «App zurücksetzen»: alten Schlüssel löschen und gleich einen neuen anlegen — unter derselben Sperre, damit kein
@@ -197,49 +201,50 @@ final class StorageKey: @unchecked Sendable { // @unchecked: veränderlicher Zus
     /// aufrufen. false = Schlüsselbund nicht verfügbar; dann bleibt der bisherige Schlüssel (nichts geht verloren).
     @discardableResult
     func renew() -> Bool {
-        lock.lock()
-        defer { lock.unlock() }
-        do {
-            try keychain.delete()
-        } catch {
-            return false
+        state.withLock { s -> Bool in
+            do {
+                try s.keychain.delete()
+            } catch {
+                return false
+            }
+            s.cached = nil
+            writeGeneration(UUID().uuidString)
+            let fresh = SymmetricKey(size: .bits256)
+            // Scheitert das Anlegen, legt `prepareAtLaunch` beim nächsten Start einen an (keine Dateien mehr da)
+            guard (try? s.keychain.add(fresh.withUnsafeBytes { Data($0) })) == true else { return true }
+            s.cached = fresh
+            s.cachedGeneration = readGeneration()
+            return true
         }
-        cached = nil
-        writeGeneration(UUID().uuidString)
-        let fresh = SymmetricKey(size: .bits256)
-        // Scheitert das Anlegen, legt `prepareAtLaunch` beim nächsten Start einen an (keine Dateien mehr da)
-        guard (try? keychain.add(fresh.withUnsafeBytes { Data($0) })) == true else { return true }
-        cached = fresh
-        cachedGeneration = readGeneration()
-        return true
     }
 
     #if DEBUG
     /// Nur Unit-Tests auf einem Host ohne Schlüsselbund-Berechtigung (unsignierter Simulator): Schlüsselbund ersetzen und
     /// den gemerkten Schlüssel vergessen. Fehlt im Release-Build.
     func replaceKeychainForTesting(_ replacement: StorageKeychain) {
-        lock.lock()
-        defer { lock.unlock() }
-        keychain = replacement
-        cached = nil
-        cachedGeneration = nil
+        state.withLock { s in
+            s.keychain = replacement
+            s.cached = nil
+            s.cachedGeneration = nil
+        }
     }
     #endif
 
-    private func lookupLocked() -> Lookup {
-        if let cached {
+    /// Nur mit gehaltener Sperre (aus `state.withLock`) aufrufen.
+    private func lookupLocked(_ s: inout State) -> Lookup {
+        if let cached = s.cached {
             let generation = readGeneration()
-            if generation == cachedGeneration { return .key(cached) }
+            if generation == s.cachedGeneration { return .key(cached) }
             // Anderswo zurückgesetzt: gemerkten Schlüssel verwerfen und neu lesen
-            self.cached = nil
+            s.cached = nil
         }
         do {
             let generation = readGeneration()
-            guard let data = try keychain.read() else { return .absent }
+            guard let data = try s.keychain.read() else { return .absent }
             guard data.count == 32 else { return .unavailable }
             let key = SymmetricKey(data: data)
-            cached = key
-            cachedGeneration = generation
+            s.cached = key
+            s.cachedGeneration = generation
             return .key(key)
         } catch {
             return .unavailable

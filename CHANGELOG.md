@@ -16,6 +16,12 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 169)
+
+* iPhone and Apple Watch: shared state of the app, widgets and watch app sits behind locks the compiler checks; no unchecked global state is left (0 `nonisolated(unsafe)`).
+* Logos: the in-memory logo cache keeps at most 300 images and drops the least recently used one; iOS no longer empties it under memory pressure.
+* Relative times («2 min ago») follow a language change in the app at once.
+
 ## 16.2.2 (build 168)
 
 * Watchlist and live prices: an expired dated futures contract is marked «no longer traded» even with only one or two pairs of that exchange; «1Q», «2Q» … follow the date in the contract, so after the quarter roll «2Q» shows «1Q»; «Live» is shown per pair and only while that pair receives data; a live subscription silent for 3 minutes reconnects; after editing a pair its old price is no longer shown.

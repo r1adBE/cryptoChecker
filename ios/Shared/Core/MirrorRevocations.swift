@@ -1,11 +1,12 @@
 import Foundation
+import os
 
 /// Dauerhaft gesperrte Schlüssel des Daten-Spiegels (Schlüssel-Ids, `MirrorManifest.keyId`): Die Liste wächst nur —
 /// eine Sperre aus einem gültigen Manifest (`MirrorManifest.Verification.revoke`) gilt auch nach einem Neustart und
 /// ohne erneutes Manifest. Gespeichert eine Id je Zeile in `fileURL` (nil = nur im Speicher, z. B. in Tests); eine
 /// unlesbare Datei gilt als leer. App und Widgets teilen die Datei (App Group). Gleich wie Android
 /// `MirrorRevocations.kt`.
-final class MirrorRevocations: @unchecked Sendable {
+final class MirrorRevocations: Sendable {
     /// Dateiname im gemeinsamen Ordner (wie Android `FILE_NAME`).
     static let fileName = "mirror_revoked.txt"
 
@@ -13,8 +14,8 @@ final class MirrorRevocations: @unchecked Sendable {
     static let shared = MirrorRevocations(fileURL: SharedStorage.directory.appendingPathComponent(fileName))
 
     private let fileURL: URL?
-    private let lock = NSLock()
-    private var cache: Set<String>?
+    /// nil = Datei noch nicht gelesen.
+    private let cache = OSAllocatedUnfairLock<Set<String>?>(initialState: nil)
 
     init(fileURL: URL?) {
         self.fileURL = fileURL
@@ -22,13 +23,13 @@ final class MirrorRevocations: @unchecked Sendable {
 
     /// Gesperrte Schlüssel-Ids.
     func current() -> Set<String> {
-        lock.withLock { loadedLocked() }
+        cache.withLock { loaded(&$0) }
     }
 
     /// `ids` dauerhaft sperren (nie wieder entfernt); nichts Neues = nichts schreiben.
     func add(_ ids: Set<String>) {
-        lock.withLock {
-            let now = loadedLocked()
+        cache.withLock { cache in
+            let now = loaded(&cache)
             let next = now.union(ids.filter(Self.valid))
             guard next.count != now.count else { return }
             cache = next
@@ -38,7 +39,8 @@ final class MirrorRevocations: @unchecked Sendable {
         }
     }
 
-    private func loadedLocked() -> Set<String> {
+    /// Nur mit gehaltener Sperre (aus `cache.withLock`) aufrufen.
+    private func loaded(_ cache: inout Set<String>?) -> Set<String> {
         if let cache { return cache }
         let text = fileURL.flatMap { try? String(contentsOf: $0, encoding: .utf8) }
         let loaded = Self.decode(text)

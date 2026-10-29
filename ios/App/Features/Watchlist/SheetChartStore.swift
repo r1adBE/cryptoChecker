@@ -1,3 +1,4 @@
+import os
 import SwiftUI
 
 // Zwischenspeicher der Kerzen im Aktionsblatt — wie `SheetChartRepository.kt` (Android). Regeln in
@@ -13,10 +14,10 @@ import SwiftUI
 /// Im Speicher je Paar (mit Börse) und Zeitraum 5, 30 bzw. 60 Minuten (nur Erfolge); verworfen beim
 /// Aktualisieren von Hand (`invalidate`, `invalidateAll`) oder bei einem Kurssprung über 3 %.
 /// Netz und Umrechnung laufen abseits des Main-Threads. Wie `SheetChartRepository.kt`.
-final class SheetChartStore: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
+final class SheetChartStore: Sendable {
     static let shared = SheetChartStore()
 
-    private struct Entry {
+    private struct Entry: Sendable {
         let time: Int64
         let candles: [MarketCandle]
         let converted: Bool
@@ -25,8 +26,7 @@ final class SheetChartStore: @unchecked Sendable { // @unchecked: veränderliche
         let price: Double?
     }
 
-    private let lock = NSLock()
-    private var entries: [String: Entry] = [:]
+    private let entries = OSAllocatedUnfairLock(initialState: [String: Entry]())
 
     /// Längster Zeitraum des Blatts (1 Jahr): alle Zeiträume aus EINER Devisen-Abfrage.
     private static let fxDays = 366
@@ -48,31 +48,32 @@ final class SheetChartStore: @unchecked Sendable { // @unchecked: veränderliche
             return .unsupported
         }
         let k = Self.key(watch, range)
-        lock.lock()
-        defer { lock.unlock() }
-        guard let entry = entries[k] else { return nil }
-        let age = now - entry.time
-        // Bezug: Kurs beim Speichern (Kerzen und Kurs dürfen je nach Börse leicht auseinanderliegen)
-        let reference = entry.price ?? entry.candles.last?.close
-        guard age >= 0, age < range.sheetCacheMillis,
-              !SheetChart.priceJumped(reference: reference, price: watch.lastPrice) else {
-            entries[k] = nil
-            return nil
+        let maxAge = range.sheetCacheMillis
+        let price = watch.lastPrice
+        return entries.withLock { entries -> SheetChartResult? in
+            guard let entry = entries[k] else { return nil }
+            let age = now - entry.time
+            // Bezug: Kurs beim Speichern (Kerzen und Kurs dürfen je nach Börse leicht auseinanderliegen)
+            let reference = entry.price ?? entry.candles.last?.close
+            guard age >= 0, age < maxAge, !SheetChart.priceJumped(reference: reference, price: price) else {
+                entries[k] = nil
+                return nil
+            }
+            return .ready(entry.candles, converted: entry.converted, info: entry.info)
         }
-        return .ready(entry.candles, converted: entry.converted, info: entry.info)
     }
 
     /// Aktualisieren im Blatt: Kerzen dieses Paars (alle Zeiträume) neu laden.
     func invalidate(_ watch: Watch) {
         let p = Self.prefix(watch)
-        lock.withLock { entries = entries.filter { !$0.key.hasPrefix(p) } }
+        entries.withLock { all in all = all.filter { !$0.key.hasPrefix(p) } }
         let pair = CandlePair(watch: watch, tradFi: false)
         Task { await OwnCandleDataSource.shared.invalidate(pair) }
     }
 
     /// Nach unten ziehen in der Merkliste: alle Kerzen neu laden.
     func invalidateAll() {
-        lock.withLock { entries.removeAll() }
+        entries.withLock { $0.removeAll() }
         Task { await OwnCandleDataSource.shared.invalidateAll() }
     }
 
@@ -80,9 +81,8 @@ final class SheetChartStore: @unchecked Sendable { // @unchecked: veränderliche
                        info: SheetChartInfo) {
         let k = Self.key(watch, range)
         let price = watch.lastPrice.flatMap { $0.isFinite && $0 > 0 ? $0 : nil }
-        lock.withLock {
-            entries[k] = Entry(time: EpochTime.nowMillis, candles: candles, converted: converted, info: info, price: price)
-        }
+        let entry = Entry(time: EpochTime.nowMillis, candles: candles, converted: converted, info: info, price: price)
+        entries.withLock { $0[k] = entry }
     }
 
     /// Prüfung einer Reihe der Ausweich-Kette (gleicher Token, Umrechnung); Tageskurse einmal je Abfrage.

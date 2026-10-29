@@ -1,4 +1,5 @@
 import Foundation
+import os
 import UIKit
 
 /// Coin-Logos, Namen und Alpha-Kennzeichen (Regeln in `CoinLogos`, `CoinMeta`, `CoinLists`), gleich
@@ -25,13 +26,9 @@ import UIKit
 actor CoinLogoStore {
     static let shared = CoinLogoStore()
 
-    /// Zuletzt benutzte Bilder; `NSCache` ist threadsicher, daher ohne Actor-Sprung lesbar.
-    // nonisolated(unsafe): NSCache ist laut Apple threadsicher, im SDK aber nicht als Sendable markiert.
-    nonisolated(unsafe) static let memory: NSCache<NSString, UIImage> = {
-        let cache = NSCache<NSString, UIImage>()
-        cache.countLimit = 300
-        return cache
-    }()
+    /// Zuletzt benutzte Bilder (höchstens 300, der am längsten nicht benutzte fällt heraus) hinter einer Sperre,
+    /// daher ohne Actor-Sprung lesbar.
+    static let memory = OSAllocatedUnfairLock(initialState: BoundedCache<String, UIImage>(maxEntries: 300))
 
     /// Zeitpunkt der zuletzt geholten Rangliste bzw. des letzten Versuchs.
     private static let mapTimeKey = "coin_logos_map_time"
@@ -321,7 +318,7 @@ actor CoinLogoStore {
         guard !changed.isEmpty else { return changed }
         for key in changed {
             guard let name = CoinLogos.fileName(key) else { continue }
-            memory.removeObject(forKey: name as NSString)
+            memory.withLock { _ = $0.removeValue(forKey: name) }
             try? FileManager.default.removeItem(at: directory.appendingPathComponent(name))
         }
         SharedStorage.defaults.removeObject(forKey: failedKey)

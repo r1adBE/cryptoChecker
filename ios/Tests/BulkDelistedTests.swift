@@ -109,12 +109,13 @@ final class BulkDelistedTests: XCTestCase {
         defaults.removePersistentDomain(forName: suite)
         defer { defaults.removePersistentDomain(forName: suite) }
 
-        let first = BulkDelistedMemory(defaults: { defaults })
+        // Je Aufruf eine Instanz derselben Suite (der Rückruf ist `@Sendable`, `UserDefaults` nicht)
+        let first = BulkDelistedMemory(defaults: { UserDefaults(suiteName: suite) ?? .standard })
         let plan = first.plan("Binance", pairIds: ["OLDUSDT"], notTraded: ["OLDUSDT"], now: 1_000_000)
         XCTAssertTrue(plan.recheck)
         first.learn("Binance", plan: plan, result: BulkTickers(tickers: [:], complete: true), now: 1_000_000)
 
-        let restarted = BulkDelistedMemory(defaults: { defaults })
+        let restarted = BulkDelistedMemory(defaults: { UserDefaults(suiteName: suite) ?? .standard })
         let next = restarted.plan("Binance", pairIds: ["OLDUSDT"], notTraded: ["OLDUSDT"], now: 1_060_000)
         XCTAssertFalse(next.recheck)
         XCTAssertEqual(next.request, [])

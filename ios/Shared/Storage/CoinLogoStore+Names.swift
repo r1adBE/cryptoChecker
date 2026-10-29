@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 // Namen und Kennzeichen der Coins (Teil von `CoinLogoStore`): Aktiennamen (Nasdaq-Symbolliste), Namen aus Listen
 // und Rangliste, TradFi-Paare und -Kürzel, Alpha-Kennzeichen und -Token, Art eines Paars.
@@ -83,36 +84,42 @@ extension CoinLogoStore {
 }
 
 /// Namen im Speicher (einmal aus der Datei gelesen, nach dem Laden der Liste ersetzt).
-final class NamesBox: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
-    private let lock = NSLock()
-    private var value: [String: String]?
-    private var fromSnapshot = false
+final class NamesBox: Sendable {
+    private struct State: Sendable {
+        var value: [String: String]?
+        var fromSnapshot = false
+    }
 
-    func read(_ load: () -> [String: String]) -> [String: String] {
+    private let state = OSAllocatedUnfairLock(initialState: State())
+
+    func read(_ load: @Sendable () -> [String: String]) -> [String: String] {
         read(load, snapshot: { [:] })
     }
 
     /// Wie `read`; ist die Datei leer, gelten die Namen aus `snapshot` (mitgelieferter Auszug).
-    func read(_ load: () -> [String: String], snapshot: () -> [String: String]) -> [String: String] {
-        lock.lock(); defer { lock.unlock() }
-        if let value { return value }
-        var loaded = load()
-        if loaded.isEmpty {
-            loaded = snapshot()
-            fromSnapshot = !loaded.isEmpty
+    func read(_ load: @Sendable () -> [String: String], snapshot: @Sendable () -> [String: String]) -> [String: String] {
+        state.withLock { s in
+            if let value = s.value { return value }
+            var loaded = load()
+            if loaded.isEmpty {
+                loaded = snapshot()
+                s.fromSnapshot = !loaded.isEmpty
+            }
+            s.value = loaded
+            return loaded
         }
-        value = loaded
-        return loaded
     }
 
     /// Stammen die Namen nur aus dem mitgelieferten Auszug?
     var isSnapshot: Bool {
-        lock.lock(); defer { lock.unlock() }
-        return fromSnapshot
+        state.withLock { $0.fromSnapshot }
     }
 
     func store(_ names: [String: String]) {
-        lock.lock(); value = names; fromSnapshot = false; lock.unlock()
+        state.withLock { s in
+            s.value = names
+            s.fromSnapshot = false
+        }
     }
 }
 
@@ -221,37 +228,41 @@ extension CoinLogoStore {
 
 /// Alpha-Token aus der Datei, einmal gelesen und nach jeder neuen Alpha-Liste ersetzt — ohne Actor-Sprung
 /// lesbar (Merkliste, Paar-Auswahl).
-final class AlphaTokensBox: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
+final class AlphaTokensBox: Sendable {
+    private struct State: Sendable {
+        var loaded = false
+        var tokens: [BinanceAlpha.Token] = []
+        var names: [String: String] = [:]
+    }
+
     private let url: URL
-    private let lock = NSLock()
-    private var loaded = false
-    private var tokens: [BinanceAlpha.Token] = []
-    private var names: [String: String] = [:]
+    private let state = OSAllocatedUnfairLock(initialState: State())
 
     init(url: URL) {
         self.url = url
     }
 
     var value: (tokens: [BinanceAlpha.Token], names: [String: String]) {
-        lock.lock()
-        defer { lock.unlock() }
-        if !loaded {
-            loaded = true
-            if let data = try? Data(contentsOf: url),
-               let list = try? JSONDecoder().decode([BinanceAlpha.Token].self, from: data) {
-                tokens = list
-                names = CoinLogos.alphaNames(list)
+        state.withLock { s in
+            if !s.loaded {
+                s.loaded = true
+                if let data = try? Data(contentsOf: url),
+                   let list = try? JSONDecoder().decode([BinanceAlpha.Token].self, from: data) {
+                    s.tokens = list
+                    s.names = CoinLogos.alphaNames(list)
+                }
             }
+            return (s.tokens, s.names)
         }
-        return (tokens, names)
     }
 
     func store(_ list: [BinanceAlpha.Token]) {
-        lock.lock()
-        tokens = list
-        names = CoinLogos.alphaNames(list)
-        loaded = true
-        lock.unlock()
+        let names = CoinLogos.alphaNames(list)
+        state.withLock { s in
+            s.tokens = list
+            s.names = names
+            s.loaded = true
+        }
         if let data = try? JSONEncoder().encode(list) { try? data.write(to: url, options: .atomic) }
     }
 }

@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 /// Binance Alpha: frühe Token, die Binance nicht regulär am Spot führt. Öffentliche Endpunkte ohne
 /// Schlüssel auf www.binance.com (developers.binance.com/docs/alpha, «Market Data»: Token List,
@@ -131,25 +132,21 @@ enum BinanceAlpha {
 
     /// Zuletzt geladene Token-Liste (Antworttext) für höchstens `listCacheMillis`: eine
     /// Aktualisierung lädt sie nie doppelt. Nur im Speicher.
-    final class ListCache: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
+    final class ListCache: Sendable {
         private let maxAgeMillis: Int64
-        private let lock = NSLock()
-        private var body: String?
-        private var at: Int64 = 0
+        private let entry = OSAllocatedUnfairLock<(body: String?, at: Int64)>(initialState: (nil, 0))
 
         init(maxAgeMillis: Int64 = BinanceAlpha.listCacheMillis) { self.maxAgeMillis = maxAgeMillis }
 
         /// Gespeicherter Text, wenn jünger als `maxAgeMillis`; sonst nil.
         func get(now: Int64) -> String? {
-            lock.lock(); defer { lock.unlock() }
+            let (body, at) = entry.withLock { $0 }
             guard let body, now >= at, now - at < maxAgeMillis else { return nil }
             return body
         }
 
         func put(_ text: String, now: Int64) {
-            lock.lock(); defer { lock.unlock() }
-            body = text
-            at = now
+            entry.withLock { $0 = (text, now) }
         }
     }
 

@@ -1,86 +1,90 @@
 import Foundation
+import os
 
 /// Volle Namen der Coins für die Prüfung «gleicher Token» (`TokenIdentity`): je Börse aus ihrer
 /// Paarliste (beim Abgleich der Paare, `saveExchange`) und von Binance aus der Symbolliste der Logos
 /// (`saveBinance`). Keine eigene Anfrage — nur, was ohnehin geladen wird. Eine Datei im App-Group-Ordner,
 /// aus Geräte-Backups ausgenommen (neu ladbar). Wie `TokenIdentityStore.kt`.
-final class TokenIdentityStore: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
+final class TokenIdentityStore: Sendable {
     static let shared = TokenIdentityStore()
 
+    private struct State: Sendable {
+        var index: TokenIdentity.NameIndex?
+        /// Zählt jede Änderung der Namen im Speicher (Lesen der Datei, `update`) — für Zwischenspeicher, die Namen
+        /// nutzen (`AppData.watchKinds`).
+        var changes = 0
+    }
+
     private let url: URL
-    private let lock = NSLock()
-    private var index: TokenIdentity.NameIndex?
-    /// Zählt jede Änderung der Namen im Speicher (Lesen der Datei, `update`) — für Zwischenspeicher, die Namen nutzen
-    /// (`AppData.watchKinds`).
-    private var changes = 0
+    private let state = OSAllocatedUnfairLock(initialState: State())
 
     init(url: URL = SharedStorage.directory.appendingPathComponent("token_names.json")) {
         self.url = url
     }
 
-    /// Nur mit gehaltenem `lock` aufrufen.
-    private func currentLocked() -> TokenIdentity.NameIndex {
-        if let index { return index }
+    /// Nur mit gehaltener Sperre (aus `state.withLock`) aufrufen.
+    private func current(_ s: inout State) -> TokenIdentity.NameIndex {
+        if let index = s.index { return index }
         let loaded = TokenIdentity.decode(try? Data(contentsOf: url))
-        index = loaded
-        changes &+= 1
+        s.index = loaded
+        s.changes &+= 1
         return loaded
     }
 
-    private func update(_ change: (TokenIdentity.NameIndex) -> TokenIdentity.NameIndex) {
-        lock.lock(); defer { lock.unlock() }
-        let before = currentLocked()
-        let next = change(before)
-        if next == before { return }
-        index = next
-        changes &+= 1
-        guard let data = TokenIdentity.encode(next) else { return }
-        do {
-            try data.write(to: url, options: .atomic)
-            // Atomares Schreiben ersetzt die Datei: Merkmal erneut setzen
-            BackupExclusion.set(excluded: true, for: url)
-        } catch {
-            // Nur im Speicher; beim nächsten Abgleich erneut
+    /// Aktueller Stand unter der Sperre.
+    private func withCurrent<T: Sendable>(_ body: @Sendable (TokenIdentity.NameIndex) -> T) -> T {
+        state.withLock { s in body(current(&s)) }
+    }
+
+    private func update(_ change: @Sendable (TokenIdentity.NameIndex) -> TokenIdentity.NameIndex) {
+        state.withLock { s in
+            let before = current(&s)
+            let next = change(before)
+            if next == before { return }
+            s.index = next
+            s.changes &+= 1
+            guard let data = TokenIdentity.encode(next) else { return }
+            do {
+                try data.write(to: url, options: .atomic)
+                // Atomares Schreiben ersetzt die Datei: Merkmal erneut setzen
+                BackupExclusion.set(excluded: true, for: url)
+            } catch {
+                // Nur im Speicher; beim nächsten Abgleich erneut
+            }
         }
     }
 
     /// Stand der Namen (ändert sich mit jeder Änderung); gleich = dieselben Namen wie beim letzten Lesen.
     var version: Int {
-        lock.lock(); defer { lock.unlock() }
-        return changes
+        state.withLock { $0.changes }
     }
 
     /// Datei einmal lesen und dekodieren (Hintergrund beim Start), damit der erste Zugriff aus der
     /// Oberfläche nicht auf dem Hauptthread liest.
     func warmUp() {
-        lock.lock(); defer { lock.unlock() }
-        _ = currentLocked()
+        withCurrent { _ in }
     }
 
     /// Name des Coins `base` in der Paarliste der Börse `exchangeKey`; nil = unbekannt.
     func pairName(exchangeKey: String, base: String) -> String? {
-        lock.lock(); defer { lock.unlock() }
-        return currentLocked().pairName(exchangeKey: exchangeKey, base: base)
+        withCurrent { $0.pairName(exchangeKey: exchangeKey, base: base) }
     }
 
     /// Namen der Coins der Börse `exchangeKey` (Kürzel gross, `TokenIdentity.key` → Name); leer = unbekannt.
     func exchangeNames(_ exchangeKey: String) -> [String: String] {
-        lock.lock(); defer { lock.unlock() }
-        return currentLocked().exchanges[exchangeKey] ?? [:]
+        withCurrent { $0.exchanges[exchangeKey] ?? [:] }
     }
 
     /// `fullName` von Binance für `base`; nil = unbekannt.
     func binanceName(_ base: String) -> String? {
-        lock.lock(); defer { lock.unlock() }
-        return currentLocked().binanceName(base)
+        withCurrent { $0.binanceName(base) }
     }
 
     /// Namen des Kürzels `base` in allen gespeicherten Paarlisten (je Börse einer) — für «mehrere Token unter dem
     /// Kürzel?» (`PortfolioPriceIdentity.ambiguous`). Leer = unbekannt. Wie Android.
     func otherNames(_ base: String) -> [String?] {
-        lock.lock(); defer { lock.unlock() }
         let key = TokenIdentity.key(base)
-        let names: [String] = currentLocked().exchanges.values.compactMap { $0[key] }
+        let names: [String] = withCurrent { index in index.exchanges.values.compactMap { $0[key] } }
         return names
     }
 

@@ -260,33 +260,23 @@ private struct WatchlistStatusSpeech: ViewModifier {
 
 /// Zeitangaben der Merkliste.
 enum WatchlistTime {
-    // nonisolated(unsafe): nach dem Einrichten nur gelesen; Foundation-Formatter formatieren threadsicher
-    // (DateFormatter/NumberFormatter sind im SDK schon Sendable, RelativeDateTimeFormatter noch nicht markiert).
-    nonisolated(unsafe) private static let relative: RelativeDateTimeFormatter = {
+    /// Relative Zeit; je Aufruf neu (`RelativeDateTimeFormatter` ist nicht Sendable, wie `WatchText.ago` auf der Uhr).
+    /// Steht meist hinter anderem Text («Börsenkurse · vor 10 Min.», «Letzte Prüfung vor 10 Min.»): klein beginnend
+    /// wie «gerade eben», nach den Regeln der Sprache — wie Android `midSentence`. Am Zeilenanfang macht `lineStart`
+    /// sie wieder gross.
+    private static func relative(_ unitsStyle: RelativeDateTimeFormatter.UnitsStyle) -> RelativeDateTimeFormatter {
         let f = RelativeDateTimeFormatter()
-        f.unitsStyle = .abbreviated
+        f.unitsStyle = unitsStyle
         f.dateTimeStyle = .numeric
-        // Steht meist hinter anderem Text («Börsenkurse · vor 10 Min.», «Letzte Prüfung vor 10 Min.»): klein
-        // beginnend wie «gerade eben», nach den Regeln der Sprache — wie Android `midSentence`. Am Zeilenanfang
-        // macht `lineStart` sie wieder gross
         f.formattingContext = .middleOfSentence
         return f
-    }()
+    }
 
     /// «gerade eben» bzw. «vor 2 Min.» in der Sprache des Geräts, klein beginnend.
     static func ago(_ millis: Int64, now: Int64) -> String {
         if now - millis < 60_000 { return L("time_just_now") }
-        return relative.localizedString(for: Date(millis: millis), relativeTo: Date(millis: now))
+        return relative(.abbreviated).localizedString(for: Date(millis: millis), relativeTo: Date(millis: now))
     }
-
-    // nonisolated(unsafe): wie `relative`.
-    nonisolated(unsafe) private static let spokenRelative: RelativeDateTimeFormatter = {
-        let f = RelativeDateTimeFormatter()
-        f.unitsStyle = .full
-        f.dateTimeStyle = .numeric
-        f.formattingContext = .middleOfSentence
-        return f
-    }()
 
     /// Zeile, die mit der relativen Zeit `ago` beginnt («vor 5 Min. · Binance nicht erreichbar», Adresszeile
     /// «vor 2 Std. · Etherscan»): erstes Zeichen gross nach den Regeln der Sprache (`locale`, z. B. Türkisch
@@ -300,7 +290,7 @@ enum WatchlistTime {
     /// Wie `ago`, aber ausgeschrieben für VoiceOver: «vor 2 Minuten» — wie Android `spokenAgo`.
     static func spokenAgo(_ millis: Int64, now: Int64) -> String {
         if now - millis < 60_000 { return L("time_just_now") }
-        return spokenRelative.localizedString(for: Date(millis: millis), relativeTo: Date(millis: now))
+        return relative(.full).localizedString(for: Date(millis: millis), relativeTo: Date(millis: now))
     }
 
     /// Veraltet: noch nie aktualisiert oder älter als die Schwelle — nie bei deaktivierten oder

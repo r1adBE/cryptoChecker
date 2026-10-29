@@ -1,5 +1,6 @@
 import Foundation
 import Network
+import os
 import UIKit
 
 // Logos laden (Teil von `CoinLogoStore`): Bilder der Rangliste je Server parallel, Pausen gebremster Server,
@@ -241,76 +242,74 @@ actor ForbiddenStreaks {
 
 /// Laufende Pausen je Bild-Server (Host → bis, ms) im gemeinsamen Speicher, threadsicher (Bilder laden
 /// parallel) — wie Android `imagePauses`.
-final class ImagePauseBox: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
-    private let lock = NSLock()
-    private var pauses: [String: Int64]?
+final class ImagePauseBox: Sendable {
+    /// nil = noch nicht aus `SharedStorage.defaults` gelesen.
+    private let pauses = OSAllocatedUnfairLock<[String: Int64]?>(initialState: nil)
     private let key = "coin_logos_image_pauses"
 
-    /// Nur mit gehaltenem `lock` aufrufen.
-    private func currentLocked(now: Int64) -> [String: Int64] {
+    /// Nur mit gehaltener Sperre (aus `pauses.withLock`) aufrufen.
+    private func current(_ pauses: [String: Int64]?, now: Int64) -> [String: Int64] {
         pauses ?? CoinLogoRetry.decodePauses(SharedStorage.defaults.string(forKey: key), now: now)
     }
 
     /// Verbleibende Pause von `host` in ms; nil = nicht pausiert.
     func remainingMillis(_ host: String) -> Int64? {
-        lock.lock(); defer { lock.unlock() }
-        let now = EpochTime.nowMillis
-        let map = currentLocked(now: now)
-        pauses = map
-        guard let until = map[host], until > now else { return nil }
-        return until - now
+        pauses.withLock { pauses -> Int64? in
+            let now = EpochTime.nowMillis
+            let map = current(pauses, now: now)
+            pauses = map
+            guard let until = map[host], until > now else { return nil }
+            return until - now
+        }
     }
 
     func isPaused(_ host: String) -> Bool {
-        lock.lock(); defer { lock.unlock() }
-        let now = EpochTime.nowMillis
-        var map = currentLocked(now: now)
-        let paused = (map[host] ?? 0) > now
-        if !paused { map[host] = nil }
-        pauses = map
-        return paused
+        pauses.withLock { pauses -> Bool in
+            let now = EpochTime.nowMillis
+            var map = current(pauses, now: now)
+            let paused = (map[host] ?? 0) > now
+            if !paused { map[host] = nil }
+            pauses = map
+            return paused
+        }
     }
 
     func pause(_ host: String, retryAfterSeconds: Int64?) {
         guard !host.isEmpty else { return }
-        lock.lock(); defer { lock.unlock() }
-        let now = EpochTime.nowMillis
-        var map = currentLocked(now: now).filter { $0.value > now }
-        // Schon pausiert (parallele Abrufe): Pause nicht verlängern
-        if (map[host] ?? 0) > now {
+        pauses.withLock { pauses in
+            let now = EpochTime.nowMillis
+            var map = current(pauses, now: now).filter { $0.value > now }
+            // Schon pausiert (parallele Abrufe): Pause nicht verlängern
+            if (map[host] ?? 0) > now {
+                pauses = map
+                return
+            }
+            map[host] = now + CoinLogoRetry.imagePauseMillis(retryAfterSeconds: retryAfterSeconds)
             pauses = map
-            return
+            SharedStorage.defaults.set(CoinLogoRetry.encodePauses(map), forKey: key)
         }
-        map[host] = now + CoinLogoRetry.imagePauseMillis(retryAfterSeconds: retryAfterSeconds)
-        pauses = map
-        SharedStorage.defaults.set(CoinLogoRetry.encodePauses(map), forKey: key)
     }
 }
 
 /// Nicht teures Netz (WLAN, Ethernet: `isExpensive` und `isConstrained` false)? Nur für die Zusatzseiten der
 /// Rangliste und deren Logos (`CoinLogos.downloadable`) — wie Android `isActiveNetworkMetered`. Eigener
 /// Beobachter, damit `NetworkStatus` (online/offline für die Aktualisierung) unverändert bleibt.
-final class UnmeteredNetwork: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
+final class UnmeteredNetwork: Sendable {
     static let shared = UnmeteredNetwork()
 
     private let monitor = NWPathMonitor()
-    private let lock = NSLock()
-    private var known: Bool?
+    private let known = OSAllocatedUnfairLock<Bool?>(initialState: nil)
 
     private init() {
         monitor.pathUpdateHandler = { [weak self] path in
             let unmetered = path.status == .satisfied && !path.isExpensive && !path.isConstrained
-            self?.lock.lock()
-            self?.known = unmetered
-            self?.lock.unlock()
+            self?.known.withLock { $0 = unmetered }
         }
         monitor.start(queue: DispatchQueue(label: "cryptochecker.unmetered-network"))
     }
 
     private var current: Bool? {
-        lock.lock()
-        defer { lock.unlock() }
-        return known
+        known.withLock { $0 }
     }
 
     /// Wartet höchstens 1 s auf den ersten gemeldeten Pfad; unbekannt → false (lieber sparsam).

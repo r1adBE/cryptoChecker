@@ -2,7 +2,7 @@ import Foundation
 
 // Abfragen ohne eigenen Zustand (Teil von `PortfolioPriceSource`): Kurse aus Merklisten-Paaren anderer Spot-Börsen,
 // Binance-Sammelabfrage, Kerzenkurs und GET mit Sperre der Quelle — wie `PortfolioPriceSource.kt` und
-// `PortfolioPriceSourceExchanges.kt` (Android). Zwischenspeicher und `lock` bleiben in `PortfolioPriceSource.swift`.
+// `PortfolioPriceSourceExchanges.kt` (Android). Zwischenspeicher (`state`) bleiben in `PortfolioPriceSource.swift`.
 
 extension PortfolioPriceSource {
     /// Kurse aus Merklisten-Paaren für Coins, die Binance-Spot nicht führt (`PortfolioWatchPair`): aktives

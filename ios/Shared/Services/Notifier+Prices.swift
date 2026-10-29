@@ -1,4 +1,5 @@
 import Foundation
+import os
 import UserNotifications
 
 /// Kurs-Mitteilungen mit Obergrenze (Teil von `Notifier`) — wie Android `AppNotifier.showPrices`: höchstens
@@ -124,28 +125,31 @@ struct PriceDeliveredState {
 
 /// Hält Kurs-Durchläufe eines Prozesses nacheinander (wie Android `priceRunLock`): sonst plante ein zweiter Durchlauf
 /// mit dem Stand vor den Meldungen des ersten und zeigte mehr als `maxPrice` einzeln.
-final class PriceRunGate: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
+final class PriceRunGate: Sendable {
     static let shared = PriceRunGate()
-    private let lock = NSLock()
-    private var tail: Task<Void, Never>?
 
-    /// Paare, die noch aus der Sammelmeldung müssen (`Notifier.cancelPrice`); nur unter `lock`.
-    private var overflowRemovals: [Int64] = []
+    private struct State: Sendable {
+        var tail: Task<Void, Never>?
+        /// Paare, die noch aus der Sammelmeldung müssen (`Notifier.cancelPrice`).
+        var overflowRemovals: [Int64] = []
+    }
+
+    private let state = OSAllocatedUnfairLock(initialState: State())
 
     /// Paar aus der Sammelmeldung entfernen — gesammelt: Ein Aufruf je Paar (z. B. 2000 beim Löschen vieler Paare)
     /// plant nur EINEN Abgleich, der alle bis dahin gemeldeten Paare mitnimmt.
     func removeFromOverflow(_ watchId: Int64) {
-        let first: Bool = lock.withLock {
-            overflowRemovals.append(watchId)
-            return overflowRemovals.count == 1
+        let first: Bool = state.withLock { s in
+            s.overflowRemovals.append(watchId)
+            return s.overflowRemovals.count == 1
         }
         guard first else { return }
         Task {
             // Kurz warten: die übrigen Aufrufe desselben Vorgangs kommen noch dazu
             try? await Task.sleep(nanoseconds: 50_000_000)
-            let ids: [Int64] = self.lock.withLock {
-                defer { self.overflowRemovals = [] }
-                return self.overflowRemovals
+            let ids: [Int64] = self.state.withLock { s in
+                defer { s.overflowRemovals = [] }
+                return s.overflowRemovals
             }
             await Notifier.showPrices([], cancelled: ids)
         }
@@ -157,13 +161,13 @@ final class PriceRunGate: @unchecked Sendable { // @unchecked: veränderlicher Z
 
     /// Hängt `body` hinter den laufenden Durchlauf (synchron unter der Sperre).
     private func enqueue(_ body: @escaping @Sendable () async -> Void) -> Task<Void, Never> {
-        lock.withLock {
-            let previous = tail
+        state.withLock { s in
+            let previous = s.tail
             let task = Task {
                 await previous?.value
                 await body()
             }
-            tail = task
+            s.tail = task
             return task
         }
     }
