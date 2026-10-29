@@ -687,7 +687,7 @@ overrides (Android through `BackupManager.restore` in the test, the file as an a
 «Restore» in the UI), prices from the fake exchanges, light/dark through the app's
 own setting. Both tests skip themselves in the normal runs: Android needs the runner argument
 `screenshotTour=true`, iOS the environment `TEST_RUNNER_SCREENSHOT_TOUR=1`. Screen list: `01_watchlist`,
-`02_pair_actions`, `03_pair_alarms`, `04_alarm_editor`, `05_alarms_overview`, `06_refresh_report` (Android only),
+`02_pair_actions`, `03_pair_alarms`, `04_alarm_editor`, `05_alarms_overview`, `06_refresh_report`,
 `07_explorer`, `08_coin_search`, `09_market` (only the fake exchanges answer, so market data is mostly missing),
 `10_portfolio`, `11_settings`, `12_settings_display`, `13_settings_alarms`, `14_settings_backup`, `15_about`.
 
@@ -3090,6 +3090,19 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
 * Build 176, watchlist footer: the four keys `watchlist_footer_count`, `watchlist_footer_of`, `watchlist_footer_remaining`
   (plurals) and `watchlist_footer_full` in `strings_watchlist.xml` now also in the 41 new languages (end of the file as
   in `values-de`; complex inflection as «Pairs: N» like the other texts), iOS via `convert_strings.py`.
+* Build 177: Android screenshot tour deterministic. Cause of the failures at builds 170 and 176 («Merkliste nicht
+  erreicht; sichtbar: alarm_card» from `04_alarm_editor` on, light and dark): the way back used `input keyevent
+  KEYCODE_BACK` and `input tap`, which the system delivers only while the screen is on and the app has input focus;
+  on the pair's alarm page (no tab bar, so no tab to tap and no relaunch) back was the only way out, and 10 backs per
+  step never left the page. Nothing in the app consumes back there. Now `TourNavigator.toWatchlist`/`toSettings` start
+  `MainActivity` fresh for every step (explicit intent, `NEW_TASK | CLEAR_TASK`, not `MAIN`/`LAUNCHER` so the rule's
+  `ActivityScenario` does not adopt it; older instances finished and awaited via `ActivityLifecycleMonitorRegistry`);
+  a new activity always opens the watchlist without sheet or subpage. No system back, swipe or tap loop is left; all
+  input goes through Compose semantics. The tour keeps the screen on (`svc power stayon`, restored afterwards),
+  checks before every `screencap` that the app is in front with the screen on and unlocked, and stops at the first
+  failing step with the screen it saw, the visible tags, activity stage, screen/keyguard state and `mCurrentFocus`.
+  Strings come from the current activity (the rule's activity is closed after the first restart). Images unchanged.
+  iOS (green) unchanged: it returns through its own tab bar (`RootView.reselect`) and XCUITest taps, no system keys.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

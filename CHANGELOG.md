@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 177)
+
+* Tests only (no change for users): the Android screenshot tour starts every screen from a freshly started app instead of finding its way back with the system back key, keeps the screen on while it runs and stops at the first screen it cannot reach, naming the screen it saw.
+
 ## 16.2.2 (build 176)
 
 * 41 more languages, 74 in total: Afrikaans, Amharic, Armenian, Azerbaijani, Basque, Bengali, Bosnian, Bulgarian, Burmese, Cantonese, Catalan, Croatian, Estonian, Filipino, Galician, Georgian, Gujarati, Icelandic, Irish, Kannada, Kazakh, Khmer, Lao, Latvian, Lithuanian, Macedonian, Malayalam, Marathi, Mongolian, Nepali, Punjabi, Serbian (Cyrillic), Sinhala, Slovak, Slovenian, Swahili, Tamil, Telugu, Urdu (right to left), Uzbek and Zulu – in the app, the widgets, the watch apps and the language picker. Hong Kong keeps Traditional Chinese unless Cantonese is chosen.

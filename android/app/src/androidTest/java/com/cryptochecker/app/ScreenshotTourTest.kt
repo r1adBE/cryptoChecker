@@ -48,8 +48,10 @@ import javax.inject.Inject
  * der Tour ([FakeExchange.marketData], [tourSources]). Hell/Dunkel über die Einstellung der App (`darkMode` der
  * Sicherung), nicht über das System.
  *
- * Jedes Bild ist ein eigener Schritt: Scheitert einer, laufen die übrigen weiter, am Ende schlägt der Test fehl und
- * nennt die fehlenden Bilder. Bedienung und Wege zurück in [TourNavigator] (`ScreenshotTourSteps.kt`).
+ * Jedes Bild ist ein eigener Schritt, der von einer frisch gestarteten Activity ausgeht ([TourNavigator.toWatchlist]
+ * bzw. [TourNavigator.toSettings]) — kein Schritt hängt davon ab, wie der vorige endete. Der erste Schritt, der
+ * scheitert, beendet die Tour: Die Meldung nennt das Bild, die gesehene Seite, die sichtbaren Kennungen und den
+ * Zustand von Activity und Bildschirm. Bedienung in [TourNavigator] (`ScreenshotTourSteps.kt`).
  *
  * Die Bilder schreibt `screencap` als Shell-Benutzer nach [OUTPUT_ROOT]`/<light|dark>/NN_name.png` — dort bleiben sie
  * nach dem Deinstallieren der App durch Gradle liegen, der Workflow holt sie mit `adb pull`. Keine Berechtigung nötig.
@@ -103,13 +105,13 @@ class ScreenshotTourTest {
 
     private lateinit var nav: TourNavigator
 
-    /** Bilder, die fehlen, mit Grund — am Ende der Tour gemeldet. */
-    private val missing = mutableListOf<String>()
-
     /** Erst nach dem Einspielen true: [tearDown] räumt nur dann auf (übersprungen = nichts angelegt). */
     private var seeded = false
 
     private lateinit var outputDir: String
+
+    /** Wert von `stay_on_while_plugged_in` vor der Tour (null = Gerät nicht angefasst). */
+    private var stayOn: String? = null
 
     @Test
     fun tourLight() = tour(dark = false)
@@ -121,6 +123,8 @@ class ScreenshotTourTest {
     fun tearDown() {
         FakeExchange.binanceMirror = false
         FakeExchange.marketData = false
+        if (::nav.isInitialized) runCatching { nav.finishAll() }
+        stayOn?.let { value -> runCatching { nav.restoreDevice(value) } }
         if (!seeded) return
         runBlocking {
             watchRepository.deleteAllWatches()
@@ -131,14 +135,15 @@ class ScreenshotTourTest {
 
     // ── Ablauf ──
 
-    /** Alle Bilder, je ein [step] mit eigenem Weg von der Merkliste bzw. den Einstellungen aus. */
+    /** Alle Bilder, je ein [step] mit eigenem Weg von einer frisch gestarteten Activity aus. */
     private fun tour(dark: Boolean) {
         assumeTrue(
             "Nur mit -Pandroid.testInstrumentationRunnerArguments.$ARGUMENT=true (Workflow «Screenshots»)",
             tourRequested()
         )
         hiltRule.inject()
-        nav = TourNavigator(compose) { compose.activity.getString(it) }
+        nav = TourNavigator(compose)
+        stayOn = nav.prepareDevice()
         outputDir = "$OUTPUT_ROOT/${if (dark) "dark" else "light"}"
         AppTestEnvironmentRule.shell("rm -rf $outputDir")
         AppTestEnvironmentRule.shell("mkdir -p $outputDir")
@@ -168,7 +173,7 @@ class ScreenshotTourTest {
             nav.toWatchlist()
             nav.click(hasContentDescription(string(R.string.action_more)) and hasClickAction())
             nav.click(hasText(string(R.string.watchlist_refresh_report)) and hasClickAction())
-            compose.waitUntil(TIMEOUT) { nav.count(nav.reportTitle()) > 0 }
+            nav.await("Bericht «Letzte Aktualisierung»") { nav.count(nav.reportTitle()) > 0 }
         }
 
         // Paar hinzufügen und Coin-Suche «btc» (Paarlisten der Fake-Börsen laden, falls nötig)
@@ -178,7 +183,7 @@ class ScreenshotTourTest {
             nav.node(UiTestTags.EXPLORER_SEARCH).performTextInput("btc")
             compose.waitForIdle()
             val coin = UiTestTags.explorerCoin("BTC")
-            compose.waitUntil(TIMEOUT) { nav.exists(UiTestTags.EXPLORER_LISTS_LOAD) || nav.exists(coin) }
+            nav.await("Treffer der Coin-Suche") { nav.exists(UiTestTags.EXPLORER_LISTS_LOAD) || nav.exists(coin) }
             if (nav.exists(UiTestTags.EXPLORER_LISTS_LOAD)) nav.clickTag(UiTestTags.EXPLORER_LISTS_LOAD)
             nav.waitForTag(coin, LIST_TIMEOUT)
         }
@@ -206,13 +211,11 @@ class ScreenshotTourTest {
             nav.waitForTag(UiTestTags.BACKUP_EXPORT)
         }
         settingsPage(R.string.settings_row_about, "15_about")
-
-        assertTrue("Bilder fehlen: ${missing.joinToString("; ")}", missing.isEmpty())
     }
 
     /**
-     * Ein Bild: [open] führt zur Seite, dann das Foto [name]. Scheitert eins von beiden, wird das Bild als fehlend
-     * gemerkt (mit Grund) und die Tour läuft weiter; der nächste Schritt sucht seinen Ausgangspunkt selbst.
+     * Ein Bild: [open] führt zur Seite, dann das Foto [name]. Scheitert eins von beiden, endet die Tour hier: Bild des
+     * Zustands (`NN_name_failed`), dann ein AssertionError mit Bild, Grund, Seite und sichtbaren Kennungen.
      */
     private fun step(name: String, open: () -> Unit) {
         try {
@@ -220,10 +223,11 @@ class ScreenshotTourTest {
             shot(name)
         } catch (e: Throwable) {
             Log.w(TAG, "Bild $name fehlt", e)
-            val reason = e.message?.lineSequence()?.firstOrNull()?.take(REASON_LENGTH).orEmpty()
-            // Zur Fehlersuche: Bild des Zustands und die sichtbaren Kennungen
-            runCatching { shot("${name}_failed") }
-            missing += "$name (${e.javaClass.simpleName}: $reason; sichtbar: ${nav.shownTags()})"
+            val reason = e.message?.lineSequence()?.firstOrNull().orEmpty()
+            // Meldungen von TourNavigator.await nennen den Zustand schon; andere (Compose, Bildschirmfoto) hier
+            val state = if ("Seite: " in reason) "" else "; ${nav.describe()}"
+            runCatching { shot("${name}_failed", checkForeground = false) }
+            throw AssertionError("Bild $name: ${e.javaClass.simpleName}: $reason$state", e)
         }
     }
 
@@ -337,23 +341,28 @@ class ScreenshotTourTest {
     private fun settingsPage(title: Int, name: String) = step(name) {
         nav.toSettings()
         nav.click(nav.settingsRow(title))
-        compose.waitUntil(TIMEOUT) { !nav.exists(UiTestTags.SETTINGS_BACKUP) }
+        nav.await("Unterseite der Einstellungen") { !nav.exists(UiTestTags.SETTINGS_BACKUP) }
     }
 
     // ── Bildschirmfoto ──
 
-    /** Wartet, bis die Oberfläche ruht, und schreibt das Bild als Shell-Benutzer (`screencap`, ganzer Bildschirm). */
-    private fun shot(name: String) {
+    /**
+     * Wartet, bis die Oberfläche ruht, und schreibt das Bild als Shell-Benutzer (`screencap`, ganzer Bildschirm) —
+     * nur mit der App vorne und Bildschirm an ([TourNavigator.requireForeground], sonst zeigte es etwas anderes).
+     */
+    private fun shot(name: String, checkForeground: Boolean = true) {
         compose.waitForIdle()
         Thread.sleep(SETTLE_MILLIS)
         compose.waitForIdle()
+        if (checkForeground) nav.requireForeground()
         val file = "$outputDir/$name.png"
         AppTestEnvironmentRule.shell("screencap -p $file")
         val size = AppTestEnvironmentRule.shell("stat -c %s $file").trim().toLongOrNull() ?: 0L
         assertTrue("Bildschirmfoto $name fehlt oder ist leer ($file)", size > 0)
     }
 
-    private fun string(id: Int): String = compose.activity.getString(id)
+    /** Text in der Sprache der App: aus der aktuellen Activity (die der Regel ist nach dem ersten Neustart zu). */
+    private fun string(id: Int): String = nav.activity().getString(id)
 
     /** Tour verlangt (Argument des Test-Runners [ARGUMENT] = `true`)? */
     private fun tourRequested(): Boolean = InstrumentationRegistry.getArguments().getString(ARGUMENT) == "true"
@@ -364,11 +373,8 @@ class ScreenshotTourTest {
         /** Ablage auf dem Gerät (Shell-Benutzer), bleibt nach dem Deinstallieren; der Workflow holt sie ab. */
         const val OUTPUT_ROOT = "/data/local/tmp/cc-screenshots"
         const val TAG = "ScreenshotTour"
-        const val TIMEOUT = TourNavigator.TIMEOUT
         /** Paarlisten aller Börsen laden (die meisten antworten 404) bzw. Kurse holen. */
         const val LIST_TIMEOUT = 60_000L
-        /** Länge des Grundes je fehlendem Bild in der Meldung am Ende. */
-        const val REASON_LENGTH = 160
         /** Ausblenden von Blättern, Nachladen von Kursen und Logos vor dem Foto. */
         const val SETTLE_MILLIS = 1_200L
         /** Markt-Tab: alle Karten laden und einblenden (Kerzen, Verlauf seit 2016, Altcoin-Saison mit 21 Coins). */
