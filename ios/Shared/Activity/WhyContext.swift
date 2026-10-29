@@ -136,8 +136,6 @@ enum StablePeg {
     static let nearPercent = 0.1
     /// Ab dieser Abweichung (in %) ist der Faktor auffällig.
     static let notablePercent = 0.5
-    /// Ab dieser Abweichung (in %) stark.
-    static let strongPercent = 2.0
 
     /// Stablecoin gegen USD bzw. einen USD-Stablecoin? Gegen andere Währungen (USDT/TRY) nicht.
     static func isPegged(base: String, quote: String?) -> Bool {

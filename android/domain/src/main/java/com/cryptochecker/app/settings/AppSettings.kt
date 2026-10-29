@@ -290,12 +290,6 @@ data class AppSettings(
     val portfolioHistoryExpanded: Boolean = false,
 
     /**
-     * Markt-Tab gesehen; ohne Wirkung (der Markt-Tab hat Register statt aufklappbarer Teile), nur
-     * gespeichert. Nur auf diesem Gerät, nicht in der Sicherung.
-     */
-    val marketTabSeen: Boolean = false,
-
-    /**
      * Markt-Tab: «Mehr Marktdaten» (Zeilen zu «Stimmung & Zyklus» und «Marktdaten») aufgeklappt
      * (Standard zu). Nur auf diesem Gerät, nicht in der Sicherung.
      */

@@ -28,11 +28,9 @@
     <string name="error_exchange_unreachable">Bursa nuk arrihet tani – çmimet e fundit mbeten të dukshme.</string>
     <string name="error_exchange_unreachable_short">Bursa nuk arrihet tani</string>
     <string name="loading_hint">Po ngarkohet…</string>
-    <string name="no_internet_connection">Nuk ka lidhje interneti. Kontrollo Wi-Fi-n ose të dhënat celulare dhe provo përsëri.</string>
     <string name="option_off">Joaktiv</string>
     <string name="something_went_wrong">Diçka shkoi keq</string>
     <string name="time_just_now">tani</string>
-    <string name="timeout_error_message">Bursa nuk po përgjigjet tani. Provo përsëri pas pak.</string>
     <string name="try_again">Provo përsëri</string>
 
     <!-- Verbindungsstatus (Status-Pille) -->

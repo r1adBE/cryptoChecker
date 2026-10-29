@@ -47,10 +47,14 @@ struct HalvingEstimate: Equatable, Sendable {
 
 enum HalvingMath {
     static let blocksPerHalving = 210_000
+    /// Blockhöhe ab hier unplausibel (Server-Wert; heute unter 1 Mio., die Rechnung liefe nahe Int.max über).
+    static let maxPlausibleHeight = 10_000_000
 
-    /// nil bei ungültigen Werten (Höhe ≤ 0, Blockzeit ausserhalb 1–60 Minuten). Tag in UTC wie Android.
+    /// nil bei ungültigen Werten (Höhe ≤ 0 oder ab `maxPlausibleHeight`, Blockzeit ausserhalb 1–60 Minuten). Tag in UTC
+    /// wie Android; Testfälle `server_values.json`.
     static func estimate(tipHeight: Int, avgBlockSeconds: Double, nowMillis: Int64) -> HalvingEstimate? {
-        guard tipHeight > 0, avgBlockSeconds.isFinite, avgBlockSeconds >= 60, avgBlockSeconds <= 3_600 else { return nil }
+        guard tipHeight > 0, tipHeight < maxPlausibleHeight else { return nil }
+        guard avgBlockSeconds.isFinite, avgBlockSeconds >= 60, avgBlockSeconds <= 3_600 else { return nil }
         let next = (tipHeight / blocksPerHalving + 1) * blocksPerHalving
         let remaining = next - tipHeight
         let millis = nowMillis + Int64(Double(remaining) * avgBlockSeconds * 1000)

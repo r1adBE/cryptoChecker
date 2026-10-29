@@ -77,10 +77,10 @@ struct PortfolioTaxSummaryCard: View {
     private func money(_ s: TaxYearSummary, _ l: TaxSummaryLine) -> String? {
         let value: Decimal? = s.fxAvailable ? l.target : l.usdt
         if let value {
-            return PriceFormat.valueWithCurrency(PortfolioDecimal.double(value), s.fxAvailable ? s.currency : "USDT")
+            return PortfolioFormat.signedMoney(PortfolioDecimal.double(value), unit: s.fxAvailable ? s.currency : "USDT")
         }
         guard let t = l.target else { return nil }
-        return PriceFormat.valueWithCurrency(PortfolioDecimal.double(t), s.currency)
+        return PortfolioFormat.signedMoney(PortfolioDecimal.double(t), unit: s.currency)
     }
 
     @ViewBuilder
@@ -124,7 +124,7 @@ struct PortfolioTaxSummaryCard: View {
     private func wealthRow(_ s: TaxYearSummary, _ r: TaxWealthRow) -> some View {
         let v: Decimal? = s.fxAvailable ? r.valueTarget : r.valueUsdt
         let value: String = v.map {
-            PriceFormat.valueWithCurrency(PortfolioDecimal.double($0), s.fxAvailable ? s.currency : "USDT")
+            PortfolioFormat.signedMoney(PortfolioDecimal.double($0), unit: s.fxAvailable ? s.currency : "USDT")
         } ?? texts.wealthCoinNote(r)
         let below: String? = texts.wealthCoinNoteBelowValue(r, hasValue: v != nil)
         return VStack(alignment: .leading, spacing: 1) {

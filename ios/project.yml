@@ -15,7 +15,7 @@ settings:
     SWIFT_STRICT_CONCURRENCY: complete
     IPHONEOS_DEPLOYMENT_TARGET: "17.0"
     MARKETING_VERSION: "16.2.2"
-    CURRENT_PROJECT_VERSION: "167"
+    CURRENT_PROJECT_VERSION: "168"
     TARGETED_DEVICE_FAMILY: "1"
     CODE_SIGN_STYLE: Automatic
     DEVELOPMENT_TEAM: ""
@@ -84,7 +84,7 @@ targets:
       - target: CryptoCheckerWidgetsExtension
         embed: true
         codeSign: true
-      # Apple-Watch-App (Build 155), eingebettet unter Watch/
+      # Apple-Watch-App, eingebettet unter Watch/
       - target: CryptoCheckerWatch
         embed: true
         codeSign: true
@@ -115,7 +115,7 @@ targets:
         ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME: WidgetBackground
         SKIP_INSTALL: YES
 
-  # Apple-Watch-App (Build 155, wie tools/gen_xcodeproj.py): Kurse direkt von den Börsen, Liste per WatchConnectivity
+  # Apple-Watch-App (wie tools/gen_xcodeproj.py): Kurse direkt von den Börsen, Liste per WatchConnectivity
   CryptoCheckerWatch:
     type: application
     platform: watchOS

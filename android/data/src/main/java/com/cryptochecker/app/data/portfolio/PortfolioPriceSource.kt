@@ -25,7 +25,9 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.sync.withPermit
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import okhttp3.OkHttpClient
@@ -121,6 +123,13 @@ class PortfolioPriceSource @Inject constructor(
     @Volatile
     var storedEntries: Map<String, StoredPrice>? = null
 
+    /**
+     * Zähler von «Portfolio leeren» ([clearStored], unter [storeMutex] erhöht): eine Abfrage, die davor begann, übernimmt
+     * ihre Kurse nicht mehr und schreibt die Datei nicht neu ([persist]) — sonst kämen die gelöschten Coins zurück.
+     */
+    @Volatile
+    internal var clearGeneration = 0
+
     @Volatile
     var coinList: List<String>? = null
 
@@ -146,6 +155,7 @@ class PortfolioPriceSource @Inject constructor(
         withContext(Dispatchers.IO) {
             val wanted = normalized(coins)
             priceMutex.withLock {
+                val generation = clearGeneration
                 val now = System.currentTimeMillis()
                 // Dazu die Basis gekapselter Coins (Ersatzkurs, [ChainAssets.priceViaBase]); nur abfragbare Kürzel
                 val toFetch = ChainAssets.withBases(wanted).filter { coin ->
@@ -175,8 +185,10 @@ class PortfolioPriceSource @Inject constructor(
                             val base = ChainAssets.wrappedBase(coin) ?: continue
                             (fetched[base] ?: cache[base]?.first)?.let { references[coin] = it }
                         }
+                        // Höchstens [CANDLE_PARALLEL] Kerzen-Abfragen zugleich (wie HistoricPriceSource), auch bei vielen Coins
+                        val limiter = Semaphore(CANDLE_PARALLEL)
                         coroutineScope {
-                            missing.map { coin -> async { coin to candleOutcome(coin) } }.awaitAll()
+                            missing.map { coin -> async { coin to limiter.withPermit { candleOutcome(coin) } } }.awaitAll()
                         }.forEach { (coin, outcome) ->
                             val price = outcome.first
                             // Kein Kurs: Fehler (Netz/Sperre) von «gibt es nicht» unterscheiden
@@ -201,34 +213,55 @@ class PortfolioPriceSource @Inject constructor(
                     split.unchecked.filterTo(unchecked) { it !in rejected }
                     // Eingetragene Börse: deren Kurs gilt, sonst bleibt Binance (siehe PortfolioExchangeRoute)
                     applyExchangeRoutes(toFetch, fetched)
-                    val time = System.currentTimeMillis()
-                    fetched.forEach { (coin, price) ->
-                        cache[coin] = price to time
-                        uncheckedCoins -= coin
-                        unavailableCoins -= coin
-                        // Ungeprüft nur, solange der Kurs von Binance stammt (eine eingetragene Börse nennt ihren Token)
-                        if (coin in split.unverified && coin in fromBinance && sourceOf[coin] == null) {
-                            unverifiedCoins += coin
-                        } else {
-                            unverifiedCoins -= coin
+                    // «Portfolio leeren» lief während der Abfrage: nichts übernehmen (auch nicht die Börsen-Herkunft)
+                    val kept = storeMutex.withLock {
+                        if (generation != clearGeneration) {
+                            toFetch.forEach { sourceOf.remove(it); failedOf.remove(it); binanceOf.remove(it) }
+                            return@withLock false
                         }
-                    }
-                    // Abfrage gescheitert: nur Coins ohne jeden Kurs heissen «nicht abrufbar»; die übrigen ohne Kurs nicht
-                    toFetch.filter { it !in fetched }.forEach { coin ->
-                        if (coin in unavailable) unavailableCoins += coin else unavailableCoins -= coin
-                    }
-                    rejected.forEach { uncheckedCoins -= it }
-                    // Ungeprüft und auch sonst kein Kurs: kein Wert im Zwischenspeicher, Coin «ungeprüft»
-                    unchecked.filter { it !in fetched }.forEach { coin ->
-                        cache.remove(coin)
-                        uncheckedCoins += coin
+                        keep(fetched, toFetch, split.unverified, fromBinance, unavailable, rejected, unchecked)
+                        true
                     }
                     // Letzten guten Stand merken (für ohne Netz und nach einem Neustart)
-                    if (fetched.isNotEmpty()) persist()
+                    if (kept && fetched.isNotEmpty()) persist(generation)
                 }
             }
             collect(wanted)
         }
+
+    /** Ergebnis einer Abfrage in den Zwischenspeicher übernehmen ([prices], unter [storeMutex]). */
+    private fun keep(
+        fetched: Map<String, Double>,
+        toFetch: List<String>,
+        unverified: Set<String>,
+        fromBinance: Set<String>,
+        unavailable: Set<String>,
+        rejected: Set<String>,
+        unchecked: Set<String>,
+    ) {
+        val time = System.currentTimeMillis()
+        fetched.forEach { (coin, price) ->
+            cache[coin] = price to time
+            uncheckedCoins -= coin
+            unavailableCoins -= coin
+            // Ungeprüft nur, solange der Kurs von Binance stammt (eine eingetragene Börse nennt ihren Token)
+            if (coin in unverified && coin in fromBinance && sourceOf[coin] == null) {
+                unverifiedCoins += coin
+            } else {
+                unverifiedCoins -= coin
+            }
+        }
+        // Abfrage gescheitert: nur Coins ohne jeden Kurs heissen «nicht abrufbar»; die übrigen ohne Kurs nicht
+        toFetch.filter { it !in fetched }.forEach { coin ->
+            if (coin in unavailable) unavailableCoins += coin else unavailableCoins -= coin
+        }
+        rejected.forEach { uncheckedCoins -= it }
+        // Ungeprüft und auch sonst kein Kurs: kein Wert im Zwischenspeicher, Coin «ungeprüft»
+        unchecked.filter { it !in fetched }.forEach { coin ->
+            cache.remove(coin)
+            uncheckedCoins += coin
+        }
+    }
 
     /** Ein einzelner Kurs, z. B. zum Vorbelegen im Erfassen-Blatt. */
     suspend fun price(coin: String): Double? {
@@ -334,6 +367,9 @@ class PortfolioPriceSource @Inject constructor(
         val CANDLE_HOSTS = listOf("data-api.binance.vision", "api.binance.com", "api.binance.us", "api.exchange.coinbase.com")
         const val COINBASE_HOST = "api.exchange.coinbase.com"
         const val MAX_SYMBOLS = 100
+
+        /** Gleichzeitige Kerzen-Abfragen für Coins ohne Binance-Kurs (wie [HistoricPriceSource.PARALLEL]). */
+        const val CANDLE_PARALLEL = 4
         const val PRICE_TTL_MILLIS = 60_000L
         const val PAIR_LIST_RETRY_MILLIS = 6 * 60 * 60_000L
         const val COINS_TTL_MILLIS = 24 * 60 * 60_000L

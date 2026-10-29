@@ -126,10 +126,6 @@ jobs:
           else
             gh release edit data --notes "$NOTES" || true
           fi
-          # Remove formerly mirrored CoinGecko files (API terms); ignore failures
-          for old in global.txt coins30.txt coins40.txt; do
-            gh release delete-asset data "$old" -y || true
-          done
           gh release upload data "$RUNNER_TEMP"/data/* --clobber
           # Manifest last (so it matches the files just uploaded); without a signature, remove the old one
           if [ ! -f "$RUNNER_TEMP/manifest/manifest.json.sig" ]; then

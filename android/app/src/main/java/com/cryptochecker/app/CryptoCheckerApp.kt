@@ -82,10 +82,14 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
         super.attachBaseContext(AppLanguages.wrap(base))
     }
 
-    /** Sprach- oder Regionswechsel: Android setzt `Locale.setDefault` neu — Zahlen-Locale nachziehen. */
+    /**
+     * Sprach- oder Regionswechsel: Android setzt `Locale.setDefault` neu — Zahlen-Locale nachziehen. Drehung bzw. neue
+     * Bildschirmgrösse: Preis-Overlay im Bildschirm halten.
+     */
     override fun onConfigurationChanged(newConfig: android.content.res.Configuration) {
         super.onConfigurationChanged(newConfig)
         AppLanguages.applyNumberLocale()
+        priceOverlay.get().onConfigurationChanged()
     }
 
     override fun onCreate() {

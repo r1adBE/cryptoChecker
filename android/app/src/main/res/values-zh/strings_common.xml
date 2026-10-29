@@ -28,11 +28,9 @@
     <string name="error_exchange_unreachable">交易所暂时无法连接——仍显示最后获取的价格。</string>
     <string name="error_exchange_unreachable_short">交易所暂时无法连接</string>
     <string name="loading_hint">加载中…</string>
-    <string name="no_internet_connection">无网络连接。请检查 Wi-Fi 或移动数据，然后重试。</string>
     <string name="option_off">关闭</string>
     <string name="something_went_wrong">出了点问题</string>
     <string name="time_just_now">刚刚</string>
-    <string name="timeout_error_message">交易所暂时无响应。请稍后重试。</string>
     <string name="try_again">重试</string>
 
     <!-- Verbindungsstatus (Status-Pille) -->

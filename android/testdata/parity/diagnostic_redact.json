@@ -77,6 +77,26 @@
     {
       "in": "release1-candidate",
       "out": "release1-candidate"
+    },
+    {
+      "in": "TON EQDtFpEwcFAEcRe5mLVh2N6C0x-_hJEM7W61_JLnSF74p4q2",
+      "out": "TON [redacted]"
+    },
+    {
+      "in": "UQBvW8Z5huBkMJYdnfAEM5JqTNkuWX3diqYENkWsIL0XggGG",
+      "out": "[redacted]"
+    },
+    {
+      "in": "0QAs9VlT6S776tq3unJcP5Ogsj-ELLunLXuOb1EKcOQi4-QO on TON",
+      "out": "[redacted] on TON"
+    },
+    {
+      "in": "EQDtFpEwcFAEcRe5mLVh2N6C0x-_hJEM7W61_JLnSF74p4q",
+      "out": "EQDtFpEwcFAEcRe5mLVh2N6C0x-_hJEM7W61_JLnSF74p4q"
+    },
+    {
+      "in": "XQDtFpEwcFAEcRe5mLVh2N6C0x-_hJEM7W61_JLnSF74p4q2",
+      "out": "XQDtFpEwcFAEcRe5mLVh2N6C0x-_hJEM7W61_JLnSF74p4q2"
     }
   ],
   "_comment_sourceCommit": "Zeile «Source» im Bericht — 7 bis 40 Hex-Zeichen, gekürzt auf 12 (klein), sonst «local»; nie ersetzt wie eine Adresse.",

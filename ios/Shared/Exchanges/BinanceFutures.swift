@@ -10,6 +10,9 @@ private let binanceDapiDayTicker = binanceDapi + "/ticker/24hr"
 /// Vorsatz der COIN-M-Kennungen.
 private let binanceCoinMMark = "2:"
 
+/// Fehlertext ohne Paar-Kennung (keine Anfrage); Android gleich.
+private let binanceMissingPairId = "Missing pair id"
+
 /// Binance Futures: USDⓈ-M (fapi, Kennung = Symbol) und COIN-M (dapi, Kennung «2:» + Symbol). Zwei Endpunkte, die
 /// ohne `symbol` je alle Kontrakte liefern — darum kein `SimpleExchange`.
 final class BinanceFutures: Exchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
@@ -31,8 +34,13 @@ final class BinanceFutures: Exchange, @unchecked Sendable { // @unchecked: wie `
 
     // MARK: Einzelkurs
 
+    /// Ohne Paar-Kennung (fehlt oder leer) keine Anfrage, sondern ein Fehler — wie Android (`pairIdOf` wirft).
+    override func tickerQueryError(call: Int, info: PairQuery) -> Error? {
+        BinanceFutures.pairId(of: info) == nil ? JSONError(message: binanceMissingPairId) : nil
+    }
+
     override func tickerAddress(call: Int, info: PairQuery) -> String {
-        let pairId = info.pairId ?? ""
+        guard let pairId = BinanceFutures.pairId(of: info) else { return "" }
         let endpoint = BinanceFutures.dayTicker(of: pairId)
         let symbol = BinanceFutures.isCoinM(pairId) ? String(pairId.dropFirst(binanceCoinMMark.count)) : pairId
         // Immer das Symbol der Paarliste, bei Laufzeit-Kontrakten samt Verfallstag («BTCUSDT_251226»); nie aus dem
@@ -140,4 +148,10 @@ final class BinanceFutures: Exchange, @unchecked Sendable { // @unchecked: wie `
     }
 
     private static func isCoinM(_ pairId: String) -> Bool { pairId.hasPrefix(binanceCoinMMark) }
+
+    /// Paar-Kennung der Abfrage; nil, wenn sie fehlt oder leer ist.
+    private static func pairId(of info: PairQuery) -> String? {
+        guard let id = info.pairId, !id.trimmingCharacters(in: .whitespaces).isEmpty else { return nil }
+        return id
+    }
 }

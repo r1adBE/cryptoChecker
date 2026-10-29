@@ -22,6 +22,18 @@ enum CycleCachePolicy {
     /// Coin-Analyse je Coin 15 Min.
     static let coin: Int64 = 15 * minute
 
+    /// Harte Zeitgrenze je Bereich (alle Teilanfragen zusammen), Schlüssel wie Android `CycleSource.key`. Grosse bzw.
+    /// mehrteilige Abfragen länger — sie sind dafür lange zwischengespeichert. Wie Android `CycleSource.timeoutMillis`.
+    static let timeoutMillis: [String: Int64] = [
+        "pulse": 12_000, "unusual": 20_000, "market": 20_000, "onchain": 20_000, "fear_greed": 12_000,
+        "global": 12_000, "alt_season": 20_000, "history": 20_000, "coin": 20_000, "gas": 12_000,
+    ]
+
+    /// Zeitgrenze des Bereichs `source` in Sekunden (unbekannt: die kurze, 12 s).
+    static func timeoutSeconds(_ source: String) -> Double {
+        Double(timeoutMillis[source] ?? 12_000) / 1000
+    }
+
     /// Frisch: gespeichert vor weniger als `ttl`. Ein Zeitstempel in der Zukunft
     /// (Uhr verstellt) gilt als alt, damit nichts ewig hängen bleibt.
     static func isFresh(savedAt: Int64, now: Int64, ttl: Int64) -> Bool {

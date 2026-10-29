@@ -181,4 +181,6 @@
 
     <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
     <string name="alarm_threshold_invalid_fix">しきい値が無効です – 調整してください</string>
+
+    <string name="alarm_last_checked">最終確認 %1$s</string>
 </resources>

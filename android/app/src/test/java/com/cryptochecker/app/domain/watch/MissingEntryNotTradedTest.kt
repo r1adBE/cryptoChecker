@@ -4,6 +4,7 @@ import com.cryptochecker.app.domain.exceptions.toExchangeFailure
 import com.cryptochecker.app.domain.refresh.ExchangeFailure
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
+import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
 import com.cryptochecker.marketdata.config.ExchangesConfig
 import com.cryptochecker.marketdata.exceptions.ExchangeParseException
@@ -79,17 +80,43 @@ class MissingEntryNotTradedTest {
         assertTrue(NotTraded.confirmedBySingle(false, err.message, err.toExchangeFailure()))
     }
 
-    /** Ohne Sammelabfrage (1–2 Paare): nur wo die Einzelabfrage die vollständige Liste liest (Lighter, Hyperliquid). */
+    /**
+     * Ausserhalb des Sammelpfads: nur wo die Einzelabfrage die vollständige Liste liest (Lighter, Hyperliquid) oder der
+     * Laufzeit-Kontrakt abgelaufen ist.
+     */
     @Test
-    fun confirmWithoutBulk() {
-        ParityJson.load("not_traded.json")["confirmWithoutBulk"].list().map { it.obj() }.forEach { c ->
-            val actual = NotTraded.confirmWithoutBulk(c["bulkTried"] as Boolean, c["singleReadsFullList"] as Boolean)
+    fun singleConfirms() {
+        ParityJson.load("not_traded.json")["singleConfirms"].list().map { it.obj() }.forEach { c ->
+            val actual = NotTraded.singleConfirms(
+                c["bulkTried"] as Boolean, c["singleReadsFullList"] as Boolean, c["contractExpired"] as Boolean,
+            )
             assertEquals(c["name"] as String, c["confirm"], actual)
         }
         val flagged = ExchangesConfig.EXCHANGES.values.filter { it.singleTickerReadsFullList }
         assertEquals(setOf("Lighter", "Hyperliquid"), flagged.map { it.key }.toSet())
         // Nur sinnvoll, wo die Liste vollständig ist
         assertTrue(flagged.all { it.bulkTickersComplete })
+    }
+
+    /** Abgelaufen ab dem Verfallstag in der Kennung, 08:00 UTC; ohne bzw. mit unmöglichem Datum nie. */
+    @Test
+    fun contractExpired() {
+        ParityJson.load("not_traded.json")["contractExpired"].list().map { it.obj() }.forEach { c ->
+            val actual = NotTraded.contractExpired(c["pairId"] as String?, c["now"].num()!!.toLong())
+            assertEquals(c["name"] as String, c["expired"], actual)
+        }
+    }
+
+    /** Kurzform eines Laufzeit-Kontrakts nach dem Datum in der Kennung (Quartalswechsel: «2Q» wird «1Q»). */
+    @Test
+    fun shownContract() {
+        ParityJson.load("not_traded.json")["shownContract"].list().map { it.obj() }.forEach { c ->
+            val actual = FuturesContractType.shownContract(
+                FuturesContractType.valueOf(c["stored"] as String), c["pairId"] as String?,
+                java.time.Instant.ofEpochMilli(c["now"].num()!!.toLong()),
+            )
+            assertEquals(c["name"] as String, c["shown"], actual.name)
+        }
     }
 
     @Test

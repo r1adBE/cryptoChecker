@@ -1,5 +1,5 @@
 {
-  "_comment": "Obergrenze der Kurs-Mitteilungen (Android und iOS): höchstens 20 einzeln, der Rest in EINER Sammelmeldung; priceSlots = Plätze bei anderen offenen Mitteilungen, planPrices = Verteilung (shown = einzeln offen, neueste zuerst; overflowBefore = bisher in der Sammelmeldung; posts = jetzt zu melden). overflowBody = aufgeklappter Text der Sammelmeldung (Zeilen mit Zeilenumbruch verbunden): die ersten 5 Zeilen, danach «…». Gemeinsam für NotificationBudgetParityTest.kt und NotificationBudgetTests.swift.",
+  "_comment": "Obergrenze der Kurs-Mitteilungen (Android und iOS): höchstens 20 einzeln, der Rest in EINER Sammelmeldung; priceSlots = Plätze bei anderen offenen Mitteilungen, planPrices = Verteilung (shown = einzeln offen, neueste zuerst; overflowBefore = bisher in der Sammelmeldung; posts = jetzt zu melden). overflowBody = aufgeklappter Text der Sammelmeldung (Zeilen mit Zeilenumbruch verbunden): die ersten 5 Zeilen, danach «…». Gemeinsam für NotificationBudgetParityTest.kt und NotificationBudgetTests.swift. verify / confirmedPost: Eine Alarm-Mitteilung gilt erst als zugestellt, wenn das System sie führt — bis zu attempts Mal im Abstand von stepMillis nachgesehen (zusammen rund 1 s, auf beiden Plattformen gleich) — und zwar mit einer Meldezeit ab der Zeit direkt vor dem Melden abzüglich toleranceMillis (die Zeit setzt das System); nicht abfragbar = ja.",
   "maxPrice": 20,
   "priceSlots": [
     {
@@ -442,6 +442,55 @@
       "name": "leer",
       "lines": [],
       "body": ""
+    }
+  ],
+  "verify": {
+    "attempts": 10,
+    "stepMillis": 100,
+    "toleranceMillis": 1000
+  },
+  "confirmedPost": [
+    {
+      "name": "not queryable counts as delivered",
+      "queryable": false,
+      "postTime": null,
+      "postedAt": 1700000000000,
+      "confirmed": true
+    },
+    {
+      "name": "not listed (yet)",
+      "queryable": true,
+      "postTime": null,
+      "postedAt": 1700000000000,
+      "confirmed": false
+    },
+    {
+      "name": "listed right after posting",
+      "queryable": true,
+      "postTime": 1700000000040,
+      "postedAt": 1700000000000,
+      "confirmed": true
+    },
+    {
+      "name": "system clock 1 s behind",
+      "queryable": true,
+      "postTime": 1699999999000,
+      "postedAt": 1700000000000,
+      "confirmed": true
+    },
+    {
+      "name": "just over 1 s before: an older notification of the same alarm",
+      "queryable": true,
+      "postTime": 1699999998999,
+      "postedAt": 1700000000000,
+      "confirmed": false
+    },
+    {
+      "name": "older notification a minute ago",
+      "queryable": true,
+      "postTime": 1699999940000,
+      "postedAt": 1700000000000,
+      "confirmed": false
     }
   ]
 }

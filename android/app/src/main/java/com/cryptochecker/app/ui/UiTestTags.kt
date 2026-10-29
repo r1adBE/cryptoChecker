@@ -86,12 +86,6 @@ object UiTestTags {
     const val BACKUP_RESTORE_SUBMIT = "backup_restore_submit"
     const val BACKUP_RESTORE_CONFIRM = "backup_restore_confirm"
 
-    /**
-     * Kurze Rückmeldung unten in iOS (z. B. «Gesichert»). Android zeigt dafür einen System-Toast ohne Kennung;
-     * der Android-Test prüft stattdessen die geschriebene Datei. Hier nur für gleiche Namen auf beiden Seiten.
-     */
-    const val TOAST = "toast"
-
     /** Schliessen-✕ einer Meldung mit Aktion (Snackbar bzw. Banner). */
     const val SNACKBAR_DISMISS = "snackbar_dismiss"
 

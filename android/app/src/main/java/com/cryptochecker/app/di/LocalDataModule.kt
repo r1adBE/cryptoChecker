@@ -5,6 +5,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.cryptochecker.app.data.local.AppDatabase
+import com.cryptochecker.app.data.local.DatabaseKeyStore
 import com.cryptochecker.app.data.local.EncryptingOpenHelperFactory
 import com.cryptochecker.app.data.local.ExchangeDao
 import com.cryptochecker.app.data.local.SharedPreferencesStores
@@ -105,7 +106,7 @@ object LocalDataModule {
     fun provideAlarmLogStore(@ApplicationContext context: Context): AlarmLogStore =
         AlarmLogStore(
             File(context.noBackupFilesDir, AlarmLogStore.FILE_NAME),
-            PortfolioSnapshotKeyStore(AlarmLogStore.KEY_ALIAS),
+            PortfolioSnapshotKeyStore(AlarmLogStore.KEY_ALIAS, DatabaseKeyStore.suspectMarker(context)),
         )
 
     // ---- Widget

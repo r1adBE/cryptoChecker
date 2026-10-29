@@ -107,8 +107,8 @@
     <string name="battery_open_settings">Open battery settings</string>
     <string name="battery_steps">In the app info, tap Battery (or App battery usage) and choose Unrestricted.</string>
     <string name="battery_title">Keep prices up to date</string>
-    <string name="ios_background_refresh_off" tools:ignore="UnusedResources">Background App Refresh is off for this app. Without it, alerts are only checked while the app is open.</string>
-    <string name="ios_low_power_mode" tools:ignore="UnusedResources">Low Power Mode is on. iOS rarely checks in the background, so alerts may come late.</string>
+    <string name="ios_background_refresh_off">Background App Refresh is off for this app. Without it, alerts are only checked while the app is open.</string>
+    <string name="ios_low_power_mode">Low Power Mode is on. iOS rarely checks in the background, so alerts may come late.</string>
 
     <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
     <string name="refresh_sheet_exchange_detail">Exchange message: %1$s</string>

@@ -270,7 +270,7 @@ def main():
     args = ap.parse_args()
 
     res = args.android_res
-    # Texte der Uhr-App (Build 155): Modul :wear neben :app, gleiche Schlüssel-Regeln (watchOS liest denselben Katalog)
+    # Texte der Uhr-App: Modul :wear neben :app, gleiche Schlüssel-Regeln (watchOS liest denselben Katalog)
     wear = os.path.normpath(os.path.join(res, "..", "..", "..", "..", "wear", "src", "main", "res"))
     dirs = [res] + ([wear] if os.path.isdir(wear) else [])
     base = {}

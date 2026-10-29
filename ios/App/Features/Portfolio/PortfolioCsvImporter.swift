@@ -20,25 +20,6 @@ struct CsvImportLoaded: Identifiable {
     var usdtUsd: [Int: Decimal] = [:]
     /// Vorschläge zur Vorschau beim Laden (im Hintergrund gerechnet, `CsvImportProposals.of`).
     var proposals = CsvImportProposals(list: [], links: [])
-
-    /// Vorschau neu zuordnen (`CsvImportMapping`, `withdrawalsAsTransfer`) — wie `mapPreview` (Android); `zone` =
-    /// gewählte Zeitzone der Zeiten ohne Versatz (nil = Regel `CsvImportParser.zoneFor`): Text im Speicher neu lesen,
-    /// Tageskurse bleiben (ein verschobenes Datum nimmt den Kurs des letzten Geschäftstags davor) — wie `setZone`.
-    /// `dateOrder` = gewählte Reihenfolge Tag/Monat bei mehrdeutigen Daten; `decimalMark` = gewähltes Dezimalzeichen bei
-    /// mehrdeutigen Zahlen; `rates` = neu geladene Tageskurse (nil = die der Datei beim Laden).
-    func remapped(withdrawalsAsTransfer: Bool, zone: String? = nil, dateOrder: CsvDateOrder? = nil,
-                  decimalMark: Character? = nil,
-                  rates current: [String: [(day: Int, rate: Double)]]? = nil) -> CsvImportPreview {
-        let r: CsvImportResult
-        if zone != nil || dateOrder != nil || decimalMark != nil {
-            r = CsvImportParser.parse(text, deviceZone: TimeZone.current.identifier, zone: zone, dateOrder: dateOrder,
-                                      decimalMark: decimalMark)
-        } else {
-            r = result
-        }
-        return PortfolioCsvImporter.mapPreview(r, existingKeys: existingKeys, rates: current ?? rates,
-                                               withdrawalsAsTransfer: withdrawalsAsTransfer, usdtUsd: usdtUsd)
-    }
 }
 
 /// Kurse einer Datei für die Vorschau: Devisen-Tageskurse je Währung (`PortfolioCsvImporter.fetchRates`) und

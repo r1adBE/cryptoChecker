@@ -3,6 +3,7 @@ package com.cryptochecker.app.data.portfolio
 import com.cryptochecker.app.domain.convert.FxCurrencies
 import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.domain.convert.CurrencyConversion
+import com.cryptochecker.marketdata.util.EpochTime
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.sync.Mutex
@@ -136,7 +137,7 @@ class FxRateSource @Inject constructor(
             runCatching {
                 val root = JSONObject(body)
                 root.getJSONObject("rates").getDouble(target) to
-                    root.optLong("time_last_update_unix", 0L).takeIf { it > 0L }?.times(1000L)
+                    EpochTime.secondsToMillis(root.optLong("time_last_update_unix", 0L))
             }.getOrNull()
         }?.takeIf { it.first > 0.0 }
 

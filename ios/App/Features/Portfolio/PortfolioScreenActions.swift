@@ -38,9 +38,15 @@ extension PortfolioScreen {
     /// Nach Rückfrage (gewischt oder VoiceOver «Löschen»): alle Transaktionen des Coins weg, Banner
     /// mit Coin und Zahl, «Rückgängig» und Ansage — wie Android `PortfolioScreen`.
     func deleteCoin(_ coin: String) {
-        var removed: [PortfolioTx] = []
         let expected = coinTxCount(coin)
-        withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { removed = data.deletePortfolioCoin(coin) }
+        Task { @MainActor in
+            let removed = await data.deletePortfolioCoin(coin, present: portfolioSpring(reduceMotion))
+            showCoinDeleted(coin, removed: removed, expected: expected)
+        }
+    }
+
+    /// Ergebnis von `deleteCoin`: Banner mit «Rückgängig» und Ansage; nicht geschrieben → Hinweis.
+    private func showCoinDeleted(_ coin: String, removed: [PortfolioTx], expected: Int) {
         guard !removed.isEmpty else {
             // Nicht geschrieben (gesperrte Datei): kein «Coin entfernt», sondern sagen, dass nichts gespeichert wird
             if expected > 0 { banner = .portfolioNotWritten(data) }
@@ -102,14 +108,18 @@ extension PortfolioScreen {
     /// «Portfolio leeren» bestätigt: alle Transaktionen weg, Banner mit Zahl, «Rückgängig» (alle mit ihren ids zurück,
     /// die Kurse lädt die Seite danach neu) und Ansage — wie `deleteCoin`, wie Android.
     func clearAll() {
-        // Stand vorher für «Rückgängig» (mit ids), wie `PortfolioRepository.clearAll` (Android) ihn zurückgibt
-        let before = data.currentPortfolioFile().transactions
-        var cleared = true
-        withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { cleared = data.clearPortfolio() }
-        guard cleared else {
-            banner = .portfolioNotWritten(data)
-            return
+        Task { @MainActor in
+            // Stand vorher für «Rückgängig» (mit ids), wie `PortfolioRepository.clearAll` (Android) ihn zurückgibt
+            guard let before = await data.clearPortfolio(present: portfolioSpring(reduceMotion)) else {
+                banner = .portfolioNotWritten(data)
+                return
+            }
+            showCleared(before)
         }
+    }
+
+    /// Ergebnis von `clearAll`: Banner mit Zahl, «Rückgängig» und Ansage (nichts gelöscht: nichts).
+    private func showCleared(_ before: [PortfolioTx]) {
         guard !before.isEmpty else { return }
         deleteTick += 1
         let text = L("portfolio_cleared", count: before.count)
@@ -125,16 +135,23 @@ extension PortfolioScreen {
     }
 
     private func restoreOrWarn(_ restore: [PortfolioTx]) {
-        var saved = true
-        withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { saved = data.restorePortfolioTxs(restore) }
-        if !saved { banner = .portfolioNotWritten(data) }
+        Task { @MainActor in
+            let saved = await data.restorePortfolioTxs(restore, present: portfolioSpring(reduceMotion))
+            if !saved { banner = .portfolioNotWritten(data) }
+        }
     }
 
     /// «Import rückgängig»: Lauf löschen, Banner mit «Rückgängig» (stellt die Transaktionen wieder her) — wie Android.
     func undoImport(_ batch: PortfolioImportBatchInfo) {
-        var removed: [PortfolioTx] = []
         let expected = data.portfolio.contains { $0.importBatch == batch.id }
-        withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { removed = data.undoPortfolioImport(batch.id) }
+        Task { @MainActor in
+            let removed = await data.undoPortfolioImport(batch.id, present: portfolioSpring(reduceMotion))
+            showImportUndone(removed, expected: expected)
+        }
+    }
+
+    /// Ergebnis von `undoImport`: Banner mit «Rückgängig» und Ansage; nicht geschrieben → Hinweis.
+    private func showImportUndone(_ removed: [PortfolioTx], expected: Bool) {
         guard !removed.isEmpty else {
             // Nicht geschrieben (gesperrt/Fehler) → Hinweis statt still, wie beim Löschen eines Coins
             if expected { banner = .portfolioNotWritten(data) }
@@ -154,6 +171,12 @@ extension PortfolioScreen {
             AccessibilityNotification.Announcement(text).post()
         }
     }
+}
+
+/// Übernahme eines geschriebenen Portfolio-Stands mit der Feder der Liste (ohne bei «Bewegung reduzieren»), für den
+/// `present` der Schreibwege (`AppData.editPortfolio`).
+@MainActor func portfolioSpring(_ reduceMotion: Bool) -> (() -> Void) -> Void {
+    { change in withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { change() } }
 }
 
 extension WatchlistBannerMessage {

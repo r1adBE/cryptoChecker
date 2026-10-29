@@ -13,34 +13,37 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
 
 * Anzeigename: **Crypto Checker**
 * applicationId: `com.cryptochecker.app`
-* Module: `marketdata` (Börsen-Bibliothek), `domain` (Fachlogik ohne Oberfläche und Speicher), `data` (Datenbanken, Repositories, Datenquellen), `app` (die App)
+* Module: `marketdata` (Börsen-Bibliothek), `domain` (Fachlogik ohne Oberfläche und Speicher), `data` (Datenbanken, Repositories, Datenquellen), `app` (die App), `wear` (Wear-OS-App)
 * Pakete: `com.cryptochecker.marketdata`, `com.cryptochecker.app`
 * Version: **16.2.2** (versionCode siehe `app/build.gradle.kts` – steigt mit jedem Stand um eins)
 * Quellcode: <https://github.com/r1adBE/cryptoChecker> (öffentlich, MIT; dieser Ordner = `android/`)
 
-## Stand 16.2.2
+## Schwerpunkte von 16.2.2
 
+* **Wear-OS-App** (Modul `wear`) — Kurse und 24 h der Lieblings-Coins direkt von den Börsen (Binance, sonst Bybit/OKX),
+  Liste «wie Handy» (Favoriten ★) oder eigene (bis 8 Coins), Abgleich der Wahl mit dem Handy über die Wear-Daten-Schicht,
+  Komplikation mit dem ersten Coin; alter Kurs grau mit Alter.
+* **Preis-Overlay** (optional, Berechtigung «Über anderen Apps einblenden») — Pille mit bis zu 3 Paaren der dauerhaften
+  Kurs-Mitteilung über anderen Apps, verschiebbar, Tippen öffnet die App (`overlay/`).
 * **Börsenauswahl in Abschnitten** — Spot · Futures · DEX-Pools · Forex (Referenzkurs), Favoriten oben, Suche über
   alle Abschnitte; innerhalb eines Abschnitts nach Handelsvolumen am Installationstag (einmal aus den öffentlichen
-  Börsenlisten von CoinGecko), ohne diese Angabe alphabetisch. Neu Bitunix Futures; DEX-Pools mit GeckoTerminal als
+  Börsenlisten von CoinGecko), ohne diese Angabe alphabetisch. Bitunix Futures; DEX-Pools mit GeckoTerminal als
   Reserve; Devisen als tägliche EZB-Referenzkurse (über Frankfurter), nie live und ohne Alarme.
-* **Einstellungen ohne «Erweitert»** (Build 132) — Hauptseite Allgemein (Sprache, Währung, Merkliste, Portfolio,
-  Alarme, Kurs-Aktualisierung) · Darstellung (Hell / Dunkel, Akzentfarbe, Kursfarben, Coin-Logos, Widgets) · Mehr
-  (Sicherung, Über die App) · «App zurücksetzen». «Token & TradFi» und %-Änderung auf der Seite «Merkliste»,
-  Markt-Meldungen und Sprachausgabe auf «Alarme», Entwickleroptionen (nur Debug-Builds) auf «Über die App»; die Suche
-  findet alles am neuen Ort.
-* **Steuer-Arbeitsunterlage als eigene Seite** (Build 129) — im Portfolio-Menü getrennt vom Stichtag-Export: Vorlage,
-  Stand der Regeln mit Warnung für spätere Steuerjahre, die vier Exporte und die Jahresübersicht; Exporte lassen sich
-  abbrechen und nennen bei Fehlern die Ursache.
-* **Portfolio-Leistung** (Builds 122–131) — grosse CSV-Dateien im Hintergrund mit Fortschritt «Zeile X von Y» und
-  «Abbrechen»; FIFO, Durchschnittskosten, Wertverlauf, «7 T»/«1 J» und Steuer-Export bleiben auch mit vielen
-  Transaktionen schnell (gleiche Zahlen).
-* **Barrierefreiheit** (Builds 129–131) — Charts für TalkBack Punkt für Punkt («Nächster/Vorheriger Punkt»), das
-  Merklisten-Widget zeigt bei grosser Schrift den Kurs vollständig; Barrierefreiheits-Prüfungen auch mit doppelter
-  Schriftgrösse und Arabisch (rechts nach links).
+* **Einstellungen** — Hauptseite Allgemein (Sprache, Währung, Merkliste, Portfolio, Alarme, Kurs-Aktualisierung) ·
+  Darstellung (Hell / Dunkel, Akzentfarbe, Kursfarben, Coin-Logos, Widgets) · Mehr (Sicherung, Über die App) ·
+  «App zurücksetzen». «Token & TradFi» und %-Änderung auf der Seite «Merkliste», Markt-Meldungen und Sprachausgabe
+  auf «Alarme», Entwickleroptionen (nur Debug-Builds) auf «Über die App»; die Suche findet alles.
+* **Steuer-Arbeitsunterlage als eigene Seite** — im Portfolio-Menü getrennt vom Stichtag-Export: Vorlage, Stand der
+  Regeln mit Warnung für spätere Steuerjahre, die vier Exporte und die Jahresübersicht; Exporte lassen sich abbrechen
+  und nennen bei Fehlern die Ursache.
+* **Portfolio-Leistung** — grosse CSV-Dateien im Hintergrund mit Fortschritt «Zeile X von Y» und «Abbrechen»; FIFO,
+  Durchschnittskosten, Wertverlauf, «7 T»/«1 J» und Steuer-Export bleiben auch mit vielen Transaktionen schnell.
+* **Barrierefreiheit** — Charts für TalkBack Punkt für Punkt («Nächster/Vorheriger Punkt»), das Merklisten-Widget zeigt
+  bei grosser Schrift den Kurs vollständig; Barrierefreiheits-Prüfungen auch mit doppelter Schriftgrösse und Arabisch
+  (rechts nach links).
 * **CSV-Import** aus Relai, Swissquote, Kraken, Bitpanda, Binance und Coinbase (dazu eine allgemeine Zuordnung;
   `domain/portfolio/csvimport/`).
-* **Coin-Logos** bis 4 MB (Build 131), damit auch die hochauflösenden Binance-Logos statt Initialen.
+* **Coin-Logos** bis 4 MB, damit auch die hochauflösenden Binance-Logos statt Initialen.
 
 Alle Builds: `CHANGELOG.md` im Repository-Hauptordner.
 
@@ -218,10 +221,9 @@ Migrationstest mit Daten (`RoomSchemaRulesTest`).
   (Umbenennung zu One Trading, alte Domain 04.01.2024).
 * App-Icon: weisse Glocke mit steigender Kurslinie auf orangem Verlauf (Markenfarbe), als adaptives Vektor-Icon mit
   Varianten je Akzentfarbe (`res/drawable/ic_launcher_*`); Store-Icon
-  `docs/store/icon_512.png`. Die alten blauen Globus-Grafiken (`docs/branding`)
-  sind entfernt.
+  `docs/store/icon_512.png`.
 * Sammelaktion «Alle …-Paare dieser Börse» mit wählbarer Gegenwährung
-  (früher «Alle USDT-PERPS»; `domain/model/ExchangePairsInfo.kt`,
+  (`domain/model/ExchangePairsInfo.kt`,
   `ui/features/explorer/ExplorerViewModel.kt`), mit Schnellfiltern Gewinner / Verlierer / Volumen
   (eine Sammelabfrage der Börse beim Öffnen, höchstens einmal pro Minute).
 * Künstliche Ladeverzögerung beim Start der Börsenliste entfernt.

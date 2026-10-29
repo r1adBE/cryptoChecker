@@ -272,7 +272,14 @@ override fun parseBulkTickers(call: Int, body: String, tickers: MutableMap<Strin
   Network errors, timeouts, rate limits, 5xx and refused access stay ordinary
   errors and the pair keeps its last price. A pair already marked is not asked
   again on every run; it recovers as soon as the bulk list contains it again.
-  Cases live in `testdata/parity/not_traded.json`. A single-ticker parser must
+  Outside the bulk path (fewer than 3 pairs of the exchange, or the bulk query not usable) a single answer
+  confirms only with a second statement (`NotTraded.singleConfirms`): the single request reads the full list
+  itself (Lighter, Hyperliquid), or the dated contract has expired — the date in the pair id
+  (`BTCUSDT_250926`, `FuturesContractType.deliveryCodeOf`) is past its settlement at 08:00 UTC
+  (`NotTraded.contractExpired`). An expired contract already marked is not asked again. The short form shown
+  for a dated contract («1Q», «2Q», «1M» …) comes from the date in its id (`FuturesContractType.shownContract`,
+  iOS `shown(stored:pairId:now:)`), not from the type stored when it was added: after the quarter roll a «2Q»
+  contract shows «1Q». Cases live in `testdata/parity/not_traded.json`. A single-ticker parser must
   therefore throw (or return the exchange's error) for an unknown pair, never
   return a price of 0. The own reader text `ExchangeParseException.NO_DATA` / `JSONError.noData` («No data») and
   Hyperliquid «Unknown coin: …» count as «unknown pair» (`NotTraded.isMissingEntry`, failure `UnknownInstrument`);
@@ -296,6 +303,11 @@ For other formats override `errorMessageJson(call, json, info)` or
 `errorMessage(call, body, info)` (Swift: `errorMessage(call:json:info:)` /
 `errorMessage(call:body:info:)`) and return the exchange's message; call
 `noErrorText()` when the response carries none. The app shows it to the user.
+
+Numbers from a server are never trusted to fit: seconds → ms only through `EpochTime.secondsToMillis` (1 … < 10¹³ s,
+else no time / the candle is dropped), `EpochTime.parseTimeToMillis` returns 0 instead of overflowing, block heights
+from 10 million on are implausible (`HalvingMath.estimate`). Swift traps on `*` overflow – use these helpers,
+`multipliedReportingOverflow` or bounds first. Cases: `testdata/parity/server_values.json`.
 
 ## 8. Registering the exchange
 
@@ -703,7 +715,7 @@ as in `android/testdata/exchanges/exchange_*.json`). On a failure the job opens 
 «Exchange API check failed» (or updates the open one) and the run stays green (the issue is the signal); when all pass again it
 closes the issue. HTTP 451 (and 403 for exchanges that block US cloud IPs) counts as skipped,
 since GitHub's runners are in the US. The scheduled data workflows (`exchange-live-check.yml`,
-`macro-calendar.yml`, `exchange-data.yml`) run in two jobs: the fetch job (`contents: read` only) talks to third-party
+`macro-calendar.yml`, `market-data.yml`) run in two jobs: the fetch job (`contents: read` only) talks to third-party
 servers and uploads its result as an artifact; the publish job (write/issue permissions, no third-party requests)
 checks out `github.sha` afresh, downloads the artifact with `gh run download` (`actions: read`; `macro-calendar.yml`
 has `actions: write` to start «Market data» after a commit) and checks it with
@@ -789,8 +801,21 @@ touching GitHub: `python3 -I .github/scripts/exchange_live_check.py --dry-run` (
   `META-INF/*.SF|*.RSA|*.EC|MANIFEST.MF` – weaker, because v2/v3 signatures live outside the ZIP entries. The AAB
   from Play cannot be compared this way (Google re-signs the generated APKs); compare the AAB you uploaded.
 
+Kotlin compiler warnings are errors in the app and library sources (`allWarningsAsErrors` in
+`android/build.gradle.kts` for `:app`, `:domain`, `:marketdata` and `:wear`, not for test sources; it holds for
+modules from the Gradle build cache too). `:data` is left out because the same task compiles Room's generated
+Kotlin; the step «Kotlin warnings» in `android.yml` counts the `src/main` warnings of every module compiled in the
+run (ceiling 0) and covers it.
+
 The *Android* workflow also shows, never failing: lint warnings counted by id (top 20, one notice;
 `.github/scripts/lint_warnings.py`). Unit-test line coverage is shown and gated (see below).
+
+**Line limit and history in comments.** `.github/scripts/line_limit.py` (`android.yml`, step «Line limit»,
+`--self-test`): at most 400 lines per production file (Kotlin in `android/*/src/main`, Swift in `ios/App`,
+`ios/Shared`, `ios/Widgets` and the watch folders). Build numbers («Build NNN») and review tags («(Review D13)»,
+«(D1)») are red in those files and in the build and CI files (`.github`, `ios/project.yml`, `ios/tools`,
+`android/tools`, Gradle scripts, version catalog, `gradle.properties`, ProGuard rules); version lines and
+`release_readiness.py` are skipped. Comments describe the current state; history goes to CHANGELOG.
 
 **Size ceilings beside the 400-line limit.** Both scripts have `--self-test`, ignore comments and string literals,
 and keep their ceilings in the script (today's maximum: nothing may grow past it; lower a ceiling when the code
@@ -798,44 +823,51 @@ shrinks, raise it only deliberately with the reason in the same pull request).
 * *Code metrics* (`android.yml`, step after «Line limit», `.github/scripts/code_metrics.py`): constructor
   dependencies of every `@HiltViewModel` / `@Inject constructor` class in `android/*/src/main` – red above
   `DEPS_CEILING` 14 – and `private`/`internal` properties declared in a ViewModel body (not constructor parameters,
-  not nested classes or functions) – red above `PROPS_CEILING` 35 (`ExplorerViewModel`). A class at the limit is split (use case, helper, state holder) instead of growing.
+  not nested classes or functions) – red above `PROPS_CEILING` 35 (`ExplorerViewModel`). A class at the limit is
+  split (use case, helper, state holder) instead of growing.
 * *Swift escape hatches* (`ios.yml`, job «iOS release build», first step, `.github/scripts/swift_escape_hatches.py`):
-  `@unchecked Sendable`, `nonisolated(unsafe)` and `DispatchSemaphore` in `ios/App`, `ios/Shared`, `ios/Widgets`
-  (not `ios/Tests`) against `CEILINGS`; above is red, below is a notice to lower it. Shared mutable state goes into
+  `@unchecked Sendable`, `nonisolated(unsafe)` and `DispatchSemaphore` in `ios/App`, `ios/Shared`, `ios/Widgets`,
+  `ios/Watch`, `ios/WatchCore` and `ios/WatchWidgets` (not `ios/Tests`) against `CEILINGS`; above is red, below is a notice to lower it. Shared mutable state goes into
   `OSAllocatedUnfairLock<State>` (module `os`, `withLock { state in … }`, the state type `Sendable`) or an actor
   instead of `NSLock` + `nonisolated(unsafe)` / `@unchecked Sendable`.
 
 **Coverage (logic gate).** Both platforms report line coverage of the unit tests as ONE notice on the run page, each
 with two numbers: *total* (every measured source file) and *logic* – the share that tests are expected to cover. The
-*logic* number is a gate: below `MIN_LOGIC` (workflow env, set just under the first measured value – Android 58 %
-of 60.6 %, iOS 78 % of 80.0 %) or without a report the job is red. It stops regressions without forcing
-new work; raise `MIN_LOGIC` when coverage grows. (`--min-logic P` in both scripts; without it they only display.)
+*logic* number is a gate: below `MIN_LOGIC` (workflow env, set just under the measured value – Android 58 %, measured
+68.1 %; iOS 70 %, measured 71.9 %) or without a report the job is red. It stops regressions without forcing new work;
+raise `MIN_LOGIC` when coverage grows. (`--min-logic P` in both scripts; without it they only display.)
 
 * *Android* (`android.yml`, step «Coverage (logic gate)»): Kover is applied only with
-  `-Pcoverage=true` (no new plugin or dependency; lock files and `verification-metadata.xml` already cover it), so the
-  gate itself runs uninstrumented and this step re-runs the debug unit tests. `:app` merges `:marketdata` into its
-  report (`kover(project(":marketdata"))` in `app/build.gradle.kts`): the exchange parsers run mostly in the contract
-  tests of `:app` (`ExchangeContractTest` with `testdata/exchanges/exchange_*.json` and `recorded/*.json`), which the
-  `:marketdata` report alone would miss. `.github/scripts/coverage_summary.py --merged app app=app
-  marketdata=marketdata` attributes every file to the module whose `src/main` contains it and prints per module and in
-  total; `:marketdata`'s own report is listed as «own tests only». *Logic* leaves out UI – source files containing
-  `@Composable` (screens, components and their Compose-generated classes), `RemoteViews` or `androidx.glance` (widget
-  rendering) and `…Activity.kt` – and generated code (anything not in `src/main`: Hilt, Room `_Impl`, `BuildConfig`,
-  `R`). ViewModels and other classes in `ui/` packages without `@Composable` count as logic. `--self-test` checks the
-  classification and the merge. Locally: `./gradlew -Pcoverage=true :app:koverHtmlReportDebug` (report under
-  `app/build/reports/kover/`; the summary needs the XML: `:app:koverXmlReportDebug :marketdata:koverXmlReportDebug`),
-  then in `android/`: `python3 -I ../.github/scripts/coverage_summary.py --merged app --min-logic 58 app=app
-  marketdata=marketdata`.
+  `-Pcoverage=true` (no new plugin or dependency; lock files and `verification-metadata.xml` already cover it). The
+  step «Unit tests» runs `testDebugUnitTest` once with `-Pcoverage=true` and writes `:app:koverXmlReportDebug` and
+  `:marketdata:koverXmlReportDebug`; the gate step only reads these reports (no tests run again). `:app` merges
+  `:marketdata`, `:domain` and `:data` into its report (`kover(project(…))` in `app/build.gradle.kts`): most of their
+  tests run in `:app` (e.g. the exchange parsers in `ExchangeContractTest` with `testdata/exchanges/exchange_*.json`
+  and `recorded/*.json`), which their own reports would miss. `.github/scripts/coverage_summary.py --merged app
+  --min-logic 58 --min-module data=50 app=app domain=domain data=data marketdata=marketdata` attributes every file to
+  the module whose `src/main` contains it and prints per module and in total; every module must be listed, or its
+  files count as generated and drop out of *logic*. `:marketdata`'s own report is listed as «own tests only». Second
+  gate `MIN_DATA` 50: the *logic* coverage of `:data` (storage, network) on its own (measured 59.5 %). *Logic*
+  leaves out UI – source files containing `@Composable` (screens, components and their Compose-generated classes),
+  `RemoteViews` or `androidx.glance` (widget rendering) and `…Activity.kt` – and generated code (anything not in
+  `src/main`: Hilt, Room `_Impl`, `BuildConfig`, `R`). ViewModels and other classes in `ui/` packages without
+  `@Composable` count as logic. `--self-test` checks the classification and the merge. Locally:
+  `./gradlew -Pcoverage=true :app:koverHtmlReportDebug` (report under `app/build/reports/kover/`; the summary needs
+  the XML: `testDebugUnitTest :app:koverXmlReportDebug :marketdata:koverXmlReportDebug`), then in `android/`:
+  `python3 -I ../.github/scripts/coverage_summary.py --merged app --min-logic 58 --min-module data=50 app=app
+  domain=domain data=data marketdata=marketdata`.
 * *iOS* (`ios.yml`, job «iOS unit tests»): the unit-test run itself records coverage (`-enableCodeCoverage YES`,
   result bundle `UnitTests.xcresult`; same run, only the flag). The step «Coverage (logic gate)»
   (only after green unit tests) reads `xcrun xccov view --report --json` with
   `.github/scripts/xccov_summary.py` (`--self-test`). Test bundles are left out; a file compiled into app and widget
-  extension counts once (best entry). *Logic* = files under `ios/Shared/` that define no SwiftUI view (no
-  `some View`). Locally: run the tests in Xcode with coverage on (scheme › Test › Options › Code Coverage), then
+  extension counts once (best entry). The notice shows *logic* = files under `ios/Shared/` and `ios/App/` that
+  define no SwiftUI view (no `some View`) and *shared logic* = the same rule for `ios/Shared/` only (measured 80.8 %).
+  `GATE_SCOPE: logic` gates *logic*; change it only together with a `MIN_LOGIC` measured for the other scope. Locally:
+  run the tests in Xcode with coverage on (scheme › Test › Options › Code Coverage), then
   `xcrun xccov view --report --json <path to .xcresult> > /tmp/cov.json` and
-  `python3 -I .github/scripts/xccov_summary.py --min-logic 78 /tmp/cov.json`. A manual run with Thread Sanitizer
-  (input `thread_sanitizer`) skips the performance tests (`TEST_RUNNER_CC_SKIP_PERFORMANCE=1`, seen by the tests as
-  `CC_SKIP_PERFORMANCE=1`) and therefore only shows the coverage, without the gate.
+  `python3 -I .github/scripts/xccov_summary.py --min-logic 70 --gate-scope logic /tmp/cov.json`. A manual run with
+  Thread Sanitizer (input `thread_sanitizer`) skips the performance tests (`TEST_RUNNER_CC_SKIP_PERFORMANCE=1`, seen by
+  the tests as `CC_SKIP_PERFORMANCE=1`) and therefore only shows the coverage, without the gate.
 * Where logic is still uncovered, prefer a parity fixture (`testdata/parity/`, same cases on both platforms) over a
   single-platform test; network sources take an OkHttp `Interceptor` as fake provider (e.g. `FxRateSourceTest`).
 
@@ -867,7 +899,10 @@ Every area of the Market tab is stored on the device with a timestamp (Android
 `CycleCacheStore`, iOS `CycleCache`), shown immediately on open and reloaded quietly in the
 background only when it is older than its TTL. The TTLs live in one place per platform —
 `CycleSource` / `CycleCachePolicy` (Android, `domain/market/CycleCache.kt`) and
-`CycleCachePolicy` (iOS, `App/Features/Cycle/CycleCache.swift`) — and must stay equal:
+`CycleCachePolicy` (iOS, `App/Features/Cycle/CycleCache.swift`) — and must stay equal. The same goes for the hard
+time limit per area (`CycleSource.timeoutMillis` / `CycleCachePolicy.timeoutMillis`, parity
+`market_notice.json`): 12 s for Crypto Pulse, Fear & Greed, `/global` and gas, 20 s for the multi-request areas
+(Unusual today, Bitcoin indicators, on-chain values, altcoin count, cycle comparison, coin analysis).
 
 | Area | TTL | Why |
 |------|-----|-----|
@@ -897,7 +932,7 @@ on-chain values (`onchain.txt`, any `start_time`, 36 h) and BTC price since 2016
 needs the same entry in `mirror_data.py`, both `DataMirror` files and `data_mirror.json`.
 
 **Signed mirror** (`MirrorManifest.kt` / `MirrorManifest.swift`, cache `MirrorTrust.kt` / `MirrorTrust.swift`,
-parity cases `mirror_signature.json`): the publish job of `exchange-data.yml` writes, after `artifact_check.py`,
+parity cases `mirror_signature.json`): the publish job of `market-data.yml` writes, after `artifact_check.py`,
 `manifest.json` (`{"created":<ms>,"files":{"<file>":"<SHA-256 hex>"…},"revoked":[…],"v":1}`, compact, sorted keys) and
 `manifest.json.sig` (Base64 of the DER ECDSA P-256 / SHA-256 signature over the exact manifest bytes) with
 `mirror_data.py --manifest`, signed with the secret `MIRROR_SIGNING_KEY` (PEM, PKCS#8) through the
@@ -922,7 +957,7 @@ repository.
 
 *Macro calendar* (`MacroCalendar.kt` / `MacroCalendar.swift`, parity cases `macro_calendar_signature.json`): the
 economic calendar is not a release asset but `docs/macro/events.json` on GitHub Pages (written weekly by
-`macro-calendar.yml`). The publish job of `exchange-data.yml` checks out `docs/macro` and signs its hash as the entry
+`macro-calendar.yml`). The publish job of `market-data.yml` checks out `docs/macro` and signs its hash as the entry
 `macro_events.json` (`mirror_data.py --signed-extra macro_events.json=docs/macro/events.json`; the same manifest
 and keys, no second secret). The apps accept a downloaded calendar only if that hash is in a valid manifest
 (`MacroCalendar.parseVerified` with `MirrorTrust`); a changed, unlisted or unverifiable file counts as a download
@@ -1117,7 +1152,9 @@ All other exchanges keep REST polling at the configured interval.
 * Connections: Android `data/live/LivePriceStream.kt` (OkHttp WebSocket, protocol pings every
   20 s), iOS `ios/App/Services/LivePriceStream.swift` (actor, `URLSessionWebSocketTask`). Bybit,
   OKX and Kraken additionally get their text ping (`{"op":"ping"}`, `ping`, `{"method":"ping"}`);
-  without any message for 60 s those connections are reopened.
+  without any message for 60 s those connections are reopened. Every connection without a single price
+  **3 min** after subscribing (rejected subscription; Binance and Coinbase stay open on protocol pongs) is
+  reopened as well, with the growing pause (`LiveRules.silentSubscription`).
 * Lifecycle: the watchlist reports its visible pairs and whether it is shown (Android
   `LifecycleStartEffect`, iOS `onAppear`/`onDisappear`); app foreground (Android
   `AppVisibility`, iOS `scenePhase`), the setting and `NetworkStatus`/`ConnectivityMonitor`
@@ -1140,6 +1177,12 @@ All other exchanges keep REST polling at the configured interval.
 * REST while live: a pair with a live quote younger than 30 s is skipped by the REST refresh
   (`LiveRules.skipRest`, rolling basis only); if the stream stalls, the pair falls back to REST
   automatically.
+* «On a socket» is decided **per pair** from its own last live price (`LiveRules.liveIds`, ≤ 30 s), not per
+  exchange: with several connections of one exchange a disconnected one takes only its own pairs out.
+* «Edit pair»: every buffered quote carries the pair it was subscribed for and is saved only while that is still
+  the entry's pair (`LiveRules.samePair`, Android `LivePriceApplier.applyLive`, iOS `AppData.applyLive`) —
+  never by comparing times. The stream drops buffer and last-live time of a changed id and trims both to the
+  subscribed ids on every sync (Android `LiveCoverage`, iOS `tickAt`).
 
 **Never show «Live» unless every visible pair is live** (`LiveStatus` —
 Android `domain/watch/LiveStatus.kt`, iOS `ios/Shared/Util/LiveStatus.swift`, tests `LiveStatusTest` /
@@ -1182,7 +1225,11 @@ shared building blocks instead of styling numbers by hand:
 * **Arrow plus signed value.** A change is the arrow followed by the signed value in the same price
   colour: «↗ +0.21%», «↘ −2.77%», «↗ +12.40 USDT»; 0 and unknown show no arrow and stay grey. The
   minus is always the real minus sign U+2212, never a hyphen – also in notifications, widgets and
-  alarm texts (`PriceFormat.changePercent`, `PriceFormat.signedPercent`). The funding rate is coloured
+  alarm texts (`PriceFormat.changePercent`, `PriceFormat.signedPercent`). Below half a cent an amount has no sign
+  (never «-0.00»); sign and number are one LTR isolate (`BidiText.ltr`) so RTL languages keep the sign in front – also
+  value-history labels and axis, tax sums (`PortfolioFormat.signedMoney`: sign only for a loss, cases
+  `signed_amount.json`) and the watch apps (Android `WatchFormat`, iOS `WatchPercent`: same table as `PercentText`,
+  cases `percent_text.json` incl. `watch_change`). The funding rate is coloured
   text without an arrow. Counters carry an arrow («↗ 233 rising», «↘ 295 falling»); the average
   «Ø +0.32%» uses the warning text colour.
 * **Time window small and grey.** The period after a change («· 24h», «· 7d», «· 1Y», «· 1J») is small
@@ -1346,7 +1393,11 @@ the tests named here.
   file (empty portfolio) from an unreadable or partly unreadable one (`PortfolioFile.dropped`).
   `AppData` re-reads before every change (`currentPortfolioFile`) and, if still unreadable, keeps a
   copy (`preserveUnreadable` → `portfolio.unreadable.json`) before writing; if not even the bytes are
-  readable (data protection), nothing is written. Saves report failure.
+  readable (data protection), nothing is written. Saves report failure. User edits (save, delete, undo, clear,
+  undo import) go through `AppData.editPortfolio`: value copy on the MainActor, encode/seal/write/sort and the widget
+  off the main thread (`setPortfolioFileInBackground`), one after another (`portfolioEditGate`, the import's write
+  takes it too), the list changes only after the write (`present`) and the caller gets the result (`async`).
+  The synchronous `setPortfolioFile` is left for reset and backup restore/rollback.
 * **Alarm save and notify are one step.** Android marks an alarm as triggered and shows the
   notification inside one `withContext(NonCancellable)` (`RefreshEffects.report`, portfolio alarms);
   one-time alarms without a deliverable notification stay armed (`canShowAlarm`,
@@ -1454,6 +1505,12 @@ the tests named here.
     Coinbase always did. Only rejected closes → «unchecked»; no close anywhere → «no price». The result carries its
     source (`CloseResult.source`, e.g. «Kraken», «Binance.US»). Kraken serves 720 daily candles, OKX/Coinbase about
     600 via the candle sources, Bybit 1000 – older days stay without a close there.
+  - Many days (tax export: fee rows, rewards without value, network fees, FR total value): `dayClosesUsdt` runs the
+    **same chain per (coin, UTC day)** but fetches Binance/Coinbase candles per coin and source in spans
+    (`SpanFetch` / `HistoricSpanFetch`: Binance ≤ 1000 days with `startTime`/`endTime`, Coinbase ≤ 300 days, only
+    where days are wanted; the latest close once per series), reads routes and watchlist names once, at most 4 coins
+    in parallel. Result per day must equal `dailyCloseUsdt` (same candle that starts that day, same fallback order) –
+    pinned by `HistoricDayClosesBatchTest(s)` on a fake market. Never call `dailyCloseUsdt` in a loop over days.
   - Value history (`PortfolioHistorySource`): a coin with **no Binance series** (not listed, or Binance unreachable
     and nothing stored) and **no route** gets Coinbase → Kraken → OKX → Bybit daily candles (`fetchOwn`, USD ÷
     USDT/USD of the day) when the name matches and the latest close is within ±25 % of the current portfolio price
@@ -1520,8 +1577,12 @@ the tests named here.
   password. Reading caps `m ≤ 262 144` (256 MiB), `t ≤ 10`, `p ≤ 4` (minimum m = 8·p) so a crafted
   file cannot stall the device; out of memory is a clear error (`NotEnoughMemoryException` /
   `Failure.notEnoughMemory`, message `backup_not_enough_memory`), never a fallback to weaker parameters.
-  v3 is the only encrypted format; a file with another `v` is not readable. Shared vectors
-  (v3 exact ciphertexts incl. the production parameters, manipulated headers, RFC 9106) live in
+  v3 is the only encrypted format; a file with another `v` is not readable. The envelope is read as strictly as
+  iOS `JSONSerialization` on both platforms (`BackupFormat.parse` / `BackupCrypto.envelope(from:)`): nothing but
+  whitespace after the root object, `v`/`m`/`t`/`p` only as integral JSON numbers (`65536.0` counts, `"65536"`,
+  `65536.9` and `true` do not – `BackupFormat.integral` / `BackupCrypto.integral`), `enc`/`kdf`/`salt`/`iv`/`data`
+  only as JSON strings. Shared vectors
+  (v3 exact ciphertexts incl. the production parameters, manipulated headers, envelope texts, RFC 9106) live in
   `testdata/parity/backup_crypto.json` – keep both platforms in sync with it. Changing parameters: new
   constant on both platforms plus a vector; never change how existing files are read. Passwords go to
   `BackupCrypto` as `CharArray` (Android) / NFC UTF-8 bytes (iOS) and are wiped after the derivation.
@@ -1542,7 +1603,9 @@ the tests named here.
   (at least 15 min, `staleAfterMillis`; live mode does not count). **Stale prices are shown only** (faded,
   with the status pill) – never write them into the widget snapshot, the value history or the portfolio
   alarm checks (`mayRecord`). The file names the held coins: never put it into the app backup file or a
-  system backup, and delete it with «Clear portfolio» (`clearStored`).
+  system backup, and delete it with «Clear portfolio» (`clearStored`). A price fetch that started before the clear
+  must not bring them back: `clearGeneration` is bumped under the store lock, a fetch keeps its prices and writes the
+  file only if the generation is unchanged (iOS writes the file under `lock`).
 * **Status pill for Market and Portfolio.** Both tabs use the shared `DataStatusPill` (Android
   `ui/components/DataStatusPill.kt`, iOS `App/Components/DataStatusPill.swift`) with the watchlist's tones:
   green up to date, grey offline/loading, red outdated («Prices outdated · as of HH:MM», «Offline · as of
@@ -1570,7 +1633,9 @@ the tests named here.
   stored): a reward or swap valued at the close, a third-coin fee at the close in the cost of a buy or transfer, and
   what they pass on (network-fee cost, moved lots, CA superficial-loss adjustment from such a row). FIFO, FIFO per
   wallet, Ø, UK pool, CA, JP, AT and the FR total keep the flag until that cost has fully left the lot or pool; every
-  disposal row whose cost contains such a part carries «value estimated».
+  disposal row whose cost contains such a part carries «value estimated». The FR summary line of outflows without sale
+  (`FR_OUTFLOW`, withdrawal or gift) carries it too when a reduction of the total rests on such a part or on the
+  outflow's value at the day close (`TaxOutflow.estimated`).
   The info lines «fee not assigned» and lost fee cost (`TaxExport.feesIn`) are computed without day closes, so an
   estimated fee share on holdings without purchase price is not listed there. Fixtures: `tax_templates.json`,
   `tax_day_close.json`. The
@@ -1809,8 +1874,12 @@ the tests named here.
   (`CsvImportParser.parseNumber`; value below 10³⁰; decimals are checked when saving, after rounding, like plain
   numbers, so «1.234E-38» as a price is kept; at most 128 decimals, the range of iOS `Decimal`). Format helpers that
   clean a cell first must keep the exponent: Coinbase keeps an E between digits when stripping currency signs
-  («1.23457E+11»; «EUR 3.00» stays a code), the Binance trade history counts an exponent to the number before the unit
-  («1E-8BNB» = 0.00000001 BNB). Derived prices and conversions (fiat amount ÷ amount, ÷ FX rate) are exact and rounded
+  («1.23457E+11»; «EUR 3.00» stays a code) and keeps only the digits 0–9 (other scripts are dropped like currency signs),
+  the Binance trade history counts an exponent to the number before the unit («1E-8BNB» = 0.00000001 BNB). The Binance
+  unit is first matched at the end of the field against the pair's base and quote (fee: also BNB), longest first, so
+  leading digits stay with the symbol («10.51INCH» = 10.5 1INCH, «350000.001000SATS» = 350000 1000SATS); only without a
+  match does the unit start at the first letter.
+  Derived prices and conversions (fiat amount ÷ amount, ÷ FX rate) are exact and rounded
   once to 34 significant digits on both platforms (Android `CsvImport.derive`, iOS `PortfolioDecimal.divide` from the
   integer mantissas — `Decimal` itself divides to 38 digits, and rounding that again would differ in the last digit and
   change the import key; fixture `divide`). Rows the save would refuse are skipped in the
@@ -1935,14 +2004,19 @@ the tests named here.
   rescheduling actions, worker outcome. Receivers and the worker only call it. No `runBlocking` at app start.
 * **User-Agent** carries the real app version on both platforms (`HttpUserAgent`). Exception: every
   host that sees watched addresses (`AddressBalance.PRIVACY_HOSTS`/`privacyHosts`) gets `HttpUserAgent.NEUTRAL`
-  (Firefox ESR 153 string, one value for both platforms, `address_privacy.json`) on *every* request, gas fees and
+  (Firefox 159 string, one value for both platforms, `address_privacy.json`) on *every* request, gas fees and
   halving included (Android: `UserAgentInterceptor` host rule; iOS: `ExchangeHTTP.sessionFor(host:requested:)`). The
   address client has its own connection pool/dispatcher (iOS: own sessions). It hides the app name, not the fact
   that it is an app (TLS/HTTP fingerprint). A browser value only blends in while it is current: *Release
   readiness* runs `.github/scripts/user_agent_check.py` (`--self-test`): error if Android, iOS and the fixture differ
-  or the value names the app or its version; warning once the Firefox version is estimated older than 6 months
-  (assumption: a new major version every 4 weeks, reference Firefox 153 ≈ October 2026 – `REFERENCE_DATE` in the
-  script). Then update `HttpUserAgent.NEUTRAL`, `HttpUserAgent.neutral` and `address_privacy.json` together.
+  or the value names the app or its version, and for a Firefox version whose estimated release is still in the
+  future; warning once the Firefox version is estimated older than 6 months (assumption: a new major version every
+  4 weeks up to Firefox 154 on 18 August 2026, every 2 weeks from then on – `REFERENCE_DATE` in the script). Then
+  update `HttpUserAgent.NEUTRAL`, `HttpUserAgent.neutral` and `address_privacy.json` together.
+  Redirects of address queries are followed only to the same host and never from https to http
+  (`AddressRedirect.allowed`; Android `SameHostRedirectInterceptor` with `followRedirects(false)`, at most
+  `MAX_HOPS` = 5, 307/308 keep method and body; iOS `SameHostRedirectDelegate` on `WatchedAddressSource.session`);
+  any other redirect is the response (HTTP error, next host). Cases: `address_privacy.json` «redirectCases».
 * **Live stream message cap (residual risk).** Android checks the 1 MiB cap only after OkHttp has read
   the whole message (text and binary → UTF-8 like iOS `.data`): OkHttp has no incoming size limit
   and always offers `permessage-deflate`, inflating before the listener (switching it off would need a network
@@ -2045,8 +2119,16 @@ Change a rule → change the JSON first, then both implementations.
   is computed from the block height and the average block time of the current difficulty period
   (mempool.space, `HalvingMath.estimate`, UTC day, at most hourly), the calendar estimate stays as
   fallback. User thresholds (`IndicatorAlertKind` / `IndicatorAlertRules`, stored as integers,
-  factors in hundredths, 0 = off) are checked twice a day (`ZoneCheckWorker` / `ZoneCheck`):
-  notify once on crossing, re-arm when the value is back (`indicator_crossed_<kind>`).
+  factors in hundredths, 0 = off; only values of `choices` count, `IndicatorAlertRules.active`) are checked twice a
+  day (`ZoneCheckWorker` / `ZoneCheck`): notify once on crossing, re-arm when the value is back
+  (`indicator_crossed_<kind>`). A failed fetch is retried up to 3 times after 30 s, 1 min, 2 min
+  (`MarketNoticeGate.retryDelayMillis`; Android WorkManager backoff, iOS while the app is open).
+  Market notices (Fear & Greed, indicator bounds, gas, USDT depeg) store their state together with the bound it
+  belongs to; a missing or different bound counts as changed, so the notice is armed again
+  (`MarketNoticeGate.boundChanged`, `IndicatorAlertRules.wasCrossed`, `GasAlertLogic.armedFor`, `DepegAlarm.armedFor`;
+  parity `market_notice.json`). Switching a bound off resets it (`MarketAlertReset`) under the check's lock
+  (Android `ZoneCheckPrefs.lock`, `GasAlertPrefs.lock`, `DepegAlarmPrefs.lock`; iOS a reset counter per check), so a
+  check running at that moment cannot write the old state back.
   Tests: `BitcoinIndicatorModelTest`, `IndicatorAlertRulesTest`, `HalvingMathTest` (Swift in
   `ExchangesTests.swift`).
 * **Candles come from the pair's own exchange first; fallback only labelled and same-token
@@ -2293,6 +2375,11 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
   still holds), with the app closed Android checks about every 15 minutes or less often (device and
   battery dependent), iOS checks when the system allows; there is no «Always frequent» mode.
   Any change to alarm timing or quiet hours needs the store texts in all 31 languages.
+* **Widget text size.** Widget text follows the system text size with a cap: Android in sp (font scale, chart
+  labels capped at 1.3×), iOS through `WidgetTextSize` – main texts and the lines in the same layout grow up to
+  1.3× (`WidgetPrimaryFit`, falls back to base size when the grown layout does not fit), hints without such a layout
+  (empty, locked, «choose a coin») up to 1.25× (`widgetSecondaryFont`). Fixed: symbols, labels inside badges and
+  charts, header titles next to the logo, the compact Dynamic Island regions.
 * **Widget previews.** The picker previews (PNG `widget_preview_*_img.png` and the Android 12+ preview
   layouts `layout/widget_preview_*.xml`) must show what the live widgets draw. When a
   widget's look changes, redraw its preview in the same change, with the shared sample data (BTC
@@ -2365,7 +2452,8 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
 ## 19. Storage encryption
 
 User data is encrypted at rest on both platforms. The rule above all others: **never lose data** – a file that
-cannot be opened is set aside, never deleted; a plaintext copy is replaced only by a verified encrypted file, through
+cannot be opened is set aside, never deleted on the spot (only after the confirmed notice and the 30-day period,
+`AsideRetention`); a plaintext copy is replaced only by a verified encrypted file, through
 an atomic rename; without a key nothing with user data is written in plaintext.
 
 **Android – SQLCipher for both Room databases.**
@@ -2411,7 +2499,9 @@ an atomic rename; without a key nothing with user data is written in plaintext.
   previous key opens a set-aside file at a later start, it comes back (`restoreFromAside`, the meanwhile new file
   stays as `<db>.replaced`, notice «unlocked again»). Set-aside copies are deleted only after the notice was
   confirmed and at least 30 days after the app first saw them (`AsideRetention`, `<db>.aside-seen`); previous keys
-  go once no set-aside file is left. With «Portfolio in system backup» on, a new portfolio database imports the local
+  go once no set-aside file is left. Replaced files follow the same rule (`pruneReplaced`, `<db>.replaced-seen`),
+  their «replaced» keys (`<db>.key.replaced…`, `Keys.discardReplaced`) go once no replaced file is left. Shared
+  cases: `aside_retention.json`. With «Portfolio in system backup» on, a new portfolio database imports the local
   mirror on creation by itself.
 * «Encryption not active yet»: `EncryptingOpenHelperFactory` records every decision in `DatabaseEncryptionNotice`
   (own SharedPreferences, never in a backup; rule `EncryptionPending`, pure Kotlin + `EncryptionPendingTest`):
@@ -2440,7 +2530,10 @@ an atomic rename; without a key nothing with user data is written in plaintext.
   `-wal/-shm/-journal` → rename the copy over the database → delete the plaintext copy. At start,
   `DatabaseSystemBackup.cleanUpLeftover` deletes a copy next to an existing database (an interrupted backup). The
   portfolio database and the key files are never in a backup; `portfolio_system_backup.json` stays the opt-in plain
-  JSON mirror, present only during a backup or until the new portfolio database has imported it.
+  JSON mirror, present only during a backup or until the new portfolio database has imported it. The backup agent
+  opens the portfolio database with `EncryptingOpenHelperFactory(readOnly = true)` (`DatabaseOpenPlanner.readOnly`):
+  no set-aside, restore, pruning or new key; without a matching key it is `KeyUnavailable`, the mirror throws and
+  the backup is aborted (the previous one survives) – never an empty portfolio from a set-aside database.
 * Portfolio widget snapshot: `PortfolioSnapshotStore` keeps the whole snapshot (totals, positions,
   P/L, daily/period changes, the held coins' price samples and hourly prices) as **one** sealed entry
   `sealed_snapshot` in the SharedPreferences `portfolio_widget` – the widget reads synchronously, a small blob
@@ -2451,7 +2544,11 @@ an atomic rename; without a key nothing with user data is written in plaintext.
   → write nothing, a sealed entry stays). A broken, foreign or newer entry opens as «no snapshot» and the next save
   replaces it (it is a cache). Key: `PortfolioSnapshotKeyStore`, own Keystore alias `cryptochecker_widget_key`
   (no user authentication, created under a process-wide lock, a permanently broken entry is deleted and
-  recreated) – deliberately independent of `DatabaseKeyStore`. Without a key every reader gets `null`, so
+  recreated) – deliberately independent of `DatabaseKeyStore`. The same class seals the restore journal
+  (`cryptochecker_restore_journal`) and `alarm_log.sealed` (`cryptochecker_alarm_log`), but with a
+  `SuspectMarker` (`DatabaseKeyStore.suspectMarker`): only an invalidated key is deleted at once, an
+  `UnrecoverableKeyException` only when it repeats in a later run, and an entry the Keystore holds but does not
+  hand out is never overwritten. Without a key every reader gets `null`, so
   widgets show their empty state (`widget_portfolio_empty`) and the Portfolio tab starts without the stored
   «Today» values until it has computed its own (`showStoredToday`). Still plain in that file: the remembered FX rate
   (`fx_*`, no holdings). Never in a backup rule.
@@ -2461,7 +2558,7 @@ an atomic rename; without a key nothing with user data is written in plaintext.
   coins – reveals which coins, not how many; same as iOS). `portfolio_system_backup.json` is the documented
   opt-in plaintext mirror.
 * Tests: `DatabaseOpenPlannerTest`, `DatabaseFingerprintTest`, `DatabaseKeyRetryTest`, `DatabaseKeyRecoveryTest`,
-  `AsideRetentionTest`, `EncryptionPendingTest` (unit) and `DatabaseEncryptionTest` / `DatabaseEncryptionParallelTest`
+  `AsideRetentionTest`, `AsideRetentionParityTest`, `EncryptionPendingTest` (unit) and `DatabaseEncryptionTest` / `DatabaseEncryptionParallelTest`
   (androidTest, real SQLCipher and Keystore: unreadable without the key, lost key sets aside and a previous key brings
   it back, a temporarily unavailable key leaves the file untouched, system-backup copy round trip – encrypted on
   restore or, without a key, at the next start).
@@ -2498,11 +2595,15 @@ an atomic rename; without a key nothing with user data is written in plaintext.
   but sealed files → move them to `<name>.locked` (never delete), then create the key and show
   `StorageRecoveryNotice`; then seal every plaintext `.unreadable` copy (coordinated like `SharedStorage`, only
   replaced if the file is still byte-identical, backup-exclusion flag restored) and bring back a `.locked` file the
-  key opens (the meanwhile new file stays as `.replaced`). A plaintext `sealedOnly` file is left alone and reads as
+  key opens (the meanwhile new file stays as `.replaced`). `.locked` and `.replaced` copies are excluded from the
+  device backup (a restored `.locked` file takes over the flag of the file it replaces) and, only when the key was
+  already stored at this start, deleted after the notice was confirmed and at least 30 days after the app first saw
+  them (`AsideRetention.swift`, defaults key `protected_storage_aside_seen`, same cases as Android
+  `aside_retention.json`). A plaintext `sealedOnly` file is left alone and reads as
   damaged. A copy left plaintext (keychain unreadable, no key possible, failed sealing) is listed in
   `LaunchOutcome.keptPlain` and kept out of the device backup while plain (`PlainBackupExclusion`);
   `encryptionPending` → Settings › Backup shows `backup_encryption_pending` like Android. Tests: `ProtectedFileTests`
-  (fake keychain), `WatchlistSealedTests`, `SharedStorageTests`.
+  (fake keychain), `WatchlistSealedTests`, `SharedStorageTests`, `AsideRetentionTests`.
 * File protection stays the system default (complete until first user authentication).
 
 **Rules for later changes.** Never open an encrypted database with a helper that deletes on corruption; never create
@@ -2812,6 +2913,40 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   file name, starter logos via `CoinLogos.urlFor` (normalised), pull to refresh starts the logo sync, a pause schedules a
   restart at its end, 403 without Retry-After fails only that image (server pause on 429/503, Retry-After or 3
   consecutive 403). Hint `portfolio_export_address_lots_note` reworded (31 languages).
+* Build 168: full audit of build 167. Market/alarms: outside the bulk path an expired dated contract confirms «not
+  traded» (`NotTraded.singleConfirms`, `contractExpired`, settlement 08:00 UTC; not asked again), short form from the
+  contract date (`FuturesContractType.shownContract`); depeg threshold stored (`DepegAlarmPrefs.KEY_ARMED_TENTHS`,
+  `armedFor`) and re-armed after off/on; a running zone check no longer overwrites an «off» (Android shared lock, iOS
+  `keyResetGeneration`); zone check retried 3× (`MAX_RETRIES`, 30 s doubling); indicator bounds only from
+  `IndicatorAlertKind.choices`; «Live» per pair (`LiveFeed.liveIds`), reconnect after 180 s without data
+  (`SILENT_SUBSCRIPTION_MILLIS`), no old price after editing a pair (`samePair`); Android `AlarmLastCheckedLine`
+  (`RefreshStats.lastFullCheck`); delivery check 10 × 100 ms (`VERIFY_ATTEMPTS`, `confirmedPost`); market-tab timeouts
+  12/20 s, coin analysis 20 s on both platforms; iOS «Missing pair id» without request. Fixtures `live_feed.json`,
+  `market_notice.json`, `not_traded.json`, `notification_budget.json`. Robustness: tax-export day closes in spans
+  (`SpanFetch`, Binance 1000 / Coinbase 300 days, `HistoricDayClosesBatchTest` equal to per-day closes); iOS portfolio
+  edits and backup file work off the main thread (`BackupFileWork`, `PortfolioImportSave`); server numbers bounded
+  (`EpochTime.secondsToMillis`, `MAX_PLAUSIBLE_HEIGHT`, fixture `server_values.json`); price overlay clamped/snapped
+  after rotation (`place`) with retry (`RETRY_MS`); clearing the portfolio during a price fetch keeps nothing
+  (`persist(generation)`); settings write failures logged; reduce motion observed once (`rememberReduceMotion`); Wear
+  complication rethrows cancellation, 20 s timeout; `MacroNotifyWorker` reschedules after an error. Security: read-only
+  open (system backup) never sets aside or creates a key, a single `UnrecoverableKeyException` no longer deletes the
+  keystore key of the restore journal and alarm log (`PortfolioSnapshotKeyStore` with `DatabaseKeyRetry.SuspectMarker`:
+  only when it recurs in a later run); replaced copies pruned after the same retention (`pruneReplaced`); iOS
+  `*.locked`/`*.replaced` kept 30 days after the acknowledged notice (`AsideRetention`, fixture `aside_retention.json`); backup envelope read strictly (`integral`, fixture
+  `backup_crypto.json`); address queries follow redirects only to the same host, never https → http
+  (`AddressRedirect`, `SameHostRedirectInterceptor`/`SameHostRedirectDelegate`, at most 5 hops); TON addresses redacted
+  in the diagnostic report (`diagnostic_redact.json`); `:wear` release signing like `:app`; DEX contract address copied
+  alike; SECURITY.md and privacy page updated. Hygiene/CI: Kotlin warnings as errors (not `:data`), CI path filters,
+  required-checks script, coverage docs, dead code removed (10 pulse strings in 31 languages), review tags and build
+  numbers removed from comments, `line_limit.py` also scans CI/build files, flaky tests fixed, screenshots workflow only
+  from `main`, `user_agent_check.py` models Firefox's 2-week cadence since Firefox 154 (neutral UA stays Firefox 159).
+  Money: Binance symbols with leading digits (`1INCH`, `1000SATS`), FR outflow/gift reduction marked «value
+  estimated» (`TaxOutflow.estimated`), Coinbase `money()` only ASCII digits on Android. Display: signed amounts
+  without «-0.00» in an LTR isolate (`PortfolioFormat.signedMoney`, `WatchFormat`/`WatchPercent`, fixtures
+  `signed_amount.json`, `percent_text.json`), widget text size capped (`WidgetTextSize`), portfolio alarm with app lock
+  only `notification_portfolio_alarm_locked`; `LoadErrorScreen` removed (the exchange list is fixed and cannot fail).
+  iOS `PortfolioDecimal` exact ops no longer fall back to Decimal `*` below 1e-128 (8-bit exponent overflow in
+  Foundation), with a fast path (`plainProduct`).
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

@@ -97,6 +97,5 @@ object SettingsKeys {
     val costMethod = stringPreferencesKey("portfolio_cost_method")
     val taxTemplate = stringPreferencesKey("tax_template")
     val taxTemplateConfirmed = booleanPreferencesKey("tax_template_confirmed")
-    val marketTabSeen = booleanPreferencesKey("market_tab_seen")
     val marketMoreExpanded = booleanPreferencesKey("market_more_expanded")
 }

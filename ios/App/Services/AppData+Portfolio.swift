@@ -14,21 +14,21 @@ extension AppData {
 
     /// Neu anlegen (id 0) oder ändern — wie `PortfolioRepository.save`.
     /// Coin wird vereinheitlicht (Grossbuchstaben), leere Notiz entfällt.
-    /// Ungültige Einträge (ohne Coin, Menge ≤ 0) werden nicht gespeichert.
+    /// Ungültige Einträge (ohne Coin, Menge ≤ 0) werden nicht gespeichert. Geschrieben abseits des Haupt-Threads
+    /// (`editPortfolio`); nil = nicht gespeichert.
     @discardableResult
-    func savePortfolioTx(_ tx: PortfolioTx) -> Int64? {
+    func savePortfolioTx(_ tx: PortfolioTx) async -> Int64? {
         guard let clean = Self.cleanedPortfolioTx(tx) else { return nil }
-        var file = currentPortfolioFile()
-        let id: Int64
-        if clean.id <= 0 {
-            id = PortfolioStore.insert(clean, into: &file)
-        } else {
+        return await editPortfolio(failed: Int64?.none) { base -> (file: PortfolioFile?, result: Int64?) in
+            var file = base
+            if clean.id <= 0 {
+                let id = PortfolioStore.insert(clean, into: &file)
+                return (file, id)
+            }
             // Wie `@Update`: gibt es die Transaktion nicht mehr, passiert nichts
-            guard PortfolioStore.update(clean, in: &file) else { return nil }
-            id = clean.id
+            guard PortfolioStore.update(clean, in: &file) else { return (nil, nil) }
+            return (file, clean.id)
         }
-        guard setPortfolioFile(file) else { return nil }
-        return id
     }
 
     /// Herkunftsschlüssel schon importierter Zeilen (CSV-Import: Doppelte) samt dem zweiten Schlüssel verknüpfter
@@ -49,15 +49,20 @@ extension AppData {
     /// die gelöschten und zurückgesetzten Transaktionen im Zustand vorher zurück (`restorePortfolioTxs` ersetzt je id und
     /// stellt die Verknüpfung wieder her). Leer, wenn nichts da ist oder nicht geschrieben wurde.
     @discardableResult
-    func undoPortfolioImport(_ batch: String) -> [PortfolioTx] {
-        var file = currentPortfolioFile()
+    func undoPortfolioImport(_ batch: String, present: (() -> Void) -> Void = { $0() }) async -> [PortfolioTx] {
+        await editPortfolio(failed: [], present: present) { base in Self.undoImport(batch, in: base) }
+    }
+
+    /// Neuer Stand und betroffene Transaktionen (Zustand vorher) für `undoPortfolioImport`; nichts betroffen: kein Stand.
+    private static func undoImport(_ batch: String, in base: PortfolioFile) -> (file: PortfolioFile?, result: [PortfolioTx]) {
+        var file = base
         let plan = CsvTransferMatch.undoPlan(
             file.transactions.map { CsvImportedRef(id: $0.id, importBatch: $0.importBatch, restoreState: $0.importRestoreState) },
             batch: batch)
         let touched = file.transactions.filter {
             plan.delete.contains($0.id) || plan.revert[$0.id] != nil || plan.detach[$0.id] != nil
         }
-        guard !touched.isEmpty else { return [] }
+        guard !touched.isEmpty else { return (nil, []) }
         file.transactions = file.transactions.compactMap { tx in
             if plan.delete.contains(tx.id) { return nil }
             if let a = plan.detach[tx.id] {
@@ -102,8 +107,7 @@ extension AppData {
             reverted.importRestoreState = nil
             return reverted
         }
-        guard setPortfolioFile(file) else { return [] }
-        return touched
+        return (file, touched)
     }
 
     /// Bereinigt wie `PortfolioRepository.save`; ungültig (ohne Coin, Menge ≤ 0) = nil. Rein (auch im Hintergrund,
@@ -154,32 +158,51 @@ extension AppData {
 
     /// - Returns: false, wenn nicht geschrieben (gesperrte Datei, ohne Schlüssel) — die Transaktion bleibt.
     @discardableResult
-    func deletePortfolioTx(_ id: Int64) -> Bool {
-        PortfolioEdits.deleteTx(id, in: currentPortfolioFile(), write: { setPortfolioFile($0) })
+    func deletePortfolioTx(_ id: Int64, present: (() -> Void) -> Void = { $0() }) async -> Bool {
+        await editPortfolio(failed: false, present: present) { base in
+            Self.staged { write in PortfolioEdits.deleteTx(id, in: base, write: write) }
+        }
     }
 
     /// Wischen auf einem Coin: alle seine Transaktionen (auch Tausche in diesen Coin) löschen und zurückgeben (für
     /// «Rückgängig») — wie `PortfolioRepository.deleteCoin`. Leer, wenn nichts da ist oder nicht geschrieben wurde.
     @discardableResult
-    func deletePortfolioCoin(_ coin: String) -> [PortfolioTx] {
-        PortfolioEdits.deleteCoin(coin, in: currentPortfolioFile(), write: { setPortfolioFile($0) })
+    func deletePortfolioCoin(_ coin: String, present: (() -> Void) -> Void = { $0() }) async -> [PortfolioTx] {
+        await editPortfolio(failed: [], present: present) { base in
+            Self.staged { write in PortfolioEdits.deleteCoin(coin, in: base, write: write) }
+        }
     }
 
     /// «Rückgängig»: gelöschte Transaktionen mit ihren alten ids wieder anlegen — wie
     /// `PortfolioRepository.restore`. Die ids vergibt `nextId` nie doppelt.
     /// - Returns: false, wenn nicht geschrieben.
     @discardableResult
-    func restorePortfolioTxs(_ transactions: [PortfolioTx]) -> Bool {
-        PortfolioEdits.restore(transactions, in: currentPortfolioFile(), write: { setPortfolioFile($0) })
+    func restorePortfolioTxs(_ transactions: [PortfolioTx], present: (() -> Void) -> Void = { $0() }) async -> Bool {
+        await editPortfolio(failed: false, present: present) { base in
+            Self.staged { write in PortfolioEdits.restore(transactions, in: base, write: write) }
+        }
     }
 
     /// «Portfolio leeren» (nach Rückfrage): alle Transaktionen löschen — wie
     /// `PortfolioRepository.clearAll`. Gemerkte Kurse nennen die gehaltenen Coins: mit dem Portfolio weg (wie Android),
-    /// aber nur, wenn das Leeren geschrieben wurde. - Returns: false, wenn nicht geschrieben.
+    /// aber nur, wenn das Leeren geschrieben wurde. - Returns: die gelöschten Transaktionen (für «Rückgängig», mit ids);
+    /// nil, wenn nicht geschrieben.
     @discardableResult
-    func clearPortfolio() -> Bool {
-        PortfolioEdits.clear(in: currentPortfolioFile(), write: { setPortfolioFile($0) },
-                             afterSave: { PortfolioPriceSource.clearStored() })
+    func clearPortfolio(present: (() -> Void) -> Void = { $0() }) async -> [PortfolioTx]? {
+        let cleared = await editPortfolio(failed: [PortfolioTx]?.none, present: present) { base in
+            let staged = Self.staged { write in PortfolioEdits.clear(in: base, write: write, afterSave: {}) }
+            return (staged.file, staged.result ? base.transactions : nil)
+        }
+        if cleared != nil { PortfolioPriceSource.clearStored() }
+        return cleared
+    }
+
+    /// Schritt von `PortfolioEdits` ohne sofortiges Schreiben: der Stand, den er schreiben will (nil = keiner), und sein
+    /// Ergebnis, als hätte das Schreiben geklappt — `editPortfolio` schreibt ihn und meldet ein Scheitern selbst.
+    private static func staged<T>(_ step: ((PortfolioFile) -> Bool) -> T) -> (file: PortfolioFile?, result: T) {
+        var pending: PortfolioFile?
+        let result = step { pending = $0; return true }
+        return (pending, result)
     }
 
     /// Bestand eines Coins ohne die Transaktion `excludingId` (für die Verkaufs-Warnung).
@@ -271,6 +294,8 @@ extension AppData {
         return portfolioFile
     }
 
+    /// Synchron auf dem MainActor — nur für seltene Wege (Zurücksetzen, Wiederherstellen einer Sicherung samt Rückrollen);
+    /// Schreibwege des Nutzers laufen über `editPortfolio` abseits des Haupt-Threads.
     /// - Returns: false, wenn nicht gespeichert (nicht lesbare, gesperrte Datei).
     @discardableResult
     func setPortfolioFile(_ file: PortfolioFile) -> Bool {
@@ -304,8 +329,8 @@ extension AppData {
         }
         portfolioFile = file
         portfolio = PortfolioStore.newestFirst(file.transactions)
-        // Portfolio-Widget mit den bekannten Kursen nachführen
-        PortfolioWidgetStore.updateFromCache(transactions: file.transactions, currency: settings.portfolioCurrency)
+        // Portfolio-Widget mit den bekannten Kursen nachführen (abseits des Haupt-Threads)
+        updatePortfolioWidgetInBackground(file.transactions)
         return true
     }
 }

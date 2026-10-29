@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Texte der Mitteilungen -->
     <string name="notification_activity_title">Notable: %1$s · %2$s</string>
     <string name="notification_alarm_text">%1$s — now %2$s</string>
@@ -23,8 +23,7 @@
     <string name="notification_permission_preprompt_later">Later</string>
     <string name="notification_permission_preprompt_text">So that alerts and price notifications reach you, the app needs permission to send notifications. The app only uses them for your alerts and price notifications.</string>
     <string name="notification_permission_preprompt_title">Allow notifications?</string>
-    <!-- Nur iOS: Android nutzt diesen Text nicht -->
-    <string name="notification_portfolio_alarm_locked" tools:ignore="UnusedResources">Your alert was triggered – open the app for details.</string>
+    <string name="notification_portfolio_alarm_locked">Your alert was triggered – open the app for details.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
     <string name="notification_portfolio_alarm_text">%1$s – now %2$s</string>
     <string name="notification_portfolio_alarm_title">Portfolio value</string>

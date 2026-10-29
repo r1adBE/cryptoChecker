@@ -140,16 +140,6 @@
     <string name="pulse_alts_weaker">Bitcoin më i fortë se altcoin-et</string>
     <string name="pulse_chip_funding_high">Disponimi me levë optimist</string>
     <string name="pulse_chip_funding_negative">Disponimi me levë pesimist</string>
-    <string name="pulse_funding_high">Funding qartë pozitiv: shumë long me levë</string>
-    <string name="pulse_funding_negative">Funding negativ: shumë short</string>
-    <string name="pulse_funding_neutral">Funding neutral</string>
-    <string name="pulse_funding_slight">Funding pak pozitiv</string>
-    <string name="pulse_gas_high">Gas Ethereum i lartë (%1$s gwei)</string>
-    <string name="pulse_gas_low">Gas Ethereum i ulët (%1$s gwei)</string>
-    <string name="pulse_gas_normal">Gas Ethereum i zakonshëm (%1$s gwei)</string>
-    <string name="pulse_volume_high">Vëllimi i tregtimit jashtëzakonisht i lartë (%1$s× i zakonshmi)</string>
-    <string name="pulse_volume_low">Vëllimi i tregtimit i ulët (%1$s× i zakonshmi)</string>
-    <string name="pulse_volume_normal">Vëllimi i tregtimit i zakonshëm</string>
 
     <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>

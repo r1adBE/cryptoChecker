@@ -254,16 +254,21 @@ extension TaxEngines {
                     let value: Decimal? = portfolioValue(coin, unit, t.time).map { $0 - spent }
                     var reduction: Decimal? = nil
                     var reductionParts: [PortfolioCostPart] = []
+                    var reductionEstimated = false
                     if let v, let value, value > 0 {
                         let r = reduce(v, value)
                         reduction = r.cost
                         reductionParts = r.parts
+                        // Kürzung aus einem geschätzten Teil der Summe oder zum Wert beim Abgang am Tagesschluss (wie die
+                        // Netzwerkgebühr im Coin)
+                        reductionEstimated = r.cost != 0 && (r.estimated || coinFeeEstimated)
                     } else {
                         // Kurs fehlt: Kürzung unbekannt, die PTA danach nicht mehr gesichert
                         incomplete = true
                     }
                     outflows.append(TaxOutflow(coin: coin, txId: t.id, time: t.time, amount: qty, valueUsdt: v,
-                                               ptaReductionUsdt: reduction, ptaReductionParts: reductionParts))
+                                               ptaReductionUsdt: reduction, ptaReductionParts: reductionParts,
+                                               estimated: reductionEstimated))
                 case .SWAP, .TRANSFER:
                     // Tausch Krypto↔Krypto: aufgeschoben (sursis d'imposition), PTA unverändert — auch in einen Stablecoin
                     // (USDT, USDC …): er bleibt im Gesamtwert, steuerbar erst sein Verkauf gegen Euro; Umbuchung zwischen
@@ -304,7 +309,8 @@ extension TaxEngines {
 /// den erfassten Bestand, der Rest macht die Erwerbspreis-Summe danach unvollständig), Wert beim Abgang,
 /// Kürzung der Erwerbspreis-Summe (USDT); nil = Kurs fehlt. `ptaReductionParts` = Herkunft der Kürzung (Anteil der
 /// Erwerbspreis-Summe je Kaufdatum, Summe = `ptaReductionUsdt`) — in der Steuerwährung zum Kurs der Kaufdaten wie der
-/// Einstand einer Abtretung, nicht zum Kurs des Abgangs.
+/// Einstand einer Abtretung, nicht zum Kurs des Abgangs. `estimated` = die Kürzung beruht auf einem geschätzten Wert (Teil
+/// der Summe mit `costEstimated` oder Wert beim Abgang zum Tagesschluss) — Vermerk «Wert geschätzt» am Posten `FR_OUTFLOW`.
 struct TaxOutflow: Sendable, Equatable {
     let coin: String
     let txId: Int64
@@ -312,5 +318,6 @@ struct TaxOutflow: Sendable, Equatable {
     let amount: Decimal
     let valueUsdt: Decimal?
     let ptaReductionUsdt: Decimal?
-    var ptaReductionParts: [PortfolioCostPart] = []
+    let ptaReductionParts: [PortfolioCostPart]
+    let estimated: Bool
 }

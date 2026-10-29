@@ -42,6 +42,11 @@ class EncryptingOpenHelperFactory(
     private val inMemoryWhenKeyUnavailable: (database: String) -> Boolean = { false },
     /** Ist die App gerade sichtbar? Nur dann der Arbeitsspeicher statt der Ausnahme ([DatabaseOpenPlanner.planOpen]). */
     private val foreground: () -> Boolean = ::processInForeground,
+    /**
+     * Nur lesen ([DatabaseOpenPlanner.readOnly]): Die Systemsicherung legt nie eine Datei beiseite und legt keinen
+     * Schlüssel an — ohne passenden Schlüssel bricht sie ab, statt ein leeres Portfolio zu sichern.
+     */
+    private val readOnly: Boolean = false,
 ) : SupportSQLiteOpenHelper.Factory {
 
     override fun create(configuration: SupportSQLiteOpenHelper.Configuration): SupportSQLiteOpenHelper {
@@ -83,13 +88,10 @@ class EncryptingOpenHelperFactory(
                 files,
                 keys,
                 log = { message, error -> if (error == null) Timber.i(message) else Timber.w(error, message) },
-                // Beiseitegelegte Kopien erst nach bestätigtem Hinweis und Frist löschen (AsideRetention)
-                asideExpired = { db, copies ->
-                    AsideRetention.expired(
-                        AsideRetention.SeenStore(File(context.noBackupFilesDir, "${DatabaseKeyStore.DIRECTORY}/$db.aside-seen")),
-                        copies, System.currentTimeMillis(), allowed = !StorageRecoveryNotice.isSetAsidePending(context, db),
-                    )
-                },
+                // Beiseitegelegte und ersetzte Kopien erst nach bestätigtem Hinweis und Frist löschen (AsideRetention)
+                asideExpired = { db, copies -> retention(db, "aside-seen", copies) },
+                replacedExpired = { db, copies -> retention(db, "replaced-seen", copies) },
+                readOnly = readOnly,
             ).prepare(name) }
             // Nur im Arbeitsspeicher nennt Einstellungen › Sicherung (EncryptionPending); verschlüsselt löscht es
             DatabaseEncryptionNotice.note(context, name, decision)
@@ -127,6 +129,13 @@ class EncryptingOpenHelperFactory(
             delegate = helper
             return helper
         }
+
+        /** Frist je Datenbank und Art ([AsideRetention]); Merkdatei `<db>.<kind>` neben den Schlüsseldateien. */
+        private fun retention(db: String, kind: String, copies: List<String>): List<String> =
+            AsideRetention.expired(
+                AsideRetention.SeenStore(File(context.noBackupFilesDir, "${DatabaseKeyStore.DIRECTORY}/$db.$kind")),
+                copies, System.currentTimeMillis(), allowed = !StorageRecoveryNotice.isSetAsidePending(context, db),
+            )
 
         /** Gleiche Callbacks (Schema, Migrationen), aber ohne Namen: SQLite im Arbeitsspeicher, keine Datei. */
         private fun inMemoryHelper(): SupportSQLiteOpenHelper {

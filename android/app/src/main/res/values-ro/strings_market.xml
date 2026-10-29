@@ -141,16 +141,6 @@
     <string name="pulse_alts_weaker">Bitcoin mai puternic decât altcoinurile</string>
     <string name="pulse_chip_funding_high">Starea pieței cu levier optimistă</string>
     <string name="pulse_chip_funding_negative">Starea pieței cu levier pesimistă</string>
-    <string name="pulse_funding_high">Funding clar pozitiv: multe long-uri cu levier</string>
-    <string name="pulse_funding_negative">Funding negativ: multe short-uri</string>
-    <string name="pulse_funding_neutral">Funding neutru</string>
-    <string name="pulse_funding_slight">Funding ușor pozitiv</string>
-    <string name="pulse_gas_high">Gas Ethereum ridicat (%1$s gwei)</string>
-    <string name="pulse_gas_low">Gas Ethereum scăzut (%1$s gwei)</string>
-    <string name="pulse_gas_normal">Gas Ethereum normal (%1$s gwei)</string>
-    <string name="pulse_volume_high">Volum de tranzacționare neobișnuit de mare (%1$s× normal)</string>
-    <string name="pulse_volume_low">Volum de tranzacționare mic (%1$s× normal)</string>
-    <string name="pulse_volume_normal">Volum de tranzacționare normal</string>
 
     <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>

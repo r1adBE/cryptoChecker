@@ -64,6 +64,24 @@ enum NotificationBudget {
         return shown.joined(separator: "\n")
     }
 
+    /// Alarm-Mitteilung nach dem Melden prüfen: so oft, im Abstand von `verifyStepMillis` (zusammen höchstens rund 1 s) —
+    /// ein langsam nachgeführtes System gilt sonst als «nicht angekommen», und der Alarm klingelte nach seiner Sperre
+    /// erneut. Wie Android `NotificationBudget.VERIFY_ATTEMPTS`.
+    static let verifyAttempts = 10
+    static let verifyStepMillis: Int64 = 100
+
+    /// Spielraum der Meldezeit vor dem Melden: das Datum setzt das System, nicht dieser Prozess (Uhr leicht versetzt).
+    static let postTimeToleranceMillis: Int64 = 1_000
+
+    /// Ist die eben gemeldete Mitteilung angekommen? `postTimes`: Zeiten der zugestellten Mitteilungen mit dieser
+    /// Kennung, nil = nicht abfragbar (gilt als ja). Nur eine Zeit ab `postedAt` (direkt vor dem Melden) abzüglich
+    /// `postTimeToleranceMillis` bestätigt die NEUE Mitteilung — eine ältere desselben Alarms kann noch dastehen.
+    /// Wie Android `NotificationBudget.confirmedPost`.
+    static func confirmedPost(postTimes: [Int64]?, postedAt: Int64) -> Bool {
+        guard let postTimes else { return true }
+        return postTimes.contains { $0 >= postedAt - postTimeToleranceMillis }
+    }
+
     private static func distinct(_ ids: [Int64]) -> [Int64] {
         var seen = Set<Int64>()
         return ids.filter { seen.insert($0).inserted }

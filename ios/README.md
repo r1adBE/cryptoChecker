@@ -4,7 +4,7 @@
 Marke erreicht ist – ohne Konto.** Dazu Marktüberblick und als Zusatz «Was bewegt sich mit?» (was sich gleichzeitig
 bewegt – keine Ursache) – ohne Prognosen, keine Anlageberatung.
 
-Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 167 – die Build-Nummer steigt mit jedem Stand um eins).
+Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 168 – die Build-Nummer steigt mit jedem Stand um eins).
 Mindestens iOS 17. Die App enthält eine Widget-Erweiterung (WidgetKit) und eine Apple-Watch-App (watchOS 10, `Watch/`,
 Komplikation in `WatchWidgets/`, gemeinsame Listenwahl in `WatchCore/`).
 
@@ -20,26 +20,29 @@ gehören nicht zum Code und fallen nicht unter die MIT-Lizenz (siehe `LICENSE` i
   auf GitHub.
 - Deutsch in Schweizer Schreibweise (ss, «»).
 
-## Stand 16.2.2
+## Schwerpunkte von 16.2.2
 
-Gleicher Funktionsumfang wie Android 16.2.2, u. a.:
+Gleicher Funktionsumfang wie Android 16.2.2 (ohne Preis-Overlay, das gibt es unter iOS nicht), u. a.:
 
+- **Apple-Watch-App** (`Watch/`, Komplikation in `WatchWidgets/`): Kurse und 24 h der Lieblings-Coins direkt von den
+  Börsen, Liste «wie Handy» (Favoriten ★) oder eigene (bis 8 Coins), Abgleich der Wahl mit dem iPhone über
+  WatchConnectivity (`WatchCore/`); alter Kurs grau mit Alter.
 - **Börsenauswahl in Abschnitten**: Spot · Futures · DEX-Pools · Forex (Referenzkurs), Favoriten oben, Suche über alle
   Abschnitte; innerhalb eines Abschnitts nach Handelsvolumen am Installationstag (einmal aus den öffentlichen
   Börsenlisten von CoinGecko), ohne diese Angabe alphabetisch. 56 Märkte: 54 auf 45 Börsen, dazu DexScreener für
   DEX-Token (GeckoTerminal als Reserve) und EZB-Referenzkurse für Devisen (täglich, nie live, ohne Alarme).
-- **Einstellungen ohne «Erweitert»** (Build 132): Hauptseite Allgemein (Sprache – öffnet die iOS-App Einstellungen –,
-  Währung, Merkliste, Portfolio, Alarme, Kurs-Aktualisierung) · Darstellung (Hell / Dunkel, Akzentfarbe, Kursfarben,
-  Coin-Logos, Widgets) · Mehr (Sicherung, Über die App) · «App zurücksetzen». «Token & TradFi» auf «Merkliste»,
-  Markt-Meldungen und Sprachausgabe auf «Alarme», Entwickleroptionen (nur Debug-Builds) auf «Über die App»; die Suche
-  findet alles am neuen Ort (`App/Features/Settings/SettingsScreen.swift`).
-- **Steuer-Arbeitsunterlage als eigene Seite** (Build 129): im Portfolio-Menü getrennt vom Stichtag-Export, mit
-  Vorlage, Stand der Regeln, den vier Exporten und der Jahresübersicht; Exporte lassen sich abbrechen.
-- **Leistung** (Builds 122–131): CSV-Import grosser Dateien ohne Blockieren der App, schnellerer Start (Merkliste wird im
-  Hintergrund gelesen und entschlüsselt), FIFO, «7 T»/«1 J» und Steuer-Export auch mit vielen Transaktionen schnell.
-- **Barrierefreiheit** (Builds 129–131): Widgets und Live-Aktivität wachsen mit grösserer Schrift bis 1,3×, Charts mit
-  Audio Graph und Punkt-für-Punkt-Wischen für VoiceOver, Titel im Grosser-Inhalt-Viewer, blockierende
-  Barrierefreiheits-Prüfung in der CI.
+- **Einstellungen**: Hauptseite Allgemein (Sprache – öffnet die iOS-App Einstellungen –, Währung, Merkliste,
+  Portfolio, Alarme, Kurs-Aktualisierung) · Darstellung (Hell / Dunkel, Akzentfarbe, Kursfarben, Coin-Logos, Widgets)
+  · Mehr (Sicherung, Über die App) · «App zurücksetzen». «Token & TradFi» auf «Merkliste», Markt-Meldungen und
+  Sprachausgabe auf «Alarme», Entwickleroptionen (nur Debug-Builds) auf «Über die App»; die Suche findet alles
+  (`App/Features/Settings/SettingsScreen.swift`).
+- **Steuer-Arbeitsunterlage als eigene Seite**: im Portfolio-Menü getrennt vom Stichtag-Export, mit Vorlage, Stand der
+  Regeln, den vier Exporten und der Jahresübersicht; Exporte lassen sich abbrechen.
+- **Leistung**: CSV-Import grosser Dateien ohne Blockieren der App, schneller Start (Merkliste wird im Hintergrund
+  gelesen und entschlüsselt), FIFO, «7 T»/«1 J» und Steuer-Export auch mit vielen Transaktionen schnell.
+- **Barrierefreiheit**: Widgets und Live-Aktivität wachsen mit grösserer Schrift bis 1,3×, Charts mit Audio Graph und
+  Punkt-für-Punkt-Wischen für VoiceOver, Titel im Grosser-Inhalt-Viewer, blockierende Barrierefreiheits-Prüfung in
+  der CI.
 - **CSV-Import** aus Relai, Swissquote, Kraken, Bitpanda, Binance und Coinbase (dazu eine allgemeine Zuordnung;
   `Shared/Portfolio/CsvImport*.swift`).
 
@@ -52,6 +55,8 @@ Alle Builds: `CHANGELOG.md` im Repository-Hauptordner.
 | `Shared/` | Code und Ressourcen für **beide** Targets (App und Widgets), u. a. `Resources/Localizable.xcstrings` |
 | `App/` | nur App: Oberfläche, Hintergrund-Aktualisierung, `Info.plist`, Entitlements, `Resources/Assets.xcassets` (App-Icons, Logos) |
 | `Widgets/` | nur Widget-Erweiterung: Widgets, `Info.plist`, Entitlements, eigener Asset-Katalog |
+| `Watch/`, `WatchWidgets/`, `WatchCore/` | Apple-Watch-App, ihre Komplikation und die Listenwahl, die iPhone und Uhr teilen |
+| `UITests/` | UI-Tests (Testziel `CryptoCheckerUITests`) |
 | `Tests/` | Unit-Tests (Testziel `CryptoCheckerTests`, ⌘U bzw. `xcodebuild test -scheme CryptoChecker`); `Tests/Parity/` = gemeinsame Testfälle, vom Generator aus `android/testdata/parity` kopiert; `*PerformanceTests` = Zeitmessungen, zusätzlich im Release-Build per Workflow `ios-performance.yml` (`DEVELOPMENT.md` im Repository-Hauptordner, «iOS performance tests in Release») |
 | `tools/` | Generatoren (Python 3) für Texte, Grafiken und das Xcode-Projekt |
 | `CryptoChecker.xcodeproj` | generiertes Xcode-Projekt |

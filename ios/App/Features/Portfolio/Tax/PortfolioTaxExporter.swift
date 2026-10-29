@@ -127,7 +127,8 @@ enum PortfolioTaxExporter {
     }
 
     /// Tagesschlusskurse (USDT) je Coin und Tag (epochDay); Abfrage über (Coin, Zeit) → Schluss des UTC-Tags der Zeit
-    /// (`TaxDayClose.lookup`); fehlt = nil.
+    /// (`TaxDayClose.lookup`); fehlt = nil. Je Coin alle Tage auf einmal (`HistoricPriceSource.dayClosesUsdt`: Kerzen je
+    /// Quelle in Stücken, gleiche Kette und gleicher Schluss je Tag wie `dailyCloseUsdt`), mehrere Coins gleichzeitig.
     private static func dailyCloses(_ wanted: [String: Set<Int>]) async -> (String, Int64) -> Decimal? {
         if wanted.isEmpty { return { _, _ in nil } }
         let coins = wanted.keys.sorted()
@@ -135,11 +136,8 @@ enum PortfolioTaxExporter {
         let current = CutoffExport.referencePrices(live.prices, uncheckedCurrent: live.unchecked,
                                                    unverifiedCurrent: live.unverified)
         var closes: [String: Decimal] = [:]
-        for coin in coins {
-            for epochDay in (wanted[coin] ?? []).sorted() {
-                let d = LocalDay(epochDay: epochDay)
-                let r = await HistoricPriceSource.dailyCloseUsdt(coin, day: CutoffDay(year: d.year, month: d.month, day: d.day),
-                                                                 current: current[coin])
+        for (coin, byDay) in await HistoricPriceSource.dayClosesUsdt(wanted, current: current) {
+            for (epochDay, r) in byDay {
                 if let p = PortfolioDecimal.of(r.price) { closes[TaxDayClose.key(coin, epochDay)] = p }
             }
         }

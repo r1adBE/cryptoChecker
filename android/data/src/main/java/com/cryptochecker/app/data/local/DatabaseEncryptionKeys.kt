@@ -1,5 +1,5 @@
 // Schlüssel-Fälle der Verschlüsselung (Teil von `DatabaseOpenPlanner`): frühere Schlüssel, beiseitegelegte
-// Dateien zurückholen, Schlüssel für eine neue Datei, Frist für beiseitegelegte Kopien.
+// Dateien zurückholen, Schlüssel für eine neue Datei, Frist für beiseitegelegte und ersetzte Kopien.
 // Erweiterungsfunktionen; Ablauf und Regeln bleiben in der Klasse.
 package com.cryptochecker.app.data.local
 
@@ -81,5 +81,26 @@ fun DatabaseOpenPlanner.pruneAside(database: String) {
         runCatching { files.deleteAside(database, copy) }
             .onSuccess { log("$database: beiseitegelegte Kopie nach Frist gelöscht", null) }
             .onFailure { log("$database: beiseitegelegte Kopie nicht gelöscht", it) }
+    }
+}
+
+/**
+ * Durch eine zurückgeholte Datei ersetzte Dateien löschen, die [DatabaseOpenPlanner.replacedExpired] freigibt (gleiche
+ * Frist wie beiseitegelegte, [AsideRetention]): Sie sind eine Kopie der Nutzerdaten mehr, die die App nie mehr öffnet.
+ * Wartet danach keine ersetzte Datei mehr, gehen auch die als «ersetzt» behaltenen Schlüssel. Nur aus dem Weg
+ * «gespeicherter Schlüssel öffnet die aktuelle Datei»; Fehler bleiben still (der nächste Start versucht es erneut).
+ */
+fun DatabaseOpenPlanner.pruneReplaced(database: String) {
+    val copies = runCatching { files.replacedCopies(database) }.getOrNull() ?: return
+    if (copies.isNotEmpty()) {
+        val expired = runCatching { replacedExpired(database, copies) }.getOrDefault(emptyList())
+        for (copy in expired.filter { it in copies }) {
+            runCatching { files.deleteReplaced(database, copy) }
+                .onSuccess { log("$database: ersetzte Datei nach Frist gelöscht", null) }
+                .onFailure { log("$database: ersetzte Datei nicht gelöscht", it) }
+        }
+    }
+    if (runCatching { files.replacedCopies(database).isEmpty() }.getOrDefault(false)) {
+        runCatching { keys.discardReplaced(database) }.onFailure { log("$database: ersetzter Schlüssel nicht gelöscht", it) }
     }
 }

@@ -67,7 +67,10 @@ class BackupManager @Inject constructor(
     /** Stand vor dem Wiederherstellen, versiegelt bis zum Ende des Laufs ([RestoreJournal]). */
     internal val journal = RestoreJournal(
         java.io.File(context.noBackupFilesDir, RestoreJournal.FILE_NAME),
-        com.cryptochecker.app.widget.PortfolioSnapshotKeyStore(RestoreJournal.KEY_ALIAS),
+        com.cryptochecker.app.widget.PortfolioSnapshotKeyStore(
+            RestoreJournal.KEY_ALIAS,
+            com.cryptochecker.app.data.local.DatabaseKeyStore.suspectMarker(context),
+        ),
     )
 
     /** Gewählte Sicherung einmal je Wiederherstellen lesen und entschlüsseln ([BackupReadCache]). */
@@ -181,14 +184,6 @@ class BackupManager @Inject constructor(
 
     /** Wiederherstellen abgebrochen: gemerkte Datei und Klartext vergessen ([BackupReadCache]). */
     fun forgetPickedBackup() = readCache.clear()
-
-    /**
-     * Passwort prüfen, ohne etwas zu ändern.
-     * @throws BackupCrypto.WrongPasswordException bei falschem Passwort oder veränderter Datei.
-     */
-    suspend fun checkPassword(uri: Uri, password: String) {
-        withContext(Dispatchers.IO) { readCache.plain(uri, password) { BackupFormat.read(context, uri) } }
-    }
 
     /**
      * Was vor der Rückfrage zu nennen ist ([RestorePreview]): ungültige Einträge, die nicht übernommen würden —

@@ -236,9 +236,6 @@ enum TaxTemplate: String, Codable, CaseIterable, Sendable {
 
     var holdingBuckets: Bool { self == .NEUTRAL || self == .DE || self == .US || self == .AU }
 
-    /// Tausch Krypto↔Krypto ist ein steuerbarer Vorgang (FR: aufgeschoben, AT: steuerneutral).
-    var cryptoToCryptoTaxable: Bool { self != .FR && self != .AT }
-
     /// Monat und Tag des Beginns des Steuerjahrs.
     private var startMonthDay: (month: Int, day: Int) {
         switch self {

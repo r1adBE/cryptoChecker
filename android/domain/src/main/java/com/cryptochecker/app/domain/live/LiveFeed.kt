@@ -1,5 +1,6 @@
 package com.cryptochecker.app.domain.live
 
+import com.cryptochecker.app.data.PairIdentity
 import kotlin.math.min
 import kotlin.math.roundToLong
 
@@ -192,6 +193,33 @@ object LiveRules {
      */
     fun skipRest(lastTickAt: Long?, now: Long, rollingBasis: Boolean, stampUnchanged: Boolean, exchangeRolling: Boolean): Boolean =
         rollingBasis && stampUnchanged && exchangeRolling && isFresh(lastTickAt, now)
+
+    /**
+     * Paare mit «Live» in der Pille: je Paar der eigene letzte Kurs aus dem Strom frisch ([isFresh]) — nicht je Börse.
+     * Bei vielen Paaren hat eine Börse mehrere Verbindungen; ist eine davon getrennt oder ihr Abo abgelehnt, sind nur
+     * ihre Paare nicht mehr live.
+     */
+    fun liveIds(lastTickAt: Map<Long, Long>, now: Long): Set<Long> =
+        lastTickAt.filterValues { isFresh(it, now) }.keys
+
+    /**
+     * So lange nach dem Abonnieren ohne einen einzigen Kurs: Abo abgelehnt bzw. ins Leere — Börsen ohne Text-Ping
+     * (Binance, Coinbase) halten die Verbindung mit Ping-Frames trotzdem offen. Dann wie getrennt neu verbinden
+     * (ohne Kurse wächst die Pause, [LiveBackoff.nextAttempt]).
+     */
+    const val SILENT_SUBSCRIPTION_MILLIS = 180_000L
+
+    /** Verbindung seit [subscribedAt] (0 = noch nicht abonniert) ohne Kurs ([receivedData]) zu lange still? */
+    fun silentSubscription(subscribedAt: Long, receivedData: Boolean, now: Long): Boolean =
+        !receivedData && subscribedAt > 0 && now - subscribedAt >= SILENT_SUBSCRIPTION_MILLIS
+
+    /**
+     * Gehört ein gepufferter Kurs noch zum Eintrag? Nur, wenn das Paar, für das er abonniert war ([subscribed]), das
+     * aktuelle des Eintrags ist ([current]) — nach «Paar bearbeiten» trägt ein Takt des alten Symbols das alte Paar
+     * und wird verworfen, egal welche Zeit die Börse meldet. Ohne Zuordnung (null): verwerfen.
+     */
+    fun samePair(subscribed: PairIdentity?, current: PairIdentity): Boolean =
+        subscribed == current
 }
 
 /**

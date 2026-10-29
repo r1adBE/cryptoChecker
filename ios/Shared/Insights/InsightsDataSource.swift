@@ -171,11 +171,11 @@ enum InsightsDataSource {
         guard let value = valueAt(0) else { throw JSONError(message: "Fear & Greed ohne Wert") }
         // Für das Widget «Was gerade auffällt» (kein eigener Abruf dort)
         FearGreedShared.store(value)
-        // «timestamp» in Sekunden (Text); für die Herkunftsangabe im «Warum?»-Blatt (wie Android)
+        // «timestamp» in Sekunden (Text); für die Herkunftsangabe im «Warum?»-Blatt (unplausibel: keine; wie Android)
         var time: Int64? = nil
         if data.count > 0, let first = try? data.object(0),
-           let seconds = Int64(first.optString("timestamp").trimmingCharacters(in: .whitespaces)), seconds > 0 {
-            time = seconds * 1000
+           let seconds = Int64(first.optString("timestamp").trimmingCharacters(in: .whitespaces)) {
+            time = EpochTime.secondsToMillis(seconds)
         }
         return FearGreed(value: value, yesterday: valueAt(1), weekAgo: valueAt(7), monthAgo: valueAt(30), time: time)
     }

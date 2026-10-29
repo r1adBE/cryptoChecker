@@ -193,4 +193,6 @@
 
     <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
     <string name="alarm_threshold_invalid_fix">Limite inválido – ajusta-o</string>
+
+    <string name="alarm_last_checked">Última verificação %1$s</string>
 </resources>

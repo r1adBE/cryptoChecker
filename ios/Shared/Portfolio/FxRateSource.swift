@@ -180,7 +180,7 @@ enum FxRateSource {
         guard let body = await get("https://open.er-api.com/v6/latest/USD"),
               let value = rate(in: body, target) else { return nil }
         let seconds = (root(body)?["time_last_update_unix"] as? NSNumber)?.int64Value ?? 0
-        return (rate: value, time: seconds > 0 ? seconds * 1000 : nil)
+        return (rate: value, time: EpochTime.secondsToMillis(seconds))
     }
 
     private static func root(_ body: String) -> [String: Any]? {

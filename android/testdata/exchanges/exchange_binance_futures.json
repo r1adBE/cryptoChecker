@@ -1,6 +1,6 @@
 {
   "exchange": "Binance Futures",
-  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Optional per case: url = expected single-ticker address; contractExpiry = before/after settlement (ms) of the dated pair id, the error must then confirm 'no longer traded' (NotTraded.contractExpired, singleConfirms, confirmedBySingle). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
   "endpoints": {
     "single": "GET https://fapi.binance.com/fapi/v1/ticker/24hr?symbol=BTCUSDT | https://dapi.binance.com/dapi/v1/ticker/24hr?symbol=BTCUSD_PERP",
     "bulk": "GET fapi /fapi/v1/ticker/24hr (requestId 0), dapi /dapi/v1/ticker/24hr (requestId 1)",
@@ -65,6 +65,54 @@
         "contract": "PERPETUAL"
       },
       "requestId": 0,
+      "body": "{\"code\":-1121,\"msg\":\"Invalid symbol.\"}",
+      "expect": {
+        "error": true,
+        "message": null,
+        "thrown": "Invalid symbol."
+      }
+    },
+    {
+      "kind": "single",
+      "name": "USD-M quarterly BTCUSDT_251226: request with the dated symbol of the pair list, same 24hr format",
+      "exchangeKey": "BinanceFutures",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT_251226",
+        "contract": "QUARTERLY"
+      },
+      "requestId": 0,
+      "url": "https://fapi.binance.com/fapi/v1/ticker/24hr?symbol=BTCUSDT_251226",
+      "body": "{\"symbol\":\"BTCUSDT_251226\",\"priceChange\":\"1419.20\",\"priceChangePercent\":\"1.234\",\"weightedAvgPrice\":\"115890.10\", \"lastPrice\":\"116420.50\",\"lastQty\":\"0.010\",\"openPrice\":\"115001.30\",\"highPrice\":\"117010.00\",\"lowPrice\":\"114880.30\", \"volume\":\"1832.456\",\"quoteVolume\":\"212345678.90\",\"openTime\":1761652800000,\"closeTime\":1761739200123, \"firstId\":71234,\"lastId\":75678,\"count\":4445}",
+      "expect": {
+        "last": 116420.5,
+        "bid": -1.0,
+        "ask": -1.0,
+        "high": 117010.0,
+        "low": 114880.3,
+        "vol": 1832.456,
+        "volQuote": 212345678.9,
+        "change24hPercent": 1.234,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "expired quarterly BTCUSDT_250926 after settlement (2025-09-26 08:00 UTC): Invalid symbol confirms 'no longer traded' even with only this pair of the exchange (no bulk query)",
+      "exchangeKey": "BinanceFutures",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT_250926",
+        "contract": "QUARTERLY"
+      },
+      "requestId": 0,
+      "url": "https://fapi.binance.com/fapi/v1/ticker/24hr?symbol=BTCUSDT_250926",
+      "contractExpiry": {
+        "before": 1758873599999,
+        "after": 1758873600000
+      },
       "body": "{\"code\":-1121,\"msg\":\"Invalid symbol.\"}",
       "expect": {
         "error": true,

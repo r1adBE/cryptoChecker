@@ -15,8 +15,6 @@ import com.cryptochecker.app.ui.MainActivity
 import kotlinx.coroutines.delay
 import timber.log.Timber
 import com.cryptochecker.app.notification.AppNotifier.Companion.ALARM_SUMMARY_ID
-import com.cryptochecker.app.notification.AppNotifier.Companion.VERIFY_ATTEMPTS
-import com.cryptochecker.app.notification.AppNotifier.Companion.VERIFY_STEP_MILLIS
 import com.cryptochecker.app.notification.AppNotifier.Companion.ACTION_OPEN_NOTIFICATION
 import com.cryptochecker.app.notification.AppNotifier.Companion.WHY_REQUEST_BASE
 import com.cryptochecker.app.notification.AppNotifier.Group
@@ -56,16 +54,16 @@ internal fun AppNotifier.makeRoomForAlarm(id: Int) {
 }
 
 /**
- * Steht die Mitteilung [id] unter den offenen — und zwar die NEUE, gemeldet ab [postedAfter]
+ * Steht die Mitteilung [id] unter den offenen — und zwar die NEUE, gemeldet ab [postedAt]
  * (Zeit direkt vor dem Melden)? Steht schon eine ältere Meldung mit derselben Id da (gleicher
  * Alarm), genügte die Id allein nicht: eine verworfene neue Meldung (Drosselung) zählte sonst als
- * gezeigt. Der Systemdienst führt eine eben gemeldete evtl. erst kurz danach — darum einige Male
- * kurz nachsehen; nicht abfragbar = ja ([NotificationBudget.confirmedPost]).
+ * gezeigt. Der Systemdienst führt eine eben gemeldete evtl. erst kurz danach — darum bis rund 1 s
+ * nachsehen ([NotificationBudget.VERIFY_ATTEMPTS], wie iOS); nicht abfragbar = ja ([NotificationBudget.confirmedPost]).
  */
-internal suspend fun AppNotifier.awaitActive(id: Int, postedAfter: Long): Boolean {
-    repeat(VERIFY_ATTEMPTS) { attempt ->
-        if (NotificationBudget.confirmedPost(activePostTimes(), id, postedAfter)) return true
-        if (attempt < VERIFY_ATTEMPTS - 1) delay(VERIFY_STEP_MILLIS)
+internal suspend fun AppNotifier.awaitActive(id: Int, postedAt: Long): Boolean {
+    repeat(NotificationBudget.VERIFY_ATTEMPTS) { attempt ->
+        if (NotificationBudget.confirmedPost(activePostTimes(), id, postedAt)) return true
+        if (attempt < NotificationBudget.VERIFY_ATTEMPTS - 1) delay(NotificationBudget.VERIFY_STEP_MILLIS)
     }
     Timber.w("Mitteilung %d nicht unter den offenen", id)
     return false

@@ -1,6 +1,8 @@
 package com.cryptochecker.app.settings
 
 import android.content.SharedPreferences
+import com.cryptochecker.app.domain.alarm.DepegAlarm
+import com.cryptochecker.app.domain.alarm.DepegAlarmChecker
 import com.cryptochecker.app.domain.gas.GasAlertChecker
 import com.cryptochecker.app.domain.gas.GasAlertLogic
 import com.cryptochecker.app.domain.market.IndicatorAlertKind
@@ -82,6 +84,20 @@ class MarketAlertResetTest {
         val stored = Double.fromBits(prefs.getLong(GasAlertChecker.KEY_ETH_THRESHOLD, -1))
         assertEquals(0.0, stored, 0.0)
         assertTrue(GasAlertLogic.armedFor(prefs.getBoolean(GasAlertChecker.KEY_ETH_ARMED, true), stored, 5.0))
+    }
+
+    /** Depeg-Alarm bei −0.8 % gemeldet, aus- und wieder eingeschaltet, Abweichung hält an: wieder scharf. */
+    @Test
+    fun `depeg off then on with the same threshold is armed again`() {
+        val prefs = FakePrefs()
+        prefs.edit().putBoolean(DepegAlarmChecker.KEY_ARMED, false).putInt(DepegAlarmChecker.KEY_ARMED_TENTHS, 5).apply()
+        // Ohne Zurücksetzen: gleiche Schwelle → stumm
+        assertFalse(DepegAlarm.armedFor(false, prefs.getInt(DepegAlarmChecker.KEY_ARMED_TENTHS, -1), 5))
+        MarketAlertReset.depegOff(prefs)
+        assertEquals(0, prefs.getInt(DepegAlarmChecker.KEY_ARMED_TENTHS, -1))
+        assertTrue(DepegAlarm.armedFor(prefs.getBoolean(DepegAlarmChecker.KEY_ARMED, true), prefs.getInt(DepegAlarmChecker.KEY_ARMED_TENTHS, -1), 5))
+        // Neue Schwelle ohne Ausschalten: ebenfalls scharf
+        assertTrue(DepegAlarm.armedFor(false, 5, 3))
     }
 
     @Test

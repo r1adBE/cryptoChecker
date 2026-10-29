@@ -45,8 +45,4 @@ object PriceColors {
                     LocalDarkTheme.current, LocalHighContrast.current, accent = LocalAccentColor.current
                 )
             )
-
-    @Composable
-    @ReadOnlyComposable
-    fun forChange(change: Double?): Color = if ((change ?: 0.0) >= 0) up else down
 }

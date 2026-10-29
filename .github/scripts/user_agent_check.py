@@ -10,14 +10,15 @@ android/testdata/parity/address_privacy.json). A browser value only blends in wh
           not of the form «Mozilla/5.0 (…; rv:N.0) Gecko/20100101 Firefox/N.0» with the same N twice
           contains the app name (forbiddenParts of the fixture) or the app version (versionName of
             android/app/build.gradle.kts, the app User-Agent «cryptoChecker-Android/<version>»)
+          names a Firefox version whose estimated release is after today (no browser sends it yet)
   warning the Firefox version is estimated to be older than MAX_AGE_DAYS: update the value on both platforms and
             in the fixture (android/testdata/parity and its copy ios/Tests/Parity)
   notice  estimated age (always), so the run page shows when the next update is due
 
-Age estimate (no network): Firefox ships a new major version about every 4 weeks (RELEASE_CYCLE_DAYS). Reference
-point from the release calendar: Firefox 128 on 9 July 2024 plus 25 four-week cycles, so Firefox 153 ≈ June 2026
-(REFERENCE_VERSION / REFERENCE_DATE). Estimated release of
-version N = REFERENCE_DATE + (N - 153) × 28 days. If the reference turns out to be off, adjust REFERENCE_DATE only.
+Age estimate (no network): Firefox shipped a new major version every 4 weeks up to Firefox 154 on 18 August 2026
+(REFERENCE_VERSION / REFERENCE_DATE) and every 2 weeks from then on (Firefox 155 on 1 September, 157 on
+29 September 2026). Estimated release of version N = REFERENCE_DATE + (N - 154) × 14 days from 154 on, and
+REFERENCE_DATE - (154 - N) × 28 days before. If the reference turns out to be off, adjust REFERENCE_DATE only.
 
 Usage: python3 -I user_agent_check.py <repository root> <findings file> [--today YYYY-MM-DD]
        python3 -I user_agent_check.py --self-test
@@ -34,9 +35,10 @@ ANDROID = "android/data/src/main/java/com/cryptochecker/app/data/remote/HttpUser
 IOS = "ios/Shared/Core/HttpUserAgent.swift"
 FIXTURE = "android/testdata/parity/address_privacy.json"
 BUILD_GRADLE = "android/app/build.gradle.kts"
-REFERENCE_VERSION = 153
-REFERENCE_DATE = dt.date(2026, 6, 9)
-RELEASE_CYCLE_DAYS = 28
+REFERENCE_VERSION = 154
+REFERENCE_DATE = dt.date(2026, 8, 18)
+CYCLE_DAYS_BEFORE = 28
+CYCLE_DAYS_AFTER = 14
 MAX_AGE_DAYS = 183  # about 6 months
 FIREFOX = re.compile(r"Mozilla/5\.0 \([^()]*; rv:(\d+)\.0\) Gecko/20100101 Firefox/(\d+)\.0\Z")
 KOTLIN = re.compile(r'const val NEUTRAL\s*=\s*"([^"]*)"')
@@ -45,7 +47,8 @@ VERSION_NAME = re.compile(r'versionName\s*=\s*"([^"]+)"')
 
 
 def estimated_release(version):
-    return REFERENCE_DATE + dt.timedelta(days=(version - REFERENCE_VERSION) * RELEASE_CYCLE_DAYS)
+    steps = version - REFERENCE_VERSION
+    return REFERENCE_DATE + dt.timedelta(days=steps * (CYCLE_DAYS_AFTER if steps >= 0 else CYCLE_DAYS_BEFORE))
 
 
 def read(root, rel):
@@ -100,8 +103,14 @@ def check(root, today):
     firefox = int(match.group(2))
     released = estimated_release(firefox)
     age = (today - released).days
-    message = (f"Firefox {firefox}: estimated release {released.isoformat()} (4-week cycle, reference Firefox "
-               f"{REFERENCE_VERSION} ≈ {REFERENCE_DATE:%B %Y}), about {max(age, 0) // 30} months old")
+    estimate = (f"Firefox {firefox}: estimated release {released.isoformat()} (2-week cycle from Firefox "
+                f"{REFERENCE_VERSION} on {REFERENCE_DATE.isoformat()}, 4 weeks before)")
+    if age < 0:
+        out.append(("error", ANDROID, estimate + f" - not released yet: use the latest Firefox released by "
+                    f"{today.isoformat()} in HttpUserAgent.NEUTRAL (Android), HttpUserAgent.neutral (iOS) and "
+                    "address_privacy.json"))
+        return out
+    message = f"{estimate}, about {age // 30} months old"
     if age > MAX_AGE_DAYS:
         out.append(("warning", ANDROID, message + f" - older than {MAX_AGE_DAYS} days: update HttpUserAgent.NEUTRAL "
                     "(Android), HttpUserAgent.neutral (iOS) and address_privacy.json to the current Firefox"))
@@ -115,9 +124,11 @@ def tsv(level, file, message):
 
 
 def self_test():
-    assert estimated_release(153) == dt.date(2026, 6, 9)
-    assert estimated_release(159) == dt.date(2026, 11, 24)
-    assert estimated_release(150) == dt.date(2026, 3, 17)
+    assert estimated_release(153) == dt.date(2026, 7, 21)
+    assert estimated_release(155) == dt.date(2026, 9, 1)
+    assert estimated_release(157) == dt.date(2026, 9, 29)
+    assert estimated_release(159) == dt.date(2026, 10, 27)
+    assert estimated_release(150) == dt.date(2026, 4, 28)
     ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:{v}.0) Gecko/20100101 Firefox/{v}.0"
     with tempfile.TemporaryDirectory() as root:
         def write(rel, text):
@@ -136,32 +147,39 @@ def self_test():
 
         current = ua.format(v=153)
         setup(current, current, current)
-        assert levels(dt.date(2026, 7, 3)) == ["notice"]
+        assert levels(dt.date(2026, 8, 3)) == ["notice"]
+        # Released on the estimated day: notice; one day earlier the version does not exist yet: error
+        assert levels(dt.date(2026, 7, 21)) == ["notice"]
+        assert levels(dt.date(2026, 7, 20)) == ["error"]
+        future = ua.format(v=160)
+        setup(future, future, future)
+        assert levels(dt.date(2026, 10, 29)) == ["error"]
+        setup(current, current, current)
         # Six months after the estimated release: still a notice; one day later a warning
-        assert levels(dt.date(2026, 12, 9)) == ["notice"]
-        assert levels(dt.date(2026, 12, 10)) == ["warning"]
+        assert levels(dt.date(2027, 1, 20)) == ["notice"]
+        assert levels(dt.date(2027, 1, 21)) == ["warning"]
         # Platforms differ: error (also when only the fixture differs)
         setup(current, ua.format(v=152), current)
-        assert "error" in levels(dt.date(2026, 7, 3))
+        assert "error" in levels(dt.date(2026, 8, 3))
         setup(current, current, ua.format(v=154))
-        assert "error" in levels(dt.date(2026, 7, 3))
+        assert "error" in levels(dt.date(2026, 8, 3))
         # App name or version in the value
         setup(current + " cryptoChecker", current + " cryptoChecker", current + " cryptoChecker")
-        assert "error" in levels(dt.date(2026, 7, 3))
+        assert "error" in levels(dt.date(2026, 8, 3))
         named = current.replace("Win64", "16.2.2")
         setup(named, named, named)
-        assert "error" in levels(dt.date(2026, 7, 3))
+        assert "error" in levels(dt.date(2026, 8, 3))
         # Not a Firefox value, or rv and Firefox version differ
         chrome = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/140.0 Safari/537.36"
         setup(chrome, chrome, chrome)
-        assert levels(dt.date(2026, 7, 3)) == ["error"]
+        assert levels(dt.date(2026, 8, 3)) == ["error"]
         odd = current.replace("rv:153.0", "rv:150.0")
         setup(odd, odd, odd)
-        assert levels(dt.date(2026, 7, 3)) == ["error"]
+        assert levels(dt.date(2026, 8, 3)) == ["error"]
         # Constant missing
         setup(current, current, current)
         write(IOS, "enum X {}\n")
-        assert "error" in levels(dt.date(2026, 7, 3))
+        assert "error" in levels(dt.date(2026, 8, 3))
         assert tsv("warning", "a", "x\ty\nz") == "warning\ta\t\tx y\\nz"
     print("user_agent_check self-test ok")
     return 0

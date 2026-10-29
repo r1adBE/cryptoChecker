@@ -1069,7 +1069,8 @@
           "coin": "ETH",
           "amount": "5",
           "value": "10000",
-          "reduction": "5000"
+          "reduction": "5000",
+          "estimated": true
         }
       ]
     },
@@ -3122,7 +3123,8 @@
           "coin": "BTC",
           "amount": "0.5",
           "value": "10000",
-          "reduction": "5000"
+          "reduction": "5000",
+          "estimated": false
         }
       ]
     },
@@ -5533,7 +5535,8 @@
           "coin": "ETH",
           "amount": "1",
           "value": "2000",
-          "reduction": "2000"
+          "reduction": "2000",
+          "estimated": true
         }
       ]
     },
@@ -6433,6 +6436,49 @@
           "valueEstimated": false
         }
       ]
+    },
+    {
+      "name": "FR Schenkung mit erfasstem Preis, PTA mit Belohnung zum Tagesschluss: Kürzung «Wert geschätzt»",
+      "method": "FR_PTA",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1736510400000,
+          "price": "10000"
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "REWARD",
+          "amount": "1",
+          "time": 1736596800000
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "GIFT",
+          "amount": "0.5",
+          "time": 1741608000000,
+          "price": "20000"
+        }
+      ],
+      "prices": {
+        "BTC": "20000",
+        "ETH": "2000"
+      },
+      "disposals": [],
+      "outflows": [
+        {
+          "coin": "BTC",
+          "amount": "0.5",
+          "value": "10000",
+          "reduction": "5454.54545454545454545454545454545454545454545454545454545455",
+          "estimated": true
+        }
+      ]
     }
   ],
   "summaries": [
@@ -7259,6 +7305,9 @@
           null,
           null
         ]
+      ],
+      "estimatedLines": [
+        "FR_OUTFLOW"
       ]
     },
     {
@@ -9621,6 +9670,9 @@
           null,
           null
         ]
+      ],
+      "estimatedLines": [
+        "FR_OUTFLOW"
       ]
     },
     {
@@ -9715,6 +9767,9 @@
           null,
           null
         ]
+      ],
+      "estimatedLines": [
+        "FR_OUTFLOW"
       ]
     },
     {
@@ -10579,6 +10634,179 @@
           null,
           "305",
           "REACHED"
+        ],
+        [
+          "FR_RATE",
+          null,
+          null,
+          null
+        ]
+      ]
+    },
+    {
+      "template": "FR",
+      "method": "FR_PTA",
+      "year": 2025,
+      "prices": {
+        "BTC": "20000"
+      },
+      "_calc": "FR Schenkung 0.5 BTC zu erfasstem Preis 20000, PTA ohne geschätzten Teil.",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1736510400000,
+          "price": "10000"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "GIFT",
+          "amount": "0.5",
+          "time": 1741608000000,
+          "price": "20000"
+        }
+      ],
+      "incompleteLines": [
+        "FR_OUTFLOW"
+      ],
+      "estimatedLines": [],
+      "lines": [
+        [
+          "GAINS",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "LOSSES",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "NET",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "PROCEEDS",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "INCOME",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "FR_OUTFLOW",
+          "5000",
+          "5000",
+          null
+        ],
+        [
+          "FR_THRESHOLD",
+          null,
+          "305",
+          "BELOW"
+        ],
+        [
+          "FR_RATE",
+          null,
+          null,
+          null
+        ]
+      ]
+    },
+    {
+      "template": "FR",
+      "method": "FR_PTA",
+      "year": 2025,
+      "prices": {
+        "BTC": "20000",
+        "ETH": "2000"
+      },
+      "_calc": "FR Schenkung 0.5 BTC zu erfasstem Preis 20000, PTA mit Belohnung 1 ETH zum Tagesschluss 2000.",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1736510400000,
+          "price": "10000"
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "REWARD",
+          "amount": "1",
+          "time": 1736596800000
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "GIFT",
+          "amount": "0.5",
+          "time": 1741608000000,
+          "price": "20000"
+        }
+      ],
+      "incompleteLines": [
+        "FR_OUTFLOW"
+      ],
+      "estimatedLines": [
+        "FR_OUTFLOW"
+      ],
+      "lines": [
+        [
+          "GAINS",
+          "0",
+          "0",
+          null,
+          "FR_REWARDS_INCOME"
+        ],
+        [
+          "LOSSES",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "NET",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "PROCEEDS",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "INCOME",
+          "2000",
+          "2000",
+          null
+        ],
+        [
+          "FR_OUTFLOW",
+          "5454.54545454545454545454545454545454545454545454545454545455",
+          "5454.54545454545454545454545454545454545454545454545454545455",
+          null
+        ],
+        [
+          "FR_THRESHOLD",
+          null,
+          "305",
+          "BELOW"
         ],
         [
           "FR_RATE",

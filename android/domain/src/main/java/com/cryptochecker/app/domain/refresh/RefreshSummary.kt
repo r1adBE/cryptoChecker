@@ -7,6 +7,4 @@ data class RefreshSummary(
 
     /** Wie lange der Durchlauf gedauert hat. */
     val durationMillis: Long = 0,
-) {
-    val hasFailures: Boolean get() = failed > 0
-}
+)

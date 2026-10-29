@@ -6,7 +6,7 @@ import Foundation
 /// Datenschutz: eigene flüchtige Sitzung (keine Cookies, kein Zwischenspeicher) und nicht über
 /// `ExchangeHTTP.call`, damit die Adresse nicht im HTTP-Protokoll der App landet; Protokolle nennen nur
 /// die gekürzte Adresse. Neutraler User-Agent (`HttpUserAgent.neutral`). Eigener Bitcoin-Server
-/// (`AddressServer`): nur dorthin.
+/// (`AddressServer`): nur dorthin. Weiterleitungen nur auf denselben Host (`SameHostRedirectDelegate`).
 /// Pausen: 451/403 → Host 6 h übersprungen (`BlockedSources`, nicht der eigene Server); 429/418 und wiederholte
 /// Zeitüberschreitungen → Pause je Host nach `ExchangeBackoff` («Retry-After» gilt); dann der
 /// nächste Host. Adressen der Reihe nach, nie parallel (schont die kostenlosen Anbieter).
@@ -49,7 +49,8 @@ actor WatchedAddressSource {
         // Neutraler User-Agent ohne App-Name/Version wie Android
         c.httpAdditionalHeaders = [HttpUserAgent.header: HttpUserAgent.neutral, "Accept": "application/json"]
         c.waitsForConnectivity = false
-        return URLSession(configuration: c)
+        // Weiterleitungen nur auf denselben Host: die Adresse ginge sonst an einen Dritten
+        return URLSession(configuration: c, delegate: SameHostRedirectDelegate(), delegateQueue: nil)
     }()
 
     /// Hintergrund/Widget: alle Adressen zusammen höchstens so lange — Kurse und Alarme gehen vor.

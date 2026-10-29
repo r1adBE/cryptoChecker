@@ -193,4 +193,6 @@
 
     <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
     <string name="alarm_threshold_invalid_fix">Prag nevalid – ajustează-l</string>
+
+    <string name="alarm_last_checked">Ultima verificare %1$s</string>
 </resources>

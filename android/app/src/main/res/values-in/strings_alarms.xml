@@ -181,4 +181,6 @@
 
     <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
     <string name="alarm_threshold_invalid_fix">Batas tidak valid – silakan ubah</string>
+
+    <string name="alarm_last_checked">Terakhir diperiksa %1$s</string>
 </resources>

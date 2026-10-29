@@ -194,7 +194,8 @@ extension TaxExport {
                                         incomplete: interestOld.contains { $0.valueMissing },
                                         noFx: fx && interestOld.contains { $0.fxMissing }, note: .AT_INTEREST_OLD_LAW))
         }
-        // FR: Abgänge ohne Verkauf im Jahr — Erwerbspreis-Summe gekürzt (BOFiP § 100); das Jahr ist «unvollständig»
+        // FR: Abgänge ohne Verkauf im Jahr — Erwerbspreis-Summe gekürzt (BOFiP § 100); das Jahr ist «unvollständig»,
+        // «Wert geschätzt», wenn eine Kürzung darauf beruht (`TaxOutflow.estimated`)
         if template == .FR {
             // Mit Adress-Einträgen: der Gesamtwert vor dem Abgang zählt beobachtete Adressen mit
             let outs = TaxEngines.outflows(trades.filter { $0.amountExact > 0 }, method: method, priceAt: priceAt)
@@ -204,9 +205,11 @@ extension TaxExport {
                 var outTarget: Decimal = 0
                 var outFx = false
                 var outUsdtApproximate = false
+                var outEstimated = false
                 for o in outs {
                     guard let r = o.ptaReductionUsdt else { continue }
                     outUsdt += r
+                    if o.estimated { outEstimated = true }
                     // Tage, deren Kurs die Kürzung braucht: ohne USDT/USD-Schluss mit USDT = 1 (nie still) — wie Android
                     let days = o.ptaReductionParts.isEmpty ? [o.time] : o.ptaReductionParts.map(\.time)
                     if days.contains(where: { usdtApproximateOn(usdtUsd, date: localDay($0, timeZone: timeZone)) }) {
@@ -229,7 +232,8 @@ extension TaxExport {
                     if let t { outTarget += t } else if fx { outFx = true }
                 }
                 lines.append(TaxSummaryLine(line: .FR_OUTFLOW, usdt: outUsdt, target: fx ? outTarget : nil,
-                                            incomplete: true, noFx: outFx, usdtApproximate: fx && outUsdtApproximate))
+                                            incomplete: true, noFx: outFx, usdtApproximate: fx && outUsdtApproximate,
+                                            estimated: outEstimated))
             }
         }
         let netIncomplete = net.incomplete

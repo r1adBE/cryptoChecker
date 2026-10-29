@@ -43,7 +43,8 @@ class Acc(rows: List<TaxGainRow>, pick: (BigDecimal) -> Boolean, fx: Boolean) {
 
 /**
  * FR: Abgänge ohne Verkauf im Jahr [period] — Kürzung der Erwerbspreis-Summe (BOFiP § 100) als Posten
- * [TaxLine.FR_OUTFLOW] (immer «unvollständig»); null = keine Abgänge. Teil von [yearSummary].
+ * [TaxLine.FR_OUTFLOW] (immer «unvollständig»; «Wert geschätzt», wenn eine Kürzung darauf beruht, [TaxOutflow.estimated]);
+ * null = keine Abgänge. Teil von [yearSummary].
  */
 fun TaxExport.frOutflowLine(
     trades: List<PortfolioTrade>,
@@ -64,9 +65,11 @@ fun TaxExport.frOutflowLine(
     var outTarget = zero
     var outFx = false
     var outUsdtApproximate = false
+    var outEstimated = false
     for (o in outs) {
         val r = o.ptaReductionUsdt ?: continue
         outUsdt += r
+        if (o.estimated) outEstimated = true
         // Tage, deren Kurs die Kürzung braucht: ohne USDT/USD-Schluss mit USDT = 1 (nie still, [TaxYearSummary.usdtApproximate])
         val days = if (o.ptaReductionParts.isEmpty()) listOf(o.time) else o.ptaReductionParts.map { it.time }
         if (days.any { usdtApproximateOn(usdtUsd, localDate(it, zone)) }) outUsdtApproximate = true
@@ -84,7 +87,7 @@ fun TaxExport.frOutflowLine(
     }
     return TaxSummaryLine(
         TaxLine.FR_OUTFLOW, outUsdt, outTarget.takeIf { fx }, incomplete = true, noFx = outFx,
-        usdtApproximate = fx && outUsdtApproximate,
+        usdtApproximate = fx && outUsdtApproximate, estimated = outEstimated,
     )
 }
 

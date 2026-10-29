@@ -139,16 +139,6 @@
     <string name="pulse_alts_weaker">Bitcoin mạnh hơn altcoin</string>
     <string name="pulse_chip_funding_high">Tâm lý giao dịch đòn bẩy lạc quan</string>
     <string name="pulse_chip_funding_negative">Tâm lý giao dịch đòn bẩy bi quan</string>
-    <string name="pulse_funding_high">Funding dương rõ rệt: nhiều lệnh long dùng đòn bẩy</string>
-    <string name="pulse_funding_negative">Funding âm: nhiều lệnh short</string>
-    <string name="pulse_funding_neutral">Funding trung tính</string>
-    <string name="pulse_funding_slight">Funding hơi dương</string>
-    <string name="pulse_gas_high">Gas Ethereum cao (%1$s gwei)</string>
-    <string name="pulse_gas_low">Gas Ethereum thấp (%1$s gwei)</string>
-    <string name="pulse_gas_normal">Gas Ethereum bình thường (%1$s gwei)</string>
-    <string name="pulse_volume_high">Khối lượng giao dịch cao bất thường (%1$s× bình thường)</string>
-    <string name="pulse_volume_low">Khối lượng giao dịch thấp (%1$s× bình thường)</string>
-    <string name="pulse_volume_normal">Khối lượng giao dịch bình thường</string>
 
     <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>

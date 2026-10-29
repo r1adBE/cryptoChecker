@@ -104,7 +104,6 @@ fun appSettingsOf(prefs: Preferences): AppSettings {
         // Fehlt oder unbekannt: Neutral
         taxTemplate = com.cryptochecker.app.domain.portfolio.TaxTemplate.fromName(prefs[SettingsKeys.taxTemplate]),
         taxTemplateConfirmed = prefs[SettingsKeys.taxTemplateConfirmed] ?: defaults.taxTemplateConfirmed,
-        marketTabSeen = prefs[SettingsKeys.marketTabSeen] ?: defaults.marketTabSeen,
         marketMoreExpanded = prefs[SettingsKeys.marketMoreExpanded] ?: defaults.marketMoreExpanded,
     )
 }

@@ -46,6 +46,22 @@ final class AddressPrivacyParityTests: XCTestCase {
         }
     }
 
+    /// Weiterleitungen nur auf denselben Host, nie von HTTPS auf HTTP — wie Android; die Sitzung der Adressabfragen
+    /// nutzt die Regel.
+    func testWeiterleitungNurAufDenselbenHost() throws {
+        let fixture = try S.fixture("address_privacy")
+        let cases = try XCTUnwrap(fixture["redirectCases"] as? [[String: Any]])
+        XCTAssertFalse(cases.isEmpty)
+        for c in cases {
+            let from = try XCTUnwrap(URL(string: try XCTUnwrap(c["from"] as? String)))
+            let to = try XCTUnwrap(URL(string: try XCTUnwrap(c["to"] as? String)))
+            let follow = try XCTUnwrap(c["follow"] as? Bool)
+            XCTAssertEqual(AddressRedirect.allowed(fromScheme: from.scheme, fromHost: from.host,
+                                                   toScheme: to.scheme, toHost: to.host), follow, "\(from) → \(to)")
+        }
+        XCTAssertTrue(WatchedAddressSource.session.delegate is SameHostRedirectDelegate)
+    }
+
     /// Adress-Hosts laufen nie über die Sessions mit App-User-Agent und teilen keine Verbindungen.
     func testAdressHostsBekommenEigeneSession() {
         let single = ExchangeHTTP.sessionFor(host: "mempool.space", requested: ExchangeHTTP.session)

@@ -1,5 +1,6 @@
 // Wurzel-Buildskript. Alle Versionen stehen im Versionskatalog gradle/libs.versions.toml.
 import org.gradle.api.artifacts.dsl.LockMode
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
     // AGP 9 bringt Kotlin eingebaut mit (ohne Plugin org.jetbrains.kotlin.android).
@@ -35,6 +36,19 @@ allprojects {
     dependencyLocking {
         lockAllConfigurations()
         lockMode.set(if (file("gradle.lockfile").exists()) LockMode.DEFAULT else LockMode.LENIENT)
+    }
+}
+
+// Kotlin-Warnungen brechen den Build in den App- und Bibliotheksquellen ab (main, debug, withoutHttpLog), auch wenn
+// ein Modul aus dem Gradle-Build-Cache kommt. Testquellen (Aufgaben *UnitTest*/*AndroidTest*) zählen nicht. :data
+// fehlt: dort kompiliert dieselbe Aufgabe den von Room erzeugten Kotlin-Code, dessen Warnungen der Schritt
+// «Kotlin warnings» in android.yml ausfiltert (er zählt nur Zeilen aus src/main).
+val warningsAsErrorsModules = setOf("app", "domain", "marketdata", "wear")
+subprojects {
+    if (name in warningsAsErrorsModules) {
+        tasks.withType<KotlinCompile>().configureEach {
+            if (!name.contains("Test")) compilerOptions.allWarningsAsErrors.set(true)
+        }
     }
 }
 

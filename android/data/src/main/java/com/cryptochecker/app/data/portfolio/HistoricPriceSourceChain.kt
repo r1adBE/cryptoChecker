@@ -79,22 +79,23 @@ suspend fun HistoricPriceSource.seriesClose(pair: CandlePair, start: Long): Pair
  * heutigen) in USDT. Prüfung wie Binance-Spot (1/3…3) — die aktuellen Portfolio-Kurse kommen von dieser Börse. Ist die
  * Börse zugleich ein Glied der Kette und hat keinen Schluss, folgt deren Kettenabfrage (Coinbase: jedes Alter).
  */
-suspend fun HistoricPriceSource.ownOutcome(
+internal suspend fun HistoricPriceSource.ownOutcome(
     own: CandlePair,
     b: String,
     date: LocalDate,
     start: Long,
     reference: Double,
     ownName: String?,
+    fetch: DayCloseFetch,
 ): Outcome {
     val nameOk = HistoricCloseChain.nameAllowed(
         b, own = true, exchangeKey = own.exchangeKey, ownName = ownName,
         binanceName = tokenIdentityStore.binanceName(b), providerName = tokenIdentityStore.pairName(own.exchangeKey, b),
     )
-    var outcome = if (!nameOk) Outcome(null, rejected = true) else ownDayClose(own, date, start, reference)
+    var outcome = if (!nameOk) Outcome(null, rejected = true) else ownDayClose(own, date, start, reference, fetch)
     if (outcome.price == null && own.exchangeKey in HistoricCloseChain.CHAIN && own.exchangeKey != HistoricCloseChain.BINANCE) {
         val chain = if (own.exchangeKey == HistoricCloseChain.COINBASE) {
-            coinbaseOutcome(b, date, start, reference)
+            coinbaseOutcome(b, date, start, reference, fetch)
         } else {
             chainOutcome(own.exchangeKey, b, start, reference, ownName)
         }
@@ -103,15 +104,21 @@ suspend fun HistoricPriceSource.ownOutcome(
     return outcome
 }
 
-private suspend fun HistoricPriceSource.ownDayClose(own: CandlePair, date: LocalDate, start: Long, reference: Double): Outcome {
+private suspend fun HistoricPriceSource.ownDayClose(
+    own: CandlePair,
+    date: LocalDate,
+    start: Long,
+    reference: Double,
+    fetch: DayCloseFetch,
+): Outcome {
     val (raw, rawLatest) = seriesClose(own, start) ?: return Outcome(null)
     val quote = own.quote.trim().uppercase()
     var close = raw
     var latest = rawLatest
     if (quote != "USDT" && quote != "USD" && quote != "USDC") {
         // Fiat-Paar: Devisenkurs DES Tags (Wochenende → letzter Geschäftstag) bzw. heute für den jüngsten Schluss
-        val dayFx = usdTo(quote, date)?.rate?.takeIf { it > 0.0 && it.isFinite() } ?: return Outcome(null)
-        val nowFx = usdTo(quote, LocalDate.now(ZoneOffset.UTC))?.rate?.takeIf { it > 0.0 && it.isFinite() }
+        val dayFx = fetch.usdTo(quote, date)?.rate?.takeIf { it > 0.0 && it.isFinite() } ?: return Outcome(null)
+        val nowFx = fetch.usdTo(quote, LocalDate.now(ZoneOffset.UTC))?.rate?.takeIf { it > 0.0 && it.isFinite() }
         close = raw / dayFx
         latest = if (rawLatest != null && nowFx != null) rawLatest / nowFx else null
     }

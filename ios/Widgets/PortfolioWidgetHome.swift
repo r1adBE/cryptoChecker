@@ -106,7 +106,7 @@ struct PortfolioHomeView: View {
 
     func message(_ text: String) -> some View {
         Text(text)
-            .font(.system(size: 13, weight: .semibold))
+            .widgetSecondaryFont(13, weight: .semibold)
             .foregroundStyle(palette.secondary)
             .fixedSize(horizontal: false, vertical: true)
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -212,7 +212,7 @@ struct PortfolioHomeView: View {
 
     private func positionRow(_ p: PortfolioWidgetPosition, currency: String, basis: ChangeBasis) -> some View {
         HStack(spacing: 8) {
-            quantityPrefixed(p, size: 12) {
+            quantityPrefixed(p, size: 12 * primaryScale) {
                 Text(p.symbol)
                     .font(.system(size: WidgetFont.label * primaryScale, weight: .bold))
                     .foregroundStyle(palette.text)
@@ -229,10 +229,11 @@ struct PortfolioHomeView: View {
             }
             .frame(height: 3)
             Text(PortfolioWidgetText.share(p.sharePercent))
-                .font(.system(size: 12, weight: .medium))
+                .font(.system(size: 12 * primaryScale, weight: .medium))
                 .monospacedDigit()
                 .foregroundStyle(palette.secondary)
                 .lineLimit(1)
+                .minimumScaleFactor(WidgetTextSize.minimumFactor(1, primaryScale: primaryScale))
                 .frame(minWidth: 40, alignment: .trailing)
             WidgetPnlLabel(change: PortfolioWidgetViews.rowPnl(p), currency: currency, palette: palette,
                            hidden: entry.hideAmounts)
@@ -256,7 +257,7 @@ struct PortfolioHomeView: View {
                 .lineLimit(2)
                 .minimumScaleFactor(WidgetTextSize.minimumFactor(0.7, primaryScale: scale))
             Text(s.currency)
-                .font(.system(size: size >= 26 ? 12 : 11, weight: .semibold))
+                .font(.system(size: (size >= 26 ? 12 : 11) * scale, weight: .semibold))
                 .foregroundStyle(palette.secondary)
                 .lineLimit(1)
                 .fixedSize()
@@ -332,10 +333,11 @@ struct PortfolioHomeView: View {
                                 timeZone: entry.chartTimeZone)
         } else {
             Text(L("widget_portfolio_chart_pending"))
-                .font(.system(size: 12, weight: .medium))
+                .widgetSecondaryFont(12, weight: .medium)
                 .foregroundStyle(palette.secondary)
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
+                .minimumScaleFactor(0.8)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }

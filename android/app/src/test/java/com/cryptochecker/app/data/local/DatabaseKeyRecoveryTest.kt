@@ -87,7 +87,7 @@ class DatabaseKeyRecoveryTest {
         assertTrue(second.restored)
         assertArrayEquals("K1".toByteArray(), second.passphrase)
         assertEquals("K1", files.currentKey)
-        assertEquals(listOf("neu0"), files.replaced) // neu begonnene Datei bleibt (nie gelöscht)
+        assertEquals(listOf("neu0"), files.replaced) // neu begonnene Datei bleibt (bis zur Frist, pruneReplaced)
         assertEquals("K1", keys.stored)
         assertEquals(listOf("neu0"), keys.replacedKeys)
         assertTrue(files.aside.isEmpty())

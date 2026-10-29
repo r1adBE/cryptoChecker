@@ -3,6 +3,7 @@ package com.cryptochecker.app.domain.watch
 import com.cryptochecker.app.domain.refresh.ExchangeFailure
 import com.cryptochecker.app.domain.refresh.RefreshFailure
 import com.cryptochecker.app.domain.refresh.RefreshReportLogic
+import com.cryptochecker.marketdata.model.FuturesContractType
 
 /**
  * «Wird an der Börse nicht mehr gehandelt»: Die vollständige Kursliste der Börse führt das
@@ -45,7 +46,7 @@ object NotTraded {
      * Meldet der Leser in einer sonst gültigen Antwort «kein Eintrag für das Paar» ([isMissingEntry]), bestätigt das
      * ebenfalls — gleichwertig zu «Antwort ohne Kurs». Sicher, weil diese Prüfung nur nach einer vollständigen
      * Kursliste ohne das Paar läuft (PriceFetcher.confirmMissing): Zwei unabhängige Aussagen statt einer kurz
-     * leeren Antwort — oder ohne Sammelabfrage, wenn die Einzelabfrage selbst diese Liste liest ([confirmWithoutBulk]).
+     * leeren Antwort — oder ausserhalb des Sammelpfads mit einer anderen zweiten Aussage ([singleConfirms]).
      */
     fun confirmedBySingle(gotPrice: Boolean, error: String?, failure: ExchangeFailure? = null): Boolean {
         if (gotPrice) return false
@@ -66,12 +67,27 @@ object NotTraded {
     }
 
     /**
-     * Einzelabfrage ohne Sammelabfrage (zu wenige Paare der Börse): wie nach dem Fehlen in der vollständigen Liste mit
-     * [confirmedBySingle] werten? Nur, wenn die Einzelabfrage selbst die vollständige Liste liest
-     * (`Exchange.singleTickerReadsFullList`, z. B. Lighter) — dann ist ihr «kein Eintrag» dieselbe Aussage wie das
-     * Fehlen in der Liste. Sonst fehlte die zweite, unabhängige Aussage: gewöhnlicher Fehler.
+     * Einzelabfrage ausserhalb des Sammelpfads wie nach dem Fehlen in der vollständigen Liste mit [confirmedBySingle]
+     * werten? Die zweite, unabhängige Aussage neben der Antwort der Börse ist dann:
+     *  - ohne Sammelabfrage (zu wenige Paare der Börse) eine Einzelabfrage, die selbst die vollständige Liste liest
+     *    (`Exchange.singleTickerReadsFullList`, z. B. Lighter) — ihr «kein Eintrag» ist dieselbe Aussage wie das Fehlen
+     *    in der Liste;
+     *  - oder ein abgelaufener Laufzeit-Kontrakt ([contractExpired]): Nach dem Verfallstag in der Kennung handelt die
+     *    Börse ihn nicht mehr — ein «Invalid symbol» bestätigt das, auch mit nur ein, zwei Paaren der Börse.
+     * Sonst fehlte die zweite Aussage: gewöhnlicher Fehler.
      */
-    fun confirmWithoutBulk(bulkTried: Boolean, singleReadsFullList: Boolean): Boolean = !bulkTried && singleReadsFullList
+    fun singleConfirms(bulkTried: Boolean, singleReadsFullList: Boolean, contractExpired: Boolean): Boolean =
+        contractExpired || (!bulkTried && singleReadsFullList)
+
+    /**
+     * Laufzeit-Kontrakt abgelaufen? Nur mit Datum in der Kennung («BTCUSDT_250926», `FuturesContractType.deliveryCodeOf`):
+     * ab der Abrechnung (Verfallstag 08:00 UTC) — die App rollt nie auf den Folgekontrakt. Ohne Datum (Perpetual,
+     * Spot) nie.
+     */
+    fun contractExpired(pairId: String?, now: Long): Boolean {
+        val settlement = FuturesContractType.settlementMillisOf(pairId) ?: return false
+        return now >= settlement
+    }
 
     /** Sagt der Fehlertext der Börse ausdrücklich, dass sie das Paar nicht kennt? */
     fun isUnknownInstrument(error: String?): Boolean {

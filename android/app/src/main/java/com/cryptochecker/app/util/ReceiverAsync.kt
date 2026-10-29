@@ -21,8 +21,11 @@ object ReceiverAsync {
     val scope: CoroutineScope = appScope(Dispatchers.Default, "Empfänger-Arbeit")
 
     /**
-     * Harte Grenze für Arbeit nach goAsync (Android erwartet finish() nach rund 10 s, sonst droht
-     * im Hintergrund ein ANR); danach wird abgebrochen, das Widget behält den gezeichneten Stand.
+     * Harte Grenze für Arbeit nach goAsync; danach wird abgebrochen, das Widget behält den gezeichneten Stand. Android
+     * meldet einen ANR, wenn finish() ausbleibt: nach 10 s bei einem Broadcast im Vordergrund, nach 60 s im Hintergrund.
+     * Widget-Empfänger bekommen auch Vordergrund-Broadcasts (Tippen, Aktualisieren aus der App) — darum die enge
+     * Grenze unter 10 s. Der Wecker der Alarm-Prüfung (`ExactCheckReceiver`, Hintergrund-Broadcast des AlarmManagers)
+     * nutzt den 60-s-Rahmen mit eigener Grenze (20 s).
      */
     const val TIMEOUT_MILLIS = 9_000L
 

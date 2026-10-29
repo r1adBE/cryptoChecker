@@ -28,11 +28,9 @@
     <string name="error_exchange_unreachable">Pörssiin ei saada yhteyttä juuri nyt – viimeisimmät hinnat pysyvät näkyvissä.</string>
     <string name="error_exchange_unreachable_short">Pörssiin ei saada yhteyttä</string>
     <string name="loading_hint">Ladataan…</string>
-    <string name="no_internet_connection">Ei internetyhteyttä. Tarkista Wi-Fi tai mobiilidata ja yritä uudelleen.</string>
     <string name="option_off">Pois</string>
     <string name="something_went_wrong">Jokin meni pieleen</string>
     <string name="time_just_now">juuri nyt</string>
-    <string name="timeout_error_message">Pörssi ei vastaa juuri nyt. Yritä hetken kuluttua uudelleen.</string>
     <string name="try_again">Yritä uudelleen</string>
 
     <!-- Verbindungsstatus (Status-Pille) -->

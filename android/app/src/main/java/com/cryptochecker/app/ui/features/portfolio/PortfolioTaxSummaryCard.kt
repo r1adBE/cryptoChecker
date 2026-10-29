@@ -71,9 +71,9 @@ internal fun TaxSummaryCard(summary: TaxYearSummary?, texts: TaxSummaryTexts, me
             val unit = if (fx) summary.currency else "USDT"
             fun money(l: TaxSummaryLine): String? {
                 val v = if (fx) l.target else l.usdt
-                if (v != null) return PriceFormat.valueWithCurrency(v.toDouble(), unit)
+                if (v != null) return PortfolioFormat.signedMoney(v.toDouble(), unit)
                 // Grenzen und Freibeträge gibt es nur in der Währung der Vorlage
-                return l.target?.let { PriceFormat.valueWithCurrency(it.toDouble(), summary.currency) }
+                return l.target?.let { PortfolioFormat.signedMoney(it.toDouble(), summary.currency) }
             }
             var orientationShown = false
             // Letzter Tatsachen-Posten (Summen): dort steht der Hinweis «keine Steuererklärung» noch einmal
@@ -116,7 +116,7 @@ internal fun TaxSummaryCard(summary: TaxYearSummary?, texts: TaxSummaryTexts, me
                         val v = if (fx) r.valueTarget else r.valueUsdt
                         SummaryLine(
                             texts.wealthCoinLabel(r.coin, PriceFormat.amount(r.amount)),
-                            v?.let { PriceFormat.valueWithCurrency(it.toDouble(), unit) } ?: texts.wealthCoinNote(r),
+                            v?.let { PortfolioFormat.signedMoney(it.toDouble(), unit) } ?: texts.wealthCoinNote(r),
                             indent = true,
                         )
                         // Teilwert: Wert und darunter «unvollständig – Grund» (wie die CSV)

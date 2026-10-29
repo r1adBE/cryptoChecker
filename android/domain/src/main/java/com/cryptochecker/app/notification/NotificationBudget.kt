@@ -136,14 +136,25 @@ object NotificationBudget {
     fun postGapMillis(posts: Int): Long = if (posts > POSTS_PER_SECOND) POST_GAP_MILLIS else 0L
 
     /**
-     * Ist die eben gemeldete Mitteilung [id] angekommen? [postTimes]: Meldezeit (StatusBarNotification.postTime)
-     * je offener Mitteilung, null = nicht abfragbar (gilt als ja). Nur eine Meldezeit ab [postedAfter]
-     * (Zeit direkt vor dem Melden) bestätigt die NEUE Meldung — sonst stünde eine ältere Meldung
-     * desselben Alarms (gleiche Id) für eine verworfene neue.
+     * Alarm-Meldung nach dem Melden prüfen: so oft, im Abstand von [VERIFY_STEP_MILLIS] (zusammen höchstens rund 1 s) —
+     * ein langsam nachgeführtes System gilt sonst als «nicht angekommen», und der Alarm klingelte nach seiner Sperre
+     * erneut. iOS gleich (`Notifier.awaitDelivered`).
      */
-    fun confirmedPost(postTimes: Map<Int, Long>?, id: Int, postedAfter: Long): Boolean {
+    const val VERIFY_ATTEMPTS = 10
+    const val VERIFY_STEP_MILLIS = 100L
+
+    /** Spielraum der Meldezeit vor dem Melden: die Zeit setzt das System, nicht dieser Prozess (Uhr leicht versetzt). */
+    const val POST_TIME_TOLERANCE_MILLIS = 1_000L
+
+    /**
+     * Ist die eben gemeldete Mitteilung [id] angekommen? [postTimes]: Meldezeit (StatusBarNotification.postTime)
+     * je offener Mitteilung, null = nicht abfragbar (gilt als ja). Nur eine Meldezeit ab [postedAt] (Zeit direkt vor
+     * dem Melden) abzüglich [POST_TIME_TOLERANCE_MILLIS] bestätigt die NEUE Meldung — sonst stünde eine ältere Meldung
+     * desselben Alarms (gleiche Id) für eine verworfene neue. Wie iOS.
+     */
+    fun confirmedPost(postTimes: Map<Int, Long>?, id: Int, postedAt: Long): Boolean {
         if (postTimes == null) return true
         val postTime = postTimes[id] ?: return false
-        return postTime >= postedAfter
+        return postTime >= postedAt - POST_TIME_TOLERANCE_MILLIS
     }
 }

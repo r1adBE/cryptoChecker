@@ -158,9 +158,6 @@ struct AppSettings: Codable, Equatable, Sendable {
     /// Hinweis «Beta, vereinfachte Regeln …» zu den Länder-Vorlagen einmal mit OK bestätigt — wie Android
     /// («tax_template_confirmed»); nur auf diesem Gerät, nicht in der Sicherung.
     var taxTemplateConfirmed: Bool = false
-    /// Der Markt-Tab wurde schon einmal gesehen (mindestens 3 s sichtbar): «Einordnung» und
-    /// «Daten» beginnen danach zugeklappt. Gleicher Schlüssel wie Android; nicht in der Sicherung.
-    var marketTabSeen: Bool = false
     /// Markt-Tab: «Mehr Marktdaten» (Zeilen zu «Stimmung & Zyklus» und «Marktdaten») aufgeklappt
     /// (Standard zu), wie Android («market_more_expanded»); nur auf diesem Gerät, nicht in der Sicherung.
     var marketMoreExpanded: Bool = false
@@ -260,7 +257,6 @@ struct AppSettings: Codable, Equatable, Sendable {
         costMethod = (try? c.decodeIfPresent(CostMethod.self, forKey: .costMethod)) ?? d.costMethod
         // Fehlt oder unbekannt: Neutral
         taxTemplate = (try? c.decodeIfPresent(TaxTemplate.self, forKey: .taxTemplate)) ?? d.taxTemplate
-        marketTabSeen = (try? c.decodeIfPresent(Bool.self, forKey: .marketTabSeen)) ?? d.marketTabSeen
         taxTemplateConfirmed = (try? c.decodeIfPresent(Bool.self, forKey: .taxTemplateConfirmed)) ?? d.taxTemplateConfirmed
         marketMoreExpanded = (try? c.decodeIfPresent(Bool.self, forKey: .marketMoreExpanded)) ?? d.marketMoreExpanded
         // Beim Lesen erneut geprüft; ungültig gilt als nicht gesetzt (wie Android `AddressServerStore`)

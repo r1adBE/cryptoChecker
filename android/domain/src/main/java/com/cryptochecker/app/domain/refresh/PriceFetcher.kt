@@ -61,10 +61,9 @@ class PriceFetcher @Inject constructor(
         // nichts — alle Paare dieses Durchlaufs als Fehler, kein Nachhaken (BulkTickerRows)
         val bulkFormatError = BulkTickerRows.isFormatError(bulk.error)
         // Ohne Sammelabfrage: liest die Einzelabfrage selbst die vollständige Liste (Lighter), bestätigt ihr «kein
-        // Eintrag» «nicht mehr gehandelt» wie im Sammelpfad (NotTraded.confirmWithoutBulk)
-        val singleConfirms = NotTraded.confirmWithoutBulk(
-            bulkTried, ExchangesConfig.EXCHANGES[group.first().exchangeKey]?.singleTickerReadsFullList == true,
-        )
+        // Eintrag» «nicht mehr gehandelt» wie im Sammelpfad; ebenso bei abgelaufenen Laufzeit-Kontrakten
+        // (NotTraded.singleConfirms)
+        val singleReadsFullList = ExchangesConfig.EXCHANGES[group.first().exchangeKey]?.singleTickerReadsFullList == true
 
         // Eigene Grenze je Börse, damit niemand ins Rate-Limit läuft.
         val limit = Semaphore(MAX_PARALLEL_REQUESTS_PER_EXCHANGE)
@@ -75,6 +74,8 @@ class PriceFetcher @Inject constructor(
             FetchOrder.alarmsFirst(group, alarmed) { it.id }.map { watch ->
                 async {
                     val bulkTicker = watch.pairId?.let { bulkTickers[it] }
+                    // Verfallstag in der Kennung vorbei (NotTraded.contractExpired): die Börse handelt ihn nicht mehr
+                    val expired = NotTraded.contractExpired(watch.pairId, groupStartedAt)
                     watch to when {
                         bulkTicker != null -> Fetched(bulkTicker, null)
 
@@ -97,7 +98,11 @@ class PriceFetcher @Inject constructor(
 
                         bulkRateLimited || bulkFormatError -> Fetched(null, bulk.error, failure = bulk.failure)
 
-                        singleConfirms ->
+                        // Abgelaufen und schon als nicht gehandelt gespeichert: keine Anfrage mehr, die ohnehin scheitert
+                        expired && !NotTraded.askSingleWhenMissing(watch.lastError) ->
+                            Fetched(null, NOT_TRADED_ERROR, notTraded = true)
+
+                        NotTraded.singleConfirms(bulkTried, singleReadsFullList, expired) ->
                             withinBudget(groupDeadline) { limit.withPermit { gate.send { confirmMissing(watch) } } }
 
                         else -> withinBudget(groupDeadline) { limit.withPermit { gate.send { fetchSingle(watch) } } }
@@ -205,7 +210,7 @@ class PriceFetcher @Inject constructor(
         withinBudget(deadline, { Fetched(null, CheckBudget.TIMEOUT_ERROR, fromSingle = true, budgetCut = true) }, block)
 
     /**
-     * Paar fehlt in der vollständigen Liste (oder ohne Sammelabfrage: [NotTraded.confirmWithoutBulk]): Einzelabfrage. Kurs → normal übernehmen; antwortet die
+     * Paar fehlt in der vollständigen Liste (oder ausserhalb des Sammelpfads: [NotTraded.singleConfirms]): Einzelabfrage. Kurs → normal übernehmen; antwortet die
      * Börse ohne Kurs → nicht mehr gehandelt; Netz-/Serverproblem → gewöhnlicher Fehler.
      */
     private suspend fun confirmMissing(watch: WatchEntity): Fetched {
@@ -250,7 +255,9 @@ class PriceFetcher @Inject constructor(
          * Laufzeit-Kontrakte (z. B. BTCUSDT_250926): Die gespeicherte Kennung gilt bis zum Verfall,
          * die App rollt NICHT auf den Folgekontrakt. Ein abgelaufener Kontrakt fehlt in der
          * Sammelliste, die Einzelabfrage bringt keinen Kurs → «nicht mehr gehandelt». Nur mit
-         * `includeRollingFutures` (Standard aus) wird er stattdessen jedes Mal einzeln abgefragt.
+         * `includeRollingFutures` (Standard aus) wird er stattdessen jedes Mal einzeln abgefragt. Ohne
+         * Sammelabfrage (1–2 Paare der Börse) bestätigt nach dem Verfallstag in der Kennung die Einzelabfrage
+         * allein ([NotTraded.contractExpired]); danach keine Anfrage mehr.
          */
         val ROLLING_CONTRACTS = setOf(
             FuturesContractType.WEEKLY,

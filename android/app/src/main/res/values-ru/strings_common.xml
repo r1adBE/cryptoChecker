@@ -28,11 +28,9 @@
     <string name="error_exchange_unreachable">Биржа сейчас недоступна – последние курсы остаются на экране.</string>
     <string name="error_exchange_unreachable_short">Биржа сейчас недоступна</string>
     <string name="loading_hint">Загрузка…</string>
-    <string name="no_internet_connection">Нет подключения к интернету. Проверь Wi-Fi или мобильные данные и повтори попытку.</string>
     <string name="option_off">Выкл.</string>
     <string name="something_went_wrong">Что-то пошло не так</string>
     <string name="time_just_now">только что</string>
-    <string name="timeout_error_message">Биржа сейчас не отвечает. Повтори попытку чуть позже.</string>
     <string name="try_again">Повторить</string>
 
     <!-- Verbindungsstatus (Status-Pille) -->

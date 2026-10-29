@@ -1,7 +1,9 @@
 package com.cryptochecker.app.contract
 
+import com.cryptochecker.app.domain.exceptions.toExchangeFailure
 import com.cryptochecker.app.domain.live.LiveExchange
 import com.cryptochecker.app.domain.live.LiveParser
+import com.cryptochecker.app.domain.watch.NotTraded
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
@@ -137,6 +139,11 @@ class ExchangeContractTest {
         val requestId = c["requestId"].num()?.toInt() ?: 0
         val body = c["body"] as String
         val expect = c["expect"].obj()
+        // Adresse der Einzelabfrage (optional): Laufzeit-Kontrakte mit dem Symbol der Paarliste, nie aus dem Kalender
+        (c["url"] as String?)?.let { url ->
+            val actual = exchange.tickerAddress(requestId, info)
+            if (actual != url) throw CaseFailure("url: expected '$url', got '$actual'")
+        }
 
         val ticker = SimpleTicker()
         var failure: Exception? = null
@@ -156,6 +163,19 @@ class ExchangeContractTest {
         if (failure == null) throw CaseFailure("expected an error, got last=${ticker.last}")
         (expect["thrown"] as? String)?.let {
             if (failure.message != it) throw CaseFailure("thrown: expected '$it', got '${failure.message}'")
+        }
+        // Abgelaufener Laufzeit-Kontrakt (optional): ab der Abrechnung bestätigt diese Antwort allein «nicht mehr
+        // gehandelt» (NotTraded.contractExpired + singleConfirms), auch ohne Sammelabfrage
+        c["contractExpiry"]?.obj()?.let { expiry ->
+            val before = expiry["before"].num()!!.toLong()
+            val after = expiry["after"].num()!!.toLong()
+            if (NotTraded.contractExpired(info.pairId, before)) throw CaseFailure("contractExpiry: expired at $before")
+            if (!NotTraded.contractExpired(info.pairId, after)) throw CaseFailure("contractExpiry: not expired at $after")
+            if (!NotTraded.singleConfirms(bulkTried = false, singleReadsFullList = false, contractExpired = true) ||
+                !NotTraded.confirmedBySingle(false, failure.message, failure.toExchangeFailure())
+            ) {
+                throw CaseFailure("contractExpiry: '${failure.message}' does not confirm 'no longer traded'")
+            }
         }
         val message = try {
             exchange.readError(requestId, body, info)

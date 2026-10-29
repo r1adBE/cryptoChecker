@@ -1,0 +1,184 @@
+{
+  "description": "Market notices (Android MarketNoticeGate.kt / IndicatorAlerts.kt / GasAlertChecker.kt GasAlertLogic / DepegAlarm.kt, CycleCache.kt; iOS ZoneCheck.swift MarketNoticeGate / IndicatorAlerts.swift / GasFees.swift GasAlertCheck / DepegAlarm.swift, CycleCache.swift): the remembered state of a notice only counts for the bound it was stored with - a missing stored bound (null) or a different one (changed, or 0 = switched off in between, MarketAlertReset) counts as changed, so the notice is armed again. boundChanged: Fear & Greed bound; indicatorWasCrossed: 'already beyond' of an indicator bound; gasArmedFor / depegArmedFor: armed state of the gas alarm (gwei / sat/vB) and the USDT depeg alarm (tenths of a percent). indicatorActive: only selectable values (IndicatorAlertKind.choices) are switched on, the threshold is value / scale. zoneRetry: after a failed fetch the zone check is retried at most maxRetries times with doubling pauses (WorkManager backoff on Android, foreground retry on iOS). marketTabTimeouts: hard time limit per market tab section (ms), keys like Android CycleSource.key.",
+  "boundChanged": [
+    {
+      "name": "same bound",
+      "stored": 25,
+      "current": 25,
+      "changed": false
+    },
+    {
+      "name": "bound changed",
+      "stored": 25,
+      "current": 20,
+      "changed": true
+    },
+    {
+      "name": "switched off in between (0)",
+      "stored": 0,
+      "current": 25,
+      "changed": true
+    },
+    {
+      "name": "no bound stored",
+      "stored": null,
+      "current": 25,
+      "changed": true
+    }
+  ],
+  "indicatorWasCrossed": [
+    {
+      "name": "crossed with the same bound",
+      "storedCrossed": true,
+      "storedThreshold": 240,
+      "current": 240,
+      "wasCrossed": true
+    },
+    {
+      "name": "crossed with another bound: judge anew",
+      "storedCrossed": true,
+      "storedThreshold": 240,
+      "current": 200,
+      "wasCrossed": false
+    },
+    {
+      "name": "crossed, no bound stored",
+      "storedCrossed": true,
+      "storedThreshold": null,
+      "current": 200,
+      "wasCrossed": false
+    },
+    {
+      "name": "not crossed",
+      "storedCrossed": false,
+      "storedThreshold": 240,
+      "current": 240,
+      "wasCrossed": false
+    }
+  ],
+  "gasArmedFor": [
+    {
+      "name": "fired at the same bound: stays disarmed",
+      "storedArmed": false,
+      "storedThreshold": 5.0,
+      "threshold": 5.0,
+      "armed": false
+    },
+    {
+      "name": "bound lowered",
+      "storedArmed": false,
+      "storedThreshold": 5.0,
+      "threshold": 3.0,
+      "armed": true
+    },
+    {
+      "name": "switched off and on again",
+      "storedArmed": false,
+      "storedThreshold": 0.0,
+      "threshold": 5.0,
+      "armed": true
+    },
+    {
+      "name": "no bound stored",
+      "storedArmed": false,
+      "storedThreshold": null,
+      "threshold": 5.0,
+      "armed": true
+    },
+    {
+      "name": "armed stays armed",
+      "storedArmed": true,
+      "storedThreshold": 5.0,
+      "threshold": 5.0,
+      "armed": true
+    }
+  ],
+  "depegArmedFor": [
+    {
+      "name": "fired at -0.8 % with threshold 0.5 %, same threshold: stays disarmed",
+      "storedArmed": false,
+      "storedTenths": 5,
+      "tenths": 5,
+      "armed": false
+    },
+    {
+      "name": "threshold lowered to 0.3 % while the deviation lasts: armed again",
+      "storedArmed": false,
+      "storedTenths": 5,
+      "tenths": 3,
+      "armed": true
+    },
+    {
+      "name": "switched off and on again (0 stored by MarketAlertReset.depegOff)",
+      "storedArmed": false,
+      "storedTenths": 0,
+      "tenths": 5,
+      "armed": true
+    },
+    {
+      "name": "no threshold stored",
+      "storedArmed": false,
+      "storedTenths": null,
+      "tenths": 5,
+      "armed": true
+    },
+    {
+      "name": "armed stays armed",
+      "storedArmed": true,
+      "storedTenths": 10,
+      "tenths": 10,
+      "armed": true
+    }
+  ],
+  "indicatorActive": [
+    {
+      "name": "selectable values",
+      "stored": {
+        "MAYER_ABOVE": 240,
+        "ATH_WITHIN": 5
+      },
+      "active": {
+        "MAYER_ABOVE": 2.4,
+        "ATH_WITHIN": 5.0
+      }
+    },
+    {
+      "name": "value not among the choices is off",
+      "stored": {
+        "MAYER_ABOVE": 250,
+        "MVRV_BELOW": 80
+      },
+      "active": {
+        "MVRV_BELOW": 0.8
+      }
+    },
+    {
+      "name": "zero and negative are off",
+      "stored": {
+        "MAYER_BELOW": 0,
+        "MVRV_ABOVE": -300
+      },
+      "active": {}
+    }
+  ],
+  "zoneRetry": {
+    "maxRetries": 3,
+    "delaysMillis": [
+      30000,
+      60000,
+      120000
+    ]
+  },
+  "marketTabTimeouts": {
+    "pulse": 12000,
+    "unusual": 20000,
+    "market": 20000,
+    "onchain": 20000,
+    "fear_greed": 12000,
+    "global": 12000,
+    "alt_season": 20000,
+    "history": 20000,
+    "coin": 20000,
+    "gas": 12000
+  }
+}

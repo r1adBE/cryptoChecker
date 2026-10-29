@@ -19,5 +19,18 @@ class LiveCoverage @Inject constructor() {
 
     fun lastTickAt(watchId: Long): Long? = lastTickAt[watchId]
 
+    /** Stand aller Paare (Kopie), für «Live» je Paar ([LiveRules.liveIds]). */
+    fun snapshot(): Map<Long, Long> = HashMap(lastTickAt)
+
+    /** Nur noch diese Paare führen (abonnierte Merkliste); wie iOS `tickAt`. */
+    fun retain(watchIds: Set<Long>) {
+        lastTickAt.keys.retainAll(watchIds)
+    }
+
+    /** Stand dieser Paare vergessen (Paar der Id geändert: der alte Kurs deckt das neue Paar nicht). */
+    fun forget(watchIds: Collection<Long>) {
+        for (id in watchIds) lastTickAt.remove(id)
+    }
+
     fun clear() = lastTickAt.clear()
 }

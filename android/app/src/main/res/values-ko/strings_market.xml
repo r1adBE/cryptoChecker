@@ -139,16 +139,6 @@
     <string name="pulse_alts_weaker">Bitcoin이 알트코인보다 강세</string>
     <string name="pulse_chip_funding_high">레버리지 심리 낙관</string>
     <string name="pulse_chip_funding_negative">레버리지 심리 비관</string>
-    <string name="pulse_funding_high">펀딩비 뚜렷한 양수: 레버리지 롱 많음</string>
-    <string name="pulse_funding_negative">펀딩비 음수: 숏 많음</string>
-    <string name="pulse_funding_neutral">펀딩비 중립</string>
-    <string name="pulse_funding_slight">펀딩비 약간 양수</string>
-    <string name="pulse_gas_high">Ethereum 가스 높음(%1$s gwei)</string>
-    <string name="pulse_gas_low">Ethereum 가스 낮음(%1$s gwei)</string>
-    <string name="pulse_gas_normal">Ethereum 가스 보통(%1$s gwei)</string>
-    <string name="pulse_volume_high">거래량 이례적으로 많음(평소의 %1$s×)</string>
-    <string name="pulse_volume_low">거래량 적음(평소의 %1$s×)</string>
-    <string name="pulse_volume_normal">거래량 평소 수준</string>
 
     <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>

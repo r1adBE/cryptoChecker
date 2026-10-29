@@ -392,6 +392,64 @@
       "result": "newer"
     }
   ],
+  "_comment_envelopeText": "Hülle als Text (BackupFormat.parse / JSONSerialization + BackupCrypto.envelope): nach dem Objekt nur Leerraum; v, m, t, p nur als ganze JSON-Zahlen, salt/iv/data nur als Texte. invalid = kein gültiges JSON. Erwartung mit Python json (streng) nachgerechnet.",
+  "envelopeText": [
+    {
+      "name": "kompakt, gültig",
+      "text": "{\"format\":\"cryptochecker-backup-enc\",\"v\":3,\"enc\":\"AES-256-GCM\",\"kdf\":\"Argon2id\",\"m\":64,\"t\":2,\"p\":2,\"salt\":\"AAECAwQFBgcICQoLDA0ODw==\",\"iv\":\"oKGio6Slpqeoqaqr\",\"data\":\"D41TWXCaoW8JsAP4rFwOgrAbvFpP6nRa4fMNxboVbJXqsLJ5J7BsLsshL6Rz62pnPQz2zwcf0Qyw6IKcZ0WXnF3ik41Zihyqliu9ng==\"}",
+      "result": "envelope"
+    },
+    {
+      "name": "Leerraum nach dem Objekt",
+      "text": "{\"format\":\"cryptochecker-backup-enc\",\"v\":3,\"enc\":\"AES-256-GCM\",\"kdf\":\"Argon2id\",\"m\":64,\"t\":2,\"p\":2,\"salt\":\"AAECAwQFBgcICQoLDA0ODw==\",\"iv\":\"oKGio6Slpqeoqaqr\",\"data\":\"D41TWXCaoW8JsAP4rFwOgrAbvFpP6nRa4fMNxboVbJXqsLJ5J7BsLsshL6Rz62pnPQz2zwcf0Qyw6IKcZ0WXnF3ik41Zihyqliu9ng==\"} \n",
+      "result": "envelope"
+    },
+    {
+      "name": "m als ganze Zahl mit .0",
+      "text": "{\"format\":\"cryptochecker-backup-enc\",\"v\":3,\"enc\":\"AES-256-GCM\",\"kdf\":\"Argon2id\",\"m\":64.0,\"t\":2,\"p\":2,\"salt\":\"AAECAwQFBgcICQoLDA0ODw==\",\"iv\":\"oKGio6Slpqeoqaqr\",\"data\":\"D41TWXCaoW8JsAP4rFwOgrAbvFpP6nRa4fMNxboVbJXqsLJ5J7BsLsshL6Rz62pnPQz2zwcf0Qyw6IKcZ0WXnF3ik41Zihyqliu9ng==\"}",
+      "result": "envelope"
+    },
+    {
+      "name": "m als Text",
+      "text": "{\"format\":\"cryptochecker-backup-enc\",\"v\":3,\"enc\":\"AES-256-GCM\",\"kdf\":\"Argon2id\",\"m\":\"64\",\"t\":2,\"p\":2,\"salt\":\"AAECAwQFBgcICQoLDA0ODw==\",\"iv\":\"oKGio6Slpqeoqaqr\",\"data\":\"D41TWXCaoW8JsAP4rFwOgrAbvFpP6nRa4fMNxboVbJXqsLJ5J7BsLsshL6Rz62pnPQz2zwcf0Qyw6IKcZ0WXnF3ik41Zihyqliu9ng==\"}",
+      "result": "unsupported"
+    },
+    {
+      "name": "m mit Bruch",
+      "text": "{\"format\":\"cryptochecker-backup-enc\",\"v\":3,\"enc\":\"AES-256-GCM\",\"kdf\":\"Argon2id\",\"m\":64.9,\"t\":2,\"p\":2,\"salt\":\"AAECAwQFBgcICQoLDA0ODw==\",\"iv\":\"oKGio6Slpqeoqaqr\",\"data\":\"D41TWXCaoW8JsAP4rFwOgrAbvFpP6nRa4fMNxboVbJXqsLJ5J7BsLsshL6Rz62pnPQz2zwcf0Qyw6IKcZ0WXnF3ik41Zihyqliu9ng==\"}",
+      "result": "unsupported"
+    },
+    {
+      "name": "p als Wahrheitswert",
+      "text": "{\"format\":\"cryptochecker-backup-enc\",\"v\":3,\"enc\":\"AES-256-GCM\",\"kdf\":\"Argon2id\",\"m\":64,\"t\":2,\"p\":true,\"salt\":\"AAECAwQFBgcICQoLDA0ODw==\",\"iv\":\"oKGio6Slpqeoqaqr\",\"data\":\"D41TWXCaoW8JsAP4rFwOgrAbvFpP6nRa4fMNxboVbJXqsLJ5J7BsLsshL6Rz62pnPQz2zwcf0Qyw6IKcZ0WXnF3ik41Zihyqliu9ng==\"}",
+      "result": "unsupported"
+    },
+    {
+      "name": "v als Text",
+      "text": "{\"format\":\"cryptochecker-backup-enc\",\"v\":\"3\",\"enc\":\"AES-256-GCM\",\"kdf\":\"Argon2id\",\"m\":64,\"t\":2,\"p\":2,\"salt\":\"AAECAwQFBgcICQoLDA0ODw==\",\"iv\":\"oKGio6Slpqeoqaqr\",\"data\":\"D41TWXCaoW8JsAP4rFwOgrAbvFpP6nRa4fMNxboVbJXqsLJ5J7BsLsshL6Rz62pnPQz2zwcf0Qyw6IKcZ0WXnF3ik41Zihyqliu9ng==\"}",
+      "result": "unsupported"
+    },
+    {
+      "name": "v 4.0 (neuere App)",
+      "text": "{\"format\":\"cryptochecker-backup-enc\",\"v\":4.0,\"enc\":\"AES-256-GCM\",\"kdf\":\"Argon2id\",\"m\":64,\"t\":2,\"p\":2,\"salt\":\"AAECAwQFBgcICQoLDA0ODw==\",\"iv\":\"oKGio6Slpqeoqaqr\",\"data\":\"D41TWXCaoW8JsAP4rFwOgrAbvFpP6nRa4fMNxboVbJXqsLJ5J7BsLsshL6Rz62pnPQz2zwcf0Qyw6IKcZ0WXnF3ik41Zihyqliu9ng==\"}",
+      "result": "newer"
+    },
+    {
+      "name": "salt als Zahl",
+      "text": "{\"format\":\"cryptochecker-backup-enc\",\"v\":3,\"enc\":\"AES-256-GCM\",\"kdf\":\"Argon2id\",\"m\":64,\"t\":2,\"p\":2,\"salt\":1234,\"iv\":\"oKGio6Slpqeoqaqr\",\"data\":\"D41TWXCaoW8JsAP4rFwOgrAbvFpP6nRa4fMNxboVbJXqsLJ5J7BsLsshL6Rz62pnPQz2zwcf0Qyw6IKcZ0WXnF3ik41Zihyqliu9ng==\"}",
+      "result": "unsupported"
+    },
+    {
+      "name": "Zeichen nach dem Objekt",
+      "text": "{\"format\":\"cryptochecker-backup-enc\",\"v\":3,\"enc\":\"AES-256-GCM\",\"kdf\":\"Argon2id\",\"m\":64,\"t\":2,\"p\":2,\"salt\":\"AAECAwQFBgcICQoLDA0ODw==\",\"iv\":\"oKGio6Slpqeoqaqr\",\"data\":\"D41TWXCaoW8JsAP4rFwOgrAbvFpP6nRa4fMNxboVbJXqsLJ5J7BsLsshL6Rz62pnPQz2zwcf0Qyw6IKcZ0WXnF3ik41Zihyqliu9ng==\"}x",
+      "result": "invalid"
+    },
+    {
+      "name": "zweites Objekt",
+      "text": "{\"format\":\"cryptochecker-backup-enc\",\"v\":3,\"enc\":\"AES-256-GCM\",\"kdf\":\"Argon2id\",\"m\":64,\"t\":2,\"p\":2,\"salt\":\"AAECAwQFBgcICQoLDA0ODw==\",\"iv\":\"oKGio6Slpqeoqaqr\",\"data\":\"D41TWXCaoW8JsAP4rFwOgrAbvFpP6nRa4fMNxboVbJXqsLJ5J7BsLsshL6Rz62pnPQz2zwcf0Qyw6IKcZ0WXnF3ik41Zihyqliu9ng==\"}{}",
+      "result": "invalid"
+    }
+  ],
   "rfc9106": {
     "_comment": "RFC 9106 Abschnitt 5.3 (Argon2id)",
     "password": "0101010101010101010101010101010101010101010101010101010101010101",

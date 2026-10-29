@@ -28,11 +28,9 @@
     <string name="error_exchange_unreachable">एक्सचेंज अभी उपलब्ध नहीं है – पिछली कीमतें दिखती रहेंगी।</string>
     <string name="error_exchange_unreachable_short">एक्सचेंज अभी उपलब्ध नहीं है</string>
     <string name="loading_hint">लोड हो रहा है…</string>
-    <string name="no_internet_connection">इंटरनेट कनेक्शन नहीं है। Wi-Fi या मोबाइल डेटा जाँचो, फिर दोबारा कोशिश करो।</string>
     <string name="option_off">बंद</string>
     <string name="something_went_wrong">कुछ गड़बड़ हो गई</string>
     <string name="time_just_now">अभी-अभी</string>
-    <string name="timeout_error_message">एक्सचेंज अभी जवाब नहीं दे रहा। थोड़ी देर में दोबारा कोशिश करो।</string>
     <string name="try_again">फिर से कोशिश करो</string>
 
     <!-- Verbindungsstatus (Status-Pille) -->

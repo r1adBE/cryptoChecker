@@ -21,16 +21,8 @@ enum WatchText {
         return f.string(from: NSNumber(value: value)) ?? String(value)
     }
 
-    static func change(_ value: Double?) -> String {
-        guard let value, value.isFinite else { return "—" }
-        let sign = abs(value) < 0.005 ? "" : (value > 0 ? "+" : "−")
-        let f = NumberFormatter()
-        f.locale = Locale.current
-        f.minimumFractionDigits = 2
-        f.maximumFractionDigits = 2
-        f.minimumIntegerDigits = 1
-        return sign + (f.string(from: NSNumber(value: abs(value))) ?? "") + "%"
-    }
+    /// Änderung in der Schreibweise der iPhone-App (`WatchPercent`, wie Android `WatchFormat.change`).
+    static func change(_ value: Double?) -> String { WatchPercent.change(value) }
 
     /// «vor 47 Min.» — kurz und klein, steht hinter «+1.23%  ·» (wie Android `WatchAge.short`).
     static func ago(_ time: Int64, now: Int64) -> String {

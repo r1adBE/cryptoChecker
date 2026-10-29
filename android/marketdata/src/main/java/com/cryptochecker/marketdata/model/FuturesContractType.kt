@@ -29,8 +29,6 @@ enum class FuturesContractType(val value: Int) {
     override fun toString(): String = getShortName(this) ?: "None"
 
     companion object {
-        fun fromInt(value: Int): FuturesContractType = entries.find { it.value == value } ?: NONE
-
         /**
          * Kurzform für Anzeige und Paarnamen; null für Spot.
          */
@@ -74,6 +72,44 @@ enum class FuturesContractType(val value: Int) {
             if (cut < 0) return null
             val code = id.substring(cut + 1)
             return code.takeIf { c -> c.length == 6 && c.all { it in '0'..'9' } }
+        }
+
+        /**
+         * Abrechnung des Kontrakts laut Kennung: Verfallstag aus [deliveryCodeOf] um 08:00 UTC (Binance, OKX), in ms.
+         * null ohne Datum in der Kennung oder bei unmöglichem Datum (z. B. Monat 13). iOS: `settlementMillis(of:)`.
+         */
+        fun settlementMillisOf(pairId: String?): Long? {
+            val day = deliveryDayOf(pairId) ?: return null
+            return day.atTime(SETTLEMENT_HOUR_UTC, 0).toInstant(ZoneOffset.UTC).toEpochMilli()
+        }
+
+        /**
+         * Kurzform zur Anzeige: Bei Laufzeit-Kontrakten zählt das Datum in der Kennung, nicht die beim Hinzufügen
+         * gespeicherte Art — ein als «2Q» gespeichertes BTCUSDT_260327 ist nach der Quartalsabrechnung das laufende
+         * Quartal («1Q»). Passt das Datum zu keinem Kontrakt derselben Familie (Woche, Monat, Quartal) oder fehlt es,
+         * bleibt [stored]. [now] für Tests; iOS: `FuturesContractType.shown(stored:pairId:now:)`.
+         */
+        fun shownContract(stored: FuturesContractType, pairId: String?, now: Instant = Instant.now()): FuturesContractType {
+            val family = when (stored) {
+                WEEKLY, BIWEEKLY -> WEEKLY to BIWEEKLY
+                MONTHLY, BIMONTHLY -> MONTHLY to BIMONTHLY
+                QUARTERLY, BIQUARTERLY -> QUARTERLY to BIQUARTERLY
+                else -> return stored
+            }
+            val day = deliveryDayOf(pairId) ?: return stored
+            return when (day) {
+                getDeliveryDate(family.first, now) -> family.first
+                getDeliveryDate(family.second, now) -> family.second
+                else -> stored
+            }
+        }
+
+        /** Verfallstag aus der Kennung («yyMMdd» = 20yy); null ohne bzw. mit unmöglichem Datum. */
+        private fun deliveryDayOf(pairId: String?): LocalDate? {
+            val code = deliveryCodeOf(pairId) ?: return null
+            return runCatching {
+                LocalDate.of(2000 + code.substring(0, 2).toInt(), code.substring(2, 4).toInt(), code.substring(4, 6).toInt())
+            }.getOrNull()
         }
 
         /**

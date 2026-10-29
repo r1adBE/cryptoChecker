@@ -39,6 +39,9 @@ actor LivePriceStream {
     private var lastDataAt: [LiveExchange: Int64] = [:]
     private var exchangeNames: [String: String] = [:]
     private var tickAt: [Int64: Int64] = [:]
+    /// Für welches Paar jede Watch-Id abonniert ist. Geht mit jedem Kurs an `AppData.applyLive`: ein Kurs des alten
+    /// Paars nach «Paar bearbeiten» wird dort verworfen (`LiveRules.samePair`) — wie `pairKeys` (Android).
+    private var pairKeys: [Int64: LivePairKey] = [:]
     private var connections: [String: Running] = [:]
     private var loops: Task<Void, Never>?
     private var lastWidgetAt: Int64 = 0
@@ -119,6 +122,8 @@ actor LivePriceStream {
         }
         buffer.retain(ids)
         tickAt = tickAt.filter { ids.contains($0.key) }
+        pairKeys = Dictionary(pairs.filter { ids.contains($0.watchId) }.map { ($0.watchId, $0.key) },
+                              uniquingKeysWith: { first, _ in first })
         lastDataAt = lastDataAt.filter { plan.watchIds[$0.key] != nil }
 
         var wanted: [String: LiveConnectionSpec] = [:]
@@ -159,6 +164,7 @@ actor LivePriceStream {
         // Während des Speicherns neu gestartet? Dann gehören Puffer und Anzeige der neuen Sitzung
         guard mine == generation else { return }
         buffer.clear()
+        pairKeys = [:]
         publishedExchanges = []
         publishedLiveIds = []
         await MainActor.run { AppData.shared.clearLive() }
@@ -189,29 +195,26 @@ actor LivePriceStream {
             if let name = exchangeNames[exchange.exchangeKey] { names.insert(name) }
         }
         let exchanges = names.sorted()
-        // Paare am Live-Strom: abonniert bei einer Börse mit frischen Daten (eigene Frische-Schwelle)
-        var liveIds = Set<Int64>()
-        for (exchange, at) in lastDataAt where now - at <= LiveRules.freshMillis {
-            for ids in (watchIds[exchange] ?? [:]).values { liveIds.formUnion(ids) }
-        }
+        // Paare am Live-Strom: je Paar nach dessen letztem Kurs (`LiveRules.liveIds`)
+        let liveIds = LiveRules.liveIds(lastTickAt: tickAt, now: now)
         let quotes = buffer.takeForUi()
         guard quotes != nil || exchanges != publishedExchanges || liveIds != publishedLiveIds else { return }
         publishedExchanges = exchanges
         publishedLiveIds = liveIds
         let ticks = tickAt
-        // Unveränderliche Kopie: eine `var` darf nicht in die @Sendable-Closure
-        let ids = liveIds
         await MainActor.run {
-            AppData.shared.setLive(quotes: quotes, exchanges: exchanges, liveIds: ids, tickAt: ticks)
+            AppData.shared.setLive(quotes: quotes, exchanges: exchanges, liveIds: liveIds, tickAt: ticks)
         }
     }
 
     private func flush(force: Bool) async {
         let batch = buffer.takeForDb()
         guard !batch.isEmpty else { return }
+        // Zuordnung zum selben Zeitpunkt wie der Stapel (Actor: vor dem ersten `await`)
+        let keys = pairKeys
         let now = EpochTime.nowMillis
         let redraw = force || now - lastWidgetAt >= LiveRules.widgetIntervalMillis
-        let saved = await AppData.shared.applyLive(batch, reloadWidgets: redraw)
+        let saved = await AppData.shared.applyLive(batch, pairs: keys, reloadWidgets: redraw)
         if saved {
             if redraw { lastWidgetAt = now }
         } else {
@@ -303,6 +306,11 @@ actor LivePriceStream {
                         if error != nil { socket.cancel(with: .goingAway, reason: nil) }
                     }
                 }
+                // Abo abgelehnt oder ins Leere: Pongs halten die Verbindung offen, aber kein Kurs kommt — neu verbinden
+                if LiveRules.silentSubscription(subscribedAt: clock.subscribedAt, receivedData: clock.priced, now: now) {
+                    socket.cancel(with: .goingAway, reason: nil)
+                    return
+                }
             }
         }
 
@@ -310,6 +318,7 @@ actor LivePriceStream {
             for message in spec.exchange.subscribeMessages(spec.symbols) {
                 try await socket.send(.string(message))
             }
+            clock.markSubscribed()
             while !Task.isCancelled {
                 let message = try await withTaskCancellationHandler {
                     try await socket.receive()
@@ -323,7 +332,10 @@ actor LivePriceStream {
                 case .data(let data): text = String(decoding: data, as: UTF8.self)
                 @unknown default: continue
                 }
-                if onText(spec.exchange, text) { received = true }
+                if onText(spec.exchange, text) {
+                    received = true
+                    clock.markPriced()
+                }
             }
         } catch {
             // Getrennt (Netz, Server, abgebrochen): die Schleife entscheidet über den nächsten Versuch
@@ -339,10 +351,13 @@ actor LivePriceStream {
     }
 }
 
-/// Zeitpunkt der letzten Nachricht einer Verbindung (threadsicher; Empfang und Wächter).
+/// Zeitpunkt der letzten Nachricht einer Verbindung, des Abonnierens und ob schon ein Kurs kam (threadsicher;
+/// Empfang und Wächter, `LiveRules.silentSubscription`).
 private final class LiveClock: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
     private let lock = NSLock()
     private var value = EpochTime.nowMillis
+    private var subscribed: Int64 = 0
+    private var gotPrice = false
 
     var last: Int64 {
         lock.lock()
@@ -350,9 +365,35 @@ private final class LiveClock: @unchecked Sendable { // @unchecked: veränderlic
         return value
     }
 
+    /// Zeit des Abonnierens; 0 = noch nicht abonniert.
+    var subscribedAt: Int64 {
+        lock.lock()
+        defer { lock.unlock() }
+        return subscribed
+    }
+
+    /// Mindestens ein Kurs für ein sichtbares Paar seit dem Verbinden.
+    var priced: Bool {
+        lock.lock()
+        defer { lock.unlock() }
+        return gotPrice
+    }
+
     func touch() {
         lock.lock()
         value = EpochTime.nowMillis
+        lock.unlock()
+    }
+
+    func markSubscribed() {
+        lock.lock()
+        subscribed = EpochTime.nowMillis
+        lock.unlock()
+    }
+
+    func markPriced() {
+        lock.lock()
+        gotPrice = true
         lock.unlock()
     }
 }

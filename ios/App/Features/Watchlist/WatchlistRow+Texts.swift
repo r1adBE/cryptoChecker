@@ -23,7 +23,7 @@ extension WatchlistRow {
             let text = WatchlistTime.lineStart(L("watchlist_row_unreachable", ago, watch.exchangeName), ago: ago)
             return (text, true, text)
         }
-        if watch.lastError == nil, outdatedAfter > 0, now - watch.lastUpdate > outdatedAfter {
+        if watch.lastError == nil, staleAfter > 0, now - watch.lastUpdate > staleAfter {
             let text = L("watchlist_row_outdated_age", ago)
             return ("\(BidiText.isolate(watch.exchangeName)) · \(text)", true, text)
         }
@@ -41,8 +41,8 @@ extension WatchlistRow {
     /// (`PriceFreshness.staleReason` `.trade`) — dieselbe Bedingung, dasselbe Wort; nur ohne andere Warnung
     /// (deaktiviert, pausiert, Fehler, veraltet). Wie Android `WatchRowStatus.trade`.
     private var tradeText: String? {
-        guard !off, pausedText == nil, watch.lastError == nil, outdatedAfter > 0,
-              PriceFreshness.staleReason(watch, now: now, staleAfter: outdatedAfter) == .trade else { return nil }
+        guard !off, pausedText == nil, watch.lastError == nil, staleAfter > 0,
+              PriceFreshness.staleReason(watch, now: now, staleAfter: staleAfter) == .trade else { return nil }
         return L("watchlist_row_last_trade_age", WatchlistTime.ago(watch.exchangeTime ?? 0, now: now))
     }
 
@@ -56,8 +56,8 @@ extension WatchlistRow {
     /// ohne Warnung (nicht erreichbar / veraltet / pausiert), wie `watchRowStatus` in Android.
     private var unchangedText: String? {
         if pausedText != nil { return nil }
-        guard let since = PriceFreshness.unchangedSince(watch, now: now, outdatedAfter: outdatedAfter) else { return nil }
-        if outdatedAfter > 0, now - watch.lastUpdate > outdatedAfter { return nil }
+        guard let since = PriceFreshness.unchangedSince(watch, now: now, outdatedAfter: staleAfter) else { return nil }
+        if staleAfter > 0, now - watch.lastUpdate > staleAfter { return nil }
         return L("watchlist_row_price_unchanged_since", PriceFormat.shortTime(since))
     }
 
@@ -88,7 +88,7 @@ extension WatchlistRow {
             disabled: off, notTraded: notTraded,
             failed: !(watch.lastError ?? "").isEmpty && !notTraded,
             lastUpdate: watch.lastUpdate, now: now,
-            outdatedAfter: outdatedAfter > 0 ? min(staleAfter, outdatedAfter) : staleAfter)
+            outdatedAfter: staleAfter)
         let staleText = A11ySpeech.freshnessText(freshness, lastUpdate: watch.lastUpdate, now: now,
                                                  exchange: watch.exchangeName)
         return A11y.watchRow(

@@ -87,9 +87,11 @@ object BackgroundErrors {
     const val OTHER_KIND = "Other"
     const val UNKNOWN_KIND = "Unknown"
 
-    /** Feste Arten ohne Ausnahme: alle Kursabrufe eines Laufs gescheitert bzw. Kurse geholt, aber nicht gespeichert. */
+    /**
+     * Feste Art ohne Ausnahme: alle Kursabrufe eines Laufs gescheitert. Scheitert das Speichern, zählt Android die Art der
+     * Ausnahme; iOS meldet dafür «SaveFailed» (`saveFailedKind`), weil sein Speichern keinen Fehler wirft.
+     */
     const val ALL_FAILED_KIND = "AllFetchesFailed"
-    const val SAVE_FAILED_KIND = "SaveFailed"
     private const val KIND_MAX_LENGTH = 40
 
     /**

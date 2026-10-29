@@ -140,16 +140,6 @@
     <string name="pulse_alts_weaker">Bitcoin altcoin\'lerden güçlü</string>
     <string name="pulse_chip_funding_high">Kaldıraç havası iyimser</string>
     <string name="pulse_chip_funding_negative">Kaldıraç havası kötümser</string>
-    <string name="pulse_funding_high">Fonlama belirgin şekilde pozitif: çok sayıda kaldıraçlı long</string>
-    <string name="pulse_funding_negative">Fonlama negatif: çok sayıda short</string>
-    <string name="pulse_funding_neutral">Fonlama nötr</string>
-    <string name="pulse_funding_slight">Fonlama hafif pozitif</string>
-    <string name="pulse_gas_high">Ethereum gas yüksek (%1$s gwei)</string>
-    <string name="pulse_gas_low">Ethereum gas düşük (%1$s gwei)</string>
-    <string name="pulse_gas_normal">Ethereum gas normal (%1$s gwei)</string>
-    <string name="pulse_volume_high">İşlem hacmi olağandışı yüksek (normalin %1$s×)</string>
-    <string name="pulse_volume_low">İşlem hacmi düşük (normalin %1$s×)</string>
-    <string name="pulse_volume_normal">İşlem hacmi normal</string>
 
     <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>

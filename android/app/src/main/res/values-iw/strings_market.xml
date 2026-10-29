@@ -141,16 +141,6 @@
     <string name="pulse_alts_weaker">Bitcoin חזק מאלטקוינים</string>
     <string name="pulse_chip_funding_high">אווירת המינוף אופטימית</string>
     <string name="pulse_chip_funding_negative">אווירת המינוף פסימית</string>
-    <string name="pulse_funding_high">מימון חיובי בבירור: הרבה לונגים ממונפים</string>
-    <string name="pulse_funding_negative">מימון שלילי: הרבה שורטים</string>
-    <string name="pulse_funding_neutral">מימון ניטרלי</string>
-    <string name="pulse_funding_slight">מימון חיובי מעט</string>
-    <string name="pulse_gas_high">גז Ethereum גבוה (%1$s gwei)</string>
-    <string name="pulse_gas_low">גז Ethereum נמוך (%1$s gwei)</string>
-    <string name="pulse_gas_normal">גז Ethereum רגיל (%1$s gwei)</string>
-    <string name="pulse_volume_high">נפח מסחר גבוה במיוחד (פי %1$s מהרגיל)</string>
-    <string name="pulse_volume_low">נפח מסחר נמוך (פי %1$s מהרגיל)</string>
-    <string name="pulse_volume_normal">נפח מסחר רגיל</string>
 
     <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>

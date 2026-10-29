@@ -225,10 +225,11 @@ enum PortfolioChartRenderer {
     /// Beschriftung der Achse: kompakt wie im Aktionsblatt («12’345», «0.2576»); 0 als «0».
     static func axisValue(_ value: Double) -> String { value > 0 ? PriceFormat.price(value) : "0" }
 
-    /// Gewinn/Verlust auf der Achse: mit Vorzeichen («+1’234», «−56.3»); praktisch 0 als «0». Wie Android.
+    /// Gewinn/Verlust auf der Achse: mit Vorzeichen («+1’234», «−56.3») als links-nach-rechts-Insel (RTL: Vorzeichen
+    /// vor der Zahl); praktisch 0 als «0». Wie Android.
     static func signedAxisValue(_ value: Double) -> String {
         if PortfolioFormat.isZero(value) { return "0" }
-        return (value > 0 ? "+" : "−") + PriceFormat.price(abs(value))
+        return BidiText.ltr((value > 0 ? "+" : "−") + PriceFormat.price(abs(value)))
     }
 
     /// Gestrichelte Nulllinie über die ganze Zeichenfläche (Gewinn/Verlust).

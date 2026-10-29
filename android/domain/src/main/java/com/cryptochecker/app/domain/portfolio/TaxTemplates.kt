@@ -224,9 +224,6 @@ enum class TaxTemplate {
     /** Haltedauer-Gruppen ≤ 1 Jahr / > 1 Jahr in der Jahresübersicht (DE, US, AU, Neutral). */
     val holdingBuckets: Boolean get() = this == NEUTRAL || this == DE || this == US || this == AU
 
-    /** Tausch Krypto↔Krypto ist ein steuerbarer Vorgang (FR: aufgeschoben, AT: steuerneutral). */
-    val cryptoToCryptoTaxable: Boolean get() = this != FR && this != AT
-
     /** Monat und Tag des Beginns des Steuerjahrs. */
     private val startMonthDay: Pair<Int, Int>
         get() = when (this) {

@@ -82,7 +82,7 @@ internal fun TxRow(tx: PortfolioTxEntity, coin: String, onClick: () -> Unit, onD
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
-                // Gebühr und Börse (D1): «Gebühr 1.20 USDT · Binance», klein und grau
+                // Gebühr und Börse: «Gebühr 1.20 USDT · Binance», klein und grau
                 ledgerLine(tx)?.let { line ->
                     Text(
                         maskAmount(line),

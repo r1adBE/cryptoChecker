@@ -51,7 +51,7 @@ SIGNING = re.compile(r"(development team|code ?sign|signing|provisioning profile
                      r"No Accounts|requires a provisioning)", re.IGNORECASE)
 COMPILE_ERROR = re.compile(r"^(/[^:]+):(\d+):(?:\d+:)? error: (.*)$")
 WARNING = re.compile(r"^(/[^:]+):(\d+):(?:\d+:)? warning: (.*)$")
-# Ceiling for unique compiler warnings of the Release build: 0 (was 94 until build 115). Any new warning -> error, so it
+# Ceiling for unique compiler warnings of the Release build: 0. Any new warning -> error, so it
 # is fixed right away; the annotations list every warning.
 MAX_COMPILER_WARNINGS = 0
 
@@ -399,7 +399,7 @@ def self_test():
          ["NSPrivacyAccessedAPICategoryDiskSpace"]),  # declared without reason -> still missing
         ("let m = UITextInputMode.activeInputModes", ["NSPrivacyAccessedAPICategoryActiveKeyboards"]),
         ("let d = attrs[.modificationDate] as? Date\nlet u = UserDefaults.standard", []),
-        ("// statt `systemUptime` (seit Build 105)\nlet s = clock_gettime_nsec_np(CLOCK_MONOTONIC)", []),
+        ("// statt `systemUptime`\nlet s = clock_gettime_nsec_np(CLOCK_MONOTONIC)", []),
         ("/* mach_absolute_time()\n systemUptime */ let x = 1", []),
         ('let u = "https://example.com" // systemUptime', []),
         # Comment markers inside strings hide nothing; more FileTimestamp functions
@@ -511,7 +511,7 @@ def cmd_app(app, widget, gradle, src, log, out):
         except (OSError, plistlib.InvalidFileException) as e:
             add("error", f"Info.plist of {widget}.appex unreadable: {e}")
 
-    # Apple-Watch-App (build 155): Watch/CryptoCheckerWatch.app with its complication extension, each with a privacy
+    # Apple Watch app: Watch/CryptoCheckerWatch.app with its complication extension, each with a privacy
     # manifest and the same version/build as the app
     watch = os.path.join(app, "Watch", "CryptoCheckerWatch.app")
     if not os.path.isdir(watch):

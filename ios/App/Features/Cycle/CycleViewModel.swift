@@ -113,10 +113,6 @@ final class CycleViewModel: ObservableObject {
     static let gasKey = "gas"
     static func coinKey(_ symbol: String) -> String { "coinind_" + symbol }
 
-    /// Harte Zeitgrenze je Quelle (alle Teilanfragen zusammen). Grosse bzw.
-    /// mehrteilige Abfragen etwas länger — sie sind dafür lange zwischengespeichert.
-    static let timeout: Double = 12
-    static let longTimeout: Double = 25
 
     init() {}
 

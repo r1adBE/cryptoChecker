@@ -69,10 +69,13 @@ class LiveConnection(
         val ended = CompletableDeferred<Ended>()
         val receivedData = AtomicBoolean(false)
         val lastMessageAt = AtomicLong(System.currentTimeMillis())
+        // Zeit des Abonnierens; 0 = noch nicht verbunden (LiveRules.silentSubscription)
+        val subscribedAt = AtomicLong(0)
         val listener = object : WebSocketListener() {
             override fun onOpen(webSocket: WebSocket, response: Response) {
                 lastMessageAt.set(System.currentTimeMillis())
                 spec.exchange.subscribeMessages(spec.symbols).forEach { webSocket.send(it) }
+                subscribedAt.set(System.currentTimeMillis())
             }
 
             override fun onMessage(webSocket: WebSocket, text: String) {
@@ -134,6 +137,12 @@ class LiveConnection(
                 // Börsen mit Text-Ping antworten darauf (Pong) — bleibt alles aus, neu verbinden.
                 // Binance und Coinbase: Ping-Frames (pingInterval), ruhige Paare senden selten.
                 if (ping != null && now - lastMessageAt.get() > LiveRules.STALE_CONNECTION_MILLIS) {
+                    socket.cancel()
+                    break
+                }
+                // Abo abgelehnt oder ins Leere: Pongs halten die Verbindung offen, aber kein Kurs kommt — neu verbinden
+                if (LiveRules.silentSubscription(subscribedAt.get(), receivedData.get(), now)) {
+                    Timber.d("Live-Kurse: %s ohne Kurse seit dem Abonnieren — neu verbinden", spec.exchange)
                     socket.cancel()
                     break
                 }

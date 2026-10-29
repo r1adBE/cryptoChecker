@@ -96,15 +96,17 @@ extension PriceRefresher {
         // nichts — alle Paare dieses Durchlaufs als Fehler, kein Nachhaken (`BulkTickerRows`) — wie Android
         let bulkFormatError = BulkTickerRows.isFormatError(bulk.error)
         // Ohne Sammelabfrage: liest die Einzelabfrage selbst die vollständige Liste (Lighter), bestätigt ihr «kein
-        // Eintrag» «nicht mehr gehandelt» wie im Sammelpfad (`NotTraded.confirmWithoutBulk`) — wie Android
-        let singleConfirms = NotTraded.confirmWithoutBulk(
-            bulkTried: bulkTried, singleReadsFullList: ExchangesConfig.exchange(sample.exchangeKey)?.singleTickerReadsFullList == true)
+        // Eintrag» «nicht mehr gehandelt» wie im Sammelpfad; ebenso bei abgelaufenen Laufzeit-Kontrakten
+        // (`NotTraded.singleConfirms`) — wie Android
+        let singleReadsFullList = ExchangesConfig.exchange(sample.exchangeKey)?.singleTickerReadsFullList == true
 
         var results: [Int64: Fetched] = [:]
         var singles: [Watch] = []
         // Fehlen in der vollständigen Liste: erst einzeln nachfragen (`NotTraded.askSingleWhenMissing`)
         var missing: Set<Int64> = []
         for watch in group {
+            // Verfallstag in der Kennung vorbei (`NotTraded.contractExpired`): die Börse handelt ihn nicht mehr
+            let expired = NotTraded.contractExpired(pairId: watch.pairId, now: started)
             if let id = watch.pairId, let t = bulk.tickers[id] {
                 results[watch.id] = Fetched(ticker: t, error: nil)
             } else if let id = watch.pairId, bulk.failed.contains(id) {
@@ -127,8 +129,14 @@ extension PriceRefresher {
                                             exchangeFailure: bulk.exchangeFailure)
             } else if bulkFormatError {
                 results[watch.id] = Fetched(ticker: nil, error: bulk.error, exchangeFailure: bulk.exchangeFailure)
+            } else if expired && !NotTraded.askSingleWhenMissing(lastError: watch.lastError) {
+                // Abgelaufen und schon als nicht gehandelt gespeichert: keine Anfrage mehr, die ohnehin scheitert
+                results[watch.id] = Fetched(ticker: nil, error: notTradedError, notTraded: true)
             } else {
-                if singleConfirms { missing.insert(watch.id) }
+                if NotTraded.singleConfirms(bulkTried: bulkTried, singleReadsFullList: singleReadsFullList,
+                                            contractExpired: expired) {
+                    missing.insert(watch.id)
+                }
                 singles.append(watch)
             }
         }

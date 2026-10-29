@@ -20,7 +20,6 @@ enum CoinMeta {
 
     /// Mitgelieferter Auszug (`Shared/Resources`, Android `assets/`).
     static let snapshotName = "coin_meta_snapshot"
-    static let snapshotFile = snapshotName + ".json"
 
     static let version = 1
 

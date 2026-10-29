@@ -139,16 +139,6 @@
     <string name="pulse_alts_weaker">Bitcoin がアルトコインより強い</string>
     <string name="pulse_chip_funding_high">レバレッジ取引の心理は強気</string>
     <string name="pulse_chip_funding_negative">レバレッジ取引の心理は弱気</string>
-    <string name="pulse_funding_high">資金調達率がはっきりプラス：レバレッジのロングが多い</string>
-    <string name="pulse_funding_negative">資金調達率がマイナス：ショートが多い</string>
-    <string name="pulse_funding_neutral">資金調達率は中立</string>
-    <string name="pulse_funding_slight">資金調達率がややプラス</string>
-    <string name="pulse_gas_high">Ethereum ガスが高い（%1$s gwei）</string>
-    <string name="pulse_gas_low">Ethereum ガスが低い（%1$s gwei）</string>
-    <string name="pulse_gas_normal">Ethereum ガスは通常どおり（%1$s gwei）</string>
-    <string name="pulse_volume_high">取引量が異常に多い（通常の %1$s×）</string>
-    <string name="pulse_volume_low">取引量が少ない（通常の %1$s×）</string>
-    <string name="pulse_volume_normal">取引量は通常どおり</string>
 
     <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s、%2$s。%3$s。</string>

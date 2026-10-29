@@ -153,15 +153,22 @@ class RefreshStats @Inject constructor(
 
     fun lastRefresh(): Long = _lastRefreshAt.value
 
-    private companion object {
-        const val FILE_NAME = "refresh_stats"
-        const val KEY_LAST_DURATION = "last_refresh_duration"
-        const val KEY_LAST_REFRESH_AT = "last_refresh_at"
-        const val KEY_LAST_FULL_CHECK_AT = "last_full_check_at"
-        const val KEY_LAST_FULL_REFRESH_AT = "last_full_refresh_at"
-        const val KEY_LAST_REPORT = "last_refresh_report"
-        const val KEY_CHANGE_STAMP = "change_basis_stamp"
-        const val KEY_APP_START = "app_start_millis"
-        const val KEY_BACKOFF = "exchange_backoff"
+    companion object {
+        private const val FILE_NAME = "refresh_stats"
+        private const val KEY_LAST_DURATION = "last_refresh_duration"
+        private const val KEY_LAST_REFRESH_AT = "last_refresh_at"
+        private const val KEY_LAST_FULL_CHECK_AT = "last_full_check_at"
+        private const val KEY_LAST_FULL_REFRESH_AT = "last_full_refresh_at"
+        private const val KEY_LAST_REPORT = "last_refresh_report"
+        private const val KEY_CHANGE_STAMP = "change_basis_stamp"
+        private const val KEY_APP_START = "app_start_millis"
+        private const val KEY_BACKOFF = "exchange_backoff"
+
+        /**
+         * Gespeicherte letzte VOLLE Prüfung ([lastFullCheck]) ohne Instanz — für die Zeile «Zuletzt geprüft» im
+         * Alarm-Editor, die jede Minute neu liest. 0 = noch keine.
+         */
+        fun storedLastFullCheck(context: Context): Long =
+            context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE).getLong(KEY_LAST_FULL_CHECK_AT, 0)
     }
 }

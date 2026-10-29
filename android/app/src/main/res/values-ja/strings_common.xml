@@ -28,11 +28,9 @@
     <string name="error_exchange_unreachable">取引所に接続できません – 最後の価格は表示されたままです。</string>
     <string name="error_exchange_unreachable_short">取引所に接続できません</string>
     <string name="loading_hint">読み込み中…</string>
-    <string name="no_internet_connection">インターネットに接続されていません。Wi-Fi またはモバイルデータを確認して、もう一度お試しください。</string>
     <string name="option_off">オフ</string>
     <string name="something_went_wrong">問題が発生しました</string>
     <string name="time_just_now">たった今</string>
-    <string name="timeout_error_message">取引所が現在応答していません。しばらくしてからもう一度お試しください。</string>
     <string name="try_again">再試行</string>
 
     <!-- Verbindungsstatus (Status-Pille) -->

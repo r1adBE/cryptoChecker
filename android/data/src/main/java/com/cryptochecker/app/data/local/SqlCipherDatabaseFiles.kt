@@ -173,7 +173,27 @@ class SqlCipherDatabaseFiles(
         }
     }
 
-    /** `<db>.unreadable` bzw. `<db>.unreadable-<Zeit>` ohne Nebendateien. */
+    override fun replacedCopies(database: String): List<String> {
+        val original = file(database)
+        val base = original.name + REPLACED_SUFFIX
+        return original.parentFile?.listFiles()
+            ?.filter { f -> isAsideName(f.name, base) }
+            ?.sortedByDescending { it.lastModified() }
+            ?.map { it.name }
+            .orEmpty()
+    }
+
+    override fun deleteReplaced(database: String, copy: String) {
+        val original = file(database)
+        val replaced = File(original.parentFile, copy)
+        // Nur eine ersetzte Datei, nie die aktuelle (anderer Name) oder eine beiseitegelegte
+        require(isAsideName(replaced.name, original.name + REPLACED_SUFFIX)) { "$copy ist keine ersetzte Datei" }
+        for (f in listOf(replaced, File(replaced.path + "-wal"), File(replaced.path + "-shm"), File(replaced.path + "-journal"))) {
+            if (f.exists() && !f.delete()) throw IOException("${f.name} nicht gelöscht")
+        }
+    }
+
+    /** `<db><Endung>` bzw. `<db><Endung>-<Zeit>` ohne Nebendateien (beiseitegelegte und ersetzte Dateien). */
     private fun isAsideName(name: String, base: String): Boolean =
         (name == base || name.startsWith("$base-")) && !name.endsWith("-wal") && !name.endsWith("-shm") && !name.endsWith("-journal")
 
@@ -211,7 +231,10 @@ class SqlCipherDatabaseFiles(
 
         private val SIDECARS = listOf("-wal", "-shm", "-journal")
 
-        /** Durch eine zurückgeholte Datei ersetzte (inzwischen neu begonnene) Datenbank — bleibt, wird nie gelöscht. */
+        /**
+         * Durch eine zurückgeholte Datei ersetzte (inzwischen neu begonnene) Datenbank — bleibt bis zur Frist der
+         * beiseitegelegten ([AsideRetention], [DatabaseOpenPlanner.pruneReplaced]).
+         */
         const val REPLACED_SUFFIX = ".replaced"
 
         /** Alle Tabellen samt Zähler der AUTOINCREMENT-Ids; ohne SQLite-Statistik und Android-Metadaten (Gebietsschema). */

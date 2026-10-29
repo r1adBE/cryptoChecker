@@ -19,10 +19,22 @@ extension CsvImportBinance {
         return (String(p.dropLast(quote.count)), quote)
     }
 
-    /// «0.00100000BTC» → (0.001, BTC); ohne Einheit (früherer Aufbau) → (Zahl, nil); unlesbar = nil. Die Einheit beginnt
-    /// beim ersten Buchstaben nach der Zahl; ein Exponent gehört zur Zahl («1E-8BNB» → 0.00000001 BNB) — wie Android.
-    private static func withUnit(_ text: String) -> (value: Decimal, unit: String?)? {
+    /// Gebühr-Coins neben Basis und Quote des Paars (Binance zieht die Gebühr wahlweise in BNB ab) — wie Android `FEE_COINS`.
+    private static let feeCoins = ["BNB"]
+
+    /// «0.00100000BTC» → (0.001, BTC); ohne Einheit (früherer Aufbau) → (Zahl, nil); unlesbar = nil. Zuerst die bekannten
+    /// Kürzel `known` (Basis und Quote des Paars, bei der Gebühr auch `feeCoins`) am Ende des Feldes, längstes zuerst, mit
+    /// lesbarer Zahl davor — so bleiben Ziffern am Anfang des Kürzels beim Kürzel («10.51INCH» → 10.5 1INCH,
+    /// «350000.001000SATS» → 350000 1000SATS). Sonst beginnt die Einheit beim ersten Buchstaben nach der Zahl; ein
+    /// Exponent gehört zur Zahl («1E-8BNB» → 0.00000001 BNB). Kürzel ohne Buchstaben zählen nicht — wie Android.
+    private static func withUnit(_ text: String, _ known: [String]) -> (value: Decimal, unit: String?)? {
         let t = Array(text.trimmingCharacters(in: .whitespaces))
+        var seen = Set<String>()
+        let units = known.filter { unit in unit.contains(where: { $0.isASCII && $0.isUppercase }) && seen.insert(unit).inserted }
+            .enumerated().sorted { ($1.element.count, $0.offset) < ($0.element.count, $1.offset) }.map(\.element)
+        for unit in units where t.count > unit.count && String(t.suffix(unit.count)).uppercased() == unit {
+            if let number = decimal(String(t.dropLast(unit.count))) { return (number, unit) }
+        }
         guard let cut = unitStart(t) else { return decimal(String(t)).map { (value: $0, unit: nil as String?) } }
         guard let number = decimal(String(t[..<cut])) else { return nil }
         return (number, String(t[cut...]).uppercased())
@@ -86,9 +98,10 @@ extension CsvImportBinance {
             let timeText = cell(iTime)
             guard let time = CsvImportParser.parseTime(timeText, zone: zone) else { skip(.BAD_DATE); continue }
             let pair = splitPair(cell(iPair))
+            let known = pair.map { [$0.base, $0.quote] } ?? []
             let feeText = cell(iFee)
-            let fee = feeText.isEmpty || feeText == "-" ? nil : withUnit(feeText)
-            guard let executed = withUnit(cell(iAmount)), let total = withUnit(cell(iTotal)),
+            let fee = feeText.isEmpty || feeText == "-" ? nil : withUnit(feeText, known + feeCoins)
+            guard let executed = withUnit(cell(iAmount), known), let total = withUnit(cell(iTotal), known),
                   let rawPrice = decimal(cell(iPrice)), fee != nil || feeText.isEmpty || feeText == "-" else {
                 skip(.BAD_NUMBER)
                 continue

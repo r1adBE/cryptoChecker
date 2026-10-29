@@ -56,23 +56,15 @@ class SettingsSlicesTest {
         // Gruppe wechseln betrifft nur die Merkliste
         val grouped = before.copy(watchlistGroup = "DeFi")
         assertNotEquals(WatchlistSettings.of(before), WatchlistSettings.of(grouped))
-        assertEquals(AppearanceSettings.of(before), AppearanceSettings.of(grouped))
         assertEquals(AlarmSettings.of(before), AlarmSettings.of(grouped))
     }
 
     @Test
     fun otherSlicesCopyFields() {
         val s = AppSettings(
-            highContrast = true, coinLogos = false, widgetCoinLogos = true, watchlistNames = false,
             hidePortfolioAmounts = true, portfolioCoinLogos = false, taxTemplateConfirmed = true,
             exactChecks = true, ttsEnabled = true, alarmCooldownMinutes = 15,
         )
-        val a = AppearanceSettings.of(s)
-        assertEquals(true, a.highContrast)
-        assertEquals(false, a.coinLogos)
-        assertEquals(true, a.widgetCoinLogos)
-        assertEquals(false, a.watchlistNames)
-        assertEquals(s.accentColor, a.accentColor)
         val p = PortfolioSettings.of(s)
         assertEquals(true, p.hideAmounts)
         assertEquals(false, p.coinLogos)

@@ -87,8 +87,8 @@ class LivePriceStream @Inject constructor(
     private val _liveWatchIds = MutableStateFlow<Set<Long>>(emptySet())
 
     /**
-     * Watch-Ids der Paare am Live-Strom: abonniert bei einer Börse, die in den letzten
-     * [LiveRules.FRESH_MILLIS] Kurse lieferte (eigene Frische-Schwelle, «Live» in der Pille).
+     * Watch-Ids der Paare am Live-Strom: je Paar ein Kurs in den letzten [LiveRules.FRESH_MILLIS]
+     * ([LiveRules.liveIds], «Live» in der Pille) — nicht alle Paare einer Börse, sobald eine ihrer Verbindungen liefert.
      */
     val liveWatchIds: StateFlow<Set<Long>> = _liveWatchIds.asStateFlow()
 
@@ -160,8 +160,11 @@ class LivePriceStream @Inject constructor(
         val ids = plan.watchIds.values.flatMap { it.values.flatten() }.toSet()
         val keys = pairs.filter { it.watchId in ids }.associate { it.watchId to it.identity() }
         synchronized(lock) {
-            // Gleiche Id, anderes Paar: Stand des alten Paars nicht weiterführen
-            buffer.forget(keys.filter { (id, key) -> pairKeys[id].let { it != null && it != key } }.keys)
+            // Gleiche Id, anderes Paar: Stand des alten Paars nicht weiterführen (Puffer und «zuletzt live»)
+            val changed = keys.filter { (id, key) -> pairKeys[id].let { it != null && it != key } }.keys
+            buffer.forget(changed)
+            coverage.forget(changed)
+            coverage.retain(ids)
             watchIds = plan.watchIds
             pairKeys = keys
             exchangeNames = pairs.associate { it.exchangeKey to it.exchangeName }
@@ -218,7 +221,11 @@ class LivePriceStream @Inject constructor(
      */
     fun forget(watchIds: Collection<Long>) {
         if (watchIds.isEmpty()) return
-        synchronized(lock) { buffer.forget(watchIds) }
+        synchronized(lock) {
+            buffer.forget(watchIds)
+            // Der Kurs des alten Paars deckt das neue nicht (REST fragt es wieder ab, «Live» erst mit neuem Takt)
+            coverage.forget(watchIds)
+        }
     }
 
     /** Alle gepufferten Kurse vergessen (Sicherung wiederherstellen: Ids können andere Paare werden). */
@@ -251,7 +258,8 @@ class LivePriceStream @Inject constructor(
                 .mapNotNull { exchangeNames[it.exchangeKey] }
                 .distinct()
                 .sorted()
-            liveIds = fresh.flatMapTo(HashSet()) { ex -> watchIds[ex]?.values?.flatten().orEmpty() }
+            // «Live» je Paar nach dessen letztem Kurs
+            liveIds = LiveRules.liveIds(coverage.snapshot(), now)
             buffer.takeForUi() to names
         }
         if (snapshot != null) _prices.value = snapshot

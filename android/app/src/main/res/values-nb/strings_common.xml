@@ -28,11 +28,9 @@
     <string name="error_exchange_unreachable">Børsen kan ikke nås akkurat nå – de siste kursene blir stående.</string>
     <string name="error_exchange_unreachable_short">Børsen kan ikke nås akkurat nå</string>
     <string name="loading_hint">Laster inn…</string>
-    <string name="no_internet_connection">Ingen internettforbindelse. Sjekk Wi-Fi eller mobildata, og prøv igjen.</string>
     <string name="option_off">Av</string>
     <string name="something_went_wrong">Noe gikk galt</string>
     <string name="time_just_now">nå nettopp</string>
-    <string name="timeout_error_message">Børsen svarer ikke akkurat nå. Prøv igjen om litt.</string>
     <string name="try_again">Prøv igjen</string>
 
     <!-- Verbindungsstatus (Status-Pille) -->

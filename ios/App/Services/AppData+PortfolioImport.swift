@@ -37,6 +37,32 @@ extension AppData {
     /// Schreib-Reihenfolge von `portfolio.json` (synchrone Schreibwege und Import im Hintergrund).
     nonisolated static let portfolioWrites = PortfolioWriteOrder()
 
+    /// Schreibwege im Hintergrund nacheinander (`editPortfolio`, Schreiben des Imports).
+    static let portfolioEditGate = PortfolioEditGate()
+
+    /// Ein Schreibweg des Nutzers (Ändern, Löschen, Zurücklegen, Leeren, Import zurücknehmen) auf dem aktuellen Stand:
+    /// `edit` (auf dem MainActor, nur Wertkopien) baut den neuen Stand samt Ergebnis; ohne neuen Stand (nil) gilt das
+    /// Ergebnis ohne Schreiben. Kodieren, Verschlüsseln, Schreiben, Sortieren und Widget laufen abseits des Haupt-Threads
+    /// (`setPortfolioFileInBackground`), der Stand erscheint erst nach dem Schreiben (`present`, z. B. mit Animation).
+    /// Nacheinander (`portfolioEditGate`); hat ein synchroner Schreibweg inzwischen geschrieben, wird `edit` auf dem neuen
+    /// Stand wiederholt. Nicht geschrieben: `failed` (Grund in `portfolioWriteLocked`).
+    func editPortfolio<T>(failed: T, present: (() -> Void) -> Void = { $0() },
+                          _ edit: (PortfolioFile) -> (file: PortfolioFile?, result: T)) async -> T {
+        await Self.portfolioEditGate.acquire()
+        defer { Self.portfolioEditGate.release() }
+        for _ in 0..<PortfolioImportSave.maxRounds {
+            let generation = Self.portfolioWrites.current
+            let (next, result) = edit(currentPortfolioFile())
+            guard let next else { return result }
+            switch await setPortfolioFileInBackground(next, generation: generation, present: present) {
+            case .saved: return result
+            case .failed: return failed
+            case .superseded: continue
+            }
+        }
+        return failed
+    }
+
     /// Importierte Transaktionen anlegen (gleiche Bereinigung wie von Hand) und gespeicherte Seiten verknüpfter
     /// Umbuchungen ändern (`links`, `withImported`) — wie `PortfolioRepository.insertImportedLinked`. Zeilen, deren
     /// Herkunftsschlüssel (`importKey` oder `linkedImportKey`) schon da ist, werden übersprungen. `batch` = Kennung des
@@ -53,17 +79,21 @@ extension AppData {
             (self.currentPortfolioFile(), AppData.portfolioWrites.current)
         }
         let write: @MainActor (PortfolioFile, Int) async -> PortfolioBackgroundWrite = { [unowned self] file, gen in
-            await self.setPortfolioFileInBackground(file, generation: gen)
+            // Nach einem laufenden Schreibweg (`editPortfolio`): dessen Stand ist dann übernommen, die Nummer verrät ihn
+            await AppData.portfolioEditGate.acquire()
+            defer { AppData.portfolioEditGate.release() }
+            return await self.setPortfolioFileInBackground(file, generation: gen)
         }
         return await PortfolioImportSave(current: current, write: write)
             .run(list, batch: batch, links: links, fallbacks: fallbacks, progress: progress)
     }
 
     /// Wie `setPortfolioFile`, aber Kodieren, Verschlüsseln, Schreiben und Sortieren losgelöst abseits des
-    /// Haupt-Threads; auf dem MainActor nur noch der neue Stand (`portfolioFile`, `portfolio`). Schreibt nur, wenn
-    /// seit `generation` niemand die Datei geschrieben hat; schreibt nach diesem Schreiben ein anderer, bevor der Stand
-    /// übernommen ist, ebenfalls `.superseded` (dessen Stand enthält den Import nicht).
-    func setPortfolioFileInBackground(_ file: PortfolioFile, generation: Int) async -> PortfolioBackgroundWrite {
+    /// Haupt-Threads; auf dem MainActor nur noch der neue Stand (`portfolioFile`, `portfolio`, übernommen in `present`).
+    /// Schreibt nur, wenn seit `generation` niemand die Datei geschrieben hat; schreibt nach diesem Schreiben ein anderer,
+    /// bevor der Stand übernommen ist, ebenfalls `.superseded` (dessen Stand enthält diese Änderung nicht).
+    func setPortfolioFileInBackground(_ file: PortfolioFile, generation: Int,
+                                      present: (() -> Void) -> Void = { $0() }) async -> PortfolioBackgroundWrite {
         portfolioWriteLocked = false
         // Nicht (ganz) lesbare Datei nie still überschreiben (wie `setPortfolioFile`; selten, bleibt hier)
         if !portfolioIntact {
@@ -94,11 +124,17 @@ extension AppData {
             portfolioSavePending = true
         case .failed: return .failed
         }
-        portfolioFile = file
-        portfolio = disk.sorted
-        // Portfolio-Widget mit den bekannten Kursen nachführen, ebenfalls im Hintergrund; die Marke der Reihenfolge
-        // (`OrderedSerialRunner`) gilt ab hier, wo der Stand erfasst ist — eine später erfasste Aufnahme gewinnt
-        let transactions = file.transactions
+        present {
+            portfolioFile = file
+            portfolio = disk.sorted
+        }
+        updatePortfolioWidgetInBackground(file.transactions)
+        return .saved
+    }
+
+    /// Portfolio-Widget mit den bekannten Kursen nachführen, abseits des Haupt-Threads; die Marke der Reihenfolge
+    /// (`OrderedSerialRunner`) gilt ab hier, wo der Stand erfasst ist — eine später erfasste Aufnahme gewinnt.
+    func updatePortfolioWidgetInBackground(_ transactions: [PortfolioTx]) {
         let currency = settings.portfolioCurrency
         let ticket = PortfolioWidgetStore.updates.ticket()
         Task.detached(priority: .utility) {
@@ -107,7 +143,6 @@ extension AppData {
             PortfolioWidgetStore.update(ticket: ticket, transactions: all, prices: prices, currency: currency,
                                         rate: FxRateSource.cached(currency))
         }
-        return .saved
     }
 
     /// `base` samt den bereinigten importierten Zeilen aus `list` (neue Ids wie `PortfolioStore.insert` mit Id 0, ohne

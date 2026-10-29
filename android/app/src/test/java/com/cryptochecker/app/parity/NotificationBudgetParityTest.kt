@@ -22,6 +22,26 @@ class NotificationBudgetParityTest {
     }
 
     @Test
+    fun verifyWait() {
+        val verify = data["verify"].obj()
+        assertEquals(verify["attempts"].num()!!.toInt(), NotificationBudget.VERIFY_ATTEMPTS)
+        assertEquals(verify["stepMillis"].num()!!.toLong(), NotificationBudget.VERIFY_STEP_MILLIS)
+        assertEquals(verify["toleranceMillis"].num()!!.toLong(), NotificationBudget.POST_TIME_TOLERANCE_MILLIS)
+    }
+
+    @Test
+    fun confirmedPost() {
+        data["confirmedPost"].list().map { it.obj() }.forEach { c ->
+            val postTime = c["postTime"].num()?.toLong()
+            val times = if (c["queryable"] == true) postTime?.let { mapOf(7 to it) } ?: emptyMap() else null
+            assertEquals(
+                c["name"] as String, c["confirmed"],
+                NotificationBudget.confirmedPost(times, 7, c["postedAt"].num()!!.toLong()),
+            )
+        }
+    }
+
+    @Test
     fun priceSlots() {
         data["priceSlots"].list().map { it.obj() }.forEach { c ->
             assertEquals("$c", c["slots"].num()!!.toInt(), NotificationBudget.priceSlots(c["other"].num()!!.toInt()))

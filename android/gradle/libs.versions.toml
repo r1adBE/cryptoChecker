@@ -50,12 +50,12 @@ timber = "5.0.1"
 turbine = "1.2.1"
 junit = "4.13.2"
 androidJson = "0.0.20131108.vaadin1"
-# Wear-OS-App (:wear, Build 154): Compose für Wear OS und Komplikationen
+# Wear-OS-App (:wear): Compose für Wear OS und Komplikationen
 wearCompose = "1.5.0"
 wearComplications = "1.2.1"
-# Handy ↔ Uhr: nur die Coin-Liste der Uhr (Wear-Daten-Schicht der Google Play-Dienste, Build 154)
+# Handy ↔ Uhr: nur die Coin-Liste der Uhr (Wear-Daten-Schicht der Google Play-Dienste)
 playServicesWearable = "19.0.0"
-# Testabdeckung (nur Anzeige in CI, keine Schwelle): Kover wird nur mit -Pcoverage=true angewendet, der normale
+# Testabdeckung (CI-Schwelle «Coverage (logic gate)» in android.yml): Kover wird nur mit -Pcoverage=true angewendet, der normale
 # Testlauf bleibt ohne Instrumentierung. 0.9.4+ unterstützt AGP 9, 0.9.9+ Gradle 9.6+ ohne Warnung.
 kover = "0.9.11"
 

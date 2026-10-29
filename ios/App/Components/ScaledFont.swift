@@ -2,7 +2,7 @@ import SwiftUI
 
 /// Feste Schriftgrösse, die trotzdem der Textgrösse des Systems folgt (Dynamic Type):
 /// `size` gilt für die Standardgrösse «Large» und wächst bzw. schrumpft wie `relativeTo`.
-/// Ersetzt `.font(.system(size: …))` in der App (Widgets bleiben fest).
+/// Ersetzt `.font(.system(size: …))` in der App. Widgets wachsen begrenzt über `WidgetTextSize` (Shared/Util/WidgetTextScale.swift).
 /// Wo ein Layout sonst bricht (Pillen, enge Zeilen), begrenzt der umgebende View das
 /// Wachstum mit `.dynamicTypeSize(...DynamicTypeSize.accessibility2)`.
 struct ScaledFont: ViewModifier {

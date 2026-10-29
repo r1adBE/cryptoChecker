@@ -55,11 +55,6 @@ extension PortfolioFifo {
             }
         }
 
-        var isPoint: Bool {
-            if case .point = self { return true }
-            return false
-        }
-
         /// Die Teile einzeln (Bereich: je Umbuchung einer).
         func forEachPart(_ body: (Int64, Decimal) -> Void) {
             switch self {

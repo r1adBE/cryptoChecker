@@ -75,6 +75,9 @@ object DiagnosticReport {
     // Alles, was nach einer Adresse oder einem erweiterten Schlüssel aussieht, fliegt raus — auch wenn ein Paarname
     // (z. B. ein DEX-Paar mit Vertragsadresse) eine enthält
     private val ADDRESS_PATTERNS = listOf(
+        // TON (benutzerfreundliche Form, 48 Zeichen Base64url) zuerst: «-» und «_» zerlegten sie sonst in Stücke, die die
+        // allgemeinen Muster nicht erkennen
+        Regex("""(?<![A-Za-z0-9_-])(?:EQ|UQ|kQ|0Q)[A-Za-z0-9_-]{46}(?![A-Za-z0-9_-])"""),
         Regex("""0x[0-9a-fA-F]{16,}"""),
         Regex("""\b(?:bc1|tb1|ltc1|bcrt1)[0-9a-zA-Z]{11,}\b"""),
         // Bech32 allgemein (Präfix, «1», Datenteil im Bech32-Alphabet): Cardano addr1/stake1, Cosmos-Ketten, bc1 in

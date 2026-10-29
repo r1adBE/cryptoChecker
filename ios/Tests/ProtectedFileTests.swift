@@ -407,3 +407,46 @@ extension ProtectedFileTests {
         XCTAssertNil(PlainBackupExclusion.remembered(watchlistCopy, defaults: defaults))
     }
 }
+
+/// Beiseitegelegte und ersetzte Dateien: nie im Geräte-Backup, nach bestätigtem Hinweis und Frist weg (`AsideRetention`).
+extension ProtectedFileTests {
+    func testLockedAndReplacedCopiesGoAfterRetentionOnlyWhenAllowed() throws {
+        try ProtectedContainer.seal(json, key: fixedKey).write(to: watchlist)
+        // Mit fremdem Schlüssel versiegelt: öffnet nie, bleibt beiseitegelegt
+        let locked = watchlist.appendingPathExtension("locked")
+        try ProtectedContainer.seal(json, key: SymmetricKey(size: .bits256)).write(to: locked)
+        let replaced = watchlist.appendingPathExtension("replaced")
+        try ProtectedContainer.seal(json, key: fixedKey).write(to: replaced)
+        let defaults = isolatedDefaults()
+        let start: Int64 = 1_000
+        func launch(at now: Int64, allowed: Bool) {
+            _ = ProtectedStorage.prepareAtLaunch(files: files(watchlist, sealedOnly: true), keys: keys(keychain(with: fixedKey)),
+                                                 defaults: defaults, asideDeletionAllowed: allowed, now: now)
+        }
+        launch(at: start, allowed: true)
+        XCTAssertEqual(BackupExclusion.isExcluded(locked), true)
+        XCTAssertEqual(BackupExclusion.isExcluded(replaced), true)
+        // Frist um, Hinweis noch offen: bleibt
+        launch(at: start + AsideRetention.maxAgeMillis, allowed: false)
+        XCTAssertTrue(FileManager.default.fileExists(atPath: locked.path))
+        // Bestätigt: beide weg, die aktuelle Datei bleibt
+        launch(at: start + AsideRetention.maxAgeMillis, allowed: true)
+        XCTAssertFalse(FileManager.default.fileExists(atPath: locked.path))
+        XCTAssertFalse(FileManager.default.fileExists(atPath: replaced.path))
+        XCTAssertTrue(FileManager.default.fileExists(atPath: watchlist.path))
+    }
+
+    func testNoRetentionWhenKeyWasJustLost() throws {
+        let locked = watchlist.appendingPathExtension("locked")
+        try ProtectedContainer.seal(json, key: SymmetricKey(size: .bits256)).write(to: locked)
+        let defaults = isolatedDefaults()
+        let fake = keychain(with: fixedKey)
+        _ = ProtectedStorage.prepareAtLaunch(files: files(watchlist, sealedOnly: true), keys: keys(fake), defaults: defaults,
+                                             asideDeletionAllowed: true, now: 0)
+        // Schlüssel weg (neu angelegt): auch nach der Frist nichts löschen
+        fake.stored = nil
+        _ = ProtectedStorage.prepareAtLaunch(files: files(watchlist, sealedOnly: true), keys: keys(fake), defaults: defaults,
+                                             asideDeletionAllowed: true, now: AsideRetention.maxAgeMillis)
+        XCTAssertTrue(FileManager.default.fileExists(atPath: locked.path))
+    }
+}

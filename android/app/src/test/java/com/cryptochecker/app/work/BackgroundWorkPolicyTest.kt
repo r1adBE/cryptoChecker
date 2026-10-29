@@ -169,18 +169,14 @@ class BackgroundWorkPolicyTest {
     fun skippedRunSucceeds() {
         // Dedupe: geplanter Lauf kurz nach einer Prüfung wird übersprungen (run() = null) → Erfolg, kein Retry
         assertTrue(BackgroundSchedule.shouldSkip(CheckTrigger.WORKER, now - 60_000, now))
-        assertEquals(WorkOutcome.SUCCESS, BackgroundWorkPolicy.outcome(manual = false, checked = null, failed = null))
-        assertEquals(WorkOutcome.SUCCESS, BackgroundWorkPolicy.outcome(manual = true, checked = null, failed = null))
+        assertEquals(WorkOutcome.SUCCESS, BackgroundWorkPolicy.outcomeAfterRun)
     }
 
     @Test
     fun noRetryEvenWhenEverythingFailed() {
         // Börsenausfall: kein Retry (Backoff verschöbe Alarme um Stunden), nächster Lauf im Takt
-        assertEquals(WorkOutcome.SUCCESS, BackgroundWorkPolicy.outcome(manual = false, checked = 3, failed = 3))
-        assertEquals(WorkOutcome.SUCCESS, BackgroundWorkPolicy.outcome(manual = false, checked = 3, failed = 2))
-        assertEquals(WorkOutcome.SUCCESS, BackgroundWorkPolicy.outcome(manual = false, checked = 0, failed = 0))
-        // Knopfdruck: sofort fertig, nie Retry
-        assertEquals(WorkOutcome.SUCCESS, BackgroundWorkPolicy.outcome(manual = true, checked = 3, failed = 3))
+        assertTrue(BackgroundWorkPolicy.allFailed(checked = 3, failed = 3))
+        assertEquals(WorkOutcome.SUCCESS, BackgroundWorkPolicy.outcomeAfterRun)
     }
 
     @Test

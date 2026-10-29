@@ -1,5 +1,5 @@
 {
-  "description": "Pairs no longer traded (Android NotTraded.kt / iOS NotTraded.swift): stored lastError -> isMarker and the 24 h change that is shown (null = dash). Only the exact marker text counts. askSingleWhenMissing: pair missing from a complete bulk list -> ask it once by single ticker (not again once marked). confirmedBySingle: single result -> mark not traded only on a clear statement about the pair: answer without a price (no data, no error text), an explicit unknown-instrument text (does not exist, unknown asset pair, invalid symbol ...), the own reader text for a valid answer without an entry for the pair (exactly 'No data', or starting with 'Unknown coin' from Hyperliquid; only reached after the pair was missing from a complete bulk list) or HTTP 400/404; any other error (unreadable answer, unknown exception, network, timeout, rate limit, other 4xx, 5xx, missing adapter) stays an ordinary error. confirmWithoutBulk: without a bulk query (too few pairs) a single result is judged like confirmedBySingle only if the single request itself reads the complete list (Market.singleTickerReadsFullList: Lighter, Hyperliquid).",
+  "description": "Pairs no longer traded (Android NotTraded.kt / iOS NotTraded.swift): stored lastError -> isMarker and the 24 h change that is shown (null = dash). Only the exact marker text counts. askSingleWhenMissing: pair missing from a complete bulk list -> ask it once by single ticker (not again once marked). confirmedBySingle: single result -> mark not traded only on a clear statement about the pair: answer without a price (no data, no error text), an explicit unknown-instrument text (does not exist, unknown asset pair, invalid symbol ...), the own reader text for a valid answer without an entry for the pair (exactly 'No data', or starting with 'Unknown coin' from Hyperliquid; only reached after the pair was missing from a complete bulk list) or HTTP 400/404; any other error (unreadable answer, unknown exception, network, timeout, rate limit, other 4xx, 5xx, missing adapter) stays an ordinary error. singleConfirms: outside the bulk path a single result is judged like confirmedBySingle only with a second statement: without a bulk query (too few pairs) the single request itself reads the complete list (Market.singleTickerReadsFullList: Lighter, Hyperliquid), or the dated contract has expired (contractExpired). contractExpired: pair id ending in _yyMMdd (FuturesContractType.deliveryCodeOf) and now at or after that day 08:00 UTC (settlement); no date or an impossible date never expires. shownContract: short form of a dated contract from the date in its id (current or next contract of the same family by calendar, FuturesContractType.getDeliveryDate / delivery(asOf:)); no date, perpetual or no matching contract keeps the stored type. Expected millis computed independently (Python datetime).",
   "marker": "Wird an der Börse nicht mehr gehandelt",
   "cases": [
     {"lastError": "Wird an der Börse nicht mehr gehandelt", "change24h": 13.9, "isMarker": true, "shown": null},
@@ -47,10 +47,35 @@
     {"gotPrice": false, "error": "No data for field last", "confirmed": false},
     {"gotPrice": true, "error": "No data", "confirmed": false}
   ],
-  "confirmWithoutBulk": [
-    {"name": "too few pairs for the bulk query, single reads the full list (Lighter): judge like the bulk path", "bulkTried": false, "singleReadsFullList": true, "confirm": true},
-    {"name": "too few pairs, ordinary single request: no second statement, ordinary error", "bulkTried": false, "singleReadsFullList": false, "confirm": false},
-    {"name": "bulk query tried: the bulk path decides", "bulkTried": true, "singleReadsFullList": true, "confirm": false},
-    {"name": "bulk query tried, ordinary single request", "bulkTried": true, "singleReadsFullList": false, "confirm": false}
+  "singleConfirms": [
+    {"name": "too few pairs for the bulk query, single reads the full list (Lighter): judge like the bulk path", "bulkTried": false, "singleReadsFullList": true, "contractExpired": false, "confirm": true},
+    {"name": "too few pairs, ordinary single request: no second statement, ordinary error", "bulkTried": false, "singleReadsFullList": false, "contractExpired": false, "confirm": false},
+    {"name": "bulk query tried: the bulk path decides", "bulkTried": true, "singleReadsFullList": true, "contractExpired": false, "confirm": false},
+    {"name": "bulk query tried, ordinary single request", "bulkTried": true, "singleReadsFullList": false, "contractExpired": false, "confirm": false},
+    {"name": "only one pair of Binance Futures, quarterly contract past its settlement: Invalid symbol confirms", "bulkTried": false, "singleReadsFullList": false, "contractExpired": true, "confirm": true},
+    {"name": "bulk query tried but not usable, contract expired: the single answer confirms", "bulkTried": true, "singleReadsFullList": false, "contractExpired": true, "confirm": true}
+  ],
+  "contractExpired": [
+    {"name": "USD-M quarterly one millisecond before settlement 2025-09-26 08:00 UTC", "pairId": "BTCUSDT_250926", "now": 1758873599999, "expired": false},
+    {"name": "USD-M quarterly at settlement", "pairId": "BTCUSDT_250926", "now": 1758873600000, "expired": true},
+    {"name": "COIN-M quarterly (2: prefix) a month later", "pairId": "2:BTCUSD_250926", "now": 1761739200000, "expired": true},
+    {"name": "next quarter still running", "pairId": "BTCUSDT_251226", "now": 1761739200000, "expired": false},
+    {"name": "perpetual: no date in the id", "pairId": "BTCUSDT", "now": 1761739200000, "expired": false},
+    {"name": "COIN-M perpetual", "pairId": "2:BTCUSD_PERP", "now": 1761739200000, "expired": false},
+    {"name": "impossible date (month 13) never expires", "pairId": "BTCUSDT_251326", "now": 1761739200000, "expired": false},
+    {"name": "no pair id", "pairId": null, "now": 1761739200000, "expired": false}
+  ],
+  "shownContract": [
+    {"name": "stored 2Q, still the next quarter", "stored": "BIQUARTERLY", "pairId": "BTCUSDT_260327", "now": 1761739200000, "shown": "BIQUARTERLY"},
+    {"name": "stored 2Q, after the December roll it is the current quarter", "stored": "BIQUARTERLY", "pairId": "BTCUSDT_260327", "now": 1767614400000, "shown": "QUARTERLY"},
+    {"name": "COIN-M, one second before its own settlement: current quarter", "stored": "BIQUARTERLY", "pairId": "2:BTCUSD_260327", "now": 1774598399000, "shown": "QUARTERLY"},
+    {"name": "after its settlement no contract matches: stored type stays", "stored": "BIQUARTERLY", "pairId": "BTCUSDT_260327", "now": 1774598400000, "shown": "BIQUARTERLY"},
+    {"name": "stored 1Q, current quarter", "stored": "QUARTERLY", "pairId": "BTCUSDT_251226", "now": 1761739200000, "shown": "QUARTERLY"},
+    {"name": "stored 1Q but the date is the next quarter", "stored": "QUARTERLY", "pairId": "BTCUSDT_260327", "now": 1761739200000, "shown": "BIQUARTERLY"},
+    {"name": "monthly family: December date in early November is the next month", "stored": "MONTHLY", "pairId": "BTC_251226", "now": 1762128000000, "shown": "BIMONTHLY"},
+    {"name": "no date in the id", "stored": "QUARTERLY", "pairId": "BTCUSD_PERP", "now": 1761739200000, "shown": "QUARTERLY"},
+    {"name": "perpetual keeps its type", "stored": "PERPETUAL", "pairId": "BTCUSDT_251226", "now": 1761739200000, "shown": "PERPETUAL"},
+    {"name": "impossible date", "stored": "QUARTERLY", "pairId": "BTCUSDT_251326", "now": 1761739200000, "shown": "QUARTERLY"},
+    {"name": "no pair id", "stored": "QUARTERLY", "pairId": null, "now": 1761739200000, "shown": "QUARTERLY"}
   ]
 }

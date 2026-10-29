@@ -139,16 +139,6 @@
     <string name="pulse_alts_weaker">Bitcoin lebih kuat dari altcoin</string>
     <string name="pulse_chip_funding_high">Sentimen leverage optimis</string>
     <string name="pulse_chip_funding_negative">Sentimen leverage pesimis</string>
-    <string name="pulse_funding_high">Funding jelas positif: banyak long dengan leverage</string>
-    <string name="pulse_funding_negative">Funding negatif: banyak short</string>
-    <string name="pulse_funding_neutral">Funding netral</string>
-    <string name="pulse_funding_slight">Funding sedikit positif</string>
-    <string name="pulse_gas_high">Gas Ethereum tinggi (%1$s gwei)</string>
-    <string name="pulse_gas_low">Gas Ethereum rendah (%1$s gwei)</string>
-    <string name="pulse_gas_normal">Gas Ethereum normal (%1$s gwei)</string>
-    <string name="pulse_volume_high">Volume perdagangan luar biasa tinggi (%1$s× biasanya)</string>
-    <string name="pulse_volume_low">Volume perdagangan rendah (%1$s× biasanya)</string>
-    <string name="pulse_volume_normal">Volume perdagangan normal</string>
 
     <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>

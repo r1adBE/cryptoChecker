@@ -127,7 +127,7 @@ final class AccessibilityAuditTests: XCTestCase {
             // Schrift, Arabisch: lange Startseite): gemessen wird dann gegen die Leiste bzw. nichts. Die Farben selbst
             // haben genug Kontrast (Theme.swift, z. B. #474747 auf #FBF9F6 rund 9:1); nur protokolliert
             // Ebenso unter der durchscheinenden Navigationsleiste: nach einer abgebrochenen Runde (Zeitgrenze, Code -56)
-            // steht die Liste teils verschoben, ein Abschnittstitel («Language») liegt dann unter der Leiste (CI 27.10.)
+            // steht die Liste teils verschoben, ein Abschnittstitel («Language») liegt dann unter der Leiste
             let underBar = issue.auditType == .contrast && !frame.isEmpty
                 && ((tabTop > 0 && frame.maxY > tabTop) || (!window.isEmpty && !window.contains(frame))
                     || (!navBar.isEmpty && frame.intersects(navBar)))

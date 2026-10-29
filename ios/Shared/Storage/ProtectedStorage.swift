@@ -58,9 +58,12 @@ enum ProtectedStorage {
     /// - Kein Schlüssel, aber verschlüsselte Dateien (Schlüssel verloren, z. B. Backup ohne Schlüsselbund eingespielt):
     ///   diese beiseitelegen statt löschen, erst dann einen neuen Schlüssel anlegen.
     /// - Unverschlüsselt bleibende Dateien kommen so lange nicht ins Geräte-Backup (`PlainBackupExclusion`).
+    /// - Beiseitegelegte und ersetzte Dateien liegen nie im Geräte-Backup und gehen nach der Frist (`AsideRetention`;
+    ///   `asideDeletionAllowed` = Hinweis «nicht entsperrt» bestätigt).
     @discardableResult
     static func prepareAtLaunch(files: [Entry] = ProtectedStorage.files,
-                                keys: StorageKey = .shared, defaults: UserDefaults = .standard) -> LaunchOutcome {
+                                keys: StorageKey = .shared, defaults: UserDefaults = .standard,
+                                asideDeletionAllowed: Bool = false, now: Int64 = EpochTime.nowMillis) -> LaunchOutcome {
         var outcome = LaunchOutcome()
         let fm = FileManager.default
         let present = files.filter { fm.fileExists(atPath: $0.url.path) }
@@ -77,11 +80,13 @@ enum ProtectedStorage {
             return kept
         }
         let key: SymmetricKey
+        var keyWasStored = false
         switch keys.lookup() {
         case .unavailable:
             return keepingPlain()
         case .key(let stored):
             key = stored
+            keyWasStored = true
         case .absent:
             for file in present where isSealedFile(file.url) {
                 guard let aside = setAside(file.url) else { return keepingPlain() }
@@ -109,7 +114,30 @@ enum ProtectedStorage {
                 break
             }
         }
+        // Frist nur mit dem schon gespeicherten Schlüssel: eben verloren, wäre jede Kopie die letzte Spur der Daten
+        if keyWasStored { pruneAside(files, now: now, allowed: asideDeletionAllowed, defaults: defaults) }
         return outcome
+    }
+
+    /// Ersetzte Fassungen von `url` (`<Name>.replaced`, `<Name>.<Zeit>.replaced`).
+    static func replacedCopies(of url: URL) -> [URL] {
+        let dir = url.deletingLastPathComponent()
+        let name = url.lastPathComponent
+        let names = (try? FileManager.default.contentsOfDirectory(atPath: dir.path)) ?? []
+        return names.filter { $0 == name + ".replaced" || ($0.hasPrefix(name + ".") && $0.hasSuffix(".replaced")) }
+            .map { dir.appendingPathComponent($0) }
+    }
+
+    /// Beiseitegelegte und ersetzte Kopien: nie im Geräte-Backup, nach der Frist weg (`AsideRetention`). Die eben
+    /// zurückgeholten sind nicht mehr darunter. Fehler bleiben still (der nächste Start versucht es erneut).
+    private static func pruneAside(_ files: [Entry], now: Int64, allowed: Bool, defaults: UserDefaults) {
+        let copies = files.flatMap { lockedCopies(of: $0.url) + replacedCopies(of: $0.url) }
+        for copy in copies where BackupExclusion.isExcluded(copy) == false {
+            BackupExclusion.set(excluded: true, for: copy)
+        }
+        for copy in AsideRetention.expired(copies, now: now, allowed: allowed, defaults: defaults) {
+            try? FileManager.default.removeItem(at: copy)
+        }
     }
 
     /// Beiseitegelegte Fassungen von `url` (`<Name>.locked`, `<Name>.<Zeit>.locked`), neueste zuerst.
@@ -126,7 +154,8 @@ enum ProtectedStorage {
     }
 
     /// `locked` wieder auf `url`; eine dort inzwischen neu begonnene Datei bleibt als `<Name>.replaced` (mit Zeitstempel,
-    /// falls schon vorhanden) — nie gelöscht. Abgestimmt mit den Schreibern der anderen Prozesse wie `encrypt`.
+    /// falls schon vorhanden; gelöscht erst nach der Frist, `pruneAside`). Abgestimmt mit den Schreibern der anderen
+    /// Prozesse wie `encrypt`.
     private static func restoreLocked(_ locked: URL, to url: URL, coordination: URL) -> Bool {
         var done = false
         var coordinated = false
@@ -138,11 +167,16 @@ enum ProtectedStorage {
                 replaced = url.appendingPathExtension("\(EpochTime.nowMillis).replaced")
             }
             let hadFile = fm.fileExists(atPath: url.path)
+            // Backup-Merkmal der Datei an diesem Platz (vom Schreiber gesetzt) übernimmt die zurückgeholte; ohne Datei
+            // bleibt sie ausgenommen, bis ihr Schreiber das Merkmal setzt
+            let currentExcluded = hadFile ? BackupExclusion.isExcluded(url) : nil
             do {
                 if hadFile { try fm.moveItem(at: url, to: replaced) }
                 do {
                     try fm.moveItem(at: locked, to: url)
                     done = true
+                    if let currentExcluded { BackupExclusion.set(excluded: currentExcluded, for: url) }
+                    BackupExclusion.set(excluded: true, for: replaced)
                 } catch {
                     // Zurück, wie es war: nie ohne Datei dastehen
                     if hadFile { try? fm.moveItem(at: replaced, to: url) }
@@ -199,7 +233,8 @@ enum ProtectedStorage {
         return ProtectedContainer.isSealed(head)
     }
 
-    /// `<Name>.locked` (bzw. mit Zeitstempel, falls schon vorhanden); nil = nicht verschoben.
+    /// `<Name>.locked` (bzw. mit Zeitstempel, falls schon vorhanden), nicht im Geräte-Backup (ohne den Schlüssel dieses
+    /// Geräts ohnehin unlesbar); nil = nicht verschoben.
     private static func setAside(_ url: URL) -> URL? {
         var target = url.appendingPathExtension("locked")
         if FileManager.default.fileExists(atPath: target.path) {
@@ -207,6 +242,7 @@ enum ProtectedStorage {
         }
         do {
             try FileManager.default.moveItem(at: url, to: target)
+            BackupExclusion.set(excluded: true, for: target)
             return target
         } catch {
             return nil

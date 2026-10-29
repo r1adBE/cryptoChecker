@@ -12,6 +12,7 @@ import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
 import com.cryptochecker.app.notification.AppNotifier
+import com.cryptochecker.app.settings.DepegAlarmPrefs
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.util.LocaleNumbers
 import com.cryptochecker.app.util.PercentText
@@ -22,7 +23,6 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
-import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import timber.log.Timber
 import javax.inject.Inject
@@ -52,10 +52,13 @@ class DepegAlarmChecker @Inject constructor(
     /** Portfolio vorhanden? Dann wird auch ohne Alarm gemessen. */
     private val portfolioRepository: com.cryptochecker.app.data.portfolio.PortfolioRepository,
 ) {
-    private val mutex = Mutex()
     private val prefs by lazy { context.getSharedPreferences(PREFS, Context.MODE_PRIVATE) }
 
-    suspend fun checkIfDue() = mutex.withLock {
+    /**
+     * Unter der Sperre [DepegAlarmPrefs.lock], geteilt mit dem Zurücksetzen beim Ausschalten
+     * (`MarketAlertReset.depegOff`): eine laufende Prüfung schreibt danach nicht den alten Stand zurück.
+     */
+    suspend fun checkIfDue() = DepegAlarmPrefs.lock.withLock {
         val settings = settingsRepository.current()
         // Datenbank nur fragen, wenn das Portfolio eingeschaltet ist und der Alarm allein nicht genügt
         val hasPortfolio = !settings.depegAlarm && settings.portfolioEnabled && hasPortfolioData()
@@ -83,10 +86,16 @@ class DepegAlarmChecker @Inject constructor(
         // Wie Kursalarme: in der Nachtruhe nicht auslösen, ohne zustellbare Meldung scharf bleiben
         val hold = QuietHours.holdsAlarms(settings.quietHoursEnabled, settings.quietHoursStart, settings.quietHoursEnd, QuietHours.minuteOfDay())
         val mayFire = QuietHours.mayFire(hold, notifier.canShowDepegAlarm())
-        val armedBefore = prefs.getBoolean(KEY_ARMED, true)
-        val decision = DepegAlarm.evaluate(deviation, DepegAlarm.thresholdPercent(settings.depegThresholdTenths), armedBefore, mayFire)
+        // Gemerkter Zustand gilt nur für die Schwelle, zu der er gehört (geändert oder zwischendurch aus: scharf)
+        val tenths = DepegAlarm.threshold(settings.depegThresholdTenths)
+        val storedTenths = if (prefs.contains(KEY_ARMED_TENTHS)) prefs.getInt(KEY_ARMED_TENTHS, 0) else null
+        val armedBefore = DepegAlarm.armedFor(prefs.getBoolean(KEY_ARMED, true), storedTenths, tenths)
+        val decision = DepegAlarm.evaluate(deviation, DepegAlarm.thresholdPercent(tenths), armedBefore, mayFire)
         val posted = decision.fire && notify(price, deviation)
-        prefs.edit { putBoolean(KEY_ARMED, DepegAlarm.armedAfter(decision.fire, posted, armedBefore, decision.armed)) }
+        prefs.edit {
+            putBoolean(KEY_ARMED, DepegAlarm.armedAfter(decision.fire, posted, armedBefore, decision.armed))
+            putInt(KEY_ARMED_TENTHS, tenths)
+        }
     }
 
     /**
@@ -174,9 +183,11 @@ class DepegAlarmChecker @Inject constructor(
          */
         fun isDue(now: Long, lastCheck: Long): Boolean = now - lastCheck !in 0 until MIN_INTERVAL_MILLIS
 
-        const val PREFS = "depeg_alarm"
+        const val PREFS = DepegAlarmPrefs.PREFS
         const val KEY_LAST_CHECK = "last_check"
         const val KEY_ARMED = "armed"
+        /** Schwelle (Zehntelprozent), zu der [KEY_ARMED] gehört; 0 = zwischendurch ausgeschaltet. */
+        const val KEY_ARMED_TENTHS = DepegAlarmPrefs.KEY_ARMED_TENTHS
         /** Höchstens alle 5 Minuten (Vordergrund kann viel öfter aktualisieren). */
         const val MIN_INTERVAL_MILLIS = 5 * 60_000L
         const val RETRY_AFTER_FAILURE_MILLIS = 2 * 60_000L

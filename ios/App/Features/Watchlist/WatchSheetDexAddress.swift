@@ -15,10 +15,9 @@ struct DexTokenAddressLine: View {
     var body: some View {
         if DexLiquidity.isDex(watch.exchangeKey), let address = DexTokenAddressStore.get(watch.pairId) {
             Button {
-                // Nur auf diesem Gerät (keine universelle Zwischenablage) und nach 60 s wieder weg (wie
-                // Android markiert die Adresse als vertraulich)
-                UIPasteboard.general.setItems([[UTType.plainText.identifier: address]],
-                                              options: [.localOnly: true, .expirationDate: Date().addingTimeInterval(60)])
+                // Öffentliche Vertragsadresse (keine Nutzerdaten): ohne Ablaufzeit wie Android, nur auf diesem Gerät
+                // (keine universelle Zwischenablage — Android kennt keine)
+                UIPasteboard.general.setItems([[UTType.plainText.identifier: address]], options: [.localOnly: true])
                 Haptics.play(.success)
                 confirmCopy()
             } label: {

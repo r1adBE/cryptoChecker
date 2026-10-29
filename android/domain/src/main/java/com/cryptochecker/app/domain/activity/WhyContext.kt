@@ -150,9 +150,6 @@ object StablePeg {
     /** Ab dieser Abweichung (in %) ist der Faktor auffällig. */
     const val NOTABLE_PERCENT = 0.5
 
-    /** Ab dieser Abweichung (in %) stark. */
-    const val STRONG_PERCENT = 2.0
-
     /** Stablecoin gegen USD bzw. einen USD-Stablecoin? Gegen andere Währungen (USDT/TRY) nicht. */
     fun isPegged(baseAsset: String, quoteAsset: String?): Boolean {
         val base = CurrencyConversion.normalize(baseAsset)

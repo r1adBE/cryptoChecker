@@ -360,10 +360,6 @@ class AppNotifier @Inject constructor(
         /** So lange gilt eine eben gemeldete Mitteilung als offen, auch wenn der Systemdienst sie noch nicht führt. */
         internal const val RECENT_MILLIS = 5_000L
 
-        /** Alarm-Meldung prüfen: so oft, im Abstand von [VERIFY_STEP_MILLIS] (zusammen höchstens rund 0,5 s). */
-        internal const val VERIFY_ATTEMPTS = 6
-        internal const val VERIFY_STEP_MILLIS = 100L
-
         internal const val ACTION_OPEN_NOTIFICATION = "com.cryptochecker.app.action.OPEN_FROM_NOTIFICATION"
 
         /** Ziel des Portfolio-Alarms (wie das Portfolio-Widget). */

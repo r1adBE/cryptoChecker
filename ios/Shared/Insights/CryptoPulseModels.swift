@@ -67,39 +67,14 @@ enum PulseAlts: Equatable, Sendable {
 
 enum PulseVolume: Equatable, Sendable {
     case high, low, normal
-
-    var key: String {
-        switch self {
-        case .high: "pulse_volume_high"
-        case .low: "pulse_volume_low"
-        case .normal: "pulse_volume_normal"
-        }
-    }
 }
 
 enum PulseFunding: Equatable, Sendable {
     case high, slight, neutral, negative
-
-    var key: String {
-        switch self {
-        case .high: "pulse_funding_high"
-        case .slight: "pulse_funding_slight"
-        case .neutral: "pulse_funding_neutral"
-        case .negative: "pulse_funding_negative"
-        }
-    }
 }
 
 enum PulseGas: Equatable, Sendable {
     case low, normal, high
-
-    var key: String {
-        switch self {
-        case .low: "pulse_gas_low"
-        case .normal: "pulse_gas_normal"
-        case .high: "pulse_gas_high"
-        }
-    }
 }
 
 /// Schlagzeile: Richtung aus `MarketMoveScale.decide` (broadUp/broadDown = steigend/fallend, egal ob

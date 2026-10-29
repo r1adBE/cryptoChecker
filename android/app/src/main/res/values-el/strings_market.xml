@@ -140,16 +140,6 @@
     <string name="pulse_alts_weaker">Το Bitcoin πιο δυνατό από τα altcoins</string>
     <string name="pulse_chip_funding_high">Διάθεση μόχλευσης αισιόδοξη</string>
     <string name="pulse_chip_funding_negative">Διάθεση μόχλευσης απαισιόδοξη</string>
-    <string name="pulse_funding_high">Funding σαφώς θετικό: πολλά long με μόχλευση</string>
-    <string name="pulse_funding_negative">Funding αρνητικό: πολλά short</string>
-    <string name="pulse_funding_neutral">Funding ουδέτερο</string>
-    <string name="pulse_funding_slight">Funding ελαφρώς θετικό</string>
-    <string name="pulse_gas_high">Gas Ethereum υψηλό (%1$s gwei)</string>
-    <string name="pulse_gas_low">Gas Ethereum χαμηλό (%1$s gwei)</string>
-    <string name="pulse_gas_normal">Gas Ethereum συνηθισμένο (%1$s gwei)</string>
-    <string name="pulse_volume_high">Όγκος συναλλαγών ασυνήθιστα υψηλός (%1$s× του συνήθους)</string>
-    <string name="pulse_volume_low">Όγκος συναλλαγών χαμηλός (%1$s× του συνήθους)</string>
-    <string name="pulse_volume_normal">Όγκος συναλλαγών συνήθης</string>
 
     <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>

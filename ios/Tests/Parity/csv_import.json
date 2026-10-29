@@ -1597,6 +1597,139 @@
         }
       ],
       "skipped": []
+    },
+    {
+      "name": "binance_trades_digit_symbols",
+      "_comment": "Binance-Handelsverlauf: Kürzel mit Ziffern am Anfang (1INCH, 1000SATS, 1MBABYDOGE, 1000CAT) werden gegen Basis und Quote des Paars (Gebühr: auch BNB) am Ende des Feldes abgetrennt, längstes zuerst — «10.51INCH» = 10.5 1INCH (vorher 10.51 «INCH»), «350000.001000SATS» = 350000 1000SATS (vorher 350000.001 «SATS»).",
+      "format": "BINANCE",
+      "csv": "Date(UTC),Pair,Side,Price,Executed,Amount,Fee\n2024-01-06 12:00:00,1INCHUSDT,BUY,0.40,10.51INCH,4.20000000USDT,0.0101INCH\n2024-01-07 12:00:00,1000SATSUSDT,BUY,0.0003,350000.001000SATS,105.00000000USDT,0.10000000USDT\n2024-01-08 12:00:00,1MBABYDOGEEUR,SELL,0.0025,2000.001MBABYDOGE,5.00EUR,0.0001BNB\n2024-01-09 12:00:00,1000CATBNB,BUY,0.00002,500.001000CAT,0.01000000BNB,0.00001BNB\n2024-01-10 12:00:00,1INCHBTC,SELL,0.00001,100.001INCH,0.00100000BTC,0.11INCH\n",
+      "rows": [
+        {
+          "line": 2,
+          "kind": "SWAP",
+          "rawKind": "BUY",
+          "coin": "USDT",
+          "amount": "4.2",
+          "price": null,
+          "quote": "USDT",
+          "fee": "0.01",
+          "feeUnit": "1INCH",
+          "time": "2024-01-06T12:00:00Z",
+          "externalId": null,
+          "key": "BINANCE|SWAP|USDT|L1704542400000|4.2|-",
+          "toCoin": "1INCH",
+          "toAmount": "10.5",
+          "swapValue": "4.2",
+          "stableSwap": true
+        },
+        {
+          "line": 3,
+          "kind": "SWAP",
+          "rawKind": "BUY",
+          "coin": "USDT",
+          "amount": "105",
+          "price": null,
+          "quote": "USDT",
+          "fee": "0.1",
+          "feeUnit": "USDT",
+          "time": "2024-01-07T12:00:00Z",
+          "externalId": null,
+          "key": "BINANCE|SWAP|USDT|L1704628800000|105|-",
+          "toCoin": "1000SATS",
+          "toAmount": "350000",
+          "swapValue": "105",
+          "stableSwap": true
+        },
+        {
+          "line": 4,
+          "kind": "SELL",
+          "rawKind": "SELL",
+          "coin": "1MBABYDOGE",
+          "amount": "2000",
+          "price": "0.0025",
+          "quote": "EUR",
+          "fee": "0.0001",
+          "feeUnit": "BNB",
+          "time": "2024-01-08T12:00:00Z",
+          "externalId": null,
+          "key": "BINANCE|SELL|1MBABYDOGE|L1704715200000|2000|-"
+        },
+        {
+          "line": 5,
+          "kind": "SWAP",
+          "rawKind": "BUY",
+          "coin": "BNB",
+          "amount": "0.01",
+          "price": null,
+          "quote": null,
+          "fee": "0.00001",
+          "feeUnit": "BNB",
+          "time": "2024-01-09T12:00:00Z",
+          "externalId": null,
+          "key": "BINANCE|SWAP|BNB|L1704801600000|0.01|-",
+          "toCoin": "1000CAT",
+          "toAmount": "500"
+        },
+        {
+          "line": 6,
+          "kind": "SWAP",
+          "rawKind": "SELL",
+          "coin": "1INCH",
+          "amount": "100",
+          "price": null,
+          "quote": null,
+          "fee": "0.1",
+          "feeUnit": "1INCH",
+          "time": "2024-01-10T12:00:00Z",
+          "externalId": null,
+          "key": "BINANCE|SWAP|1INCH|L1704888000000|100|-",
+          "toCoin": "BTC",
+          "toAmount": "0.001"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "name": "coinbase_ascii_digits",
+      "_comment": "Coinbase: Ziffern anderer Schriften (hier arabisch-indisch) fallen weg wie Währungszeichen, auf beiden Plattformen gleich — Gebühr «€1١.00» = 1 EUR (Android verwarf sie vorher als unlesbar), Menge «2١» = 2 (Android übersprang die Zeile vorher), «١٠» allein = unlesbar.",
+      "format": "COINBASE",
+      "csv": "ID,Timestamp,Transaction Type,Asset,Quantity Transacted,Price Currency,Price at Transaction,Subtotal,Total (inclusive of fees and/or spread),Fees and/or Spread,Notes\nCB1,2024-03-01 10:00:00 UTC,Buy,BTC,0.5,EUR,€40000.00,€20000.00,€20001.00,€1١.00,Bought\nCB2,2024-03-02 10:00:00 UTC,Buy,ETH,2١,EUR,€3000.00,€6000.00,€6000.00,€0.00,Bought\nCB3,2024-03-03 10:00:00 UTC,Buy,ETH,١٠,EUR,€3000.00,€30000.00,€30000.00,€0.00,Bought\n",
+      "rows": [
+        {
+          "line": 2,
+          "kind": "BUY",
+          "rawKind": "Buy",
+          "coin": "BTC",
+          "amount": "0.5",
+          "price": "40000",
+          "quote": "EUR",
+          "fee": "1",
+          "feeUnit": "EUR",
+          "time": "2024-03-01T10:00:00Z",
+          "externalId": "CB1",
+          "key": "COINBASE|CB1"
+        },
+        {
+          "line": 3,
+          "kind": "BUY",
+          "rawKind": "Buy",
+          "coin": "ETH",
+          "amount": "2",
+          "price": "3000",
+          "quote": "EUR",
+          "fee": null,
+          "feeUnit": null,
+          "time": "2024-03-02T10:00:00Z",
+          "externalId": "CB2",
+          "key": "COINBASE|CB2"
+        }
+      ],
+      "skipped": [
+        {
+          "line": 4,
+          "reason": "BAD_NUMBER"
+        }
+      ]
     }
   ],
   "numbers": [

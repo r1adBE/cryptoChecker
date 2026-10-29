@@ -8,6 +8,7 @@ import com.cryptochecker.app.domain.exceptions.HttpExchangeError
 import com.cryptochecker.app.domain.market.DataFreshness
 import com.cryptochecker.app.domain.market.Sourced
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
+import com.cryptochecker.marketdata.util.EpochTime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
@@ -257,13 +258,16 @@ class CandleDataSource @Inject constructor(
             }.filter { it.close > 0.0 }.sortedBy { it.openTime }
         }
 
-        /** Coinbase: [time (s), low, high, open, close, volume], NEUESTE zuerst → aufsteigend sortieren. */
+        /**
+         * Coinbase: [time (s), low, high, open, close, volume], NEUESTE zuerst → aufsteigend sortieren. Unplausible Zeit
+         * ([EpochTime.secondsToMillis]): Kerze fällt weg.
+         */
         fun parseCoinbase(json: String): List<HourCandle> {
             val array = JSONArray(json)
-            return (0 until array.length()).map { i ->
+            return (0 until array.length()).mapNotNull { i ->
                 val k = array.getJSONArray(i)
                 HourCandle(
-                    openTime = k.getLong(0) * 1000L,
+                    openTime = EpochTime.secondsToMillis(k.getLong(0)) ?: return@mapNotNull null,
                     open = k.num(3),
                     high = k.num(2),
                     low = k.num(1),

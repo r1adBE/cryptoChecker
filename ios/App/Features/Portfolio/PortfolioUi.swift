@@ -26,6 +26,15 @@ enum PortfolioFormat {
         return BidiText.ltr(sign + number) + " " + usdt
     }
 
+    /// Betrag mit Vorzeichen nur bei Verlust («−1’234.56 CHF», sonst «1’234.56 CHF»; Steuer-Summen): echtes Minus
+    /// U+2212, praktisch 0 (`isZero`) ohne Vorzeichen statt «-0.00»; Vorzeichen und Zahl als links-nach-rechts-Insel
+    /// (RTL). Wie Android.
+    static func signedMoney(_ value: Double, unit: String) -> String {
+        let sign = isZero(value) || value > 0 ? "" : "−"
+        let number = PriceFormat.valueWithCurrency(abs(value), "").trimmingCharacters(in: .whitespaces)
+        return BidiText.ltr(sign + number) + " " + unit
+    }
+
     /// Realisiert mit unbekanntem Teil (`incomplete`, Verkäufe ohne Kaufpreis/Verkaufspreis):
     /// nur unbekannt «—», sonst «+12.00 USDT (unvollständig)». Vollständig: wie `signedUsdt`. Wie Android.
     static func realizedText(_ value: Double, incomplete: Bool) -> String {

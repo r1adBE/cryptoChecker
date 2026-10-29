@@ -280,14 +280,11 @@ class ExplorerViewModel @Inject constructor(
         .combine(assetScope) { _, scope -> scope }
         .combine(exchangeRanking.volumes) { scope, volumes -> scope to volumes }
         .map { (scope, volumes) ->
-            val alphabetical = try {
-                // «Nur TradFi»: nur Börsen mit TradFi-Kontrakten
-                exchangeRepository.getExchangeList()
-                    .filter { scope.allowsExchange(it.key) }
-                    .sortedBy { it.name.lowercase() }
-            } catch (e: Exception) {
-                return@map ExplorerLoad.Failed(e)
-            }
+            // Feste Börsenliste (ExchangesConfig), ohne Netz — kann nicht scheitern. «Nur TradFi»: nur Börsen mit
+            // TradFi-Kontrakten
+            val alphabetical = exchangeRepository.getExchangeList()
+                .filter { scope.allowsExchange(it.key) }
+                .sortedBy { it.name.lowercase() }
             val (exchangeList, categories) = exchangeSections(alphabetical, volumes)
 
             // Keine Börse vorwählen (erst die bewusste Wahl macht «Sync» aktiv); eine
@@ -367,10 +364,6 @@ class ExplorerViewModel @Inject constructor(
 
     fun clearAddResult() {
         addResult.value = null
-    }
-
-    fun retryExchangeList() {
-        viewModelScope.launch { reloadExchanges.emit(Unit) }
     }
 }
 

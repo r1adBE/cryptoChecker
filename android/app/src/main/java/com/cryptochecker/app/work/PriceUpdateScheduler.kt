@@ -20,6 +20,8 @@ import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmDao
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
+import com.cryptochecker.app.domain.market.IndicatorAlertRules
+import com.cryptochecker.app.domain.market.MarketNoticeGate
 import com.cryptochecker.app.domain.refresh.RetryWait
 import com.cryptochecker.app.settings.AppSettings
 import com.cryptochecker.app.settings.SettingsRepository
@@ -146,9 +148,12 @@ class PriceUpdateScheduler @Inject constructor(
         exactScheduler.sync(settings.exactChecks, force = forceExact)
 
         // Fear-&-Greed-Meldung und eigene Grenzen der Bitcoin-Kennzahlen: zweimal täglich prüfen
-        if (settings.fearGreedBelow > 0 || settings.fearGreedAbove > 0 || settings.indicatorAlerts.values.any { it > 0 }) {
+        // Eingeschaltete Kennzahl-Grenzen wie die Prüfung selbst (IndicatorAlertRules.active, nur gültige Werte)
+        if (settings.fearGreedBelow > 0 || settings.fearGreedAbove > 0 || IndicatorAlertRules.active(settings.indicatorAlerts).isNotEmpty()) {
             val request = PeriodicWorkRequestBuilder<ZoneCheckWorker>(12, TimeUnit.HOURS)
                 .setConstraints(constraints)
+                // Abruf gescheitert: 30 s, 1 Min., 2 Min. (MarketNoticeGate, iOS gleich)
+                .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, MarketNoticeGate.RETRY_BASE_MILLIS, TimeUnit.MILLISECONDS)
                 .build()
             workManager.enqueueUniquePeriodicWork(
                 ZoneCheckWorker.WORK_NAME,

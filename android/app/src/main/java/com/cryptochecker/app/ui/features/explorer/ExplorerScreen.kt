@@ -34,8 +34,6 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.ui.components.HttpLogPanel
 import com.cryptochecker.app.ui.components.readableWidth
-import com.cryptochecker.app.ui.features.error.LoadErrorScreen
-import com.cryptochecker.app.ui.features.error.LoadErrorScreenViewState
 import com.cryptochecker.app.ui.features.loading.SkeletonLoadingScreen
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.ExchangePair
@@ -79,13 +77,6 @@ fun ExplorerScreen(
 
     when (val state = pageState) {
         is ExplorerLoad.Loading -> PlainExplorerPage(onBack) { SkeletonLoadingScreen() }
-
-        // Auch Laden und Fehler mit Titel und Zurück (eigene Seite ohne Tableiste)
-        is ExplorerLoad.Failed -> PlainExplorerPage(onBack) {
-            LoadErrorScreen(errorScreenViewState = LoadErrorScreenViewState(state.error)) {
-                vm.retryExchangeList()
-            }
-        }
 
         is ExplorerLoad.Ready -> ExplorerPage(
             selection = state.selection,

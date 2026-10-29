@@ -93,9 +93,10 @@ data class WatchEntity(
 ) {
     val displayPair: String get() = "$baseAsset/$quoteAsset"
 
+    /** Paar mit Kurzform des Kontrakts; Laufzeit-Kontrakte nach dem Datum in der Kennung ([FuturesContractType.shownContract]). */
     val displayName: String
         get() {
-            val contract = FuturesContractType.getShortName(contractType)
+            val contract = FuturesContractType.getShortName(FuturesContractType.shownContract(contractType, pairId))
             return if (contract == null) displayPair else "$displayPair $contract"
         }
 

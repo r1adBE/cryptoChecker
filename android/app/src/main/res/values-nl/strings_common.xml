@@ -28,11 +28,9 @@
     <string name="error_exchange_unreachable">Beurs nu niet bereikbaar – de laatste koersen blijven zichtbaar.</string>
     <string name="error_exchange_unreachable_short">Beurs nu niet bereikbaar</string>
     <string name="loading_hint">Laden…</string>
-    <string name="no_internet_connection">Geen internetverbinding. Controleer wifi of mobiele data en probeer het opnieuw.</string>
     <string name="option_off">Uit</string>
     <string name="something_went_wrong">Er ging iets mis</string>
     <string name="time_just_now">zojuist</string>
-    <string name="timeout_error_message">De beurs reageert op dit moment niet. Probeer het zo opnieuw.</string>
     <string name="try_again">Opnieuw proberen</string>
 
     <!-- Verbindungsstatus (Status-Pille) -->

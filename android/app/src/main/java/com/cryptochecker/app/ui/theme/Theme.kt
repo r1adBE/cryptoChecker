@@ -25,6 +25,8 @@ import androidx.core.view.WindowCompat
 import com.cryptochecker.app.settings.AccentColor
 import com.cryptochecker.app.settings.HighContrast
 import com.cryptochecker.app.settings.PriceColorScheme
+import com.cryptochecker.app.ui.components.LocalReduceMotion
+import com.cryptochecker.app.ui.components.observeReduceMotion
 
 /** Aktuelle Akzentfarbe, z. B. für das passende Logo. */
 val LocalAccentColor = staticCompositionLocalOf { AccentColor.DEFAULT }
@@ -147,6 +149,8 @@ fun CryptoCheckerTheme(
         LocalPriceColorScheme provides priceColors,
         LocalHighContrast provides highContrast,
         LocalPriceColorsInverted provides priceColorsInverted,
+        // Einmal für den ganzen Baum statt je Zahl einer Zeile
+        LocalReduceMotion provides observeReduceMotion(),
     ) {
         MaterialTheme(colorScheme = scheme, typography = appTypography, shapes = appShapes, content = content)
     }

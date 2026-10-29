@@ -140,16 +140,6 @@
     <string name="pulse_alts_weaker">A Bitcoin erősebb az altcoinoknál</string>
     <string name="pulse_chip_funding_high">Tőkeáttételes hangulat optimista</string>
     <string name="pulse_chip_funding_negative">Tőkeáttételes hangulat pesszimista</string>
-    <string name="pulse_funding_high">Funding egyértelműen pozitív: sok tőkeáttételes long</string>
-    <string name="pulse_funding_negative">Funding negatív: sok short</string>
-    <string name="pulse_funding_neutral">Funding semleges</string>
-    <string name="pulse_funding_slight">Funding enyhén pozitív</string>
-    <string name="pulse_gas_high">Ethereum gas magas (%1$s gwei)</string>
-    <string name="pulse_gas_low">Ethereum gas alacsony (%1$s gwei)</string>
-    <string name="pulse_gas_normal">Ethereum gas szokásos (%1$s gwei)</string>
-    <string name="pulse_volume_high">Kereskedési volumen szokatlanul magas (a szokásos %1$s×-ese)</string>
-    <string name="pulse_volume_low">Kereskedési volumen alacsony (a szokásos %1$s×-ese)</string>
-    <string name="pulse_volume_normal">Kereskedési volumen szokásos</string>
 
     <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>

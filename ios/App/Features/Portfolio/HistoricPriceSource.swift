@@ -23,9 +23,11 @@ struct HistoricFx: Sendable {
 /// Name) — nur Hosts, die die App ohnehin anfragt. Der Kurs trägt seine Quelle (`CloseResult.source`).
 /// Stablecoins nach `PortfolioStables`: USDT = 1 ohne Abfrage, andere wie jeder Coin.
 /// Dazu die Devisen-Tageskurse eines Zeitraums für den Wertverlauf (`usdToSeries`, Frankfurter,
-/// 6 h im Speicher).
+/// 6 h im Speicher). Kerzen der Binance-Gruppe und von Coinbase über `HistoricCloseFetch`: je Tag eine Abfrage
+/// (`HistoricDayFetch`) bzw. für viele Tage je Coin und Quelle in Stücken (`HistoricSpanFetch`, `dayClosesUsdt`,
+/// HistoricPriceSource+Span.swift) — gleiche Kette, gleiche Kerze.
 enum HistoricPriceSource {
-    private static let parallel = 4
+    static let parallel = 4
 
     /// Eigene Sitzung mit ~10 s Zeitgrenze je Anfrage.
     private static let session: URLSession = {
@@ -45,8 +47,10 @@ enum HistoricPriceSource {
             symbols.append(c)
         }
         var result = CutoffCloses()
-        // Eingetragene Börsen einmal für alle Coins (aus der App Group, ohne Netz)
+        // Eingetragene Börsen und Namen der Merkliste einmal für alle Coins (aus der App Group, ohne Netz)
         let own = ownRoutes(symbols)
+        let names = watchNames(symbols)
+        let fetch = HistoricDayFetch()
         // In Gruppen zu je `parallel` Abfragen
         var index = 0
         while index < symbols.count {
@@ -55,7 +59,7 @@ enum HistoricPriceSource {
             let found = await withTaskGroup(of: (String, CloseResult).self, returning: CutoffCloses.self) { group in
                 for coin in chunk {
                     group.addTask {
-                        let r = await closeUsdt(coin, day: day, current: current[coin], own: own[coin])
+                        let r = await closeUsdt(coin, day: day, current: current[coin], own: own[coin], fetch: fetch, names: names)
                         return (coin, r)
                     }
                 }
@@ -75,7 +79,7 @@ enum HistoricPriceSource {
 
     /// Ergebnis je Coin: bestätigter Kurs, sonst `unchecked` = Kurs nicht als derselbe Token bestätigt. `source` =
     /// Anbieter des Kurses (z. B. «Binance», «Kraken»; nil ohne Kurs bzw. USDT = 1).
-    struct CloseResult: Sendable {
+    struct CloseResult: Sendable, Equatable {
         var price: Double?
         var unchecked = false
         var source: String?
@@ -84,13 +88,17 @@ enum HistoricPriceSource {
     /// Schlusskurs eines Coins (UTC-Tageskerze). USDT = 1, andere Stablecoins werden wie jeder Coin
     /// abgefragt. `current` = aktueller Portfolio-Kurs (Bezug der Identitätsprüfung); ohne gültigen
     /// Bezug keine Abfrage, «ungeprüft».
-    static func dailyCloseUsdt(_ coin: String, day: CutoffDay, current: Double?) async -> CloseResult {
+    /// `fetch`: Abfrage je Tag (Tests: gespielter Markt).
+    static func dailyCloseUsdt(_ coin: String, day: CutoffDay, current: Double?,
+                               fetch: HistoricDayFetch = HistoricDayFetch()) async -> CloseResult {
         let b = PortfolioCalculator.normalizeCoin(coin)
-        return await closeUsdt(b, day: day, current: current, own: ownRoutes([b])[b])
+        return await closeUsdt(b, day: day, current: current, own: ownRoutes([b])[b], fetch: fetch, names: nil)
     }
 
-    /// Wie `dailyCloseUsdt`, mit schon gelesener eigener Börse `own` (nil = keine bzw. Binance).
-    private static func closeUsdt(_ coin: String, day: CutoffDay, current: Double?, own: CandlePair?) async -> CloseResult {
+    /// Wie `dailyCloseUsdt`, mit schon gelesener eigener Börse `own` (nil = keine bzw. Binance), Kerzen über `fetch` und
+    /// schon gelesenen Namen der Merkliste `names` (Coin → Name, fehlt = keiner; nil = hier lesen).
+    static func closeUsdt(_ coin: String, day: CutoffDay, current: Double?, own: CandlePair?,
+                          fetch: any HistoricCloseFetch, names: [String: String]?) async -> CloseResult {
         let b = PortfolioCalculator.normalizeCoin(coin)
         if !PortfolioStables.needsQuote(b) { return CloseResult(price: 1.0) }
         guard isAsset(b) else { return CloseResult(price: nil) }
@@ -99,30 +107,34 @@ enum HistoricPriceSource {
             return CloseResult(price: nil, unchecked: true)
         }
         let start = day.utcStartMillis
-        let names = TokenIdentityStore.shared
-        let ownName = names.watchName(b, watches: SharedStorage.loadSnapshot().watches)
+        let ownName = names.map { $0[b] } ?? watchNames([b])[b]
         let resolved = await HistoricCloseChain.resolve(HistoricCloseChain.order(own?.exchangeKey)) { source in
             if let own, source == own.exchangeKey {
-                return await ownOutcome(own, base: b, day: day, start: start, reference: reference, ownName: ownName)
+                return await ownOutcome(own, base: b, day: day, start: start, reference: reference, ownName: ownName,
+                                        fetch: fetch)
             }
             switch source {
-            case HistoricCloseChain.binance: return await binanceOutcome(b, start: start, reference: reference, ownName: ownName)
-            case HistoricCloseChain.coinbase: return await coinbaseOutcome(b, day: day, start: start, reference: reference)
-            default: return await chainOutcome(source, base: b, start: start, reference: reference, ownName: ownName)
+            case HistoricCloseChain.binance:
+                return await binanceOutcome(b, start: start, reference: reference, ownName: ownName, fetch: fetch)
+            case HistoricCloseChain.coinbase:
+                return await coinbaseOutcome(b, day: day, start: start, reference: reference, fetch: fetch)
+            default:
+                return await chainOutcome(source, base: b, start: start, reference: reference, ownName: ownName, fetch: fetch)
             }
         }
         return CloseResult(price: resolved.price, unchecked: resolved.unchecked, source: resolved.provider)
     }
 
     /// Coinbase (Fenster genau über den Tag, jedes Alter; USD, sonst USDC; ±25 %).
-    static func coinbaseOutcome(_ b: String, day: CutoffDay, start: Int64, reference: Double) async -> HistoricCloseChain.Outcome {
-        let r = await coinbaseClose(b, day: day, start: start, current: reference)
+    static func coinbaseOutcome(_ b: String, day: CutoffDay, start: Int64, reference: Double,
+                                fetch: any HistoricCloseFetch) async -> HistoricCloseChain.Outcome {
+        let r = await coinbaseClose(b, day: day, start: start, current: reference, fetch: fetch)
         return HistoricCloseChain.Outcome(price: r.price, rejected: r.unchecked, provider: DataFreshness.coinbase)
     }
 
     /// Binance-Gruppe: Spot (data-api, api; 1/3…3), Futures (±25 %), Binance.US (USDT, sonst USD; ±25 %).
-    private static func binanceOutcome(_ b: String, start: Int64, reference: Double,
-                                       ownName: String?) async -> HistoricCloseChain.Outcome {
+    private static func binanceOutcome(_ b: String, start: Int64, reference: Double, ownName: String?,
+                                       fetch: any HistoricCloseFetch) async -> HistoricCloseChain.Outcome {
         // Gab es einen Kurs, der die Prüfung nicht bestand?
         var rejected = false
 
@@ -137,7 +149,7 @@ enum HistoricPriceSource {
         if !binanceOk { rejected = true }
         for source in binance where binanceOk {
             let r = await binanceClose(host: source.host, endpoint: source.endpoint, symbol: b + "USDT",
-                                       start: start, primary: source.primary, current: reference)
+                                       start: start, primary: source.primary, current: reference, fetch: fetch)
             if let price = r.price {
                 return HistoricCloseChain.Outcome(price: price, provider: DataFreshness.candleProvider(host: source.host))
             }
@@ -145,7 +157,7 @@ enum HistoricPriceSource {
         }
         for symbol in [b + "USDT", b + "USD"] {
             let r = await binanceClose(host: "api.binance.us", endpoint: "https://api.binance.us/api/v3/klines",
-                                       symbol: symbol, start: start, primary: false, current: reference)
+                                       symbol: symbol, start: start, primary: false, current: reference, fetch: fetch)
             if let price = r.price { return HistoricCloseChain.Outcome(price: price, provider: DataFreshness.binanceUS) }
             rejected = rejected || r.unchecked
         }
@@ -153,39 +165,25 @@ enum HistoricPriceSource {
     }
 
     private static func binanceClose(host: String, endpoint: String, symbol: String, start: Int64,
-                                     primary: Bool, current: Double) async -> CloseResult {
+                                     primary: Bool, current: Double, fetch: any HistoricCloseFetch) async -> CloseResult {
         if BlockedSources.isBlocked(host) { return CloseResult(price: nil) }
-        guard let body = await get(host, "\(endpoint)?symbol=\(symbol)&interval=1d&startTime=\(start)&limit=1"),
-              let candles = try? CandleDataSource.parseBinance(body),
-              let close = closeOf(candles, start: start)
-        else { return CloseResult(price: nil) }
-        // Führt die Quelle den Coin heute als denselben Token? (jüngste Tageskerze)
-        var latest: Double?
-        if let recent = await get(host, "\(endpoint)?symbol=\(symbol)&interval=1d&limit=1") {
-            latest = (try? CandleDataSource.parseBinance(recent))?.last?.close
+        guard let close = await fetch.binanceDay(host: host, endpoint: endpoint, symbol: symbol, start: start) else {
+            return CloseResult(price: nil)
         }
+        // Führt die Quelle den Coin heute als denselben Token? (jüngste Tageskerze)
+        let latest = await fetch.binanceLatest(host: host, endpoint: endpoint, symbol: symbol)
         return PricePlausibility.acceptSourceClose(close, primary: primary, sourceLatest: latest, current: current)
             ? CloseResult(price: close) : CloseResult(price: nil, unchecked: true)
     }
 
-    private static func coinbaseClose(_ b: String, day: CutoffDay, start: Int64, current: Double) async -> CloseResult {
-        let host = "api.exchange.coinbase.com"
-        // Fenster genau über den einen Tag (ISO 8601, UTC)
-        let from = "\(day.iso)T00:00:00Z"
-        let to = "\(day.iso)T23:59:59Z"
+    private static func coinbaseClose(_ b: String, day: CutoffDay, start: Int64, current: Double,
+                                      fetch: any HistoricCloseFetch) async -> CloseResult {
         var rejected = false
         for quote in ["USD", "USDC"] {
-            if BlockedSources.isBlocked(host) { break }
-            let url = "https://\(host)/products/\(b)-\(quote)/candles?granularity=86400&start=\(from)&end=\(to)"
-            guard let body = await get(host, url),
-                  let candles = try? CandleDataSource.parseCoinbase(body),
-                  let close = closeOf(candles, start: start)
-            else { continue }
-            // Jüngste Tageskerzen desselben Produkts (ohne Zeitfenster = die neuesten)
-            var latest: Double?
-            if let recent = await get(host, "https://\(host)/products/\(b)-\(quote)/candles?granularity=86400") {
-                latest = (try? CandleDataSource.parseCoinbase(recent))?.max(by: { $0.openTime < $1.openTime })?.close
-            }
+            if BlockedSources.isBlocked(coinbaseHost) { break }
+            guard let close = await fetch.coinbaseDay(product: "\(b)-\(quote)", day: day, start: start) else { continue }
+            // Jüngste Tageskerzen desselben Produkts
+            let latest = await fetch.coinbaseLatest(product: "\(b)-\(quote)")
             if PricePlausibility.acceptSourceClose(close, primary: false, sourceLatest: latest, current: current) {
                 return CloseResult(price: close)
             }
@@ -194,7 +192,9 @@ enum HistoricPriceSource {
         return CloseResult(price: nil, unchecked: rejected)
     }
 
-    private static func closeOf(_ candles: [MarketCandle], start: Int64) -> Double? {
+    static let coinbaseHost = "api.exchange.coinbase.com"
+
+    static func closeOf(_ candles: [MarketCandle], start: Int64) -> Double? {
         guard let close = candles.first(where: { $0.openTime == start })?.close, close > 0, close.isFinite else { return nil }
         return close
     }
@@ -307,13 +307,23 @@ enum HistoricPriceSource {
     }
 
     /// GET; nil bei Fehler. 451/403 sperrt die Quelle vorübergehend (`BlockedSources`).
-    private static func get(_ host: String, _ url: String) async -> String? {
+    static func get(_ host: String, _ url: String) async -> String? {
         do {
             return try await ExchangeHTTP.call(url, session: session)
         } catch {
             BlockedSources.noteFailure(host, error)
             return nil
         }
+    }
+
+    /// Namen der Merkliste je Coin (`TokenIdentityStore.watchName`), der Stand der Merkliste einmal gelesen.
+    static func watchNames(_ coins: [String]) -> [String: String] {
+        let watches = SharedStorage.loadSnapshot().watches
+        var out: [String: String] = [:]
+        for coin in coins where out[coin] == nil {
+            if let name = TokenIdentityStore.shared.watchName(coin, watches: watches) { out[coin] = name }
+        }
+        return out
     }
 
     static func isAsset(_ s: String) -> Bool {

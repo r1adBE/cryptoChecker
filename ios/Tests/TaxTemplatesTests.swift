@@ -264,6 +264,8 @@ final class TaxTemplatesTests: XCTestCase {
                     XCTAssertEqual(r8(o.amount), r8(dec(e["amount"])), "\(name) outflow amount")
                     XCTAssertEqual(r8(o.valueUsdt), r8(dec(e["value"])), "\(name) outflow value")
                     XCTAssertEqual(r8(o.ptaReductionUsdt), r8(dec(e["reduction"])), "\(name) outflow reduction")
+                    // Kürzung aus geschätztem Wert (Tagesschluss), optional
+                    if let est = e["estimated"] as? Bool { XCTAssertEqual(o.estimated, est, "\(name) outflow estimated") }
                 }
             }
             // Gebühr in Krypto als eigene Veräusserung (UK Netzwerkgebühr, FR Gebühr-Abtretung): Vermerk «Gebühr» im Export
@@ -414,6 +416,10 @@ final class TaxTemplatesTests: XCTestCase {
             // Posten «unvollständig» (optional): z. B. FR Gewinn aus unvollständiger Erwerbspreis-Summe
             if let inc = c["incompleteLines"] as? [String] {
                 XCTAssertEqual(s.lines.filter(\.incomplete).map(\.line.rawValue), inc, "\(tpl) incomplete")
+            }
+            // Posten «Wert geschätzt» (optional): z. B. FR-Abgang mit Kürzung aus geschätztem Wert
+            if let est = c["estimatedLines"] as? [String] {
+                XCTAssertEqual(s.lines.filter(\.estimated).map(\.line.rawValue), est, "\(tpl) estimated")
             }
             XCTAssertTrue(s.fxAvailable)
             XCTAssertEqual(s.period, tpl.period(year))

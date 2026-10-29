@@ -48,9 +48,11 @@ extension AppData {
 
     /// Live-Kurse gesammelt speichern und auswerten — derselbe Weg wie eine Aktualisierung
     /// (`PriceRefresher` mit `liveQuotes`): Alarme ohne doppelte Meldungen, Kurs-Mitteilungen.
+    /// `pairs`: für welches Paar jede Watch-Id abonniert war; ein Kurs für ein anderes als das aktuelle Paar des Eintrags
+    /// (nach «Paar bearbeiten») wird verworfen (`LiveRules.samePair`) — wie Android `LivePriceApplier.applyLive`.
     /// Läuft gerade eine Aktualisierung oder hält ein anderer Schreiber das Gate: false, der Strom versucht es beim
     /// nächsten Mal (wie Android `tryWithLock`).
-    func applyLive(_ quotes: [Int64: LiveQuote], reloadWidgets: Bool) async -> Bool {
+    func applyLive(_ quotes: [Int64: LiveQuote], pairs: [Int64: LivePairKey], reloadWidgets: Bool) async -> Bool {
         // Läuft eine Aktualisierung (alle oder ein Paar) oder übernimmt gerade jemand Kurse: nicht anstellen — der
         // Puffer behält je Paar nur den neuesten Kurs, der Strom versucht es beim nächsten Mal (zusammengeführt)
         guard !refreshState.refreshing, refreshState.refreshingWatchIds.isEmpty, priceWriteGate.tryAcquire() else {
@@ -64,9 +66,8 @@ extension AppData {
         for w in snapshot.watches { byId[w.id] = w }
         var chosen: [Int64: LiveQuote] = [:]
         for (id, quote) in quotes {
-            guard let watch = byId[id] else { continue }
-            // Kurs von vor «Paar bearbeiten»: gehört zum alten Paar
-            if let changedAt = pairChangedAt[id], quote.time < changedAt { continue }
+            // Abo für ein anderes Paar (Eintrag inzwischen bearbeitet): alter Kurs, verwerfen
+            guard let watch = byId[id], LiveRules.samePair(subscribed: pairs[id], current: watch.livePair.key) else { continue }
             let change = LiveRules.chooseChange(
                 rollingBasis: rolling, stampCurrent: stampCurrent,
                 exchangeRolling: LiveExchange.from(exchangeKey: watch.exchangeKey)?.rollingChange == true,

@@ -2,7 +2,8 @@
 # store text limits (Play and App Store), https store URLs, screenshots, the same version and build
 # number on Android and iOS, and that ios/CryptoChecker.xcodeproj matches ios/tools/gen_xcodeproj.py.
 # Also the neutral User-Agent of the address queries (user_agent_check.py): same value on both platforms (else
-# error), no app name or version, and a warning once its Firefox version is estimated older than 6 months.
+# error), no app name or version, no Firefox version released only in the future (error), and a warning once its
+# Firefox version is estimated older than 6 months.
 # Results as annotations (release_readiness.py, annotate.py). The folder review_information is never read.
 name: Release readiness
 

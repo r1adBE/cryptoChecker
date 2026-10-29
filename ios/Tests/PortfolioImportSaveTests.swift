@@ -222,9 +222,14 @@ final class PortfolioImportSaveTests: XCTestCase {
         XCTAssertTrue(task.isCancelled)
         XCTAssertNil(run.phase)
         XCTAssertNil(run.progress)
+        // Späte Meldung des abgebrochenen Schritts, danach eine kleinere des nächsten: Die Meldungen laufen der Reihe
+        // nach über den MainActor; zählte die späte (10 von 10), würde die kleinere (1 von 10) verworfen.
         report(CsvImportProgress(step: .SAVE, done: 10, total: 10))
-        try await Task.sleep(nanoseconds: 50_000_000)
-        XCTAssertNil(run.progress, "späte Meldung nach dem Abbrechen zählt nicht")
+        let next = run.begin(.saving)
+        let marker = CsvImportProgress(step: .SAVE, done: 1, total: 10)
+        next(marker)
+        try await waitUntil { run.progress == marker }
+        XCTAssertEqual(run.progress, marker, "späte Meldung nach dem Abbrechen zählt nicht")
     }
 
     /// Meldung aus einer losgelösten Aufgabe (anderer Thread): kommt auf dem MainActor an, ohne Absturz.
