@@ -1,7 +1,7 @@
 {
  "consecutiveFailures": {
-  "BEA": 1,
-  "BLS": 1,
+  "BEA": 0,
+  "BLS": 0,
   "FOMC": 0
  }
 }
