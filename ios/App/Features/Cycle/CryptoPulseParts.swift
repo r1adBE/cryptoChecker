@@ -151,24 +151,35 @@ struct PulseBreadthPills: View {
     }
 }
 
-/// «24h  BTC ↘ −0.3%  ETH ↗ +1.2%  SOL ↗ +0.8%»: Zeitraum klein und grau vorne, dann die Coins;
-/// bei sehr grosser Schrift untereinander (Android: `FlowRow` bricht um).
+/// «24h  BTC ↘ −0.3%  ETH ↗ +1.2%  SOL ↗ +0.8%»: Zeitraum klein und grau vorne, dann die Coins.
+/// Zu schmal: erst enger, dann «24h» über den Coins in einer Zeile, erst zuletzt (sehr grosse Schrift)
+/// alles untereinander — Android: `FlowRow` bricht nur so weit um wie nötig.
 struct PulseAssetChips: View {
     let coins: [PulseCoinLine]
 
     var body: some View {
         ViewThatFits(in: .horizontal) {
-            HStack(alignment: .firstTextBaseline, spacing: 12) {
+            chipRow(withPeriod: true, spacing: 12)
+            chipRow(withPeriod: true, spacing: Spacing.sm)
+            VStack(alignment: .leading, spacing: Spacing.xs) {
                 CryptoPulseCard.periodLabel
-                ForEach(coins, id: \.name) { coin in
-                    PulseAssetChip(line: coin)
-                }
+                chipRow(withPeriod: false, spacing: Spacing.sm)
             }
             VStack(alignment: .leading, spacing: Spacing.xs) {
                 CryptoPulseCard.periodLabel
                 ForEach(coins, id: \.name) { coin in
                     PulseAssetChip(line: coin)
                 }
+            }
+        }
+    }
+
+    /// Eine Zeile: optional «24h» vorne, dann die Coins.
+    private func chipRow(withPeriod: Bool, spacing: CGFloat) -> some View {
+        HStack(alignment: .firstTextBaseline, spacing: spacing) {
+            if withPeriod { CryptoPulseCard.periodLabel }
+            ForEach(coins, id: \.name) { coin in
+                PulseAssetChip(line: coin)
             }
         }
     }

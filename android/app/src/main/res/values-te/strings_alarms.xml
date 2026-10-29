@@ -5,7 +5,7 @@
     <string name="alarms_add">కొత్త అలర్ట్</string>
     <string name="alarms_edit">అలర్ట్‌ను ఎడిట్ చేయి</string>
     <string name="alarms_empty">ఈ జతకు ఇంకా అలర్ట్‌లు లేవు.</string>
-    <string name="alarms_empty_example">ఉదాహరణకు: BTC %1$s పైకి పెరిగినప్పుడు నాకు చెప్పు.</string>
+    <string name="alarms_empty_example">ఉదాహరణకు: BTC %1$s పైకి పెరిగినప్పుడు నాకు చెప్పండి.</string>
     <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
     <string name="alarms_notifications_off">నోటిఫికేషన్‌లు ఆఫ్‌లో ఉన్నాయి – అలర్ట్‌లు మీకు చేరలేవు.</string>
     <string name="alarms_notifications_turn_on">ఆన్ చేయి</string>
@@ -81,29 +81,29 @@
     <string name="alarm_condition_volume_spike">వాల్యూమ్ ఒక్కసారిగా పెరగడం</string>
 
     <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
-    <string name="alarm_sentence_above">%1$s %2$s పైకి పెరిగినప్పుడు నాకు చెప్పు.</string>
-    <string name="alarm_sentence_below">%1$s %2$s కిందికి పడిపోయినప్పుడు నాకు చెప్పు.</string>
-    <string name="alarm_sentence_down_percent">%1$s సేవ్ చేసినప్పటి ధర (లేదా చివరి అలర్ట్ నాటి ధర) కంటే %2$s కిందికి పడిపోయినప్పుడు నాకు చెప్పు.</string>
-    <string name="alarm_sentence_funding_above">%1$s ఫండింగ్ %2$s పైకి పెరిగినప్పుడు నాకు చెప్పు.</string>
-    <string name="alarm_sentence_funding_below">%1$s ఫండింగ్ %2$s కిందికి పడిపోయినప్పుడు నాకు చెప్పు.</string>
+    <string name="alarm_sentence_above">%1$s %2$s పైకి పెరిగినప్పుడు నాకు చెప్పండి.</string>
+    <string name="alarm_sentence_below">%1$s %2$s కిందికి పడిపోయినప్పుడు నాకు చెప్పండి.</string>
+    <string name="alarm_sentence_down_percent">%1$s సేవ్ చేసినప్పటి ధర (లేదా చివరి అలర్ట్ నాటి ధర) కంటే %2$s కిందికి పడిపోయినప్పుడు నాకు చెప్పండి.</string>
+    <string name="alarm_sentence_funding_above">%1$s ఫండింగ్ %2$s పైకి పెరిగినప్పుడు నాకు చెప్పండి.</string>
+    <string name="alarm_sentence_funding_below">%1$s ఫండింగ్ %2$s కిందికి పడిపోయినప్పుడు నాకు చెప్పండి.</string>
     <string name="alarm_sentence_incomplete">అలర్ట్‌ను వాక్యంగా చూడటానికి విలువను నమోదు చేయండి.</string>
     <plurals name="alarm_sentence_move_percent">
-        <item quantity="one">%1$s %3$d గంటలోపు %2$s కదిలినప్పుడు నాకు చెప్పు.</item>
-        <item quantity="other">%1$s %3$d గంటల్లోపు %2$s కదిలినప్పుడు నాకు చెప్పు.</item>
+        <item quantity="one">%1$s %3$d గంటలోపు %2$s కదిలినప్పుడు నాకు చెప్పండి.</item>
+        <item quantity="other">%1$s %3$d గంటల్లోపు %2$s కదిలినప్పుడు నాకు చెప్పండి.</item>
     </plurals>
-    <string name="alarm_sentence_near_high">%1$s దాని %3$s కంటే గరిష్ఠంగా %2$s కింద ఉన్నప్పుడు నాకు చెప్పు.</string>
-    <string name="alarm_sentence_near_low">%1$s దాని %3$s కంటే గరిష్ఠంగా %2$s పైన ఉన్నప్పుడు నాకు చెప్పు.</string>
-    <string name="alarm_sentence_new_extreme">%1$s కొత్త %2$sను నమోదు చేసినప్పుడు నాకు చెప్పు.</string>
+    <string name="alarm_sentence_near_high">%1$s దాని %3$s కంటే గరిష్ఠంగా %2$s కింద ఉన్నప్పుడు నాకు చెప్పండి.</string>
+    <string name="alarm_sentence_near_low">%1$s దాని %3$s కంటే గరిష్ఠంగా %2$s పైన ఉన్నప్పుడు నాకు చెప్పండి.</string>
+    <string name="alarm_sentence_new_extreme">%1$s కొత్త %2$sను నమోదు చేసినప్పుడు నాకు చెప్పండి.</string>
     <plurals name="alarm_sentence_oi_down">
-        <item quantity="one">%1$s ఓపెన్ ఇంట్రెస్ట్ %3$d గంటలోపు %2$s తగ్గినప్పుడు నాకు చెప్పు.</item>
-        <item quantity="other">%1$s ఓపెన్ ఇంట్రెస్ట్ %3$d గంటల్లోపు %2$s తగ్గినప్పుడు నాకు చెప్పు.</item>
+        <item quantity="one">%1$s ఓపెన్ ఇంట్రెస్ట్ %3$d గంటలోపు %2$s తగ్గినప్పుడు నాకు చెప్పండి.</item>
+        <item quantity="other">%1$s ఓపెన్ ఇంట్రెస్ట్ %3$d గంటల్లోపు %2$s తగ్గినప్పుడు నాకు చెప్పండి.</item>
     </plurals>
     <plurals name="alarm_sentence_oi_up">
-        <item quantity="one">%1$s ఓపెన్ ఇంట్రెస్ట్ %3$d గంటలోపు %2$s పెరిగినప్పుడు నాకు చెప్పు.</item>
-        <item quantity="other">%1$s ఓపెన్ ఇంట్రెస్ట్ %3$d గంటల్లోపు %2$s పెరిగినప్పుడు నాకు చెప్పు.</item>
+        <item quantity="one">%1$s ఓపెన్ ఇంట్రెస్ట్ %3$d గంటలోపు %2$s పెరిగినప్పుడు నాకు చెప్పండి.</item>
+        <item quantity="other">%1$s ఓపెన్ ఇంట్రెస్ట్ %3$d గంటల్లోపు %2$s పెరిగినప్పుడు నాకు చెప్పండి.</item>
     </plurals>
-    <string name="alarm_sentence_up_percent">%1$s సేవ్ చేసినప్పటి ధర (లేదా చివరి అలర్ట్ నాటి ధర) కంటే %2$s పైకి పెరిగినప్పుడు నాకు చెప్పు.</string>
-    <string name="alarm_sentence_volume">%1$s దాని సాధారణ వాల్యూమ్‌కు %2$s× ట్రేడ్ అయినప్పుడు నాకు చెప్పు.</string>
+    <string name="alarm_sentence_up_percent">%1$s సేవ్ చేసినప్పటి ధర (లేదా చివరి అలర్ట్ నాటి ధర) కంటే %2$s పైకి పెరిగినప్పుడు నాకు చెప్పండి.</string>
+    <string name="alarm_sentence_volume">%1$s దాని సాధారణ వాల్యూమ్‌కు %2$s× ట్రేడ్ అయినప్పుడు నాకు చెప్పండి.</string>
 
     <!-- Alarm «Nahe am Hoch / Tief» -->
     <string name="alarm_near_extreme_high_30">30 రోజుల గరిష్ఠం</string>

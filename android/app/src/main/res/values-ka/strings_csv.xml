@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">ტრანზაქციები ინახება…</string>
     <string name="portfolio_csv_import_missing_fx">სტრიქონებისთვის %1$s დღიური კურსი არ არის – შემოტანილია ფასის/საკომისიოს გარეშე.</string>
     <string name="portfolio_csv_import_missing_price">ფაილში სტრიქონებისთვის %1$s ფასი არ არის – შემოტანილია ფასის გარეშე.</string>
+    <string name="portfolio_csv_import_fee_in_price">ორი საკომისიო სტრიქონებში %1$s: ფიატის საკომისიო შედის ფასში, მონეტის საკომისიო ამცირებს მიღებულ ან ზრდის გაცემულ რაოდენობას.</string>
+    <string name="portfolio_csv_import_pending_differs">სტრიქონები %1$s: ერთი და იმავე შეტანის ან გატანის მოლოდინში მყოფ და გატარებულ ჩანაწერებს განსხვავებული რაოდენობა აქვთ – ორივე შემოტანილია, შეამოწმე აქტივები.</string>
     <string name="portfolio_csv_import_more">+ კიდევ %1$d</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d ახალი ტრანზაქცია</item>

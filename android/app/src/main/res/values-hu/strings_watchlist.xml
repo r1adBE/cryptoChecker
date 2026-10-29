@@ -7,7 +7,6 @@
         <item quantity="one">%2$d-ből %1$d ár nélkül</item>
         <item quantity="other">%2$d-ből %1$d ár nélkül</item>
     </plurals>
-    <string name="watchlist_last_run">Utolsó futás %1$s</string>
     <string name="watchlist_live_a11y">Élő árfolyamok bekapcsolva</string>
     <string name="watchlist_offline_since">Nincs kapcsolat · állapot: %1$s</string>
     <string name="watchlist_pull_to_refresh">Húzd le a frissítéshez</string>

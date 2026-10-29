@@ -22,7 +22,7 @@ class CandleDataSourceChainTest {
     val temp = TemporaryFolder()
 
     @Before
-    fun chainOpen() = RouteHttp.assumeChainOpen()
+    fun chainOpen() = RouteHttp.releaseChain()
 
     private fun source(http: RouteHttp) = CandleDataSource(http.client, testTokenIdentityStore(temp.newFolder()))
 

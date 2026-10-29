@@ -280,7 +280,7 @@
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">डिव्हाइस बदलताना</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_device_change">की जुन्या डिव्हाइसवरच राहते – आधी बॅकअप फाइल तयार करा.</string>
+    <string name="about_data_device_change">एन्क्रिप्शन की जुन्या डिव्हाइसवरच राहते – आधी बॅकअप फाइल तयार करा.</string>
 
     <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
     <string name="diagnostics_share">निदान शेअर करा</string>

@@ -7,7 +7,7 @@ O QUE A TORNA DIFERENTE
 • Sem conta, sem anúncios, sem rastreio. O programador não recebe nenhum dado teu.
 
 TRANSPARÊNCIA NOS DADOS
-• «Poupança» é a predefinição: os preços são atualizados ao abrir a app e em intervalos em segundo plano. «Em direto enquanto aberta» acrescenta preços em direto da Binance, Bybit, OKX, Coinbase e Kraken enquanto a lista está aberta.
+• «Económico» é a predefinição: os preços são atualizados ao abrir a app e em intervalos em segundo plano. «Em direto enquanto aberta» acrescenta preços em direto da Binance, Bybit, OKX, Coinbase e Kraken enquanto a lista está aberta.
 • A variação em % e os gráficos vêm primeiro da exchange do par; se esta não tiver velas, a app usa a Binance ou a Coinbase e indica-o.
 • Fear & Greed, dominância e valores on-chain da alternative.me, CoinGecko e Coin Metrics.
 • Os montantes só saem do dispositivo por exportação (CSV, cópia de segurança) ou cifrados na cópia iCloud/do dispositivo. Para os preços, só os símbolos do par vão para a sua exchange; além disso, câmbios (Frankfurter), dados de mercado e logótipos (CoinGecko, Binance) e espelhos de dados (GitHub). Se observares endereços ou uma xpub, nós públicos de blockchain veem os endereços (na xpub, os derivados) e o teu IP.

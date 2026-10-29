@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">Транзакциялар сақталуда…</string>
     <string name="portfolio_csv_import_missing_fx">%1$s жолдары үшін күндік бағам жоқ – бағасыз/комиссиясыз импортталды.</string>
     <string name="portfolio_csv_import_missing_price">Файлда %1$s жолдары үшін баға жоқ – бағасыз импортталды.</string>
+    <string name="portfolio_csv_import_fee_in_price">%1$s жолдарында екі комиссия: фиат комиссиясы бағаға кірді, монетадағы комиссия алынған мөлшерді азайтады немесе берілген мөлшерді көбейтеді.</string>
+    <string name="portfolio_csv_import_pending_differs">%1$s жолдары: бір салымның немесе шығарудың күтудегі және тіркелген жазбаларының мөлшері әртүрлі – екеуі де импортталды, активтерді тексеріңіз.</string>
     <string name="portfolio_csv_import_more">+ тағы %1$d</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d жаңа транзакция</item>

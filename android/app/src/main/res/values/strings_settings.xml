@@ -294,7 +294,7 @@
     <!-- Preis-Overlay (nur Android); settings_price_overlay_needs: %1$s = Titel «dauerhafte Kurs-Mitteilung» -->
     <string name="settings_price_overlay">Price overlay</string>
     <string name="settings_price_overlay_hint">Shows the pairs of the permanent price notification as a small floating pill over other apps. Tap to open the app, drag to × at the bottom to close.</string>
-    <string name="settings_price_overlay_needs">Only works together with «%1$s».</string>
+    <string name="settings_price_overlay_needs">Only works together with “%1$s”.</string>
     <string name="settings_price_overlay_grant">Allow display over other apps</string>
     <string name="price_overlay_close">Close overlay</string>
     <string name="price_overlay_close_symbol" translatable="false">×</string>

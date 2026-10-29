@@ -47,6 +47,14 @@ enum DenseRowText {
         stacksTrailing(scale) || (scale < wrapFrom && rowWidth >= narrowRow)
     }
 
+    /// Zeile «Börse ◇ 🔔 🔔 1» der Merkliste: Symbole in eine eigene Zeile unter die Börse? Ja, wenn Börsentext
+    /// (`lead`, Eigenbreite) und Symbole (`icons`) mit `gap` dazwischen nicht in `available` passen (nil = ohne
+    /// Grenze, nie). So bleiben Mini-Chart und Börsenname ganz (kein «Bi…»). Wie Android, `row_meta_line.json`.
+    static func metaWraps(available: Double?, lead: Double, icons: Double, gap: Double) -> Bool {
+        guard let available else { return false }
+        return lead + gap + icons > available
+    }
+
     /// Schriftfaktor einer Textgrösse: Punktgrösse von «body» geteilt durch 17 pt (Standard «large»).
     static func scale(_ size: DynamicTypeSize) -> Double {
         let body: Double

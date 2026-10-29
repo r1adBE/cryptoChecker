@@ -27,6 +27,8 @@
     <string name="portfolio_csv_import_saving">Đang lưu giao dịch…</string>
     <string name="portfolio_csv_import_missing_fx">Không có tỷ giá ngày cho dòng %1$s – đã nhập không kèm giá/phí.</string>
     <string name="portfolio_csv_import_missing_price">Tệp không có giá cho dòng %1$s – đã nhập không kèm giá.</string>
+    <string name="portfolio_csv_import_fee_in_price">Hai khoản phí ở dòng %1$s: phí bằng tiền pháp định đã tính vào giá, phí bằng coin làm giảm số lượng nhận được hoặc tăng số lượng đã đưa.</string>
+    <string name="portfolio_csv_import_pending_differs">Dòng %1$s: bút toán đang chờ và bút toán đã ghi của cùng một khoản nạp hoặc rút có số lượng khác nhau – đã nhập cả hai, kiểm tra số dư.</string>
     <string name="portfolio_csv_import_more">+ %1$d mục khác</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="other">%d giao dịch mới</item>

@@ -16,7 +16,7 @@ extension AppData {
     /// Mitteilungen, Live-Aktivitäten und geplante Hintergrund-Aufgaben. Android löscht mit
     /// `clearApplicationUserData()` und beendet die App; iOS leert die Speicher und setzt den
     /// Zustand im Speicher auf die Werte einer frischen Installation (kein Beenden der App).
-    func resetApp() {
+    func resetApp() async {
         // Laufendes anhalten
         Task { await LiveActivityController.endAll() }
         BGTaskScheduler.shared.cancelAllTaskRequests()
@@ -27,12 +27,14 @@ extension AppData {
         // Live-Strom anhalten (leere Paarliste: startet auch mit neuen Einstellungen nicht wieder) und laufende
         // `applyLive` verwerfen; dann alle noch eingereihten Speichervorgänge abwarten — sonst könnte ein
         // gepufferter Stand nach dem Löschen `watchlist.json` bzw. `portfolio_alarms.json` neu anlegen.
-        // Hier auf dem MainActor kann zwischen dem Abwarten und dem Löschen nichts Neues eingereiht werden.
+        // Ohne den Haupt-Thread zu blockieren (ein Schreibvorgang kann auf das Widget warten): `snapshotWritesDrained`
+        // wartet auch auf das, was während des Wartens dazukam; danach geht es ohne `await` weiter, auf dem MainActor
+        // kann zwischen dem Abwarten und dem Löschen nichts Neues eingereiht werden.
         resetGeneration &+= 1
         clearLive()
         Task { await LivePriceStream.shared.setPairs([]) }
         discardPendingPriceSave()
-        SharedStorage.flushSnapshotWrites()
+        await SharedStorage.snapshotWritesDrained()
 
         Self.clearStoredFiles()
         Self.clearTemporaryFiles()

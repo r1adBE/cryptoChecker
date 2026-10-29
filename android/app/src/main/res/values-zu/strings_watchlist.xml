@@ -7,7 +7,6 @@
         <item quantity="one">%1$d kwangu-%2$d ngaphandle kwentengo</item>
         <item quantity="other">%1$d kwangu-%2$d ngaphandle kwentengo</item>
     </plurals>
-    <string name="watchlist_last_run">Ukusebenza kokugcina %1$s</string>
     <string name="watchlist_live_a11y">Izintengo ezibukhoma zivuliwe</string>
     <string name="watchlist_offline_since">Akukho ukuxhumana · kusukela ku-%1$s</string>
     <string name="watchlist_pull_to_refresh">Donsela phansi ukuze uvuselele</string>

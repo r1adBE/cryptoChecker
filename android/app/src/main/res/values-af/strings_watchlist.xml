@@ -7,7 +7,6 @@
         <item quantity="one">%1$d van %2$d sonder prys</item>
         <item quantity="other">%1$d van %2$d sonder prys</item>
     </plurals>
-    <string name="watchlist_last_run">Laaste lopie %1$s</string>
     <string name="watchlist_live_a11y">Regstreekse pryse aan</string>
     <string name="watchlist_offline_since">Geen verbinding nie · soos op %1$s</string>
     <string name="watchlist_pull_to_refresh">Trek af om te herlaai</string>

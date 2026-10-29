@@ -31,6 +31,8 @@
     <string name="portfolio_csv_import_saving">S\'estan desant les transaccions…</string>
     <string name="portfolio_csv_import_missing_fx">No hi ha tipus diari per a les línies %1$s – importades sense preu/comissió.</string>
     <string name="portfolio_csv_import_missing_price">No hi ha preu al fitxer per a les línies %1$s – importades sense preu.</string>
+    <string name="portfolio_csv_import_fee_in_price">Dues comissions a les línies %1$s: la comissió en fiat és inclosa al preu, la comissió en la moneda redueix la quantitat rebuda o augmenta la lliurada.</string>
+    <string name="portfolio_csv_import_pending_differs">Línies %1$s: l’entrada pendent i la registrada del mateix dipòsit o retirada tenen quantitats diferents – totes dues importades, revisa les tinences.</string>
     <string name="portfolio_csv_import_more">+ %1$d més</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d transacció nova</item>

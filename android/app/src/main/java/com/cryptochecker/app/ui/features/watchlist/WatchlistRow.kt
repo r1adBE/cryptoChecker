@@ -370,7 +370,8 @@ internal fun WatchRow(
                         modifier = Modifier.weight(1f),
                     )
 
-                    // Mini-Chart zwischen Paar und Kurs; feste Grösse, der Kurs wird nie schmaler
+                    // Mini-Chart zwischen Paar und Kurs; feste Grösse, immer sichtbar, wenn eingeschaltet — wird es
+                    // eng, bricht die Börsenzeile um ([RowMetaLine]), wie iOS. Der Kurs wird nie schmaler
                     // (deaktiviert: keines — es wird nichts geladen)
                     if (sparkline != null && hasSparkline && !off) {
                         Sparkline(

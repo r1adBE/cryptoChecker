@@ -127,6 +127,15 @@ struct PortfolioCsvImportSheet: View {
                     if !preview.missingPrice.isEmpty {
                         hint(L("portfolio_csv_import_missing_price", preview.missingPrice.map(String.init).joined(separator: ", ")))
                     }
+                    // Fiat-Gebühr im Preis, Gebühr im Coin am Geschäft (statt eigener Gebühr-Zeile) — wie Android
+                    if !preview.feeInPrice.isEmpty {
+                        hint(L("portfolio_csv_import_fee_in_price", preview.feeInPrice.map(String.init).joined(separator: ", ")))
+                    }
+                    // Kraken: ausstehende und gebuchte Zeile mit anderer Menge — beide übernommen, Bestand prüfen
+                    if !preview.pendingDiffers.isEmpty {
+                        hint(L("portfolio_csv_import_pending_differs",
+                               preview.pendingDiffers.map(String.init).joined(separator: ", ")))
+                    }
                     // Kauf/Verkauf gegen Stablecoin als Tausch gebucht: der Stablecoin erscheint im Bestand — wie Android
                     if preview.stableSwaps {
                         hint(L("portfolio_csv_import_stable_swaps"))

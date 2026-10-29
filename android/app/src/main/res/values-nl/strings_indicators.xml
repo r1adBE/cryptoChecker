@@ -61,6 +61,6 @@
 
     <!-- Indikatoren: Einordnung in die Vergangenheit -->
     <string name="ind_context_flat30">Gelijke koers 30 dagen lang: %1$s</string>
-    <string name="ind_context_note">Waarden uit het verleden en berekeningen “gelijke koers” zijn rekenwerk, geen voorspelling.</string>
+    <string name="ind_context_note">Waarden uit het verleden en berekeningen ‘gelijke koers’ zijn rekenwerk, geen voorspelling.</string>
     <string name="ind_context_percentile">Sinds %1$s op %2$s van de dagen lager</string>
 </resources>

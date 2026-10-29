@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">লেনদেন সংরক্ষণ হচ্ছে…</string>
     <string name="portfolio_csv_import_missing_fx">%1$s লাইনের জন্য দৈনিক হার নেই – দাম/ফি ছাড়া ইমপোর্ট হয়েছে।</string>
     <string name="portfolio_csv_import_missing_price">ফাইলে %1$s লাইনের জন্য দাম নেই – দাম ছাড়া ইমপোর্ট হয়েছে।</string>
+    <string name="portfolio_csv_import_fee_in_price">%1$s লাইনে দুটি ফি: ফিয়াট ফি দামের মধ্যে ধরা আছে, কয়েনের ফি পাওয়া পরিমাণ কমায় বা দেওয়া পরিমাণ বাড়ায়।</string>
+    <string name="portfolio_csv_import_pending_differs">%1$s লাইন: একই জমা বা উত্তোলনের অপেক্ষমাণ ও বুক করা এন্ট্রির পরিমাণ আলাদা – দুটিই ইমপোর্ট হয়েছে, হোল্ডিং যাচাই করুন।</string>
     <string name="portfolio_csv_import_more">+ আরও %1$dটি</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%dটি নতুন লেনদেন</item>

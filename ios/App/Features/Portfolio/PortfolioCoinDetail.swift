@@ -108,10 +108,8 @@ struct PortfolioCoinDetail: View {
         .background(AppColors.background.ignoresSafeArea())
         .refreshable { await model.refresh(force: true) }
         .animation(.spring(duration: 0.35), value: own.map(\.id))
-        // «+»-Knopf über der Tableiste; der Einschub gibt der Liste unten Platz (wie die Übersicht)
-        .safeAreaInset(edge: .bottom, alignment: .trailing, spacing: 0) {
-            PortfolioAddButton { sheet = PortfolioTxDraft(coin: coin) }
-        }
+        // «+»-Knopf über der Tableiste (RootView, wie die Übersicht)
+        .portfolioAddButton { sheet = PortfolioTxDraft(coin: coin) }
         .navigationTitle(coin)
         .navigationBarTitleDisplayMode(.inline)
         .task { await model.refresh(force: false) }

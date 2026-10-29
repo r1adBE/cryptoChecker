@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">ਲੈਣ-ਦੇਣ ਸੰਭਾਲੇ ਜਾ ਰਹੇ ਹਨ…</string>
     <string name="portfolio_csv_import_missing_fx">ਲਾਈਨਾਂ %1$s ਲਈ ਰੋਜ਼ਾਨਾ ਦਰ ਨਹੀਂ – ਕੀਮਤ/ਫੀਸ ਤੋਂ ਬਿਨਾਂ ਇੰਪੋਰਟ ਹੋਇਆ।</string>
     <string name="portfolio_csv_import_missing_price">ਫਾਈਲ ਵਿੱਚ ਲਾਈਨਾਂ %1$s ਦੀ ਕੀਮਤ ਨਹੀਂ – ਕੀਮਤ ਤੋਂ ਬਿਨਾਂ ਇੰਪੋਰਟ ਹੋਇਆ।</string>
+    <string name="portfolio_csv_import_fee_in_price">ਲਾਈਨਾਂ %1$s ਵਿੱਚ ਦੋ ਫ਼ੀਸਾਂ: ਫ਼ੀਏਟ ਫ਼ੀਸ ਕੀਮਤ ਵਿੱਚ ਸ਼ਾਮਲ ਹੈ, ਕੌਇਨ ਵਾਲੀ ਫ਼ੀਸ ਮਿਲੀ ਮਾਤਰਾ ਘਟਾਉਂਦੀ ਜਾਂ ਦਿੱਤੀ ਮਾਤਰਾ ਵਧਾਉਂਦੀ ਹੈ।</string>
+    <string name="portfolio_csv_import_pending_differs">ਲਾਈਨਾਂ %1$s: ਇੱਕੋ ਜਮ੍ਹਾਂ ਜਾਂ ਕਢਵਾਈ ਦੀ ਬਕਾਇਆ ਅਤੇ ਦਰਜ ਐਂਟਰੀ ਦੀ ਮਾਤਰਾ ਵੱਖਰੀ ਹੈ – ਦੋਵੇਂ ਇੰਪੋਰਟ ਹੋਈਆਂ, ਹੋਲਡਿੰਗਾਂ ਜਾਂਚੋ।</string>
     <string name="portfolio_csv_import_more">+ %1$d ਹੋਰ</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d ਨਵਾਂ ਲੈਣ-ਦੇਣ</item>

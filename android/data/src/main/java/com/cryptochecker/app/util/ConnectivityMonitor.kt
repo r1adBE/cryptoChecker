@@ -16,6 +16,11 @@ import javax.inject.Singleton
  * Hat das Gerät gerade Internet (#22/#23)? Ohne Netz wird nicht aktualisiert (keine
  * Fehlerzustände, nur «Offline · Stand 19:41»); kommt es zurück, folgt eine Aktualisierung
  * (`ManualRefresh`). Beobachtet das Standardnetz, ab dem ersten Zugriff für die Prozessdauer.
+ *
+ * «Online» heisst: das Standardnetz hat `INTERNET` **und** `VALIDATED` – Android hat den Internet-Zugang
+ * bestätigt. Ein Captive-Portal-WLAN (Hotel, Bahn) vor dem Login gilt damit als offline, statt dass ein
+ * Durchlauf startet und jedes Paar mit «nicht erreichbar» endet. iOS kennt dafür kein Gegenstück
+ * (`NWPath` hat keine Bestätigung, siehe `NetworkStatus.swift`).
  */
 @Singleton
 class ConnectivityMonitor @Inject constructor(
@@ -32,7 +37,7 @@ class ConnectivityMonitor @Inject constructor(
         runCatching {
             manager?.registerDefaultNetworkCallback(object : ConnectivityManager.NetworkCallback() {
                 override fun onCapabilitiesChanged(network: Network, capabilities: NetworkCapabilities) {
-                    _online.value = capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                    _online.value = usable(capabilities::hasCapability)
                 }
 
                 override fun onLost(network: Network) {
@@ -55,7 +60,15 @@ class ConnectivityMonitor @Inject constructor(
         val m = manager ?: return true
         return runCatching {
             val network = m.activeNetwork ?: return false
-            m.getNetworkCapabilities(network)?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+            val capabilities = m.getNetworkCapabilities(network) ?: return false
+            usable(capabilities::hasCapability)
         }.getOrDefault(true)
+    }
+
+    companion object {
+        /** Internet-Fähigkeit und vom System bestätigter Zugang (kein Captive Portal vor dem Login). */
+        fun usable(hasCapability: (Int) -> Boolean): Boolean =
+            hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) &&
+                hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
     }
 }

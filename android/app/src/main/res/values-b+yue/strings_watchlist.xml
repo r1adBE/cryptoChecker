@@ -6,7 +6,6 @@
     <plurals name="watchlist_failed_count">
         <item quantity="other">%2$d 個之中 %1$d 個冇價格</item>
     </plurals>
-    <string name="watchlist_last_run">上次執行 %1$s</string>
     <string name="watchlist_live_a11y">即時價格已開啟</string>
     <string name="watchlist_offline_since">冇網絡連線 · 截至 %1$s</string>
     <string name="watchlist_pull_to_refresh">向下拉重新整理</string>

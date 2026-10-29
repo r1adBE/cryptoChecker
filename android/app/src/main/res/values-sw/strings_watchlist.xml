@@ -7,7 +7,6 @@
         <item quantity="one">%1$d kati ya %2$d bila bei</item>
         <item quantity="other">%1$d kati ya %2$d bila bei</item>
     </plurals>
-    <string name="watchlist_last_run">Mzunguko wa mwisho %1$s</string>
     <string name="watchlist_live_a11y">Bei za moja kwa moja zimewashwa</string>
     <string name="watchlist_offline_since">Hakuna muunganisho · hadi %1$s</string>
     <string name="watchlist_pull_to_refresh">Vuta chini ili kuonyesha upya</string>

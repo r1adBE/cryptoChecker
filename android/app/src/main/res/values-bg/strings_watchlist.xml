@@ -7,7 +7,6 @@
         <item quantity="one">%1$d от %2$d без курс</item>
         <item quantity="other">%1$d от %2$d без курс</item>
     </plurals>
-    <string name="watchlist_last_run">Последно изпълнение %1$s</string>
     <string name="watchlist_live_a11y">Курсовете на живо са включени</string>
     <string name="watchlist_offline_since">Няма връзка · към %1$s</string>
     <string name="watchlist_pull_to_refresh">Дръпни надолу за обновяване</string>

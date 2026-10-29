@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">Po ruhen transaksionet…</string>
     <string name="portfolio_csv_import_missing_fx">Asnjë kurs ditor për rreshtin %1$s – u importua pa çmim e tarifë.</string>
     <string name="portfolio_csv_import_missing_price">Asnjë çmim në skedar për rreshtin %1$s – u importua pa çmim.</string>
+    <string name="portfolio_csv_import_fee_in_price">Dy tarifa në rreshtin %1$s: tarifa në fiat përfshihet në çmim, tarifa në monedhë ul sasinë e marrë ose rrit sasinë e dhënë.</string>
+    <string name="portfolio_csv_import_pending_differs">Rreshti %1$s: regjistrimi në pritje dhe ai i kontabilizuar i së njëjtës depozitë ose tërheqjeje kanë sasi të ndryshme – të dyja u importuan, kontrollo gjendjen.</string>
     <string name="portfolio_csv_import_more">+ %1$d të tjera</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d transaksion i ri</item>

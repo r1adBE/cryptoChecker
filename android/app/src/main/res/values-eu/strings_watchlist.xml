@@ -7,7 +7,6 @@
         <item quantity="one">%2$d-(e)tik %1$d preziorik gabe</item>
         <item quantity="other">%2$d-(e)tik %1$d preziorik gabe</item>
     </plurals>
-    <string name="watchlist_last_run">Azken exekuzioa: %1$s</string>
     <string name="watchlist_live_a11y">Zuzeneko prezioak aktibatuta</string>
     <string name="watchlist_offline_since">Konexiorik ez · eguneratua: %1$s</string>
     <string name="watchlist_pull_to_refresh">Pasatu hatza behera eguneratzeko</string>

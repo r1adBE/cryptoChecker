@@ -7,7 +7,6 @@
         <item quantity="one">%1$d van %2$d zonder koers</item>
         <item quantity="other">%1$d van %2$d zonder koers</item>
     </plurals>
-    <string name="watchlist_last_run">Laatst uitgevoerd %1$s</string>
     <string name="watchlist_live_a11y">Livekoersen actief</string>
     <string name="watchlist_offline_since">Geen verbinding · stand %1$s</string>
     <string name="watchlist_pull_to_refresh">Trek omlaag om te vernieuwen</string>

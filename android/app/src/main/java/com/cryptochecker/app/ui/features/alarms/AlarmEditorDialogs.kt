@@ -34,7 +34,11 @@ import kotlinx.coroutines.delay
  * «Aktualisierung ändern» direkt zur Wahl «Wie aktuell?» und der Weg zu «Damit Alarme ankommen». Wie iOS `ClosedAppHintRow`.
  */
 @Composable
-internal fun ClosedAppHint(modifier: Modifier = Modifier) {
+internal fun ClosedAppHint(
+    modifier: Modifier = Modifier,
+    /** Zeile «Zuletzt geprüft»; aus, wenn der Editor oben schon die ausführliche zeigt (nur einmal je Seite). */
+    showLastChecked: Boolean = true,
+) {
     val openUpdates = LocalOpenUpdateSettings.current
     // Eingeschränkter Akku → Hinweis mit Knopf; nach der Rückkehr aus den Android-Einstellungen neu prüfen
     val context = LocalContext.current
@@ -49,7 +53,7 @@ internal fun ClosedAppHint(modifier: Modifier = Modifier) {
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
-        AlarmLastCheckedLine(Modifier.padding(top = 2.dp))
+        if (showLastChecked) AlarmLastCheckedLine(Modifier.padding(top = 2.dp))
         // Ein Alarm ist da, also wird im Hintergrund geprüft (hasWork)
         com.cryptochecker.app.ui.features.settings.BatteryDelayHint(batteryRestricted = batteryRestricted, hasWork = true)
         if (openUpdates != null) {

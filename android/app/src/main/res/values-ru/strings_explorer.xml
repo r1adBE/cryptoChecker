@@ -110,7 +110,7 @@
     <string name="explorer_no_pair_list">Нет валютных пар</string>
     <string name="explorer_sync_sheet_last">Последняя синхронизация: %1$s</string>
     <string name="explorer_sync_never">никогда</string>
-    <string name="explorer_sync_sheet_action">Синхронизировать!</string>
+    <string name="explorer_sync_sheet_action">Синхронизировать</string>
     <string name="explorer_sync_sheet_title">Обновить валютные пары</string>
     <string name="explorer_field_coin">Базовая</string>
     <string name="explorer_field_contract">Тип контракта</string>

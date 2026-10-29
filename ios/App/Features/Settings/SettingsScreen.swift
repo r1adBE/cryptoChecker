@@ -285,7 +285,7 @@ struct SettingsScreen: View {
         .settingsAnchor("main.reset")
         .confirmationDialog(L("settings_reset_app_title"), isPresented: $askReset, titleVisibility: .visible) {
             Button(L("settings_reset_app_action"), role: .destructive) {
-                data.resetApp()
+                Task { await data.resetApp() }
                 query = ""
                 router.tab = .watchlist
             }

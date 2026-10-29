@@ -11,8 +11,8 @@ enum Spacing {
     static let lg: CGFloat = 16
     static let xl: CGFloat = 24
     static let xxl: CGFloat = 32
-    // Kein eigener Freiraum für den «+»-Knopf (Android `Spacing.fabClearance`): iOS setzt den Knopf per
-    // `safeAreaInset` unter die Liste, die dadurch unten von selbst Platz bekommt.
+    // Kein eigener Freiraum für den «+»-Knopf (Android `Spacing.fabClearance`): iOS setzt den Knopf in den
+    // `safeAreaInset` der Tableiste (RootView), die Liste bekommt dadurch unten von selbst Platz.
 }
 
 /// Eckenradien — eine Formstufe wie Android `appShapes` (Shape.kt): Felder und Menüs 12, Karten auf dem

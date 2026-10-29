@@ -101,7 +101,7 @@
     <string name="explorer_no_pair_list">Nicio pereche valutară</string>
     <string name="explorer_sync_sheet_last">Ultima sincronizare: %1$s</string>
     <string name="explorer_sync_never">niciodată</string>
-    <string name="explorer_sync_sheet_action">Sincronizează acum!</string>
+    <string name="explorer_sync_sheet_action">Sincronizează acum</string>
     <string name="explorer_sync_sheet_title">Actualizează perechile valutare</string>
     <string name="explorer_field_coin">Bază</string>
     <string name="explorer_field_contract">Tip de contract</string>

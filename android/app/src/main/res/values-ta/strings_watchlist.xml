@@ -7,7 +7,6 @@
         <item quantity="one">%2$d இல் %1$d விலை இல்லாமல்</item>
         <item quantity="other">%2$d இல் %1$d விலை இல்லாமல்</item>
     </plurals>
-    <string name="watchlist_last_run">கடைசி ஓட்டம் %1$s</string>
     <string name="watchlist_live_a11y">நேரலை விலைகள் ஆன்</string>
     <string name="watchlist_offline_since">இணைப்பு இல்லை · %1$s நிலவரப்படி</string>
     <string name="watchlist_pull_to_refresh">புதுப்பிக்கக் கீழே இழுக்கவும்</string>

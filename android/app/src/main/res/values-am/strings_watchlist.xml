@@ -7,7 +7,6 @@
         <item quantity="one">ከ%2$d %1$d ያለ ዋጋ</item>
         <item quantity="other">ከ%2$d %1$d ያለ ዋጋ</item>
     </plurals>
-    <string name="watchlist_last_run">የመጨረሻ ሂደት %1$s</string>
     <string name="watchlist_live_a11y">ቀጥታ ዋጋዎች በርተዋል</string>
     <string name="watchlist_offline_since">ግንኙነት የለም · እስከ %1$s</string>
     <string name="watchlist_pull_to_refresh">ለማደስ ወደ ታች ይጎትቱ</string>

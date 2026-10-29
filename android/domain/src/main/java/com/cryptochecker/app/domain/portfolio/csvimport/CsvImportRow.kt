@@ -74,6 +74,10 @@ data class CsvImportSkip(val line: Int, val reason: CsvImportSkipReason)
  * @param localTime Kalenderzeit der Datei (als wäre sie UTC), wenn sie ohne Versatz steht — Schlüssel unabhängig
  *   von der gewählten Zeitzone ([CsvImport.key]); null = Zeit mit Versatz/«Z»
  * @param stableSwap Kauf/Verkauf gegen einen Stablecoin, als Tausch gebucht ([CsvImport.STABLES]) — Hinweis in der Vorschau
+ * @param feeInPrice Kauf/Verkauf mit Gebühr in Fiat UND im gehandelten Coin: Fiat-Gebühr im Preis, die Gebühr im Coin am
+ *   Geschäft ([CsvImport.fiatFeeInPrice]) — Hinweis in der Vorschau
+ * @param pendingDiffers Kraken: ausstehende und gebuchte Zeile derselben Ein-/Auszahlung (gleiche refid) mit
+ *   verschiedener Menge — beide übernommen, die Vorschau nennt beide Zeilen («Bestand prüfen»)
  */
 data class CsvImportRow(
     val line: Int,
@@ -93,6 +97,8 @@ data class CsvImportRow(
     val swapValue: BigDecimal? = null,
     val localTime: Long? = null,
     val stableSwap: Boolean = false,
+    val feeInPrice: Boolean = false,
+    val pendingDiffers: Boolean = false,
 )
 
 data class CsvImportResult(

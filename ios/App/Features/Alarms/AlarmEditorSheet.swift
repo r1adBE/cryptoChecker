@@ -113,7 +113,7 @@ struct AlarmEditorSheet: View {
                     }
 
                     // «Zuletzt geprüft: 14:02 · Kraken 99’800 CHF · Marke nicht erreicht» — nur beim Bearbeiten
-                    if draft.id != 0, let lastCheck {
+                    if showsLastCheckDetail, let lastCheck {
                         Text(AlarmLogTexts.lastCheckLine(lastCheck))
                             .font(.footnote)
                             .foregroundStyle(AppColors.onSurfaceVariant)
@@ -158,24 +158,8 @@ struct AlarmEditorSheet: View {
                     VStack(alignment: .leading, spacing: Spacing.sm) {
                         // Leeres Feld: nur der Hinweis «Wert eingeben» unter dem Knopf, nicht zusätzlich die Karte
                         if draft.showsSentence { sentencePreview }
-                        Self.closedAppHint
-                    }
-
-                    Button(action: save) {
-                        Text(L(draft.id == 0 ? "alarm_create" : "action_save"))
-                            .font(.headline)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, Spacing.lg)
-                    }
-                    .buttonStyle(AccentButtonStyle())
-                    .disabled(!draft.isValid)
-                    // Gesperrt, weil das Feld noch leer ist: sagen, was fehlt (wie Android)
-                    if draft.showsEnterAmountHint {
-                        Text(L("alarm_enter_amount"))
-                            .font(.footnote)
-                            .foregroundStyle(AppColors.onSurfaceVariant)
-                            .multilineTextAlignment(.center)
-                            .frame(maxWidth: .infinity)
+                        // «Zuletzt geprüft» nur einmal: steht die ausführliche Zeile oben (Bearbeiten), hier nicht
+                        Self.closedAppHint(showsLastChecked: !showsLastCheckDetail)
                     }
                 }
                 .padding(.horizontal, Spacing.lg)
@@ -185,19 +169,15 @@ struct AlarmEditorSheet: View {
                 .animation(.easeInOut(duration: 0.2), value: more)
             }
             .scrollDismissesKeyboard(.interactively)
+            // Ein einziges «Speichern», fest am unteren Rand: bleibt über der Zifferntastatur erreichbar (wie Android,
+            // kein zweites oben in der Leiste)
+            .safeAreaInset(edge: .bottom, spacing: 0) { saveBar }
             .background(AppColors.background.ignoresSafeArea())
             .navigationTitle(L(draft.id == 0 ? "alarms_add" : "alarms_edit"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(L("action_cancel")) { dismiss() }
-                }
-                ToolbarItem(placement: .confirmationAction) {
-                    // UI-Tests: der Knopf oben bleibt über der Zifferntastatur sichtbar (der grosse unten nicht)
-                    Button(L("action_save"), action: save)
-                        .accessibilityIdentifier(UiTestTags.alarmSave)
-                        .fontWeight(.semibold)
-                        .disabled(!draft.isValid)
                 }
                 ToolbarItemGroup(placement: .keyboard) {
                     Spacer()
@@ -285,7 +265,41 @@ struct AlarmEditorSheet: View {
     /// Kleine graue Zeile unter dem Satz: Bei geschlossener App entscheidet iOS, wann geprüft
     /// wird — oft erst nach 15 Min. oder später. Auch im Portfolio-Alarm (`PortfolioAlarmSheet`).
     /// Das (i) daneben zeigt dauerhaft den ganzen Hinweis «Wann Alarme geprüft werden».
-    static var closedAppHint: some View { ClosedAppHintRow() }
+    /// `showsLastChecked`: Zeile «Zuletzt geprüft» im Hinweis — aus, wenn der Editor oben schon die ausführliche zeigt.
+    static func closedAppHint(showsLastChecked: Bool = true) -> some View {
+        ClosedAppHintRow(showsLastChecked: showsLastChecked)
+    }
+
+    /// Ausführliche Zeile «Zuletzt geprüft: 14:02 · Kraken 99’800 CHF · Marke nicht erreicht» oben — nur beim Bearbeiten
+    /// mit bekannter letzter Prüfung (wie Android).
+    private var showsLastCheckDetail: Bool { draft.id != 0 && lastCheck != nil }
+
+    /// «Erstellen» bzw. «Speichern» am unteren Rand, darunter (gesperrt) was fehlt — wie Android.
+    private var saveBar: some View {
+        VStack(spacing: Spacing.xs) {
+            Button(action: save) {
+                Text(L(draft.id == 0 ? "alarm_create" : "action_save"))
+                    .font(.headline)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, Spacing.lg)
+            }
+            .buttonStyle(AccentButtonStyle())
+            .disabled(!draft.isValid)
+            .accessibilityIdentifier(UiTestTags.alarmSave)
+            // Gesperrt, weil das Feld noch leer ist: sagen, was fehlt (wie Android)
+            if draft.showsEnterAmountHint {
+                Text(L("alarm_enter_amount"))
+                    .font(.footnote)
+                    .foregroundStyle(AppColors.onSurfaceVariant)
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity)
+            }
+        }
+        .padding(.horizontal, Spacing.lg)
+        .padding(.top, Spacing.sm)
+        .padding(.bottom, Spacing.sm)
+        .background(AppColors.background.ignoresSafeArea())
+    }
 
     private func save() {
         guard draft.isValid else { return }

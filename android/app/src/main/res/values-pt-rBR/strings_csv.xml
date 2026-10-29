@@ -31,6 +31,8 @@
     <string name="portfolio_csv_import_saving">Salvando as transações…</string>
     <string name="portfolio_csv_import_missing_fx">Sem cotação diária para a linha %1$s – importado sem preço nem taxa.</string>
     <string name="portfolio_csv_import_missing_price">Sem preço no arquivo para a linha %1$s – importado sem preço.</string>
+    <string name="portfolio_csv_import_fee_in_price">Duas taxas na linha %1$s: a taxa em fiat está incluída no preço, a taxa na moeda reduz a quantidade recebida ou aumenta a entregue.</string>
+    <string name="portfolio_csv_import_pending_differs">Linha %1$s: o lançamento pendente e o registrado do mesmo depósito ou saque têm quantidades diferentes – ambos importados, conferir saldo.</string>
     <string name="portfolio_csv_import_more">+ %1$d mais</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d transação nova</item>

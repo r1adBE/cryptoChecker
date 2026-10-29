@@ -41,7 +41,7 @@
     <string name="widget_portfolio_entries">Bookings under the coins</string>
     <string name="widget_portfolio_entries_both">Both</string>
     <string name="widget_portfolio_entries_buys">Purchases</string>
-    <string name="widget_portfolio_entries_hint">Only shown if there is room below the coins. Purchases include deposits, sales include withdrawals; with «Both» the lines add up to the holding.</string>
+    <string name="widget_portfolio_entries_hint">Only shown if there is room below the coins. Purchases include deposits, sales include withdrawals; with “Both” the lines add up to the holding.</string>
     <string name="widget_portfolio_entries_off">Off</string>
     <string name="widget_portfolio_entries_sells">Sales</string>
     <string name="widget_portfolio_display">Display</string>

@@ -56,9 +56,19 @@ final class CsvImportTests: XCTestCase {
                 XCTAssertEqual(text(r.swapValue), string(e["swapValue"]), "\(m) swapValue")
                 // Kauf/Verkauf gegen Stablecoin als Tausch (fehlt = false)
                 XCTAssertEqual(r.stableSwap, (e["stableSwap"] as? Bool) ?? false, "\(m) stableSwap")
+                // Fiat-Gebühr im Preis bzw. Kraken ausstehend ≠ gebucht (fehlt = false)
+                XCTAssertEqual(r.feeInPrice, (e["feeInPrice"] as? Bool) ?? false, "\(m) feeInPrice")
+                XCTAssertEqual(r.pendingDiffers, (e["pendingDiffers"] as? Bool) ?? false, "\(m) pendingDiffers")
             }
             let skipped = S.list(f["skipped"]).map { "\(int($0["line"])):\(string($0["reason"]) ?? "")" }
             XCTAssertEqual(result.skipped.map { "\($0.line):\($0.reason.rawValue)" }, skipped, "\(name) skipped")
+            // Hinweise der Vorschau (fehlt = keine Zeile)
+            if f["previewFeeInPrice"] != nil || f["previewPendingDiffers"] != nil {
+                let preview = CsvImportMapping.preview(result, existingKeys: []) { _, _ in 1 }
+                func lines(_ key: String) -> [Int] { ((f[key] as? [Any]) ?? []).map { int($0) } }
+                XCTAssertEqual(preview.feeInPrice, lines("previewFeeInPrice"), "\(name) preview feeInPrice")
+                XCTAssertEqual(preview.pendingDiffers, lines("previewPendingDiffers"), "\(name) preview pendingDiffers")
+            }
         }
     }
 

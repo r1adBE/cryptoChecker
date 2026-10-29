@@ -10,7 +10,6 @@
         <item quantity="many">%1$d as %2$d gan phraghas</item>
         <item quantity="other">%1$d as %2$d gan phraghas</item>
     </plurals>
-    <string name="watchlist_last_run">Rith deireanach %1$s</string>
     <string name="watchlist_live_a11y">Praghsanna beo ar siúl</string>
     <string name="watchlist_offline_since">Gan cheangal · staid %1$s</string>
     <string name="watchlist_pull_to_refresh">Tarraing anuas chun athnuachan</string>

@@ -36,6 +36,8 @@ import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.platform.testTag
+import com.cryptochecker.app.ui.UiTestTags
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -238,6 +240,14 @@ fun MarketPhaseScreen(
                     // Tablet/Querformat: Inhalt höchstens 640 dp breit, mittig
                     .readableWidth()
                     .padding(horizontal = 16.dp, vertical = 8.dp)
+                    // Kennung für UI-Tests (Bildschirmfotos): Puls geladen, alles Sichtbare auf «Jetzt» erschienen
+                    .then(
+                        if (pulse is LoadState.Loaded && !reveal.nowLoading(showMore)) {
+                            Modifier.testTag(UiTestTags.MARKET_LOADED)
+                        } else {
+                            Modifier
+                        }
+                    )
             ) {
                 // Statt der Überschrift «Jetzt» der Zustand wie in der Merkliste: «Alles aktuell ·
                 // vor 2 Min.» bzw. während des Neuladens «Stand 14:05 · wird aktualisiert…».

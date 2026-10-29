@@ -6,7 +6,6 @@ import okhttp3.OkHttpClient
 import okhttp3.Protocol
 import okhttp3.Response
 import okhttp3.ResponseBody.Companion.toResponseBody
-import org.junit.Assume.assumeFalse
 import java.io.IOException
 import java.util.concurrent.CopyOnWriteArrayList
 
@@ -35,13 +34,16 @@ internal class RouteHttp(private val route: (String) -> Reply?) {
     fun count(part: String): Int = requested.count { part in it }
 
     companion object {
-        /** Hosts der Kerzen-Kette ([CandleDataSource]); prozessweit gesperrt/pausiert → Test überspringen. */
+        /**
+         * Hosts der Kerzen-Kette ([CandleDataSource]); prozessweit gesperrt/pausiert (andere Testklassen im selben
+         * Prozess) → vor dem Test freigeben, damit er immer läuft (nie still übersprungen).
+         */
         val CHAIN_HOSTS = listOf(
             "data-api.binance.vision", "api.binance.com", "fapi.binance.com", "api.binance.us", "api.exchange.coinbase.com",
         )
 
-        fun assumeChainOpen() {
-            for (host in CHAIN_HOSTS) assumeFalse("$host gesperrt", BlockedSources.isBlocked(host))
+        fun releaseChain() {
+            for (host in CHAIN_HOSTS) BlockedSources.clearForTest(host)
         }
     }
 }

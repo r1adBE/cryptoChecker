@@ -1,0 +1,41 @@
+I-Crypto Checker ihlola izintengo ku-exchange yakho, ikwazise uma ukuhlola kuthola izinga lakho. Uma i-app ivaliwe, i-Android inquma isikhathi sokuhlola – kanye ku-15 min ubuningi, kaningi emva kwamahora. Ukweqa okufushane kungaphuthelwa; i-app iyasho. Intengo ye-exchange yakho, hhayi isilinganiso – mahhala, ayikho i-akhawunti.
+
+OKUHLUKILE
+• I-exchange yakho, hhayi isilinganiso: umugqa ngamunye unentengo yokugcina ku-exchange oyikhethile – Binance, Coinbase, Kraken, OKX, Bybit nokunye.
+• I-alamu eyazisa kanye: “Ngitshele uma i-BTC yeqa ku-100,000 USDT.” Ikhala uma ukuhlola kuthola izinga leqiwe, hhayi ekubuyekezeni ngakunye – “Kanye” iyayivala, “Njalo” iyayivula futhi uma intengo ibuya.
+• “Yini enyakaza kanye nayo?”: izici ze-coin eyodwa – imakethe yonke, ivolumu, ukuguquguquka, funding ne-open interest, ibanga kokuphezulu/okuphansi, Fear & Greed. Kubonisa okunyakaza ngasikhathi sinye – hhayi imbangela, izindaba, iseluleko sokutshala imali.
+• Ayikho i-akhawunti, izikhangiso noma ukulandelelwa. Unjiniyela akatholi idatha yakho.
+
+IDATHA EQOTHO
+• “Konga” kuzenzakalela: izintengo zivuselelwa ekuvuleni i-app nangezikhathi ezithile ngemuva. “Bukhoma uma ivuliwe” yengeza izintengo ezibukhoma (Binance, Bybit, OKX, Coinbase, Kraken) uhlu luvuliwe.
+• Ushintsho lwe-% namashadi kuvela kuqala ku-exchange yepheya; uma ingenawo ama-candle: Binance noma Coinbase, futhi uyatshelwa.
+• Fear & Greed, dominance namanani e-on-chain: alternative.me, CoinGecko, Coin Metrics.
+• Amanani aphuma kudivayisi kuphela ngokuthumela kwakho noma ngesipele se-Android. Ezintengweni, ama-ticker kuphela aya ku-exchange yawo; nezinga lokushintshisana (Frankfurter), idatha yemakethe namalogo (CoinGecko, Binance), izibuko zedatha (GitHub). Uma ubuka amakheli/i-xpub, ama-node e-blockchain omphakathi abona amakheli (ku-xpub, akhiqiziwe) ne-IP yakho.
+
+UHLU LOKUBUKA
+• Izimakethe ezingu-56 kuma-exchange angu-45: spot nama-futures, amathokheni e-DEX nge-DexScreener, uma uthanda izitoko, igolide ne-FX (TradFi)
+• Umugqa wesibili “≈ inani” ngemali eyodwa kwezingu-31 (EUR, CHF, USD …) ngezinga le-FX
+• Ishadi elincane noshintsho lwe-% ku-24 h noma kusukela ngo-00:00 ngesikhathi sakho
+• Amaqembu, izintandokazi, hudula-uyeke nenothi ku-coin ngayinye
+• Imigqa iphawula “kudala” noma “i-exchange ayitholakali”
+
+AMA-ALAMU
+• Intengo ngaphezu/ngaphansi kwezinga, noma ukwenyuka/ukwehla ngephesenti – nangemali yakho, isb. 60,000 EUR kupheya le-USDT
+• Ukunyakaza kuka-x % esikhathini, ukweqa kwevolumu
+• Umsindo (nefayela lakho), ukudlidliza nokufunda ngokuzwakalayo uma uthanda
+• Amahora athule no-“Hlola i-alamu”: zwa kuqala ukuthi ifika kanjani; ilogi: kuhlolwe nini, ngayiphi intengo, kungani ingakhalanga
+
+IMAKETHE
+• Okuphawulekayo: ukunyakaza okungajwayelekile kwentengo nevolumu ohlwini lwakho, nesaziso semakethe uma uthanda
+• Crypto Pulse, Fear & Greed, izinkomba ze-Bitcoin, funding ne-open interest – amanani alinganisiwe
+• Izimali zenethiwekhi (Ethereum, Bitcoin …), ne-alamu ye-gas
+
+OKUNYE
+• Amawijethi: uhlu lokubuka, isamba se-portfolio, i-coin eyodwa neshadi
+• I-portfolio uma uthanda (ku-Izilungiselelo): ukuthenga, ukuthengisa, ama-swap, ukudlulisa, imivuzo, amadiphozithi nokukhipha; FIFO (ezenzakalelayo) noma isilinganiso (Ø); amakheli okufunda kuphela ngaphandle kwe-seed: BTC (ne-xpub), ETH ne-EVM, SOL, TRX, XRP, LTC, ADA, TON; ukungenisa i-CSV ye-Relai, Swissquote, Bitpanda, Kraken, Binance, Coinbase; isifinyezo sonyaka (CSV); ukhiye wayo. Bitpanda ne-Swissquote: azinantengo yazo, i-CSV kuphela.
+• Kufundeka kubo bonke: okuluhlaza/okubomvu noma okwesibhakabhaka/okusawolintshi, uphawu nomcibisholo, hhayi umbala kuphela; TalkBack ifunda umugqa njengomusho owodwa
+• Isipele/ukubuyisela efayeleni – ne-Android ↔ iPhone
+• Imodi ekhanyayo/emnyama, imibala emi-5 yokugqamisa, izilimi ezingu-75
+• Umthombo ovulekile (MIT) – ikhodi isobala ku-GitHub
+
+Qaphela: I-Crypto Checker ibonisa izintengo ne-portfolio ozifakayo. Akuyona i-exchange noma i-wallet, ayihwebi, ayiniki iseluleko sokutshala imali.

@@ -31,6 +31,8 @@
     <string name="portfolio_csv_import_saving">Чување трансакција…</string>
     <string name="portfolio_csv_import_missing_fx">Нема дневног курса за редове %1$s – увезено без цене/накнаде.</string>
     <string name="portfolio_csv_import_missing_price">У датотеци нема цене за редове %1$s – увезено без цене.</string>
+    <string name="portfolio_csv_import_fee_in_price">Две накнаде у редовима %1$s: фиат накнада је урачуната у цену, накнада у криптовалути смањује примљену или повећава дату количину.</string>
+    <string name="portfolio_csv_import_pending_differs">Редови %1$s: унос на чекању и прокњижен унос исте уплате или исплате имају различите количине – оба увезена, провери средства.</string>
     <string name="portfolio_csv_import_more">+ још %1$d</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d нова трансакција</item>

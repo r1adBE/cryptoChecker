@@ -79,18 +79,20 @@ TARGETS = [
 ]
 
 
-def located(path):
-    """Part of the domain logic lives in android/domain; same package path there."""
-    if os.path.exists(path):
+def located(path, root="."):
+    """Part of the domain logic lives in android/domain; same package path there. Resolved against the
+    repository root (--repo), never against the working directory."""
+    if os.path.exists(os.path.join(root, path)):
         return path
     for module in ("domain", "data"):
         moved = path.replace("android/app/", f"android/{module}/", 1)
-        if os.path.exists(moved):
+        if os.path.exists(os.path.join(root, moved)):
             return moved
     return path
 
 
-TARGETS = [(located(path), tests) for path, tests in TARGETS]
+def resolved_targets(root):
+    return [(located(path, root), tests) for path, tests in TARGETS]
 
 OPERATOR_SWAPS = {
     "<": "<=", "<=": "<", ">": ">=", ">=": ">", "==": "!=", "!=": "==", "&&": "||", "||": "&&",
@@ -584,9 +586,9 @@ def write_findings(path, findings):
             f.write(f"{level}\t{file}\t{line}\t{clean}\n")
 
 
-def parse_targets(values):
+def parse_targets(values, root="."):
     if not values:
-        return TARGETS
+        return resolved_targets(root)
     out = []
     for v in values:
         path, _, pats = v.partition("=")
@@ -802,12 +804,23 @@ def self_test():
     # The configured targets exist next to this script (repository checkout), when it is one
     here = os.path.dirname(os.path.abspath(__file__))
     repo = os.path.dirname(os.path.dirname(here))
+    targets = resolved_targets(repo)
     if os.path.isdir(os.path.join(repo, "android", "app")):
-        missing = [rel for rel, _ in TARGETS if not os.path.isfile(os.path.join(repo, rel))]
+        missing = [rel for rel, _ in targets if not os.path.isfile(os.path.join(repo, rel))]
         assert not missing, missing
-    paths = [rel for rel, _ in TARGETS]
+    paths = [rel for rel, _ in targets]
     assert len(paths) == len(set(paths)), "duplicate target"
-    assert CSV_IMPORT + "CsvImportParser.kt" in paths and CONVERT + "CurrencyConversion.kt" in paths
+    for name in (CSV_IMPORT + "CsvImportParser.kt", CONVERT + "CurrencyConversion.kt"):
+        assert located(name, repo) in paths, name
+
+    # Moved files resolve against the given root (android/domain), independent of the working directory
+    with tempfile.TemporaryDirectory() as tmp:
+        moved = CONVERT.replace("android/app/", "android/domain/", 1) + "CurrencyConversion.kt"
+        os.makedirs(os.path.join(tmp, os.path.dirname(moved)))
+        open(os.path.join(tmp, moved), "w").close()
+        assert located(CONVERT + "CurrencyConversion.kt", tmp) == moved
+        assert located(CSV_IMPORT + "CsvImportParser.kt", tmp) == CSV_IMPORT + "CsvImportParser.kt"
+        assert dict(parse_targets(None, tmp))[moved] == ["*.CurrencyConversionTest", "*.CurrencyConversionParityTest"]
     print("mutation_test self-test ok")
     return 0
 
@@ -829,7 +842,7 @@ def main():
     args = ap.parse_args()
     if args.self_test:
         return self_test()
-    targets = parse_targets(args.target)
+    targets = parse_targets(args.target, args.repo)
     if args.list:
         groups = []
         for rel, _ in targets:

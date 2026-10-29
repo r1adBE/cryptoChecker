@@ -14,7 +14,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
-import org.junit.Assume.assumeFalse
 import org.junit.Before
 import org.junit.Test
 import java.io.IOException
@@ -55,9 +54,9 @@ class FuturesDataSourceTest {
     private fun watch(exchangeKey: String, base: String, pairId: String?, contract: FuturesContractType = FuturesContractType.PERPETUAL) =
         WatchEntity(exchangeKey = exchangeKey, exchangeName = exchangeKey, baseAsset = base, quoteAsset = "USDT", contractType = contract, pairId = pairId)
 
-    /** Ein Test, der eine Quelle braucht, läuft nur, wenn kein anderer Test im selben Prozess sie gesperrt hat. */
-    private fun assumeOpen(vararg hosts: String) {
-        for (host in hosts) assumeFalse("$host gesperrt", BlockedSources.isBlocked(host))
+    /** Quellen des Tests freigeben: ein anderer Test im selben Prozess kann sie gesperrt haben (Test läuft immer). */
+    private fun releaseHosts(vararg hosts: String) {
+        for (host in hosts) BlockedSources.clearForTest(host)
     }
 
     private fun binancePremium(symbol: String, mark: String, rate: String) =
@@ -83,7 +82,7 @@ class FuturesDataSourceTest {
 
     @Test
     fun binanceFirstWithOpenInterestAndCachedIntervals() = runBlocking {
-        assumeOpen(FuturesDataSource.BINANCE)
+        releaseHosts(FuturesDataSource.BINANCE)
         val futures = source(
             mapOf(
                 premium("BTCUSDT") to binancePremium("BTCUSDT", "60000.0", "0.00010000"),
@@ -110,7 +109,7 @@ class FuturesDataSourceTest {
 
     @Test
     fun bybitWhenBinanceAnswersWithAnError() = runBlocking {
-        assumeOpen(FuturesDataSource.BINANCE, FuturesDataSource.BYBIT)
+        releaseHosts(FuturesDataSource.BINANCE, FuturesDataSource.BYBIT)
         val info = source(mapOf(premium("BTCUSDT") to (500 to "Internal Server Error"), bybit("BTCUSDT") to bybitBtc))
             .fetchForBase("BTC")
         assertEquals("Bybit", info.source)
@@ -124,7 +123,7 @@ class FuturesDataSourceTest {
 
     @Test
     fun okxLastWithOpenInterestFromMarkPrice() = runBlocking {
-        assumeOpen(FuturesDataSource.BINANCE, FuturesDataSource.BYBIT, FuturesDataSource.OKX)
+        releaseHosts(FuturesDataSource.BINANCE, FuturesDataSource.BYBIT, FuturesDataSource.OKX)
         val id = "SOL-USDT-SWAP"
         val info = source(
             mapOf(
@@ -151,7 +150,7 @@ class FuturesDataSourceTest {
 
     @Test
     fun allSourcesFailingThrows() = runBlocking {
-        assumeOpen(FuturesDataSource.BINANCE, FuturesDataSource.BYBIT, FuturesDataSource.OKX)
+        releaseHosts(FuturesDataSource.BINANCE, FuturesDataSource.BYBIT, FuturesDataSource.OKX)
         try {
             source(mapOf(okxFunding("XRP-USDT-SWAP") to ok("""{"code":"51001","msg":"Instrument ID does not exist","data":[]}""")))
                 .fetchForBase("XRP")
@@ -166,7 +165,7 @@ class FuturesDataSourceTest {
 
     @Test
     fun bybitWatchAsksBybitFirst() = runBlocking {
-        assumeOpen(FuturesDataSource.BYBIT)
+        releaseHosts(FuturesDataSource.BYBIT)
         val info = source(mapOf(bybit("BTCUSDT") to bybitBtc)).fetch(watch("BybitFutures", "BTC", "BTCUSDT"))!!
         assertEquals("Bybit", info.source)
         assertTrue("Binance nicht gefragt: $hits", hits.keys.none { it.contains("fapi.binance.com") })
@@ -174,7 +173,7 @@ class FuturesDataSourceTest {
 
     @Test
     fun okxWatchUsesItsOwnContract() = runBlocking {
-        assumeOpen(FuturesDataSource.OKX)
+        releaseHosts(FuturesDataSource.OKX)
         val id = "BTC-USD-SWAP"
         val info = source(
             mapOf(
@@ -192,7 +191,7 @@ class FuturesDataSourceTest {
 
     @Test
     fun binanceWatchKeepsItsUsdcContract() = runBlocking {
-        assumeOpen(FuturesDataSource.BINANCE)
+        releaseHosts(FuturesDataSource.BINANCE)
         val info = source(mapOf(premium("ETHUSDC") to binancePremium("ETHUSDC", "2500.0", "0.00010000")))
             .fetch(watch("BinanceFutures", "ETH", "ETHUSDC"))!!
         assertEquals("Binance Futures", info.source)
@@ -203,7 +202,7 @@ class FuturesDataSourceTest {
 
     @Test
     fun deribitOwnSourceThenBinanceAsReference() = runBlocking {
-        assumeOpen(FuturesDataSource.DERIBIT, FuturesDataSource.BINANCE)
+        releaseHosts(FuturesDataSource.DERIBIT, FuturesDataSource.BINANCE)
         val deribitBody = ok(
             """{"jsonrpc":"2.0","result":{"instrument_name":"BTC-PERPETUAL","open_interest":950000000,"mark_price":60000,"funding_8h":0.00012}}""",
         )
@@ -222,7 +221,7 @@ class FuturesDataSourceTest {
 
     @Test
     fun exchangeWithoutOwnSourceUsesTheChain() = runBlocking {
-        assumeOpen(FuturesDataSource.BINANCE)
+        releaseHosts(FuturesDataSource.BINANCE)
         val info = source(mapOf(premium("BTCUSDT") to binancePremium("BTCUSDT", "60000", "0.0001")))
             .fetch(watch("PhemexFutures", "btc", null))!!
         assertEquals("Binance Futures", info.source)
@@ -230,7 +229,7 @@ class FuturesDataSourceTest {
 
     @Test
     fun outdatedIntervalListStillCountsWhenReloadFails() = runBlocking {
-        assumeOpen(FuturesDataSource.BINANCE)
+        releaseHosts(FuturesDataSource.BINANCE)
         val replies = mapOf(premium("BTCUSDT") to binancePremium("BTCUSDT", "60000", "0.0001"))
         val now = System.currentTimeMillis()
         // Älter als 6 Std., jünger als 7 Tage: Neuladen scheitert → alte Liste gilt weiter

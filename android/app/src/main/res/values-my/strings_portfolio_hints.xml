@@ -3,13 +3,13 @@
     <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
     <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
     <string name="portfolio_alarms_paused_price">ပေါ့ဖိုလီယို သတိပေးချက်များ ခေတ္တရပ်ထားသည်- %1$s အတွက် လက်ရှိဈေးနှုန်း မရှိပါ</string>
-    <string name="portfolio_alarms_paused_price_generic">ပေါ့ဖိုလီယို သတိပေးချက်များ ခေတ္တရပ်ထားသည်- ဒင်္ဂါးတိုင်းတွင် လက်ရှိဈေးနှုန်း မရှိပါ</string>
+    <string name="portfolio_alarms_paused_price_generic">ပေါ့ဖိုလီယို သတိပေးချက်များ ခေတ္တရပ်ထားသည်- ကွိုင်တိုင်းတွင် လက်ရှိဈေးနှုန်း မရှိပါ</string>
     <string name="portfolio_alarms_paused_addresses">ပေါ့ဖိုလီယို သတိပေးချက်များ ခေတ္တရပ်ထားသည်- စောင့်ကြည့်ထားသော လိပ်စာများ၏ လက်ကျန် မဖွင့်ရသေးပါ</string>
     <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">ပေါ့ဖိုလီယို သတိပေးချက်များ ခေတ္တရပ်ထားသည်- %1$s ၏ တိုကင် လက်ကျန်များ တစ်စိတ်တစ်ပိုင်း ခေတ်မမီတော့ပါ</string>
     <string name="portfolio_alarms_paused_tokens_generic">ပေါ့ဖိုလီယို သတိပေးချက်များ ခေတ္တရပ်ထားသည်- စောင့်ကြည့်ထားသော လိပ်စာများ၏ တိုကင် လက်ကျန်များ တစ်စိတ်တစ်ပိုင်း ခေတ်မမီတော့ပါ</string>
     <string name="portfolio_alarms_paused_unverified">ပေါ့ဖိုလီယို သတိပေးချက်များ ခေတ္တရပ်ထားသည်- %1$s အတွက် ဈေးနှုန်း အတည်မပြုရသေးပါ</string>
-    <string name="portfolio_alarms_paused_unverified_generic">ပေါ့ဖိုလီယို သတိပေးချက်များ ခေတ္တရပ်ထားသည်- ဒင်္ဂါးအချို့၏ ဈေးနှုန်း အတည်မပြုရသေးပါ</string>
+    <string name="portfolio_alarms_paused_unverified_generic">ပေါ့ဖိုလီယို သတိပေးချက်များ ခေတ္တရပ်ထားသည်- ကွိုင်အချို့၏ ဈေးနှုန်း အတည်မပြုရသေးပါ</string>
     <string name="portfolio_alarms_address_failing">ပေါ့ဖိုလီယို သတိပေးချက်များကို %1$s မပါဘဲ စစ်ဆေးသည်- လက်ကျန်ကို 24 နာရီကျော် မဖွင့်နိုင်ပါ</string>
     <string name="portfolio_alarms_address_failing_generic">ပေါ့ဖိုလီယို သတိပေးချက်များကို 24 နာရီကျော် လက်ကျန် မဖွင့်နိုင်သော လိပ်စာများ မပါဘဲ စစ်ဆေးသည်</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->

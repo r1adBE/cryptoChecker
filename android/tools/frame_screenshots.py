@@ -54,8 +54,8 @@ ALIASES = {
     "id-ID": "id", "it": "it-IT", "ja": "ja-JP", "ko": "ko-KR", "nb": "no-NO", "no": "no-NO",
     "nb-NO": "no-NO", "nl": "nl-NL", "pl": "pl-PL", "pt": "pt-PT", "ro-RO": "ro", "ru": "ru-RU",
     "sq-AL": "sq", "sv": "sv-SE", "th-TH": "th", "tr": "tr-TR", "uk-UA": "uk", "vi-VN": "vi",
-    "zh": "zh-CN", "zh-Hans": "zh-CN", "fa-IR": "fa", "zh-Hant": "zh-TW", "zh-HK": "zh-TW", "ms-MY": "ms",
-    # Android/iOS codes -> caption keys (Play folder names); yue-Hant = Cantonese on iOS
+    "zh": "zh-CN", "zh-Hans": "zh-CN", "fa-IR": "fa", "zh-Hant": "zh-TW", "zh-HK": "yue", "ms-MY": "ms",
+    # Android/iOS codes -> caption keys (Play folder names); yue-Hant = Cantonese on iOS, Play zh-HK = Cantonese
     "az": "az-AZ", "bn": "bn-BD", "eu": "eu-ES", "gl": "gl-ES", "hy": "hy-AM", "is": "is-IS", "ka": "ka-GE",
     "km": "km-KH", "kn": "kn-IN", "lo": "lo-LA", "mk": "mk-MK", "ml": "ml-IN", "mn": "mn-MN", "mr": "mr-IN",
     "my": "my-MM", "ne": "ne-NP", "si": "si-LK", "ta": "ta-IN", "te": "te-IN", "gu-IN": "gu", "pa-IN": "pa",

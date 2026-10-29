@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">Запазване на транзакциите…</string>
     <string name="portfolio_csv_import_missing_fx">Няма дневен курс за редове %1$s – импортирано без цена/такса.</string>
     <string name="portfolio_csv_import_missing_price">Във файла няма цена за редове %1$s – импортирано без цена.</string>
+    <string name="portfolio_csv_import_fee_in_price">Две такси в редове %1$s: фиат таксата е включена в цената, таксата в монетата намалява полученото или увеличава даденото количество.</string>
+    <string name="portfolio_csv_import_pending_differs">Редове %1$s: чакащ и осчетоводен запис на един и същ депозит или теглене имат различни количества – и двата са импортирани, провери наличностите.</string>
     <string name="portfolio_csv_import_more">+ още %1$d</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d нова транзакция</item>

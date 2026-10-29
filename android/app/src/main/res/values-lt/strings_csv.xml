@@ -33,6 +33,8 @@
     <string name="portfolio_csv_import_saving">Išsaugomos transakcijos…</string>
     <string name="portfolio_csv_import_missing_fx">Nėra dienos kurso eilutėms %1$s – importuota be kainos / komisinio mokesčio.</string>
     <string name="portfolio_csv_import_missing_price">Faile nėra kainos eilutėms %1$s – importuota be kainos.</string>
+    <string name="portfolio_csv_import_fee_in_price">Du mokesčiai eilutėse %1$s: fiat mokestis įskaičiuotas į kainą, mokestis monetomis sumažina gautą arba padidina atiduotą kiekį.</string>
+    <string name="portfolio_csv_import_pending_differs">Eilutės %1$s: to paties įnešimo ar išėmimo laukiantis ir užregistruotas įrašai turi skirtingus kiekius – abu importuoti, patikrink turimą turtą.</string>
     <string name="portfolio_csv_import_more">+ dar %1$d</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d nauja transakcija</item>

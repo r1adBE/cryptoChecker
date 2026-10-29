@@ -16,6 +16,11 @@ import Foundation
 ///    Eine Staking-Zeile ohne Gegenstück → `.STAKING_UNPAIRED` («Bestand prüfen»).
 ///  - Doppelte Ledger-Zeilen (gleiche txid) zählen einmal; gleiche txid mit ANDERER Menge → `.DUPLICATE_TXID_DIFFERENT`
 ///    (nicht still verwerfen).
+///  - Ein-/Auszahlung zuerst ausstehend (txid und balance leer), dann gebucht, gleiche refid: die ausstehende Zeile
+///    fällt still weg, wenn die gebuchte (gleiche refid, Typ, Asset, Menge) da ist (`pendingTwins`); allein zählt sie.
+///    Mit ANDERER Menge bleiben beide, als `pendingDiffers` markiert (die Vorschau nennt beide Zeilen).
+///  - Kauf/Verkauf mit Fiat-Gebühr und Gebühr im Coin: Fiat-Gebühr im Preis, die im Coin am Geschäft
+///    (`CsvImport.fiatFeeInPrice`); sonst andere Einheiten → eine am Geschäft, die andere eigene Gebühr-Zeile.
 enum CsvImportKraken {
 
     /// Alte Kraken-Kürzel mit X-/Z-Vorsatz → Kürzel (wie Android `LEGACY`).
@@ -73,6 +78,8 @@ enum CsvImportKraken {
         let time: Int64
         /// Asset ist eine Staking-/Earn-Variante («ETH2.S», «DOT.S», «ETH2»).
         var staked: Bool = false
+        /// txid leer: ausstehende Buchung (Kraken schreibt die gebuchte Zeile mit txid danach).
+        var pending: Bool = false
     }
 
     /// Staking-/Earn-Variante eines Kraken-Kürzels (vor dem Vereinheitlichen) — wie Android `isStakedAsset`.
@@ -114,6 +121,38 @@ enum CsvImportKraken {
         return (out, unpaired)
     }
 
+    /// Ausstehende Ein-/Auszahlungen (Indizes in `legs`) mit gebuchter Zeile daneben — wie Android `pendingTwins`: txid
+    /// leer, und eine Zeile mit txid hat dieselbe refid, denselben Typ, dasselbe Asset (auch Staking-Variante) und dieselbe
+    /// Menge. Die gebuchte Zeile zählt; ohne sie bleibt die ausstehende.
+    private static func pendingTwins(_ legs: [Leg]) -> Set<Int> {
+        Set(legs.indices.filter { i in
+            let p = legs[i]
+            guard p.pending, p.type == "deposit" || p.type == "withdrawal", !p.refid.isEmpty else { return false }
+            return legs.contains { b in
+                !b.pending && b.refid == p.refid && b.type == p.type && b.asset == p.asset && b.staked == p.staked
+                    && b.signed == p.signed
+            }
+        })
+    }
+
+    /// Zeilennummern ausstehender Ein-/Auszahlungen ohne gleiche gebuchte Zeile (`twins`) und der gebuchten Zeilen mit
+    /// gleicher refid, gleichem Typ und Asset, aber anderer Menge — wie Android `pendingDiffers`: beide werden gebucht,
+    /// die Vorschau nennt das Paar.
+    private static func pendingDiffers(_ legs: [Leg], twins: Set<Int>) -> Set<Int> {
+        var out = Set<Int>()
+        for (i, p) in legs.enumerated() {
+            guard !twins.contains(i), p.pending, p.type == "deposit" || p.type == "withdrawal", !p.refid.isEmpty else { continue }
+            let booked = legs.filter { b in
+                !b.pending && b.refid == p.refid && b.type == p.type && b.asset == p.asset && b.staked == p.staked
+            }
+            if !booked.isEmpty {
+                out.insert(p.line)
+                for b in booked { out.insert(b.line) }
+            }
+        }
+        return out
+    }
+
     /// Erste Zeile einer txid: Menge, oder der Text, wenn unlesbar (Wiederholungen vergleichen).
     private enum FirstAmount {
         case number(Decimal)
@@ -126,7 +165,7 @@ enum CsvImportKraken {
         let iRef = col("refid"), iTime = col("time"), iType = col("type"), iSub = col("subtype")
         let iAsset = col("asset"), iAmount = col("amount"), iFee = col("fee")
         var skipped: [CsvImportSkip] = []
-        var legs: [Leg] = []
+        var all: [Leg] = []
         var seen: [String: FirstAmount] = [:]
         for rec in data {
             func cell(_ i: Int?) -> String {
@@ -163,11 +202,15 @@ enum CsvImportKraken {
                 skipped.append(CsvImportSkip(line: rec.line, reason: .BAD_DATE))
             } else if let amount, let fee, let time {
                 let absFee: Decimal = fee < 0 ? -fee : fee
-                legs.append(Leg(line: rec.line, refid: cell(iRef), type: type, subtype: sub, asset: code,
-                                signed: amount, fee: absFee > 0 ? absFee : nil, time: time,
-                                staked: isStakedAsset(cell(iAsset))))
+                all.append(Leg(line: rec.line, refid: cell(iRef), type: type, subtype: sub, asset: code,
+                               signed: amount, fee: absFee > 0 ? absFee : nil, time: time,
+                               staked: isStakedAsset(cell(iAsset)), pending: txid.isEmpty))
             }
         }
+        // Ausstehende Ein-/Auszahlung mit gebuchter Zeile daneben: still weg (vor den Staking-Paaren)
+        let twins = pendingTwins(all)
+        let legs: [Leg] = all.indices.filter { !twins.contains($0) }.map { all[$0] }
+        let differs = pendingDiffers(all, twins: twins)
 
         var rows: [CsvImportRow] = []
         var tradeOrder: [String] = []
@@ -200,6 +243,9 @@ enum CsvImportKraken {
             }
         }
         for refid in tradeOrder { trade(refid, trades[refid] ?? [], &rows, &skipped) }
+        for i in rows.indices where (rows[i].kind == .DEPOSIT || rows[i].kind == .WITHDRAWAL) && differs.contains(rows[i].line) {
+            rows[i].pendingDiffers = true
+        }
         // Kraken schreibt UTC ohne Versatz: die Zeitzone zählt (Vorschau zeigt UTC, wählbar)
         return CsvImport.finish(.KRAKEN, rows: rows, skipped: skipped, zone: zone, localTimes: true)
     }
@@ -242,7 +288,10 @@ enum CsvImportKraken {
         }
         let out = given[0]
         let inn = received[0]
-        // Gebühren beider Seiten: gleiche Einheit zusammen; verschiedene → eine am Geschäft, die andere eigene Gebühr-Zeile
+        let outAmount: Decimal = -out.signed
+        let inAmount: Decimal = inn.signed
+        // Gebühren beider Seiten: gleiche Einheit zusammen; Fiat- und Coin-Gebühr eines Kaufs/Verkaufs → Fiat in den Preis;
+        // sonst verschiedene → eine am Geschäft, die andere eigene Gebühr-Zeile
         var feeList: [(unit: String, amount: Decimal)] = []
         if let a = out.fee, let b = inn.fee, out.asset == inn.asset {
             feeList = [(unit: out.asset, amount: a + b)]
@@ -250,24 +299,32 @@ enum CsvImportKraken {
             if let a = out.fee { feeList.append((unit: out.asset, amount: a)) }
             if let b = inn.fee { feeList.append((unit: inn.asset, amount: b)) }
         }
-        guard let split = CsvImport.splitFees(feeList, given: out.asset, received: inn.asset) else {
+        var folded: (total: Decimal, rest: [(unit: String, amount: Decimal)])?
+        if isMoney(out.asset) && !isMoney(inn.asset) {
+            folded = CsvImport.fiatFeeInPrice(buy: true, coin: inn.asset, fiat: out.asset, total: outAmount, fees: feeList)
+        } else if isMoney(inn.asset) && !isMoney(out.asset) {
+            folded = CsvImport.fiatFeeInPrice(buy: false, coin: out.asset, fiat: inn.asset, total: inAmount, fees: feeList)
+        }
+        guard let split = CsvImport.splitFees(folded?.rest ?? feeList, given: out.asset, received: inn.asset) else {
             for leg in group { skipped.append(CsvImportSkip(line: leg.line, reason: .TWO_FEES)) }
             return
         }
         let fees: (fee: Decimal?, unit: String?) = (split.primary?.amount, split.primary?.unit)
         let line: Int = min(out.line, inn.line)
-        let outAmount: Decimal = -out.signed
-        let inAmount: Decimal = inn.signed
         if isMoney(out.asset) && isMoney(inn.asset) {
             for leg in group { skipped.append(CsvImportSkip(line: leg.line, reason: .NOT_CRYPTO)) }
         } else if isMoney(out.asset) {
             // Kauf: Geld weg, Coin rein
-            let price: Decimal = PortfolioDecimal.divide(outAmount, inAmount)
-            rows.append(row(line, .BUY, rawKind(inn), inn.asset, inAmount, price, out.asset, fees.fee, fees.unit, inn.time, refid))
+            let price: Decimal = PortfolioDecimal.divide(folded?.total ?? outAmount, inAmount)
+            var r = row(line, .BUY, rawKind(inn), inn.asset, inAmount, price, out.asset, fees.fee, fees.unit, inn.time, refid)
+            r.feeInPrice = folded != nil
+            rows.append(r)
         } else if isMoney(inn.asset) {
             // Verkauf: Coin weg, Geld rein
-            let price: Decimal = PortfolioDecimal.divide(inAmount, outAmount)
-            rows.append(row(line, .SELL, rawKind(out), out.asset, outAmount, price, inn.asset, fees.fee, fees.unit, out.time, refid))
+            let price: Decimal = PortfolioDecimal.divide(folded?.total ?? inAmount, outAmount)
+            var r = row(line, .SELL, rawKind(out), out.asset, outAmount, price, inn.asset, fees.fee, fees.unit, out.time, refid)
+            r.feeInPrice = folded != nil
+            rows.append(r)
         } else {
             // Mit Stablecoin-Seite Hinweis in der Vorschau, mit USDT-Seite Wert in USDT — wie Android
             let value = CsvImport.stableSwapValue(coin: out.asset, amount: outAmount, toCoin: inn.asset, toAmount: inAmount)

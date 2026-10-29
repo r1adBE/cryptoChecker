@@ -51,7 +51,7 @@ class PortfolioPriceSourceTest {
 
     @Before
     fun setUp() {
-        RouteHttp.assumeChainOpen()
+        RouteHttp.releaseChain()
         root = temp.newFolder()
         context = FolderContext(root)
         names = TokenIdentityStore(context, fakeWatchDao { watches })

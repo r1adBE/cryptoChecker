@@ -80,11 +80,11 @@
     <string name="settings_activity_alerts">ထင်ရှားသည်: အသိပေးရန်</string>
     <string name="settings_activity_alerts_hint">အတွဲတစ်ခုလျှင် တစ်နာရီ အများဆုံး တစ်ကြိမ်- ထူးခြားသော ဈေးနှုန်း လှုပ်ရှားမှု၊ ပမာဏ ရုတ်တရက်တက်မှုနှင့် Futures အစွန်းရောက်မှုများ (Binance မှ ဒေတာ)။</string>
     <string name="settings_activity_sensitivity">အာရုံခံနိုင်စွမ်း</string>
-    <string name="settings_activity_sensitivity_hint">ဒင်္ဂါးတစ်ခုကို ထူးခြားသည်ဟု မည်မျှ လွယ်ကူစွာ သတ်မှတ်မည် – စောင့်ကြည့်စာရင်း ကတ်နှင့် ဈေးကွက် သတိပေးချက်များအတွက် အတူတူပင်။ “နည်း” ဖြင့် ကတ်သည် အပြင်းဆုံး 3 ခုကိုသာ ပြသည်။</string>
+    <string name="settings_activity_sensitivity_hint">ကွိုင်တစ်ခုကို ထူးခြားသည်ဟု မည်မျှ လွယ်ကူစွာ သတ်မှတ်မည် – စောင့်ကြည့်စာရင်း ကတ်နှင့် ဈေးကွက် သတိပေးချက်များအတွက် အတူတူပင်။ “နည်း” ဖြင့် ကတ်သည် အပြင်းဆုံး 3 ခုကိုသာ ပြသည်။</string>
     <string name="settings_watchlist_activity_card">ထင်ရှားသည်: စာရင်းတွင် ပြရန်</string>
     <string name="settings_watchlist_activity_card_hint">အုပ်စုများဘေးတွင် ⚡ ချစ်ပ်ကို ပြသည်- ယခု တစ်ခုခု ဖြစ်နေသော အတွဲများကိုသာ ကြည့်ရန် ၎င်းကို တို့ပါ။ ၎င်းအတွက် အကြောင်းကြားချက်များကို ဈေးကွက် သတိပေးချက်များ အောက်တွင် သတ်မှတ်သည်။</string>
     <string name="settings_watchlist_names">အမည်များ ပြရန်</string>
-    <string name="settings_watchlist_names_hint">အတွဲအောက်ရှိ အမည်၊ ဥပမာ Bitcoin သို့မဟုတ် NVIDIA။ လိုဂိုစာရင်းများနှင့်အတူ ပါလာပြီး ဒင်္ဂါးအားလုံးအတွက် တစ်ကြိမ် ဖွင့်သည်။</string>
+    <string name="settings_watchlist_names_hint">အတွဲအောက်ရှိ အမည်၊ ဥပမာ Bitcoin သို့မဟုတ် NVIDIA။ လိုဂိုစာရင်းများနှင့်အတူ ပါလာပြီး ကွိုင်အားလုံးအတွက် တစ်ကြိမ် ဖွင့်သည်။</string>
     <string name="settings_watchlist_sparkline">စောင့်ကြည့်စာရင်းတွင် ဇယားငယ်</string>
     <string name="settings_watchlist_sparkline_hint">ဈေးနှုန်းဘေးတွင် 24 နာရီ လမ်းကြောင်း</string>
     <string name="settings_watchlist_value_names">အမည်များ</string>
@@ -114,15 +114,15 @@
     <string name="settings_accent">အသားပေး အရောင်</string>
     <string name="settings_accent_hint">အက်ပ်၊ ဝီဂျက်များနှင့် အက်ပ်အိုင်ကွန်အတွက် အရောင်။ ပင်မမျက်နှာပြင် အချို့သည် အိုင်ကွန် ပြောင်းသည့်အခါ ဖယ်ရှားသည် – ထိုအခါ ပြန်ထည့်ပါ။</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
-    <string name="settings_coin_logos">ဒင်္ဂါး လိုဂိုများ</string>
+    <string name="settings_coin_logos">ကွိုင် လိုဂိုများ</string>
     <string name="settings_coin_logos_app">အက်ပ်ထဲတွင်</string>
     <string name="settings_coin_logos_app_hint">စောင့်ကြည့်စာရင်း၊ ဖွင့်ထားသော အတွဲနှင့် ဈေးကွက် ကတ်များ</string>
-    <string name="settings_coin_logos_footer">လိုဂိုများသည် CoinGecko မှ လာပြီး CoinGecko တွင် မပါသော ဒင်္ဂါးများ (ဥပမာ ရွှေ၊ ငွေ၊ စတော့ရှယ်ယာ) အတွက် Binance မှ လာသည်။ အက်ပ်သည် လိုဂိုအားလုံးကို တစ်ပြိုင်နက် ဖွင့်ပြီး ဤစက်ပေါ်တွင် သိမ်းထားသောကြောင့် မည်သည့် ဝန်ဆောင်မှုပေးသူမျှ သင် မည်သည့်ဒင်္ဂါးများကို လိုက်ကြည့်သည်ကို မသိနိုင်ပါ။ လိုဂို မရှိသော ဒင်္ဂါးများသည် ၎င်းတို့၏ အတိုကောက် စာလုံးများကို ပြသည်။ အကြိုက်ဆုံးများသည် လိုဂိုပေါ်တွင် ကြယ်ငယ်တစ်ပွင့် ရသည်။ ခလုတ် ပိတ်ထားသည့်နေရာတွင် လိုဂို သို့မဟုတ် အတိုကောက် မပေါ်ပါ၊ ခလုတ်အားလုံး ပိတ်ထားလျှင် ဘာမှ မဖွင့်ပါ။</string>
+    <string name="settings_coin_logos_footer">လိုဂိုများသည် CoinGecko မှ လာပြီး CoinGecko တွင် မပါသော ကွိုင်များ (ဥပမာ ရွှေ၊ ငွေ၊ စတော့ရှယ်ယာ) အတွက် Binance မှ လာသည်။ အက်ပ်သည် လိုဂိုအားလုံးကို တစ်ပြိုင်နက် ဖွင့်ပြီး ဤစက်ပေါ်တွင် သိမ်းထားသောကြောင့် မည်သည့် ဝန်ဆောင်မှုပေးသူမျှ သင် မည်သည့်ကွိုင်များကို လိုက်ကြည့်သည်ကို မသိနိုင်ပါ။ လိုဂို မရှိသော ကွိုင်များသည် ၎င်းတို့၏ အတိုကောက် စာလုံးများကို ပြသည်။ အကြိုက်ဆုံးများသည် လိုဂိုပေါ်တွင် ကြယ်ငယ်တစ်ပွင့် ရသည်။ ခလုတ် ပိတ်ထားသည့်နေရာတွင် လိုဂို သို့မဟုတ် အတိုကောက် မပေါ်ပါ၊ ခလုတ်အားလုံး ပိတ်ထားလျှင် ဘာမှ မဖွင့်ပါ။</string>
     <string name="settings_coin_logos_portfolio">ပေါ့ဖိုလီယိုတွင်</string>
-    <string name="settings_coin_logos_portfolio_hint">ကိုင်ဆောင်ထားမှုများ၊ ဒင်္ဂါး အသေးစိတ်နှင့် ထိုးထွင်းသိမြင်မှုများ</string>
+    <string name="settings_coin_logos_portfolio_hint">ကိုင်ဆောင်ထားမှုများ၊ ကွိုင် အသေးစိတ်နှင့် ထိုးထွင်းသိမြင်မှုများ</string>
     <string name="settings_coin_logos_value_app">အက်ပ်</string>
     <string name="settings_coin_logos_widgets">ဝီဂျက်များတွင်</string>
-    <string name="settings_coin_logos_widgets_hint">စောင့်ကြည့်စာရင်းနှင့် ဒင်္ဂါးတစ်ခုတည်း ဝီဂျက်များ</string>
+    <string name="settings_coin_logos_widgets_hint">စောင့်ကြည့်စာရင်းနှင့် ကွိုင်တစ်ခုတည်း ဝီဂျက်များ</string>
     <string name="settings_high_contrast">အလင်းအမှောင် ကွာခြားမှု မြင့်</string>
     <string name="settings_high_contrast_hint">ပိုပြင်းသော ဈေးနှုန်း အရောင်များနှင့် ပိုရင့်သော ဒုတိယ စာသား။ စနစ်က ကွာခြားမှု ပိုတောင်းသည့်အခါလည်း ဖွင့်သည်။</string>
     <string name="settings_language_choose">ဘာသာစကား ရွေးရန်</string>
@@ -147,9 +147,9 @@
     <string name="settings_cost_method_average">ပျမ်းမျှ ကုန်ကျစရိတ်</string>
     <string name="settings_cost_method_average_hint">ရောင်းချမှုများကို ရွေ့လျားပျမ်းမျှ ဝယ်ဈေးဖြင့် တန်ဖိုးဖြတ်သည်။</string>
     <string name="settings_cost_method_fifo">FIFO (မူလ)</string>
-    <string name="settings_cost_method_fifo_hint">လဲလှယ်ရေးဌာနနှင့် ပိုက်ဆံအိတ်အားလုံးတွင် အဟောင်းဆုံး ဒင်္ဂါးများကို အရင် ရောင်းသည်။</string>
+    <string name="settings_cost_method_fifo_hint">လဲလှယ်ရေးဌာနနှင့် ပိုက်ဆံအိတ်အားလုံးတွင် အဟောင်းဆုံး ကွိုင်များကို အရင် ရောင်းသည်။</string>
     <string name="settings_cost_method_fifo_wallet">ပိုက်ဆံအိတ်/လဲလှယ်ရေးဌာန အလိုက် FIFO</string>
-    <string name="settings_cost_method_fifo_wallet_hint">လဲလှယ်ရေးဌာန သို့မဟုတ် ပိုက်ဆံအိတ်တစ်ခုစီအတွင်း အဟောင်းဆုံး ဒင်္ဂါးများကို အရင်၊ လွှဲပြောင်းမှုများသည် အစုများကို ၎င်းတို့၏ ဝယ်သည့်ရက်နှင့်အတူ ရွှေ့သည်။</string>
+    <string name="settings_cost_method_fifo_wallet_hint">လဲလှယ်ရေးဌာန သို့မဟုတ် ပိုက်ဆံအိတ်တစ်ခုစီအတွင်း အဟောင်းဆုံး ကွိုင်များကို အရင်၊ လွှဲပြောင်းမှုများသည် အစုများကို ၎င်းတို့၏ ဝယ်သည့်ရက်နှင့်အတူ ရွှေ့သည်။</string>
     <string name="settings_portfolio_lock">ပေါ့ဖိုလီယို လော့ခ်</string>
     <string name="settings_portfolio_lock_footer">လော့ခ်သည် မျက်နှာပြင်ပေါ်တွင် ပြသည်များကို ဖျောက်သည်။ သင့်ဒေတာကို ဤစက်ပေါ်တွင် သိမ်းထားပြီး စက်၏ ကုဒ်ပြောင်းဝှက်ခြင်းဖြင့် ကာကွယ်ထားသည်။ အရန်ဖိုင်များကို စကားဝှက်ဖြင့် ကာကွယ်နိုင်သည်။</string>
     <string name="settings_portfolio_lock_hint">ပေါ့ဖိုလီယိုကိုသာ ဖျောက်သည်- လက်ဗွေ၊ မျက်နှာ သို့မဟုတ် စက် PIN ဖြင့် လော့ခ်ဖွင့်ပါ။ နောက်ခံတွင် တစ်မိနစ်ကျော်ပြီးနောက် ထပ်လော့ခ်ချသည်။ စောင့်ကြည့်စာရင်း၊ သတိပေးချက်များနှင့် အခြား ဝီဂျက်များ ဆက်ဖွင့်ထားမည်။</string>
@@ -245,7 +245,7 @@
     <string name="licenses_app_intro">Crypto Checker သည် open source (MIT License) ဖြစ်သည်။</string>
     <string name="licenses_font_title">Rubik စာလုံးပုံစံ</string>
     <string name="licenses_icons_bundled_text">အက်ပ်နှင့်အတူ ပါဝင်သည်- Christopher Downer နှင့် ပါဝင်ကူညီသူများ၏ “Cryptocurrency Icons” မှ အိုင်ကွန်များ (github.com/spothq/cryptocurrency-icons)၊ CC0 1.0 Universal အောက်တွင် ထုတ်ဝေထားသည်။ ၎င်းတို့ကို CoinGecko သို့မဟုတ် Binance လိုဂိုများ ဖွင့်ပြီးသည်အထိ ပြသည်။ အမည်များနှင့် လိုဂိုများသည် ၎င်းတို့၏ ပရောဂျက်များ၏ ကုန်အမှတ်တံဆိပ်များ ဖြစ်နေဆဲ ဖြစ်သည်။</string>
-    <string name="licenses_icons_title">အရန် ဒင်္ဂါး အိုင်ကွန်များ</string>
+    <string name="licenses_icons_title">အရန် ကွိုင် အိုင်ကွန်များ</string>
     <string name="licenses_libraries_intro">အက်ပ်သည် ဤ library များကို Apache License 2.0 အောက်တွင် အသုံးပြုသည်:</string>
     <string name="licenses_libraries_title">Android library များ</string>
 
@@ -270,7 +270,7 @@
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_connections_label">ချိတ်ဆက်မှုများ</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_connections">ဈေးနှုန်းများသည် သင့်အတွဲများ၏ လဲလှယ်ရေးဌာနများမှ တိုက်ရိုက် လာပြီး ငွေလဲနှုန်း၊ ဒင်္ဂါးစာရင်းနှင့် လိုဂိုများ၊ GitHub ပေါ်ရှိ ဒေတာ mirror လည်း ပါသည်၊ ၎င်းတို့သည် သင့် IP လိပ်စာကို မြင်ရပြီး သင်ကိုင်ဆောင်ထားမှုကို ဘယ်တော့မှ မမြင်ရပါ (စောင့်ကြည့်ထားသော လိပ်စာများသည် သက်ဆိုင်ရာ ကွန်ရက်၏ ဝန်ဆောင်မှုပေးသူသို့ သွားသည်)။</string>
+    <string name="about_data_connections">ဈေးနှုန်းများသည် သင့်အတွဲများ၏ လဲလှယ်ရေးဌာနများမှ တိုက်ရိုက် လာပြီး ငွေလဲနှုန်း၊ ကွိုင်စာရင်းနှင့် လိုဂိုများ၊ GitHub ပေါ်ရှိ ဒေတာ mirror လည်း ပါသည်၊ ၎င်းတို့သည် သင့် IP လိပ်စာကို မြင်ရပြီး သင်ကိုင်ဆောင်ထားမှုကို ဘယ်တော့မှ မမြင်ရပါ (စောင့်ကြည့်ထားသော လိပ်စာများသည် သက်ဆိုင်ရာ ကွန်ရက်၏ ဝန်ဆောင်မှုပေးသူသို့ သွားသည်)။</string>
     <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
     <string name="about_data_backup_label">အရန်သိမ်းခြင်း</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->

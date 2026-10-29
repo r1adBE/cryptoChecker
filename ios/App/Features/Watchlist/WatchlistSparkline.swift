@@ -181,45 +181,35 @@ struct WatchlistSparkline: View {
 }
 
 /// Platz für Paar-Spalte und Mini-Chart: Das Chart (56 × 28 pt, in schmalen Zeilen 48 × 28 pt —
-/// `DenseRowText.sparklineWidth`) erscheint nur,
-/// wenn danach die Paar-Spalte ungekürzt Platz hat (ihre Eigenbreite, mindestens `minInfoWidth`) — sonst
-/// wird es ausgeblendet (Grösse null): erst fällt das Chart weg, dann wird gekürzt («B…», «Bin…» neben
-/// dem Chart). Mehrzeilige Zusätze (Fehler, Notiz) zählen dabei nicht (Eigenbreite 0, `WatchlistRowParts`).
-/// Die Kurs-Spalte daneben bleibt immer unberührt.
+/// `DenseRowText.sparklineWidth`) steht immer rechts neben der Paar-Spalte, die die übrige Breite füllt. Wird es
+/// eng, bricht die Spalte selbst um (Symbole unter die Börse, `WatchlistMetaLine`) — das Chart fällt nie weg und
+/// die Börse wird nicht gekürzt (gleiche Regel wie Android). Die Kurs-Spalte daneben bleibt immer unberührt.
 /// Erstes Kind: Paar-Spalte; zweites (optional): Mini-Chart.
 struct WatchlistSparklineSlot: Layout {
-    var minInfoWidth: CGFloat
     var sparkWidth: CGFloat = 56
     /// 28 pt — bleibt unter der Höhe von Paar-Spalte und Stern (≈ 40 pt),
     /// die Zeile wird dadurch nicht höher.
     var sparkHeight: CGFloat = 28
     var gap: CGFloat = 8
 
-    private func showsSpark(width: CGFloat?, subviews: Subviews) -> Bool {
-        guard subviews.count >= 2 else { return false }
-        guard let width else { return true }
-        let needed = max(minInfoWidth, subviews[0].sizeThatFits(.unspecified).width)
-        return width - sparkWidth - gap >= needed
-    }
+    private func sparkRoom(_ subviews: Subviews) -> CGFloat { subviews.count >= 2 ? sparkWidth + gap : 0 }
 
     func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
         guard let info = subviews.first else { return .zero }
-        let show = showsSpark(width: proposal.width, subviews: subviews)
-        let infoWidth = proposal.width.map { show ? $0 - sparkWidth - gap : $0 }
+        let room = sparkRoom(subviews)
+        let infoWidth = proposal.width.map { max($0 - room, 0) }
         let infoSize = info.sizeThatFits(ProposedViewSize(width: infoWidth, height: proposal.height))
-        let width = proposal.width ?? (infoSize.width + (show ? sparkWidth + gap : 0))
-        return CGSize(width: width, height: max(infoSize.height, show ? sparkHeight : 0))
+        let width = proposal.width ?? (infoSize.width + room)
+        return CGSize(width: width, height: max(infoSize.height, room > 0 ? sparkHeight : 0))
     }
 
     func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
         guard let info = subviews.first else { return }
-        let show = showsSpark(width: bounds.width, subviews: subviews)
-        let infoWidth = show ? bounds.width - sparkWidth - gap : bounds.width
         info.place(at: CGPoint(x: bounds.minX, y: bounds.midY), anchor: .leading,
-                   proposal: ProposedViewSize(width: infoWidth, height: bounds.height))
+                   proposal: ProposedViewSize(width: max(bounds.width - sparkRoom(subviews), 0), height: bounds.height))
         if subviews.count >= 2 {
             subviews[1].place(at: CGPoint(x: bounds.maxX, y: bounds.midY), anchor: .trailing,
-                              proposal: show ? ProposedViewSize(width: sparkWidth, height: sparkHeight) : .zero)
+                              proposal: ProposedViewSize(width: sparkWidth, height: sparkHeight))
         }
     }
 }

@@ -150,96 +150,106 @@ internal fun RowInfo(
                 modifier = Modifier.padding(vertical = 2.dp).clearAndSetSemantics { }
             )
         }
-        // Im Zeilensatz enthalten, hier für den Screenreader ausgeblendet
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
+        // Im Zeilensatz enthalten, hier für den Screenreader ausgeblendet. Wird es eng, stehen die Symbole unter der
+        // Börse ([RowMetaLine]) — nie «Bi…», das Mini-Chart bleibt (wie iOS)
+        // Warnung (nicht erreichbar / veraltet) ersetzt die normale Zeitzeile. Bernstein mit ⚠ statt Fehlerrot:
+        // Rot ist dunkel kaum vom fallenden Kurs zu unterscheiden (wie iOS)
+        val warning = status.warning
+        val staleTime = stale && watch.lastUpdate > 0
+        RowMetaLine(
+            gap = Spacing.xs,
             // Mit Namen: gleicher Abstand wie die ≈ Umrechnung rechts
-            modifier = Modifier.padding(top = if (namesOn) 2.dp else 0.dp).clearAndSetSemantics { }
-        ) {
-            // Warnung (nicht erreichbar / veraltet) ersetzt die normale Zeitzeile. Bernstein mit ⚠ statt Fehlerrot:
-            // Rot ist dunkel kaum vom fallenden Kurs zu unterscheiden (wie iOS)
-            val warning = status.warning
-            val staleTime = stale && watch.lastUpdate > 0
-            if ((warning != null || staleTime) && !watch.disabled) {
-                Icon(
-                    painterResource(R.drawable.ic_warning),
-                    contentDescription = null,
-                    // Gleiche Bernstein-Stufe wie der Text daneben: AppColors.warning erreicht auf hellen Karten keine 3:1
-                    tint = AppColors.warningText,
-                    modifier = Modifier.padding(end = 4.dp).size(rowIcon)
-                )
-            }
-            Text(
-                text = when {
-                    // Deaktiviert: «Binance · deaktiviert» statt Zeit bzw. Warnung
-                    watch.disabled -> stringResource(R.string.watchlist_row_disabled, BidiText.isolate(watch.exchangeName))
-                    warning != null -> warning
-                    // Zeit nur, wenn das Paar nicht aktuell ist — sonst steht sie oben im Status
-                    // («Kurse der gewählten Börsen · vor 2 Min.») und wäre in jeder Zeile doppelt
-                    staleTime -> "${BidiText.isolate(watch.exchangeName)} · ${ago(watch.lastUpdate, now)}"
-                    // Börse ohne eigene Zeit, Kurs steht lange: nicht frisch wirken (PriceFreshness)
-                    status.unchanged != null -> "${BidiText.isolate(watch.exchangeName)} · ${status.unchanged}"
-                    // Herkunft von Änderung/Mini-Chart («Änderung: Binance») steht nur im Aktionsblatt
-                    else -> watch.exchangeName
-                },
-                // Lesegrösse (14 sp) statt 12 — bricht bei grosser Schrift um ([DenseRowText]),
-                // rechts steht dieselbe Stufe (≈ Umrechnung), die Linien bleiben gleich hoch
-                style = MaterialTheme.typography.body,
-                color = when {
-                    watch.disabled -> MaterialTheme.colorScheme.onSurfaceVariant
-                    // Bernstein-Schrift (≥ 4.5:1 auch auf hellen Karten), nie die Farbe eines fallenden Kurses
-                    warning != null || staleTime -> AppColors.warningText
-                    else -> MaterialTheme.colorScheme.onSurfaceVariant
-                },
-                maxLines = lines,
-                overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.weight(1f, fill = false)
-            )
-            // Art vor der Glocke: Token (Raute), TradFi (Bank), Alpha («α») wie die Chips;
-            // neutral wie die Glocke, in der Themenfarbe nur mit gewähltem passendem Chip
-            val highlight = LocalRowHighlight.current
-            val kindHighlighted = when (kind) {
-                AssetKind.TOKEN -> highlight.tokens
-                AssetKind.TRADFI -> highlight.tradFi
-                AssetKind.ALPHA -> highlight.alpha
-            }
-            AssetKindIcon(
-                kind = kind,
-                tint = if (kindHighlighted) accent else MaterialTheme.colorScheme.onSurfaceVariant,
-                size = rowIcon,
-                modifier = Modifier.padding(start = Spacing.xs).alpha(iconAlpha)
-            )
-            // Kursmitteilung: schlichte Glocke = an, durchgestrichene
-            // = aus (Paar aus oder Hauptschalter «Kursmitteilungen» aus). Danach die Alarmglocke (mit Wellen), nur bei
-            // mind. einem aktiven Alarm ([alarmCount] zählt nur eingeschaltete).
-            val priceOn = com.cryptochecker.app.util.A11ySpeech.priceNotificationOn(
-                pairOn = watch.notificationEnabled,
-                masterOn = com.cryptochecker.app.ui.components.LocalPriceNotificationsOn.current,
-            )
-            Icon(
-                painterResource(if (priceOn) R.drawable.ic_notifications else R.drawable.ic_notifications_off),
-                contentDescription = stringResource(
-                    if (priceOn) R.string.a11y_price_notification_on else R.string.a11y_price_notification_off
-                ),
-                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(start = Spacing.xs).size(rowIcon).alpha(iconAlpha)
-            )
-            if (alarmCount > 0) {
-                Icon(
-                    painterResource(R.drawable.ic_notifications_active),
-                    contentDescription = pluralStringResource(R.plurals.watchlist_alarms_count, alarmCount, alarmCount),
-                    // Textfarbe (weiss bzw. dunkel im Hellmodus), nicht die Themenfarbe
-                    tint = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.padding(start = Spacing.xs).size(rowIcon).alpha(iconAlpha)
-                )
-                Text(
-                    text = LocaleNumbers.integer(alarmCount),
-                    style = MaterialTheme.typography.label,
-                    color = disabledTextColor(off, MaterialTheme.colorScheme.onSurface),
-                    modifier = Modifier.padding(start = 2.dp)
-                )
-            }
-        }
+            modifier = Modifier.padding(top = if (namesOn) 2.dp else 0.dp).clearAndSetSemantics { },
+            lead = {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    if ((warning != null || staleTime) && !watch.disabled) {
+                        Icon(
+                            painterResource(R.drawable.ic_warning),
+                            contentDescription = null,
+                            // Gleiche Bernstein-Stufe wie der Text daneben: AppColors.warning erreicht auf hellen Karten keine 3:1
+                            tint = AppColors.warningText,
+                            modifier = Modifier.padding(end = 4.dp).size(rowIcon)
+                        )
+                    }
+                    Text(
+                        text = when {
+                            // Deaktiviert: «Binance · deaktiviert» statt Zeit bzw. Warnung
+                            watch.disabled -> stringResource(R.string.watchlist_row_disabled, BidiText.isolate(watch.exchangeName))
+                            warning != null -> warning
+                            // Zeit nur, wenn das Paar nicht aktuell ist — sonst steht sie oben im Status
+                            // («Kurse der gewählten Börsen · vor 2 Min.») und wäre in jeder Zeile doppelt
+                            staleTime -> "${BidiText.isolate(watch.exchangeName)} · ${ago(watch.lastUpdate, now)}"
+                            // Börse ohne eigene Zeit, Kurs steht lange: nicht frisch wirken (PriceFreshness)
+                            status.unchanged != null -> "${BidiText.isolate(watch.exchangeName)} · ${status.unchanged}"
+                            // Herkunft von Änderung/Mini-Chart («Änderung: Binance») steht nur im Aktionsblatt
+                            else -> watch.exchangeName
+                        },
+                        // Lesegrösse (14 sp) statt 12 — bricht bei grosser Schrift um ([DenseRowText]),
+                        // rechts steht dieselbe Stufe (≈ Umrechnung), die Linien bleiben gleich hoch
+                        style = MaterialTheme.typography.body,
+                        color = when {
+                            watch.disabled -> MaterialTheme.colorScheme.onSurfaceVariant
+                            // Bernstein-Schrift (≥ 4.5:1 auch auf hellen Karten), nie die Farbe eines fallenden Kurses
+                            warning != null || staleTime -> AppColors.warningText
+                            else -> MaterialTheme.colorScheme.onSurfaceVariant
+                        },
+                        maxLines = lines,
+                        // Nur noch als letzter Ausweg: die Symbole weichen vorher in die nächste Zeile aus
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.weight(1f, fill = false)
+                    )
+                }
+            },
+            icons = {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    // Art vor der Glocke: Token (Raute), TradFi (Bank), Alpha («α») wie die Chips;
+                    // neutral wie die Glocke, in der Themenfarbe nur mit gewähltem passendem Chip
+                    val highlight = LocalRowHighlight.current
+                    val kindHighlighted = when (kind) {
+                        AssetKind.TOKEN -> highlight.tokens
+                        AssetKind.TRADFI -> highlight.tradFi
+                        AssetKind.ALPHA -> highlight.alpha
+                    }
+                    AssetKindIcon(
+                        kind = kind,
+                        tint = if (kindHighlighted) accent else MaterialTheme.colorScheme.onSurfaceVariant,
+                        size = rowIcon,
+                        // Abstand zum Börsentext setzt [RowMetaLine] (auch beim Umbruch bündig)
+                        modifier = Modifier.alpha(iconAlpha)
+                    )
+                    // Kursmitteilung: schlichte Glocke = an, durchgestrichene
+                    // = aus (Paar aus oder Hauptschalter «Kursmitteilungen» aus). Danach die Alarmglocke (mit Wellen), nur bei
+                    // mind. einem aktiven Alarm ([alarmCount] zählt nur eingeschaltete).
+                    val priceOn = com.cryptochecker.app.util.A11ySpeech.priceNotificationOn(
+                        pairOn = watch.notificationEnabled,
+                        masterOn = com.cryptochecker.app.ui.components.LocalPriceNotificationsOn.current,
+                    )
+                    Icon(
+                        painterResource(if (priceOn) R.drawable.ic_notifications else R.drawable.ic_notifications_off),
+                        contentDescription = stringResource(
+                            if (priceOn) R.string.a11y_price_notification_on else R.string.a11y_price_notification_off
+                        ),
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(start = Spacing.xs).size(rowIcon).alpha(iconAlpha)
+                    )
+                    if (alarmCount > 0) {
+                        Icon(
+                            painterResource(R.drawable.ic_notifications_active),
+                            contentDescription = pluralStringResource(R.plurals.watchlist_alarms_count, alarmCount, alarmCount),
+                            // Textfarbe (weiss bzw. dunkel im Hellmodus), nicht die Themenfarbe
+                            tint = MaterialTheme.colorScheme.onSurface,
+                            modifier = Modifier.padding(start = Spacing.xs).size(rowIcon).alpha(iconAlpha)
+                        )
+                        Text(
+                            text = LocaleNumbers.integer(alarmCount),
+                            style = MaterialTheme.typography.label,
+                            color = disabledTextColor(off, MaterialTheme.colorScheme.onSurface),
+                            modifier = Modifier.padding(start = 2.dp)
+                        )
+                    }
+                }
+            },
+        )
         watch.lastError?.takeIf { status.showErrorLine }?.let { error ->
             Text(
                 text = friendlyError(error),

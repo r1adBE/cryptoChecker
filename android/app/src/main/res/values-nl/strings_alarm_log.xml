@@ -23,7 +23,7 @@
     <string name="alarm_outcome_no_rate">Niet gecontroleerd – geen wisselkoers</string>
     <string name="alarm_outcome_no_price">Geen koers – opvraag bij de beurs mislukt</string>
 
-    <string name="alarm_outcome_snoozed">Tegengehouden – «Over 1 u» loopt nog</string>
+    <string name="alarm_outcome_snoozed">Tegengehouden – ‘Over 1 u’ loopt nog</string>
     <string name="alarm_log_source_app">in de app</string>
     <string name="alarm_log_source_background">op de achtergrond</string>
     <string name="alarm_log_source_exact">stipte controle</string>

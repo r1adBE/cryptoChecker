@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">Гүйлгээг хадгалж байна…</string>
     <string name="portfolio_csv_import_missing_fx">%1$s мөрийн өдрийн ханш алга – ханш/шимтгэлгүй импортлосон.</string>
     <string name="portfolio_csv_import_missing_price">Файлд %1$s мөрийн ханш алга – ханшгүй импортлосон.</string>
+    <string name="portfolio_csv_import_fee_in_price">%1$s мөрт хоёр шимтгэл: фиат шимтгэлийг үнэд оруулсан, зоосны шимтгэл хүлээн авсан хэмжээг бууруулж эсвэл өгсөн хэмжээг нэмэгдүүлнэ.</string>
+    <string name="portfolio_csv_import_pending_differs">%1$s мөр: нэг орлого эсвэл зарлагын хүлээгдэж буй болон бүртгэгдсэн бичлэгийн хэмжээ өөр байна – хоёуланг нь импортлосон, хөрөнгөө шалгана уу.</string>
     <string name="portfolio_csv_import_more">+ өөр %1$d</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d шинэ гүйлгээ</item>

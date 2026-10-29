@@ -4,8 +4,8 @@
     <string name="why_action">साथ में किसमें हलचल है?</string>
     <string name="why_all_values">सभी मान और स्रोत</string>
     <string name="why_all_values_hint">अवलोकन · संभावित व्याख्या · स्रोत</string>
-    <string name="why_details">विवरण देखो</string>
-    <string name="why_details_hide">विवरण छिपाओ</string>
+    <string name="why_details">विवरण देखें</string>
+    <string name="why_details_hide">विवरण छिपाएँ</string>
     <string name="why_disclaimer">मार्केट डेटा से स्वचालित आकलन: यह दिखाता है कि एक ही समय पर क्या हो रहा है, किसी कारण का सबूत नहीं।</string>
     <string name="why_footer_short">एक साथ होने का मतलब कारण नहीं · निवेश सलाह नहीं</string>
     <string name="why_no_data">इस पेयर के लिए Binance से कोई डेटा नहीं</string>

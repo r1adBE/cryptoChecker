@@ -5,7 +5,7 @@
     <string name="alarms_add">አዲስ ማንቂያ</string>
     <string name="alarms_edit">ማንቂያ ያርትዑ</string>
     <string name="alarms_empty">ለዚህ ጥንድ እስካሁን ምንም ማንቂያ የለም።</string>
-    <string name="alarms_empty_example">ለምሳሌ፦ BTC ከ%1$s በላይ ሲወጣ ንገረኝ።</string>
+    <string name="alarms_empty_example">ለምሳሌ፦ BTC ከ%1$s በላይ ሲወጣ ይንገሩኝ።</string>
     <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
     <string name="alarms_notifications_off">ማሳወቂያዎች ጠፍተዋል – ማንቂያዎች ሊደርሱዎት አይችሉም።</string>
     <string name="alarms_notifications_turn_on">ያብሩ</string>
@@ -81,29 +81,29 @@
     <string name="alarm_condition_volume_spike">የመጠን ድንገተኛ ጭማሪ</string>
 
     <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
-    <string name="alarm_sentence_above">%1$s ከ%2$s በላይ ሲወጣ ንገረኝ።</string>
-    <string name="alarm_sentence_below">%1$s ከ%2$s በታች ሲወርድ ንገረኝ።</string>
-    <string name="alarm_sentence_down_percent">%1$s ሲቀመጥ ከነበረው ዋጋ (ወይም ከመጨረሻው ማንቂያ) በ%2$s ሲወርድ ንገረኝ።</string>
-    <string name="alarm_sentence_funding_above">የ%1$s ፈንዲንግ ከ%2$s በላይ ሲወጣ ንገረኝ።</string>
-    <string name="alarm_sentence_funding_below">የ%1$s ፈንዲንግ ከ%2$s በታች ሲወርድ ንገረኝ።</string>
+    <string name="alarm_sentence_above">%1$s ከ%2$s በላይ ሲወጣ ይንገሩኝ።</string>
+    <string name="alarm_sentence_below">%1$s ከ%2$s በታች ሲወርድ ይንገሩኝ።</string>
+    <string name="alarm_sentence_down_percent">%1$s ሲቀመጥ ከነበረው ዋጋ (ወይም ከመጨረሻው ማንቂያ) በ%2$s ሲወርድ ይንገሩኝ።</string>
+    <string name="alarm_sentence_funding_above">የ%1$s ፈንዲንግ ከ%2$s በላይ ሲወጣ ይንገሩኝ።</string>
+    <string name="alarm_sentence_funding_below">የ%1$s ፈንዲንግ ከ%2$s በታች ሲወርድ ይንገሩኝ።</string>
     <string name="alarm_sentence_incomplete">ማንቂያውን እንደ ዓረፍተ ነገር ለማየት እሴት ያስገቡ።</string>
     <plurals name="alarm_sentence_move_percent">
-        <item quantity="one">%1$s በ%3$d ሰዓት ውስጥ በ%2$s ሲንቀሳቀስ ንገረኝ።</item>
-        <item quantity="other">%1$s በ%3$d ሰዓታት ውስጥ በ%2$s ሲንቀሳቀስ ንገረኝ።</item>
+        <item quantity="one">%1$s በ%3$d ሰዓት ውስጥ በ%2$s ሲንቀሳቀስ ይንገሩኝ።</item>
+        <item quantity="other">%1$s በ%3$d ሰዓታት ውስጥ በ%2$s ሲንቀሳቀስ ይንገሩኝ።</item>
     </plurals>
-    <string name="alarm_sentence_near_high">%1$s ከ%3$s ቢበዛ በ%2$s በታች ሲሆን ንገረኝ።</string>
-    <string name="alarm_sentence_near_low">%1$s ከ%3$s ቢበዛ በ%2$s በላይ ሲሆን ንገረኝ።</string>
-    <string name="alarm_sentence_new_extreme">%1$s አዲስ %2$s ሲያስመዘግብ ንገረኝ።</string>
+    <string name="alarm_sentence_near_high">%1$s ከ%3$s ቢበዛ በ%2$s በታች ሲሆን ይንገሩኝ።</string>
+    <string name="alarm_sentence_near_low">%1$s ከ%3$s ቢበዛ በ%2$s በላይ ሲሆን ይንገሩኝ።</string>
+    <string name="alarm_sentence_new_extreme">%1$s አዲስ %2$s ሲያስመዘግብ ይንገሩኝ።</string>
     <plurals name="alarm_sentence_oi_down">
-        <item quantity="one">የ%1$s ኦፕን ኢንተረስት በ%3$d ሰዓት ውስጥ በ%2$s ሲቀንስ ንገረኝ።</item>
-        <item quantity="other">የ%1$s ኦፕን ኢንተረስት በ%3$d ሰዓታት ውስጥ በ%2$s ሲቀንስ ንገረኝ።</item>
+        <item quantity="one">የ%1$s ኦፕን ኢንተረስት በ%3$d ሰዓት ውስጥ በ%2$s ሲቀንስ ይንገሩኝ።</item>
+        <item quantity="other">የ%1$s ኦፕን ኢንተረስት በ%3$d ሰዓታት ውስጥ በ%2$s ሲቀንስ ይንገሩኝ።</item>
     </plurals>
     <plurals name="alarm_sentence_oi_up">
-        <item quantity="one">የ%1$s ኦፕን ኢንተረስት በ%3$d ሰዓት ውስጥ በ%2$s ሲጨምር ንገረኝ።</item>
-        <item quantity="other">የ%1$s ኦፕን ኢንተረስት በ%3$d ሰዓታት ውስጥ በ%2$s ሲጨምር ንገረኝ።</item>
+        <item quantity="one">የ%1$s ኦፕን ኢንተረስት በ%3$d ሰዓት ውስጥ በ%2$s ሲጨምር ይንገሩኝ።</item>
+        <item quantity="other">የ%1$s ኦፕን ኢንተረስት በ%3$d ሰዓታት ውስጥ በ%2$s ሲጨምር ይንገሩኝ።</item>
     </plurals>
-    <string name="alarm_sentence_up_percent">%1$s ሲቀመጥ ከነበረው ዋጋ (ወይም ከመጨረሻው ማንቂያ) በ%2$s ሲጨምር ንገረኝ።</string>
-    <string name="alarm_sentence_volume">%1$s ከተለመደው መጠኑ %2$s× ሲገበያይ ንገረኝ።</string>
+    <string name="alarm_sentence_up_percent">%1$s ሲቀመጥ ከነበረው ዋጋ (ወይም ከመጨረሻው ማንቂያ) በ%2$s ሲጨምር ይንገሩኝ።</string>
+    <string name="alarm_sentence_volume">%1$s ከተለመደው መጠኑ %2$s× ሲገበያይ ይንገሩኝ።</string>
 
     <!-- Alarm «Nahe am Hoch / Tief» -->
     <string name="alarm_near_extreme_high_30">የ30 ቀን ከፍተኛ</string>

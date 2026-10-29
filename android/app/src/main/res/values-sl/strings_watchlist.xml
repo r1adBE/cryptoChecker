@@ -9,7 +9,6 @@
         <item quantity="few">%1$d od %2$d brez tečaja</item>
         <item quantity="other">%1$d od %2$d brez tečaja</item>
     </plurals>
-    <string name="watchlist_last_run">Zadnji zagon %1$s</string>
     <string name="watchlist_live_a11y">Tečaji v živo vklopljeni</string>
     <string name="watchlist_offline_since">Ni povezave · stanje %1$s</string>
     <string name="watchlist_pull_to_refresh">Povleci navzdol za osvežitev</string>

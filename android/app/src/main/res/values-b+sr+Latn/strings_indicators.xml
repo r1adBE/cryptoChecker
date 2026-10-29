@@ -25,9 +25,9 @@
 
     <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
     <string name="neutral_info_alt_season_how">Aplikacija prikazuje samo broj i ne naziva ga sezonom. Vrednost se obično menja tokom dana, a ne sati.</string>
-    <string name="neutral_info_btc_how">Uz svaku vrednost ide jedna rečenica o tome što meri i gde se nalazi u sopstvenoj istoriji od 2016. Aplikacija ne ocenjuje vrednosti i iz njih ne izvodi fazu tržišta; granice za tržišne alarme samo su one koje postaviš ti. Obrasci iz prošlosti ne moraju se ponoviti.</string>
+    <string name="neutral_info_btc_how">Uz svaku vrednost ide jedna rečenica o tome šta meri i gde se nalazi u sopstvenoj istoriji od 2016. Aplikacija ne ocenjuje vrednosti i iz njih ne izvodi fazu tržišta; granice za tržišne alarme samo su one koje postaviš ti. Obrasci iz prošlosti ne moraju se ponoviti.</string>
     <string name="neutral_info_btc_what">Uobičajeni Bitkoin pokazatelji kao jednostavne izmerene vrednosti: Mayer Multiple, 200-nedeljni prosek, pad od rekordnog maksimuma, promena tokom 30 dana, Pi Cycle razmak te on-chain vrednosti MVRV, Puell Multiple i hešrejt.</string>
-    <string name="neutral_info_coin_how">Uz svaku vrednost ide jedna rečenica o tome što meri, bez ocene. Za kriptovalute s kratkom istorijom cena neke vrednosti nedostaju. On-chain podaci ovde nisu uključeni.</string>
+    <string name="neutral_info_coin_how">Uz svaku vrednost ide jedna rečenica o tome šta meri, bez ocene. Za kriptovalute s kratkom istorijom cena neke vrednosti nedostaju. On-chain podaci ovde nisu uključeni.</string>
     <string name="neutral_info_coin_what">Isti jednostavni pokazatelji za kriptovalutu po tvom izboru, samo iz podataka o ceni: Mayer Multiple, 200-nedeljni prosek, pad od rekordnog maksimuma, promena tokom 30 dana, trend 50/200 dana, RSI i snaga u odnosu na Bitkoin tokom 90 dana.</string>
     <string name="neutral_info_halving_how">Sledeći halving izračunava se iz trenutne visine bloka i prosečnog vremena bloka u trenutnom periodu težine (mempool.space); bez tih podataka prema kalendaru (poslednji halving plus otprilike četiri godine). Grafikon prikazuje kretanje cene u prošlim ciklusima od njihova halvinga – istorija, a ne prognoza.</string>
 

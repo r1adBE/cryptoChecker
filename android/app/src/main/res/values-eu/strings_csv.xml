@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">Transakzioak gordetzen…</string>
     <string name="portfolio_csv_import_missing_fx">Ez dago eguneko truke-tasarik lerro hauetarako: %1$s – preziorik/komisiorik gabe inportatuta.</string>
     <string name="portfolio_csv_import_missing_price">Fitxategian ez dago preziorik lerro hauetarako: %1$s – preziorik gabe inportatuta.</string>
+    <string name="portfolio_csv_import_fee_in_price">Bi komisio lerro hauetan: %1$s – fiat komisioa prezioan sartuta dago, txanponeko komisioak jasotako kopurua murrizten edo emandakoa handitzen du.</string>
+    <string name="portfolio_csv_import_pending_differs">Lerroak: %1$s – gordailu edo erretiro bereko zain dagoen sarrerak eta erregistratutakoak kopuru desberdinak dituzte; biak inportatuta, begiratu ondasunak.</string>
     <string name="portfolio_csv_import_more">+ %1$d gehiago</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d transakzio berri</item>

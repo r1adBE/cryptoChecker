@@ -33,6 +33,8 @@
     <string name="portfolio_csv_import_saving">Сохранение транзакций…</string>
     <string name="portfolio_csv_import_missing_fx">Нет дневного курса для строк %1$s – импортировано без цены и комиссии.</string>
     <string name="portfolio_csv_import_missing_price">В файле нет цены для строк %1$s – импортировано без цены.</string>
+    <string name="portfolio_csv_import_fee_in_price">Две комиссии в строках %1$s: комиссия в фиате включена в цену, комиссия в монете уменьшает полученное или увеличивает отданное количество.</string>
+    <string name="portfolio_csv_import_pending_differs">Строки %1$s: ожидающая и проведённая запись одного пополнения или вывода различаются по количеству – обе импортированы, проверь остаток.</string>
     <string name="portfolio_csv_import_more">+ ещё %1$d</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d новая транзакция</item>

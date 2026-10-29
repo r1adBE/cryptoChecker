@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">ವಹಿವಾಟುಗಳನ್ನು ಉಳಿಸಲಾಗುತ್ತಿದೆ…</string>
     <string name="portfolio_csv_import_missing_fx">ಸಾಲುಗಳು %1$s ಗೆ ದೈನಂದಿನ ದರವಿಲ್ಲ – ಬೆಲೆ/ಶುಲ್ಕವಿಲ್ಲದೆ ಆಮದು ಮಾಡಲಾಗಿದೆ.</string>
     <string name="portfolio_csv_import_missing_price">ಸಾಲುಗಳು %1$s ಗೆ ಫೈಲ್‌ನಲ್ಲಿ ಬೆಲೆ ಇಲ್ಲ – ಬೆಲೆ ಇಲ್ಲದೆ ಆಮದು ಮಾಡಲಾಗಿದೆ.</string>
+    <string name="portfolio_csv_import_fee_in_price">ಸಾಲುಗಳು %1$s ರಲ್ಲಿ ಎರಡು ಶುಲ್ಕಗಳು: ಫಿಯಟ್ ಶುಲ್ಕ ಬೆಲೆಯಲ್ಲಿ ಸೇರಿದೆ, ಕಾಯಿನ್‌ನಲ್ಲಿನ ಶುಲ್ಕ ಪಡೆದ ಪ್ರಮಾಣವನ್ನು ಕಡಿಮೆ ಅಥವಾ ನೀಡಿದ ಪ್ರಮಾಣವನ್ನು ಹೆಚ್ಚು ಮಾಡುತ್ತದೆ.</string>
+    <string name="portfolio_csv_import_pending_differs">ಸಾಲುಗಳು %1$s: ಒಂದೇ ಠೇವಣಿ ಅಥವಾ ಹಿಂಪಡೆಯುವಿಕೆಯ ಬಾಕಿ ಮತ್ತು ದಾಖಲಾದ ನಮೂದುಗಳ ಪ್ರಮಾಣ ಬೇರೆ – ಎರಡನ್ನೂ ಆಮದು ಮಾಡಲಾಗಿದೆ, ಹೋಲ್ಡಿಂಗ್‌ಗಳನ್ನು ಪರಿಶೀಲಿಸಿ.</string>
     <string name="portfolio_csv_import_more">+ ಇನ್ನೂ %1$d</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d ಹೊಸ ವಹಿವಾಟು</item>

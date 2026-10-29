@@ -74,7 +74,7 @@
     <string name="alarm_condition_down_percent">יורד ב־</string>
     <string name="alarm_condition_funding_above">מימון מעל</string>
     <string name="alarm_condition_funding_below">מימון מתחת</string>
-    <string name="alarm_condition_move_percent">זז ב-</string>
+    <string name="alarm_condition_move_percent">זז ב־</string>
     <string name="alarm_condition_near_high">קרוב לשיא</string>
     <string name="alarm_condition_near_low">קרוב לשפל</string>
     <string name="alarm_condition_oi_down">Open interest יורד</string>

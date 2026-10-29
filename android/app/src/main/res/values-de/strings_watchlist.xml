@@ -7,7 +7,6 @@
         <item quantity="one">%1$d von %2$d ohne Kurs</item>
         <item quantity="other">%1$d von %2$d ohne Kurs</item>
     </plurals>
-    <string name="watchlist_last_run">Letzter Durchlauf %1$s</string>
     <string name="watchlist_live_a11y">Live-Kurse aktiv</string>
     <string name="watchlist_offline_since">Keine Verbindung · Stand %1$s</string>
     <string name="watchlist_pull_to_refresh">Zum Aktualisieren nach unten ziehen</string>

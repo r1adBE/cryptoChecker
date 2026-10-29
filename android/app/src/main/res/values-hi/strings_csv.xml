@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Portfolio: CSV-Import -->
-    <string name="portfolio_csv_import_action">CSV आयात करो</string>
+    <string name="portfolio_csv_import_action">CSV आयात करें</string>
     <string name="portfolio_csv_import_all_transfer">सभी अपने वॉलेट में</string>
     <string name="portfolio_csv_import_all_withdrawal">सभी पोर्टफ़ोलियो से बाहर</string>
     <string name="portfolio_csv_import_choice_proposed">सुझाव: %1$s से मेल खाता है</string>
     <string name="portfolio_csv_import_choice_transfer">अपने वॉलेट में (ट्रांसफ़र)</string>
     <string name="portfolio_csv_import_choice_withdrawal">पोर्टफ़ोलियो से बाहर (निकासी)</string>
-    <string name="portfolio_csv_import_choose_each">हर निकासी के लिए चुनो कि वह कहाँ गई।</string>
+    <string name="portfolio_csv_import_choose_each">हर निकासी के लिए चुनें कि वह कहाँ गई।</string>
     <string name="portfolio_csv_import_columns">पहचाने गए कॉलम: %1$s</string>
-    <string name="portfolio_csv_import_confirm">आयात करो (%1$d)</string>
+    <string name="portfolio_csv_import_confirm">आयात करें (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">दिन/महीना</string>
     <string name="portfolio_csv_import_date_month_first">महीना/दिन</string>
-    <string name="portfolio_csv_import_date_order">अस्पष्ट तारीखें (जैसे 03/04/2024) इस तरह पढ़ो:</string>
-    <string name="portfolio_csv_import_decimal">अस्पष्ट संख्याएँ (जैसे %1$s) इस तरह पढ़ो:</string>
+    <string name="portfolio_csv_import_date_order">अस्पष्ट तारीखें (जैसे 03/04/2024) इस तरह पढ़ें:</string>
+    <string name="portfolio_csv_import_decimal">अस्पष्ट संख्याएँ (जैसे %1$s) इस तरह पढ़ें:</string>
     <plurals name="portfolio_csv_import_done">
         <item quantity="one">%d लेन-देन आयात हुआ</item>
         <item quantity="other">%d लेन-देन आयात हुए</item>
@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">लेन-देन सहेजे जा रहे हैं…</string>
     <string name="portfolio_csv_import_missing_fx">पंक्ति %1$s के लिए दैनिक भाव नहीं – बिना भाव/शुल्क के आयात किया गया।</string>
     <string name="portfolio_csv_import_missing_price">फ़ाइल में पंक्ति %1$s का भाव नहीं – बिना भाव के आयात किया गया।</string>
+    <string name="portfolio_csv_import_fee_in_price">पंक्ति %1$s में दो शुल्क: फ़िएट शुल्क भाव में शामिल है, कॉइन वाला शुल्क मिली मात्रा घटाता है या दी गई मात्रा बढ़ाता है।</string>
+    <string name="portfolio_csv_import_pending_differs">पंक्ति %1$s: एक ही जमा या निकासी की लंबित और दर्ज प्रविष्टि की मात्रा अलग है – दोनों आयात की गईं, शेष जाँचें।</string>
     <string name="portfolio_csv_import_more">+ %1$d और</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d नया लेन-देन</item>
@@ -38,39 +40,39 @@
         <item quantity="one">%d पंक्ति छोड़ी गई</item>
         <item quantity="other">%d पंक्तियाँ छोड़ी गईं</item>
     </plurals>
-    <string name="portfolio_csv_import_stable_swaps">स्टेबलकॉइन (USDT, USDC …) के बदले ख़रीद और बिक्री स्वैप के रूप में दर्ज होती है – स्टेबलकॉइन तुम्हारी होल्डिंग में दिखता है।</string>
-    <string name="portfolio_csv_import_transfer_ambiguous">कई मिलान संभव हैं – सही वाला चुनो या कोई नहीं।</string>
+    <string name="portfolio_csv_import_stable_swaps">स्टेबलकॉइन (USDT, USDC …) के बदले ख़रीद और बिक्री स्वैप के रूप में दर्ज होती है – स्टेबलकॉइन आपकी होल्डिंग में दिखता है।</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">कई मिलान संभव हैं – सही वाला चुनें या कोई नहीं।</string>
     <string name="portfolio_csv_import_transfer_fee">नेटवर्क शुल्क: %1$s</string>
-    <string name="portfolio_csv_import_transfer_link">एक ट्रांसफ़र के रूप में दर्ज करो</string>
+    <string name="portfolio_csv_import_transfer_link">एक ट्रांसफ़र के रूप में दर्ज करें</string>
     <string name="portfolio_csv_import_transfer_stored">पिछले इम्पोर्ट से जोड़ीदार प्रविष्टि</string>
     <string name="portfolio_csv_import_transfers_hint">एक ही कॉइन की निकासी और उससे मेल खाती जमा एक ट्रांसफ़र बन जाती हैं: ख़रीद मूल्य और होल्डिंग अवधि बनी रहती है, अंतर नेटवर्क शुल्क माना जाता है।</string>
-    <string name="portfolio_csv_import_transfers_title">तुम्हारे खातों के बीच ट्रांसफ़र</string>
+    <string name="portfolio_csv_import_transfers_title">आपके खातों के बीच ट्रांसफ़र</string>
     <string name="portfolio_csv_import_unreadable">कोई समर्थित लेन-देन नहीं मिला। समर्थित: Relai, Swissquote, Kraken, Binance, Coinbase और Bitpanda के CSV एक्सपोर्ट।</string>
     <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
-    <string name="portfolio_csv_import_too_large">फ़ाइल इम्पोर्ट के लिए बहुत बड़ी है (अधिकतम 16 MB और %1$s पंक्तियाँ)। छोटी अवधियाँ एक्सपोर्ट करो और उन्हें एक-एक करके इम्पोर्ट करो।</string>
-    <string name="portfolio_csv_import_failed">इम्पोर्ट नहीं हो सका – कुछ भी सेव नहीं हुआ। कृपया फिर से कोशिश करो।</string>
-    <string name="portfolio_csv_import_locked">आयात संभव नहीं है: सहेजा गया डेटा अभी पढ़ा नहीं जा सकता। ऐप दोबारा शुरू करो।</string>
+    <string name="portfolio_csv_import_too_large">फ़ाइल इम्पोर्ट के लिए बहुत बड़ी है (अधिकतम 16 MB और %1$s पंक्तियाँ)। छोटी अवधियाँ एक्सपोर्ट करें और उन्हें एक-एक करके इम्पोर्ट करें।</string>
+    <string name="portfolio_csv_import_failed">इम्पोर्ट नहीं हो सका – कुछ भी सेव नहीं हुआ। कृपया फिर से कोशिश करें।</string>
+    <string name="portfolio_csv_import_locked">आयात संभव नहीं है: सहेजा गया डेटा अभी पढ़ा नहीं जा सकता। ऐप दोबारा शुरू करें।</string>
     <string name="portfolio_csv_import_withdrawals_title">निकासी – कॉइन कहाँ गए?</string>
     <string name="portfolio_csv_import_zone">बिना समय क्षेत्र के समय इस रूप में पढ़े गए: %1$s</string>
     <string name="portfolio_csv_import_zone_device">डिवाइस (%1$s)</string>
     <string name="portfolio_csv_skip_bad_date">तारीख पढ़ी नहीं जा सकी</string>
     <string name="portfolio_csv_skip_bad_number">संख्या पढ़ी नहीं जा सकी</string>
     <string name="portfolio_csv_skip_fee_exceeds">शुल्क ≥ मिली मात्रा</string>
-    <string name="portfolio_csv_skip_internal_move">तुम्हारे अपने खातों के बीच स्थानांतरण – दर्ज करने को कुछ नहीं</string>
+    <string name="portfolio_csv_skip_internal_move">आपके अपने खातों के बीच स्थानांतरण – दर्ज करने को कुछ नहीं</string>
     <string name="portfolio_csv_skip_missing">फ़ील्ड गायब</string>
-    <string name="portfolio_csv_skip_ambiguous">एक ही सेकंड में कई सौदे जिन्हें अलग नहीं किया जा सकता – हाथ से दर्ज करो</string>
+    <string name="portfolio_csv_skip_ambiguous">एक ही सेकंड में कई सौदे जिन्हें अलग नहीं किया जा सकता – हाथ से दर्ज करें</string>
     <string name="portfolio_csv_skip_not_crypto">क्रिप्टो नहीं</string>
-    <string name="portfolio_csv_skip_possible_duplicate">शायद पहले ही इम्पोर्ट हो चुका (लगभग वही सौदा) – हाथ से जाँचो</string>
-    <string name="portfolio_csv_skip_two_fees">अलग-अलग इकाइयों में दो शुल्क – स्वैप हाथ से दर्ज करो</string>
+    <string name="portfolio_csv_skip_possible_duplicate">शायद पहले ही इम्पोर्ट हो चुका (लगभग वही सौदा) – हाथ से जाँचें</string>
+    <string name="portfolio_csv_skip_two_fees">अलग-अलग इकाइयों में दो शुल्क – स्वैप हाथ से दर्ज करें</string>
     <string name="portfolio_csv_skip_unsupported">असमर्थित प्रकार</string>
 
     <!-- Portfolio: Importe ansehen und rückgängig machen -->
-    <string name="portfolio_import_undo">पूर्ववत करो</string>
+    <string name="portfolio_import_undo">पूर्ववत करें</string>
     <plurals name="portfolio_import_undo_confirm">
-        <item quantity="one">इस आयात का %d लेन-देन हटाओ? हाथ से दर्ज और दूसरे आयात बने रहेंगे।</item>
-        <item quantity="other">इस आयात के %d लेन-देन हटाओ? हाथ से दर्ज और दूसरे आयात बने रहेंगे।</item>
+        <item quantity="one">इस आयात का %d लेन-देन हटाएँ? हाथ से दर्ज और दूसरे आयात बने रहेंगे।</item>
+        <item quantity="other">इस आयात के %d लेन-देन हटाएँ? हाथ से दर्ज और दूसरे आयात बने रहेंगे।</item>
     </plurals>
-    <string name="portfolio_import_undo_title">आयात पूर्ववत करो?</string>
+    <string name="portfolio_import_undo_title">आयात पूर्ववत करें?</string>
     <plurals name="portfolio_import_undone">
         <item quantity="one">%d आयातित लेन-देन हटाया गया</item>
         <item quantity="other">%d आयातित लेन-देन हटाए गए</item>
@@ -82,8 +84,8 @@
     <string name="portfolio_imports_empty">कोई आयात नहीं</string>
     <string name="portfolio_imports_title">आयात</string>
 
-    <string name="portfolio_csv_skip_duplicate_txid_different">वही लेन-देन ID अलग राशि के साथ – हाथ से जाँचो</string>
-    <string name="portfolio_csv_skip_staking_unpaired">बिना प्रति-प्रविष्टि की स्टेकिंग प्रविष्टि – शेष जाँचो</string>
+    <string name="portfolio_csv_skip_duplicate_txid_different">वही लेन-देन ID अलग राशि के साथ – हाथ से जाँचें</string>
+    <string name="portfolio_csv_skip_staking_unpaired">बिना प्रति-प्रविष्टि की स्टेकिंग प्रविष्टि – शेष जाँचें</string>
     <string name="portfolio_csv_skip_amount_too_small">मात्रा बहुत कम – सहेजने पर 0 हो जाती है</string>
     <string name="portfolio_csv_skip_invalid_swap">मान्य मिले कॉइन या मिली मात्रा के बिना स्वैप</string>
 

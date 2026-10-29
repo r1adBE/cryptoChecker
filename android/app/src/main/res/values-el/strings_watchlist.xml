@@ -7,7 +7,6 @@
         <item quantity="one">%1$d από %2$d χωρίς τιμή</item>
         <item quantity="other">%1$d από %2$d χωρίς τιμή</item>
     </plurals>
-    <string name="watchlist_last_run">Τελευταία εκτέλεση %1$s</string>
     <string name="watchlist_live_a11y">Τιμές live ενεργές</string>
     <string name="watchlist_offline_since">Χωρίς σύνδεση · κατάσταση %1$s</string>
     <string name="watchlist_pull_to_refresh">Σύρε προς τα κάτω για ανανέωση</string>

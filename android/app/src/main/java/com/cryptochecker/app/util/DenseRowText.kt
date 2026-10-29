@@ -54,4 +54,12 @@ object DenseRowText {
      */
     fun largePrice(scale: Float, rowWidth: Float): Boolean =
         stacksTrailing(scale) || (scale < WRAP_FROM && rowWidth >= NARROW_ROW)
+
+    /**
+     * Zeile «Börse ◇ 🔔 🔔 1» der Merkliste: Symbole in eine eigene Zeile unter die Börse? Ja, wenn Börsentext
+     * ([lead], Eigenbreite) und Symbole ([icons]) mit [gap] dazwischen nicht in [available] passen (null = ohne
+     * Grenze, nie). So bleiben Mini-Chart und Börsenname ganz (kein «Bi…»). Gleiche Regel wie iOS, `row_meta_line.json`.
+     */
+    fun metaWraps(available: Float?, lead: Float, icons: Float, gap: Float): Boolean =
+        available != null && lead + gap + icons > available
 }

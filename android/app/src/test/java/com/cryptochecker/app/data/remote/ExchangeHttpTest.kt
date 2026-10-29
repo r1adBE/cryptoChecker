@@ -202,15 +202,18 @@ class ExchangeHttpTest {
 
     @Test
     fun hangingResponseEndsAsTimeoutErrorAfterCallTimeout() = runBlocking {
-        server.enqueue(MockResponse.Builder().code(200).body("{}").headersDelay(2, TimeUnit.SECONDS).build())
+        // Antwort erst nach 4 s (nicht länger: server.close() wartet auf den verzögerten Server-Thread)
+        server.enqueue(MockResponse.Builder().code(200).body("{}").headersDelay(4, TimeUnit.SECONDS).build())
         val started = System.currentTimeMillis()
         val e = expect<Throwable> {
             runBlocking { withTimeout(10_000) { client(callTimeoutMillis = 300).callExchange(url("/slow"), null) } }
         }
         assertTrue("TimeoutError erwartet, war ${e.javaClass.name}", e is TimeoutError)
         assertFalse(e is TimeoutCancellationException)
-        // Nicht erst an der Wache (callTimeout + 5 s)
-        assertTrue(System.currentTimeMillis() - started < 1_800)
+        // Am callTimeout (300 ms), nicht erst mit der Antwort (4 s) oder an der Wache (callTimeout + 5 s): Grenze 10× über
+        // dem callTimeout, damit ein langsamer oder paralleler Lauf nicht rot wird
+        val elapsed = System.currentTimeMillis() - started
+        assertTrue("erst nach $elapsed ms", elapsed < 3_000)
     }
 
     // ---- Teilanfragen

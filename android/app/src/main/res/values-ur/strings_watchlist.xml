@@ -7,7 +7,6 @@
         <item quantity="one">%2$d میں سے %1$d بغیر قیمت کے</item>
         <item quantity="other">%2$d میں سے %1$d بغیر قیمت کے</item>
     </plurals>
-    <string name="watchlist_last_run">آخری بار چلا %1$s</string>
     <string name="watchlist_live_a11y">لائیو قیمتیں آن</string>
     <string name="watchlist_offline_since">کوئی کنکشن نہیں · بمطابق %1$s</string>
     <string name="watchlist_pull_to_refresh">ریفریش کے لیے نیچے کھینچیں</string>

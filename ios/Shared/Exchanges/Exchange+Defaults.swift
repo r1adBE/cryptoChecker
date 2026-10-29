@@ -17,9 +17,7 @@ extension Exchange {
 
     func tickerCallCount(_ info: PairQuery) -> Int { 1 }
 
-    func tickerAddress(call: Int, info: PairQuery) -> String {
-        fatalError("\(key): tickerAddress(call:info:) fehlt")
-    }
+    // `tickerAddress` ohne Standard: Pflicht jedes Adapters (prüft der Compiler; `SimpleExchange` liefert sie)
 
     func tickerQueryError(call: Int, info: PairQuery) -> Error? { nil }
 

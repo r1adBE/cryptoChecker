@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">Vistar færslur…</string>
     <string name="portfolio_csv_import_missing_fx">Ekkert dagsgengi fyrir línur %1$s – flutt inn án verðs/gjalds.</string>
     <string name="portfolio_csv_import_missing_price">Ekkert verð í skránni fyrir línur %1$s – flutt inn án verðs.</string>
+    <string name="portfolio_csv_import_fee_in_price">Tvö gjöld í línum %1$s: fiat-gjaldið er innifalið í verðinu, gjaldið í myntinni lækkar móttekið magn eða hækkar afhent magn.</string>
+    <string name="portfolio_csv_import_pending_differs">Línur %1$s: biðfærsla og bókuð færsla sömu innborgunar eða úttektar hafa mismunandi magn – báðar fluttar inn, athugaðu eignina.</string>
     <string name="portfolio_csv_import_more">+ %1$d í viðbót</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d ný færsla</item>

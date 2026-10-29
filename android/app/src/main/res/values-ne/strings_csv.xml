@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">कारोबारहरू सेभ गर्दै…</string>
     <string name="portfolio_csv_import_missing_fx">पङ्क्ति %1$s का लागि दैनिक दर छैन – मूल्य/शुल्कबिना आयात गरियो।</string>
     <string name="portfolio_csv_import_missing_price">पङ्क्ति %1$s का लागि फाइलमा मूल्य छैन – मूल्यबिना आयात गरियो।</string>
+    <string name="portfolio_csv_import_fee_in_price">पङ्क्ति %1$s मा दुई शुल्क: फिएट शुल्क मूल्यमा समावेश छ, कोइनको शुल्कले पाएको मात्रा घटाउँछ वा दिएको मात्रा बढाउँछ।</string>
+    <string name="portfolio_csv_import_pending_differs">पङ्क्ति %1$s: एउटै जम्मा वा निकासीको बाँकी र दर्ता भएको प्रविष्टिको मात्रा फरक छ – दुवै आयात गरियो, होल्डिङ जाँच्नुहोस्।</string>
     <string name="portfolio_csv_import_more">+ थप %1$d</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d नयाँ कारोबार</item>

@@ -57,7 +57,7 @@
     <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
     <string name="alarm_simple_above">ikipanda juu ya</string>
     <string name="alarm_simple_below">ikishuka chini ya</string>
-    <string name="alarm_simple_end">\</string>
+    <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">%1$s</string>
     <string name="alarm_template_a11y">Unda kengele: %1$s</string>
     <string name="alarm_template_a11y_down">Unda kengele kwa minus asilimia %1$s kutoka bei ya sasa</string>

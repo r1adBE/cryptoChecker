@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="watch_empty">ဒင်္ဂါး မရွေးရသေးပါ</string>
+    <string name="watch_empty">ကွိုင် မရွေးရသေးပါ</string>
     <string name="watch_loading">ဖွင့်နေသည်…</string>
     <string name="watch_error">လဲလှယ်ရေးဌာနများကို ချိတ်ဆက်၍မရပါ</string>
     <string name="watch_updated">%1$s အထိ</string>
     <string name="watch_refresh">ပြန်တင်ရန်</string>
-    <string name="watch_choose">ဒင်္ဂါး ရွေးရန်</string>
-    <string name="watch_choose_hint">ဒင်္ဂါး: အများဆုံး %1$d</string>
+    <string name="watch_choose">ကွိုင် ရွေးရန်</string>
+    <string name="watch_choose_hint">ကွိုင်: အများဆုံး %1$d</string>
     <string name="watch_complication_label">ဈေးနှုန်း</string>
     <string name="a11y_watch_row">%1$s %2$s, 24 နာရီအတွင်း %3$s</string>
     <string name="watch_mode_phone">စာရင်း: ဖုန်းအတိုင်း</string>

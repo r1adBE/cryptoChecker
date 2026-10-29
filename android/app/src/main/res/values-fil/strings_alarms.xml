@@ -57,7 +57,7 @@
     <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
     <string name="alarm_simple_above">lumampas sa</string>
     <string name="alarm_simple_below">bumaba sa</string>
-    <string name="alarm_simple_end">\</string>
+    <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">Kapag ang %1$s ay</string>
     <string name="alarm_template_a11y">Gumawa ng alerto: %1$s</string>
     <string name="alarm_template_a11y_down">Gumawa ng alerto sa minus %1$s porsiyento mula sa kasalukuyang presyo</string>

@@ -23,7 +23,7 @@
     <string name="backup_password_repeat">再次输入密码</string>
     <string name="backup_password_show">显示密码</string>
     <string name="backup_password_title">受密码保护的备份</string>
-    <string name="backup_password_too_weak">太容易被猜到——不能只有数字、不能是同一字符重复、不能是 「12345678」 或 「password」 这类常见序列。</string>
+    <string name="backup_password_too_weak">太容易被猜到——不能只有数字、不能是同一字符重复、不能是“12345678”或“password”这类常见序列。</string>
     <string name="backup_password_warning">没有密码将无法恢复备份。</string>
     <string name="backup_password_wrong">密码错误，或文件已损坏。请重试。</string>
     <string name="backup_protect">使用密码保护</string>
@@ -55,7 +55,7 @@
     <string name="backup_restored_over_limits">超出上限（%3$s 个交易对，每个交易对 %4$s 个提醒），未恢复：%1$s，%2$s。</string>
 
     <!-- Verschlüsselter Speicher: Schlüssel verloren -->
-    <string name="storage_recovery_message">此设备上已没有应用加密数据的密钥，因此应用以空白状态启动。没有删除任何内容。要找回列表和投资组合，请在设置的「%1$s」中导入备份文件。</string>
+    <string name="storage_recovery_message">此设备上已没有应用加密数据的密钥，因此应用以空白状态启动。没有删除任何内容。要找回列表和投资组合，请在设置的“%1$s”中导入备份文件。</string>
     <string name="storage_recovery_title">无法解锁已保存的数据</string>
 
     <!-- Sicherung mit Passwort (Argon2id, 64 MiB): zu wenig Arbeitsspeicher -->

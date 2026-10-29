@@ -11,11 +11,14 @@ Android (android/app/src/main/res and the watch app android/wear/src/main/res):
   * <plurals>: at least the CLDR integer quantities of the language, same placeholders
     in every quantity; English needs one + other
   * no unescaped apostrophes, no keys that only exist in a translation
+  * no lone or trailing backslash (only the escapes \\n \\t \\' \\" \\\\ \\@ \\? \\uXXXX are allowed);
+    aapt2 drops such a backslash while the iOS catalog would show it
   * every R.string / R.plurals / R.array and @string/ reference in the code exists
   * Serbian Latin (values-b+sr+Latn, iOS sr-Latn) is exactly the transliteration of Serbian
     Cyrillic (android/tools/sr_latn.py --check), so the two cannot drift apart
 iOS (ios/):
-  * tools/ios_extra_strings.json: every key in every language, same placeholders
+  * tools/ios_extra_strings.json: every key in every language, same placeholders, no lone or
+    trailing backslash
   * tools/convert_strings.py validates and regenerates the string catalogs; the result must
     equal the committed Shared/Resources/*.xcstrings (otherwise: run convert_strings.py)
   * every L("key") used in the Swift code exists in Localizable.xcstrings
@@ -34,6 +37,8 @@ import xml.etree.ElementTree as ET
 
 PH = re.compile(r"%(\d+\$)?[-#+ 0,(]*\d*(\.\d+)?[a-zA-Z%]")
 APOSTROPHE = re.compile(r"(?<!\\)'")
+# Valid Android escapes; a backslash left over after removing them is lone or trailing (e.g. <string>\</string>)
+VALID_ESCAPE = re.compile(r"\\(u[0-9a-fA-F]{4}|[nt'\"\\@?])")
 # CLDR plural categories for integers per Android values folder; fallback one + other
 PLURAL_CATS = {
     "ar": {"zero", "one", "two", "few", "many", "other"},
@@ -96,6 +101,21 @@ def raw_apostrophes(path, label):
             problem("APOSTROPHE (plural)", label, m.group(1), repr(m.group(2)[:60]))
 
 
+def raw_backslashes(path, label):
+    text = open(path, encoding="utf-8").read()
+    for m in re.finditer(r'<string name="([^"]+)"[^>]*>(.*?)</string>', text, re.S):
+        if "\\" in VALID_ESCAPE.sub("", m.group(2)):
+            problem("BACKSLASH", label, m.group(1), repr(m.group(2)[:60]))
+    for m in re.finditer(r'<item quantity="([a-z]+)">(.*?)</item>', text, re.S):
+        if "\\" in VALID_ESCAPE.sub("", m.group(2)):
+            problem("BACKSLASH (plural)", label, m.group(1), repr(m.group(2)[:60]))
+
+
+def trailing_backslash(text):
+    """True for a lone backslash or one at the end that does not escape anything (odd count)."""
+    return (len(text) - len(text.rstrip("\\"))) % 2 == 1
+
+
 def check_plural(label, key, value, want):
     if not isinstance(value, dict):
         problem("NOT PLURALS", label, key)
@@ -115,6 +135,7 @@ def check_res(res, label):
         base.update(load_xml(f))
     for f in sorted(glob.glob(os.path.join(res, "values", "strings*.xml"))):
         raw_apostrophes(f, label + "values")
+        raw_backslashes(f, label + "values")
     # English plurals: one + other, identical placeholders
     for k, (kind, val, _) in base.items():
         if kind == "plurals":
@@ -136,6 +157,7 @@ def check_res(res, label):
         for f in sorted(glob.glob(os.path.join(res, loc, "strings*.xml"))):
             tr.update(load_xml(f))
             raw_apostrophes(f, label + loc)
+            raw_backslashes(f, label + loc)
             for k in load_xml(f):
                 if k not in base:
                     problem("EXTRA KEY", label + loc, os.path.basename(f), k)
@@ -235,6 +257,8 @@ def check_ios(ios, android):
         for lang, s in v.items():
             if phs(s) != want:
                 problem("IOS EXTRA PLACEHOLDER", k, lang, repr(s))
+            if trailing_backslash(s):
+                problem("IOS EXTRA BACKSLASH", k, lang, repr(s))
 
     # iOS-specific versions (tools/ios_overrides.json): key exists on Android, same placeholders as English
     overrides_path = os.path.join(tools, "ios_overrides.json")

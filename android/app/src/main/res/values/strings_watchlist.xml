@@ -8,7 +8,6 @@
         <item quantity="other">%1$d of %2$d without price</item>
     </plurals>
     <!-- Nur iOS: Android nutzt diese Texte nicht -->
-    <string name="watchlist_last_run" tools:ignore="UnusedResources">Last run %1$s</string>
     <string name="watchlist_live_a11y" tools:ignore="UnusedResources">Live prices on</string>
     <string name="watchlist_offline_since">No connection · as of %1$s</string>
     <string name="watchlist_pull_to_refresh">Pull down to refresh</string>

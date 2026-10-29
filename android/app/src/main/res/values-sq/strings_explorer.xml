@@ -92,7 +92,7 @@
     <string name="explorer_no_pair_list">Nuk ka çifte monedhash</string>
     <string name="explorer_sync_sheet_last">Sinkronizimi i fundit: %1$s</string>
     <string name="explorer_sync_never">kurrë</string>
-    <string name="explorer_sync_sheet_action">Sinkronizo tani!</string>
+    <string name="explorer_sync_sheet_action">Sinkronizo tani</string>
     <string name="explorer_sync_sheet_title">Përditëso çiftet e monedhave</string>
     <string name="explorer_field_coin">Bazë</string>
     <string name="explorer_field_contract">Lloji i kontratës</string>

@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">Saving transactions…</string>
     <string name="portfolio_csv_import_missing_fx">No daily rate for lines %1$s – imported without price/fee.</string>
     <string name="portfolio_csv_import_missing_price">No price in the file for lines %1$s – imported without price.</string>
+    <string name="portfolio_csv_import_fee_in_price">Two fees in lines %1$s: the fiat fee is included in the price, the fee in the coin lowers the amount received or raises the amount given.</string>
+    <string name="portfolio_csv_import_pending_differs">Lines %1$s: pending and booked entry of the same deposit or withdrawal have different amounts – both imported, check holdings.</string>
     <!-- Kein Plural nötig: Zähler «+ N weitere», kein Mehrzahlwort nach der Zahl -->
     <string name="portfolio_csv_import_more" tools:ignore="PluralsCandidate">+ %1$d more</string>
     <plurals name="portfolio_csv_import_new">

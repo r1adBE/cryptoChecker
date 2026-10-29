@@ -202,7 +202,8 @@ enum CsvImportBinance {
     }
 
     /// Zeilen eines Geschäfts aus `legs` — wie Android `emit`: höchstens ein Coin ab (`given`) und einer zu (`received`),
-    /// Gebühren in mehreren Einheiten: eine am Geschäft, die übrigen als eigene Gebühr-Zeilen (`CsvImport.splitFees`).
+    /// Gebühren in mehreren Einheiten: Fiat- und Coin-Gebühr eines Kaufs/Verkaufs → Fiat in den Preis
+    /// (`CsvImport.fiatFeeInPrice`); sonst eine am Geschäft, die übrigen als eigene Gebühr-Zeilen (`CsvImport.splitFees`).
     private static func emit(_ legs: [Leg], _ given: (coin: String, amount: Decimal)?, _ received: (coin: String, amount: Decimal)?,
                              _ fees: [(unit: String, amount: Decimal)],
                              _ rows: inout [CsvImportRow], _ skipped: inout [CsvImportSkip]) {
@@ -232,7 +233,18 @@ enum CsvImportBinance {
             }
             return
         }
-        guard let split = CsvImport.splitFees(fees, given: given?.coin, received: received?.coin) else { skipAll(.TWO_FEES); return }
+        var folded: (total: Decimal, rest: [(unit: String, amount: Decimal)])?
+        if let g = given, let r = received {
+            if CsvImport.isFiat(g.coin) && !CsvImport.isFiat(r.coin) {
+                folded = CsvImport.fiatFeeInPrice(buy: true, coin: r.coin, fiat: g.coin, total: g.amount, fees: fees)
+            } else if CsvImport.isFiat(r.coin) && !CsvImport.isFiat(g.coin) {
+                folded = CsvImport.fiatFeeInPrice(buy: false, coin: g.coin, fiat: r.coin, total: r.amount, fees: fees)
+            }
+        }
+        guard let split = CsvImport.splitFees(folded?.rest ?? fees, given: given?.coin, received: received?.coin) else {
+            skipAll(.TWO_FEES)
+            return
+        }
         if let g = given, let r = received, CsvImport.isFiat(g.coin) && CsvImport.isFiat(r.coin) { skipAll(.NOT_CRYPTO); return }
         let feeAmount: Decimal? = split.primary?.amount
         let feeUnit: String? = split.primary?.unit
@@ -240,11 +252,15 @@ enum CsvImportBinance {
             let (out, outAmount) = (g.coin, g.amount)
             let (inn, inAmount) = (r.coin, r.amount)
             if CsvImport.isFiat(out) {
-                rows.append(row(line, .BUY, rawKind(inn), inn, inAmount, PortfolioDecimal.divide(outAmount, inAmount), out,
-                                feeAmount, feeUnit, first))
+                var buy = row(line, .BUY, rawKind(inn), inn, inAmount, PortfolioDecimal.divide(folded?.total ?? outAmount, inAmount),
+                              out, feeAmount, feeUnit, first)
+                buy.feeInPrice = folded != nil
+                rows.append(buy)
             } else if CsvImport.isFiat(inn) {
-                rows.append(row(line, .SELL, rawKind(out), out, outAmount, PortfolioDecimal.divide(inAmount, outAmount), inn,
-                                feeAmount, feeUnit, first))
+                var sell = row(line, .SELL, rawKind(out), out, outAmount, PortfolioDecimal.divide(folded?.total ?? inAmount, outAmount),
+                               inn, feeAmount, feeUnit, first)
+                sell.feeInPrice = folded != nil
+                rows.append(sell)
             } else {
                 let value = CsvImport.stableSwapValue(coin: out, amount: outAmount, toCoin: inn, toAmount: inAmount)
                 var swap = row(line, .SWAP, rawKind(out), out, outAmount, nil, value.quote, feeAmount, feeUnit, first)

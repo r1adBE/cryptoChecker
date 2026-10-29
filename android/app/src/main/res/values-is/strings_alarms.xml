@@ -57,7 +57,7 @@
     <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
     <string name="alarm_simple_above">fer yfir</string>
     <string name="alarm_simple_below">fer undir</string>
-    <string name="alarm_simple_end">\</string>
+    <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">Þegar %1$s</string>
     <string name="alarm_template_a11y">Búa til viðvörun: %1$s</string>
     <string name="alarm_template_a11y_down">Búa til viðvörun við mínus %1$s prósent frá núverandi verði</string>

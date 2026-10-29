@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">లావాదేవీలను సేవ్ చేస్తోంది…</string>
     <string name="portfolio_csv_import_missing_fx">లైన్‌లు %1$sకు రోజువారీ రేటు లేదు – ధర/ఫీజు లేకుండా ఇంపోర్ట్ అయ్యాయి.</string>
     <string name="portfolio_csv_import_missing_price">లైన్‌లు %1$sకు ఫైల్‌లో ధర లేదు – ధర లేకుండా ఇంపోర్ట్ అయ్యాయి.</string>
+    <string name="portfolio_csv_import_fee_in_price">లైన్‌లు %1$sలో రెండు రుసుములు: ఫియట్ రుసుము ధరలో చేరింది, కాయిన్‌లోని రుసుము అందిన పరిమాణాన్ని తగ్గిస్తుంది లేదా ఇచ్చిన పరిమాణాన్ని పెంచుతుంది.</string>
+    <string name="portfolio_csv_import_pending_differs">లైన్‌లు %1$s: ఒకే డిపాజిట్ లేదా ఉపసంహరణకు పెండింగ్ మరియు నమోదైన ఎంట్రీల పరిమాణం వేరు – రెండూ ఇంపోర్ట్ అయ్యాయి, హోల్డింగ్‌లను తనిఖీ చేయండి.</string>
     <string name="portfolio_csv_import_more">+ మరో %1$d</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d కొత్త లావాదేవీ</item>

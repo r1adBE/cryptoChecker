@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">Stoor transaksies…</string>
     <string name="portfolio_csv_import_missing_fx">Geen daaglikse koers vir reëls %1$s nie – sonder prys/fooi ingevoer.</string>
     <string name="portfolio_csv_import_missing_price">Geen prys in die lêer vir reëls %1$s nie – sonder prys ingevoer.</string>
+    <string name="portfolio_csv_import_fee_in_price">Twee fooie in reëls %1$s: die fiat-fooi is by die prys ingesluit, die fooi in die munt verlaag die ontvangde of verhoog die gegewe hoeveelheid.</string>
+    <string name="portfolio_csv_import_pending_differs">Reëls %1$s: hangende en geboekte inskrywing van dieselfde deposito of onttrekking het verskillende hoeveelhede – albei ingevoer, kontroleer besit.</string>
     <string name="portfolio_csv_import_more">+ nog %1$d</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d nuwe transaksie</item>

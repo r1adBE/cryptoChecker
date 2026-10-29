@@ -27,20 +27,26 @@ final class BackgroundExpiryTests: XCTestCase {
         XCTAssertEqual(steps.all, ["cancel", "complete", "log"])
     }
 
-    /// Mit dem echten Abkoppeln: Der Handler kehrt sofort zurück, auch wenn das Protokoll (Datei-Abstimmung) hängt.
-    func testHandlerReturnsQuicklyWhileLogBlocks() {
+    /// Mit dem echten Abkoppeln: Der Handler kehrt zurück, solange das Protokoll (Datei-Abstimmung) noch hängt —
+    /// geprüft über die Reihenfolge, nicht über eine Zeitgrenze (die prüfte nur Laufzeit-Rauschen, z. B. unter TSAN).
+    /// Der Handler läuft abseits des Tests: Wartete er auf das Protokoll, bliebe `returned` aus und der Test schlüge
+    /// nach der Frist fehl, statt zu hängen.
+    func testHandlerReturnsWhileLogBlocks() {
         let steps = Steps()
         let release = DispatchSemaphore(value: 0)
         let logged = expectation(description: "Protokoll nachgeholt")
-        let started = Date()
-        BackgroundExpiry(cancel: { steps.add("cancel") }, complete: { steps.add("complete") },
-                         afterwards: {
-                             release.wait()
-                             steps.add("log")
-                             logged.fulfill()
-                         }).run()
-        XCTAssertLessThan(Date().timeIntervalSince(started), 0.1, "setTaskCompleted darf nicht warten")
-        XCTAssertEqual(steps.all, ["cancel", "complete"])
+        let returned = expectation(description: "Handler zurück")
+        DispatchQueue.global(qos: .userInitiated).async {
+            BackgroundExpiry(cancel: { steps.add("cancel") }, complete: { steps.add("complete") },
+                             afterwards: {
+                                 release.wait()
+                                 steps.add("log")
+                                 logged.fulfill()
+                             }).run()
+            returned.fulfill()
+        }
+        wait(for: [returned], timeout: 10)
+        XCTAssertEqual(steps.all, ["cancel", "complete"], "setTaskCompleted darf nicht auf das Protokoll warten")
         release.signal()
         wait(for: [logged], timeout: 5)
         XCTAssertEqual(steps.all, ["cancel", "complete", "log"])

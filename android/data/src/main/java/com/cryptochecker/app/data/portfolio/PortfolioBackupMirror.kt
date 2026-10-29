@@ -88,13 +88,30 @@ object PortfolioBackupMirror {
      * Datenbank keine Kopie. Ohne passenden Schlüssel nie beiseitelegen und neu beginnen (sonst sicherte sie ein leeres
      * Portfolio): Fehler werfen — der Agent bricht die Sicherung dann ab, die vorige (mit Portfolio) bleibt bestehen.
      */
-    fun writeForBackup(context: Context) {
+    fun writeForBackup(context: Context) = writeForBackup(
+        context,
+        PortfolioDatabase.DB_NAME,
+        file(context),
+        com.cryptochecker.app.data.local.EncryptingOpenHelperFactory(context, readOnly = true),
+    )
+
+    /**
+     * [writeForBackup] mit Datenbank [dbName], Kopie [target] und Öffnungsweg [factory] — dieselben Schritte; eigene
+     * Namen nur für Tests (Rundlauf Sicherung → [importInto], ohne die Datenbank der App anzufassen).
+     */
+    fun writeForBackup(
+        context: Context,
+        dbName: String,
+        target: File,
+        factory: androidx.sqlite.db.SupportSQLiteOpenHelper.Factory,
+    ) {
+        val dbFile = context.getDatabasePath(dbName)
         // Noch nicht übernommene Wiederherstellung: die Kopie IST das Portfolio — nicht anfassen
-        if (pendingRestore(context)) return
-        delete(context)
-        if (!context.getDatabasePath(PortfolioDatabase.DB_NAME).exists()) return
-        val db = androidx.room.Room.databaseBuilder(context, PortfolioDatabase::class.java, PortfolioDatabase.DB_NAME)
-            .openHelperFactory(com.cryptochecker.app.data.local.EncryptingOpenHelperFactory(context, readOnly = true))
+        if (target.isFile && !dbFile.exists()) return
+        delete(target)
+        if (!dbFile.exists()) return
+        val db = androidx.room.Room.databaseBuilder(context, PortfolioDatabase::class.java, dbName)
+            .openHelperFactory(factory)
             .build()
         try {
             val text = kotlinx.coroutines.runBlocking {
@@ -104,7 +121,7 @@ object PortfolioBackupMirror {
                     backupEntries(db.getWatchedAddressDao().getAll()),
                 )
             }
-            write(context, text)
+            write(target, text)
         } finally {
             db.close()
         }
@@ -175,9 +192,8 @@ object PortfolioBackupMirror {
         WatchedAddressRules.backupEntries(list.mapNotNull { it.toDomain() })
 
     /** Erst in eine Nachbardatei, dann umbenennen: die Sicherung sieht nie eine halbe Datei. */
-    private fun write(context: Context, text: String) {
-        val target = file(context)
-        val tmp = File(context.filesDir, "$FILE_NAME.tmp")
+    private fun write(target: File, text: String) {
+        val tmp = tmpOf(target)
         tmp.writeText(text, Charsets.UTF_8)
         if (!tmp.renameTo(target)) {
             tmp.delete()
@@ -185,10 +201,15 @@ object PortfolioBackupMirror {
         }
     }
 
-    private fun delete(context: Context) {
-        file(context).delete()
-        File(context.filesDir, "$FILE_NAME.tmp").delete()
+    private fun delete(context: Context) = delete(file(context))
+
+    private fun delete(target: File) {
+        target.delete()
+        tmpOf(target).delete()
     }
+
+    /** Nachbardatei für das Schreiben ([write]); für [FILE_NAME] `filesDir/portfolio_system_backup.json.tmp`. */
+    private fun tmpOf(target: File): File = File(target.absoluteFile.parentFile, "${target.name}.tmp")
 
     /**
      * Kopie sofort löschen (Sicherungs-Agent nach der Sicherung, ohne Coroutine) — ausser sie ist eine noch nicht

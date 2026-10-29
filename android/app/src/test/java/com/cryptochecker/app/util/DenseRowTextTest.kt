@@ -1,5 +1,6 @@
 package com.cryptochecker.app.util
 
+import com.cryptochecker.app.parity.ParityJson
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -66,5 +67,24 @@ class DenseRowTextTest {
         // «≈ 66’120.50 CHF · Kurs 08:15 · Umrechnung unsicher»: der Vermerk am Ende darf nicht im «…» verschwinden
         assertEquals(2, DenseRowText.convertedMaxLines(stacked = false))
         assertEquals(Int.MAX_VALUE, DenseRowText.convertedMaxLines(stacked = true))
+    }
+
+    @Test
+    fun `Symbole der Boersenzeile brechen um statt Chart oder Boerse zu opfern`() {
+        // Gemeinsame Fälle mit iOS (`DenseRowTextTests.testMetaLineWrapParity`)
+        @Suppress("UNCHECKED_CAST")
+        val cases = ParityJson.load("row_meta_line.json")["cases"] as List<Map<String, Any?>>
+        assertTrue(cases.isNotEmpty())
+        for (c in cases) {
+            assertEquals(
+                c["name"] as String, c["expected"] as Boolean,
+                DenseRowText.metaWraps(
+                    available = (c["available"] as Double?)?.toFloat(),
+                    lead = (c["lead"] as Double).toFloat(),
+                    icons = (c["icons"] as Double).toFloat(),
+                    gap = (c["gap"] as Double).toFloat(),
+                ),
+            )
+        }
     }
 }

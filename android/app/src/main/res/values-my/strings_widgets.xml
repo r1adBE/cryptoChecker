@@ -7,7 +7,7 @@
     <string name="widget_description">သင့်စောင့်ကြည့်စာရင်းမှ အတွဲတစ်ခု၏ ဈေးနှုန်းကို ပြသည်။</string>
     <string name="widget_empty">စောင့်ကြည့်စာရင်းတွင် အတွဲ မရှိသေးပါ။</string>
     <string name="widget_group_hint">ဤအုပ်စု၏ အတွဲများကိုသာ ပြရန်။</string>
-    <string name="widget_kind_single">ဒင်္ဂါးတစ်ခုတည်း</string>
+    <string name="widget_kind_single">ကွိုင်တစ်ခုတည်း</string>
     <string name="widget_opacity">နောက်ခံ အလင်းပိတ်မှု: %1$s</string>
     <string name="widget_pulse_description">ယခု ဈေးကွက်တွင် ထင်ရှားနေသည့်အရာ- ခေါင်းစဉ်၊ အကျဉ်းချုပ်နှင့် Bitcoin, Ethereum နှင့် Solana။</string>
 
@@ -38,10 +38,10 @@
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">သမိုင်း မကြာမီ လာမည်</string>
     <string name="widget_portfolio_description">သင့်ပေါ့ဖိုလီယို၏ စုစုပေါင်း တန်ဖိုးနှင့် ယနေ့ ပြောင်းလဲမှု</string>
-    <string name="widget_portfolio_entries">ဒင်္ဂါးများအောက်ရှိ မှတ်တမ်းများ</string>
+    <string name="widget_portfolio_entries">ကွိုင်များအောက်ရှိ မှတ်တမ်းများ</string>
     <string name="widget_portfolio_entries_both">နှစ်မျိုးလုံး</string>
     <string name="widget_portfolio_entries_buys">ဝယ်ယူမှုများ</string>
-    <string name="widget_portfolio_entries_hint">ဒင်္ဂါးများအောက်တွင် နေရာရှိမှသာ ပြသည်။ ဝယ်ယူမှုများတွင် အပ်ငွေများ ပါဝင်ပြီး ရောင်းချမှုများတွင် ငွေထုတ်မှုများ ပါဝင်သည်၊ «နှစ်မျိုးလုံး» ဖြင့် စာကြောင်းများ ပေါင်းလျှင် ကိုင်ဆောင်ထားမှုနှင့် ညီသည်။</string>
+    <string name="widget_portfolio_entries_hint">ကွိုင်များအောက်တွင် နေရာရှိမှသာ ပြသည်။ ဝယ်ယူမှုများတွင် အပ်ငွေများ ပါဝင်ပြီး ရောင်းချမှုများတွင် ငွေထုတ်မှုများ ပါဝင်သည်၊ «နှစ်မျိုးလုံး» ဖြင့် စာကြောင်းများ ပေါင်းလျှင် ကိုင်ဆောင်ထားမှုနှင့် ညီသည်။</string>
     <string name="widget_portfolio_entries_off">ပိတ်</string>
     <string name="widget_portfolio_entries_sells">ရောင်းချမှုများ</string>
     <string name="widget_portfolio_display">ပြသမှု</string>
@@ -54,7 +54,7 @@
     <string name="widget_portfolio_locked_hint">လော့ခ်ချထားသည် – အက်ပ်ထဲတွင် လော့ခ်ဖွင့်ပါ</string>
     <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
     <plurals name="widget_portfolio_missing_coins">
-        <item quantity="other">ဒင်္ဂါး %1$d ခု မပါ</item>
+        <item quantity="other">ကွိုင် %1$d ခု မပါ</item>
     </plurals>
     <plurals name="widget_portfolio_more">
         <item quantity="other">+ နောက်ထပ် %1$d</item>
@@ -78,9 +78,9 @@
 
     <!-- Einzel-Widget -->
     <string name="single_widget_choose">အတွဲတစ်ခု ရွေးပါ</string>
-    <string name="single_widget_description">ဒင်္ဂါးတစ်ခုကို ဈေးနှုန်း၊ ပြောင်းလဲမှုနှင့် 24 နာရီ ဇယားဖြင့် ကြီးကြီး ပြသည်။</string>
-    <string name="single_widget_label">Crypto Checker – ဒင်္ဂါးတစ်ခုတည်း</string>
-    <string name="single_widget_title">ဒင်္ဂါးတစ်ခုတည်း ဝီဂျက် သတ်မှတ်ရန်</string>
+    <string name="single_widget_description">ကွိုင်တစ်ခုကို ဈေးနှုန်း၊ ပြောင်းလဲမှုနှင့် 24 နာရီ ဇယားဖြင့် ကြီးကြီး ပြသည်။</string>
+    <string name="single_widget_label">Crypto Checker – ကွိုင်တစ်ခုတည်း</string>
+    <string name="single_widget_title">ကွိုင်တစ်ခုတည်း ဝီဂျက် သတ်မှတ်ရန်</string>
 
     <!-- Widgets aus der App hinzufügen -->
     <string name="widgets_add">ထည့်ရန်</string>
@@ -101,7 +101,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">ပြန်တင်ရန် – %1$d စက္ကန့်အတွင်း ထပ်လုပ်နိုင်မည်</string>
     <string name="settings_watch">နာရီ</string>
-    <string name="settings_watch_hint">Wear OS ပေါ်ရှိ နာရီအက်ပ်အတွက် ဒင်္ဂါးများ (%1$d အထိ၊ USDT ဖြင့် ဈေးနှုန်း)။ ဤစာရင်းကိုသာ Google Play services မှတစ်ဆင့် နာရီသို့ ပို့သည်၊ နာရီက ဈေးနှုန်းများကို ကိုယ်တိုင် ရယူသည်။</string>
+    <string name="settings_watch_hint">Wear OS ပေါ်ရှိ နာရီအက်ပ်အတွက် ကွိုင်များ (%1$d အထိ၊ USDT ဖြင့် ဈေးနှုန်း)။ ဤစာရင်းကိုသာ Google Play services မှတစ်ဆင့် နာရီသို့ ပို့သည်၊ နာရီက ဈေးနှုန်းများကို ကိုယ်တိုင် ရယူသည်။</string>
     <string name="settings_watch_mode_phone">ဖုန်းအတိုင်း (အကြိုက်ဆုံး ★)</string>
     <string name="settings_watch_mode_own">ကိုယ်ပိုင် စာရင်း</string>
     <string name="settings_watch_own_title">ကိုယ်ပိုင် စာရင်း: %2$d အနက် %1$d</string>

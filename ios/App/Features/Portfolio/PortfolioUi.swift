@@ -211,6 +211,63 @@ struct PortfolioDisclaimer: View {
     }
 }
 
+/// «+»-Knopf der gerade sichtbaren Portfolio-Seite (Übersicht oder Coin-Detail). `RootView` zeigt ihn auf der
+/// Ebene der eigenen Tableiste direkt über ihr (`PortfolioAddAccessory`): In der `List` selbst lag er dahinter, weil
+/// ihr Rahmen bis unter die Leiste reicht. Jede Seite meldet sich beim Erscheinen mit eigener Kennung an und nur
+/// sich selbst wieder ab — so stimmt der Knopf unabhängig davon, ob beim Wechsel zuerst die neue Seite erscheint
+/// oder die alte verschwindet.
+@MainActor
+final class PortfolioAddSlot: ObservableObject {
+    static let shared = PortfolioAddSlot()
+
+    struct Entry {
+        let token: UUID
+        let action: @MainActor () -> Void
+    }
+
+    @Published private(set) var entry: Entry?
+
+    func show(_ token: UUID, action: @escaping @MainActor () -> Void) {
+        entry = Entry(token: token, action: action)
+    }
+
+    func hide(_ token: UUID) {
+        if entry?.token == token { entry = nil }
+    }
+}
+
+/// Meldet den «+»-Knopf einer Portfolio-Seite an, solange sie sichtbar ist.
+private struct PortfolioAddSlotMarker: ViewModifier {
+    let action: @MainActor () -> Void
+    @State private var token = UUID()
+
+    func body(content: Content) -> some View {
+        content
+            .onAppear { PortfolioAddSlot.shared.show(token, action: action) }
+            .onDisappear { PortfolioAddSlot.shared.hide(token) }
+    }
+}
+
+extension View {
+    /// «+»-Knopf über der Tableiste, solange diese Seite sichtbar ist (`PortfolioAddSlot`).
+    func portfolioAddButton(_ action: @escaping @MainActor () -> Void) -> some View {
+        modifier(PortfolioAddSlotMarker(action: action))
+    }
+}
+
+/// Inhalt des Slots über der Tableiste des Portfolio-Tabs; eigene Ansicht, damit nur sie dem Slot folgt
+/// (nicht die ganze `RootView`). Rechts ausgerichtet, Abstand wie bisher über der Leiste.
+struct PortfolioAddAccessory: View {
+    @ObservedObject private var slot = PortfolioAddSlot.shared
+
+    var body: some View {
+        if let entry = slot.entry {
+            PortfolioAddButton(action: entry.action)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+        }
+    }
+}
+
 /// «+»-Knopf unten rechts — wie Android `AppFab`: gefüllt in der Akzentfarbe, 56 pt (M3-Grösse),
 /// Ecken `Radius.card`. Schatten nur hell und schwach (wie die FAB-Erhöhung in Android); dunkel
 /// ohne, ein farbiger Schatten wirkt auf dem dunklen Grund wie ein Leuchten.

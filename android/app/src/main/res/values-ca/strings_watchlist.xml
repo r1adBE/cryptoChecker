@@ -8,7 +8,6 @@
         <item quantity="many">%1$d de %2$d sense preu</item>
         <item quantity="other">%1$d de %2$d sense preu</item>
     </plurals>
-    <string name="watchlist_last_run">Última execució %1$s</string>
     <string name="watchlist_live_a11y">Preus en directe activats</string>
     <string name="watchlist_offline_since">Sense connexió · a les %1$s</string>
     <string name="watchlist_pull_to_refresh">Llisca cap avall per actualitzar</string>

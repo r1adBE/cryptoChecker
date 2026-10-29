@@ -83,7 +83,7 @@
     <string name="explorer_no_pair_list">Tidak ada pasangan mata uang</string>
     <string name="explorer_sync_sheet_last">Sinkronisasi terakhir: %1$s</string>
     <string name="explorer_sync_never">belum pernah</string>
-    <string name="explorer_sync_sheet_action">Sinkronkan sekarang!</string>
+    <string name="explorer_sync_sheet_action">Sinkronkan sekarang</string>
     <string name="explorer_sync_sheet_title">Perbarui pasangan mata uang</string>
     <string name="explorer_field_coin">Koin</string>
     <string name="explorer_field_contract">Jenis kontrak</string>

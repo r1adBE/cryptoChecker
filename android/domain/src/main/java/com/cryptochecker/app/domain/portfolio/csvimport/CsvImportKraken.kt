@@ -11,8 +11,9 @@ import java.math.BigDecimal
  *    Krypto (auch Stablecoin) gegen Fiat ([CsvImport.FIAT]) → Kauf bzw. Verkauf (Preis = Fiat-Betrag / Menge, ohne
  *    Gebühr); Krypto gegen Krypto → Tausch, auch gegen Stablecoins ([CsvImport.STABLES]: BTC → USDT, USDT → ETH,
  *    USDC → USDT; Wert nur mit USDT-Seite = USDT-Menge, [CsvImport.stableSwapValue], sonst unbekannt). Gebühren beider
- *    Seiten in derselben Einheit zusammen; in verschiedenen Einheiten bleibt eine am Geschäft, die andere wird eine eigene
- *    Gebühr-Zeile (Kennung «refid/fee», [CsvImport.splitFees]). Fiat gegen Fiat → [CsvImportSkipReason.NOT_CRYPTO].
+ *    Seiten in derselben Einheit zusammen. Kauf/Verkauf mit Fiat-Gebühr und Gebühr im Coin: Fiat-Gebühr im Preis, die im
+ *    Coin am Geschäft ([CsvImport.fiatFeeInPrice]); sonst bleibt bei verschiedenen Einheiten eine am Geschäft, die andere
+ *    wird eine eigene Gebühr-Zeile (Kennung «refid/fee», [CsvImport.splitFees]). Fiat gegen Fiat → [CsvImportSkipReason.NOT_CRYPTO].
  *  - type «deposit» / «withdrawal» (Krypto, auch Stablecoins) → Einzahlung / Auszahlung; Fiat-Ein- und -Auszahlungen →
  *    [CsvImportSkipReason.NOT_CRYPTO].
  *  - type «staking», oder «earn» mit subtype «reward» → Belohnung.
@@ -24,9 +25,12 @@ import java.math.BigDecimal
  *    (ETH → ETH2.S) — sonst entstünde Bestand doppelt bzw. ginge ein Posten mit Kaufpreis ab. Eine Staking-Zeile ohne
  *    solches Gegenstück wird ebenfalls nicht gebucht, aber als [CsvImportSkipReason.STAKING_UNPAIRED] gemeldet
  *    («Bestand prüfen»): Fehlt die Gegenbuchung im Export, stimmt der Bestand sonst unbemerkt nicht.
- *  - Doppelte Ledger-Zeilen (gleiche txid; Kraken-Exporte wiederholen Ein-/Auszahlungen) zählen einmal, die gleiche
- *    Wiederholung fällt still weg. Gleiche txid mit ANDERER Menge verschwindet nicht still:
- *    [CsvImportSkipReason.DUPLICATE_TXID_DIFFERENT] in der Vorschau.
+ *  - Doppelte Ledger-Zeilen (gleiche txid) zählen einmal, die gleiche Wiederholung fällt still weg. Gleiche txid mit
+ *    ANDERER Menge verschwindet nicht still: [CsvImportSkipReason.DUPLICATE_TXID_DIFFERENT] in der Vorschau.
+ *  - Kraken führt jede Ein-/Auszahlung zweimal mit gleicher refid: zuerst ausstehend (txid und balance leer), dann
+ *    gebucht. Die ausstehende Zeile fällt still weg, wenn eine gebuchte Zeile (txid gesetzt) mit gleicher refid, gleichem
+ *    Typ, gleichem Asset und gleicher Menge da ist ([pendingTwins]); steht nur die ausstehende Zeile im Export, zählt sie.
+ *    Mit ANDERER Menge bleiben beide, als [CsvImportRow.pendingDiffers] markiert (die Vorschau nennt beide Zeilen).
  * Kraken-Kürzel werden vereinheitlicht ([asset]): «XXBT»/«XBT» → BTC, «ZEUR» → EUR, «XXDG» → DOGE, Staking-
  * Varianten «ETH2.S», «DOT.S», «DOT28.S», «USDC.M», «BTC.F» → Basis, «EUR.HOLD» → EUR (Fiat). Formate nur aus der
  * Kraken-Dokumentation bekannt.
@@ -79,6 +83,8 @@ object CsvImportKraken {
         val time: Long,
         /** Asset ist eine Staking-/Earn-Variante («ETH2.S», «DOT.S», «ETH2»). */
         val staked: Boolean = false,
+        /** txid leer: ausstehende Buchung (Kraken schreibt die gebuchte Zeile mit txid danach). */
+        val pending: Boolean = false,
     )
 
     /** Staking-/Earn-Variante eines Kraken-Kürzels (vor dem Vereinheitlichen). */
@@ -125,6 +131,35 @@ object CsvImportKraken {
 
     private class StakingMoves(val internal: Set<Int>, val unpaired: Set<Int>)
 
+    /**
+     * Ausstehende Ein-/Auszahlungen (Indizes in [legs]) mit gebuchter Zeile daneben: txid leer, und eine Zeile mit txid
+     * hat dieselbe refid, denselben Typ, dasselbe Asset (auch Staking-Variante) und dieselbe Menge. Die gebuchte Zeile
+     * zählt; ohne sie bleibt die ausstehende.
+     */
+    private fun pendingTwins(legs: List<Leg>): Set<Int> = legs.indices.filter { i ->
+        val p = legs[i]
+        p.pending && (p.type == "deposit" || p.type == "withdrawal") && p.refid.isNotEmpty() && legs.any { b ->
+            !b.pending && b.refid == p.refid && b.type == p.type && b.asset == p.asset && b.staked == p.staked &&
+                b.signed.compareTo(p.signed) == 0
+        }
+    }.toSet()
+
+    /**
+     * Zeilennummern ausstehender Ein-/Auszahlungen ohne gleiche gebuchte Zeile ([twins]) und der gebuchten Zeilen mit
+     * gleicher refid, gleichem Typ und Asset, aber anderer Menge: beide werden gebucht, die Vorschau nennt das Paar.
+     */
+    private fun pendingDiffers(legs: List<Leg>, twins: Set<Int>): Set<Int> {
+        val out = HashSet<Int>()
+        for ((i, p) in legs.withIndex()) {
+            if (i in twins || !p.pending || (p.type != "deposit" && p.type != "withdrawal") || p.refid.isEmpty()) continue
+            val booked = legs.filter { b ->
+                !b.pending && b.refid == p.refid && b.type == p.type && b.asset == p.asset && b.staked == p.staked
+            }
+            if (booked.isNotEmpty()) { out += p.line; booked.forEach { out += it.line } }
+        }
+        return out
+    }
+
     fun build(names: List<String>, data: List<CsvImportParser.Record>, zone: String): CsvImportResult {
         fun col(n: String) = names.indexOf(n).takeIf { it >= 0 }
         val iTx = col("txid")
@@ -136,7 +171,7 @@ object CsvImportKraken {
         val iAmount = col("amount")
         val iFee = col("fee")
         val skipped = ArrayList<CsvImportSkip>()
-        val legs = ArrayList<Leg>()
+        val all = ArrayList<Leg>()
         val hint: Char? = '.'
         // txid → Menge der ersten Zeile (Text, wenn unlesbar): Wiederholungen vergleichen
         val seen = HashMap<String, Any>()
@@ -165,12 +200,16 @@ object CsvImportKraken {
                 asset.isEmpty() || type.isEmpty() -> skipped += CsvImportSkip(rec.line, CsvImportSkipReason.MISSING_FIELD)
                 amount == null || fee == null -> skipped += CsvImportSkip(rec.line, CsvImportSkipReason.BAD_NUMBER)
                 time == null -> skipped += CsvImportSkip(rec.line, CsvImportSkipReason.BAD_DATE)
-                else -> legs += Leg(
+                else -> all += Leg(
                     rec.line, cell(iRef), type, sub, asset, amount, fee.abs().takeIf { it.signum() > 0 }, time,
-                    staked = isStakedAsset(cell(iAsset)),
+                    staked = isStakedAsset(cell(iAsset)), pending = txid.isEmpty(),
                 )
             }
         }
+        // Ausstehende Ein-/Auszahlung mit gebuchter Zeile daneben: still weg (vor den Staking-Paaren)
+        val twins = pendingTwins(all)
+        val legs = all.filterIndexed { i, _ -> i !in twins }
+        val differs = pendingDiffers(all, twins)
 
         val rows = ArrayList<CsvImportRow>()
         val trades = LinkedHashMap<String, MutableList<Leg>>()
@@ -196,8 +235,12 @@ object CsvImportKraken {
             }
         }
         for ((refid, group) in trades) trade(refid, group, rows, skipped)
+        val marked = rows.map { r ->
+            val move = r.kind == CsvImportKind.DEPOSIT || r.kind == CsvImportKind.WITHDRAWAL
+            if (move && r.line in differs) r.copy(pendingDiffers = true) else r
+        }
         // Kraken schreibt UTC ohne Versatz: die Zeitzone zählt (Vorschau zeigt UTC, wählbar)
-        return CsvImport.finish(CsvImportFormat.KRAKEN, rows, skipped, zone, localTimes = true)
+        return CsvImport.finish(CsvImportFormat.KRAKEN, marked, skipped, zone, localTimes = true)
     }
 
     /** Gleiche Menge wie die erste Zeile derselben txid ([first]: Zahl oder, wenn unlesbar, der Text)? */
@@ -242,32 +285,40 @@ object CsvImportKraken {
         }
         val out = given[0]
         val inn = received[0]
-        // Gebühren beider Seiten: gleiche Einheit zusammen; verschiedene → eine am Geschäft, die andere eigene Gebühr-Zeile
+        val outAmount = out.signed.abs()
+        val inAmount = inn.signed
+        // Gebühren beider Seiten: gleiche Einheit zusammen; Fiat- und Coin-Gebühr eines Kaufs/Verkaufs → Fiat in den Preis;
+        // sonst verschiedene → eine am Geschäft, die andere eigene Gebühr-Zeile
         val feeList = when {
             out.fee != null && inn.fee != null && out.asset == inn.asset -> listOf(out.asset to out.fee.add(inn.fee))
             else -> listOfNotNull(out.fee?.let { out.asset to it }, inn.fee?.let { inn.asset to it })
         }
-        val split = CsvImport.splitFees(feeList, out.asset, inn.asset)
+        val folded = when {
+            isMoney(out.asset) && !isMoney(inn.asset) -> CsvImport.fiatFeeInPrice(true, inn.asset, out.asset, outAmount, feeList)
+            isMoney(inn.asset) && !isMoney(out.asset) -> CsvImport.fiatFeeInPrice(false, out.asset, inn.asset, inAmount, feeList)
+            else -> null
+        }
+        val split = CsvImport.splitFees(folded?.second ?: feeList, out.asset, inn.asset)
         if (split == null) {
             group.forEach { skipped += CsvImportSkip(it.line, CsvImportSkipReason.TWO_FEES) }
             return
         }
         val fees = split.first?.second to split.first?.first
         val line = minOf(out.line, inn.line)
-        val outAmount = out.signed.abs()
-        val inAmount = inn.signed
         when {
             isMoney(out.asset) && isMoney(inn.asset) ->
                 group.forEach { skipped += CsvImportSkip(it.line, CsvImportSkipReason.NOT_CRYPTO) }
             isMoney(out.asset) -> {
                 // Kauf: Geld weg, Coin rein
-                val price = CsvImport.derive(outAmount, inAmount)
+                val price = CsvImport.derive(folded?.first ?: outAmount, inAmount)
                 rows += row(line, CsvImportKind.BUY, rawKind(inn), inn.asset, inAmount, price, out.asset, fees.first, fees.second, inn.time, refid)
+                    .copy(feeInPrice = folded != null)
             }
             isMoney(inn.asset) -> {
                 // Verkauf: Coin weg, Geld rein
-                val price = CsvImport.derive(inAmount, outAmount)
+                val price = CsvImport.derive(folded?.first ?: inAmount, outAmount)
                 rows += row(line, CsvImportKind.SELL, rawKind(out), out.asset, outAmount, price, inn.asset, fees.first, fees.second, out.time, refid)
+                    .copy(feeInPrice = folded != null)
             }
             else -> {
                 // Tausch; mit Stablecoin-Seite Hinweis in der Vorschau, mit USDT-Seite Wert in USDT

@@ -85,8 +85,9 @@ final class ScreenshotTourTests: XCTestCase {
         // Tabs Markt und Portfolio
         step("09_market") {
             try self.openTab(app, UiTestTags.tabCycle)
-            // Karten laden ihre Daten (feste Antworten der Tour) und blenden sich ein
-            self.settle(6)
+            // Karten laden ihre Daten (feste Antworten der Tour) und blenden sich ein: warten, bis Crypto Pulse
+            // geladen ist und alles Sichtbare auf «Jetzt» steht (keine feste Wartezeit)
+            try self.requireTag(app, UiTestTags.marketLoaded, timeout: uiListTimeout)
         }
         step("10_portfolio") {
             try self.openTab(app, UiTestTags.tabPortfolio)
@@ -151,8 +152,9 @@ final class ScreenshotTourTests: XCTestCase {
             let row = app.buttons.matching(NSPredicate(format: "label == %@", label)).firstMatch
             try self.require(row.waitForExistence(timeout: uiTimeout), "settings row \(label) missing")
             self.tapRow(app, row)
-            // Unterseite offen: die Zeile «Sichern» der Hauptseite ist weg (nur gewartet, nicht verlangt)
-            _ = self.wait(app.tagged(UiTestTags.settingsBackup), "exists == false", timeout: 5)
+            // Unterseite offen: die Zeile «Sichern» der Hauptseite ist weg (verlangt, sonst fehlt das Bild)
+            try self.require(self.wait(app.tagged(UiTestTags.settingsBackup), "exists == false", timeout: uiTimeout),
+                             "settings page \(label) not opened")
         }
     }
 

@@ -9,7 +9,6 @@
         <item quantity="many">%1$d з %2$d без ціни</item>
         <item quantity="other">%1$d з %2$d без ціни</item>
     </plurals>
-    <string name="watchlist_last_run">Останній прохід %1$s</string>
     <string name="watchlist_live_a11y">Курси наживо ввімкнено</string>
     <string name="watchlist_offline_since">Немає з\'єднання · дані станом на %1$s</string>
     <string name="watchlist_pull_to_refresh">Потягни униз, щоб оновити</string>

@@ -92,7 +92,7 @@
     <string name="explorer_no_pair_list">Δεν υπάρχουν ζεύγη νομισμάτων</string>
     <string name="explorer_sync_sheet_last">Τελευταίος συγχρονισμός: %1$s</string>
     <string name="explorer_sync_never">ποτέ</string>
-    <string name="explorer_sync_sheet_action">Συγχρονισμός τώρα!</string>
+    <string name="explorer_sync_sheet_action">Συγχρονισμός τώρα</string>
     <string name="explorer_sync_sheet_title">Ενημέρωση ζευγών νομισμάτων</string>
     <string name="explorer_field_coin">Βάση</string>
     <string name="explorer_field_contract">Τύπος συμβολαίου</string>

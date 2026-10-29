@@ -280,7 +280,7 @@
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">ডিভাইস বদলানো</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_device_change">কী পুরোনো ডিভাইসেই থাকে – আগে একটি ব্যাকআপ ফাইল তৈরি করুন।</string>
+    <string name="about_data_device_change">এনক্রিপশন কী পুরোনো ডিভাইসেই থাকে – আগে একটি ব্যাকআপ ফাইল তৈরি করুন।</string>
 
     <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
     <string name="diagnostics_share">ডায়াগনস্টিকস শেয়ার করুন</string>

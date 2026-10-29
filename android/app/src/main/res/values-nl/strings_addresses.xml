@@ -6,10 +6,10 @@
     <string name="portfolio_address_error">Bijwerken mislukt</string>
     <string name="portfolio_address_hint">Openbaar adres (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) of xpub</string>
     <string name="portfolio_address_label">Label (optioneel)</string>
-    <string name="portfolio_address_not_since_buy">Van adres · niet in «Sinds aankoop»: %1$s</string>
-    <string name="portfolio_address_overlap">Ook in je eigen transacties: %1$s – beide worden opgeteld. Dezelfde munten? Kies «Alleen tonen».</string>
+    <string name="portfolio_address_not_since_buy">Van adres · niet in ‘Sinds aankoop’: %1$s</string>
+    <string name="portfolio_address_overlap">Ook in je eigen transacties: %1$s – beide worden opgeteld. Dezelfde munten? Kies ‘Alleen tonen’.</string>
     <string name="portfolio_address_overlap_ask">Je legt %1$s al vast met eigen transacties. Het saldo van dit adres bij het portfolio optellen of alleen tonen?</string>
-    <string name="portfolio_address_overlap_auto">«%1$s» wordt nu alleen getoond, niet meegeteld – %2$s staan ook in je transacties.</string>
+    <string name="portfolio_address_overlap_auto">‘%1$s’ wordt nu alleen getoond, niet meegeteld – %2$s staan ook in je transacties.</string>
     <string name="portfolio_address_overlap_title">Dezelfde munten als in je transacties?</string>
     <string name="portfolio_address_overlap_tx">Zelfde hoeveelheid als je eigen storting/overboeking (%1$s) – waarschijnlijk dubbel geteld.</string>
     <string name="portfolio_address_period_observed">Gevolgde adressen tellen vanaf het eerst waargenomen saldo; latere wijzigingen zijn in-/uitstromen, geen winst.</string>

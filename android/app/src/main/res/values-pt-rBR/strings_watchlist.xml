@@ -8,7 +8,6 @@
         <item quantity="many">%1$d de %2$d sem preço</item>
         <item quantity="other">%1$d de %2$d sem preço</item>
     </plurals>
-    <string name="watchlist_last_run">Última execução %1$s</string>
     <string name="watchlist_live_a11y">Cotações ao vivo ativas</string>
     <string name="watchlist_offline_since">Sem conexão · dados de %1$s</string>
     <string name="watchlist_pull_to_refresh">Puxe para baixo para atualizar</string>

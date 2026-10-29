@@ -7,7 +7,6 @@
         <item quantity="one">%1$d од %2$d без цена</item>
         <item quantity="other">%1$d од %2$d без цена</item>
     </plurals>
-    <string name="watchlist_last_run">Последно извршување %1$s</string>
     <string name="watchlist_live_a11y">Цените во живо се вклучени</string>
     <string name="watchlist_offline_since">Нема врска · состојба %1$s</string>
     <string name="watchlist_pull_to_refresh">Повлечи надолу за освежување</string>

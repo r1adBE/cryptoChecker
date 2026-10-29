@@ -83,7 +83,7 @@
     <string name="explorer_no_pair_list">Không có cặp tiền</string>
     <string name="explorer_sync_sheet_last">Đồng bộ lần cuối: %1$s</string>
     <string name="explorer_sync_never">chưa bao giờ</string>
-    <string name="explorer_sync_sheet_action">Đồng bộ ngay!</string>
+    <string name="explorer_sync_sheet_action">Đồng bộ ngay</string>
     <string name="explorer_sync_sheet_title">Cập nhật cặp tiền</string>
     <string name="explorer_field_coin">Tiền cơ sở</string>
     <string name="explorer_field_contract">Loại hợp đồng</string>

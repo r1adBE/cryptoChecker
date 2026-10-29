@@ -277,10 +277,10 @@ class WatchRepository @Inject constructor(
         return true
     }
 
-    /** Paare deaktivieren ([disabled] = true) bzw. wieder aktivieren; true = geschrieben. */
+    /** Paare deaktivieren ([disabled] = true) bzw. wieder aktivieren; true = geschrieben. In Blöcken ([SQL_ID_CHUNK]). */
     suspend fun setDisabled(ids: Collection<Long>, disabled: Boolean): Boolean {
         if (ids.isEmpty() || userWriteRefused()) return false
-        watchDao.setDisabled(ids.toList(), disabled)
+        database.withTransaction { ids.toList().chunked(SQL_ID_CHUNK).forEach { watchDao.setDisabled(it, disabled) } }
         return true
     }
 
@@ -289,10 +289,10 @@ class WatchRepository @Inject constructor(
         if (!userWriteRefused(notify = false)) watchDao.setNotifiedPrice(id, price, if (price == null) 0 else time)
     }
 
-    /** Veränderung der Paare [ids] entfernen (in Blöcken, Grenze der SQL-Variablen). */
+    /** Veränderung der Paare [ids] entfernen (in Blöcken, [SQL_ID_CHUNK]). */
     suspend fun clearChanges(ids: List<Long>) {
         if (ids.isEmpty()) return
-        database.withTransaction { ids.chunked(500).forEach { watchDao.clearChanges(it) } }
+        database.withTransaction { ids.chunked(SQL_ID_CHUNK).forEach { watchDao.clearChanges(it) } }
     }
 
     // ---------------- Alarme ----------------

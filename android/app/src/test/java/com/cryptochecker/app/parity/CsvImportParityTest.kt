@@ -72,9 +72,19 @@ class CsvImportParityTest {
                 assertEquals("$m swapValue", e["swapValue"], text(r.swapValue))
                 // Kauf/Verkauf gegen Stablecoin als Tausch (fehlt = false)
                 assertEquals("$m stableSwap", e["stableSwap"] ?: false, r.stableSwap)
+                // Fiat-Gebühr im Preis bzw. Kraken ausstehend ≠ gebucht (fehlt = false)
+                assertEquals("$m feeInPrice", e["feeInPrice"] ?: false, r.feeInPrice)
+                assertEquals("$m pendingDiffers", e["pendingDiffers"] ?: false, r.pendingDiffers)
             }
             val skipped = f["skipped"].list().map { it.obj() }.map { (it["line"].num()!!).toInt() to it["reason"] as String }
             assertEquals("$name skipped", skipped, result.skipped.map { it.line to it.reason.name })
+            // Hinweise der Vorschau (fehlt = keine Zeile)
+            if (f.containsKey("previewFeeInPrice") || f.containsKey("previewPendingDiffers")) {
+                val preview = CsvImportMapping.preview(result, emptySet()) { _, _ -> BigDecimal.ONE }
+                fun lines(key: String) = f[key]?.list()?.map { (it.num()!!).toInt() }.orEmpty()
+                assertEquals("$name preview feeInPrice", lines("previewFeeInPrice"), preview.feeInPrice)
+                assertEquals("$name preview pendingDiffers", lines("previewPendingDiffers"), preview.pendingDiffers)
+            }
         }
     }
 

@@ -6,7 +6,6 @@
     <plurals name="watchlist_failed_count">
         <item quantity="other">%1$d จาก %2$d ไม่มีราคา</item>
     </plurals>
-    <string name="watchlist_last_run">รอบล่าสุด %1$s</string>
     <string name="watchlist_live_a11y">ราคาสดเปิดอยู่</string>
     <string name="watchlist_offline_since">ไม่มีการเชื่อมต่อ · ข้อมูลเมื่อ %1$s</string>
     <string name="watchlist_pull_to_refresh">ดึงลงเพื่อรีเฟรช</string>

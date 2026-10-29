@@ -57,7 +57,7 @@
     <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
     <string name="alarm_simple_above">yeqa inani</string>
     <string name="alarm_simple_below">yehlela ngaphansi kwenani</string>
-    <string name="alarm_simple_end">\</string>
+    <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">Uma i-%1$s</string>
     <string name="alarm_template_a11y">Dala i-alamu: %1$s</string>
     <string name="alarm_template_a11y_down">Dala i-alamu ku-minus %1$s wamaphesenti kusuka entengweni yamanje</string>

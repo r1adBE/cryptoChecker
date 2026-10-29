@@ -15,7 +15,7 @@
     <string name="portfolio_address_period_observed">கண்காணிக்கப்படும் முகவரிகள் முதலில் கவனிக்கப்பட்ட இருப்பிலிருந்து கணக்கிடப்படும்; பிந்தைய மாற்றங்கள் உள்வரவு/வெளிச்செலவு, லாபம் அல்ல.</string>
     <string name="portfolio_address_privacy">பொது முகவரி மட்டுமே %1$s க்கு அனுப்பப்படும் – கீகளோ சீட் சொற்றொடர்களோ ஒருபோதும் இல்லை. வழங்குநர் அதை உங்கள் IP முகவரியுடன் சேர்த்துப் பார்ப்பார். அதிகபட்சம் 10 நிமிடங்களுக்கு ஒருமுறை சரிபார்க்கப்படும்.</string>
     <string name="portfolio_address_remove">முகவரியை அகற்று</string>
-    <string name="portfolio_address_show_only">காட்டு மட்டும், போர்ட்ஃபோலியோவில் சேர்க்காதே</string>
+    <string name="portfolio_address_show_only">காட்டு மட்டும், போர்ட்ஃபோலியோவில் சேர்க்க வேண்டாம்</string>
     <string name="portfolio_address_show_only_short">காட்டு மட்டும்</string>
     <string name="portfolio_address_tokens">டோக்கன்களைக் கணக்கிடு</string>
     <string name="portfolio_address_xpub_privacy">ஒரு xpub இந்த வாலட்டின் எல்லா முகவரிகளையும் வெளிப்படுத்தும். அவை உங்கள் சாதனத்திலேயே பெறப்படுகின்றன; தனித்தனி முகவரிகள் மட்டுமே %1$s க்கு அனுப்பப்படும் – முதல் ஸ்கேனில் குறைந்தது 40 கோரிக்கைகள், பின்னர் குறைவாக. தனிப்பட்ட கீகள் (xprv) ஒருபோதும் ஏற்கப்படாது.</string>

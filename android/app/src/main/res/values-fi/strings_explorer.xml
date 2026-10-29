@@ -92,7 +92,7 @@
     <string name="explorer_no_pair_list">Ei valuuttapareja</string>
     <string name="explorer_sync_sheet_last">Viimeisin synkronointi: %1$s</string>
     <string name="explorer_sync_never">ei koskaan</string>
-    <string name="explorer_sync_sheet_action">Synkronoi nyt!</string>
+    <string name="explorer_sync_sheet_action">Synkronoi nyt</string>
     <string name="explorer_sync_sheet_title">Päivitä valuuttaparit</string>
     <string name="explorer_field_coin">Perusvaluutta</string>
     <string name="explorer_field_contract">Sopimustyyppi</string>

@@ -23,6 +23,10 @@ enum UiTestTags {
     static let tabPortfolio = "tab_portfolio"
     static let tabSettings = "tab_settings"
 
+    // MARK: Markt
+    /// Status-Pille des Tabs «Markt», sobald Crypto Pulse geladen ist und alles Sichtbare auf «Jetzt» steht.
+    static let marketLoaded = "market_loaded"
+
     // MARK: Merkliste
     static let watchlist = "watchlist"
     static let watchRow = "watch_row"

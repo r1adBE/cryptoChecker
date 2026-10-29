@@ -87,6 +87,12 @@ struct CsvImportRow: Equatable {
     var localTime: Int64? = nil
     /// Kauf/Verkauf gegen einen Stablecoin, als Tausch gebucht (`CsvImport.stables`) — Hinweis in der Vorschau.
     var stableSwap = false
+    /// Kauf/Verkauf mit Gebühr in Fiat UND im gehandelten Coin: Fiat-Gebühr im Preis, die im Coin am Geschäft
+    /// (`CsvImport.fiatFeeInPrice`) — Hinweis in der Vorschau. Wie Android.
+    var feeInPrice = false
+    /// Kraken: ausstehende und gebuchte Zeile derselben Ein-/Auszahlung (gleiche refid) mit verschiedener Menge — beide
+    /// übernommen, die Vorschau nennt beide Zeilen. Wie Android.
+    var pendingDiffers = false
 }
 
 struct CsvImportResult {
@@ -271,7 +277,7 @@ enum CsvImport {
     /// höchstens einmal) — wie Android `CsvImport.splitFees`: eine bleibt am Geschäft, jede weitere wird eine eigene
     /// Gebühr-Zeile (`.FEE`, Veräusserung zum Tageskurs). Am Geschäft bleibt, unabhängig von der Reihenfolge: die
     /// Fiat-Gebühr, sonst die im abgegebenen, dann im erhaltenen Coin, sonst die alphabetisch erste. Zwei Fiat-Gebühren
-    /// → nil (`.TWO_FEES`).
+    /// → nil (`.TWO_FEES`). Kauf/Verkauf mit Fiat- und Coin-Gebühr kommt vorher durch `fiatFeeInPrice`.
     static func splitFees(_ fees: [(unit: String, amount: Decimal)], given: String?,
                           received: String?) -> (primary: (unit: String, amount: Decimal)?, extra: [(unit: String, amount: Decimal)])? {
         if fees.count <= 1 { return (fees.first, []) }
@@ -281,6 +287,22 @@ enum CsvImport {
             ?? fees.first(where: { $0.unit == received })
             ?? fees.sorted(by: { $0.unit < $1.unit })[0]
         return (primary, fees.filter { $0.unit != primary.unit })
+    }
+
+    /// Kauf/Verkauf gegen Fiat `fiat` mit Gebühr in `fiat` UND im gehandelten Coin `coin` (Kraken, Binance) — wie Android
+    /// `CsvImport.fiatFeeInPrice`: die Fiat-Gebühr kommt in den Preis (Kauf (Betrag + Gebühr) / Menge, Verkauf (Betrag −
+    /// Gebühr) / Menge), die Gebühr im Coin bleibt am Geschäft (weniger erhalten bzw. mehr abgegeben) statt einer eigenen
+    /// Gebühr-Zeile, die im FIFO den ältesten Posten veräussern würde. `total` = Fiat-Betrag ohne Gebühr.
+    /// - Returns: (Fiat-Betrag samt Gebühr, übrige Gebühren für `splitFees`); nil = nichts einzurechnen (keine solchen
+    ///   zwei Gebühren, oder der Erlös eines Verkaufs wäre ≤ 0)
+    static func fiatFeeInPrice(buy: Bool, coin: String, fiat: String, total: Decimal,
+                               fees: [(unit: String, amount: Decimal)]) -> (total: Decimal, rest: [(unit: String, amount: Decimal)])? {
+        guard isFiat(fiat), fees.contains(where: { $0.unit == coin }) else { return nil }
+        let fiatFees = fees.filter { $0.unit == fiat }
+        guard fiatFees.count == 1, let fiatFee = fiatFees.first else { return nil }
+        let folded: Decimal = buy ? total + fiatFee.amount : total - fiatFee.amount
+        guard folded > 0 else { return nil }
+        return (folded, fees.filter { $0.unit != fiat })
     }
 
     /// Gebühr verbraucht die ganze erhaltene Menge (wie `PortfolioTxForm.feeConsumesReceived`): Kauf/Einzahlung/Belohnung

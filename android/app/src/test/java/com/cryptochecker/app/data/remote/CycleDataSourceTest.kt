@@ -26,7 +26,7 @@ class CycleDataSourceTest {
     val temp = TemporaryFolder()
 
     @Before
-    fun chainOpen() = RouteHttp.assumeChainOpen()
+    fun chainOpen() = RouteHttp.releaseChain()
 
     private fun cycle(http: RouteHttp) =
         CycleDataSource(http.client, CandleDataSource(http.client, testTokenIdentityStore(temp.newFolder())))

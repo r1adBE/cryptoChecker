@@ -23,7 +23,7 @@ report then falls back to the modules' own reports (display only).
 coverage data at all, or when «--merged NAME» is given and NAME's report is missing (no silent fallback to the
 modules' own reports - a missing report must never pass the gate). Without it: display only, always exit 0.
 
-Usage: python3 -I coverage_summary.py --merged app [--min-logic 58] [--min-module data=50] app=app domain=domain data=data marketdata=marketdata
+Usage: python3 -I coverage_summary.py --merged app [--min-logic 65] [--min-module data=57] app=app domain=domain data=data marketdata=marketdata
        python3 -I coverage_summary.py --self-test
 """
 import contextlib

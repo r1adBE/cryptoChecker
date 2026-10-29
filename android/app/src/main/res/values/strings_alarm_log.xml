@@ -29,7 +29,7 @@
     <string name="alarm_outcome_no_rate">Not checked – no exchange rate</string>
     <string name="alarm_outcome_no_price">No price – exchange query failed</string>
 
-    <string name="alarm_outcome_snoozed">Held back – «1 h later» still running</string>
+    <string name="alarm_outcome_snoozed">Held back – “1 h later” still running</string>
     <string name="alarm_log_source_app">in the app</string>
     <string name="alarm_log_source_background">in the background</string>
     <string name="alarm_log_source_exact">on-time check</string>

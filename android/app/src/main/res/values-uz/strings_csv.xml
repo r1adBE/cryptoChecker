@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">Tranzaksiyalar saqlanmoqda…</string>
     <string name="portfolio_csv_import_missing_fx">%1$s qatorlar uchun kunlik kurs yoʻq – narx/komissiyasiz import qilindi.</string>
     <string name="portfolio_csv_import_missing_price">Faylda %1$s qatorlar uchun narx yoʻq – narxsiz import qilindi.</string>
+    <string name="portfolio_csv_import_fee_in_price">%1$s qatorlarda ikkita komissiya: fiat komissiyasi narxga kiritilgan, tangadagi komissiya olingan miqdorni kamaytiradi yoki berilgan miqdorni oshiradi.</string>
+    <string name="portfolio_csv_import_pending_differs">%1$s qatorlar: bir xil depozit yoki yechib olishning kutilayotgan va qayd etilgan yozuvlari miqdori har xil – ikkalasi ham import qilindi, aktivlarni tekshiring.</string>
     <string name="portfolio_csv_import_more">+ yana %1$d ta</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d ta yangi tranzaksiya</item>

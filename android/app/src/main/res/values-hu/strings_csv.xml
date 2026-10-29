@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">Tranzakciók mentése…</string>
     <string name="portfolio_csv_import_missing_fx">Nincs napi árfolyam ehhez a sorhoz: %1$s – ár és díj nélkül importálva.</string>
     <string name="portfolio_csv_import_missing_price">A fájlban nincs ár ehhez a sorhoz: %1$s – ár nélkül importálva.</string>
+    <string name="portfolio_csv_import_fee_in_price">Két díj ezekben a sorokban: %1$s – a fiat díj benne van az árban, az érmében fizetett díj csökkenti a kapott vagy növeli az átadott mennyiséget.</string>
+    <string name="portfolio_csv_import_pending_differs">Sorok: %1$s – ugyanannak a befizetésnek vagy kifizetésnek a függő és a könyvelt tétele eltérő mennyiségű – mindkettő importálva, ellenőrizd az egyenleget.</string>
     <string name="portfolio_csv_import_more">+ még %1$d</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d új tranzakció</item>

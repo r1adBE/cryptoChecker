@@ -7,7 +7,6 @@
         <item quantity="one">%1$d / %2$d ilma hinnata</item>
         <item quantity="other">%1$d / %2$d ilma hinnata</item>
     </plurals>
-    <string name="watchlist_last_run">Viimane käivitus %1$s</string>
     <string name="watchlist_live_a11y">Reaalajas hinnad sees</string>
     <string name="watchlist_offline_since">Ühendus puudub · seis %1$s</string>
     <string name="watchlist_pull_to_refresh">Värskendamiseks tõmba alla</string>

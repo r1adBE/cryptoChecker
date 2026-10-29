@@ -280,7 +280,7 @@
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">آلہ بدلنا</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_device_change">کی پرانے آلے پر ہی رہتی ہے – پہلے بیک اپ فائل بنائیں۔</string>
+    <string name="about_data_device_change">کلید پرانے آلے پر ہی رہتی ہے – پہلے بیک اپ فائل بنائیں۔</string>
 
     <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
     <string name="diagnostics_share">تشخیصی معلومات شیئر کریں</string>

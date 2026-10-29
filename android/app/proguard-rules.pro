@@ -4,6 +4,9 @@
 # (Das Modul marketdata bringt dieselben Regeln in consumer-rules.pro mit; hier doppelt zur Sicherheit.)
 -keepnames class com.cryptochecker.marketdata.exceptions.** { *; }
 -keepnames class com.cryptochecker.app.domain.exceptions.** { *; }
+# Alle übrigen eigenen Fehlerklassen (z. B. JsonException, Backup-, Portfolio-, Logo- und CSV-Fehler): der Zähler
+# im Diagnosebericht nennt sie mit `javaClass.simpleName` (BackgroundErrors.kindOf). Nur der Klassenname bleibt.
+-keepnames class com.cryptochecker.** extends java.lang.Throwable
 
 # Typsichere Navigationsziele (@Serializable, ScreenRoute): Navigation erzeugt Routen und Argumente über die
 # Serializer dieser Klassen. kotlinx.serialization bringt eigene Regeln mit; diese hier ist die zweite Sicherung.

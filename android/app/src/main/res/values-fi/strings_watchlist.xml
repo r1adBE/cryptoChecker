@@ -7,7 +7,6 @@
         <item quantity="one">%1$d/%2$d ilman hintaa</item>
         <item quantity="other">%1$d/%2$d ilman hintaa</item>
     </plurals>
-    <string name="watchlist_last_run">Viimeisin ajo %1$s</string>
     <string name="watchlist_live_a11y">Live-hinnat käytössä</string>
     <string name="watchlist_offline_since">Ei yhteyttä · tilanne %1$s</string>
     <string name="watchlist_pull_to_refresh">Päivitä vetämällä alas</string>

@@ -27,6 +27,8 @@
     <string name="portfolio_csv_import_saving">거래를 저장하는 중…</string>
     <string name="portfolio_csv_import_missing_fx">%1$s행의 일별 환율이 없습니다 – 가격/수수료 없이 가져왔습니다.</string>
     <string name="portfolio_csv_import_missing_price">파일에 %1$s행의 가격이 없습니다 – 가격 없이 가져왔습니다.</string>
+    <string name="portfolio_csv_import_fee_in_price">%1$s행에 수수료가 두 건 있습니다: 법정화폐 수수료는 가격에 포함되고, 코인 수수료는 받은 수량을 줄이거나 준 수량을 늘립니다.</string>
+    <string name="portfolio_csv_import_pending_differs">%1$s행: 같은 입금 또는 출금의 대기 중 기록과 처리된 기록의 수량이 다릅니다 – 둘 다 가져왔습니다, 잔액 확인.</string>
     <string name="portfolio_csv_import_more">+ %1$d개 더</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="other">새 거래 %d건</item>

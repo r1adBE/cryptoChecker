@@ -60,6 +60,10 @@ struct CsvImportPreview {
     /// Zeilen, deren USD-/Fiat-Betrag mit USDT = 1 USD umgerechnet ist (kein USDT/USD-Tagesschluss DES Tags,
     /// `CsvImportPriced.usdtApproximate`) — die Vorschau nennt sie wie `missingFx`. Wie Android.
     var usdtApproximate: [Int] = []
+    /// Zeilen mit Fiat-Gebühr im Preis und Gebühr im Coin am Geschäft (`CsvImportRow.feeInPrice`) — Hinweis. Wie Android.
+    var feeInPrice: [Int] = []
+    /// Kraken: ausstehende und gebuchte Zeile mit anderer Menge, beide übernommen (`CsvImportRow.pendingDiffers`).
+    var pendingDiffers: [Int] = []
     /// Datei über den Grenzen des Zerlegens (`CsvImportResult.tooLarge`): keine Zeilen, Meldung «zu gross».
     var tooLarge = false
 }
@@ -227,6 +231,8 @@ enum CsvImportMapping {
                                 decimalSample: result.decimalSample, decimalMark: result.decimalMark,
                                 columns: result.columns,
                                 usdtApproximate: kept.filter(\.usdtApproximate).map(\.row.line),
+                                feeInPrice: kept.filter(\.row.feeInPrice).map(\.row.line),
+                                pendingDiffers: kept.filter(\.row.pendingDiffers).map(\.row.line),
                                 tooLarge: result.tooLarge)
     }
 

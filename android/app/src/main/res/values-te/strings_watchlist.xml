@@ -7,7 +7,6 @@
         <item quantity="one">%2$dలో %1$d ధర లేకుండా</item>
         <item quantity="other">%2$dలో %1$d ధర లేకుండా</item>
     </plurals>
-    <string name="watchlist_last_run">చివరి రన్ %1$s</string>
     <string name="watchlist_live_a11y">లైవ్ ధరలు ఆన్</string>
     <string name="watchlist_offline_since">కనెక్షన్ లేదు · %1$s నాటికి</string>
     <string name="watchlist_pull_to_refresh">రిఫ్రెష్ చేయడానికి కిందికి లాగండి</string>

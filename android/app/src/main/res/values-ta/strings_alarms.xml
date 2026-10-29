@@ -5,7 +5,7 @@
     <string name="alarms_add">புதிய விழிப்பூட்டல்</string>
     <string name="alarms_edit">விழிப்பூட்டலைத் திருத்து</string>
     <string name="alarms_empty">இந்த ஜோடிக்கு இன்னும் விழிப்பூட்டல்கள் இல்லை.</string>
-    <string name="alarms_empty_example">எடுத்துக்காட்டாக: BTC %1$s க்கு மேல் உயரும்போது எனக்குத் தெரிவி.</string>
+    <string name="alarms_empty_example">எடுத்துக்காட்டாக: BTC %1$s க்கு மேல் உயரும்போது எனக்குத் தெரிவிக்கவும்.</string>
     <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
     <string name="alarms_notifications_off">அறிவிப்புகள் ஆஃப் – விழிப்பூட்டல்கள் உங்களை வந்தடைய முடியாது.</string>
     <string name="alarms_notifications_turn_on">ஆன் செய்</string>
@@ -81,29 +81,29 @@
     <string name="alarm_condition_volume_spike">வால்யூம் திடீர் உயர்வு</string>
 
     <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
-    <string name="alarm_sentence_above">%1$s, %2$s க்கு மேல் உயரும்போது எனக்குத் தெரிவி.</string>
-    <string name="alarm_sentence_below">%1$s, %2$s க்குக் கீழ் சரியும்போது எனக்குத் தெரிவி.</string>
-    <string name="alarm_sentence_down_percent">%1$s, சேமித்தபோது இருந்த விலையைவிட (அல்லது கடைசி விழிப்பூட்டலின்போது இருந்ததைவிட) %2$s கீழே சரியும்போது எனக்குத் தெரிவி.</string>
-    <string name="alarm_sentence_funding_above">%1$s இன் ஃபண்டிங் %2$s க்கு மேல் உயரும்போது எனக்குத் தெரிவி.</string>
-    <string name="alarm_sentence_funding_below">%1$s இன் ஃபண்டிங் %2$s க்குக் கீழ் சரியும்போது எனக்குத் தெரிவி.</string>
+    <string name="alarm_sentence_above">%1$s, %2$s க்கு மேல் உயரும்போது எனக்குத் தெரிவிக்கவும்.</string>
+    <string name="alarm_sentence_below">%1$s, %2$s க்குக் கீழ் சரியும்போது எனக்குத் தெரிவிக்கவும்.</string>
+    <string name="alarm_sentence_down_percent">%1$s, சேமித்தபோது இருந்த விலையைவிட (அல்லது கடைசி விழிப்பூட்டலின்போது இருந்ததைவிட) %2$s கீழே சரியும்போது எனக்குத் தெரிவிக்கவும்.</string>
+    <string name="alarm_sentence_funding_above">%1$s இன் ஃபண்டிங் %2$s க்கு மேல் உயரும்போது எனக்குத் தெரிவிக்கவும்.</string>
+    <string name="alarm_sentence_funding_below">%1$s இன் ஃபண்டிங் %2$s க்குக் கீழ் சரியும்போது எனக்குத் தெரிவிக்கவும்.</string>
     <string name="alarm_sentence_incomplete">விழிப்பூட்டலை ஒரு வாக்கியமாகக் காண ஒரு மதிப்பை உள்ளிடவும்.</string>
     <plurals name="alarm_sentence_move_percent">
-        <item quantity="one">%1$s, %3$d மணிநேரத்துக்குள் %2$s நகரும்போது எனக்குத் தெரிவி.</item>
-        <item quantity="other">%1$s, %3$d மணிநேரத்துக்குள் %2$s நகரும்போது எனக்குத் தெரிவி.</item>
+        <item quantity="one">%1$s, %3$d மணிநேரத்துக்குள் %2$s நகரும்போது எனக்குத் தெரிவிக்கவும்.</item>
+        <item quantity="other">%1$s, %3$d மணிநேரத்துக்குள் %2$s நகரும்போது எனக்குத் தெரிவிக்கவும்.</item>
     </plurals>
-    <string name="alarm_sentence_near_high">%1$s அதன் %3$s ஐவிட அதிகபட்சம் %2$s கீழே இருக்கும்போது எனக்குத் தெரிவி.</string>
-    <string name="alarm_sentence_near_low">%1$s அதன் %3$s ஐவிட அதிகபட்சம் %2$s மேலே இருக்கும்போது எனக்குத் தெரிவி.</string>
-    <string name="alarm_sentence_new_extreme">%1$s புதிய %2$s ஐ எட்டும்போது எனக்குத் தெரிவி.</string>
+    <string name="alarm_sentence_near_high">%1$s அதன் %3$s ஐவிட அதிகபட்சம் %2$s கீழே இருக்கும்போது எனக்குத் தெரிவிக்கவும்.</string>
+    <string name="alarm_sentence_near_low">%1$s அதன் %3$s ஐவிட அதிகபட்சம் %2$s மேலே இருக்கும்போது எனக்குத் தெரிவிக்கவும்.</string>
+    <string name="alarm_sentence_new_extreme">%1$s புதிய %2$s ஐ எட்டும்போது எனக்குத் தெரிவிக்கவும்.</string>
     <plurals name="alarm_sentence_oi_down">
-        <item quantity="one">%1$s இன் ஓப்பன் இன்ட்ரஸ்ட் %3$d மணிநேரத்துக்குள் %2$s குறையும்போது எனக்குத் தெரிவி.</item>
-        <item quantity="other">%1$s இன் ஓப்பன் இன்ட்ரஸ்ட் %3$d மணிநேரத்துக்குள் %2$s குறையும்போது எனக்குத் தெரிவி.</item>
+        <item quantity="one">%1$s இன் ஓப்பன் இன்ட்ரஸ்ட் %3$d மணிநேரத்துக்குள் %2$s குறையும்போது எனக்குத் தெரிவிக்கவும்.</item>
+        <item quantity="other">%1$s இன் ஓப்பன் இன்ட்ரஸ்ட் %3$d மணிநேரத்துக்குள் %2$s குறையும்போது எனக்குத் தெரிவிக்கவும்.</item>
     </plurals>
     <plurals name="alarm_sentence_oi_up">
-        <item quantity="one">%1$s இன் ஓப்பன் இன்ட்ரஸ்ட் %3$d மணிநேரத்துக்குள் %2$s உயரும்போது எனக்குத் தெரிவி.</item>
-        <item quantity="other">%1$s இன் ஓப்பன் இன்ட்ரஸ்ட் %3$d மணிநேரத்துக்குள் %2$s உயரும்போது எனக்குத் தெரிவி.</item>
+        <item quantity="one">%1$s இன் ஓப்பன் இன்ட்ரஸ்ட் %3$d மணிநேரத்துக்குள் %2$s உயரும்போது எனக்குத் தெரிவிக்கவும்.</item>
+        <item quantity="other">%1$s இன் ஓப்பன் இன்ட்ரஸ்ட் %3$d மணிநேரத்துக்குள் %2$s உயரும்போது எனக்குத் தெரிவிக்கவும்.</item>
     </plurals>
-    <string name="alarm_sentence_up_percent">%1$s, சேமித்தபோது இருந்த விலையைவிட (அல்லது கடைசி விழிப்பூட்டலின்போது இருந்ததைவிட) %2$s மேலே உயரும்போது எனக்குத் தெரிவி.</string>
-    <string name="alarm_sentence_volume">%1$s அதன் வழக்கமான வால்யூமைவிட %2$s× வர்த்தகமாகும்போது எனக்குத் தெரிவி.</string>
+    <string name="alarm_sentence_up_percent">%1$s, சேமித்தபோது இருந்த விலையைவிட (அல்லது கடைசி விழிப்பூட்டலின்போது இருந்ததைவிட) %2$s மேலே உயரும்போது எனக்குத் தெரிவிக்கவும்.</string>
+    <string name="alarm_sentence_volume">%1$s அதன் வழக்கமான வால்யூமைவிட %2$s× வர்த்தகமாகும்போது எனக்குத் தெரிவிக்கவும்.</string>
 
     <!-- Alarm «Nahe am Hoch / Tief» -->
     <string name="alarm_near_extreme_high_30">30 நாள் உச்சம்</string>

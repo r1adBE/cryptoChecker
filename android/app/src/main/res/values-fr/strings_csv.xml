@@ -31,6 +31,8 @@
     <string name="portfolio_csv_import_saving">Enregistrement des transactions…</string>
     <string name="portfolio_csv_import_missing_fx">Aucun cours journalier pour la ligne %1$s – importé sans prix ni frais.</string>
     <string name="portfolio_csv_import_missing_price">Aucun prix dans le fichier pour la ligne %1$s – importé sans prix.</string>
+    <string name="portfolio_csv_import_fee_in_price">Deux frais à la ligne %1$s : les frais en monnaie fiat sont inclus dans le prix, les frais dans la crypto réduisent la quantité reçue ou augmentent la quantité cédée.</string>
+    <string name="portfolio_csv_import_pending_differs">Ligne %1$s : l’écriture en attente et l’écriture comptabilisée du même dépôt ou retrait ont des quantités différentes – les deux importées, vérifier le solde.</string>
     <string name="portfolio_csv_import_more">+ %1$d autres</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d nouvelle transaction</item>

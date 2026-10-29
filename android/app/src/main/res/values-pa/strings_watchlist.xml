@@ -7,7 +7,6 @@
         <item quantity="one">%2$d ਵਿੱਚੋਂ %1$d ਬਿਨਾਂ ਕੀਮਤ</item>
         <item quantity="other">%2$d ਵਿੱਚੋਂ %1$d ਬਿਨਾਂ ਕੀਮਤ</item>
     </plurals>
-    <string name="watchlist_last_run">ਆਖਰੀ ਵਾਰ ਚੱਲਿਆ %1$s</string>
     <string name="watchlist_live_a11y">ਲਾਈਵ ਕੀਮਤਾਂ ਚਾਲੂ</string>
     <string name="watchlist_offline_since">ਕੋਈ ਕਨੈਕਸ਼ਨ ਨਹੀਂ · %1$s ਮੁਤਾਬਕ</string>
     <string name="watchlist_pull_to_refresh">ਤਾਜ਼ਾ ਕਰਨ ਲਈ ਹੇਠਾਂ ਖਿੱਚੋ</string>

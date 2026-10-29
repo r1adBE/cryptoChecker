@@ -28,8 +28,9 @@ python3 .github/scripts/check_strings.py
 GitHub runs the same checks on every pull request: **Android**, **iOS** (build, unit and UI tests in the
 Simulator), **Strings**, **Parity** and **Release readiness**. The Android
 device tests (emulator) run on every push to `main` that changes `android/**`, on
-every release tag and on pull requests that touch the databases (migration tests
-only); they can also be started by hand under *Actions › Android device tests*.
+every release tag and on pull requests: migration tests when the databases change, the R8 release smoke test
+(`release-smoke`) when a file changes that decides about the release build (keep rules, build scripts,
+dependency versions, the smoke test itself); they can also be started by hand under *Actions › Android device tests*.
 
 ## Add an exchange
 
@@ -68,7 +69,9 @@ prefix, in all languages. To fix or add a translation:
 
 1. Edit the matching `values-xx/strings*.xml` (keep placeholders such as
    `%1$s` and `%d` unchanged; escape apostrophes as `\'`; plural forms in
-   `<plurals>` need every quantity of the language).
+   `<plurals>` need every quantity of the language). Serbian: edit only the Cyrillic
+   `values-sr`, then regenerate the Latin `values-b+sr+Latn` with
+   `python3 android/tools/sr_latn.py` (never edit the Latin files by hand; `check_strings.py` fails otherwise).
 2. Rebuild the iOS string catalog:
    `python3 ios/tools/convert_strings.py --android-res android/app/src/main/res`
    (iOS-only texts are in `ios/tools/ios_extra_strings.json`).

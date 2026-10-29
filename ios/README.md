@@ -4,7 +4,7 @@
 Marke erreicht ist – ohne Konto.** Dazu Marktüberblick und als Zusatz «Was bewegt sich mit?» (was sich gleichzeitig
 bewegt – keine Ursache) – ohne Prognosen, keine Anlageberatung.
 
-Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 177 – die Build-Nummer steigt mit jedem Stand um eins).
+Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 178 – die Build-Nummer steigt mit jedem Stand um eins).
 Mindestens iOS 17. Die App enthält eine Widget-Erweiterung (WidgetKit) und eine Apple-Watch-App (watchOS 10, `Watch/`,
 Komplikation in `WatchWidgets/`, gemeinsame Listenwahl in `WatchCore/`).
 
@@ -66,20 +66,26 @@ Alle Builds: `CHANGELOG.md` im Repository-Hauptordner.
 
 1. Mac mit **Xcode 26 oder neuer** (wie die CI; Xcode 16 reicht für die getönten App-Icons, aber App-Store-Uploads verlangen das aktuelle SDK).
 2. `CryptoChecker.xcodeproj` mit Doppelklick in Xcode öffnen.
-3. Links das Projekt anklicken, dann für **beide** Targets – `CryptoChecker` und
-   `CryptoCheckerWidgetsExtension` – unter **Signing & Capabilities** das eigene **Team** wählen.
-4. Die App Group **`group.com.cryptochecker.app`** muss bei beiden Targets aktiv sein
-   (App und Widgets teilen darüber Paare und Kurse). Das setzt ein **kostenpflichtiges
-   Apple-Developer-Konto** voraus.
-   - Mit einem kostenlosen Konto bei beiden Targets die Capability **App Groups** entfernen
+3. Links das Projekt anklicken, dann für **alle vier** Targets – `CryptoChecker`,
+   `CryptoCheckerWidgetsExtension`, `CryptoCheckerWatch` und `CryptoCheckerWatchWidgets` – unter
+   **Signing & Capabilities** das eigene **Team** wählen.
+4. Die App Group **`group.com.cryptochecker.app`** muss bei allen vier Targets aktiv sein
+   (App und Widgets teilen darüber Paare und Kurse, die Uhr-App und ihre Komplikation ebenso). Das setzt ein
+   **kostenpflichtiges Apple-Developer-Konto** voraus.
+   - Mit einem kostenlosen Konto bei allen vier Targets die Capability **App Groups** entfernen
      (Minus-Symbol bzw. Eintrag in der `.entitlements`-Datei löschen). Die App läuft dann normal,
-     die **Widgets bleiben aber leer**, weil sie die Daten der App nicht lesen können.
+     die **Widgets und die Uhr-Komplikation bleiben aber leer**, weil sie die Daten der App bzw. der Uhr-App nicht
+     lesen können.
    - Meldet Xcode beim Signieren einen Fehler zu *Time Sensitive Notifications*, auch diese
      Capability beim Target `CryptoChecker` entfernen; Alarme kommen dann als normale Mitteilungen.
    - Ist die Bundle-ID bereits vergeben, `com.cryptochecker.app` (und passend
-     `com.cryptochecker.app.widgets`) auf eine eigene ID ändern, z. B. `ch.meinname.cryptochecker`.
-     Die App-Group-ID in beiden `.entitlements`-Dateien und im Code (`group.com.cryptochecker.app`)
-     muss dann ebenfalls angepasst werden.
+     `com.cryptochecker.app.widgets`, `com.cryptochecker.app.watchkitapp`,
+     `com.cryptochecker.app.watchkitapp.widgets`) auf eine eigene ID ändern, z. B. `ch.meinname.cryptochecker`.
+     Die App-Group-ID muss dann an allen sechs Stellen ebenfalls angepasst werden: den vier `.entitlements`-Dateien
+     (`App/CryptoChecker.entitlements`, `Widgets/CryptoCheckerWidgets.entitlements`,
+     `Watch/CryptoCheckerWatch.entitlements`, `WatchWidgets/CryptoCheckerWatchWidgets.entitlements`) und im Code
+     (`SharedStorage.appGroup` in `Shared/Storage/SharedStorage.swift`, `WatchStore.group` in
+     `Watch/Device/WatchStore.swift`).
 5. iPhone per Kabel anschliessen (beim ersten Mal auf dem iPhone «Vertrauen» bestätigen und unter
    *Einstellungen › Datenschutz & Sicherheit* den **Entwicklermodus** einschalten).
 6. Oben in Xcode das Schema **CryptoChecker** und das iPhone als Ziel wählen, dann **Run** (▶︎ bzw. ⌘R).
@@ -142,11 +148,11 @@ Regeln für neuen Code:
   (`ios_release_audit.py`, `WatchlistConfirmCallGuard`) exakt bleiben.
 
 Die CI (Workflow «iOS», `.github/workflows/ios.yml`) baut die App im Swift-6-Modus und führt Unit- und UI-Tests bei
-jedem Pull Request und jedem Push auf `main`, der die iOS-App betrifft, aus; Isolationsfehler zur Laufzeit fallen dort auf. Die
-`@unchecked Sendable`-Stellen (Obergrenze in `swift_escape_hatches.py`, derzeit 76 – davon 67 die Börsen-Adapter ohne
-veränderlichen Zustand, die übrigen 9 mit Grund in `DEVELOPMENT.md` «Known warnings») sind kommentiert bzw. mit einer
-Sperre geschützt – das kann der Compiler nicht nachprüfen. Die übrigen Sperr-Boxen halten ihren Zustand in
-`OSAllocatedUnfairLock<State>` und sind geprüft `Sendable`.
+jedem Pull Request und jedem Push auf `main`, der die iOS-App betrifft, aus; Isolationsfehler zur Laufzeit fallen dort auf. Im App-Code
+gibt es keine `@unchecked Sendable`-Stelle mehr (Obergrenze 0 in `swift_escape_hatches.py`, ebenso
+`nonisolated(unsafe)` und `DispatchSemaphore`); die Sperr-Boxen halten ihren Zustand in
+`OSAllocatedUnfairLock<State>` und sind geprüft `Sendable`. Die 7 Sperren mit `uncheckedState:` (Obergrenze 7, Gründe in
+`DEVELOPMENT.md` «Known warnings») kann der Compiler nicht nachprüfen.
 
 ## Falls sich das Projekt nicht öffnen lässt
 

@@ -63,4 +63,19 @@ final class DenseRowTextTests: XCTestCase {
         XCTAssertEqual(DenseRowText.convertedLineLimit(stacked: false), 2)
         XCTAssertNil(DenseRowText.convertedLineLimit(stacked: true))
     }
+
+    /// Symbole der Börsenzeile brechen um, statt Mini-Chart oder Börsenname zu opfern — gemeinsame Fälle
+    /// `Parity/row_meta_line.json` (Gegenstück `DenseRowTextTest.kt`).
+    func testMetaLineWrapParity() throws {
+        let data = try TestSupport.fixture("row_meta_line")
+        let cases = TestSupport.list(data["cases"])
+        XCTAssertFalse(cases.isEmpty)
+        for c in cases {
+            XCTAssertEqual(DenseRowText.metaWraps(available: TestSupport.number(c["available"]),
+                                                  lead: TestSupport.number(c["lead"]) ?? -1,
+                                                  icons: TestSupport.number(c["icons"]) ?? -1,
+                                                  gap: TestSupport.number(c["gap"]) ?? -1),
+                           c["expected"] as? Bool, c["name"] as? String ?? "")
+        }
+    }
 }

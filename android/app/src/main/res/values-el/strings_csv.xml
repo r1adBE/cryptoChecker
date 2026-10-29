@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">Αποθήκευση συναλλαγών…</string>
     <string name="portfolio_csv_import_missing_fx">Δεν υπάρχει ημερήσια ισοτιμία για τη γραμμή %1$s – εισήχθη χωρίς τιμή και χρέωση.</string>
     <string name="portfolio_csv_import_missing_price">Δεν υπάρχει τιμή στο αρχείο για τη γραμμή %1$s – εισήχθη χωρίς τιμή.</string>
+    <string name="portfolio_csv_import_fee_in_price">Δύο χρεώσεις στη γραμμή %1$s: η χρέωση σε fiat περιλαμβάνεται στην τιμή, η χρέωση στο νόμισμα μειώνει την ποσότητα που λήφθηκε ή αυξάνει αυτή που δόθηκε.</string>
+    <string name="portfolio_csv_import_pending_differs">Γραμμή %1$s: η εκκρεμής και η καταχωρισμένη εγγραφή της ίδιας κατάθεσης ή ανάληψης έχουν διαφορετικές ποσότητες – εισήχθησαν και οι δύο, έλεγξε το υπόλοιπο.</string>
     <string name="portfolio_csv_import_more">+ %1$d ακόμη</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d νέα συναλλαγή</item>

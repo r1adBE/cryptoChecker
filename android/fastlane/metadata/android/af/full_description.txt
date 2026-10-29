@@ -2,7 +2,7 @@ Crypto Checker kontroleer die pryse op jou beurs en laat jou weet wanneer 'n kon
 
 WAT DIT ANDERS MAAK
 • Jou beurs, nie 'n gemiddeld nie: elke ry wys die paar se laaste prys op jou gekose beurs – Binance, Coinbase, Kraken, OKX, Bybit en baie meer.
-• 'n Alarm wat een keer laat weet: “Laat weet my wanneer BTC bo 100,000 USDT gaan.” Dit lui wanneer 'n kontrole die vlak oorgesteek vind, nie by elke bywerking nie – “Een keer” skakel dit dan af, “Elke keer” stel dit weer wanneer die prys terugkom.
+• 'n Alarm wat een keer laat weet: “Laat my weet wanneer BTC bo 100,000 USDT gaan.” Dit lui wanneer 'n kontrole die vlak oorgesteek vind, nie by elke bywerking nie – “Een keer” skakel dit dan af, “Elke keer” stel dit weer wanneer die prys terugkom.
 • “Wat beweeg saam?”: 'n faktorlys vir een munt – algehele mark, volume, wisselvalligheid, befondsing en oop belang, afstand tot die hoogte- of laagtepunt, Fear & Greed. Dit wys wat terselfdertyd beweeg – geen oorsaak, geen nuus, geen beleggingsadvies nie.
 • Geen rekening, geen advertensies, geen nasporing nie. Die ontwikkelaar kry niks van jou data nie.
 

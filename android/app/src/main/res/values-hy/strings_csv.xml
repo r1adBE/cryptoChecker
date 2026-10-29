@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">Գործարքները պահպանվում են…</string>
     <string name="portfolio_csv_import_missing_fx">%1$s տողերի համար օրական փոխարժեք չկա – ներմուծված են առանց գնի/միջնորդավճարի։</string>
     <string name="portfolio_csv_import_missing_price">Ֆայլում %1$s տողերի համար գին չկա – ներմուծված են առանց գնի։</string>
+    <string name="portfolio_csv_import_fee_in_price">Երկու վճար %1$s տողերում․ ֆիատ վճարը ներառված է գնի մեջ, մետաղադրամով վճարը նվազեցնում է ստացված կամ ավելացնում տրված քանակը։</string>
+    <string name="portfolio_csv_import_pending_differs">%1$s տողեր․ նույն մուտքի կամ ելքի սպասվող և հաշվառված գրառումները տարբեր քանակ ունեն – երկուսն էլ ներմուծված են, ստուգիր ակտիվները։</string>
     <string name="portfolio_csv_import_more">+ ևս %1$d</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d նոր գործարք</item>

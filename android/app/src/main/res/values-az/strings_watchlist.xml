@@ -7,7 +7,6 @@
         <item quantity="one">%2$d cütdən %1$d qiymətsiz</item>
         <item quantity="other">%2$d cütdən %1$d qiymətsiz</item>
     </plurals>
-    <string name="watchlist_last_run">Son icra %1$s</string>
     <string name="watchlist_live_a11y">Canlı qiymətlər aktivdir</string>
     <string name="watchlist_offline_since">Bağlantı yoxdur · vəziyyət: %1$s</string>
     <string name="watchlist_pull_to_refresh">Yeniləmək üçün aşağı çək</string>

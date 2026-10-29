@@ -280,7 +280,7 @@
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">ಸಾಧನ ಬದಲಾವಣೆ</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_device_change">ಕೀ ಹಳೆಯ ಸಾಧನದಲ್ಲೇ ಉಳಿಯುತ್ತದೆ – ಮೊದಲು ಬ್ಯಾಕಪ್ ಫೈಲ್ ರಚಿಸಿ.</string>
+    <string name="about_data_device_change">ಎನ್‌ಕ್ರಿಪ್ಶನ್ ಕೀ ಹಳೆಯ ಸಾಧನದಲ್ಲೇ ಉಳಿಯುತ್ತದೆ – ಮೊದಲು ಬ್ಯಾಕಪ್ ಫೈಲ್ ರಚಿಸಿ.</string>
 
     <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
     <string name="diagnostics_share">ಡಯಾಗ್ನಾಸ್ಟಿಕ್ಸ್ ಹಂಚಿಕೊಳ್ಳಿ</string>

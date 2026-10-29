@@ -204,7 +204,8 @@ sind über `marketdata/consumer-rules.pro` und `proguard-rules.pro` geschützt. 
 **Room-Schemas – nach dem nächsten Build `app/schemas/…` committen:** Beide Datenbanken stehen bei Version 1,
 ohne Migration; im Repository liegt je das Schema 1 (`app/schemas/com.cryptochecker.app.data.local.AppDatabase/1.json`,
 `app/schemas/com.cryptochecker.app.data.portfolio.PortfolioDatabase/1.json`).
-`exportSchema = true` und `room { schemaDirectory("$projectDir/schemas") }` sind gesetzt;
+`exportSchema = true` und `room { schemaDirectory("$rootDir/app/schemas") }` (in `data/build.gradle.kts`, wo
+beide Datenbanken liegen) sind gesetzt;
 der Build (z. B. `./gradlew :app:assembleDebug`) schreibt das Schema der aktuellen
 Datenbank-Version (`AppDatabase.VERSION`, `PortfolioDatabase.VERSION`). Diese JSON-Dateien mitcommitten und nie von
 Hand schreiben. Eine künftige Schema-Änderung braucht eine neue Version und eine Migration: Schema, Migration und
@@ -216,7 +217,8 @@ Migrationstest mit Daten (`RoomSchemaRulesTest`).
   Reserve) und EZB-Referenzkurse für Devisen. Die vollständige Liste in Anzeigereihenfolge steht in
   `marketdata/src/main/java/com/cryptochecker/marketdata/config/ExchangesConfig.kt`.
   Xcalibra ist seit Januar 2025 geschlossen.
-* Belegt abgeschaltete Dienste entfernt: Poloniex (Legacy-API 28.02.2023),
+* Belegt abgeschaltete Dienste entfernt: die alte Poloniex-Legacy-API (28.02.2023; Poloniex selbst läuft über die
+  API v3, `Poloniex.kt`),
   Uniswap V2 (The-Graph-Hosted-Service 12.06.2024), Bitpanda Pro
   (Umbenennung zu One Trading, alte Domain 04.01.2024).
 * App-Icon: weisse Glocke mit steigender Kurslinie auf orangem Verlauf (Markenfarbe), als adaptives Vektor-Icon mit

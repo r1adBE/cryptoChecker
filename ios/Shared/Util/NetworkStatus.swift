@@ -6,6 +6,13 @@ import os
 /// Fehlerzustände, die Merkliste zeigt «Offline · Stand 19:41»); kommt es zurück, folgt eine
 /// Aktualisierung (`AppData`). Solange noch kein Pfad gemeldet wurde, gilt «online» —
 /// lieber versuchen als grundlos aussetzen (frischer Prozess im Hintergrund oder im Widget).
+///
+/// Grenze gegenüber Android: Android meldet «online» nur für ein vom System bestätigtes Netz
+/// (`NET_CAPABILITY_VALIDATED`), ein Captive-Portal-WLAN vor dem Login gilt dort als offline. `NWPath` kennt keine
+/// solche Bestätigung – `.satisfied` heisst nur «eine Route ist da» (`isConstrained`/`isExpensive` sagen nichts über
+/// ein Portal, `.requiresConnection` meint ein bedarfsweise aufgebautes VPN). Erkennen liesse es sich nur mit einer
+/// eigenen Prüf-Anfrage, die die App nicht macht; hinter einem Portal starten Durchläufe daher wie bisher und enden mit
+/// «nicht erreichbar» (bewusste Plattform-Lücke).
 final class NetworkStatus: Sendable {
     static let shared = NetworkStatus()
 

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="backup_device_bound">डिवाइस बदलने से पहले बैकअप फ़ाइल बनाओ – एन्क्रिप्ट किया गया डेटा केवल इसी डिवाइस पर खुलता है।</string>
+    <string name="backup_device_bound">डिवाइस बदलने से पहले बैकअप फ़ाइल बनाएँ – एन्क्रिप्ट किया गया डेटा केवल इसी डिवाइस पर खुलता है।</string>
     <string name="backup_encryption_pending">एन्क्रिप्शन अभी सक्रिय नहीं है – ऐप अगली बार शुरू होने पर फिर कोशिश करेगा।</string>
     <!-- Sicherung exportieren und wiederherstellen -->
     <string name="backup_export">निर्यात</string>
     <string name="backup_exported">बैकअप सहेजा गया।</string>
     <string name="backup_failed">नहीं हुआ। क्या यह Crypto Checker बैकअप है?</string>
-    <string name="backup_hint">नोट और समूहों सहित सूची, अलार्म, पसंदीदा, पोर्टफ़ोलियो और सेटिंग एक फ़ाइल में सहेजता है जिसे तुम रखते हो – जैसे नए फ़ोन के लिए।</string>
+    <string name="backup_hint">नोट और समूहों सहित सूची, अलार्म, पसंदीदा, पोर्टफ़ोलियो और सेटिंग एक फ़ाइल में सहेजता है जिसे आप रखते हैं – जैसे नए फ़ोन के लिए।</string>
     <string name="backup_import">आयात</string>
     <string name="backup_title">बैकअप और रीस्टोर</string>
     <string name="backup_too_large">फ़ाइल बहुत बड़ी है या मान्य बैकअप नहीं है (अधिकतम 64 MB)।</string>
@@ -14,36 +14,36 @@
 
     <!-- Passwort der Sicherungsdatei -->
     <string name="backup_password">पासवर्ड</string>
-    <string name="backup_password_continue">जारी रखो</string>
-    <string name="backup_password_hide">पासवर्ड छिपाओ</string>
+    <string name="backup_password_continue">जारी रखें</string>
+    <string name="backup_password_hide">पासवर्ड छिपाएँ</string>
     <!-- %1$d = Mindestlänge des Passworts (8) -->
     <string name="backup_password_min">कम से कम %1$d अक्षर</string>
     <string name="backup_password_mismatch">पासवर्ड मेल नहीं खाते</string>
-    <string name="backup_password_prompt">इस बैकअप का पासवर्ड दर्ज करो।</string>
-    <string name="backup_password_repeat">पासवर्ड दोबारा लिखो</string>
-    <string name="backup_password_show">पासवर्ड दिखाओ</string>
+    <string name="backup_password_prompt">इस बैकअप का पासवर्ड दर्ज करें।</string>
+    <string name="backup_password_repeat">पासवर्ड दोबारा लिखें</string>
+    <string name="backup_password_show">पासवर्ड दिखाएँ</string>
     <string name="backup_password_title">पासवर्ड से सुरक्षित बैकअप</string>
     <string name="backup_password_too_weak">अनुमान लगाना बहुत आसान – सिर्फ़ अंक नहीं, एक ही दोहराया अक्षर नहीं, “12345678” या “password” जैसा आम क्रम नहीं।</string>
     <string name="backup_password_warning">पासवर्ड के बिना बैकअप बहाल नहीं किया जा सकता।</string>
-    <string name="backup_password_wrong">गलत पासवर्ड, या फ़ाइल खराब है। फिर से कोशिश करो।</string>
-    <string name="backup_protect">पासवर्ड से सुरक्षित करो</string>
+    <string name="backup_password_wrong">गलत पासवर्ड, या फ़ाइल खराब है। फिर से कोशिश करें।</string>
+    <string name="backup_protect">पासवर्ड से सुरक्षित करें</string>
     <string name="backup_protect_hint">फ़ाइल को एन्क्रिप्ट करता है (AES-256)। पोर्टफ़ोलियो डेटा होने पर सुझाया जाता है।</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
-    <string name="backup_plain_confirm">बिना पासवर्ड सहेजो</string>
+    <string name="backup_plain_confirm">बिना पासवर्ड सहेजें</string>
     <string name="backup_plain_confirm_text">फ़ाइल एन्क्रिप्टेड नहीं है। जिसे भी यह मिले वह पढ़ सकता है:</string>
-    <string name="backup_plain_confirm_title">बिना पासवर्ड सहेजो?</string>
+    <string name="backup_plain_confirm_title">बिना पासवर्ड सहेजें?</string>
     <string name="backup_plain_contents_addresses">सहेजे गए वॉलेट पते और xpub कुंजियाँ, बैलेंस इतिहास और लागत आधार के साथ</string>
     <string name="backup_plain_contents_base">नोट्स और समूहों के साथ वॉचलिस्ट, अलार्म, पसंदीदा और सेटिंग्स</string>
     <string name="backup_plain_contents_portfolio">पोर्टफ़ोलियो: मात्रा और भाव के साथ लेन-देन</string>
     <string name="backup_restore_app_lock_kept">पोर्टफ़ोलियो लॉक चालू रहेगा – बिना एन्क्रिप्शन वाला बैकअप इसे बंद नहीं कर सकता।</string>
-    <string name="backup_restore_confirm">आयात करने से तुम्हारी सूची (नोट और समूहों सहित), अलार्म, पसंदीदा, पोर्टफ़ोलियो और सेटिंग बैकअप से बदल जाएँगी।</string>
+    <string name="backup_restore_confirm">आयात करने से आपकी सूची (नोट और समूहों सहित), अलार्म, पसंदीदा, पोर्टफ़ोलियो और सेटिंग बैकअप से बदल जाएँगी।</string>
     <plurals name="backup_restore_invalid">
         <item quantity="one">बैकअप में %d प्रविष्टि (पोर्टफ़ोलियो या अलार्म) अमान्य है और आयात नहीं होगी।</item>
         <item quantity="other">बैकअप में %d प्रविष्टियाँ (पोर्टफ़ोलियो या अलार्म) अमान्य हैं और आयात नहीं होंगी।</item>
     </plurals>
-    <string name="backup_restore_newer_version">यह बैकअप ऐप के नए संस्करण का है – पहले ऐप अपडेट करो। कुछ भी आयात नहीं हुआ।</string>
-    <string name="backup_restore_unencrypted_warning">यह बैकअप एन्क्रिप्टेड नहीं है – जाँच लो कि यह तुम्हारा है। सेटिंग लागू होंगी – सिवाय उन बदलावों के जो सुरक्षा घटाते हैं (पोर्टफ़ोलियो लॉक, पतों के लिए अपना सर्वर, राशियाँ छिपाओ, सिस्टम बैकअप में पोर्टफ़ोलियो)।</string>
+    <string name="backup_restore_newer_version">यह बैकअप ऐप के नए संस्करण का है – पहले ऐप अपडेट करें। कुछ भी आयात नहीं हुआ।</string>
+    <string name="backup_restore_unencrypted_warning">यह बैकअप एन्क्रिप्टेड नहीं है – जाँच लें कि यह आपका है। सेटिंग लागू होंगी – सिवाय उन बदलावों के जो सुरक्षा घटाते हैं (पोर्टफ़ोलियो लॉक, पतों के लिए अपना सर्वर, राशियाँ छिपाएँ, सिस्टम बैकअप में पोर्टफ़ोलियो)।</string>
     <string name="backup_restored">रीस्टोर हुआ: %1$s, %2$s।</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d अलार्म</item>
@@ -58,46 +58,46 @@
     <string name="backup_restored_over_limits">सीमाओं (%3$s पेयर, हर पेयर पर %4$s अलार्म) से ज़्यादा होने के कारण रीस्टोर नहीं हुए: %1$s, %2$s।</string>
 
     <!-- Verschlüsselter Speicher: Schlüssel verloren -->
-    <string name="storage_recovery_message">इस डिवाइस पर अब ऐप के एन्क्रिप्टेड डेटा की कुंजी नहीं है, इसलिए ऐप खाली शुरू हुआ। कुछ भी हटाया नहीं गया। अपनी सूची और पोर्टफ़ोलियो वापस पाने के लिए सेटिंग में “%1$s” के अंतर्गत बैकअप फ़ाइल आयात करो।</string>
+    <string name="storage_recovery_message">इस डिवाइस पर अब ऐप के एन्क्रिप्टेड डेटा की कुंजी नहीं है, इसलिए ऐप खाली शुरू हुआ। कुछ भी हटाया नहीं गया। अपनी सूची और पोर्टफ़ोलियो वापस पाने के लिए सेटिंग में “%1$s” के अंतर्गत बैकअप फ़ाइल आयात करें।</string>
     <string name="storage_recovery_title">सहेजा गया डेटा अनलॉक नहीं हो सका</string>
 
     <!-- Sicherung mit Passwort (Argon2id, 64 MiB): zu wenig Arbeitsspeicher -->
-    <string name="backup_not_enough_memory">पासवर्ड से बैकअप को सुरक्षित करने या खोलने के लिए पर्याप्त खाली मेमोरी नहीं है। दूसरे ऐप बंद करो और फिर से कोशिश करो।</string>
+    <string name="backup_not_enough_memory">पासवर्ड से बैकअप को सुरक्षित करने या खोलने के लिए पर्याप्त खाली मेमोरी नहीं है। दूसरे ऐप बंद करें और फिर से कोशिश करें।</string>
 
     <!-- Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
-    <string name="storage_recovery_restore_action">बैकअप पुनर्स्थापित करो</string>
+    <string name="storage_recovery_restore_action">बैकअप पुनर्स्थापित करें</string>
     <string name="storage_recovery_acknowledge">समझ गया</string>
     <string name="storage_recovery_restored_title">सहेजा गया डेटा फिर से अनलॉक हुआ</string>
     <string name="storage_recovery_restored_message">इस डिवाइस की एक पुरानी कुंजी ने अलग रखा गया डेटा फिर से खोल दिया, इसलिए वह वापस आ गया है। इस बीच सहेजा गया डेटा बिना बदलाव के उसके पास रखा है।</string>
     <string name="settings_reset_notice_title">सेटिंग्स रीसेट की गईं</string>
-    <string name="settings_reset_notice">सेटिंग्स पढ़ी नहीं जा सकीं और डिफ़ॉल्ट पर रीसेट कर दी गईं। कृपया पोर्टफ़ोलियो लॉक, अलार्म का अंतराल और मुद्रा जाँच लो।</string>
+    <string name="settings_reset_notice">सेटिंग्स पढ़ी नहीं जा सकीं और डिफ़ॉल्ट पर रीसेट कर दी गईं। कृपया पोर्टफ़ोलियो लॉक, अलार्म का अंतराल और मुद्रा जाँच लें।</string>
     <string name="backup_restore_interrupted_title">पुनर्स्थापना बीच में रुक गई</string>
-    <string name="backup_restore_interrupted_rolled_back">बैकअप पुनर्स्थापित करते समय ऐप बंद हो गया। तुम्हारा पिछला डेटा वापस रख दिया गया है; बैकअप से कुछ भी नहीं रखा गया।</string>
-    <string name="backup_restore_interrupted_incomplete">बैकअप पुनर्स्थापित करते समय ऐप बंद हो गया और पिछला डेटा पूरी तरह वापस नहीं रखा जा सका। कृपया वॉचलिस्ट और पोर्टफ़ोलियो जाँचो, या सेटिंग्स में “%1$s” में बैकअप फिर से पुनर्स्थापित करो।</string>
-    <string name="backup_not_verified">सहेजने के बाद बैकअप फ़ाइल की पुष्टि नहीं हो सकी – वापस पढ़ने पर वह अलग है। कृपया बैकअप किसी नई फ़ाइल में सहेजो।</string>
+    <string name="backup_restore_interrupted_rolled_back">बैकअप पुनर्स्थापित करते समय ऐप बंद हो गया। आपका पिछला डेटा वापस रख दिया गया है; बैकअप से कुछ भी नहीं रखा गया।</string>
+    <string name="backup_restore_interrupted_incomplete">बैकअप पुनर्स्थापित करते समय ऐप बंद हो गया और पिछला डेटा पूरी तरह वापस नहीं रखा जा सका। कृपया वॉचलिस्ट और पोर्टफ़ोलियो जाँचें, या सेटिंग्स में “%1$s” में बैकअप फिर से पुनर्स्थापित करें।</string>
+    <string name="backup_not_verified">सहेजने के बाद बैकअप फ़ाइल की पुष्टि नहीं हो सकी – वापस पढ़ने पर वह अलग है। कृपया बैकअप किसी नई फ़ाइल में सहेजें।</string>
 
     <!-- Hinweis (nur Android): Portfolio-Kopie aus der Systemsicherung auch beim zweiten Versuch unlesbar und gelöscht -->
     <string name="system_backup_not_imported_title">पोर्टफ़ोलियो सिस्टम बैकअप से बहाल नहीं हुआ</string>
     <!-- %1$s = Name des Bereichs «Sichern &amp; Wiederherstellen» in den Einstellungen -->
-    <string name="system_backup_not_imported_message">Android सिस्टम बैकअप से पोर्टफ़ोलियो की कॉपी दूसरी कोशिश में भी पढ़ी नहीं जा सकी और हटा दी गई। अगर तुम्हारे पास बैकअप फ़ाइल है, तो उसे सेटिंग्स में “%1$s” के तहत बहाल करो।</string>
+    <string name="system_backup_not_imported_message">Android सिस्टम बैकअप से पोर्टफ़ोलियो की कॉपी दूसरी कोशिश में भी पढ़ी नहीं जा सकी और हटा दी गई। अगर आपके पास बैकअप फ़ाइल है, तो उसे सेटिंग्स में “%1$s” के तहत बहाल करें।</string>
 
     <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
-    <string name="portfolio_storage_kept_in_memory">सहेजा गया डेटा अभी पढ़ा नहीं जा सकता, इसलिए पोर्टफ़ोलियो नहीं दिख रहा और बदला नहीं जा सकता। ऐप दोबारा शुरू करो।</string>
+    <string name="portfolio_storage_kept_in_memory">सहेजा गया डेटा अभी पढ़ा नहीं जा सकता, इसलिए पोर्टफ़ोलियो नहीं दिख रहा और बदला नहीं जा सकता। ऐप दोबारा शुरू करें।</string>
     <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
-    <string name="watchlist_storage_kept_in_memory">सहेजा गया डेटा अभी पढ़ा नहीं जा सकता, इसलिए वॉचलिस्ट नहीं दिख रही और बदली नहीं जा सकती। ऐप दोबारा शुरू करो।</string>
-    <string name="watchlist_storage_locked">वॉचलिस्ट बदली नहीं जा सकती: सहेजा गया डेटा अभी पढ़ा नहीं जा सकता। ऐप दोबारा शुरू करो।</string>
-    <string name="alarm_save_storage_locked">अलार्म सहेजे नहीं जा सकते: सहेजा गया डेटा अभी पढ़ा नहीं जा सकता। ऐप दोबारा शुरू करो।</string>
+    <string name="watchlist_storage_kept_in_memory">सहेजा गया डेटा अभी पढ़ा नहीं जा सकता, इसलिए वॉचलिस्ट नहीं दिख रही और बदली नहीं जा सकती। ऐप दोबारा शुरू करें।</string>
+    <string name="watchlist_storage_locked">वॉचलिस्ट बदली नहीं जा सकती: सहेजा गया डेटा अभी पढ़ा नहीं जा सकता। ऐप दोबारा शुरू करें।</string>
+    <string name="alarm_save_storage_locked">अलार्म सहेजे नहीं जा सकते: सहेजा गया डेटा अभी पढ़ा नहीं जा सकता। ऐप दोबारा शुरू करें।</string>
     <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
-    <string name="backup_storage_kept">बैकअप संभव नहीं है: सहेजा गया डेटा अभी पढ़ा नहीं जा सकता। ऐप दोबारा शुरू करो और फिर से कोशिश करो।</string>
-    <string name="backup_restore_storage_in_memory">इम्पोर्ट अभी संभव नहीं है: ऐप इस समय डेटा सहेज नहीं रहा है (एन्क्रिप्शन अभी सक्रिय नहीं है), इसलिए ऐप फिर से शुरू होने पर इम्पोर्ट खो जाएगा। ऐप को फिर से शुरू करो और दोबारा कोशिश करो।</string>
+    <string name="backup_storage_kept">बैकअप संभव नहीं है: सहेजा गया डेटा अभी पढ़ा नहीं जा सकता। ऐप दोबारा शुरू करें और फिर से कोशिश करें।</string>
+    <string name="backup_restore_storage_in_memory">इम्पोर्ट अभी संभव नहीं है: ऐप इस समय डेटा सहेज नहीं रहा है (एन्क्रिप्शन अभी सक्रिय नहीं है), इसलिए ऐप फिर से शुरू होने पर इम्पोर्ट खो जाएगा। ऐप को फिर से शुरू करें और दोबारा कोशिश करें।</string>
     <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable) -->
-    <string name="backup_restore_journal_unavailable">अभी इम्पोर्ट संभव नहीं है: तुम्हारे मौजूदा डेटा की सुरक्षा कॉपी सेव नहीं हो सकी (चाबी अभी उपलब्ध नहीं है)। कुछ भी नहीं बदला गया। बाद में फिर से कोशिश करो या ऐप को फिर से शुरू करो।</string>
+    <string name="backup_restore_journal_unavailable">अभी इम्पोर्ट संभव नहीं है: आपके मौजूदा डेटा की सुरक्षा कॉपी सेव नहीं हो सकी (चाबी अभी उपलब्ध नहीं है)। कुछ भी नहीं बदला गया। बाद में फिर से कोशिश करें या ऐप को फिर से शुरू करें।</string>
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
     <string name="portfolio_storage_in_memory">एन्क्रिप्शन अभी सक्रिय नहीं है – पोर्टफ़ोलियो सहेजा नहीं जा रहा, ऐप बंद होने पर बदलाव खो जाएँगे। ऐप अगली बार शुरू होने पर फिर कोशिश करेगा।</string>
 
     <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
-    <string name="portfolio_storage_locked">सहेजा गया डेटा अभी पढ़ा नहीं जा सकता, इसलिए बदलाव संभव नहीं हैं। ऐप दोबारा शुरू करो।</string>
+    <string name="portfolio_storage_locked">सहेजा गया डेटा अभी पढ़ा नहीं जा सकता, इसलिए बदलाव संभव नहीं हैं। ऐप दोबारा शुरू करें।</string>
     <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
     <string name="watchlist_storage_in_memory">यह डिवाइस अभी कोई कुंजी उपलब्ध नहीं करा रहा – वॉचलिस्ट सहेजी नहीं जा रही, ऐप बंद होने पर बदलाव खो जाएँगे। बैकग्राउंड में अलार्म रुके हुए हैं। ऐप अगली बार शुरू होने पर फिर कोशिश करेगा।</string>
 

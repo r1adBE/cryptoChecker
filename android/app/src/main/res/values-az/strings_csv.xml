@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">Əməliyyatlar yadda saxlanılır…</string>
     <string name="portfolio_csv_import_missing_fx">%1$s sətirləri üçün günlük məzənnə yoxdur – qiymət/komissiya olmadan idxal edildi.</string>
     <string name="portfolio_csv_import_missing_price">Faylda %1$s sətirləri üçün qiymət yoxdur – qiymətsiz idxal edildi.</string>
+    <string name="portfolio_csv_import_fee_in_price">%1$s sətirlərində iki komissiya: fiat komissiyası qiymətə daxildir, coin komissiyası alınan miqdarı azaldır və ya verilən miqdarı artırır.</string>
+    <string name="portfolio_csv_import_pending_differs">%1$s sətirləri: eyni depozit və ya çıxarışın gözləyən və qeydə alınmış qeydlərinin miqdarı fərqlidir – hər ikisi idxal edildi, aktivləri yoxla.</string>
     <string name="portfolio_csv_import_more">+ daha %1$d</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d yeni əməliyyat</item>

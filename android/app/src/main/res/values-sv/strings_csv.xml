@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">Sparar transaktioner…</string>
     <string name="portfolio_csv_import_missing_fx">Ingen dagskurs för rad %1$s – importerat utan pris och avgift.</string>
     <string name="portfolio_csv_import_missing_price">Inget pris i filen för rad %1$s – importerat utan pris.</string>
+    <string name="portfolio_csv_import_fee_in_price">Två avgifter på rad %1$s: fiatavgiften ingår i priset, avgiften i myntet minskar mottagen eller ökar lämnad mängd.</string>
+    <string name="portfolio_csv_import_pending_differs">Rad %1$s: väntande och bokförd post för samma insättning eller uttag har olika mängd – båda importerade, kontrollera innehavet.</string>
     <string name="portfolio_csv_import_more">+ %1$d till</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d ny transaktion</item>

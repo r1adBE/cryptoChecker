@@ -10,6 +10,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.FilterChip
+import androidx.compose.material3.FilterChipDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.foundation.layout.size
+import androidx.compose.ui.res.painterResource
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
@@ -96,6 +100,14 @@ internal fun ConditionChips(
                     selected = draft.condition == condition,
                     onClick = { onDraftChange(draft.withCondition(condition)) },
                     label = { Text(AlarmTexts.conditionName(context, condition), maxLines = 2, overflow = TextOverflow.Ellipsis) },
+                    // Richtungs-Symbol wie die Kacheln in iOS (`AlarmStyle.symbol`)
+                    leadingIcon = {
+                        Icon(
+                            painterResource(AlarmSymbols.icon(condition)),
+                            contentDescription = null,
+                            modifier = Modifier.size(FilterChipDefaults.IconSize)
+                        )
+                    },
                     modifier = Modifier.weight(1f)
                 )
             }

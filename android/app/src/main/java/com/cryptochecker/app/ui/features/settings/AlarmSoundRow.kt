@@ -169,6 +169,13 @@ internal fun AlarmSoundRow(
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
+            // Zeigt, dass die Zeile eine Auswahl öffnet — wie der Auswahl-Pfeil auf iOS
+            Icon(
+                painterResource(R.drawable.ic_chevron_down),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(start = 4.dp)
+            )
         }
         DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
             DropdownMenuItem(

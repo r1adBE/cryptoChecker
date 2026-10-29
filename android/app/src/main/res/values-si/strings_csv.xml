@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">ගනුදෙනු සුරකිමින්…</string>
     <string name="portfolio_csv_import_missing_fx">පේළි %1$s සඳහා දෛනික අනුපාතයක් නැත – මිල/ගාස්තුව නොමැතිව ආයාත කළා.</string>
     <string name="portfolio_csv_import_missing_price">පේළි %1$s සඳහා ගොනුවේ මිලක් නැත – මිල නොමැතිව ආයාත කළා.</string>
+    <string name="portfolio_csv_import_fee_in_price">පේළි %1$s හි ගාස්තු දෙකක්: fiat ගාස්තුව මිලට ඇතුළත්ය, කාසියේ ගාස්තුව ලැබුණු ප්‍රමාණය අඩු කරයි හෝ දුන් ප්‍රමාණය වැඩි කරයි.</string>
+    <string name="portfolio_csv_import_pending_differs">පේළි %1$s: එකම තැන්පතුවක හෝ ආපසු ගැනීමක පොරොත්තු සහ සටහන් කළ ඇතුළත් කිරීම්වල ප්‍රමාණ වෙනස් – දෙකම ආයාත කළා, හිමිකම් පරීක්ෂා කරන්න.</string>
     <string name="portfolio_csv_import_more">+ තවත් %1$d</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">නව ගනුදෙනු %d</item>

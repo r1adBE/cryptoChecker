@@ -111,6 +111,12 @@ final class WatchlistSealedTests: XCTestCase {
         await SharedStorage.snapshotWritesSettled()
     }
 
+    /// «App zurücksetzen» wartet ohne Blockieren (`snapshotWritesDrained`) und kehrt zurück, wenn nichts mehr aussteht.
+    @MainActor
+    func testSnapshotWritesDrainedReturns() async {
+        await SharedStorage.snapshotWritesDrained()
+    }
+
     // MARK: Alarmtöne in der App Group
 
     func testSoundsDirectoryIsLibrarySounds() {

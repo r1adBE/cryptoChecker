@@ -7,7 +7,6 @@
         <item quantity="one">%2$d න් %1$d ක් මිල නොමැතිව</item>
         <item quantity="other">%2$d න් %1$d ක් මිල නොමැතිව</item>
     </plurals>
-    <string name="watchlist_last_run">අවසන් ධාවනය %1$s</string>
     <string name="watchlist_live_a11y">සජීවී මිල සක්‍රියයි</string>
     <string name="watchlist_offline_since">සම්බන්ධතාවක් නැත · %1$s වන විට</string>
     <string name="watchlist_pull_to_refresh">නැවුම් කිරීමට පහළට අදින්න</string>

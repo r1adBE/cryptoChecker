@@ -7,7 +7,6 @@
         <item quantity="one">%2$d tadan %1$d tasi kurssiz</item>
         <item quantity="other">%2$d tadan %1$d tasi kurssiz</item>
     </plurals>
-    <string name="watchlist_last_run">Oxirgi ishga tushirish %1$s</string>
     <string name="watchlist_live_a11y">Jonli kurslar yoqiq</string>
     <string name="watchlist_offline_since">Aloqa yoʻq · %1$s holatiga</string>
     <string name="watchlist_pull_to_refresh">Yangilash uchun pastga torting</string>

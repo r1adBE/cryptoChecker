@@ -188,7 +188,7 @@ enum BoltHint {
         guard parts.count > 1 else { return Text(verbatim: string) }
         var result = Text(verbatim: parts[0])
         for part in parts.dropFirst() {
-            result = result + Text(Image(systemName: "bolt.fill")).foregroundColor(AppColors.onSurface) + Text(verbatim: part)
+            result = result + Text(Image(systemName: "bolt.fill")).foregroundStyle(AppColors.onSurface) + Text(verbatim: part)
         }
         return result
     }

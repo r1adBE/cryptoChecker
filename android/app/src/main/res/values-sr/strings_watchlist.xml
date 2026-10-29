@@ -8,7 +8,6 @@
         <item quantity="few">%1$d од %2$d без цене</item>
         <item quantity="other">%1$d од %2$d без цене</item>
     </plurals>
-    <string name="watchlist_last_run">Последње покретање %1$s</string>
     <string name="watchlist_live_a11y">Цене уживо укључене</string>
     <string name="watchlist_offline_since">Нема везе · стање од %1$s</string>
     <string name="watchlist_pull_to_refresh">Повуци надоле за освежавање</string>

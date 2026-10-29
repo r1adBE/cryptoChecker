@@ -37,6 +37,8 @@
     <string name="portfolio_csv_import_saving">جارٍ حفظ المعاملات…</string>
     <string name="portfolio_csv_import_missing_fx">لا يوجد سعر يومي للسطر %1$s – استُورد دون سعر أو رسوم.</string>
     <string name="portfolio_csv_import_missing_price">لا يوجد سعر في الملف للسطر %1$s – استُورد دون سعر.</string>
+    <string name="portfolio_csv_import_fee_in_price">رسمان في السطر %1$s: رسم العملة الورقية مُدرج في السعر، والرسم بالعملة المشفرة يُنقص الكمية المستلمة أو يزيد الكمية المدفوعة.</string>
+    <string name="portfolio_csv_import_pending_differs">السطر %1$s: القيد المعلّق والقيد المسجّل للإيداع أو السحب نفسه بكميتين مختلفتين – استُورد الاثنان، تحقّق من الرصيد.</string>
     <string name="portfolio_csv_import_more">+ %1$d أخرى</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="zero">معاملات جديدة: %d</item>

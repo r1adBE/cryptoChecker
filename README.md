@@ -65,15 +65,18 @@ your own keystore. Without it the release build stays unsigned.
 1. Mac with **Xcode 26** (or newer, same as CI).
 2. Open `ios/CryptoChecker.xcodeproj`, choose the scheme `CryptoChecker`
    and a simulator, then *Run*. For a real device select your own team under
-   *Signing & Capabilities* (app and widget extension).
+   *Signing & Capabilities* (all four targets: app, widget extension, watch app and watch widgets).
 3. A real device also needs **your own App Group** (`group.com.cryptochecker.app`
    belongs to the original developer account). Register one in your team, then
-   replace the identifier in all three places:
-   * `ios/App/CryptoChecker.entitlements` and
-     `ios/Widgets/CryptoCheckerWidgets.entitlements` (App Groups),
+   replace the identifier in all six places:
+   * `ios/App/CryptoChecker.entitlements`,
+     `ios/Widgets/CryptoCheckerWidgets.entitlements`,
+     `ios/Watch/CryptoCheckerWatch.entitlements` and
+     `ios/WatchWidgets/CryptoCheckerWatchWidgets.entitlements` (App Groups),
    * `SharedStorage.appGroup` in `ios/Shared/Storage/SharedStorage.swift` –
      the same value is also the keychain access group of the encrypted files
-     (`ios/Shared/Storage/ProtectedFile.swift`).
+     (`ios/Shared/Storage/ProtectedFile.swift`),
+   * `WatchStore.group` in `ios/Watch/Device/WatchStore.swift` (watch app and its complication).
 
 Helper scripts (Python 3, run from `ios/`):
 
@@ -95,7 +98,7 @@ Futures · DEX pools · Forex, each sorted by trading volume on the install date
 * iOS: [`ios/Shared/Exchanges`](ios/Shared/Exchanges) (same adapters in Swift,
   registered in `ExchangesConfig.swift`)
 * Charts and candles come from the pair's own exchange first (Android
-  `android/app/…/data/remote/candles`, iOS `ios/Shared/Services/Candles`); a fallback source
+  `android/data/…/data/remote/candles`, iOS `ios/Shared/Services/Candles`); a fallback source
   (Binance and others) is used only after a same-token check and is always labelled
 * Guide for new exchanges and pairs: [`DEVELOPMENT.md`](DEVELOPMENT.md)
 

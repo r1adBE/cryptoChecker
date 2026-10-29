@@ -1,12 +1,12 @@
 # Reproducible Android build: the same commit is built twice on two fresh runners (no Gradle cache, no build cache,
-# no configuration cache), and the unsigned release APK and AAB and the SBOM are compared byte for byte by
-# .github/scripts/repro_compare.py. Identical outputs prove that the published source and the locked, checksummed
+# no configuration cache), and the unsigned release APK and AAB, the unsigned Wear OS release APK and the SBOM are
+# compared byte for byte by .github/scripts/repro_compare.py. Identical outputs prove that the published source and the locked, checksummed
 # dependencies (gradle.lockfile, verification-metadata.xml) fully determine the app; a difference names the archive
 # entries that differ. Signing happens afterwards on the owner's machine and adds only the signature block.
 # iOS is not covered: Xcode builds are not byte-reproducible (code signature, build UUIDs).
 # Not a required check: on main, on release tags, weekly, by hand and on pull requests that change the check.
-# Release tags v*: once both builds agree, «provenance» attests the unsigned APK and AAB of run a with a signed
-# build-provenance statement (actions/attest-build-provenance, Sigstore; only this job may request an OIDC token and
+# Release tags v*: once both builds agree, «provenance» attests the unsigned APKs (app, Wear OS) and AAB of run a with
+# a signed build-provenance statement (actions/attest-build-provenance, Sigstore; only this job may request an OIDC token and
 # write attestations) and lists their SHA-256 in the job summary. Check a download with
 #   gh attestation verify <file> --repo <owner>/<repo>
 # and a signed store APK against it as described in DEVELOPMENT.md («Reproducible build»).
@@ -71,7 +71,7 @@ jobs:
       - name: Build release APK and AAB (unsigned)
         run: |
           chmod +x gradlew
-          ./gradlew :app:assembleRelease :app:bundleRelease -PgitCommit="$GITHUB_SHA" \
+          ./gradlew :app:assembleRelease :app:bundleRelease :wear:assembleRelease -PgitCommit="$GITHUB_SHA" \
             --no-build-cache --no-configuration-cache --stacktrace
 
       - name: Collect outputs
@@ -81,6 +81,7 @@ jobs:
           mkdir -p "$OUT"
           cp android/app/build/outputs/apk/release/*.apk "$OUT/"
           cp android/app/build/outputs/bundle/release/*.aab "$OUT/"
+          cp android/wear/build/outputs/apk/release/*.apk "$OUT/"
           python3 -I .github/scripts/sbom.py . "$OUT"
           ls -l "$OUT"
 

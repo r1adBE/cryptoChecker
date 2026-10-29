@@ -7,7 +7,6 @@
         <item quantity="one">%2$d ішінен %1$d бағамсыз</item>
         <item quantity="other">%2$d ішінен %1$d бағамсыз</item>
     </plurals>
-    <string name="watchlist_last_run">Соңғы іске қосу %1$s</string>
     <string name="watchlist_live_a11y">Тікелей бағамдар қосулы</string>
     <string name="watchlist_offline_since">Байланыс жоқ · %1$s жағдайы бойынша</string>
     <string name="watchlist_pull_to_refresh">Жаңарту үшін төмен тартыңыз</string>

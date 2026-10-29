@@ -6,7 +6,6 @@
     <plurals name="watchlist_failed_count">
         <item quantity="other">%2$d ခုအနက် %1$d ခု ဈေးနှုန်း မရှိ</item>
     </plurals>
-    <string name="watchlist_last_run">နောက်ဆုံး လည်ပတ်မှု %1$s</string>
     <string name="watchlist_live_a11y">တိုက်ရိုက် ဈေးနှုန်းများ ဖွင့်ထားသည်</string>
     <string name="watchlist_offline_since">ချိတ်ဆက်မှု မရှိ · %1$s အထိ</string>
     <string name="watchlist_pull_to_refresh">ပြန်တင်ရန် အောက်သို့ ဆွဲပါ</string>
@@ -119,7 +118,7 @@
     <string name="watch_enabled_banner">%1$s ကို ဖွင့်ပြီး</string>
     <string name="watch_error_offline">ချိတ်ဆက်မှု မရှိ</string>
     <string name="watch_gesture_hint_short">တို့ပါ- သတိပေးချက်နှင့် “၎င်းနှင့်အတူ ဘာ လှုပ်ရှားနေသလဲ။” · ရွေးရန် ကြာကြာ ဖိပါ · ဖျက်ရန် ဘယ်သို့ ပွတ်ဆွဲပါ · အကြိုက်ဆုံးအတွက် ညာသို့ ပွတ်ဆွဲပါ</string>
-    <string name="watch_hint_tap_why">သတိပေးချက်များနှင့် “၎င်းနှင့်အတူ ဘာ လှုပ်ရှားနေသလဲ။” အတွက် ဒင်္ဂါးတစ်ခုကို တို့ပါ</string>
+    <string name="watch_hint_tap_why">သတိပေးချက်များနှင့် “၎င်းနှင့်အတူ ဘာ လှုပ်ရှားနေသလဲ။” အတွက် ကွိုင်တစ်ခုကို တို့ပါ</string>
     <string name="watch_not_traded">ဤလဲလှယ်ရေးဌာနတွင် အရောင်းအဝယ် မရှိတော့ပါ</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">စောင့်ကြည့်စာရင်းတွင် မရှိ</string>
@@ -202,7 +201,7 @@
     <string name="change_candle_source_hint">%1$s ဖယောင်းတိုင်များမှ တွက်ချက်ထားသည် – လဲလှယ်ရေးဌာနကိုယ်တိုင် ဤတန်ဖိုးကို မပေးပါ။</string>
     <string name="change_candle_source_action">ပြောင်းလဲမှု၏ ရင်းမြစ်ကို ပြရန်</string>
 
-    <string name="watchlist_sort_by_coin">ဒင်္ဂါးအလိုက် စီရန်</string>
+    <string name="watchlist_sort_by_coin">ကွိုင်အလိုက် စီရန်</string>
     <string name="watchlist_sort_by_exchange">လဲလှယ်ရေးဌာနအလိုက် စီရန်</string>
     <string name="watchlist_limit_reached">သင့်စောင့်ကြည့်စာရင်းတွင် အတွဲ အများဆုံး %1$s ခုသာ ရှိနိုင်သည်။</string>
     <string name="watch_price_reference">ရည်ညွှန်းနှုန်း၊ နေ့စဉ်</string>

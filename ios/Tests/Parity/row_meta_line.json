@@ -1,0 +1,11 @@
+{
+  "description": "Watchlist row, line «exchange ◇ bell bell 1» next to the mini chart (Android DenseRowText.metaWraps / iOS DenseRowText.metaWraps): the icons move to their own line below the exchange when exchange text (lead, ideal width) + gap + icons do not fit into the available width; the mini chart is never hidden and the exchange name is not shortened for the icons. available null = unbounded.",
+  "cases": [
+    {"name": "fits exactly", "available": 88, "lead": 50, "icons": 34, "gap": 4, "expected": false},
+    {"name": "one point too wide", "available": 87, "lead": 50, "icons": 34, "gap": 4, "expected": true},
+    {"name": "iPhone 402 pt with alarm badge: Binance + 4 icons beside the chart", "available": 88, "lead": 55, "icons": 64, "gap": 4, "expected": true},
+    {"name": "wide row: everything on one line", "available": 200, "lead": 55, "icons": 64, "gap": 4, "expected": false},
+    {"name": "long warning text", "available": 120, "lead": 180, "icons": 30, "gap": 4, "expected": true},
+    {"name": "unbounded (ideal size)", "available": null, "lead": 10000, "icons": 64, "gap": 4, "expected": false}
+  ]
+}

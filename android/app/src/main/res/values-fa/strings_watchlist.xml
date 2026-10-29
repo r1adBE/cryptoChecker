@@ -7,7 +7,6 @@
         <item quantity="one">%1$d از %2$d بدون قیمت</item>
         <item quantity="other">%1$d از %2$d بدون قیمت</item>
     </plurals>
-    <string name="watchlist_last_run">آخرین اجرا %1$s</string>
     <string name="watchlist_live_a11y">قیمت‌های زنده فعال است</string>
     <string name="watchlist_offline_since">اتصال برقرار نیست · آخرین به‌روزرسانی %1$s</string>
     <string name="watchlist_pull_to_refresh">برای به‌روزرسانی به پایین بکش</string>

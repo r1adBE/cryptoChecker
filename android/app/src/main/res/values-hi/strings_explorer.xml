@@ -8,40 +8,40 @@
     <string name="explorer_coin_no_pairs">लोड की गई सूचियों में इस कॉइन का कोई पेयर नहीं है।</string>
     <string name="explorer_coin_not_loaded">पेयर सूचियाँ अभी लोड नहीं हुईं</string>
     <string name="explorer_coin_other_pairs">अन्य पेयर</string>
-    <string name="explorer_coin_show_pairs">पेयर दिखाओ</string>
+    <string name="explorer_coin_show_pairs">पेयर दिखाएँ</string>
     <string name="explorer_coin_suggested">सुझाव</string>
     <string name="explorer_coins_title">कॉइन</string>
-    <string name="explorer_lists_failed_many">%1$s अभी जवाब नहीं दे रहे – जोड़ी सूचियाँ लोड नहीं हुईं। बाद में फिर कोशिश करो।</string>
+    <string name="explorer_lists_failed_many">%1$s अभी जवाब नहीं दे रहे – जोड़ी सूचियाँ लोड नहीं हुईं। बाद में फिर कोशिश करें।</string>
     <plurals name="explorer_lists_failed_more">
         <item quantity="one">+%1$d और</item>
         <item quantity="other">+%1$d और</item>
     </plurals>
-    <string name="explorer_lists_failed_one">%1$s अभी जवाब नहीं दे रहा – जोड़ी सूची लोड नहीं हुई। बाद में फिर कोशिश करो।</string>
-    <string name="explorer_lists_load">सूचियाँ लोड करो</string>
+    <string name="explorer_lists_failed_one">%1$s अभी जवाब नहीं दे रहा – जोड़ी सूची लोड नहीं हुई। बाद में फिर कोशिश करें।</string>
+    <string name="explorer_lists_load">सूचियाँ लोड करें</string>
     <string name="explorer_lists_loading">पेयर सूचियाँ लोड हो रही हैं… %1$d/%2$d</string>
     <plurals name="explorer_lists_missing">
         <item quantity="one">%1$d एक्सचेंज की पेयर सूची अभी डिवाइस पर नहीं है।</item>
         <item quantity="other">%1$d एक्सचेंजों की पेयर सूचियाँ अभी डिवाइस पर नहीं हैं।</item>
     </plurals>
-    <string name="explorer_lists_privacy">हर एक्सचेंज की पूरी सार्वजनिक सूची लोड करता है – सबके लिए एक जैसी। तुम्हारी खोज डिवाइस पर ही रहती है।</string>
+    <string name="explorer_lists_privacy">हर एक्सचेंज की पूरी सार्वजनिक सूची लोड करता है – सबके लिए एक जैसी। आपकी खोज डिवाइस पर ही रहती है।</string>
     <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
     <string name="explorer_recent_a11y">हाल की खोज: %1$s</string>
-    <string name="explorer_recent_clear">साफ़ करो</string>
-    <string name="explorer_recent_clear_a11y">हाल की खोजें साफ़ करो</string>
+    <string name="explorer_recent_clear">साफ़ करें</string>
+    <string name="explorer_recent_clear_a11y">हाल की खोजें साफ़ करें</string>
     <string name="explorer_recent_title">हाल की खोजें</string>
-    <string name="explorer_search_choose_manually">एक्सचेंज और जोड़ी खुद चुनो</string>
+    <string name="explorer_search_choose_manually">एक्सचेंज और जोड़ी खुद चुनें</string>
     <string name="explorer_search_empty">कोई परिणाम नहीं।</string>
-    <string name="explorer_search_hint">कॉइन, पेयर या एक्सचेंज खोजो</string>
+    <string name="explorer_search_hint">कॉइन, पेयर या एक्सचेंज खोजें</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">किसी कॉइन का नाम या चिह्न लिखो, जैसे Bitcoin या BTC – फिर पेयर चुनो।</string>
+    <string name="explorer_search_intro">किसी कॉइन का नाम या चिह्न लिखें, जैसे Bitcoin या BTC – फिर पेयर चुनें।</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
-    <string name="explorer_add_to_watchlist">वॉचलिस्ट में जोड़ो</string>
+    <string name="explorer_add_to_watchlist">वॉचलिस्ट में जोड़ें</string>
     <string name="explorer_added_to_watchlist">वॉचलिस्ट में जोड़ दिया गया।</string>
     <string name="explorer_already_in_watchlist">यह पेयर पहले से वॉचलिस्ट में है।</string>
     <string name="explorer_exchange_missing">एक्सचेंज नहीं मिला?</string>
     <string name="explorer_loading_pairs">ट्रेडिंग पेयर लोड हो रहे हैं…</string>
-    <string name="explorer_no_pair_selected">पहले एक पेयर चुनो।</string>
+    <string name="explorer_no_pair_selected">पहले एक पेयर चुनें।</string>
     <string name="explorer_no_pairs_yet">इस एक्सचेंज के लिए अभी तक कोई पेयर लोड नहीं हुआ है।</string>
     <plurals name="explorer_pairs_status">
         <item quantity="one">%1$d पेयर · अपडेट %2$s</item>
@@ -50,9 +50,9 @@
     <string name="explorer_pairs_title">पेयर</string>
     <string name="explorer_precise_title">उन्नत / एक्सचेंज के अनुसार</string>
     <string name="explorer_price_loading">भाव लोड हो रहा है…</string>
-    <string name="explorer_select_exchange_hint">एक्सचेंज चुनो – उसके पेयर अपने आप लोड होंगे।</string>
-    <string name="explorer_select_placeholder">कृपया चुनो</string>
-    <string name="explorer_step_pair">पेयर चुनो</string>
+    <string name="explorer_select_exchange_hint">एक्सचेंज चुनें – उसके पेयर अपने आप लोड होंगे।</string>
+    <string name="explorer_select_placeholder">कृपया चुनें</string>
+    <string name="explorer_step_pair">पेयर चुनें</string>
 
     <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
     <string name="explorer_filter_gainers">बढ़ने वाले</string>
@@ -65,10 +65,10 @@
         <item quantity="one">%1$d %2$s पेयर मिले</item>
         <item quantity="other">%1$d %2$s पेयर मिले</item>
     </plurals>
-    <string name="bulk_all_pairs_empty">चुने गए कॉन्ट्रैक्ट प्रकार के लिए इस एक्सचेंज पर कोई %1$s पेयर नहीं है। पहले एक्सचेंज सिंक करो या कोई दूसरा कॉन्ट्रैक्ट प्रकार आज़माओ।</string>
+    <string name="bulk_all_pairs_empty">चुने गए कॉन्ट्रैक्ट प्रकार के लिए इस एक्सचेंज पर कोई %1$s पेयर नहीं है। पहले एक्सचेंज सिंक करें या कोई दूसरा कॉन्ट्रैक्ट प्रकार आज़माएँ।</string>
     <plurals name="explorer_add_all_pairs">
-        <item quantity="one">सभी %1$d पेयर वॉचलिस्ट में जोड़ो</item>
-        <item quantity="other">सभी %1$d पेयर वॉचलिस्ट में जोड़ो</item>
+        <item quantity="one">सभी %1$d पेयर वॉचलिस्ट में जोड़ें</item>
+        <item quantity="other">सभी %1$d पेयर वॉचलिस्ट में जोड़ें</item>
     </plurals>
     <plurals name="explorer_bulk_added">
         <item quantity="one">%1$d जोड़ा गया, %2$d पहले से वॉचलिस्ट में हैं।</item>
@@ -79,12 +79,12 @@
         <item quantity="other">%3$s के सभी %1$d %2$s पेयर सूची में जोड़े जाएँगे। पहले से मौजूद छोड़ दिए जाएँगे।</item>
     </plurals>
     <plurals name="explorer_bulk_confirm_title">
-        <item quantity="one">%1$d पेयर जोड़ो?</item>
-        <item quantity="other">%1$d पेयर जोड़ो?</item>
+        <item quantity="one">%1$d पेयर जोड़ें?</item>
+        <item quantity="other">%1$d पेयर जोड़ें?</item>
     </plurals>
-    <string name="explorer_bulk_hide_list">सूची छिपाओ</string>
-    <string name="explorer_bulk_show_list">सूची दिखाओ</string>
-    <string name="explorer_bulk_tap_hint">ऊपर चुनने के लिए किसी पेयर पर टैप करो।</string>
+    <string name="explorer_bulk_hide_list">सूची छिपाएँ</string>
+    <string name="explorer_bulk_show_list">सूची दिखाएँ</string>
+    <string name="explorer_bulk_tap_hint">ऊपर चुनने के लिए किसी पेयर पर टैप करें।</string>
     <string name="explorer_bulk_title">एक साथ कई पेयर</string>
 
     <!-- Handelspaare einer Börse laden und wählen -->
@@ -92,24 +92,24 @@
     <string name="explorer_no_pair_list">कोई करेंसी पेयर नहीं</string>
     <string name="explorer_sync_sheet_last">पिछला सिंक: %1$s</string>
     <string name="explorer_sync_never">कभी नहीं</string>
-    <string name="explorer_sync_sheet_action">अभी सिंक करो!</string>
-    <string name="explorer_sync_sheet_title">करेंसी पेयर अपडेट करो</string>
+    <string name="explorer_sync_sheet_action">अभी सिंक करें</string>
+    <string name="explorer_sync_sheet_title">करेंसी पेयर अपडेट करें</string>
     <string name="explorer_field_coin">कॉइन</string>
     <string name="explorer_field_contract">कॉन्ट्रैक्ट प्रकार</string>
     <string name="explorer_field_exchange">मार्केट</string>
     <string name="explorer_field_quote">कोट</string>
     <string name="explorer_contract_spot">स्पॉट</string>
-    <string name="explorer_reload_pairs">सिंक करो</string>
+    <string name="explorer_reload_pairs">सिंक करें</string>
     <string name="sync_pairs_count">ट्रेडिंग पेयर: %1$d</string>
 
     <!-- Token von dezentralen Börsen (DEX) -->
-    <string name="dex_add">जोड़ो</string>
+    <string name="dex_add">जोड़ें</string>
     <string name="dex_added">%1$s वॉचलिस्ट में जोड़ा गया।</string>
     <string name="dex_already">%1$s पहले से वॉचलिस्ट में है।</string>
-    <string name="dex_intro">बड़े एक्सचेंजों से बाहर के टोकन, विकेंद्रीकृत एक्सचेंजों (Uniswap, PancakeSwap, Raydium …) से DexScreener के ज़रिए। टोकन खोजो और उसके ट्रेडिंग पूलों में से एक जोड़ो – कीमतें अमेरिकी डॉलर में।</string>
+    <string name="dex_intro">बड़े एक्सचेंजों से बाहर के टोकन, विकेंद्रीकृत एक्सचेंजों (Uniswap, PancakeSwap, Raydium …) से DexScreener के ज़रिए। टोकन खोजें और उसके ट्रेडिंग पूलों में से एक जोड़ें – कीमतें अमेरिकी डॉलर में।</string>
     <string name="dex_liquidity">लिक्विडिटी %1$s</string>
     <string name="dex_no_results">कोई पूल नहीं मिला।</string>
-    <string name="dex_search">खोजो</string>
+    <string name="dex_search">खोजें</string>
     <string name="dex_search_hint">टोकन का नाम, सिंबल या पता</string>
 
     <!-- Art des Assets (Token, Alpha-Token, TradFi) -->
@@ -120,18 +120,18 @@
     <string name="dex_low_liquidity_no_alarm">कम तरलता – कोई अलार्म नहीं</string>
     <string name="dex_low_liquidity_alarm_hint">इस पूल में 10,000 USD से कम तरलता है (या कोई जानकारी नहीं)। छोटी रकम भी इसकी कीमत हिला सकती है, इसलिए यहाँ अलार्म नहीं लगाए जा सकते। मौजूदा अलार्म बने रहते हैं, लेकिन तरलता फिर से बढ़ने तक नहीं बजेंगे।</string>
 
-    <string name="explorer_bulk_show_all">सभी दिखाओ (%1$d)</string>
-    <string name="dex_token_address_copy">टोकन का पता कॉपी करो</string>
+    <string name="explorer_bulk_show_all">सभी दिखाएँ (%1$d)</string>
+    <string name="dex_token_address_copy">टोकन का पता कॉपी करें</string>
     <string name="dex_token_address_copied">टोकन पता कॉपी किया गया</string>
     <string name="dex_token_address_label">%1$s पर समाप्त होने वाला टोकन पता</string>
     <plurals name="explorer_bulk_not_added_limit">
-        <item quantity="one">%1$d पेयर नहीं जोड़ा गया – तुम्हारी वॉचलिस्ट में अधिकतम %2$s पेयर हो सकते हैं।</item>
-        <item quantity="other">%1$d पेयर नहीं जोड़े गए – तुम्हारी वॉचलिस्ट में अधिकतम %2$s पेयर हो सकते हैं।</item>
+        <item quantity="one">%1$d पेयर नहीं जोड़ा गया – आपकी वॉचलिस्ट में अधिकतम %2$s पेयर हो सकते हैं।</item>
+        <item quantity="other">%1$d पेयर नहीं जोड़े गए – आपकी वॉचलिस्ट में अधिकतम %2$s पेयर हो सकते हैं।</item>
     </plurals>
     <string name="bulk_add_progress">जोड़े जोड़े जा रहे हैं … %1$s / %2$s</string>
     <plurals name="explorer_add_new_pairs">
-        <item quantity="one">%1$d नया पेयर वॉचलिस्ट में जोड़ो</item>
-        <item quantity="other">%1$d नए पेयर वॉचलिस्ट में जोड़ो</item>
+        <item quantity="one">%1$d नया पेयर वॉचलिस्ट में जोड़ें</item>
+        <item quantity="other">%1$d नए पेयर वॉचलिस्ट में जोड़ें</item>
     </plurals>
     <plurals name="explorer_bulk_counts">
         <item quantity="one">%1$d नया, %2$d पहले से वॉचलिस्ट में</item>
@@ -140,10 +140,10 @@
     <string name="explorer_bulk_all_present">सभी पहले से वॉचलिस्ट में हैं</string>
     <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
     <plurals name="bulk_undo_confirm_title">
-        <item quantity="one">%1$d पेयर फिर से हटाओ?</item>
-        <item quantity="other">%1$d पेयर फिर से हटाओ?</item>
+        <item quantity="one">%1$d पेयर फिर से हटाएँ?</item>
+        <item quantity="other">%1$d पेयर फिर से हटाएँ?</item>
     </plurals>
-    <string name="bulk_undo_confirm_text">जिन पेयर पर तुमने इस बीच अलार्म सेट किया है, वे बने रहेंगे।</string>
+    <string name="bulk_undo_confirm_text">जिन पेयर पर आपने इस बीच अलार्म सेट किया है, वे बने रहेंगे।</string>
     <string name="bulk_undo_expired">अब पूर्ववत नहीं किया जा सकता – पेयर वॉचलिस्ट में बने रहेंगे।</string>
     <string name="explorer_section_spot">स्पॉट</string>
     <string name="explorer_section_futures">फ़्यूचर्स</string>

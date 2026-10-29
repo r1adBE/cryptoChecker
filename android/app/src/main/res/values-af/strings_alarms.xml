@@ -5,7 +5,7 @@
     <string name="alarms_add">Nuwe alarm</string>
     <string name="alarms_edit">Wysig alarm</string>
     <string name="alarms_empty">Nog geen alarms vir hierdie paar nie.</string>
-    <string name="alarms_empty_example">Byvoorbeeld: Laat weet my wanneer BTC bo %1$s styg.</string>
+    <string name="alarms_empty_example">Byvoorbeeld: Laat my weet wanneer BTC bo %1$s styg.</string>
     <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
     <string name="alarms_notifications_off">Kennisgewings is af – alarms kan jou nie bereik nie.</string>
     <string name="alarms_notifications_turn_on">Skakel aan</string>
@@ -81,29 +81,29 @@
     <string name="alarm_condition_volume_spike">Volumepiek</string>
 
     <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
-    <string name="alarm_sentence_above">Laat weet my wanneer %1$s bo %2$s styg.</string>
-    <string name="alarm_sentence_below">Laat weet my wanneer %1$s onder %2$s daal.</string>
-    <string name="alarm_sentence_down_percent">Laat weet my wanneer %1$s %2$s onder die prys daal soos met stoor (of by die laaste alarm).</string>
-    <string name="alarm_sentence_funding_above">Laat weet my wanneer die befondsing van %1$s bo %2$s styg.</string>
-    <string name="alarm_sentence_funding_below">Laat weet my wanneer die befondsing van %1$s onder %2$s daal.</string>
+    <string name="alarm_sentence_above">Laat my weet wanneer %1$s bo %2$s styg.</string>
+    <string name="alarm_sentence_below">Laat my weet wanneer %1$s onder %2$s daal.</string>
+    <string name="alarm_sentence_down_percent">Laat my weet wanneer %1$s %2$s onder die prys daal soos met stoor (of by die laaste alarm).</string>
+    <string name="alarm_sentence_funding_above">Laat my weet wanneer die befondsing van %1$s bo %2$s styg.</string>
+    <string name="alarm_sentence_funding_below">Laat my weet wanneer die befondsing van %1$s onder %2$s daal.</string>
     <string name="alarm_sentence_incomplete">Voer \'n waarde in om die alarm as \'n sin te sien.</string>
     <plurals name="alarm_sentence_move_percent">
-        <item quantity="one">Laat weet my wanneer %1$s binne %3$d uur met %2$s beweeg.</item>
-        <item quantity="other">Laat weet my wanneer %1$s binne %3$d uur met %2$s beweeg.</item>
+        <item quantity="one">Laat my weet wanneer %1$s binne %3$d uur met %2$s beweeg.</item>
+        <item quantity="other">Laat my weet wanneer %1$s binne %3$d uur met %2$s beweeg.</item>
     </plurals>
-    <string name="alarm_sentence_near_high">Laat weet my wanneer %1$s hoogstens %2$s onder sy %3$s is.</string>
-    <string name="alarm_sentence_near_low">Laat weet my wanneer %1$s hoogstens %2$s bo sy %3$s is.</string>
-    <string name="alarm_sentence_new_extreme">Laat weet my wanneer %1$s \'n nuwe %2$s bereik.</string>
+    <string name="alarm_sentence_near_high">Laat my weet wanneer %1$s hoogstens %2$s onder sy %3$s is.</string>
+    <string name="alarm_sentence_near_low">Laat my weet wanneer %1$s hoogstens %2$s bo sy %3$s is.</string>
+    <string name="alarm_sentence_new_extreme">Laat my weet wanneer %1$s \'n nuwe %2$s bereik.</string>
     <plurals name="alarm_sentence_oi_down">
-        <item quantity="one">Laat weet my wanneer die oop belang van %1$s binne %3$d uur met %2$s daal.</item>
-        <item quantity="other">Laat weet my wanneer die oop belang van %1$s binne %3$d uur met %2$s daal.</item>
+        <item quantity="one">Laat my weet wanneer die oop belang van %1$s binne %3$d uur met %2$s daal.</item>
+        <item quantity="other">Laat my weet wanneer die oop belang van %1$s binne %3$d uur met %2$s daal.</item>
     </plurals>
     <plurals name="alarm_sentence_oi_up">
-        <item quantity="one">Laat weet my wanneer die oop belang van %1$s binne %3$d uur met %2$s styg.</item>
-        <item quantity="other">Laat weet my wanneer die oop belang van %1$s binne %3$d uur met %2$s styg.</item>
+        <item quantity="one">Laat my weet wanneer die oop belang van %1$s binne %3$d uur met %2$s styg.</item>
+        <item quantity="other">Laat my weet wanneer die oop belang van %1$s binne %3$d uur met %2$s styg.</item>
     </plurals>
-    <string name="alarm_sentence_up_percent">Laat weet my wanneer %1$s %2$s bo die prys styg soos met stoor (of by die laaste alarm).</string>
-    <string name="alarm_sentence_volume">Laat weet my wanneer %1$s %2$s× sy normale volume verhandel.</string>
+    <string name="alarm_sentence_up_percent">Laat my weet wanneer %1$s %2$s bo die prys styg soos met stoor (of by die laaste alarm).</string>
+    <string name="alarm_sentence_volume">Laat my weet wanneer %1$s %2$s× sy normale volume verhandel.</string>
 
     <!-- Alarm «Nahe am Hoch / Tief» -->
     <string name="alarm_near_extreme_high_30">30-dae-hoogtepunt</string>

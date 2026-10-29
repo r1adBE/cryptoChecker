@@ -185,7 +185,7 @@
     <string name="tax_note_network_fee">以加密货币支付的网络手续费（转入你自己的钱包、提币）是按市价处置手续费所用的币——盈亏只计这些币，而不是整笔手续费的亏损（%1$s）。没有记录价格时用当日（UTC）收盘价；没有收盘价时卖出所得留空。</string>
     <string name="tax_note_specific_id">不支持个别认定法（Specific Identification）——采用 FIFO（先进先出）。</string>
     <string name="tax_note_spouse_gift">标记为“给配偶 / 伴侣”的赠与无盈亏：所得 = 你的成本，由你的伴侣承接（%1$s）。</string>
-    <string name="tax_note_stable_swap">卖出换成你继续持有的稳定币（USDT/USDC/DAI …）在此属于加密货币换加密货币，不征税——请记为兑换为该稳定币。只有卖出换成欧元才征税——「卖出」 视为卖出换成欧元。</string>
+    <string name="tax_note_stable_swap">卖出换成你继续持有的稳定币（USDT/USDC/DAI …）在此属于加密货币换加密货币，不征税——请记为兑换为该稳定币。只有卖出换成欧元才征税——“卖出”视为卖出换成欧元。</string>
     <string name="tax_note_transfer_fee">在你自己的钱包之间转移时以 USDT 或法币支付的手续费同样如此：不计入成本，仅作参考列出。</string>
     <string name="tax_note_uk">按 HMRC 匹配：同一天，然后之后 30 天，然后 依 Section 104 的合并持仓（Section 104 pool）。</string>
     <string name="tax_note_us_transition">2025年1月1日过渡（Rev. Proc. 2024-28，安全港）：若以前年度对所有钱包统一使用 FIFO，截至 2024年12月31日的剩余批次分配给持有这些币的钱包——持有最早币的钱包获得最早的成本。此分配为应用自身的规则——请与你自己的记录核对。</string>

@@ -14,6 +14,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.ui.res.painterResource
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -102,7 +108,12 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
                             }
                         },
                         modifier = Modifier.weight(1f).testTag(UiTestTags.BACKUP_EXPORT)
-                    ) { Text(stringResource(R.string.backup_export), maxLines = 1) }
+                    ) {
+                        // Symbol wie iOS (Teilen-Pfeil hinaus bzw. hinein)
+                        Icon(painterResource(R.drawable.ic_upload), null, Modifier.size(ButtonDefaults.IconSize))
+                        Spacer(Modifier.width(ButtonDefaults.IconSpacing))
+                        Text(stringResource(R.string.backup_export), maxLines = 1)
+                    }
                     FilledTonalButton(
                         onClick = {
                             viewModel.startRestore(context.findFragmentActivity(), reason) {
@@ -110,7 +121,12 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
                             }
                         },
                         modifier = Modifier.weight(1f).testTag(UiTestTags.BACKUP_IMPORT)
-                    ) { Text(stringResource(R.string.backup_import), maxLines = 1) }
+                    ) {
+                        // Symbol wie iOS (Teilen-Pfeil hinaus bzw. hinein)
+                        Icon(painterResource(R.drawable.ic_download), null, Modifier.size(ButtonDefaults.IconSize))
+                        Spacer(Modifier.width(ButtonDefaults.IconSpacing))
+                        Text(stringResource(R.string.backup_import), maxLines = 1)
+                    }
                 }
             }
         }

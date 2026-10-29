@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">ഇടപാടുകൾ സംരക്ഷിക്കുന്നു…</string>
     <string name="portfolio_csv_import_missing_fx">%1$s വരികൾക്ക് പ്രതിദിന നിരക്കില്ല – വില/ഫീസ് ഇല്ലാതെ ഇമ്പോർട്ട് ചെയ്തു.</string>
     <string name="portfolio_csv_import_missing_price">%1$s വരികൾക്ക് ഫയലിൽ വിലയില്ല – വിലയില്ലാതെ ഇമ്പോർട്ട് ചെയ്തു.</string>
+    <string name="portfolio_csv_import_fee_in_price">%1$s വരികളിൽ രണ്ട് ഫീസ്: ഫിയറ്റ് ഫീസ് വിലയിൽ ഉൾപ്പെടുന്നു, കോയിനിലുള്ള ഫീസ് ലഭിച്ച അളവ് കുറയ്ക്കുകയോ നൽകിയ അളവ് കൂട്ടുകയോ ചെയ്യുന്നു.</string>
+    <string name="portfolio_csv_import_pending_differs">%1$s വരികൾ: ഒരേ ഡെപ്പോസിറ്റിന്റെയോ പിൻവലിക്കലിന്റെയോ തീർപ്പാകാത്തതും രേഖപ്പെടുത്തിയതുമായ എൻട്രികളുടെ അളവ് വ്യത്യസ്തമാണ് – രണ്ടും ഇമ്പോർട്ട് ചെയ്തു, ഹോൾഡിംഗുകൾ പരിശോധിക്കുക.</string>
     <string name="portfolio_csv_import_more">+ %1$d കൂടി</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d പുതിയ ഇടപാട്</item>

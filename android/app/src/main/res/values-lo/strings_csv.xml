@@ -27,6 +27,8 @@
     <string name="portfolio_csv_import_saving">ກຳລັງບັນທຶກທຸລະກຳ…</string>
     <string name="portfolio_csv_import_missing_fx">ບໍ່ມີອັດຕາລາຍວັນສຳລັບແຖວ %1$s – ນຳເຂົ້າໂດຍບໍ່ມີລາຄາ/ຄ່າທຳນຽມ.</string>
     <string name="portfolio_csv_import_missing_price">ບໍ່ມີລາຄາໃນໄຟລ໌ສຳລັບແຖວ %1$s – ນຳເຂົ້າໂດຍບໍ່ມີລາຄາ.</string>
+    <string name="portfolio_csv_import_fee_in_price">ຄ່າທຳນຽມສອງລາຍການໃນແຖວ %1$s: ຄ່າທຳນຽມ fiat ລວມຢູ່ໃນລາຄາ, ຄ່າທຳນຽມເປັນຫຼຽນຫຼຸດຈຳນວນທີ່ໄດ້ຮັບ ຫຼື ເພີ່ມຈຳນວນທີ່ໃຫ້.</string>
+    <string name="portfolio_csv_import_pending_differs">ແຖວ %1$s: ລາຍການລໍຖ້າ ແລະ ລາຍການທີ່ບັນທຶກແລ້ວຂອງການຝາກ ຫຼື ຖອນດຽວກັນມີຈຳນວນຕ່າງກັນ – ນຳເຂົ້າທັງສອງ, ກວດການຖືຄອງ.</string>
     <string name="portfolio_csv_import_more">+ ອີກ %1$d</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="other">%d ທຸລະກຳໃໝ່</item>

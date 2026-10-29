@@ -49,7 +49,7 @@
     <string name="settings_ongoing_notifications">ஸ்வைப் செய்து அகற்ற முடியாது</string>
     <string name="settings_ongoing_notifications_hint">விலை அறிவிப்புகளைப் பின் செய்து வைக்கும்.</string>
     <string name="settings_price_notifications">விலை அறிவிப்புகள்</string>
-    <string name="settings_price_notifications_hint">இயக்கப்பட்ட ஜோடிகளின் தற்போதைய விலையை நிலைப் பட்டியில் காட்டு.</string>
+    <string name="settings_price_notifications_hint">இயக்கப்பட்ட ஜோடிகளின் தற்போதைய விலையை நிலைப் பட்டியில் காட்டவும்.</string>
     <string name="settings_price_pairs">ஜோடிகள்</string>
     <string name="settings_price_pairs_all_off">அனைத்தும் ஆஃப்</string>
     <string name="settings_price_pairs_all_on">அனைத்தும் ஆன்</string>
@@ -280,7 +280,7 @@
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">சாதனத்தை மாற்றுதல்</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_device_change">கீ பழைய சாதனத்திலேயே இருக்கும் – முதலில் காப்புப்பிரதிக் கோப்பை உருவாக்கவும்.</string>
+    <string name="about_data_device_change">மறையாக்கக் கீ பழைய சாதனத்திலேயே இருக்கும் – முதலில் காப்புப்பிரதிக் கோப்பை உருவாக்கவும்.</string>
 
     <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
     <string name="diagnostics_share">கண்டறிதல் தகவலைப் பகிர்</string>

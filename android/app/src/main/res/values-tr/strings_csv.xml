@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">İşlemler kaydediliyor…</string>
     <string name="portfolio_csv_import_missing_fx">Günlük kur yok (satır %1$s) – fiyat ve ücret olmadan aktarıldı.</string>
     <string name="portfolio_csv_import_missing_price">Dosyada fiyat yok (satır %1$s) – fiyatsız aktarıldı.</string>
+    <string name="portfolio_csv_import_fee_in_price">İki ücret (satır %1$s): fiat ücreti fiyata dahil, coin cinsinden ücret alınan miktarı azaltır veya verilen miktarı artırır.</string>
+    <string name="portfolio_csv_import_pending_differs">Satır %1$s: aynı yatırma veya çekme işleminin bekleyen ve kaydedilen kayıtlarının miktarı farklı – ikisi de aktarıldı, bakiyeyi kontrol et.</string>
     <string name="portfolio_csv_import_more">+ %1$d tane daha</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d yeni işlem</item>

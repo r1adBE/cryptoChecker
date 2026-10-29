@@ -82,52 +82,55 @@ extension WatchlistRow {
                     .accessibilityHidden(true)
             }
 
-            HStack(spacing: Spacing.xs) {
-                let line = timeLine
-                // Veraltet / nicht erreichbar: Bernstein mit ⚠ statt Fehlerrot — Rot ist dunkel kaum vom
-                // fallenden Kurs zu unterscheiden (wie Android)
-                let caution = !off && (line.warning || (stale && watch.lastUpdate > 0))
-                if caution {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                        .scaledFont(size: 11, weight: .semibold, relativeTo: .caption2)
-                        // Gleiche Bernstein-Stufe wie der Text daneben: `warning` erreicht auf hellen Karten keine 3:1
-                        .foregroundStyle(AppColors.warningText)
-                        .accessibilityHidden(true)
-                }
-                // Lesegrösse (`.subheadline`) statt `.footnote` — wie Android `body`
-                Text(line.text)
-                    .font(.subheadline.monospacedDigit())
-                    // Bernstein-Schrift (≥ 4.5:1 auch auf hellen Karten), nie die Farbe eines fallenden Kurses
-                    .foregroundStyle(caution ? AppColors.warningText : AppColors.onSurfaceVariant)
-                    .lineLimit(line.warning ? 2 : DenseRowText.maxLines(typeScale))
-                    .layoutPriority(-1)
-
-                // Art vor der Glocke: Token (Raute), TradFi (Bank), Alpha («α») wie die Chips;
-                // neutral wie die Glocke, in der Themenfarbe nur mit gewähltem passendem Chip
-                AssetKindIconView(kind: kind)
-                    .foregroundStyle(highlight.highlights(kind) ? accent.primary : AppColors.onSurfaceVariant)
-                    .opacity(iconOpacity)
-                // Kursmitteilung in der Zeile: schlichte Glocke = an,
-                // durchgestrichene = aus (Paar aus oder Hauptschalter aus). Danach die Alarmglocke (mit Wellen),
-                // nur bei mind. einem aktiven Alarm — wie Android
-                let priceOn: Bool = A11ySpeech.priceNotificationOn(pairOn: watch.notificationEnabled,
-                                                                   masterOn: priceNotificationsOn)
-                // 13 pt wie die 13-dp-Glocken in Android
-                Image(systemName: priceOn ? "bell" : "bell.slash")
-                    .scaledFont(size: 13, relativeTo: .caption2)
-                    .foregroundStyle(AppColors.onSurfaceVariant)
-                    .opacity(iconOpacity)
-                    .accessibilityLabel(L(priceOn ? "a11y_price_notification_on" : "a11y_price_notification_off"))
-                if alarmCount > 0 {
-                    HStack(spacing: 2) {
-                        Image(systemName: "bell.and.waves.left.and.right.fill").scaledFont(size: 13, relativeTo: .caption2)
-                            .opacity(iconOpacity)
-                        Text(verbatim: LocaleNumbers.integer(alarmCount)).font(.caption.weight(.semibold).monospacedDigit())
+            // Wird es eng, stehen die Symbole unter der Börse (`WatchlistMetaLine`) — nie «Bi…», Mini-Chart bleibt
+            let line = timeLine
+            // Veraltet / nicht erreichbar: Bernstein mit ⚠ statt Fehlerrot — Rot ist dunkel kaum vom
+            // fallenden Kurs zu unterscheiden (wie Android)
+            let caution = !off && (line.warning || (stale && watch.lastUpdate > 0))
+            WatchlistMetaLine(gap: Spacing.xs) {
+                HStack(spacing: Spacing.xs) {
+                    if caution {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .scaledFont(size: 11, weight: .semibold, relativeTo: .caption2)
+                            // Gleiche Bernstein-Stufe wie der Text daneben: `warning` erreicht auf hellen Karten keine 3:1
+                            .foregroundStyle(AppColors.warningText)
+                            .accessibilityHidden(true)
                     }
-                    // Textfarbe, nicht die Themenfarbe; deaktiviert onSurfaceVariant
-                    .foregroundStyle(off ? AppColors.onSurfaceVariant : AppColors.onSurface)
-                    .accessibilityElement(children: .ignore)
-                    .accessibilityLabel(L("watchlist_alarms_count", count: alarmCount))
+                    // Lesegrösse (`.subheadline`) statt `.footnote` — wie Android `body`
+                    Text(line.text)
+                        .font(.subheadline.monospacedDigit())
+                        // Bernstein-Schrift (≥ 4.5:1 auch auf hellen Karten), nie die Farbe eines fallenden Kurses
+                        .foregroundStyle(caution ? AppColors.warningText : AppColors.onSurfaceVariant)
+                        .lineLimit(line.warning ? 2 : DenseRowText.maxLines(typeScale))
+                }
+                HStack(spacing: Spacing.xs) {
+                    // Art vor der Glocke: Token (Raute), TradFi (Bank), Alpha («α») wie die Chips;
+                    // neutral wie die Glocke, in der Themenfarbe nur mit gewähltem passendem Chip
+                    AssetKindIconView(kind: kind)
+                        .foregroundStyle(highlight.highlights(kind) ? accent.primary : AppColors.onSurfaceVariant)
+                        .opacity(iconOpacity)
+                    // Kursmitteilung in der Zeile: schlichte Glocke = an,
+                    // durchgestrichene = aus (Paar aus oder Hauptschalter aus). Danach die Alarmglocke (mit Wellen),
+                    // nur bei mind. einem aktiven Alarm — wie Android
+                    let priceOn: Bool = A11ySpeech.priceNotificationOn(pairOn: watch.notificationEnabled,
+                                                                       masterOn: priceNotificationsOn)
+                    // 13 pt wie die 13-dp-Glocken in Android
+                    Image(systemName: priceOn ? "bell" : "bell.slash")
+                        .scaledFont(size: 13, relativeTo: .caption2)
+                        .foregroundStyle(AppColors.onSurfaceVariant)
+                        .opacity(iconOpacity)
+                        .accessibilityLabel(L(priceOn ? "a11y_price_notification_on" : "a11y_price_notification_off"))
+                    if alarmCount > 0 {
+                        HStack(spacing: 2) {
+                            Image(systemName: "bell.and.waves.left.and.right.fill").scaledFont(size: 13, relativeTo: .caption2)
+                                .opacity(iconOpacity)
+                            Text(verbatim: LocaleNumbers.integer(alarmCount)).font(.caption.weight(.semibold).monospacedDigit())
+                        }
+                        // Textfarbe, nicht die Themenfarbe; deaktiviert onSurfaceVariant
+                        .foregroundStyle(off ? AppColors.onSurfaceVariant : AppColors.onSurface)
+                        .accessibilityElement(children: .ignore)
+                        .accessibilityLabel(L("watchlist_alarms_count", count: alarmCount))
+                    }
                 }
             }
             .frame(minHeight: namesEnabled ? line3 : nil, alignment: .leading)
@@ -156,7 +159,7 @@ extension WatchlistRow {
                         .foregroundStyle(AppColors.onSurfaceVariant)
                         .lineLimit(2)
                 }
-                // Eigenbreite 0: eine lange Notiz verdrängt das Mini-Chart nicht (`WatchlistSparklineSlot`)
+                // Eigenbreite 0: eine lange Notiz macht die Paar-Spalte nicht breiter
                 .frame(minWidth: 0, idealWidth: 0, maxWidth: .infinity, alignment: .leading)
                 .accessibilityElement(children: .combine)
                 .accessibilityLabel(Text(verbatim: L("label_value", L("note_title"), note)))

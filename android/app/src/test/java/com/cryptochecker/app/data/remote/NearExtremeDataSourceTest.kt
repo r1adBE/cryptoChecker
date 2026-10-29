@@ -27,7 +27,7 @@ class NearExtremeDataSourceTest {
     val temp = TemporaryFolder()
 
     @Before
-    fun chainOpen() = RouteHttp.assumeChainOpen()
+    fun chainOpen() = RouteHttp.releaseChain()
 
     private lateinit var root: File
     private lateinit var names: TokenIdentityStore

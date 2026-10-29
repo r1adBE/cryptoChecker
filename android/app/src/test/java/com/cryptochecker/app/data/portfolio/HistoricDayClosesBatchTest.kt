@@ -31,7 +31,7 @@ class HistoricDayClosesBatchTest {
     val temp = TemporaryFolder()
 
     @Before
-    fun chainOpen() = RouteHttp.assumeChainOpen()
+    fun chainOpen() = RouteHttp.releaseChain()
 
     private val first: LocalDate = LocalDate.of(2021, 1, 1)
     private val last: LocalDate = LocalDate.of(2024, 6, 30)

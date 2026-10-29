@@ -33,6 +33,8 @@
     <string name="portfolio_csv_import_saving">Ukládám transakce…</string>
     <string name="portfolio_csv_import_missing_fx">Chybí denní kurz pro řádek %1$s – importováno bez ceny a poplatku.</string>
     <string name="portfolio_csv_import_missing_price">V souboru chybí cena pro řádek %1$s – importováno bez ceny.</string>
+    <string name="portfolio_csv_import_fee_in_price">Dva poplatky na řádku %1$s: poplatek ve fiat měně je zahrnut v ceně, poplatek v minci snižuje přijaté nebo zvyšuje odevzdané množství.</string>
+    <string name="portfolio_csv_import_pending_differs">Řádek %1$s: čekající a zaúčtovaný zápis téhož vkladu nebo výběru mají různé množství – oba importovány, zkontroluj zůstatek.</string>
     <string name="portfolio_csv_import_more">+ dalších %1$d</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d nová transakce</item>

@@ -38,7 +38,10 @@ struct WatchPriceProvider: TimelineProvider {
             var cached = first.flatMap { WatchStore.quotes()[$0] }
             if let first, cached.map({ WatchStore.now() - $0.time > Self.maxAgeMs }) ?? true {
                 let startedAt = WatchStore.now()
-                let fresh = await WatchPriceSource.fetch(coins)
+                // Höchstens 20 s für alle Börsen zusammen (wie Android), danach der gespeicherte Kurs
+                let fresh = await WatchQuoteFetch.within(seconds: WatchQuoteFetch.complicationTimeoutSeconds) {
+                    await WatchPriceSource.fetch(coins)
+                }
                 // Je Coin zusammengeführt: fehlt der erste Coin im neuen Ergebnis oder hat ein später gestarteter Abruf
                 // (Uhr-App) schon geschrieben, bleibt der gespeicherte Kurs samt Zeit
                 if !fresh.isEmpty {

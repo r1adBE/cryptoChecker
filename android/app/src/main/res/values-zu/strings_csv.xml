@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">Ilondoloza imisebenzi…</string>
     <string name="portfolio_csv_import_missing_fx">Alikho izinga losuku lemigqa %1$s – kungenisiwe ngaphandle kwentengo/imali ekhokhwayo.</string>
     <string name="portfolio_csv_import_missing_price">Ayikho intengo efayeleni yemigqa %1$s – kungenisiwe ngaphandle kwentengo.</string>
+    <string name="portfolio_csv_import_fee_in_price">Izimali ezimbili emigqeni %1$s: imali ye-fiat ifakiwe entengweni, imali yohlamvu lwemali yehlisa inani elitholiwe noma ikhuphule inani elinikeziwe.</string>
+    <string name="portfolio_csv_import_pending_differs">Imigqa %1$s: okufakiwe okulindile nokubhaliswe kwediphozithi noma ukukhipha okufanayo kunamanani ahlukene – kokubili kungenisiwe, hlola izimpahla.</string>
     <string name="portfolio_csv_import_more">+ %1$d okunye</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">Umsebenzi omusha ongu-%d</item>

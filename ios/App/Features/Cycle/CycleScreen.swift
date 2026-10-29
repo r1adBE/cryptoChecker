@@ -119,6 +119,11 @@ struct CycleScreen: View {
 
     // MARK: - Inhalt («Jetzt» und die Zeilen zu den Unterseiten)
 
+    /// Crypto Pulse geladen und alles Sichtbare auf «Jetzt» erschienen (wie Android `UiTestTags.MARKET_LOADED`).
+    private var nowLoaded: Bool {
+        viewModel.pulse.value != nil && !CycleReveal.nowLoading(moreExpanded: moreShown, revealed: viewModel.revealed)
+    }
+
     private var scrollContent: some View {
         ScrollView {
             VStack(spacing: 0) {
@@ -126,6 +131,8 @@ struct CycleScreen: View {
                 // vor 2 Min.» bzw. während des Neuladens «Stand 14:05 · wird aktualisiert…».
                 // Der Platz bleibt immer reserviert — darunter springt nichts.
                 statusPill(refreshingSince: viewModel.refreshingSince, updatedAt: viewModel.pulse.value?.time)
+                    // Kennung für UI-Tests (Bildschirmfotos): Puls geladen, alles Sichtbare auf «Jetzt» erschienen
+                    .accessibilityIdentifier(nowLoaded ? UiTestTags.marketLoaded : "")
                     .id(Self.topId)
                 nowRegister
                 // 3. «Mehr Marktdaten» (Standard zu, gemerkt): «Heute auffällig», der Wirtschaftsdaten-Hinweis
@@ -358,7 +365,8 @@ struct CycleScreen: View {
             return L("offline_status")
         }
         if let since = refreshingSince { return L("cycle_data_as_of", stampText(since)) }
-        if let updatedAt, updatedAt > 0 { return L("watchlist_all_fresh", WatchlistTime.ago(updatedAt, now: now)) }
+        // Alter wie in den Quellenzeilen darunter (`MarketStampText.age`): ein Format auf dem Bildschirm, wie Android
+        if let updatedAt, updatedAt > 0 { return L("watchlist_all_fresh", MarketStampText.age(updatedAt, now: now)) }
         return nil
     }
 

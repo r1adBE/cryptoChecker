@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">Се зачувуваат трансакциите…</string>
     <string name="portfolio_csv_import_missing_fx">Нема дневен курс за редовите %1$s – увезено без цена/провизија.</string>
     <string name="portfolio_csv_import_missing_price">Нема цена во датотеката за редовите %1$s – увезено без цена.</string>
+    <string name="portfolio_csv_import_fee_in_price">Два надоместоци во редовите %1$s: фиат надоместокот е вклучен во цената, надоместокот во монетата ја намалува примената или ја зголемува дадената количина.</string>
+    <string name="portfolio_csv_import_pending_differs">Редови %1$s: записот на чекање и прокнижениот запис на истата уплата или исплата имаат различни количини – двата се увезени, провери ги средствата.</string>
     <string name="portfolio_csv_import_more">+ уште %1$d</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d нова трансакција</item>

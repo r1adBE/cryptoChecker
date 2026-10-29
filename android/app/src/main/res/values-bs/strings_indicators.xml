@@ -24,9 +24,9 @@
 
     <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
     <string name="neutral_info_alt_season_how">Aplikacija prikazuje samo broj i ne naziva ga sezonom. Vrijednost se obično mijenja tokom dana, a ne sati.</string>
-    <string name="neutral_info_btc_how">Uz svaku vrijednost ide jedna rečenica o tome što mjeri i gdje se nalazi u vlastitoj historiji od 2016. Aplikacija ne ocjenjuje vrijednosti i iz njih ne izvodi fazu tržišta; granice za tržišne alarme samo su one koje postaviš ti. Obrasci iz prošlosti ne moraju se ponoviti.</string>
+    <string name="neutral_info_btc_how">Uz svaku vrijednost ide jedna rečenica o tome šta mjeri i gdje se nalazi u vlastitoj historiji od 2016. Aplikacija ne ocjenjuje vrijednosti i iz njih ne izvodi fazu tržišta; granice za tržišne alarme samo su one koje postaviš ti. Obrasci iz prošlosti ne moraju se ponoviti.</string>
     <string name="neutral_info_btc_what">Uobičajeni Bitcoin pokazatelji kao jednostavne izmjerene vrijednosti: Mayer Multiple, 200-sedmični prosjek, pad od rekordnog maksimuma, promjena tokom 30 dana, Pi Cycle razmak te on-chain vrijednosti MVRV, Puell Multiple i hashrate.</string>
-    <string name="neutral_info_coin_how">Uz svaku vrijednost ide jedna rečenica o tome što mjeri, bez ocjene. Za kriptovalute s kratkom historijom cijena neke vrijednosti nedostaju. On-chain podaci ovdje nisu uključeni.</string>
+    <string name="neutral_info_coin_how">Uz svaku vrijednost ide jedna rečenica o tome šta mjeri, bez ocjene. Za kriptovalute s kratkom historijom cijena neke vrijednosti nedostaju. On-chain podaci ovdje nisu uključeni.</string>
     <string name="neutral_info_coin_what">Isti jednostavni pokazatelji za kriptovalutu po tvom izboru, samo iz podataka o cijeni: Mayer Multiple, 200-sedmični prosjek, pad od rekordnog maksimuma, promjena tokom 30 dana, trend 50/200 dana, RSI i snaga u odnosu na Bitcoin tokom 90 dana.</string>
     <string name="neutral_info_halving_how">Sljedeći halving izračunava se iz trenutne visine bloka i prosječnog vremena bloka u trenutnom periodu težine (mempool.space); bez tih podataka prema kalendaru (posljednji halving plus otprilike četiri godine). Grafikon prikazuje kretanje cijene u prošlim ciklusima od njihova halvinga – historija, a ne prognoza.</string>
 

@@ -7,7 +7,6 @@
         <item quantity="one">%2$d ರಲ್ಲಿ %1$d ಬೆಲೆ ಇಲ್ಲದೆ</item>
         <item quantity="other">%2$d ರಲ್ಲಿ %1$d ಬೆಲೆ ಇಲ್ಲದೆ</item>
     </plurals>
-    <string name="watchlist_last_run">ಕೊನೆಯ ರನ್ %1$s</string>
     <string name="watchlist_live_a11y">ಲೈವ್ ಬೆಲೆಗಳು ಆನ್</string>
     <string name="watchlist_offline_since">ಸಂಪರ್ಕವಿಲ್ಲ · %1$s ರಂತೆ</string>
     <string name="watchlist_pull_to_refresh">ರಿಫ್ರೆಶ್ ಮಾಡಲು ಕೆಳಗೆ ಎಳೆಯಿರಿ</string>

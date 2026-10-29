@@ -49,7 +49,7 @@
     <string name="settings_ongoing_notifications">స్వైప్ చేసి తీసివేయలేరు</string>
     <string name="settings_ongoing_notifications_hint">ధర నోటిఫికేషన్‌లను పిన్ చేసి ఉంచుతుంది.</string>
     <string name="settings_price_notifications">ధర నోటిఫికేషన్‌లు</string>
-    <string name="settings_price_notifications_hint">ఎనేబుల్ చేసిన జతల ప్రస్తుత ధరను స్టేటస్ బార్‌లో చూపు.</string>
+    <string name="settings_price_notifications_hint">ఎనేబుల్ చేసిన జతల ప్రస్తుత ధరను స్టేటస్ బార్‌లో చూపండి.</string>
     <string name="settings_price_pairs">జతలు</string>
     <string name="settings_price_pairs_all_off">అన్నీ ఆఫ్</string>
     <string name="settings_price_pairs_all_on">అన్నీ ఆన్</string>
@@ -280,7 +280,7 @@
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">పరికరం మార్చడం</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_device_change">కీ పాత పరికరంలోనే ఉంటుంది – ముందుగా బ్యాకప్ ఫైల్‌ను సృష్టించండి.</string>
+    <string name="about_data_device_change">ఎన్‌క్రిప్షన్ కీ పాత పరికరంలోనే ఉంటుంది – ముందుగా బ్యాకప్ ఫైల్‌ను సృష్టించండి.</string>
 
     <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
     <string name="diagnostics_share">డయాగ్నస్టిక్స్‌ను షేర్ చేయి</string>

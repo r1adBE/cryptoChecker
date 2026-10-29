@@ -33,6 +33,8 @@
     <string name="portfolio_csv_import_saving">Shranjevanje transakcij …</string>
     <string name="portfolio_csv_import_missing_fx">Ni dnevnega tečaja za vrstice %1$s – uvoženo brez cene/provizije.</string>
     <string name="portfolio_csv_import_missing_price">V datoteki ni cene za vrstice %1$s – uvoženo brez cene.</string>
+    <string name="portfolio_csv_import_fee_in_price">Dve proviziji v vrsticah %1$s: provizija v fiat valuti je vključena v ceno, provizija v kovancu zmanjša prejeto ali poveča oddano količino.</string>
+    <string name="portfolio_csv_import_pending_differs">Vrstice %1$s: čakajoči in knjiženi vnos istega pologa ali dviga imata različni količini – oba uvožena, preveri imetje.</string>
     <string name="portfolio_csv_import_more">+ še %1$d</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d nova transakcija</item>

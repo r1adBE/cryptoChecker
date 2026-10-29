@@ -83,7 +83,7 @@
     <string name="explorer_no_pair_list">ไม่มีคู่เหรียญ</string>
     <string name="explorer_sync_sheet_last">ซิงค์ล่าสุด: %1$s</string>
     <string name="explorer_sync_never">ไม่เคย</string>
-    <string name="explorer_sync_sheet_action">ซิงค์เลย!</string>
+    <string name="explorer_sync_sheet_action">ซิงค์เลย</string>
     <string name="explorer_sync_sheet_title">อัปเดตคู่เหรียญ</string>
     <string name="explorer_field_coin">เหรียญ</string>
     <string name="explorer_field_contract">ประเภทสัญญา</string>

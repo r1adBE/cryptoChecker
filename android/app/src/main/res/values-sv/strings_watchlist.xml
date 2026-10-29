@@ -7,7 +7,6 @@
         <item quantity="one">%1$d av %2$d utan kurs</item>
         <item quantity="other">%1$d av %2$d utan kurs</item>
     </plurals>
-    <string name="watchlist_last_run">Senaste körning %1$s</string>
     <string name="watchlist_live_a11y">Livekurser är på</string>
     <string name="watchlist_offline_since">Ingen anslutning · per %1$s</string>
     <string name="watchlist_pull_to_refresh">Dra nedåt för att uppdatera</string>

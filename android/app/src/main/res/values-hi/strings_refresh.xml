@@ -4,7 +4,7 @@
     <string name="update_mode_for_pros">ज़्यादा डेटा और बैटरी लेता है</string>
     <string name="update_mode_live">खुला रहने तक लाइव</string>
     <string name="update_mode_live_hint">जहाँ एक्सचेंज लाइव कीमत देता है: सूची खुली रहने तक तुरंत। वरना अगली बार डेटा लाने पर। बंद: हर %1$s से ज़्यादा बार नहीं, अक्सर देर से।</string>
-    <string name="update_mode_live_hint_ios">जहाँ एक्सचेंज लाइव कीमत देता है: सूची खुली रहने तक तुरंत। वरना अगली बार डेटा लाने पर। बंद: जब iOS अनुमति दे, कभी-कभी घंटों के अंतर पर। ऐप को स्वाइप करके हटाने पर iOS ये जाँचें तब तक रोक देता है, जब तक तुम उसे फिर से नहीं खोलते।</string>
+    <string name="update_mode_live_hint_ios">जहाँ एक्सचेंज लाइव कीमत देता है: सूची खुली रहने तक तुरंत। वरना अगली बार डेटा लाने पर। बंद: जब iOS अनुमति दे, कभी-कभी घंटों के अंतर पर। ऐप को स्वाइप करके हटाने पर iOS ये जाँचें तब तक रोक देता है, जब तक आप उसे फिर से नहीं खोलते।</string>
     <string name="update_mode_recommended">सुझाया गया</string>
     <string name="update_mode_sparsam">किफ़ायती</string>
     <string name="update_mode_sparsam_hint">ऐप बंद होने पर हर %1$s से ज़्यादा बार नहीं, अक्सर देर से (अलार्म, विजेट)। खुला: हर बार खोलने पर।</string>
@@ -99,12 +99,12 @@
     <string name="check_trigger_worker">बैकग्राउंड</string>
 
     <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
-    <string name="battery_delay_hint">Android जाँच में देरी कर सकता है – बैटरी को “अप्रतिबंधित” पर सेट करो</string>
+    <string name="battery_delay_hint">Android जाँच में देरी कर सकता है – बैटरी को “अप्रतिबंधित” पर सेट करें</string>
     <string name="battery_later">बाद में</string>
-    <string name="battery_message">बैटरी बचाने के लिए Android बैकग्राउंड काम में देरी करता है — तब कीमतें और विजेट घंटों पुराने हो सकते हैं। बैटरी उपयोग को अप्रतिबंधित करने से वे अपडेट रहते हैं। तुम इसे कभी भी Android सेटिंग्स में बदल सकते हो।</string>
-    <string name="battery_open_settings">बैटरी सेटिंग खोलो</string>
-    <string name="battery_steps">ऐप जानकारी में बैटरी (या ऐप बैटरी उपयोग) पर टैप करो और अप्रतिबंधित चुनो।</string>
-    <string name="battery_title">कीमतें अप-टू-डेट रखो</string>
+    <string name="battery_message">बैटरी बचाने के लिए Android बैकग्राउंड काम में देरी करता है — तब कीमतें और विजेट घंटों पुराने हो सकते हैं। बैटरी उपयोग को अप्रतिबंधित करने से वे अपडेट रहते हैं। आप इसे कभी भी Android सेटिंग्स में बदल सकते हैं।</string>
+    <string name="battery_open_settings">बैटरी सेटिंग खोलें</string>
+    <string name="battery_steps">ऐप जानकारी में बैटरी (या ऐप बैटरी उपयोग) पर टैप करें और अप्रतिबंधित चुनें।</string>
+    <string name="battery_title">कीमतें अप-टू-डेट रखें</string>
     <string name="ios_background_refresh_off">इस ऐप के लिए बैकग्राउंड ऐप रिफ़्रेश बंद है। इसके बिना अलार्म सिर्फ़ ऐप खुला होने पर जाँचे जाते हैं।</string>
     <string name="ios_low_power_mode">लो पावर मोड चालू है। iOS बैकग्राउंड में कम ही जाँचता है, इसलिए अलार्म देर से आ सकते हैं।</string>
 

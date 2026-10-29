@@ -151,6 +151,14 @@ internal fun CsvImportPreviewSheet(
             if (preview.missingPrice.isNotEmpty()) {
                 PreviewHint(stringResource(R.string.portfolio_csv_import_missing_price, preview.missingPrice.joinToString(", ")))
             }
+            // Fiat-Gebühr im Preis, Gebühr im Coin am Geschäft (statt eigener Gebühr-Zeile)
+            if (preview.feeInPrice.isNotEmpty()) {
+                PreviewHint(stringResource(R.string.portfolio_csv_import_fee_in_price, preview.feeInPrice.joinToString(", ")))
+            }
+            // Kraken: ausstehende und gebuchte Zeile mit anderer Menge — beide übernommen, Bestand prüfen
+            if (preview.pendingDiffers.isNotEmpty()) {
+                PreviewHint(stringResource(R.string.portfolio_csv_import_pending_differs, preview.pendingDiffers.joinToString(", ")))
+            }
             // Kauf/Verkauf gegen Stablecoin als Tausch gebucht: der Stablecoin erscheint im Bestand
             if (preview.stableSwaps) PreviewHint(stringResource(R.string.portfolio_csv_import_stable_swaps))
             // Zeiten ohne Zeitzone in der Datei: verwendete Zeitzone zeigen und wählen lassen

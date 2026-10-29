@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
-# Audit of the Android release build (after :app:assembleRelease :app:bundleRelease). Run in android/.
+# Audit of the Android release build (after :app:assembleRelease :app:bundleRelease :wear:assembleRelease). Run in
+# android/.
 # Writes findings for annotate.py and collects the release evidence (merged manifest, R8 mapping,
 # AAB, manifest summary) in <evidence dir>.
 #
 # Errors (release blockers): APK/AAB/R8 mapping missing, manifest policy (manifest_policy.py),
 # debuggable APK (aapt2). Warnings: merged manifest not found, baseline profile missing,
-# 16 KB alignment (zipalign -c -P 16, ELF segments). Tools that are missing on the runner
+# 16 KB alignment (zipalign -c -P 16, ELF segments). The Wear OS app (wear/, own Play bundle): release APK missing and
+# debuggable are errors, 16 KB alignment a warning (its manifest has other components and permissions, so
+# manifest_policy.py covers the phone app only). Tools that are missing on the runner
 # (aapt2, zipalign >= 35, apkanalyzer) are skipped with a notice.
 #
 # Usage: android_release_audit.sh <findings file> <evidence dir>
@@ -30,13 +33,45 @@ if [ -n "$SDK" ] && [ -d "$SDK/build-tools" ]; then
   BUILD_TOOLS=$(find "$SDK/build-tools" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -n 1)
 fi
 
+# Debuggable (aapt2, error) and 16 KB zip alignment of uncompressed native libraries (zipalign -P needs build-tools
+# 35+, warning) of one APK. Usage: apk_checks <label> <apk>
+apk_checks() {
+  local label="$1" apk="$2"
+  local aapt2="$BUILD_TOOLS/aapt2" zipalign="$BUILD_TOOLS/zipalign" bt_major badging version_line za_out bad
+  if [ -n "$BUILD_TOOLS" ] && [ -x "$aapt2" ]; then
+    badging=$("$aapt2" dump badging "$apk" 2>/dev/null || true)
+    if printf '%s\n' "$badging" | grep -q '^application-debuggable'; then
+      add error "$label is debuggable (aapt2 dump badging: application-debuggable)"
+    fi
+    version_line=$(printf '%s\n' "$badging" | grep -m1 '^package:' || true)
+    [ -n "$version_line" ] && add notice "aapt2 ($label): $version_line"
+  else
+    add notice "aapt2 not found in the Android SDK build-tools: debuggable check on the $label skipped"
+  fi
+
+  bt_major=$(basename "${BUILD_TOOLS:-0}" | cut -d. -f1)
+  if [ -n "$BUILD_TOOLS" ] && [ -x "$zipalign" ] && [ "${bt_major:-0}" -ge 35 ] 2>/dev/null; then
+    if za_out=$("$zipalign" -c -P 16 -v 4 "$apk" 2>&1); then
+      add notice "zipalign -c -P 16: $label is 16 KB aligned"
+    else
+      bad=$(printf '%s\n' "$za_out" | grep -E 'BAD|ERROR|rror' | head -n 6)
+      add warning "zipalign -c -P 16 failed for the $label (16 KB page alignment):
+${bad:-$(printf '%s\n' "$za_out" | tail -n 4)}"
+    fi
+  else
+    add notice "zipalign with -P (build-tools 35+) not found: 16 KB zip alignment check of the $label skipped"
+  fi
+}
+
 # --- Outputs -------------------------------------------------------------------------------
 APK=$(find app/build/outputs/apk/release -maxdepth 1 -name '*.apk' 2>/dev/null | sort | head -n 1)
+WEAR_APK=$(find wear/build/outputs/apk/release -maxdepth 1 -name '*.apk' 2>/dev/null | sort | head -n 1)
 AAB=$(find app/build/outputs/bundle/release -maxdepth 1 -name '*.aab' 2>/dev/null | sort | head -n 1)
 MAPPING="app/build/outputs/mapping/release/mapping.txt"
 
 [ -n "$APK" ] || add error "Release APK missing (app/build/outputs/apk/release/*.apk) after :app:assembleRelease"
 [ -n "$AAB" ] || add error "Release AAB missing (app/build/outputs/bundle/release/*.aab) after :app:bundleRelease"
+[ -n "$WEAR_APK" ] || add error "Wear OS release APK missing (wear/build/outputs/apk/release/*.apk) after :wear:assembleRelease"
 if [ -s "$MAPPING" ]; then
   cp "$MAPPING" "$EVIDENCE/" || true
 else
@@ -67,32 +102,7 @@ fi
 if [ -n "$APK" ]; then
   python3 -I "$SCRIPTS/apk_contents.py" "$APK" "${AAB:--}" "$FINDINGS"
 
-  AAPT2="$BUILD_TOOLS/aapt2"
-  if [ -n "$BUILD_TOOLS" ] && [ -x "$AAPT2" ]; then
-    BADGING=$("$AAPT2" dump badging "$APK" 2>/dev/null || true)
-    if printf '%s\n' "$BADGING" | grep -q '^application-debuggable'; then
-      add error "Release APK is debuggable (aapt2 dump badging: application-debuggable)"
-    fi
-    VERSION_LINE=$(printf '%s\n' "$BADGING" | grep -m1 '^package:' || true)
-    [ -n "$VERSION_LINE" ] && add notice "aapt2: $VERSION_LINE"
-  else
-    add notice "aapt2 not found in the Android SDK build-tools: debuggable check on the APK skipped"
-  fi
-
-  # 16 KB zip alignment of uncompressed native libraries (zipalign -P needs build-tools 35+)
-  ZIPALIGN="$BUILD_TOOLS/zipalign"
-  BT_MAJOR=$(basename "${BUILD_TOOLS:-0}" | cut -d. -f1)
-  if [ -n "$BUILD_TOOLS" ] && [ -x "$ZIPALIGN" ] && [ "${BT_MAJOR:-0}" -ge 35 ] 2>/dev/null; then
-    if ZA_OUT=$("$ZIPALIGN" -c -P 16 -v 4 "$APK" 2>&1); then
-      add notice "zipalign -c -P 16: release APK is 16 KB aligned"
-    else
-      BAD=$(printf '%s\n' "$ZA_OUT" | grep -E 'BAD|ERROR|rror' | head -n 6)
-      add warning "zipalign -c -P 16 failed for the release APK (16 KB page alignment):
-${BAD:-$(printf '%s\n' "$ZA_OUT" | tail -n 4)}"
-    fi
-  else
-    add notice "zipalign with -P (build-tools 35+) not found: 16 KB zip alignment check skipped"
-  fi
+  apk_checks "Release APK" "$APK"
 
   # apkanalyzer (cmdline-tools) only if installed
   APKANALYZER=""
@@ -107,6 +117,9 @@ ${BAD:-$(printf '%s\n' "$ZA_OUT" | tail -n 4)}"
     add notice "apkanalyzer not installed: download size estimate skipped"
   fi
 fi
+
+# --- Wear OS app ------------------------------------------------------------------------------
+[ -n "$WEAR_APK" ] && apk_checks "Wear OS release APK" "$WEAR_APK"
 
 echo "Findings written to $FINDINGS"
 exit 0

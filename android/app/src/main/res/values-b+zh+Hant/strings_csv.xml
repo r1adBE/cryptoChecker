@@ -27,6 +27,8 @@
     <string name="portfolio_csv_import_saving">正在儲存交易…</string>
     <string name="portfolio_csv_import_missing_fx">第 %1$s 行沒有每日匯率——已按無價格/手續費匯入。</string>
     <string name="portfolio_csv_import_missing_price">檔案中第 %1$s 行沒有價格——已按無價格匯入。</string>
+    <string name="portfolio_csv_import_fee_in_price">第 %1$s 行有兩筆費用：法幣費用已計入價格，幣種費用會減少收到的數量或增加付出的數量。</string>
+    <string name="portfolio_csv_import_pending_differs">第 %1$s 行：同一筆存入或提領的待處理記錄與已入帳記錄數量不同 – 兩筆皆已匯入，請核對餘額。</string>
     <string name="portfolio_csv_import_more">+ 另外 %1$d 條</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="other">%d 筆新交易</item>

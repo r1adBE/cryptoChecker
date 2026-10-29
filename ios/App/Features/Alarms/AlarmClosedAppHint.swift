@@ -39,6 +39,12 @@ struct ClosedAppHintRow: View {
     @Environment(\.dismiss) private var dismiss
     /// «Damit Alarme ankommen» als Blatt über dem Editor (der Entwurf bleibt dabei offen).
     @State private var showDelivery = false
+    /// Zeile «Zuletzt geprüft»; aus, wenn der Editor oben schon die ausführliche Zeile zeigt (nur einmal je Seite).
+    private let showsLastChecked: Bool
+
+    init(showsLastChecked: Bool = true) {
+        self.showsLastChecked = showsLastChecked
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -47,8 +53,10 @@ struct ClosedAppHintRow: View {
                 .foregroundStyle(AppColors.onSurfaceVariant)
                 .fixedSize(horizontal: false, vertical: true)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            AlarmLastCheckedLine()
-                .padding(.top, 2)
+            if showsLastChecked {
+                AlarmLastCheckedLine()
+                    .padding(.top, 2)
+            }
             Button(L("alarm_change_updates"), action: openUpdates)
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(accent.primary)

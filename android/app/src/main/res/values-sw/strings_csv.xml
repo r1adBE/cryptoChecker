@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">Inahifadhi miamala…</string>
     <string name="portfolio_csv_import_missing_fx">Hakuna kiwango cha siku kwa mistari %1$s – imeletwa bila bei/ada.</string>
     <string name="portfolio_csv_import_missing_price">Hakuna bei kwenye faili kwa mistari %1$s – imeletwa bila bei.</string>
+    <string name="portfolio_csv_import_fee_in_price">Ada mbili kwenye mistari %1$s: ada ya fiat imejumuishwa kwenye bei, ada ya sarafu inapunguza kiasi kilichopokelewa au kuongeza kiasi kilichotolewa.</string>
+    <string name="portfolio_csv_import_pending_differs">Mistari %1$s: ingizo linalosubiri na lililorekodiwa la amana au utoaji uleule vina kiasi tofauti – yote mawili yameletwa, angalia mali.</string>
     <string name="portfolio_csv_import_more">+ %1$d zaidi</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">Muamala %d mpya</item>

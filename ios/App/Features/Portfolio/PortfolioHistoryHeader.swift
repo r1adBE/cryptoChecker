@@ -87,10 +87,10 @@ extension PortfolioHistoryCard {
         let gainLabel: String = " · " + L("portfolio_history_gain_label") + nbsp
         let gain: String = Self.gainText(series, unit: history.unit, hidden: hideAmounts)
             .replacingOccurrences(of: " ", with: nbsp)
-        let valueLabelText: Text = Text(valueLabel).foregroundColor(AppColors.onSurfaceVariant)
-        let valueText: Text = Text(value.replacingOccurrences(of: " ", with: nbsp)).foregroundColor(AppColors.onSurface)
-        let gainLabelText: Text = Text(gainLabel).foregroundColor(AppColors.onSurfaceVariant)
-        let gainValueText: Text = Text(gain).fontWeight(.semibold).foregroundColor(gainColor)
+        let valueLabelText: Text = Text(valueLabel).foregroundStyle(AppColors.onSurfaceVariant)
+        let valueText: Text = Text(value.replacingOccurrences(of: " ", with: nbsp)).foregroundStyle(AppColors.onSurface)
+        let gainLabelText: Text = Text(gainLabel).foregroundStyle(AppColors.onSurfaceVariant)
+        let gainValueText: Text = Text(gain).fontWeight(.semibold).foregroundStyle(gainColor)
         let line: Text = valueLabelText + valueText + gainLabelText + gainValueText
         return line
             .font(AppFont.amount(.subheadline))

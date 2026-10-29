@@ -118,6 +118,7 @@ extension SharedStorage {
     static func saveSnapshotInBackground(_ snapshot: Snapshot, durability: ProtectedFile.Durability = .full,
                                          done: (@MainActor @Sendable () -> Void)? = nil) {
         let watchlist = watchlistURL, portfolio = portfolioAlarmsURL
+        queuedWrites.write { $0 &+= 1 }
         snapshotWriter.async {
             let include = loadSettings().portfolioSystemBackup
             let written = coordinated(writing: true) { () -> Bool in
@@ -133,6 +134,9 @@ extension SharedStorage {
     /// Ergebnis des zuletzt über die Warteschlange ausgeführten Schreibens (true = `watchlist.json`
     /// geschrieben). Nur auf `snapshotWriter` gesetzt und gelesen.
     private static let lastQueuedWriteBox = LockedBox(true)
+
+    /// Zahl der bisher eingereihten Schreibvorgänge (`saveSnapshotInBackground`) — für `snapshotWritesDrained`.
+    private static let queuedWrites = LockedBox(0)
 
     /// Ein Schritt von `saveSnapshotInBackground` ohne Abstimmung (nur innerhalb von `coordinated`; testbar über URLs,
     /// eigene Funktion): neuere Kurse und Auslösungen der Datei übernehmen, dann schreiben.
@@ -261,6 +265,19 @@ extension SharedStorage {
         await withCheckedContinuation { (continuation: CheckedContinuation<Bool, Never>) in
             snapshotWriter.async { continuation.resume(returning: lastQueuedWriteBox.current) }
         }
+    }
+
+    /// Wie `snapshotWritesSettled`, wartet aber auch auf alles, was während des Wartens eingereiht wurde: kehrt erst
+    /// zurück, wenn seit dem letzten Abwarten nichts Neues dazukam. Auf dem MainActor (dort reiht die App alle
+    /// Schreibvorgänge ein): Macht der Aufrufer danach ohne `await` weiter, steht nichts mehr aus — wie
+    /// `flushSnapshotWrites`, ohne den Haupt-Thread zu blockieren (vor «App zurücksetzen»).
+    @MainActor
+    static func snapshotWritesDrained() async {
+        var seen: Int
+        repeat {
+            seen = queuedWrites.read { $0 }
+            await snapshotWritesSettled()
+        } while queuedWrites.read { $0 } != seen
     }
 }
 

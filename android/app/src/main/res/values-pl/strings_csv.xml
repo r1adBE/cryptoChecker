@@ -33,6 +33,8 @@
     <string name="portfolio_csv_import_saving">Zapisywanie transakcji…</string>
     <string name="portfolio_csv_import_missing_fx">Brak kursu dziennego dla wiersza %1$s – zaimportowano bez ceny i opłaty.</string>
     <string name="portfolio_csv_import_missing_price">Brak ceny w pliku dla wiersza %1$s – zaimportowano bez ceny.</string>
+    <string name="portfolio_csv_import_fee_in_price">Dwie opłaty w wierszu %1$s: opłata w walucie fiat jest wliczona w cenę, opłata w monecie zmniejsza otrzymaną lub zwiększa oddaną ilość.</string>
+    <string name="portfolio_csv_import_pending_differs">Wiersz %1$s: oczekujący i zaksięgowany zapis tej samej wpłaty lub wypłaty mają różne ilości – oba zaimportowane, sprawdź saldo.</string>
     <string name="portfolio_csv_import_more">+ %1$d więcej</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d nowa transakcja</item>

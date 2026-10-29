@@ -35,6 +35,8 @@
     <string name="portfolio_csv_import_saving">Ag sábháil idirbheart…</string>
     <string name="portfolio_csv_import_missing_fx">Gan ráta laethúil do línte %1$s – iompórtáilte gan phraghas/táille.</string>
     <string name="portfolio_csv_import_missing_price">Gan phraghas sa chomhad do línte %1$s – iompórtáilte gan phraghas.</string>
+    <string name="portfolio_csv_import_fee_in_price">Dhá tháille i línte %1$s: tá an táille fiat san áireamh sa phraghas, laghdaíonn an táille sa bhonn an méid a fuarthas nó méadaíonn sí an méid a tugadh.</string>
+    <string name="portfolio_csv_import_pending_differs">Línte %1$s: tá méideanna éagsúla ag an iontráil ar feitheamh agus ag an iontráil curtha isteach den éarlais nó den aistarraingt chéanna – iompórtáladh an dá cheann, seiceáil na sealúchais.</string>
     <string name="portfolio_csv_import_more">+ %1$d eile</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d idirbheart nua</item>

@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">Sine-save ang mga transaksyon…</string>
     <string name="portfolio_csv_import_missing_fx">Walang daily rate para sa mga linya %1$s – na-import nang walang presyo/fee.</string>
     <string name="portfolio_csv_import_missing_price">Walang presyo sa file para sa mga linya %1$s – na-import nang walang presyo.</string>
+    <string name="portfolio_csv_import_fee_in_price">Dalawang bayarin sa mga linya %1$s: kasama sa presyo ang fiat na bayarin, at binabawasan ng bayarin sa coin ang natanggap o dinadagdagan ang ibinigay na halaga.</string>
+    <string name="portfolio_csv_import_pending_differs">Mga linya %1$s: magkaiba ang halaga ng pending at naka-book na entry ng iisang deposito o withdrawal – parehong na-import, tingnan ang mga hawak.</string>
     <string name="portfolio_csv_import_more">+ %1$d pa</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d bagong transaksyon</item>

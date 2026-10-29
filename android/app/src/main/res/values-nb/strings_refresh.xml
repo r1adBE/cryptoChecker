@@ -7,7 +7,7 @@
     <string name="update_mode_live_hint_ios">Der børsen leverer en livekurs: med en gang mens listen er åpen. Ellers ved neste henting. Lukket: når iOS tillater det, noen ganger med timers mellomrom. Sveiper du bort appen, stopper iOS disse sjekkene til du åpner den igjen.</string>
     <string name="update_mode_recommended">anbefalt</string>
     <string name="update_mode_sparsam">Sparsom</string>
-    <string name="update_mode_sparsam_hint">Med appen lukket ikke oftere enn hvert %1$s, ofte senere (alarmer, widgets). Åpen: hver gang du åpner den.</string>
+    <string name="update_mode_sparsam_hint">Med appen lukket ikke oftere enn hvert %1$s, ofte senere (alarmer, widgeter). Åpen: hver gang du åpner den.</string>
     <string name="update_mode_sparsam_hint_ios">Med appen lukket bestemmer iOS når det sjekkes (alarmer, widgeter), noen ganger med timers mellomrom. Åpen: hver gang du åpner den.</string>
     <string name="update_mode_title">Hvor oppdatert?</string>
 

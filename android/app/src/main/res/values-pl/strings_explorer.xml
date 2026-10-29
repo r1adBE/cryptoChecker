@@ -110,7 +110,7 @@
     <string name="explorer_no_pair_list">Brak par walutowych</string>
     <string name="explorer_sync_sheet_last">Ostatnia synchronizacja: %1$s</string>
     <string name="explorer_sync_never">nigdy</string>
-    <string name="explorer_sync_sheet_action">Synchronizuj teraz!</string>
+    <string name="explorer_sync_sheet_action">Synchronizuj teraz</string>
     <string name="explorer_sync_sheet_title">Aktualizuj pary walutowe</string>
     <string name="explorer_field_coin">Bazowa</string>
     <string name="explorer_field_contract">Typ kontraktu</string>

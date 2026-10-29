@@ -36,9 +36,9 @@
     <string name="settings_alarm_sound_system">Systeemgeluid kiezen…</string>
     <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
     <string name="settings_app_badge">Getal op app-icoon</string>
-    <string name="settings_app_badge_hint">Telt openstaande alarmmeldingen. Of er een getal of een stip verschijnt, bepaalt het startscherm (bijv. Samsung: «Met getal»).</string>
+    <string name="settings_app_badge_hint">Telt openstaande alarmmeldingen. Of er een getal of een stip verschijnt, bepaalt het startscherm (bijv. Samsung: ‘Met getal’).</string>
     <string name="settings_exact_checks">Op tijd controleren</string>
-    <string name="settings_exact_checks_grant">«Wekkers en herinneringen» toestaan</string>
+    <string name="settings_exact_checks_grant">‘Wekkers en herinneringen’ toestaan</string>
     <string name="settings_exact_checks_hint">Android controleert ongeveer elke 15 minuten, ook als het apparaat in rust is. Kost iets meer batterij.</string>
     <string name="settings_exact_checks_nothing">Geen actieve paren – niets te controleren.</string>
     <string name="settings_exact_checks_permission_missing">Toestemming ontbreekt – als het toestel rust, controleert Android onregelmatig, soms pas na uren.</string>
@@ -245,7 +245,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker is open source (MIT-licentie).</string>
     <string name="licenses_font_title">Lettertype Rubik</string>
-    <string name="licenses_icons_bundled_text">Meegeleverd met de app: iconen uit «Cryptocurrency Icons» van Christopher Downer en bijdragers (github.com/spothq/cryptocurrency-icons), vrijgegeven onder CC0 1.0 Universal. Ze worden getoond tot de logo’s van CoinGecko of Binance geladen zijn. Namen en logo’s blijven merken van hun projecten.</string>
+    <string name="licenses_icons_bundled_text">Meegeleverd met de app: iconen uit ‘Cryptocurrency Icons’ van Christopher Downer en bijdragers (github.com/spothq/cryptocurrency-icons), vrijgegeven onder CC0 1.0 Universal. Ze worden getoond tot de logo’s van CoinGecko of Binance geladen zijn. Namen en logo’s blijven merken van hun projecten.</string>
     <string name="licenses_icons_title">Reserve-munticonen</string>
     <string name="licenses_libraries_intro">De app gebruikt deze bibliotheken onder de Apache License 2.0:</string>
     <string name="licenses_libraries_title">Android-bibliotheken</string>
@@ -289,7 +289,7 @@
     <string name="diagnostics_action_share">Delen</string>
     <string name="settings_price_overlay">Prijs-overlay</string>
     <string name="settings_price_overlay_hint">Toont de paren van de vaste koersmelding als kleine zwevende pil boven andere apps. Tik om de app te openen, sleep naar × onderaan om te sluiten.</string>
-    <string name="settings_price_overlay_needs">Werkt alleen samen met «%1$s».</string>
+    <string name="settings_price_overlay_needs">Werkt alleen samen met ‘%1$s’.</string>
     <string name="settings_price_overlay_grant">Weergeven boven andere apps toestaan</string>
     <string name="price_overlay_close">Overlay sluiten</string>
 

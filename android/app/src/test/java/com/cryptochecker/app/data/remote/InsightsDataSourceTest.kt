@@ -28,7 +28,7 @@ class InsightsDataSourceTest {
     val temp = TemporaryFolder()
 
     @Before
-    fun chainOpen() = RouteHttp.assumeChainOpen()
+    fun chainOpen() = RouteHttp.releaseChain()
 
     private fun insights(http: RouteHttp) =
         InsightsDataSource(http.client, CandleDataSource(http.client, testTokenIdentityStore(temp.newFolder())))

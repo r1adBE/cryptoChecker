@@ -12,7 +12,8 @@
 # attachments, exported from the result bundle with xcresulttool.
 # publish (main only; a manual run on another branch leaves its images as run artifacts): the only job with
 # contents: write; checks the images (names, PNG header, size) and force-pushes the branch «screenshots» – never main.
-# A platform whose job failed keeps its images from the previous set (checked by the same rules before the push).
+# Only a complete set is published: a platform whose job failed (or whose light/dark sets differ) keeps its images
+# from the previous set (checked by the same rules before the push); its partial images stay run artifacts only.
 name: Screenshots
 
 on:
@@ -246,8 +247,9 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
 
-  # Publishes whatever the two jobs produced, also when one of them failed (not when the run was cancelled: a newer
-  # run is on its way). Only for main: a manual run on another branch keeps its images as artifacts of the run.
+  # Runs also when one platform failed (not when the run was cancelled: a newer run is on its way), but publishes only
+  # the platforms whose job succeeded with a complete set; the others keep the previous set. Only for main: a manual
+  # run on another branch keeps its images as artifacts of the run.
   # No checkout of the repository and nothing from the artifacts is executed.
   publish:
     needs: [android, ios]
@@ -261,14 +263,22 @@ jobs:
       - name: Download artifacts
         env:
           GH_TOKEN: ${{ github.token }}
+          ANDROID_RESULT: ${{ needs.android.result }}
+          IOS_RESULT: ${{ needs.ios.result }}
         run: |
           for p in android ios; do
+            result=ANDROID_RESULT; [ "$p" = ios ] && result=IOS_RESULT
+            if [ "${!result}" != success ]; then
+              echo "::warning title=Screenshots::$p job ${!result}: its previous set is kept (partial images only as run artifact)"
+              continue
+            fi
             gh run download "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" --name "screenshots-$p" --dir "$RUNNER_TEMP/in/$p" \
               || echo "::warning title=Screenshots::no $p screenshots in this run"
           done
 
-      # Only <platform>/<light|dark>/NN_name.png: regular files, PNG header, at most 8 MB each and 60 per platform.
-      # Valid images are copied to the new tree; anything else fails the job before the push.
+      # Only <platform>/<light|dark>/NN_name.png: regular files, PNG header, at most 8 MB each and 60 per platform;
+      # anything else fails the job before the push. A set that is not complete (a «_failed» image, light and dark with
+      # different names, or empty) is not copied: that platform keeps the previous set (warning).
       - name: Check screenshots
         id: check
         run: |
@@ -281,7 +291,8 @@ jobs:
               root = os.path.join(src, platform)
               if not os.path.isdir(root):
                   continue
-              n = 0
+              files_ok = []
+              names = {"light": set(), "dark": set()}
               for dirpath, dirs, files in os.walk(root):
                   rel = os.path.relpath(dirpath, root)
                   for name in files:
@@ -294,20 +305,26 @@ jobs:
                       with open(path, "rb") as f:
                           if f.read(8) != b"\x89PNG\r\n\x1a\n":
                               sys.exit(f"::error title=Screenshots::not a PNG {platform}/{rel}/{name}")
-                      os.makedirs(os.path.join(dst, platform, rel), exist_ok=True)
-                      shutil.copyfile(path, os.path.join(dst, platform, rel, name))
-                      n += 1
-              if n > 60:
-                  sys.exit(f"::error title=Screenshots::too many files for {platform}: {n}")
-              if n:
-                  found.append(platform)
-              print(f"{platform}: {n} screenshots")
+                      names[rel].add(name)
+                      files_ok.append((path, rel, name))
+              if len(files_ok) > 60:
+                  sys.exit(f"::error title=Screenshots::too many files for {platform}: {len(files_ok)}")
+              failed = sorted(n for n in names["light"] | names["dark"] if n.endswith("_failed.png"))
+              if failed or not names["light"] or names["light"] != names["dark"]:
+                  print(f"::warning title=Screenshots::incomplete set for {platform}, previous set kept: "
+                        f"light {sorted(names['light'])}, dark {sorted(names['dark'])}")
+                  continue
+              for path, rel, name in files_ok:
+                  os.makedirs(os.path.join(dst, platform, rel), exist_ok=True)
+                  shutil.copyfile(path, os.path.join(dst, platform, rel, name))
+              found.append(platform)
+              print(f"{platform}: {len(files_ok)} screenshots")
           with open(os.environ["GITHUB_OUTPUT"], "a") as out:
               out.write(f"platforms={' '.join(found)}\n")
           PY
 
-      # Orphan commit in a new repository, force-pushed to refs/heads/screenshots only. A platform without images in
-      # this run keeps its folder and README line from the previous set.
+      # Orphan commit in a new repository, force-pushed to refs/heads/screenshots only. A platform without a complete
+      # set in this run keeps its folder and README line from the previous set.
       - name: Push branch screenshots
         if: steps.check.outputs.platforms != ''
         env:

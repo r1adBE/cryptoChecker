@@ -27,8 +27,8 @@
     <string name="address_lots_date">ဝယ်သည့်ရက်</string>
     <string name="address_lots_amount">ပမာဏ</string>
     <string name="address_lots_mode_total">စုစုပေါင်း</string>
-    <string name="address_lots_mode_price">ဒင်္ဂါးတစ်ခုလျှင်</string>
-    <string name="address_lots_price">ဒင်္ဂါးတစ်ခုလျှင် ဈေးနှုန်း (USDT)</string>
+    <string name="address_lots_mode_price">ကွိုင်တစ်ခုလျှင်</string>
+    <string name="address_lots_price">ကွိုင်တစ်ခုလျှင် ဈေးနှုန်း (USDT)</string>
     <string name="address_lots_total">စုစုပေါင်း မူလကုန်ကျစရိတ် (USDT)</string>
     <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
     <string name="address_lots_status">%2$s အနက် %1$s တွင် မူလကုန်ကျစရိတ် ရှိသည်</string>

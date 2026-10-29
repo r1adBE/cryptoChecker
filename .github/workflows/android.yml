@@ -211,8 +211,9 @@ jobs:
           bash "$GITHUB_WORKSPACE/.github/scripts/lint_errors.sh" domain/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt
           bash "$GITHUB_WORKSPACE/.github/scripts/lint_errors.sh" data/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt
 
-      - name: Build debug APK
-        run: ./gradlew :app:assembleDebug --stacktrace
+      # Phone and watch debug APKs (both in the artifact «cryptochecker-debug» for device tests)
+      - name: Build debug APKs (phone and watch)
+        run: ./gradlew :app:assembleDebug :wear:assembleDebug --stacktrace
 
       # Release build without keystore stays unsigned (app/build.gradle.kts); it runs R8/minify and
       # resource shrinking, so missing keep rules show up here and not only on a device. The AAB is
@@ -242,7 +243,8 @@ jobs:
       # Audit of the release build as annotations (readable without the raw log). Errors are release
       # blockers: forbidden permissions, debuggable/testOnly/cleartext, exported components without
       # permission, typed foreground services, missing APK/AAB/R8 mapping. Warnings: baseline
-      # profile, 16 KB alignment, merged manifest not found. Details: android_release_audit.sh.
+      # profile, 16 KB alignment, merged manifest not found. The Wear OS release APK: missing or debuggable = error,
+      # 16 KB alignment = warning. Details: android_release_audit.sh.
       - name: Release audit
         run: |
           FINDINGS="$RUNNER_TEMP/android-release-findings.tsv"
@@ -260,8 +262,8 @@ jobs:
         timeout-minutes: 15
         env:
           REQUIRE_IOS_SOURCES: 'true'
-          MIN_LOGIC: '58'
-          MIN_DATA: '50'      # :data (storage, network) on its own, owner's target
+          MIN_LOGIC: '65'
+          MIN_DATA: '57'      # :data (storage, network) on its own, owner's target
         run: |
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/coverage_summary.py" --self-test
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/coverage_summary.py" --merged app --min-logic "$MIN_LOGIC" \
@@ -278,11 +280,13 @@ jobs:
           if-no-files-found: ignore
           retention-days: 30
 
-      - name: Upload debug APK
+      - name: Upload debug APKs (phone and watch)
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: cryptochecker-debug
-          path: android/app/build/outputs/apk/debug/*.apk
+          path: |
+            android/app/build/outputs/apk/debug/*.apk
+            android/wear/build/outputs/apk/debug/*.apk
           if-no-files-found: warn
           retention-days: 14
 

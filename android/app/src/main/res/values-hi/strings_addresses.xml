@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Portfolio: beobachtete Adressen (Wallets) -->
-    <string name="portfolio_address_add">पता जोड़ो</string>
-    <string name="portfolio_address_count">गिनो</string>
+    <string name="portfolio_address_add">पता जोड़ें</string>
+    <string name="portfolio_address_count">गिनें</string>
     <string name="portfolio_address_error">अपडेट विफल</string>
     <string name="portfolio_address_hint">सार्वजनिक पता (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) या xpub</string>
     <string name="portfolio_address_label">लेबल (वैकल्पिक)</string>
     <string name="portfolio_address_not_since_buy">पते से · “खरीद से” में शामिल नहीं: %1$s</string>
-    <string name="portfolio_address_overlap">तुम्हारे अपने लेन-देन में भी: %1$s – दोनों जोड़े जाते हैं। वही कॉइन? “सिर्फ़ दिखाओ” चुनो।</string>
-    <string name="portfolio_address_overlap_ask">तुम %1$s को पहले से अपने लेन-देन से दर्ज करते हो। इस पते का बैलेंस पोर्टफ़ोलियो में जोड़ो या सिर्फ़ दिखाओ?</string>
-    <string name="portfolio_address_overlap_auto">“%1$s” अब सिर्फ़ दिखाया जाता है, गिना नहीं जाता – %2$s तुम्हारे लेन-देन में भी हैं।</string>
-    <string name="portfolio_address_overlap_title">तुम्हारे लेन-देन वाले ही कॉइन?</string>
-    <string name="portfolio_address_overlap_tx">तुम्हारे अपने जमा/ट्रांसफ़र (%1$s) जितनी ही मात्रा – शायद दो बार गिनी जा रही है।</string>
+    <string name="portfolio_address_overlap">आपके अपने लेन-देन में भी: %1$s – दोनों जोड़े जाते हैं। वही कॉइन? “सिर्फ़ दिखाएँ” चुनें।</string>
+    <string name="portfolio_address_overlap_ask">आप %1$s को पहले से अपने लेन-देन से दर्ज करते हैं। इस पते का बैलेंस पोर्टफ़ोलियो में जोड़ें या सिर्फ़ दिखाएँ?</string>
+    <string name="portfolio_address_overlap_auto">“%1$s” अब सिर्फ़ दिखाया जाता है, गिना नहीं जाता – %2$s आपके लेन-देन में भी हैं।</string>
+    <string name="portfolio_address_overlap_title">आपके लेन-देन वाले ही कॉइन?</string>
+    <string name="portfolio_address_overlap_tx">आपके अपने जमा/ट्रांसफ़र (%1$s) जितनी ही मात्रा – शायद दो बार गिनी जा रही है।</string>
     <string name="portfolio_address_period_observed">देखे जा रहे पते पहली बार देखे गए बैलेंस से गिने जाते हैं; बाद के बदलाव आवक/जावक हैं, लाभ नहीं।</string>
-    <string name="portfolio_address_privacy">%1$s को सिर्फ़ सार्वजनिक पता भेजा जाता है – कभी भी कुंजियाँ या seed phrase नहीं। प्रदाता इसे तुम्हारे IP पते के साथ देखता है। अधिकतम हर 10 मिनट में जाँचा जाता है।</string>
-    <string name="portfolio_address_remove">पता हटाओ</string>
-    <string name="portfolio_address_show_only">सिर्फ़ दिखाओ, पोर्टफ़ोलियो में न जोड़ो</string>
-    <string name="portfolio_address_show_only_short">सिर्फ़ दिखाओ</string>
-    <string name="portfolio_address_tokens">टोकन गिनो</string>
-    <string name="portfolio_address_xpub_privacy">xpub इस वॉलेट के सभी पते उजागर करता है। वे तुम्हारे डिवाइस पर बनाए जाते हैं; %1$s को सिर्फ़ अलग-अलग पते भेजे जाते हैं – पहली खोज में कम से कम 40 अनुरोध, बाद में कम। निजी कुंजियाँ (xprv) कभी स्वीकार नहीं की जातीं।</string>
-    <string name="portfolio_address_xpub_gap">लगातार %1$d अप्रयुक्त पतों के बाद खोज रुक जाती है (BIP44 मानक, जिसका उपयोग अधिकांश वॉलेट करते हैं)। इस अंतराल के बाद का कोई उपयोग किया गया पता नहीं गिना जाता – उसे अलग से जोड़ो।</string>
+    <string name="portfolio_address_privacy">%1$s को सिर्फ़ सार्वजनिक पता भेजा जाता है – कभी भी कुंजियाँ या seed phrase नहीं। प्रदाता इसे आपके IP पते के साथ देखता है। अधिकतम हर 10 मिनट में जाँचा जाता है।</string>
+    <string name="portfolio_address_remove">पता हटाएँ</string>
+    <string name="portfolio_address_show_only">सिर्फ़ दिखाएँ, पोर्टफ़ोलियो में न जोड़ें</string>
+    <string name="portfolio_address_show_only_short">सिर्फ़ दिखाएँ</string>
+    <string name="portfolio_address_tokens">टोकन गिनें</string>
+    <string name="portfolio_address_xpub_privacy">xpub इस वॉलेट के सभी पते उजागर करता है। वे आपके डिवाइस पर बनाए जाते हैं; %1$s को सिर्फ़ अलग-अलग पते भेजे जाते हैं – पहली खोज में कम से कम 40 अनुरोध, बाद में कम। निजी कुंजियाँ (xprv) कभी स्वीकार नहीं की जातीं।</string>
+    <string name="portfolio_address_xpub_gap">लगातार %1$d अप्रयुक्त पतों के बाद खोज रुक जाती है (BIP44 मानक, जिसका उपयोग अधिकांश वॉलेट करते हैं)। इस अंतराल के बाद का कोई उपयोग किया गया पता नहीं गिना जाता – उसे अलग से जोड़ें।</string>
     <string name="portfolio_address_xpub_used">उपयोग में पते: %1$d</string>
     <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
     <string name="portfolio_address_xpub_too_many">अपडेट के लिए बहुत अधिक इस्तेमाल किए गए पते</string>
@@ -28,15 +28,15 @@
     <string name="portfolio_addresses_title">पते</string>
 
     <!-- Prüfung einer eingegebenen Adresse -->
-    <string name="address_bch_unsupported">Bitcoin Cash पतों पर नज़र नहीं रखी जा सकती: बिना API कुंजी वाली कोई मुफ़्त सार्वजनिक सेवा नहीं है जिसकी शर्तें इसकी अनुमति दो।</string>
+    <string name="address_bch_unsupported">Bitcoin Cash पतों पर नज़र नहीं रखी जा सकती: बिना API कुंजी वाली कोई मुफ़्त सार्वजनिक सेवा नहीं है जिसकी शर्तें इसकी अनुमति दें।</string>
     <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) 2024 में बंद हो गई – बैलेंस अब BNB Smart Chain (0x…) पर हैं</string>
     <string name="address_checksum">चेकसम गलत – टाइपिंग की गलती?</string>
-    <string name="address_doge_unsupported">Dogecoin पतों पर नज़र नहीं रखी जा सकती: बिना API कुंजी वाली कोई मुफ़्त सार्वजनिक सेवा नहीं है जिसकी शर्तें इसकी अनुमति दो।</string>
+    <string name="address_doge_unsupported">Dogecoin पतों पर नज़र नहीं रखी जा सकती: बिना API कुंजी वाली कोई मुफ़्त सार्वजनिक सेवा नहीं है जिसकी शर्तें इसकी अनुमति दें।</string>
     <string name="address_duplicate">यह पता पहले से जोड़ा गया है</string>
-    <string name="address_ens">ENS नाम समर्थित नहीं हैं – 0x पता डालो</string>
+    <string name="address_ens">ENS नाम समर्थित नहीं हैं – 0x पता डालें</string>
     <string name="address_invalid">किसी समर्थित नेटवर्क का मान्य पता नहीं</string>
     <string name="address_limit">अधिकतम 20 पते</string>
-    <string name="address_secret">यह निजी कुंजी या seed phrase जैसा लगता है – इसे कभी कहीं न डालो। सिर्फ़ सार्वजनिक पते।</string>
+    <string name="address_secret">यह निजी कुंजी या seed phrase जैसा लगता है – इसे कभी कहीं न डालें। सिर्फ़ सार्वजनिक पते।</string>
     <string name="address_testnet">Testnet पते समर्थित नहीं हैं</string>
     <string name="address_unsupported">यह पता प्रकार समर्थित नहीं है</string>
     <string name="address_wrong_chain">पता किसी दूसरे नेटवर्क का है</string>
@@ -44,14 +44,14 @@
 
     <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
     <string name="portfolio_address_taproot_account">Taproot खाता (BIP86): इस कुंजी से bc1p… पते बनाए जाते हैं, प्राप्ति और चेंज दोनों के लिए।</string>
-    <string name="portfolio_address_taproot_hint">Taproot वॉलेट? इसके बजाय अपने वॉलेट से डिस्क्रिप्टर tr(…) चिपकाओ – साधारण xpub में केवल Legacy और SegWit पते खोजे जाते हैं।</string>
+    <string name="portfolio_address_taproot_hint">Taproot वॉलेट? इसके बजाय अपने वॉलेट से डिस्क्रिप्टर tr(…) चिपकाएँ – साधारण xpub में केवल Legacy और SegWit पते खोजे जाते हैं।</string>
 
     <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
     <string name="portfolio_address_server_failed">अपना सर्वर उपलब्ध नहीं</string>
     <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
-    <string name="portfolio_address_xpub_operator">जो %1$s चलाता है, वह इस वॉलेट के सभी पूछे गए पते देखता है और उन्हें आपस में और तुम्हारे IP पते से जोड़ सकता है।</string>
+    <string name="portfolio_address_xpub_operator">जो %1$s चलाता है, वह इस वॉलेट के सभी पूछे गए पते देखता है और उन्हें आपस में और आपके IP पते से जोड़ सकता है।</string>
     <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
-    <string name="portfolio_address_xpub_own_server_hint">इससे बचने के लिए सेटिंग्स › पोर्टफ़ोलियो › पतों के लिए अपना सर्वर में अपना सर्वर डालो।</string>
+    <string name="portfolio_address_xpub_own_server_hint">इससे बचने के लिए सेटिंग्स › पोर्टफ़ोलियो › पतों के लिए अपना सर्वर में अपना सर्वर डालें।</string>
 
     <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
     <plurals name="portfolio_address_unknown_tokens">

@@ -5,7 +5,7 @@
     <string name="alarms_add">ಹೊಸ ಅಲರ್ಟ್</string>
     <string name="alarms_edit">ಅಲರ್ಟ್ ಎಡಿಟ್ ಮಾಡಿ</string>
     <string name="alarms_empty">ಈ ಜೋಡಿಗೆ ಇನ್ನೂ ಅಲರ್ಟ್‌ಗಳಿಲ್ಲ.</string>
-    <string name="alarms_empty_example">ಉದಾಹರಣೆಗೆ: BTC %1$s ಮೀರಿ ಏರಿದಾಗ ನನಗೆ ತಿಳಿಸು.</string>
+    <string name="alarms_empty_example">ಉದಾಹರಣೆಗೆ: BTC %1$s ಮೀರಿ ಏರಿದಾಗ ನನಗೆ ತಿಳಿಸಿ.</string>
     <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
     <string name="alarms_notifications_off">ಅಧಿಸೂಚನೆಗಳು ಆಫ್ ಆಗಿವೆ – ಅಲರ್ಟ್‌ಗಳು ನಿಮ್ಮನ್ನು ತಲುಪಲು ಸಾಧ್ಯವಿಲ್ಲ.</string>
     <string name="alarms_notifications_turn_on">ಆನ್ ಮಾಡಿ</string>
@@ -81,29 +81,29 @@
     <string name="alarm_condition_volume_spike">ವಾಲ್ಯೂಮ್ ಹಠಾತ್ ಏರಿಕೆ</string>
 
     <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
-    <string name="alarm_sentence_above">%1$s %2$s ಮೀರಿ ಏರಿದಾಗ ನನಗೆ ತಿಳಿಸು.</string>
-    <string name="alarm_sentence_below">%1$s %2$s ಗಿಂತ ಕೆಳಗೆ ಇಳಿದಾಗ ನನಗೆ ತಿಳಿಸು.</string>
-    <string name="alarm_sentence_down_percent">%1$s ಉಳಿಸಿದಾಗಿನ ಬೆಲೆಗಿಂತ (ಅಥವಾ ಕೊನೆಯ ಅಲರ್ಟ್‌ನ ಬೆಲೆಗಿಂತ) %2$s ಕೆಳಗೆ ಇಳಿದಾಗ ನನಗೆ ತಿಳಿಸು.</string>
-    <string name="alarm_sentence_funding_above">%1$s ನ ಫಂಡಿಂಗ್ %2$s ಮೀರಿ ಏರಿದಾಗ ನನಗೆ ತಿಳಿಸು.</string>
-    <string name="alarm_sentence_funding_below">%1$s ನ ಫಂಡಿಂಗ್ %2$s ಗಿಂತ ಕೆಳಗೆ ಇಳಿದಾಗ ನನಗೆ ತಿಳಿಸು.</string>
+    <string name="alarm_sentence_above">%1$s %2$s ಮೀರಿ ಏರಿದಾಗ ನನಗೆ ತಿಳಿಸಿ.</string>
+    <string name="alarm_sentence_below">%1$s %2$s ಗಿಂತ ಕೆಳಗೆ ಇಳಿದಾಗ ನನಗೆ ತಿಳಿಸಿ.</string>
+    <string name="alarm_sentence_down_percent">%1$s ಉಳಿಸಿದಾಗಿನ ಬೆಲೆಗಿಂತ (ಅಥವಾ ಕೊನೆಯ ಅಲರ್ಟ್‌ನ ಬೆಲೆಗಿಂತ) %2$s ಕೆಳಗೆ ಇಳಿದಾಗ ನನಗೆ ತಿಳಿಸಿ.</string>
+    <string name="alarm_sentence_funding_above">%1$s ನ ಫಂಡಿಂಗ್ %2$s ಮೀರಿ ಏರಿದಾಗ ನನಗೆ ತಿಳಿಸಿ.</string>
+    <string name="alarm_sentence_funding_below">%1$s ನ ಫಂಡಿಂಗ್ %2$s ಗಿಂತ ಕೆಳಗೆ ಇಳಿದಾಗ ನನಗೆ ತಿಳಿಸಿ.</string>
     <string name="alarm_sentence_incomplete">ಅಲರ್ಟ್ ಅನ್ನು ವಾಕ್ಯವಾಗಿ ನೋಡಲು ಒಂದು ಮೌಲ್ಯವನ್ನು ನಮೂದಿಸಿ.</string>
     <plurals name="alarm_sentence_move_percent">
-        <item quantity="one">%1$s %3$d ಗಂಟೆಯೊಳಗೆ %2$s ಚಲಿಸಿದಾಗ ನನಗೆ ತಿಳಿಸು.</item>
-        <item quantity="other">%1$s %3$d ಗಂಟೆಗಳೊಳಗೆ %2$s ಚಲಿಸಿದಾಗ ನನಗೆ ತಿಳಿಸು.</item>
+        <item quantity="one">%1$s %3$d ಗಂಟೆಯೊಳಗೆ %2$s ಚಲಿಸಿದಾಗ ನನಗೆ ತಿಳಿಸಿ.</item>
+        <item quantity="other">%1$s %3$d ಗಂಟೆಗಳೊಳಗೆ %2$s ಚಲಿಸಿದಾಗ ನನಗೆ ತಿಳಿಸಿ.</item>
     </plurals>
-    <string name="alarm_sentence_near_high">%1$s ತನ್ನ %3$s ಗಿಂತ ಗರಿಷ್ಠ %2$s ಕೆಳಗಿರುವಾಗ ನನಗೆ ತಿಳಿಸು.</string>
-    <string name="alarm_sentence_near_low">%1$s ತನ್ನ %3$s ಗಿಂತ ಗರಿಷ್ಠ %2$s ಮೇಲಿರುವಾಗ ನನಗೆ ತಿಳಿಸು.</string>
-    <string name="alarm_sentence_new_extreme">%1$s ಹೊಸ %2$s ತಲುಪಿದಾಗ ನನಗೆ ತಿಳಿಸು.</string>
+    <string name="alarm_sentence_near_high">%1$s ತನ್ನ %3$s ಗಿಂತ ಗರಿಷ್ಠ %2$s ಕೆಳಗಿರುವಾಗ ನನಗೆ ತಿಳಿಸಿ.</string>
+    <string name="alarm_sentence_near_low">%1$s ತನ್ನ %3$s ಗಿಂತ ಗರಿಷ್ಠ %2$s ಮೇಲಿರುವಾಗ ನನಗೆ ತಿಳಿಸಿ.</string>
+    <string name="alarm_sentence_new_extreme">%1$s ಹೊಸ %2$s ತಲುಪಿದಾಗ ನನಗೆ ತಿಳಿಸಿ.</string>
     <plurals name="alarm_sentence_oi_down">
-        <item quantity="one">%1$s ನ ಓಪನ್ ಇಂಟರೆಸ್ಟ್ %3$d ಗಂಟೆಯೊಳಗೆ %2$s ಇಳಿದಾಗ ನನಗೆ ತಿಳಿಸು.</item>
-        <item quantity="other">%1$s ನ ಓಪನ್ ಇಂಟರೆಸ್ಟ್ %3$d ಗಂಟೆಗಳೊಳಗೆ %2$s ಇಳಿದಾಗ ನನಗೆ ತಿಳಿಸು.</item>
+        <item quantity="one">%1$s ನ ಓಪನ್ ಇಂಟರೆಸ್ಟ್ %3$d ಗಂಟೆಯೊಳಗೆ %2$s ಇಳಿದಾಗ ನನಗೆ ತಿಳಿಸಿ.</item>
+        <item quantity="other">%1$s ನ ಓಪನ್ ಇಂಟರೆಸ್ಟ್ %3$d ಗಂಟೆಗಳೊಳಗೆ %2$s ಇಳಿದಾಗ ನನಗೆ ತಿಳಿಸಿ.</item>
     </plurals>
     <plurals name="alarm_sentence_oi_up">
-        <item quantity="one">%1$s ನ ಓಪನ್ ಇಂಟರೆಸ್ಟ್ %3$d ಗಂಟೆಯೊಳಗೆ %2$s ಏರಿದಾಗ ನನಗೆ ತಿಳಿಸು.</item>
-        <item quantity="other">%1$s ನ ಓಪನ್ ಇಂಟರೆಸ್ಟ್ %3$d ಗಂಟೆಗಳೊಳಗೆ %2$s ಏರಿದಾಗ ನನಗೆ ತಿಳಿಸು.</item>
+        <item quantity="one">%1$s ನ ಓಪನ್ ಇಂಟರೆಸ್ಟ್ %3$d ಗಂಟೆಯೊಳಗೆ %2$s ಏರಿದಾಗ ನನಗೆ ತಿಳಿಸಿ.</item>
+        <item quantity="other">%1$s ನ ಓಪನ್ ಇಂಟರೆಸ್ಟ್ %3$d ಗಂಟೆಗಳೊಳಗೆ %2$s ಏರಿದಾಗ ನನಗೆ ತಿಳಿಸಿ.</item>
     </plurals>
-    <string name="alarm_sentence_up_percent">%1$s ಉಳಿಸಿದಾಗಿನ ಬೆಲೆಗಿಂತ (ಅಥವಾ ಕೊನೆಯ ಅಲರ್ಟ್‌ನ ಬೆಲೆಗಿಂತ) %2$s ಮೇಲೆ ಏರಿದಾಗ ನನಗೆ ತಿಳಿಸು.</string>
-    <string name="alarm_sentence_volume">%1$s ತನ್ನ ಸಾಮಾನ್ಯ ವಾಲ್ಯೂಮ್‌ನ %2$s× ವಹಿವಾಟಾದಾಗ ನನಗೆ ತಿಳಿಸು.</string>
+    <string name="alarm_sentence_up_percent">%1$s ಉಳಿಸಿದಾಗಿನ ಬೆಲೆಗಿಂತ (ಅಥವಾ ಕೊನೆಯ ಅಲರ್ಟ್‌ನ ಬೆಲೆಗಿಂತ) %2$s ಮೇಲೆ ಏರಿದಾಗ ನನಗೆ ತಿಳಿಸಿ.</string>
+    <string name="alarm_sentence_volume">%1$s ತನ್ನ ಸಾಮಾನ್ಯ ವಾಲ್ಯೂಮ್‌ನ %2$s× ವಹಿವಾಟಾದಾಗ ನನಗೆ ತಿಳಿಸಿ.</string>
 
     <!-- Alarm «Nahe am Hoch / Tief» -->
     <string name="alarm_near_extreme_high_30">30 ದಿನಗಳ ಗರಿಷ್ಠ</string>

@@ -2,14 +2,13 @@ import SwiftUI
 
 /// Statuszeile der Merkliste — wie `WatchlistStatus.kt`.
 extension WatchlistScreen {
-    /// Ehrlicher Status: wie viele Kurse sind veraltet? Daneben die Dauer des
-    /// letzten Durchlaufs, ein Tipp zeigt die Aufschlüsselung. `state`: Status der Aktualisierung — die Statuszeile
+    /// Ehrlicher Status: wie viele Kurse sind veraltet? Der Prüfbericht des letzten Durchlaufs liegt im ⋯-Menü
+    /// (wie Android, keine eigene Pille). `state`: Status der Aktualisierung — die Statuszeile
     /// wird in `RefreshStateReader` gezeigt und zeichnet bei dessen Wechsel allein neu.
     func statusRow(_ watches: [Watch], state: RefreshState) -> some View {
         let staleAfter = data.staleAfterMillis
         // Paare am Live-Strom: eigene Frische-Schwelle (2 Min.), «Live» nur mit allen (`LiveStatus`)
         let liveIds = state.liveWatchIds
-        let lastRunMillis = state.lastRefreshMillis
         // «Nicht mehr gehandelt» ist kein Fehler: zählt weder als veraltet noch als gescheitert;
         // deaktivierte Paare zählen gar nicht (weder veraltet noch gescheitert noch «aktuell»)
         let traded = DisabledView.active(watches) { $0.disabled }.filter { !ConnectionErrors.isNotTraded($0.lastError) }
@@ -124,36 +123,13 @@ extension WatchlistScreen {
             .modifier(WatchlistStatusSpeech(label: spokenLabel, announcement: spokenText, kind: kind))
             // Nach einer Aktualisierung wechseln Farbe und Text weich (nicht hart)
             .animation(reduceMotion ? nil : .easeInOut(duration: 0.2), value: text)
-            // Vor «Letzter Lauf»: der Status bekommt zuerst Platz, die Lauf-Pille schrumpft aufs Symbol
+            // Der Status bekommt zuerst Platz (vor «N deaktiviert»)
             .layoutPriority(1)
 
             // «3 deaktiviert» neben dem Status (deaktivierte Paare der Gruppen-Ansicht)
             disabledChip
 
             Spacer(minLength: 4)
-
-            if lastRunMillis > 0 {
-                Button { showReport = true } label: {
-                    // Zu eng (statt «Letzter Lauf 3…»): nur das Symbol; vorgelesen wird ohnehin «Prüfbericht»
-                    ViewThatFits(in: .horizontal) {
-                        HStack(spacing: 4) {
-                            lastRunIcon
-                            Text(L("watchlist_last_run", PriceFormat.duration(lastRunMillis)))
-                                .font(.caption.monospacedDigit())
-                                .lineLimit(1)
-                        }
-                        .fixedSize()
-                        lastRunIcon
-                    }
-                    .foregroundStyle(AppColors.onSurfaceVariant)
-                    .padding(.horizontal, Spacing.sm)
-                    .padding(.vertical, Spacing.sm)
-                    .background(.ultraThinMaterial, in: Capsule())
-                    .overlay(Capsule().strokeBorder(AppColors.outlineVariant.opacity(0.5), lineWidth: 0.5))
-                }
-                .buttonStyle(.borderless)
-                .accessibilityLabel(L("watchlist_refresh_report"))
-            }
 
             // Lupe und «+»: beim Sortieren und Auswählen ausgeblendet
             if !sorting && !selecting {
@@ -211,11 +187,6 @@ extension WatchlistScreen {
             .font(.caption.weight(.medium).monospacedDigit())
             .foregroundStyle(AppColors.onSurface)
             .lineLimit(1)
-    }
-
-    /// Symbol der Pille «Letzter Lauf» (mit Text und allein, wenn der Platz fehlt).
-    private var lastRunIcon: some View {
-        Image(systemName: "timer").scaledFont(size: 11, weight: .semibold, relativeTo: .caption)
     }
 
     /// Tippfläche über und unter der Status-Pille.

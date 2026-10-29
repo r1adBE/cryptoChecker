@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">વ્યવહારો સેવ થઈ રહ્યા છે…</string>
     <string name="portfolio_csv_import_missing_fx">લાઇન %1$s માટે દૈનિક દર નથી – ભાવ/ફી વગર ઇમ્પોર્ટ કર્યું.</string>
     <string name="portfolio_csv_import_missing_price">લાઇન %1$s માટે ફાઇલમાં ભાવ નથી – ભાવ વગર ઇમ્પોર્ટ કર્યું.</string>
+    <string name="portfolio_csv_import_fee_in_price">લાઇન %1$s માં બે ફી: ફિયાટ ફી ભાવમાં સામેલ છે, કૉઇનમાંની ફી મળેલી માત્રા ઘટાડે છે અથવા આપેલી માત્રા વધારે છે.</string>
+    <string name="portfolio_csv_import_pending_differs">લાઇન %1$s: એક જ જમા અથવા ઉપાડની બાકી અને નોંધાયેલી એન્ટ્રીની માત્રા અલગ છે – બંને ઇમ્પોર્ટ કરી, હોલ્ડિંગ તપાસો.</string>
     <string name="portfolio_csv_import_more">+ %1$d વધુ</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d નવો વ્યવહાર</item>

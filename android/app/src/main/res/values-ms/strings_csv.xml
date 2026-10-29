@@ -27,6 +27,8 @@
     <string name="portfolio_csv_import_saving">Menyimpan transaksi…</string>
     <string name="portfolio_csv_import_missing_fx">Tiada kadar harian untuk baris %1$s – diimport tanpa harga/yuran.</string>
     <string name="portfolio_csv_import_missing_price">Tiada harga dalam fail untuk baris %1$s – diimport tanpa harga.</string>
+    <string name="portfolio_csv_import_fee_in_price">Dua yuran dalam baris %1$s: yuran fiat termasuk dalam harga, yuran dalam syiling mengurangkan jumlah diterima atau menambah jumlah diberi.</string>
+    <string name="portfolio_csv_import_pending_differs">Baris %1$s: catatan belum selesai dan catatan dibukukan bagi deposit atau pengeluaran yang sama mempunyai jumlah berbeza – kedua-duanya diimport, semak pegangan.</string>
     <string name="portfolio_csv_import_more">+ %1$d lagi</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="other">%d transaksi baharu</item>

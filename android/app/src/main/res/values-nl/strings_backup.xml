@@ -23,7 +23,7 @@
     <string name="backup_password_repeat">Wachtwoord herhalen</string>
     <string name="backup_password_show">Wachtwoord tonen</string>
     <string name="backup_password_title">Back-up met wachtwoord</string>
-    <string name="backup_password_too_weak">Te makkelijk te raden – niet alleen cijfers, niet één herhaald teken, geen gangbare reeks zoals «12345678» of «wachtwoord».</string>
+    <string name="backup_password_too_weak">Te makkelijk te raden – niet alleen cijfers, niet één herhaald teken, geen gangbare reeks zoals ‘12345678’ of ‘wachtwoord’.</string>
     <string name="backup_password_warning">Zonder het wachtwoord kan de back-up niet worden hersteld.</string>
     <string name="backup_password_wrong">Onjuist wachtwoord, of het bestand is beschadigd. Probeer het opnieuw.</string>
     <string name="backup_protect">Met wachtwoord beveiligen</string>
@@ -58,7 +58,7 @@
     <string name="backup_restored_over_limits">Boven de limieten (%3$s paren, %4$s alarmen per paar), niet hersteld: %1$s, %2$s.</string>
 
     <!-- Verschlüsselter Speicher: Schlüssel verloren -->
-    <string name="storage_recovery_message">Dit apparaat heeft de sleutel van de versleutelde app-gegevens niet meer, dus de app is leeg gestart. Er is niets verwijderd. Haal je lijst en portfolio terug door in de instellingen onder «%1$s» een back-upbestand te importeren.</string>
+    <string name="storage_recovery_message">Dit apparaat heeft de sleutel van de versleutelde app-gegevens niet meer, dus de app is leeg gestart. Er is niets verwijderd. Haal je lijst en portfolio terug door in de instellingen onder ‘%1$s’ een back-upbestand te importeren.</string>
     <string name="storage_recovery_title">Opgeslagen gegevens niet te ontgrendelen</string>
 
     <!-- Sicherung mit Passwort (Argon2id, 64 MiB): zu wenig Arbeitsspeicher -->
@@ -79,7 +79,7 @@
     <!-- Hinweis (nur Android): Portfolio-Kopie aus der Systemsicherung auch beim zweiten Versuch unlesbar und gelöscht -->
     <string name="system_backup_not_imported_title">Portfolio niet hersteld uit systeemback-up</string>
     <!-- %1$s = Name des Bereichs «Sichern &amp; Wiederherstellen» in den Einstellungen -->
-    <string name="system_backup_not_imported_message">De portfoliokopie uit de Android-systeemback-up kon ook bij een tweede poging niet worden gelezen en is verwijderd. Heb je een back-upbestand, zet het dan terug via “%1$s” in Instellingen.</string>
+    <string name="system_backup_not_imported_message">De portfoliokopie uit de Android-systeemback-up kon ook bij een tweede poging niet worden gelezen en is verwijderd. Heb je een back-upbestand, zet het dan terug via ‘%1$s’ in Instellingen.</string>
 
     <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
     <string name="portfolio_storage_kept_in_memory">Opgeslagen gegevens zijn nu niet leesbaar, dus het portfolio wordt niet getoond en kan niet worden gewijzigd. Start de app opnieuw.</string>

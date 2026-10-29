@@ -4,12 +4,12 @@
     <plurals name="explorer_coin_exchanges">
         <item quantity="other">လဲလှယ်ရေးဌာန %1$d ခု</item>
     </plurals>
-    <string name="explorer_coin_no_pairs">ဖွင့်ထားသော စာရင်းများတွင် ဤဒင်္ဂါးအတွက် အတွဲ မရှိပါ။</string>
+    <string name="explorer_coin_no_pairs">ဖွင့်ထားသော စာရင်းများတွင် ဤကွိုင်အတွက် အတွဲ မရှိပါ။</string>
     <string name="explorer_coin_not_loaded">အတွဲစာရင်းများ မဖွင့်ရသေးပါ</string>
     <string name="explorer_coin_other_pairs">အခြား အတွဲများ</string>
     <string name="explorer_coin_show_pairs">အတွဲများ ပြရန်</string>
     <string name="explorer_coin_suggested">အကြံပြုထားသည်</string>
-    <string name="explorer_coins_title">ဒင်္ဂါးများ</string>
+    <string name="explorer_coins_title">ကွိုင်များ</string>
     <string name="explorer_lists_failed_many">%1$s သည် ယခု တုံ့ပြန်မှု မရှိပါ – အတွဲစာရင်းများ မဖွင့်နိုင်ပါ။ နောက်မှ ထပ်ကြိုးစားပါ။</string>
     <plurals name="explorer_lists_failed_more">
         <item quantity="other">+နောက်ထပ် %1$d</item>
@@ -28,9 +28,9 @@
     <string name="explorer_recent_title">မကြာသေးမီ ရှာဖွေမှုများ</string>
     <string name="explorer_search_choose_manually">လဲလှယ်ရေးဌာနနှင့် အတွဲကို ကိုယ်တိုင် ရွေးရန်</string>
     <string name="explorer_search_empty">ကိုက်ညီမှု မရှိပါ။</string>
-    <string name="explorer_search_hint">ဒင်္ဂါး၊ အတွဲ သို့မဟုတ် လဲလှယ်ရေးဌာန ရှာရန်</string>
+    <string name="explorer_search_hint">ကွိုင်၊ အတွဲ သို့မဟုတ် လဲလှယ်ရေးဌာန ရှာရန်</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">ဒင်္ဂါး၏ အမည် သို့မဟုတ် သင်္ကေတကို ရိုက်ပါ၊ ဥပမာ Bitcoin သို့မဟုတ် BTC – ထို့နောက် အတွဲကို ရွေးပါ။</string>
+    <string name="explorer_search_intro">ကွိုင်၏ အမည် သို့မဟုတ် သင်္ကေတကို ရိုက်ပါ၊ ဥပမာ Bitcoin သို့မဟုတ် BTC – ထို့နောက် အတွဲကို ရွေးပါ။</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">စောင့်ကြည့်စာရင်းသို့ ထည့်ရန်</string>
@@ -85,7 +85,7 @@
     <string name="explorer_sync_never">ဘယ်တော့မှ</string>
     <string name="explorer_sync_sheet_action">ယခု ချိန်ကိုက်ရန်</string>
     <string name="explorer_sync_sheet_title">ငွေကြေးအတွဲများ အပ်ဒိတ်လုပ်ရန်</string>
-    <string name="explorer_field_coin">ဒင်္ဂါး</string>
+    <string name="explorer_field_coin">ကွိုင်</string>
     <string name="explorer_field_contract">စာချုပ် အမျိုးအစား</string>
     <string name="explorer_field_exchange">လဲလှယ်ရေးဌာန</string>
     <string name="explorer_field_quote">ဈေးနှုန်းသတ်မှတ် ငွေကြေး</string>

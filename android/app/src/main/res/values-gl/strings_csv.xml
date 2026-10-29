@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">Gardando as transaccións…</string>
     <string name="portfolio_csv_import_missing_fx">Non hai tipo diario para as liñas %1$s – importadas sen prezo/comisión.</string>
     <string name="portfolio_csv_import_missing_price">Non hai prezo no ficheiro para as liñas %1$s – importadas sen prezo.</string>
+    <string name="portfolio_csv_import_fee_in_price">Dúas comisións nas liñas %1$s: a comisión en fiat está incluída no prezo e a comisión na moeda reduce a cantidade recibida ou aumenta a entregada.</string>
+    <string name="portfolio_csv_import_pending_differs">Liñas %1$s: a entrada pendente e a rexistrada do mesmo depósito ou retirada teñen cantidades distintas – ambas importadas, revisa os haberes.</string>
     <string name="portfolio_csv_import_more">+ %1$d máis</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d transacción nova</item>

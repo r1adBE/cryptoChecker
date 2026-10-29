@@ -8,7 +8,6 @@
         <item quantity="one">%1$d no %2$d bez cenas</item>
         <item quantity="other">%1$d no %2$d bez cenas</item>
     </plurals>
-    <string name="watchlist_last_run">Pēdējā palaišana %1$s</string>
     <string name="watchlist_live_a11y">Tiešraides cenas ieslēgtas</string>
     <string name="watchlist_offline_since">Nav savienojuma · stāvoklis %1$s</string>
     <string name="watchlist_pull_to_refresh">Velc uz leju, lai atsvaidzinātu</string>

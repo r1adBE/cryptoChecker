@@ -13,6 +13,10 @@ object UiTestTags {
     const val TAB_PORTFOLIO = "tab_portfolio"
     const val TAB_SETTINGS = "tab_settings"
 
+    // ── Markt ──
+    /** Inhalt des Tabs «Markt», sobald Crypto Pulse geladen ist und alles Sichtbare auf «Jetzt» steht. */
+    const val MARKET_LOADED = "market_loaded"
+
     // ── Merkliste ──
     const val WATCHLIST = "watchlist"
     const val WATCH_ROW = "watch_row"

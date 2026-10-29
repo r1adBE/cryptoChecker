@@ -92,7 +92,7 @@
     <string name="explorer_no_pair_list">Döviz çifti yok</string>
     <string name="explorer_sync_sheet_last">Son eşitleme: %1$s</string>
     <string name="explorer_sync_never">hiç</string>
-    <string name="explorer_sync_sheet_action">Şimdi eşitle!</string>
+    <string name="explorer_sync_sheet_action">Şimdi eşitle</string>
     <string name="explorer_sync_sheet_title">Döviz çiftlerini güncelle</string>
     <string name="explorer_field_coin">Baz</string>
     <string name="explorer_field_contract">Sözleşme türü</string>

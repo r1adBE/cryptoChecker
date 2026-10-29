@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">لین دین محفوظ ہو رہے ہیں…</string>
     <string name="portfolio_csv_import_missing_fx">سطروں %1$s کے لیے روزانہ شرح نہیں – قیمت/فیس کے بغیر امپورٹ ہوا۔</string>
     <string name="portfolio_csv_import_missing_price">فائل میں سطروں %1$s کی قیمت نہیں – قیمت کے بغیر امپورٹ ہوا۔</string>
+    <string name="portfolio_csv_import_fee_in_price">سطروں %1$s میں دو فیسیں: فیاٹ فیس قیمت میں شامل ہے، کوائن والی فیس ملنے والی مقدار کم یا دی گئی مقدار زیادہ کرتی ہے۔</string>
+    <string name="portfolio_csv_import_pending_differs">سطریں %1$s: ایک ہی جمع یا نکاسی کے زیرِ التوا اور درج اندراج کی مقدار مختلف ہے – دونوں امپورٹ ہوئے، ہولڈنگز چیک کریں۔</string>
     <string name="portfolio_csv_import_more">+ %1$d مزید</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d نیا لین دین</item>

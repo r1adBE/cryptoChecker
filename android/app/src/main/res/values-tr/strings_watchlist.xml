@@ -7,7 +7,6 @@
         <item quantity="one">%2$d içinden %1$d fiyatsız</item>
         <item quantity="other">%2$d içinden %1$d fiyatsız</item>
     </plurals>
-    <string name="watchlist_last_run">Son çalışma %1$s</string>
     <string name="watchlist_live_a11y">Canlı fiyatlar açık</string>
     <string name="watchlist_offline_since">Bağlantı yok · %1$s itibarıyla</string>
     <string name="watchlist_pull_to_refresh">Yenilemek için aşağı çek</string>

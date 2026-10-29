@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">Tehingute salvestamine…</string>
     <string name="portfolio_csv_import_missing_fx">Ridadele %1$s pole päevakurssi – imporditud ilma hinna/tasuta.</string>
     <string name="portfolio_csv_import_missing_price">Failis pole ridadele %1$s hinda – imporditud ilma hinnata.</string>
+    <string name="portfolio_csv_import_fee_in_price">Kaks tasu ridadel %1$s: fiat-tasu on hinnas sees, mündi tasu vähendab saadud või suurendab antud kogust.</string>
+    <string name="portfolio_csv_import_pending_differs">Read %1$s: sama sissemakse või väljamakse ootel ja kirjendatud kirjel on erinev kogus – mõlemad imporditud, kontrolli varasid.</string>
     <string name="portfolio_csv_import_more">+ veel %1$d</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d uus tehing</item>

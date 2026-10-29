@@ -19,10 +19,10 @@
     <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
     <string name="why_brief_head">အတိုချုပ် · %1$s အထိ</string>
     <string name="why_brief_label">အတိုချုပ်-</string>
-    <string name="why_summary_against">ဒင်္ဂါးသည် ဈေးကွက်ကို ဆန့်ကျင်၍ လှုပ်ရှားနေသည်။</string>
-    <string name="why_summary_calm">ထင်ရှားသော လှုပ်ရှားမှု မရှိ- ဈေးကွက်နှင့် ဒင်္ဂါး ငြိမ်သက်နေသည်။</string>
-    <string name="why_summary_coin">ဤဒင်္ဂါးသာ လှုပ်ရှားနေသည် – ဤဒင်္ဂါးကိုသာ သက်ရောက်သည့် တစ်ခုခု ဖြစ်နိုင်သည်။</string>
-    <string name="why_summary_coin_volume">ဤဒင်္ဂါးသာ ပိုမြင့်သော ပမာဏဖြင့် လှုပ်ရှားနေသည် – ဤဒင်္ဂါးကိုသာ သက်ရောက်သည့် တစ်ခုခု ဖြစ်နိုင်သည်။</string>
+    <string name="why_summary_against">ကွိုင်သည် ဈေးကွက်ကို ဆန့်ကျင်၍ လှုပ်ရှားနေသည်။</string>
+    <string name="why_summary_calm">ထင်ရှားသော လှုပ်ရှားမှု မရှိ- ဈေးကွက်နှင့် ကွိုင် ငြိမ်သက်နေသည်။</string>
+    <string name="why_summary_coin">ဤကွိုင်သာ လှုပ်ရှားနေသည် – ဤကွိုင်ကိုသာ သက်ရောက်သည့် တစ်ခုခု ဖြစ်နိုင်သည်။</string>
+    <string name="why_summary_coin_volume">ဤကွိုင်သာ ပိုမြင့်သော ပမာဏဖြင့် လှုပ်ရှားနေသည် – ဤကွိုင်ကိုသာ သက်ရောက်သည့် တစ်ခုခု ဖြစ်နိုင်သည်။</string>
     <string name="why_summary_longs">Futures: leverage သုံး long positions များ။</string>
     <string name="why_summary_market">လှုပ်ရှားမှုသည် ဈေးကွက်တစ်ခုလုံးနှင့် အချိန်ကိုက်ညီသည်။</string>
     <string name="why_summary_market_volume">လှုပ်ရှားမှုသည် ပိုမြင့်သော အရောင်းအဝယ် ပမာဏနှင့် ကျယ်ပြန့်စွာ လှုပ်ရှားနေသော ဈေးကွက်နှင့် တိုက်ဆိုင်သည်။</string>
@@ -33,7 +33,7 @@
 
     <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
     <string name="why_f_against">ဈေးကွက်ကို ဆန့်ကျင်</string>
-    <string name="why_f_coin_only">ဤဒင်္ဂါးသာ</string>
+    <string name="why_f_coin_only">ဤကွိုင်သာ</string>
     <string name="why_f_leader">ဈေးကွက် ဦးဆောင်သူအဖြစ် Bitcoin</string>
     <string name="why_f_leverage_balanced">Leverage မျှတ</string>
     <string name="why_f_leverage_longs">Leverage: longs များ</string>
@@ -59,10 +59,10 @@
     <string name="why_fn_leader_moves">Bitcoin ထင်ရှားစွာ လှုပ်ရှားနေသည်</string>
     <string name="why_fn_low_above">ရက် 30 အနိမ့်ဆုံးအထက်</string>
     <string name="why_fn_low_at">ရက် 30 အနိမ့်ဆုံးတွင်</string>
-    <string name="why_fn_market_against">ဤဒင်္ဂါးသည် ဈေးကွက်ကို ဆန့်ကျင်၍ လှုပ်ရှားနေသည်</string>
-    <string name="why_fn_market_alone">ဈေးကွက် ငြိမ်သက် – ဤဒင်္ဂါး ကိုယ်တိုင် လှုပ်ရှားသည်</string>
+    <string name="why_fn_market_against">ဤကွိုင်သည် ဈေးကွက်ကို ဆန့်ကျင်၍ လှုပ်ရှားနေသည်</string>
+    <string name="why_fn_market_alone">ဈေးကွက် ငြိမ်သက် – ဤကွိုင် ကိုယ်တိုင် လှုပ်ရှားသည်</string>
     <string name="why_fn_market_calm">ဈေးကွက် ငြိမ်သက်နေသည်</string>
-    <string name="why_fn_market_lags">ဈေးကွက် လှုပ်ရှားနေသော်လည်း ဤဒင်္ဂါး မလှုပ်ရှားသလောက်ပင်</string>
+    <string name="why_fn_market_lags">ဈေးကွက် လှုပ်ရှားနေသော်လည်း ဤကွိုင် မလှုပ်ရှားသလောက်ပင်</string>
     <string name="why_fn_market_moves">ဈေးကွက် တစ်ဦးတည်းသော ဦးတည်ချက်သို့ လှုပ်ရှားနေသည်</string>
     <string name="why_fn_market_pulls">ဈေးကွက် BTC နှင့်အတူ လှုပ်ရှားနေသည်</string>
     <string name="why_fn_oi_down">Open interest ကျ</string>
@@ -84,25 +84,25 @@
     <string name="why_fn_volume_usual">ပုံမှန်အတိုင်း</string>
 
     <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
-    <string name="why_against_market_text">ဤဒင်္ဂါး %1$s, BTC %2$s 24 နာရီအတွင်း — သိသာစွာ လွတ်လပ်သော လှုပ်ရှားမှု။</string>
-    <string name="why_against_ref_text">ဤဒင်္ဂါး %1$s, %2$s %3$s 24 နာရီအတွင်း — သိသာစွာ လွတ်လပ်သော လှုပ်ရှားမှု။</string>
+    <string name="why_against_market_text">ဤကွိုင် %1$s, BTC %2$s 24 နာရီအတွင်း — သိသာစွာ လွတ်လပ်သော လှုပ်ရှားမှု။</string>
+    <string name="why_against_ref_text">ဤကွိုင် %1$s, %2$s %3$s 24 နာရီအတွင်း — သိသာစွာ လွတ်လပ်သော လှုပ်ရှားမှု။</string>
     <string name="why_btc_independent">%1$s သည် လောလောဆယ် Bitcoin မှ လွတ်လပ်စွာ လှုပ်ရှားနေသည်။</string>
     <string name="why_btc_tight">%1$s သည် လောလောဆယ် Bitcoin နှင့် နီးကပ်စွာ လှုပ်ရှားနေသည်။</string>
     <string name="why_change_1h">1 နာရီ</string>
     <string name="why_change_24h">24 နာရီ</string>
-    <string name="why_coin_only_text">ဈေးကွက် ငြိမ်နေစဉ် 24 နာရီအတွင်း %1$s – ဤဒင်္ဂါးကိုသာ သက်ရောက်သည့် တစ်ခုခု ဖြစ်နိုင်သည်။</string>
+    <string name="why_coin_only_text">ဈေးကွက် ငြိမ်နေစဉ် 24 နာရီအတွင်း %1$s – ဤကွိုင်ကိုသာ သက်ရောက်သည့် တစ်ခုခု ဖြစ်နိုင်သည်။</string>
     <string name="why_leverage_balanced_text">Futures ဈေးကွက်တွင် long သို့မဟုတ် short positions စုပြုံမှု မရှိပါ။</string>
     <string name="why_leverage_longs_text">အများအပြားက ချေးငွေဖြင့် ဈေးတက်မည်ဟု လောင်းနေကြသည်။ Longs က shorts ကို ပေးချေနေသည် — ဈေးကျလျှင် liquidation အန္တရာယ် မြင့်တက်သည်။</string>
     <string name="why_leverage_shorts_text">အများအပြားက ချေးငွေဖြင့် ဈေးကျမည်ဟု လောင်းနေကြသည်။ Shorts က longs ကို ပေးချေနေသည် – ဈေးတက်လျှင် short squeeze ဖြစ်နိုင်သည်။</string>
-    <string name="why_market_calm_text">ဤဒင်္ဂါး: 24 နာရီအတွင်း %1$s။ ဈေးကွက်ရော ဒင်္ဂါးပါ သိပ်မလှုပ်ရှားပါ။</string>
-    <string name="why_market_leader_text">အကြီးဆုံး ဒင်္ဂါးအနေဖြင့် BTC သည် များသောအားဖြင့် ကျန်ဈေးကွက်နှင့် တစ်ပြေးညီ လှုပ်ရှားသည်။ ETH: 24 နာရီအတွင်း %1$s။</string>
-    <string name="why_market_leader_text_no_eth">အကြီးဆုံး ဒင်္ဂါးအနေဖြင့် BTC သည် များသောအားဖြင့် ကျန်ဈေးကွက်နှင့် တစ်ပြေးညီ လှုပ်ရှားသည်။</string>
-    <string name="why_market_similar_text">ဤဒင်္ဂါး: 24 နာရီအတွင်း %1$s – တစ်ချိန်တည်းတွင် ဈေးကွက်သည် တူညီသော ဦးတည်ချက်သို့ လှုပ်ရှားနေသော်လည်း သိပ်မထင်ရှားပါ။</string>
-    <string name="why_market_wide_text">ဤဒင်္ဂါး: 24 နာရီအတွင်း %1$s – တစ်ချိန်တည်းတွင် ဈေးကွက်တစ်ခုလုံး ထင်ရှားစွာ လှုပ်ရှားနေသည်။</string>
+    <string name="why_market_calm_text">ဤကွိုင်: 24 နာရီအတွင်း %1$s။ ဈေးကွက်ရော ကွိုင်ပါ သိပ်မလှုပ်ရှားပါ။</string>
+    <string name="why_market_leader_text">အကြီးဆုံး ကွိုင်အနေဖြင့် BTC သည် များသောအားဖြင့် ကျန်ဈေးကွက်နှင့် တစ်ပြေးညီ လှုပ်ရှားသည်။ ETH: 24 နာရီအတွင်း %1$s။</string>
+    <string name="why_market_leader_text_no_eth">အကြီးဆုံး ကွိုင်အနေဖြင့် BTC သည် များသောအားဖြင့် ကျန်ဈေးကွက်နှင့် တစ်ပြေးညီ လှုပ်ရှားသည်။</string>
+    <string name="why_market_similar_text">ဤကွိုင်: 24 နာရီအတွင်း %1$s – တစ်ချိန်တည်းတွင် ဈေးကွက်သည် တူညီသော ဦးတည်ချက်သို့ လှုပ်ရှားနေသော်လည်း သိပ်မထင်ရှားပါ။</string>
+    <string name="why_market_wide_text">ဤကွိုင်: 24 နာရီအတွင်း %1$s – တစ်ချိန်တည်းတွင် ဈေးကွက်တစ်ခုလုံး ထင်ရှားစွာ လှုပ်ရှားနေသည်။</string>
     <string name="why_open_interest_change">နောက်ဆုံး စစ်ဆေးမှုကတည်းက Open interest %1$s။</string>
     <string name="why_peg_text">Stablecoin: ဈေးနှုန်းသတ်မှတ် ငွေကြေးနှင့် 1:1 peg နှင့် နှိုင်းယှဉ်လျှင် သွေဖည်မှု %1$s။</string>
-    <string name="why_sentiment_text">crypto ဈေးကွက်တစ်ခုလုံး၏ Fear &amp; Greed ညွှန်းကိန်း၊ မနေ့ကနှင့် နှိုင်းယှဉ်လျှင် %1$s။</string>
-    <string name="why_sentiment_text_no_change">crypto ဈေးကွက်တစ်ခုလုံး၏ Fear &amp; Greed ညွှန်းကိန်း။</string>
+    <string name="why_sentiment_text">Crypto ဈေးကွက်တစ်ခုလုံး၏ Fear &amp; Greed ညွှန်းကိန်း၊ မနေ့ကနှင့် နှိုင်းယှဉ်လျှင် %1$s။</string>
+    <string name="why_sentiment_text_no_change">Crypto ဈေးကွက်တစ်ခုလုံး၏ Fear &amp; Greed ညွှန်းကိန်း။</string>
     <plurals name="why_trend_falling">
         <item quantity="other">%1$d နာရီကြာ ကျဆင်းနေသည်</item>
     </plurals>
@@ -114,8 +114,8 @@
     </plurals>
     <string name="why_volatility_high_text">နောက်ဆုံးနာရီ: %1$s — ပြီးခဲ့သော 24 နာရီ၏ ပုံမှန် နာရီအလိုက် အတက်အကျနှင့် နှိုင်းယှဉ် တိုင်းတာထားသည်။</string>
     <string name="why_volatility_normal_text">နောက်ဆုံးနာရီ: %1$s — ပုံမှန် အပိုင်းအခြားအတွင်း။</string>
-    <string name="why_volatility_tiny_text">နောက်ဆုံးနာရီ: %1$s — ဤဒင်္ဂါးအတွက် ထူးခြားသော်လည်း ပကတိ အရ သေးငယ်သည်။</string>
-    <string name="why_volume_estimated_text">ခန့်မှန်း- ဤရင်းမြစ်သည် အရောင်းအဝယ် တန်ဖိုးကို မပေးသောကြောင့် အရောင်းအဝယ်ဖြစ်သော ဒင်္ဂါး ပမာဏများကို နှိုင်းယှဉ်သည်။</string>
+    <string name="why_volatility_tiny_text">နောက်ဆုံးနာရီ: %1$s — ဤကွိုင်အတွက် ထူးခြားသော်လည်း ပကတိ အရ သေးငယ်သည်။</string>
+    <string name="why_volume_estimated_text">ခန့်မှန်း- ဤရင်းမြစ်သည် အရောင်းအဝယ် တန်ဖိုးကို မပေးသောကြောင့် အရောင်းအဝယ်ဖြစ်သော ကွိုင် ပမာဏများကို နှိုင်းယှဉ်သည်။</string>
     <string name="why_volume_high_text">နောက်ဆုံးနာရီတွင် ပုံမှန်ထက် အရောင်းအဝယ် များစွာ ပိုများသည် – လှုပ်ရှားမှုသည် မြင့်မားသော ပမာဏနှင့်အတူ လာသည်။</string>
     <string name="why_volume_low_text">လှုပ်ရှားမှု နောက်ကွယ်တွင် အရောင်းအဝယ် နည်းသည် – ထိုကဲ့သို့ လှုပ်ရှားမှုများသည် မကြာခဏ တည်ငြိမ်မှု နည်းသည်။</string>
     <string name="why_volume_normal_text">နောက်ဆုံးနာရီ၏ အရောင်းအဝယ်သည် ပြီးခဲ့သော 24 နာရီနှင့် ကိုက်ညီသည်။</string>

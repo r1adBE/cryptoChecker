@@ -41,7 +41,7 @@
     <string name="widget_portfolio_entries">币种下方的记录</string>
     <string name="widget_portfolio_entries_both">两者</string>
     <string name="widget_portfolio_entries_buys">买入</string>
-    <string name="widget_portfolio_entries_hint">仅在币种下方有空间时显示。买入包括充值，卖出包括提现；选择«两者»时，各行合计即为持仓。</string>
+    <string name="widget_portfolio_entries_hint">仅在币种下方有空间时显示。买入包括充值，卖出包括提现；选择“两者”时，各行合计即为持仓。</string>
     <string name="widget_portfolio_entries_off">关闭</string>
     <string name="widget_portfolio_entries_sells">卖出</string>
     <string name="widget_portfolio_display">显示</string>

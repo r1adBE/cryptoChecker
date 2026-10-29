@@ -240,7 +240,7 @@
     <string name="ledger_exchange">Beurs (optioneel)</string>
     <string name="ledger_exchange_failed">%1$s: nu geen koers van %2$s – gewaardeerd met Binance.</string>
     <string name="ledger_exchange_hint">De munt wordt gewaardeerd tegen de koers van deze beurs (anders Binance). Verloop, 7 D en 1 J: dagkoersen van Binance, geschaald.</string>
-    <string name="ledger_exchange_mixed">%1$s: meerdere beurzen ingevuld – gewaardeerd met Binance. Munten verplaatst? Leg dat vast als «Overboeking».</string>
+    <string name="ledger_exchange_mixed">%1$s: meerdere beurzen ingevuld – gewaardeerd met Binance. Munten verplaatst? Leg dat vast als ‘Overboeking’.</string>
     <string name="ledger_exchange_none">Geen (Binance)</string>
     <string name="ledger_fee">Kosten (optioneel)</string>
     <string name="ledger_fee_coin">Munt</string>
@@ -252,7 +252,7 @@
     <string name="ledger_gain_info_fifo">Vandaag, 7 D, 1 J: waardeverandering in de periode – aankopen en verkopen tellen niet als winst. Sinds aankoop: huidige waarde min kostprijs (FIFO incl. kosten) van de munten die je nog hebt.</string>
     <string name="ledger_gain_title">Winst/verlies</string>
     <string name="ledger_more_toggle">Kosten en beurs</string>
-    <string name="ledger_partial_cost">«Sinds aankoop» telt alleen het deel met aankoopprijs – zonder %1$s zonder aankoopprijs.</string>
+    <string name="ledger_partial_cost">‘Sinds aankoop’ telt alleen het deel met aankoopprijs – zonder %1$s zonder aankoopprijs.</string>
     <string name="ledger_period_without">Vandaag / 7 D / 1 J zonder %1$s – geen passende beginkoers.</string>
     <string name="ledger_since_purchase_currency">Sinds aankoop (%1$s)</string>
     <string name="ledger_since_purchase_spoken">Winst/verlies sinds aankoop, nog niet verkocht</string>

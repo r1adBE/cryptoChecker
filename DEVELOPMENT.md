@@ -512,16 +512,19 @@ CryptoChecker`):
 cd ios
 python3 -I tools/gen_xcodeproj.py  # after adding/removing Swift files or changing the JSON cases
 xcodebuild test -project CryptoChecker.xcodeproj -scheme CryptoChecker \
-  -destination 'platform=iOS Simulator,name=iPhone 16' -only-testing:CryptoCheckerTests
+  -destination 'platform=iOS Simulator,name=iPhone 17' -only-testing:CryptoCheckerTests
 ```
 
 Without `-only-testing` the scheme runs the unit tests and the UI tests (see below).
 
-Tests on the test app's own storage (`WatchlistLockBehaviorTests`, `BackgroundRefreshRunTests`) call
+Tests on the test app's own storage (`WatchlistLockBehaviorTests`, `BackgroundRefreshRunTests`,
+`PortfolioBackgroundWriteTests`, `AddWatchesBehaviorTests`) call
 `HostStorageKey.prepareAppStorage()` first: without a keychain entitlement (unsigned Simulator, CI) the process-wide
 `StorageKey.shared` gets an in-memory test keychain with a fixed key (`StorageKey.replaceKeychainForTesting`, Debug
-build only); with a real keychain nothing is replaced. They therefore run everywhere; a skip of these classes (quiet
-hours, not enough time left) or of `SharedStorageTests` fails `ios.yml` on `main` and release tags.
+build only); with a real keychain nothing is replaced. They therefore run everywhere; a skip of these classes or of
+`SharedStorageTests` fails `ios.yml` on `main` and release tags. Only «not enough time left» (`Restzeit`, extra-data
+alarms of `BackgroundRefreshRunTests` on a slow runner) is allowed: reported as a notice, the run stays green. The
+Simulator in the examples is the one CI picks («iPhone 17», otherwise the first available iPhone).
 `ios.yml` runs three Macs in parallel – «iOS release build» (unsigned Release build for devices, release settings
 audit, built-app inspection with the compiler-warning ceiling 0), «iOS unit tests» (Debug build and unit tests) and
 «iOS UI tests» – and the job «iOS build» (the required check) is green only if all three are; logs on failure as
@@ -567,7 +570,9 @@ add BTC → price alarm → new price → alarm and notification → swipe to de
 portfolio lock shows the locked state. Hilt replaces the network client with fixed prices
 (`FakeRemoteDataModule`), so no exchange is called. `DatabaseFreshInstallTest` opens the main and the portfolio
 database with Room as on a fresh install (Room validates the schema against the entities); it also covers taking
-over the system-backup copy when the portfolio database is created. `RoomSchemaMigrationTest` creates each database
+over the system-backup copy when the portfolio database is created. `DatabaseFreshInstallBackupTest` runs the system
+backup round trip (`PortfolioBackupMirror.writeForBackup` → `importInto`) with every `portfolio_tx` column set in at
+least one row (a column the test data does not cover fails it). `RoomSchemaMigrationTest` creates each database
 exactly from its exported schema with `MigrationTestHelper` and lets Room open it (identity hash against the
 entities). Needs an emulator or a device.
 
@@ -665,7 +670,7 @@ cd android
 # iOS (Simulator)
 cd ios
 xcodebuild test -project CryptoChecker.xcodeproj -scheme CryptoChecker \
-  -destination 'platform=iOS Simulator,name=iPhone 16' -only-testing:CryptoCheckerUITests
+  -destination 'platform=iOS Simulator,name=iPhone 17' -only-testing:CryptoCheckerUITests
 ```
 
 CI: Android in *Android device tests* (on pushes to `main`, release tags and by hand, see above); iOS in the *iOS*
@@ -681,14 +686,17 @@ written by `screencap` to `/data/local/tmp/cc-screenshots` and pulled with `adb`
 `publish` (the only one with `contents: write`) checks the PNGs and force-pushes ONE orphan commit to the branch
 `screenshots` (never `main`; each run replaces the previous set, older runs are cancelled). Layout:
 `android/<light|dark>/NN_name.png`, `ios/<light|dark>/NN_name.png` and `README.md` with the source commit, date
-and run. A platform whose job failed keeps its images from the previous set (marked «kept» in the README). Data:
+and run. Only a complete set is published (job green, same names in light and dark, no `NN_name_failed.png`): a
+platform whose job failed keeps its images from the previous set (marked «kept» in the README); its partial images
+stay run artifacts. Data:
 the store demo backup (`android/docs/store/screenshots/demo-backup.json`), restored on both platforms with the same
 overrides (Android through `BackupManager.restore` in the test, the file as an androidTest asset; iOS through
-«Restore» in the UI), prices from the fake exchanges, light/dark through the app's
-own setting. Both tests skip themselves in the normal runs: Android needs the runner argument
+«Restore» in the UI), prices from the fake exchanges (Android: the tour fails if they do not load), canned market
+data (Android `FakeExchange.marketData`, iOS `UITEST_MARKET_DATA`), light/dark through the app's own setting. Both tests skip themselves in the normal runs: Android needs the runner argument
 `screenshotTour=true`, iOS the environment `TEST_RUNNER_SCREENSHOT_TOUR=1`. Screen list: `01_watchlist`,
 `02_pair_actions`, `03_pair_alarms`, `04_alarm_editor`, `05_alarms_overview`, `06_refresh_report`,
-`07_explorer`, `08_coin_search`, `09_market` (only the fake exchanges answer, so market data is mostly missing),
+`07_explorer`, `08_coin_search`, `09_market` (waits for the tag `market_loaded`: Crypto Pulse loaded and every
+visible card on «Now» shown; no fixed wait),
 `10_portfolio`, `11_settings`, `12_settings_display`, `13_settings_alarms`, `14_settings_backup`, `15_about`.
 
 ```sh
@@ -782,13 +790,14 @@ touching GitHub: `python3 -I .github/scripts/exchange_live_check.py --dry-run` (
   package manifest (`Package.swift`, `Podfile`, `Cartfile` …) appears. No timestamp or serial number: same sources,
   same bytes.
 * *Reproducible build*: `.github/workflows/reproducible.yml` (pushes to `main` touching `android/`, release tags,
-  weekly on Sundays, by hand) builds the unsigned release APK and AAB twice on two fresh runners without any cache and
+  weekly on Sundays, by hand) builds the unsigned release APK and AAB and the unsigned Wear OS release APK
+  (`:wear:assembleRelease`) twice on two fresh runners without any cache and
   compares them and the SBOM byte for byte (`.github/scripts/repro_compare.py`, `--self-test`; a difference names the
   archive entries). Not a required check. It proves that two independent builds on the same runner image agree; a
   different OS, JDK or build path is not covered (anyone rebuilding should use the same JDK 17 and Gradle wrapper).
   iOS is not covered (Xcode output is not byte-reproducible).
 * *Build provenance (release tags `v*`)*: once both builds agree, the job «provenance» of `reproducible.yml` attests
-  the unsigned APK and AAB of run a with `actions/attest-build-provenance` (Sigstore, stored as an attestation of the
+  the unsigned APKs (app, Wear OS) and AAB of run a with `actions/attest-build-provenance` (Sigstore, stored as an attestation of the
   repository; only this job has `id-token: write` and `attestations: write`) and lists their SHA-256 in the job
   summary (copy them into the release notes if wanted). Check a CI artifact: `gh attestation verify
   app-release-unsigned.apk --repo r1adBE/cryptoChecker`. Check a signed store APK against it – signing only adds the
@@ -845,7 +854,7 @@ shrinks, raise it only deliberately with the reason in the same pull request).
 
 **Coverage (logic gate).** Both platforms report line coverage of the unit tests as ONE notice on the run page, each
 with two numbers: *total* (every measured source file) and *logic* – the share that tests are expected to cover. The
-*logic* number is a gate: below `MIN_LOGIC` (workflow env, set just under the measured value – Android 58 %, measured
+*logic* number is a gate: below `MIN_LOGIC` (workflow env, set just under the measured value – Android 65 %, measured
 68.1 %; iOS 70 %, measured 71.9 %) or without a report the job is red. It stops regressions without forcing new work;
 raise `MIN_LOGIC` when coverage grows. (`--min-logic P` in both scripts; without it they only display.)
 
@@ -856,17 +865,17 @@ raise `MIN_LOGIC` when coverage grows. (`--min-logic P` in both scripts; without
   `:marketdata`, `:domain` and `:data` into its report (`kover(project(…))` in `app/build.gradle.kts`): most of their
   tests run in `:app` (e.g. the exchange parsers in `ExchangeContractTest` with `testdata/exchanges/exchange_*.json`
   and `recorded/*.json`), which their own reports would miss. `.github/scripts/coverage_summary.py --merged app
-  --min-logic 58 --min-module data=50 app=app domain=domain data=data marketdata=marketdata` attributes every file to
+  --min-logic 65 --min-module data=57 app=app domain=domain data=data marketdata=marketdata` attributes every file to
   the module whose `src/main` contains it and prints per module and in total; every module must be listed, or its
   files count as generated and drop out of *logic*. `:marketdata`'s own report is listed as «own tests only». Second
-  gate `MIN_DATA` 50: the *logic* coverage of `:data` (storage, network) on its own (measured 59.5 %). *Logic*
+  gate `MIN_DATA` 57: the *logic* coverage of `:data` (storage, network) on its own (measured 59.5 %). *Logic*
   leaves out UI – source files containing `@Composable` (screens, components and their Compose-generated classes),
   `RemoteViews` or `androidx.glance` (widget rendering) and `…Activity.kt` – and generated code (anything not in
   `src/main`: Hilt, Room `_Impl`, `BuildConfig`, `R`). ViewModels and other classes in `ui/` packages without
   `@Composable` count as logic. `--self-test` checks the classification and the merge. Locally:
   `./gradlew -Pcoverage=true :app:koverHtmlReportDebug` (report under `app/build/reports/kover/`; the summary needs
   the XML: `testDebugUnitTest :app:koverXmlReportDebug :marketdata:koverXmlReportDebug`), then in `android/`:
-  `python3 -I ../.github/scripts/coverage_summary.py --merged app --min-logic 58 --min-module data=50 app=app
+  `python3 -I ../.github/scripts/coverage_summary.py --merged app --min-logic 65 --min-module data=57 app=app
   domain=domain data=data marketdata=marketdata`.
 * *iOS* (`ios.yml`, job «iOS unit tests»): the unit-test run itself records coverage (`-enableCodeCoverage YES`,
   result bundle `UnitTests.xcresult`; same run, only the flag). The step «Coverage (logic gate)»
@@ -1655,6 +1664,10 @@ the tests named here.
   green up to date, grey offline/loading, red outdated («Prices outdated · as of HH:MM», «Offline · as of
   HH:MM»). Offline the Market tab keeps its last data and starts no reload; expired data reloads when the
   device is back online. Do not build another pill for a new screen.
+* **«Online» means a validated network.** Android `ConnectivityMonitor`: the default network needs `INTERNET` and
+  `VALIDATED`, so a captive-portal Wi-Fi before login counts as offline (no refresh run, no error states). iOS
+  `NetworkStatus` has no equivalent (`NWPath` reports only a route, no validation; finding a portal would need an own
+  probe request) – there a run behind a portal starts and ends «not reachable». Known platform gap.
 
 * **Ledger types.** All position, period, history and cut-off maths goes through
   `PortfolioLedger` (Kotlin/Swift, fixture `portfolio.json`, `PortfolioTxTypesTest(s)`). BUY/REWARD/DEPOSIT
@@ -1963,7 +1976,15 @@ the tests named here.
 * **Kraken ledger CSV.** `CsvImportKraken` reads the «Ledgers» export (txid, refid, time UTC, type, subtype,
   asset, amount, fee): trade/spend/receive legs paired by refid (money ↔ coin = buy/sell, coin ↔ coin = swap),
   deposit/withdrawal of coins, staking/earn rewards (inflows only); internal moves are skipped. Kraken codes
-  are normalised (XXBT → BTC, ZEUR → EUR, DOT.S → DOT). Fixture `kraken_ledger` in `csv_import.json`.
+  are normalised (XXBT → BTC, ZEUR → EUR, DOT.S → DOT). Fixture `kraken_ledger` in `csv_import.json`. A pending
+  deposit/withdrawal row (empty txid) with a booked twin (same refid, type, asset, amount) is dropped; with a different
+  amount both rows stay, flagged `pendingDiffers`, and the preview names both lines (`kraken_pending_differs`).
+* **Fiat fee plus coin fee on one trade (Kraken, Binance).** A buy/sell against fiat with a fee in the fiat currency
+  AND one in the traded coin: the fiat fee goes into the price (buy (amount + fee) / quantity, sell (amount − fee) /
+  quantity), the coin fee stays on the trade (less received / more given) – never a separate fee row, which would
+  dispose of the oldest lot (`CsvImport.fiatFeeInPrice`, row flag `feeInPrice`, preview hint; fixtures
+  `kraken_two_fees`, `binance_ledger_two_fees`, `binance_trades_two_fees`). Other unit pairs: one fee on the trade,
+  the rest fee rows (`CsvImport.splitFees`).
 * **Swap fees from both sides.** `CsvImport.swapFee`: one side → that fee; same unit → sum; different units →
   both rows skipped (`TWO_FEES`), never drop a fee silently.
 * **Exact cut-off CSV.** `CutoffExport` works on `BigDecimal`/`Decimal`; Double prices are
@@ -3103,6 +3124,29 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   failing step with the screen it saw, the visible tags, activity stage, screen/keyguard state and `mCurrentFocus`.
   Strings come from the current activity (the rule's activity is closed after the first restart). Images unchanged.
   iOS (green) unchanged: it returns through its own tab bar (`RootView.reselect`) and XCUITest taps, no system keys.
+* Build 178: review of build 177. Import: Kraken `pendingTwins` drops a pending deposit/withdrawal (empty txid) with
+  a booked twin (same refid, type, asset, amount); a different amount keeps both, flagged `pendingDiffers` with a
+  preview hint (`portfolio_csv_import_pending_differs`). Fiat fee plus coin fee on one trade (Kraken, Binance ledger
+  and trades): `CsvImport.fiatFeeInPrice`, row flag `feeInPrice`, hint `portfolio_csv_import_fee_in_price`; other
+  pairs `CsvImport.splitFees`. Network: Android `ConnectivityMonitor` needs `INTERNET` and `VALIDATED`
+  (`ConnectivityMonitorTest`); iOS `NetworkStatus` documents the gap. Watchlist row: the mini chart keeps its fixed
+  size; `RowMetaLine` (Android) / `WatchlistMetaLine` (iOS) wrap the icons under the exchange
+  (`DenseRowText.metaWraps`, parity `row_meta_line.json`, `DenseRowTextTest`/`DenseRowTextTests`) instead of
+  shortening it or hiding the chart. Android «All alarms» in `AlarmsOverviewCards.kt` (pair and portfolio cards
+  like iOS `groupCard`/`portfolioCard`), direction symbols `AlarmSymbols.kt` (`ic_alarm_*` drawables as iOS
+  `AlarmStyle.symbol`); «Last checked» once per editor page (iOS `showsLastChecked`); iOS alarm editor with one «Save»
+  at the bottom. iOS: «Last run» pill removed from `WatchlistStatus` (report in the ⋯ menu; key `watchlist_last_run`
+  removed in all languages); portfolio + in `PortfolioAddSlot`/`PortfolioAddAccessory` above the tab bar (`RootView`,
+  `safeAreaInset`); «Reset app» waits with `snapshotWritesDrained` without blocking the main thread; complication
+  fetch within `WatchQuoteFetch.complicationTimeoutSeconds` (20 s, as Android `FETCH_TIMEOUT_MS`). Android: one
+  `SQL_ID_CHUNK` (500) for every `IN (:ids)` query of the watchlist (`SqlIdChunkTest`); R8 keeps the names of own
+  `Throwable` classes. Coverage gates raised (owner decision): Android `MIN_LOGIC` 58 → 65 %, `MIN_DATA` (`:data`)
+  50 → 57 %. `mutation_test.py` resolves moved targets against `--repo` (self-test with a temporary tree).
+  Screenshots publish only a complete set (job green, same names light/dark, no `NN_name_failed.png`).
+  `DatabaseFreshInstallBackupTest`: system-backup round trip with every `portfolio_tx` column set. Wear OS in OSV
+  (`:wear` release runtime classpath), in the release audit (APK missing/debuggable = error, 16 KB = warning) and in
+  `reproducible.yml` (`:wear:assembleRelease`, attested); the debug artifact contains the watch APK. Hindi in the
+  polite form, Play listings `zu` and `zh-HK` (Cantonese); `frame_screenshots.py` maps `zh-HK` to the `yue` captions.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

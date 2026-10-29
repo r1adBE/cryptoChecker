@@ -16,6 +16,23 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 178)
+
+* Portfolio import from Kraken: a deposit or withdrawal that the ledger lists first as pending and then as booked now counts once. If the two rows have different amounts, both are imported and the preview names both lines so you can check your holdings.
+* Portfolio import (Kraken, Binance): a trade with two fees – one in the fiat currency and one in the coin – no longer creates a separate fee row. The fiat fee is included in the price, the coin fee lowers the amount received (or raises the amount given); the preview says so.
+* Android: «online» only counts once the system has confirmed the network, so a hotel or café Wi-Fi before login shows offline instead of failing price updates.
+* Watchlist: the mini chart stays in the row; when space gets tight, the bell and other icons move to a line below the exchange instead of shortening it. Works with large text and in right-to-left languages.
+* Android: «All alarms» now looks like on iOS – one card per pair with logo, current price and a direction symbol per alarm, plus a «Portfolio» card.
+* iOS: the «Last run» pill next to the watchlist status is gone; the check report stays in the ⋯ menu, as on Android.
+* Alarm editor: «Last checked» appears only once; on iOS «Save» stays reachable at the bottom above the keyboard.
+* About the app, backup and alarm symbols now match on Android and iOS.
+* iOS: the portfolio + button now sits above the tab bar instead of behind it.
+* Apple Watch: the complication gives up after 20 seconds without an answer and keeps the last price, like on Wear OS.
+* Hindi now uses the polite form throughout; language fixes in many other languages.
+* Google Play listings for Zulu and for Hong Kong in Cantonese.
+* Privacy page: what goes into the Android system backup (including the cached coin list), the fingerprint permission on older Android versions and the iOS local network permission for your own address server.
+* Developers: the debug build artifact now also contains the watch APK.
+
 ## 16.2.2 (build 177)
 
 * Tests only (no change for users): the Android screenshot tour starts every screen from a freshly started app instead of finding its way back with the system back key, keeps the screen on while it runs and stops at the first screen it cannot reach, naming the screen it saw.

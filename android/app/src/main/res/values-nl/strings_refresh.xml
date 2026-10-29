@@ -99,7 +99,7 @@
     <string name="check_trigger_worker">Achtergrond</string>
 
     <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
-    <string name="battery_delay_hint">Android kan controles vertragen – zet de batterij op «Onbeperkt»</string>
+    <string name="battery_delay_hint">Android kan controles vertragen – zet de batterij op ‘Onbeperkt’</string>
     <string name="battery_later">Later</string>
     <string name="battery_message">Android stelt achtergrondwerk uit om energie te besparen — koersen en widgets kunnen dan uren oud zijn. Met onbeperkt batterijgebruik blijven ze actueel. Je kunt dit altijd wijzigen in de Android-instellingen.</string>
     <string name="battery_open_settings">Batterij-instellingen openen</string>

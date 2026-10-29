@@ -237,7 +237,7 @@
     <string name="ledger_exchange">交易所（可选）</string>
     <string name="ledger_exchange_failed">%1$s：目前没有 %2$s 的价格——按 Binance 估值。</string>
     <string name="ledger_exchange_hint">该币按此交易所价格估值（否则 Binance）。走势、7天和1年：使用按比例换算的 Binance 每日价格。</string>
-    <string name="ledger_exchange_mixed">%1$s：填写了多个交易所——按 Binance 估值。移动过币？请记录为 「转移」。</string>
+    <string name="ledger_exchange_mixed">%1$s：填写了多个交易所——按 Binance 估值。移动过币？请记录为“转移”。</string>
     <string name="ledger_exchange_none">无（Binance）</string>
     <string name="ledger_fee">手续费（可选）</string>
     <string name="ledger_fee_coin">币</string>
@@ -249,7 +249,7 @@
     <string name="ledger_gain_info_fifo">今天、7天、1年：期间内的价值变化——买入和卖出不算作收益。买入以来：仍持有币的当前价值减去成本（含手续费的 FIFO）。</string>
     <string name="ledger_gain_title">盈亏</string>
     <string name="ledger_more_toggle">手续费和交易所</string>
-    <string name="ledger_partial_cost">「自买入」 只计算有买入价的部分——不含无买入价的 %1$s。</string>
+    <string name="ledger_partial_cost">“自买入”只计算有买入价的部分——不含无买入价的 %1$s。</string>
     <string name="ledger_period_without">今天 / 7天 / 1年不含 %1$s – 没有匹配的起始价格。</string>
     <string name="ledger_since_purchase_currency">自买入（%1$s）</string>
     <string name="ledger_since_purchase_spoken">自买入以来的盈亏（未卖出）</string>

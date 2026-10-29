@@ -31,6 +31,8 @@
     <string name="portfolio_csv_import_saving">Saglabā darījumus…</string>
     <string name="portfolio_csv_import_missing_fx">Nav dienas kursa rindām %1$s – importēts bez cenas/maksas.</string>
     <string name="portfolio_csv_import_missing_price">Failā nav cenas rindām %1$s – importēts bez cenas.</string>
+    <string name="portfolio_csv_import_fee_in_price">Divas maksas rindās %1$s: fiat maksa ir iekļauta cenā, maksa monētā samazina saņemto vai palielina atdoto daudzumu.</string>
+    <string name="portfolio_csv_import_pending_differs">Rindas %1$s: viena un tā paša iemaksas vai izmaksas gaidošajam un grāmatotajam ierakstam ir atšķirīgs daudzums – abi importēti, pārbaudi turējumus.</string>
     <string name="portfolio_csv_import_more">+ vēl %1$d</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="zero">%d jauni darījumi</item>

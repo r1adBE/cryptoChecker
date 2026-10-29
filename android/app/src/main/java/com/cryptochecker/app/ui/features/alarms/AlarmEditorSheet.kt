@@ -114,7 +114,8 @@ internal fun AlarmEditorSheet(
                     AlarmEditorPairHeader(watch)
                 }
                 // «Zuletzt geprüft: 14:02 · Kraken 99’800 CHF · Marke nicht erreicht» — nur beim Bearbeiten
-                if (draft.id != 0L && lastCheck != null) {
+                val lastCheckDetail = draft.id != 0L && lastCheck != null
+                if (lastCheckDetail && lastCheck != null) {
                     Text(
                         AlarmLogTexts.lastCheckLine(context, lastCheck),
                         style = MaterialTheme.typography.bodySmall,
@@ -204,7 +205,8 @@ internal fun AlarmEditorSheet(
                         .padding(horizontal = Spacing.md, vertical = Spacing.md)
                 )
                 // Ehrlich: bei geschlossener App meldet der Alarm erst beim nächsten Abruf
-                ClosedAppHint()
+                // «Zuletzt geprüft» nur einmal: steht die ausführliche Zeile oben (Bearbeiten), hier nicht (wie iOS)
+                ClosedAppHint(showLastChecked = !lastCheckDetail)
             }
 
             // Fest am unteren Rand: auch bei 200 % Schrift mit offener Tastatur erreichbar

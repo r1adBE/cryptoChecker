@@ -7,7 +7,7 @@
     <string name="why_all_values_hint">Zapažanje · Moguće objašnjenje · Izvori</string>
     <string name="why_details">Prikaži detalje</string>
     <string name="why_details_hide">Sakrij detalje</string>
-    <string name="why_disclaimer">Automatska procena iz tržišnih podataka: prikazuje što se događa istovremeno, a ne dokaz uzroka.</string>
+    <string name="why_disclaimer">Automatska procena iz tržišnih podataka: prikazuje šta se događa istovremeno, a ne dokaz uzroka.</string>
     <string name="why_footer_short">Istovremeno ne znači uzrok · Nije savet za ulaganje</string>
     <string name="why_no_data">Nema podataka s Binance-a za ovaj par</string>
     <string name="why_no_data_hint">Cena, volumen i volatilnost dolaze iz satnih sveća s Binance-a.</string>

@@ -63,7 +63,7 @@
     <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
     <string name="alarm_simple_above">os cionn</string>
     <string name="alarm_simple_below">faoi</string>
-    <string name="alarm_simple_end">\</string>
+    <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">Nuair a théann %1$s</string>
     <string name="alarm_template_a11y">Cruthaigh foláireamh: %1$s</string>
     <string name="alarm_template_a11y_down">Cruthaigh foláireamh ag lúide %1$s faoin gcéad ón bpraghas reatha</string>

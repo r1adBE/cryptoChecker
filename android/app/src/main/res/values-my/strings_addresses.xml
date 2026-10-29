@@ -7,10 +7,10 @@
     <string name="portfolio_address_hint">အများသုံး လိပ်စာ (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) သို့မဟုတ် xpub</string>
     <string name="portfolio_address_label">အမည်တံဆိပ် (ရွေးချယ်နိုင်)</string>
     <string name="portfolio_address_not_since_buy">လိပ်စာမှ · “ဝယ်ကတည်းက” တွင် မပါ: %1$s</string>
-    <string name="portfolio_address_overlap">သင့်ကိုယ်ပိုင် ငွေပေးငွေယူများတွင်လည်း ပါသည်: %1$s – နှစ်ခုလုံးကို ပေါင်းထည့်ထားသည်။ ဒင်္ဂါး တူသလား။ “ပြရုံသာ” ကို ရွေးပါ။</string>
+    <string name="portfolio_address_overlap">သင့်ကိုယ်ပိုင် ငွေပေးငွေယူများတွင်လည်း ပါသည်: %1$s – နှစ်ခုလုံးကို ပေါင်းထည့်ထားသည်။ ကွိုင် တူသလား။ “ပြရုံသာ” ကို ရွေးပါ။</string>
     <string name="portfolio_address_overlap_ask">%1$s ကို သင့်ကိုယ်ပိုင် ငွေပေးငွေယူများဖြင့် မှတ်တမ်းတင်ပြီးဖြစ်သည်။ ဤလိပ်စာ၏ လက်ကျန်ကို ပေါ့ဖိုလီယိုထဲ ပေါင်းထည့်မလား၊ သို့မဟုတ် ပြရုံသာ ပြမလား။</string>
     <string name="portfolio_address_overlap_auto">“%1$s” ကို ယခု ပြရုံသာ ပြပြီး ထည့်မတွက်ပါ – %2$s သည် သင့်ငွေပေးငွေယူများတွင်လည်း ပါသည်။</string>
-    <string name="portfolio_address_overlap_title">သင့်ငွေပေးငွေယူများနှင့် ဒင်္ဂါး တူသလား။</string>
+    <string name="portfolio_address_overlap_title">သင့်ငွေပေးငွေယူများနှင့် ကွိုင် တူသလား။</string>
     <string name="portfolio_address_overlap_tx">သင့်ကိုယ်ပိုင် အပ်ငွေ/လွှဲငွေ (%1$s) နှင့် ပမာဏ တူသည် – နှစ်ခါ တွက်မိနိုင်သည်။</string>
     <string name="portfolio_address_period_observed">စောင့်ကြည့်သော လိပ်စာများကို ပထမဆုံး တွေ့ရှိသည့် လက်ကျန်မှ စတင်တွက်သည်၊ နောက်ပိုင်း ပြောင်းလဲမှုများသည် ငွေဝင်/ငွေထွက်ဖြစ်ပြီး အမြတ်မဟုတ်ပါ။</string>
     <string name="portfolio_address_privacy">အများသုံး လိပ်စာကိုသာ %1$s သို့ ပို့သည် – သော့ သို့မဟုတ် seed phrase ကို ဘယ်တော့မှ မပို့ပါ။ ဝန်ဆောင်မှုပေးသူသည် ၎င်းကို သင့် IP လိပ်စာနှင့်အတူ မြင်ရသည်။ အများဆုံး မိနစ် 10 တစ်ကြိမ် စစ်ဆေးသည်။</string>

@@ -418,7 +418,7 @@
         "subline": "Watchlist o coin bilang widget – hindi na bubuksan ang app"
       },
       "04": {
-        "caption": "Ano ang gumagalaw kasabay nito?",
+        "caption": "Ano'ng gumagalaw kasabay nito?",
         "subline": "Volume, market at futures nang maikli – walang hula"
       },
       "05": {
@@ -458,7 +458,7 @@
         "subline": "Cuireann sé in iúl nuair a aimsíonn seiceáil do leibhéal"
       },
       "03": {
-        "caption": "Praghsanna ar do scáileán baile",
+        "caption": "Praghsanna ar scáileán baile",
         "subline": "Liosta faire nó bonn mar ghiuirléid – gan an aip a oscailt"
       },
       "04": {
@@ -630,7 +630,7 @@
         "subline": "Án aðgangs og auglýsinga – upphæðir haldast í tækinu"
       },
       "02": {
-        "caption": "Viðvörun sem lætur vita einu sinni",
+        "caption": "Viðvörun – bara einu sinni",
         "subline": "Lætur vita þegar athugun finnur að markinu er náð"
       },
       "03": {
@@ -718,7 +718,7 @@
         "subline": "ანგარიშისა და რეკლამის გარეშე – თანხები მოწყობილობაზე რჩება"
       },
       "02": {
-        "caption": "განგაში, რომელიც ერთხელ გეტყვის",
+        "caption": "განგაში – მხოლოდ ერთხელ",
         "subline": "გაცნობებს, როცა შემოწმება აჩვენებს, რომ შენი დონე მიღწეულია"
       },
       "03": {
@@ -1004,15 +1004,15 @@
         "subline": "အကောင့်မလို၊ ကြော်ငြာမဲ့ – ပမာဏများ သင့်စက်ပေါ်တွင်သာ"
       },
       "02": {
-        "caption": "တစ်ကြိမ်သာ အသိပေးသော သတိပေးချက်",
+        "caption": "သတိပေးချက် – တစ်ကြိမ်သာ",
         "subline": "စစ်ဆေးမှုက သင့်အဆင့်ရောက်ကြောင်း တွေ့သောအခါ အသိပေးသည်"
       },
       "03": {
         "caption": "ပင်မစခရင်ပေါ်တွင် ဈေးနှုန်း",
-        "subline": "စောင့်ကြည့်စာရင်း (သို့) ဒင်္ဂါး ဝီဂျက် – အက်ပ်မဖွင့်ဘဲ"
+        "subline": "စောင့်ကြည့်စာရင်း (သို့) ကွိုင် ဝီဂျက် – အက်ပ်မဖွင့်ဘဲ"
       },
       "04": {
-        "caption": "၎င်းနှင့်အတူ ဘာ လှုပ်ရှားနေသလဲ။",
+        "caption": "၎င်းနှင့်အတူ ဘာ လှုပ်ရှားနေသလဲ",
         "subline": "ပမာဏ၊ ဈေးကွက်နှင့် futures အတိုချုပ် – ခန့်မှန်းချက်မပါ"
       },
       "05": {
@@ -1026,7 +1026,7 @@
         "subline": "खाता छैन, विज्ञापन छैन – रकम तपाईंकै यन्त्रमा रहन्छ"
       },
       "02": {
-        "caption": "एक पटक मात्र जानकारी दिने अलर्ट",
+        "caption": "एक पटक मात्र सूचना दिने अलर्ट",
         "subline": "जाँचमा तपाईंको सीमा पुगेको भेटिँदा जानकारी दिन्छ"
       },
       "03": {
@@ -1452,7 +1452,7 @@
         "subline": "Liste veya tek coin widget olarak – uygulamayı açmadan"
       },
       "04": {
-        "caption": "Onunla birlikte ne hareket ediyor?",
+        "caption": "Onunla ne hareket ediyor?",
         "subline": "Hacim, piyasa ve vadeli kısaca – tahmin yok"
       },
       "05": {
@@ -1510,7 +1510,7 @@
         "subline": "Akkauntsiz, reklamasiz – summalar qurilmangizda qoladi"
       },
       "02": {
-        "caption": "Bir marta xabar beruvchi signal",
+        "caption": "Signal – faqat bir marta",
         "subline": "Tekshiruv darajangizga yetilganini topganda xabar beradi"
       },
       "03": {

@@ -220,10 +220,10 @@ private struct SheetOhlcReadout: View {
     private func line(_ a: String, _ av: Double, _ b: String, _ bv: Double) -> some View {
         let label = AppColors.onSurfaceVariant
         let value = AppColors.onSurface
-        let first = Text(verbatim: a + " ").foregroundColor(label)
-            + Text(verbatim: BidiText.isolate(PriceFormat.price(av))).foregroundColor(value)
-        let second = Text(verbatim: "  " + b + " ").foregroundColor(label)
-            + Text(verbatim: BidiText.isolate(PriceFormat.price(bv))).foregroundColor(value)
+        let first = Text(verbatim: a + " ").foregroundStyle(label)
+            + Text(verbatim: BidiText.isolate(PriceFormat.price(av))).foregroundStyle(value)
+        let second = Text(verbatim: "  " + b + " ").foregroundStyle(label)
+            + Text(verbatim: BidiText.isolate(PriceFormat.price(bv))).foregroundStyle(value)
         return first + second
     }
 }

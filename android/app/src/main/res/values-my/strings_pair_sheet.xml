@@ -26,7 +26,7 @@
     <string name="ticker_high">အမြင့်</string>
     <string name="ticker_low">အနိမ့်</string>
     <string name="ticker_timestamp">အချိန်</string>
-    <string name="ticker_vol_base">ပမာဏ (ဒင်္ဂါးဖြင့်)</string>
+    <string name="ticker_vol_base">ပမာဏ (ကွိုင်ဖြင့်)</string>
     <string name="ticker_vol_quote">ပမာဏ (ဈေးနှုန်းသတ်မှတ် ငွေကြေးဖြင့်)</string>
 
     <!-- Basis der %-Änderung (Prozent-Pille, Chart, Widgets) -->
@@ -46,7 +46,7 @@
 
     <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
     <string name="exchange_data_empty_error">လဲလှယ်ရေးဌာနမှ ဒေတာ မရရှိပါ။</string>
-    <string name="market_data_summary">ဈေးကွက်အရင်းအနှီး၊ gas အခကြေးငွေ၊ စီးပွားရေး ဒေတာ၊ ဒင်္ဂါး ခွဲခြမ်းစိတ်ဖြာမှု</string>
+    <string name="market_data_summary">ဈေးကွက်အရင်းအနှီး၊ gas အခကြေးငွေ၊ စီးပွားရေး ဒေတာ၊ ကွိုင် ခွဲခြမ်းစိတ်ဖြာမှု</string>
     <string name="market_data_tab_futures">Futures</string>
     <string name="market_data_title">ဈေးကွက်ဒေတာ</string>
 
@@ -55,7 +55,7 @@
     <string name="spot_fdv">FDV</string>
     <string name="spot_market_cap">ဈေးကွက်အရင်းအနှီး</string>
     <string name="spot_max_supply">အများဆုံး ပမာဏ</string>
-    <string name="spot_no_data">ဤဒင်္ဂါးအတွက် Spot ဒေတာ မရှိပါ</string>
+    <string name="spot_no_data">ဤကွိုင်အတွက် Spot ဒေတာ မရှိပါ</string>
     <string name="spot_source_updated">ရင်းမြစ်: %1$s · %2$s အထိ</string>
     <string name="spot_supply_of_max">အများဆုံး ပမာဏ၏ %1$s လည်ပတ်နေသည်</string>
     <string name="spot_total_supply">စုစုပေါင်း ပမာဏ</string>
@@ -71,11 +71,11 @@
     <string name="futures_funding_per_hour">တစ်နာရီလျှင်</string>
     <string name="futures_funding_per_hours">%1$d နာရီလျှင်</string>
     <string name="futures_next_funding">နောက်တစ်ကြိမ် %1$d နာရီ %2$d မိနစ်အတွင်း</string>
-    <string name="futures_no_data">ဤဒင်္ဂါးအတွက် Futures ဒေတာ မရှိပါ</string>
+    <string name="futures_no_data">ဤကွိုင်အတွက် Futures ဒေတာ မရှိပါ</string>
     <string name="futures_open_interest">Open interest</string>
     <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
     <string name="futures_reference_hint">%1$s မှ ရည်ညွှန်းချက် – Funding နှင့် Open interest သည် လဲလှယ်ရေးဌာနအလိုက် ကွဲပြားသည်၊ %2$s တွင် ကွဲပြားနိုင်သည်။</string>
-    <string name="futures_reference_spot">%1$s မှ ရည်ညွှန်းချက် (ဒင်္ဂါး၏ USDT perpetual)</string>
+    <string name="futures_reference_spot">%1$s မှ ရည်ညွှန်းချက် (ကွိုင်၏ USDT perpetual)</string>
     <string name="futures_source">ရင်းမြစ်: %1$s</string>
 
     <!-- Erklärungen hinter dem ⓘ-Knopf -->
@@ -86,7 +86,7 @@
     <string name="explain_spot_fdv">အပြည့်အဝ တန်ဖိုးဖြတ်ချက် (Fully diluted valuation)- ဈေးနှုန်း × အများဆုံး ပမာဏ (ကန့်သတ်ချက် မရှိလျှင် စုစုပေါင်း ပမာဏ)။</string>
     <string name="explain_spot_market_cap">ဈေးနှုန်း × လည်ပတ်နေသော ပမာဏ။ တံဆိပ်သည် 24 နာရီအတွင်း ၎င်း၏ ပြောင်းလဲမှုကို ပြသည်။</string>
     <string name="explain_spot_source">လဲလှယ်ရေးဌာနအားလုံးမှ ကိန်းဂဏန်းများကို US ဒေါ်လာဖြင့်၊ CoinGecko မှ။</string>
-    <string name="explain_spot_supply">လည်ပတ်နေသည်- ယခု ဈေးကွက်ထဲရှိ ဒင်္ဂါးများ။ စုစုပေါင်း- ဖန်တီးထားသော ဒင်္ဂါးအားလုံး အနုတ် မီးရှို့ထားသည်များ။ အများဆုံး- ရှိနိုင်သမျှ အများဆုံး။</string>
+    <string name="explain_spot_supply">လည်ပတ်နေသည်- ယခု ဈေးကွက်ထဲရှိ ကွိုင်များ။ စုစုပေါင်း- ဖန်တီးထားသော ကွိုင်အားလုံး အနုတ် မီးရှို့ထားသည်များ။ အများဆုံး- ရှိနိုင်သမျှ အများဆုံး။</string>
     <string name="explain_spot_volume">24 နာရီအတွင်း အရောင်းအဝယ်ဖြစ်သော တန်ဖိုး။ ပမာဏ/ဈေးကွက်အရင်းအနှီး- ဈေးကွက်အရင်းအနှီးနှင့် နှိုင်းယှဉ်ထားသော ပမာဏ — မြင့်လျှင် အရောင်းအဝယ် အလွန်တက်ကြွသည်။</string>
 
     <!-- Umrechnung und Sats -->

@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">در حال ذخیرهٔ تراکنش‌ها…</string>
     <string name="portfolio_csv_import_missing_fx">نرخ روزانه برای سطر %1$s نیست – بدون قیمت و کارمزد وارد شد.</string>
     <string name="portfolio_csv_import_missing_price">در فایل برای سطر %1$s قیمتی نیست – بدون قیمت وارد شد.</string>
+    <string name="portfolio_csv_import_fee_in_price">دو کارمزد در سطر %1$s: کارمزد فیات در قیمت لحاظ شده و کارمزد به کوین مقدار دریافتی را کم یا مقدار پرداختی را زیاد می‌کند.</string>
+    <string name="portfolio_csv_import_pending_differs">سطر %1$s: ثبت در انتظار و ثبت قطعی یک واریز یا برداشت مقدار متفاوتی دارند – هر دو وارد شد، موجودی را بررسی کن.</string>
     <string name="portfolio_csv_import_more">+ %1$d مورد دیگر</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d تراکنش جدید</item>

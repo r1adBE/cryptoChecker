@@ -175,10 +175,8 @@ extension PortfolioScreen {
         .animation(reduceMotion ? nil : .spring(duration: 0.35), value: summary.open.map(\.coin))
         .animation(.easeInOut(duration: 0.25), value: showClosed)
         .refreshable { await model.refresh(force: true) }
-        // «+»-Knopf über der eigenen Tableiste (als Overlay lag er darunter); der Einschub gibt der Liste unten
-        // Platz, die letzte Zeile rollt über den Knopf (verdeckt nichts — wie Android)
-        .safeAreaInset(edge: .bottom, alignment: .trailing, spacing: 0) {
-            PortfolioAddButton { sheet = PortfolioTxDraft() }
-        }
+        // «+»-Knopf über der eigenen Tableiste (RootView); deren Einschub gibt der Liste unten Platz, die letzte
+        // Zeile rollt über den Knopf (verdeckt nichts — wie Android)
+        .portfolioAddButton { sheet = PortfolioTxDraft() }
     }
 }

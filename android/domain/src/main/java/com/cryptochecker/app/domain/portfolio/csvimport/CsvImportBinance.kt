@@ -13,7 +13,8 @@ import java.math.BigDecimal
  *    gleichem Konto = ein Geschäft (Mengen je Coin zusammengezählt). Ein Coin ab, einer zu: gegen Fiat ([CsvImport.isFiat])
  *    Kauf bzw. Verkauf (Preis = Fiat-Betrag / Menge), sonst Tausch (Wert nur mit USDT-Seite, [CsvImport.stableSwapValue]).
  *    Nur ein Coin zu (Kartenkauf) bzw. nur ab: Kauf bzw. Verkauf ohne Preis. Nur Gebühr: Gebühr-Zeile (Veräusserung).
- *    Gebühren in mehreren Coins: eine am Geschäft, die übrigen als eigene Gebühr-Zeilen ([CsvImport.splitFees]). Kauf und
+ *    Gebühren in mehreren Coins: Kauf/Verkauf mit Fiat-Gebühr und Gebühr im Coin → Fiat-Gebühr im Preis, die im Coin am
+ *    Geschäft ([CsvImport.fiatFeeInPrice]); sonst eine am Geschäft, die übrigen als eigene Gebühr-Zeilen ([CsvImport.splitFees]). Kauf und
  *    Verkauf desselben Coins in der Sekunde mit genau zwei Coins (A → B, B → A) → zwei Geschäfte; mehrere Coins je Seite
  *    (Kleinbeträge in BNB, zwei Geschäfte in derselben Sekunde) → [CsvImportSkipReason.AMBIGUOUS_GROUP] (Prüfliste).
  *  - «Deposit» / «Withdraw» → Einzahlung / Auszahlung (Fiat → [CsvImportSkipReason.NOT_CRYPTO]); die Auszahlung zählt
@@ -199,7 +200,8 @@ object CsvImportBinance {
 
     /**
      * Zeilen eines Geschäfts aus [legs]: höchstens ein Coin ab ([given]) und einer zu ([received]), [fees] je Einheit.
-     * Gebühren in mehreren Einheiten: eine am Geschäft, die übrigen als eigene Gebühr-Zeilen ([CsvImport.splitFees]).
+     * Gebühren in mehreren Einheiten: Fiat- und Coin-Gebühr eines Kaufs/Verkaufs → Fiat in den Preis
+     * ([CsvImport.fiatFeeInPrice]); sonst eine am Geschäft, die übrigen als eigene Gebühr-Zeilen ([CsvImport.splitFees]).
      */
     private fun emit(
         legs: List<Leg>,
@@ -230,7 +232,16 @@ object CsvImportBinance {
             }
             return
         }
-        val split = CsvImport.splitFees(fees, given?.first, received?.first) ?: return skipAll(CsvImportSkipReason.TWO_FEES)
+        val folded = when {
+            given == null || received == null -> null
+            CsvImport.isFiat(given.first) && !CsvImport.isFiat(received.first) ->
+                CsvImport.fiatFeeInPrice(true, received.first, given.first, given.second, fees)
+            CsvImport.isFiat(received.first) && !CsvImport.isFiat(given.first) ->
+                CsvImport.fiatFeeInPrice(false, given.first, received.first, received.second, fees)
+            else -> null
+        }
+        val split = CsvImport.splitFees(folded?.second ?: fees, given?.first, received?.first)
+            ?: return skipAll(CsvImportSkipReason.TWO_FEES)
         if (given != null && received != null && CsvImport.isFiat(given.first) && CsvImport.isFiat(received.first)) {
             return skipAll(CsvImportSkipReason.NOT_CRYPTO)
         }
@@ -252,12 +263,14 @@ object CsvImportBinance {
                 val (inn, inAmount) = received
                 when {
                     CsvImport.isFiat(out) -> {
-                        val price = CsvImport.derive(outAmount, inAmount)
+                        val price = CsvImport.derive(folded?.first ?: outAmount, inAmount)
                         rows += row(line, CsvImportKind.BUY, rawKind(inn), inn, inAmount, price, out, feeAmount, feeUnit, first)
+                            .copy(feeInPrice = folded != null)
                     }
                     CsvImport.isFiat(inn) -> {
-                        val price = CsvImport.derive(inAmount, outAmount)
+                        val price = CsvImport.derive(folded?.first ?: inAmount, outAmount)
                         rows += row(line, CsvImportKind.SELL, rawKind(out), out, outAmount, price, inn, feeAmount, feeUnit, first)
+                            .copy(feeInPrice = folded != null)
                     }
                     else -> {
                         val (value, valueQuote) = CsvImport.stableSwapValue(out, outAmount, inn, inAmount)

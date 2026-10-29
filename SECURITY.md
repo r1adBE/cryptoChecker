@@ -204,7 +204,14 @@ keys or other secrets never belong in this repository.
   itself); the apps then remember the revoked key permanently and no longer accept
   anything signed only with it. If the two keys revoke each other (in either order),
   both stay revoked and the apps stop trusting the mirror until an app update brings
-  new keys — they then ask the providers directly.
+  new keys — they then ask the providers directly. This also means that whoever holds a
+  leaked key that is already revoked can still revoke the reserve key with a fresh manifest
+  signed with the leaked key, which switches the mirror off in the same way. That is by
+  design: otherwise the result would depend on which manifest an app saw first, and an app
+  that saw the attacker's manifest first would keep trusting the leaked key. Only the
+  mirror is affected (no data can be forged; the apps ask the providers directly). After a
+  leak the maintainer therefore revokes the key with the other one, creates a new key pair
+  and ships an app update with the new public keys promptly.
 * **Integrity of the economic calendar.** The calendar of US economic releases
   (`macro/events.json` on the project's GitHub Pages site) is covered by the same
   signed manifest (entry `macro_events.json`). The apps use a downloaded calendar only

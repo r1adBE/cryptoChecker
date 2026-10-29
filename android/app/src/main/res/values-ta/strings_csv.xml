@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">பரிவர்த்தனைகளைச் சேமிக்கிறது…</string>
     <string name="portfolio_csv_import_missing_fx">வரிகள் %1$s க்குத் தினசரி விகிதம் இல்லை – விலை/கட்டணம் இல்லாமல் இறக்குமதி செய்யப்பட்டது.</string>
     <string name="portfolio_csv_import_missing_price">வரிகள் %1$s க்குக் கோப்பில் விலை இல்லை – விலை இல்லாமல் இறக்குமதி செய்யப்பட்டது.</string>
+    <string name="portfolio_csv_import_fee_in_price">வரிகள் %1$s இல் இரண்டு கட்டணங்கள்: ஃபியட் கட்டணம் விலையில் சேர்க்கப்பட்டுள்ளது, காயினில் உள்ள கட்டணம் பெற்ற அளவைக் குறைக்கும் அல்லது கொடுத்த அளவைக் கூட்டும்.</string>
+    <string name="portfolio_csv_import_pending_differs">வரிகள் %1$s: ஒரே வைப்பு அல்லது திரும்பப்பெறுதலின் நிலுவை மற்றும் பதிவான உள்ளீடுகளின் அளவு வேறுபடுகிறது – இரண்டும் இறக்குமதி செய்யப்பட்டன, இருப்புகளைச் சரிபார்க்கவும்.</string>
     <string name="portfolio_csv_import_more">+ மேலும் %1$d</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d புதிய பரிவர்த்தனை</item>

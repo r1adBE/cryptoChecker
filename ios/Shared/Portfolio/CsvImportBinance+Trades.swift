@@ -132,8 +132,9 @@ extension CsvImportBinance {
     }
 
     /// Ausführungen einer Order in derselben Sekunde → ein Kauf/Verkauf mit Summen (so fasst sie auch der
-    /// Transaktionsverlauf zusammen) — wie Android `order`. Gebühren in verschiedenen Einheiten: eine am Geschäft, die
-    /// übrigen als eigene Gebühr-Zeilen (`CsvImport.splitFees`, gleiche Wahl wie im Transaktionsverlauf).
+    /// Transaktionsverlauf zusammen) — wie Android `order`. Gebühren in verschiedenen Einheiten wie im Transaktionsverlauf:
+    /// Fiat- und Coin-Gebühr → Fiat in den Preis (`CsvImport.fiatFeeInPrice`, Preis = (Quote-Summe ± Gebühr) / Menge);
+    /// sonst eine am Geschäft, die übrigen als eigene Gebühr-Zeilen (`CsvImport.splitFees`).
     private static func order(_ fills: [Fill], _ skipped: inout [CsvImportSkip]) -> [CsvImportRow] {
         guard let first = fills.first else { return [] }
         var feeUnits: [String] = []
@@ -144,22 +145,27 @@ extension CsvImportBinance {
             feeSums[unit, default: 0] += fee
         }
         let buy = first.kind == .BUY
-        guard let split = CsvImport.splitFees(feeUnits.map { (unit: $0, amount: feeSums[$0] ?? 0) },
+        let amount = fills.reduce(Decimal(0)) { $0 + $1.amount }
+        let total = fills.reduce(Decimal(0)) { $0 + $1.total }
+        let feeList = feeUnits.map { (unit: $0, amount: feeSums[$0] ?? 0) }
+        let folded = CsvImport.fiatFeeInPrice(buy: buy, coin: first.base, fiat: first.quote, total: total, fees: feeList)
+        guard let split = CsvImport.splitFees(folded?.rest ?? feeList,
                                               given: buy ? first.quote : first.base,
                                               received: buy ? first.base : first.quote) else {
             for f in fills { skipped.append(CsvImportSkip(line: f.line, reason: .TWO_FEES)) }
             return []
         }
-        let amount = fills.reduce(Decimal(0)) { $0 + $1.amount }
-        let total = fills.reduce(Decimal(0)) { $0 + $1.total }
         let fee: Decimal? = split.primary?.amount
-        let price = fills.count == 1 ? first.price : PortfolioDecimal.divide(total, amount)
-        let draft = CsvImportRow(
+        let price: Decimal
+        if let folded { price = PortfolioDecimal.divide(folded.total, amount) }
+        else { price = fills.count == 1 ? first.price : PortfolioDecimal.divide(total, amount) }
+        var draft = CsvImportRow(
             line: first.line, kind: first.kind, rawKind: first.rawKind, coin: first.base, amount: amount, price: price,
             quote: first.quote, fee: fee, feeUnit: fee == nil ? nil : split.primary?.unit, timeMillis: first.time, externalId: nil,
             key: CsvImport.key(format: .BINANCE, kind: first.kind, coin: first.base, amount: amount, price: nil,
                                timeMillis: first.time, externalId: nil, localTime: first.local),
             localTime: first.local)
+        draft.feeInPrice = folded != nil
         // Gegen Stablecoin oder Krypto-Coin: Tausch mit dem Quote-Betrag der Datei
         let trade = CsvImportParser.stableSwap(.BINANCE, draft, stableAmount: total) ?? draft
         // Weitere Gebühren: Veräusserung zum Tageskurs (Schlüssel wie im Transaktionsverlauf)

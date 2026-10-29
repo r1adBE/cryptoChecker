@@ -8,7 +8,6 @@
         <item quantity="two">%1$d מתוך %2$d ללא מחיר</item>
         <item quantity="other">%1$d מתוך %2$d ללא מחיר</item>
     </plurals>
-    <string name="watchlist_last_run">ריצה אחרונה %1$s</string>
     <string name="watchlist_live_a11y">מחירים חיים פעילים</string>
     <string name="watchlist_offline_since">אין חיבור · עדכון אחרון %1$s</string>
     <string name="watchlist_pull_to_refresh">משכו למטה לרענון</string>

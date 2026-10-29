@@ -27,6 +27,8 @@
     <string name="portfolio_csv_import_saving">កំពុងរក្សាទុកប្រតិបត្តិការ…</string>
     <string name="portfolio_csv_import_missing_fx">គ្មានអត្រាប្រចាំថ្ងៃសម្រាប់ជួរ %1$s – បាននាំចូលដោយគ្មានតម្លៃ/កម្រៃ។</string>
     <string name="portfolio_csv_import_missing_price">គ្មានតម្លៃនៅក្នុងឯកសារសម្រាប់ជួរ %1$s – បាននាំចូលដោយគ្មានតម្លៃ។</string>
+    <string name="portfolio_csv_import_fee_in_price">កម្រៃពីរនៅជួរ %1$s៖ កម្រៃ fiat ត្រូវបានបញ្ចូលក្នុងតម្លៃ កម្រៃជាកាក់កាត់បន្ថយចំនួនដែលបានទទួល ឬបង្កើនចំនួនដែលបានផ្ដល់។</string>
+    <string name="portfolio_csv_import_pending_differs">ជួរ %1$s៖ ធាតុរង់ចាំ និងធាតុដែលបានកត់ត្រានៃការដាក់ប្រាក់ ឬដកប្រាក់ដូចគ្នាមានចំនួនខុសគ្នា – បាននាំចូលទាំងពីរ សូមពិនិត្យការកាន់កាប់</string>
     <string name="portfolio_csv_import_more">+ %1$d ទៀត</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="other">ប្រតិបត្តិការថ្មី %d</item>

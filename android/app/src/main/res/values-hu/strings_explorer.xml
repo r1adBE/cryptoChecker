@@ -92,7 +92,7 @@
     <string name="explorer_no_pair_list">Nincsenek devizapárok</string>
     <string name="explorer_sync_sheet_last">Utolsó szinkronizálás: %1$s</string>
     <string name="explorer_sync_never">soha</string>
-    <string name="explorer_sync_sheet_action">Szinkronizálás most!</string>
+    <string name="explorer_sync_sheet_action">Szinkronizálás most</string>
     <string name="explorer_sync_sheet_title">Devizapárok frissítése</string>
     <string name="explorer_field_coin">Alap</string>
     <string name="explorer_field_contract">Szerződéstípus</string>

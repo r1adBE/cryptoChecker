@@ -92,7 +92,7 @@
     <string name="explorer_no_pair_list">Geen valutaparen</string>
     <string name="explorer_sync_sheet_last">Laatste sync: %1$s</string>
     <string name="explorer_sync_never">nooit</string>
-    <string name="explorer_sync_sheet_action">Nu synchroniseren!</string>
+    <string name="explorer_sync_sheet_action">Nu synchroniseren</string>
     <string name="explorer_sync_sheet_title">Valutaparen bijwerken</string>
     <string name="explorer_field_coin">Basis</string>
     <string name="explorer_field_contract">Contracttype</string>

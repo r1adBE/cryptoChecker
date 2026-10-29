@@ -101,6 +101,26 @@ enum WatchQuoteParser {
 enum WatchQuoteFetch {
     private enum Fallback: Sendable { case bybit, okx }
 
+    /// Obergrenze eines ganzen Abrufs der Komplikation (alle Börsen zusammen) — wie Android
+    /// `PriceComplicationService.FETCH_TIMEOUT_MS`: WidgetKit wartet nicht beliebig auf die Zeitleiste.
+    static let complicationTimeoutSeconds: Double = 20
+
+    /// `fetch` mit Gesamt-Zeitgrenze: Ist `run` nach `seconds` nicht fertig, wird er abgebrochen und das Ergebnis ist
+    /// leer (der gespeicherte Kurs bleibt). Wie Android `withTimeoutOrNull`.
+    static func within(seconds: Double,
+                       _ run: @escaping @Sendable () async -> [String: WatchQuote]) async -> [String: WatchQuote] {
+        await withTaskGroup(of: [String: WatchQuote]?.self) { group in
+            group.addTask { await run() }
+            group.addTask {
+                try? await Task.sleep(nanoseconds: UInt64(seconds * 1_000_000_000))
+                return nil
+            }
+            let first = await group.next() ?? nil
+            group.cancelAll()
+            return first ?? [:]
+        }
+    }
+
     static func fetch(_ coins: [String], get: @escaping @Sendable (URL) async -> Data?) async -> [String: WatchQuote] {
         var seen = Set<String>()
         let wanted = Array(coins.filter { seen.insert($0).inserted }.prefix(WatchCoins.max))

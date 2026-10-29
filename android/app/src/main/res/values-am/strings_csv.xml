@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">ግብይቶችን በማስቀመጥ ላይ…</string>
     <string name="portfolio_csv_import_missing_fx">ለመስመሮች %1$s ዕለታዊ ተመን የለም – ያለ ዋጋ/ክፍያ መጥተዋል።</string>
     <string name="portfolio_csv_import_missing_price">ለመስመሮች %1$s በፋይሉ ውስጥ ዋጋ የለም – ያለ ዋጋ መጥተዋል።</string>
+    <string name="portfolio_csv_import_fee_in_price">በመስመሮች %1$s ሁለት ክፍያዎች፦ የፊያት ክፍያው በዋጋው ውስጥ ተካቷል፣ በሳንቲሙ ያለው ክፍያ የተቀበለውን መጠን ይቀንሳል ወይም የተሰጠውን ይጨምራል።</string>
+    <string name="portfolio_csv_import_pending_differs">መስመሮች %1$s፦ የአንድ ተቀማጭ ወይም ወጪ በመጠባበቅ ላይ ያለው እና የተመዘገበው ግቤት የተለያየ መጠን አላቸው – ሁለቱም መጥተዋል፣ ይዞታዎችን ይፈትሹ።</string>
     <string name="portfolio_csv_import_more">+ %1$d ተጨማሪ</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d አዲስ ግብይት</item>

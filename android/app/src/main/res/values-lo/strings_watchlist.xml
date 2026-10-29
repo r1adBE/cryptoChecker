@@ -6,7 +6,6 @@
     <plurals name="watchlist_failed_count">
         <item quantity="other">%1$d ຈາກ %2$d ບໍ່ມີລາຄາ</item>
     </plurals>
-    <string name="watchlist_last_run">ເຮັດວຽກຫຼ້າສຸດ %1$s</string>
     <string name="watchlist_live_a11y">ລາຄາສົດເປີດຢູ່</string>
     <string name="watchlist_offline_since">ບໍ່ມີການເຊື່ອມຕໍ່ · ຂໍ້ມູນເມື່ອ %1$s</string>
     <string name="watchlist_pull_to_refresh">ດຶງລົງເພື່ອໂຫຼດຄືນໃໝ່</string>

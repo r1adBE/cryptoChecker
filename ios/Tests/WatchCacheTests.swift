@@ -52,6 +52,25 @@ final class WatchCacheTests: XCTestCase {
         XCTAssertEqual(WatchCache.listTime(cache, coins: coins), 1_000)
     }
 
+    /// Komplikation: Gesamt-Zeitgrenze des Abrufs wie Android `withTimeoutOrNull(FETCH_TIMEOUT_MS)`.
+    func testComplicationFetchIsBoundedByAnOverallDeadline() async {
+        XCTAssertEqual(WatchQuoteFetch.complicationTimeoutSeconds, 20)
+        let quick = await WatchQuoteFetch.within(seconds: 5) {
+            ["BTC": WatchQuote(symbol: "BTC", price: 1, change24h: nil, source: WatchQuoteParser.binanceName)]
+        }
+        XCTAssertEqual(quick["BTC"]?.price, 1)
+
+        let started = Date()
+        // Hängt (kein Netz, Server antwortet nicht): leer nach der Grenze, der gespeicherte Kurs bleibt
+        let hanging = await WatchQuoteFetch.within(seconds: 0.05) {
+            try? await Task.sleep(nanoseconds: 30_000_000_000)
+            return ["BTC": WatchQuote(symbol: "BTC", price: 2, change24h: nil, source: WatchQuoteParser.binanceName)]
+        }
+        XCTAssertTrue(hanging.isEmpty)
+        // Abgebrochen, nicht abgewartet
+        XCTAssertLessThan(Date().timeIntervalSince(started), 5)
+    }
+
     func testStaleComplicationFetchDoesNotOverwriteTheNewerAppFetch() {
         let keep = ["BTC", "ETH"]
         // Komplikation startet um 1000, die Uhr-App um 2000 und ist zuerst fertig

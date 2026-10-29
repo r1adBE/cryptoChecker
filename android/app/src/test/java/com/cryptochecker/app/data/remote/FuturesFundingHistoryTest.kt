@@ -14,7 +14,6 @@ import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.fail
-import org.junit.Assume.assumeFalse
 import org.junit.Before
 import org.junit.Test
 import java.io.IOException
@@ -50,8 +49,9 @@ class FuturesFundingHistoryTest {
 
     private val spot = watch("Kraken", null, FuturesContractType.NONE)
 
-    private fun assumeOpen(vararg hosts: String) {
-        for (host in hosts) assumeFalse("$host gesperrt", BlockedSources.isBlocked(host))
+    /** Quellen des Tests freigeben: ein anderer Test im selben Prozess kann sie gesperrt haben (Test läuft immer). */
+    private fun releaseHosts(vararg hosts: String) {
+        for (host in hosts) BlockedSources.clearForTest(host)
     }
 
     // Binance: älteste zuerst, «fundingRate» als Text
@@ -65,7 +65,7 @@ class FuturesFundingHistoryTest {
 
     @Test
     fun spotPairTakesBinanceAndCachesTheResult() = runBlocking {
-        assumeOpen(FuturesDataSource.BINANCE)
+        releaseHosts(FuturesDataSource.BINANCE)
         val futures = source(mapOf(binance("BTCUSDT") to binanceBody))
         val history = futures.fundingHistory(spot)!!
         assertEquals("Binance Futures", history.source)
@@ -80,7 +80,7 @@ class FuturesFundingHistoryTest {
 
     @Test
     fun emptyBinanceAnswerFallsBackToBybit() = runBlocking {
-        assumeOpen(FuturesDataSource.BINANCE, FuturesDataSource.BYBIT)
+        releaseHosts(FuturesDataSource.BINANCE, FuturesDataSource.BYBIT)
         val history = source(
             mapOf(
                 binance("BTCUSDT") to "[]",
@@ -96,7 +96,7 @@ class FuturesFundingHistoryTest {
 
     @Test
     fun okxWatchReadsTheRealizedRateOfItsContract() = runBlocking {
-        assumeOpen(FuturesDataSource.OKX)
+        releaseHosts(FuturesDataSource.OKX)
         val id = "BTC-USD-SWAP"
         val history = source(
             mapOf(
@@ -113,7 +113,7 @@ class FuturesFundingHistoryTest {
 
     @Test
     fun coinMWatchAsksDapiFirst() = runBlocking {
-        assumeOpen(FuturesDataSource.BINANCE_COIN_M)
+        releaseHosts(FuturesDataSource.BINANCE_COIN_M)
         val history = source(
             mapOf(binanceCoinM("BTCUSD_PERP") to """[{"symbol":"BTCUSD_PERP","fundingTime":1793001600000,"fundingRate":"0.00005"}]"""),
         ).fundingHistory(watch("BinanceFutures", "2:BTCUSD_PERP"))!!
@@ -123,7 +123,7 @@ class FuturesFundingHistoryTest {
 
     @Test
     fun bybitWatchUsesItsPairIdFirst() = runBlocking {
-        assumeOpen(FuturesDataSource.BYBIT)
+        releaseHosts(FuturesDataSource.BYBIT)
         val history = source(
             mapOf(
                 bybit("BTCPERP") to """{"retCode":0,"retMsg":"OK","result":{"list":[""" +
@@ -136,7 +136,7 @@ class FuturesFundingHistoryTest {
 
     @Test
     fun withoutAnySourceItIsNullAndRetriedNextTime() = runBlocking {
-        assumeOpen(FuturesDataSource.BINANCE, FuturesDataSource.BYBIT, FuturesDataSource.OKX)
+        releaseHosts(FuturesDataSource.BINANCE, FuturesDataSource.BYBIT, FuturesDataSource.OKX)
         val futures = source(emptyMap())
         val usdc = watch("BinanceFutures", "BTCUSDC")
         assertNull(futures.fundingHistory(usdc))

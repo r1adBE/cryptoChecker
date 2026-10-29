@@ -1,5 +1,5 @@
 # Known vulnerabilities in the Android release dependencies: the resolved releaseRuntimeClasspath of :app (includes
-# :marketdata) is checked against the public OSV database (api.osv.dev, no secrets) by .github/scripts/osv_check.py.
+# :marketdata, :domain and :data) and of :wear (own APK for the watch) is checked against the public OSV database (api.osv.dev, no secrets) by .github/scripts/osv_check.py.
 # Findings are annotations. A vulnerability with a fixed version is an error on main, on release tags and in the
 # weekly run (the weekly run catches advisories published after the last push); on pull requests it is a warning.
 # Without a fix, or when OSV is not reachable: warning. An accepted finding goes into .github/osv-ignore.txt
@@ -62,6 +62,9 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew -q --no-configuration-cache :app:dependencies --configuration releaseRuntimeClasspath > "$RUNNER_TEMP/release-deps.txt"
+          # Watch app: own release APK with its own libraries (Wear Compose, complications, protolayout ...);
+          # appended to the same tree (osv_check.py reads it line by line, duplicate coordinates are harmless)
+          ./gradlew -q --no-configuration-cache :wear:dependencies --configuration releaseRuntimeClasspath >> "$RUNNER_TEMP/release-deps.txt"
           echo "Resolved lines: $(wc -l < "$RUNNER_TEMP/release-deps.txt")"
 
       - name: OSV check

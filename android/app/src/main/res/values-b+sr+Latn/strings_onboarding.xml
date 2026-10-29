@@ -5,7 +5,7 @@
     <string name="welcome_alert">Postavi alarme – cena, procenat, volumen i neobična kretanja</string>
     <string name="welcome_alert_q">Kada upozoriti?</string>
     <string name="welcome_text">Tvoje cene. Tvoji alarmi. Tvoj pregled.\nBez naloga. Bez oglasa. Bez praćenja.</string>
-    <string name="welcome_understand">Razumi – što se upravo kreće zajedno s cenom</string>
+    <string name="welcome_understand">Razumi – šta se upravo kreće zajedno s cenom</string>
     <string name="welcome_understand_q">Šta se kreće s njom?</string>
     <string name="welcome_watch">Prati – svoje kriptovalute, cene i istoriju cena</string>
     <string name="welcome_watch_q">Šta se događa?</string>

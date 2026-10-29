@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">Gemmer transaktioner…</string>
     <string name="portfolio_csv_import_missing_fx">Ingen dagskurs for linje %1$s – importeret uden pris og gebyr.</string>
     <string name="portfolio_csv_import_missing_price">Ingen pris i filen for linje %1$s – importeret uden pris.</string>
+    <string name="portfolio_csv_import_fee_in_price">To gebyrer i linje %1$s: fiat-gebyret er med i prisen, gebyret i mønten mindsker den modtagne eller øger den afgivne mængde.</string>
+    <string name="portfolio_csv_import_pending_differs">Linje %1$s: afventende og bogført postering af samme indbetaling eller udbetaling har forskellige mængder – begge importeret, tjek beholdningen.</string>
     <string name="portfolio_csv_import_more">+ %1$d mere</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d ny transaktion</item>

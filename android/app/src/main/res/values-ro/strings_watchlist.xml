@@ -8,7 +8,6 @@
         <item quantity="few">%1$d din %2$d fără preț</item>
         <item quantity="other">%1$d din %2$d fără preț</item>
     </plurals>
-    <string name="watchlist_last_run">Ultima rulare %1$s</string>
     <string name="watchlist_live_a11y">Prețuri live active</string>
     <string name="watchlist_offline_since">Fără conexiune · stare %1$s</string>
     <string name="watchlist_pull_to_refresh">Trage în jos pentru actualizare</string>

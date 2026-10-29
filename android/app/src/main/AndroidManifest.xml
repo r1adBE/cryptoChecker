@@ -291,7 +291,6 @@
             android:name=".notification.AlarmActionReceiver"
             android:exported="false" />
 
-        <!-- Liefert die Zeilen der Widget-Liste -->
         <!-- Uhr-App: Wahl und eigene Liste der Uhr über die Wear-Daten-Schicht (nur Coin-Kürzel) -->
         <service
             android:name=".wearable.PhoneWatchListener"
@@ -305,6 +304,7 @@
             </intent-filter>
         </service>
 
+        <!-- Liefert die Zeilen der Widget-Liste -->
         <service
             android:name=".widget.PriceWidgetService"
             android:exported="false"

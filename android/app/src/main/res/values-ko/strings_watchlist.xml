@@ -6,7 +6,6 @@
     <plurals name="watchlist_failed_count">
         <item quantity="other">%2$d개 중 %1$d개 가격 없음</item>
     </plurals>
-    <string name="watchlist_last_run">마지막 실행 %1$s</string>
     <string name="watchlist_live_a11y">실시간 시세 켜짐</string>
     <string name="watchlist_offline_since">연결 없음 · %1$s 기준</string>
     <string name="watchlist_pull_to_refresh">아래로 당겨 새로고침</string>

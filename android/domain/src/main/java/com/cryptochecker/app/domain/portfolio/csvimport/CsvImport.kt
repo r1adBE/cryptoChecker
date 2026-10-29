@@ -159,7 +159,8 @@ object CsvImport {
     /**
      * Gebühren eines Geschäfts in mehreren Einheiten (Binance, Kraken; [fees] = (Einheit, Menge > 0), je Einheit
      * höchstens einmal): eine bleibt am Geschäft, jede weitere wird eine eigene Gebühr-Zeile ([CsvImportKind.FEE],
-     * Veräusserung zum Tageskurs wie eine Gebühr im dritten Coin) — statt das ganze Geschäft zu überspringen. Am Geschäft
+     * Veräusserung zum Tageskurs wie eine Gebühr im dritten Coin) — statt das ganze Geschäft zu überspringen. Kauf/Verkauf
+     * gegen Fiat mit Fiat-Gebühr UND Gebühr im gehandelten Coin kommt vorher durch [fiatFeeInPrice]. Am Geschäft
      * bleibt, unabhängig von der Reihenfolge (beide Binance-Exporte ergeben dieselben Zeilen): die Fiat-Gebühr, sonst die
      * im abgegebenen [given], dann im erhaltenen Coin [received], sonst die alphabetisch erste. Zwei Fiat-Gebühren lassen
      * sich nicht als Gebühr-Zeile buchen → null ([CsvImportSkipReason.TWO_FEES]).
@@ -177,6 +178,29 @@ object CsvImport {
             ?: fees.firstOrNull { it.first == received }
             ?: fees.sortedBy { it.first }.first()
         return primary to fees.filter { it.first != primary.first }
+    }
+
+    /**
+     * Kauf/Verkauf gegen Fiat [fiat] mit Gebühr in [fiat] UND im gehandelten Coin [coin] (Kraken, Binance): die
+     * Fiat-Gebühr kommt in den Preis — Kauf (Betrag + Gebühr) / Menge, Verkauf (Betrag − Gebühr) / Menge, Einstand bzw.
+     * Erlös also wie mit der Gebühr in der Preiswährung —, die Gebühr im Coin bleibt am Geschäft (weniger erhalten bzw.
+     * mehr abgegeben). Sonst würde sie eine eigene Gebühr-Zeile, die im FIFO den ältesten Posten veräussert statt der
+     * eben gehandelten Coins. [total] = Fiat-Betrag des Geschäfts ohne Gebühr; [fees] wie bei [splitFees].
+     * @return (Fiat-Betrag samt Gebühr, übrige Gebühren für [splitFees]); null = nichts einzurechnen (keine solchen zwei
+     *   Gebühren, oder der Erlös eines Verkaufs wäre ≤ 0)
+     */
+    fun fiatFeeInPrice(
+        buy: Boolean,
+        coin: String,
+        fiat: String,
+        total: BigDecimal,
+        fees: List<Pair<String, BigDecimal>>,
+    ): Pair<BigDecimal, List<Pair<String, BigDecimal>>>? {
+        if (!isFiat(fiat) || fees.none { it.first == coin }) return null
+        val fiatFee = fees.singleOrNull { it.first == fiat } ?: return null
+        val folded = if (buy) total.add(fiatFee.second) else total.subtract(fiatFee.second)
+        if (folded.signum() <= 0) return null
+        return folded to fees.filter { it.first != fiat }
     }
 
     /**

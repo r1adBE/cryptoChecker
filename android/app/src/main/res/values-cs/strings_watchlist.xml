@@ -9,7 +9,6 @@
         <item quantity="many">%1$d z %2$d bez ceny</item>
         <item quantity="other">%1$d z %2$d bez ceny</item>
     </plurals>
-    <string name="watchlist_last_run">Poslední běh %1$s</string>
     <string name="watchlist_live_a11y">Živé kurzy zapnuté</string>
     <string name="watchlist_offline_since">Bez připojení · stav k %1$s</string>
     <string name="watchlist_pull_to_refresh">Potažením dolů obnovíš</string>

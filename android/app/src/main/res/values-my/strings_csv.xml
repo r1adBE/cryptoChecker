@@ -27,6 +27,8 @@
     <string name="portfolio_csv_import_saving">ငွေပေးငွေယူများကို သိမ်းနေသည်…</string>
     <string name="portfolio_csv_import_missing_fx">စာကြောင်း %1$s အတွက် နေ့စဉ်နှုန်း မရှိပါ – ဈေးနှုန်း/အခကြေးငွေ မပါဘဲ တင်သွင်းခဲ့သည်။</string>
     <string name="portfolio_csv_import_missing_price">ဖိုင်ထဲတွင် စာကြောင်း %1$s အတွက် ဈေးနှုန်း မရှိပါ – ဈေးနှုန်း မပါဘဲ တင်သွင်းခဲ့သည်။</string>
+    <string name="portfolio_csv_import_fee_in_price">စာကြောင်း %1$s တွင် အခကြေးငွေ နှစ်ခု – fiat အခကြေးငွေကို ဈေးနှုန်းထဲ ထည့်ထားပြီး coin ဖြင့် အခကြေးငွေက လက်ခံရရှိသော ပမာဏကို လျှော့ သို့မဟုတ် ပေးလိုက်သော ပမာဏကို တိုးစေသည်။</string>
+    <string name="portfolio_csv_import_pending_differs">စာကြောင်း %1$s – တူညီသော အပ်ငွေ သို့မဟုတ် ထုတ်ငွေ၏ ဆိုင်းငံ့ထားသော မှတ်တမ်းနှင့် စာရင်းသွင်းပြီး မှတ်တမ်း ပမာဏ မတူပါ – နှစ်ခုလုံး တင်သွင်းခဲ့သည်၊ ကိုင်ဆောင်ထားမှုကို စစ်ဆေးပါ။</string>
     <string name="portfolio_csv_import_more">+ နောက်ထပ် %1$d</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="other">ငွေပေးငွေယူ အသစ် %d ခု</item>
@@ -34,19 +36,19 @@
     <plurals name="portfolio_csv_import_skipped">
         <item quantity="other">စာကြောင်း %d ကြောင်း ကျော်ခဲ့သည်</item>
     </plurals>
-    <string name="portfolio_csv_import_stable_swaps">stablecoin (USDT, USDC …) နှင့် အရောင်းအဝယ်များကို ဒင်္ဂါးလဲလှယ်မှုအဖြစ် မှတ်တမ်းတင်သည် – stablecoin သည် သင်ကိုင်ဆောင်ထားမှုတွင် ပေါ်လာမည်။</string>
+    <string name="portfolio_csv_import_stable_swaps">stablecoin (USDT, USDC …) နှင့် အရောင်းအဝယ်များကို ကွိုင်လဲလှယ်မှုအဖြစ် မှတ်တမ်းတင်သည် – stablecoin သည် သင်ကိုင်ဆောင်ထားမှုတွင် ပေါ်လာမည်။</string>
     <string name="portfolio_csv_import_transfer_ambiguous">ကိုက်ညီမှု အများအပြား ဖြစ်နိုင်သည် – မှန်ကန်သည့်တစ်ခုကို ရွေးပါ သို့မဟုတ် ဘာမှ မရွေးပါနှင့်။</string>
     <string name="portfolio_csv_import_transfer_fee">ကွန်ရက်အခကြေးငွေ: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">လွှဲပြောင်းမှုတစ်ခုအဖြစ် မှတ်တမ်းတင်ရန်</string>
     <string name="portfolio_csv_import_transfer_stored">ယခင် တင်သွင်းမှုမှ တွဲဖက်မှတ်တမ်း</string>
-    <string name="portfolio_csv_import_transfers_hint">ဒင်္ဂါးတစ်မျိုးတည်း၏ ငွေထုတ်မှုနှင့် ကိုက်ညီသော အပ်ငွေသည် လွှဲပြောင်းမှုတစ်ခု ဖြစ်လာသည်- ဝယ်ဈေးနှင့် ကိုင်ဆောင်ချိန် ဆက်ပါသွားပြီး ကွာခြားချက်ကို ကွန်ရက်အခကြေးငွေအဖြစ် တွက်သည်။</string>
+    <string name="portfolio_csv_import_transfers_hint">ကွိုင်တစ်မျိုးတည်း၏ ငွေထုတ်မှုနှင့် ကိုက်ညီသော အပ်ငွေသည် လွှဲပြောင်းမှုတစ်ခု ဖြစ်လာသည်- ဝယ်ဈေးနှင့် ကိုင်ဆောင်ချိန် ဆက်ပါသွားပြီး ကွာခြားချက်ကို ကွန်ရက်အခကြေးငွေအဖြစ် တွက်သည်။</string>
     <string name="portfolio_csv_import_transfers_title">သင့်အကောင့်များကြား လွှဲပြောင်းမှုများ</string>
     <string name="portfolio_csv_import_unreadable">ပံ့ပိုးထားသော ငွေပေးငွေယူ မတွေ့ပါ။ ပံ့ပိုးသည်- Relai, Swissquote, Kraken, Binance, Coinbase နှင့် Bitpanda CSV ထုတ်ယူမှုများ။</string>
     <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
     <string name="portfolio_csv_import_too_large">ဖိုင်သည် တင်သွင်းရန် ကြီးလွန်းသည် (အများဆုံး 16 MB နှင့် စာကြောင်း %1$s)။ ပိုတိုသော ကာလများကို ထုတ်ယူပြီး တစ်ခုပြီးတစ်ခု တင်သွင်းပါ။</string>
     <string name="portfolio_csv_import_failed">တင်သွင်းမှု မအောင်မြင်ပါ – ဘာမှ မသိမ်းခဲ့ပါ။ ထပ်ကြိုးစားပါ။</string>
     <string name="portfolio_csv_import_locked">တင်သွင်း၍ မရပါ- သိမ်းထားသော ဒေတာကို ယခု ဖတ်၍မရပါ။ အက်ပ်ကို ပြန်စတင်ပါ။</string>
-    <string name="portfolio_csv_import_withdrawals_title">ငွေထုတ်မှုများ – ဒင်္ဂါးများ ဘယ်ကို သွားသလဲ။</string>
+    <string name="portfolio_csv_import_withdrawals_title">ငွေထုတ်မှုများ – ကွိုင်များ ဘယ်ကို သွားသလဲ။</string>
     <string name="portfolio_csv_import_zone">အချိန်ဇုန်မပါသော အချိန်များကို ဖတ်ပုံ: %1$s</string>
     <string name="portfolio_csv_import_zone_device">စက် (%1$s)</string>
     <string name="portfolio_csv_skip_bad_date">ဖတ်၍မရသော ရက်စွဲ</string>
@@ -55,9 +57,9 @@
     <string name="portfolio_csv_skip_internal_move">ကိုယ်ပိုင်အကောင့်များကြား ရွှေ့ပြောင်းမှု – မှတ်တမ်းတင်စရာ မရှိပါ</string>
     <string name="portfolio_csv_skip_missing">အကွက် ပျောက်နေသည်</string>
     <string name="portfolio_csv_skip_ambiguous">ခွဲခြား၍မရသော တစ်စက္ကန့်တည်းအတွင်း အရောင်းအဝယ် အများအပြား – ကိုယ်တိုင် ထည့်ပါ</string>
-    <string name="portfolio_csv_skip_not_crypto">crypto မဟုတ်ပါ</string>
+    <string name="portfolio_csv_skip_not_crypto">Crypto မဟုတ်ပါ</string>
     <string name="portfolio_csv_skip_possible_duplicate">တင်သွင်းပြီးသား ဖြစ်နိုင်သည် (အရောင်းအဝယ် နီးပါးတူ) – ကိုယ်တိုင် စစ်ဆေးပါ</string>
-    <string name="portfolio_csv_skip_two_fees">ယူနစ်မတူသော အခကြေးငွေ နှစ်ခု – ဒင်္ဂါးလဲလှယ်မှုကို ကိုယ်တိုင် ထည့်ပါ</string>
+    <string name="portfolio_csv_skip_two_fees">ယူနစ်မတူသော အခကြေးငွေ နှစ်ခု – ကွိုင်လဲလှယ်မှုကို ကိုယ်တိုင် ထည့်ပါ</string>
     <string name="portfolio_csv_skip_unsupported">မပံ့ပိုးသော အမျိုးအစား</string>
 
     <!-- Portfolio: Importe ansehen und rückgängig machen -->
@@ -78,7 +80,7 @@
     <string name="portfolio_csv_skip_duplicate_txid_different">ငွေပေးငွေယူ ID တူသော်လည်း ပမာဏ ကွဲပြားသည် – ကိုယ်တိုင် စစ်ဆေးပါ</string>
     <string name="portfolio_csv_skip_staking_unpaired">တွဲဖက်မှတ်တမ်းမရှိသော staking မှတ်တမ်း – ကိုင်ဆောင်ထားမှုကို စစ်ဆေးပါ</string>
     <string name="portfolio_csv_skip_amount_too_small">ပမာဏ နည်းလွန်းသည် – သိမ်းသည့်အခါ 0 သို့ ပြည့်ကိန်းဖြစ်သွားမည်</string>
-    <string name="portfolio_csv_skip_invalid_swap">မှန်ကန်သော ဒင်္ဂါး သို့မဟုတ် လက်ခံရရှိသော ပမာဏ မပါသည့် ဒင်္ဂါးလဲလှယ်မှု</string>
+    <string name="portfolio_csv_skip_invalid_swap">မှန်ကန်သော ကွိုင် သို့မဟုတ် လက်ခံရရှိသော ပမာဏ မပါသည့် ကွိုင်လဲလှယ်မှု</string>
 
     <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
     <string name="portfolio_csv_import_rereading">ဖိုင်ကို ထပ်ဖတ်နေသည် …</string>

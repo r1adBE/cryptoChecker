@@ -6,7 +6,7 @@
     <string name="widget_configure_title">விட்ஜெட்டை அமை</string>
     <string name="widget_description">உங்கள் கண்காணிப்புப் பட்டியலிலுள்ள ஒரு ஜோடியின் விலையைக் காட்டும்.</string>
     <string name="widget_empty">கண்காணிப்புப் பட்டியலில் இன்னும் ஜோடிகள் இல்லை.</string>
-    <string name="widget_group_hint">இந்தக் குழுவின் ஜோடிகளை மட்டும் காட்டு.</string>
+    <string name="widget_group_hint">இந்தக் குழுவின் ஜோடிகளை மட்டும் காட்டவும்.</string>
     <string name="widget_kind_single">ஒற்றைக் காயின்</string>
     <string name="widget_opacity">பின்னணி ஒளிபுகாத்தன்மை: %1$s</string>
     <string name="widget_pulse_description">இப்போது சந்தையில் தனித்துத் தெரிவது: தலைப்பு, சுருக்கமான விவரம் மற்றும் Bitcoin, Ethereum, Solana.</string>

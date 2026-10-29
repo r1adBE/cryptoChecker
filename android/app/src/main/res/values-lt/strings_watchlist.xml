@@ -9,7 +9,6 @@
         <item quantity="many">%1$d iš %2$d be kainos</item>
         <item quantity="other">%1$d iš %2$d be kainos</item>
     </plurals>
-    <string name="watchlist_last_run">Paskutinis paleidimas %1$s</string>
     <string name="watchlist_live_a11y">Tiesioginės kainos įjungtos</string>
     <string name="watchlist_offline_since">Nėra ryšio · būsena %1$s</string>
     <string name="watchlist_pull_to_refresh">Patrauk žemyn, kad atnaujintum</string>

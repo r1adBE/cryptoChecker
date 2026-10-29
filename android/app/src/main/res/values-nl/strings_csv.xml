@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">Transacties worden opgeslagen…</string>
     <string name="portfolio_csv_import_missing_fx">Geen dagkoers voor regel %1$s – zonder prijs of kosten overgenomen.</string>
     <string name="portfolio_csv_import_missing_price">Geen prijs in het bestand voor regel %1$s – zonder prijs overgenomen.</string>
+    <string name="portfolio_csv_import_fee_in_price">Twee kosten in regel %1$s: de fiatkosten zitten in de prijs, de kosten in de munt verlagen de ontvangen of verhogen de afgegeven hoeveelheid.</string>
+    <string name="portfolio_csv_import_pending_differs">Regel %1$s: openstaande en geboekte boeking van dezelfde storting of opname hebben verschillende hoeveelheden – beide overgenomen, saldo controleren.</string>
     <string name="portfolio_csv_import_more">+ nog %1$d</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d nieuwe transactie</item>

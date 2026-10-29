@@ -110,7 +110,7 @@
     <string name="explorer_no_pair_list">Žádné měnové páry</string>
     <string name="explorer_sync_sheet_last">Poslední synchronizace: %1$s</string>
     <string name="explorer_sync_never">nikdy</string>
-    <string name="explorer_sync_sheet_action">Synchronizovat nyní!</string>
+    <string name="explorer_sync_sheet_action">Synchronizovat nyní</string>
     <string name="explorer_sync_sheet_title">Aktualizovat měnové páry</string>
     <string name="explorer_field_coin">Základní</string>
     <string name="explorer_field_contract">Typ kontraktu</string>

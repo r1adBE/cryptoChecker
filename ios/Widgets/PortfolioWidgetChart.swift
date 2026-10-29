@@ -112,7 +112,7 @@ struct PortfolioValueChart: View {
         let text = Text(highText(geo.high))
             .font(.system(size: Self.labelSize, weight: .bold))
             .monospacedDigit()
-            .foregroundColor(palette.text)
+            .foregroundStyle(palette.text)
         let resolved = context.resolve(text)
         let measured = resolved.measure(in: size)
         let pad = 2.0

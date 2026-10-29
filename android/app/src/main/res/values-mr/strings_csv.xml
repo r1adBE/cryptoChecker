@@ -29,6 +29,8 @@
     <string name="portfolio_csv_import_saving">व्यवहार सेव्ह होत आहेत…</string>
     <string name="portfolio_csv_import_missing_fx">%1$s ओळींसाठी दैनिक दर नाही – किंमत/शुल्काशिवाय इम्पोर्ट केले.</string>
     <string name="portfolio_csv_import_missing_price">%1$s ओळींसाठी फाइलमध्ये किंमत नाही – किंमतीशिवाय इम्पोर्ट केले.</string>
+    <string name="portfolio_csv_import_fee_in_price">%1$s ओळींमध्ये दोन शुल्क: फिएट शुल्क किंमतीत समाविष्ट आहे, कॉइनमधील शुल्क मिळालेली मात्रा कमी करते किंवा दिलेली मात्रा वाढवते.</string>
+    <string name="portfolio_csv_import_pending_differs">%1$s ओळी: एकाच जमा किंवा काढण्याच्या प्रलंबित आणि नोंदवलेल्या नोंदींची मात्रा वेगळी आहे – दोन्ही इम्पोर्ट केल्या, होल्डिंग तपासा.</string>
     <string name="portfolio_csv_import_more">+ आणखी %1$d</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d नवीन व्यवहार</item>

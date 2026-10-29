@@ -27,6 +27,8 @@
     <string name="portfolio_csv_import_saving">กำลังบันทึกรายการ…</string>
     <string name="portfolio_csv_import_missing_fx">ไม่มีอัตรารายวันสำหรับบรรทัด %1$s – นำเข้าโดยไม่มีราคา/ค่าธรรมเนียม</string>
     <string name="portfolio_csv_import_missing_price">ไม่มีราคาในไฟล์สำหรับบรรทัด %1$s – นำเข้าโดยไม่มีราคา</string>
+    <string name="portfolio_csv_import_fee_in_price">ค่าธรรมเนียมสองรายการในบรรทัด %1$s: ค่าธรรมเนียมเงินเฟียตรวมอยู่ในราคา ส่วนค่าธรรมเนียมเป็นเหรียญจะลดจำนวนที่ได้รับหรือเพิ่มจำนวนที่ให้ไป</string>
+    <string name="portfolio_csv_import_pending_differs">บรรทัด %1$s: รายการรอดำเนินการและรายการที่บันทึกแล้วของการฝากหรือถอนเดียวกันมีจำนวนต่างกัน – นำเข้าทั้งสองรายการ ตรวจสอบยอดคงเหลือ</string>
     <string name="portfolio_csv_import_more">+ อีก %1$d รายการ</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="other">รายการใหม่ %d รายการ</item>

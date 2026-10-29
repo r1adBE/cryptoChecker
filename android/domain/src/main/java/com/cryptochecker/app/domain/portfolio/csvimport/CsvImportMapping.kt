@@ -79,6 +79,10 @@ data class CsvImportPreview(
      * [CsvImportPriced.usdtApproximate]) — die Vorschau nennt sie wie [missingFx].
      */
     val usdtApproximate: List<Int> = emptyList(),
+    /** Zeilen mit Fiat-Gebühr im Preis und Gebühr im Coin am Geschäft ([CsvImportRow.feeInPrice]) — Hinweis. */
+    val feeInPrice: List<Int> = emptyList(),
+    /** Kraken: ausstehende und gebuchte Zeile mit anderer Menge, beide übernommen ([CsvImportRow.pendingDiffers]). */
+    val pendingDiffers: List<Int> = emptyList(),
     /** Datei über den Grenzen des Zerlegens ([CsvImportResult.tooLarge]): keine Zeilen, Meldung «zu gross». */
     val tooLarge: Boolean = false,
 )
@@ -243,6 +247,8 @@ object CsvImportMapping {
             decimalMark = result.decimalMark,
             columns = result.columns,
             usdtApproximate = keptPriced.filter { it.usdtApproximate }.map { it.row.line },
+            feeInPrice = keptPriced.filter { it.row.feeInPrice }.map { it.row.line },
+            pendingDiffers = keptPriced.filter { it.row.pendingDiffers }.map { it.row.line },
             tooLarge = result.tooLarge,
         )
     }

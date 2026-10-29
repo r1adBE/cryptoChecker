@@ -7,7 +7,6 @@
         <item quantity="one">%1$d nga %2$d pa çmim</item>
         <item quantity="other">%1$d nga %2$d pa çmim</item>
     </plurals>
-    <string name="watchlist_last_run">Kalimi i fundit %1$s</string>
     <string name="watchlist_live_a11y">Çmimet live janë aktive</string>
     <string name="watchlist_offline_since">Pa lidhje · gjendja %1$s</string>
     <string name="watchlist_pull_to_refresh">Tërhiq poshtë për ta rifreskuar</string>

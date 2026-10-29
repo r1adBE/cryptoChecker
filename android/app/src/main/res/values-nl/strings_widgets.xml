@@ -41,7 +41,7 @@
     <string name="widget_portfolio_entries">Boekingen onder de coins</string>
     <string name="widget_portfolio_entries_both">Beide</string>
     <string name="widget_portfolio_entries_buys">Aankopen</string>
-    <string name="widget_portfolio_entries_hint">Alleen als er ruimte onder de coins is. Aankopen tellen stortingen mee, verkopen opnames; met «Beide» vormen de regels samen het saldo.</string>
+    <string name="widget_portfolio_entries_hint">Alleen als er ruimte onder de coins is. Aankopen tellen stortingen mee, verkopen opnames; met ‘Beide’ vormen de regels samen het saldo.</string>
     <string name="widget_portfolio_entries_off">Uit</string>
     <string name="widget_portfolio_entries_sells">Verkopen</string>
     <string name="widget_portfolio_display">Weergave</string>

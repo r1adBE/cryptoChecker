@@ -192,8 +192,9 @@ class ScreenshotTourTest {
         step("09_market") {
             nav.toWatchlist()
             nav.clickTag(UiTestTags.TAB_CYCLE)
-            // Karten laden ihre Daten (feste Antworten der Tour) und blenden sich ein
-            Thread.sleep(MARKET_SETTLE_MILLIS)
+            // Karten laden ihre Daten (feste Antworten der Tour) und blenden sich ein: warten, bis Crypto Pulse
+            // geladen ist und alles Sichtbare auf «Jetzt» steht (keine feste Wartezeit)
+            nav.waitForTag(UiTestTags.MARKET_LOADED, LIST_TIMEOUT)
         }
         step("10_portfolio") {
             nav.toWatchlist()
@@ -258,10 +259,11 @@ class ScreenshotTourTest {
      * sonst zeigt die Merkliste «—» und «3 von 3 veraltet», das Portfolio 0.00. Dazu die Portfolio-Kurse vom
      * Binance-Spiegel ([FakeExchange.binanceMirror]) — erst nach der Binance-Symbolliste ([CoinListSync.refreshLists],
      * wartet auf einen schon laufenden Abgleich): Ohne die vollen Namen gilt ein Binance-Kurs nicht als derselbe Token
-     * und der Coin heisst «Kurs ungeprüft» (kein Wert). Scheitert das, fotografiert die Tour trotzdem.
+     * und der Coin heisst «Kurs ungeprüft» (kein Wert). Scheitert das, endet die Tour hier (AssertionError) — sonst
+     * entstünden Bilder mit leeren Kursen.
      */
     private fun loadPrices() {
-        runCatching {
+        val result = runCatching {
             // Kein echtes Netz nötig (Fake-Client): die Prüfung «offline» des Geräts überspringen
             runBlocking { priceRefresher.refreshAll(networkGuaranteed = true) }
             compose.waitUntil(LIST_TIMEOUT) {
@@ -269,7 +271,11 @@ class ScreenshotTourTest {
             }
             runBlocking { coinListSync.refreshLists() }
             runBlocking { portfolioPriceSource.prices(DEMO_COINS, force = true) }
-        }.onFailure { Log.w(TAG, "Kurse nicht geladen", it) }
+        }
+        result.exceptionOrNull()?.let {
+            Log.w(TAG, "Kurse nicht geladen", it)
+            throw AssertionError("Kurse nicht geladen: ${it.javaClass.simpleName}: ${it.message}", it)
+        }
     }
 
     /**
@@ -377,8 +383,6 @@ class ScreenshotTourTest {
         const val LIST_TIMEOUT = 60_000L
         /** Ausblenden von Blättern, Nachladen von Kursen und Logos vor dem Foto. */
         const val SETTLE_MILLIS = 1_200L
-        /** Markt-Tab: alle Karten laden und einblenden (Kerzen, Verlauf seit 2016, Altcoin-Saison mit 21 Coins). */
-        const val MARKET_SETTLE_MILLIS = 6_000L
         /** Demo-Sicherung der Store-Bilder: Asset des Test-APK (`docs/store/screenshots`, build.gradle.kts). */
         const val DEMO_FILE = "demo-backup.json"
 

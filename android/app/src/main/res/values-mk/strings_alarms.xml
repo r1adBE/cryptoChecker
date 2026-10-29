@@ -57,7 +57,7 @@
     <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
     <string name="alarm_simple_above">ќе порасне над</string>
     <string name="alarm_simple_below">ќе падне под</string>
-    <string name="alarm_simple_end">\</string>
+    <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">Кога %1$s</string>
     <string name="alarm_template_a11y">Создај аларм: %1$s</string>
     <string name="alarm_template_a11y_down">Создај аларм на минус %1$s проценти од тековната цена</string>

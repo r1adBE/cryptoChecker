@@ -122,8 +122,8 @@ internal fun MarketStatusPill(refreshingSince: Long?, updatedAt: Long?, online: 
         !online && asOf != null -> stringResource(R.string.offline_status_since, dataTime(asOf))
         !online -> stringResource(R.string.offline_status)
         refreshingSince != null -> stringResource(R.string.cycle_data_as_of, dataTime(refreshingSince))
-        updatedAt != null && updatedAt > 0 ->
-            stringResource(R.string.watchlist_all_fresh, com.cryptochecker.app.ui.features.watchlist.ago(updatedAt, now))
+        // Alter wie in den Quellenzeilen darunter ([dataAgeText]): ein Format auf dem Bildschirm, wie iOS
+        updatedAt != null && updatedAt > 0 -> stringResource(R.string.watchlist_all_fresh, dataAgeText(updatedAt, now))
         else -> null
     }
     val tone = if (!online || refreshing || text == null) DataStatusTone.NEUTRAL else DataStatusTone.FRESH

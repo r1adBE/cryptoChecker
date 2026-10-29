@@ -137,8 +137,8 @@ suspend fun WatchRepository.deleteWatchesWithoutAlarms(ids: Collection<Long>): B
 }
 
 /**
- * Die Ids aus [ids] ohne Alarm; [withAlarms] liefert zu einem Teil (höchstens [ALARM_QUERY_CHUNK] Ids, Grenze der
- * SQL-Variablen) die Ids mit Alarm. Ohne Room testbar (`BulkAddRunnerTest`).
+ * Die Ids aus [ids] ohne Alarm; [withAlarms] liefert zu einem Teil (höchstens [SQL_ID_CHUNK] Ids) die Ids mit
+ * Alarm. Ohne Room testbar (`BulkAddRunnerTest`).
  */
 suspend fun withoutAlarms(
     ids: Collection<Long>,
@@ -146,11 +146,17 @@ suspend fun withoutAlarms(
 ): List<Long> {
     val unique = ids.distinct()
     val taken = HashSet<Long>()
-    for (chunk in unique.chunked(ALARM_QUERY_CHUNK)) taken += withAlarms(chunk)
+    for (chunk in unique.chunked(SQL_ID_CHUNK)) taken += withAlarms(chunk)
     return unique.filter { it !in taken }
 }
 
-private const val ALARM_QUERY_CHUNK = 500
+/**
+ * Höchstzahl Ids je `IN (:ids)`-Abfrage — eine Regel für alle Listen-Abfragen der Merkliste (`clearChanges`,
+ * `setDisabled`, Alarm-Suche); mehrere Blöcke laufen in einer Transaktion. Das in SQLCipher 4 eingebaute SQLite
+ * (≥ 3.32) erlaubt 32766 Variablen und schon `WatchlistLimits.MAX_PAIRS` (2000) passte in eine Abfrage; 500 bleibt
+ * aber auch unter der alten Grenze von 999 (System-SQLite älterer Geräte bzw. Tests ohne SQLCipher).
+ */
+internal const val SQL_ID_CHUNK = 500
 
 /** Ausgang von [restore]. */
 enum class RestoreOutcome {

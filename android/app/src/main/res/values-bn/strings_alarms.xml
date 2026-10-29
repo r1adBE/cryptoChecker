@@ -5,7 +5,7 @@
     <string name="alarms_add">নতুন অ্যালার্ট</string>
     <string name="alarms_edit">অ্যালার্ট সম্পাদনা</string>
     <string name="alarms_empty">এই পেয়ারের জন্য এখনো কোনো অ্যালার্ট নেই।</string>
-    <string name="alarms_empty_example">যেমন: BTC %1$s-এর উপরে উঠলে আমাকে জানাও।</string>
+    <string name="alarms_empty_example">যেমন: BTC %1$s-এর উপরে উঠলে আমাকে জানান।</string>
     <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
     <string name="alarms_notifications_off">নোটিফিকেশন বন্ধ – অ্যালার্ট আপনার কাছে পৌঁছাতে পারবে না।</string>
     <string name="alarms_notifications_turn_on">চালু করুন</string>
@@ -81,29 +81,29 @@
     <string name="alarm_condition_volume_spike">ভলিউম স্পাইক</string>
 
     <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
-    <string name="alarm_sentence_above">%1$s %2$s-এর উপরে উঠলে আমাকে জানাও।</string>
-    <string name="alarm_sentence_below">%1$s %2$s-এর নিচে নামলে আমাকে জানাও।</string>
-    <string name="alarm_sentence_down_percent">%1$s সংরক্ষণের সময়ের দামের (বা শেষ অ্যালার্টের দামের) চেয়ে %2$s নিচে নামলে আমাকে জানাও।</string>
-    <string name="alarm_sentence_funding_above">%1$s-এর ফান্ডিং %2$s-এর উপরে উঠলে আমাকে জানাও।</string>
-    <string name="alarm_sentence_funding_below">%1$s-এর ফান্ডিং %2$s-এর নিচে নামলে আমাকে জানাও।</string>
+    <string name="alarm_sentence_above">%1$s %2$s-এর উপরে উঠলে আমাকে জানান।</string>
+    <string name="alarm_sentence_below">%1$s %2$s-এর নিচে নামলে আমাকে জানান।</string>
+    <string name="alarm_sentence_down_percent">%1$s সংরক্ষণের সময়ের দামের (বা শেষ অ্যালার্টের দামের) চেয়ে %2$s নিচে নামলে আমাকে জানান।</string>
+    <string name="alarm_sentence_funding_above">%1$s-এর ফান্ডিং %2$s-এর উপরে উঠলে আমাকে জানান।</string>
+    <string name="alarm_sentence_funding_below">%1$s-এর ফান্ডিং %2$s-এর নিচে নামলে আমাকে জানান।</string>
     <string name="alarm_sentence_incomplete">অ্যালার্টটি বাক্য হিসেবে দেখতে একটি মান লিখুন।</string>
     <plurals name="alarm_sentence_move_percent">
-        <item quantity="one">%1$s %3$d ঘণ্টার মধ্যে %2$s নড়লে আমাকে জানাও।</item>
-        <item quantity="other">%1$s %3$d ঘণ্টার মধ্যে %2$s নড়লে আমাকে জানাও।</item>
+        <item quantity="one">%1$s %3$d ঘণ্টার মধ্যে %2$s নড়লে আমাকে জানান।</item>
+        <item quantity="other">%1$s %3$d ঘণ্টার মধ্যে %2$s নড়লে আমাকে জানান।</item>
     </plurals>
-    <string name="alarm_sentence_near_high">%1$s তার %3$s-এর চেয়ে সর্বোচ্চ %2$s নিচে থাকলে আমাকে জানাও।</string>
-    <string name="alarm_sentence_near_low">%1$s তার %3$s-এর চেয়ে সর্বোচ্চ %2$s উপরে থাকলে আমাকে জানাও।</string>
-    <string name="alarm_sentence_new_extreme">%1$s নতুন %2$s ছুঁলে আমাকে জানাও।</string>
+    <string name="alarm_sentence_near_high">%1$s তার %3$s-এর চেয়ে সর্বোচ্চ %2$s নিচে থাকলে আমাকে জানান।</string>
+    <string name="alarm_sentence_near_low">%1$s তার %3$s-এর চেয়ে সর্বোচ্চ %2$s উপরে থাকলে আমাকে জানান।</string>
+    <string name="alarm_sentence_new_extreme">%1$s নতুন %2$s ছুঁলে আমাকে জানান।</string>
     <plurals name="alarm_sentence_oi_down">
-        <item quantity="one">%1$s-এর ওপেন ইন্টারেস্ট %3$d ঘণ্টার মধ্যে %2$s কমলে আমাকে জানাও।</item>
-        <item quantity="other">%1$s-এর ওপেন ইন্টারেস্ট %3$d ঘণ্টার মধ্যে %2$s কমলে আমাকে জানাও।</item>
+        <item quantity="one">%1$s-এর ওপেন ইন্টারেস্ট %3$d ঘণ্টার মধ্যে %2$s কমলে আমাকে জানান।</item>
+        <item quantity="other">%1$s-এর ওপেন ইন্টারেস্ট %3$d ঘণ্টার মধ্যে %2$s কমলে আমাকে জানান।</item>
     </plurals>
     <plurals name="alarm_sentence_oi_up">
-        <item quantity="one">%1$s-এর ওপেন ইন্টারেস্ট %3$d ঘণ্টার মধ্যে %2$s বাড়লে আমাকে জানাও।</item>
-        <item quantity="other">%1$s-এর ওপেন ইন্টারেস্ট %3$d ঘণ্টার মধ্যে %2$s বাড়লে আমাকে জানাও।</item>
+        <item quantity="one">%1$s-এর ওপেন ইন্টারেস্ট %3$d ঘণ্টার মধ্যে %2$s বাড়লে আমাকে জানান।</item>
+        <item quantity="other">%1$s-এর ওপেন ইন্টারেস্ট %3$d ঘণ্টার মধ্যে %2$s বাড়লে আমাকে জানান।</item>
     </plurals>
-    <string name="alarm_sentence_up_percent">%1$s সংরক্ষণের সময়ের দামের (বা শেষ অ্যালার্টের দামের) চেয়ে %2$s উপরে উঠলে আমাকে জানাও।</string>
-    <string name="alarm_sentence_volume">%1$s তার স্বাভাবিক ভলিউমের %2$s× লেনদেন হলে আমাকে জানাও।</string>
+    <string name="alarm_sentence_up_percent">%1$s সংরক্ষণের সময়ের দামের (বা শেষ অ্যালার্টের দামের) চেয়ে %2$s উপরে উঠলে আমাকে জানান।</string>
+    <string name="alarm_sentence_volume">%1$s তার স্বাভাবিক ভলিউমের %2$s× লেনদেন হলে আমাকে জানান।</string>
 
     <!-- Alarm «Nahe am Hoch / Tief» -->
     <string name="alarm_near_extreme_high_30">30 দিনের সর্বোচ্চ</string>

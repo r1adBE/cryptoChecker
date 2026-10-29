@@ -50,14 +50,14 @@
     <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
     <string name="portfolio_avg_and_now">ပျမ်းမျှ %1$s · ယခု %2$s</string>
     <string name="portfolio_avg_only">ပျမ်းမျှ %1$s</string>
-    <string name="portfolio_avg_open_lots">ကိုင်ဆောင်ထားသော ဒင်္ဂါးများ၏ ပျမ်းမျှ ကုန်ကျစရိတ်</string>
+    <string name="portfolio_avg_open_lots">ကိုင်ဆောင်ထားသော ကွိုင်များ၏ ပျမ်းမျှ ကုန်ကျစရိတ်</string>
     <string name="portfolio_avg_partial">ဝယ်ဈေးပါသော %1$s ၏ ပျမ်းမျှ</string>
     <string name="portfolio_avg_price">ပျမ်းမျှ ဝယ်ဈေး</string>
     <string name="portfolio_avg_price_hint">ပျမ်းမျှ ဝယ်ဈေး- ပမာဏဖြင့် အလေးချိန်ထားသော ဝယ်ယူမှုအားလုံး၏ ပျမ်းမျှ။ ရောင်းချမှုများကို ဤပျမ်းမျှဖြင့် တန်ဖိုးဖြတ်သည်။</string>
     <plurals name="portfolio_closed">
         <item quantity="other">ပိတ်ပြီးသော ကိုင်ဆောင်မှုများ (%1$d)</item>
     </plurals>
-    <string name="portfolio_fifo_hint">FIFO: ရောင်းချမှုများသည် သင့်အဟောင်းဆုံး ဒင်္ဂါးများကို အရင် အသုံးပြုသည်။ ပျမ်းမျှ = ကျန်ရှိသော မူလကုန်ကျစရိတ် ÷ ဝယ်ဈေးပါသော ပမာဏ။</string>
+    <string name="portfolio_fifo_hint">FIFO: ရောင်းချမှုများသည် သင့်အဟောင်းဆုံး ကွိုင်များကို အရင် အသုံးပြုသည်။ ပျမ်းမျှ = ကျန်ရှိသော မူလကုန်ကျစရိတ် ÷ ဝယ်ဈေးပါသော ပမာဏ။</string>
     <string name="portfolio_holdings">ကိုင်ဆောင်ထားမှုများ</string>
     <string name="portfolio_lost_fee_cost">ပေးချေထားသော အစုမရှိသည့် ကွန်ရက်အခကြေးငွေ ကုန်ကျစရိတ်: %1$s</string>
     <string name="portfolio_open_lots">ဖွင့်ထားဆဲ ဝယ်ယူမှု အစုများ (%1$d)</string>
@@ -88,8 +88,8 @@
     <string name="portfolio_add_from_watch">ပေါ့ဖိုလီယိုသို့ ထည့်ရန်</string>
     <string name="portfolio_add_tx">ငွေပေးငွေယူ ထည့်ရန်</string>
     <string name="portfolio_buy">ဝယ်</string>
-    <string name="portfolio_coin">ဒင်္ဂါး</string>
-    <string name="portfolio_coin_invalid">ဒင်္ဂါး သင်္ကေတ ထည့်ပါ</string>
+    <string name="portfolio_coin">ကွိုင်</string>
+    <string name="portfolio_coin_invalid">ကွိုင် သင်္ကေတ ထည့်ပါ</string>
     <string name="portfolio_coin_search">သင်္ကေတ ရှာရန်၊ ဥပမာ BTC</string>
     <string name="portfolio_discard_confirm">စွန့်ပစ်ရန်</string>
     <string name="portfolio_discard_keep">ဆက်ပြင်ရန်</string>
@@ -105,18 +105,18 @@
     <string name="portfolio_tx_acquired_date">မူလ ဝယ်သည့်ရက် (ရွေးချယ်နိုင်)</string>
     <string name="portfolio_tx_acquired_date_hint">အခွန် ထုတ်ယူမှုရှိ ကိုင်ဆောင်ချိန်အတွက်</string>
     <string name="portfolio_tx_amount">ပမာဏ</string>
-    <string name="portfolio_tx_coin_fee">ဒင်္ဂါးဖြင့် အခကြေးငွေ (ရွေးချယ်နိုင်)</string>
+    <string name="portfolio_tx_coin_fee">ကွိုင်ဖြင့် အခကြေးငွေ (ရွေးချယ်နိုင်)</string>
     <string name="portfolio_tx_date">ရက်စွဲ</string>
     <string name="portfolio_tx_delete_confirm">ဤငွေပေးငွေယူကို ပေါ့ဖိုလီယိုမှ ဖယ်ရှားပါမည်။</string>
     <string name="portfolio_tx_delete_title">ငွေပေးငွေယူကို ဖျက်မလား။</string>
     <string name="portfolio_tx_deposit">အပ်ငွေ</string>
     <string name="portfolio_tx_entry_currency">ထည့်သွင်းမည့် ငွေကြေး</string>
-    <string name="portfolio_tx_explain_deposit">အရောင်းအဝယ်မပါသော ကိုင်ဆောင်ထားမှု၊ ဥပမာ ယခင်က ဒင်္ဂါးများ</string>
-    <string name="portfolio_tx_explain_gift">ဒင်္ဂါးများသည် ငွေထုတ်မှုကဲ့သို့ သင်ကိုင်ဆောင်ထားမှုမှ ထွက်သွားသည် – လက်ဆောင်ကို အခွန်ကောက်သော နိုင်ငံများ (UK, CA, AU) တွင်သာ ဈေးကွက်တန်ဖိုးဖြင့် စွန့်လွှတ်မှု ဖြစ်သည်</string>
+    <string name="portfolio_tx_explain_deposit">အရောင်းအဝယ်မပါသော ကိုင်ဆောင်ထားမှု၊ ဥပမာ ယခင်က ကွိုင်များ</string>
+    <string name="portfolio_tx_explain_gift">ကွိုင်များသည် ငွေထုတ်မှုကဲ့သို့ သင်ကိုင်ဆောင်ထားမှုမှ ထွက်သွားသည် – လက်ဆောင်ကို အခွန်ကောက်သော နိုင်ငံများ (UK, CA, AU) တွင်သာ ဈေးကွက်တန်ဖိုးဖြင့် စွန့်လွှတ်မှု ဖြစ်သည်</string>
     <string name="portfolio_tx_explain_payment">ကုန်ပစ္စည်း သို့မဟုတ် ဝန်ဆောင်မှုအတွက် ပေးချေခဲ့သည် – ရောင်းချမှုကဲ့သို့ ဈေးကွက်တန်ဖိုးဖြင့် စွန့်လွှတ်မှု၊ ငွေ မရရှိပါ</string>
     <string name="portfolio_tx_explain_reward">မူလကုန်ကျစရိတ် = လက်ခံချိန် ဈေးကွက်တန်ဖိုး</string>
-    <string name="portfolio_tx_explain_swap">ဒင်္ဂါးတစ်ခုကို အခြားတစ်ခုဖြင့်- ပေးသော ဒင်္ဂါးကို ရောင်းပြီး ရရှိသော ဒင်္ဂါးကို ဝယ်သည်</string>
-    <string name="portfolio_tx_explain_transfer">အမြတ် မရှိ – မူလကုန်ကျစရိတ်သည် ဒင်္ဂါးများနှင့်အတူ ရွှေ့သွားသည်</string>
+    <string name="portfolio_tx_explain_swap">ကွိုင်တစ်ခုကို အခြားတစ်ခုဖြင့်- ပေးသော ကွိုင်ကို ရောင်းပြီး ရရှိသော ကွိုင်ကို ဝယ်သည်</string>
+    <string name="portfolio_tx_explain_transfer">အမြတ် မရှိ – မူလကုန်ကျစရိတ်သည် ကွိုင်များနှင့်အတူ ရွှေ့သွားသည်</string>
     <string name="portfolio_tx_explain_withdrawal">ကိုင်ဆောင်ထားမှုသည် ပေါ့ဖိုလီယိုမှ ထွက်သွားသည် – ရောင်းချမှု မဟုတ်၊ အမြတ် မရှိ</string>
     <string name="portfolio_tx_fee_consumes_amount">အခကြေးငွေသည် ရရှိသော ပမာဏနှင့် တူညီသည် – ဘာမှ ကျန်မည် မဟုတ်ပါ။</string>
     <string name="portfolio_tx_fees_toggle">အခကြေးငွေများ</string>
@@ -127,12 +127,12 @@
     <string name="portfolio_tx_gift_price_hint">USDT ဖြင့်။ ဗလာ = ထိုနေ့၏ ပိတ်ဈေး (ခန့်မှန်း)။</string>
     <string name="portfolio_tx_gift_spouse">ခင်ပွန်း/ဇနီး / မှတ်ပုံတင်ထားသော အိမ်ထောင်ဖက်သို့</string>
     <string name="portfolio_tx_gift_spouse_hint">UK နှင့် ကနေဒါ- အမြတ်လည်း မရှိ၊ အရှုံးလည်း မရှိ – သင့်အိမ်ထောင်ဖက်က သင့်မူလကုန်ကျစရိတ်ကို လွှဲယူသည်။ အခြားနိုင်ငံများက ဤအချက်ကို ထည့်မစဉ်းစားပါ။</string>
-    <string name="portfolio_tx_market_value">ဒင်္ဂါးတစ်ခုလျှင် ဈေးကွက်တန်ဖိုး</string>
+    <string name="portfolio_tx_market_value">ကွိုင်တစ်ခုလျှင် ဈေးကွက်တန်ဖိုး</string>
     <string name="portfolio_tx_more_buy">အခကြေးငွေ၊ လဲလှယ်ရေးဌာန၊ မှတ်ချက်</string>
-    <string name="portfolio_tx_network_fee">ဒင်္ဂါးဖြင့် ကွန်ရက်အခကြေးငွေ (ရွေးချယ်နိုင်)</string>
+    <string name="portfolio_tx_network_fee">ကွိုင်ဖြင့် ကွန်ရက်အခကြေးငွေ (ရွေးချယ်နိုင်)</string>
     <string name="portfolio_tx_note">မှတ်ချက် (ရွေးချယ်နိုင်)</string>
     <string name="portfolio_tx_payment">၎င်းဖြင့် ပေးချေခဲ့သည်</string>
-    <string name="portfolio_tx_price">ဒင်္ဂါးတစ်ခုလျှင် ဈေးနှုန်း</string>
+    <string name="portfolio_tx_price">ကွိုင်တစ်ခုလျှင် ဈေးနှုန်း</string>
     <string name="portfolio_tx_price_hint">USDT ဖြင့်။ မသိလျှင် ဗလာထားပါ။</string>
     <string name="portfolio_tx_price_historic">%1$s ၏ နေ့စဉ် ပိတ်ဈေးကို စစ်ဆေးပြီး – လိုအပ်လျှင် ချိန်ညှိပါ</string>
     <string name="portfolio_tx_price_invalid">မှန်ကန်သော ဂဏန်း (0 သို့မဟုတ် ထို့ထက်ပို) ထည့်ပါ သို့မဟုတ် အကွက်ကို ဗလာထားပါ။</string>
@@ -142,32 +142,32 @@
     <string name="portfolio_tx_removed">ငွေပေးငွေယူ ဖျက်ပြီး</string>
     <string name="portfolio_tx_reward">ဆုလာဘ်</string>
     <string name="portfolio_tx_save_failed">ငွေပေးငွေယူကို သိမ်း၍ မရပါ။ သင်ထည့်ထားသည်များ ဤနေရာတွင် ရှိနေဆဲ – ထပ်ကြိုးစားပါ။</string>
-    <string name="portfolio_tx_swap">ဒင်္ဂါးလဲလှယ်မှု</string>
+    <string name="portfolio_tx_swap">ကွိုင်လဲလှယ်မှု</string>
     <string name="portfolio_tx_swap_fee_received">%1$s ဖြင့် အခကြေးငွေ- ရရှိသော ပမာဏကို လျှော့ချသည်၊ ဈေးနှုန်း မလိုပါ။</string>
     <string name="portfolio_tx_swap_from">%1$s မှ လဲလှယ်ရန်</string>
     <string name="portfolio_tx_swap_given_amount">ပေးသော ပမာဏ</string>
-    <string name="portfolio_tx_swap_given_coin">ပေးသော ဒင်္ဂါး</string>
+    <string name="portfolio_tx_swap_given_coin">ပေးသော ကွိုင်</string>
     <string name="portfolio_tx_swap_received_amount">ရရှိသော ပမာဏ</string>
-    <string name="portfolio_tx_swap_received_coin">ရရှိသော ဒင်္ဂါး</string>
-    <string name="portfolio_tx_swap_same_coin">ပေးသော ဒင်္ဂါးနှင့် မတူသော ဒင်္ဂါးကို ရွေးပါ</string>
+    <string name="portfolio_tx_swap_received_coin">ရရှိသော ကွိုင်</string>
+    <string name="portfolio_tx_swap_same_coin">ပေးသော ကွိုင်နှင့် မတူသော ကွိုင်ကို ရွေးပါ</string>
     <string name="portfolio_tx_swap_to">%1$s သို့ လဲလှယ်ရန်</string>
-    <string name="portfolio_tx_swap_value">ဒင်္ဂါးလဲလှယ်မှု၏ တန်ဖိုး (ရွေးချယ်နိုင်)</string>
+    <string name="portfolio_tx_swap_value">ကွိုင်လဲလှယ်မှု၏ တန်ဖိုး (ရွေးချယ်နိုင်)</string>
     <string name="portfolio_tx_swap_value_hint">စုစုပေါင်း တန်ဖိုး။ ဗလာ = မသိ – အမြတ် မပြည့်စုံဘဲ ကျန်သည် (လဲလှယ်မှုတွင် USDT ပါလျှင် အလိုအလျောက်)။</string>
     <string name="portfolio_tx_third_fee_amount">အခကြေးငွေ ပမာဏ</string>
-    <string name="portfolio_tx_third_fee_coin">အခကြေးငွေ ဒင်္ဂါး</string>
+    <string name="portfolio_tx_third_fee_coin">အခကြေးငွေ ကွိုင်</string>
     <string name="portfolio_tx_third_fee_incomplete">ဈေးနှုန်း မပါလျှင် အခကြေးငွေကို မူလကုန်ကျစရိတ်နှင့် ရောင်းရငွေတွင် ထည့်မတွက်ပါ၊ အခွန် ထုတ်ယူမှုက ထိုရောင်းချမှုများကို အမှတ်အသား ပြုသည်။</string>
-    <string name="portfolio_tx_third_fee_price">အခကြေးငွေ ဒင်္ဂါးတစ်ခုလျှင် ဈေးနှုန်း (ရွေးချယ်နိုင်)</string>
-    <string name="portfolio_tx_third_fee_toggle">အခြားဒင်္ဂါးဖြင့် အခကြေးငွေ</string>
+    <string name="portfolio_tx_third_fee_price">အခကြေးငွေ ကွိုင်တစ်ခုလျှင် ဈေးနှုန်း (ရွေးချယ်နိုင်)</string>
+    <string name="portfolio_tx_third_fee_toggle">အခြားကွိုင်ဖြင့် အခကြေးငွေ</string>
     <string name="portfolio_tx_total">စုစုပေါင်း: %1$s</string>
     <string name="portfolio_tx_transfer">လွှဲပြောင်းမှု</string>
     <string name="portfolio_tx_transfer_from">မှ (ရွေးချယ်နိုင်)</string>
     <string name="portfolio_tx_transfer_to">သို့ (ရွေးချယ်နိုင်)</string>
     <string name="portfolio_tx_transfer_to_hint">လဲလှယ်ရေးဌာန သို့မဟုတ် ပိုက်ဆံအိတ် – ယခုမှစ၍ ထိုနေရာတွင် တန်ဖိုးဖြတ်သည်။</string>
     <string name="portfolio_tx_type_select">အမျိုးအစား: %1$s</string>
-    <string name="portfolio_tx_value_received">လက်ခံချိန် ဒင်္ဂါးတစ်ခုလျှင် တန်ဖိုး (ရွေးချယ်နိုင်)</string>
+    <string name="portfolio_tx_value_received">လက်ခံချိန် ကွိုင်တစ်ခုလျှင် တန်ဖိုး (ရွေးချယ်နိုင်)</string>
     <string name="portfolio_tx_withdrawal">ငွေထုတ်မှု</string>
     <string name="portfolio_tx_withdrawal_gift_hint">ပေးလိုက်သလား သို့မဟုတ် ၎င်းဖြင့် ပေးချေခဲ့သလား။ “လက်ဆောင်” သို့မဟုတ် “၎င်းဖြင့် ပေးချေခဲ့သည်” အဖြစ် မှတ်တမ်းတင်ပါ – နိုင်ငံပေါ်မူတည်၍ အခွန်ရည်ရွယ်ချက်အတွက် ရောင်းချမှုအဖြစ် တွက်သည်။</string>
-    <string name="portfolio_tx_withdrawal_price_hint">ရွေးချယ်နိုင်- USDT ဖြင့် ဈေးကွက်တန်ဖိုး၊ သမိုင်းအတွက်သာ အသုံးပြုသည် (ဗလာ = ထိုနေ့၏ ဈေးနှုန်း)။ ဒင်္ဂါးများသည် ၎င်းတို့၏ မူလကုန်ကျစရိတ်ဖြင့် အမြဲ ထွက်သွားသည်။</string>
+    <string name="portfolio_tx_withdrawal_price_hint">ရွေးချယ်နိုင်- USDT ဖြင့် ဈေးကွက်တန်ဖိုး၊ သမိုင်းအတွက်သာ အသုံးပြုသည် (ဗလာ = ထိုနေ့၏ ဈေးနှုန်း)။ ကွိုင်များသည် ၎င်းတို့၏ မူလကုန်ကျစရိတ်ဖြင့် အမြဲ ထွက်သွားသည်။</string>
     <string name="portfolio_wallet_did_you_mean">%1$s ကို ဆိုလိုပါသလား။ စာလုံးပေါင်း မတူလျှင် သီးခြား ပိုက်ဆံအိတ်အဖြစ် တွက်သည်။</string>
     <string name="portfolio_wallet_shortfall">%1$s ရှိ ကိုင်ဆောင်ထားမှု မလုံလောက်ပါ – လွှဲပြောင်းမှု ကျန်နေသလား။</string>
 
@@ -192,7 +192,7 @@
     <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
     <string name="portfolio_history_in_a11y">%1$s ဖြင့် တန်ဖိုး</string>
     <string name="portfolio_history_incl_fx">ငွေလဲနှုန်း အပါအဝင်</string>
-    <string name="portfolio_history_incl_withdrawn">ထုတ်ယူပြီး ဒင်္ဂါးများ၏ တန်ဖိုး ပြောင်းလဲမှု ပါဝင်သည်</string>
+    <string name="portfolio_history_incl_withdrawn">ထုတ်ယူပြီး ကွိုင်များ၏ တန်ဖိုး ပြောင်းလဲမှု ပါဝင်သည်</string>
     <string name="portfolio_history_includes_trades">ဤကာလအတွင်း ဝယ်ယူမှုနှင့် ရောင်းချမှုများ ပါဝင်သည်</string>
     <string name="portfolio_history_loading">တန်ဖိုးသမိုင်း ဖွင့်နေသည်</string>
     <string name="portfolio_history_period_1y">1 နှစ်</string>
@@ -236,17 +236,17 @@
     <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
     <string name="ledger_exchange">လဲလှယ်ရေးဌာန (ရွေးချယ်နိုင်)</string>
     <string name="ledger_exchange_failed">%1$s: ယခု %2$s မှ ဈေးနှုန်း မရှိပါ – Binance ဖြင့် တန်ဖိုးဖြတ်သည်။</string>
-    <string name="ledger_exchange_hint">ဒင်္ဂါးကို ဤလဲလှယ်ရေးဌာန၏ ဈေးနှုန်းဖြင့် တန်ဖိုးဖြတ်သည် (မဟုတ်လျှင် Binance)။ သမိုင်း၊ ရက် 7 နှင့် 1 နှစ်သည် ၎င်းသို့ အချိုးချထားသော Binance နေ့စဉ်ဈေးနှုန်းများကို အသုံးပြုသည်။</string>
-    <string name="ledger_exchange_mixed">%1$s: လဲလှယ်ရေးဌာန အများအပြား ထည့်ထားသည် – Binance ဖြင့် တန်ဖိုးဖြတ်သည်။ ဒင်္ဂါးများ ရွှေ့ခဲ့သလား။ ရွှေ့ပြောင်းမှုကို “လွှဲပြောင်းမှု” အဖြစ် မှတ်တမ်းတင်ပါ။</string>
+    <string name="ledger_exchange_hint">ကွိုင်ကို ဤလဲလှယ်ရေးဌာန၏ ဈေးနှုန်းဖြင့် တန်ဖိုးဖြတ်သည် (မဟုတ်လျှင် Binance)။ သမိုင်း၊ ရက် 7 နှင့် 1 နှစ်သည် ၎င်းသို့ အချိုးချထားသော Binance နေ့စဉ်ဈေးနှုန်းများကို အသုံးပြုသည်။</string>
+    <string name="ledger_exchange_mixed">%1$s: လဲလှယ်ရေးဌာန အများအပြား ထည့်ထားသည် – Binance ဖြင့် တန်ဖိုးဖြတ်သည်။ ကွိုင်များ ရွှေ့ခဲ့သလား။ ရွှေ့ပြောင်းမှုကို “လွှဲပြောင်းမှု” အဖြစ် မှတ်တမ်းတင်ပါ။</string>
     <string name="ledger_exchange_none">မရှိ (Binance)</string>
     <string name="ledger_fee">အခကြေးငွေ (ရွေးချယ်နိုင်)</string>
-    <string name="ledger_fee_coin">ဒင်္ဂါး</string>
-    <string name="ledger_fee_hint">USDT ဖြင့်ဆိုလျှင် မူလကုန်ကျစရိတ်ကို မြှင့်သည် (ရောင်းချမှု- ရောင်းရငွေကို လျှော့သည်)၊ ဒင်္ဂါးဖြင့်ဆိုလျှင် ပမာဏကို လျှော့သည်။</string>
+    <string name="ledger_fee_coin">ကွိုင်</string>
+    <string name="ledger_fee_hint">USDT ဖြင့်ဆိုလျှင် မူလကုန်ကျစရိတ်ကို မြှင့်သည် (ရောင်းချမှု- ရောင်းရငွေကို လျှော့သည်)၊ ကွိုင်ဖြင့်ဆိုလျှင် ပမာဏကို လျှော့သည်။</string>
     <string name="ledger_fee_line">အခကြေးငွေ %1$s</string>
-    <string name="ledger_fifo_cost_note">ဝယ်ကတည်းက: အခကြေးငွေ အပါအဝင် FIFO ကုန်ကျစရိတ် (အဟောင်းဆုံး ဒင်္ဂါးများကို အရင် ရောင်းသည်)။</string>
-    <string name="ledger_gain_info">ယနေ့၊ ရက် 7၊ 1 နှစ်: ကာလအတွင်း တန်ဖိုး ပြောင်းလဲမှု – ဝယ်ယူမှုနှင့် ရောင်းချမှုများကို အမြတ်အဖြစ် မတွက်ပါ။ ဝယ်ကတည်းက: သင် ကိုင်ဆောင်ထားဆဲ ဒင်္ဂါးများ၏ လက်ရှိတန်ဖိုး အနုတ် မူလကုန်ကျစရိတ် (အခကြေးငွေ အပါအဝင် ပျမ်းမျှ ကုန်ကျစရိတ်)။</string>
+    <string name="ledger_fifo_cost_note">ဝယ်ကတည်းက: အခကြေးငွေ အပါအဝင် FIFO ကုန်ကျစရိတ် (အဟောင်းဆုံး ကွိုင်များကို အရင် ရောင်းသည်)။</string>
+    <string name="ledger_gain_info">ယနေ့၊ ရက် 7၊ 1 နှစ်: ကာလအတွင်း တန်ဖိုး ပြောင်းလဲမှု – ဝယ်ယူမှုနှင့် ရောင်းချမှုများကို အမြတ်အဖြစ် မတွက်ပါ။ ဝယ်ကတည်းက: သင် ကိုင်ဆောင်ထားဆဲ ကွိုင်များ၏ လက်ရှိတန်ဖိုး အနုတ် မူလကုန်ကျစရိတ် (အခကြေးငွေ အပါအဝင် ပျမ်းမျှ ကုန်ကျစရိတ်)။</string>
     <string name="ledger_gain_info_a11y">အမြတ်နှင့် အရှုံးကို တွက်ချက်ပုံ</string>
-    <string name="ledger_gain_info_fifo">ယနေ့၊ ရက် 7၊ 1 နှစ်: ကာလအတွင်း တန်ဖိုး ပြောင်းလဲမှု – ဝယ်ယူမှုနှင့် ရောင်းချမှုများကို အမြတ်အဖြစ် မတွက်ပါ။ ဝယ်ကတည်းက: သင် ကိုင်ဆောင်ထားဆဲ ဒင်္ဂါးများ၏ လက်ရှိတန်ဖိုး အနုတ် မူလကုန်ကျစရိတ် (အခကြေးငွေ အပါအဝင် FIFO)။</string>
+    <string name="ledger_gain_info_fifo">ယနေ့၊ ရက် 7၊ 1 နှစ်: ကာလအတွင်း တန်ဖိုး ပြောင်းလဲမှု – ဝယ်ယူမှုနှင့် ရောင်းချမှုများကို အမြတ်အဖြစ် မတွက်ပါ။ ဝယ်ကတည်းက: သင် ကိုင်ဆောင်ထားဆဲ ကွိုင်များ၏ လက်ရှိတန်ဖိုး အနုတ် မူလကုန်ကျစရိတ် (အခကြေးငွေ အပါအဝင် FIFO)။</string>
     <string name="ledger_gain_title">အမြတ်/အရှုံး</string>
     <string name="ledger_more_toggle">အခကြေးငွေနှင့် လဲလှယ်ရေးဌာန</string>
     <string name="ledger_partial_cost">“ဝယ်ကတည်းက” သည် ဝယ်ဈေးပါသော အစိတ်အပိုင်းကိုသာ တွက်သည် – ဝယ်ဈေးမရှိသော %1$s မပါ။</string>
@@ -254,7 +254,7 @@
     <string name="ledger_since_purchase_currency">ဝယ်ကတည်းက (%1$s)</string>
     <string name="ledger_since_purchase_spoken">ဝယ်ကတည်းက အမြတ်/အရှုံး၊ မရောင်းရသေး</string>
     <plurals name="ledger_without_cost">
-        <item quantity="other">ဝယ်ဈေးမရှိသော ဒင်္ဂါး %1$d ခု (%2$s) မပါ – တွက်နိုင်ရန် ဈေးနှုန်းများ ထည့်ပါ။</item>
+        <item quantity="other">ဝယ်ဈေးမရှိသော ကွိုင် %1$d ခု (%2$s) မပါ – တွက်နိုင်ရန် ဈေးနှုန်းများ ထည့်ပါ။</item>
     </plurals>
 
     <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->

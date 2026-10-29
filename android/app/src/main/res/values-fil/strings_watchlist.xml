@@ -7,7 +7,6 @@
         <item quantity="one">%1$d sa %2$d ang walang presyo</item>
         <item quantity="other">%1$d sa %2$d ang walang presyo</item>
     </plurals>
-    <string name="watchlist_last_run">Huling takbo %1$s</string>
     <string name="watchlist_live_a11y">Naka-on ang mga live price</string>
     <string name="watchlist_offline_since">Walang koneksyon · noong %1$s</string>
     <string name="watchlist_pull_to_refresh">Hilahin pababa para i-refresh</string>

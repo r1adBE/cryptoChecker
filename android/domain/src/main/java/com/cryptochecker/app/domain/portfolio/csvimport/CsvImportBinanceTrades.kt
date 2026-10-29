@@ -129,8 +129,9 @@ fun CsvImportBinance.trades(names: List<String>, data: List<CsvImportParser.Reco
 /**
  * Ausführungen einer Order in derselben Sekunde → ein Kauf/Verkauf mit Summen (so fasst sie auch der
  * Transaktionsverlauf zusammen: gleicher Schlüssel, nie doppelt); Preis = Quote-Summe / Menge (bei einer Ausführung
- * der Preis der Datei). Gebühren in verschiedenen Einheiten: eine am Geschäft, die übrigen als eigene Gebühr-Zeilen
- * ([CsvImport.splitFees], gleiche Wahl wie im Transaktionsverlauf).
+ * der Preis der Datei). Gebühren in verschiedenen Einheiten wie im Transaktionsverlauf: Fiat- und Coin-Gebühr → Fiat in den
+ * Preis ([CsvImport.fiatFeeInPrice], Preis = (Quote-Summe ± Gebühr) / Menge); sonst eine am Geschäft, die übrigen als
+ * eigene Gebühr-Zeilen ([CsvImport.splitFees]).
  */
 private fun CsvImportBinance.order(fills: List<Fill>, skipped: MutableList<CsvImportSkip>): List<CsvImportRow> {
     val first = fills.first()
@@ -141,8 +142,12 @@ private fun CsvImportBinance.order(fills: List<Fill>, skipped: MutableList<CsvIm
         feeSums[unit] = (feeSums[unit] ?: BigDecimal.ZERO) + fee
     }
     val buy = first.kind == CsvImportKind.BUY
+    val amount = fills.fold(BigDecimal.ZERO) { sum, f -> sum + f.amount }
+    val total = fills.fold(BigDecimal.ZERO) { sum, f -> sum + f.total }
+    val feeList = feeSums.map { it.key to it.value }
+    val folded = CsvImport.fiatFeeInPrice(buy, first.base, first.quote, total, feeList)
     val split = CsvImport.splitFees(
-        feeSums.map { it.key to it.value },
+        folded?.second ?: feeList,
         given = if (buy) first.quote else first.base,
         received = if (buy) first.base else first.quote,
     )
@@ -150,11 +155,12 @@ private fun CsvImportBinance.order(fills: List<Fill>, skipped: MutableList<CsvIm
         fills.forEach { skipped += CsvImportSkip(it.line, CsvImportSkipReason.TWO_FEES) }
         return emptyList()
     }
-    val amount = fills.fold(BigDecimal.ZERO) { sum, f -> sum + f.amount }
-    val total = fills.fold(BigDecimal.ZERO) { sum, f -> sum + f.total }
     val fee = split.first?.second
-    val price = if (fills.size == 1) first.price
-    else CsvImport.derive(total, amount)
+    val price = when {
+        folded != null -> CsvImport.derive(folded.first, amount)
+        fills.size == 1 -> first.price
+        else -> CsvImport.derive(total, amount)
+    }
     val draft = CsvImportRow(
         line = first.line,
         kind = first.kind,
@@ -169,6 +175,7 @@ private fun CsvImportBinance.order(fills: List<Fill>, skipped: MutableList<CsvIm
         externalId = null,
         key = CsvImport.key(CsvImportFormat.BINANCE, first.kind, first.base, amount, null, first.time, null, first.local),
         localTime = first.local,
+        feeInPrice = folded != null,
     )
     // Gegen Stablecoin oder Krypto-Coin: Tausch mit dem Quote-Betrag der Datei
     val trade = CsvImportParser.stableSwap(CsvImportFormat.BINANCE, draft, total) ?: draft

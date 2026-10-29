@@ -32,7 +32,7 @@ class HistoricPriceSourceTest {
     val temp = TemporaryFolder()
 
     @Before
-    fun chainOpen() = RouteHttp.assumeChainOpen()
+    fun chainOpen() = RouteHttp.releaseChain()
 
     private val date: LocalDate = LocalDate.of(2024, 1, 2)
     private val start = date.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli()
