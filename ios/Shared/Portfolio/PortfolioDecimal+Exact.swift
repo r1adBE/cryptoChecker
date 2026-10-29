@@ -4,6 +4,8 @@ import Foundation
 // `significantDigits` gültige Stellen (halbe auf gerade) — wie Android `BigDecimal.divide`/`multiply` mit
 // `MathContext.DECIMAL128`. `Decimal` selbst rechnet auf 38 Stellen; erst darauf und dann auf 34 zu runden wiche
 // gelegentlich in der letzten Stelle ab (376761.99 / 41.47463084 → …302 statt …303), ebenso ein Produkt über 38 Stellen.
+// Unter 10⁻¹²⁸ (Exponent von `Decimal` ausserhalb −128…127) rechnet `exact` selbst weiter: `Decimal` liesse den Exponenten
+// eines Produkts dort überlaufen (−130 wird +126), etwa beim Produkt vieler Anteile in `PortfolioPartStore`.
 
 extension PortfolioDecimal {
 
@@ -15,14 +17,39 @@ extension PortfolioDecimal {
     /// `divide(a * b, c)` wiche ab, sobald das Produkt mehr als 38 Stellen hat (`Decimal` rundete es vor der Teilung).
     static func divide(_ a: Decimal, _ b: Decimal, by c: Decimal) -> Decimal { exact(a, b, c) }
 
-    /// `a × b`, einmal gerundet — wie `a.multiply(b, MathContext.DECIMAL128)` (Android).
-    static func multiply(_ a: Decimal, _ b: Decimal) -> Decimal { exact(a, b, nil) }
+    /// `a × b`, einmal gerundet — wie `a.multiply(b, MathContext.DECIMAL128)` (Android). Meist direkt mit `Decimal`
+    /// (`plainProduct`), sonst `exact`.
+    static func multiply(_ a: Decimal, _ b: Decimal) -> Decimal { plainProduct(a, b) ?? exact(a, b, nil) }
 
-    /// `a × (b ?? 1) / (c ?? 1)` exakt, einmal gerundet. NaN, ∞, Teilung durch 0 oder ein Ergebnis ausserhalb des Bereichs
-    /// von `Decimal` (bei Werten innerhalb von `withinLimits` nie): mit `Decimal` gerechnet und gerundet.
+    /// Exponenten, die `Decimal` darstellt (8 Bit), und Stellen, die seine Mantisse sicher fasst (10³⁸ < 2¹²⁸).
+    private static let minExponent = -128, maxExponent = 127, plainDigits = 38
+
+    /// `a × b` mit `Decimal`, wenn das exakt ist: zusammen höchstens 38 Stellen (das Produkt ist < 10³⁸) und der Exponent
+    /// samt Runden auf 34 Stellen (höchstens 4 mehr) im Bereich — dann einmal gerundet, gleich wie `exact`. Sonst nil.
+    private static func plainProduct(_ a: Decimal, _ b: Decimal) -> Decimal? {
+        guard finite(a), finite(b) else { return nil }
+        if a == 0 || b == 0 { return 0 }
+        var x = a
+        var y = b
+        NSDecimalCompact(&x)
+        NSDecimalCompact(&y)
+        let exponent = Int(x.exponent) + Int(y.exponent)
+        guard mantissaDigits(x) + mantissaDigits(y) <= plainDigits, exponent >= minExponent,
+              exponent <= maxExponent - (plainDigits - significantDigits) else { return nil }
+        return roundSignificant(x * y)
+    }
+
+    /// Weder NaN noch ∞ (nil: kein Operand).
+    private static func finite(_ value: Decimal?) -> Bool {
+        guard let value else { return true }
+        return !value.isNaN && value.isFinite
+    }
+
+    /// `a × (b ?? 1) / (c ?? 1)` exakt, einmal gerundet. Unter 10⁻¹²⁸ mit weniger Stellen (die letzte bei 10⁻¹²⁸, halbe
+    /// auf gerade) bis 0. NaN, ∞, Teilung durch 0 oder ein Ergebnis über dem Bereich von `Decimal` (bei Werten innerhalb
+    /// von `withinLimits` nie): mit `Decimal` gerechnet und gerundet.
     private static func exact(_ a: Decimal, _ b: Decimal?, _ c: Decimal?) -> Decimal {
-        let operands = [a] + [b, c].compactMap { $0 }
-        guard operands.allSatisfy({ !$0.isNaN && $0.isFinite }), c != 0 else { return approximate(a, b, c) }
+        guard finite(a), finite(b), finite(c), c != 0 else { return approximate(a, b, c) }
         if a == 0 || b == 0 { return 0 }
         var x = a
         NSDecimalCompact(&x)
@@ -33,13 +60,38 @@ extension PortfolioDecimal {
             numerator = numerator.multiplied(by: BigMagnitude(mantissaOf: y))
             exponent += Int(y.exponent)
         }
-        var denominator = BigMagnitude(limbs: [1])
+        var denominator = BigMagnitude.one
         if var z = c {
             NSDecimalCompact(&z)
             denominator = BigMagnitude(mantissaOf: z)
             exponent -= Int(z.exponent)
         }
+        var r = rounded(numerator, denominator, exponent)
+        if r.exponent < minExponent {
+            // Betrag < 10^(Exponent + 35): unter der Hälfte von 10⁻¹²⁸ gibt das 0
+            guard r.exponent + significantDigits + 1 >= minExponent else { return 0 }
+            r = roundedAtMinimum(numerator, denominator, exponent)
+            if r.q.isZero { return 0 }
+        }
+        if r.exponent > maxExponent {
+            // Mit Nullen auffüllen, solange 38 Stellen reichen
+            let pad = r.exponent - maxExponent
+            guard r.q.digitCount + pad <= plainDigits else { return approximate(a, b, c) }
+            r.q.scale(pad)
+            r.exponent = maxExponent
+        }
+        let negative = ((a < 0) != ((b ?? 1) < 0)) != ((c ?? 1) < 0)
+        // Mantisse positiv mit Exponent 0, Exponent im Bereich: nichts wird gerundet oder abgeschnitten
+        var result = Decimal(sign: negative ? .minus : .plus, exponent: r.exponent, significand: r.q.decimal)
+        NSDecimalCompact(&result)
+        return result
+    }
+
+    /// `numerator ÷ denominator × 10^exponent` auf `significantDigits` Stellen: Mantisse und Exponent der letzten Stelle.
+    private static func rounded(_ numerator: BigMagnitude, _ denominator: BigMagnitude,
+                                _ exponent: Int) -> (q: BigMagnitude, exponent: Int) {
         let digits = significantDigits
+        var exponent = exponent
         var q: BigMagnitude
         // Rest gegen die halbe letzte Stelle: −1 darunter, 0 genau die Hälfte, 1 darüber
         let half: Int
@@ -51,9 +103,11 @@ extension PortfolioDecimal {
             exponent += drop
         } else {
             // Zähler × 10^shift ÷ Nenner hat 34 oder 35 Stellen vor dem Komma
-            let shift = digits + denominator.digitCount - numerator.digitCount
-            if shift >= 0 { numerator.scale(shift) } else { denominator.scale(-shift) }
-            let division = numerator.divided(by: denominator)
+            var n = numerator
+            var d = denominator
+            let shift = digits + d.digitCount - n.digitCount
+            if shift >= 0 { n.scale(shift) } else { d.scale(-shift) }
+            let division = n.divided(by: d)
             q = division.quotient
             exponent -= shift
             if q.compare(BigMagnitude.power(digits)) >= 0 {
@@ -61,17 +115,32 @@ extension PortfolioDecimal {
                 exponent += 1
                 half = last == 5 ? (division.rest.isZero ? 0 : 1) : (last < 5 ? -1 : 1)
             } else {
-                var twice = division.rest
-                twice.multiplyAdd(2, 0)
-                half = twice.compare(denominator)
+                half = division.rest.twiceCompared(to: d)
             }
         }
-        if half > 0 || (half == 0 && q.isOdd) { q.multiplyAdd(1, 1) }
-        guard (-128...127).contains(exponent) else { return approximate(a, b, c) }
-        let negative = ((a < 0) != ((b ?? 1) < 0)) != ((c ?? 1) < 0)
-        var result = Decimal(sign: negative ? .minus : .plus, exponent: exponent, significand: q.decimal)
-        NSDecimalCompact(&result)
-        return result
+        q.roundUp(half)
+        return (q, exponent)
+    }
+
+    /// Wie `rounded`, aber auf ein Vielfaches von 10⁻¹²⁸ (Unterlauf: weniger Stellen, auch 0).
+    private static func roundedAtMinimum(_ numerator: BigMagnitude, _ denominator: BigMagnitude,
+                                         _ exponent: Int) -> (q: BigMagnitude, exponent: Int) {
+        var q: BigMagnitude
+        let half: Int
+        if denominator.isOne {
+            q = numerator
+            half = q.dropDigits(minExponent - exponent)
+        } else {
+            var n = numerator
+            var d = denominator
+            let shift = exponent - minExponent
+            if shift >= 0 { n.scale(shift) } else { d.scale(-shift) }
+            let division = n.divided(by: d)
+            q = division.quotient
+            half = division.rest.twiceCompared(to: d)
+        }
+        q.roundUp(half)
+        return (q, minExponent)
     }
 
     /// Ausweg ohne exakte Rechnung (siehe `exact`): `Decimal`-Arithmetik, danach auf 34 Stellen.
@@ -84,12 +153,25 @@ extension PortfolioDecimal {
 }
 
 /// Ganze Zahl ohne Vorzeichen beliebiger Grösse (32-Bit-Stücke, das niedrigste zuerst) — nur für `PortfolioDecimal.exact`.
-private struct BigMagnitude {
+private struct BigMagnitude: Sendable {
     var limbs: [UInt32]
 
     /// 10⁰ … 10⁹ (passen in 32 Bit).
     private static let smallPowers: [UInt32] = [1, 10, 100, 1_000, 10_000, 100_000, 1_000_000, 10_000_000, 100_000_000,
                                                 1_000_000_000]
+
+    /// 10⁰ … 10⁸⁰, einmal gerechnet: mehr Stellen hat keine Zahl in `exact` (Produkt höchstens 76, Zähler 73).
+    private static let tenPowers: [BigMagnitude] = {
+        var out = [BigMagnitude(limbs: [1])]
+        for _ in 1...80 {
+            var p = out[out.count - 1]
+            p.multiplyAdd(10, 0)
+            out.append(p)
+        }
+        return out
+    }()
+
+    static let one = BigMagnitude(limbs: [1])
 
     init(limbs: [UInt32]) {
         self.limbs = limbs
@@ -100,20 +182,23 @@ private struct BigMagnitude {
     init(mantissaOf value: Decimal) {
         let m = value._mantissa
         let length = Int(value._length)
-        let words: [UInt16] = [m.0, m.1, m.2, m.3, m.4, m.5, m.6, m.7].enumerated().map { $0.offset < length ? $0.element : 0 }
-        self.init(limbs: (0..<4).map { UInt32(words[2 * $0]) | UInt32(words[2 * $0 + 1]) << 16 })
+        func pair(_ i: Int, _ low: UInt16, _ high: UInt16) -> UInt32 {
+            (i < length ? UInt32(low) : 0) | (i + 1 < length ? UInt32(high) << 16 : 0)
+        }
+        self.init(limbs: [pair(0, m.0, m.1), pair(2, m.2, m.3), pair(4, m.4, m.5), pair(6, m.6, m.7)])
     }
 
     /// 10^count.
     static func power(_ count: Int) -> BigMagnitude {
-        var p = BigMagnitude(limbs: [1])
-        p.scale(count)
+        if count < tenPowers.count { return tenPowers[count] }
+        var p = tenPowers[tenPowers.count - 1]
+        p.scale(count - (tenPowers.count - 1))
         return p
     }
 
     var isZero: Bool { limbs.isEmpty }
 
-    var isOne: Bool { limbs == [1] }
+    var isOne: Bool { limbs.count == 1 && limbs[0] == 1 }
 
     var isOdd: Bool { (limbs.first ?? 0) & 1 == 1 }
 
@@ -132,9 +217,28 @@ private struct BigMagnitude {
         return compare(.power(low)) >= 0 ? low + 1 : low
     }
 
-    /// Als `Decimal` — exakt, solange die Zahl höchstens 38 Stellen hat (hier höchstens 35).
+    /// Als `Decimal` (positiv, Exponent 0) direkt aus den 16-Bit-Wörtern — die Zahl hat höchstens 38 Stellen (< 2¹²⁸).
     var decimal: Decimal {
-        limbs.reversed().reduce(Decimal(0)) { $0 * Decimal(4_294_967_296) + Decimal($1) }
+        func word(_ i: Int) -> UInt16 {
+            let limb = i / 2 < limbs.count ? limbs[i / 2] : 0
+            return UInt16(truncatingIfNeeded: i % 2 == 0 ? limb : limb >> 16)
+        }
+        var length: UInt32 = 0
+        for i in 0..<8 where word(i) != 0 { length = UInt32(i + 1) }
+        return Decimal(_exponent: 0, _length: length, _isNegative: 0, _isCompact: 0, _reserved: 0,
+                       _mantissa: (word(0), word(1), word(2), word(3), word(4), word(5), word(6), word(7)))
+    }
+
+    /// Doppelter Rest gegen `divisor`: −1, 0 oder 1 wie Rest < = > die Hälfte.
+    func twiceCompared(to divisor: BigMagnitude) -> Int {
+        var twice = self
+        twice.multiplyAdd(2, 0)
+        return twice.compare(divisor)
+    }
+
+    /// Halbe auf gerade: `half` über der Hälfte (1) oder genau die Hälfte (0) bei ungerader letzter Stelle: eins dazu.
+    mutating func roundUp(_ half: Int) {
+        if half > 0 || (half == 0 && isOdd) { multiplyAdd(1, 1) }
     }
 
     private mutating func trim() {
