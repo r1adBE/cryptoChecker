@@ -320,18 +320,23 @@ enum ExchangeService {
 
     /// Fehlermeldung der Börse zu einer unlesbaren Antwort als `UserFriendlyExchangeError`. Findet sich keine (das
     /// Auslesen wirft), bleibt es beim ursprünglichen Lesefehler — darum wird dieser zweite Fehler bewusst verworfen.
-    /// Ohne eigene Meldung, aber mit «Paar unbekannt» im Lesefehler (Binance «Invalid symbol.»): dieser Text der Börse
-    /// wird die Meldung, damit `ExchangeFailure.of` das Paar als unbekannt erkennt — wie Android.
+    /// Ohne eigene Meldung (auch wenn das Auslesen wirft), aber mit «Paar unbekannt» im Lesefehler (Binance «Invalid
+    /// symbol.»): dieser Text der Börse wird die Meldung, damit `ExchangeFailure.of` das Paar als unbekannt erkennt —
+    /// wie Android.
     static func explained(_ readFailure: Error, exchange: Exchange, call: Int, body: String,
                           info: PairQuery) -> Error {
+        let message: String?
         do {
-            let message = try exchange.readError(call: call, body: body, info: info)
-            if message == nil, let json = readFailure as? JSONError, NotTraded.isUnknownInstrument(json.message) {
-                return UserFriendlyExchangeError(message: json.message)
-            }
-            return UserFriendlyExchangeError(message: message ?? L("something_went_wrong"))
+            message = try exchange.readError(call: call, body: body, info: info)
         } catch {
-            return readFailure
+            message = nil
+            guard let json = readFailure as? JSONError, NotTraded.isUnknownInstrument(json.message) else {
+                return readFailure
+            }
         }
+        if message == nil, let json = readFailure as? JSONError, NotTraded.isUnknownInstrument(json.message) {
+            return UserFriendlyExchangeError(message: json.message)
+        }
+        return UserFriendlyExchangeError(message: message ?? L("something_went_wrong"))
     }
 }
