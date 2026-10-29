@@ -160,6 +160,9 @@ jobs:
           n = 0
           for f in glob.glob('app/build/outputs/androidTest-results/connected/**/*.xml', recursive=True):
               for tc in ET.parse(f).getroot().iter('testcase'):
+                  # Assumption = intended skip (e.g. ScreenshotTourTest outside screenshots.yml), not a failure
+                  if tc.find('skipped') is not None or 'AssumptionViolatedException' in ET.tostring(tc, encoding='unicode'):
+                      continue
                   for fail in list(tc.findall('failure')) + list(tc.findall('error')):
                       msg = (fail.get('message') or fail.text or '').strip().splitlines()
                       body = ' | '.join(l.strip() for l in (fail.text or '').strip().splitlines()[:6])
@@ -240,6 +243,9 @@ jobs:
           n = 0
           for f in glob.glob('app/build/outputs/androidTest-results/connected/**/*.xml', recursive=True):
               for tc in ET.parse(f).getroot().iter('testcase'):
+                  # Assumption = intended skip (e.g. ScreenshotTourTest outside screenshots.yml), not a failure
+                  if tc.find('skipped') is not None or 'AssumptionViolatedException' in ET.tostring(tc, encoding='unicode'):
+                      continue
                   for fail in list(tc.findall('failure')) + list(tc.findall('error')):
                       body = ' | '.join(l.strip() for l in (fail.text or '').strip().splitlines()[:6])
                       print(f"::error::API 26 {tc.get('classname')}.{tc.get('name')}: {body[:900]}")
@@ -330,6 +336,28 @@ jobs:
           emulator-boot-timeout: 900
           script: ./gradlew :app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class="$MIGRATION_CLASSES" --stacktrace
 
+      # Green only with proof from the result XML: every listed class has an executed test, and every @Test of
+      # RoomSchemaMigrationTest ran and passed (builds 166-168 were green here while the same test failed on main).
+      - name: Required migration tests ran
+        run: |
+          python3 - <<'PY'
+          import glob, os, re, sys, xml.etree.ElementTree as ET
+          ran = {}
+          for f in glob.glob('app/build/outputs/androidTest-results/connected/**/*.xml', recursive=True):
+              for tc in ET.parse(f).getroot().iter('testcase'):
+                  bad = any(tc.find(t) is not None for t in ('failure', 'error', 'skipped'))
+                  ran.setdefault(tc.get('classname'), {})[tc.get('name')] = not bad
+          missing = [c for c in os.environ['MIGRATION_CLASSES'].split(',') if not any(ran.get(c, {}).values())]
+          src = open('app/src/androidTest/java/com/cryptochecker/app/RoomSchemaMigrationTest.kt', encoding='utf-8').read()
+          methods = re.findall(r'@Test\s+fun\s+(\w+)', src)
+          schema = ran.get('com.cryptochecker.app.RoomSchemaMigrationTest', {})
+          missing += [f'RoomSchemaMigrationTest.{m}' for m in methods or ['<no @Test found>'] if not schema.get(m)]
+          for m in missing:
+              print(f"::error title=Migration tests::{m} did not run or did not pass (result XML)")
+          print(f"result XML: {sum(len(v) for v in ran.values())} tests in {len(ran)} classes; missing: {len(missing)}")
+          sys.exit(1 if missing else 0)
+          PY
+
       - name: Failed tests
         if: failure()
         run: |
@@ -338,6 +366,9 @@ jobs:
           n = 0
           for f in glob.glob('app/build/outputs/androidTest-results/connected/**/*.xml', recursive=True):
               for tc in ET.parse(f).getroot().iter('testcase'):
+                  # Assumption = intended skip (e.g. ScreenshotTourTest outside screenshots.yml), not a failure
+                  if tc.find('skipped') is not None or 'AssumptionViolatedException' in ET.tostring(tc, encoding='unicode'):
+                      continue
                   for fail in list(tc.findall('failure')) + list(tc.findall('error')):
                       body = ' | '.join(l.strip() for l in (fail.text or '').strip().splitlines()[:6])
                       print(f"::error::Migration {tc.get('classname')}.{tc.get('name')}: {body[:900]}")

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "761b39139ce220e380ee39a1ec3ef2f7",
+    "identityHash": "9b1d29d4d9c960f80cb6e5f8313673ed",
     "entities": [
       {
         "tableName": "exchanges",
@@ -396,7 +396,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '761b39139ce220e380ee39a1ec3ef2f7')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9b1d29d4d9c960f80cb6e5f8313673ed')"
     ]
   }
 }

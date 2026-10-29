@@ -19,6 +19,7 @@ Detailed build history below.
 ## 16.2.2 (build 174)
 
 * About the app: the backup line now says clearly that a backup without a password is readable (all languages).
+* Android device tests on main are green again (stored database schemas carried a wrong check value). No change in the app.
 
 ## 16.2.2 (build 173)
 

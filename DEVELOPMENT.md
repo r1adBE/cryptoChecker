@@ -3046,6 +3046,11 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   `docs/store/screenshots`) through `BackupManager.restore` with the same overrides as iOS (`demoBackup` on both:
   dark mode, USD without conversion, alarm currency null, one alarm per pair) instead of building rows through the
   repositories; the BTC note in the demo backup is «Long-term hold».
+  Device tests: `identityHash` in both `app/schemas/…/1.json` set to the hash Room compiles from the entities
+  (`9b1d29d4…`, `94e00c83…`; red on main since build 163, Room keeps a schema file that differs only in the hash, so
+  «Room schema drift» passed); «Failed tests» skips assumption skips (ScreenshotTourTest). `room_schema_drift.py`
+  also compares that hash with the generated `*_Impl` (`data/build/generated/ksp`, `--self-test`); migration-tests
+  fails unless the result XML shows every listed class and each `@Test` of RoomSchemaMigrationTest passed.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

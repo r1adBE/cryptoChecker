@@ -169,9 +169,13 @@ jobs:
 
       # Room exports its schemas while compiling (app/schemas). A changed entity without a new database
       # version shows up as a different identity hash or a new, uncommitted schema file: fail before it
-      # crashes an update (formatting differences alone do not count).
+      # crashes an update (formatting differences alone do not count). Room keeps a schema file that differs only in
+      # its identityHash, so the hash of each latest <version>.json is also compared with the one compiled into the
+      # generated *_Impl of :data (KSP output of the unit-test build above).
       - name: Room schema drift
-        run: python3 -I "$GITHUB_WORKSPACE/.github/scripts/room_schema_drift.py" app/schemas
+        run: |
+          python3 -I "$GITHUB_WORKSPACE/.github/scripts/room_schema_drift.py" --self-test
+          python3 -I "$GITHUB_WORKSPACE/.github/scripts/room_schema_drift.py" app/schemas data/build/generated/ksp
 
       # Lint as a gate (abortOnError = true in app/ and marketdata/build.gradle.kts): report uploaded on failure.
       # Release too: the store build has its own source set (src/withoutHttpLog) and R8-only checks.
