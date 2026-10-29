@@ -334,7 +334,8 @@ jobs:
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           working-directory: android
           emulator-boot-timeout: 900
-          script: ./gradlew :app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class="$MIGRATION_CLASSES" --stacktrace
+          # One Gradle call per class (run_device_classes.sh): with the whole list only the first class ran
+          script: bash "$GITHUB_WORKSPACE/.github/scripts/run_device_classes.sh" "$MIGRATION_CLASSES"
 
       # Green only with proof from the result XML: every listed class has an executed test, and every @Test of
       # RoomSchemaMigrationTest ran and passed (builds 166-168 were green here while the same test failed on main).
@@ -343,7 +344,7 @@ jobs:
           python3 - <<'PY'
           import glob, os, re, sys, xml.etree.ElementTree as ET
           ran = {}
-          files = glob.glob('app/build/outputs/androidTest-results/**/*.xml', recursive=True)
+          files = glob.glob('app/build/device-class-results/**/*.xml', recursive=True)
           # Fundort und Inhalt sichtbar machen (die Job-Logs sind nicht immer zugänglich)
           print(f"::notice title=Migration tests::result XML files: {files or 'none'}")
           for f in files:
@@ -370,7 +371,7 @@ jobs:
           python3 - <<'PY' || true
           import glob, xml.etree.ElementTree as ET
           n = 0
-          for f in glob.glob('app/build/outputs/androidTest-results/connected/**/*.xml', recursive=True):
+          for f in glob.glob('app/build/device-class-results/**/*.xml', recursive=True):
               for tc in ET.parse(f).getroot().iter('testcase'):
                   # Assumption = intended skip (e.g. ScreenshotTourTest outside screenshots.yml), not a failure
                   if tc.find('skipped') is not None or 'AssumptionViolatedException' in ET.tostring(tc, encoding='unicode'):
@@ -390,6 +391,7 @@ jobs:
           path: |
             android/app/build/reports/androidTests/
             android/app/build/outputs/androidTest-results/
+            android/app/build/device-class-results/
           if-no-files-found: ignore
           retention-days: 14
 
