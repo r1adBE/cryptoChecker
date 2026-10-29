@@ -83,6 +83,7 @@
     <string name="portfolio_price_source_routes">Τιμές: %1$s, αλλιώς Binance · USDT σε τιμή αγοράς</string>
     <string name="portfolio_price_unavailable">Η τιμή δεν είναι διαθέσιμη τώρα</string>
     <string name="portfolio_price_unchecked">Τιμή μη ελεγμένη</string>
+    <string name="portfolio_price_no_market">Χωρίς αγορά</string>
     <string name="portfolio_price_via_base">≈ τιμή %1$s (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT με την τιμή αγοράς του σε USD</string>
     <string name="portfolio_usdt_assumed">Λείπει η ισοτιμία USDT σε δολάρια – υπολογίστηκε ως 1 δολάριο ΗΠΑ</string>

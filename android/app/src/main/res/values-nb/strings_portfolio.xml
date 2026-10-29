@@ -83,6 +83,7 @@
     <string name="portfolio_price_source_routes">Kurser: %1$s, ellers Binance · USDT til markedskurs</string>
     <string name="portfolio_price_unavailable">Kurs ikke tilgjengelig akkurat nå</string>
     <string name="portfolio_price_unchecked">Kurs ikke kontrollert</string>
+    <string name="portfolio_price_no_market">Ingen marked</string>
     <string name="portfolio_price_via_base">≈ %1$s-kurs (bridget/wrappet)</string>
     <string name="portfolio_usdt_as_usd">USDT omregnet til sin USD-markedskurs</string>
     <string name="portfolio_usdt_assumed">USDT-dollarkurs mangler – regnet som 1 amerikansk dollar</string>

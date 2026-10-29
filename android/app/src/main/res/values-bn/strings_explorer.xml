@@ -107,6 +107,9 @@
     <string name="dex_added">%1$s ওয়াচলিস্টে যোগ করা হয়েছে।</string>
     <string name="dex_already">%1$s ইতিমধ্যে ওয়াচলিস্টে আছে।</string>
     <string name="dex_intro">বড় এক্সচেঞ্জের বাইরের টোকেন, বিকেন্দ্রীভূত এক্সচেঞ্জ (Uniswap, PancakeSwap, Raydium …) থেকে DexScreener-এর মাধ্যমে। একটি টোকেন খুঁজুন এবং এর একটি ট্রেডিং পুল যোগ করুন – দাম US ডলারে।</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">DexScreener-এর মাধ্যমে %1$s-এর পুল</string>
+    <string name="dex_search_hit_generic">DexScreener-এর মাধ্যমে বিকেন্দ্রীভূত এক্সচেঞ্জের পুল</string>
     <string name="dex_liquidity">লিকুইডিটি %1$s</string>
     <string name="dex_no_results">কোনো পুল পাওয়া যায়নি।</string>
     <string name="dex_search">খুঁজুন</string>

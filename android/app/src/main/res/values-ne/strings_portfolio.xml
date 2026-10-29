@@ -83,6 +83,7 @@
     <string name="portfolio_price_source_routes">मूल्य: %1$s, नत्र Binance · USDT बजार मूल्यमा</string>
     <string name="portfolio_price_unavailable">मूल्य अहिले उपलब्ध छैन</string>
     <string name="portfolio_price_unchecked">मूल्य जाँच नगरिएको</string>
+    <string name="portfolio_price_no_market">बजार छैन</string>
     <string name="portfolio_price_via_base">≈ %1$s मूल्य (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT लाई यसको USD बजार मूल्यमा रूपान्तरण गरिएको</string>
     <string name="portfolio_usdt_assumed">USDT डलर दर छैन – 1 अमेरिकी डलर मानिएको</string>

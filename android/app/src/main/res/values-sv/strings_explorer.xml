@@ -107,6 +107,9 @@
     <string name="dex_added">%1$s har lagts till i bevakningslistan.</string>
     <string name="dex_already">%1$s finns redan i bevakningslistan.</string>
     <string name="dex_intro">Tokens utanför de stora börserna, från decentraliserade börser (Uniswap, PancakeSwap, Raydium …) via DexScreener. Sök efter en token och lägg till en av dess handelspooler – kurser i amerikanska dollar.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">Pooler från %1$s via DexScreener</string>
+    <string name="dex_search_hit_generic">Pooler från decentraliserade börser via DexScreener</string>
     <string name="dex_liquidity">Likviditet %1$s</string>
     <string name="dex_no_results">Inga pooler hittades.</string>
     <string name="dex_search">Sök</string>

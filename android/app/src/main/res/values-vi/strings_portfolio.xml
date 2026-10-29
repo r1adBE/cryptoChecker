@@ -80,6 +80,7 @@
     <string name="portfolio_price_source_routes">Giá: %1$s, còn lại Binance · USDT theo giá thị trường</string>
     <string name="portfolio_price_unavailable">Hiện chưa lấy được giá</string>
     <string name="portfolio_price_unchecked">Giá chưa kiểm tra</string>
+    <string name="portfolio_price_no_market">Không có thị trường</string>
     <string name="portfolio_price_via_base">≈ giá %1$s (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT quy đổi theo giá thị trường bằng USD</string>
     <string name="portfolio_usdt_assumed">Thiếu tỷ giá đô la của USDT – tính là 1 đô la Mỹ</string>

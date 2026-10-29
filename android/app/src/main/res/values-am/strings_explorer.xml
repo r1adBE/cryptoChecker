@@ -107,6 +107,9 @@
     <string name="dex_added">%1$s ወደ ክትትል ዝርዝሩ ታክሏል።</string>
     <string name="dex_already">%1$s አስቀድሞ በክትትል ዝርዝሩ ውስጥ አለ።</string>
     <string name="dex_intro">ከትልልቆቹ ልውውጦች ውጪ ያሉ ቶከኖች፣ ከያልተማከሉ ልውውጦች (Uniswap፣ PancakeSwap፣ Raydium …) በDexScreener በኩል። ቶከን ይፈልጉና ከግብይት ገንዳዎቹ አንዱን ያክሉ – ዋጋዎች በአሜሪካ ዶላር።</string>
+    <string name="dex_picker_subtitle">Uniswap፣ PancakeSwap፣ Raydium፣ Aerodrome …</string>
+    <string name="dex_search_hit">ገንዳዎች ከ%1$s በDexScreener በኩል</string>
+    <string name="dex_search_hit_generic">ገንዳዎች ከያልተማከሉ ልውውጦች በDexScreener በኩል</string>
     <string name="dex_liquidity">ፈሳሽነት %1$s</string>
     <string name="dex_no_results">ምንም ገንዳ አልተገኘም።</string>
     <string name="dex_search">ይፈልጉ</string>

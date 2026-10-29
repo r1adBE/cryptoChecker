@@ -83,6 +83,7 @@
     <string name="portfolio_price_source_routes">Mga presyo: %1$s, kung hindi ay Binance · USDT sa market price</string>
     <string name="portfolio_price_unavailable">Hindi available ang presyo ngayon</string>
     <string name="portfolio_price_unchecked">Hindi nasuri ang presyo</string>
+    <string name="portfolio_price_no_market">Walang merkado</string>
     <string name="portfolio_price_via_base">≈ presyo ng %1$s (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">Kino-convert ang USDT sa USD market price nito</string>
     <string name="portfolio_usdt_assumed">Walang dollar rate ng USDT – binibilang bilang 1 US dollar</string>

@@ -107,6 +107,9 @@
     <string name="dex_added">%1$s વૉચલિસ્ટમાં ઉમેર્યું.</string>
     <string name="dex_already">%1$s પહેલેથી વૉચલિસ્ટમાં છે.</string>
     <string name="dex_intro">મોટાં એક્સચેન્જની બહારના ટોકન, વિકેન્દ્રિત એક્સચેન્જ પરથી (Uniswap, PancakeSwap, Raydium …) DexScreener દ્વારા. ટોકન શોધો અને તેનો એક ટ્રેડિંગ પૂલ ઉમેરો – ભાવ US ડૉલરમાં.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">DexScreener દ્વારા %1$s ના પૂલ</string>
+    <string name="dex_search_hit_generic">DexScreener દ્વારા વિકેન્દ્રિત એક્સચેન્જના પૂલ</string>
     <string name="dex_liquidity">લિક્વિડિટી %1$s</string>
     <string name="dex_no_results">કોઈ પૂલ મળ્યો નથી.</string>
     <string name="dex_search">શોધો</string>

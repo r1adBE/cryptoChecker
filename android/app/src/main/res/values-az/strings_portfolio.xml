@@ -83,6 +83,7 @@
     <string name="portfolio_price_source_routes">Qiymətlər: %1$s, əks halda Binance · USDT bazar qiyməti ilə</string>
     <string name="portfolio_price_unavailable">Qiymət hazırda mövcud deyil</string>
     <string name="portfolio_price_unchecked">Qiymət yoxlanılmayıb</string>
+    <string name="portfolio_price_no_market">Bazar yoxdur</string>
     <string name="portfolio_price_via_base">≈ %1$s qiyməti (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT öz USD bazar qiyməti ilə çevrilib</string>
     <string name="portfolio_usdt_assumed">USDT-nin dollar məzənnəsi yoxdur – 1 ABŞ dolları kimi hesablanır</string>

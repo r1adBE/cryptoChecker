@@ -118,12 +118,14 @@ internal fun coinRowSpoken(
     viaBase: String?,
     bridgedStable: String?,
     locale: Locale,
+    noMarket: Boolean = false,
 ): String {
     val context = LocalContext.current
     val hidden = LocalHidePortfolioAmounts.current
     // Hinweis zum Kurs in derselben Reihenfolge wie die Anzeige (nur einer)
     val note = when {
         unchecked -> stringResource(R.string.portfolio_price_unchecked)
+        noMarket && position.value == null -> stringResource(R.string.portfolio_price_no_market)
         unavailable && position.value == null -> stringResource(R.string.portfolio_price_unavailable)
         viaBase != null -> stringResource(R.string.portfolio_price_via_base, viaBase)
         bridgedStable != null -> stringResource(R.string.portfolio_amount_bridged_stable, bridgedStable)

@@ -107,6 +107,9 @@
     <string name="dex_added">%1$s by die volglys gevoeg.</string>
     <string name="dex_already">%1$s is reeds in die volglys.</string>
     <string name="dex_intro">Tokens buite die groot beurse, van gedesentraliseerde beurse (Uniswap, PancakeSwap, Raydium …) via DexScreener. Soek \'n token en voeg een van sy handelspoele by – pryse in Amerikaanse dollar.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">Poele van %1$s via DexScreener</string>
+    <string name="dex_search_hit_generic">Poele van gedesentraliseerde beurse via DexScreener</string>
     <string name="dex_liquidity">Likiditeit %1$s</string>
     <string name="dex_no_results">Geen poele gevind nie.</string>
     <string name="dex_search">Soek</string>

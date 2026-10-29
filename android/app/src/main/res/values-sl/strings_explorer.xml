@@ -125,6 +125,9 @@
     <string name="dex_added">%1$s dodan na seznam.</string>
     <string name="dex_already">%1$s je že na seznamu.</string>
     <string name="dex_intro">Žetoni zunaj velikih borz, z decentraliziranih borz (Uniswap, PancakeSwap, Raydium …) prek DexScreener. Poišči žeton in dodaj enega od njegovih trgovalnih bazenov – tečaji v ameriških dolarjih.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">Bazeni %1$s prek DexScreener</string>
+    <string name="dex_search_hit_generic">Bazeni z decentraliziranih borz prek DexScreener</string>
     <string name="dex_liquidity">Likvidnost %1$s</string>
     <string name="dex_no_results">Ni najdenih bazenov.</string>
     <string name="dex_search">Išči</string>

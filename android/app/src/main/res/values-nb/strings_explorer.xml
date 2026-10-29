@@ -107,6 +107,9 @@
     <string name="dex_added">%1$s lagt til i overvåkingslisten.</string>
     <string name="dex_already">%1$s er allerede i overvåkingslisten.</string>
     <string name="dex_intro">Tokens utenfor de store børsene, fra desentraliserte børser (Uniswap, PancakeSwap, Raydium …) via DexScreener. Søk etter en token og legg til en av handelspoolene dens – kurser i amerikanske dollar.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">Pooler fra %1$s via DexScreener</string>
+    <string name="dex_search_hit_generic">Pooler fra desentraliserte børser via DexScreener</string>
     <string name="dex_liquidity">Likviditet %1$s</string>
     <string name="dex_no_results">Fant ingen pooler.</string>
     <string name="dex_search">Søk</string>

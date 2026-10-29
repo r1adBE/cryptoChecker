@@ -80,6 +80,7 @@
     <string name="portfolio_price_source_routes">Harga: %1$s, selain itu Binance · USDT dengan harga pasar</string>
     <string name="portfolio_price_unavailable">Harga tidak tersedia saat ini</string>
     <string name="portfolio_price_unchecked">Harga belum diperiksa</string>
+    <string name="portfolio_price_no_market">Tidak ada pasar</string>
     <string name="portfolio_price_via_base">≈ harga %1$s (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT dikonversi dengan harga pasarnya dalam USD</string>
     <string name="portfolio_usdt_assumed">Kurs dolar USDT tidak ada – dihitung sebagai 1 dolar AS</string>

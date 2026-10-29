@@ -83,6 +83,8 @@ internal fun CoinRow(
     unchecked: Boolean = false,
     /** Abfrage gescheitert (Netz, Sperre), kein gemerkter Kurs: «Kurs gerade nicht abrufbar» ([PortfolioPrices.unavailable]). */
     unavailable: Boolean = false,
+    /** Kein Binance-Name und keine Quelle mit Kurs: kein Wert («—»), Hinweis «Kein Markt» ([PortfolioPrices.noMarket]). */
+    noMarket: Boolean = false,
     /** Einheit von Wert und Gewinn/Verlust ([cardUnit]); Standard USDT. */
     unit: CardUnit = cardUnit(PortfolioFormat.USDT, null),
     /** Börse, deren Kurs gilt ([com.cryptochecker.app.data.portfolio.PortfolioPrices.sources]); null = Binance (kein Name). */
@@ -104,6 +106,7 @@ internal fun CoinRow(
     // Screenreader: die Zeile als ein Satz ([coinRowSpoken]); die Teile darunter sind ausgeblendet
     val spoken = coinRowSpoken(
         position, pnl, basis, sharePercent, txCount, stale, unchecked, unavailable, unit, exchange, viaBase, bridgedStable, locale,
+        noMarket,
     )
     Card(
         shape = shape,
@@ -137,6 +140,14 @@ internal fun CoinRow(
                 if (unchecked) {
                     Text(
                         stringResource(R.string.portfolio_price_unchecked),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        maxLines = 1,
+                        modifier = Modifier.padding(top = 3.dp)
+                    )
+                } else if (noMarket && position.value == null) {
+                    Text(
+                        stringResource(R.string.portfolio_price_no_market),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         maxLines = 1,

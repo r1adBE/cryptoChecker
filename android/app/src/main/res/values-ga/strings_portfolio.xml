@@ -92,6 +92,7 @@
     <string name="portfolio_price_source_routes">Praghsanna: %1$s, nó Binance · USDT ag praghas margaidh</string>
     <string name="portfolio_price_unavailable">Níl an praghas ar fáil anois</string>
     <string name="portfolio_price_unchecked">Praghas gan seiceáil</string>
+    <string name="portfolio_price_no_market">Gan mhargadh</string>
     <string name="portfolio_price_via_base">≈ praghas %1$s (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT tiontaithe ag a phraghas margaidh USD</string>
     <string name="portfolio_usdt_assumed">Ráta dollair USDT ar iarraidh – comhairthe mar 1 dollar SAM</string>

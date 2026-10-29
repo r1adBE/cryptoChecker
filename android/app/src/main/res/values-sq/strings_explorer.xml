@@ -107,6 +107,9 @@
     <string name="dex_added">%1$s u shtua në listën e ndjekjes.</string>
     <string name="dex_already">%1$s është tashmë në listën e ndjekjes.</string>
     <string name="dex_intro">Tokenë jashtë bursave të mëdha, nga bursat e decentralizuara (Uniswap, PancakeSwap, Raydium …) nëpërmjet DexScreener. Kërko një token dhe shto një nga pool-et e tij të tregtimit – çmimet në dollarë amerikanë.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">Pool-e nga %1$s nëpërmjet DexScreener</string>
+    <string name="dex_search_hit_generic">Pool-e nga bursat e decentralizuara nëpërmjet DexScreener</string>
     <string name="dex_liquidity">Likuiditeti %1$s</string>
     <string name="dex_no_results">Nuk u gjet asnjë pool.</string>
     <string name="dex_search">Kërko</string>

@@ -107,6 +107,9 @@
     <string name="dex_added">Το %1$s προστέθηκε στη λίστα.</string>
     <string name="dex_already">Το %1$s είναι ήδη στη λίστα.</string>
     <string name="dex_intro">Tokens εκτός των μεγάλων ανταλλακτηρίων, από αποκεντρωμένα ανταλλακτήρια (Uniswap, PancakeSwap, Raydium …) μέσω DexScreener. Αναζήτησε ένα token και πρόσθεσε ένα από τα pools συναλλαγών του – τιμές σε δολάρια ΗΠΑ.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">Pools από %1$s μέσω DexScreener</string>
+    <string name="dex_search_hit_generic">Pools από αποκεντρωμένα ανταλλακτήρια μέσω DexScreener</string>
     <string name="dex_liquidity">Ρευστότητα %1$s</string>
     <string name="dex_no_results">Δεν βρέθηκαν pools.</string>
     <string name="dex_search">Αναζήτηση</string>

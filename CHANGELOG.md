@@ -28,6 +28,9 @@ Detailed build history below.
 * About the app, backup and alarm symbols now match on Android and iOS.
 * iOS: the portfolio + button now sits above the tab bar instead of behind it.
 * Apple Watch: the complication gives up after 20 seconds without an answer and keeps the last price, like on Wear OS.
+* Add pair: DEX pools are easier to find – «DexScreener» and the «DEX pools» section of the exchange list name Uniswap, PancakeSwap, Raydium, Aerodrome …, and typing a DEX name in the search («Uniswap», «raydium pepe») offers DexScreener directly, with the token already filled in.
+* Portfolio prices: if Binance does not list one of your coins, the other coins still get their Binance price on the first refresh (before, one unknown coin could leave e.g. IOTA without a price).
+* Portfolio: coins that are no longer traded anywhere (e.g. ICX, WTC) show «No market» instead of «Price unchecked».
 * Hindi now uses the polite form throughout; language fixes in many other languages.
 * Google Play listings for Zulu and for Hong Kong in Cantonese.
 * Privacy page: what goes into the Android system backup (including the cached coin list), the fingerprint permission on older Android versions and the iOS local network permission for your own address server.

@@ -116,6 +116,9 @@
     <string name="dex_added">%1$s додат на списак праћења.</string>
     <string name="dex_already">%1$s је већ на списку праћења.</string>
     <string name="dex_intro">Токени изван великих берзи, с децентрализованих берзи (Uniswap, PancakeSwap, Raydium …) путем DexScreener-а. Потражи токен и додај један од његових пулова за трговање – цене у америчким доларима.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">%1$s пулови путем DexScreener-а</string>
+    <string name="dex_search_hit_generic">Пулови с децентрализованих берзи путем DexScreener-а</string>
     <string name="dex_liquidity">Ликвидност %1$s</string>
     <string name="dex_no_results">Нису пронађени пулови.</string>
     <string name="dex_search">Тражи</string>

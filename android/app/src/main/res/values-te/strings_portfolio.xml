@@ -83,6 +83,7 @@
     <string name="portfolio_price_source_routes">ధరలు: %1$s, లేకపోతే Binance · మార్కెట్ ధర వద్ద USDT</string>
     <string name="portfolio_price_unavailable">ధర ప్రస్తుతం అందుబాటులో లేదు</string>
     <string name="portfolio_price_unchecked">ధర తనిఖీ చేయబడలేదు</string>
+    <string name="portfolio_price_no_market">మార్కెట్ లేదు</string>
     <string name="portfolio_price_via_base">≈ %1$s ధర (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT దాని USD మార్కెట్ ధర వద్ద మార్చబడింది</string>
     <string name="portfolio_usdt_assumed">USDT డాలర్ రేటు లేదు – 1 అమెరికన్ డాలర్‌గా లెక్కించబడింది</string>

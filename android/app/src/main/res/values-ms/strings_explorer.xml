@@ -98,6 +98,9 @@
     <string name="dex_added">%1$s ditambah ke senarai pantau.</string>
     <string name="dex_already">%1$s sudah ada dalam senarai pantau.</string>
     <string name="dex_intro">Token di luar bursa besar, daripada bursa terdesentralisasi (Uniswap, PancakeSwap, Raydium …) melalui DexScreener. Cari token dan tambah salah satu kolam dagangannya – harga dalam dolar AS.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">Kolam daripada %1$s melalui DexScreener</string>
+    <string name="dex_search_hit_generic">Kolam daripada bursa terdesentralisasi melalui DexScreener</string>
     <string name="dex_liquidity">Kecairan %1$s</string>
     <string name="dex_no_results">Tiada kolam ditemui.</string>
     <string name="dex_search">Cari</string>

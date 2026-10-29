@@ -116,6 +116,9 @@
     <string name="dex_added">%1$s נוסף לרשימת המעקב.</string>
     <string name="dex_already">%1$s כבר ברשימת המעקב.</string>
     <string name="dex_intro">טוקנים מחוץ לבורסות הגדולות, מבורסות מבוזרות (Uniswap, PancakeSwap, Raydium …) דרך DexScreener. חפשו טוקן והוסיפו אחד ממאגרי המסחר שלו – מחירים בדולר אמריקאי.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">מאגרים של %1$s דרך DexScreener</string>
+    <string name="dex_search_hit_generic">מאגרים מבורסות מבוזרות דרך DexScreener</string>
     <string name="dex_liquidity">נזילות %1$s</string>
     <string name="dex_no_results">לא נמצאו פולים.</string>
     <string name="dex_search">חיפוש</string>

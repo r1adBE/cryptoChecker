@@ -83,6 +83,7 @@
     <string name="portfolio_price_source_routes">Kurslar: %1$s, aks holda Binance · USDT bozor narxida</string>
     <string name="portfolio_price_unavailable">Kurs hozir mavjud emas</string>
     <string name="portfolio_price_unchecked">Kurs tekshirilmagan</string>
+    <string name="portfolio_price_no_market">Bozor yoʻq</string>
     <string name="portfolio_price_via_base">≈ %1$s kursi (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT oʻzining USD bozor narxida konvertatsiya qilindi</string>
     <string name="portfolio_usdt_assumed">USDT dollar kursi yoʻq – 1 AQSH dollari deb hisoblandi</string>

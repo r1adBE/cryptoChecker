@@ -107,6 +107,9 @@
     <string name="dex_added">%1$s toegevoegd aan de volglijst.</string>
     <string name="dex_already">%1$s staat al in de volglijst.</string>
     <string name="dex_intro">Tokens buiten de grote beurzen, van gedecentraliseerde beurzen (Uniswap, PancakeSwap, Raydium …) via DexScreener. Zoek een token en voeg een van de handelspools ervan toe – koersen in Amerikaanse dollars.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">Pools van %1$s via DexScreener</string>
+    <string name="dex_search_hit_generic">Pools van gedecentraliseerde beurzen via DexScreener</string>
     <string name="dex_liquidity">Liquiditeit %1$s</string>
     <string name="dex_no_results">Geen pools gevonden.</string>
     <string name="dex_search">Zoeken</string>

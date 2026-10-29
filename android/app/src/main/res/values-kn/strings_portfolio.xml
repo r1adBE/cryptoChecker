@@ -83,6 +83,7 @@
     <string name="portfolio_price_source_routes">ಬೆಲೆಗಳು: %1$s, ಇಲ್ಲದಿದ್ದರೆ Binance · ಮಾರುಕಟ್ಟೆ ಬೆಲೆಯಲ್ಲಿ USDT</string>
     <string name="portfolio_price_unavailable">ಬೆಲೆ ಸದ್ಯ ಲಭ್ಯವಿಲ್ಲ</string>
     <string name="portfolio_price_unchecked">ಬೆಲೆ ಪರಿಶೀಲಿಸಿಲ್ಲ</string>
+    <string name="portfolio_price_no_market">ಮಾರುಕಟ್ಟೆ ಇಲ್ಲ</string>
     <string name="portfolio_price_via_base">≈ %1$s ಬೆಲೆ (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT ಅನ್ನು ಅದರ USD ಮಾರುಕಟ್ಟೆ ಬೆಲೆಯಲ್ಲಿ ಪರಿವರ್ತಿಸಲಾಗಿದೆ</string>
     <string name="portfolio_usdt_assumed">USDT ಡಾಲರ್ ದರವಿಲ್ಲ – 1 ಅಮೆರಿಕನ್ ಡಾಲರ್ ಎಂದು ಎಣಿಸಲಾಗಿದೆ</string>

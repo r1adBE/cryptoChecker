@@ -116,6 +116,9 @@
     <string name="dex_added">S\'ha afegit %1$s a la llista.</string>
     <string name="dex_already">%1$s ja és a la llista.</string>
     <string name="dex_intro">Tokens de fora dels grans exchanges, d\'exchanges descentralitzats (Uniswap, PancakeSwap, Raydium …) via DexScreener. Cerca un token i afegeix un dels seus pools de negociació – preus en dòlars dels EUA.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">Pools de %1$s via DexScreener</string>
+    <string name="dex_search_hit_generic">Pools d\'exchanges descentralitzats via DexScreener</string>
     <string name="dex_liquidity">Liquiditat %1$s</string>
     <string name="dex_no_results">No s\'ha trobat cap pool.</string>
     <string name="dex_search">Cerca</string>

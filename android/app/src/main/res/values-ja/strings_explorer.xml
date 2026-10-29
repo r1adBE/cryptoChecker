@@ -98,6 +98,9 @@
     <string name="dex_added">%1$s をウォッチリストに追加しました。</string>
     <string name="dex_already">%1$s はすでにウォッチリストにあります。</string>
     <string name="dex_intro">大手取引所以外のトークンを、分散型取引所（Uniswap、PancakeSwap、Raydium …）から DexScreener 経由で表示します。トークンを検索して取引プールのいずれかを追加 – 価格は米ドル表示です。</string>
+    <string name="dex_picker_subtitle">Uniswap、PancakeSwap、Raydium、Aerodrome …</string>
+    <string name="dex_search_hit">DexScreener 経由の %1$s のプール</string>
+    <string name="dex_search_hit_generic">DexScreener 経由の分散型取引所のプール</string>
     <string name="dex_liquidity">流動性 %1$s</string>
     <string name="dex_no_results">プールが見つかりません。</string>
     <string name="dex_search">検索</string>

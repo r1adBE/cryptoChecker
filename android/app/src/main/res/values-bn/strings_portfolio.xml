@@ -83,6 +83,7 @@
     <string name="portfolio_price_source_routes">দাম: %1$s, নইলে Binance · USDT বাজারদরে</string>
     <string name="portfolio_price_unavailable">দাম এখন পাওয়া যাচ্ছে না</string>
     <string name="portfolio_price_unchecked">দাম যাচাই হয়নি</string>
+    <string name="portfolio_price_no_market">বাজার নেই</string>
     <string name="portfolio_price_via_base">≈ %1$s-এর দাম (ব্রিজড/র‍্যাপড)</string>
     <string name="portfolio_usdt_as_usd">USDT তার USD বাজারদরে রূপান্তরিত</string>
     <string name="portfolio_usdt_assumed">USDT-এর ডলার হার নেই – 1 US ডলার ধরা হয়েছে</string>

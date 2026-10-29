@@ -125,6 +125,9 @@
     <string name="dex_added">Dodano %1$s do obserwowanych.</string>
     <string name="dex_already">%1$s jest już na liście obserwowanych.</string>
     <string name="dex_intro">Tokeny spoza dużych giełd, z giełd zdecentralizowanych (Uniswap, PancakeSwap, Raydium …) przez DexScreener. Wyszukaj token i dodaj jedną z jego pul handlowych – ceny w dolarach amerykańskich.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">Pule %1$s przez DexScreener</string>
+    <string name="dex_search_hit_generic">Pule z giełd zdecentralizowanych przez DexScreener</string>
     <string name="dex_liquidity">Płynność %1$s</string>
     <string name="dex_no_results">Nie znaleziono pul.</string>
     <string name="dex_search">Szukaj</string>

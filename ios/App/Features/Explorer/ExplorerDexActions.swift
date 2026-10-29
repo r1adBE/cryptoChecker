@@ -7,6 +7,22 @@ import UIKit
 // Eigene Datei, weil DexScreener ohne Paarliste anders funktioniert als die Börsen (wie `ExplorerDexActions.kt`).
 
 extension ExplorerViewModel {
+    /// Suchtext nennt eine DEX («uniswap pepe»): Treffer DexScreener samt Name der Börse, sofern sie angeboten wird
+    /// («Token & TradFi»); nil = keiner. Wie `dexSearchHit` (Android).
+    var dexSearchHit: (name: String, match: DexNames.Match)? {
+        guard let dex = exchanges.first(where: { $0.key == Self.dexKey }),
+              let match = DexNames.match(searchQuery) else { return nil }
+        return (dex.name, match)
+    }
+
+    /// Treffer DexScreener angetippt: Suche leeren und DexScreener wählen (das Suchfeld belegt die Ansicht vor).
+    /// Wie `openDexSearch` (Android).
+    func openDexSearch() {
+        guard let dex = exchanges.first(where: { $0.key == Self.dexKey }) else { return }
+        setSearchQuery("")
+        selectExchange(dex)
+    }
+
     // MARK: DEX
 
     /// Pools zu Token-Name, Symbol oder Vertragsadresse suchen.

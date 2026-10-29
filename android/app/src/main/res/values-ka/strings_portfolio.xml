@@ -83,6 +83,7 @@
     <string name="portfolio_price_source_routes">ფასები: %1$s, სხვა შემთხვევაში Binance · USDT საბაზრო ფასით</string>
     <string name="portfolio_price_unavailable">ფასი ახლა მიუწვდომელია</string>
     <string name="portfolio_price_unchecked">ფასი გადაუმოწმებელია</string>
+    <string name="portfolio_price_no_market">ბაზარი არ არის</string>
     <string name="portfolio_price_via_base">≈ %1$s-ის ფასი (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT გადაანგარიშებულია მისი USD საბაზრო ფასით</string>
     <string name="portfolio_usdt_assumed">USDT-ის დოლარის კურსი აკლია – ითვლება როგორც 1 აშშ დოლარი</string>

@@ -83,6 +83,7 @@
     <string name="portfolio_price_source_routes">قیمتیں: %1$s، ورنہ Binance · USDT مارکیٹ قیمت پر</string>
     <string name="portfolio_price_unavailable">قیمت ابھی دستیاب نہیں</string>
     <string name="portfolio_price_unchecked">قیمت غیر تصدیق شدہ</string>
+    <string name="portfolio_price_no_market">کوئی مارکیٹ نہیں</string>
     <string name="portfolio_price_via_base">≈ %1$s کی قیمت (برجڈ/ریپڈ)</string>
     <string name="portfolio_usdt_as_usd">USDT اس کی USD مارکیٹ قیمت پر تبدیل</string>
     <string name="portfolio_usdt_assumed">USDT کی ڈالر شرح موجود نہیں – 1 امریکی ڈالر شمار کیا گیا</string>

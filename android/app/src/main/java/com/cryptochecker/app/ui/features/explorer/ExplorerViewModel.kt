@@ -195,6 +195,7 @@ class ExplorerViewModel @Inject constructor(
     val dexResults: StateFlow<List<DexPool>> = dex.pools.asStateFlow()
     val dexSearching: StateFlow<Boolean> = dex.busy.asStateFlow()
     val dexMessage: StateFlow<DexMessage?> = dex.notice.asStateFlow()
+    val dexPrefill: StateFlow<DexPrefill?> = dex.prefill.asStateFlow()
 
     // =============================================================================================
     // Abgeleitete Auswahl (Reihenfolge = Abhängigkeiten)

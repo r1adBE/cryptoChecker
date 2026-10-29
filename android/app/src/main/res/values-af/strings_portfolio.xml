@@ -83,6 +83,7 @@
     <string name="portfolio_price_source_routes">Pryse: %1$s, andersins Binance · USDT teen markprys</string>
     <string name="portfolio_price_unavailable">Prys nou nie beskikbaar nie</string>
     <string name="portfolio_price_unchecked">Prys ongekontroleer</string>
+    <string name="portfolio_price_no_market">Geen mark</string>
     <string name="portfolio_price_via_base">≈ %1$s-prys (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT omgereken teen sy USD-markprys</string>
     <string name="portfolio_usdt_assumed">USDT-dollarkoers ontbreek – as 1 Amerikaanse dollar getel</string>

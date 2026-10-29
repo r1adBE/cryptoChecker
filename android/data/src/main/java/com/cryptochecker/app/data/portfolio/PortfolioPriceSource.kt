@@ -1,6 +1,5 @@
 package com.cryptochecker.app.data.portfolio
 
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import android.content.Context
 import com.cryptochecker.app.data.ExchangeRepository
 import com.cryptochecker.app.data.TokenIdentityStore
@@ -31,10 +30,8 @@ import kotlinx.coroutines.sync.withPermit
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import okhttp3.OkHttpClient
-import org.json.JSONArray
 import timber.log.Timber
 import java.io.File
-import java.net.URLEncoder
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -69,7 +66,7 @@ import javax.inject.Singleton
 @Singleton
 class PortfolioPriceSource @Inject constructor(
     @param:ApplicationContext private val context: Context,
-    private val httpClient: OkHttpClient,
+    internal val httpClient: OkHttpClient,
     private val candleDataSource: CandleDataSource,
     val exchangeRepository: ExchangeRepository,
     val watchDao: WatchDao,
@@ -102,6 +99,12 @@ class PortfolioPriceSource @Inject constructor(
 
     /** Coins mit Binance-Kurs, dessen Token nicht bestätigt ist ([PortfolioPrices.unverified]). */
     val unverifiedCoins: MutableSet<String> = ConcurrentHashMap.newKeySet()
+
+    /** Coins ohne Binance-Namen, für die keine Quelle einen Kurs führt ([PortfolioPrices.noMarket]). */
+    val noMarketCoins: MutableSet<String> = ConcurrentHashMap.newKeySet()
+
+    /** Coin → Zeitpunkt, an dem Binance ihn einzeln mit 400 ablehnte ([binanceBatch], nur im Arbeitsspeicher). */
+    val binanceUnlisted = ConcurrentHashMap<String, Long>()
 
     /** Coins ohne Kurs, weil die letzte Abfrage scheiterte ([PortfolioPriceIssue.UNAVAILABLE]). */
     val unavailableCoins: MutableSet<String> = ConcurrentHashMap.newKeySet()
@@ -169,7 +172,9 @@ class PortfolioPriceSource @Inject constructor(
                     val split = PortfolioPriceIdentity.binanceSplit(
                         toFetch, watchNamesFor(toFetch), tokenIdentityStore::binanceName, tokenIdentityStore::otherNames,
                     )
-                    val fetched = binanceBatch(split.use).toMutableMap()
+                    val batch = binanceBatch(split.use)
+                    batchFailed = batch.failed
+                    val fetched = batch.prices.toMutableMap()
                     val fromBinance = fetched.keys.toSet()
                     // Nicht bei Binance: zuerst ein Merklisten-Paar an einer anderen Börse, dann die Kerze
                     if (toFetch.any { it !in fetched }) fetched += watchPairPrices(toFetch.filter { it !in fetched })
@@ -177,6 +182,7 @@ class PortfolioPriceSource @Inject constructor(
                     val unchecked = HashSet<String>()
                     val rejected = HashSet<String>()
                     val unavailable = HashSet<String>()
+                    val noPrice = HashSet<String>()
                     if (missing.isNotEmpty()) {
                         // Gekapselter Coin ohne eigenen Bezug: der Kurs der Basis prüft seinen Kerzenkurs (WETH ≈ ETH)
                         val references = candleReferences(missing).toMutableMap()
@@ -194,7 +200,7 @@ class PortfolioPriceSource @Inject constructor(
                             // Kein Kurs: Fehler (Netz/Sperre) von «gibt es nicht» unterscheiden
                             if (price == null) {
                                 val issue = PortfolioPriceIssue.of(outcome.second, candleSourcesBlocked(), batchFailed)
-                                if (issue == PortfolioPriceIssue.UNAVAILABLE) unavailable += coin
+                                if (issue == PortfolioPriceIssue.UNAVAILABLE) unavailable += coin else noPrice += coin
                             }
                             val reference = references[coin]
                             when {
@@ -209,8 +215,10 @@ class PortfolioPriceSource @Inject constructor(
                             }
                         }
                     }
-                    // Binance ohne prüfbare Identität ausgelassen und kein anderer Kurs: «ungeprüft» (nicht abgelehnte)
-                    split.unchecked.filterTo(unchecked) { it !in rejected }
+                    // Binance ohne prüfbare Identität ausgelassen und kein anderer Kurs: «ungeprüft» (nicht abgelehnte); lieferte
+                    // auch keine Quelle einen Kurs (nicht gescheitert): «kein Markt»
+                    val skipped = PortfolioPriceIssue.nameUnchecked(split.unchecked, rejected, noPrice)
+                    unchecked += skipped.unchecked
                     // Eingetragene Börse: deren Kurs gilt, sonst bleibt Binance (siehe PortfolioExchangeRoute)
                     applyExchangeRoutes(toFetch, fetched)
                     // «Portfolio leeren» lief während der Abfrage: nichts übernehmen (auch nicht die Börsen-Herkunft)
@@ -219,7 +227,7 @@ class PortfolioPriceSource @Inject constructor(
                             toFetch.forEach { sourceOf.remove(it); failedOf.remove(it); binanceOf.remove(it) }
                             return@withLock false
                         }
-                        keep(fetched, toFetch, split.unverified, fromBinance, unavailable, rejected, unchecked)
+                        keep(fetched, toFetch, split.unverified, fromBinance, unavailable, rejected, unchecked, skipped.noMarket)
                         true
                     }
                     // Letzten guten Stand merken (für ohne Netz und nach einem Neustart)
@@ -238,12 +246,14 @@ class PortfolioPriceSource @Inject constructor(
         unavailable: Set<String>,
         rejected: Set<String>,
         unchecked: Set<String>,
+        noMarket: Set<String>,
     ) {
         val time = System.currentTimeMillis()
         fetched.forEach { (coin, price) ->
             cache[coin] = price to time
             uncheckedCoins -= coin
             unavailableCoins -= coin
+            noMarketCoins -= coin
             // Ungeprüft nur, solange der Kurs von Binance stammt (eine eingetragene Börse nennt ihren Token)
             if (coin in unverified && coin in fromBinance && sourceOf[coin] == null) {
                 unverifiedCoins += coin
@@ -254,12 +264,19 @@ class PortfolioPriceSource @Inject constructor(
         // Abfrage gescheitert: nur Coins ohne jeden Kurs heissen «nicht abrufbar»; die übrigen ohne Kurs nicht
         toFetch.filter { it !in fetched }.forEach { coin ->
             if (coin in unavailable) unavailableCoins += coin else unavailableCoins -= coin
+            if (coin !in noMarket) noMarketCoins -= coin
         }
         rejected.forEach { uncheckedCoins -= it }
         // Ungeprüft und auch sonst kein Kurs: kein Wert im Zwischenspeicher, Coin «ungeprüft»
         unchecked.filter { it !in fetched }.forEach { coin ->
             cache.remove(coin)
             uncheckedCoins += coin
+        }
+        // Kein Binance-Name und keine Quelle mit Kurs: kein Wert, Coin «kein Markt» (zählt nicht als Geld)
+        noMarket.filter { it !in fetched }.forEach { coin ->
+            cache.remove(coin)
+            uncheckedCoins -= coin
+            noMarketCoins += coin
         }
     }
 
@@ -286,6 +303,7 @@ class PortfolioPriceSource @Inject constructor(
             updatedAt = hits.minOfOrNull { it.second.second } ?: 0L,
             // Ungeprüft = ohne Kurs (zählt nicht als Geld)
             unchecked = coins.filterTo(HashSet()) { it in uncheckedCoins && cache[it] == null && it !in via },
+            noMarket = coins.filterTo(HashSet()) { it in noMarketCoins && cache[it] == null && it !in via },
             times = hits.associate { (coin, entry) -> coin to entry.second },
             sources = hits.mapNotNull { (coin, _) -> sourceOf[coin]?.let { coin to it } }.toMap(),
             exchangeFailed = hits.mapNotNull { (coin, _) -> failedOf[coin]?.let { coin to it } }.toMap(),
@@ -297,39 +315,6 @@ class PortfolioPriceSource @Inject constructor(
             // Gekapselte Coins über die Basis erben deren «Kurs ungeprüft»
             unverified = PortfolioPriceFallback.unverified(coins, currentEntries(), via),
         )
-    }
-
-    /** Sammelabfrage; Binance lehnt die ganze Anfrage ab, wenn ein Symbol unbekannt ist. */
-    private suspend fun binanceBatch(coins: List<String>): Map<String, Double> {
-        batchFailed = false
-        if (BlockedSources.isBlocked(BINANCE_HOST)) {
-            batchFailed = true
-            return emptyMap()
-        }
-        // Bekannte Coins zuerst — unbekannte gehen direkt über die Kerzen-Kette.
-        val known = coinList?.toHashSet()
-        val candidates = if (known.isNullOrEmpty()) coins else coins.filter { it in known }
-        val result = HashMap<String, Double>()
-        for (chunk in candidates.chunked(MAX_SYMBOLS)) {
-            val bySymbol = chunk.associateBy { it + STABLE }
-            val symbols = bySymbol.keys.joinToString(",", "[", "]") { "\"$it\"" }
-            val url = "https://$BINANCE_HOST/api/v3/ticker/price?symbols=" + URLEncoder.encode(symbols, "UTF-8")
-            val body = get(url, BINANCE_HOST)
-            if (body == null) {
-                batchFailed = true
-                continue
-            }
-            runCatchingCancellable {
-                val array = JSONArray(body)
-                for (i in 0 until array.length()) {
-                    val o = array.getJSONObject(i)
-                    val coin = bySymbol[o.optString("symbol")] ?: continue
-                    val price = o.optString("price").toDoubleOrNull()
-                    if (price != null && price > 0.0) result[coin] = price
-                }
-            }.onFailure { Timber.d(it, "Portfolio: Kurse nicht lesbar") }
-        }
-        return result
     }
 
     /**
@@ -366,17 +351,24 @@ class PortfolioPriceSource @Inject constructor(
         /** Quellen der Kerzen-Kette ([CandleDataSource]) — Binance, Binance.US, Coinbase. */
         val CANDLE_HOSTS = listOf("data-api.binance.vision", "api.binance.com", "api.binance.us", "api.exchange.coinbase.com")
         const val COINBASE_HOST = "api.exchange.coinbase.com"
-        const val MAX_SYMBOLS = 100
 
         /** Gleichzeitige Kerzen-Abfragen für Coins ohne Binance-Kurs (wie [HistoricPriceSource.PARALLEL]). */
         const val CANDLE_PARALLEL = 4
         const val PRICE_TTL_MILLIS = 60_000L
         const val PAIR_LIST_RETRY_MILLIS = 6 * 60 * 60_000L
+
+        /** Von Binance einzeln mit 400 abgelehnte Coins so lange nicht wieder in die Sammelabfrage. */
+        const val UNLISTED_RETRY_MILLIS = 6 * 60 * 60_000L
         const val COINS_TTL_MILLIS = 24 * 60 * 60_000L
         const val REQUEST_TIMEOUT_MILLIS = 25_000L
         const val PREFS = "portfolio"
         const val KEY_COINS = "coin_list"
         const val KEY_COINS_AT = "coin_list_at"
+
+        /** Herkunft der gemerkten Coin-Liste: [SOURCE_BINANCE] (exchangeInfo, Paarliste «Binance») oder [SOURCE_OTHER]. */
+        const val KEY_COINS_SOURCE = "coin_list_source"
+        const val SOURCE_BINANCE = "binance"
+        const val SOURCE_OTHER = "other"
         const val STORE_FILE = "portfolio_last_prices.txt"
 
         fun isSymbol(s: String) = s.length in 1..15 && s.all { it.isLetterOrDigit() }

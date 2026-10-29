@@ -80,6 +80,7 @@
     <string name="portfolio_price_source_routes">តម្លៃ៖ %1$s បើមិនដូច្នោះទេ Binance · USDT តាមតម្លៃទីផ្សារ</string>
     <string name="portfolio_price_unavailable">តម្លៃមិនមាននៅពេលនេះទេ</string>
     <string name="portfolio_price_unchecked">តម្លៃមិនទាន់បានពិនិត្យ</string>
+    <string name="portfolio_price_no_market">គ្មានទីផ្សារ</string>
     <string name="portfolio_price_via_base">≈ តម្លៃ %1$s (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT បានបម្លែងតាមតម្លៃទីផ្សារ USD របស់វា</string>
     <string name="portfolio_usdt_assumed">ខ្វះអត្រាដុល្លារ USDT – រាប់ជា 1 ដុល្លារអាមេរិក</string>

@@ -83,6 +83,7 @@
     <string name="portfolio_price_source_routes">Çmimet: %1$s, përndryshe Binance · USDT me çmimin e tregut</string>
     <string name="portfolio_price_unavailable">Çmimi nuk është i disponueshëm tani</string>
     <string name="portfolio_price_unchecked">Çmim i paverifikuar</string>
+    <string name="portfolio_price_no_market">Pa treg</string>
     <string name="portfolio_price_via_base">≈ çmimi i %1$s (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT e konvertuar me çmimin e saj të tregut në USD</string>
     <string name="portfolio_usdt_assumed">Mungon kursi në dollarë i USDT – llogaritur si 1 dollar amerikan</string>

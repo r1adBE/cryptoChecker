@@ -107,6 +107,9 @@
     <string name="dex_added">%1$s izləmə siyahısına əlavə edildi.</string>
     <string name="dex_already">%1$s artıq izləmə siyahısındadır.</string>
     <string name="dex_intro">Böyük birjalardan kənar tokenlər, mərkəzləşdirilməmiş birjalardan (Uniswap, PancakeSwap, Raydium …) DexScreener vasitəsilə. Token axtar və onun ticarət pullarından birini əlavə et – qiymətlər ABŞ dollarında.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">%1$s pulları DexScreener vasitəsilə</string>
+    <string name="dex_search_hit_generic">Mərkəzləşdirilməmiş birjalardan pullar DexScreener vasitəsilə</string>
     <string name="dex_liquidity">Likvidlik %1$s</string>
     <string name="dex_no_results">Pul tapılmadı.</string>
     <string name="dex_search">Axtar</string>

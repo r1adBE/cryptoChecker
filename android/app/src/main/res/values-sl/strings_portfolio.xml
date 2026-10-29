@@ -89,6 +89,7 @@
     <string name="portfolio_price_source_routes">Tečaji: %1$s, sicer Binance · USDT po tržni ceni</string>
     <string name="portfolio_price_unavailable">Tečaj trenutno ni na voljo</string>
     <string name="portfolio_price_unchecked">Tečaj ni preverjen</string>
+    <string name="portfolio_price_no_market">Ni trga</string>
     <string name="portfolio_price_via_base">≈ tečaj %1$s (premoščeno/ovito)</string>
     <string name="portfolio_usdt_as_usd">USDT pretvorjen po svoji tržni ceni v USD</string>
     <string name="portfolio_usdt_assumed">Manjka dolarski tečaj USDT – računano kot 1 ameriški dolar</string>

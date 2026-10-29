@@ -107,6 +107,9 @@
     <string name="dex_added">%1$s bætt á vaktlistann.</string>
     <string name="dex_already">%1$s er þegar á vaktlistanum.</string>
     <string name="dex_intro">Tókar utan stóru kauphallanna, frá dreifstýrðum kauphöllum (Uniswap, PancakeSwap, Raydium …) í gegnum DexScreener. Leitaðu að tóka og bættu við einum af viðskiptapottum hans – verð í Bandaríkjadölum.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">Pottar frá %1$s í gegnum DexScreener</string>
+    <string name="dex_search_hit_generic">Pottar frá dreifstýrðum kauphöllum í gegnum DexScreener</string>
     <string name="dex_liquidity">Lausafé %1$s</string>
     <string name="dex_no_results">Engir pottar fundust.</string>
     <string name="dex_search">Leita</string>

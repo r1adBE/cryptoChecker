@@ -46,6 +46,7 @@ extension PortfolioPriceSource {
             out.unverified = PortfolioPriceFallback.unverified(wanted, entries: merged, via: via)
             // Ungeprüft = ohne Kurs (zählt nicht als Geld)
             out.unchecked = Set(wanted.filter { s.uncheckedCoins.contains($0) && merged[$0] == nil && via[$0] == nil })
+            out.noMarket = Set(wanted.filter { s.noMarketCoins.contains($0) && merged[$0] == nil && via[$0] == nil })
             out.unavailable = Set(wanted.filter {
                 s.unavailableCoins.contains($0) && merged[$0] == nil && !s.uncheckedCoins.contains($0) && via[$0] == nil
             })
@@ -61,6 +62,8 @@ extension PortfolioPriceSource {
             s.clearGeneration += 1
             s.cache = [:]
             s.uncheckedCoins = []
+            s.noMarketCoins = []
+            s.binanceUnlisted = [:]
             s.unverifiedCoins = []
             // Auch «Kurs nicht verfügbar» (wie Android) — nennt gehaltene Coins
             s.unavailableCoins = []

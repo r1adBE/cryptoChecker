@@ -86,6 +86,7 @@
     <string name="portfolio_price_source_routes">Prețuri: %1$s, altfel Binance · USDT la prețul pieței</string>
     <string name="portfolio_price_unavailable">Preț indisponibil momentan</string>
     <string name="portfolio_price_unchecked">Preț neverificat</string>
+    <string name="portfolio_price_no_market">Fără piață</string>
     <string name="portfolio_price_via_base">≈ preț %1$s (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT convertit la prețul său de piață în USD</string>
     <string name="portfolio_usdt_assumed">Lipsește cursul în dolari al USDT – calculat ca 1 dolar american</string>

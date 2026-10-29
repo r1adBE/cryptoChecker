@@ -83,6 +83,7 @@
     <string name="portfolio_price_source_routes">Бағамдар: %1$s, әйтпесе Binance · USDT нарықтық бағамен</string>
     <string name="portfolio_price_unavailable">Бағам қазір қолжетімсіз</string>
     <string name="portfolio_price_unchecked">Бағам тексерілмеген</string>
+    <string name="portfolio_price_no_market">Нарық жоқ</string>
     <string name="portfolio_price_via_base">≈ %1$s бағамы (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT өзінің USD нарықтық бағасымен айырбасталды</string>
     <string name="portfolio_usdt_assumed">USDT доллар бағамы жоқ – 1 АҚШ доллары деп есептелді</string>

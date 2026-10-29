@@ -1530,6 +1530,20 @@ the tests named here.
   good price or used as a reference (`PortfolioPriceSource` leaves `uncheckedCoins` out). Show «—» and say
   why («Price unchecked» / «unchecked (no matching price)»). Never fall back to «better a price than
   none» – the same ticker on a fallback exchange can be another token.
+* **«No market» is not «unchecked».** A coin Binance was skipped for (no checkable name,
+  `PortfolioPriceIdentity` UNCHECKED) for which no source returned any price and nothing failed
+  (`PortfolioPriceIssue.NO_PRICE`) is `PortfolioPrices.noMarket`: «—» with «No market»
+  (`portfolio_price_no_market`), never money either. A candle price without reference and a Binance price
+  with an unconfirmed token stay «Price unchecked»; a failed request stays «unchecked» for such a coin.
+  `PortfolioPriceIssue.nameUnchecked` splits the two. Tests: `BinanceBatchSplitTest` / `BinanceBatchSplitTests`.
+* **Binance batch survives unknown symbols.** Binance answers `ticker/price?symbols=[…]` with HTTP 400 when
+  one symbol is unknown. `BinanceBatchSplit` then halves the chunk down to single symbols (at most
+  `EXTRA_REQUESTS` extra requests); a single symbol with 400 is «not listed» (not a failure, skipped for 6 h
+  in memory), only other errors mark the batch failed. The batch is filtered by the coin list only when that
+  list came from Binance (exchangeInfo or the Binance pair cache, stored source `coin_list_source`) and is at
+  most a day old – read from memory or prefs, never fetched first. So the first refresh (fresh install, add
+  sheet never opened, widget) prices every Binance coin. A 400 never blocks the host (`BlockedSources`).
+  Fixture `binance_batch_split.json`.
 * **Portfolio history from the route exchange first.** For a coin with a route
   (`PortfolioExchangeRoute`), `PortfolioHistorySource` loads that exchange's own daily candles
   (`OwnCandleDataSource`, at most 1000 per request, converted to USDT – fiat with the daily FX series,
@@ -3147,6 +3161,9 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   (`:wear` release runtime classpath), in the release audit (APK missing/debuggable = error, 16 KB = warning) and in
   `reproducible.yml` (`:wear:assembleRelease`, attested); the debug artifact contains the watch APK. Hindi in the
   polite form, Play listings `zu` and `zh-HK` (Cantonese); `frame_screenshots.py` maps `zh-HK` to the `yue` captions.
+  DEX discoverability: `DexNames.match` (Android `:domain`, iOS `Shared/Core`, parity `dex_names.json`) turns a DEX name
+  in the coin search into a DexScreener row (`dex_search_hit`, token prefilled via `openDexSearch`); picker subtitles
+  (`DropdownField`/`ExplorerPickerSheet` `subtitles`, `dex_picker_subtitle`) on DexScreener and the DEX section.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

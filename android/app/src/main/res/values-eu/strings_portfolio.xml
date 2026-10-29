@@ -83,6 +83,7 @@
     <string name="portfolio_price_source_routes">Prezioak: %1$s, bestela Binance · USDT merkatu-prezioan</string>
     <string name="portfolio_price_unavailable">Prezioa ez dago erabilgarri une honetan</string>
     <string name="portfolio_price_unchecked">Prezioa egiaztatu gabe</string>
+    <string name="portfolio_price_no_market">Merkaturik ez</string>
     <string name="portfolio_price_via_base">≈ %1$s prezioa (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT bere USD merkatu-prezioan bihurtua</string>
     <string name="portfolio_usdt_assumed">USDTren dolar-tasa falta da – AEBko dolar 1 gisa zenbatua</string>

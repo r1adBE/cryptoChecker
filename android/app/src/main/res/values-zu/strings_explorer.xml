@@ -107,6 +107,9 @@
     <string name="dex_added">I-%1$s yengeziwe ohlwini lokubuka.</string>
     <string name="dex_already">I-%1$s isivele isohlwini lokubuka.</string>
     <string name="dex_intro">Amathokheni angaphandle kwama-exchange amakhulu, avela kuma-exchange angamaphakathi (Uniswap, PancakeSwap, Raydium …) nge-DexScreener. Sesha ithokheni bese wengeza elinye lama-pool alo okuhweba – izintengo ngamadola aseMelika.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">Ama-pool avela ku-%1$s nge-DexScreener</string>
+    <string name="dex_search_hit_generic">Ama-pool avela kuma-exchange angamaphakathi nge-DexScreener</string>
     <string name="dex_liquidity">I-liquidity %1$s</string>
     <string name="dex_no_results">Awekho ama-pool atholakele.</string>
     <string name="dex_search">Sesha</string>

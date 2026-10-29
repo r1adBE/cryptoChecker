@@ -83,6 +83,7 @@
     <string name="portfolio_price_source_routes">விலைகள்: %1$s, இல்லையெனில் Binance · சந்தை விலையில் USDT</string>
     <string name="portfolio_price_unavailable">விலை இப்போது கிடைக்கவில்லை</string>
     <string name="portfolio_price_unchecked">விலை சரிபார்க்கப்படவில்லை</string>
+    <string name="portfolio_price_no_market">சந்தை இல்லை</string>
     <string name="portfolio_price_via_base">≈ %1$s விலை (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT அதன் USD சந்தை விலையில் மாற்றப்பட்டது</string>
     <string name="portfolio_usdt_assumed">USDT டாலர் விகிதம் இல்லை – 1 அமெரிக்க டாலராகக் கணக்கிடப்பட்டது</string>

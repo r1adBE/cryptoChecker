@@ -70,4 +70,7 @@ internal class ExplorerDexState {
 
     /** Laufende Suche. */
     var job: Job? = null
+
+    /** Vorbelegung des Suchfelds aus der Coin-Suche («uniswap pepe» → «pepe»); null = keine. */
+    val prefill = MutableStateFlow<DexPrefill?>(null)
 }

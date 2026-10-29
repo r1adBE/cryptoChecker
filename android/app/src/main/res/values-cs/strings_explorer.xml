@@ -125,6 +125,9 @@
     <string name="dex_added">%1$s přidáno do sledovaných.</string>
     <string name="dex_already">%1$s už je ve sledovaných.</string>
     <string name="dex_intro">Tokeny mimo velké burzy, z decentralizovaných burz (Uniswap, PancakeSwap, Raydium …) přes DexScreener. Vyhledej token a přidej jeden z jeho obchodních poolů – ceny v amerických dolarech.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">Pooly %1$s přes DexScreener</string>
+    <string name="dex_search_hit_generic">Pooly z decentralizovaných burz přes DexScreener</string>
     <string name="dex_liquidity">Likvidita %1$s</string>
     <string name="dex_no_results">Nebyly nalezeny žádné pooly.</string>
     <string name="dex_search">Hledat</string>

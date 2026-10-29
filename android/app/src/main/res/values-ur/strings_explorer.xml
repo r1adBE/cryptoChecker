@@ -107,6 +107,9 @@
     <string name="dex_added">%1$s واچ لسٹ میں شامل ہو گیا۔</string>
     <string name="dex_already">%1$s پہلے سے واچ لسٹ میں ہے۔</string>
     <string name="dex_intro">بڑے ایکسچینجز سے باہر کے ٹوکنز، غیر مرکزی ایکسچینجز (Uniswap، PancakeSwap، Raydium …) سے DexScreener کے ذریعے۔ کوئی ٹوکن تلاش کریں اور اس کا کوئی ٹریڈنگ پول شامل کریں – قیمتیں امریکی ڈالر میں۔</string>
+    <string name="dex_picker_subtitle">Uniswap، PancakeSwap، Raydium، Aerodrome …</string>
+    <string name="dex_search_hit">DexScreener کے ذریعے %1$s کے پولز</string>
+    <string name="dex_search_hit_generic">DexScreener کے ذریعے غیر مرکزی ایکسچینجز کے پولز</string>
     <string name="dex_liquidity">لیکویڈیٹی %1$s</string>
     <string name="dex_no_results">کوئی پول نہیں ملا۔</string>
     <string name="dex_search">تلاش کریں</string>

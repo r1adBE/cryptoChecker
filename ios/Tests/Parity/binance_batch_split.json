@@ -1,0 +1,234 @@
+{
+  "description": "Binance batch ticker in the portfolio (Android BinanceBatchSplit.kt / iOS BinanceBatchSplit.swift). Binance rejects ticker/price?symbols=[...] with HTTP 400 when one symbol is unknown. fetch(coins, maxSymbols, budget): distinct coins in chunks of maxSymbols; a rejected chunk is split in halves (first half = ceil(n/2), depth first: the halves before the next chunk) down to single symbols; a single symbol with 400 is 'unlisted' (no Binance price, NOT failed). Any other error = failed, no halving. Halving requests beyond 'budget' are skipped (coins stay open for the candle chain, not failed). Fake request: a part containing a 'failing' coin fails; else a part containing an 'unknown' coin is rejected (400); else it returns the listed 'tickers' for its coins. Expected: prices, failed, unlisted (in order), requests.",
+  "tickers": {
+    "BTC": 60000.5,
+    "ETH": 3000.0,
+    "IOTA": 0.21,
+    "VET": 0.03,
+    "SOL": 150.0,
+    "XRP": 0.5,
+    "ADA": 0.4,
+    "DOT": 5.0,
+    "LINK": 12.0,
+    "HBAR": 0.07
+  },
+  "cases": [
+    {
+      "case": "all known: one request",
+      "coins": [
+        "BTC",
+        "ETH",
+        "IOTA"
+      ],
+      "maxSymbols": 100,
+      "budget": 40,
+      "unknown": [],
+      "failing": [],
+      "prices": {
+        "BTC": 60000.5,
+        "ETH": 3000.0,
+        "IOTA": 0.21
+      },
+      "failed": false,
+      "unlisted": [],
+      "requests": 1
+    },
+    {
+      "case": "one unknown: halves down to the single symbol",
+      "coins": [
+        "BTC",
+        "ETH",
+        "IOTA",
+        "ICX"
+      ],
+      "maxSymbols": 100,
+      "budget": 40,
+      "unknown": [
+        "ICX"
+      ],
+      "failing": [],
+      "prices": {
+        "BTC": 60000.5,
+        "ETH": 3000.0,
+        "IOTA": 0.21
+      },
+      "failed": false,
+      "unlisted": [
+        "ICX"
+      ],
+      "requests": 5
+    },
+    {
+      "case": "first refresh without coin list: Binance coins priced although ICX and WTC are unknown",
+      "coins": [
+        "BTC",
+        "ICX",
+        "IOTA",
+        "WTC",
+        "VET",
+        "HBAR"
+      ],
+      "maxSymbols": 100,
+      "budget": 40,
+      "unknown": [
+        "ICX",
+        "WTC"
+      ],
+      "failing": [],
+      "prices": {
+        "BTC": 60000.5,
+        "IOTA": 0.21,
+        "VET": 0.03,
+        "HBAR": 0.07
+      },
+      "failed": false,
+      "unlisted": [
+        "ICX",
+        "WTC"
+      ],
+      "requests": 11
+    },
+    {
+      "case": "network failure: failed, no halving",
+      "coins": [
+        "BTC",
+        "ETH",
+        "XRP"
+      ],
+      "maxSymbols": 100,
+      "budget": 40,
+      "unknown": [],
+      "failing": [
+        "XRP"
+      ],
+      "prices": {},
+      "failed": true,
+      "unlisted": [],
+      "requests": 1
+    },
+    {
+      "case": "unknown and failing part in separate chunks",
+      "coins": [
+        "BTC",
+        "ICX",
+        "ETH",
+        "SOL"
+      ],
+      "maxSymbols": 2,
+      "budget": 40,
+      "unknown": [
+        "ICX"
+      ],
+      "failing": [
+        "SOL"
+      ],
+      "prices": {
+        "BTC": 60000.5
+      },
+      "failed": true,
+      "unlisted": [
+        "ICX"
+      ],
+      "requests": 4
+    },
+    {
+      "case": "budget exhausted: rest open, not failed",
+      "coins": [
+        "BTC",
+        "ICX",
+        "ETH",
+        "SOL",
+        "XRP",
+        "ADA",
+        "WTC",
+        "DOT"
+      ],
+      "maxSymbols": 100,
+      "budget": 3,
+      "unknown": [
+        "ICX",
+        "WTC"
+      ],
+      "failing": [],
+      "prices": {
+        "BTC": 60000.5
+      },
+      "failed": false,
+      "unlisted": [],
+      "requests": 4
+    },
+    {
+      "case": "chunks of maxSymbols",
+      "coins": [
+        "BTC",
+        "ETH",
+        "SOL",
+        "XRP",
+        "ADA"
+      ],
+      "maxSymbols": 2,
+      "budget": 40,
+      "unknown": [],
+      "failing": [],
+      "prices": {
+        "BTC": 60000.5,
+        "ETH": 3000.0,
+        "SOL": 150.0,
+        "XRP": 0.5,
+        "ADA": 0.4
+      },
+      "failed": false,
+      "unlisted": [],
+      "requests": 3
+    },
+    {
+      "case": "duplicates asked once",
+      "coins": [
+        "BTC",
+        "BTC",
+        "ETH"
+      ],
+      "maxSymbols": 100,
+      "budget": 40,
+      "unknown": [],
+      "failing": [],
+      "prices": {
+        "BTC": 60000.5,
+        "ETH": 3000.0
+      },
+      "failed": false,
+      "unlisted": [],
+      "requests": 1
+    },
+    {
+      "case": "single unknown coin",
+      "coins": [
+        "ICX"
+      ],
+      "maxSymbols": 100,
+      "budget": 40,
+      "unknown": [
+        "ICX"
+      ],
+      "failing": [],
+      "prices": {},
+      "failed": false,
+      "unlisted": [
+        "ICX"
+      ],
+      "requests": 1
+    },
+    {
+      "case": "no coins",
+      "coins": [],
+      "maxSymbols": 100,
+      "budget": 40,
+      "unknown": [],
+      "failing": [],
+      "prices": {},
+      "failed": false,
+      "unlisted": [],
+      "requests": 0
+    }
+  ]
+}

@@ -107,6 +107,9 @@
     <string name="dex_added">%1$s е добавен към списъка.</string>
     <string name="dex_already">%1$s вече е в списъка.</string>
     <string name="dex_intro">Токени извън големите борси, от децентрализирани борси (Uniswap, PancakeSwap, Raydium …) чрез DexScreener. Потърси токен и добави един от търговските му пулове – курсове в щатски долари.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">Пулове от %1$s чрез DexScreener</string>
+    <string name="dex_search_hit_generic">Пулове от децентрализирани борси чрез DexScreener</string>
     <string name="dex_liquidity">Ликвидност %1$s</string>
     <string name="dex_no_results">Не са намерени пулове.</string>
     <string name="dex_search">Търси</string>

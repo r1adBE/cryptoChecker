@@ -111,6 +111,9 @@
     <string name="dex_added">%1$s added to the watchlist.</string>
     <string name="dex_already">%1$s is already in the watchlist.</string>
     <string name="dex_intro">Tokens outside the big exchanges, from decentralized exchanges (Uniswap, PancakeSwap, Raydium …) via DexScreener. Search for a token and add one of its trading pools – prices in US dollars.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">Pools from %1$s via DexScreener</string>
+    <string name="dex_search_hit_generic">Pools from decentralized exchanges via DexScreener</string>
     <string name="dex_liquidity">Liquidity %1$s</string>
     <string name="dex_no_results">No pools found.</string>
     <string name="dex_search">Search</string>

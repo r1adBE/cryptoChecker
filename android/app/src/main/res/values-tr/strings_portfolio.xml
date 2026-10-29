@@ -83,6 +83,7 @@
     <string name="portfolio_price_source_routes">Fiyatlar: %1$s, diğerleri Binance · USDT piyasa fiyatından</string>
     <string name="portfolio_price_unavailable">Fiyat şu an alınamıyor</string>
     <string name="portfolio_price_unchecked">Fiyat doğrulanmadı</string>
+    <string name="portfolio_price_no_market">Piyasa yok</string>
     <string name="portfolio_price_via_base">≈ %1$s fiyatı (köprülenmiş/sarılmış)</string>
     <string name="portfolio_usdt_as_usd">USDT, USD piyasa fiyatıyla çevrildi</string>
     <string name="portfolio_usdt_assumed">USDT dolar kuru yok – 1 ABD doları olarak hesaplandı</string>

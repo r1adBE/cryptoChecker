@@ -65,6 +65,12 @@ internal fun ExchangeStepCard(
     val exchangeLabel = stringResource(R.string.explorer_field_exchange)
     val titles = ExchangeCategory.entries.associateWith { stringResource(sectionTitle(it)) }
     val sections = remember(categories, titles) { categories.map { titles.getValue(it) } }
+    // DEX-Pools gibt es nur über DexScreener: Eintrag und Abschnitt nennen bekannte DEX («Uniswap, PancakeSwap, …»)
+    val dexSubtitle = stringResource(R.string.dex_picker_subtitle)
+    val dexName = exchanges.firstOrNull { it.key == DEX_EXCHANGE_KEY }?.name
+    val subtitles = remember(dexName, titles, dexSubtitle) {
+        if (dexName == null) emptyMap() else mapOf(dexName to dexSubtitle, titles.getValue(ExchangeCategory.DEX) to dexSubtitle)
+    }
     StepCard {
         StepHeader(
             number = 1,
@@ -85,6 +91,7 @@ internal fun ExchangeStepCard(
                 onToggleFavorite = { favorites.onToggle(FavoriteKind.EXCHANGE, it) },
                 onValueChange = { picked -> onExchangeChanged(exchanges[picked]) },
                 sections = sections.takeIf { it.size == exchanges.size },
+                subtitles = subtitles,
             )
             if (!isDex) {
                 Spacer(modifier = Modifier.size(8.dp))

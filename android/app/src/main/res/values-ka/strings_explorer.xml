@@ -107,6 +107,9 @@
     <string name="dex_added">%1$s დაემატა დაკვირვების სიას.</string>
     <string name="dex_already">%1$s უკვე დაკვირვების სიაშია.</string>
     <string name="dex_intro">ტოკენები დიდი ბირჟების გარეთ, დეცენტრალიზებული ბირჟებიდან (Uniswap, PancakeSwap, Raydium …) DexScreener-ის მეშვეობით. მოძებნე ტოკენი და დაამატე მისი ერთ-ერთი სავაჭრო პული – ფასები აშშ დოლარში.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">%1$s-ის პულები DexScreener-ის მეშვეობით</string>
+    <string name="dex_search_hit_generic">დეცენტრალიზებული ბირჟების პულები DexScreener-ის მეშვეობით</string>
     <string name="dex_liquidity">ლიკვიდობა %1$s</string>
     <string name="dex_no_results">პულები ვერ მოიძებნა.</string>
     <string name="dex_search">ძებნა</string>

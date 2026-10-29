@@ -107,6 +107,9 @@
     <string name="dex_added">%1$s ಅನ್ನು ವಾಚ್‌ಲಿಸ್ಟ್‌ಗೆ ಸೇರಿಸಲಾಗಿದೆ.</string>
     <string name="dex_already">%1$s ಈಗಾಗಲೇ ವಾಚ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿದೆ.</string>
     <string name="dex_intro">ದೊಡ್ಡ ಎಕ್ಸ್‌ಚೇಂಜ್‌ಗಳ ಹೊರಗಿನ ಟೋಕನ್‌ಗಳು, ವಿಕೇಂದ್ರೀಕೃತ ಎಕ್ಸ್‌ಚೇಂಜ್‌ಗಳಿಂದ (Uniswap, PancakeSwap, Raydium …) DexScreener ಮೂಲಕ. ಟೋಕನ್ ಹುಡುಕಿ ಮತ್ತು ಅದರ ಟ್ರೇಡಿಂಗ್ ಪೂಲ್‌ಗಳಲ್ಲಿ ಒಂದನ್ನು ಸೇರಿಸಿ – ಬೆಲೆಗಳು ಅಮೆರಿಕನ್ ಡಾಲರ್‌ಗಳಲ್ಲಿ.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">DexScreener ಮೂಲಕ %1$s ಪೂಲ್‌ಗಳು</string>
+    <string name="dex_search_hit_generic">DexScreener ಮೂಲಕ ವಿಕೇಂದ್ರೀಕೃತ ಎಕ್ಸ್‌ಚೇಂಜ್‌ಗಳ ಪೂಲ್‌ಗಳು</string>
     <string name="dex_liquidity">ಲಿಕ್ವಿಡಿಟಿ %1$s</string>
     <string name="dex_no_results">ಯಾವುದೇ ಪೂಲ್‌ಗಳು ಕಂಡುಬಂದಿಲ್ಲ.</string>
     <string name="dex_search">ಹುಡುಕಿ</string>

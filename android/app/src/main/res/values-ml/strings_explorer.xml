@@ -107,6 +107,9 @@
     <string name="dex_added">%1$s വാച്ച്‌ലിസ്റ്റിലേക്ക് ചേർത്തു.</string>
     <string name="dex_already">%1$s ഇതിനകം വാച്ച്‌ലിസ്റ്റിലുണ്ട്.</string>
     <string name="dex_intro">വലിയ എക്സ്ചേഞ്ചുകൾക്ക് പുറത്തുള്ള ടോക്കണുകൾ, വികേന്ദ്രീകൃത എക്സ്ചേഞ്ചുകളിൽ നിന്ന് (Uniswap, PancakeSwap, Raydium …) DexScreener വഴി. ഒരു ടോക്കൺ തിരഞ്ഞ് അതിന്റെ ട്രേഡിംഗ് പൂളുകളിലൊന്ന് ചേർക്കുക – വിലകൾ US ഡോളറിൽ.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">DexScreener വഴി %1$s പൂളുകൾ</string>
+    <string name="dex_search_hit_generic">DexScreener വഴി വികേന്ദ്രീകൃത എക്സ്ചേഞ്ചുകളിലെ പൂളുകൾ</string>
     <string name="dex_liquidity">ലിക്വിഡിറ്റി %1$s</string>
     <string name="dex_no_results">പൂളുകളൊന്നും കണ്ടെത്തിയില്ല.</string>
     <string name="dex_search">തിരയുക</string>

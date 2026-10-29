@@ -83,6 +83,7 @@
     <string name="portfolio_price_source_routes">قیمت‌ها: %1$s، در غیر این صورت Binance · ‏USDT به قیمت بازار</string>
     <string name="portfolio_price_unavailable">قیمت فعلاً در دسترس نیست</string>
     <string name="portfolio_price_unchecked">قیمت بررسی‌نشده</string>
+    <string name="portfolio_price_no_market">بدون بازار</string>
     <string name="portfolio_price_via_base">≈ قیمت %1$s (پل‌شده/بسته‌بندی‌شده)</string>
     <string name="portfolio_usdt_as_usd">USDT با قیمت بازار آن به USD تبدیل شده</string>
     <string name="portfolio_usdt_assumed">نرخ دلاری USDT موجود نیست – ۱ دلار آمریکا حساب شد</string>

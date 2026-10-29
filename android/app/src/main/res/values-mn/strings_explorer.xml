@@ -107,6 +107,9 @@
     <string name="dex_added">%1$s ажиглах жагсаалтад нэмэгдлээ.</string>
     <string name="dex_already">%1$s ажиглах жагсаалтад аль хэдийн байна.</string>
     <string name="dex_intro">Том биржүүдээс гадуурх токен, төвлөрсөн бус биржүүдээс (Uniswap, PancakeSwap, Raydium …) DexScreener-ээр. Токен хайж, түүний арилжааны пулуудын нэгийг нэмнэ үү – ханш АНУ-ын доллараар.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">%1$s пулууд DexScreener-ээр</string>
+    <string name="dex_search_hit_generic">Төвлөрсөн бус биржүүдийн пулууд DexScreener-ээр</string>
     <string name="dex_liquidity">Хөрвөх чадвар %1$s</string>
     <string name="dex_no_results">Пул олдсонгүй.</string>
     <string name="dex_search">Хайх</string>

@@ -107,6 +107,9 @@
     <string name="dex_added">%1$s бақылау тізіміне қосылды.</string>
     <string name="dex_already">%1$s бақылау тізімінде бар.</string>
     <string name="dex_intro">Ірі биржалардан тыс токендер, орталықсыздандырылған биржалардан (Uniswap, PancakeSwap, Raydium …) DexScreener арқылы. Токенді іздеп, оның сауда пулдарының бірін қосыңыз – бағамдар АҚШ долларымен.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">%1$s пулдары DexScreener арқылы</string>
+    <string name="dex_search_hit_generic">Орталықсыздандырылған биржалардың пулдары DexScreener арқылы</string>
     <string name="dex_liquidity">Өтімділік %1$s</string>
     <string name="dex_no_results">Пулдар табылмады.</string>
     <string name="dex_search">Іздеу</string>

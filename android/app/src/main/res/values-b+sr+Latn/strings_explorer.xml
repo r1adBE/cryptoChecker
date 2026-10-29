@@ -117,6 +117,9 @@
     <string name="dex_added">%1$s dodat na spisak praćenja.</string>
     <string name="dex_already">%1$s je već na spisku praćenja.</string>
     <string name="dex_intro">Tokeni izvan velikih berzi, s decentralizovanih berzi (Uniswap, PancakeSwap, Raydium …) putem DexScreener-a. Potraži token i dodaj jedan od njegovih pulova za trgovanje – cene u američkim dolarima.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">%1$s pulovi putem DexScreener-a</string>
+    <string name="dex_search_hit_generic">Pulovi s decentralizovanih berzi putem DexScreener-a</string>
     <string name="dex_liquidity">Likvidnost %1$s</string>
     <string name="dex_no_results">Nisu pronađeni pulovi.</string>
     <string name="dex_search">Traži</string>

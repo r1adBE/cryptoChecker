@@ -86,6 +86,7 @@
     <string name="portfolio_price_source_routes">Prezzi: %1$s, altrimenti Binance · USDT a prezzo di mercato</string>
     <string name="portfolio_price_unavailable">Prezzo non disponibile al momento</string>
     <string name="portfolio_price_unchecked">Prezzo non verificato</string>
+    <string name="portfolio_price_no_market">Nessun mercato</string>
     <string name="portfolio_price_via_base">≈ prezzo di %1$s (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT convertito al suo prezzo di mercato in USD</string>
     <string name="portfolio_usdt_assumed">Manca il cambio in dollari di USDT – calcolato come 1 dollaro USA</string>

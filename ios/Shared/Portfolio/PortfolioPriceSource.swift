@@ -28,7 +28,6 @@ enum PortfolioPriceSource {
     static let stable = "USDT"
     static let binanceHost = "data-api.binance.vision"
     static let coinbaseHost = "api.exchange.coinbase.com"
-    static let maxSymbols = 100
     private static let priceTtlMillis: Int64 = 60_000
     static let coinsTtlMillis: Int64 = 24 * 60 * 60_000
     static let keyCoins = "portfolio_coin_list"
@@ -45,6 +44,10 @@ enum PortfolioPriceSource {
         var unverifiedCoins: Set<String> = []
         /// Coins ohne Kurs, weil die letzte Abfrage scheiterte (`PortfolioPriceIssue.unavailable`).
         var unavailableCoins: Set<String> = []
+        /// Coins ohne Binance-Namen, für die keine Quelle einen Kurs führt (`PortfolioPrices.noMarket`).
+        var noMarketCoins: Set<String> = []
+        /// Coin → Zeitpunkt, an dem Binance ihn einzeln mit 400 ablehnte (`binanceBatch`, nur im Arbeitsspeicher).
+        var binanceUnlisted: [String: Int64] = [:]
         var coinList: [String]?
         /// Coin → Börse, deren Kurs im Zwischenspeicher steht; Coin → eingetragene Börse ohne Kurs; Binance-Bezug.
         var sourceOf: [String: String] = [:]
@@ -136,6 +139,7 @@ enum PortfolioPriceSource {
             var unchecked = Set<String>()
             var rejected = Set<String>()
             var unavailable = Set<String>()
+            var noPrice = Set<String>()
             if !missing.isEmpty {
                 // Gekapselter Coin ohne eigenen Bezug: der Kurs der Basis prüft seinen Kerzenkurs (WETH ≈ ETH)
                 var references = Self.candleReferences(missing)
@@ -166,9 +170,10 @@ enum PortfolioPriceSource {
                 let sourcesBlocked = Self.candleHosts.allSatisfy { BlockedSources.isBlocked($0) }
                 for (coin, price) in results {
                     // Kein Kurs: Fehler (Netz/Sperre) von «gibt es nicht» unterscheiden
-                    if price == nil, PortfolioPriceIssue.of(failed: false, allSourcesBlocked: sourcesBlocked,
-                                                            networkFailed: batch.failed) == .unavailable {
-                        unavailable.insert(coin)
+                    if price == nil {
+                        let issue = PortfolioPriceIssue.of(failed: false, allSourcesBlocked: sourcesBlocked,
+                                                           networkFailed: batch.failed)
+                        if issue == .unavailable { unavailable.insert(coin) } else { noPrice.insert(coin) }
                     }
                     let reference = references[coin]
                     if let price, PricePlausibility.acceptCandle(price, reference: reference) {
@@ -182,14 +187,16 @@ enum PortfolioPriceSource {
                     }
                 }
             }
-            // Binance ohne prüfbare Identität ausgelassen und kein anderer Kurs: «ungeprüft» (nicht abgelehnte)
-            unchecked.formUnion(split.unchecked.subtracting(rejected))
+            // Binance ohne prüfbare Identität ausgelassen und kein anderer Kurs: «ungeprüft» (nicht abgelehnte); lieferte auch
+            // keine Quelle einen Kurs (nicht gescheitert): «kein Markt»
+            let skipped = PortfolioPriceIssue.nameUnchecked(split.unchecked, rejected: rejected, noPrice: noPrice)
+            unchecked.formUnion(skipped.unchecked)
             // Eingetragene Börse: deren Kurs gilt, sonst bleibt Binance (PortfolioExchangeRoute)
             fetched = await Self.applyRoutes(toFetch, fetched, generation: generation)
             // «Portfolio leeren» lief während der Abfrage: nichts übernehmen, keine Datei neu anlegen
             let kept = Self.store(fetched, at: EpochTime.nowMillis, unchecked: unchecked, rejected: rejected,
                                   requested: toFetch, unavailable: unavailable, unverified: binanceUnverified,
-                                  generation: generation)
+                                  noMarket: skipped.noMarket, generation: generation)
             // Letzten guten Stand merken (für ohne Netz und nach einem Neustart)
             if kept && !fetched.isEmpty { Self.persist(generation: generation) }
         }
@@ -279,13 +286,14 @@ enum PortfolioPriceSource {
     /// false = seit `generation` geleert (`clearStored`): nichts übernommen.
     private static func store(_ fetched: [String: Double], at time: Int64, unchecked: Set<String>, rejected: Set<String>,
                               requested: [String] = [], unavailable: Set<String> = [], unverified: Set<String> = [],
-                              generation: Int) -> Bool {
+                              noMarket: Set<String> = [], generation: Int) -> Bool {
         state.withLock { s in
             guard s.clearGeneration == generation else { return false }
             for (coin, price) in fetched {
                 s.cache[coin] = (price: price, at: time)
                 s.uncheckedCoins.remove(coin)
                 s.unavailableCoins.remove(coin)
+                s.noMarketCoins.remove(coin)
                 // Ungeprüft nur, solange der Kurs von Binance stammt (eine eingetragene Börse nennt ihren Token)
                 if unverified.contains(coin) && s.sourceOf[coin] == nil {
                     s.unverifiedCoins.insert(coin)
@@ -295,11 +303,18 @@ enum PortfolioPriceSource {
             }
             for coin in requested where fetched[coin] == nil {
                 if unavailable.contains(coin) { s.unavailableCoins.insert(coin) } else { s.unavailableCoins.remove(coin) }
+                if !noMarket.contains(coin) { s.noMarketCoins.remove(coin) }
             }
             for coin in rejected { s.uncheckedCoins.remove(coin) }
             for coin in unchecked where fetched[coin] == nil {
                 s.cache[coin] = nil
                 s.uncheckedCoins.insert(coin)
+            }
+            // Kein Binance-Name und keine Quelle mit Kurs: kein Wert, Coin «kein Markt» (zählt nicht als Geld)
+            for coin in noMarket where fetched[coin] == nil {
+                s.cache[coin] = nil
+                s.uncheckedCoins.remove(coin)
+                s.noMarketCoins.insert(coin)
             }
             return true
         }
@@ -350,12 +365,14 @@ enum PortfolioPriceSource {
             var oldest: Int64?
             var unchecked = Set<String>()
             var unavailable = Set<String>()
+            var noMarket = Set<String>()
             // Gekapselte Coins ohne eigenen Kurs: Kurs (und Zeit) der Basis, markiert (`PortfolioPrices.viaBase`)
             let via = ChainAssets.priceViaBase(coins, available: Set(s.cache.keys))
             for coin in coins {
                 guard let entry = s.cache[coin] ?? via[coin].flatMap({ s.cache[$0] }) else {
                     // Ungeprüft = ohne Kurs (zählt nicht als Geld); Abfrage gescheitert: «Kurs gerade nicht abrufbar»
                     if s.uncheckedCoins.contains(coin) { unchecked.insert(coin) }
+                    else if s.noMarketCoins.contains(coin) { noMarket.insert(coin) }
                     else if s.unavailableCoins.contains(coin) { unavailable.insert(coin) }
                     continue
                 }
@@ -366,6 +383,7 @@ enum PortfolioPriceSource {
             result[stable] = 1
             var out = PortfolioPrices(prices: result, updatedAt: oldest ?? 0, unchecked: unchecked, times: times)
             out.unavailable = unavailable
+            out.noMarket = noMarket
             out.viaBase = via
             s.decorate(&out, coins: coins)
             // «Kurs ungeprüft»; gekapselte Coins über die Basis erben ihn (wie Android)

@@ -107,6 +107,9 @@
     <string name="dex_added">%1$s वॉचलिस्टमध्ये जोडले.</string>
     <string name="dex_already">%1$s आधीच वॉचलिस्टमध्ये आहे.</string>
     <string name="dex_intro">मोठ्या एक्सचेंजबाहेरील टोकन, विकेंद्रित एक्सचेंजवरून (Uniswap, PancakeSwap, Raydium …) DexScreener द्वारे. टोकन शोधा आणि त्याचा एक ट्रेडिंग पूल जोडा – किमती US डॉलरमध्ये.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">DexScreener द्वारे %1$s चे पूल</string>
+    <string name="dex_search_hit_generic">DexScreener द्वारे विकेंद्रित एक्सचेंजचे पूल</string>
     <string name="dex_liquidity">लिक्विडिटी %1$s</string>
     <string name="dex_no_results">एकही पूल सापडला नाही.</string>
     <string name="dex_search">शोधा</string>

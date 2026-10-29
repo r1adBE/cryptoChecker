@@ -46,6 +46,10 @@ struct PortfolioPrices: Sendable, Equatable {
     /// dem Kurs (stehen in `prices`); die Zeile nennt sie «Kurs ungeprüft», Portfolio-Alarme behandeln sie wie einen
     /// alten Kurs (`PortfolioWidgetSnapshot.unverifiedCoins`). Wie Android.
     var unverified: Set<String> = []
+    /// Coins OHNE Kurs, die Binance mangels prüfbarem Namen ausliess (`PortfolioPriceIdentity.BinanceCheck.unchecked`)
+    /// und für die auch sonst keine Quelle einen Kurs führt (`PortfolioPriceIssue.noPrice`, nicht gescheitert): Die Zeile
+    /// nennt sie «Kein Markt» statt «Kurs ungeprüft». Wie `unchecked` ohne Kurs: zählen nirgends als Geld. Wie Android.
+    var noMarket: Set<String> = []
 }
 
 /// Warum ein Coin keinen Kurs hat: `noPrice` = keine Quelle führt ihn; `unavailable` = Abfrage gerade gescheitert.
@@ -58,5 +62,14 @@ enum PortfolioPriceIssue: Sendable, Equatable {
     /// ist «kein Kurs» nicht belegt. Sonst `noPrice`.
     static func of(failed: Bool, allSourcesBlocked: Bool, networkFailed: Bool) -> PortfolioPriceIssue {
         failed || allSourcesBlocked || networkFailed ? .unavailable : .noPrice
+    }
+
+    /// Coins, die Binance ohne prüfbaren Namen ausliess (`skipped`), ohne die verworfenen Kerzenkurse (`rejected`): keine
+    /// Quelle mit Kurs (`noPrice`, `.noPrice`) → `noMarket` («Kein Markt»), sonst `unchecked` («Kurs ungeprüft»; auch
+    /// wenn die Abfrage scheiterte). Wie Android `PortfolioPriceIssue.nameUnchecked`.
+    static func nameUnchecked(_ skipped: Set<String>, rejected: Set<String>,
+                              noPrice: Set<String>) -> (unchecked: Set<String>, noMarket: Set<String>) {
+        let open = skipped.subtracting(rejected)
+        return (open.subtracting(noPrice), open.intersection(noPrice))
     }
 }

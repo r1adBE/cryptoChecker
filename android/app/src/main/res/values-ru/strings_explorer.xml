@@ -125,6 +125,9 @@
     <string name="dex_added">%1$s добавлен в список.</string>
     <string name="dex_already">%1$s уже в списке.</string>
     <string name="dex_intro">Токены вне крупных бирж, с децентрализованных бирж (Uniswap, PancakeSwap, Raydium …) через DexScreener. Найди токен и добавь один из его торговых пулов – цены в долларах США.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">Пулы %1$s через DexScreener</string>
+    <string name="dex_search_hit_generic">Пулы децентрализованных бирж через DexScreener</string>
     <string name="dex_liquidity">Ликвидность %1$s</string>
     <string name="dex_no_results">Пулы не найдены.</string>
     <string name="dex_search">Поиск</string>

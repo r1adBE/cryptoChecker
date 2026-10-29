@@ -184,6 +184,48 @@ class PortfolioPriceSourceTest {
         assertEquals(setOf("XYZ"), unchecked.unchecked)
     }
 
+    /**
+     * Erste Aktualisierung (frisch installiert, Erfassen-Blatt nie offen, keine Coin-Liste): Binance lehnt die
+     * Sammelabfrage wegen eines unbekannten Symbols mit 400 ab — BTC und IOTA bekommen trotzdem ihren Binance-Kurs
+     * (Halbieren), ohne Coin-Liste vorab und ohne «nicht abrufbar»; der unbekannte Coin ist nicht gescheitert.
+     */
+    @Test
+    fun firstRefreshWithoutCoinListStillPricesBinanceCoins() = runBlocking {
+        names.saveBinance(mapOf("BTC" to "Bitcoin", "ETH" to "Ethereum", "IOTA" to "IOTA", "FUT" to "Futures Only"))
+        val known = mapOf("BTCUSDT" to "60000.5", "IOTAUSDT" to "0.21")
+        val http = RouteHttp { url ->
+            if (!url.startsWith(tickers)) return@RouteHttp null
+            val asked = java.net.URLDecoder.decode(url.removePrefix(tickers), "UTF-8")
+            if ("FUTUSDT" in asked) return@RouteHttp Reply("""{"code":-1121,"msg":"Invalid symbol."}""", 400)
+            Reply(known.filterKeys { "\"$it\"" in asked }.entries.joinToString(",", "[", "]") {
+                """{"symbol":"${it.key}","price":"${it.value}"}"""
+            })
+        }
+        val result = source(http, context = FolderContext(temp.newFolder())).prices(listOf("BTC", "IOTA", "FUT"))
+        assertEquals(60000.5, result.prices["BTC"]!!, 0.0)
+        assertEquals(0.21, result.prices["IOTA"]!!, 0.0)
+        assertTrue(result.unavailable.isEmpty())
+        assertTrue(result.unchecked.isEmpty())
+        assertEquals("keine Coin-Liste vorab geladen", 0, http.count("exchangeInfo"))
+        // Abgelehnt: alle, dann [BTC, IOTA] gut und [FUT] einzeln abgelehnt
+        assertEquals(3, http.count("ticker/price"))
+    }
+
+    /** Ohne Binance-Namen und ohne jede Quelle mit Kurs (Weg b): «Kein Markt», nicht «Kurs ungeprüft». */
+    @Test
+    fun noSourceAtAllIsNoMarket() = runBlocking {
+        val result = source(RouteHttp { null }, context = FolderContext(temp.newFolder())).prices(listOf("ZZZ"))
+        assertNull(result.prices["ZZZ"])
+        assertEquals(setOf("ZZZ"), result.noMarket)
+        assertTrue(result.unchecked.isEmpty())
+        assertTrue(result.unavailable.isEmpty())
+
+        // Kerzenkurs ohne Bezug (Weg a): weiterhin «Kurs ungeprüft»
+        val candle = source(candles(10.4), context = FolderContext(temp.newFolder())).prices(listOf("XYZ"))
+        assertEquals(setOf("XYZ"), candle.unchecked)
+        assertTrue(candle.noMarket.isEmpty())
+    }
+
     @Test
     fun failedRequestsMarkCoinsUnavailable() = runBlocking {
         val result = source(RouteHttp { null }).prices(listOf("BTC"))

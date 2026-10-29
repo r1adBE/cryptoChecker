@@ -98,6 +98,9 @@
     <string name="dex_added">ເພີ່ມ %1$s ໃສ່ລາຍການຕິດຕາມແລ້ວ.</string>
     <string name="dex_already">%1$s ມີຢູ່ໃນລາຍການຕິດຕາມແລ້ວ.</string>
     <string name="dex_intro">ໂທເຄັນນອກກະດານແລກປ່ຽນໃຫຍ່ໆ, ຈາກກະດານແລກປ່ຽນແບບກະຈາຍສູນ (Uniswap, PancakeSwap, Raydium …) ຜ່ານ DexScreener. ຄົ້ນຫາໂທເຄັນ ແລະ ເພີ່ມ pool ການຊື້ຂາຍໜຶ່ງຂອງມັນ – ລາຄາເປັນໂດລາສະຫະລັດ.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">pool ຈາກ %1$s ຜ່ານ DexScreener</string>
+    <string name="dex_search_hit_generic">pool ຈາກກະດານແລກປ່ຽນແບບກະຈາຍສູນ ຜ່ານ DexScreener</string>
     <string name="dex_liquidity">ສະພາບຄ່ອງ %1$s</string>
     <string name="dex_no_results">ບໍ່ພົບ pool.</string>
     <string name="dex_search">ຄົ້ນຫາ</string>

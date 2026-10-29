@@ -318,6 +318,7 @@ struct ExplorerScreen: View {
                 selected: vm.exchange?.name,
                 favoriteKind: .EXCHANGE,
                 sections: vm.marketSections.map { (title: $0.title, items: $0.exchanges.map(\.name)) },
+                subtitles: vm.dexPickerSubtitles,
                 data: data
             ) { name in
                 guard let chosen = offered.first(where: { $0.name == name }) else { return }

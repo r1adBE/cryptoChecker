@@ -237,6 +237,8 @@ internal fun PortfolioList(
                                 // Ohne Kurs ungeprüft oder Binance-Kurs mit unbestätigtem Token: «Kurs ungeprüft»
                                 unchecked = position.coin in prices.unchecked || position.coin in prices.unverified,
                                 unavailable = position.coin in prices.unavailable,
+                                // Kein Binance-Name und keine Quelle mit Kurs: «Kein Markt» statt «Kurs ungeprüft»
+                                noMarket = position.coin in prices.noMarket,
                                 // Wert und 24h wie im Widget in der Anzeigewährung (Detail bleibt USDT)
                                 unit = cardUnit(currency, fxRate),
                                 // Börse des Kurses klein in der Zeile (nicht nur unter «Hinweise»)

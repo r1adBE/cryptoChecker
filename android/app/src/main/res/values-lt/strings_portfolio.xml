@@ -89,6 +89,7 @@
     <string name="portfolio_price_source_routes">Kainos: %1$s, kitaip Binance · USDT rinkos kaina</string>
     <string name="portfolio_price_unavailable">Kaina šiuo metu nepasiekiama</string>
     <string name="portfolio_price_unchecked">Kaina nepatikrinta</string>
+    <string name="portfolio_price_no_market">Nėra rinkos</string>
     <string name="portfolio_price_via_base">≈ %1$s kaina (perkelta per tiltą / apgaubta)</string>
     <string name="portfolio_usdt_as_usd">USDT perskaičiuota pagal jos USD rinkos kainą</string>
     <string name="portfolio_usdt_assumed">Trūksta USDT dolerio kurso – skaičiuojama kaip 1 JAV doleris</string>

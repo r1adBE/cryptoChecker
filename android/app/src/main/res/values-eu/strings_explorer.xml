@@ -107,6 +107,9 @@
     <string name="dex_added">Zerrendara gehitu da: %1$s.</string>
     <string name="dex_already">Zerrendan dago jada: %1$s.</string>
     <string name="dex_intro">Burtsa handietatik kanpoko tokenak, burtsa deszentralizatuetakoak (Uniswap, PancakeSwap, Raydium …), DexScreener bidez. Bilatu token bat eta gehitu haren negoziazio-pooletako bat – prezioak AEBko dolarretan.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">Poolak (%1$s) DexScreener bidez</string>
+    <string name="dex_search_hit_generic">Burtsa deszentralizatuetako poolak DexScreener bidez</string>
     <string name="dex_liquidity">Likidezia: %1$s</string>
     <string name="dex_no_results">Ez da poolik aurkitu.</string>
     <string name="dex_search">Bilatu</string>

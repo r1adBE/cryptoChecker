@@ -125,6 +125,9 @@
     <string name="dex_added">%1$s pridėta į stebimų sąrašą.</string>
     <string name="dex_already">%1$s jau yra stebimų sąraše.</string>
     <string name="dex_intro">Žetonai už didžiųjų biržų ribų, iš decentralizuotų biržų (Uniswap, PancakeSwap, Raydium …) per DexScreener. Ieškok žetono ir pridėk vieną iš jo prekybos fondų – kainos JAV doleriais.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">%1$s fondai per DexScreener</string>
+    <string name="dex_search_hit_generic">Decentralizuotų biržų fondai per DexScreener</string>
     <string name="dex_liquidity">Likvidumas %1$s</string>
     <string name="dex_no_results">Fondų nerasta.</string>
     <string name="dex_search">Ieškoti</string>

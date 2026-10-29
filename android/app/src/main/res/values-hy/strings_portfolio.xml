@@ -83,6 +83,7 @@
     <string name="portfolio_price_source_routes">Գներ՝ %1$s, այլապես Binance · USDT՝ շուկայական գնով</string>
     <string name="portfolio_price_unavailable">Գինը հիմա հասանելի չէ</string>
     <string name="portfolio_price_unchecked">Գինը ստուգված չէ</string>
+    <string name="portfolio_price_no_market">Շուկա չկա</string>
     <string name="portfolio_price_via_base">≈ %1$s-ի գին (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT-ն փոխարկված է իր USD շուկայական գնով</string>
     <string name="portfolio_usdt_assumed">USDT-ի դոլարային փոխարժեքը բացակայում է – հաշվվում է որպես 1 ԱՄՆ դոլար</string>

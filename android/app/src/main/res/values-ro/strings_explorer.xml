@@ -116,6 +116,9 @@
     <string name="dex_added">%1$s a fost adăugat în lista de urmărire.</string>
     <string name="dex_already">%1$s este deja în lista de urmărire.</string>
     <string name="dex_intro">Tokenuri din afara marilor burse, de pe burse descentralizate (Uniswap, PancakeSwap, Raydium …) prin DexScreener. Caută un token și adaugă unul dintre pool-urile sale de tranzacționare – prețuri în dolari americani.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">Pooluri de pe %1$s prin DexScreener</string>
+    <string name="dex_search_hit_generic">Pooluri de pe burse descentralizate prin DexScreener</string>
     <string name="dex_liquidity">Lichiditate %1$s</string>
     <string name="dex_no_results">Nu s-au găsit pooluri.</string>
     <string name="dex_search">Caută</string>

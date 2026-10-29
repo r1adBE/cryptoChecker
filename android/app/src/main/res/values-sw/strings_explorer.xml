@@ -107,6 +107,9 @@
     <string name="dex_added">%1$s imeongezwa kwenye orodha ya ufuatiliaji.</string>
     <string name="dex_already">%1$s tayari iko kwenye orodha ya ufuatiliaji.</string>
     <string name="dex_intro">Tokeni nje ya majukwaa makubwa, kutoka majukwaa yaliyogatuliwa (Uniswap, PancakeSwap, Raydium …) kupitia DexScreener. Tafuta tokeni na uongeze mojawapo ya pool zake za biashara – bei kwa dola za Marekani.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">Pool za %1$s kupitia DexScreener</string>
+    <string name="dex_search_hit_generic">Pool za majukwaa yaliyogatuliwa kupitia DexScreener</string>
     <string name="dex_liquidity">Ukwasi %1$s</string>
     <string name="dex_no_results">Hakuna pool zilizopatikana.</string>
     <string name="dex_search">Tafuta</string>

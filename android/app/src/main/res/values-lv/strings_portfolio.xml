@@ -86,6 +86,7 @@
     <string name="portfolio_price_source_routes">Cenas: %1$s, citādi Binance · USDT pēc tirgus cenas</string>
     <string name="portfolio_price_unavailable">Cena pašlaik nav pieejama</string>
     <string name="portfolio_price_unchecked">Cena nav pārbaudīta</string>
+    <string name="portfolio_price_no_market">Nav tirgus</string>
     <string name="portfolio_price_via_base">≈ %1$s cena (caur tiltu/ietīts)</string>
     <string name="portfolio_usdt_as_usd">USDT pārrēķināts pēc tā USD tirgus cenas</string>
     <string name="portfolio_usdt_assumed">Trūkst USDT dolāra kursa – skaitīts kā 1 ASV dolārs</string>

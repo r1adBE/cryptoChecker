@@ -83,6 +83,7 @@
     <string name="portfolio_price_source_routes">Verð: %1$s, annars Binance · USDT á markaðsverði</string>
     <string name="portfolio_price_unavailable">Verð ekki tiltækt núna</string>
     <string name="portfolio_price_unchecked">Verð óstaðfest</string>
+    <string name="portfolio_price_no_market">Enginn markaður</string>
     <string name="portfolio_price_via_base">≈ verð %1$s (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT umreiknað á markaðsverði þess í USD</string>
     <string name="portfolio_usdt_assumed">Dollaragengi USDT vantar – reiknað sem 1 Bandaríkjadalur</string>

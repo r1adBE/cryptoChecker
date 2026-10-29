@@ -107,6 +107,9 @@
     <string name="dex_added">%1$s به واچ‌لیست اضافه شد.</string>
     <string name="dex_already">%1$s از قبل در واچ‌لیست است.</string>
     <string name="dex_intro">توکن‌های خارج از صرافی‌های بزرگ، از صرافی‌های غیرمتمرکز (Uniswap، PancakeSwap، Raydium …) از طریق DexScreener. توکن را جست‌وجو کن و یکی از استخرهای معاملاتی آن را اضافه کن – قیمت‌ها به دلار آمریکا.</string>
+    <string name="dex_picker_subtitle">Uniswap، PancakeSwap، Raydium، Aerodrome …</string>
+    <string name="dex_search_hit">استخرهای %1$s از طریق DexScreener</string>
+    <string name="dex_search_hit_generic">استخرهای صرافی‌های غیرمتمرکز از طریق DexScreener</string>
     <string name="dex_liquidity">نقدینگی %1$s</string>
     <string name="dex_no_results">استخری پیدا نشد.</string>
     <string name="dex_search">جست‌وجو</string>

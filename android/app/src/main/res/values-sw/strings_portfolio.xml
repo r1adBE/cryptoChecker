@@ -83,6 +83,7 @@
     <string name="portfolio_price_source_routes">Bei: %1$s, vinginevyo Binance · USDT kwa bei ya soko</string>
     <string name="portfolio_price_unavailable">Bei haipatikani sasa hivi</string>
     <string name="portfolio_price_unchecked">Bei haijakaguliwa</string>
+    <string name="portfolio_price_no_market">Hakuna soko</string>
     <string name="portfolio_price_via_base">≈ bei ya %1$s (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT imebadilishwa kwa bei yake ya soko ya USD</string>
     <string name="portfolio_usdt_assumed">Kiwango cha dola cha USDT hakipo – kimehesabiwa kama dola 1 ya Marekani</string>

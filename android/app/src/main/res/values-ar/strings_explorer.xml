@@ -143,6 +143,9 @@
     <string name="dex_added">تمت إضافة %1$s إلى قائمة المتابعة.</string>
     <string name="dex_already">%1$s موجود بالفعل في قائمة المتابعة.</string>
     <string name="dex_intro">رموز خارج المنصات الكبيرة، من المنصات اللامركزية (Uniswap، PancakeSwap، Raydium …) عبر DexScreener. ابحث عن رمز وأضف أحد مجمّعات التداول الخاصة به – الأسعار بالدولار الأمريكي.</string>
+    <string name="dex_picker_subtitle">Uniswap، PancakeSwap، Raydium، Aerodrome …</string>
+    <string name="dex_search_hit">مجمّعات من %1$s عبر DexScreener</string>
+    <string name="dex_search_hit_generic">مجمّعات من المنصات اللامركزية عبر DexScreener</string>
     <string name="dex_liquidity">السيولة %1$s</string>
     <string name="dex_no_results">لم يتم العثور على مجمّعات.</string>
     <string name="dex_search">بحث</string>

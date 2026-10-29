@@ -83,6 +83,7 @@
     <string name="portfolio_price_source_routes">Árfolyamok: %1$s, egyébként Binance · USDT piaci árfolyamon</string>
     <string name="portfolio_price_unavailable">Az árfolyam most nem érhető el</string>
     <string name="portfolio_price_unchecked">Árfolyam ellenőrizetlen</string>
+    <string name="portfolio_price_no_market">Nincs piac</string>
     <string name="portfolio_price_via_base">≈ %1$s árfolyam (hídon át/csomagolt)</string>
     <string name="portfolio_usdt_as_usd">USDT átszámítva USD-piaci árfolyamán</string>
     <string name="portfolio_usdt_assumed">Hiányzik az USDT dolláros árfolyama – 1 amerikai dollárként számolva</string>

@@ -83,6 +83,7 @@
     <string name="portfolio_price_source_routes">ભાવ: %1$s, નહીં તો Binance · USDT માર્કેટ ભાવે</string>
     <string name="portfolio_price_unavailable">ભાવ અત્યારે ઉપલબ્ધ નથી</string>
     <string name="portfolio_price_unchecked">ભાવ ચકાસાયેલો નથી</string>
+    <string name="portfolio_price_no_market">બજાર નથી</string>
     <string name="portfolio_price_via_base">≈ %1$s ભાવ (બ્રિજ્ડ/રૅપ્ડ)</string>
     <string name="portfolio_usdt_as_usd">USDT તેના USD માર્કેટ ભાવે રૂપાંતરિત</string>
     <string name="portfolio_usdt_assumed">USDT ડૉલર દર ખૂટે છે – 1 US ડૉલર તરીકે ગણ્યું</string>

@@ -107,6 +107,9 @@
     <string name="dex_added">%1$s ਵਾਚਲਿਸਟ ਵਿੱਚ ਜੋੜਿਆ ਗਿਆ।</string>
     <string name="dex_already">%1$s ਪਹਿਲਾਂ ਹੀ ਵਾਚਲਿਸਟ ਵਿੱਚ ਹੈ।</string>
     <string name="dex_intro">ਵੱਡੀਆਂ ਐਕਸਚੇਂਜਾਂ ਤੋਂ ਬਾਹਰਲੇ ਟੋਕਨ, ਵਿਕੇਂਦਰੀਕ੍ਰਿਤ ਐਕਸਚੇਂਜਾਂ (Uniswap, PancakeSwap, Raydium …) ਤੋਂ DexScreener ਰਾਹੀਂ। ਕੋਈ ਟੋਕਨ ਖੋਜੋ ਅਤੇ ਉਸਦਾ ਕੋਈ ਵਪਾਰਕ ਪੂਲ ਜੋੜੋ – ਕੀਮਤਾਂ ਅਮਰੀਕੀ ਡਾਲਰ ਵਿੱਚ।</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">DexScreener ਰਾਹੀਂ %1$s ਦੇ ਪੂਲ</string>
+    <string name="dex_search_hit_generic">DexScreener ਰਾਹੀਂ ਵਿਕੇਂਦਰੀਕ੍ਰਿਤ ਐਕਸਚੇਂਜਾਂ ਦੇ ਪੂਲ</string>
     <string name="dex_liquidity">ਲਿਕਵਿਡਿਟੀ %1$s</string>
     <string name="dex_no_results">ਕੋਈ ਪੂਲ ਨਹੀਂ ਮਿਲਿਆ।</string>
     <string name="dex_search">ਖੋਜੋ</string>

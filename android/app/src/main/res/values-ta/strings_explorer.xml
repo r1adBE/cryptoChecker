@@ -107,6 +107,9 @@
     <string name="dex_added">%1$s கண்காணிப்புப் பட்டியலில் சேர்க்கப்பட்டது.</string>
     <string name="dex_already">%1$s ஏற்கெனவே கண்காணிப்புப் பட்டியலில் உள்ளது.</string>
     <string name="dex_intro">பெரிய எக்ஸ்சேஞ்ச்களுக்கு வெளியே உள்ள டோக்கன்கள், பரவலாக்கப்பட்ட எக்ஸ்சேஞ்ச்களிலிருந்து (Uniswap, PancakeSwap, Raydium …) DexScreener வழியாக. ஒரு டோக்கனைத் தேடி அதன் வர்த்தகப் பூல்களில் ஒன்றைச் சேர்க்கவும் – விலைகள் அமெரிக்க டாலரில்.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">DexScreener வழியாக %1$s பூல்கள்</string>
+    <string name="dex_search_hit_generic">DexScreener வழியாக பரவலாக்கப்பட்ட எக்ஸ்சேஞ்ச்களின் பூல்கள்</string>
     <string name="dex_liquidity">பணப்புழக்கம் %1$s</string>
     <string name="dex_no_results">பூல்கள் எதுவும் கிடைக்கவில்லை.</string>
     <string name="dex_search">தேடு</string>

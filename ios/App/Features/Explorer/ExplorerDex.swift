@@ -77,6 +77,56 @@ extension ExplorerScreen {
         .animation(.snappy(duration: 0.3), value: vm.dexSearching)
     }
 
+    /// «DexScreener – Pools von Uniswap über DexScreener» in der Coin-Suche («uniswap pepe»): Tippen öffnet die
+    /// DEX-Suche, vorbelegt mit dem übrigen Suchtext. Ein Element für VoiceOver. Wie `DexSearchHitRow` (Android).
+    func dexSearchHitRow(name: String, match: DexNames.Match) -> some View {
+        let hint = match.dexName.map { L("dex_search_hit", $0) } ?? L("dex_search_hit_generic")
+        return Button {
+            Haptics.play(.selection)
+            openDex(prefill: match.token)
+        } label: {
+            HStack(spacing: 12) {
+                // Platz wie die Coin-Plakette; rein dekorativ
+                Image(systemName: "arrow.left.arrow.right")
+                    .font(.body.weight(.semibold))
+                    .foregroundStyle(accent.primary)
+                    .frame(width: 38, height: 38)
+                    .accessibilityHidden(true)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(name)
+                        .font(.headline)
+                        .foregroundStyle(AppColors.onSurface)
+                        .lineLimit(1)
+                    Text(hint)
+                        .font(.footnote)
+                        .foregroundStyle(AppColors.onSurfaceVariant)
+                        .lineLimit(2)
+                }
+                Spacer(minLength: 8)
+                Image(systemName: "chevron.forward")
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(AppColors.onSurfaceVariant)
+                    .accessibilityHidden(true)
+            }
+            .padding(.horizontal, Spacing.md)
+            .padding(.vertical, Spacing.md)
+            .background(AppColors.container, in: RoundedRectangle(cornerRadius: Radius.card, style: .continuous))
+            .contentShape(RoundedRectangle(cornerRadius: Radius.card, style: .continuous))
+        }
+        .buttonStyle(ExplorerPressStyle())
+        .accessibilityElement(children: .combine)
+        .accessibilityHint(L("dex_search"))
+    }
+
+    /// DexScreener wählen, «Erweitert / nach Börse» aufklappen und die DEX-Suche mit `prefill` vorbelegen.
+    private func openDex(prefill: String) {
+        searchFocused = false
+        vm.openDexSearch()
+        dexQuery = prefill
+        ExplorerSectionMemory.precise = true
+        withAnimation(.snappy(duration: 0.3)) { showPrecise = true }
+    }
+
     private func runDexSearch() {
         dexFocused = false
         vm.searchDex(dexQuery)

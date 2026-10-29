@@ -83,6 +83,7 @@
     <string name="portfolio_price_source_routes">Kurse: %1$s, sonst Binance · USDT zum Marktkurs</string>
     <string name="portfolio_price_unavailable">Kurs gerade nicht abrufbar</string>
     <string name="portfolio_price_unchecked">Kurs ungeprüft</string>
+    <string name="portfolio_price_no_market">Kein Markt</string>
     <string name="portfolio_price_via_base">≈ %1$s-Kurs (gebrückt/verpackt)</string>
     <string name="portfolio_usdt_as_usd">USDT zum USD-Marktkurs umgerechnet</string>
     <string name="portfolio_usdt_assumed">Dollarkurs von USDT fehlt – gerechnet als 1 US-Dollar</string>

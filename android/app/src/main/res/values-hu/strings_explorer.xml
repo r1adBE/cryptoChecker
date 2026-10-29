@@ -107,6 +107,9 @@
     <string name="dex_added">%1$s hozzáadva a figyelőlistához.</string>
     <string name="dex_already">%1$s már szerepel a figyelőlistán.</string>
     <string name="dex_intro">Tokenek a nagy tőzsdéken kívülről, decentralizált tőzsdékről (Uniswap, PancakeSwap, Raydium …) a DexScreeneren keresztül. Keress egy tokent, és add hozzá az egyik kereskedési poolját – árak amerikai dollárban.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">%1$s-poolok a DexScreeneren keresztül</string>
+    <string name="dex_search_hit_generic">Decentralizált tőzsdék pooljai a DexScreeneren keresztül</string>
     <string name="dex_liquidity">Likviditás: %1$s</string>
     <string name="dex_no_results">Nem található pool.</string>
     <string name="dex_search">Keresés</string>

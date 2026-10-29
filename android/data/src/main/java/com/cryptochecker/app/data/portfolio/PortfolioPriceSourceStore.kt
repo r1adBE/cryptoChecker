@@ -30,6 +30,7 @@ suspend fun PortfolioPriceSource.stored(coins: Collection<String>): PortfolioPri
         prices = hits.associate { (coin, entry) -> coin to entry.price } + (STABLE to 1.0),
         updatedAt = hits.minOfOrNull { it.second.at } ?: 0L,
         unchecked = normalized(coins).filterTo(HashSet()) { it in uncheckedCoins && it !in merged && it !in via },
+        noMarket = normalized(coins).filterTo(HashSet()) { it in noMarketCoins && it !in merged && it !in via },
         unavailable = normalized(coins).filterTo(HashSet()) { it in unavailableCoins && it !in merged && it !in uncheckedCoins && it !in via },
         viaBase = via,
         times = hits.associate { (coin, entry) -> coin to entry.at },
@@ -51,6 +52,8 @@ suspend fun PortfolioPriceSource.clearStored() = withContext(Dispatchers.IO) {
         clearGeneration++
         cache.clear()
         uncheckedCoins.clear()
+        noMarketCoins.clear()
+        binanceUnlisted.clear()
         unverifiedCoins.clear()
         // Auch «Kurs nicht verfügbar» und die Börsen-Herkunft (wie iOS) — nennen gehaltene Coins
         unavailableCoins.clear()

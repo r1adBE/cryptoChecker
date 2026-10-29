@@ -86,6 +86,7 @@
     <string name="portfolio_price_source_routes">Preus: %1$s, si no, Binance · USDT a preu de mercat</string>
     <string name="portfolio_price_unavailable">Preu no disponible ara mateix</string>
     <string name="portfolio_price_unchecked">Preu no verificat</string>
+    <string name="portfolio_price_no_market">Sense mercat</string>
     <string name="portfolio_price_via_base">≈ preu de %1$s (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT convertit al seu preu de mercat en USD</string>
     <string name="portfolio_usdt_assumed">Falta el tipus en dòlars de l\'USDT – es compta com 1 dòlar dels EUA</string>

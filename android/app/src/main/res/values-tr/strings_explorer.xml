@@ -107,6 +107,9 @@
     <string name="dex_added">%1$s izleme listesine eklendi.</string>
     <string name="dex_already">%1$s zaten izleme listesinde.</string>
     <string name="dex_intro">Büyük borsaların dışındaki tokenler, merkeziyetsiz borsalardan (Uniswap, PancakeSwap, Raydium …) DexScreener üzerinden. Bir token ara ve işlem havuzlarından birini ekle – fiyatlar ABD doları cinsinden.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">DexScreener üzerinden %1$s havuzları</string>
+    <string name="dex_search_hit_generic">DexScreener üzerinden merkeziyetsiz borsaların havuzları</string>
     <string name="dex_liquidity">Likidite %1$s</string>
     <string name="dex_no_results">Havuz bulunamadı.</string>
     <string name="dex_search">Ara</string>

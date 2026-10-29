@@ -128,6 +128,8 @@ extension PortfolioScreen {
                         unchecked: model.prices.unchecked.contains(position.coin)
                             || model.prices.unverified.contains(position.coin),
                         unavailable: model.prices.unavailable.contains(position.coin),
+                        // Kein Binance-Name und keine Quelle mit Kurs: «Kein Markt» statt «Kurs ungeprüft»
+                        noMarket: model.prices.noMarket.contains(position.coin),
                         // Wert und 24h wie im Widget in der Anzeigewährung (Detail bleibt USDT)
                         unit: PortfolioCardUnit(currency: currency, fxRate: model.displayRate(for: currency)),
                         // Börse des Kurses klein in der Zeile (nicht nur unter «Hinweise»)

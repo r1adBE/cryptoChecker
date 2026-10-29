@@ -83,6 +83,7 @@
     <string name="portfolio_price_source_routes">Kurssit: %1$s, muuten Binance · USDT markkinakurssiin</string>
     <string name="portfolio_price_unavailable">Hinta ei ole juuri nyt saatavilla</string>
     <string name="portfolio_price_unchecked">Hinta tarkistamatta</string>
+    <string name="portfolio_price_no_market">Ei markkinaa</string>
     <string name="portfolio_price_via_base">≈ %1$s-hinta (silloitettu/kääritty)</string>
     <string name="portfolio_usdt_as_usd">USDT muunnettu sen USD-markkinakurssilla</string>
     <string name="portfolio_usdt_assumed">USDT:n dollarikurssi puuttuu – laskettu 1 Yhdysvaltain dollarina</string>

@@ -83,6 +83,7 @@
     <string name="portfolio_price_source_routes">Цени: %1$s, инаку Binance · USDT по пазарна цена</string>
     <string name="portfolio_price_unavailable">Цената моментално не е достапна</string>
     <string name="portfolio_price_unchecked">Цената не е проверена</string>
+    <string name="portfolio_price_no_market">Нема пазар</string>
     <string name="portfolio_price_via_base">≈ цена на %1$s (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT конвертиран по неговата пазарна цена во USD</string>
     <string name="portfolio_usdt_assumed">Недостасува доларскиот курс на USDT – сметано како 1 американски долар</string>

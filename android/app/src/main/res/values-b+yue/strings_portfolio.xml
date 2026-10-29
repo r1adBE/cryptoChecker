@@ -80,6 +80,7 @@
     <string name="portfolio_price_source_routes">價格：%1$s，否則 Binance · USDT 按市價</string>
     <string name="portfolio_price_unavailable">暫時冇價格</string>
     <string name="portfolio_price_unchecked">價格未經核實</string>
+    <string name="portfolio_price_no_market">無市場</string>
     <string name="portfolio_price_via_base">≈ %1$s 價格（跨鏈／封裝）</string>
     <string name="portfolio_usdt_as_usd">USDT 按佢嘅 USD 市價換算</string>
     <string name="portfolio_usdt_assumed">欠缺 USDT 美元匯率 – 當 1 美元計</string>

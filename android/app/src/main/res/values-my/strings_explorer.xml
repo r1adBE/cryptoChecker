@@ -98,6 +98,9 @@
     <string name="dex_added">%1$s ကို စောင့်ကြည့်စာရင်းသို့ ထည့်ပြီးပါပြီ။</string>
     <string name="dex_already">%1$s သည် စောင့်ကြည့်စာရင်းထဲတွင် ရှိပြီးသားဖြစ်သည်။</string>
     <string name="dex_intro">ကြီးမားသော လဲလှယ်ရေးဌာနများ ပြင်ပရှိ တိုကင်များကို ဗဟိုချုပ်ကိုင်မှုမရှိသော လဲလှယ်ရေးဌာနများ (Uniswap, PancakeSwap, Raydium …) မှ DexScreener မှတစ်ဆင့် ရယူသည်။ တိုကင်တစ်ခုကို ရှာပြီး ၎င်း၏ ကုန်သွယ်ရေး pool တစ်ခုကို ထည့်ပါ – ဈေးနှုန်းများ US ဒေါ်လာဖြင့်။</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">DexScreener မှတစ်ဆင့် %1$s pool များ</string>
+    <string name="dex_search_hit_generic">DexScreener မှတစ်ဆင့် ဗဟိုချုပ်ကိုင်မှုမရှိသော လဲလှယ်ရေးဌာနများမှ pool များ</string>
     <string name="dex_liquidity">ငွေဖြစ်လွယ်မှု %1$s</string>
     <string name="dex_no_results">pool မတွေ့ပါ။</string>
     <string name="dex_search">ရှာရန်</string>

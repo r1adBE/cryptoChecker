@@ -1,5 +1,7 @@
 package com.cryptochecker.app.ui.features.explorer
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -7,6 +9,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
@@ -15,10 +18,14 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
+import com.cryptochecker.app.domain.market.DexNames
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.BidiText
@@ -36,7 +43,12 @@ class DexUi(
     val onSearch: (String) -> Unit = {},
     val onAdd: (DexPool) -> Unit = {},
     val onMessageShown: () -> Unit = {},
+    /** Vorbelegung aus der Coin-Suche; eine neue ([DexPrefill.serial]) ersetzt den Text im Feld. */
+    val prefill: DexPrefill? = null,
 )
+
+/** Text für das DEX-Suchfeld; [serial] zählt hoch, damit derselbe Text nochmals vorbelegt werden kann. */
+data class DexPrefill(val text: String, val serial: Int)
 
 /**
  * Suche nach Token auf dezentralen Börsen. Ein Pool = ein Paar auf einer
@@ -44,7 +56,7 @@ class DexUi(
  */
 @Composable
 internal fun DexSearchSection(dex: DexUi, groupTarget: GroupTargetUi) {
-    var query by rememberSaveable { mutableStateOf("") }
+    var query by rememberSaveable(dex.prefill?.serial) { mutableStateOf(dex.prefill?.text.orEmpty()) }
 
     Column(modifier = Modifier.fillMaxWidth()) {
         Text(
@@ -141,3 +153,54 @@ private fun formatDexPrice(value: Double): String = when {
     else -> DisplayFormat.formatDoubleWithFourMax(value)
 }
 
+/** Treffer «DexScreener» der Coin-Suche: [name] der Börse, [match] der getippte DEX-Name und der übrige Suchtext. */
+class DexSearchHit(val name: String, val match: DexNames.Match)
+
+/** DexScreener-Treffer zum Suchtext, sofern DexScreener angeboten wird («Token & TradFi»); null = keiner. */
+internal fun dexSearchHit(query: String, selection: ExplorerSelection): DexSearchHit? {
+    val dex = selection.exchanges.firstOrNull { it.key == DEX_EXCHANGE_KEY } ?: return null
+    return DexNames.match(query)?.let { DexSearchHit(dex.name, it) }
+}
+
+/**
+ * «DexScreener – Pools von Uniswap über DexScreener» in der Coin-Suche («uniswap pepe»): Tippen öffnet die DEX-Suche,
+ * vorbelegt mit dem übrigen Suchtext. Eine Zeile für Bedienungshilfen (Name, Hinweis, «Suchen»).
+ */
+@Composable
+internal fun DexSearchHitRow(hit: DexSearchHit, onOpen: (String) -> Unit) {
+    val hint = hit.match.dexName?.let { stringResource(R.string.dex_search_hit, it) }
+        ?: stringResource(R.string.dex_search_hit_generic)
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(min = 56.dp)
+            .clip(MaterialTheme.shapes.medium)
+            .background(MaterialTheme.colorScheme.surfaceContainer)
+            .clickable(onClickLabel = stringResource(R.string.dex_search)) { onOpen(hit.match.token) }
+            .padding(start = Spacing.md, end = Spacing.sm, top = Spacing.sm, bottom = Spacing.sm)
+    ) {
+        // Platz wie die Coin-Plakette (36 dp), Symbol 24 dp; rein dekorativ
+        Icon(
+            painterResource(R.drawable.ic_swap_horiz),
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.padding(end = Spacing.md).size(36.dp).padding(6.dp)
+        )
+        Column(modifier = Modifier.weight(1f)) {
+            Text(text = hit.name, style = MaterialTheme.typography.titleSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            Text(
+                text = hint,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis
+            )
+        }
+        Icon(
+            painterResource(R.drawable.ic_chevron_right),
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+    }
+}

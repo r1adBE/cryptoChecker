@@ -134,6 +134,9 @@
     <string name="dex_added">%1$s curtha leis an liosta faire.</string>
     <string name="dex_already">Tá %1$s sa liosta faire cheana.</string>
     <string name="dex_intro">Comharthaí lasmuigh de na mórmhalartáin, ó mhalartáin dhíláraithe (Uniswap, PancakeSwap, Raydium …) trí DexScreener. Cuardaigh comhartha agus cuir ceann dá chomhthiomsuithe trádála leis – praghsanna i ndollair SAM.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">Comhthiomsuithe ó %1$s trí DexScreener</string>
+    <string name="dex_search_hit_generic">Comhthiomsuithe ó mhalartáin dhíláraithe trí DexScreener</string>
     <string name="dex_liquidity">Leachtacht %1$s</string>
     <string name="dex_no_results">Níor aimsíodh comhthiomsuithe.</string>
     <string name="dex_search">Cuardaigh</string>

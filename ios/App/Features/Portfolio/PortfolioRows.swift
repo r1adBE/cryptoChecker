@@ -130,6 +130,8 @@ struct PortfolioCoinRow: View {
     var unchecked = false
     /// Abfrage gescheitert, kein gemerkter Kurs: «Kurs gerade nicht abrufbar» (`PortfolioPrices.unavailable`).
     var unavailable = false
+    /// Kein Binance-Name und keine Quelle mit Kurs: kein Wert («—»), Hinweis «Kein Markt» (`PortfolioPrices.noMarket`).
+    var noMarket = false
     /// Einheit von Wert und Gewinn/Verlust (Anzeigewährung wie im Widget, ohne Devisenkurs USDT); Detail bleibt USDT.
     var unit = PortfolioCardUnit(currency: PortfolioFormat.usdt, fxRate: nil)
     /// Börse, deren Kurs gilt (`PortfolioPrices.sources`); nil = Binance (kein Name). Wie Android `exchange`.
@@ -179,14 +181,10 @@ struct PortfolioCoinRow: View {
     /// Transaktionen; Beträge verborgen: «Betrag verborgen», die Menge entfällt — wie `coinRowSpoken` (Android).
     var accessibilityText: String {
         // Hinweis zum Kurs in derselben Reihenfolge wie die Anzeige (nur einer)
-        var note: String?
-        if unchecked {
-            note = L("portfolio_price_unchecked")
-        } else if unavailable && position.value == nil {
-            note = L("portfolio_price_unavailable")
-        } else if let viaBase {
+        var note: String? = priceNote
+        if note == nil, let viaBase {
             note = L("portfolio_price_via_base", viaBase)
-        } else if let bridgedStable {
+        } else if note == nil, let bridgedStable {
             note = L("portfolio_amount_bridged_stable", bridgedStable)
         }
         // Ohne Wert steht der Hinweis an seiner Stelle (nicht «—» vorlesen)
@@ -303,6 +301,15 @@ struct PortfolioCoinRow: View {
         }
     }
 
+    /// Hinweis zum fehlenden bzw. ungeprüften Kurs: «Kurs ungeprüft», ohne Wert «Kein Markt» oder «Kurs gerade nicht
+    /// abrufbar»; nil = keiner. Reihenfolge wie Android (`CoinRow`, `coinRowSpoken`).
+    private var priceNote: String? {
+        if unchecked { return L("portfolio_price_unchecked") }
+        guard position.value == nil else { return nil }
+        if noMarket { return L("portfolio_price_no_market") }
+        return unavailable ? L("portfolio_price_unavailable") : nil
+    }
+
     /// Rechts: Wert, ± % seit Kauf und MEIN Gewinn/Verlust über die %-Basis.
     private var trailing: some View {
         VStack(alignment: .trailing, spacing: 4) {
@@ -313,14 +320,9 @@ struct PortfolioCoinRow: View {
                 .lineLimit(1)
                 .minimumScaleFactor(0.75)
                 .contentTransition(.numericText())
-            if unchecked {
-                Text(L("portfolio_price_unchecked"))
-                    .font(.caption)
-                    .foregroundStyle(AppColors.onSurfaceVariant)
-                    .lineLimit(1)
-            } else if unavailable && position.value == nil {
-                // Fehler statt «kein Kurs»: die Quelle antwortet gerade nicht — wie Android
-                Text(L("portfolio_price_unavailable"))
+            if let priceNote {
+                // «Kurs ungeprüft», «Kein Markt» oder Fehler statt «kein Kurs» (Quelle antwortet gerade nicht) — wie Android
+                Text(priceNote)
                     .font(.caption)
                     .foregroundStyle(AppColors.onSurfaceVariant)
                     .lineLimit(1)

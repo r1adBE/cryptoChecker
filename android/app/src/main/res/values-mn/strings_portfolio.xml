@@ -83,6 +83,7 @@
     <string name="portfolio_price_source_routes">Ханш: %1$s, эс бөгөөс Binance · USDT зах зээлийн ханшаар</string>
     <string name="portfolio_price_unavailable">Ханш одоогоор алга</string>
     <string name="portfolio_price_unchecked">Ханшийг шалгаагүй</string>
+    <string name="portfolio_price_no_market">Зах зээл байхгүй</string>
     <string name="portfolio_price_via_base">≈ %1$s ханш (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT-г USD-ийн зах зээлийн ханшаар хөрвүүлсэн</string>
     <string name="portfolio_usdt_assumed">USDT-ийн долларын ханш алга – 1 ам.доллар гэж тооцсон</string>

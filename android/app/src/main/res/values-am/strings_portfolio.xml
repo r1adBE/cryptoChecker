@@ -83,6 +83,7 @@
     <string name="portfolio_price_source_routes">ዋጋዎች፦ %1$s፣ አለበለዚያ Binance · USDT በገበያ ዋጋ</string>
     <string name="portfolio_price_unavailable">ዋጋው አሁን አይገኝም</string>
     <string name="portfolio_price_unchecked">ዋጋው አልተረጋገጠም</string>
+    <string name="portfolio_price_no_market">ገበያ የለም</string>
     <string name="portfolio_price_via_base">≈ የ%1$s ዋጋ (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT በUSD የገበያ ዋጋው ተለውጧል</string>
     <string name="portfolio_usdt_assumed">የUSDT የዶላር ተመን ጎድሏል – እንደ 1 የአሜሪካ ዶላር ተቆጥሯል</string>

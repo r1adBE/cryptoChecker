@@ -83,6 +83,7 @@
     <string name="portfolio_price_source_routes">මිල: %1$s, නැතහොත් Binance · USDT වෙළඳපොළ මිලට</string>
     <string name="portfolio_price_unavailable">මිල දැන් ලබා ගත නොහැක</string>
     <string name="portfolio_price_unchecked">මිල පරීක්ෂා නොකළ</string>
+    <string name="portfolio_price_no_market">වෙළඳපොළක් නැත</string>
     <string name="portfolio_price_via_base">≈ %1$s මිල (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT එහි USD වෙළඳපොළ මිලට පරිවර්තනය කර ඇත</string>
     <string name="portfolio_usdt_assumed">USDT ඩොලර් අනුපාතය නැත – එක්සත් ජනපද ඩොලර් 1 ලෙස ගණනය කළා</string>

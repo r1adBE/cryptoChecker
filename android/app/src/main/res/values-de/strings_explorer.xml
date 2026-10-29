@@ -107,6 +107,9 @@
     <string name="dex_added">%1$s zur Merkliste hinzugefügt.</string>
     <string name="dex_already">%1$s ist schon in der Merkliste.</string>
     <string name="dex_intro">Token ausserhalb der grossen Börsen, von dezentralen Börsen (Uniswap, PancakeSwap, Raydium …) über DexScreener. Token suchen und einen seiner Handelspools hinzufügen – Kurse in US-Dollar.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">Pools von %1$s über DexScreener</string>
+    <string name="dex_search_hit_generic">Pools von dezentralen Börsen über DexScreener</string>
     <string name="dex_liquidity">Liquidität %1$s</string>
     <string name="dex_no_results">Keine Pools gefunden.</string>
     <string name="dex_search">Suchen</string>

@@ -80,6 +80,7 @@
     <string name="portfolio_price_source_routes">価格：%1$s、それ以外は Binance · USDT は市場価格</string>
     <string name="portfolio_price_unavailable">現在価格を取得できません</string>
     <string name="portfolio_price_unchecked">価格未確認</string>
+    <string name="portfolio_price_no_market">市場なし</string>
     <string name="portfolio_price_via_base">≈ %1$s の価格（ブリッジ/ラップ）</string>
     <string name="portfolio_usdt_as_usd">USDT は USD 建て市場価格で換算</string>
     <string name="portfolio_usdt_assumed">USDT のドル相場がありません – 1 米ドルとして計算</string>

@@ -105,7 +105,7 @@ extension ExplorerScreen {
         let pairs = vm.showPairHits ? vm.pairHits : []
         let busy = vm.searchLists.reading || vm.searchLists.progress != nil
         return VStack(alignment: .leading, spacing: 8) {
-            if vm.coinHits.isEmpty && pairs.isEmpty && !busy {
+            if vm.coinHits.isEmpty && pairs.isEmpty && vm.dexSearchHit == nil && !busy {
                 VStack(spacing: Spacing.sm) {
                     HStack(spacing: Spacing.sm) {
                         Image(systemName: "magnifyingglass")
@@ -134,6 +134,10 @@ extension ExplorerScreen {
                         coinRow(coin)
                     }
                 }
+            }
+            // DEX-Pools gibt es nur über DexScreener: beim Namen einer DEX gleich den Weg dorthin zeigen (wie Android)
+            if let hit = vm.dexSearchHit {
+                dexSearchHitRow(name: hit.name, match: hit.match)
             }
             // Unter den Coins (nicht darüber): eine lange Karte schob die Treffer sonst unter die Tastatur — wie Android
             listsOffer

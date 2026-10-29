@@ -83,6 +83,7 @@
     <string name="portfolio_price_source_routes">വിലകൾ: %1$s, അല്ലെങ്കിൽ Binance · USDT മാർക്കറ്റ് വിലയിൽ</string>
     <string name="portfolio_price_unavailable">വില ഇപ്പോൾ ലഭ്യമല്ല</string>
     <string name="portfolio_price_unchecked">വില പരിശോധിച്ചിട്ടില്ല</string>
+    <string name="portfolio_price_no_market">വിപണിയില്ല</string>
     <string name="portfolio_price_via_base">≈ %1$s വില (ബ്രിഡ്ജ്ഡ്/റാപ്പ്ഡ്)</string>
     <string name="portfolio_usdt_as_usd">USDT അതിന്റെ USD മാർക്കറ്റ് വിലയിൽ പരിവർത്തനം ചെയ്തു</string>
     <string name="portfolio_usdt_assumed">USDT ഡോളർ നിരക്ക് ഇല്ല – 1 US ഡോളറായി കണക്കാക്കി</string>

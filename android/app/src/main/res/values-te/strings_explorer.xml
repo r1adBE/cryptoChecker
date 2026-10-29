@@ -107,6 +107,9 @@
     <string name="dex_added">%1$s వాచ్‌లిస్ట్‌కు జోడించబడింది.</string>
     <string name="dex_already">%1$s ఇప్పటికే వాచ్‌లిస్ట్‌లో ఉంది.</string>
     <string name="dex_intro">పెద్ద ఎక్స్ఛేంజ్‌ల వెలుపలి టోకెన్‌లు, వికేంద్రీకృత ఎక్స్ఛేంజ్‌ల (Uniswap, PancakeSwap, Raydium …) నుండి DexScreener ద్వారా. ఒక టోకెన్ కోసం వెతికి దాని ట్రేడింగ్ పూల్‌లలో ఒకదాన్ని జోడించండి – ధరలు అమెరికన్ డాలర్లలో.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">DexScreener ద్వారా %1$s పూల్‌లు</string>
+    <string name="dex_search_hit_generic">DexScreener ద్వారా వికేంద్రీకృత ఎక్స్ఛేంజ్‌ల పూల్‌లు</string>
     <string name="dex_liquidity">లిక్విడిటీ %1$s</string>
     <string name="dex_no_results">పూల్‌లు ఏవీ కనుగొనబడలేదు.</string>
     <string name="dex_search">వెతుకు</string>

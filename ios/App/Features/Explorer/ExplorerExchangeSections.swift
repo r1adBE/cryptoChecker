@@ -12,6 +12,14 @@ extension ExplorerViewModel {
         }
     }
 
+    /// DEX-Pools gibt es nur über DexScreener: Eintrag und Abschnitt der Auswahl nennen bekannte DEX
+    /// («Uniswap, PancakeSwap, …»). Wie `ExchangeStepCard` (Android).
+    var dexPickerSubtitles: [String: String] {
+        guard let dex = exchanges.first(where: { $0.key == Self.dexKey }) else { return [:] }
+        let subtitle = L("dex_picker_subtitle")
+        return [dex.name: subtitle, Self.sectionTitle(.dex): subtitle]
+    }
+
     /// Gewählte Quelle ist ein täglicher Referenzkurs (EZB): Hinweis unter der Börse.
     var isReferenceRate: Bool { exchange?.priceIsDailyReference == true }
 

@@ -89,6 +89,7 @@
     <string name="portfolio_price_source_routes">Kurzy: %1$s, inak Binance · USDT za trhovú cenu</string>
     <string name="portfolio_price_unavailable">Kurz momentálne nie je k dispozícii</string>
     <string name="portfolio_price_unchecked">Kurz neoverený</string>
+    <string name="portfolio_price_no_market">Bez trhu</string>
     <string name="portfolio_price_via_base">≈ kurz %1$s (premostené/zabalené)</string>
     <string name="portfolio_usdt_as_usd">USDT prepočítané podľa jeho trhovej ceny v USD</string>
     <string name="portfolio_usdt_assumed">Chýba dolárový kurz USDT – počítané ako 1 americký dolár</string>

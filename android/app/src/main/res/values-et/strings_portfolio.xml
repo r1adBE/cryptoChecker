@@ -83,6 +83,7 @@
     <string name="portfolio_price_source_routes">Hinnad: %1$s, muidu Binance · USDT turuhinnaga</string>
     <string name="portfolio_price_unavailable">Hind pole praegu saadaval</string>
     <string name="portfolio_price_unchecked">Hind kontrollimata</string>
+    <string name="portfolio_price_no_market">Turg puudub</string>
     <string name="portfolio_price_via_base">≈ %1$s hind (sillatud/mähitud)</string>
     <string name="portfolio_usdt_as_usd">USDT teisendatud selle USD turuhinnaga</string>
     <string name="portfolio_usdt_assumed">USDT dollarikurss puudub – arvestatud kui 1 USA dollar</string>

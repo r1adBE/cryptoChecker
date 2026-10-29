@@ -80,6 +80,7 @@
     <string name="portfolio_price_source_routes">ဈေးနှုန်းများ: %1$s၊ မဟုတ်လျှင် Binance · USDT ကို ဈေးကွက်ဈေးဖြင့်</string>
     <string name="portfolio_price_unavailable">ယခု ဈေးနှုန်း မရရှိနိုင်ပါ</string>
     <string name="portfolio_price_unchecked">ဈေးနှုန်း မစစ်ဆေးရသေး</string>
+    <string name="portfolio_price_no_market">စျေးကွက် မရှိ</string>
     <string name="portfolio_price_via_base">≈ %1$s ဈေးနှုန်း (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT ကို ၎င်း၏ USD ဈေးကွက်ဈေးဖြင့် ပြောင်းလဲထားသည်</string>
     <string name="portfolio_usdt_assumed">USDT ဒေါ်လာနှုန်း မရှိ – US ဒေါ်လာ 1 အဖြစ် တွက်သည်</string>

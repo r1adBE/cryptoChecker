@@ -107,6 +107,9 @@
     <string name="dex_added">%1$s lisätty seurantalistaan.</string>
     <string name="dex_already">%1$s on jo seurantalistalla.</string>
     <string name="dex_intro">Tokeneita suurten pörssien ulkopuolelta, hajautetuista pörsseistä (Uniswap, PancakeSwap, Raydium …) DexScreenerin kautta. Hae tokenia ja lisää yksi sen kaupankäyntipooleista – hinnat Yhdysvaltain dollareina.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">%1$s-poolit DexScreenerin kautta</string>
+    <string name="dex_search_hit_generic">Hajautettujen pörssien poolit DexScreenerin kautta</string>
     <string name="dex_liquidity">Likviditeetti %1$s</string>
     <string name="dex_no_results">Pooleja ei löytynyt.</string>
     <string name="dex_search">Hae</string>

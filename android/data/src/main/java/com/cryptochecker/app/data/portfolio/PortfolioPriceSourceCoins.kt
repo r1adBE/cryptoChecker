@@ -15,6 +15,9 @@ import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.COINB
 import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.COINS_TTL_MILLIS
 import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.KEY_COINS
 import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.KEY_COINS_AT
+import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.KEY_COINS_SOURCE
+import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.SOURCE_BINANCE
+import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.SOURCE_OTHER
 import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.isSymbol
 
 // Coin-Liste für die Suche (Teil von [PortfolioPriceSource]): Binance-Spot-Paare, sonst Paar-Zwischenspeicher der
@@ -35,12 +38,15 @@ suspend fun PortfolioPriceSource.coins(): List<String> = withContext(Dispatchers
             return@withLock stored
         }
 
-        val fresh = binanceCoins() ?: pairCacheCoins() ?: coinbaseCoins()
+        val binance = binanceCoins() ?: pairCacheCoins()
+        val fresh = binance ?: coinbaseCoins()
         if (!fresh.isNullOrEmpty()) {
             val list = (fresh + STABLE).distinct().sorted()
             prefs.edit {
                 putString(KEY_COINS, list.joinToString(","))
                 putLong(KEY_COINS_AT, System.currentTimeMillis())
+                // Herkunft für den Filter der Sammelabfrage ([binanceCoinList]): Coinbase führt z. B. kein IOTA
+                putString(KEY_COINS_SOURCE, if (binance != null) SOURCE_BINANCE else SOURCE_OTHER)
             }
             coinList = list
             list
@@ -49,6 +55,18 @@ suspend fun PortfolioPriceSource.coins(): List<String> = withContext(Dispatchers
             stored.also { if (it.isNotEmpty()) coinList = it }
         }
     }
+}
+
+/**
+ * Coin-Liste für den Filter der Binance-Sammelabfrage, ohne Netz: nur wenn sie von Binance stammt (exchangeInfo oder
+ * Paarliste «Binance», [KEY_COINS_SOURCE]) und höchstens [COINS_TTL_MILLIS] alt ist — aus dem Arbeitsspeicher, sonst
+ * aus dem gemerkten Stand. Sonst null: ungefiltert (unbekannte Symbole findet das Halbieren bei HTTP 400).
+ */
+fun PortfolioPriceSource.binanceCoinList(): Set<String>? {
+    if (prefs.getString(KEY_COINS_SOURCE, null) != SOURCE_BINANCE) return null
+    if (System.currentTimeMillis() - prefs.getLong(KEY_COINS_AT, 0L) !in 0 until COINS_TTL_MILLIS) return null
+    val list = coinList ?: prefs.getString(KEY_COINS, null)?.split(',')?.filter { it.isNotEmpty() }
+    return list?.toHashSet()?.takeIf { it.isNotEmpty() }
 }
 
 private suspend fun PortfolioPriceSource.binanceCoins(): List<String>? {

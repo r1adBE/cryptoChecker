@@ -98,6 +98,9 @@
     <string name="dex_added">เพิ่ม %1$s ไปยังรายการติดตามแล้ว</string>
     <string name="dex_already">%1$s อยู่ในรายการติดตามแล้ว</string>
     <string name="dex_intro">โทเค็นนอกกระดานเทรดรายใหญ่ จากกระดานเทรดแบบกระจายศูนย์ (Uniswap, PancakeSwap, Raydium …) ผ่าน DexScreener ค้นหาโทเค็นแล้วเพิ่มพูลซื้อขายหนึ่งของโทเค็นนั้น – ราคาเป็นดอลลาร์สหรัฐ</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">พูลจาก %1$s ผ่าน DexScreener</string>
+    <string name="dex_search_hit_generic">พูลจากกระดานเทรดแบบกระจายศูนย์ ผ่าน DexScreener</string>
     <string name="dex_liquidity">สภาพคล่อง %1$s</string>
     <string name="dex_no_results">ไม่พบพูล</string>
     <string name="dex_search">ค้นหา</string>

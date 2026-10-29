@@ -107,6 +107,9 @@
     <string name="dex_added">%1$s lisati jälgimisloendisse.</string>
     <string name="dex_already">%1$s on juba jälgimisloendis.</string>
     <string name="dex_intro">Tokenid väljaspool suuri börse, detsentraliseeritud börsidelt (Uniswap, PancakeSwap, Raydium …) DexScreeneri kaudu. Otsi tokenit ja lisa üks selle kauplemisbasseinidest – hinnad USA dollarites.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">Basseinid (%1$s) DexScreeneri kaudu</string>
+    <string name="dex_search_hit_generic">Detsentraliseeritud börside basseinid DexScreeneri kaudu</string>
     <string name="dex_liquidity">Likviidsus %1$s</string>
     <string name="dex_no_results">Basseine ei leitud.</string>
     <string name="dex_search">Otsi</string>

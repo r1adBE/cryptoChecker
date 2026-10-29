@@ -46,6 +46,12 @@ data class PortfolioPrices(
      * wie einen alten Kurs ([com.cryptochecker.app.domain.portfolio.PortfolioSnapshot.unverifiedCoins]).
      */
     val unverified: Set<String> = emptySet(),
+    /**
+     * Coins OHNE Kurs, die Binance mangels prüfbarem Namen ausliess ([com.cryptochecker.app.domain.portfolio.PortfolioPriceIdentity.BinanceCheck.UNCHECKED])
+     * und für die auch sonst keine Quelle einen Kurs führt ([PortfolioPriceIssue.NO_PRICE], nicht gescheitert): Die
+     * Zeile nennt sie «Kein Markt» statt «Kurs ungeprüft». Wie [unchecked] ohne Kurs: zählen nirgends als Geld.
+     */
+    val noMarket: Set<String> = emptySet(),
 )
 
 /** Warum ein Coin keinen Kurs hat: [NO_PRICE] = keine Quelle führt ihn; [UNAVAILABLE] = Abfrage gerade gescheitert. */
@@ -60,5 +66,18 @@ enum class PortfolioPriceIssue {
          */
         fun of(failed: Boolean, allSourcesBlocked: Boolean, networkFailed: Boolean): PortfolioPriceIssue =
             if (failed || allSourcesBlocked || networkFailed) UNAVAILABLE else NO_PRICE
+
+        /**
+         * Coins, die Binance ohne prüfbaren Namen ausliess ([skipped]), ohne die verworfenen Kerzenkurse ([rejected]):
+         * keine Quelle mit Kurs ([noPrice], [NO_PRICE]) → [NameUnchecked.noMarket] («Kein Markt»), sonst
+         * [NameUnchecked.unchecked] («Kurs ungeprüft»; auch wenn die Abfrage scheiterte). Wie iOS.
+         */
+        fun nameUnchecked(skipped: Set<String>, rejected: Set<String>, noPrice: Set<String>): NameUnchecked {
+            val open = skipped - rejected
+            return NameUnchecked(unchecked = open - noPrice, noMarket = open intersect noPrice)
+        }
     }
+
+    /** Ergebnis von [nameUnchecked]. */
+    data class NameUnchecked(val unchecked: Set<String>, val noMarket: Set<String>)
 }

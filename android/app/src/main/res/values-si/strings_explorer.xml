@@ -107,6 +107,9 @@
     <string name="dex_added">%1$s නිරීක්ෂණ ලැයිස්තුවට එක් කළා.</string>
     <string name="dex_already">%1$s දැනටමත් නිරීක්ෂණ ලැයිස්තුවේ ඇත.</string>
     <string name="dex_intro">විශාල හුවමාරුවලින් පිටත ටෝකන, විමධ්‍යගත හුවමාරු (Uniswap, PancakeSwap, Raydium …) වෙතින් DexScreener හරහා. ටෝකනයක් සොයා එහි වෙළඳ සංචිතයක් එක් කරන්න – මිල ගණන් එක්සත් ජනපද ඩොලර්වලින්.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">DexScreener හරහා %1$s සංචිත</string>
+    <string name="dex_search_hit_generic">DexScreener හරහා විමධ්‍යගත හුවමාරු සංචිත</string>
     <string name="dex_liquidity">ද්‍රවශීලතාව %1$s</string>
     <string name="dex_no_results">සංචිත හමු නොවීය.</string>
     <string name="dex_search">සොයන්න</string>

@@ -87,6 +87,7 @@
     <string name="portfolio_price_source_routes">Cene: %1$s, inače Binance · USDT po tržišnoj ceni</string>
     <string name="portfolio_price_unavailable">Cena trenutno nije dostupna</string>
     <string name="portfolio_price_unchecked">Cena nije proverena</string>
+    <string name="portfolio_price_no_market">Nema tržišta</string>
     <string name="portfolio_price_via_base">≈ cena %1$s (premošteno/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT preračunat po svojoj tržišnoj ceni u USD</string>
     <string name="portfolio_usdt_assumed">Nedostaje dolarski kurs USDT-a – računa se kao 1 američki dolar</string>

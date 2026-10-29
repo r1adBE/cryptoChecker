@@ -77,6 +77,7 @@ internal fun ExplorerViewModel.resetForNewExchange() {
     price.value = null
     dex.pools.value = emptyList()
     dex.notice.value = null
+    dex.prefill.value = null
     bulk.statsJob?.cancel()
     bulk.statsFor = null
     bulk.stats.value = emptyMap()

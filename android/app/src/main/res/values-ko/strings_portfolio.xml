@@ -80,6 +80,7 @@
     <string name="portfolio_price_source_routes">시세: %1$s, 그 외 Binance · USDT는 시장가</string>
     <string name="portfolio_price_unavailable">지금은 가격을 가져올 수 없습니다</string>
     <string name="portfolio_price_unchecked">가격 미확인</string>
+    <string name="portfolio_price_no_market">시장 없음</string>
     <string name="portfolio_price_via_base">≈ %1$s 가격(브리지/래핑)</string>
     <string name="portfolio_usdt_as_usd">USDT는 USD 시장가로 환산</string>
     <string name="portfolio_usdt_assumed">USDT 달러 시세 없음 – 1 미국 달러로 계산</string>

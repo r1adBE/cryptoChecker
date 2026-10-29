@@ -116,6 +116,9 @@
     <string name="dex_added">%1$s pievienots vērojamo sarakstam.</string>
     <string name="dex_already">%1$s jau ir vērojamo sarakstā.</string>
     <string name="dex_intro">Žetoni ārpus lielajām biržām, no decentralizētām biržām (Uniswap, PancakeSwap, Raydium …) caur DexScreener. Meklē žetonu un pievieno kādu no tā tirdzniecības pūliem – cenas ASV dolāros.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">%1$s pūli caur DexScreener</string>
+    <string name="dex_search_hit_generic">Decentralizēto biržu pūli caur DexScreener</string>
     <string name="dex_liquidity">Likviditāte %1$s</string>
     <string name="dex_no_results">Pūli nav atrasti.</string>
     <string name="dex_search">Meklēt</string>

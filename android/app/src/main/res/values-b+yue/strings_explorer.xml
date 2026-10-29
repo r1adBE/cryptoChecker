@@ -98,6 +98,9 @@
     <string name="dex_added">已將 %1$s 加入自選清單。</string>
     <string name="dex_already">%1$s 已經喺自選清單。</string>
     <string name="dex_intro">大型交易所以外嘅代幣，來自去中心化交易所（Uniswap、PancakeSwap、Raydium …），經 DexScreener 提供。搜尋代幣，再加入佢其中一個交易池 – 價格以美元計。</string>
+    <string name="dex_picker_subtitle">Uniswap、PancakeSwap、Raydium、Aerodrome …</string>
+    <string name="dex_search_hit">經 DexScreener 嘅 %1$s 交易池</string>
+    <string name="dex_search_hit_generic">經 DexScreener 嘅去中心化交易所交易池</string>
     <string name="dex_liquidity">流動性 %1$s</string>
     <string name="dex_no_results">搵唔到交易池。</string>
     <string name="dex_search">搜尋</string>

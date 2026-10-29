@@ -63,6 +63,8 @@ class SearchUi(
     /** Taste «Suchen»: Begriff für «Zuletzt gesucht» merken. */
     val onConfirm: () -> Unit = {},
     val onClearRecent: () -> Unit = {},
+    /** Suchtext nennt eine DEX («uniswap pepe»): Treffer DexScreener ([DexSearchHitRow]); null = keiner. */
+    val dexHit: DexSearchHit? = null,
 ) {
     fun isWatched(hit: SearchHit): Boolean = watchKey(
         hit.exchange.key, hit.pair.base, hit.pair.quote, hit.pair.contractType.name
@@ -151,6 +153,8 @@ internal fun SearchResults(
     modifier: Modifier = Modifier,
     /** Kein Treffer: Suche leeren und «Erweitert / nach Börse» aufklappen (Börse und Paar selbst wählen). */
     onChooseManually: (() -> Unit)? = null,
+    /** Treffer DexScreener angetippt: DEX-Suche öffnen, vorbelegt mit dem übrigen Suchtext. */
+    onOpenDex: (String) -> Unit = {},
 ) {
     val pairs = if (search.showPairs) search.pairs else emptyList()
     Column(
@@ -158,7 +162,7 @@ internal fun SearchResults(
         verticalArrangement = Arrangement.spacedBy(Spacing.xs)
     ) {
         val busy = search.lists.reading || search.lists.progress != null
-        if (search.coins.isEmpty() && pairs.isEmpty() && !busy) {
+        if (search.coins.isEmpty() && pairs.isEmpty() && search.dexHit == null && !busy) {
             Text(
                 text = stringResource(R.string.explorer_search_empty),
                 style = MaterialTheme.typography.bodyMedium,
@@ -176,6 +180,8 @@ internal fun SearchResults(
             SectionLabel(stringResource(R.string.explorer_coins_title))
             search.coins.forEach { coin -> CoinRow(coin, onClick = { search.onPickCoin(coin) }) }
         }
+        // DEX-Pools gibt es nur über DexScreener: beim Namen einer DEX gleich den Weg dorthin zeigen
+        search.dexHit?.let { hit -> DexSearchHitRow(hit, onOpenDex) }
         // Unter den Coins (nicht darüber): eine lange Karte schob die Treffer sonst unter die Tastatur
         ListsOffer(search.lists, search.onLoadLists)
         if (pairs.isNotEmpty()) {

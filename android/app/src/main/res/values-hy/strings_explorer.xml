@@ -107,6 +107,9 @@
     <string name="dex_added">%1$s-ը ավելացվեց դիտացանկում։</string>
     <string name="dex_already">%1$s-ը արդեն դիտացանկում է։</string>
     <string name="dex_intro">Մեծ բորսաներից դուրս տոկեններ՝ ապակենտրոնացված բորսաներից (Uniswap, PancakeSwap, Raydium …) DexScreener-ի միջոցով։ Որոնիր տոկեն և ավելացրու դրա առևտրային պուլերից մեկը – գները ԱՄՆ դոլարով։</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">%1$s-ի պուլեր DexScreener-ի միջոցով</string>
+    <string name="dex_search_hit_generic">Ապակենտրոնացված բորսաների պուլեր DexScreener-ի միջոցով</string>
     <string name="dex_liquidity">Իրացվելիություն՝ %1$s</string>
     <string name="dex_no_results">Պուլեր չեն գտնվել։</string>
     <string name="dex_search">Որոնել</string>

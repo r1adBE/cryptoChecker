@@ -83,6 +83,7 @@
     <string name="portfolio_price_source_routes">ਕੀਮਤਾਂ: %1$s, ਨਹੀਂ ਤਾਂ Binance · USDT ਬਾਜ਼ਾਰੀ ਕੀਮਤ ’ਤੇ</string>
     <string name="portfolio_price_unavailable">ਕੀਮਤ ਹੁਣੇ ਉਪਲਬਧ ਨਹੀਂ</string>
     <string name="portfolio_price_unchecked">ਕੀਮਤ ਅਣ-ਜਾਂਚੀ</string>
+    <string name="portfolio_price_no_market">ਕੋਈ ਬਾਜ਼ਾਰ ਨਹੀਂ</string>
     <string name="portfolio_price_via_base">≈ %1$s ਦੀ ਕੀਮਤ (ਬ੍ਰਿਜਡ/ਰੈਪਡ)</string>
     <string name="portfolio_usdt_as_usd">USDT ਉਸਦੀ USD ਬਾਜ਼ਾਰੀ ਕੀਮਤ ’ਤੇ ਬਦਲਿਆ</string>
     <string name="portfolio_usdt_assumed">USDT ਦੀ ਡਾਲਰ ਦਰ ਗੁੰਮ – 1 ਅਮਰੀਕੀ ਡਾਲਰ ਗਿਣਿਆ ਗਿਆ</string>

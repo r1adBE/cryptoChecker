@@ -73,6 +73,7 @@ fun ExplorerScreen(
     val dexResults by vm.dexResults.collectAsStateWithLifecycle()
     val dexSearching by vm.dexSearching.collectAsStateWithLifecycle()
     val dexMessage by vm.dexMessage.collectAsStateWithLifecycle()
+    val dexPrefill by vm.dexPrefill.collectAsStateWithLifecycle()
     val showHttpLog by vm.showHttpLog.collectAsStateWithLifecycle()
 
     when (val state = pageState) {
@@ -80,6 +81,7 @@ fun ExplorerScreen(
 
         is ExplorerLoad.Ready -> ExplorerPage(
             selection = state.selection,
+            onOpenDex = vm::openDexSearch,
             sections = sections,
             httpLogText = vm.httpLogText,
             showHttpLog = showHttpLog,
@@ -121,6 +123,7 @@ fun ExplorerScreen(
                 recent = recentSearches,
                 onConfirm = vm::confirmSearch,
                 onClearRecent = vm::clearRecentSearches,
+                dexHit = dexSearchHit(searchQuery, state.selection),
             ),
             favorites = FavoritesUi(
                 exchanges = favoriteExchanges,
@@ -135,6 +138,7 @@ fun ExplorerScreen(
                 onSearch = vm::searchDex,
                 onAdd = vm::addDexPool,
                 onMessageShown = vm::clearDexMessage,
+                prefill = dexPrefill,
             ),
             groupTarget = GroupTargetUi(
                 target = targetGroup,
@@ -208,6 +212,7 @@ private fun ExplorerTopBar(onBack: () -> Unit) {
 @Composable
 private fun ExplorerPage(
     selection: ExplorerSelection,
+    onOpenDex: (String) -> Unit,
     sections: ExplorerSectionsState,
     httpLogText: StateFlow<String>,
     showHttpLog: Boolean,
@@ -288,6 +293,9 @@ private fun ExplorerPage(
                 search.query.isNotBlank() -> SearchResults(search, groupTarget, onChooseManually = {
                     search.onQueryChange("")
                     sections.precise = true
+                }, onOpenDex = { token ->
+                    sections.precise = true
+                    onOpenDex(token)
                 })
                 else -> BrowseContent(
                     sections = sections,

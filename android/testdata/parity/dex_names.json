@@ -1,0 +1,242 @@
+{
+  "_comment": "DEX-Namen in der Coin-Suche von «Paar hinzufügen»: Die ersten ein oder zwei Wörter des Suchtexts (ohne Gross-/Kleinschreibung, ohne Leerzeichen zusammengesetzt, mindestens minPrefix Zeichen) sind der Anfang eines Namens → Treffer «DexScreener». dex = kanonischer Name (null = allgemeiner Hinweis), token = übriger Suchtext für die DEX-Suche. Zwei Wörter gehen vor einem. Android: DexNamesParityTest.kt (DexNames.match), iOS: DexNamesParityTests (DexNames.match).",
+  "minPrefix": 3,
+  "named": [
+    "Uniswap",
+    "PancakeSwap",
+    "Raydium",
+    "Aerodrome",
+    "SushiSwap",
+    "Orca",
+    "Meteora",
+    "Curve",
+    "Balancer",
+    "Trader Joe",
+    "Jupiter"
+  ],
+  "generic": [
+    "GeckoTerminal",
+    "DexScreener",
+    "DEX"
+  ],
+  "cases": [
+    {
+      "query": "uniswap",
+      "match": true,
+      "dex": "Uniswap",
+      "token": ""
+    },
+    {
+      "query": "Uniswap",
+      "match": true,
+      "dex": "Uniswap",
+      "token": ""
+    },
+    {
+      "query": "UNI",
+      "match": true,
+      "dex": "Uniswap",
+      "token": ""
+    },
+    {
+      "query": "un",
+      "match": false
+    },
+    {
+      "query": "uniswap pepe",
+      "match": true,
+      "dex": "Uniswap",
+      "token": "pepe"
+    },
+    {
+      "query": "  Uniswap   PEPE  ",
+      "match": true,
+      "dex": "Uniswap",
+      "token": "PEPE"
+    },
+    {
+      "query": "uni swap",
+      "match": true,
+      "dex": "Uniswap",
+      "token": ""
+    },
+    {
+      "query": "pancakeswap",
+      "match": true,
+      "dex": "PancakeSwap",
+      "token": ""
+    },
+    {
+      "query": "pancake swap cake",
+      "match": true,
+      "dex": "PancakeSwap",
+      "token": "cake"
+    },
+    {
+      "query": "pan",
+      "match": true,
+      "dex": "PancakeSwap",
+      "token": ""
+    },
+    {
+      "query": "raydium bonk",
+      "match": true,
+      "dex": "Raydium",
+      "token": "bonk"
+    },
+    {
+      "query": "aerodrome",
+      "match": true,
+      "dex": "Aerodrome",
+      "token": ""
+    },
+    {
+      "query": "sushi",
+      "match": true,
+      "dex": "SushiSwap",
+      "token": ""
+    },
+    {
+      "query": "orca",
+      "match": true,
+      "dex": "Orca",
+      "token": ""
+    },
+    {
+      "query": "METEORA",
+      "match": true,
+      "dex": "Meteora",
+      "token": ""
+    },
+    {
+      "query": "curve dao",
+      "match": true,
+      "dex": "Curve",
+      "token": "dao"
+    },
+    {
+      "query": "balancer",
+      "match": true,
+      "dex": "Balancer",
+      "token": ""
+    },
+    {
+      "query": "trader joe",
+      "match": true,
+      "dex": "Trader Joe",
+      "token": ""
+    },
+    {
+      "query": "traderjoe avax",
+      "match": true,
+      "dex": "Trader Joe",
+      "token": "avax"
+    },
+    {
+      "query": "trader joe avax",
+      "match": true,
+      "dex": "Trader Joe",
+      "token": "avax"
+    },
+    {
+      "query": "jupiter",
+      "match": true,
+      "dex": "Jupiter",
+      "token": ""
+    },
+    {
+      "query": "jup wif",
+      "match": true,
+      "dex": "Jupiter",
+      "token": "wif"
+    },
+    {
+      "query": "geckoterminal",
+      "match": true,
+      "dex": null,
+      "token": ""
+    },
+    {
+      "query": "gecko",
+      "match": true,
+      "dex": null,
+      "token": ""
+    },
+    {
+      "query": "dex",
+      "match": true,
+      "dex": null,
+      "token": ""
+    },
+    {
+      "query": "DEX",
+      "match": true,
+      "dex": null,
+      "token": ""
+    },
+    {
+      "query": "Dex pepe",
+      "match": true,
+      "dex": null,
+      "token": "pepe"
+    },
+    {
+      "query": "dexscreener",
+      "match": true,
+      "dex": null,
+      "token": ""
+    },
+    {
+      "query": "dex screener",
+      "match": true,
+      "dex": null,
+      "token": ""
+    },
+    {
+      "query": "uniswap　pepe",
+      "match": true,
+      "dex": "Uniswap",
+      "token": "pepe"
+    },
+    {
+      "query": "uniswap pepe",
+      "match": true,
+      "dex": "Uniswap",
+      "token": "pepe"
+    },
+    {
+      "query": "uniswapx",
+      "match": false
+    },
+    {
+      "query": "btc",
+      "match": false
+    },
+    {
+      "query": "bitcoin",
+      "match": false
+    },
+    {
+      "query": "eth usdt",
+      "match": false
+    },
+    {
+      "query": "de x",
+      "match": true,
+      "dex": null,
+      "token": ""
+    },
+    {
+      "query": "",
+      "match": false
+    },
+    {
+      "query": "   ",
+      "match": false
+    },
+    {
+      "query": "pepe uniswap",
+      "match": false
+    }
+  ]
+}

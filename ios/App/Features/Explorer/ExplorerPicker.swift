@@ -82,6 +82,8 @@ struct ExplorerPickerSheet: View {
     /// Abschnitte (Börse: Spot · Futures · DEX-Pools · Forex): Favoriten oben ohne Titel, dann je Abschnitt eine
     /// Titelzeile und seine Einträge; die Suche läuft über alle. nil = eine flache Liste.
     var sections: [(title: String, items: [String])]? = nil
+    /// Kleine zweite Zeile je Eintrag oder Abschnittstitel (Text → Unterzeile; DexScreener: «Uniswap, …»).
+    var subtitles: [String: String] = [:]
     @ObservedObject var data: AppData
     let onSelect: (String) -> Void
 
@@ -186,10 +188,20 @@ struct ExplorerPickerSheet: View {
                                 .id(entry)
                         }
                     } header: {
-                        Text(section.title)
-                            .font(.footnote.weight(.semibold))
-                            .foregroundStyle(AppColors.onSurfaceVariant)
-                            .accessibilityAddTraits(.isHeader)
+                        // Titel und Unterzeile liest VoiceOver als eine Überschrift
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(section.title)
+                                .font(.footnote.weight(.semibold))
+                                .foregroundStyle(AppColors.onSurfaceVariant)
+                            if let subtitle = subtitles[section.title] {
+                                Text(subtitle)
+                                    .font(.caption)
+                                    .foregroundStyle(AppColors.onSurfaceVariant)
+                                    .textCase(nil)
+                            }
+                        }
+                        .accessibilityElement(children: .combine)
+                        .accessibilityAddTraits(.isHeader)
                     }
                 }
             } else {
@@ -222,10 +234,19 @@ struct ExplorerPickerSheet: View {
         let starred = favorites.contains(entry)
         HStack(spacing: 12) {
             if badges { CoinBadge(symbol: entry, size: 30) }
-            Text(entry)
-                .font(.body.weight(chosen ? .semibold : .regular))
-                .foregroundStyle(chosen ? accent.primary : AppColors.onSurface)
-                .frame(maxWidth: .infinity, alignment: .leading)
+            // Name und Unterzeile als ein Element für VoiceOver
+            VStack(alignment: .leading, spacing: 2) {
+                Text(entry)
+                    .font(.body.weight(chosen ? .semibold : .regular))
+                    .foregroundStyle(chosen ? accent.primary : AppColors.onSurface)
+                if let subtitle = subtitles[entry] {
+                    Text(subtitle)
+                        .font(.caption)
+                        .foregroundStyle(AppColors.onSurfaceVariant)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .accessibilityElement(children: .combine)
             if chosen {
                 Image(systemName: "checkmark")
                     .font(.footnote.weight(.bold))

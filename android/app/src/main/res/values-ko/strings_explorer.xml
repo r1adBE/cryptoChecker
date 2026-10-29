@@ -98,6 +98,9 @@
     <string name="dex_added">%1$s을(를) 관심 목록에 추가했습니다.</string>
     <string name="dex_already">%1$s은(는) 이미 관심 목록에 있습니다.</string>
     <string name="dex_intro">대형 거래소 밖의 토큰을 탈중앙화 거래소(Uniswap, PancakeSwap, Raydium …)에서 DexScreener를 통해 가져옵니다. 토큰을 검색하고 해당 거래 풀 중 하나를 추가하세요 – 가격은 미국 달러로 표시됩니다.</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">DexScreener를 통한 %1$s 풀</string>
+    <string name="dex_search_hit_generic">DexScreener를 통한 탈중앙화 거래소 풀</string>
     <string name="dex_liquidity">유동성 %1$s</string>
     <string name="dex_no_results">풀을 찾을 수 없습니다.</string>
     <string name="dex_search">검색</string>

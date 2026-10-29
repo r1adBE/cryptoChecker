@@ -44,49 +44,63 @@ extension PortfolioPriceSource {
                                              usdtUsd: DepegAlarmCheck.liveUsdtUsd() ?? 1) { _ in rate }
     }
 
-    /// Sammelabfrage; Binance lehnt die ganze Anfrage ab, wenn ein Symbol unbekannt ist. `failed`: eine Abfrage scheiterte
-    /// am Netz bzw. die Quelle ist gesperrt (für `PortfolioPriceIssue`).
-    static func binanceBatch(_ coins: [String]) async -> (prices: [String: Double], failed: Bool) {
-        if BlockedSources.isBlocked(binanceHost) { return ([:], true) }
-        var failed = false
-        // Bekannte Coins zuerst — unbekannte gehen direkt über die Kerzen-Kette.
-        let known = knownCoins().map { Set($0) }
-        let candidates: [String]
-        if let known, !known.isEmpty {
-            candidates = coins.filter { known.contains($0) }
-        } else {
-            candidates = coins
+    /// Sammelabfrage beim Binance-Spiegel (`BinanceBatchSplit`): gefiltert nur auf eine Coin-Liste von Binance
+    /// (`binanceCoinList`, ohne Netz), sonst ungefiltert — unbekannte Symbole findet das Halbieren bei HTTP 400, ohne die
+    /// übrigen Coins um ihren Kurs zu bringen (auch bei der ersten Aktualisierung). `failed`: eine Abfrage scheiterte
+    /// am Netz bzw. die Quelle ist gesperrt (für `PortfolioPriceIssue`). Wie `PortfolioPriceSourceBatch.kt` (Android).
+    static func binanceBatch(_ coins: [String]) async -> BinanceBatchSplit.Outcome {
+        await binanceBatch(coins, known: binanceCoinList()) { await tickerReply($0) }
+    }
+
+    /// Wie `binanceBatch(_:)` mit Coin-Liste `known` (nil = ungefiltert) und eingesetzter Abfrage (für die Tests). Einzeln
+    /// mit 400 abgelehnte Coins (`Outcome.unlisted`) fragt die Sammelabfrage `unlistedRetryMillis` lang nicht wieder an.
+    static func binanceBatch(_ coins: [String], known: Set<String>?, now: Int64 = EpochTime.nowMillis,
+                             request: ([String]) async -> BinanceBatchSplit.Reply) async -> BinanceBatchSplit.Outcome {
+        if BlockedSources.isBlocked(binanceHost) { return BinanceBatchSplit.Outcome(failed: true) }
+        let skip: Set<String> = state.withLock { s in
+            Set(s.binanceUnlisted.filter { now - $0.value >= 0 && now - $0.value < unlistedRetryMillis }.keys)
         }
+        let candidates = coins.filter { (known?.contains($0) ?? true) && !skip.contains($0) }
+        let outcome = await BinanceBatchSplit.fetch(candidates, request: request)
+        state.withLock { s in for coin in outcome.unlisted { s.binanceUnlisted[coin] = now } }
+        return outcome
+    }
+
+    /// Eine Abfrage `ticker/price?symbols=[…]`: 400 = ein Symbol unbekannt (sperrt die Quelle nicht); andere Fehler =
+    /// gescheitert (451/403/429 vermerkt `BlockedSources`).
+    private static func tickerReply(_ part: [String]) async -> BinanceBatchSplit.Reply {
+        // Während des Halbierens gesperrt oder pausiert (403/451/429): nicht weiter anfragen
+        if BlockedSources.isBlocked(binanceHost) { return .failed }
+        var bySymbol: [String: String] = [:]
+        for coin in part { bySymbol[coin + stable] = coin }
+        let symbols = "[" + part.map { "\"\($0)\(stable)\"" }.joined(separator: ",") + "]"
+        guard let encoded = symbols.addingPercentEncoding(withAllowedCharacters: .alphanumerics) else { return .prices([:]) }
+        let url = "https://\(binanceHost)/api/v3/ticker/price?symbols=\(encoded)"
+        let body: String
+        do {
+            body = try await ExchangeHTTP.call(url, session: ExchangeHTTP.session)
+        } catch let http as HttpExchangeError where http.httpCode == 400 {
+            return .rejected
+        } catch {
+            BlockedSources.noteFailure(binanceHost, error)
+            return .failed
+        }
+        guard let data = body.data(using: .utf8),
+              let array = (try? JSONSerialization.jsonObject(with: data)) as? [Any]
+        else { return .prices([:]) }
         var result: [String: Double] = [:]
-        var start = 0
-        while start < candidates.count {
-            let chunk = Array(candidates[start..<min(start + maxSymbols, candidates.count)])
-            start += maxSymbols
-            var bySymbol: [String: String] = [:]
-            for coin in chunk { bySymbol[coin + stable] = coin }
-            let symbols = "[" + chunk.map { "\"\($0)\(stable)\"" }.joined(separator: ",") + "]"
-            guard let encoded = symbols.addingPercentEncoding(withAllowedCharacters: .alphanumerics) else { continue }
-            let url = "https://\(binanceHost)/api/v3/ticker/price?symbols=\(encoded)"
-            guard let body = await get(url, host: binanceHost, session: ExchangeHTTP.session) else {
-                failed = true
-                continue
-            }
-            guard let data = body.data(using: .utf8),
-                  let array = (try? JSONSerialization.jsonObject(with: data)) as? [Any]
+        for item in array {
+            guard let o = item as? [String: Any],
+                  let symbol = o["symbol"] as? String,
+                  let coin = bySymbol[symbol]
             else { continue }
-            for item in array {
-                guard let o = item as? [String: Any],
-                      let symbol = o["symbol"] as? String,
-                      let coin = bySymbol[symbol]
-                else { continue }
-                let price: Double?
-                if let s = o["price"] as? String { price = Double(s) }
-                else if let n = o["price"] as? NSNumber { price = n.doubleValue }
-                else { price = nil }
-                if let price, price > 0, price.isFinite { result[coin] = price }
-            }
+            let price: Double?
+            if let s = o["price"] as? String { price = Double(s) }
+            else if let n = o["price"] as? NSNumber { price = n.doubleValue }
+            else { price = nil }
+            if let price, price > 0, price.isFinite { result[coin] = price }
         }
-        return (result, failed)
+        return .prices(result)
     }
 
     static func candlePrice(_ coin: String, identityName: String?) async -> Double? {

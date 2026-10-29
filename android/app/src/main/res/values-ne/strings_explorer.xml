@@ -107,6 +107,9 @@
     <string name="dex_added">%1$s वाचलिस्टमा थपियो।</string>
     <string name="dex_already">%1$s पहिले नै वाचलिस्टमा छ।</string>
     <string name="dex_intro">ठूला एक्सचेन्जबाहिरका टोकनहरू, विकेन्द्रीकृत एक्सचेन्जहरू (Uniswap, PancakeSwap, Raydium …) बाट DexScreener मार्फत। टोकन खोजेर त्यसको कुनै ट्रेडिङ पूल थप्नुहोस् – मूल्य अमेरिकी डलरमा।</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">DexScreener मार्फत %1$s का पूलहरू</string>
+    <string name="dex_search_hit_generic">DexScreener मार्फत विकेन्द्रीकृत एक्सचेन्जहरूका पूलहरू</string>
     <string name="dex_liquidity">तरलता %1$s</string>
     <string name="dex_no_results">कुनै पूल भेटिएन।</string>
     <string name="dex_search">खोज्नुहोस्</string>

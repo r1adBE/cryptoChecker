@@ -5,6 +5,7 @@ package com.cryptochecker.app.ui.components
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,7 +14,6 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
@@ -82,6 +82,7 @@ private const val MAX_VISIBLE_ROWS = 10
  * @param emptyText blasser Text im Feld, solange nichts gewählt ist.
  * @param sections Abschnittstitel je Eintrag (gleiche Länge wie [itemList]: Börsenauswahl Spot · Futures ·
  *   DEX-Pools · Forex); die Liste zeigt dann Titelzeilen, die Suche geht über alle Abschnitte.
+ * @param subtitles kleine zweite Zeile je Eintrag oder Abschnittstitel (Text → Unterzeile; DexScreener: «Uniswap, …»).
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -97,6 +98,7 @@ fun DropdownField(
     enabled: Boolean = true,
     emptyText: String? = null,
     sections: List<String>? = null,
+    subtitles: Map<String, String> = emptyMap(),
 ) {
     val focusManager = LocalFocusManager.current
     var open by remember { mutableStateOf(false) }
@@ -191,6 +193,7 @@ fun DropdownField(
                     state = listState,
                     selectedIndex = selectedIndex,
                     favorites = favorites,
+                    subtitles = subtitles,
                     onChoose = ::choose,
                     onToggleFavorite = onToggleFavorite,
                 )
@@ -216,6 +219,7 @@ private fun ComboList(
     state: LazyListState,
     selectedIndex: Int,
     favorites: Set<String>,
+    subtitles: Map<String, String>,
     onChoose: (Int) -> Unit,
     onToggleFavorite: ((String) -> Unit)?,
 ) {
@@ -236,13 +240,14 @@ private fun ComboList(
     ) {
         items(entries) { entry ->
             if (entry.header) {
-                ComboHeader(entry.text, rowHeight)
+                ComboHeader(entry.text, subtitles[entry.text], rowHeight)
                 return@items
             }
             ComboRow(
                 entry = entry,
                 selected = entry.index == selectedIndex,
                 favorite = entry.text in favorites,
+                subtitle = subtitles[entry.text],
                 rowHeight = rowHeight,
                 onChoose = onChoose,
                 onToggleFavorite = onToggleFavorite,
@@ -251,21 +256,38 @@ private fun ComboList(
     }
 }
 
-/** Titelzeile eines Abschnitts: nicht wählbar, für Bedienungshilfen eine Überschrift. */
+/** Titelzeile eines Abschnitts: nicht wählbar, für Bedienungshilfen eine Überschrift (mit Unterzeile als eine). */
 @Composable
-private fun ComboHeader(title: String, rowHeight: Dp) {
-    Text(
-        text = title,
-        style = MaterialTheme.typography.titleSmall,
-        color = MaterialTheme.colorScheme.primary,
-        maxLines = 1,
-        overflow = TextOverflow.Ellipsis,
+private fun ComboHeader(title: String, subtitle: String?, rowHeight: Dp) {
+    Column(
+        verticalArrangement = Arrangement.Center,
         modifier = Modifier
             .fillMaxWidth()
             .heightIn(min = rowHeight)
-            .wrapContentHeight(Alignment.CenterVertically)
             .padding(horizontal = 12.dp)
-            .semantics { heading() },
+            .semantics(mergeDescendants = true) { heading() },
+    ) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleSmall,
+            color = MaterialTheme.colorScheme.primary,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
+        if (subtitle != null) ComboSubtitle(subtitle)
+    }
+}
+
+/** Kleine zweite Zeile unter Eintrag oder Abschnittstitel; liest der Screenreader mit der ersten. */
+@Composable
+private fun ComboSubtitle(text: String) {
+    Text(
+        text = text,
+        style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        maxLines = 2,
+        overflow = TextOverflow.Ellipsis,
+        modifier = Modifier.padding(bottom = Spacing.xs),
     )
 }
 
@@ -285,6 +307,7 @@ private fun ComboRow(
     entry: ComboEntry,
     selected: Boolean,
     favorite: Boolean,
+    subtitle: String?,
     rowHeight: Dp,
     onChoose: (Int) -> Unit,
     onToggleFavorite: ((String) -> Unit)?,
@@ -319,14 +342,16 @@ private fun ComboRow(
         .padding(start = 12.dp, end = 4.dp)
 
     Row(verticalAlignment = Alignment.CenterVertically, modifier = rowModifier) {
-        Text(
-            text = entry.text,
-            style = MaterialTheme.typography.bodyLarge,
-            // Eine Zeile mit «…»: die Listenhöhe rechnet mit genau einer Textzeile je Eintrag
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.weight(1f),
-        )
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = entry.text,
+                style = MaterialTheme.typography.bodyLarge,
+                // Eine Zeile mit «…»: die Listenhöhe rechnet mit einer Textzeile je Eintrag (Unterzeile: Zeile wächst)
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+            )
+            if (subtitle != null) ComboSubtitle(subtitle)
+        }
         when {
             // Stern direkt in der Zeile; langes Drücken bleibt
             onToggleFavorite != null -> IconButton(

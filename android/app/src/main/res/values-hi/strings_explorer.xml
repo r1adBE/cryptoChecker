@@ -107,6 +107,9 @@
     <string name="dex_added">%1$s वॉचलिस्ट में जोड़ा गया।</string>
     <string name="dex_already">%1$s पहले से वॉचलिस्ट में है।</string>
     <string name="dex_intro">बड़े एक्सचेंजों से बाहर के टोकन, विकेंद्रीकृत एक्सचेंजों (Uniswap, PancakeSwap, Raydium …) से DexScreener के ज़रिए। टोकन खोजें और उसके ट्रेडिंग पूलों में से एक जोड़ें – कीमतें अमेरिकी डॉलर में।</string>
+    <string name="dex_picker_subtitle">Uniswap, PancakeSwap, Raydium, Aerodrome …</string>
+    <string name="dex_search_hit">DexScreener के ज़रिए %1$s के पूल</string>
+    <string name="dex_search_hit_generic">DexScreener के ज़रिए विकेंद्रीकृत एक्सचेंजों के पूल</string>
     <string name="dex_liquidity">लिक्विडिटी %1$s</string>
     <string name="dex_no_results">कोई पूल नहीं मिला।</string>
     <string name="dex_search">खोजें</string>
