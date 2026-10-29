@@ -160,9 +160,12 @@ final class ExchangeContractTests: XCTestCase {
             let after = S.millis(expiry["after"])
             if NotTraded.contractExpired(pairId: info.pairId, now: before) { return "contractExpiry: expired at \(before)" }
             if !NotTraded.contractExpired(pairId: info.pairId, now: after) { return "contractExpiry: not expired at \(after)" }
+            // Wie die App (`ExchangeService.explained`): Lesefehler mit Meldung der Börse → UserFriendlyExchangeError
+            let bourseText: String? = try? exchange.readError(call: requestId, body: body, info: info)
+            let explained: Error = bourseText.map { UserFriendlyExchangeError(message: $0) } ?? failure
             let confirms = NotTraded.singleConfirms(bulkTried: false, singleReadsFullList: false, contractExpired: true)
-                && NotTraded.confirmedBySingle(gotPrice: false, error: ConnectionErrors.describe(failure),
-                                               failure: ExchangeFailure.of(failure))
+                && NotTraded.confirmedBySingle(gotPrice: false, error: ConnectionErrors.describe(explained),
+                                               failure: ExchangeFailure.of(explained))
             if !confirms { return "contractExpiry: '\(failure)' does not confirm 'no longer traded'" }
         }
         let message: String?
