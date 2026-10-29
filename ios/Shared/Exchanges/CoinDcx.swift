@@ -8,23 +8,19 @@ private let coinDcxTicker = coinDcxAPI + "/ticker"
 /// CoinDCX (Indien, INR- und USDT-Paare), öffentliche API: https://docs.coindcx.com — Kennung = `coindcx_name`
 /// («BTCINR»), im Ticker `exchange`. Vorsicht: In der Paarliste ist `base_currency_short_name` die Gegenwährung
 /// (INR/USDT) und `target_currency_short_name` der gehandelte Coin.
-final class CoinDcx: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() {
-        super.init(
-            key: "CoinDcx",
-            name: "CoinDCX",
-            pairListURL: coinDcxAPI + "/v1/markets_details",
-            tickerURL: coinDcxTicker,
-            ttsName: "Coin D C X",
-            errorField: "message"
-        )
-    }
+struct CoinDcx: SimpleExchange {
+    let key: String = "CoinDcx"
+    let name: String = "CoinDCX"
+    let pairListURL: String = coinDcxAPI + "/v1/markets_details"
+    let tickerURL: String = coinDcxTicker
+    let ttsName: String = "Coin D C X"
+    let errorField: String? = "message"
 
     // MARK: Einzelkurs: aus der Gesamtliste das eigene Paar
 
-    override func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.base + info.quote }
+    func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.base + info.quote }
 
-    override func fillTicker(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {
         let id = pairId(info)
         guard let row = try JArray(string: body).allObjects().first(where: { $0.optString("market") == id }) else {
             throw JSONError(message: JSONError.noData)
@@ -34,15 +30,15 @@ final class CoinDcx: SimpleExchange, @unchecked Sendable { // @unchecked: wie `E
 
     // MARK: Sammelabfrage
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
     /// Der ungefilterte Ticker führt jeden aktiven Markt (Aufzeichnung 19.10.2026: 991 von 991 aktiven Paaren
     /// der Paarliste), ein fehlendes Paar ist nicht mehr gelistet.
-    override var bulkTickersComplete: Bool { true }
+    var bulkTickersComplete: Bool { true }
 
-    override func bulkTickersURL(call: Int) -> String? { coinDcxTicker }
+    func bulkTickersURL(call: Int) -> String? { coinDcxTicker }
 
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         for row in try JArray(string: body).allObjects() {
             bulkRowIfActive(row.optString("market"), row: row, priceField: "last_price", tickers: &tickers,
@@ -54,7 +50,7 @@ final class CoinDcx: SimpleExchange, @unchecked Sendable { // @unchecked: wie `E
     // MARK: Paarliste
 
     /// Nur aktive Märkte; dieselbe Kennung zählt einmal (die Liste führt Märkte mehrerer Orderbücher).
-    override func fillPairList(call: Int, body: String) throws -> [ExchangePair] {
+    func fillPairList(call: Int, body: String) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         var seen: Set<String> = []
         for entry in try JArray(string: body).allObjects() where entry.optString("status") == "active" {

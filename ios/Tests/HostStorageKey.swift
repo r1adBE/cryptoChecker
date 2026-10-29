@@ -20,13 +20,11 @@ enum HostStorageKey {
         func read() throws -> Data? { stored.current }
 
         func add(_ key: Data) throws -> Bool {
-            var added = false
-            stored.write { value in
-                guard value == nil else { return }
+            stored.modify { value in
+                guard value == nil else { return false }
                 value = key
-                added = true
+                return true
             }
-            return added
         }
 
         func delete() throws { stored.current = nil }

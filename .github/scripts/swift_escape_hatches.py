@@ -4,8 +4,9 @@ Usage: python3 -I swift_escape_hatches.py [repository root, default: current dir
        python3 -I swift_escape_hatches.py --self-test   (checks the scanner and the annotation escaping)
 
 The app builds in the Swift 6 language mode with strict concurrency «complete»; the compiler does not check
-`@unchecked Sendable`, `nonisolated(unsafe)` and `DispatchSemaphore` (blocking a thread while waiting for
-async work). Each kind is counted in ios/App, ios/Shared, ios/Widgets and the watch folders (tests in ios/Tests are not counted);
+`@unchecked Sendable`, `nonisolated(unsafe)`, `DispatchSemaphore` (blocking a thread while waiting for
+async work) and `OSAllocatedUnfairLock(uncheckedState:)` (a non-`Sendable` object inside a lock: it never leaves
+`withLock`, but its own thread safety is trusted, not proven). Each kind is counted in ios/App, ios/Shared, ios/Widgets and the watch folders (tests in ios/Tests are not counted);
 only code counts — mentions in comments and string literals do not. A kind above its ceiling in CEILINGS is
 an error annotation and exit 1: a new escape hatch needs a deliberate raise of the ceiling in this file (in the
 same pull request, with the reason). A kind below its ceiling is a notice: lower the ceiling so it cannot grow
@@ -19,15 +20,19 @@ IOS_AREAS = ("App", "Shared", "Widgets", "WatchCore", "Watch", "WatchWidgets")
 
 # Allowed number per kind (count in code, without comments). Raise only deliberately; lower when the code shrinks.
 CEILINGS = {
-    "@unchecked Sendable": 76,  # 67 adapters (Exchange hierarchy) and 9 types listed in DEVELOPMENT.md «Known warnings»
+    "@unchecked Sendable": 0,
     "nonisolated(unsafe)": 0,
     "DispatchSemaphore": 0,
+    # NumberFormatterCache, IsoDates, DateFormatterCache, AlarmDelivery, MoveHistoryCore, BackgroundTaskCompletion,
+    # NotificationCompletion (DEVELOPMENT.md «Known warnings»)
+    "uncheckedState": 7,
 }
 
 PATTERNS = {
     "@unchecked Sendable": re.compile(r"@unchecked\s+Sendable\b"),
     "nonisolated(unsafe)": re.compile(r"\bnonisolated\s*\(\s*unsafe\s*\)"),
     "DispatchSemaphore": re.compile(r"\bDispatchSemaphore\b"),
+    "uncheckedState": re.compile(r"\buncheckedState\s*:"),
 }
 
 TITLE = "Swift escape hatches"
@@ -150,9 +155,14 @@ def self_test():
         '    nonisolated ( unsafe ) static let y = 1',
         '}',
         'final class B: Base, @unchecked  Sendable {}',
+        'let l = OSAllocatedUnfairLock(uncheckedState: State()) // uncheckedState: in a comment does not count',
+        'let m2 = OSAllocatedUnfairLock<Int?>(uncheckedState : nil); let t = "uncheckedState: in a string"',
     ])
     counts = count_in(sample)
-    assert counts == {"@unchecked Sendable": 2, "nonisolated(unsafe)": 2, "DispatchSemaphore": 1}, counts
+    assert counts == {"@unchecked Sendable": 2, "nonisolated(unsafe)": 2, "DispatchSemaphore": 1,
+                      "uncheckedState": 2}, counts
+    assert count_in("x.withLockUnchecked { }")["uncheckedState"] == 0
+    assert count_in("let uncheckedStateCount = 1")["uncheckedState"] == 0
     assert code_only("a\n/* x\ny */b").count("\n") == 2
     assert count_in("let a = 1 // DispatchSemaphore")["DispatchSemaphore"] == 0
     assert count_in("x = DispatchSemaphoreLike()")["DispatchSemaphore"] == 0
@@ -163,12 +173,14 @@ def self_test():
     assert line == expected, line
     assert "\n" not in line and "\r" not in line
 
-    ceilings = {"@unchecked Sendable": 2, "nonisolated(unsafe)": 2, "DispatchSemaphore": 0}
+    ceilings = {"@unchecked Sendable": 2, "nonisolated(unsafe)": 2, "DispatchSemaphore": 0, "uncheckedState": 2}
     lines, code = evaluate(counts, {"a.swift": counts}, ceilings)
     assert code == 1 and any(x.startswith("::error ") and "DispatchSemaphore: 1" in x for x in lines), lines
     lines, code = evaluate({"@unchecked Sendable": 2, "nonisolated(unsafe)": 1}, {}, ceilings)
     assert code == 0 and any(x.startswith("::notice ") and "to 1" in x for x in lines), lines
     assert not any(x.startswith("::error ") for x in lines), lines
+    lines, code = evaluate({"uncheckedState": 8}, {"a.swift": {"uncheckedState": 8}}, {"uncheckedState": 7})
+    assert code == 1 and any("uncheckedState: 8" in x for x in lines), lines
     print("swift_escape_hatches self-test ok")
     return 0
 

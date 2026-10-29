@@ -10,34 +10,34 @@ private let phemexMD = "https://api.phemex.com/md"
 /// Menge (volumeEv, Basis) und Umsatz (turnoverEv, Kotierung) durch 10^`valueScale` der jeweiligen Währung aus
 /// `/public/products` (meist 8; SHIB 2, VPAD 4). Doku: github.com/phemex/phemex-api-docs.
 /// `PhemexFutures` bekommt Dezimaltexte (Rp) und braucht keine Faktoren.
-final class Phemex: PhemexBase, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() {
-        super.init(key: "Phemex", name: "Phemex", tickerURL: phemexMD + "/spot/ticker/24hr?symbol=%1$s",
-                   contractType: .none)
-    }
+struct Phemex: PhemexBase {
+    let key: String = "Phemex"
+    let name: String = "Phemex"
+    let tickerURL: String = phemexMD + "/spot/ticker/24hr?symbol=%1$s"
+    let contractType: FuturesContractType = .none
 
     // MARK: Einzelkurs
 
-    override func pairId(_ info: PairQuery) -> String? { info.pairId ?? "s" + info.base + info.quote }
+    func pairId(_ info: PairQuery) -> String? { info.pairId ?? "s" + info.base + info.quote }
 
     /// Fehlen die Faktoren, ist Anfrage 0 die Produktliste (diesmal ohne Kurs, ab der nächsten Abfrage mit — sonst
     /// hinge ein Paar ohne Sammelabfrage für immer im Fehler). Veraltete Faktoren (`PhemexScales.isStale`) frischt
     /// eine zweite Anfrage nach dem Kurs auf.
-    override func tickerCallCount(_ info: PairQuery) -> Int { Phemex.callsFor(PhemexScales.current) }
+    func tickerCallCount(_ info: PairQuery) -> Int { Phemex.callsFor(PhemexScales.current) }
 
-    override func tickerAddress(call: Int, info: PairQuery) -> String {
+    func tickerAddress(call: Int, info: PairQuery) -> String {
         let products: Bool
         switch call {
         case 0: products = !PhemexScales.current.loaded
         case 1: products = true
         default: products = false
         }
-        return products ? phemexProducts : super.tickerAddress(call: call, info: info)
+        return products ? phemexProducts : simpleTickerAddress(info)
     }
 
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         guard let productData = Phemex.productDataOf(json) else {
-            try super.fillTicker(call: call, json: json, ticker: &ticker, info: info)
+            try phemexFillTicker(json, ticker: &ticker, info: info)
             return
         }
         // Antwort war die Produktliste: Faktoren übernehmen (und ablegen); als Anfrage 0 gibt es noch keinen Kurs
@@ -49,30 +49,30 @@ final class Phemex: PhemexBase, @unchecked Sendable { // @unchecked: wie `Exchan
 
     /// Ohne Faktoren (auch keine gespeicherten): erst `/public/products`, dann die Kurse. Veraltete Faktoren: die
     /// Produktliste als zweite Anfrage nach den Kursen (scheitert sie, gelten die alten weiter — Gruppe 1).
-    override var bulkTickersNumOfRequests: Int { Phemex.callsFor(PhemexScales.current) }
+    var bulkTickersNumOfRequests: Int { Phemex.callsFor(PhemexScales.current) }
 
-    override func bulkTickersURL(call: Int) -> String? {
+    func bulkTickersURL(call: Int) -> String? {
         Phemex.isProductsCall(call) ? phemexProducts : phemexMD + "/spot/ticker/24hr/all"
     }
 
     /// Die Auffrischung (Anfrage 1) ist eine eigene Gruppe: Scheitert sie, bleiben die Kurse vollständig.
-    override func bulkTickersRequestGroup(call: Int) -> Int {
+    func bulkTickersRequestGroup(call: Int) -> Int {
         call == 1 && Phemex.isProductsCall(1) ? 1 : 0
     }
 
     /// Spot ohne Faktoren: Diese Antwort ist die Produktliste — Faktoren übernehmen, keine Kurse.
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         if let productData = Phemex.productDataOf(try JObject(string: body)) {
             PhemexScales.current = PhemexScales.parse(productData)
             return [:]
         }
-        return try super.parseBulkTickers(call: call, body: body, failed: &failed)
+        return try phemexParseBulkTickers(body, failed: &failed)
     }
 
     // MARK: Lesen
 
-    override func copyRow(_ row: JObject, into ticker: inout Ticker, symbol: String, base: String?,
-                          quote: String?) throws {
+    func copyRow(_ row: JObject, into ticker: inout Ticker, symbol: String, base: String?,
+                 quote: String?) throws {
         // Ohne Faktoren aus der Produktliste (oder ihrer Kopie) kein Kurs: geraten läge er Zehnerpotenzen daneben
         let scales = PhemexScales.current
         guard scales.loaded else { throw JSONError(message: PhemexScales.notLoaded) }
@@ -116,27 +116,27 @@ final class Phemex: PhemexBase, @unchecked Sendable { // @unchecked: wie `Exchan
 }
 
 /// Phemex USDT-Perpetuals: Dezimaltexte (Rp/Rq/Rv), ohne Geld-/Briefkurs.
-final class PhemexFutures: PhemexBase, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
+struct PhemexFutures: PhemexBase {
     /// Abschnitt «Futures» der Börsenauswahl (`ExchangeCategory`). Android gleich.
-    override var category: ExchangeCategory { .futures }
+    var category: ExchangeCategory { .futures }
 
-    init() {
-        super.init(key: "PhemexFutures", name: "Phemex Futures", tickerURL: phemexMD + "/v2/ticker/24hr?symbol=%1$s",
-                   contractType: .perpetual)
-    }
+    let key: String = "PhemexFutures"
+    let name: String = "Phemex Futures"
+    let tickerURL: String = phemexMD + "/v2/ticker/24hr?symbol=%1$s"
+    let contractType: FuturesContractType = .perpetual
 
     // MARK: Einzelkurs
 
-    override func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.base + info.quote }
+    func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.base + info.quote }
 
     // MARK: Sammelabfrage
 
-    override func bulkTickersURL(call: Int) -> String? { phemexMD + "/v2/ticker/24hr/all" }
+    func bulkTickersURL(call: Int) -> String? { phemexMD + "/v2/ticker/24hr/all" }
 
     // MARK: Lesen
 
-    override func copyRow(_ row: JObject, into ticker: inout Ticker, symbol: String, base: String?,
-                          quote: String?) throws {
+    func copyRow(_ row: JObject, into ticker: inout Ticker, symbol: String, base: String?,
+                 quote: String?) throws {
         let close = try row.double("closeRp")
         ticker.last = close
         ticker.high = row.optDoubleOrMissing("highRp")
@@ -149,31 +149,34 @@ final class PhemexFutures: PhemexBase, @unchecked Sendable { // @unchecked: wie 
 }
 
 /// Gemeinsames von Spot und Perpetuals: Paarliste aus `/public/products`, Fehlerformat, Sammelabfrage.
-class PhemexBase: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    private let contractType: FuturesContractType
+protocol PhemexBase: SimpleExchange {
+    var contractType: FuturesContractType { get }
 
-    init(key: String, name: String, tickerURL: String, contractType: FuturesContractType) {
-        self.contractType = contractType
-        super.init(key: key, name: name, pairListURL: phemexProducts, tickerURL: tickerURL, ttsName: "Phemex")
-    }
+    /// Liest einen Ticker; `symbol` = Paar-Kennung, `base`/`quote` wenn bekannt (Einzelabfrage). Jede der beiden
+    /// Börsen liefert das (in Kotlin abstrakt).
+    func copyRow(_ row: JObject, into ticker: inout Ticker, symbol: String, base: String?, quote: String?) throws
+}
+
+extension PhemexBase {
+    var pairListURL: String { phemexProducts }
+    var ttsName: String { "Phemex" }
 
     private var isSpot: Bool { contractType == .none }
 
-    /// Liest einen Ticker; `symbol` = Paar-Kennung, `base`/`quote` wenn bekannt (Einzelabfrage). Jede Unterklasse
-    /// muss das liefern (in Kotlin abstrakt).
-    func copyRow(_ row: JObject, into ticker: inout Ticker, symbol: String, base: String?, quote: String?) throws {
-        fatalError("\(key): copyRow fehlt")
-    }
-
     // MARK: Einzelkurs
 
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+        try phemexFillTicker(json, ticker: &ticker, info: info)
+    }
+
+    /// Gemeinsames Lesen des Einzelkurses (`result`); Spot nimmt es, wenn die Antwort keine Produktliste ist.
+    func phemexFillTicker(_ json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         let symbol = pairId(info) ?? ""
         try copyRow(json.object("result"), into: &ticker, symbol: symbol, base: info.base, quote: info.quote)
     }
 
     /// Fehlerformen: {"error":{…}} oder {"code":…,"msg":"…"}.
-    override func errorMessage(call: Int, json: JObject, info: PairQuery) throws -> String? {
+    func errorMessage(call: Int, json: JObject, info: PairQuery) throws -> String? {
         if let nested = json.optObject("error") {
             let message = nested.optString("message")
             return message.isEmpty ? "\(nested.raw)" : message
@@ -185,13 +188,17 @@ class PhemexBase: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exch
 
     // MARK: Sammelabfrage
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
+
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+        try phemexParseBulkTickers(body, failed: &failed)
+    }
 
     /// Eine Fehlerantwort statt Liste scheitert mit dem Text der Börse, statt still leer zu bleiben (wie Android).
-    /// Einträge, die keine Objekte sind, werden übergangen.
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    /// Einträge, die keine Objekte sind, werden übergangen. Spot nimmt es, wenn die Antwort keine Produktliste ist.
+    func phemexParseBulkTickers(_ body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         let root = try JObject(string: body)
-        guard let rows = root.optArray("result") else { throw JSONError(message: PhemexBase.bulkFailureText(root)) }
+        guard let rows = root.optArray("result") else { throw JSONError(message: Self.bulkFailureText(root)) }
         let priceField = isSpot ? "lastEp" : "closeRp"
         var tickers: [String: Ticker] = [:]
         for row in rows.optObjects() {
@@ -205,7 +212,7 @@ class PhemexBase: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exch
 
     // MARK: Paarliste
 
-    override func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
+    func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
         let data = try json.object("data")
         return try isSpot ? collectSpot(data) : collectPerpetuals(data)
     }

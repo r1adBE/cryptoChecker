@@ -16,36 +16,32 @@ private let btcMarketsSafeCharacters = Set("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghij
 
 /// BTC Markets (Australien, AUD-Paare), API v3: https://api.btcmarkets.net/doc/v3. Kennung = `marketId` («BTC-AUD»).
 /// Die Sammelabfrage verlangt die Märkte als Auswahl; eine ungefilterte Form ist nicht belegt.
-final class BtcMarkets: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() {
-        super.init(
-            key: "BtcMarkets",
-            name: "BTC Markets",
-            pairListURL: btcMarketsAPI + "/markets",
-            tickerURL: btcMarketsAPI + "/markets/%1$s/ticker",
-            ttsName: "B T C Markets",
-            errorField: "message"
-        )
-    }
+struct BtcMarkets: SimpleExchange {
+    let key: String = "BtcMarkets"
+    let name: String = "BTC Markets"
+    let pairListURL: String = btcMarketsAPI + "/markets"
+    let tickerURL: String = btcMarketsAPI + "/markets/%1$s/ticker"
+    let ttsName: String = "B T C Markets"
+    let errorField: String? = "message"
 
     // MARK: Einzelkurs
 
-    override func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.base + "-" + info.quote }
+    func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.base + "-" + info.quote }
 
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         try copyRow(json, into: &ticker)
     }
 
     // MARK: Sammelabfrage: nur gefiltert, alle beobachteten Märkte in einer Anfrage
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
     /// Ob die Börse unbekannte Märkte ablehnt oder still weglässt, ist unbelegt: Fehlende prüft die Einzelabfrage.
-    override var bulkTickersComplete: Bool { false }
+    var bulkTickersComplete: Bool { false }
 
     /// Sortiert und ohne Doppelte; Kennungen, die kodiert werden müssten, bleiben draussen (Einzelabfrage). Ohne
     /// Kennung keine Sammelabfrage.
-    override func bulkTickersURL(call: Int, pairIds: [String]) -> String? {
+    func bulkTickersURL(call: Int, pairIds: [String]) -> String? {
         guard call == 0 else { return nil }
         let safe = pairIds.filter { id in !id.isEmpty && id.allSatisfy { btcMarketsSafeCharacters.contains($0) } }
         let ids = Set(safe).sorted()
@@ -54,9 +50,9 @@ final class BtcMarkets: SimpleExchange, @unchecked Sendable { // @unchecked: wie
     }
 
     /// Lehnt die Börse die Auswahl wegen eines unbekannten Markts ab: Paarliste holen und ohne ihn neu fragen.
-    override func bulkKnownPairsURL(call: Int) -> String? { pairListAddress(call: call) }
+    func bulkKnownPairsURL(call: Int) -> String? { pairListAddress(call: call) }
 
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         for row in try JArray(string: body).allObjects() {
             bulkRowIfActive(row.optString("marketId"), row: row, priceField: "lastPrice", tickers: &tickers,
@@ -68,7 +64,7 @@ final class BtcMarkets: SimpleExchange, @unchecked Sendable { // @unchecked: wie
     // MARK: Paarliste
 
     /// Nur «Online»; ohne `status` (ältere Antworten) bleibt der Markt.
-    override func fillPairList(call: Int, body: String) throws -> [ExchangePair] {
+    func fillPairList(call: Int, body: String) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         for market in try JArray(string: body).allObjects() {
             let status = market.optString("status")

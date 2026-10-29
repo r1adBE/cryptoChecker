@@ -113,7 +113,7 @@ final class MissingEntryNotTradedTests: XCTestCase {
         let info = PairQuery("FOO", "USDC", "FOO", .perpetual)
         // Gültige Antwort (Liste): kein Fehlertext, damit «Unknown coin» bleibt
         XCTAssertThrowsError(try Hyperliquid().readError(call: 0, body: " [{\"universe\":[]},[]]", info: info)) { error in
-            XCTAssertEqual((error as? JSONError)?.message, Exchange.noErrorTextMessage)
+            XCTAssertEqual((error as? JSONError)?.message, ExchangeConstants.noErrorTextMessage)
         }
         // Fehler als blosser Text: dessen Anfang
         XCTAssertEqual(try Hyperliquid().readError(call: 0, body: "Failed to deserialize", info: info),

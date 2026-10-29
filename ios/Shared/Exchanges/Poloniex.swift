@@ -3,23 +3,19 @@ import Foundation
 private let poloniexMarkets = "https://api.poloniex.com/markets"
 
 /// Poloniex Spot (API v3, api-docs.poloniex.com/spot).
-final class Poloniex: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() {
-        super.init(
-            key: "Poloniex",
-            name: "Poloniex",
-            pairListURL: poloniexMarkets,
-            tickerURL: poloniexMarkets + "/%1$s/ticker24h",
-            errorField: "message"
-        )
-    }
+struct Poloniex: SimpleExchange {
+    let key: String = "Poloniex"
+    let name: String = "Poloniex"
+    let pairListURL: String = poloniexMarkets
+    let tickerURL: String = poloniexMarkets + "/%1$s/ticker24h"
+    let errorField: String? = "message"
 
     // MARK: Einzelkurs
 
-    override func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.base + "_" + info.quote }
+    func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.base + "_" + info.quote }
 
     /// Normal ein Objekt; kommt doch eine Liste, zählt ihr erster Eintrag.
-    override func fillTicker(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {
         let text = body.trimmingCharacters(in: .whitespacesAndNewlines)
         let row = try text.hasPrefix("[") ? JArray(string: text).object(0) : JObject(string: text)
         try copyRow(row, into: &ticker)
@@ -27,13 +23,13 @@ final class Poloniex: SimpleExchange, @unchecked Sendable { // @unchecked: wie `
 
     // MARK: Sammelabfrage
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
-    override var bulkTickersComplete: Bool { true }
+    var bulkTickersComplete: Bool { true }
 
-    override func bulkTickersURL(call: Int) -> String? { poloniexMarkets + "/ticker24h" }
+    func bulkTickersURL(call: Int) -> String? { poloniexMarkets + "/ticker24h" }
 
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         for row in try JArray(string: body).allObjects() {
             bulkRowIfActive(row.optString("symbol"), row: row, priceField: "close", tickers: &tickers,
@@ -44,7 +40,7 @@ final class Poloniex: SimpleExchange, @unchecked Sendable { // @unchecked: wie `
 
     // MARK: Paarliste
 
-    override func fillPairList(call: Int, body: String) throws -> [ExchangePair] {
+    func fillPairList(call: Int, body: String) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         for market in try JArray(string: body).allObjects() where market.optString("state") == "NORMAL" {
             out.append(ExchangePair(

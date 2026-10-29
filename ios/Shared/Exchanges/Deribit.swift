@@ -8,21 +8,22 @@ private let deribitSettleCurrencies = ["BTC", "ETH", "USDC"]
 /// Deribit, nur Perpetuals: BTC-/ETH-PERPETUAL (gegen USD, in Coins abgerechnet = invers) und die linearen
 /// USDC-Perpetuals (z. B. SOL_USDC-PERPETUAL). Eine Paarliste je Abrechnungswährung, darum kein `SimpleExchange`.
 /// API v2: https://docs.deribit.com
-final class Deribit: Exchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
+struct Deribit: Exchange {
     /// Abschnitt «Futures» der Börsenauswahl (`ExchangeCategory`). Android gleich.
-    override var category: ExchangeCategory { .futures }
+    var category: ExchangeCategory { .futures }
 
-    init() { super.init(key: "Deribit", name: "Deribit") }
+    let key: String = "Deribit"
+    let name: String = "Deribit"
 
     // MARK: Einzelkurs
 
-    override func tickerAddress(call: Int, info: PairQuery) -> String {
+    func tickerAddress(call: Int, info: PairQuery) -> String {
         let instrument = info.pairId ?? info.base + "-PERPETUAL"
         return deribitAPI + "/public/ticker?instrument_name=" + instrument
     }
 
     /// `timestamp` ist der Schnappschuss (≈ Abruf), kein Handel: Zeit der Börse unbekannt.
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         let result = try json.object("result")
         ticker.last = try result.double("last_price")
         ticker.bid = result.optDoubleOrMissing("best_bid_price")
@@ -36,22 +37,22 @@ final class Deribit: Exchange, @unchecked Sendable { // @unchecked: wie `Exchang
         ticker.change24hPercent = Change24h.percent(stats.optDouble("price_change"))
     }
 
-    override func errorMessage(call: Int, json: JObject, info: PairQuery) throws -> String? {
+    func errorMessage(call: Int, json: JObject, info: PairQuery) throws -> String? {
         try json.object("error").string("message")
     }
 
     // MARK: Sammelabfrage: Übersicht je Abrechnungswährung
 
-    override var bulkTickersNumOfRequests: Int { deribitSettleCurrencies.count }
+    var bulkTickersNumOfRequests: Int { deribitSettleCurrencies.count }
 
-    override var bulkTickersComplete: Bool { true }
+    var bulkTickersComplete: Bool { true }
 
-    override func bulkTickersURL(call: Int) -> String? {
+    func bulkTickersURL(call: Int) -> String? {
         deribitAPI + "/public/get_book_summary_by_currency?currency=\(deribitSettleCurrencies[call])&kind=future"
     }
 
     /// Ohne Handel ist `last` null (ruhend); ein unlesbarer Kurs (Text statt Zahl) trifft nur sein Paar.
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         for row in try JObject(string: body).array("result").allObjects() {
             let instrument = row.optString("instrument_name")
@@ -65,13 +66,13 @@ final class Deribit: Exchange, @unchecked Sendable { // @unchecked: wie `Exchang
 
     // MARK: Paarliste: eine Anfrage je Abrechnungswährung
 
-    override var pairListCallCount: Int { deribitSettleCurrencies.count }
+    var pairListCallCount: Int { deribitSettleCurrencies.count }
 
-    override func pairListAddress(call: Int) -> String? {
+    func pairListAddress(call: Int) -> String? {
         deribitAPI + "/public/get_instruments?currency=\(deribitSettleCurrencies[call])&kind=future&expired=false"
     }
 
-    override func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
+    func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         for entry in try json.array("result").allObjects() where entry.optString("settlement_period") == "perpetual" {
             let state = entry.optString("state")

@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 170)
+
+* iPhone and Apple Watch: the compiler now checks the thread safety of all shared state, including every exchange adapter (0 `@unchecked Sendable`); prices, pair lists, alerts and exports behave as before.
+
 ## 16.2.2 (build 169)
 
 * iPhone and Apple Watch: shared state of the app, widgets and watch app sits behind locks the compiler checks; no unchecked global state is left (0 `nonisolated(unsafe)`).

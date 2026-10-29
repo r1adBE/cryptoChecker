@@ -5,38 +5,34 @@ private let asterFapi = "https://fapi.asterdex.com/fapi/v1"
 /// Aster — dezentrale Perpetual-Börse mit öffentlicher Schnittstelle im Aufbau von Binance USDⓈ-M (fapi):
 /// `exchangeInfo` und `ticker/24hr` (mit `symbol` ein Objekt, ohne alle als Array). Der Kurs ist der letzte Handel
 /// (`lastPrice`), kein Mark-Preis — darum weder Mittelkurs- noch Mark-Kennzeichnung wie bei Hyperliquid.
-final class Aster: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
+struct Aster: SimpleExchange {
     /// Abschnitt «Futures» der Börsenauswahl (`ExchangeCategory`). Android gleich.
-    override var category: ExchangeCategory { .futures }
+    var category: ExchangeCategory { .futures }
 
-    init() {
-        super.init(
-            key: "Aster",
-            name: "Aster",
-            pairListURL: asterFapi + "/exchangeInfo",
-            tickerURL: asterFapi + "/ticker/24hr?symbol=%1$s",
-            errorField: "msg"
-        )
-    }
+    let key: String = "Aster"
+    let name: String = "Aster"
+    let pairListURL: String = asterFapi + "/exchangeInfo"
+    let tickerURL: String = asterFapi + "/ticker/24hr?symbol=%1$s"
+    let errorField: String? = "msg"
 
     // MARK: Einzelkurs
 
     /// Unbekanntes Symbol: {"code":…,"msg":…} — ohne `lastPrice` scheitert das Lesen, «msg» wird Fehlertext.
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         try copyRow(json, into: &ticker)
     }
 
     // MARK: Sammelabfrage
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
     /// Ungefiltert enthält die Antwort alle gehandelten Kontrakte.
-    override var bulkTickersComplete: Bool { true }
+    var bulkTickersComplete: Bool { true }
 
-    override func bulkTickersURL(call: Int) -> String? { asterFapi + "/ticker/24hr" }
+    func bulkTickersURL(call: Int) -> String? { asterFapi + "/ticker/24hr" }
 
     /// Einträge, die keine Objekte sind, übergehen; unlesbare Zahlen treffen nur ihr Paar.
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         for row in try JArray(string: body).optObjects() {
             bulkRowIfActive(row.optString("symbol"), row: row, priceField: "lastPrice", tickers: &tickers,
@@ -49,7 +45,7 @@ final class Aster: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exc
 
     /// Nur handelbare Perpetuals; fehlen «contractType» oder «status», gilt der Eintrag als handelbares Perpetual
     /// (Aster führt nur solche). Aktien, ETFs und Rohstoffe erkennt `TradFi.aster` an `underlyingSubType`.
-    override func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
+    func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         for entry in try json.array("symbols").allObjects() {
             let kind = entry.optString("contractType")

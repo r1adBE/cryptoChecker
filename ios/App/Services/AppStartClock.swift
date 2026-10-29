@@ -16,11 +16,10 @@ enum AppStartClock {
 
     /// Einmal je Start: Dauer bis jetzt; nil = schon gemeldet oder unplausibel.
     @MainActor static func onFirstWatchlistFrame() -> Int64? {
-        var taken: Int64?
-        state.write {
-            guard $0.pending else { return }
+        let taken: Int64? = state.modify {
+            guard $0.pending else { return nil }
             $0.pending = false
-            taken = $0.uiCreatedAt
+            return $0.uiCreatedAt
         }
         guard let uiCreatedAt = taken else { return nil }
         return AppStartTiming.elapsed(processStart: processStartMillis(), uiCreated: uiCreatedAt, firstFrame: nowMillis())

@@ -7,39 +7,31 @@ private let bitgetAPI = "https://api.bitget.com/api/v2"
 private let bitgetUsdtFutures = "productType=USDT-FUTURES"
 
 /// Bitget Spot (API v2).
-final class Bitget: BitgetBase, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() {
-        super.init(
-            key: "Bitget",
-            name: "Bitget",
-            pairListURL: bitgetAPI + "/spot/public/symbols",
-            tickerURL: bitgetAPI + "/spot/market/tickers?symbol=%1$s",
-            allTickersURL: bitgetAPI + "/spot/market/tickers"
-        )
-    }
+struct Bitget: BitgetBase {
+    let key: String = "Bitget"
+    let name: String = "Bitget"
+    let pairListURL: String = bitgetAPI + "/spot/public/symbols"
+    let tickerURL: String = bitgetAPI + "/spot/market/tickers?symbol=%1$s"
+    let allTickersURL: String = bitgetAPI + "/spot/market/tickers"
 
-    override func pairOf(_ entry: JObject) throws -> ExchangePair? {
+    func pairOf(_ entry: JObject) throws -> ExchangePair? {
         guard entry.optString("status") == "online" else { return nil }
         return ExchangePair(try entry.string("baseCoin"), try entry.string("quoteCoin"), try entry.string("symbol"))
     }
 }
 
 /// Bitget USDT-Perpetuals.
-final class BitgetFutures: BitgetBase, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
+struct BitgetFutures: BitgetBase {
     /// Abschnitt «Futures» der Börsenauswahl (`ExchangeCategory`). Android gleich.
-    override var category: ExchangeCategory { .futures }
+    var category: ExchangeCategory { .futures }
 
-    init() {
-        super.init(
-            key: "BitgetFutures",
-            name: "Bitget Futures",
-            pairListURL: bitgetAPI + "/mix/market/contracts?" + bitgetUsdtFutures,
-            tickerURL: bitgetAPI + "/mix/market/ticker?symbol=%1$s&" + bitgetUsdtFutures,
-            allTickersURL: bitgetAPI + "/mix/market/tickers?" + bitgetUsdtFutures
-        )
-    }
+    let key: String = "BitgetFutures"
+    let name: String = "Bitget Futures"
+    let pairListURL: String = bitgetAPI + "/mix/market/contracts?" + bitgetUsdtFutures
+    let tickerURL: String = bitgetAPI + "/mix/market/ticker?symbol=%1$s&" + bitgetUsdtFutures
+    let allTickersURL: String = bitgetAPI + "/mix/market/tickers?" + bitgetUsdtFutures
 
-    override func pairOf(_ entry: JObject) throws -> ExchangePair? {
+    func pairOf(_ entry: JObject) throws -> ExchangePair? {
         let perpetual = entry.optString("symbolType") == "perpetual"
         let normal = entry.optString("symbolStatus") == "normal"
         guard perpetual, normal else { return nil }
@@ -55,34 +47,32 @@ final class BitgetFutures: BitgetBase, @unchecked Sendable { // @unchecked: wie 
 
 /// Spot und Futures unterscheiden sich nur in Adressen und Paarfilter (`pairOf`); Antworten haben die Form
 /// {"code", "msg", "data": [...]}, die Ticker-Felder heissen gleich.
-class BitgetBase: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    private let allTickersURL: String
+protocol BitgetBase: SimpleExchange {
+    /// Sammelabfrage (alle Paare).
+    var allTickersURL: String { get }
 
-    init(key: String, name: String, pairListURL: String, tickerURL: String, allTickersURL: String) {
-        self.allTickersURL = allTickersURL
-        super.init(key: key, name: name, pairListURL: pairListURL, tickerURL: tickerURL, errorField: "msg")
-    }
+    /// Paar aus einem Eintrag der Paarliste; nil = nicht wählbar. Jede der beiden Börsen liefert das (in Kotlin abstrakt).
+    func pairOf(_ entry: JObject) throws -> ExchangePair?
+}
 
-    /// Paar aus einem Eintrag der Paarliste; nil = nicht wählbar. Jede Unterklasse muss das liefern (in Kotlin abstrakt).
-    func pairOf(_ entry: JObject) throws -> ExchangePair? {
-        fatalError("\(key): pairOf(_:) fehlt")
-    }
+extension BitgetBase {
+    var errorField: String? { "msg" }
 
     // MARK: Einzelkurs
 
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         try copyRow(json.array("data").object(0), into: &ticker)
     }
 
     // MARK: Sammelabfrage
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
-    override var bulkTickersComplete: Bool { true }
+    var bulkTickersComplete: Bool { true }
 
-    override func bulkTickersURL(call: Int) -> String? { allTickersURL }
+    func bulkTickersURL(call: Int) -> String? { allTickersURL }
 
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         for row in try JObject(string: body).array("data").allObjects() {
             bulkRowIfActive(row.optString("symbol"), row: row, priceField: "lastPr", tickers: &tickers,
@@ -93,7 +83,7 @@ class BitgetBase: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exch
 
     // MARK: Paarliste
 
-    override func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
+    func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
         try json.array("data").allObjects().compactMap { entry in try pairOf(entry) }
     }
 

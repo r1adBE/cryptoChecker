@@ -27,23 +27,24 @@ private let wooNoTrades = "Keine Abschlüsse"
 /// den echten letzten Abschluss und die Zeit der Börse auf dessen Zeit; die Veränderung wird gegen dieselbe
 /// Eröffnung neu gerechnet. Scheitert sie, bleibt der Schluss der Stundenkerze (der laufenden Kerze = letzter
 /// Abschluss bis zur Antwortzeit). Darum kein «Stundenkurs» mehr. Gegenstück: `Woo.kt`.
-final class Woo: WooBase, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() {
-        super.init(key: "Woo", name: "WOO X", symbolPrefix: "SPOT", contractType: .none,
-                   tickerURL: wooAPI + "/v3/public/kline?symbol=%1$s&type=1h&limit=\(wooHours)")
-    }
+struct Woo: WooBase {
+    let key: String = "Woo"
+    let name: String = "WOO X"
+    let symbolPrefix: String = "SPOT"
+    let contractType: FuturesContractType = .none
+    let tickerURL: String = wooAPI + "/v3/public/kline?symbol=%1$s&type=1h&limit=\(wooHours)"
 
     // MARK: Einzelkurs
 
     /// Anfrage 0: Stundenkerzen (muss gelingen); Anfrage 1: letzter Abschluss (ergänzt, darf scheitern).
-    override func tickerCallCount(_ info: PairQuery) -> Int { 2 }
+    func tickerCallCount(_ info: PairQuery) -> Int { 2 }
 
-    override func tickerAddress(call: Int, info: PairQuery) -> String {
-        guard call == 1 else { return super.tickerAddress(call: call, info: info) }
+    func tickerAddress(call: Int, info: PairQuery) -> String {
+        guard call == 1 else { return simpleTickerAddress(info) }
         return wooAPI + "/v1/public/market_trades?symbol=\(pairId(info) ?? "")&limit=1"
     }
 
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         if call == 1 {
             try Woo.fillLastTrade(json, into: &ticker)
             return
@@ -125,31 +126,32 @@ final class Woo: WooBase, @unchecked Sendable { // @unchecked: wie `Exchange` (k
 }
 
 /// WOO X USDT-Perpetuals.
-final class WooFutures: WooBase, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
+struct WooFutures: WooBase {
     /// Abschnitt «Futures» der Börsenauswahl (`ExchangeCategory`). Android gleich.
-    override var category: ExchangeCategory { .futures }
+    var category: ExchangeCategory { .futures }
 
-    init() {
-        super.init(key: "WooFutures", name: "WOO X Futures", symbolPrefix: "PERP", contractType: .perpetual,
-                   tickerURL: wooAPI + "/v3/public/futures?symbol=%1$s")
-    }
+    let key: String = "WooFutures"
+    let name: String = "WOO X Futures"
+    let symbolPrefix: String = "PERP"
+    let contractType: FuturesContractType = .perpetual
+    let tickerURL: String = wooAPI + "/v3/public/futures?symbol=%1$s"
 
     // MARK: Einzelkurs
 
     /// Hüllenzeit = Antwortzeit, kein Handel: Zeit der Börse bleibt offen.
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         try WooFutures.copyRow(json.object("data").array("rows").object(0), into: &ticker)
     }
 
     // MARK: Sammelabfrage
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
-    override var bulkTickersComplete: Bool { true }
+    var bulkTickersComplete: Bool { true }
 
-    override func bulkTickersURL(call: Int) -> String? { wooAPI + "/v3/public/futures" }
+    func bulkTickersURL(call: Int) -> String? { wooAPI + "/v3/public/futures" }
 
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         for row in try JObject(string: body).object("data").array("rows").allObjects() {
             bulkRowIfActive(row.optString("symbol"), row: row, priceField: "24hClose", tickers: &tickers,
@@ -173,26 +175,26 @@ final class WooFutures: WooBase, @unchecked Sendable { // @unchecked: wie `Excha
 }
 
 /// Gemeinsam: Instrumentliste, Kennung «PRÄFIX_BASIS_QUOTE», Fehlertext in «message».
-class WooBase: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    private let symbolPrefix: String
-    private let contractType: FuturesContractType
+protocol WooBase: SimpleExchange {
+    /// Präfix der Kennung: «SPOT» bzw. «PERP».
+    var symbolPrefix: String { get }
+    var contractType: FuturesContractType { get }
+}
 
-    init(key: String, name: String, symbolPrefix: String, contractType: FuturesContractType, tickerURL: String) {
-        self.symbolPrefix = symbolPrefix
-        self.contractType = contractType
-        super.init(key: key, name: name, pairListURL: wooAPI + "/v3/public/instruments", tickerURL: tickerURL,
-                   ttsName: "Woo X", errorField: "message")
-    }
+extension WooBase {
+    var pairListURL: String { wooAPI + "/v3/public/instruments" }
+    var ttsName: String { "Woo X" }
+    var errorField: String? { "message" }
 
     // MARK: Einzelkurs
 
-    override func pairId(_ info: PairQuery) -> String? {
+    func pairId(_ info: PairQuery) -> String? {
         info.pairId ?? [symbolPrefix, info.base, info.quote].joined(separator: "_")
     }
 
     // MARK: Paarliste
 
-    override func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
+    func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         for inst in try json.object("data").array("rows").allObjects() where inst.optString("status") == "TRADING" {
             let symbol = inst.optString("symbol")

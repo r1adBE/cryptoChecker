@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 private let geminiAPI = "https://api.gemini.com/v1"
 
@@ -13,28 +14,23 @@ private let geminiQuoteEndings = ["rlusd", "gusd", "usdc", "usdt", "usd", "eur",
 /// Synchronisierung. Die Warteschlange dafür gehört der einzelnen Synchronisierung (`DetailPaging`), nicht der von allen
 /// geteilten Börse. Die Antworten merkt sich die Börse (`knownDetails`); was über der Grenze liegt oder eine
 /// Fehlerantwort bekam, fehlt vorerst in der Paarliste und kommt bei einer späteren Synchronisierung dran.
-final class Gemini: SimpleExchange, PagedPairList, @unchecked Sendable { // @unchecked: `knownDetails` nur unter `knownLock` (NSLock)
+final class Gemini: SimpleExchange, PagedPairList {
     typealias Split = (symbol: String, base: String, quote: String)
 
-    /// Schützt `knownDetails` (gleichzeitige Synchronisierungen lesen und ergänzen es aus verschiedenen Aufgaben).
-    private let knownLock = NSLock()
-    /// Geklärte mehrdeutige Symbole (Symbol → Paar; nil = kein Spot-Paar) — Wissen über die Börse, kein
-    /// Blätterzustand, darum über Synchronisierungen hinweg geteilt.
-    private var knownDetails: [String: ExchangePair?] = [:]
+    let key: String = "Gemini"
+    let name: String = "Gemini"
+    let pairListURL: String = geminiAPI + "/symbols"
+    let tickerURL: String = geminiAPI + "/pubticker/%1$s"
+    let errorField: String? = "message"
 
-    init() {
-        super.init(
-            key: "Gemini",
-            name: "Gemini",
-            pairListURL: geminiAPI + "/symbols",
-            tickerURL: geminiAPI + "/pubticker/%1$s",
-            errorField: "message"
-        )
-    }
+    /// Geklärte mehrdeutige Symbole (Symbol → Paar; nil = kein Spot-Paar) — Wissen über die Börse, kein
+    /// Blätterzustand, darum über Synchronisierungen hinweg geteilt. Hinter der Sperre: gleichzeitige
+    /// Synchronisierungen lesen und ergänzen es aus verschiedenen Aufgaben.
+    private let knownDetails = OSAllocatedUnfairLock<[String: ExchangePair?]>(initialState: [:])
 
     // MARK: Einzelkurs
 
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         ticker.last = try json.double("last")
         ticker.bid = json.optDoubleOrMissing("bid")
         ticker.ask = json.optDoubleOrMissing("ask")
@@ -46,15 +42,15 @@ final class Gemini: SimpleExchange, PagedPairList, @unchecked Sendable { // @unc
 
     // MARK: Sammelabfrage: Preisliste aller Paare, nur der letzte Kurs
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
-    override var bulkTickersComplete: Bool { true }
+    var bulkTickersComplete: Bool { true }
 
-    override func bulkTickersURL(call: Int) -> String? { geminiAPI + "/pricefeed" }
+    func bulkTickersURL(call: Int) -> String? { geminiAPI + "/pricefeed" }
 
     /// Keine 24-h-Veränderung: Die Einheit von `percentChange24h` ist unklar (Doku Prozent, Antworten eher Bruchteil)
     /// — dann lieber Kerzen. Fehlt der Preis oder ist er unlesbar (NaN), meldet `bulkRow` das Paar.
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         for row in try JArray(string: body).allObjects() {
             bulkRowIfActive(row.optString("pair").lowercased(), row: row, priceField: "price", tickers: &tickers,
@@ -68,7 +64,7 @@ final class Gemini: SimpleExchange, PagedPairList, @unchecked Sendable { // @unc
     /// Je Synchronisierung eine eigene Warteschlange der Detail-Abfragen.
     func newPairListPaging() -> PairListPaging { DetailPaging(exchange: self) }
 
-    override func fillPairList(call: Int, body: String) throws -> [ExchangePair] {
+    func fillPairList(call: Int, body: String) throws -> [ExchangePair] {
         try Gemini.isDetailsPage(body) ? readDetailsPage(body) : readSymbolList(body)
     }
 
@@ -85,13 +81,13 @@ final class Gemini: SimpleExchange, PagedPairList, @unchecked Sendable { // @unc
         let pair = Gemini.detailPair(json)
         // unter dem Symbol der Antwort ablegen — Antworten können versetzt zur Abfrage kommen
         let symbol = Gemini.trimmed(json.optString("symbol")).lowercased()
-        locked { knownDetails[symbol] = .some(pair) }
+        knownDetails.withLock { $0[symbol] = .some(pair) }
         return pair.map { [$0] } ?? []
     }
 
     private func readSymbolList(_ body: String) throws -> [ExchangePair] {
         let symbols = try JArray(string: body).allStrings()
-        let known = locked { knownDetails }
+        let known = knownDetails.withLock { $0 }
         let plan = Gemini.planSymbols(symbols, resolved: Set(known.keys))
         var out = plan.direct.map { ExchangePair($0.base.uppercased(), $0.quote.uppercased(), $0.symbol) }
         // früher geklärte mehrdeutige Symbole: Basis/Quote aus deren Details
@@ -121,14 +117,8 @@ final class Gemini: SimpleExchange, PagedPairList, @unchecked Sendable { // @unc
     /// Eine unlesbare Liste ist beim Lesen schon gescheitert (`readPairList`) — dann keine Details.
     private func deferredSymbols(_ listBody: String) -> [String] {
         guard let symbols = try? JArray(string: listBody).allStrings() else { return [] }
-        let resolved = Set(locked { knownDetails }.keys)
+        let resolved = Set(knownDetails.withLock { $0 }.keys)
         return Gemini.planSymbols(symbols, resolved: resolved).deferred.map { $0.symbol }
-    }
-
-    private func locked<T>(_ work: () -> T) -> T {
-        knownLock.lock()
-        defer { knownLock.unlock() }
-        return work()
     }
 
     private static func trimmed(_ text: String) -> String { text.trimmingCharacters(in: .whitespaces) }
@@ -136,7 +126,7 @@ final class Gemini: SimpleExchange, PagedPairList, @unchecked Sendable { // @unc
     // MARK: Öffentliche Hilfen
 
     /// Höchstens so viele Detail-Abfragen je Synchronisierung (Seitengrenze minus die Liste selbst).
-    static let maxDetails = Exchange.maxPairListPages - 1
+    static let maxDetails = ExchangeConstants.maxPairListPages - 1
 
     /// Symbole → (Symbol, Basis, Quote), alles klein; Perpetuals und Symbole ohne bekannte Endung fallen weg. Bei
     /// mehreren passenden Endungen («mogusd», «btcgusd») gewinnt die Trennung, deren Basis als eindeutiges Symbol in

@@ -1,41 +1,45 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Die gemeinsamen Bausteine aller Börsen: `SimpleExchange` (Adressen, Fehlerfeld), `Exchange.bulkRowIfActive` und der
+/// Die gemeinsamen Bausteine aller Börsen: `SimpleExchange` (Adressen, Fehlerfeld), `bulkRowIfActive` und der
 /// Standard-Fehlertext sowie die JSON-Helfer. Die Börsen selbst prüft ExchangeContractTests; hier geht es um die
 /// Regeln, auf die sich alle verlassen. Gegenstück: `ExchangeBuildingBlocksTest.kt`.
 final class ExchangeBuildingBlocksTests: XCTestCase {
 
     /// Kleinste SimpleExchange-Börse: Fehlertext im Feld «err».
-    private final class Probe: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-        init(errorField: String? = "err") {
-            super.init(key: "Probe", name: "Probe", pairListURL: "https://example.test/pairs",
-                       tickerURL: "https://example.test/ticker/%1$s?depth=1", errorField: errorField)
-        }
+    private struct Probe: SimpleExchange {
+        let key: String = "Probe"
+        let name: String = "Probe"
+        let pairListURL: String = "https://example.test/pairs"
+        let tickerURL: String = "https://example.test/ticker/%1$s?depth=1"
+        let errorField: String?
 
-        override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+        init(errorField: String? = "err") { self.errorField = errorField }
+
+        func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
             ticker.last = try json.double("price")
             ticker.timestamp = json.optLong("time")
         }
     }
 
     /// Wie `Probe`, bildet die Kennung aber selbst («BASE-QUOTE»).
-    private final class DashProbe: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-        init() {
-            super.init(key: "DashProbe", name: "DashProbe", pairListURL: "https://example.test/pairs",
-                       tickerURL: "https://example.test/ticker?symbol=%1$s")
-        }
+    private struct DashProbe: SimpleExchange {
+        let key: String = "DashProbe"
+        let name: String = "DashProbe"
+        let pairListURL: String = "https://example.test/pairs"
+        let tickerURL: String = "https://example.test/ticker?symbol=%1$s"
 
-        override func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.base + "-" + info.quote }
+        func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.base + "-" + info.quote }
     }
 
     /// Sammelabfrage aus Zeilen {"id", "last"} über `bulkRowIfActive`.
-    private final class BulkProbe: Exchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-        init() { super.init(key: "BulkProbe", name: "BulkProbe") }
+    private struct BulkProbe: Exchange {
+        let key: String = "BulkProbe"
+        let name: String = "BulkProbe"
 
-        override func tickerAddress(call: Int, info: PairQuery) -> String { "" }
+        func tickerAddress(call: Int, info: PairQuery) -> String { "" }
 
-        override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+        func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
             var tickers: [String: Ticker] = [:]
             for row in try JArray(string: body).allObjects() {
                 bulkRowIfActive(row.optString("id"), row: row, priceField: "last", tickers: &tickers,
@@ -73,7 +77,7 @@ final class ExchangeBuildingBlocksTests: XCTestCase {
 
     func testWithoutErrorFieldThereIsNoErrorText() {
         XCTAssertThrowsError(try Probe(errorField: nil).readError(call: 0, body: #"{"err":"boom"}"#, info: info("X"))) {
-            XCTAssertEqual(($0 as? JSONError)?.message, Exchange.noErrorTextMessage)
+            XCTAssertEqual(($0 as? JSONError)?.message, ExchangeConstants.noErrorTextMessage)
         }
     }
 
@@ -99,14 +103,14 @@ final class ExchangeBuildingBlocksTests: XCTestCase {
     }
 
     func testBithumbTradeTimeComesFromTheUtcFields() {
-        XCTAssertEqual(UpbitStyleExchange.utcTradeMillis(date: "20261016", time: "232853"), 1_792_193_333_000)
-        XCTAssertEqual(UpbitStyleExchange.utcTradeMillis(date: "20240229", time: "000000"), 1_709_164_800_000)
+        XCTAssertEqual(Bithumb.utcTradeMillis(date: "20261016", time: "232853"), 1_792_193_333_000)
+        XCTAssertEqual(Bithumb.utcTradeMillis(date: "20240229", time: "000000"), 1_709_164_800_000)
         // Kein Schalttag, unmögliche Uhrzeit, falscher Aufbau, fehlend: keine Börsenzeit
-        XCTAssertEqual(UpbitStyleExchange.utcTradeMillis(date: "20230229", time: "000000"), 0)
-        XCTAssertEqual(UpbitStyleExchange.utcTradeMillis(date: "20261016", time: "246000"), 0)
-        XCTAssertEqual(UpbitStyleExchange.utcTradeMillis(date: "2026-10-", time: "232853"), 0)
-        XCTAssertEqual(UpbitStyleExchange.utcTradeMillis(date: "2026101", time: "232853"), 0)
-        XCTAssertEqual(UpbitStyleExchange.utcTradeMillis(date: "", time: ""), 0)
+        XCTAssertEqual(Bithumb.utcTradeMillis(date: "20230229", time: "000000"), 0)
+        XCTAssertEqual(Bithumb.utcTradeMillis(date: "20261016", time: "246000"), 0)
+        XCTAssertEqual(Bithumb.utcTradeMillis(date: "2026-10-", time: "232853"), 0)
+        XCTAssertEqual(Bithumb.utcTradeMillis(date: "2026101", time: "232853"), 0)
+        XCTAssertEqual(Bithumb.utcTradeMillis(date: "", time: ""), 0)
     }
 
     func testBulkRowIfActiveSkipsIdleRowsAndReportsUnreadableOnes() throws {

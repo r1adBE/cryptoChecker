@@ -10,31 +10,27 @@ private let oneTradingSpot = "SPOT"
 private let oneTradingActive = "ACTIVE"
 
 /// One Trading (EU, vormals Bitpanda Pro), nur Spot. Doku: docs.onetrading.com
-final class OneTrading: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() {
-        super.init(
-            key: "OneTrading",
-            name: "One Trading",
-            pairListURL: oneTradingAPI + "/instruments",
-            tickerURL: oneTradingAPI + "/market-ticker/%1$s",
-            errorField: "error"
-        )
-    }
+struct OneTrading: SimpleExchange {
+    let key: String = "OneTrading"
+    let name: String = "One Trading"
+    let pairListURL: String = oneTradingAPI + "/instruments"
+    let tickerURL: String = oneTradingAPI + "/market-ticker/%1$s"
+    let errorField: String? = "error"
 
     // MARK: Einzelkurs
 
-    override func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.base + "_" + info.quote }
+    func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.base + "_" + info.quote }
 
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         try copyRow(json, into: &ticker)
     }
 
     /// Einzelkurs mit Serverfehler (HTTP 5xx, etwa seit Oktober 2026): Kurs aus der Sammelliste.
-    override func tickerFallbackAddress(call: Int, info: PairQuery) -> String? { oneTradingTickers }
+    func tickerFallbackAddress(call: Int, info: PairQuery) -> String? { oneTradingTickers }
 
     /// Die Zeile des Paars aus der Sammelliste, Zeilen anderer Art (Futures) zählen nicht — wie `parseBulkTickers`.
     /// Fehlt sie: `JSONError.noData`; die App behält dann den ursprünglichen Serverfehler.
-    override func fillTickerFallback(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTickerFallback(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {
         let id = pairId(info)
         let rows = try JArray(string: body).allObjects()
         guard let row = rows.first(where: { !OneTrading.isOtherType($0) && $0.optString("instrument_code") == id }) else {
@@ -45,15 +41,15 @@ final class OneTrading: SimpleExchange, @unchecked Sendable { // @unchecked: wie
 
     // MARK: Sammelabfrage
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
-    override var bulkTickersComplete: Bool { true }
+    var bulkTickersComplete: Bool { true }
 
-    override func bulkTickersURL(call: Int) -> String? { oneTradingTickers }
+    func bulkTickersURL(call: Int) -> String? { oneTradingTickers }
 
     /// Die Sammelliste enthält auch Futures («type» DATED_FUTURE, EQUITY_FUTURE …): nur Spot-Zeilen zählen. Zeilen
     /// ohne «type» werden gelesen (Art unbekannt), machen die Antwort aber unvollständig (`bulkResponseComplete`).
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         for row in try JArray(string: body).allObjects() where !OneTrading.isOtherType(row) {
             bulkRowIfActive(row.optString("instrument_code"), row: row, priceField: "last_price", tickers: &tickers,
@@ -66,7 +62,7 @@ final class OneTrading: SimpleExchange, @unchecked Sendable { // @unchecked: wie
     /// (Futures) fallen weg, ohne dass ein Spot-Paar fehlen könnte. Fehlt die Art einer Zeile oder ist ein Spot-Buch nicht
     /// ACTIVE (etwa CLOSED), kann ein fehlendes Paar auch nur vorübergehend fehlen: dann entscheidet die Einzelabfrage
     /// statt «nicht mehr gehandelt».
-    override func bulkResponseComplete(call: Int, body: String) -> Bool {
+    func bulkResponseComplete(call: Int, body: String) -> Bool {
         guard let rows = try? JArray(string: body).allObjects() else { return false }
         return rows.allSatisfy { row in
             let type = OneTrading.typeOf(row)
@@ -76,7 +72,7 @@ final class OneTrading: SimpleExchange, @unchecked Sendable { // @unchecked: wie
 
     // MARK: Paarliste
 
-    override func fillPairList(call: Int, body: String) throws -> [ExchangePair] {
+    func fillPairList(call: Int, body: String) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         for inst in try JArray(string: body).allObjects() {
             let activeSpot = inst.optString("type") == oneTradingSpot && inst.optString("state") == oneTradingActive

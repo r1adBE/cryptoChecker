@@ -6,32 +6,28 @@ private let bitvavoAPI = "https://api.bitvavo.com/v2"
 private let bitvavoDayTicker = bitvavoAPI + "/ticker/24h"
 
 /// Bitvavo (EU, EUR-Paare), API v2. Kennung = `market` («BTC-EUR»).
-final class Bitvavo: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() {
-        super.init(
-            key: "Bitvavo",
-            name: "Bitvavo",
-            pairListURL: bitvavoAPI + "/markets",
-            tickerURL: bitvavoDayTicker + "?market=%1$s",
-            errorField: "error"
-        )
-    }
+struct Bitvavo: SimpleExchange {
+    let key: String = "Bitvavo"
+    let name: String = "Bitvavo"
+    let pairListURL: String = bitvavoAPI + "/markets"
+    let tickerURL: String = bitvavoDayTicker + "?market=%1$s"
+    let errorField: String? = "error"
 
     // MARK: Einzelkurs
 
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         try copyRow(json, into: &ticker)
     }
 
     // MARK: Sammelabfrage
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
-    override var bulkTickersComplete: Bool { true }
+    var bulkTickersComplete: Bool { true }
 
-    override func bulkTickersURL(call: Int) -> String? { bitvavoDayTicker }
+    func bulkTickersURL(call: Int) -> String? { bitvavoDayTicker }
 
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         for row in try JArray(string: body).allObjects() {
             bulkRowIfActive(row.optString("market"), row: row, priceField: "last", tickers: &tickers,
@@ -42,7 +38,7 @@ final class Bitvavo: SimpleExchange, @unchecked Sendable { // @unchecked: wie `E
 
     // MARK: Paarliste
 
-    override func fillPairList(call: Int, body: String) throws -> [ExchangePair] {
+    func fillPairList(call: Int, body: String) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         for market in try JArray(string: body).allObjects() where market.optString("status") == "trading" {
             out.append(ExchangePair(try market.string("base"), try market.string("quote"), try market.string("market")))

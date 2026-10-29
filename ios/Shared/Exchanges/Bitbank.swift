@@ -13,30 +13,26 @@ private let bitbankCommon: [String: String] = ["BCC": "BCH"]
 
 /// bitbank (Japan, JPY-Paare), öffentliche API: https://github.com/bitbankinc/bitbank-api-docs. Kennung «btc_jpy».
 /// Jede Antwort steckt in {"success":1,"data":…}; Fehler sind {"success":0,"data":{"code":…}} ohne Text.
-final class Bitbank: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() {
-        super.init(
-            key: "Bitbank",
-            name: "bitbank",
-            pairListURL: bitbankTickers,
-            tickerURL: bitbankAPI + "/%1$s/ticker",
-            ttsName: "bit bank"
-        )
-    }
+struct Bitbank: SimpleExchange {
+    let key: String = "Bitbank"
+    let name: String = "bitbank"
+    let pairListURL: String = bitbankTickers
+    let tickerURL: String = bitbankAPI + "/%1$s/ticker"
+    let ttsName: String = "bit bank"
 
     // MARK: Einzelkurs
 
-    override func pairId(_ info: PairQuery) -> String? {
+    func pairId(_ info: PairQuery) -> String? {
         info.pairId ?? Bitbank.bitbankCode(info.base) + "_" + Bitbank.bitbankCode(info.quote)
     }
 
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         try copyRow(json.object("data"), into: &ticker)
     }
 
     /// Nur ein Code. Der Text für «zu viele Anfragen» enthält «Too many requests», damit der Bericht ihn als
     /// Bremsung erkennt (RateLimitSignal); andere Codes erscheinen als «Error code …».
-    override func errorMessage(call: Int, json: JObject, info: PairQuery) throws -> String? {
+    func errorMessage(call: Int, json: JObject, info: PairQuery) throws -> String? {
         if json.optInt("success", 1) != 0 { try noErrorText() }
         let code = json.optObject("data")?.optInt("code", 0) ?? 0
         if code <= 0 { try noErrorText() }
@@ -45,14 +41,14 @@ final class Bitbank: SimpleExchange, @unchecked Sendable { // @unchecked: wie `E
 
     // MARK: Sammelabfrage
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
     /// `/tickers` ist als Liste aller Paare dokumentiert.
-    override var bulkTickersComplete: Bool { true }
+    var bulkTickersComplete: Bool { true }
 
-    override func bulkTickersURL(call: Int) -> String? { bitbankTickers }
+    func bulkTickersURL(call: Int) -> String? { bitbankTickers }
 
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         for row in try JObject(string: body).array("data").allObjects() {
             bulkRowIfActive(row.optString("pair"), row: row, priceField: "last", tickers: &tickers,
@@ -64,7 +60,7 @@ final class Bitbank: SimpleExchange, @unchecked Sendable { // @unchecked: wie `E
     // MARK: Paarliste
 
     /// Aus `/tickers`: jedes Paar mit Kennung «basis_gegenwährung».
-    override func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
+    func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         for row in try json.array("data").allObjects() {
             let pair = row.optString("pair")

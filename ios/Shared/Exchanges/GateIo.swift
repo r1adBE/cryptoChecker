@@ -6,21 +6,17 @@ private let gateIoAPI = "https://api.gateio.ws/api/v4/spot"
 private let gateIoTickers = gateIoAPI + "/tickers"
 
 /// Gate.io Spot (API v4). Kennung = `id` der Paarliste («BTC_USDT»).
-final class GateIo: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() {
-        super.init(
-            key: "GateIo",
-            name: "Gate.io",
-            pairListURL: gateIoAPI + "/currency_pairs",
-            tickerURL: gateIoTickers + "?currency_pair=%1$s",
-            ttsName: "Gate io",
-            errorField: "message"
-        )
-    }
+struct GateIo: SimpleExchange {
+    let key: String = "GateIo"
+    let name: String = "Gate.io"
+    let pairListURL: String = gateIoAPI + "/currency_pairs"
+    let tickerURL: String = gateIoTickers + "?currency_pair=%1$s"
+    let ttsName: String = "Gate io"
+    let errorField: String? = "message"
 
     // MARK: Einzelkurs
 
-    override func fillTicker(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {
         let rows = try JArray(string: body)
         if rows.isEmpty { throw JSONError(message: JSONError.noData) }
         try copyRow(rows.object(0), into: &ticker)
@@ -28,11 +24,11 @@ final class GateIo: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Ex
 
     // MARK: Sammelabfrage: derselbe Endpunkt ohne currency_pair
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
-    override func bulkTickersURL(call: Int) -> String? { gateIoTickers }
+    func bulkTickersURL(call: Int) -> String? { gateIoTickers }
 
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         for row in try JArray(string: body).allObjects() {
             bulkRowIfActive(row.optString("currency_pair"), row: row, priceField: "last", tickers: &tickers,
@@ -43,7 +39,7 @@ final class GateIo: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Ex
 
     // MARK: Paarliste
 
-    override func fillPairList(call: Int, body: String) throws -> [ExchangePair] {
+    func fillPairList(call: Int, body: String) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         for entry in try JArray(string: body).allObjects() {
             // «trade_status» muss da sein; nur «tradable» kommt in die Liste
@@ -56,7 +52,7 @@ final class GateIo: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Ex
     // MARK: Namen
 
     /// Volle Namen aus derselben Liste (`base_name`, `quote_name`), etwa «QTUM» → «Quantum».
-    override func parseBaseNames(call: Int, body: String) throws -> [String: String] {
+    func parseBaseNames(call: Int, body: String) throws -> [String: String] {
         var names: [String: String] = [:]
         for entry in try JArray(string: body).allObjects() where entry.optString("trade_status") == "tradable" {
             GateIo.remember(&names, entry, codeField: "base", nameField: "base_name")

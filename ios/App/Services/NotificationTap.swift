@@ -1,10 +1,23 @@
 import Foundation
+import os
 import UserNotifications
 
 /// Abschluss-Rückruf einer Mitteilungs-Delegate-Methode, der in einen MainActor-Task wandert. iOS darf ihn von jedem
-/// Thread aus aufrufen; das SDK kennzeichnet ihn aber nicht als `@Sendable`. Er wird genau einmal aufgerufen.
-struct NotificationCompletion: @unchecked Sendable { // @unchecked: kein Zustand, nur der Rückruf (beliebiger Thread)
-    let call: () -> Void
+/// Thread aus aufrufen; das SDK kennzeichnet ihn aber nicht als `@Sendable`. Darum liegt er in einer Sperre und wird
+/// nur unter ihr aufgerufen — so ist die Hülle vom Compiler geprüft `Sendable`. Genau einmal: danach ist er weg.
+final class NotificationCompletion: Sendable {
+    private let handler: OSAllocatedUnfairLock<(() -> Void)?>
+
+    init(call: @escaping () -> Void) {
+        handler = OSAllocatedUnfairLock(uncheckedState: call)
+    }
+
+    func call() {
+        handler.withLock { pending in
+            pending?()
+            pending = nil
+        }
+    }
 }
 
 /// Was `didReceive` aus der Antwort braucht — sofort ausgelesen, damit nur Sendable-Werte in den MainActor-Task gehen.

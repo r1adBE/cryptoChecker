@@ -8,25 +8,21 @@ private let coincheckStatusStop = "stop"
 /// Coincheck (Japan, JPY-Paare): https://coincheck.com/documents/exchange/api. Eine eigene Paarliste gibt es nicht;
 /// `exchange_status` nennt aber jedes Paar mit seinem Zustand und dient darum als Liste (keine feste Tabelle).
 /// Kennung «btc_jpy». Keine Sammelabfrage, keine 24-h-Veränderung im Ticker.
-final class Coincheck: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() {
-        super.init(
-            key: "Coincheck",
-            name: "Coincheck",
-            pairListURL: coincheckAPI + "/exchange_status",
-            tickerURL: coincheckAPI + "/ticker?pair=%1$s",
-            ttsName: "Coin check",
-            errorField: "error"
-        )
-    }
+struct Coincheck: SimpleExchange {
+    let key: String = "Coincheck"
+    let name: String = "Coincheck"
+    let pairListURL: String = coincheckAPI + "/exchange_status"
+    let tickerURL: String = coincheckAPI + "/ticker?pair=%1$s"
+    let ttsName: String = "Coin check"
+    let errorField: String? = "error"
 
     // MARK: Einzelkurs
 
-    override func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.baseLower + "_" + info.quoteLower }
+    func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.baseLower + "_" + info.quoteLower }
 
     /// `timestamp` ist laut Doku die aktuelle Zeit (Antwort), kein Handel — Zeit der Börse bleibt unbekannt.
     /// `high`/`low`/`volume` gelten über 24 Stunden.
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         ticker.last = try json.double("last")
         ticker.bid = json.optDoubleOrMissing("bid")
         ticker.ask = json.optDoubleOrMissing("ask")
@@ -37,7 +33,7 @@ final class Coincheck: SimpleExchange, @unchecked Sendable { // @unchecked: wie 
 
     // MARK: Paarliste
 
-    override func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
+    func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         let entries = try json.array("exchange_status").allObjects()
         for entry in entries where entry.optString("status") != coincheckStatusStop {

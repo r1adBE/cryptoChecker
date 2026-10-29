@@ -7,32 +7,28 @@ private let cryptoComDollarQuotes: Set<String> = ["USD", "USDT", "USDC"]
 
 /// Crypto.com Exchange Spot (API v1). Ticker-Felder sind Einzelbuchstaben: a = letzter Kurs, b/k = Geld/Brief,
 /// h/l = Hoch/Tief, v = Menge, vv = Umsatz in USD, c = Veränderung, i = Instrument, t = Zeit.
-final class CryptoCom: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() {
-        super.init(
-            key: "CryptoCom",
-            name: "Crypto.com",
-            pairListURL: cryptoComAPI + "/get-instruments",
-            tickerURL: cryptoComAPI + "/get-tickers?instrument_name=%1$s",
-            errorField: "message"
-        )
-    }
+struct CryptoCom: SimpleExchange {
+    let key: String = "CryptoCom"
+    let name: String = "Crypto.com"
+    let pairListURL: String = cryptoComAPI + "/get-instruments"
+    let tickerURL: String = cryptoComAPI + "/get-tickers?instrument_name=%1$s"
+    let errorField: String? = "message"
 
     // MARK: Einzelkurs
 
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         try copyRow(CryptoCom.dataOf(json).object(0), into: &ticker, counter: info.quote)
     }
 
     // MARK: Sammelabfrage
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
-    override var bulkTickersComplete: Bool { true }
+    var bulkTickersComplete: Bool { true }
 
-    override func bulkTickersURL(call: Int) -> String? { cryptoComAPI + "/get-tickers" }
+    func bulkTickersURL(call: Int) -> String? { cryptoComAPI + "/get-tickers" }
 
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         for row in try CryptoCom.dataOf(JObject(string: body)).allObjects() {
             bulkRowIfActive(row.optString("i"), row: row, priceField: "a", tickers: &tickers, failed: &failed) {
@@ -44,7 +40,7 @@ final class CryptoCom: SimpleExchange, @unchecked Sendable { // @unchecked: wie 
 
     // MARK: Paarliste
 
-    override func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
+    func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         for entry in try CryptoCom.dataOf(json).allObjects() {
             let spotPair = entry.optString("inst_type") == "CCY_PAIR"

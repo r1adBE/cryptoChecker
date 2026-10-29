@@ -6,23 +6,19 @@ private let okxSwapTickers = "https://www.okx.com/api/v5/market/tickers?instType
 /// OKX Perpetual-Swaps. Die Paarliste kommt aus `/api/v5/public/instruments`, nicht aus den Tickern: Nur dort stehen
 /// `instCategory` (Krypto, Aktie, Rohstoff …) und `state` — sonst liefen NVDA-, AAPL- oder XAU-Swaps als Krypto-Token.
 /// Gegenstück: `OkexFutures.kt`.
-final class OkexFutures: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
+struct OkexFutures: SimpleExchange {
     /// Abschnitt «Futures» der Börsenauswahl (`ExchangeCategory`). Android gleich.
-    override var category: ExchangeCategory { .futures }
+    var category: ExchangeCategory { .futures }
 
-    init() {
-        super.init(
-            key: "OkexFutures",
-            name: "OKX Futures",
-            pairListURL: "https://www.okx.com/api/v5/public/instruments?instType=SWAP",
-            tickerURL: "https://www.okx.com/api/v5/market/ticker?instId=%1$s"
-        )
-    }
+    let key: String = "OkexFutures"
+    let name: String = "OKX Futures"
+    let pairListURL: String = "https://www.okx.com/api/v5/public/instruments?instType=SWAP"
+    let tickerURL: String = "https://www.okx.com/api/v5/market/ticker?instId=%1$s"
 
     // MARK: Einzelkurs
 
     /// Fehler meldet OKX in code/msg statt in «data».
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         let complaint = json.optString("msg")
         if !complaint.isEmpty { throw JSONError(message: complaint) }
         try copyRow(json.array("data").object(0), into: &ticker)
@@ -30,11 +26,11 @@ final class OkexFutures: SimpleExchange, @unchecked Sendable { // @unchecked: wi
 
     // MARK: Sammelabfrage: eigener Endpunkt für alle SWAP-Ticker (nicht die Instrumentliste)
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
-    override func bulkTickersURL(call: Int) -> String? { okxSwapTickers }
+    func bulkTickersURL(call: Int) -> String? { okxSwapTickers }
 
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         for row in try JObject(string: body).array("data").allObjects() {
             bulkRowIfActive(row.optString("instId"), row: row, priceField: "last", tickers: &tickers,
@@ -45,7 +41,7 @@ final class OkexFutures: SimpleExchange, @unchecked Sendable { // @unchecked: wi
 
     // MARK: Paarliste
 
-    override func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
+    func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         for inst in try json.array("data").allObjects() {
             let instId = try inst.string("instId")

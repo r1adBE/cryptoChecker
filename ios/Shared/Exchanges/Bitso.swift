@@ -3,38 +3,34 @@ import Foundation
 private let bitsoAPI = "https://bitso.com/api/v3"
 
 /// Bitso (Lateinamerika), API v3: https://docs.bitso.com — Bücher heissen «btc_mxn».
-final class Bitso: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() {
-        super.init(
-            key: "Bitso",
-            name: "Bitso",
-            pairListURL: bitsoAPI + "/available_books",
-            tickerURL: bitsoAPI + "/ticker?book=%1$s"
-        )
-    }
+struct Bitso: SimpleExchange {
+    let key: String = "Bitso"
+    let name: String = "Bitso"
+    let pairListURL: String = bitsoAPI + "/available_books"
+    let tickerURL: String = bitsoAPI + "/ticker?book=%1$s"
 
     // MARK: Einzelkurs
 
-    override func pairId(_ info: PairQuery) -> String? {
+    func pairId(_ info: PairQuery) -> String? {
         info.pairId ?? info.baseLower + "_" + info.quoteLower
     }
 
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         try copyRow(json.object("payload"), into: &ticker)
     }
 
     /// Fehlerform {"error": {"message": …}}.
-    override func errorMessage(call: Int, json: JObject, info: PairQuery) throws -> String? {
+    func errorMessage(call: Int, json: JObject, info: PairQuery) throws -> String? {
         try json.object("error").string("message")
     }
 
     // MARK: Sammelabfrage: derselbe Endpunkt ohne «book» liefert alle Bücher
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
-    override func bulkTickersURL(call: Int) -> String? { bitsoAPI + "/ticker" }
+    func bulkTickersURL(call: Int) -> String? { bitsoAPI + "/ticker" }
 
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         for row in try JObject(string: body).array("payload").allObjects() {
             bulkRowIfActive(row.optString("book"), row: row, priceField: "last", tickers: &tickers,
@@ -45,7 +41,7 @@ final class Bitso: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exc
 
     // MARK: Paarliste
 
-    override func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
+    func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         for entry in try json.array("payload").allObjects() {
             let book = entry.optString("book")

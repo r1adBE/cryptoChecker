@@ -10,24 +10,20 @@ private let hashKeyStatusTrading = "TRADING"
 
 /// HashKey Exchange (Hongkong, lizenziert; USD-, HKD- und Stablecoin-Paare), öffentliche Kurse ohne Schlüssel:
 /// https://hashkeypro-apidoc.readme.io. Kennung «BTCUSD». Der Ticker kommt als Liste, auch für ein einzelnes Paar.
-final class HashKey: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() {
-        super.init(
-            key: "HashKey",
-            name: "HashKey Exchange",
-            pairListURL: hashKeyAPI + "/api/v1/exchangeInfo",
-            tickerURL: hashKeyDayTicker + "?symbol=%1$s",
-            ttsName: "Hash Key Exchange",
-            errorField: "msg"
-        )
-    }
+struct HashKey: SimpleExchange {
+    let key: String = "HashKey"
+    let name: String = "HashKey Exchange"
+    let pairListURL: String = hashKeyAPI + "/api/v1/exchangeInfo"
+    let tickerURL: String = hashKeyDayTicker + "?symbol=%1$s"
+    let ttsName: String = "Hash Key Exchange"
+    let errorField: String? = "msg"
 
     // MARK: Einzelkurs
 
-    override func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.base + info.quote }
+    func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.base + info.quote }
 
     /// Liste mit einer Zeile (dokumentiert) oder, vorsichtshalber, ein einzelnes Objekt. Leere Liste = «No data».
-    override func fillTicker(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {
         let row: JObject
         if body.drop(while: { $0.isWhitespace }).hasPrefix("[") {
             let rows = try JArray(string: body)
@@ -41,15 +37,15 @@ final class HashKey: SimpleExchange, @unchecked Sendable { // @unchecked: wie `E
 
     // MARK: Sammelabfrage
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
     /// Die ungefilterte Liste führt jedes handelbare Paar (Aufzeichnung 19.10.2026: alle 38 Paare im Status
     /// TRADING von `exchangeInfo`, «SPICEUSDC» mit Kurs 0 = nie gehandelt), ein fehlendes Paar ist nicht mehr gelistet.
-    override var bulkTickersComplete: Bool { true }
+    var bulkTickersComplete: Bool { true }
 
-    override func bulkTickersURL(call: Int) -> String? { hashKeyDayTicker }
+    func bulkTickersURL(call: Int) -> String? { hashKeyDayTicker }
 
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         for row in try JArray(string: body).allObjects() {
             bulkRowIfActive(row.optString("s"), row: row, priceField: "c", tickers: &tickers,
@@ -60,7 +56,7 @@ final class HashKey: SimpleExchange, @unchecked Sendable { // @unchecked: wie `E
 
     // MARK: Paarliste
 
-    override func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
+    func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         for symbol in try json.array("symbols").allObjects() where symbol.optString("status") == hashKeyStatusTrading {
             out.append(ExchangePair(symbol.optString("baseAsset"), symbol.optString("quoteAsset"),

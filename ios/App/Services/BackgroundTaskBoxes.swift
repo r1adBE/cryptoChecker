@@ -18,17 +18,20 @@ extension BGTask: BackgroundRefreshTask {
 }
 
 /// Meldet das Ende einer Hintergrund-Aufgabe genau einmal — vom Ablauf selbst oder aus dem
-/// `expirationHandler` (iOS ruft ihn auf einem beliebigen Thread). Thread-sicher.
-final class BackgroundTaskCompletion: @unchecked Sendable { // @unchecked: BGTask (nicht Sendable) nur einmal über `gate` (OnceGate) abgeschlossen
+/// `expirationHandler` (iOS ruft ihn auf einem beliebigen Thread). Thread-sicher und vom Compiler geprüft `Sendable`:
+/// die Aufgabe (`BGTask`, nicht `Sendable`) liegt in einer Sperre und wird nur unter ihr angefasst. Wer `gate` gewinnt,
+/// meldet — nur er nimmt die Sperre, sie wartet also nie auf einen anderen.
+final class BackgroundTaskCompletion: Sendable {
     private let gate = OnceGate()
-    private let task: any BackgroundRefreshTask
+    private let task: OSAllocatedUnfairLock<any BackgroundRefreshTask>
 
     init(_ task: any BackgroundRefreshTask) {
-        self.task = task
+        self.task = OSAllocatedUnfairLock(uncheckedState: task)
     }
 
     func complete(success: Bool) {
-        if gate.claim() { task.setTaskCompleted(success: success) }
+        guard gate.claim() else { return }
+        task.withLock { $0.setTaskCompleted(success: success) }
     }
 }
 

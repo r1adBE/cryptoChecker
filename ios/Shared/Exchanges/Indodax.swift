@@ -4,35 +4,31 @@ private let indodaxAPI = "https://indodax.com/api"
 
 /// Indodax (Indonesien). Vorsicht: In der Paarliste ist `base_currency` die Gegenwährung (IDR/USDT) und
 /// `traded_currency` der gehandelte Coin. https://github.com/btcid/indodax-official-api-docs
-final class Indodax: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() {
-        super.init(
-            key: "Indodax",
-            name: "Indodax",
-            pairListURL: indodaxAPI + "/pairs",
-            tickerURL: indodaxAPI + "/ticker/%1$s",
-            errorField: "error_description"
-        )
-    }
+struct Indodax: SimpleExchange {
+    let key: String = "Indodax"
+    let name: String = "Indodax"
+    let pairListURL: String = indodaxAPI + "/pairs"
+    let tickerURL: String = indodaxAPI + "/ticker/%1$s"
+    let errorField: String? = "error_description"
 
     // MARK: Einzelkurs
 
-    override func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.baseLower + info.quoteLower }
+    func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.baseLower + info.quoteLower }
 
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         try copyRow(json.object("ticker"), into: &ticker, coin: info.baseLower, counter: info.quoteLower)
     }
 
     // MARK: Sammelabfrage
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
-    override var bulkTickersComplete: Bool { true }
+    var bulkTickersComplete: Bool { true }
 
-    override func bulkTickersURL(call: Int) -> String? { indodaxAPI + "/ticker_all" }
+    func bulkTickersURL(call: Int) -> String? { indodaxAPI + "/ticker_all" }
 
     /// Schlüssel «btc_idr» → Paar-Kennung «btcidr».
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         // Werte, die keine Objekte sind, sind keine Ticker-Zeilen und fallen still weg
         try JObject(string: body).object("tickers").forEachObject { name, row in
@@ -49,7 +45,7 @@ final class Indodax: SimpleExchange, @unchecked Sendable { // @unchecked: wie `E
 
     // MARK: Paarliste
 
-    override func fillPairList(call: Int, body: String) throws -> [ExchangePair] {
+    func fillPairList(call: Int, body: String) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         for entry in try JArray(string: body).allObjects() {
             if Indodax.isSet(entry, "is_maintenance") || Indodax.isSet(entry, "is_market_suspended") { continue }

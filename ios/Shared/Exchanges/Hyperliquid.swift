@@ -15,24 +15,24 @@ private let hyperliquidErrorChars = 200
 /// `priceIsMid` («Mittelkurs»), Frische ab Abruf. Die 24-h-Veränderung rechnet mit demselben Kurs gegen `prevDayPx`
 /// (`shownChange`), damit Kurs, Änderung und Alarme auf einer Basis stehen. Letzte Handel gäbe es nur je Coin
 /// (`recentTrades`) — für alle Perps zu teuer.
-final class Hyperliquid: Exchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
+struct Hyperliquid: Exchange {
     /// Abschnitt «Futures» der Börsenauswahl (`ExchangeCategory`). Android gleich.
-    override var category: ExchangeCategory { .futures }
+    var category: ExchangeCategory { .futures }
 
-    init() {
-        super.init(key: "Hyperliquid", name: "Hyperliquid", ttsName: "Hyperliquid")
-    }
+    let key: String = "Hyperliquid"
+    let name: String = "Hyperliquid"
+    let ttsName: String = "Hyperliquid"
 
-    override var priceIsMid: Bool { true }
+    var priceIsMid: Bool { true }
 
     // MARK: Einzelkurs: dieselbe Antwort, daraus der gesuchte Coin
 
-    override func tickerAddress(call: Int, info: PairQuery) -> String { hyperliquidInfo }
+    func tickerAddress(call: Int, info: PairQuery) -> String { hyperliquidInfo }
 
     // Für jedes Paar dieselbe Abfrage (~100 KB): gleichzeitige Einzelkurse teilen sich eine Antwort (`InFlightRequests`)
-    override func tickerPostBody(call: Int, info: PairQuery) -> PostRequest? { Hyperliquid.metaRequest }
+    func tickerPostBody(call: Int, info: PairQuery) -> PostRequest? { Hyperliquid.metaRequest }
 
-    override func fillTicker(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {
         var ignored = Set<String>()
         let byCoin = try readUniverse(body, failed: &ignored)
         guard let coin = info.pairId, let snapshot = byCoin[coin] else {
@@ -47,35 +47,35 @@ final class Hyperliquid: Exchange, @unchecked Sendable { // @unchecked: wie `Exc
 
     /// Hyperliquid antwortet bei Fehlern mit blossem Text: dessen Anfang ist der Fehlertext. Eine gültige Antwort
     /// (JSON-Liste) ohne den Coin hat keinen — sonst verdeckte ihr Anfang «Unknown coin» (`NotTraded.isMissingEntry`).
-    override func errorMessage(call: Int, body: String, info: PairQuery) throws -> String? {
+    func errorMessage(call: Int, body: String, info: PairQuery) throws -> String? {
         if body.drop(while: { $0.isWhitespace }).hasPrefix("[") { try noErrorText() }
         return String(body.prefix(hyperliquidErrorChars))
     }
 
     // MARK: Sammelabfrage
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
-    override var bulkTickersComplete: Bool { true }
+    var bulkTickersComplete: Bool { true }
 
     /// Der Einzelkurs liest dieselbe vollständige Liste.
-    override var singleTickerReadsFullList: Bool { true }
+    var singleTickerReadsFullList: Bool { true }
 
-    override func bulkTickersURL(call: Int) -> String? { hyperliquidInfo }
+    func bulkTickersURL(call: Int) -> String? { hyperliquidInfo }
 
-    override func bulkTickersPostRequest(call: Int) -> PostRequest? { Hyperliquid.metaRequest }
+    func bulkTickersPostRequest(call: Int) -> PostRequest? { Hyperliquid.metaRequest }
 
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         try readUniverse(body, failed: &failed)
     }
 
     // MARK: Paarliste
 
-    override func pairListAddress(call: Int) -> String? { hyperliquidInfo }
+    func pairListAddress(call: Int) -> String? { hyperliquidInfo }
 
-    override func pairListPostBody(call: Int) -> PostRequest? { Hyperliquid.metaRequest }
+    func pairListPostBody(call: Int) -> PostRequest? { Hyperliquid.metaRequest }
 
-    override func fillPairList(call: Int, body: String) throws -> [ExchangePair] {
+    func fillPairList(call: Int, body: String) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         for coin in try JArray(string: body).object(0).array("universe").allObjects() where !coin.optBool("isDelisted") {
             let name = try coin.string("name")

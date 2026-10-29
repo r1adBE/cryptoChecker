@@ -28,22 +28,22 @@ private let lighterNoTradesWindowMillis: Int64 = 24 * 60 * 60 * 1000
 /// Kurs = letzter Handel (`last_trade_price`), kein Mark- oder Mittelkurs. Keine Zeit der Börse (Momentaufnahme),
 /// Frische ab Abruf. TradFi (SPY, NATGAS, US10Y …) erkennt erst `tokenlist` (`asset_type` «RWA»), darum liest die
 /// Paarliste zwei Antworten gemeinsam; `tokenlist` liefert auch die vollen Namen.
-final class Lighter: Exchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
+struct Lighter: Exchange {
     /// Abschnitt «Futures» der Börsenauswahl (`ExchangeCategory`). Android gleich.
-    override var category: ExchangeCategory { .futures }
+    var category: ExchangeCategory { .futures }
 
-    init() {
-        super.init(key: "Lighter", name: "Lighter", ttsName: "Lighter")
-    }
+    let key: String = "Lighter"
+    let name: String = "Lighter"
+    let ttsName: String = "Lighter"
 
     // MARK: Einzelkurs: dieselbe Antwort wie die Sammelabfrage, daraus das gesuchte Symbol
 
-    override func tickerAddress(call: Int, info: PairQuery) -> String { lighterStats }
+    func tickerAddress(call: Int, info: PairQuery) -> String { lighterStats }
 
     /// Unbekanntes Symbol oder Kurs 0 (nie gehandelt, abgelaufener Binärmarkt): Fehler statt Kurs 0, damit «nicht
     /// mehr gehandelt» bestätigt werden kann (NotTraded). Kurs 0 meldet `JSONError.noData` (gültige Antwort ohne Kurs):
     /// Ein eigener Text galt als Lesefehler, bestätigte nie und blieb ein Dauerfehler. Wie Android.
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         let symbol = Lighter.symbol(of: info)
         let rows = try json.array("order_book_stats").optObjects()
         guard let row = rows.first(where: { $0.optString("symbol") == symbol }) else {
@@ -64,7 +64,7 @@ final class Lighter: Exchange, @unchecked Sendable { // @unchecked: wie `Exchang
 
     /// Fehlerantwort {"code": …, "message": …} mit einem Code ausser 200; eine normale Antwort (code 200) ohne das
     /// Paar hat keinen Fehlertext der Börse.
-    override func errorMessage(call: Int, json: JObject, info: PairQuery) throws -> String? {
+    func errorMessage(call: Int, json: JObject, info: PairQuery) throws -> String? {
         let code = json.optInt("code", lighterOK)
         let message = json.optString("message")
         if code == lighterOK || message.isEmpty { try noErrorText() }
@@ -73,19 +73,19 @@ final class Lighter: Exchange, @unchecked Sendable { // @unchecked: wie `Exchang
 
     // MARK: Sammelabfrage
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
     /// `exchangeStats` führt alle Märkte (auch inaktive und Binärmärkte), ein fehlendes Paar ist nicht mehr gelistet.
-    override var bulkTickersComplete: Bool { true }
+    var bulkTickersComplete: Bool { true }
 
     /// Der Einzelkurs liest dieselbe vollständige Liste (`tickerAddress`).
-    override var singleTickerReadsFullList: Bool { true }
+    var singleTickerReadsFullList: Bool { true }
 
-    override func bulkTickersURL(call: Int) -> String? { lighterStats }
+    func bulkTickersURL(call: Int) -> String? { lighterStats }
 
     /// Kurs 0 (Binärmärkte «BTC-UPDOWN-15M-…», nie gehandelte Perps) wird übersprungen, nicht als Fehler gezählt;
     /// fehlt das Kursfeld (umbenannt), trifft das nur sein Paar.
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         for row in try JObject(string: body).array("order_book_stats").optObjects() {
             bulkRowIfActive(row.optString("symbol"), row: row, priceField: "last_trade_price", tickers: &tickers,
@@ -96,12 +96,12 @@ final class Lighter: Exchange, @unchecked Sendable { // @unchecked: wie `Exchang
 
     // MARK: Paarliste: Märkte aus `orderBooks`, Art des Basiswerts aus `tokenlist`
 
-    override var pairListCallCount: Int { 2 }
+    var pairListCallCount: Int { 2 }
 
     /// Erst beide Antworten, dann gemeinsam lesen: `orderBooks` sagt, was handelbar ist, `tokenlist`, was TradFi ist.
-    override var pairListCombined: Bool { true }
+    var pairListCombined: Bool { true }
 
-    override func pairListAddress(call: Int) -> String? {
+    func pairListAddress(call: Int) -> String? {
         call == 0 ? lighterAPI + "/orderBooks" : lighterAPI + "/tokenlist"
     }
 
@@ -111,7 +111,7 @@ final class Lighter: Exchange, @unchecked Sendable { // @unchecked: wie `Exchang
     /// `tokenlist` unlesbar, bleibt das Paar unmarkiert wie bei Börsen ohne solches Feld: Die Liste kommt trotzdem
     /// aus `orderBooks`, und eine fehlende Angabe soll keinen Krypto-Coin unter TradFi verstecken. Ausnahme:
     /// Robinhood-Aktientoken als Spot («rhSPY/USDC», fehlen in `tokenlist`) — siehe `TradFi.lighterRobinhood`.
-    override func fillPairListCombined(bodies: [String]) throws -> [ExchangePair] {
+    func fillPairListCombined(bodies: [String]) throws -> [ExchangePair] {
         let assetTypes = Lighter.assetTypes(bodies.count > 1 ? bodies[1] : "")
         var out: [ExchangePair] = []
         for book in try JObject(string: bodies[0]).array("order_books").optObjects() {
@@ -131,7 +131,7 @@ final class Lighter: Exchange, @unchecked Sendable { // @unchecked: wie `Exchang
 
     /// Voller Name je Basis aus `tokenlist` («COIN» → «Coinbase», «META» → «Meta»), damit Aktien und Rohstoffe nicht
     /// als gleichnamiger Token gelten. Spot «ETH/USDC» zählt für die Basis «ETH»; der erste Eintrag gewinnt.
-    override func parseBaseNamesCombined(bodies: [String]) throws -> [String: String] {
+    func parseBaseNamesCombined(bodies: [String]) throws -> [String: String] {
         var names: [String: String] = [:]
         for token in try JObject(string: bodies[1]).array("tokens").optObjects() {
             let base = String(token.optString("symbol").prefix { $0 != "/" })

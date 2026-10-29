@@ -7,21 +7,20 @@ private let bitunixFuturesAPI = "https://fapi.bitunix.com/api/v1/futures/market"
 /// Kennung = `symbol` («BTCUSDT»). Die Spot-Schnittstelle kennt keinen 24-h-Ticker, darum nur Futures.
 /// Die API nennt keine Art je Kontrakt: Aktien-Kontrakte (AAPL, TSLA) erscheinen wie Krypto (`tradFi` false).
 /// Wie `BitunixFutures.kt`.
-final class BitunixFutures: Exchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() {
-        super.init(key: "BitunixFutures", name: "Bitunix Futures")
-    }
+struct BitunixFutures: Exchange {
+    let key: String = "BitunixFutures"
+    let name: String = "Bitunix Futures"
 
-    override var category: ExchangeCategory { .futures }
+    var category: ExchangeCategory { .futures }
 
     // MARK: Einzelkurs
 
-    override func tickerAddress(call: Int, info: PairQuery) -> String {
+    func tickerAddress(call: Int, info: PairQuery) -> String {
         bitunixFuturesAPI + "/tickers?symbols=" + (info.pairId ?? "")
     }
 
     /// Nur die Zeile des gefragten Symbols zählt; fehlt sie, «keine Daten».
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         let rows = try json.array("data").allObjects()
         guard let row = rows.first(where: { $0.optString("symbol") == info.pairId }) else {
             throw JSONError(message: JSONError.noData)
@@ -31,20 +30,20 @@ final class BitunixFutures: Exchange, @unchecked Sendable { // @unchecked: wie `
 
     /// code 0 heisst Erfolg — dann ist «msg» («Success») kein Fehlertext. Sonst z. B. 20015 «this Futures is not
     /// allowed to trade.».
-    override func errorMessage(call: Int, json: JObject, info: PairQuery) throws -> String? {
+    func errorMessage(call: Int, json: JObject, info: PairQuery) throws -> String? {
         if json.optInt("code", -1) == 0 { try noErrorText() }
         return try json.string("msg")
     }
 
     // MARK: Sammelabfrage (ohne `symbols` alle Paare)
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
-    override var bulkTickersComplete: Bool { true }
+    var bulkTickersComplete: Bool { true }
 
-    override func bulkTickersURL(call: Int) -> String? { bitunixFuturesAPI + "/tickers" }
+    func bulkTickersURL(call: Int) -> String? { bitunixFuturesAPI + "/tickers" }
 
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         for row in try JObject(string: body).array("data").allObjects() {
             bulkRowIfActive(row.optString("symbol"), row: row, priceField: "lastPrice", tickers: &tickers,
@@ -55,10 +54,10 @@ final class BitunixFutures: Exchange, @unchecked Sendable { // @unchecked: wie `
 
     // MARK: Paarliste
 
-    override func pairListAddress(call: Int) -> String? { bitunixFuturesAPI + "/trading_pairs" }
+    func pairListAddress(call: Int) -> String? { bitunixFuturesAPI + "/trading_pairs" }
 
     /// {"data": [{symbol, base, quote, symbolStatus}]}; nur «OPEN» (nicht PREVIEW, CANCEL_ONLY, STOP).
-    override func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
+    func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         for entry in try json.array("data").allObjects() {
             guard entry.optString("symbolStatus") == "OPEN" else { continue }

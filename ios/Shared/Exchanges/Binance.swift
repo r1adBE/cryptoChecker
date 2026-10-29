@@ -11,76 +11,82 @@ private let binanceFirstAlphaCall = 1
 private let binanceComPairListQuery = "?symbolStatus=TRADING&showPermissionSets=false"
 
 /// Binance Spot (binance.com).
-final class Binance: BinanceBase, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() { super.init(key: "Binance", name: "Binance", domain: "com", pairListQuery: binanceComPairListQuery) }
+struct Binance: BinanceBase {
+    let key: String = "Binance"
+    let name: String = "Binance"
+    let domain: String = "com"
+    let pairListQuery: String = binanceComPairListQuery
 }
 
 /// Binance.US — gleiche API unter eigener Domain.
-final class BinanceUs: BinanceBase, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() { super.init(key: "BinanceUs", name: "Binance.US", domain: "us") }
+struct BinanceUs: BinanceBase {
+    let key: String = "BinanceUs"
+    let name: String = "Binance.US"
+    let domain: String = "us"
 }
 
 /// Gemeinsamer Teil von Binance und Binance.US (API v3). Unter «Binance» stehen zusätzlich die Alpha-Paare
 /// (`BinanceAlpha`, Kennung «ALPHA_<id>USDT») mit eigenen Endpunkten. `pairListQuery` hängt an die Paarliste; der
 /// Status wird beim Lesen trotzdem geprüft (Binance.US filtert nicht).
-class BinanceBase: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    /// 24-h-Ticker: mit `symbol` ein Paar, ohne Parameter alle.
-    private let dayTicker: String
+protocol BinanceBase: SimpleExchange {
+    /// Domain der API: «com» bzw. «us».
+    var domain: String { get }
+    /// Anhang der Paarliste; Standard: keiner.
+    var pairListQuery: String { get }
+}
 
-    init(key: String, name: String, domain: String, pairListQuery: String = "") {
-        dayTicker = "https://api.binance.\(domain)/api/v3/ticker/24hr"
-        super.init(
-            key: key,
-            name: name,
-            pairListURL: "https://api.binance.\(domain)/api/v3/exchangeInfo" + pairListQuery,
-            tickerURL: "https://api.binance.\(domain)/api/v3/ticker/24hr?symbol=%1$s",
-            errorField: "msg"
-        )
-    }
+extension BinanceBase {
+    var pairListQuery: String { "" }
+    var pairListURL: String { "https://api.binance.\(domain)/api/v3/exchangeInfo" + pairListQuery }
+    var tickerURL: String { "https://api.binance.\(domain)/api/v3/ticker/24hr?symbol=%1$s" }
+    var errorField: String? { "msg" }
+
+    /// 24-h-Ticker: mit `symbol` ein Paar, ohne Parameter alle.
+    private var dayTicker: String { "https://api.binance.\(domain)/api/v3/ticker/24hr" }
 
     // MARK: Einzelkurs
 
-    override func tickerAddress(call: Int, info: PairQuery) -> String {
+    func tickerAddress(call: Int, info: PairQuery) -> String {
         guard let pairId = info.pairId, BinanceAlpha.isPairId(pairId) else {
-            return super.tickerAddress(call: call, info: info)
+            return simpleTickerAddress(info)
         }
         return BinanceAlpha.tickerURL + pairId
     }
 
-    override func fillTicker(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {
         if BinanceAlpha.isPairId(info.pairId) {
             try BinanceAlpha.readTicker(body, &ticker)
         } else {
-            try super.fillTicker(call: call, body: body, ticker: &ticker, info: info)
+            try fillTicker(call: call, json: JObject(string: body), ticker: &ticker, info: info)
         }
     }
 
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         try copyRow(json, into: &ticker)
     }
 
-    override func errorMessage(call: Int, json: JObject, info: PairQuery) throws -> String? {
+    func errorMessage(call: Int, json: JObject, info: PairQuery) throws -> String? {
         if BinanceAlpha.isPairId(info.pairId) { return BinanceAlpha.errorText(json) }
-        return try super.errorMessage(call: call, json: json, info: info)
+        return try simpleErrorMessage(json)
     }
 
     // MARK: Sammelabfrage
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
     /// Der ungefilterte Spot-Ticker enthält jedes gehandelte Paar.
-    override var bulkTickersComplete: Bool { true }
+    var bulkTickersComplete: Bool { true }
 
     /// Ohne Auswahl: alle Spot-Paare; Alpha-Teilanfragen gibt es nur mit Auswahl (ein gescheiterter Alpha-Ticker
     /// lädt nicht ersatzweise die ganze Token-Liste).
-    override func bulkTickersURL(call: Int) -> String? {
+    func bulkTickersURL(call: Int) -> String? {
         call < binanceFirstAlphaCall ? dayTicker : nil
     }
 
     /// Anfrage 0: Spot, mit `symbols=[…]` nur die beobachteten Paare (wenige KB statt rund 2 MB). Ab
     /// `binanceSymbolLimit` Paaren wäre die Auswahl gleich teuer wie alles. Gibt es nur Alpha-Paare, entfällt die
     /// Spot-Anfrage. Ab Anfrage 1: Alpha (Token-Liste bzw. Einzel-Ticker).
-    override func bulkTickersURL(call: Int, pairIds: [String]) -> String? {
+    func bulkTickersURL(call: Int, pairIds: [String]) -> String? {
         if call >= binanceFirstAlphaCall {
             let alphaCalls = BinanceAlpha.bulkRequestURLs(pairIds: pairIds)
             let slot = call - binanceFirstAlphaCall
@@ -94,20 +100,20 @@ class BinanceBase: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exc
     }
 
     /// Spot-Anfrage plus die Alpha-Anfragen (`BinanceAlpha.bulkRequestURLs`).
-    override func bulkTickersRequestCount(pairIds: [String]) -> Int {
+    func bulkTickersRequestCount(pairIds: [String]) -> Int {
         BinanceAlpha.bulkRequestURLs(pairIds: pairIds).count + 1
     }
 
     /// Spot und Alpha zählen getrennt als «vollständig» — eine gescheiterte Alpha-Anfrage trübt Spot nicht.
-    override func bulkTickersRequestGroup(call: Int) -> Int {
+    func bulkTickersRequestGroup(call: Int) -> Int {
         call < binanceFirstAlphaCall ? 0 : binanceFirstAlphaCall
     }
 
-    override func bulkTickersPairGroup(pairId: String) -> Int {
+    func bulkTickersPairGroup(pairId: String) -> Int {
         BinanceAlpha.isPairId(pairId) ? binanceFirstAlphaCall : 0
     }
 
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         if call == binanceFirstAlphaCall { return try readAlphaList(body, failed: &failed) }
         if call > binanceFirstAlphaCall { return try readAlphaTicker(body) }
         return try readSpotList(body, failed: &failed)
@@ -115,7 +121,7 @@ class BinanceBase: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exc
 
     // MARK: Paarliste
 
-    override func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
+    func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         for entry in try json.array("symbols").allObjects() {
             guard try entry.string("status") == "TRADING" else { continue }

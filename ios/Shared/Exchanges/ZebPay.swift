@@ -7,33 +7,29 @@ private let zebPayStopped: Set<String> = ["closed", "close", "halt", "halted", "
                                           "disabled"]
 
 /// ZebPay (Indien), Spot-API v2. Referenz: github.com/zebpay/zebpay-api-references
-final class ZebPay: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() {
-        super.init(
-            key: "ZebPay",
-            name: "ZebPay",
-            pairListURL: zebPayAPI + "/ex/exchangeInfo",
-            tickerURL: zebPayAPI + "/market/ticker?symbol=%1$s",
-            ttsName: "Zeb Pay",
-            errorField: "message"
-        )
-    }
+struct ZebPay: SimpleExchange {
+    let key: String = "ZebPay"
+    let name: String = "ZebPay"
+    let pairListURL: String = zebPayAPI + "/ex/exchangeInfo"
+    let tickerURL: String = zebPayAPI + "/market/ticker?symbol=%1$s"
+    let ttsName: String = "Zeb Pay"
+    let errorField: String? = "message"
 
     // MARK: Einzelkurs
 
-    override func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.base + "-" + info.quote }
+    func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.base + "-" + info.quote }
 
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         try copyRow(json.object("data"), into: &ticker)
     }
 
     // MARK: Sammelabfrage
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
-    override func bulkTickersURL(call: Int) -> String? { zebPayAPI + "/market/allTickers" }
+    func bulkTickersURL(call: Int) -> String? { zebPayAPI + "/market/allTickers" }
 
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         for row in try JObject(string: body).array("data").allObjects() {
             bulkRowIfActive(row.optString("symbol"), row: row, priceField: "last", tickers: &tickers,
@@ -44,7 +40,7 @@ final class ZebPay: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Ex
 
     // MARK: Paarliste
 
-    override func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
+    func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         for symbol in try json.object("data").array("symbols").allObjects() where ZebPay.isTradable(symbol) {
             out.append(ExchangePair(try symbol.string("baseAsset"), try symbol.string("quoteAsset"),

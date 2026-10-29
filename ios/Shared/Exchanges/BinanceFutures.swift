@@ -15,13 +15,13 @@ private let binanceMissingPairId = "Missing pair id"
 
 /// Binance Futures: USDⓈ-M (fapi, Kennung = Symbol) und COIN-M (dapi, Kennung «2:» + Symbol). Zwei Endpunkte, die
 /// ohne `symbol` je alle Kontrakte liefern — darum kein `SimpleExchange`.
-final class BinanceFutures: Exchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
+struct BinanceFutures: Exchange {
     /// Abschnitt «Futures» der Börsenauswahl (`ExchangeCategory`). Android gleich.
-    override var category: ExchangeCategory { .futures }
+    var category: ExchangeCategory { .futures }
 
-    init() {
-        super.init(key: "BinanceFutures", name: "Binance Futures", ttsName: "Binance Futures")
-    }
+    let key: String = "BinanceFutures"
+    let name: String = "Binance Futures"
+    let ttsName: String = "Binance Futures"
 
     /// Darf der Kontrakt gewählt werden? Nur «TRADING» — abgelaufene, abrechnende oder geschlossene (DELIVERING,
     /// SETTLING, CLOSE …) nicht. USD-M nennt das Feld «status», COIN-M «contractStatus»; fehlt beides, gilt er als
@@ -35,11 +35,11 @@ final class BinanceFutures: Exchange, @unchecked Sendable { // @unchecked: wie `
     // MARK: Einzelkurs
 
     /// Ohne Paar-Kennung (fehlt oder leer) keine Anfrage, sondern ein Fehler — wie Android (`pairIdOf` wirft).
-    override func tickerQueryError(call: Int, info: PairQuery) -> Error? {
+    func tickerQueryError(call: Int, info: PairQuery) -> Error? {
         BinanceFutures.pairId(of: info) == nil ? JSONError(message: binanceMissingPairId) : nil
     }
 
-    override func tickerAddress(call: Int, info: PairQuery) -> String {
+    func tickerAddress(call: Int, info: PairQuery) -> String {
         guard let pairId = BinanceFutures.pairId(of: info) else { return "" }
         let endpoint = BinanceFutures.dayTicker(of: pairId)
         let symbol = BinanceFutures.isCoinM(pairId) ? String(pairId.dropFirst(binanceCoinMMark.count)) : pairId
@@ -49,29 +49,29 @@ final class BinanceFutures: Exchange, @unchecked Sendable { // @unchecked: wie `
     }
 
     /// COIN-M antwortet mit einem Array aus einem Eintrag.
-    override func fillTicker(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {
         let row = try BinanceFutures.isCoinM(info.pairId ?? "") ? JArray(string: body).object(0) : JObject(string: body)
         try BinanceFutures.copyRow(row, into: &ticker)
     }
 
     // MARK: Sammelabfrage
 
-    override var bulkTickersNumOfRequests: Int { 2 }
+    var bulkTickersNumOfRequests: Int { 2 }
 
     /// Ungefiltert enthält jede Antwort alle gehandelten Kontrakte.
-    override var bulkTickersComplete: Bool { true }
+    var bulkTickersComplete: Bool { true }
 
-    override func bulkTickersURL(call: Int) -> String? {
+    func bulkTickersURL(call: Int) -> String? {
         call == 0 ? binanceFapiDayTicker : binanceDapiDayTicker
     }
 
     /// USDⓈ-M (0) und COIN-M (1) je für sich «vollständig»: fällt dapi aus, bleibt fapi verlässlich.
-    override func bulkTickersRequestGroup(call: Int) -> Int { call == 0 ? 0 : 1 }
+    func bulkTickersRequestGroup(call: Int) -> Int { call == 0 ? 0 : 1 }
 
-    override func bulkTickersPairGroup(pairId: String) -> Int { BinanceFutures.isCoinM(pairId) ? 1 : 0 }
+    func bulkTickersPairGroup(pairId: String) -> Int { BinanceFutures.isCoinM(pairId) ? 1 : 0 }
 
     /// Einträge, die keine Objekte sind, übergehen; unlesbare Zahlen treffen nur ihr Paar.
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         let coinM = call > 0
         var tickers: [String: Ticker] = [:]
         for row in try JArray(string: body).optObjects() {
@@ -86,16 +86,16 @@ final class BinanceFutures: Exchange, @unchecked Sendable { // @unchecked: wie `
 
     // MARK: Paarliste
 
-    override var pairListCallCount: Int { 2 }
+    var pairListCallCount: Int { 2 }
 
     /// Ohne COIN-M (dapi) keine halbe Liste speichern: dann bleibt die bisherige.
-    override var pairListAllCallsRequired: Bool { true }
+    var pairListAllCallsRequired: Bool { true }
 
-    override func pairListAddress(call: Int) -> String? {
+    func pairListAddress(call: Int) -> String? {
         call == 0 ? binanceFapi + "/exchangeInfo" : binanceDapi + "/exchangeInfo"
     }
 
-    override func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
+    func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
         let coinM = call > 0
         var out: [ExchangePair] = []
         for entry in try json.array("symbols").allObjects() {

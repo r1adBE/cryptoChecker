@@ -1,88 +1,76 @@
 import Foundation
 
 /// Upbit (Südkorea). Kennung «QUOTE-BASE», z. B. KRW-BTC. Doku: docs.upbit.com
-final class Upbit: UpbitStyleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() {
-        super.init(
-            key: "Upbit",
-            name: "Upbit",
-            ttsName: "Up bit",
-            apiRoot: "https://api.upbit.com/v1",
-            detailsFlag: "is_details=false",
-            unfilteredURL: "https://api.upbit.com/v1/ticker/all?quote_currencies=KRW,BTC,USDT",
-            tradeTimeFromUTCFields: false
-        )
-    }
+struct Upbit: UpbitStyleExchange {
+    let key: String = "Upbit"
+    let name: String = "Upbit"
+    let ttsName: String = "Up bit"
+    let apiRoot: String = "https://api.upbit.com/v1"
+    let detailsFlag: String = "is_details=false"
+    let unfilteredURL: String? = "https://api.upbit.com/v1/ticker/all?quote_currencies=KRW,BTC,USDT"
+    let tradeTimeFromUTCFields: Bool = false
 }
 
 /// Bithumb (Südkorea), API v1 mit Upbits Aufbau. Doku: apidocs.bithumb.com. Anders als bei Upbit ist
 /// «trade_timestamp» die koreanische Uhrzeit als Epoche geschrieben (9 h zu spät); die Zeit kommt darum aus
 /// «trade_date» + «trade_time» (UTC).
-final class Bithumb: UpbitStyleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() {
-        super.init(
-            key: "Bithumb",
-            name: "Bithumb",
-            ttsName: "Bithumb",
-            apiRoot: "https://api.bithumb.com/v1",
-            detailsFlag: "isDetails=false",
-            unfilteredURL: nil,
-            tradeTimeFromUTCFields: true
-        )
-    }
+struct Bithumb: UpbitStyleExchange {
+    let key: String = "Bithumb"
+    let name: String = "Bithumb"
+    let ttsName: String = "Bithumb"
+    let apiRoot: String = "https://api.bithumb.com/v1"
+    let detailsFlag: String = "isDetails=false"
+    let unfilteredURL: String? = nil
+    let tradeTimeFromUTCFields: Bool = true
 }
 
 /// Gemeinsamer Aufbau von Upbit und Bithumb: Paarliste `market/all`, Ticker `ticker?markets=…`, Kennung «QUOTE-BASE».
 /// `unfilteredURL`: Sammelabfrage ohne Auswahl, falls die Börse eine hat (Upbit), sonst nil (Bithumb).
 /// `tradeTimeFromUTCFields`: Handelszeit aus «trade_date»/«trade_time» (UTC) statt aus «trade_timestamp» (Bithumb).
-class UpbitStyleExchange: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    private let unfilteredURL: String?
-    private let tradeTimeFromUTCFields: Bool
-    /// Gefilterte Sammelabfrage: dahinter die Kennungen mit Komma.
-    private let selectionPrefix: String
+protocol UpbitStyleExchange: SimpleExchange {
+    /// API-Wurzel («…/v1»).
+    var apiRoot: String { get }
+    /// Abfrageteil der Paarliste ohne Details.
+    var detailsFlag: String { get }
+    var unfilteredURL: String? { get }
+    var tradeTimeFromUTCFields: Bool { get }
+}
 
-    init(key: String, name: String, ttsName: String, apiRoot: String, detailsFlag: String, unfilteredURL: String?,
-         tradeTimeFromUTCFields: Bool) {
-        self.unfilteredURL = unfilteredURL
-        self.tradeTimeFromUTCFields = tradeTimeFromUTCFields
-        selectionPrefix = apiRoot + "/ticker?markets="
-        super.init(
-            key: key,
-            name: name,
-            pairListURL: apiRoot + "/market/all?" + detailsFlag,
-            tickerURL: apiRoot + "/ticker?markets=%1$s",
-            ttsName: ttsName
-        )
-    }
+extension UpbitStyleExchange {
+    var pairListURL: String { apiRoot + "/market/all?" + detailsFlag }
+    var tickerURL: String { apiRoot + "/ticker?markets=%1$s" }
+
+    /// Gefilterte Sammelabfrage: dahinter die Kennungen mit Komma.
+    private var selectionPrefix: String { apiRoot + "/ticker?markets=" }
 
     // MARK: Einzelkurs
 
-    override func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.quote + "-" + info.base }
+    func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.quote + "-" + info.base }
 
-    override func fillTicker(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {
-        try UpbitStyleExchange.copyRow(JArray(string: body).object(0), into: &ticker, utcFields: tradeTimeFromUTCFields)
+    func fillTicker(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {
+        try Self.copyRow(JArray(string: body).object(0), into: &ticker, utcFields: tradeTimeFromUTCFields)
     }
 
     /// Fehlerform {"error": {"message": …}} oder {"message": …}.
-    override func errorMessage(call: Int, json: JObject, info: PairQuery) throws -> String? {
+    func errorMessage(call: Int, json: JObject, info: PairQuery) throws -> String? {
         guard let nested = json.optObject("error") else { return try json.string("message") }
         return try nested.string("message")
     }
 
     // MARK: Sammelabfrage
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
     /// Gefiltert liefert die Börse jedes angefragte Paar oder lehnt ab; ungefiltert (Upbit, alle Kotierungen) jedes
     /// gehandelte. Was fehlt, wird nicht mehr gehandelt (Einzelabfrage bestätigt, NotTraded).
-    override var bulkTickersComplete: Bool { true }
+    var bulkTickersComplete: Bool { true }
 
-    override func bulkTickersURL(call: Int) -> String? { unfilteredURL }
+    func bulkTickersURL(call: Int) -> String? { unfilteredURL }
 
     /// Nur die beobachteten Paare. Kennt die Börse eines davon nicht, lehnt sie alles ab («Code not found», ohne
     /// Paar): Upbit fällt auf die ungefilterte Abfrage zurück, Bithumb lädt die Paarliste, lässt Unbekannte weg und
     /// fragt neu (`bulkKnownPairsURL`).
-    override func bulkTickersURL(call: Int, pairIds: [String]) -> String? {
+    func bulkTickersURL(call: Int, pairIds: [String]) -> String? {
         if pairIds.isEmpty { return unfilteredURL }
         // Lange Listen auf mehrere URLs verteilen (sonst HTTP 414) — nur mit ungefiltertem Ersatz (Upbit). Bei
         // Bithumb teilte die Wiederholung ohne Unbekannte die Liste neu auf und träfe andere Gruppen
@@ -92,31 +80,31 @@ class UpbitStyleExchange: SimpleExchange, @unchecked Sendable { // @unchecked: w
         return call < groups.count ? BulkPairChunks.url(prefix: selectionPrefix, chunk: groups[call]) : nil
     }
 
-    override func bulkTickersRequestCount(pairIds: [String]) -> Int {
+    func bulkTickersRequestCount(pairIds: [String]) -> Int {
         selectionGroups(pairIds)?.count ?? bulkTickersNumOfRequests
     }
 
-    override func bulkKnownPairsURL(call: Int) -> String? {
+    func bulkKnownPairsURL(call: Int) -> String? {
         unfilteredURL == nil ? pairListAddress(call: call) : nil
     }
 
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         let utcFields = tradeTimeFromUTCFields
         for row in try JArray(string: body).allObjects() {
             bulkRowIfActive(row.optString("market"), row: row, priceField: "trade_price", tickers: &tickers,
-                            failed: &failed) { try UpbitStyleExchange.copyRow(row, into: &$0, utcFields: utcFields) }
+                            failed: &failed) { try Self.copyRow(row, into: &$0, utcFields: utcFields) }
         }
         return tickers
     }
 
     // MARK: Paarliste
 
-    override func fillPairList(call: Int, body: String) throws -> [ExchangePair] {
+    func fillPairList(call: Int, body: String) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         for entry in try JArray(string: body).allObjects() {
             let market = entry.optString("market")
-            guard let sides = UpbitStyleExchange.splitMarket(market, keepingEmpty: false) else { continue }
+            guard let sides = Self.splitMarket(market, keepingEmpty: false) else { continue }
             out.append(ExchangePair(sides.base, sides.quote, market))
         }
         return out
@@ -125,11 +113,11 @@ class UpbitStyleExchange: SimpleExchange, @unchecked Sendable { // @unchecked: w
     // MARK: Namen
 
     /// Volle Namen aus derselben Liste («english_name», KRW-BTC → Bitcoin); erster Treffer gilt.
-    override func parseBaseNames(call: Int, body: String) throws -> [String: String] {
+    func parseBaseNames(call: Int, body: String) throws -> [String: String] {
         var names: [String: String] = [:]
         for entry in try JArray(string: body).allObjects() {
             // leere Teile zählen mit: «-BTC» oder «KRW-» ergeben keinen Namen
-            guard let sides = UpbitStyleExchange.splitMarket(entry.optString("market"), keepingEmpty: true) else { continue }
+            guard let sides = Self.splitMarket(entry.optString("market"), keepingEmpty: true) else { continue }
             let english = entry.optString("english_name")
             if sides.base.isEmpty || english.isEmpty || names[sides.base] != nil { continue }
             names[sides.base] = english

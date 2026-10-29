@@ -81,7 +81,7 @@ enum ExchangeService {
         collected += try await followingPairPages(exchange, call: call, first: firstBody)
     }
 
-    /// Folgeseiten (etwa Bybit `nextPageCursor`, Gemini-Details), zusammen höchstens `Exchange.maxPairListPages` Seiten
+    /// Folgeseiten (etwa Bybit `nextPageCursor`, Gemini-Details), zusammen höchstens `ExchangeConstants.maxPairListPages` Seiten
     /// samt der ersten. Den Blätterzustand hält ein eigenes `PairListPaging` dieser Anfrage, nie die geteilte Börse.
     /// Misslingt eine Folgeseite, misslingt die ganze Anfrage — sonst fehlten Paare unbemerkt.
     /// Wie `ExchangeRemoteDataSource.kt`.
@@ -90,7 +90,7 @@ enum ExchangeService {
         let paging = exchange.pairListPaging()
         var nextAddress = try paging.nextPage(call: call, body: first)
         var pagesLoaded = 1
-        while pagesLoaded < Exchange.maxPairListPages, let address = nextAddress, !address.isEmpty {
+        while pagesLoaded < ExchangeConstants.maxPairListPages, let address = nextAddress, !address.isEmpty {
             let pageBody = try await ExchangeHTTP.call(address, post: nil, session: ExchangeHTTP.bulkSession)
             pages += try await readPairPage(exchange, call: call, body: pageBody)
             nextAddress = try paging.nextPage(call: call, body: pageBody)

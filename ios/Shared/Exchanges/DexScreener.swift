@@ -36,37 +36,37 @@ struct DexPool: Hashable, Sendable, Identifiable {
 /// Suche, `searchURL`), darum kein `SimpleExchange`. Mehrere Pools derselben Chain kommen gesammelt
 /// (`/latest/dex/pairs/{chain}/{a,b,…}`, höchstens `bulkMaxPools` je Anfrage), einzelne über dieselbe Adresse. Frei
 /// und ohne Schlüssel; laut Anbieter rund 300 Abfragen pro Minute. Reserve für den Einzelkurs: GeckoTerminal.
-final class DexScreener: Exchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
+struct DexScreener: Exchange {
     /// Schlüssel der Börse (Sicherung, Merkliste).
     static let key = "DexScreener"
     /// Lesefehler «Pool nicht gefunden» (Einzelkurs, ungültige Kennung).
     static let poolNotFound = "Pool not found"
 
-    init() {
-        super.init(key: DexScreener.key, name: "DexScreener", ttsName: "Dex Screener")
-    }
+    let key: String = DexScreener.key
+    let name: String = "DexScreener"
+    let ttsName: String = "Dex Screener"
 
     /// Abschnitt «DEX-Pools» der Börsenauswahl (`ExchangeCategory`). Android gleich.
-    override var category: ExchangeCategory { .dex }
+    var category: ExchangeCategory { .dex }
 
     // MARK: Einzelkurs
 
     /// Kennung, die nicht unkodiert in den Pfad darf (`isSafePairId`): «nicht gefunden» ohne Anfrage
     /// (Android wirft in `tickerAddress`).
-    override func tickerQueryError(call: Int, info: PairQuery) -> Error? {
+    func tickerQueryError(call: Int, info: PairQuery) -> Error? {
         guard let pairId = info.pairId, DexScreener.isSafePairId(pairId) else {
             return JSONError(message: DexScreener.poolNotFound)
         }
         return nil
     }
 
-    override func tickerAddress(call: Int, info: PairQuery) -> String {
+    func tickerAddress(call: Int, info: PairQuery) -> String {
         dexScreenerAPI + "/latest/dex/pairs/" + (info.pairId ?? "null")
     }
 
     /// Nur der gemerkte Pool zählt: Liefert die API einen anderen zuerst (oder nur einen anderen), gilt das als
     /// «nicht gefunden» — nie die Kurse eines fremden Pools.
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         let found = DexScreener.poolsIn(json).first { pool in
             DexScreener.isPool(chainId: pool.optString("chainId"), pairAddress: pool.optString("pairAddress"),
                                pairId: info.pairId)
@@ -80,21 +80,21 @@ final class DexScreener: Exchange, @unchecked Sendable { // @unchecked: wie `Exc
     /// Serverfehler oder «Pool not found» bei DexScreener: derselbe Pool bei GeckoTerminal — ein Pool je Anfrage,
     /// frei und ohne Schlüssel, aber eng gebremst (rund 30 Abfragen pro Minute), darum nur für den Einzelkurs.
     /// nil ohne sichere Kennung (`isSafePairId`).
-    override func tickerFallbackAddress(call: Int, info: PairQuery) -> String? {
+    func tickerFallbackAddress(call: Int, info: PairQuery) -> String? {
         guard let id = info.pairId?.trimmingCharacters(in: .whitespacesAndNewlines), DexScreener.isSafePairId(id),
               let cut = id.firstIndex(of: "/") else { return nil }
         return DexScreener.geckoTerminalUrl(chainId: String(id[..<cut]), address: String(id[id.index(after: cut)...]))
     }
 
     /// Nur «Pool not found» aus der Antwort (nicht die abgelehnte Kennung, die gar nicht angefragt wird).
-    override func tickerFallbackOnParseError(call: Int, error: Error) -> Bool {
+    func tickerFallbackOnParseError(call: Int, error: Error) -> Bool {
         (error as? JSONError)?.message == DexScreener.poolNotFound
     }
 
     /// {"data": {"attributes": {address, base_token_price_usd, price_change_percentage.h24, volume_usd.h24,
     /// reserve_in_usd}}}. Nur der gemerkte Pool zählt: andere Adresse oder keine Daten (z. B. Bremse) → «Pool not
     /// found».
-    override func fillTickerFallback(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTickerFallback(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {
         guard let attributes = try JObject(string: body).optObject("data")?.optObject("attributes") else {
             throw JSONError(message: DexScreener.poolNotFound)
         }
@@ -124,21 +124,21 @@ final class DexScreener: Exchange, @unchecked Sendable { // @unchecked: wie `Exc
 
     // MARK: Sammelabfrage: Pools derselben Chain gemeinsam
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
     // Ohne Auswahl gibt es keine Sammelabfrage (keine ungefilterte Adresse); ein fehlender Pool geht in die
     // Einzelabfrage, darum nicht «vollständig»
-    override func bulkTickersURL(call: Int, pairIds: [String]) -> String? {
+    func bulkTickersURL(call: Int, pairIds: [String]) -> String? {
         let groups = DexScreener.bulkGroups(pairIds)
         return groups.indices.contains(call) ? DexScreener.bulkURL(groups[call]) : nil
     }
 
-    override func bulkTickersRequestCount(pairIds: [String]) -> Int { DexScreener.bulkGroups(pairIds).count }
+    func bulkTickersRequestCount(pairIds: [String]) -> Int { DexScreener.bulkGroups(pairIds).count }
 
     /// Jeder Pool der Antwort unter «chain/pairAddress», so wie die Suche die Kennung bildet (`DexPool.pairId`); mit
     /// eigener Liquidität, die Alarm-Sperre unter `minAlarmLiquidityUsd` gilt je Pool. Pools ohne Preis werden
     /// übersprungen (dann Einzelabfrage).
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         for pool in DexScreener.poolsIn(try JObject(string: body)) {
             let chain = pool.optString("chainId")

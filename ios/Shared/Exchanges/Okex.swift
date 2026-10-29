@@ -4,32 +4,28 @@ import Foundation
 private let okxSpotTickers = "https://www.okx.com/api/v5/market/tickers?instType=SPOT"
 
 /// OKX Spot. Kennung «BASE-QUOTE».
-final class Okex: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() {
-        super.init(
-            key: "Okex",
-            name: "OKX",
-            pairListURL: okxSpotTickers,
-            tickerURL: "https://www.okx.com/api/v5/market/ticker?instId=%1$s",
-            errorField: "msg"
-        )
-    }
+struct Okex: SimpleExchange {
+    let key: String = "Okex"
+    let name: String = "OKX"
+    let pairListURL: String = okxSpotTickers
+    let tickerURL: String = "https://www.okx.com/api/v5/market/ticker?instId=%1$s"
+    let errorField: String? = "msg"
 
     // MARK: Einzelkurs
 
-    override func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.base + "-" + info.quote }
+    func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.base + "-" + info.quote }
 
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         try copyRow(json.array("data").object(0), into: &ticker)
     }
 
     // MARK: Sammelabfrage
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
-    override func bulkTickersURL(call: Int) -> String? { okxSpotTickers }
+    func bulkTickersURL(call: Int) -> String? { okxSpotTickers }
 
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         for row in try JObject(string: body).array("data").allObjects() {
             bulkRowIfActive(row.optString("instId"), row: row, priceField: "last", tickers: &tickers,
@@ -40,7 +36,7 @@ final class Okex: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exch
 
     // MARK: Paarliste
 
-    override func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
+    func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         for row in try json.array("data").allObjects() {
             let instId = try row.string("instId")

@@ -7,23 +7,19 @@ private let mercadoTickers = mercadoAPI + "/tickers?symbols="
 
 /// Mercado Bitcoin (Brasilien, BRL-Paare), öffentliche API v4: https://api.mercadobitcoin.net/api/v4/docs —
 /// Kennung wie «BTC-BRL». Die Paarliste kommt spaltenweise (je Feld eine Liste, gleiche Stelle = gleiches Paar).
-final class MercadoBitcoin: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() {
-        super.init(
-            key: "MercadoBitcoin",
-            name: "Mercado Bitcoin",
-            pairListURL: mercadoAPI + "/symbols",
-            tickerURL: mercadoTickers + "%1$s",
-            errorField: "message"
-        )
-    }
+struct MercadoBitcoin: SimpleExchange {
+    let key: String = "MercadoBitcoin"
+    let name: String = "Mercado Bitcoin"
+    let pairListURL: String = mercadoAPI + "/symbols"
+    let tickerURL: String = mercadoTickers + "%1$s"
+    let errorField: String? = "message"
 
     // MARK: Einzelkurs
 
-    override func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.base + "-" + info.quote }
+    func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.base + "-" + info.quote }
 
     /// Antwort ist eine Liste; nur die Zeile des angefragten Paars zählt.
-    override func fillTicker(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {
         let id = pairId(info)
         guard let row = try JArray(string: body).allObjects().first(where: { $0.optString("pair") == id }) else {
             throw JSONError(message: JSONError.noData)
@@ -33,19 +29,19 @@ final class MercadoBitcoin: SimpleExchange, @unchecked Sendable { // @unchecked:
 
     // MARK: Sammelabfrage: nur gefiltert
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
     /// Alle beobachteten Paare in einer Anfrage. Lehnt die Börse die Auswahl wegen eines unbekannten Paars ab,
     /// lädt die App die Paarliste, lässt Unbekannte weg und fragt neu (`bulkKnownPairsURL`, wie bei Bithumb).
     /// Keine Aufteilung auf mehrere Adressen: Die Wiederholung teilte die Liste neu auf und träfe andere Gruppen.
-    override func bulkTickersURL(call: Int, pairIds: [String]) -> String? {
+    func bulkTickersURL(call: Int, pairIds: [String]) -> String? {
         guard call == 0, !pairIds.isEmpty else { return nil }
         return mercadoTickers + pairIds.sorted().joined(separator: ",")
     }
 
-    override func bulkKnownPairsURL(call: Int) -> String? { pairListAddress(call: call) }
+    func bulkKnownPairsURL(call: Int) -> String? { pairListAddress(call: call) }
 
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         for row in try JArray(string: body).allObjects() {
             bulkRowIfActive(row.optString("pair"), row: row, priceField: "last", tickers: &tickers,
@@ -59,7 +55,7 @@ final class MercadoBitcoin: SimpleExchange, @unchecked Sendable { // @unchecked:
     /// Spalten «symbol», «base-currency», «currency»; gelistet und handelbar laut «exchange-listed/-traded». Nur
     /// «type» CRYPTO oder UTILITY_TOKEN: die Börse führt daneben über tausend tokenisierte Forderungen und Anteile
     /// (DIGITAL_ASSET, DIGITAL_VARIABLE_INCOME), die keine Kryptowährungen sind (Aufzeichnung 19.10.2026).
-    override func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
+    func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
         let symbols = try json.array("symbol")
         let bases = try json.array("base-currency")
         let quotes = try json.array("currency")

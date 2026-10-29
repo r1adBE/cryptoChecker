@@ -3,27 +3,23 @@ import Foundation
 private let nonKycAPI = "https://api.nonkyc.io/api/v2"
 
 /// NonKYC.io (API v2). Marktliste mit «BASE/QUOTE», Ticker-Kennung «BASE_QUOTE».
-final class NonKyc: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() {
-        super.init(
-            key: "NonKyc",
-            name: "NonKYC",
-            pairListURL: nonKycAPI + "/market/getlist",
-            tickerURL: nonKycAPI + "/ticker/%1$s",
-            ttsName: "Non K Y C"
-        )
-    }
+struct NonKyc: SimpleExchange {
+    let key: String = "NonKyc"
+    let name: String = "NonKYC"
+    let pairListURL: String = nonKycAPI + "/market/getlist"
+    let tickerURL: String = nonKycAPI + "/ticker/%1$s"
+    let ttsName: String = "Non K Y C"
 
     // MARK: Einzelkurs
 
-    override func pairId(_ info: PairQuery) -> String? { info.pairId ?? NonKyc.underscored(info.base, info.quote) }
+    func pairId(_ info: PairQuery) -> String? { info.pairId ?? NonKyc.underscored(info.base, info.quote) }
 
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         try copyRow(json, into: &ticker)
     }
 
     /// Fehler: {"error":{"message":…}}, {"error":"…"} oder {"message":…}.
-    override func errorMessage(call: Int, json: JObject, info: PairQuery) throws -> String? {
+    func errorMessage(call: Int, json: JObject, info: PairQuery) throws -> String? {
         if let nested = json.optObject("error") { return try nested.string("message") }
         let plain = json.optString("error")
         if plain.isEmpty { return try json.string("message") }
@@ -32,11 +28,11 @@ final class NonKyc: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Ex
 
     // MARK: Sammelabfrage
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
-    override func bulkTickersURL(call: Int) -> String? { nonKycAPI + "/tickers" }
+    func bulkTickersURL(call: Int) -> String? { nonKycAPI + "/tickers" }
 
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         for row in try JArray(string: body).allObjects() {
             bulkRowIfActive(NonKyc.rowId(row), row: row, priceField: "last_price", tickers: &tickers,
@@ -47,7 +43,7 @@ final class NonKyc: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Ex
 
     // MARK: Paarliste
 
-    override func fillPairList(call: Int, body: String) throws -> [ExchangePair] {
+    func fillPairList(call: Int, body: String) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         for market in try JArray(string: body).allObjects() {
             let active = market.optBool("isActive") || market.optBool("active")

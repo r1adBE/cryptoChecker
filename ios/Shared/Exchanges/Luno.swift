@@ -11,41 +11,37 @@ private let lunoTrading: Set<String> = ["ACTIVE", "POST_ONLY", "POSTONLY"]
 
 /// Luno (Südafrika, Nigeria, Malaysia u. a.), öffentliche API: https://www.luno.com/en/developers/api — Kennung
 /// wie «XBTZAR». Ticker ohne Hoch/Tief und ohne 24-h-Veränderung (die App rechnet mit Kerzen).
-final class Luno: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() {
-        super.init(
-            key: "Luno",
-            name: "Luno",
-            pairListURL: lunoAPI + "/api/exchange/1/markets",
-            tickerURL: lunoAPI + "/api/1/ticker?pair=%1$s",
-            errorField: "error"
-        )
-    }
+struct Luno: SimpleExchange {
+    let key: String = "Luno"
+    let name: String = "Luno"
+    let pairListURL: String = lunoAPI + "/api/exchange/1/markets"
+    let tickerURL: String = lunoAPI + "/api/1/ticker?pair=%1$s"
+    let errorField: String? = "error"
 
     // MARK: Einzelkurs
 
-    override func pairId(_ info: PairQuery) -> String? {
+    func pairId(_ info: PairQuery) -> String? {
         info.pairId ?? Luno.lunoCode(info.base) + Luno.lunoCode(info.quote)
     }
 
     /// Gesperrter Markt: kein Kurs (sonst stünde der letzte Handel vor der Sperre als aktuell da).
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         guard Luno.isTrading(json) else { throw JSONError(message: JSONError.noData) }
         try copyRow(json, into: &ticker)
     }
 
     // MARK: Sammelabfrage
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
     /// `tickers` führt jeden handelbaren Markt (Aufzeichnung 19.10.2026: 147 von 147 Märkten der Paarliste),
     /// ein fehlendes Paar ist nicht mehr gelistet.
-    override var bulkTickersComplete: Bool { true }
+    var bulkTickersComplete: Bool { true }
 
-    override func bulkTickersURL(call: Int) -> String? { lunoAPI + "/api/1/tickers" }
+    func bulkTickersURL(call: Int) -> String? { lunoAPI + "/api/1/tickers" }
 
     /// Gesperrte Märkte fallen still weg und gelten damit als nicht mehr gehandelt (`bulkTickersComplete`).
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         for row in try JObject(string: body).array("tickers").allObjects() where Luno.isTrading(row) {
             bulkRowIfActive(row.optString("pair"), row: row, priceField: "last_trade", tickers: &tickers,
@@ -56,7 +52,7 @@ final class Luno: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exch
 
     // MARK: Paarliste
 
-    override func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
+    func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         for market in try json.array("markets").allObjects()
         where lunoTrading.contains(market.optString("trading_status")) {

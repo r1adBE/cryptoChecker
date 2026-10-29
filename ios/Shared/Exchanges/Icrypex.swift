@@ -15,22 +15,18 @@ private let icrypexRunning = "Running"
 /// Paarliste kommt aus `exchange/info` (`pairs` mit `base`, `quote`, `status`, `marketTypes`): nur sie sagt, was Spot
 /// ist und was gehandelt wird, und führt auch Gegenwährungen wie ICPX, die sich aus dem Symbol allein nicht sicher
 /// abtrennen liessen. Perpetuals tragen «/P» im Symbol und werden nirgends übernommen.
-final class Icrypex: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() {
-        super.init(
-            key: "Icrypex",
-            name: "Icrypex",
-            pairListURL: icrypexAPI + "/exchange/info",
-            tickerURL: icrypexTickers
-        )
-    }
+struct Icrypex: SimpleExchange {
+    let key: String = "Icrypex"
+    let name: String = "Icrypex"
+    let pairListURL: String = icrypexAPI + "/exchange/info"
+    let tickerURL: String = icrypexTickers
 
     // MARK: Einzelkurs: aus der Gesamtliste das eigene Paar
 
-    override func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.base + info.quote }
+    func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.base + info.quote }
 
     /// Eine Spot-Kennung enthält nie «/», darum trifft der Vergleich nie die Perpetual-Zeile desselben Coins.
-    override func fillTicker(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {
         let id = pairId(info)
         guard let row = try JArray(string: body).allObjects().first(where: { $0.optString("symbol") == id }) else {
             throw JSONError(message: JSONError.noData)
@@ -40,15 +36,15 @@ final class Icrypex: SimpleExchange, @unchecked Sendable { // @unchecked: wie `E
 
     // MARK: Sammelabfrage
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
     /// `tickers` führt jedes Spot-Paar (Aufzeichnung 19.10.2026: alle 211 Paare von `exchange/info`, auch
     /// `CancelOnly`), ein fehlendes Paar ist nicht mehr gelistet.
-    override var bulkTickersComplete: Bool { true }
+    var bulkTickersComplete: Bool { true }
 
-    override func bulkTickersURL(call: Int) -> String? { icrypexTickers }
+    func bulkTickersURL(call: Int) -> String? { icrypexTickers }
 
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         for row in try JArray(string: body).allObjects() {
             let id = row.optString("symbol")
@@ -64,7 +60,7 @@ final class Icrypex: SimpleExchange, @unchecked Sendable { // @unchecked: wie `E
     // MARK: Paarliste
 
     /// Nur Spot-Märkte im Status `Running`; Basis und Gegenwährung stehen getrennt in der Antwort.
-    override func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
+    func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         for entry in try json.array("pairs").allObjects() {
             guard entry.optString("status") == icrypexRunning,

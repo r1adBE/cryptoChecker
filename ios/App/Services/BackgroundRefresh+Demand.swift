@@ -7,17 +7,21 @@ import os
 // Reihenfolge liefern. Nur der Entscheid der neuesten Planung darf absagen oder nachholen.
 
 /// Generationszähler der Planung (thread-sicher): Jede Planung zieht eine Nummer; ein Entscheid gilt nur, solange seine
-/// Nummer die neueste ist.
-final class BackgroundDemandGate: @unchecked Sendable { // @unchecked: Zähler nur unter `lock` (NSLock)
+/// Nummer die neueste ist. Vom Compiler geprüft `Sendable`: `lock` (NSLock) hält Ziehen sowie Prüfen-und-Handeln
+/// zusammen (`action` ist nicht `Sendable` und läuft darunter); der Zähler liegt in `latest` und wird nur unter `lock`
+/// gelesen oder geändert.
+final class BackgroundDemandGate: Sendable {
     private let lock = NSLock()
-    private var generation = 0
+    private let latest = OSAllocatedUnfairLock(initialState: 0)
 
     /// Neue Planung: ihre Nummer; ältere Entscheide gelten danach nicht mehr.
     func next() -> Int {
         lock.lock()
         defer { lock.unlock() }
-        generation += 1
-        return generation
+        return latest.withLock { number in
+            number += 1
+            return number
+        }
     }
 
     /// Führt `action` nur aus, wenn `generation` noch die neueste ist — unter der Sperre, damit keine neue Planung
@@ -26,7 +30,7 @@ final class BackgroundDemandGate: @unchecked Sendable { // @unchecked: Zähler n
     func ifCurrent(_ generation: Int, _ action: () -> Void) -> Bool {
         lock.lock()
         defer { lock.unlock() }
-        guard generation == self.generation else { return false }
+        guard generation == latest.withLock({ $0 }) else { return false }
         action()
         return true
     }

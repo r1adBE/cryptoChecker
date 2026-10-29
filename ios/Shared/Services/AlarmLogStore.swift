@@ -60,8 +60,7 @@ enum AlarmLogStore {
     static func record(_ entries: [AlarmLogEntry], live: Bool, to url: URL = AlarmLogStore.url,
                        now: Int64 = EpochTime.nowMillis, keys: StorageKey = .shared) {
         guard !entries.isEmpty else { return }
-        var toWrite: [AlarmLogEntry] = []
-        pending.write { p in
+        let toWrite: [AlarmLogEntry] = pending.modify { p in
             // Sofort nur, was einen neuen Eintrag beginnt; das Verlängern eines «von … bis …» wartet wie jede Prüfung.
             // Noch kein bekannter Stand (erstes Schreiben des Prozesses): bemerkenswerte Einträge sofort
             let startsEvent: Bool
@@ -72,11 +71,12 @@ enum AlarmLogStore {
             }
             p.entries.append(contentsOf: entries)
             if p.entries.count > maxPending { p.entries.removeFirst(p.entries.count - maxPending) }
-            if !live || startsEvent || now - p.lastWriteAt >= AlarmLog.liveWriteIntervalMillis || now < p.lastWriteAt {
-                toWrite = p.entries
-                p.entries = []
-                p.lastWriteAt = now
-            }
+            guard !live || startsEvent || now - p.lastWriteAt >= AlarmLog.liveWriteIntervalMillis || now < p.lastWriteAt
+            else { return [] }
+            let due = p.entries
+            p.entries = []
+            p.lastWriteAt = now
+            return due
         }
         guard !toWrite.isEmpty else { return }
         if !modify(at: url, keys: keys, { AlarmLog.record($0, toWrite, now: now) }) {

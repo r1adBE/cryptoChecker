@@ -151,10 +151,11 @@ enum LiveBackoff {
 /// Regeln — wie `LiveRules` (Kotlin).
 enum LiveRules {
     /// Zeit eines neuen Kurses: die der Börse, ausser sie fehlt oder liegt mehr als 5 Minuten in der Zukunft (falsch
-    /// gelesen, Ortszeit als Epoche) – dann jetzt. Wie die REST-Abfrage (`Exchange.markFetched`): eine Zeit aus der Zukunft
+    /// gelesen, Ortszeit als Epoche) – dann jetzt. Wie die REST-Abfrage (`markFetched`): eine Zeit aus der Zukunft
     /// liesse einen stehenden Kurs lange frisch aussehen. Wie `LiveRules.tickTime` (Android).
     static func tickTime(_ reported: Int64?, now: Int64) -> Int64 {
-        guard let reported, reported > 0, reported <= now + Exchange.exchangeTimeFutureToleranceMillis else { return now }
+        guard let reported, reported > 0,
+              reported <= now + ExchangeConstants.exchangeTimeFutureToleranceMillis else { return now }
         return reported
     }
 

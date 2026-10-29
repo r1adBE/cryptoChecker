@@ -82,6 +82,8 @@ struct PortfolioCostPartPool: Sendable {
 /// Gewicht je Zeitpunkt eines Teils (z. B. Devisenkurs seines Tags); nil = fehlt. Ein Objekt je Umrechnung.
 final class PortfolioPartWeight {
     let of: (Int64) -> Decimal?
+    /// Kennt der Speicher dieses Objekt schon (laufende Summe, `PortfolioPartStore.weightedSum`)? Nie wiederverwendet.
+    let id = PortfolioPartIds.next()
 
     init(_ of: @escaping (Int64) -> Decimal?) {
         self.of = of
@@ -91,9 +93,24 @@ final class PortfolioPartWeight {
 /// Prüfung je Zeitpunkt eines Teils (z. B. «USDT = 1 als Näherung»). Ein Objekt je Umrechnung.
 final class PortfolioPartTest {
     let of: (Int64) -> Bool
+    /// Wie `PortfolioPartWeight.id` (`PortfolioPartStore.anyTime`).
+    let id = PortfolioPartIds.next()
 
     init(_ of: @escaping (Int64) -> Bool) {
         self.of = of
+    }
+}
+
+/// Fortlaufende Nummern für `PortfolioPartWeight` und `PortfolioPartTest`: Der Speicher merkt sich die Nummer statt
+/// des Objekts (das nicht `Sendable` ist).
+enum PortfolioPartIds {
+    private static let last = OSAllocatedUnfairLock<UInt64>(initialState: 0)
+
+    static func next() -> UInt64 {
+        last.withLock { value in
+            value += 1
+            return value
+        }
     }
 }
 

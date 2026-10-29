@@ -1,3 +1,4 @@
+import os
 import SwiftUI
 import UIKit
 
@@ -331,29 +332,30 @@ enum AssetColors {
     static let ethereum = Color.dynamic(ColorTokens.ethereum)
 }
 
-/// Kleiner Wert hinter einer `NSLock` (thread-sicher) für globale Einstellungen, die aus mehreren Threads
-/// gelesen werden.
-final class LockedBox<Value>: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
-    private let lock = NSLock()
-    private var value: Value
+/// Kleiner Wert hinter einer Sperre (`OSAllocatedUnfairLock`, thread-sicher) für globale Einstellungen, die aus
+/// mehreren Threads gelesen werden. Vom Compiler geprüft `Sendable`: der Wert ist `Sendable`, die Zugriffe sind
+/// `@Sendable` und fassen nur Sendable-Werte an; nichts wartet unter der Sperre (kein `await`).
+final class LockedBox<Value: Sendable>: Sendable {
+    private let state: OSAllocatedUnfairLock<Value>
 
     init(_ value: Value) {
-        self.value = value
+        state = OSAllocatedUnfairLock(initialState: value)
     }
 
-    func read<R>(_ body: (Value) -> R) -> R {
-        lock.lock()
-        defer { lock.unlock() }
-        return body(value)
+    func read<R: Sendable>(_ body: @Sendable (Value) -> R) -> R {
+        state.withLock { body($0) }
     }
 
-    func write(_ body: (inout Value) -> Void) {
-        lock.lock()
-        defer { lock.unlock() }
-        body(&value)
+    func write(_ body: @Sendable (inout Value) -> Void) {
+        state.withLock { body(&$0) }
     }
 
-    /// Ganzer Wert: Lesen und Ersetzen je unter der Sperre (für Lesen-und-Ändern `write` nehmen).
+    /// Lesen und Ändern in einem Schritt unter der Sperre, mit Ergebnis (etwa «abholen und zurücksetzen»).
+    func modify<R: Sendable>(_ body: @Sendable (inout Value) -> R) -> R {
+        state.withLock { body(&$0) }
+    }
+
+    /// Ganzer Wert: Lesen und Ersetzen je unter der Sperre (für Lesen-und-Ändern `write`/`modify` nehmen).
     var current: Value {
         get { read { $0 } }
         set { write { $0 = newValue } }

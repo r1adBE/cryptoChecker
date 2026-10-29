@@ -3,68 +3,68 @@ import Foundation
 private let bybitAPI = "https://api.bybit.com/v5/market"
 
 /// Bybit Spot. API v5: https://bybit-exchange.github.io/docs/v5/market/tickers
-final class Bybit: BybitBase, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() { super.init(key: "Bybit", name: "Bybit", category: "spot", contractType: .none) }
+struct Bybit: BybitBase {
+    let key: String = "Bybit"
+    let name: String = "Bybit"
+    let apiCategory: String = "spot"
+    let contractType: FuturesContractType = .none
 }
 
 /// Bybit USDT-/USDC-Perpetuals (Kategorie «linear»).
-final class BybitFutures: BybitBase, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
+struct BybitFutures: BybitBase {
     /// Abschnitt «Futures» der Börsenauswahl (`ExchangeCategory`). Android gleich.
-    override var category: ExchangeCategory { .futures }
+    var category: ExchangeCategory { .futures }
 
-    init() { super.init(key: "BybitFutures", name: "Bybit Futures", category: "linear", contractType: .perpetual) }
+    let key: String = "BybitFutures"
+    let name: String = "Bybit Futures"
+    let apiCategory: String = "linear"
+    let contractType: FuturesContractType = .perpetual
 }
 
 /// Gemeinsamer Teil von Spot und Perpetuals; die Kategorie steht in jeder Adresse. Antworten haben die Form
 /// {"retCode", "retMsg", "result": {"list": [...]}}. Die Paarliste fragt «limit=1000» an: linear hat über 500
 /// Symbole, ohne Angabe kämen nur 500.
-class BybitBase: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
+protocol BybitBase: SimpleExchange {
     /// Bybit-Kategorie der Adressen («spot», «linear»); nicht `category` (Abschnitt der Börsenauswahl, `Exchange`).
-    private let apiCategory: String
-    private let contractType: FuturesContractType
+    var apiCategory: String { get }
+    var contractType: FuturesContractType { get }
+}
 
-    init(key: String, name: String, category: String, contractType: FuturesContractType) {
-        self.apiCategory = category
-        self.contractType = contractType
-        super.init(
-            key: key,
-            name: name,
-            pairListURL: "\(bybitAPI)/instruments-info?category=\(category)&limit=1000",
-            tickerURL: "\(bybitAPI)/tickers?category=\(category)&symbol=%1$s",
-            errorField: "retMsg"
-        )
-    }
+extension BybitBase {
+    var pairListURL: String { "\(bybitAPI)/instruments-info?category=\(apiCategory)&limit=1000" }
+    var tickerURL: String { "\(bybitAPI)/tickers?category=\(apiCategory)&symbol=%1$s" }
+    var errorField: String? { "retMsg" }
 
     private var perpetuals: Bool { contractType == .perpetual }
 
     // MARK: Einzelkurs
 
     /// `time` der Antwort ist Serverzeit, kein Handel → Zeit der Börse unbekannt (wie Binance).
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
-        let rows = try BybitBase.resultList(json)
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+        let rows = try Self.resultList(json)
         if rows.isEmpty { throw JSONError(message: JSONError.noData) }
         try copyRow(rows.object(0), into: &ticker)
     }
 
     /// retCode 0 heisst Erfolg — «OK» ist dann kein Fehlertext; es bleibt beim Fehler des Parsers.
-    override func errorMessage(call: Int, json: JObject, info: PairQuery) throws -> String? {
+    func errorMessage(call: Int, json: JObject, info: PairQuery) throws -> String? {
         if json.optInt("retCode", -1) == 0 { try noErrorText() }
-        return try super.errorMessage(call: call, json: json, info: info)
+        return try simpleErrorMessage(json)
     }
 
     // MARK: Sammelabfrage (blättert nicht)
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
     /// Enthält alle gehandelten Symbole der Kategorie.
-    override var bulkTickersComplete: Bool { true }
+    var bulkTickersComplete: Bool { true }
 
-    override func bulkTickersURL(call: Int) -> String? { "\(bybitAPI)/tickers?category=\(apiCategory)" }
+    func bulkTickersURL(call: Int) -> String? { "\(bybitAPI)/tickers?category=\(apiCategory)" }
 
     /// Die Serverzeit `time` wird nicht auf die Paare übertragen (siehe `fillTicker`).
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
-        for row in try BybitBase.resultList(JObject(string: body)).allObjects() {
+        for row in try Self.resultList(JObject(string: body)).allObjects() {
             bulkRowIfActive(row.optString("symbol"), row: row, priceField: "lastPrice", tickers: &tickers,
                             failed: &failed) { try copyRow(row, into: &$0) }
         }
@@ -76,16 +76,16 @@ class BybitBase: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Excha
     /// instruments-info blättert mit `nextPageCursor` (höchstens 1000 je Seite); mit den TradFi-Perps kann linear
     /// darüber wachsen. Leerer Cursor = letzte Seite. Eine unlesbare Seite wirft — still aufhören hiesse, dass
     /// Paare der weiteren Seiten unbemerkt fehlen. Wie `Bybit.kt`.
-    override func pairListNextPage(call: Int, body: String) throws -> String? {
+    func pairListNextPage(call: Int, body: String) throws -> String? {
         guard let result = try JObject(string: body).optObject("result") else { return nil }
         let cursor = result.optString("nextPageCursor")
         if cursor.isEmpty { return nil }
         return (pairListAddress(call: call) ?? "") + "&cursor=" + bybitCursorParam(cursor)
     }
 
-    override func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
+    func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
-        for entry in try BybitBase.resultList(json).allObjects() {
+        for entry in try Self.resultList(json).allObjects() {
             guard entry.optString("status") == "Trading" else { continue }
             // Futures: nur Perpetuals (Laufzeit-Kontrakte tragen andere Symbole)
             if perpetuals && entry.optString("contractType") != "LinearPerpetual" { continue }

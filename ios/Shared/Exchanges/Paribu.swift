@@ -9,37 +9,33 @@ private let isoLira = "TRY"
 
 /// Paribu (Türkei), öffentlicher Ticker: ein Objekt je Markt unter Schlüsseln wie «BTC_TL» (= Kennung).
 /// Einzelkurs und Paarliste lesen dieselbe Gesamtliste.
-final class Paribu: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() {
-        super.init(
-            key: "Paribu",
-            name: "Paribu",
-            pairListURL: paribuTicker,
-            tickerURL: paribuTicker
-        )
-    }
+struct Paribu: SimpleExchange {
+    let key: String = "Paribu"
+    let name: String = "Paribu"
+    let pairListURL: String = paribuTicker
+    let tickerURL: String = paribuTicker
 
     // MARK: Einzelkurs: aus der Gesamtliste das eigene Paar
 
-    override func pairId(_ info: PairQuery) -> String? {
+    func pairId(_ info: PairQuery) -> String? {
         info.pairId ?? info.base + "_" + Paribu.paribuCode(info.quote)
     }
 
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         guard let row = json.optObject(pairId(info) ?? "") else { throw JSONError(message: JSONError.noData) }
         try copyRow(row, into: &ticker)
     }
 
     // MARK: Sammelabfrage
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
     /// Paarliste und Kurse stammen aus derselben Antwort: Was fehlt, wird nicht gehandelt.
-    override var bulkTickersComplete: Bool { true }
+    var bulkTickersComplete: Bool { true }
 
-    override func bulkTickersURL(call: Int) -> String? { paribuTicker }
+    func bulkTickersURL(call: Int) -> String? { paribuTicker }
 
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         // Kein Objekt oder kein «COIN_GEGENWÄHRUNG»: keine Ticker-Zeile, still übergehen
         try JObject(string: body).forEachObject { name, row in
@@ -53,7 +49,7 @@ final class Paribu: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Ex
 
     // MARK: Paarliste
 
-    override func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
+    func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         json.forEachObject { name, _ in
             guard let sides = Paribu.split(name) else { return }

@@ -3,30 +3,26 @@ import Foundation
 private let bitstampAPI = "https://www.bitstamp.net/api/v2"
 
 /// Bitstamp (EU-reguliert, auch EUR-/GBP-Paare), API v2. Kennung = `url_symbol` («btcusd»).
-final class Bitstamp: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() {
-        super.init(
-            key: "Bitstamp",
-            name: "Bitstamp",
-            pairListURL: bitstampAPI + "/trading-pairs-info/",
-            tickerURL: bitstampAPI + "/ticker/%1$s/",
-            errorField: "reason"
-        )
-    }
+struct Bitstamp: SimpleExchange {
+    let key: String = "Bitstamp"
+    let name: String = "Bitstamp"
+    let pairListURL: String = bitstampAPI + "/trading-pairs-info/"
+    let tickerURL: String = bitstampAPI + "/ticker/%1$s/"
+    let errorField: String? = "reason"
 
     // MARK: Einzelkurs
 
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         try copyRow(json, into: &ticker)
     }
 
     // MARK: Sammelabfrage: alle Ticker; «pair» = «BTC/USD» → Kennung «btcusd»
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
-    override func bulkTickersURL(call: Int) -> String? { bitstampAPI + "/ticker/" }
+    func bulkTickersURL(call: Int) -> String? { bitstampAPI + "/ticker/" }
 
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         for row in try JArray(string: body).allObjects() {
             let pairId = row.optString("pair").replacingOccurrences(of: "/", with: "").lowercased()
@@ -39,7 +35,7 @@ final class Bitstamp: SimpleExchange, @unchecked Sendable { // @unchecked: wie `
 
     // MARK: Paarliste
 
-    override func fillPairList(call: Int, body: String) throws -> [ExchangePair] {
+    func fillPairList(call: Int, body: String) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         for entry in try JArray(string: body).allObjects() where entry.optString("trading") == "Enabled" {
             // Anzeigename wie «BTC/USD»

@@ -7,32 +7,28 @@ private let mexcContract = "https://contract.mexc.com/api/v1/contract"
 private let mexcTradable: Set<String> = ["1", "ENABLED", "TRADING"]
 
 /// MEXC Spot (Aufbau ähnlich Binance v3).
-final class Mexc: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() {
-        super.init(
-            key: "Mexc",
-            name: "MEXC",
-            pairListURL: mexcSpot + "/exchangeInfo",
-            tickerURL: mexcSpot + "/ticker/24hr?symbol=%1$s",
-            errorField: "msg"
-        )
-    }
+struct Mexc: SimpleExchange {
+    let key: String = "Mexc"
+    let name: String = "MEXC"
+    let pairListURL: String = mexcSpot + "/exchangeInfo"
+    let tickerURL: String = mexcSpot + "/ticker/24hr?symbol=%1$s"
+    let errorField: String? = "msg"
 
     // MARK: Einzelkurs
 
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         try copyRow(json, into: &ticker)
     }
 
     // MARK: Sammelabfrage
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
-    override var bulkTickersComplete: Bool { true }
+    var bulkTickersComplete: Bool { true }
 
-    override func bulkTickersURL(call: Int) -> String? { mexcSpot + "/ticker/24hr" }
+    func bulkTickersURL(call: Int) -> String? { mexcSpot + "/ticker/24hr" }
 
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         for row in try JArray(string: body).allObjects() {
             bulkRowIfActive(row.optString("symbol"), row: row, priceField: "lastPrice", tickers: &tickers,
@@ -43,7 +39,7 @@ final class Mexc: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exch
 
     // MARK: Paarliste
 
-    override func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
+    func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         for symbol in try json.array("symbols").allObjects() {
             let tradable = mexcTradable.contains(symbol.optString("status")) && symbol.optBool("isSpotTradingAllowed", true)
@@ -73,35 +69,31 @@ final class Mexc: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exch
 }
 
 /// MEXC USDT-Perpetuals (contract.mexc.com).
-final class MexcFutures: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
+struct MexcFutures: SimpleExchange {
     /// Abschnitt «Futures» der Börsenauswahl (`ExchangeCategory`). Android gleich.
-    override var category: ExchangeCategory { .futures }
+    var category: ExchangeCategory { .futures }
 
-    init() {
-        super.init(
-            key: "MexcFutures",
-            name: "MEXC Futures",
-            pairListURL: mexcContract + "/detail",
-            tickerURL: mexcContract + "/ticker?symbol=%1$s",
-            errorField: "message"
-        )
-    }
+    let key: String = "MexcFutures"
+    let name: String = "MEXC Futures"
+    let pairListURL: String = mexcContract + "/detail"
+    let tickerURL: String = mexcContract + "/ticker?symbol=%1$s"
+    let errorField: String? = "message"
 
     // MARK: Einzelkurs
 
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         try copyRow(json.object("data"), into: &ticker)
     }
 
     // MARK: Sammelabfrage
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
-    override var bulkTickersComplete: Bool { true }
+    var bulkTickersComplete: Bool { true }
 
-    override func bulkTickersURL(call: Int) -> String? { mexcContract + "/ticker" }
+    func bulkTickersURL(call: Int) -> String? { mexcContract + "/ticker" }
 
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         for row in try JObject(string: body).array("data").allObjects() {
             bulkRowIfActive(row.optString("symbol"), row: row, priceField: "lastPrice", tickers: &tickers,
@@ -112,7 +104,7 @@ final class MexcFutures: SimpleExchange, @unchecked Sendable { // @unchecked: wi
 
     // MARK: Paarliste
 
-    override func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
+    func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         for contract in try json.array("data").allObjects() {
             // state 0 = aktiv, futureType 1 = Perpetual

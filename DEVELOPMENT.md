@@ -110,18 +110,21 @@ class Bitstamp : SimpleExchange(
 ```swift
 private let bitstampAPI = "https://www.bitstamp.net/api/v2"
 
-final class Bitstamp: SimpleExchange {
-    init() {
-        super.init(
-            key: "Bitstamp",
-            name: "Bitstamp",
-            pairListURL: bitstampAPI + "/trading-pairs-info/",
-            tickerURL: bitstampAPI + "/ticker/%1$s/",
-            errorField: "reason"
-        )
-    }
+struct Bitstamp: SimpleExchange {
+    let key: String = "Bitstamp"
+    let name: String = "Bitstamp"
+    let pairListURL: String = bitstampAPI + "/trading-pairs-info/"
+    let tickerURL: String = bitstampAPI + "/ticker/%1$s/"
+    let errorField: String? = "reason"
 }
 ```
+
+On iOS `Exchange` and `SimpleExchange` are protocols (checked `Sendable`): an adapter is a `struct` with constants,
+or a `final class` whose changing state sits in an `OSAllocatedUnfairLock` (`Gemini`). Give every constant its type
+(`let errorField: String? = …`, `let currencyPairs: CurrencyPairsMap? = …`): without it the constant does not match the
+requirement and the default (nil) would apply silently. Hooks are implemented without `override`; a hook that needs
+the shared behaviour calls the named helper (`simpleTickerAddress`, `simpleErrorMessage`, `phemexFillTicker` …)
+instead of `super`.
 
 `SimpleExchange` also takes an optional `ttsName` – the name used for spoken
 announcements when the written name reads badly (e.g. «Gate I O» for «Gate.io») –
@@ -132,9 +135,10 @@ stored one.
 If the exchange needs something `SimpleExchange` does not cover (POST requests,
 several requests per price, a ticker address built from base and quote, several
 pair-list addresses), extend `Exchange` directly, override `tickerAddress(call, info)`
-(Swift: `tickerAddress(call:info:)`) and say why in the class comment; see
+(Swift: implement `tickerAddress(call:info:)`) and say why in the class comment; see
 [section 10](#10-advanced-cases). Exchanges with several products share a base
-named `<Exchange>Base` (e.g. `BybitBase` for spot and futures).
+named `<Exchange>Base` (e.g. `BybitBase` for spot and futures; Swift: a protocol with
+an extension, its parameters as requirements).
 
 **File layout (both platforms, same order).** File-private constants
 `<EXCHANGE>_<WHAT>` (Swift: `let`), the concrete classes in `ExchangesConfig` order,
@@ -826,12 +830,17 @@ shrinks, raise it only deliberately with the reason in the same pull request).
   not nested classes or functions) – red above `PROPS_CEILING` 35 (`ExplorerViewModel`). A class at the limit is
   split (use case, helper, state holder) instead of growing.
 * *Swift escape hatches* (`ios.yml`, job «iOS release build», first step, `.github/scripts/swift_escape_hatches.py`):
-  `@unchecked Sendable`, `nonisolated(unsafe)` and `DispatchSemaphore` in `ios/App`, `ios/Shared`, `ios/Widgets`,
-  `ios/Watch`, `ios/WatchCore` and `ios/WatchWidgets` (not `ios/Tests`) against `CEILINGS` (`@unchecked Sendable` 76,
-  `nonisolated(unsafe)` 0, `DispatchSemaphore` 0); above is red, below is a notice to lower it. Shared mutable state
+  `@unchecked Sendable`, `nonisolated(unsafe)`, `DispatchSemaphore` and `uncheckedState:` in `ios/App`, `ios/Shared`, `ios/Widgets`,
+  `ios/Watch`, `ios/WatchCore` and `ios/WatchWidgets` (not `ios/Tests`) against `CEILINGS` (`@unchecked Sendable` 0,
+  `nonisolated(unsafe)` 0, `DispatchSemaphore` 0, `uncheckedState` 7); above is red, below is a notice to lower it. Shared mutable state
   goes into `OSAllocatedUnfairLock<State>` (module `os`, `withLock { state in … }`, the state type `Sendable`) or an
-  actor instead of `NSLock` + `nonisolated(unsafe)` / `@unchecked Sendable`; a non-`Sendable` formatter is created per
-  call.
+  actor instead of `NSLock` + `nonisolated(unsafe)` / `@unchecked Sendable`; never `withLockUnchecked`. A
+  non-`Sendable` object that must be shared (cached formatters, `UserDefaults`, `BGTask`, an SDK completion handler)
+  lives only inside such a lock (`init(uncheckedState:)`) and is touched only in `withLock`, which takes `@Sendable`
+  closures and returns only `Sendable` values – it never leaves the lock. Its own thread safety is still trusted, so
+  every `uncheckedState:` counts as an escape hatch (ceiling 7, the places in «Known warnings»). A caller's non-`Sendable` closure that must
+  run in order (write bodies, actions) runs under an `NSLock`, with the counter beside it in an
+  `OSAllocatedUnfairLock` read only under that `NSLock`.
 
 **Coverage (logic gate).** Both platforms report line coverage of the unit tests as ONE notice on the run page, each
 with two numbers: *total* (every measured source file) and *logic* – the share that tests are expected to cover. The
@@ -2958,6 +2967,17 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   created per call, so relative times follow a language change at once.
   iOS `PortfolioDecimal` exact ops no longer fall back to Decimal `*` below 1e-128 (8-bit exponent overflow in
   Foundation), with a fast path (`plainProduct`).
+* Build 170: `@unchecked Sendable` 76 → 0 (`CEILINGS` 0/0/0, new kind `uncheckedState` 7). `Exchange` and `SimpleExchange` are protocols
+  (`Sendable`); the template methods (`readTicker`, `parseBulkTickersDetailed`, `readPairList` …) and all defaults in
+  `Exchange+Defaults.swift`, constants in `ExchangeConstants`. The 57 adapters are `struct`s, the shared bases
+  (`BinanceBase`, `BybitBase`, `HtxBase`, `WooBase`, `BingXBase`, `BitgetBase`, `PhemexBase`, `UpbitStyleExchange`)
+  protocols with extensions; former `super` calls go through named helpers (`simpleTickerAddress`,
+  `simpleErrorMessage`, `phemexFillTicker`, `phemexParseBulkTickers`). `Gemini` is a `final class` with its detail cache
+  in `OSAllocatedUnfairLock`. `LockedBox<Value: Sendable>` with `@Sendable` closures and `modify`;
+  `PortfolioWriteOrder`, `BackgroundDemandGate`, `OrderedSerialRunner`: `NSLock` for the ordered work plus the counter in
+  `OSAllocatedUnfairLock`; `PortfolioPartStore`: all state in one lock, weights/tests of the caller called outside it
+  (identified by `PortfolioPartIds`); formatter caches, `AlarmDelivery`, `MoveHistoryCore`, `BackgroundTaskCompletion`,
+  `NotificationCompletion`: the non-`Sendable` object only inside `OSAllocatedUnfairLock(uncheckedState:)`.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).
@@ -3548,14 +3568,11 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
 
 Warnings that are not fixed, each with the reason. Everything else is fixed; CI keeps compiler warnings at 0.
 
-* **Swift `@unchecked Sendable` (76, counted against a ceiling, not compiler warnings; `nonisolated(unsafe)` 0).** 67
-  belong to the exchange adapters: `Exchange` is a class hierarchy without mutable state, and Swift cannot check a
-  non-final class – removing them needs a protocol-based adapter design. The other 9, each with the reason:
-  `LockedBox` (generic, caller closures run under the lock; checked needs `Value: Sendable` and `@Sendable` closures
-  at every call site), `PortfolioWriteOrder` and `OrderedSerialRunner` (generic `write`/`run` bodies, not `Sendable`,
-  run under the lock), `BackgroundDemandGate` (the action under the lock writes a local of the caller),
-  `MoveHistoryCore` (storage protocol, not `Sendable`, called under the lock), `AlarmDelivery` (holds `UserDefaults`,
-  which is not `Sendable`), `PortfolioPartStore` (append-only arrays read without the lock), `BackgroundTaskCompletion`
-  (holds the `BGTask`) and `NotificationCompletion` (completion handler of the SDK, not `@Sendable`). Moving the
-  lock-based ones to `OSAllocatedUnfairLock` would need `withLockUnchecked`, the same trust in a different spelling.
-  All other lock boxes keep their state in `OSAllocatedUnfairLock<State>` and are checked `Sendable`.
+* **Swift `@unchecked Sendable`: none left (ceiling 0, like `nonisolated(unsafe)` and `DispatchSemaphore`).** The
+  exchange adapters are protocols with `struct`s (Gemini: `final class` with its cache in `OSAllocatedUnfairLock`);
+  every other lock box is checked `Sendable` as well. Seven places hand a non-`Sendable` object to
+  `OSAllocatedUnfairLock(uncheckedState:)` and touch it only in `withLock` (`NumberFormatterCache`, `IsoDates`,
+  `DateFormatterCache`, `AlarmDelivery` with its `UserDefaults`, `MoveHistoryCore` with its storage,
+  `BackgroundTaskCompletion` with the `BGTask`, `NotificationCompletion` with the SDK completion handler): the object
+  never leaves the lock, but its own thread safety is still trusted, not proven. `swift_escape_hatches.py` counts
+  them as `uncheckedState` (ceiling 7).

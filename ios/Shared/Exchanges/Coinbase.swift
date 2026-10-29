@@ -34,23 +34,19 @@ private let coinbaseStarterPairs: CurrencyPairsMap = [
 /// Eine Anfrage je Paar: `/stats` liefert gleitend über 24 h open, high, low, last und volume — genug für Merkliste,
 /// Alarme und Widgets. Geld/Brief aus `/ticker` zeigt die App nirgends dauerhaft (die Vorschau beim Hinzufügen
 /// blendet fehlende Werte aus); die Zeit ist dann der Abruf.
-final class Coinbase: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() {
-        super.init(
-            key: "Coinbase",
-            name: "Coinbase",
-            pairListURL: coinbaseAPI + "/products",
-            tickerURL: coinbaseAPI + "/products/%1$s/stats",
-            errorField: "message",
-            currencyPairs: coinbaseStarterPairs
-        )
-    }
+struct Coinbase: SimpleExchange {
+    let key: String = "Coinbase"
+    let name: String = "Coinbase"
+    let pairListURL: String = coinbaseAPI + "/products"
+    let tickerURL: String = coinbaseAPI + "/products/%1$s/stats"
+    let errorField: String? = "message"
+    let currencyPairs: CurrencyPairsMap? = coinbaseStarterPairs
 
     // MARK: Einzelkurs
 
-    override func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.base + "-" + info.quote }
+    func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.base + "-" + info.quote }
 
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         // Unbekanntes oder stillgelegtes Produkt: {"message": …} statt Kursdaten — so melden statt «volume fehlt»
         let notice = json.optString("message")
         if !notice.isEmpty { throw JSONError(message: notice) }
@@ -68,7 +64,7 @@ final class Coinbase: SimpleExchange, @unchecked Sendable { // @unchecked: wie `
 
     // MARK: Paarliste
 
-    override func fillPairList(call: Int, body: String) throws -> [ExchangePair] {
+    func fillPairList(call: Int, body: String) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         for product in try JArray(string: body).allObjects() where Coinbase.isTradable(product) {
             out.append(ExchangePair(

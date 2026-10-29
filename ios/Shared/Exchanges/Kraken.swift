@@ -16,23 +16,19 @@ private let krakenStatusOnline = "online"
 private let krakenEmptyResult = "Empty result"
 
 /// Kraken Spot: Paare aus AssetPairs, Kurse aus Ticker (Einzelpaar, Auswahl oder alle).
-final class Kraken: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() {
-        super.init(
-            key: "Kraken",
-            name: "Kraken",
-            pairListURL: krakenPublic + "/AssetPairs",
-            tickerURL: krakenTickerFor + "%1$s"
-        )
-    }
+struct Kraken: SimpleExchange {
+    let key: String = "Kraken"
+    let name: String = "Kraken"
+    let pairListURL: String = krakenPublic + "/AssetPairs"
+    let tickerURL: String = krakenTickerFor + "%1$s"
 
     // MARK: Einzelkurs
 
-    override func pairId(_ info: PairQuery) -> String? {
+    func pairId(_ info: PairQuery) -> String? {
         info.pairId ?? KrakenAssetCodes.krakenCode(info.base) + KrakenAssetCodes.krakenCode(info.quote)
     }
 
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         let result = try json.object("result")
         // Eine Anfrage = ein Paar: Der einzige Schlüssel ist dessen Kennung; ohne Schlüssel kein Kurs
         guard let onlyKey = result.keys.first else { throw JSONError(message: krakenEmptyResult) }
@@ -43,31 +39,31 @@ final class Kraken: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Ex
         try copyRow(row, into: &ticker)
     }
 
-    override func errorMessage(call: Int, json: JObject, info: PairQuery) throws -> String? {
+    func errorMessage(call: Int, json: JObject, info: PairQuery) throws -> String? {
         try json.array("error").string(0)
     }
 
     // MARK: Sammelabfrage
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
     /// Gefiltert kommen alle angefragten Paare (sonst lehnt Kraken ab), ungefiltert alle handelbaren. Fehlt eines,
     /// prüft die Einzelabfrage («EQuery:Unknown asset pair» → nicht mehr gehandelt, BulkDelisted).
-    override var bulkTickersComplete: Bool { true }
+    var bulkTickersComplete: Bool { true }
 
-    override func bulkTickersURL(call: Int) -> String? { krakenTicker }
+    func bulkTickersURL(call: Int) -> String? { krakenTicker }
 
     /// Beobachtete Paare gefiltert, bei langer Liste auf mehrere URLs (< 2000 Zeichen) verteilt.
-    override func bulkTickersURL(call: Int, pairIds: [String]) -> String? {
+    func bulkTickersURL(call: Int, pairIds: [String]) -> String? {
         guard let groups = BulkPairChunks.chunks(prefix: krakenTickerFor, pairIds: pairIds) else { return krakenTicker }
         return call < groups.count ? BulkPairChunks.url(prefix: krakenTickerFor, chunk: groups[call]) : nil
     }
 
-    override func bulkTickersRequestCount(pairIds: [String]) -> Int {
+    func bulkTickersRequestCount(pairIds: [String]) -> Int {
         BulkPairChunks.chunks(prefix: krakenTickerFor, pairIds: pairIds)?.count ?? bulkTickersNumOfRequests
     }
 
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         let root = try JObject(string: body)
         let rows = try root.optObject("result")?.allNamedObjects() ?? []
         guard !rows.isEmpty else {
@@ -86,7 +82,7 @@ final class Kraken: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Ex
 
     // MARK: Paarliste
 
-    override func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
+    func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         // Kennungen mit Punkt (z. B. «.d») sind Varianten, keine eigenen Märkte
         for (pairId, asset) in try json.object("result").allNamedObjects() where !pairId.contains(".") {

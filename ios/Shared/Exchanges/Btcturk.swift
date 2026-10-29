@@ -3,35 +3,31 @@ import Foundation
 private let btcturkAPI = "https://api.btcturk.com/api/v2"
 
 /// BtcTurk (Türkei), API v2: https://docs.btcturk.com — Kennung wie «BTCTRY».
-final class Btcturk: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() {
-        super.init(
-            key: "Btcturk",
-            name: "BtcTurk",
-            pairListURL: btcturkAPI + "/server/exchangeinfo",
-            tickerURL: btcturkAPI + "/ticker?pairSymbol=%1$s",
-            ttsName: "B T C Turk",
-            errorField: "message"
-        )
-    }
+struct Btcturk: SimpleExchange {
+    let key: String = "Btcturk"
+    let name: String = "BtcTurk"
+    let pairListURL: String = btcturkAPI + "/server/exchangeinfo"
+    let tickerURL: String = btcturkAPI + "/ticker?pairSymbol=%1$s"
+    let ttsName: String = "B T C Turk"
+    let errorField: String? = "message"
 
     // MARK: Einzelkurs
 
-    override func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.base + info.quote }
+    func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.base + info.quote }
 
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         try copyRow(json.array("data").object(0), into: &ticker)
     }
 
     // MARK: Sammelabfrage
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
-    override var bulkTickersComplete: Bool { true }
+    var bulkTickersComplete: Bool { true }
 
-    override func bulkTickersURL(call: Int) -> String? { btcturkAPI + "/ticker" }
+    func bulkTickersURL(call: Int) -> String? { btcturkAPI + "/ticker" }
 
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         for row in try JObject(string: body).array("data").allObjects() {
             bulkRowIfActive(row.optString("pair"), row: row, priceField: "last", tickers: &tickers,
@@ -42,7 +38,7 @@ final class Btcturk: SimpleExchange, @unchecked Sendable { // @unchecked: wie `E
 
     // MARK: Paarliste
 
-    override func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
+    func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         for symbol in try json.object("data").array("symbols").allObjects() where symbol.optString("status") == "TRADING" {
             // «numerator» = Coin, «denominator» = Gegenwährung

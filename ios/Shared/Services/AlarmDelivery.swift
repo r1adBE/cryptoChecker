@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 /// Ablauf «ausgelösten Alarm melden» — wie `AlarmDelivery.kt`: Nachtruhe, «1 h später» (`AlarmSnooze`) oder keine zustellbare
 /// Mitteilung → nichts tun, Alarm bleibt scharf. Sonst ZUERST melden (`show`) und erst speichern
@@ -14,12 +15,14 @@ import Foundation
 /// Findet der nächste Lauf einen frischen Vermerk (`alreadyDelivered`, < `freshMillis`) und steht die
 /// Mitteilung noch da (`isShown`), wird der Alarm nur noch als gemeldet gespeichert — kein zweiter Alarmton nach der
 /// Abklingzeit. Wie Android `AlarmDeliveryMarker`. Gelesen und geschrieben wird nur unter der `AlarmLease`
-/// (Paar-Alarme) bzw. auf dem MainActor der App (Portfolio-Alarme) — darum genügt hier ein Lock.
+/// (Paar-Alarme) bzw. auf dem MainActor der App (Portfolio-Alarme) — darum genügt hier eine Sperre. Der Speicher
+/// (`UserDefaults`, nicht `Sendable`) liegt in ihr und wird nur unter ihr angefasst; so ist die Klasse vom Compiler
+/// geprüft `Sendable`.
 ///
 /// `isShown` bekommt den Zeitpunkt des Vermerks — nur eine danach gezeigte Mitteilung bestätigt
 /// (`shownSinceMarker`), eine ältere desselben Alarms nicht; lässt sich der Alarm dann nicht speichern, wird die
 /// Mitteilung entfernt (`retract`). Vermerke gelöschter bzw. ersetzter Alarme räumt `retain`/`remove` weg.
-final class AlarmDelivery: @unchecked Sendable { // @unchecked: Lesen-Ändern-Schreiben nur unter `lock` (NSLock); UserDefaults selbst ist thread-sicher
+final class AlarmDelivery: Sendable {
     /// Paar-Alarme (App, Hintergrund, Widget).
     static let pairs = AlarmDelivery(storeKey: "alarm_unconfirmed_at")
     /// Portfolio-Alarme: eigene Ids, darum eigener Eintrag.
@@ -64,13 +67,13 @@ final class AlarmDelivery: @unchecked Sendable { // @unchecked: Lesen-Ändern-Sc
         !storedKept && !volatileCopy
     }
 
-    private let store: UserDefaults
+    /// Der Speicher, nur unter der Sperre: sie hält zugleich jedes Lesen-Ändern-Schreiben zusammen.
+    private let store: OSAllocatedUnfairLock<UserDefaults>
     private let storeKey: String
-    private let lock = NSLock()
 
     init(storeKey: String, store: UserDefaults = SharedStorage.defaults) {
         self.storeKey = storeKey
-        self.store = store
+        self.store = OSAllocatedUnfairLock(uncheckedState: store)
     }
 
     /// Alarm wurde gemeldet, die Mitteilung aber nicht bestätigt: Er bleibt scharf, meldet aber erst nach
@@ -152,9 +155,10 @@ final class AlarmDelivery: @unchecked Sendable { // @unchecked: Lesen-Ändern-Sc
     // MARK: Unbestätigte Versuche (App-Group-Speicher)
 
     func unconfirmedAt(_ alarmId: Int64) -> Int64? {
-        lock.lock(); defer { lock.unlock() }
-        guard let value = (store.dictionary(forKey: storeKey) as? [String: Double])?[String(alarmId)] else { return nil }
-        return Int64(value)
+        store.withLock { store in
+            guard let value = (store.dictionary(forKey: storeKey) as? [String: Double])?[String(alarmId)] else { return nil }
+            return Int64(value)
+        }
     }
 
     /// Vermerke dieser Alarme entfernen (gelöscht bzw. durch eine Sicherung ersetzt).
@@ -180,32 +184,34 @@ final class AlarmDelivery: @unchecked Sendable { // @unchecked: Lesen-Ändern-Sc
         portfolio.removeAll()
     }
 
-    private func modifyAll(_ change: (inout [String: Double]) -> Void) {
-        lock.lock(); defer { lock.unlock() }
-        guard var all = store.dictionary(forKey: storeKey) as? [String: Double] else {
-            if store.object(forKey: storeKey) != nil { store.removeObject(forKey: storeKey) }
-            return
-        }
-        let before = all.count
-        change(&all)
-        guard all.count != before else { return }
-        if all.isEmpty {
-            store.removeObject(forKey: storeKey)
-        } else {
-            store.set(all, forKey: storeKey)
+    private func modifyAll(_ change: @Sendable (inout [String: Double]) -> Void) {
+        store.withLock { store in
+            guard var all = store.dictionary(forKey: storeKey) as? [String: Double] else {
+                if store.object(forKey: storeKey) != nil { store.removeObject(forKey: storeKey) }
+                return
+            }
+            let before = all.count
+            change(&all)
+            guard all.count != before else { return }
+            if all.isEmpty {
+                store.removeObject(forKey: storeKey)
+            } else {
+                store.set(all, forKey: storeKey)
+            }
         }
     }
 
     private func setUnconfirmed(_ alarmId: Int64, at time: Int64?) {
-        lock.lock(); defer { lock.unlock() }
-        var all = (store.dictionary(forKey: storeKey) as? [String: Double]) ?? [:]
-        let key = String(alarmId)
-        guard all[key] != nil || time != nil else { return }
-        all[key] = time.map { Double($0) }
-        if all.isEmpty {
-            store.removeObject(forKey: storeKey)
-        } else {
-            store.set(all, forKey: storeKey)
+        store.withLock { store in
+            var all = (store.dictionary(forKey: storeKey) as? [String: Double]) ?? [:]
+            let key = String(alarmId)
+            guard all[key] != nil || time != nil else { return }
+            all[key] = time.map { Double($0) }
+            if all.isEmpty {
+                store.removeObject(forKey: storeKey)
+            } else {
+                store.set(all, forKey: storeKey)
+            }
         }
     }
 }

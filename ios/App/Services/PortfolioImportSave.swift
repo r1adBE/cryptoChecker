@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 // Speichern des CSV-Imports abseits des Haupt-Threads: Zusammenstellen, Kodieren, Verschlüsseln und Schreiben laufen
 // losgelöst; der MainActor übernimmt nur den neuen Stand. Die Schreib-Reihenfolge (`PortfolioWriteOrder`) verhindert,
@@ -19,17 +20,21 @@ enum PortfolioBackgroundWrite: Equatable, Sendable {
 /// Stands galt; hat inzwischen ein anderes geschrieben, unterbleibt es (sein Stand wäre älter).
 /// Bewusst so: Schreibt gerade der Import einer grossen Datei im Hintergrund, warten synchrone Schreibwege auf dem
 /// MainActor kurz an der Sperre (Kodieren und Schreiben der Datei), statt neben ihm zu schreiben.
-final class PortfolioWriteOrder: @unchecked Sendable { // @unchecked: `generation` nur unter `lock` (NSLock)
+///
+/// Zwei Sperren, damit die Klasse vom Compiler geprüft `Sendable` ist: `lock` (NSLock) hält die Reihenfolge — das
+/// Schreiben selbst (`body`, nicht `Sendable`) läuft darunter; die Nummer liegt in `generation` und wird nur unter
+/// `lock` gelesen oder geändert (immer zuerst `lock`, dann `generation`).
+final class PortfolioWriteOrder: Sendable {
     private let lock = NSLock()
-    private var generation = 0
+    private let generation = OSAllocatedUnfairLock(initialState: 0)
 
     /// Nummer des letzten Schreibens.
-    var current: Int { lock.withLock { generation } }
+    var current: Int { lock.withLock { generation.withLock { $0 } } }
 
     /// Schreiben ohne Bedingung (synchrone Schreibwege auf dem MainActor).
     func write<T>(_ body: () -> T) -> T {
         lock.withLock {
-            generation += 1
+            generation.withLock { $0 += 1 }
             return body()
         }
     }
@@ -38,9 +43,13 @@ final class PortfolioWriteOrder: @unchecked Sendable { // @unchecked: `generatio
     /// Nummer dieses Schreibens.
     func write<T>(ifUnchangedSince expected: Int, _ body: () -> T) -> (result: T, generation: Int)? {
         lock.withLock {
-            guard generation == expected else { return nil }
-            generation += 1
-            return (body(), generation)
+            let next: Int? = generation.withLock { number in
+                guard number == expected else { return nil }
+                number += 1
+                return number
+            }
+            guard let next else { return nil }
+            return (body(), next)
         }
     }
 }

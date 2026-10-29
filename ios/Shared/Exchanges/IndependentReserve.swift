@@ -5,12 +5,13 @@ private let independentReserveAPI = "https://api.independentreserve.com/Public"
 /// Independent Reserve (Australien, Neuseeland, Singapur). Statt einer Paarliste gibt es zwei Listen — Coins (Xbt,
 /// Eth, …) und Gegenwährungen (Aud, Usd, Nzd, Sgd); jedes Paar daraus ist handelbar (`pairListCombined`, darum kein
 /// `SimpleExchange`). Bitcoin heisst dort «Xbt». https://www.independentreserve.com/features/api
-final class IndependentReserve: Exchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() { super.init(key: "IndependentReserve", name: "Independent Reserve") }
+struct IndependentReserve: Exchange {
+    let key: String = "IndependentReserve"
+    let name: String = "Independent Reserve"
 
     // MARK: Einzelkurs
 
-    override func tickerAddress(call: Int, info: PairQuery) -> String {
+    func tickerAddress(call: Int, info: PairQuery) -> String {
         let stored = (info.pairId ?? "").split(separator: "_").map(String.init)
         let codes = stored.count == 2
             ? stored
@@ -20,7 +21,7 @@ final class IndependentReserve: Exchange, @unchecked Sendable { // @unchecked: w
     }
 
     /// `CreatedTimestampUtc` ist die Erstellung der Übersicht, kein Handel: Zeit der Börse unbekannt.
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         ticker.last = try json.double("LastPrice")
         ticker.bid = json.optDoubleOrMissing("CurrentHighestBidPrice")
         ticker.ask = json.optDoubleOrMissing("CurrentLowestOfferPrice")
@@ -32,21 +33,21 @@ final class IndependentReserve: Exchange, @unchecked Sendable { // @unchecked: w
     }
 
     /// JSON null ergibt hier keinen Text (Android liefert dort «null»).
-    override func errorMessage(call: Int, json: JObject, info: PairQuery) throws -> String? {
+    func errorMessage(call: Int, json: JObject, info: PairQuery) throws -> String? {
         try json.string("Message")
     }
 
     // MARK: Paarliste: Coins (0) mal Gegenwährungen (1)
 
-    override var pairListCallCount: Int { 2 }
+    var pairListCallCount: Int { 2 }
 
-    override var pairListCombined: Bool { true }
+    var pairListCombined: Bool { true }
 
-    override func pairListAddress(call: Int) -> String? {
+    func pairListAddress(call: Int) -> String? {
         independentReserveAPI + (call == 0 ? "/GetValidPrimaryCurrencyCodes" : "/GetValidSecondaryCurrencyCodes")
     }
 
-    override func fillPairListCombined(bodies: [String]) throws -> [ExchangePair] {
+    func fillPairListCombined(bodies: [String]) throws -> [ExchangePair] {
         let coins = try IndependentReserve.codeList(bodies[0])
         let counters = try IndependentReserve.codeList(bodies[1])
         var out: [ExchangePair] = []

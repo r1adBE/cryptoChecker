@@ -5,31 +5,33 @@ private let latokenAPI = "https://api.latoken.com/v2"
 /// LATOKEN (API v2). Paare und Ticker kennen nur Währungs-IDs (UUID); die Kürzel liefert die Währungsliste — darum
 /// zwei gemeinsam gelesene Paarlisten statt einer (`pairListCombined`) und kein `SimpleExchange`.
 /// Paar-Kennung: «Basis-ID/Quote-ID». Vorsicht: «amount24h» = Menge im Coin, «volume24h» = Gegenwert.
-final class Latoken: Exchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() { super.init(key: "Latoken", name: "LATOKEN", ttsName: "La token") }
+struct Latoken: Exchange {
+    let key: String = "Latoken"
+    let name: String = "LATOKEN"
+    let ttsName: String = "La token"
 
     // MARK: Einzelkurs
 
-    override func tickerAddress(call: Int, info: PairQuery) -> String {
+    func tickerAddress(call: Int, info: PairQuery) -> String {
         let pairId = info.pairId ?? Latoken.idOf(info.base, info.quote)
         return latokenAPI + "/ticker/" + pairId
     }
 
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         try Latoken.copyRow(json, into: &ticker)
     }
 
-    override func errorMessage(call: Int, json: JObject, info: PairQuery) throws -> String? {
+    func errorMessage(call: Int, json: JObject, info: PairQuery) throws -> String? {
         try json.string("message")
     }
 
     // MARK: Sammelabfrage
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
-    override func bulkTickersURL(call: Int) -> String? { latokenAPI + "/ticker" }
+    func bulkTickersURL(call: Int) -> String? { latokenAPI + "/ticker" }
 
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         for row in try JArray(string: body).allObjects() {
             let baseId = row.optString("baseCurrency")
@@ -43,15 +45,15 @@ final class Latoken: Exchange, @unchecked Sendable { // @unchecked: wie `Exchang
 
     // MARK: Paarliste: Währungen (0) und Paare (1) zusammen auswerten
 
-    override var pairListCallCount: Int { 2 }
+    var pairListCallCount: Int { 2 }
 
-    override var pairListCombined: Bool { true }
+    var pairListCombined: Bool { true }
 
-    override func pairListAddress(call: Int) -> String? {
+    func pairListAddress(call: Int) -> String? {
         call == 0 ? latokenAPI + "/currency" : latokenAPI + "/pair"
     }
 
-    override func fillPairListCombined(bodies: [String]) throws -> [ExchangePair] {
+    func fillPairListCombined(bodies: [String]) throws -> [ExchangePair] {
         let tagById = try Latoken.currencyTags(bodies[0])
         var out: [ExchangePair] = []
         for pair in try JArray(string: bodies[1]).allObjects() where pair.optString("status") == "PAIR_STATUS_ACTIVE" {
@@ -67,7 +69,7 @@ final class Latoken: Exchange, @unchecked Sendable { // @unchecked: wie `Exchang
     // MARK: Namen
 
     /// Volle Namen stehen in derselben Währungsliste (Kürzel «tag» → «name»).
-    override func parseBaseNamesCombined(bodies: [String]) throws -> [String: String] {
+    func parseBaseNamesCombined(bodies: [String]) throws -> [String: String] {
         var byTag: [String: String] = [:]
         for currency in try JArray(string: bodies[0]).allObjects() {
             let tag = currency.optString("tag")

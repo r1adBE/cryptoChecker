@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 // Portfolio-Widget-Stand ausserhalb des Hauptthreads rechnen (Teil von `PortfolioWidgetStore`): Die
 // ganze Rechnung (FIFO, Verlauf, Tageskurse) lief nach jedem Kursabruf des Portfolio-Tabs synchron auf dem MainActor —
@@ -8,26 +9,31 @@ import Foundation
 
 /// Führt Arbeiten einzeln nacheinander aus, in der Reihenfolge ihrer Marken (`ticket`, beim Aufruf gezogen). Kommt eine
 /// Arbeit erst an die Reihe, nachdem eine mit neuerer Marke schon lief, entfällt sie (nil) — ihre Eingaben sind älter.
-final class OrderedSerialRunner: @unchecked Sendable { // @unchecked: `issued` unter `ticketLock`, `applied` unter `lock`
+/// Vom Compiler geprüft `Sendable`: die Zähler liegen hinter eigenen Sperren; `lock` (NSLock) hält die Arbeit
+/// zusammen (`work` ist nicht `Sendable` und läuft darunter), `applied` wird nur unter `lock` gelesen oder geändert.
+final class OrderedSerialRunner: Sendable {
     private let lock = NSLock()
-    private let ticketLock = NSLock()
-    private var issued: Int64 = 0
-    private var applied: Int64 = 0
+    private let issued = OSAllocatedUnfairLock<Int64>(initialState: 0)
+    private let applied = OSAllocatedUnfairLock<Int64>(initialState: 0)
 
     /// Neue Marke — beim Erfassen der Eingaben ziehen, nicht erst bei der Ausführung.
     func ticket() -> Int64 {
-        ticketLock.lock()
-        defer { ticketLock.unlock() }
-        issued += 1
-        return issued
+        issued.withLock { last in
+            last += 1
+            return last
+        }
     }
 
     /// `work` unter der Sperre (keine andere Arbeit gleichzeitig); nil = eine neuere lief schon.
     func run<T>(_ ticket: Int64, _ work: () -> T) -> T? {
         lock.lock()
         defer { lock.unlock() }
-        guard ticket > applied else { return nil }
-        applied = ticket
+        let fresh = applied.withLock { last -> Bool in
+            guard ticket > last else { return false }
+            last = ticket
+            return true
+        }
+        guard fresh else { return nil }
         return work()
     }
 

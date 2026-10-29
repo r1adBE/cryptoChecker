@@ -7,19 +7,21 @@ private let bitFlyerRegionLists = ["markets", "markets/usa", "markets/eu"]
 
 /// bitFlyer — Spot aus drei Regionen (Japan, USA, EU), je eine Produktliste; darum kein `SimpleExchange`. Der Ticker
 /// kennt weder 24-h-Hoch/-Tief noch ein Volumen in der Gegenwährung. https://lightning.bitflyer.com/docs
-final class BitFlyer: Exchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() { super.init(key: "BitFlyer", name: "bitFlyer", ttsName: "bit flyer") }
+struct BitFlyer: Exchange {
+    let key: String = "BitFlyer"
+    let name: String = "bitFlyer"
+    let ttsName: String = "bit flyer"
 
     // MARK: Einzelkurs
 
-    override func tickerAddress(call: Int, info: PairQuery) -> String {
+    func tickerAddress(call: Int, info: PairQuery) -> String {
         let code = info.pairId ?? info.base + "_" + info.quote
         return bitFlyerAPI + "/ticker?product_code=" + code
     }
 
     /// Ruht der Handel («state» nicht «RUNNING»: CLOSED, STARTING, PREOPEN, CIRCUIT BREAK …), gibt es keinen Kurs —
     /// sonst stünde der letzte Handel vor dem Halt als aktuell da (wie Luno). Ohne Feld (Fehlerantwort) zählt das nicht.
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         if !json.isNull("state") && json.optString("state") != "RUNNING" {
             throw JSONError(message: JSONError.noData)
         }
@@ -30,17 +32,17 @@ final class BitFlyer: Exchange, @unchecked Sendable { // @unchecked: wie `Exchan
     }
 
     /// JSON null ergibt hier keinen Text (Android liefert dort «null»).
-    override func errorMessage(call: Int, json: JObject, info: PairQuery) throws -> String? {
+    func errorMessage(call: Int, json: JObject, info: PairQuery) throws -> String? {
         try json.string("error_message")
     }
 
     // MARK: Paarliste
 
-    override var pairListCallCount: Int { bitFlyerRegionLists.count }
+    var pairListCallCount: Int { bitFlyerRegionLists.count }
 
-    override func pairListAddress(call: Int) -> String? { bitFlyerAPI + "/" + bitFlyerRegionLists[call] }
+    func pairListAddress(call: Int) -> String? { bitFlyerAPI + "/" + bitFlyerRegionLists[call] }
 
-    override func fillPairList(call: Int, body: String) throws -> [ExchangePair] {
+    func fillPairList(call: Int, body: String) throws -> [ExchangePair] {
         var out: [ExchangePair] = []
         for product in try JArray(string: body).allObjects() {
             guard product.optString("market_type").lowercased() == "spot" else { continue }

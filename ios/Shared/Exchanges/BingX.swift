@@ -6,22 +6,24 @@ private let bingxAPI = "https://open-api.bingx.com/openApi"
 private let bingxOnline = 1
 
 /// BingX Spot. API: https://bingx-api.github.io/docs/#/en-us/spot/market-api.html
-final class BingX: BingXBase, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    init() {
-        super.init(key: "BingX", name: "BingX", contractType: .none,
-                   pairListPath: "/spot/v1/common/symbols", tickerPath: "/spot/v1/ticker/24hr")
-    }
+struct BingX: BingXBase {
+    let key: String = "BingX"
+    let name: String = "BingX"
+    let contractType: FuturesContractType = .none
+    let pairListPath: String = "/spot/v1/common/symbols"
+    let tickerPath: String = "/spot/v1/ticker/24hr"
 }
 
 /// BingX USDT-Perpetuals (Swap V2). API: https://bingx-api.github.io/docs/#/en-us/swapV2/market-api.html
-final class BingXFutures: BingXBase, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
+struct BingXFutures: BingXBase {
     /// Abschnitt «Futures» der Börsenauswahl (`ExchangeCategory`). Android gleich.
-    override var category: ExchangeCategory { .futures }
+    var category: ExchangeCategory { .futures }
 
-    init() {
-        super.init(key: "BingXFutures", name: "BingX Futures", contractType: .perpetual,
-                   pairListPath: "/swap/v2/quote/contracts", tickerPath: "/swap/v2/quote/ticker")
-    }
+    let key: String = "BingXFutures"
+    let name: String = "BingX Futures"
+    let contractType: FuturesContractType = .perpetual
+    let pairListPath: String = "/swap/v2/quote/contracts"
+    let tickerPath: String = "/swap/v2/quote/ticker"
 }
 
 /// Gemeinsamer Teil von Spot und Perpetuals. Antworten haben die Form {"code", "msg", "data"}; `data` ist beim
@@ -30,51 +32,49 @@ final class BingXFutures: BingXBase, @unchecked Sendable { // @unchecked: wie `E
 ///
 /// Die Doku verlangt auch bei öffentlichen Abfragen den Parameter `timestamp` (ms); ohne ihn können Abfragen
 /// abgelehnt werden. Darum kein `SimpleExchange`: jede Adresse wird beim Abruf gestempelt (`stamped`). Wie `BingX.kt`.
-class BingXBase: Exchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
-    private let contractType: FuturesContractType
-    private let pairListPath: String
-    private let tickerPath: String
+protocol BingXBase: Exchange {
+    var contractType: FuturesContractType { get }
+    /// Pfad der Paarliste unter der API-Wurzel.
+    var pairListPath: String { get }
+    /// Pfad des Tickers (mit `symbol` ein Paar, ohne alle).
+    var tickerPath: String { get }
+}
 
-    init(key: String, name: String, contractType: FuturesContractType, pairListPath: String, tickerPath: String) {
-        self.contractType = contractType
-        self.pairListPath = pairListPath
-        self.tickerPath = tickerPath
-        super.init(key: key, name: name)
-    }
+extension BingXBase {
 
     private var perpetuals: Bool { contractType == .perpetual }
 
     // MARK: Einzelkurs
 
     /// Ohne Kennung bleibt die Stelle leer (wie `SimpleExchange`); die Börse antwortet dann mit ihrem Fehler.
-    override func tickerAddress(call: Int, info: PairQuery) -> String {
-        BingXBase.stamped(bingxAPI + tickerPath + "?symbol=" + (info.pairId ?? ""))
+    func tickerAddress(call: Int, info: PairQuery) -> String {
+        Self.stamped(bingxAPI + tickerPath + "?symbol=" + (info.pairId ?? ""))
     }
 
     /// `closeTime` ist das Fensterende (≈ jetzt), kein Handel → Zeit der Börse unbekannt (wie MEXC).
-    override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
-        let rows = try BingXBase.dataRows(json)
+    func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+        let rows = try Self.dataRows(json)
         guard let row = rows.first else { throw JSONError(message: JSONError.noData) }
         try copyRow(row, into: &ticker)
     }
 
     /// code 0 heisst Erfolg — dann ist «msg» (meist leer) kein Fehlertext; es bleibt beim Fehler des Parsers.
-    override func errorMessage(call: Int, json: JObject, info: PairQuery) throws -> String? {
+    func errorMessage(call: Int, json: JObject, info: PairQuery) throws -> String? {
         if json.optInt("code", -1) == 0 { try noErrorText() }
         return try json.string("msg")
     }
 
     // MARK: Sammelabfrage (ohne `symbol` alle Paare des Bereichs)
 
-    override var bulkTickersNumOfRequests: Int { 1 }
+    var bulkTickersNumOfRequests: Int { 1 }
 
-    override var bulkTickersComplete: Bool { true }
+    var bulkTickersComplete: Bool { true }
 
-    override func bulkTickersURL(call: Int) -> String? { BingXBase.stamped(bingxAPI + tickerPath) }
+    func bulkTickersURL(call: Int) -> String? { Self.stamped(bingxAPI + tickerPath) }
 
-    override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
+    func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
-        for row in try BingXBase.dataRows(JObject(string: body)) {
+        for row in try Self.dataRows(JObject(string: body)) {
             bulkRowIfActive(row.optString("symbol"), row: row, priceField: "lastPrice", tickers: &tickers,
                             failed: &failed) { try copyRow(row, into: &$0) }
         }
@@ -83,13 +83,13 @@ class BingXBase: Exchange, @unchecked Sendable { // @unchecked: wie `Exchange` (
 
     // MARK: Paarliste
 
-    override func pairListAddress(call: Int) -> String? { BingXBase.stamped(bingxAPI + pairListPath) }
+    func pairListAddress(call: Int) -> String? { Self.stamped(bingxAPI + pairListPath) }
 
     /// Spot: {"data": {"symbols": [{symbol, status}]}} — Basis und Kotierung nur im Symbol. Swap: {"data":
     /// [{symbol, asset, currency, status}]}. Nur «status» 1 (online); offline, Voreröffnung und ausgesetzte nicht.
     /// Swap-TradFi (`TradFi.bingx`): `asset` ist eine interne Kennung («NCSKAAPL2USD»), die Basis kommt aus
     /// `displayName`; Krypto behält `asset` (`displayName` weicht dort ab, etwa NEIROCTO → «NEIRO»).
-    override func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
+    func fillPairList(call: Int, json: JObject) throws -> [ExchangePair] {
         let entries = try perpetuals ? json.array("data") : json.object("data").array("symbols")
         var out: [ExchangePair] = []
         for entry in try entries.allObjects() {
