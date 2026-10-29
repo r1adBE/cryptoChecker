@@ -3037,6 +3037,9 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   calendar of the live `github-pages` deployment (`deployments: read`), no longer `docs/macro` of its checkout;
   `mirror_data.py` keeps the previous signed hash of an extra file it cannot read. Pages source must be switched to
   «GitHub Actions» once (ROADMAP). App code unchanged.
+* Build 173: `macro-calendar.yml` (fetch) and `pages.yml` read the exit code of `git ls-remote --exit-code` as
+  `rc=0; … || rc=$?`: under `bash -e` the bare call ended the step with exit 2 when `macro` did not exist yet, so the
+  seeding path was never reached (first run 29.10.). App code unchanged.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

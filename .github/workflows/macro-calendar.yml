@@ -59,8 +59,9 @@ jobs:
           W="$RUNNER_TEMP/macro"
           mkdir -p "$W"
           URL="https://github.com/$GITHUB_REPOSITORY.git"
-          git ls-remote --exit-code "$URL" refs/heads/macro > /dev/null
-          rc=$?
+          # bash -e: Exit-Code 2 (Branch fehlt) abfangen statt den Schritt abzubrechen
+          rc=0
+          git ls-remote --exit-code "$URL" refs/heads/macro > /dev/null || rc=$?
           if [ "$rc" = 0 ]; then
             git fetch -q --no-tags --depth 1 "$URL" refs/heads/macro || exit 1
             BASE=$(git rev-parse FETCH_HEAD)

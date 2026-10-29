@@ -56,8 +56,9 @@ jobs:
           OUT="$RUNNER_TEMP/pages-macro"
           mkdir -p "$OUT"
           URL="https://github.com/$GITHUB_REPOSITORY.git"
-          git ls-remote --exit-code "$URL" refs/heads/macro > /dev/null
-          rc=$?
+          # bash -e: Exit-Code 2 (Branch fehlt) abfangen statt den Schritt abzubrechen
+          rc=0
+          git ls-remote --exit-code "$URL" refs/heads/macro > /dev/null || rc=$?
           if [ "$rc" = 0 ]; then
             git fetch -q --no-tags --depth 1 "$URL" refs/heads/macro || exit 1
             SHA=$(git rev-parse FETCH_HEAD)
