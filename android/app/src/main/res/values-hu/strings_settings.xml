@@ -276,7 +276,7 @@
     <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
     <string name="about_data_backup_label">Biztonsági mentés</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_backup">Csak ha te készítesz egyet; jelszóval titkosítva (Argon2id + AES-256-GCM), jelszó nélkül olvasható.</string>
+    <string name="about_data_backup">Csak ha te készítesz egyet. Jelszóval titkosított (Argon2id + AES-256-GCM); jelszó nélkül olvasható.</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">Eszközváltás</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->

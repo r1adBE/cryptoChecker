@@ -278,7 +278,7 @@
     <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
     <string name="about_data_backup_label">Sauvegarde</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_backup">Seulement si tu en crées une ; chiffrée avec un mot de passe (Argon2id + AES-256-GCM), lisible sans mot de passe.</string>
+    <string name="about_data_backup">Seulement si tu en crées une. Avec un mot de passe, elle est chiffrée (Argon2id + AES-256-GCM) ; sans mot de passe, elle est lisible.</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">Changement d’appareil</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->

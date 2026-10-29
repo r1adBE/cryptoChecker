@@ -1,5 +1,6 @@
 package com.cryptochecker.app
 
+import android.net.Uri
 import android.util.Log
 import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasContentDescription
@@ -7,23 +8,17 @@ import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
 import androidx.compose.ui.test.performTextInput
 import androidx.test.platform.app.InstrumentationRegistry
+import com.cryptochecker.app.data.BackupManager
 import com.cryptochecker.app.data.CoinListSync
 import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.data.addWatch
-import com.cryptochecker.app.data.local.model.AlarmCondition
-import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.portfolio.PortfolioPriceSource
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
-import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
-import com.cryptochecker.app.domain.model.ExchangeInfo
-import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.app.testing.FakeExchange
 import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.ui.UiTestTags
-import com.cryptochecker.marketdata.model.ExchangePair
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
@@ -34,7 +29,9 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 import org.junit.runners.model.Statement
-import java.math.BigDecimal
+import org.json.JSONArray
+import org.json.JSONObject
+import java.io.File
 import javax.inject.Inject
 
 /**
@@ -44,11 +41,12 @@ import javax.inject.Inject
  * Aktualisierung», Paar hinzufügen, Coin-Suche, Markt, Portfolio, Einstellungen mit «Hell / Dunkel», «Alarme»,
  * «Sichern» und «Über die App».
  *
- * Daten wie die Demo-Sicherung der Store-Bilder (`docs/store/screenshots/demo-backup.json`): BTC, ETH und SOL auf
- * Binance in der Gruppe «Layer 1», Alarme, drei Käufe im Portfolio. Kurse aus [FakeExchange] (kein Netz), vor dem
- * ersten Bild einmal geholt ([loadPrices]); Markt-Tab, Portfolio-Kurse und USDT/USD aus den festen Antworten der
- * Tour ([FakeExchange.marketData], [tourSources]). Hell/Dunkel über die Einstellung der App
- * ([SettingsRepository.setDarkMode]), nicht über das System.
+ * Daten: die Demo-Sicherung der Store-Bilder (`docs/store/screenshots/demo-backup.json`, Asset des Test-APK), mit
+ * denselben Abweichungen wie in iOS ([demoBackup]) über [BackupManager.restore] eingespielt — gleiche Paare, Notizen,
+ * Mitteilungs-Einstellungen, Gruppen und Portfolio auf beiden Plattformen. Kurse aus [FakeExchange] (kein Netz),
+ * vor dem ersten Bild einmal geholt ([loadPrices]); Markt-Tab, Portfolio-Kurse und USDT/USD aus den festen Antworten
+ * der Tour ([FakeExchange.marketData], [tourSources]). Hell/Dunkel über die Einstellung der App (`darkMode` der
+ * Sicherung), nicht über das System.
  *
  * Jedes Bild ist ein eigener Schritt: Scheitert einer, laufen die übrigen weiter, am Ende schlägt der Test fehl und
  * nennt die fehlenden Bilder. Bedienung und Wege zurück in [TourNavigator] (`ScreenshotTourSteps.kt`).
@@ -100,6 +98,8 @@ class ScreenshotTourTest {
     @Inject lateinit var portfolioPriceSource: PortfolioPriceSource
 
     @Inject lateinit var coinListSync: CoinListSync
+
+    @Inject lateinit var backupManager: BackupManager
 
     private lateinit var nav: TourNavigator
 
@@ -264,46 +264,73 @@ class ScreenshotTourTest {
                 runBlocking { watchRepository.getWatches() }.all { it.lastPrice != null }
             }
             runBlocking { coinListSync.refreshLists() }
-            runBlocking { portfolioPriceSource.prices(DEMO_BUYS.map { it.coin }, force = true) }
+            runBlocking { portfolioPriceSource.prices(DEMO_COINS, force = true) }
         }.onFailure { Log.w(TAG, "Kurse nicht geladen", it) }
     }
 
     /**
-     * Demo-Daten wie `demo-backup.json`: drei Paare (Binance, Gruppe «Layer 1») mit je einem Alarm — so öffnet
-     * «Alarm» im Aktionsblatt jedes Paars die Alarm-Liste statt gleich den Editor —, Portfolio mit drei Käufen.
-     * Hinweise für Erstnutzer aus, damit kein Dialog die Seiten verdeckt.
+     * Demo-Sicherung ([demoBackup]) über den echten Weg der App einspielen ([BackupManager.restore], wie
+     * `BackupRestoreTest`): ersetzt Merkliste, Alarme, Portfolio und Einstellungen. Vorher Hinweise für Erstnutzer aus,
+     * damit kein Dialog die Seiten verdeckt (nicht Teil der Sicherung), und die Portfolio-Sperre aus (eine Sicherung
+     * ohne Passwort schaltet sie nicht aus).
      */
     private fun seedDemoData(dark: Boolean) = runBlocking {
         settingsRepository.setAboutSeen(true)
         settingsRepository.setGestureHintSeen(true)
         settingsRepository.setAppLock(false)
-        settingsRepository.setPortfolioEnabled(true)
         settingsRepository.setFirstAlarmShown(true)
         settingsRepository.setAlarmTimingHintShown(true)
         settingsRepository.setFirstAlarmCardDismissed(true)
         settingsRepository.setFirstPairAdded(true)
         settingsRepository.setBatteryPromptSeen(true)
-        settingsRepository.setDarkMode(dark)
-        watchRepository.deleteAllWatches()
-        portfolioRepository.clearAll()
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val file = File(context.cacheDir, DEMO_FILE)
+        file.writeText(demoBackup(dark), Charsets.UTF_8)
         seeded = true
-        val binance = ExchangeInfo("Binance", "Binance")
-        val ids = DEMO_ALARMS.map { (coin, _) ->
-            checkNotNull(watchRepository.addWatch(binance, ExchangePair(coin, "USDT", "${coin}USDT")))
+        try {
+            backupManager.restore(Uri.fromFile(file), password = null)
+        } finally {
+            file.delete()
         }
-        ids.forEachIndexed { i, id ->
-            watchRepository.setGroup(id, DEMO_GROUP)
-            val (condition, threshold) = DEMO_ALARMS[i].second
-            watchRepository.saveAlarm(AlarmEntity(watchId = id, condition = condition, threshold = threshold))
+    }
+
+    /**
+     * Demo-Sicherung mit denselben Abweichungen wie `demoBackup` in `ScreenshotTourTests.swift` (beide gleich halten):
+     * Hell/Dunkel (`darkMode`), USD ohne Umrechnung (keine Wechselkurse ohne Netz), Alarmwährung `null` (Währung des
+     * Paars) und je ein Alarm für die Paare ohne Alarm (ETH über 4000, SOL über 250) — so öffnet «Alarm» im
+     * Aktionsblatt jedes Paars die Alarm-Liste statt gleich den Editor.
+     */
+    private fun demoBackup(dark: Boolean): String {
+        val text = InstrumentationRegistry.getInstrumentation().context.assets.open(DEMO_FILE)
+            .bufferedReader(Charsets.UTF_8).use { it.readText() }
+        val backup = JSONObject(text)
+        backup.getJSONObject("settings")
+            .put("darkMode", dark)
+            .put("portfolioCurrency", "USD")
+            .put("showConverted", false)
+        val source = backup.getJSONArray("alarms")
+        val alarms = JSONArray()
+        for (i in 0 until source.length()) {
+            alarms.put(JSONObject(source.getJSONObject(i).toString()).put("currency", JSONObject.NULL))
         }
-        DEMO_BUYS.forEach { (coin, amount, price, time) ->
-            portfolioRepository.save(
-                PortfolioTxEntity(
-                    coin = coin, type = PortfolioTxType.BUY, amount = BigDecimal(amount),
-                    priceUsdt = BigDecimal(price), time = time,
+        val template = if (alarms.length() > 0) alarms.getJSONObject(0) else null
+        if (template != null) {
+            val taken = (0 until alarms.length()).map { alarms.getJSONObject(it).getLong("watchId") }.toSet()
+            val watches = backup.getJSONArray("watches")
+            val free = (0 until watches.length()).map { watches.getJSONObject(it).getLong("id") }
+                .filterNot { it in taken }
+            free.forEachIndexed { offset, id ->
+                alarms.put(
+                    JSONObject(template.toString())
+                        .put("id", 100 + offset)
+                        .put("watchId", id)
+                        .put("condition", "PRICE_ABOVE")
+                        .put("threshold", if (id == 2L) 4_000.0 else 250.0)
                 )
-            )
+            }
         }
+        backup.put("alarms", alarms)
+        return backup.toString()
     }
 
     /** Unterseite der Einstellungen über die Zeile [title] öffnen und fotografieren (eigener Schritt). */
@@ -331,8 +358,6 @@ class ScreenshotTourTest {
     /** Tour verlangt (Argument des Test-Runners [ARGUMENT] = `true`)? */
     private fun tourRequested(): Boolean = InstrumentationRegistry.getArguments().getString(ARGUMENT) == "true"
 
-    private data class Buy(val coin: String, val amount: String, val price: String, val time: Long)
-
     private companion object {
         /** Argument des Test-Runners, das die Tour einschaltet. */
         const val ARGUMENT = "screenshotTour"
@@ -348,20 +373,10 @@ class ScreenshotTourTest {
         const val SETTLE_MILLIS = 1_200L
         /** Markt-Tab: alle Karten laden und einblenden (Kerzen, Verlauf seit 2016, Altcoin-Saison mit 21 Coins). */
         const val MARKET_SETTLE_MILLIS = 6_000L
-        const val DEMO_GROUP = "Layer 1"
+        /** Demo-Sicherung der Store-Bilder: Asset des Test-APK (`docs/store/screenshots`, build.gradle.kts). */
+        const val DEMO_FILE = "demo-backup.json"
 
-        /** Paare der Demo-Sicherung mit je einem Alarm (BTC wie dort: unter 90’000). */
-        val DEMO_ALARMS = listOf(
-            "BTC" to (AlarmCondition.PRICE_BELOW to 90_000.0),
-            "ETH" to (AlarmCondition.PRICE_ABOVE to 4_000.0),
-            "SOL" to (AlarmCondition.PRICE_ABOVE to 250.0),
-        )
-
-        /** Käufe der Demo-Sicherung (Menge, Preis in USDT, Zeitpunkt). */
-        val DEMO_BUYS = listOf(
-            Buy("BTC", "0.05", "77500", 1_744_113_600_000L),
-            Buy("ETH", "1.2", "2400", 1_750_420_800_000L),
-            Buy("SOL", "10", "165", 1_754_049_600_000L),
-        )
+        /** Coins im Portfolio der Demo-Sicherung (Kurse vor dem ersten Bild holen). */
+        val DEMO_COINS = listOf("BTC", "ETH", "SOL")
     }
 }

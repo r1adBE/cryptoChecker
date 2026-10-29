@@ -156,7 +156,8 @@ final class ScreenshotTourTests: XCTestCase {
         }
     }
 
-    /// Demo-Sicherung mit Hell/Dunkel (`darkMode`), USD ohne Umrechnung und je einem Alarm für alle Paare.
+    /// Demo-Sicherung mit Hell/Dunkel (`darkMode`), USD ohne Umrechnung und je einem Alarm für alle Paare — dieselben
+    /// Abweichungen wie `demoBackup` in `ScreenshotTourTest.kt` (Android; beide gleich halten).
     private func demoBackup(dark: Bool, file: StaticString = #filePath) throws -> String {
         let root = URL(fileURLWithPath: "\(file)").deletingLastPathComponent().deletingLastPathComponent()
             .deletingLastPathComponent()

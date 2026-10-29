@@ -280,7 +280,7 @@
     <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
     <string name="about_data_backup_label">Záloha</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_backup">Jen pokud ji vytvoříš; šifrovaná heslem (Argon2id + AES-256-GCM), bez hesla čitelná.</string>
+    <string name="about_data_backup">Jen pokud ji vytvoříš. S heslem je šifrovaná (Argon2id + AES-256-GCM); bez hesla je čitelná.</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">Změna zařízení</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->

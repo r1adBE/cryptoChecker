@@ -280,7 +280,7 @@
     <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
     <string name="about_data_backup_label">Backup</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_backup">Only if you create one; encrypted with a password (Argon2id + AES-256-GCM), readable without one.</string>
+    <string name="about_data_backup">Only if you create one. With a password it is encrypted (Argon2id + AES-256-GCM); without one it is readable.</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">Changing devices</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->

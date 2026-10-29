@@ -18450,187 +18450,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "فقط إذا أنشأته بنفسك؛ مشفّر بكلمة مرور (Argon2id + AES-256-GCM)، ومقروء بدونها."
+            "value" : "فقط إذا أنشأته بنفسك. مع كلمة مرور يكون مشفّرًا (Argon2id + AES-256-GCM)؛ وبدون كلمة مرور يكون مقروءًا."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Jen pokud ji vytvoříš; šifrovaná heslem (Argon2id + AES-256-GCM), bez hesla čitelná."
+            "value" : "Jen pokud ji vytvoříš. S heslem je šifrovaná (Argon2id + AES-256-GCM); bez hesla je čitelná."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kun hvis du selv opretter en; krypteret med adgangskode (Argon2id + AES-256-GCM), læsbar uden adgangskode."
+            "value" : "Kun hvis du selv opretter en. Med adgangskode er den krypteret (Argon2id + AES-256-GCM); uden adgangskode er den læsbar."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nur wenn du sie erstellst; mit Passwort verschlüsselt (Argon2id + AES-256-GCM), ohne Passwort lesbar."
+            "value" : "Nur wenn du sie erstellst. Mit Passwort ist sie verschlüsselt (Argon2id + AES-256-GCM); ohne Passwort ist sie lesbar."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Μόνο αν το δημιουργήσεις· κρυπτογραφημένο με κωδικό (Argon2id + AES-256-GCM), αναγνώσιμο χωρίς κωδικό."
+            "value" : "Μόνο αν το δημιουργήσεις. Με κωδικό είναι κρυπτογραφημένο (Argon2id + AES-256-GCM)· χωρίς κωδικό είναι αναγνώσιμο."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Only if you create one; encrypted with a password (Argon2id + AES-256-GCM), readable without one."
+            "value" : "Only if you create one. With a password it is encrypted (Argon2id + AES-256-GCM); without one it is readable."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Solo si la creas tú; cifrada con contraseña (Argon2id + AES-256-GCM), legible sin contraseña."
+            "value" : "Solo si la creas tú. Con contraseña está cifrada (Argon2id + AES-256-GCM); sin contraseña es legible."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "فقط اگر خودت بسازی؛ با گذرواژه رمزگذاری می‌شود (Argon2id + AES-256-GCM) و بدون گذرواژه خواناست."
+            "value" : "فقط اگر خودت بسازی. با گذرواژه رمزگذاری می‌شود (Argon2id + AES-256-GCM)؛ بدون گذرواژه خواناست."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vain jos luot sellaisen; salattu salasanalla (Argon2id + AES-256-GCM), luettavissa ilman salasanaa."
+            "value" : "Vain jos luot sellaisen. Salasanalla se on salattu (Argon2id + AES-256-GCM); ilman salasanaa se on luettavissa."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Seulement si tu en crées une ; chiffrée avec un mot de passe (Argon2id + AES-256-GCM), lisible sans mot de passe."
+            "value" : "Seulement si tu en crées une. Avec un mot de passe, elle est chiffrée (Argon2id + AES-256-GCM) ; sans mot de passe, elle est lisible."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "רק אם יצרת אותו; מוצפן בסיסמה (Argon2id + AES-256-GCM), קריא בלי סיסמה."
+            "value" : "רק אם יוצרים אותו. עם סיסמה הוא מוצפן (Argon2id + AES-256-GCM); בלי סיסמה הוא קריא."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "सिर्फ़ तब जब तुम इसे बनाओ; पासवर्ड के साथ एन्क्रिप्टेड (Argon2id + AES-256-GCM), बिना पासवर्ड के पढ़ने योग्य।"
+            "value" : "सिर्फ़ तब जब तुम इसे बनाओ। पासवर्ड के साथ यह एन्क्रिप्टेड होता है (Argon2id + AES-256-GCM); बिना पासवर्ड के यह पढ़ने योग्य होता है।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Csak ha te készítesz egyet; jelszóval titkosítva (Argon2id + AES-256-GCM), jelszó nélkül olvasható."
+            "value" : "Csak ha te készítesz egyet. Jelszóval titkosított (Argon2id + AES-256-GCM); jelszó nélkül olvasható."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hanya jika kamu membuatnya; terenkripsi dengan kata sandi (Argon2id + AES-256-GCM), dapat dibaca tanpa kata sandi."
+            "value" : "Hanya jika kamu membuatnya. Dengan kata sandi, cadangan terenkripsi (Argon2id + AES-256-GCM); tanpa kata sandi, cadangan dapat dibaca."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Solo se lo crei tu; cifrato con password (Argon2id + AES-256-GCM), leggibile senza password."
+            "value" : "Solo se lo crei tu. Con password è cifrato (Argon2id + AES-256-GCM); senza password è leggibile."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "作成した場合のみ。パスワードで暗号化（Argon2id + AES-256-GCM）、パスワードなしでは読める形式です。"
+            "value" : "作成した場合のみ。パスワードを設定すると暗号化されます（Argon2id + AES-256-GCM）。パスワードなしの場合は読める形式です。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "직접 만들 때만 생성되며, 비밀번호로 암호화(Argon2id + AES-256-GCM)되고 비밀번호가 없으면 그대로 읽을 수 있습니다."
+            "value" : "직접 만든 경우에만 있습니다. 비밀번호를 설정하면 암호화되고(Argon2id + AES-256-GCM), 비밀번호가 없으면 그대로 읽을 수 있습니다."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bare hvis du lager en; kryptert med passord (Argon2id + AES-256-GCM), lesbar uten passord."
+            "value" : "Bare hvis du lager en. Med passord er den kryptert (Argon2id + AES-256-GCM); uten passord er den lesbar."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alleen als je er zelf een maakt; met wachtwoord versleuteld (Argon2id + AES-256-GCM), zonder wachtwoord leesbaar."
+            "value" : "Alleen als je er zelf een maakt. Met wachtwoord is hij versleuteld (Argon2id + AES-256-GCM); zonder wachtwoord is hij leesbaar."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tylko jeśli ją utworzysz; zaszyfrowana hasłem (Argon2id + AES-256-GCM), bez hasła czytelna."
+            "value" : "Tylko jeśli ją utworzysz. Z hasłem jest zaszyfrowana (Argon2id + AES-256-GCM); bez hasła jest czytelna."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Só se a criares; encriptada com palavra-passe (Argon2id + AES-256-GCM), legível sem palavra-passe."
+            "value" : "Só se a criares. Com palavra-passe, está encriptada (Argon2id + AES-256-GCM); sem palavra-passe, é legível."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Só se você criar um; criptografado com senha (Argon2id + AES-256-GCM), legível sem senha."
+            "value" : "Só se você criar um. Com senha, ele é criptografado (Argon2id + AES-256-GCM); sem senha, é legível."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Doar dacă o creezi tu; criptată cu parolă (Argon2id + AES-256-GCM), lizibilă fără parolă."
+            "value" : "Doar dacă o creezi tu. Cu parolă este criptată (Argon2id + AES-256-GCM); fără parolă este lizibilă."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Только если ты её создаёшь; с паролем зашифрована (Argon2id + AES-256-GCM), без пароля читаема."
+            "value" : "Только если ты её создаёшь. С паролем она зашифрована (Argon2id + AES-256-GCM); без пароля её можно прочитать."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vetëm nëse e krijon vetë; e enkriptuar me fjalëkalim (Argon2id + AES-256-GCM), e lexueshme pa fjalëkalim."
+            "value" : "Vetëm nëse e krijon vetë. Me fjalëkalim është e enkriptuar (Argon2id + AES-256-GCM); pa fjalëkalim është e lexueshme."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bara om du skapar en; krypterad med lösenord (Argon2id + AES-256-GCM), läsbar utan lösenord."
+            "value" : "Bara om du skapar en. Med lösenord är den krypterad (Argon2id + AES-256-GCM); utan lösenord är den läsbar."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "เฉพาะเมื่อคุณสร้างเอง เข้ารหัสด้วยรหัสผ่าน (Argon2id + AES-256-GCM) หากไม่มีรหัสผ่านจะอ่านได้"
+            "value" : "เฉพาะเมื่อคุณสร้างเอง หากตั้งรหัสผ่านจะถูกเข้ารหัส (Argon2id + AES-256-GCM) หากไม่มีรหัสผ่านจะอ่านได้"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Yalnızca sen oluşturursan; parolayla şifreli (Argon2id + AES-256-GCM), parolasız okunabilir."
+            "value" : "Yalnızca sen oluşturursan. Parolayla şifrelenir (Argon2id + AES-256-GCM); parola olmadan okunabilir."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Лише якщо ти її створюєш; з паролем зашифрована (Argon2id + AES-256-GCM), без пароля читабельна."
+            "value" : "Лише якщо ти її створюєш. З паролем вона зашифрована (Argon2id + AES-256-GCM); без пароля її можна прочитати."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Chỉ khi bạn tự tạo; mã hóa bằng mật khẩu (Argon2id + AES-256-GCM), không có mật khẩu thì đọc được."
+            "value" : "Chỉ khi bạn tự tạo. Có mật khẩu thì được mã hóa (Argon2id + AES-256-GCM); không có mật khẩu thì đọc được."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "仅在你创建时才有；设置密码则加密（Argon2id + AES-256-GCM），无密码则可直接读取。"
+            "value" : "仅在你创建时才有。设置密码则加密（Argon2id + AES-256-GCM）；无密码则可直接读取。"
           }
         }
       }

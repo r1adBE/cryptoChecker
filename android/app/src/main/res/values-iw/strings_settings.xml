@@ -278,7 +278,7 @@
     <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
     <string name="about_data_backup_label">גיבוי</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_backup">רק אם יצרת אותו; מוצפן בסיסמה (Argon2id + AES-256-GCM), קריא בלי סיסמה.</string>
+    <string name="about_data_backup">רק אם יוצרים אותו. עם סיסמה הוא מוצפן (Argon2id + AES-256-GCM); בלי סיסמה הוא קריא.</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">החלפת מכשיר</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->

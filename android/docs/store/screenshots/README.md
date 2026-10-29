@@ -48,7 +48,7 @@ Achtung: Die Wiederherstellung **ersetzt** Merkliste, Alarme, Favoriten, Portfol
 Inhalt der Sicherung:
 
 - Merkliste: BTC/USDT, ETH/USDT, SOL/USDT auf Binance (Börsen-Schlüssel `Binance`, Paar-Id `BTCUSDT` usw.), alle in der Gruppe «Layer 1»
-- Notiz bei BTC: «Ø 77 500 USDT» (sprachneutral)
+- Notiz bei BTC: «Long-term hold»
 - Alarm: BTC/USDT unter 90 000 CHF (Alarmwährung CHF)
 - Portfolio: Kauf 0,05 BTC zu 77 500 USDT (8.4.2025), 1,2 ETH zu 2400 USDT (20.6.2025), 10 SOL zu 165 USDT (1.8.2025)
 - Einstellungen: Umrechnungswährung CHF, umgerechnete Kurse an, Mini-Chart an, Portfolio an, heller Modus, Akzent Orange, Kursfarben «Ruhig» (Standard), keine dauernde Kurs-Mitteilung, Portfolio-Sperre aus, Nachtruhe aus

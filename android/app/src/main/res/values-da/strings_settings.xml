@@ -276,7 +276,7 @@
     <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
     <string name="about_data_backup_label">Sikkerhedskopi</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_backup">Kun hvis du selv opretter en; krypteret med adgangskode (Argon2id + AES-256-GCM), læsbar uden adgangskode.</string>
+    <string name="about_data_backup">Kun hvis du selv opretter en. Med adgangskode er den krypteret (Argon2id + AES-256-GCM); uden adgangskode er den læsbar.</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">Skift af enhed</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->

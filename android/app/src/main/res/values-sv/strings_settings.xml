@@ -276,7 +276,7 @@
     <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
     <string name="about_data_backup_label">Säkerhetskopia</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_backup">Bara om du skapar en; krypterad med lösenord (Argon2id + AES-256-GCM), läsbar utan lösenord.</string>
+    <string name="about_data_backup">Bara om du skapar en. Med lösenord är den krypterad (Argon2id + AES-256-GCM); utan lösenord är den läsbar.</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">Byte av enhet</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->

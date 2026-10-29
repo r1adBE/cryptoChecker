@@ -274,7 +274,7 @@
     <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
     <string name="about_data_backup_label">备份</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_backup">仅在你创建时才有；设置密码则加密（Argon2id + AES-256-GCM），无密码则可直接读取。</string>
+    <string name="about_data_backup">仅在你创建时才有。设置密码则加密（Argon2id + AES-256-GCM）；无密码则可直接读取。</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">更换设备</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->

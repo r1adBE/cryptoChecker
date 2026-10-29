@@ -280,7 +280,7 @@
     <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
     <string name="about_data_backup_label">Kopia zapasowa</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_backup">Tylko jeśli ją utworzysz; zaszyfrowana hasłem (Argon2id + AES-256-GCM), bez hasła czytelna.</string>
+    <string name="about_data_backup">Tylko jeśli ją utworzysz. Z hasłem jest zaszyfrowana (Argon2id + AES-256-GCM); bez hasła jest czytelna.</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">Zmiana urządzenia</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->

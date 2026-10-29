@@ -274,7 +274,7 @@
     <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
     <string name="about_data_backup_label">백업</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_backup">직접 만들 때만 생성되며, 비밀번호로 암호화(Argon2id + AES-256-GCM)되고 비밀번호가 없으면 그대로 읽을 수 있습니다.</string>
+    <string name="about_data_backup">직접 만든 경우에만 있습니다. 비밀번호를 설정하면 암호화되고(Argon2id + AES-256-GCM), 비밀번호가 없으면 그대로 읽을 수 있습니다.</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">기기 변경</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->

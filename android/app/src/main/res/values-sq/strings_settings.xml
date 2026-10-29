@@ -276,7 +276,7 @@
     <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
     <string name="about_data_backup_label">Kopja rezervë</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_backup">Vetëm nëse e krijon vetë; e enkriptuar me fjalëkalim (Argon2id + AES-256-GCM), e lexueshme pa fjalëkalim.</string>
+    <string name="about_data_backup">Vetëm nëse e krijon vetë. Me fjalëkalim është e enkriptuar (Argon2id + AES-256-GCM); pa fjalëkalim është e lexueshme.</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">Ndërrimi i pajisjes</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->

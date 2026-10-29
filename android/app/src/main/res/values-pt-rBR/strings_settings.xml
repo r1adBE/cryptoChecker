@@ -278,7 +278,7 @@
     <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
     <string name="about_data_backup_label">Backup</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_backup">Só se você criar um; criptografado com senha (Argon2id + AES-256-GCM), legível sem senha.</string>
+    <string name="about_data_backup">Só se você criar um. Com senha, ele é criptografado (Argon2id + AES-256-GCM); sem senha, é legível.</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">Troca de aparelho</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->

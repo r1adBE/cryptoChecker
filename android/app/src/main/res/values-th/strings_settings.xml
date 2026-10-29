@@ -274,7 +274,7 @@
     <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
     <string name="about_data_backup_label">ข้อมูลสำรอง</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_backup">เฉพาะเมื่อคุณสร้างเอง เข้ารหัสด้วยรหัสผ่าน (Argon2id + AES-256-GCM) หากไม่มีรหัสผ่านจะอ่านได้</string>
+    <string name="about_data_backup">เฉพาะเมื่อคุณสร้างเอง หากตั้งรหัสผ่านจะถูกเข้ารหัส (Argon2id + AES-256-GCM) หากไม่มีรหัสผ่านจะอ่านได้</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">การเปลี่ยนอุปกรณ์</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->

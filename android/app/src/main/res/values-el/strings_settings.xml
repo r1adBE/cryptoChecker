@@ -276,7 +276,7 @@
     <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
     <string name="about_data_backup_label">Αντίγραφο ασφαλείας</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_backup">Μόνο αν το δημιουργήσεις· κρυπτογραφημένο με κωδικό (Argon2id + AES-256-GCM), αναγνώσιμο χωρίς κωδικό.</string>
+    <string name="about_data_backup">Μόνο αν το δημιουργήσεις. Με κωδικό είναι κρυπτογραφημένο (Argon2id + AES-256-GCM)· χωρίς κωδικό είναι αναγνώσιμο.</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">Αλλαγή συσκευής</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->

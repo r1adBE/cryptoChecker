@@ -276,7 +276,7 @@
     <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
     <string name="about_data_backup_label">پشتیبان</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_backup">فقط اگر خودت بسازی؛ با گذرواژه رمزگذاری می‌شود (Argon2id + AES-256-GCM) و بدون گذرواژه خواناست.</string>
+    <string name="about_data_backup">فقط اگر خودت بسازی. با گذرواژه رمزگذاری می‌شود (Argon2id + AES-256-GCM)؛ بدون گذرواژه خواناست.</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">تعویض دستگاه</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->

@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 174)
+
+* About the app: the backup line now says clearly that a backup without a password is readable (all languages).
+
 ## 16.2.2 (build 173)
 
 * Economic calendar: the first run on the new branch no longer stops when the branch does not exist yet.

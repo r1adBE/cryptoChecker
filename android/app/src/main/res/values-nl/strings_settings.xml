@@ -276,7 +276,7 @@
     <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
     <string name="about_data_backup_label">Back-up</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_backup">Alleen als je er zelf een maakt; met wachtwoord versleuteld (Argon2id + AES-256-GCM), zonder wachtwoord leesbaar.</string>
+    <string name="about_data_backup">Alleen als je er zelf een maakt. Met wachtwoord is hij versleuteld (Argon2id + AES-256-GCM); zonder wachtwoord is hij leesbaar.</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">Ander apparaat</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->

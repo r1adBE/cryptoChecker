@@ -276,7 +276,7 @@
     <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
     <string name="about_data_backup_label">बैकअप</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_backup">सिर्फ़ तब जब तुम इसे बनाओ; पासवर्ड के साथ एन्क्रिप्टेड (Argon2id + AES-256-GCM), बिना पासवर्ड के पढ़ने योग्य।</string>
+    <string name="about_data_backup">सिर्फ़ तब जब तुम इसे बनाओ। पासवर्ड के साथ यह एन्क्रिप्टेड होता है (Argon2id + AES-256-GCM); बिना पासवर्ड के यह पढ़ने योग्य होता है।</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">डिवाइस बदलना</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->

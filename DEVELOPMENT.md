@@ -682,8 +682,9 @@ written by `screencap` to `/data/local/tmp/cc-screenshots` and pulled with `adb`
 `screenshots` (never `main`; each run replaces the previous set, older runs are cancelled). Layout:
 `android/<light|dark>/NN_name.png`, `ios/<light|dark>/NN_name.png` and `README.md` with the source commit, date
 and run. A platform whose job failed keeps its images from the previous set (marked «kept» in the README). Data:
-the store demo backup (`android/docs/store/screenshots/demo-backup.json`; Android seeds the same pairs, alarms and
-buys through the repositories, iOS restores the file), prices from the fake exchanges, light/dark through the app's
+the store demo backup (`android/docs/store/screenshots/demo-backup.json`), restored on both platforms with the same
+overrides (Android through `BackupManager.restore` in the test, the file as an androidTest asset; iOS through
+«Restore» in the UI), prices from the fake exchanges, light/dark through the app's
 own setting. Both tests skip themselves in the normal runs: Android needs the runner argument
 `screenshotTour=true`, iOS the environment `TEST_RUNNER_SCREENSHOT_TOUR=1`. Screen list: `01_watchlist`,
 `02_pair_actions`, `03_pair_alarms`, `04_alarm_editor`, `05_alarms_overview`, `06_refresh_report` (Android only),
@@ -3040,6 +3041,11 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
 * Build 173: `macro-calendar.yml` (fetch) and `pages.yml` read the exit code of `git ls-remote --exit-code` as
   `rc=0; … || rc=$?`: under `bash -e` the bare call ended the step with exit 2 when `macro` did not exist yet, so the
   seeding path was never reached (first run 29.10.). App code unchanged.
+* Build 174: `about_data_backup` names the password explicitly («…; without one it is readable», 31 languages, iOS
+  via `convert_strings.py`). Screenshot tours: Android restores `demo-backup.json` (androidTest asset from
+  `docs/store/screenshots`) through `BackupManager.restore` with the same overrides as iOS (`demoBackup` on both:
+  dark mode, USD without conversion, alarm currency null, one alarm per pair) instead of building rows through the
+  repositories; the BTC note in the demo backup is «Long-term hold».
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

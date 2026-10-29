@@ -280,7 +280,7 @@
     <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
     <string name="about_data_backup_label">Резервна копія</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_backup">Лише якщо ти її створюєш; з паролем зашифрована (Argon2id + AES-256-GCM), без пароля читабельна.</string>
+    <string name="about_data_backup">Лише якщо ти її створюєш. З паролем вона зашифрована (Argon2id + AES-256-GCM); без пароля її можна прочитати.</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">Зміна пристрою</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->

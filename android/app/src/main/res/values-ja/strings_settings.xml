@@ -274,7 +274,7 @@
     <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
     <string name="about_data_backup_label">バックアップ</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_backup">作成した場合のみ。パスワードで暗号化（Argon2id + AES-256-GCM）、パスワードなしでは読める形式です。</string>
+    <string name="about_data_backup">作成した場合のみ。パスワードを設定すると暗号化されます（Argon2id + AES-256-GCM）。パスワードなしの場合は読める形式です。</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">機種変更</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->

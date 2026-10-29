@@ -274,7 +274,7 @@
     <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
     <string name="about_data_backup_label">Sao lưu</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_backup">Chỉ khi bạn tự tạo; mã hóa bằng mật khẩu (Argon2id + AES-256-GCM), không có mật khẩu thì đọc được.</string>
+    <string name="about_data_backup">Chỉ khi bạn tự tạo. Có mật khẩu thì được mã hóa (Argon2id + AES-256-GCM); không có mật khẩu thì đọc được.</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">Đổi thiết bị</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
