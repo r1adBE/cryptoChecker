@@ -59,7 +59,7 @@ guide [`DEVELOPMENT.md`](DEVELOPMENT.md) explains the adapters step by step.
 
 All texts live in the Android string resources:
 `android/app/src/main/res/values/strings*.xml` (English) and
-`values-xx/strings*.xml` (31 languages). Every folder has the same area files,
+`values-xx/strings*.xml` (33 languages). Every folder has the same area files,
 one per part of the app (`strings_common.xml`, `strings_watchlist.xml`,
 `strings_alarms.xml`, `strings_portfolio.xml`, `strings_tax.xml`,
 `strings_settings.xml`, `strings_widgets.xml` …); a key lives in the same file in

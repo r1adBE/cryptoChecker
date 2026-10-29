@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">未選擇幣種</string>
+    <string name="watch_loading">正在載入…</string>
+    <string name="watch_error">無法連線交易所</string>
+    <string name="watch_updated">截至 %1$s</string>
+    <string name="watch_refresh">重新整理</string>
+    <string name="watch_choose">選擇幣種</string>
+    <string name="watch_choose_hint">幣種：最多 %1$d</string>
+    <string name="watch_complication_label">價格</string>
+    <string name="a11y_watch_row">%1$s %2$s，24 小時 %3$s</string>
+    <string name="watch_mode_phone">清單：與手機相同</string>
+    <string name="watch_mode_own">清單：自訂</string>
+    <string name="watch_phone_empty">手機上沒有收藏</string>
+    <string name="a11y_watch_outdated">價格已過時</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="other">最後更新於 %1$d 分鐘前</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="other">最後更新於 %1$d 小時前</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="other">最後更新於 %1$d 天前</item>
+    </plurals>
+</resources>

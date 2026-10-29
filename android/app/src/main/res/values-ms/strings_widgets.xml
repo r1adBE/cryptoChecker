@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
+    <string name="widget_background">Latar belakang</string>
+    <string name="widget_configure_hint">Pilih latar belakang dan kelegapan. Warna mengikut apl. Widget menunjukkan seluruh senarai pantau anda; ketik baris untuk membuka apl.</string>
+    <string name="widget_configure_title">Sediakan widget</string>
+    <string name="widget_description">Menunjukkan harga satu pasangan daripada senarai pantau anda.</string>
+    <string name="widget_empty">Belum ada pasangan dalam senarai pantau.</string>
+    <string name="widget_group_hint">Tunjukkan hanya pasangan dalam kumpulan ini.</string>
+    <string name="widget_kind_single">Satu koin</string>
+    <string name="widget_opacity">Kelegapan latar belakang: %1$s</string>
+    <string name="widget_pulse_description">Apa yang menonjol dalam pasaran sekarang: tajuk, ringkasan pendek serta Bitcoin, Ethereum dan Solana.</string>
+
+    <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
+    <!-- Allein, wenn für «outdated · 06:42» der Platz fehlt (Kopfzeile Listen-Widget) -->
+    <string name="widget_outdated">lapuk</string>
+    <!-- Statt der Uhrzeit: «outdated · 06:42» (heute) bzw. «outdated · 5 Oct, 06:42» -->
+    <string name="widget_outdated_time">lapuk · %1$s</string>
+
+    <!-- Widgets: Chart und Zeitraum -->
+    <string name="widget_chart_candles">Lilin</string>
+    <string name="widget_chart_line">Garisan</string>
+    <string name="widget_chart_range">Julat carta</string>
+    <string name="widget_chart_type">Jenis carta</string>
+    <!-- «1 Jahr» im Chart des Aktionsblatts (365 Tageskerzen; Chip neben 24h · 7T · 30T) -->
+    <string name="widget_range_1y">1 tahun</string>
+    <string name="widget_range_24h">24j</string>
+    <string name="widget_range_30d">30 hari</string>
+    <string name="widget_range_7d">7 hari</string>
+    <string name="widget_range_short_1y">1T</string>
+    <string name="widget_range_short_24h">24j</string>
+    <string name="widget_range_short_30d">30H</string>
+    <string name="widget_range_short_7d">7H</string>
+
+    <!-- Portfolio-Widget -->
+    <!-- Fusszeile, %1$s Uhrzeit ohne Sekunden («Stand 15:19») -->
+    <string name="widget_portfolio_as_of">Setakat %1$s</string>
+    <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
+    <string name="widget_portfolio_chart_pending">Sejarah akan datang</string>
+    <string name="widget_portfolio_description">Jumlah nilai portfolio anda dan perubahan hari ini</string>
+    <string name="widget_portfolio_entries">Catatan di bawah koin</string>
+    <string name="widget_portfolio_entries_both">Kedua-dua</string>
+    <string name="widget_portfolio_entries_buys">Belian</string>
+    <string name="widget_portfolio_entries_hint">Hanya ditunjukkan jika ada ruang di bawah koin. Belian termasuk deposit, jualan termasuk pengeluaran; dengan “Kedua-dua” baris-baris dijumlahkan kepada pegangan.</string>
+    <string name="widget_portfolio_entries_off">Mati</string>
+    <string name="widget_portfolio_entries_sells">Jualan</string>
+    <string name="widget_portfolio_display">Paparan</string>
+    <string name="widget_portfolio_display_conversion">Penukaran sahaja</string>
+    <string name="widget_portfolio_display_conversion_usdt">Penukaran + USDT</string>
+    <string name="widget_portfolio_display_hint">Baris USDT disembunyikan apabila mata wang penukaran ialah stablecoin USD (cth. USDC).</string>
+    <string name="widget_portfolio_display_usdt">USDT sahaja</string>
+    <string name="widget_portfolio_empty">Tambah belian dalam tab Portfolio</string>
+    <string name="widget_portfolio_list_hint">Buka apl untuk menunjukkan kedudukan anda di sini.</string>
+    <string name="widget_portfolio_locked_hint">Dikunci – buka kunci dalam apl</string>
+    <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
+    <plurals name="widget_portfolio_missing_coins">
+        <item quantity="other">tanpa %1$d koin</item>
+    </plurals>
+    <plurals name="widget_portfolio_more">
+        <item quantity="other">+ %1$d lagi</item>
+    </plurals>
+    <string name="widget_portfolio_name">Portfolio</string>
+    <string name="widget_portfolio_off_hint">Hidupkannya di %1$s.</string>
+    <string name="widget_portfolio_off_short">Portfolio mati</string>
+    <string name="widget_portfolio_off_title">Portfolio dimatikan</string>
+    <string name="widget_portfolio_partly_stale">sesetengah harga lapuk</string>
+    <string name="widget_portfolio_period">Tempoh</string>
+    <string name="widget_portfolio_period_without">%1$s tanpa %2$s</string>
+    <string name="widget_portfolio_range_48h">48j</string>
+    <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
+    <string name="widget_portfolio_range_fallback">%1$s: buka Portfolio</string>
+    <string name="widget_portfolio_range_short_48h">48j</string>
+    <string name="widget_portfolio_today_without">Hari ini tanpa %1$s</string>
+    <string name="widget_portfolio_view">Paparan</string>
+    <string name="widget_portfolio_view_chart">Carta</string>
+    <string name="widget_portfolio_view_list">Senarai</string>
+    <string name="widget_portfolio_view_overview">Gambaran keseluruhan</string>
+
+    <!-- Einzel-Widget -->
+    <string name="single_widget_choose">Pilih pasangan</string>
+    <string name="single_widget_description">Menunjukkan satu koin dalam saiz besar dengan harga, perubahan dan carta 24 jam.</string>
+    <string name="single_widget_label">Crypto Checker – satu koin</string>
+    <string name="single_widget_title">Sediakan widget satu koin</string>
+
+    <!-- Widgets aus der App hinzufügen -->
+    <string name="widgets_add">Tambah</string>
+    <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
+    <string name="widgets_add_named">Tambah widget %1$s</string>
+    <string name="widgets_manual_text">Skrin utama anda tidak dapat menambah widget daripada apl. Sentuh dan tahan tempat kosong pada skrin utama, pilih “Widget” dan cari “Crypto Checker”.</string>
+    <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
+    <string name="widgets_manual_title">Tambah widget sendiri</string>
+    <string name="widgets_sheet_title">Tambah widget</string>
+
+    <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS tidak membenarkan apl menambah widget sendiri. Ia hanya mengambil sedikit masa:</string>
+    <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Widget yang tersedia</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Sentuh dan tahan tempat kosong pada Skrin Utama sehingga apl bergoyang.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Ketik “Edit” › “Tambah Widget” di bahagian atas (atau “+” pada versi iOS lama).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Cari “Crypto Checker”, pilih widget dan ketik “Tambah Widget”.</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">Muat semula – boleh lagi dalam %1$d s</string>
+    <string name="settings_watch">Jam tangan</string>
+    <string name="settings_watch_hint">Koin untuk apl jam tangan pada Wear OS (sehingga %1$d, diberi harga berbanding USDT). Hanya senarai ini dihantar ke jam tangan, melalui perkhidmatan Google Play; jam tangan mengambil harga sendiri.</string>
+    <string name="settings_watch_mode_phone">Seperti telefon (kegemaran ★)</string>
+    <string name="settings_watch_mode_own">Senarai sendiri</string>
+    <string name="settings_watch_own_title">Senarai sendiri: %1$d daripada %2$d</string>
+    <string name="settings_watch_none">Belum ada kegemaran</string>
+
+    <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
+    <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">Tiada baris USDT dalam “Senarai”</string>
+    <!-- Nur iOS: Untertitel von 24 h und 7 Tage beim Zeitraum des Portfolio-Widgets – die Ansicht «Übersicht» zeigt «Heute» und «7 T» schon fest und nimmt dafür 30 Tage (Android bietet dort nur 30 T und 1 J an) -->
+    <string name="widget_portfolio_range_overview" tools:ignore="UnusedResources">“Gambaran keseluruhan” menunjukkan 30 hari</string>
+</resources>

@@ -117,6 +117,12 @@
             "value" : "Face ID로 포트폴리오 잠금을 해제합니다."
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buka kunci portfolio anda dengan Face ID."
+          }
+        },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
@@ -199,6 +205,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "使用面容 ID 解锁你的投资组合。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用 Face ID 解鎖你的投資組合。"
           }
         }
       }
@@ -308,6 +320,12 @@
             "value" : "주소용 개인 서버가 홈 네트워크에 있는 경우에만 필요합니다."
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hanya diperlukan jika pelayan sendiri untuk alamat anda berada dalam rangkaian rumah anda."
+          }
+        },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
@@ -390,6 +408,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "仅当你自己的地址服务器位于家庭网络中时才需要。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "僅當你自己的地址伺服器位於家用網路中時才需要。"
           }
         }
       }

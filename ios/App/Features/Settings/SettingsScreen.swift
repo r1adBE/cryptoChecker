@@ -313,7 +313,8 @@ struct SettingsScreen: View {
         "ro": "Română", "sq": "Shqip", "el": "Ελληνικά", "tr": "Türkçe", "sv": "Svenska",
         "da": "Dansk", "nb": "Norsk bokmål", "fi": "Suomi", "ru": "Русский", "uk": "Українська",
         "ar": "العربية", "he": "עברית", "fa": "فارسی", "hi": "हिन्दी", "th": "ไทย",
-        "vi": "Tiếng Việt", "id": "Bahasa Indonesia", "zh": "中文（简体）", "ja": "日本語", "ko": "한국어",
+        "vi": "Tiếng Việt", "id": "Bahasa Indonesia", "ms": "Bahasa Melayu", "zh": "中文（简体）",
+        "zh-Hant": "中文（繁體）", "ja": "日本語", "ko": "한국어",
     ]
 
     // MARK: Hilfen

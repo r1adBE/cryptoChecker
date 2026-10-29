@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">Tersuai</string>
+    <string name="settings_group_general">Umum</string>
+    <string name="settings_group_more">Lagi</string>
+    <string name="settings_minutes">%1$d min</string>
+    <string name="settings_row_about">Perihal apl</string>
+    <string name="settings_row_alarms">Amaran</string>
+    <string name="settings_row_currency">Mata wang</string>
+    <string name="settings_row_dated_futures">Niaga hadapan bertarikh</string>
+    <string name="settings_row_updates">Kemas kini harga</string>
+    <string name="settings_row_watchlist">Senarai pantau</string>
+    <string name="settings_search_hint">Cari tetapan</string>
+    <string name="settings_seconds">%1$d s</string>
+    <string name="settings_section_about">Perihal</string>
+    <string name="settings_section_appearance">Penampilan</string>
+    <string name="settings_section_developer">Pembangun</string>
+    <string name="settings_section_language">Bahasa</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">Hidup</string>
+    <string name="settings_title">Tetapan</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">Masa rehat sebelum amaran dicetuskan semula</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">Isyarat amaran</string>
+    <string name="settings_alarm_signal_open_system">Laraskan dalam tetapan sistem</string>
+    <string name="settings_alarm_signal_system_hint">Mengikut tetapan pemberitahuan telefon anda.</string>
+    <string name="settings_alarm_sound">Bunyi amaran</string>
+    <string name="settings_alarm_sound_custom">Bunyi tersuai</string>
+    <string name="settings_alarm_sound_default">Bunyi lalai</string>
+    <string name="settings_alarm_sound_error">Bunyi itu tidak dapat digunakan.</string>
+    <string name="settings_alarm_sound_file">Fail audio anda sendiri…</string>
+    <string name="settings_alarm_sound_reset">Guna bunyi lalai</string>
+    <string name="settings_alarm_sound_system">Pilih bunyi sistem…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">Nombor pada ikon apl</string>
+    <string name="settings_app_badge_hint">Mengira pemberitahuan amaran yang terbuka. Sama ada nombor atau titik muncul bergantung pada skrin utama (cth. Samsung: “Tunjuk dengan nombor”).</string>
+    <string name="settings_exact_checks">Semak tepat masa</string>
+    <string name="settings_exact_checks_grant">Benarkan penggera &amp; peringatan</string>
+    <string name="settings_exact_checks_hint">Android menyemak kira-kira setiap 15 minit, walaupun peranti melahu. Menggunakan sedikit lebih bateri.</string>
+    <string name="settings_exact_checks_nothing">Tiada pasangan aktif – tiada apa-apa untuk disemak.</string>
+    <string name="settings_exact_checks_permission_missing">Kebenaran tiada – semasa peranti rehat, Android menyemak secara tidak tetap, kadangkala selepas berjam-jam.</string>
+    <string name="settings_notification_change">Beritahu hanya apabila harga berubah</string>
+    <string name="settings_notification_change_always">Sentiasa</string>
+    <string name="settings_percent_invalid">Masukkan nilai dari 0 hingga 100.</string>
+    <string name="settings_notification_change_hint">Pemberitahuan harga hanya muncul apabila harga telah bergerak sekurang-kurangnya sebanyak ini sejak yang terakhir. Tiada apa-apa ditunjukkan semasa data tiada. Amaran tidak terjejas.</string>
+    <string name="settings_ongoing_notifications">Tidak boleh dileret keluar</string>
+    <string name="settings_ongoing_notifications_hint">Memastikan pemberitahuan harga kekal disematkan.</string>
+    <string name="settings_price_notifications">Pemberitahuan harga</string>
+    <string name="settings_price_notifications_hint">Tunjukkan harga semasa pasangan yang didayakan dalam bar status.</string>
+    <string name="settings_price_pairs">Pasangan</string>
+    <string name="settings_price_pairs_all_off">Semua mati</string>
+    <string name="settings_price_pairs_all_on">Semua hidup</string>
+    <string name="settings_price_pairs_count">%1$d daripada %2$d</string>
+    <string name="settings_price_pairs_empty">Belum ada pasangan dalam senarai pantau.</string>
+    <string name="settings_price_pairs_hint">Pilih pasangan yang menunjukkan harganya dalam bar pemberitahuan.</string>
+    <string name="settings_quiet_hours">Waktu senyap</string>
+    <string name="settings_quiet_hours_from">Dari</string>
+    <string name="settings_quiet_hours_hint">Antara %1$s dan %2$s, amaran menunggu sehingga waktu senyap tamat dan kemudian berbunyi. Pemberitahuan lain sampai secara senyap, tanpa pertuturan.</string>
+    <string name="settings_quiet_hours_to">Hingga</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">Selang</string>
+    <string name="settings_background_updates">Kemas kini latar belakang</string>
+    <string name="settings_battery_hint">Terhad bermakna Android mungkin melewatkan kemas kini latar belakang sehingga berjam-jam.</string>
+    <string name="settings_battery_ok">Penggunaan bateri: tidak terhad</string>
+    <string name="settings_battery_restricted">Penggunaan bateri: terhad</string>
+    <string name="settings_check_runs_empty">Belum ada semakan direkodkan.</string>
+    <string name="settings_check_runs_honest_android">Android menentukan bila untuk menyemak – di sini anda melihat bila ia benar-benar berlaku.</string>
+    <string name="settings_check_runs_honest_ios">iOS menentukan bila untuk menyemak – di sini anda melihat bila ia benar-benar berlaku.</string>
+    <string name="settings_check_runs_title">Semakan terkini</string>
+    <string name="settings_http_log">Tunjukkan log HTTP</string>
+    <string name="settings_http_log_hint">Menunjukkan permintaan kepada bursa di bahagian bawah halaman “Tambah pasangan” – untuk penyelesaian masalah.</string>
+    <string name="settings_live_service">Kemas kini dengan kerap</string>
+    <string name="settings_live_websocket">Harga langsung</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">Ketara: beritahu</string>
+    <string name="settings_activity_alerts_hint">Paling banyak sekali sejam bagi setiap pasangan: pergerakan harga luar biasa, lonjakan volum dan keadaan ekstrem niaga hadapan (data daripada Binance).</string>
+    <string name="settings_activity_sensitivity">Kepekaan</string>
+    <string name="settings_activity_sensitivity_hint">Betapa mudah sesuatu koin dianggap luar biasa – sama untuk kad senarai pantau dan pemberitahuan pasaran. Dengan “Kurang”, kad hanya menunjukkan 3 yang paling kuat.</string>
+    <string name="settings_watchlist_activity_card">Ketara: tunjukkan dalam senarai</string>
+    <string name="settings_watchlist_activity_card_hint">Menunjukkan cip ⚡ di sebelah kumpulan: ketik untuk melihat hanya pasangan yang sedang ada sesuatu berlaku. Pemberitahuan untuknya ditetapkan di bawah Pemberitahuan pasaran.</string>
+    <string name="settings_watchlist_names">Tunjukkan nama</string>
+    <string name="settings_watchlist_names_hint">Nama di bawah pasangan, cth. Bitcoin atau NVIDIA. Datang bersama senarai logo, dimuatkan sekali untuk semua koin.</string>
+    <string name="settings_watchlist_sparkline">Carta mini dalam senarai pantau</string>
+    <string name="settings_watchlist_sparkline_hint">Aliran 24 jam di sebelah harga</string>
+    <string name="settings_watchlist_value_names">Nama</string>
+    <string name="settings_watchlist_value_price_only">Harga sahaja</string>
+    <string name="settings_watchlist_value_sparkline">Carta mini</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">Termasuk token Alpha (α)</string>
+    <string name="settings_asset_scope_alpha_hint">Token Alpha: projek awal yang kebanyakannya kecil daripada senarai Binance Alpha – selalunya jarang didagangkan dan sangat tidak menentu.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">Tergolong dalam Token. Tidak tersedia semasa “TradFi sahaja” dipilih; token Alpha yang sudah ada dalam senarai pantau anda kekal.</string>
+    <string name="settings_asset_scope_both">Token dan TradFi</string>
+    <string name="settings_asset_scope_both_hint">Semua – kripto dan TradFi</string>
+    <string name="settings_asset_scope_hint">Menentukan pasangan yang ditunjukkan oleh pilihan dan carian apabila anda menambah pasangan. Pasangan yang sudah ada dalam senarai pantau anda sentiasa kekal.</string>
+    <string name="settings_asset_scope_title">Token &amp; TradFi</string>
+    <string name="settings_asset_scope_tokens">Token sahaja</string>
+    <string name="settings_asset_scope_tokens_hint">Kripto: spot dan kontrak kekal</string>
+    <string name="settings_asset_scope_tradfi">TradFi sahaja</string>
+    <string name="settings_asset_scope_tradfi_hint">Niaga hadapan saham, komoditi, FX – kontrak, bukan token</string>
+    <string name="settings_rolling_futures">Termasuk niaga hadapan suku tahunan &amp; bertarikh lain</string>
+    <string name="settings_rolling_futures_hint">Mati: niaga hadapan bertarikh yang tiada dalam senarai bursa ditanda sebagai tidak lagi didagangkan dan bukannya disemak satu demi satu. Menjimatkan masa pada setiap muat semula.</string>
+    <string name="settings_rolling_futures_qtly">Termasuk niaga hadapan suku tahunan &amp; bertarikh lain (QTLY)</string>
+    <string name="settings_rolling_futures_tradfi_hint">Tergolong dalam Token. Tidak tersedia semasa “TradFi sahaja” dipilih; masih terpakai untuk niaga hadapan bertarikh yang sudah ada dalam senarai pantau anda.</string>
+    <string name="settings_tradfi_futures">Saham, komoditi dan FX (TradFi)</string>
+    <string name="settings_tradfi_futures_hint">Turut menunjukkan niaga hadapan saham, emas dan komoditi lain, mata wang serta syarikat pra-IPO apabila anda memilih pasangan. Ini ialah kontrak, bukan token.</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">Warna aksen</string>
+    <string name="settings_accent_hint">Warna untuk apl, widget dan ikon apl. Sesetengah skrin utama mengalih keluar ikon apabila ia berubah – tambahkannya semula.</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">Logo koin</string>
+    <string name="settings_coin_logos_app">Dalam apl</string>
+    <string name="settings_coin_logos_app_hint">Senarai pantau, pasangan yang dibuka dan kad pasaran</string>
+    <string name="settings_coin_logos_footer">Logo datang daripada CoinGecko, dan daripada Binance untuk koin yang tidak disenaraikan CoinGecko (cth. emas, perak, saham). Apl memuatkan semua logo sekali gus dan menyimpannya pada peranti ini, jadi kedua-dua penyedia tidak dapat mengetahui koin yang anda ikuti. Koin tanpa logo menunjukkan huruf awalnya. Kegemaran mendapat bintang kecil pada logo. Di mana suis dimatikan, logo dan huruf awal tidak muncul; jika semua suis dimatikan, tiada apa-apa dimuatkan.</string>
+    <string name="settings_coin_logos_portfolio">Dalam portfolio</string>
+    <string name="settings_coin_logos_portfolio_hint">Kedudukan, butiran koin dan analisis</string>
+    <string name="settings_coin_logos_value_app">Apl</string>
+    <string name="settings_coin_logos_widgets">Dalam widget</string>
+    <string name="settings_coin_logos_widgets_hint">Widget senarai pantau dan satu koin</string>
+    <string name="settings_high_contrast">Kontras tinggi</string>
+    <string name="settings_high_contrast_hint">Warna harga yang lebih kuat dan teks sekunder yang lebih gelap. Turut hidup apabila sistem meminta lebih kontras.</string>
+    <string name="settings_language_choose">Pilih bahasa</string>
+    <string name="settings_language_system">Bahasa sistem</string>
+    <string name="settings_price_colors">Warna harga</string>
+    <string name="settings_price_colors_hint">Biru / oren mudah dibezakan dengan setiap jenis kekurangan penglihatan warna (merah-hijau dan biru-kuning). Arah juga sentiasa ditunjukkan dengan + / −.</string>
+    <string name="settings_theme_mode">Cerah / Gelap</string>
+    <string name="settings_widgets">Widget</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">Perubahan %1$s &amp; zon waktu carta</string>
+    <string name="settings_change_basis_hint_1">Zon waktu yang dipilih menentukan dari bila perubahan peratusan dikira (senarai pantau, baris nadi, pasangan yang dibuka, widget) dan masa yang ditunjukkan dalam carta.</string>
+    <string name="settings_change_basis_hint_2">“%1$s” membandingkan dengan harga tepat 24 jam yang lalu. “00:00” membandingkan dengan harga buka pada tengah malam dalam zon waktu itu.</string>
+    <string name="settings_change_basis_hint_3">Amaran tidak terjejas.</string>
+    <string name="settings_change_basis_hint_since_last">“%1$s” membandingkan dengan harga kemas kini sebelumnya. Dengan harga langsung, ia kekal hampir 0%%.</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">Mata wang penukaran</string>
+    <string name="settings_conversion_currency_hint">Turut digunakan untuk portfolio, amaran dalam mata wang anda, kad pasaran kripto dan widget portfolio.</string>
+    <string name="settings_cost_method">Kaedah kos</string>
+    <string name="settings_cost_method_average">Kos purata</string>
+    <string name="settings_cost_method_average_hint">Jualan dinilai pada harga belian purata bergerak.</string>
+    <string name="settings_cost_method_fifo">FIFO (lalai)</string>
+    <string name="settings_cost_method_fifo_hint">Koin paling lama dijual dahulu, merentasi semua bursa dan dompet.</string>
+    <string name="settings_cost_method_fifo_wallet">FIFO bagi setiap dompet/bursa</string>
+    <string name="settings_cost_method_fifo_wallet_hint">Koin paling lama dahulu dalam setiap bursa atau dompet; pindahan memindahkan lot bersama tarikh beliannya.</string>
+    <string name="settings_portfolio_lock">Kunci portfolio</string>
+    <string name="settings_portfolio_lock_footer">Kunci menyembunyikan apa yang ditunjukkan pada skrin. Data anda disimpan pada peranti ini dan dilindungi oleh penyulitan peranti. Anda boleh melindungi sandaran dengan kata laluan.</string>
+    <string name="settings_portfolio_lock_hint">Hanya menyembunyikan portfolio: buka kunci dengan cap jari, wajah atau PIN peranti. Dikunci semula selepas lebih seminit di latar belakang. Senarai pantau, amaran dan widget lain kekal terbuka.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Tanpa PIN atau kod laluan peranti, kunci tidak menyembunyikan apa-apa – sediakan kunci skrin.</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">Portfolio dalam sandaran sistem</string>
+    <string name="settings_portfolio_system_backup_hint">Mati: transaksi anda tidak dimasukkan dalam sandaran sistem peranti dan pemindahan telefon ke telefon. Untuk memindahkannya ke telefon baharu, gunakan sandaran apl sendiri dengan kata laluan.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Memerlukan Android 9 atau lebih baharu – versi lama akan menyimpan portfolio tanpa disulitkan dalam sandaran Google.</string>
+    <string name="settings_portfolio_tab">Tunjukkan tab Portfolio</string>
+    <string name="settings_portfolio_value_locked">Hidup, dengan kunci</string>
+    <string name="settings_show_converted">Harga ditukar</string>
+    <string name="settings_show_converted_hint">Menunjukkan harga dalam senarai pantau juga dalam %1$s</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">Laporkan nyahpasak USDT</string>
+    <string name="settings_depeg_alarm_hint">Memberitahu sekali apabila USDT menyimpang daripada 1 USD sebanyak paras itu (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_threshold">Paras nyahpasak</string>
+    <string name="settings_fng_above">Fear &amp; Greed: beritahu apabila melebihi</string>
+    <string name="settings_fng_below">Fear &amp; Greed: beritahu apabila di bawah</string>
+    <string name="settings_gas_alert_hint">Memberitahu sekali apabila yuran biasa turun di bawah had. Disemak semasa kemas kini harga, paling kerap setiap 10 minit.</string>
+    <string name="settings_gas_btc_below">Yuran Bitcoin di bawah (sat/vB)</string>
+    <string name="settings_gas_eth_below">Gas Ethereum di bawah (gwei)</string>
+    <string name="settings_ind_ath_within">Penurunan dari paras tertinggi sepanjang masa paling banyak</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple melebihi</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple di bawah</string>
+    <string name="settings_ind_mvrv_above">MVRV melebihi</string>
+    <string name="settings_ind_mvrv_below">MVRV di bawah</string>
+    <string name="settings_indicator_alerts_hint">Penunjuk Bitcoin, disemak dua kali sehari. Anda memilih hadnya – apl tidak menilai nilai-nilai ini.</string>
+    <string name="settings_macro_notifications">Kalendar ekonomi</string>
+    <string name="settings_macro_notifications_hint">Pada 08:00 pada hari dengan data ekonomi AS yang penting (inflasi, laporan pekerjaan, keputusan Fed). Kalendar datang daripada laman web apl, dimuatkan sekali sehari.</string>
+    <string name="settings_market_alerts">Pemberitahuan pasaran</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="other">%1$d aktif</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">Kadar pertuturan: %1$.1f×</string>
+    <string name="settings_tts">Output pertuturan</string>
+    <string name="settings_tts_alarms_only">Amaran sahaja</string>
+    <string name="settings_tts_alarms_only_hint">Mati: setiap kemas kini pasangan yang ditanda “Sebut harga” dibacakan.</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">Membacakan harga dan amaran. Kekal senyap semasa peranti dalam mod senyap atau getar.</string>
+    <string name="settings_tts_test">Uji suara</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">Tetapkan semula apl</string>
+    <string name="settings_reset_app_action">Padam semua</string>
+    <string name="settings_reset_app_confirm">Memadam senarai pantau, amaran, portfolio, tetapan dan semua data yang disimpan, seperti selepas pemasangan. Ini tidak boleh dibuat asal. Petua: buat sandaran dahulu. Sandaran peranti (sandaran Google atau sandaran iCloud/komputer) menyimpan data sebelumnya sehingga sandaran seterusnya dijalankan.</string>
+    <string name="settings_reset_app_title">Tetapkan semula apl?</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">Cari mata wang</string>
+    <string name="language_search">Cari bahasa</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">Gelap</string>
+    <string name="theme_light">Cerah</string>
+    <string name="theme_system">Sistem</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">Biru</string>
+    <string name="accent_green">Hijau</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">Oren</string>
+    <string name="accent_red">Merah</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">Biasa di China, Jepun, Korea dan Taiwan</string>
+    <string name="price_colors_swap">Tukar warna (naik ↔ turun)</string>
+    <string name="price_style_calm">Tenang</string>
+    <string name="price_style_calm_color_vision">Tenang · Kekurangan penglihatan warna</string>
+    <string name="price_style_color_vision">Kekurangan penglihatan warna</string>
+    <string name="price_style_fresh">Segar</string>
+    <string name="price_style_traditional">Tradisional</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">Sambungan bursa kali terakhir disemak dengan respons sebenar: %1$s</string>
+    <string name="about_license">Harga datang terus daripada bursa; tanpa akaun dan tanpa penjejakan.</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">Lesen</string>
+    <string name="about_privacy_policy">Dasar privasi</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">Minta bursa</string>
+    <string name="about_source_code">Kod sumber di GitHub</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker ialah projek bebas oleh r1AD: gambaran harga yang tenang tanpa akaun, iklan atau penjejakan. Soalan dan cadangan: %1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker ialah sumber terbuka (Lesen MIT).</string>
+    <string name="licenses_font_title">Fon Rubik</string>
+    <string name="licenses_icons_bundled_text">Disertakan bersama apl: ikon daripada “Cryptocurrency Icons” oleh Christopher Downer dan penyumbang (github.com/spothq/cryptocurrency-icons), dikeluarkan di bawah CC0 1.0 Universal. Ikon ini ditunjukkan sehingga logo CoinGecko atau Binance dimuatkan. Nama dan logo kekal sebagai tanda dagangan projek masing-masing.</string>
+    <string name="licenses_icons_title">Ikon koin sandaran</string>
+    <string name="licenses_libraries_intro">Apl ini menggunakan pustaka ini di bawah Apache License 2.0:</string>
+    <string name="licenses_libraries_title">Pustaka Android</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="other">%d ketikan lagi untuk membuka pilihan pembangun</item>
+    </plurals>
+    <string name="developer_unlocked">Pilihan pembangun dibuka</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Getaran mengikut tetapan iPhone (Bunyi &amp; Haptik).</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Mengira amaran baharu dan pemberitahuan pasaran; kembali ke 0 apabila anda membuka apl.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Data anda</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">Pada peranti ini</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Senarai pantau, amaran dan portfolio anda disimpan secara disulitkan pada peranti ini; tiada akaun, tiada pelayan kami sendiri.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Sambungan</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Harga datang terus daripada bursa pasangan anda, serta kadar pertukaran, senarai koin dan logo serta cermin data di GitHub; mereka melihat alamat IP anda, tidak sekali-kali pegangan anda (alamat yang dipantau dihantar kepada penyedia rangkaian berkenaan).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Sandaran</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Hanya jika anda menciptanya. Dengan kata laluan ia disulitkan (Argon2id + AES-256-GCM); tanpanya ia boleh dibaca.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Menukar peranti</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">Kunci kekal pada peranti lama – cipta fail sandaran dahulu.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Kongsi diagnostik</string>
+    <string name="diagnostics_share_hint">Fail teks untuk sokongan: versi, peranti, tetapan amaran, semakan terkini dan log amaran – tanpa portfolio, amaun, alamat atau nota. Anda melihatnya dahulu; tiada apa-apa dihantar secara automatik.</string>
+    <string name="diagnostics_preview_title">Pratonton diagnostik</string>
+    <string name="diagnostics_action_share">Kongsi</string>
+    <string name="settings_price_overlay">Tindanan harga</string>
+    <string name="settings_price_overlay_hint">Menunjukkan pasangan pemberitahuan harga kekal sebagai pil terapung kecil di atas apl lain. Ketik untuk membuka apl, seret ke × di bahagian bawah untuk menutup.</string>
+    <string name="settings_price_overlay_needs">Hanya berfungsi bersama “%1$s”.</string>
+    <string name="settings_price_overlay_grant">Benarkan paparan di atas apl lain</string>
+    <string name="price_overlay_close">Tutup tindanan</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">Pelayan sendiri untuk alamat</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Bitcoin sahaja: pelayan anda sendiri yang serasi dengan Esplora atau mempool (cth. https://node.example/api, sijil yang dipercayai umum diperlukan, seperti Let\'s Encrypt). Jika ditetapkan, alamat Bitcoin dan kunci xpub hanya ditanya di sana – tidak sekali-kali di nod awam, walaupun pelayan anda tidak dapat dihubungi. Rangkaian lain terus menggunakan nod awam. Kosong = nod awam.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Pelayan Bitcoin (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">Uji</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">Menguji…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">Pelayan memberi respons – blok %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">Tiada jawapan sah – semak alamat dan sijil</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">Sedang digunakan: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">Tidak ditetapkan – nod awam digunakan</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">Hanya alamat https:// dibenarkan</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">Tiada nama pengguna atau kata laluan dalam alamat</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">Tiada bahagian ? atau # dalam alamat</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">Bukan alamat pelayan yang sah</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">Tukar ke nod awam?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">Alamat Bitcoin dan kunci xpub anda kemudian akan ditanya di nod awam: %1$s. Nod itu melihat alamat ini bersama alamat IP anda.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">Guna nod awam</string>
+</resources>

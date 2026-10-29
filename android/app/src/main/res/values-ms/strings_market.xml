@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
+    <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
+    <plurals name="market_age_minutes">
+        <item quantity="other">%d min lalu</item>
+    </plurals>
+    <!-- «heute 02:00» (Uhrzeit ohne Sekunden) -->
+    <string name="market_age_today">hari ini %1$s</string>
+    <string name="market_context_summary">Fear &amp; Greed, metrik Bitcoin, dominasi, halving</string>
+    <string name="market_context_value">%1$s %2$s · %3$s</string>
+    <string name="market_more_data">Lagi data pasaran</string>
+    <string name="market_phase_trend_failed">Data harga tidak tersedia</string>
+    <string name="market_plain_direction_down_clear">Jumlah nilai semua mata wang kripto jelas lebih rendah berbanding 24 jam lalu (%1$s).</string>
+    <string name="market_plain_direction_down_slight">Jumlah nilai semua mata wang kripto sedikit lebih rendah berbanding 24 jam lalu (%1$s).</string>
+    <string name="market_plain_direction_flat">Jumlah nilai semua mata wang kripto hampir tidak berubah dalam 24 jam (%1$s).</string>
+    <string name="market_plain_direction_up_clear">Jumlah nilai semua mata wang kripto jelas lebih tinggi berbanding 24 jam lalu (%1$s).</string>
+    <string name="market_plain_direction_up_slight">Jumlah nilai semua mata wang kripto sedikit lebih tinggi berbanding 24 jam lalu (%1$s).</string>
+    <string name="market_plain_footnote">Menerangkan 24 jam terakhir – bukan ramalan, bukan nasihat pelaburan.</string>
+    <string name="market_plain_mood_extreme_fear">Pelabur sangat takut sekarang: indeks sentimen (Fear &amp; Greed) berada pada %1$d daripada 100.</string>
+    <string name="market_plain_mood_extreme_greed">Pelabur sangat tamak sekarang: indeks sentimen (Fear &amp; Greed) berada pada %1$d daripada 100.</string>
+    <string name="market_plain_mood_fear">Pelabur agak takut: indeks sentimen (Fear &amp; Greed) berada pada %1$d daripada 100.</string>
+    <string name="market_plain_mood_greed">Pelabur agak tamak: indeks sentimen (Fear &amp; Greed) berada pada %1$d daripada 100.</string>
+    <string name="market_plain_mood_neutral">Sentimen pelabur seimbang: indeks sentimen (Fear &amp; Greed) berada pada %1$d daripada 100.</string>
+    <string name="market_plain_standout_above_btc">%1$s menonjol: %2$s dalam 24 jam, jauh di atas Bitcoin (%3$s).</string>
+    <string name="market_plain_standout_against_btc">%1$s menonjol: %2$s dalam 24 jam, sedangkan Bitcoin bergerak ke arah bertentangan (%3$s).</string>
+    <string name="market_plain_standout_below_btc">%1$s menonjol: %2$s dalam 24 jam, jauh di bawah Bitcoin (%3$s).</string>
+    <string name="market_plain_standout_futures_down">%1$s menonjol: luar biasa ramai pedagang niaga hadapan bertaruh harga akan turun.</string>
+    <string name="market_plain_standout_futures_up">%1$s menonjol: luar biasa ramai pedagang niaga hadapan bertaruh harga akan naik.</string>
+    <string name="market_plain_standout_quiet">Tiada koin tunggal yang menonjol sekarang.</string>
+    <string name="market_plain_standout_volume">%1$s menonjol: dagangan kira-kira %2$s kali ganda berbanding biasa.</string>
+    <string name="market_plain_title">Ringkasnya</string>
+    <string name="market_section_collapse">Sembunyikan %1$s</string>
+    <string name="market_section_context">Sentimen &amp; kitaran</string>
+    <string name="market_section_data">Data pasaran</string>
+    <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
+    <string name="market_section_expand">Tunjukkan %1$s</string>
+    <string name="market_section_now">Sekarang</string>
+    <string name="market_source">Data: Binance · Coin Metrics (CC BY-NC 4.0)</string>
+    <string name="exchange_unavailable_error">Bursa tidak tersedia</string>
+
+    <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
+    <string name="market_info_a11y">Maklumat: %1$s</string>
+    <string name="market_info_alt_season_source">Harga harian: Binance · dikira semula kira-kira setiap 3 jam</string>
+    <string name="market_info_alt_season_what">Mengira berapa banyak daripada kira-kira 20 altcoin besar (cth. Ethereum, Solana, XRP) yang berprestasi lebih baik daripada Bitcoin dalam 90 hari terakhir. Nilainya ialah bahagian mereka dari 0 hingga 100.</string>
+    <string name="market_info_coin_source">Harga: Binance atau Bybit · dimuat semula kira-kira setiap 15 minit</string>
+    <string name="market_info_dominance_how">Jika dominasi meningkat, Bitcoin berprestasi lebih baik daripada pasaran lain; jika menurun, koin lain bertambah pengaruh. Stablecoin turut dikira: jika nilainya bertambah, bahagian Bitcoin menurun walaupun harga Bitcoin kekal sama.</string>
+    <string name="market_info_dominance_source">Sumber: CoinGecko · dimuat semula kira-kira setiap 30 minit</string>
+    <string name="market_info_dominance_what">Bahagian Bitcoin dalam jumlah nilai semua mata wang kripto (permodalan pasaran). Di bawahnya ialah bahagian Ethereum.</string>
+    <string name="market_info_fear_greed_how">Di bawah 25 bermakna ketakutan melampau, melebihi 75 ketamakan melampau, sekitar 50 neutral. Apabila dikembangkan, kad menunjukkan nilai semalam, seminggu lalu dan sebulan lalu. Bukan isyarat beli atau jual.</string>
+    <string name="market_info_fear_greed_source">Sumber: alternative.me · nilai baharu sekali sehari</string>
+    <string name="market_info_fear_greed_what">Indeks sentimen untuk pasaran kripto dari 0 hingga 100. alternative.me mengiranya daripada beberapa input, termasuk turun naik harga, volum dagangan, media sosial dan dominasi Bitcoin.</string>
+    <string name="market_info_gas_how">Nilai lebih tinggi bermakna rangkaian sibuk dan pindahan lebih mahal. Perlahan, biasa dan pantas ialah yuran untuk pengesahan yang lebih lewat atau lebih cepat. Apabila dikembangkan, kad menunjukkan anggaran kos pindahan ringkas.</string>
+    <string name="market_info_gas_source">Nod RPC awam, mempool.space · dimuat semula setiap minit</string>
+    <string name="market_info_gas_what">Kos semasa sesuatu transaksi pada setiap rangkaian. Pada Ethereum dan rangkaian serupa dalam gwei (satu per bilion ETH bagi setiap unit gas), pada Bitcoin dalam sat/vB (satoshi bagi setiap bait maya transaksi).</string>
+    <string name="market_info_halving_source">Tarikh: daripada ketinggian blok dan purata masa blok (mempool.space), jika tidak mengikut kalendar · sejarah harga: Coin Metrics, Binance, dimuat semula setiap 12 jam</string>
+    <string name="market_info_halving_what">Semasa halving, ganjaran yang diterima pelombong untuk blok Bitcoin baharu dipotong separuh. Ini berlaku setiap 210,000 blok, kira-kira setiap empat tahun. Selepas itu, hanya separuh jumlah bitcoin baharu dicipta setiap hari.</string>
+    <string name="market_info_how">Cara membacanya</string>
+    <string name="market_info_macro_how">Nota hanya muncul apabila tarikh sedemikian ialah hari ini atau esok. Sekitar waktu pengumuman, harga sering berayun lebih daripada biasa. Apl hanya menunjukkan tarikh, bukan angkanya.</string>
+    <string name="market_info_macro_source">Kalendar daripada laman web apl · dimuatkan sekali sehari</string>
+    <string name="market_info_macro_what">Tarikh data ekonomi penting AS: inflasi (CPI, PCE), harga pengeluar (PPI), laporan pekerjaan dan keputusan kadar faedah Rizab Persekutuan AS. Angka sedemikian juga sering menggerakkan harga kripto.</string>
+    <string name="market_info_no_advice">Bukan nasihat pelaburan.</string>
+    <string name="market_info_phase_source">Binance, Coin Metrics · harga setiap jam, nilai on-chain dimuat semula setiap 12 jam</string>
+    <string name="market_info_pulse_how">Tajuk menyatakan arah; kembangkan kad untuk butiran. Pergerakan meluas bermakna kebanyakan koin besar bergerak ke arah yang sama. Sentimen leveraj yang optimis bermakna ramai pedagang bertaruh harga naik dengan leveraj, diukur melalui kadar pembiayaan niaga hadapan Bitcoin. Gambaran sekilas, bukan ramalan.</string>
+    <string name="market_info_pulse_source">Binance, CoinGecko · dimuat semula kira-kira setiap 5 minit</string>
+    <string name="market_info_pulse_what">Ringkasan pendek pasaran dalam 24 jam terakhir: bagaimana Bitcoin, Ethereum dan Solana bergerak, berapa banyak koin terbesar yang naik atau turun, berapa banyak Bitcoin yang didagangkan sekarang dan bagaimana sentimen leveraj (diukur melalui kadar pembiayaan niaga hadapan Bitcoin).</string>
+    <string name="market_info_totals_how">Di sebelah kanan ialah perubahan jumlah nilai dalam 24 jam. Volum tinggi bermakna banyak dagangan – ia tidak menunjukkan arah. Ditunjukkan dalam mata wang penukaran jika boleh, jika tidak dalam dolar AS.</string>
+    <string name="market_info_totals_source">Semua koin · CoinGecko · dimuat semula kira-kira setiap 30 minit</string>
+    <string name="market_info_totals_what">Jumlah nilai semua mata wang kripto (permodalan pasaran: harga darab bekalan beredar, dijumlahkan bagi semua koin) dan volum dagangan 24 jam terakhir.</string>
+    <string name="market_info_unusual_how">Setiap koin menunjukkan pemerhatian paling ketara, dengan perubahan 24 jam di sebelah kanan. Volum 2× bermakna dua kali ganda pusing ganti biasa. Ketara tidak bermakna baik atau buruk.</string>
+    <string name="market_info_unusual_source">Binance, CoinGecko · dimuat semula kira-kira setiap 10 minit</string>
+    <string name="market_info_unusual_what">Sehingga lima koin daripada kira-kira 30 terbesar (tanpa stablecoin) yang berkelakuan luar biasa hari ini: jauh lebih kuat atau lemah daripada Bitcoin, bertentangan dengan arah pasaran, dengan volum dagangan luar biasa tinggi atau dengan kadar pembiayaan yang ketara.</string>
+    <string name="market_info_what">Apakah ini?</string>
+
+    <!-- Markt-Tab: Krypto-Markt gesamt -->
+    <string name="market_cap_label">Permodalan pasaran</string>
+    <string name="market_cap_source">Semua koin · CoinGecko</string>
+    <string name="market_cap_title">Pasaran kripto</string>
+    <string name="market_volume_label">Volum 24j</string>
+
+    <!-- Crypto Pulse «Kurz gesagt»: Titel, Abschnitte, Hinweise -->
+    <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
+    <string name="pulse_details_action">Butiran</string>
+    <string name="pulse_disclaimer">Bukan ramalan · Bukan nasihat pelaburan</string>
+    <string name="pulse_less">Tunjuk kurang</string>
+    <string name="pulse_now_title">Nadi kripto</string>
+    <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
+    <string name="pulse_period_24h_spoken">Perubahan dalam 24 jam</string>
+    <string name="pulse_section_factors">Faktor</string>
+    <string name="pulse_section_market">Pasaran hari ini</string>
+    <string name="pulse_unavailable">Data pasaran tidak tersedia buat masa ini</string>
+    <string name="pulse_updated">Setakat %1$s</string>
+
+    <!-- Crypto Pulse: Schlagzeile und Leitsatz -->
+    <string name="pulse_headline_calm">Pasaran tenang</string>
+    <string name="pulse_headline_down">Kelemahan meluas</string>
+    <string name="pulse_headline_mixed">Gambaran bercampur</string>
+    <string name="pulse_headline_up">Kekuatan meluas</string>
+    <string name="pulse_lead_alts_stronger">Altcoin lebih kuat daripada Bitcoin.</string>
+    <string name="pulse_lead_broad_down">Pasaran jatuh secara meluas.</string>
+    <string name="pulse_lead_broad_up">Pasaran naik secara meluas.</string>
+    <string name="pulse_lead_btc_leads">Bitcoin naik paling banyak.</string>
+    <string name="pulse_lead_btc_stronger">Bitcoin lebih kuat daripada altcoin.</string>
+    <string name="pulse_lead_calm">Pasaran hampir tidak bergerak.</string>
+    <string name="pulse_lead_drift_down">Pasaran beransur-ansur turun.</string>
+    <string name="pulse_lead_drift_up">Pasaran beransur-ansur naik.</string>
+    <string name="pulse_lead_mixed">Koin besar bergerak berlainan arah.</string>
+
+    <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
+    <string name="pulse_detail_fund_high">Sentimen leveraj optimis.</string>
+    <string name="pulse_detail_fund_negative">Sentimen leveraj pesimis.</string>
+    <string name="pulse_detail_fund_neutral">Sentimen leveraj neutral.</string>
+    <string name="pulse_detail_vol_above">Volum %1$s di atas biasa.</string>
+    <string name="pulse_detail_vol_above_fund_high">Volum %1$s di atas biasa, sentimen leveraj optimis.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Volum %1$s di atas biasa, sentimen leveraj pesimis.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Volum %1$s di atas biasa, sentimen leveraj neutral.</string>
+    <string name="pulse_detail_vol_below">Volum %1$s di bawah biasa.</string>
+    <string name="pulse_detail_vol_below_fund_high">Volum %1$s di bawah biasa, sentimen leveraj optimis.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Volum %1$s di bawah biasa, sentimen leveraj pesimis.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Volum %1$s di bawah biasa, sentimen leveraj neutral.</string>
+    <string name="pulse_detail_vol_normal">Volum biasa.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Volum biasa, sentimen leveraj optimis.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Volum biasa, sentimen leveraj pesimis.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Volum biasa, sentimen leveraj neutral.</string>
+
+    <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
+    <string name="pulse_breadth_hint">Top %1$d: koin terbesar mengikut nilai pasaran, tanpa stablecoin; perubahan dalam 24 jam (CoinGecko).</string>
+    <!-- «Krypto-Markt» = market_cap_title -->
+    <string name="pulse_breadth_label">Top %1$d</string>
+    <string name="pulse_breadth_note_broad_down">Jualan meluas: kebanyakan koin terbesar sedang jatuh.</string>
+    <string name="pulse_breadth_note_broad_up">Pergerakan meluas: kebanyakan koin terbesar sedang naik.</string>
+    <string name="pulse_breadth_note_narrow_down">Bitcoin jatuh, tetapi kebanyakan koin besar lain bertahan.</string>
+    <string name="pulse_breadth_note_narrow_up">Bitcoin naik, tetapi kebanyakan koin besar lain tidak turut serta.</string>
+    <string name="pulse_breadth_spoken">Top %1$d: %2$d naik, %3$d turun</string>
+
+    <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
+    <string name="pulse_alts_even">Altcoin dan Bitcoin bergerak seiring</string>
+    <string name="pulse_alts_stronger">Altcoin lebih kuat daripada Bitcoin</string>
+    <string name="pulse_alts_weaker">Bitcoin lebih kuat daripada altcoin</string>
+    <string name="pulse_chip_funding_high">Sentimen leveraj optimis</string>
+    <string name="pulse_chip_funding_negative">Sentimen leveraj pesimis</string>
+
+    <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
+    <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
+    <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
+    <string name="unusual_action_open">Tunjukkan harga dan tindakan</string>
+    <string name="unusual_fact_against">Bergerak bertentangan dengan pasaran</string>
+    <string name="unusual_fact_funding_high">Pembiayaan tinggi (%1$s)</string>
+    <string name="unusual_fact_funding_negative">Pembiayaan negatif (%1$s)</string>
+    <string name="unusual_fact_stronger">Bergerak jauh lebih kuat daripada BTC</string>
+    <string name="unusual_fact_volume">Volum %1$s× biasa</string>
+    <string name="unusual_fact_weaker">Bergerak jauh lebih lemah daripada BTC</string>
+    <string name="unusual_nothing">Tiada yang ketara hari ini</string>
+    <string name="unusual_source">Kira-kira 30 koin terbesar tanpa stablecoin · Binance, CoinGecko</string>
+    <string name="unusual_title">Ketara</string>
+
+    <!-- «Auffällig» je Paar: ⚡ in der Merkliste, Signale, Empfindlichkeit -->
+    <string name="activity_card_title">Ketara</string>
+    <string name="activity_indicator">Ketara</string>
+    <string name="activity_sensitivity_less">Kurang</string>
+    <string name="activity_sensitivity_more">Lebih</string>
+    <string name="activity_sensitivity_normal">Biasa</string>
+    <string name="activity_signal_funding_long">Pembiayaan %1$s — banyak posisi long berleveraj</string>
+    <string name="activity_signal_funding_short">Pembiayaan %1$s — banyak posisi short</string>
+    <string name="activity_signal_open_interest">Minat terbuka %1$s dalam %2$d min</string>
+    <string name="activity_signal_open_interest_no_time">Minat terbuka %1$s</string>
+    <string name="activity_signal_price_move">Pergerakan luar biasa: %1$s dalam sejam (%2$s× biasa)</string>
+    <string name="activity_signal_volume">Volum %1$s× biasa dalam sejam terakhir</string>
+
+    <!-- Einordnung: Bitcoin-Dominanz, Fear & Greed, Halving, Altseason -->
+    <plurals name="insights_altseason_value">
+        <item quantity="other">%1$d daripada %2$d altcoin besar mengatasi Bitcoin dalam 90 hari</item>
+    </plurals>
+    <string name="insights_chart_axis">Tahun sejak halving</string>
+    <string name="insights_chart_hint">Harga sebagai gandaan harga pada hari halving (skala log). Kitaran terdahulu ialah corak, bukan ramalan.</string>
+    <string name="insights_cycle_chart">Kitaran sejak halving</string>
+    <string name="insights_dominance_eth">ETH %1$s daripada jumlah pasaran</string>
+    <string name="insights_dominance_title">Dominasi Bitcoin</string>
+    <string name="insights_fng_history">Semalam %1$s · seminggu lalu %2$s · sebulan lalu %3$s</string>
+    <string name="insights_fng_title">Fear &amp; Greed</string>
+    <string name="insights_halving_title">Halving Bitcoin</string>
+    <string name="insights_source_dominance">Sumber: CoinGecko, Binance</string>
+    <string name="insights_source_fng">Sumber: alternative.me</string>
+    <string name="insights_source_history">Sumber: Coin Metrics (CC BY-NC 4.0), Binance</string>
+
+    <!-- Fear & Greed: Stufen -->
+    <string name="fng_extreme_fear">Ketakutan melampau</string>
+    <string name="fng_extreme_greed">Ketamakan melampau</string>
+    <string name="fng_fear">Ketakutan</string>
+    <string name="fng_greed">Ketamakan</string>
+    <string name="fng_neutral">Neutral</string>
+
+    <!-- Halving-Zyklus (Chart, Marken, Schätzung) -->
+    <string name="cycle_data_as_of">Data setakat %1$s · sedang dikemas kini…</string>
+    <string name="cycle_from_top">%1$s dari puncak</string>
+    <string name="cycle_marker_bottom">Paras bawah %1$s</string>
+    <string name="cycle_marker_double_bottom">Paras bawah berganda %1$s</string>
+    <string name="cycle_marker_double_top">Paras atas berganda %1$s</string>
+    <string name="cycle_marker_high_so_far">Tertinggi setakat ini</string>
+    <!-- Hoch/Tief-Marken mit Sprechblase im Zyklus-Chart -->
+    <string name="cycle_marker_top">Paras atas %1$s</string>
+    <string name="cycle_since_halving">%1$s sejak halving</string>
+    <string name="halving_estimate_text">Halving seterusnya mengikut pengiraan sekitar %1$s: tinggal %2$s blok pada purata %3$s min bagi setiap blok (tempoh kesukaran semasa). Unjuran, bukan janji – masa blok berubah-ubah.</string>
+
+    <!-- Netzwerkgebühren (Gas) -->
+    <string name="gas_alert_active">Amaran: %1$s</string>
+    <string name="gas_slow_fast">Perlahan %1$s · Pantas %2$s</string>
+    <string name="gas_source">Nod RPC awam dan mempool.space · Kos pindahan ringkas, tanpa bahagian L1 pada L2</string>
+    <string name="gas_title">Yuran rangkaian</string>
+    <string name="gas_transfer_cost">Pindahan ≈ %1$s</string>
+
+    <!-- Wirtschaftsdaten (US-Termine) -->
+    <string name="macro_cpi">Data inflasi AS (CPI)</string>
+    <string name="macro_fomc">Keputusan kadar Fed AS</string>
+    <string name="macro_hint_list">%1$s – pasaran sering berayun lebih pada hari seperti ini.</string>
+    <string name="macro_hint_today">Hari ini %1$s: %2$s – pasaran sering berayun lebih pada hari seperti ini.</string>
+    <string name="macro_hint_today_list">Hari ini: %1$s – pasaran sering berayun lebih pada hari seperti ini.</string>
+    <string name="macro_hint_tomorrow">Esok %1$s: %2$s – pasaran sering berayun lebih pada hari seperti ini.</string>
+    <string name="macro_hint_tomorrow_list">Esok: %1$s – pasaran sering berayun lebih pada hari seperti ini.</string>
+    <string name="macro_item">%1$s %2$s</string>
+    <string name="macro_item_today">Hari ini %1$s %2$s</string>
+    <string name="macro_item_tomorrow">Esok %1$s %2$s</string>
+    <string name="macro_nfp">Laporan pekerjaan AS</string>
+    <string name="macro_pce">Harga perbelanjaan pengguna AS (PCE)</string>
+    <string name="macro_ppi">Harga pengeluar AS (PPI)</string>
+    <string name="macro_released_list">Diumumkan hari ini: %1$s.</string>
+    <string name="macro_released_one">Diumumkan hari ini pada %1$s: %2$s.</string>
+    <string name="macro_title">Data ekonomi</string>
+
+    <!-- Coin-Analyse -->
+    <string name="coin_choose">Koin</string>
+    <string name="coin_no_data">Tiada data harga untuk koin ini di Binance atau Bybit.</string>
+    <string name="coin_price_only">Berdasarkan harga sahaja – data on-chain (MVRV, Puell, kadar hash) tersedia secara percuma untuk Bitcoin sahaja.</string>
+    <plurals name="coin_short_history">
+        <item quantity="other">Hanya %1$d hari sejarah harga – sesetengah penunjuk tiada.</item>
+    </plurals>
+    <string name="coin_title">Analisis koin</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">Data: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">Untung dan rugi 24 j</string>
+    <string name="movers_gainers">Untung</string>
+    <string name="movers_losers">Rugi</string>
+    <string name="movers_no_gainers">Tiada koin naik dalam 24 j</string>
+    <string name="movers_no_losers">Tiada koin turun dalam 24 j</string>
+    <string name="movers_source">CoinGecko, 24 j, 100 teratas tanpa stablecoin</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">Tunjukkan semua</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">Tunjuk kurang</string>
+</resources>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Neutrale Indikatoren: Titel, Hinweise, Halving -->
+    <string name="neutral_alt_title">Altcoin berbanding Bitcoin</string>
+    <string name="neutral_btc_indicators_title">Penunjuk Bitcoin</string>
+    <string name="neutral_halving_last">Halving terakhir: %1$s</string>
+    <string name="neutral_halving_next">Halving seterusnya dijangka sekitar %1$s (dianggarkan daripada kalendar – ketinggian blok tidak tersedia buat masa ini).</string>
+    <string name="neutral_indicators_disclaimer">Nilai terukur sahaja, tanpa penilaian. Bukan ramalan dan bukan nasihat pelaburan.</string>
+    <string name="neutral_onchain_missing">Data on-chain (Coin Metrics) tidak tersedia buat masa ini.</string>
+
+    <!-- Neutrale Indikatoren: was der Wert misst -->
+    <string name="neutral_explain_ath_distance">Sejauh mana harga berada di bawah paras tertinggi sepanjang masa sebelum ini.</string>
+    <string name="neutral_explain_change_30d">Harga hari ini berbanding 30 hari yang lalu.</string>
+    <string name="neutral_explain_hashrate">Purata kadar hash 30 hari berbanding purata 60 hari.</string>
+    <string name="neutral_explain_ma200w">Purata 200 harga tutup mingguan terakhir.</string>
+    <string name="neutral_explain_mayer">Harga dibahagi dengan purata 200 hari.</string>
+    <string name="neutral_explain_mvrv">Nilai pasaran dibahagi dengan nilai direalisasikan (on-chain).</string>
+    <string name="neutral_explain_pi_gap">Purata 111 hari berbanding dua kali purata 350 hari.</string>
+    <string name="neutral_explain_puell">Hasil harian pelombong dibahagi dengan purata 365 harinya.</string>
+    <string name="neutral_explain_rsi_daily">Indeks Kekuatan Relatif bagi 14 hari terakhir, 0–100.</string>
+    <string name="neutral_explain_rsi_weekly">Indeks Kekuatan Relatif bagi 14 minggu terakhir, 0–100.</string>
+    <string name="neutral_explain_sma50_200">Purata 50 hari berbanding purata 200 hari.</string>
+    <string name="neutral_explain_vs_btc">Perubahan harga berbanding Bitcoin dalam 90 hari.</string>
+
+    <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
+    <string name="neutral_info_alt_season_how">Apl hanya menunjukkan kiraan dan tidak melabelkannya sebagai musim. Nilainya biasanya berubah dalam beberapa hari, bukan jam.</string>
+    <string name="neutral_info_btc_how">Setiap nilai disertakan satu ayat tentang apa yang diukurnya, dan kedudukannya dalam sejarahnya sendiri sejak 2016. Apl tidak menilai nilai-nilai ini dan tidak menyimpulkan fasa pasaran; had untuk pemberitahuan pasaran hanyalah yang anda tetapkan sendiri. Corak lalu tidak semestinya berulang.</string>
+    <string name="neutral_info_btc_what">Penunjuk Bitcoin yang biasa sebagai nilai terukur semata-mata: Mayer Multiple, purata 200 minggu, penurunan dari paras tertinggi sepanjang masa, perubahan dalam 30 hari, jurang Pi Cycle dan nilai on-chain MVRV, Puell Multiple serta kadar hash.</string>
+    <string name="neutral_info_coin_how">Setiap nilai disertakan satu ayat tentang apa yang diukurnya, tanpa penilaian. Bagi koin dengan sejarah harga yang pendek, sesetengah nilai tiada. Data on-chain tidak dimasukkan di sini.</string>
+    <string name="neutral_info_coin_what">Penunjuk asas yang sama untuk koin pilihan anda, daripada data harga sahaja: Mayer Multiple, purata 200 minggu, penurunan dari paras tertinggi sepanjang masa, perubahan dalam 30 hari, aliran 50/200 hari, RSI dan kekuatan berbanding Bitcoin dalam 90 hari.</string>
+    <string name="neutral_info_halving_how">Halving seterusnya dikira daripada ketinggian blok semasa dan purata masa blok bagi tempoh kesukaran semasa (mempool.space); tanpa data itu, daripada kalendar (halving terakhir ditambah kira-kira empat tahun). Carta menunjukkan laluan harga kitaran lalu dari halving masing-masing – sejarah, bukan ramalan.</string>
+
+    <!-- Indikator-Namen -->
+    <string name="ind_cross">Aliran 50/200 hari</string>
+    <string name="ind_drawdown">Penurunan dari paras tertinggi sepanjang masa</string>
+    <string name="ind_missing">data tidak mencukupi</string>
+    <string name="ind_rsi_daily">RSI (harian)</string>
+    <string name="ind_rsi_weekly">RSI (mingguan)</string>
+    <string name="ind_vs_btc">Kekuatan berbanding Bitcoin (90 hari)</string>
+    <string name="neutral_ind_change_30d">Perubahan 30 hari</string>
+    <string name="neutral_ind_hashrate">Kadar hash 30/60 hari</string>
+    <string name="neutral_ind_ma200w">Purata 200 minggu</string>
+    <string name="neutral_ind_pi_gap">Jurang Pi Cycle</string>
+
+    <!-- Indikatoren: «hoch heisst …, tief heisst …» -->
+    <string name="ind_read_alt_season">Tinggi bermakna kebanyakan altcoin besar mengatasi Bitcoin dalam 90 hari, rendah bermakna Bitcoin mengatasi kebanyakannya.</string>
+    <string name="ind_read_ath_distance">Kecil bermakna harga hampir dengan rekodnya, besar bermakna jauh di bawahnya.</string>
+    <string name="ind_read_change_30d">Positif bermakna lebih tinggi daripada 30 hari lalu, negatif bermakna lebih rendah.</string>
+    <string name="ind_read_funding">Tinggi bermakna ramai bertaruh harga naik dengan leveraj, negatif bermakna ramai bertaruh harga turun.</string>
+    <string name="ind_read_hashrate_30_60">Positif bermakna kuasa pengkomputeran bertambah, negatif bermakna pelombong sedang mematikan mesin.</string>
+    <string name="ind_read_leverage">Banyak long bermakna ramai bertaruh harga naik dengan wang pinjaman, banyak short bermakna bertaruh harga turun.</string>
+    <string name="ind_read_ma200w">Harga jauh di atasnya bermakna kenaikan panjang, harga hampir dengannya bermakna penurunan semula yang dalam.</string>
+    <string name="ind_read_mayer">Tinggi bermakna harga jauh di atas purata 200 harinya, rendah bermakna di bawahnya.</string>
+    <string name="ind_read_mvrv">Tinggi bermakna harga jauh di atas purata yang dibayar pemegang, rendah bermakna hampir atau di bawahnya.</string>
+    <string name="ind_read_pi_cycle_gap">Hampir sifar bermakna kedua-dua purata hampir bertemu, sangat negatif bermakna ia berjauhan.</string>
+    <string name="ind_read_puell">Tinggi bermakna pelombong memperoleh jauh lebih banyak daripada biasa, rendah bermakna jauh lebih sedikit.</string>
+    <string name="ind_read_rsi_daily">Melebihi 70 bermakna kenaikan kukuh beberapa hari kebelakangan, di bawah 30 bermakna kerugian besar.</string>
+    <string name="ind_read_rsi_weekly">Melebihi 70 bermakna kenaikan kukuh beberapa minggu kebelakangan, di bawah 30 bermakna kerugian besar.</string>
+    <string name="ind_read_sma50_vs_200">Positif bermakna purata jangka pendek di atas purata jangka panjang, negatif bermakna di bawahnya.</string>
+    <string name="ind_read_vs_btc">Positif bermakna prestasinya lebih baik daripada Bitcoin, negatif bermakna lebih teruk.</string>
+
+    <!-- Indikatoren: Einordnung in die Vergangenheit -->
+    <string name="ind_context_flat30">Harga sama selama 30 hari: %1$s</string>
+    <string name="ind_context_note">Nilai lalu dan pengiraan “harga sama” ialah aritmetik, bukan ramalan.</string>
+    <string name="ind_context_percentile">Sejak %1$s lebih rendah pada %2$s daripada hari</string>
+</resources>

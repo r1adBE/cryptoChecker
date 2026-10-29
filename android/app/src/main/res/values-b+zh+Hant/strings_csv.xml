@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: CSV-Import -->
+    <string name="portfolio_csv_import_action">匯入 CSV</string>
+    <string name="portfolio_csv_import_all_transfer">全部轉到自己的錢包</string>
+    <string name="portfolio_csv_import_all_withdrawal">全部移出投資組合</string>
+    <string name="portfolio_csv_import_choice_proposed">建議：與 %1$s 匹配</string>
+    <string name="portfolio_csv_import_choice_transfer">轉到自己的錢包（轉移）</string>
+    <string name="portfolio_csv_import_choice_withdrawal">移出投資組合（提取）</string>
+    <string name="portfolio_csv_import_choose_each">為每筆提取選擇去向。</string>
+    <string name="portfolio_csv_import_columns">已辨識的欄位：%1$s</string>
+    <string name="portfolio_csv_import_confirm">匯入（%1$d）</string>
+    <string name="portfolio_csv_import_date_day_first">日/月</string>
+    <string name="portfolio_csv_import_date_month_first">月/日</string>
+    <string name="portfolio_csv_import_date_order">有歧義的日期（例如 03/04/2024）解讀為：</string>
+    <string name="portfolio_csv_import_decimal">有歧義的數字（例如 %1$s）解讀為：</string>
+    <plurals name="portfolio_csv_import_done">
+        <item quantity="other">已匯入 %d 筆交易</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_duplicates">
+        <item quantity="other">%d 筆已匯入（已跳過）</item>
+    </plurals>
+    <string name="portfolio_csv_import_format">格式：%1$s</string>
+    <string name="portfolio_csv_import_line">第 %1$d 行：%2$s</string>
+    <string name="portfolio_csv_import_loading">正在讀取檔案和每日匯率…</string>
+    <string name="portfolio_csv_import_progress">第 %1$s 行，共 %2$s 行</string>
+    <string name="portfolio_csv_import_saving">正在儲存交易…</string>
+    <string name="portfolio_csv_import_missing_fx">第 %1$s 行沒有每日匯率——已按無價格/手續費匯入。</string>
+    <string name="portfolio_csv_import_missing_price">檔案中第 %1$s 行沒有價格——已按無價格匯入。</string>
+    <string name="portfolio_csv_import_more">+ 另外 %1$d 條</string>
+    <plurals name="portfolio_csv_import_new">
+        <item quantity="other">%d 筆新交易</item>
+    </plurals>
+    <plurals name="portfolio_csv_import_skipped">
+        <item quantity="other">已跳過 %d 行</item>
+    </plurals>
+    <string name="portfolio_csv_import_stable_swaps">以穩定幣（USDT、USDC …）進行的買賣記為兌換——該穩定幣會顯示在持倉中。</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">可能有多個匹配 – 請選擇正確的一項，或都不選。</string>
+    <string name="portfolio_csv_import_transfer_fee">網路手續費：%1$s</string>
+    <string name="portfolio_csv_import_transfer_link">記為一次轉移</string>
+    <string name="portfolio_csv_import_transfer_stored">來自之前匯入的對應記錄</string>
+    <string name="portfolio_csv_import_transfers_hint">同一幣種的一筆提領和與之匹配的儲值合併為一次轉移：買入價和持有期保留，差額計為網路手續費。</string>
+    <string name="portfolio_csv_import_transfers_title">你的帳戶之間的轉移</string>
+    <string name="portfolio_csv_import_unreadable">未找到支援的交易。支援：Relai、Swissquote、Kraken、Binance、Coinbase 和 Bitpanda 匯出的 CSV。</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
+    <string name="portfolio_csv_import_too_large">檔案過大，無法匯入（上限 16 MB、%1$s 行）。請分成較短的時間段匯出，再依次匯入。</string>
+    <string name="portfolio_csv_import_failed">匯入失敗，未儲存任何內容。請重試。</string>
+    <string name="portfolio_csv_import_locked">無法匯入：暫時無法讀取已儲存的資料。請重新啟動應用程式。</string>
+    <string name="portfolio_csv_import_withdrawals_title">提取——幣去了哪裡？</string>
+    <string name="portfolio_csv_import_zone">無時區的時間按以下方式讀取：%1$s</string>
+    <string name="portfolio_csv_import_zone_device">裝置（%1$s）</string>
+    <string name="portfolio_csv_skip_bad_date">日期無法辨識</string>
+    <string name="portfolio_csv_skip_bad_number">數字無法辨識</string>
+    <string name="portfolio_csv_skip_fee_exceeds">手續費 ≥ 收到的數量</string>
+    <string name="portfolio_csv_skip_internal_move">你自己帳戶之間的移動 – 無需記帳</string>
+    <string name="portfolio_csv_skip_missing">缺少欄位</string>
+    <string name="portfolio_csv_skip_ambiguous">同一秒內多筆無法區分的交易 – 請手動輸入</string>
+    <string name="portfolio_csv_skip_not_crypto">非加密貨幣</string>
+    <string name="portfolio_csv_skip_possible_duplicate">可能已匯入（幾乎相同的交易）– 請手動檢查</string>
+    <string name="portfolio_csv_skip_two_fees">兩筆不同單位的手續費 – 請手動輸入兌換</string>
+    <string name="portfolio_csv_skip_unsupported">不支援的類型</string>
+
+    <!-- Portfolio: Importe ansehen und rückgängig machen -->
+    <string name="portfolio_import_undo">復原</string>
+    <plurals name="portfolio_import_undo_confirm">
+        <item quantity="other">要刪除此次匯入的 %d 筆交易嗎？手動記錄和其他匯入會保留。</item>
+    </plurals>
+    <string name="portfolio_import_undo_title">復原匯入？</string>
+    <plurals name="portfolio_import_undone">
+        <item quantity="other">已移除 %d 筆匯入的交易</item>
+    </plurals>
+    <plurals name="portfolio_imports_count">
+        <item quantity="other">%d 筆交易</item>
+    </plurals>
+    <string name="portfolio_imports_empty">無匯入</string>
+    <string name="portfolio_imports_title">匯入記錄</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">相同交易 ID 但數量不同 – 請手動核對</string>
+    <string name="portfolio_csv_skip_staking_unpaired">質押記錄缺少對應記錄 – 請核對餘額</string>
+    <string name="portfolio_csv_skip_amount_too_small">數量太小 – 儲存時會變為 0</string>
+    <string name="portfolio_csv_skip_invalid_swap">兌換缺少有效的收到的幣或數量</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">正在重新讀取檔案…</string>
+</resources>

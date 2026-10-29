@@ -4,7 +4,7 @@
 Marke erreicht ist – ohne Konto.** Dazu Marktüberblick und als Zusatz «Was bewegt sich mit?» (was sich gleichzeitig
 bewegt – keine Ursache) – ohne Prognosen, keine Anlageberatung.
 
-Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 174 – die Build-Nummer steigt mit jedem Stand um eins).
+Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 175 – die Build-Nummer steigt mit jedem Stand um eins).
 Mindestens iOS 17. Die App enthält eine Widget-Erweiterung (WidgetKit) und eine Apple-Watch-App (watchOS 10, `Watch/`,
 Komplikation in `WatchWidgets/`, gemeinsame Listenwahl in `WatchCore/`).
 
@@ -107,14 +107,14 @@ und können beliebig oft laufen; sie lesen die Android-Ressourcen aus `../androi
 (sonst `--android-res PFAD`).
 
 ```sh
-python3 tools/convert_strings.py   # strings_*.xml (31 Sprachen, inkl. pt-BR) + tools/ios_extra_strings.json -> Localizable.xcstrings, InfoPlist.xcstrings
+python3 tools/convert_strings.py   # strings_*.xml (33 Sprachen, inkl. pt-BR und zh-Hant) + tools/ios_extra_strings.json -> Localizable.xcstrings, InfoPlist.xcstrings
 python3 tools/gen_assets.py        # VectorDrawables -> App-Icons, Logos, Farben (beide Asset-Kataloge)
 python3 tools/gen_xcodeproj.py     # CryptoChecker.xcodeproj neu erzeugen (findet neue .swift-Dateien selbst, kopiert die gemeinsamen Testfälle nach Tests/Parity)
 ```
 
 Neue Swift-Dateien einfach in `Shared/`, `App/`, `Widgets/` oder `Tests/` ablegen und
 `tools/gen_xcodeproj.py` erneut ausführen. iOS-eigene Texte gehören in
-`tools/ios_extra_strings.json` (alle 31 Sprachen, inkl. `pt-BR`), danach `convert_strings.py` laufen lassen.
+`tools/ios_extra_strings.json` (alle 33 Sprachen, inkl. `pt-BR` und `zh-Hant`), danach `convert_strings.py` laufen lassen.
 
 ## Swift 6
 

@@ -41,7 +41,7 @@ PLURAL_CATS = {
     "fr": {"one", "many", "other"}, "es": {"one", "many", "other"}, "it": {"one", "many", "other"},
     "pt": {"one", "many", "other"}, "pt-rBR": {"one", "many", "other"},
 }
-for _l in ["in", "ja", "ko", "th", "vi", "zh"]:
+for _l in ["in", "ja", "ko", "ms", "th", "vi", "zh", "b+zh+Hant"]:
     PLURAL_CATS[_l] = {"other"}
 
 problems = []
@@ -180,7 +180,7 @@ def check_android(android):
         problem("MISSING", res)
         return 0
     _, locales = check_res(res, "")
-    # The watch app (:wear) has its own texts in the same 31 languages
+    # The watch app (:wear) has its own texts in the same 33 languages
     wear_res = os.path.join(android, "wear", "src", "main", "res")
     if os.path.isdir(wear_res):
         check_res(wear_res, "wear/")

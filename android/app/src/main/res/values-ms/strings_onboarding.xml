@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Begrüssung beim ersten Start -->
+    <string name="welcome_alert">Tetapkan amaran – harga, peratus, volum dan pergerakan luar biasa</string>
+    <string name="welcome_alert_q">Bila perlu diberitahu?</string>
+    <string name="welcome_text">Harga anda. Amaran anda. Gambaran anda.\nTanpa akaun. Tanpa iklan. Tanpa penjejakan.</string>
+    <string name="welcome_understand">Fahami – apa yang sedang bergerak bersama sesuatu harga</string>
+    <string name="welcome_understand_q">Apa yang bergerak bersama?</string>
+    <string name="welcome_watch">Pantau – koin, harga dan sejarah harga anda</string>
+    <string name="welcome_watch_q">Apa yang berlaku?</string>
+
+    <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
+    <string name="starter_add_selected">Tambah ke senarai pantau (%1$d)</string>
+    <string name="starter_loading_prices">Memuatkan harga…</string>
+    <string name="starter_search_coin">Cari koin lain</string>
+    <string name="starter_select_all">Pilih semua</string>
+    <string name="starter_select_none">Nyahpilih semua</string>
+    <string name="starter_title">Mulakan dengan koin ini</string>
+    <string name="starter_watch_alarm_hint">Pantau harga, tetapkan amaran</string>
+
+    <string name="starter_source_text">Harga daripada %1$s dalam %2$s. Nyahpilih yang anda tidak mahu dan tambah selebihnya sekali gus. Anda boleh menukar bursa dan pasangan bagi setiap koin.</string>
+</resources>

@@ -17,7 +17,7 @@ class PlayStoreTextsTest {
     @Test
     fun fullDescriptionsFitThePlayLimit() {
         val dirs = root.listFiles { f -> f.isDirectory }.orEmpty()
-        assertTrue(dirs.size >= 31)
+        assertTrue(dirs.size >= 33)
         for (d in dirs) {
             val n = chars(File(d, "full_description.txt"))
             assertTrue("${d.name}: $n > 4000", n <= 4000)

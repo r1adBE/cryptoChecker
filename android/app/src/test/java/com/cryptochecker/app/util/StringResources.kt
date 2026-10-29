@@ -3,7 +3,7 @@ package com.cryptochecker.app.util
 import java.io.File
 
 /**
- * Testhilfe: liest die Texte aller 31 Sprachordner (`values`, `values-de` …) direkt aus `src/main/res`,
+ * Testhilfe: liest die Texte aller 33 Sprachordner (`values`, `values-de` …) direkt aus `src/main/res`,
  * damit Tests Länge und Vollständigkeit der Übersetzungen prüfen können, ohne Android-Laufzeit.
  * Genügt für schlichte `<string>`-Einträge (Escapes `\'`, `\"` und `&amp;` werden aufgelöst).
  */
@@ -14,7 +14,7 @@ object StringResources {
         resDir().listFiles { f -> f.isDirectory && LANGUAGE_FOLDER.matches(f.name) }!!
             .associate { it.name to readStrings(it) }
 
-    private val LANGUAGE_FOLDER = Regex("values(-[a-z]{2}(-r[A-Z]{2})?)?")
+    private val LANGUAGE_FOLDER = Regex("values(-[a-z]{2}(-r[A-Z]{2})?|-b\\+[a-z]{2,3}\\+[A-Z][a-z]{3})?")
     private val ENTRY = Regex("""<string name="([^"]+)"[^>]*>(.*?)</string>""", RegexOption.DOT_MATCHES_ALL)
 
     private fun readStrings(folder: File): Map<String, String> =

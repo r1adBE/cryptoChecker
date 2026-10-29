@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">Amaran dicetuskan</string>
+    <string name="a11y_collapsed">Dikuncupkan</string>
+    <string name="a11y_converted">kira-kira %1$s</string>
+    <string name="a11y_expanded">Dikembangkan</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">dibuka dalam penyemak imbas</string>
+    <string name="a11y_favorite">Kegemaran</string>
+    <string name="a11y_in_watchlist">Sudah ada dalam senarai pantau</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_exchange_unreachable">%1$s tidak dapat dihubungi</string>
+    <string name="a11y_move_down">Alih ke bawah</string>
+    <string name="a11y_move_up">Alih ke atas</string>
+    <string name="a11y_note">nota: %1$s</string>
+    <string name="a11y_price">harga %1$s</string>
+    <string name="a11y_price_notification_off">Pemberitahuan harga mati</string>
+    <string name="a11y_price_notification_on">Pemberitahuan harga hidup</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">Harga sudah lapuk</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%1$s di %2$s</string>
+    <string name="a11y_stale">lapuk, kemas kini terakhir %1$s</string>
+    <string name="a11y_warning">Amaran</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">%1$s dalam 24 jam</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">Perubahan 24 jam tidak tersedia</string>
+    <string name="a11y_change_down">turun %1$s</string>
+    <string name="a11y_change_flat">tidak berubah</string>
+    <string name="a11y_change_since_last">%1$s sejak kemas kini terakhir</string>
+    <string name="a11y_change_since_last_none">Perubahan sejak kemas kini terakhir tidak tersedia</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">%1$s hari ini</string>
+    <string name="a11y_change_today_none">Perubahan hari ini tidak tersedia</string>
+    <string name="a11y_change_today_zone">%1$s sejak tengah malam %2$s</string>
+    <string name="a11y_change_today_zone_none">Perubahan sejak tengah malam %1$s tidak tersedia</string>
+    <string name="a11y_change_up">naik %1$s</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">Carta %1$s: dari %2$s ke %3$s, %4$s. Tertinggi %5$s, terendah %6$s.</string>
+    <string name="a11y_chart_empty">Carta: tiada data</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">Kitaran %1$s: %2$s sejak halving, hari ke-%3$d.</string>
+    <string name="a11y_cycle_bottom">Paras bawah %1$s pada hari ke-%2$d.</string>
+    <string name="a11y_cycle_double_bottom">Paras bawah berganda %1$s pada hari ke-%2$d.</string>
+    <string name="a11y_cycle_double_top">Paras atas berganda %1$s pada hari ke-%2$d.</string>
+    <string name="a11y_cycle_top">Paras atas %1$s pada hari ke-%2$d.</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">Skala dari %1$s hingga %2$s: %3$d daripada 100</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s, %2$s, purata %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="other">%1$d menurun</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="other">%1$d pasangan tiada nilai 24 jam</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="other">%1$d pasangan tiada nilai untuk hari ini</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="other">%1$d pasangan meningkat</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="other">kali terakhir dikemas kini %1$d hari lalu</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="other">kali terakhir dikemas kini %1$d jam lalu</item>
+    </plurals>
+    <string name="a11y_updated_just_now">baru sahaja dikemas kini</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="other">kali terakhir dikemas kini %1$d minit lalu</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">amaun disembunyikan</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_entry">%1$s %2$s, bernilai %3$s hari ini</string>
+    <string name="a11y_portfolio_entry_in">Masuk</string>
+    <string name="a11y_portfolio_entry_no_value">nilai tidak tersedia</string>
+    <string name="a11y_portfolio_entry_note">nota %1$s</string>
+    <string name="a11y_portfolio_entry_out">Keluar</string>
+    <string name="a11y_portfolio_position">%1$s %2$s, %3$s daripada portfolio</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s, %2$s daripada portfolio, %3$s</string>
+    <string name="a11y_portfolio_positions">Kedudukan terbesar: %1$s</string>
+    <string name="a11y_portfolio_show_amounts">Tunjukkan amaun</string>
+    <string name="a11y_compare_chart">Perbandingan dalam peratus, %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">%1$s dari paras tertinggi 30 hari</string>
+    <string name="a11y_price_overlay">Tindanan harga: %1$s</string>
+</resources>

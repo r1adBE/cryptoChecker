@@ -34,7 +34,7 @@ ET AUSSI
 • Portefeuille en option (dans les réglages) : achats, ventes, swaps, transferts, récompenses, dépôts et retraits ; FIFO (par défaut) ou moyenne (Ø) ; adresses en lecture seule, sans seed, pour BTC (xpub inclus), ETH et chaînes EVM, SOL, TRX, XRP, LTC, ADA et TON ; import CSV de Relai, Swissquote, Bitpanda, Kraken, Binance et Coinbase ; bilan annuel en CSV ; verrou dédié. Bitpanda et Swissquote : pas de cours propre, CSV uniquement.
 • Lisible pour tous : vert/rouge ou bleu/orange, signe et flèche, pas que la couleur ; TalkBack lit chaque ligne comme une phrase
 • Sauvegarde et restauration dans un fichier – aussi entre Android et iPhone
-• Modes clair et sombre, cinq couleurs d’accent, 31 langues
+• Modes clair et sombre, cinq couleurs d’accent, 33 langues
 • Open source (MIT), code public sur GitHub
 
 Remarque : Crypto Checker affiche des cours et un portefeuille que tu saisis. Ni plateforme d’échange ni wallet, l’app ne trade pas et ne donne aucun conseil en investissement.

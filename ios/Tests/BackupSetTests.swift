@@ -187,7 +187,7 @@ final class BackupSettingsTextsTests: XCTestCase {
     func testUnencryptedWarningNamesSettingsInAllLanguages() throws {
         let texts = try catalog()
         let warnings = try XCTUnwrap(texts["backup_restore_unencrypted_warning"])
-        XCTAssertEqual(warnings.count, 31)
+        XCTAssertEqual(warnings.count, 33)
         for (language, warning) in warnings {
             for key in Self.labelKeys {
                 let label = try XCTUnwrap(texts[key]?[language], "\(language): \(key) fehlt")
@@ -206,7 +206,7 @@ final class BackupSettingsTextsTests: XCTestCase {
                      ("backup_restore_server_changed", "settings_address_server_title")]
         for (hintKey, labelKey) in pairs {
             let hints = try XCTUnwrap(texts[hintKey], "\(hintKey) fehlt")
-            XCTAssertEqual(hints.count, 31, hintKey)
+            XCTAssertEqual(hints.count, 33, hintKey)
             for (language, hint) in hints {
                 let label = try XCTUnwrap(texts[labelKey]?[language], "\(language): \(labelKey) fehlt")
                 XCTAssertTrue(hint.lowercased().contains(label.lowercased()),

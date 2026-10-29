@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">Tambah alamat</string>
+    <string name="portfolio_address_count">Kira</string>
+    <string name="portfolio_address_error">Kemas kini gagal</string>
+    <string name="portfolio_address_hint">Alamat awam (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) atau xpub</string>
+    <string name="portfolio_address_label">Label (pilihan)</string>
+    <string name="portfolio_address_not_since_buy">Daripada alamat · tidak termasuk dalam “Sejak pembelian”: %1$s</string>
+    <string name="portfolio_address_overlap">Juga ada dalam transaksi anda sendiri: %1$s – kedua-duanya dijumlahkan. Koin yang sama? Pilih “Tunjuk sahaja”.</string>
+    <string name="portfolio_address_overlap_ask">Anda sudah merekod %1$s dengan transaksi anda sendiri. Kira baki alamat ini dalam portfolio, atau tunjukkan sahaja?</string>
+    <string name="portfolio_address_overlap_auto">“%1$s” kini ditunjukkan sahaja, tidak dikira – %2$s juga ada dalam transaksi anda.</string>
+    <string name="portfolio_address_overlap_title">Koin yang sama seperti dalam transaksi anda?</string>
+    <string name="portfolio_address_overlap_tx">Jumlah sama seperti deposit/pindahan anda sendiri (%1$s) – mungkin dikira dua kali.</string>
+    <string name="portfolio_address_period_observed">Alamat yang dipantau dikira dari baki pertama yang diperhatikan; perubahan kemudian ialah aliran masuk/keluar, bukan keuntungan.</string>
+    <string name="portfolio_address_privacy">Hanya alamat awam dihantar kepada %1$s – tidak sekali-kali kunci atau frasa benih. Penyedia melihatnya bersama alamat IP anda. Disemak paling kerap setiap 10 minit.</string>
+    <string name="portfolio_address_remove">Alih keluar alamat</string>
+    <string name="portfolio_address_show_only">Tunjuk sahaja, jangan kira dalam portfolio</string>
+    <string name="portfolio_address_show_only_short">Tunjuk sahaja</string>
+    <string name="portfolio_address_tokens">Kira token</string>
+    <string name="portfolio_address_xpub_privacy">xpub mendedahkan semua alamat dompet ini. Alamat dijana pada peranti anda; hanya alamat individu dihantar kepada %1$s – sekurang-kurangnya 40 permintaan pada imbasan pertama, kemudian lebih sedikit. Kunci peribadi (xprv) tidak sekali-kali diterima.</string>
+    <string name="portfolio_address_xpub_gap">Carian berhenti selepas %1$d alamat tidak digunakan berturut-turut (piawai BIP44 yang digunakan kebanyakan dompet). Alamat yang digunakan selepas jurang itu tidak dikira – tambahkannya secara berasingan.</string>
+    <string name="portfolio_address_xpub_used">Alamat digunakan: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">Terlalu banyak alamat digunakan untuk dikemas kini</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">Terlalu banyak alamat – bayaran baharu ke alamat lama yang kosong mungkin tidak dikesan</string>
+    <string name="portfolio_addresses_title">Alamat</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">Alamat Bitcoin Cash tidak dapat dipantau: tiada perkhidmatan awam percuma tanpa kunci API yang syaratnya membenarkannya.</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain (BEP-2) telah ditutup pada 2024 – baki kini berada di BNB Smart Chain (0x…)</string>
+    <string name="address_checksum">Hasil tambah semak salah – semak kesilapan taip</string>
+    <string name="address_doge_unsupported">Alamat Dogecoin tidak dapat dipantau: tiada perkhidmatan awam percuma tanpa kunci API yang syaratnya membenarkannya.</string>
+    <string name="address_duplicate">Alamat ini sudah ditambah</string>
+    <string name="address_ens">Nama ENS tidak disokong – masukkan alamat 0x</string>
+    <string name="address_invalid">Bukan alamat sah bagi rangkaian yang disokong</string>
+    <string name="address_limit">Paling banyak 20 alamat</string>
+    <string name="address_secret">Ini kelihatan seperti kunci peribadi atau frasa benih – jangan sekali-kali masukkannya di mana-mana. Hanya alamat awam.</string>
+    <string name="address_testnet">Alamat testnet tidak disokong</string>
+    <string name="address_unsupported">Jenis alamat ini tidak disokong</string>
+    <string name="address_wrong_chain">Alamat milik rangkaian lain</string>
+    <string name="address_xpub_multisig">Kunci multisig (Ypub/Zpub) tidak disokong</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Akaun Taproot (BIP86): alamat bc1p… dijana daripada kunci ini, untuk penerimaan dan baki pulangan.</string>
+    <string name="portfolio_address_taproot_hint">Dompet Taproot? Tampal deskriptor tr(…) daripada dompet anda – xpub biasa hanya dicari sebagai alamat Legacy dan SegWit.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">Pelayan sendiri tidak dapat dihubungi</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">Sesiapa yang mengendalikan %1$s melihat semua alamat dompet ini yang ditanya dan boleh mengaitkannya antara satu sama lain serta dengan alamat IP anda.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">Untuk mengelakkannya, masukkan pelayan anda sendiri di Tetapan › Portfolio › Pelayan sendiri untuk alamat.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="other">+%1$d token tidak diketahui (tidak dikira)</item>
+    </plurals>
+</resources>

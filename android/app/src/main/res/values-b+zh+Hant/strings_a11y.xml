@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
+    <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
+    <string name="a11y_alarm_fired">提醒已觸發</string>
+    <string name="a11y_collapsed">已收起</string>
+    <string name="a11y_converted">約 %1$s</string>
+    <string name="a11y_expanded">已展開</string>
+    <!-- Vorgelesen bei Zeilen, die eine Website öffnen (Datenschutz, Börse wünschen, Quellcode) -->
+    <string name="a11y_external_link">在瀏覽器中開啟</string>
+    <string name="a11y_favorite">已收藏</string>
+    <string name="a11y_in_watchlist">已在自選中</string>
+    <!-- %1$s Börse, letzte Abfrage gescheitert -->
+    <string name="a11y_exchange_unreachable">無法連線 %1$s</string>
+    <string name="a11y_move_down">下移</string>
+    <string name="a11y_move_up">上移</string>
+    <string name="a11y_note">備註：%1$s</string>
+    <string name="a11y_price">價格 %1$s</string>
+    <string name="a11y_price_notification_off">價格通知已關閉</string>
+    <string name="a11y_price_notification_on">價格通知已開啟</string>
+    <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
+    <string name="a11y_price_outdated">價格已過時</string>
+    <!-- Teile einer Zeile werden mit «, » verbunden -->
+    <string name="a11y_row_pair">%2$s 上的 %1$s</string>
+    <string name="a11y_stale">已過時，最後更新 %1$s</string>
+    <string name="a11y_warning">警告</string>
+
+    <!-- Screenreader: Veränderung (Prozent-Pille, Widgets) -->
+    <!-- %1$s Satz aus a11y_change_up/down/flat: Veränderung über 24 Stunden (Prozent-Pille, Widgets) -->
+    <string name="a11y_change_24h">24小時內%1$s</string>
+    <!-- Wenn die Pille «—» zeigt (keine Kerzen für das Paar) -->
+    <string name="a11y_change_24h_none">暫無24小時漲跌</string>
+    <string name="a11y_change_down">下跌 %1$s</string>
+    <string name="a11y_change_flat">無變化</string>
+    <string name="a11y_change_since_last">自上次更新%1$s</string>
+    <string name="a11y_change_since_last_none">暫無自上次更新以來的漲跌</string>
+    <!-- %1$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_change_today">今日%1$s</string>
+    <string name="a11y_change_today_none">暫無今日漲跌</string>
+    <string name="a11y_change_today_zone">自 %2$s 午夜以來%1$s</string>
+    <string name="a11y_change_today_zone_none">暫無自 %1$s 午夜以來的漲跌</string>
+    <string name="a11y_change_up">上漲 %1$s</string>
+
+    <!-- Screenreader: Charts und Skalen -->
+    <!-- %1$s Zeitraum, %2$s Start, %3$s Ende, %4$s Satz aus a11y_change_up/down/flat, %5$s Hoch, %6$s Tief -->
+    <string name="a11y_chart">圖表 %1$s：從 %2$s 到 %3$s，%4$s。最高 %5$s，最低 %6$s。</string>
+    <string name="a11y_chart_empty">圖表：無資料</string>
+    <!-- %1$s Halving-Jahr, %2$s Satz aus a11y_change_up/down/flat, %3$d Tag seit dem Halving -->
+    <string name="a11y_cycle">週期 %1$s：減半以來 %2$s，第 %3$d 天。</string>
+    <string name="a11y_cycle_bottom">第 %2$d 天底部 %1$s。</string>
+    <string name="a11y_cycle_double_bottom">第 %2$d 天雙底 %1$s。</string>
+    <string name="a11y_cycle_double_top">第 %2$d 天雙頂 %1$s。</string>
+    <string name="a11y_cycle_top">第 %2$d 天頂部 %1$s。</string>
+    <!-- Skala (Fear and Greed, Marktphase): %1$s linkes Ende, %2$s rechtes Ende, %3$d Wert 0–100 -->
+    <string name="a11y_gauge">從 %1$s 到 %2$s 的刻度：%3$d，滿分 100</string>
+
+    <!-- Screenreader: Puls-Zeile der Merkliste -->
+    <string name="a11y_watchlist_pulse">%1$s，%2$s，平均 %3$s</string>
+    <string name="a11y_watchlist_pulse_combined">%1$s。%2$s</string>
+    <plurals name="a11y_watchlist_pulse_falling">
+        <item quantity="other">%1$d 個下跌</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing">
+        <item quantity="other">%1$d 個交易對沒有 24 小時資料</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_missing_day">
+        <item quantity="other">%1$d 個交易對沒有今日數值</item>
+    </plurals>
+    <plurals name="a11y_watchlist_pulse_rising">
+        <item quantity="other">%1$d 個交易對上漲</item>
+    </plurals>
+
+    <!-- Screenreader: zuletzt aktualisiert -->
+    <plurals name="a11y_updated_days">
+        <item quantity="other">最後更新於 %1$d 天前</item>
+    </plurals>
+    <plurals name="a11y_updated_hours">
+        <item quantity="other">最後更新於 %1$d 小時前</item>
+    </plurals>
+    <string name="a11y_updated_just_now">剛剛更新</string>
+    <plurals name="a11y_updated_minutes">
+        <item quantity="other">最後更新於 %1$d 分鐘前</item>
+    </plurals>
+
+    <!-- Screenreader: Portfolio und Portfolio-Widget -->
+    <string name="a11y_amount_hidden">金額已隱藏</string>
+    <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_entry">%1$s %2$s，今日價值 %3$s</string>
+    <string name="a11y_portfolio_entry_in">轉入</string>
+    <string name="a11y_portfolio_entry_no_value">無價值</string>
+    <string name="a11y_portfolio_entry_note">備註 %1$s</string>
+    <string name="a11y_portfolio_entry_out">轉出</string>
+    <string name="a11y_portfolio_position">%1$s %2$s，佔投資組合 %3$s</string>
+    <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
+    <string name="a11y_portfolio_position_24h">%1$s，佔投資組合 %2$s，%3$s</string>
+    <string name="a11y_portfolio_positions">最大持倉：%1$s</string>
+    <string name="a11y_portfolio_show_amounts">顯示金額</string>
+    <string name="a11y_compare_chart">百分比比較，%1$s：%2$s</string>
+    <string name="a11y_compare_from_high">較30日高點 %1$s</string>
+    <string name="a11y_price_overlay">價格浮動視窗：%1$s</string>
+</resources>

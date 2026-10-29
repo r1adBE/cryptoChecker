@@ -73,7 +73,7 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
 
-        versionCode = 174
+        versionCode = 175
         versionName = "16.2.2"
 
         // Quell-Commit für «Diagnose teilen» (Berechnung siehe gitCommit oben).
@@ -189,13 +189,15 @@ android {
         }
     }
 
-    // Nur die 31 App-Sprachen (res/xml/locales_config.xml) ins APK — Übersetzungen der Bibliotheken in weiteren Sprachen
-    // fallen weg. Ordnernamen wie in res/ (iw, in, nb, pt-rBR) und dazu die neuen Codes «he»/«id», damit keine Sprache je
-    // nach Schreibweise wegfällt; LocaleFiltersTest (androidTest) prüft das auf dem Gerät.
+    // Nur die 33 App-Sprachen (res/xml/locales_config.xml) ins APK — Übersetzungen der Bibliotheken in weiteren Sprachen
+    // fallen weg. Ordnernamen wie in res/ (iw, in, nb, pt-rBR, b+zh+Hant) und dazu die neuen Codes «he»/«id», damit keine
+    // Sprache je nach Schreibweise wegfällt; zh-rTW/zh-rHK für die traditionell-chinesischen Texte der Bibliotheken.
+    // LocaleFiltersTest (androidTest) prüft das auf dem Gerät.
     androidResources {
         localeFilters += listOf(
             "en", "de", "fr", "it", "es", "pt", "pt-rBR", "nl", "pl", "cs", "hu", "ro", "sq", "el", "tr", "sv", "da",
-            "nb", "fi", "ru", "uk", "ar", "iw", "he", "fa", "hi", "th", "vi", "in", "id", "zh", "ja", "ko",
+            "nb", "fi", "ru", "uk", "ar", "iw", "he", "fa", "hi", "th", "vi", "in", "id", "ms", "zh", "b+zh+Hant",
+            "zh-rTW", "zh-rHK", "ja", "ko",
         )
     }
 

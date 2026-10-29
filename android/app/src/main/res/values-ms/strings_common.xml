@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Allgemeine Aktionen (Knöpfe, Menüs) -->
+    <string name="action_back">Kembali</string>
+    <string name="action_cancel">Batal</string>
+    <string name="action_clear">Kosongkan</string>
+    <string name="action_close">Tutup</string>
+    <string name="action_keep">Simpan</string>
+    <string name="action_delete">Padam</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_more">Lagi pilihan</string>
+    <string name="action_refresh">Muat semula</string>
+    <string name="action_retry">Cuba lagi</string>
+    <string name="action_save">Simpan</string>
+    <string name="action_sort">Isih</string>
+    <string name="action_sort_done">Selesai</string>
+    <string name="action_undo">Buat asal</string>
+    <string name="action_view">Lihat</string>
+
+    <!-- Tabs der Hauptnavigation -->
+    <string name="tab_market_phase">Pasaran</string>
+    <string name="tab_portfolio">Portfolio</string>
+    <string name="tab_settings">Tetapan</string>
+    <string name="tab_watchlist">Senarai pantau</string>
+
+    <!-- Allgemeine Zustände und Fehler -->
+    <string name="check_error_generic_prefix">Ralat: %1$s</string>
+    <string name="error_exchange_unreachable">Bursa tidak dapat dihubungi sekarang – harga terakhir kekal dipaparkan.</string>
+    <string name="error_exchange_unreachable_short">Bursa tidak dapat dihubungi sekarang</string>
+    <string name="loading_hint">Memuatkan…</string>
+    <string name="option_off">Mati</string>
+    <string name="something_went_wrong">Ada sesuatu yang tidak kena</string>
+    <string name="time_just_now">sebentar tadi</string>
+    <string name="try_again">Cuba lagi</string>
+
+    <!-- Verbindungsstatus (Status-Pille) -->
+    <string name="offline_status">Tiada sambungan</string>
+    <string name="offline_status_since">Tiada sambungan · setakat %1$s</string>
+    <string name="status_live">Langsung</string>
+
+    <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
+    <string name="shortcut_add">Tambah pasangan</string>
+    <string name="shortcut_alarms">Semua amaran</string>
+    <string name="shortcut_cycle">Pasaran</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Tambah ke senarai pantau</string>
+    <string name="shortcut_alarms_long">Tunjukkan semua amaran</string>
+    <string name="shortcut_cycle_long">Buka gambaran pasaran</string>
+
+    <string name="log_box_title">Log</string>
+    <string name="label_value">%1$s: %2$s</string>
+</resources>

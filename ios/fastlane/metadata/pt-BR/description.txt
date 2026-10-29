@@ -35,7 +35,7 @@ E MAIS
 • Portfólio opcional (ative nas configurações): compras, vendas, swaps, transferências, recompensas, depósitos e saques; FIFO (padrão) ou média (Ø); endereços somente leitura, sem seed, para BTC (incl. xpub), ETH e redes EVM, SOL, TRX, XRP, LTC, ADA e TON; importação CSV da Relai, Swissquote, Bitpanda, Kraken, Binance e Coinbase; resumo anual em CSV; bloqueio próprio. Bitpanda e Swissquote: sem preço próprio, só por CSV.
 • Legível para todos: verde/vermelho ou azul/laranja, sinal e seta em vez de só cor, Dynamic Type; o VoiceOver lê cada linha como uma frase
 • Backup e restauração pelo app Arquivos
-• Modo claro e escuro, cinco cores de destaque, 31 idiomas
+• Modo claro e escuro, cinco cores de destaque, 33 idiomas
 • Código aberto (MIT) – o código é público no GitHub
 
 Aviso: o Crypto Checker mostra preços e um portfólio que você mesmo registra. Não é uma exchange nem uma carteira, não negocia e não oferece recomendação de investimento.

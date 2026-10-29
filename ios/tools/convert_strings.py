@@ -39,7 +39,7 @@ DEFAULT_OVERRIDES = os.path.join(HERE, "ios_overrides.json")
 OUT_DIR = os.path.join(ROOT, "Shared", "Resources")
 
 # Android resource qualifier -> Apple language code
-LOCALE_MAP = {"iw": "he", "in": "id", "ji": "yi", "zh": "zh-Hans", "zh-rCN": "zh-Hans",
+LOCALE_MAP = {"iw": "he", "in": "id", "ji": "yi", "zh": "zh-Hans", "zh-rCN": "zh-Hans", "b+zh+Hant": "zh-Hant",
               "zh-rTW": "zh-Hant", "zh-rHK": "zh-Hant", "nb": "nb", "pt-rBR": "pt-BR",
               "pt-rPT": "pt-PT", "es-rUS": "es-US"}
 
@@ -59,7 +59,7 @@ PLURAL_CATS = {
     "ro": {"one", "few", "other"}, "he": {"one", "two", "other"},
     "fr": {"one", "many", "other"}, "es": {"one", "many", "other"}, "it": {"one", "many", "other"},
     "pt": {"one", "many", "other"}, "pt-BR": {"one", "many", "other"},
-    "id": {"other"}, "ja": {"other"}, "ko": {"other"}, "th": {"other"}, "vi": {"other"},
+    "id": {"other"}, "ja": {"other"}, "ko": {"other"}, "ms": {"other"}, "th": {"other"}, "vi": {"other"},
     "zh-Hans": {"other"}, "zh-Hant": {"other"},
 }
 PLURAL_ORDER = ["zero", "one", "two", "few", "many", "other"]
@@ -356,8 +356,8 @@ def main():
     errors = []
     with open(out_path, encoding="utf-8") as f:
         reparsed = json.load(f)
-    if len(all_langs) != 31:
-        errors.append(f"expected 31 languages, found {len(all_langs)}: {all_langs}")
+    if len(all_langs) != 33:
+        errors.append(f"expected 33 languages, found {len(all_langs)}: {all_langs}")
     escape_re = re.compile(r"\\['\"@?nt\\]|&(amp|lt|gt|quot|apos);|<!\[CDATA\[")
     for key, entry in reparsed["strings"].items():
         locs = entry["localizations"]

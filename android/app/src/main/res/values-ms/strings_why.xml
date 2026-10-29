@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Warum bewegt sich das?»: Titel, Abschnitte, Aufklappen -->
+    <string name="why_action">Apa yang bergerak bersama?</string>
+    <string name="why_all_values">Semua nilai dan sumber</string>
+    <string name="why_all_values_hint">Pemerhatian · Kemungkinan penjelasan · Sumber</string>
+    <string name="why_details">Tunjukkan butiran</string>
+    <string name="why_details_hide">Sembunyikan butiran</string>
+    <string name="why_disclaimer">Penilaian automatik daripada data pasaran: ia menunjukkan apa yang berlaku pada masa yang sama, bukan bukti sesuatu punca.</string>
+    <string name="why_footer_short">Serentak tidak bermakna punca · Bukan nasihat pelaburan</string>
+    <string name="why_no_data">Tiada data daripada Binance untuk pasangan ini</string>
+    <string name="why_no_data_hint">Harga, volum dan kemeruapan datang daripada lilin setiap jam Binance.</string>
+    <string name="why_ref_alts">Alt</string>
+    <string name="why_section_context">Kemungkinan penjelasan</string>
+    <string name="why_section_observation">Pemerhatian</string>
+    <string name="why_title">Apa yang bergerak bersama?</string>
+    <string name="why_title_coin">Apa yang bergerak bersama %1$s?</string>
+
+    <!-- «Warum?»: Kurz gesagt (ein Satz oben) -->
+    <string name="why_brief_head">Ringkasnya · Setakat %1$s</string>
+    <string name="why_brief_label">Ringkasnya:</string>
+    <string name="why_summary_against">Koin ini bergerak bertentangan dengan pasaran.</string>
+    <string name="why_summary_calm">Tiada pergerakan ketara: pasaran dan koin tenang.</string>
+    <string name="why_summary_coin">Hanya koin ini yang bergerak – mungkin sesuatu yang hanya menjejaskan koin ini.</string>
+    <string name="why_summary_coin_volume">Hanya koin ini yang bergerak, dengan volum lebih tinggi – mungkin sesuatu yang hanya menjejaskan koin ini.</string>
+    <string name="why_summary_longs">Niaga hadapan: banyak posisi long berleveraj.</string>
+    <string name="why_summary_market">Pergerakan ini sepadan dari segi masa dengan pasaran keseluruhan.</string>
+    <string name="why_summary_market_volume">Pergerakan ini berlaku serentak dengan volum dagangan yang lebih tinggi dan pasaran yang bergerak secara meluas.</string>
+    <string name="why_summary_peg_near">Harga hampir dengan pasakan 1:1nya.</string>
+    <string name="why_summary_peg_off">Harga menyimpang dengan ketara daripada pasakan 1:1nya.</string>
+    <string name="why_summary_shorts">Niaga hadapan: banyak posisi short.</string>
+    <string name="why_summary_thin">Pergerakan ini nipis: sedikit volum di belakangnya.</string>
+
+    <!-- «Warum?»: Faktorliste (Titel der Faktoren) -->
+    <string name="why_f_against">Bertentangan dengan pasaran</string>
+    <string name="why_f_coin_only">Hanya koin ini</string>
+    <string name="why_f_leader">Bitcoin sebagai peneraju pasaran</string>
+    <string name="why_f_leverage_balanced">Leveraj seimbang</string>
+    <string name="why_f_leverage_longs">Leveraj: banyak long</string>
+    <string name="why_f_leverage_shorts">Leveraj: banyak short</string>
+    <string name="why_f_market_calm">Pasaran tenang</string>
+    <string name="why_f_market_wide">Seluruh pasaran bergerak</string>
+    <string name="why_factor_funding">Pembiayaan</string>
+    <string name="why_factor_futures">Niaga hadapan</string>
+    <string name="why_factor_market">Pasaran keseluruhan</string>
+    <string name="why_factor_near_high">Hampir paras tertinggi</string>
+    <string name="why_factor_near_low">Hampir paras terendah</string>
+    <string name="why_factor_peg">Pasakan (1:1)</string>
+    <string name="why_factor_range3d">Julat 3 hari</string>
+
+    <!-- «Warum?»: Nebenzeilen der Faktoren -->
+    <string name="why_fn_estimated">dianggarkan</string>
+    <string name="why_fn_funding_longs">ramai bertaruh harga naik</string>
+    <string name="why_fn_funding_neutral">neutral</string>
+    <string name="why_fn_funding_shorts">ramai bertaruh harga turun</string>
+    <string name="why_fn_high_at">pada paras tertinggi 30 hari</string>
+    <string name="why_fn_high_below">di bawah paras tertinggi 30 hari</string>
+    <string name="why_fn_leader_calm">Bitcoin tenang</string>
+    <string name="why_fn_leader_moves">Bitcoin bergerak dengan jelas</string>
+    <string name="why_fn_low_above">di atas paras terendah 30 hari</string>
+    <string name="why_fn_low_at">pada paras terendah 30 hari</string>
+    <string name="why_fn_market_against">Koin ini bergerak bertentangan dengan pasaran</string>
+    <string name="why_fn_market_alone">Pasaran tenang – koin ini bergerak sendiri</string>
+    <string name="why_fn_market_calm">Pasaran tenang</string>
+    <string name="why_fn_market_lags">Pasaran bergerak, koin ini hampir tidak</string>
+    <string name="why_fn_market_moves">Pasaran bergerak ke arah yang sama</string>
+    <string name="why_fn_market_pulls">Pasaran bergerak bersama BTC</string>
+    <string name="why_fn_oi_down">Minat terbuka turun</string>
+    <string name="why_fn_oi_flat">Minat terbuka hampir tidak berubah</string>
+    <string name="why_fn_oi_mixed">Minat terbuka bercampur</string>
+    <string name="why_fn_oi_up">Minat terbuka naik</string>
+    <string name="why_fn_peg_above">%1$s di atas pasakan 1:1</string>
+    <string name="why_fn_peg_below">%1$s di bawah pasakan 1:1</string>
+    <string name="why_fn_peg_near">hampir dengan pasakan 1:1</string>
+    <string name="why_fn_range_above_low">sejak paras terendah 3 hari</string>
+    <string name="why_fn_range_below_high">sejak paras tertinggi 3 hari</string>
+    <string name="why_fn_range_near_high">hampir paras tertinggi 3 hari</string>
+    <string name="why_fn_range_near_low">hampir paras terendah 3 hari</string>
+    <string name="why_fn_volatility_stronger">lebih kuat daripada biasa</string>
+    <string name="why_fn_volatility_tiny">kecil secara mutlak (di bawah %1$s)</string>
+    <string name="why_fn_volatility_usual">seperti biasa</string>
+    <string name="why_fn_volume_higher">lebih tinggi daripada biasa</string>
+    <string name="why_fn_volume_lower">lebih rendah daripada biasa</string>
+    <string name="why_fn_volume_usual">seperti biasa</string>
+
+    <!-- «Warum?»: ausführliche Sätze je Beobachtung -->
+    <string name="why_against_market_text">Koin ini %1$s, BTC %2$s dalam 24j — pergerakan bebas yang ketara.</string>
+    <string name="why_against_ref_text">Koin ini %1$s, %2$s %3$s dalam 24j — pergerakan bebas yang ketara.</string>
+    <string name="why_btc_independent">%1$s kini bergerak secara bebas daripada Bitcoin.</string>
+    <string name="why_btc_tight">%1$s kini bergerak rapat dengan Bitcoin.</string>
+    <string name="why_change_1h">1j</string>
+    <string name="why_change_24h">24j</string>
+    <string name="why_coin_only_text">%1$s dalam 24j semasa pasaran tenang – mungkin sesuatu yang hanya menjejaskan koin ini.</string>
+    <string name="why_leverage_balanced_text">Tiada tumpuan posisi long atau short dalam pasaran niaga hadapan.</string>
+    <string name="why_leverage_longs_text">Ramai bertaruh harga naik dengan wang pinjaman. Posisi long membayar posisi short — risiko pembubaran meningkat jika harga jatuh.</string>
+    <string name="why_leverage_shorts_text">Ramai bertaruh harga turun dengan wang pinjaman. Posisi short membayar posisi long – jika harga naik, short squeeze boleh berlaku.</string>
+    <string name="why_market_calm_text">Koin ini: %1$s dalam 24j. Pasaran mahupun koin tidak banyak bergerak.</string>
+    <string name="why_market_leader_text">Sebagai koin terbesar, BTC biasanya bergerak seiring dengan pasaran lain. ETH: %1$s dalam 24j.</string>
+    <string name="why_market_leader_text_no_eth">Sebagai koin terbesar, BTC biasanya bergerak seiring dengan pasaran lain.</string>
+    <string name="why_market_similar_text">Koin ini: %1$s dalam 24j – pada masa yang sama, pasaran bergerak ke arah yang sama, walaupun kurang jelas.</string>
+    <string name="why_market_wide_text">Koin ini: %1$s dalam 24j – pada masa yang sama, pasaran keseluruhan bergerak dengan jelas.</string>
+    <string name="why_open_interest_change">Minat terbuka %1$s sejak semakan terakhir.</string>
+    <string name="why_peg_text">Stablecoin: berbanding pasakan 1:1 kepada mata wang sebut harga, sisihan %1$s.</string>
+    <string name="why_sentiment_text">Indeks Fear &amp; Greed bagi seluruh pasaran kripto, %1$s berbanding semalam.</string>
+    <string name="why_sentiment_text_no_change">Indeks Fear &amp; Greed bagi seluruh pasaran kripto.</string>
+    <plurals name="why_trend_falling">
+        <item quantity="other">menurun selama %1$d jam</item>
+    </plurals>
+    <plurals name="why_trend_rising">
+        <item quantity="other">meningkat selama %1$d jam</item>
+    </plurals>
+    <plurals name="why_trend_stable">
+        <item quantity="other">stabil selama %1$d jam</item>
+    </plurals>
+    <string name="why_volatility_high_text">Sejam terakhir: %1$s — diukur berbanding ayunan setiap jam yang biasa dalam 24 jam lalu.</string>
+    <string name="why_volatility_normal_text">Sejam terakhir: %1$s — dalam julat biasa.</string>
+    <string name="why_volatility_tiny_text">Sejam terakhir: %1$s — luar biasa bagi koin ini, tetapi kecil secara mutlak.</string>
+    <string name="why_volume_estimated_text">Dianggarkan: sumber ini tidak menyediakan pusing ganti, jadi jumlah koin yang didagangkan dibandingkan.</string>
+    <string name="why_volume_high_text">Jauh lebih banyak dagangan daripada biasa dalam sejam terakhir – pergerakan ini disertai volum tinggi.</string>
+    <string name="why_volume_low_text">Sedikit dagangan di belakang pergerakan ini – pergerakan sedemikian selalunya kurang stabil.</string>
+    <string name="why_volume_normal_text">Dagangan dalam sejam terakhir selaras dengan 24 jam lalu.</string>
+
+    <!-- «Warum?»: Signal-Punkte (stützt, neutral, Vorsicht) -->
+    <string name="why_dot_caution">tinggi</string>
+    <string name="why_dot_neutral">neutral</string>
+    <string name="why_dot_supports">sepadan dengan pergerakan</string>
+
+    <!-- «Warum?»: Frische und Quellen der Daten -->
+    <string name="why_data_time">Data setakat %1$s</string>
+    <string name="why_fresh_breadth">Keluasan pasaran: %1$s · %2$s</string>
+    <string name="why_fresh_candles">Lilin: %1$s · %2$s</string>
+    <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
+    <string name="why_fresh_futures">Niaga hadapan: %1$s</string>
+    <plurals name="why_fresh_oi_hours">
+        <item quantity="other">minat terbuka berbanding %1$d jam lalu</item>
+    </plurals>
+    <plurals name="why_fresh_oi_minutes">
+        <item quantity="other">minat terbuka berbanding %1$d minit lalu</item>
+    </plurals>
+    <string name="why_fresh_today">hari ini</string>
+    <string name="why_fresh_yesterday">semalam</string>
+    <string name="why_source_fallback">%1$s (sandaran)</string>
+    <string name="why_source_reference">%1$s (rujukan)</string>
+    <string name="why_sources">Sumber: lilin setiap jam bursa (kebanyakannya Binance), data niaga hadapan daripada bursa, Fear &amp; Greed daripada alternative.me.</string>
+    <string name="why_sources_list">Sumber: %1$s.</string>
+    <string name="why_src_breadth">%1$s (keluasan pasaran)</string>
+    <string name="why_src_candles">%1$s (lilin)</string>
+    <string name="why_src_comparison">%1$s (perbandingan pasaran)</string>
+    <string name="why_src_fng">%1$s (Fear &amp; Greed)</string>
+    <string name="why_src_futures">%1$s (niaga hadapan)</string>
+
+    <!-- Faktor-Checkliste (Crypto Pulse und «Warum?») -->
+    <string name="factor_fear_greed">Fear &amp; Greed</string>
+    <string name="factor_funding">Pembiayaan</string>
+    <string name="factor_spoken_volatility">%1$s kali ganda ayunan biasa</string>
+    <string name="factor_spoken_volume">%1$s kali ganda biasa</string>
+    <string name="factor_volatility">Kemeruapan (1j)</string>
+    <string name="factor_volume">Volum</string>
+</resources>

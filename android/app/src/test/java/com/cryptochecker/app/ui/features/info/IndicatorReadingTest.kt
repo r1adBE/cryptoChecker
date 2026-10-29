@@ -9,7 +9,7 @@ import org.junit.Test
 
 /**
  * Jede Kennzahl hat eine Zeile «hoch heisst …, tief heisst …» (`ind_read_<id>`),
- * dazu Hebel, Funding und Altcoins in den Info-Blättern — in allen 31 Sprachen, als ein kurzer Satz
+ * dazu Hebel, Funding und Altcoins in den Info-Blättern — in allen 33 Sprachen, als ein kurzer Satz
  * ohne Platzhalter. Wie `testIndicatorReadings` (iOS, MarketSectionsTests).
  */
 class IndicatorReadingTest {
@@ -20,7 +20,7 @@ class IndicatorReadingTest {
     fun everyIndicatorAndTopicHasAReadingInEveryLanguage() {
         val keys = IndicatorId.entries.map { "ind_read_" + it.name.lowercase() } + topicKeys
         val languages = StringResources.byLanguage()
-        assertEquals(31, languages.size)
+        assertEquals(33, languages.size)
         for ((folder, strings) in languages) {
             for (key in keys) {
                 val text = strings[key]

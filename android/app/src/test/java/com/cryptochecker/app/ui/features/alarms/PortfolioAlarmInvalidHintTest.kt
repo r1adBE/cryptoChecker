@@ -42,7 +42,7 @@ class PortfolioAlarmInvalidHintTest {
     fun textInAllenSprachen() {
         val res = SourceGuard.android(file("src/main/res"), "src/main/res")
         val folders = res.listFiles { f -> f.isDirectory && File(f, "strings_portfolio.xml").exists() }.orEmpty()
-        assertTrue(folders.size >= 31)
+        assertTrue(folders.size >= 33)
         for (folder in folders) {
             val xml = File(folder, "strings_portfolio.xml")
             assertTrue("${folder.name}: fehlt", xml.exists() && xml.readText().contains("name=\"portfolio_alarm_threshold_invalid_recreate\""))

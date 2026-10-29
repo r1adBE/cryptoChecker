@@ -35,7 +35,7 @@ DÁLE
 • Portfolio volitelně (zapíná se v Nastavení): nákupy, prodeje, směny, převody, odměny, vklady a výběry; FIFO (výchozí) nebo průměr (Ø); adresy jen pro čtení, bez seedu, pro BTC (i xpub), ETH a sítě EVM, SOL, TRX, XRP, LTC, ADA a TON; import CSV z Relai, Swissquote, Bitpanda, Kraken, Binance a Coinbase; roční přehled jako CSV; vlastní zámek. Bitpanda a Swissquote: bez vlastní ceny, jen přes CSV.
 • Čitelné pro všechny: zelená/červená nebo modrá/oranžová, znaménko a šipka místo pouhé barvy, Dynamic Type; VoiceOver čte každý řádek jako jednu větu
 • Záloha a obnovení přes aplikaci Soubory
-• Světlý a tmavý režim, pět barev zvýraznění, 31 jazyků
+• Světlý a tmavý režim, pět barev zvýraznění, 33 jazyků
 • Open source (MIT) – kód je veřejně na GitHubu
 
 Upozornění: Crypto Checker zobrazuje ceny a portfolio, které si zadáš ručně. Není burzou ani peněženkou, neobchoduje a neposkytuje investiční poradenství.

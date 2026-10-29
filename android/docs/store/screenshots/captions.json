@@ -382,6 +382,28 @@
         "subline": "선택 사항, 설정에서 켜기: 매수, 매도, 이체"
       }
     },
+    "ms": {
+      "01": {
+        "caption": "Harga terakhir dari bursa",
+        "subline": "Tanpa akaun, tanpa iklan – amaun kekal pada peranti anda"
+      },
+      "02": {
+        "caption": "Amaran yang memberitahu sekali",
+        "subline": "Memberitahu apabila semakan mendapati paras anda dicapai"
+      },
+      "03": {
+        "caption": "Harga pada skrin utama",
+        "subline": "Senarai pantau atau satu koin dalam widget, tanpa buka apl"
+      },
+      "04": {
+        "caption": "Apa yang bergerak bersama?",
+        "subline": "Volum, pasaran dan niaga hadapan ringkasnya – tanpa ramalan"
+      },
+      "05": {
+        "caption": "Portfolio, jika anda mahu",
+        "subline": "Pilihan, hidupkan dalam Tetapan: belian, jualan, pindahan"
+      }
+    },
     "nl-NL": {
       "01": {
         "caption": "Laatste koers van de beurs",
@@ -688,6 +710,28 @@
       "05": {
         "caption": "需要时再用投资组合",
         "subline": "可选，在设置中开启：买入、卖出、转账"
+      }
+    },
+    "zh-TW": {
+      "01": {
+        "caption": "最新價來自交易所",
+        "subline": "無需帳戶，沒有廣告，金額不離開裝置"
+      },
+      "02": {
+        "caption": "只通知一次的提醒",
+        "subline": "檢查時發現達到你設定的水準就通知你"
+      },
+      "03": {
+        "caption": "主畫面上看價格",
+        "subline": "自選清單或單個幣種做成小工具，無需開啟應用程式"
+      },
+      "04": {
+        "caption": "哪些在同步波動？",
+        "subline": "成交量、大盤和合約資料，簡短總結，不做預測"
+      },
+      "05": {
+        "caption": "需要時再用投資組合",
+        "subline": "可選，在設定中開啟：買入、賣出、轉帳"
       }
     }
   }

@@ -53,7 +53,7 @@ ALIASES = {
     "id-ID": "id", "it": "it-IT", "ja": "ja-JP", "ko": "ko-KR", "nb": "no-NO", "no": "no-NO",
     "nb-NO": "no-NO", "nl": "nl-NL", "pl": "pl-PL", "pt": "pt-PT", "ro-RO": "ro", "ru": "ru-RU",
     "sq-AL": "sq", "sv": "sv-SE", "th-TH": "th", "tr": "tr-TR", "uk-UA": "uk", "vi-VN": "vi",
-    "zh": "zh-CN", "zh-Hans": "zh-CN", "fa-IR": "fa",
+    "zh": "zh-CN", "zh-Hans": "zh-CN", "fa-IR": "fa", "zh-Hant": "zh-TW", "zh-HK": "zh-TW", "ms-MY": "ms",
 }
 RTL = {"ar", "fa", "iw", "he"}
 
@@ -76,6 +76,7 @@ SCRIPT_FAMILIES = {
     "ja": ["Noto Sans CJK JP", "Noto Sans JP", "Source Han Sans JP", "Hiragino Sans", "IPAGothic"],
     "ko": ["Noto Sans CJK KR", "Noto Sans KR", "Source Han Sans KR", "Apple SD Gothic Neo"],
     "zh": ["Noto Sans CJK SC", "Noto Sans SC", "Source Han Sans SC", "PingFang SC", "WenQuanYi Zen Hei"],
+    "zh-Hant": ["Noto Sans CJK TC", "Noto Sans TC", "Source Han Sans TC", "PingFang TC", "WenQuanYi Zen Hei"],
     "ar": ["Noto Sans Arabic", "Noto Naskh Arabic", "Vazirmatn", "DejaVu Sans", "FreeSerif"],
     "fa": ["Vazirmatn", "Noto Sans Arabic", "Noto Naskh Arabic", "DejaVu Sans", "FreeSerif"],
     "iw": ["Noto Sans Hebrew", "Rubik", "DejaVu Sans", "FreeSans"],
@@ -119,7 +120,9 @@ def resolve_fonts(locale: str, font: str | None, font_bold: str | None):
         b = font_bold or font
         r = font or font_bold
         return (b, 0), (r, 0)
-    fams = SCRIPT_FAMILIES.get(_lang(locale), []) + LATIN_FAMILIES
+    # Traditional Chinese (zh-TW, zh-Hant, zh-HK) uses the TC fonts, everything else the language
+    trad = locale.replace("_", "-") in ("zh-TW", "zh-Hant", "zh-HK")
+    fams = SCRIPT_FAMILIES.get("zh-Hant" if trad else _lang(locale), []) + LATIN_FAMILIES
     for fam in fams:
         bold = _fc_match(fam, "bold") or _fc_match(fam, "semibold")
         reg = _fc_match(fam, "medium") or _fc_match(fam, "regular")

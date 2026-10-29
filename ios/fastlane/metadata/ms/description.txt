@@ -1,0 +1,41 @@
+Crypto Checker menyemak harga di bursa anda dan memberitahu apabila semakan mendapati paras anda dicapai. Apabila apl ditutup, iOS jarang menyemak – selalunya selepas berjam-jam, langsung tidak jika apl dileret keluar. Terbaik dengan apl dibuka. Lonjakan singkat mungkin terlepas; apl memberitahunya. Harga bursa anda, bukan purata – percuma.
+
+APA YANG MEMBEZAKANNYA
+• Bursa anda, bukan purata: setiap baris menunjukkan harga terakhir pasangan di bursa pilihan anda – Binance, Coinbase, Kraken, OKX, Bybit dll.
+• Amaran yang memberitahu sekali: “Beritahu saya apabila BTC naik melebihi 100,000 USDT.” Ia berbunyi apabila semakan mendapati paras dilepasi, bukan pada setiap kemas kini – “Sekali” mematikannya, “Setiap kali” mengaktifkannya semula apabila harga kembali.
+• “Apa yang bergerak bersama?”: faktor bagi satu koin – pasaran, volum, kemeruapan, pembiayaan, minat terbuka, jarak ke paras tertinggi/terendah, Fear & Greed. Ia menunjukkan apa yang bergerak serentak – bukan punca, berita atau nasihat pelaburan.
+• Tanpa akaun, iklan atau penjejakan. Pembangun tidak menerima data anda.
+
+JUJUR TENTANG DATA
+• “Jimat” ialah lalai: harga dimuat semula apabila apl dibuka dan berselang di latar belakang. “Langsung semasa dibuka” menambah harga langsung Binance, Bybit, OKX, Coinbase dan Kraken semasa senarai pantau dibuka.
+• Perubahan % dan carta datang dahulu daripada bursa pasangan itu; jika tiada lilin, apl menggunakan Binance atau Coinbase dan memberitahu anda.
+• Fear & Greed, dominasi dan nilai on-chain: alternative.me, CoinGecko, Coin Metrics.
+• Amaun keluar dari peranti hanya melalui eksport (CSV, sandaran) atau disulitkan dalam sandaran iCloud/peranti. Untuk harga, hanya simbol pasangan dihantar ke bursanya; serta kadar pertukaran (Frankfurter), data pasaran dan logo (CoinGecko, Binance), cermin data (GitHub). Jika anda memantau alamat atau xpub, nod blockchain awam melihat alamat itu (bagi xpub, yang dijana) dan IP anda.
+
+SENARAI PANTAU
+• 56 pasaran di 45 bursa: spot dan niaga hadapan, token DEX melalui DexScreener, pilihan saham, emas dan FX (TradFi)
+• Baris kedua “≈ nilai” dalam salah satu daripada 31 mata wang (EUR, CHF, USD …), ditukar pada kadar FX
+• Carta mini dan perubahan % dalam 24 jam atau sejak 00:00 dalam zon waktu anda
+• Kumpulan, kegemaran, seret & lepas, nota bagi setiap koin
+• Baris menanda “lapuk” atau “bursa tidak dapat dihubungi”
+
+AMARAN
+• Harga melebihi/di bawah paras, atau naik/turun mengikut peratus – juga dalam mata wang anda, cth. 60,000 EUR pada pasangan USDT
+• Bergerak x % dalam tetingkap masa, lonjakan volum
+• Pemberitahuan Sensitif Masa, pilihan bunyi, bacaan suara pilihan
+• Waktu senyap dan “Uji amaran”: dengar dahulu cara amaran sampai; log amaran: bila disemak, harga mana, mengapa amaran tidak dicetuskan
+
+PASARAN
+• Ketara: pergerakan harga dan volum luar biasa dalam senarai pantau, pemberitahuan pilihan
+• Nadi kripto, Fear & Greed, penunjuk Bitcoin, pembiayaan dan minat terbuka – nilai terukur semata-mata
+• Yuran rangkaian Ethereum, Bitcoin dan lain-lain, dengan amaran gas
+
+LAGI
+• Widget Skrin Utama dan Skrin Kunci, Aktiviti Langsung bagi satu koin
+• Portfolio pilihan (dalam Tetapan): belian, jualan, tukaran, pindahan, ganjaran, deposit dan pengeluaran; FIFO (lalai) atau purata (Ø); alamat baca sahaja tanpa frasa benih: BTC (termasuk xpub), rangkaian ETH & EVM, SOL, TRX, XRP, LTC, ADA dan TON; import CSV daripada Relai, Swissquote, Bitpanda, Kraken, Binance dan Coinbase; ringkasan tahunan (CSV); kunci sendiri. Bitpanda, Swissquote: CSV sahaja, tiada harga sendiri.
+• Mudah dibaca: hijau/merah atau biru/oren, tanda dan anak panah, bukan warna sahaja, Jenis Dinamik; VoiceOver membaca setiap baris sebagai ayat
+• Sandaran & pemulihan melalui apl Fail
+• Mod cerah dan gelap, lima warna aksen, 33 bahasa
+• Sumber terbuka (MIT) – kod awam di GitHub
+
+Nota: Crypto Checker menunjukkan harga dan portfolio yang anda masukkan sendiri. Ia bukan bursa atau dompet, tidak berdagang dan tidak memberi nasihat pelaburan.

@@ -5,7 +5,7 @@ Version 16.2.2 (Build 91). Dieses Kit enthält alles, um die Store-Screenshots i
 | Datei | Zweck |
 |---|---|
 | `demo-backup.json` | Demo-Daten zum Wiederherstellen (Android und iOS) |
-| `captions.json` | Titel (≤ 30 Zeichen, hart max. 40) und Untertitel (≤ 60 Zeichen) pro Szene, 31 Sprachen (inkl. pt-BR) – Eingabe für das Rahmen-Skript; dieselben Texte als Tabellen unten in «Beschriftungen je Sprache» |
+| `captions.json` | Titel (≤ 30 Zeichen, hart max. 40) und Untertitel (≤ 60 Zeichen) pro Szene, 33 Sprachen (inkl. pt-BR, zh-TW und ms) – Eingabe für das Rahmen-Skript; dieselben Texte als Tabellen unten in «Beschriftungen je Sprache» |
 | `../../../tools/frame_screenshots.py` | setzt Hintergrund, Text und Screenshot zum fertigen Store-Bild zusammen |
 | `raw/<locale>/<NN>.png` | deine rohen Screenshots (nicht im Repo) |
 | `out/<plattform>/<locale>/<NN>.png` | fertige Bilder (nicht im Repo) |
@@ -320,6 +320,16 @@ entspricht dem Titel des Blatts in der App.
 | 04 | 함께 움직이는 것은? | 거래량·시장·선물 데이터를 짧게 요약, 예측 없음 |
 | 05 | 원할 때만 포트폴리오 | 선택 사항, 설정에서 켜기: 매수, 매도, 이체 |
 
+### ms – Malaiisch
+
+| Nr. | Titel | Untertitel |
+|---|---|---|
+| 01 | Harga terakhir dari bursa | Tanpa akaun, tanpa iklan – amaun kekal pada peranti anda |
+| 02 | Amaran yang memberitahu sekali | Memberitahu apabila semakan mendapati paras anda dicapai |
+| 03 | Harga pada skrin utama | Senarai pantau atau satu koin dalam widget, tanpa buka apl |
+| 04 | Apa yang bergerak bersama? | Volum, pasaran dan niaga hadapan ringkasnya – tanpa ramalan |
+| 05 | Portfolio, jika anda mahu | Pilihan, hidupkan dalam Tetapan: belian, jualan, pindahan |
+
 ### nl-NL – Niederländisch
 
 | Nr. | Titel | Untertitel |
@@ -459,3 +469,13 @@ entspricht dem Titel des Blatts in der App.
 | 03 | 主屏幕上看价格 | 自选列表或单个币种做成小组件，无需打开应用 |
 | 04 | 哪些在同步波动？ | 成交量、大盘和合约数据，简短总结，不做预测 |
 | 05 | 需要时再用投资组合 | 可选，在设置中开启：买入、卖出、转账 |
+
+### zh-TW – Chinesisch (traditionell)
+
+| Nr. | Titel | Untertitel |
+|---|---|---|
+| 01 | 最新價來自交易所 | 無需帳戶，沒有廣告，金額不離開裝置 |
+| 02 | 只通知一次的提醒 | 檢查時發現達到你設定的水準就通知你 |
+| 03 | 主畫面上看價格 | 自選清單或單個幣種做成小工具，無需開啟應用程式 |
+| 04 | 哪些在同步波動？ | 成交量、大盤和合約資料，簡短總結，不做預測 |
+| 05 | 需要時再用投資組合 | 可選，在設定中開啟：買入、賣出、轉帳 |

@@ -46,7 +46,7 @@ class LabelValueUsageTest {
         )
     }
 
-    /** Alle 31 Sprachen haben `label_value` mit beiden Platzhaltern und der Typografie der Sprache. */
+    /** Alle 33 Sprachen haben `label_value` mit beiden Platzhaltern und der Typografie der Sprache. */
     @Test
     fun labelValueHasLanguageTypography() {
         val res = findUp(listOf("src/main/res", "app/src/main/res", "android/app/src/main/res"))
@@ -54,14 +54,14 @@ class LabelValueUsageTest {
         val files = res!!.listFiles { f -> f.isDirectory && f.name.startsWith("values") }!!
             .map { File(it, "strings_common.xml") }
             .filter { it.isFile }
-        assertEquals("strings_common.xml in allen 31 Sprachen", 31, files.size)
+        assertEquals("strings_common.xml in allen 33 Sprachen", 33, files.size)
         for (file in files) {
             val value = Regex("""<string name="label_value">([^<]*)</string>""")
                 .find(file.readText(Charsets.UTF_8))?.groupValues?.get(1)
             assertNotNull("label_value fehlt in ${file.parentFile?.name}", value)
             val expected = when (file.parentFile?.name) {
                 "values-fr" -> """%1${'$'}s\u00A0: %2${'$'}s"""
-                "values-zh", "values-ja" -> "%1\$s：%2\$s"
+                "values-zh", "values-b+zh+Hant", "values-ja" -> "%1\$s：%2\$s"
                 else -> "%1\$s: %2\$s"
             }
             assertEquals("label_value in ${file.parentFile?.name}", expected, value)

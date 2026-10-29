@@ -4,7 +4,7 @@
 your level reached – no account.** It checks when it looks (with the app closed, the phone decides how often), not
 at the moment a price is hit. Watchlist, widgets and a market overview; as an extra, “What is moving with it?”
 shows what moves at the same time as a single coin – no cause, no forecast, no investment advice.
-Android and iPhone · 31 languages · no ads · no tracking · open source (MIT).
+Android and iPhone · 33 languages · no ads · no tracking · open source (MIT).
 
 > **Deutsch:** Crypto Checker ist ein Krypto-Checker: Kurse direkt von deiner Börse und
 > Hinweise, wenn beim Nachsehen eine Marke erreicht ist – ohne Konto. Die App meldet sich,
@@ -102,12 +102,12 @@ Futures · DEX pools · Forex, each sorted by trading volume on the install date
 ## Translations
 
 All texts live in the Android string resources
-(`android/app/src/main/res/values*/strings*.xml`, 31 languages); the iOS string
+(`android/app/src/main/res/values*/strings*.xml`, 33 languages); the iOS string
 catalog is generated from them. The workflow **Strings** checks placeholders,
 plural forms and missing translations on every change
 ([`.github/scripts/check_strings.py`](.github/scripts/check_strings.py)).
-The Android build keeps only these 31 languages (`androidResources.localeFilters`, including the `iw`/`he` and
-`in`/`id` spellings); an instrumented test (`LocaleFiltersTest`) checks that none of them falls back to English.
+The Android build keeps only these 33 languages (`androidResources.localeFilters`, including the `iw`/`he` and
+`in`/`id` spellings and `b+zh+Hant` for Traditional Chinese); an instrumented test (`LocaleFiltersTest`) checks that none of them falls back to English.
 
 ## Economic calendar
 

@@ -51,10 +51,15 @@ object AppLanguages {
         AppLanguage("th", "ไทย"),
         AppLanguage("vi", "Tiếng Việt"),
         AppLanguage("id", "Bahasa Indonesia"),
+        AppLanguage("ms", "Bahasa Melayu"),
         AppLanguage("zh", "中文（简体）"),
+        AppLanguage("zh-Hant", "中文（繁體）"),
         AppLanguage("ja", "日本語"),
         AppLanguage("ko", "한국어"),
     )
+
+    /** Regionen, in denen Chinesisch ohne Schriftangabe traditionell geschrieben wird. */
+    private val TRADITIONAL_CHINESE_REGIONS = setOf("TW", "HK", "MO")
 
     private const val PREFS = "app_language"
     private const val KEY_TAG = "tag"
@@ -119,7 +124,8 @@ object AppLanguages {
 
     /**
      * Alte Android-Codes (iw, in) auf die heutigen abbilden und nur die Sprache behalten —
-     * ausser bei Brasil-Portugiesisch (pt-BR), das als eigene Sprache wählbar ist.
+     * ausser bei Brasil-Portugiesisch (pt-BR) und traditionellem Chinesisch (zh-Hant, auch zh-TW/-HK/-MO),
+     * die als eigene Sprachen wählbar sind.
      */
     private fun normalize(tag: String): String {
         if (tag.isEmpty()) return ""
@@ -128,6 +134,7 @@ object AppLanguages {
             "iw" -> "he"
             "in" -> "id"
             "pt" -> if (locale.country == "BR") "pt-BR" else "pt"
+            "zh" -> if (locale.script == "Hant" || locale.country in TRADITIONAL_CHINESE_REGIONS) "zh-Hant" else "zh"
             else -> lang
         }
     }

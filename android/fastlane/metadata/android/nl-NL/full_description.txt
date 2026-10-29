@@ -34,7 +34,7 @@ VERDER
 • Portfolio optioneel (aan te zetten in Instellingen): aankopen, verkopen, swaps, transfers, rewards, stortingen en opnames; FIFO (standaard) of gemiddelde (Ø); adressen alleen-lezen, zonder seed, voor BTC (ook xpub), ETH & EVM-chains, SOL, TRX, XRP, LTC, ADA en TON; CSV-import van Relai, Swissquote, Bitpanda, Kraken, Binance en Coinbase; jaaroverzicht als CSV; eigen vergrendeling. Bitpanda en Swissquote: geen eigen koers, alleen via CSV.
 • Leesbaar voor iedereen: groen/rood of blauw/oranje, teken en pijl in plaats van alleen kleur; TalkBack leest elke rij als één zin
 • Back-up en herstel naar een bestand – ook tussen Android en iPhone
-• Lichte en donkere modus, vijf accentkleuren, 31 talen
+• Lichte en donkere modus, vijf accentkleuren, 33 talen
 • Open source (MIT) – de code staat openbaar op GitHub
 
 Let op: Crypto Checker toont koersen en een portfolio dat je zelf invoert. Het is geen beurs of wallet, handelt niet en geeft geen beleggingsadvies.

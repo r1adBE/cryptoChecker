@@ -3051,6 +3051,16 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   «Room schema drift» passed); «Failed tests» skips assumption skips (ScreenshotTourTest). `room_schema_drift.py`
   also compares that hash with the generated `*_Impl` (`data/build/generated/ksp`, `--self-test`); migration-tests
   fails unless the result XML shows every listed class and each `@Test` of RoomSchemaMigrationTest passed.
+* Build 175: two more languages, 33 in total. Traditional Chinese in `values-b+zh+Hant` (app and wear) next to the
+  unchanged `values-zh` (Simplified): Android computes the script of a qualifier without one from likely subtags, so
+  `values-zh` counts as Hans and only matches Hans devices, while `b+zh+Hant` matches zh-Hant, zh-TW, zh-HK and zh-MO –
+  no `values-zh-rTW`/`-rHK` copies needed. Malay in `values-ms`; both languages have only the plural `other`
+  (`check_strings.py`, `convert_strings.py`). iOS: `b+zh+Hant` → `zh-Hant`, `ms`, 33 languages in the catalogs,
+  `CFBundleLocalizations` of app, widgets, watch and watch widgets, `ios_extra_strings.json`. Language picker:
+  `AppLanguages` (`ms`, `zh-Hant`; `normalize` keeps Hant/TW/HK/MO as `zh-Hant`), `locales_config.xml`,
+  `localeFilters` (`ms`, `b+zh+Hant`, plus `zh-rTW`/`zh-rHK` for library texts), iOS language names. Store: Play `ms`,
+  `zh-TW` and `zh-HK` (copy of zh-TW), App Store `ms` and `zh-Hant`, screenshot captions (TC fonts in `frame_screenshots.py`). Tests that count
+  languages expect 33; `StringResources` also reads `values-b+…` folders.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

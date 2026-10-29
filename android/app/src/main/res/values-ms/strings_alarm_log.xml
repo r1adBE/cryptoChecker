@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alarm_log_title">Log amaran</string>
+    <string name="alarm_log_open">Tunjukkan log amaran</string>
+    <string name="alarm_log_intro">Bila amaran dicetuskan – dan bila ia sepatutnya dicetuskan tetapi ditahan. Disimpan hanya pada peranti ini, selama 14 hari.</string>
+    <string name="alarm_log_empty_title">Belum ada catatan</string>
+    <string name="alarm_log_empty_message">Catatan muncul di sini apabila amaran dicetuskan atau ditahan – contohnya kerana harga lapuk atau semasa waktu senyap.</string>
+    <string name="alarm_log_clear">Kosongkan log</string>
+    <string name="alarm_log_clear_title">Kosongkan log amaran?</string>
+    <string name="alarm_log_clear_message">Semua catatan dialih keluar. Amaran anda kekal seperti sedia ada.</string>
+    <string name="alarm_log_threshold">Paras %1$s</string>
+    <string name="alarm_last_check">Kali terakhir disemak: %1$s</string>
+    <string name="alarm_outcome_fired">Dicetuskan</string>
+    <string name="alarm_outcome_not_reached">Paras belum dicapai</string>
+    <string name="alarm_outcome_already_triggered">Sudah dilaporkan – menunggu sehingga harga kembali ke sebelah lain</string>
+    <string name="alarm_outcome_cooldown">Tidak dicetuskan – masa rehat selepas amaran terakhir</string>
+    <string name="alarm_outcome_stale">Tidak dicetuskan – harga lapuk (setakat %1$s)</string>
+    <string name="alarm_outcome_mark_price">Tidak dicetuskan – harga tanda, bukan harga dagangan</string>
+    <string name="alarm_outcome_low_liquidity">Tidak dicetuskan – kecairan di bawah 10,000 USD atau tidak diketahui</string>
+    <string name="alarm_outcome_quiet_hours">Tidak dicetuskan – waktu senyap (diberitahu selepas itu jika masih dipenuhi)</string>
+    <string name="alarm_outcome_notifications_off">Tidak dicetuskan – pemberitahuan dimatikan</string>
+    <string name="alarm_outcome_not_shown">Tidak dicetuskan – pemberitahuan tidak sampai, akan dicuba semula</string>
+    <string name="alarm_outcome_no_rate">Tidak disemak – tiada kadar pertukaran</string>
+    <string name="alarm_outcome_no_price">Tiada harga – pertanyaan kepada bursa gagal</string>
+
+    <string name="alarm_outcome_snoozed">Ditahan – “1 jam kemudian” masih berjalan</string>
+    <string name="alarm_log_source_app">dalam apl</string>
+    <string name="alarm_log_source_background">di latar belakang</string>
+    <string name="alarm_log_source_exact">semakan tepat masa</string>
+    <string name="alarm_log_source_widget">melalui widget</string>
+    <string name="alarm_outcome_fx_stale">Tidak disemak – kadar pertukaran lebih lama daripada 36 jam</string>
+    <string name="alarm_outcome_fx_unsure">Tidak disemak – penukaran USDT tidak pasti (hanya melalui USDC)</string>
+</resources>

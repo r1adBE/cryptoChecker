@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">Amaran portfolio dijeda: tiada harga semasa untuk %1$s</string>
+    <string name="portfolio_alarms_paused_price_generic">Amaran portfolio dijeda: bukan semua koin mempunyai harga semasa</string>
+    <string name="portfolio_alarms_paused_addresses">Amaran portfolio dijeda: baki alamat yang dipantau belum dimuatkan</string>
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Amaran portfolio dijeda: baki token %1$s sebahagiannya lapuk</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Amaran portfolio dijeda: baki token alamat yang dipantau sebahagiannya lapuk</string>
+    <string name="portfolio_alarms_paused_unverified">Amaran portfolio dijeda: harga belum disahkan untuk %1$s</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Amaran portfolio dijeda: harga sesetengah koin belum disahkan</string>
+    <string name="portfolio_alarms_address_failing">Amaran portfolio menyemak tanpa %1$s: baki tidak dimuatkan selama lebih 24 jam</string>
+    <string name="portfolio_alarms_address_failing_generic">Amaran portfolio menyemak tanpa alamat yang bakinya tidak dimuatkan selama lebih 24 jam</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">token sebahagiannya lapuk</string>
+    <string name="portfolio_address_restore_failed">Alamat tidak dapat dipulihkan – tambah semula jika perlu</string>
+    <string name="portfolio_address_remove_failed">Alamat tidak dapat dialih keluar – sila cuba lagi</string>
+</resources>

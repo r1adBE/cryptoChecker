@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
+    <string name="portfolio_cutoff_export_action">基準日匯出…</string>
+    <string name="portfolio_tax_worksheet_action">工作底稿…</string>
+    <string name="portfolio_export_address_unobserved">該日期未觀察此地址——未計入</string>
+    <string name="portfolio_export_button">匯出 CSV</string>
+    <string name="portfolio_export_col_amount">數量</string>
+    <string name="portfolio_export_col_coin">幣種</string>
+    <string name="portfolio_export_col_note">備註</string>
+    <string name="portfolio_export_col_price">價格 USDT</string>
+    <string name="portfolio_export_col_rate">匯率 USDT→%1$s</string>
+    <string name="portfolio_export_col_value">市值 USDT</string>
+    <string name="portfolio_export_col_value_cur">市值 %1$s</string>
+    <!-- Inhalt der CSV-Datei -->
+    <string name="portfolio_export_comment"># 基準日 %1$s，貨幣 %2$s，匯率日期 %3$s</string>
+    <string name="portfolio_export_currency">貨幣：%1$s</string>
+    <string name="portfolio_export_date">基準日</string>
+    <string name="portfolio_export_done">匯出已儲存</string>
+    <string name="portfolio_export_estv_note">財富稅適用 ESTV 價目表 %1$s 中的官方年末價格（如有列出）：%2$s</string>
+    <string name="portfolio_export_failed">匯出失敗</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">匯出失敗：無法寫入檔案——儲存位置已不存在或不可寫入</string>
+    <string name="portfolio_export_failed_prices">匯出失敗：缺少價格——無連線或交易所無回應</string>
+    <string name="portfolio_export_from_address">來自地址——無買入價</string>
+    <string name="portfolio_export_hint">所選日期結束時的持倉，按 USDT 計的當日收盤價（UTC）估值，並按當日歐洲央行參考匯率換算。可在「換算為」中更改貨幣。</string>
+    <string name="portfolio_export_incomplete">不完整</string>
+    <string name="portfolio_export_no_fx">無匯率</string>
+    <string name="portfolio_export_no_price">無價格</string>
+    <string name="portfolio_export_running">正在取得歷史價格…</string>
+    <string name="portfolio_export_title">基準日匯出</string>
+    <string name="portfolio_export_today_hint">今天尚未結束：使用目前價格代替當日收盤價。</string>
+    <string name="portfolio_export_total">合計</string>
+    <string name="portfolio_export_unchecked">未核實（無匹配價格）</string>
+
+    <!-- Steuer-Export (Arbeitspapier) -->
+    <string name="tax_export_adjustment">表面虧損（superficial loss）——計入調整後成本基礎（ACB）</string>
+    <string name="tax_export_at_wallet_note">奧地利：按幣和錢包（交易所）計算移動平均——錢包之間的轉移會一併帶走成本——獎勵按取得成本 0——新持倉不計手續費（不可扣除）——借貸利息按收到時的價值（按百分之 27.5 計收入）。</string>
+    <string name="tax_export_avg_cost_rates">按買入日匯率計的成本（Ø）</string>
+    <string name="tax_export_ch_wealth_not_calculated">財富稅未計算——ESTV 價目表：%1$s</string>
+    <string name="tax_export_col_acquired">買入日期</string>
+    <string name="tax_export_col_adjustment">不可扣除虧損 %1$s</string>
+    <string name="tax_export_col_cost">成本 %1$s</string>
+    <string name="tax_export_col_date">日期</string>
+    <string name="tax_export_col_days">持有天數</string>
+    <string name="tax_export_col_gain">損益 %1$s</string>
+    <string name="tax_export_col_gross">扣除手續費前價格 %1$s</string>
+    <string name="tax_export_col_long_term">持有 &gt; 1 年</string>
+    <string name="tax_export_col_portfolio_value">投資組合價值 %1$s</string>
+    <string name="tax_export_col_proceeds">賣出所得 %1$s</string>
+    <string name="tax_export_col_sold">賣出日期</string>
+    <string name="tax_export_cost_incomplete">總取得成本不完整</string>
+    <string name="tax_export_cost_missing">缺少買入價</string>
+    <string name="tax_export_fee_consumed">手續費耗盡了全部收到數量</string>
+    <string name="tax_export_fee_leg">以其他幣支付的手續費</string>
+    <string name="tax_export_fee_row">手續費</string>
+    <string name="tax_export_fee_value_missing">不含第三種幣手續費的價值</string>
+    <string name="tax_export_gains">已實現的處置（CSV）</string>
+    <string name="tax_export_gains_title">已實現的處置 %1$s</string>
+    <string name="tax_export_gift">贈與</string>
+    <string name="tax_export_holdings_cutoff">%1$s 持倉（CSV）</string>
+    <string name="tax_export_holdings_title">%1$s 持倉</string>
+    <string name="tax_export_income">收入（CSV）</string>
+    <string name="tax_export_income_title">收入 %1$s</string>
+    <string name="tax_export_info_template">範本：%1$s · 方法：%2$s · 納稅年度：%3$s · 貨幣：%4$s · Crypto Checker %5$s</string>
+    <string name="tax_export_lost_fee_cost">無已付批次的網路手續費成本</string>
+    <string name="tax_export_match_pool">依 Section 104 的合併持倉（Section 104 pool）</string>
+    <string name="tax_export_match_same_day">同一天（HMRC）</string>
+    <string name="tax_export_match_thirty_day">30 天規則（HMRC）</string>
+    <string name="tax_export_method_change_warning">更改了方法或範本？以前的年份也會重新計算——請與已申報的內容核對。</string>
+    <string name="tax_export_method_overridden">範本按 %1$s 計算——而不是 %2$s</string>
+    <string name="tax_export_new_holding">2021年3月1日起取得</string>
+    <string name="tax_export_no">否</string>
+    <string name="tax_export_old_holding">2021年3月1日前取得</string>
+    <string name="tax_export_oversold">賣出量超過記錄</string>
+    <string name="tax_export_payment">用加密貨幣支付</string>
+    <string name="tax_export_period">%1$s – %2$s</string>
+    <string name="tax_export_proceeds_missing">缺少賣出價</string>
+    <string name="tax_export_proceeds_without_cost">無買入價的賣出所得</string>
+    <string name="tax_export_realized_differs">稅務 CSV 可能與「已實現」不同（各國稅務規則）。</string>
+    <string name="tax_export_rule">&gt; 1 年：在買入日期 + 1 個日曆年之後賣出。日期為當地時間。匯率：交易當日的歐洲央行每日匯率；若無，則取此前最多 7 天內的最近匯率。</string>
+    <string name="tax_export_rules_date">規則截至：%1$s</string>
+    <string name="tax_export_rules_stale">規則截至 %1$s——%2$s 的稅率和免稅額可能已有變化。請核對這些數值。</string>
+    <string name="tax_export_spouse_gift">給配偶/伴侶 – 無損益</string>
+    <string name="tax_export_summary">年度彙總 %1$s（CSV）</string>
+    <string name="tax_export_swap">兌換</string>
+    <string name="tax_export_tax_year">納稅年度</string>
+    <string name="tax_export_transfer_fee_info">USDT/法幣轉移手續費——不算虧損，不計入成本，僅供參考</string>
+    <string name="tax_export_unassigned_fee">手續費未分配——成本未知</string>
+    <string name="tax_export_usdt_usd_note">USDT 按 USDT/USD 日收盤價換算；無收盤價時按 1 USD（逐行註明）</string>
+    <string name="tax_export_value_estimated">估算值（每日收盤價）</string>
+    <string name="tax_export_value_missing">缺少收到時的價值</string>
+    <string name="tax_export_wallet">錢包：%1$s</string>
+    <string name="tax_export_wallet_unspecified">未指定</string>
+    <string name="tax_export_withdrawal_fee">提取手續費</string>
+    <string name="tax_export_withdrawal_fee_info">USDT/法幣提取手續費——不算虧損，僅供參考</string>
+    <string name="tax_export_workpaper_disclaimer">工作底稿——不是納稅申報表，也不構成稅務建議</string>
+    <string name="tax_export_workpaper_title">工作底稿</string>
+    <string name="tax_export_year_local_zone">日期為當地時間（%1$s）</string>
+    <string name="tax_export_yes">是</string>
+
+    <!-- Steuer-Export: Zeilen und Spalten -->
+    <string name="tax_line_at_interest">借貸利息（收到時的價值）</string>
+    <string name="tax_line_at_old_long">2021年3月1日前取得、持有 &gt; 1 年：通常不徵稅——請核實</string>
+    <string name="tax_line_at_rate">特別稅率 百分之 27.5：2021年3月1日起取得且2022年3月1日起出售部分的淨額 + 利息</string>
+    <string name="tax_line_au_discounted">扣除虧損和百分之 50 的折扣後的淨資本利得</string>
+    <string name="tax_line_ca_taxable">應稅資本利得（計入比例 1/2）</string>
+    <string name="tax_line_ch_income">已列出獎勵——處理方式見 ESTV 工作檔案</string>
+    <string name="tax_line_ch_private">私人資產的資本利得：未計算——分類見 ESTV</string>
+    <string name="tax_line_ch_wealth">財富稅：不計算 – 持倉 CSV 使用 12 月 31 日交易所價格 × USD/CHF – 計稅價值：ESTV 價目表</string>
+    <string name="tax_line_de_long">持有 &gt; 1 年：依 § 23 EStG 通常不徵稅——請核實</string>
+    <string name="tax_line_denied_loss">不可扣除虧損（表面虧損 / superficial loss）</string>
+    <string name="tax_line_fr_outflow">無賣出的流出（提取）——總取得成本按比例減少</string>
+    <string name="tax_line_fr_rate">統一稅率 百分之 12.8 加社會分攤（或選擇累進稅率）</string>
+    <string name="tax_line_fr_threshold">每年不超過 305 € 的轉讓：通常免稅（賣出價格合計）——請核實</string>
+    <string name="tax_line_gains">收益</string>
+    <string name="tax_line_income">收入（獎勵按收到時的價值）</string>
+    <string name="tax_line_jp_misc">雜項所得（雑所得）：淨收益 + 收入</string>
+    <string name="tax_line_long_net">淨額、持有 &gt; 1 年</string>
+    <string name="tax_line_losses">虧損</string>
+    <string name="tax_line_net">淨損益</string>
+    <string name="tax_line_new_net">淨額、2021年3月1日起取得、2022年3月1日起出售</string>
+    <string name="tax_line_old_long_net">淨額、2021年3月1日前取得、持有 &gt; 1 年</string>
+    <string name="tax_line_old_short_net">淨額、投機交易（舊法）：2021年3月1日前取得且持有 ≤ 1 年，或2022年3月1日前出售</string>
+    <string name="tax_line_proceeds">賣出所得</string>
+    <string name="tax_line_short_net">淨額、持有 ≤ 1 年</string>
+    <string name="tax_line_transfer_fees">轉移手續費（自己的錢包之間）</string>
+    <string name="tax_line_uk_after_exempt">超出免稅額的淨收益（僅加密資產）</string>
+    <string name="tax_line_uk_exempt">年度免稅額（Annual Exempt Amount） – 適用於全部處置合計，此處全額扣除</string>
+    <string name="tax_line_us_terms">短期（≤ 1 年）：普通稅率／長期（&gt; 1 年）：資本利得稅率</string>
+    <string name="tax_line_withdrawal_fees">提取手續費</string>
+
+    <!-- Steuer Deutschland -->
+    <string name="tax_de_below">低於限額</string>
+    <string name="tax_de_col_item">項目</string>
+    <string name="tax_de_disclaimer">僅供參考——不是納稅申報表，也不構成稅務建議。</string>
+    <string name="tax_de_explain_below">不超過 %1$s：低於限額（僅供參考）。</string>
+    <string name="tax_de_explain_loss">淨虧損：這些出售無需納稅。§ 23 EStG 下的虧損只能與私人出售收益抵扣——在同一年或向前一年結轉及向以後年度結轉（§ 23 Abs. 3 / § 10d EStG）。請在納稅申報中申報該虧損以便予以確認。</string>
+    <string name="tax_de_explain_reached">自 %1$s 起全部金額計入（免稅限額——不是扣除額）。</string>
+    <string name="tax_de_explain_unknown">無法核查：缺少匯率、買入價或持有期。</string>
+    <string name="tax_de_income_limit">服務免稅限額（§ 22 Nr. 3 EStG）</string>
+    <string name="tax_de_limit_scope">限額適用於全年所有私人出售或服務的合計——包括應用程式之外的部分。</string>
+    <string name="tax_de_loading">正在計算…</string>
+    <string name="tax_de_long_gains">收益、持有 &gt; 1 年</string>
+    <string name="tax_de_long_losses">虧損、持有 &gt; 1 年</string>
+    <string name="tax_de_loss">淨虧損——僅可與私人出售收益抵扣（§ 23 EStG）</string>
+    <string name="tax_de_private_limit">私人出售免稅限額（§ 23 EStG）</string>
+    <string name="tax_de_reached">已達限額——通常全部金額計入——請核實</string>
+    <string name="tax_de_short_gains">收益、持有 ≤ 1 年</string>
+    <string name="tax_de_short_losses">虧損、持有 ≤ 1 年</string>
+    <string name="tax_de_unclassified">無持有期</string>
+    <string name="tax_de_unknown">無法核查</string>
+
+    <!-- Steuer-Vorlagen je Land -->
+    <string name="tax_template_at">奧地利</string>
+    <string name="tax_template_au">澳大利亞</string>
+    <string name="tax_template_beta">Beta</string>
+    <string name="tax_template_beta_note">測試版：各國規則已簡化，報稅前請核實</string>
+    <string name="tax_template_ca">加拿大</string>
+    <string name="tax_template_ch">瑞士</string>
+    <string name="tax_template_confirm_text">測試版，規則已簡化，缺少其他平台的交易——報稅前請核實。</string>
+    <string name="tax_template_confirm_title">稅務範本（測試版）</string>
+    <string name="tax_template_current">範本：%1$s · 方法：%2$s · 貨幣：%3$s</string>
+    <string name="tax_template_de">德國</string>
+    <string name="tax_template_fr">法國</string>
+    <string name="tax_template_hint">僅供參考：決定工作底稿的方法、納稅年度和彙總。投資組合卡片保持中性——贈與和轉帳手續費可能與工作底稿不同。</string>
+    <string name="tax_template_jp">日本</string>
+    <string name="tax_template_neutral">中性（所有國家）</string>
+    <string name="tax_template_suggestion">適合你所在地區的建議：%1$s</string>
+    <string name="tax_template_title">稅務範本</string>
+    <string name="tax_template_uk">英國</string>
+    <string name="tax_template_us">美國</string>
+    <string name="tax_template_use">使用 %1$s</string>
+
+    <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
+    <string name="tax_method_at">舊/新持倉，移動平均</string>
+    <string name="tax_method_ca_acb">平均調整後成本基礎（ACB – 表面虧損規則 / superficial loss）</string>
+    <string name="tax_method_fr_pta">總取得價格（art. 150 VH bis）</string>
+    <string name="tax_method_jp_total">總平均法（総平均法）</string>
+    <string name="tax_method_uk_pool">依 Section 104 的合併持倉（Section 104 pool – 同一天 / 30 天）</string>
+    <string name="tax_note_at">按幣和錢包計算移動平均——不跨所有錢包（KryptowährungsVO § 2）。獎勵以取得成本 0 計入新持倉（BMF：質押 / 空投）——收入檔案按收到時的價值列示。2021年3月1日起取得的持倉手續費不可扣除（§ 27a 第4款第2項、§ 20 第2款 EStG）：成本和收入均不計手續費。借貸利息（來自 CSV 匯入類型或備註）在收到時按百分之 27.5 計為收入，並以該價值作為取得成本。</string>
+    <string name="tax_note_at_staking">用已有幣質押及空投：收到時的價值在稅務上無關緊要——依法取得成本為 0（§ 27b Abs. 2 EStG；BMF「Kryptowährungen」）。僅在賣出時才產生稅款。</string>
+    <string name="tax_note_fr">賣出和以加密貨幣支付的手續費都屬於轉讓——兌換予以遞延。賣出時的加密貨幣手續費計入扣除手續費前的價格——否則按其價值單獨視為轉讓。投資組合價值取自每日收盤價——缺少收盤價時成本留空。</string>
+    <string name="tax_note_network_fee">以加密貨幣支付的網路手續費（轉入你自己的錢包、提幣）是按市價處置手續費所用的幣——損益只計這些幣，而不是整筆手續費的虧損（%1$s）。沒有記錄價格時用當日（UTC）收盤價；沒有收盤價時賣出所得留空。</string>
+    <string name="tax_note_specific_id">不支援個別認定法（Specific Identification）——採用 FIFO（先進先出）。</string>
+    <string name="tax_note_spouse_gift">標記為「給配偶 / 伴侶」的贈與無損益：所得 = 你的成本，由你的伴侶承接（%1$s）。</string>
+    <string name="tax_note_stable_swap">賣出換成你繼續持有的穩定幣（USDT/USDC/DAI …）在此屬於加密貨幣換加密貨幣，不徵稅——請記為兌換為該穩定幣。只有賣出換成歐元才徵稅——「賣出」 視為賣出換成歐元。</string>
+    <string name="tax_note_transfer_fee">在你自己的錢包之間轉移時以 USDT 或法幣支付的手續費同樣如此：不計入成本，僅作參考列出。</string>
+    <string name="tax_note_uk">按 HMRC 匹配：同一天，然後之後 30 天，然後 依 Section 104 的合併持倉（Section 104 pool）。</string>
+    <string name="tax_note_us_transition">2025年1月1日過渡（Rev. Proc. 2024-28，安全港）：若以前年度對所有錢包統一使用 FIFO，截至 2024年12月31日的剩餘批次分配給持有這些幣的錢包——持有最早幣的錢包獲得最早的成本。此分配為應用程式自身的規則——請與你自己的記錄核對。</string>
+    <string name="tax_note_us_wallet">自 2025 納稅年度起 IRS 要求按錢包/交易所計算成本（Rev. Proc. 2024-28）——匯出自 2025 年起按錢包使用 FIFO——2025 年之前對所有錢包合併使用 FIFO；若設定的成本計算方法為按錢包 FIFO，則按錢包使用 FIFO。</string>
+    <string name="tax_note_withdrawal_fee">USDT 或法幣支付的提取手續費不算虧損：法幣手續費不可扣除，USDT 手續費是按面值處置、沒有收益——僅作參考列出（%1$s）。</string>
+    <string name="tax_summary_at_interest_income">計入：收到時按百分之 27.5 特別稅率計為收入（§ 27b 第2款第1項 EStG / BMF）——幣以該價值作為取得成本</string>
+    <string name="tax_summary_at_reward_info">僅供參考——不計入任何合計：獎勵以取得成本 0 計入新持倉，僅在出售時徵稅（已含在收益中）——§ 27b Abs. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">2022年1月1日至2月28日：可選擇百分之 27.5 稅率</string>
+    <string name="tax_summary_at_withdrawal_fee">提取手續費——不與新持倉抵扣（按特別稅率費用不可扣除，§ 20(2) EStG）</string>
+    <string name="tax_summary_ch_fifo_info">僅供參考——應用程式的 FIFO 計算——未分類——見 ESTV</string>
+    <string name="tax_summary_ch_year_end_value">持倉 CSV 中 12 月 31 日的價值 = 交易所價格 × USD/CHF——不是 ESTV 價目表的計稅價值</string>
+    <string name="tax_summary_de_withdrawal_fee">提取手續費——不按 § 23 抵扣，請核實能否作為費用（Werbungskosten）扣除</string>
+    <string name="tax_summary_not_calculated_estv">未計算——ESTV 價目表：%1$s</string>
+    <string name="tax_summary_orientation">僅供參考</string>
+    <string name="tax_summary_orientation_block">僅供參考——不構成稅務建議——不是稅務核定</string>
+    <string name="tax_summary_orientation_item">僅供參考：%1$s</string>
+    <string name="tax_summary_title">年度彙總 %1$s %2$s</string>
+    <string name="tax_summary_transfer_fee_info">USDT/法幣轉移手續費——不算虧損，也不計入成本，僅供參考</string>
+    <string name="tax_summary_withdrawal_fee_info">USDT/法幣提取手續費——不計為虧損，僅供參考</string>
+
+    <string name="tax_line_at_old_speculation_limit">投機交易（舊法，持有≤1年）：免稅限額（舊版EStG第31條第3款）</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">2022年3月1日前的借貸利息（收到時的價值）</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">2022年3月1日前的利息：舊法（累進稅率），而非百分之 27.5</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">2022年3月1日前 – 請諮詢專業人士</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">利息 – 收到時應稅</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">質押 – 僅供參考（取得成本為 0，出售時徵稅）</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">利息合計（應稅）</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">質押合計（參考）</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">淨資本虧損（結轉）</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">未選擇：包括2022年1月1日至2月28日的出售</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">2022年3月1日前的質押：取得成本按 0 計 – 請諮詢專業人士</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">30 天規則仍可能改變這些數字（截至 %1$s 的買入）</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">扣除費用前的出售所得超過申報門檻（£50,000；2020/21–2022/23：£49,200）：如已登記 Self Assessment，即使沒有應稅收益也須向 HMRC 申報</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">%1$s年12月31日財富價值（僅供參考）</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">以 ESTV 價目表（ictax.admin.ch）為準。價目表未列出的幣種通常適用交易所收盤價。不計算財富稅。</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – 持倉 %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">未計算</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">無法讀取關注的地址 – 此檔案中缺少其餘額</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">被關注地址的批次自其購買日期起計入；如果該地址目前的餘額較低，這些批次會被削減。</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">觀察地址計入總價值，但沒有購入成本——因此收益可能偏高。請將成本記錄為買入。</string>
+    <string name="tax_summary_fr_rewards_income">該金額假定獎勵在收到時已作為收入納稅（收到時的價值計入取得成本）– 否則，較審慎的理解是取得成本為 0。</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">沒有記錄價格的市值（手續費、贈送/支付、兌換、獎勵、網路手續費、組合總值）按交易當日（UTC）收盤價計</string>
+</resources>

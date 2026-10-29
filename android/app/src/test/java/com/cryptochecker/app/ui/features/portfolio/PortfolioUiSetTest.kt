@@ -87,7 +87,7 @@ class PortfolioEmptyStateTest {
     @Test
     fun beispielMitPlatzhalterInAllenSprachen() {
         val languages = StringResources.byLanguage()
-        assertEquals(31, languages.size)
+        assertEquals(33, languages.size)
         for ((folder, strings) in languages) {
             val example = strings["portfolio_empty_example_plain"]
             assertTrue("$folder: fehlt", example != null)

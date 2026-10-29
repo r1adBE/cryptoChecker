@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: beobachtete Adressen (Wallets) -->
+    <string name="portfolio_address_add">新增地址</string>
+    <string name="portfolio_address_count">計入</string>
+    <string name="portfolio_address_error">更新失敗</string>
+    <string name="portfolio_address_hint">公開地址（BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA）或 xpub</string>
+    <string name="portfolio_address_label">標籤（選填）</string>
+    <string name="portfolio_address_not_since_buy">來自地址 · 不計入 「自買入」：%1$s</string>
+    <string name="portfolio_address_overlap">你自己的交易中也有：%1$s——兩者會相加。是同一批幣？請選擇 「僅顯示」。</string>
+    <string name="portfolio_address_overlap_ask">你已用自己的交易記錄了 %1$s。要把此地址的餘額計入投資組合，還是僅顯示？</string>
+    <string name="portfolio_address_overlap_auto">「%1$s」 現在僅顯示，不計入——%2$s 也出現在你的交易中。</string>
+    <string name="portfolio_address_overlap_title">與你交易中的幣相同？</string>
+    <string name="portfolio_address_overlap_tx">與你自己的存入/轉移（%1$s）數量相同——可能被重複計算。</string>
+    <string name="portfolio_address_period_observed">觀察的地址從首次觀察到的餘額開始計算；之後的變化屬於流入/流出，不算收益。</string>
+    <string name="portfolio_address_privacy">只向 %1$s 發送公開地址——絕不發送金鑰或助記詞。服務方會同時看到你的 IP 地址。最多每 10 分鐘查詢一次。</string>
+    <string name="portfolio_address_remove">移除地址</string>
+    <string name="portfolio_address_show_only">僅顯示，不計入投資組合</string>
+    <string name="portfolio_address_show_only_short">僅顯示</string>
+    <string name="portfolio_address_tokens">計入代幣</string>
+    <string name="portfolio_address_xpub_privacy">xpub 會暴露此錢包的全部地址。地址在你的裝置上推導；只向 %1$s 發送單個地址——首次掃描至少 40 次請求，之後更少。絕不接受私鑰（xprv）。</string>
+    <string name="portfolio_address_xpub_gap">連續出現 %1$d 個未使用的地址後停止搜尋（大多數錢包採用的 BIP44 標準）。此間隔之後的已使用地址不會被計入，請單獨新增。</string>
+    <string name="portfolio_address_xpub_used">已用地址：%1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">已用地址過多，無法更新</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
+    <string name="portfolio_address_xpub_limited">地址非常多，轉入已清空舊地址的新付款可能無法辨識</string>
+    <string name="portfolio_addresses_title">地址</string>
+
+    <!-- Prüfung einer eingegebenen Adresse -->
+    <string name="address_bch_unsupported">無法觀察 Bitcoin Cash 地址：沒有條款允許此用途且無需 API 金鑰的免費公共服務。</string>
+    <string name="address_bep2_shutdown">BNB Beacon Chain（BEP-2）已於 2024 年關閉——餘額現在位於 BNB Smart Chain（0x…）</string>
+    <string name="address_checksum">校驗和錯誤——是否輸錯了？</string>
+    <string name="address_doge_unsupported">無法觀察 Dogecoin 地址：沒有條款允許此用途且無需 API 金鑰的免費公共服務。</string>
+    <string name="address_duplicate">該地址已新增</string>
+    <string name="address_ens">不支援 ENS 名稱——請輸入 0x 地址</string>
+    <string name="address_invalid">不是受支援網路的有效地址</string>
+    <string name="address_limit">最多 20 個地址</string>
+    <string name="address_secret">這看起來像私鑰或助記詞——切勿在任何地方輸入。僅限公開地址。</string>
+    <string name="address_testnet">不支援 Testnet 地址</string>
+    <string name="address_unsupported">不支援此地址類型</string>
+    <string name="address_wrong_chain">該地址屬於其他網路</string>
+    <string name="address_xpub_multisig">不支援多簽金鑰（Ypub/Zpub）</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot 帳戶（BIP86）：將從此金鑰派生用於收款和找零的 bc1p… 地址。</string>
+    <string name="portfolio_address_taproot_hint">使用 Taproot 錢包？請改為貼上錢包中的描述符 tr(…)——普通 xpub 只會按 Legacy 和 SegWit 地址搜尋。</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">無法連線自有伺服器</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">%1$s 的營運者能看到此錢包被查詢的全部地址，並能將它們相互關聯，也能與你的 IP 地址關聯。</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">如需避免，請在「設定 › 投資組合 › 地址專用的自有伺服器」中填寫你自己的伺服器。</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="other">+%1$d 個未知代幣（未計入）</item>
+    </plurals>
+</resources>

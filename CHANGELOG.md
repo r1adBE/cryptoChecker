@@ -10,11 +10,15 @@
 * Optional portfolio (off by default): own transactions, CSV import, watched addresses and tax worksheets.
 * Watchlist, alerts and portfolio are stored encrypted on the device.
 * Backups with optional password (AES-256-GCM), interchangeable between Android and iPhone.
-* 31 languages.
+* 33 languages.
 * Full source code of both apps under the MIT license.
 * No tracking, no ads, no analytics.
 
 Detailed build history below.
+
+## 16.2.2 (build 175)
+
+* Two more languages: Chinese (Traditional, for Taiwan and Hong Kong) and Malay – in the app, the widgets, the watch apps and the store listings, selectable under Settings › Language on Android. 33 languages in total.
 
 ## 16.2.2 (build 174)
 

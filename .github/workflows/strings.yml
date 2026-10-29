@@ -1,4 +1,4 @@
-# Checks the translations: Android string resources (31 languages, placeholders,
+# Checks the translations: Android string resources (33 languages, placeholders,
 # plural forms, references in the code) and the iOS string catalog generated from them.
 name: Strings
 

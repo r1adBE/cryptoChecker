@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Texte der Mitteilungen -->
+    <string name="notification_activity_title">Ketara: %1$s · %2$s</string>
+    <string name="notification_alarm_text">%1$s — kini %2$s</string>
+    <string name="notification_alarm_title">Amaran: %1$s · %2$s</string>
+    <string name="notification_depeg_action_exchange">Buka bursa</string>
+    <string name="notification_depeg_text">Nilai dalam apl menggunakan harga pasaran ini.</string>
+    <string name="notification_depeg_title">USDT pada %1$s USD (%2$s)</string>
+    <string name="notification_fng_above">Indeks naik melebihi %1$d – mengikut ukuran ini, sentimen pasaran adalah tamak.</string>
+    <string name="notification_fng_below">Indeks turun di bawah %1$d – mengikut ukuran ini, sentimen pasaran adalah takut.</string>
+    <string name="notification_fng_title">Indeks sentimen (Fear &amp; Greed): %1$d</string>
+    <string name="notification_gas_btc_text">Di bawah had anda %1$s sat/vB · Pindahan ≈ %2$s</string>
+    <string name="notification_gas_btc_title">Yuran Bitcoin: %1$s sat/vB</string>
+    <string name="notification_gas_eth_text">Di bawah had anda %1$s gwei · Pindahan ≈ %2$s</string>
+    <string name="notification_gas_eth_title">Gas Ethereum: %1$s gwei</string>
+    <string name="notification_indicator_above">Melebihi had anda %1$s – nilai terukur, bukan cadangan.</string>
+    <string name="notification_indicator_below">Di bawah had anda %1$s – nilai terukur, bukan cadangan.</string>
+    <string name="notification_indicator_title">%1$s: %2$s</string>
+    <string name="notification_macro_title">Data ekonomi hari ini</string>
+    <string name="notification_permission_preprompt_continue">Teruskan</string>
+    <string name="notification_permission_preprompt_later">Nanti</string>
+    <string name="notification_permission_preprompt_text">Supaya amaran dan pemberitahuan harga sampai kepada anda, apl memerlukan kebenaran untuk menghantar pemberitahuan. Apl hanya menggunakannya untuk amaran dan pemberitahuan harga anda.</string>
+    <string name="notification_permission_preprompt_title">Benarkan pemberitahuan?</string>
+    <string name="notification_portfolio_alarm_locked">Amaran anda telah dicetuskan – buka apl untuk butiran.</string>
+    <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
+    <string name="notification_portfolio_alarm_text">%1$s – kini %2$s</string>
+    <string name="notification_portfolio_alarm_title">Nilai portfolio</string>
+    <string name="notification_price_change">%1$s, daripada %2$s (%3$s lalu)</string>
+    <string name="notification_price_change_no_age">%1$s, daripada %2$s</string>
+    <string name="notification_price_first">Pemberitahuan harga pertama untuk pasangan ini</string>
+    <plurals name="notification_price_overflow_title">
+        <item quantity="other">+%1$d lagi harga</item>
+    </plurals>
+    <string name="notification_price_title">%1$s: %2$s %3$s • %4$s</string>
+    <string name="notification_refreshing">Mengemas kini harga…</string>
+    <string name="notification_volume_spike_text">Volum %1$s× biasa dalam sejam terakhir</string>
+
+    <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
+    <string name="channel_alarms">Amaran</string>
+    <string name="channel_alarms_description">Pemberitahuan apabila amaran dicetuskan.</string>
+    <string name="channel_alarms_quiet">Amaran (waktu senyap)</string>
+    <string name="channel_alarms_quiet_description">Amaran senyap semasa waktu senyap.</string>
+    <string name="channel_alarms_silent">Amaran (senyap)</string>
+    <string name="channel_alarms_sound">Amaran (bunyi sahaja)</string>
+    <string name="channel_alarms_sound_vibrate">Amaran (bunyi dan getaran)</string>
+    <string name="channel_alarms_vibrate">Amaran (getaran sahaja)</string>
+    <string name="channel_prices">Pemberitahuan harga</string>
+    <string name="channel_prices_description">Pemberitahuan harga senyap dengan harga semasa sesuatu pasangan.</string>
+    <string name="channel_service">Kemas kini harga</string>
+    <string name="channel_service_description">Pemberitahuan semasa harga sedang dikemas kini.</string>
+    <string name="neutral_channel_market">Pemberitahuan pasaran</string>
+    <string name="neutral_channel_market_description">Fear &amp; Greed, yuran gas, “Ketara” dan tarikh ekonomi</string>
+
+    <!-- Sprachausgabe -->
+    <string name="tts_alarm">Amaran. %1$s, %2$s %3$s %4$s, kini %5$s</string>
+    <string name="tts_direction_down">telah turun</string>
+    <string name="tts_direction_funding_above">dengan pembiayaan tinggi</string>
+    <string name="tts_direction_funding_below">dengan pembiayaan rendah</string>
+    <string name="tts_direction_move">bergerak dengan kuat</string>
+    <string name="tts_direction_near_high">hampir dengan paras tertingginya</string>
+    <string name="tts_direction_near_low">hampir dengan paras terendahnya</string>
+    <string name="tts_direction_oi_down">dengan minat terbuka menurun</string>
+    <string name="tts_direction_oi_up">dengan minat terbuka meningkat</string>
+    <string name="tts_direction_up">telah naik</string>
+    <string name="tts_direction_volume_spike">dengan lonjakan volum</string>
+    <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+
+    <!-- Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+    <string name="notification_alarm_action_snooze">1 jam kemudian</string>
+    <string name="notification_alarm_action_edit">Laraskan</string>
+</resources>

@@ -17,6 +17,7 @@
     "it": "Si applica subito ad app, widget e notifiche. Cambia anche l'icona dell'app; iOS lo conferma con un breve avviso.",
     "ja": "アプリ、ウィジェット、通知にすぐ反映されます。アプリアイコンも変わり、iOS が短いメッセージで確認します。",
     "ko": "앱, 위젯, 알림에 바로 적용됩니다. 앱 아이콘도 바뀌며, iOS가 짧은 안내로 이를 확인합니다.",
+    "ms": "Terpakai serta-merta pada apl, widget dan pemberitahuan. Ikon apl turut berubah; iOS mengesahkannya dengan notis ringkas.",
     "nb": "Gjelder umiddelbart for app, moduler og varsler. Appikonet endres også; iOS bekrefter det med en kort melding.",
     "nl": "Geldt direct voor app, widgets en meldingen. Ook het app-icoon verandert; iOS bevestigt dat met een korte melding.",
     "pl": "Zmiana od razu obejmuje aplikację, widżety i powiadomienia. Zmienia się też ikona aplikacji; iOS potwierdza to krótkim komunikatem.",
@@ -30,7 +31,8 @@
     "tr": "Uygulama, widget ve bildirimlere hemen uygulanır. Uygulama simgesi de değişir; iOS bunu kısa bir uyarıyla onaylar.",
     "uk": "Одразу застосовується до застосунку, віджетів і сповіщень. Значок застосунку теж зміниться; iOS підтвердить це коротким повідомленням.",
     "vi": "Áp dụng ngay cho ứng dụng, widget và thông báo. Biểu tượng ứng dụng cũng thay đổi; iOS xác nhận bằng một thông báo ngắn.",
-    "zh-Hans": "立即应用于应用、小部件和通知。应用图标也会随之更改，iOS 会以简短提示进行确认。"
+    "zh-Hans": "立即应用于应用、小部件和通知。应用图标也会随之更改，iOS 会以简短提示进行确认。",
+    "zh-Hant": "立即套用於應用程式、小工具和通知。應用程式圖示也會隨之更改，iOS 會以簡短提示確認。"
   },
   "ios_settings_language_hint": {
     "en": "Change the app language in the iOS Settings app.",
@@ -50,6 +52,7 @@
     "it": "Cambia la lingua dell'app nell'app Impostazioni di iOS.",
     "ja": "アプリの言語は iOS の「設定」アプリで変更できます。",
     "ko": "앱 언어는 iOS 설정 앱에서 변경하세요.",
+    "ms": "Tukar bahasa apl dalam apl Tetapan iOS.",
     "nb": "Endre appspråket i Innstillinger-appen i iOS.",
     "nl": "Wijzig de app-taal in de app Instellingen van iOS.",
     "pl": "Język aplikacji zmienisz w aplikacji Ustawienia systemu iOS.",
@@ -63,7 +66,8 @@
     "tr": "Uygulama dilini iOS Ayarlar uygulamasından değiştir.",
     "uk": "Мову застосунку можна змінити в застосунку «Параметри» iOS.",
     "vi": "Thay đổi ngôn ngữ ứng dụng trong ứng dụng Cài đặt của iOS.",
-    "zh-Hans": "请在 iOS“设置”应用中更改应用语言。"
+    "zh-Hans": "请在 iOS“设置”应用中更改应用语言。",
+    "zh-Hant": "請在 iOS「設定」App 中更改應用程式語言。"
   },
   "ios_settings_price_notifications_hint": {
     "en": "Shows a price notification with the current price of enabled pairs.",
@@ -83,6 +87,7 @@
     "it": "Mostra una notifica con il prezzo attuale delle coppie attivate.",
     "ja": "有効にしたペアの現在価格を通知で表示します。",
     "ko": "사용 설정한 거래쌍의 현재 가격을 알림으로 표시합니다.",
+    "ms": "Menunjukkan pemberitahuan harga dengan harga semasa pasangan yang didayakan.",
     "nb": "Viser et varsel med gjeldende kurs for aktiverte par.",
     "nl": "Toont een melding met de actuele koers van ingeschakelde paren.",
     "pl": "Pokazuje powiadomienie z aktualną ceną włączonych par.",
@@ -96,7 +101,8 @@
     "tr": "Etkin çiftlerin güncel fiyatını içeren bir bildirim gösterir.",
     "uk": "Показує сповіщення з поточною ціною ввімкнених пар.",
     "vi": "Hiển thị thông báo với giá hiện tại của các cặp đã bật.",
-    "zh-Hans": "显示包含已启用交易对当前价格的通知。"
+    "zh-Hans": "显示包含已启用交易对当前价格的通知。",
+    "zh-Hant": "顯示包含已啟用交易對目前價格的通知。"
   },
   "ios_notifications_denied": {
     "en": "Notifications for Crypto Checker are turned off in iOS Settings.",
@@ -116,6 +122,7 @@
     "it": "Le notifiche di Crypto Checker sono disattivate nelle Impostazioni di iOS.",
     "ja": "Crypto Checker の通知は iOS の設定でオフになっています。",
     "ko": "iOS 설정에서 Crypto Checker 알림이 꺼져 있습니다.",
+    "ms": "Pemberitahuan untuk Crypto Checker dimatikan dalam Tetapan iOS.",
     "nb": "Varsler for Crypto Checker er slått av i iOS-innstillingene.",
     "nl": "Meldingen voor Crypto Checker staan uit in de iOS-instellingen.",
     "pl": "Powiadomienia aplikacji Crypto Checker są wyłączone w Ustawieniach iOS.",
@@ -129,7 +136,8 @@
     "tr": "Crypto Checker bildirimleri iOS Ayarlar'da kapalı.",
     "uk": "Сповіщення Crypto Checker вимкнено в параметрах iOS.",
     "vi": "Thông báo của Crypto Checker đang tắt trong Cài đặt iOS.",
-    "zh-Hans": "Crypto Checker 的通知已在 iOS 设置中关闭。"
+    "zh-Hans": "Crypto Checker 的通知已在 iOS 设置中关闭。",
+    "zh-Hant": "Crypto Checker 的通知已在 iOS 設定中關閉。"
   },
   "ios_open_settings": {
     "en": "Open Settings",
@@ -149,6 +157,7 @@
     "it": "Apri Impostazioni",
     "ja": "設定を開く",
     "ko": "설정 열기",
+    "ms": "Buka Tetapan",
     "nb": "Åpne Innstillinger",
     "nl": "Instellingen openen",
     "pl": "Otwórz Ustawienia",
@@ -162,7 +171,8 @@
     "tr": "Ayarları aç",
     "uk": "Відкрити параметри",
     "vi": "Mở Cài đặt",
-    "zh-Hans": "打开设置"
+    "zh-Hans": "打开设置",
+    "zh-Hant": "開啟設定"
   },
   "ios_allow_notifications": {
     "en": "Allow notifications",
@@ -182,6 +192,7 @@
     "it": "Consenti notifiche",
     "ja": "通知を許可",
     "ko": "알림 허용",
+    "ms": "Benarkan pemberitahuan",
     "nb": "Tillat varsler",
     "nl": "Meldingen toestaan",
     "pl": "Zezwól na powiadomienia",
@@ -195,7 +206,8 @@
     "tr": "Bildirimlere izin ver",
     "uk": "Дозволити сповіщення",
     "vi": "Cho phép thông báo",
-    "zh-Hans": "允许通知"
+    "zh-Hans": "允许通知",
+    "zh-Hant": "允許通知"
   },
   "a11y_hide_keyboard": {
     "en": "Hide keyboard",
@@ -215,6 +227,7 @@
     "it": "Nascondi tastiera",
     "ja": "キーボードを隠す",
     "ko": "키보드 숨기기",
+    "ms": "Sembunyikan papan kekunci",
     "nb": "Skjul tastatur",
     "nl": "Toetsenbord verbergen",
     "pl": "Ukryj klawiaturę",
@@ -228,7 +241,8 @@
     "tr": "Klavyeyi gizle",
     "uk": "Сховати клавіатуру",
     "vi": "Ẩn bàn phím",
-    "zh-Hans": "隐藏键盘"
+    "zh-Hans": "隐藏键盘",
+    "zh-Hant": "隱藏鍵盤"
   },
   "settings_ios_background_hint": {
     "en": "iOS decides when the app may refresh in the background, so the interval means “at the earliest every …”. While the app is open, prices are checked on time. Widgets and the Live Activity show current prices at a glance.",
@@ -248,6 +262,7 @@
     "it": "iOS decide quando l'app può aggiornarsi in background, quindi l'intervallo significa «al più presto ogni …». Con l'app aperta, i controlli sono puntuali. I widget e l'Attività in tempo reale mostrano i prezzi attuali a colpo d'occhio.",
     "ja": "アプリがバックグラウンドでいつ更新できるかは iOS が決めるため、間隔は「早くても … ごと」という意味です。アプリを開いている間は時間どおりに確認します。現在の価格はウィジェットとライブアクティビティでひと目で確認できます。",
     "ko": "앱이 백그라운드에서 언제 새로 고칠 수 있는지는 iOS가 정하므로, 간격은 '빨라야 …마다'라는 뜻입니다. 앱이 열려 있으면 제시간에 확인합니다. 현재 시세는 위젯과 실시간 현황에서 한눈에 볼 수 있습니다.",
+    "ms": "iOS menentukan bila apl boleh dimuat semula di latar belakang, jadi selang bermakna “paling awal setiap …”. Semasa apl dibuka, harga disemak tepat masa. Widget dan Aktiviti Langsung menunjukkan harga semasa sepintas lalu.",
     "nb": "iOS bestemmer når appen kan oppdatere i bakgrunnen – intervallet betyr altså «tidligst hvert …». Når appen er åpen, sjekkes det i tide. Widgets og live-aktiviteten viser aktuelle kurser med ett blikk.",
     "nl": "iOS bepaalt wanneer de app op de achtergrond mag verversen – het interval betekent dus ‘op zijn vroegst elke …’. Met de app open wordt op tijd gecontroleerd. Widgets en de Live Activity tonen actuele koersen in één oogopslag.",
     "pl": "iOS decyduje, kiedy aplikacja może odświeżać w tle – interwał oznacza więc „najwcześniej co …”. Gdy aplikacja jest otwarta, sprawdzanie odbywa się na czas. Widżety i aktywność na żywo pokazują bieżące kursy na pierwszy rzut oka.",
@@ -261,7 +276,8 @@
     "tr": "Uygulamanın arka planda ne zaman yenilenebileceğine iOS karar verir; yani aralık “en erken … arayla” anlamına gelir. Uygulama açıkken kontroller zamanında yapılır. Widget'lar ve Canlı Etkinlik güncel fiyatları bir bakışta gösterir.",
     "uk": "iOS вирішує, коли застосунку можна оновлюватися у фоні, тож інтервал означає «не частіше ніж раз на …». Поки застосунок відкритий, перевірки відбуваються вчасно. Віджети й активність наживо показують поточні курси з першого погляду.",
     "vi": "iOS quyết định khi nào ứng dụng được làm mới ở chế độ nền, nên chu kỳ có nghĩa là “sớm nhất mỗi …”. Khi ứng dụng đang mở, việc kiểm tra diễn ra đúng giờ. Tiện ích và Hoạt động trực tiếp cho xem giá hiện tại trong nháy mắt.",
-    "zh-Hans": "应用何时可在后台刷新由 iOS 决定，因此间隔表示“最快每 … 一次”。应用打开时会准时检查。小组件和实时活动可让你一眼看到当前行情。"
+    "zh-Hans": "应用何时可在后台刷新由 iOS 决定，因此间隔表示“最快每 … 一次”。应用打开时会准时检查。小组件和实时活动可让你一眼看到当前行情。",
+    "zh-Hant": "App 何時可在背景重新整理由 iOS 決定，因此間隔表示「最快每 … 一次」。應用程式開啟時會準時檢查。小工具和即時動態可讓你一眼看到目前行情。"
   },
   "ios_face_id_usage": {
     "en": "Unlock your portfolio with Face ID.",
@@ -281,6 +297,7 @@
     "it": "Sblocca il tuo portafoglio con Face ID.",
     "ja": "Face ID でポートフォリオのロックを解除します。",
     "ko": "Face ID로 포트폴리오 잠금을 해제합니다.",
+    "ms": "Buka kunci portfolio anda dengan Face ID.",
     "nb": "Lås opp porteføljen din med Face ID.",
     "nl": "Ontgrendel je portfolio met Face ID.",
     "pl": "Odblokuj swój portfel za pomocą Face ID.",
@@ -294,7 +311,8 @@
     "tr": "Portföyünün kilidini Face ID ile aç.",
     "uk": "Розблокувати портфель за допомогою Face ID.",
     "vi": "Mở khóa danh mục đầu tư của bạn bằng Face ID.",
-    "zh-Hans": "使用面容 ID 解锁你的投资组合。"
+    "zh-Hans": "使用面容 ID 解锁你的投资组合。",
+    "zh-Hant": "使用 Face ID 解鎖你的投資組合。"
   },
   "live_activity_start": {
     "en": "Show on Lock Screen",
@@ -314,6 +332,7 @@
     "it": "Mostra sulla schermata di blocco",
     "ja": "ロック画面に表示",
     "ko": "잠금 화면에 표시",
+    "ms": "Tunjukkan pada Skrin Kunci",
     "nb": "Vis på låseskjermen",
     "nl": "Toon op toegangsscherm",
     "pl": "Pokaż na ekranie blokady",
@@ -327,7 +346,8 @@
     "tr": "Kilitli Ekranda göster",
     "uk": "Показати на замкненому екрані",
     "vi": "Hiển thị trên Màn hình khóa",
-    "zh-Hans": "在锁定屏幕上显示"
+    "zh-Hans": "在锁定屏幕上显示",
+    "zh-Hant": "在鎖定畫面上顯示"
   },
   "live_activity_stop": {
     "en": "Remove from Lock Screen",
@@ -347,6 +367,7 @@
     "it": "Rimuovi dalla schermata di blocco",
     "ja": "ロック画面から削除",
     "ko": "잠금 화면에서 제거",
+    "ms": "Alih keluar daripada Skrin Kunci",
     "nb": "Fjern fra låseskjermen",
     "nl": "Verwijder van toegangsscherm",
     "pl": "Usuń z ekranu blokady",
@@ -360,7 +381,8 @@
     "tr": "Kilitli Ekrandan kaldır",
     "uk": "Прибрати із замкненого екрана",
     "vi": "Xóa khỏi Màn hình khóa",
-    "zh-Hans": "从锁定屏幕移除"
+    "zh-Hans": "从锁定屏幕移除",
+    "zh-Hant": "從鎖定畫面移除"
   },
   "live_activity_disabled": {
     "en": "Live Activities are turned off for Crypto Checker in the iOS settings.",
@@ -380,6 +402,7 @@
     "it": "Le Attività in tempo reale sono disattivate per Crypto Checker nelle impostazioni di iOS.",
     "ja": "iOS の設定で Crypto Checker のライブアクティビティがオフになっています。",
     "ko": "iOS 설정에서 Crypto Checker의 실시간 현황이 꺼져 있습니다.",
+    "ms": "Aktiviti Langsung dimatikan untuk Crypto Checker dalam tetapan iOS.",
     "nb": "Live-aktiviteter er slått av for Crypto Checker i iOS-innstillingene.",
     "nl": "Live Activities zijn voor Crypto Checker uitgeschakeld in de iOS-instellingen.",
     "pl": "Aktywności na żywo są wyłączone dla Crypto Checker w ustawieniach iOS.",
@@ -393,7 +416,8 @@
     "tr": "Crypto Checker için Canlı Etkinlikler iOS ayarlarında kapalı.",
     "uk": "Активності наживо для Crypto Checker вимкнено в налаштуваннях iOS.",
     "vi": "Hoạt động trực tiếp đang tắt cho Crypto Checker trong cài đặt iOS.",
-    "zh-Hans": "已在 iOS 设置中为 Crypto Checker 关闭实时活动。"
+    "zh-Hans": "已在 iOS 设置中为 Crypto Checker 关闭实时活动。",
+    "zh-Hant": "已在 iOS 設定中為 Crypto Checker 關閉即時動態。"
   },
   "ios_action_ok": {
     "en": "OK",
@@ -413,6 +437,7 @@
     "it": "OK",
     "ja": "OK",
     "ko": "확인",
+    "ms": "OK",
     "nb": "OK",
     "nl": "OK",
     "pl": "OK",
@@ -426,7 +451,8 @@
     "tr": "Tamam",
     "uk": "OK",
     "vi": "OK",
-    "zh-Hans": "好"
+    "zh-Hans": "好",
+    "zh-Hant": "好"
   },
   "ios_error_unexpected_response": {
     "en": "Unexpected response from the server",
@@ -446,6 +472,7 @@
     "it": "Risposta inattesa dal server",
     "ja": "サーバーから予期しない応答がありました",
     "ko": "서버에서 예상치 못한 응답",
+    "ms": "Respons yang tidak dijangka daripada pelayan",
     "nb": "Uventet svar fra serveren",
     "nl": "Onverwacht antwoord van de server",
     "pl": "Nieoczekiwana odpowiedź serwera",
@@ -459,7 +486,8 @@
     "tr": "Sunucudan beklenmeyen yanıt",
     "uk": "Неочікувана відповідь сервера",
     "vi": "Phản hồi không mong đợi từ máy chủ",
-    "zh-Hans": "服务器返回了意外响应"
+    "zh-Hans": "服务器返回了意外响应",
+    "zh-Hant": "伺服器傳回了非預期的回應"
   },
   "ios_a11y_not_selected": {
     "en": "not selected",
@@ -479,6 +507,7 @@
     "it": "non selezionato",
     "ja": "未選択",
     "ko": "선택되지 않음",
+    "ms": "tidak dipilih",
     "nb": "ikke valgt",
     "nl": "niet geselecteerd",
     "pl": "nie zaznaczono",
@@ -492,7 +521,8 @@
     "tr": "seçili değil",
     "uk": "не вибрано",
     "vi": "chưa chọn",
-    "zh-Hans": "未选中"
+    "zh-Hans": "未选中",
+    "zh-Hant": "未選取"
   },
   "alarm_speak_ios_open_only": {
     "en": "Spoken only while the app is open – iOS does not allow speech in the background.",
@@ -525,7 +555,9 @@
     "id": "Hanya diucapkan saat aplikasi terbuka – iOS tidak mengizinkan suara di latar belakang.",
     "ja": "アプリを開いている間だけ読み上げます – iOS はバックグラウンドでの読み上げを許可していません。",
     "ko": "앱이 열려 있을 때만 읽어 줍니다 – iOS는 백그라운드 음성 출력을 허용하지 않습니다.",
-    "zh-Hans": "仅在应用打开时播报——iOS 不允许在后台语音播报。"
+    "ms": "Disebut hanya semasa apl dibuka – iOS tidak membenarkan pertuturan di latar belakang.",
+    "zh-Hans": "仅在应用打开时播报——iOS 不允许在后台语音播报。",
+    "zh-Hant": "僅在應用程式開啟時播報——iOS 不允許在背景語音播報。"
   },
   "live_activity_hint_ends": {
     "en": "Updated whenever the app checks prices – in the background iOS decides how often. iOS ends a Live Activity after 8 hours at the latest; turn it on again here if needed.",
@@ -545,6 +577,7 @@
     "it": "Si aggiorna ogni volta che l'app controlla i prezzi – in background è iOS a decidere quanto spesso. iOS termina un’attività live al massimo dopo 8 ore; se serve, riattivala qui.",
     "ja": "アプリが価格を確認するたびに更新されます – バックグラウンドでの頻度は iOS が決めます。iOS はライブアクティビティを最長 8 時間で終了します。必要ならここで再びオンにしてください。",
     "ko": "앱이 시세를 확인할 때마다 업데이트됩니다 – 백그라운드에서는 iOS가 빈도를 결정합니다. iOS는 실시간 현황을 최대 8시간 후에 종료합니다. 필요하면 여기서 다시 켜세요.",
+    "ms": "Dikemas kini setiap kali apl menyemak harga – di latar belakang iOS menentukan kekerapannya. iOS menamatkan Aktiviti Langsung selepas paling lama 8 jam; hidupkannya semula di sini jika perlu.",
     "nb": "Oppdateres hver gang appen sjekker kurser – i bakgrunnen bestemmer iOS hvor ofte. iOS avslutter en Live-aktivitet etter høyst 8 timer; slå den på igjen her ved behov.",
     "nl": "Wordt bijgewerkt telkens als de app koersen controleert – op de achtergrond bepaalt iOS hoe vaak. iOS beëindigt een live-activiteit na uiterlijk 8 uur; zet hem hier zo nodig weer aan.",
     "pl": "Aktualizuje się za każdym razem, gdy aplikacja sprawdza kursy – w tle o częstotliwości decyduje iOS. iOS kończy aktywność na żywo najpóźniej po 8 godzinach; w razie potrzeby włącz ją tu ponownie.",
@@ -558,7 +591,8 @@
     "tr": "Uygulama fiyatları her kontrol ettiğinde güncellenir – arka planda ne sıklıkla olacağına iOS karar verir. iOS bir Canlı Etkinliği en geç 8 saat sonra bitirir; gerekirse burada yeniden aç.",
     "uk": "Оновлюється щоразу, коли застосунок перевіряє курси – у фоні iOS вирішує, як часто. iOS завершує активність наживо щонайпізніше через 8 годин; за потреби увімкни її тут знову.",
     "vi": "Được cập nhật mỗi khi ứng dụng kiểm tra giá – ở chế độ nền, iOS quyết định tần suất. iOS kết thúc Hoạt động trực tiếp sau tối đa 8 giờ; bật lại tại đây nếu cần.",
-    "zh-Hans": "每当应用检查行情时更新——在后台由 iOS 决定频率。iOS 最迟会在 8 小时后结束实时活动；如有需要，请在此重新开启。"
+    "zh-Hans": "每当应用检查行情时更新——在后台由 iOS 决定频率。iOS 最迟会在 8 小时后结束实时活动；如有需要，请在此重新开启。",
+    "zh-Hant": "每當應用程式檢查行情時更新——在背景由 iOS 決定頻率。iOS 最遲會在 8 小時後結束即時動態；如有需要，請在此重新開啟。"
   },
   "ios_storage_app_group_missing": {
     "en": "Shared storage for widgets is not available – widgets and background checks do not see the app’s data. Reinstalling the app usually fixes this.",
@@ -591,7 +625,9 @@
     "id": "Penyimpanan bersama untuk widget tidak tersedia – widget dan pemeriksaan latar belakang tidak melihat data aplikasi. Memasang ulang aplikasi biasanya memperbaikinya.",
     "ja": "ウィジェット用の共有ストレージを利用できません – ウィジェットとバックグラウンドのチェックはアプリのデータを参照できません。通常はアプリを再インストールすると解決します。",
     "ko": "위젯용 공유 저장소를 사용할 수 없습니다 – 위젯과 백그라운드 확인이 앱 데이터를 볼 수 없습니다. 보통 앱을 다시 설치하면 해결됩니다.",
-    "zh-Hans": "小组件的共享存储不可用——小组件和后台检查无法读取应用的数据。通常重新安装应用即可解决。"
+    "ms": "Storan kongsi untuk widget tidak tersedia – widget dan semakan latar belakang tidak dapat melihat data apl. Memasang semula apl biasanya membetulkannya.",
+    "zh-Hans": "小组件的共享存储不可用——小组件和后台检查无法读取应用的数据。通常重新安装应用即可解决。",
+    "zh-Hant": "小工具的共用儲存空間無法使用——小工具和背景檢查無法讀取應用程式的資料。通常重新安裝應用程式即可解決。"
   },
   "portfolio_save_pending": {
     "en": "Portfolio changes are waiting to be saved encrypted. They will be saved as soon as the keychain is available again.",
@@ -611,6 +647,7 @@
     "it": "Le modifiche al portafoglio attendono di essere salvate cifrate. Verranno salvate non appena il portachiavi sarà di nuovo disponibile.",
     "ja": "ポートフォリオの変更は暗号化保存を待っています。キーチェーンが再び使えるようになりしだい保存されます。",
     "ko": "포트폴리오 변경 사항이 암호화 저장을 기다리고 있습니다. 키체인을 다시 사용할 수 있게 되면 바로 저장됩니다.",
+    "ms": "Perubahan portfolio sedang menunggu untuk disimpan secara disulitkan. Ia akan disimpan sebaik sahaja rantai kunci tersedia semula.",
     "nb": "Porteføljeendringer venter på å bli lagret kryptert. De lagres så snart nøkkelringen er tilgjengelig igjen.",
     "nl": "Portfoliowijzigingen wachten op versleuteld opslaan. Ze worden opgeslagen zodra de sleutelhanger weer beschikbaar is.",
     "pl": "Zmiany w portfelu czekają na zaszyfrowany zapis. Zostaną zapisane, gdy pęk kluczy znów będzie dostępny.",
@@ -624,7 +661,8 @@
     "tr": "Portföy değişiklikleri şifreli olarak kaydedilmeyi bekliyor. Anahtar zinciri yeniden kullanılabilir olunca kaydedilecek.",
     "uk": "Зміни портфеля очікують зашифрованого збереження. Їх буде збережено, щойно в'язка ключів знову стане доступною.",
     "vi": "Các thay đổi danh mục đang chờ được lưu mã hóa. Chúng sẽ được lưu ngay khi chuỗi khóa khả dụng trở lại.",
-    "zh-Hans": "投资组合的更改正在等待加密保存。钥匙串再次可用时将立即保存。"
+    "zh-Hans": "投资组合的更改正在等待加密保存。钥匙串再次可用时将立即保存。",
+    "zh-Hant": "投資組合的更改正在等待加密儲存。鑰匙圈再次可用時將立即儲存。"
   },
   "watchlist_first_alarm_text_ios": {
     "en": "Get notified when a price reaches your mark – with the app closed, iOS decides when to check.",
@@ -644,6 +682,7 @@
     "it": "Ricevi una notifica quando un prezzo raggiunge la tua soglia – ad app chiusa, è iOS a decidere quando controllare.",
     "ja": "価格が設定した水準に達したら通知します。アプリを閉じている間、確認のタイミングは iOS が決めます。",
     "ko": "가격이 정한 기준에 도달하면 알려 드립니다. 앱을 닫으면 확인 시점은 iOS가 정합니다.",
+    "ms": "Dapatkan pemberitahuan apabila harga mencapai paras anda – apabila apl ditutup, iOS menentukan bila untuk menyemak.",
     "nb": "Få varsel når en kurs når grensen din – når appen er lukket, bestemmer iOS når det sjekkes.",
     "nl": "Krijg een melding wanneer een koers je grens bereikt – met de app gesloten bepaalt iOS wanneer er wordt gecontroleerd.",
     "pl": "Otrzymaj powiadomienie, gdy kurs osiągnie twój próg – przy zamkniętej aplikacji iOS decyduje, kiedy sprawdzać.",
@@ -657,7 +696,8 @@
     "tr": "Bir fiyat belirlediğin seviyeye ulaştığında bildirim al – uygulama kapalıyken ne zaman kontrol edileceğine iOS karar verir.",
     "uk": "Отримуй сповіщення, коли ціна досягне твого рівня – коли застосунок закрито, iOS сама вирішує, коли перевіряти.",
     "vi": "Nhận thông báo khi giá chạm mức bạn đặt – khi ứng dụng đóng, iOS quyết định khi nào kiểm tra.",
-    "zh-Hans": "价格到达你设定的位置时通知你——应用关闭时，由 iOS 决定何时检查。"
+    "zh-Hans": "价格到达你设定的位置时通知你——应用关闭时，由 iOS 决定何时检查。",
+    "zh-Hant": "價格到達你設定的位置時通知你——應用程式關閉時，由 iOS 決定何時檢查。"
   },
   "settings_portfolio_system_backup_hint_ios": {
     "en": "Off: your transactions are not included in iCloud or computer backups. On: they can only be restored on this iPhone – on a new iPhone the file stays unreadable because the key never leaves the device. To move to a new phone, use the app's own backup with a password.",
@@ -677,6 +717,7 @@
     "it": "Disattivato: le transazioni non finiscono nei backup iCloud o del computer. Attivato: si possono ripristinare solo su questo iPhone – su un nuovo iPhone il file resta illeggibile perché la chiave non lascia mai il dispositivo. Per cambiare telefono usa il backup dell'app con password.",
     "ja": "オフ：取引は iCloud やコンピュータのバックアップに含まれません。オン：この iPhone にのみ復元できます。鍵が端末から出ることはないため、新しい iPhone ではファイルを読めません。機種変更にはアプリのパスワード付きバックアップを使ってください。",
     "ko": "끔: 거래 내역이 iCloud나 컴퓨터 백업에 포함되지 않습니다. 켬: 이 iPhone에서만 복원할 수 있습니다. 키가 기기를 떠나지 않으므로 새 iPhone에서는 파일을 읽을 수 없습니다. 휴대폰을 바꿀 때는 앱의 암호 백업을 사용하세요.",
+    "ms": "Mati: transaksi anda tidak dimasukkan dalam sandaran iCloud atau komputer. Hidup: ia hanya boleh dipulihkan pada iPhone ini – pada iPhone baharu fail kekal tidak dapat dibaca kerana kunci tidak pernah meninggalkan peranti. Untuk berpindah ke telefon baharu, gunakan sandaran apl sendiri dengan kata laluan.",
     "nb": "Av: transaksjonene dine kommer ikke med i iCloud- eller datamaskinsikkerhetskopier. På: de kan bare gjenopprettes på denne iPhonen – på en ny iPhone forblir filen uleselig fordi nøkkelen aldri forlater enheten. Bruk appens egen sikkerhetskopi med passord når du bytter telefon.",
     "nl": "Uit: je transacties komen niet in iCloud- of computerback-ups. Aan: ze zijn alleen op deze iPhone terug te zetten – op een nieuwe iPhone blijft het bestand onleesbaar, omdat de sleutel het apparaat nooit verlaat. Gebruik voor een nieuwe telefoon de eigen back-up van de app met wachtwoord.",
     "pl": "Wył.: transakcje nie trafiają do kopii iCloud ani komputera. Wł.: można je przywrócić tylko na tym iPhonie – na nowym iPhonie plik pozostaje nieczytelny, bo klucz nigdy nie opuszcza urządzenia. Przy zmianie telefonu użyj kopii zapasowej aplikacji z hasłem.",
@@ -690,7 +731,8 @@
     "tr": "Kapalı: işlemlerin iCloud veya bilgisayar yedeklerine girmez. Açık: yalnızca bu iPhone'a geri yüklenebilir – yeni bir iPhone'da dosya okunamaz kalır, çünkü anahtar cihazdan hiç çıkmaz. Telefon değiştirirken uygulamanın parolalı yedeğini kullan.",
     "uk": "Вимк.: транзакції не потрапляють до резервних копій iCloud і комп’ютера. Увімк.: їх можна відновити лише на цьому iPhone – на новому iPhone файл лишиться нечитабельним, бо ключ ніколи не залишає пристрій. Для переходу на новий телефон використовуй резервну копію застосунку з паролем.",
     "vi": "Tắt: giao dịch của bạn không nằm trong bản sao lưu iCloud hay máy tính. Bật: chỉ khôi phục được trên iPhone này – trên iPhone mới, tệp vẫn không đọc được vì khóa không bao giờ rời thiết bị. Khi đổi điện thoại, hãy dùng bản sao lưu có mật khẩu của ứng dụng.",
-    "zh-Hans": "关闭：你的交易不会进入 iCloud 或电脑备份。开启：只能在这台 iPhone 上恢复——在新 iPhone 上文件无法读取，因为密钥从不离开设备。换手机时请使用应用自带的密码备份。"
+    "zh-Hans": "关闭：你的交易不会进入 iCloud 或电脑备份。开启：只能在这台 iPhone 上恢复——在新 iPhone 上文件无法读取，因为密钥从不离开设备。换手机时请使用应用自带的密码备份。",
+    "zh-Hant": "關閉：你的交易不會納入 iCloud 或電腦備份。開啟：只能在這支 iPhone 上還原——在新 iPhone 上檔案無法讀取，因為金鑰從不離開裝置。換手機時請使用應用程式內建的密碼備份。"
   },
   "ios_local_network_usage": {
     "en": "Only needed if your own server for addresses is in your home network.",
@@ -710,6 +752,7 @@
     "it": "Serve solo se il tuo server per gli indirizzi si trova nella tua rete domestica.",
     "ja": "アドレス用の自分のサーバーが自宅のネットワーク内にある場合にのみ必要です。",
     "ko": "주소용 개인 서버가 홈 네트워크에 있는 경우에만 필요합니다.",
+    "ms": "Hanya diperlukan jika pelayan sendiri untuk alamat anda berada dalam rangkaian rumah anda.",
     "nb": "Bare nødvendig hvis din egen server for adresser står i hjemmenettverket ditt.",
     "nl": "Alleen nodig als je eigen server voor adressen in je thuisnetwerk staat.",
     "pl": "Potrzebne tylko wtedy, gdy twój własny serwer adresów jest w twojej sieci domowej.",
@@ -723,7 +766,8 @@
     "tr": "Yalnızca adresler için kendi sunucun ev ağındaysa gerekir.",
     "uk": "Потрібно, лише якщо твій власний сервер для адрес у твоїй домашній мережі.",
     "vi": "Chỉ cần khi máy chủ riêng cho địa chỉ nằm trong mạng gia đình.",
-    "zh-Hans": "仅当你自己的地址服务器位于家庭网络中时才需要。"
+    "zh-Hans": "仅当你自己的地址服务器位于家庭网络中时才需要。",
+    "zh-Hant": "僅當你自己的地址伺服器位於家用網路中時才需要。"
   },
   "ios_settings_watch_hint": {
     "en": "Coins for the Apple Watch app (up to %1$ld, priced against USDT). Only this list goes to the watch, directly via WatchConnectivity; the watch fetches prices itself.",
@@ -756,6 +800,8 @@
     "th": "เหรียญสำหรับแอป Apple Watch (สูงสุด %1$ld เหรียญ ราคาเทียบ USDT) ส่งไปยังนาฬิกาเฉพาะรายการนี้โดยตรงผ่าน WatchConnectivity ส่วนราคานาฬิกาดึงเอง",
     "ja": "Apple Watch アプリに表示するコイン（最大 %1$ld 件、USDT 建て価格）。ウォッチに送られるのはこのリストだけで、WatchConnectivity で直接送られます。価格はウォッチが自分で取得します。",
     "ko": "Apple Watch 앱의 코인(최대 %1$ld개, USDT 기준 가격)입니다. 워치에는 이 목록만 WatchConnectivity로 직접 전송되며, 가격은 워치가 직접 가져옵니다.",
-    "zh-Hans": "Apple Watch 应用中显示的币种（最多 %1$ld 个，以 USDT 计价）。只有此列表会通过 WatchConnectivity 直接发送到手表；价格由手表自行获取。"
+    "ms": "Koin untuk apl Apple Watch (sehingga %1$ld, diberi harga berbanding USDT). Hanya senarai ini dihantar ke jam tangan, terus melalui WatchConnectivity; jam tangan mengambil harga sendiri.",
+    "zh-Hans": "Apple Watch 应用中显示的币种（最多 %1$ld 个，以 USDT 计价）。只有此列表会通过 WatchConnectivity 直接发送到手表；价格由手表自行获取。",
+    "zh-Hant": "Apple Watch App 中顯示的幣種（最多 %1$ld 個，以 USDT 計價）。只有此清單會透過 WatchConnectivity 直接傳送到手錶；價格由手錶自行取得。"
   }
 }

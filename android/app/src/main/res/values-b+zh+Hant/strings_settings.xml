@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Einstellungen: Aufbau (Gruppen, Zeilen, Abschnitte, Suche, Kurzwerte) -->
+    <string name="settings_custom_value">自訂</string>
+    <string name="settings_group_general">通用</string>
+    <string name="settings_group_more">更多</string>
+    <string name="settings_minutes">%1$d 分鐘</string>
+    <string name="settings_row_about">關於應用程式</string>
+    <string name="settings_row_alarms">提醒</string>
+    <string name="settings_row_currency">貨幣</string>
+    <string name="settings_row_dated_futures">交割合約</string>
+    <string name="settings_row_updates">價格更新</string>
+    <string name="settings_row_watchlist">自選清單</string>
+    <string name="settings_search_hint">搜尋設定</string>
+    <string name="settings_seconds">%1$d 秒</string>
+    <string name="settings_section_about">關於</string>
+    <string name="settings_section_appearance">外觀</string>
+    <string name="settings_section_developer">開發者</string>
+    <string name="settings_section_language">語言</string>
+    <!-- Kurzwert «eingeschaltet» (Gegenstück zu option_off) -->
+    <string name="settings_summary_on">開啟</string>
+    <string name="settings_title">設定</string>
+
+    <!-- Einstellungen › Alarme (Ton, Signal, Ruhezeit, App-Symbol, exakte Prüfungen) -->
+    <string name="settings_alarm_cooldown">提醒再次觸發前的冷卻時間</string>
+    <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
+    <string name="settings_alarm_signal">提醒方式</string>
+    <string name="settings_alarm_signal_open_system">在系統設定中調整</string>
+    <string name="settings_alarm_signal_system_hint">跟隨手機的通知設定。</string>
+    <string name="settings_alarm_sound">提醒鈴聲</string>
+    <string name="settings_alarm_sound_custom">自訂鈴聲</string>
+    <string name="settings_alarm_sound_default">預設鈴聲</string>
+    <string name="settings_alarm_sound_error">無法使用該鈴聲。</string>
+    <string name="settings_alarm_sound_file">自己的音訊檔案…</string>
+    <string name="settings_alarm_sound_reset">使用預設鈴聲</string>
+    <string name="settings_alarm_sound_system">選擇系統鈴聲…</string>
+    <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
+    <string name="settings_app_badge">應用程式圖示上的數字</string>
+    <string name="settings_app_badge_hint">統計未處理的提醒通知。顯示數字還是圓點由主畫面決定（例如 Samsung：「顯示數字」）。</string>
+    <string name="settings_exact_checks">準時檢查</string>
+    <string name="settings_exact_checks_grant">允許 「鬧鐘和提醒」</string>
+    <string name="settings_exact_checks_hint">即使裝置處於空閒狀態，Android 也會大約每 15 分鐘檢查一次。會多耗一點電量。</string>
+    <string name="settings_exact_checks_nothing">沒有啟用的交易對——無需檢查。</string>
+    <string name="settings_exact_checks_permission_missing">缺少權限——裝置靜置期間 Android 的檢查不規律，有時要隔幾小時。</string>
+    <string name="settings_notification_change">僅在價格變動時通知</string>
+    <string name="settings_notification_change_always">始終</string>
+    <string name="settings_percent_invalid">請輸入 0 到 100 之間的數值。</string>
+    <string name="settings_notification_change_hint">只有當價格自上次通知以來變動至少達到此幅度時才會通知。資料缺失時不顯示任何內容。提醒不受影響。</string>
+    <string name="settings_ongoing_notifications">無法滑動清除</string>
+    <string name="settings_ongoing_notifications_hint">保持價格通知常駐。</string>
+    <string name="settings_price_notifications">價格通知</string>
+    <string name="settings_price_notifications_hint">在狀態列中顯示已啟用交易對的目前價格。</string>
+    <string name="settings_price_pairs">交易對</string>
+    <string name="settings_price_pairs_all_off">全部關閉</string>
+    <string name="settings_price_pairs_all_on">全部開啟</string>
+    <string name="settings_price_pairs_count">%1$d / %2$d</string>
+    <string name="settings_price_pairs_empty">關注清單中還沒有交易對。</string>
+    <string name="settings_price_pairs_hint">選擇哪些交易對在通知欄顯示價格。</string>
+    <string name="settings_quiet_hours">靜音時段</string>
+    <string name="settings_quiet_hours_from">開始</string>
+    <string name="settings_quiet_hours_hint">%1$s 至 %2$s 之間，提醒會等到靜音時段結束後再響鈴提示。其他通知將靜音送達，不進行語音播報。</string>
+    <string name="settings_quiet_hours_to">結束</string>
+
+    <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
+    <string name="settings_background_interval">間隔</string>
+    <string name="settings_background_updates">背景更新</string>
+    <string name="settings_battery_hint">受限制意味著 Android 可能將背景更新延後數小時。</string>
+    <string name="settings_battery_ok">電池使用：不受限制</string>
+    <string name="settings_battery_restricted">電池使用：受限制</string>
+    <string name="settings_check_runs_empty">尚無檢查記錄。</string>
+    <string name="settings_check_runs_honest_android">何時檢查由 Android 決定——這裡可以看到實際發生的時間。</string>
+    <string name="settings_check_runs_honest_ios">何時檢查由 iOS 決定——這裡可以看到實際發生的時間。</string>
+    <string name="settings_check_runs_title">最近的檢查</string>
+    <string name="settings_http_log">顯示 HTTP 記錄</string>
+    <string name="settings_http_log_hint">在「新增交易對」頁面底部顯示發往交易所的請求，用於排查問題。</string>
+    <string name="settings_live_service">頻繁更新</string>
+    <string name="settings_live_websocket">即時價格</string>
+
+    <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
+    <string name="settings_activity_alerts">值得關注：提醒</string>
+    <string name="settings_activity_alerts_hint">每個交易對每小時最多一次：異常價格波動、成交量激增和合約極端值（資料來自 Binance）。</string>
+    <string name="settings_activity_sensitivity">靈敏度</string>
+    <string name="settings_activity_sensitivity_hint">幣種被視為異常的難易程度——自選清單卡片與通知相同。選擇「較少」時，卡片只顯示最強的 3 個。</string>
+    <string name="settings_watchlist_activity_card">值得關注：在清單中顯示</string>
+    <string name="settings_watchlist_activity_card_hint">在分組旁顯示 ⚡ 標籤：點按即可只查看此刻正有異動的交易對。通知在「市場通知」中設定。</string>
+    <string name="settings_watchlist_names">顯示名稱</string>
+    <string name="settings_watchlist_names_hint">在交易對下方顯示名稱，例如 Bitcoin 或 NVIDIA。隨標誌清單一起取得，所有幣種只載入一次。</string>
+    <string name="settings_watchlist_sparkline">自選清單迷你走勢圖</string>
+    <string name="settings_watchlist_sparkline_hint">價格旁顯示 24 小時走勢</string>
+    <string name="settings_watchlist_value_names">名稱</string>
+    <string name="settings_watchlist_value_price_only">僅價格</string>
+    <string name="settings_watchlist_value_sparkline">迷你走勢圖</string>
+
+    <!-- Einstellungen › Token & TradFi -->
+    <string name="settings_asset_scope_alpha">包括 Alpha 代幣（α）</string>
+    <string name="settings_asset_scope_alpha_hint">Alpha 代幣：來自 Binance Alpha 清單的早期專案，多為小型專案——交易往往清淡，價格波動劇烈。</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">屬於代幣。選擇「僅 TradFi」時鎖定；清單中已有的 Alpha 代幣會保留。</string>
+    <string name="settings_asset_scope_both">代幣和 TradFi</string>
+    <string name="settings_asset_scope_both_hint">全部——加密貨幣和 TradFi</string>
+    <string name="settings_asset_scope_hint">決定新增時選擇和搜尋顯示哪些交易對。已在自選清單中的交易對始終保留。</string>
+    <string name="settings_asset_scope_title">代幣與 TradFi</string>
+    <string name="settings_asset_scope_tokens">僅代幣</string>
+    <string name="settings_asset_scope_tokens_hint">加密貨幣：現貨和永續</string>
+    <string name="settings_asset_scope_tradfi">僅 TradFi</string>
+    <string name="settings_asset_scope_tradfi_hint">股票、大宗商品、外匯期貨——是合約，不是代幣</string>
+    <string name="settings_rolling_futures">包括季度及其他交割合約</string>
+    <string name="settings_rolling_futures_hint">關閉時：交易所清單中缺失的交割合約將被標記為已停止交易，而不是逐個檢查。每次重新整理都能節省時間。</string>
+    <string name="settings_rolling_futures_qtly">包括季度及其他交割合約（QTLY）</string>
+    <string name="settings_rolling_futures_tradfi_hint">屬於代幣。選擇「僅 TradFi」時鎖定；仍適用於清單中已有的交割合約。</string>
+    <string name="settings_tradfi_futures">股票、大宗商品和外匯（TradFi）</string>
+    <string name="settings_tradfi_futures_hint">選擇交易對時也顯示股票、黃金等大宗商品、外匯以及上市前公司的合約。這些是合約，不是代幣。</string>
+
+    <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
+    <string name="settings_accent">強調色</string>
+    <string name="settings_accent_hint">應用程式、小工具和應用程式圖示的顏色。部分主畫面在更換時會移除圖示，屆時請重新新增。</string>
+    <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
+    <string name="settings_coin_logos">幣種圖示</string>
+    <string name="settings_coin_logos_app">在應用程式中</string>
+    <string name="settings_coin_logos_app_hint">自選清單、交易對頁面和市場卡片</string>
+    <string name="settings_coin_logos_footer">圖示來自 CoinGecko；CoinGecko 沒有收錄的（如黃金、白銀、股票）來自 Binance。應用程式會一次性下載全部圖示並儲存在本裝置上，因此兩者都無法得知你關注哪些幣種。沒有圖示的幣種顯示首字母。收藏的幣種會在圖示上顯示一個小星標。開關關閉的地方既不顯示圖示也不顯示首字母；全部關閉後不會載入任何內容。</string>
+    <string name="settings_coin_logos_portfolio">在投資組合中</string>
+    <string name="settings_coin_logos_portfolio_hint">持倉、幣種詳細資料和分析</string>
+    <string name="settings_coin_logos_value_app">應用程式</string>
+    <string name="settings_coin_logos_widgets">在小工具中</string>
+    <string name="settings_coin_logos_widgets_hint">自選清單和單幣小工具</string>
+    <string name="settings_high_contrast">高對比度</string>
+    <string name="settings_high_contrast_hint">更鮮明的價格顏色和更深的次要文字。系統要求更高對比度時也會開啟。</string>
+    <string name="settings_language_choose">選擇語言</string>
+    <string name="settings_language_system">系統語言</string>
+    <string name="settings_price_colors">價格顏色</string>
+    <string name="settings_price_colors_hint">藍 / 橘在各種色覺障礙（紅綠和藍黃）下都易於區分。方向還會始終以 + / − 顯示。</string>
+    <string name="settings_theme_mode">淺色 / 深色</string>
+    <string name="settings_widgets">小工具</string>
+
+    <!-- Einstellungen › %-Änderung -->
+    <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
+    <string name="settings_change_basis">%1$s漲跌和圖表時區</string>
+    <string name="settings_change_basis_hint_1">所選時區決定自選清單、脈搏行、交易對頁面和小工具中的百分比漲跌從何時開始計算，以及圖表中顯示的時間。</string>
+    <string name="settings_change_basis_hint_2">「%1$s」與恰好 24 小時前的價格比較。「00:00」與該時區午夜的開盤價比較。</string>
+    <string name="settings_change_basis_hint_3">不影響提醒。</string>
+    <string name="settings_change_basis_hint_since_last">「%1$s」與上次更新時的價格比較。使用即時價格時，數值會接近 0%%。</string>
+
+    <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
+    <string name="settings_conversion_currency">換算貨幣</string>
+    <string name="settings_conversion_currency_hint">也用於投資組合、以你的貨幣設定的提醒、加密貨幣市場卡片和投資組合小工具。</string>
+    <string name="settings_cost_method">成本計算方法</string>
+    <string name="settings_cost_method_average">平均（Ø）</string>
+    <string name="settings_cost_method_average_hint">賣出按移動平均買入價計算。</string>
+    <string name="settings_cost_method_fifo">FIFO（預設）</string>
+    <string name="settings_cost_method_fifo_hint">最早買入的幣最先賣出，跨所有交易所和錢包計算。</string>
+    <string name="settings_cost_method_fifo_wallet">按錢包/交易所分別 FIFO</string>
+    <string name="settings_cost_method_fifo_wallet_hint">在每個交易所或錢包內先賣最早的幣；轉移會連同買入日期移動批次。</string>
+    <string name="settings_portfolio_lock">投資組合鎖</string>
+    <string name="settings_portfolio_lock_footer">鎖定只隱藏螢幕上的顯示內容。資料儲存在此裝置上，並受裝置加密保護。你可以用密碼保護備份。</string>
+    <string name="settings_portfolio_lock_hint">僅隱藏投資組合：使用指紋、臉部或裝置 PIN 解鎖。在背景超過一分鐘後會再次鎖定。自選清單、提醒和其他小工具不受影響。</string>
+    <string name="settings_portfolio_lock_no_device_lock">沒有裝置 PIN 或密碼，鎖定什麼也隱藏不了——請設定螢幕鎖定。</string>
+    <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
+    <string name="settings_portfolio_system_backup">將投資組合納入系統備份</string>
+    <string name="settings_portfolio_system_backup_hint">關閉：你的交易不會包含在裝置的系統備份和換機遷移中。如需遷移，請使用應用程式自帶的密碼保護備份。</string>
+    <string name="settings_portfolio_system_backup_unavailable">需要 Android 9 或更高版本——舊版本會把投資組合未加密地儲存到 Google 備份中。</string>
+    <string name="settings_portfolio_tab">顯示「投資組合」分頁</string>
+    <string name="settings_portfolio_value_locked">開啟，已加鎖</string>
+    <string name="settings_show_converted">換算價格</string>
+    <string name="settings_show_converted_hint">在自選清單中同時以 %1$s 顯示價格</string>
+
+    <!-- Einstellungen › Markt-Meldungen -->
+    <string name="settings_depeg_alarm">USDT 脫錨提醒</string>
+    <string name="settings_depeg_alarm_hint">當 USDT 偏離 1 USD 達到門檻時通知一次（Kraken USDT/USD、Coinbase USDT/USD、Binance USDC/USDT）。</string>
+    <string name="settings_depeg_threshold">脫錨門檻</string>
+    <string name="settings_fng_above">Fear &amp; Greed：高於時提醒</string>
+    <string name="settings_fng_below">Fear &amp; Greed：低於時提醒</string>
+    <string name="settings_gas_alert_hint">普通手續費低於門檻時提醒一次。在行情更新時檢查，最多每 10 分鐘一次。</string>
+    <string name="settings_gas_btc_below">Bitcoin 手續費低於（sat/vB）</string>
+    <string name="settings_gas_eth_below">Ethereum Gas 低於（gwei）</string>
+    <string name="settings_ind_ath_within">距歷史最高點跌幅不超過</string>
+    <string name="settings_ind_mayer_above">Mayer Multiple 高於</string>
+    <string name="settings_ind_mayer_below">Mayer Multiple 低於</string>
+    <string name="settings_ind_mvrv_above">MVRV 高於</string>
+    <string name="settings_ind_mvrv_below">MVRV 低於</string>
+    <string name="settings_indicator_alerts_hint">比特幣指標每天檢查兩次。門檻由你選擇——應用程式不評價這些數值。</string>
+    <string name="settings_macro_notifications">經濟日曆</string>
+    <string name="settings_macro_notifications_hint">在有重要美國經濟數據（通膨、就業報告、聯準會利率決議）的日子 08:00 提醒。日曆每天從應用程式網站載入一次。</string>
+    <string name="settings_market_alerts">市場通知</string>
+    <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
+    <plurals name="settings_market_alerts_active">
+        <item quantity="other">已開啟 %1$d 項</item>
+    </plurals>
+
+    <!-- Einstellungen › Sprachausgabe -->
+    <string name="settings_speech_rate">語速：%1$.1f×</string>
+    <string name="settings_tts">語音播報</string>
+    <string name="settings_tts_alarms_only">僅提醒</string>
+    <string name="settings_tts_alarms_only_hint">關閉時：標記為「播報價格」的交易對每次更新都會被朗讀。</string>
+    <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
+    <string name="settings_tts_hint_silent">朗讀價格和提醒。裝置處於靜音或震動模式時保持安靜。</string>
+    <string name="settings_tts_test">測試語音</string>
+
+    <!-- Einstellungen › Daten: App zurücksetzen -->
+    <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
+    <string name="settings_reset_app">重設應用程式</string>
+    <string name="settings_reset_app_action">全部刪除</string>
+    <string name="settings_reset_app_confirm">刪除關注清單、提醒、投資組合、設定和所有已儲存的資料，還原到安裝後的狀態。此操作無法復原。提示：請先備份。裝置備份（Google 備份或 iCloud/電腦備份）會保留之前的資料，直到下一次備份執行。</string>
+    <string name="settings_reset_app_title">要重設應用程式嗎？</string>
+
+    <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
+    <!-- Suchfeld der Währungsseite -->
+    <string name="currency_search">搜尋貨幣</string>
+    <string name="language_search">搜尋語言</string>
+
+    <!-- Theme -->
+    <string name="theme_dark">深色</string>
+    <string name="theme_light">淺色</string>
+    <string name="theme_system">跟隨系統</string>
+
+    <!-- Akzentfarben -->
+    <string name="accent_blue">藍色</string>
+    <string name="accent_green">綠色</string>
+    <!-- Eigenname, in allen Sprachen gleich -->
+    <string name="accent_marrs_green">Marrs Green</string>
+    <string name="accent_orange">橘色</string>
+    <string name="accent_red">紅色</string>
+
+    <!-- Kursfarben -->
+    <string name="price_colors_red_up_hint">中國、日本、韓國和台灣的慣例</string>
+    <string name="price_colors_swap">交換顏色（漲 ↔ 跌）</string>
+    <string name="price_style_calm">柔和</string>
+    <string name="price_style_calm_color_vision">柔和 · 色覺障礙</string>
+    <string name="price_style_color_vision">色覺障礙</string>
+    <string name="price_style_fresh">清新</string>
+    <string name="price_style_traditional">傳統</string>
+
+    <!-- Über die App -->
+    <string name="about_exchanges_verified">交易所連線最近一次以真實回應核對：%1$s</string>
+    <string name="about_license">價格直接來自交易所；無需帳戶，無追蹤。</string>
+    <!-- Texte der Lizenzen liegen in assets/licenses -->
+    <string name="about_licenses">授權聲明</string>
+    <string name="about_privacy_policy">隱私權政策</string>
+    <!-- GitHub-Vorlage exchange_request.md -->
+    <string name="about_request_exchange">申請新增交易所</string>
+    <string name="about_source_code">GitHub 上的原始碼</string>
+    <string name="about_version">Crypto Checker %1$s</string>
+    <string name="about_why">Crypto Checker 是 r1AD 的獨立專案：一個平靜的行情總覽，無需帳戶、沒有廣告、不做追蹤。問題和建議：%1$s</string>
+
+    <!-- Lizenzhinweise -->
+    <string name="licenses_app_intro">Crypto Checker 是開源軟體（MIT 授權條款）。</string>
+    <string name="licenses_font_title">Rubik 字型</string>
+    <string name="licenses_icons_bundled_text">隨應用程式附帶：Christopher Downer 及貢獻者的 「Cryptocurrency Icons」（github.com/spothq/cryptocurrency-icons）中的圖示，以 CC0 1.0 Universal 發布。在 CoinGecko 或 Binance 的圖示載入前顯示。名稱和標誌仍為各自專案的商標。</string>
+    <string name="licenses_icons_title">備用幣種圖示</string>
+    <string name="licenses_libraries_intro">本應用程式依據 Apache License 2.0 使用以下程式庫：</string>
+    <string name="licenses_libraries_title">Android 程式庫</string>
+
+    <!-- Entwickleroptionen -->
+    <!-- Countdown der letzten Tipps auf die Version bis zu den Entwickleroptionen -->
+    <plurals name="developer_taps_left">
+        <item quantity="other">再點按 %d 次即可解鎖開發者選項</item>
+    </plurals>
+    <string name="developer_unlocked">已解鎖開發者選項</string>
+
+    <!-- Nur iOS: Einstellungen -->
+    <!-- Fusszeile unter «Alarm-Signal» -->
+    <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">震動取決於 iPhone 設定（聲音與觸感）。</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">統計新的提醒和市場通知；開啟應用程式後歸零。</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">你的資料</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">裝置上</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">清單、提醒和投資組合加密儲存在本裝置上；無需帳戶，沒有自有伺服器。</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">連線</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">價格直接來自你所選交易對的交易所，另有匯率、幣種清單和圖示以及 GitHub 上的資料鏡像；它們能看到你的 IP 地址，但絕不會看到你的持倉（關注的地址會發送給相應網路的服務商）。</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">備份</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">僅在你建立時才有。設定密碼則加密（Argon2id + AES-256-GCM）；無密碼則可直接讀取。</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">更換裝置</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">金鑰留在舊裝置上——請先建立備份檔案。</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">分享診斷資訊</string>
+    <string name="diagnostics_share_hint">供支援使用的文字檔案：版本、裝置、提醒設定、最近檢查和提醒記錄 – 不含投資組合、金額、地址或備註。你會先看到內容；不會自動發送任何內容。</string>
+    <string name="diagnostics_preview_title">診斷資訊 – 預覽</string>
+    <string name="diagnostics_action_share">分享</string>
+    <string name="settings_price_overlay">價格浮動視窗</string>
+    <string name="settings_price_overlay_hint">以小型懸浮膠囊在其他應用程式上方顯示常駐價格通知中的交易對。點按可開啟應用程式，拖到底部的 × 可關閉。</string>
+    <string name="settings_price_overlay_needs">僅在開啟「%1$s」時可用。</string>
+    <string name="settings_price_overlay_grant">允許顯示在其他應用程式上層</string>
+    <string name="price_overlay_close">關閉浮動視窗</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">地址專用的自有伺服器</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">僅限比特幣：你自己的 Esplora 或 mempool 相容伺服器（例如 https://node.example/api，需要公開受信任的憑證，例如 Let\'s Encrypt）。設定後，比特幣地址和 xpub 只向該伺服器查詢——即使伺服器無法連線，也絕不改用公共節點。其他網路仍使用公共節點。留空 = 公共節點。</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">比特幣伺服器（https://）</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">測試</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">正在測試…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">伺服器有回應——區塊 %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">沒有有效回應——請檢查地址和憑證</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">使用中：%1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">未設定——使用公共節點</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">只允許 https:// 地址</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">地址中不能包含使用者名稱或密碼</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">地址中不能包含 ? 或 # 部分</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">伺服器地址無效</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">切換到公共節點？</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">之後你的比特幣地址和 xpub 將向公共節點查詢：%1$s。這些節點會看到這些地址以及你的 IP 地址。</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">使用公共節點</string>
+</resources>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">Catatan tanpa kos asas: %1$d</string>
+    <string name="cost_gaps_card_text">Tambah kos asas supaya untung dan cukai lengkap.</string>
+    <string name="cost_gaps_sheet_title">Catatan tanpa kos asas</string>
+    <string name="cost_gaps_sheet_intro">Aliran masuk ini tiada kos asas. Cadangannya ialah harga tutup harian pada tarikh itu – anda boleh melaraskannya dalam catatan.</string>
+    <string name="cost_gaps_empty">Semua catatan mempunyai kos asas.</string>
+    <string name="cost_gap_enter">Masukkan kos asas</string>
+    <string name="cost_gap_leave_unknown">Biarkan tidak diketahui</string>
+    <string name="cost_gap_left_unknown">Dibiarkan tidak diketahui</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">Cadangan: harga tutup harian %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">Tiada harga tutup harian yang disahkan untuk tarikh ini</string>
+    <string name="cost_gap_suggestion_loading">Memuatkan harga tutup harian …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">Kos asas = nilai semasa diterima (pendapatan)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">Kos asas = 0 (ganjaran tanpa aliran masuk, Austria)</string>
+    <string name="cost_gap_apply">Guna</string>
+    <string name="address_lots_action">Kos asas untuk baki alamat</string>
+    <string name="address_lots_title">Kos asas untuk baki alamat</string>
+    <string name="address_lots_intro">Masukkan tarikh belian, jumlah dan kos asas untuk baki alamat ini. Lot dikira seperti belian dalam alamat ini; mana-mana bahagian yang tidak diliputi kekal tanpa kos asas.</string>
+    <string name="address_lots_add">Tambah lot</string>
+    <string name="address_lots_new">Lot baharu</string>
+    <string name="address_lots_edit">Lot</string>
+    <string name="address_lots_date">Tarikh belian</string>
+    <string name="address_lots_amount">Jumlah</string>
+    <string name="address_lots_mode_total">Jumlah keseluruhan</string>
+    <string name="address_lots_mode_price">Setiap koin</string>
+    <string name="address_lots_price">Harga setiap koin (USDT)</string>
+    <string name="address_lots_total">Jumlah kos asas (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%1$s daripada %2$s dengan kos asas</string>
+    <string name="address_lots_unlotted">%1$s tanpa kos asas</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">Lot melebihi baki sebanyak %1$s – yang paling lama digunakan dahulu.</string>
+    <string name="address_lots_not_loaded">Baki belum dimuatkan – lot dikira sebaik sahaja ia dimuatkan.</string>
+    <string name="address_lots_invalid">Masukkan jumlah dan kos asas</string>
+</resources>

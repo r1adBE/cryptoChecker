@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">確保提醒送達</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">正常</string>
+    <string name="delivery_state_warn">注意</string>
+    <string name="delivery_state_info">提示</string>
+    <string name="delivery_allowed">已允許</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">通知</string>
+    <string name="delivery_notifications_off">已關閉 – 提醒無法送達</string>
+    <string name="delivery_notifications_not_asked">尚未允許</string>
+    <string name="delivery_channel">提醒管道</string>
+    <string name="delivery_channel_high">重要性高 – 會在螢幕頂部彈出</string>
+    <string name="delivery_channel_low">重要性低 – 提醒只會靜默出現在清單中</string>
+    <string name="delivery_channel_off">已關閉 – 提醒無法送達</string>
+    <string name="delivery_exact_on">開啟 – 約每 15 分鐘</string>
+    <string name="delivery_exact_off">關閉 – Android 不定期檢查</string>
+    <string name="delivery_battery">電池最佳化</string>
+    <string name="delivery_battery_unrestricted">不受限制</string>
+    <string name="delivery_battery_optimized">已最佳化 – Android 可能延後檢查。應用程式不會申請例外；你可以在應用程式的電池設定中更改。</string>
+    <string name="delivery_background">背景使用</string>
+    <string name="delivery_background_restricted">受限 – Android 會停止背景檢查</string>
+    <string name="delivery_dnd">勿擾</string>
+    <string name="delivery_dnd_on">開啟 – 提醒可能沒有聲音</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">生效至 %1$s – 已觸發的提醒會等到那時</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – 已觸發的提醒在此期間等待</string>
+    <string name="delivery_last_check">最近一次背景檢查</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – 超過 6 小時前</string>
+    <string name="delivery_last_check_never">暫無</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">允許</string>
+    <string name="delivery_action_change">更改</string>
+    <string name="delivery_action_show">查看</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">橫幅和聲音</string>
+    <string name="delivery_alert_off">橫幅已關閉 – 提醒只出現在通知中心</string>
+    <string name="delivery_sound_off">聲音已關閉 – 提醒靜音送達</string>
+    <string name="delivery_time_sensitive">時效性通知</string>
+    <string name="delivery_time_sensitive_off">已關閉 – 專注模式可能會暫緩提醒</string>
+    <string name="delivery_background_refresh">背景 App 重新整理</string>
+    <string name="delivery_low_power">低電量模式</string>
+    <string name="delivery_swipe_away">是否已滑掉應用程式？</string>
+    <string name="delivery_swipe_away_note">如果在 App 切換器中滑掉應用程式，iOS 會停止背景檢查，直到你再次開啟它。</string>
+    <string name="delivery_live_activity">即時活動</string>
+    <string name="delivery_live_activity_note">在鎖定畫面上顯示價格，但只在應用程式檢查時更新 – 並不會讓提醒檢查得更頻繁。</string>
+
+    <string name="alarm_first_check">檢查提醒能否送達</string>
+
+    <string name="oem_battery_title">廠商省電設定</string>
+    <string name="oem_battery_xiaomi">小米可能會徹底停止應用程式，此時不會收到任何提醒。請開啟「自啟動」，並將省電策略設為「無限制」。</string>
+    <string name="oem_battery_samsung">三星可能會讓應用程式深度休眠，此時不會收到任何提醒。請在 電池 › 背景使用限制 中將其加入「從不休眠的應用程式」。</string>
+    <string name="oem_battery_huawei">華為/榮耀可能會停止應用程式，此時不會收到任何提醒。請在 電池 › 應用程式啟動管理 中選擇「手動管理」並全部允許。</string>
+    <string name="oem_battery_oneplus">一加可能會停止應用程式，此時不會收到任何提醒。請允許「自動啟動」，並在 耗電管理 中允許背景活動。</string>
+    <string name="oem_battery_oppo">OPPO/realme 可能會停止應用程式，此時不會收到任何提醒。請允許「自動啟動」，並在 耗電管理 中允許背景活動。</string>
+    <string name="oem_battery_vivo">vivo 可能會停止應用程式，此時不會收到任何提醒。請允許「自啟動」，並在 電池 中允許背景高耗電。</string>
+    <string name="alarm_reliability_stale">上次檢查：%1$s – 提醒可能延遲</string>
+    <string name="alarm_reliability_never">提醒已開啟 – 尚無背景檢查</string>
+    <string name="alarm_reliability_notifications_off">通知已關閉 – 提醒無法送達</string>
+    <string name="alarm_reliability_battery">省電功能可能會停止檢查提醒</string>
+    <string name="alarm_reliability_background_refresh">背景 App 重新整理已關閉 – 提醒可能無法送達</string>
+</resources>

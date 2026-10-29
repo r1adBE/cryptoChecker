@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">耗費更多流量和電量</string>
+    <string name="update_mode_live">開啟時即時</string>
+    <string name="update_mode_live_hint">交易所提供即時價格時：自選清單開啟期間即時更新。否則在下次取得時。關閉時：最多每 %1$s 一次，常常更晚。</string>
+    <string name="update_mode_live_hint_ios">交易所提供即時價格時：自選清單開啟期間即時更新。否則在下次取得時。關閉時：iOS 允許時，有時相隔數小時。如果你滑掉應用程式，iOS 會暫停這些檢查，直到你再次開啟它。</string>
+    <string name="update_mode_recommended">推薦</string>
+    <string name="update_mode_sparsam">省電</string>
+    <string name="update_mode_sparsam_hint">應用程式關閉時最多每 %1$s 一次，常常更晚（提醒、小工具）。開啟時：每次開啟時。</string>
+    <string name="update_mode_sparsam_hint_ios">應用程式關閉時由 iOS 決定何時檢查（提醒、小工具），有時相隔數小時。開啟時：每次開啟。</string>
+    <string name="update_mode_title">更新頻率</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">重新整理已中斷</string>
+    <string name="refresh_sheet_alarms">提醒</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="other">已觸發 %1$d 個</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">全部已更新</string>
+    <string name="refresh_sheet_app_start">應用程式啟動</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="other">批次請求 %1$s · %2$d 個價格</item>
+    </plurals>
+    <string name="refresh_sheet_database">資料庫</string>
+    <string name="refresh_sheet_exchange_unreachable">無法連線 %1$s</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
+        <item quantity="other">%1$d 個交易所無法連線</item>
+    </plurals>
+    <string name="refresh_sheet_network">網路</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="other">%1$d 條通知</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="other">%1$d 個交易對</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="other">%1$d 個交易對未更新</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="other">%2$d/%1$d 個交易對</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">暫停至 %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">暫停至 %1$s（%2$s）</string>
+    <string name="refresh_sheet_reason_no_data">無資料</string>
+    <string name="refresh_sheet_reason_offline">無連線</string>
+    <string name="refresh_sheet_reason_rate_limit">請求過多</string>
+    <string name="refresh_sheet_reason_server">伺服器錯誤</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">逾時</string>
+    <string name="refresh_sheet_reason_unavailable">交易所不可用</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s 秒</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_exchanges">交易所</string>
+    <string name="refresh_sheet_section_steps">明細</string>
+    <string name="refresh_sheet_status_failed">未更新</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">全部已更新</string>
+    <string name="refresh_sheet_status_partial">部分已更新</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">開始前等待</string>
+    <string name="refresh_sheet_widgets">小工具</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s（%2$s）</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">批次請求 %1$s（失敗）</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="other">%1$d 個錯誤</item>
+    </plurals>
+    <string name="refresh_report_live">即時：%1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="other">%1$d 個已停止交易</item>
+    </plurals>
+    <string name="refresh_report_singles">單獨請求 %1$d 個</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">失敗</string>
+    <string name="check_result_ok">正常</string>
+    <string name="check_result_partial">部分</string>
+    <string name="check_result_skipped">已跳過</string>
+    <string name="check_trigger_bgtask">背景</string>
+    <string name="check_trigger_exact">準時</string>
+    <string name="check_trigger_foreground">應用程式</string>
+    <string name="check_trigger_widget">小工具</string>
+    <string name="check_trigger_widget_ios">小工具 · 價格和價格提醒</string>
+    <string name="check_trigger_worker">背景</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android 可能會延遲檢查——請將電池設為「無限制」</string>
+    <string name="battery_later">稍後</string>
+    <string name="battery_message">Android 會為了省電而延後背景任務——價格和小工具可能因此滯後數小時。將電池使用設為「不受限制」可保持其最新。你可以隨時在 Android 設定中更改。</string>
+    <string name="battery_open_settings">開啟電池設定</string>
+    <string name="battery_steps">在應用程式資訊中點按「電池」（或「應用程式電池用量」），然後選擇「無限制」。</string>
+    <string name="battery_title">保持價格最新</string>
+    <string name="ios_background_refresh_off">此應用程式的「背景App重新整理」已關閉。關閉時，只有在應用程式開啟時才會檢查提醒。</string>
+    <string name="ios_low_power_mode">低電量模式已開啟。iOS 很少在背景檢查，提醒可能會延遲。</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">交易所訊息：%1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">儲存空間仍處於鎖定狀態 – %1$d 秒後重試</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="other">儲存空間仍處於鎖定狀態 – %1$d 秒後重試</item>
+    </plurals>
+    <string name="watchlist_retry_short">%1$s 後重試</string>
+    <string name="widget_retry_at">將於 %1$s 重試</string>
+    <string name="refresh_sheet_wait_attempt">第 %1$d 次嘗試 – 首次嘗試時加密儲存空間尚未就緒</string>
+</resources>

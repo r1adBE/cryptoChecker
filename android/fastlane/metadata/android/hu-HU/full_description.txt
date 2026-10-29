@@ -35,7 +35,7 @@ EZENKÍVÜL
 • Portfólió opcionálisan (a Beállításokban kapcsolható be): vételek, eladások, cserék, átvezetések, jutalmak, befizetések és kifizetések; FIFO (alapértelmezett) vagy átlag (Ø); csak olvasható címek, seed nélkül: BTC (xpub is), ETH és EVM-láncok, SOL, TRX, XRP, LTC, ADA és TON; CSV-import Relai-, Swissquote-, Bitpanda-, Kraken-, Binance- és Coinbase-fájlokból; éves áttekintés CSV-ben; saját zár. Bitpanda és Swissquote: saját ár nélkül, csak CSV-vel.
 • Mindenkinek olvasható: zöld/piros vagy kék/narancs, előjel és nyíl a szín mellett; a TalkBack minden sort egy mondatként olvas fel
 • Mentés és visszaállítás fájlba – Android és iPhone között is
-• Világos és sötét mód, öt kiemelőszín, 31 nyelv
+• Világos és sötét mód, öt kiemelőszín, 33 nyelv
 • Nyílt forráskód (MIT) – a kód nyilvános a GitHubon
 
 Megjegyzés: a Crypto Checker árakat és egy általad megadott portfóliót jelenít meg. Nem tőzsde és nem tárca, nem kereskedik és nem ad befektetési tanácsot.

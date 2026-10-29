@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
+    <string name="app_lock_unavailable">此裝置未設定螢幕鎖定。請先在系統設定中設定。</string>
+    <string name="app_lock_unlock">解鎖</string>
+    <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
+    <string name="portfolio_clear">清空投資組合</string>
+    <plurals name="portfolio_clear_confirm_count">
+        <item quantity="other">要刪除全部 %d 筆交易嗎？觀察的地址會保留。刪除後可立即復原。</item>
+    </plurals>
+    <string name="portfolio_empty_action">新增第一筆買入</string>
+    <string name="portfolio_empty_address">僅關注一個錢包地址</string>
+    <string name="portfolio_empty_csv">在交易所買的？匯入其檔案</string>
+    <string name="portfolio_empty_example_plain">範例：3 月 1 日買入 %1$s BTC。應用程式會顯示它今天值多少，以及你是賺是虧——僅儲存在本裝置上。</string>
+    <string name="portfolio_empty_title">暫無交易</string>
+    <string name="portfolio_enable_ask_text">你的交易已儲存。「投資組合」分頁會顯示你的持倉及其價值。</string>
+    <string name="portfolio_enable_ask_title">開啟「投資組合」分頁？</string>
+    <string name="portfolio_enable_later_hint">交易已儲存。你可以在「設定 › 投資組合」中開啟「投資組合」分頁。</string>
+    <string name="portfolio_enabled_banner">已開啟投資組合，可在「投資組合」分頁中找到。</string>
+    <string name="portfolio_lock_reason">解鎖投資組合</string>
+    <string name="portfolio_locked_text">解鎖後可查看持倉和價值。</string>
+    <string name="portfolio_locked_title">投資組合已鎖定</string>
+    <string name="portfolio_setting_hint">可選：記錄買入和賣出，並在單獨的分頁中查看市值和損益。</string>
+    <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
+    <string name="portfolio_status_stale">已過時 · 截至 %1$s</string>
+    <plurals name="portfolio_system_restore_invalid">
+        <item quantity="other">系統備份中有 %d 筆記錄無效，未還原。</item>
+    </plurals>
+    <string name="portfolio_title">投資組合</string>
+    <string name="portfolio_unassigned_fee">手續費未分配——成本未知：%1$s</string>
+    <string name="portfolio_updated">價格更新於 %1$s</string>
+
+    <!-- Portfolio: Gesamtwert-Kopf (Heute · 7 T · Gesamt) und Aufteilung -->
+    <string name="portfolio_allocation_other">其他</string>
+    <string name="portfolio_allocation_title">資產分布</string>
+    <string name="portfolio_card_details">詳細資料</string>
+    <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
+    <string name="portfolio_card_figure_none_a11y">%1$s：暫不可用</string>
+    <string name="portfolio_card_hints_count">說明（%1$d）</string>
+    <string name="portfolio_card_today">今日</string>
+    <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
+    <string name="portfolio_card_total">總計</string>
+    <string name="portfolio_hide_amounts">隱藏金額</string>
+    <string name="portfolio_hide_amounts_hint">在投資組合和投資組合小工具中以 ••• 顯示金額和價值，百分比仍然可見。</string>
+    <string name="portfolio_invested">成本</string>
+    <string name="portfolio_total_no_fx">沒有 %1$s 的匯率——金額以 USDT 計</string>
+    <string name="portfolio_total_value">總市值</string>
+    <string name="portfolio_value">市值</string>
+
+    <!-- Portfolio: Bestand, offene Positionen, Durchschnittspreis -->
+    <string name="portfolio_avg_and_now">均價 %1$s · 現價 %2$s</string>
+    <string name="portfolio_avg_only">平均 %1$s</string>
+    <string name="portfolio_avg_open_lots">持有幣的平均成本</string>
+    <string name="portfolio_avg_partial">有買入價的 %1$s 的均價</string>
+    <string name="portfolio_avg_price">平均買入價</string>
+    <string name="portfolio_avg_price_hint">平均買入價：所有買入按數量加權的平均值。賣出按此平均價計算。</string>
+    <plurals name="portfolio_closed">
+        <item quantity="other">已平倉（%1$d）</item>
+    </plurals>
+    <string name="portfolio_fifo_hint">FIFO：賣出時先用最早的幣。平均 = 剩餘成本 ÷ 有買入價的數量。</string>
+    <string name="portfolio_holdings">持倉</string>
+    <string name="portfolio_lost_fee_cost">無已付批次的網路手續費成本：%1$s</string>
+    <string name="portfolio_open_lots">未平倉買入批次（%1$d）</string>
+    <string name="portfolio_open_lots_avg">有買入價（Ø）</string>
+    <string name="portfolio_open_lots_no_cost">無買入價</string>
+    <string name="portfolio_open_lots_without_price">無買入價</string>
+    <string name="portfolio_realized">已實現損益</string>
+    <string name="portfolio_unrealized">未實現損益</string>
+    <string name="portfolio_unrealized_without_unpriced">不含無買入價的 %1$s</string>
+    <string name="portfolio_withdrawn_gain">已提取：%1$s（截至提取的價值變化）</string>
+
+    <!-- Portfolio: Kurse und Umrechnung -->
+    <string name="portfolio_convert_to">換算為</string>
+    <string name="portfolio_convert_to_value">換算為：%1$s</string>
+    <string name="portfolio_current_missing">%1$s 暫無目前價格</string>
+    <string name="portfolio_current_price">目前價格</string>
+    <string name="portfolio_price_missing">缺少價格</string>
+    <string name="portfolio_price_missing_hint">部分買入沒有價格。補充買入價即可查看損益。</string>
+    <string name="portfolio_price_source">價格：Binance · USDT 按市場價</string>
+    <string name="portfolio_price_source_routes">價格：%1$s，其餘 Binance · USDT 按市場價</string>
+    <string name="portfolio_price_unavailable">暫時無法取得價格</string>
+    <string name="portfolio_price_unchecked">價格未核實</string>
+    <string name="portfolio_price_via_base">≈ %1$s 價格（跨鏈/包裝）</string>
+    <string name="portfolio_usdt_as_usd">USDT 按其 USD 市場價換算</string>
+    <string name="portfolio_usdt_assumed">缺少 USDT 的美元匯率 – 按 1 美元計算</string>
+
+    <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
+    <string name="portfolio_add_from_watch">新增到投資組合</string>
+    <string name="portfolio_add_tx">記錄交易</string>
+    <string name="portfolio_buy">買入</string>
+    <string name="portfolio_coin">幣種</string>
+    <string name="portfolio_coin_invalid">請輸入幣種代號</string>
+    <string name="portfolio_coin_search">搜尋代號，例如 BTC</string>
+    <string name="portfolio_discard_confirm">放棄</string>
+    <string name="portfolio_discard_keep">繼續編輯</string>
+    <string name="portfolio_discard_title">放棄更改？</string>
+    <string name="portfolio_edit_tx">編輯交易</string>
+    <string name="portfolio_invalid">請輸入大於 0 的有效數字。</string>
+    <string name="portfolio_oversold">賣出數量超過持倉，請檢查交易記錄。</string>
+    <string name="portfolio_sell">賣出</string>
+    <string name="portfolio_sell_exceeds">超過你的持倉（%1$s）</string>
+    <string name="portfolio_sell_exceeds_fee">數量加手續費超過持有量（%1$s）</string>
+    <string name="portfolio_sell_exceeds_wallet">超過你在 %2$s 的持有量（%1$s）</string>
+    <string name="portfolio_transactions">交易記錄</string>
+    <string name="portfolio_tx_acquired_date">原始買入日期（選填）</string>
+    <string name="portfolio_tx_acquired_date_hint">用於稅務匯出中的持有期</string>
+    <string name="portfolio_tx_amount">數量</string>
+    <string name="portfolio_tx_coin_fee">手續費（以幣計，選填）</string>
+    <string name="portfolio_tx_date">日期</string>
+    <string name="portfolio_tx_delete_confirm">此交易將從投資組合中移除。</string>
+    <string name="portfolio_tx_delete_title">刪除此交易？</string>
+    <string name="portfolio_tx_deposit">存入</string>
+    <string name="portfolio_tx_entry_currency">輸入幣種</string>
+    <string name="portfolio_tx_explain_deposit">非交易所得的持倉，例如以前的幣</string>
+    <string name="portfolio_tx_explain_gift">幣像提取一樣離開持倉——僅在對贈與如此徵稅的國家（UK、CA、AU）按市值視為處置</string>
+    <string name="portfolio_tx_explain_payment">用於支付商品或服務——像賣出一樣按市值視為處置，但未收到資金</string>
+    <string name="portfolio_tx_explain_reward">成本 = 收到時的市場價值</string>
+    <string name="portfolio_tx_explain_swap">幣換幣：賣出付出的幣，買入收到的幣</string>
+    <string name="portfolio_tx_explain_transfer">無收益——成本隨幣一起轉移</string>
+    <string name="portfolio_tx_explain_withdrawal">持倉移出投資組合——不算賣出，也無收益</string>
+    <string name="portfolio_tx_fee_consumes_amount">手續費與收到的數量一樣多——將不會剩下任何東西。</string>
+    <string name="portfolio_tx_fees_toggle">手續費</string>
+    <string name="portfolio_tx_fiat_converted">≈ %1$s（按 %2$s 的匯率）</string>
+    <string name="portfolio_tx_fiat_loading">正在載入匯率…</string>
+    <string name="portfolio_tx_fiat_no_fx">這一天沒有匯率——請以 USDT 輸入金額。</string>
+    <string name="portfolio_tx_gift">贈與</string>
+    <string name="portfolio_tx_gift_price_hint">以 USDT 計。留空 = 當日收盤價（估算）</string>
+    <string name="portfolio_tx_gift_spouse">給配偶 / 伴侶</string>
+    <string name="portfolio_tx_gift_spouse_hint">英國和加拿大：無損益——你的伴侶承接你的成本。其他國家不考慮這一點。</string>
+    <string name="portfolio_tx_market_value">每枚幣的市值</string>
+    <string name="portfolio_tx_more_buy">手續費、交易所、備註</string>
+    <string name="portfolio_tx_network_fee">網路手續費（以幣計，選填）</string>
+    <string name="portfolio_tx_note">備註（選填）</string>
+    <string name="portfolio_tx_payment">用於支付</string>
+    <string name="portfolio_tx_price">每枚價格</string>
+    <string name="portfolio_tx_price_hint">以 USDT 計。未知可留空。</string>
+    <string name="portfolio_tx_price_historic">已核對 %1$s 的日收盤價——如有需要可修改</string>
+    <string name="portfolio_tx_price_invalid">請輸入有效數字（0 或以上），或留空。</string>
+    <string name="portfolio_tx_price_past_hint">請輸入交易當天的價格（未知則留空）</string>
+    <string name="portfolio_tx_price_receipt_hint">以 USDT 計。留空 = 無成本的持倉。</string>
+    <string name="portfolio_tx_price_zero">匯入的交易價格不能為 0——留空則使用市場價</string>
+    <string name="portfolio_tx_removed">交易已刪除</string>
+    <string name="portfolio_tx_reward">獎勵</string>
+    <string name="portfolio_tx_save_failed">無法儲存交易。你輸入的內容仍在——請重試。</string>
+    <string name="portfolio_tx_swap">兌換</string>
+    <string name="portfolio_tx_swap_fee_received">以 %1$s 支付的手續費：從收到的數量中扣除，無需價格。</string>
+    <string name="portfolio_tx_swap_from">從 %1$s 兌換</string>
+    <string name="portfolio_tx_swap_given_amount">付出的數量</string>
+    <string name="portfolio_tx_swap_given_coin">付出的幣</string>
+    <string name="portfolio_tx_swap_received_amount">收到的數量</string>
+    <string name="portfolio_tx_swap_received_coin">收到的幣</string>
+    <string name="portfolio_tx_swap_same_coin">請選擇與付出的幣不同的幣</string>
+    <string name="portfolio_tx_swap_to">兌換為 %1$s</string>
+    <string name="portfolio_tx_swap_value">兌換價值（選填）</string>
+    <string name="portfolio_tx_swap_value_hint">總價值。留空 = 未知——收益將不完整（兌換中含 USDT 時自動計算）。</string>
+    <string name="portfolio_tx_third_fee_amount">手續費數量</string>
+    <string name="portfolio_tx_third_fee_coin">手續費幣種</string>
+    <string name="portfolio_tx_third_fee_incomplete">沒有價格時，手續費不計入成本和賣出所得；稅務匯出會標記此類賣出。</string>
+    <string name="portfolio_tx_third_fee_price">每枚手續費幣的價格（選填）</string>
+    <string name="portfolio_tx_third_fee_toggle">以其他幣支付的手續費</string>
+    <string name="portfolio_tx_total">合計：%1$s</string>
+    <string name="portfolio_tx_transfer">轉移</string>
+    <string name="portfolio_tx_transfer_from">轉出方（選填）</string>
+    <string name="portfolio_tx_transfer_to">轉入方（選填）</string>
+    <string name="portfolio_tx_transfer_to_hint">交易所或錢包——此後按該處估值。</string>
+    <string name="portfolio_tx_type_select">類型：%1$s</string>
+    <string name="portfolio_tx_value_received">收到時每枚幣的價值（選填）</string>
+    <string name="portfolio_tx_withdrawal">提取</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">送人了或用於支付？請記為‹贈與›或‹用於支付›——視國家而定，稅務上屬於賣出。</string>
+    <string name="portfolio_tx_withdrawal_price_hint">可選：以 USDT 計的市場價值，僅用於歷史計算（留空 = 當日價格）。幣始終按成本移出。</string>
+    <string name="portfolio_wallet_did_you_mean">你是指 %1$s 嗎？寫法不同會算作另一個錢包。</string>
+    <string name="portfolio_wallet_shortfall">%1$s 中的持有量不足——是否漏記了轉移？</string>
+
+    <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
+    <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
+    <string name="portfolio_chart_high">最高 %1$s</string>
+    <string name="portfolio_compare">對比</string>
+    <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
+    <string name="portfolio_compare_a11y">以百分比對比 %1$s 和 USDT</string>
+    <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="portfolio_compare_chart_a11y">百分比對比，%1$s：%2$s %3$s，USDT %4$s</string>
+    <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
+    <string name="portfolio_currency_effect">匯率影響：%1$s</string>
+    <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
+    <string name="portfolio_history_capped_data_start">價格資料最早只到 2017 年 8 月，走勢從那時開始。</string>
+    <string name="portfolio_history_chip_since_first">自買入</string>
+    <string name="portfolio_history_collapse">隱藏價值走勢</string>
+    <string name="portfolio_history_converted">按今日匯率換算</string>
+    <string name="portfolio_history_expand">顯示價值走勢</string>
+    <string name="portfolio_history_gain_a11y">價值 %1$s。損益（%2$s）：%3$s</string>
+    <string name="portfolio_history_gain_label">損益</string>
+    <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
+    <string name="portfolio_history_in_a11y">以 %1$s 計價</string>
+    <string name="portfolio_history_incl_fx">含匯率</string>
+    <string name="portfolio_history_incl_withdrawn">含已提取幣的價值變化</string>
+    <string name="portfolio_history_includes_trades">包含此期間的買入和賣出</string>
+    <string name="portfolio_history_loading">正在載入價值走勢</string>
+    <string name="portfolio_history_period_1y">1 年</string>
+    <string name="portfolio_history_period_30d">30 天</string>
+    <string name="portfolio_history_period_7d">7 天</string>
+    <string name="portfolio_history_period_since_first">自首次買入以來</string>
+    <string name="portfolio_history_pnl_needs_prices">缺少買入價，無法計算損益——請在交易中補充。</string>
+    <string name="portfolio_history_pnl_without">不含 %1$s 的損益（缺少價格）</string>
+    <string name="portfolio_history_range_1y">1年</string>
+    <string name="portfolio_history_range_30d">30天</string>
+    <string name="portfolio_history_range_7d">7天</string>
+    <string name="portfolio_history_range_a11y">顯示 %1$s 走勢</string>
+    <string name="portfolio_history_range_since_first">自首次買入</string>
+    <string name="portfolio_history_scaled">%1$s 的走勢：按交易所價格換算的 Binance 走勢</string>
+    <string name="portfolio_history_title">價值走勢</string>
+    <string name="portfolio_history_today">今天</string>
+    <string name="portfolio_history_too_short">走勢從你的第一個完整日之後開始。</string>
+    <string name="portfolio_history_unavailable">暫無走勢資料。</string>
+    <string name="portfolio_history_utc_days">日期按 UTC（日K線）</string>
+    <string name="portfolio_history_without_matching">不含 %1$s（無匹配的每日價格）</string>
+    <string name="portfolio_period_rewards">獎勵 +%1$s（不計入損益）</string>
+    <string name="portfolio_period_scaled">%1$s 的 7天/1年：按交易所價格換算的 Binance 走勢</string>
+
+    <!-- Portfolio-Alarm («Portfolio-Wert») -->
+    <string name="portfolio_alarm_action">提醒</string>
+    <!-- %1$s = Währung, z. B. CHF -->
+    <string name="portfolio_alarm_amount">金額（%1$s）</string>
+    <string name="portfolio_alarm_hint">每次重新整理後檢查。與提醒相同：越過門檻時通知，數值回落後才會再次通知。</string>
+    <string name="portfolio_alarm_kind_above">投資組合高於金額</string>
+    <string name="portfolio_alarm_kind_below">投資組合低於金額</string>
+    <string name="portfolio_alarm_kind_down">投資組合下跌</string>
+    <string name="portfolio_alarm_kind_up">投資組合上漲</string>
+    <!-- %1$s = Betrag mit Währung (oder •••) -->
+    <string name="portfolio_alarm_sentence_above">投資組合高於 %1$s</string>
+    <string name="portfolio_alarm_sentence_below">投資組合低於 %1$s</string>
+    <string name="portfolio_alarm_sentence_down">投資組合下跌 %1$s（%2$s）</string>
+    <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
+    <string name="portfolio_alarm_sentence_up">投資組合上漲 %1$s（%2$s）</string>
+    <string name="portfolio_alarm_title">提醒「投資組合價值」</string>
+
+    <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
+    <string name="ledger_exchange">交易所（選填）</string>
+    <string name="ledger_exchange_failed">%1$s：目前沒有 %2$s 的價格——按 Binance 估值。</string>
+    <string name="ledger_exchange_hint">該幣按此交易所價格估值（否則 Binance）。走勢、7天和1年：使用按比例換算的 Binance 每日價格。</string>
+    <string name="ledger_exchange_mixed">%1$s：填寫了多個交易所——按 Binance 估值。移動過幣？請記錄為 「轉移」。</string>
+    <string name="ledger_exchange_none">無（Binance）</string>
+    <string name="ledger_fee">手續費（選填）</string>
+    <string name="ledger_fee_coin">幣</string>
+    <string name="ledger_fee_hint">以 USDT 計時計入成本（賣出時從所得中扣除）；以幣計時減少數量。</string>
+    <string name="ledger_fee_line">手續費 %1$s</string>
+    <string name="ledger_fifo_cost_note">自購入：含手續費的 FIFO 成本（最早的幣最先賣出）。</string>
+    <string name="ledger_gain_info">今天、7天、1年：期間內的價值變化——買入和賣出不算作收益。買入以來：仍持有幣的目前價值減去成本（含手續費的平均成本）。</string>
+    <string name="ledger_gain_info_a11y">損益的計算方式</string>
+    <string name="ledger_gain_info_fifo">今天、7天、1年：期間內的價值變化——買入和賣出不算作收益。買入以來：仍持有幣的目前價值減去成本（含手續費的 FIFO）。</string>
+    <string name="ledger_gain_title">損益</string>
+    <string name="ledger_more_toggle">手續費和交易所</string>
+    <string name="ledger_partial_cost">「自買入」 只計算有買入價的部分——不含無買入價的 %1$s。</string>
+    <string name="ledger_period_without">今天 / 7天 / 1年不含 %1$s – 沒有匹配的起始價格。</string>
+    <string name="ledger_since_purchase_currency">自買入（%1$s）</string>
+    <string name="ledger_since_purchase_spoken">自買入以來的損益（未賣出）</string>
+    <plurals name="ledger_without_cost">
+        <item quantity="other">不含 %1$d 個沒有買入價的幣（%2$s）——補充價格後即可計入。</item>
+    </plurals>
+
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">USDT 暴跌 – 市場價 %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">經 USDC/USDT 得出的 USDT 美元匯率 – 若 USDC 下跌，此數值不準確</string>
+    <string name="portfolio_amount_bridged_stable">≈ 含 %1$s（跨鏈橋）</string>
+
+    <string name="portfolio_tx_interest">利息（借貸）</string>
+    <string name="portfolio_tx_interest_hint">收到時計為收入（奧地利）。質押獎勵和空投請保持關閉。</string>
+    <string name="app_lock_no_screen_lock">請設定螢幕鎖定以開啟投資組合。</string>
+    <string name="app_lock_turn_off_action">關閉投資組合鎖定</string>
+    <string name="app_lock_turn_off_confirm_title">關閉投資組合鎖定？</string>
+    <string name="app_lock_turn_off_confirm_message">沒有螢幕鎖定就無法解鎖投資組合。關閉後，應用程式會再次無需確認地顯示投資組合。設定好螢幕鎖定後，可在設定中重新開啟鎖定。</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">「自買入」與成本（%1$s）：成本按買入日匯率換算，市值按今日匯率換算。</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">買入日無匯率（未計入「自買入」和成本）：%1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">無 USDT 美元匯率的買入日成本按每 USDT 1 美元計算。</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">截至 %1$s – 無法連線交易所</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">日價格：%1$s（代替 Binance）</string>
+
+    <string name="portfolio_footer_short">工作參考，不構成稅務或投資建議。隱私：設定 › 關於應用程式 › 隱私權政策</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">刪除 %1$s 的所有交易？</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="other">將刪除 %d 筆交易。刪除後可立即復原。</item>
+    </plurals>
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">以 %1$s 支付的手續費也會從其他交易中移除：%2$d 筆</string>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="other">已從投資組合移除 %1$s（%2$d 筆交易）</item>
+    </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="other">已刪除 %d 筆交易</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="other">同時會刪除 %d 個批次。</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="other">同時會刪除 %d 個批次和餘額歷史。</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">同時會刪除餘額歷史。</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">無法儲存 – 請重試</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">門檻無效 – 請刪除後重新建立</string>
+</resources>

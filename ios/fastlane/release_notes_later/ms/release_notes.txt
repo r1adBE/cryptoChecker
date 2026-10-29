@@ -1,0 +1,33 @@
+Versi 16.2.2
+• Nadi kripto: apa yang sedang berlaku dalam pasaran sekarang
+• “Apa yang bergerak bersama?”: apa yang bergerak bersama sesuatu koin – pasaran, volum dan niaga hadapan sepintas lalu, dengan ringkasan pendek
+• Uji amaran: semak bunyi, getaran dan pertuturan
+• Harga ditukar: baris kedua “≈ nilai” dalam mata wang penukaran anda – 31 mata wang seperti EUR, CHF, USD, GBP atau JPY, secara lalai mengikut wilayah peranti anda
+• Amaran dalam mata wang anda, cth. pada 60,000 EUR untuk pasangan USDT
+• Eksport tarikh tutup: nilai portfolio anda pada sebarang tarikh, cth. 31 Disember, dalam mata wang anda sebagai fail CSV
+• Kebolehcapaian: warna harga biru/oren dan bukannya hijau/merah, mudah dibezakan dengan setiap jenis kekurangan penglihatan warna (merah-hijau dan biru-kuning); “Tukar warna naik/turun”: merah untuk naik, hijau untuk turun, seperti biasa di China, Jepun, Korea dan Taiwan (dihidupkan secara automatik di sana); “Kontras tinggi”: warna harga lebih kuat, teks sekunder dan aksen lebih gelap, turut mengikut tetapan kontras sistem; VoiceOver: baris, carta dan widget sebagai satu ayat
+• Carta mini dalam setiap baris: aliran 24 jam di sebelah harga
+• “Mula dengan satu ketikan”: senarai pantau kosong menawarkan 5 koin terbesar mengikut permodalan pasaran (tanpa stablecoin)
+• Senarai permulaan menunjukkan harga semasa dan perubahan 24 j setiap koin – kelima-limanya dipilih awal, ditambah dengan satu butang
+• Leret ke kiri untuk memadam (dengan Buat asal), leret ke kanan untuk menanda kegemaran
+• Tab Pasaran dibuka dengan data terakhir yang disimpan dan dimuat semula di latar belakang
+• Waktu senyap (cth. 11 mlm–7 pg): amaran menunggu sehingga ia tamat, kemudian berbunyi jika syarat masih dipenuhi; notis lain sampai secara senyap
+• Kunci portfolio dengan Face ID, Touch ID atau kod laluan peranti
+• Widget portfolio untuk Skrin Utama dan Skrin Kunci: jumlah nilai dalam mata wang anda dan perubahan hari ini
+• Setiap amaran dibaca sebagai ayat: “Beritahu saya apabila BTC turun di bawah 60,000 CHF.”
+• Penjelasan ringkas untuk kadar pembiayaan, minat terbuka dan RSI
+• Baris menunjukkan “lapuk” atau “bursa tidak dapat dihubungi” apabila harga tidak terkini
+• Bursa baharu, termasuk WOO X, Deribit, Phemex, Poloniex, One Trading, Upbit, Bithumb, bitFlyer, BtcTurk, Bitso, Indodax, ZebPay, Independent Reserve, LATOKEN, NonKYC
+• Yuran rangkaian untuk Ethereum, Base, Arbitrum, Polygon, BNB Chain dan Bitcoin dalam tab Pasaran, dengan amaran gas
+• Nota untuk setiap koin dalam senarai pantau anda
+• Pilih bunyi penggera
+• Ketara: mengesan pergerakan harga dan volum luar biasa, pemberitahuan pilihan
+• Portfolio sebagai tab tersendiri (hidupkan dalam Tetapan): belian dan jualan, purata harga, untung/rugi
+• Kumpulan untuk senarai pantau anda
+• Amaran baharu: bergerak X % dalam Y jam dan lonjakan volum
+• Widget satu koin: lilin atau garisan, julat carta 24 j, 7 atau 30 hari, tanda tertinggi/tengah/terendah, harga semasa ditonjolkan
+• Tab Pasaran: jumlah permodalan pasaran kripto dan volum 24j dalam mata wang anda
+• Niaga hadapan: kadar pembiayaan dan minat terbuka
+• Lima warna aksen dengan ikon apl yang sepadan
+• Saham, emas, komoditi dan FX sebagai niaga hadapan (TradFi) di Binance, Bybit, OKX, MEXC dan Bitget – di sebalik suis di Tetapan › Lanjutan › Token & TradFi, pasangan baharu masuk ke kumpulan “TradFi”; niaga hadapan bertarikh ke “QTLY”
+• Perubahan % seperti Binance: 24 j terakhir, sejak kemas kini terakhir, sejak 00:00 dalam zon waktu peranti anda atau dalam zon tetap dari UTC+14 hingga UTC-12

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wie aktuell? (Sparsam / Live) -->
+    <string name="update_mode_for_pros">memerlukan lebih banyak data dan bateri</string>
+    <string name="update_mode_live">Langsung semasa dibuka</string>
+    <string name="update_mode_live_hint">Jika bursa menyediakan harga langsung: serta-merta semasa senarai pantau dibuka. Jika tidak, pada pengambilan seterusnya. Ditutup: tidak lebih kerap daripada setiap %1$s, selalunya lebih lewat.</string>
+    <string name="update_mode_live_hint_ios">Jika bursa menyediakan harga langsung: serta-merta semasa senarai pantau dibuka. Jika tidak, pada pengambilan seterusnya. Ditutup: apabila iOS membenarkannya, kadangkala berjam-jam jaraknya. Jika anda meleret keluar apl, iOS menghentikan semakan ini sehingga anda membukanya semula.</string>
+    <string name="update_mode_recommended">disyorkan</string>
+    <string name="update_mode_sparsam">Jimat</string>
+    <string name="update_mode_sparsam_hint">Apabila apl ditutup, tidak lebih kerap daripada setiap %1$s, selalunya lebih lewat (amaran, widget). Dibuka: setiap kali anda membukanya.</string>
+    <string name="update_mode_sparsam_hint_ios">Apabila apl ditutup, iOS menentukan bila untuk menyemak (amaran, widget), kadangkala berjam-jam jaraknya. Dibuka: setiap kali anda membukanya.</string>
+    <string name="update_mode_title">Kekerapan kemas kini</string>
+
+    <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
+    <string name="refresh_sheet_aborted">Muat semula dibatalkan</string>
+    <string name="refresh_sheet_alarms">Amaran</string>
+    <plurals name="refresh_sheet_alarms_triggered">
+        <item quantity="other">%1$d dicetuskan</item>
+    </plurals>
+    <!-- Grosse Statuszeile oben im Blatt -->
+    <string name="refresh_sheet_all_updated">Semua dikemas kini</string>
+    <string name="refresh_sheet_app_start">Permulaan apl</string>
+    <plurals name="refresh_sheet_bulk">
+        <item quantity="other">permintaan pukal %1$s · %2$d harga</item>
+    </plurals>
+    <string name="refresh_sheet_database">Pangkalan data</string>
+    <string name="refresh_sheet_exchange_unreachable">%1$s tidak dapat dihubungi</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
+        <item quantity="other">%1$d bursa tidak dapat dihubungi</item>
+    </plurals>
+    <string name="refresh_sheet_network">Rangkaian</string>
+    <plurals name="refresh_sheet_notifications">
+        <item quantity="other">%1$d pemberitahuan harga</item>
+    </plurals>
+    <!-- Zweite Zeile oben: «530 Paare · 1.8 s · vor 8 Min.» -->
+    <plurals name="refresh_sheet_pairs">
+        <item quantity="other">%1$d pasangan</item>
+    </plurals>
+    <plurals name="refresh_sheet_pairs_not_updated">
+        <item quantity="other">%1$d pasangan tidak dikemas kini</item>
+    </plurals>
+    <!-- Zweite Zeile je Börse: «522 von 525 Paaren · Sammelabfrage 0.5 s · 5 Kurse»; Zahl der Pluralform = Gesamtzahl (%1$d) -->
+    <plurals name="refresh_sheet_pairs_of">
+        <item quantity="other">%2$d daripada %1$d pasangan</item>
+    </plurals>
+    <string name="refresh_sheet_paused_until">dijeda hingga %1$s</string>
+    <string name="refresh_sheet_paused_until_reason">dijeda hingga %1$s (%2$s)</string>
+    <string name="refresh_sheet_reason_no_data">tiada data</string>
+    <string name="refresh_sheet_reason_offline">tiada sambungan</string>
+    <string name="refresh_sheet_reason_rate_limit">terlalu banyak permintaan</string>
+    <string name="refresh_sheet_reason_server">ralat pelayan</string>
+    <!-- Kurze Fehlerursachen in Klammern -->
+    <string name="refresh_sheet_reason_timeout">tamat masa</string>
+    <string name="refresh_sheet_reason_unavailable">bursa tidak tersedia</string>
+    <string name="refresh_sheet_seconds_a11y">%1$s saat</string>
+    <!-- Abschnittstitel -->
+    <string name="refresh_sheet_section_exchanges">Bursa</string>
+    <string name="refresh_sheet_section_steps">Pecahan</string>
+    <string name="refresh_sheet_status_failed">tidak dikemas kini</string>
+    <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->
+    <string name="refresh_sheet_status_ok">semua dikemas kini</string>
+    <string name="refresh_sheet_status_partial">sebahagian dikemas kini</string>
+    <!-- Zeilen im Abschnitt «Ablauf» (links Bezeichnung, rechts Dauer) -->
+    <string name="refresh_sheet_wait">Menunggu untuk bermula</string>
+    <string name="refresh_sheet_widgets">Widget</string>
+    <!-- Dritte Zeile je Börse: «2 Fehler (Zeitüberschreitung)» -->
+    <string name="refresh_sheet_with_reason">%1$s (%2$s)</string>
+
+    <!-- Kurzbericht der Aktualisierung je Börse -->
+    <string name="refresh_report_bulk_failed">permintaan pukal %1$s (gagal)</string>
+    <plurals name="refresh_report_errors">
+        <item quantity="other">%1$d ralat</item>
+    </plurals>
+    <string name="refresh_report_live">Langsung: %1$s</string>
+    <plurals name="refresh_report_not_traded">
+        <item quantity="other">%1$d tidak lagi didagangkan</item>
+    </plurals>
+    <string name="refresh_report_singles">%1$d secara individu</string>
+
+    <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
+    <string name="check_result_failed">Gagal</string>
+    <string name="check_result_ok">OK</string>
+    <string name="check_result_partial">Sebahagian</string>
+    <string name="check_result_skipped">Dilangkau</string>
+    <string name="check_trigger_bgtask">Latar belakang</string>
+    <string name="check_trigger_exact">Tepat masa</string>
+    <string name="check_trigger_foreground">Apl</string>
+    <string name="check_trigger_widget">Widget</string>
+    <string name="check_trigger_widget_ios">Widget · harga dan amaran harga</string>
+    <string name="check_trigger_worker">Latar belakang</string>
+
+    <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
+    <string name="battery_delay_hint">Android boleh melewatkan semakan – tetapkan bateri kepada “Tidak terhad”</string>
+    <string name="battery_later">Nanti</string>
+    <string name="battery_message">Android melewatkan kerja latar belakang untuk menjimatkan kuasa — harga dan widget kemudian boleh berusia berjam-jam. Menetapkan penggunaan bateri kepada tidak terhad memastikannya terkini. Anda boleh mengubahnya bila-bila masa dalam tetapan Android.</string>
+    <string name="battery_open_settings">Buka tetapan bateri</string>
+    <string name="battery_steps">Dalam maklumat apl, ketik Bateri (atau Penggunaan bateri apl) dan pilih Tidak terhad.</string>
+    <string name="battery_title">Pastikan harga terkini</string>
+    <string name="ios_background_refresh_off">Segar Semula Apl di Latar dimatikan untuk apl ini. Tanpanya, amaran hanya disemak semasa apl dibuka.</string>
+    <string name="ios_low_power_mode">Mod Kuasa Rendah dihidupkan. iOS jarang menyemak di latar belakang, jadi amaran mungkin lewat.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Mesej bursa: %1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">Storan masih dikunci – mencuba semula dalam %1$d s</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="other">Storan masih dikunci – mencuba semula dalam %1$d saat</item>
+    </plurals>
+    <string name="watchlist_retry_short">Mencuba semula dalam %1$s</string>
+    <string name="widget_retry_at">Mencuba semula pada %1$s</string>
+    <string name="refresh_sheet_wait_attempt">Percubaan %1$d – storan yang disulitkan belum sedia pada percubaan pertama</string>
+</resources>

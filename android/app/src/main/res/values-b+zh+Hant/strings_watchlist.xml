@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
+    <string name="watchlist_all_fresh">最新 · %1$s</string>
+    <string name="watchlist_empty_title">暫無交易對</string>
+    <plurals name="watchlist_failed_count">
+        <item quantity="other">%2$d 個中 %1$d 個無價格</item>
+    </plurals>
+    <string name="watchlist_last_run">上次重新整理 %1$s</string>
+    <string name="watchlist_live_a11y">即時價格已開啟</string>
+    <string name="watchlist_offline_since">無連線 · 資料時間 %1$s</string>
+    <string name="watchlist_pull_to_refresh">下拉重新整理</string>
+    <string name="watchlist_refresh_report">上次重新整理</string>
+    <string name="watchlist_refresh_report_empty">暫無明細：尚未完成過完整重新整理。請點按重新整理並等待載入圖示停止。</string>
+    <plurals name="watchlist_stale_count">
+        <item quantity="other">%2$d 個中 %1$d 個已過時</item>
+    </plurals>
+    <string name="watchlist_status_all_disabled">這裡的交易對都已停用</string>
+    <string name="watchlist_status_exchange_prices">所選交易所的價格 · %1$s</string>
+    <string name="watchlist_status_exchange_prices_short">交易所價格 · %1$s</string>
+    <string name="watchlist_status_group_empty">此分組中沒有交易對</string>
+    <string name="watchlist_status_none_traded">這裡沒有交易中的交易對</string>
+    <string name="watchlist_updated">更新於：%1$s</string>
+
+    <!-- Merkliste: Puls-Zeile (Paare im Plus/Minus, ohne 24-h-Wert) -->
+    <string name="watchlist_pulse_avg">Ø %1$s</string>
+    <plurals name="watchlist_pulse_down">
+        <item quantity="other">%1$d 跌</item>
+    </plurals>
+    <!-- Paare mit Kurs, aber ohne 24-h-Wert («· 510 ohne 24h-Wert») -->
+    <plurals name="watchlist_pulse_missing">
+        <item quantity="other">%1$d 個無 24h 資料</item>
+    </plurals>
+    <plurals name="watchlist_pulse_missing_day">
+        <item quantity="other">%1$d 個無今日數值</item>
+    </plurals>
+    <plurals name="watchlist_pulse_up">
+        <item quantity="other">%1$d 漲</item>
+    </plurals>
+
+    <!-- Merkliste: Zeile eines Paars -->
+    <string name="watchlist_row_disabled">%1$s · 已停用</string>
+    <string name="watchlist_row_outdated">%1$s · 已過時</string>
+    <string name="watchlist_row_outdated_age">已過時 · %1$s</string>
+    <string name="watchlist_row_price_unchanged_since">自 %1$s 起價格未變</string>
+    <string name="watchlist_row_unreachable">%1$s · 無法連線 %2$s</string>
+
+    <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
+    <string name="watchlist_jump_end">跳到末尾</string>
+    <string name="watchlist_jump_start">回到頂部</string>
+    <string name="watchlist_search_close">關閉搜尋</string>
+    <string name="watchlist_search_empty">未找到與「%1$s」匹配的結果</string>
+    <string name="watchlist_search_hint">搜尋交易對、名稱或交易所</string>
+    <string name="watchlist_search_open">搜尋</string>
+    <string name="watchlist_sort_ascending">遞增</string>
+    <string name="watchlist_sort_descending">遞減</string>
+    <string name="watchlist_sort_hint">按住並拖曳交易對，或使用拖曳柄。收藏始終在最上方。</string>
+    <string name="watchlist_sort_name">名稱</string>
+    <string name="watchlist_sort_own">自訂順序</string>
+    <string name="watchlist_sort_price">價格</string>
+
+    <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
+    <string name="watchlist_clear">清空自選</string>
+    <string name="watchlist_clear_confirm">要從自選中移除所有交易對嗎？其提醒也將一併刪除。</string>
+    <plurals name="watchlist_disabled_count">
+        <item quantity="other">%1$d 個已停用</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_action">移除</string>
+    <plurals name="watchlist_remove_not_traded_confirm">
+        <item quantity="other">要移除 %1$d 個已在其交易所停止交易的交易對嗎？其提醒也將一併刪除。</item>
+    </plurals>
+    <string name="watchlist_remove_not_traded_menu">移除已停止交易的交易對 (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">移除已停止交易的交易對</string>
+    <string name="watchlist_removed">已移除 %1$s</string>
+    <plurals name="watchlist_removed_count">
+        <item quantity="other">已移除 %1$d 個交易對</item>
+    </plurals>
+    <plurals name="watchlist_removed_not_traded">
+        <item quantity="other">已移除 %1$d 個已停止交易的交易對</item>
+    </plurals>
+    <string name="watchlist_select">選擇</string>
+    <string name="watchlist_select_all">全選</string>
+    <plurals name="watchlist_selected_count">
+        <item quantity="other">已選擇 %1$d 個</item>
+    </plurals>
+    <string name="watchlist_show_all">顯示全部</string>
+    <string name="watchlist_show_only_disabled">只顯示已停用的</string>
+    <string name="watchlist_show_only_stale">只顯示已過時的</string>
+
+    <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
+    <plurals name="watchlist_alarms_count">
+        <item quantity="other">提醒（%1$d）</item>
+    </plurals>
+    <string name="watchlist_favorites_empty_hint">還沒有收藏。將交易對向右滑動，或在交易對頁面中點按「收藏」。</string>
+    <string name="watchlist_group_empty_hint">長按分組以選擇其交易對。</string>
+    <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
+    <string name="watchlist_groups_empty_hint">你的分組會顯示在這裡</string>
+    <string name="watchlist_notification">價格通知</string>
+    <string name="watchlist_tts">播報價格</string>
+    <string name="watchlist_tts_speech_on">語音播報已開啟。可在此更改：設定 › 提醒 › 語音播報。</string>
+
+    <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
+    <string name="watch_action_add_widget">新增為小工具</string>
+    <string name="watch_action_alarm">提醒</string>
+    <string name="watch_action_favorite">收藏</string>
+    <string name="watch_action_why">哪些在同步波動？</string>
+    <string name="watch_action_why_short">哪些一起波動？</string>
+    <string name="watch_change_mark">標記</string>
+    <string name="watch_disable">停用</string>
+    <string name="watch_disable_hint">不查詢、不通知</string>
+    <string name="watch_disabled">已停用</string>
+    <string name="watch_disabled_banner">已停用 %1$s</string>
+    <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
+    <string name="watch_edit_alarms_warning">提醒將保留——請檢查門檻</string>
+    <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
+    <string name="watch_edit_title">編輯交易對</string>
+    <string name="watch_enable">啟用</string>
+    <string name="watch_enable_hint">還原行情和通知</string>
+    <string name="watch_enabled_banner">已啟用 %1$s</string>
+    <string name="watch_error_offline">無連線</string>
+    <string name="watch_gesture_hint_short">輕觸：提醒和「哪些在同步波動？」 · 長按選擇 · 左滑刪除 · 右滑收藏</string>
+    <string name="watch_hint_tap_why">輕觸某個幣種：提醒和「哪些在同步波動？」</string>
+    <string name="watch_not_traded">該交易所已不再交易</string>
+    <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
+    <string name="watch_preview_not_watched">不在自選中</string>
+    <string name="watch_price_mid">中間價（否則為標記價格）</string>
+    <string name="watch_row_source_both">漲跌與圖表：%1$s</string>
+    <string name="watch_row_source_change">漲跌：%1$s</string>
+    <string name="watch_row_source_chart">圖表：%1$s</string>
+
+    <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
+    <string name="pair_added_watching">%1$s 已加入自選</string>
+    <!-- Ein Paar: pair_added_watching -->
+    <string name="pairs_added_watching">%1$s 已加入自選</string>
+
+    <!-- Favoriten -->
+    <string name="favorite_add">加入收藏</string>
+    <string name="favorite_added">已將 %1$s 加入收藏</string>
+    <string name="favorite_remove">取消收藏</string>
+    <string name="favorite_removed">已將 %1$s 取消收藏</string>
+    <string name="hint_favorites_list">提示：將一行向右滑動即可設為收藏——收藏會保持在頂部。</string>
+
+    <!-- Gruppen und Chips der Merkliste -->
+    <string name="group_add">新增分組</string>
+    <string name="group_all">全部</string>
+    <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
+    <string name="group_alpha">Alpha 代幣</string>
+    <string name="group_delete">刪除分組</string>
+    <string name="group_delete_confirm">交易對仍保留在自選清單中。</string>
+    <string name="group_done">完成</string>
+    <string name="group_edit_title">編輯分組</string>
+    <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
+    <string name="group_favorites">收藏</string>
+    <string name="group_in_other">在 %1$s</string>
+    <string name="group_name">分組名稱</string>
+    <string name="group_new">新增分組…</string>
+    <string name="group_next">下一步</string>
+    <string name="group_none">無分組</string>
+    <string name="group_rename">重新命名</string>
+    <string name="group_search_hint">搜尋交易對、名稱或交易所</string>
+    <string name="group_target">分組</string>
+    <string name="group_title">分組</string>
+    <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
+    <string name="group_tokens">代幣</string>
+    <string name="group_value">分組：%1$s</string>
+
+    <!-- Notiz zum Paar -->
+    <string name="note_add">新增備註</string>
+    <string name="note_edit">編輯備註</string>
+    <string name="note_hint">例如 0.42 入場，目標 0.60</string>
+    <string name="note_remove">移除</string>
+    <string name="note_title">備註</string>
+
+    <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
+    <string name="sort_drag_handle">拖曳以移動</string>
+    <string name="sort_move_bottom">移到底部</string>
+    <string name="sort_move_down">下移</string>
+    <string name="sort_move_top">移到頂部</string>
+    <string name="sort_move_up">上移</string>
+
+    <string name="watchlist_first_alarm_title">設定第一個提醒</string>
+    <string name="watchlist_first_alarm_text">價格到達你設定的位置時通知你——應用程式關閉時，Android 的檢查時間不固定。</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">標記價格（無中間價）</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">小時價格</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">設定第一個提醒 – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">重新整理（%1$d）</string>
+
+    <string name="watchlist_row_exchange_paused">%1$s · 暫停至 %2$s</string>
+
+    <string name="watchlist_refresh_just_done">剛剛重新整理 · %1$d 秒前</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">最近成交 %1$s</string>
+
+    <string name="change_candle_source_hint">根據 %1$s K線計算 – 交易所本身不提供此數值。</string>
+    <string name="change_candle_source_action">顯示漲跌來源</string>
+
+    <string name="watchlist_sort_by_coin">按幣種排序</string>
+    <string name="watchlist_sort_by_exchange">按交易所排序</string>
+    <string name="watchlist_limit_reached">自選最多可新增 %1$s 個交易對。</string>
+    <string name="watch_price_reference">參考匯率，每日</string>
+    <string name="watch_price_daily">每日</string>
+    <string name="watchlist_compare">比較</string>
+    <string name="watchlist_compare_hint">請選擇 2 到 4 個交易對進行比較。</string>
+    <string name="compare_title">比較</string>
+    <string name="compare_basis">線條顯示自時段開始以來的漲跌百分比。</string>
+    <string name="compare_from_high">較30日高點</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="other">有 %1$d 個交易對未還原 – 自選已滿</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">自選清單及其提醒目前不會被儲存。此次及之後的更改將在關閉應用程式後遺失。仍要更改嗎？</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">仍然更改</string>
+</resources>

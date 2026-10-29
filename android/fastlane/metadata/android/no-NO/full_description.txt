@@ -35,7 +35,7 @@ I TILLEGG
 • Portefølje valgfritt (slås på under Innstillinger): kjøp, salg, bytter, overføringer, rewards, inn- og uttak; FIFO (standard) eller gjennomsnitt (Ø); adresser kun for lesing, uten seed, for BTC (også xpub), ETH & EVM-kjeder, SOL, TRX, XRP, LTC, ADA og TON; CSV-import fra Relai, Swissquote, Bitpanda, Kraken, Binance og Coinbase; årsoversikt som CSV; egen lås. Bitpanda og Swissquote: ingen egen kurs, kun via CSV.
 • Lesbar for alle: grønn/rød eller blå/oransje, fortegn og pil i stedet for bare farge; TalkBack leser hver rad som én setning
 • Sikkerhetskopi og gjenoppretting til en fil – også mellom Android og iPhone
-• Lys og mørk modus, fem aksentfarger, 31 språk
+• Lys og mørk modus, fem aksentfarger, 33 språk
 • Åpen kildekode (MIT) – koden er offentlig på GitHub
 
 Merk: Crypto Checker viser kurser og en portefølje som du selv legger inn. Appen er ikke en børs eller en lommebok, handler ikke og gir ikke investeringsråd.

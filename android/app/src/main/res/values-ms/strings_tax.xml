@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
+    <string name="portfolio_cutoff_export_action">Eksport tarikh tutup…</string>
+    <string name="portfolio_tax_worksheet_action">Lembaran kerja…</string>
+    <string name="portfolio_export_address_unobserved">alamat tidak dipantau pada tarikh ini – tidak dimasukkan</string>
+    <string name="portfolio_export_button">Eksport CSV</string>
+    <string name="portfolio_export_col_amount">Jumlah</string>
+    <string name="portfolio_export_col_coin">Koin</string>
+    <string name="portfolio_export_col_note">Nota</string>
+    <string name="portfolio_export_col_price">Harga USDT</string>
+    <string name="portfolio_export_col_rate">Kadar USDT→%1$s</string>
+    <string name="portfolio_export_col_value">Nilai USDT</string>
+    <string name="portfolio_export_col_value_cur">Nilai %1$s</string>
+    <!-- Inhalt der CSV-Datei -->
+    <string name="portfolio_export_comment"># Tarikh tutup %1$s, mata wang %2$s, kadar FX pada %3$s</string>
+    <string name="portfolio_export_currency">Mata wang: %1$s</string>
+    <string name="portfolio_export_date">Tarikh tutup</string>
+    <string name="portfolio_export_done">Eksport disimpan</string>
+    <string name="portfolio_export_estv_note">Untuk cukai kekayaan, nilai akhir tahun rasmi senarai harga ESTV %1$s terpakai jika disenaraikan: %2$s</string>
+    <string name="portfolio_export_failed">Eksport gagal</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">Eksport gagal: fail tidak dapat ditulis – lokasi storan sudah tiada atau tidak boleh ditulis</string>
+    <string name="portfolio_export_failed_prices">Eksport gagal: harga tidak dapat dimuatkan – tiada sambungan atau bursa tidak memberi respons</string>
+    <string name="portfolio_export_from_address">daripada alamat – tiada harga belian</string>
+    <string name="portfolio_export_hint">Pegangan pada penghujung hari yang dipilih, dinilai pada harga tutup harian (UTC) dalam USDT dan ditukar dengan kadar rujukan ECB hari itu. Ubah mata wang dengan “Tukar kepada”.</string>
+    <string name="portfolio_export_incomplete">tidak lengkap</string>
+    <string name="portfolio_export_no_fx">tiada kadar FX</string>
+    <string name="portfolio_export_no_price">tiada harga</string>
+    <string name="portfolio_export_running">Mengambil harga sejarah…</string>
+    <string name="portfolio_export_title">Eksport tarikh tutup</string>
+    <string name="portfolio_export_today_hint">Hari ini belum tamat: harga semasa digunakan dan bukannya harga tutup harian.</string>
+    <string name="portfolio_export_total">Jumlah</string>
+    <string name="portfolio_export_unchecked">belum disemak (tiada harga sepadan)</string>
+
+    <!-- Steuer-Export (Arbeitspapier) -->
+    <string name="tax_export_adjustment">kerugian superfisial (ditambah kepada ACB)</string>
+    <string name="tax_export_at_wallet_note">Austria: purata bergerak bagi setiap koin dan dompet (bursa) – pindahan membawa kos bersama – ganjaran pada kos perolehan 0 – pegangan mulai 1 Mac 2021 tanpa yuran (tidak boleh ditolak) – faedah pinjaman pada nilai semasa diterima (pendapatan pada 27.5 peratus).</string>
+    <string name="tax_export_avg_cost_rates">kos pada kadar tarikh belian (purata)</string>
+    <string name="tax_export_ch_wealth_not_calculated">Cukai kekayaan tidak dikira – senarai harga ESTV: %1$s</string>
+    <string name="tax_export_col_acquired">Diperoleh</string>
+    <string name="tax_export_col_adjustment">Kerugian tidak dibenarkan %1$s</string>
+    <string name="tax_export_col_cost">Kos %1$s</string>
+    <string name="tax_export_col_date">Tarikh</string>
+    <string name="tax_export_col_days">Hari dipegang</string>
+    <string name="tax_export_col_gain">Keuntungan %1$s</string>
+    <string name="tax_export_col_gross">Harga sebelum yuran %1$s</string>
+    <string name="tax_export_col_long_term">dipegang &gt; 1 tahun</string>
+    <string name="tax_export_col_portfolio_value">Nilai portfolio %1$s</string>
+    <string name="tax_export_col_proceeds">Hasil %1$s</string>
+    <string name="tax_export_col_sold">Dijual</string>
+    <string name="tax_export_cost_incomplete">jumlah kos perolehan tidak lengkap</string>
+    <string name="tax_export_cost_missing">harga belian tiada</string>
+    <string name="tax_export_fee_consumed">Yuran menghabiskan keseluruhan penerimaan</string>
+    <string name="tax_export_fee_leg">yuran dalam koin lain</string>
+    <string name="tax_export_fee_row">Yuran</string>
+    <string name="tax_export_fee_value_missing">yuran dalam koin lain tiada nilai</string>
+    <string name="tax_export_gains">Pelupusan direalisasikan (CSV)</string>
+    <string name="tax_export_gains_title">Pelupusan direalisasikan %1$s</string>
+    <string name="tax_export_gift">Hadiah</string>
+    <string name="tax_export_holdings_cutoff">Pegangan pada %1$s (CSV)</string>
+    <string name="tax_export_holdings_title">Pegangan pada %1$s</string>
+    <string name="tax_export_income">Pendapatan (CSV)</string>
+    <string name="tax_export_income_title">Pendapatan %1$s</string>
+    <string name="tax_export_info_template">Templat: %1$s · Kaedah: %2$s · Tahun cukai: %3$s · Mata wang: %4$s · Crypto Checker %5$s</string>
+    <string name="tax_export_lost_fee_cost">kos yuran rangkaian tanpa lot berbayar</string>
+    <string name="tax_export_match_pool">Kumpulan Section 104</string>
+    <string name="tax_export_match_same_day">hari yang sama (HMRC)</string>
+    <string name="tax_export_match_thirty_day">peraturan 30 hari (HMRC)</string>
+    <string name="tax_export_method_change_warning">Menukar kaedah atau templat turut mengira semula tahun-tahun terdahulu – bandingkan dengan apa yang telah anda failkan.</string>
+    <string name="tax_export_method_overridden">Templat mengira %1$s – bukan %2$s</string>
+    <string name="tax_export_new_holding">diperoleh mulai 1 Mac 2021</string>
+    <string name="tax_export_no">tidak</string>
+    <string name="tax_export_old_holding">diperoleh sebelum 1 Mac 2021</string>
+    <string name="tax_export_oversold">dijual lebih daripada yang direkod</string>
+    <string name="tax_export_payment">Bayaran dengan kripto</string>
+    <string name="tax_export_period">%1$s – %2$s</string>
+    <string name="tax_export_proceeds_missing">harga jualan tiada</string>
+    <string name="tax_export_proceeds_without_cost">Hasil tanpa harga belian</string>
+    <string name="tax_export_realized_differs">CSV cukai boleh berbeza daripada ‘direalisasikan’ (peraturan cukai negara).</string>
+    <string name="tax_export_rule">&gt; 1 tahun: dijual selepas tarikh belian + 1 tahun kalendar. Tarikh dalam waktu tempatan. Kadar: kadar harian ECB pada hari transaksi; jika tiada, kadar terakhir sehingga 7 hari sebelumnya.</string>
+    <string name="tax_export_rules_date">Peraturan setakat: %1$s</string>
+    <string name="tax_export_rules_stale">Peraturan ini dari %1$s – untuk %2$s, kadar dan elaun mungkin telah berubah. Semak nilai-nilainya.</string>
+    <string name="tax_export_spouse_gift">kepada pasangan – tiada untung, tiada rugi</string>
+    <string name="tax_export_summary">Ringkasan tahunan %1$s (CSV)</string>
+    <string name="tax_export_swap">tukaran</string>
+    <string name="tax_export_tax_year">Tahun cukai</string>
+    <string name="tax_export_transfer_fee_info">Yuran pindahan dalam USDT/tunai – bukan kerugian, tidak dalam kos asas, untuk maklumat sahaja</string>
+    <string name="tax_export_unassigned_fee">yuran tidak diperuntukkan – kos asas tidak diketahui</string>
+    <string name="tax_export_usdt_usd_note">USDT ditukar pada harga tutup harian USDT/USD; 1 USD jika tiada harga tutup (ditanda bagi setiap baris)</string>
+    <string name="tax_export_value_estimated">Nilai dianggarkan (harga tutup harian)</string>
+    <string name="tax_export_value_missing">nilai semasa diterima tiada</string>
+    <string name="tax_export_wallet">Dompet: %1$s</string>
+    <string name="tax_export_wallet_unspecified">tidak dinyatakan</string>
+    <string name="tax_export_withdrawal_fee">Yuran pengeluaran</string>
+    <string name="tax_export_withdrawal_fee_info">Yuran pengeluaran dalam USDT/tunai – bukan kerugian, untuk maklumat sahaja</string>
+    <string name="tax_export_workpaper_disclaimer">Lembaran kerja cukai – bukan penyata cukai dan bukan nasihat cukai</string>
+    <string name="tax_export_workpaper_title">Lembaran kerja</string>
+    <string name="tax_export_year_local_zone">Tarikh dalam waktu tempatan (%1$s)</string>
+    <string name="tax_export_yes">ya</string>
+
+    <!-- Steuer-Export: Zeilen und Spalten -->
+    <string name="tax_line_at_interest">Faedah pinjaman (nilai semasa diterima)</string>
+    <string name="tax_line_at_old_long">Diperoleh sebelum 1 Mac 2021 – dipegang &gt; 1 tahun: biasanya tidak dikenakan cukai – semak</string>
+    <string name="tax_line_at_rate">Kadar khas 27.5 peratus: bersih diperoleh mulai 1 Mac 2021 dan dijual mulai 1 Mac 2022 + faedah</string>
+    <string name="tax_line_au_discounted">Keuntungan modal bersih selepas kerugian dan diskaun 50 peratus</string>
+    <string name="tax_line_ca_taxable">Keuntungan modal bercukai (kadar kemasukan 1/2)</string>
+    <string name="tax_line_ch_income">Ganjaran disenaraikan – lihat kertas kerja ESTV untuk layanannya</string>
+    <string name="tax_line_ch_private">Keuntungan modal atas aset peribadi: tidak dikira – lihat ESTV untuk klasifikasi</string>
+    <string name="tax_line_ch_wealth">Cukai kekayaan: tidak dikira – CSV pegangan menggunakan harga bursa × USD/CHF pada 31 Dis – nilai cukai rasmi: senarai harga ESTV</string>
+    <string name="tax_line_de_long">Dipegang &gt; 1 tahun: biasanya tidak dikenakan cukai di bawah § 23 EStG – semak</string>
+    <string name="tax_line_denied_loss">Kerugian tidak dibenarkan (kerugian superfisial)</string>
+    <string name="tax_line_fr_outflow">Aliran keluar tanpa jualan (pengeluaran) – jumlah kos perolehan dikurangkan secara berkadar</string>
+    <string name="tax_line_fr_rate">Kadar rata 12.8 peratus ditambah caruman sosial (atau skala mengikut pilihan)</string>
+    <string name="tax_line_fr_threshold">Pelupusan sehingga €305 setahun: secara amnya dikecualikan (jumlah harga jualan) – semak</string>
+    <string name="tax_line_gains">Keuntungan</string>
+    <string name="tax_line_income">Pendapatan (ganjaran pada nilai semasa diterima)</string>
+    <string name="tax_line_jp_misc">Pendapatan pelbagai (雑所得): keuntungan bersih + pendapatan</string>
+    <string name="tax_line_long_net">Bersih – dipegang &gt; 1 tahun</string>
+    <string name="tax_line_losses">Kerugian</string>
+    <string name="tax_line_net">Untung/rugi bersih</string>
+    <string name="tax_line_new_net">Bersih – diperoleh mulai 1 Mac 2021, dijual mulai 1 Mac 2022</string>
+    <string name="tax_line_old_long_net">Bersih – diperoleh sebelum 1 Mac 2021 – dipegang &gt; 1 tahun</string>
+    <string name="tax_line_old_short_net">Bersih – transaksi spekulatif (undang-undang lama): diperoleh sebelum 1 Mac 2021 dan dipegang ≤ 1 tahun, atau dijual sebelum 1 Mac 2022</string>
+    <string name="tax_line_proceeds">Hasil</string>
+    <string name="tax_line_short_net">Bersih – dipegang ≤ 1 tahun</string>
+    <string name="tax_line_transfer_fees">Yuran pindahan (dompet sendiri)</string>
+    <string name="tax_line_uk_after_exempt">Keuntungan bersih melebihi amaun dikecualikan (kripto sahaja)</string>
+    <string name="tax_line_uk_exempt">Amaun dikecualikan tahunan – terpakai untuk semua pelupusan bersama, digunakan sepenuhnya di sini</string>
+    <string name="tax_line_us_terms">Jangka pendek (≤ 1 tahun): kadar biasa – jangka panjang (&gt; 1 tahun): kadar keuntungan modal</string>
+    <string name="tax_line_withdrawal_fees">Yuran pengeluaran</string>
+
+    <!-- Steuer Deutschland -->
+    <string name="tax_de_below">di bawah had</string>
+    <string name="tax_de_col_item">Item</string>
+    <string name="tax_de_disclaimer">Untuk panduan sahaja – bukan penyata cukai dan bukan nasihat cukai.</string>
+    <string name="tax_de_explain_below">Sehingga %1$s: di bawah had (untuk panduan).</string>
+    <string name="tax_de_explain_loss">Kerugian bersih: tiada cukai ke atas jualan ini. Kerugian di bawah § 23 EStG hanya mengimbangi keuntungan daripada jualan persendirian – dalam tahun yang sama atau dengan bawa balik ke tahun sebelumnya dan bawa ke hadapan ke tahun berikutnya (§ 23 para. 3 dan § 10d EStG). Isytiharkan kerugian dalam penyata cukai anda supaya ia ditaksir.</string>
+    <string name="tax_de_explain_reached">Mulai %1$s keseluruhan amaun dikira (had pengecualian – bukan elaun).</string>
+    <string name="tax_de_explain_unknown">Tidak dapat disemak: kadar pertukaran / harga belian atau tempoh pegangan tiada.</string>
+    <string name="tax_de_income_limit">Had pengecualian untuk perkhidmatan (§ 22 No. 3 EStG)</string>
+    <string name="tax_de_limit_scope">Had terpakai untuk semua jualan atau perkhidmatan persendirian dalam tahun itu bersama – termasuk di luar apl.</string>
+    <string name="tax_de_loading">Mengira…</string>
+    <string name="tax_de_long_gains">Keuntungan – dipegang &gt; 1 tahun</string>
+    <string name="tax_de_long_losses">Kerugian – dipegang &gt; 1 tahun</string>
+    <string name="tax_de_loss">kerugian bersih – hanya boleh diimbangi dengan keuntungan daripada jualan persendirian (§ 23 EStG)</string>
+    <string name="tax_de_private_limit">Had pengecualian untuk jualan persendirian (§ 23 EStG)</string>
+    <string name="tax_de_reached">had dicapai – keseluruhan amaun biasanya dikira – semak</string>
+    <string name="tax_de_short_gains">Keuntungan – dipegang ≤ 1 tahun</string>
+    <string name="tax_de_short_losses">Kerugian – dipegang ≤ 1 tahun</string>
+    <string name="tax_de_unclassified">Tempoh pegangan tidak diketahui</string>
+    <string name="tax_de_unknown">tidak dapat disemak</string>
+
+    <!-- Steuer-Vorlagen je Land -->
+    <string name="tax_template_at">Austria</string>
+    <string name="tax_template_au">Australia</string>
+    <string name="tax_template_beta">Beta</string>
+    <string name="tax_template_beta_note">Beta: peraturan negara dipermudahkan, semak sebelum memfailkan penyata cukai anda</string>
+    <string name="tax_template_ca">Kanada</string>
+    <string name="tax_template_ch">Switzerland</string>
+    <string name="tax_template_confirm_text">Beta, peraturan dipermudahkan, transaksi daripada platform lain tiada – semak sebelum memfailkan penyata cukai anda.</string>
+    <string name="tax_template_confirm_title">Templat cukai (beta)</string>
+    <string name="tax_template_current">Templat: %1$s · Kaedah: %2$s · Mata wang: %3$s</string>
+    <string name="tax_template_de">Jerman</string>
+    <string name="tax_template_fr">Perancis</string>
+    <string name="tax_template_hint">Untuk panduan sahaja: menetapkan kaedah, tahun cukai dan ringkasan lembaran kerja cukai. Kad Portfolio kekal neutral – hadiah dan yuran pindahan boleh berbeza daripada lembaran kerja.</string>
+    <string name="tax_template_jp">Jepun</string>
+    <string name="tax_template_neutral">Neutral (semua negara)</string>
+    <string name="tax_template_suggestion">Cadangan untuk wilayah anda: %1$s</string>
+    <string name="tax_template_title">Templat cukai</string>
+    <string name="tax_template_uk">United Kingdom</string>
+    <string name="tax_template_us">AS</string>
+    <string name="tax_template_use">Guna %1$s</string>
+
+    <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
+    <string name="tax_method_at">Pegangan lama/baharu – purata bergerak</string>
+    <string name="tax_method_ca_acb">Kos purata ACB (kerugian superfisial)</string>
+    <string name="tax_method_fr_pta">Jumlah harga perolehan (art. 150 VH bis)</string>
+    <string name="tax_method_jp_total">Purata keseluruhan (総平均法)</string>
+    <string name="tax_method_uk_pool">Kumpulan Section 104 (hari yang sama / 30 hari)</string>
+    <string name="tax_note_at">Purata bergerak bagi setiap koin dan dompet – bukan merentasi dompet (KryptowährungsVO § 2). Ganjaran memasuki pegangan baharu pada kos perolehan 0 (BMF: staking / airdrop) – fail pendapatan menyenaraikannya pada nilai semasa diterima. Yuran tidak boleh ditolak untuk pegangan yang diperoleh mulai 1 Mac 2021 (§ 27a(4) no. 2, § 20(2) EStG): kos dan hasil tanpa yuran. Faedah pinjaman (jenis daripada import CSV atau nota) ialah pendapatan semasa diterima pada 27.5 peratus dan mengekalkan nilai itu sebagai kos perolehan.</string>
+    <string name="tax_note_at_staking">Staking dengan koin yang sudah anda pegang dan airdrop: nilai semasa diterima tidak penting untuk cukai – mengikut undang-undang kos perolehan ialah 0 (§ 27b Abs. 2 EStG; BMF “Kryptowährungen”). Cukai hanya dikenakan apabila anda menjual.</string>
+    <string name="tax_note_fr">Jualan dan yuran yang dibayar dalam kripto ialah pelupusan – tukaran ditangguhkan. Yuran kripto pada jualan dikira dalam harga sebelum yuran – jika tidak, ia ialah pelupusan tersendiri pada nilainya. Nilai portfolio daripada harga tutup harian – harga tutup yang tiada menyebabkan kos dibiarkan kosong.</string>
+    <string name="tax_note_network_fee">Yuran rangkaian yang dibayar dalam kripto (pindahan ke dompet anda sendiri, pengeluaran) ialah pelupusan koin yuran pada nilai pasaran – untung atau rugi hanya ke atas koin tersebut, bukan kerugian keseluruhan yuran (%1$s). Tanpa harga yang direkod: harga tutup harian (UTC) pada hari yang sama; tanpa harga tutup, hasil dibiarkan kosong.</string>
+    <string name="tax_note_specific_id">Pengenalpastian khusus tidak disokong – FIFO digunakan.</string>
+    <string name="tax_note_spouse_gift">Hadiah yang ditanda “kepada pasangan / pasangan sivil” tiada untung dan tiada rugi: hasil = kos asas anda, yang diambil alih oleh pasangan anda (%1$s).</string>
+    <string name="tax_note_stable_swap">Menjual kripto untuk stablecoin (USDT/USDC/DAI …) yang anda simpan ialah kripto-ke-kripto di sini dan tidak dikenakan cukai – rekodkannya sebagai tukaran ke stablecoin. Hanya jualan untuk euro dikenakan cukai – “Jual” dikira sebagai jualan untuk euro.</string>
+    <string name="tax_note_transfer_fee">Perkara yang sama terpakai untuk yuran USDT atau tunai pada pindahan antara dompet anda sendiri: ia tidak ditambah kepada kos asas dan disenaraikan untuk maklumat sahaja.</string>
+    <string name="tax_note_uk">Padanan mengikut HMRC: hari yang sama → 30 hari berikutnya → kumpulan Section 104.</string>
+    <string name="tax_note_us_transition">Peralihan 1 Jan 2025 (safe harbor Rev. Proc. 2024-28): jika tahun-tahun terdahulu menggunakan FIFO merentasi semua dompet, lot yang tinggal setakat 31 Dis 2024 diberikan kepada dompet yang memegang koin tersebut – dompet dengan koin paling lama mendapat kos asas paling lama. Peruntukan ini ialah peraturan apl – semak dengan rekod anda sendiri.</string>
+    <string name="tax_note_us_wallet">Mulai tahun cukai 2025, IRS memerlukan kos asas bagi setiap dompet atau bursa (Rev. Proc. 2024-28): eksport menggunakan FIFO bagi setiap dompet mulai 2025 – untuk tahun-tahun terdahulu FIFO merentasi semua dompet, atau FIFO bagi setiap dompet jika itu kaedah kos anda.</string>
+    <string name="tax_note_withdrawal_fee">Yuran pengeluaran dalam USDT atau tunai bukan kerugian: yuran tunai bukan kos yang boleh ditolak, yuran USDT ialah pelupusan pada nilai tara tanpa keuntungan – ia disenaraikan untuk maklumat sahaja (%1$s).</string>
+    <string name="tax_summary_at_interest_income">dikira: pendapatan semasa diterima pada kadar khas 27.5 peratus (§ 27b(2) no. 1 EStG / BMF) – koin mengekalkan nilai ini sebagai kos perolehan</string>
+    <string name="tax_summary_at_reward_info">untuk maklumat sahaja – bukan sebahagian daripada mana-mana jumlah: ganjaran memasuki pegangan baharu pada kos perolehan 0 dan hanya dikenakan cukai semasa jualan (sudah dalam keuntungan) – § 27b para. 2 EStG / BMF</string>
+    <string name="tax_summary_at_transition_2021">1 Jan–28 Feb 2022: pilihan untuk 27.5 peratus boleh dibuat</string>
+    <string name="tax_summary_at_withdrawal_fee">Yuran pengeluaran – tidak diimbangi dengan pegangan baharu (perbelanjaan tidak boleh ditolak pada kadar khas, § 20(2) EStG)</string>
+    <string name="tax_summary_ch_fifo_info">untuk maklumat sahaja – pengiraan FIFO apl – tidak diklasifikasikan – lihat ESTV</string>
+    <string name="tax_summary_ch_year_end_value">nilai pada 31 Dis dalam CSV pegangan = harga bursa × USD/CHF – bukan nilai cukai ESTV</string>
+    <string name="tax_summary_de_withdrawal_fee">Yuran pengeluaran – tidak diimbangi di bawah § 23, semak sama ada boleh ditolak sebagai perbelanjaan berkaitan pendapatan</string>
+    <string name="tax_summary_not_calculated_estv">tidak dikira – senarai harga ESTV: %1$s</string>
+    <string name="tax_summary_orientation">Panduan</string>
+    <string name="tax_summary_orientation_block">Untuk panduan sahaja – bukan nasihat cukai – bukan taksiran</string>
+    <string name="tax_summary_orientation_item">Panduan: %1$s</string>
+    <string name="tax_summary_title">Ringkasan tahunan %1$s %2$s</string>
+    <string name="tax_summary_transfer_fee_info">Yuran pindahan dalam USDT/tunai – bukan kerugian dan tidak dalam kos asas, untuk maklumat sahaja</string>
+    <string name="tax_summary_withdrawal_fee_info">Yuran pengeluaran dalam USDT/tunai – tidak dikira sebagai kerugian, untuk maklumat sahaja</string>
+
+    <string name="tax_line_at_old_speculation_limit">Transaksi spekulatif (undang-undang lama, dipegang ≤ 1 tahun): had pengecualian (§ 31 (3) EStG versi lama)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">Faedah pinjaman sebelum 1 Mac 2022 (nilai semasa diterima)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">Faedah sebelum 1 Mac 2022: undang-undang lama (kadar cukai pendapatan), bukan 27.5 peratus</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">sebelum 1 Mac 2022 – semak dengan profesional</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">Faedah – bercukai semasa diterima</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">Staking – untuk maklumat sahaja (kos perolehan 0, dikenakan cukai semasa jualan)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">Jumlah faedah (bercukai)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">Jumlah staking (maklumat)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">Kerugian modal bersih (dibawa ke hadapan)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">tanpa pilihan: termasuk jualan 1 Jan–28 Feb 2022</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">Staking sebelum 1 Mac 2022: kos perolehan ditetapkan pada 0 – semak dengan profesional</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">Peraturan 30 hari mungkin masih mengubah angka ini (belian sehingga %1$s)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Hasil sebelum yuran melebihi had pelaporan (£50,000; 2020/21–2022/23: £49,200): laporkan kepada HMRC jika anda berdaftar untuk Self Assessment, walaupun tanpa keuntungan bercukai</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">Nilai kekayaan 31 Dis %1$s (panduan)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">Senarai harga ESTV (ictax.admin.ch) adalah muktamad. Bagi koin yang tiada dalam senarai, harga tutup bursa secara amnya terpakai. Cukai kekayaan tidak dikira.</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – pegangan %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">tidak dikira</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">Alamat yang dipantau tidak dapat dibaca – bakinya tiada dalam fail ini</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">Lot alamat yang dipantau dikira dari tarikh beliannya; jika baki alamat hari ini lebih rendah, lot itu dikurangkan.</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">Alamat yang dipantau dikira dalam jumlah nilai tetapi tiada kos perolehan – oleh itu keuntungan mungkin terlalu tinggi. Rekodkan kos sebagai belian.</string>
+    <string name="tax_summary_fr_rewards_income">Amaun ini menganggap ganjaran telah dikenakan cukai sebagai pendapatan semasa diterima (nilai semasa diterima dalam kos perolehan) – jika tidak, kos perolehan 0 ialah tafsiran yang berhati-hati.</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">Nilai pasaran tanpa harga yang direkod (yuran, hadiah/bayaran, tukaran, ganjaran, yuran rangkaian, nilai portfolio) pada harga tutup harian (UTC) hari transaksi</string>
+</resources>

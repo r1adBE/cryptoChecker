@@ -35,7 +35,7 @@ AYRICA
 • Portföy isteğe bağlı (Ayarlar’dan açılır): alımlar, satımlar, takaslar, transferler, ödüller, yatırma ve çekme işlemleri; FIFO (varsayılan) veya ortalama (Ø); seed olmadan salt okunur adresler: BTC (xpub dahil), ETH ve EVM ağları, SOL, TRX, XRP, LTC, ADA ve TON; Relai, Swissquote, Bitpanda, Kraken, Binance ve Coinbase’ten CSV içe aktarma; CSV olarak yıllık özet; ayrı kilit. Bitpanda ve Swissquote: kendi fiyatı yok, yalnızca CSV ile.
 • Herkes için okunur: yeşil/kırmızı veya mavi/turuncu, yalnızca renk yerine işaret ve ok, Dynamic Type; VoiceOver her satırı tek cümle olarak okur
 • Dosyalar uygulamasıyla yedekleme ve geri yükleme
-• Açık ve koyu mod, beş vurgu rengi, 31 dil
+• Açık ve koyu mod, beş vurgu rengi, 33 dil
 • Açık kaynak (MIT) – kod GitHub’da herkese açık
 
 Not: Crypto Checker fiyatları ve kendi girdiğin bir portföyü gösterir. Bir borsa veya cüzdan değildir, işlem yapmaz ve yatırım tavsiyesi vermez.

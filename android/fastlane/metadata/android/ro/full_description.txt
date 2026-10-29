@@ -34,7 +34,7 @@ PIAȚĂ
 • Portofoliu opțional (se activează din Setări): cumpărări, vânzări, swapuri, transferuri, recompense, depuneri și retrageri; FIFO (implicit) sau medie (Ø); adrese doar pentru citire, fără seed, pentru BTC (inclusiv xpub), ETH și rețele EVM, SOL, TRX, XRP, LTC, ADA și TON; import CSV din Relai, Swissquote, Bitpanda, Kraken, Binance și Coinbase; sinteză anuală în CSV; blocare proprie. Bitpanda și Swissquote: fără preț propriu, doar prin CSV.
 • Lizibil pentru toți: verde/roșu sau albastru/portocaliu, semn și săgeată în loc de doar culoare; TalkBack citește fiecare rând ca o propoziție
 • Backup și restaurare într-un fișier – și între Android și iPhone
-• Mod luminos și întunecat, cinci culori de accent, 31 de limbi
+• Mod luminos și întunecat, cinci culori de accent, 33 de limbi
 • Open source (MIT) – codul este public pe GitHub
 
 Notă: Crypto Checker afișează prețuri și un portofoliu pe care îl introduci tu. Nu este o bursă sau un portofel, nu tranzacționează și nu oferă consultanță de investiții.

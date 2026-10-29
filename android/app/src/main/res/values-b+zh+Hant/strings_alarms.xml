@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Alarmliste und Übersicht aller Alarme -->
+    <string name="add_alarm_action">設定提醒</string>
+    <string name="alarms_add">新增提醒</string>
+    <string name="alarms_edit">編輯提醒</string>
+    <string name="alarms_empty">該交易對暫無提醒。</string>
+    <string name="alarms_empty_example">例如：BTC 漲破 %1$s 時提醒我。</string>
+    <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
+    <string name="alarms_notifications_off">通知已關閉——提醒無法送達。</string>
+    <string name="alarms_notifications_turn_on">開啟</string>
+    <plurals name="alarms_overview_active">
+        <item quantity="other">已啟用 %1$d 個</item>
+    </plurals>
+    <string name="alarms_overview_empty">暫無提醒。開啟一個交易對，在「提醒」中新增。</string>
+    <string name="alarms_overview_title">全部提醒</string>
+    <string name="alarms_title">提醒</string>
+
+    <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
+    <string name="alarm_advanced">進階</string>
+    <string name="alarm_change_updates">更改價格更新</string>
+    <string name="alarm_create">建立提醒</string>
+    <string name="alarm_currency_label">貨幣</string>
+    <string name="alarm_delete_confirm">此提醒將被移除。</string>
+    <string name="alarm_delete_title">刪除提醒？</string>
+    <string name="alarm_field_percent">百分比</string>
+    <string name="alarm_field_price">價格</string>
+    <string name="alarm_fires_now_above">價格已高於 %1$s。仍要儲存嗎？</string>
+    <string name="alarm_fires_now_below">價格已低於 %1$s。仍要儲存嗎？</string>
+    <string name="alarm_fires_now_change">修改</string>
+    <string name="alarm_fires_now_save">仍然儲存</string>
+    <string name="alarm_fires_now_title">提醒會立即觸發</string>
+    <string name="alarm_first_battery_hint">電池最佳化限制了此應用程式——提醒可能延遲送達。</string>
+    <string name="alarm_first_title">提醒已儲存</string>
+    <string name="alarm_last_triggered">上次觸發：%1$s</string>
+    <string name="alarm_more_conditions">更多條件</string>
+    <string name="alarm_new_extreme">創下%1$s</string>
+    <string name="alarm_once">一次</string>
+    <string name="alarm_option_repeating">提醒</string>
+    <string name="alarm_option_sound">聲音</string>
+    <string name="alarm_option_speak">語音播報提醒</string>
+    <string name="alarm_option_vibrate">震動</string>
+    <string name="alarm_repeat_each">每次</string>
+    <string name="alarm_repeat_once">一次</string>
+    <string name="alarm_repeating">每次</string>
+    <string name="alarm_threshold_error_empty">輸入一個數值以儲存提醒。</string>
+    <string name="alarm_threshold_error_funding">資金費率必須是介於 −10 到 +10 之間的百分比。</string>
+    <string name="alarm_threshold_error_invalid">請輸入大於 0 的有效數字。</string>
+    <string name="alarm_threshold_error_oi">未平倉量變化：最多百分之 1000。</string>
+    <plurals name="alarm_window_hours">
+        <item quantity="other">%1$d 小時內</item>
+    </plurals>
+    <string name="alarm_window_label">時間視窗</string>
+
+    <!-- Alarm-Editor: einfache Ansicht und Vorlagen («Wenn BTC über … geht») -->
+    <string name="alarm_simple_above">漲破</string>
+    <string name="alarm_simple_below">跌破</string>
+    <string name="alarm_simple_end">時</string>
+    <string name="alarm_simple_when">當 %1$s</string>
+    <string name="alarm_template_a11y">建立提醒：%1$s</string>
+    <string name="alarm_template_a11y_down">在較目前價格下跌百分之 %1$s 時建立提醒</string>
+    <string name="alarm_template_a11y_up">在較目前價格上漲百分之 %1$s 時建立提醒</string>
+    <string name="alarm_template_from_now">從現在起</string>
+    <string name="alarm_template_volume">成交量 ×%1$s</string>
+    <string name="alarm_templates_title">快捷提醒</string>
+
+    <!-- Alarm-Bedingungen -->
+    <string name="alarm_condition_above">價格高於</string>
+    <string name="alarm_condition_below">價格低於</string>
+    <string name="alarm_condition_down_percent">下跌</string>
+    <string name="alarm_condition_funding_above">資金費率高於</string>
+    <string name="alarm_condition_funding_below">資金費率低於</string>
+    <string name="alarm_condition_move_percent">波動幅度</string>
+    <string name="alarm_condition_near_high">接近高點</string>
+    <string name="alarm_condition_near_low">接近低點</string>
+    <string name="alarm_condition_oi_down">未平倉量下降</string>
+    <string name="alarm_condition_oi_up">未平倉量上升</string>
+    <string name="alarm_condition_up_percent">上漲</string>
+    <string name="alarm_condition_volume_spike">成交量激增</string>
+
+    <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
+    <string name="alarm_sentence_above">當 %1$s 漲破 %2$s 時提醒我。</string>
+    <string name="alarm_sentence_below">當 %1$s 跌破 %2$s 時提醒我。</string>
+    <string name="alarm_sentence_down_percent">當 %1$s 比儲存時（或上次提醒時）的價格下跌 %2$s 時提醒我。</string>
+    <string name="alarm_sentence_funding_above">當 %1$s 的資金費率升至 %2$s 以上時提醒我。</string>
+    <string name="alarm_sentence_funding_below">當 %1$s 的資金費率降至 %2$s 以下時提醒我。</string>
+    <string name="alarm_sentence_incomplete">輸入數值後，提醒將以句子形式顯示。</string>
+    <plurals name="alarm_sentence_move_percent">
+        <item quantity="other">當 %1$s 在 %3$d 小時內波動 %2$s 時提醒我。</item>
+    </plurals>
+    <string name="alarm_sentence_near_high">當 %1$s 距%3$s不超過 %2$s 時提醒我。</string>
+    <string name="alarm_sentence_near_low">當 %1$s 距%3$s不超過 %2$s 時提醒我。</string>
+    <string name="alarm_sentence_new_extreme">當 %1$s 創下%2$s時提醒我。</string>
+    <plurals name="alarm_sentence_oi_down">
+        <item quantity="other">當 %1$s 的未平倉量在 %3$d 小時內下降 %2$s 時提醒我。</item>
+    </plurals>
+    <plurals name="alarm_sentence_oi_up">
+        <item quantity="other">當 %1$s 的未平倉量在 %3$d 小時內上升 %2$s 時提醒我。</item>
+    </plurals>
+    <string name="alarm_sentence_up_percent">當 %1$s 比儲存時（或上次提醒時）的價格上漲 %2$s 時提醒我。</string>
+    <string name="alarm_sentence_volume">當 %1$s 成交量達到正常水準的 %2$s 倍時提醒我。</string>
+
+    <!-- Alarm «Nahe am Hoch / Tief» -->
+    <string name="alarm_near_extreme_high_30">30 日高點</string>
+    <string name="alarm_near_extreme_high_365">1 年高點</string>
+    <string name="alarm_near_extreme_high_90">90 日高點</string>
+    <string name="alarm_near_extreme_low_30">30 日低點</string>
+    <string name="alarm_near_extreme_low_365">1 年低點</string>
+    <string name="alarm_near_extreme_low_90">90 日低點</string>
+    <string name="alarm_near_field_distance">距離</string>
+    <string name="alarm_near_hint">創出新高點或新低點時也會提醒。基於日 K 線，每 6 小時更新一次。</string>
+    <string name="alarm_near_new_only">僅在創出新高或新低時</string>
+    <string name="alarm_near_notification_high">%1$s 比%3$s低 %2$s（%4$s / %5$s）</string>
+    <string name="alarm_near_notification_low">%1$s 比%3$s高 %2$s（%4$s / %5$s）</string>
+    <string name="alarm_near_notification_new">%2$s 創下%1$s：%3$s（此前 %4$s）</string>
+    <plurals name="alarm_near_window_days">
+        <item quantity="other">%1$d 天</item>
+    </plurals>
+    <string name="alarm_near_window_label">週期</string>
+    <string name="alarm_near_window_year">1 年</string>
+
+    <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
+    <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
+    <string name="alarm_funding_hint_8h">資金費率按每8小時計。其他結算間隔的合約會換算（1小時×8，4小時×2）；合約卡片顯示換算後的數值。若間隔未知，提醒不會檢查。負值表示空頭向多頭支付。± 切換正負號。</string>
+    <string name="alarm_funding_sign_a11y">切換正負號</string>
+    <string name="alarm_oi_hint">將未平倉量與相應小時數之前儲存的數值比較。新提醒要等應用程式收集了足夠長時間的資料後才會通知；最多每 5 分鐘檢查一次。</string>
+    <string name="alarm_volume_factor_label">最近一小時成交量與正常水準之比</string>
+    <string name="alarm_volume_hint">成交量資料來自 Binance——未在 Binance 上市的交易對不會觸發。</string>
+    <string name="alarm_volume_zero_hours_hint">沒有成交的小時按成交量 0 計算，因此在交易清淡的交易對上，普通的一小時也可能顯得異常。</string>
+
+    <!-- Bestätigung nach dem Speichern -->
+    <string name="alarm_saved_active">提醒已啟用</string>
+    <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
+    <string name="alarm_saved_banner">提醒已儲存：%1$s</string>
+    <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
+    <string name="alarm_saved_notifications_off">通知已關閉</string>
+
+    <!-- Wann Alarme geprüft werden -->
+    <string name="alarm_timing_hint_android">未開啟「%1$s」時，裝置靜置期間 Android 的檢查不規律，有時要隔幾小時。開啟後約每 15 分鐘檢查一次。</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">應用程式關閉時，iOS 常常晚於 15 分鐘才檢查，有時要等到下次開啟應用程式。可能錯過短暫的波動。</string>
+    <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
+    <string name="alarm_timing_title">提醒何時檢查</string>
+    <string name="alarm_timing_where">可在 %1$s 中設定價格更新頻率。</string>
+
+    <!-- Alarm-Signal und Test-Alarm -->
+    <string name="alarm_signal_silent">靜音（僅通知）</string>
+    <string name="alarm_signal_sound">僅聲音</string>
+    <string name="alarm_signal_sound_vibrate">聲音和震動</string>
+    <string name="alarm_signal_system">跟隨系統</string>
+    <string name="alarm_signal_vibrate">僅震動</string>
+    <string name="alarm_test">測試提醒</string>
+    <string name="alarm_test_action">測試</string>
+    <string name="alarm_test_denied">Crypto Checker 的通知已關閉。</string>
+    <string name="alarm_test_hint">使用你的聲音、震動和語音播報設定發送一條範例提醒。</string>
+    <string name="alarm_test_open_settings">開啟設定</string>
+    <string name="alarm_test_quiet">現在處於靜音時段：真實提醒會等到時段結束後再響鈴送達。</string>
+    <string name="alarm_test_text">提醒就是這樣顯示和響起的。</string>
+    <string name="alarm_test_title">測試：Crypto Checker 提醒</string>
+
+    <!-- Ehrliche Alarme: Vorlesetexte Ton/Ansage, ungeprüfte Alarme -->
+    <string name="alarm_a11y_sound_on">聲音已開啟</string>
+    <string name="alarm_a11y_speak_on">語音播報已開啟</string>
+    <string name="alarm_unchecked_no_candles">無法檢查（無K線資料）</string>
+    <string name="alarm_unchecked_no_rate">無法檢查（無匯率）</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">通知已關閉——此提醒無法送達</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">無提醒——流動性低</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">正在等待最新價格</string>
+    <string name="alarm_enter_amount">請輸入數值</string>
+    <string name="alarm_editor_more">更多</string>
+    <string name="alarm_editor_more_summary">快捷提醒、更多條件、聲音和語音播報</string>
+    <string name="alarm_reliability_storage_no_key">背景提醒已暫停 – 自選清單未儲存</string>
+    <string name="alarms_limit_reached">每個交易對最多可設定 %1$s 個提醒。</string>
+    <string name="alarms_reference_rate_hint">歐洲央行的參考匯率每天只確定一次——因此沒有提醒。</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">跌幅必須小於百分之一百。</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">門檻無效 – 請調整</string>
+
+    <string name="alarm_last_checked">上次檢查 %1$s</string>
+</resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Tiada koin dipilih</string>
+    <string name="watch_loading">Memuatkan…</string>
+    <string name="watch_error">Bursa tidak dapat dihubungi</string>
+    <string name="watch_updated">Setakat %1$s</string>
+    <string name="watch_refresh">Muat semula</string>
+    <string name="watch_choose">Pilih koin</string>
+    <string name="watch_choose_hint">Koin: maks. %1$d</string>
+    <string name="watch_complication_label">Harga</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s dalam 24 jam</string>
+    <string name="watch_mode_phone">Senarai: seperti telefon</string>
+    <string name="watch_mode_own">Senarai: sendiri</string>
+    <string name="watch_phone_empty">Tiada kegemaran pada telefon</string>
+    <string name="a11y_watch_outdated">Harga sudah lapuk</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="other">kali terakhir dikemas kini %1$d minit lalu</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="other">kali terakhir dikemas kini %1$d jam lalu</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="other">kali terakhir dikemas kini %1$d hari lalu</item>
+    </plurals>
+</resources>

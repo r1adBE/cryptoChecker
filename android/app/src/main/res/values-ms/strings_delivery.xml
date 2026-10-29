@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">Pastikan amaran sampai</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">OK</string>
+    <string name="delivery_state_warn">Semak ini</string>
+    <string name="delivery_state_info">Nota</string>
+    <string name="delivery_allowed">Dibenarkan</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">Pemberitahuan</string>
+    <string name="delivery_notifications_off">Mati – amaran tidak akan sampai</string>
+    <string name="delivery_notifications_not_asked">Belum dibenarkan</string>
+    <string name="delivery_channel">Saluran amaran</string>
+    <string name="delivery_channel_high">Kepentingan tinggi – muncul pada skrin</string>
+    <string name="delivery_channel_low">Kepentingan rendah – amaran hanya muncul secara senyap dalam senarai</string>
+    <string name="delivery_channel_off">Dimatikan – amaran tidak akan sampai</string>
+    <string name="delivery_exact_on">Hidup – kira-kira setiap 15 minit</string>
+    <string name="delivery_exact_off">Mati – Android menyemak secara tidak tetap</string>
+    <string name="delivery_battery">Pengoptimuman bateri</string>
+    <string name="delivery_battery_unrestricted">Tidak terhad</string>
+    <string name="delivery_battery_optimized">Dioptimumkan – Android mungkin melewatkan semakan. Apl tidak meminta pengecualian; anda boleh mengubahnya dalam tetapan bateri apl.</string>
+    <string name="delivery_background">Penggunaan latar belakang</string>
+    <string name="delivery_background_restricted">Terhad – Android menghentikan semakan latar belakang</string>
+    <string name="delivery_dnd">Jangan ganggu</string>
+    <string name="delivery_dnd_on">Hidup – amaran mungkin sampai tanpa bunyi</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">Aktif hingga %1$s – amaran yang tiba menunggu sehingga itu</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – amaran yang tiba menunggu dalam tempoh ini</string>
+    <string name="delivery_last_check">Semakan latar belakang terakhir</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – lebih 6 jam yang lalu</string>
+    <string name="delivery_last_check_never">Belum ada</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">Benarkan</string>
+    <string name="delivery_action_change">Ubah</string>
+    <string name="delivery_action_show">Tunjuk</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">Sepanduk dan bunyi</string>
+    <string name="delivery_alert_off">Sepanduk mati – amaran hanya muncul di Pusat Pemberitahuan</string>
+    <string name="delivery_sound_off">Bunyi mati – amaran sampai secara senyap</string>
+    <string name="delivery_time_sensitive">Pemberitahuan Sensitif Masa</string>
+    <string name="delivery_time_sensitive_off">Mati – Fokus boleh menahan amaran</string>
+    <string name="delivery_background_refresh">Segar Semula Apl di Latar</string>
+    <string name="delivery_low_power">Mod Kuasa Rendah</string>
+    <string name="delivery_swipe_away">Apl dileret keluar?</string>
+    <string name="delivery_swipe_away_note">Jika anda meleret keluar apl dalam penukar apl, iOS menghentikan semakan latar belakang sehingga anda membukanya semula.</string>
+    <string name="delivery_live_activity">Aktiviti Langsung</string>
+    <string name="delivery_live_activity_note">Menunjukkan harga pada Skrin Kunci tetapi hanya dikemas kini apabila apl menyemak – ia tidak menjadikan amaran disemak lebih kerap.</string>
+
+    <string name="alarm_first_check">Semak bahawa amaran sampai</string>
+
+    <string name="oem_battery_title">Penjimat bateri pengeluar</string>
+    <string name="oem_battery_xiaomi">Xiaomi mungkin menghentikan apl sepenuhnya – maka tiada amaran sampai. Hidupkan “Automula” dan tetapkan Penjimat bateri kepada “Tiada sekatan”.</string>
+    <string name="oem_battery_samsung">Samsung mungkin meletakkan apl dalam tidur nyenyak – maka tiada amaran sampai. Di bawah Bateri › Had penggunaan latar belakang, tambahkannya ke “Apl yang tidak pernah tidur”.</string>
+    <string name="oem_battery_huawei">Huawei/Honor mungkin menghentikan apl – maka tiada amaran sampai. Di bawah Bateri › Pelancaran apl, pilih “Urus secara manual” dan benarkan semua pilihan.</string>
+    <string name="oem_battery_oneplus">OnePlus mungkin menghentikan apl – maka tiada amaran sampai. Benarkan “Pelancaran automatik” dan, di bawah Penggunaan bateri, aktiviti latar belakang.</string>
+    <string name="oem_battery_oppo">Oppo/Realme mungkin menghentikan apl – maka tiada amaran sampai. Benarkan “Pelancaran automatik” dan, di bawah Penggunaan bateri, aktiviti latar belakang.</string>
+    <string name="oem_battery_vivo">Vivo mungkin menghentikan apl – maka tiada amaran sampai. Benarkan “Automula” dan, di bawah Bateri, penggunaan kuasa latar belakang yang tinggi.</string>
+    <string name="alarm_reliability_stale">Semakan terakhir %1$s – amaran mungkin lewat</string>
+    <string name="alarm_reliability_never">Amaran hidup – belum ada semakan latar belakang</string>
+    <string name="alarm_reliability_notifications_off">Pemberitahuan dimatikan – amaran tidak akan sampai</string>
+    <string name="alarm_reliability_battery">Penjimatan bateri mungkin menghentikan semakan amaran</string>
+    <string name="alarm_reliability_background_refresh">Segar Semula Apl di Latar mati – amaran mungkin tidak sampai</string>
+</resources>

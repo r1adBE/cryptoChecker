@@ -339,14 +339,14 @@ class AlarmTimingHintTest {
     }
 
     /**
-     * Der Satz ist der ganze Text der Bestätigung nach dem ersten Alarm — in allen 31 Sprachen
+     * Der Satz ist der ganze Text der Bestätigung nach dem ersten Alarm — in allen 33 Sprachen
      * höchstens [AlarmTimingHint.MAX_CHARS] Zeichen (Android mit eingesetztem Namen «Pünktlich prüfen»),
      * ein Satz und für beide Plattformen vorhanden (iOS liest dieselben Texte).
      */
     @Test
     fun hintIsOneShortSentenceInEveryLanguage() {
         val languages = StringResources.byLanguage()
-        assertEquals(31, languages.size)
+        assertEquals(33, languages.size)
         for ((folder, strings) in languages) {
             val exact = strings.getValue("settings_exact_checks")
             val android = strings.getValue("alarm_timing_hint_android").replace("%1\$s", exact)
