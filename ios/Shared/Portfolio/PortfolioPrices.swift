@@ -67,9 +67,10 @@ enum PortfolioPriceIssue: Sendable, Equatable {
     /// Coins, die Binance ohne prüfbaren Namen ausliess (`skipped`), ohne die verworfenen Kerzenkurse (`rejected`): keine
     /// Quelle mit Kurs (`noPrice`, `.noPrice`) → `noMarket` («Kein Markt»), sonst `unchecked` («Kurs ungeprüft»; auch
     /// wenn die Abfrage scheiterte). Wie Android `PortfolioPriceIssue.nameUnchecked`.
-    static func nameUnchecked(_ skipped: Set<String>, rejected: Set<String>,
-                              noPrice: Set<String>) -> (unchecked: Set<String>, noMarket: Set<String>) {
-        let open = skipped.subtracting(rejected)
+    /// Scheiterte die Abfrage (`unavailable`): keiner von beiden, die Zeile sagt «Kurs gerade nicht abrufbar».
+    static func nameUnchecked(_ skipped: Set<String>, rejected: Set<String>, noPrice: Set<String>,
+                              unavailable: Set<String>) -> (unchecked: Set<String>, noMarket: Set<String>) {
+        let open = skipped.subtracting(rejected).subtracting(unavailable)
         return (open.subtracting(noPrice), open.intersection(noPrice))
     }
 }

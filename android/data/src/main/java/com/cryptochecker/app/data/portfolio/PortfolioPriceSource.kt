@@ -217,7 +217,7 @@ class PortfolioPriceSource @Inject constructor(
                     }
                     // Binance ohne prüfbare Identität ausgelassen und kein anderer Kurs: «ungeprüft» (nicht abgelehnte); lieferte
                     // auch keine Quelle einen Kurs (nicht gescheitert): «kein Markt»
-                    val skipped = PortfolioPriceIssue.nameUnchecked(split.unchecked, rejected, noPrice)
+                    val skipped = PortfolioPriceIssue.nameUnchecked(split.unchecked, rejected, noPrice, unavailable)
                     unchecked += skipped.unchecked
                     // Eingetragene Börse: deren Kurs gilt, sonst bleibt Binance (siehe PortfolioExchangeRoute)
                     applyExchangeRoutes(toFetch, fetched)
@@ -265,6 +265,8 @@ class PortfolioPriceSource @Inject constructor(
         toFetch.filter { it !in fetched }.forEach { coin ->
             if (coin in unavailable) unavailableCoins += coin else unavailableCoins -= coin
             if (coin !in noMarket) noMarketCoins -= coin
+            // Gescheitert: «nicht abrufbar» statt eines alten «ungeprüft»
+            if (coin in unavailable) uncheckedCoins -= coin
         }
         rejected.forEach { uncheckedCoins -= it }
         // Ungeprüft und auch sonst kein Kurs: kein Wert im Zwischenspeicher, Coin «ungeprüft»

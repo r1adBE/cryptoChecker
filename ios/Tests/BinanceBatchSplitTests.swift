@@ -67,11 +67,11 @@ final class BinanceBatchSplitTests: XCTestCase {
         XCTAssertEqual(PortfolioPriceIssue.of(failed: false, allSourcesBlocked: false, networkFailed: got.failed), .noPrice)
     }
 
-    /// Weg (b) ohne jeden Kurs → «Kein Markt»; Weg (a) und gescheiterte Abfrage → «Kurs ungeprüft»; verworfen → keiner.
+    /// Weg (b) ohne jeden Kurs → «Kein Markt»; Weg (a) → «Kurs ungeprüft»; gescheitert oder verworfen → keiner.
     func testNameUncheckedSplitsNoMarket() {
         let got = PortfolioPriceIssue.nameUnchecked(["ICX", "WTC", "NOREF", "DOWN", "OTHER"], rejected: ["OTHER"],
-                                                    noPrice: ["ICX", "WTC", "PLAIN"])
+                                                    noPrice: ["ICX", "WTC", "PLAIN"], unavailable: ["DOWN"])
         XCTAssertEqual(got.noMarket, ["ICX", "WTC"])
-        XCTAssertEqual(got.unchecked, ["NOREF", "DOWN"])
+        XCTAssertEqual(got.unchecked, ["NOREF"])
     }
 }

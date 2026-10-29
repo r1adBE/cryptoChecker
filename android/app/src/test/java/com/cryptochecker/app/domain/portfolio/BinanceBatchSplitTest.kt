@@ -73,15 +73,16 @@ class BinanceBatchSplitTest {
         assertTrue(asked.drop(1).all { it.size < 4 })
     }
 
-    /** Weg (b) ohne jeden Kurs → «Kein Markt»; Weg (a) und gescheiterte Abfrage → «Kurs ungeprüft»; verworfen → keiner. */
+    /** Weg (b) ohne jeden Kurs → «Kein Markt»; Weg (a) → «Kurs ungeprüft»; gescheitert oder verworfen → keiner. */
     @Test
     fun nameUncheckedSplitsNoMarket() {
         val got = PortfolioPriceIssue.nameUnchecked(
             skipped = setOf("ICX", "WTC", "NOREF", "DOWN", "OTHER"),
             rejected = setOf("OTHER"),
             noPrice = setOf("ICX", "WTC", "PLAIN"),
+            unavailable = setOf("DOWN"),
         )
         assertEquals(setOf("ICX", "WTC"), got.noMarket)
-        assertEquals(setOf("NOREF", "DOWN"), got.unchecked)
+        assertEquals(setOf("NOREF"), got.unchecked)
     }
 }

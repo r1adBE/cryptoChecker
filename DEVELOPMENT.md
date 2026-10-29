@@ -1534,7 +1534,7 @@ the tests named here.
   `PortfolioPriceIdentity` UNCHECKED) for which no source returned any price and nothing failed
   (`PortfolioPriceIssue.NO_PRICE`) is `PortfolioPrices.noMarket`: «—» with «No market»
   (`portfolio_price_no_market`), never money either. A candle price without reference and a Binance price
-  with an unconfirmed token stay «Price unchecked»; a failed request stays «unchecked» for such a coin.
+  with an unconfirmed token stay «Price unchecked»; a failed request shows «Price unavailable right now» instead (neither label).
   `PortfolioPriceIssue.nameUnchecked` splits the two. Tests: `BinanceBatchSplitTest` / `BinanceBatchSplitTests`.
 * **Binance batch survives unknown symbols.** Binance answers `ticker/price?symbols=[…]` with HTTP 400 when
   one symbol is unknown. `BinanceBatchSplit` then halves the chunk down to single symbols (at most
@@ -3164,6 +3164,8 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   DEX discoverability: `DexNames.match` (Android `:domain`, iOS `Shared/Core`, parity `dex_names.json`) turns a DEX name
   in the coin search into a DexScreener row (`dex_search_hit`, token prefilled via `openDexSearch`); picker subtitles
   (`DropdownField`/`ExplorerPickerSheet` `subtitles`, `dex_picker_subtitle`) on DexScreener and the DEX section.
+* Build 179: `PortfolioPriceIssue.nameUnchecked` takes the failed coins: a coin Binance was skipped for whose request failed is
+  neither «unchecked» nor «no market» and shows «Price unavailable right now»; a stored «unchecked» is cleared then.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

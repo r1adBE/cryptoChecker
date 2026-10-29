@@ -70,10 +70,16 @@ enum class PortfolioPriceIssue {
         /**
          * Coins, die Binance ohne prüfbaren Namen ausliess ([skipped]), ohne die verworfenen Kerzenkurse ([rejected]):
          * keine Quelle mit Kurs ([noPrice], [NO_PRICE]) → [NameUnchecked.noMarket] («Kein Markt»), sonst
-         * [NameUnchecked.unchecked] («Kurs ungeprüft»; auch wenn die Abfrage scheiterte). Wie iOS.
+         * [NameUnchecked.unchecked] («Kurs ungeprüft»). Scheiterte die Abfrage ([unavailable]): keiner von beiden, die
+         * Zeile sagt «Kurs gerade nicht abrufbar». Wie iOS.
          */
-        fun nameUnchecked(skipped: Set<String>, rejected: Set<String>, noPrice: Set<String>): NameUnchecked {
-            val open = skipped - rejected
+        fun nameUnchecked(
+            skipped: Set<String>,
+            rejected: Set<String>,
+            noPrice: Set<String>,
+            unavailable: Set<String>,
+        ): NameUnchecked {
+            val open = skipped - rejected - unavailable
             return NameUnchecked(unchecked = open - noPrice, noMarket = open intersect noPrice)
         }
     }

@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 179)
+
+* Portfolio: if the price request for a coin without any market fails (e.g. offline), the row says «Price unavailable right now» instead of «Price unchecked».
+
 ## 16.2.2 (build 178)
 
 * Portfolio import from Kraken: a deposit or withdrawal that the ledger lists first as pending and then as booked now counts once. If the two rows have different amounts, both are imported and the preview names both lines so you can check your holdings.

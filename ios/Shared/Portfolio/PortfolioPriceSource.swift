@@ -189,7 +189,8 @@ enum PortfolioPriceSource {
             }
             // Binance ohne prüfbare Identität ausgelassen und kein anderer Kurs: «ungeprüft» (nicht abgelehnte); lieferte auch
             // keine Quelle einen Kurs (nicht gescheitert): «kein Markt»
-            let skipped = PortfolioPriceIssue.nameUnchecked(split.unchecked, rejected: rejected, noPrice: noPrice)
+            let skipped = PortfolioPriceIssue.nameUnchecked(split.unchecked, rejected: rejected, noPrice: noPrice,
+                                                        unavailable: unavailable)
             unchecked.formUnion(skipped.unchecked)
             // Eingetragene Börse: deren Kurs gilt, sonst bleibt Binance (PortfolioExchangeRoute)
             fetched = await Self.applyRoutes(toFetch, fetched, generation: generation)
@@ -304,6 +305,8 @@ enum PortfolioPriceSource {
             for coin in requested where fetched[coin] == nil {
                 if unavailable.contains(coin) { s.unavailableCoins.insert(coin) } else { s.unavailableCoins.remove(coin) }
                 if !noMarket.contains(coin) { s.noMarketCoins.remove(coin) }
+                // Gescheitert: «nicht abrufbar» statt eines alten «ungeprüft»
+                if unavailable.contains(coin) { s.uncheckedCoins.remove(coin) }
             }
             for coin in rejected { s.uncheckedCoins.remove(coin) }
             for coin in unchecked where fetched[coin] == nil {
