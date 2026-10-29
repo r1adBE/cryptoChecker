@@ -181,12 +181,14 @@ internal fun DexSearchHitRow(hit: DexSearchHit, onOpen: (String) -> Unit) {
             .padding(start = Spacing.md, end = Spacing.sm, top = Spacing.sm, bottom = Spacing.sm)
     ) {
         // Platz wie die Coin-Plakette (36 dp), Symbol 24 dp; rein dekorativ
-        Icon(
-            painterResource(R.drawable.ic_swap_horiz),
-            contentDescription = null,
-            tint = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.padding(end = Spacing.md).size(36.dp).padding(6.dp)
-        )
+        Box(Modifier.padding(end = Spacing.md).size(36.dp), contentAlignment = Alignment.Center) {
+            Icon(
+                painterResource(R.drawable.ic_swap_horiz),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.size(24.dp)
+            )
+        }
         Column(modifier = Modifier.weight(1f)) {
             Text(text = hit.name, style = MaterialTheme.typography.titleSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
             Text(
