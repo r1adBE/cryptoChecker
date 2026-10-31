@@ -7,12 +7,12 @@ COSA LA RENDE DIVERSA
 • Niente account, niente pubblicità, niente tracciamento. Lo sviluppatore non riceve alcun tuo dato.
 
 CHIAREZZA SUI DATI
-• «Leggero» è l’impostazione predefinita: i prezzi si aggiornano all’apertura e a intervalli in background. «Live mentre è aperta» aggiunge prezzi live per Binance, Bybit, OKX, Coinbase e Kraken finché la watchlist è aperta.
+• «Leggero» è l’impostazione predefinita: i prezzi si aggiornano all’apertura e a intervalli in background. «Live mentre è aperta» aggiunge prezzi live per Binance, Bybit, OKX, Coinbase e Kraken finché la lista è aperta.
 • Variazione % e grafici arrivano prima dall’exchange della coppia; se non ha candele, l’app usa Binance o Coinbase e te lo dice.
 • Fear & Greed, dominance e valori on-chain da alternative.me, CoinGecko e Coin Metrics.
 • Gli importi lasciano il dispositivo solo con export (CSV, backup) o cifrati nel backup iCloud/del dispositivo. Per i prezzi solo i simboli della coppia vanno al suo exchange; in più tassi di cambio (Frankfurter), dati di mercato e loghi (CoinGecko, Binance), mirror dei dati (GitHub). Se osservi indirizzi o una xpub, i nodi blockchain pubblici vedono gli indirizzi (con una xpub, quelli derivati) e il tuo IP.
 
-WATCHLIST
+LISTA DI OSSERVAZIONE
 • 56 mercati su 45 exchange: spot e futures, token DEX tramite DexScreener, a scelta azioni, oro e valute (TradFi)
 • Seconda riga «≈ valore» in una di 31 valute (EUR, CHF, USD …), convertita al tasso di cambio
 • Mini grafico e variazione % su 24 h o dalle 00:00 (tuo fuso orario)
@@ -25,7 +25,7 @@ ALLARMI
 • Ore di silenzio, «Prova allarme», registro
 
 MERCATO
-• In evidenza: movimenti di prezzo e volume insoliti nella tua watchlist, con notifica opzionale
+• In evidenza: movimenti di prezzo e volume insoliti nella tua lista di osservazione, con notifica opzionale
 • Crypto Pulse, Fear & Greed, indicatori Bitcoin, funding e open interest – come semplici valori misurati
 • Commissioni di rete per Ethereum, Bitcoin e altre, con allarme gas
 

@@ -247,7 +247,7 @@
     <string name="movers_no_gainers">Tiada koin naik dalam 24 j</string>
     <string name="movers_no_losers">Tiada koin turun dalam 24 j</string>
     <string name="movers_source">CoinGecko, 24 j, 100 teratas tanpa stablecoin</string>
-    <string name="movers_price_note">Peratus daripada CoinGecko (purata merentas bursa), harga daripada bursa yang dipilih – angka mungkin berbeza.</string>
+    <string name="movers_price_note">Peratus daripada CoinGecko (harga seluruh pasaran). Ketikan membuka pasangan yang disimpan atau Binance COIN/USDT – angka mungkin berbeza.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

@@ -37,7 +37,7 @@
     <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
     <string name="settings_app_badge">Nombre sur l’icône de l’app</string>
     <string name="settings_app_badge_hint">Compte les notifications d’alerte ouvertes. Le lanceur décide s’il affiche un nombre ou un point (p. ex. Samsung : «Avec nombre»).</string>
-    <string name="settings_exact_checks">Vérifier ponctuellement</string>
+    <string name="settings_exact_checks">Vérifier à l’heure</string>
     <string name="settings_exact_checks_grant">Autoriser « Alarmes et rappels »</string>
     <string name="settings_exact_checks_hint">Android vérifie environ toutes les 15 minutes, même quand l’appareil est en veille. Consomme un peu plus de batterie.</string>
     <string name="settings_exact_checks_nothing">Aucune paire active – rien à vérifier.</string>
@@ -165,7 +165,7 @@
 
     <!-- Einstellungen › Markt-Meldungen -->
     <string name="settings_depeg_alarm">Signaler un depeg de l’USDT</string>
-    <string name="settings_depeg_alarm_hint">T’avertit une fois lorsque l’USDT s’écarte de 1 USD du seuil défini (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_alarm_hint">T’avertit une fois lorsque l’écart de l’USDT par rapport à 1 USD atteint le seuil défini (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Seuil de depeg</string>
     <string name="settings_fng_above">Fear &amp; Greed : prévenir au-dessus</string>
     <string name="settings_fng_below">Fear &amp; Greed : prévenir sous</string>
@@ -201,7 +201,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">Réinitialiser l’app</string>
     <string name="settings_reset_app_action">Tout supprimer</string>
-    <string name="settings_reset_app_confirm">Supprime liste de suivi, alertes, portefeuille, réglages et toutes les données enregistrées, comme après l’installation. Action irréversible. Conseil : faites d’abord une sauvegarde. Les sauvegardes de l’appareil (sauvegarde Google ou sauvegarde iCloud/ordinateur) conservent les anciennes données jusqu’à la prochaine sauvegarde.</string>
+    <string name="settings_reset_app_confirm">Supprime liste de suivi, alertes, portefeuille, réglages et toutes les données enregistrées, comme après l’installation. Action irréversible. Conseil : fais d’abord une sauvegarde. Les sauvegardes de l’appareil (sauvegarde Google ou sauvegarde iCloud/ordinateur) conservent les anciennes données jusqu’à la prochaine sauvegarde.</string>
     <string name="settings_reset_app_title">Réinitialiser l’app ?</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->

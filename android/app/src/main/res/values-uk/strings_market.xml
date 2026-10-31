@@ -256,7 +256,7 @@
     <string name="movers_no_gainers">За 24 год жодна монета не зросла</string>
     <string name="movers_no_losers">За 24 год жодна монета не впала</string>
     <string name="movers_source">CoinGecko, 24 год, топ-100 без стейблкоїнів</string>
-    <string name="movers_price_note">Відсоток від CoinGecko (середнє за біржами), ціна з вибраної біржі – числа можуть відрізнятися.</string>
+    <string name="movers_price_note">Відсоток від CoinGecko (ціна по всьому ринку). Дотик відкриває збережену пару або Binance COIN/USDT – числа можуть відрізнятися.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

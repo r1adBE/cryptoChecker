@@ -26,7 +26,7 @@
     <string name="alarm_outcome_snoozed">Retenue – « Dans 1 h » toujours actif</string>
     <string name="alarm_log_source_app">dans l’app</string>
     <string name="alarm_log_source_background">en arrière-plan</string>
-    <string name="alarm_log_source_exact">vérification ponctuelle</string>
+    <string name="alarm_log_source_exact">vérification à l’heure</string>
     <string name="alarm_log_source_widget">via le widget</string>
     <string name="alarm_outcome_fx_stale">Non vérifiée – taux de change de plus de 36 heures</string>
     <string name="alarm_outcome_fx_unsure">Non vérifiée – conversion USDT incertaine (uniquement via USDC)</string>

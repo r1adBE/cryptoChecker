@@ -250,7 +250,7 @@
     <string name="movers_no_gainers">24 ঘণ্টায় কোনো কয়েন বাড়েনি</string>
     <string name="movers_no_losers">24 ঘণ্টায় কোনো কয়েন কমেনি</string>
     <string name="movers_source">CoinGecko, 24 ঘণ্টা, স্টেবলকয়েন ছাড়া শীর্ষ 100</string>
-    <string name="movers_price_note">শতাংশ CoinGecko থেকে (এক্সচেঞ্জগুলোর গড়), দাম বেছে নেওয়া এক্সচেঞ্জ থেকে – সংখ্যাগুলো আলাদা হতে পারে।</string>
+    <string name="movers_price_note">শতাংশ CoinGecko থেকে (সমগ্র বাজারের দাম)। ট্যাপ করলে সংরক্ষিত জোড়া বা Binance COIN/USDT খোলে – সংখ্যাগুলো আলাদা হতে পারে।</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

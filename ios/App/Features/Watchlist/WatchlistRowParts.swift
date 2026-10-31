@@ -16,8 +16,8 @@ extension WatchlistRow {
 
     /// Paar in zwei Teilen: Basis gross und halbfett («BTC»), dahinter klein und grau «/USDT», auf
     /// gemeinsamer Grundlinie. Die Basis — das Wichtigste der Zeile — wird nie zugunsten der Quote
-    /// gekürzt: «/QUOTE» (bei Futures «/QUOTE PERP») erscheint nur, wenn es ganz Platz hat, sonst entfällt es (die Quote steht
-    /// ohnehin beim Kurs). Wie Android `PairName`.
+    /// gekürzt: «/QUOTE» (bei Futures «/QUOTE PERP») erscheint nur, wenn es ganz Platz hat, sonst entfällt die Quote (sie steht
+    /// ohnehin beim Kurs); der Kontrakt bleibt, notfalls wird dafür die Basis gekürzt. Wie Android `PairName`.
     /// Rest hinter der Basis: «/USDT», bei Futures «/USDT PERP» — klein und grau wie Android
     /// (`displayName` ohne die Basis; keine eigene Akzent-Kapsel mehr für den Kontrakt).
     private var pairRest: String {
@@ -40,11 +40,34 @@ extension WatchlistRow {
                     .foregroundStyle(AppColors.onSurfaceVariant)
                     .lineLimit(1)
             }
-            // Ohne Quote; die Basis nur als letzter Ausweg (überlange Symbole) gekürzt
-            base
-                .lineLimit(DenseRowText.maxLines(typeScale))
-                .truncationMode(.tail)
+            // Futures: die Quote entfällt, der Kontrakt («PERP») bleibt immer (Android `PairRestFit`)
+            if let contract = watch.contractShortName {
+                HStack(alignment: .firstTextBaseline, spacing: 0) {
+                    base.lineLimit(1)
+                    contractText(contract)
+                }
+                HStack(alignment: .firstTextBaseline, spacing: 0) {
+                    base
+                        .lineLimit(DenseRowText.maxLines(typeScale))
+                        .truncationMode(.tail)
+                    contractText(contract)
+                        .fixedSize()
+                        .layoutPriority(1)
+                }
+            } else {
+                // Ohne Quote; die Basis nur als letzter Ausweg (überlange Symbole) gekürzt
+                base
+                    .lineLimit(DenseRowText.maxLines(typeScale))
+                    .truncationMode(.tail)
+            }
         }
+    }
+
+    private func contractText(_ contract: String) -> some View {
+        Text(verbatim: " " + contract)
+            .font(.footnote)
+            .foregroundStyle(AppColors.onSurfaceVariant)
+            .lineLimit(1)
     }
 
     var info: some View {

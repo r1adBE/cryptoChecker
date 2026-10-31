@@ -250,7 +250,7 @@
     <string name="movers_no_gainers">Geen munt het in 24 h gestyg nie</string>
     <string name="movers_no_losers">Geen munt het in 24 h gedaal nie</string>
     <string name="movers_source">CoinGecko, 24 h, top 100 sonder stablecoins</string>
-    <string name="movers_price_note">Persentasie van CoinGecko (gemiddeld oor beurse), prys van die gekose beurs – die syfers kan verskil.</string>
+    <string name="movers_price_note">Persentasie van CoinGecko (markwye prys). ’n Tik maak die gestoorde paar of Binance COIN/USDT oop – die syfers kan verskil.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

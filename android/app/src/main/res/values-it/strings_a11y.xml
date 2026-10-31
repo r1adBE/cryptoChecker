@@ -2,7 +2,7 @@
 <resources>
     <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
     <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
-    <string name="a11y_alarm_fired">Allarme attivato</string>
+    <string name="a11y_alarm_fired">Allarme scattato</string>
     <string name="a11y_collapsed">Compresso</string>
     <string name="a11y_converted">circa %1$s</string>
     <string name="a11y_expanded">Espanso</string>
@@ -58,9 +58,9 @@
     <string name="a11y_watchlist_pulse">%1$s, %2$s, in media %3$s</string>
     <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
     <plurals name="a11y_watchlist_pulse_falling">
-        <item quantity="one">%1$d in ribasso</item>
-        <item quantity="many">%1$d in ribasso</item>
-        <item quantity="other">%1$d in ribasso</item>
+        <item quantity="one">%1$d coppia in ribasso</item>
+        <item quantity="many">%1$d coppie in ribasso</item>
+        <item quantity="other">%1$d coppie in ribasso</item>
     </plurals>
     <plurals name="a11y_watchlist_pulse_missing">
         <item quantity="one">%1$d coppia senza valore a 24 ore</item>

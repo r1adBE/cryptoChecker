@@ -131,4 +131,13 @@ object A11yText {
         now: Long,
         exchange: String,
     ): String? = A11ySpeech.freshnessText(freshness, lastUpdate, now, exchange, texts(context))
+
+    /** Wie [freshness], aktuell aber mit dem Alter ([A11ySpeech.rowFreshnessText]) — für den Zeilensatz. */
+    fun rowFreshness(
+        context: Context,
+        freshness: A11ySpeech.Freshness,
+        lastUpdate: Long,
+        now: Long,
+        exchange: String,
+    ): String? = A11ySpeech.rowFreshnessText(freshness, lastUpdate, now, exchange, texts(context))
 }

@@ -253,7 +253,7 @@
     <string name="movers_no_gainers">Cap moneda ha pujat en 24 h</string>
     <string name="movers_no_losers">Cap moneda ha baixat en 24 h</string>
     <string name="movers_source">CoinGecko, 24 h, top 100 sense stablecoins</string>
-    <string name="movers_price_note">Percentatge de CoinGecko (mitjana entre exchanges), preu de l’exchange triat – les xifres poden diferir.</string>
+    <string name="movers_price_note">Percentatge de CoinGecko (preu de tot el mercat). Un toc obre el parell desat o Binance COIN/USDT: les xifres poden diferir.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

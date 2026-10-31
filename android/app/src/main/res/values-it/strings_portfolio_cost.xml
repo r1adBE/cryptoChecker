@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
-    <string name="cost_gaps_card">Voci senza costo di acquisto: %1$d</string>
-    <string name="cost_gaps_card_text">Aggiungi il costo di acquisto per avere guadagni e imposte completi.</string>
-    <string name="cost_gaps_sheet_title">Voci senza costo di acquisto</string>
-    <string name="cost_gaps_sheet_intro">Per queste entrate manca il costo di acquisto. Il suggerimento è la chiusura giornaliera della data – puoi modificarlo nella voce.</string>
-    <string name="cost_gaps_empty">Tutte le voci hanno un costo di acquisto.</string>
+    <string name="cost_gaps_card">Voci senza costo di carico: %1$d</string>
+    <string name="cost_gaps_card_text">Aggiungi il costo di carico per avere guadagni e imposte completi.</string>
+    <string name="cost_gaps_sheet_title">Voci senza costo di carico</string>
+    <string name="cost_gaps_sheet_intro">Per queste entrate manca il costo di carico. Il suggerimento è la chiusura giornaliera della data – puoi modificarlo nella voce.</string>
+    <string name="cost_gaps_empty">Tutte le voci hanno un costo di carico.</string>
     <string name="cost_gap_enter">Inserisci costo</string>
     <string name="cost_gap_leave_unknown">Lascia sconosciuto</string>
     <string name="cost_gap_left_unknown">Lasciato sconosciuto</string>

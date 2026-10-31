@@ -5,7 +5,7 @@ import UIKit
 // VoiceOver-Satz. Eigene Datei neben `WatchlistRow.swift` (Anordnung, Gesten, Moment «Erst-Hinzufügen»).
 
 extension WatchlistRow {
-    /// Zeitzeile: aktuell nur «Binance» (die Zeit steht oben im Status), nicht aktuell
+    /// Zeitzeile: aktuell «Binance · vor 3 Min.», nicht aktuell
     /// «Binance · vor 13 Min.» (wie Android); letzte Abfrage gescheitert
     /// «Vor 41 Min. · Binance nicht erreichbar»; ohne Fehler, aber zu alt
     /// «Binance · veraltet · vor 4 Min.»; Abruf frisch, letzter Handel laut Börse > 2 h (Regel der Alarmsperre,
@@ -31,8 +31,8 @@ extension WatchlistRow {
         guard stale else {
             // Börse ohne eigene Zeit, Kurs steht lange: nicht frisch wirken (`PriceFreshness`)
             if let unchanged = unchangedText { return ("\(BidiText.isolate(watch.exchangeName)) · \(unchanged)", false, unchanged) }
-            // Herkunft von Änderung/Mini-Chart («Änderung: Binance») steht nur im Aktionsblatt
-            return (watch.exchangeName, false, nil)
+            // Aktuell: Alter klein dahinter («Binance · vor 3 Min.») — der Kopf nennt nur die jüngste Zeit (wie Android)
+            return ("\(BidiText.isolate(watch.exchangeName)) · \(ago)", false, nil)
         }
         return ("\(BidiText.isolate(watch.exchangeName)) · \(ago)", false, nil)
     }
@@ -89,8 +89,8 @@ extension WatchlistRow {
             failed: !(watch.lastError ?? "").isEmpty && !notTraded,
             lastUpdate: watch.lastUpdate, now: now,
             outdatedAfter: staleAfter)
-        let staleText = A11ySpeech.freshnessText(freshness, lastUpdate: watch.lastUpdate, now: now,
-                                                 exchange: watch.exchangeName)
+        let staleText = A11ySpeech.rowFreshnessText(freshness, lastUpdate: watch.lastUpdate, now: now,
+                                                    exchange: watch.exchangeName)
         return A11y.watchRow(
             watch,
             name: coinName,

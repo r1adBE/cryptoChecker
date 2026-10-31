@@ -146,7 +146,7 @@
     <string name="watch_not_traded">Non più negoziato su questo exchange</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">Non nella lista di osservazione</string>
-    <string name="watch_price_mid">prezzo medio (altrimenti mark)</string>
+    <string name="watch_price_mid">prezzo mid (altrimenti mark)</string>
     <string name="watch_row_source_both">Variazione e grafico: %1$s</string>
     <string name="watch_row_source_change">Variazione: %1$s</string>
     <string name="watch_row_source_chart">Grafico: %1$s</string>
@@ -205,7 +205,7 @@
     <string name="watchlist_first_alarm_text">Ricevi una notifica quando un prezzo raggiunge la tua soglia – ad app chiusa, Android controlla in modo irregolare.</string>
 
     <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
-    <string name="watch_price_mark_fallback">prezzo mark (nessun prezzo medio)</string>
+    <string name="watch_price_mark_fallback">prezzo mark (nessun prezzo mid)</string>
     <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
     <string name="watch_price_hourly">prezzo orario</string>
     <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->

@@ -29,10 +29,10 @@
     <string name="portfolio_csv_import_loading">Lettura del file e dei cambi giornalieri…</string>
     <string name="portfolio_csv_import_progress">Riga %1$s di %2$s</string>
     <string name="portfolio_csv_import_saving">Salvataggio delle transazioni…</string>
-    <string name="portfolio_csv_import_missing_fx">Nessun cambio giornaliero per la riga %1$s – importato senza prezzo né commissione.</string>
-    <string name="portfolio_csv_import_missing_price">Nessun prezzo nel file per la riga %1$s – importato senza prezzo.</string>
-    <string name="portfolio_csv_import_fee_in_price">Due commissioni alla riga %1$s: la commissione in fiat è inclusa nel prezzo, quella nella moneta riduce la quantità ricevuta o aumenta quella ceduta.</string>
-    <string name="portfolio_csv_import_pending_differs">Riga %1$s: la registrazione in sospeso e quella contabilizzata dello stesso deposito o prelievo hanno quantità diverse – entrambe importate, controlla il saldo.</string>
+    <string name="portfolio_csv_import_missing_fx">Nessun cambio giornaliero per le righe %1$s – importato senza prezzo né commissione.</string>
+    <string name="portfolio_csv_import_missing_price">Nessun prezzo nel file per le righe %1$s – importato senza prezzo.</string>
+    <string name="portfolio_csv_import_fee_in_price">Due commissioni alle righe %1$s: la commissione in fiat è inclusa nel prezzo, quella nella moneta riduce la quantità ricevuta o aumenta quella ceduta.</string>
+    <string name="portfolio_csv_import_pending_differs">Righe %1$s: la registrazione in sospeso e quella contabilizzata dello stesso deposito o prelievo hanno quantità diverse – entrambe importate, controlla il saldo.</string>
     <string name="portfolio_csv_import_more">+ altri %1$d</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d nuova transazione</item>

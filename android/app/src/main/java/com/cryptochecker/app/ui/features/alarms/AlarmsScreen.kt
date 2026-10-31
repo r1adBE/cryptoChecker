@@ -252,6 +252,10 @@ fun AlarmsScreen(
                     if (alarmsFull) {
                         item(key = "alarm_limit") { AlarmLimitNote() }
                     }
+                    // «Zuletzt geprüft 14:32» auch in der Alarmliste des Paars (wie Übersicht, Editor und iOS)
+                    if (alarms.isNotEmpty()) {
+                        item(key = "last_checked") { AlarmLastCheckedLine(Modifier.padding(horizontal = 4.dp)) }
+                    }
                     items(alarms, key = { it.id }) { alarm ->
                         AlarmCard(
                             alarm = alarm,

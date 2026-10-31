@@ -250,7 +250,7 @@
     <string name="movers_no_gainers">Ayikho i-coin enyukile ku-24 h</string>
     <string name="movers_no_losers">Ayikho i-coin ehlile ku-24 h</string>
     <string name="movers_source">CoinGecko, 24 h, top 100 ngaphandle kwama-stablecoin</string>
-    <string name="movers_price_note">Iphesenti livela ku-CoinGecko (isilinganiso sezinkundla zokuhweba), intengo ivela enkundleni ekhethiwe – izinombolo zingahluka.</string>
+    <string name="movers_price_note">Iphesenti livela ku-CoinGecko (intengo yemakethe yonke). Ukuthepha kuvula ipheya elilondoloziwe noma i-Binance COIN/USDT – izinombolo zingahluka.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

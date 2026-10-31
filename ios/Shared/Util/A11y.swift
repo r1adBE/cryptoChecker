@@ -258,6 +258,16 @@ enum A11ySpeech {
         }
     }
 
+    /// Frische im Zeilensatz: wie `freshnessText`, aktuell aber mit dem Alter («zuletzt aktualisiert vor
+    /// 3 Minuten») wie die Zeitzeile; noch nie aktualisiert nil. Wie Android `rowFreshnessText`.
+    static func rowFreshnessText(_ freshness: Freshness, lastUpdate: Int64, now: Int64, exchange: String,
+                                 texts: Texts = .localized) -> String? {
+        guard freshness == .fresh else {
+            return freshnessText(freshness, lastUpdate: lastUpdate, now: now, exchange: exchange, texts: texts)
+        }
+        return lastUpdate > 0 ? texts.updated(age(lastUpdate, now: now)) : nil
+    }
+
     /// Alarm dieses Paars eben ausgelöst (innerhalb von `firedMillis`)? Zukunft zählt nicht.
     static func firedRecently(_ lastTriggeredAt: Int64, now: Int64) -> Bool {
         lastTriggeredAt > 0 && now >= lastTriggeredAt && now - lastTriggeredAt <= firedMillis

@@ -247,7 +247,7 @@
     <string name="movers_no_gainers">24시간 동안 오른 코인이 없습니다</string>
     <string name="movers_no_losers">24시간 동안 내린 코인이 없습니다</string>
     <string name="movers_source">CoinGecko, 24시간, 스테이블코인 제외 상위 100</string>
-    <string name="movers_price_note">변동률은 CoinGecko(거래소 평균), 가격은 선택한 거래소 기준입니다. 수치가 다를 수 있습니다.</string>
+    <string name="movers_price_note">변동률은 CoinGecko(시장 전체 가격) 기준입니다. 탭하면 저장된 페어 또는 Binance COIN/USDT가 열립니다. 수치가 다를 수 있습니다.</string>
     <string name="movers_a11y_row">%1$s(%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

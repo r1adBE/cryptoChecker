@@ -256,7 +256,7 @@
     <string name="movers_no_gainers">Per 24 val. nė viena moneta nepakilo</string>
     <string name="movers_no_losers">Per 24 val. nė viena moneta nenukrito</string>
     <string name="movers_source">CoinGecko, 24 val., top 100 be stabiliųjų monetų</string>
-    <string name="movers_price_note">Procentai iš CoinGecko (biržų vidurkis), kaina iš pasirinktos biržos – skaičiai gali skirtis.</string>
+    <string name="movers_price_note">Procentai iš CoinGecko (visos rinkos kaina). Bakstelėjus atidaroma išsaugota pora arba Binance COIN/USDT – skaičiai gali skirtis.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

@@ -55,7 +55,7 @@
     <string name="portfolio_avg_open_lots">Ø Einstand gehaltener Coins</string>
     <string name="portfolio_avg_partial">Ø von %1$s mit Kaufpreis</string>
     <string name="portfolio_avg_price">Ø Kaufpreis</string>
-    <string name="portfolio_avg_price_hint">Ø Kaufpreis: Durchschnitt aller Käufe, gewichtet nach Menge. Verkäufe zählen zu diesem Durchschnitt.</string>
+    <string name="portfolio_avg_price_hint">Ø Kaufpreis: Durchschnitt aller Käufe, gewichtet nach Menge. Verkäufe werden zu diesem Durchschnitt bewertet.</string>
     <plurals name="portfolio_closed">
         <item quantity="one">Geschlossene Position (%1$d)</item>
         <item quantity="other">Geschlossene Positionen (%1$d)</item>

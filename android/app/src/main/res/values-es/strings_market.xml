@@ -253,7 +253,7 @@
     <string name="movers_no_gainers">Ninguna moneda subió en 24 h</string>
     <string name="movers_no_losers">Ninguna moneda bajó en 24 h</string>
     <string name="movers_source">CoinGecko, 24 h, top 100 sin stablecoins</string>
-    <string name="movers_price_note">Porcentaje de CoinGecko (media entre exchanges), precio del exchange elegido: las cifras pueden variar.</string>
+    <string name="movers_price_note">Porcentaje de CoinGecko (precio de todo el mercado). Un toque abre el par guardado o Binance COIN/USDT: las cifras pueden variar.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

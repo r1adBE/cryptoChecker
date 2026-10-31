@@ -117,6 +117,14 @@ object A11ySpeech {
         }
 
     /**
+     * Frische im Zeilensatz: wie [freshnessText], aktuell aber mit dem Alter («zuletzt aktualisiert vor
+     * 3 Minuten») wie die Zeitzeile der Zeile; noch nie aktualisiert null. Wie iOS `rowFreshnessText`.
+     */
+    fun rowFreshnessText(freshness: Freshness, lastUpdate: Long, now: Long, exchange: String, texts: Texts): String? =
+        if (freshness == Freshness.FRESH) lastUpdate.takeIf { it > 0 }?.let { texts.updated(age(it, now)) }
+        else freshnessText(freshness, lastUpdate, now, exchange, texts)
+
+    /**
      * Alarm dieses Paars eben ausgelöst (innerhalb von [FIRED_MILLIS])? [lastTriggeredAt] ≤ 0 = nie;
      * Zeitpunkt in der Zukunft (Uhr verstellt) zählt nicht.
      */

@@ -166,7 +166,7 @@ struct TaxYearSummary: Sendable, Equatable {
     let currency: String
     /// Devisenkurse geladen (oder USD).
     let fxAvailable: Bool
-    let lines: [TaxSummaryLine]
+    var lines: [TaxSummaryLine]
     /// US-Übergang, mit dem gerechnet wurde (`TaxTemplate.walletFrom`); nil = keiner.
     var walletFrom: LocalDay? = nil
     /// CH: Vermögenswert per 31.12. je Coin (`TaxExport.chWealth`); nil = nicht gerechnet bzw. andere Vorlage.
@@ -174,4 +174,19 @@ struct TaxYearSummary: Sendable, Equatable {
     /// Irgendein Betrag der Übersicht an einem Tag ohne USDT/USD-Schluss mit USDT = 1 umgerechnet — eigene Zeile
     /// `TaxSummaryTexts.usdtAssumed` in der Datei. Wie Android.
     var usdtApproximate = false
+}
+
+/// Länder-Schlüsse der Vorlagen (`TaxLine.orientation`: Sätze, Grenzen, Freibeträge wie § 23, 27,5 %, ESTV) erscheinen
+/// erst, wenn eine Fachperson die Fälle in TAX_REFERENCE.md bestätigt hat — bis dahin nur die neutralen Summen (und der
+/// Beta-Hinweis). Einzige Schaltstelle, angewandt dort, wo die App die Übersicht baut (Karte und CSV). Wie Android.
+enum TaxCountryFigures {
+    /// Vorlagen mit bestätigten Länder-Schlüssen; leer, solange die Spalte «Fachperson» in TAX_REFERENCE.md leer ist.
+    static let reviewed: Set<TaxTemplate> = []
+
+    static func shown(_ summary: TaxYearSummary) -> TaxYearSummary {
+        if reviewed.contains(summary.template) { return summary }
+        var shown = summary
+        shown.lines = summary.lines.filter { !$0.line.orientation }
+        return shown
+    }
 }

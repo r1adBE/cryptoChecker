@@ -187,7 +187,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Allarme attivato"
+            "value" : "Allarme scattato"
           }
         },
         "ja" : {
@@ -37825,13 +37825,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%1$lld fällt"
+                  "value" : "%1$lld Paar fällt"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%1$lld fallen"
+                  "value" : "%1$lld Paare fallen"
                 }
               }
             }
@@ -37861,13 +37861,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%1$lld falling"
+                  "value" : "%1$lld pair falling"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%1$lld falling"
+                  "value" : "%1$lld pairs falling"
                 }
               }
             }
@@ -37993,19 +37993,19 @@
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%1$lld en baisse"
+                  "value" : "%1$lld paires en baisse"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%1$lld en baisse"
+                  "value" : "%1$lld paire en baisse"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%1$lld en baisse"
+                  "value" : "%1$lld paires en baisse"
                 }
               }
             }
@@ -38221,19 +38221,19 @@
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%1$lld in ribasso"
+                  "value" : "%1$lld coppie in ribasso"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%1$lld in ribasso"
+                  "value" : "%1$lld coppia in ribasso"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%1$lld in ribasso"
+                  "value" : "%1$lld coppie in ribasso"
                 }
               }
             }
@@ -100986,7 +100986,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "vérification ponctuelle"
+            "value" : "vérification à l’heure"
           }
         },
         "ga" : {
@@ -190498,7 +190498,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Einspielen geht gerade nicht: Die App speichert im Moment nichts (Verschlüsselung noch nicht aktiv), die Sicherung ginge beim Neustart verloren. App neu starten und erneut versuchen."
+            "value" : "Einspielen geht gerade nicht: Die App speichert im Moment nichts (Verschlüsselung noch nicht aktiv), das Eingespielte ginge beim Neustart verloren. App neu starten und erneut versuchen."
           }
         },
         "el" : {
@@ -195292,7 +195292,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sichern und Einspielen gehen nicht: Gespeicherte Daten gerade nicht lesbar. Starte die App neu und versuche es erneut."
+            "value" : "Sichern geht nicht: Gespeicherte Daten gerade nicht lesbar. Starte die App neu und versuche es erneut."
           }
         },
         "el" : {
@@ -230653,7 +230653,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Voci senza costo di acquisto: %1$ld"
+            "value" : "Voci senza costo di carico: %1$ld"
           }
         },
         "ja" : {
@@ -231108,7 +231108,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aggiungi il costo di acquisto per avere guadagni e imposte completi."
+            "value" : "Aggiungi il costo di carico per avere guadagni e imposte completi."
           }
         },
         "ja" : {
@@ -231563,7 +231563,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tutte le voci hanno un costo di acquisto."
+            "value" : "Tutte le voci hanno un costo di carico."
           }
         },
         "ja" : {
@@ -232018,7 +232018,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Per queste entrate manca il costo di acquisto. Il suggerimento è la chiusura giornaliera della data – puoi modificarlo nella voce."
+            "value" : "Per queste entrate manca il costo di carico. Il suggerimento è la chiusura giornaliera della data – puoi modificarlo nella voce."
           }
         },
         "ja" : {
@@ -232473,7 +232473,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Voci senza costo di acquisto"
+            "value" : "Voci senza costo di carico"
           }
         },
         "ja" : {
@@ -347222,7 +347222,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hoch heisst, viele setzen mit Hebel auf steigende Kurse, negativ heisst, viele setzen auf fallende."
+            "value" : "Hoch heisst, viele setzen mit Hebel auf steigende Kurse, negativ heisst, viele setzen auf fallende Kurse."
           }
         },
         "el" : {
@@ -348132,7 +348132,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Viele Longs heisst, viele setzen mit geliehenem Geld auf steigende Kurse, viele Shorts heisst, auf fallende."
+            "value" : "Viele Longs heisst, viele setzen mit geliehenem Geld auf steigende Kurse, viele Shorts heisst, viele setzen auf fallende Kurse."
           }
         },
         "el" : {
@@ -430473,451 +430473,451 @@
         "af" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Persentasie van CoinGecko (gemiddeld oor beurse), prys van die gekose beurs – die syfers kan verskil."
+            "value" : "Persentasie van CoinGecko (markwye prys). ’n Tik maak die gestoorde paar of Binance COIN/USDT oop – die syfers kan verskil."
           }
         },
         "am" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "መቶኛው ከCoinGecko (የልውውጦች አማካይ)፣ ዋጋው ከተመረጠው ልውውጥ ነው – ቁጥሮቹ ሊለያዩ ይችላሉ።"
+            "value" : "መቶኛው ከCoinGecko ነው (የገበያ አቀፍ ዋጋ)። መንካት የተቀመጠውን ጥንድ ወይም Binance COIN/USDT ይከፍታል – ቁጥሮቹ ሊለያዩ ይችላሉ።"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "النسبة من CoinGecko (متوسط عبر المنصات)، والسعر من المنصة المختارة – قد تختلف الأرقام."
+            "value" : "النسبة من CoinGecko (السعر على مستوى السوق). النقر يفتح الزوج المحفوظ أو Binance COIN/USDT – قد تختلف الأرقام."
           }
         },
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Faiz CoinGecko-dan (birjalar üzrə orta), qiymət seçilmiş birjadan – rəqəmlər fərqlənə bilər."
+            "value" : "Faiz CoinGecko-dan (bazar üzrə qiymət). Toxunuş saxlanmış cütü və ya Binance COIN/USDT-ni açır – rəqəmlər fərqlənə bilər."
           }
         },
         "bg" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Процентът е от CoinGecko (средно за борсите), цената – от избраната борса; числата може да се различават."
+            "value" : "Процентът е от CoinGecko (пазарна цена). Докосване отваря запазената двойка или Binance COIN/USDT – числата може да се различават."
           }
         },
         "bn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "শতাংশ CoinGecko থেকে (এক্সচেঞ্জগুলোর গড়), দাম বেছে নেওয়া এক্সচেঞ্জ থেকে – সংখ্যাগুলো আলাদা হতে পারে।"
+            "value" : "শতাংশ CoinGecko থেকে (সমগ্র বাজারের দাম)। ট্যাপ করলে সংরক্ষিত জোড়া বা Binance COIN/USDT খোলে – সংখ্যাগুলো আলাদা হতে পারে।"
           }
         },
         "bs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Postotak s CoinGecka (prosjek preko berzi), cijena s odabrane berze – brojevi se mogu razlikovati."
+            "value" : "Postotak s CoinGecka (cijena na nivou tržišta). Dodir otvara sačuvani par ili Binance COIN/USDT – brojevi se mogu razlikovati."
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Percentatge de CoinGecko (mitjana entre exchanges), preu de l’exchange triat – les xifres poden diferir."
+            "value" : "Percentatge de CoinGecko (preu de tot el mercat). Un toc obre el parell desat o Binance COIN/USDT: les xifres poden diferir."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Procenta z CoinGecko (průměr napříč burzami), cena ze zvolené burzy – čísla se mohou lišit."
+            "value" : "Procenta z CoinGecko (cena za celý trh). Klepnutí otevře uložený pár nebo Binance COIN/USDT – čísla se mohou lišit."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Procent fra CoinGecko (gennemsnit på tværs af børser), kurs fra den valgte børs – tallene kan afvige."
+            "value" : "Procent fra CoinGecko (kurs for hele markedet). Et tryk åbner det gemte par eller Binance COIN/USDT – tallene kan afvige."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Prozent von CoinGecko (Mittel über Börsen), Kurs von der gewählten Börse – die Zahlen können abweichen."
+            "value" : "Prozent von CoinGecko (marktweiter Kurs). Ein Tipp öffnet dein gespeichertes Paar oder Binance COIN/USDT – die Zahlen können abweichen."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ποσοστό από το CoinGecko (μέσος όρος ανταλλακτηρίων), τιμή από το επιλεγμένο ανταλλακτήριο – τα νούμερα μπορεί να διαφέρουν."
+            "value" : "Ποσοστό από το CoinGecko (τιμή όλης της αγοράς). Ένα πάτημα ανοίγει το αποθηκευμένο ζεύγος ή το Binance COIN/USDT – τα νούμερα μπορεί να διαφέρουν."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Percent from CoinGecko (average across exchanges), price from the chosen exchange – the figures can differ."
+            "value" : "Percent from CoinGecko (market-wide price). A tap opens your saved pair or Binance COIN/USDT – the numbers can differ."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Porcentaje de CoinGecko (media entre exchanges), precio del exchange elegido: las cifras pueden variar."
+            "value" : "Porcentaje de CoinGecko (precio de todo el mercado). Un toque abre el par guardado o Binance COIN/USDT: las cifras pueden variar."
           }
         },
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Protsent CoinGeckost (börside keskmine), hind valitud börsilt – numbrid võivad erineda."
+            "value" : "Protsent CoinGeckost (kogu turu hind). Puudutus avab salvestatud paari või Binance COIN/USDT – numbrid võivad erineda."
           }
         },
         "eu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ehunekoa CoinGeckotik (trukeen batez bestekoa), prezioa aukeratutako truketik – zifrak desberdinak izan daitezke."
+            "value" : "Ehunekoa CoinGeckotik (merkatu osoko prezioa). Ukitze batek gordetako bikotea edo Binance COIN/USDT irekitzen du – zifrak desberdinak izan daitezke."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "درصد از CoinGecko (میانگین صرافی‌ها)، قیمت از صرافی انتخاب‌شده – اعداد ممکن است متفاوت باشند."
+            "value" : "درصد از CoinGecko (قیمت کل بازار). با لمس، جفت ذخیره‌شده یا Binance COIN/USDT باز می‌شود – اعداد ممکن است متفاوت باشند."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Prosentti CoinGeckosta (pörssien keskiarvo), hinta valitusta pörssistä – luvut voivat poiketa toisistaan."
+            "value" : "Prosentti CoinGeckosta (koko markkinan hinta). Napautus avaa tallennetun parin tai Binance COIN/USDT:n – luvut voivat poiketa toisistaan."
           }
         },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Porsiyento mula sa CoinGecko (average sa mga exchange), presyo mula sa napiling exchange – maaaring magkaiba ang mga numero."
+            "value" : "Porsiyento mula sa CoinGecko (presyo sa buong market). Binubuksan ng tap ang naka-save na pair o ang Binance COIN/USDT – maaaring magkaiba ang mga numero."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pourcentage de CoinGecko (moyenne des plateformes), cours de la plateforme choisie – les chiffres peuvent différer."
+            "value" : "Pourcentage de CoinGecko (cours de l’ensemble du marché). Un appui ouvre la paire enregistrée ou Binance COIN/USDT – les chiffres peuvent différer."
           }
         },
         "ga" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Céatadán ó CoinGecko (meán thar mhalartáin), praghas ón malartán roghnaithe – d’fhéadfadh na figiúirí a bheith difriúil."
+            "value" : "Céatadán ó CoinGecko (praghas an mhargaidh ar fad). Osclaíonn tapáil an péire sábháilte nó Binance COIN/USDT – d’fhéadfadh na figiúirí a bheith difriúil."
           }
         },
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Porcentaxe de CoinGecko (media entre exchanges), prezo do exchange escollido: as cifras poden variar."
+            "value" : "Porcentaxe de CoinGecko (prezo de todo o mercado). Un toque abre o par gardado ou Binance COIN/USDT: as cifras poden variar."
           }
         },
         "gu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ટકા CoinGecko પરથી (એક્સચેન્જોની સરેરાશ), ભાવ પસંદ કરેલા એક્સચેન્જ પરથી – આંકડા અલગ હોઈ શકે છે."
+            "value" : "ટકા CoinGecko પરથી (સમગ્ર બજારનો ભાવ). ટૅપ કરવાથી સાચવેલી જોડી અથવા Binance COIN/USDT ખૂલે છે – આંકડા અલગ હોઈ શકે છે."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "האחוז מ-CoinGecko (ממוצע בין בורסות), המחיר מהבורסה שנבחרה – המספרים עשויים להיות שונים."
+            "value" : "האחוז מ-CoinGecko (מחיר כלל השוק). הקשה פותחת את הצמד השמור או את Binance COIN/USDT – המספרים עשויים להיות שונים."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "प्रतिशत CoinGecko से (एक्सचेंजों का औसत), भाव चुने गए एक्सचेंज से – आँकड़े अलग हो सकते हैं।"
+            "value" : "प्रतिशत CoinGecko से (पूरे बाज़ार का भाव)। टैप करने पर सहेजी गई जोड़ी या Binance COIN/USDT खुलती है – आँकड़े अलग हो सकते हैं।"
           }
         },
         "hr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Postotak s CoinGecka (prosjek preko burzi), cijena s odabrane burze – brojke se mogu razlikovati."
+            "value" : "Postotak s CoinGecka (cijena na razini tržišta). Dodir otvara spremljeni par ili Binance COIN/USDT – brojke se mogu razlikovati."
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Százalék a CoinGeckótól (tőzsdék átlaga), árfolyam a választott tőzsdéről – a számok eltérhetnek."
+            "value" : "Százalék a CoinGeckótól (teljes piaci árfolyam). Koppintásra a mentett pár vagy a Binance COIN/USDT nyílik meg – a számok eltérhetnek."
           }
         },
         "hy" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Տոկոսը CoinGecko-ից է (բորսաների միջին), գինը՝ ընտրված բորսայից – թվերը կարող են տարբերվել։"
+            "value" : "Տոկոսը CoinGecko-ից է (ամբողջ շուկայի գինը)։ Հպումը բացում է պահված զույգը կամ Binance COIN/USDT-ն – թվերը կարող են տարբերվել։"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Persentase dari CoinGecko (rata-rata antarbursa), harga dari bursa yang dipilih – angkanya bisa berbeda."
+            "value" : "Persentase dari CoinGecko (harga seluruh pasar). Ketukan membuka pasangan yang disimpan atau Binance COIN/USDT – angkanya bisa berbeda."
           }
         },
         "is" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Prósenta frá CoinGecko (meðaltal kauphalla), verð frá valinni kauphöll – tölurnar geta verið ólíkar."
+            "value" : "Prósenta frá CoinGecko (verð á öllum markaðnum). Ýting opnar vistaða parið eða Binance COIN/USDT – tölurnar geta verið ólíkar."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Percentuale da CoinGecko (media tra gli exchange), prezzo dall’exchange scelto: i numeri possono differire."
+            "value" : "Percentuale da CoinGecko (prezzo dell’intero mercato). Un tocco apre la coppia salvata o Binance COIN/USDT: i numeri possono differire."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "変動率は CoinGecko（取引所の平均）、価格は選択した取引所のものです。数値が異なる場合があります。"
+            "value" : "変動率は CoinGecko（市場全体の価格）のものです。タップすると保存済みのペアまたは Binance COIN/USDT が開きます。数値が異なる場合があります。"
           }
         },
         "ka" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "პროცენტი CoinGecko-დან (ბირჟების საშუალო), ფასი არჩეული ბირჟიდან – რიცხვები შეიძლება განსხვავდებოდეს."
+            "value" : "პროცენტი CoinGecko-დან (მთელი ბაზრის ფასი). შეხება ხსნის შენახულ წყვილს ან Binance COIN/USDT-ს – რიცხვები შეიძლება განსხვავდებოდეს."
           }
         },
         "kk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Пайыз CoinGecko-дан (биржалар бойынша орташа), баға таңдалған биржадан – сандар өзгеше болуы мүмкін."
+            "value" : "Пайыз CoinGecko-дан (бүкіл нарық бағасы). Түрту сақталған жұпты немесе Binance COIN/USDT ашады – сандар өзгеше болуы мүмкін."
           }
         },
         "km" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ភាគរយពី CoinGecko (មធ្យមលើផ្សារប្តូរប្រាក់) តម្លៃពីផ្សារប្តូរប្រាក់ដែលបានជ្រើស – តួលេខអាចខុសគ្នា។"
+            "value" : "ភាគរយពី CoinGecko (តម្លៃទូទាំងទីផ្សារ)។ ការចុចបើកគូដែលបានរក្សាទុក ឬ Binance COIN/USDT – តួលេខអាចខុសគ្នា។"
           }
         },
         "kn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ಶೇಕಡಾ CoinGecko ಯಿಂದ (ಎಕ್ಸ್‌ಚೇಂಜ್‌ಗಳ ಸರಾಸರಿ), ಬೆಲೆ ಆಯ್ಕೆಮಾಡಿದ ಎಕ್ಸ್‌ಚೇಂಜ್‌ನಿಂದ – ಸಂಖ್ಯೆಗಳು ಬೇರೆಯಾಗಿರಬಹುದು."
+            "value" : "ಶೇಕಡಾ CoinGecko ಯಿಂದ (ಇಡೀ ಮಾರುಕಟ್ಟೆಯ ಬೆಲೆ). ಟ್ಯಾಪ್ ಮಾಡಿದರೆ ಉಳಿಸಿದ ಜೋಡಿ ಅಥವಾ Binance COIN/USDT ತೆರೆಯುತ್ತದೆ – ಸಂಖ್ಯೆಗಳು ಬೇರೆಯಾಗಿರಬಹುದು."
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "변동률은 CoinGecko(거래소 평균), 가격은 선택한 거래소 기준입니다. 수치가 다를 수 있습니다."
+            "value" : "변동률은 CoinGecko(시장 전체 가격) 기준입니다. 탭하면 저장된 페어 또는 Binance COIN/USDT가 열립니다. 수치가 다를 수 있습니다."
           }
         },
         "lo" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ເປີເຊັນຈາກ CoinGecko (ສະເລ່ຍລະຫວ່າງຕະຫຼາດແລກປ່ຽນ), ລາຄາຈາກຕະຫຼາດແລກປ່ຽນທີ່ເລືອກ – ຕົວເລກອາດແຕກຕ່າງກັນ."
+            "value" : "ເປີເຊັນຈາກ CoinGecko (ລາຄາທົ່ວຕະຫຼາດ). ການແຕະຈະເປີດຄູ່ທີ່ບັນທຶກໄວ້ ຫຼື Binance COIN/USDT – ຕົວເລກອາດແຕກຕ່າງກັນ."
           }
         },
         "lt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Procentai iš CoinGecko (biržų vidurkis), kaina iš pasirinktos biržos – skaičiai gali skirtis."
+            "value" : "Procentai iš CoinGecko (visos rinkos kaina). Bakstelėjus atidaroma išsaugota pora arba Binance COIN/USDT – skaičiai gali skirtis."
           }
         },
         "lv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Procenti no CoinGecko (biržu vidējais), cena no izvēlētās biržas – skaitļi var atšķirties."
+            "value" : "Procenti no CoinGecko (visa tirgus cena). Pieskāriens atver saglabāto pāri vai Binance COIN/USDT – skaitļi var atšķirties."
           }
         },
         "mk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Процентот е од CoinGecko (просек низ берзите), цената од избраната берза – бројките може да се разликуваат."
+            "value" : "Процентот е од CoinGecko (цена на целиот пазар). Допир ја отвора зачуваната двојка или Binance COIN/USDT – бројките може да се разликуваат."
           }
         },
         "ml" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ശതമാനം CoinGecko-യിൽ നിന്ന് (എക്സ്ചേഞ്ചുകളുടെ ശരാശരി), വില തിരഞ്ഞെടുത്ത എക്സ്ചേഞ്ചിൽ നിന്ന് – സംഖ്യകൾ വ്യത്യാസപ്പെടാം."
+            "value" : "ശതമാനം CoinGecko-യിൽ നിന്ന് (മുഴുവൻ വിപണിയിലെ വില). ടാപ്പ് ചെയ്താൽ സേവ് ചെയ്ത ജോഡി അല്ലെങ്കിൽ Binance COIN/USDT തുറക്കും – സംഖ്യകൾ വ്യത്യാസപ്പെടാം."
           }
         },
         "mn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Хувь нь CoinGecko-оос (биржүүдийн дундаж), үнэ нь сонгосон биржээс – тоонууд зөрж болно."
+            "value" : "Хувь нь CoinGecko-оос (зах зээлийн нийт үнэ). Товшвол хадгалсан хос эсвэл Binance COIN/USDT нээгдэнэ – тоонууд зөрж болно."
           }
         },
         "mr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "टक्केवारी CoinGecko कडून (एक्सचेंजांची सरासरी), भाव निवडलेल्या एक्सचेंजकडून – आकडे वेगळे असू शकतात."
+            "value" : "टक्केवारी CoinGecko कडून (संपूर्ण बाजाराचा भाव). टॅप केल्यावर जतन केलेली जोडी किंवा Binance COIN/USDT उघडते – आकडे वेगळे असू शकतात."
           }
         },
         "ms" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Peratus daripada CoinGecko (purata merentas bursa), harga daripada bursa yang dipilih – angka mungkin berbeza."
+            "value" : "Peratus daripada CoinGecko (harga seluruh pasaran). Ketikan membuka pasangan yang disimpan atau Binance COIN/USDT – angka mungkin berbeza."
           }
         },
         "my" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ရာခိုင်နှုန်းသည် CoinGecko (ဒိုင်များ၏ ပျမ်းမျှ) မှဖြစ်ပြီး ဈေးနှုန်းသည် ရွေးထားသော ဒိုင်မှ ဖြစ်သည် – ကိန်းဂဏန်းများ ကွာခြားနိုင်ပါသည်။"
+            "value" : "ရာခိုင်နှုန်းသည် CoinGecko (စျေးကွက်တစ်ခုလုံး၏ ဈေးနှုန်း) မှ ဖြစ်သည်။ နှိပ်လျှင် သိမ်းထားသော အတွဲ သို့မဟုတ် Binance COIN/USDT ကို ဖွင့်ပါသည် – ကိန်းဂဏန်းများ ကွာခြားနိုင်ပါသည်။"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Prosent fra CoinGecko (snitt på tvers av børser), kurs fra valgt børs – tallene kan avvike."
+            "value" : "Prosent fra CoinGecko (kurs for hele markedet). Et trykk åpner det lagrede paret eller Binance COIN/USDT – tallene kan avvike."
           }
         },
         "ne" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "प्रतिशत CoinGecko बाट (एक्सचेन्जहरूको औसत), मूल्य छानिएको एक्सचेन्जबाट – अङ्कहरू फरक हुन सक्छन्।"
+            "value" : "प्रतिशत CoinGecko बाट (सम्पूर्ण बजारको मूल्य)। ट्याप गर्दा सुरक्षित गरिएको जोडी वा Binance COIN/USDT खुल्छ – अङ्कहरू फरक हुन सक्छन्।"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Percentage van CoinGecko (gemiddelde over beurzen), koers van de gekozen beurs – de cijfers kunnen afwijken."
+            "value" : "Percentage van CoinGecko (koers van de hele markt). Een tik opent het opgeslagen paar of Binance COIN/USDT – de cijfers kunnen afwijken."
           }
         },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ਪ੍ਰਤੀਸ਼ਤ CoinGecko ਤੋਂ (ਐਕਸਚੇਂਜਾਂ ਦੀ ਔਸਤ), ਭਾਅ ਚੁਣੀ ਗਈ ਐਕਸਚੇਂਜ ਤੋਂ – ਅੰਕੜੇ ਵੱਖਰੇ ਹੋ ਸਕਦੇ ਹਨ।"
+            "value" : "ਪ੍ਰਤੀਸ਼ਤ CoinGecko ਤੋਂ (ਪੂਰੇ ਬਾਜ਼ਾਰ ਦਾ ਭਾਅ)। ਟੈਪ ਕਰਨ ਨਾਲ ਸੰਭਾਲੀ ਜੋੜੀ ਜਾਂ Binance COIN/USDT ਖੁੱਲ੍ਹਦੀ ਹੈ – ਅੰਕੜੇ ਵੱਖਰੇ ਹੋ ਸਕਦੇ ਹਨ।"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Procent z CoinGecko (średnia z giełd), kurs z wybranej giełdy – liczby mogą się różnić."
+            "value" : "Procent z CoinGecko (cena całego rynku). Dotknięcie otwiera zapisaną parę lub Binance COIN/USDT – liczby mogą się różnić."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Percentagem do CoinGecko (média entre plataformas), preço da plataforma escolhida – os números podem diferir."
+            "value" : "Percentagem do CoinGecko (preço de todo o mercado). Um toque abre o par guardado ou Binance COIN/USDT – os números podem diferir."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Porcentagem do CoinGecko (média entre corretoras), preço da corretora escolhida – os números podem diferir."
+            "value" : "Porcentagem do CoinGecko (preço do mercado todo). Um toque abre o par salvo ou Binance COIN/USDT – os números podem diferir."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Procentul de la CoinGecko (media între burse), prețul de la bursa aleasă – cifrele pot diferi."
+            "value" : "Procentul de la CoinGecko (prețul întregii piețe). O atingere deschide perechea salvată sau Binance COIN/USDT – cifrele pot diferi."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Процент от CoinGecko (среднее по биржам), цена с выбранной биржи – числа могут отличаться."
+            "value" : "Процент от CoinGecko (цена по всему рынку). Нажатие открывает сохранённую пару или Binance COIN/USDT – числа могут отличаться."
           }
         },
         "si" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ප්‍රතිශතය CoinGecko වෙතින් (හුවමාරු වල සාමාන්‍යය), මිල තෝරාගත් හුවමාරුවෙන් – අංක වෙනස් විය හැක."
+            "value" : "ප්‍රතිශතය CoinGecko වෙතින් (සමස්ත වෙළඳපොළ මිල). තට්ටු කළ විට සුරැකි යුගලය හෝ Binance COIN/USDT විවෘත වේ – අංක වෙනස් විය හැක."
           }
         },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Percentá z CoinGecko (priemer naprieč burzami), cena zo zvolenej burzy – čísla sa môžu líšiť."
+            "value" : "Percentá z CoinGecko (cena celého trhu). Ťuknutie otvorí uložený pár alebo Binance COIN/USDT – čísla sa môžu líšiť."
           }
         },
         "sl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Odstotek iz CoinGecka (povprečje borz), cena z izbrane borze – številke se lahko razlikujejo."
+            "value" : "Odstotek iz CoinGecka (cena celotnega trga). Dotik odpre shranjeni par ali Binance COIN/USDT – številke se lahko razlikujejo."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Përqindja nga CoinGecko (mesatare mes bursave), çmimi nga bursa e zgjedhur – shifrat mund të ndryshojnë."
+            "value" : "Përqindja nga CoinGecko (çmimi i gjithë tregut). Një prekje hap çiftin e ruajtur ose Binance COIN/USDT – shifrat mund të ndryshojnë."
           }
         },
         "sr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Проценат са CoinGecko-а (просек преко берзи), цена са изабране берзе – бројеви се могу разликовати."
+            "value" : "Проценат са CoinGecko-а (цена на нивоу тржишта). Додир отвара сачувани пар или Binance COIN/USDT – бројеви се могу разликовати."
           }
         },
         "sr-Latn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Procenat sa CoinGecko-a (prosek preko berzi), cena sa izabrane berze – brojevi se mogu razlikovati."
+            "value" : "Procenat sa CoinGecko-a (cena na nivou tržišta). Dodir otvara sačuvani par ili Binance COIN/USDT – brojevi se mogu razlikovati."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Procent från CoinGecko (snitt över börser), kurs från vald börs – siffrorna kan skilja sig."
+            "value" : "Procent från CoinGecko (kurs för hela marknaden). Ett tryck öppnar det sparade paret eller Binance COIN/USDT – siffrorna kan skilja sig."
           }
         },
         "sw" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Asilimia kutoka CoinGecko (wastani wa masoko), bei kutoka soko lililochaguliwa – takwimu zinaweza kutofautiana."
+            "value" : "Asilimia kutoka CoinGecko (bei ya soko zima). Kugusa hufungua jozi iliyohifadhiwa au Binance COIN/USDT – takwimu zinaweza kutofautiana."
           }
         },
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "சதவீதம் CoinGecko-விலிருந்து (பரிமாற்றங்களின் சராசரி), விலை தேர்ந்தெடுத்த பரிமாற்றத்திலிருந்து – எண்கள் மாறுபடலாம்."
+            "value" : "சதவீதம் CoinGecko-விலிருந்து (முழுச் சந்தை விலை). தட்டினால் சேமித்த ஜோடி அல்லது Binance COIN/USDT திறக்கும் – எண்கள் மாறுபடலாம்."
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "శాతం CoinGecko నుండి (ఎక్స్ఛేంజ్‌ల సగటు), ధర ఎంచుకున్న ఎక్స్ఛేంజ్ నుండి – సంఖ్యలు వేరుగా ఉండవచ్చు."
+            "value" : "శాతం CoinGecko నుండి (మొత్తం మార్కెట్ ధర). ట్యాప్ చేస్తే సేవ్ చేసిన జత లేదా Binance COIN/USDT తెరుచుకుంటుంది – సంఖ్యలు వేరుగా ఉండవచ్చు."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "เปอร์เซ็นต์จาก CoinGecko (ค่าเฉลี่ยจากหลายกระดาน) ราคาจากกระดานที่เลือก – ตัวเลขอาจต่างกัน"
+            "value" : "เปอร์เซ็นต์จาก CoinGecko (ราคาทั้งตลาด) การแตะจะเปิดคู่ที่บันทึกไว้หรือ Binance COIN/USDT – ตัวเลขอาจต่างกัน"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Yüzde CoinGecko'dan (borsaların ortalaması), fiyat seçilen borsadan – rakamlar farklı olabilir."
+            "value" : "Yüzde CoinGecko'dan (piyasa geneli fiyat). Dokunmak kayıtlı çifti veya Binance COIN/USDT'yi açar – rakamlar farklı olabilir."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Відсоток від CoinGecko (середнє за біржами), ціна з вибраної біржі – числа можуть відрізнятися."
+            "value" : "Відсоток від CoinGecko (ціна по всьому ринку). Дотик відкриває збережену пару або Binance COIN/USDT – числа можуть відрізнятися."
           }
         },
         "ur" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "فیصد CoinGecko سے (ایکسچینجز کا اوسط)، قیمت منتخب ایکسچینج سے – اعداد مختلف ہو سکتے ہیں۔"
+            "value" : "فیصد CoinGecko سے (پوری مارکیٹ کی قیمت)۔ ٹیپ کرنے پر محفوظ کردہ جوڑا یا Binance COIN/USDT کھلتا ہے – اعداد مختلف ہو سکتے ہیں۔"
           }
         },
         "uz" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Foiz CoinGecko’dan (birjalar o‘rtachasi), narx tanlangan birjadan – raqamlar farq qilishi mumkin."
+            "value" : "Foiz CoinGecko’dan (butun bozor narxi). Bosilganda saqlangan juftlik yoki Binance COIN/USDT ochiladi – raqamlar farq qilishi mumkin."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Phần trăm từ CoinGecko (trung bình các sàn), giá từ sàn đã chọn – các con số có thể khác nhau."
+            "value" : "Phần trăm từ CoinGecko (giá toàn thị trường). Chạm sẽ mở cặp đã lưu hoặc Binance COIN/USDT – các con số có thể khác nhau."
           }
         },
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "百分比來自 CoinGecko（各交易所平均），價格來自所選交易所 – 數字可能有出入。"
+            "value" : "百分比來自 CoinGecko（全市場價格）。輕按會開啟已儲存嘅交易對或 Binance COIN/USDT – 數字可能有出入。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "百分比来自 CoinGecko（各交易所平均），价格来自所选交易所 – 数字可能不同。"
+            "value" : "百分比来自 CoinGecko（全市场价格）。轻点会打开已保存的交易对或 Binance COIN/USDT – 数字可能不同。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "百分比來自 CoinGecko（各交易所平均），價格來自所選交易所 – 數字可能不同。"
+            "value" : "百分比來自 CoinGecko（全市場價格）。點按會開啟已儲存的交易對或 Binance COIN/USDT – 數字可能不同。"
           }
         },
         "zu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Iphesenti livela ku-CoinGecko (isilinganiso sezinkundla zokuhweba), intengo ivela enkundleni ekhethiwe – izinombolo zingahluka."
+            "value" : "Iphesenti livela ku-CoinGecko (intengo yemakethe yonke). Ukuthepha kuvula ipheya elilondoloziwe noma i-Binance COIN/USDT – izinombolo zingahluka."
           }
         }
       }
@@ -502911,7 +502911,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ø Kaufpreis: Durchschnitt aller Käufe, gewichtet nach Menge. Verkäufe zählen zu diesem Durchschnitt."
+            "value" : "Ø Kaufpreis: Durchschnitt aller Käufe, gewichtet nach Menge. Verkäufe werden zu diesem Durchschnitt bewertet."
           }
         },
         "el" : {
@@ -529085,7 +529085,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zwei Gebühren in Zeile %1$@: Die Fiat-Gebühr ist im Preis enthalten, die Gebühr im Coin mindert die erhaltene bzw. erhöht die abgegebene Menge."
+            "value" : "Zwei Gebühren in den Zeilen %1$@: Die Fiat-Gebühr ist im Preis enthalten, die Gebühr im Coin mindert die erhaltene bzw. erhöht die abgegebene Menge."
           }
         },
         "el" : {
@@ -529139,7 +529139,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Deux frais à la ligne %1$@ : les frais en monnaie fiat sont inclus dans le prix, les frais dans la crypto réduisent la quantité reçue ou augmentent la quantité cédée."
+            "value" : "Deux frais aux lignes %1$@ : les frais en monnaie fiat sont inclus dans le prix, les frais dans la crypto réduisent la quantité reçue ou augmentent la quantité cédée."
           }
         },
         "ga" : {
@@ -529205,7 +529205,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Due commissioni alla riga %1$@: la commissione in fiat è inclusa nel prezzo, quella nella moneta riduce la quantità ricevuta o aumenta quella ceduta."
+            "value" : "Due commissioni alle righe %1$@: la commissione in fiat è inclusa nel prezzo, quella nella moneta riduce la quantità ricevuta o aumenta quella ceduta."
           }
         },
         "ja" : {
@@ -531360,7 +531360,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kein Tageskurs für Zeile %1$@ – ohne Preis bzw. Gebühr übernommen."
+            "value" : "Kein Tageskurs für die Zeilen %1$@ – ohne Preis bzw. Gebühr übernommen."
           }
         },
         "el" : {
@@ -531414,7 +531414,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aucun cours journalier pour la ligne %1$@ – importé sans prix ni frais."
+            "value" : "Aucun cours journalier pour les lignes %1$@ – importé sans prix ni frais."
           }
         },
         "ga" : {
@@ -531480,7 +531480,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nessun cambio giornaliero per la riga %1$@ – importato senza prezzo né commissione."
+            "value" : "Nessun cambio giornaliero per le righe %1$@ – importato senza prezzo né commissione."
           }
         },
         "ja" : {
@@ -531815,7 +531815,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kein Preis in der Datei für Zeile %1$@ – ohne Preis übernommen."
+            "value" : "Kein Preis in der Datei für die Zeilen %1$@ – ohne Preis übernommen."
           }
         },
         "el" : {
@@ -531869,7 +531869,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aucun prix dans le fichier pour la ligne %1$@ – importé sans prix."
+            "value" : "Aucun prix dans le fichier pour les lignes %1$@ – importé sans prix."
           }
         },
         "ga" : {
@@ -531935,7 +531935,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nessun prezzo nel file per la riga %1$@ – importato senza prezzo."
+            "value" : "Nessun prezzo nel file per le righe %1$@ – importato senza prezzo."
           }
         },
         "ja" : {
@@ -534212,7 +534212,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zeile %1$@: Ausstehende und gebuchte Zeile derselben Ein- oder Auszahlung haben verschiedene Mengen – beide übernommen, Bestand prüfen."
+            "value" : "Zeilen %1$@: Ausstehende und gebuchte Zeile derselben Ein- oder Auszahlung haben verschiedene Mengen – beide übernommen, Bestand prüfen."
           }
         },
         "el" : {
@@ -534266,7 +534266,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ligne %1$@ : l’écriture en attente et l’écriture comptabilisée du même dépôt ou retrait ont des quantités différentes – les deux importées, vérifier le solde."
+            "value" : "Lignes %1$@ : l’écriture en attente et l’écriture comptabilisée du même dépôt ou retrait ont des quantités différentes – les deux importées, vérifier le solde."
           }
         },
         "ga" : {
@@ -534332,7 +534332,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Riga %1$@: la registrazione in sospeso e quella contabilizzata dello stesso deposito o prelievo hanno quantità diverse – entrambe importate, controlla il saldo."
+            "value" : "Righe %1$@: la registrazione in sospeso e quella contabilizzata dello stesso deposito o prelievo hanno quantità diverse – entrambe importate, controlla il saldo."
           }
         },
         "ja" : {
@@ -680790,19 +680790,19 @@
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%1$lld attivati"
+                  "value" : "%1$lld scattati"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%1$lld attivato"
+                  "value" : "%1$lld scattato"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%1$lld attivati"
+                  "value" : "%1$lld scattati"
                 }
               }
             }
@@ -736722,7 +736722,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Verkäufe zählen zum gleitenden Durchschnitts-Kaufpreis."
+            "value" : "Verkäufe werden zum gleitenden Durchschnitts-Kaufpreis bewertet."
           }
         },
         "el" : {
@@ -739907,7 +739907,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Meldet einmal, wenn USDT um die Schwelle von 1 USD abweicht (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT)."
+            "value" : "Meldet einmal, wenn USDT von 1 USD um die eingestellte Schwelle abweicht (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT)."
           }
         },
         "el" : {
@@ -739961,7 +739961,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "T’avertit une fois lorsque l’USDT s’écarte de 1 USD du seuil défini (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT)."
+            "value" : "T’avertit une fois lorsque l’écart de l’USDT par rapport à 1 USD atteint le seuil défini (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT)."
           }
         },
         "ga" : {
@@ -740027,7 +740027,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Avvisa una volta quando USDT si discosta da 1 USD della soglia (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT)."
+            "value" : "Avvisa una volta quando lo scostamento di USDT da 1 USD raggiunge la soglia impostata (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT)."
           }
         },
         "ja" : {
@@ -740871,7 +740871,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vérifier ponctuellement"
+            "value" : "Vérifier à l’heure"
           }
         },
         "ga" : {
@@ -750881,7 +750881,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iOS décide quand l'app peut s'actualiser en arrière-plan : l'intervalle signifie donc « au plus tôt toutes les … ». Lorsque l'app est ouverte, la vérification est ponctuelle. Les widgets et l'Activité en direct affichent les cours actuels d'un coup d'œil."
+            "value" : "iOS décide quand l'app peut s'actualiser en arrière-plan : l'intervalle signifie donc « au plus tôt toutes les … ». Lorsque l'app est ouverte, la vérification se fait à l'heure. Les widgets et l'Activité en direct affichent les cours actuels d'un coup d'œil."
           }
         },
         "ga" : {
@@ -772843,7 +772843,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Supprime liste de suivi, alertes, portefeuille, réglages et toutes les données enregistrées, comme après l’installation. Action irréversible. Conseil : faites d’abord une sauvegarde. Les sauvegardes de l’appareil (sauvegarde Google ou sauvegarde iCloud/ordinateur) conservent les anciennes données jusqu’à la prochaine sauvegarde."
+            "value" : "Supprime liste de suivi, alertes, portefeuille, réglages et toutes les données enregistrées, comme après l’installation. Action irréversible. Conseil : fais d’abord une sauvegarde. Les sauvegardes de l’appareil (sauvegarde Google ou sauvegarde iCloud/ordinateur) conservent les anciennes données jusqu’à la prochaine sauvegarde."
           }
         },
         "ga" : {
@@ -891209,7 +891209,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gli indirizzi osservati contano nel valore totale ma non hanno un costo di acquisto – il guadagno è quindi probabilmente troppo alto. Registra il costo come acquisto."
+            "value" : "Gli indirizzi osservati contano nel valore totale ma non hanno un costo di carico – il guadagno è quindi probabilmente troppo alto. Registra il costo come acquisto."
           }
         },
         "ja" : {
@@ -939451,7 +939451,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "prezzo mark (nessun prezzo medio)"
+            "value" : "prezzo mark (nessun prezzo mid)"
           }
         },
         "ja" : {
@@ -939906,7 +939906,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "prezzo medio (altrimenti mark)"
+            "value" : "prezzo mid (altrimenti mark)"
           }
         },
         "ja" : {

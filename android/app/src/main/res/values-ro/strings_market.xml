@@ -253,7 +253,7 @@
     <string name="movers_no_gainers">Nicio monedă nu a crescut în 24 h</string>
     <string name="movers_no_losers">Nicio monedă nu a scăzut în 24 h</string>
     <string name="movers_source">CoinGecko, 24 h, top 100 fără stablecoins</string>
-    <string name="movers_price_note">Procentul de la CoinGecko (media între burse), prețul de la bursa aleasă – cifrele pot diferi.</string>
+    <string name="movers_price_note">Procentul de la CoinGecko (prețul întregii piețe). O atingere deschide perechea salvată sau Binance COIN/USDT – cifrele pot diferi.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

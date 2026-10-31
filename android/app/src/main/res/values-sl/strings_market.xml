@@ -256,7 +256,7 @@
     <string name="movers_no_gainers">Noben kovanec v 24 h ni zrasel</string>
     <string name="movers_no_losers">Noben kovanec v 24 h ni padel</string>
     <string name="movers_source">CoinGecko, 24 h, top 100 brez stablecoinov</string>
-    <string name="movers_price_note">Odstotek iz CoinGecka (povprečje borz), cena z izbrane borze – številke se lahko razlikujejo.</string>
+    <string name="movers_price_note">Odstotek iz CoinGecka (cena celotnega trga). Dotik odpre shranjeni par ali Binance COIN/USDT – številke se lahko razlikujejo.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

@@ -226,3 +226,17 @@ data class TaxYearSummary(
      */
     val usdtApproximate: Boolean = false,
 )
+
+/**
+ * Länder-Schlüsse der Vorlagen ([TaxLine.orientation]: Sätze, Grenzen, Freibeträge wie § 23, 27,5 %, ESTV) erscheinen
+ * erst, wenn eine Fachperson die Fälle in TAX_REFERENCE.md bestätigt hat — bis dahin nur die neutralen Summen (und der
+ * Beta-Hinweis). Einzige Schaltstelle, angewandt dort, wo die App die Übersicht baut (Karte und CSV). Wie iOS.
+ */
+object TaxCountryFigures {
+    /** Vorlagen mit bestätigten Länder-Schlüssen; leer, solange die Spalte «Fachperson» in TAX_REFERENCE.md leer ist. */
+    val reviewed: Set<TaxTemplate> = emptySet()
+
+    fun shown(summary: TaxYearSummary): TaxYearSummary =
+        if (summary.template in reviewed) summary
+        else summary.copy(lines = summary.lines.filterNot { it.line.orientation })
+}

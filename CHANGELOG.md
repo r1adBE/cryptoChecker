@@ -16,6 +16,14 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 181)
+
+* Watchlist: healthy rows show the age of the price next to the exchange; on futures pairs «PERP» always stays visible.
+* Gainers and losers: the note says what a tap opens – your saved pair or Binance COIN/USDT.
+* Tax templates: country-specific figures are hidden until a tax professional has checked them; the neutral totals stay.
+* Alarm list of a pair: shows when the alarms were last checked.
+* Text fixes in German, French and Italian (average cost, depeg threshold, backup messages, screen reader) and in the Italian store texts.
+
 ## 16.2.2 (build 180)
 
 * Watchlist: the header names the time of the oldest visible price instead of the newest.

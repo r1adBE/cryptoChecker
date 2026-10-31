@@ -250,7 +250,7 @@
     <string name="movers_no_gainers">24 ம.நே. இல் எந்தக் காயினும் ஏறவில்லை</string>
     <string name="movers_no_losers">24 ம.நே. இல் எந்தக் காயினும் இறங்கவில்லை</string>
     <string name="movers_source">CoinGecko, 24 ம.நே., ஸ்டேபிள்காயின்கள் இல்லாமல் top 100</string>
-    <string name="movers_price_note">சதவீதம் CoinGecko-விலிருந்து (பரிமாற்றங்களின் சராசரி), விலை தேர்ந்தெடுத்த பரிமாற்றத்திலிருந்து – எண்கள் மாறுபடலாம்.</string>
+    <string name="movers_price_note">சதவீதம் CoinGecko-விலிருந்து (முழுச் சந்தை விலை). தட்டினால் சேமித்த ஜோடி அல்லது Binance COIN/USDT திறக்கும் – எண்கள் மாறுபடலாம்.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

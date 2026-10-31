@@ -15,9 +15,9 @@
     <string name="refresh_sheet_aborted">Aggiornamento interrotto</string>
     <string name="refresh_sheet_alarms">Allarmi</string>
     <plurals name="refresh_sheet_alarms_triggered">
-        <item quantity="one">%1$d attivato</item>
-        <item quantity="many">%1$d attivati</item>
-        <item quantity="other">%1$d attivati</item>
+        <item quantity="one">%1$d scattato</item>
+        <item quantity="many">%1$d scattati</item>
+        <item quantity="other">%1$d scattati</item>
     </plurals>
     <!-- Grosse Statuszeile oben im Blatt -->
     <string name="refresh_sheet_all_updated">Tutto aggiornato</string>

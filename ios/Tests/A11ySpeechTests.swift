@@ -72,6 +72,15 @@ final class A11ySpeechTests: XCTestCase {
         XCTAssertNil(A11ySpeech.freshnessText(.fresh, lastUpdate: now, now: now, exchange: "Binance", texts: german))
     }
 
+    func testRowFreshnessTextNamesAgeWhenFresh() {
+        XCTAssertEqual(A11ySpeech.rowFreshnessText(.fresh, lastUpdate: now - 3 * minute, now: now,
+                                                   exchange: "Binance", texts: german),
+                       "zuletzt aktualisiert vor 3 Minuten")
+        XCTAssertNil(A11ySpeech.rowFreshnessText(.fresh, lastUpdate: 0, now: now, exchange: "Binance", texts: german))
+        XCTAssertEqual(A11ySpeech.rowFreshnessText(.disabled, lastUpdate: now, now: now, exchange: "Binance", texts: german),
+                       "Deaktiviert")
+    }
+
     func testAlarmFiredRecently() {
         XCTAssertTrue(A11ySpeech.firedRecently(now - minute, now: now))
         XCTAssertTrue(A11ySpeech.firedRecently(now - A11ySpeech.firedMillis, now: now))

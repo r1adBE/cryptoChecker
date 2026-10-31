@@ -26,7 +26,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.layout.FirstBaseline
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.unit.Constraints
@@ -37,7 +36,6 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -85,6 +83,7 @@ internal fun RowInfo(
                 PairName(
                     base = watch.baseAsset,
                     rest = watch.displayName.removePrefix(watch.baseAsset),
+                    contract = watch.contractShortName,
                     color = disabledTextColor(off),
                     maxLines = lines,
                     modifier = Modifier.layoutId(PAIR_NAME).clearAndSetSemantics { }
@@ -176,12 +175,13 @@ internal fun RowInfo(
                             // Deaktiviert: «Binance · deaktiviert» statt Zeit bzw. Warnung
                             watch.disabled -> stringResource(R.string.watchlist_row_disabled, BidiText.isolate(watch.exchangeName))
                             warning != null -> warning
-                            // Zeit nur, wenn das Paar nicht aktuell ist — sonst steht sie oben im Status
-                            // («Kurse der gewählten Börsen · vor 2 Min.») und wäre in jeder Zeile doppelt
+                            // Nicht aktuell: Zeit in Warnfarbe
                             staleTime -> "${BidiText.isolate(watch.exchangeName)} · ${ago(watch.lastUpdate, now)}"
                             // Börse ohne eigene Zeit, Kurs steht lange: nicht frisch wirken (PriceFreshness)
                             status.unchanged != null -> "${BidiText.isolate(watch.exchangeName)} · ${status.unchanged}"
-                            // Herkunft von Änderung/Mini-Chart («Änderung: Binance») steht nur im Aktionsblatt
+                            // Aktuell: Alter klein dahinter («Binance · vor 3 Min.») — der Kopf nennt nur die
+                            // jüngste Zeit. Herkunft von Änderung/Mini-Chart steht nur im Aktionsblatt
+                            watch.lastUpdate > 0 -> "${BidiText.isolate(watch.exchangeName)} · ${ago(watch.lastUpdate, now)}"
                             else -> watch.exchangeName
                         },
                         // Lesegrösse (14 sp) statt 12 — bricht bei grosser Schrift um ([DenseRowText]),
@@ -284,58 +284,6 @@ internal fun RowInfo(
                     modifier = Modifier.padding(start = 4.dp)
                 )
             }
-        }
-    }
-}
-
-/**
- * Paar in zwei Teilen: Basis gross und halbfett («BTC»), dahinter klein und grau der Rest
- * («/USDT», bei Futures «/USDT PERP»), auf gemeinsamer Grundlinie. Die Basis — das Wichtigste der
- * Zeile — wird nie zugunsten der Quote gekürzt: Der Rest erscheint nur, wenn mindestens sein erstes
- * Wort («/USDT») ganz Platz hat, sonst entfällt er (die Quote steht ohnehin beim Kurs). Wie iOS
- * `WatchlistRow.pairName`.
- */
-@Composable
-private fun PairName(base: String, rest: String, color: Color, maxLines: Int, modifier: Modifier = Modifier) {
-    Layout(
-        modifier = modifier,
-        content = {
-            Text(
-                text = base,
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.SemiBold,
-                color = color,
-                maxLines = maxLines,
-                // Nur als letzter Ausweg (überlange Symbole): der Rest ist dann schon weg
-                overflow = TextOverflow.Ellipsis,
-            )
-            Text(
-                text = rest,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-            )
-        }
-    ) { measurables, constraints ->
-        val loose = constraints.copy(minWidth = 0, minHeight = 0)
-        val baseP = measurables[0].measure(loose)
-        val restM = measurables[1]
-        val room = if (constraints.hasBoundedWidth) constraints.maxWidth - baseP.width else Constraints.Infinity
-        // Längstes Wort des Rests (z. B. «/USDT»): passt es nicht ganz, entfällt der Rest
-        val restP = if (rest.isNotEmpty() && room >= restM.minIntrinsicWidth(Constraints.Infinity)) {
-            restM.measure(loose.copy(maxWidth = room))
-        } else null
-        // Gemeinsame Grundlinie: der kleine Rest sitzt auf der Grundlinie der Basis
-        val baseLine = baseP[FirstBaseline]
-        val restLine = restP?.get(FirstBaseline) ?: 0
-        val restTop = (baseLine - restLine).coerceAtLeast(0)
-        val baseTop = (restLine - baseLine).coerceAtLeast(0)
-        val width = baseP.width + (restP?.width ?: 0)
-        val height = maxOf(baseTop + baseP.height, restP?.let { restTop + it.height } ?: 0)
-        layout(width.coerceIn(constraints.minWidth, constraints.maxWidth), height.coerceAtLeast(constraints.minHeight)) {
-            baseP.placeRelative(0, baseTop)
-            restP?.placeRelative(baseP.width, restTop)
         }
     }
 }

@@ -247,7 +247,7 @@
     <string name="movers_no_gainers">Không có coin nào tăng trong 24 giờ</string>
     <string name="movers_no_losers">Không có coin nào giảm trong 24 giờ</string>
     <string name="movers_source">CoinGecko, 24 giờ, top 100 không gồm stablecoin</string>
-    <string name="movers_price_note">Phần trăm từ CoinGecko (trung bình các sàn), giá từ sàn đã chọn – các con số có thể khác nhau.</string>
+    <string name="movers_price_note">Phần trăm từ CoinGecko (giá toàn thị trường). Chạm sẽ mở cặp đã lưu hoặc Binance COIN/USDT – các con số có thể khác nhau.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

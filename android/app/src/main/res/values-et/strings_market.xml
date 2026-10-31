@@ -250,7 +250,7 @@
     <string name="movers_no_gainers">Ükski münt pole 24 h jooksul tõusnud</string>
     <string name="movers_no_losers">Ükski münt pole 24 h jooksul langenud</string>
     <string name="movers_source">CoinGecko, 24 h, top 100 ilma stabiilsete müntideta</string>
-    <string name="movers_price_note">Protsent CoinGeckost (börside keskmine), hind valitud börsilt – numbrid võivad erineda.</string>
+    <string name="movers_price_note">Protsent CoinGeckost (kogu turu hind). Puudutus avab salvestatud paari või Binance COIN/USDT – numbrid võivad erineda.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

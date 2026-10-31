@@ -27,10 +27,10 @@
     <string name="portfolio_csv_import_loading">Datei und Tageskurse werden gelesen …</string>
     <string name="portfolio_csv_import_progress">Zeile %1$s von %2$s</string>
     <string name="portfolio_csv_import_saving">Transaktionen werden gespeichert …</string>
-    <string name="portfolio_csv_import_missing_fx">Kein Tageskurs für Zeile %1$s – ohne Preis bzw. Gebühr übernommen.</string>
-    <string name="portfolio_csv_import_missing_price">Kein Preis in der Datei für Zeile %1$s – ohne Preis übernommen.</string>
-    <string name="portfolio_csv_import_fee_in_price">Zwei Gebühren in Zeile %1$s: Die Fiat-Gebühr ist im Preis enthalten, die Gebühr im Coin mindert die erhaltene bzw. erhöht die abgegebene Menge.</string>
-    <string name="portfolio_csv_import_pending_differs">Zeile %1$s: Ausstehende und gebuchte Zeile derselben Ein- oder Auszahlung haben verschiedene Mengen – beide übernommen, Bestand prüfen.</string>
+    <string name="portfolio_csv_import_missing_fx">Kein Tageskurs für die Zeilen %1$s – ohne Preis bzw. Gebühr übernommen.</string>
+    <string name="portfolio_csv_import_missing_price">Kein Preis in der Datei für die Zeilen %1$s – ohne Preis übernommen.</string>
+    <string name="portfolio_csv_import_fee_in_price">Zwei Gebühren in den Zeilen %1$s: Die Fiat-Gebühr ist im Preis enthalten, die Gebühr im Coin mindert die erhaltene bzw. erhöht die abgegebene Menge.</string>
+    <string name="portfolio_csv_import_pending_differs">Zeilen %1$s: Ausstehende und gebuchte Zeile derselben Ein- oder Auszahlung haben verschiedene Mengen – beide übernommen, Bestand prüfen.</string>
     <string name="portfolio_csv_import_more">+ %1$d weitere</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d neue Transaktion</item>

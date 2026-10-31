@@ -81,6 +81,16 @@ class A11ySpeechTest {
     }
 
     @Test
+    fun `Zeilensatz nennt auch bei aktuellem Kurs das Alter`() {
+        assertEquals(
+            "zuletzt aktualisiert vor 3 Minuten",
+            A11ySpeech.rowFreshnessText(Freshness.FRESH, now - 3 * minute, now, "Binance", german)
+        )
+        assertNull(A11ySpeech.rowFreshnessText(Freshness.FRESH, 0, now, "Binance", german))
+        assertEquals("Deaktiviert", A11ySpeech.rowFreshnessText(Freshness.DISABLED, now, now, "Binance", german))
+    }
+
+    @Test
     fun `Alarm eben ausgeloest`() {
         assertTrue(A11ySpeech.firedRecently(now - minute, now))
         assertTrue(A11ySpeech.firedRecently(now - A11ySpeech.FIRED_MILLIS, now))

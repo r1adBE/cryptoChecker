@@ -247,7 +247,7 @@
     <string name="movers_no_gainers">24 小时内没有币上涨</string>
     <string name="movers_no_losers">24 小时内没有币下跌</string>
     <string name="movers_source">CoinGecko，24 小时，前 100 名（不含稳定币）</string>
-    <string name="movers_price_note">百分比来自 CoinGecko（各交易所平均），价格来自所选交易所 – 数字可能不同。</string>
+    <string name="movers_price_note">百分比来自 CoinGecko（全市场价格）。轻点会打开已保存的交易对或 Binance COIN/USDT – 数字可能不同。</string>
     <string name="movers_a11y_row">%1$s（%2$s），%3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

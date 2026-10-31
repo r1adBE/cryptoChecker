@@ -96,9 +96,13 @@ data class WatchEntity(
     /** Paar mit Kurzform des Kontrakts; Laufzeit-Kontrakte nach dem Datum in der Kennung ([FuturesContractType.shownContract]). */
     val displayName: String
         get() {
-            val contract = FuturesContractType.getShortName(FuturesContractType.shownContract(contractType, pairId))
+            val contract = contractShortName
             return if (contract == null) displayPair else "$displayPair $contract"
         }
+
+    /** Kurzform des Kontrakts («PERP» …), null bei Spot. Wie iOS `contractShortName`. */
+    val contractShortName: String?
+        get() = FuturesContractType.getShortName(FuturesContractType.shownContract(contractType, pairId))
 
     fun toPairInfo(): ExchangePair =
         ExchangePair(baseAsset, quoteAsset, pairId, contractType)

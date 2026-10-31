@@ -250,7 +250,7 @@
     <string name="movers_no_gainers">Ez da txanponik igo 24 orduan</string>
     <string name="movers_no_losers">Ez da txanponik jaitsi 24 orduan</string>
     <string name="movers_source">CoinGecko, 24 h, top 100 stablecoinik gabe</string>
-    <string name="movers_price_note">Ehunekoa CoinGeckotik (trukeen batez bestekoa), prezioa aukeratutako truketik – zifrak desberdinak izan daitezke.</string>
+    <string name="movers_price_note">Ehunekoa CoinGeckotik (merkatu osoko prezioa). Ukitze batek gordetako bikotea edo Binance COIN/USDT irekitzen du – zifrak desberdinak izan daitezke.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

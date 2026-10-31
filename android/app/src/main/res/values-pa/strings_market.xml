@@ -250,7 +250,7 @@
     <string name="movers_no_gainers">24 ਘੰਟਿਆਂ ਵਿੱਚ ਕੋਈ ਕੌਇਨ ਨਹੀਂ ਵਧਿਆ</string>
     <string name="movers_no_losers">24 ਘੰਟਿਆਂ ਵਿੱਚ ਕੋਈ ਕੌਇਨ ਨਹੀਂ ਡਿੱਗਿਆ</string>
     <string name="movers_source">CoinGecko, 24 ਘੰਟੇ, ਸਟੇਬਲਕੌਇਨਾਂ ਤੋਂ ਬਿਨਾਂ ਸਿਖਰਲੇ 100</string>
-    <string name="movers_price_note">ਪ੍ਰਤੀਸ਼ਤ CoinGecko ਤੋਂ (ਐਕਸਚੇਂਜਾਂ ਦੀ ਔਸਤ), ਭਾਅ ਚੁਣੀ ਗਈ ਐਕਸਚੇਂਜ ਤੋਂ – ਅੰਕੜੇ ਵੱਖਰੇ ਹੋ ਸਕਦੇ ਹਨ।</string>
+    <string name="movers_price_note">ਪ੍ਰਤੀਸ਼ਤ CoinGecko ਤੋਂ (ਪੂਰੇ ਬਾਜ਼ਾਰ ਦਾ ਭਾਅ)। ਟੈਪ ਕਰਨ ਨਾਲ ਸੰਭਾਲੀ ਜੋੜੀ ਜਾਂ Binance COIN/USDT ਖੁੱਲ੍ਹਦੀ ਹੈ – ਅੰਕੜੇ ਵੱਖਰੇ ਹੋ ਸਕਦੇ ਹਨ।</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

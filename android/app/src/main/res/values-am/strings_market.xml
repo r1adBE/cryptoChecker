@@ -250,7 +250,7 @@
     <string name="movers_no_gainers">በ24 ሰ ውስጥ የጨመረ ሳንቲም የለም</string>
     <string name="movers_no_losers">በ24 ሰ ውስጥ የወረደ ሳንቲም የለም</string>
     <string name="movers_source">CoinGecko፣ 24 ሰ፣ ምርጥ 100 ያለ ስቴብልኮይኖች</string>
-    <string name="movers_price_note">መቶኛው ከCoinGecko (የልውውጦች አማካይ)፣ ዋጋው ከተመረጠው ልውውጥ ነው – ቁጥሮቹ ሊለያዩ ይችላሉ።</string>
+    <string name="movers_price_note">መቶኛው ከCoinGecko ነው (የገበያ አቀፍ ዋጋ)። መንካት የተቀመጠውን ጥንድ ወይም Binance COIN/USDT ይከፍታል – ቁጥሮቹ ሊለያዩ ይችላሉ።</string>
     <string name="movers_a11y_row">%1$s (%2$s)፣ %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

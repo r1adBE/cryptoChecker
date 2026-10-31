@@ -166,10 +166,12 @@ enum PortfolioTaxExporter {
         // CH: Vermögenswert per 31.12. (Orientierung) — Tagesschlüsse und Adress-Guthaben wie der Stichtag-Export
         var yearEnd: (closes: CutoffCloses, addresses: AddressCutoffView)? = nil
         if template == .CH { yearEnd = await chYearEnd(transactions, method: method, end: period.end, zone: zone) }
-        return TaxExport.yearSummary(transactions, template: template, method: method, startYear: year, timeZone: zone,
-                                     currency: currency, rates: fx, priceAt: priceAt, walletFrom: walletFrom,
-                                     usdtUsd: usdtUsd, yearEndCloses: yearEnd?.closes, yearEndAddresses: yearEnd?.addresses,
-                                     run: run)
+        // Länder-Schlüsse erst nach Fachprüfung (`TaxCountryFigures`)
+        return TaxCountryFigures.shown(TaxExport.yearSummary(
+            transactions, template: template, method: method, startYear: year, timeZone: zone,
+            currency: currency, rates: fx, priceAt: priceAt, walletFrom: walletFrom,
+            usdtUsd: usdtUsd, yearEndCloses: yearEnd?.closes, yearEndAddresses: yearEnd?.addresses,
+            run: run))
     }
 
     /// CH: Tagesschlüsse des 31.12. (`end`) für den Bestand an dessen Ende (Zeitzone der Vorlage) samt beobachteter

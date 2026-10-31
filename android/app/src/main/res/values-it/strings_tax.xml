@@ -250,7 +250,7 @@
     <string name="portfolio_export_address_lots_note">I lotti degli indirizzi osservati contano dalla loro data di acquisto; se il saldo attuale dell’indirizzo è più basso, vengono ridotti.</string>
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
-    <string name="tax_summary_fr_address_no_cost">Gli indirizzi osservati contano nel valore totale ma non hanno un costo di acquisto – il guadagno è quindi probabilmente troppo alto. Registra il costo come acquisto.</string>
+    <string name="tax_summary_fr_address_no_cost">Gli indirizzi osservati contano nel valore totale ma non hanno un costo di carico – il guadagno è quindi probabilmente troppo alto. Registra il costo come acquisto.</string>
     <string name="tax_summary_fr_rewards_income">L’importo presuppone che le ricompense siano state tassate come reddito al ricevimento (valore al ricevimento nel costo d’acquisto) – altrimenti la lettura prudente sarebbe costo d’acquisto 0.</string>
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->

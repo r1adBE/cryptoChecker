@@ -250,7 +250,7 @@
     <string name="movers_no_gainers">24 h मा कुनै कोइन बढेन</string>
     <string name="movers_no_losers">24 h मा कुनै कोइन घटेन</string>
     <string name="movers_source">CoinGecko, 24 h, स्टेबलकोइनबाहेक शीर्ष 100</string>
-    <string name="movers_price_note">प्रतिशत CoinGecko बाट (एक्सचेन्जहरूको औसत), मूल्य छानिएको एक्सचेन्जबाट – अङ्कहरू फरक हुन सक्छन्।</string>
+    <string name="movers_price_note">प्रतिशत CoinGecko बाट (सम्पूर्ण बजारको मूल्य)। ट्याप गर्दा सुरक्षित गरिएको जोडी वा Binance COIN/USDT खुल्छ – अङ्कहरू फरक हुन सक्छन्।</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

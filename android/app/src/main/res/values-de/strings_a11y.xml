@@ -58,8 +58,8 @@
     <string name="a11y_watchlist_pulse">%1$s, %2$s, im Schnitt %3$s</string>
     <string name="a11y_watchlist_pulse_combined">%1$s. %2$s</string>
     <plurals name="a11y_watchlist_pulse_falling">
-        <item quantity="one">%1$d fällt</item>
-        <item quantity="other">%1$d fallen</item>
+        <item quantity="one">%1$d Paar fällt</item>
+        <item quantity="other">%1$d Paare fallen</item>
     </plurals>
     <plurals name="a11y_watchlist_pulse_missing">
         <item quantity="one">%1$d Paar ohne 24-Stunden-Wert</item>

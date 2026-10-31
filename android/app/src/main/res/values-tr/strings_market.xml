@@ -250,7 +250,7 @@
     <string name="movers_no_gainers">24 saatte hiçbir coin yükselmedi</string>
     <string name="movers_no_losers">24 saatte hiçbir coin düşmedi</string>
     <string name="movers_source">CoinGecko, 24 sa, stablecoin\'ler hariç ilk 100</string>
-    <string name="movers_price_note">Yüzde CoinGecko\'dan (borsaların ortalaması), fiyat seçilen borsadan – rakamlar farklı olabilir.</string>
+    <string name="movers_price_note">Yüzde CoinGecko\'dan (piyasa geneli fiyat). Dokunmak kayıtlı çifti veya Binance COIN/USDT\'yi açar – rakamlar farklı olabilir.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

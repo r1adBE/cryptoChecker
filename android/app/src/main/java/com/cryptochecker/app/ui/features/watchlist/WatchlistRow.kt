@@ -208,7 +208,7 @@ internal fun WatchRow(
         quote = watch.quoteAsset,
         change24h = watch.shownChange(changeView),
         basis = changeView.basis,
-        state = listOf(status.paused, A11yText.freshness(context, freshness, watch.lastUpdate, now, watch.exchangeName), status.trade, status.unchanged),
+        state = listOf(status.paused, A11yText.rowFreshness(context, freshness, watch.lastUpdate, now, watch.exchangeName), status.trade, status.unchanged),
         extras = listOf(
             changeMarker?.let { stringResource(R.string.change_candle_source, it) },
             if (markPrice) stringResource(R.string.watch_price_mark_fallback) else null,

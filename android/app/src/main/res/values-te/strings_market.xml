@@ -250,7 +250,7 @@
     <string name="movers_no_gainers">24 గంటల్లో ఏ కాయిన్ పెరగలేదు</string>
     <string name="movers_no_losers">24 గంటల్లో ఏ కాయిన్ తగ్గలేదు</string>
     <string name="movers_source">CoinGecko, 24 గం, స్టేబుల్‌కాయిన్‌లు లేకుండా top 100</string>
-    <string name="movers_price_note">శాతం CoinGecko నుండి (ఎక్స్ఛేంజ్‌ల సగటు), ధర ఎంచుకున్న ఎక్స్ఛేంజ్ నుండి – సంఖ్యలు వేరుగా ఉండవచ్చు.</string>
+    <string name="movers_price_note">శాతం CoinGecko నుండి (మొత్తం మార్కెట్ ధర). ట్యాప్ చేస్తే సేవ్ చేసిన జత లేదా Binance COIN/USDT తెరుచుకుంటుంది – సంఖ్యలు వేరుగా ఉండవచ్చు.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

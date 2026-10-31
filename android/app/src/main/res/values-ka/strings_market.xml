@@ -250,7 +250,7 @@
     <string name="movers_no_gainers">24 საათში არცერთი მონეტა არ გაიზარდა</string>
     <string name="movers_no_losers">24 საათში არცერთი მონეტა არ დაეცა</string>
     <string name="movers_source">CoinGecko, 24 სთ, ტოპ 100 სტეიბლქოინების გარეშე</string>
-    <string name="movers_price_note">პროცენტი CoinGecko-დან (ბირჟების საშუალო), ფასი არჩეული ბირჟიდან – რიცხვები შეიძლება განსხვავდებოდეს.</string>
+    <string name="movers_price_note">პროცენტი CoinGecko-დან (მთელი ბაზრის ფასი). შეხება ხსნის შენახულ წყვილს ან Binance COIN/USDT-ს – რიცხვები შეიძლება განსხვავდებოდეს.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

@@ -253,7 +253,7 @@
     <string name="movers_no_gainers">24 h laikā neviena monēta nav kāpusi</string>
     <string name="movers_no_losers">24 h laikā neviena monēta nav kritusies</string>
     <string name="movers_source">CoinGecko, 24 h, top 100 bez stabilajām monētām</string>
-    <string name="movers_price_note">Procenti no CoinGecko (biržu vidējais), cena no izvēlētās biržas – skaitļi var atšķirties.</string>
+    <string name="movers_price_note">Procenti no CoinGecko (visa tirgus cena). Pieskāriens atver saglabāto pāri vai Binance COIN/USDT – skaitļi var atšķirties.</string>
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->

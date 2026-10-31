@@ -145,7 +145,7 @@
     <string name="settings_conversion_currency_hint">Gilt auch für Portfolio, Alarme in deiner Währung, die Karte Krypto-Markt und das Portfolio-Widget.</string>
     <string name="settings_cost_method">Einstandsmethode</string>
     <string name="settings_cost_method_average">Durchschnitt (Ø)</string>
-    <string name="settings_cost_method_average_hint">Verkäufe zählen zum gleitenden Durchschnitts-Kaufpreis.</string>
+    <string name="settings_cost_method_average_hint">Verkäufe werden zum gleitenden Durchschnitts-Kaufpreis bewertet.</string>
     <string name="settings_cost_method_fifo">FIFO (Standard)</string>
     <string name="settings_cost_method_fifo_hint">Zuerst gekaufte Coins werden zuerst verkauft, über alle Börsen und Wallets.</string>
     <string name="settings_cost_method_fifo_wallet">FIFO je Wallet/Börse</string>
@@ -165,7 +165,7 @@
 
     <!-- Einstellungen › Markt-Meldungen -->
     <string name="settings_depeg_alarm">USDT-Depeg melden</string>
-    <string name="settings_depeg_alarm_hint">Meldet einmal, wenn USDT um die Schwelle von 1 USD abweicht (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_alarm_hint">Meldet einmal, wenn USDT von 1 USD um die eingestellte Schwelle abweicht (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Depeg-Schwelle</string>
     <string name="settings_fng_above">Fear &amp; Greed: melden über</string>
     <string name="settings_fng_below">Fear &amp; Greed: melden unter</string>

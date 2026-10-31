@@ -3169,6 +3169,9 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
 * Build 180: review fixes after an external review. `LiveStatus` uses the oldest visible update time; `movers_price_note`
   bridges CoinGecko percentages and exchange prices; `tax_template_beta_note` says not checked by a tax professional;
   iOS alarm placeholder uses `draft.priceHint` (display currency); text fixes de/en/it.
+* Build 181: audit follow-up. `TaxCountryFigures` hides country rows until a template is listed as checked (empty today);
+  `WatchlistPairName` keeps PERP and drops only the quote; healthy rows show the price age; per-pair alarm list shows
+  «last checked»; `movers_price_note` names the tap target; text fixes de/fr/it.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

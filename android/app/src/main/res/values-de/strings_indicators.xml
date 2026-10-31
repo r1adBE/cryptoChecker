@@ -46,9 +46,9 @@
     <string name="ind_read_alt_season">Hoch heisst, die meisten grossen Altcoins schlugen Bitcoin über 90 Tage, tief heisst, Bitcoin schlug die meisten.</string>
     <string name="ind_read_ath_distance">Klein heisst, der Kurs ist nahe am Rekord, gross heisst, er liegt weit darunter.</string>
     <string name="ind_read_change_30d">Positiv heisst höher als vor 30 Tagen, negativ heisst tiefer.</string>
-    <string name="ind_read_funding">Hoch heisst, viele setzen mit Hebel auf steigende Kurse, negativ heisst, viele setzen auf fallende.</string>
+    <string name="ind_read_funding">Hoch heisst, viele setzen mit Hebel auf steigende Kurse, negativ heisst, viele setzen auf fallende Kurse.</string>
     <string name="ind_read_hashrate_30_60">Positiv heisst, die Rechenleistung wächst, negativ heisst, Miner schalten ab.</string>
-    <string name="ind_read_leverage">Viele Longs heisst, viele setzen mit geliehenem Geld auf steigende Kurse, viele Shorts heisst, auf fallende.</string>
+    <string name="ind_read_leverage">Viele Longs heisst, viele setzen mit geliehenem Geld auf steigende Kurse, viele Shorts heisst, viele setzen auf fallende Kurse.</string>
     <string name="ind_read_ma200w">Kurs weit darüber heisst langer Anstieg, Kurs nahe daran heisst tiefer Rücksetzer.</string>
     <string name="ind_read_mayer">Hoch heisst, der Kurs liegt weit über seinem 200-Tage-Schnitt, tief heisst, er liegt darunter.</string>
     <string name="ind_read_mvrv">Hoch heisst, der Kurs liegt weit über dem, was Halter im Schnitt bezahlt haben, tief heisst nahe daran oder darunter.</string>
