@@ -119,7 +119,7 @@ struct AlarmsScreen: View {
                     // «Zuletzt geprüft 14:32» auch in der Alarmliste des Paars (wie Übersicht, Editor und Android)
                     if !alarms.isEmpty {
                         AlarmLastCheckedLine()
-                            .listRowInsets(EdgeInsets(top: Spacing.xs, leading: 20, bottom: 0, trailing: 16))
+                            .listRowInsets(EdgeInsets(top: Spacing.xs, leading: Spacing.lg, bottom: 0, trailing: 16))
                             .listRowSeparator(.hidden)
                             .listRowBackground(Color.clear)
                     }
