@@ -106,6 +106,10 @@ class ExchangeContractTest {
                 "markFallback" -> if (value != t.markFallback) {
                     throw CaseFailure("$prefix markFallback: expected $value, got ${t.markFallback}")
                 }
+                // Kurs ist der Schluss einer abgeschlossenen Stundenkerze (WOO X Spot): «Stundenkurs»
+                "hourlyClose" -> if (value != t.hourlyClose) {
+                    throw CaseFailure("$prefix hourlyClose: expected $value, got ${t.hourlyClose}")
+                }
                 "timestamp" -> if (value.num()!!.toLong() != t.timestamp) {
                     throw CaseFailure("$prefix timestamp: expected ${value.num()!!.toLong()}, got ${t.timestamp}")
                 }

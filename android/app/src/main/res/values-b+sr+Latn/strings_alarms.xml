@@ -22,6 +22,9 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Napredno</string>
     <string name="alarm_change_updates">Prilagodi ažuriranja cena</string>
+    <string name="alarm_check_mode_15min">Otprilike svakih 15 minuta</string>
+    <string name="alarm_check_mode_saving">Štedljivo</string>
+    <string name="alarm_check_mode_title">Koliko često proveravati kada uređaj miruje?</string>
     <string name="alarm_create">Napravi alarm</string>
     <string name="alarm_currency_label">Valuta</string>
     <string name="alarm_delete_confirm">Ovaj će alarm biti uklonjen.</string>

@@ -91,6 +91,11 @@ final class ExchangeContractTests: XCTestCase {
                 let want = value as? Bool
                 problem = want == t.markFallback ? nil
                     : "\(prefix) markFallback: expected \(String(describing: want)), got \(t.markFallback)"
+            case "hourlyClose":
+                // Kurs ist der Schluss einer abgeschlossenen Stundenkerze (WOO X Spot): «Stundenkurs»
+                let want = value as? Bool
+                problem = want == t.hourlyClose ? nil
+                    : "\(prefix) hourlyClose: expected \(String(describing: want)), got \(t.hourlyClose)"
             case "timestamp":
                 // Begrenzt wie die App (JSONValue.int64): Int64(Double) stürzte bei Werten ab 2^63 ab
                 let want = JSONValue.int64(S.number(value) ?? 0)

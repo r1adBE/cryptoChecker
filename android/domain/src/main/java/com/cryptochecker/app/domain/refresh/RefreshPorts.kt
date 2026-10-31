@@ -133,6 +133,16 @@ fun interface RefreshMarkFallback {
     }
 }
 
+/** Paare mit Stundenkurs ([HourlyCloseStore], WOO X Spot ohne letzten Abschluss) — für «Stundenkurs» in Zeile und Blatt. */
+fun interface RefreshHourlyClose {
+    fun put(watchId: Long, hourlyClose: Boolean)
+
+    companion object {
+        /** Merkt nichts (Tests ohne Anzeige). */
+        val NONE = RefreshHourlyClose { _, _ -> }
+    }
+}
+
 /** Alarm-Protokoll ([AlarmLogStore]): Einträge eines Durchlaufs übernehmen; wirft nie. */
 fun interface RefreshAlarmLog {
     fun record(entries: List<com.cryptochecker.app.domain.alarm.AlarmLogEntry>, live: Boolean)

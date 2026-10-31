@@ -5,11 +5,16 @@ package com.cryptochecker.app.ui.features.alarms
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -18,9 +23,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.model.AlarmCondition
@@ -28,19 +35,21 @@ import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.util.LocaleNumbers
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.app.work.ExactCheckOffer
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
 
 /**
  * EIN Dialog nach dem allerersten Alarm statt mehrerer nacheinander: Bestätigung mit «Alarm testen», dazu optional
- * «Pünktlich prüfen» und, nur wenn die Akku-Optimierung die App einschränkt, die Akku-Einstellungen.
+ * die Wahl «Sparsam» / «Etwa alle 15 Minuten» ([ExactModeChoice]) und, nur wenn die Akku-Optimierung die App
+ * einschränkt, die Akku-Einstellungen.
  * Hauptknopf «Prüfen, ob Alarme ankommen» öffnet gleich «Damit Alarme ankommen» ([LocalOpenAlarmDelivery]):
  * ob Alarme wirklich ankommen, soll man nach dem ersten Alarm sehen, nicht erst suchen müssen. Wie iOS.
  */
 @Composable
 internal fun FirstAlarmDialog(
     viewModel: AlarmsViewModel,
-    exactOffer: com.cryptochecker.app.work.ExactCheckOffer.Kind?,
+    exactOffer: ExactCheckOffer.Kind?,
     testAlarm: () -> Unit,
 ) {
     val context = LocalContext.current
@@ -60,17 +69,11 @@ internal fun FirstAlarmDialog(
                 // Derselbe eine Satz wie unter jedem Alarm (AlarmTimingHint, höchstens 160 Zeichen)
                 Text(alarmTimingHintText())
                 exactOffer?.let { kind ->
-                    val grant = kind == com.cryptochecker.app.work.ExactCheckOffer.Kind.GRANT
-                    Text(
-                        stringResource(R.string.settings_exact_checks_hint),
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(top = 8.dp),
-                    )
-                    TextButton(onClick = {
-                        viewModel.acceptExactOffer()
-                        if (grant) com.cryptochecker.app.work.ExactCheckScheduler.openPermissionSettings(context)
-                    }) {
-                        Text(stringResource(if (grant) R.string.settings_exact_checks_grant else R.string.settings_exact_checks))
+                    ExactModeChoice(kind) { choice ->
+                        viewModel.chooseExactMode(choice)
+                        if (ExactCheckOffer.opensPermission(kind, choice)) {
+                            com.cryptochecker.app.work.ExactCheckScheduler.openPermissionSettings(context)
+                        }
                     }
                 }
                 if (batteryRestricted && !batteryDone) {
@@ -112,6 +115,48 @@ internal fun FirstAlarmDialog(
             }) { Text(stringResource(R.string.alarm_test)) }
         }
     )
+}
+
+/**
+ * Zwei ausdrückliche Wahlen, wie oft geprüft wird, wenn das Gerät ruht: «Sparsam» oder «Etwa alle 15 Minuten»
+ * (= «Pünktlich prüfen»; fehlt die Berechtigung, steht darunter «Wecker und Erinnerungen erlauben» und die Wahl
+ * öffnet die Systemeinstellung). Anfangs ist nichts gewählt; die Wahl gilt sofort und bleibt bis zum Schliessen
+ * änderbar, danach über den Schalter in den Einstellungen.
+ */
+@Composable
+private fun ExactModeChoice(kind: ExactCheckOffer.Kind, onChoose: (ExactCheckOffer.Choice) -> Unit) {
+    var chosen by remember { mutableStateOf<ExactCheckOffer.Choice?>(null) }
+    Column(modifier = Modifier.padding(top = 8.dp).selectableGroup()) {
+        Text(stringResource(R.string.alarm_check_mode_title), style = MaterialTheme.typography.titleSmall)
+        ExactCheckOffer.Choice.entries.forEach { choice ->
+            val every15 = choice == ExactCheckOffer.Choice.EVERY_15_MIN
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .selectable(selected = chosen == choice, role = Role.RadioButton) {
+                        chosen = choice
+                        onChoose(choice)
+                    }
+                    .padding(vertical = 4.dp),
+            ) {
+                RadioButton(selected = chosen == choice, onClick = null)
+                Column(modifier = Modifier.padding(start = 12.dp)) {
+                    Text(
+                        stringResource(if (every15) R.string.alarm_check_mode_15min else R.string.alarm_check_mode_saving),
+                        style = MaterialTheme.typography.bodyLarge,
+                    )
+                    if (every15 && kind == ExactCheckOffer.Kind.GRANT) {
+                        Text(
+                            stringResource(R.string.settings_exact_checks_grant),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
+                }
+            }
+        }
+    }
 }
 
 /** Rückfrage «Alarm löschen?». */

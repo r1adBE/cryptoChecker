@@ -19,6 +19,9 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">고급</string>
     <string name="alarm_change_updates">가격 업데이트 변경</string>
+    <string name="alarm_check_mode_15min">약 15분마다</string>
+    <string name="alarm_check_mode_saving">절약</string>
+    <string name="alarm_check_mode_title">기기가 대기 중일 때 얼마나 자주 확인할까요?</string>
     <string name="alarm_create">경보 만들기</string>
     <string name="alarm_currency_label">통화</string>
     <string name="alarm_delete_confirm">이 경보가 삭제됩니다.</string>

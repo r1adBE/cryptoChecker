@@ -52,4 +52,38 @@ final class WooLastTradeTests: XCTestCase {
         XCTAssertEqual(ticker.last, 80_000)
         XCTAssertEqual(ticker.change24hPercent, 10)
     }
+
+    /// Enger Fall: jüngste Kerze schon abgeschlossen und der letzte Abschluss geht verloren → Stundenkurs
+    /// («Stundenkurs» in Zeile und Blatt); kommt der Abschluss, nicht mehr. Wie `WooLastTradeTest.kt`.
+    func testClosedCandleWithoutLastTradeIsAnHourlyPrice() throws {
+        var ticker = Ticker()
+        try exchange.readTicker(call: 0, body: candles(answeredAfterStart: 90 * minute), ticker: &ticker, info: info)
+        XCTAssertTrue(ticker.hourlyClose)
+        XCTAssertThrowsError(try exchange.readTicker(call: 1, body: noTrades, ticker: &ticker, info: info))
+        XCTAssertTrue(ticker.hourlyClose)
+        try exchange.readTicker(call: 1, body: realTrades, ticker: &ticker, info: info)
+        XCTAssertFalse(ticker.hourlyClose)
+    }
+
+    /// Laufende Kerze: ihr Schluss ist der letzte Abschluss bis zur Antwortzeit — ohne Zusatz, auch ohne Anfrage 1.
+    func testRunningCandleStaysUnlabelled() throws {
+        var ticker = Ticker()
+        try exchange.readTicker(call: 0, body: candles(answeredAfterStart: 10 * minute), ticker: &ticker, info: info)
+        XCTAssertFalse(ticker.hourlyClose)
+        XCTAssertThrowsError(try exchange.readTicker(call: 1, body: noTrades, ticker: &ticker, info: info))
+        XCTAssertFalse(ticker.hourlyClose)
+    }
+
+    private let minute: Int64 = 60_000
+    private let start: Int64 = 1_792_530_000_000
+    private let noTrades = #"{"success":true,"rows":[]}"#
+
+    /// Zwei Stundenkerzen, die jüngste ab `start`; Antwortzeit `answeredAfterStart` danach.
+    private func candles(answeredAfterStart: Int64) -> String {
+        func candle(_ begin: Int64, _ close: Double) -> String {
+            #"{"open":80000.0,"close":\#(close),"high":80500.0,"low":79500.0,"volume":1.0,"amount":80000.0,"startTimestamp":\#(begin)}"#
+        }
+        let rows = candle(start, 80_100) + "," + candle(start - 60 * minute, 80_000)
+        return #"{"success":true,"data":{"rows":["# + rows + #"]},"timestamp":\#(start + answeredAfterStart)}"#
+    }
 }

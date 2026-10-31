@@ -19,6 +19,9 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">កម្រិតខ្ពស់</string>
     <string name="alarm_change_updates">កែតម្រូវការធ្វើបច្ចុប្បន្នភាពតម្លៃ</string>
+    <string name="alarm_check_mode_15min">ប្រហែលរៀងរាល់ 15 នាទីម្តង</string>
+    <string name="alarm_check_mode_saving">សន្សំ</string>
+    <string name="alarm_check_mode_title">ពិនិត្យញឹកញាប់ប៉ុណ្ណា ពេលឧបករណ៍ទំនេរ?</string>
     <string name="alarm_create">បង្កើតការដាស់តឿន</string>
     <string name="alarm_currency_label">រូបិយប័ណ្ណ</string>
     <string name="alarm_delete_confirm">ការដាស់តឿននេះនឹងត្រូវដកចេញ។</string>

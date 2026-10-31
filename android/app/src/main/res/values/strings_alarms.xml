@@ -20,6 +20,9 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Advanced</string>
     <string name="alarm_change_updates">Adjust price updates</string>
+    <string name="alarm_check_mode_15min">About every 15 minutes</string>
+    <string name="alarm_check_mode_saving">Battery-saving</string>
+    <string name="alarm_check_mode_title">How often to check while the device is idle?</string>
     <string name="alarm_create">Create alert</string>
     <string name="alarm_currency_label">Currency</string>
     <string name="alarm_delete_confirm">This alert will be removed.</string>

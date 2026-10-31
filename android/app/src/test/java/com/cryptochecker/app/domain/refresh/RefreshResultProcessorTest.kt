@@ -107,6 +107,16 @@ class RefreshResultProcessorTest {
         assertEquals(false, f.markFallback[1L])
     }
 
+    /** Stundenkurs (WOO X Spot ohne letzten Abschluss): je Paar gemerkt, die nächste Abfrage setzt ihn neu. */
+    @Test
+    fun hourlyPriceIsRememberedUntilTheNextFetch() {
+        val f = RefreshFixture(listOf(watch(price = 99.0, exchangeKey = "Woo")), emptyList())
+        f.process(mapOf(1L to Fetched(ticker(100.0).apply { hourlyClose = true }, null)))
+        assertEquals(true, f.hourlyClose[1L])
+        f.process(mapOf(1L to Fetched(ticker(100.5), null)))
+        assertEquals(false, f.hourlyClose[1L])
+    }
+
     @Test
     fun failedOrImpossiblePricesAreStoredAsErrorsWithoutAlarms() {
         val f = RefreshFixture(

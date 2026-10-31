@@ -118,8 +118,10 @@ final class ExchangeHTTPStubReplies: @unchecked Sendable { // @unchecked: `repli
         /// Antwortet nie; nach `hangLimitSeconds` meldet die Attrappe selbst eine Zeitüberschreitung (falls die
         /// Session ihre Frist für eigene Protokolle nicht durchsetzt — der Test hängt so nie).
         case hang
-        /// Antwortet nach `seconds` mit 200 und `body` (überlappende Anfragen, `InFlightRequests`).
-        case delayed(seconds: TimeInterval, body: Data)
+        /// Antwortet erst auf `release(_:)` mit 200 und `body` (überlappende Anfragen, `InFlightRequests`). Ohne
+        /// Zeitgeber: Der Test gibt frei, sobald alle erwarteten Anfragen da sind — auch ein langsamer Runner kann die
+        /// Überlappung so nicht verpassen.
+        case held(body: Data)
     }
 
     static let shared = ExchangeHTTPStubReplies()
@@ -128,6 +130,7 @@ final class ExchangeHTTPStubReplies: @unchecked Sendable { // @unchecked: `repli
     private let lock = NSLock()
     private var replies: [String: Reply] = [:]
     private var hits: [String: Int] = [:]
+    private var waiting: [String: [(stub: ExchangeHTTPStubProtocol, thread: Thread)]] = [:]
 
     func set(_ url: String, _ reply: Reply) {
         lock.lock(); defer { lock.unlock() }
@@ -138,6 +141,26 @@ final class ExchangeHTTPStubReplies: @unchecked Sendable { // @unchecked: `repli
         lock.lock(); defer { lock.unlock() }
         hits[url, default: 0] += 1
         return replies[url]
+    }
+
+    /// `.held`: Anfrage merken, bis `release(_:)` sie beantwortet (auf ihrem Lade-Thread).
+    func hold(_ url: String, _ stub: ExchangeHTTPStubProtocol, on thread: Thread) {
+        lock.lock(); defer { lock.unlock() }
+        waiting[url, default: []].append((stub, thread))
+    }
+
+    /// Abgebrochene Anfrage (`stopLoading`) nicht mehr beantworten.
+    func drop(_ url: String, _ stub: ExchangeHTTPStubProtocol) {
+        lock.lock(); defer { lock.unlock() }
+        waiting[url]?.removeAll { $0.stub === stub }
+    }
+
+    /// Alle zurückgehaltenen Anfragen an `url` beantworten.
+    func release(_ url: String) {
+        lock.lock()
+        let held = waiting.removeValue(forKey: url) ?? []
+        lock.unlock()
+        for (stub, thread) in held { stub.sendHeld(on: thread) }
     }
 
     /// So viele Anfragen kamen bei der Attrappe an.
@@ -164,9 +187,9 @@ final class ExchangeHTTPStubProtocol: URLProtocol {
             perform(#selector(failWithTimeout), with: nil, afterDelay: ExchangeHTTPStubReplies.hangLimitSeconds)
         case let .respond(status, headers, body):
             send(url, status: status, headers: headers, body: body)
-        case let .delayed(seconds, body):
-            delayedBody = body
-            perform(#selector(sendDelayed), with: nil, afterDelay: seconds)
+        case let .held(body):
+            heldBody = body
+            ExchangeHTTPStubReplies.shared.hold(url.absoluteString, self, on: Thread.current)
         case nil:
             send(url, status: 404, headers: [:], body: Data(#"{"message":"not found"}"#.utf8))
         }
@@ -174,6 +197,7 @@ final class ExchangeHTTPStubProtocol: URLProtocol {
 
     override func stopLoading() {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
+        if let url = request.url { ExchangeHTTPStubReplies.shared.drop(url.absoluteString, self) }
     }
 
     private func send(_ url: URL, status: Int, headers: [String: String], body: Data) {
@@ -187,11 +211,17 @@ final class ExchangeHTTPStubProtocol: URLProtocol {
         client?.urlProtocolDidFinishLoading(self)
     }
 
-    private var delayedBody = Data()
+    private var heldBody = Data()
 
-    @objc private func sendDelayed() {
+    /// Freigegeben (`ExchangeHTTPStubReplies.release`): auf dem Lade-Thread antworten, wie die übrigen Rückmeldungen.
+    func sendHeld(on thread: Thread) {
+        perform(#selector(sendHeldNow), on: thread, with: nil, waitUntilDone: false,
+                modes: [RunLoop.Mode.common.rawValue])
+    }
+
+    @objc private func sendHeldNow() {
         guard let url = request.url else { return }
-        send(url, status: 200, headers: [:], body: delayedBody)
+        send(url, status: 200, headers: [:], body: heldBody)
     }
 
     @objc private func failWithTimeout() {

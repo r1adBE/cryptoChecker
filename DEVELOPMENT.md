@@ -2074,8 +2074,10 @@ the tests named here.
   transaction sheet (`PortfolioTxForm.entryRate`) and the CSV import (`CsvImport.priceInUsdt`) use the USDT/USD close
   of the transaction's day (today the live rate; missing → × 1, marked as approximation).
 * **Change basis must be visible.** A % from a UTC day open (`StarterPrice.sinceUtcDay`, currently unused since starters are Binance) is labelled «since
-  00:00 UTC»; Hyperliquid's % (mark vs prevDayPx) is labelled «Mark» (`Exchange.changeIsMark`). WOO spot needs 24
-  contiguous hourly candles.
+  00:00 UTC»; Hyperliquid's % compares the shown price (`midPx`, else `markPx`) with `prevDayPx`, one basis for price
+  and % (`Hyperliquid.shownChange`), so it needs no label; `Exchange.changeIsMark` (adds «Mark») is intentionally set
+  by no adapter. WOO spot needs 24 contiguous hourly candles; a closed candle whose last-trade request failed is
+  labelled «hourly price» (`Ticker.hourlyClose`, `HourlyCloseStore`), the running candle stays unlabelled.
 * **Near high/low alarm** uses fallback series only with the mini-chart identity rule (name + ±25 %,
   `NearExtreme.seriesAllowed`, parity `near_extreme.json`).
 * **Gemini**: an ambiguous symbol always goes through `/symbols/details`.
@@ -3172,6 +3174,9 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
 * Build 181: audit follow-up. `TaxCountryFigures` hides country rows until a template is listed as checked (empty today);
   `WatchlistPairName` keeps PERP and drops only the quote; healthy rows show the price age; per-pair alarm list shows
   «last checked»; `movers_price_note` names the tap target; text fixes de/fr/it.
+* Build 182: first-alarm check-mode choice (Android, two options); wear debug `applicationIdSuffix ".debug"`;
+  iOS Reduce Motion guard on the status dot; `HourlyCloseStore` marks WOO closed-candle fallback as hourly close;
+  `ExchangeHTTPSharedPostTests` gated stub instead of timer; Hyperliquid doc corrected.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

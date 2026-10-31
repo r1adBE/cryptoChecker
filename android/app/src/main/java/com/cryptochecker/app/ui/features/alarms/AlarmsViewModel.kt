@@ -55,7 +55,7 @@ class AlarmsViewModel @Inject constructor(
     /** Dürfen Alarme erscheinen (« · Mitteilungen aus» nach dem Speichern)? Entfernt auch Mitteilungen geänderter Alarme. */
     private val appNotifier: com.cryptochecker.app.notification.AppNotifier,
     alarmCheckStatus: AlarmCheckStatus,
-    /** «Pünktlich prüfen» nach dem ersten Alarm einmal anbieten ([ExactCheckOffer]). */
+    /** Nach dem ersten Alarm einmal fragen, wie oft geprüft wird ([ExactCheckOffer]). */
     private val exactScheduler: com.cryptochecker.app.work.ExactCheckScheduler,
     /** Liquidität der DEX-Pools: zu wenig → kein Alarm ([com.cryptochecker.app.domain.watch.DexLiquidity]). */
     dexLiquidityStore: com.cryptochecker.app.data.DexLiquidityStore,
@@ -96,11 +96,11 @@ class AlarmsViewModel @Inject constructor(
         viewModelScope.launch { settingsRepository.setBatteryPromptSeen(true) }
     }
 
-    /** «Pünktlich prüfen» anbieten (einmal, im Dialog nach dem allerersten Alarm); null = nicht. */
+    /** Wahl «Sparsam» / «Etwa alle 15 Minuten» zeigen (einmal, im Dialog nach dem allerersten Alarm); null = nicht. */
     val exactOffer: StateFlow<com.cryptochecker.app.work.ExactCheckOffer.Kind?> = notices.exactOffer
 
-    /** Angebot angenommen: einschalten; Wecker stellen, sobald erlaubt (sonst nach der Berechtigung, BootReceiver). */
-    fun acceptExactOffer() = notices.acceptExactOffer()
+    /** Wahl übernehmen: «Pünktlich prüfen» ein oder aus ([ExactCheckOffer.exactChecksFor]). */
+    fun chooseExactMode(choice: com.cryptochecker.app.work.ExactCheckOffer.Choice) = notices.chooseExactMode(choice)
 
     /** Hinweis «Wann Alarme geprüft werden» jetzt zeigen ([AlarmTimingHint]): einmal nach dem Speichern, nicht zur ersten Bestätigung. */
     val timingHint: StateFlow<Boolean> = notices.timingHint

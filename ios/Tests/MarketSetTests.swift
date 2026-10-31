@@ -91,12 +91,17 @@ final class ExchangeHTTPLimitTests: XCTestCase {
 final class ExchangeHTTPSharedPostTests: XCTestCase {
     private var session: URLSession!
 
+    /// Obergrenze fürs Warten auf die erwarteten Anfragen; wird nur erreicht, wenn der Test ohnehin scheitert.
+    private static let waitLimit: TimeInterval = 30
+
     override func setUp() {
         super.setUp()
         let configuration = URLSessionConfiguration.ephemeral
         configuration.protocolClasses = [ExchangeHTTPStubProtocol.self]
-        configuration.timeoutIntervalForRequest = 5
-        configuration.timeoutIntervalForResource = 5
+        // Kein echtes Netz: Die Attrappe hält die Antworten zurück, bis der Test sie freigibt (`.held`). Lange Fristen,
+        // damit ein langsamer Runner nie in eine Zeitüberschreitung (NSURLError -1001) läuft
+        configuration.timeoutIntervalForRequest = 120
+        configuration.timeoutIntervalForResource = 120
         configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
         session = URLSession(configuration: configuration)
     }
@@ -107,28 +112,42 @@ final class ExchangeHTTPSharedPostTests: XCTestCase {
         super.tearDown()
     }
 
-    private func delayedURL(_ body: String) -> String {
+    private func heldURL(_ body: String) -> String {
         let url = "https://stub.invalid/\(UUID().uuidString)"
-        ExchangeHTTPStubReplies.shared.set(url, .delayed(seconds: 0.3, body: Data(body.utf8)))
+        ExchangeHTTPStubReplies.shared.set(url, .held(body: Data(body.utf8)))
         return url
     }
 
+    /// Wartet, bis `condition` gilt (höchstens `waitLimit`), ohne feste Pause.
+    private func waitUntil(_ condition: () async -> Bool) async {
+        let deadline = Date().addingTimeInterval(Self.waitLimit)
+        while !(await condition()), Date() < deadline {
+            try? await Task.sleep(nanoseconds: 5_000_000)
+        }
+    }
+
     func testIdenticalConcurrentPostsShareOneRequest() async throws {
-        let url = delayedURL("[1]")
+        let url = heldURL("[1]")
         let post = PostRequest(body: #"{"type":"metaAndAssetCtxs"}"#, headers: ["Content-Type": "application/json"])
         let session = self.session!
         async let first = ExchangeHTTP.call(url, post: post, session: session)
         async let second = ExchangeHTTP.call(url, post: post, session: session)
+        // Erst freigeben, wenn beide Aufrufe an derselben Anfrage hängen
+        await waitUntil { await InFlightRequests.shared.waiters(containing: url) == 2 }
+        ExchangeHTTPStubReplies.shared.release(url)
         let bodies = try await [first, second]
         XCTAssertEqual(bodies, ["[1]", "[1]"])
         XCTAssertEqual(ExchangeHTTPStubReplies.shared.hitCount(url), 1)
     }
 
     func testDifferentBodiesStaySeparate() async throws {
-        let url = delayedURL("[2]")
+        let url = heldURL("[2]")
         let session = self.session!
         async let first = ExchangeHTTP.call(url, post: PostRequest(body: #"{"type":"meta"}"#), session: session)
         async let second = ExchangeHTTP.call(url, post: PostRequest(body: #"{"type":"allMids"}"#), session: session)
+        // Beide Anfragen gleichzeitig offen bei der Attrappe; erst dann antworten (geteilt wären es nie zwei)
+        await waitUntil { ExchangeHTTPStubReplies.shared.hitCount(url) == 2 }
+        ExchangeHTTPStubReplies.shared.release(url)
         _ = try await [first, second]
         XCTAssertEqual(ExchangeHTTPStubReplies.shared.hitCount(url), 2)
     }

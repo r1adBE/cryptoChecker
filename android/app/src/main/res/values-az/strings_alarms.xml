@@ -20,6 +20,9 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Ətraflı</string>
     <string name="alarm_change_updates">Qiymət yeniləmələrini tənzimlə</string>
+    <string name="alarm_check_mode_15min">Təxminən hər 15 dəqiqədən bir</string>
+    <string name="alarm_check_mode_saving">Qənaətli</string>
+    <string name="alarm_check_mode_title">Cihaz boş dayananda nə qədər tez-tez yoxlansın?</string>
     <string name="alarm_create">Alarm yarat</string>
     <string name="alarm_currency_label">Valyuta</string>
     <string name="alarm_delete_confirm">Bu alarm silinəcək.</string>

@@ -21,6 +21,9 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Avançado</string>
     <string name="alarm_change_updates">Alterar atualização de cotações</string>
+    <string name="alarm_check_mode_15min">Cerca de 15 em 15 minutos</string>
+    <string name="alarm_check_mode_saving">Poupança</string>
+    <string name="alarm_check_mode_title">Com que frequência verificar com o dispositivo inativo?</string>
     <string name="alarm_create">Criar alarme</string>
     <string name="alarm_currency_label">Moeda</string>
     <string name="alarm_delete_confirm">Este alarme será removido.</string>

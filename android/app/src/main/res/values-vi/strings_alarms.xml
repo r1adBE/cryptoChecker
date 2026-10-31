@@ -19,6 +19,9 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Nâng cao</string>
     <string name="alarm_change_updates">Đổi cập nhật giá</string>
+    <string name="alarm_check_mode_15min">Khoảng mỗi 15 phút</string>
+    <string name="alarm_check_mode_saving">Tiết kiệm</string>
+    <string name="alarm_check_mode_title">Kiểm tra bao lâu một lần khi thiết bị đang nghỉ?</string>
     <string name="alarm_create">Tạo cảnh báo</string>
     <string name="alarm_currency_label">Tiền tệ</string>
     <string name="alarm_delete_confirm">Cảnh báo này sẽ bị xóa.</string>

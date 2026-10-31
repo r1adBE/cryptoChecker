@@ -253,7 +253,9 @@ struct AlarmsScreen: View {
         } message: { _ in
             Text(L("alarm_delete_confirm"))
         }
-        // Hauptknopf «Prüfen, ob Alarme ankommen»: gleich die Prüfliste statt erst danach suchen (wie Android)
+        // Hauptknopf «Prüfen, ob Alarme ankommen»: gleich die Prüfliste statt erst danach suchen (wie Android).
+        // Keine Wahl «Sparsam» / «Etwa alle 15 Minuten» wie auf Android: Bei geschlossener App entscheidet iOS,
+        // wann geprüft wird — das sagt der Text ehrlich, die App kann es nicht beschleunigen.
         .alert(L("alarm_first_title"), isPresented: $showFirstAlarm) {
             Button(L("alarm_first_check")) { showDelivery = true }
                 .keyboardShortcut(.defaultAction)

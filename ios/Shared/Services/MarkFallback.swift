@@ -23,6 +23,28 @@ enum MarkFallbackStore {
     }
 }
 
+/// Paare (Watch-Ids), deren letzter Kurs der Schluss einer schon abgeschlossenen Stundenkerze war (`Ticker.hourlyClose`,
+/// WOO X Spot ohne letzten Abschluss). Zeile und Aktionsblatt nennen ihn dann «Stundenkurs». Abgeleiteter Marktwert wie
+/// `MarkFallbackStore`, nicht in der Sicherung; jede Abfrage setzt ihn neu. Wie `HourlyCloseStore.kt`.
+enum HourlyCloseStore {
+    /// Ein Schlüssel je Watch-Id (`PerKeyDefaults`).
+    static let storage = PerKeyDefaults(prefix: "hourly_close.")
+
+    static func contains(_ watchId: Int64, defaults: UserDefaults = SharedStorage.defaults) -> Bool {
+        defaults.bool(forKey: storage.key(String(watchId)))
+    }
+
+    /// Ergebnis der letzten Abfrage von `watchId`. Schreibt nur den eigenen Eintrag.
+    static func put(_ watchId: Int64, _ hourlyClose: Bool, defaults: UserDefaults = SharedStorage.defaults) {
+        guard contains(watchId, defaults: defaults) != hourlyClose else { return }
+        if hourlyClose {
+            defaults.set(true, forKey: storage.key(String(watchId)))
+        } else {
+            defaults.removeObject(forKey: storage.key(String(watchId)))
+        }
+    }
+}
+
 /// Wie das Aktionsblatt den Kurs benennt, wenn er kein letzter Handel ist (reine Logik, wie `PriceKindLabel.kt`):
 /// `mark` (Mark-Preis mangels Mittelkurs — geht vor, darauf lösen auch keine Alarme aus), `mid` (`Exchange.priceIsMid`),
 /// `hourly` (Schluss der jüngsten Stundenkerze, `Exchange.priceIsHourlyClose`, WOO X Spot). nil = kein Zusatz.

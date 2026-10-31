@@ -24,6 +24,9 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">متقدم</string>
     <string name="alarm_change_updates">تغيير تحديث الأسعار</string>
+    <string name="alarm_check_mode_15min">تقريبًا كل 15 دقيقة</string>
+    <string name="alarm_check_mode_saving">موفّر</string>
+    <string name="alarm_check_mode_title">كم مرة يتم الفحص عندما يكون الجهاز خاملًا؟</string>
     <string name="alarm_create">إنشاء تنبيه</string>
     <string name="alarm_currency_label">العملة</string>
     <string name="alarm_delete_confirm">ستتم إزالة هذا التنبيه.</string>

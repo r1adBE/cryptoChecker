@@ -12,7 +12,7 @@ keine Werbung, kein Tracking; die Kurse kommen direkt von den Börsen.
 r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Datenschutzerklärung `docs/privacy/index.html`)
 
 * Anzeigename: **Crypto Checker**
-* applicationId: `com.cryptochecker.app`
+* applicationId: `com.cryptochecker.app` (Handy und Uhr; Debug-Builds beider mit `.debug`)
 * Module: `marketdata` (Börsen-Bibliothek), `domain` (Fachlogik ohne Oberfläche und Speicher), `data` (Datenbanken, Repositories, Datenquellen), `app` (die App), `wear` (Wear-OS-App)
 * Pakete: `com.cryptochecker.marketdata`, `com.cryptochecker.app`
 * Version: **16.2.2** (versionCode siehe `app/build.gradle.kts` – steigt mit jedem Stand um eins)

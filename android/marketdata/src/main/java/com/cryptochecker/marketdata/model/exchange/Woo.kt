@@ -39,8 +39,9 @@ private const val WOO_NO_TRADES = "Keine Abschlüsse"
  *
  * Eine zweite Anfrage (`/v1/public/market_trades`, letzter Abschluss): Sie setzt den letzten Kurs auf
  * den echten letzten Abschluss und die Zeit der Börse auf dessen Zeit; die Veränderung wird gegen dieselbe
- * Eröffnung neu gerechnet. Scheitert sie, bleibt der Schluss der Stundenkerze (der laufenden Kerze = letzter
- * Abschluss bis zur Antwortzeit). Darum kein «Stundenkurs» mehr. Gegenstück: `Woo.swift`.
+ * Eröffnung neu gerechnet. Scheitert sie, bleibt der Schluss der Stundenkerze: bei der laufenden Kerze der letzte
+ * Abschluss bis zur Antwortzeit (ohne Zusatz), bei einer schon abgeschlossenen Kerze ein Stundenkurs — dann
+ * [Ticker.hourlyClose], die App nennt ihn «Stundenkurs». Gegenstück: `Woo.swift`.
  */
 class Woo : WooBase(
     name = "WOO X",
@@ -76,6 +77,8 @@ class Woo : WooBase(
         val answeredAt = json.optLong("timestamp").takeIf { it > 0 }
         val newestAge = answeredAt?.minus(newest.start())
         val newestIsRunning = newestAge == null || newestAge < Change24h.HOUR_MILLIS
+        // Abgeschlossene Kerze: Stundenkurs, bis der letzte Abschluss (Anfrage 1) ihn ersetzt
+        ticker.hourlyClose = !newestIsRunning
         // Zeit der Börse = Ende der Information im Kurs: laufende Kerze bis zur Antwortzeit (ohne diese bis
         // höchstens jetzt), abgeschlossene bis zu ihrem Stundenende. So greifen «veraltet» und die 2-h-Regel der
         // Alarme, wenn die Börse nur noch eine alte Kerze liefert.
@@ -112,6 +115,7 @@ class Woo : WooBase(
         val seconds = row.optString("executed_timestamp").toDoubleOrNull()
         val opening = ticker.change24hPercent?.let { pct -> ticker.last / (1 + pct / 100) }
         ticker.last = price
+        ticker.hourlyClose = false
         // Ohne lesbare Zeit bleibt die der Kerzen (sonst gälte die Abrufzeit als Zeit der Börse); «Infinity» oder
         // riesige Werte gelten als unlesbar statt als Long.MAX_VALUE (wie iOS `Woo.tradeMillis`)
         ticker.timestamp = wooTradeMillis(seconds) ?: ticker.exchangeTime ?: 0L

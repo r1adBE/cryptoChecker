@@ -7,6 +7,7 @@ import com.cryptochecker.marketdata.model.exchange.Woo
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertThrows
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
@@ -55,7 +56,44 @@ class WooLastTradeTest {
         assertEquals(10.0, ticker.change24hPercent!!, 0.0)
     }
 
+    /**
+     * Enger Fall: jüngste Kerze schon abgeschlossen und der letzte Abschluss geht verloren → Stundenkurs («Stundenkurs»
+     * in Zeile und Blatt); kommt der Abschluss, nicht mehr.
+     */
+    @Test
+    fun closedCandleWithoutLastTradeIsAnHourlyPrice() {
+        val ticker = MutableTicker()
+        exchange.readTicker(0, candles(answeredAfterStart = 90 * MINUTE), ticker, info)
+        assertTrue(ticker.hourlyClose)
+        assertThrows(Exception::class.java) { exchange.readTicker(1, NO_TRADES, ticker, info) }
+        assertTrue(ticker.hourlyClose)
+        exchange.readTicker(1, REAL_TRADES, ticker, info)
+        assertFalse(ticker.hourlyClose)
+    }
+
+    /** Laufende Kerze: ihr Schluss ist der letzte Abschluss bis zur Antwortzeit — ohne Zusatz, auch ohne Anfrage 1. */
+    @Test
+    fun runningCandleStaysUnlabelled() {
+        val ticker = MutableTicker()
+        exchange.readTicker(0, candles(answeredAfterStart = 10 * MINUTE), ticker, info)
+        assertFalse(ticker.hourlyClose)
+        assertThrows(Exception::class.java) { exchange.readTicker(1, NO_TRADES, ticker, info) }
+        assertFalse(ticker.hourlyClose)
+    }
+
+    /** Zwei Stundenkerzen, die jüngste ab [START]; Antwortzeit [answeredAfterStart] danach. */
+    private fun candles(answeredAfterStart: Long): String {
+        fun candle(start: Long, close: Double) =
+            """{"open":80000.0,"close":$close,"high":80500.0,"low":79500.0,"volume":1.0,"amount":80000.0,"startTimestamp":$start}"""
+        val rows = candle(START, 80_100.0) + "," + candle(START - HOUR, 80_000.0)
+        return """{"success":true,"data":{"rows":[$rows]},"timestamp":${START + answeredAfterStart}}"""
+    }
+
     private companion object {
+        const val MINUTE = 60_000L
+        const val HOUR = 60 * MINUTE
+        const val START = 1_792_530_000_000L
+        const val NO_TRADES = """{"success":true,"rows":[]}"""
         const val REAL_TRADES = """{"success":true,"rows":[{"symbol":"SPOT_BTC_USDT","side":"SELL","executed_price":83081.96,"executed_quantity":0.174010,"executed_timestamp":"1792534030.272","source":0,"rpi":false}]}"""
     }
 }

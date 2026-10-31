@@ -19,6 +19,9 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">詳細設定</string>
     <string name="alarm_change_updates">価格の更新を変更</string>
+    <string name="alarm_check_mode_15min">約15分ごと</string>
+    <string name="alarm_check_mode_saving">省電力</string>
+    <string name="alarm_check_mode_title">端末が待機中のとき、どのくらいの頻度で確認しますか？</string>
     <string name="alarm_create">アラームを作成</string>
     <string name="alarm_currency_label">通貨</string>
     <string name="alarm_delete_confirm">このアラームは削除されます。</string>

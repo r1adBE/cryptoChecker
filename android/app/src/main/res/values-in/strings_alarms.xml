@@ -19,6 +19,9 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Lanjutan</string>
     <string name="alarm_change_updates">Ubah pembaruan harga</string>
+    <string name="alarm_check_mode_15min">Kira-kira setiap 15 menit</string>
+    <string name="alarm_check_mode_saving">Hemat</string>
+    <string name="alarm_check_mode_title">Seberapa sering memeriksa saat perangkat diam?</string>
     <string name="alarm_create">Buat alarm</string>
     <string name="alarm_currency_label">Mata uang</string>
     <string name="alarm_delete_confirm">Alarm ini akan dihapus.</string>

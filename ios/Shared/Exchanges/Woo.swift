@@ -25,8 +25,9 @@ private let wooNoTrades = "Keine Abschlüsse"
 ///
 /// Eine zweite Anfrage (`/v1/public/market_trades`, letzter Abschluss): Sie setzt den letzten Kurs auf
 /// den echten letzten Abschluss und die Zeit der Börse auf dessen Zeit; die Veränderung wird gegen dieselbe
-/// Eröffnung neu gerechnet. Scheitert sie, bleibt der Schluss der Stundenkerze (der laufenden Kerze = letzter
-/// Abschluss bis zur Antwortzeit). Darum kein «Stundenkurs» mehr. Gegenstück: `Woo.kt`.
+/// Eröffnung neu gerechnet. Scheitert sie, bleibt der Schluss der Stundenkerze: bei der laufenden Kerze der letzte
+/// Abschluss bis zur Antwortzeit (ohne Zusatz), bei einer schon abgeschlossenen Kerze ein Stundenkurs — dann
+/// `Ticker.hourlyClose`, die App nennt ihn «Stundenkurs». Gegenstück: `Woo.kt`.
 struct Woo: WooBase {
     let key: String = "Woo"
     let name: String = "WOO X"
@@ -63,6 +64,8 @@ struct Woo: WooBase {
         let answeredAt = json.optLong("timestamp")
         let newestAge: Int64? = answeredAt > 0 ? answeredAt - Woo.start(newest) : nil
         let newestIsRunning = newestAge.map { $0 < Change24h.hourMillis } ?? true
+        // Abgeschlossene Kerze: Stundenkurs, bis der letzte Abschluss (Anfrage 1) ihn ersetzt
+        ticker.hourlyClose = !newestIsRunning
         // Zeit der Börse = Ende der Information im Kurs: laufende Kerze bis zur Antwortzeit (ohne diese bis
         // höchstens jetzt), abgeschlossene bis zu ihrem Stundenende. So greifen «veraltet» und die 2-h-Regel der
         // Alarme, wenn die Börse nur noch eine alte Kerze liefert.
@@ -101,6 +104,7 @@ struct Woo: WooBase {
         let seconds = Double(row.optString("executed_timestamp"))
         let opening = ticker.change24hPercent.map { pct in ticker.last / (1 + pct / 100) }
         ticker.last = price
+        ticker.hourlyClose = false
         // Ohne lesbare Zeit bleibt die der Kerzen (sonst gälte die Abrufzeit als Zeit der Börse). «inf» oder riesige
         // Werte gelten als unlesbar: `Int64(…)` stürzte sonst ab (wie Android `wooTradeMillis`)
         if let millis = Woo.tradeMillis(seconds) {

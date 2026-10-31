@@ -33,6 +33,8 @@ class RefreshResultProcessor constructor(
     private val markFallback: RefreshMarkFallback = RefreshMarkFallback.NONE,
     /** Alarm-Protokoll ([com.cryptochecker.app.domain.alarm.AlarmLog]): letzte Prüfung je Alarm und bemerkenswerte Prüfungen. */
     private val alarmLog: RefreshAlarmLog = RefreshAlarmLog.NONE,
+    /** Paare mit Stundenkurs ([Ticker.hourlyClose]): für «Stundenkurs» in Zeile und Blatt. */
+    private val hourlyClose: RefreshHourlyClose = RefreshHourlyClose.NONE,
 ) {
     /**
      * Wertet die geholten Kurse aus.
@@ -132,6 +134,8 @@ class RefreshResultProcessor constructor(
             if (ticker.markFallback) markFallbackIds += watch.id
             // Live-Kurse kommen nie als Mark-Ersatz: der Merker gilt bis zur nächsten Abfrage
             if (!live) markFallback.put(watch.id, ticker.markFallback)
+            // Ebenso der Stundenkurs (WOO X Spot): gilt bis zur nächsten Abfrage
+            if (!live) hourlyClose.put(watch.id, ticker.hourlyClose)
             val dayChange = if (live) {
                 // Live-Wert aus dem Ticker: kein Kerzen-Hinweis — aber nur, wenn er die Veränderung ersetzt hat.
                 // Bleibt die bisherige ([LiveRules.chooseChange], z. B. Tages-Basis), bleibt auch ihr Anbieter:

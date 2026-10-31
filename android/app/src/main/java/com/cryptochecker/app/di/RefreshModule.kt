@@ -1,6 +1,7 @@
 package com.cryptochecker.app.di
 
 import com.cryptochecker.app.data.DexLiquidityStore
+import com.cryptochecker.app.data.HourlyCloseStore
 import com.cryptochecker.app.data.MarkFallbackStore
 import com.cryptochecker.app.data.MoveHistoryStore
 import com.cryptochecker.app.data.RefreshStats
@@ -37,6 +38,7 @@ import com.cryptochecker.app.domain.refresh.asRefreshAlarmLog
 import com.cryptochecker.app.domain.refresh.asRefreshCharts
 import com.cryptochecker.app.domain.refresh.asRefreshDayReferences
 import com.cryptochecker.app.domain.refresh.asRefreshDexLiquidity
+import com.cryptochecker.app.domain.refresh.asRefreshHourlyClose
 import com.cryptochecker.app.domain.refresh.asRefreshMarkFallback
 import com.cryptochecker.app.domain.refresh.asRefreshNotifier
 import com.cryptochecker.app.domain.refresh.asRefreshSettings
@@ -117,6 +119,7 @@ object RefreshModule {
         dexLiquidity: DexLiquidityStore,
         markFallback: MarkFallbackStore,
         alarmLog: AlarmLogStore,
+        hourlyClose: HourlyCloseStore,
     ): RefreshResultProcessor = RefreshResultProcessor(
         watchRepository.asRefreshStore(),
         notifier.asRefreshNotifier(),
@@ -125,6 +128,7 @@ object RefreshModule {
         dexLiquidity.asRefreshDexLiquidity(),
         markFallback.asRefreshMarkFallback(),
         alarmLog.asRefreshAlarmLog(),
+        hourlyClose.asRefreshHourlyClose(),
     )
 
     @Provides
