@@ -22,6 +22,9 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Додатково</string>
     <string name="alarm_change_updates">Змінити оновлення курсів</string>
+    <string name="alarm_check_mode_15min">Приблизно кожні 15 хвилин</string>
+    <string name="alarm_check_mode_saving">Ощадливо</string>
+    <string name="alarm_check_mode_title">Як часто перевіряти, коли пристрій у спокої?</string>
     <string name="alarm_create">Створити сигнал</string>
     <string name="alarm_currency_label">Валюта</string>
     <string name="alarm_delete_confirm">Цей сигнал буде видалено.</string>

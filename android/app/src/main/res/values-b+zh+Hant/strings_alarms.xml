@@ -19,6 +19,9 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">進階</string>
     <string name="alarm_change_updates">更改價格更新</string>
+    <string name="alarm_check_mode_15min">大約每 15 分鐘</string>
+    <string name="alarm_check_mode_saving">省電</string>
+    <string name="alarm_check_mode_title">裝置閒置時多久檢查一次？</string>
     <string name="alarm_create">建立提醒</string>
     <string name="alarm_currency_label">貨幣</string>
     <string name="alarm_delete_confirm">此提醒將被移除。</string>

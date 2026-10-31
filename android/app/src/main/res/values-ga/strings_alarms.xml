@@ -23,6 +23,9 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Ardleibhéal</string>
     <string name="alarm_change_updates">Coigeartaigh nuashonruithe praghais</string>
+    <string name="alarm_check_mode_15min">Thart ar gach 15 nóiméad</string>
+    <string name="alarm_check_mode_saving">Spárálach</string>
+    <string name="alarm_check_mode_title">Cé chomh minic is ceart seiceáil nuair atá an gléas díomhaoin?</string>
     <string name="alarm_create">Cruthaigh foláireamh</string>
     <string name="alarm_currency_label">Airgeadra</string>
     <string name="alarm_delete_confirm">Bainfear an foláireamh seo.</string>

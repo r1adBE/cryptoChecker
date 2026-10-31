@@ -22,6 +22,9 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Rozšířené</string>
     <string name="alarm_change_updates">Změnit aktualizaci cen</string>
+    <string name="alarm_check_mode_15min">Zhruba každých 15 minut</string>
+    <string name="alarm_check_mode_saving">Úsporně</string>
+    <string name="alarm_check_mode_title">Jak často kontrolovat, když zařízení odpočívá?</string>
     <string name="alarm_create">Vytvořit alarm</string>
     <string name="alarm_currency_label">Měna</string>
     <string name="alarm_delete_confirm">Tento alarm bude odstraněn.</string>

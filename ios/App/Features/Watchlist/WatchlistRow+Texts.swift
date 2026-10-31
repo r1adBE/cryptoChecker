@@ -100,7 +100,8 @@ extension WatchlistRow {
                 let markPrice = MarkFallbackStore.contains(watch.id) && watch.lastPrice != nil
                 // Stundenkurs (WOO X Spot) wie die Marke der Zeile — wie Android
                 let hourlyPrice = !markPrice && watch.lastPrice != nil
-                    && ExchangesConfig.exchange(watch.exchangeKey)?.priceIsHourlyClose == true
+                    && (HourlyCloseStore.contains(watch.id)
+                        || ExchangesConfig.exchange(watch.exchangeKey)?.priceIsHourlyClose == true)
                 // EZB-Referenzkurs: «Referenzkurs, täglich» wie die Marke der Zeile
                 let referencePrice = !markPrice && watch.lastPrice != nil
                     && ExchangesConfig.exchange(watch.exchangeKey)?.priceIsDailyReference == true

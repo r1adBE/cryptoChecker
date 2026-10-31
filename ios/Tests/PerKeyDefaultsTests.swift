@@ -54,4 +54,15 @@ final class PerKeyDefaultsTests: XCTestCase {
         XCTAssertTrue(MarkFallbackStore.contains(8, defaults: defaults))
         XCTAssertNil(defaults.object(forKey: "mark_fallback.7"))
     }
+
+    /// Stundenkurs je Paar (WOO X Spot ohne letzten Abschluss): eigener Schlüssel, unabhängig von «Mark».
+    func testStundenkursJePaar() {
+        HourlyCloseStore.put(7, true, defaults: defaults)
+        HourlyCloseStore.put(8, true, defaults: defaults)
+        HourlyCloseStore.put(7, false, defaults: defaults)
+        XCTAssertFalse(HourlyCloseStore.contains(7, defaults: defaults))
+        XCTAssertTrue(HourlyCloseStore.contains(8, defaults: defaults))
+        XCTAssertFalse(MarkFallbackStore.contains(8, defaults: defaults))
+        XCTAssertNil(defaults.object(forKey: "hourly_close.7"))
+    }
 }

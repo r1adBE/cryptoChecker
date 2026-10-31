@@ -4,6 +4,7 @@ package com.cryptochecker.app.domain.refresh
 
 import com.cryptochecker.app.data.DexLiquidityStore
 import com.cryptochecker.app.data.ErrorWrite
+import com.cryptochecker.app.data.HourlyCloseStore
 import com.cryptochecker.app.data.MarkFallbackStore
 import com.cryptochecker.app.data.MoveHistoryStore
 import com.cryptochecker.app.data.PriceWrite
@@ -53,6 +54,7 @@ internal fun MoveHistoryStore.asAlarmMoveHistory(): AlarmMoveHistory = MoveHisto
 internal fun DayReferences.asRefreshDayReferences(): RefreshDayReferences = DayReferencesPort(this)
 internal fun DexLiquidityStore.asRefreshDexLiquidity(): RefreshDexLiquidity = DexLiquidityPort(this)
 internal fun MarkFallbackStore.asRefreshMarkFallback(): RefreshMarkFallback = RefreshMarkFallback { id, on -> put(id, on) }
+internal fun HourlyCloseStore.asRefreshHourlyClose(): RefreshHourlyClose = RefreshHourlyClose { id, on -> put(id, on) }
 internal fun AlarmLogStore.asRefreshAlarmLog(): RefreshAlarmLog = RefreshAlarmLog { entries, live -> record(entries, live) }
 internal fun SettingsRepository.asRefreshSettings(): RefreshSettings = SettingsPort(this)
 internal fun RefreshStats.asRefreshStatsPort(): RefreshStatsPort = StatsPort(this)

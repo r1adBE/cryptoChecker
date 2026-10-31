@@ -122,6 +122,7 @@ fun WatchlistScreen(
     // ein Tick setzt also nicht den ganzen Bildschirm neu zusammen
     val livePrices = viewModel.livePrices.collectAsStateWithLifecycle()
     val markFallbackIds by viewModel.markFallbackIds.collectAsStateWithLifecycle()
+    val hourlyCloseIds by viewModel.hourlyCloseIds.collectAsStateWithLifecycle()
     val exchangePauses by viewModel.exchangePauses.collectAsStateWithLifecycle()
     LifecycleStartEffect(Unit) {
         viewModel.setLiveVisible(true)
@@ -276,6 +277,7 @@ fun WatchlistScreen(
         LocalRowHighlight provides rowHighlight,
         com.cryptochecker.app.ui.components.LocalPriceNotificationsOn provides display.priceNotificationsOn,
         LocalMarkFallback provides markFallbackIds,
+        LocalHourlyClose provides hourlyCloseIds,
         LocalExchangePauses provides exchangePauses,
     ) {
         Scaffold(

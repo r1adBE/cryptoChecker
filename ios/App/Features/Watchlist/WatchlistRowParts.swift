@@ -6,10 +6,10 @@ import UIKit
 // Eigene Datei, weil `WatchlistRow` nur Gesten, VoiceOver-Text und Anordnung regelt (wie `WatchlistRowParts.kt`).
 
 extension WatchlistRow {
-    /// Kleine Marke hinter dem Kurs: «Stundenkurs» (WOO X Spot) bzw. «täglich» (EZB-Referenzkurs, vorgelesen
-    /// «Referenzkurs, täglich»); sonst nil.
-    static func priceMarker(_ exchange: Exchange?) -> String? {
-        if exchange?.priceIsHourlyClose == true { return L("watch_price_hourly") }
+    /// Kleine Marke hinter dem Kurs: «Stundenkurs» (`hourlyClose`: letzter Kurs war ein Stundenkurs, WOO X Spot ohne
+    /// letzten Abschluss) bzw. «täglich» (EZB-Referenzkurs, vorgelesen «Referenzkurs, täglich»); sonst nil.
+    static func priceMarker(_ exchange: Exchange?, hourlyClose: Bool = false) -> String? {
+        if hourlyClose || exchange?.priceIsHourlyClose == true { return L("watch_price_hourly") }
         if exchange?.priceIsDailyReference == true { return L("watch_price_daily") }
         return nil
     }
@@ -268,11 +268,12 @@ extension WatchlistRow {
                 Text(watch.quoteAsset)
                     .font(.footnote)
                     .foregroundStyle(AppColors.onSurfaceVariant)
-                // Kurs ist der Mark-Preis (kein Mittelkurs, `MarkFallbackStore`): klein «Mark» dahinter; Schluss der
-                // laufenden Stundenkerze (WOO X Spot): «Stundenkurs» wie im Aktionsblatt; EZB: «täglich»
+                // Kurs ist der Mark-Preis (kein Mittelkurs, `MarkFallbackStore`): klein «Mark» dahinter; Stundenkurs
+                // (`HourlyCloseStore`, WOO X Spot): «Stundenkurs» wie im Aktionsblatt; EZB: «täglich»
                 // — alles wie Android
                 if let marker = MarkFallbackStore.contains(watch.id) ? L("watch_change_mark")
-                    : WatchlistRow.priceMarker(ExchangesConfig.exchange(watch.exchangeKey)) {
+                    : WatchlistRow.priceMarker(ExchangesConfig.exchange(watch.exchangeKey),
+                                               hourlyClose: HourlyCloseStore.contains(watch.id)) {
                     Text(marker)
                         .font(.caption2)
                         .foregroundStyle(AppColors.onSurfaceVariant)

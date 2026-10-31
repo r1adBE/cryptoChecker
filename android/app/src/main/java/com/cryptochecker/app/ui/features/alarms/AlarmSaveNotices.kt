@@ -1,5 +1,5 @@
 // Hinweise nach dem Speichern eines Alarms (Teil von `AlarmsViewModel`): Bestätigung des allerersten Alarms,
-// einmaliges Angebot «Pünktlich prüfen» und der Hinweis «Wann Alarme geprüft werden».
+// einmalige Wahl «Sparsam» / «Etwa alle 15 Minuten» («Pünktlich prüfen») und der Hinweis «Wann Alarme geprüft werden».
 // Eigene Klasse, weil diese einmaligen Hinweise eine eigene Aufgabe sind; das ViewModel besitzt sie und gibt
 // [scope] (seinen viewModelScope) mit.
 package com.cryptochecker.app.ui.features.alarms
@@ -32,13 +32,13 @@ internal class AlarmSaveNotices(
         _exactOffer.value = null
     }
 
-    /** Bestätigung des allerersten Alarms zeigen — mit «Pünktlich prüfen» im selben Dialog (höchstens ein Dialog nach dem ersten Alarm). */
+    /** Bestätigung des allerersten Alarms zeigen — mit der Wahl, wie oft geprüft wird, im selben Dialog (höchstens ein Dialog nach dem ersten Alarm). */
     suspend fun showFirstAlarm() {
         offerExactChecksOnce()
         _firstAlarm.value = true
     }
 
-    /** «Pünktlich prüfen» anbieten (einmal, im Dialog nach dem allerersten Alarm); null = nicht. */
+    /** Wahl «Sparsam» / «Etwa alle 15 Minuten» zeigen (einmal, im Dialog nach dem allerersten Alarm); null = nicht. */
     private val _exactOffer = MutableStateFlow<com.cryptochecker.app.work.ExactCheckOffer.Kind?>(null)
     val exactOffer: StateFlow<com.cryptochecker.app.work.ExactCheckOffer.Kind?> = _exactOffer.asStateFlow()
 
@@ -48,17 +48,21 @@ internal class AlarmSaveNotices(
             permitted = exactScheduler.canScheduleExact(),
             offeredBefore = exactScheduler.offerShown,
         ) ?: return
-        // Gleich merken: auch «OK» oder Wegtippen fragt nie wieder
+        // Gleich merken: auch «OK» oder Wegtippen ohne Wahl fragt nie wieder (Schalter bleibt dann, wie er ist)
         exactScheduler.offerShown = true
         _exactOffer.value = kind
     }
 
-    /** Angebot angenommen: einschalten; Wecker stellen, sobald erlaubt (sonst nach der Berechtigung, BootReceiver). */
-    fun acceptExactOffer() {
-        _exactOffer.value = null
+    /**
+     * Wahl «Sparsam» / «Etwa alle 15 Minuten» übernehmen: Schalter «Pünktlich prüfen» setzen, Wecker stellen bzw.
+     * absagen (ohne Berechtigung stellt ihn der BootReceiver, sobald sie erteilt ist). Die Wahl bleibt im Dialog
+     * sichtbar und lässt sich dort bis zum Schliessen noch ändern.
+     */
+    fun chooseExactMode(choice: com.cryptochecker.app.work.ExactCheckOffer.Choice) {
+        val enabled = com.cryptochecker.app.work.ExactCheckOffer.exactChecksFor(choice)
         scope.launch {
-            settingsRepository.setExactChecks(true)
-            exactScheduler.sync(true, hasWork = true)
+            settingsRepository.setExactChecks(enabled)
+            exactScheduler.sync(enabled, hasWork = true)
         }
     }
 

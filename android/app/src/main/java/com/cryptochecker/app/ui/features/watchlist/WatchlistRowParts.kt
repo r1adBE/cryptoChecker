@@ -83,6 +83,12 @@ internal val ROW_BADGE_SIZE = ListSegment.Logo
 internal val LocalMarkFallback = compositionLocalOf<Set<Long>> { emptySet() }
 
 /**
+ * Watch-Ids, deren letzter Kurs ein Stundenkurs war ([com.cryptochecker.app.data.HourlyCloseStore], WOO X Spot ohne
+ * letzten Abschluss): Zeile und Aktionsblatt nennen ihn «Stundenkurs». Gesetzt von der Merkliste.
+ */
+internal val LocalHourlyClose = compositionLocalOf<Set<Long>> { emptySet() }
+
+/**
  * Ende der Pause je Börsen-Schlüssel ([com.cryptochecker.app.data.RefreshStats.exchangePauses]): die Zeitzeile
  * pausierter Börsen sagt «Binance · pausiert bis 19:45» ([com.cryptochecker.app.domain.watch.RowPause]). Gesetzt von
  * der Merkliste.

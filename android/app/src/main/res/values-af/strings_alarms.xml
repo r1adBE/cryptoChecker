@@ -20,6 +20,9 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Gevorderd</string>
     <string name="alarm_change_updates">Pas prysbywerkings aan</string>
+    <string name="alarm_check_mode_15min">Ongeveer elke 15 minute</string>
+    <string name="alarm_check_mode_saving">Spaarsaam</string>
+    <string name="alarm_check_mode_title">Hoe gereeld nagaan as die toestel ledig is?</string>
     <string name="alarm_create">Skep alarm</string>
     <string name="alarm_currency_label">Geldeenheid</string>
     <string name="alarm_delete_confirm">Hierdie alarm sal verwyder word.</string>

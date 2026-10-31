@@ -63,6 +63,16 @@ interface Ticker {
         // Standard ohne Speicher: nur Ticker mit Markpreis-Ersatz überschreiben die Eigenschaft
         set(@Suppress("UNUSED_PARAMETER") value) {}
 
+    /**
+     * [last] is the close of an already finished hourly candle and nothing newer arrived (WOO X spot when the
+     * last-trade request is lost). The app labels it «hourly price» like [Exchange.priceIsHourlyClose]. Same as iOS
+     * `Ticker.hourlyClose`.
+     */
+    var hourlyClose: Boolean
+        get() = false
+        // Standard ohne Speicher: nur Ticker mit Stundenkurs-Ersatz überschreiben die Eigenschaft
+        set(@Suppress("UNUSED_PARAMETER") value) {}
+
     companion object {
         /** Placeholder for «not delivered» in the number fields (all price values are positive otherwise). Same as iOS `Ticker.missing`. */
         const val MISSING = -1.0

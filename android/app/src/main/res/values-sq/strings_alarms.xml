@@ -20,6 +20,9 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Të avancuara</string>
     <string name="alarm_change_updates">Ndrysho përditësimin e çmimeve</string>
+    <string name="alarm_check_mode_15min">Afërsisht çdo 15 minuta</string>
+    <string name="alarm_check_mode_saving">Kursyese</string>
+    <string name="alarm_check_mode_title">Sa shpesh të kontrollohet kur pajisja pushon?</string>
     <string name="alarm_create">Krijo alarmin</string>
     <string name="alarm_currency_label">Monedha</string>
     <string name="alarm_delete_confirm">Ky alarm do të hiqet.</string>

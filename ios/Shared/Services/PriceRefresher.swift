@@ -282,6 +282,8 @@ enum PriceRefresher {
             // Kurs = Mark-Preis mangels Mittelkurs (Hyperliquid): «Mark» in Zeile und Blatt; Live-Kurse kommen nie als
             // Mark-Ersatz, der Merker gilt bis zur nächsten Abfrage
             if liveQuotes == nil { MarkFallbackStore.put(watch.id, ticker.markFallback) }
+            // Ebenso der Stundenkurs (WOO X Spot): gilt bis zur nächsten Abfrage
+            if liveQuotes == nil { HourlyCloseStore.put(watch.id, ticker.hourlyClose) }
             let dayChange: Double?
             if liveQuotes != nil {
                 // Live-Wert aus dem Ticker: kein Kerzen-Hinweis — aber nur, wenn er die Veränderung ersetzt hat.

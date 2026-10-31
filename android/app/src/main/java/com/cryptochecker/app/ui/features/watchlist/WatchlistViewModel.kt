@@ -327,6 +327,9 @@ class WatchlistViewModel @Inject internal constructor(
     /** Watch-Ids, deren letzter Kurs der Mark-Preis statt des Mittelkurses war («Mark» in Zeile und Blatt). */
     val markFallbackIds: StateFlow<Set<Long>> get() = sheetData.markFallbackIds
 
+    /** Watch-Ids, deren letzter Kurs ein Stundenkurs war («Stundenkurs» in Zeile und Blatt). */
+    val hourlyCloseIds: StateFlow<Set<Long>> get() = sheetData.hourlyCloseIds
+
     fun foreignSparklineSource(watch: WatchEntity): String? = sheetData.foreignSparklineSource(watch)
 
     fun foreignCandleSource(watch: WatchEntity): String? = sheetData.foreignCandleSource(watch)

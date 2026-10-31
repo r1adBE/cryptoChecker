@@ -181,9 +181,9 @@ internal fun WatchRow(
     val showSourceHint: (() -> Unit)? = sourceHintText?.takeIf { !sortMode && !selecting }?.let { text -> { onSourceHint(text) } }
     // Kurs ist der Mark-Preis (dünnes Orderbuch ohne Mittelkurs): so benennen, auch im Zeilensatz
     val markPrice = watch.id in LocalMarkFallback.current && watch.lastPrice != null
-    // Schluss der laufenden Stundenkerze (WOO X Spot) bzw. EZB-Referenzkurs (Forex): wie im Aktionsblatt benannt
+    // Stundenkurs (abgeschlossene Kerze ohne letzten Abschluss, WOO X Spot) bzw. EZB-Referenzkurs: wie im Blatt benannt
     val rowExchange = com.cryptochecker.marketdata.util.ExchangesConfigUtils.getExchangeByKey(watch.exchangeKey)
-    val hourlyPrice = !markPrice && watch.lastPrice != null && rowExchange.priceIsHourlyClose
+    val hourlyPrice = !markPrice && watch.lastPrice != null && (rowExchange.priceIsHourlyClose || watch.id in LocalHourlyClose.current)
     val dailyReference = !markPrice && watch.lastPrice != null && rowExchange.priceIsDailyReference
     // Frische ausgeschrieben statt der Zeitzeile mit «·» und «Min.»: «Kurs veraltet, zuletzt
     // aktualisiert vor 45 Minuten» bzw. «Deaktiviert» / «Wird … nicht mehr gehandelt»

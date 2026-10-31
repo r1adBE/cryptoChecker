@@ -71,6 +71,13 @@ android {
                 signingConfig = signingConfigs.getByName("release")
             }
         }
+
+        getByName("debug") {
+            // Wie :app: Die Debug-Uhr hat dasselbe Paket wie das Debug-Handy (com.cryptochecker.app.debug), sonst
+            // finden sich die beiden über die Wear-Daten-Schicht nicht; neben der Release-Fassung installierbar
+            applicationIdSuffix = ".debug"
+            versionNameSuffix = "-debug"
+        }
     }
 
     compileOptions {

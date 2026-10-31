@@ -92,7 +92,8 @@ extension WatchlistScreen {
                     .fill(tone)
                     .frame(width: 8, height: 8)
                     .shadow(color: tone.opacity(0.7), radius: 4)
-                    .phaseAnimator(state.refreshing ? [0.35, 1.0] : [1.0]) { view, phase in
+                    // Pulsieren nur ohne «Bewegung reduzieren»; sonst ruhiger Punkt wie Android (dort pulsiert er nie)
+                    .phaseAnimator(state.refreshing && !reduceMotion ? [0.35, 1.0] : [1.0]) { view, phase in
                         view.opacity(phase)
                     } animation: { _ in .easeInOut(duration: 0.6) }
                 // Einzeilig: zu eng (z. B. 390 pt mit «3 deaktiviert») → Kurzform «Börsenkurse · vor 1 Min.»,

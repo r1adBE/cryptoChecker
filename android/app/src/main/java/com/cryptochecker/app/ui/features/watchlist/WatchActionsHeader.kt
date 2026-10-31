@@ -213,7 +213,7 @@ internal fun WatchActionsHeader(
         val midText = when (com.cryptochecker.app.domain.watch.PriceKindLabel.of(
             priceIsMid = exchange.priceIsMid,
             markFallback = watch.id in LocalMarkFallback.current,
-            hourlyClose = exchange.priceIsHourlyClose,
+            hourlyClose = exchange.priceIsHourlyClose || watch.id in LocalHourlyClose.current,
             dailyReference = exchange.priceIsDailyReference,
         )) {
             com.cryptochecker.app.domain.watch.PriceKindLabel.MARK -> " · " + stringResource(R.string.watch_price_mark_fallback)

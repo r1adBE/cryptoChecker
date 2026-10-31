@@ -265,6 +265,10 @@ struct Ticker: Sendable, Codable, Equatable {
     /// Die App nennt ihn «Mark» und lässt Kurs-Alarme darauf nicht auslösen (indexbasierter Wert, kein handelbarer Kurs).
     /// Wie Android `Ticker.markFallback`.
     var markFallback: Bool = false
+    /// `last` ist der Schluss einer schon abgeschlossenen Stundenkerze, nichts Neueres kam (WOO X Spot, wenn die Anfrage
+    /// «letzter Abschluss» verloren geht). Die App nennt ihn «Stundenkurs» wie bei `Exchange.priceIsHourlyClose`.
+    /// Wie Android `Ticker.hourlyClose`.
+    var hourlyClose: Bool = false
 }
 
 /// Wandelt die 24-h-Angaben der Börsen in Prozent (1.5 = +1,5 %) um, wie `Change24h` auf Android. Nur für

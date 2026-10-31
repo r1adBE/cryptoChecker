@@ -20,6 +20,9 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Gelişmiş</string>
     <string name="alarm_change_updates">Fiyat güncellemeyi değiştir</string>
+    <string name="alarm_check_mode_15min">Yaklaşık 15 dakikada bir</string>
+    <string name="alarm_check_mode_saving">Tasarruflu</string>
+    <string name="alarm_check_mode_title">Cihaz boştayken ne sıklıkla kontrol edilsin?</string>
     <string name="alarm_create">Alarm oluştur</string>
     <string name="alarm_currency_label">Para birimi</string>
     <string name="alarm_delete_confirm">Bu alarm kaldırılacak.</string>

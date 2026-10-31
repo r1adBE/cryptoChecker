@@ -20,6 +20,9 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">అధునాతనం</string>
     <string name="alarm_change_updates">ధర అప్‌డేట్‌లను సర్దుబాటు చేయి</string>
+    <string name="alarm_check_mode_15min">సుమారు ప్రతి 15 నిమిషాలకు</string>
+    <string name="alarm_check_mode_saving">పొదుపుగా</string>
+    <string name="alarm_check_mode_title">పరికరం నిష్క్రియంగా ఉన్నప్పుడు ఎంత తరచుగా తనిఖీ చేయాలి?</string>
     <string name="alarm_create">అలర్ట్‌ను సృష్టించు</string>
     <string name="alarm_currency_label">కరెన్సీ</string>
     <string name="alarm_delete_confirm">ఈ అలర్ట్ తీసివేయబడుతుంది.</string>

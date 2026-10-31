@@ -16,6 +16,13 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 182)
+
+* Android: after the first alarm you choose once between «Economical» and «About every 15 minutes»; the second turns on punctual checks (with the system permission).
+* iOS: the pulsing status dot in the watchlist header stays still when Reduce Motion is on.
+* WOO: if the hourly candle is closed and the second request is lost, the price is marked as hourly close.
+* Developers: the Wear OS debug build uses the «.debug» package like the phone, so debug phone and debug watch find each other; a timing-sensitive iOS test no longer depends on runner speed.
+
 ## 16.2.2 (build 181)
 
 * Watchlist: healthy rows show the age of the price next to the exchange; on futures pairs «PERP» always stays visible.

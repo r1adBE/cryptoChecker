@@ -20,6 +20,9 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">उन्नत</string>
     <string name="alarm_change_updates">मूल्य अपडेट मिलाउनुहोस्</string>
+    <string name="alarm_check_mode_15min">लगभग हरेक 15 मिनेटमा</string>
+    <string name="alarm_check_mode_saving">मितव्ययी</string>
+    <string name="alarm_check_mode_title">डिभाइस निष्क्रिय हुँदा कति पटक जाँच गर्ने?</string>
     <string name="alarm_create">अलर्ट बनाउनुहोस्</string>
     <string name="alarm_currency_label">मुद्रा</string>
     <string name="alarm_delete_confirm">यो अलर्ट हटाइनेछ।</string>

@@ -321,6 +321,11 @@ actor InFlightRequests {
 
     /// Laufende Einträge (nur Tests).
     var count: Int { entries.count }
+
+    /// Wartende der Einträge, deren Schlüssel `fragment` enthält (nur Tests: Haben sich alle angehängt?).
+    func waiters(containing fragment: String) -> Int {
+        entries.filter { $0.key.contains(fragment) }.reduce(0) { $0 + $1.value.waiters }
+    }
 }
 
 /// Mitgeschnittene HTTP-Zeilen für das Entwickler-Protokoll im Explorer; nur im Speicher, die jüngsten `capacity`
