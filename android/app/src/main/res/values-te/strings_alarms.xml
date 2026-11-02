@@ -145,7 +145,7 @@
     <string name="alarm_saved_notifications_off">నోటిఫికేషన్‌లు ఆఫ్</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">“%1$s” లేకుండా, పరికరం విశ్రాంతిలో ఉన్నప్పుడు Android క్రమరహితంగా తనిఖీ చేస్తుంది – కొన్నిసార్లు గంటల తర్వాతే. దానితో, సుమారు ప్రతి 15 నిమిషాలకు.</string>
+    <string name="alarm_timing_hint_android">“%1$s” లేకుండా, విశ్రాంతిలో Android క్రమరహితంగా తనిఖీ చేస్తుంది – కొన్నిసార్లు గంటల తర్వాతే. దానితో, సుమారు ప్రతి 15 నిమిషాలకు.</string>
     <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">యాప్ మూసి ఉన్నప్పుడు iOS తరచుగా 15 నిమిషాల కంటే ఆలస్యంగా తనిఖీ చేస్తుంది, కొన్నిసార్లు తదుపరి సారి తెరిచినప్పుడే. చిన్న ఆకస్మిక మార్పులు తప్పిపోవచ్చు.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">అలర్ట్‌లు ఎప్పుడు తనిఖీ చేయబడతాయి</string>

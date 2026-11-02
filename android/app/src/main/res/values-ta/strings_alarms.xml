@@ -145,7 +145,7 @@
     <string name="alarm_saved_notifications_off">அறிவிப்புகள் ஆஃப்</string>
 
     <!-- Wann Alarme geprüft werden -->
-    <string name="alarm_timing_hint_android">“%1$s” இல்லையெனில், ஓய்வுநிலையில் Android ஒழுங்கின்றிச் சரிபார்க்கும் – சில நேரம் மணிநேரம் கழித்து. அதனுடன் சுமார் 15 நிமிடத்துக்கு ஒருமுறை.</string>
+    <string name="alarm_timing_hint_android">“%1$s” இல்லையெனில், Android ஒழுங்கின்றிச் சரிபார்க்கும் – சில நேரம் மணிநேரம் கழித்து. அதனுடன் சுமார் 15 நிமிடத்துக்கு ஒருமுறை.</string>
     <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">ஆப் மூடியிருந்தால், iOS பெரும்பாலும் 15 நிமிடங்களுக்குப் பிறகே சரிபார்க்கும், சில நேரம் அடுத்து திறக்கும்போது மட்டுமே. குறுகிய திடீர் மாற்றங்கள் தவறலாம்.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">விழிப்பூட்டல்கள் எப்போது சரிபார்க்கப்படுகின்றன</string>
