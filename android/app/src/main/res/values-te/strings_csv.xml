@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Portfolio: CSV-Import -->
-    <string name="portfolio_csv_import_action">CSV ఇంపోర్ట్ చేయి</string>
+    <string name="portfolio_csv_import_action">CSV ఇంపోర్ట్ చేయండి</string>
     <string name="portfolio_csv_import_all_transfer">అన్నీ సొంత వాలెట్‌కు</string>
     <string name="portfolio_csv_import_all_withdrawal">అన్నీ పోర్ట్‌ఫోలియో నుండి బయటకు</string>
     <string name="portfolio_csv_import_choice_proposed">సూచన: %1$sతో సరిపోలుతుంది</string>
@@ -9,7 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">పోర్ట్‌ఫోలియో నుండి బయటకు (విత్‌డ్రా)</string>
     <string name="portfolio_csv_import_choose_each">ప్రతి విత్‌డ్రా ఎక్కడికి వెళ్లిందో ఎంచుకోండి.</string>
     <string name="portfolio_csv_import_columns">గుర్తించిన కాలమ్‌లు: %1$s</string>
-    <string name="portfolio_csv_import_confirm">ఇంపోర్ట్ చేయి (%1$d)</string>
+    <string name="portfolio_csv_import_confirm">ఇంపోర్ట్ చేయండి (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">రోజు/నెల</string>
     <string name="portfolio_csv_import_date_month_first">నెల/రోజు</string>
     <string name="portfolio_csv_import_date_order">అస్పష్టమైన తేదీలు (ఉదా. 03/04/2024) ఇలా చదవబడతాయి:</string>
@@ -43,7 +43,7 @@
     <string name="portfolio_csv_import_stable_swaps">స్టేబుల్‌కాయిన్‌లతో (USDT, USDC …) ట్రేడ్‌లు స్వాప్‌లుగా బుక్ అవుతాయి – స్టేబుల్‌కాయిన్ మీ హోల్డింగ్‌లలో కనిపిస్తుంది.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">అనేక సరిపోలికలు సాధ్యం – సరైనదాన్ని ఎంచుకోండి లేదా ఏదీ ఎంచుకోవద్దు.</string>
     <string name="portfolio_csv_import_transfer_fee">నెట్‌వర్క్ ఫీజు: %1$s</string>
-    <string name="portfolio_csv_import_transfer_link">ఒకే బదిలీగా బుక్ చేయి</string>
+    <string name="portfolio_csv_import_transfer_link">ఒకే బదిలీగా బుక్ చేయండి</string>
     <string name="portfolio_csv_import_transfer_stored">మునుపటి ఇంపోర్ట్ నుండి ప్రతిరూప ఎంట్రీ</string>
     <string name="portfolio_csv_import_transfers_hint">ఒకే కాయిన్ విత్‌డ్రా, దానికి సరిపోలే డిపాజిట్ కలిసి ఒకే బదిలీ అవుతాయి: కొనుగోలు ధర, హోల్డింగ్ వ్యవధి కొనసాగుతాయి, తేడా నెట్‌వర్క్ ఫీజుగా లెక్కించబడుతుంది.</string>
     <string name="portfolio_csv_import_transfers_title">మీ ఖాతాల మధ్య బదిలీలు</string>
@@ -67,7 +67,7 @@
     <string name="portfolio_csv_skip_unsupported">మద్దతు లేని రకం</string>
 
     <!-- Portfolio: Importe ansehen und rückgängig machen -->
-    <string name="portfolio_import_undo">చర్య రద్దు చేయి</string>
+    <string name="portfolio_import_undo">చర్య రద్దు చేయండి</string>
     <plurals name="portfolio_import_undo_confirm">
         <item quantity="one">ఈ ఇంపోర్ట్‌లోని %d లావాదేవీని తొలగించాలా? మాన్యువల్ ఎంట్రీలు, ఇతర ఇంపోర్ట్‌లు అలాగే ఉంటాయి.</item>
         <item quantity="other">ఈ ఇంపోర్ట్‌లోని %d లావాదేవీలను తొలగించాలా? మాన్యువల్ ఎంట్రీలు, ఇతర ఇంపోర్ట్‌లు అలాగే ఉంటాయి.</item>

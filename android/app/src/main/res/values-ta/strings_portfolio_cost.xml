@@ -6,8 +6,8 @@
     <string name="cost_gaps_sheet_title">அடக்க விலை இல்லாத பதிவுகள்</string>
     <string name="cost_gaps_sheet_intro">இந்த உள்வரவுகளுக்கு அடக்க விலை இல்லை. பரிந்துரை என்பது அந்தத் தேதியின் தினசரி இறுதி விலை – பதிவில் அதைச் சரிசெய்யலாம்.</string>
     <string name="cost_gaps_empty">எல்லாப் பதிவுகளுக்கும் அடக்க விலை உள்ளது.</string>
-    <string name="cost_gap_enter">அடக்க விலையை உள்ளிடு</string>
-    <string name="cost_gap_leave_unknown">தெரியாததாக விடு</string>
+    <string name="cost_gap_enter">அடக்க விலையை உள்ளிடவும்</string>
+    <string name="cost_gap_leave_unknown">தெரியாததாக விடவும்</string>
     <string name="cost_gap_left_unknown">தெரியாததாக விடப்பட்டது</string>
     <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
     <string name="cost_gap_suggestion">பரிந்துரை: தினசரி இறுதி விலை %1$s – %2$s</string>
@@ -17,11 +17,11 @@
     <string name="cost_gap_income">அடக்க விலை = பெற்றபோது இருந்த மதிப்பு (வருமானம்)</string>
     <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
     <string name="cost_gap_income_zero">அடக்க விலை = 0 (உள்வரவு இல்லாத வெகுமதி, ஆஸ்திரியா)</string>
-    <string name="cost_gap_apply">பயன்படுத்து</string>
+    <string name="cost_gap_apply">பயன்படுத்தவும்</string>
     <string name="address_lots_action">முகவரி இருப்புக்கான அடக்க விலை</string>
     <string name="address_lots_title">முகவரி இருப்புக்கான அடக்க விலை</string>
     <string name="address_lots_intro">இந்த முகவரியின் இருப்புக்கு வாங்கிய தேதி, அளவு மற்றும் அடக்க விலையை உள்ளிடவும். லாட்கள் இந்த முகவரியில் வாங்கியவை போலக் கணக்கிடப்படும்; ஈடுசெய்யப்படாத பகுதி அடக்க விலை இல்லாமல் இருக்கும்.</string>
-    <string name="address_lots_add">லாட்டைச் சேர்</string>
+    <string name="address_lots_add">லாட்டைச் சேர்க்கவும்</string>
     <string name="address_lots_new">புதிய லாட்</string>
     <string name="address_lots_edit">லாட்</string>
     <string name="address_lots_date">வாங்கிய தேதி</string>

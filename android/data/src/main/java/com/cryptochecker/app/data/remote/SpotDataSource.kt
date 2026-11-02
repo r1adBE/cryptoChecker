@@ -15,33 +15,38 @@ import javax.inject.Singleton
  * Spot-Kennzahlen (Marktkapitalisierung, Volumen, Umlauf …) für den Spot-Tab der Karte «Marktdaten».
  * Zuerst aus der CoinGecko-Top-40 (direkt bei CoinGecko, für alle Nutzer gleich, verrät keinen
  * Coin); steht der Coin nicht darin, EINE Anfrage an CoinGecko `/coins/markets?symbols=<kürzel>`.
- * Ergebnisse (auch «nichts gefunden») ~10 min im Speicher. Gleich in iOS `SpotDataSource`.
+ * Antworten (auch «nichts gefunden») ~10 min im Speicher; welcher Treffer zum Paar gehört, entscheidet je Aufruf
+ * der Name ([SpotMarket.pick] mit [SpotMarket.Identity]). Gleich in iOS `SpotDataSource`.
  */
 @Singleton
 class SpotDataSource @Inject constructor(
     private val httpClient: OkHttpClient,
 ) {
-    private data class Cached(val at: Long, val data: SpotData?)
+    private data class Cached(val at: Long, val entries: List<SpotData>)
 
     private val cache = HashMap<String, Cached>()
     private var topList: Pair<Long, List<SpotData>>? = null
     private var topText: Pair<Long, String?>? = null
 
-    /** Daten zum Kürzel aus [SpotMarket.lookupSymbol]; null = keine (oder nicht erreichbar). */
-    suspend fun fetch(symbol: String): SpotData? {
+    /**
+     * Daten zum Kürzel aus [SpotMarket.lookupSymbol] für das Paar mit [identity]; null = keine passenden (oder nicht
+     * erreichbar). Passt in der Top-40 kein Treffer, fragt es einmal nach dem Kürzel.
+     */
+    suspend fun fetch(symbol: String, identity: SpotMarket.Identity = SpotMarket.Identity()): SpotData? {
         val now = System.currentTimeMillis()
-        synchronized(cache) { cache[symbol] }?.takeIf { now - it.at in 0 until SpotMarket.CACHE_TTL_MILLIS }?.let { return it.data }
-        val fromTop = SpotMarket.pick(topEntries(now), symbol)
-        val result = fromTop ?: try {
-            SpotMarket.pick(SpotMarket.parse(httpClient.callExchange(SpotMarket.url(symbol), null)), symbol)
+        SpotMarket.pick(topEntries(now), symbol, identity)?.let { return it }
+        synchronized(cache) { cache[symbol] }?.takeIf { now - it.at in 0 until SpotMarket.CACHE_TTL_MILLIS }
+            ?.let { return SpotMarket.pick(it.entries, symbol, identity) }
+        val entries = try {
+            SpotMarket.parse(httpClient.callExchange(SpotMarket.url(symbol), null))
         } catch (e: Exception) {
             // Blatt geschlossen: Abbruch weiterreichen; sonst nichts merken (nächstes Öffnen versucht es neu)
             currentCoroutineContext().ensureActive()
             Timber.d(e, "Spot-Daten nicht verfügbar: %s", symbol)
             return null
         }
-        synchronized(cache) { cache[symbol] = Cached(now, result) }
-        return result
+        synchronized(cache) { cache[symbol] = Cached(now, entries) }
+        return SpotMarket.pick(entries, symbol, identity)
     }
 
     /** Top 40 (gleiche Abfrage für alle; fehlt sie, gibt es die Einzelabfrage). */

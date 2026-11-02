@@ -4,8 +4,8 @@
     <string name="why_action">దానితో పాటు ఏది కదులుతోంది?</string>
     <string name="why_all_values">అన్ని విలువలు, మూలాలు</string>
     <string name="why_all_values_hint">పరిశీలన · సాధ్యమైన వివరణ · మూలాలు</string>
-    <string name="why_details">వివరాలను చూపు</string>
-    <string name="why_details_hide">వివరాలను దాచు</string>
+    <string name="why_details">వివరాలను చూపండి</string>
+    <string name="why_details_hide">వివరాలను దాచండి</string>
     <string name="why_disclaimer">మార్కెట్ డేటా నుండి ఆటోమేటిక్ అంచనా: ఒకే సమయంలో ఏమి జరుగుతుందో చూపుతుంది, కారణానికి రుజువు కాదు.</string>
     <string name="why_footer_short">ఒకేసారి జరగడం కారణం కాదు · పెట్టుబడి సలహా కాదు</string>
     <string name="why_no_data">ఈ జతకు Binance నుండి డేటా లేదు</string>

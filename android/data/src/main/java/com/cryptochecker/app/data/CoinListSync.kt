@@ -16,10 +16,10 @@ import com.cryptochecker.app.util.appScope
 import com.cryptochecker.marketdata.model.exchange.BinanceAlpha
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -315,28 +315,28 @@ class CoinListSync @Inject constructor(
     }
 
     /**
-     * Rangliste holen und alle fehlenden Logos laden. Die Bilder der grössten 1000 (Rangliste Seiten 1–4
-     * mit Binance- und Alpha-Liste) beginnen schon, während die übrigen Seiten laden; danach nur noch,
-     * was die übrigen Seiten dazubringen. Scheitert ein Bild: Ersatz-Adressen ([logoAlternates]).
+     * Rangliste holen und alle fehlenden Logos laden, in Stufen nacheinander ([LogoImageStore.downloadMissing]): erst die
+     * bei Binance gelisteten Krypto-Kürzel (Symbolliste, schon da), während die Seiten der Rangliste laden; dann die
+     * grössten 1000; zuletzt die ganze Zuordnung (nur noch, was fehlt). Scheitert ein Bild: Ersatz-Adressen
+     * ([logoAlternates]).
      */
     private suspend fun syncAll(): Int = coroutineScope {
-        val early = CompletableDeferred<Map<String, String>>()
-        val first = async { imageStore.downloadMissing(early.await(), logoAlternates()) }
-        var usedEarly = false
+        val stages = Channel<Map<String, String>>(Channel.UNLIMITED)
+        val worker = async {
+            var total = LogoImageStore.Downloads()
+            for (stage in stages) total += imageStore.downloadMissing(stage, logoAlternates())
+            total
+        }
         val current = try {
-            symbolMap { partial ->
-                usedEarly = true
-                early.complete(CoinLogos.withStockLogos(partial, names.tradFiBases))
-            }
+            symbolMap { partial -> stages.send(CoinLogos.withStockLogos(partial, names.tradFiBases)) }
         } catch (e: Throwable) {
-            early.complete(emptyMap())
+            stages.close()
             throw e
         }
-        // Aktien-Logos für alle TradFi-Kürzel ohne Eintrag dazu
-        val wanted = CoinLogos.withStockLogos(current, names.tradFiBases)
-        if (!usedEarly) early.complete(wanted)
-        var result = first.await()
-        if (usedEarly) result += imageStore.downloadMissing(wanted, logoAlternates())
+        // Aktien-Logos für alle TradFi-Kürzel ohne Eintrag dazu; die letzte Stufe versucht alle noch fehlenden Bilder
+        stages.send(CoinLogos.withStockLogos(current, names.tradFiBases))
+        stages.close()
+        val result = worker.await()
         _retryPending.value = listsNetworkFailed || mapNetworkFailed || result.network
         imagesPausedUntil = result.pausedUntil
         result.added

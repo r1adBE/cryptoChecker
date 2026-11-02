@@ -78,7 +78,7 @@
     <string name="tax_export_period">%1$s – %2$s</string>
     <string name="tax_export_proceeds_missing">חסר מחיר מכירה</string>
     <string name="tax_export_proceeds_without_cost">תמורה ללא מחיר קנייה</string>
-    <string name="tax_export_realized_differs">קובץ ה-CSV למס עשוי להיות שונה מ\"ממומש\" (כללי המס של המדינה).</string>
+    <string name="tax_export_realized_differs">קובץ ה-CSV למס עשוי להיות שונה מ«ממומש» (כללי המס של המדינה).</string>
     <string name="tax_export_rule">&gt; שנה: נמכר אחרי תאריך הקנייה + שנה קלנדרית. תאריכים בשעון מקומי. שערים: שער יומי של ה-ECB ביום העסקה; אם אין, השער האחרון עד 7 ימים לפני כן.</string>
     <string name="tax_export_rules_date">מצב הכללים: %1$s</string>
     <string name="tax_export_rules_stale">מצב הכללים: %1$s – ייתכן שהשיעורים והפטורים השתנו עבור %2$s. בדקו את הערכים.</string>
@@ -180,11 +180,11 @@
     <string name="tax_method_jp_total">ממוצע כולל (総平均法)</string>
     <string name="tax_method_uk_pool">מאגר משותף לפי Section 104 (Section 104 pool – אותו יום / 30 ימים)</string>
     <string name="tax_note_at">ממוצע נע לכל מטבע וארנק – לא על פני כל הארנקים (KryptowährungsVO § 2). תגמולים נכנסים ליתרה החדשה בעלות רכישה 0 (BMF: staking / airdrops) – קובץ ההכנסות מציג אותם לפי השווי בעת הקבלה. עמלות אינן ניתנות לניכוי ביתרה שנרכשה מ-1.3.2021 (§ 27a ס׳ 4 מס׳ 2, § 20 ס׳ 2 EStG): עלות ותמורה ללא עמלות. ריבית מהלוואות (סוג מייבוא CSV או הערה) היא הכנסה בעת הקבלה בשיעור 27.5 אחוז ושומרת על שווי זה כעלות רכישה.</string>
-    <string name="tax_note_at_staking">סטייקינג עם מטבעות שבבעלותך ואיירדרופים: השווי בעת הקבלה אינו רלוונטי למס – לפי החוק עלות הרכישה היא 0 (§ 27b Abs. 2 EStG; BMF ‏\"Kryptowährungen\"). מס חל רק במכירה.</string>
+    <string name="tax_note_at_staking">סטייקינג עם מטבעות שבבעלותך ואיירדרופים: השווי בעת הקבלה אינו רלוונטי למס – לפי החוק עלות הרכישה היא 0 (§ 27b Abs. 2 EStG; BMF ‏«Kryptowährungen»). מס חל רק במכירה.</string>
     <string name="tax_note_fr">מכירות ועמלות ששולמו בקריפטו הן העברות – החלפות נדחות. עמלת קריפטו במכירה נכללת במחיר לפני עמלות – אחרת היא העברה נפרדת לפי שוויה. שווי התיק לפי מחירי סגירה יומיים – אם חסר אחד העלות נשארת ריקה.</string>
     <string name="tax_note_network_fee">עמלת רשת ששולמה בקריפטו (העברה לארנק שלך, משיכה) היא מימוש של מטבעות העמלה לפי שווי שוק – רווח או הפסד רק על המטבעות האלה, לא הפסד של כל העמלה (%1$s). ללא מחיר רשום: מחיר הסגירה של אותו יום (UTC); ללא מחיר סגירה התמורה נשארת ריקה.</string>
     <string name="tax_note_specific_id">זיהוי ספציפי (Specific Identification) אינו נתמך – חל FIFO (נקנה ראשון – נמכר ראשון).</string>
-    <string name="tax_note_spouse_gift">מתנה שמסומנת „לבן/בת הזוג” היא ללא רווח וללא הפסד: התמורה = עלות הרכישה שלך, שבן/בת הזוג מקבלים (%1$s).</string>
+    <string name="tax_note_spouse_gift">מתנה שמסומנת «לבן/בת הזוג» היא ללא רווח וללא הפסד: התמורה = עלות הרכישה שלך, שבן/בת הזוג מקבלים (%1$s).</string>
     <string name="tax_note_stable_swap">מכירה תמורת מטבע יציב (USDT/USDC/DAI …) שנשאר אצלך נחשבת כאן קריפטו מול קריפטו ואינה חייבת במס – רשמו אותה כהחלפה למטבע היציב. רק מכירה תמורת יורו חייבת במס – «מכירה» נחשבת מכירה תמורת יורו.</string>
     <string name="tax_note_transfer_fee">אותו דבר חל על עמלה ב-USDT או במזומן בהעברה בין הארנקים שלך: היא לא מתווספת לעלות ומוצגת לידיעה בלבד.</string>
     <string name="tax_note_uk">התאמה לפי HMRC: אותו יום, אחר כך 30 הימים הבאים, אחר כך מאגר משותף לפי Section 104 (Section 104 pool).</string>

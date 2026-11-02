@@ -36,6 +36,17 @@ enum BlockedSources {
         entries.withLock { $0.blockedUntil[key] = nil }
     }
 
+    /// Sperre von `key` und die gemeinsame Pause seiner Gruppe aufheben — nur für Tests: Der Zustand ist prozessweit,
+    /// eine andere Testklasse im selben Prozess hätte die Quelle sonst gesperrt (der Test liefe je nach Reihenfolge nicht).
+    /// Wie `BlockedSources.clearForTest` in Android.
+    static func clearForTest(_ key: String) {
+        let group = ExchangeBackoff.sharedGroup(key)
+        entries.withLock { e in
+            e.blockedUntil[key] = nil
+            if let group { e.groupPauses[group] = nil }
+        }
+    }
+
     /// Wertet einen Fehler aus; true = Sperr- bzw. Pausen-Antwort, Quelle ist jetzt vermerkt.
     /// 451/403: diese Quelle 6 h. 429/418 eines Hosts mit gemeinsamer Pause: die ganze Gruppe.
     @discardableResult

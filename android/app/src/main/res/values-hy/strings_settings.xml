@@ -74,7 +74,7 @@
     <string name="settings_http_log">Ցույց տալ HTTP մատյանը</string>
     <string name="settings_http_log_hint">Ցույց է տալիս բորսաներին ուղղված հարցումները «Ավելացնել զույգ» էջի ներքևում – խնդիրների վերացման համար։</string>
     <string name="settings_live_service">Թարմացնել հաճախ</string>
-    <string name="settings_live_websocket">Live գներ</string>
+    <string name="settings_live_websocket">Իրական ժամանակի գներ</string>
 
     <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
     <string name="settings_activity_alerts">Ուշագրավ՝ ծանուցել</string>
@@ -138,7 +138,7 @@
     <string name="settings_change_basis_hint_1">Ընտրված ժամային գոտին սահմանում է, թե երբվանից է հաշվվում տոկոսային փոփոխությունը (դիտացանկ, զարկերակի տող, բացված զույգ, վիջեթներ) և գրաֆիկներում ցուցադրվող ժամերը։</string>
     <string name="settings_change_basis_hint_2">«%1$s»-ը համեմատում է ճիշտ 24 ժամ առաջվա գնի հետ։ «00:00»-ն համեմատում է այդ ժամային գոտում կեսգիշերի բացման գնի հետ։</string>
     <string name="settings_change_basis_hint_3">Ահազանգերի վրա չի ազդում։</string>
-    <string name="settings_change_basis_hint_since_last">«%1$s»-ը համեմատում է նախորդ թարմացման գնի հետ։ Live գների դեպքում այն մնում է 0%%-ին մոտ։</string>
+    <string name="settings_change_basis_hint_since_last">«%1$s»-ը համեմատում է նախորդ թարմացման գնի հետ։ Իրական ժամանակի գների դեպքում այն մնում է 0%%-ին մոտ։</string>
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Փոխարկման արժույթ</string>

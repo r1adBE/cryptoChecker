@@ -33,9 +33,9 @@
     <string name="delivery_last_check_old">%1$s – 6 மணிநேரத்துக்கும் முன்பு</string>
     <string name="delivery_last_check_never">இன்னும் இல்லை</string>
     <!-- Knöpfe in den Zeilen -->
-    <string name="delivery_action_allow">அனுமதி</string>
-    <string name="delivery_action_change">மாற்று</string>
-    <string name="delivery_action_show">காட்டு</string>
+    <string name="delivery_action_allow">அனுமதிக்கவும்</string>
+    <string name="delivery_action_change">மாற்றவும்</string>
+    <string name="delivery_action_show">காட்டவும்</string>
     <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
     <string name="delivery_alert_sound">பேனர்களும் ஒலியும்</string>
     <string name="delivery_alert_off">பேனர்கள் ஆஃப் – விழிப்பூட்டல்கள் அறிவிப்பு மையத்தில் மட்டும் தோன்றும்</string>

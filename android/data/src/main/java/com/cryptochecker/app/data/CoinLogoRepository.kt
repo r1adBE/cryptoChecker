@@ -26,9 +26,10 @@ import javax.inject.Singleton
  *    zwischenspeichern), zusammengeführt mit den Listen aus 1 ([CoinMeta.merge]). Fehlte eine Quelle,
  *    bleibt Bekanntes erhalten und der Abruf wird nach einigen Stunden wiederholt.
  * 3. [startSync] lädt die Logos **aller** Coins dieser Liste von den Bildservern von CoinGecko und
- *    Binance, mehrere gleichzeitig je Server; die Bilder der grössten 1000 beginnen schon, während die
- *    übrigen Seiten der Rangliste noch laden. Später fehlen nur neu dazugekommene oder geänderte. Bremst
- *    ein Bild-Server (429/403/503), pausiert nur dieser.
+ *    Binance ([com.cryptochecker.app.domain.logos.CoinLogoQueue]: für alle dieselbe Reihenfolge, je Server höchstens
+ *    4, insgesamt 6 gleichzeitig): die bei Binance gelisteten schon vor der ersten Seite der Rangliste, die grössten
+ *    1000, während die übrigen Seiten noch laden. Später fehlen nur neu dazugekommene oder geänderte. Bremst ein Bild-Server
+ *    (429/403/503), pausiert nur dieser.
  * 4. Angezeigt wird nur aus Speicher und Datei ([logo]); fehlt ein geladenes Logo, das
  *    mitgelieferte Icon-Paket ([CoinLogos.ICON_PACK_FILE], CC0), sonst Initialen.
  *

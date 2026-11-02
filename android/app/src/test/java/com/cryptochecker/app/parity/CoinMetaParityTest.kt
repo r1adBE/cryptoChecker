@@ -60,6 +60,21 @@ class CoinMetaParityTest {
         assertEquals("Worldcoin", CoinMeta.binanceFullNames(binance)["WLD"])
     }
 
+    /** Bei Binance gelistete Krypto-Kürzel: ihr Logo lädt zuerst und geht in [CoinMeta.merge] vor (CoinGecko nur Lücken). */
+    @Test
+    fun binanceFirst_spotLogosBeforeCoinGecko() {
+        val binance = CoinMeta.parseBinanceList(raw("binanceList"))
+        val gecko = CoinMeta.parseMarketsPage(raw("geckoPage"))
+        assertNotNull(binance)
+        assertNotNull(gecko)
+        if (binance == null || gecko == null) return
+        val expected = data["binanceFirst"].obj()["expected"].obj().mapValues { it.value as String }
+        assertEquals(expected, CoinMeta.binanceFirst(binance))
+        assertEquals(emptyMap<String, String>(), CoinMeta.binanceFirst(null))
+        val merged = CoinMeta.merge(gecko, binance, null).map
+        expected.forEach { (key, url) -> assertEquals("Vorrang $key", url, merged[key]) }
+    }
+
     @Test
     fun metaOnly_whenDirectListsFail() {
         val meta = CoinMeta.parse(raw("coinMeta"))

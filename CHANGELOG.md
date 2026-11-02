@@ -16,6 +16,13 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 185)
+
+* Coin logos appear much faster after installing: Binance logos come first, several images load at once, in the same order for everyone. Until a logo is there, a coloured circle with the initials stands in; the logo fades in (no fade with Reduce Motion). Also in the widgets.
+* Market data: the spot card picks the CoinGecko entry by name; with an ambiguous ticker and no matching name it shows nothing instead of another token.
+* Alarm sound row without the lone note icon; Android shows the pulse line before «Crypto pulse» like iOS.
+* Languages: Telugu and Tamil buttons in the polite form; Hebrew and Danish use one quotation style; Georgian, Armenian and Latvian terms translated; Norwegian store text fixed.
+
 ## 16.2.2 (build 184)
 
 * Tax templates: the country figures are shown again in the card and in every CSV. The beta note invites you to report errors on GitHub – the app is free, so the community helps keep the templates right.

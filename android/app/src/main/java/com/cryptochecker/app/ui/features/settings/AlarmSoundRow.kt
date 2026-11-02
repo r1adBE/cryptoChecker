@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.DropdownMenu
@@ -153,14 +152,8 @@ internal fun AlarmSoundRow(
                 .clickable { menu = true }
                 .padding(vertical = Spacing.lg)
         ) {
-            Icon(
-                painterResource(R.drawable.ic_music_note),
-                contentDescription = null,
-                // Einfarbig in der Textfarbe wie alle Symbole der Einstellungen
-                tint = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.size(20.dp)
-            )
-            Column(modifier = Modifier.weight(1f).padding(start = 12.dp)) {
+            // Ohne Symbol links: Text bündig mit den Nachbarzeilen der Karte (wie iOS)
+            Column(modifier = Modifier.weight(1f)) {
                 Text(stringResource(R.string.settings_alarm_sound), style = MaterialTheme.typography.bodyLarge)
                 Text(
                     text = if (isCustom) soundName ?: stringResource(R.string.settings_alarm_sound_custom)

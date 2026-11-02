@@ -1,7 +1,8 @@
 package com.cryptochecker.app.ui.components
 
-import com.cryptochecker.app.ui.theme.AppColors
 import android.graphics.Bitmap
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -22,6 +23,7 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
@@ -33,6 +35,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
+import com.cryptochecker.app.domain.logos.CoinLogoPlaceholder
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.ui.theme.LocalDarkTheme
 import kotlinx.coroutines.flow.StateFlow
@@ -88,7 +91,9 @@ fun coinName(exchangeKey: String, base: String, quote: String, contractType: Str
 
 /**
  * Runde Coin-Plakette, nur mit eingeschaltetem Schalter «Coin-Logos» (App bzw. [portfolio]): echtes
- * Logo, sonst der Kreis mit den Initialen in der Akzentfarbe — nie ein kaputtes Bild. Schalter aus:
+ * Logo, sonst der farbige Ersatz-Kreis mit den Initialen ([CoinLogoPlaceholder], Farbe fest aus dem Kürzel) — nie ein
+ * kaputtes Bild. Kommt das Logo erst später (Abgleich im Hintergrund), blendet es über dem Kreis ein
+ * ([CoinLogoPlaceholder.FADE_MILLIS]; ohne Animation bei «Animationen entfernen», [rememberReduceMotion]). Schalter aus:
  * gar nichts (weder Logo noch Initialen, auch kein Platz). Feste Grösse, nimmt also nie Breite von
  * Kurs- oder Zahlenspalten. Dunkel: heller Grund hinter dem Logo. Rein dekorativ.
  *
@@ -117,13 +122,22 @@ fun CoinBadge(
     val key = CoinLogos.logoKey(coin, tradFi)
     // Je Coin ein eigener Zustand: Zeilen werden wiederverwendet, nie das Logo des vorigen Coins
     val state = remember(key, source) { mutableStateOf(source?.cached(key)) }
+    // Logo schon beim Zeichnen da: sofort zeigen; kommt es später: einblenden
+    val shown = remember(key, source) { Animatable(if (state.value != null) 1f else 0f) }
+    val reduceMotion = rememberReduceMotion()
     // Neue Logos auf dem Gerät (Abgleich im Hintergrund): fehlende erneut versuchen
     val revision = source?.revision?.collectAsState()?.value ?: 0
     LaunchedEffect(key, source, revision) {
         if (state.value == null) state.value = source?.load(key)
     }
     val bitmap = state.value
+    LaunchedEffect(shown, bitmap != null, reduceMotion) {
+        if (bitmap == null) return@LaunchedEffect
+        if (reduceMotion) shown.snapTo(1f) else shown.animateTo(1f, tween(CoinLogoPlaceholder.FADE_MILLIS))
+    }
     Box(modifier = modifier.size(size).clearAndSetSemantics { }) {
+        // Ersatz-Kreis bleibt unter dem einblendenden Logo, bis es ganz da ist
+        if (bitmap == null || shown.value < 1f) PlaceholderCircle(coin, size)
         if (bitmap != null) {
             val image = remember(bitmap) { bitmap.asImageBitmap() }
             val backing = if (LocalDarkTheme.current) MaterialTheme.colorScheme.onSurface.copy(alpha = LOGO_BACKING_DARK_ALPHA)
@@ -131,6 +145,7 @@ fun CoinBadge(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
+                    .graphicsLayer { alpha = shown.value }
                     .clip(CircleShape)
                     .background(backing)
             ) {
@@ -141,20 +156,18 @@ fun CoinBadge(
                     modifier = Modifier.fillMaxSize()
                 )
             }
-        } else {
-            InitialsCircle(coin, size)
         }
         if (favorite) FavoriteStar(size, ringColor, Modifier.align(Alignment.BottomEnd))
     }
 }
 
 /**
- * Ersatz-Kreis: Akzentfarbe getönt ([INITIALS_TINT_LIGHT] bzw. [INITIALS_TINT_DARK]), Initialen in der Akzentfarbe.
- * Hell schwächer getönt: mit 14 % lagen die Initialen auf surfaceContainer unter 4.5:1.
+ * Ersatz-Kreis ([CoinLogoPlaceholder]): Füllung fest aus dem Kürzel, Initialen weiss (hell) bzw. fast schwarz
+ * (dunkel), mindestens 4.5:1 auf jeder Füllung — auch für TradFi ohne Logo und DEX-Pools.
  */
 @Composable
-private fun InitialsCircle(coin: String, size: Dp) {
-    val accent = MaterialTheme.colorScheme.primary
+private fun PlaceholderCircle(coin: String, size: Dp) {
+    val dark = LocalDarkTheme.current
     val initials = CoinLogos.initials(coin)
     // Schrift wächst mit der Plakette (40 dp → 13 bzw. 11), unabhängig von der Systemschrift,
     // damit vier Zeichen immer in den Kreis passen
@@ -164,11 +177,11 @@ private fun InitialsCircle(coin: String, size: Dp) {
         modifier = Modifier
             .fillMaxSize()
             .clip(CircleShape)
-            .background(AppColors.accentTint(if (LocalDarkTheme.current) INITIALS_TINT_DARK else INITIALS_TINT_LIGHT))
+            .background(Color(CoinLogoPlaceholder.fill(coin, dark)))
     ) {
         Text(
             text = initials,
-            color = accent,
+            color = Color(CoinLogoPlaceholder.text(dark)),
             fontWeight = FontWeight.Bold,
             fontSize = fontSize,
             maxLines = 1,
@@ -200,12 +213,6 @@ private fun FavoriteStar(badgeSize: Dp, ringColor: Color, modifier: Modifier) {
         )
     }
 }
-
-/** Tönung des Initialen-Kreises hell: primary darauf über surfaceContainer ≥ 4.5:1 (AccentContrastTest, iOS gleich). */
-internal const val INITIALS_TINT_LIGHT = 0.06f
-
-/** Tönung des Initialen-Kreises dunkel (unverändert). */
-internal const val INITIALS_TINT_DARK = 0.14f
 
 /** Heller Grund hinter Logos im Dunkelmodus (onSurface, leicht gedämpft). */
 private const val LOGO_BACKING_DARK_ALPHA = 0.92f

@@ -74,6 +74,24 @@ class SpotMarketParityTest {
         }
     }
 
+    /** Treffer nach Namen statt Marktkapitalisierung; ohne passenden Namen keiner (PP3). */
+    @Test
+    @Suppress("UNCHECKED_CAST")
+    fun pickByIdentity() {
+        val section = data["pickIdentity"] as Map<String, Any?>
+        val parsed = SpotMarket.parse(section["body"] as String)
+        val cases = (section["cases"] as List<Any?>).map { it as Map<String, Any?> }
+        assertTrue(cases.isNotEmpty())
+        cases.forEach { c ->
+            val identity = SpotMarket.Identity(
+                ownName = c["ownName"] as String?,
+                binanceName = c["binanceName"] as String?,
+                otherNames = (c["otherNames"] as List<String?>?).orEmpty(),
+            )
+            assertEquals("pickIdentity: $c", c["expected"], SpotMarket.pick(parsed, c["symbol"] as String, identity)?.id)
+        }
+    }
+
     @Test
     fun ratios() {
         list("volumeToMarketCap").forEach { c ->

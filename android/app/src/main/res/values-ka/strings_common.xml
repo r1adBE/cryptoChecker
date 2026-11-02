@@ -36,7 +36,7 @@
     <!-- Verbindungsstatus (Status-Pille) -->
     <string name="offline_status">კავშირი არ არის</string>
     <string name="offline_status_since">კავშირი არ არის · მდგომარეობა: %1$s</string>
-    <string name="status_live">Live</string>
+    <string name="status_live">პირდაპირ</string>
 
     <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
     <string name="shortcut_add">წყვილის დამატება</string>

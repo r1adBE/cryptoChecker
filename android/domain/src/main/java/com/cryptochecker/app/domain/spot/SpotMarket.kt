@@ -2,6 +2,8 @@ package com.cryptochecker.app.domain.spot
 
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.macro.MiniJson
+import com.cryptochecker.app.domain.portfolio.PortfolioPriceIdentity
+import com.cryptochecker.app.domain.watch.TokenIdentity
 import com.cryptochecker.app.util.LocaleNumbers
 import com.cryptochecker.app.util.PercentText
 import java.time.Instant
@@ -40,7 +42,10 @@ data class SpotData(
  *   Nutzer den Spot-Tab öffnet, ~10 min im Speicher ([CACHE_TTL_MILLIS]).
  * - Kein Abruf für TradFi-Paare und DEX-Pools ([eligible]) und für Kürzel ausserhalb A–Z/0–9
  *   ([lookupSymbol]): Dort heisst oft ein fremder Token gleich.
- * - Teilen sich Coins ein Kürzel, gewinnt der mit der grössten Marktkapitalisierung ([pick]).
+ * - Welcher Treffer zum Paar gehört, entscheidet der Name ([pick], [Identity]) — wie beim Portfolio-Kurs
+ *   ([PortfolioPriceIdentity]): gemessen am Namen des Paars (sonst Binances Namen); ohne passenden Namen
+ *   lieber keine Spot-Daten als die eines anderen Tokens. Die grösste Marktkapitalisierung entscheidet nur
+ *   noch unter Treffern mit gleichem Namen.
  * - Beträge ≤ 0 (CoinGecko meldet 0 für «unbekannt») gelten als fehlend; Volumen 0 bleibt.
  */
 object SpotMarket {
@@ -113,14 +118,55 @@ object SpotMarket {
         }
     }
 
-    /** Eintrag zum Kürzel: bei mehreren der mit der grössten Marktkapitalisierung (sonst der erste). */
-    fun pick(entries: List<SpotData>, symbol: String): SpotData? {
+    /**
+     * Wen meint das Paar? [ownName]: Name aus der Paarliste der eigenen Börse; [binanceName]: `fullName` von Binance;
+     * [otherNames]: Namen des Kürzels in den übrigen Paarlisten (je Börse einer). Alles optional.
+     */
+    data class Identity(
+        val ownName: String? = null,
+        val binanceName: String? = null,
+        val otherNames: List<String?> = emptyList(),
+    )
+
+    /**
+     * Name, an dem die CoinGecko-Treffer gemessen werden — Regel des Portfolio-Kurses
+     * ([PortfolioPriceIdentity.binanceCheck]): der eigene Name, sonst Binances Name, ausser das Kürzel ist ein bekanntes
+     * Doppel-Kürzel ([PortfolioPriceIdentity.knownCollision]) oder die Paarlisten führen darunter klar verschiedene
+     * Token ([PortfolioPriceIdentity.ambiguous]). null = kein brauchbarer Name.
+     */
+    fun referenceName(symbol: String, identity: Identity): String? {
+        identity.ownName?.takeIf { TokenIdentity.normalizeName(it, symbol) != null }?.let { return it }
+        val binance = identity.binanceName?.takeIf { TokenIdentity.normalizeName(it, symbol) != null } ?: return null
+        if (PortfolioPriceIdentity.knownCollision(symbol)) return null
+        if (PortfolioPriceIdentity.ambiguous(symbol, binance, identity.otherNames)) return null
+        return binance
+    }
+
+    /**
+     * Eintrag zum Kürzel nach Namen ([TokenIdentity.matchNames] gegen [referenceName]), nicht nach Grösse:
+     *  - gleicher Name ([TokenIdentity.Match.MEDIUM]): dieser; mehrere mit gleichem Namen → grösste Marktkapitalisierung;
+     *  - nur ähnlicher Name ([TokenIdentity.Match.WEAK]): nur, wenn er der einzige Treffer ist;
+     *  - klar anderer Name: nie.
+     * Ohne brauchbaren Namen nur ein einziger Treffer, und nicht bei bekanntem Doppel-Kürzel oder widersprüchlichen
+     * Paarlisten. Sonst null — lieber keine Spot-Daten als die eines anderen Tokens.
+     */
+    fun pick(entries: List<SpotData>, symbol: String, identity: Identity = Identity()): SpotData? {
+        val hits = entries.filter { it.symbol == symbol }
+        if (hits.isEmpty()) return null
+        val reference = referenceName(symbol, identity)
+        if (reference == null) {
+            if (hits.size != 1 || PortfolioPriceIdentity.knownCollision(symbol)) return null
+            if (PortfolioPriceIdentity.ambiguous(symbol, identity.binanceName, identity.otherNames)) return null
+            return hits[0]
+        }
+        val matches = hits.map { it to TokenIdentity.matchNames(symbol, reference, it.name) }
         var best: SpotData? = null
-        for (e in entries) {
-            if (e.symbol != symbol) continue
+        for ((e, match) in matches) {
+            if (match != TokenIdentity.Match.MEDIUM && match != TokenIdentity.Match.STRONG) continue
             if (best == null || (e.marketCap ?: -1.0) > (best.marketCap ?: -1.0)) best = e
         }
-        return best
+        if (best != null) return best
+        return matches.singleOrNull()?.takeIf { it.second == TokenIdentity.Match.WEAK }?.first
     }
 
     /** Volumen im Verhältnis zur Marktkapitalisierung in Prozent; null ohne beide Werte. */

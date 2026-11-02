@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Alarmliste und Übersicht aller Alarme -->
-    <string name="add_alarm_action">అలర్ట్ సెట్ చేయి</string>
+    <string name="add_alarm_action">అలర్ట్ సెట్ చేయండి</string>
     <string name="alarms_add">కొత్త అలర్ట్</string>
-    <string name="alarms_edit">అలర్ట్‌ను ఎడిట్ చేయి</string>
+    <string name="alarms_edit">అలర్ట్‌ను ఎడిట్ చేయండి</string>
     <string name="alarms_empty">ఈ జతకు ఇంకా అలర్ట్‌లు లేవు.</string>
     <string name="alarms_empty_example">ఉదాహరణకు: BTC %1$s పైకి పెరిగినప్పుడు నాకు చెప్పండి.</string>
     <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
     <string name="alarms_notifications_off">నోటిఫికేషన్‌లు ఆఫ్‌లో ఉన్నాయి – అలర్ట్‌లు మీకు చేరలేవు.</string>
-    <string name="alarms_notifications_turn_on">ఆన్ చేయి</string>
+    <string name="alarms_notifications_turn_on">ఆన్ చేయండి</string>
     <plurals name="alarms_overview_active">
         <item quantity="one">%1$d యాక్టివ్</item>
         <item quantity="other">%1$d యాక్టివ్</item>
@@ -19,11 +19,11 @@
 
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">అధునాతనం</string>
-    <string name="alarm_change_updates">ధర అప్‌డేట్‌లను సర్దుబాటు చేయి</string>
+    <string name="alarm_change_updates">ధర అప్‌డేట్‌లను సర్దుబాటు చేయండి</string>
     <string name="alarm_check_mode_15min">సుమారు ప్రతి 15 నిమిషాలకు</string>
     <string name="alarm_check_mode_saving">పొదుపుగా</string>
     <string name="alarm_check_mode_title">పరికరం నిష్క్రియంగా ఉన్నప్పుడు ఎంత తరచుగా తనిఖీ చేయాలి?</string>
-    <string name="alarm_create">అలర్ట్‌ను సృష్టించు</string>
+    <string name="alarm_create">అలర్ట్‌ను సృష్టించండి</string>
     <string name="alarm_currency_label">కరెన్సీ</string>
     <string name="alarm_delete_confirm">ఈ అలర్ట్ తీసివేయబడుతుంది.</string>
     <string name="alarm_delete_title">అలర్ట్‌ను తొలగించాలా?</string>
@@ -31,8 +31,8 @@
     <string name="alarm_field_price">ధర</string>
     <string name="alarm_fires_now_above">ధర ఇప్పటికే %1$s పైన ఉంది. అయినా సేవ్ చేయాలా?</string>
     <string name="alarm_fires_now_below">ధర ఇప్పటికే %1$s కింద ఉంది. అయినా సేవ్ చేయాలా?</string>
-    <string name="alarm_fires_now_change">మార్చు</string>
-    <string name="alarm_fires_now_save">అయినా సేవ్ చేయి</string>
+    <string name="alarm_fires_now_change">మార్చండి</string>
+    <string name="alarm_fires_now_save">అయినా సేవ్ చేయండి</string>
     <string name="alarm_fires_now_title">అలర్ట్ ఇప్పుడే ట్రిగ్గర్ అవుతుంది</string>
     <string name="alarm_first_battery_hint">బ్యాటరీ ఆప్టిమైజేషన్ యాప్‌ను పరిమితం చేస్తోంది – అలర్ట్‌లు ఆలస్యంగా రావచ్చు.</string>
     <string name="alarm_first_title">అలర్ట్ సేవ్ అయింది</string>
@@ -40,9 +40,9 @@
     <string name="alarm_more_conditions">మరిన్ని షరతులు</string>
     <string name="alarm_new_extreme">కొత్త %1$s</string>
     <string name="alarm_once">ఒకసారి</string>
-    <string name="alarm_option_repeating">తెలియజేయి</string>
+    <string name="alarm_option_repeating">తెలియజేయండి</string>
     <string name="alarm_option_sound">శబ్దం</string>
-    <string name="alarm_option_speak">అలర్ట్‌ను చదివి వినిపించు</string>
+    <string name="alarm_option_speak">అలర్ట్‌ను చదివి వినిపించండి</string>
     <string name="alarm_option_vibrate">వైబ్రేషన్</string>
     <string name="alarm_repeat_each">ప్రతిసారీ</string>
     <string name="alarm_repeat_once">ఒకసారి</string>
@@ -62,9 +62,9 @@
     <string name="alarm_simple_below">ఈ స్థాయి కంటే కిందికి వెళ్తే:</string>
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">%1$s ధర</string>
-    <string name="alarm_template_a11y">అలర్ట్‌ను సృష్టించు: %1$s</string>
-    <string name="alarm_template_a11y_down">ప్రస్తుత ధర నుండి మైనస్ %1$s శాతం వద్ద అలర్ట్‌ను సృష్టించు</string>
-    <string name="alarm_template_a11y_up">ప్రస్తుత ధర నుండి ప్లస్ %1$s శాతం వద్ద అలర్ట్‌ను సృష్టించు</string>
+    <string name="alarm_template_a11y">అలర్ట్‌ను సృష్టించండి: %1$s</string>
+    <string name="alarm_template_a11y_down">ప్రస్తుత ధర నుండి మైనస్ %1$s శాతం వద్ద అలర్ట్‌ను సృష్టించండి</string>
+    <string name="alarm_template_a11y_up">ప్రస్తుత ధర నుండి ప్లస్ %1$s శాతం వద్ద అలర్ట్‌ను సృష్టించండి</string>
     <string name="alarm_template_from_now">ఇప్పటి నుండి</string>
     <string name="alarm_template_volume">వాల్యూమ్ ×%1$s</string>
     <string name="alarm_templates_title">త్వరిత అలర్ట్‌లు</string>
@@ -131,7 +131,7 @@
     <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
     <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
     <string name="alarm_funding_hint_8h">8 గంటలకు ఫండింగ్ రేటు. వేరే వ్యవధి ఉన్న కాంట్రాక్ట్‌లు మార్చబడతాయి (1 గం × 8, 4 గం × 2); ఫ్యూచర్స్ కార్డ్ మార్చిన విలువను చూపుతుంది. వ్యవధి తెలియకపోతే, అలర్ట్ తనిఖీ చేయదు. నెగెటివ్ అంటే షార్ట్‌లు లాంగ్‌లకు చెల్లిస్తాయి. ± గుర్తును మారుస్తుంది.</string>
-    <string name="alarm_funding_sign_a11y">గుర్తును మార్చు</string>
+    <string name="alarm_funding_sign_a11y">గుర్తును మార్చండి</string>
     <string name="alarm_oi_hint">ఓపెన్ ఇంట్రెస్ట్‌ను అన్ని గంటల క్రితం నిల్వ చేసిన విలువతో పోలుస్తుంది. యాప్ అంత కాలం డేటాను సేకరించిన తర్వాతే కొత్త అలర్ట్ తెలియజేస్తుంది; గరిష్ఠంగా 5 నిమిషాలకు ఒకసారి తనిఖీ చేయబడుతుంది.</string>
     <string name="alarm_volume_factor_label">గత గంట వాల్యూమ్ vs. సాధారణం</string>
     <string name="alarm_volume_hint">వాల్యూమ్ డేటా Binance నుండి వస్తుంది — అక్కడ లిస్ట్ కాని జతలు ఎప్పుడూ ట్రిగ్గర్ కావు.</string>
@@ -157,11 +157,11 @@
     <string name="alarm_signal_sound_vibrate">శబ్దం, వైబ్రేషన్</string>
     <string name="alarm_signal_system">సిస్టమ్</string>
     <string name="alarm_signal_vibrate">వైబ్రేషన్ మాత్రమే</string>
-    <string name="alarm_test">అలర్ట్‌ను పరీక్షించు</string>
-    <string name="alarm_test_action">పరీక్షించు</string>
+    <string name="alarm_test">అలర్ట్‌ను పరీక్షించండి</string>
+    <string name="alarm_test_action">పరీక్షించండి</string>
     <string name="alarm_test_denied">Crypto Checkerకు నోటిఫికేషన్‌లు ఆఫ్ చేయబడ్డాయి.</string>
     <string name="alarm_test_hint">మీ శబ్దం, వైబ్రేషన్, స్పీచ్ సెట్టింగ్‌లతో ఒక నమూనా అలర్ట్‌ను పంపుతుంది.</string>
-    <string name="alarm_test_open_settings">సెట్టింగ్‌లను తెరువు</string>
+    <string name="alarm_test_open_settings">సెట్టింగ్‌లను తెరవండి</string>
     <string name="alarm_test_quiet">ప్రస్తుతం నిశ్శబ్ద సమయం ఆన్‌లో ఉంది: నిజమైన అలర్ట్‌లు అది ముగిసే వరకు వేచి ఉండి, ఆ తర్వాత శబ్దంతో మోగుతాయి.</string>
     <string name="alarm_test_text">అలర్ట్ ఇలా కనిపిస్తుంది, ఇలా వినిపిస్తుంది.</string>
     <string name="alarm_test_title">పరీక్ష: Crypto Checker అలర్ట్</string>

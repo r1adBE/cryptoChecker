@@ -9,7 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">போர்ட்ஃபோலியோவிலிருந்து வெளியேறும் (திரும்பப்பெறுதல்)</string>
     <string name="portfolio_csv_import_choose_each">ஒவ்வொரு திரும்பப்பெறுதலும் எங்கே சென்றது என்பதைத் தேர்ந்தெடுக்கவும்.</string>
     <string name="portfolio_csv_import_columns">அடையாளம் காணப்பட்ட நெடுவரிசைகள்: %1$s</string>
-    <string name="portfolio_csv_import_confirm">இறக்குமதி செய் (%1$d)</string>
+    <string name="portfolio_csv_import_confirm">இறக்குமதி செய்யவும் (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">நாள்/மாதம்</string>
     <string name="portfolio_csv_import_date_month_first">மாதம்/நாள்</string>
     <string name="portfolio_csv_import_date_order">தெளிவற்ற தேதிகள் (எ.கா. 03/04/2024) இவ்வாறு படிக்கப்படும்:</string>
@@ -43,7 +43,7 @@
     <string name="portfolio_csv_import_stable_swaps">ஸ்டேபிள்காயின்களுக்கு (USDT, USDC …) எதிரான வர்த்தகங்கள் ஸ்வாப்களாகப் பதிவுசெய்யப்படும் – ஸ்டேபிள்காயின் உங்கள் இருப்புகளில் தோன்றும்.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">பல பொருத்தங்கள் சாத்தியம் – சரியானதைத் தேர்ந்தெடுக்கவும் அல்லது எதையும் தேர்ந்தெடுக்க வேண்டாம்.</string>
     <string name="portfolio_csv_import_transfer_fee">நெட்வொர்க் கட்டணம்: %1$s</string>
-    <string name="portfolio_csv_import_transfer_link">ஒரே பரிமாற்றமாகப் பதிவுசெய்</string>
+    <string name="portfolio_csv_import_transfer_link">ஒரே பரிமாற்றமாகப் பதிவுசெய்யவும்</string>
     <string name="portfolio_csv_import_transfer_stored">முந்தைய இறக்குமதியிலிருந்து இணைப் பதிவு</string>
     <string name="portfolio_csv_import_transfers_hint">ஒரே காயினின் ஒரு திரும்பப்பெறுதலும் அதற்குப் பொருந்தும் வைப்பும் ஒரே பரிமாற்றமாகும்: வாங்கிய விலையும் வைத்திருக்கும் காலமும் தொடரும், வித்தியாசம் நெட்வொர்க் கட்டணமாகக் கணக்கிடப்படும்.</string>
     <string name="portfolio_csv_import_transfers_title">உங்கள் கணக்குகளுக்கு இடையிலான பரிமாற்றங்கள்</string>
@@ -67,7 +67,7 @@
     <string name="portfolio_csv_skip_unsupported">ஆதரிக்கப்படாத வகை</string>
 
     <!-- Portfolio: Importe ansehen und rückgängig machen -->
-    <string name="portfolio_import_undo">செயல்தவிர்</string>
+    <string name="portfolio_import_undo">செயல்தவிர்க்கவும்</string>
     <plurals name="portfolio_import_undo_confirm">
         <item quantity="one">இந்த இறக்குமதியின் %d பரிவர்த்தனையை நீக்கவா? கைமுறைப் பதிவுகளும் பிற இறக்குமதிகளும் அப்படியே இருக்கும்.</item>
         <item quantity="other">இந்த இறக்குமதியின் %d பரிவர்த்தனைகளை நீக்கவா? கைமுறைப் பதிவுகளும் பிற இறக்குமதிகளும் அப்படியே இருக்கும்.</item>

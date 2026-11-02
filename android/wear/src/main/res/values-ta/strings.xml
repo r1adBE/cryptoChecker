@@ -4,8 +4,8 @@
     <string name="watch_loading">ஏற்றுகிறது…</string>
     <string name="watch_error">எக்ஸ்சேஞ்ச்களை அணுக முடியவில்லை</string>
     <string name="watch_updated">%1$s நிலவரப்படி</string>
-    <string name="watch_refresh">புதுப்பி</string>
-    <string name="watch_choose">காயின்களைத் தேர்ந்தெடு</string>
+    <string name="watch_refresh">புதுப்பிக்கவும்</string>
+    <string name="watch_choose">காயின்களைத் தேர்ந்தெடுக்கவும்</string>
     <string name="watch_choose_hint">காயின்கள்: அதிகபட்சம் %1$d</string>
     <string name="watch_complication_label">விலை</string>
     <string name="a11y_watch_row">%1$s %2$s, 24 மணிநேரத்தில் %3$s</string>

@@ -162,7 +162,13 @@ struct WatchlistMarketDataSection: View {
     private static func loadSpot(_ watch: Watch) async -> SpotData? {
         guard SpotMarket.eligible(exchangeKey: watch.exchangeKey, tradFi: isTradFi(watch)),
               let symbol = SpotMarket.lookupSymbol(watch.baseAsset) else { return nil }
-        return await SpotDataSource.shared.fetch(symbol: symbol)
+        // Welcher CoinGecko-Treffer gemeint ist, entscheidet der Name (wie beim Portfolio-Kurs), nicht die Grösse
+        let names = TokenIdentityStore.shared
+        let identity = SpotMarket.Identity(
+            ownName: names.pairName(exchangeKey: watch.exchangeKey, base: watch.baseAsset),
+            binanceName: names.binanceName(watch.baseAsset) ?? names.binanceName(symbol),
+            otherNames: names.otherNames(watch.baseAsset))
+        return await SpotDataSource.shared.fetch(symbol: symbol, identity: identity)
     }
 
     private static func isTradFi(_ watch: Watch) -> Bool {

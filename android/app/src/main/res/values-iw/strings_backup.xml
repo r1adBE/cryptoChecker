@@ -76,13 +76,13 @@
     <string name="settings_reset_notice">לא ניתן היה לקרוא את ההגדרות והן אופסו לברירות המחדל. בדקו את נעילת תיק ההשקעות, מרווח ההתראות והמטבע.</string>
     <string name="backup_restore_interrupted_title">השחזור נקטע</string>
     <string name="backup_restore_interrupted_rolled_back">האפליקציה נסגרה במהלך שחזור גיבוי. הנתונים הקודמים שלך הוחזרו; דבר מהגיבוי לא נשמר.</string>
-    <string name="backup_restore_interrupted_incomplete">האפליקציה נסגרה במהלך שחזור גיבוי, ולא ניתן היה להחזיר את הנתונים הקודמים במלואם. נא לבדוק את רשימת המעקב והתיק, או לשחזר שוב את הגיבוי תחת „%1$s” בהגדרות.</string>
+    <string name="backup_restore_interrupted_incomplete">האפליקציה נסגרה במהלך שחזור גיבוי, ולא ניתן היה להחזיר את הנתונים הקודמים במלואם. נא לבדוק את רשימת המעקב והתיק, או לשחזר שוב את הגיבוי תחת «%1$s» בהגדרות.</string>
     <string name="backup_not_verified">לא ניתן היה לאמת את קובץ הגיבוי לאחר השמירה – בקריאה חוזרת הוא שונה. נא לשמור את הגיבוי בקובץ חדש.</string>
 
     <!-- Hinweis (nur Android): Portfolio-Kopie aus der Systemsicherung auch beim zweiten Versuch unlesbar und gelöscht -->
     <string name="system_backup_not_imported_title">התיק לא שוחזר מגיבוי המערכת</string>
     <!-- %1$s = Name des Bereichs «Sichern &amp; Wiederherstellen» in den Einstellungen -->
-    <string name="system_backup_not_imported_message">לא ניתן היה לקרוא את עותק התיק מגיבוי המערכת של Android, גם בניסיון השני, והוא נמחק. אם יש לך קובץ גיבוי, שחזרו אותו בהגדרות תחת „%1$s”.</string>
+    <string name="system_backup_not_imported_message">לא ניתן היה לקרוא את עותק התיק מגיבוי המערכת של Android, גם בניסיון השני, והוא נמחק. אם יש לך קובץ גיבוי, שחזרו אותו בהגדרות תחת «%1$s».</string>
 
     <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
     <string name="portfolio_storage_kept_in_memory">לא ניתן לקרוא כרגע את הנתונים השמורים, ולכן התיק לא מוצג ואי אפשר לשנות אותו. הפעילו מחדש את האפליקציה.</string>

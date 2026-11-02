@@ -2,9 +2,9 @@
 <resources>
     <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
     <string name="app_lock_unavailable">இந்தச் சாதனத்தில் திரைப் பூட்டு அமைக்கப்படவில்லை. முதலில் சிஸ்டம் அமைப்புகளில் ஒன்றை அமைக்கவும்.</string>
-    <string name="app_lock_unlock">திற</string>
+    <string name="app_lock_unlock">திறக்கவும்</string>
     <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
-    <string name="portfolio_clear">போர்ட்ஃபோலியோவை அழி</string>
+    <string name="portfolio_clear">போர்ட்ஃபோலியோவை அழிக்கவும்</string>
     <plurals name="portfolio_clear_confirm_count">
         <item quantity="one">%d பரிவர்த்தனையை நீக்கவா? கண்காணிக்கப்படும் முகவரிகள் அப்படியே இருக்கும். உடனே இதைச் செயல்தவிர்க்கலாம்.</item>
         <item quantity="other">எல்லா %d பரிவர்த்தனைகளையும் நீக்கவா? கண்காணிக்கப்படும் முகவரிகள் அப்படியே இருக்கும். உடனே இதைச் செயல்தவிர்க்கலாம்.</item>
@@ -18,7 +18,7 @@
     <string name="portfolio_enable_ask_title">போர்ட்ஃபோலியோ தாவலை ஆன் செய்யவா?</string>
     <string name="portfolio_enable_later_hint">பரிவர்த்தனை சேமிக்கப்பட்டது. அமைப்புகள் › போர்ட்ஃபோலியோ என்பதில் போர்ட்ஃபோலியோ தாவலை ஆன் செய்யலாம்.</string>
     <string name="portfolio_enabled_banner">போர்ட்ஃபோலியோ ஆன் செய்யப்பட்டது – போர்ட்ஃபோலியோ தாவலில் காணலாம்.</string>
-    <string name="portfolio_lock_reason">போர்ட்ஃபோலியோவைத் திற</string>
+    <string name="portfolio_lock_reason">போர்ட்ஃபோலியோவைத் திறக்கவும்</string>
     <string name="portfolio_locked_text">உங்கள் இருப்புகளையும் மதிப்புகளையும் காணத் திறக்கவும்.</string>
     <string name="portfolio_locked_title">போர்ட்ஃபோலியோ பூட்டப்பட்டுள்ளது</string>
     <string name="portfolio_setting_hint">விருப்பத்தேர்வு: வாங்குதல்களையும் விற்பனைகளையும் பதிவுசெய்து, மதிப்பையும் லாபம்/நஷ்டத்தையும் தனித் தாவலில் காணுங்கள்.</string>
@@ -42,7 +42,7 @@
     <string name="portfolio_card_today">இன்று</string>
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">மொத்தம்</string>
-    <string name="portfolio_hide_amounts">தொகைகளை மறை</string>
+    <string name="portfolio_hide_amounts">தொகைகளை மறைக்கவும்</string>
     <string name="portfolio_hide_amounts_hint">போர்ட்ஃபோலியோவிலும் போர்ட்ஃபோலியோ விட்ஜெட்டிலும் தொகைகளையும் மதிப்புகளையும் ••• எனக் காட்டும் – சதவீதங்கள் தெரியும்.</string>
     <string name="portfolio_invested">அடக்க விலை</string>
     <string name="portfolio_total_no_fx">%1$s க்கு மாற்று விகிதம் இல்லை – தொகைகள் USDT இல்</string>
@@ -73,8 +73,8 @@
     <string name="portfolio_withdrawn_gain">திரும்பப்பெறப்பட்டது: %1$s (திரும்பப்பெறும் வரையிலான மதிப்பு மாற்றம்)</string>
 
     <!-- Portfolio: Kurse und Umrechnung -->
-    <string name="portfolio_convert_to">இதற்கு மாற்று</string>
-    <string name="portfolio_convert_to_value">இதற்கு மாற்று: %1$s</string>
+    <string name="portfolio_convert_to">இதற்கு மாற்றவும்</string>
+    <string name="portfolio_convert_to_value">இதற்கு மாற்றவும்: %1$s</string>
     <string name="portfolio_current_missing">%1$s க்குத் தற்போதைய விலை இல்லை</string>
     <string name="portfolio_current_price">தற்போதைய விலை</string>
     <string name="portfolio_price_missing">விலை இல்லை</string>
@@ -89,16 +89,16 @@
     <string name="portfolio_usdt_assumed">USDT டாலர் விகிதம் இல்லை – 1 அமெரிக்க டாலராகக் கணக்கிடப்பட்டது</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
-    <string name="portfolio_add_from_watch">போர்ட்ஃபோலியோவில் சேர்</string>
-    <string name="portfolio_add_tx">பரிவர்த்தனையைச் சேர்</string>
-    <string name="portfolio_buy">வாங்கு</string>
+    <string name="portfolio_add_from_watch">போர்ட்ஃபோலியோவில் சேர்க்கவும்</string>
+    <string name="portfolio_add_tx">பரிவர்த்தனையைச் சேர்க்கவும்</string>
+    <string name="portfolio_buy">வாங்குதல்</string>
     <string name="portfolio_coin">காயின்</string>
     <string name="portfolio_coin_invalid">காயின் குறியீட்டை உள்ளிடவும்</string>
-    <string name="portfolio_coin_search">குறியீட்டைத் தேடு, எ.கா. BTC</string>
-    <string name="portfolio_discard_confirm">நிராகரி</string>
-    <string name="portfolio_discard_keep">திருத்தத்தைத் தொடர்</string>
+    <string name="portfolio_coin_search">குறியீட்டைத் தேடவும், எ.கா. BTC</string>
+    <string name="portfolio_discard_confirm">நிராகரிக்கவும்</string>
+    <string name="portfolio_discard_keep">திருத்தத்தைத் தொடரவும்</string>
     <string name="portfolio_discard_title">மாற்றங்களை நிராகரிக்கவா?</string>
-    <string name="portfolio_edit_tx">பரிவர்த்தனையைத் திருத்து</string>
+    <string name="portfolio_edit_tx">பரிவர்த்தனையைத் திருத்தவும்</string>
     <string name="portfolio_invalid">0 ஐவிடப் பெரிய சரியான எண்ணை உள்ளிடவும்.</string>
     <string name="portfolio_oversold">விற்பனைகள் இருப்புகளை மீறுகின்றன – பரிவர்த்தனைகளைச் சரிபார்க்கவும்.</string>
     <string name="portfolio_sell">விற்பனை</string>
@@ -178,9 +178,9 @@
     <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
     <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
     <string name="portfolio_chart_high">உச்சம் %1$s</string>
-    <string name="portfolio_compare">ஒப்பிடு</string>
+    <string name="portfolio_compare">ஒப்பிடவும்</string>
     <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
-    <string name="portfolio_compare_a11y">%1$s மற்றும் USDT ஐச் சதவீதத்தில் ஒப்பிடு</string>
+    <string name="portfolio_compare_a11y">%1$s மற்றும் USDT ஐச் சதவீதத்தில் ஒப்பிடவும்</string>
     <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
     <string name="portfolio_compare_chart_a11y">சதவீத ஒப்பீடு, %1$s: %2$s %3$s, USDT %4$s</string>
     <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
@@ -188,9 +188,9 @@
     <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
     <string name="portfolio_history_capped_data_start">விலைத் தரவு ஆகஸ்ட் 2017 வரை மட்டுமே பின்னோக்கிச் செல்கிறது — வரலாறு அங்கிருந்து தொடங்குகிறது.</string>
     <string name="portfolio_history_chip_since_first">அனைத்தும்</string>
-    <string name="portfolio_history_collapse">மதிப்பு வரலாற்றை மறை</string>
+    <string name="portfolio_history_collapse">மதிப்பு வரலாற்றை மறைக்கவும்</string>
     <string name="portfolio_history_converted">இன்றைய விகிதத்தில் மாற்றப்பட்டது</string>
-    <string name="portfolio_history_expand">மதிப்பு வரலாற்றைக் காட்டு</string>
+    <string name="portfolio_history_expand">மதிப்பு வரலாற்றைக் காட்டவும்</string>
     <string name="portfolio_history_gain_a11y">மதிப்பு %1$s. லாபம்/நஷ்டம், %2$s: %3$s</string>
     <string name="portfolio_history_gain_label">லாபம்/நஷ்டம்</string>
     <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
@@ -208,7 +208,7 @@
     <string name="portfolio_history_range_1y">1 ஆ</string>
     <string name="portfolio_history_range_30d">30 நா</string>
     <string name="portfolio_history_range_7d">7 நா</string>
-    <string name="portfolio_history_range_a11y">%1$s க்கான வரலாற்றைக் காட்டு</string>
+    <string name="portfolio_history_range_a11y">%1$s க்கான வரலாற்றைக் காட்டவும்</string>
     <string name="portfolio_history_range_since_first">முதல் வாங்குதலிலிருந்து</string>
     <string name="portfolio_history_scaled">%1$s க்கான வரலாறு: எக்ஸ்சேஞ்ச் விலைக்கு அளவிடப்பட்ட Binance வரலாறு</string>
     <string name="portfolio_history_title">மதிப்பு வரலாறு</string>
@@ -270,7 +270,7 @@
     <string name="portfolio_tx_interest">வட்டி (கடன் வழங்கல்)</string>
     <string name="portfolio_tx_interest_hint">பெற்றபோது வருமானமாகக் கணக்கிடப்படும் (ஆஸ்திரியா). ஸ்டேக்கிங் வெகுமதிகளுக்கும் ஏர்டிராப்களுக்கும் இதைப் பயன்படுத்த வேண்டாம்.</string>
     <string name="app_lock_no_screen_lock">போர்ட்ஃபோலியோவைத் திறக்கத் திரைப் பூட்டை அமைக்கவும்.</string>
-    <string name="app_lock_turn_off_action">போர்ட்ஃபோலியோ பூட்டை ஆஃப் செய்</string>
+    <string name="app_lock_turn_off_action">போர்ட்ஃபோலியோ பூட்டை ஆஃப் செய்யவும்</string>
     <string name="app_lock_turn_off_confirm_title">போர்ட்ஃபோலியோ பூட்டை ஆஃப் செய்யவா?</string>
     <string name="app_lock_turn_off_confirm_message">திரைப் பூட்டு இல்லாமல் போர்ட்ஃபோலியோவைத் திறக்க முடியாது. ஆஃப் செய்தால், ஆப் கேட்காமலேயே உங்கள் போர்ட்ஃபோலியோவை மீண்டும் காட்டும். திரைப் பூட்டு அமைக்கப்பட்டதும், அமைப்புகளில் பூட்டை மீண்டும் ஆன் செய்யலாம்.</string>
 

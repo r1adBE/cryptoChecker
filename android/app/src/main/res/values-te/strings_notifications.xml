@@ -4,7 +4,7 @@
     <string name="notification_activity_title">గమనించదగినది: %1$s · %2$s</string>
     <string name="notification_alarm_text">%1$s — ఇప్పుడు %2$s</string>
     <string name="notification_alarm_title">అలర్ట్: %1$s · %2$s</string>
-    <string name="notification_depeg_action_exchange">ఎక్స్ఛేంజ్‌ను తెరువు</string>
+    <string name="notification_depeg_action_exchange">ఎక్స్ఛేంజ్‌ను తెరవండి</string>
     <string name="notification_depeg_text">యాప్‌లోని విలువలు ఈ మార్కెట్ ధరను ఉపయోగిస్తాయి.</string>
     <string name="notification_depeg_title">USDT %1$s USD వద్ద (%2$s)</string>
     <string name="notification_fng_above">సూచీ %1$d పైకి పెరిగింది – ఈ కొలమానం ప్రకారం మార్కెట్ మూడ్ అత్యాశతో ఉంది.</string>
@@ -18,7 +18,7 @@
     <string name="notification_indicator_below">మీ పరిమితి %1$s కంటే తక్కువ – కొలిచిన విలువ, సిఫార్సు కాదు.</string>
     <string name="notification_indicator_title">%1$s: %2$s</string>
     <string name="notification_macro_title">ఈరోజు ఆర్థిక డేటా</string>
-    <string name="notification_permission_preprompt_continue">కొనసాగించు</string>
+    <string name="notification_permission_preprompt_continue">కొనసాగించండి</string>
     <string name="notification_permission_preprompt_later">తర్వాత</string>
     <string name="notification_permission_preprompt_text">అలర్ట్‌లు, ధర నోటిఫికేషన్‌లు మీకు చేరాలంటే, నోటిఫికేషన్‌లు పంపడానికి యాప్‌కు అనుమతి అవసరం. యాప్ వాటిని మీ అలర్ట్‌లు, ధర నోటిఫికేషన్‌ల కోసం మాత్రమే ఉపయోగిస్తుంది.</string>
     <string name="notification_permission_preprompt_title">నోటిఫికేషన్‌లను అనుమతించాలా?</string>
@@ -69,5 +69,5 @@
 
     <!-- Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
     <string name="notification_alarm_action_snooze">1 గం తర్వాత</string>
-    <string name="notification_alarm_action_edit">సర్దుబాటు చేయి</string>
+    <string name="notification_alarm_action_edit">సర్దుబాటు చేయండి</string>
 </resources>

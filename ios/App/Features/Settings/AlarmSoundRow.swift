@@ -28,11 +28,7 @@ struct AlarmSoundRow: View {
             }
         } label: {
             HStack(spacing: 12) {
-                // Einfarbig in der Textfarbe wie alle Symbole der Einstellungen (wie Android)
-                Image(systemName: "music.note")
-                    .font(.body.weight(.medium))
-                    .foregroundStyle(AppColors.onSurface)
-                    .frame(width: 26)
+                // Ohne Symbol links: Text bündig mit den Nachbarzeilen der Karte (wie Android)
                 VStack(alignment: .leading, spacing: 2) {
                     Text(L("settings_alarm_sound"))
                         .font(.body)

@@ -5,8 +5,10 @@ import Foundation
 /// Testfälle `testdata/parity/coin_meta.json`).
 ///
 /// - `merge`: Rangliste (CoinGecko), Binance-Symbolliste und Alpha-Liste → Logo-Adressen, Namen und
-///   Alpha-Kürzel, mit fester Vorrangregel (CoinGecko Rang 1–1000 → Binance → Alpha →
-///   CoinGecko Rang 1001–2500; erstes Vorkommen gewinnt).
+///   Alpha-Kürzel; erstes Vorkommen gewinnt. Logos: zuerst die bei Binance gelisteten Krypto-Kürzel
+///   (`binanceFirst`: eine Liste, schon für die Namen geholt), dann CoinGecko Rang 1–1000 → übrige Binance-Einträge →
+///   Alpha → CoinGecko Rang 1001–2500 (CoinGecko nur noch für die Lücken). Namen wie bisher: CoinGecko Rang 1–1000 →
+///   Binance → Alpha → CoinGecko Rang 1001–2500.
 /// - Ersatz `url`: `coin_meta.json` der Release «data» auf GitHub, stündlich von der GitHub Action
 ///   «Market data» gebaut — **nur** aus den öffentlichen Binance-Listen (Kürzel, Namen, Bild-Adressen,
 ///   Alpha-Kennzeichen; keine Bilder, keine CoinGecko-Daten). Die App holt sie nur, wenn die direkte
@@ -117,15 +119,25 @@ enum CoinMeta {
         !directOk || !CoinLogos.isFresh(savedAt: lastDirectAt, now: now, ttl: directStaleMillis)
     }
 
-    /// Listen zusammenführen, Vorrang: `geckoTop` (Rang 1–1000), dann Binance (Lücken,
-    /// TradFi gegen `crypto` bzw. die Kürzel von `geckoTop`), dann Alpha (Lücken), zuletzt `geckoExtra`.
+    /// Listen zusammenführen, Vorrang der Logos: `binanceFirst`, dann `geckoTop` (Rang 1–1000), dann die übrigen
+    /// Binance-Einträge (Lücken, TradFi gegen `crypto` bzw. die Kürzel von `geckoTop`), dann Alpha (Lücken), zuletzt
+    /// `geckoExtra`. Namen ohne `binanceFirst` (CoinGecko zuerst) — wie Android.
     static func merge(geckoTop: [GeckoRow], binance: [CoinLogos.BinanceEntry]?, alpha: [CoinLogos.AlphaEntry]?,
                       geckoExtra: [GeckoRow] = [], crypto: Set<String>? = nil) -> Lists {
         var out = Lists()
-        CoinLogos.pick(geckoTop.map { (symbol: $0.symbol, image: $0.image) }, into: &out.map, order: &out.order)
+        let first = binanceFirst(binance)
+        out.map = first.map
+        out.order = first.order
+        var gecko: [String: String] = [:]
+        var geckoOrder: [String] = []
+        CoinLogos.pick(geckoTop.map { (symbol: $0.symbol, image: $0.image) }, into: &gecko, order: &geckoOrder)
+        for key in geckoOrder where out.map[key] == nil {
+            out.map[key] = gecko[key]
+            out.order.append(key)
+        }
         CoinLogos.pickNames(geckoTop.map { (symbol: $0.symbol, name: $0.name) }, into: &out.names, order: &out.nameOrder)
         // Krypto-Kürzel für die TradFi-Regel: CoinGecko, sonst (nur Binance-Listen) `listCrypto`
-        let cryptoKeys: Set<String> = crypto ?? Set(out.map.keys)
+        let cryptoKeys: Set<String> = crypto ?? Set(gecko.keys)
         if let binance {
             CoinLogos.pick(binance.map { (symbol: $0.name, image: $0.logo) }, into: &out.map, order: &out.order)
             CoinLogos.pickTradFi(binance, crypto: cryptoKeys, into: &out.map, order: &out.order)
@@ -145,12 +157,24 @@ enum CoinMeta {
     /// Krypto-Kürzel ohne CoinGecko-Rangliste: Spot-Einträge der Binance-Liste (nicht nur Futures, keine
     /// tokenisierten Aktien), gross — wie Android `listCrypto`.
     static func listCrypto(_ binance: [CoinLogos.BinanceEntry]?) -> Set<String> {
-        var out = Set<String>()
-        for e in binance ?? [] where !e.onlyFutures {
-            let stock = e.tags.contains { $0.caseInsensitiveCompare(CoinLogos.stockTag) == .orderedSame }
-            if !stock { out.insert(e.name.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()) }
+        Set(spotEntries(binance).map { $0.name.trimmingCharacters(in: .whitespacesAndNewlines).uppercased() })
+    }
+
+    /// Spot-Einträge der Binance-Liste: nicht nur Futures, keine tokenisierten Aktien.
+    private static func spotEntries(_ binance: [CoinLogos.BinanceEntry]?) -> [CoinLogos.BinanceEntry] {
+        (binance ?? []).filter { e in
+            !e.onlyFutures && !e.tags.contains { $0.caseInsensitiveCompare(CoinLogos.stockTag) == .orderedSame }
         }
-        return out
+    }
+
+    /// Logos der bei Binance gelisteten Krypto-Kürzel (`spotEntries`, Schlüssel `CoinLogos.normalize`): Sie gehen in
+    /// `merge` allen anderen Quellen vor und laden als Erstes — die Symbolliste ist eine einzige Anfrage und schon für
+    /// die Namen da, die Seiten der Rangliste (mit Pausen) füllen danach nur noch die Lücken. Wie Android.
+    static func binanceFirst(_ binance: [CoinLogos.BinanceEntry]?) -> (map: [String: String], order: [String]) {
+        var map: [String: String] = [:]
+        var order: [String] = []
+        CoinLogos.pick(spotEntries(binance).map { (symbol: $0.name, image: $0.logo) }, into: &map, order: &order)
+        return (map, order)
     }
 
     /// Ersatz-Adressen je Kürzel (`CoinLogos.normalize`) aus den Binance-Listen: erst die Symbolliste (ohne
@@ -159,10 +183,7 @@ enum CoinMeta {
     /// wie Android `alternates`.
     static func alternates(binance: [CoinLogos.BinanceEntry]?, alpha: [CoinLogos.AlphaEntry]?) -> [String: [String]] {
         var out: [String: [String]] = [:]
-        let crypto = (binance ?? []).filter { e in
-            !e.onlyFutures && !e.tags.contains { $0.caseInsensitiveCompare(CoinLogos.stockTag) == .orderedSame }
-        }
-        let rows = crypto.map { (symbol: $0.name, url: $0.logo) } + (alpha ?? []).map { (symbol: $0.symbol, url: $0.icon) }
+        let rows = spotEntries(binance).map { (symbol: $0.name, url: $0.logo) } + (alpha ?? []).map { (symbol: $0.symbol, url: $0.icon) }
         for (symbol, url) in rows {
             let key = CoinLogos.normalize(symbol)
             guard !key.isEmpty, CoinLogos.isAllowedURL(url), let url else { continue }

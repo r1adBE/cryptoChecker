@@ -54,6 +54,23 @@ final class SpotMarketTests: XCTestCase {
         }
     }
 
+    /// Treffer nach Namen statt Marktkapitalisierung; ohne passenden Namen keiner (PP3).
+    func testPickByIdentity() throws {
+        let data = try S.fixture("spot_market")
+        let section = try XCTUnwrap(data["pickIdentity"] as? [String: Any])
+        let parsed = SpotMarket.parse(section["body"] as? String)
+        let cases = S.list(section["cases"])
+        XCTAssertFalse(cases.isEmpty)
+        for c in cases {
+            let identity = SpotMarket.Identity(
+                ownName: c["ownName"] as? String,
+                binanceName: c["binanceName"] as? String,
+                otherNames: (c["otherNames"] as? [Any])?.map { $0 as? String } ?? [])
+            XCTAssertEqual(SpotMarket.pick(parsed, symbol: c["symbol"] as? String ?? "", identity: identity)?.id,
+                           c["expected"] as? String, "pickIdentity: \(c)")
+        }
+    }
+
     func testRatios() throws {
         let data = try S.fixture("spot_market")
         for c in S.list(data["volumeToMarketCap"]) {

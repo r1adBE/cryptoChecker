@@ -171,7 +171,15 @@ class WatchlistSheetData @Inject constructor(
     suspend fun fetchSpot(watch: WatchEntity): com.cryptochecker.app.domain.spot.SpotData? {
         if (!com.cryptochecker.app.domain.spot.SpotMarket.eligible(watch.exchangeKey, isTradFi(watch))) return null
         val symbol = com.cryptochecker.app.domain.spot.SpotMarket.lookupSymbol(watch.baseAsset) ?: return null
-        return kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) { spotDataSource.fetch(symbol) }
+        return kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+            // Welcher CoinGecko-Treffer gemeint ist, entscheidet der Name (wie beim Portfolio-Kurs), nicht die Grösse
+            val identity = com.cryptochecker.app.domain.spot.SpotMarket.Identity(
+                ownName = tokenIdentityStore.pairName(watch.exchangeKey, watch.baseAsset),
+                binanceName = tokenIdentityStore.binanceName(watch.baseAsset) ?: tokenIdentityStore.binanceName(symbol),
+                otherNames = tokenIdentityStore.otherNames(watch.baseAsset),
+            )
+            spotDataSource.fetch(symbol, identity)
+        }
     }
 
     private fun isTradFi(watch: WatchEntity): Boolean =

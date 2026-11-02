@@ -235,7 +235,7 @@
     <string name="portfolio_alarm_sentence_down">Portefølje falder %1$s (%2$s)</string>
     <!-- %1$s = Prozent, %2$s = Basis der %-Änderung kurz (24h, heute …) -->
     <string name="portfolio_alarm_sentence_up">Portefølje stiger %1$s (%2$s)</string>
-    <string name="portfolio_alarm_title">Alarm ”porteføljeværdi”</string>
+    <string name="portfolio_alarm_title">Alarm «porteføljeværdi»</string>
 
     <!-- Gebühr, Börse und Gewinn/Verlust einer Position -->
     <string name="ledger_exchange">Børs (valgfrit)</string>

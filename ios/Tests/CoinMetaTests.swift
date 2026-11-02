@@ -49,6 +49,18 @@ final class CoinMetaTests: XCTestCase {
         XCTAssertEqual(CoinMeta.binanceFullNames(binance)["WLD"], "Worldcoin")
     }
 
+    /// Bei Binance gelistete Krypto-Kürzel: ihr Logo lädt zuerst und geht in `merge` vor (CoinGecko nur Lücken).
+    func testBinanceFirstSpotLogosBeforeCoinGecko() throws {
+        let data = try S.fixture("coin_meta")
+        let binance = try XCTUnwrap(CoinMeta.parseBinanceList(try Self.raw(data, "binanceList")))
+        let gecko = try XCTUnwrap(CoinMeta.parseMarketsPage(try Self.raw(data, "geckoPage")))
+        let expected = try XCTUnwrap((data["binanceFirst"] as? [String: Any])?["expected"] as? [String: String])
+        XCTAssertEqual(CoinMeta.binanceFirst(binance).map, expected)
+        XCTAssertTrue(CoinMeta.binanceFirst(nil).map.isEmpty)
+        let merged = CoinMeta.merge(geckoTop: gecko, binance: binance, alpha: nil).map
+        for (key, url) in expected { XCTAssertEqual(merged[key], url, "Vorrang \(key)") }
+    }
+
     func testMetaOnlyWhenDirectListsFail() throws {
         let data = try S.fixture("coin_meta")
         let meta = try XCTUnwrap(CoinMeta.parse(try Self.raw(data, "coinMeta")))

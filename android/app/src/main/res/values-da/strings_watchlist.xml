@@ -54,7 +54,7 @@
     <string name="watchlist_jump_end">Til slutningen</string>
     <string name="watchlist_jump_start">Til toppen</string>
     <string name="watchlist_search_close">Luk søgning</string>
-    <string name="watchlist_search_empty">Ingen resultater for ”%1$s”</string>
+    <string name="watchlist_search_empty">Ingen resultater for «%1$s»</string>
     <string name="watchlist_search_hint">Søg efter par, navn eller børs</string>
     <string name="watchlist_search_open">Søg</string>
     <string name="watchlist_sort_ascending">stigende</string>
@@ -102,7 +102,7 @@
         <item quantity="one">Alarm (%1$d)</item>
         <item quantity="other">Alarmer (%1$d)</item>
     </plurals>
-    <string name="watchlist_favorites_empty_hint">Ingen favoritter endnu. Stryg et par til højre, eller åbn det og tryk på ”Favorit”.</string>
+    <string name="watchlist_favorites_empty_hint">Ingen favoritter endnu. Stryg et par til højre, eller åbn det og tryk på «Favorit».</string>
     <string name="watchlist_group_empty_hint">Tryk længe på en gruppe for at vælge dens par.</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
     <string name="watchlist_groups_empty_hint">Dine grupper vises her</string>

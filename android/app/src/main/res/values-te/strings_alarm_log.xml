@@ -3,11 +3,11 @@
     <!-- Alarm-Protokoll: Titel der Seite und Name des Knopfs in «Alle Alarme» -->
     <string name="alarm_log_title">అలర్ట్‌ల లాగ్</string>
     <!-- Link unter «Letzte Prüfungen» (Einstellungen › Aktualisierung) -->
-    <string name="alarm_log_open">అలర్ట్‌ల లాగ్‌ను చూపు</string>
+    <string name="alarm_log_open">అలర్ట్‌ల లాగ్‌ను చూపండి</string>
     <string name="alarm_log_intro">అలర్ట్ ఎప్పుడు ట్రిగ్గర్ అయింది – ఎప్పుడు ట్రిగ్గర్ కావాల్సి ఉండి ఆపివేయబడింది. ఈ పరికరంలో మాత్రమే, 14 రోజుల పాటు నిల్వ చేయబడుతుంది.</string>
     <string name="alarm_log_empty_title">ఇంకా ఎంట్రీలు లేవు</string>
     <string name="alarm_log_empty_message">అలర్ట్ ట్రిగ్గర్ అయినప్పుడు లేదా ఆపివేయబడినప్పుడు ఎంట్రీలు ఇక్కడ కనిపిస్తాయి – ఉదాహరణకు ధర పాతది కావడం వల్ల లేదా నిశ్శబ్ద సమయంలో.</string>
-    <string name="alarm_log_clear">లాగ్‌ను క్లియర్ చేయి</string>
+    <string name="alarm_log_clear">లాగ్‌ను క్లియర్ చేయండి</string>
     <string name="alarm_log_clear_title">అలర్ట్‌ల లాగ్‌ను క్లియర్ చేయాలా?</string>
     <string name="alarm_log_clear_message">అన్ని ఎంట్రీలు తీసివేయబడతాయి. మీ అలర్ట్‌లు అలాగే ఉంటాయి.</string>
     <!-- Screenreader: Schwelle des Alarms, z. B. «Marke Über 100’000 CHF» -->

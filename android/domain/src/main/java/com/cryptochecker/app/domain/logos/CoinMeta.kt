@@ -11,8 +11,10 @@ import com.cryptochecker.app.domain.mirror.DataMirror
  * (gemeinsame Testfälle `testdata/parity/coin_meta.json`).
  *
  * - [merge]: Rangliste (CoinGecko), Binance-Symbolliste und Alpha-Liste → Logo-Adressen, Namen und
- *   Alpha-Kürzel, mit derselben Vorrangregel (CoinGecko Rang 1–1000 → Binance → Alpha →
- *   CoinGecko Rang 1001–2500; erstes Vorkommen gewinnt).
+ *   Alpha-Kürzel; erstes Vorkommen gewinnt. Logos: zuerst die bei Binance gelisteten Krypto-Kürzel
+ *   ([binanceFirst]: eine Liste, schon für die Namen geholt), dann CoinGecko Rang 1–1000 → übrige Binance-Einträge →
+ *   Alpha → CoinGecko Rang 1001–2500 (CoinGecko nur noch für die Lücken). Namen wie bisher: CoinGecko Rang 1–1000 →
+ *   Binance → Alpha → CoinGecko Rang 1001–2500.
  * - Ersatz [URL]: `coin_meta.json` der Release «data» auf GitHub, stündlich von der GitHub Action
  *   «Market data» gebaut — **nur** aus den öffentlichen Binance-Listen (Kürzel, Namen, Bild-Adressen,
  *   Alpha-Kennzeichen; keine Bilder, keine CoinGecko-Daten). Die App holt sie nur, wenn die direkte
@@ -140,9 +142,9 @@ object CoinMeta {
         !directOk || !CoinLogos.isFresh(lastDirectAt, now, DIRECT_STALE_MILLIS)
 
     /**
-     * Listen zusammenführen, Vorrang: [geckoTop] (Rang 1–1000), dann Binance (Lücken,
-     * TradFi gegen die Kürzel von [geckoTop]), dann Alpha (Lücken), zuletzt [geckoExtra]. Fehlende
-     * Quellen (null bzw. leer) überspringen.
+     * Listen zusammenführen, Vorrang der Logos: [binanceFirst], dann [geckoTop] (Rang 1–1000), dann die übrigen
+     * Binance-Einträge (Lücken, TradFi gegen die Kürzel von [geckoTop]), dann Alpha (Lücken), zuletzt [geckoExtra].
+     * Namen ohne [binanceFirst] (CoinGecko zuerst). Fehlende Quellen (null bzw. leer) überspringen.
      */
     fun merge(
         geckoTop: List<GeckoRow>,
@@ -151,12 +153,13 @@ object CoinMeta {
         geckoExtra: List<GeckoRow> = emptyList(),
         crypto: Set<String>? = null,
     ): Lists {
-        val map = LinkedHashMap<String, String>()
+        val map = LinkedHashMap<String, String>(binanceFirst(binance))
         val names = LinkedHashMap<String, String>()
-        CoinLogos.pick(geckoTop.map { it.symbol to it.image }, map)
+        val gecko = CoinLogos.pick(geckoTop.map { it.symbol to it.image })
+        for ((key, url) in gecko) if (key !in map) map[key] = url
         CoinLogos.pickNames(geckoTop.map { it.symbol to it.name }, names)
         // Krypto-Kürzel für die TradFi-Regel: CoinGecko, sonst (nur Binance-Listen) [listCrypto]
-        val cryptoKeys = crypto ?: map.keys.toSet()
+        val cryptoKeys = crypto ?: gecko.keys.toSet()
         if (binance != null) {
             CoinLogos.pick(binance.map { it.name to it.logo }, map)
             CoinLogos.pickTradFi(binance, cryptoKeys, map)
@@ -175,9 +178,19 @@ object CoinMeta {
      * bekommt ein TradFi-Paar «CAT» nicht den Namen des gleichnamigen Krypto-Tokens.
      */
     fun listCrypto(binance: List<CoinLogos.BinanceEntry>?): Set<String> =
-        binance.orEmpty()
-            .filter { e -> !e.onlyFutures && e.tags.none { it.equals(CoinLogos.STOCK_TAG, ignoreCase = true) } }
-            .mapTo(LinkedHashSet()) { it.name.trim().uppercase() }
+        spotEntries(binance).mapTo(LinkedHashSet()) { it.name.trim().uppercase() }
+
+    /** Spot-Einträge der Binance-Liste: nicht nur Futures, keine tokenisierten Aktien. */
+    private fun spotEntries(binance: List<CoinLogos.BinanceEntry>?): List<CoinLogos.BinanceEntry> =
+        binance.orEmpty().filter { e -> !e.onlyFutures && e.tags.none { it.equals(CoinLogos.STOCK_TAG, ignoreCase = true) } }
+
+    /**
+     * Logos der bei Binance gelisteten Krypto-Kürzel ([spotEntries], Schlüssel [CoinLogos.normalize]): Sie gehen in
+     * [merge] allen anderen Quellen vor und laden als Erstes — die Symbolliste ist eine einzige Anfrage und schon für
+     * die Namen da, die Seiten der Rangliste (mit Pausen) füllen danach nur noch die Lücken. Ohne Liste leer.
+     */
+    fun binanceFirst(binance: List<CoinLogos.BinanceEntry>?): Map<String, String> =
+        CoinLogos.pick(spotEntries(binance).map { it.name to it.logo })
 
     /**
      * Ersatz-Adressen je Kürzel ([CoinLogos.normalize]) aus den Binance-Listen, die die App ohnehin lädt: erst die
@@ -188,10 +201,7 @@ object CoinMeta {
      */
     fun alternates(binance: List<CoinLogos.BinanceEntry>?, alpha: List<CoinLogos.AlphaEntry>?): Map<String, List<String>> {
         val out = LinkedHashMap<String, MutableList<String>>()
-        val crypto = binance.orEmpty().filter { e ->
-            !e.onlyFutures && e.tags.none { it.equals(CoinLogos.STOCK_TAG, ignoreCase = true) }
-        }
-        val rows = crypto.map { it.name to it.logo } + alpha.orEmpty().map { it.symbol to it.icon }
+        val rows = spotEntries(binance).map { it.name to it.logo } + alpha.orEmpty().map { it.symbol to it.icon }
         for ((symbol, url) in rows) {
             val key = CoinLogos.normalize(symbol)
             if (url == null || key.isEmpty() || !CoinLogos.isAllowedUrl(url)) continue

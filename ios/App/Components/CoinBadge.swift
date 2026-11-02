@@ -3,8 +3,9 @@ import SwiftUI
 // MARK: Coin-Logo
 
 /// Runde Coin-Plakette, nur mit eingeschaltetem Schalter «Coin-Logos» (App bzw. `portfolio`):
-/// echtes Logo (`CoinLogoStore`), sonst der Kreis mit den Initialen in der Akzentfarbe — nie ein
-/// kaputtes Bild. Schalter aus: gar nichts (weder Logo noch Initialen, auch kein Platz). Feste
+/// echtes Logo (`CoinLogoStore`), sonst der farbige Ersatz-Kreis mit den Initialen (`CoinLogoPlaceholder`, Farbe fest
+/// aus dem Kürzel) — nie ein kaputtes Bild. Kommt das Logo erst später, blendet es über dem Kreis ein (ohne Animation
+/// bei «Bewegung reduzieren»). Schalter aus: gar nichts (weder Logo noch Initialen, auch kein Platz). Feste
 /// Grösse, nimmt also nie Breite von Kurs- oder Zahlenspalten. Dunkel: heller Grund hinter dem
 /// Logo. Wie Android `CoinBadge`.
 ///
@@ -26,8 +27,8 @@ struct CoinBadge: View {
     @Environment(\.appAccent) private var starAccent
     @Environment(\.rowHighlight) private var highlight
     @Environment(\.portfolioCoinLogosEnabled) private var portfolioEnabled
-    @Environment(\.appAccent) private var accent
     @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     /// Neue Logos auf dem Gerät (Abgleich im Hintergrund): fehlende erneut versuchen.
     @ObservedObject private var revision = CoinLogoRevision.shared
     /// Geladenes Logo samt Symbol (Zeilen werden wiederverwendet: nie das Logo eines anderen Coins).
@@ -43,12 +44,6 @@ struct CoinBadge: View {
         self.favorite = favorite
         self.ringColor = ringColor
     }
-
-    // nonisolated: reine Konstanten, auch aus den Tests lesbar (eigenes Modul, nicht auf dem MainActor)
-    /// Tönung des Initialen-Kreises hell: primary darauf über `container` ≥ 4.5:1 (vorher 0.14).
-    nonisolated static let initialsTintLight = 0.06
-    /// Tönung des Initialen-Kreises dunkel (unverändert).
-    nonisolated static let initialsTintDark = 0.14
 
     private var enabled: Bool { portfolio ? portfolioEnabled : appEnabled }
 
@@ -70,31 +65,37 @@ struct CoinBadge: View {
                     guard logo else { loaded = nil; return }
                     let key = self.key
                     guard loaded?.symbol != key else { return }
-                    if let image = await CoinLogoStore.shared.logo(key) { loaded = (key, image) }
+                    guard let image = await CoinLogoStore.shared.logo(key) else { return }
+                    // Kommt das Logo später: einblenden (schon im Speicher: steht ohnehin schon da)
+                    let fade = Double(CoinLogoPlaceholder.fadeMillis) / 1000
+                    withAnimation(reduceMotion ? nil : .easeOut(duration: fade)) { loaded = (key, image) }
                 }
         }
     }
 
     private var badge: some View {
         let key = self.key
+        let dark = colorScheme == .dark
         return ZStack {
+            // Ersatz-Kreis immer darunter: Das Logo (deckender Grund) blendet darüber ein
+            let label = CoinLogos.initials(symbol)
+            Circle().fill(CoinLogoPlaceholder.fill(symbol, dark: dark))
+            Text(label)
+                .font(.system(size: size * (label.count <= 3 ? 0.33 : 0.275), weight: .bold))
+                .foregroundStyle(CoinLogoPlaceholder.text(dark: dark))
+                .lineLimit(1)
+                .minimumScaleFactor(0.5)
+                .padding(2)
             if logo, let image = (loaded?.symbol == key ? loaded?.image : nil) ?? CoinLogoStore.cached(key) {
-                Circle().fill(colorScheme == .dark ? AppColors.onSurface.opacity(0.92) : AppColors.containerHigh)
-                Image(uiImage: image)
-                    .resizable()
-                    .interpolation(.high)
-                    .scaledToFit()
-                    .clipShape(Circle())
-            } else {
-                let label = CoinLogos.initials(symbol)
-                // Hell schwächer getönt: Initialen ≥ 4.5:1 auf der Tönung, wie Android
-                Circle().fill(accent.tint(colorScheme == .dark ? Self.initialsTintDark : Self.initialsTintLight))
-                Text(label)
-                    .font(.system(size: size * (label.count <= 3 ? 0.33 : 0.275), weight: .bold))
-                    .foregroundStyle(accent.primary)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.5)
-                    .padding(2)
+                ZStack {
+                    Circle().fill(dark ? AppColors.onSurface.opacity(0.92) : AppColors.containerHigh)
+                    Image(uiImage: image)
+                        .resizable()
+                        .interpolation(.high)
+                        .scaledToFit()
+                        .clipShape(Circle())
+                }
+                .transition(.opacity)
             }
         }
         .frame(width: size, height: size)

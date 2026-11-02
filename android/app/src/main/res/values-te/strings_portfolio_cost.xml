@@ -6,8 +6,8 @@
     <string name="cost_gaps_sheet_title">కొనుగోలు వ్యయం లేని ఎంట్రీలు</string>
     <string name="cost_gaps_sheet_intro">ఈ ఇన్‌ఫ్లోలకు కొనుగోలు వ్యయం లేదు. సూచన ఆ తేదీ రోజువారీ ముగింపు ధర – దాన్ని ఎంట్రీలో సర్దుబాటు చేయవచ్చు.</string>
     <string name="cost_gaps_empty">అన్ని ఎంట్రీలకు కొనుగోలు వ్యయం ఉంది.</string>
-    <string name="cost_gap_enter">కొనుగోలు వ్యయాన్ని నమోదు చేయి</string>
-    <string name="cost_gap_leave_unknown">తెలియనిదిగా వదిలేయి</string>
+    <string name="cost_gap_enter">కొనుగోలు వ్యయాన్ని నమోదు చేయండి</string>
+    <string name="cost_gap_leave_unknown">తెలియనిదిగా వదిలేయండి</string>
     <string name="cost_gap_left_unknown">తెలియనిదిగా వదిలేయబడింది</string>
     <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
     <string name="cost_gap_suggestion">సూచన: రోజువారీ ముగింపు ధర %1$s – %2$s</string>
@@ -17,11 +17,11 @@
     <string name="cost_gap_income">కొనుగోలు వ్యయం = అందుకున్నప్పటి విలువ (ఆదాయం)</string>
     <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
     <string name="cost_gap_income_zero">కొనుగోలు వ్యయం = 0 (ఇన్‌ఫ్లో లేని రివార్డ్, ఆస్ట్రియా)</string>
-    <string name="cost_gap_apply">వర్తింపజేయి</string>
+    <string name="cost_gap_apply">వర్తింపజేయండి</string>
     <string name="address_lots_action">అడ్రస్ బ్యాలెన్స్ కొనుగోలు వ్యయం</string>
     <string name="address_lots_title">అడ్రస్ బ్యాలెన్స్ కొనుగోలు వ్యయం</string>
     <string name="address_lots_intro">ఈ అడ్రస్ బ్యాలెన్స్ కోసం కొనుగోలు తేదీ, పరిమాణం, కొనుగోలు వ్యయాన్ని నమోదు చేయండి. లాట్‌లు ఈ అడ్రస్‌లో కొనుగోళ్లుగా లెక్కించబడతాయి; కవర్ కాని భాగం కొనుగోలు వ్యయం లేకుండా ఉంటుంది.</string>
-    <string name="address_lots_add">లాట్ జోడించు</string>
+    <string name="address_lots_add">లాట్ జోడించండి</string>
     <string name="address_lots_new">కొత్త లాట్</string>
     <string name="address_lots_edit">లాట్</string>
     <string name="address_lots_date">కొనుగోలు తేదీ</string>

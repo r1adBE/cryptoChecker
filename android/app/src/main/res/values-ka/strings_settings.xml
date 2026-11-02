@@ -74,7 +74,7 @@
     <string name="settings_http_log">HTTP ჟურნალის ჩვენება</string>
     <string name="settings_http_log_hint">აჩვენებს ბირჟებისადმი მოთხოვნებს «წყვილის დამატება» გვერდის ბოლოში – პრობლემების მოსაგვარებლად.</string>
     <string name="settings_live_service">ხშირი განახლება</string>
-    <string name="settings_live_websocket">Live ფასები</string>
+    <string name="settings_live_websocket">რეალური დროის ფასები</string>
 
     <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
     <string name="settings_activity_alerts">საყურადღებო: შეტყობინება</string>
@@ -138,7 +138,7 @@
     <string name="settings_change_basis_hint_1">არჩეული სასაათო სარტყელი განსაზღვრავს, საიდან ითვლება პროცენტული ცვლილება (დაკვირვების სია, პულსის ხაზი, გახსნილი წყვილი, ვიჯეტები) და დიაგრამებში ნაჩვენებ დროს.</string>
     <string name="settings_change_basis_hint_2">«%1$s» ადარებს ზუსტად 24 საათის წინანდელ ფასს. «00:00» ადარებს იმ სასაათო სარტყელში შუაღამის გახსნის ფასს.</string>
     <string name="settings_change_basis_hint_3">განგაშებზე გავლენა არ აქვს.</string>
-    <string name="settings_change_basis_hint_since_last">«%1$s» ადარებს წინა განახლების ფასს. Live ფასებისას ის 0%%-თან ახლოს რჩება.</string>
+    <string name="settings_change_basis_hint_since_last">«%1$s» ადარებს წინა განახლების ფასს. რეალური დროის ფასებისას ის 0%%-თან ახლოს რჩება.</string>
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">კონვერტაციის ვალუტა</string>

@@ -72,7 +72,7 @@
     <string name="settings_check_runs_honest_ios">iOS bestemmer, hvornår der tjekkes – her ser du, hvornår det faktisk skete.</string>
     <string name="settings_check_runs_title">Seneste tjek</string>
     <string name="settings_http_log">Vis HTTP-log</string>
-    <string name="settings_http_log_hint">Viser forespørgslerne til børserne nederst på siden ”Tilføj par” – til fejlsøgning.</string>
+    <string name="settings_http_log_hint">Viser forespørgslerne til børserne nederst på siden «Tilføj par» – til fejlsøgning.</string>
     <string name="settings_live_service">Opdater hyppigt</string>
     <string name="settings_live_websocket">Livekurser</string>
 
@@ -80,7 +80,7 @@
     <string name="settings_activity_alerts">Påfaldende: giv besked</string>
     <string name="settings_activity_alerts_hint">Højst én gang i timen pr. par: usædvanlige kursbevægelser, volumen-spikes og futures-ekstremer (data fra Binance).</string>
     <string name="settings_activity_sensitivity">Følsomhed</string>
-    <string name="settings_activity_sensitivity_hint">Hvor let en coin regnes som usædvanlig – ens for kortet i overvågningslisten og notifikationerne. Med ”Mindre” viser kortet kun de 3 stærkeste.</string>
+    <string name="settings_activity_sensitivity_hint">Hvor let en coin regnes som usædvanlig – ens for kortet i overvågningslisten og notifikationerne. Med «Mindre» viser kortet kun de 3 stærkeste.</string>
     <string name="settings_watchlist_activity_card">Påfaldende: vis i listen</string>
     <string name="settings_watchlist_activity_card_hint">Viser chippen ⚡ ved grupperne: tryk for kun at se de par, hvor der sker noget lige nu. Meddelelser indstilles under Markedsmeddelelser.</string>
     <string name="settings_watchlist_names">Vis navne</string>
@@ -104,7 +104,7 @@
     <string name="settings_asset_scope_tradfi">Kun TradFi</string>
     <string name="settings_asset_scope_tradfi_hint">Futures på aktier, råvarer, valuta – kontrakter, ikke tokens</string>
     <string name="settings_rolling_futures">Inkl. kvartals- og andre futures med udløb</string>
-    <string name="settings_rolling_futures_hint">Fra: futures med udløb, der mangler på børsens liste, markeres som ”handles ikke længere” i stedet for at blive tjekket én ad gangen. Sparer tid ved hver opdatering.</string>
+    <string name="settings_rolling_futures_hint">Fra: futures med udløb, der mangler på børsens liste, markeres som «handles ikke længere» i stedet for at blive tjekket én ad gangen. Sparer tid ved hver opdatering.</string>
     <string name="settings_rolling_futures_qtly">Inkl. kvartals- og andre futures med udløb (QTLY)</string>
     <string name="settings_rolling_futures_tradfi_hint">Hører til tokens. Låst ved »Kun TradFi«; gælder stadig for futures med udløb på din liste.</string>
     <string name="settings_tradfi_futures">Aktier, råvarer og valuta (TradFi)</string>
@@ -136,9 +136,9 @@
     <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
     <string name="settings_change_basis">Ændring i %1$s og graf-tidszone</string>
     <string name="settings_change_basis_hint_1">Den valgte tidszone bestemmer, hvorfra den procentvise ændring regnes (overvågningsliste, pulslinje, åbent par, widgets), og hvilke klokkeslæt graferne viser.</string>
-    <string name="settings_change_basis_hint_2">”%1$s” sammenligner med kursen for præcis 24 timer siden. ”00:00” sammenligner med åbningskursen ved midnat i denne tidszone.</string>
+    <string name="settings_change_basis_hint_2">«%1$s» sammenligner med kursen for præcis 24 timer siden. «00:00» sammenligner med åbningskursen ved midnat i denne tidszone.</string>
     <string name="settings_change_basis_hint_3">Alarmer påvirkes ikke.</string>
-    <string name="settings_change_basis_hint_since_last">”%1$s” sammenligner med kursen fra den forrige opdatering. Med live-kurser forbliver den tæt på 0 %%.</string>
+    <string name="settings_change_basis_hint_since_last">«%1$s» sammenligner med kursen fra den forrige opdatering. Med live-kurser forbliver den tæt på 0 %%.</string>
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Omregningsvaluta</string>
@@ -191,7 +191,7 @@
     <string name="settings_speech_rate">Talehastighed: %1$.1f×</string>
     <string name="settings_tts">Oplæsning</string>
     <string name="settings_tts_alarms_only">Kun alarmer</string>
-    <string name="settings_tts_alarms_only_hint">Fra: hver opdatering af et par med ”Læs kurs op” bliver læst op.</string>
+    <string name="settings_tts_alarms_only_hint">Fra: hver opdatering af et par med «Læs kurs op» bliver læst op.</string>
     <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
     <string name="settings_tts_hint_silent">Læser kurser og alarmer højt. Forbliver tavs, mens enheden er på lydløs eller vibration.</string>
     <string name="settings_tts_test">Test stemme</string>

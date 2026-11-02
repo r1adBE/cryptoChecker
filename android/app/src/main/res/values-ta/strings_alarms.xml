@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Alarmliste und Übersicht aller Alarme -->
-    <string name="add_alarm_action">விழிப்பூட்டலை அமை</string>
+    <string name="add_alarm_action">விழிப்பூட்டலை அமைக்கவும்</string>
     <string name="alarms_add">புதிய விழிப்பூட்டல்</string>
-    <string name="alarms_edit">விழிப்பூட்டலைத் திருத்து</string>
+    <string name="alarms_edit">விழிப்பூட்டலைத் திருத்தவும்</string>
     <string name="alarms_empty">இந்த ஜோடிக்கு இன்னும் விழிப்பூட்டல்கள் இல்லை.</string>
     <string name="alarms_empty_example">எடுத்துக்காட்டாக: BTC %1$s க்கு மேல் உயரும்போது எனக்குத் தெரிவிக்கவும்.</string>
     <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
     <string name="alarms_notifications_off">அறிவிப்புகள் ஆஃப் – விழிப்பூட்டல்கள் உங்களை வந்தடைய முடியாது.</string>
-    <string name="alarms_notifications_turn_on">ஆன் செய்</string>
+    <string name="alarms_notifications_turn_on">ஆன் செய்யவும்</string>
     <plurals name="alarms_overview_active">
         <item quantity="one">%1$d செயலில்</item>
         <item quantity="other">%1$d செயலில்</item>
@@ -19,11 +19,11 @@
 
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">மேம்பட்டது</string>
-    <string name="alarm_change_updates">விலைப் புதுப்பிப்புகளைச் சரிசெய்</string>
+    <string name="alarm_change_updates">விலைப் புதுப்பிப்புகளைச் சரிசெய்யவும்</string>
     <string name="alarm_check_mode_15min">சுமார் ஒவ்வொரு 15 நிமிடத்துக்கும்</string>
     <string name="alarm_check_mode_saving">சிக்கனம்</string>
     <string name="alarm_check_mode_title">சாதனம் செயலற்று இருக்கும்போது எத்தனை முறை சரிபார்க்க வேண்டும்?</string>
-    <string name="alarm_create">விழிப்பூட்டலை உருவாக்கு</string>
+    <string name="alarm_create">விழிப்பூட்டலை உருவாக்கவும்</string>
     <string name="alarm_currency_label">நாணயம்</string>
     <string name="alarm_delete_confirm">இந்த விழிப்பூட்டல் அகற்றப்படும்.</string>
     <string name="alarm_delete_title">விழிப்பூட்டலை நீக்கவா?</string>
@@ -31,8 +31,8 @@
     <string name="alarm_field_price">விலை</string>
     <string name="alarm_fires_now_above">விலை ஏற்கெனவே %1$s க்கு மேல் உள்ளது. இருந்தாலும் சேமிக்கவா?</string>
     <string name="alarm_fires_now_below">விலை ஏற்கெனவே %1$s க்குக் கீழ் உள்ளது. இருந்தாலும் சேமிக்கவா?</string>
-    <string name="alarm_fires_now_change">மாற்று</string>
-    <string name="alarm_fires_now_save">இருந்தாலும் சேமி</string>
+    <string name="alarm_fires_now_change">மாற்றவும்</string>
+    <string name="alarm_fires_now_save">இருந்தாலும் சேமிக்கவும்</string>
     <string name="alarm_fires_now_title">விழிப்பூட்டல் இப்போதே தூண்டப்படும்</string>
     <string name="alarm_first_battery_hint">பேட்டரி மேம்படுத்தல் ஆப்பைக் கட்டுப்படுத்துகிறது – விழிப்பூட்டல்கள் தாமதமாக வரலாம்.</string>
     <string name="alarm_first_title">விழிப்பூட்டல் சேமிக்கப்பட்டது</string>
@@ -40,9 +40,9 @@
     <string name="alarm_more_conditions">மேலும் நிபந்தனைகள்</string>
     <string name="alarm_new_extreme">புதிய %1$s</string>
     <string name="alarm_once">ஒருமுறை</string>
-    <string name="alarm_option_repeating">தெரிவி</string>
+    <string name="alarm_option_repeating">தெரிவிக்கவும்</string>
     <string name="alarm_option_sound">ஒலி</string>
-    <string name="alarm_option_speak">விழிப்பூட்டலைப் படித்துக் காட்டு</string>
+    <string name="alarm_option_speak">விழிப்பூட்டலைப் படித்துக் காட்டவும்</string>
     <string name="alarm_option_vibrate">அதிர்வு</string>
     <string name="alarm_repeat_each">ஒவ்வொரு முறையும்</string>
     <string name="alarm_repeat_once">ஒருமுறை</string>
@@ -62,9 +62,9 @@
     <string name="alarm_simple_below">இந்த அளவைவிடக் கீழே சென்றால்:</string>
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">%1$s விலை</string>
-    <string name="alarm_template_a11y">விழிப்பூட்டலை உருவாக்கு: %1$s</string>
-    <string name="alarm_template_a11y_down">தற்போதைய விலையிலிருந்து மைனஸ் %1$s சதவீதத்தில் விழிப்பூட்டலை உருவாக்கு</string>
-    <string name="alarm_template_a11y_up">தற்போதைய விலையிலிருந்து பிளஸ் %1$s சதவீதத்தில் விழிப்பூட்டலை உருவாக்கு</string>
+    <string name="alarm_template_a11y">விழிப்பூட்டலை உருவாக்கவும்: %1$s</string>
+    <string name="alarm_template_a11y_down">தற்போதைய விலையிலிருந்து மைனஸ் %1$s சதவீதத்தில் விழிப்பூட்டலை உருவாக்கவும்</string>
+    <string name="alarm_template_a11y_up">தற்போதைய விலையிலிருந்து பிளஸ் %1$s சதவீதத்தில் விழிப்பூட்டலை உருவாக்கவும்</string>
     <string name="alarm_template_from_now">இப்போதிலிருந்து</string>
     <string name="alarm_template_volume">வால்யூம் ×%1$s</string>
     <string name="alarm_templates_title">விரைவு விழிப்பூட்டல்கள்</string>
@@ -131,7 +131,7 @@
     <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
     <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
     <string name="alarm_funding_hint_8h">8 மணிநேரத்துக்கான ஃபண்டிங் விகிதம். வேறு இடைவெளி உள்ள ஒப்பந்தங்கள் மாற்றப்படும் (1 ம.நே. × 8, 4 ம.நே. × 2); ஃபியூச்சர்ஸ் அட்டை மாற்றப்பட்ட மதிப்பைக் காட்டும். இடைவெளி தெரியவில்லையெனில், விழிப்பூட்டல் சரிபார்க்காது. எதிர்மறை என்றால் ஷார்ட்டுகள் லாங்குகளுக்குச் செலுத்துகின்றன. ± குறியை மாற்றும்.</string>
-    <string name="alarm_funding_sign_a11y">குறியை மாற்று</string>
+    <string name="alarm_funding_sign_a11y">குறியை மாற்றவும்</string>
     <string name="alarm_oi_hint">ஓப்பன் இன்ட்ரஸ்டை அத்தனை மணிநேரத்துக்கு முன் சேமிக்கப்பட்ட மதிப்புடன் ஒப்பிடுகிறது. ஆப் அவ்வளவு நேரம் தரவைச் சேகரித்த பிறகே புதிய விழிப்பூட்டல் தெரிவிக்கும்; அதிகபட்சம் 5 நிமிடங்களுக்கு ஒருமுறை சரிபார்க்கப்படும்.</string>
     <string name="alarm_volume_factor_label">கடந்த ஒரு மணிநேர வால்யூம் vs. வழக்கமானது</string>
     <string name="alarm_volume_hint">வால்யூம் தரவு Binance இலிருந்து வருகிறது — அங்கே பட்டியலிடப்படாத ஜோடிகள் ஒருபோதும் தூண்டப்படாது.</string>
@@ -157,11 +157,11 @@
     <string name="alarm_signal_sound_vibrate">ஒலி மற்றும் அதிர்வு</string>
     <string name="alarm_signal_system">சிஸ்டம்</string>
     <string name="alarm_signal_vibrate">அதிர்வு மட்டும்</string>
-    <string name="alarm_test">விழிப்பூட்டலைச் சோதி</string>
-    <string name="alarm_test_action">சோதி</string>
+    <string name="alarm_test">விழிப்பூட்டலைச் சோதிக்கவும்</string>
+    <string name="alarm_test_action">சோதிக்கவும்</string>
     <string name="alarm_test_denied">Crypto Checker க்கு அறிவிப்புகள் ஆஃப் செய்யப்பட்டுள்ளன.</string>
     <string name="alarm_test_hint">உங்கள் ஒலி, அதிர்வு மற்றும் பேச்சு அமைப்புகளுடன் ஒரு மாதிரி விழிப்பூட்டலை அனுப்பும்.</string>
-    <string name="alarm_test_open_settings">அமைப்புகளைத் திற</string>
+    <string name="alarm_test_open_settings">அமைப்புகளைத் திறக்கவும்</string>
     <string name="alarm_test_quiet">அமைதி நேரம் இப்போது செயலில் உள்ளது: உண்மையான விழிப்பூட்டல்கள் அது முடியும் வரை காத்திருந்து பின்னர் ஒலியுடன் ஒலிக்கும்.</string>
     <string name="alarm_test_text">ஒரு விழிப்பூட்டல் இப்படித்தான் தோன்றும், ஒலிக்கும்.</string>
     <string name="alarm_test_title">சோதனை: Crypto Checker விழிப்பூட்டல்</string>

@@ -47,7 +47,9 @@ final class BinanceBatchSplitTests: XCTestCase {
     /// Erste Aktualisierung (frisch installiert, Erfassen-Blatt nie offen, keine Coin-Liste): IOTA und BTC bekommen ihren
     /// Binance-Kurs, obwohl ICX und WTC Binance unbekannt sind — nicht gescheitert, also nicht «nicht abrufbar».
     func testFirstRefreshWithoutListPricesKnownCoins() async throws {
-        try XCTSkipIf(BlockedSources.isBlocked(PortfolioPriceSource.binanceHost), "Binance-Spiegel gesperrt")
+        // Sperre/Pause ist prozessweit (andere Testklassen): vorher freigeben, damit der Test immer läuft
+        BlockedSources.clearForTest(PortfolioPriceSource.binanceHost)
+        XCTAssertFalse(BlockedSources.isBlocked(PortfolioPriceSource.binanceHost), "Binance-Spiegel nach Freigabe noch gesperrt")
         // Frischer Prozess: kein gemerktes «Binance führt ihn nicht»
         PortfolioPriceSource.state.withLock { $0.binanceUnlisted = [:] }
         let asked = Asked()

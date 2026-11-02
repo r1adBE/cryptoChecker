@@ -4,7 +4,7 @@
     <string name="notification_activity_title">கவனிக்கத்தக்கது: %1$s · %2$s</string>
     <string name="notification_alarm_text">%1$s — இப்போது %2$s</string>
     <string name="notification_alarm_title">விழிப்பூட்டல்: %1$s · %2$s</string>
-    <string name="notification_depeg_action_exchange">எக்ஸ்சேஞ்சைத் திற</string>
+    <string name="notification_depeg_action_exchange">எக்ஸ்சேஞ்சைத் திறக்கவும்</string>
     <string name="notification_depeg_text">ஆப்பில் உள்ள மதிப்புகள் இந்தச் சந்தை விலையைப் பயன்படுத்துகின்றன.</string>
     <string name="notification_depeg_title">USDT %1$s USD இல் (%2$s)</string>
     <string name="notification_fng_above">குறியீடு %1$d க்கு மேல் உயர்ந்தது – இந்த அளவீட்டின்படி சந்தை மனநிலை பேராசையாக உள்ளது.</string>
@@ -69,5 +69,5 @@
 
     <!-- Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
     <string name="notification_alarm_action_snooze">1 மணி கழித்து</string>
-    <string name="notification_alarm_action_edit">சரிசெய்</string>
+    <string name="notification_alarm_action_edit">சரிசெய்யவும்</string>
 </resources>

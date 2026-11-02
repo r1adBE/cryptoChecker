@@ -73,13 +73,13 @@
     <string name="settings_reset_notice">Indstillingerne kunne ikke læses og er nulstillet til standardværdierne. Kontrollér porteføljelåsen, alarmintervallet og valutaen.</string>
     <string name="backup_restore_interrupted_title">Gendannelsen blev afbrudt</string>
     <string name="backup_restore_interrupted_rolled_back">Appen blev lukket under gendannelse af et backup. Dine tidligere data er lagt tilbage; intet fra backuppet blev beholdt.</string>
-    <string name="backup_restore_interrupted_incomplete">Appen blev lukket under gendannelse af et backup, og de tidligere data kunne ikke lægges helt tilbage. Tjek din overvågningsliste og portefølje, eller gendan backuppet igen under “%1$s” i Indstillinger.</string>
+    <string name="backup_restore_interrupted_incomplete">Appen blev lukket under gendannelse af et backup, og de tidligere data kunne ikke lægges helt tilbage. Tjek din overvågningsliste og portefølje, eller gendan backuppet igen under «%1$s» i Indstillinger.</string>
     <string name="backup_not_verified">Backupfilen kunne ikke bekræftes efter gemning – den læses anderledes tilbage. Gem backuppet i en ny fil.</string>
 
     <!-- Hinweis (nur Android): Portfolio-Kopie aus der Systemsicherung auch beim zweiten Versuch unlesbar und gelöscht -->
     <string name="system_backup_not_imported_title">Porteføljen blev ikke gendannet fra systembackup</string>
     <!-- %1$s = Name des Bereichs «Sichern &amp; Wiederherstellen» in den Einstellungen -->
-    <string name="system_backup_not_imported_message">Porteføljekopien fra Androids systembackup kunne ikke læses, heller ikke ved andet forsøg, og er slettet. Har du en backupfil, så gendan den under “%1$s” i Indstillinger.</string>
+    <string name="system_backup_not_imported_message">Porteføljekopien fra Androids systembackup kunne ikke læses, heller ikke ved andet forsøg, og er slettet. Har du en backupfil, så gendan den under «%1$s» i Indstillinger.</string>
 
     <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
     <string name="portfolio_storage_kept_in_memory">Gemte data kan ikke læses lige nu, så porteføljen vises ikke og kan ikke ændres. Genstart appen.</string>

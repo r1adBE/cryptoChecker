@@ -4,8 +4,8 @@
     <string name="watch_loading">లోడ్ అవుతోంది…</string>
     <string name="watch_error">ఎక్స్ఛేంజ్‌లు అందుబాటులో లేవు</string>
     <string name="watch_updated">%1$s నాటికి</string>
-    <string name="watch_refresh">రిఫ్రెష్ చేయి</string>
-    <string name="watch_choose">కాయిన్‌లను ఎంచుకో</string>
+    <string name="watch_refresh">రిఫ్రెష్ చేయండి</string>
+    <string name="watch_choose">కాయిన్‌లను ఎంచుకోండి</string>
     <string name="watch_choose_hint">కాయిన్‌లు: గరిష్ఠంగా %1$d</string>
     <string name="watch_complication_label">ధర</string>
     <string name="a11y_watch_row">%1$s %2$s, 24 గంటల్లో %3$s</string>

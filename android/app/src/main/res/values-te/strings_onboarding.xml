@@ -10,10 +10,10 @@
     <string name="welcome_watch_q">ఏం జరుగుతోంది?</string>
 
     <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
-    <string name="starter_add_selected">వాచ్‌లిస్ట్‌కు జోడించు (%1$d)</string>
+    <string name="starter_add_selected">వాచ్‌లిస్ట్‌కు జోడించండి (%1$d)</string>
     <string name="starter_loading_prices">ధరలు లోడ్ అవుతున్నాయి…</string>
     <string name="starter_search_coin">మరో కాయిన్ కోసం వెతకండి</string>
-    <string name="starter_select_all">అన్నీ ఎంచుకో</string>
+    <string name="starter_select_all">అన్నీ ఎంచుకోండి</string>
     <string name="starter_select_none">ఏదీ ఎంచుకోవద్దు</string>
     <string name="starter_title">ఈ కాయిన్‌లతో ప్రారంభించండి</string>
     <string name="starter_watch_alarm_hint">ధరను గమనించండి, అలర్ట్‌ను సెట్ చేయండి</string>

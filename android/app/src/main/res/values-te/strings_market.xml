@@ -31,11 +31,11 @@
     <string name="market_plain_standout_quiet">ప్రస్తుతం ఏ కాయిన్ కూడా ప్రత్యేకంగా కనిపించడం లేదు.</string>
     <string name="market_plain_standout_volume">%1$s ప్రత్యేకంగా కనిపిస్తోంది: సాధారణం కంటే సుమారు %2$s రెట్లు ట్రేడింగ్.</string>
     <string name="market_plain_title">సంక్షిప్తంగా</string>
-    <string name="market_section_collapse">%1$sను దాచు</string>
+    <string name="market_section_collapse">%1$sను దాచండి</string>
     <string name="market_section_context">మూడ్ &amp; సైకిల్</string>
     <string name="market_section_data">మార్కెట్ డేటా</string>
     <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
-    <string name="market_section_expand">%1$sను చూపు</string>
+    <string name="market_section_expand">%1$sను చూపండి</string>
     <string name="market_section_now">ప్రస్తుతం</string>
     <string name="market_source">డేటా: Binance · Coin Metrics (CC BY-NC 4.0)</string>
     <string name="exchange_unavailable_error">ఎక్స్ఛేంజ్ అందుబాటులో లేదు</string>
@@ -83,7 +83,7 @@
     <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
     <string name="pulse_details_action">వివరాలు</string>
     <string name="pulse_disclaimer">భవిష్యవాణి కాదు · పెట్టుబడి సలహా కాదు</string>
-    <string name="pulse_less">తక్కువ చూపు</string>
+    <string name="pulse_less">తక్కువ చూపండి</string>
     <string name="pulse_now_title">క్రిప్టో పల్స్</string>
     <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
     <string name="pulse_period_24h_spoken">24 గంటల్లో మార్పు</string>
@@ -144,7 +144,7 @@
     <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
     <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
-    <string name="unusual_action_open">ధర, చర్యలను చూపు</string>
+    <string name="unusual_action_open">ధర, చర్యలను చూపండి</string>
     <string name="unusual_fact_against">మార్కెట్‌కు వ్యతిరేకంగా కదులుతోంది</string>
     <string name="unusual_fact_funding_high">ఫండింగ్ ఎక్కువ (%1$s)</string>
     <string name="unusual_fact_funding_negative">ఫండింగ్ నెగెటివ్ (%1$s)</string>
@@ -254,7 +254,7 @@
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
-    <string name="market_movers_show_all">అన్నీ చూపు</string>
+    <string name="market_movers_show_all">అన్నీ చూపండి</string>
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
-    <string name="market_movers_show_less">తక్కువ చూపు</string>
+    <string name="market_movers_show_less">తక్కువ చూపండి</string>
 </resources>

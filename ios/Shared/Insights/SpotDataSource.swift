@@ -3,38 +3,37 @@ import Foundation
 /// Spot-Kennzahlen (Marktkapitalisierung, Volumen, Umlauf …) für den Spot-Tab der Karte «Marktdaten» —
 /// wie `SpotDataSource.kt`. Zuerst aus der CoinGecko-Top-40 (direkt bei CoinGecko, für alle Nutzer
 /// gleich, verrät keinen Coin); steht der Coin nicht darin, EINE Anfrage an CoinGecko
-/// `/coins/markets?symbols=<kürzel>`. Ergebnisse (auch «nichts gefunden») ~10 min im Speicher.
+/// `/coins/markets?symbols=<kürzel>`. Antworten (auch «nichts gefunden») ~10 min im Speicher; welcher Treffer
+/// zum Paar gehört, entscheidet je Aufruf der Name (`SpotMarket.pick` mit `SpotMarket.Identity`).
 actor SpotDataSource {
     static let shared = SpotDataSource()
 
     private struct Cached {
         let at: Int64
-        let data: SpotData?
+        let entries: [SpotData]
     }
 
     private var cache: [String: Cached] = [:]
     private var topList: (at: Int64, entries: [SpotData])?
     private var topText: (at: Int64, body: String?)?
 
-    /// Daten zum Kürzel aus `SpotMarket.lookupSymbol`; nil = keine (oder nicht erreichbar).
-    func fetch(symbol: String) async -> SpotData? {
+    /// Daten zum Kürzel aus `SpotMarket.lookupSymbol` für das Paar mit `identity`; nil = keine passenden (oder nicht
+    /// erreichbar). Passt in der Top-40 kein Treffer, fragt es einmal nach dem Kürzel.
+    func fetch(symbol: String, identity: SpotMarket.Identity = SpotMarket.Identity()) async -> SpotData? {
         let now = EpochTime.nowMillis
-        if let hit = cache[symbol], fresh(hit.at, now) { return hit.data }
-        let result: SpotData?
         let top = await topEntries(now)
-        if let fromTop = SpotMarket.pick(top, symbol: symbol) {
-            result = fromTop
-        } else {
-            do {
-                let text = try await ExchangeHTTP.call(SpotMarket.url(symbol))
-                result = SpotMarket.pick(SpotMarket.parse(text), symbol: symbol)
-            } catch {
-                // Blatt geschlossen oder nicht erreichbar: nichts merken (nächstes Öffnen versucht es neu)
-                return nil
-            }
+        if let fromTop = SpotMarket.pick(top, symbol: symbol, identity: identity) { return fromTop }
+        if let hit = cache[symbol], fresh(hit.at, now) { return SpotMarket.pick(hit.entries, symbol: symbol, identity: identity) }
+        let entries: [SpotData]
+        do {
+            let text = try await ExchangeHTTP.call(SpotMarket.url(symbol))
+            entries = SpotMarket.parse(text)
+        } catch {
+            // Blatt geschlossen oder nicht erreichbar: nichts merken (nächstes Öffnen versucht es neu)
+            return nil
         }
-        cache[symbol] = Cached(at: now, data: result)
-        return result
+        cache[symbol] = Cached(at: now, entries: entries)
+        return SpotMarket.pick(entries, symbol: symbol, identity: identity)
     }
 
     private func fresh(_ at: Int64, _ now: Int64) -> Bool {

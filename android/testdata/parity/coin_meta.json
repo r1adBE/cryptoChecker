@@ -1,5 +1,5 @@
 {
- "description": "Coin-Namen, Logos und Alpha-Kennzeichen aus einem vollständigen Abgleich (CoinGecko-Seite, Binance-Symbolliste, Alpha-Liste; Werte zum Teil erfunden) und aus der Ersatzdatei coin_meta.json (Release «data», nur Binance-Listen). Android CoinMetaParityTest, iOS CoinMetaTests. sync = was die Oberfläche danach liest: names[nameKey], map[normalize] (Logo-Adresse), AssetKind. listsOnly = nur Binance-Listen (Namen sofort, vor CoinGecko; ohne TradFi-Namen für Spot-Kürzel); publishNames = gespeicherte Namen vs. frische Listen; CoinListsTest/CoinListsTests: Abruf beider Listen ohne CoinGecko und Bilder, Ersatzdatei. mirrorSymbolsOnly = Ersatzdatei nur mit Kürzeln (ohne fullName/logo/tags, leere alpha): ersetzt nie eine Liste mit Namen, ergänzt nur fehlende Kürzel hinten (CoinMeta.mirrorBinance; afterDirect = Abruf mit gespeicherter direkter Liste binanceList).",
+ "description": "Coin-Namen, Logos und Alpha-Kennzeichen aus einem vollständigen Abgleich (CoinGecko-Seite, Binance-Symbolliste, Alpha-Liste; Werte zum Teil erfunden) und aus der Ersatzdatei coin_meta.json (Release «data», nur Binance-Listen). Android CoinMetaParityTest, iOS CoinMetaTests. sync = was die Oberfläche danach liest: names[nameKey], map[normalize] (Logo-Adresse; bei Binance gelistete Krypto-Kürzel nehmen das Binance-Logo, CoinGecko füllt nur Lücken: BTC Binance, ETH CoinGecko), AssetKind. listsOnly = nur Binance-Listen (Namen sofort, vor CoinGecko; ohne TradFi-Namen für Spot-Kürzel); publishNames = gespeicherte Namen vs. frische Listen; CoinListsTest/CoinListsTests: Abruf beider Listen ohne CoinGecko und Bilder, Ersatzdatei. mirrorSymbolsOnly = Ersatzdatei nur mit Kürzeln (ohne fullName/logo/tags, leere alpha): ersetzt nie eine Liste mit Namen, ergänzt nur fehlende Kürzel hinten (CoinMeta.mirrorBinance; afterDirect = Abruf mit gespeicherter direkter Liste binanceList).",
  "geckoPage": [
   {
    "id": "bitcoin",
@@ -147,7 +147,8 @@
    "TRADFI:XAU": "Gold"
   },
   "map": {
-   "BTC": "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png",
+   "BTC": "https://bin.bnbstatic.com/image/admin_mgs_image_upload/btc.png",
+   "ETH": "https://coin-images.coingecko.com/coins/images/279/large/ethereum.png",
    "WLD": "https://bin.bnbstatic.com/image/admin_mgs_image_upload/wld.png",
    "FROGGIE": "https://bin.bnbstatic.com/images/web3-data/public/token/logos/froggie.png",
    "AIA": "https://bin.bnbstatic.com/images/aia.png",
@@ -605,5 +606,13 @@
  "alternates": {
   "description": "CoinMeta.alternates: Ersatz-Adressen je Kürzel (normalize) für den Sammel-Abruf, wenn das Bild der Zuordnung scheitert: erst die Binance-Symbolliste ohne Futures-only- und bStocks-Einträge (CAT Caterpillar, NVDAB fallen weg), dann die Alpha-Liste («Mog» für 1000000MOG, relative iconUrl wird bin.bnbstatic.com); nur freigegebene Adressen (AIN mit fremdem Host fällt weg, BAD ohne HTTPS), ohne Doppelte (CHEEMS).",
   "expected": {"CHEEMS": ["https://bin.bnbstatic.com/image/admin_mgs_image_upload/20250209/cheems.png"], "AIXBT": ["https://bin.bnbstatic.com/image/admin_mgs_image_upload/20250110/aixbt.png", "https://bin.bnbstatic.com/images/web3-data/public/token/logos/aixbt.png"], "CAT": ["https://bin.bnbstatic.com/image/1000cat.png"], "MOG": ["https://bin.bnbstatic.com/images/web3-data/public/token/logos/mog.png"], "AIOT": ["https://bin.bnbstatic.com/images/web3-data/public/token/logos/aiot.png"]}
+ },
+ "binanceFirst": {
+  "description": "CoinMeta.binanceFirst(binanceList): Logos der bei Binance gelisteten Krypto-Kürzel (Spot, keine bStocks, nicht nur Futures), Schlüssel normalize — sie laden vor den Seiten der Rangliste und gehen in merge allen anderen Quellen vor. NVDAB (bStocks) und XAU (nur Futures) fehlen, «kaputt» fällt weg.",
+  "expected": {
+   "BTC": "https://bin.bnbstatic.com/image/admin_mgs_image_upload/btc.png",
+   "WLD": "https://bin.bnbstatic.com/image/admin_mgs_image_upload/wld.png",
+   "PEPE": "https://bin.bnbstatic.com/image/admin_mgs_image_upload/pepe.png"
+  }
  }
 }

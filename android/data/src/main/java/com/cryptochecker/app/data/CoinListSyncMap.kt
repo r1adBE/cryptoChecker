@@ -23,12 +23,13 @@ import com.cryptochecker.app.data.CoinListSync.NetState
  * Zuordnung aus Datei bzw. frisch von CoinGecko, zusammengeführt mit den Binance-Listen aus
  * [refreshLists]; bei Fehlern die alte (auch abgelaufen). Nur freigegebene Bild-Adressen
  * ([CoinLogos.isAllowedUrl]).
- * [onTop]: Zuordnung nach den grössten 1000 (für den frühen Start der Bilder), nur bei neuem Abruf.
+ * [onEarly]: Zwischenstände für den frühen Start der Bilder, nur bei neuem Abruf — erst die bei Binance gelisteten
+ * Krypto-Kürzel ([CoinMeta.binanceFirst], vor der ersten Seite der Rangliste), dann die grössten 1000.
  */
-suspend fun CoinListSync.symbolMap(onTop: (suspend (Map<String, String>) -> Unit)? = null): Map<String, String> =
-    mapMutex.withLock { lockedSymbolMap(onTop) }
+suspend fun CoinListSync.symbolMap(onEarly: (suspend (Map<String, String>) -> Unit)? = null): Map<String, String> =
+    mapMutex.withLock { lockedSymbolMap(onEarly) }
 
-suspend fun CoinListSync.lockedSymbolMap(onTop: (suspend (Map<String, String>) -> Unit)?): Map<String, String> {
+suspend fun CoinListSync.lockedSymbolMap(onEarly: (suspend (Map<String, String>) -> Unit)?): Map<String, String> {
     val now = System.currentTimeMillis()
     val known = map ?: withContext(Dispatchers.IO) { CoinLogos.decode(CoinLogoStorage.readNonBlank(mapFile)) }
         .also { map = it }
@@ -41,6 +42,14 @@ suspend fun CoinListSync.lockedSymbolMap(onTop: (suspend (Map<String, String>) -
 
     val binance = saved?.binance?.takeIf { it.isNotEmpty() }
     val alphaList = saved?.alpha?.takeIf { it.isNotEmpty() }
+    // Bei Binance gelistete Krypto-Kürzel zuerst: ihr Logo steht schon in der Symbolliste und geht in der Zuordnung
+    // vor (CoinMeta.merge) — die Bilder laden, während die Seiten der Rangliste mit ihren Pausen noch kommen
+    val handled = HashSet<String>()
+    val first = CoinMeta.binanceFirst(binance)
+    if (onEarly != null && first.isNotEmpty()) {
+        handled += imageStore.dropChangedImages(known, first)
+        onEarly(first)
+    }
     val net = NetState()
     val top = ArrayList<CoinMeta.GeckoRow>()
     var complete = fetchCoinGecko(top, 1..CoinLogos.PAGES, net)
@@ -53,12 +62,12 @@ suspend fun CoinListSync.lockedSymbolMap(onTop: (suspend (Map<String, String>) -
         // Binance-Listen trotzdem für die Lücken
         return withListsMerged(known)
     }
-    // Geänderte Bild-Adressen der grössten 1000 gleich löschen, dann ihre Bilder schon laden
-    val handled = HashSet<String>()
-    if (onTop != null) {
+    // Geänderte Bild-Adressen der grössten 1000 gleich löschen, dann ihre Bilder schon laden (die Binance-Kürzel
+    // von oben sind schon unterwegs bzw. da: Dateien werden nicht doppelt geholt)
+    if (onEarly != null) {
         val partial = CoinMeta.merge(top, binance, alphaList).map
-        handled += imageStore.dropChangedImages(known, partial)
-        onTop(partial)
+        handled += imageStore.dropChangedImages(known, partial, skip = handled)
+        onEarly(partial)
     }
     // Kleinere Coins (Rang 1001–2500) nur noch für die Lücken — und nur ohne getaktetes Netz (mobile
     // Daten): sonst gilt die Liste als unvollständig und wird nach einigen Stunden erneut versucht

@@ -2,9 +2,9 @@
 <resources>
     <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
     <string name="app_lock_unavailable">ఈ పరికరంలో స్క్రీన్ లాక్ సెటప్ చేయలేదు. ముందుగా సిస్టమ్ సెట్టింగ్‌లలో ఒకదాన్ని సెటప్ చేయండి.</string>
-    <string name="app_lock_unlock">అన్‌లాక్ చేయి</string>
+    <string name="app_lock_unlock">అన్‌లాక్ చేయండి</string>
     <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
-    <string name="portfolio_clear">పోర్ట్‌ఫోలియోను క్లియర్ చేయి</string>
+    <string name="portfolio_clear">పోర్ట్‌ఫోలియోను క్లియర్ చేయండి</string>
     <plurals name="portfolio_clear_confirm_count">
         <item quantity="one">%d లావాదేవీని తొలగించాలా? పర్యవేక్షిస్తున్న అడ్రస్‌లు అలాగే ఉంటాయి. దీన్ని వెంటనే రద్దు చేయవచ్చు.</item>
         <item quantity="other">మొత్తం %d లావాదేవీలను తొలగించాలా? పర్యవేక్షిస్తున్న అడ్రస్‌లు అలాగే ఉంటాయి. దీన్ని వెంటనే రద్దు చేయవచ్చు.</item>
@@ -42,7 +42,7 @@
     <string name="portfolio_card_today">ఈరోజు</string>
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">మొత్తం</string>
-    <string name="portfolio_hide_amounts">మొత్తాలను దాచు</string>
+    <string name="portfolio_hide_amounts">మొత్తాలను దాచండి</string>
     <string name="portfolio_hide_amounts_hint">పోర్ట్‌ఫోలియోలో, పోర్ట్‌ఫోలియో విడ్జెట్‌లో మొత్తాలు, విలువలను ••• గా చూపుతుంది – శాతాలు కనిపిస్తూనే ఉంటాయి.</string>
     <string name="portfolio_invested">కొనుగోలు వ్యయం</string>
     <string name="portfolio_total_no_fx">%1$sకు మారకపు రేటు లేదు – మొత్తాలు USDTలో</string>
@@ -73,8 +73,8 @@
     <string name="portfolio_withdrawn_gain">విత్‌డ్రా చేసింది: %1$s (విత్‌డ్రా వరకు విలువ మార్పు)</string>
 
     <!-- Portfolio: Kurse und Umrechnung -->
-    <string name="portfolio_convert_to">దీనికి మార్చు</string>
-    <string name="portfolio_convert_to_value">దీనికి మార్చు: %1$s</string>
+    <string name="portfolio_convert_to">దీనికి మార్చండి</string>
+    <string name="portfolio_convert_to_value">దీనికి మార్చండి: %1$s</string>
     <string name="portfolio_current_missing">%1$sకు ప్రస్తుత ధర లేదు</string>
     <string name="portfolio_current_price">ప్రస్తుత ధర</string>
     <string name="portfolio_price_missing">ధర లేదు</string>
@@ -89,16 +89,16 @@
     <string name="portfolio_usdt_assumed">USDT డాలర్ రేటు లేదు – 1 అమెరికన్ డాలర్‌గా లెక్కించబడింది</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
-    <string name="portfolio_add_from_watch">పోర్ట్‌ఫోలియోకు జోడించు</string>
-    <string name="portfolio_add_tx">లావాదేవీని జోడించు</string>
+    <string name="portfolio_add_from_watch">పోర్ట్‌ఫోలియోకు జోడించండి</string>
+    <string name="portfolio_add_tx">లావాదేవీని జోడించండి</string>
     <string name="portfolio_buy">కొనుగోలు</string>
     <string name="portfolio_coin">కాయిన్</string>
     <string name="portfolio_coin_invalid">కాయిన్ సింబల్‌ను నమోదు చేయండి</string>
     <string name="portfolio_coin_search">సింబల్ కోసం వెతకండి, ఉదా. BTC</string>
-    <string name="portfolio_discard_confirm">విస్మరించు</string>
-    <string name="portfolio_discard_keep">ఎడిట్ కొనసాగించు</string>
+    <string name="portfolio_discard_confirm">విస్మరించండి</string>
+    <string name="portfolio_discard_keep">ఎడిట్ కొనసాగించండి</string>
     <string name="portfolio_discard_title">మార్పులను విస్మరించాలా?</string>
-    <string name="portfolio_edit_tx">లావాదేవీని ఎడిట్ చేయి</string>
+    <string name="portfolio_edit_tx">లావాదేవీని ఎడిట్ చేయండి</string>
     <string name="portfolio_invalid">0 కంటే పెద్ద చెల్లుబాటు అయ్యే సంఖ్యను నమోదు చేయండి.</string>
     <string name="portfolio_oversold">అమ్మకాలు హోల్డింగ్‌లను మించాయి – దయచేసి లావాదేవీలను తనిఖీ చేయండి.</string>
     <string name="portfolio_sell">అమ్మకం</string>
@@ -178,9 +178,9 @@
     <!-- Portfolio: Wertverlauf (Zeitraum, Vergleich Währung | USDT, Währungseffekt) -->
     <!-- Höchster Tageswert des Zeitraums am Punkt («Hoch 12’345») -->
     <string name="portfolio_chart_high">గరిష్ఠం %1$s</string>
-    <string name="portfolio_compare">పోల్చు</string>
+    <string name="portfolio_compare">పోల్చండి</string>
     <!-- Umschalter «Vergleich», Screenreader: %1$s Währung -->
-    <string name="portfolio_compare_a11y">%1$s, USDTని శాతంలో పోల్చు</string>
+    <string name="portfolio_compare_a11y">%1$s, USDTని శాతంలో పోల్చండి</string>
     <!-- %1$s Zeitraum, %2$s Währung, %3$s und %4$s Satz aus a11y_change_up/down/flat -->
     <string name="portfolio_compare_chart_a11y">శాతంలో పోలిక, %1$s: %2$s %3$s, USDT %4$s</string>
     <!-- %1$s Prozentpunkte mit Vorzeichen («−5.10%»): Veränderung in der Währung minus in USDT -->
@@ -188,9 +188,9 @@
     <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
     <string name="portfolio_history_capped_data_start">ధర డేటా ఆగస్టు 2017 వరకు మాత్రమే వెనక్కి వెళ్తుంది — చరిత్ర అక్కడి నుండి ప్రారంభమవుతుంది.</string>
     <string name="portfolio_history_chip_since_first">అన్నీ</string>
-    <string name="portfolio_history_collapse">విలువ చరిత్రను దాచు</string>
+    <string name="portfolio_history_collapse">విలువ చరిత్రను దాచండి</string>
     <string name="portfolio_history_converted">ఈరోజు రేటుతో మార్చబడింది</string>
-    <string name="portfolio_history_expand">విలువ చరిత్రను చూపు</string>
+    <string name="portfolio_history_expand">విలువ చరిత్రను చూపండి</string>
     <string name="portfolio_history_gain_a11y">విలువ %1$s. లాభం/నష్టం, %2$s: %3$s</string>
     <string name="portfolio_history_gain_label">లాభం/నష్టం</string>
     <!-- Umschalter, Screenreader: %1$s Währung («CHF») oder «USDT» -->
@@ -208,7 +208,7 @@
     <string name="portfolio_history_range_1y">1 సం</string>
     <string name="portfolio_history_range_30d">30 రో</string>
     <string name="portfolio_history_range_7d">7 రో</string>
-    <string name="portfolio_history_range_a11y">%1$s చరిత్రను చూపు</string>
+    <string name="portfolio_history_range_a11y">%1$s చరిత్రను చూపండి</string>
     <string name="portfolio_history_range_since_first">మొదటి కొనుగోలు నుండి</string>
     <string name="portfolio_history_scaled">%1$s చరిత్ర: ఎక్స్ఛేంజ్ ధరకు స్కేల్ చేసిన Binance చరిత్ర</string>
     <string name="portfolio_history_title">విలువ చరిత్ర</string>
@@ -270,7 +270,7 @@
     <string name="portfolio_tx_interest">వడ్డీ (లెండింగ్)</string>
     <string name="portfolio_tx_interest_hint">అందుకున్నప్పుడు ఆదాయంగా లెక్కించబడుతుంది (ఆస్ట్రియా). స్టేకింగ్ రివార్డ్‌లు, ఎయిర్‌డ్రాప్‌లకు దీన్ని ఉపయోగించవద్దు.</string>
     <string name="app_lock_no_screen_lock">పోర్ట్‌ఫోలియోను తెరవడానికి స్క్రీన్ లాక్‌ను సెటప్ చేయండి.</string>
-    <string name="app_lock_turn_off_action">పోర్ట్‌ఫోలియో లాక్‌ను ఆఫ్ చేయి</string>
+    <string name="app_lock_turn_off_action">పోర్ట్‌ఫోలియో లాక్‌ను ఆఫ్ చేయండి</string>
     <string name="app_lock_turn_off_confirm_title">పోర్ట్‌ఫోలియో లాక్‌ను ఆఫ్ చేయాలా?</string>
     <string name="app_lock_turn_off_confirm_message">స్క్రీన్ లాక్ లేకుండా పోర్ట్‌ఫోలియోను అన్‌లాక్ చేయలేరు. ఆఫ్ చేస్తే, యాప్ అడగకుండానే మీ పోర్ట్‌ఫోలియోను మళ్లీ చూపుతుంది. స్క్రీన్ లాక్ సెటప్ అయిన తర్వాత, సెట్టింగ్‌లలో లాక్‌ను మళ్లీ ఆన్ చేయవచ్చు.</string>
 

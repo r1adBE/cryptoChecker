@@ -10,10 +10,10 @@ import Foundation
 ///   Rangliste auf einmal (danach nur neu dazugekommene) und zeigt sie nur aus dem Speicher auf
 ///   dem Gerät. So sieht CoinGecko bei jedem Nutzer dieselben Abrufe und erfährt nie, welche Coins
 ///   in einer Merkliste stehen. Coins ausserhalb der Rangliste bekommen Initialen.
-/// - Zweite Quelle für Lücken: die öffentliche Symbolliste der Binance-Website (`binanceListURL`,
-///   Feld `logo`) — vor allem TradFi (Gold, Silber, Aktien), die CoinGecko nicht führt. Sie füllt
-///   nur Symbole, die CoinGecko nicht kennt (`pick` lässt Vorhandenes stehen). Inoffizielle
-///   Schnittstelle: Fällt sie weg, bleiben dort Initialen.
+/// - Erste Quelle für die bei Binance gelisteten Krypto-Kürzel: die öffentliche Symbolliste der Binance-Website
+///   (`binanceListURL`, Feld `logo`; eine Anfrage, schon für die Namen geholt, `CoinMeta.binanceFirst`); CoinGecko
+///   füllt nur die übrigen Lücken (`pick` lässt Vorhandenes stehen). Dazu TradFi (Gold, Silber, Aktien), die CoinGecko
+///   nicht führt. Inoffizielle Schnittstelle: Fällt sie weg, gilt wieder CoinGecko bzw. der Ersatz-Kreis.
 /// - Dritte Quelle: die offizielle Token-Liste von Binance Alpha (`alphaListURL`) für kleinere
 ///   Futures-Token ohne CoinGecko-Rang (AIA, AGT, AIO …).
 /// - Fehlt eine Quelle, bleibt Bekanntes erhalten und die Liste wird nach einigen Stunden neu geholt.
@@ -23,9 +23,10 @@ import Foundation
 /// - Nur Bilder von CoinGecko- und Binance-Bildservern über HTTPS (`isAllowedURL`). Kein eigenes
 ///   Logo-Paket (CoinGecko-API-Bedingungen verbieten Weitergabe und Speicherung ihrer Daten).
 /// - Mitgeliefert: das freie Icon-Paket «Cryptocurrency Icons» (CC0, `iconPackName`, rund
-///   480 grössere Coins) — sofort und ohne Netz; Reihenfolge: CoinGecko → Binance-Liste/Alpha →
-///   mitgeliefertes Icon → Initialen. Kein Abruf bei jsDelivr mehr.
-/// - Kein Logo (unbekannt, Fehler, Schalter aus): Kreis mit `initials` — nie ein kaputtes Bild.
+///   480 grössere Coins) — sofort und ohne Netz; Reihenfolge: Binance-Liste (gelistete Krypto-Kürzel) →
+///   CoinGecko → übrige Binance-Liste/Alpha → mitgeliefertes Icon → Ersatz-Kreis. Kein Abruf bei jsDelivr mehr.
+/// - Kein Logo (unbekannt, Fehler, noch nicht geladen): farbiger Kreis mit `initials` (`CoinLogoPlaceholder`) — nie
+///   ein kaputtes Bild.
 enum CoinLogos {
     /// Zuordnung (Rangliste/Namen von CoinGecko) höchstens 24 h gültig — CoinGecko-Bedingungen:
     /// Daten höchstens 24 h zwischenspeichern. Schon geladene Bilder bleiben im Zwischenspeicher.

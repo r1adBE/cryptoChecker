@@ -1068,9 +1068,15 @@ top 40 for the Spot tab and the «Why?» market breadth as one shared request ke
 platforms, parity cases `spot_market.json`): the «Spot» tab of the «Market data» card (shown for
 all crypto pairs except deactivated pairs, DEX pools and TradFi spot data) first reads the CoinGecko
 top 40 (`SpotMarket.TOP_URL`, fetched directly, the same request for everyone and shared with the
-«Why?» market breadth, 10 minutes in memory) and only for a coin not in it asks
+«Why?» market breadth, 10 minutes in memory) and only for a coin with no matching hit in it asks
 CoinGecko `/coins/markets?vs_currency=usd&symbols=<symbol>` (keyless, sends the coin symbol).
-Results, including «not found», stay in memory for 10 minutes per symbol; failures are not cached.
+Which hit belongs to the pair is decided by name, not by market cap (`SpotMarket.pick` with
+`SpotMarket.Identity`, the portfolio price rule): the pair's own name from its exchange list, else
+Binance's name (not for a known double symbol or conflicting pair lists), compared with
+`TokenIdentity.matchNames`; the same name wins (several: the largest market cap among them), a merely
+similar name only as the sole hit, a different name never; without a usable name only a sole hit. No
+match shows no spot data rather than another token's.
+Answers, including «not found», stay in memory for 10 minutes per symbol; failures are not cached.
 Nothing is requested until the tab is opened. The «Futures» tab of a spot pair loads the coin's USDT
 perpetual with the existing `fetchForBase` (Binance Futures `premiumIndex` / `openInterest` →
 Bybit → OKX), also only on opening, and labels it as reference data (see [section 17](#17-why-futures-data-chart-and-asset-kinds)).
@@ -1098,10 +1104,11 @@ step-by-step flow stays as «Advanced / by exchange».
 
 **Coin logos** (`CoinLogos.kt` / `CoinLogos.swift`, parity cases `coin_logos.json`): there is
 no own logo list or logo pack (CoinGecko's API terms forbid redistributing their data). Every install builds the same list itself: the
-symbol → image map comes from CoinGecko `/coins/markets` (pages 1–4 = top 1000 first, first occurrence by
-market cap wins), gaps filled from the Binance website list `bapi/composite/v1/public/marketing/symbol/list`
-(`name` → `logo` on `*.bnbstatic.com`, unofficial; only symbols CoinGecko lacks, e.g. XAU, XAG,
-stocks), then the official Binance Alpha token list
+symbol → image map starts with the crypto symbols listed on Binance (`CoinMeta.binanceFirst`: spot entries of the
+Binance website list `bapi/composite/v1/public/marketing/symbol/list`, `name` → `logo` on `*.bnbstatic.com`,
+unofficial; one request, already fetched for names), then CoinGecko `/coins/markets` (pages 1–4 = top 1000, first
+occurrence by market cap wins) only for the gaps, then the remaining Binance entries (e.g. XAU, XAG, stocks), then
+the official Binance Alpha token list
 `bapi/defi/v1/public/wallet-direct/buw/wallet/cex/alpha/all/token/list` (`symbol` → `iconUrl`,
 tradable first, largest `marketCap` first; futures tokens without a CoinGecko market cap such as
 AIA, AGT, AIO), then CoinGecko pages 5–10 (ranks 1001–2500) for the remaining gaps (e.g. AIN, LUNA), and is
@@ -1114,13 +1121,19 @@ their logo from `bin.bnbstatic.com/static/stock/TICKER.png` (all TradFi tickers 
 lists) and, with «Show names», their name from the official Nasdaq symbol directory
 (`nasdaqlisted.txt` + `otherlisted.txt`, weekly, `cleanStockName` strips «Common Stock» etc.) (retry after 1 h on failure). For privacy the
 logos of **all** coins in that list are downloaded in one background sync (`startSync` /
-`syncAll`, 6 parallel per host, small variant first) — never one logo on demand, so the image
-requests are the same for every install. Images are scaled to 128 px and stored as PNG (Android `cacheDir/coin_logos`, iOS App
+`syncAll`, small variant first) — never one logo on demand, so the set of image requests is the same for every
+install. The download runs in stages: Binance-listed symbols start before the first CoinGecko page, then the top
+1000, then the rest; within a stage the order is the list order, the same for every install (Binance list, then rank;
+never by watchlist or portfolio – iOS keeps it via `Lists.order` / the saved map file, `CoinLogoQueue.ordered`),
+at most 6 at once and 4 per host (`CoinLogoQueue`, parity `coin_logos.json` › `queue`). Without a logo (yet) the
+badge shows a coloured circle with the initials (`CoinLogoPlaceholder`: colour from FNV-1a of the symbol, 8 colours
+per theme, text ≥ 4.5:1; parity `coin_placeholder.json`); a logo that arrives later fades in (220 ms, none with
+reduced motion / animator scale 0). Images are scaled to 128 px and stored as PNG (Android `cacheDir/coin_logos`, iOS App
 Group `coin_logos/`), a failed image is retried after **1 day**; display reads only from memory/disk, and a
 `revision` counter (at most once per second while loading) lets badges retry. Every lookup in the map uses the
 merge key (`CoinLogos.urlFor`: `normalize`, TradFi via `tradFiKey`), also for the starter logos («1000CAT» → CAT). Only HTTPS images from
 `*.coingecko.com` and `*.bnbstatic.com` (`isAllowedUrl`; URLs of the former GitHub Pages list are
-rejected); DEX pools (`DexScreener`) always show initials. Android:
+rejected); DEX pools (`DexScreener`) always show the initials circle. Android:
 `CoinLogoRepository` → `LocalCoinLogoSource` (null when «In the app» is off) →
 `CoinBadge` (`portfolio = true` → `LocalPortfolioCoinLogoSource`), sync started by
 `CoinLogoSync` when `CoinLogoUse.needed` (app, widgets, or portfolio with the tab on; app
@@ -1809,7 +1822,7 @@ the tests named here.
   (`coin_meta_snapshot.json`) and the CC0 icon pack «Cryptocurrency Icons» (`coin_icons.bin`, 64 px) ship with
   the app, so names and major logos show offline on first start; regenerate both with
   `android/tools/gen_coin_assets.py` (`--meta live` needs network – run it before each release so Alpha is in
-  the snapshot). Images: all entries are downloaded (never per watchlist coin), 6 parallel per host, a
+  the snapshot). Images: all entries are downloaded (never per watchlist coin, in a fixed order for everyone), 6 at once, 4 per host, a
   429/503, or a 403 with Retry-After, pauses only that host (Retry-After, ≤ 6 h) and is never a per-image failure. A
   403 without Retry-After (CloudFront/S3 also answers a missing file that way) fails only that image (1-day rule; the
   small variant still falls through to the large one); only the third image of a host in a row ending in 403 within
@@ -3199,6 +3212,9 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   `TaxCountryFigures` also gates CH wealth/ESTV lines; widget shows the last drawn rows (encrypted, not backed up) after boot.
 * Build 184: owner decision – `TaxCountryFigures` gating from 181/183 removed, country figures shown again; beta note links
   to GitHub issues (shared link helper with About).
+* Build 185: logos – Binance symbol list first, `CoinLogoQueue` (6 parallel, 4 per host, fixed order for everyone),
+  `CoinLogoPlaceholder` (colour from symbol, AA contrast, fade-in); spot card by name identity; iOS `BlockedSources.clearForTest`;
+  te/ta polite form, he/da quotes, ka/hy/lv/nb texts.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

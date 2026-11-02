@@ -51,12 +51,12 @@
     <string name="watchlist_row_unreachable">%1$s · %2$s అందుబాటులో లేదు</string>
 
     <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
-    <string name="watchlist_jump_end">చివరికి వెళ్లు</string>
-    <string name="watchlist_jump_start">పైకి వెళ్లు</string>
-    <string name="watchlist_search_close">శోధనను మూసివేయి</string>
+    <string name="watchlist_jump_end">చివరికి వెళ్లండి</string>
+    <string name="watchlist_jump_start">పైకి వెళ్లండి</string>
+    <string name="watchlist_search_close">శోధనను మూసివేయండి</string>
     <string name="watchlist_search_empty">“%1$s”కు సరిపోలికలు లేవు</string>
     <string name="watchlist_search_hint">జత, పేరు లేదా ఎక్స్ఛేంజ్ కోసం వెతకండి</string>
-    <string name="watchlist_search_open">వెతుకు</string>
+    <string name="watchlist_search_open">వెతకండి</string>
     <string name="watchlist_sort_ascending">ఆరోహణ</string>
     <string name="watchlist_sort_descending">అవరోహణ</string>
     <string name="watchlist_sort_hint">ఒక జతను పట్టుకుని లాగండి, లేదా హ్యాండిల్‌ను ఉపయోగించండి. ఇష్టమైనవి పైనే ఉంటాయి.</string>
@@ -65,19 +65,19 @@
     <string name="watchlist_sort_price">ధర</string>
 
     <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
-    <string name="watchlist_clear">వాచ్‌లిస్ట్‌ను క్లియర్ చేయి</string>
+    <string name="watchlist_clear">వాచ్‌లిస్ట్‌ను క్లియర్ చేయండి</string>
     <string name="watchlist_clear_confirm">వాచ్‌లిస్ట్ నుండి అన్ని జతలను తీసివేయాలా? వాటి అలర్ట్‌లు కూడా తీసివేయబడతాయి.</string>
     <plurals name="watchlist_disabled_count">
         <item quantity="one">%1$d డిజేబుల్ చేయబడింది</item>
         <item quantity="other">%1$d డిజేబుల్ చేయబడ్డాయి</item>
     </plurals>
-    <string name="watchlist_remove_not_traded_action">తీసివేయి</string>
+    <string name="watchlist_remove_not_traded_action">తీసివేయండి</string>
     <plurals name="watchlist_remove_not_traded_confirm">
         <item quantity="one">దాని ఎక్స్ఛేంజ్‌లో ఇకపై ట్రేడ్ కాని %1$d జతను తీసివేయాలా? దాని అలర్ట్‌లు కూడా తీసివేయబడతాయి.</item>
         <item quantity="other">వాటి ఎక్స్ఛేంజ్‌లో ఇకపై ట్రేడ్ కాని %1$d జతలను తీసివేయాలా? వాటి అలర్ట్‌లు కూడా తీసివేయబడతాయి.</item>
     </plurals>
-    <string name="watchlist_remove_not_traded_menu">ట్రేడ్ కాని జతలను తీసివేయి (%1$d)</string>
-    <string name="watchlist_remove_not_traded_title">ట్రేడ్ కాని జతలను తీసివేయి</string>
+    <string name="watchlist_remove_not_traded_menu">ట్రేడ్ కాని జతలను తీసివేయండి (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">ట్రేడ్ కాని జతలను తీసివేయండి</string>
     <string name="watchlist_removed">%1$s తీసివేయబడింది</string>
     <plurals name="watchlist_removed_count">
         <item quantity="one">%1$d జత తీసివేయబడింది</item>
@@ -87,15 +87,15 @@
         <item quantity="one">ట్రేడ్ కాని %1$d జత తీసివేయబడింది</item>
         <item quantity="other">ట్రేడ్ కాని %1$d జతలు తీసివేయబడ్డాయి</item>
     </plurals>
-    <string name="watchlist_select">ఎంచుకో</string>
-    <string name="watchlist_select_all">అన్నీ ఎంచుకో</string>
+    <string name="watchlist_select">ఎంచుకోండి</string>
+    <string name="watchlist_select_all">అన్నీ ఎంచుకోండి</string>
     <plurals name="watchlist_selected_count">
         <item quantity="one">%1$d ఎంచుకోబడింది</item>
         <item quantity="other">%1$d ఎంచుకోబడ్డాయి</item>
     </plurals>
-    <string name="watchlist_show_all">అన్నీ చూపు</string>
-    <string name="watchlist_show_only_disabled">డిజేబుల్ చేసినవి మాత్రమే చూపు</string>
-    <string name="watchlist_show_only_stale">పాతవి మాత్రమే చూపు</string>
+    <string name="watchlist_show_all">అన్నీ చూపండి</string>
+    <string name="watchlist_show_only_disabled">డిజేబుల్ చేసినవి మాత్రమే చూపండి</string>
+    <string name="watchlist_show_only_stale">పాతవి మాత్రమే చూపండి</string>
 
     <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
     <plurals name="watchlist_alarms_count">
@@ -107,26 +107,26 @@
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
     <string name="watchlist_groups_empty_hint">మీ గ్రూప్‌లు ఇక్కడ కనిపిస్తాయి</string>
     <string name="watchlist_notification">ధర నోటిఫికేషన్</string>
-    <string name="watchlist_tts">ధరను చదివి వినిపించు</string>
+    <string name="watchlist_tts">ధరను చదివి వినిపించండి</string>
     <string name="watchlist_tts_speech_on">వాయిస్ అవుట్‌పుట్ ఆన్‌లో ఉంది. దీన్ని సెట్టింగ్‌లు › అలర్ట్‌లు › వాయిస్ అవుట్‌పుట్‌లో మార్చవచ్చు.</string>
 
     <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
-    <string name="watch_action_add_widget">విడ్జెట్‌గా జోడించు</string>
+    <string name="watch_action_add_widget">విడ్జెట్‌గా జోడించండి</string>
     <string name="watch_action_alarm">అలర్ట్</string>
     <string name="watch_action_favorite">ఇష్టమైనది</string>
     <string name="watch_action_why">దానితో పాటు ఏది కదులుతోంది?</string>
     <string name="watch_action_change_exchange">ఎక్స్ఛేంజ్ మార్చండి</string>
     <string name="watch_action_why_short">దానితో ఏది కదులుతోంది?</string>
     <string name="watch_change_mark">మార్క్</string>
-    <string name="watch_disable">డిజేబుల్ చేయి</string>
+    <string name="watch_disable">డిజేబుల్ చేయండి</string>
     <string name="watch_disable_hint">రిక్వెస్ట్‌లు లేవు, నోటిఫికేషన్‌లు లేవు</string>
     <string name="watch_disabled">డిజేబుల్ చేయబడింది</string>
     <string name="watch_disabled_banner">%1$s డిజేబుల్ చేయబడింది</string>
     <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
     <string name="watch_edit_alarms_warning">అలర్ట్‌లు అలాగే ఉంటాయి – వాటి పరిమితులను తనిఖీ చేయండి</string>
     <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
-    <string name="watch_edit_title">జతను ఎడిట్ చేయి</string>
-    <string name="watch_enable">ఎనేబుల్ చేయి</string>
+    <string name="watch_edit_title">జతను ఎడిట్ చేయండి</string>
+    <string name="watch_enable">ఎనేబుల్ చేయండి</string>
     <string name="watch_enable_hint">ధరలు, నోటిఫికేషన్‌లు మళ్లీ ప్రారంభమవుతాయి</string>
     <string name="watch_enabled_banner">%1$s ఎనేబుల్ చేయబడింది</string>
     <string name="watch_error_offline">కనెక్షన్ లేదు</string>
@@ -146,9 +146,9 @@
     <string name="pairs_added_watching">%1$s ఇప్పుడు మీ వాచ్‌లిస్ట్‌లో ఉన్నాయి</string>
 
     <!-- Favoriten -->
-    <string name="favorite_add">ఇష్టమైనవాటికి జోడించు</string>
+    <string name="favorite_add">ఇష్టమైనవాటికి జోడించండి</string>
     <string name="favorite_added">%1$s ఇష్టమైనవాటికి జోడించబడింది</string>
-    <string name="favorite_remove">ఇష్టమైనవాటి నుండి తీసివేయి</string>
+    <string name="favorite_remove">ఇష్టమైనవాటి నుండి తీసివేయండి</string>
     <string name="favorite_removed">%1$s ఇష్టమైనవాటి నుండి తీసివేయబడింది</string>
     <string name="hint_favorites_list">చిట్కా: ఒక వరుసను ఇష్టమైనదిగా చేయడానికి కుడివైపుకు స్వైప్ చేయండి – ఇష్టమైనవి పైనే ఉంటాయి.</string>
 
@@ -157,10 +157,10 @@
     <string name="group_all">అన్నీ</string>
     <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
     <string name="group_alpha">Alpha టోకెన్‌లు</string>
-    <string name="group_delete">గ్రూప్‌ను తొలగించు</string>
+    <string name="group_delete">గ్రూప్‌ను తొలగించండి</string>
     <string name="group_delete_confirm">జతలు మీ వాచ్‌లిస్ట్‌లోనే ఉంటాయి.</string>
     <string name="group_done">పూర్తయింది</string>
-    <string name="group_edit_title">గ్రూప్‌ను ఎడిట్ చేయి</string>
+    <string name="group_edit_title">గ్రూప్‌ను ఎడిట్ చేయండి</string>
     <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
     <string name="group_favorites">ఇష్టమైనవి</string>
     <string name="group_in_other">%1$sలో</string>
@@ -168,7 +168,7 @@
     <string name="group_new">కొత్త గ్రూప్…</string>
     <string name="group_next">తదుపరి</string>
     <string name="group_none">గ్రూప్ లేదు</string>
-    <string name="group_rename">పేరు మార్చు</string>
+    <string name="group_rename">పేరు మార్చండి</string>
     <string name="group_search_hint">జత, పేరు లేదా ఎక్స్ఛేంజ్ కోసం వెతకండి</string>
     <string name="group_target">గ్రూప్‌లో</string>
     <string name="group_title">గ్రూప్</string>
@@ -177,18 +177,18 @@
     <string name="group_value">గ్రూప్: %1$s</string>
 
     <!-- Notiz zum Paar -->
-    <string name="note_add">గమనికను జోడించు</string>
-    <string name="note_edit">గమనికను ఎడిట్ చేయి</string>
+    <string name="note_add">గమనికను జోడించండి</string>
+    <string name="note_edit">గమనికను ఎడిట్ చేయండి</string>
     <string name="note_hint">ఉదా. 0.42 వద్ద ఎంట్రీ, లక్ష్యం 0.60</string>
-    <string name="note_remove">తీసివేయి</string>
+    <string name="note_remove">తీసివేయండి</string>
     <string name="note_title">గమనిక</string>
 
     <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
     <string name="sort_drag_handle">క్రమం మార్చడానికి లాగండి</string>
-    <string name="sort_move_bottom">చివరికి జరుపు</string>
-    <string name="sort_move_down">కిందికి జరుపు</string>
-    <string name="sort_move_top">మొదటికి జరుపు</string>
-    <string name="sort_move_up">పైకి జరుపు</string>
+    <string name="sort_move_bottom">చివరికి జరపండి</string>
+    <string name="sort_move_down">కిందికి జరపండి</string>
+    <string name="sort_move_top">మొదటికి జరపండి</string>
+    <string name="sort_move_up">పైకి జరపండి</string>
 
     <string name="watchlist_first_alarm_title">మీ మొదటి అలర్ట్‌ను సెట్ చేయండి</string>
     <string name="watchlist_first_alarm_text">ధర మీ మార్క్‌ను చేరినప్పుడు నోటిఫికేషన్ పొందండి – యాప్ మూసి ఉన్నప్పుడు, Android క్రమరహితంగా తనిఖీ చేస్తుంది.</string>
@@ -212,14 +212,14 @@
     <string name="watchlist_row_last_trade_age">చివరి ట్రేడ్ %1$s</string>
 
     <string name="change_candle_source_hint">%1$s క్యాండిల్‌ల నుండి లెక్కించబడింది – ఎక్స్ఛేంజ్ స్వయంగా ఈ విలువను అందించదు.</string>
-    <string name="change_candle_source_action">మార్పు మూలాన్ని చూపు</string>
+    <string name="change_candle_source_action">మార్పు మూలాన్ని చూపండి</string>
 
-    <string name="watchlist_sort_by_coin">కాయిన్ వారీగా క్రమబద్ధీకరించు</string>
-    <string name="watchlist_sort_by_exchange">ఎక్స్ఛేంజ్ వారీగా క్రమబద్ధీకరించు</string>
+    <string name="watchlist_sort_by_coin">కాయిన్ వారీగా క్రమబద్ధీకరించండి</string>
+    <string name="watchlist_sort_by_exchange">ఎక్స్ఛేంజ్ వారీగా క్రమబద్ధీకరించండి</string>
     <string name="watchlist_limit_reached">మీ వాచ్‌లిస్ట్‌లో గరిష్ఠంగా %1$s జతలు ఉండవచ్చు.</string>
     <string name="watch_price_reference">రిఫరెన్స్ రేటు, రోజువారీ</string>
     <string name="watch_price_daily">రోజువారీ</string>
-    <string name="watchlist_compare">పోల్చు</string>
+    <string name="watchlist_compare">పోల్చండి</string>
     <string name="watchlist_compare_hint">పోల్చడానికి 2 నుండి 4 జతలను ఎంచుకోండి.</string>
     <string name="compare_title">పోలిక</string>
     <string name="compare_basis">వ్యవధి ప్రారంభం నుండి శాతంలో మార్పును లైన్‌లు చూపుతాయి.</string>
@@ -234,7 +234,7 @@
     <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
     <string name="watchlist_not_saved_confirm_message">వాచ్‌లిస్ట్, దాని అలర్ట్‌లు ప్రస్తుతం సేవ్ కావడం లేదు. యాప్ మూసివేసినప్పుడు ఈ మార్పు, తదుపరి మార్పులు పోతాయి. అయినా మార్చాలా?</string>
     <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
-    <string name="watchlist_not_saved_confirm_action">అయినా మార్చు</string>
+    <string name="watchlist_not_saved_confirm_action">అయినా మార్చండి</string>
     <plurals name="watchlist_footer_count">
         <item quantity="one">%1$d జత</item>
         <item quantity="other">%1$d జతలు</item>

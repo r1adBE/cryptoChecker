@@ -33,9 +33,9 @@
     <string name="delivery_last_check_old">%1$s – 6 గంటల కంటే ముందు</string>
     <string name="delivery_last_check_never">ఇంకా లేదు</string>
     <!-- Knöpfe in den Zeilen -->
-    <string name="delivery_action_allow">అనుమతించు</string>
-    <string name="delivery_action_change">మార్చు</string>
-    <string name="delivery_action_show">చూపు</string>
+    <string name="delivery_action_allow">అనుమతించండి</string>
+    <string name="delivery_action_change">మార్చండి</string>
+    <string name="delivery_action_show">చూపండి</string>
     <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
     <string name="delivery_alert_sound">బ్యానర్‌లు, శబ్దం</string>
     <string name="delivery_alert_off">బ్యానర్‌లు ఆఫ్ – అలర్ట్‌లు నోటిఫికేషన్ సెంటర్‌లో మాత్రమే కనిపిస్తాయి</string>

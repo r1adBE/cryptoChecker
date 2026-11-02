@@ -24,7 +24,7 @@
     <string name="portfolio_export_failed_file">Eksport mislykkedes: filen kunne ikke skrives – placeringen findes ikke længere eller er skrivebeskyttet</string>
     <string name="portfolio_export_failed_prices">Eksport mislykkedes: kurserne mangler – ingen forbindelse, eller børsen svarer ikke</string>
     <string name="portfolio_export_from_address">fra adresse – uden købspris</string>
-    <string name="portfolio_export_hint">Beholdning ved udgangen af den valgte dag, værdisat til dagens lukkekurs (UTC) i USDT og omregnet med ECB\'s referencekurs for den dag. Valutaen ændrer du under ”Omregn til”.</string>
+    <string name="portfolio_export_hint">Beholdning ved udgangen af den valgte dag, værdisat til dagens lukkekurs (UTC) i USDT og omregnet med ECB\'s referencekurs for den dag. Valutaen ændrer du under «Omregn til».</string>
     <string name="portfolio_export_incomplete">ufuldstændig</string>
     <string name="portfolio_export_no_fx">ingen valutakurs</string>
     <string name="portfolio_export_no_price">ingen kurs</string>
@@ -184,7 +184,7 @@
     <string name="tax_note_fr">Salg og gebyrer betalt i krypto er afhændelser – bytte udskydes. Et kryptogebyr ved et salg tæller med i prisen før gebyrer – ellers er det en selvstændig afhændelse til sin værdi. Porteføljeværdi ud fra daglige lukkekurser – mangler en forbliver anskaffelsesprisen tom.</string>
     <string name="tax_note_network_fee">Et netværksgebyr betalt i krypto (overførsel til din egen wallet, udbetaling) er en afhændelse af gebyr-coinsene til markedsværdi – gevinst eller tab kun på de coins, ikke et tab af hele gebyret (%1$s). Uden registreret pris: samme dags lukkekurs (UTC); uden lukkekurs forbliver provenuet tomt.</string>
     <string name="tax_note_specific_id">Specifik identifikation (Specific Identification) understøttes ikke – FIFO gælder (først købt – først solgt).</string>
-    <string name="tax_note_spouse_gift">En gave markeret “til ægtefælle / partner” er uden gevinst og tab: provenu = din anskaffelsessum, som din partner overtager (%1$s).</string>
+    <string name="tax_note_spouse_gift">En gave markeret «til ægtefælle / partner» er uden gevinst og tab: provenu = din anskaffelsessum, som din partner overtager (%1$s).</string>
     <string name="tax_note_stable_swap">Et salg mod en stablecoin (USDT/USDC/DAI …), som du beholder, er her krypto mod krypto og ikke skattepligtigt – registrér det som bytte til stablecoinen. Kun et salg mod euro er skattepligtigt – «Salg» tæller som salg mod euro.</string>
     <string name="tax_note_transfer_fee">Det samme gælder et gebyr i USDT eller kontanter ved en overførsel mellem dine egne wallets: det lægges ikke til anskaffelsesprisen og vises kun til information.</string>
     <string name="tax_note_uk">Matching efter HMRC: samme dag → derefter de næste 30 dage → derefter samlet beholdning efter Section 104 (Section 104-pool).</string>

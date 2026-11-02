@@ -3,34 +3,34 @@
     <string name="backup_device_bound">పరికరం మార్చే ముందు, బ్యాకప్ ఫైల్‌ను సృష్టించండి – ఎన్‌క్రిప్ట్ చేసిన డేటాను ఈ పరికరంలో మాత్రమే తెరవగలరు.</string>
     <string name="backup_encryption_pending">ఎన్‌క్రిప్షన్ ఇంకా యాక్టివ్‌గా లేదు – తదుపరి ప్రారంభంలో యాప్ మళ్లీ ప్రయత్నిస్తుంది.</string>
     <!-- Sicherung exportieren und wiederherstellen -->
-    <string name="backup_export">ఎక్స్‌పోర్ట్ చేయి</string>
+    <string name="backup_export">ఎక్స్‌పోర్ట్ చేయండి</string>
     <string name="backup_exported">బ్యాకప్ సేవ్ అయింది.</string>
     <string name="backup_failed">అది పని చేయలేదు. ఇది Crypto Checker బ్యాకప్‌నా?</string>
     <string name="backup_hint">మీ వాచ్‌లిస్ట్‌ను గమనికలు, గ్రూప్‌లతో, అలర్ట్‌లు, ఇష్టమైనవి, పోర్ట్‌ఫోలియో, సెట్టింగ్‌లను మీరే ఉంచుకునే ఫైల్‌గా సేవ్ చేస్తుంది – ఉదా. కొత్త ఫోన్ కోసం.</string>
-    <string name="backup_import">ఇంపోర్ట్ చేయి</string>
+    <string name="backup_import">ఇంపోర్ట్ చేయండి</string>
     <string name="backup_title">బ్యాకప్ &amp; పునరుద్ధరణ</string>
     <string name="backup_too_large">ఫైల్ చాలా పెద్దది లేదా చెల్లుబాటు అయ్యే బ్యాకప్ కాదు (పరిమితి 64 MB).</string>
     <string name="backup_export_too_large">బ్యాకప్ 64 MB కంటే పెద్దదిగా ఉంటుంది, పునరుద్ధరించలేము, కాబట్టి అది సేవ్ కాలేదు.</string>
 
     <!-- Passwort der Sicherungsdatei -->
     <string name="backup_password">పాస్‌వర్డ్</string>
-    <string name="backup_password_continue">కొనసాగించు</string>
-    <string name="backup_password_hide">పాస్‌వర్డ్‌ను దాచు</string>
+    <string name="backup_password_continue">కొనసాగించండి</string>
+    <string name="backup_password_hide">పాస్‌వర్డ్‌ను దాచండి</string>
     <!-- %1$d = Mindestlänge des Passworts (8) -->
     <string name="backup_password_min">కనీసం %1$d అక్షరాలు</string>
     <string name="backup_password_mismatch">పాస్‌వర్డ్‌లు సరిపోలడం లేదు</string>
     <string name="backup_password_prompt">ఈ బ్యాకప్ పాస్‌వర్డ్‌ను నమోదు చేయండి.</string>
-    <string name="backup_password_repeat">పాస్‌వర్డ్‌ను మళ్లీ నమోదు చేయి</string>
-    <string name="backup_password_show">పాస్‌వర్డ్‌ను చూపు</string>
+    <string name="backup_password_repeat">పాస్‌వర్డ్‌ను మళ్లీ నమోదు చేయండి</string>
+    <string name="backup_password_show">పాస్‌వర్డ్‌ను చూపండి</string>
     <string name="backup_password_title">పాస్‌వర్డ్‌తో రక్షిత బ్యాకప్</string>
     <string name="backup_password_too_weak">ఊహించడం చాలా సులభం – అంకెలు మాత్రమే, ఒకే అక్షరం పునరావృతం లేదా “12345678”, “password” వంటి సాధారణ క్రమాలను నివారించండి.</string>
     <string name="backup_password_warning">పాస్‌వర్డ్ లేకుండా బ్యాకప్‌ను పునరుద్ధరించలేము.</string>
     <string name="backup_password_wrong">తప్పు పాస్‌వర్డ్, లేదా ఫైల్ పాడైంది. దయచేసి మళ్లీ ప్రయత్నించండి.</string>
-    <string name="backup_protect">పాస్‌వర్డ్‌తో రక్షించు</string>
+    <string name="backup_protect">పాస్‌వర్డ్‌తో రక్షించండి</string>
     <string name="backup_protect_hint">ఫైల్‌ను ఎన్‌క్రిప్ట్ చేస్తుంది (AES-256). పోర్ట్‌ఫోలియో డేటా ఉంటే సిఫార్సు చేయబడింది.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
-    <string name="backup_plain_confirm">పాస్‌వర్డ్ లేకుండా సేవ్ చేయి</string>
+    <string name="backup_plain_confirm">పాస్‌వర్డ్ లేకుండా సేవ్ చేయండి</string>
     <string name="backup_plain_confirm_text">ఫైల్ ఎన్‌క్రిప్ట్ చేయబడలేదు. దాన్ని పొందిన ఎవరైనా చదవగలరు:</string>
     <string name="backup_plain_confirm_title">పాస్‌వర్డ్ లేకుండా సేవ్ చేయాలా?</string>
     <string name="backup_plain_contents_addresses">బ్యాలెన్స్ చరిత్ర, కొనుగోలు వ్యయంతో సేవ్ చేసిన వాలెట్ అడ్రస్‌లు, xpub కీలు</string>
@@ -43,7 +43,7 @@
         <item quantity="other">బ్యాకప్‌లోని %d ఎంట్రీలు (పోర్ట్‌ఫోలియో లేదా అలర్ట్‌లు) చెల్లవు, ఇంపోర్ట్ చేయబడవు.</item>
     </plurals>
     <string name="backup_restore_newer_version">ఈ బ్యాకప్ కొత్త యాప్ వెర్షన్ నుండి వచ్చింది – ముందుగా యాప్‌ను అప్‌డేట్ చేయండి. ఏదీ ఇంపోర్ట్ కాలేదు.</string>
-    <string name="backup_restore_unencrypted_warning">ఈ బ్యాకప్ ఎన్‌క్రిప్ట్ చేయబడలేదు – ఇది మీదేనా అని తనిఖీ చేయండి. సెట్టింగ్‌లు వర్తింపజేయబడతాయి – రక్షణను తగ్గించే మార్పులు తప్ప (పోర్ట్‌ఫోలియో లాక్, అడ్రస్‌ల కోసం సొంత సర్వర్, మొత్తాలను దాచు, సిస్టమ్ బ్యాకప్‌లో పోర్ట్‌ఫోలియో).</string>
+    <string name="backup_restore_unencrypted_warning">ఈ బ్యాకప్ ఎన్‌క్రిప్ట్ చేయబడలేదు – ఇది మీదేనా అని తనిఖీ చేయండి. సెట్టింగ్‌లు వర్తింపజేయబడతాయి – రక్షణను తగ్గించే మార్పులు తప్ప (పోర్ట్‌ఫోలియో లాక్, అడ్రస్‌ల కోసం సొంత సర్వర్, మొత్తాలను దాచండి, సిస్టమ్ బ్యాకప్‌లో పోర్ట్‌ఫోలియో).</string>
     <string name="backup_restored">పునరుద్ధరించబడింది: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d అలర్ట్</item>
@@ -65,7 +65,7 @@
     <string name="backup_not_enough_memory">పాస్‌వర్డ్‌తో బ్యాకప్‌ను రక్షించడానికి లేదా తెరవడానికి తగినంత ఖాళీ మెమరీ లేదు. ఇతర యాప్‌లను మూసివేసి మళ్లీ ప్రయత్నించండి.</string>
 
     <!-- Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
-    <string name="storage_recovery_restore_action">బ్యాకప్‌ను పునరుద్ధరించు</string>
+    <string name="storage_recovery_restore_action">బ్యాకప్‌ను పునరుద్ధరించండి</string>
     <string name="storage_recovery_acknowledge">అర్థమైంది</string>
     <string name="storage_recovery_restored_title">సేవ్ చేసిన డేటా మళ్లీ అన్‌లాక్ అయింది</string>
     <string name="storage_recovery_restored_message">ఈ పరికరంలోని మునుపటి కీ పక్కన పెట్టిన డేటాను మళ్లీ తెరిచింది, కాబట్టి అది తిరిగి వచ్చింది. ఈలోగా సేవ్ చేసిన డేటా మార్పు లేకుండా దాని పక్కనే ఉంచబడింది.</string>

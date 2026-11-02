@@ -2,9 +2,9 @@
 <resources>
     <!-- Wie aktuell? (Sparsam / Live) -->
     <string name="update_mode_for_pros">պահանջում է ավելի շատ տվյալներ և մարտկոց</string>
-    <string name="update_mode_live">Live՝ բաց ժամանակ</string>
-    <string name="update_mode_live_hint">Որտեղ բորսան տրամադրում է live գին՝ անմիջապես, քանի դեռ դիտացանկը բաց է։ Այլապես՝ հաջորդ հարցման ժամանակ։ Փակ վիճակում՝ ոչ ավելի հաճախ, քան %1$s-ը մեկ, հաճախ ավելի ուշ։</string>
-    <string name="update_mode_live_hint_ios">Որտեղ բորսան տրամադրում է live գին՝ անմիջապես, քանի դեռ դիտացանկը բաց է։ Այլապես՝ հաջորդ հարցման ժամանակ։ Փակ վիճակում՝ երբ iOS-ը թույլ է տալիս, երբեմն ժամեր անց։ Եթե հավելվածը սահեցնելով փակես, iOS-ը դադարեցնում է այս ստուգումները, մինչև այն նորից բացես։</string>
+    <string name="update_mode_live">Ուղիղ՝ բաց ժամանակ</string>
+    <string name="update_mode_live_hint">Որտեղ բորսան տրամադրում է իրական ժամանակի գին՝ անմիջապես, քանի դեռ դիտացանկը բաց է։ Այլապես՝ հաջորդ հարցման ժամանակ։ Փակ վիճակում՝ ոչ ավելի հաճախ, քան %1$s-ը մեկ, հաճախ ավելի ուշ։</string>
+    <string name="update_mode_live_hint_ios">Որտեղ բորսան տրամադրում է իրական ժամանակի գին՝ անմիջապես, քանի դեռ դիտացանկը բաց է։ Այլապես՝ հաջորդ հարցման ժամանակ։ Փակ վիճակում՝ երբ iOS-ը թույլ է տալիս, երբեմն ժամեր անց։ Եթե հավելվածը սահեցնելով փակես, iOS-ը դադարեցնում է այս ստուգումները, մինչև այն նորից բացես։</string>
     <string name="update_mode_recommended">խորհուրդ է տրվում</string>
     <string name="update_mode_sparsam">Խնայողական</string>
     <string name="update_mode_sparsam_hint">Երբ հավելվածը փակ է՝ ոչ ավելի հաճախ, քան %1$s-ը մեկ, հաճախ ավելի ուշ (ահազանգեր, վիջեթներ)։ Բաց վիճակում՝ ամեն անգամ, երբ բացում ես։</string>
@@ -79,7 +79,7 @@
         <item quantity="one">%1$d սխալ</item>
         <item quantity="other">%1$d սխալ</item>
     </plurals>
-    <string name="refresh_report_live">Live՝ %1$s</string>
+    <string name="refresh_report_live">Ուղիղ՝ %1$s</string>
     <plurals name="refresh_report_not_traded">
         <item quantity="one">%1$d-ն այլևս չի առևտրվում</item>
         <item quantity="other">%1$d-ն այլևս չեն առևտրվում</item>

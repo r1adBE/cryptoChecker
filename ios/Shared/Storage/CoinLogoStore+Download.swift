@@ -3,16 +3,15 @@ import Network
 import os
 import UIKit
 
-// Logos laden (Teil von `CoinLogoStore`): Bilder der Rangliste je Server parallel, Pausen gebremster Server,
-// Fehlschläge einen Tag sperren, Verkleinern auf `CoinLogos.storedPixels` (`CoinLogoDecode`); dazu die Erkennung von teurem Netz.
+// Logos laden (Teil von `CoinLogoStore`): Bilder der Rangliste in fester Reihenfolge (für alle gleich), parallel mit
+// Grenzen (`CoinLogoQueue`), Pausen gebremster Server, Fehlschläge einen Tag sperren, Verkleinern auf
+// `CoinLogos.storedPixels` (`CoinLogoDecode`); dazu die Erkennung von teurem Netz.
 
 extension CoinLogoStore {
     /// Höchstgrösse eines Bildes (wie Android `MAX_IMAGE_BYTES`); grössere werden gar nicht erst ganz gelesen. 4 MB:
     /// Binance lädt Logos seit 2025 in hoher Auflösung hoch (über 512 KB, dann standen Initialen). Gespeichert wird
     /// nur das verkleinerte Bild; die Pixel-Grenze (`CoinLogos.maxSourcePixels`) bleibt.
     static let maxImageBytes = 4 * 1024 * 1024
-    /// Bild-Abrufe gleichzeitig je Server (CoinGecko, Binance).
-    private static let perHostParallel = 6
     /// Bremst ein Server höchstens so kurz, werden seine Bilder nach der Pause gleich nachgeholt.
     private static let shortPauseMaxMillis: Int64 = 2 * 60_000
     private static let pauseRounds = 3
@@ -24,8 +23,8 @@ extension CoinLogoStore {
         c.requestCachePolicy = .reloadIgnoringLocalCacheData
         c.httpAdditionalHeaders = [HttpUserAgent.header: HttpUserAgent.value]
         c.waitsForConnectivity = false
-        // Mehrere Bilder gleichzeitig je Server (`perHostParallel`)
-        c.httpMaximumConnectionsPerHost = 6
+        // Mehrere Bilder gleichzeitig je Server (`CoinLogoQueue.perHostParallel`)
+        c.httpMaximumConnectionsPerHost = CoinLogoQueue.perHostParallel
         return URLSession(configuration: c)
     }()
 
@@ -37,13 +36,6 @@ extension CoinLogoStore {
         var pausedUntil: Int64?
     }
 
-    /// Ergebnis der Bilder eines Servers.
-    private struct HostResult: Sendable {
-        var added = 0
-        var failed: [String] = []
-        var paused: [DownloadJob] = []
-    }
-
     fileprivate struct DownloadJob: Sendable {
         let name: String
         let url: String
@@ -51,11 +43,17 @@ extension CoinLogoStore {
         var alternates: [String] = []
     }
 
-    /// Lädt alle Logos aus `wanted`, die noch fehlen (nicht fehlgeschlagen, keine Datei): je Server
-    /// `perHostParallel` gleichzeitig. Bremst ein Server nur kurz (bis `shortPauseMaxMillis`), werden
-    /// seine Bilder nach der Pause gleich nachgeholt; scheitert ein Bild, kommen die Ersatz-Adressen desselben
+    /// Schlüssel der gespeicherten Zuordnung in Datei-Reihenfolge (Binance-Liste, dann Rang;
+    /// `CoinLogoQueue.mapFileOrder`).
+    static func savedMapOrder() -> [String] { CoinLogoQueue.mapFileOrder(readNonBlank(mapURL)) }
+
+    /// Lädt alle Logos aus `all`, die noch fehlen (nicht fehlgeschlagen, keine Datei), in der Reihenfolge `order`
+    /// (`CoinLogoQueue.ordered`) — für alle gleich, nie nach der Merkliste —, mehrere gleichzeitig (`CoinLogoQueue.run`:
+    /// je Server `perHostParallel`, insgesamt `maxParallel`). Bremst ein Server nur kurz (bis `shortPauseMaxMillis`),
+    /// werden seine Bilder nach der Pause gleich nachgeholt; scheitert ein Bild, kommen die Ersatz-Adressen desselben
     /// Kürzels dran (`alternates`, `CoinMeta.alternates`) — wie Android `downloadMissing`.
-    static func downloadMissing(_ all: [String: String], alternates: [String: [String]] = [:]) async -> DownloadResult {
+    static func downloadMissing(_ all: [String: String], order: [String],
+                                alternates: [String: [String]] = [:]) async -> DownloadResult {
         // Mobile Daten: Logos, die nur die Zusatzseiten der Rangliste bringen, erst im WLAN
         let extraOnly = Set(SharedStorage.defaults.stringArray(forKey: extraOnlyKey) ?? [])
         let unmetered = await UnmeteredNetwork.shared.isUnmetered()
@@ -67,7 +65,7 @@ extension CoinLogoStore {
         let altByFile = Dictionary(alternates.compactMap { e in CoinLogos.fileName(e.key).map { ($0, e.value) } },
                                    uniquingKeysWith: { first, _ in first })
         // Je Datei höchstens ein Abruf (zwei Kürzel, eine Datei: nie gleichzeitig dieselbe Datei schreiben)
-        var pending = CoinLogos.downloadJobs(wanted.map { ($0.key, $0.value) }) { name in
+        var pending = CoinLogos.downloadJobs(CoinLogoQueue.ordered(wanted, order: order)) { name in
             failedBefore[name] != nil || fm.fileExists(atPath: directory.appendingPathComponent(name).path)
         }.map { DownloadJob(name: $0.name, url: $0.url, alternates: altByFile[$0.name] ?? []) }
         guard !pending.isEmpty else { return DownloadResult() }
@@ -78,16 +76,18 @@ extension CoinLogoStore {
         // 403 in Folge je Server in diesem Durchgang (erst die dritte pausiert den Server)
         let streaks = ForbiddenStreaks()
         for round in 1...pauseRounds {
-            let byHost = Dictionary(grouping: pending) { CoinLogoRetry.hostOf($0.url) ?? "" }
             var roundPaused: [DownloadJob] = []
-            await withTaskGroup(of: HostResult.self) { group in
-                for list in byHost.values {
-                    group.addTask { await CoinLogoStore.downloadHost(list, streaks: streaks) }
-                }
-                for await r in group {
-                    added += r.added
-                    newFailures.append(contentsOf: r.failed)
-                    roundPaused.append(contentsOf: r.paused)
+            await CoinLogoQueue.run(pending, host: { CoinLogoRetry.hostOf($0.url) ?? "" },
+                                    work: { await CoinLogoStore.downloadWithAlternates($0, streaks: streaks) }) { job, result in
+                switch result {
+                case .ok:
+                    added += 1
+                    await CoinLogoRevision.bumpIfDue()
+                case .failed:
+                    newFailures.append(job.name)
+                case .paused:
+                    // Server bremst: nicht als Fehler
+                    roundPaused.append(job)
                 }
             }
             paused = roundPaused
@@ -111,34 +111,6 @@ extension CoinLogoStore {
         // Gebremste Bilder übrig, Pause aber schon vorbei: gleich nachholen (Ende = jetzt)
         let pausedUntil = paused.isEmpty ? nil : EpochTime.nowMillis + (shortestPauseMillis(paused) ?? 0)
         return DownloadResult(added: added, network: network, pausedUntil: pausedUntil)
-    }
-
-    /// Bilder eines Servers, `perHostParallel` gleichzeitig.
-    private static func downloadHost(_ jobs: [DownloadJob], streaks: ForbiddenStreaks) async -> HostResult {
-        var out = HostResult()
-        var iterator = jobs.makeIterator()
-        await withTaskGroup(of: (job: DownloadJob, result: Fetched).self) { group in
-            for _ in 0..<perHostParallel {
-                guard let job = iterator.next() else { break }
-                group.addTask { (job, await CoinLogoStore.downloadWithAlternates(job, streaks: streaks)) }
-            }
-            while let done = await group.next() {
-                switch done.result {
-                case .ok:
-                    out.added += 1
-                    await CoinLogoRevision.bumpIfDue()
-                case .failed:
-                    out.failed.append(done.job.name)
-                case .paused:
-                    // Server bremst: nicht als Fehler
-                    out.paused.append(done.job)
-                }
-                if let job = iterator.next() {
-                    group.addTask { (job, await CoinLogoStore.downloadWithAlternates(job, streaks: streaks)) }
-                }
-            }
-        }
-        return out
     }
 
     /// Erst `job.url`, scheitert es, die Ersatz-Adressen der Reihe nach; bremst dabei ein Server, gilt das Bild als

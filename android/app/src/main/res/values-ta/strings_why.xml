@@ -4,8 +4,8 @@
     <string name="why_action">கூடவே எது நகர்கிறது?</string>
     <string name="why_all_values">எல்லா மதிப்புகளும் மூலங்களும்</string>
     <string name="why_all_values_hint">கவனிப்பு · சாத்தியமான விளக்கம் · மூலங்கள்</string>
-    <string name="why_details">விவரங்களைக் காட்டு</string>
-    <string name="why_details_hide">விவரங்களை மறை</string>
+    <string name="why_details">விவரங்களைக் காட்டவும்</string>
+    <string name="why_details_hide">விவரங்களை மறைக்கவும்</string>
     <string name="why_disclaimer">சந்தைத் தரவிலிருந்து தானியங்கு மதிப்பீடு: ஒரே நேரத்தில் நடப்பதைக் காட்டுகிறது, காரணத்துக்கான சான்று அல்ல.</string>
     <string name="why_footer_short">ஒரே நேரத்தில் நடப்பது காரணம் அல்ல · முதலீட்டு ஆலோசனை அல்ல</string>
     <string name="why_no_data">இந்த ஜோடிக்கு Binance இலிருந்து தரவு இல்லை</string>

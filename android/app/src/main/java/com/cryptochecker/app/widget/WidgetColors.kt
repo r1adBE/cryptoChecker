@@ -1,6 +1,7 @@
 package com.cryptochecker.app.widget
 
 import android.graphics.Color
+import com.cryptochecker.app.domain.logos.CoinLogoPlaceholder
 import com.cryptochecker.app.settings.AccentColor
 import com.cryptochecker.app.settings.PriceColorScheme
 import com.cryptochecker.app.ui.theme.MarketScalePalette
@@ -63,6 +64,13 @@ class WidgetColors(
     val logoBackingColor: Int
         get() = if (dark) Color.argb(235, Color.red(textColor), Color.green(textColor), Color.blue(textColor))
         else Color.argb(28, Color.red(secondaryTextColor), Color.green(secondaryTextColor), Color.blue(secondaryTextColor))
+
+    /** Ersatz-Kreis ohne Logo ([CoinLogoPlaceholder]): Füllung fest aus dem Kürzel, wie in der App. */
+    fun placeholderFill(symbol: String): Int = CoinLogoPlaceholder.fill(symbol, dark)
+
+    /** Initialen auf dem Ersatz-Kreis (≥ 4.5:1 auf jeder Füllung). */
+    val placeholderText: Int
+        get() = CoinLogoPlaceholder.text(dark)
 
     companion object {
         const val DEFAULT_OPACITY = 90

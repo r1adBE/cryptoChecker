@@ -10,11 +10,11 @@
     <string name="welcome_watch_q">என்ன நடக்கிறது?</string>
 
     <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
-    <string name="starter_add_selected">கண்காணிப்புப் பட்டியலில் சேர் (%1$d)</string>
+    <string name="starter_add_selected">கண்காணிப்புப் பட்டியலில் சேர்க்கவும் (%1$d)</string>
     <string name="starter_loading_prices">விலைகளை ஏற்றுகிறது…</string>
-    <string name="starter_search_coin">வேறு காயினைத் தேடு</string>
-    <string name="starter_select_all">அனைத்தையும் தேர்ந்தெடு</string>
-    <string name="starter_select_none">எதையும் தேர்ந்தெடுக்காதே</string>
+    <string name="starter_search_coin">வேறு காயினைத் தேடவும்</string>
+    <string name="starter_select_all">அனைத்தையும் தேர்ந்தெடுக்கவும்</string>
+    <string name="starter_select_none">எதையும் தேர்ந்தெடுக்க வேண்டாம்</string>
     <string name="starter_title">இந்தக் காயின்களுடன் தொடங்குங்கள்</string>
     <string name="starter_watch_alarm_hint">விலையைக் கவனியுங்கள், விழிப்பூட்டலை அமைக்கவும்</string>
 

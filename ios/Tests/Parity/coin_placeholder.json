@@ -1,0 +1,109 @@
+{
+ "description": "Ersatz-Kreis ohne Logo (CoinLogoPlaceholder, Android CoinLogoPlaceholderParityTest, iOS CoinLogoPlaceholderTests): Farbe fest aus dem Kürzel — key wie die Initialen (Krypto ohne Hebel-Präfix, TradFi ohne «TRADFI:», gross), index = FNV-1a 32 Bit über die UTF-8-Bytes von key modulo Anzahl Farben. Paletten hell/dunkel mit Schrift textLight/textDark; jede Füllung mit ihrer Schrift mindestens minContrast (WCAG). Erwartete Werte unabhängig (Python) nachgerechnet.",
+ "fillsLight": [
+  "2B5FC8",
+  "00796B",
+  "2E7D32",
+  "6A3FB5",
+  "AD1457",
+  "B3401A",
+  "6D4C41",
+  "3949AB"
+ ],
+ "fillsDark": [
+  "9DBBF5",
+  "7FCBC2",
+  "A5D6A7",
+  "C6AEF2",
+  "F4A3C0",
+  "FFAE8F",
+  "C9B3AA",
+  "A7B0E6"
+ ],
+ "textLight": "FFFFFF",
+ "textDark": "141414",
+ "minContrast": 4.5,
+ "fadeMillis": 220,
+ "cases": [
+  {
+   "symbol": "BTC",
+   "key": "BTC",
+   "index": 0
+  },
+  {
+   "symbol": "btc",
+   "key": "BTC",
+   "index": 0
+  },
+  {
+   "symbol": "ETH",
+   "key": "ETH",
+   "index": 4
+  },
+  {
+   "symbol": "1000PEPE",
+   "key": "PEPE",
+   "index": 5
+  },
+  {
+   "symbol": "PEPE",
+   "key": "PEPE",
+   "index": 5
+  },
+  {
+   "symbol": "TRADFI:NVDA",
+   "key": "NVDA",
+   "index": 6
+  },
+  {
+   "symbol": "NVDA",
+   "key": "NVDA",
+   "index": 6
+  },
+  {
+   "symbol": "XAU",
+   "key": "XAU",
+   "index": 5
+  },
+  {
+   "symbol": "SOL",
+   "key": "SOL",
+   "index": 1
+  },
+  {
+   "symbol": "DOGE",
+   "key": "DOGE",
+   "index": 4
+  },
+  {
+   "symbol": "1INCH",
+   "key": "1INCH",
+   "index": 0
+  },
+  {
+   "symbol": "1000X",
+   "key": "1000X",
+   "index": 4
+  },
+  {
+   "symbol": "USDT",
+   "key": "USDT",
+   "index": 1
+  },
+  {
+   "symbol": "A",
+   "key": "A",
+   "index": 4
+  },
+  {
+   "symbol": "币安",
+   "key": "币安",
+   "index": 7
+  },
+  {
+   "symbol": "",
+   "key": "",
+   "index": 5
+  }
+ ]
+}

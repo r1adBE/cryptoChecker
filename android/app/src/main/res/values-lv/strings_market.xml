@@ -179,7 +179,7 @@
     <string name="insights_chart_hint">Cena kā halvinga dienas cenas daudzkārtnis (logaritmiskā skala). Agrākie cikli ir modelis, nevis prognoze.</string>
     <string name="insights_cycle_chart">Cikli kopš halvinga</string>
     <string name="insights_dominance_eth">ETH %1$s no kopējā tirgus</string>
-    <string name="insights_dominance_title">Bitcoin dominance</string>
+    <string name="insights_dominance_title">Bitcoin dominēšana</string>
     <string name="insights_fng_history">Vakar %1$s · pirms nedēļas %2$s · pirms mēneša %3$s</string>
     <string name="insights_fng_title">Fear &amp; Greed</string>
     <string name="insights_halving_title">Bitcoin halvings</string>

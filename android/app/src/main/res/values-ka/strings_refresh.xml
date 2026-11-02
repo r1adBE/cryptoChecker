@@ -2,9 +2,9 @@
 <resources>
     <!-- Wie aktuell? (Sparsam / Live) -->
     <string name="update_mode_for_pros">მეტ მონაცემს და ბატარეას მოითხოვს</string>
-    <string name="update_mode_live">Live, როცა ღიაა</string>
-    <string name="update_mode_live_hint">სადაც ბირჟა live ფასს იძლევა: მყისიერად, სანამ დაკვირვების სია ღიაა. სხვა შემთხვევაში – შემდეგი მოთხოვნისას. დახურულისას: არაუმეტეს ყოველ %1$s-ში, ხშირად უფრო გვიან.</string>
-    <string name="update_mode_live_hint_ios">სადაც ბირჟა live ფასს იძლევა: მყისიერად, სანამ დაკვირვების სია ღიაა. სხვა შემთხვევაში – შემდეგი მოთხოვნისას. დახურულისას: როცა iOS ამის საშუალებას იძლევა, ზოგჯერ საათების ინტერვალით. თუ აპს გადაფურცლით დახურავ, iOS ამ შემოწმებებს აჩერებს, სანამ ხელახლა არ გახსნი.</string>
+    <string name="update_mode_live">პირდაპირ, როცა ღიაა</string>
+    <string name="update_mode_live_hint">სადაც ბირჟა რეალური დროის ფასს იძლევა: მყისიერად, სანამ დაკვირვების სია ღიაა. სხვა შემთხვევაში – შემდეგი მოთხოვნისას. დახურულისას: არაუმეტეს ყოველ %1$s-ში, ხშირად უფრო გვიან.</string>
+    <string name="update_mode_live_hint_ios">სადაც ბირჟა რეალური დროის ფასს იძლევა: მყისიერად, სანამ დაკვირვების სია ღიაა. სხვა შემთხვევაში – შემდეგი მოთხოვნისას. დახურულისას: როცა iOS ამის საშუალებას იძლევა, ზოგჯერ საათების ინტერვალით. თუ აპს გადაფურცლით დახურავ, iOS ამ შემოწმებებს აჩერებს, სანამ ხელახლა არ გახსნი.</string>
     <string name="update_mode_recommended">რეკომენდებულია</string>
     <string name="update_mode_sparsam">ეკონომიური</string>
     <string name="update_mode_sparsam_hint">დახურული აპის დროს – არაუმეტეს ყოველ %1$s-ში, ხშირად უფრო გვიან (განგაშები, ვიჯეტები). ღიისას: ყოველ გახსნაზე.</string>
@@ -79,7 +79,7 @@
         <item quantity="one">%1$d შეცდომა</item>
         <item quantity="other">%1$d შეცდომა</item>
     </plurals>
-    <string name="refresh_report_live">Live: %1$s</string>
+    <string name="refresh_report_live">პირდაპირ: %1$s</string>
     <plurals name="refresh_report_not_traded">
         <item quantity="one">%1$d აღარ ივაჭრება</item>
         <item quantity="other">%1$d აღარ ივაჭრება</item>

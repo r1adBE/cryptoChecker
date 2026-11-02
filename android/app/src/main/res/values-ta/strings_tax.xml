@@ -24,7 +24,7 @@
     <string name="portfolio_export_failed_file">ஏற்றுமதி தோல்வியடைந்தது: கோப்பை எழுத முடியவில்லை – சேமிப்பிடம் இல்லை அல்லது எழுத முடியாதது</string>
     <string name="portfolio_export_failed_prices">ஏற்றுமதி தோல்வியடைந்தது: விலைகளை ஏற்ற முடியவில்லை – இணைப்பு இல்லை அல்லது எக்ஸ்சேஞ்ச் பதிலளிக்கவில்லை</string>
     <string name="portfolio_export_from_address">முகவரியிலிருந்து – வாங்கிய விலை இல்லை</string>
-    <string name="portfolio_export_hint">தேர்ந்தெடுத்த நாளின் இறுதியில் உள்ள இருப்புகள், USDT இல் தினசரி இறுதி விலையில் (UTC) மதிப்பிடப்பட்டு, அந்த நாளின் ECB குறிப்பு விகிதத்தில் மாற்றப்பட்டவை. “இதற்கு மாற்று” மூலம் நாணயத்தை மாற்றவும்.</string>
+    <string name="portfolio_export_hint">தேர்ந்தெடுத்த நாளின் இறுதியில் உள்ள இருப்புகள், USDT இல் தினசரி இறுதி விலையில் (UTC) மதிப்பிடப்பட்டு, அந்த நாளின் ECB குறிப்பு விகிதத்தில் மாற்றப்பட்டவை. “இதற்கு மாற்றவும்” மூலம் நாணயத்தை மாற்றவும்.</string>
     <string name="portfolio_export_incomplete">முழுமையற்றது</string>
     <string name="portfolio_export_no_fx">FX விகிதம் இல்லை</string>
     <string name="portfolio_export_no_price">விலை இல்லை</string>
@@ -171,7 +171,7 @@
     <string name="tax_template_title">வரி வார்ப்புரு</string>
     <string name="tax_template_uk">ஐக்கிய இராச்சியம்</string>
     <string name="tax_template_us">அமெரிக்கா</string>
-    <string name="tax_template_use">%1$s ஐப் பயன்படுத்து</string>
+    <string name="tax_template_use">%1$s ஐப் பயன்படுத்தவும்</string>
 
     <!-- Steuer: Zusammenfassung, Hinweise, Methode -->
     <string name="tax_method_at">பழைய/புதிய இருப்புகள் – நகரும் சராசரி</string>

@@ -107,8 +107,11 @@ final class HistoricDayClosesBatchTests: XCTestCase {
     }
 
     func testBatchedClosesEqualPerDayCloses() async throws {
+        // Sperren/Pausen sind prozessweit (andere Testklassen): vor dem Test freigeben, damit er immer läuft
+        // (nie still übersprungen) — wie RouteHttp.releaseChain in Android
         for host in ["data-api.binance.vision", "api.binance.com", "fapi.binance.com", "api.binance.us", "api.exchange.coinbase.com"] {
-            try XCTSkipIf(BlockedSources.isBlocked(host), "\(host) gesperrt")
+            BlockedSources.clearForTest(host)
+            XCTAssertFalse(BlockedSources.isBlocked(host), "\(host) nach Freigabe noch gesperrt")
         }
         let coins = ["ETH", "eth", "NEW", "FOO", "GAP", "BAR", "NOREF", "USDT", "BAD COIN"]
         let wanted = Dictionary(uniqueKeysWithValues: coins.map { ($0, days()) })

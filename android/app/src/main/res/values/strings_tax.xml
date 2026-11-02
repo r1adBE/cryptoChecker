@@ -78,7 +78,7 @@
     <string name="tax_export_period">%1$s – %2$s</string>
     <string name="tax_export_proceeds_missing">sale price missing</string>
     <string name="tax_export_proceeds_without_cost">Proceeds without purchase price</string>
-    <string name="tax_export_realized_differs">The tax CSV can differ from ‘realized’ (the country’s tax rules).</string>
+    <string name="tax_export_realized_differs">The tax CSV can differ from “realized” (the country’s tax rules).</string>
     <string name="tax_export_rule">&gt; 1 year: sold after purchase date + 1 calendar year. Dates in local time. Rates: ECB daily rate of the transaction day; if there is none, the last rate up to 7 days before.</string>
     <string name="tax_export_rules_date">Rules as of: %1$s</string>
     <string name="tax_export_rules_stale">The rules are from %1$s – for %2$s, rates and allowances may have changed. Check the values.</string>

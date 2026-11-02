@@ -16765,13 +16765,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "விசைப்பலகையை மறை"
+            "value" : "விசைப்பலகையை மறைக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "కీబోర్డ్‌ను దాచు"
+            "value" : "కీబోర్డ్‌ను దాచండి"
           }
         },
         "th" : {
@@ -17675,13 +17675,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "கீழே நகர்த்து"
+            "value" : "கீழே நகர்த்தவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "కిందికి జరుపు"
+            "value" : "కిందికి జరపండి"
           }
         },
         "th" : {
@@ -18130,13 +18130,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "மேலே நகர்த்து"
+            "value" : "மேலே நகர்த்தவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "పైకి జరుపు"
+            "value" : "పైకి జరపండి"
           }
         },
         "th" : {
@@ -22680,13 +22680,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "தொகைகளைக் காட்டு"
+            "value" : "தொகைகளைக் காட்டவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "మొత్తాలను చూపు"
+            "value" : "మొత్తాలను చూపండి"
           }
         },
         "th" : {
@@ -53930,7 +53930,7 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "பின்செல்"
+            "value" : "பின்செல்லவும்"
           }
         },
         "te" : {
@@ -54385,13 +54385,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ரத்துசெய்"
+            "value" : "ரத்துசெய்யவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "రద్దు చేయి"
+            "value" : "రద్దు చేయండి"
           }
         },
         "th" : {
@@ -54840,13 +54840,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "அழி"
+            "value" : "அழிக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "క్లియర్ చేయి"
+            "value" : "క్లియర్ చేయండి"
           }
         },
         "th" : {
@@ -55295,13 +55295,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "மூடு"
+            "value" : "மூடவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "మూసివేయి"
+            "value" : "మూసివేయండి"
           }
         },
         "th" : {
@@ -55750,13 +55750,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "நீக்கு"
+            "value" : "நீக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "తొలగించు"
+            "value" : "తొలగించండి"
           }
         },
         "th" : {
@@ -56205,13 +56205,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "திருத்து"
+            "value" : "திருத்தவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ఎడిట్ చేయి"
+            "value" : "ఎడిట్ చేయండి"
           }
         },
         "th" : {
@@ -56660,13 +56660,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "வைத்திரு"
+            "value" : "வைத்திருக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ఉంచు"
+            "value" : "ఉంచండి"
           }
         },
         "th" : {
@@ -57570,13 +57570,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "புதுப்பி"
+            "value" : "புதுப்பிக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "రిఫ్రెష్ చేయి"
+            "value" : "రిఫ్రెష్ చేయండి"
           }
         },
         "th" : {
@@ -58025,13 +58025,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "மீண்டும் முயல்"
+            "value" : "மீண்டும் முயலவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "మళ్లీ ప్రయత్నించు"
+            "value" : "మళ్లీ ప్రయత్నించండి"
           }
         },
         "th" : {
@@ -58480,13 +58480,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "சேமி"
+            "value" : "சேமிக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "సేవ్ చేయి"
+            "value" : "సేవ్ చేయండి"
           }
         },
         "th" : {
@@ -58935,13 +58935,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "வரிசைப்படுத்து"
+            "value" : "வரிசைப்படுத்தவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "క్రమబద్ధీకరించు"
+            "value" : "క్రమబద్ధీకరించండి"
           }
         },
         "th" : {
@@ -59845,13 +59845,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "செயல்தவிர்"
+            "value" : "செயல்தவிர்க்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "చర్య రద్దు చేయి"
+            "value" : "చర్య రద్దు చేయండి"
           }
         },
         "th" : {
@@ -60300,13 +60300,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "காட்டு"
+            "value" : "காட்டவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "చూడు"
+            "value" : "చూడండి"
           }
         },
         "th" : {
@@ -65760,13 +65760,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "விழிப்பூட்டலை அமை"
+            "value" : "விழிப்பூட்டலை அமைக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "అలర్ట్ సెట్ చేయి"
+            "value" : "అలర్ట్ సెట్ చేయండి"
           }
         },
         "th" : {
@@ -70310,13 +70310,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "லாட்டைச் சேர்"
+            "value" : "லாட்டைச் சேர்க்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "లాట్ జోడించు"
+            "value" : "లాట్ జోడించండి"
           }
         },
         "th" : {
@@ -81230,13 +81230,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "விலைப் புதுப்பிப்புகளைச் சரிசெய்"
+            "value" : "விலைப் புதுப்பிப்புகளைச் சரிசெய்யவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ధర అప్‌డేట్‌లను సర్దుబాటు చేయి"
+            "value" : "ధర అప్‌డేట్‌లను సర్దుబాటు చేయండి"
           }
         },
         "th" : {
@@ -88510,13 +88510,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "விழிப்பூட்டலை உருவாக்கு"
+            "value" : "விழிப்பூட்டலை உருவாக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "అలర్ట్‌ను సృష్టించు"
+            "value" : "అలర్ట్‌ను సృష్టించండి"
           }
         },
         "th" : {
@@ -93515,13 +93515,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "மாற்று"
+            "value" : "மாற்றவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "మార్చు"
+            "value" : "మార్చండి"
           }
         },
         "th" : {
@@ -93970,13 +93970,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "இருந்தாலும் சேமி"
+            "value" : "இருந்தாலும் சேமிக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "అయినా సేవ్ చేయి"
+            "value" : "అయినా సేవ్ చేయండి"
           }
         },
         "th" : {
@@ -96700,13 +96700,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "குறியை மாற்று"
+            "value" : "குறியை மாற்றவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "గుర్తును మార్చు"
+            "value" : "గుర్తును మార్చండి"
           }
         },
         "th" : {
@@ -98520,13 +98520,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "பதிவை அழி"
+            "value" : "பதிவை அழிக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "లాగ్‌ను క్లియర్ చేయి"
+            "value" : "లాగ్‌ను క్లియర్ చేయండి"
           }
         },
         "th" : {
@@ -101250,13 +101250,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "விழிப்பூட்டல் பதிவைக் காட்டு"
+            "value" : "விழிப்பூட்டல் பதிவைக் காட்டவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "అలర్ట్‌ల లాగ్‌ను చూపు"
+            "value" : "అలర్ట్‌ల లాగ్‌ను చూపండి"
           }
         },
         "th" : {
@@ -114112,13 +114112,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "தெரிவி"
+            "value" : "தெரிவிக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "తెలియజేయి"
+            "value" : "తెలియజేయండి"
           }
         },
         "th" : {
@@ -115022,13 +115022,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "விழிப்பூட்டலைப் படித்துக் காட்டு"
+            "value" : "விழிப்பூட்டலைப் படித்துக் காட்டவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "అలర్ట్‌ను చదివి వినిపించు"
+            "value" : "అలర్ట్‌ను చదివి వినిపించండి"
           }
         },
         "th" : {
@@ -146303,13 +146303,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "விழிப்பூட்டலை உருவாக்கு: %1$@"
+            "value" : "விழிப்பூட்டலை உருவாக்கவும்: %1$@"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "అలర్ట్‌ను సృష్టించు: %1$@"
+            "value" : "అలర్ట్‌ను సృష్టించండి: %1$@"
           }
         },
         "th" : {
@@ -146758,13 +146758,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "தற்போதைய விலையிலிருந்து மைனஸ் %1$@ சதவீதத்தில் விழிப்பூட்டலை உருவாக்கு"
+            "value" : "தற்போதைய விலையிலிருந்து மைனஸ் %1$@ சதவீதத்தில் விழிப்பூட்டலை உருவாக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ప్రస్తుత ధర నుండి మైనస్ %1$@ శాతం వద్ద అలర్ట్‌ను సృష్టించు"
+            "value" : "ప్రస్తుత ధర నుండి మైనస్ %1$@ శాతం వద్ద అలర్ట్‌ను సృష్టించండి"
           }
         },
         "th" : {
@@ -147213,13 +147213,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "தற்போதைய விலையிலிருந்து பிளஸ் %1$@ சதவீதத்தில் விழிப்பூட்டலை உருவாக்கு"
+            "value" : "தற்போதைய விலையிலிருந்து பிளஸ் %1$@ சதவீதத்தில் விழிப்பூட்டலை உருவாக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ప్రస్తుత ధర నుండి ప్లస్ %1$@ శాతం వద్ద అలర్ట్‌ను సృష్టించు"
+            "value" : "ప్రస్తుత ధర నుండి ప్లస్ %1$@ శాతం వద్ద అలర్ట్‌ను సృష్టించండి"
           }
         },
         "th" : {
@@ -149033,13 +149033,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "விழிப்பூட்டலைச் சோதி"
+            "value" : "விழிப்பூட்டலைச் சோதிக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "అలర్ట్‌ను పరీక్షించు"
+            "value" : "అలర్ట్‌ను పరీక్షించండి"
           }
         },
         "th" : {
@@ -149488,13 +149488,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "சோதி"
+            "value" : "சோதிக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "పరీక్షించు"
+            "value" : "పరీక్షించండి"
           }
         },
         "th" : {
@@ -150853,13 +150853,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "அமைப்புகளைத் திற"
+            "value" : "அமைப்புகளைத் திறக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "సెట్టింగ్‌లను తెరువు"
+            "value" : "సెట్టింగ్‌లను తెరవండి"
           }
         },
         "th" : {
@@ -161895,13 +161895,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "விழிப்பூட்டலைத் திருத்து"
+            "value" : "விழிப்பூட்டலைத் திருத்தவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "అలర్ట్‌ను ఎడిట్ చేయి"
+            "value" : "అలర్ట్‌ను ఎడిట్ చేయండి"
           }
         },
         "th" : {
@@ -164170,13 +164170,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ஆன் செய்"
+            "value" : "ஆன் செய்யவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ఆన్ చేయి"
+            "value" : "ఆన్ చేయండి"
           }
         },
         "th" : {
@@ -168387,13 +168387,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "போர்ட்ஃபோலியோ பூட்டை ஆஃப் செய்"
+            "value" : "போர்ட்ஃபோலியோ பூட்டை ஆஃப் செய்யவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "పోర్ట్‌ఫోలియో లాక్‌ను ఆఫ్ చేయి"
+            "value" : "పోర్ట్‌ఫోలియో లాక్‌ను ఆఫ్ చేయండి"
           }
         },
         "th" : {
@@ -170207,13 +170207,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "திற"
+            "value" : "திறக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "అన్‌లాక్ చేయి"
+            "value" : "అన్‌లాక్ చేయండి"
           }
         },
         "th" : {
@@ -172955,7 +172955,7 @@
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ఎక్స్‌పోర్ట్ చేయి"
+            "value" : "ఎక్స్‌పోర్ట్ చేయండి"
           }
         },
         "th" : {
@@ -175230,7 +175230,7 @@
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ఇంపోర్ట్ చేయి"
+            "value" : "ఇంపోర్ట్ చేయండి"
           }
         },
         "th" : {
@@ -177050,7 +177050,7 @@
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "కొనసాగించు"
+            "value" : "కొనసాగించండి"
           }
         },
         "th" : {
@@ -177499,13 +177499,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "கடவுச்சொல்லை மறை"
+            "value" : "கடவுச்சொல்லை மறைக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "పాస్‌వర్డ్‌ను దాచు"
+            "value" : "పాస్‌వర్డ్‌ను దాచండి"
           }
         },
         "th" : {
@@ -179319,13 +179319,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "கடவுச்சொல்லை மீண்டும் உள்ளிடு"
+            "value" : "கடவுச்சொல்லை மீண்டும் உள்ளிடவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "పాస్‌వర్డ్‌ను మళ్లీ నమోదు చేయి"
+            "value" : "పాస్‌వర్డ్‌ను మళ్లీ నమోదు చేయండి"
           }
         },
         "th" : {
@@ -179774,13 +179774,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "கடவுச்சொல்லைக் காட்டு"
+            "value" : "கடவுச்சொல்லைக் காட்டவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "పాస్‌వర్డ్‌ను చూపు"
+            "value" : "పాస్‌వర్డ్‌ను చూపండి"
           }
         },
         "th" : {
@@ -182049,13 +182049,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "கடவுச்சொல் இல்லாமல் சேமி"
+            "value" : "கடவுச்சொல் இல்லாமல் சேமிக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "పాస్‌వర్డ్ లేకుండా సేవ్ చేయి"
+            "value" : "పాస్‌వర్డ్ లేకుండా సేవ్ చేయండి"
           }
         },
         "th" : {
@@ -184779,13 +184779,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "கடவுச்சொல்லால் பாதுகா"
+            "value" : "கடவுச்சொல்லால் பாதுகாக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "పాస్‌వర్డ్‌తో రక్షించు"
+            "value" : "పాస్‌వర్డ్‌తో రక్షించండి"
           }
         },
         "th" : {
@@ -186275,7 +186275,7 @@
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Appen blev lukket under gendannelse af et backup, og de tidligere data kunne ikke lægges helt tilbage. Tjek din overvågningsliste og portefølje, eller gendan backuppet igen under “%1$@” i Indstillinger."
+            "value" : "Appen blev lukket under gendannelse af et backup, og de tidligere data kunne ikke lægges helt tilbage. Tjek din overvågningsliste og portefølje, eller gendan backuppet igen under «%1$@» i Indstillinger."
           }
         },
         "de" : {
@@ -186359,7 +186359,7 @@
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "האפליקציה נסגרה במהלך שחזור גיבוי, ולא ניתן היה להחזיר את הנתונים הקודמים במלואם. נא לבדוק את רשימת המעקב והתיק, או לשחזר שוב את הגיבוי תחת „%1$@” בהגדרות."
+            "value" : "האפליקציה נסגרה במהלך שחזור גיבוי, ולא ניתן היה להחזיר את הנתונים הקודמים במלואם. נא לבדוק את רשימת המעקב והתיק, או לשחזר שוב את הגיבוי תחת «%1$@» בהגדרות."
           }
         },
         "hi" : {
@@ -192636,13 +192636,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "இந்தக் காப்புப்பிரதி மறையாக்கப்படவில்லை – அது உங்களுடையதுதானா என்று சரிபார்க்கவும். அமைப்புகள் பயன்படுத்தப்படும் – பாதுகாப்பைக் குறைக்கும் மாற்றங்கள் தவிர (போர்ட்ஃபோலியோ பூட்டு, முகவரிகளுக்கான சொந்தச் சர்வர், தொகைகளை மறை, சிஸ்டம் காப்புப்பிரதியில் போர்ட்ஃபோலியோ)."
+            "value" : "இந்தக் காப்புப்பிரதி மறையாக்கப்படவில்லை – அது உங்களுடையதுதானா என்று சரிபார்க்கவும். அமைப்புகள் பயன்படுத்தப்படும் – பாதுகாப்பைக் குறைக்கும் மாற்றங்கள் தவிர (போர்ட்ஃபோலியோ பூட்டு, முகவரிகளுக்கான சொந்தச் சர்வர், தொகைகளை மறைக்கவும், சிஸ்டம் காப்புப்பிரதியில் போர்ட்ஃபோலியோ)."
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ఈ బ్యాకప్ ఎన్‌క్రిప్ట్ చేయబడలేదు – ఇది మీదేనా అని తనిఖీ చేయండి. సెట్టింగ్‌లు వర్తింపజేయబడతాయి – రక్షణను తగ్గించే మార్పులు తప్ప (పోర్ట్‌ఫోలియో లాక్, అడ్రస్‌ల కోసం సొంత సర్వర్, మొత్తాలను దాచు, సిస్టమ్ బ్యాకప్‌లో పోర్ట్‌ఫోలియో)."
+            "value" : "ఈ బ్యాకప్ ఎన్‌క్రిప్ట్ చేయబడలేదు – ఇది మీదేనా అని తనిఖీ చేయండి. సెట్టింగ్‌లు వర్తింపజేయబడతాయి – రక్షణను తగ్గించే మార్పులు తప్ప (పోర్ట్‌ఫోలియో లాక్, అడ్రస్‌ల కోసం సొంత సర్వర్, మొత్తాలను దాచండి, సిస్టమ్ బ్యాకప్‌లో పోర్ట్‌ఫోలియో)."
           }
         },
         "th" : {
@@ -199705,13 +199705,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "பேட்டரி அமைப்புகளைத் திற"
+            "value" : "பேட்டரி அமைப்புகளைத் திறக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "బ్యాటరీ సెట్టింగ్‌లను తెరువు"
+            "value" : "బ్యాటరీ సెట్టింగ్‌లను తెరవండి"
           }
         },
         "th" : {
@@ -209799,13 +209799,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "மாற்றத்தின் மூலத்தைக் காட்டு"
+            "value" : "மாற்றத்தின் மூலத்தைக் காட்டவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "మార్పు మూలాన్ని చూపు"
+            "value" : "మార్పు మూలాన్ని చూపండి"
           }
         },
         "th" : {
@@ -228121,13 +228121,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "பயன்படுத்து"
+            "value" : "பயன்படுத்தவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "వర్తింపజేయి"
+            "value" : "వర్తింపజేయండి"
           }
         },
         "th" : {
@@ -228576,13 +228576,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "அடக்க விலையை உள்ளிடு"
+            "value" : "அடக்க விலையை உள்ளிடவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "కొనుగోలు వ్యయాన్ని నమోదు చేయి"
+            "value" : "కొనుగోలు వ్యయాన్ని నమోదు చేయండి"
           }
         },
         "th" : {
@@ -229941,13 +229941,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "தெரியாததாக விடு"
+            "value" : "தெரியாததாக விடவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "తెలియనిదిగా వదిలేయి"
+            "value" : "తెలియనిదిగా వదిలేయండి"
           }
         },
         "th" : {
@@ -234491,7 +234491,7 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "நாணயத்தைத் தேடு"
+            "value" : "நாணயத்தைத் தேடவும்"
           }
         },
         "te" : {
@@ -238586,13 +238586,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "அனுமதி"
+            "value" : "அனுமதிக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "అనుమతించు"
+            "value" : "అనుమతించండి"
           }
         },
         "th" : {
@@ -239041,13 +239041,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "மாற்று"
+            "value" : "மாற்றவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "మార్చు"
+            "value" : "మార్చండి"
           }
         },
         "th" : {
@@ -239496,13 +239496,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "காட்டு"
+            "value" : "காட்டவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "చూపు"
+            "value" : "చూపండి"
           }
         },
         "th" : {
@@ -258728,13 +258728,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "சேர்"
+            "value" : "சேர்க்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "జోడించు"
+            "value" : "జోడించండి"
           }
         },
         "th" : {
@@ -262823,13 +262823,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "தேடு"
+            "value" : "தேடவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "వెతుకు"
+            "value" : "వెతకండి"
           }
         },
         "th" : {
@@ -265098,13 +265098,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "டோக்கன் முகவரியை நகலெடு"
+            "value" : "டோக்கன் முகவரியை நகலெடுக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "టోకెన్ అడ్రస్‌ను కాపీ చేయి"
+            "value" : "టోకెన్ అడ్రస్‌ను కాపీ చేయండి"
           }
         },
         "th" : {
@@ -266008,13 +266008,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "பகிர்"
+            "value" : "பகிரவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "షేర్ చేయి"
+            "value" : "షేర్ చేయండి"
           }
         },
         "th" : {
@@ -266918,13 +266918,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "கண்டறிதல் தகவலைப் பகிர்"
+            "value" : "கண்டறிதல் தகவலைப் பகிரவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "డయాగ్నస్టిక్స్‌ను షేర్ చేయి"
+            "value" : "డయాగ్నస్టిక్స్‌ను షేర్ చేయండి"
           }
         },
         "th" : {
@@ -274652,13 +274652,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%1$lld ஜோடியைக் கண்காணிப்புப் பட்டியலில் சேர்"
+                  "value" : "%1$lld ஜோடியைக் கண்காணிப்புப் பட்டியலில் சேர்க்கவும்"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "எல்லா %1$lld ஜோடிகளையும் கண்காணிப்புப் பட்டியலில் சேர்"
+                  "value" : "எல்லா %1$lld ஜோடிகளையும் கண்காணிப்புப் பட்டியலில் சேர்க்கவும்"
                 }
               }
             }
@@ -274670,13 +274670,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%1$lld జతను వాచ్‌లిస్ట్‌కు జోడించు"
+                  "value" : "%1$lld జతను వాచ్‌లిస్ట్‌కు జోడించండి"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "మొత్తం %1$lld జతలను వాచ్‌లిస్ట్‌కు జోడించు"
+                  "value" : "మొత్తం %1$lld జతలను వాచ్‌లిస్ట్‌కు జోడించండి"
                 }
               }
             }
@@ -276139,13 +276139,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%1$lld புதிய ஜோடியைக் கண்காணிப்புப் பட்டியலில் சேர்"
+                  "value" : "%1$lld புதிய ஜோடியைக் கண்காணிப்புப் பட்டியலில் சேர்க்கவும்"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%1$lld புதிய ஜோடிகளைக் கண்காணிப்புப் பட்டியலில் சேர்"
+                  "value" : "%1$lld புதிய ஜோடிகளைக் கண்காணிப்புப் பட்டியலில் சேர்க்கவும்"
                 }
               }
             }
@@ -276157,13 +276157,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%1$lld కొత్త జతను వాచ్‌లిస్ట్‌కు జోడించు"
+                  "value" : "%1$lld కొత్త జతను వాచ్‌లిస్ట్‌కు జోడించండి"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%1$lld కొత్త జతలను వాచ్‌లిస్ట్‌కు జోడించు"
+                  "value" : "%1$lld కొత్త జతలను వాచ్‌లిస్ట్‌కు జోడించండి"
                 }
               }
             }
@@ -276717,13 +276717,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "கண்காணிப்புப் பட்டியலில் சேர்"
+            "value" : "கண்காணிப்புப் பட்டியலில் சேர்க்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "వాచ్‌లిస్ట్‌కు జోడించు"
+            "value" : "వాచ్‌లిస్ట్‌కు జోడించండి"
           }
         },
         "th" : {
@@ -286735,13 +286735,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "பட்டியலை மறை"
+            "value" : "பட்டியலை மறைக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "జాబితాను దాచు"
+            "value" : "జాబితాను దాచండి"
           }
         },
         "th" : {
@@ -289427,13 +289427,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "அனைத்தையும் காட்டு (%1$ld)"
+            "value" : "அனைத்தையும் காட்டவும் (%1$ld)"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "అన్నీ చూపు (%1$ld)"
+            "value" : "అన్నీ చూపండి (%1$ld)"
           }
         },
         "th" : {
@@ -289882,13 +289882,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "பட்டியலைக் காட்டு"
+            "value" : "பட்டியலைக் காட்டவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "జాబితాను చూపు"
+            "value" : "జాబితాను చూపండి"
           }
         },
         "th" : {
@@ -294554,13 +294554,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ஜோடிகளைக் காட்டு"
+            "value" : "ஜோடிகளைக் காட்டவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "జతలను చూపు"
+            "value" : "జతలను చూపండి"
           }
         },
         "th" : {
@@ -302866,13 +302866,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "பட்டியல்களை ஏற்று"
+            "value" : "பட்டியல்களை ஏற்றவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "జాబితాలను లోడ్ చేయి"
+            "value" : "జాబితాలను లోడ్ చేయండి"
           }
         },
         "th" : {
@@ -311595,13 +311595,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "அழி"
+            "value" : "அழிக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "క్లియర్ చేయి"
+            "value" : "క్లియర్ చేయండి"
           }
         },
         "th" : {
@@ -312050,13 +312050,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "சமீபத்திய தேடல்களை அழி"
+            "value" : "சமீபத்திய தேடல்களை அழிக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ఇటీవలి శోధనలను క్లియర్ చేయి"
+            "value" : "ఇటీవలి శోధనలను క్లియర్ చేయండి"
           }
         },
         "th" : {
@@ -312960,13 +312960,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ஒத்திசை"
+            "value" : "ஒத்திசைக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "సింక్ చేయి"
+            "value" : "సింక్ చేయండి"
           }
         },
         "th" : {
@@ -314325,7 +314325,7 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "காயின், ஜோடி அல்லது எக்ஸ்சேஞ்சைத் தேடு"
+            "value" : "காயின், ஜோடி அல்லது எக்ஸ்சேஞ்சைத் தேடவும்"
           }
         },
         "te" : {
@@ -317965,13 +317965,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ஜோடியைத் தேர்ந்தெடு"
+            "value" : "ஜோடியைத் தேர்ந்தெடுக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "జతను ఎంచుకో"
+            "value" : "జతను ఎంచుకోండి"
           }
         },
         "th" : {
@@ -318875,13 +318875,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "இப்போது ஒத்திசை"
+            "value" : "இப்போது ஒத்திசைக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ఇప్పుడే సింక్ చేయి"
+            "value" : "ఇప్పుడే సింక్ చేయండి"
           }
         },
         "th" : {
@@ -320240,13 +320240,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "நாணய ஜோடிகளைப் புதுப்பி"
+            "value" : "நாணய ஜோடிகளைப் புதுப்பிக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "కరెన్సీ జతలను అప్‌డేట్ చేయి"
+            "value" : "కరెన్సీ జతలను అప్‌డేట్ చేయండి"
           }
         },
         "th" : {
@@ -323425,13 +323425,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "பிடித்தவையில் சேர்"
+            "value" : "பிடித்தவையில் சேர்க்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ఇష్టమైనవాటికి జోడించు"
+            "value" : "ఇష్టమైనవాటికి జోడించండి"
           }
         },
         "th" : {
@@ -324335,13 +324335,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "பிடித்தவையிலிருந்து அகற்று"
+            "value" : "பிடித்தவையிலிருந்து அகற்றவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ఇష్టమైనవాటి నుండి తీసివేయి"
+            "value" : "ఇష్టమైనవాటి నుండి తీసివేయండి"
           }
         },
         "th" : {
@@ -336620,13 +336620,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "குழுவை நீக்கு"
+            "value" : "குழுவை நீக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "గ్రూప్‌ను తొలగించు"
+            "value" : "గ్రూప్‌ను తొలగించండి"
           }
         },
         "th" : {
@@ -337985,13 +337985,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "குழுவைத் திருத்து"
+            "value" : "குழுவைத் திருத்தவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "గ్రూప్‌ను ఎడిట్ చేయి"
+            "value" : "గ్రూప్‌ను ఎడిట్ చేయండి"
           }
         },
         "th" : {
@@ -341170,13 +341170,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "மறுபெயரிடு"
+            "value" : "மறுபெயரிடவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "పేరు మార్చు"
+            "value" : "పేరు మార్చండి"
           }
         },
         "th" : {
@@ -341625,7 +341625,7 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ஜோடி, பெயர் அல்லது எக்ஸ்சேஞ்சைத் தேடு"
+            "value" : "ஜோடி, பெயர் அல்லது எக்ஸ்சேஞ்சைத் தேடவும்"
           }
         },
         "te" : {
@@ -359643,7 +359643,7 @@
         "lv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bitcoin dominance"
+            "value" : "Bitcoin dominēšana"
           }
         },
         "mk" : {
@@ -363882,13 +363882,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "அறிவிப்புகளை அனுமதி"
+            "value" : "அறிவிப்புகளை அனுமதிக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "నోటిఫికేషన్‌లను అనుమతించు"
+            "value" : "నోటిఫికేషన్‌లను అనుమతించండి"
           }
         },
         "th" : {
@@ -367067,13 +367067,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "அமைப்புகளைத் திற"
+            "value" : "அமைப்புகளைத் திறக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "సెట్టింగ్‌లను తెరువు"
+            "value" : "సెట్టింగ్‌లను తెరవండి"
           }
         },
         "th" : {
@@ -371162,7 +371162,7 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "மொழியைத் தேடு"
+            "value" : "மொழியைத் தேடவும்"
           }
         },
         "te" : {
@@ -371377,7 +371377,7 @@
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "אין שער חליפין ליום הקנייה (חסר ב„מאז הקנייה” ובעלות הרכישה): %1$@"
+            "value" : "אין שער חליפין ליום הקנייה (חסר ב«מאז הקנייה» ובעלות הרכישה): %1$@"
           }
         },
         "hi" : {
@@ -371832,7 +371832,7 @@
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "„מאז הקנייה” ועלות הרכישה ב־%1$@: העלות לפי שער החליפין של יום הקנייה, השווי לפי השער של היום."
+            "value" : "«מאז הקנייה» ועלות הרכישה ב־%1$@: העלות לפי שער החליפין של יום הקנייה, השווי לפי השער של היום."
           }
         },
         "hi" : {
@@ -387504,13 +387504,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "பூட்டுத் திரையில் காட்டு"
+            "value" : "பூட்டுத் திரையில் காட்டவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "లాక్ స్క్రీన్‌పై చూపు"
+            "value" : "లాక్ స్క్రీన్‌పై చూపండి"
           }
         },
         "th" : {
@@ -387959,13 +387959,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "பூட்டுத் திரையிலிருந்து அகற்று"
+            "value" : "பூட்டுத் திரையிலிருந்து அகற்றவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "లాక్ స్క్రీన్ నుండి తీసివేయి"
+            "value" : "లాక్ స్క్రీన్ నుండి తీసివేయండి"
           }
         },
         "th" : {
@@ -416746,13 +416746,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "அனைத்தையும் காட்டு"
+            "value" : "அனைத்தையும் காட்டவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "అన్నీ చూపు"
+            "value" : "అన్నీ చూపండి"
           }
         },
         "th" : {
@@ -417201,13 +417201,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "குறைவாகக் காட்டு"
+            "value" : "குறைவாகக் காட்டவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "తక్కువ చూపు"
+            "value" : "తక్కువ చూపండి"
           }
         },
         "th" : {
@@ -426756,13 +426756,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ ஐ மறை"
+            "value" : "%1$@ ஐ மறைக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ను దాచు"
+            "value" : "%1$@ను దాచండి"
           }
         },
         "th" : {
@@ -428121,13 +428121,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ ஐக் காட்டு"
+            "value" : "%1$@ ஐக் காட்டவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ను చూపు"
+            "value" : "%1$@ను చూపండి"
           }
         },
         "th" : {
@@ -443806,7 +443806,7 @@
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "האפליקציה מציגה רק את הספירה ואינה מכנה אותה „עונה”. הערך משתנה בדרך כלל לאורך ימים, לא שעות."
+            "value" : "האפליקציה מציגה רק את הספירה ואינה מכנה אותה «עונה». הערך משתנה בדרך כלל לאורך ימים, לא שעות."
           }
         },
         "hi" : {
@@ -447231,13 +447231,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "குறிப்பைச் சேர்"
+            "value" : "குறிப்பைச் சேர்க்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "గమనికను జోడించు"
+            "value" : "గమనికను జోడించండి"
           }
         },
         "th" : {
@@ -447686,13 +447686,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "குறிப்பைத் திருத்து"
+            "value" : "குறிப்பைத் திருத்தவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "గమనికను ఎడిట్ చేయి"
+            "value" : "గమనికను ఎడిట్ చేయండి"
           }
         },
         "th" : {
@@ -448596,13 +448596,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "அகற்று"
+            "value" : "அகற்றவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "తీసివేయి"
+            "value" : "తీసివేయండి"
           }
         },
         "th" : {
@@ -449961,13 +449961,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "சரிசெய்"
+            "value" : "சரிசெய்யவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "సర్దుబాటు చేయి"
+            "value" : "సర్దుబాటు చేయండి"
           }
         },
         "th" : {
@@ -451781,13 +451781,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "எக்ஸ்சேஞ்சைத் திற"
+            "value" : "எக்ஸ்சேஞ்சைத் திறக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ఎక్స్ఛేంజ్‌ను తెరువు"
+            "value" : "ఎక్స్ఛేంజ్‌ను తెరవండి"
           }
         },
         "th" : {
@@ -458157,7 +458157,7 @@
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "కొనసాగించు"
+            "value" : "కొనసాగించండి"
           }
         },
         "th" : {
@@ -471013,13 +471013,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "போர்ட்ஃபோலியோவில் சேர்"
+            "value" : "போர்ட்ஃபோலியோவில் சேர்க்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "పోర్ట్‌ఫోలియోకు జోడించు"
+            "value" : "పోర్ట్‌ఫోలియోకు జోడించండి"
           }
         },
         "th" : {
@@ -471468,13 +471468,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "பரிவர்த்தனையைச் சேர்"
+            "value" : "பரிவர்த்தனையைச் சேர்க்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "లావాదేవీని జోడించు"
+            "value" : "లావాదేవీని జోడించండి"
           }
         },
         "th" : {
@@ -471923,13 +471923,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "முகவரியைச் சேர்"
+            "value" : "முகவரியைச் சேர்க்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "అడ్రస్‌ను జోడించు"
+            "value" : "అడ్రస్‌ను జోడించండి"
           }
         },
         "th" : {
@@ -472378,13 +472378,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "கணக்கில் சேர்"
+            "value" : "கணக்கில் சேர்க்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "లెక్కించు"
+            "value" : "లెక్కించండి"
           }
         },
         "th" : {
@@ -474653,13 +474653,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "உங்கள் சொந்தப் பரிவர்த்தனைகளிலும் உள்ளது: %1$@ – இரண்டும் கூட்டப்படும். அதே காயின்களா? “காட்டு மட்டும்” என்பதைத் தேர்ந்தெடுக்கவும்."
+            "value" : "உங்கள் சொந்தப் பரிவர்த்தனைகளிலும் உள்ளது: %1$@ – இரண்டும் கூட்டப்படும். அதே காயின்களா? “காட்ட மட்டும்” என்பதைத் தேர்ந்தெடுக்கவும்."
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "మీ సొంత లావాదేవీలలో కూడా ఉంది: %1$@ – రెండూ కలపబడతాయి. అవే కాయిన్‌లా? “చూపు మాత్రమే” ఎంచుకోండి."
+            "value" : "మీ సొంత లావాదేవీలలో కూడా ఉంది: %1$@ – రెండూ కలపబడతాయి. అవే కాయిన్‌లా? “చూపండి మాత్రమే” ఎంచుకోండి."
           }
         },
         "th" : {
@@ -477838,13 +477838,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "முகவரியை அகற்று"
+            "value" : "முகவரியை அகற்றவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "అడ్రస్‌ను తీసివేయి"
+            "value" : "అడ్రస్‌ను తీసివేయండి"
           }
         },
         "th" : {
@@ -483087,13 +483087,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "காட்டு மட்டும், போர்ட்ஃபோலியோவில் சேர்க்க வேண்டாம்"
+            "value" : "காட்ட மட்டும், போர்ட்ஃபோலியோவில் சேர்க்க வேண்டாம்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "చూపు మాత్రమే, పోర్ట్‌ఫోలియోకు జోడించవద్దు"
+            "value" : "చూపండి మాత్రమే, పోర్ట్‌ఫోలియోకు జోడించవద్దు"
           }
         },
         "th" : {
@@ -483542,13 +483542,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "காட்டு மட்டும்"
+            "value" : "காட்ட மட்டும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "చూపు మాత్రమే"
+            "value" : "చూపండి మాత్రమే"
           }
         },
         "th" : {
@@ -484907,13 +484907,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "டோக்கன்களைக் கணக்கிடு"
+            "value" : "டோக்கன்களைக் கணக்கிடவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "టోకెన్‌లను లెక్కించు"
+            "value" : "టోకెన్‌లను లెక్కించండి"
           }
         },
         "th" : {
@@ -496080,7 +496080,7 @@
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarm ”porteføljeværdi”"
+            "value" : "Alarm «porteføljeværdi»"
           }
         },
         "de" : {
@@ -505049,7 +505049,7 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "வாங்கு"
+            "value" : "வாங்குதல்"
           }
         },
         "te" : {
@@ -508234,13 +508234,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "போர்ட்ஃபோலியோவை அழி"
+            "value" : "போர்ட்ஃபோலியோவை அழிக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "పోర్ట్‌ఫోలియోను క్లియర్ చేయి"
+            "value" : "పోర్ట్‌ఫోలియోను క్లియర్ చేయండి"
           }
         },
         "th" : {
@@ -518694,7 +518694,7 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "குறியீட்டைத் தேடு, எ.கா. BTC"
+            "value" : "குறியீட்டைத் தேடவும், எ.கா. BTC"
           }
         },
         "te" : {
@@ -519149,13 +519149,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ஒப்பிடு"
+            "value" : "ஒப்பிடவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "పోల్చు"
+            "value" : "పోల్చండి"
           }
         },
         "th" : {
@@ -519604,13 +519604,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ மற்றும் USDT ஐச் சதவீதத்தில் ஒப்பிடு"
+            "value" : "%1$@ மற்றும் USDT ஐச் சதவீதத்தில் ஒப்பிடவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@, USDTని శాతంలో పోల్చు"
+            "value" : "%1$@, USDTని శాతంలో పోల్చండి"
           }
         },
         "th" : {
@@ -520514,13 +520514,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "இதற்கு மாற்று"
+            "value" : "இதற்கு மாற்றவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "దీనికి మార్చు"
+            "value" : "దీనికి మార్చండి"
           }
         },
         "th" : {
@@ -520969,13 +520969,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "இதற்கு மாற்று: %1$@"
+            "value" : "இதற்கு மாற்றவும்: %1$@"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "దీనికి మార్చు: %1$@"
+            "value" : "దీనికి మార్చండి: %1$@"
           }
         },
         "th" : {
@@ -521430,7 +521430,7 @@
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "CSV ఇంపోర్ట్ చేయి"
+            "value" : "CSV ఇంపోర్ట్ చేయండి"
           }
         },
         "th" : {
@@ -525064,13 +525064,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "இறக்குமதி செய் (%1$ld)"
+            "value" : "இறக்குமதி செய்யவும் (%1$ld)"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ఇంపోర్ట్ చేయి (%1$ld)"
+            "value" : "ఇంపోర్ట్ చేయండి (%1$ld)"
           }
         },
         "th" : {
@@ -541022,13 +541022,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ஒரே பரிமாற்றமாகப் பதிவுசெய்"
+            "value" : "ஒரே பரிமாற்றமாகப் பதிவுசெய்யவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ఒకే బదిలీగా బుక్ చేయి"
+            "value" : "ఒకే బదిలీగా బుక్ చేయండి"
           }
         },
         "th" : {
@@ -552852,13 +552852,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "நிராகரி"
+            "value" : "நிராகரிக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "విస్మరించు"
+            "value" : "విస్మరించండి"
           }
         },
         "th" : {
@@ -553307,13 +553307,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "திருத்தத்தைத் தொடர்"
+            "value" : "திருத்தத்தைத் தொடரவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ఎడిట్ కొనసాగించు"
+            "value" : "ఎడిట్ కొనసాగించండి"
           }
         },
         "th" : {
@@ -554217,13 +554217,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "பரிவர்த்தனையைத் திருத்து"
+            "value" : "பரிவர்த்தனையைத் திருத்தவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "లావాదేవీని ఎడిట్ చేయి"
+            "value" : "లావాదేవీని ఎడిట్ చేయండి"
           }
         },
         "th" : {
@@ -560138,7 +560138,7 @@
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "CSV ఎక్స్‌పోర్ట్ చేయి"
+            "value" : "CSV ఎక్స్‌పోర్ట్ చేయండి"
           }
         },
         "th" : {
@@ -567543,7 +567543,7 @@
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beholdning ved udgangen af den valgte dag, værdisat til dagens lukkekurs (UTC) i USDT og omregnet med ECB's referencekurs for den dag. Valutaen ændrer du under ”Omregn til”."
+            "value" : "Beholdning ved udgangen af den valgte dag, værdisat til dagens lukkekurs (UTC) i USDT og omregnet med ECB's referencekurs for den dag. Valutaen ændrer du under «Omregn til»."
           }
         },
         "de" : {
@@ -567867,13 +567867,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "தேர்ந்தெடுத்த நாளின் இறுதியில் உள்ள இருப்புகள், USDT இல் தினசரி இறுதி விலையில் (UTC) மதிப்பிடப்பட்டு, அந்த நாளின் ECB குறிப்பு விகிதத்தில் மாற்றப்பட்டவை. “இதற்கு மாற்று” மூலம் நாணயத்தை மாற்றவும்."
+            "value" : "தேர்ந்தெடுத்த நாளின் இறுதியில் உள்ள இருப்புகள், USDT இல் தினசரி இறுதி விலையில் (UTC) மதிப்பிடப்பட்டு, அந்த நாளின் ECB குறிப்பு விகிதத்தில் மாற்றப்பட்டவை. “இதற்கு மாற்றவும்” மூலம் நாணயத்தை மாற்றவும்."
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ఎంచుకున్న రోజు చివరిలో హోల్డింగ్‌లు, USDTలో రోజువారీ ముగింపు ధర (UTC) వద్ద విలువ కట్టి, ఆ రోజు ECB రిఫరెన్స్ రేటుతో మార్చబడ్డాయి. “దీనికి మార్చు”తో కరెన్సీని మార్చండి."
+            "value" : "ఎంచుకున్న రోజు చివరిలో హోల్డింగ్‌లు, USDTలో రోజువారీ ముగింపు ధర (UTC) వద్ద విలువ కట్టి, ఆ రోజు ECB రిఫరెన్స్ రేటుతో మార్చబడ్డాయి. “దీనికి మార్చండి”తో కరెన్సీని మార్చండి."
           }
         },
         "th" : {
@@ -572872,13 +572872,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "தொகைகளை மறை"
+            "value" : "தொகைகளை மறைக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "మొత్తాలను దాచు"
+            "value" : "మొత్తాలను దాచండి"
           }
         },
         "th" : {
@@ -575602,13 +575602,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "மதிப்பு வரலாற்றை மறை"
+            "value" : "மதிப்பு வரலாற்றை மறைக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "విలువ చరిత్రను దాచు"
+            "value" : "విలువ చరిత్రను దాచండి"
           }
         },
         "th" : {
@@ -576512,13 +576512,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "மதிப்பு வரலாற்றைக் காட்டு"
+            "value" : "மதிப்பு வரலாற்றைக் காட்டவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "విలువ చరిత్రను చూపు"
+            "value" : "విలువ చరిత్రను చూపండి"
           }
         },
         "th" : {
@@ -584247,13 +584247,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ க்கான வரலாற்றைக் காட்டு"
+            "value" : "%1$@ க்கான வரலாற்றைக் காட்டவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ చరిత్రను చూపు"
+            "value" : "%1$@ చరిత్రను చూపండి"
           }
         },
         "th" : {
@@ -588797,13 +588797,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "செயல்தவிர்"
+            "value" : "செயல்தவிர்க்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "చర్య రద్దు చేయి"
+            "value" : "చర్య రద్దు చేయండి"
           }
         },
         "th" : {
@@ -595988,7 +595988,7 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "போர்ட்ஃபோலியோவைத் திற"
+            "value" : "போர்ட்ஃபோலியோவைத் திறக்கவும்"
           }
         },
         "te" : {
@@ -650710,13 +650710,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "நிறங்களை மாற்று (உயர்வு ↔ சரிவு)"
+            "value" : "நிறங்களை மாற்றவும் (உயர்வு ↔ சரிவு)"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "రంగులను మార్చు (పెరుగుదల ↔ తగ్గుదల)"
+            "value" : "రంగులను మార్చండి (పెరుగుదల ↔ తగ్గుదల)"
           }
         },
         "th" : {
@@ -651165,13 +651165,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "மேலடுக்கை மூடு"
+            "value" : "மேலடுக்கை மூடவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ఓవర్‌లేను మూసివేయి"
+            "value" : "ఓవర్‌లేను మూసివేయండి"
           }
         },
         "th" : {
@@ -673017,13 +673017,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "குறைவாகக் காட்டு"
+            "value" : "குறைவாகக் காட்டவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "తక్కువ చూపు"
+            "value" : "తక్కువ చూపండి"
           }
         },
         "th" : {
@@ -678383,7 +678383,7 @@
         "hy" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Live՝ %1$@"
+            "value" : "Ուղիղ՝ %1$@"
           }
         },
         "id" : {
@@ -678413,7 +678413,7 @@
         "ka" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Live: %1$@"
+            "value" : "პირდაპირ: %1$@"
           }
         },
         "kk" : {
@@ -706100,13 +706100,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "கவனிக்கத்தக்கது: தெரிவி"
+            "value" : "கவனிக்கத்தக்கது: தெரிவிக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "గమనించదగినవి: తెలియజేయి"
+            "value" : "గమనించదగినవి: తెలియజేయండి"
           }
         },
         "th" : {
@@ -707141,7 +707141,7 @@
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hvor let en coin regnes som usædvanlig – ens for kortet i overvågningslisten og notifikationerne. Med ”Mindre” viser kortet kun de 3 stærkeste."
+            "value" : "Hvor let en coin regnes som usædvanlig – ens for kortet i overvågningslisten og notifikationerne. Med «Mindre» viser kortet kun de 3 stærkeste."
           }
         },
         "de" : {
@@ -711560,13 +711560,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "பொது நோட்களைப் பயன்படுத்து"
+            "value" : "பொது நோட்களைப் பயன்படுத்தவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "పబ్లిక్ నోడ్‌లను ఉపయోగించు"
+            "value" : "పబ్లిక్ నోడ్‌లను ఉపయోగించండి"
           }
         },
         "th" : {
@@ -712925,13 +712925,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "சோதி"
+            "value" : "சோதிக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "పరీక్షించు"
+            "value" : "పరీక్షించండి"
           }
         },
         "th" : {
@@ -716110,13 +716110,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "சிஸ்டம் அமைப்புகளில் சரிசெய்"
+            "value" : "சிஸ்டம் அமைப்புகளில் சரிசெய்யவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "సిస్టమ్ సెట్టింగ్‌లలో సర్దుబాటు చేయి"
+            "value" : "సిస్టమ్ సెట్టింగ్‌లలో సర్దుబాటు చేయండి"
           }
         },
         "th" : {
@@ -719295,13 +719295,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "இயல்பு ஒலியைப் பயன்படுத்து"
+            "value" : "இயல்பு ஒலியைப் பயன்படுத்தவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "డిఫాల్ట్ శబ్దాన్ని ఉపయోగించు"
+            "value" : "డిఫాల్ట్ శబ్దాన్ని ఉపయోగించండి"
           }
         },
         "th" : {
@@ -719750,13 +719750,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "சிஸ்டம் ஒலியைத் தேர்ந்தெடு…"
+            "value" : "சிஸ்டம் ஒலியைத் தேர்ந்தெடுக்கவும்…"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "సిస్టమ్ శబ్దాన్ని ఎంచుకో…"
+            "value" : "సిస్టమ్ శబ్దాన్ని ఎంచుకోండి…"
           }
         },
         "th" : {
@@ -721785,7 +721785,7 @@
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "שייך לטוקנים. נעול כשנבחר „TradFi בלבד”; טוקני Alpha שכבר ברשימה נשארים."
+            "value" : "שייך לטוקנים. נעול כשנבחר «TradFi בלבד»; טוקני Alpha שכבר ברשימה נשארים."
           }
         },
         "hi" : {
@@ -728981,7 +728981,7 @@
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "”%1$@” sammenligner med kursen for præcis 24 timer siden. ”00:00” sammenligner med åbningskursen ved midnat i denne tidszone."
+            "value" : "«%1$@» sammenligner med kursen for præcis 24 timer siden. «00:00» sammenligner med åbningskursen ved midnat i denne tidszone."
           }
         },
         "de" : {
@@ -729891,7 +729891,7 @@
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "”%1$@” sammenligner med kursen fra den forrige opdatering. Med live-kurser forbliver den tæt på 0 %%."
+            "value" : "«%1$@» sammenligner med kursen fra den forrige opdatering. Med live-kurser forbliver den tæt på 0 %%."
           }
         },
         "de" : {
@@ -729999,7 +729999,7 @@
         "hy" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«%1$@»-ը համեմատում է նախորդ թարմացման գնի հետ։ Live գների դեպքում այն մնում է 0%%-ին մոտ։"
+            "value" : "«%1$@»-ը համեմատում է նախորդ թարմացման գնի հետ։ Իրական ժամանակի գների դեպքում այն մնում է 0%%-ին մոտ։"
           }
         },
         "id" : {
@@ -730029,7 +730029,7 @@
         "ka" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«%1$@» ადარებს წინა განახლების ფასს. Live ფასებისას ის 0%%-თან ახლოს რჩება."
+            "value" : "«%1$@» ადარებს წინა განახლების ფასს. რეალური დროის ფასებისას ის 0%%-თან ახლოს რჩება."
           }
         },
         "kk" : {
@@ -741135,13 +741135,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT டீபெக்கைத் தெரிவி"
+            "value" : "USDT டீபெக்கைத் தெரிவிக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT డీపెగ్‌ను తెలియజేయి"
+            "value" : "USDT డీపెగ్‌ను తెలియజేయండి"
           }
         },
         "th" : {
@@ -742500,13 +742500,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "சரியான நேரத்தில் சரிபார்"
+            "value" : "சரியான நேரத்தில் சரிபார்க்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "సమయానికి తనిఖీ చేయి"
+            "value" : "సమయానికి తనిఖీ చేయండి"
           }
         },
         "th" : {
@@ -742955,13 +742955,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "அலாரங்கள் & நினைவூட்டல்களை அனுமதி"
+            "value" : "அலாரங்கள் & நினைவூட்டல்களை அனுமதிக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "అలారాలు & రిమైండర్‌లను అనుమతించు"
+            "value" : "అలారాలు & రిమైండర్‌లను అనుమతించండి"
           }
         },
         "th" : {
@@ -744775,13 +744775,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: இதற்கு மேல் தெரிவி"
+            "value" : "Fear & Greed: இதற்கு மேல் தெரிவிக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: దీని పైన తెలియజేయి"
+            "value" : "Fear & Greed: దీని పైన తెలియజేయండి"
           }
         },
         "th" : {
@@ -745230,13 +745230,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: இதற்குக் கீழ் தெரிவி"
+            "value" : "Fear & Greed: இதற்குக் கீழ் தெரிவிக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: దీని కింద తెలియజేయి"
+            "value" : "Fear & Greed: దీని కింద తెలియజేయండి"
           }
         },
         "th" : {
@@ -748870,13 +748870,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "HTTP பதிவைக் காட்டு"
+            "value" : "HTTP பதிவைக் காட்டவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "HTTP లాగ్‌ను చూపు"
+            "value" : "HTTP లాగ్‌ను చూపండి"
           }
         },
         "th" : {
@@ -749001,7 +749001,7 @@
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Viser forespørgslerne til børserne nederst på siden ”Tilføj par” – til fejlsøgning."
+            "value" : "Viser forespørgslerne til børserne nederst på siden «Tilføj par» – til fejlsøgning."
           }
         },
         "de" : {
@@ -749325,13 +749325,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "“ஜோடியைச் சேர்” பக்கத்தின் கீழே எக்ஸ்சேஞ்ச்களுக்கான கோரிக்கைகளைக் காட்டும் – சிக்கல் தீர்ப்பதற்காக."
+            "value" : "“ஜோடியைச் சேர்க்கவும்” பக்கத்தின் கீழே எக்ஸ்சேஞ்ச்களுக்கான கோரிக்கைகளைக் காட்டும் – சிக்கல் தீர்ப்பதற்காக."
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "“జతను జోడించు” పేజీ దిగువన ఎక్స్ఛేంజ్‌లకు రిక్వెస్ట్‌లను చూపుతుంది – ట్రబుల్‌షూటింగ్ కోసం."
+            "value" : "“జతను జోడించండి” పేజీ దిగువన ఎక్స్ఛేంజ్‌లకు రిక్వెస్ట్‌లను చూపుతుంది – ట్రబుల్‌షూటింగ్ కోసం."
           }
         },
         "th" : {
@@ -752186,7 +752186,7 @@
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iOS bestemmer, hvornår appen må opdatere i baggrunden – intervallet betyder altså »tidligst hvert …«. Når appen er åben, tjekkes der til tiden. Widgets og live-aktiviteten viser aktuelle kurser med et blik."
+            "value" : "iOS bestemmer, hvornår appen må opdatere i baggrunden – intervallet betyder altså «tidligst hvert …». Når appen er åben, tjekkes der til tiden. Widgets og live-aktiviteten viser aktuelle kurser med et blik."
           }
         },
         "de" : {
@@ -752965,13 +752965,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "மொழியைத் தேர்ந்தெடு"
+            "value" : "மொழியைத் தேர்ந்தெடுக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "భాషను ఎంచుకో"
+            "value" : "భాషను ఎంచుకోండి"
           }
         },
         "th" : {
@@ -753875,13 +753875,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "அடிக்கடி புதுப்பி"
+            "value" : "அடிக்கடி புதுப்பிக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "తరచుగా అప్‌డేట్ చేయి"
+            "value" : "తరచుగా అప్‌డేట్ చేయండి"
           }
         },
         "th" : {
@@ -754114,7 +754114,7 @@
         "hy" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Live գներ"
+            "value" : "Իրական ժամանակի գներ"
           }
         },
         "id" : {
@@ -754144,7 +754144,7 @@
         "ka" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Live ფასები"
+            "value" : "რეალური დროის ფასები"
           }
         },
         "kk" : {
@@ -758092,13 +758092,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "விலை மாறும்போது மட்டும் தெரிவி"
+            "value" : "விலை மாறும்போது மட்டும் தெரிவிக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ధర మారినప్పుడు మాత్రమే తెలియజేయి"
+            "value" : "ధర మారినప్పుడు మాత్రమే తెలియజేయండి"
           }
         },
         "th" : {
@@ -764462,13 +764462,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "போர்ட்ஃபோலியோ தாவலைக் காட்டு"
+            "value" : "போர்ட்ஃபோலியோ தாவலைக் காட்டவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "పోర్ట్‌ఫోలియో ట్యాబ్‌ను చూపు"
+            "value" : "పోర్ట్‌ఫోలియో ట్యాబ్‌ను చూపండి"
           }
         },
         "th" : {
@@ -767647,13 +767647,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "பிற ஆப்ஸின் மேல் காட்ட அனுமதி"
+            "value" : "பிற ஆப்ஸின் மேல் காட்ட அனுமதிக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ఇతర యాప్‌లపై ప్రదర్శనను అనుమతించు"
+            "value" : "ఇతర యాప్‌లపై ప్రదర్శనను అనుమతించండి"
           }
         },
         "th" : {
@@ -773562,13 +773562,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ஆப்பை மீட்டமை"
+            "value" : "ஆப்பை மீட்டமைக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "యాప్‌ను రీసెట్ చేయి"
+            "value" : "యాప్‌ను రీసెట్ చేయండి"
           }
         },
         "th" : {
@@ -774017,13 +774017,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "அனைத்தையும் நீக்கு"
+            "value" : "அனைத்தையும் நீக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "అన్నీ తొలగించు"
+            "value" : "అన్నీ తొలగించండి"
           }
         },
         "th" : {
@@ -776423,7 +776423,7 @@
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fra: futures med udløb, der mangler på børsens liste, markeres som ”handles ikke længere” i stedet for at blive tjekket én ad gangen. Sparer tid ved hver opdatering."
+            "value" : "Fra: futures med udløb, der mangler på børsens liste, markeres som «handles ikke længere» i stedet for at blive tjekket én ad gangen. Sparer tid ved hver opdatering."
           }
         },
         "de" : {
@@ -777417,7 +777417,7 @@
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "שייך לטוקנים. נעול כשנבחר „TradFi בלבד”; עדיין חל על חוזים מתוארכים שכבר ברשימה."
+            "value" : "שייך לטוקנים. נעול כשנבחר «TradFi בלבד»; עדיין חל על חוזים מתוארכים שכבר ברשימה."
           }
         },
         "hi" : {
@@ -780842,7 +780842,7 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "அமைப்புகளில் தேடு"
+            "value" : "அமைப்புகளில் தேடவும்"
           }
         },
         "te" : {
@@ -787798,7 +787798,7 @@
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fra: hver opdatering af et par med ”Læs kurs op” bliver læst op."
+            "value" : "Fra: hver opdatering af et par med «Læs kurs op» bliver læst op."
           }
         },
         "de" : {
@@ -788122,13 +788122,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ஆஃப்: “விலையைப் படித்துக் காட்டு” எனக் குறிக்கப்பட்ட ஜோடியின் ஒவ்வொரு புதுப்பிப்பும் உரக்கப் படிக்கப்படும்."
+            "value" : "ஆஃப்: “விலையைப் படித்துக் காட்டவும்” எனக் குறிக்கப்பட்ட ஜோடியின் ஒவ்வொரு புதுப்பிப்பும் உரக்கப் படிக்கப்படும்."
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ఆఫ్: “ధరను చదివి వినిపించు”గా గుర్తించిన జత ప్రతి అప్‌డేట్ బిగ్గరగా చదవబడుతుంది."
+            "value" : "ఆఫ్: “ధరను చదివి వినిపించండి”గా గుర్తించిన జత ప్రతి అప్‌డేట్ బిగ్గరగా చదవబడుతుంది."
           }
         },
         "th" : {
@@ -789032,13 +789032,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "குரலைச் சோதி"
+            "value" : "குரலைச் சோதிக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "వాయిస్‌ను పరీక్షించు"
+            "value" : "వాయిస్‌ను పరీక్షించండి"
           }
         },
         "th" : {
@@ -792217,13 +792217,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "கவனிக்கத்தக்கது: பட்டியலில் காட்டு"
+            "value" : "கவனிக்கத்தக்கது: பட்டியலில் காட்டவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "గమనించదగినవి: జాబితాలో చూపు"
+            "value" : "గమనించదగినవి: జాబితాలో చూపండి"
           }
         },
         "th" : {
@@ -793127,13 +793127,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "பெயர்களைக் காட்டு"
+            "value" : "பெயர்களைக் காட்டவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "పేర్లను చూపు"
+            "value" : "పేర్లను చూపండి"
           }
         },
         "th" : {
@@ -801772,13 +801772,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ஜோடியைச் சேர்"
+            "value" : "ஜோடியைச் சேர்க்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "జతను జోడించు"
+            "value" : "జతను జోడించండి"
           }
         },
         "th" : {
@@ -802227,13 +802227,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "புதிய ஜோடியைச் சேர்"
+            "value" : "புதிய ஜோடி சேர்க்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "కొత్త జతను జోడించు"
+            "value" : "కొత్త జతను జోడించండి"
           }
         },
         "th" : {
@@ -803137,13 +803137,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "விழிப்பூட்டல்களைக் காட்டு"
+            "value" : "விழிப்பூட்டல் பட்டியல்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "అన్ని అలర్ట్‌లను చూపు"
+            "value" : "అన్ని అలర్ట్‌లను చూపండి"
           }
         },
         "th" : {
@@ -804047,7 +804047,7 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "சந்தை மேலோட்டத்தைத் திற"
+            "value" : "சந்தை மேலோட்டம்"
           }
         },
         "te" : {
@@ -805867,13 +805867,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ஒற்றை விட்ஜெட்டை அமை"
+            "value" : "ஒற்றை விட்ஜெட்டை அமைக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ఒకే కాయిన్ విడ్జెట్‌ను సెటప్ చేయి"
+            "value" : "ఒకే కాయిన్ విడ్జెట్‌ను సెటప్ చేయండి"
           }
         },
         "th" : {
@@ -807232,13 +807232,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "கடைசிக்கு நகர்த்து"
+            "value" : "கடைசிக்கு நகர்த்தவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "చివరికి జరుపు"
+            "value" : "చివరికి జరపండి"
           }
         },
         "th" : {
@@ -807687,13 +807687,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "கீழே நகர்த்து"
+            "value" : "கீழே நகர்த்தவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "కిందికి జరుపు"
+            "value" : "కిందికి జరపండి"
           }
         },
         "th" : {
@@ -808142,13 +808142,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "முதலுக்கு நகர்த்து"
+            "value" : "முதலுக்கு நகர்த்தவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "మొదటికి జరుపు"
+            "value" : "మొదటికి జరపండి"
           }
         },
         "th" : {
@@ -808597,13 +808597,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "மேலே நகர்த்து"
+            "value" : "மேலே நகர்த்தவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "పైకి జరుపు"
+            "value" : "పైకి జరపండి"
           }
         },
         "th" : {
@@ -813602,13 +813602,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "கண்காணிப்புப் பட்டியலில் சேர் (%1$ld)"
+            "value" : "கண்காணிப்புப் பட்டியலில் சேர்க்கவும் (%1$ld)"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "వాచ్‌లిస్ట్‌కు జోడించు (%1$ld)"
+            "value" : "వాచ్‌లిస్ట్‌కు జోడించండి (%1$ld)"
           }
         },
         "th" : {
@@ -814512,7 +814512,7 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "வேறு காயினைத் தேடு"
+            "value" : "வேறு காயினைத் தேடவும்"
           }
         },
         "te" : {
@@ -814967,13 +814967,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "அனைத்தையும் தேர்ந்தெடு"
+            "value" : "அனைத்தையும் தேர்ந்தெடுக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "అన్నీ ఎంచుకో"
+            "value" : "అన్నీ ఎంచుకోండి"
           }
         },
         "th" : {
@@ -815422,7 +815422,7 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "எதையும் தேர்ந்தெடுக்காதே"
+            "value" : "எதையும் தேர்ந்தெடுக்க வேண்டாம்"
           }
         },
         "te" : {
@@ -817026,7 +817026,7 @@
         "hy" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Live"
+            "value" : "Ուղիղ"
           }
         },
         "id" : {
@@ -817056,7 +817056,7 @@
         "ka" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Live"
+            "value" : "პირდაპირ"
           }
         },
         "kk" : {
@@ -818607,13 +818607,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "காப்புப்பிரதியை மீட்டமை"
+            "value" : "காப்புப்பிரதியை மீட்டமைக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "బ్యాకప్‌ను పునరుద్ధరించు"
+            "value" : "బ్యాకప్‌ను పునరుద్ధరించండి"
           }
         },
         "th" : {
@@ -820558,7 +820558,7 @@
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Porteføljekopien fra Androids systembackup kunne ikke læses, heller ikke ved andet forsøg, og er slettet. Har du en backupfil, så gendan den under “%1$@” i Indstillinger."
+            "value" : "Porteføljekopien fra Androids systembackup kunne ikke læses, heller ikke ved andet forsøg, og er slettet. Har du en backupfil, så gendan den under «%1$@» i Indstillinger."
           }
         },
         "de" : {
@@ -820642,7 +820642,7 @@
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "לא ניתן היה לקרוא את עותק התיק מגיבוי המערכת של Android, גם בניסיון השני, והוא נמחק. אם יש לך קובץ גיבוי, שחזרו אותו בהגדרות תחת „%1$@”."
+            "value" : "לא ניתן היה לקרוא את עותק התיק מגיבוי המערכת של Android, גם בניסיון השני, והוא נמחק. אם יש לך קובץ גיבוי, שחזרו אותו בהגדרות תחת «%1$@»."
           }
         },
         "hi" : {
@@ -855156,7 +855156,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The tax CSV can differ from ‘realized’ (the country’s tax rules)."
+            "value" : "The tax CSV can differ from “realized” (the country’s tax rules)."
           }
         },
         "es" : {
@@ -855222,7 +855222,7 @@
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "קובץ ה-CSV למס עשוי להיות שונה מ\"ממומש\" (כללי המס של המדינה)."
+            "value" : "קובץ ה-CSV למס עשוי להיות שונה מ«ממומש» (כללי המס של המדינה)."
           }
         },
         "hi" : {
@@ -882522,7 +882522,7 @@
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "סטייקינג עם מטבעות שבבעלותך ואיירדרופים: השווי בעת הקבלה אינו רלוונטי למס – לפי החוק עלות הרכישה היא 0 (§ 27b Abs. 2 EStG; BMF ‏\"Kryptowährungen\"). מס חל רק במכירה."
+            "value" : "סטייקינג עם מטבעות שבבעלותך ואיירדרופים: השווי בעת הקבלה אינו רלוונטי למס – לפי החוק עלות הרכישה היא 0 (§ 27b Abs. 2 EStG; BMF ‏«Kryptowährungen»). מס חל רק במכירה."
           }
         },
         "hi" : {
@@ -884258,7 +884258,7 @@
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "En gave markeret “til ægtefælle / partner” er uden gevinst og tab: provenu = din anskaffelsessum, som din partner overtager (%1$@)."
+            "value" : "En gave markeret «til ægtefælle / partner» er uden gevinst og tab: provenu = din anskaffelsessum, som din partner overtager (%1$@)."
           }
         },
         "de" : {
@@ -884342,7 +884342,7 @@
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "מתנה שמסומנת „לבן/בת הזוג” היא ללא רווח וללא הפסד: התמורה = עלות הרכישה שלך, שבן/בת הזוג מקבלים (%1$@)."
+            "value" : "מתנה שמסומנת «לבן/בת הזוג» היא ללא רווח וללא הפסד: התמורה = עלות הרכישה שלך, שבן/בת הזוג מקבלים (%1$@)."
           }
         },
         "hi" : {
@@ -905967,13 +905967,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ ஐப் பயன்படுத்து"
+            "value" : "%1$@ ஐப் பயன்படுத்தவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ను ఉపయోగించు"
+            "value" : "%1$@ను ఉపయోగించండి"
           }
         },
         "th" : {
@@ -918252,13 +918252,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "விலையையும் செயல்களையும் காட்டு"
+            "value" : "விலையையும் செயல்களையும் காட்டவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ధర, చర్యలను చూపు"
+            "value" : "ధర, చర్యలను చూపండి"
           }
         },
         "th" : {
@@ -923041,7 +923041,7 @@
         "hy" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Live՝ բաց ժամանակ"
+            "value" : "Ուղիղ՝ բաց ժամանակ"
           }
         },
         "id" : {
@@ -923071,7 +923071,7 @@
         "ka" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Live, როცა ღიაა"
+            "value" : "პირდაპირ, როცა ღიაა"
           }
         },
         "kk" : {
@@ -923496,7 +923496,7 @@
         "hy" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Որտեղ բորսան տրամադրում է live գին՝ անմիջապես, քանի դեռ դիտացանկը բաց է։ Այլապես՝ հաջորդ հարցման ժամանակ։ Փակ վիճակում՝ ոչ ավելի հաճախ, քան %1$@-ը մեկ, հաճախ ավելի ուշ։"
+            "value" : "Որտեղ բորսան տրամադրում է իրական ժամանակի գին՝ անմիջապես, քանի դեռ դիտացանկը բաց է։ Այլապես՝ հաջորդ հարցման ժամանակ։ Փակ վիճակում՝ ոչ ավելի հաճախ, քան %1$@-ը մեկ, հաճախ ավելի ուշ։"
           }
         },
         "id" : {
@@ -923526,7 +923526,7 @@
         "ka" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "სადაც ბირჟა live ფასს იძლევა: მყისიერად, სანამ დაკვირვების სია ღიაა. სხვა შემთხვევაში – შემდეგი მოთხოვნისას. დახურულისას: არაუმეტეს ყოველ %1$@-ში, ხშირად უფრო გვიან."
+            "value" : "სადაც ბირჟა რეალური დროის ფასს იძლევა: მყისიერად, სანამ დაკვირვების სია ღიაა. სხვა შემთხვევაში – შემდეგი მოთხოვნისას. დახურულისას: არაუმეტეს ყოველ %1$@-ში, ხშირად უფრო გვიან."
           }
         },
         "kk" : {
@@ -923951,7 +923951,7 @@
         "hy" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Որտեղ բորսան տրամադրում է live գին՝ անմիջապես, քանի դեռ դիտացանկը բաց է։ Այլապես՝ հաջորդ հարցման ժամանակ։ Փակ վիճակում՝ երբ iOS-ը թույլ է տալիս, երբեմն ժամեր անց։ Եթե հավելվածը սահեցնելով փակես, iOS-ը դադարեցնում է այս ստուգումները, մինչև այն նորից բացես։"
+            "value" : "Որտեղ բորսան տրամադրում է իրական ժամանակի գին՝ անմիջապես, քանի դեռ դիտացանկը բաց է։ Այլապես՝ հաջորդ հարցման ժամանակ։ Փակ վիճակում՝ երբ iOS-ը թույլ է տալիս, երբեմն ժամեր անց։ Եթե հավելվածը սահեցնելով փակես, iOS-ը դադարեցնում է այս ստուգումները, մինչև այն նորից բացես։"
           }
         },
         "id" : {
@@ -923981,7 +923981,7 @@
         "ka" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "სადაც ბირჟა live ფასს იძლევა: მყისიერად, სანამ დაკვირვების სია ღიაა. სხვა შემთხვევაში – შემდეგი მოთხოვნისას. დახურულისას: როცა iOS ამის საშუალებას იძლევა, ზოგჯერ საათების ინტერვალით. თუ აპს გადაფურცლით დახურავ, iOS ამ შემოწმებებს აჩერებს, სანამ ხელახლა არ გახსნი."
+            "value" : "სადაც ბირჟა რეალური დროის ფასს იძლევა: მყისიერად, სანამ დაკვირვების სია ღიაა. სხვა შემთხვევაში – შემდეგი მოთხოვნისას. დახურულისას: როცა iOS ამის საშუალებას იძლევა, ზოგჯერ საათების ინტერვალით. თუ აპს გადაფურცლით დახურავ, iOS ამ შემოწმებებს აჩერებს, სანამ ხელახლა არ გახსნი."
           }
         },
         "kk" : {
@@ -926897,13 +926897,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "விட்ஜெட்டாகச் சேர்"
+            "value" : "விட்ஜெட்டாகச் சேர்க்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "విడ్జెట్‌గా జోడించు"
+            "value" : "విడ్జెట్‌గా జోడించండి"
           }
         },
         "th" : {
@@ -927807,7 +927807,7 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "பரிமாற்றத்தை மாற்று"
+            "value" : "பரிமாற்றத்தை மாற்றவும்"
           }
         },
         "te" : {
@@ -930094,13 +930094,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "காயின்களைத் தேர்ந்தெடு"
+            "value" : "காயின்களைத் தேர்ந்தெடுக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "కాయిన్‌లను ఎంచుకో"
+            "value" : "కాయిన్‌లను ఎంచుకోండి"
           }
         },
         "th" : {
@@ -931459,13 +931459,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "முடக்கு"
+            "value" : "முடக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "డిజేబుల్ చేయి"
+            "value" : "డిజేబుల్ చేయండి"
           }
         },
         "th" : {
@@ -933734,13 +933734,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ஜோடியைத் திருத்து"
+            "value" : "ஜோடியைத் திருத்தவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "జతను ఎడిట్ చేయి"
+            "value" : "జతను ఎడిట్ చేయండి"
           }
         },
         "th" : {
@@ -934644,13 +934644,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "இயக்கு"
+            "value" : "இயக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ఎనేబుల్ చేయి"
+            "value" : "ఎనేబుల్ చేయండి"
           }
         },
         "th" : {
@@ -936679,7 +936679,7 @@
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "הקשה: התראה ו\"מה זז יחד איתו?\" · לחיצה ארוכה לבחירה · החלקה שמאלה למחיקה · ימינה למועדף"
+            "value" : "הקשה: התראה ו«מה זז יחד איתו?» · לחיצה ארוכה לבחירה · החלקה שמאלה למחיקה · ימינה למועדף"
           }
         },
         "hi" : {
@@ -936919,7 +936919,7 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "தட்டு: விழிப்பூட்டல் மற்றும் “கூடவே எது நகர்கிறது?” · தேர்ந்தெடுக்க நீண்ட அழுத்தம் · நீக்க இடப்பக்கம் ஸ்வைப் · பிடித்ததாக்க வலப்பக்கம் ஸ்வைப்"
+            "value" : "தட்டவும்: விழிப்பூட்டல் மற்றும் “கூடவே எது நகர்கிறது?” · தேர்ந்தெடுக்க நீண்ட அழுத்தம் · நீக்க இடப்பக்கம் ஸ்வைப் · பிடித்ததாக்க வலப்பக்கம் ஸ்வைப்"
           }
         },
         "te" : {
@@ -937134,7 +937134,7 @@
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "הקישו על מטבע להתראה ו\"מה זז יחד איתו?\""
+            "value" : "הקישו על מטבע להתראה ו«מה זז יחד איתו?»"
           }
         },
         "hi" : {
@@ -942834,13 +942834,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "புதுப்பி"
+            "value" : "புதுப்பிக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "రిఫ్రెష్ చేయి"
+            "value" : "రిఫ్రెష్ చేయండి"
           }
         },
         "th" : {
@@ -947051,13 +947051,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "கண்காணிப்புப் பட்டியலை அழி"
+            "value" : "கண்காணிப்புப் பட்டியலை அழிக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "వాచ్‌లిస్ట్‌ను క్లియర్ చేయి"
+            "value" : "వాచ్‌లిస్ట్‌ను క్లియర్ చేయండి"
           }
         },
         "th" : {
@@ -947961,13 +947961,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ஒப்பிடு"
+            "value" : "ஒப்பிடவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "పోల్చు"
+            "value" : "పోల్చండి"
           }
         },
         "th" : {
@@ -952726,7 +952726,7 @@
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ingen favoritter endnu. Stryg et par til højre, eller åbn det og tryk på ”Favorit”."
+            "value" : "Ingen favoritter endnu. Stryg et par til højre, eller åbn det og tryk på «Favorit»."
           }
         },
         "de" : {
@@ -961901,13 +961901,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "இறுதிக்குச் செல்"
+            "value" : "இறுதிக்குச் செல்லவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "చివరికి వెళ్లు"
+            "value" : "చివరికి వెళ్లండి"
           }
         },
         "th" : {
@@ -962356,13 +962356,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "மேலே செல்"
+            "value" : "மேலே செல்லவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "పైకి వెళ్లు"
+            "value" : "పైకి వెళ్లండి"
           }
         },
         "th" : {
@@ -963050,7 +963050,7 @@
         "hy" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Live գները միացված են"
+            "value" : "Իրական ժամանակի գները միացված են"
           }
         },
         "id" : {
@@ -963080,7 +963080,7 @@
         "ka" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Live ფასები ჩართულია"
+            "value" : "რეალური დროის ფასები ჩართულია"
           }
         },
         "kk" : {
@@ -963721,13 +963721,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "இருந்தாலும் மாற்று"
+            "value" : "இருந்தாலும் மாற்றவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "అయినా మార్చు"
+            "value" : "అయినా మార్చండి"
           }
         },
         "th" : {
@@ -972399,7 +972399,7 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "புதுப்பி (%1$ld)"
+            "value" : "புதுப்பிக்கவும் (%1$ld)"
           }
         },
         "te" : {
@@ -973764,7 +973764,7 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "இன்னும் விவரம் இல்லை – இதுவரை முழுப் புதுப்பிப்பு நடக்கவில்லை. புதுப்பி என்பதைத் தட்டி வட்டம் நிற்கும் வரை காத்திருக்கவும்."
+            "value" : "இன்னும் விவரம் இல்லை – இதுவரை முழுப் புதுப்பிப்பு நடக்கவில்லை. புதுப்பிக்கவும் என்பதைத் தட்டி வட்டம் நிற்கும் வரை காத்திருக்கவும்."
           }
         },
         "te" : {
@@ -974219,13 +974219,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "அகற்று"
+            "value" : "அகற்றவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "తీసివేయి"
+            "value" : "తీసివేయండి"
           }
         },
         "th" : {
@@ -976161,13 +976161,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "வர்த்தகமாகாத ஜோடிகளை அகற்று (%1$ld)"
+            "value" : "வர்த்தகமாகாத ஜோடிகளை அகற்றவும் (%1$ld)"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ట్రేడ్ కాని జతలను తీసివేయి (%1$ld)"
+            "value" : "ట్రేడ్ కాని జతలను తీసివేయండి (%1$ld)"
           }
         },
         "th" : {
@@ -976616,13 +976616,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "வர்த்தகமாகாத ஜோடிகளை அகற்று"
+            "value" : "வர்த்தகமாகாத ஜோடிகளை அகற்றவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ట్రేడ్ కాని జతలను తీసివేయి"
+            "value" : "ట్రేడ్ కాని జతలను తీసివేయండి"
           }
         },
         "th" : {
@@ -986082,13 +986082,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "தேடலை மூடு"
+            "value" : "தேடலை மூடவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "శోధనను మూసివేయి"
+            "value" : "శోధనను మూసివేయండి"
           }
         },
         "th" : {
@@ -986213,7 +986213,7 @@
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ingen resultater for ”%1$@”"
+            "value" : "Ingen resultater for «%1$@»"
           }
         },
         "de" : {
@@ -986992,7 +986992,7 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ஜோடி, பெயர் அல்லது எக்ஸ்சேஞ்சைத் தேடு"
+            "value" : "ஜோடி, பெயர் அல்லது எக்ஸ்சேஞ்சைத் தேடவும்"
           }
         },
         "te" : {
@@ -987447,13 +987447,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "தேடு"
+            "value" : "தேடவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "వెతుకు"
+            "value" : "వెతకండి"
           }
         },
         "th" : {
@@ -987902,13 +987902,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "தேர்ந்தெடு"
+            "value" : "தேர்ந்தெடுக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ఎంచుకో"
+            "value" : "ఎంచుకోండి"
           }
         },
         "th" : {
@@ -988357,13 +988357,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "அனைத்தையும் தேர்ந்தெடு"
+            "value" : "அனைத்தையும் தேர்ந்தெடுக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "అన్నీ ఎంచుకో"
+            "value" : "అన్నీ ఎంచుకోండి"
           }
         },
         "th" : {
@@ -990299,13 +990299,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "அனைத்தையும் காட்டு"
+            "value" : "அனைத்தையும் காட்டவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "అన్నీ చూపు"
+            "value" : "అన్నీ చూపండి"
           }
         },
         "th" : {
@@ -990754,13 +990754,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "முடக்கப்பட்டவற்றை மட்டும் காட்டு"
+            "value" : "முடக்கப்பட்டவற்றை மட்டும் காட்டவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "డిజేబుల్ చేసినవి మాత్రమే చూపు"
+            "value" : "డిజేబుల్ చేసినవి మాత్రమే చూపండి"
           }
         },
         "th" : {
@@ -991209,13 +991209,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "காலாவதியானவற்றை மட்டும் காட்டு"
+            "value" : "காலாவதியானவற்றை மட்டும் காட்டவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "పాతవి మాత్రమే చూపు"
+            "value" : "పాతవి మాత్రమే చూపండి"
           }
         },
         "th" : {
@@ -992119,13 +992119,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "காயின் வாரியாக வரிசைப்படுத்து"
+            "value" : "காயின் வாரியாக வரிசைப்படுத்தவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "కాయిన్ వారీగా క్రమబద్ధీకరించు"
+            "value" : "కాయిన్ వారీగా క్రమబద్ధీకరించండి"
           }
         },
         "th" : {
@@ -992574,13 +992574,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "எக்ஸ்சேஞ்ச் வாரியாக வரிசைப்படுத்து"
+            "value" : "எக்ஸ்சேஞ்ச் வாரியாக வரிசைப்படுத்தவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ఎక్స్ఛేంజ్ వారీగా క్రమబద్ధీకరించు"
+            "value" : "ఎక్స్ఛేంజ్ వారీగా క్రమబద్ధీకరించండి"
           }
         },
         "th" : {
@@ -1001181,13 +1001181,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "விலையைப் படித்துக் காட்டு"
+            "value" : "விலையைப் படித்துக் காட்டவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ధరను చదివి వినిపించు"
+            "value" : "ధరను చదివి వినిపించండి"
           }
         },
         "th" : {
@@ -1013133,13 +1013133,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "விவரங்களைக் காட்டு"
+            "value" : "விவரங்களைக் காட்டவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "వివరాలను చూపు"
+            "value" : "వివరాలను చూపండి"
           }
         },
         "th" : {
@@ -1013588,13 +1013588,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "விவரங்களை மறை"
+            "value" : "விவரங்களை மறைக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "వివరాలను దాచు"
+            "value" : "వివరాలను దాచండి"
           }
         },
         "th" : {
@@ -1071983,13 +1071983,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "விட்ஜெட்டை அமை"
+            "value" : "விட்ஜெட்டை அமைக்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "విడ్జెట్‌ను సెటప్ చేయి"
+            "value" : "విడ్జెట్‌ను సెటప్ చేయండి"
           }
         },
         "th" : {
@@ -1078484,7 +1078484,7 @@
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Uden USDT-linje i ”Liste”"
+            "value" : "Uden USDT-linje i «Liste»"
           }
         },
         "de" : {
@@ -1090558,7 +1090558,7 @@
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "I ”Oversigt” som 30 dage"
+            "value" : "I «Oversigt» som 30 dage"
           }
         },
         "de" : {
@@ -1098162,7 +1098162,7 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "புதுப்பி – %1$ld வி. இல் மீண்டும் சாத்தியம்"
+            "value" : "புதுப்பிக்கவும் – %1$ld வி. இல் மீண்டும் சாத்தியம்"
           }
         },
         "te" : {
@@ -1099072,13 +1099072,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "சேர்"
+            "value" : "சேர்க்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "జోడించు"
+            "value" : "జోడించండి"
           }
         },
         "th" : {
@@ -1099527,13 +1099527,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ விட்ஜெட்டைச் சேர்"
+            "value" : "%1$@ விட்ஜெட்டைச் சேர்க்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ విడ్జెట్‌ను జోడించు"
+            "value" : "%1$@ విడ్జెట్‌ను జోడించండి"
           }
         },
         "th" : {
@@ -1101023,7 +1101023,7 @@
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tryk på ”Rediger” › ”Tilføj widget” øverst (eller ”+” i ældre iOS-versioner)."
+            "value" : "Tryk på «Rediger» › «Tilføj widget» øverst (eller «+» i ældre iOS-versioner)."
           }
         },
         "de" : {
@@ -1101478,7 +1101478,7 @@
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Søg efter ”Crypto Checker”, vælg en widget, og tryk på ”Tilføj widget”."
+            "value" : "Søg efter «Crypto Checker», vælg en widget, og tryk på «Tilføj widget»."
           }
         },
         "de" : {
@@ -1101933,7 +1101933,7 @@
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Din startskærm kan ikke tilføje widgets fra appen. Hold fingeren på et tomt sted på startskærmen, vælg ”Widgets”, og find ”Crypto Checker”."
+            "value" : "Din startskærm kan ikke tilføje widgets fra appen. Hold fingeren på et tomt sted på startskærmen, vælg «Widgets», og find «Crypto Checker»."
           }
         },
         "de" : {
@@ -1103167,13 +1103167,13 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "விட்ஜெட்டைச் சேர்"
+            "value" : "விட்ஜெட்டைச் சேர்க்கவும்"
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "విడ్జెట్‌ను జోడించు"
+            "value" : "విడ్జెట్‌ను జోడించండి"
           }
         },
         "th" : {

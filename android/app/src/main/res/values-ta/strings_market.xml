@@ -31,11 +31,11 @@
     <string name="market_plain_standout_quiet">இப்போது எந்தக் காயினும் தனித்துத் தெரியவில்லை.</string>
     <string name="market_plain_standout_volume">%1$s தனித்துத் தெரிகிறது: வழக்கத்தைவிடச் சுமார் %2$s மடங்கு வர்த்தகம்.</string>
     <string name="market_plain_title">சுருக்கமாக</string>
-    <string name="market_section_collapse">%1$s ஐ மறை</string>
+    <string name="market_section_collapse">%1$s ஐ மறைக்கவும்</string>
     <string name="market_section_context">மனநிலை &amp; சுழற்சி</string>
     <string name="market_section_data">சந்தைத் தரவு</string>
     <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
-    <string name="market_section_expand">%1$s ஐக் காட்டு</string>
+    <string name="market_section_expand">%1$s ஐக் காட்டவும்</string>
     <string name="market_section_now">இப்போது</string>
     <string name="market_source">தரவு: Binance · Coin Metrics (CC BY-NC 4.0)</string>
     <string name="exchange_unavailable_error">எக்ஸ்சேஞ்ச் கிடைக்கவில்லை</string>
@@ -83,7 +83,7 @@
     <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
     <string name="pulse_details_action">விவரங்கள்</string>
     <string name="pulse_disclaimer">முன்கணிப்பு அல்ல · முதலீட்டு ஆலோசனை அல்ல</string>
-    <string name="pulse_less">குறைவாகக் காட்டு</string>
+    <string name="pulse_less">குறைவாகக் காட்டவும்</string>
     <string name="pulse_now_title">கிரிப்டோ நாடித்துடிப்பு</string>
     <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
     <string name="pulse_period_24h_spoken">24 மணிநேரத்தில் மாற்றம்</string>
@@ -144,7 +144,7 @@
     <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
     <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
-    <string name="unusual_action_open">விலையையும் செயல்களையும் காட்டு</string>
+    <string name="unusual_action_open">விலையையும் செயல்களையும் காட்டவும்</string>
     <string name="unusual_fact_against">சந்தைக்கு எதிராக நகர்கிறது</string>
     <string name="unusual_fact_funding_high">ஃபண்டிங் அதிகம் (%1$s)</string>
     <string name="unusual_fact_funding_negative">ஃபண்டிங் எதிர்மறை (%1$s)</string>
@@ -254,7 +254,7 @@
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
-    <string name="market_movers_show_all">அனைத்தையும் காட்டு</string>
+    <string name="market_movers_show_all">அனைத்தையும் காட்டவும்</string>
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
-    <string name="market_movers_show_less">குறைவாகக் காட்டு</string>
+    <string name="market_movers_show_less">குறைவாகக் காட்டவும்</string>
 </resources>

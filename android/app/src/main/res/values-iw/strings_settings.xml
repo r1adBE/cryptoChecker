@@ -94,7 +94,7 @@
     <!-- Einstellungen › Token & TradFi -->
     <string name="settings_asset_scope_alpha">כולל טוקני Alpha (α)</string>
     <string name="settings_asset_scope_alpha_hint">טוקני Alpha: פרויקטים מוקדמים, לרוב קטנים, מרשימת Binance Alpha – לעיתים קרובות מעט מסחר ותנודתיות גבוהה.</string>
-    <string name="settings_asset_scope_alpha_tradfi_hint">שייך לטוקנים. נעול כשנבחר „TradFi בלבד”; טוקני Alpha שכבר ברשימה נשארים.</string>
+    <string name="settings_asset_scope_alpha_tradfi_hint">שייך לטוקנים. נעול כשנבחר «TradFi בלבד»; טוקני Alpha שכבר ברשימה נשארים.</string>
     <string name="settings_asset_scope_both">טוקנים ו-TradFi</string>
     <string name="settings_asset_scope_both_hint">הכול – קריפטו ו-TradFi</string>
     <string name="settings_asset_scope_hint">קובע אילו צמדים יוצגו בבחירה ובחיפוש בעת הוספה. צמדים שכבר ברשימת המעקב נשארים תמיד.</string>
@@ -106,7 +106,7 @@
     <string name="settings_rolling_futures">כולל חוזים רבעוניים וחוזים עתידיים מתוארכים אחרים</string>
     <string name="settings_rolling_futures_hint">כבוי: חוזים עתידיים מתוארכים שחסרים ברשימת הבורסה יסומנו כלא נסחרים עוד במקום להיבדק אחד־אחד. חוסך זמן בכל רענון.</string>
     <string name="settings_rolling_futures_qtly">כולל חוזים רבעוניים וחוזים עתידיים מתוארכים אחרים (QTLY)</string>
-    <string name="settings_rolling_futures_tradfi_hint">שייך לטוקנים. נעול כשנבחר „TradFi בלבד”; עדיין חל על חוזים מתוארכים שכבר ברשימה.</string>
+    <string name="settings_rolling_futures_tradfi_hint">שייך לטוקנים. נעול כשנבחר «TradFi בלבד»; עדיין חל על חוזים מתוארכים שכבר ברשימה.</string>
     <string name="settings_tradfi_futures">מניות, סחורות ומט״ח (TradFi)</string>
     <string name="settings_tradfi_futures_hint">בבחירת צמד מוצגים גם חוזים עתידיים על מניות, זהב וסחורות אחרות, מטבעות וחברות לפני הנפקה. אלה חוזים, לא טוקנים.</string>
 

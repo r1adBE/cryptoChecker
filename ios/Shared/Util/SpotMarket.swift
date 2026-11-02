@@ -30,7 +30,10 @@ struct SpotData: Equatable, Sendable {
 ///   Nutzer den Spot-Tab öffnet, ~10 min im Speicher (`cacheTTLMillis`).
 /// - Kein Abruf für TradFi-Paare und DEX-Pools (`eligible`) und für Kürzel ausserhalb A–Z/0–9
 ///   (`lookupSymbol`): Dort heisst oft ein fremder Token gleich.
-/// - Teilen sich Coins ein Kürzel, gewinnt der mit der grössten Marktkapitalisierung (`pick`).
+/// - Welcher Treffer zum Paar gehört, entscheidet der Name (`pick`, `Identity`) — wie beim Portfolio-Kurs
+///   (`PortfolioPriceIdentity`): gemessen am Namen des Paars (sonst Binances Namen); ohne passenden Namen
+///   lieber keine Spot-Daten als die eines anderen Tokens. Die grösste Marktkapitalisierung entscheidet nur
+///   noch unter Treffern mit gleichem Namen.
 /// - Beträge ≤ 0 (CoinGecko meldet 0 für «unbekannt») gelten als fehlend; Volumen 0 bleibt.
 enum SpotMarket {
 
@@ -121,13 +124,55 @@ enum SpotMarket {
         return millis > 0 ? millis : nil
     }
 
-    /// Eintrag zum Kürzel: bei mehreren der mit der grössten Marktkapitalisierung (sonst der erste).
-    static func pick(_ entries: [SpotData], symbol: String) -> SpotData? {
+    /// Wen meint das Paar? `ownName`: Name aus der Paarliste der eigenen Börse; `binanceName`: `fullName` von Binance;
+    /// `otherNames`: Namen des Kürzels in den übrigen Paarlisten (je Börse einer). Alles optional — wie Android.
+    struct Identity: Equatable, Sendable {
+        var ownName: String?
+        var binanceName: String?
+        var otherNames: [String?]
+
+        init(ownName: String? = nil, binanceName: String? = nil, otherNames: [String?] = []) {
+            self.ownName = ownName
+            self.binanceName = binanceName
+            self.otherNames = otherNames
+        }
+    }
+
+    /// Name, an dem die CoinGecko-Treffer gemessen werden — Regel des Portfolio-Kurses
+    /// (`PortfolioPriceIdentity.binanceCheck`): der eigene Name, sonst Binances Name, ausser das Kürzel ist ein bekanntes
+    /// Doppel-Kürzel (`PortfolioPriceIdentity.knownCollision`) oder die Paarlisten führen darunter klar verschiedene
+    /// Token (`PortfolioPriceIdentity.ambiguous`). nil = kein brauchbarer Name.
+    static func referenceName(symbol: String, identity: Identity) -> String? {
+        if let own = identity.ownName, TokenIdentity.normalizeName(own, symbol: symbol) != nil { return own }
+        guard let binance = identity.binanceName, TokenIdentity.normalizeName(binance, symbol: symbol) != nil,
+              !PortfolioPriceIdentity.knownCollision(symbol),
+              !PortfolioPriceIdentity.ambiguous(symbol, binanceName: binance, otherNames: identity.otherNames) else { return nil }
+        return binance
+    }
+
+    /// Eintrag zum Kürzel nach Namen (`TokenIdentity.matchNames` gegen `referenceName`), nicht nach Grösse:
+    ///  - gleicher Name (`.medium`): dieser; mehrere mit gleichem Namen → grösste Marktkapitalisierung;
+    ///  - nur ähnlicher Name (`.weak`): nur, wenn er der einzige Treffer ist;
+    ///  - klar anderer Name: nie.
+    /// Ohne brauchbaren Namen nur ein einziger Treffer, und nicht bei bekanntem Doppel-Kürzel oder widersprüchlichen
+    /// Paarlisten. Sonst nil — lieber keine Spot-Daten als die eines anderen Tokens. Wie Android.
+    static func pick(_ entries: [SpotData], symbol: String, identity: Identity = Identity()) -> SpotData? {
+        let hits = entries.filter { $0.symbol == symbol }
+        guard !hits.isEmpty else { return nil }
+        guard let reference = referenceName(symbol: symbol, identity: identity) else {
+            guard hits.count == 1, !PortfolioPriceIdentity.knownCollision(symbol),
+                  !PortfolioPriceIdentity.ambiguous(symbol, binanceName: identity.binanceName,
+                                                    otherNames: identity.otherNames) else { return nil }
+            return hits[0]
+        }
+        let matches = hits.map { ($0, TokenIdentity.matchNames(symbol: symbol, reference, $0.name)) }
         var best: SpotData?
-        for e in entries where e.symbol == symbol {
+        for (e, match) in matches where match == .medium || match == .strong {
             if best == nil || (e.marketCap ?? -1) > (best?.marketCap ?? -1) { best = e }
         }
-        return best
+        if let best { return best }
+        guard matches.count == 1, matches[0].1 == .weak else { return nil }
+        return matches[0].0
     }
 
     /// Volumen im Verhältnis zur Marktkapitalisierung in Prozent; nil ohne beide Werte.

@@ -90,7 +90,7 @@
   },
   {
    "symbol": "PEPE",
-   "expected": "pepe"
+   "expected": null
   },
   {
    "symbol": "UNK",
@@ -105,6 +105,113 @@
    "expected": null
   }
  ],
+ "pickIdentity": {
+  "_comment": "Treffer nach Namen (TokenIdentity.matchNames gegen den eigenen Namen, sonst Binances Namen wie beim Portfolio-Kurs), nicht nach Marktkapitalisierung; ohne passenden Namen keiner.",
+  "body": "[{\"id\":\"toncoin\",\"symbol\":\"ton\",\"name\":\"Toncoin\",\"current_price\":1.0,\"market_cap\":17000000000.0},{\"id\":\"tokamak-network\",\"symbol\":\"ton\",\"name\":\"Tokamak Network\",\"current_price\":1.0,\"market_cap\":30000000.0},{\"id\":\"dogecoin\",\"symbol\":\"doge\",\"name\":\"Dogecoin\",\"current_price\":1.0,\"market_cap\":20000000000.0},{\"id\":\"doge-clone\",\"symbol\":\"doge\",\"name\":\"Doge Clone\",\"current_price\":1.0,\"market_cap\":500000.0},{\"id\":\"catcoin\",\"symbol\":\"cat\",\"name\":\"Catcoin\",\"current_price\":1.0,\"market_cap\":5000000.0},{\"id\":\"simons-cat\",\"symbol\":\"cat\",\"name\":\"Simon's Cat\",\"current_price\":1.0,\"market_cap\":100000000.0},{\"id\":\"zed-run\",\"symbol\":\"zed\",\"name\":\"Zed Run\",\"current_price\":1.0,\"market_cap\":1000000.0},{\"id\":\"zedcoin\",\"symbol\":\"zed\",\"name\":\"Zedcoin\",\"current_price\":1.0,\"market_cap\":2000000.0},{\"id\":\"foo-chain\",\"symbol\":\"foo\",\"name\":\"Foo Chain\",\"current_price\":1.0,\"market_cap\":1000000.0}]",
+  "cases": [
+   {
+    "symbol": "TON",
+    "ownName": "Tokamak Network",
+    "expected": "tokamak-network",
+    "note": "eigener Name schlägt grössere Marktkapitalisierung"
+   },
+   {
+    "symbol": "TON",
+    "ownName": "Toncoin",
+    "expected": "toncoin"
+   },
+   {
+    "symbol": "TON",
+    "binanceName": "Toncoin",
+    "expected": null,
+    "note": "ohne eigenen Namen: bekanntes Doppel-Kürzel, Binances Name zählt nicht"
+   },
+   {
+    "symbol": "TON",
+    "expected": null,
+    "note": "mehrere Treffer ohne Namen: keiner"
+   },
+   {
+    "symbol": "CAT",
+    "ownName": "Simon's Cat",
+    "expected": "simons-cat"
+   },
+   {
+    "symbol": "CAT",
+    "ownName": "Catcoin",
+    "expected": "catcoin"
+   },
+   {
+    "symbol": "DOGE",
+    "ownName": "Dogecoin",
+    "expected": "dogecoin"
+   },
+   {
+    "symbol": "DOGE",
+    "binanceName": "Dogecoin",
+    "expected": "dogecoin",
+    "note": "ohne eigenen Namen: Binances Name"
+   },
+   {
+    "symbol": "DOGE",
+    "ownName": "DOGE",
+    "binanceName": "Dogecoin",
+    "expected": "dogecoin",
+    "note": "eigener Name nur das Kürzel: unbrauchbar, dann Binance"
+   },
+   {
+    "symbol": "DOGE",
+    "binanceName": "Dogecoin",
+    "otherNames": [
+     "Doge Killer"
+    ],
+    "expected": null,
+    "note": "Paarlisten widersprechen sich: kein Name, mehrere Treffer"
+   },
+   {
+    "symbol": "DOGE",
+    "expected": null
+   },
+   {
+    "symbol": "ZED",
+    "ownName": "Zed Run",
+    "expected": "zed-run",
+    "note": "gleicher Name, kleinere Marktkapitalisierung"
+   },
+   {
+    "symbol": "ZED",
+    "ownName": "Something Else",
+    "expected": null,
+    "note": "kein Treffer mit passendem Namen"
+   },
+   {
+    "symbol": "FOO",
+    "ownName": "Foo Bar Protocol",
+    "expected": "foo-chain",
+    "note": "nur ähnlicher Name, aber einziger Treffer"
+   },
+   {
+    "symbol": "FOO",
+    "ownName": "Bar Baz",
+    "expected": null,
+    "note": "einziger Treffer, klar anderer Name"
+   },
+   {
+    "symbol": "FOO",
+    "expected": "foo-chain",
+    "note": "einziger Treffer ohne Namen"
+   },
+   {
+    "symbol": "FOO",
+    "otherNames": [
+     "Foo Chain",
+     "Totally Different"
+    ],
+    "expected": null,
+    "note": "einziger Treffer, aber Paarlisten widersprechen sich"
+   }
+  ]
+ },
  "volumeToMarketCap": [
   {
    "volume": 45300000000,

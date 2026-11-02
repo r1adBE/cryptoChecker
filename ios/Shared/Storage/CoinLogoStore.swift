@@ -13,9 +13,9 @@ import UIKit
 /// 2. Rangliste von CoinGecko (Rang 1–2500, höchstens einmal pro Tag — CoinGecko: höchstens 24 h
 ///    zwischenspeichern), zusammengeführt mit den Listen aus 1 (`CoinMeta.merge`).
 /// 3. `syncAll` lädt die Logos **aller** Coins dieser Liste von den Bildservern von CoinGecko und
-///    Binance in den gemeinsamen Ordner (App Group, auch für die Widgets), mehrere gleichzeitig je
-///    Server (`perHostParallel`); die Bilder der grössten 1000 beginnen schon, während die übrigen
-///    Seiten der Rangliste laden. Später fehlen nur neu dazugekommene oder geänderte.
+///    Binance in den gemeinsamen Ordner (App Group, auch für die Widgets), mehrere gleichzeitig: die bei
+///    Binance gelisteten schon vor der ersten Seite der Rangliste, die grössten 1000, während die übrigen
+///    Seiten laden. Später fehlen nur neu dazugekommene oder geänderte.
 /// 4. Angezeigt wird nur aus Speicher und Datei (`stored`, `logo`); fehlt ein geladenes Logo, das
 ///    mitgelieferte Icon-Paket (`CoinLogos.iconPackName`, CC0), sonst Initialen.
 ///
@@ -77,7 +77,7 @@ actor CoinLogoStore {
         return url
     }()
 
-    private static var mapURL: URL { directory.appendingPathComponent("map.txt") }
+    static var mapURL: URL { directory.appendingPathComponent("map.txt") }
     static var namesURL: URL { directory.appendingPathComponent("names.txt") }
     /// Zuletzt geholte Binance- und Alpha-Liste (Format wie `coin_meta.json`, `CoinMeta.encode`).
     private static var listsURL: URL { directory.appendingPathComponent("lists.json") }
@@ -167,10 +167,11 @@ actor CoinLogoStore {
 
     // MARK: 2./3. Rangliste und Bilder
 
-    /// Lädt die Logos aller Coins der Rangliste, die noch fehlen (die grössten 1000 schon während die
-    /// übrigen Seiten laden). Läuft nur einmal gleichzeitig; gibt die Zahl neuer Logos zurück. `images`
-    /// false («Namen anzeigen» ohne Logos): nur die Liste mit den Namen, keine Bilder. Die Binance-Listen
-    /// holt `AppData` vorher (`refreshLists`).
+    /// Lädt die Logos aller Coins der Rangliste, die noch fehlen, in Stufen nacheinander: die bei Binance gelisteten
+    /// Krypto-Kürzel, während die Seiten der Rangliste laden, dann die grössten 1000, zuletzt alles (nur noch, was
+    /// fehlt) — für alle in derselben Reihenfolge, nie nach der Merkliste. Läuft nur einmal gleichzeitig; gibt die Zahl
+    /// neuer Logos zurück. `images` false («Namen anzeigen» ohne Logos): nur die Liste mit den Namen, keine Bilder. Die
+    /// Binance-Listen holt `AppData` vorher (`refreshLists`).
     @discardableResult
     func syncAll(images: Bool = true) async -> Int {
         guard !syncing else { return 0 }
@@ -182,11 +183,17 @@ actor CoinLogoStore {
         let lists = savedLists()
         let alternates = CoinMeta.alternates(binance: lists?.binance, alpha: lists?.alpha)
         var earlyTask: Task<DownloadResult, Never>?
-        let current = await symbolMap { partial in
+        let current = await symbolMap { partial, order in
             guard images else { return }
             let wanted = CoinLogos.withStockLogos(partial, tradFiBases: tradFiBases)
+            // Stufen nacheinander (wie Android): die nächste beginnt, wenn die vorige fertig ist
+            let previous = earlyTask
             earlyTask = Task.detached(priority: .utility) {
-                await CoinLogoStore.downloadMissing(wanted, alternates: alternates)
+                let before = await previous?.value ?? DownloadResult()
+                var next = await CoinLogoStore.downloadMissing(wanted, order: order, alternates: alternates)
+                next.added += before.added
+                next.network = next.network || before.network
+                return next
             }
         }
         guard images else {
@@ -198,7 +205,7 @@ actor CoinLogoStore {
         let wanted = CoinLogos.withStockLogos(current, tradFiBases: Self.tradFiBases)
         var result = DownloadResult()
         if let earlyTask { result = await earlyTask.value }
-        let rest = await Self.downloadMissing(wanted, alternates: alternates)
+        let rest = await Self.downloadMissing(wanted, order: Self.savedMapOrder(), alternates: alternates)
         result.added += rest.added
         result.network = result.network || rest.network
         retryPending = listsNetworkFailed || mapNetworkFailed || result.network
@@ -246,8 +253,9 @@ actor CoinLogoStore {
     /// Zuordnung aus Datei bzw. frisch von CoinGecko, zusammengeführt mit den Binance-Listen aus
     /// `refreshLists`; bei Fehlern die alte (auch abgelaufen). Nur freigegebene Bild-Adressen
     /// (`CoinLogos.isAllowedURL`).
-    /// `onTop`: Zuordnung nach den grössten 1000 (früher Start der Bilder), nur bei neuem Abruf.
-    private func symbolMap(onTop: ([String: String]) -> Void = { _ in }) async -> [String: String] {
+    /// `onEarly`: Zwischenstände für den frühen Start der Bilder, nur bei neuem Abruf — erst die bei Binance gelisteten
+    /// Krypto-Kürzel (`CoinMeta.binanceFirst`, vor der ersten Seite der Rangliste), dann die grössten 1000.
+    private func symbolMap(onEarly: ([String: String], [String]) -> Void = { _, _ in }) async -> [String: String] {
         let defaults = SharedStorage.defaults
         let now = EpochTime.nowMillis
         let known = map ?? CoinLogos.decode(Self.readNonBlank(Self.mapURL))
@@ -264,6 +272,10 @@ actor CoinLogoStore {
 
         let binance: [CoinLogos.BinanceEntry]? = (saved?.binance.isEmpty ?? true) ? nil : saved?.binance
         let alpha: [CoinLogos.AlphaEntry]? = (saved?.alpha.isEmpty ?? true) ? nil : saved?.alpha
+        // Bei Binance gelistete Krypto-Kürzel zuerst: ihr Logo steht schon in der Symbolliste und geht vor
+        let first = CoinMeta.binanceFirst(binance)
+        var handled: Set<String> = first.map.isEmpty ? [] : Self.dropChangedImages(old: known, new: first.map, skip: [])
+        if !first.map.isEmpty { onEarly(first.map, first.order) }
         // Eine Quelle scheiterte am Netz (keine Verbindung), nicht am Server
         var networkError = false
         var top: [CoinMeta.GeckoRow] = []
@@ -275,8 +287,8 @@ actor CoinLogoStore {
         }
         // Geänderte Bild-Adressen der grössten 1000 gleich löschen, dann ihre Bilder schon laden
         let partial = CoinMeta.merge(geckoTop: top, binance: binance, alpha: alpha)
-        let handled = Self.dropChangedImages(old: known, new: partial.map, skip: [])
-        onTop(partial.map)
+        handled.formUnion(Self.dropChangedImages(old: known, new: partial.map, skip: handled))
+        onEarly(partial.map, partial.order)
         // Kleinere Coins (Rang 1001–2500) nur noch für die Lücken — und nur ohne teures Netz (mobile
         // Daten): sonst gilt die Liste als unvollständig und wird nach einigen Stunden erneut versucht
         var extra: [CoinMeta.GeckoRow] = []
@@ -337,7 +349,7 @@ actor CoinLogoStore {
         mergedListsVersion = listsVersion
         let fromLists = CoinMeta.merge(geckoTop: [], binance: l.binance, alpha: l.alpha, crypto: CoinMeta.listCrypto(l.binance))
         var out = known
-        var order = known.keys.sorted()
+        var order = CoinLogoQueue.orderedKeys(known, order: Self.savedMapOrder())
         CoinLogos.withKnown(&out, order: &order, known: fromLists.map)
         guard out.count != known.count else { return known }
         map = out

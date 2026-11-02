@@ -3,7 +3,7 @@
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">బ్యాక్‌గ్రౌండ్</string>
     <string name="widget_configure_hint">బ్యాక్‌గ్రౌండ్, అపారదర్శకతను ఎంచుకోండి. రంగు యాప్‌ను అనుసరిస్తుంది. విడ్జెట్ మీ మొత్తం వాచ్‌లిస్ట్‌ను చూపుతుంది; యాప్‌ను తెరవడానికి ఒక వరుసను నొక్కండి.</string>
-    <string name="widget_configure_title">విడ్జెట్‌ను సెటప్ చేయి</string>
+    <string name="widget_configure_title">విడ్జెట్‌ను సెటప్ చేయండి</string>
     <string name="widget_description">మీ వాచ్‌లిస్ట్‌లోని ఒక జత ధరను చూపుతుంది.</string>
     <string name="widget_empty">వాచ్‌లిస్ట్‌లో ఇంకా జతలు లేవు.</string>
     <string name="widget_group_hint">ఈ గ్రూప్‌లోని జతలను మాత్రమే చూపండి.</string>
@@ -82,16 +82,16 @@
     <string name="single_widget_choose">ఒక జతను ఎంచుకోండి</string>
     <string name="single_widget_description">ఒక కాయిన్‌ను ధర, మార్పు, 24 గంటల చార్ట్‌తో పెద్దగా చూపుతుంది.</string>
     <string name="single_widget_label">Crypto Checker – ఒకే కాయిన్</string>
-    <string name="single_widget_title">ఒకే కాయిన్ విడ్జెట్‌ను సెటప్ చేయి</string>
+    <string name="single_widget_title">ఒకే కాయిన్ విడ్జెట్‌ను సెటప్ చేయండి</string>
 
     <!-- Widgets aus der App hinzufügen -->
-    <string name="widgets_add">జోడించు</string>
+    <string name="widgets_add">జోడించండి</string>
     <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
-    <string name="widgets_add_named">%1$s విడ్జెట్‌ను జోడించు</string>
+    <string name="widgets_add_named">%1$s విడ్జెట్‌ను జోడించండి</string>
     <string name="widgets_manual_text">మీ హోమ్ స్క్రీన్ యాప్ నుండి విడ్జెట్‌లను జోడించలేదు. హోమ్ స్క్రీన్‌పై ఖాళీ స్థలాన్ని తాకి పట్టుకోండి, “విడ్జెట్‌లు” ఎంచుకుని “Crypto Checker” కోసం వెతకండి.</string>
     <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
     <string name="widgets_manual_title">విడ్జెట్‌ను మీరే జోడించండి</string>
-    <string name="widgets_sheet_title">విడ్జెట్‌ను జోడించు</string>
+    <string name="widgets_sheet_title">విడ్జెట్‌ను జోడించండి</string>
 
     <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
     <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS యాప్‌లను స్వయంగా విడ్జెట్‌లు జోడించనివ్వదు. దీనికి కొద్ది క్షణాలే పడుతుంది:</string>

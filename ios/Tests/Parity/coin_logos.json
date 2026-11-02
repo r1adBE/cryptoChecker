@@ -866,7 +866,7 @@
       "BTC"
     ]
   },
-  "_logoFilesComment": "urlFor(map, symbol): Bild-Adresse wie beim Zusammenführen (Krypto über normalize, TradFi über tradFiKey) — auch für die Start-Logos («1000CAT» findet CAT). downloadJobs(wanted, skip): je Dateiname höchstens ein Abruf (erster gilt, auch wenn er wegen skip wegfällt), ohne Dateinamen und skip-Namen. futures: Futures-Kürzel der Binance-Merkliste über die echte Zusammenführung (CoinMeta.parseMarketsPage, CoinMeta.parse, CoinMeta.merge): Platzhalter «missing_» und fremde Alpha-Hosts fallen durch, die nächste Quelle füllt. Erwartete Werte mit scratchpad money/fix-logos/gen.py nachgerechnet.",
+  "_logoFilesComment": "urlFor(map, symbol): Bild-Adresse wie beim Zusammenführen (Krypto über normalize, TradFi über tradFiKey) — auch für die Start-Logos («1000CAT» findet CAT). downloadJobs(wanted, skip): je Dateiname höchstens ein Abruf (erster gilt, auch wenn er wegen skip wegfällt), ohne Dateinamen und skip-Namen. futures: Futures-Kürzel der Binance-Merkliste über die echte Zusammenführung (CoinMeta.parseMarketsPage, CoinMeta.parse, CoinMeta.merge): Platzhalter «missing_» und fremde Alpha-Hosts fallen durch, die nächste Quelle füllt. Bei Binance gelistete Krypto-Kürzel (Spot, nicht nur Futures) nehmen das Binance-Logo vor CoinGecko (1000CAT → Binance-cat.png; 1000FLOKI nur Futures → CoinGecko). Erwartete Werte mit scratchpad money/fix-logos/gen.py nachgerechnet.",
   "urlFor": {
     "map": {
       "FLOKI": "https://coin-images.coingecko.com/coins/images/16746/large/PNG_image.png",
@@ -1028,7 +1028,7 @@
       ],
       [
         "1000CAT",
-        "https://coin-images.coingecko.com/coins/images/37394/large/cat.png?1714000000",
+        "https://bin.bnbstatic.com/image/admin_mgs_image_upload/20240901/cat.png",
         "CAT.png"
       ],
       [
@@ -1036,6 +1036,28 @@
         null,
         "PEPE.png"
       ]
+    ]
+  },
+  "queue": {
+    "description": "CoinLogoQueue (Android CoinLogoQueueParityTest, iOS CoinLogoQueueTests): Sammel-Abruf der Logos in einer Reihenfolge, die für alle gleich ist und nie von Merkliste oder Portfolio abhängt — bei Binance gelistete Kürzel in der Reihenfolge der Symbolliste, dann die Rangliste von CoinGecko (beide: CoinMeta.merge mit coin_meta.json, Android-Zuordnung als LinkedHashMap, iOS über Lists.order; ordered/mapFile nur iOS: ordered = Schlüssel aus order in erster Nennung, fehlende fallen weg, übrige danach sortiert; mapFile = Schlüssel der gespeicherten Zuordnung in Datei-Reihenfolge) — und Grenzen (höchstens maxParallel gleichzeitig, je Server perHostParallel; nextStartable = Stelle des ersten wartenden Abrufs, dessen Server Platz hat, null = keiner).",
+    "maxParallel": 6,
+    "perHostParallel": 4,
+    "ordered": {
+      "map": {"BTC": "https://a/btc.png", "ETH": "https://a/eth.png", "WLD": "https://b/wld.png", "ZRX": "https://a/zrx.png", "AAVE": "https://a/aave.png"},
+      "order": ["WLD", "BTC", "GONE", "BTC", "ETH"],
+      "expected": ["WLD", "BTC", "ETH", "AAVE", "ZRX"]
+    },
+    "mapFile": {
+      "text": "WLD\thttps://b/wld.png\n BTC \thttps://a/btc.png\nETH\thttps://a/eth.png\n",
+      "expected": ["WLD", "BTC", "ETH"]
+    },
+    "nextStartable": [
+      {"hosts": ["g", "g", "b"], "running": {}, "expected": 0},
+      {"hosts": ["g", "g", "b"], "running": {"g": 4}, "expected": 2},
+      {"hosts": ["g", "g"], "running": {"g": 4, "b": 1}, "expected": null},
+      {"hosts": ["g", "b"], "running": {"g": 3, "b": 2}, "expected": 0},
+      {"hosts": ["b"], "running": {"g": 4, "b": 2}, "expected": null},
+      {"hosts": [], "running": {}, "expected": null}
     ]
   }
 }

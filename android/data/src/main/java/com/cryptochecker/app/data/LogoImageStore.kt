@@ -9,6 +9,7 @@ import com.cryptochecker.app.data.remote.AppUserAgent
 import com.cryptochecker.app.data.remote.HttpUserAgent
 import com.cryptochecker.app.data.remote.util.HttpBodyLimit
 import com.cryptochecker.app.data.remote.util.await
+import com.cryptochecker.app.domain.logos.CoinLogoQueue
 import com.cryptochecker.app.domain.logos.CoinLogoRetry
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
@@ -16,9 +17,6 @@ import com.cryptochecker.app.util.ConnectivityMonitor
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -32,7 +30,6 @@ import okhttp3.Request
 import timber.log.Timber
 import java.io.File
 import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.ConcurrentLinkedQueue
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicLong
 import javax.inject.Inject
@@ -45,7 +42,8 @@ import com.cryptochecker.app.data.LogoImageCodec.pngBytes
 /**
  * Coin-Logos auf dem Gerät: Bilder im Speicher ([memory]) und in Dateien, das mitgelieferte Icon-Paket
  * ([CoinLogos.ICON_PACK_FILE], CC0) und das Laden fehlender Bilder von den Bildservern ([downloadMissing]) —
- * mehrere gleichzeitig je Server ([PER_HOST_PARALLEL]); bremst ein Server (429/403/503), pausiert nur dieser.
+ * für alle in derselben Reihenfolge, höchstens [CoinLogoQueue.MAX_PARALLEL] gleichzeitig, je Server
+ * [CoinLogoQueue.PER_HOST_PARALLEL]; bremst ein Server (429/403/503), pausiert nur dieser.
  * Welche Bilder es gibt, sagt die Zuordnung von [CoinListSync]. Teil von [CoinLogoRepository].
  *
  * Sperren: nur die Semaphoren der Abrufe (je Server, dann gesamt — nie gesamt blockieren); keine Mutex. Wird aus
@@ -70,9 +68,10 @@ class LogoImageStore @Inject constructor(
     private val memory = object : LruCache<String, Bitmap>(MEMORY_BYTES) {
         override fun sizeOf(key: String, value: Bitmap) = value.allocationByteCount
     }
-    private val downloads = Semaphore(MAX_PARALLEL_DOWNLOADS)
+    /** Harte Grenzen auch für Ersatz-Adressen und Start-Logos ([CoinLogoQueue] ordnet nur nach dem ersten Server). */
+    private val downloads = Semaphore(CoinLogoQueue.MAX_PARALLEL)
 
-    /** Gleichzeitige Bild-Abrufe je Server ([PER_HOST_PARALLEL]). */
+    /** Gleichzeitige Bild-Abrufe je Server ([CoinLogoQueue.PER_HOST_PARALLEL]). */
     private val hostPermits = ConcurrentHashMap<String, Semaphore>()
 
     /** Pausen je Bild-Server und fehlgeschlagene Bilder (gespeichert in [prefs]). */
@@ -162,8 +161,10 @@ class LogoImageStore @Inject constructor(
     }
 
     /**
-     * Lädt alle Logos aus [all], die noch fehlen (nicht fehlgeschlagen, keine Datei): mehrere
-     * gleichzeitig je Server ([PER_HOST_PARALLEL], insgesamt [MAX_PARALLEL_DOWNLOADS]). Bremst ein Server
+     * Lädt alle Logos aus [all], die noch fehlen (nicht fehlgeschlagen, keine Datei), in der Reihenfolge von [all] —
+     * für alle gleich, nie nach der Merkliste (Binance-Liste, dann Rang; Stufen von [CoinListSync]) —, mehrere
+     * gleichzeitig ([CoinLogoQueue.run]: je Server [CoinLogoQueue.PER_HOST_PARALLEL], insgesamt
+     * [CoinLogoQueue.MAX_PARALLEL]). Bremst ein Server
      * nur kurz (Pause bis [SHORT_PAUSE_MAX_MILLIS]), werden seine Bilder nach der Pause gleich nachgeholt.
      * Scheitert ein Bild, kommen die Ersatz-Adressen desselben Kürzels dran ([alternates],
      * [com.cryptochecker.app.domain.logos.CoinMeta.alternates]).
@@ -187,24 +188,26 @@ class LogoImageStore @Inject constructor(
         val streaks = LogoImagePauses.ForbiddenStreaks()
         var paused: List<Pair<String, String>> = emptyList()
         for (round in 1..PAUSE_ROUNDS) {
-            val pausedNow = ConcurrentLinkedQueue<Pair<String, String>>()
-            coroutineScope {
-                pending.map { job ->
-                    async(Dispatchers.IO) {
-                        when (fetchWithAlternates(job.first, job.second, altByFile[job.first].orEmpty(), streaks)) {
-                            Fetched.OK -> {
-                                added.incrementAndGet()
-                                bumpRevision()
-                            }
-                            Fetched.FAILED -> newFailures[job.first] = now
-                            // Server bremst: nicht als Fehler
-                            Fetched.PAUSED -> pausedNow.add(job)
-                        }
-                        Unit
+            val pausedNow = ArrayList<Pair<String, String>>()
+            CoinLogoQueue.run(
+                pending,
+                hostOf = { CoinLogoRetry.hostOf(it.second).orEmpty() },
+                work = { job ->
+                    withContext(Dispatchers.IO) { fetchWithAlternates(job.first, job.second, altByFile[job.first].orEmpty(), streaks) }
+                },
+            ) { job, result ->
+                when (result) {
+                    Fetched.OK -> {
+                        added.incrementAndGet()
+                        bumpRevision()
                     }
-                }.awaitAll()
+                    Fetched.FAILED -> newFailures[job.first] = now
+                    // Server bremst: nicht als Fehler
+                    Fetched.PAUSED -> pausedNow.add(job)
+                }
+                Unit
             }
-            paused = pausedNow.toList()
+            paused = pausedNow
             if (paused.isEmpty() || round == PAUSE_ROUNDS) break
             // Pause schon vorbei (null): gleich die nächste Runde
             val wait = pauses.shortestPauseMillis(paused) ?: 0L
@@ -245,7 +248,7 @@ class LogoImageStore @Inject constructor(
     /** Ein Bild mit den Grenzen je Server und insgesamt (erst Server, dann gesamt — nie gesamt blockieren). */
     private suspend fun fetchLimited(name: String, url: String, streaks: LogoImagePauses.ForbiddenStreaks): Fetched {
         val host = CoinLogoRetry.hostOf(url).orEmpty()
-        val perHost = hostPermits.getOrPut(host) { Semaphore(PER_HOST_PARALLEL) }
+        val perHost = hostPermits.getOrPut(host) { Semaphore(CoinLogoQueue.PER_HOST_PARALLEL) }
         return perHost.withPermit { downloads.withPermit { fetchTo(name, url, imageDir, streaks) } }
     }
 
@@ -373,9 +376,6 @@ class LogoImageStore @Inject constructor(
         /** Mitgelieferte Icons im Speicher (eigene Vorsilbe: Vorrang haben die geladenen Logos). */
         const val BUNDLED_MEMORY_PREFIX = "B_"
         const val MEMORY_BYTES = 4 * 1024 * 1024
-        /** Bild-Abrufe gleichzeitig: insgesamt und je Server (CoinGecko, Binance). */
-        const val MAX_PARALLEL_DOWNLOADS = 12
-        const val PER_HOST_PARALLEL = 6
         /**
          * Höchstgrösse eines Quellbilds (wie iOS `CoinLogoStore.maxImageBytes`): 4 MB — Binance lädt Logos seit 2025
          * in hoher Auflösung hoch (über 512 KB, dann standen Initialen). Gespeichert wird nur das verkleinerte Bild

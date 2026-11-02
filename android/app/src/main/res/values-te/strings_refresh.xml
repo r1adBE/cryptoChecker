@@ -102,7 +102,7 @@
     <string name="battery_delay_hint">Android తనిఖీలను ఆలస్యం చేయవచ్చు – బ్యాటరీని “పరిమితి లేదు”కు సెట్ చేయండి</string>
     <string name="battery_later">తర్వాత</string>
     <string name="battery_message">పవర్ ఆదా చేయడానికి Android బ్యాక్‌గ్రౌండ్ పనిని ఆలస్యం చేస్తుంది — అప్పుడు ధరలు, విడ్జెట్‌లు గంటల తరబడి పాతవి కావచ్చు. బ్యాటరీ వినియోగాన్ని పరిమితి లేనిదిగా సెట్ చేస్తే అవి తాజాగా ఉంటాయి. దీన్ని Android సెట్టింగ్‌లలో ఎప్పుడైనా మార్చవచ్చు.</string>
-    <string name="battery_open_settings">బ్యాటరీ సెట్టింగ్‌లను తెరువు</string>
+    <string name="battery_open_settings">బ్యాటరీ సెట్టింగ్‌లను తెరవండి</string>
     <string name="battery_steps">యాప్ సమాచారంలో, బ్యాటరీ (లేదా యాప్ బ్యాటరీ వినియోగం) నొక్కి, పరిమితి లేదు ఎంచుకోండి.</string>
     <string name="battery_title">ధరలను తాజాగా ఉంచండి</string>
     <string name="ios_background_refresh_off">ఈ యాప్‌కు బ్యాక్‌గ్రౌండ్ యాప్ రిఫ్రెష్ ఆఫ్‌లో ఉంది. అది లేకుండా, యాప్ తెరిచి ఉన్నప్పుడు మాత్రమే అలర్ట్‌లు తనిఖీ అవుతాయి.</string>

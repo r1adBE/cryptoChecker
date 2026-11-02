@@ -3,7 +3,7 @@
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">பின்னணி</string>
     <string name="widget_configure_hint">பின்னணியையும் ஒளிபுகாத்தன்மையையும் தேர்ந்தெடுக்கவும். நிறம் ஆப்பைப் பின்பற்றும். விட்ஜெட் உங்கள் முழுக் கண்காணிப்புப் பட்டியலையும் காட்டும்; ஆப்பைத் திறக்க ஒரு வரிசையைத் தட்டவும்.</string>
-    <string name="widget_configure_title">விட்ஜெட்டை அமை</string>
+    <string name="widget_configure_title">விட்ஜெட்டை அமைக்கவும்</string>
     <string name="widget_description">உங்கள் கண்காணிப்புப் பட்டியலிலுள்ள ஒரு ஜோடியின் விலையைக் காட்டும்.</string>
     <string name="widget_empty">கண்காணிப்புப் பட்டியலில் இன்னும் ஜோடிகள் இல்லை.</string>
     <string name="widget_group_hint">இந்தக் குழுவின் ஜோடிகளை மட்டும் காட்டவும்.</string>
@@ -82,16 +82,16 @@
     <string name="single_widget_choose">ஒரு ஜோடியைத் தேர்ந்தெடுக்கவும்</string>
     <string name="single_widget_description">ஒரு காயினை விலை, மாற்றம் மற்றும் 24 மணிநேர விளக்கப்படத்துடன் பெரிதாகக் காட்டும்.</string>
     <string name="single_widget_label">Crypto Checker – ஒற்றைக் காயின்</string>
-    <string name="single_widget_title">ஒற்றை விட்ஜெட்டை அமை</string>
+    <string name="single_widget_title">ஒற்றை விட்ஜெட்டை அமைக்கவும்</string>
 
     <!-- Widgets aus der App hinzufügen -->
-    <string name="widgets_add">சேர்</string>
+    <string name="widgets_add">சேர்க்கவும்</string>
     <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
-    <string name="widgets_add_named">%1$s விட்ஜெட்டைச் சேர்</string>
+    <string name="widgets_add_named">%1$s விட்ஜெட்டைச் சேர்க்கவும்</string>
     <string name="widgets_manual_text">உங்கள் முகப்புத் திரையால் ஆப்பிலிருந்து விட்ஜெட்களைச் சேர்க்க முடியாது. முகப்புத் திரையில் ஒரு வெற்று இடத்தைத் தொட்டுப் பிடித்து, “விட்ஜெட்கள்” என்பதைத் தேர்ந்தெடுத்து “Crypto Checker” ஐத் தேடவும்.</string>
     <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
     <string name="widgets_manual_title">விட்ஜெட்டை நீங்களே சேர்க்கவும்</string>
-    <string name="widgets_sheet_title">விட்ஜெட்டைச் சேர்</string>
+    <string name="widgets_sheet_title">விட்ஜெட்டைச் சேர்க்கவும்</string>
 
     <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
     <string name="widgets_ios_intro" tools:ignore="UnusedResources">ஆப்ஸ் தாமாக விட்ஜெட்களைச் சேர்க்க iOS அனுமதிக்காது. இதற்குச் சில நொடிகளே ஆகும்:</string>
@@ -101,7 +101,7 @@
     <string name="widgets_ios_step3" tools:ignore="UnusedResources">“Crypto Checker” ஐத் தேடி, ஒரு விட்ஜெட்டைத் தேர்ந்தெடுத்து “விட்ஜெட்டைச் சேர்” என்பதைத் தட்டவும்.</string>
 
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
-    <string name="widget_refresh_blocked_a11y">புதுப்பி – %1$d வி. இல் மீண்டும் சாத்தியம்</string>
+    <string name="widget_refresh_blocked_a11y">புதுப்பிக்கவும் – %1$d வி. இல் மீண்டும் சாத்தியம்</string>
     <string name="settings_watch">கடிகாரம்</string>
     <string name="settings_watch_hint">Wear OS இல் உள்ள கடிகார ஆப்புக்கான காயின்கள் (%1$d வரை, USDT க்கு எதிரான விலையில்). இந்தப் பட்டியல் மட்டுமே Google Play சேவைகள் வழியாகக் கடிகாரத்துக்குச் செல்லும்; கடிகாரம் விலைகளைத் தானே பெறும்.</string>
     <string name="settings_watch_mode_phone">ஃபோனில் உள்ளபடி (பிடித்தவை ★)</string>

@@ -15,22 +15,22 @@
     <!-- Passwort der Sicherungsdatei -->
     <string name="backup_password">கடவுச்சொல்</string>
     <string name="backup_password_continue">தொடர்க</string>
-    <string name="backup_password_hide">கடவுச்சொல்லை மறை</string>
+    <string name="backup_password_hide">கடவுச்சொல்லை மறைக்கவும்</string>
     <!-- %1$d = Mindestlänge des Passworts (8) -->
     <string name="backup_password_min">குறைந்தது %1$d எழுத்துகள்</string>
     <string name="backup_password_mismatch">கடவுச்சொற்கள் பொருந்தவில்லை</string>
     <string name="backup_password_prompt">இந்தக் காப்புப்பிரதிக்கான கடவுச்சொல்லை உள்ளிடவும்.</string>
-    <string name="backup_password_repeat">கடவுச்சொல்லை மீண்டும் உள்ளிடு</string>
-    <string name="backup_password_show">கடவுச்சொல்லைக் காட்டு</string>
+    <string name="backup_password_repeat">கடவுச்சொல்லை மீண்டும் உள்ளிடவும்</string>
+    <string name="backup_password_show">கடவுச்சொல்லைக் காட்டவும்</string>
     <string name="backup_password_title">கடவுச்சொல்லால் பாதுகாக்கப்பட்ட காப்புப்பிரதி</string>
     <string name="backup_password_too_weak">ஊகிக்க மிக எளிது – எண்கள் மட்டும், ஒரே எழுத்தின் மறுபடிகள் அல்லது “12345678” அல்லது “password” போன்ற பொதுவான வரிசைகளைத் தவிர்க்கவும்.</string>
     <string name="backup_password_warning">கடவுச்சொல் இல்லாமல் காப்புப்பிரதியை மீட்டமைக்க முடியாது.</string>
     <string name="backup_password_wrong">தவறான கடவுச்சொல், அல்லது கோப்பு சேதமடைந்துள்ளது. மீண்டும் முயலவும்.</string>
-    <string name="backup_protect">கடவுச்சொல்லால் பாதுகா</string>
+    <string name="backup_protect">கடவுச்சொல்லால் பாதுகாக்கவும்</string>
     <string name="backup_protect_hint">கோப்பை மறையாக்கும் (AES-256). போர்ட்ஃபோலியோ தரவு இருந்தால் பரிந்துரைக்கப்படுகிறது.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
-    <string name="backup_plain_confirm">கடவுச்சொல் இல்லாமல் சேமி</string>
+    <string name="backup_plain_confirm">கடவுச்சொல் இல்லாமல் சேமிக்கவும்</string>
     <string name="backup_plain_confirm_text">கோப்பு மறையாக்கப்படவில்லை. அதைப் பெறும் எவரும் படிக்க முடியும்:</string>
     <string name="backup_plain_confirm_title">கடவுச்சொல் இல்லாமல் சேமிக்கவா?</string>
     <string name="backup_plain_contents_addresses">இருப்பு வரலாறு மற்றும் அடக்க விலையுடன் சேமிக்கப்பட்ட வாலட் முகவரிகளும் xpub கீகளும்</string>
@@ -43,7 +43,7 @@
         <item quantity="other">காப்புப்பிரதியில் உள்ள %d பதிவுகள் (போர்ட்ஃபோலியோ அல்லது விழிப்பூட்டல்கள்) தவறானவை, இறக்குமதி செய்யப்படாது.</item>
     </plurals>
     <string name="backup_restore_newer_version">இந்தக் காப்புப்பிரதி புதிய ஆப் பதிப்பிலிருந்து வந்தது – முதலில் ஆப்பைப் புதுப்பிக்கவும். எதுவும் இறக்குமதி செய்யப்படவில்லை.</string>
-    <string name="backup_restore_unencrypted_warning">இந்தக் காப்புப்பிரதி மறையாக்கப்படவில்லை – அது உங்களுடையதுதானா என்று சரிபார்க்கவும். அமைப்புகள் பயன்படுத்தப்படும் – பாதுகாப்பைக் குறைக்கும் மாற்றங்கள் தவிர (போர்ட்ஃபோலியோ பூட்டு, முகவரிகளுக்கான சொந்தச் சர்வர், தொகைகளை மறை, சிஸ்டம் காப்புப்பிரதியில் போர்ட்ஃபோலியோ).</string>
+    <string name="backup_restore_unencrypted_warning">இந்தக் காப்புப்பிரதி மறையாக்கப்படவில்லை – அது உங்களுடையதுதானா என்று சரிபார்க்கவும். அமைப்புகள் பயன்படுத்தப்படும் – பாதுகாப்பைக் குறைக்கும் மாற்றங்கள் தவிர (போர்ட்ஃபோலியோ பூட்டு, முகவரிகளுக்கான சொந்தச் சர்வர், தொகைகளை மறைக்கவும், சிஸ்டம் காப்புப்பிரதியில் போர்ட்ஃபோலியோ).</string>
     <string name="backup_restored">மீட்டமைக்கப்பட்டது: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d விழிப்பூட்டல்</item>
@@ -65,7 +65,7 @@
     <string name="backup_not_enough_memory">கடவுச்சொல்லுடன் காப்புப்பிரதியைப் பாதுகாக்க அல்லது திறக்கப் போதுமான நினைவகம் இல்லை. பிற ஆப்ஸை மூடிவிட்டு மீண்டும் முயலவும்.</string>
 
     <!-- Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
-    <string name="storage_recovery_restore_action">காப்புப்பிரதியை மீட்டமை</string>
+    <string name="storage_recovery_restore_action">காப்புப்பிரதியை மீட்டமைக்கவும்</string>
     <string name="storage_recovery_acknowledge">சரி, புரிந்தது</string>
     <string name="storage_recovery_restored_title">சேமித்த தரவு மீண்டும் திறக்கப்பட்டது</string>
     <string name="storage_recovery_restored_message">இந்தச் சாதனத்திலுள்ள முந்தைய கீ ஒதுக்கிவைக்கப்பட்ட தரவை மீண்டும் திறந்தது, எனவே அது திரும்ப வந்துவிட்டது. இடையில் சேமிக்கப்பட்ட தரவு மாற்றமின்றி அதன் அருகில் வைக்கப்பட்டது.</string>

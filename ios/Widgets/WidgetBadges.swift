@@ -58,10 +58,10 @@ extension EnvironmentValues {
     }
 }
 
-/// Runde Coin-Plakette im Widget, nur mit Schalter «Coin-Logos in Widgets»: echtes Logo, sonst
-/// Kreis mit Initialen — nie ein kaputtes Bild; Schalter aus → nichts. Mit `accent` wie in der App
-/// und Android (Akzentfarbe mit 14 %). `always` (Live-Aktivität, kein Logo-Schalter): immer der
-/// Kreis mit der Farbe aus dem Symbol. `logo: false` bei DEX-Pools.
+/// Runde Coin-Plakette im Widget, nur mit Schalter «Coin-Logos in Widgets»: echtes Logo, sonst der farbige
+/// Ersatz-Kreis mit den Initialen (`CoinLogoPlaceholder`, Farbe fest aus dem Kürzel, wie in der App und Android) — nie
+/// ein kaputtes Bild; Schalter aus → nichts. `always` (Live-Aktivität, kein Logo-Schalter): immer der Ersatz-Kreis.
+/// `logo: false` bei DEX-Pools. `accent` bleibt für die Aufrufer, der Kreis hängt nicht mehr von ihr ab.
 struct WidgetCoinBadge: View {
     let symbol: String
     var size: CGFloat = 26
@@ -71,12 +71,6 @@ struct WidgetCoinBadge: View {
     var always: Bool = false
     @Environment(\.widgetLogos) private var logos
     @Environment(\.widgetLogosEnabled) private var enabled
-
-    private var hue: Double {
-        var h = 5381
-        for b in CoinLogos.displaySymbol(symbol).utf8 { h = (h &* 33) &+ Int(b) }
-        return Double(abs(h % 360)) / 360
-    }
 
     var body: some View {
         if always || enabled { circle }
@@ -93,22 +87,12 @@ struct WidgetCoinBadge: View {
                     .interpolation(.high)
                     .scaledToFit()
                     .clipShape(Circle())
-            } else if let accent {
-                let label = CoinLogos.initials(symbol)
-                Circle().fill(accent.opacity(0.14))
-                Text(label)
-                    .font(.system(size: size * (label.count <= 3 ? 0.33 : 0.275), weight: .bold))
-                    .foregroundStyle(accent)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.5)
-                    .padding(2)
             } else {
                 let label = CoinLogos.initials(symbol)
-                Circle().fill(Color(hue: hue, saturation: 0.45, brightness: 0.85).opacity(dark ? 0.22 : 0.30))
-                Circle().strokeBorder(Color(hue: hue, saturation: 0.6, brightness: 0.9).opacity(0.25), lineWidth: 0.5)
+                Circle().fill(CoinLogoPlaceholder.fill(symbol, dark: dark))
                 Text(label)
-                    .font(.system(size: size * (label.count > 3 ? 0.28 : 0.34), weight: .bold, design: .rounded))
-                    .foregroundStyle(Color(hue: hue, saturation: dark ? 0.55 : 0.7, brightness: dark ? 0.95 : 0.7))
+                    .font(.system(size: size * (label.count <= 3 ? 0.33 : 0.275), weight: .bold))
+                    .foregroundStyle(CoinLogoPlaceholder.text(dark: dark))
                     .lineLimit(1)
                     .minimumScaleFactor(0.5)
                     .padding(2)

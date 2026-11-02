@@ -36,7 +36,7 @@
     <!-- Verbindungsstatus (Status-Pille) -->
     <string name="offline_status">Կապ չկա</string>
     <string name="offline_status_since">Կապ չկա · առ %1$s</string>
-    <string name="status_live">Live</string>
+    <string name="status_live">Ուղիղ</string>
 
     <!-- App-Verknüpfungen (langes Tippen auf das App-Symbol) -->
     <string name="shortcut_add">Ավելացնել զույգ</string>

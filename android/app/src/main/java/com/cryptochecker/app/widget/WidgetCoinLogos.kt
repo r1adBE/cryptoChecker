@@ -8,7 +8,6 @@ import android.graphics.Path
 import android.graphics.RectF
 import android.graphics.Typeface
 import android.util.LruCache
-import androidx.core.graphics.ColorUtils
 import androidx.core.graphics.createBitmap
 import com.cryptochecker.app.data.CoinLogoRepository
 import com.cryptochecker.app.domain.logos.CoinLogos
@@ -26,7 +25,8 @@ import kotlin.math.roundToInt
 /**
  * Coin-Logos für die Widgets «Merkliste» und «Einzelner Coin» (Schalter «In Widgets»
  * unter Darstellung › Coin-Logos). Fertig gerundete, kleine Bilder: echtes Logo auf hellem bzw. dunklem Grund, sonst
- * der Kreis mit Initialen in der Akzentfarbe — nie ein kaputtes Bild. Laden mit Zeitlimit, damit
+ * der farbige Ersatz-Kreis mit Initialen ([com.cryptochecker.app.domain.logos.CoinLogoPlaceholder], wie in der App) —
+ * nie ein kaputtes Bild. Laden mit Zeitlimit, damit
  * das Widget nie hängt. Die Bilder kommen nur vom Gerät (Abgleich aller Logos: CoinLogoSync).
  */
 @Singleton
@@ -55,7 +55,7 @@ class WidgetCoinLogos @Inject constructor(
         distinct.associateWith { symbol ->
             val logo = logos[symbol]
             // Gleiches Logo, gleiche Farben und Grösse → das schon gezeichnete Bild
-            val key = "$symbol|${colors.accentColor}|${colors.logoBackingColor}|$px|${logo?.let { System.identityHashCode(it) } ?: 0}"
+            val key = "$symbol|${colors.placeholderText}|${colors.logoBackingColor}|$px|${logo?.let { System.identityHashCode(it) } ?: 0}"
             rendered.get(key) ?: render(symbol, logo, colors, px).also { rendered.put(key, it) }
         }
     }
@@ -74,7 +74,7 @@ class WidgetCoinLogos @Inject constructor(
     /** Nur der Initialen-Kreis, ohne Laden. */
     fun initials(symbol: String, colors: WidgetColors): Bitmap {
         val px = sizePx
-        val key = "$symbol|${colors.accentColor}|initials|$px"
+        val key = "$symbol|${colors.placeholderText}|initials|$px"
         return rendered.get(key) ?: render(symbol, null, colors, px).also { rendered.put(key, it) }
     }
 
@@ -101,11 +101,11 @@ class WidgetCoinLogos @Inject constructor(
             val h = logo.height * scale
             canvas.drawBitmap(logo, null, RectF((px - w) / 2f, (px - h) / 2f, (px + w) / 2f, (px + h) / 2f), paint)
         } else {
-            paint.color = ColorUtils.setAlphaComponent(colors.accentColor, FALLBACK_ALPHA)
+            paint.color = colors.placeholderFill(symbol)
             canvas.drawCircle(r, r, r, paint)
             val initials = CoinLogos.initials(symbol)
             val text = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                color = colors.accentColor
+                color = colors.placeholderText
                 typeface = Typeface.DEFAULT_BOLD
                 textAlign = Paint.Align.CENTER
                 textSize = px * if (initials.length <= 3) 0.33f else 0.275f
@@ -121,8 +121,5 @@ class WidgetCoinLogos @Inject constructor(
         const val MAX_PX = 48
         const val LOAD_TIMEOUT_MILLIS = 6_000L
         const val RENDERED_CACHE_SIZE = 96
-
-        /** 14 % wie der Kreis in der App. */
-        const val FALLBACK_ALPHA = 36
     }
 }
