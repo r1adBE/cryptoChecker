@@ -79,14 +79,19 @@ struct CoinBadge: View {
         return ZStack {
             // Ersatz-Kreis immer darunter: Das Logo (deckender Grund) blendet darüber ein
             let label = CoinLogos.initials(symbol)
+            let image = logo ? ((loaded?.symbol == key ? loaded?.image : nil) ?? CoinLogoStore.cached(key)) : nil
             Circle().fill(CoinLogoPlaceholder.fill(symbol, dark: dark))
-            Text(label)
-                .font(.system(size: size * (label.count <= 3 ? 0.33 : 0.275), weight: .bold))
-                .foregroundStyle(CoinLogoPlaceholder.text(dark: dark))
-                .lineLimit(1)
-                .minimumScaleFactor(0.5)
-                .padding(2)
-            if logo, let image = (loaded?.symbol == key ? loaded?.image : nil) ?? CoinLogoStore.cached(key) {
+            // Initialen nur ohne Logo — sofort weg, wenn es kommt: nie halb überblendete Schrift (Kontrast)
+            if image == nil {
+                Text(label)
+                    .font(.system(size: size * (label.count <= 3 ? 0.33 : 0.275), weight: .bold))
+                    .foregroundStyle(CoinLogoPlaceholder.text(dark: dark))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
+                    .padding(2)
+                    .transition(.identity)
+            }
+            if let image {
                 ZStack {
                     Circle().fill(dark ? AppColors.onSurface.opacity(0.92) : AppColors.containerHigh)
                     Image(uiImage: image)

@@ -205,7 +205,6 @@ class LogoImageStore @Inject constructor(
                     // Server bremst: nicht als Fehler
                     Fetched.PAUSED -> pausedNow.add(job)
                 }
-                Unit
             }
             paused = pausedNow
             if (paused.isEmpty() || round == PAUSE_ROUNDS) break
