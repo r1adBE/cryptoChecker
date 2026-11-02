@@ -99,7 +99,7 @@ struct AlarmsScreen: View {
         let blocked = lowLiquidity || referenceRate
         // Höchstzahl Alarme am Paar erreicht (`WatchlistLimits`): kein «Neuer Alarm», Hinweis über der Liste — wie Android
         let alarmsFull = !WatchlistLimits.canAddAlarm(alarms.count)
-        Group {
+        return Group {
             if alarms.isEmpty && blocked {
                 ScrollView {
                     Group {

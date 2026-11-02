@@ -72,7 +72,8 @@ class AlarmDraftSaverTest {
     fun editorStateIsSaveableAndSaveButtonPinned() {
         val dir = findUp(listOf("", "app/", "android/app/").map { it + "src/main/java/com/cryptochecker/app/ui/features/alarms" })
         assertNotNull("alarms-Quellen nicht gefunden (Arbeitsverzeichnis?)", dir)
-        val screen = File(dir, "AlarmsScreen.kt").readText()
+        // Ablauf des Editors (Rückfragen) liegt in AlarmEditorHost.kt, geteilt mit der Paar-Seite
+        val screen = File(dir, "AlarmsScreen.kt").readText() + File(dir, "AlarmEditorHost.kt").readText()
         // Offener Editor im ViewModel (SavedStateHandle), gleiche Liste wie AlarmDraftSaver.saver
         assertTrue(screen.contains("var draft by viewModel.editor"))
         assertFalse(screen.contains("var draft by rememberSaveable"))
