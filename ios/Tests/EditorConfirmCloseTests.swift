@@ -51,9 +51,9 @@ final class EditorConfirmCloseTests: XCTestCase {
             XCTAssertNil(closesFirst.firstMatch(in: text, range: range), "\(file): schliesst vor der Rückfrage")
             XCTAssertTrue(text.contains(call), "\(file): schliesst nicht über den Rückruf")
         }
-        let actions = try source("Features/Watchlist/WatchActionsSheet.swift")
+        let actions = try source("Features/Watchlist/PairScreen.swift")
         XCTAssertTrue(actions.contains("onSave: saveNote") && actions.contains("onSelect: saveGroup"))
-        let group = try source("Features/Watchlist/WatchSheetGroup.swift")
+        let group = try source("Features/Watchlist/PairEdits.swift")
         for name in ["func saveNote(", "func saveGroup("] {
             let code = body(group, name)
             guard let ask = code.range(of: "withWatchlistConfirm({"), let close = code.range(of: "close()") else {

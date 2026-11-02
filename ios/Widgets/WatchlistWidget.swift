@@ -31,6 +31,9 @@ struct WatchlistEntry: TimelineEntry {
     var showLogos: Bool = SharedStorage.loadSettings().widgetCoinLogos
     /// Aktualisieren-Knopf gesperrt bis (ms; 0 = nie): bis dahin Countdown statt Symbol (`WidgetRefreshState`).
     var refreshBlockedUntil: Int64 = 0
+    /// Gespeicherte Merkliste gerade nicht lesbar (Neustart vor dem ersten Entsperren, `WatchlistStorageLock`): verdeckte
+    /// Platzhalter-Zeilen wie beim Laden statt «Noch keine Paare» — Android zeigt dann die gemerkten Zeilen.
+    var storageLocked = false
 
     /// %-Basis zum Zeitpunkt des Eintrags: nach Mitternacht bzw. mit anderer Basis «—».
     var changeView: ChangeView {
@@ -55,6 +58,13 @@ struct WatchlistEntry: TimelineEntry {
         return entry
     }
 
+    /// Merkliste gerade nicht lesbar (`storageLocked`): Beispiel-Zeilen, nur verdeckt gezeichnet.
+    static func locked(theme: WidgetThemeOption) -> WatchlistEntry {
+        var entry = sample(theme: theme)
+        entry.storageLocked = true
+        return entry
+    }
+
     /// Galerie und Platzhalter: Kopfzeile «Merkliste · Uhrzeit · 840 ms» wie die Android-Vorschau.
     static func sample(theme: WidgetThemeOption = .system) -> WatchlistEntry {
         // Galerie: immer mit Knopf (`refreshBlockedUntil` 0)
@@ -72,6 +82,9 @@ struct WatchlistProvider: AppIntentTimelineProvider {
     }
 
     func snapshot(for configuration: WatchlistWidgetIntent, in context: Context) async -> WatchlistEntry {
+        if !context.isPreview && WatchlistStorageLock.isLocked(SharedStorage.readSnapshot()) {
+            return .locked(theme: configuration.theme)
+        }
         var entry = WatchlistEntry.current(theme: configuration.theme, group: configuration.group?.groupName)
         // Galerie: ohne Paare oder noch ganz ohne Kurse das Beispiel (BTC, ETH, SOL, XRP …)
         let noPrices = entry.watches.allSatisfy { $0.lastPrice == nil }
@@ -85,6 +98,12 @@ struct WatchlistProvider: AppIntentTimelineProvider {
         // zeichnen, statt auf das Auffrischen zu warten; die Kurse folgen kurz danach.
         // Sonst alte Kurse zuerst auffrischen (mit Kurs-Mitteilungen und Kursalarmen — siehe `WidgetRefresh`;
         // nach einem misslungenen Versuch erst nach `WidgetRefresh.retryAfterMillis` wieder).
+        // Neustart vor dem ersten Entsperren: Merkliste nicht lesbar — nicht «Noch keine Paare» festschreiben, sondern
+        // verdeckt wie beim Laden und bald wieder versuchen (dann mit den gespeicherten Zeilen)
+        if WatchlistStorageLock.isLocked(SharedStorage.readSnapshot()) {
+            return Timeline(entries: [.locked(theme: configuration.theme)],
+                            policy: .after(WidgetData.reload(kind: WidgetData.watchlistKind, wantsQuickRetry: true)))
+        }
         let configKey = WidgetGroupSelection.configKey(theme: configuration.theme.rawValue, group: configuration.group?.id)
         let newConfig = WidgetGroupSelection.markSeen(configKey)
         let refreshSoon = newConfig && WidgetRefresh.isStale
@@ -154,6 +173,8 @@ struct WatchlistWidgetView: View {
             }
             .environment(\.widgetLogos, entry.logos)
             .environment(\.widgetLogosEnabled, entry.showLogos)
+            // Merkliste nicht lesbar: Beispiel-Zeilen nur als Platzhalter-Balken (nie als Kurse lesbar)
+            .redacted(reason: entry.storageLocked ? .placeholder : [])
         }
     }
 }

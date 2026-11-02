@@ -621,7 +621,7 @@ identifiers and the same test file on Android and iOS:
 | Flow | What the test does |
 |---|---|
 | Add a coin | «+» → coin search «btc» → «Load lists» if offered → Bitcoin → suggested pair → back: the pair is in the watchlist |
-| Price alarm | pair row → action sheet «Alarm» → editor (opens by itself for a pair without alarm) → 200000 → save → alarm listed; the notification permission is granted (Android: by the test rule; iOS: the system prompt is answered) |
+| Price alarm | pair row → pair page «Set alarm» → editor → 200000 → save → alarm card on the pair page; the notification permission is granted (Android: by the test rule; iOS: the system prompt is answered) |
 | CSV import | Portfolio (empty) › «Import CSV» → test file → preview → «Import» → BTC and ETH positions visible; ⋯ › «Imports» › «Undo» → gone |
 | Backup | pair + CSV import → Settings › Backup › «Export» with password → data cleared → «Import» with a wrong password (rejected, hint under the field, nothing restored) → right password → confirm → watchlist and portfolio back |
 
@@ -1064,7 +1064,7 @@ top 40 for the Spot tab and the «Why?» market breadth as one shared request ke
   in the repository, on GitHub Pages or as release assets. Check a provider's terms before adding
   a file to `mirror_data.py`.
 
-**Spot data in the action sheet** (`SpotMarket.kt` / `SpotMarket.swift`, `SpotDataSource` on both
+**Spot data in the pair page** (`SpotMarket.kt` / `SpotMarket.swift`, `SpotDataSource` on both
 platforms, parity cases `spot_market.json`): the «Spot» tab of the «Market data» card (shown for
 all crypto pairs except deactivated pairs, DEX pools and TradFi spot data) first reads the CoinGecko
 top 40 (`SpotMarket.TOP_URL`, fetched directly, the same request for everyone and shared with the
@@ -2374,11 +2374,22 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
   starter screen's bell does the same; the menu item «All alarms» always opens the overview.
 * **«What is moving with it?» is announced.** The starter screen (empty watchlist) and the first-run
   gesture hint carry one line «Tap a coin to see what is moving along with it» (`watch_hint_tap_why`; starter
-  with the ⚡ symbol, gesture hint as its bold first line). Tapping a row stays the only way in (action sheet).
+  with the ⚡ symbol, gesture hint as its bold first line). Tapping a row stays the only way in (pair page).
+* **Pair page instead of a half sheet.** Tapping a row (also a search result, a coin from «Unusual today» /
+  «Gainers and losers», a notification or a widget row) opens a full page (Android: navigation destination
+  `ScreenRoute.PairPage`, `PairScreen`; iOS: NavigationStack push, `PairScreen`), same order on both platforms:
+  header (pair, exchange, large price that shrinks and wraps instead of truncating, change, price age as in the
+  row; one sentence for screen readers, a heading), chart over the full width (260 dp/pt, same ranges as before),
+  one primary button «Set alarm» (alarm editor), small buttons (favourite, «What is moving with it?», change
+  exchange = `WatchEditSheet`, price notification), the pair's alarms with «Last checked» (`PairAlarmsSection`,
+  editor flow shared with the alarm page via `AlarmEditorHost`), market data, note. Rare actions (group, note,
+  portfolio, refresh, widget, read aloud, lock screen on iOS, move on iOS, disable, delete) sit in the ⋮ menu.
+  A coin not in the watchlist opens a preview page («Add to watchlist»; afterwards the page of the new entry
+  replaces it). Delete goes back and shows «Undo» where the page was opened from.
 * **Thin watchlist row.** A row shows logo, pair, price, change (and mini chart if on) and
   at most **one** bell: the alarm bell with waves, only when the pair has at least one active alarm.
-  The price-notification state is not drawn in the row (only on its switch in the action sheet),
-  and the source note for a foreign change / mini chart is in the action sheet (see «Row source»).
+  The price-notification state is not drawn in the row (only on its switch in the pair page),
+  and the source note for a foreign change / mini chart is in the pair page (see «Row source»).
   Sort arrows in the column header are 11 sp in `onSurfaceVariant` (no transparency) with a touch
   target of at least 48 dp (`WatchlistSortBar`). The alarm empty state (overview and per pair) shows
   an example sentence in the style of the alarm sentences («For example: Tell me when BTC rises above
@@ -2430,13 +2441,13 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
   platforms) fire only via `QuietHours.mayFire(holdAlarms, deliverable)`: during quiet hours or without a
   deliverable notification nothing is written and the alarm stays armed. Never mark an alarm as triggered
   before checking (iOS `Notifier.isAuthorized()`, Android `canShowAlarm` / `canShowPortfolioAlarm`).
-* **Foreign candle series need the same token.** `SheetChart.accept` (action sheet) and `sparklineFor` (mini
+* **Foreign candle series need the same token.** `SheetChart.accept` (pair page) and `sparklineFor` (mini
   chart) accept a series from another exchange only if its last close × FX rate is within
   `DayChange.MAX_PRICE_GAP` (25 %) of the pair price; no price or no rate → no chart. Never scale a series
   to the pair price without this check (cases in `testdata/parity/sheet_chart.json`).
   `PricePlausibility.sameToken` returns false without a valid reference.
 * **Row source.** When the % change or the mini chart of a watchlist row come from another
-  exchange than the pair's, the action sheet says so under the price (`DayChange.rowSource` →
+  exchange than the pair's, the pair page says so under the price (`DayChange.rowSource` →
   «Change: …», «Chart: …», «Change & chart: …»); this note is not in the row
   itself (too dense). The row marks a % change from another exchange's candles with a small
   «*» in `onSurfaceVariant` after the value and says «Change from Binance candles» (`change_candle_source`) in
@@ -2492,7 +2503,7 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
   `MarketSectionHeader`, iOS `ExchangeInfo` and `MarketCoinSheets` (as Android); `WatchWhyFactors` →
   `WatchWhyTexts`, Android `WatchWhyAllValues`, `WatchWhyReasons`; `WatchlistRow` → `WatchlistRowParts`,
   Android `WatchlistConversion` (as iOS), iOS `WatchlistTime` in `WatchlistStatus` (as Android `ago`);
-  Android `WatchlistStatusPill`; `WatchActionsSheet` → `WatchActionsHeader`; iOS asset-kind icons →
+  Android `WatchlistStatusPill`; `PairScreen` → `PairHeader`; iOS asset-kind icons →
   `Components/AssetKindIcon.swift` (as Android); portfolio → `PortfolioTotalFigures`, `PortfolioStatusPill`,
   Android `PortfolioTotalHints`, `PortfolioHistoryHeader`, `PortfolioHistoryControls`,
   `PortfolioHistoryCompareSection`, `PortfolioChartRenderer`, `PortfolioCompareChart`,
@@ -2615,6 +2626,12 @@ an atomic rename; without a key nothing with user data is written in plaintext.
   opens the portfolio database with `EncryptingOpenHelperFactory(readOnly = true)` (`DatabaseOpenPlanner.readOnly`):
   no set-aside, restore, pruning or new key; without a matching key it is `KeyUnavailable`, the mirror throws and
   the backup is aborted (the previous one survives) – never an empty portfolio from a set-aside database.
+* Watchlist widget snapshot: `ListWidgetSnapshot` keeps the pairs of the last list-widget draw (fields the rows and
+  header use, no note; `ListWidgetSnapshotCodec`) as one sealed entry `sealed` in the SharedPreferences
+  `list_widget_snapshot` (container `PortfolioSnapshotSeal`, own alias `cryptochecker_list_widget_key`, no
+  `SuspectMarker` – a cache). `WidgetUpdater.update` first calls `ListWidgetRenderer.drawStoredFirst` (only the first
+  draw of a process, e.g. after a reboot: the stored rows at once instead of the blank initial layout), then draws
+  from the database; every database draw saves the snapshot (not while the watchlist is memory-only).
 * Portfolio widget snapshot: `PortfolioSnapshotStore` keeps the whole snapshot (totals, positions,
   P/L, daily/period changes, the held coins' price samples and hourly prices) as **one** sealed entry
   `sealed_snapshot` in the SharedPreferences `portfolio_widget` – the widget reads synchronously, a small blob
@@ -3177,6 +3194,9 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
 * Build 182: first-alarm check-mode choice (Android, two options); wear debug `applicationIdSuffix ".debug"`;
   iOS Reduce Motion guard on the status dot; `HourlyCloseStore` marks WOO closed-candle fallback as hourly close;
   `ExchangeHTTPSharedPostTests` gated stub instead of timer; Hyperliquid doc corrected.
+* Build 183: pair page replaces the watch actions sheet on both platforms (live overlay on Android too); `PairRestFit` FULL only
+  when the whole rest fits; row age from `PriceFreshness.freshnessTime`; first live tick without trade keeps the shown time;
+  `TaxCountryFigures` also gates CH wealth/ESTV lines; widget shows the last drawn rows (encrypted, not backed up) after boot.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

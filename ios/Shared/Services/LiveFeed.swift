@@ -187,6 +187,15 @@ enum LiveRules {
         return storedPrice == quote.price ? storedExchangeTime : nil
     }
 
+    /// Zeit (`lastUpdate`), die ein Live-Kurs hinterlässt (Anzeige und Speichern): Nur ein im Strom gesehener
+    /// Kurswechsel (`LiveQuote.tradeTime`) oder ein anderer Kurs als der gespeicherte bewegt sie. Der erste Takt mit
+    /// gleichem Kurs (Binance «c» mit neuer Ereigniszeit, kein Handel) lässt sie stehen — sonst würde «vor 40 Min.»
+    /// beim Verbinden zu «gerade eben». Nie rückwärts; ohne gespeicherte Zeit (≤ 0) die Takt-Zeit. Wie Android.
+    static func updateTime(_ quote: LiveQuote, storedPrice: Double?, storedLastUpdate: Int64) -> Int64 {
+        if (quote.tradeTime ?? 0) <= 0, storedPrice == quote.price, storedLastUpdate > 0 { return storedLastUpdate }
+        return max(storedLastUpdate, quote.time)
+    }
+
     static func isFresh(lastTickAt: Int64?, now: Int64) -> Bool {
         guard let lastTickAt, lastTickAt > 0 else { return false }
         let age = now - lastTickAt
@@ -321,7 +330,8 @@ extension Watch {
         // «Seit letzter Aktualisierung»: Live-Kurs gegen den zuletzt gespeicherten
         if let stored = lastPrice, stored != quote.price { copy.previousPrice = stored }
         copy.lastPrice = quote.price
-        copy.lastUpdate = max(lastUpdate, quote.time)
+        // Erster Takt mit gleichem Kurs (kein Handel) macht ein stehendes Buch nicht frisch
+        copy.lastUpdate = LiveRules.updateTime(quote, storedPrice: lastPrice, storedLastUpdate: lastUpdate)
         copy.lastError = nil
         // Frische wie beim Speichern (`PriceRefresher`, Live): Börsenzeit nur als belegte Handelszeit
         if lastPrice != quote.price { copy.priceChangedAt = quote.time }

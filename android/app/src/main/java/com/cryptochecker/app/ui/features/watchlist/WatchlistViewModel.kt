@@ -13,6 +13,7 @@ import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.CurrencyConverter
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
 import com.cryptochecker.app.domain.activity.WhyReport
+import com.cryptochecker.app.domain.live.LiveDemand
 import com.cryptochecker.app.domain.live.LivePair
 import com.cryptochecker.app.domain.live.LiveQuote
 import com.cryptochecker.app.domain.refresh.RefreshDebounce
@@ -104,11 +105,18 @@ class WatchlistViewModel @Inject internal constructor(
     /** Watch-Ids der Paare, deren Börse gerade per WebSocket liefert (Frische 2 Min., «Live» nur mit allen). */
     val liveWatchIds: StateFlow<Set<Long>> = livePriceStream.liveWatchIds
 
-    /** Paare der angezeigten Merkliste (gewählte Gruppe) für die Live-Kurse. */
-    fun setLivePairs(pairs: List<LivePair>) = livePriceStream.setPairs(pairs)
+    /** Merkliste und Paarseite brauchen den Live-Strom ([LiveDemand]); nur vom Hauptthread. */
+    private val liveDemand = LiveDemand()
 
-    /** Merkliste zu sehen bzw. verlassen (anderer Tab, App im Hintergrund): Live-Kurse an/aus. */
-    fun setLiveVisible(visible: Boolean) = livePriceStream.setVisible(visible)
+    /** Paare der angezeigten Merkliste (gewählte Gruppe) für die Live-Kurse. */
+    fun setLivePairs(pairs: List<LivePair>) = livePriceStream.setPairs(liveDemand.setListPairs(pairs))
+
+    /** Paar der offenen Paarseite (null = keine bzw. deaktiviert), auch wenn es nicht in der gezeigten Gruppe steht. */
+    fun setPageLivePair(pair: LivePair?) = livePriceStream.setPairs(liveDemand.setPagePair(pair))
+
+    /** Merkliste bzw. Paarseite ([owner]) zu sehen oder verlassen (anderer Tab, App im Hintergrund): Live-Kurse an/aus. */
+    fun setLiveVisible(visible: Boolean, owner: LiveDemand.Owner = LiveDemand.Owner.WATCHLIST) =
+        livePriceStream.setVisible(liveDemand.setVisible(owner, visible))
 
     override fun onCleared() {
         livePriceStream.setVisible(false)

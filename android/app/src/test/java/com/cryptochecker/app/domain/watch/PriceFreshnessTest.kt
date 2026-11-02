@@ -105,6 +105,26 @@ class PriceFreshnessTest {
     }
 
     @Test
+    fun rowAgeIsTheTradeTimeNotTheFetch() {
+        // Abruf vor 10 s, letzter Handel laut Börse vor 90 Min.: die Zeile nennt den Handel wie das Widget
+        val quiet = watch(exchangeTime = now - 90 * 60_000L)
+        assertEquals(now - 90 * 60_000L, PriceFreshness.rowAgeTime(quiet))
+        assertTrue(PriceFreshness.hasExchangeTime(quiet))
+        // Ohne Zeit der Börse: letzter Abruf
+        assertEquals(now - 10_000, PriceFreshness.rowAgeTime(watch()))
+        assertFalse(PriceFreshness.hasExchangeTime(watch(exchangeTime = 0)))
+        // Deaktiviert bzw. noch nie abgefragt: kein Alter
+        assertNull(PriceFreshness.rowAgeTime(quiet.copy(disabled = true)))
+        assertNull(PriceFreshness.rowAgeTime(watch().copy(lastUpdate = 0)))
+    }
+
+    @Test
+    fun delistedPairHasNoRowAge() {
+        val delisted = watch(error = NotTraded.MARKER)
+        assertNull(PriceFreshness.rowAgeTime(delisted))
+    }
+
+    @Test
     fun staleFollowsTheAlarmBlock() {
         // Eben abgefragt, letzter Handel laut Börse 3 h her: veraltet wie die Alarmsperre
         val old = watch(exchangeTime = now - 3 * 3_600_000L)

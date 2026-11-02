@@ -163,8 +163,7 @@ internal fun rememberWatchlistClock(): Long {
 }
 
 /**
- * Wege in die Merkliste und hinaus: zurück aus «Alarme» (Aktionsblatt wieder öffnen), Blatt bzw. Aktionsblatt aus
- * einer Meldung oder Widget-Zeile, Zurück-Taste für Suche, Sortiermodus und Mehrfachauswahl.
+ * Wege in die Merkliste und hinaus: «Was bewegt sich mit?» bzw. Paarseite aus einer Meldung oder Widget-Zeile, Zurück-Taste für Suche, Sortiermodus und Mehrfachauswahl.
  */
 @Composable
 internal fun WatchlistNavigationEffects(
@@ -178,17 +177,15 @@ internal fun WatchlistNavigationEffects(
     onOpenWhyHandled: () -> Unit,
     focusWatchId: Long?,
     onFocusHandled: () -> Unit,
+    onFocusPair: (Long) -> Unit,
 ) {
-    // Zurück aus «Alarme» (eigene Seite): Die Merkliste kommt wieder ins Bild — war das
-    // Aktionsblatt der Ausgangspunkt, öffnet es sich wieder
-    LaunchedEffect(Unit) { if (ui.whyFor == null) ui.reopenActions() }
     // Aus der Alarm-Meldung («Was bewegt sich mit?»): Blatt öffnen, sobald die Merkliste da ist (nicht gehandelte Paare zeigen keins)
     LaunchedEffect(openWhyWatchId) {
         val id = openWhyWatchId ?: return@LaunchedEffect
         ui.whyFor = id
         onOpenWhyHandled()
     }
-    // Aus Mitteilung oder Widget-Zeile: Aktionsblatt des Paars, sobald die Merkliste geladen ist (wie iOS focus(on:))
+    // Aus Mitteilung oder Widget-Zeile: Paarseite, sobald die Merkliste geladen ist (wie iOS focus(on:))
     LaunchedEffect(focusWatchId, loaded) {
         val id = focusWatchId ?: return@LaunchedEffect
         if (!loaded) return@LaunchedEffect
@@ -197,8 +194,7 @@ internal fun WatchlistNavigationEffects(
             // Paar ausserhalb der gewählten Gruppe: wieder alle zeigen
             if (selectedGroup != null && groupVisible.none { it.id == id }) viewModel.selectGroup(null)
             ui.whyFor = null
-            ui.returnToActions = null
-            ui.actionsFor = id
+            onFocusPair(id)
         }
         onFocusHandled()
     }

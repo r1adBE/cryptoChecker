@@ -2,13 +2,22 @@ import SwiftUI
 
 /// Alarme eines Paars — wie `AlarmsScreen.kt`. Antippen bearbeitet,
 /// Wischen löscht (mit Rückfrage), der Schalter macht scharf.
+///
+/// `embedded`: Abschnitt «Alarme» der Paarseite (`PairScreen`, wie Android `PairAlarmsSection`) — dieselben Karten,
+/// derselbe Editor samt Rückfragen und Bestätigungen, aber als Spalte in der scrollenden Seite, ohne eigene Leiste,
+/// ohne selbst geöffneten Editor; «Alarm setzen» der Seite zählt `newAlarmRequest` hoch, Hinweise gehen in deren Banner.
 struct AlarmsScreen: View {
     let watchId: Int64
+    var embedded = false
+    /// Paarseite: jeder neue Wert öffnet den Editor für einen neuen Alarm.
+    var newAlarmRequest = 0
+    /// Paarseite: Banner der Seite (unten am Bildschirm statt mitten im Abschnitt); nil = eigenes Banner.
+    var externalBanner: Binding<WatchlistBannerMessage?>? = nil
 
     @EnvironmentObject var data: AppData
     @Environment(\.appAccent) private var accent
     @State var draft: AlarmDraft?
-    @State private var askDelete: Alarm?
+    @State var askDelete: Alarm?
     /// Erster Alarm überhaupt gespeichert: nach dem Schliessen des Editors bestätigen.
     @State var firstAlarmPending = false
     @State private var showFirstAlarm = false
@@ -20,18 +29,25 @@ struct AlarmsScreen: View {
     @State var alarmTestTrigger = 0
     /// Paar ohne Alarm: Editor beim ersten Erscheinen gleich geöffnet, danach nicht mehr.
     @State private var autoOpenDone = false
-    /// «Alarm erstellt · Rückgängig» nach einem Schnell-Alarm.
-    @State var banner: WatchlistBannerMessage?
+    /// «Alarm erstellt · Rückgängig» nach einem Schnell-Alarm (eigenes Banner, ohne `externalBanner`).
+    @State private var localBanner: WatchlistBannerMessage?
+    /// Banner dieses Bildschirms bzw. der Paarseite (`externalBanner`).
+    var banner: WatchlistBannerMessage? {
+        get { externalBanner?.wrappedValue ?? localBanner }
+        nonmutating set {
+            if let externalBanner { externalBanner.wrappedValue = newValue } else { localBanner = newValue }
+        }
+    }
     /// «Rückgängig», das auf das Schliessen der Dialoge wartet (sonst liefe es unerreichbar dahinter ab) — wie Android.
     @State var bannerAfterDialogs: WatchlistBannerMessage?
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.accessibilityReduceMotion) var reduceMotion
     /// «Konnte nicht geprüft werden (…)» je Alarm (nur im Speicher).
-    @ObservedObject private var checkStatus = AlarmCheckStatus.shared
+    @ObservedObject var checkStatus = AlarmCheckStatus.shared
     /// Mitteilungen zustellbar (`Notifier.isAuthorized`)? Für die Statuszeile der Karten (`AlarmCardStatus`);
     /// im Zweifel ja, damit kein falscher Hinweis erscheint. Bei jeder Rückkehr in die App neu geprüft.
-    @State private var notificationsAllowed = true
+    @State var notificationsAllowed = true
     /// Uhr der Statuszeilen, jede Minute nachgeführt — ein Kurs wird auch ohne neue Daten veraltet.
-    @State private var now: Int64 = EpochTime.nowMillis
+    @State var now: Int64 = EpochTime.nowMillis
     /// Zählt abgelehnte Schalter (Merkliste gesperrt): wertet den body neu aus, damit sie den echten Zustand zeigen — der
     /// gedrosselte Hinweis ändert AppData nicht bei jeder Ablehnung, ein umgelegter Schalter bliebe sonst stehen.
     /// Ohne `.id` (kein Identitätswechsel, der VoiceOver-Fokus bleibt).
@@ -40,18 +56,22 @@ struct AlarmsScreen: View {
     /// «Anpassen» aus einer Alarm-Mitteilung (`AppRouter.pendingEditAlarmId`).
     @ObservedObject private var router = AppRouter.shared
 
-    init(watchId: Int64) {
+    init(watchId: Int64, embedded: Bool = false, newAlarmRequest: Int = 0,
+         externalBanner: Binding<WatchlistBannerMessage?>? = nil) {
         self.watchId = watchId
+        self.embedded = embedded
+        self.newAlarmRequest = newAlarmRequest
+        self.externalBanner = externalBanner
     }
 
     /// DEX-Pool mit zu wenig oder unbekannter Liquidität (`DexLiquidity`)?
-    private static func lowLiquidity(_ watch: Watch?) -> Bool {
+    static func lowLiquidity(_ watch: Watch?) -> Bool {
         guard let watch else { return false }
         return DexLiquidityStore.blocksAlarms(exchangeKey: watch.exchangeKey, pairId: watch.pairId)
     }
 
     /// Quelle ohne Alarme (EZB-Referenzkurse, `Exchange.allowsAlarms`)?
-    private static func referenceRate(_ watch: Watch?) -> Bool {
+    static func referenceRate(_ watch: Watch?) -> Bool {
         guard let watch else { return false }
         return ExchangesConfig.exchange(watch.exchangeKey)?.allowsAlarms == false
     }
@@ -59,6 +79,17 @@ struct AlarmsScreen: View {
     var body: some View {
         // Abgelehnte Schalter neu auswerten, ohne Identitätswechsel (sonst springt der VoiceOver-Fokus)
         let _ = refusedToggles
+        if embedded {
+            withEditor(embeddedSection)
+                .onChange(of: newAlarmRequest) { _, _ in
+                    if data.watch(watchId) != nil { draft = AlarmDraft.blankFor() }
+                }
+        } else {
+            standalone
+        }
+    }
+
+    private var standalone: some View {
         let watch = data.watch(watchId)
         let alarms = data.alarms(for: watchId)
         // DEX-Pool mit zu wenig Liquidität: kein neuer Alarm, kein Bearbeiten (Hinweis statt Editor) — wie Android
@@ -165,18 +196,6 @@ struct AlarmsScreen: View {
             }
         }
         .background(AppColors.background.ignoresSafeArea())
-        .task { notificationsAllowed = await Notifier.isAuthorized() }
-        .task {
-            while !Task.isCancelled {
-                try? await Task.sleep(for: .seconds(60))
-                now = EpochTime.nowMillis
-            }
-        }
-        .onChange(of: scenePhase) { _, phase in
-            guard phase == .active else { return }
-            now = EpochTime.nowMillis
-            Task { notificationsAllowed = await Notifier.isAuthorized() }
-        }
         .onAppear {
             // Paar ohne Alarm: gleich den Editor öffnen statt der leeren Liste — nicht bei gesperrter Merkliste (wie Android)
             guard !autoOpenDone else { return }
@@ -198,32 +217,78 @@ struct AlarmsScreen: View {
         }
         .navigationTitle(L("alarms_title"))
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                VStack(spacing: 0) {
-                    Text(L("alarms_title")).font(.headline)
-                    if let watch {
-                        Text(verbatim: "\(BidiText.isolate(watch.displayName)) · \(BidiText.isolate(watch.exchangeName))")
-                            .font(.caption)
-                            .foregroundStyle(AppColors.onSurfaceVariant)
-                            .lineLimit(1)
-                    }
+        .toolbar { toolbarContent(watch, blocked: blocked, alarmsFull: alarmsFull) }
+        .modifier(EditorHost(screen: self))
+        // Alarm nicht geändert bzw. gelöscht (Merkliste gesperrt): kurzer Hinweis mit Warn-Haptik (auf der Paarseite
+        // meldet ihn die Seite selbst)
+        .watchlistLockedHint { localBanner = WatchlistBannerMessage(text: $0, kind: .error, long: true) }
+        .overlay(alignment: .bottom) {
+            // Kein gelöschtes Paar hier: «Rückgängig» läuft über die Aktion des Banners
+            WatchlistBanner(message: $localBanner) { _ in }
+                .animation(reduceMotion ? nil : .spring(duration: 0.35), value: localBanner)
+        }
+    }
+
+    /// Editor, Rückfragen und Bestätigungen — auf der Seite «Alarme» wie im Abschnitt der Paarseite.
+    private func withEditor(_ content: some View) -> some View {
+        content.modifier(EditorHost(screen: self))
+    }
+
+    @ToolbarContentBuilder
+    private func toolbarContent(_ watch: Watch?, blocked: Bool, alarmsFull: Bool) -> some ToolbarContent {
+        ToolbarItem(placement: .principal) {
+            VStack(spacing: 0) {
+                Text(L("alarms_title")).font(.headline)
+                if let watch {
+                    Text(verbatim: "\(BidiText.isolate(watch.displayName)) · \(BidiText.isolate(watch.exchangeName))")
+                        .font(.caption)
+                        .foregroundStyle(AppColors.onSurfaceVariant)
+                        .lineLimit(1)
                 }
-                .accessibilityElement(children: .combine)
             }
-            ToolbarItem(placement: .topBarTrailing) {
-                if watch != nil && !blocked && !alarmsFull {
-                    Button {
-                        draft = AlarmDraft.blankFor()
-                    } label: {
-                        Image(systemName: "plus.circle.fill")
-                            .symbolRenderingMode(.hierarchical)
-                            .scaledFont(size: 20, relativeTo: .title3)
-                    }
-                    .tint(accent.primary)
-                    .accessibilityLabel(L("alarms_add"))
+            .accessibilityElement(children: .combine)
+        }
+        ToolbarItem(placement: .topBarTrailing) {
+            if watch != nil && !blocked && !alarmsFull {
+                Button {
+                    draft = AlarmDraft.blankFor()
+                } label: {
+                    Image(systemName: "plus.circle.fill")
+                        .symbolRenderingMode(.hierarchical)
+                        .scaledFont(size: 20, relativeTo: .title3)
                 }
+                .tint(accent.primary)
+                .accessibilityLabel(L("alarms_add"))
             }
+        }
+    }
+}
+
+/// Was beide Formen von `AlarmsScreen` teilen: Uhr und Mitteilungs-Status der Karten, Editor, «Alarm löschen?»,
+/// Bestätigung des ersten Alarms, «Damit Alarme ankommen», Hinweis zur Prüfzeit und «Rückgängig» nach den Dialogen.
+private struct EditorHost: ViewModifier {
+    let screen: AlarmsScreen
+
+    func body(content: Content) -> some View {
+        screen.editorModifiers(content)
+    }
+}
+
+extension AlarmsScreen {
+    func editorModifiers(_ content: some View) -> some View {
+        let watch = data.watch(watchId)
+        return content
+        .task { notificationsAllowed = await Notifier.isAuthorized() }
+        .task {
+            while !Task.isCancelled {
+                try? await Task.sleep(for: .seconds(60))
+                now = EpochTime.nowMillis
+            }
+        }
+        .onChange(of: scenePhase) { _, phase in
+            guard phase == .active else { return }
+            now = EpochTime.nowMillis
+            Task { notificationsAllowed = await Notifier.isAuthorized() }
         }
         .sheet(item: $draft, onDismiss: showPendingDialogs) { current in
             AlarmEditorSheet(
@@ -283,15 +348,8 @@ struct AlarmsScreen: View {
             banner = message
         }
         .alarmTestRunner(trigger: alarmTestTrigger)
-        // Alarm nicht geändert bzw. gelöscht (Merkliste gesperrt): kurzer Hinweis mit Warn-Haptik
-        .watchlistLockedHint { banner = WatchlistBannerMessage(text: $0, kind: .error, long: true) }
         // Einmal nach dem Speichern: ehrlich, wann geprüft wird
         .alarmTimingAlert(isPresented: $showTimingHint)
-        .overlay(alignment: .bottom) {
-            // Kein gelöschtes Paar hier: «Rückgängig» läuft über die Aktion des Banners
-            WatchlistBanner(message: $banner) { _ in }
-                .animation(reduceMotion ? nil : .spring(duration: 0.35), value: banner)
-        }
     }
 
     /// Vorgemerkte Dialoge zeigen: beim Schliessen des Editors auch nach einer späteren Antwort der Rückfrage.

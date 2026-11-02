@@ -160,7 +160,7 @@ Merkliste (`WatchlistScreen` setzt zusammen; `WatchlistHeader`, `WatchlistStatus
 Einstellungen (`SettingsScreen`, `SettingsComponents`, `SettingsPickers`, je Gruppe
 `Settings…Pages`), Alarme (`AlarmsScreen`, `AlarmEditorSheet`, `AlarmAdvancedOptions`),
 «Paar hinzufügen» (`ExplorerScreen`, `ExplorerSearchUi`, `ExplorerSteps`, `ExplorerBulk`,
-`ExplorerDex`), Aktionsblatt (`WatchActionsSheet`, `WatchSheetActions`,
+`ExplorerDex`), Paarseite (`PairScreen`, `PairPageContent`, `PairHeader`, `PairActions`, `PairState`,
 `WatchSheetFutures`, `WatchSheetSpot`, `WatchSheetChartView`, `WatchSheetChartCanvas`), Portfolio
 (`PortfolioScreen`, `PortfolioTotalCard`, `PortfolioRows`, `PortfolioHistoryCard`,
 `PortfolioHistoryChart`). ViewModels bleiben je Bildschirm eine Klasse.

@@ -127,6 +127,7 @@
     <string name="watch_action_alarm">Alarma</string>
     <string name="watch_action_favorite">Preferit</string>
     <string name="watch_action_why">Què es mou amb ell?</string>
+    <string name="watch_action_change_exchange">Canvia de plataforma</string>
     <string name="watch_action_why_short">Què es mou amb ell?</string>
     <string name="watch_change_mark">Marca</string>
     <string name="watch_disable">Desactiva</string>

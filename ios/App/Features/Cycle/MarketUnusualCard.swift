@@ -208,7 +208,7 @@ struct CycleWhyTarget: Identifiable, Hashable {
     let id: Int64
 }
 
-/// Was ein Tipp in «Heute auffällig» öffnet: das Aktionsblatt eines gespeicherten Paars oder die
+/// Was ein Tipp in «Heute auffällig» öffnet: die Paarseite eines gespeicherten Paars oder die
 /// Vorschau eines Paars, das nicht in der Merkliste steht (`WatchPreview`, nur im Speicher).
 enum CycleCoinTarget: Identifiable, Hashable {
     case stored(Int64)

@@ -115,6 +115,7 @@
     <string name="watch_action_alarm">Riasztás</string>
     <string name="watch_action_favorite">Kedvenc</string>
     <string name="watch_action_why">Mi mozog vele együtt?</string>
+    <string name="watch_action_change_exchange">Tőzsde váltása</string>
     <string name="watch_action_why_short">Mi mozog együtt?</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">Kikapcsolás</string>

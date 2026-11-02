@@ -3,7 +3,7 @@ import XCTest
 /// Die wichtigsten Abläufe über die Oberfläche — wie `UiFlowsTest.kt` (Android): gleiche Schritte, gleiche
 /// Kennungen (`UiTestTags`), gleiche Testdatei (`Fixtures/uitest_portfolio.csv` = android/testdata/uitest):
 ///  1. Coin hinzufügen: Coin-Suche «btc» → Bitcoin → vorgeschlagenes Paar → steht in der Merkliste.
-///  2. Alarm setzen: Aktionsblatt → Alarm → «über 200’000» → gespeichert und in der Liste.
+///  2. Alarm setzen: Paarseite → «Set alert» → «über 200’000» → gespeichert, Karte auf der Paarseite.
 ///  3. CSV-Import: Datei → Vorschau → Importieren → Positionen sichtbar; «Importe › Rückgängig» entfernt sie.
 ///  4. Sichern: mit Passwort sichern → Neustart mit leerem Speicher → falsches Passwort abgelehnt →
 ///     richtiges stellt Merkliste und Portfolio wieder her.
@@ -65,7 +65,7 @@ final class CryptoCheckerUITests: XCTestCase {
 
         tap(app, UiTestTags.watchRow)
         tap(app, UiTestTags.watchActionAlarm)
-        // Paar ohne Alarm: der Editor öffnet sich gleich; neuer Alarm = «über»
+        // Paarseite › «Alarm setzen» öffnet den Editor; neuer Alarm = «über»
         enterText(app, UiTestTags.alarmThreshold, Self.alarmThreshold)
         tap(app, UiTestTags.alarmSave)
 

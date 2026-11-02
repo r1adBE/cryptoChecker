@@ -127,6 +127,7 @@
     <string name="watch_action_alarm">Alerte</string>
     <string name="watch_action_favorite">Favori</string>
     <string name="watch_action_why">Qu’est-ce qui bouge avec ?</string>
+    <string name="watch_action_change_exchange">Changer de plateforme</string>
     <string name="watch_action_why_short">Qui bouge avec ?</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">Désactiver</string>

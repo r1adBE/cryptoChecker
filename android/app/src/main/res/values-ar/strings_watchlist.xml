@@ -163,6 +163,7 @@
     <string name="watch_action_alarm">تنبيه</string>
     <string name="watch_action_favorite">المفضلة</string>
     <string name="watch_action_why">ما الذي يتحرك معه؟</string>
+    <string name="watch_action_change_exchange">تغيير المنصة</string>
     <string name="watch_action_why_short">ما الذي يتحرك معه؟</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">تعطيل</string>

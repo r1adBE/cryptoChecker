@@ -31,8 +31,10 @@ extension WatchlistRow {
         guard stale else {
             // Börse ohne eigene Zeit, Kurs steht lange: nicht frisch wirken (`PriceFreshness`)
             if let unchanged = unchangedText { return ("\(BidiText.isolate(watch.exchangeName)) · \(unchanged)", false, unchanged) }
-            // Aktuell: Alter klein dahinter («Binance · vor 3 Min.») — der Kopf nennt nur die jüngste Zeit (wie Android)
-            return ("\(BidiText.isolate(watch.exchangeName)) · \(ago)", false, nil)
+            // Aktuell: Alter klein dahinter («Binance · vor 3 Min.» bzw. «Binance · letzter Handel vor 90 Min.», Zeit
+            // der Börse wie das Widget) — der Kopf nennt nur die jüngste Zeit (wie Android)
+            if let age = ageText { return ("\(BidiText.isolate(watch.exchangeName)) · \(age)", false, nil) }
+            return (watch.exchangeName, false, nil)
         }
         return ("\(BidiText.isolate(watch.exchangeName)) · \(ago)", false, nil)
     }
@@ -44,6 +46,22 @@ extension WatchlistRow {
         guard !off, pausedText == nil, watch.lastError == nil, staleAfter > 0,
               PriceFreshness.staleReason(watch, now: now, staleAfter: staleAfter) == .trade else { return nil }
         return L("watchlist_row_last_trade_age", WatchlistTime.ago(watch.exchangeTime ?? 0, now: now))
+    }
+
+    /// Alter der gesunden Zeitzeile: «letzter Handel vor 90 Min.» mit Zeit der Börse, sonst «vor 3 Min.» seit dem
+    /// Abruf (`PriceFreshness.rowAgeTime`, wie das Widget). Wie Android `WatchRowStatus.age`.
+    private var ageText: String? {
+        guard let time = PriceFreshness.rowAgeTime(watch) else { return nil }
+        let ago = WatchlistTime.ago(time, now: now)
+        return PriceFreshness.hasExchangeTime(watch) ? L("watchlist_row_last_trade_age", ago) : ago
+    }
+
+    /// Im Zeilensatz nur der letzte Handel (gesunde Zeile); das Alter des Abrufs sagt schon die Frische.
+    /// Wie Android `WatchRowStatus.spokenAge`.
+    private var spokenTradeAge: String? {
+        guard !off, PriceFreshness.hasExchangeTime(watch), !stale, unchangedText == nil,
+              !timeLine.warning else { return nil }
+        return ageText
     }
 
     /// «Binance · pausiert bis 19:45» (`RowPause`); nil = Börse nicht pausiert.
@@ -124,7 +142,7 @@ extension WatchlistRow {
             // Frische, danach «Kurs unverändert seit …» (wie der Zeilensatz in Android)
             // Börse pausiert: zuerst «Binance · pausiert bis 19:45» (wie der Zeilensatz in Android)
             stale: {
-                let fresh = [staleText, tradeText].compactMap { $0 }.joined(separator: ", ")
+                let fresh = [staleText, tradeText, spokenTradeAge].compactMap { $0 }.joined(separator: ", ")
                 let parts = [pausedText,
                              (fresh.isEmpty ? nil : fresh).map { text in unchangedText.map { "\(text), \($0)" } ?? text }
                                  ?? unchangedText]

@@ -183,6 +183,16 @@ object LiveRules {
     fun exchangeTime(quote: LiveQuote, storedPrice: Double?, storedExchangeTime: Long?): Long? =
         quote.tradeTime?.takeIf { it > 0 } ?: if (storedPrice == quote.price) storedExchangeTime else null
 
+    /**
+     * Zeit (`lastUpdate`), die ein Live-Kurs hinterlässt (Anzeige und Speichern): Nur ein im Strom gesehener
+     * Kurswechsel ([LiveQuote.tradeTime]) oder ein anderer Kurs als der gespeicherte bewegt sie. Der erste Takt mit
+     * gleichem Kurs (Binance «c» mit neuer Ereigniszeit, kein Handel) lässt sie stehen — sonst würde «vor 40 Min.»
+     * beim Verbinden zu «gerade eben». Nie rückwärts; ohne gespeicherte Zeit (≤ 0) die Takt-Zeit.
+     */
+    fun updateTime(quote: LiveQuote, storedPrice: Double?, storedLastUpdate: Long): Long =
+        if ((quote.tradeTime ?: 0L) <= 0 && storedPrice == quote.price && storedLastUpdate > 0) storedLastUpdate
+        else maxOf(storedLastUpdate, quote.time)
+
     /** Kurs vor höchstens [FRESH_MILLIS] aus dem Strom? */
     fun isFresh(lastTickAt: Long?, now: Long): Boolean =
         lastTickAt != null && lastTickAt > 0 && now - lastTickAt in 0..FRESH_MILLIS

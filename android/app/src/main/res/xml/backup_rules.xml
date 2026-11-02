@@ -29,7 +29,7 @@
     <!-- Nicht gesichert (nur ausdrücklich Eingeschlossenes wird gesichert):
          Zwischenspeicher und flüchtiger Zustand — activity, refresh_stats, starter_coins,
          market_zone, macro_notify, gas_alerts; Widget-Zuordnung und -Momentaufnahme
-         (widgets, portfolio_widget: Widget-Ids gelten nur auf diesem Gerät); Zyklus-/Makro-
+         (widgets, portfolio_widget, list_widget_snapshot: Widget-Ids gelten nur auf diesem Gerät); Zyklus-/Makro-
          Zwischenspeicher liegen in cacheDir. Die App-Sperre speichert kein Geheimnis
          (Biometrie/Geräte-Sperre des Systems), nur den Schalter in den Einstellungen. -->
 </full-backup-content>

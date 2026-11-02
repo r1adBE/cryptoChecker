@@ -115,6 +115,7 @@
     <string name="watch_action_alarm">Συναγερμός</string>
     <string name="watch_action_favorite">Αγαπημένο</string>
     <string name="watch_action_why">Τι κινείται μαζί;</string>
+    <string name="watch_action_change_exchange">Αλλαγή ανταλλακτηρίου</string>
     <string name="watch_action_why_short">Τι κινείται μαζί;</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">Απενεργοποίηση</string>

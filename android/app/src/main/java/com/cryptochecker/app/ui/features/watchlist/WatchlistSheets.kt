@@ -6,32 +6,24 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.activity.ActivitySignal
-import com.cryptochecker.app.domain.live.LiveQuote
 import com.cryptochecker.app.domain.watch.isNotTraded
-import com.cryptochecker.app.lock.PortfolioAccess
-import com.cryptochecker.app.lock.findFragmentActivity
 import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.ui.components.GroupNameDialog
 import com.cryptochecker.app.ui.components.canonicalGroupName
 import com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest
-import com.cryptochecker.app.ui.features.portfolio.PortfolioQuickAddSheet
-import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
 
 /**
- * Alles, was sich über die Merkliste legt: Bericht, Rückfragen, das Aktionsblatt eines Paars,
- * «Ins Portfolio», Gruppen anlegen und bearbeiten, «Was bewegt sich mit?». Was offen ist,
+ * Alles, was sich über die Merkliste legt: Bericht, Rückfragen, Gruppen anlegen und bearbeiten, «Was bewegt sich
+ * mit?» (aus der Zeile bzw. einer Alarm-Meldung). Ein Paar selbst öffnet die Paarseite (`PairScreen`). Was offen ist,
  * steht in [ui].
  */
 @Composable
@@ -40,41 +32,23 @@ internal fun WatchlistSheets(
     /** Stand aus dem ViewModel (Frische-Schwelle, Live-Strom, Chart-Art). */
     state: WatchlistUiState,
     viewModel: WatchlistViewModel,
-    lockViewModel: PortfolioLockViewModel,
     watches: List<WatchEntity>,
     groups: List<String>,
     notTradedCount: Int,
-    alarmCounts: Map<Long, Int>,
-    livePrices: State<Map<Long, LiveQuote>>,
     rollingBasis: Boolean,
     activeSignals: Map<Long, List<ActivitySignal>>,
     now: Long,
     banner: WatchlistBanner,
-    onOpenAlarms: (Long) -> Unit,
-    /** Löschen mit «Rückgängig» im Banner (wie nach links wischen). */
-    onDelete: (WatchEntity) -> Unit,
 ) {
-    val context = LocalContext.current
     // Texte über LocalResources (Lint: kein getString über LocalContext in Compose)
     val resources = LocalResources.current
     val haptics = rememberHaptics()
     val lastReport by viewModel.lastRefreshReport.collectAsStateWithLifecycle()
     val appStartMillis by viewModel.appStartMillis.collectAsStateWithLifecycle()
-    // Eine Frische-Schwelle wie Zeile und Status-Pille
-    val outdatedAfter = state.display.staleAfterMillis
-    val liveIds = state.live.liveWatchIds
     val requestNotifications = rememberNotificationPermissionRequest()
     // Rückmeldungen nach der Rückfrage «nicht gespeichert» im aktuellen Bildschirm (auch nach dem Neuerstellen)
     val uiEvents = rememberWatchUiEvents(WATCHLIST_UI_EVENTS)
     WatchlistUiEffects(uiEvents, ui, viewModel, banner, haptics, resources, requestNotifications)
-
-    // Portfolio-Sperre: Das Erfassen-Blatt zeigt Bestände — erst nach dem Entsperren,
-    // und wird es unterwegs wieder gesperrt (Hintergrund-Limit), schliesst es sich.
-    val portfolioAccess by lockViewModel.access.collectAsStateWithLifecycle()
-    val unlockReason = stringResource(R.string.portfolio_lock_reason)
-    LaunchedEffect(portfolioAccess) {
-        if (portfolioAccess != PortfolioAccess.OPEN) ui.portfolioFor = null
-    }
 
     if (ui.showReport) {
         RefreshReportSheet(
@@ -125,76 +99,6 @@ internal fun WatchlistSheets(
         )
     }
 
-    // Aktionen eines Paars als Blatt von unten
-    ui.actionsFor?.let { id -> watches.firstOrNull { it.id == id } }?.let { stored ->
-        WithLiveQuote(stored, livePrices, rollingBasis = rollingBasis) { watch ->
-            WatchActionsSheet(
-                watch = watch,
-                alarmCount = alarmCounts[watch.id] ?: 0,
-                // Screenreader: «Kurs veraltet, zuletzt aktualisiert vor …» im Kopf
-                now = now,
-                // Am Live-Strom: 2 Min. wie Zeile und Status-Pille
-                outdatedAfter = com.cryptochecker.app.domain.watch.LiveStatus.staleAfterMillis(watch.id in liveIds, outdatedAfter),
-                hasActivity = !watch.isNotTraded && !watch.disabled && activeSignals[watch.id].orEmpty().isNotEmpty(),
-                onDismiss = { ui.actionsFor = null },
-                onNotificationChange = { on ->
-                    // Erlaubnis erst nach dem Schreiben (nicht bei «Abbrechen» bzw. gesperrt)
-                    viewModel.setNotificationEnabled(watch, on) { written ->
-                        if (written && on) uiEvents.send(WatchUiEvent.RequestNotifications)
-                    }
-                },
-                onTtsChange = { viewModel.setTtsEnabled(watch, it) },
-                onToggleFavorite = {
-                    viewModel.toggleFavorite(watch) { if (it) uiEvents.send(WatchUiEvent.Haptic(HapticEvent.LIGHT_IMPACT)) }
-                },
-                // Zurück aus «Alarme» öffnet dieses Blatt wieder
-                onOpenAlarms = { ui.returnToActions = watch.id; ui.actionsFor = null; onOpenAlarms(watch.id) },
-                onRefresh = { viewModel.refreshOneByUser(watch) },
-                // Wie nach links wischen: sofort löschen, «Rückgängig» im Banner (keine Rückfrage)
-                onDelete = { ui.actionsFor = null; onDelete(watch) },
-                groups = groups,
-                // Auch mit ausgeschaltetem Portfolio: das erste Speichern schaltet es ein
-                onAddToPortfolio = {
-                    ui.actionsFor = null
-                    lockViewModel.requireUnlock(context.findFragmentActivity(), unlockReason) {
-                        ui.portfolioFor = watch
-                    }
-                },
-                // Dialog erst nach bestätigter Rückfrage «nicht gespeichert» zu («Abbrechen»: offen mit Eingabe)
-                onSetGroup = { group, close, cancelled -> viewModel.setGroup(watch, group, close, cancelled) },
-                onSetNote = { note, close, cancelled -> viewModel.setNote(watch, note, close, cancelled) },
-                // Deaktivieren bzw. wieder aktivieren (dann gleich den Kurs holen); Blatt erst nach
-                // der Rückfrage zu, mit Haptik und kurzem Banner ([toggleDisabled])
-                onToggleDisabled = { uiEvents.toggleDisabled(viewModel, watch) },
-                loadFutures = viewModel::fetchFutures,
-                loadSpot = viewModel::fetchSpot,
-                onWhy = { ui.returnToActions = watch.id; ui.actionsFor = null; ui.whyFor = watch.id },
-                chartLine = state.display.sheetChartLine,
-                onChartLineChange = viewModel::setSheetChartLine,
-                cachedChart = viewModel::cachedSheetChart,
-                loadChart = viewModel::loadSheetChart,
-                satsRate = viewModel::satsRate,
-                candleSource = viewModel.foreignCandleSource(watch),
-                // Herkunft von Änderung/Mini-Chart steht nur hier, nicht in der Zeile
-                rowSource = viewModel.rowSource(watch),
-            )
-        }
-    }
-
-    // Kurs nur vorbelegen, wenn die Quote praktisch USDT ist
-    ui.portfolioFor?.let { watch ->
-        PortfolioQuickAddSheet(
-            coin = watch.baseAsset,
-            priceUsdt = watch.lastPrice?.takeIf {
-                it > 0.0 && watch.quoteAsset.uppercase() in USD_LIKE_QUOTES
-            },
-            onDismiss = { ui.portfolioFor = null },
-            onPortfolioEnabled = { banner.show(resources.getString(R.string.portfolio_enabled_banner)) },
-            // «Später»: Transaktion gespeichert, Tab bleibt aus — einmal der Weg zum Schalter
-            onPortfolioLater = { banner.show(resources.getString(R.string.portfolio_enable_later_hint)) },
-        )
-    }
-
     if (ui.askNewGroup) {
         GroupNameDialog(
             title = stringResource(R.string.group_add),
@@ -232,7 +136,7 @@ internal fun WatchlistSheets(
             watch = watch,
             signals = activeSignals[watch.id].orEmpty(),
             load = viewModel::explain,
-            onDismiss = { ui.whyFor = null; ui.reopenActions() },
+            onDismiss = { ui.whyFor = null },
             // «Was bewegt sich mit?» zeigt bei rollender Basis die Änderung selbst; bei «seit 00:00» rechnet es eigene Kerzen
             candleSource = viewModel.foreignCandleSource(watch).takeIf { rollingBasis },
         )

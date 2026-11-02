@@ -127,6 +127,7 @@
     <string name="watch_action_alarm">Allarme</string>
     <string name="watch_action_favorite">Preferito</string>
     <string name="watch_action_why">Cosa si muove insieme?</string>
+    <string name="watch_action_change_exchange">Cambia exchange</string>
     <string name="watch_action_why_short">Cosa si muove insieme?</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">Disattiva</string>

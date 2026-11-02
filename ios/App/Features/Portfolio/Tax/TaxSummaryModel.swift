@@ -176,17 +176,41 @@ struct TaxYearSummary: Sendable, Equatable {
     var usdtApproximate = false
 }
 
-/// Länder-Schlüsse der Vorlagen (`TaxLine.orientation`: Sätze, Grenzen, Freibeträge wie § 23, 27,5 %, ESTV) erscheinen
-/// erst, wenn eine Fachperson die Fälle in TAX_REFERENCE.md bestätigt hat — bis dahin nur die neutralen Summen (und der
-/// Beta-Hinweis). Einzige Schaltstelle, angewandt dort, wo die App die Übersicht baut (Karte und CSV). Wie Android.
+/// Länder-Schlüsse der Vorlagen (`TaxLine.orientation`: Sätze, Grenzen, Freibeträge wie § 23, 27,5 %; CH-Vermögenswert
+/// und ESTV) erscheinen erst, wenn eine Fachperson die Fälle in TAX_REFERENCE.md bestätigt hat — bis dahin nur die
+/// neutralen Summen (und der Beta-Hinweis). Einzige Schaltstelle für Karte und jede CSV (Gewinne, Einkünfte, Bestand,
+/// Übersicht). Wie Android.
 enum TaxCountryFigures {
     /// Vorlagen mit bestätigten Länder-Schlüssen; leer, solange die Spalte «Fachperson» in TAX_REFERENCE.md leer ist.
     static let reviewed: Set<TaxTemplate> = []
 
+    /// Zeigt `template` seine Länder-Schlüsse?
+    static func shows(_ template: TaxTemplate) -> Bool { reviewed.contains(template) }
+
+    /// Länder-Schluss: `TaxLine.orientation` und der CH-Vermögenswert per 31.12. (`.CH_WEALTH_VALUE`, «Orientierung»,
+    /// Vermerk ESTV-Kursliste `.CH_WEALTH_ORIENTATION`) — er steht im Orientierungs-Block ohne Vorsatz.
+    static func isCountryLine(_ line: TaxLine) -> Bool { line.orientation || line == .CH_WEALTH_VALUE }
+
+    /// Übersicht (Karte und CSV): ohne Länder-Schlüsse auch ohne die Werte je Coin des CH-Vermögenswerts.
     static func shown(_ summary: TaxYearSummary) -> TaxYearSummary {
-        if reviewed.contains(summary.template) { return summary }
+        if shows(summary.template) { return summary }
         var shown = summary
-        shown.lines = summary.lines.filter { !$0.line.orientation }
+        shown.lines = summary.lines.filter { !isCountryLine($0.line) }
+        shown.wealth = nil
         return shown
+    }
+
+    /// Kopfzeile «Vermögenssteuer nicht gerechnet – Kursliste ESTV» (`TaxExport.withChWealthNote`) nur mit
+    /// Länder-Schlüssen.
+    static func withChWealthNote(_ template: TaxTemplate, header: [String], chWealthNote: String) -> [String] {
+        shows(template) ? TaxExport.withChWealthNote(template, header: header, chWealthNote: chWealthNote) : header
+    }
+
+    /// Bestand der Arbeitsunterlage: der ESTV-Hinweis (`CutoffCsvTexts.estvNoteFormat`) nur mit Länder-Schlüssen.
+    static func holdingsTexts(_ template: TaxTemplate, _ texts: CutoffCsvTexts) -> CutoffCsvTexts {
+        if shows(template) { return texts }
+        var plain = texts
+        plain.estvNoteFormat = nil
+        return plain
     }
 }

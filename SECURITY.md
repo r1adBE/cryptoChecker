@@ -46,6 +46,11 @@ keys or other secrets never belong in this repository.
     authentication), not tied to the database keys. Without the key the widget shows
     its empty state; the app never writes the snapshot in plaintext. Only the
     remembered exchange rate (currency and USD rate, no holdings) stays readable.
+  * Android watchlist widget: the pairs it drew last (shown at once by a new
+    process, e.g. after a reboot, until the database is open) are one AES-256-GCM
+    sealed entry in the SharedPreferences `list_widget_snapshot` (same container),
+    with its own Android Keystore key (`cryptochecker_list_widget_key`). No key:
+    nothing is read or written, never plaintext; not in any backup.
   * Android alarm log (`alarm_log.sealed`, pairs and thresholds) and the restore
     journal (`restore_journal.sealed`, the state before a backup file is restored,
     deleted when the restore is done): AES-256-GCM in `noBackupFilesDir`, each with

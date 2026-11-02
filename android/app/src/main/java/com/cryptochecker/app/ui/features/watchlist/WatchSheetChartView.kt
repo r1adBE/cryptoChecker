@@ -59,8 +59,8 @@ import java.time.ZoneId
 import java.util.Date
 import java.util.Locale
 
-/** Höhe der Chart-Fläche im Aktionsblatt. */
-internal val CHART_HEIGHT = 180.dp
+/** Höhe der Chart-Fläche auf der Paarseite (volle Breite, höher als im früheren Blatt mit 180 dp). */
+internal val CHART_HEIGHT = 260.dp
 
 /**
  * Beschriftungen ≈ 10 sp; grosse Systemschrift bis 1.5×. Die Spalte der

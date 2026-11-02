@@ -103,6 +103,7 @@
     <string name="watch_action_alarm">提示</string>
     <string name="watch_action_favorite">最愛</string>
     <string name="watch_action_why">有乜嘢一齊郁？</string>
+    <string name="watch_action_change_exchange">轉交易所</string>
     <string name="watch_action_why_short">有乜一齊郁？</string>
     <string name="watch_change_mark">標記</string>
     <string name="watch_disable">停用</string>

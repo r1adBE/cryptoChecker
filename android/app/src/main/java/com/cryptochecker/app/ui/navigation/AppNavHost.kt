@@ -103,7 +103,7 @@ fun AppNavHost(
     var whyWatchId by androidx.compose.runtime.saveable.rememberSaveable {
         androidx.compose.runtime.mutableStateOf<Long?>(null)
     }
-    // Tipp auf Mitteilung bzw. Widget-Zeile: Paar, dessen Aktionsblatt die Merkliste öffnen soll
+    // Tipp auf Mitteilung bzw. Widget-Zeile: Paar, dessen Seite die Merkliste öffnen soll
     var focusWatchId by androidx.compose.runtime.saveable.rememberSaveable {
         androidx.compose.runtime.mutableStateOf<Long?>(null)
     }
@@ -238,6 +238,10 @@ fun AppNavHost(
                         // Doppel-Tipp (Glocke, «Ersten Alarm setzen») legt die Seite nur einmal auf den Stapel
                         onAddClick = { navigation.openExplorerOnce(entry) },
                         onOpenAlarms = { watchId -> navigation.navigateOnce(entry, ScreenRoute.Alarms(watchId)) },
+                        // Tipp auf eine Zeile: Paarseite (Doppeltipp legt sie nur einmal auf den Stapel)
+                        onOpenPair = { watchId -> navigation.navigateOnce(entry, ScreenRoute.PairPage(watchId)) },
+                        // Mitteilung bzw. Widget-Zeile: auch ohne Tipp, sobald die Merkliste geladen ist
+                        onFocusPair = { watchId -> navigation.navigate(ScreenRoute.PairPage(watchId)) },
                         onOpenAllAlarms = { navigation.navigateOnce(entry, ScreenRoute.AlarmsOverview) },
                         onOpenActivitySettings = {
                             navigation.navigate(ScreenRoute.SettingsMarketAlerts) { launchSingleTop = true }
@@ -276,7 +280,7 @@ fun AppNavHost(
                 )
 
                 composable<ScreenRoute.MarketPhase> { entry ->
-                    // Aktionsblatt aus «Heute auffällig»: dieselbe Instanz wie die Merkliste (ihr Eintrag
+                    // «Rückgängig» nach «Löschen» auf der Paarseite: dieselbe Instanz wie die Merkliste (ihr Eintrag
                     // ist als Startziel immer im Stapel); zur Not eine eigene für diesen Tab
                     val watchlistOwner = androidx.compose.runtime.remember(entry) {
                         runCatching { navigation.getBackStackEntry<ScreenRoute.Watchlist>() }.getOrNull() ?: entry
@@ -285,10 +289,12 @@ fun AppNavHost(
                     MarketPhaseScreen(
                         viewModel = hiltViewModel(viewModelStoreOwner = activityOwner),
                         watchlistViewModel = hiltViewModel(viewModelStoreOwner = watchlistOwner),
-                        lockViewModel = lockViewModel,
                         jump = MarketJump.fromName(marketJump),
                         onJumpHandled = { marketJump = null },
-                        onOpenAlarms = { watchId -> navigation.navigateOnce(entry, ScreenRoute.Alarms(watchId)) },
+                        // Coin aus «Heute auffällig» bzw. «Gewinner und Verlierer»: Paarseite (bzw. Vorschau)
+                        onOpenPair = { watchId, preview ->
+                            navigation.navigateOnce(entry, ScreenRoute.PairPage(watchId, preview = preview))
+                        },
                         // Seite «Paar hinzufügen» über dem Markt-Tab: zurück führt wieder
                         // hierher, nicht in die Merkliste (gleich wie iOS)
                         onOpenExplorer = { query ->
@@ -366,6 +372,8 @@ fun AppNavHost(
                         TaxWorksheetScreen(currency = currency, onBack = { navigation.popBackStack() })
                     }
                 }
+
+                pairDestination(navigation = navigation, activityOwner = activityOwner, lockViewModel = lockViewModel)
 
                 alarmDestinations(
                     navigation = navigation,

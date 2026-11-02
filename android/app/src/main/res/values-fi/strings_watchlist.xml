@@ -115,6 +115,7 @@
     <string name="watch_action_alarm">Hälytys</string>
     <string name="watch_action_favorite">Suosikki</string>
     <string name="watch_action_why">Mikä liikkuu mukana?</string>
+    <string name="watch_action_change_exchange">Vaihda pörssiä</string>
     <string name="watch_action_why_short">Mikä liikkuu mukana?</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">Poista käytöstä</string>

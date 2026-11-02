@@ -51,7 +51,6 @@ import com.cryptochecker.app.ui.components.LocalRowHighlight
 import com.cryptochecker.app.ui.components.RowHighlight
 import com.cryptochecker.app.ui.components.SkeletonList
 import com.cryptochecker.app.ui.components.rememberReduceMotion
-import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
 import com.cryptochecker.app.util.StartupClock
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -60,7 +59,7 @@ import kotlinx.coroutines.launch
  * Die Merkliste: fester Kopf (Gruppen, Glocke, Menü, Status mit Lupe und «+» bzw. Suche), darunter Puls,
  * Aktivitätskarte und die Paare. Aufgeteilt nach Aufgaben — Kopf [WatchlistHeader], Status
  * [WatchlistStatusRow], Liste [WatchlistList] und Zeile [WatchlistItem], Blätter und Rückfragen
- * [WatchlistSheets], Zustand aus dem ViewModel [WatchlistUiState] (einmal gesammelt) und des Bildschirms
+ * [WatchlistSheets] (ein Paar selbst öffnet die Paarseite, [onOpenPair]), Zustand aus dem ViewModel [WatchlistUiState] (einmal gesammelt) und des Bildschirms
  * [WatchlistScreenState], Banner [WatchlistBanner], Sprungknopf [WatchlistJump], fester Kopf und Liste samt
  * Mehrfachauswahl [WatchlistBody], Wege in die Merkliste [WatchlistNavigationEffects], Start-Auswahl
  * [WatchlistStarterPicker]. Hier werden Zustand und Ableitungen gesammelt und zusammengesetzt.
@@ -69,6 +68,10 @@ import kotlinx.coroutines.launch
 fun WatchlistScreen(
     onAddClick: () -> Unit,
     onOpenAlarms: (Long) -> Unit,
+    /** Tipp auf eine Zeile: Paarseite (eigene Seite mit Zurück). */
+    onOpenPair: (Long) -> Unit = {},
+    /** Mitteilung bzw. Widget-Zeile: Paarseite, sobald die Merkliste geladen ist. */
+    onFocusPair: (Long) -> Unit = onOpenPair,
     onOpenAllAlarms: () -> Unit = {},
     /** Einstellungen › Alarme › Markt-Meldungen (Empfindlichkeit). */
     onOpenActivitySettings: () -> Unit = {},
@@ -77,11 +80,10 @@ fun WatchlistScreen(
     /** «Was bewegt sich mit?» aus einer Alarm-Meldung: Blatt dieses Paars öffnen. */
     openWhyWatchId: Long? = null,
     onOpenWhyHandled: () -> Unit = {},
-    /** Tipp auf eine Mitteilung bzw. Widget-Zeile: Aktionsblatt dieses Paars öffnen (wie iOS `watch/<id>`). */
+    /** Tipp auf eine Mitteilung bzw. Widget-Zeile: Paarseite dieses Paars öffnen (wie iOS `watch/<id>`). */
     focusWatchId: Long? = null,
     onFocusHandled: () -> Unit = {},
     viewModel: WatchlistViewModel = hiltViewModel(),
-    lockViewModel: PortfolioLockViewModel = hiltViewModel(),
 ) {
     // Alles aus dem ViewModel in einem Stand (ein Sammeln statt rund 30); die Live-Kurse unten getrennt
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -188,6 +190,7 @@ fun WatchlistScreen(
         onOpenWhyHandled = onOpenWhyHandled,
         focusWatchId = focusWatchId,
         onFocusHandled = onFocusHandled,
+        onFocusPair = onFocusPair,
     )
 
     val listState = rememberLazyListState()
@@ -292,18 +295,13 @@ fun WatchlistScreen(
                 ui = ui,
                 state = state,
                 viewModel = viewModel,
-                lockViewModel = lockViewModel,
                 watches = watches,
                 groups = groups,
                 notTradedCount = notTradedIds.size,
-                alarmCounts = alarmCounts,
-                livePrices = livePrices,
                 rollingBasis = !changeBasis.isDay,
                 activeSignals = activeSignals,
                 now = now,
                 banner = banner,
-                onOpenAlarms = onOpenAlarms,
-                onDelete = deleteWithUndo,
             )
             // «Mehrere Paare auf einmal» läuft noch: Balken oben, über der Liste
             WatchlistBulkAdd(banner, Modifier.padding(padding).zIndex(1f))
@@ -375,6 +373,7 @@ fun WatchlistScreen(
                     onOpenAbout = onOpenAbout,
                     onAddClick = onAddClick,
                     onOpenAlarms = onOpenAlarms,
+                    onOpenPair = onOpenPair,
                     requestRefresh = requestRefresh,
                     deleteWithUndo = deleteWithUndo,
                     favoriteWithBanner = favoriteWithBanner,

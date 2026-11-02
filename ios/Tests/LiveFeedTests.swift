@@ -332,6 +332,29 @@ final class LiveFeedTests: XCTestCase {
         XCTAssertEqual(watch.withLive(traded, rollingBasis: true).exchangeTime, 11_000)
     }
 
+    func testFirstTickWithUnchangedPriceKeepsTheShownTime() throws {
+        var buffer = LiveBuffer()
+        // Gespeichert vor 40 Min. zu 100; erster Takt nach dem Verbinden zum selben Kurs (kein Handel)
+        buffer.offer([1], LiveTick(symbol: "BTCUSDT", price: 100, change24h: 1.5, time: 2_400_000), now: 2_400_000)
+        let first = try XCTUnwrap(buffer.takeForUi()?[1])
+        XCTAssertEqual(LiveRules.updateTime(first, storedPrice: 100, storedLastUpdate: 1_000), 1_000)
+        // Anderer Kurs als gespeichert: die Takt-Zeit; ohne gespeicherte Zeit ebenso
+        XCTAssertEqual(LiveRules.updateTime(first, storedPrice: 99, storedLastUpdate: 1_000), 2_400_000)
+        XCTAssertEqual(LiveRules.updateTime(first, storedPrice: 100, storedLastUpdate: 0), 2_400_000)
+        // Anzeige: die Zeile behält «vor 40 Min.»
+        var watch = Watch(id: 7, exchangeKey: "Binance", exchangeName: "Binance", baseAsset: "BTC", quoteAsset: "USDT")
+        watch.lastPrice = 100
+        watch.lastUpdate = 1_000
+        XCTAssertEqual(watch.withLive(first, rollingBasis: true).lastUpdate, 1_000)
+        // Kurswechsel im Strom (auch zurück auf den gespeicherten Kurs): belegt, die Zeit läuft mit
+        buffer.offer([1], LiveTick(symbol: "BTCUSDT", price: 100.2, change24h: 1.5, time: 2_401_000), now: 2_401_000)
+        buffer.offer([1], LiveTick(symbol: "BTCUSDT", price: 100, change24h: 1.5, time: 2_402_000), now: 2_402_000)
+        let back = try XCTUnwrap(buffer.takeForUi()?[1])
+        XCTAssertEqual(watch.withLive(back, rollingBasis: true).lastUpdate, 2_402_000)
+        // Nie rückwärts
+        XCTAssertEqual(LiveRules.updateTime(back, storedPrice: 99, storedLastUpdate: 3_000_000), 3_000_000)
+    }
+
     func testOverlayKeepsChangeOutsideRollingBasis() {
         var watch = Watch(id: 7, exchangeKey: "Kraken", exchangeName: "Kraken", baseAsset: "BTC", quoteAsset: "USD")
         watch.change24h = 2.0

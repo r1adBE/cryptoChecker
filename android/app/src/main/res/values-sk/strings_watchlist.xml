@@ -139,6 +139,7 @@
     <string name="watch_action_alarm">Alarm</string>
     <string name="watch_action_favorite">Obľúbené</string>
     <string name="watch_action_why">Čo sa hýbe spolu?</string>
+    <string name="watch_action_change_exchange">Zmeniť burzu</string>
     <string name="watch_action_why_short">Čo sa hýbe spolu?</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">Deaktivovať</string>

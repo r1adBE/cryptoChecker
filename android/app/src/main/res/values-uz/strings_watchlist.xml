@@ -115,6 +115,7 @@
     <string name="watch_action_alarm">Signal</string>
     <string name="watch_action_favorite">Sevimli</string>
     <string name="watch_action_why">U bilan birga nima harakatlanmoqda?</string>
+    <string name="watch_action_change_exchange">Birjani almashtirish</string>
     <string name="watch_action_why_short">Birga nima harakatlanmoqda?</string>
     <string name="watch_change_mark">Chegarani oʻzgartirish</string>
     <string name="watch_disable">Oʻchirish</string>

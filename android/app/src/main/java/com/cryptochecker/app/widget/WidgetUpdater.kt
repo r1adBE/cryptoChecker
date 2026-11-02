@@ -47,8 +47,12 @@ class WidgetUpdater @Inject constructor(
     fun changeView(basis: ChangeBasis, now: Long = System.currentTimeMillis()): ChangeView =
         toolkit.changeView(basis, now)
 
-    /** Listen-Widgets neu zeichnen ([ListWidgetRenderer]). */
+    /**
+     * Listen-Widgets neu zeichnen ([ListWidgetRenderer]). Neuer Prozess (z. B. nach dem Neustart des Geräts): zuerst
+     * sofort die zuletzt gezeigten Zeilen ([ListWidgetRenderer.drawStoredFirst]), dann aus der Datenbank.
+     */
     suspend fun update(appWidgetIds: IntArray) {
+        listWidgets.drawStoredFirst(appWidgetIds)
         listWidgets.update(appWidgetIds)?.let { scheduleOutdatedCheck(it.watches) }
     }
 

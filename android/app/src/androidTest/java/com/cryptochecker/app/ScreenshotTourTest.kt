@@ -37,7 +37,7 @@ import javax.inject.Inject
 /**
  * Bildschirmfotos aller Hauptseiten, hell und dunkel — für den Workflow «Screenshots», der sie auf den Zweig
  * `screenshots` legt (DEVELOPMENT.md). Gleiche Seiten und Namen wie `ScreenshotTourTests` in iOS:
- * Merkliste, Aktionsblatt eines Paars, Alarme des Paars, Alarm-Editor, Alle Alarme (Glocke), Bericht «Letzte
+ * Merkliste, Paarseite eines Paars, Alarme des Paars, Alarm-Editor, Alle Alarme (Glocke), Bericht «Letzte
  * Aktualisierung», Paar hinzufügen, Coin-Suche, Markt, Portfolio, Einstellungen mit «Hell / Dunkel», «Alarme»,
  * «Sichern» und «Über die App».
  *
@@ -151,7 +151,7 @@ class ScreenshotTourTest {
         nav.waitForTag(UiTestTags.WATCH_ROW, LIST_TIMEOUT)
         loadPrices()
 
-        // Merkliste → Aktionsblatt → Alarme des Paars → Editor
+        // Merkliste → Paarseite → ihre Alarme → Editor
         step("01_watchlist") { nav.toWatchlist() }
         step("02_pair_actions") { openPairActions() }
         step("03_pair_alarms") { openPairAlarms() }
@@ -232,17 +232,19 @@ class ScreenshotTourTest {
         }
     }
 
-    /** Merkliste › erste Zeile (BTC): Aktionsblatt. */
+    /** Merkliste › erste Zeile (BTC): Paarseite. */
     private fun openPairActions() {
         nav.toWatchlist()
         nav.clickTag(UiTestTags.WATCH_ROW)
+        nav.waitForTag(UiTestTags.PAIR_SCREEN)
         nav.waitForTag(UiTestTags.WATCH_ACTION_ALARM)
     }
 
-    /** Aktionsblatt › «Alarm»: Alarme des Paars (je ein Alarm, darum die Liste statt des Editors). */
+    /** Paarseite, zum Abschnitt «Alarme» gescrollt (je ein Alarm, die Karte steht auf der Seite). */
     private fun openPairAlarms() {
         openPairActions()
-        nav.clickTag(UiTestTags.WATCH_ACTION_ALARM)
+        nav.waitForTag(UiTestTags.ALARM_CARD)
+        nav.node(UiTestTags.ALARM_CARD)
         nav.waitForTag(UiTestTags.ALARM_CARD)
     }
 
@@ -307,8 +309,8 @@ class ScreenshotTourTest {
     /**
      * Demo-Sicherung mit denselben Abweichungen wie `demoBackup` in `ScreenshotTourTests.swift` (beide gleich halten):
      * Hell/Dunkel (`darkMode`), USD ohne Umrechnung (keine Wechselkurse ohne Netz), Alarmwährung `null` (Währung des
-     * Paars) und je ein Alarm für die Paare ohne Alarm (ETH über 4000, SOL über 250) — so öffnet «Alarm» im
-     * Aktionsblatt jedes Paars die Alarm-Liste statt gleich den Editor.
+     * Paars) und je ein Alarm für die Paare ohne Alarm (ETH über 4000, SOL über 250) — so zeigt die Paarseite jedes
+     * Paars eine Alarm-Karte.
      */
     private fun demoBackup(dark: Boolean): String {
         val text = InstrumentationRegistry.getInstrumentation().context.assets.open(DEMO_FILE)

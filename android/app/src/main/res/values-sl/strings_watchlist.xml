@@ -139,6 +139,7 @@
     <string name="watch_action_alarm">Alarm</string>
     <string name="watch_action_favorite">Priljubljeno</string>
     <string name="watch_action_why">Kaj se giblje zraven?</string>
+    <string name="watch_action_change_exchange">Zamenjaj borzo</string>
     <string name="watch_action_why_short">Kaj se giblje zraven?</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">Onemogoči</string>

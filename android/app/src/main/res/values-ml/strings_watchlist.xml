@@ -115,6 +115,7 @@
     <string name="watch_action_alarm">അലേർട്ട്</string>
     <string name="watch_action_favorite">പ്രിയപ്പെട്ടത്</string>
     <string name="watch_action_why">ഒപ്പം എന്താണ് നീങ്ങുന്നത്?</string>
+    <string name="watch_action_change_exchange">എക്സ്ചേഞ്ച് മാറ്റുക</string>
     <string name="watch_action_why_short">ഒപ്പം എന്ത് നീങ്ങുന്നു?</string>
     <string name="watch_change_mark">മാർക്ക്</string>
     <string name="watch_disable">പ്രവർത്തനരഹിതമാക്കുക</string>

@@ -127,6 +127,7 @@
     <string name="watch_action_alarm">Brīdinājums</string>
     <string name="watch_action_favorite">Izlasē</string>
     <string name="watch_action_why">Kas kustas līdzi?</string>
+    <string name="watch_action_change_exchange">Mainīt biržu</string>
     <string name="watch_action_why_short">Kas kustas līdzi?</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">Atspējot</string>

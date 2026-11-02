@@ -38,7 +38,17 @@ internal class WatchRowStatus(
      * ([PriceFreshness.StaleReason.TRADE], dieselbe Grenze wie die Alarmsperre); sonst null. Steht dann auch in [warning].
      */
     val trade: String? = null,
-)
+    /**
+     * Alter der gesunden Zeitzeile ohne Warnung und ohne «unverändert seit»: «letzter Handel vor 90 Min.» mit Zeit der
+     * Börse, sonst «vor 3 Min.» seit dem Abruf ([PriceFreshness.rowAgeTime], wie das Widget); sonst null.
+     */
+    val age: String? = null,
+    /** [age] nennt den letzten Handel laut Börse (wird dann auch vorgelesen). */
+    val ageIsTrade: Boolean = false,
+) {
+    /** Im Zeilensatz nur der letzte Handel; das Alter des Abrufs sagt schon die Frische. */
+    val spokenAge: String? get() = age?.takeIf { ageIsTrade }
+}
 
 @Composable
 internal fun watchRowStatus(
@@ -100,8 +110,15 @@ internal fun watchRowStatus(
     } else {
         null
     }
+    // Gesund: Alter wie das Widget (Zeit der Börse, sonst Abruf) — mit Zeit der Börse dasselbe Wort wie die Warnung
+    val ageIsTrade = PriceFreshness.hasExchangeTime(watch)
+    val ageText = PriceFreshness.rowAgeTime(watch)?.takeIf { warningText == null && unchangedText == null }?.let {
+        if (ageIsTrade) stringResource(R.string.watchlist_row_last_trade_age, ago(it, now)) else ago(it, now)
+    }
     return WatchRowStatus(
         warningText, errorText, staleText, showErrorLine, unchangedText, pausedText,
         trade = tradeAge?.takeIf { warningText == tradeText },
+        age = ageText,
+        ageIsTrade = ageIsTrade && ageText != null,
     )
 }

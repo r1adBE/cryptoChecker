@@ -115,6 +115,7 @@
     <string name="watch_action_alarm">Alarm</string>
     <string name="watch_action_favorite">Favori</string>
     <string name="watch_action_why">Onunla birlikte ne hareket ediyor?</string>
+    <string name="watch_action_change_exchange">Borsayı değiştir</string>
     <string name="watch_action_why_short">Birlikte ne oynuyor?</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">Devre dışı bırak</string>

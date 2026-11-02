@@ -3,7 +3,7 @@ import UIKit
 import UniformTypeIdentifiers
 
 // Vertragsadresse des Tokens im Kopf des Aktionsblatts (nur DEX-Pools), gekürzt, Tippen kopiert sie ganz.
-// Eigene Datei wie `WatchSheetDexAddress.kt`; der Kopf (`WatchActionsHeader.swift`) setzt sie unter die Börse.
+// Eigene Datei wie `WatchSheetDexAddress.kt`; der Kopf (`PairHeader.swift`) setzt sie unter die Börse.
 
 /// «0x1234…abcd» unter der Börse eines DEX-Pools (`DexTokenAddress`); Tippen legt die volle Adresse in die
 /// Zwischenablage. Ohne gemerkte Adresse (Paar nicht aus der Suche, z. B. aus einer Sicherung) nichts.

@@ -115,6 +115,7 @@
     <string name="watch_action_alarm">अलार्म</string>
     <string name="watch_action_favorite">पसंदीदा</string>
     <string name="watch_action_why">साथ में किसमें हलचल है?</string>
+    <string name="watch_action_change_exchange">एक्सचेंज बदलें</string>
     <string name="watch_action_why_short">साथ में क्या चल रहा है?</string>
     <string name="watch_change_mark">मार्क</string>
     <string name="watch_disable">बंद करें</string>

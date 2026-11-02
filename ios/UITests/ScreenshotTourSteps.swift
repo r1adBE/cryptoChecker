@@ -42,7 +42,7 @@ extension ScreenshotTourTests {
             } else if let back = navigationBack(app) {
                 back.tap()
             } else {
-                // Blatt ohne Navigationsleiste (Aktionsblatt, halbe Höhe): nach unten ziehen
+                // Blatt ohne Navigationsleiste: nach unten ziehen
                 drag(app, from: attempt.isMultiple(of: 2) ? 0.55 : 0.12, to: 0.98)
             }
             settle(1)
@@ -69,20 +69,22 @@ extension ScreenshotTourTests {
 
     // MARK: Seiten
 
-    /// Merkliste › erste Zeile (BTC): Aktionsblatt.
+    /// Merkliste › erste Zeile (BTC): Paarseite.
     @MainActor
     func openPairActions(_ app: XCUIApplication) throws {
         try toWatchlist(app)
         try tap(app, UiTestTags.watchRow)
+        try requireTag(app, UiTestTags.pairScreen)
         try requireTag(app, UiTestTags.watchActionAlarm)
     }
 
-    /// Aktionsblatt › «Alarm»: Alarme des Paars (je ein Alarm, darum die Liste statt des Editors).
+    /// Paarseite, zum Abschnitt «Alarme» gescrollt (je ein Alarm, die Karte steht auf der Seite).
     @MainActor
     func openPairAlarms(_ app: XCUIApplication) throws {
         try openPairActions(app)
-        try tap(app, UiTestTags.watchActionAlarm)
         try requireTag(app, UiTestTags.alarmCard)
+        let card = app.tagged(UiTestTags.alarmCard)
+        for _ in 0..<4 where !card.isHittable { app.swipeUp() }
     }
 
     /// Glocke im Kopf der Merkliste («Alerts (3)», mit Alarmen die Übersicht), sonst Menü › «All alerts».

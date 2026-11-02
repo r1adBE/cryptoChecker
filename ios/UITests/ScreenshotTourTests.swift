@@ -2,14 +2,14 @@ import XCTest
 
 /// Bildschirmfotos aller Hauptseiten, hell und dunkel — für den Workflow «Screenshots», der sie auf den Zweig
 /// `screenshots` legt (DEVELOPMENT.md). Gleiche Seiten und Namen wie `ScreenshotTourTest.kt` (Android): Merkliste,
-/// Aktionsblatt eines Paars, Alarme des Paars, Alarm-Editor, Alle Alarme, Paar hinzufügen, Coin-Suche, Markt,
+/// Paarseite eines Paars, Alarme des Paars, Alarm-Editor, Alle Alarme, Paar hinzufügen, Coin-Suche, Markt,
 /// Portfolio, Einstellungen mit «Light / Dark», «Alerts», «Backup & restore» und «About the app»; dazu der
 /// Bericht «Last refresh» aus dem Menü der Merkliste (`06_refresh_report`).
 ///
 /// Daten: die Demo-Sicherung der Store-Bilder (`android/docs/store/screenshots/demo-backup.json`, gelesen neben dieser
 /// Quelle wie `fixture`), über «Wiederherstellen» eingespielt (`UITEST_BACKUP`). Darin gesetzt: Hell/Dunkel als
 /// Einstellung der App (`darkMode`), Währung USD ohne Umrechnung (keine Wechselkurse ohne Netz) und je ein Alarm für
-/// ETH und SOL, damit «Alarm» im Aktionsblatt die Alarm-Liste öffnet. Kurse aus `UITestExchange` (kein Netz); dazu
+/// ETH und SOL, damit die Paarseite jedes Paars eine Alarm-Karte zeigt. Kurse aus `UITestExchange` (kein Netz); dazu
 /// Markt-Tab, Portfolio-Kurse und USDT/USD aus dessen festen Antworten der Tour (`marketDataEnvironment`).
 ///
 /// Jedes Bild ist ein eigener Schritt (`step`) mit eigenem Weg über die Tab-Leiste: Scheitert einer, laufen die
@@ -95,7 +95,7 @@ final class ScreenshotTourTests: XCTestCase {
                              "portfolio empty")
         }
 
-        // Merkliste, Aktionsblatt → Alarme des Paars → Editor, Alle Alarme (Glocke), Bericht
+        // Merkliste, Paarseite → ihre Alarme → Editor, Alle Alarme (Glocke), Bericht
         step("01_watchlist") { try self.toWatchlist(app) }
         step("02_pair_actions") { try self.openPairActions(app) }
         step("03_pair_alarms") { try self.openPairAlarms(app) }

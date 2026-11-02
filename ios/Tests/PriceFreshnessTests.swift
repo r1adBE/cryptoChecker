@@ -84,6 +84,25 @@ final class PriceFreshnessTests: XCTestCase {
         XCTAssertEqual(PriceFreshness.freshnessTime(watch(exchangeTime: now - 5_000)), now - 5_000)
     }
 
+    func testRowAgeIsTheTradeTimeNotTheFetch() {
+        // Abruf vor 10 s, letzter Handel laut Börse vor 90 Min.: die Zeile nennt den Handel wie das Widget
+        let quiet = watch(exchangeTime: now - 90 * 60_000)
+        XCTAssertEqual(PriceFreshness.rowAgeTime(quiet), now - 90 * 60_000)
+        XCTAssertTrue(PriceFreshness.hasExchangeTime(quiet))
+        // Ohne Zeit der Börse: letzter Abruf
+        XCTAssertEqual(PriceFreshness.rowAgeTime(watch()), now - 10_000)
+        XCTAssertFalse(PriceFreshness.hasExchangeTime(watch(exchangeTime: 0)))
+        // Deaktiviert bzw. noch nie abgefragt: kein Alter
+        XCTAssertNil(PriceFreshness.rowAgeTime(watch(exchangeTime: now - 90 * 60_000, disabled: true)))
+        var never = watch()
+        never.lastUpdate = 0
+        XCTAssertNil(PriceFreshness.rowAgeTime(never))
+    }
+
+    func testDelistedPairHasNoRowAge() {
+        XCTAssertNil(PriceFreshness.rowAgeTime(watch(error: NotTraded.marker)))
+    }
+
     func testStaleFollowsTheAlarmBlock() {
         // Eben abgefragt, letzter Handel laut Börse 3 h her: veraltet wie die Alarmsperre
         let old = watch(exchangeTime: now - 3 * 3_600_000)

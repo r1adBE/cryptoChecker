@@ -115,6 +115,7 @@
     <string name="watch_action_alarm">ማንቂያ</string>
     <string name="watch_action_favorite">ተወዳጅ</string>
     <string name="watch_action_why">አብሮ ምን እየተንቀሳቀሰ ነው?</string>
+    <string name="watch_action_change_exchange">ልውውጥ ቀይር</string>
     <string name="watch_action_why_short">አብሮ ምን ይንቀሳቀሳል?</string>
     <string name="watch_change_mark">ምልክት</string>
     <string name="watch_disable">ያሰናክሉ</string>

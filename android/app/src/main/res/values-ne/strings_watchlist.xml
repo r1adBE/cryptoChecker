@@ -115,6 +115,7 @@
     <string name="watch_action_alarm">अलर्ट</string>
     <string name="watch_action_favorite">मनपर्ने</string>
     <string name="watch_action_why">यससँगै के चलिरहेको छ?</string>
+    <string name="watch_action_change_exchange">एक्सचेन्ज बदल्नुहोस्</string>
     <string name="watch_action_why_short">यससँगै के चल्छ?</string>
     <string name="watch_change_mark">मार्क</string>
     <string name="watch_disable">निष्क्रिय गर्नुहोस्</string>

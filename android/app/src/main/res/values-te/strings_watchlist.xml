@@ -115,6 +115,7 @@
     <string name="watch_action_alarm">అలర్ట్</string>
     <string name="watch_action_favorite">ఇష్టమైనది</string>
     <string name="watch_action_why">దానితో పాటు ఏది కదులుతోంది?</string>
+    <string name="watch_action_change_exchange">ఎక్స్ఛేంజ్ మార్చండి</string>
     <string name="watch_action_why_short">దానితో ఏది కదులుతోంది?</string>
     <string name="watch_change_mark">మార్క్</string>
     <string name="watch_disable">డిజేబుల్ చేయి</string>

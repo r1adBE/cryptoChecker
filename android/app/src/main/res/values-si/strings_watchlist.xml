@@ -115,6 +115,7 @@
     <string name="watch_action_alarm">ඇඟවීම</string>
     <string name="watch_action_favorite">ප්‍රියතම</string>
     <string name="watch_action_why">ඒ සමඟ චලනය වන්නේ කුමක්ද?</string>
+    <string name="watch_action_change_exchange">හුවමාරුව වෙනස් කරන්න</string>
     <string name="watch_action_why_short">ඒ සමඟ චලනය වන්නේ?</string>
     <string name="watch_change_mark">සලකුණ</string>
     <string name="watch_disable">අක්‍රිය කරන්න</string>

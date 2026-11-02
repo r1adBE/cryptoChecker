@@ -34,6 +34,7 @@ import com.cryptochecker.app.BuildConfig
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.portfolio.CutoffExport
 import com.cryptochecker.app.domain.portfolio.EstvKursliste
+import com.cryptochecker.app.domain.portfolio.TaxCountryFigures
 import com.cryptochecker.app.domain.portfolio.TaxExport
 import com.cryptochecker.app.domain.portfolio.TaxMethod
 import com.cryptochecker.app.ui.UiTestTags
@@ -52,7 +53,7 @@ import java.time.format.FormatStyle
  * Steuer-Arbeitsunterlage als eigene Seite (aus Portfolio ⋯ › «Steuer-Arbeitsunterlage…»): Steuer-Vorlage wählen
  * (dieselbe Einstellung wie Einstellungen → Portfolio; ein Vorschlag aus der Region wird nur angeboten), Methode und
  * Währung der Vorlage, Steuerjahr nach ihren Grenzen, Regelstand; dann realisierte Veräusserungen, Einkünfte, Bestand
- * per Ende des Steuerjahrs (CH: 31.12. in CHF mit ESTV-Hinweis) und Jahresübersicht (CSV + Karte) ([TaxExport]).
+ * per Ende des Steuerjahrs (CH: 31.12. in CHF, ESTV-Hinweis erst nach Fachprüfung, [TaxCountryFigures]) und Jahresübersicht (CSV + Karte) ([TaxExport]).
  * Ein laufender Export lässt sich abbrechen (angefangene Datei wird gelöscht); Fehler nach Art mit «Erneut versuchen».
  * [currency] = Anzeigewährung des Portfolios («Umrechnen in»).
  */
@@ -110,7 +111,8 @@ fun TaxWorksheetScreen(
     val gainsTitle = stringResource(R.string.tax_export_gains_title, yearLabel)
     val incomeTitle = stringResource(R.string.tax_export_income_title, yearLabel)
     val summaryTexts = taxSummaryTexts(template, yearLabel, workCurrency, taxYear)
-    // CH: «Vermögenssteuer nicht gerechnet – Kursliste ESTV» in den ersten Kopfzeilen jeder CSV (TaxExport.withChWealthNote)
+    // CH: «Vermögenssteuer nicht gerechnet – Kursliste ESTV» in den ersten Kopfzeilen jeder CSV — erst mit
+    // Länder-Schlüssen ([TaxCountryFigures.withChWealthNote]), wie die Karte
     val chWealthNote = taxYear?.let {
         stringResource(
             R.string.tax_export_ch_wealth_not_calculated,
@@ -125,7 +127,7 @@ fun TaxWorksheetScreen(
     ) { uri ->
         if (uri != null && taxYear != null) {
             val header = listOfNotNull(summaryTexts.title, info, rulesLine, methodNote, atWalletNote, usdtNote, dayCloseNote, disclaimer)
-            viewModel.exportSummary(uri, taxYear, currency, summaryTexts, TaxExport.withChWealthNote(template, header, chWealthNote), zoneLine)
+            viewModel.exportSummary(uri, taxYear, currency, summaryTexts, TaxCountryFigures.withChWealthNote(template, header, chWealthNote), zoneLine)
         }
     }
     val taxLauncher = rememberLauncherForActivityResult(
@@ -138,12 +140,13 @@ fun TaxWorksheetScreen(
                 TaxExportKind.GAINS -> listOfNotNull(gainsTitle, info, rulesLine, methodNote, rule, atWalletNote, usdtNote, dayCloseNote, disclaimer)
                 TaxExportKind.INCOME -> listOfNotNull(incomeTitle, info, rulesLine, usdtNote, dayCloseNote, disclaimer)
             }
-            viewModel.exportTax(uri, kind, taxYear, currency, taxTexts, TaxExport.withChWealthNote(template, header, chWealthNote))
+            viewModel.exportTax(uri, kind, taxYear, currency, taxTexts, TaxCountryFigures.withChWealthNote(template, header, chWealthNote))
         }
     }
-    // Bestand per Stichtag = Ende des Steuerjahrs (CH: 31.12. in CHF mit ESTV-Hinweis), mit Kopfzeilen der Arbeitsunterlage;
+    // Bestand per Stichtag = Ende des Steuerjahrs (CH: 31.12. in CHF), mit Kopfzeilen der Arbeitsunterlage;
     // gerechnet nach der Methode der Vorlage (im Kopf genannt, samt «Vorlage ersetzt die Methode»)
-    val holdingsTexts = cutoffTexts(workCurrency)
+    // ESTV-Hinweis im Bestand ebenso erst mit Länder-Schlüssen
+    val holdingsTexts = TaxCountryFigures.holdingsTexts(template, cutoffTexts(workCurrency))
     val holdingsEnd = period?.end
     val holdingsTitle = holdingsEnd?.let {
         stringResource(R.string.tax_export_holdings_title, it.format(LocaleNumbers.dates(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM))))
@@ -154,7 +157,7 @@ fun TaxWorksheetScreen(
         if (uri != null && holdingsEnd != null) {
             viewModel.export(
                 uri, holdingsEnd, workCurrency, holdingsTexts,
-                TaxExport.withChWealthNote(template, listOfNotNull(holdingsTitle, info, rulesLine, methodNote, usdtNote, disclaimer, zoneLine), chWealthNote),
+                TaxCountryFigures.withChWealthNote(template, listOfNotNull(holdingsTitle, info, rulesLine, methodNote, usdtNote, disclaimer, zoneLine), chWealthNote),
                 zone = taxZone, method = method.holdingsCostMethod, // Methode der Vorlage, wie im Kopf
             )
         }

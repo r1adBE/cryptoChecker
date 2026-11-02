@@ -119,7 +119,7 @@ class PortfolioLockPolicyTest {
             // Kopie nur mit wirksamer Verschlüsselungs-Bedingung (nicht Android 8/8.1)
             assertEquals(rel, rel != "xml/backup_rules.xml", "cryptochecker_system_backup.db" in paths)
             // Widget-Aufnahme (versiegelt, Schlüssel im Keystore) und Widget-Zuordnung nie
-            assertFalse(rel, paths.any { it.startsWith("portfolio_widget") || it.startsWith("widgets") })
+            assertFalse(rel, paths.any { it.startsWith("portfolio_widget") || it.startsWith("widgets") || it.startsWith("list_widget_snapshot") })
             assertFalse(rel, paths.any { it.startsWith("cryptochecker.db") || it.startsWith("cryptochecker_portfolio") })
             assertFalse(rel, paths.any { "db_keys" in it || it.endsWith(".unreadable") })
         }

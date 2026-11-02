@@ -33,6 +33,8 @@ enum UiTestTags {
     static let starterAdd = "starter_add"
     static let watchlistAddPair = "watchlist_add_pair"
     static let watchActionAlarm = "watch_action_alarm"
+    /// Paarseite (Tipp auf eine Zeile): Kopf mit Paar und Kurs.
+    static let pairScreen = "pair_screen"
 
     // MARK: Mitteilungen
     /// «Weiter» der Erklärung vor der System-Abfrage (`NotificationPrePrompt`).

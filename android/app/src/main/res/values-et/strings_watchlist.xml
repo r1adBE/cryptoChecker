@@ -115,6 +115,7 @@
     <string name="watch_action_alarm">Hoiatus</string>
     <string name="watch_action_favorite">Lemmik</string>
     <string name="watch_action_why">Mis liigub kaasa?</string>
+    <string name="watch_action_change_exchange">Vaheta börsi</string>
     <string name="watch_action_why_short">Mis liigub kaasa?</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">Keela</string>

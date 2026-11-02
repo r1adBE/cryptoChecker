@@ -115,6 +115,7 @@
     <string name="watch_action_alarm">განგაში</string>
     <string name="watch_action_favorite">რჩეული</string>
     <string name="watch_action_why">რა მოძრაობს მასთან ერთად?</string>
+    <string name="watch_action_change_exchange">ბირჟის შეცვლა</string>
     <string name="watch_action_why_short">რა მოძრაობს მასთან?</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">გამორთვა</string>

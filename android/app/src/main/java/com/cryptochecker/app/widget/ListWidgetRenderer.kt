@@ -48,11 +48,16 @@ class ListWidgetRenderer @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val toolkit: WidgetToolkit,
     private val rows: ListWidgetRows,
+    /** Zuletzt gezeichnete Paare für den ersten Auftritt eines neuen Prozesses ([drawStoredFirst]). */
+    private val snapshot: ListWidgetSnapshot,
     /** Lazy: PriceRefresher zeichnet selbst über WidgetUpdater (sonst ein Abhängigkeitskreis). */
     private val priceRefresher: dagger.Lazy<PriceRefresher>,
 ) {
     /** Ende der Sperre, für das das Neuzeichnen schon geplant ist (nur einmal je Sperre). */
     @Volatile private var unlockScheduledFor = 0L
+
+    /** In diesem Prozess schon einmal gezeichnet (aus der Datenbank oder den gemerkten Zeilen). */
+    @Volatile private var drawnInProcess = false
 
     /**
      * Nacheinander zeichnen: Läuft beim Speichern der Einrichtung (neue Gruppe) noch ein Zeichnen der
@@ -78,7 +83,26 @@ class ListWidgetRenderer @Inject constructor(
             // Paare einmal je Zeichnen: Leer-Hinweis, Titel und Zeilen aller Widgets lesen dieselben
             val all = WidgetOnceRead { rows.allWatches() }
             val ids = if (select == null) appWidgetIds else select(all.get())
-            if (ids.isEmpty() || !draw(ids, all)) null else Drawn(all.peek())
+            if (ids.isEmpty() || !draw(ids, all)) return@withLock null
+            drawnInProcess = true
+            // Für den nächsten neuen Prozess merken — nicht, solange die Merkliste nur leer im Arbeitsspeicher steht
+            all.peek()?.takeUnless { DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME) }?.let { snapshot.save(it) }
+            Drawn(all.peek())
+        }
+    }
+
+    /**
+     * Erstes Zeichnen eines neuen Prozesses (z. B. nach dem Neustart des Geräts): sofort die zuletzt gezeigten Zeilen
+     * ([ListWidgetSnapshot]) statt einer leeren Fläche, bis die verschlüsselte Datenbank offen ist — der Aufrufer
+     * zeichnet gleich danach aus ihr ([update]). Später im Prozess bzw. ohne gemerkte Zeilen: nichts.
+     */
+    suspend fun drawStoredFirst(appWidgetIds: IntArray) {
+        if (appWidgetIds.isEmpty() || drawnInProcess) return
+        drawLock.withLock {
+            if (drawnInProcess) return@withLock
+            val stored = snapshot.load() ?: return@withLock
+            runCatchingCancellable { draw(appWidgetIds, WidgetOnceRead { stored }) }
+                .onFailure { Timber.d(it, "Listen-Widget: gemerkte Zeilen nicht gezeichnet") }
         }
     }
 

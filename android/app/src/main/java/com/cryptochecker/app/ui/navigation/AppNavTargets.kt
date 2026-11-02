@@ -11,7 +11,7 @@ import com.cryptochecker.app.ui.features.settings.SettingsPage
 
 /**
  * App-Verknüpfung, Mitteilung bzw. Widget ([openTarget], siehe `MainActivity`): direkt zum gewünschten Bereich springen.
- * Sprung in den Markt-Tab, «Was bewegt sich mit?» und Aktionsblatt eines Paars meldet sie über [onMarketJump],
+ * Sprung in den Markt-Tab, «Was bewegt sich mit?» und Paarseite eines Paars meldet sie über [onMarketJump],
  * [onWhyWatch] bzw. [onFocusWatch] an den Zustand von [AppNavHost].
  */
 internal fun openAppTarget(

@@ -151,6 +151,7 @@
     <string name="watch_action_alarm">Foláireamh</string>
     <string name="watch_action_favorite">Ceanán</string>
     <string name="watch_action_why">Cad atá ag bogadh leis?</string>
+    <string name="watch_action_change_exchange">Athraigh malartán</string>
     <string name="watch_action_why_short">Cad a bhogann leis?</string>
     <string name="watch_change_mark">Marc</string>
     <string name="watch_disable">Díchumasaigh</string>

@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.cryptochecker.app.R
-import com.cryptochecker.app.data.local.WatchlistStorageLock
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.ui.components.CollectScreenEvents
 import com.cryptochecker.app.ui.components.HapticEvent
@@ -50,16 +49,13 @@ internal sealed interface WatchUiEvent {
     /** Mitteilungen eingeschaltet: jetzt die Erlaubnis fragen. */
     data object RequestNotifications : WatchUiEvent
 
-    /** Aktionsblatt von [watchId] schliessen (nur, wenn noch dieses offen ist). */
-    data class CloseActions(val watchId: Long) : WatchUiEvent
-
     /** Mehrfachauswahl beenden. */
     data object EndSelection : WatchUiEvent
 
     /** «Gruppe bearbeiten» schliessen. */
     data object CloseGroupEdit : WatchUiEvent
 
-    /** Paar gelöscht (Wischen, Blatt): Sammel-Banner aus [WatchUiEventsHolder.removed] mit «Rückgängig». */
+    /** Paar gelöscht (Wischen, Paarseite): Sammel-Banner aus [WatchUiEventsHolder.removed] mit «Rückgängig». */
     data class Removed(val generation: Int, val undoKey: Long) : WatchUiEvent
 
     /** Vorschau: Merkliste voll, nichts angelegt. */
@@ -91,7 +87,7 @@ private fun undoFull(n: Int) =
     WatchUiEvent.Banner(BannerText(plural = R.plurals.watchlist_undo_full, count = n), kind = SnackbarKind.ERROR)
 
 /**
- * Wischen, Screenreader-Aktion und Aktionen-Blatt «Löschen»: ohne Rückfrage, mit «Rückgängig». Haptik und
+ * Wischen, Screenreader-Aktion und «Löschen» der Paarseite: ohne Rückfrage, mit «Rückgängig». Haptik und
  * Banner erst nach dem Löschen; der Rückgängig-Schlüssel kommt gleich aus [WatchUiEventsHolder.removed].
  */
 internal fun WatchUiEventsHolder.deleteWithUndo(viewModel: WatchlistViewModel, watch: WatchEntity) {
@@ -112,13 +108,11 @@ internal fun WatchUiEventsHolder.favoriteWithBanner(viewModel: WatchlistViewMode
 }
 
 /**
- * Deaktivieren bzw. wieder aktivieren (Aktionsblatt, Merkliste und Markt) — wie iOS: Blatt erst nach
- * der Rückfrage «nicht gespeichert» zu, mit leichter Haptik und Banner; «Abbrechen» = Blatt bleibt, gesperrt = Blatt zu ohne Banner.
+ * Deaktivieren bzw. wieder aktivieren (Paarseite) — wie iOS: erst nach der Rückfrage «nicht gespeichert», mit leichter
+ * Haptik und Banner; «Abbrechen» bzw. gesperrt = kein Banner. Die Seite bleibt offen und zeigt den neuen Zustand.
  */
 internal fun WatchUiEventsHolder.toggleDisabled(viewModel: WatchlistViewModel, watch: WatchEntity) {
     viewModel.setDisabled(listOf(watch.id), !watch.disabled) { written ->
-        // Gesperrt (nur lesbar): abgelehnt, Blatt trotzdem zu (wie iOS); «Abbrechen»: Blatt bleibt
-        if (written || WatchlistStorageLock.blocksWritesNow()) send(WatchUiEvent.CloseActions(watch.id))
         if (!written) return@setDisabled
         val text = if (watch.disabled) R.string.watch_enabled_banner else R.string.watch_disabled_banner
         send(WatchUiEvent.Haptic(HapticEvent.LIGHT_IMPACT), WatchUiEvent.Banner(BannerText(text, watch.displayName)))
@@ -170,7 +164,6 @@ internal fun WatchlistUiEffects(
         if (holder.handleShared(event, viewModel, banner, haptics, resources)) return@CollectScreenEvents
         when (event) {
             WatchUiEvent.RequestNotifications -> requestNotifications()
-            is WatchUiEvent.CloseActions -> if (ui.actionsFor == event.watchId) ui.actionsFor = null
             WatchUiEvent.EndSelection -> ui.endSelection()
             WatchUiEvent.CloseGroupEdit -> ui.editGroup = null
             else -> Unit

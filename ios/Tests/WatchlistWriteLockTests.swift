@@ -104,8 +104,8 @@ final class WatchlistWriteLockTests: XCTestCase {
         let features = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
             .appendingPathComponent("App/Features")
         let screens = [
-            "Watchlist/WatchlistEditing.swift", "Watchlist/WatchSheetActions.swift", "Watchlist/WatchActionsSheet.swift",
-            "Watchlist/WatchSheetGroup.swift", "Watchlist/WatchGroupEditSheet.swift", "Watchlist/WatchEditSheet.swift",
+            "Watchlist/WatchlistEditing.swift", "Watchlist/PairActions.swift", "Watchlist/PairScreen.swift",
+            "Watchlist/PairEdits.swift", "Watchlist/WatchGroupEditSheet.swift", "Watchlist/WatchEditSheet.swift",
             "Watchlist/WatchlistScreen+Starter.swift", "Explorer/ExplorerBulkActions.swift",
             "Explorer/ExplorerSelectionActions.swift", "Alarms/AlarmsScreen+Save.swift",
             "Alarms/AlarmsOverviewScreen.swift",

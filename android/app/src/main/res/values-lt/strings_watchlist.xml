@@ -139,6 +139,7 @@
     <string name="watch_action_alarm">Įspėjimas</string>
     <string name="watch_action_favorite">Mėgstama</string>
     <string name="watch_action_why">Kas juda kartu?</string>
+    <string name="watch_action_change_exchange">Keisti biržą</string>
     <string name="watch_action_why_short">Kas juda kartu?</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">Išjungti</string>

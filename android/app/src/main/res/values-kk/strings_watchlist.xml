@@ -115,6 +115,7 @@
     <string name="watch_action_alarm">Ескерту</string>
     <string name="watch_action_favorite">Таңдаулы</string>
     <string name="watch_action_why">Онымен бірге не қозғалады?</string>
+    <string name="watch_action_change_exchange">Биржаны ауыстыру</string>
     <string name="watch_action_why_short">Бірге не қозғалады?</string>
     <string name="watch_change_mark">Шекті өзгерту</string>
     <string name="watch_disable">Өшіру</string>

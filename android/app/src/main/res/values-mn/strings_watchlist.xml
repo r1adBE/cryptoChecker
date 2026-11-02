@@ -115,6 +115,7 @@
     <string name="watch_action_alarm">Дохио</string>
     <string name="watch_action_favorite">Дуртай</string>
     <string name="watch_action_why">Түүнтэй хамт юу хөдөлж байна?</string>
+    <string name="watch_action_change_exchange">Биржийг солих</string>
     <string name="watch_action_why_short">Хамт юу хөдөлж байна?</string>
     <string name="watch_change_mark">Босгыг өөрчлөх</string>
     <string name="watch_disable">Идэвхгүй болгох</string>

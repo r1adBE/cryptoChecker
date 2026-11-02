@@ -115,6 +115,7 @@
     <string name="watch_action_alarm">Ահազանգ</string>
     <string name="watch_action_favorite">Ընտրյալ</string>
     <string name="watch_action_why">Ի՞նչն է շարժվում դրա հետ</string>
+    <string name="watch_action_change_exchange">Փոխել բորսան</string>
     <string name="watch_action_why_short">Ի՞նչ է շարժվում հետը</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">Անջատել</string>

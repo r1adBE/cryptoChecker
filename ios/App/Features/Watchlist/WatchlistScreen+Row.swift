@@ -48,7 +48,7 @@ extension WatchlistScreen {
                 sparklineEnabled: sparklines,
                 celebrationIndex: celebrating[watch.id],
                 onTap: {
-                    if selecting { toggleSelected(watch.id) } else { actionsFor = WatchlistSheetTarget(id: watch.id) }
+                    if selecting { toggleSelected(watch.id) } else { pairFor = WatchlistSheetTarget(id: watch.id) }
                 },
                 onToggleFavorite: { toggleFavorite(watch) },
                 onActivity: {

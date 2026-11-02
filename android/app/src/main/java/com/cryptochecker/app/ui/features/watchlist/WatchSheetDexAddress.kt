@@ -1,5 +1,5 @@
 // Vertragsadresse des Tokens im Kopf des Aktionsblatts (nur DEX-Pools), gekürzt, Tippen kopiert sie ganz.
-// Eigene Datei wie `WatchSheetDexAddress.swift`; `WatchActionsHeader` setzt sie unter die Börse.
+// Eigene Datei wie `WatchSheetDexAddress.swift`; `PairHeader` setzt sie unter die Börse.
 package com.cryptochecker.app.ui.features.watchlist
 
 import android.content.ClipData

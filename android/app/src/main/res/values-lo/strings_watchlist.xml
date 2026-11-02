@@ -103,6 +103,7 @@
     <string name="watch_action_alarm">ສັນຍານເຕືອນ</string>
     <string name="watch_action_favorite">ລາຍການທີ່ມັກ</string>
     <string name="watch_action_why">ມີຫຍັງເໜັງຕີງນຳ?</string>
+    <string name="watch_action_change_exchange">ປ່ຽນຕະຫຼາດແລກປ່ຽນ</string>
     <string name="watch_action_why_short">ມີຫຍັງເໜັງຕີງນຳ?</string>
     <string name="watch_change_mark">ເຄື່ອງໝາຍ</string>
     <string name="watch_disable">ປິດໃຊ້ງານ</string>

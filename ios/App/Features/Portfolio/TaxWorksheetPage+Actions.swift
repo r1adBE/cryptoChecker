@@ -42,7 +42,7 @@ extension TaxWorksheetPage {
         let base: [String] = [texts.title, info(year: year)] + rulesLine + (methodNote.map { [$0] } ?? [])
         // USDT zum USDT/USD-Tagesschluss (ohne Schluss 1, je Zeile vermerkt) und die Tageskurs-Regel geschätzter
         // Marktwerte (`TaxDayClose`) — in jeder Kopfzeile, wie Android
-        let header: [String] = TaxExport.withChWealthNote(
+        let header: [String] = TaxCountryFigures.withChWealthNote(
             template, header: base + atNote + [L("tax_export_usdt_usd_note"), L("tax_export_day_close_rule"),
                                                L("tax_export_workpaper_disclaimer")],
             chWealthNote: TaxWorksheetPage.chWealthNote(year: year))
@@ -87,9 +87,10 @@ extension TaxWorksheetPage {
             header = [L("tax_export_income_title", yearLabel), infoLine] + rulesLine + [L("tax_export_usdt_usd_note"),
                       L("tax_export_day_close_rule"), L("tax_export_workpaper_disclaimer")]
         }
-        // CH: «Vermögenssteuer nicht gerechnet – Kursliste ESTV» in den ersten Kopfzeilen (wie Android)
-        let csvHeader = TaxExport.withChWealthNote(template, header: header,
-                                                   chWealthNote: TaxWorksheetPage.chWealthNote(year: year))
+        // CH: «Vermögenssteuer nicht gerechnet – Kursliste ESTV» in den ersten Kopfzeilen — erst nach Fachprüfung
+        // (`TaxCountryFigures`, wie die Karte und Android)
+        let csvHeader = TaxCountryFigures.withChWealthNote(template, header: header,
+                                                           chWealthNote: TaxWorksheetPage.chWealthNote(year: year))
         let name: String
         switch kind {
         case .gains: name = TaxExport.gainsFileName(year)
@@ -112,11 +113,11 @@ extension TaxWorksheetPage {
             + (methodNote.map { [$0] } ?? [])
             + [L("tax_export_usdt_usd_note"), L("tax_export_workpaper_disclaimer"),
                L("tax_export_year_local_zone", taxTemplate.zone().identifier)]
-        let csvHeader = TaxExport.withChWealthNote(taxTemplate, header: header,
-                                                   chWealthNote: TaxWorksheetPage.chWealthNote(year: year))
+        let csvHeader = TaxCountryFigures.withChWealthNote(taxTemplate, header: header,
+                                                           chWealthNote: TaxWorksheetPage.chWealthNote(year: year))
         run.start(fileName: CutoffExport.fileName(end),
                   build: CutoffExportJob.build(transactions: transactions, day: end, currency: workCurrency,
                                                method: yearMethod(year).holdingsCostMethod, header: csvHeader,
-                                               zone: taxTemplate.zone()))
+                                               zone: taxTemplate.zone(), taxTemplate: taxTemplate))
     }
 }

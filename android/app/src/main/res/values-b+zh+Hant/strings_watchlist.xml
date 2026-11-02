@@ -103,6 +103,7 @@
     <string name="watch_action_alarm">提醒</string>
     <string name="watch_action_favorite">收藏</string>
     <string name="watch_action_why">哪些在同步波動？</string>
+    <string name="watch_action_change_exchange">更換交易所</string>
     <string name="watch_action_why_short">哪些一起波動？</string>
     <string name="watch_change_mark">標記</string>
     <string name="watch_disable">停用</string>

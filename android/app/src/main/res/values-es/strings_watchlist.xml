@@ -127,6 +127,7 @@
     <string name="watch_action_alarm">Alarma</string>
     <string name="watch_action_favorite">Favorito</string>
     <string name="watch_action_why">¿Qué se mueve con él?</string>
+    <string name="watch_action_change_exchange">Cambiar de exchange</string>
     <string name="watch_action_why_short">¿Qué se mueve con él?</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">Desactivar</string>

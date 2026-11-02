@@ -24,6 +24,10 @@ object UiTestTags {
     const val WATCHLIST_ADD_PAIR = "watchlist_add_pair"
     const val WATCH_ACTION_ALARM = "watch_action_alarm"
 
+    /** Paarseite (Tipp auf eine Zeile) und ihr Abschnitt «Alarme». */
+    const val PAIR_SCREEN = "pair_screen"
+    const val PAIR_ALARMS = "pair_alarms"
+
     /** Glocke im Kopf der Merkliste (mit Alarmen: Alarm-Übersicht). */
     const val WATCH_BELL = "watch_bell"
 

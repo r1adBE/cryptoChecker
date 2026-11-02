@@ -31,11 +31,12 @@ internal enum class PairRestFit {
 
     companion object {
         /**
-         * [room] Platz hinter der Basis; [restMin] längstes Wort des Rests; [contractWidth] Breite des
-         * Kontrakts, null bei Spot.
+         * [room] Platz hinter der Basis; [restWidth] Breite des GANZEN Rests («/USDT PERP», nicht nur
+         * sein erstes Wort — sonst frässe die Ellipse den Kontrakt); [contractWidth] Breite des
+         * Kontrakts, null bei Spot. Wie iOS `ViewThatFits`: voller Rest nur, wenn er ganz passt.
          */
-        fun choose(room: Int, restMin: Int, hasRest: Boolean, contractWidth: Int?): PairRestFit = when {
-            hasRest && room >= restMin -> FULL
+        fun choose(room: Int, restWidth: Int, hasRest: Boolean, contractWidth: Int?): PairRestFit = when {
+            hasRest && room >= restWidth -> FULL
             contractWidth == null -> NONE
             room >= contractWidth -> CONTRACT
             else -> CONTRACT_SHRINK_BASE
@@ -46,7 +47,7 @@ internal enum class PairRestFit {
 /**
  * Paar in zwei Teilen: Basis gross und halbfett («BTC»), dahinter klein und grau der Rest
  * («/USDT», bei Futures «/USDT PERP»), auf gemeinsamer Grundlinie. Die Basis wird nie zugunsten der
- * Quote gekürzt: Der Rest erscheint nur, wenn mindestens sein erstes Wort («/USDT») ganz Platz hat,
+ * Quote gekürzt: Der Rest erscheint nur, wenn er ganz («/USDT PERP») Platz hat,
  * sonst entfällt die Quote — der Kontrakt ([contract]) bleibt aber immer stehen ([PairRestFit]).
  */
 @Composable
@@ -89,7 +90,7 @@ internal fun PairName(
         val baseWidth = baseM.maxIntrinsicWidth(Constraints.Infinity)
         val room = if (constraints.hasBoundedWidth) constraints.maxWidth - baseWidth else Constraints.Infinity
         val contractWidth = if (contract == null) null else contractM.maxIntrinsicWidth(Constraints.Infinity)
-        val fit = PairRestFit.choose(room, restM.minIntrinsicWidth(Constraints.Infinity), rest.isNotEmpty(), contractWidth)
+        val fit = PairRestFit.choose(room, restM.maxIntrinsicWidth(Constraints.Infinity), rest.isNotEmpty(), contractWidth)
         val baseMax = if (fit == PairRestFit.CONTRACT_SHRINK_BASE) {
             (constraints.maxWidth - (contractWidth ?: 0)).coerceAtLeast(0)
         } else constraints.maxWidth

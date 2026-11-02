@@ -356,6 +356,25 @@ class LiveFeedTest {
     }
 
     @Test
+    fun firstTickWithUnchangedPriceKeepsTheShownTime() {
+        val buffer = LiveBuffer()
+        // Gespeichert vor 40 Min. zu 100; erster Takt nach dem Verbinden zum selben Kurs (kein Handel)
+        buffer.offer(listOf(1L), LiveTick("BTCUSDT", 100.0, 1.5, 2_400_000), now = 2_400_000)
+        val first = buffer.takeForUi()!!.getValue(1L)
+        assertEquals(1_000L, LiveRules.updateTime(first, storedPrice = 100.0, storedLastUpdate = 1_000L))
+        // Anderer Kurs als gespeichert: die Takt-Zeit; ohne gespeicherte Zeit ebenso
+        assertEquals(2_400_000L, LiveRules.updateTime(first, storedPrice = 99.0, storedLastUpdate = 1_000L))
+        assertEquals(2_400_000L, LiveRules.updateTime(first, storedPrice = 100.0, storedLastUpdate = 0L))
+        // Kurswechsel im Strom (auch zurück auf den gespeicherten Kurs): belegt, die Zeit läuft mit
+        buffer.offer(listOf(1L), LiveTick("BTCUSDT", 100.2, 1.5, 2_401_000), now = 2_401_000)
+        buffer.offer(listOf(1L), LiveTick("BTCUSDT", 100.0, 1.5, 2_402_000), now = 2_402_000)
+        val back = buffer.takeForUi()!!.getValue(1L)
+        assertEquals(2_402_000L, LiveRules.updateTime(back, storedPrice = 100.0, storedLastUpdate = 1_000L))
+        // Nie rückwärts
+        assertEquals(3_000_000L, LiveRules.updateTime(back, storedPrice = 99.0, storedLastUpdate = 3_000_000L))
+    }
+
+    @Test
     fun jsonReaderHandlesEscapesAndRejectsGarbage() {
         val parsed = LiveJson.parse("""{"a":"x\"yé","b":[1,-2.5e1,true,null]}""")!!.obj()
         assertEquals("x\"yé", parsed["a"])

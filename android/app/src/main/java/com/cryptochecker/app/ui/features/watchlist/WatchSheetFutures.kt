@@ -23,6 +23,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -123,7 +125,8 @@ internal fun MarketDataSection(
                 stringResource(R.string.market_data_title),
                 style = MaterialTheme.typography.labelLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.weight(1f)
+                // Abschnitt der Paarseite: Überschrift für den Screenreader
+                modifier = Modifier.weight(1f).semantics { heading() }
             )
             // (i) 20 dp, Tippfläche 48 dp (IconButton-Standard)
             IconButton(onClick = { showExplain = !showExplain }) {

@@ -1,47 +1,65 @@
 import SwiftUI
 import UIKit
 
-// Kopf des Aktionsblatts: Paar, Kurs mit der Zeile «↗ +41.71% · 24h · Aktualisiert HH:MM», Hinweise zu
-// Kerzen und Quelle, VoiceOver-Text des Kurses und der Hinweis bei deaktivierten Paaren.
-// Eigene Datei, weil der Kopf eigene Regeln hat (Reihenfolge laut DEVELOPMENT.md) und das Blatt sonst zu lang
-// wird (wie `WatchActionsHeader.kt`).
+// Kopf der Paarseite: Paar, Börse, Kurs gross, Zeile «↗ +41.71% · 24h» und das Alter des Kurses wie in der Zeile
+// («Aktualisiert: vor 2 Min.»), für VoiceOver eine Überschrift mit einem Satz; darunter Herkunft, Sats und der Zustand
+// (Fehler, deaktiviert, Vorschau lädt). Eigene Datei wie `PairHeader.kt`.
 
-extension WatchActionsSheet {
+extension PairScreen {
     // MARK: Kopf
 
+    /// Der ganze Kopf als ein Satz für VoiceOver — wie der Zeilensatz der Merkliste (`A11y.watchRow`): Paar und Börse,
+    /// Kurs, Änderung mit Zeitraum, Frische («zuletzt aktualisiert vor 2 Minuten» bzw. «Kurs veraltet …»), Notiz, Fehler.
+    private func headerSpoken(_ watch: Watch, isPreview: Bool) -> String {
+        let notTraded = ConnectionErrors.isNotTraded(watch.lastError)
+        let freshness = A11ySpeech.freshness(
+            disabled: watch.disabled && !isPreview, notTraded: notTraded,
+            failed: !(watch.lastError ?? "").isEmpty && !notTraded,
+            lastUpdate: watch.lastUpdate, now: now,
+            outdatedAfter: isPreview ? 0 : data.staleAfterMillis(for: watch.id))
+        let stale = A11ySpeech.rowFreshnessText(freshness, lastUpdate: watch.lastUpdate, now: now,
+                                                exchange: watch.exchangeName)
+        return A11y.watchRow(watch, stale: stale, stateCoversError: freshness != .fresh, changeView: changeView)
+    }
+
+    /// Logo, Paar (bricht bei grosser Schrift um statt «PERP» abzuschneiden) und Börse, Kurs gross (wird kleiner und
+    /// bricht notfalls um, nie «…»), Änderung und Alter. Ein VoiceOver-Element mit `headerSpoken`.
     func header(_ watch: Watch, isPreview: Bool) -> some View {
-        HStack(spacing: Spacing.md) {
-            CoinBadge(symbol: watch.baseAsset, size: 48, logo: CoinLogos.allowed(forExchange: watch.exchangeKey),
-                      pair: watch.logoPairKey)
-            VStack(alignment: .leading, spacing: 2) {
-                Text(watch.displayName)
-                    .font(AppFont.headline)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.7)
-                // Vorschau: «Binance · Nicht in der Merkliste»
-                Text(isPreview ? "\(watch.exchangeName) · \(L("watch_preview_not_watched"))" : watch.exchangeName)
-                    .font(.subheadline)
-                    .foregroundStyle(AppColors.onSurfaceVariant)
-                // DEX-Pool: Token-Adresse gekürzt, Tippen kopiert (wie Android)
-                DexTokenAddressLine(watch: watch)
-            }
-            Spacer(minLength: 0)
-            // «Paar bearbeiten»: 48 pt Tippfläche; Vorschau: nichts zu bearbeiten
-            if !isPreview {
-                Button {
-                    Haptics.play(.selection)
-                    editPair = true
-                } label: {
-                    Image(systemName: "pencil")
-                        .font(.title3.weight(.semibold))
-                        .foregroundStyle(accent.primary)
-                        .frame(width: 48, height: 48)
-                        .contentShape(Rectangle())
+        VStack(alignment: .leading, spacing: Spacing.xs) {
+            HStack(spacing: Spacing.md) {
+                CoinBadge(symbol: watch.baseAsset, size: 48, logo: CoinLogos.allowed(forExchange: watch.exchangeKey),
+                          pair: watch.logoPairKey)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(watch.displayName)
+                        .font(AppFont.headline)
+                        .fixedSize(horizontal: false, vertical: true)
+                    // Vorschau: «Binance · Nicht in der Merkliste»
+                    Text(isPreview ? "\(watch.exchangeName) · \(L("watch_preview_not_watched"))" : watch.exchangeName)
+                        .font(.subheadline)
+                        .foregroundStyle(AppColors.onSurfaceVariant)
                 }
-                .buttonStyle(.plain)
-                .accessibilityLabel(L("watch_edit_title"))
+                Spacer(minLength: 0)
+            }
+            Text(PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset))
+                .displayFont()
+                .lineLimit(2)
+                .minimumScaleFactor(0.5)
+                .contentTransition(.numericText(value: watch.lastPrice ?? 0))
+            if watch.lastPrice != nil {
+                SheetChangeLine(watch: watch, note: candleNote(watch), showUpdated: false)
+            }
+            // Alter des Kurses wie in der Zeile der Merkliste («vor 2 Min.»); Vorschau ohne Kurs: nichts
+            if watch.lastUpdate > 0 {
+                Text(L("watchlist_updated", WatchlistTime.ago(watch.lastUpdate, now: now)))
+                    .font(.footnote)
+                    .foregroundStyle(AppColors.onSurfaceVariant)
             }
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(headerSpoken(watch, isPreview: isPreview))
+        .accessibilityAddTraits(.isHeader)
+        .accessibilityIdentifier(UiTestTags.pairScreen)
     }
 
     /// «Veränderung aus Binance-Kerzen», wenn die Änderung aus fremden Kerzen kommt; sonst nil.
@@ -56,52 +74,12 @@ extension WatchActionsSheet {
         return candleNote(watch)
     }
 
-    /// Kurs im Kopf für VoiceOver; deaktiviert, nicht erreichbar und nicht mehr gehandelt stehen schon
-    /// als Text darunter — wie `sheetPriceSpoken` (Android).
-    private func priceSpoken(_ watch: Watch, isPreview: Bool) -> String {
-        let now = EpochTime.nowMillis
-        let notTraded = ConnectionErrors.isNotTraded(watch.lastError)
-        let outdatedAfter = isPreview ? 0 : data.staleAfterMillis(for: watch.id)
-        let freshness = A11ySpeech.freshness(
-            disabled: watch.disabled && !isPreview, notTraded: notTraded,
-            failed: !(watch.lastError ?? "").isEmpty && !notTraded,
-            lastUpdate: watch.lastUpdate, now: now, outdatedAfter: outdatedAfter)
-        let outdated = freshness == .outdated || freshness == .unreachableOutdated
-        var stale: String?
-        if outdated {
-            stale = A11ySpeech.freshnessText(.outdated, lastUpdate: watch.lastUpdate, now: now, exchange: watch.exchangeName)
-        } else if !notTraded, (watch.lastError ?? "").isEmpty, !(watch.disabled && !isPreview), outdatedAfter > 0,
-                  PriceFreshness.staleReason(watch, now: now, staleAfter: outdatedAfter) == .trade {
-            // Abruf frisch, letzter Handel laut Börse > 2 h (Regel der Alarmsperre): wie die Zeile — wie Android
-            stale = L("watchlist_row_last_trade_age", WatchlistTime.ago(watch.exchangeTime ?? 0, now: now))
-        }
-        let price = A11ySpeech.spokenPrice(PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset),
-                                           quote: watch.quoteAsset)
-        return A11ySpeech.join([L("a11y_price", price), stale])
-    }
-
-    /// Stand in der Zeile der Änderung (wie Android `updatedInline`): mit Kurs, ohne Fehler, nicht
-    /// deaktiviert und nicht als Vorschau ohne Stand — sonst steht der Grund in der eigenen Zeile.
-    static func updatedInline(_ watch: Watch, isPreview: Bool) -> Bool {
-        watch.lastPrice != nil && (watch.lastError ?? "").isEmpty && !(watch.disabled && !isPreview)
-            && !(isPreview && watch.lastUpdate <= 0)
-    }
-
+    /// Karte oben: Kopf (`header`), DEX-Adresse (Tippen kopiert), Herkunft, Sats und der Zustand darunter.
     func priceBlock(_ watch: Watch, isPreview: Bool) -> some View {
         VStack(alignment: .leading, spacing: Spacing.xs) {
-            Text(PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset))
-                .displayFont()
-                .lineLimit(1)
-                .minimumScaleFactor(0.5)
-                .contentTransition(.numericText(value: watch.lastPrice ?? 0))
-                // VoiceOver: Kurs (Fiat als Wort) und, wenn veraltet, «Kurs veraltet, zuletzt
-                // aktualisiert vor 45 Minuten» — sichtbar steht nur die Uhrzeit darunter (wie Android)
-                .accessibilityLabel(priceSpoken(watch, isPreview: isPreview))
-            if watch.lastPrice != nil {
-                // Eine Zeile unter dem Kurs: «↗ +41.71% · 24h · Aktualisiert 01:42:19» (wie Android)
-                SheetChangeLine(watch: watch, note: candleNote(watch),
-                                showUpdated: Self.updatedInline(watch, isPreview: isPreview))
-            }
+            header(watch, isPreview: isPreview)
+            // DEX-Pool: Token-Adresse gekürzt, Tippen kopiert (eigenes Element, wie Android)
+            DexTokenAddressLine(watch: watch)
             // Herkunft aus der Zeile: «Änderung & Chart: Binance»; sonst die Änderung aus fremden
             // Kerzen (z. B. Kraken-Paar → Binance) — klein darunter sagen, woher (wie Android)
             if let note = sourceNote(watch) {
@@ -159,11 +137,6 @@ extension WatchActionsSheet {
                 // Vorschau: Kurs wird noch geholt
                 Text(L("loading_hint"))
                     .font(.footnote)
-                    .foregroundStyle(AppColors.onSurfaceVariant)
-            } else if watch.lastPrice == nil {
-                // Ohne Kurs nur die Uhrzeit; mit Kurs steht sie schon in der Zeile der Änderung
-                Text(L("watchlist_updated", PriceFormat.time(watch.lastUpdate)))
-                    .font(.footnote.monospacedDigit())
                     .foregroundStyle(AppColors.onSurfaceVariant)
             }
         }
@@ -247,8 +220,7 @@ private struct SheetChangeLine: View {
             Text(tail)
                 .font(.footnote.monospacedDigit())
                 .foregroundStyle(AppColors.onSurfaceVariant)
-                .lineLimit(1)
-                .truncationMode(.tail)
+                .fixedSize(horizontal: false, vertical: true)
         }
     }
 }

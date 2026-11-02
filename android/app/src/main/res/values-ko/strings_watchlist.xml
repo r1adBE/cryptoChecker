@@ -103,6 +103,7 @@
     <string name="watch_action_alarm">경보</string>
     <string name="watch_action_favorite">즐겨찾기</string>
     <string name="watch_action_why">함께 움직이는 것은?</string>
+    <string name="watch_action_change_exchange">거래소 변경</string>
     <string name="watch_action_why_short">함께 움직이는 건?</string>
     <string name="watch_change_mark">마크</string>
     <string name="watch_disable">비활성화</string>

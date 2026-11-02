@@ -119,7 +119,7 @@ class AlarmEditorRecreateTest {
     private fun saveAcrossRecreate() {
         clickTag(UiTestTags.WATCH_ROW)
         clickTag(UiTestTags.WATCH_ACTION_ALARM)
-        // Paar ohne Alarm: der Editor öffnet sich gleich; neuer Alarm = «über»
+        // Paarseite › «Alarm setzen» öffnet den Editor; neuer Alarm = «über»
         waitForTag(UiTestTags.ALARM_THRESHOLD)
         compose.onAllNodes(hasTestTag(UiTestTags.ALARM_THRESHOLD), useUnmergedTree = true).onFirst()
             .performTextInput(THRESHOLD)

@@ -148,9 +148,9 @@ internal class TourNavigator(private val compose: ComposeTestRule) {
     /** Seite nach ihren Kennungen (die oberste zuerst). */
     private fun screen(): String = when {
         shown(UiTestTags.ALARM_SAVE) -> "Alarm-Editor"
+        shown(UiTestTags.PAIR_SCREEN) -> "Paarseite"
         shown(UiTestTags.ALARM_CARD) -> "Alarme des Paars"
         shown(UiTestTags.ALARMS_OVERVIEW) -> "Alle Alarme"
-        shown(UiTestTags.WATCH_ACTION_ALARM) -> "Aktionsblatt"
         count(reportTitle()) > 0 -> "Bericht «Letzte Aktualisierung»"
         shown(UiTestTags.EXPLORER_SEARCH) -> "Paar hinzufügen"
         shown(UiTestTags.BACKUP_EXPORT) -> "Einstellungen › Sichern"
@@ -273,9 +273,9 @@ internal class TourNavigator(private val compose: ComposeTestRule) {
         const val TIMEOUT = 15_000L
         private const val POLL_MILLIS = 50L
 
-        /** Kennungen von Blättern und Seiten über der Merkliste. */
+        /** Kennungen von Blättern und Seiten über der Merkliste (Paarseite, Alarme, Editor, Übersicht, Suche). */
         val OVERLAY_TAGS = listOf(
-            UiTestTags.WATCH_ACTION_ALARM, UiTestTags.ALARM_SAVE, UiTestTags.ALARM_CARD,
+            UiTestTags.PAIR_SCREEN, UiTestTags.ALARM_SAVE, UiTestTags.ALARM_CARD,
             UiTestTags.ALARMS_OVERVIEW, UiTestTags.EXPLORER_SEARCH,
         )
 

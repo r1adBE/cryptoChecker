@@ -1,13 +1,13 @@
 import SwiftUI
 
-/// Ziel des Aktionsblatts (Paar-Id).
+/// Ziel der Paarseite bzw. von «Was bewegt sich mit?» (Paar-Id).
 struct WatchlistSheetTarget: Identifiable, Hashable {
     let id: Int64
 }
 
 /// Merkliste — wie `WatchlistScreen.kt`.
 ///
-/// Tippen öffnet die Aktionen sofort (kein Doppeltippen), lange
+/// Tippen öffnet die Paarseite sofort (kein Doppeltippen), lange
 /// drücken und ziehen sortiert (innerhalb Favoriten bzw. übrige). Nach links
 /// wischen löscht (mit «Rückgängig»), nach rechts wischen schaltet den Favoriten. Nach unten
 /// ziehen aktualisiert alles. Gibt es Gruppen, filtern Chips oben die Liste;
@@ -15,8 +15,6 @@ struct WatchlistSheetTarget: Identifiable, Hashable {
 struct WatchlistScreen: View {
     @EnvironmentObject var data: AppData
     @EnvironmentObject var router: AppRouter
-    /// Portfolio-Sperre: «Zum Portfolio hinzufügen» erst nach dem Entsperren.
-    @ObservedObject var lock = AppLock.shared
     @Environment(\.appAccent) var accent
     @Environment(\.onAccent) var onAccent
     @Environment(\.accessibilityReduceMotion) var reduceMotion
@@ -29,17 +27,12 @@ struct WatchlistScreen: View {
     // Uhr für «vor 2 Min.» — alle 30 Sekunden neu
     @State var now: Int64 = EpochTime.nowMillis
 
-    @State var actionsFor: WatchlistSheetTarget?
+    /// Paarseite (Tipp auf eine Zeile, Mitteilung, Widget-Zeile).
+    @State var pairFor: WatchlistSheetTarget?
     /// Paar, dessen «Was bewegt sich mit?» offen ist.
     @State var whyFor: WatchlistSheetTarget?
     /// Vergleichsansicht der markierten Paare (Leiste der Mehrfachauswahl › «Vergleichen»); nil = zu.
     @State var compareFor: WatchlistCompareTarget?
-    @State var pendingWhy: Int64?
-    @State var pendingAlarms: Int64?
-    @State var pendingDelete: Watch?
-    /// «Zum Portfolio hinzufügen»: Paar, dessen Erfassen-Blatt nach dem Aktionsblatt öffnet.
-    @State var pendingPortfolio: Int64?
-    @State var portfolioDraft: PortfolioTxDraft?
     @State var askClearAll = false
     /// «Nicht gehandelte Paare entfernen»: Rückfrage offen?
     @State var askRemoveNotTraded = false
@@ -54,9 +47,6 @@ struct WatchlistScreen: View {
     /// Logo mit App-Namen im Menü: «Über die App».
     @State var showAbout = false
     @State var alarmsFor: Int64?
-    /// Aus dem Aktionsblatt zu «Alarme» oder «Was bewegt sich mit?» gewechselt: Zurück öffnet das Blatt dieses
-    /// Paars wieder (Merkliste › Paar › Alarme › Zurück = Paar › Zurück = Merkliste).
-    @State var returnToActions: Int64?
     @State var editMode: EditMode = .inactive
     @State var highlightedId: Int64?
     @State var reorderTick = 0
@@ -129,7 +119,7 @@ struct WatchlistScreen: View {
     }
 
     private var loadedBody: some View {
-        // %-Basis für Änderungen, Puls und Aktionsblatt; passt der Stempel der gespeicherten Werte nicht
+        // %-Basis für Änderungen, Puls und Paarseite; passt der Stempel der gespeicherten Werte nicht
         // (Basis gewechselt, neuer Tag — die 30-s-Uhr prüft das), «—» bis neu gerechnet ist
         let changeView = data.changeView(now: now)
         return withSheets(screen(changeView: changeView), changeView: changeView)
@@ -269,7 +259,7 @@ struct WatchlistScreen: View {
             .onChange(of: router.showAlarmsOverview, initial: true) { _, show in
                 guard show else { return }
                 router.showAlarmsOverview = false
-                actionsFor = nil
+                pairFor = nil
                 showOverview = true
             }
             // «Was bewegt sich mit?» aus einer Alarm-Mitteilung: Erklärung des Paars öffnen (nur gehandelte Paare)
@@ -286,7 +276,7 @@ struct WatchlistScreen: View {
         guard let id else { return }
         router.openWhyWatchId = nil
         guard let target = data.watch(id), !target.isNotTraded, !target.disabled else { return }
-        actionsFor = nil
+        pairFor = nil
         showOverview = false
         whyFor = WatchlistSheetTarget(id: id)
     }
@@ -304,7 +294,7 @@ struct WatchlistScreen: View {
                 : WatchlistBannerMessage(text: L("watch_preview_not_watched"))
             return
         }
-        actionsFor = nil
+        pairFor = nil
         showOverview = false
         alarmsFor = id
     }

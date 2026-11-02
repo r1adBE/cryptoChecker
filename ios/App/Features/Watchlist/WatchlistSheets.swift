@@ -1,44 +1,25 @@
 import SwiftUI
 
-/// Was sich über die Merkliste legt — Aktionsblatt, «Was bewegt sich mit?», Portfolio, Gruppen, Bericht,
-/// Rückfragen und die Seiten «Alarme» — und was nach dem Schliessen passiert. Wie `WatchlistSheets.kt`.
+/// Was sich über die Merkliste legt — Paarseite, «Was bewegt sich mit?», Gruppen, Bericht, Rückfragen und die Seiten
+/// «Alarme». Wie `WatchlistSheets.kt` und `PairDestination.kt`.
 extension WatchlistScreen {
     /// Blätter, Rückfragen und Seiten über `content`.
     func withSheets<Content: View>(_ content: Content, changeView: ChangeView) -> some View {
         content
-            // Aktionen eines Paars als Blatt von unten
-            .sheet(item: $actionsFor, onDismiss: afterSheet) { target in
-                WatchActionsSheet(
-                    watchId: target.id,
-                    // Nicht mehr gehandelt: kein ⚡ (das Blatt zeigt dann auch kein «Was bewegt sich mit?»)
-                    hasActivity: data.watch(target.id)?.isNotTraded != true &&
-                        !WatchlistActivity.active(data.activityReports[target.id], now: EpochTime.nowMillis,
-                                                           sensitivity: data.settings.activitySensitivity).isEmpty,
-                    onOpenAlarms: { pendingAlarms = $0 },
-                    onDelete: { pendingDelete = $0 },
-                    onWhy: { pendingWhy = $0 },
-                    onAddToPortfolio: { pendingPortfolio = $0 },
-                    onDisabledChange: { disabledChanged($0) }
-                )
-                .environmentObject(data)
-                .environment(\.appAccent, accent)
-                .environment(\.changeView, changeView)
-                // Halb hoch öffnen, auf volle Höhe ziehbar (`WatchActionsDetents`)
-                .modifier(WatchActionsDetents())
-                .presentationDragIndicator(.visible)
-                .presentationCornerRadius(28)
-                .presentationBackground(AppColors.background)
+            // Paarseite (Tipp auf eine Zeile, Mitteilung, Widget-Zeile) als eigene Seite mit Zurück
+            .navigationDestination(item: $pairFor) { target in
+                PairScreen(watchId: target.id, onDelete: { swipeDelete($0) })
+                    .environmentObject(data)
+                    .environment(\.appAccent, accent)
+                    .environment(\.changeView, changeView)
+                    .toolbar(.visible, for: .navigationBar)
             }
-            // «Was bewegt sich mit?» als eigene Seite mit Zurück wie «Alarme» (kein Blatt mehr);
-            // Zurück öffnet wieder das Aktionsblatt, falls von dort gekommen
+            // «Was bewegt sich mit?» aus der Zeile bzw. einer Alarm-Mitteilung als eigene Seite mit Zurück
             .navigationDestination(item: $whyFor) { target in
                 WatchlistWhySheet(watchId: target.id)
                     .environmentObject(data)
                     .environment(\.appAccent, accent)
                     .toolbar(.visible, for: .navigationBar)
-            }
-            .onChange(of: whyFor) { _, target in
-                if target == nil { reopenActions() }
             }
             // Vergleichsansicht als eigene Seite mit Zurück
             .navigationDestination(item: $compareFor) { target in
@@ -48,18 +29,6 @@ extension WatchlistScreen {
                     .environment(\.changeView, changeView)
                     .toolbar(.visible, for: .navigationBar)
             }
-            // Wieder gesperrt (Hintergrund-Limit), während das Erfassen-Blatt offen ist: schliessen
-            .onChange(of: lock.locked) { _, locked in
-                if locked { portfolioDraft = nil }
-            }
-            // Erfassen-Blatt aus der Merkliste: Coin (und Kurs, falls in USD) vorbelegt
-            // Erste Transaktion mit Portfolio aus: Rückfrage «Portfolio-Tab einschalten?»
-            .modifier(PortfolioQuickAddPresenter(
-                draft: $portfolioDraft,
-                onEnabled: { portfolioEnabledBanner() },
-                // «Später»: Transaktion gespeichert, Tab bleibt aus — einmal der Weg zum Schalter
-                onLater: { banner = WatchlistBannerMessage(text: L("portfolio_enable_later_hint")) }
-            ))
             // «Gruppe bearbeiten»: alle Paare mit Häkchen
             .sheet(item: $groupEdit) { target in
                 WatchGroupEditSheet(
@@ -122,10 +91,6 @@ extension WatchlistScreen {
                     // Leiste hier ausdrücklich zeigen (in der Merkliste ist sie ausgeblendet)
                     .toolbar(.visible, for: .navigationBar)
             }
-            // Zurück aus «Alarme»: Aktionsblatt wieder öffnen, falls von dort gekommen
-            .onChange(of: alarmsFor) { _, id in
-                if id == nil { reopenActions() }
-            }
             .navigationDestination(item: $alarmsFor) { id in
                 AlarmsScreen(watchId: id)
                     .toolbar(.visible, for: .navigationBar)
@@ -173,50 +138,7 @@ extension WatchlistScreen {
         }
     }
 
-    // MARK: Ablauf
-
-    /// Nach dem Schliessen des Aktionsblatts: «Was bewegt sich mit?», Alarme öffnen oder löschen.
-    /// Löschen wie nach links wischen: sofort, mit «Rückgängig» im Banner, ohne Rückfrage.
-    private func afterSheet() {
-        if let id = pendingWhy {
-            pendingWhy = nil
-            returnToActions = id
-            whyFor = WatchlistSheetTarget(id: id)
-        }
-        if let id = pendingAlarms {
-            pendingAlarms = nil
-            returnToActions = id
-            alarmsFor = id
-        }
-        if let watch = pendingDelete {
-            pendingDelete = nil
-            swipeDelete(watch)
-        }
-        if let id = pendingPortfolio {
-            pendingPortfolio = nil
-            // Portfolio-Sperre: Das Erfassen-Blatt zeigt Bestände — erst nach dem Entsperren
-            Task { @MainActor in
-                let open = await lock.requireUnlock(PortfolioLockPolicy.quickAddNeedsUnlock(locked:))
-                guard open, let watch = data.watch(id) else { return }
-                portfolioDraft = Self.makePortfolioDraft(for: watch)
-            }
-        }
-    }
-
-    /// «Portfolio-Tab einschalten?» › Einschalten: kurz bestätigen.
-    private func portfolioEnabledBanner() {
-        banner = WatchlistBannerMessage(text: L("portfolio_enabled_banner"))
-    }
-
-    /// Zurück aus «Alarme» bzw. «Was bewegt sich mit?»: Aktionsblatt des Paars wieder öffnen, falls von dort gekommen.
-    private func reopenActions() {
-        guard let id = returnToActions else { return }
-        returnToActions = nil
-        guard data.watch(id) != nil else { return }
-        actionsFor = WatchlistSheetTarget(id: id)
-    }
-
-    /// Zum Paar scrollen, kurz hervorheben und seine Aktionen öffnen.
+    /// Zum Paar scrollen, kurz hervorheben und seine Seite öffnen.
     func focus(on id: Int64, proxy: ScrollViewProxy) {
         guard let watch = data.watch(id) else { return }
         // Paar ausserhalb der gewählten Gruppe: wieder alle zeigen
@@ -224,14 +146,13 @@ extension WatchlistScreen {
             data.selectWatchlistGroup(nil)
         }
         showOverview = false
-        returnToActions = nil
         alarmsFor = nil
         whyFor = nil
         withAnimation(.easeInOut(duration: 0.35)) { proxy.scrollTo(id, anchor: .center) }
         highlightedId = id
         Task { @MainActor in
             try? await Task.sleep(nanoseconds: 350_000_000)
-            actionsFor = WatchlistSheetTarget(id: id)
+            pairFor = WatchlistSheetTarget(id: id)
             try? await Task.sleep(nanoseconds: 1_650_000_000)
             if highlightedId == id { highlightedId = nil }
         }

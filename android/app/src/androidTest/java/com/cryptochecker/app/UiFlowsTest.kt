@@ -36,7 +36,7 @@ import javax.inject.Inject
  * Die wichtigsten Abläufe über die Oberfläche (wie `CryptoCheckerUITests` in iOS, gleiche Schritte, gleiche
  * Kennungen aus [UiTestTags], gleiche Testdatei `testdata/uitest/uitest_portfolio.csv`):
  *  1. Coin hinzufügen: Coin-Suche «btc» → Bitcoin → vorgeschlagenes Paar → steht in der Merkliste.
- *  2. Alarm setzen: Aktionsblatt → Alarm → «über 200’000» → gespeichert und in der Liste.
+ *  2. Alarm setzen: Paarseite → «Alarm setzen» → «über 200’000» → gespeichert, Karte auf der Paarseite.
  *  3. CSV-Import: Datei → Vorschau → Importieren → Positionen sichtbar; «Importe › Rückgängig» entfernt sie.
  *  4. Sichern: mit Passwort sichern → Daten leeren → falsches Passwort abgelehnt → richtiges stellt
  *     Merkliste und Portfolio wieder her.
@@ -107,7 +107,7 @@ class UiFlowsTest {
 
         clickTag(UiTestTags.WATCH_ROW)
         clickTag(UiTestTags.WATCH_ACTION_ALARM)
-        // Paar ohne Alarm: der Editor öffnet sich gleich; neuer Alarm = «über»
+        // Paarseite › «Alarm setzen» öffnet den Editor; neuer Alarm = «über»
         inputTag(UiTestTags.ALARM_THRESHOLD, ALARM_THRESHOLD.toString())
         // «Speichern» steht fest unten über der Tastatur: sichtbar ohne Scrollen (darum nicht über node())
         compose.onAllNodes(hasTestTag(UiTestTags.ALARM_SAVE), useUnmergedTree = true).onFirst().assertIsDisplayed()

@@ -127,6 +127,7 @@
     <string name="watch_action_alarm">Alarm</string>
     <string name="watch_action_favorite">Favorit</string>
     <string name="watch_action_why">Šta se kreće s njom?</string>
+    <string name="watch_action_change_exchange">Promijeni berzu</string>
     <string name="watch_action_why_short">Šta se kreće s njom?</string>
     <string name="watch_change_mark">Granica</string>
     <string name="watch_disable">Deaktiviraj</string>

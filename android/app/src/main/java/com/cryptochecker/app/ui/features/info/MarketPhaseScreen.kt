@@ -56,7 +56,6 @@ import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.ui.components.rememberReduceMotion
 import com.cryptochecker.app.ui.features.watchlist.WatchlistViewModel
 import com.cryptochecker.app.ui.features.watchlist.rememberWatchlistBanner
-import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
 import com.cryptochecker.app.ui.components.AppSnackbarHost
 import androidx.compose.runtime.rememberCoroutineScope
 import kotlinx.coroutines.launch
@@ -86,18 +85,17 @@ import com.cryptochecker.app.ui.theme.SnackbarKind
 fun MarketPhaseScreen(
     viewModel: InfoViewModel = hiltViewModel(),
     /**
-     * Aktionen der Merkliste für das Aktionsblatt aus «Heute auffällig» — dieselbe Instanz wie die
-     * Merkliste (AppNavHost), damit Tippen dort und hier genau dasselbe tut.
+     * Merkliste (dieselbe Instanz wie dort, AppNavHost): «Rückgängig» des Banners nach «Löschen» auf einer Paarseite,
+     * die von hier geöffnet wurde.
      */
     watchlistViewModel: WatchlistViewModel = hiltViewModel(),
-    lockViewModel: PortfolioLockViewModel = hiltViewModel(),
     /**
      * «Heute auffällig» → Coin nicht in der Merkliste und von Binance (COIN/USDT) nicht geführt:
-     * Hinzufügen-Tab mit dieser Suche (sonst die Vorschau im Aktionsblatt).
+     * Hinzufügen-Tab mit dieser Suche (sonst die Vorschau auf der Paarseite).
      */
     onOpenExplorer: (String) -> Unit = {},
-    /** Aktionsblatt › Alarm: Seite «Alarme» des Paars (zurück öffnet das Blatt wieder). */
-    onOpenAlarms: (Long) -> Unit = {},
+    /** Tipp auf einen Coin: Paarseite des Eintrags (Id) bzw. Vorschau (Id 0, Symbol). */
+    onOpenPair: (Long, String?) -> Unit = { _, _ -> },
     /** ⋯ › App-Logo und Name: Einstellungen › «Über die App». */
     onOpenAbout: () -> Unit = {},
     /** Zeile «Einordnung» bzw. «Daten»: eigene Unterseite mit den Karten (zurück führt hierher). */
@@ -110,7 +108,6 @@ fun MarketPhaseScreen(
     onOpenMacroData: () -> Unit = { onOpenSection(MarketSection.DATA) },
 ) {
     val fearGreed by viewModel.fearGreed.collectAsStateWithLifecycle()
-    val settings by viewModel.settings.collectAsStateWithLifecycle()
     val pulse by viewModel.pulse.collectAsStateWithLifecycle()
     val dataAsOf by viewModel.dataAsOf.collectAsStateWithLifecycle()
     val online by viewModel.online.collectAsStateWithLifecycle()
@@ -119,17 +116,15 @@ fun MarketPhaseScreen(
     val unusual by viewModel.unusual.collectAsStateWithLifecycle()
     val macroEvents by viewModel.macroEvents.collectAsStateWithLifecycle()
     val watches by viewModel.watches.collectAsStateWithLifecycle()
-    val activity by viewModel.activity.collectAsStateWithLifecycle()
     val stamps by viewModel.stamps.collectAsStateWithLifecycle()
     val moreExpanded by viewModel.moreExpanded.collectAsStateWithLifecycle()
     val marketTotals by viewModel.marketTotals.collectAsStateWithLifecycle()
     // «Kurz gesagt» für die Heldenkarte (null = noch nicht bereit oder kein gültiger Satz)
     val plain = rememberPlainSummary(pulse, marketTotals, fearGreed, unusual, stamps)
-    // Aktionsblatt (bzw. Vorschau) und «Was bewegt sich mit?» für einen Coin aus «Heute auffällig»
-    val coinSheets = rememberMarketCoinState()
     val scope = rememberCoroutineScope()
-    // «… entfernt» mit «Rückgängig» nach «Löschen» im Aktionsblatt (wie in der Merkliste)
+    // «… entfernt» mit «Rückgängig» nach «Löschen» auf der Paarseite (wie in der Merkliste)
     val banner = rememberWatchlistBanner(scope)
+    MarketCoinUiEffects(watchlistViewModel, banner)
     // Paar nicht übernommen bzw. nicht geändert, weil die Merkliste gesperrt ist: kurzer Hinweis mit Warn-Haptik
     com.cryptochecker.app.ui.components.WatchlistLockedHint { banner.show(it, SnackbarKind.ERROR) }
     // Was beim Betreten des Tabs schon stand, erscheint ohne Animation (kein Schauspiel je Tab-Wechsel)
@@ -141,16 +136,16 @@ fun MarketPhaseScreen(
     val motion = !rememberReduceMotion()
 
     // Tipp auf einen Coin aus «Heute auffällig» bzw. «Gewinner und Verlierer 24 h»: dasselbe wie ein Tipp in der
-    // Merkliste — das Aktionsblatt des Paars, sonst seine Vorschau (Binance COIN/USDT, nicht gespeichert); führt
+    // Merkliste — die Seite des Paars, sonst seine Vorschau (Binance COIN/USDT, nicht gespeichert); führt
     // Binance das Paar nicht, die Suche auf der Seite «Paar hinzufügen»
     fun openCoin(symbol: String) {
         val watch = watchFor(watches, symbol)
         if (watch != null) {
-            coinSheets.openStored(watch.id)
+            onOpenPair(watch.id, null)
         } else {
             scope.launch {
                 val preview = viewModel.previewWatch(symbol)
-                if (preview != null) coinSheets.openPreview(preview) else onOpenExplorer(symbol)
+                if (preview != null) onOpenPair(0L, preview.baseAsset) else onOpenExplorer(symbol)
             }
         }
     }
@@ -326,18 +321,6 @@ fun MarketPhaseScreen(
             }
         }
     }
-
-    MarketCoinSheets(
-        state = coinSheets,
-        viewModel = viewModel,
-        watchlist = watchlistViewModel,
-        lockViewModel = lockViewModel,
-        watches = watches,
-        activity = activity,
-        sensitivity = settings.activitySensitivity,
-        banner = banner,
-        onOpenAlarms = onOpenAlarms,
-    )
 }
 
 /** Lage von Sichtbereich und Wirtschaftsdaten-Hinweis für den Sprung (kein Zustand: löst nichts neu aus). */

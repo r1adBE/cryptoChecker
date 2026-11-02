@@ -87,6 +87,8 @@ internal fun WatchlistBody(
     onOpenAbout: () -> Unit,
     onAddClick: () -> Unit,
     onOpenAlarms: (Long) -> Unit,
+    /** Tipp auf eine Zeile: Paarseite. */
+    onOpenPair: (Long) -> Unit,
     requestRefresh: () -> Unit,
     deleteWithUndo: (WatchEntity) -> Unit,
     favoriteWithBanner: (WatchEntity) -> Unit,
@@ -270,7 +272,7 @@ internal fun WatchlistBody(
                         convertUsdtNotes = live.convertUsdtNotes,
                         hasActivity = watch.id in activeSignals,
                         onOpenWhy = { ui.whyFor = watch.id },
-                        onOpenActions = { ui.actionsFor = watch.id },
+                        onOpenActions = { onOpenPair(watch.id) },
                         onMove = { viewModel.move(watch, it) },
                         onDelete = { deleteWithUndo(watch) },
                         onFavoriteWithBanner = { favoriteWithBanner(watch) },

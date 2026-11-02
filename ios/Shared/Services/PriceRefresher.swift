@@ -110,7 +110,9 @@ enum PriceRefresher {
                 guard let q = liveQuotes[w.id] else { continue }
                 // Börsenzeit nur als im Strom belegte Handelszeit (`LiveRules.exchangeTime`), nie die Takt-Zeit
                 let exchangeTime = LiveRules.exchangeTime(q, storedPrice: w.lastPrice, storedExchangeTime: w.exchangeTime)
-                fetched[w.id] = Fetched(ticker: Ticker(last: q.price, timestamp: q.time, change24hPercent: q.change24h,
+                // Wie die Anzeige (`LiveRules.updateTime`): ein Takt ohne Handel setzt die Zeit nicht zurück
+                let time = LiveRules.updateTime(q, storedPrice: w.lastPrice, storedLastUpdate: w.lastUpdate)
+                fetched[w.id] = Fetched(ticker: Ticker(last: q.price, timestamp: time, change24hPercent: q.change24h,
                                                        exchangeTime: exchangeTime),
                                         error: nil)
             }

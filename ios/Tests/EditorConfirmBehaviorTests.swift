@@ -8,7 +8,7 @@ import XCTest
 @MainActor
 final class EditorConfirmBehaviorTests: XCTestCase {
 
-    /// Blatt mit Merker und Aufrufer wie `WatchSheetGroup.saveNote` bzw. `AlarmsScreen.saveFromEditor`.
+    /// Blatt mit Merker und Aufrufer wie `PairEdits.saveNote` bzw. `AlarmsScreen.saveFromEditor`.
     @MainActor
     private final class Sheet {
         let gate: WatchlistNotSavedGate

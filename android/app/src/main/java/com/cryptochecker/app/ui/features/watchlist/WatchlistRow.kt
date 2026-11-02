@@ -132,7 +132,7 @@ internal fun WatchRow(
     kind: AssetKind = AssetKind.TOKEN,
     /** Kurzer Hinweis im Banner der Merkliste (Herkunft der Änderung, Tipp auf «*»). */
     onSourceHint: (String) -> Unit = {},
-    // Herkunft von Änderung/Mini-Chart steht im Aktionsblatt ([WatchActionsSheet] rowSource), die Zeile
+    // Herkunft von Änderung/Mini-Chart steht auf der Paarseite ([PairHeader] rowSource), die Zeile
     // zeigt nur den Marker «*» an der Änderung ([changeSource])
 ) {
     val accent = MaterialTheme.colorScheme.primary
@@ -208,7 +208,7 @@ internal fun WatchRow(
         quote = watch.quoteAsset,
         change24h = watch.shownChange(changeView),
         basis = changeView.basis,
-        state = listOf(status.paused, A11yText.rowFreshness(context, freshness, watch.lastUpdate, now, watch.exchangeName), status.trade, status.unchanged),
+        state = listOf(status.paused, A11yText.rowFreshness(context, freshness, watch.lastUpdate, now, watch.exchangeName), status.trade, status.spokenAge, status.unchanged),
         extras = listOf(
             changeMarker?.let { stringResource(R.string.change_candle_source, it) },
             if (markPrice) stringResource(R.string.watch_price_mark_fallback) else null,

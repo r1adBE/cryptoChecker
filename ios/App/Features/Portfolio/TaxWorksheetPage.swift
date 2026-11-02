@@ -4,8 +4,8 @@ import UniformTypeIdentifiers
 /// Steuer-Arbeitsunterlage als eigene Seite (Portfolio ⋯ › «Steuer-Arbeitsunterlage…») — wie `TaxWorksheetScreen.kt`:
 /// Steuer-Vorlage wählen (dieselbe Einstellung wie Einstellungen → Portfolio; ein Vorschlag aus der Region wird nur
 /// angeboten), Methode und Währung der Vorlage, Steuerjahr nach ihren Grenzen, Regelstand; dann realisierte
-/// Veräusserungen, Einkünfte, Bestand per Ende des Steuerjahrs (CH: 31.12. in CHF mit ESTV-Hinweis) und Jahresübersicht
-/// (CSV + Karte) (`TaxExport`). Ein laufender Export lässt sich abbrechen; Fehler nach Art mit «Erneut versuchen».
+/// Veräusserungen, Einkünfte, Bestand per Ende des Steuerjahrs (CH: 31.12. in CHF, ESTV-Hinweis erst nach Fachprüfung,
+/// `TaxCountryFigures`) und Jahresübersicht (CSV + Karte) (`TaxExport`). Ein laufender Export lässt sich abbrechen; Fehler nach Art mit «Erneut versuchen».
 /// Ziel im `NavigationStack` des Portfolio-Tabs.
 @MainActor
 struct TaxWorksheetPage: View {

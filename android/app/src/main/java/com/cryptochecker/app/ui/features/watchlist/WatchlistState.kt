@@ -8,42 +8,23 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.watch.QuickView
 
 /**
  * Was der Merkliste-Bildschirm sich merkt: Sortiermodus, Suche, offene Blätter und Rückfragen
  * (der Stand aus dem ViewModel steht in [WatchlistUiState]).
  * Die mit [rememberWatchlistScreenState] gespeicherten Felder überstehen Drehen und Prozess-Neustart;
- * Suche, Rückfragen und das Portfolio-Blatt nicht (bewusst — sie zeigen Momentanes).
+ * Suche und Rückfragen nicht (bewusst — sie zeigen Momentanes).
  */
 @Stable
 internal class WatchlistScreenState(
     sortModeState: MutableState<Boolean>,
-    actionsForState: MutableState<Long?>,
     whyForState: MutableState<Long?>,
     editGroupState: MutableState<String?>,
     editGroupIsNewState: MutableState<Boolean>,
-    returnToActionsState: MutableState<Long?>,
 ) {
     /** Sortiermodus: Griff und «ganz nach oben/unten» an den Karten. */
     var sortMode by sortModeState
-
-    /** Paar, dessen Aktionen gerade offen sind (Tipp auf die Karte). */
-    var actionsFor by actionsForState
-
-    /**
-     * Aus dem Aktionsblatt zu «Alarme» oder «Was bewegt sich mit?» gewechselt: Zurück öffnet das Blatt dieses
-     * Paars wieder (Merkliste › Paar › Alarme › Zurück = Paar › Zurück = Merkliste).
-     */
-    var returnToActions by returnToActionsState
-
-    /** Zurück aus «Alarme» bzw. «Was bewegt sich mit?»: Aktionsblatt wieder öffnen, falls von dort gekommen. */
-    fun reopenActions() {
-        val id = returnToActions ?: return
-        returnToActions = null
-        actionsFor = id
-    }
 
     /** Paar, dessen «Was bewegt sich mit?» offen ist. */
     var whyFor by whyForState
@@ -53,9 +34,6 @@ internal class WatchlistScreenState(
 
     /** [editGroup] ist neu (noch ohne Paare gespeichert). */
     var editGroupIsNew by editGroupIsNewState
-
-    /** Paar, das gerade ins Portfolio übernommen wird (Erfassen-Blatt). */
-    var portfolioFor by mutableStateOf<WatchEntity?>(null)
 
     /** Suche in der Merkliste (Lupe rechts neben dem Status) — wird nicht gespeichert. */
     var searching by mutableStateOf(false)
@@ -139,10 +117,8 @@ internal class WatchlistScreenState(
 @Composable
 internal fun rememberWatchlistScreenState(): WatchlistScreenState {
     val sortMode = rememberSaveable { mutableStateOf(false) }
-    val actionsFor = rememberSaveable { mutableStateOf<Long?>(null) }
     val whyFor = rememberSaveable { mutableStateOf<Long?>(null) }
     val editGroup = rememberSaveable { mutableStateOf<String?>(null) }
     val editGroupIsNew = rememberSaveable { mutableStateOf(false) }
-    val returnToActions = rememberSaveable { mutableStateOf<Long?>(null) }
-    return remember { WatchlistScreenState(sortMode, actionsFor, whyFor, editGroup, editGroupIsNew, returnToActions) }
+    return remember { WatchlistScreenState(sortMode, whyFor, editGroup, editGroupIsNew) }
 }

@@ -59,7 +59,8 @@ struct WatchSheetChartView: View {
         let stable: Bool
     }
 
-    static let chartHeight: CGFloat = 180
+    /// Höhe der Chart-Fläche auf der Paarseite (volle Breite, höher als im früheren Blatt mit 180 pt) — wie Android.
+    static let chartHeight: CGFloat = 260
 
     /// Über so vielen Kerzen (1 Jahr) beim Ziehen kein Ticken je Kerze — es wäre ein Dauersurren.
     static let maxTickCandles = 100

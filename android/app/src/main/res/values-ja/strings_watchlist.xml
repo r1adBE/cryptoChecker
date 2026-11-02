@@ -103,6 +103,7 @@
     <string name="watch_action_alarm">アラーム</string>
     <string name="watch_action_favorite">お気に入り</string>
     <string name="watch_action_why">一緒に動いているのは？</string>
+    <string name="watch_action_change_exchange">取引所を変更</string>
     <string name="watch_action_why_short">一緒に動くのは？</string>
     <string name="watch_change_mark">マーク</string>
     <string name="watch_disable">無効にする</string>

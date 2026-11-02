@@ -112,7 +112,8 @@ class LivePriceApplier constructor(
                 val quote = quotes.getValue(watch.id)
                 val ticker = SimpleTicker().apply {
                     last = quote.price
-                    timestamp = quote.time
+                    // Wie die Anzeige ([LiveRules.updateTime]): ein Takt ohne Handel setzt die Zeit nicht zurück
+                    timestamp = LiveRules.updateTime(quote, watch.lastPrice, watch.lastUpdate)
                     exchangeTime = LiveRules.exchangeTime(quote, watch.lastPrice, watch.exchangeTime)
                     change24hPercent = LiveRules.chooseChange(
                         rollingBasis, stampCurrent,

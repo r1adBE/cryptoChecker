@@ -115,6 +115,7 @@
     <string name="watch_action_alarm">விழிப்பூட்டல்</string>
     <string name="watch_action_favorite">பிடித்தது</string>
     <string name="watch_action_why">கூடவே எது நகர்கிறது?</string>
+    <string name="watch_action_change_exchange">பரிமாற்றத்தை மாற்று</string>
     <string name="watch_action_why_short">கூட எது நகர்கிறது?</string>
     <string name="watch_change_mark">மார்க்</string>
     <string name="watch_disable">முடக்கு</string>

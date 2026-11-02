@@ -16,6 +16,14 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 183)
+
+* New pair page: a tap on a pair (watchlist, search, market, notification, widget) opens a full page with price and age, a larger chart, «Set alarm», favourite, «What moves along?», change exchange, price notification, the pair's alarms with «last checked» and market data. Rarely used actions are in the ⋮ menu. The half sheet is gone.
+* Watchlist: the row age is the time of the last trade where the exchange reports it; connecting the live stream no longer makes an old price look fresh; delisted pairs show no age.
+* Android: «PERP» stays visible with large text.
+* Tax templates: Swiss wealth value and ESTV lines are hidden as well until checked, in the card and in every CSV.
+* Android widget: after a restart it shows the last rows immediately instead of a blank card.
+
 ## 16.2.2 (build 182)
 
 * Android: after the first alarm you choose once between «Economical» and «About every 15 minutes»; the second turns on punctual checks (with the system permission).

@@ -115,6 +115,7 @@
     <string name="watch_action_alarm">Alarma</string>
     <string name="watch_action_favorite">Favorito</string>
     <string name="watch_action_why">Que se move con el?</string>
+    <string name="watch_action_change_exchange">Cambiar de plataforma</string>
     <string name="watch_action_why_short">Que se move con el?</string>
     <string name="watch_change_mark">Marca</string>
     <string name="watch_disable">Desactivar</string>

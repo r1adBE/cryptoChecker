@@ -1,11 +1,15 @@
 package com.cryptochecker.app.ui.features.watchlist
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.lifecycle.compose.LifecycleStartEffect
 import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.live.LiveDemand
 import com.cryptochecker.app.domain.live.LiveExchange
 import com.cryptochecker.app.domain.live.LivePair
 import com.cryptochecker.app.domain.live.LiveQuote
@@ -28,7 +32,8 @@ internal object LiveOverlay {
         return watch.copy(
             previousPrice = previous,
             lastPrice = quote.price,
-            lastUpdate = maxOf(watch.lastUpdate, quote.time),
+            // Erster Takt mit gleichem Kurs (kein Handel) macht ein stehendes Buch nicht frisch
+            lastUpdate = LiveRules.updateTime(quote, watch.lastPrice, watch.lastUpdate),
             lastError = null,
             // Frische wie beim Speichern (PriceRefresher.applyLive): Börsenzeit nur als belegte Handelszeit
             priceChangedAt = if (watch.lastPrice != quote.price) quote.time else watch.priceChangedAt,
@@ -73,3 +78,19 @@ internal fun WatchEntity.toLivePair(): LivePair = LivePair(
     // Deaktivierte Paare werden wie nicht gehandelte nie abonniert
     notTraded = isNotTraded || disabled,
 )
+
+/**
+ * Live-Kurse auch auf der Paarseite (wie iOS): Solange sie zu sehen ist, läuft der Strom ([LiveDemand]) und ihr Paar
+ * ([watch]) ist abonniert — auch wenn es nicht in der gezeigten Gruppe der Merkliste steht. Deaktiviert, nicht mehr
+ * gehandelt bzw. Vorschau (null) nie.
+ */
+@Composable
+internal fun PairLiveEffect(viewModel: WatchlistViewModel, watch: WatchEntity?) {
+    val pair = watch?.takeIf { !it.disabled && !it.isNotTraded }?.toLivePair()
+    LaunchedEffect(pair) { viewModel.setPageLivePair(pair) }
+    DisposableEffect(Unit) { onDispose { viewModel.setPageLivePair(null) } }
+    LifecycleStartEffect(Unit) {
+        viewModel.setLiveVisible(true, LiveDemand.Owner.PAIR_PAGE)
+        onStopOrDispose { viewModel.setLiveVisible(false, LiveDemand.Owner.PAIR_PAGE) }
+    }
+}

@@ -103,6 +103,7 @@
     <string name="watch_action_alarm">สัญญาณเตือน</string>
     <string name="watch_action_favorite">รายการโปรด</string>
     <string name="watch_action_why">อะไรเคลื่อนไหวไปด้วย?</string>
+    <string name="watch_action_change_exchange">เปลี่ยนกระดานเทรด</string>
     <string name="watch_action_why_short">อะไรขยับตามบ้าง?</string>
     <string name="watch_change_mark">Mark</string>
     <string name="watch_disable">ปิดใช้งาน</string>

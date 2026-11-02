@@ -103,6 +103,7 @@
     <string name="watch_action_alarm">သတိပေးချက်</string>
     <string name="watch_action_favorite">အကြိုက်ဆုံး</string>
     <string name="watch_action_why">၎င်းနှင့်အတူ ဘာ လှုပ်ရှားနေသလဲ။</string>
+    <string name="watch_action_change_exchange">ငွေလဲလှယ်ရာ ပြောင်းရန်</string>
     <string name="watch_action_why_short">အတူ ဘာ လှုပ်ရှားသလဲ။</string>
     <string name="watch_change_mark">အမှတ်အသား</string>
     <string name="watch_disable">ပိတ်ရန်</string>

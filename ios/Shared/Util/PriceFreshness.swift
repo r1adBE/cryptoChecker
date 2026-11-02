@@ -29,6 +29,18 @@ enum PriceFreshness {
         freshnessTime(lastUpdate: watch.lastUpdate, exchangeTime: watch.exchangeTime)
     }
 
+    /// Zeit hinter der Börse in der gesunden Zeitzeile: `freshnessTime` wie das Widget — mit Zeit der Börse
+    /// «letzter Handel vor …» (`hasExchangeTime`), sonst «vor …» seit dem Abruf. Sonst wirkte ein stehender
+    /// Kurs nach jedem Abruf frisch. Deaktiviert, nicht mehr gehandelt oder noch nie abgefragt nil (dort steht
+    /// kein Alter — wie bei deaktiviert nur die Börse).
+    static func rowAgeTime(_ watch: Watch) -> Int64? {
+        guard !watch.disabled, !watch.isNotTraded, watch.lastUpdate > 0 else { return nil }
+        return freshnessTime(watch)
+    }
+
+    /// Meldet die Börse eine eigene Zeit (letzter Handel)?
+    static func hasExchangeTime(_ watch: Watch) -> Bool { (watch.exchangeTime ?? 0) > 0 }
+
     /// Warum ein Kurs «veraltet» ist: Abruf zu alt bzw. letzter Handel laut Börse zu alt.
     enum StaleReason: String { case fetch = "FETCH", trade = "TRADE" }
 
