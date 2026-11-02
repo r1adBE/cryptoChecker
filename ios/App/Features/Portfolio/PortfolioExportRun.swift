@@ -171,11 +171,8 @@ struct PortfolioExportFailureRow: View {
 enum CutoffExportJob {
     @MainActor
     static func build(transactions: [PortfolioTx], day: CutoffDay, currency: String, method: CostMethod,
-                      header: [String] = [], zone: TimeZone = .current,
-                      taxTemplate: TaxTemplate? = nil) -> ExportRun.Build {
-        // Bestand der Arbeitsunterlage: ESTV-Hinweis erst mit Länder-Schlüssen der Vorlage (`TaxCountryFigures`)
-        let localized = CutoffCsvTexts.localized(currency: currency)
-        let texts = taxTemplate.map { TaxCountryFigures.holdingsTexts($0, localized) } ?? localized
+                      header: [String] = [], zone: TimeZone = .current) -> ExportRun.Build {
+        let texts = CutoffCsvTexts.localized(currency: currency)
         let watched = WatchedAddressStore.loadChecked()
         let addresses = watched.file.addresses
         let addressesUnreadable: Bool = !watched.intact

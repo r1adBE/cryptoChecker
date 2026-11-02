@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 184)
+
+* Tax templates: the country figures are shown again in the card and in every CSV. The beta note invites you to report errors on GitHub – the app is free, so the community helps keep the templates right.
+
 ## 16.2.2 (build 183)
 
 * New pair page: a tap on a pair (watchlist, search, market, notification, widget) opens a full page with price and age, a larger chart, «Set alarm», favourite, «What moves along?», change exchange, price notification, the pair's alarms with «last checked» and market data. Rarely used actions are in the ⋮ menu. The half sheet is gone.

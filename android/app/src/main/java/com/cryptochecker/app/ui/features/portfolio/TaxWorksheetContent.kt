@@ -34,6 +34,9 @@ import com.cryptochecker.app.domain.portfolio.TaxSummaryTexts
 import com.cryptochecker.app.domain.portfolio.TaxTemplate
 import com.cryptochecker.app.domain.portfolio.TaxYearSummary
 import com.cryptochecker.app.settings.deviceRegionLocale
+import com.cryptochecker.app.ui.features.about.FEEDBACK_LABEL
+import com.cryptochecker.app.ui.features.about.FEEDBACK_URL
+import com.cryptochecker.app.ui.features.about.linkedText
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
@@ -108,7 +111,15 @@ internal fun TaxWorksheetTemplateSection(
         )
         if (beta) TaxBetaBadge()
     }
-    if (beta) TaxWorksheetHint(stringResource(R.string.tax_template_beta_note))
+    // Beta-Hinweis mit tippbarem Link zu den GitHub-Issues: Fehler in den Länder-Schlüsseln melden
+    if (beta) {
+        Text(
+            linkedText(stringResource(R.string.tax_template_beta_note, FEEDBACK_LABEL), FEEDBACK_LABEL, FEEDBACK_URL),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(top = Spacing.xs)
+        )
+    }
     if (methodNote != null) TaxWorksheetHint(methodNote)
     // Methode/Vorlage gewechselt: abgegebene Jahre werden still neu gerechnet — fester Hinweis
     TaxWorksheetHint(stringResource(R.string.tax_export_method_change_warning))

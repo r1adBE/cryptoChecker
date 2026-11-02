@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLinkStyles
@@ -113,33 +114,41 @@ fun ColumnScope.AboutContent(
     }
 
     // «Warum gibt es die App?» mit tippbarem Link zu den GitHub-Issues
-    val why = stringResource(R.string.about_why, FEEDBACK_LABEL)
-    val linkColor = MaterialTheme.colorScheme.primary
-    // Ohne Browser wirft der Standard-Handler (ActivityNotFound → IllegalArgumentException)
-    val uriHandler = LocalUriHandler.current
-    val whyText = buildAnnotatedString {
-        val start = why.indexOf(FEEDBACK_LABEL)
-        if (start < 0) {
-            append(why)
-        } else {
-            append(why.substring(0, start))
-            withLink(
-                LinkAnnotation.Url(
-                    url = FEEDBACK_URL,
-                    styles = TextLinkStyles(
-                        style = SpanStyle(color = linkColor, textDecoration = TextDecoration.Underline)
-                    ),
-                    linkInteractionListener = { runCatching { uriHandler.openUri(FEEDBACK_URL) } }
-                )
-            ) {
-                append(FEEDBACK_LABEL)
-            }
-            append(why.substring(start + FEEDBACK_LABEL.length))
-        }
-    }
+    val whyText = linkedText(stringResource(R.string.about_why, FEEDBACK_LABEL), FEEDBACK_LABEL, FEEDBACK_URL)
     Text(
         text = whyText,
         style = MaterialTheme.typography.bodyMedium,
         modifier = Modifier.padding(top = 4.dp, bottom = 8.dp)
     )
+}
+
+/**
+ * [text] mit [label] als tippbarem Link zu [url] (Themenfarbe, unterstrichen); fehlt [label], bleibt der Text schlicht.
+ * Für «Über» (`about_why`) und den Beta-Hinweis der Steuer-Vorlagen. Wie iOS `AppLinks.linked`.
+ */
+@Composable
+fun linkedText(text: String, label: String, url: String): AnnotatedString {
+    val linkColor = MaterialTheme.colorScheme.primary
+    // Ohne Browser wirft der Standard-Handler (ActivityNotFound → IllegalArgumentException)
+    val uriHandler = LocalUriHandler.current
+    return buildAnnotatedString {
+        val start = text.indexOf(label)
+        if (start < 0) {
+            append(text)
+        } else {
+            append(text.substring(0, start))
+            withLink(
+                LinkAnnotation.Url(
+                    url = url,
+                    styles = TextLinkStyles(
+                        style = SpanStyle(color = linkColor, textDecoration = TextDecoration.Underline)
+                    ),
+                    linkInteractionListener = { runCatching { uriHandler.openUri(url) } }
+                )
+            ) {
+                append(label)
+            }
+            append(text.substring(start + label.length))
+        }
+    }
 }

@@ -15,4 +15,15 @@ enum AppLinks {
 
     /// Quellcode der App, öffentlich unter der MIT-Lizenz (gleich wie Android `SOURCE_CODE_URL`).
     static let sourceCode = "https://github.com/r1adBE/cryptoChecker"
+
+    /// `text` mit `label` als tippbarem Link zu `url` (unterstrichen, Farbe über `.tint`); fehlt `label`, bleibt der
+    /// Text schlicht. Für «Über» (`about_why`) und den Beta-Hinweis der Steuer-Vorlagen. Wie Android `linkedText`.
+    static func linked(_ text: String, label: String, url: String) -> AttributedString {
+        var linked = AttributedString(text)
+        if let range = linked.range(of: label) {
+            linked[range].link = URL(string: url)
+            linked[range].underlineStyle = .single
+        }
+        return linked
+    }
 }

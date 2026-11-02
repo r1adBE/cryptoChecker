@@ -184,8 +184,19 @@ struct PortfolioMetric: View {
 
 /// Hinweis, warum ± fehlt.
 struct PortfolioHint: View {
-    let text: String
+    let text: AttributedString
     var color: Color = AppColors.onSurfaceVariant
+
+    init(text: String, color: Color = AppColors.onSurfaceVariant) {
+        self.text = AttributedString(text)
+        self.color = color
+    }
+
+    /// Mit Verweis (`AppLinks.linked`): Link in der Akzentfarbe über `.tint`.
+    init(attributed: AttributedString, color: Color = AppColors.onSurfaceVariant) {
+        self.text = attributed
+        self.color = color
+    }
 
     var body: some View {
         Text(text)

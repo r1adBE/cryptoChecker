@@ -13,7 +13,6 @@ import com.cryptochecker.app.domain.portfolio.CutoffCsvFormat
 import com.cryptochecker.app.domain.portfolio.CutoffCsvTexts
 import com.cryptochecker.app.domain.portfolio.PortfolioDisposal
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
-import com.cryptochecker.app.domain.portfolio.TaxCountryFigures
 import com.cryptochecker.app.domain.portfolio.TaxCsvTexts
 import com.cryptochecker.app.domain.portfolio.TaxExport
 import com.cryptochecker.app.domain.portfolio.gainRows
@@ -193,12 +192,9 @@ class PortfolioExportViewModel @Inject constructor(
         // CH: Vermögenswert per 31.12. (Orientierung) — Tagesschlüsse und Adress-Guthaben wie der Stichtag-Export
         val wealth = if (tpl == TaxTemplate.CH) chYearEnd(trades, method, period.end, zone) else null
         return withContext(Dispatchers.Default) {
-            // Länder-Schlüsse erst nach Fachprüfung ([TaxCountryFigures])
-            TaxCountryFigures.shown(
-                TaxExport.yearSummary(
-                    trades, tpl, method, year, zone, currency, rates, priceAt, walletFrom, usdtUsd,
-                    yearEndCloses = wealth?.first, yearEndAddresses = wealth?.second, disposals = disposals,
-                )
+            TaxExport.yearSummary(
+                trades, tpl, method, year, zone, currency, rates, priceAt, walletFrom, usdtUsd,
+                yearEndCloses = wealth?.first, yearEndAddresses = wealth?.second, disposals = disposals,
             )
         }
     }

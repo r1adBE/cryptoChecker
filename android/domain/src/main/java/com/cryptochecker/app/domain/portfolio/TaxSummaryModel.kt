@@ -226,36 +226,3 @@ data class TaxYearSummary(
      */
     val usdtApproximate: Boolean = false,
 )
-
-/**
- * Länder-Schlüsse der Vorlagen ([TaxLine.orientation]: Sätze, Grenzen, Freibeträge wie § 23, 27,5 %; CH-Vermögenswert
- * und ESTV) erscheinen erst, wenn eine Fachperson die Fälle in TAX_REFERENCE.md bestätigt hat — bis dahin nur die
- * neutralen Summen (und der Beta-Hinweis). Einzige Schaltstelle für Karte und jede CSV (Gewinne, Einkünfte, Bestand,
- * Übersicht). Wie iOS.
- */
-object TaxCountryFigures {
-    /** Vorlagen mit bestätigten Länder-Schlüssen; leer, solange die Spalte «Fachperson» in TAX_REFERENCE.md leer ist. */
-    val reviewed: Set<TaxTemplate> = emptySet()
-
-    /** Zeigt [template] seine Länder-Schlüsse? */
-    fun shows(template: TaxTemplate): Boolean = template in reviewed
-
-    /**
-     * Länder-Schluss: [TaxLine.orientation] und der CH-Vermögenswert per 31.12. ([TaxLine.CH_WEALTH_VALUE], «Orientierung»,
-     * Vermerk ESTV-Kursliste [TaxSummaryNote.CH_WEALTH_ORIENTATION]) — er steht im Orientierungs-Block ohne Vorsatz.
-     */
-    fun isCountryLine(line: TaxLine): Boolean = line.orientation || line == TaxLine.CH_WEALTH_VALUE
-
-    /** Übersicht (Karte und CSV): ohne Länder-Schlüsse auch ohne die Werte je Coin des CH-Vermögenswerts. */
-    fun shown(summary: TaxYearSummary): TaxYearSummary =
-        if (shows(summary.template)) summary
-        else summary.copy(lines = summary.lines.filterNot { isCountryLine(it.line) }, wealth = null)
-
-    /** Kopfzeile «Vermögenssteuer nicht gerechnet – Kursliste ESTV» ([TaxExport.withChWealthNote]) nur mit Länder-Schlüssen. */
-    fun withChWealthNote(template: TaxTemplate, header: List<String>, chWealthNote: String): List<String> =
-        if (shows(template)) TaxExport.withChWealthNote(template, header, chWealthNote) else header
-
-    /** Bestand der Arbeitsunterlage: der ESTV-Hinweis ([CutoffCsvTexts.estvNoteFormat]) nur mit Länder-Schlüssen. */
-    fun holdingsTexts(template: TaxTemplate, texts: CutoffCsvTexts): CutoffCsvTexts =
-        if (shows(template)) texts else texts.copy(estvNoteFormat = null)
-}

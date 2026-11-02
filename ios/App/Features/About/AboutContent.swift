@@ -89,15 +89,9 @@ struct AboutContent: View {
 
     /// `about_why` mit tippbarem Link zu den GitHub-Issues.
     private var whyText: AttributedString {
-        let label = AppLinks.feedbackLabel
-        var text = AttributedString(L("about_why", label))
-        if let range = text.range(of: label) {
-            // Farbe des Links über `.tint` (Akzentfarbe), unterstrichen wie Android: Verweise im
-            // Fliesstext sind überall Themenfarbe + unterstrichen
-            text[range].link = URL(string: AppLinks.feedback)
-            text[range].underlineStyle = .single
-        }
-        return text
+        // Farbe des Links über `.tint` (Akzentfarbe), unterstrichen wie Android: Verweise im
+        // Fliesstext sind überall Themenfarbe + unterstrichen
+        AppLinks.linked(L("about_why", AppLinks.feedbackLabel), label: AppLinks.feedbackLabel, url: AppLinks.feedback)
     }
 
     var body: some View {

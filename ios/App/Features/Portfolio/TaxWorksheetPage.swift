@@ -4,8 +4,8 @@ import UniformTypeIdentifiers
 /// Steuer-Arbeitsunterlage als eigene Seite (Portfolio ⋯ › «Steuer-Arbeitsunterlage…») — wie `TaxWorksheetScreen.kt`:
 /// Steuer-Vorlage wählen (dieselbe Einstellung wie Einstellungen → Portfolio; ein Vorschlag aus der Region wird nur
 /// angeboten), Methode und Währung der Vorlage, Steuerjahr nach ihren Grenzen, Regelstand; dann realisierte
-/// Veräusserungen, Einkünfte, Bestand per Ende des Steuerjahrs (CH: 31.12. in CHF, ESTV-Hinweis erst nach Fachprüfung,
-/// `TaxCountryFigures`) und Jahresübersicht (CSV + Karte) (`TaxExport`). Ein laufender Export lässt sich abbrechen; Fehler nach Art mit «Erneut versuchen».
+/// Veräusserungen, Einkünfte, Bestand per Ende des Steuerjahrs (CH: 31.12. in CHF mit ESTV-Hinweis) und Jahresübersicht
+/// (CSV + Karte) (`TaxExport`). Ein laufender Export lässt sich abbrechen; Fehler nach Art mit «Erneut versuchen».
 /// Ziel im `NavigationStack` des Portfolio-Tabs.
 @MainActor
 struct TaxWorksheetPage: View {
@@ -146,7 +146,9 @@ struct TaxWorksheetPage: View {
                 Spacer(minLength: 0)
             }
             .padding(.horizontal, 4)
-            PortfolioHint(text: L("tax_template_beta_note"))
+            // Beta-Hinweis mit tippbarem Link zu den GitHub-Issues: Fehler in den Länder-Schlüsseln melden (wie Android)
+            PortfolioHint(attributed: AppLinks.linked(L("tax_template_beta_note", AppLinks.feedbackLabel),
+                                                      label: AppLinks.feedbackLabel, url: AppLinks.feedback))
                 .padding(.horizontal, 4)
         } else {
             PortfolioHint(text: L("tax_template_current", L(taxTemplate.labelKey), method.label, workCurrency))

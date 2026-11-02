@@ -3197,6 +3197,8 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
 * Build 183: pair page replaces the watch actions sheet on both platforms (live overlay on Android too); `PairRestFit` FULL only
   when the whole rest fits; row age from `PriceFreshness.freshnessTime`; first live tick without trade keeps the shown time;
   `TaxCountryFigures` also gates CH wealth/ESTV lines; widget shows the last drawn rows (encrypted, not backed up) after boot.
+* Build 184: owner decision – `TaxCountryFigures` gating from 181/183 removed, country figures shown again; beta note links
+  to GitHub issues (shared link helper with About).
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

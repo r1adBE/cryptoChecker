@@ -898764,451 +898764,451 @@
         "af" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: landreëls vereenvoudig, nog nie deur 'n belastingkenner nagegaan nie, kontroleer voordat jy jou belastingopgawe indien"
+            "value" : "Beta: landreëls vereenvoudig, nog nie deur 'n belastingkenner nagegaan nie, kontroleer voordat jy jou belastingopgawe indien. Het jy 'n fout gevind? Meld dit by %1$@ – dit help almal."
           }
         },
         "am" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ቤታ፦ የሀገር ደንቦች ቀለል ተደርገዋል፤ ገና በግብር ባለሙያ አልተረጋገጡም፤ የግብር ማስታወቂያዎን ከማስገባትዎ በፊት ይፈትሹ"
+            "value" : "ቤታ፦ የሀገር ደንቦች ቀለል ተደርገዋል፤ ገና በግብር ባለሙያ አልተረጋገጡም፤ የግብር ማስታወቂያዎን ከማስገባትዎ በፊት ይፈትሹ። ስህተት አገኙ? በ%1$@ ላይ ያሳውቁ – ሁሉንም ይረዳል።"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "تجريبي: قواعد البلد مبسّطة ولم يراجعها خبير ضرائب بعد، تحقّق منها قبل تقديم الإقرار الضريبي"
+            "value" : "تجريبي: قواعد البلد مبسّطة ولم يراجعها خبير ضرائب بعد، تحقّق منها قبل تقديم الإقرار الضريبي. هل وجدت خطأً؟ أبلغ عنه على %1$@ – هذا يساعد الجميع."
           }
         },
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: ölkə qaydaları sadələşdirilib, hələ vergi mütəxəssisi tərəfindən yoxlanılmayıb, vergi bəyannaməsini təqdim etməzdən əvvəl yoxla"
+            "value" : "Beta: ölkə qaydaları sadələşdirilib, hələ vergi mütəxəssisi tərəfindən yoxlanılmayıb, vergi bəyannaməsini təqdim etməzdən əvvəl yoxla. Səhv tapdın? %1$@ ünvanında bildir – bu, hamıya kömək edir."
           }
         },
         "bg" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Бета: опростени правила за държавата, още непроверени от данъчен специалист, провери преди подаване на данъчната декларация"
+            "value" : "Бета: опростени правила за държавата, още непроверени от данъчен специалист, провери преди подаване на данъчната декларация. Откри грешка? Съобщи за нея в %1$@ – това помага на всички."
           }
         },
         "bn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "বেটা: দেশের নিয়ম সরলীকৃত, এখনও কোনো কর বিশেষজ্ঞ যাচাই করেননি, কর রিটার্ন জমার আগে যাচাই করুন"
+            "value" : "বেটা: দেশের নিয়ম সরলীকৃত, এখনও কোনো কর বিশেষজ্ঞ যাচাই করেননি, কর রিটার্ন জমার আগে যাচাই করুন। কোনো ভুল পেয়েছেন? %1$@-এ জানান – এতে সবার উপকার হয়।"
           }
         },
         "bs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: pojednostavljena pravila zemlje, porezni stručnjak ih još nije provjerio, provjeri prije podnošenja porezne prijave"
+            "value" : "Beta: pojednostavljena pravila zemlje, porezni stručnjak ih još nije provjerio, provjeri prije podnošenja porezne prijave. Vidiš grešku? Prijavi je na %1$@ – to pomaže svima."
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: normes del país simplificades, encara no revisades per cap assessor fiscal, revisa-ho abans de presentar la declaració"
+            "value" : "Beta: normes del país simplificades, encara no revisades per cap assessor fiscal, revisa-ho abans de presentar la declaració. Has trobat un error? Informa’n a %1$@ – ajuda a tothom."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: pravidla země zjednodušena, zatím je neověřil daňový odborník, ověř je před podáním daňového přiznání"
+            "value" : "Beta: pravidla země zjednodušena, zatím je neověřil daňový odborník, ověř je před podáním daňového přiznání. Vidíš chybu? Nahlas ji na %1$@ – pomůže to všem."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: landeregler forenklet, endnu ikke gennemgået af en skatteekspert, tjek dem før selvangivelsen"
+            "value" : "Beta: landeregler forenklet, endnu ikke gennemgået af en skatteekspert, tjek dem før selvangivelsen. Har du fundet en fejl? Meld den på %1$@ – det hjælper alle."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: Länderregeln vereinfacht, noch nicht von einer Steuerfachperson geprüft – vor der Steuererklärung kontrollieren"
+            "value" : "Beta: Länderregeln vereinfacht, noch nicht von einer Steuerfachperson geprüft – vor der Steuererklärung kontrollieren. Fehler gefunden? Melde ihn auf %1$@ – das hilft allen."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: απλοποιημένοι κανόνες χώρας, δεν έχουν ελεγχθεί ακόμη από φοροτεχνικό, έλεγξέ τους πριν από τη φορολογική δήλωση"
+            "value" : "Beta: απλοποιημένοι κανόνες χώρας, δεν έχουν ελεγχθεί ακόμη από φοροτεχνικό, έλεγξέ τους πριν από τη φορολογική δήλωση. Βρήκες λάθος; Ανάφερέ το στο %1$@ – βοηθά όλους."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: country rules simplified, not yet checked by a tax professional – check before filing your tax return"
+            "value" : "Beta: country rules simplified, not yet checked by a tax professional – check before filing your tax return. Found an error? Report it at %1$@ – it helps everyone."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: normas del país simplificadas, aún sin revisar por un asesor fiscal, revísalas antes de presentar la declaración"
+            "value" : "Beta: normas del país simplificadas, aún sin revisar por un asesor fiscal, revísalas antes de presentar la declaración. ¿Has encontrado un error? Avísanos en %1$@ – ayuda a todo el mundo."
           }
         },
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beeta: riigi reeglid lihtsustatud, maksuspetsialist pole neid veel kontrollinud, kontrolli enne maksudeklaratsiooni esitamist"
+            "value" : "Beeta: riigi reeglid lihtsustatud, maksuspetsialist pole neid veel kontrollinud, kontrolli enne maksudeklaratsiooni esitamist. Leidsid vea? Teata sellest aadressil %1$@ – see aitab kõiki."
           }
         },
         "eu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: herrialdeko arau sinplifikatuak, zerga-aholkulari batek oraindik berrikusi gabeak, egiaztatu zerga-aitorpena aurkeztu aurretik"
+            "value" : "Beta: herrialdeko arau sinplifikatuak, zerga-aholkulari batek oraindik berrikusi gabeak, egiaztatu zerga-aitorpena aurkeztu aurretik. Akatsen bat aurkitu duzu? Jakinarazi %1$@ helbidean – denei laguntzen die."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "بتا: قواعد کشور ساده شده‌اند و هنوز کارشناس مالیاتی آن‌ها را بررسی نکرده است، پیش از ارائهٔ اظهارنامهٔ مالیاتی بررسی کن"
+            "value" : "بتا: قواعد کشور ساده شده‌اند و هنوز کارشناس مالیاتی آن‌ها را بررسی نکرده است، پیش از ارائهٔ اظهارنامهٔ مالیاتی بررسی کن. خطایی پیدا کردی؟ در %1$@ گزارشش کن – به همه کمک می‌کند."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: maakohtaiset säännöt yksinkertaistettu, veroasiantuntija ei ole vielä tarkistanut niitä, tarkista ennen veroilmoitusta"
+            "value" : "Beta: maakohtaiset säännöt yksinkertaistettu, veroasiantuntija ei ole vielä tarkistanut niitä, tarkista ennen veroilmoitusta. Löysitkö virheen? Ilmoita siitä osoitteessa %1$@ – se auttaa kaikkia."
           }
         },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: pinasimple ang mga patakaran ng bansa, hindi pa nasusuri ng eksperto sa buwis, tingnan bago isampa ang tax return mo"
+            "value" : "Beta: pinasimple ang mga patakaran ng bansa, hindi pa nasusuri ng eksperto sa buwis, tingnan bago isampa ang tax return mo. May nakitang mali? I-report ito sa %1$@ – nakakatulong ito sa lahat."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bêta : règles nationales simplifiées, pas encore vérifiées par un fiscaliste, à vérifier avant ta déclaration d’impôts"
+            "value" : "Bêta : règles nationales simplifiées, pas encore vérifiées par un fiscaliste, à vérifier avant ta déclaration d’impôts. Tu as trouvé une erreur ? Signale-la sur %1$@ – ça aide tout le monde."
           }
         },
         "ga" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Béite: rialacha tíre simplithe, níor sheiceáil saineolaí cánach fós iad, seiceáil sula gcomhdaíonn tú do thuairisceán cánach"
+            "value" : "Béite: rialacha tíre simplithe, níor sheiceáil saineolaí cánach fós iad, seiceáil sula gcomhdaíonn tú do thuairisceán cánach. Ar aimsigh tú earráid? Tuairiscigh í ar %1$@ – cabhraíonn sé le cách."
           }
         },
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: normas do país simplificadas, aínda sen revisar por un asesor fiscal, revísao antes de presentar a declaración"
+            "value" : "Beta: normas do país simplificadas, aínda sen revisar por un asesor fiscal, revísao antes de presentar a declaración. Atopaches un erro? Infórmao en %1$@ – axuda a todo o mundo."
           }
         },
         "gu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "બીટા: દેશના નિયમો સરળ બનાવેલા, હજી કર નિષ્ણાતે તપાસ્યા નથી, કર રિટર્ન ભરતાં પહેલાં તપાસો"
+            "value" : "બીટા: દેશના નિયમો સરળ બનાવેલા, હજી કર નિષ્ણાતે તપાસ્યા નથી, કર રિટર્ન ભરતાં પહેલાં તપાસો. ભૂલ મળી? %1$@ પર જાણ કરો – તેનાથી સૌને મદદ મળે છે."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "בטא: כללי המדינה מפושטים ועדיין לא נבדקו על ידי מומחה מס, בדקו לפני הגשת הדוח למס"
+            "value" : "בטא: כללי המדינה מפושטים ועדיין לא נבדקו על ידי מומחה מס, בדקו לפני הגשת הדוח למס. מצאתם שגיאה? דווחו עליה ב-%1$@ – זה עוזר לכולם."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "बीटा: देश के नियम सरल किए गए हैं, अभी किसी कर विशेषज्ञ ने इनकी जाँच नहीं की है, टैक्स रिटर्न भरने से पहले जाँचें"
+            "value" : "बीटा: देश के नियम सरल किए गए हैं, अभी किसी कर विशेषज्ञ ने इनकी जाँच नहीं की है, टैक्स रिटर्न भरने से पहले जाँचें। कोई गलती मिली? %1$@ पर रिपोर्ट करें – इससे सबकी मदद होती है।"
           }
         },
         "hr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: pojednostavljena pravila zemlje, porezni stručnjak ih još nije provjerio, provjeri prije podnošenja porezne prijave"
+            "value" : "Beta: pojednostavljena pravila zemlje, porezni stručnjak ih još nije provjerio, provjeri prije podnošenja porezne prijave. Vidiš grešku? Prijavi je na %1$@ – to pomaže svima."
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Béta: egyszerűsített országos szabályok, adószakértő még nem ellenőrizte, ellenőrizd az adóbevallás előtt"
+            "value" : "Béta: egyszerűsített országos szabályok, adószakértő még nem ellenőrizte, ellenőrizd az adóbevallás előtt. Hibát találtál? Jelezd itt: %1$@ – mindenkinek segít."
           }
         },
         "hy" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Բետա՝ երկրի կանոնները պարզեցված են, դեռ չեն ստուգվել հարկային մասնագետի կողմից, ստուգիր նախքան հարկային հայտարարագիր ներկայացնելը"
+            "value" : "Բետա՝ երկրի կանոնները պարզեցված են, դեռ չեն ստուգվել հարկային մասնագետի կողմից, ստուգիր նախքան հարկային հայտարարագիր ներկայացնելը. Սխա՞լ ես գտել։ Հայտնիր %1$@-ում – դա օգնում է բոլորին։"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: aturan negara disederhanakan, belum diperiksa oleh ahli pajak, periksa sebelum mengisi SPT"
+            "value" : "Beta: aturan negara disederhanakan, belum diperiksa oleh ahli pajak, periksa sebelum mengisi SPT. Menemukan kesalahan? Laporkan di %1$@ – itu membantu semua orang."
           }
         },
         "is" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: einfaldaðar reglur landsins, skattasérfræðingur hefur ekki enn yfirfarið þær, athugaðu áður en þú skilar skattframtali"
+            "value" : "Beta: einfaldaðar reglur landsins, skattasérfræðingur hefur ekki enn yfirfarið þær, athugaðu áður en þú skilar skattframtali. Fannstu villu? Tilkynntu hana á %1$@ – það hjálpar öllum."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: regole nazionali semplificate, non ancora verificate da un esperto fiscale, verificale prima della dichiarazione dei redditi"
+            "value" : "Beta: regole nazionali semplificate, non ancora verificate da un esperto fiscale, verificale prima della dichiarazione dei redditi. Hai trovato un errore? Segnalalo su %1$@ – aiuta tutti."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ベータ版：国別ルールは簡略化されており、税務の専門家による確認はまだです。確定申告の前に確認してください"
+            "value" : "ベータ版：国別ルールは簡略化されており、税務の専門家による確認はまだです。確定申告の前に確認してください。誤りを見つけた場合は %1$@ でお知らせください。皆さんの役に立ちます"
           }
         },
         "ka" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ბეტა: ქვეყნის წესები გამარტივებულია და ჯერ არ შეუმოწმებია საგადასახადო სპეციალისტს, შეამოწმე საგადასახადო დეკლარაციის წარდგენამდე"
+            "value" : "ბეტა: ქვეყნის წესები გამარტივებულია და ჯერ არ შეუმოწმებია საგადასახადო სპეციალისტს, შეამოწმე საგადასახადო დეკლარაციის წარდგენამდე. იპოვე შეცდომა? შეგვატყობინე %1$@-ზე – ეს ყველას ეხმარება."
           }
         },
         "kk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Бета: ел ережелері жеңілдетілген, әлі салық маманы тексермеген, салық декларациясын тапсырмас бұрын тексеріңіз"
+            "value" : "Бета: ел ережелері жеңілдетілген, әлі салық маманы тексермеген, салық декларациясын тапсырмас бұрын тексеріңіз. Қате таптыңыз ба? %1$@ сайтында хабарлаңыз – бұл бәріне көмектеседі."
           }
         },
         "km" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "បេតា៖ ច្បាប់ប្រទេសត្រូវបានធ្វើឱ្យសាមញ្ញ ហើយមិនទាន់ត្រូវបានពិនិត្យដោយអ្នកជំនាញពន្ធនៅឡើយ សូមពិនិត្យមុនពេលដាក់លិខិតប្រកាសពន្ធរបស់អ្នក"
+            "value" : "បេតា៖ ច្បាប់ប្រទេសត្រូវបានធ្វើឱ្យសាមញ្ញ ហើយមិនទាន់ត្រូវបានពិនិត្យដោយអ្នកជំនាញពន្ធនៅឡើយ សូមពិនិត្យមុនពេលដាក់លិខិតប្រកាសពន្ធរបស់អ្នក។ រកឃើញកំហុសមែនទេ? សូមរាយការណ៍នៅ %1$@ – វាជួយមនុស្សគ្រប់គ្នា។"
           }
         },
         "kn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ಬೀಟಾ: ದೇಶದ ನಿಯಮಗಳನ್ನು ಸರಳೀಕರಿಸಲಾಗಿದೆ, ಇನ್ನೂ ತೆರಿಗೆ ತಜ್ಞರು ಪರಿಶೀಲಿಸಿಲ್ಲ, ನಿಮ್ಮ ತೆರಿಗೆ ರಿಟರ್ನ್ ಸಲ್ಲಿಸುವ ಮೊದಲು ಪರಿಶೀಲಿಸಿ"
+            "value" : "ಬೀಟಾ: ದೇಶದ ನಿಯಮಗಳನ್ನು ಸರಳೀಕರಿಸಲಾಗಿದೆ, ಇನ್ನೂ ತೆರಿಗೆ ತಜ್ಞರು ಪರಿಶೀಲಿಸಿಲ್ಲ, ನಿಮ್ಮ ತೆರಿಗೆ ರಿಟರ್ನ್ ಸಲ್ಲಿಸುವ ಮೊದಲು ಪರಿಶೀಲಿಸಿ. ದೋಷ ಕಂಡುಬಂದಿದೆಯೇ? %1$@ ನಲ್ಲಿ ವರದಿ ಮಾಡಿ – ಇದು ಎಲ್ಲರಿಗೂ ಸಹಾಯ ಮಾಡುತ್ತದೆ."
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "베타: 국가별 규칙이 단순화되어 있으며 아직 세무 전문가의 검토를 받지 않았습니다. 세금 신고 전에 확인하세요"
+            "value" : "베타: 국가별 규칙이 단순화되어 있으며 아직 세무 전문가의 검토를 받지 않았습니다. 세금 신고 전에 확인하세요. 오류를 발견하셨나요? %1$@에 알려 주세요. 모두에게 도움이 됩니다."
           }
         },
         "lo" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ເບຕ້າ: ກົດລະບຽບຂອງປະເທດຖືກເຮັດໃຫ້ງ່າຍ, ຍັງບໍ່ໄດ້ຮັບການກວດຈາກຜູ້ຊ່ຽວຊານດ້ານພາສີ, ກວດກ່ອນຍື່ນແບບພາສີຂອງທ່ານ"
+            "value" : "ເບຕ້າ: ກົດລະບຽບຂອງປະເທດຖືກເຮັດໃຫ້ງ່າຍ, ຍັງບໍ່ໄດ້ຮັບການກວດຈາກຜູ້ຊ່ຽວຊານດ້ານພາສີ, ກວດກ່ອນຍື່ນແບບພາສີຂອງທ່ານ. ພົບຂໍ້ຜິດພາດບໍ? ກະລຸນາລາຍງານທີ່ %1$@ – ມັນຊ່ວຍທຸກຄົນ."
           }
         },
         "lt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: šalies taisyklės supaprastintos, mokesčių specialistas jų dar nepatikrino, patikrink prieš teikiant mokesčių deklaraciją"
+            "value" : "Beta: šalies taisyklės supaprastintos, mokesčių specialistas jų dar nepatikrino, patikrink prieš teikiant mokesčių deklaraciją. Radai klaidą? Pranešk apie ją %1$@ – tai padeda visiems."
           }
         },
         "lv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: valsts noteikumi vienkāršoti, nodokļu speciālists tos vēl nav pārbaudījis, pārbaudi pirms nodokļu deklarācijas iesniegšanas"
+            "value" : "Beta: valsts noteikumi vienkāršoti, nodokļu speciālists tos vēl nav pārbaudījis, pārbaudi pirms nodokļu deklarācijas iesniegšanas. Atradi kļūdu? Ziņo par to %1$@ – tas palīdz visiem."
           }
         },
         "mk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Бета: поедноставени правила на државата, сè уште непроверени од даночен стручњак, провери пред да поднесеш даночна пријава"
+            "value" : "Бета: поедноставени правила на државата, сè уште непроверени од даночен стручњак, провери пред да поднесеш даночна пријава. Најде грешка? Пријави ја на %1$@ – тоа им помага на сите."
           }
         },
         "ml" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ബീറ്റ: രാജ്യ നിയമങ്ങൾ ലളിതമാക്കിയത്, ഇതുവരെ ഒരു നികുതി വിദഗ്ധൻ പരിശോധിച്ചിട്ടില്ല, നികുതി റിട്ടേൺ സമർപ്പിക്കുന്നതിന് മുമ്പ് പരിശോധിക്കുക"
+            "value" : "ബീറ്റ: രാജ്യ നിയമങ്ങൾ ലളിതമാക്കിയത്, ഇതുവരെ ഒരു നികുതി വിദഗ്ധൻ പരിശോധിച്ചിട്ടില്ല, നികുതി റിട്ടേൺ സമർപ്പിക്കുന്നതിന് മുമ്പ് പരിശോധിക്കുക. പിശക് കണ്ടെത്തിയോ? %1$@-ൽ റിപ്പോർട്ട് ചെയ്യുക – അത് എല്ലാവർക്കും സഹായകമാണ്."
           }
         },
         "mn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Бета: улсын дүрмийг хялбарчилсан, татварын мэргэжилтэн хараахан шалгаагүй, татварын тайлан тушаахаас өмнө шалгана уу"
+            "value" : "Бета: улсын дүрмийг хялбарчилсан, татварын мэргэжилтэн хараахан шалгаагүй, татварын тайлан тушаахаас өмнө шалгана уу. Алдаа олсон уу? %1$@ дээр мэдэгдэнэ үү – энэ нь бүгдэд тусална."
           }
         },
         "mr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "बीटा: देशाचे नियम सोपे केलेले, अजून कर तज्ज्ञाने तपासलेले नाहीत, कर विवरणपत्र भरण्यापूर्वी तपासा"
+            "value" : "बीटा: देशाचे नियम सोपे केलेले, अजून कर तज्ज्ञाने तपासलेले नाहीत, कर विवरणपत्र भरण्यापूर्वी तपासा. चूक आढळली? %1$@ वर कळवा – त्याने सर्वांना मदत होते."
           }
         },
         "ms" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: peraturan negara dipermudahkan, belum disemak oleh pakar cukai, semak sebelum memfailkan penyata cukai anda"
+            "value" : "Beta: peraturan negara dipermudahkan, belum disemak oleh pakar cukai, semak sebelum memfailkan penyata cukai anda. Menemui ralat? Laporkan di %1$@ – ia membantu semua orang."
           }
         },
         "my" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ဘီတာ- နိုင်ငံ စည်းမျဉ်းများကို ရိုးရှင်းအောင် ပြုလုပ်ထားပြီး အခွန်ကျွမ်းကျင်သူ မစစ်ဆေးရသေးပါ၊ သင့်အခွန်ပြန်တမ်း မတင်မီ စစ်ဆေးပါ"
+            "value" : "ဘီတာ- နိုင်ငံ စည်းမျဉ်းများကို ရိုးရှင်းအောင် ပြုလုပ်ထားပြီး အခွန်ကျွမ်းကျင်သူ မစစ်ဆေးရသေးပါ၊ သင့်အခွန်ပြန်တမ်း မတင်မီ စစ်ဆေးပါ။ အမှားတွေ့ပါသလား။ %1$@ တွင် အစီရင်ခံပါ – လူတိုင်းအတွက် အထောက်အကူဖြစ်ပါသည်။"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: landsregler forenklet, ennå ikke kontrollert av en skatteekspert, sjekk før skattemeldingen"
+            "value" : "Beta: landsregler forenklet, ennå ikke kontrollert av en skatteekspert, sjekk før skattemeldingen. Funnet en feil? Meld den på %1$@ – det hjelper alle."
           }
         },
         "ne" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "बिटा: देशका नियमहरू सरलीकृत, अझै कर विशेषज्ञले जाँच गरेका छैनन्, कर विवरण बुझाउनुअघि जाँच्नुहोस्"
+            "value" : "बिटा: देशका नियमहरू सरलीकृत, अझै कर विशेषज्ञले जाँच गरेका छैनन्, कर विवरण बुझाउनुअघि जाँच्नुहोस्। त्रुटि भेट्टाउनुभयो? %1$@ मा रिपोर्ट गर्नुहोस् – यसले सबैलाई मद्दत गर्छ।"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bèta: landregels vereenvoudigd, nog niet gecontroleerd door een belastingadviseur, controleer ze vóór je belastingaangifte"
+            "value" : "Bèta: landregels vereenvoudigd, nog niet gecontroleerd door een belastingadviseur, controleer ze vóór je belastingaangifte. Een fout gevonden? Meld die op %1$@ – dat helpt iedereen."
           }
         },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ਬੀਟਾ: ਦੇਸ਼ ਦੇ ਨਿਯਮ ਸਰਲ ਕੀਤੇ, ਹਾਲੇ ਕਿਸੇ ਟੈਕਸ ਮਾਹਰ ਨੇ ਜਾਂਚੇ ਨਹੀਂ, ਟੈਕਸ ਰਿਟਰਨ ਭਰਨ ਤੋਂ ਪਹਿਲਾਂ ਜਾਂਚੋ"
+            "value" : "ਬੀਟਾ: ਦੇਸ਼ ਦੇ ਨਿਯਮ ਸਰਲ ਕੀਤੇ, ਹਾਲੇ ਕਿਸੇ ਟੈਕਸ ਮਾਹਰ ਨੇ ਜਾਂਚੇ ਨਹੀਂ, ਟੈਕਸ ਰਿਟਰਨ ਭਰਨ ਤੋਂ ਪਹਿਲਾਂ ਜਾਂਚੋ। ਕੋਈ ਗਲਤੀ ਮਿਲੀ? %1$@ ਉੱਤੇ ਦੱਸੋ – ਇਸ ਨਾਲ ਸਭ ਦੀ ਮਦਦ ਹੁੰਦੀ ਹੈ।"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: zasady krajowe uproszczone, jeszcze niesprawdzone przez doradcę podatkowego, sprawdź przed złożeniem zeznania podatkowego"
+            "value" : "Beta: zasady krajowe uproszczone, jeszcze niesprawdzone przez doradcę podatkowego, sprawdź przed złożeniem zeznania podatkowego. Widzisz błąd? Zgłoś go na %1$@ – to pomaga wszystkim."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: regras do país simplificadas, ainda não verificadas por um especialista fiscal, verifica antes de entregar a declaração de impostos"
+            "value" : "Beta: regras do país simplificadas, ainda não verificadas por um especialista fiscal, verifica antes de entregar a declaração de impostos. Encontraste um erro? Reporta-o em %1$@ – ajuda toda a gente."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: regras do país simplificadas, ainda não revisadas por um especialista em impostos, confira antes de enviar a declaração de imposto"
+            "value" : "Beta: regras do país simplificadas, ainda não revisadas por um especialista em impostos, confira antes de enviar a declaração de imposto. Achou um erro? Informe em %1$@ – isso ajuda todo mundo."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: reguli naționale simplificate, încă neverificate de un consultant fiscal, verifică înainte de declarația fiscală"
+            "value" : "Beta: reguli naționale simplificate, încă neverificate de un consultant fiscal, verifică înainte de declarația fiscală. Ai găsit o greșeală? Semnaleaz-o pe %1$@ – îi ajută pe toți."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Бета: правила страны упрощены и ещё не проверены налоговым специалистом, проверь перед подачей налоговой декларации"
+            "value" : "Бета: правила страны упрощены и ещё не проверены налоговым специалистом, проверь перед подачей налоговой декларации. Видишь ошибку? Сообщи о ней на %1$@ – это поможет всем."
           }
         },
         "si" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "බීටා: රටේ නීති සරල කර ඇත, තවම බදු විශේෂඥයෙකු විසින් පරීක්ෂා කර නැත, ඔබේ බදු ප්‍රකාශය ගොනු කිරීමට පෙර පරීක්ෂා කරන්න"
+            "value" : "බීටා: රටේ නීති සරල කර ඇත, තවම බදු විශේෂඥයෙකු විසින් පරීක්ෂා කර නැත, ඔබේ බදු ප්‍රකාශය ගොනු කිරීමට පෙර පරීක්ෂා කරන්න. දෝෂයක් හමු වුණාද? %1$@ හි වාර්තා කරන්න – එය සැමට උපකාරී වේ."
           }
         },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: pravidlá krajiny zjednodušené, zatiaľ ich neoveril daňový odborník, skontroluj pred podaním daňového priznania"
+            "value" : "Beta: pravidlá krajiny zjednodušené, zatiaľ ich neoveril daňový odborník, skontroluj pred podaním daňového priznania. Vidíš chybu? Nahlás ju na %1$@ – pomôže to všetkým."
           }
         },
         "sl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: pravila države poenostavljena, davčni strokovnjak jih še ni preveril, preveri pred oddajo davčne napovedi"
+            "value" : "Beta: pravila države poenostavljena, davčni strokovnjak jih še ni preveril, preveri pred oddajo davčne napovedi. Opaziš napako? Prijavi jo na %1$@ – to pomaga vsem."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: rregullat e vendit të thjeshtuara, ende të pakontrolluara nga një ekspert tatimor, kontrolloji para deklaratës tatimore"
+            "value" : "Beta: rregullat e vendit të thjeshtuara, ende të pakontrolluara nga një ekspert tatimor, kontrolloji para deklaratës tatimore. Gjete një gabim? Raportoje në %1$@ – i ndihmon të gjithë."
           }
         },
         "sr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Бета: поједностављена правила земље, још их није проверио порески стручњак, провери пре подношења пореске пријаве"
+            "value" : "Бета: поједностављена правила земље, још их није проверио порески стручњак, провери пре подношења пореске пријаве. Видиш грешку? Пријави је на %1$@ – то помаже свима."
           }
         },
         "sr-Latn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: pojednostavljena pravila zemlje, još ih nije proverio poreski stručnjak, proveri pre podnošenja poreske prijave"
+            "value" : "Beta: pojednostavljena pravila zemlje, još ih nije proverio poreski stručnjak, proveri pre podnošenja poreske prijave. Vidiš grešku? Prijavi je na %1$@ – to pomaže svima."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: landsregler förenklade, ännu inte granskade av en skatteexpert, kontrollera före deklarationen"
+            "value" : "Beta: landsregler förenklade, ännu inte granskade av en skatteexpert, kontrollera före deklarationen. Hittat ett fel? Rapportera det på %1$@ – det hjälper alla."
           }
         },
         "sw" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: kanuni za nchi zimerahisishwa, bado hazijakaguliwa na mtaalamu wa kodi, angalia kabla ya kuwasilisha ritani yako ya kodi"
+            "value" : "Beta: kanuni za nchi zimerahisishwa, bado hazijakaguliwa na mtaalamu wa kodi, angalia kabla ya kuwasilisha ritani yako ya kodi. Umepata kosa? Liripoti kwenye %1$@ – linasaidia kila mtu."
           }
         },
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "பீட்டா: நாட்டு விதிகள் எளிமைப்படுத்தப்பட்டவை, இன்னும் வரி நிபுணரால் சரிபார்க்கப்படவில்லை, உங்கள் வரி அறிக்கையைத் தாக்கல் செய்யும் முன் சரிபார்க்கவும்"
+            "value" : "பீட்டா: நாட்டு விதிகள் எளிமைப்படுத்தப்பட்டவை, இன்னும் வரி நிபுணரால் சரிபார்க்கப்படவில்லை, உங்கள் வரி அறிக்கையைத் தாக்கல் செய்யும் முன் சரிபார்க்கவும். பிழை கண்டீர்களா? %1$@ இல் தெரிவிக்கவும் – அது அனைவருக்கும் உதவும்."
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "బీటా: దేశ నియమాలు సరళీకరించబడ్డాయి, ఇంకా పన్ను నిపుణులు తనిఖీ చేయలేదు, మీ పన్ను రిటర్న్ దాఖలు చేసే ముందు తనిఖీ చేయండి"
+            "value" : "బీటా: దేశ నియమాలు సరళీకరించబడ్డాయి, ఇంకా పన్ను నిపుణులు తనిఖీ చేయలేదు, మీ పన్ను రిటర్న్ దాఖలు చేసే ముందు తనిఖీ చేయండి. లోపం కనిపించిందా? %1$@ లో నివేదించండి – అది అందరికీ సహాయపడుతుంది."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "เบต้า: กฎของประเทศถูกทำให้ง่ายขึ้น และยังไม่ได้ผ่านการตรวจสอบจากผู้เชี่ยวชาญด้านภาษี ตรวจสอบก่อนยื่นภาษี"
+            "value" : "เบต้า: กฎของประเทศถูกทำให้ง่ายขึ้น และยังไม่ได้ผ่านการตรวจสอบจากผู้เชี่ยวชาญด้านภาษี ตรวจสอบก่อนยื่นภาษี พบข้อผิดพลาดหรือไม่ โปรดแจ้งที่ %1$@ – ช่วยทุกคนได้"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: ülke kuralları basitleştirildi, henüz bir vergi uzmanınca kontrol edilmedi, vergi beyannamesinden önce kontrol et"
+            "value" : "Beta: ülke kuralları basitleştirildi, henüz bir vergi uzmanınca kontrol edilmedi, vergi beyannamesinden önce kontrol et. Bir hata mı buldun? %1$@ üzerinden bildir – herkese yardımcı olur."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Бета: правила країни спрощено, їх ще не перевірив податковий фахівець, перевір перед поданням податкової декларації"
+            "value" : "Бета: правила країни спрощено, їх ще не перевірив податковий фахівець, перевір перед поданням податкової декларації. Бачиш помилку? Повідом про неї на %1$@ – це допомагає всім."
           }
         },
         "ur" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "بیٹا: ملکی قواعد آسان کیے گئے، ابھی کسی ٹیکس ماہر نے ان کی جانچ نہیں کی، ٹیکس ریٹرن جمع کرانے سے پہلے چیک کریں"
+            "value" : "بیٹا: ملکی قواعد آسان کیے گئے، ابھی کسی ٹیکس ماہر نے ان کی جانچ نہیں کی، ٹیکس ریٹرن جمع کرانے سے پہلے چیک کریں۔ کوئی غلطی ملی؟ %1$@ پر رپورٹ کریں – اس سے سب کو مدد ملتی ہے۔"
           }
         },
         "uz" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: mamlakat qoidalari soddalashtirilgan, hali soliq mutaxassisi tomonidan tekshirilmagan, soliq deklaratsiyasini topshirishdan oldin tekshiring"
+            "value" : "Beta: mamlakat qoidalari soddalashtirilgan, hali soliq mutaxassisi tomonidan tekshirilmagan, soliq deklaratsiyasini topshirishdan oldin tekshiring. Xato topdingizmi? %1$@ saytida xabar bering – bu hammaga yordam beradi."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: quy tắc quốc gia đã được đơn giản hóa và chưa được chuyên gia thuế kiểm tra, hãy kiểm tra trước khi khai thuế"
+            "value" : "Beta: quy tắc quốc gia đã được đơn giản hóa và chưa được chuyên gia thuế kiểm tra, hãy kiểm tra trước khi khai thuế. Bạn phát hiện lỗi? Hãy báo trên %1$@ – điều đó giúp ích cho mọi người."
           }
         },
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "測試版：國家規則已簡化，仲未經稅務專業人士核實，報稅前請檢查"
+            "value" : "測試版：國家規則已簡化，仲未經稅務專業人士核實，報稅前請檢查。發現錯誤？請喺 %1$@ 回報，咁可以幫到所有人。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "测试版：各国规则已简化，尚未经税务专业人士审核，报税前请核实"
+            "value" : "测试版：各国规则已简化，尚未经税务专业人士审核，报税前请核实。发现错误？请在 %1$@ 反馈，这对大家都有帮助。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "測試版：各國規則已簡化，尚未經稅務專業人士審核，報稅前請核實"
+            "value" : "測試版：各國規則已簡化，尚未經稅務專業人士審核，報稅前請核實。發現錯誤？請在 %1$@ 回報，這對大家都有幫助。"
           }
         },
         "zu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beta: imithetho yezwe yenziwe lula, ayikahlolwa uchwepheshe wentela, hlola ngaphambi kokufaka isimemezelo sakho sentela"
+            "value" : "Beta: imithetho yezwe yenziwe lula, ayikahlolwa uchwepheshe wentela, hlola ngaphambi kokufaka isimemezelo sakho sentela. Uthole iphutha? Libike ku-%1$@ – lisiza wonke umuntu."
           }
         }
       }
